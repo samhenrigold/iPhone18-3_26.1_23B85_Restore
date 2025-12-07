@@ -44,35 +44,35 @@
 
 - (void)setContentsOfZone:(id)zone toRecords:(id)records
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   zoneCopy = zone;
   recordsCopy = records;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v9 = recordsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * i);
+        v14 = *(*(&v19 + 1) + 8 * i);
         recordID = [v14 recordID];
         [dictionary setObject:v14 forKeyedSubscript:recordID];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v11);
@@ -82,8 +82,6 @@
   v17 = [v16 initWithZoneName:zoneCopy ownerName:*MEMORY[0x1E695B728]];
   zoneContentsByZoneID = [(SCWStubContainer *)self zoneContentsByZoneID];
   [zoneContentsByZoneID setObject:dictionary forKeyedSubscript:v17];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (id)contentsOfZone:(id)zone
@@ -142,13 +140,13 @@ uint64_t __44__SCWStubContainer_contentsOfZone_withType___block_invoke(uint64_t 
 
 - (void)addDatabaseOperation:(id)operation
 {
-  v218 = *MEMORY[0x1E69E9840];
+  v217 = *MEMORY[0x1E69E9840];
   operationCopy = operation;
   v5 = objc_opt_class();
   selfCopy = self;
   if (v5 == objc_opt_class())
   {
-    v154 = operationCopy;
+    v153 = operationCopy;
     v24 = operationCopy;
     ++self->_modifyZonesOperationCount;
     if ([(SCWStubContainer *)self modifyZonesErrorMode])
@@ -162,7 +160,7 @@ LABEL_53:
 
 LABEL_54:
 LABEL_132:
-        operationCopy = v154;
+        operationCopy = v153;
         goto LABEL_133;
       }
 
@@ -178,26 +176,26 @@ LABEL_132:
       modifyZonesSavedZones = self->_modifyZonesSavedZones;
       self->_modifyZonesSavedZones = v53;
 
-      v205 = 0u;
-      v206 = 0u;
-      v203 = 0u;
       v204 = 0u;
+      v205 = 0u;
+      v202 = 0u;
+      v203 = 0u;
       recordZonesToSave2 = [v24 recordZonesToSave];
-      v56 = [recordZonesToSave2 countByEnumeratingWithState:&v203 objects:v217 count:16];
+      v56 = [recordZonesToSave2 countByEnumeratingWithState:&v202 objects:v216 count:16];
       if (v56)
       {
         v57 = v56;
-        v58 = *v204;
+        v58 = *v203;
         do
         {
           for (i = 0; i != v57; ++i)
           {
-            if (*v204 != v58)
+            if (*v203 != v58)
             {
               objc_enumerationMutation(recordZonesToSave2);
             }
 
-            v60 = *(*(&v203 + 1) + 8 * i);
+            v60 = *(*(&v202 + 1) + 8 * i);
             zoneContentsByZoneID = [(SCWStubContainer *)self zoneContentsByZoneID];
             zoneID = [v60 zoneID];
             v63 = [zoneContentsByZoneID objectForKeyedSubscript:zoneID];
@@ -211,7 +209,7 @@ LABEL_132:
             }
           }
 
-          v57 = [recordZonesToSave2 countByEnumeratingWithState:&v203 objects:v217 count:16];
+          v57 = [recordZonesToSave2 countByEnumeratingWithState:&v202 objects:v216 count:16];
         }
 
         while (v57);
@@ -247,26 +245,26 @@ LABEL_132:
       if ([array code] == 2)
       {
         v32 = operationCopy;
-        v201 = 0u;
-        v202 = 0u;
-        v199 = 0u;
         v200 = 0u;
+        v201 = 0u;
+        v198 = 0u;
+        v199 = 0u;
         recordZoneIDs2 = [v28 recordZoneIDs];
-        v34 = [recordZoneIDs2 countByEnumeratingWithState:&v199 objects:v216 count:16];
+        v34 = [recordZoneIDs2 countByEnumeratingWithState:&v198 objects:v215 count:16];
         if (v34)
         {
           v35 = v34;
-          v36 = *v200;
+          v36 = *v199;
           do
           {
             for (j = 0; j != v35; ++j)
             {
-              if (*v200 != v36)
+              if (*v199 != v36)
               {
                 objc_enumerationMutation(recordZoneIDs2);
               }
 
-              v38 = *(*(&v199 + 1) + 8 * j);
+              v38 = *(*(&v198 + 1) + 8 * j);
               recordZoneFetchCompletionBlock = [v28 recordZoneFetchCompletionBlock];
 
               if (recordZoneFetchCompletionBlock)
@@ -276,7 +274,7 @@ LABEL_132:
               }
             }
 
-            v35 = [recordZoneIDs2 countByEnumeratingWithState:&v199 objects:v216 count:16];
+            v35 = [recordZoneIDs2 countByEnumeratingWithState:&v198 objects:v215 count:16];
           }
 
           while (v35);
@@ -305,31 +303,31 @@ LABEL_132:
       goto LABEL_116;
     }
 
-    v155 = operationCopy;
+    v154 = operationCopy;
     array = [MEMORY[0x1E695DF70] array];
+    v194 = 0u;
     v195 = 0u;
     v196 = 0u;
     v197 = 0u;
-    v198 = 0u;
     obj = [v28 recordZoneIDs];
-    v161 = [obj countByEnumeratingWithState:&v195 objects:v215 count:16];
-    if (!v161)
+    v160 = [obj countByEnumeratingWithState:&v194 objects:v214 count:16];
+    if (!v160)
     {
       goto LABEL_82;
     }
 
-    v157 = array;
-    v159 = *v196;
+    v156 = array;
+    v158 = *v195;
     while (1)
     {
-      for (k = 0; k != v161; ++k)
+      for (k = 0; k != v160; ++k)
       {
-        if (*v196 != v159)
+        if (*v195 != v158)
         {
           objc_enumerationMutation(obj);
         }
 
-        v79 = *(*(&v195 + 1) + 8 * k);
+        v79 = *(*(&v194 + 1) + 8 * k);
         zoneContentsByZoneID3 = [(SCWStubContainer *)self zoneContentsByZoneID];
         v81 = [zoneContentsByZoneID3 objectForKeyedSubscript:v79];
 
@@ -351,28 +349,28 @@ LABEL_132:
 
         v82 = objc_alloc(MEMORY[0x1E695BAB8]);
         data = [MEMORY[0x1E695DEF0] data];
-        v163 = [v82 initWithData:data];
+        v162 = [v82 initWithData:data];
 
-        v193 = 0u;
-        v194 = 0u;
-        v191 = 0u;
         v192 = 0u;
+        v193 = 0u;
+        v190 = 0u;
+        v191 = 0u;
         allValues = [v81 allValues];
-        v85 = [allValues countByEnumeratingWithState:&v191 objects:v214 count:16];
+        v85 = [allValues countByEnumeratingWithState:&v190 objects:v213 count:16];
         if (v85)
         {
           v86 = v85;
-          v87 = *v192;
+          v87 = *v191;
           do
           {
             for (m = 0; m != v86; ++m)
             {
-              if (*v192 != v87)
+              if (*v191 != v87)
               {
                 objc_enumerationMutation(allValues);
               }
 
-              v89 = *(*(&v191 + 1) + 8 * m);
+              v89 = *(*(&v190 + 1) + 8 * m);
               recordChangedBlock = [v28 recordChangedBlock];
 
               if (recordChangedBlock)
@@ -382,7 +380,7 @@ LABEL_132:
               }
             }
 
-            v86 = [allValues countByEnumeratingWithState:&v191 objects:v214 count:16];
+            v86 = [allValues countByEnumeratingWithState:&v190 objects:v213 count:16];
           }
 
           while (v86);
@@ -390,20 +388,20 @@ LABEL_132:
 
         recordZoneChangeTokensUpdatedBlock = [v28 recordZoneChangeTokensUpdatedBlock];
 
-        v93 = v163;
+        v93 = v162;
         if (recordZoneChangeTokensUpdatedBlock)
         {
           recordZoneChangeTokensUpdatedBlock2 = [v28 recordZoneChangeTokensUpdatedBlock];
-          recordZoneChangeTokensUpdatedBlock2[2](recordZoneChangeTokensUpdatedBlock2, v79, v163, 0);
+          recordZoneChangeTokensUpdatedBlock2[2](recordZoneChangeTokensUpdatedBlock2, v79, v162, 0);
         }
 
         recordZoneFetchCompletionBlock5 = [v28 recordZoneFetchCompletionBlock];
 
-        array = v157;
+        array = v156;
         if (recordZoneFetchCompletionBlock5)
         {
           recordZoneFetchCompletionBlock4 = [v28 recordZoneFetchCompletionBlock];
-          recordZoneFetchCompletionBlock4[2](recordZoneFetchCompletionBlock4, v79, v163, 0, 0, 0);
+          recordZoneFetchCompletionBlock4[2](recordZoneFetchCompletionBlock4, v79, v162, 0, 0, 0);
           self = selfCopy;
 LABEL_78:
 
@@ -414,8 +412,8 @@ LABEL_78:
 LABEL_80:
       }
 
-      v161 = [obj countByEnumeratingWithState:&v195 objects:v215 count:16];
-      if (!v161)
+      v160 = [obj countByEnumeratingWithState:&v194 objects:v214 count:16];
+      if (!v160)
       {
 LABEL_82:
 
@@ -439,7 +437,7 @@ LABEL_82:
 
         fetchRecordZoneChangesCompletionBlock3 = [v28 fetchRecordZoneChangesCompletionBlock];
 
-        operationCopy = v155;
+        operationCopy = v154;
         if (fetchRecordZoneChangesCompletionBlock3)
         {
           fetchRecordZoneChangesCompletionBlock4 = [v28 fetchRecordZoneChangesCompletionBlock];
@@ -467,7 +465,7 @@ LABEL_117:
       willModifyRecords2[2]();
     }
 
-    v154 = operationCopy;
+    v153 = operationCopy;
     v47 = operationCopy;
     ++self->_modifyRecordsOperationCount;
     if ([(SCWStubContainer *)self modifyRecordsErrorMode])
@@ -484,30 +482,30 @@ LABEL_117:
 
     else
     {
-      v162 = [MEMORY[0x1E695DFA8] set];
+      v161 = [MEMORY[0x1E695DFA8] set];
       dictionary2 = [MEMORY[0x1E695DF90] dictionary];
       dictionary3 = [MEMORY[0x1E695DF90] dictionary];
+      v186 = 0u;
       v187 = 0u;
       v188 = 0u;
       v189 = 0u;
-      v190 = 0u;
-      v158 = v47;
+      v157 = v47;
       recordsToSave = [v47 recordsToSave];
-      v99 = [recordsToSave countByEnumeratingWithState:&v187 objects:v213 count:16];
+      v99 = [recordsToSave countByEnumeratingWithState:&v186 objects:v212 count:16];
       if (v99)
       {
         v100 = v99;
-        v101 = *v188;
+        v101 = *v187;
         do
         {
           for (n = 0; n != v100; ++n)
           {
-            if (*v188 != v101)
+            if (*v187 != v101)
             {
               objc_enumerationMutation(recordsToSave);
             }
 
-            v103 = *(*(&v187 + 1) + 8 * n);
+            v103 = *(*(&v186 + 1) + 8 * n);
             recordID = [v103 recordID];
             zoneID3 = [recordID zoneID];
             v106 = [dictionary2 objectForKeyedSubscript:zoneID3];
@@ -519,8 +517,8 @@ LABEL_117:
 
             else
             {
-              v212 = v103;
-              v107 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v212 count:1];
+              v211 = v103;
+              v107 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v211 count:1];
             }
 
             recordID2 = [v103 recordID];
@@ -536,36 +534,36 @@ LABEL_117:
             {
               recordID4 = [v103 recordID];
               zoneID6 = [recordID4 zoneID];
-              [v162 addObject:zoneID6];
+              [v161 addObject:zoneID6];
             }
           }
 
-          v100 = [recordsToSave countByEnumeratingWithState:&v187 objects:v213 count:16];
+          v100 = [recordsToSave countByEnumeratingWithState:&v186 objects:v212 count:16];
         }
 
         while (v100);
       }
 
-      v185 = 0u;
-      v186 = 0u;
-      v183 = 0u;
       v184 = 0u;
-      recordIDsToDelete = [v158 recordIDsToDelete];
-      v117 = [recordIDsToDelete countByEnumeratingWithState:&v183 objects:v211 count:16];
+      v185 = 0u;
+      v182 = 0u;
+      v183 = 0u;
+      recordIDsToDelete = [v157 recordIDsToDelete];
+      v117 = [recordIDsToDelete countByEnumeratingWithState:&v182 objects:v210 count:16];
       if (v117)
       {
         v118 = v117;
-        v119 = *v184;
+        v119 = *v183;
         do
         {
           for (ii = 0; ii != v118; ++ii)
           {
-            if (*v184 != v119)
+            if (*v183 != v119)
             {
               objc_enumerationMutation(recordIDsToDelete);
             }
 
-            v121 = *(*(&v183 + 1) + 8 * ii);
+            v121 = *(*(&v182 + 1) + 8 * ii);
             zoneID7 = [v121 zoneID];
             v123 = [dictionary3 objectForKeyedSubscript:zoneID7];
 
@@ -576,8 +574,8 @@ LABEL_117:
 
             else
             {
-              v210 = v121;
-              v124 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v210 count:1];
+              v209 = v121;
+              v124 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v209 count:1];
             }
 
             zoneID8 = [v121 zoneID];
@@ -590,19 +588,19 @@ LABEL_117:
             if (!v128)
             {
               zoneID10 = [v121 zoneID];
-              [v162 addObject:zoneID10];
+              [v161 addObject:zoneID10];
             }
           }
 
-          v118 = [recordIDsToDelete countByEnumeratingWithState:&v183 objects:v211 count:16];
+          v118 = [recordIDsToDelete countByEnumeratingWithState:&v182 objects:v210 count:16];
         }
 
         while (v118);
       }
 
-      if ([v162 count])
+      if ([v161 count])
       {
-        allObjects = [v162 allObjects];
+        allObjects = [v161 allObjects];
         v131 = selfCopy;
         v132 = [(SCWStubContainer *)selfCopy _errorForErrorMode:2 itemIDs:allObjects];
       }
@@ -614,26 +612,26 @@ LABEL_117:
       }
 
       dictionary4 = [MEMORY[0x1E695DF90] dictionary];
-      v179[0] = MEMORY[0x1E69E9820];
-      v179[1] = 3221225472;
-      v179[2] = __41__SCWStubContainer_addDatabaseOperation___block_invoke;
-      v179[3] = &unk_1E85E3E10;
-      v138 = v162;
-      v180 = v138;
-      v181 = v131;
+      v178[0] = MEMORY[0x1E69E9820];
+      v178[1] = 3221225472;
+      v178[2] = __41__SCWStubContainer_addDatabaseOperation___block_invoke;
+      v178[3] = &unk_1E85E3E10;
+      v138 = v161;
+      v179 = v138;
+      v180 = v131;
       v139 = dictionary4;
-      v182 = v139;
-      [dictionary2 enumerateKeysAndObjectsUsingBlock:v179];
-      v47 = v158;
+      v181 = v139;
+      [dictionary2 enumerateKeysAndObjectsUsingBlock:v178];
+      v47 = v157;
       if (!v132)
       {
         if ([v139 count])
         {
           v140 = MEMORY[0x1E696ABC0];
           v141 = *MEMORY[0x1E695B740];
-          v208 = *MEMORY[0x1E695B798];
-          v209 = v139;
-          v142 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v209 forKeys:&v208 count:1];
+          v207 = *MEMORY[0x1E695B798];
+          v208 = v139;
+          v142 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v208 forKeys:&v207 count:1];
           v132 = [v140 errorWithDomain:v141 code:2 userInfo:v142];
 
           v131 = selfCopy;
@@ -645,13 +643,13 @@ LABEL_117:
         }
       }
 
-      if ([v139 count] && objc_msgSend(v158, "atomic"))
+      if ([v139 count] && objc_msgSend(v157, "atomic"))
       {
-        modifyRecordsCompletionBlock3 = [v158 modifyRecordsCompletionBlock];
+        modifyRecordsCompletionBlock3 = [v157 modifyRecordsCompletionBlock];
 
         if (modifyRecordsCompletionBlock3)
         {
-          modifyRecordsCompletionBlock4 = [v158 modifyRecordsCompletionBlock];
+          modifyRecordsCompletionBlock4 = [v157 modifyRecordsCompletionBlock];
           (modifyRecordsCompletionBlock4)[2](modifyRecordsCompletionBlock4, 0, 0, v132);
         }
       }
@@ -659,34 +657,34 @@ LABEL_117:
       else
       {
         array2 = [MEMORY[0x1E695DF70] array];
-        v174[0] = MEMORY[0x1E69E9820];
-        v174[1] = 3221225472;
-        v174[2] = __41__SCWStubContainer_addDatabaseOperation___block_invoke_2;
-        v174[3] = &unk_1E85E3E38;
+        v173[0] = MEMORY[0x1E69E9820];
+        v173[1] = 3221225472;
+        v173[2] = __41__SCWStubContainer_addDatabaseOperation___block_invoke_2;
+        v173[3] = &unk_1E85E3E38;
         v146 = v138;
-        v175 = v146;
-        v176 = v131;
-        v177 = v139;
+        v174 = v146;
+        v175 = v131;
+        v176 = v139;
         v147 = v131;
         v148 = array2;
-        v178 = v148;
-        [dictionary2 enumerateKeysAndObjectsUsingBlock:v174];
-        v47 = v158;
+        v177 = v148;
+        [dictionary2 enumerateKeysAndObjectsUsingBlock:v173];
+        v47 = v157;
         array3 = [MEMORY[0x1E695DF70] array];
-        v170[0] = MEMORY[0x1E69E9820];
-        v170[1] = 3221225472;
-        v170[2] = __41__SCWStubContainer_addDatabaseOperation___block_invoke_3;
-        v170[3] = &unk_1E85E3E10;
-        v171 = v146;
-        v172 = v147;
+        v169[0] = MEMORY[0x1E69E9820];
+        v169[1] = 3221225472;
+        v169[2] = __41__SCWStubContainer_addDatabaseOperation___block_invoke_3;
+        v169[3] = &unk_1E85E3E10;
+        v170 = v146;
+        v171 = v147;
         v150 = array3;
-        v173 = v150;
-        [dictionary3 enumerateKeysAndObjectsUsingBlock:v170];
-        modifyRecordsCompletionBlock5 = [v158 modifyRecordsCompletionBlock];
+        v172 = v150;
+        [dictionary3 enumerateKeysAndObjectsUsingBlock:v169];
+        modifyRecordsCompletionBlock5 = [v157 modifyRecordsCompletionBlock];
 
         if (modifyRecordsCompletionBlock5)
         {
-          modifyRecordsCompletionBlock6 = [v158 modifyRecordsCompletionBlock];
+          modifyRecordsCompletionBlock6 = [v157 modifyRecordsCompletionBlock];
           (modifyRecordsCompletionBlock6)[2](modifyRecordsCompletionBlock6, v148, v150, v132);
         }
       }
@@ -728,31 +726,31 @@ LABEL_117:
     v10 = operationCopy;
     v11 = operationCopy;
     ++self->_databaseChangesOperationCount;
+    v165 = 0u;
     v166 = 0u;
     v167 = 0u;
     v168 = 0u;
-    v169 = 0u;
     databaseChangesOperationChangedZoneIDs = [(SCWStubContainer *)self databaseChangesOperationChangedZoneIDs];
-    v13 = [databaseChangesOperationChangedZoneIDs countByEnumeratingWithState:&v166 objects:v207 count:16];
+    v13 = [databaseChangesOperationChangedZoneIDs countByEnumeratingWithState:&v165 objects:v206 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v167;
+      v15 = *v166;
       do
       {
         for (jj = 0; jj != v14; ++jj)
         {
-          if (*v167 != v15)
+          if (*v166 != v15)
           {
             objc_enumerationMutation(databaseChangesOperationChangedZoneIDs);
           }
 
-          v17 = *(*(&v166 + 1) + 8 * jj);
+          v17 = *(*(&v165 + 1) + 8 * jj);
           recordZoneWithIDChangedBlock = [v11 recordZoneWithIDChangedBlock];
           recordZoneWithIDChangedBlock[2](recordZoneWithIDChangedBlock, v17);
         }
 
-        v14 = [databaseChangesOperationChangedZoneIDs countByEnumeratingWithState:&v166 objects:v207 count:16];
+        v14 = [databaseChangesOperationChangedZoneIDs countByEnumeratingWithState:&v165 objects:v206 count:16];
       }
 
       while (v14);
@@ -774,51 +772,49 @@ LABEL_117:
   }
 
 LABEL_133:
-
-  v153 = *MEMORY[0x1E69E9840];
 }
 
 void __41__SCWStubContainer_addDatabaseOperation___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (([*(a1 + 32) containsObject:v5] & 1) == 0)
   {
-    v28 = a1;
+    v27 = a1;
     v7 = [*(a1 + 40) zoneContentsByZoneID];
-    v24 = v5;
-    v30 = [v7 objectForKeyedSubscript:v5];
+    v23 = v5;
+    v29 = [v7 objectForKeyedSubscript:v5];
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
-    v23 = v6;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v22 = v6;
     obj = v6;
-    v8 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+    v8 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
     if (!v8)
     {
       goto LABEL_14;
     }
 
     v9 = v8;
-    v10 = *v32;
-    v27 = *MEMORY[0x1E695B7B8];
-    v26 = *MEMORY[0x1E695B7C0];
-    v25 = *MEMORY[0x1E695B740];
+    v10 = *v31;
+    v26 = *MEMORY[0x1E695B7B8];
+    v25 = *MEMORY[0x1E695B7C0];
+    v24 = *MEMORY[0x1E695B740];
     while (1)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v32 != v10)
+        if (*v31 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v31 + 1) + 8 * i);
+        v12 = *(*(&v30 + 1) + 8 * i);
         v13 = [v12 recordID];
-        v14 = [v30 objectForKeyedSubscript:v13];
+        v14 = [v29 objectForKeyedSubscript:v13];
 
         if (v14)
         {
@@ -835,13 +831,13 @@ void __41__SCWStubContainer_addDatabaseOperation___block_invoke(uint64_t a1, voi
               goto LABEL_12;
             }
 
-            v35[0] = v27;
-            v35[1] = v26;
-            v36[0] = v12;
-            v36[1] = v14;
-            v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:2];
-            v16 = [MEMORY[0x1E696ABC0] errorWithDomain:v25 code:14 userInfo:v15];
-            v20 = *(v28 + 48);
+            v34[0] = v26;
+            v34[1] = v25;
+            v35[0] = v12;
+            v35[1] = v14;
+            v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:2];
+            v16 = [MEMORY[0x1E696ABC0] errorWithDomain:v24 code:14 userInfo:v15];
+            v20 = *(v27 + 48);
             v21 = [v12 recordID];
             [v20 setObject:v16 forKey:v21];
           }
@@ -850,24 +846,22 @@ void __41__SCWStubContainer_addDatabaseOperation___block_invoke(uint64_t a1, voi
 LABEL_12:
       }
 
-      v9 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+      v9 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
       if (!v9)
       {
 LABEL_14:
 
-        v6 = v23;
-        v5 = v24;
+        v6 = v22;
+        v5 = v23;
         break;
       }
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __41__SCWStubContainer_addDatabaseOperation___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (([*(a1 + 32) containsObject:v5] & 1) == 0)
@@ -875,27 +869,27 @@ void __41__SCWStubContainer_addDatabaseOperation___block_invoke_2(uint64_t a1, v
     v7 = [*(a1 + 40) zoneContentsByZoneID];
     v8 = [v7 objectForKeyedSubscript:v5];
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
-    v24 = v6;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v23 = v6;
     v9 = v6;
-    v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v26;
+      v12 = *v25;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v26 != v12)
+          if (*v25 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v25 + 1) + 8 * i);
+          v14 = *(*(&v24 + 1) + 8 * i);
           v15 = *(a1 + 48);
           v16 = [v14 recordID];
           v17 = [v15 objectForKeyedSubscript:v16];
@@ -914,21 +908,19 @@ void __41__SCWStubContainer_addDatabaseOperation___block_invoke_2(uint64_t a1, v
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v11);
     }
 
-    v6 = v24;
+    v6 = v23;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __41__SCWStubContainer_addDatabaseOperation___block_invoke_3(id *a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (([a1[4] containsObject:v5] & 1) == 0)
@@ -936,38 +928,36 @@ void __41__SCWStubContainer_addDatabaseOperation___block_invoke_3(id *a1, void *
     v7 = [a1[5] zoneContentsByZoneID];
     v8 = [v7 objectForKeyedSubscript:v5];
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v9 = v6;
-    v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v17;
+      v12 = *v16;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v17 != v12)
+          if (*v16 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v16 + 1) + 8 * i);
-          [v8 removeObjectForKey:{v14, v16}];
+          v14 = *(*(&v15 + 1) + 8 * i);
+          [v8 removeObjectForKey:{v14, v15}];
           [a1[6] addObject:v14];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v11);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)accountInfoWithCompletionHandler:(id)handler
@@ -1009,7 +999,7 @@ void __41__SCWStubContainer_addDatabaseOperation___block_invoke_3(id *a1, void *
 
 - (id)_errorForErrorMode:(int64_t)mode itemIDs:(id)ds
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   if ((mode - 2) >= 2)
   {
@@ -1031,42 +1021,40 @@ void __41__SCWStubContainer_addDatabaseOperation___block_invoke_3(id *a1, void *
     v8 = *MEMORY[0x1E695B740];
     v9 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E695B740] code:v7 userInfo:0];
     dictionary = [MEMORY[0x1E695DF90] dictionary];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v11 = dsCopy;
-    v12 = [v11 countByEnumeratingWithState:&v22 objects:v28 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v21 objects:v27 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v23;
+      v14 = *v22;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v23 != v14)
+          if (*v22 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          [dictionary setObject:v9 forKeyedSubscript:{*(*(&v22 + 1) + 8 * i), v22}];
+          [dictionary setObject:v9 forKeyedSubscript:{*(*(&v21 + 1) + 8 * i), v21}];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v22 objects:v28 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v21 objects:v27 count:16];
       }
 
       while (v13);
     }
 
     v16 = MEMORY[0x1E696ABC0];
-    v26 = *MEMORY[0x1E695B798];
-    v27 = dictionary;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v25 = *MEMORY[0x1E695B798];
+    v26 = dictionary;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
     v18 = [v16 errorWithDomain:v8 code:2 userInfo:v17];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v18;
 }

@@ -1,7 +1,6 @@
 @interface LWCR
 + (id)withData:(id)data withError:(id *)error;
 + (id)withVersion:(int64_t)version withConstraintCategory:(int64_t)category withRequirements:(id)requirements withError:(id *)error;
-- (BOOL)hasRequirements;
 - (LWCR)init;
 - (NSDictionary)dictionary;
 - (id).cxx_construct;
@@ -25,15 +24,6 @@
   v2 = [*(self + 3) copy];
 
   return v2;
-}
-
-- (BOOL)hasRequirements
-{
-  v3 = *(self + 56);
-  v4 = *(self + 72);
-  v5 = *(self + 88);
-  v6 = *(self + 13);
-  return der_vm_context_is_valid();
 }
 
 - (void)dealloc
@@ -67,19 +57,19 @@
 
 + (id)withVersion:(int64_t)version withConstraintCategory:(int64_t)category withRequirements:(id)requirements withError:(id *)error
 {
-  v22[3] = *MEMORY[0x29EDCA608];
+  v20[3] = *MEMORY[0x29EDCA608];
   requirementsCopy = requirements;
   v11 = MEMORY[0x29EDB8E00];
-  v21[0] = @"vers";
+  v19[0] = @"vers";
   v12 = [MEMORY[0x29EDBA070] numberWithLongLong:version];
-  v22[0] = v12;
-  v21[1] = @"comp";
+  v20[0] = v12;
+  v19[1] = @"comp";
   v13 = [MEMORY[0x29EDBA070] numberWithLongLong:version == 1];
-  v22[1] = v13;
-  v21[2] = @"ccat";
+  v20[1] = v13;
+  v19[2] = @"ccat";
   v14 = [MEMORY[0x29EDBA070] numberWithLongLong:category];
-  v22[2] = v14;
-  v15 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
+  v20[2] = v14;
+  v15 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
   v16 = [v11 dictionaryWithDictionary:v15];
 
   if (requirementsCopy)
@@ -87,84 +77,80 @@
     [v16 setObject:requirementsCopy forKeyedSubscript:@"reqs"];
   }
 
-  v17 = *MEMORY[0x29EDC9140];
   if (CESerializeCFDictionaryWithOptions() == *MEMORY[0x29EDC9178])
   {
-    v18 = [self withData:0 withError:error];
+    v17 = [self withData:0 withError:error];
   }
 
   else if (error)
   {
     [MEMORY[0x29EDB9FA0] errorWithDomain:@"LWCRError" code:2 userInfo:0];
-    *error = v18 = 0;
+    *error = v17 = 0;
   }
 
   else
   {
-    v18 = 0;
+    v17 = 0;
   }
 
-  v19 = *MEMORY[0x29EDCA608];
-
-  return v18;
+  return v17;
 }
 
 + (id)withData:(id)data withError:(id *)error
 {
-  v27[2] = *MEMORY[0x29EDCA608];
+  v25[2] = *MEMORY[0x29EDCA608];
   dataCopy = data;
-  v25 = 0;
-  v24 = 1;
-  v7 = *MEMORY[0x29EDC9140];
-  v8 = CEManagedContextFromCFDataWithOptions();
-  v9 = MEMORY[0x29EDC9178];
-  if (v8 == *MEMORY[0x29EDC9178])
+  v23 = 0;
+  v22 = 1;
+  v7 = CEManagedContextFromCFDataWithOptions();
+  v8 = MEMORY[0x29EDC9178];
+  if (v7 == *MEMORY[0x29EDC9178])
   {
-    v11 = objc_alloc_init(LWCR);
-    objc_storeStrong(v11 + 1, data);
-    v12 = v25;
-    *(v11 + 2) = v25;
+    v10 = objc_alloc_init(LWCR);
+    objc_storeStrong(v10 + 1, data);
+    v11 = v23;
+    *(v10 + 2) = v23;
+    v19 = 0;
+    v20 = 0;
     v21 = 0;
-    v22 = 0;
-    v23 = 0;
-    TLE::LWCR::loadFromCE((v11 + 32), v12, &v21);
-    if (v21)
+    TLE::LWCR::loadFromCE((v10 + 32), v11, &v19);
+    if (v19)
     {
       if (error)
       {
-        v13 = MEMORY[0x29EDB9FA0];
-        v26[0] = *MEMORY[0x29EDB9F18];
-        v14 = [MEMORY[0x29EDBA070] numberWithInt:?];
-        v27[0] = v14;
-        v26[1] = *MEMORY[0x29EDB9E38];
-        v15 = objc_alloc(MEMORY[0x29EDBA0F8]);
-        v16 = [v15 initWithBytes:v22 length:v23 encoding:4];
-        v27[1] = v16;
-        v17 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
-        *error = [v13 errorWithDomain:@"LWCRError" code:1 userInfo:v17];
+        v12 = MEMORY[0x29EDB9FA0];
+        v24[0] = *MEMORY[0x29EDB9F18];
+        v13 = [MEMORY[0x29EDBA070] numberWithInt:?];
+        v25[0] = v13;
+        v24[1] = *MEMORY[0x29EDB9E38];
+        v14 = objc_alloc(MEMORY[0x29EDBA0F8]);
+        v15 = [v14 initWithBytes:v20 length:v21 encoding:4];
+        v25[1] = v15;
+        v16 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+        *error = [v12 errorWithDomain:@"LWCRError" code:1 userInfo:v16];
       }
     }
 
     else
     {
-      if (CEQueryContextToCFDictionary() == *v9)
+      if (CEQueryContextToCFDictionary() == *v8)
       {
-        v20 = *(v11 + 3);
-        *(v11 + 3) = 0;
+        v18 = *(v10 + 3);
+        *(v10 + 3) = 0;
 
-        v10 = v11;
+        v9 = v10;
         goto LABEL_8;
       }
 
       if (error)
       {
         [MEMORY[0x29EDB9FA0] errorWithDomain:@"LWCRError" code:2 userInfo:0];
-        *error = v10 = 0;
+        *error = v9 = 0;
         goto LABEL_8;
       }
     }
 
-    v10 = 0;
+    v9 = 0;
 LABEL_8:
 
     goto LABEL_10;
@@ -173,19 +159,17 @@ LABEL_8:
   if (error)
   {
     [MEMORY[0x29EDB9FA0] errorWithDomain:@"LWCRError" code:2 userInfo:0];
-    *error = v10 = 0;
+    *error = v9 = 0;
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
 LABEL_10:
 
-  v18 = *MEMORY[0x29EDCA608];
-
-  return v10;
+  return v9;
 }
 
 @end

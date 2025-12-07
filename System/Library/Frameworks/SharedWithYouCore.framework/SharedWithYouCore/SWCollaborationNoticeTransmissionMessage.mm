@@ -53,8 +53,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  version = self->_version;
-  v8 = toCopy;
   PBDataWriterWriteUint32Field();
   if (!self->_guidString)
   {
@@ -68,9 +66,7 @@
   }
 
   PBDataWriterWriteDataField();
-  highlightChangeEventType = self->_highlightChangeEventType;
   PBDataWriterWriteInt64Field();
-  dateAsTimeIntervalSince1970 = self->_dateAsTimeIntervalSince1970;
   PBDataWriterWriteDoubleField();
 }
 

@@ -3,7 +3,7 @@
 
 @implementation PFTBlockFutureImpl
 
-uint64_t __44___PFTBlockFutureImpl_implicitlyResumeQueue__block_invoke(uint64_t a1)
+void *__44___PFTBlockFutureImpl_implicitlyResumeQueue__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) workBlockScheduled];
   if (result)
@@ -51,7 +51,7 @@ void __74___PFTBlockFutureImpl_futureResultFromAsynchronousLookupBeforeDate_erro
   v3 = WeakRetained;
   if (!WeakRetained)
   {
-    v8 = PFTLogFutures();
+    v8 = PFTLogFutures(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       __74___PFTBlockFutureImpl_futureResultFromAsynchronousLookupBeforeDate_error___block_invoke_cold_1();
@@ -97,7 +97,7 @@ void __39___PFTBlockFutureImpl_addSuccessBlock___block_invoke(uint64_t a1)
 
   else
   {
-    v4 = PFTLogFutures();
+    v4 = PFTLogFutures(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       __39___PFTBlockFutureImpl_addSuccessBlock___block_invoke_cold_1();
@@ -124,7 +124,7 @@ void __39___PFTBlockFutureImpl_addFailureBlock___block_invoke(uint64_t a1)
 
   else
   {
-    v4 = PFTLogFutures();
+    v4 = PFTLogFutures(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       __39___PFTBlockFutureImpl_addFailureBlock___block_invoke_cold_1();

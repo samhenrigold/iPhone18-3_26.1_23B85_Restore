@@ -41,35 +41,35 @@ void __53__PSAccessoriesPolicyController_initWithAppBundleID___block_invoke(uint
 
 - (id)appSpecifierWithName:(id)name bundleID:(id)d
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   dCopy = d;
   if (_os_feature_enabled_impl())
   {
-    v27 = dCopy;
-    v28 = nameCopy;
+    v28 = dCopy;
+    v29 = nameCopy;
     v8 = [getDADaemonSessionClass() getDevicesWithFlags:8 session:self->_appSession error:0];
     array = [MEMORY[0x1E695DF70] array];
-    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v30;
+      v13 = *v31;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v30 != v13)
+          if (*v31 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v29 + 1) + 8 * i);
+          v15 = *(*(&v30 + 1) + 8 * i);
           appAccessInfoMap = [v15 appAccessInfoMap];
           allKeys = [appAccessInfoMap allKeys];
           v18 = [allKeys containsObject:self->_bundleID];
@@ -80,7 +80,7 @@ void __53__PSAccessoriesPolicyController_initWithAppBundleID___block_invoke(uint
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
       while (v12);
@@ -90,8 +90,8 @@ void __53__PSAccessoriesPolicyController_initWithAppBundleID___block_invoke(uint
     if ([array count])
     {
       v19 = [v10 count];
-      dCopy = v27;
-      nameCopy = v28;
+      dCopy = v28;
+      nameCopy = v29;
       if (v19 == 1)
       {
         v20 = NSClassFromString(&cfstr_Asaccessoryinf.isa);
@@ -102,29 +102,29 @@ void __53__PSAccessoriesPolicyController_initWithAppBundleID___block_invoke(uint
         v20 = objc_opt_class();
       }
 
-      v21 = [PSSpecifier preferenceSpecifierNamed:v28 target:self set:0 get:sel_numberOfAccessories_ detail:v20 cell:2 edit:0];
-      [v21 setProperty:v27 forKey:@"bundleID"];
+      v21 = [PSSpecifier preferenceSpecifierNamed:v29 target:self set:0 get:sel_numberOfAccessories_ detail:v20 cell:2 edit:0];
+      v22 = [v21 setProperty:v28 forKey:@"bundleID"];
       if (v19 == 1)
       {
         firstObject = [v10 firstObject];
         [v21 setProperty:firstObject forKey:@"device"];
       }
 
-      v23 = MEMORY[0x1E69DCAB8];
-      v24 = PSPreferencesFrameworkBundle();
-      v25 = [v23 imageNamed:@"Accessory" inBundle:v24];
+      v24 = MEMORY[0x1E69DCAB8];
+      v25 = PSPreferencesFrameworkBundle(v22);
+      v26 = [v24 imageNamed:@"Accessory" inBundle:v25];
 
-      if (v25)
+      if (v26)
       {
-        [v21 setProperty:v25 forKey:@"iconImage"];
+        [v21 setProperty:v26 forKey:@"iconImage"];
       }
     }
 
     else
     {
       v21 = 0;
-      dCopy = v27;
-      nameCopy = v28;
+      dCopy = v28;
+      nameCopy = v29;
     }
   }
 

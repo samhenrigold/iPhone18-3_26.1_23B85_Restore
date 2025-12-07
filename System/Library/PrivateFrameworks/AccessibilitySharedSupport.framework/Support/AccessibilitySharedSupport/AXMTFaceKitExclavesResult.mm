@@ -13,79 +13,80 @@
   dictionaryCopy = dictionary;
   centerCopy = center;
   valueCopy = value;
-  v46.receiver = self;
-  v46.super_class = AXMTFaceKitExclavesResult;
-  v15 = [(AXMTFaceKitExclavesResult *)&v46 init];
-  v16 = v15;
-  if (v15)
+  v48.receiver = self;
+  v48.super_class = AXMTFaceKitExclavesResult;
+  sizeValue = [(AXMTFaceKitExclavesResult *)&v48 init];
+  v16 = sizeValue;
+  if (sizeValue)
   {
-    *(v15 + 10) = *&expressions->var0;
+    *(sizeValue + 10) = *&expressions->var0;
     v18 = *&expressions->var4;
     v17 = *&expressions->var6;
     v19 = *&expressions->var2;
-    *(v15 + 28) = expressions->var8;
-    *(v15 + 12) = v18;
-    *(v15 + 13) = v17;
-    *(v15 + 11) = v19;
+    *(sizeValue + 28) = expressions->var8;
+    *(sizeValue + 12) = v18;
+    *(sizeValue + 13) = v17;
+    *(sizeValue + 11) = v19;
     if (valueCopy)
     {
-      v20 = v15 + 64;
-      [valueCopy sizeValue];
+      v20 = sizeValue + 64;
+      sizeValue = [valueCopy sizeValue];
       *v20 = v21;
       *(v16 + 9) = v22;
     }
 
     v16[32] = exclaves;
-    v23 = [dictionaryCopy objectForKeyedSubscript:sub_100022FAC()];
+    v23 = [dictionaryCopy objectForKeyedSubscript:sub_100022FAC(sizeValue)];
     firstObject = [v23 firstObject];
-    v25 = [firstObject objectForKeyedSubscript:sub_1000230A0()];
+    v25 = [firstObject objectForKeyedSubscript:sub_1000230A0(firstObject)];
+    v26 = v25;
     if (v25)
     {
-      v45 = v23;
-      v26 = [v25 objectForKeyedSubscript:sub_100027528()];
-      v27 = [v26 objectForKeyedSubscript:sub_100025A00()];
-      v28 = [v26 objectForKeyedSubscript:sub_100025AF4()];
-      if (v28)
+      v47 = v23;
+      v27 = [v25 objectForKeyedSubscript:sub_100027528(v25)];
+      v28 = [v27 objectForKeyedSubscript:sub_100025A00(v27)];
+      v29 = [v27 objectForKeyedSubscript:sub_100025AF4(v28)];
+      if (v29)
       {
-        [objc_opt_class() _poseTranslationMatrixFromArray:v28];
-        *(v16 + 3) = v29;
+        [objc_opt_class() _poseTranslationMatrixFromArray:v29];
+        *(v16 + 3) = v30;
       }
 
-      [v16 _calculatePoseWithRotation:v27 translation:{v28, v27}];
-      v30 = (v16 + 96);
-      *(v16 + 6) = v31;
-      *(v16 + 7) = v32;
-      *(v16 + 8) = v33;
-      *(v16 + 9) = v34;
-      [v16 setNoseBaseCenterLandmarkVertex:centerCopy];
+      [v16 _calculatePoseWithRotation:v28 translation:{v29, v28}];
+      v31 = (v16 + 96);
+      *(v16 + 6) = v32;
+      *(v16 + 7) = v33;
+      *(v16 + 8) = v34;
+      *(v16 + 9) = v35;
+      v36 = [v16 setNoseBaseCenterLandmarkVertex:centerCopy];
       if (qword_100054688 != -1)
       {
         sub_1000293F8();
       }
 
-      v35 = centerCopy;
+      v37 = centerCopy;
       if (dword_100054680 >= 1)
       {
-        [v16 _rotatePose:*v30 forCameraSensorRotation:{*(v16 + 14), *(v16 + 16), *(v16 + 18)}];
-        *v30 = v36;
-        *(v16 + 7) = v37;
-        *(v16 + 8) = v38;
-        *(v16 + 9) = v39;
+        v36 = [v16 _rotatePose:*v31 forCameraSensorRotation:{*(v16 + 14), *(v16 + 16), *(v16 + 18)}];
+        *v31 = v38;
+        *(v16 + 7) = v39;
+        *(v16 + 8) = v40;
+        *(v16 + 9) = v41;
       }
 
-      v40 = [dictionaryCopy objectForKeyedSubscript:sub_100025DD0()];
-      [objc_opt_class() _projectZAxisVectorUsingRGBCameraDictionary:v40 pose:{*v30, *(v16 + 14), *(v16 + 16), *(v16 + 18)}];
-      *(v16 + 10) = v41;
-      *(v16 + 11) = v42;
+      v42 = [dictionaryCopy objectForKeyedSubscript:sub_100025DD0(v36)];
+      [objc_opt_class() _projectZAxisVectorUsingRGBCameraDictionary:v42 pose:{*v31, *(v16 + 14), *(v16 + 16), *(v16 + 18)}];
+      *(v16 + 10) = v43;
+      *(v16 + 11) = v44;
 
-      centerCopy = v35;
-      v23 = v45;
+      centerCopy = v37;
+      v23 = v47;
     }
 
     else
     {
-      v26 = AXSSLogForCategory();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v27 = AXSSLogForCategory();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         sub_100029420();
       }

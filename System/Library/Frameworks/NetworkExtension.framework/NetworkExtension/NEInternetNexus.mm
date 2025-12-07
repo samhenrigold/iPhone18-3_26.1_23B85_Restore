@@ -32,7 +32,7 @@
 
 - (BOOL)setDefaultInputHandler:(nw_protocol *)handler
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (!handler)
   {
     v4 = ne_log_obj();
@@ -41,12 +41,12 @@
       goto LABEL_5;
     }
 
-    v18 = 136315138;
-    v19 = "[NEInternetNexus setDefaultInputHandler:]";
-    v14 = "%s called with null inputHandler";
-    v15 = v4;
-    v16 = 12;
-    goto LABEL_17;
+    v17 = 136315138;
+    v18 = "[NEInternetNexus setDefaultInputHandler:]";
+    v13 = "%s called with null inputHandler";
+    v14 = v4;
+    v15 = 12;
+    goto LABEL_16;
   }
 
   if (self && self->_utunProtocol)
@@ -54,13 +54,15 @@
     v4 = ne_log_obj();
     if (!os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_5;
+LABEL_5:
+
+      return 0;
     }
 
-    LOWORD(v18) = 0;
-    v17 = "Already have default interface input handler set";
-LABEL_21:
-    _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, v17, &v18, 2u);
+    LOWORD(v17) = 0;
+    v16 = "Already have default interface input handler set";
+LABEL_20:
+    _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, v16, &v17, 2u);
     goto LABEL_5;
   }
 
@@ -69,8 +71,8 @@ LABEL_21:
     dispatch_once(&nw_utun_protocol_identifier_packetProtocolOnceToken, &__block_literal_global_26249);
   }
 
-  v7 = nw_protocol_create();
-  if (!self || (self->_utunProtocol = v7) == 0)
+  v6 = nw_protocol_create();
+  if (!self || (self->_utunProtocol = v6) == 0)
   {
     v4 = ne_log_obj();
     if (!os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
@@ -78,47 +80,41 @@ LABEL_21:
       goto LABEL_5;
     }
 
-    LOWORD(v18) = 0;
-    v14 = "nw_protocol_create(utun) failed";
-    v15 = v4;
-    v16 = 2;
-LABEL_17:
-    _os_log_fault_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_FAULT, v14, &v18, v16);
+    LOWORD(v17) = 0;
+    v13 = "nw_protocol_create(utun) failed";
+    v14 = v4;
+    v15 = 2;
+LABEL_16:
+    _os_log_fault_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_FAULT, v13, &v17, v15);
     goto LABEL_5;
   }
 
-  Property = objc_getProperty(self, v8, 112, 1);
-  v11 = Property;
+  Property = objc_getProperty(self, v7, 112, 1);
+  v10 = Property;
   if (Property)
   {
-    Property = objc_getProperty(Property, v10, 8, 1);
+    Property = objc_getProperty(Property, v9, 8, 1);
   }
 
-  v12 = Property;
+  v11 = Property;
   protocol_handler = nw_channel_get_protocol_handler();
 
-  if (protocol_handler)
+  if (!protocol_handler)
   {
-    (*self->_utunProtocol->callbacks)();
-    (**(protocol_handler + 24))(protocol_handler, self->_utunProtocol);
-    result = 1;
-    goto LABEL_6;
+    v4 = ne_log_obj();
+    if (!os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_5;
+    }
+
+    LOWORD(v17) = 0;
+    v16 = "Could not get kernel channel protocol";
+    goto LABEL_20;
   }
 
-  v4 = ne_log_obj();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-  {
-    LOWORD(v18) = 0;
-    v17 = "Could not get kernel channel protocol";
-    goto LABEL_21;
-  }
-
-LABEL_5:
-
-  result = 0;
-LABEL_6:
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  (*self->_utunProtocol->callbacks)();
+  (**(protocol_handler + 24))(protocol_handler, self->_utunProtocol);
+  return 1;
 }
 
 - (void)dealloc

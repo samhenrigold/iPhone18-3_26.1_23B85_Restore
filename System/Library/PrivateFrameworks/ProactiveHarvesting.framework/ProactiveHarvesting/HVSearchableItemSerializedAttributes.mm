@@ -36,60 +36,8 @@
 {
   attributesCopy = attributes;
   v5 = attributesCopy;
-  if (!attributesCopy)
+  if (!attributesCopy || (v6 = self->_attributeSetData == 0, [attributesCopy attributeSetData], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (attributeSetData = self->_attributeSetData) != 0 && (objc_msgSend(v5, "attributeSetData"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSData isEqual:](attributeSetData, "isEqual:", v10), v10, !v11) || (v12 = self->_attributeSetCoder == 0, objc_msgSend(v5, "attributeSetCoder"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14) || (attributeSetCoder = self->_attributeSetCoder) != 0 && (objc_msgSend(v5, "attributeSetCoder"), v16 = objc_claimAutoreleasedReturnValue(), v17 = -[CSCoder isEqual:](attributeSetCoder, "isEqual:", v16), v16, !v17) || (v18 = self->_htmlContentData == 0, objc_msgSend(v5, "htmlContentData"), v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 != 0, v19, v18 == v20))
   {
-    goto LABEL_11;
-  }
-
-  v6 = self->_attributeSetData == 0;
-  attributeSetData = [attributesCopy attributeSetData];
-  v8 = attributeSetData != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_11;
-  }
-
-  attributeSetData = self->_attributeSetData;
-  if (attributeSetData)
-  {
-    attributeSetData2 = [v5 attributeSetData];
-    v11 = [(NSData *)attributeSetData isEqual:attributeSetData2];
-
-    if (!v11)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  v12 = self->_attributeSetCoder == 0;
-  attributeSetCoder = [v5 attributeSetCoder];
-  v14 = attributeSetCoder != 0;
-
-  if (v12 == v14)
-  {
-    goto LABEL_11;
-  }
-
-  attributeSetCoder = self->_attributeSetCoder;
-  if (attributeSetCoder)
-  {
-    attributeSetCoder2 = [v5 attributeSetCoder];
-    v17 = [(CSCoder *)attributeSetCoder isEqual:attributeSetCoder2];
-
-    if (!v17)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  v18 = self->_htmlContentData == 0;
-  htmlContentData = [v5 htmlContentData];
-  v20 = htmlContentData != 0;
-
-  if (v18 == v20)
-  {
-LABEL_11:
     v23 = 0;
   }
 
@@ -98,8 +46,8 @@ LABEL_11:
     htmlContentData = self->_htmlContentData;
     if (htmlContentData)
     {
-      htmlContentData2 = [v5 htmlContentData];
-      v23 = [(NSData *)htmlContentData isEqual:htmlContentData2];
+      htmlContentData = [v5 htmlContentData];
+      v23 = [(NSData *)htmlContentData isEqual:htmlContentData];
     }
 
     else

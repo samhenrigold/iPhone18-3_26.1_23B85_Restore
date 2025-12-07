@@ -32,33 +32,33 @@
 
 - (RERelevanceEnginePreferences)effectivePreferences
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   effectivePreferences = self->_effectivePreferences;
   if (!effectivePreferences)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v4 = self->_preferences;
-    v5 = [(NSMapTable *)v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v5 = [(NSMapTable *)v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = 0;
       v8 = 0;
-      v9 = *v22;
+      v9 = *v21;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v22 != v9)
+          if (*v21 != v9)
           {
             objc_enumerationMutation(v4);
           }
 
-          v11 = [(NSMapTable *)self->_preferences objectForKey:*(*(&v21 + 1) + 8 * i), v21];
+          v11 = [(NSMapTable *)self->_preferences objectForKey:*(*(&v20 + 1) + 8 * i), v20];
           v12 = v11;
           if (v11)
           {
@@ -79,7 +79,7 @@
           }
         }
 
-        v6 = [(NSMapTable *)v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v6 = [(NSMapTable *)v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v6);
@@ -112,7 +112,6 @@ LABEL_18:
 LABEL_19:
   v18 = [(RERelevanceEnginePreferences *)effectivePreferences copy];
   os_unfair_lock_unlock(&self->_lock);
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

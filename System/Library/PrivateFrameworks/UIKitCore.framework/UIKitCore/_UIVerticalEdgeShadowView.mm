@@ -46,10 +46,10 @@
         v11 = ContextStack[3 * (*ContextStack - 1) + 1];
       }
 
-      v12 = +[UIColor blackColor];
+      v12 = objc_msgSend_blackColor(UIColor);
       CGContextSetFillColorWithColor(v11, [v12 CGColor]);
 
-      v13 = +[UIColor blackColor];
+      v13 = objc_msgSend_blackColor(UIColor);
       cGColor = [v13 CGColor];
       CGContextSetShadowWithColor(v11, *MEMORY[0x1E695F060], width * v6, cGColor);
 

@@ -19,7 +19,7 @@
   [defaultCenter removeObserver:selfCopy];
 
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for RTSettingsViewController();
+  v6.super_class = type metadata accessor for RTSettingsViewController(0);
   [(RTSettingsViewController *)&v6 dealloc];
 }
 
@@ -33,7 +33,7 @@
 {
   viewCopy = view;
   sub_7548(&v7);
-  v4 = objc_allocWithZone(sub_1DF4(&qword_21408));
+  v4 = objc_allocWithZone(sub_1DF4(&qword_21408, &qword_14258));
   v5 = sub_126F0();
 
   return v5;
@@ -92,7 +92,7 @@
   }
 
   v17.receiver = self;
-  v17.super_class = type metadata accessor for RTSettingsViewController();
+  v17.super_class = type metadata accessor for RTSettingsViewController(0);
   v15 = [(RTSettingsViewController *)&v17 initWithNibName:v10 bundle:bundle];
 
   return v15;
@@ -107,7 +107,7 @@
   *v7 = sub_1AC8;
   v7[1] = 0;
   v11.receiver = self;
-  v11.super_class = type metadata accessor for RTSettingsViewController();
+  v11.super_class = type metadata accessor for RTSettingsViewController(0);
   coderCopy = coder;
   v9 = [(RTSettingsViewController *)&v11 initWithCoder:coderCopy];
 

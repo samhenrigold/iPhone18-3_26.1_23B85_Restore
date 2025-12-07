@@ -97,24 +97,22 @@
 
 - (id)newBookmark
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = [BMBookmarkNode alloc];
   state = [(_BPSBookmarkedInner *)self state];
-  v9[0] = self->_upstreamBookmark;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = self->_upstreamBookmark;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   v6 = [(BMBookmarkNode *)v3 initWithValue:state upstreams:v5 name:self->_upstreamClassName];
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)_updateBookmarkWhenLocked
 {
-  v9 = *MEMORY[0x1E69E9840];
   subscription = [self subscription];
-  OUTLINED_FUNCTION_0_2(&dword_1C871B000, v2, v3, "Subscription - %@ doesn't conform to BMBookmarkableSubscription protocol", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = subscription;
+  OUTLINED_FUNCTION_0_2(&dword_1C871B000, v2, v3, "Subscription - %@ doesn't conform to BMBookmarkableSubscription protocol", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

@@ -12,7 +12,9 @@
 - (void)setCustomTintColor:(id)color;
 - (void)showPrivacyGateway:(id)gateway;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation OBPrivacyCombinedController_iOS
@@ -35,47 +37,47 @@
 
 - (void)viewDidLoad
 {
-  v65 = *MEMORY[0x1E69E9840];
-  v60.receiver = self;
-  v60.super_class = OBPrivacyCombinedController_iOS;
-  [(OBTableWelcomeController *)&v60 viewDidLoad];
+  v66 = *MEMORY[0x1E69E9840];
+  v61.receiver = self;
+  v61.super_class = OBPrivacyCombinedController_iOS;
+  [(OBTableWelcomeController *)&v61 viewDidLoad];
   additionalDisplayLanguageManager = [(OBPrivacyCombinedController *)self additionalDisplayLanguageManager];
 
   if (!additionalDisplayLanguageManager)
   {
-    v4 = [OBAdditionalDisplayLanguageManager alloc];
+    v5 = [OBAdditionalDisplayLanguageManager alloc];
     displayLanguage = [(OBPrivacyCombinedController *)self displayLanguage];
-    v6 = [(OBAdditionalDisplayLanguageManager *)v4 initWithDisplayLanguage:displayLanguage];
-    [(OBPrivacyCombinedController *)self setAdditionalDisplayLanguageManager:v6];
+    v7 = [(OBAdditionalDisplayLanguageManager *)v5 initWithDisplayLanguage:displayLanguage];
+    [(OBPrivacyCombinedController *)self setAdditionalDisplayLanguageManager:v7];
 
-    v7 = _OBLoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = _OBLoggingFacility(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       displayLanguage2 = [(OBPrivacyCombinedController *)self displayLanguage];
       additionalDisplayLanguageManager2 = [(OBPrivacyCombinedController *)self additionalDisplayLanguageManager];
       *buf = 138412546;
-      v62 = displayLanguage2;
-      v63 = 2112;
-      v64 = additionalDisplayLanguageManager2;
-      _os_log_impl(&dword_1B4FB6000, v7, OS_LOG_TYPE_DEFAULT, "combined controller with displayLanguage %@ created %@", buf, 0x16u);
+      v63 = displayLanguage2;
+      v64 = 2112;
+      v65 = additionalDisplayLanguageManager2;
+      _os_log_impl(&dword_1B4FB6000, v9, OS_LOG_TYPE_DEFAULT, "combined controller with displayLanguage %@ created %@", buf, 0x16u);
     }
   }
 
-  v10 = _OBLoggingFacility();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v12 = _OBLoggingFacility(v4);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     additionalDisplayLanguageManager3 = [(OBPrivacyCombinedController *)self additionalDisplayLanguageManager];
     *buf = 138412290;
-    v62 = additionalDisplayLanguageManager3;
-    _os_log_impl(&dword_1B4FB6000, v10, OS_LOG_TYPE_DEFAULT, "combined controller using %@", buf, 0xCu);
+    v63 = additionalDisplayLanguageManager3;
+    _os_log_impl(&dword_1B4FB6000, v12, OS_LOG_TYPE_DEFAULT, "combined controller using %@", buf, 0xCu);
   }
 
   [(OBWelcomeController *)self setTemplateType:1];
   navigationItem = [(OBBaseWelcomeController *)self navigationItem];
-  v13 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v15 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   displayLanguage3 = [(OBPrivacyCombinedController *)self displayLanguage];
-  v15 = [OBUtilities localizedString:@"COMBINED_SPLASH_TITLE" forTable:@"Localizable" inBundle:v13 forLanguage:displayLanguage3];
-  [navigationItem setBackButtonTitle:v15];
+  v17 = [OBUtilities localizedString:@"COMBINED_SPLASH_TITLE" forTable:@"Localizable" inBundle:v15 forLanguage:displayLanguage3];
+  [navigationItem setBackButtonTitle:v17];
 
   if (+[OBFeatureFlags isNaturalUIEnabled])
   {
@@ -91,76 +93,76 @@
   [headerView setUnderlineLinks:underlineLinks];
 
   bundles2 = [(OBPrivacyCombinedController_iOS *)self bundles];
-  v21 = [bundles2 count];
+  v23 = [bundles2 count];
 
-  if (!v21)
+  if (!v23)
   {
-    v22 = MEMORY[0x1E695DF70];
-    v23 = +[OBBundleManager sharedManager];
-    v24 = [v23 orderedPrivacyBundlesWithInclusionOptions:9];
-    v25 = [v22 arrayWithArray:v24];
+    v24 = MEMORY[0x1E695DF70];
+    v25 = +[OBBundleManager sharedManager];
+    v26 = [v25 orderedPrivacyBundlesWithInclusionOptions:9];
+    v27 = [v24 arrayWithArray:v26];
 
     if ([(OBPrivacyCombinedController *)self presentedFromPrivacyPane])
     {
-      v26 = @"com.apple.onboarding.privacypanemini";
+      v28 = @"com.apple.onboarding.privacypanemini";
     }
 
     else
     {
-      v26 = @"com.apple.onboarding.privacypane";
+      v28 = @"com.apple.onboarding.privacypane";
     }
 
-    v27 = [OBBundle bundleWithIdentifier:v26];
-    [v25 insertObject:v27 atIndex:0];
-    [(OBPrivacyCombinedController_iOS *)self setBundles:v25];
+    v29 = [OBBundle bundleWithIdentifier:v28];
+    [v27 insertObject:v29 atIndex:0];
+    [(OBPrivacyCombinedController_iOS *)self setBundles:v27];
   }
 
   [(OBPrivacyCombinedController_iOS *)self setInitialPrivacyFlow:0];
   [(OBPrivacyCombinedController_iOS *)self setIconSymbolName:0];
-  v28 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v30 = objc_alloc_init(MEMORY[0x1E695DF70]);
   bundles3 = [(OBPrivacyCombinedController_iOS *)self bundles];
-  v30 = [bundles3 count];
+  v32 = [bundles3 count];
 
-  if (v30)
+  if (v32)
   {
-    v31 = 0;
+    v33 = 0;
     do
     {
       bundles4 = [(OBPrivacyCombinedController_iOS *)self bundles];
-      v33 = [bundles4 objectAtIndexedSubscript:v31];
+      v35 = [bundles4 objectAtIndexedSubscript:v33];
 
-      privacyFlow = [v33 privacyFlow];
+      privacyFlow = [v35 privacyFlow];
       if ([(OBPrivacyCombinedController_iOS *)self isUnifiedAbout])
       {
-        v35 = [privacyFlow showInCombinedListForPreferredDeviceType:{-[OBPrivacyCombinedController displayDeviceType](self, "displayDeviceType")}];
+        v37 = [privacyFlow showInCombinedListForPreferredDeviceType:{-[OBPrivacyCombinedController displayDeviceType](self, "displayDeviceType")}];
       }
 
       else
       {
-        v35 = 1;
+        v37 = 1;
       }
 
-      if ([privacyFlow supportsPlatformForPreferredDeviceType:{-[OBPrivacyCombinedController displayDeviceType](self, "displayDeviceType")}] && v35)
+      if ([privacyFlow supportsPlatformForPreferredDeviceType:{-[OBPrivacyCombinedController displayDeviceType](self, "displayDeviceType")}] && v37)
       {
         identifier = [privacyFlow identifier];
         if (([identifier isEqualToString:@"com.apple.onboarding.imessagefacetime"] & 1) == 0)
         {
           identifier2 = [privacyFlow identifier];
-          v38 = [identifier2 isEqualToString:@"com.apple.onboarding.activation"];
+          v40 = [identifier2 isEqualToString:@"com.apple.onboarding.activation"];
 
-          if (v38)
+          if (v40)
           {
             goto LABEL_29;
           }
 
-          if ([(OBPrivacyCombinedController_iOS *)self isUnifiedAbout]&& ([(OBPrivacyCombinedController_iOS *)self initialPrivacyFlow], v39 = objc_claimAutoreleasedReturnValue(), v39, !v39))
+          if ([(OBPrivacyCombinedController_iOS *)self isUnifiedAbout]&& ([(OBPrivacyCombinedController_iOS *)self initialPrivacyFlow], v41 = objc_claimAutoreleasedReturnValue(), v41, !v41))
           {
             [(OBPrivacyCombinedController_iOS *)self setInitialPrivacyFlow:privacyFlow];
           }
 
           else
           {
-            [v28 addObject:privacyFlow];
+            [v30 addObject:privacyFlow];
           }
 
           if (![privacyFlow isPersonallyIdentifiable])
@@ -175,20 +177,20 @@
 
 LABEL_29:
 
-      ++v31;
+      ++v33;
       bundles5 = [(OBPrivacyCombinedController_iOS *)self bundles];
-      v41 = [bundles5 count];
+      v43 = [bundles5 count];
     }
 
-    while (v31 < v41);
+    while (v33 < v43);
   }
 
-  v42 = [v28 copy];
-  [(OBPrivacyCombinedController_iOS *)self setPrivacyFlows:v42];
+  v44 = [v30 copy];
+  [(OBPrivacyCombinedController_iOS *)self setPrivacyFlows:v44];
 
-  v43 = objc_alloc(MEMORY[0x1E69DD020]);
-  v44 = [v43 initWithFrame:2 style:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
-  [(OBTableWelcomeController *)self setTableView:v44];
+  v45 = objc_alloc(MEMORY[0x1E69DD020]);
+  v46 = [v45 initWithFrame:2 style:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
+  [(OBTableWelcomeController *)self setTableView:v46];
 
   tableView = [(OBTableWelcomeController *)self tableView];
   [tableView setDirectionalLayoutMargins:{1.0, 1.0, 1.0, 1.0}];
@@ -222,29 +224,27 @@ LABEL_29:
 
   if (customTintColor)
   {
-    v59.receiver = self;
-    v59.super_class = OBPrivacyCombinedController_iOS;
-    customTintColor2 = [(OBPrivacyCombinedController *)&v59 customTintColor];
+    v60.receiver = self;
+    v60.super_class = OBPrivacyCombinedController_iOS;
+    customTintColor2 = [(OBPrivacyCombinedController *)&v60 customTintColor];
     view = [(OBPrivacyCombinedController_iOS *)self view];
     [view setTintColor:customTintColor2];
   }
 
   [(OBPrivacyCombinedController_iOS *)self _loadViewsWithContentFromBundles];
-
-  v58 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadViewsWithContentFromBundles
 {
-  v51[1] = *MEMORY[0x1E69E9840];
+  v50[1] = *MEMORY[0x1E69E9840];
   if ([(OBPrivacyCombinedController_iOS *)self isUnifiedAbout])
   {
     v3 = [OBPrivacyFlowGroup alloc];
     privacyFlows = [(OBPrivacyCombinedController_iOS *)self privacyFlows];
     v5 = [(OBPrivacyFlowGroup *)v3 initWithIdentifier:0 privacyFlows:privacyFlows];
 
-    v51[0] = v5;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:1];
+    v50[0] = v5;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:1];
     [(OBPrivacyCombinedController_iOS *)self setPrivacyFlowGroups:v6];
   }
 
@@ -372,8 +372,65 @@ LABEL_20:
 
   tableView = [(OBTableWelcomeController *)self tableView];
   [tableView reloadData];
+}
 
-  v50 = *MEMORY[0x1E69E9840];
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v19.receiver = self;
+  v19.super_class = OBPrivacyCombinedController_iOS;
+  [(OBTableWelcomeController *)&v19 viewWillAppear:?];
+  tableView = [(OBTableWelcomeController *)self tableView];
+  indexPathForSelectedRow = [tableView indexPathForSelectedRow];
+
+  if (indexPathForSelectedRow)
+  {
+    transitionCoordinator = [(OBPrivacyCombinedController_iOS *)self transitionCoordinator];
+    if (transitionCoordinator)
+    {
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __50__OBPrivacyCombinedController_iOS_viewWillAppear___block_invoke;
+      v17[3] = &unk_1E7C158A0;
+      v17[4] = self;
+      v18 = indexPathForSelectedRow;
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __50__OBPrivacyCombinedController_iOS_viewWillAppear___block_invoke_2;
+      v15[3] = &unk_1E7C158A0;
+      v15[4] = self;
+      v16 = v18;
+      [transitionCoordinator animateAlongsideTransition:v17 completion:v15];
+    }
+
+    else
+    {
+      tableView2 = [(OBTableWelcomeController *)self tableView];
+      [tableView2 deselectRowAtIndexPath:indexPathForSelectedRow animated:appearCopy];
+    }
+  }
+
+  navigationItem = [(OBBaseWelcomeController *)self navigationItem];
+  [navigationItem setTitle:0];
+
+  v11 = _OBLoggingFacility(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    *v14 = 0;
+    _os_log_impl(&dword_1B4FB6000, v11, OS_LOG_TYPE_DEFAULT, "combined controller viewWillAppear will configure navigation item", v14, 2u);
+  }
+
+  additionalDisplayLanguageManager = [(OBPrivacyCombinedController *)self additionalDisplayLanguageManager];
+  displayLanguage = [(OBPrivacyCombinedController *)self displayLanguage];
+  [additionalDisplayLanguageManager configureNavigationItemRightBarButtonItemForWelcomeController:self currentDisplayLanguage:displayLanguage action:sel__languageToggleTapped];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = OBPrivacyCombinedController_iOS;
+  [(OBWelcomeController *)&v4 viewDidDisappear:disappear];
+  [(OBWelcomeController *)self restoreNavigationBarAppearance];
 }
 
 - (void)showPrivacyGateway:(id)gateway
@@ -502,7 +559,7 @@ LABEL_20:
 
 - (id)tableView:(id)view viewForFooterInSection:(int64_t)section
 {
-  v47[4] = *MEMORY[0x1E69E9840];
+  v46[4] = *MEMORY[0x1E69E9840];
   viewCopy = view;
   privacyFlowGroups = [(OBPrivacyCombinedController_iOS *)self privacyFlowGroups];
   v8 = [privacyFlowGroups objectAtIndexedSubscript:section];
@@ -516,7 +573,7 @@ LABEL_20:
   {
     v13 = [viewCopy dequeueReusableHeaderFooterViewWithIdentifier:@"footerView"];
     v14 = objc_alloc(MEMORY[0x1E69DD168]);
-    v45 = v8;
+    v44 = v8;
     v15 = [v14 initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
     [v15 setTranslatesAutoresizingMaskIntoConstraints:0];
     [v15 setAttributedText:v12];
@@ -537,48 +594,46 @@ LABEL_20:
     contentView = [v13 contentView];
     [contentView addSubview:v15];
 
-    v34 = MEMORY[0x1E696ACD8];
+    v33 = MEMORY[0x1E696ACD8];
     leadingAnchor = [v15 leadingAnchor];
     contentView2 = [v13 contentView];
     layoutMarginsGuide = [contentView2 layoutMarginsGuide];
     leadingAnchor2 = [layoutMarginsGuide leadingAnchor];
-    v39 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v47[0] = v39;
+    v38 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v46[0] = v38;
     trailingAnchor = [v15 trailingAnchor];
     contentView3 = [v13 contentView];
     layoutMarginsGuide2 = [contentView3 layoutMarginsGuide];
     trailingAnchor2 = [layoutMarginsGuide2 trailingAnchor];
-    v33 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v47[1] = v33;
+    v32 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+    v46[1] = v32;
     topAnchor = [v15 topAnchor];
     contentView4 = [v13 contentView];
     layoutMarginsGuide3 = [contentView4 layoutMarginsGuide];
     topAnchor2 = [layoutMarginsGuide3 topAnchor];
     v21 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v47[2] = v21;
+    v46[2] = v21;
     bottomAnchor = [v15 bottomAnchor];
-    v46 = v13;
+    v45 = v13;
     [v13 contentView];
-    v23 = v44 = v12;
+    v23 = v43 = v12;
     layoutMarginsGuide4 = [v23 layoutMarginsGuide];
     bottomAnchor2 = [layoutMarginsGuide4 bottomAnchor];
     v26 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v47[3] = v26;
-    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:4];
-    [v34 activateConstraints:v27];
+    v46[3] = v26;
+    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:4];
+    [v33 activateConstraints:v27];
 
-    v12 = v44;
-    v8 = v45;
+    v12 = v43;
+    v8 = v44;
   }
 
   else
   {
-    v46 = 0;
+    v45 = 0;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
-
-  return v46;
+  return v45;
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path

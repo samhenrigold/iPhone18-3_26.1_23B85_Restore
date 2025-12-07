@@ -7,32 +7,32 @@
 
 + (id)logicalDevice:(id)device makeControllerPhysicalInputProfileDescriptionWithIdentifier:(id)identifier bindings:(id)bindings
 {
-  v49[12] = *MEMORY[0x1E69E9840];
+  v48[12] = *MEMORY[0x1E69E9840];
   bindingsCopy = bindings;
   identifierCopy = identifier;
   v6 = [GCDeviceButtonInputDescription alloc];
   v7 = [*MEMORY[0x1E69A0530] key];
-  v47 = [(GCDeviceButtonInputDescription *)v6 initWithName:@"Button A" additionalAliases:0 attributes:2 nameLocalizationKey:v7 symbolName:@"a.circle" sourceAttributes:1 sourceExtendedEventField:4];
+  v46 = [(GCDeviceButtonInputDescription *)v6 initWithName:@"Button A" additionalAliases:0 attributes:2 nameLocalizationKey:v7 symbolName:@"a.circle" sourceAttributes:1 sourceExtendedEventField:4];
 
   v8 = [GCDeviceButtonInputDescription alloc];
   v9 = [*MEMORY[0x1E69A0538] key];
-  v45 = [(GCDeviceButtonInputDescription *)v8 initWithName:@"Button B" additionalAliases:0 attributes:2 nameLocalizationKey:v9 symbolName:@"b.circle" sourceAttributes:1 sourceExtendedEventField:5];
+  v44 = [(GCDeviceButtonInputDescription *)v8 initWithName:@"Button B" additionalAliases:0 attributes:2 nameLocalizationKey:v9 symbolName:@"b.circle" sourceAttributes:1 sourceExtendedEventField:5];
 
   v10 = [GCDeviceButtonInputDescription alloc];
   v11 = [*MEMORY[0x1E69A0580] key];
-  v48 = [(GCDeviceButtonInputDescription *)v10 initWithName:@"Left Shoulder" additionalAliases:0 attributes:2 nameLocalizationKey:v11 symbolName:@"l.button.roundedbottom.horizontal" sourceAttributes:1 sourceExtendedEventField:8];
+  v47 = [(GCDeviceButtonInputDescription *)v10 initWithName:@"Left Shoulder" additionalAliases:0 attributes:2 nameLocalizationKey:v11 symbolName:@"l.button.roundedbottom.horizontal" sourceAttributes:1 sourceExtendedEventField:8];
 
   v12 = [GCDeviceButtonInputDescription alloc];
   v13 = [*MEMORY[0x1E69A05C0] key];
-  v46 = [(GCDeviceButtonInputDescription *)v12 initWithName:@"Right Shoulder" additionalAliases:0 attributes:2 nameLocalizationKey:v13 symbolName:@"r.button.roundedbottom.horizontal" sourceAttributes:1 sourceExtendedEventField:9];
+  v45 = [(GCDeviceButtonInputDescription *)v12 initWithName:@"Right Shoulder" additionalAliases:0 attributes:2 nameLocalizationKey:v13 symbolName:@"r.button.roundedbottom.horizontal" sourceAttributes:1 sourceExtendedEventField:9];
 
   v14 = [GCDeviceButtonInputDescription alloc];
   v15 = [*MEMORY[0x1E69A05B8] key];
-  v42 = [(GCDeviceButtonInputDescription *)v14 initWithName:@"Left Trigger" additionalAliases:0 attributes:2 nameLocalizationKey:v15 symbolName:@"zl.button.roundedtop.horizontal" sourceAttributes:1 sourceExtendedEventField:18];
+  v41 = [(GCDeviceButtonInputDescription *)v14 initWithName:@"Left Trigger" additionalAliases:0 attributes:2 nameLocalizationKey:v15 symbolName:@"zl.button.roundedtop.horizontal" sourceAttributes:1 sourceExtendedEventField:18];
 
   v16 = [GCDeviceButtonInputDescription alloc];
   v17 = [*MEMORY[0x1E69A05D0] key];
-  v41 = [(GCDeviceButtonInputDescription *)v16 initWithName:@"Right Trigger" additionalAliases:0 attributes:2 nameLocalizationKey:v17 symbolName:@"zr.button.roundedtop.horizontal" sourceAttributes:1 sourceExtendedEventField:19];
+  v40 = [(GCDeviceButtonInputDescription *)v16 initWithName:@"Right Trigger" additionalAliases:0 attributes:2 nameLocalizationKey:v17 symbolName:@"zr.button.roundedtop.horizontal" sourceAttributes:1 sourceExtendedEventField:19];
 
   v18 = [GCDeviceButtonInputDescription alloc];
   v19 = [*MEMORY[0x1E69A05A8] key];
@@ -44,141 +44,139 @@
 
   v24 = [GCDeviceButtonInputDescription alloc];
   v25 = [*MEMORY[0x1E69A03A0] key];
-  v40 = [(GCDeviceButtonInputDescription *)v24 initWithName:@"Button Share" additionalAliases:0 attributes:49152 nameLocalizationKey:v25 symbolName:@"circle.square" sourceAttributes:1 sourceExtendedEventField:40];
+  v39 = [(GCDeviceButtonInputDescription *)v24 initWithName:@"Button Share" additionalAliases:0 attributes:49152 nameLocalizationKey:v25 symbolName:@"circle.square" sourceAttributes:1 sourceExtendedEventField:40];
 
   v26 = [GCDeviceDirectionPadDescription alloc];
   v27 = [*MEMORY[0x1E69A05A0] key];
-  v39 = [(GCDeviceDirectionPadDescription *)v26 initWithName:@"Right Thumbstick" additionalAliases:0 attributes:2 nameLocalizationKey:v27 symbolName:@"circle.grid.cross" sourceAttributes:1 sourceUpExtendedEventField:14 sourceDownExtendedEventField:15 sourceLeftExtendedEventField:16 sourceRightExtendedEventField:17];
+  v38 = [(GCDeviceDirectionPadDescription *)v26 initWithName:@"Right Thumbstick" additionalAliases:0 attributes:2 nameLocalizationKey:v27 symbolName:@"circle.grid.cross" sourceAttributes:1 sourceUpExtendedEventField:14 sourceDownExtendedEventField:15 sourceLeftExtendedEventField:16 sourceRightExtendedEventField:17];
 
   v28 = [GCDeviceDirectionPadDescription alloc];
   v29 = [*MEMORY[0x1E69A0598] key];
-  v38 = [(GCDeviceDirectionPadDescription *)v28 initWithName:@"Direction Pad" additionalAliases:0 attributes:2 nameLocalizationKey:v29 symbolName:@"dpad" sourceAttributes:1 sourceUpExtendedEventField:0 sourceDownExtendedEventField:1 sourceLeftExtendedEventField:2 sourceRightExtendedEventField:3];
+  v37 = [(GCDeviceDirectionPadDescription *)v28 initWithName:@"Direction Pad" additionalAliases:0 attributes:2 nameLocalizationKey:v29 symbolName:@"dpad" sourceAttributes:1 sourceUpExtendedEventField:0 sourceDownExtendedEventField:1 sourceLeftExtendedEventField:2 sourceRightExtendedEventField:3];
 
   v30 = [GCDeviceDirectionPadDescription alloc];
   v31 = [*MEMORY[0x1E69A05B0] key];
   v32 = [(GCDeviceDirectionPadDescription *)v30 initWithName:@"Left Thumbstick" additionalAliases:0 attributes:2 nameLocalizationKey:v31 symbolName:@"l.joystick" sourceAttributes:0 sourceUpExtendedEventField:10 sourceDownExtendedEventField:11 sourceLeftExtendedEventField:12 sourceRightExtendedEventField:13];
 
   v33 = [_GCDevicePhysicalInputComponentDescription alloc];
-  v49[0] = v47;
-  v49[1] = v45;
-  v49[2] = v48;
-  v49[3] = v46;
-  v49[4] = v42;
-  v49[5] = v41;
-  v49[6] = v20;
-  v49[7] = v23;
-  v49[8] = v40;
-  v49[9] = v39;
-  v49[10] = v38;
-  v49[11] = v32;
-  v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:12];
+  v48[0] = v46;
+  v48[1] = v44;
+  v48[2] = v47;
+  v48[3] = v45;
+  v48[4] = v41;
+  v48[5] = v40;
+  v48[6] = v20;
+  v48[7] = v23;
+  v48[8] = v39;
+  v48[9] = v38;
+  v48[10] = v37;
+  v48[11] = v32;
+  v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:12];
   v35 = [(_GCDevicePhysicalInputComponentDescription *)v33 initWithIdentifier:identifierCopy elements:v34 bindings:bindingsCopy];
-
-  v36 = *MEMORY[0x1E69E9840];
 
   return v35;
 }
 
 + (id)logicalDevice:(id)device makeControllerInputDescriptionWithIdentifier:(id)identifier bindings:(id)bindings
 {
-  v141[1] = *MEMORY[0x1E69E9840];
+  v140[1] = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E69A0690];
   bindingsCopy = bindings;
   identifierCopy = identifier;
-  v128 = [v6 descriptionWithIdentifier:@"button.a"];
+  v127 = [v6 descriptionWithIdentifier:@"button.a"];
   v7 = [MEMORY[0x1E695DFD8] setWithObject:@"Button A"];
-  [v128 setAliases:v7];
+  [v127 setAliases:v7];
 
-  [v128 setLocalizedName:*MEMORY[0x1E69A0530]];
+  [v127 setLocalizedName:*MEMORY[0x1E69A0530]];
   v8 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"a.circle"];
-  [v128 setSymbol:v8];
+  [v127 setSymbol:v8];
 
-  [v128 setEventPressedValueField:4];
-  v127 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.b"];
+  [v127 setEventPressedValueField:4];
+  v126 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.b"];
   v9 = [MEMORY[0x1E695DFD8] setWithObject:@"Button B"];
-  [v127 setAliases:v9];
+  [v126 setAliases:v9];
 
-  [v127 setLocalizedName:*MEMORY[0x1E69A0538]];
+  [v126 setLocalizedName:*MEMORY[0x1E69A0538]];
   v10 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"b.circle"];
-  [v127 setSymbol:v10];
+  [v126 setSymbol:v10];
 
-  [v127 setEventPressedValueField:5];
-  v126 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.l"];
+  [v126 setEventPressedValueField:5];
+  v125 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.l"];
   v11 = [MEMORY[0x1E695DFD8] setWithObject:@"Left Shoulder"];
-  [v126 setAliases:v11];
+  [v125 setAliases:v11];
 
-  [v126 setLocalizedName:*MEMORY[0x1E69A0580]];
+  [v125 setLocalizedName:*MEMORY[0x1E69A0580]];
   v12 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"l.button.roundedbottom.horizontal"];
-  [v126 setSymbol:v12];
+  [v125 setSymbol:v12];
 
-  [v126 setEventPressedValueField:8];
-  v125 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.r"];
+  [v125 setEventPressedValueField:8];
+  v124 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.r"];
   v13 = [MEMORY[0x1E695DFD8] setWithObject:@"Right Shoulder"];
-  [v125 setAliases:v13];
+  [v124 setAliases:v13];
 
-  [v125 setLocalizedName:*MEMORY[0x1E69A05C0]];
+  [v124 setLocalizedName:*MEMORY[0x1E69A05C0]];
   v14 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"r.button.roundedbottom.horizontal"];
-  [v125 setSymbol:v14];
+  [v124 setSymbol:v14];
 
-  [v125 setEventPressedValueField:9];
-  v124 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.z"];
+  [v124 setEventPressedValueField:9];
+  v123 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.z"];
   v15 = [MEMORY[0x1E695DFD8] setWithObject:@"Left Trigger"];
-  [v124 setAliases:v15];
+  [v123 setAliases:v15];
 
-  [v124 setLocalizedName:*MEMORY[0x1E69A05B8]];
+  [v123 setLocalizedName:*MEMORY[0x1E69A05B8]];
   v16 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"zl.button.roundedtop.horizontal"];
-  [v124 setSymbol:v16];
+  [v123 setSymbol:v16];
 
-  [v124 setEventPressedValueField:18];
-  v120 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.zr"];
+  [v123 setEventPressedValueField:18];
+  v119 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.zr"];
   v17 = [MEMORY[0x1E695DFD8] setWithObject:@"Right Trigger"];
-  [v120 setAliases:v17];
+  [v119 setAliases:v17];
 
-  [v120 setLocalizedName:*MEMORY[0x1E69A05D0]];
+  [v119 setLocalizedName:*MEMORY[0x1E69A05D0]];
   v18 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"zr.button.roundedtop.horizontal"];
-  [v120 setSymbol:v18];
+  [v119 setSymbol:v18];
 
-  [v120 setEventPressedValueField:19];
-  v123 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.start"];
+  [v119 setEventPressedValueField:19];
+  v122 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.start"];
   v19 = [MEMORY[0x1E695DFD8] setWithObject:@"Button Menu"];
-  [v123 setAliases:v19];
+  [v122 setAliases:v19];
 
-  [v123 setLocalizedName:*MEMORY[0x1E69A05A8]];
+  [v122 setLocalizedName:*MEMORY[0x1E69A05A8]];
   v20 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"line.horizontal.3.circle"];
-  [v123 setSymbol:v20];
+  [v122 setSymbol:v20];
 
-  [v123 setEventPressedValueField:23];
-  v119 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.home"];
+  [v122 setEventPressedValueField:23];
+  v118 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.home"];
   v21 = [MEMORY[0x1E695DFD8] setWithObject:@"Button Home"];
-  [v119 setAliases:v21];
+  [v118 setAliases:v21];
 
-  [v119 setLocalizedName:*MEMORY[0x1E69A0540]];
+  [v118 setLocalizedName:*MEMORY[0x1E69A0540]];
   v22 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"house.circle"];
-  [v119 setSymbol:v22];
+  [v118 setSymbol:v22];
 
-  [v119 setEventPressedValueField:22];
-  v118 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.capture"];
+  [v118 setEventPressedValueField:22];
+  v117 = [MEMORY[0x1E69A0690] descriptionWithIdentifier:@"button.capture"];
   v23 = [MEMORY[0x1E695DFD8] setWithObject:@"Button Share"];
-  [v118 setAliases:v23];
+  [v117 setAliases:v23];
 
-  [v118 setLocalizedName:*MEMORY[0x1E69A03A0]];
+  [v117 setLocalizedName:*MEMORY[0x1E69A03A0]];
   v24 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"circle.square"];
-  [v118 setSymbol:v24];
+  [v117 setSymbol:v24];
 
-  [v118 setEventPressedValueField:40];
-  v117 = [MEMORY[0x1E69A06A8] descriptionWithIdentifier:@"dpad"];
+  [v117 setEventPressedValueField:40];
+  v116 = [MEMORY[0x1E69A06A8] descriptionWithIdentifier:@"dpad"];
   v25 = [MEMORY[0x1E695DFD8] setWithObject:@"Direction Pad"];
-  [v117 setAliases:v25];
+  [v116 setAliases:v25];
 
-  [v117 setLocalizedName:*MEMORY[0x1E69A0598]];
+  [v116 setLocalizedName:*MEMORY[0x1E69A0598]];
   v26 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"dpad"];
-  [v117 setSymbol:v26];
+  [v116 setSymbol:v26];
 
-  [v117 setAnalog:0];
-  [v117 setEventUpValueField:0];
-  [v117 setEventDownValueField:1];
-  [v117 setEventLeftValueField:2];
-  [v117 setEventRightValueField:3];
+  [v116 setAnalog:0];
+  [v116 setEventUpValueField:0];
+  [v116 setEventDownValueField:1];
+  [v116 setEventLeftValueField:2];
+  [v116 setEventRightValueField:3];
   v27 = [MEMORY[0x1E69A06A8] descriptionWithIdentifier:@"buttons.c"];
   v28 = [MEMORY[0x1E695DFD8] setWithObject:@"Right Thumbstick"];
   [v27 setAliases:v28];
@@ -199,8 +197,8 @@
   v34 = [v33 initWithFormat:*MEMORY[0x1E69A03E0] arg:v29];
   symbol = [v27 symbol];
   v36 = [v31 sourceWithElementAliases:v32 localizedName:v34 symbol:symbol direction:10];
-  v141[0] = v36;
-  v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v141 count:1];
+  v140[0] = v36;
+  v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v140 count:1];
   [v27 setXSources:v37];
 
   v38 = MEMORY[0x1E69A06B8];
@@ -209,8 +207,8 @@
   v41 = [v40 initWithFormat:*MEMORY[0x1E69A03E8] arg:v29];
   symbol2 = [v27 symbol];
   v43 = [v38 sourceWithElementAliases:v39 localizedName:v41 symbol:symbol2 direction:5];
-  v140 = v43;
-  v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v140 count:1];
+  v139 = v43;
+  v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v139 count:1];
   [v27 setYSources:v44];
 
   v45 = MEMORY[0x1E69A06B8];
@@ -219,8 +217,8 @@
   v48 = [v47 initWithFormat:*MEMORY[0x1E69A03D8] arg:v29];
   v49 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"circle.grid.cross.up.filled"];
   v50 = [v45 sourceWithElementAliases:v46 localizedName:v48 symbol:v49 direction:1];
-  v139 = v50;
-  v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v139 count:1];
+  v138 = v50;
+  v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v138 count:1];
   [v27 setUpSources:v51];
 
   v52 = MEMORY[0x1E69A06B8];
@@ -229,8 +227,8 @@
   v55 = [v54 initWithFormat:*MEMORY[0x1E69A03D0] arg:v29];
   v56 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"circle.grid.cross.right.filled"];
   v57 = [v52 sourceWithElementAliases:v53 localizedName:v55 symbol:v56 direction:2];
-  v138 = v57;
-  v58 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v138 count:1];
+  v137 = v57;
+  v58 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v137 count:1];
   [v27 setRightSources:v58];
 
   v59 = MEMORY[0x1E69A06B8];
@@ -239,8 +237,8 @@
   v62 = [v61 initWithFormat:*MEMORY[0x1E69A03C0] arg:v29];
   v63 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"circle.grid.cross.down.filled"];
   v64 = [v59 sourceWithElementAliases:v60 localizedName:v62 symbol:v63 direction:4];
-  v137 = v64;
-  v65 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v137 count:1];
+  v136 = v64;
+  v65 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v136 count:1];
   [v27 setDownSources:v65];
 
   v66 = MEMORY[0x1E69A06B8];
@@ -249,8 +247,8 @@
   v69 = [v68 initWithFormat:*MEMORY[0x1E69A03C8] arg:v29];
   v70 = [MEMORY[0x1E69A06C0] symbolWithSFSymbolsName:@"circle.grid.cross.left.filled"];
   v71 = [v66 sourceWithElementAliases:v67 localizedName:v69 symbol:v70 direction:8];
-  v136 = v71;
-  v72 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v136 count:1];
+  v135 = v71;
+  v72 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v135 count:1];
   [v27 setLeftSources:v72];
 
   v73 = [MEMORY[0x1E69A06A8] descriptionWithIdentifier:@"controlstick"];
@@ -271,8 +269,8 @@
   localizedName = [v73 localizedName];
   symbol3 = [v73 symbol];
   v80 = [v76 sourceWithElementAliases:v77 localizedName:localizedName symbol:symbol3 direction:10];
-  v135 = v80;
-  v81 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v135 count:1];
+  v134 = v80;
+  v81 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v134 count:1];
   [v73 setXSources:v81];
 
   v82 = MEMORY[0x1E69A06B8];
@@ -280,8 +278,8 @@
   localizedName2 = [v73 localizedName];
   symbol4 = [v73 symbol];
   v86 = [v82 sourceWithElementAliases:v83 localizedName:localizedName2 symbol:symbol4 direction:5];
-  v134 = v86;
-  v87 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v134 count:1];
+  v133 = v86;
+  v87 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v133 count:1];
   [v73 setYSources:v87];
 
   v88 = MEMORY[0x1E69A06B8];
@@ -289,8 +287,8 @@
   localizedName3 = [v73 localizedName];
   symbol5 = [v73 symbol];
   v92 = [v88 sourceWithElementAliases:v89 localizedName:localizedName3 symbol:symbol5 direction:1];
-  v133 = v92;
-  v93 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v133 count:1];
+  v132 = v92;
+  v93 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v132 count:1];
   [v73 setUpSources:v93];
 
   v94 = MEMORY[0x1E69A06B8];
@@ -298,8 +296,8 @@
   localizedName4 = [v73 localizedName];
   symbol6 = [v73 symbol];
   v98 = [v94 sourceWithElementAliases:v95 localizedName:localizedName4 symbol:symbol6 direction:2];
-  v132 = v98;
-  v99 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v132 count:1];
+  v131 = v98;
+  v99 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v131 count:1];
   [v73 setRightSources:v99];
 
   v100 = MEMORY[0x1E69A06B8];
@@ -307,8 +305,8 @@
   localizedName5 = [v73 localizedName];
   symbol7 = [v73 symbol];
   v104 = [v100 sourceWithElementAliases:v101 localizedName:localizedName5 symbol:symbol7 direction:4];
-  v131 = v104;
-  v105 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v131 count:1];
+  v130 = v104;
+  v105 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v130 count:1];
   [v73 setDownSources:v105];
 
   v106 = MEMORY[0x1E69A06B8];
@@ -316,28 +314,27 @@
   localizedName6 = [v73 localizedName];
   symbol8 = [v73 symbol];
   v110 = [v106 sourceWithElementAliases:v107 localizedName:localizedName6 symbol:symbol8 direction:8];
-  v130 = v110;
-  v111 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v130 count:1];
+  v129 = v110;
+  v111 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v129 count:1];
   [v73 setLeftSources:v111];
 
   v112 = objc_opt_new();
-  v129[0] = v119;
-  v129[1] = v118;
-  v129[2] = v123;
-  v129[3] = v128;
-  v129[4] = v127;
-  v129[5] = v126;
-  v129[6] = v125;
-  v129[7] = v124;
-  v129[8] = v120;
-  v129[9] = v73;
-  v129[10] = v27;
-  v129[11] = v117;
-  v113 = [MEMORY[0x1E695DEC8] arrayWithObjects:v129 count:12];
+  v128[0] = v118;
+  v128[1] = v117;
+  v128[2] = v122;
+  v128[3] = v127;
+  v128[4] = v126;
+  v128[5] = v125;
+  v128[6] = v124;
+  v128[7] = v123;
+  v128[8] = v119;
+  v128[9] = v73;
+  v128[10] = v27;
+  v128[11] = v116;
+  v113 = [MEMORY[0x1E695DEC8] arrayWithObjects:v128 count:12];
   [v112 setElements:v113];
 
   v114 = [[_GCControllerInputComponentDescription alloc] initWithIdentifier:identifierCopy controllerInputs:v112 bindings:bindingsCopy];
-  v115 = *MEMORY[0x1E69E9840];
 
   return v114;
 }

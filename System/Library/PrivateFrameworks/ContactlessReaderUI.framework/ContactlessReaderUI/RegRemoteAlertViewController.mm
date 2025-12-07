@@ -40,7 +40,7 @@
   contextCopy = context;
   selfCopy = self;
   sub_243FDA844(context, v6, v7);
-  sub_243F7EE58(v6);
+  sub_243F7EE58(v6, v7);
 }
 
 - (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion
@@ -48,18 +48,21 @@
   v5 = _Block_copy(completion);
   if (v5)
   {
-    *(swift_allocObject() + 16) = v5;
-    v6 = sub_243FDC768;
+    v6 = v5;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
+    v8 = sub_243FDC768;
   }
 
   else
   {
-    v6 = 0;
+    v8 = 0;
+    v7 = 0;
   }
 
   selfCopy = self;
   sub_243FDC43C();
-  sub_243F7EE58(v6);
+  sub_243F7EE58(v8, v7);
 }
 
 - (_TtC19ContactlessReaderUI28RegRemoteAlertViewController)initWithNibName:(id)name bundle:(id)bundle

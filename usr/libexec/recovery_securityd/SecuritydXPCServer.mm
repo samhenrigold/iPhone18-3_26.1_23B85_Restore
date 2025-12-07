@@ -64,15 +64,8 @@
 
 LABEL_8:
   v13 = [syncCopy objectForKeyedSubscript:kSecDataInetExtraNotes];
-  if (v13)
+  if (v13 || ([syncCopy objectForKeyedSubscript:kSecDataInetExtraHistory], (v13 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(syncCopy, "objectForKeyedSubscript:", kSecDataInetExtraClientDefined0), (v13 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(syncCopy, "objectForKeyedSubscript:", kSecDataInetExtraClientDefined1), (v13 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(syncCopy, "objectForKeyedSubscript:", kSecDataInetExtraClientDefined2), (v13 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    goto LABEL_13;
-  }
-
-  v13 = [syncCopy objectForKeyedSubscript:kSecDataInetExtraHistory];
-  if (v13 || ([syncCopy objectForKeyedSubscript:kSecDataInetExtraClientDefined0], (v13 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(syncCopy, "objectForKeyedSubscript:", kSecDataInetExtraClientDefined1), (v13 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(syncCopy, "objectForKeyedSubscript:", kSecDataInetExtraClientDefined2), (v13 = objc_claimAutoreleasedReturnValue()) != 0))
-  {
-LABEL_13:
 
 LABEL_14:
     if ([(SecuritydXPCServer *)self clientHasBooleanEntitlement:@"com.apple.private.keychain.inet_expansion_fields"])
@@ -824,7 +817,7 @@ LABEL_9:
   effectiveUserIdentifier = [connectionCopy effectiveUserIdentifier];
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else

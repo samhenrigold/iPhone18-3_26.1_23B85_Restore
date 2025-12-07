@@ -36,46 +36,46 @@
   availableCopy = available;
   progressCopy = progress;
   completionCopy = completion;
-  if (vk_deviceSupportsRemoveBackground())
+  if (vk_deviceSupportsRemoveBackground(completionCopy, v14))
   {
-    v39 = 0;
-    v14 = [(VKCRemoveBackgroundVideoRequestHandler *)self isValidRequest:requestCopy error:&v39];
-    v15 = v39;
-    if (v14)
+    v40 = 0;
+    v15 = [(VKCRemoveBackgroundVideoRequestHandler *)self isValidRequest:requestCopy error:&v40];
+    v16 = v40;
+    if (v15)
     {
       [VKCRemoveBackgroundVideoRequestHandler _willBeginForRequest:?];
-      v29 = self->_service;
+      v30 = self->_service;
       queue = self->_queue;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __100__VKCRemoveBackgroundVideoRequestHandler_performRequest_previewResultAvailable_progress_completion___block_invoke;
       block[3] = &unk_1E7BE5E00;
-      v33 = requestCopy;
+      v34 = requestCopy;
       selfCopy = self;
-      v36 = completionCopy;
-      v37 = progressCopy;
-      v38 = availableCopy;
-      v35 = v29;
-      v31 = v29;
+      v37 = completionCopy;
+      v38 = progressCopy;
+      v39 = availableCopy;
+      v36 = v30;
+      v32 = v30;
       dispatch_async(queue, block);
 
       goto LABEL_11;
     }
 
-    v16 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit.RemoveBackground");
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit.RemoveBackground");
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [(VKCRemoveBackgroundVideoRequestHandler *)v15 performRequest:v16 previewResultAvailable:v17 progress:v18 completion:v19, v20, v21, v22];
+      [(VKCRemoveBackgroundVideoRequestHandler *)v16 performRequest:v17 previewResultAvailable:v18 progress:v19 completion:v20, v21, v22, v23];
     }
   }
 
   else
   {
-    v15 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.VisionKit.RemoveBackground" code:-8 userInfo:0];
-    v16 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit.RemoveBackground");
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v16 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.VisionKit.RemoveBackground" code:-8 userInfo:0];
+    v17 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit.RemoveBackground");
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [(VKCRemoveBackgroundVideoRequestHandler *)v15 performRequest:v16 previewResultAvailable:v23 progress:v24 completion:v25, v26, v27, v28];
+      [(VKCRemoveBackgroundVideoRequestHandler *)v16 performRequest:v17 previewResultAvailable:v24 progress:v25 completion:v26, v27, v28, v29];
     }
   }
 
@@ -86,7 +86,7 @@
 
   if (completionCopy)
   {
-    (*(completionCopy + 2))(completionCopy, 0, v15);
+    (*(completionCopy + 2))(completionCopy, 0, v16);
   }
 
 LABEL_11:
@@ -297,7 +297,7 @@ void __100__VKCRemoveBackgroundVideoRequestHandler_performRequest_previewResultA
 {
   if (request)
   {
-    v1 = _VKSignpostLog();
+    v1 = _VKSignpostLog(request);
     if (os_signpost_enabled(v1))
     {
       OUTLINED_FUNCTION_1_5();
@@ -307,7 +307,8 @@ void __100__VKCRemoveBackgroundVideoRequestHandler_performRequest_previewResultA
     v8 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      OUTLINED_FUNCTION_2_2(&dword_1B4335000, v9, v10, "Signpost Begin: VisionKit Remove Background Movie Request", v11, v12, v13, v14, 0);
+      v15 = 0;
+      OUTLINED_FUNCTION_2_2(&dword_1B4335000, v9, v10, "Signpost Begin: VisionKit Remove Background Movie Request", v11, v12, v13, v14, v15);
     }
   }
 }
@@ -316,7 +317,7 @@ void __100__VKCRemoveBackgroundVideoRequestHandler_performRequest_previewResultA
 {
   if (request)
   {
-    v1 = _VKSignpostLog();
+    v1 = _VKSignpostLog(request);
     if (os_signpost_enabled(v1))
     {
       OUTLINED_FUNCTION_1_5();
@@ -326,9 +327,38 @@ void __100__VKCRemoveBackgroundVideoRequestHandler_performRequest_previewResultA
     v8 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      OUTLINED_FUNCTION_2_2(&dword_1B4335000, v9, v10, "Signpost End: VisionKit Remove Background Movie Request", v11, v12, v13, v14, 0);
+      v15 = 0;
+      OUTLINED_FUNCTION_2_2(&dword_1B4335000, v9, v10, "Signpost End: VisionKit Remove Background Movie Request", v11, v12, v13, v14, v15);
     }
   }
+}
+
+- (void)performRequest:(uint64_t)a3 previewResultAvailable:(uint64_t)a4 progress:(uint64_t)a5 completion:(uint64_t)a6 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_5(&dword_1B4335000, a2, a3, "Request to remove video background on an unsupported device. %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)performRequest:(uint64_t)a3 previewResultAvailable:(uint64_t)a4 progress:(uint64_t)a5 completion:(uint64_t)a6 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_5(&dword_1B4335000, a2, a3, "Request to remove video background with an invalid image. %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __100__VKCRemoveBackgroundVideoRequestHandler_performRequest_previewResultAvailable_progress_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_5(&dword_1B4335000, a2, a3, "Could not perform remove background video due to nil request or inability to create a MAD request. %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __100__VKCRemoveBackgroundVideoRequestHandler_performRequest_previewResultAvailable_progress_completion___block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*(*a1 + 8) + 40);
+  OUTLINED_FUNCTION_0_5(&dword_1B4335000, a2, a3, "RemoveBG video request result handler error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

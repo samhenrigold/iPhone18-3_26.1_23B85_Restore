@@ -1,7 +1,9 @@
 @interface BMDKEvent
 + (id)eventWithDKEvent:(id)event;
++ (id)eventWithData:(id)data dataVersion:(unsigned int)version;
 - (BMDKEvent)initWithCoder:(id)coder;
 - (BMDKEvent)initWithDKEvent:(id)event;
+- (BMDKEvent)initWithData:(id)data dataVersion:(unsigned int)version decodeMetadata:(BOOL)metadata;
 - (BMDKEvent)initWithProto:(id)proto;
 - (BMDKEvent)initWithProtoData:(id)data;
 - (BOOL)isCompleteWithContext:(id)context error:(id *)error;
@@ -51,30 +53,52 @@
   return v8;
 }
 
+- (BMDKEvent)initWithData:(id)data dataVersion:(unsigned int)version decodeMetadata:(BOOL)metadata
+{
+  metadataCopy = metadata;
+  v6 = *&version;
+  dataCopy = data;
+  v9 = [BMDKEventCodec codecWithVersion:v6];
+  [v9 setDecodeMetadata:metadataCopy];
+  v10 = [v9 decodeWithProtoData:dataCopy];
+
+  return v10;
+}
+
++ (id)eventWithData:(id)data dataVersion:(unsigned int)version
+{
+  v4 = *&version;
+  dataCopy = data;
+  v6 = [BMDKEventCodec codecWithVersion:v4];
+  v7 = [v6 decodeWithProtoData:dataCopy];
+
+  return v7;
+}
+
 - (id)jsonDict
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v71 = 0u;
   v72 = 0u;
   v73 = 0u;
   v74 = 0u;
-  v75 = 0u;
   metadata = [(_DKEvent *)self->_dkEvent metadata];
-  v5 = [metadata countByEnumeratingWithState:&v72 objects:v78 count:16];
+  v5 = [metadata countByEnumeratingWithState:&v71 objects:v77 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v73;
+    v7 = *v72;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v73 != v7)
+        if (*v72 != v7)
         {
           objc_enumerationMutation(metadata);
         }
 
-        v9 = *(*(&v72 + 1) + 8 * i);
+        v9 = *(*(&v71 + 1) + 8 * i);
         metadata2 = [(_DKEvent *)self->_dkEvent metadata];
         v11 = [metadata2 objectForKeyedSubscript:v9];
 
@@ -103,7 +127,7 @@
         }
       }
 
-      v6 = [metadata countByEnumeratingWithState:&v72 objects:v78 count:16];
+      v6 = [metadata countByEnumeratingWithState:&v71 objects:v77 count:16];
     }
 
     while (v6);
@@ -218,7 +242,7 @@
     v39 = 0;
   }
 
-  v76[0] = @"UUID";
+  v75[0] = @"UUID";
   uUID = [(_DKEvent *)self->_dkEvent UUID];
   uUIDString = [uUID UUIDString];
   v41 = uUIDString;
@@ -227,20 +251,20 @@
     uUIDString = [MEMORY[0x1E695DFB0] null];
   }
 
-  v62 = uUIDString;
-  v77[0] = uUIDString;
-  v76[1] = @"startDate";
+  v61 = uUIDString;
+  v76[0] = uUIDString;
+  v75[1] = @"startDate";
   startDate = [(_DKEvent *)self->_dkEvent startDate];
   null7 = [startDate description];
-  v66 = null7;
+  v65 = null7;
   if (!null7)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v61 = null7;
-  v77[1] = null7;
-  v76[2] = @"endDate";
+  v60 = null7;
+  v76[1] = null7;
+  v75[2] = @"endDate";
   endDate = [(_DKEvent *)self->_dkEvent endDate];
   null8 = [endDate description];
   v44 = null8;
@@ -249,9 +273,9 @@
     null8 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v60 = null8;
-  v77[2] = null8;
-  v76[3] = @"timeZone";
+  v59 = null8;
+  v76[2] = null8;
+  v75[3] = @"timeZone";
   timeZone = [(_DKEvent *)self->_dkEvent timeZone];
   null9 = [timeZone description];
   v46 = null9;
@@ -260,29 +284,29 @@
     null9 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v59 = null9;
-  v77[3] = null9;
-  v76[4] = @"value";
+  v58 = null9;
+  v76[3] = null9;
+  v75[4] = @"value";
   null10 = v39;
-  v70 = v39;
+  v69 = v39;
   if (!v39)
   {
     null10 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v68 = v41;
-  v77[4] = null10;
-  v77[5] = v3;
-  v76[5] = @"metadata";
-  v76[6] = @"confidence";
+  v67 = v41;
+  v76[4] = null10;
+  v76[5] = v3;
+  v75[5] = @"metadata";
+  v75[6] = @"confidence";
   v48 = MEMORY[0x1E696AD98];
   [(_DKEvent *)self->_dkEvent confidence];
   v49 = [v48 numberWithDouble:?];
-  v77[6] = v49;
-  v77[7] = v14;
-  v71 = v14;
-  v76[7] = @"source";
-  v76[8] = @"creationDate";
+  v76[6] = v49;
+  v76[7] = v14;
+  v70 = v14;
+  v75[7] = @"source";
+  v75[8] = @"creationDate";
   creationDate = [(_DKEvent *)self->_dkEvent creationDate];
   v51 = [creationDate description];
   null11 = v51;
@@ -291,8 +315,8 @@
     null11 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v77[8] = null11;
-  v76[9] = @"localCreationDate";
+  v76[8] = null11;
+  v75[9] = @"localCreationDate";
   localCreationDate = [(_DKEvent *)self->_dkEvent localCreationDate];
   v54 = [localCreationDate description];
   null12 = v54;
@@ -301,8 +325,8 @@
     null12 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v77[9] = null12;
-  v63 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v77 forKeys:v76 count:10];
+  v76[9] = null12;
+  v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v76 forKeys:v75 count:10];
   if (!v54)
   {
   }
@@ -311,7 +335,7 @@
   {
   }
 
-  if (!v70)
+  if (!v69)
   {
   }
 
@@ -323,17 +347,15 @@
   {
   }
 
-  if (!v66)
+  if (!v65)
   {
   }
 
-  if (!v68)
+  if (!v67)
   {
   }
 
-  v56 = *MEMORY[0x1E69E9840];
-
-  return v63;
+  return v62;
 }
 
 - (id)json

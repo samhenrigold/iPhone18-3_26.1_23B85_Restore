@@ -1194,7 +1194,7 @@ LABEL_9:
 + (id)configurationDirectoryForBundleID:(id)d mustExist:(BOOL)exist
 {
   existCopy = exist;
-  v5 = sub_100080FB4(&unk_1003D0540);
+  v5 = sub_100080FB4(&unk_1003D0540, &unk_1002EDD50);
   __chkstk_darwin(v5 - 8);
   v7 = &v15 - v6;
   v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
@@ -1265,7 +1265,7 @@ LABEL_9:
 + (id)simulatedStoreKitErrorFor:(int64_t)for client:(id)client
 {
   clientCopy = client;
-  v6 = sub_10018C008(for, clientCopy);
+  v6 = sub_10018C008(for);
 
   return v6;
 }

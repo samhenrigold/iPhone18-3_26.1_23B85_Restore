@@ -2,6 +2,7 @@
 - (ATXContextFlightEventSuggestionProducer)initWithTitle:(id)title flightInformationSchema:(id)schema urlString:(id)string teamIdentifier:(id)identifier validFromStartDate:(id)date validToEndDate:(id)endDate alternateDestinationTitle:(id)destinationTitle dateInterval:(id)self0;
 - (id)_contextTitleWithReasons:(unint64_t)reasons;
 - (id)_stringsWithPredictionReasons:(unint64_t)reasons;
+- (id)sfSearchResult:(id)result title:(id)title subtitle:(id)subtitle type:(int)type sectionHeader:(id)header score:(double)score;
 - (id)suggestionForAirplaneModeWithPredictionReasons:(unint64_t)reasons score:(double)score;
 - (id)suggestionForFlightCheckInWithReason:(unint64_t)reason score:(double)score;
 - (id)suggestionForFlightInformationWithReason:(unint64_t)reason score:(double)score date:(id)date;
@@ -44,7 +45,7 @@
 - (id)_contextTitleWithReasons:(unint64_t)reasons
 {
   v32 = *MEMORY[0x277D85DE8];
-  v5 = __atxlog_handle_context_heuristic();
+  v5 = __atxlog_handle_context_heuristic(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     title = self->_title;
@@ -71,24 +72,25 @@
 LABEL_11:
     if (!v11)
     {
-      v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v17 = v16;
-      v18 = @"CONTEXT_UPCOMING_FLIGHT_NO_ARRIVAL_CITY_TITLE";
+      v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v18 = v17;
+      v19 = @"CONTEXT_UPCOMING_FLIGHT_NO_ARRIVAL_CITY_TITLE";
       goto LABEL_21;
     }
 
-    v14 = MEMORY[0x277CCACA8];
-    v15 = @"CONTEXT_UPCOMING_FLIGHT_TITLE";
+    v15 = MEMORY[0x277CCACA8];
+    v16 = @"CONTEXT_UPCOMING_FLIGHT_TITLE";
 LABEL_18:
-    v17 = [v7 localizedStringForKey:v15 value:&stru_2850AD368 table:0];
-    v19 = [v14 localizedStringWithFormat:v17, v11];
+    v18 = [v7 localizedStringForKey:v16 value:&stru_2850AD368 table:0];
+    v20 = [v15 localizedStringWithFormat:v18, v11];
 LABEL_22:
-    v13 = v19;
+    v14 = v20;
 
     goto LABEL_23;
   }
 
-  v11 = self->_alternateDestinationTitle;
+  v12 = self->_alternateDestinationTitle;
+  v11 = v12;
   if ((reasons & 0x80000000) != 0)
   {
     goto LABEL_11;
@@ -99,14 +101,14 @@ LABEL_5:
   {
     if (!v11)
     {
-      v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v17 = v16;
-      v18 = @"CONTEXT_ONGOING_FLIGHT_NO_ARRIVAL_CITY_TITLE";
+      v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v18 = v17;
+      v19 = @"CONTEXT_ONGOING_FLIGHT_NO_ARRIVAL_CITY_TITLE";
       goto LABEL_21;
     }
 
-    v14 = MEMORY[0x277CCACA8];
-    v15 = @"CONTEXT_ONGOING_FLIGHT_TITLE";
+    v15 = MEMORY[0x277CCACA8];
+    v16 = @"CONTEXT_ONGOING_FLIGHT_TITLE";
     goto LABEL_18;
   }
 
@@ -114,21 +116,21 @@ LABEL_5:
   {
     if (v11)
     {
-      v14 = MEMORY[0x277CCACA8];
-      v15 = @"CONTEXT_CONCLUDED_FLIGHT_TITLE";
+      v15 = MEMORY[0x277CCACA8];
+      v16 = @"CONTEXT_CONCLUDED_FLIGHT_TITLE";
       goto LABEL_18;
     }
 
-    v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v17 = v16;
-    v18 = @"CONTEXT_CONCLUDED_FLIGHT_NO_ARRIVAL_CITY_TITLE";
+    v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v18 = v17;
+    v19 = @"CONTEXT_CONCLUDED_FLIGHT_NO_ARRIVAL_CITY_TITLE";
 LABEL_21:
-    v19 = [v16 localizedStringForKey:v18 value:&stru_2850AD368 table:0];
+    v20 = [v17 localizedStringForKey:v19 value:&stru_2850AD368 table:0];
     goto LABEL_22;
   }
 
-  v12 = __atxlog_handle_context_heuristic();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+  v13 = __atxlog_handle_context_heuristic(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
   {
     v22 = self->_title;
     v23 = [(ATXContextFlightEventSuggestionProducer *)self _stringsWithPredictionReasons:reasons];
@@ -140,15 +142,13 @@ LABEL_21:
     v29 = v23;
     v30 = 2112;
     v31 = v11;
-    _os_log_fault_impl(&dword_23E3EA000, v12, OS_LOG_TYPE_FAULT, "%{public}s The predictionReasons for the suggestion for event%@ :%@ was not one of UpcomingFlight, OngoingFlight, ConcludedFlight. Arrival city: %@. Falling back on the title", buf, 0x2Au);
+    _os_log_fault_impl(&dword_23E3EA000, v13, OS_LOG_TYPE_FAULT, "%{public}s The predictionReasons for the suggestion for event%@ :%@ was not one of UpcomingFlight, OngoingFlight, ConcludedFlight. Arrival city: %@. Falling back on the title", buf, 0x2Au);
   }
 
-  v13 = self->_title;
+  v14 = self->_title;
 LABEL_23:
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v13;
+  return v14;
 }
 
 - (id)_stringsWithPredictionReasons:(unint64_t)reasons
@@ -166,10 +166,10 @@ LABEL_23:
   return v3;
 }
 
-void __73__ATXContextFlightEventSuggestionProducer__stringsWithPredictionReasons___block_invoke(uint64_t a1)
+void __73__ATXContextFlightEventSuggestionProducer__stringsWithPredictionReasons___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = stringForATXSuggestionPredictionReasonCode();
-  [*(*(*(a1 + 32) + 8) + 40) addObject:v2];
+  v3 = stringForATXSuggestionPredictionReasonCode();
+  [*(*(*(a1 + 32) + 8) + 40) addObject:v3];
 }
 
 - (id)suggestionWithAction:(id)action predictionReasons:(unint64_t)reasons score:(double)score
@@ -194,24 +194,22 @@ void __73__ATXContextFlightEventSuggestionProducer__stringsWithPredictionReasons
     [ATXContextFlightEventSuggestionProducer suggestionForFlightInformationWithReason:a2 score:self date:?];
   }
 
-  v13 = __atxlog_handle_context_heuristic();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = __atxlog_handle_context_heuristic(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     v19 = 136446466;
     v20 = "[ATXContextFlightEventSuggestionProducer suggestionForFlightInformationWithReason:score:date:]";
     v21 = 2112;
     v22 = v12;
-    _os_log_impl(&dword_23E3EA000, v13, OS_LOG_TYPE_DEFAULT, "Flight Info: %{public}s flightNumber:%@", &v19, 0x16u);
+    _os_log_impl(&dword_23E3EA000, v14, OS_LOG_TYPE_DEFAULT, "Flight Info: %{public}s flightNumber:%@", &v19, 0x16u);
   }
 
-  v14 = [objc_alloc(MEMORY[0x277CEB2D0]) initWithStartDate:self->_validFromStartDate endDate:self->_validToEndDate lockScreenEligible:0 predicate:0];
-  v15 = [objc_alloc(MEMORY[0x277CEB860]) initWithFlightCode:v12 date:dateCopy criteria:v14];
+  v15 = [objc_alloc(MEMORY[0x277CEB2D0]) initWithStartDate:self->_validFromStartDate endDate:self->_validToEndDate lockScreenEligible:0 predicate:0];
+  v16 = [objc_alloc(MEMORY[0x277CEB860]) initWithFlightCode:v12 date:dateCopy criteria:v15];
 
-  v16 = [(ATXContextFlightEventSuggestionProducer *)self suggestionWithAction:v15 predictionReasons:reason score:score];
+  v17 = [(ATXContextFlightEventSuggestionProducer *)self suggestionWithAction:v16 predictionReasons:reason score:score];
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v16;
+  return v17;
 }
 
 - (id)suggestionForWeatherAtFlightDestinationLocation:(CLLocationCoordinate2D)location destination:(id)destination predictionReasons:(unint64_t)reasons score:(double)score
@@ -233,10 +231,9 @@ void __73__ATXContextFlightEventSuggestionProducer__stringsWithPredictionReasons
   idCopy = id;
   destinationCopy = destination;
   v14 = [(ATXContextFlightEventSuggestionProducer *)self _contextTitleWithReasons:reasons];
-  validToEndDate = self->_validToEndDate;
-  v16 = [ATXContextHeuristicSuggestionProducer rideshareAppActionForDestination:destinationCopy preferredBundleId:idCopy predictionReasons:reasons title:self->_title localizedReason:v14 score:self->_validFromStartDate validFromStartDate:score validToEndDate:validToEndDate dateInterval:self->_dateInterval];
+  v15 = [ATXContextHeuristicSuggestionProducer rideshareAppActionForDestination:destinationCopy preferredBundleId:idCopy predictionReasons:reasons title:self->_title localizedReason:v14 score:self->_validFromStartDate validFromStartDate:score validToEndDate:self->_validToEndDate dateInterval:self->_dateInterval];
 
-  return v16;
+  return v15;
 }
 
 - (id)suggestionForFlightCheckInWithReason:(unint64_t)reason score:(double)score
@@ -263,6 +260,32 @@ void __73__ATXContextFlightEventSuggestionProducer__stringsWithPredictionReasons
   v8 = [ATXContextHeuristicSuggestionProducer toggleAirplaneModeWithPredictionReasons:reasons localizedReason:v7 score:self->_validFromStartDate validFromStartDate:self->_validToEndDate validToEndDate:self->_dateInterval dateInterval:score];
 
   return v8;
+}
+
+- (id)sfSearchResult:(id)result title:(id)title subtitle:(id)subtitle type:(int)type sectionHeader:(id)header score:(double)score
+{
+  v9 = *&type;
+  v13 = MEMORY[0x277D4C5D0];
+  headerCopy = header;
+  subtitleCopy = subtitle;
+  titleCopy = title;
+  resultCopy = result;
+  v18 = objc_alloc_init(v13);
+  v19 = objc_opt_new();
+  [v19 setText:titleCopy];
+  [v18 setTitle:v19];
+  [v18 setSecondaryTitle:subtitleCopy];
+
+  [v18 setCompletion:titleCopy];
+  [v18 setResultBundleId:@"com.apple.searchd.suggestion"];
+  [v18 setSectionBundleIdentifier:@"com.apple.searchd.recent.suggestions"];
+  [v18 setRankingScore:score];
+  [v18 setType:v9];
+  [v18 setIdentifier:resultCopy];
+
+  [v18 setSectionHeader:headerCopy];
+
+  return v18;
 }
 
 - (void)suggestionForFlightInformationWithReason:(uint64_t)a1 score:(uint64_t)a2 date:.cold.1(uint64_t a1, uint64_t a2)

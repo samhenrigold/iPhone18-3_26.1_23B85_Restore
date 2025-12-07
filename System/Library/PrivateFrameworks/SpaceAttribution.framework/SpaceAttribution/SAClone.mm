@@ -1,4 +1,5 @@
 @interface SAClone
++ (id)newWithInum:(unint64_t)inum volumePath:(id)path flags:(unsigned int)flags dirStatID:(unint64_t)d attributionTag:(unint64_t)tag physicalSize:(unint64_t)size;
 - (BOOL)isInsidePurgeableCacheDir;
 - (BOOL)isInsidePurgeableDir;
 - (BOOL)isPurgeable;
@@ -29,6 +30,15 @@
   }
 
   return v17;
+}
+
++ (id)newWithInum:(unint64_t)inum volumePath:(id)path flags:(unsigned int)flags dirStatID:(unint64_t)d attributionTag:(unint64_t)tag physicalSize:(unint64_t)size
+{
+  v11 = *&flags;
+  pathCopy = path;
+  v15 = [[self alloc] initWithInum:inum volumePath:pathCopy flags:v11 dirStatID:d attributionTag:tag physicalSize:size];
+
+  return v15;
 }
 
 - (id)getDirInfoByDirKey:(unint64_t)key volumesInfo:(id)info volumePath:(id)path

@@ -35,46 +35,47 @@
   uUIDString = [(NSUUID *)self->_uuid UUIDString];
   [v3 setUuidString:uUIDString];
 
-  if (([v3 hasUuidString] & 1) == 0)
+  hasUuidString = [v3 hasUuidString];
+  if ((hasUuidString & 1) == 0)
   {
-    v5 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = __atxlog_handle_blending(hasUuidString);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       [(ATXClientModelCacheUpdate *)v3 proto];
     }
   }
 
-  v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_suggestions, "count")}];
+  v7 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_suggestions, "count")}];
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v7 = self->_suggestions;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
-  if (v8)
+  v8 = self->_suggestions;
+  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  if (v9)
   {
-    v9 = v8;
-    v10 = *v21;
+    v10 = v9;
+    v11 = *v21;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v10)
+        if (*v21 != v11)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
-        proto = [v12 proto];
+        v13 = *(*(&v20 + 1) + 8 * i);
+        proto = [v13 proto];
         if (proto)
         {
-          proto2 = [v12 proto];
-          [v6 addObject:proto2];
+          proto2 = [v13 proto];
+          [v7 addObject:proto2];
         }
 
         else
         {
-          proto2 = __atxlog_handle_blending();
+          proto2 = __atxlog_handle_blending(0);
           if (os_log_type_enabled(proto2, OS_LOG_TYPE_FAULT))
           {
             [(ATXClientModelCacheUpdate *)&v18 proto];
@@ -82,20 +83,18 @@
         }
       }
 
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
-    while (v9);
+    while (v10);
   }
 
-  [v3 setSuggestions:v6];
+  [v3 setSuggestions:v7];
   [v3 setFeedbackMetadata:self->_feedbackMetadata];
   [v3 setClientModelId:self->_clientModelId];
   [v3 setCacheCreationDate:self->_absoluteCacheCreationDate];
   proto3 = [(ATXSuggestionRequestResponse *)self->_suggestionRequestResponse proto];
   [v3 setResponseForRequestForSuggestions:proto3];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -148,7 +147,7 @@
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForid:(id)forid key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -165,11 +164,11 @@
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v22 = *MEMORY[0x1E696A578];
-      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x1E696A578];
+      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -180,7 +179,6 @@
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -329,76 +327,78 @@ LABEL_20:
 
 - (ATXClientModelCacheUpdate)initWithProto:(id)proto
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   protoCopy = proto;
   if (protoCopy)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v5 = __atxlog_handle_blending();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v6 = __atxlog_handle_blending(isKindOfClass);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [(ATXLightweightClientModelCacheUpdate *)self initWithProto:v5];
+        [(ATXLightweightClientModelCacheUpdate *)self initWithProto:v6];
       }
 
       selfCopy = 0;
       goto LABEL_29;
     }
 
-    v5 = protoCopy;
-    if (([v5 hasUuidString]& 1) != 0)
+    v6 = protoCopy;
+    hasUuidString = [v6 hasUuidString];
+    if (hasUuidString)
     {
-      v6 = objc_alloc(MEMORY[0x1E696AFB0]);
-      uuidString = [v5 uuidString];
-      v8 = [v6 initWithUUIDString:uuidString];
+      v8 = objc_alloc(MEMORY[0x1E696AFB0]);
+      uuidString = [v6 uuidString];
+      v10 = [v8 initWithUUIDString:uuidString];
 
-      if (v8)
+      if (v10)
       {
-        v29 = v8;
-        v9 = objc_alloc(MEMORY[0x1E695DF70]);
-        suggestions = [v5 suggestions];
-        v11 = [v9 initWithCapacity:{objc_msgSend(suggestions, "count")}];
+        v30 = v10;
+        v11 = objc_alloc(MEMORY[0x1E695DF70]);
+        suggestions = [v6 suggestions];
+        v13 = [v11 initWithCapacity:{objc_msgSend(suggestions, "count")}];
 
-        v32 = 0u;
         v33 = 0u;
-        v30 = 0u;
+        v34 = 0u;
         v31 = 0u;
-        suggestions2 = [v5 suggestions];
-        v13 = [suggestions2 countByEnumeratingWithState:&v30 objects:v34 count:16];
-        if (v13)
+        v32 = 0u;
+        suggestions2 = [v6 suggestions];
+        v15 = [suggestions2 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        if (v15)
         {
-          v14 = v13;
-          v15 = *v31;
+          v16 = v15;
+          v17 = *v32;
           while (2)
           {
-            for (i = 0; i != v14; ++i)
+            for (i = 0; i != v16; ++i)
             {
-              if (*v31 != v15)
+              if (*v32 != v17)
               {
                 objc_enumerationMutation(suggestions2);
               }
 
-              v17 = [[ATXProactiveSuggestion alloc] initWithProto:*(*(&v30 + 1) + 8 * i)];
-              if (!v17)
+              v19 = [[ATXProactiveSuggestion alloc] initWithProto:*(*(&v31 + 1) + 8 * i)];
+              if (!v19)
               {
-                v20 = __atxlog_handle_blending();
-                if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+                v22 = __atxlog_handle_blending(0);
+                if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
                 {
-                  [ATXClientModelCacheUpdate initWithProto:v20];
+                  [ATXClientModelCacheUpdate initWithProto:v22];
                 }
 
                 selfCopy = 0;
-                v8 = v29;
+                v10 = v30;
                 goto LABEL_27;
               }
 
-              v18 = v17;
-              [v11 addObject:v17];
+              v20 = v19;
+              [v13 addObject:v19];
             }
 
-            v14 = [suggestions2 countByEnumeratingWithState:&v30 objects:v34 count:16];
-            if (v14)
+            v16 = [suggestions2 countByEnumeratingWithState:&v31 objects:v35 count:16];
+            if (v16)
             {
               continue;
             }
@@ -407,27 +407,27 @@ LABEL_20:
           }
         }
 
-        suggestions2 = [v5 feedbackMetadata];
-        clientModelId = [v5 clientModelId];
-        v20 = [(ATXClientModelCacheUpdate *)self _clientModelFromClientModelId:clientModelId suggestions:v11];
+        suggestions2 = [v6 feedbackMetadata];
+        clientModelId = [v6 clientModelId];
+        v22 = [(ATXClientModelCacheUpdate *)self _clientModelFromClientModelId:clientModelId suggestions:v13];
 
-        v21 = objc_alloc(MEMORY[0x1E695DF00]);
-        [v5 cacheCreationDate];
-        v22 = [v21 initWithTimeIntervalSince1970:?];
-        if ([v5 hasResponseForRequestForSuggestions])
+        v23 = objc_alloc(MEMORY[0x1E695DF00]);
+        [v6 cacheCreationDate];
+        v24 = [v23 initWithTimeIntervalSince1970:?];
+        if ([v6 hasResponseForRequestForSuggestions])
         {
-          v23 = [ATXSuggestionRequestResponse alloc];
-          responseForRequestForSuggestions = [v5 responseForRequestForSuggestions];
-          v25 = [(ATXSuggestionRequestResponse *)v23 initWithProto:responseForRequestForSuggestions];
+          v25 = [ATXSuggestionRequestResponse alloc];
+          responseForRequestForSuggestions = [v6 responseForRequestForSuggestions];
+          v27 = [(ATXSuggestionRequestResponse *)v25 initWithProto:responseForRequestForSuggestions];
         }
 
         else
         {
-          v25 = 0;
+          v27 = 0;
         }
 
-        v8 = v29;
-        self = [(ATXClientModelCacheUpdate *)self initWithClientModelId:v20 suggestions:v11 feedbackMetadata:suggestions2 responseForRealTimeRequest:v25 uuid:v29 cacheCreationDate:v22];
+        v10 = v30;
+        self = [(ATXClientModelCacheUpdate *)self initWithClientModelId:v22 suggestions:v13 feedbackMetadata:suggestions2 responseForRealTimeRequest:v27 uuid:v30 cacheCreationDate:v24];
 
         selfCopy = self;
 LABEL_27:
@@ -438,10 +438,10 @@ LABEL_27:
 
     else
     {
-      v8 = __atxlog_handle_blending();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      v10 = __atxlog_handle_blending(hasUuidString);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
-        [ATXClientModelCacheUpdate initWithProto:v8];
+        [ATXClientModelCacheUpdate initWithProto:v10];
       }
     }
 
@@ -455,7 +455,6 @@ LABEL_29:
   selfCopy = 0;
 LABEL_30:
 
-  v27 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -486,9 +485,9 @@ LABEL_30:
 
 - (id)jsonRawData
 {
-  v32[6] = *MEMORY[0x1E69E9840];
+  v31[6] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
-  v31[0] = @"clientModelId";
+  v30[0] = @"clientModelId";
   clientModelId = [(ATXClientModelCacheUpdate *)self clientModelId];
   v5 = clientModelId;
   if (clientModelId)
@@ -501,8 +500,8 @@ LABEL_30:
     v6 = @"nil";
   }
 
-  v32[0] = v6;
-  v31[1] = @"uuid";
+  v31[0] = v6;
+  v30[1] = @"uuid";
   v7 = [(NSUUID *)self->_uuid description];
   v8 = v7;
   if (v7)
@@ -515,10 +514,10 @@ LABEL_30:
     v9 = @"nil";
   }
 
-  v32[1] = v9;
-  v32[2] = v3;
-  v31[2] = @"suggestions";
-  v31[3] = @"suggestion_count";
+  v31[1] = v9;
+  v31[2] = v3;
+  v30[2] = @"suggestions";
+  v30[3] = @"suggestion_count";
   v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSArray count](self->_suggestions, "count")}];
   v11 = v10;
   if (v10)
@@ -531,12 +530,12 @@ LABEL_30:
     v12 = @"nil";
   }
 
-  v32[3] = v12;
-  v31[4] = @"cacheCreationDate";
+  v31[3] = v12;
+  v30[4] = @"cacheCreationDate";
   cacheCreationDate = [(ATXClientModelCacheUpdate *)self cacheCreationDate];
   v14 = [cacheCreationDate description];
   v15 = v14;
-  v31[5] = @"responseForRequest";
+  v30[5] = @"responseForRequest";
   if (self->_suggestionRequestResponse)
   {
     v16 = @"Was in response to a request";
@@ -547,40 +546,38 @@ LABEL_30:
     v16 = @"Not a real-time response";
   }
 
-  v32[4] = v14;
-  v32[5] = v16;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:6];
+  v31[4] = v14;
+  v31[5] = v16;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:6];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v18 = self->_suggestions;
-  v19 = [(NSArray *)v18 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v19 = [(NSArray *)v18 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v27;
+    v21 = *v26;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v27 != v21)
+        if (*v26 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        jsonRawData = [*(*(&v26 + 1) + 8 * i) jsonRawData];
+        jsonRawData = [*(*(&v25 + 1) + 8 * i) jsonRawData];
         [v3 addObject:jsonRawData];
       }
 
-      v20 = [(NSArray *)v18 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v20 = [(NSArray *)v18 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v20);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

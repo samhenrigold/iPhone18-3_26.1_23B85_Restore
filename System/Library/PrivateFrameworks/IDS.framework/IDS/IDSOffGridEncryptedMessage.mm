@@ -168,28 +168,28 @@ LABEL_8:
 
 - (IDSOffGridEncryptedMessage)initWithSegments:(id)segments
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   [segments sortedArrayUsingSelector:sel_compare_];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v4 = v26 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v4 = v25 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        message = [*(*(&v23 + 1) + 8 * i) message];
+        message = [*(*(&v22 + 1) + 8 * i) message];
         v11 = message;
         if (v7)
         {
@@ -202,7 +202,7 @@ LABEL_8:
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v6);
@@ -235,7 +235,6 @@ LABEL_8:
   date = [firstObject2 date];
   [(IDSOffGridEncryptedMessage *)v13 setDate:date];
 
-  v21 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -250,7 +249,7 @@ LABEL_8:
 
 - (id)splitMessageIntoMessagesThatFit
 {
-  v54[1] = *MEMORY[0x1E69E9840];
+  v53[1] = *MEMORY[0x1E69E9840];
   maxPayloadSizeRemaining = [(IDSOffGridEncryptedMessage *)self maxPayloadSizeRemaining];
   iDSOffGridMessenger = [MEMORY[0x1E69A5270] IDSOffGridMessenger];
   if (os_log_type_enabled(iDSOffGridMessenger, OS_LOG_TYPE_DEBUG))
@@ -272,7 +271,7 @@ LABEL_8:
 
   if (maxPayloadSizeRemaining < 0)
   {
-    v39 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v38 = objc_alloc_init(MEMORY[0x1E695DF70]);
     message = [(IDSOffGridEncryptedMessage *)self message];
     v10 = [message length];
     maxPayloadSize = [objc_opt_class() maxPayloadSize];
@@ -283,7 +282,7 @@ LABEL_8:
       v15 = v12 + maxPayloadSizeRemaining;
       v16 = 1;
       *&v13 = 134218752;
-      v38 = v13;
+      v37 = v13;
       do
       {
         v17 = [message length];
@@ -304,18 +303,18 @@ LABEL_8:
         [encryptionProperties setSegmentNumber:v21];
 
         [v20 setMessage:v19];
-        [v39 addObject:v20];
+        [v38 addObject:v20];
         iDSOffGridMessenger4 = [MEMORY[0x1E69A5270] IDSOffGridMessenger];
         if (os_log_type_enabled(iDSOffGridMessenger4, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v38;
+          *buf = v37;
           selfCopy = self;
-          v48 = 1024;
-          v49 = v16;
-          v50 = 2048;
-          v51 = v18;
-          v52 = 2048;
-          v53 = v20;
+          v47 = 1024;
+          v48 = v16;
+          v49 = 2048;
+          v50 = v18;
+          v51 = 2048;
+          v52 = v20;
           _os_log_debug_impl(&dword_1959FF000, iDSOffGridMessenger4, OS_LOG_TYPE_DEBUG, "%p - split message part %d {size: %lld, ptr: %p}", buf, 0x26u);
         }
 
@@ -329,26 +328,26 @@ LABEL_8:
       v10 = v16 - 1;
     }
 
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
-    v8 = v39;
-    v24 = [v8 countByEnumeratingWithState:&v41 objects:v45 count:16];
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v8 = v38;
+    v24 = [v8 countByEnumeratingWithState:&v40 objects:v44 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v42;
+      v26 = *v41;
       do
       {
         for (i = 0; i != v25; ++i)
         {
-          if (*v42 != v26)
+          if (*v41 != v26)
           {
             objc_enumerationMutation(v8);
           }
 
-          v28 = *(*(&v41 + 1) + 8 * i);
+          v28 = *(*(&v40 + 1) + 8 * i);
           encryptionProperties2 = [v28 encryptionProperties];
           segmentNumber = [encryptionProperties2 segmentNumber];
           integerValue = [segmentNumber integerValue];
@@ -364,7 +363,7 @@ LABEL_8:
           [encryptionProperties4 setTotalSegments:v33];
         }
 
-        v25 = [v8 countByEnumeratingWithState:&v41 objects:v45 count:16];
+        v25 = [v8 countByEnumeratingWithState:&v40 objects:v44 count:16];
       }
 
       while (v25);
@@ -385,11 +384,9 @@ LABEL_8:
     encryptionProperties6 = [(IDSOffGridEncryptedMessage *)self encryptionProperties];
     [encryptionProperties6 setTotalSegments:&unk_1F0A29A38];
 
-    v54[0] = self;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:1];
+    v53[0] = self;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:1];
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -487,7 +484,7 @@ LABEL_8:
 
 - (id)payload
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF88]);
   encryptionProperties = [(IDSOffGridEncryptedMessage *)self encryptionProperties];
   encryptionKeyID = [encryptionProperties encryptionKeyID];
@@ -498,13 +495,13 @@ LABEL_8:
   iDSOffGridMessenger = [MEMORY[0x1E69A5270] IDSOffGridMessenger];
   if (os_log_type_enabled(iDSOffGridMessenger, OS_LOG_TYPE_DEBUG))
   {
-    v17 = [encryptionKeyID debugDescription];
+    v16 = [encryptionKeyID debugDescription];
     *buf = 134218498;
     selfCopy2 = self;
-    v23 = 2112;
-    v24 = v17;
-    v25 = 2048;
-    v26 = [v3 length];
+    v22 = 2112;
+    v23 = v16;
+    v24 = 2048;
+    v25 = [v3 length];
     _os_log_debug_impl(&dword_1959FF000, iDSOffGridMessenger, OS_LOG_TYPE_DEBUG, "%p - payload call, added keyID %@ {len: %lld}", buf, 0x20u);
   }
 
@@ -512,19 +509,19 @@ LABEL_8:
   ratchetCounter = [encryptionProperties2 ratchetCounter];
   unsignedShortValue = [ratchetCounter unsignedShortValue];
 
-  v20 = unsignedShortValue;
-  [v3 appendBytes:&v20 length:2];
+  v19 = unsignedShortValue;
+  [v3 appendBytes:&v19 length:2];
   iDSOffGridMessenger2 = [MEMORY[0x1E69A5270] IDSOffGridMessenger];
   if (os_log_type_enabled(iDSOffGridMessenger2, OS_LOG_TYPE_DEBUG))
   {
-    v18 = v20;
-    v19 = [v3 length];
+    v17 = v19;
+    v18 = [v3 length];
     *buf = 134218496;
     selfCopy2 = self;
-    v23 = 2048;
-    v24 = v18;
-    v25 = 2048;
-    v26 = v19;
+    v22 = 2048;
+    v23 = v17;
+    v24 = 2048;
+    v25 = v18;
     _os_log_debug_impl(&dword_1959FF000, iDSOffGridMessenger2, OS_LOG_TYPE_DEBUG, "%p - payload call, added ratchet ctr %lld {len: %lld}", buf, 0x20u);
   }
 
@@ -542,8 +539,6 @@ LABEL_8:
   {
     sub_195B40070(self, v3);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

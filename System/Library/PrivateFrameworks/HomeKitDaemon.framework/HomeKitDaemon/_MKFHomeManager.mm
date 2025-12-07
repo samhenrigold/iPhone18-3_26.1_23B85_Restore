@@ -6,6 +6,7 @@
 - (NSArray)accounts;
 - (NSArray)homes;
 - (NSArray)incomingInvitations;
+- (id)hmd_modelsWithChangeType:(unint64_t)type detached:(BOOL)detached error:(id *)error;
 - (void)awakeFromInsert;
 @end
 
@@ -44,7 +45,7 @@
 
 + (id)fetchWithContext:(id)context error:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   fetchRequest = [self fetchRequest];
   v8 = MEMORY[0x277CCAC30];
@@ -52,9 +53,9 @@
   v10 = [v8 predicateWithFormat:@"%K == %@", @"modelID", v9];
   [fetchRequest setPredicate:v10];
 
-  v21 = 0;
-  v11 = [contextCopy executeFetchRequest:fetchRequest error:&v21];
-  v12 = v21;
+  v20 = 0;
+  v11 = [contextCopy executeFetchRequest:fetchRequest error:&v20];
+  v12 = v20;
   if (v11)
   {
     firstObject = [v11 firstObject];
@@ -69,9 +70,9 @@
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v23 = v17;
-      v24 = 2112;
-      v25 = v12;
+      v22 = v17;
+      v23 = 2112;
+      v24 = v12;
       _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch home managers: %@", buf, 0x16u);
     }
 
@@ -89,8 +90,6 @@
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return firstObject;
 }
 
@@ -104,9 +103,9 @@
 
 - (BOOL)validateModelID:(id *)d error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = _MKFHomeManager;
+  v24 = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = _MKFHomeManager;
   LODWORD(v7) = [_MKFModel validateModelID:sel_validateModelID_error_ error:?];
   if (v7)
   {
@@ -128,11 +127,11 @@
         v13 = HMFGetLogIdentifier();
         v14 = *d;
         *buf = 138543874;
-        v20 = v13;
-        v21 = 2112;
-        v22 = @"modelID";
-        v23 = 2112;
-        v24 = v14;
+        v19 = v13;
+        v20 = 2112;
+        v21 = @"modelID";
+        v22 = 2112;
+        v23 = v14;
         _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Invalid value for %@: %@", buf, 0x20u);
       }
 
@@ -144,7 +143,6 @@
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -155,6 +153,42 @@
   [(_MKFHomeManager *)&v4 awakeFromInsert];
   defaultModelID = [objc_opt_class() defaultModelID];
   [(_MKFHomeManager *)self setPrimitiveModelID:defaultModelID];
+}
+
+- (id)hmd_modelsWithChangeType:(unint64_t)type detached:(BOOL)detached error:(id *)error
+{
+  v17 = *MEMORY[0x277D85DE8];
+  v6 = [(HMDBackingStoreModelObject *)[HMDHomeManagerModel alloc] initWithManagedObject:self changeType:type detached:detached error:error];
+  if (v6)
+  {
+    v7 = [HMDApplicationDataModel cd_modelWithMKFHomeManager:self];
+    v8 = v7;
+    if (v7)
+    {
+      v15 = v6;
+      v16 = v7;
+      v9 = MEMORY[0x277CBEA60];
+      v10 = &v15;
+      v11 = 2;
+    }
+
+    else
+    {
+      v14 = v6;
+      v9 = MEMORY[0x277CBEA60];
+      v10 = &v14;
+      v11 = 1;
+    }
+
+    v12 = [v9 arrayWithObjects:v10 count:{v11, v14, v15, v16, v17}];
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
 }
 
 @end

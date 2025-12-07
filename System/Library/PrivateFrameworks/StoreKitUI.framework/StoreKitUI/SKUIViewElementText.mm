@@ -93,4 +93,28 @@
   return v21;
 }
 
+- (void)attributedStringWithDefaultFont:(uint64_t)a3 foregroundColor:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIViewElementText attributedStringWithDefaultFont:foregroundColor:]";
+}
+
+- (void)attributedStringWithDefaultFont:(uint64_t)a3 foregroundColor:(uint64_t)a4 textAlignment:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIViewElementText attributedStringWithDefaultFont:foregroundColor:textAlignment:]";
+}
+
+- (void)attributedStringWithDefaultFont:(uint64_t)a3 foregroundColor:(uint64_t)a4 style:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIViewElementText attributedStringWithDefaultFont:foregroundColor:style:]";
+}
+
+- (void)attributedStringWithDefaultFont:(uint64_t)a3 foregroundColor:(uint64_t)a4 textAlignment:(uint64_t)a5 style:(uint64_t)a6 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIViewElementText attributedStringWithDefaultFont:foregroundColor:textAlignment:style:]";
+}
+
 @end

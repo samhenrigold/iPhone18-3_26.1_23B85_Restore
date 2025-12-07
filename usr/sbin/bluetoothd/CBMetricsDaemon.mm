@@ -57,19 +57,19 @@
     aggrScanMetricExportTimer = self->_aggrScanMetricExportTimer;
     self->_aggrScanMetricExportTimer = v4;
 
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 3221225472;
-    v6[2] = sub_100114D58;
-    v6[3] = &unk_100AE0B60;
+    v6 = _NSConcreteStackBlock;
+    v7 = 3221225472;
+    v8 = sub_100114D58;
+    v9 = &unk_100AE0B60;
     v3 = v4;
-    v7 = v3;
+    v10 = v3;
     selfCopy = self;
-    dispatch_source_set_event_handler(v3, v6);
+    dispatch_source_set_event_handler(v3, &v6);
     CUDispatchTimerSet();
     dispatch_activate(v3);
     if (dword_100B50C70 <= 20 && (dword_100B50C70 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_100B50C70, "[CBMetricsDaemon _setupAggressiveScanMetricExportTimer]", 20, "Aggressive Scan Metrics timer successfully setup", v6, v7, v8, v9);
     }
   }
 }
@@ -98,11 +98,13 @@
 - (id)description
 {
   os_unfair_lock_lock(&self->_lock);
+  discoveryEventsDroppedTotal = self->_discoveryEventsDroppedTotal;
+  discoveryEventsTotal = self->_discoveryEventsTotal;
   os_unfair_lock_unlock(&self->_lock);
   v5 = [objc_opt_class() description];
-  v3 = NSPrintF_safe();
+  v6 = NSPrintF_safe("%@: Discovery total/dropped: %llu/%llu", v5, discoveryEventsTotal, discoveryEventsDroppedTotal);
 
-  return v3;
+  return v6;
 }
 
 - (void)_reportEvents
@@ -114,6 +116,7 @@
   discoveryEventsArray = self->_discoveryEventsArray;
   self->_discoveryEventsArray = 0;
 
+  discoveryEventsTotal = self->_discoveryEventsTotal;
   discoveryEventsDroppedReported = self->_discoveryEventsDroppedReported;
   discoveryEventsDroppedTotal = self->_discoveryEventsDroppedTotal;
   self->_discoveryEventsDroppedReported = discoveryEventsDroppedTotal;
@@ -121,28 +124,29 @@
   v5 = [(NSMutableArray *)v3 count];
   if (&_PLLogRegisteredEvent && v5)
   {
-    v27 = objc_alloc_init(NSMutableArray);
+    v23 = v5;
+    v29 = objc_alloc_init(NSMutableArray);
+    v33 = 0u;
+    v34 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v29 = 0u;
-    v30 = 0u;
     obj = v3;
-    v6 = [(NSMutableArray *)obj countByEnumeratingWithState:&v29 objects:v37 count:16];
+    v6 = [(NSMutableArray *)obj countByEnumeratingWithState:&v31 objects:v39 count:16];
     if (v6)
     {
-      v26 = *v30;
+      v28 = *v32;
       do
       {
-        v28 = v6;
-        for (i = 0; i != v28; i = i + 1)
+        v30 = v6;
+        for (i = 0; i != v30; i = i + 1)
         {
-          if (*v30 != v26)
+          if (*v32 != v28)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v29 + 1) + 8 * i);
-          v35[0] = @"actn";
+          v8 = *(*(&v31 + 1) + 8 * i);
+          v37[0] = @"actn";
           action = [v8 action];
           v10 = action;
           if (action)
@@ -155,8 +159,8 @@
             v11 = &stru_100B0F9E0;
           }
 
-          v36[0] = v11;
-          v35[1] = @"apID";
+          v38[0] = v11;
+          v37[1] = @"apID";
           appID = [v8 appID];
           v13 = appID;
           if (appID)
@@ -169,44 +173,44 @@
             v14 = &stru_100B0F9E0;
           }
 
-          v36[1] = v14;
-          v35[2] = @"cid";
+          v38[1] = v14;
+          v37[2] = @"cid";
           v15 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v8 clientID]);
-          v36[2] = v15;
-          v35[3] = @"dsFl";
+          v38[2] = v15;
+          v37[3] = @"dsFl";
           v16 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v8 discoveryFlags]);
-          v36[3] = v16;
-          v35[4] = @"pid";
+          v38[3] = v16;
+          v37[4] = @"pid";
           v17 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v8 pid]);
-          v36[4] = v17;
-          v35[5] = @"scnR";
+          v38[4] = v17;
+          v37[5] = @"scnR";
           v18 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v8 scanRate]);
-          v36[5] = v18;
-          v35[6] = @"timS";
+          v38[5] = v18;
+          v37[6] = @"timS";
           [v8 timestamp];
           v19 = [NSNumber numberWithDouble:?];
-          v36[6] = v19;
-          v20 = [NSDictionary dictionaryWithObjects:v36 forKeys:v35 count:7];
+          v38[6] = v19;
+          v20 = [NSDictionary dictionaryWithObjects:v38 forKeys:v37 count:7];
 
-          [v27 addObject:v20];
+          [v29 addObject:v20];
         }
 
-        v6 = [(NSMutableArray *)obj countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v6 = [(NSMutableArray *)obj countByEnumeratingWithState:&v31 objects:v39 count:16];
       }
 
       while (v6);
     }
 
-    v33[0] = @"dscE";
-    v33[1] = @"drpE";
-    v34[0] = v27;
+    v35[0] = @"dscE";
+    v35[1] = @"drpE";
+    v36[0] = v29;
     discoveryEventsDroppedReported = [NSNumber numberWithUnsignedLongLong:discoveryEventsDroppedTotal - discoveryEventsDroppedReported];
-    v34[1] = discoveryEventsDroppedReported;
-    v22 = [NSDictionary dictionaryWithObjects:v34 forKeys:v33 count:2];
+    v36[1] = discoveryEventsDroppedReported;
+    v22 = [NSDictionary dictionaryWithObjects:v36 forKeys:v35 count:2];
 
     if (dword_100B50C70 <= 20 && (dword_100B50C70 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_100B50C70, "[CBMetricsDaemon _reportEvents]", 20, "PowerLog report: name %@, total %llu +%llu, dropped %llu +%llu", @"CBDiscovery", discoveryEventsTotal, v23, discoveryEventsDroppedTotal, discoveryEventsDroppedTotal - discoveryEventsDroppedReported);
     }
 
     PLLogRegisteredEvent();
@@ -251,22 +255,26 @@
   statusCopy = status;
   dispatch_assert_queue_V2(self->_dispatchQueue);
   Current = CFAbsoluteTimeGetCurrent();
-  v20 = -1.0;
-  v19 = -1.0;
-  v18 = -1;
-  if (([gCBDaemonServer prefSystemReferenceTimeDisabled] & 1) != 0 || !TMGetReferenceTime())
+  v22 = -1.0;
+  v21 = -1.0;
+  v20 = -1;
+  prefSystemReferenceTimeDisabled = [gCBDaemonServer prefSystemReferenceTimeDisabled];
+  if ((prefSystemReferenceTimeDisabled & 1) != 0 || (prefSystemReferenceTimeDisabled = TMGetReferenceTime(), !prefSystemReferenceTimeDisabled))
   {
-    v10 = -1.0;
-    if (dword_100B50C70 <= 20 && (dword_100B50C70 != -1 || _LogCategory_Initialize()))
+    v12 = -1.0;
+    if (dword_100B50C70 <= 20)
     {
-      sub_100806978();
+      if (dword_100B50C70 != -1 || (prefSystemReferenceTimeDisabled = _LogCategory_Initialize(), prefSystemReferenceTimeDisabled))
+      {
+        prefSystemReferenceTimeDisabled = sub_100806978();
+      }
     }
   }
 
   else
   {
-    v11 = v20;
-    v10 = v20 - Current;
+    v13 = v22;
+    v12 = v22 - Current;
     if (dword_100B50C70 > 20)
     {
       goto LABEL_11;
@@ -277,53 +285,53 @@
       goto LABEL_9;
     }
 
-    if (_LogCategory_Initialize())
+    prefSystemReferenceTimeDisabled = _LogCategory_Initialize();
+    if (prefSystemReferenceTimeDisabled)
     {
-      v11 = v20;
+      v13 = v22;
 LABEL_9:
-      v12 = [NSDate dateWithTimeIntervalSinceReferenceDate:v11];
-      v13 = [v12 description];
-      [v13 UTF8String];
-      LogPrintF_safe();
+      v14 = [NSDate dateWithTimeIntervalSinceReferenceDate:v13];
+      v15 = [v14 description];
+      LogPrintF_safe(&dword_100B50C70, "-[CBMetricsDaemon _reportAuthTagType:authTagStatus:integrityTagStatus:resolutionWindow:]", 20, "Reference time %f, (%s). delta: %f ±%f reliability %d", v13, [v15 UTF8String], v12, v21, v20);
     }
   }
 
 LABEL_11:
-  v17 = 0;
-  v16 = 0;
-  v15[0] = v10;
-  v15[1] = v19;
-  v15[2] = v18;
+  v19 = 0;
+  v18 = 0;
+  v17[0] = v12;
+  v17[1] = v21;
+  v17[2] = v20;
   if (tagStatusCopy == 1)
   {
-    WORD1(v16) = 1;
+    WORD1(v18) = 1;
     switch(windowCopy)
     {
       case -1:
-        WORD1(v17) = 1;
+        WORD1(v19) = 1;
         break;
       case 1:
-        WORD2(v17) = 1;
+        WORD2(v19) = 1;
         break;
       case 0:
-        LOWORD(v17) = 1;
+        LOWORD(v19) = 1;
         break;
     }
   }
 
   else if (statusCopy == 5)
   {
-    HIWORD(v16) = 1;
+    HIWORD(v18) = 1;
   }
 
   else if (statusCopy == 1)
   {
-    WORD2(v16) = 1;
+    WORD2(v18) = 1;
   }
 
-  LOWORD(v16) = 1;
-  v14 = sub_10000F034();
-  (*(*v14 + 32))(v14, v15);
+  LOWORD(v18) = 1;
+  v16 = sub_10000F034(prefSystemReferenceTimeDisabled, v11);
+  (*(*v16 + 32))(v16, v17);
 }
 
 - (void)reportCBDiscovery:(id)discovery daemonCnx:(id)cnx action:(id)action
@@ -372,16 +380,10 @@ LABEL_11:
     if (dword_100B50C70 <= 20 && (dword_100B50C70 != -1 || _LogCategory_Initialize()))
     {
       appID2 = [cnxCopy appID];
-      v25 = v13;
-      v26 = discoveryEventsDroppedTotal;
-      v23 = [cnxCopy pid];
-      clientID = [discoveryCopy clientID];
-      v21 = appID2;
-      v22 = actionCopy;
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_100B50C70, "-[CBMetricsDaemon reportCBDiscovery:daemonCnx:action:]", 20, "Metrics event report: CBDiscovery, appID %@, action %@, PID %d, CID 0x%X. count %llu, dropped %llu", appID2, actionCopy, [cnxCopy pid], objc_msgSend(discoveryCopy, "clientID"), v13, discoveryEventsDroppedTotal);
     }
 
-    if ([actionCopy isEqual:{@"strt", v21, v22, v23, clientID, v25, v26}])
+    if ([actionCopy isEqual:@"strt"])
     {
       dispatchQueue = self->_dispatchQueue;
       block[0] = _NSConcreteStackBlock;
@@ -400,9 +402,7 @@ LABEL_11:
     if (__ROR8__(0x8F5C28F5C28F5C29 * discoveryEventsDroppedTotal, 1) <= 0x51EB851EB851EB8uLL && dword_100B50C70 <= 30 && (dword_100B50C70 != -1 || _LogCategory_Initialize()))
     {
       appID3 = [(CBMetricsDiscoveryEvent *)v11 appID];
-      [(CBMetricsDiscoveryEvent *)v11 pid];
-      [(CBMetricsDiscoveryEvent *)v11 clientID];
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_100B50C70, "[CBMetricsDaemon reportCBDiscovery:daemonCnx:action:]", 30, "Metrics event dropped: CBDiscovery, appID %@, action %@, PID %d, CID 0x%X. count %llu, dropped %llu", appID3, actionCopy, [(CBMetricsDiscoveryEvent *)v11 pid], [(CBMetricsDiscoveryEvent *)v11 clientID], v13, discoveryEventsDroppedTotal + 1);
     }
   }
 }
@@ -476,8 +476,7 @@ LABEL_11:
     v5 = [NSDictionary dictionaryWithObjects:&v9 forKeys:&v8 count:1];
     if (dword_100B50C70 <= 20 && (dword_100B50C70 != -1 || _LogCategory_Initialize()))
     {
-      [v3 count];
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_100B50C70, "-[CBMetricsDaemon _reportAggressiveScanMetricEvents]", 20, "PowerLog report: name %@ with %lu events", @"AggressiveScan", [v3 count]);
     }
 
     PLLogRegisteredEvent();
@@ -523,19 +522,19 @@ LABEL_11:
     whbMetricExportTimer = self->_whbMetricExportTimer;
     self->_whbMetricExportTimer = v4;
 
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 3221225472;
-    v6[2] = sub_100115678;
-    v6[3] = &unk_100AE0B60;
+    v6 = _NSConcreteStackBlock;
+    v7 = 3221225472;
+    v8 = sub_100115678;
+    v9 = &unk_100AE0B60;
     v3 = v4;
-    v7 = v3;
+    v10 = v3;
     selfCopy = self;
-    dispatch_source_set_event_handler(v3, v6);
+    dispatch_source_set_event_handler(v3, &v6);
     CUDispatchTimerSet();
     dispatch_activate(self->_whbMetricExportTimer);
     if (dword_100B50C70 <= 30 && (dword_100B50C70 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_100B50C70, "[CBMetricsDaemon _setupMetricExportTimer]", 30, "WHB metric timer successfully setup", v6, v7, v8, v9);
     }
   }
 }
@@ -586,8 +585,8 @@ LABEL_11:
   metricCopy = metric;
   if (dword_100B50C70 <= 20 && (dword_100B50C70 != -1 || _LogCategory_Initialize()))
   {
-    v7 = CUPrintNSObjectOneLine();
-    LogPrintF_safe();
+    v5 = CUPrintNSObjectOneLine();
+    LogPrintF_safe(&dword_100B50C70, "[CBMetricsDaemon reportWhbMetric:]", 20, "WHB Metrics report: %@", v5);
   }
 
   dispatchQueue = self->_dispatchQueue;
@@ -596,7 +595,7 @@ LABEL_11:
   block[2] = sub_100115954;
   block[3] = &unk_100ADF820;
   v9 = metricCopy;
-  v6 = metricCopy;
+  v7 = metricCopy;
   dispatch_async(dispatchQueue, block);
 }
 

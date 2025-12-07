@@ -40,9 +40,9 @@
 
 - (id)findUser:(id)user withError:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   userCopy = user;
-  v7 = PO_LOG_POUserGroupManager();
+  v7 = PO_LOG_POUserGroupManager(userCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [POUserGroupManager findUser:withError:];
@@ -51,24 +51,24 @@
   selfCopy = self;
   objc_sync_enter(selfCopy);
   [(POUserGroupManager *)selfCopy loadUsers_lockedWithError:error];
+  v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v9 = v21 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v19 = 0u;
+  v9 = v20 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
-    v11 = *v21;
+    v11 = *v20;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         loginUserName = [v13 loginUserName];
         if ([loginUserName isEqualToString:userCopy])
         {
@@ -87,7 +87,7 @@ LABEL_15:
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
       v17 = 0;
       if (v10)
       {
@@ -106,7 +106,6 @@ LABEL_15:
 LABEL_16:
 
   objc_sync_exit(selfCopy);
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -115,7 +114,7 @@ LABEL_16:
 {
   v60 = *MEMORY[0x277D85DE8];
   userCopy = user;
-  v6 = PO_LOG_POUserGroupManager();
+  v6 = PO_LOG_POUserGroupManager(userCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [(POUserGroupManager *)userCopy createOrUpdateUser:v6 withError:?];
@@ -298,46 +297,46 @@ LABEL_26:
   v35 = [(POUser *)v23 copy];
   [obj addObject:v35];
 
-  if ([(POUserGroupManager *)v44 saveUsers_locked:obj withError:error])
+  v36 = [(POUserGroupManager *)v44 saveUsers_locked:obj withError:error];
+  if (v36)
   {
-    v36 = PO_LOG_POUserGroupManager();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+    v37 = PO_LOG_POUserGroupManager(v36);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
     {
       generatedUUID5 = [(POUser *)v23 generatedUUID];
-      [(POUserGroupManager *)generatedUUID5 createOrUpdateUser:buf withError:v36];
+      [(POUserGroupManager *)generatedUUID5 createOrUpdateUser:buf withError:v37];
     }
 
-    v38 = v23;
+    v39 = v23;
   }
 
   else
   {
     if (error)
     {
-      v39 = *error;
+      v40 = *error;
       v52[0] = MEMORY[0x277D85DD0];
       v52[1] = 3221225472;
       v52[2] = __51__POUserGroupManager_createOrUpdateUser_withError___block_invoke;
       v52[3] = &unk_279A3A088;
-      v40 = v39;
-      v53 = v40;
-      v41 = __51__POUserGroupManager_createOrUpdateUser_withError___block_invoke(v52);
-      *error = v41;
+      v41 = v40;
+      v53 = v41;
+      v42 = __51__POUserGroupManager_createOrUpdateUser_withError___block_invoke(v52);
+      *error = v42;
     }
 
-    v38 = 0;
+    v39 = 0;
   }
 
   objc_sync_exit(v44);
-  v42 = *MEMORY[0x277D85DE8];
 
-  return v38;
+  return v39;
 }
 
 id __51__POUserGroupManager_createOrUpdateUser_withError___block_invoke(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Failed to create new create or update user."];
-  v2 = PO_LOG_POUserGroupManager();
+  v2 = PO_LOG_POUserGroupManager(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -348,28 +347,28 @@ id __51__POUserGroupManager_createOrUpdateUser_withError___block_invoke(uint64_t
 
 - (id)_nextAvailableUserId:(id)id
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   idCopy = id;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v4 = [idCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [idCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     v7 = 9999;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(idCopy);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         v10 = [v9 uid];
 
         if (v10)
@@ -384,7 +383,7 @@ id __51__POUserGroupManager_createOrUpdateUser_withError___block_invoke(uint64_t
         }
       }
 
-      v5 = [idCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [idCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
@@ -399,16 +398,14 @@ id __51__POUserGroupManager_createOrUpdateUser_withError___block_invoke(uint64_t
   v14 = [MEMORY[0x277CCABB0] numberWithInt:v13];
   stringValue = [v14 stringValue];
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return stringValue;
 }
 
 - (BOOL)removeUserWithName:(id)name withError:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  v6 = PO_LOG_POUserGroupManager();
+  v6 = PO_LOG_POUserGroupManager(nameCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [POUserGroupManager removeUserWithName:withError:];
@@ -431,25 +428,25 @@ id __51__POUserGroupManager_createOrUpdateUser_withError___block_invoke(uint64_t
 
   v12 = v11;
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v13 = [v12 copy];
-  v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v14)
   {
-    v15 = *v24;
+    v15 = *v23;
     while (2)
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v24 != v15)
+        if (*v23 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        v17 = *(*(&v23 + 1) + 8 * i);
+        v17 = *(*(&v22 + 1) + 8 * i);
         loginUserName = [v17 loginUserName];
         v19 = [loginUserName isEqualToString:nameCopy];
 
@@ -460,7 +457,7 @@ id __51__POUserGroupManager_createOrUpdateUser_withError___block_invoke(uint64_t
         }
       }
 
-      v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v14)
       {
         continue;
@@ -475,13 +472,12 @@ LABEL_16:
   [(POUserGroupManager *)selfCopy saveUsers_locked:v12 withError:error];
   objc_sync_exit(selfCopy);
 
-  v20 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (id)loadUsers_lockedWithError:(id *)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (error)
   {
     *error = 0;
@@ -493,53 +489,53 @@ LABEL_16:
   v6 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v5];
   if (v6)
   {
-    v27 = 0;
-    v7 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v6 options:0 error:&v27];
-    v8 = v27;
+    v26 = 0;
+    v7 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v6 options:0 error:&v26];
+    v8 = v26;
     v9 = v8;
     if (v7)
     {
       v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v20 = 0u;
       v21 = 0u;
       v22 = 0u;
       v23 = 0u;
-      v24 = 0u;
       v11 = v7;
-      v12 = [v11 countByEnumeratingWithState:&v21 objects:v28 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v20 objects:v27 count:16];
       if (v12)
       {
         v13 = v12;
-        v20 = v9;
-        v14 = *v22;
+        v19 = v9;
+        v14 = *v21;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v22 != v14)
+            if (*v21 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = [(_POJWTBodyBase *)[POUser alloc] initWithDictionary:*(*(&v21 + 1) + 8 * i)];
+            v16 = [(_POJWTBodyBase *)[POUser alloc] initWithDictionary:*(*(&v20 + 1) + 8 * i)];
             [v10 addObject:v16];
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v21 objects:v28 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v20 objects:v27 count:16];
         }
 
         while (v13);
-        v9 = v20;
+        v9 = v19;
       }
     }
 
     else
     {
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __48__POUserGroupManager_loadUsers_lockedWithError___block_invoke;
-      v25[3] = &unk_279A3A088;
-      v26 = v8;
-      v17 = __48__POUserGroupManager_loadUsers_lockedWithError___block_invoke(v25);
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __48__POUserGroupManager_loadUsers_lockedWithError___block_invoke;
+      v24[3] = &unk_279A3A088;
+      v25 = v8;
+      v17 = __48__POUserGroupManager_loadUsers_lockedWithError___block_invoke(v24);
       if (error)
       {
         v17 = v17;
@@ -547,7 +543,7 @@ LABEL_16:
       }
 
       v10 = 0;
-      v11 = v26;
+      v11 = v25;
     }
   }
 
@@ -556,15 +552,13 @@ LABEL_16:
     v10 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 id __48__POUserGroupManager_loadUsers_lockedWithError___block_invoke(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"failed to load users"];
-  v2 = PO_LOG_POUserGroupManager();
+  v2 = PO_LOG_POUserGroupManager(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -575,7 +569,7 @@ id __48__POUserGroupManager_loadUsers_lockedWithError___block_invoke(uint64_t a1
 
 - (BOOL)saveUsers_locked:(id)users_locked withError:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   users_lockedCopy = users_locked;
   if (error)
   {
@@ -586,49 +580,49 @@ id __48__POUserGroupManager_loadUsers_lockedWithError___block_invoke(uint64_t a1
   v8 = [filePath URLByAppendingPathComponent:@"com.apple.PlatformSSO.users.txt"];
 
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v10 = users_lockedCopy;
-  v11 = [v10 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v33;
+    v13 = *v32;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v33 != v13)
+        if (*v32 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        allData = [*(*(&v32 + 1) + 8 * i) allData];
+        allData = [*(*(&v31 + 1) + 8 * i) allData];
         [v9 addObject:allData];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v12);
   }
 
-  v31 = 0;
-  v16 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v9 options:3 error:&v31];
-  v17 = v31;
+  v30 = 0;
+  v16 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v9 options:3 error:&v30];
+  v17 = v30;
   v18 = v17;
   if (!v16)
   {
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __49__POUserGroupManager_saveUsers_locked_withError___block_invoke;
-    v29[3] = &unk_279A3A088;
-    v22 = &v30;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __49__POUserGroupManager_saveUsers_locked_withError___block_invoke;
+    v28[3] = &unk_279A3A088;
+    v22 = &v29;
     v20 = v17;
-    v30 = v20;
-    v23 = __49__POUserGroupManager_saveUsers_locked_withError___block_invoke(v29);
+    v29 = v20;
+    v23 = __49__POUserGroupManager_saveUsers_locked_withError___block_invoke(v28);
     if (!error)
     {
 LABEL_15:
@@ -643,20 +637,20 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v28 = v17;
-  v19 = [v16 writeToURL:v8 options:268435457 error:&v28];
-  v20 = v28;
+  v27 = v17;
+  v19 = [v16 writeToURL:v8 options:268435457 error:&v27];
+  v20 = v27;
 
   if ((v19 & 1) == 0)
   {
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __49__POUserGroupManager_saveUsers_locked_withError___block_invoke_21;
-    v26[3] = &unk_279A3A088;
-    v22 = &v27;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __49__POUserGroupManager_saveUsers_locked_withError___block_invoke_21;
+    v25[3] = &unk_279A3A088;
+    v22 = &v26;
     v20 = v20;
-    v27 = v20;
-    v23 = __49__POUserGroupManager_saveUsers_locked_withError___block_invoke_21(v26);
+    v26 = v20;
+    v23 = __49__POUserGroupManager_saveUsers_locked_withError___block_invoke_21(v25);
     if (!error)
     {
       goto LABEL_15;
@@ -668,14 +662,13 @@ LABEL_14:
   v21 = 1;
 LABEL_16:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 id __49__POUserGroupManager_saveUsers_locked_withError___block_invoke(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"failed to serialize users"];
-  v2 = PO_LOG_POUserGroupManager();
+  v2 = PO_LOG_POUserGroupManager(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -687,7 +680,7 @@ id __49__POUserGroupManager_saveUsers_locked_withError___block_invoke(uint64_t a
 id __49__POUserGroupManager_saveUsers_locked_withError___block_invoke_21(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"failed to write users to disk"];
-  v2 = PO_LOG_POUserGroupManager();
+  v2 = PO_LOG_POUserGroupManager(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -698,29 +691,25 @@ id __49__POUserGroupManager_saveUsers_locked_withError___block_invoke_21(uint64_
 
 - (void)findUser:withError:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3_0(&dword_25E831000, v0, v1, "%s name=%{public}@ on %@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_25E831000, v0, v1, "%s name=%{public}@ on %@", v2);
 }
 
 - (void)createOrUpdateUser:(NSObject *)a3 withError:.cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = [a1 allData];
   v7 = [a1 uniqueIdpIdentifier];
-  v9 = 136315906;
-  v10 = "[POUserGroupManager createOrUpdateUser:withError:]";
-  v11 = 2114;
-  v12 = v6;
-  v13 = 2114;
-  v14 = v7;
-  v15 = 2112;
-  v16 = a2;
-  _os_log_debug_impl(&dword_25E831000, a3, OS_LOG_TYPE_DEBUG, "%s user=%{public}@, uniqueIdentifier=%{public}@, on %@", &v9, 0x2Au);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 136315906;
+  v9 = "[POUserGroupManager createOrUpdateUser:withError:]";
+  v10 = 2114;
+  v11 = v6;
+  v12 = 2114;
+  v13 = v7;
+  v14 = 2112;
+  v15 = a2;
+  _os_log_debug_impl(&dword_25E831000, a3, OS_LOG_TYPE_DEBUG, "%s user=%{public}@, uniqueIdentifier=%{public}@, on %@", &v8, 0x2Au);
 }
 
 - (void)createOrUpdateUser:(os_log_t)log withError:.cold.2(void *a1, uint8_t *buf, os_log_t log)
@@ -732,11 +721,9 @@ id __49__POUserGroupManager_saveUsers_locked_withError___block_invoke_21(uint64_
 
 - (void)removeUserWithName:withError:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3_0(&dword_25E831000, v0, v1, "%s name=%{public}@ on %@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_25E831000, v0, v1, "%s name=%{public}@ on %@", v2);
 }
 
 @end

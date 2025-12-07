@@ -1,9 +1,9 @@
 @interface BWStillImageMultiCameraDoserNode
 - (BWStillImageMultiCameraDoserNode)initWithPortTypes:(id)types;
+- (id)_clearCaptureRequestState;
+- (id)_configureCaptureRequestStateWithRequestedStillImageCaptureSettings:(void *)settings resolvedStillImageCaptureSettings:;
+- (id)_emitStashedObjectsIfReady;
 - (id)_outputForNodeInputIndex:(id *)result;
-- (uint64_t)_clearCaptureRequestState;
-- (uint64_t)_emitStashedObjectsIfReady;
-- (unint64_t)_configureCaptureRequestStateWithRequestedStillImageCaptureSettings:(void *)settings resolvedStillImageCaptureSettings:;
 - (void)configurationWithID:(int64_t)d updatedFormat:(id)format didBecomeLiveForInput:(id)input;
 - (void)dealloc;
 - (void)didReachEndOfDataForInput:(id)input;
@@ -152,14 +152,14 @@
   if ([v7 settingsID] != self->_currentSettingsID)
   {
     v8 = CMGetAttachment(buffer, @"BWStillImageCaptureSettings", 0);
-    [(BWStillImageMultiCameraDoserNode *)self _configureCaptureRequestStateWithRequestedStillImageCaptureSettings:v7 resolvedStillImageCaptureSettings:v8];
+    [(BWStillImageMultiCameraDoserNode *)&self->super.super.isa _configureCaptureRequestStateWithRequestedStillImageCaptureSettings:v7 resolvedStillImageCaptureSettings:v8];
   }
 
   if (-[NSMutableArray containsObject:](self->_inputIndicesForWhichDosingIsPerformed, "containsObject:", [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(input, "index")}]))
   {
     [-[NSMutableArray objectAtIndexedSubscript:](self->_stashedObjectsByInputIndex objectAtIndexedSubscript:{objc_msgSend(input, "index")), "addObject:", buffer}];
 
-    [(BWStillImageMultiCameraDoserNode *)self _emitStashedObjectsIfReady:v9];
+    [(BWStillImageMultiCameraDoserNode *)&self->super.super.isa _emitStashedObjectsIfReady:v9];
   }
 
   else
@@ -172,12 +172,12 @@
 {
   if ([objc_msgSend(objc_msgSend(error "stillImageSettings")] != self->_currentSettingsID)
   {
-    [BWStillImageMultiCameraDoserNode handleNodeError:error forInput:self];
+    [BWStillImageMultiCameraDoserNode handleNodeError:error forInput:&self->super.super.isa];
   }
 
   if (-[NSMutableArray containsObject:](self->_inputIndicesForWhichDosingIsPerformed, "containsObject:", [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(input, "index")}]))
   {
-    [(BWStillImageMultiCameraDoserNode *)self handleNodeError:input forInput:error];
+    [(BWStillImageMultiCameraDoserNode *)&self->super.super.isa handleNodeError:input forInput:error];
   }
 
   else
@@ -200,13 +200,13 @@
   return result;
 }
 
-- (unint64_t)_configureCaptureRequestStateWithRequestedStillImageCaptureSettings:(void *)settings resolvedStillImageCaptureSettings:
+- (id)_configureCaptureRequestStateWithRequestedStillImageCaptureSettings:(void *)settings resolvedStillImageCaptureSettings:
 {
   if (result)
   {
     v5 = result;
     [(BWStillImageMultiCameraDoserNode *)result _clearCaptureRequestState];
-    *(v5 + 136) = [a2 settingsID];
+    v5[17] = [a2 settingsID];
     if ([objc_msgSend(settings "captureStreamSettings")] >= 2)
     {
       v25 = 0u;
@@ -238,17 +238,17 @@
                 return [(BWStillImageMultiCameraDoserNode *)v5 _clearCaptureRequestState];
               }
 
-              v21 = [*(v5 + 128) indexOfObject:portType];
+              v21 = [v5[16] indexOfObject:portType];
               if (v21 == 0x7FFFFFFFFFFFFFFFLL)
               {
                 return [(BWStillImageMultiCameraDoserNode *)v5 _clearCaptureRequestState];
               }
 
-              hasValidFrames = [*(v5 + 144) addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInteger:", v21)}];
+              hasValidFrames = [v5[18] addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInteger:", v21)}];
             }
           }
 
-          v8 = OUTLINED_FUNCTION_1_3(hasValidFrames, v13, v14, v15, v16, v17, v18, v19, v22[0], v22[1], v22[2], v22[3], v22[4], v22[5], v22[6], v22[7], v22[8], v22[9], v22[10], v22[11], v22[12], v22[13], v22[14], v22[15], v23);
+          v8 = OUTLINED_FUNCTION_1_3(hasValidFrames, v13, v14, v15, v16, v17, v18, v19, v22[0], v22[1], v22[2], v22[3], v22[4], v22[5], v22[6], v22[7], v22[8], v22[9], v22[10], v22[11], v22[12], v22[13], v22[14], v22[15]);
           if (v8)
           {
             continue;
@@ -259,23 +259,23 @@
       }
     }
 
-    result = [*(v5 + 144) count];
+    result = [v5[18] count];
     if (result <= 1)
     {
-      return [*(v5 + 144) removeAllObjects];
+      return [v5[18] removeAllObjects];
     }
   }
 
   return result;
 }
 
-- (uint64_t)_emitStashedObjectsIfReady
+- (id)_emitStashedObjectsIfReady
 {
   if (result)
   {
     v8 = result;
-    v9 = *(result + 144);
-    result = OUTLINED_FUNCTION_1_44(result, a2, a3, a4, a5, a6, a7, a8, v46, v49, v52, v55, v58, v61, v64, v67, v70, v73, v76, v79, v82, v85, v88, v91, v94, v97, v99, v101, v103, v105, v107, v109, v111);
+    v9 = result[18];
+    result = OUTLINED_FUNCTION_1_44(result, a2, a3, a4, a5, a6, a7, a8, v46, v49, v52, v55, v58, v61, v64, v67, v70, v73, v76, v79, v82, v85, v88, v91, v94, v96, v98, v100, v102, v104, v106, v108);
     if (!result)
     {
       goto LABEL_10;
@@ -294,13 +294,13 @@
           objc_enumerationMutation(v9);
         }
 
-        v21 = [objc_msgSend(*(v8 + 152) objectAtIndexedSubscript:{objc_msgSend(*(8 * v20), "intValue")), "count"}];
+        v21 = [objc_msgSend(v8[19] objectAtIndexedSubscript:{objc_msgSend(*(8 * v20), "intValue")), "count"}];
         v19 = (v21 != 0) & v19;
-        ++v20;
+        v20 = (v20 + 1);
       }
 
       while (v17 != v20);
-      result = OUTLINED_FUNCTION_1_44(v21, v22, v23, v24, v25, v26, v27, v28, v47, v50, v53, v56, v59, v62, v65, v68, v71, v74, v77, v80, v83, v86, v89, v92, v95, v98, v100, v102, v104, v106, v108, v110, v112);
+      result = OUTLINED_FUNCTION_1_44(v21, v22, v23, v24, v25, v26, v27, v28, v47, v50, v53, v56, v59, v62, v65, v68, v71, v74, v77, v80, v83, v86, v89, v92, v95, v97, v99, v101, v103, v105, v107, v109);
       v17 = result;
     }
 
@@ -308,8 +308,8 @@
     if (v19)
     {
 LABEL_10:
-      v29 = *(v8 + 144);
-      result = OUTLINED_FUNCTION_1_3(result, v10, v11, v12, v13, v14, v15, v16, v47, v50, v53, v56, v59, v62, v65, v68, v71, v74, v77, v80, v83, v86, v89, v92, 0);
+      v29 = v8[18];
+      result = OUTLINED_FUNCTION_1_3(result, v10, v11, v12, v13, v14, v15, v16, v47, v50, v53, v56, v59, v62, v65, v68, v71, v74, v77, v80, v83, v86, v89, v92);
       if (result)
       {
         v30 = result;
@@ -325,7 +325,7 @@ LABEL_10:
             }
 
             intValue = [*(8 * v32) intValue];
-            v34 = [*(v8 + 152) objectAtIndexedSubscript:intValue];
+            v34 = [v8[19] objectAtIndexedSubscript:intValue];
             firstObject = [v34 firstObject];
             [v34 removeObjectAtIndex:0];
             v36 = [objc_msgSend(v8 "outputs")];
@@ -340,11 +340,11 @@ LABEL_10:
               [v36 emitNodeError:firstObject];
             }
 
-            ++v32;
+            v32 = (v32 + 1);
           }
 
           while (v30 != v32);
-          result = OUTLINED_FUNCTION_1_3(v38, v39, v40, v41, v42, v43, v44, v45, v48, v51, v54, v57, v60, v63, v66, v69, v72, v75, v78, v81, v84, v87, v90, v93, v96);
+          result = OUTLINED_FUNCTION_1_3(v38, v39, v40, v41, v42, v43, v44, v45, v48, v51, v54, v57, v60, v63, v66, v69, v72, v75, v78, v81, v84, v87, v90, v93);
           v30 = result;
         }
 
@@ -356,17 +356,17 @@ LABEL_10:
   return result;
 }
 
-- (uint64_t)_clearCaptureRequestState
+- (id)_clearCaptureRequestState
 {
   if (result)
   {
     v1 = result;
-    [*(result + 144) removeAllObjects];
+    [result[18] removeAllObjects];
     v13 = 0u;
     v14 = 0u;
     v11 = 0u;
     v12 = 0u;
-    obj = *(v1 + 152);
+    obj = v1[19];
     result = [obj countByEnumeratingWithState:&v11 objects:v10 count:16];
     if (result)
     {
@@ -395,7 +395,7 @@ LABEL_10:
           }
 
           [v5 removeAllObjects];
-          ++v4;
+          v4 = (v4 + 1);
         }
 
         while (v2 != v4);
@@ -417,7 +417,7 @@ LABEL_10:
   return [v4 emitSampleBuffer:a3];
 }
 
-- (unint64_t)handleNodeError:(void *)a1 forInput:(unint64_t)a2 .cold.1(void *a1, unint64_t a2)
+- (id)handleNodeError:(void *)a1 forInput:(id *)a2 .cold.1(void *a1, id *a2)
 {
   v4 = [objc_msgSend(a1 "stillImageSettings")];
   v5 = [objc_msgSend(a1 "stillImageSettings")];
@@ -432,9 +432,9 @@ LABEL_10:
   return [v4 emitNodeError:a3];
 }
 
-- (uint64_t)handleNodeError:(uint64_t)a3 forInput:.cold.3(uint64_t a1, void *a2, uint64_t a3)
+- (id)handleNodeError:(uint64_t)a3 forInput:.cold.3(id *a1, void *a2, uint64_t a3)
 {
-  [objc_msgSend(*(a1 + 152) objectAtIndexedSubscript:{objc_msgSend(a2, "index")), "addObject:", a3}];
+  [objc_msgSend(a1[19] objectAtIndexedSubscript:{objc_msgSend(a2, "index")), "addObject:", a3}];
 
   return [(BWStillImageMultiCameraDoserNode *)a1 _emitStashedObjectsIfReady:v4];
 }

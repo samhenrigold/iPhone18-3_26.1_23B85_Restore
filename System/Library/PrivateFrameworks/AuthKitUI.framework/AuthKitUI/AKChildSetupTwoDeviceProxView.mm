@@ -206,7 +206,6 @@
   objc_storeStrong(&v49, 0);
   objc_storeStrong(&v50, 0);
   objc_storeStrong(v51, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_addPairForiPhone
@@ -342,7 +341,6 @@
   objc_storeStrong(&v51, 0);
   objc_storeStrong(&v52, 0);
   objc_storeStrong(v53, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)_helloScreenViewForProductType:(id)type
@@ -493,7 +491,6 @@
   objc_storeStrong(&v52, 0);
   objc_storeStrong(&v55, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v28;
 }

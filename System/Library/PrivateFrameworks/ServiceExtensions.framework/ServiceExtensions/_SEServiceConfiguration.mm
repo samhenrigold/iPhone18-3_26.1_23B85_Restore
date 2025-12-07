@@ -11,21 +11,18 @@
 
 - (NSString)serviceIdentifier
 {
-  v2 = *(self + OBJC_IVAR____SEServiceConfiguration_serviceIdentifier);
-  v3 = *(self + OBJC_IVAR____SEServiceConfiguration_serviceIdentifier + 8);
 
-  v4 = sub_2657501B8();
+  v2 = sub_2657501B8();
 
-  return v4;
+  return v2;
 }
 
 - (void)setServiceIdentifier:(id)identifier
 {
   v4 = sub_2657501C8();
   v5 = (self + OBJC_IVAR____SEServiceConfiguration_serviceIdentifier);
-  v6 = *(self + OBJC_IVAR____SEServiceConfiguration_serviceIdentifier + 8);
   *v5 = v4;
-  v5[1] = v7;
+  v5[1] = v6;
 }
 
 - (id)interruptionHandler
@@ -48,7 +45,6 @@
   v5 = swift_allocObject();
   *(v5 + 16) = v4;
   v6 = (self + OBJC_IVAR____SEServiceConfiguration_interruptionHandler);
-  v7 = *(self + OBJC_IVAR____SEServiceConfiguration_interruptionHandler + 8);
   *v6 = sub_265743DD8;
   v6[1] = v5;
 }

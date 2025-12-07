@@ -988,9 +988,9 @@ LABEL_181:
   return [a2 hasError] ^ 1;
 }
 
-void sub_260D44A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_260D44A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1757,21 +1757,23 @@ LABEL_203:
   return [a2 hasError] ^ 1;
 }
 
-void sub_260D4A8AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location, char a21)
+void sub_260D4A8AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location, ...)
 {
-  objc_destroyWeak((v21 + 56));
+  va_start(va, location);
+  objc_destroyWeak((v20 + 56));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a21, 8);
-  _Block_object_dispose((v22 - 144), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v21 - 144), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_260D4AE88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, char a19)
+void sub_260D4AE88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, ...)
 {
-  objc_destroyWeak((v19 + 48));
+  va_start(va, location);
+  objc_destroyWeak((v18 + 48));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a19, 8);
-  _Block_object_dispose((v20 - 144), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v19 - 144), 8);
   _Unwind_Resume(a1);
 }
 

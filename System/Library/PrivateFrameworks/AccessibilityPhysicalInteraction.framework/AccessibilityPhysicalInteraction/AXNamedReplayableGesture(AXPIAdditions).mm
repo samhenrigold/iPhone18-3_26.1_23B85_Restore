@@ -15,7 +15,7 @@
 
 + (id)_tapGestureAtPoint:()AXPIAdditions isDoubleTap:numberOfFingers:force:
 {
-  v9 = [AXPIFingerUtilities defaultLocationsForNumberOfFingers:a7 aroundPoint:?];
+  v9 = [AXPIFingerUtilities defaultLocationsForNumberOfFingers:a7 aroundPoint:a2, a3];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
   v16[0] = MEMORY[0x277D85DD0];
@@ -26,7 +26,7 @@
   v17 = v12;
   v13 = dictionary2;
   v18 = v13;
-  v19 = a3;
+  v19 = a4;
   [v9 enumerateObjectsUsingBlock:v16];
   v14 = objc_alloc_init(objc_opt_class());
   [v14 addPointsByFingerIdentifier:v12 forces:v13 atTime:0.0];
@@ -42,23 +42,23 @@
 
 + (id)holdGestureAtPoint:()AXPIAdditions withDuration:numberOfFingers:
 {
-  v4 = [AXPIFingerUtilities defaultLocationsForNumberOfFingers:"defaultLocationsForNumberOfFingers:aroundPoint:" aroundPoint:?];
+  v5 = [AXPIFingerUtilities defaultLocationsForNumberOfFingers:a2 aroundPoint:a3];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
-  v11 = MEMORY[0x277D85DD0];
-  v12 = 3221225472;
-  v13 = __91__AXNamedReplayableGesture_AXPIAdditions__holdGestureAtPoint_withDuration_numberOfFingers___block_invoke;
-  v14 = &unk_278BE6728;
-  v15 = dictionary;
-  v16 = dictionary2;
-  v7 = dictionary2;
-  v8 = dictionary;
-  [v4 enumerateObjectsUsingBlock:&v11];
-  v9 = objc_alloc_init(objc_opt_class());
-  [v9 addPointsByFingerIdentifier:v8 forces:v7 atTime:{0.0, v11, v12, v13, v14}];
-  [v9 addPointsByFingerIdentifier:MEMORY[0x277CBEC10] forces:MEMORY[0x277CBEC10] atTime:a3];
+  v12 = MEMORY[0x277D85DD0];
+  v13 = 3221225472;
+  v14 = __91__AXNamedReplayableGesture_AXPIAdditions__holdGestureAtPoint_withDuration_numberOfFingers___block_invoke;
+  v15 = &unk_278BE6728;
+  v16 = dictionary;
+  v17 = dictionary2;
+  v8 = dictionary2;
+  v9 = dictionary;
+  [v5 enumerateObjectsUsingBlock:&v12];
+  v10 = objc_alloc_init(objc_opt_class());
+  [v10 addPointsByFingerIdentifier:v9 forces:v8 atTime:{0.0, v12, v13, v14, v15}];
+  [v10 addPointsByFingerIdentifier:MEMORY[0x277CBEC10] forces:MEMORY[0x277CBEC10] atTime:a4];
 
-  return v9;
+  return v10;
 }
 
 + (uint64_t)flickGestureAtPoint:()AXPIAdditions angle:numberOfFingers:
@@ -278,213 +278,213 @@
 
 + (id)forceTouchGestureAtPoint:()AXPIAdditions
 {
-  v19[1] = *MEMORY[0x277D85DE8];
-  v4 = objc_alloc_init(objc_opt_class());
+  v20[1] = *MEMORY[0x277D85DE8];
+  v5 = objc_alloc_init(objc_opt_class());
   AXForceTouchThreshold();
-  v6 = v5;
-  v18 = &unk_284FC7880;
-  v7 = [MEMORY[0x277CCAE60] valueWithCGPoint:{self, a2}];
-  v19[0] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v7 = v6;
+  v19 = &unk_284FC7880;
+  v8 = [MEMORY[0x277CCAE60] valueWithCGPoint:{a2, a3}];
+  v20[0] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
 
-  v9 = MEMORY[0x277CE7BE8];
-  v10 = *MEMORY[0x277CE7BE8];
+  v10 = MEMORY[0x277CE7BE8];
+  v11 = *MEMORY[0x277CE7BE8];
   if (*MEMORY[0x277CE7BE8] > 0.0)
   {
-    v11 = 0.0;
-    v12 = MEMORY[0x277CE7BF0];
+    v12 = 0.0;
+    v13 = MEMORY[0x277CE7BF0];
     do
     {
-      v16 = &unk_284FC7880;
-      v13 = [MEMORY[0x277CCABB0] numberWithDouble:v6 * v11 / v10];
-      v17 = v13;
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+      v17 = &unk_284FC7880;
+      v14 = [MEMORY[0x277CCABB0] numberWithDouble:v7 * v12 / v11];
+      v18 = v14;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
 
-      [v4 addPointsByFingerIdentifier:v8 forces:v14 atTime:v11];
-      v11 = v11 + *v12;
-      v10 = *v9;
+      [v5 addPointsByFingerIdentifier:v9 forces:v15 atTime:v12];
+      v12 = v12 + *v13;
+      v11 = *v10;
     }
 
-    while (v11 < *v9);
+    while (v12 < *v10);
   }
 
-  [v4 addPointsByFingerIdentifier:MEMORY[0x277CBEC10] forces:MEMORY[0x277CBEC10] atTime:v10];
+  [v5 addPointsByFingerIdentifier:MEMORY[0x277CBEC10] forces:MEMORY[0x277CBEC10] atTime:v11];
 
-  return v4;
+  return v5;
 }
 
 + (id)_pinchGestureWithCenter:()AXPIAdditions bounds:radiusDelta:angleDelta:startingWidth:
 {
-  v74[2] = *MEMORY[0x277D85DE8];
-  v21 = [AXPIFingerUtilities defaultPinchLocationsAroundPoint:"defaultPinchLocationsAroundPoint:withinBounds:" withinBounds:?];
-  v71.x = 0.0;
-  v71.y = 0.0;
-  firstObject = [v21 firstObject];
-  v23 = CGPointFromString(firstObject);
+  v67[2] = *MEMORY[0x277D85DE8];
+  v14 = [AXPIFingerUtilities defaultPinchLocationsAroundPoint:"defaultPinchLocationsAroundPoint:withinBounds:" withinBounds:?];
+  v64.x = 0.0;
+  v64.y = 0.0;
+  firstObject = [v14 firstObject];
+  v16 = CGPointFromString(firstObject);
 
-  v70.x = 0.0;
-  v70.y = 0.0;
-  lastObject = [v21 lastObject];
-  v25 = CGPointFromString(lastObject);
+  v63.x = 0.0;
+  v63.y = 0.0;
+  lastObject = [v14 lastObject];
+  v18 = CGPointFromString(lastObject);
 
   if (a10 == 0.0)
   {
     AX_CGPointGetMidpointToPoint();
-    v27 = v26;
-    v29 = v28;
+    v20 = v19;
+    v22 = v21;
     AX_CGPointGetDistanceToPoint();
-    v31 = v30;
-    v78.origin.x = a4;
-    v78.origin.y = a5;
-    v78.size.width = a6;
-    v78.size.height = a7;
-    v32 = fmax(v27, v31 + CGRectGetMinX(v78));
-    v79.origin.x = a4;
-    v79.origin.y = a5;
-    v79.size.width = a6;
-    v79.size.height = a7;
-    v63 = fmin(v32, CGRectGetMaxX(v79) - v31);
-    v80.origin.x = a4;
-    v80.origin.y = a5;
-    v80.size.width = a6;
-    v80.size.height = a7;
-    v33 = fmax(v29, v31 + CGRectGetMinY(v80));
-    v81.origin.x = a4;
-    v81.origin.y = a5;
-    v81.size.width = a6;
-    v81.size.height = a7;
-    v34 = fmin(v33, CGRectGetMaxY(v81) - v31);
-    v35 = v23.x + v63 - v27;
-    v36 = v34 - v29;
-    v37 = v23.y + v36;
-    v71.x = v35;
-    v71.y = v23.y + v36;
-    v38 = v63 - v27 + v25.x;
-    v39 = v36 + v25.y;
-    v70.x = v38;
-    v70.y = v36 + v25.y;
-    v40 = a8;
+    v24 = v23;
+    v71.origin.x = a4;
+    v71.origin.y = a5;
+    v71.size.width = a6;
+    v71.size.height = a7;
+    v25 = fmax(v20, v24 + CGRectGetMinX(v71));
+    v72.origin.x = a4;
+    v72.origin.y = a5;
+    v72.size.width = a6;
+    v72.size.height = a7;
+    v56 = fmin(v25, CGRectGetMaxX(v72) - v24);
+    v73.origin.x = a4;
+    v73.origin.y = a5;
+    v73.size.width = a6;
+    v73.size.height = a7;
+    v26 = fmax(v22, v24 + CGRectGetMinY(v73));
+    v74.origin.x = a4;
+    v74.origin.y = a5;
+    v74.size.width = a6;
+    v74.size.height = a7;
+    v27 = fmin(v26, CGRectGetMaxY(v74) - v24);
+    v28 = v16.x + v56 - v20;
+    v29 = v27 - v22;
+    v30 = v16.y + v29;
+    v64.x = v28;
+    v64.y = v16.y + v29;
+    v31 = v56 - v20 + v18.x;
+    v32 = v29 + v18.y;
+    v63.x = v31;
+    v63.y = v29 + v18.y;
+    v33 = a8;
   }
 
   else
   {
-    v35 = a2 - a10 * 0.5;
-    v71.x = v35;
-    v71.y = a3;
-    v38 = a2 + a10 * 0.5;
-    v70.x = v38;
-    v70.y = a3;
-    v64 = a3;
-    v40 = a8;
-    v41 = fmax(a8, 0.0);
-    v82.origin.x = a4;
-    v82.origin.y = a5;
-    v82.size.width = a6;
-    v82.size.height = a7;
-    if (v35 - v41 < CGRectGetMinX(v82))
+    v28 = a2 - a10 * 0.5;
+    v64.x = v28;
+    v64.y = a3;
+    v31 = a2 + a10 * 0.5;
+    v63.x = v31;
+    v63.y = a3;
+    v57 = a3;
+    v33 = a8;
+    v34 = fmax(a8, 0.0);
+    v75.origin.x = a4;
+    v75.origin.y = a5;
+    v75.size.width = a6;
+    v75.size.height = a7;
+    if (v28 - v34 < CGRectGetMinX(v75))
     {
-      v83.origin.x = a4;
-      v83.origin.y = a5;
-      v83.size.width = a6;
-      v83.size.height = a7;
-      v42 = CGRectGetMinX(v83) - (v35 - v41);
-      v35 = v35 + v42;
-      v71.x = v35;
-      v38 = v42 + v38;
-      v70.x = v38;
+      v76.origin.x = a4;
+      v76.origin.y = a5;
+      v76.size.width = a6;
+      v76.size.height = a7;
+      v35 = CGRectGetMinX(v76) - (v28 - v34);
+      v28 = v28 + v35;
+      v64.x = v28;
+      v31 = v35 + v31;
+      v63.x = v31;
     }
 
-    v84.origin.x = a4;
-    v84.origin.y = a5;
-    v84.size.width = a6;
-    v84.size.height = a7;
-    if (v41 + v38 > CGRectGetMaxX(v84))
+    v77.origin.x = a4;
+    v77.origin.y = a5;
+    v77.size.width = a6;
+    v77.size.height = a7;
+    if (v34 + v31 > CGRectGetMaxX(v77))
     {
-      v85.origin.x = a4;
-      v85.origin.y = a5;
-      v85.size.width = a6;
-      v85.size.height = a7;
-      v43 = CGRectGetMaxX(v85) - (v41 + v38);
-      v35 = v35 + v43;
-      v71.x = v35;
-      v38 = v43 + v38;
-      v70.x = v38;
+      v78.origin.x = a4;
+      v78.origin.y = a5;
+      v78.size.width = a6;
+      v78.size.height = a7;
+      v36 = CGRectGetMaxX(v78) - (v34 + v31);
+      v28 = v28 + v36;
+      v64.x = v28;
+      v31 = v36 + v31;
+      v63.x = v31;
     }
 
-    v39 = v64;
-    v37 = v64;
+    v32 = v57;
+    v30 = v57;
   }
 
   objc_opt_class();
-  v44 = objc_opt_new();
-  v76.x = v35;
-  v76.y = v37;
-  v45 = NSStringFromCGPoint(v76);
-  v74[0] = v45;
-  v77.x = v38;
-  v77.y = v39;
-  v46 = NSStringFromCGPoint(v77);
-  v74[1] = v46;
-  v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:2];
-  [self _addFingerPoints:v47 toReplayableGesture:v44 atTime:0.0];
+  v37 = objc_opt_new();
+  v69.x = v28;
+  v69.y = v30;
+  v38 = NSStringFromCGPoint(v69);
+  v67[0] = v38;
+  v70.x = v31;
+  v70.y = v32;
+  v39 = NSStringFromCGPoint(v70);
+  v67[1] = v39;
+  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:2];
+  [self _addFingerPoints:v40 toReplayableGesture:v37 atTime:0.0];
 
-  v48 = -5.0;
-  if (v40 >= 0.0)
+  v41 = -5.0;
+  if (v33 >= 0.0)
   {
-    v48 = 0.0;
+    v41 = 0.0;
   }
 
-  if (v40 > 0.0)
+  if (v33 > 0.0)
   {
-    v48 = 5.0;
+    v41 = 5.0;
   }
 
-  v49 = -0.0872664626;
+  v42 = -0.0872664626;
   if (a9 >= 0.0)
   {
-    v49 = 0.0;
+    v42 = 0.0;
   }
 
   if (a9 > 0.0)
   {
-    v49 = 0.0872664626;
+    v42 = 0.0872664626;
   }
 
-  v50 = (v40 - v48) / 18.0;
-  v51 = v48 / 6.0;
-  v52 = (a9 - v49) / 18.0;
-  v53 = 1;
-  v54 = v49 / 6.0;
+  v43 = (v33 - v41) / 18.0;
+  v44 = v41 / 6.0;
+  v45 = (a9 - v42) / 18.0;
+  v46 = 1;
+  v47 = v42 / 6.0;
   do
   {
-    [AXPIFingerUtilities updateFirstLocation:&v71 secondLocation:&v70 forPinchWithRadiusDelta:v50 angleDelta:v52, *&v63];
-    v55 = NSStringFromCGPoint(v71);
-    v73[0] = v55;
-    v56 = NSStringFromCGPoint(v70);
-    v73[1] = v56;
-    v57 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:2];
-    [self _addFingerPoints:v57 toReplayableGesture:v44 atTime:v53 * 0.0166666667];
+    [AXPIFingerUtilities updateFirstLocation:&v64 secondLocation:&v63 forPinchWithRadiusDelta:v43 angleDelta:v45, *&v56];
+    v48 = NSStringFromCGPoint(v64);
+    v66[0] = v48;
+    v49 = NSStringFromCGPoint(v63);
+    v66[1] = v49;
+    v50 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:2];
+    [self _addFingerPoints:v50 toReplayableGesture:v37 atTime:v46 * 0.0166666667];
 
-    if (v53 == 18)
+    if (v46 == 18)
     {
       for (i = 19; i != 25; ++i)
       {
-        [AXPIFingerUtilities updateFirstLocation:&v71 secondLocation:&v70 forPinchWithRadiusDelta:v51 angleDelta:v54];
-        v59 = NSStringFromCGPoint(v71);
-        v72[0] = v59;
-        v60 = NSStringFromCGPoint(v70);
-        v72[1] = v60;
-        v61 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:2];
-        [self _addFingerPoints:v61 toReplayableGesture:v44 atTime:i * 0.0166666667];
+        [AXPIFingerUtilities updateFirstLocation:&v64 secondLocation:&v63 forPinchWithRadiusDelta:v44 angleDelta:v47];
+        v52 = NSStringFromCGPoint(v64);
+        v65[0] = v52;
+        v53 = NSStringFromCGPoint(v63);
+        v65[1] = v53;
+        v54 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:2];
+        [self _addFingerPoints:v54 toReplayableGesture:v37 atTime:i * 0.0166666667];
       }
     }
 
-    ++v53;
+    ++v46;
   }
 
-  while (v53 != 19);
+  while (v46 != 19);
 
-  return v44;
+  return v37;
 }
 
 + (void)_addAllFingerPointsForPoint:()AXPIAdditions numberOfFingers:toReplayableGesture:atTime:

@@ -80,37 +80,35 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    travelTime = self->_travelTime;
     PBDataWriterWriteDoubleField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_originLocation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_destinationLocation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    usageTimeCFAbsolute = self->_usageTimeCFAbsolute;
     PBDataWriterWriteDoubleField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_loiIdentifier)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -188,7 +186,6 @@
     goto LABEL_18;
   }
 
-  v5 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_travelTime != *(equalCopy + 1))
@@ -200,7 +197,7 @@
   else if (*(equalCopy + 48))
   {
 LABEL_18:
-    v10 = 0;
+    v8 = 0;
     goto LABEL_19;
   }
 
@@ -219,7 +216,6 @@ LABEL_18:
     }
   }
 
-  v8 = *(equalCopy + 48);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 48) & 2) == 0 || self->_usageTimeCFAbsolute != *(equalCopy + 2))
@@ -236,17 +232,17 @@ LABEL_18:
   loiIdentifier = self->_loiIdentifier;
   if (loiIdentifier | *(equalCopy + 4))
   {
-    v10 = [(NSData *)loiIdentifier isEqual:?];
+    v8 = [(NSData *)loiIdentifier isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_19:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

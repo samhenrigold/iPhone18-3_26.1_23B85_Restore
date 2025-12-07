@@ -56,9 +56,9 @@
 - (BOOL)_isMobileSMS
 {
   v2 = +[UIKeyboard keyboardBundleIdentifier];
-  v3 = [v2 isEqualToString:@"com.apple.MobileSMS"];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v3;
+  return isEqualToString;
 }
 
 - (BOOL)supportsStickerTapbackPayload

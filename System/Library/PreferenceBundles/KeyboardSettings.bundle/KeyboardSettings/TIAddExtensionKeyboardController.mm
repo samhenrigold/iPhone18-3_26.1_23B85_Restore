@@ -16,6 +16,8 @@
 - (void)updateDoneButton;
 - (void)updateNetworkPolicyState;
 - (void)updateNetworkPolicyStateIfNecessaryForCell:(id)cell;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TIAddExtensionKeyboardController
@@ -479,6 +481,29 @@ LABEL_16:
   v3 = [enabled propertyForKey:PSTableCellKey];
 
   return [v3 controlValue];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = TIAddExtensionKeyboardController;
+  [(TIAddExtensionKeyboardController *)&v6 viewWillAppear:appear];
+  if ([(TIAddExtensionKeyboardController *)self behavesAsModalForAddSheet])
+  {
+    navigationItem = [(TIAddExtensionKeyboardController *)self navigationItem];
+    specifier = [(TIAddExtensionKeyboardController *)self specifier];
+    [navigationItem setTitle:{objc_msgSend(specifier, "propertyForKey:", PSTitleKey)}];
+    [navigationItem setRightBarButtonItem:{objc_msgSend([UIBarButtonItem alloc], "initWithBarButtonSystemItem:target:action:", 0, self, "doneButtonTapped")}];
+    [objc_msgSend(navigationItem "rightBarButtonItem")];
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = TIAddExtensionKeyboardController;
+  [(TIAddExtensionKeyboardController *)&v4 viewDidAppear:appear];
+  [(TIAddExtensionKeyboardController *)self updateDoneButton];
 }
 
 - (id)selectedInputModes

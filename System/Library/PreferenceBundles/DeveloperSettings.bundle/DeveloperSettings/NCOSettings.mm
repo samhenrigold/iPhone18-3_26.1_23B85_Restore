@@ -6,10 +6,13 @@
 - (id)getNCOPrefer5GValue:(id)value;
 - (id)getNCOWiFiValue:(id)value;
 - (id)specifiers;
+- (void)enablePrefer5G:(BOOL)g specifier:(id)specifier;
 - (void)reloadNCOGroup;
 - (void)reloadPrefer5GSpecifier:(id)specifier;
 - (void)setNCOPrefer5GValue:(id)value specifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation NCOSettings
@@ -137,6 +140,36 @@
   [ncoData3 fetchPrefer5GEnabledWithCompletion:v6];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = NCOSettings;
+  [(NCOSettings *)&v4 viewWillAppear:appear];
+  [(NCOSettings *)self reloadNCOGroup];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v14.receiver = self;
+  v14.super_class = NCOSettings;
+  [(NCOSettings *)&v14 viewDidAppear:appear];
+  v4 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v4 bundleURL];
+
+  v6 = [_NSLocalizedStringResource alloc];
+  v7 = +[NSLocale currentLocale];
+  v8 = [v6 initWithKey:@"DEVELOPER" table:@"DTSettings" locale:v7 bundleURL:bundleURL];
+
+  v9 = [_NSLocalizedStringResource alloc];
+  v10 = +[NSLocale currentLocale];
+  v11 = [v9 initWithKey:@"NCO_TITLE" table:@"NCOSettings" locale:v10 bundleURL:bundleURL];
+
+  v15 = v8;
+  v12 = [NSArray arrayWithObjects:&v15 count:1];
+  v13 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Developer/NCO"];
+  [(NCOSettings *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.developer-tools" title:v11 localizedNavigationComponents:v12 deepLink:v13];
+}
+
 - (id)getNCOCellularValue:(id)value
 {
   cachedCellularOverrideValue = [(NCOSettings *)self cachedCellularOverrideValue];
@@ -243,6 +276,30 @@
   {
     -[NCOSettings enablePrefer5G:specifier:](self, "enablePrefer5G:specifier:", [valueCopy BOOLValue], specifierCopy);
   }
+}
+
+- (void)enablePrefer5G:(BOOL)g specifier:(id)specifier
+{
+  gCopy = g;
+  specifierCopy = specifier;
+  v12[0] = 0;
+  v12[1] = v12;
+  v12[2] = 0x3042000000;
+  v12[3] = sub_10EB8;
+  v12[4] = sub_10EC4;
+  objc_initWeak(&v13, self);
+  ncoData = [(NCOSettings *)self ncoData];
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_10ECC;
+  v9[3] = &unk_3D3A8;
+  v11 = v12;
+  v8 = specifierCopy;
+  v10 = v8;
+  [ncoData enablePrefer5G:gCopy completion:v9];
+
+  _Block_object_dispose(v12, 8);
+  objc_destroyWeak(&v13);
 }
 
 - (void)reloadPrefer5GSpecifier:(id)specifier

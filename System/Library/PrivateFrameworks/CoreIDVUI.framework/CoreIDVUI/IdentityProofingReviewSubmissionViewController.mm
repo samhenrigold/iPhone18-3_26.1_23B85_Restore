@@ -31,7 +31,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_2458520C0();
+  sub_2458520C0(selfCopy);
 }
 
 - (void)updateViewLayout:(id)layout previousTraitCollection:(id)collection

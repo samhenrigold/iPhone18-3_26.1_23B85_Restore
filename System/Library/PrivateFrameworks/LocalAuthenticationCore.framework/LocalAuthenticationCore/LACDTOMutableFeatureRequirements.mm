@@ -46,38 +46,36 @@
 
 - (NSString)description
 {
-  v28[6] = *MEMORY[0x1E69E9840];
-  v24 = MEMORY[0x1E696AEC0];
-  v22 = objc_opt_class();
+  v27[6] = *MEMORY[0x1E69E9840];
+  v23 = MEMORY[0x1E696AEC0];
+  v21 = objc_opt_class();
   v3 = MEMORY[0x1E696AEC0];
-  v27 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACDTOMutableFeatureRequirements hasPasscodeSet](self, "hasPasscodeSet")}];
-  v26 = [v3 stringWithFormat:@"hasPasscodeSet: %@", v27];
-  v28[0] = v26;
+  v26 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACDTOMutableFeatureRequirements hasPasscodeSet](self, "hasPasscodeSet")}];
+  v25 = [v3 stringWithFormat:@"hasPasscodeSet: %@", v26];
+  v27[0] = v25;
   v4 = MEMORY[0x1E696AEC0];
-  v25 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACDTOMutableFeatureRequirements hasBiometricEnrollments](self, "hasBiometricEnrollments")}];
-  v23 = [v4 stringWithFormat:@"hasBiometricEnrollments: %@", v25];
-  v28[1] = v23;
+  v24 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACDTOMutableFeatureRequirements hasBiometricEnrollments](self, "hasBiometricEnrollments")}];
+  v22 = [v4 stringWithFormat:@"hasBiometricEnrollments: %@", v24];
+  v27[1] = v22;
   v5 = MEMORY[0x1E696AEC0];
-  v21 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACDTOMutableFeatureRequirements hasLocationServicesEnabled](self, "hasLocationServicesEnabled")}];
-  v6 = [v5 stringWithFormat:@"hasLocationServicesEnabled: %@", v21];
-  v28[2] = v6;
+  v20 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACDTOMutableFeatureRequirements hasLocationServicesEnabled](self, "hasLocationServicesEnabled")}];
+  v6 = [v5 stringWithFormat:@"hasLocationServicesEnabled: %@", v20];
+  v27[2] = v6;
   v7 = MEMORY[0x1E696AEC0];
   v8 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACDTOMutableFeatureRequirements hasHSA2Account](self, "hasHSA2Account")}];
   v9 = [v7 stringWithFormat:@"hasHSA2Account: %@", v8];
-  v28[3] = v9;
+  v27[3] = v9;
   v10 = MEMORY[0x1E696AEC0];
   v11 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACDTOMutableFeatureRequirements hasSEPRequirements](self, "hasSEPRequirements")}];
   v12 = [v10 stringWithFormat:@"hasSEPRequirements: %@", v11];
-  v28[4] = v12;
+  v27[4] = v12;
   v13 = MEMORY[0x1E696AEC0];
   v14 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACDTOMutableFeatureRequirements hasAPRequirements](self, "hasAPRequirements")}];
   v15 = [v13 stringWithFormat:@"hasAPRequirements: %@", v14];
-  v28[5] = v15;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:6];
+  v27[5] = v15;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:6];
   v17 = [v16 componentsJoinedByString:@" "];;
-  v18 = [v24 stringWithFormat:@"<%@ %p %@>", v22, self, v17];;
-
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = [v23 stringWithFormat:@"<%@ %p %@>", v21, self, v17];;
 
   return v18;
 }

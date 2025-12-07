@@ -9,6 +9,7 @@
 - (id)createBackupSegmentInfos;
 - (id)filesWithBoolean:(BOOL)boolean;
 - (id)getId;
+- (id)infoWithInt:(int)int;
 - (id)iterator;
 - (int)indexOfWithOrgApacheLuceneIndexSegmentCommitInfo:(id)info;
 - (int)size;
@@ -20,6 +21,7 @@
 - (void)clear;
 - (void)commitWithOrgApacheLuceneStoreDirectory:(id)directory;
 - (void)dealloc;
+- (void)removeWithInt:(int)int;
 - (void)removeWithOrgApacheLuceneIndexSegmentCommitInfo:(id)info;
 - (void)replaceWithOrgApacheLuceneIndexSegmentInfos:(id)infos;
 - (void)rollbackSegmentInfosWithJavaUtilList:(id)list;
@@ -32,11 +34,22 @@
 
 - (OrgApacheLuceneIndexSegmentInfos)init
 {
-  v3 = JavaUtilCollections_emptyMap();
+  v3 = JavaUtilCollections_emptyMap(self, a2);
   JreStrongAssign(&self->userData_, v3);
   v4 = new_JavaUtilArrayList_init();
   JreStrongAssignAndConsume(&self->segments_, v4);
   return self;
+}
+
+- (id)infoWithInt:(int)int
+{
+  segments = self->segments_;
+  if (!segments)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [(JavaUtilList *)segments getWithInt:*&int];
 }
 
 - (int64_t)getNextPendingGeneration
@@ -246,7 +259,7 @@ LABEL_8:
 
   else
   {
-    mapCopy = JavaUtilCollections_emptyMap();
+    mapCopy = JavaUtilCollections_emptyMap(self, a2);
     p_userData = &self->userData_;
   }
 
@@ -506,6 +519,17 @@ LABEL_17:
   }
 
   [(JavaUtilList *)segments removeWithId:info];
+}
+
+- (void)removeWithInt:(int)int
+{
+  segments = self->segments_;
+  if (!segments)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [(JavaUtilList *)segments removeWithInt:*&int];
 }
 
 - (BOOL)containsWithOrgApacheLuceneIndexSegmentCommitInfo:(id)info

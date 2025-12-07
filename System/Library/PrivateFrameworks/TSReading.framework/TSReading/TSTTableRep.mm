@@ -120,7 +120,7 @@
 {
   if (self)
   {
-    [(TSTTableRep *)self transformToCanvas];
+    objc_msgSend_transformToCanvas(self, a3);
   }
 
   else
@@ -1619,7 +1619,7 @@ uint64_t __42__TSTTableRep_setNeedsDisplayInCellRange___block_invoke(uint64_t a1
   v21 = v20;
   if (tableLayout)
   {
-    [(TSDAbstractLayout *)tableLayout transform];
+    objc_msgSend_transform(tableLayout);
   }
 
   else
@@ -1977,7 +1977,7 @@ uint64_t __42__TSTTableRep_setNeedsDisplayInCellRange___block_invoke(uint64_t a1
           [(TSDCanvas *)[(TSDRep *)self canvas] contentsScale];
           v11 = v10;
           memset(&v17, 0, sizeof(v17));
-          [v7 transformToDevice];
+          objc_msgSend_transformToDevice(v7);
           v18.origin.x = TSTLayoutGetAlignedMaskRectForSpace(tableLayout, v7);
           v16 = v17;
           v19 = CGRectApplyAffineTransform(v18, &v16);
@@ -2011,7 +2011,7 @@ uint64_t __42__TSTTableRep_setNeedsDisplayInCellRange___block_invoke(uint64_t a1
           [(TSDCanvas *)[(TSDRep *)self canvas] contentsScale];
           v11 = v10;
           memset(&v17, 0, sizeof(v17));
-          [v7 transformToDevice];
+          objc_msgSend_transformToDevice(v7);
           v18.origin.x = TSTLayoutGetAlignedMaskRectForSpace(tableLayout, v7);
           v16 = v17;
           v19 = CGRectApplyAffineTransform(v18, &v16);
@@ -2040,7 +2040,7 @@ uint64_t __42__TSTTableRep_setNeedsDisplayInCellRange___block_invoke(uint64_t a1
     [(TSDCanvas *)[(TSDRep *)self canvas] contentsScale];
     v7 = v6;
     memset(&v32[1], 0, sizeof(CGAffineTransform));
-    [v5 transformToDevice];
+    objc_msgSend_transformToDevice(v5);
     v33.origin.x = TSTLayoutGetAlignedMaskRectForSpace(tableLayout, v5);
     v32[0] = v32[1];
     v34 = CGRectApplyAffineTransform(v33, v32);
@@ -2233,7 +2233,7 @@ uint64_t __42__TSTTableRep_setNeedsDisplayInCellRange___block_invoke(uint64_t a1
     y = ClipBoundingBox.origin.y;
     width = ClipBoundingBox.size.width;
     height = ClipBoundingBox.size.height;
-    [(TSTTableRep *)self transformFromCanvas];
+    objc_msgSend_transformFromCanvas(self);
     CGContextConcatCTM(context, &v19);
     Space = TSTLayoutGetSpace(tableLayout);
     [(TSTLayoutSpace *)Space lockForRead];
@@ -2407,7 +2407,7 @@ uint64_t __42__TSTTableRep_setNeedsDisplayInCellRange___block_invoke(uint64_t a1
         v55.size.height = height;
         v55.size.width = width;
         CGContextClipToRect(v20, v55);
-        [(TSTTableRep *)self transformFromCanvas];
+        objc_msgSend_transformFromCanvas(self);
         CGContextConcatCTM(v20, &transform);
         TSTTableRepPrepareToDrawLayoutSpace(self, Space, v20);
         TSTTableRepDrawCellContent(self, Space, v32, v30, v20);

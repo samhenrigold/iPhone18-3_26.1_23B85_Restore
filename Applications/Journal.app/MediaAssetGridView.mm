@@ -6,7 +6,7 @@
 
 - (void)playAction:(id)action
 {
-  v4 = sub_1000F24EC(&qword_100AD5170);
+  v4 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for TaskPriority();

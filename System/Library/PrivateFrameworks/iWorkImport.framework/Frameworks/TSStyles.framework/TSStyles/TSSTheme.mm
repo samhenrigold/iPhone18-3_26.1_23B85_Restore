@@ -14,6 +14,7 @@
 - (id)migratedPresetUUIDForPresetUUID:(id)d;
 - (id)modelPathComponentForChild:(id)child;
 - (id)p_identifierForBootstrapTheme:(unint64_t)theme;
+- (id)p_migratedPresetForPreset:(id)preset followReplacements:(BOOL)replacements;
 - (id)presetOfKind:(id)kind index:(unint64_t)index;
 - (id)presetsOfKind:(id)kind;
 - (id)referencedStyles;
@@ -257,7 +258,7 @@
 
 - (void)setPresets:(id)presets ofKind:(id)kind
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   presetsCopy = presets;
   kindCopy = kind;
   if (!kindCopy)
@@ -271,27 +272,27 @@
   }
 
   objc_msgSend_willModify(self, v7, v8);
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
-  v53 = kindCopy;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
+  v52 = kindCopy;
   v18 = objc_msgSend_objectForKeyedSubscript_(self->mPresetsByKind, v17, kindCopy);
-  v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, &v58, v63, 16);
+  v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, &v57, v62, 16);
   if (v20)
   {
     v21 = v20;
-    v22 = *v59;
+    v22 = *v58;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v59 != v22)
+        if (*v58 != v22)
         {
           objc_enumerationMutation(v18);
         }
 
-        v24 = *(*(&v58 + 1) + 8 * i);
+        v24 = *(*(&v57 + 1) + 8 * i);
         objc_opt_class();
         v25 = TSUDynamicCast();
         if (objc_msgSend_p_shouldDoDOLCForPreset_(self, v26, v24))
@@ -301,7 +302,7 @@
         }
       }
 
-      v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v31, &v58, v63, 16);
+      v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v31, &v57, v62, 16);
     }
 
     while (v21);
@@ -310,36 +311,36 @@
   if (presetsCopy && objc_msgSend_count(presetsCopy, v32, v33))
   {
     v35 = objc_msgSend_mutableCopy(presetsCopy, v32, v34);
-    v36 = v53;
-    objc_msgSend_setObject_forKeyedSubscript_(self->mPresetsByKind, v37, v35, v53);
+    v36 = v52;
+    objc_msgSend_setObject_forKeyedSubscript_(self->mPresetsByKind, v37, v35, v52);
   }
 
   else
   {
-    v36 = v53;
-    objc_msgSend_removeObjectForKey_(self->mPresetsByKind, v32, v53);
+    v36 = v52;
+    objc_msgSend_removeObjectForKey_(self->mPresetsByKind, v32, v52);
   }
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   v38 = presetsCopy;
-  v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v39, &v54, v62, 16);
+  v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v39, &v53, v61, 16);
   if (v40)
   {
     v41 = v40;
-    v42 = *v55;
+    v42 = *v54;
     do
     {
       for (j = 0; j != v41; ++j)
       {
-        if (*v55 != v42)
+        if (*v54 != v42)
         {
           objc_enumerationMutation(v38);
         }
 
-        v44 = *(*(&v54 + 1) + 8 * j);
+        v44 = *(*(&v53 + 1) + 8 * j);
         objc_opt_class();
         v45 = TSUDynamicCast();
         if (objc_msgSend_p_shouldDoDOLCForPreset_(self, v46, v44))
@@ -349,13 +350,11 @@
         }
       }
 
-      v41 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v51, &v54, v62, 16);
+      v41 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v51, &v53, v61, 16);
     }
 
     while (v41);
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addPreset:(id)preset ofKind:(id)kind
@@ -532,27 +531,27 @@
 
 - (BOOL)containsCGColor:(CGColor *)color
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v4 = objc_msgSend_colors(self, a2, color, 0);
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v16, v20, 16);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v15, v19, 16);
   if (v6)
   {
     v9 = v6;
-    v10 = *v17;
+    v10 = *v16;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v4);
         }
 
-        v12 = objc_msgSend_CGColor(*(*(&v16 + 1) + 8 * i), v7, v8);
+        v12 = objc_msgSend_CGColor(*(*(&v15 + 1) + 8 * i), v7, v8);
         if (CGColorEqualToColor(color, v12))
         {
           v13 = 1;
@@ -560,7 +559,7 @@
         }
       }
 
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v16, v20, 16);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v15, v19, 16);
       if (v9)
       {
         continue;
@@ -573,7 +572,6 @@
   v13 = 0;
 LABEL_11:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -679,77 +677,118 @@ LABEL_11:
   return v8;
 }
 
+- (id)p_migratedPresetForPreset:(id)preset followReplacements:(BOOL)replacements
+{
+  replacementsCopy = replacements;
+  presetCopy = preset;
+  objc_opt_class();
+  v7 = TSUClassAndProtocolCast();
+  if (v7)
+  {
+    v8 = TSUProtocolCast();
+    v11 = v8;
+    if (v8)
+    {
+      v12 = objc_msgSend_migratedPresetInTheme_followReplacements_(v8, v9, self, replacementsCopy, &unk_2886152B8);
+    }
+
+    else
+    {
+      v14 = objc_msgSend_objectUUID(v7, v9, v10, &unk_2886152B8);
+      if (replacementsCopy)
+      {
+        v15 = objc_msgSend_migratedPresetUUIDForPresetUUID_(self, v13, v14);
+
+        v14 = v15;
+      }
+
+      objc_opt_class();
+      if ((objc_opt_isKindOfClass() & 1) != 0 && (objc_msgSend_documentStylesheet(self, v16, v17), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend_styleWithUUIDIfAvailable_(v18, v19, v14), v12 = objc_claimAutoreleasedReturnValue(), v18, v12) || (objc_msgSend_context(self, v16, v17), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend_objectWithUUIDIfAvailable_(v20, v21, v14), v12 = objc_claimAutoreleasedReturnValue(), v20, v12))
+      {
+        if ((objc_msgSend_conformsToProtocol_(v12, v16, &unk_288613A08) & 1) == 0)
+        {
+          sub_276CE0B0C(presetCopy, v12);
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v12 = presetCopy;
+  }
+
+  return v12;
+}
+
 - (id)p_identifierForBootstrapTheme:(unint64_t)theme
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v7[0] = xmmword_27A6EE9C0;
-  v7[1] = *&off_27A6EE9D0;
-  v7[2] = xmmword_27A6EE9E0;
-  v8 = @"bootstrap-pages-2";
-  v3 = *(v7 + theme);
+  v8 = *MEMORY[0x277D85DE8];
+  v6[0] = xmmword_27A6EE9C0;
+  v6[1] = *&off_27A6EE9D0;
+  v6[2] = xmmword_27A6EE9E0;
+  v7 = @"bootstrap-pages-2";
+  v3 = *(v6 + theme);
   for (i = 48; i != -8; i -= 8)
   {
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 + (id)presetBootstrapOrder
 {
-  v5[17] = *MEMORY[0x277D85DE8];
-  v5[0] = @"TSSColorPresetKind";
-  v5[1] = @"TSSGradientFillPresetKind";
-  v5[2] = @"TSSImageFillPresetKind";
-  v5[3] = @"TSSShadowPresetKind";
-  v5[4] = @"TSSListStylePresetKind";
-  v5[5] = @"TSSParagraphStylePresetKind";
-  v5[6] = @"TSSLineStylePresetKind";
-  v5[7] = @"TSSShapeStylePresetKind";
-  v5[8] = @"TSSTextboxStylePresetKind";
-  v5[9] = @"TSSImageStylePresetKind";
-  v5[10] = @"TSSMovieStylePresetKind";
-  v5[11] = @"TSSTableStylePresetKind";
-  v5[12] = @"TSSChartStylePresetKind";
-  v5[13] = @"TSSDropCapStylePresetKind";
-  v5[14] = @"TSSCaptionTextStylePresetKind";
-  v5[15] = @"TSSMotionBackgroundStylePresetKind";
-  v5[16] = @"TSSDrawingLineStylePresetKind";
-  v2 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v5, 17);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[17] = *MEMORY[0x277D85DE8];
+  v4[0] = @"TSSColorPresetKind";
+  v4[1] = @"TSSGradientFillPresetKind";
+  v4[2] = @"TSSImageFillPresetKind";
+  v4[3] = @"TSSShadowPresetKind";
+  v4[4] = @"TSSListStylePresetKind";
+  v4[5] = @"TSSParagraphStylePresetKind";
+  v4[6] = @"TSSLineStylePresetKind";
+  v4[7] = @"TSSShapeStylePresetKind";
+  v4[8] = @"TSSTextboxStylePresetKind";
+  v4[9] = @"TSSImageStylePresetKind";
+  v4[10] = @"TSSMovieStylePresetKind";
+  v4[11] = @"TSSTableStylePresetKind";
+  v4[12] = @"TSSChartStylePresetKind";
+  v4[13] = @"TSSDropCapStylePresetKind";
+  v4[14] = @"TSSCaptionTextStylePresetKind";
+  v4[15] = @"TSSMotionBackgroundStylePresetKind";
+  v4[16] = @"TSSDrawingLineStylePresetKind";
+  v2 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v4, 17);
 
   return v2;
 }
 
 - (void)bootstrapThemeAlternate:(unint64_t)alternate
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   if ((objc_msgSend_isMemberOfClass_(self, v6, v5) & 1) == 0)
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v8 = objc_opt_class();
     v11 = objc_msgSend_presetBootstrapOrder(v8, v9, v10, 0);
-    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v29, v33, 16);
+    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v28, v32, 16);
     if (v13)
     {
       v14 = v13;
-      v15 = *v30;
+      v15 = *v29;
       do
       {
         v16 = 0;
         do
         {
-          if (*v30 != v15)
+          if (*v29 != v15)
           {
             objc_enumerationMutation(v11);
           }
 
-          v17 = *(*(&v29 + 1) + 8 * v16);
+          v17 = *(*(&v28 + 1) + 8 * v16);
           v18 = objc_opt_class();
           v21 = objc_msgSend_presetSources(v18, v19, v20);
           v23 = objc_msgSend_objectForKeyedSubscript_(v21, v22, v17);
@@ -759,7 +798,7 @@ LABEL_11:
         }
 
         while (v14 != v16);
-        v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v25, &v29, v33, 16);
+        v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v25, &v28, v32, 16);
       }
 
       while (v14);
@@ -768,8 +807,6 @@ LABEL_11:
 
   v26 = objc_msgSend_p_identifierForBootstrapTheme_(self, v7, alternate);
   objc_msgSend_setThemeIdentifier_(self, v27, v26);
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkThemeStylesheetConsistency
@@ -955,14 +992,14 @@ LABEL_11:
 
 - (void)enablePresetValidation
 {
-  v0 = sub_276CBE660();
-  dispatch_sync(v0, &unk_2885E63E0);
+  v1 = sub_276CBE660(self);
+  dispatch_sync(v1, &unk_2885E63E0);
 }
 
 - (void)disablePresetValidation
 {
-  v0 = sub_276CBE660();
-  dispatch_sync(v0, &unk_2885E6400);
+  v1 = sub_276CBE660(self);
+  dispatch_sync(v1, &unk_2885E6400);
 }
 
 @end

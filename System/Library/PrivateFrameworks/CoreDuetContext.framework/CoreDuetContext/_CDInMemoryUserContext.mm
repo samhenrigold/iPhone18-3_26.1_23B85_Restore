@@ -111,44 +111,43 @@
 
 - (id)valuesForKeyPaths:(id)paths
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
   v5 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(pathsCopy, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = pathsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
-        v12 = [(_CDInMemoryUserContext *)self propertiesForContextualKeyPath:v11, v16];
+        v11 = *(*(&v15 + 1) + 8 * i);
+        v12 = [(_CDInMemoryUserContext *)self propertiesForContextualKeyPath:v11, v15];
         if (v12)
         {
           [v5 setObject:v12 forKeyedSubscript:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
 
   v13 = [v5 copy];
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -421,27 +420,27 @@
 
 - (id)deviceWithDeviceID:(id)d fromDevices:(id)devices
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dCopy = d;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   devicesCopy = devices;
-  v7 = [devicesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [devicesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(devicesCopy);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         deviceID = [v10 deviceID];
         v12 = [deviceID isEqualToString:dCopy];
 
@@ -452,7 +451,7 @@
         }
       }
 
-      v7 = [devicesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [devicesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -464,36 +463,34 @@
 
 LABEL_11:
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)unsafe_remoteDevices
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:2];
   unsafe_remoteUserContextProxySourceDeviceUUIDs = [(_CDInMemoryUserContext *)self unsafe_remoteUserContextProxySourceDeviceUUIDs];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [unsafe_remoteUserContextProxySourceDeviceUUIDs countByEnumeratingWithState:&v13 objects:v19 count:16];
+  v5 = [unsafe_remoteUserContextProxySourceDeviceUUIDs countByEnumeratingWithState:&v12 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(unsafe_remoteUserContextProxySourceDeviceUUIDs);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * v8);
+        v9 = *(*(&v12 + 1) + 8 * v8);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -510,7 +507,7 @@ LABEL_11:
           if (os_log_type_enabled(mdcsChannel, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v18 = v9;
+            v17 = v9;
             _os_log_error_impl(&dword_1A9611000, mdcsChannel, OS_LOG_TYPE_ERROR, "Invalid object in remote user context proxy source device array: %@", buf, 0xCu);
           }
         }
@@ -519,42 +516,40 @@ LABEL_11:
       }
 
       while (v6 != v8);
-      v6 = [unsafe_remoteUserContextProxySourceDeviceUUIDs countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v6 = [unsafe_remoteUserContextProxySourceDeviceUUIDs countByEnumeratingWithState:&v12 objects:v18 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (id)unsafe_remoteDeviceIDs
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DFA8] setWithCapacity:2];
   unsafe_remoteUserContextProxySourceDeviceUUIDs = [(_CDInMemoryUserContext *)self unsafe_remoteUserContextProxySourceDeviceUUIDs];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [unsafe_remoteUserContextProxySourceDeviceUUIDs countByEnumeratingWithState:&v13 objects:v19 count:16];
+  v5 = [unsafe_remoteUserContextProxySourceDeviceUUIDs countByEnumeratingWithState:&v12 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(unsafe_remoteUserContextProxySourceDeviceUUIDs);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * v8);
+        v9 = *(*(&v12 + 1) + 8 * v8);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -571,7 +566,7 @@ LABEL_11:
           if (os_log_type_enabled(mdcsChannel, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v18 = v9;
+            v17 = v9;
             _os_log_error_impl(&dword_1A9611000, mdcsChannel, OS_LOG_TYPE_ERROR, "Invalid object in remote user context proxy source device array: %@", buf, 0xCu);
           }
         }
@@ -580,43 +575,41 @@ LABEL_11:
       }
 
       while (v6 != v8);
-      v6 = [unsafe_remoteUserContextProxySourceDeviceUUIDs countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v6 = [unsafe_remoteUserContextProxySourceDeviceUUIDs countByEnumeratingWithState:&v12 objects:v18 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (id)unsafe_remoteDevicesForRemoteUserContextProxySourceDeviceUUID:(id)d
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:2];
-  v17 = dCopy;
+  v16 = dCopy;
   v6 = [(_CDInMemoryUserContext *)self unsafe_remoteDeviceIDsForRemoteUserContextProxySourceDeviceUUID:dCopy];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         v12 = [(_CDInMemoryUserContext *)self unsafe_contextForDeviceWithDeviceID:v11];
         device = [v12 device];
         if (device)
@@ -630,19 +623,17 @@ LABEL_11:
           if (os_log_type_enabled(mdcsChannel, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v23 = v11;
+            v22 = v11;
             _os_log_error_impl(&dword_1A9611000, mdcsChannel, OS_LOG_TYPE_ERROR, "Missing device for device %{public}@", buf, 0xCu);
           }
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -675,40 +666,38 @@ LABEL_11:
 
 - (id)unsafe_remoteDevicesByDeviceIDForRemoteUserContextProxySourceDeviceUUID:(id)d
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:2];
   v6 = [(_CDInMemoryUserContext *)self unsafe_remoteDevicesForRemoteUserContextProxySourceDeviceUUID:dCopy];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         deviceID = [v11 deviceID];
         [v5 setObject:v11 forKeyedSubscript:deviceID];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -740,12 +729,12 @@ LABEL_11:
 
 - (void)activateDevices:(id)devices remoteUserContextProxySourceDeviceUUID:(id)d
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   devicesCopy = devices;
   dCopy = d;
   v8 = +[_CDContextQueries keyPathForMDCSProxies];
-  v18[0] = dCopy;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+  v17[0] = dCopy;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
   [(_CDInMemoryUserContext *)self addObjects:v9 toArrayAtKeyPath:v8];
 
   syncQueue = self->_syncQueue;
@@ -753,41 +742,39 @@ LABEL_11:
   block[1] = 3221225472;
   block[2] = __81___CDInMemoryUserContext_activateDevices_remoteUserContextProxySourceDeviceUUID___block_invoke;
   block[3] = &unk_1E7886228;
-  v15 = devicesCopy;
+  v14 = devicesCopy;
   selfCopy = self;
-  v17 = dCopy;
+  v16 = dCopy;
   v11 = dCopy;
   v12 = devicesCopy;
   dispatch_sync(syncQueue, block);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)namedDeviceIDsFromPredicate:(id)predicate
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   v5 = [MEMORY[0x1E695DFA8] setWithCapacity:5];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   keyPaths = [predicateCopy keyPaths];
-  v7 = [keyPaths countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [keyPaths countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(keyPaths);
         }
 
-        deviceID = [*(*(&v16 + 1) + 8 * i) deviceID];
+        deviceID = [*(*(&v15 + 1) + 8 * i) deviceID];
         v12 = deviceID;
         if (deviceID && ([deviceID isEqualToString:self->_localDeviceID] & 1) == 0)
         {
@@ -801,7 +788,7 @@ LABEL_11:
         }
       }
 
-      v8 = [keyPaths countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [keyPaths countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -828,33 +815,32 @@ LABEL_11:
   }
 
 LABEL_18:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (void)registerCallback:(id)callback
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   callbackCopy = callback;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   predicate = [callbackCopy predicate];
   keyPaths = [predicate keyPaths];
 
-  v7 = [keyPaths countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v7 = [keyPaths countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v7)
   {
     v8 = v7;
     LOBYTE(isUserCentric) = 0;
-    v10 = *v31;
+    v10 = *v30;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v31 != v10)
+        if (*v30 != v10)
         {
           objc_enumerationMutation(keyPaths);
         }
@@ -866,11 +852,11 @@ LABEL_18:
 
         else
         {
-          isUserCentric = [*(*(&v30 + 1) + 8 * i) isUserCentric];
+          isUserCentric = [*(*(&v29 + 1) + 8 * i) isUserCentric];
         }
       }
 
-      v8 = [keyPaths countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v8 = [keyPaths countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v8);
@@ -926,18 +912,17 @@ LABEL_20:
   block[1] = 3221225472;
   block[2] = __43___CDInMemoryUserContext_registerCallback___block_invoke;
   block[3] = &unk_1E78866B8;
-  v25 = allDeviceIDs;
-  v26 = v14;
-  v27 = callbackCopy;
+  v24 = allDeviceIDs;
+  v25 = v14;
+  v26 = callbackCopy;
   selfCopy = self;
-  v29 = allDevices;
+  v28 = allDevices;
   v20 = allDevices;
   v21 = v14;
   v22 = v18;
   dispatch_sync(syncQueue, block);
 
 LABEL_23:
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deregisterCallback:(id)callback
@@ -1017,67 +1002,66 @@ LABEL_10:
 
 - (BOOL)unsafe_hasMultiDeviceRegistrations
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
+  v25 = 0u;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
   v3 = self->_contexts;
-  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v4)
   {
     v5 = v4;
-    v21 = 0;
-    v6 = *v28;
+    v19 = 0;
+    v6 = *v26;
     v7 = 0x1E7885000uLL;
-    v22 = v3;
+    v20 = v3;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v28 != v6)
+        if (*v26 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v27 + 1) + 8 * i);
+        v9 = *(*(&v25 + 1) + 8 * i);
         if (([v9 isEqualToString:self->_localDeviceID] & 1) == 0)
         {
           v10 = [(NSMutableDictionary *)self->_contexts objectForKeyedSubscript:v9];
-          v11 = *(v7 + 3872);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
             allRegistrations = [v10 allRegistrations];
+            v21 = 0u;
+            v22 = 0u;
             v23 = 0u;
             v24 = 0u;
-            v25 = 0u;
-            v26 = 0u;
-            v13 = allRegistrations;
-            v14 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
-            if (v14)
+            v12 = allRegistrations;
+            v13 = [v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
+            if (v13)
             {
-              v15 = v14;
-              v16 = v7;
-              v17 = *v24;
+              v14 = v13;
+              v15 = v7;
+              v16 = *v22;
               while (2)
               {
-                for (j = 0; j != v15; ++j)
+                for (j = 0; j != v14; ++j)
                 {
-                  if (*v24 != v17)
+                  if (*v22 != v16)
                   {
-                    objc_enumerationMutation(v13);
+                    objc_enumerationMutation(v12);
                   }
 
-                  if ([*(*(&v23 + 1) + 8 * j) isMultiDeviceRegistration])
+                  if ([*(*(&v21 + 1) + 8 * j) isMultiDeviceRegistration])
                   {
-                    v21 = 1;
+                    v19 = 1;
                     goto LABEL_18;
                   }
                 }
 
-                v15 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
-                if (v15)
+                v14 = [v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
+                if (v14)
                 {
                   continue;
                 }
@@ -1086,14 +1070,14 @@ LABEL_10:
               }
 
 LABEL_18:
-              v7 = v16;
-              v3 = v22;
+              v7 = v15;
+              v3 = v20;
             }
           }
         }
       }
 
-      v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v5);
@@ -1101,24 +1085,61 @@ LABEL_18:
 
   else
   {
-    v21 = 0;
+    v19 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-  return v21 & 1;
+  return v19 & 1;
 }
 
 - (id)unsafe_multiDeviceRegistrations
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   unsafe_multiDeviceRegistrationsByDeviceID = [(_CDInMemoryUserContext *)self unsafe_multiDeviceRegistrationsByDeviceID];
   v3 = [MEMORY[0x1E695DFA8] setWithCapacity:{2 * objc_msgSend(unsafe_multiDeviceRegistrationsByDeviceID, "count")}];
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v4 = unsafe_multiDeviceRegistrationsByDeviceID;
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v13;
+    do
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v13 != v7)
+        {
+          objc_enumerationMutation(v4);
+        }
+
+        v9 = [v4 objectForKeyedSubscript:{*(*(&v12 + 1) + 8 * i), v12}];
+        [v3 addObjectsFromArray:v9];
+      }
+
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v6);
+  }
+
+  allObjects = [v3 allObjects];
+
+  return allObjects;
+}
+
+- (id)unsafe_multiDeviceRegistrationsByDeviceID
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v3 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{-[NSMutableDictionary count](self->_contexts, "count")}];
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v4 = unsafe_multiDeviceRegistrationsByDeviceID;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = self->_contexts;
+  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
@@ -1132,48 +1153,8 @@ LABEL_18:
           objc_enumerationMutation(v4);
         }
 
-        v9 = [v4 objectForKeyedSubscript:{*(*(&v13 + 1) + 8 * i), v13}];
-        [v3 addObjectsFromArray:v9];
-      }
-
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    }
-
-    while (v6);
-  }
-
-  allObjects = [v3 allObjects];
-
-  v11 = *MEMORY[0x1E69E9840];
-
-  return allObjects;
-}
-
-- (id)unsafe_multiDeviceRegistrationsByDeviceID
-{
-  v19 = *MEMORY[0x1E69E9840];
-  v3 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{-[NSMutableDictionary count](self->_contexts, "count")}];
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v4 = self->_contexts;
-  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v5)
-  {
-    v6 = v5;
-    v7 = *v15;
-    do
-    {
-      for (i = 0; i != v6; ++i)
-      {
-        if (*v15 != v7)
-        {
-          objc_enumerationMutation(v4);
-        }
-
-        v9 = *(*(&v14 + 1) + 8 * i);
-        if (([v9 isEqualToString:{self->_localDeviceID, v14}] & 1) == 0)
+        v9 = *(*(&v13 + 1) + 8 * i);
+        if (([v9 isEqualToString:{self->_localDeviceID, v13}] & 1) == 0)
         {
           v10 = [(NSMutableDictionary *)self->_contexts objectForKeyedSubscript:v9];
           objc_opt_class();
@@ -1188,46 +1169,44 @@ LABEL_18:
         }
       }
 
-      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BOOL)evaluatePredicate:(id)predicate
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   keyPaths = [predicateCopy keyPaths];
-  v7 = [keyPaths countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [keyPaths countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(keyPaths);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         v11 = [(_CDInMemoryUserContext *)self propertiesForContextualKeyPath:v10];
         [dictionary setObject:v11 forKeyedSubscript:v10];
       }
 
-      v7 = [keyPaths countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [keyPaths countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
@@ -1236,7 +1215,6 @@ LABEL_18:
   predicate = [predicateCopy predicate];
   v13 = [predicate evaluateWithObject:dictionary substitutionVariables:&unk_1F1D19200];
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -1277,38 +1255,33 @@ LABEL_18:
 
 - (void)unsafe_remoteDeviceIDsForRemoteUserContextProxySourceDeviceUUID:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_1A9611000, v1, OS_LOG_TYPE_ERROR, "Invalid object at %{public}@: %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_1A9611000, v1, OS_LOG_TYPE_ERROR, "Invalid object at %{public}@: %@", v2, 0x16u);
 }
 
 - (void)unsafe_remoteUserContextProxySourceDeviceUUIDs
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_1A9611000, v0, OS_LOG_TYPE_ERROR, "Invalid object at %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1A9611000, v0, OS_LOG_TYPE_ERROR, "Invalid object at %{public}@", v1, 0xCu);
 }
 
 - (void)namedDeviceIDsFromPredicate:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = [a1 keyPaths];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_1A9611000, a2, OS_LOG_TYPE_ERROR, "Multi-device predicates are not yet supported: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1A9611000, a2, OS_LOG_TYPE_ERROR, "Multi-device predicates are not yet supported: %@", v4, 0xCu);
 }
 
 - (void)evaluatePredicate:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_1A9611000, v0, OS_LOG_TYPE_FAULT, "Invalid predicate: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1A9611000, v0, OS_LOG_TYPE_FAULT, "Invalid predicate: %@", v1, 0xCu);
 }
 
 @end

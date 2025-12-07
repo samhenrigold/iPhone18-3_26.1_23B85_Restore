@@ -57,29 +57,29 @@
   dispatch_async(queue, block);
 }
 
-uint64_t __42__REEngineVisitManager__updateVisitStatus__block_invoke(uint64_t a1)
+_BYTE *__42__REEngineVisitManager__updateVisitStatus__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) _wantsVisits];
   result = *(a1 + 32);
   if (v2)
   {
-    if (*(result + 56))
+    if (result[56])
     {
       return result;
     }
 
-    result = [result _beginMonitoringVisitsForManager:*(result + 40)];
+    result = [result _beginMonitoringVisitsForManager:*(result + 5)];
     v4 = 1;
   }
 
   else
   {
-    if (!*(result + 56))
+    if (!result[56])
     {
       return result;
     }
 
-    result = [result _stopMonitoringVisitsForManager:*(result + 40)];
+    result = [result _stopMonitoringVisitsForManager:*(result + 5)];
     v4 = 0;
   }
 

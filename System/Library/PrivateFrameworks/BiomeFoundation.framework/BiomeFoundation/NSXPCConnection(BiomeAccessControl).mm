@@ -18,7 +18,7 @@
 
 - (BMProcess)bm_process
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   bm_userInfo = [self bm_userInfo];
   v3 = [bm_userInfo objectForKeyedSubscript:@"bm_process"];
 
@@ -28,7 +28,7 @@
   }
 
   v5 = [BMProcess alloc];
-  [self auditToken];
+  objc_msgSend_auditToken(self);
   v3 = [(BMProcess *)v5 initWithAuditToken:&buf];
   bm_accessControlPolicy = [self bm_accessControlPolicy];
 
@@ -46,8 +46,8 @@ LABEL_2:
   v7 = __biome_log_for_category(0);
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v14 = 0x2020000000;
-  v15 = 16;
+  v13 = 0x2020000000;
+  v14 = 16;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __49__NSXPCConnection_BiomeAccessControl__bm_process__block_invoke;
@@ -70,8 +70,6 @@ LABEL_2:
   v4 = 0;
 LABEL_9:
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
@@ -86,7 +84,7 @@ LABEL_9:
 
 - (void)setBm_accessControlPolicy:()BiomeAccessControl
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = a3;
   bm_accessControlPolicy = [self bm_accessControlPolicy];
   useCase = [bm_accessControlPolicy useCase];
@@ -96,8 +94,8 @@ LABEL_9:
     v7 = __biome_log_for_category(0);
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v17 = 0x2020000000;
-    v18 = 16;
+    v16 = 0x2020000000;
+    v17 = 16;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __65__NSXPCConnection_BiomeAccessControl__setBm_accessControlPolicy___block_invoke;
@@ -135,16 +133,16 @@ LABEL_9:
   v7 = __biome_log_for_category(0);
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v17 = 0x2020000000;
-  v18 = 16;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __65__NSXPCConnection_BiomeAccessControl__setBm_accessControlPolicy___block_invoke_12;
-  v14[3] = &unk_1E796AC10;
-  v14[4] = &buf;
+  v16 = 0x2020000000;
+  v17 = 16;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __65__NSXPCConnection_BiomeAccessControl__setBm_accessControlPolicy___block_invoke_12;
+  v13[3] = &unk_1E796AC10;
+  v13[4] = &buf;
   if (setBm_accessControlPolicy__onceToken_11 != -1)
   {
-    dispatch_once(&setBm_accessControlPolicy__onceToken_11, v14);
+    dispatch_once(&setBm_accessControlPolicy__onceToken_11, v13);
   }
 
   v8 = *(*(&buf + 1) + 24);
@@ -161,12 +159,11 @@ LABEL_11:
 LABEL_12:
 
 LABEL_13:
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setBm_connectionFlags:()BiomeAccessControl
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   bm_userInfo = [self bm_userInfo];
   v6 = [bm_userInfo objectForKeyedSubscript:@"bm_connectionFlags"];
 
@@ -175,8 +172,8 @@ LABEL_13:
     v7 = __biome_log_for_category(0);
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v15 = 0x2020000000;
-    v16 = 16;
+    v13 = 0x2020000000;
+    v14 = 16;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __61__NSXPCConnection_BiomeAccessControl__setBm_connectionFlags___block_invoke;
@@ -195,17 +192,13 @@ LABEL_13:
       *(&buf + 4) = self;
       _os_log_impl(&dword_1AC15D000, v7, v8, "Connection flags cannot change after being set %@", &buf, 0xCu);
     }
-
-    v9 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a3];
+    v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a3];
     bm_userInfo2 = [self bm_userInfo];
-    [bm_userInfo2 setObject:v12 forKeyedSubscript:@"bm_connectionFlags"];
-
-    v11 = *MEMORY[0x1E69E9840];
+    [bm_userInfo2 setObject:v10 forKeyedSubscript:@"bm_connectionFlags"];
   }
 }
 

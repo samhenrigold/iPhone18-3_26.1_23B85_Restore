@@ -128,7 +128,7 @@
         v108 = 0u;
         if (v31)
         {
-          [v31 statistics];
+          objc_msgSend_statistics(v31);
         }
 
         *&buf = [v19 count];
@@ -375,7 +375,7 @@ void __71__CLSRegionItemCacheUpdater_createCacheForRegions_progressBlock_error__
   v5 = NSStringFromClass(v4);
   if (v3)
   {
-    [v3 statistics];
+    objc_msgSend_statistics(v3);
     v6 = *buf;
     v7 = *&buf[8];
     v9 = *(&v14 + 1);
@@ -419,7 +419,7 @@ void __71__CLSRegionItemCacheUpdater_createCacheForRegions_progressBlock_error__
     v9 = *(a1 + 32);
     if (v9)
     {
-      [v9 statistics];
+      objc_msgSend_statistics(v9);
       v9 = *(a1 + 32);
       v10 = *&buf[16] + 1;
     }
@@ -557,7 +557,7 @@ void __71__CLSRegionItemCacheUpdater_createCacheForRegions_progressBlock_error__
       v16 = *(a1 + 48);
       if (v16)
       {
-        [v16 statistics];
+        objc_msgSend_statistics(v16);
         v17 = *(&v25 + 1);
         v16 = *(a1 + 48);
         v18 = *(&v26 + 1) + 1;

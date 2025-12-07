@@ -25,7 +25,7 @@
 
 - (void)lockupViewDidFinishRequest:(id)request
 {
-  v5 = sub_100002D44(&qword_100142818);
+  v5 = sub_100002D44(&qword_100142818, &qword_1000F5860);
   __chkstk_darwin(v5 - 8);
   v7 = &v15 - v6;
   v8 = *&self->subtitle[OBJC_IVAR____TtCV16MusicRecognition17AppStoreComponent19AppStoreCoordinator_subtitle];

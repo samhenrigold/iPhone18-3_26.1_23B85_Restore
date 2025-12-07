@@ -1,6 +1,5 @@
 @interface AUObserverXPC
 + (id)xpcConnectionToDaemon;
-+ (void)xpcConnectionToDaemon;
 - (AUObserverXPC)init;
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
 - (id)remoteObject;
@@ -89,63 +88,60 @@
 
 void __52__AUObserverXPC_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284F787E0];
   [*(a1 + 32) setExportedInterface:v2];
 
   [*(a1 + 32) setExportedObject:*(a1 + 40)];
   LODWORD(v2) = [*(a1 + 32) processIdentifier];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __52__AUObserverXPC_listener_shouldAcceptNewConnection___block_invoke_2;
-  v7[3] = &__block_descriptor_36_e5_v8__0l;
-  v8 = v2;
-  [*(a1 + 32) setInterruptionHandler:v7];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __52__AUObserverXPC_listener_shouldAcceptNewConnection___block_invoke_60;
-  v5[3] = &__block_descriptor_36_e5_v8__0l;
-  v6 = v2;
-  [*(a1 + 32) setInvalidationHandler:v5];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __52__AUObserverXPC_listener_shouldAcceptNewConnection___block_invoke_2;
+  v6[3] = &__block_descriptor_36_e5_v8__0l;
+  v7 = v2;
+  [*(a1 + 32) setInterruptionHandler:v6];
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __52__AUObserverXPC_listener_shouldAcceptNewConnection___block_invoke_60;
+  v4[3] = &__block_descriptor_36_e5_v8__0l;
+  v5 = v2;
+  [*(a1 + 32) setInvalidationHandler:v4];
   [*(a1 + 32) _setQueue:*(*(a1 + 40) + 24)];
   [*(a1 + 32) resume];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) processIdentifier];
     *buf = 67109120;
-    v10 = v3;
+    v9 = v3;
     _os_log_impl(&dword_23D433000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "New connection from PID %d", buf, 8u);
   }
 
   *(*(*(a1 + 48) + 8) + 24) = 1;
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __52__AUObserverXPC_listener_shouldAcceptNewConnection___block_invoke_2(uint64_t a1)
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    __52__AUObserverXPC_listener_shouldAcceptNewConnection___block_invoke_2_cold_1(a1);
+    __52__AUObserverXPC_listener_shouldAcceptNewConnection___block_invoke_2_cold_1();
   }
 }
 
 void __52__AUObserverXPC_listener_shouldAcceptNewConnection___block_invoke_60(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v2 = *(a1 + 32);
-    v4[0] = 67109120;
-    v4[1] = v2;
-    _os_log_impl(&dword_23D433000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Connection from PID %d invalidated", v4, 8u);
+    v3[0] = 67109120;
+    v3[1] = v2;
+    _os_log_impl(&dword_23D433000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Connection from PID %d invalidated", v3, 8u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (id)remoteObject
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = +[AUObserverXPC xpcConnectionToDaemon];
   xpcConnection = self->_xpcConnection;
   self->_xpcConnection = v3;
@@ -156,11 +152,11 @@ void __52__AUObserverXPC_listener_shouldAcceptNewConnection___block_invoke_60(ui
     v6 = [(NSXPCConnection *)v5 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v9 = 136315394;
-      v10 = "[AUObserverXPC remoteObject]";
-      v11 = 2112;
-      v12 = v6;
-      _os_log_impl(&dword_23D433000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: remoteObject: %@", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[AUObserverXPC remoteObject]";
+      v10 = 2112;
+      v11 = v6;
+      _os_log_impl(&dword_23D433000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: remoteObject: %@", &v8, 0x16u);
     }
   }
 
@@ -169,12 +165,10 @@ void __52__AUObserverXPC_listener_shouldAcceptNewConnection___block_invoke_60(ui
     v6 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
-void __29__AUObserverXPC_remoteObject__block_invoke()
+void __29__AUObserverXPC_remoteObject__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
@@ -253,12 +247,12 @@ void __33__AUObserverXPC_unregisterClient__block_invoke(uint64_t a1)
 
 - (void)removeObserver
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v6 = 136315138;
-    v7 = "[AUObserverXPC removeObserver]";
-    _os_log_impl(&dword_23D433000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[AUObserverXPC removeObserver]";
+    _os_log_impl(&dword_23D433000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s", &v5, 0xCu);
   }
 
   remoteObject = [(AUObserverXPC *)self remoteObject];
@@ -266,42 +260,36 @@ void __33__AUObserverXPC_unregisterClient__block_invoke(uint64_t a1)
 
   xpcConnection = self->_xpcConnection;
   self->_xpcConnection = 0;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearDropboxForModelNumber:(id)number withFusing:(id)fusing
-{
-  v10 = *MEMORY[0x277D85DE8];
-  numberCopy = number;
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
-  {
-    v8 = 136315138;
-    v9 = "[AUObserverXPC clearDropboxForModelNumber:withFusing:]";
-    _os_log_impl(&dword_23D433000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s", &v8, 0xCu);
-  }
-
-  remoteObject = [(AUObserverXPC *)self remoteObject];
-  [remoteObject clearDropboxForModelNumber:numberCopy withFusing:0];
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)settingsChangedForSerialNumber:(id)number
 {
   v9 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v7 = 136315138;
-    v8 = "[AUObserverXPC settingsChangedForSerialNumber:]";
+    v8 = "[AUObserverXPC clearDropboxForModelNumber:withFusing:]";
     _os_log_impl(&dword_23D433000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s", &v7, 0xCu);
   }
 
   remoteObject = [(AUObserverXPC *)self remoteObject];
-  [remoteObject settingsChangedForSerialNumber:numberCopy];
+  [remoteObject clearDropboxForModelNumber:numberCopy withFusing:0];
+}
 
-  v6 = *MEMORY[0x277D85DE8];
+- (void)settingsChangedForSerialNumber:(id)number
+{
+  v8 = *MEMORY[0x277D85DE8];
+  numberCopy = number;
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+  {
+    v6 = 136315138;
+    v7 = "[AUObserverXPC settingsChangedForSerialNumber:]";
+    _os_log_impl(&dword_23D433000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s", &v6, 0xCu);
+  }
+
+  remoteObject = [(AUObserverXPC *)self remoteObject];
+  [remoteObject settingsChangedForSerialNumber:numberCopy];
 }
 
 - (void)addAccessoryID:(id)d assetID:(id)iD
@@ -345,11 +333,11 @@ void *__40__AUObserverXPC_addAccessoryID_assetID___block_invoke(void *result)
   dispatch_async(internalQueue, v7);
 }
 
-uint64_t __35__AUObserverXPC_removeAccessoryID___block_invoke(uint64_t result)
+void *__35__AUObserverXPC_removeAccessoryID___block_invoke(void *result)
 {
-  if (*(*(result + 32) + 40))
+  if (*(result[4] + 40))
   {
-    return [*(*(result + 32) + 40) removeAccessoryID:*(result + 40)];
+    return [*(result[4] + 40) removeAccessoryID:result[5]];
   }
 
   return result;
@@ -410,31 +398,6 @@ void *__62__AUObserverXPC_stagingCompleteForAccessoryID_assetID_status___block_i
   }
 
   return result;
-}
-
-void __52__AUObserverXPC_listener_shouldAcceptNewConnection___block_invoke_2_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 32);
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __29__AUObserverXPC_remoteObject__block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)xpcConnectionToDaemon
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

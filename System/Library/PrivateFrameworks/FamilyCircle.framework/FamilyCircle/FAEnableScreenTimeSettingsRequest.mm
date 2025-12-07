@@ -33,7 +33,7 @@
   v12 = handlerCopy;
   v5 = handlerCopy;
   v6 = [(FAFamilyCircleRequest *)self serviceRemoteObjectWithErrorHandler:v11];
-  v7 = _FALogSystem();
+  v7 = _FALogSystem(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [FAEnableScreenTimeSettingsRequest startRequestWithCompletionHandler:v7];
@@ -47,20 +47,19 @@
 
 void __71__FAEnableScreenTimeSettingsRequest_startRequestWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "[FAEnableScreenTimeSettingsRequest startRequestWithCompletionHandler:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1B70B0000, v4, OS_LOG_TYPE_DEFAULT, "%s: Error from service - %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[FAEnableScreenTimeSettingsRequest startRequestWithCompletionHandler:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1B70B0000, v4, OS_LOG_TYPE_DEFAULT, "%s: Error from service - %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)enableSettings:(id *)settings

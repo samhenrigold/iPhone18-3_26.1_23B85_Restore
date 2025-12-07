@@ -32,7 +32,7 @@
   v19 = 0u;
   if (defaultManager)
   {
-    [defaultManager badgeInfoForAsset:asset inCollection:0 options:16];
+    objc_msgSend_badgeInfoForAsset_inCollection_options_(defaultManager);
   }
 
   v14 = [PUBadgeInfoPromise alloc];
@@ -46,7 +46,7 @@
 - (id)convertIndexPath:(id)path fromAssetsDataSource:(id)source
 {
   v5 = [source assetReferenceAtIndexPath:path];
-  v6 = [(PUPXAssetsDataSource *)self indexPathForAssetReference:v5];
+  v6 = objc_msgSend_indexPathForAssetReference_(self);
 
   return v6;
 }
@@ -59,7 +59,7 @@
 
   if (dataSourceIdentifier == identifier)
   {
-    indexPath = [referenceCopy indexPath];
+    v14 = objc_msgSend_indexPath(referenceCopy);
   }
 
   else
@@ -79,7 +79,7 @@
       v17 = 0u;
       if (underlyingDataSource)
       {
-        [underlyingDataSource indexPathForAssetReference:v12];
+        objc_msgSend_indexPathForAssetReference_(underlyingDataSource);
         v13 = v16;
       }
 
@@ -90,22 +90,22 @@
 
       if (v13 == *MEMORY[0x1E69C4880])
       {
-        indexPath = 0;
+        v14 = 0;
       }
 
       else
       {
-        indexPath = PXIndexPathFromSimpleIndexPath();
+        v14 = PXIndexPathFromSimpleIndexPath();
       }
     }
 
     else
     {
-      indexPath = 0;
+      v14 = 0;
     }
   }
 
-  return indexPath;
+  return v14;
 }
 
 - (id)assetReferenceAtIndexPath:(id)path

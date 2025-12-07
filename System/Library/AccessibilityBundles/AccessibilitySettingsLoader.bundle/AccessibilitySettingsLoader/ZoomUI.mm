@@ -3,7 +3,7 @@
 
 @implementation ZoomUI
 
-uint64_t __50__ZoomUI_UIAlertControllerOverride_viewDidAppear___block_invoke(uint64_t a1)
+void *__50__ZoomUI_UIAlertControllerOverride_viewDidAppear___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) convertRect:*(a1 + 40) fromView:{*(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80)}];
   v3 = *(*(a1 + 48) + 8);
@@ -14,7 +14,7 @@ uint64_t __50__ZoomUI_UIAlertControllerOverride_viewDidAppear___block_invoke(uin
   return result;
 }
 
-uint64_t __50__ZoomUI_UIAlertControllerOverride_viewDidAppear___block_invoke_2(uint64_t a1)
+void *__50__ZoomUI_UIAlertControllerOverride_viewDidAppear___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) convertRect:0 toWindow:{*(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72)}];
   v3 = *(*(a1 + 40) + 8);
@@ -89,7 +89,7 @@ void __88__ZoomUI_SBFluidSwitcherViewController_handleFluidSwitcherGestureManage
   }
 }
 
-uint64_t __88__ZoomUI_SBFluidSwitcherViewController_handleFluidSwitcherGestureManager_didEndGesture___block_invoke_4(uint64_t a1)
+void *__88__ZoomUI_SBFluidSwitcherViewController_handleFluidSwitcherGestureManager_didEndGesture___block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) _shouldPresentDockForFinalDestination:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;

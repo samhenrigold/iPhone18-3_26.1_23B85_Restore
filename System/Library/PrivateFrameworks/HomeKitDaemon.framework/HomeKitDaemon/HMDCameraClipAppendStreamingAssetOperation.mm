@@ -18,30 +18,28 @@
 
 - (id)attributeDescriptions
 {
-  v16[2] = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = HMDCameraClipAppendStreamingAssetOperation;
-  attributeDescriptions = [(HMDCameraClipOperation *)&v15 attributeDescriptions];
+  v15[2] = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = HMDCameraClipAppendStreamingAssetOperation;
+  attributeDescriptions = [(HMDCameraClipOperation *)&v14 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   data = [(HMDCameraClipAppendStreamingAssetOperation *)self data];
   shortDescription = [data shortDescription];
   v7 = [v4 initWithName:@"Data" value:shortDescription];
-  v16[0] = v7;
+  v15[0] = v7;
   v8 = objc_alloc(MEMORY[0x277D0F778]);
   metadata = [(HMDCameraClipAppendStreamingAssetOperation *)self metadata];
   v10 = [v8 initWithName:@"Metadata" value:metadata];
-  v16[1] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v15[1] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
   v12 = [attributeDescriptions arrayByAddingObjectsFromArray:v11];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (void)timerDidFire:(id)fire
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   retryTimer = [(HMDCameraClipAppendStreamingAssetOperation *)self retryTimer];
 
@@ -54,9 +52,9 @@
     if (v9)
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Retry timer fired for append", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Retry timer fired for append", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -69,17 +67,15 @@
     if (v9)
     {
       v10 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v10;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Operation timed out, cancelling", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v10;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Operation timed out, cancelling", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
     v11 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:13];
     [(HMDCameraClipAppendStreamingAssetOperation *)selfCopy cancelWithError:v11];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_retryDelayForError:(id)error
@@ -106,7 +102,7 @@
 
 - (id)_updateClipModel:(id)model usingStreamingAsset:(id)asset
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   assetCopy = asset;
   v8 = [objc_alloc(MEMORY[0x277D17130]) initWithUploadStreamingAsset:assetCopy];
@@ -119,11 +115,11 @@
   if (streamingAssetPropertyName)
   {
     v11 = MEMORY[0x277CCABB0];
-    duration = [modelCopy duration];
-    [duration doubleValue];
+    v12 = objc_msgSend_duration(modelCopy);
+    [v12 doubleValue];
     v14 = v13;
     metadata2 = [(HMDCameraClipAppendStreamingAssetOperation *)self metadata];
-    [metadata2 duration];
+    objc_msgSend_duration(metadata2);
     v17 = [v11 numberWithDouble:v14 + v16];
     [modelCopy setDuration:v17];
 
@@ -160,27 +156,25 @@
   {
     v35 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v42 = v35;
+    v41 = v35;
     _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_INFO, "%{public}@Submitting clip model update", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v32);
   v36 = [(HMDCameraClipOperation *)selfCopy updateClipModel:modelCopy];
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __83__HMDCameraClipAppendStreamingAssetOperation__updateClipModel_usingStreamingAsset___block_invoke;
-  v40[3] = &unk_278686CE8;
-  v40[4] = selfCopy;
-  v37 = [v36 flatMap:v40];
-
-  v38 = *MEMORY[0x277D85DE8];
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __83__HMDCameraClipAppendStreamingAssetOperation__updateClipModel_usingStreamingAsset___block_invoke;
+  v39[3] = &unk_278686CE8;
+  v39[4] = selfCopy;
+  v37 = [v36 flatMap:v39];
 
   return v37;
 }
 
 id __83__HMDCameraClipAppendStreamingAssetOperation__updateClipModel_usingStreamingAsset___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 mirrorOutputResult];
 
@@ -197,9 +191,9 @@ id __83__HMDCameraClipAppendStreamingAssetOperation__updateClipModel_usingStream
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v9;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@No mirrorOutputResult available for clip update, failing operation", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v9;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@No mirrorOutputResult available for clip update, failing operation", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -207,8 +201,6 @@ id __83__HMDCameraClipAppendStreamingAssetOperation__updateClipModel_usingStream
     v11 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:8];
     v5 = [v10 futureWithError:v11];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -273,103 +265,99 @@ id __83__HMDCameraClipAppendStreamingAssetOperation__updateClipModel_usingStream
 
 id __50__HMDCameraClipAppendStreamingAssetOperation_main__block_invoke(uint64_t a1, void *a2)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
-  v5 = *(a1 + 32);
-  v6 = [objc_opt_class() streamingAssetPropertyName];
-  v7 = [v4 hmbPropertyNamed:v6];
+  v5 = [objc_opt_class() streamingAssetPropertyName];
+  v6 = [v4 hmbPropertyNamed:v5];
 
-  v8 = v7;
+  v7 = v6;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v9 = v8;
+    v8 = v7;
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  v10 = v9;
+  v9 = v8;
 
-  if (v10)
+  if (v9)
   {
-    v38 = v4;
-    v11 = [v10 uploadStreamingAsset];
-    v12 = [*(a1 + 32) encryptionManager];
-    v13 = [*(a1 + 32) data];
-    v14 = [v12 encryptedDataContextFromData:v13];
+    v35 = v4;
+    v10 = [v9 uploadStreamingAsset];
+    v11 = [*(a1 + 32) encryptionManager];
+    v12 = [*(a1 + 32) data];
+    v13 = [v11 encryptedDataContextFromData:v12];
 
-    v15 = [v14 dataRepresentation];
-    v16 = [v11 bytesUploaded];
-    v17 = [*(a1 + 32) metadata];
-    [v17 setByteOffset:v16];
+    v14 = [v13 dataRepresentation];
+    v15 = [v10 bytesUploaded];
+    v16 = [*(a1 + 32) metadata];
+    [v16 setByteOffset:v15];
 
-    v18 = [v15 length];
-    v19 = [*(a1 + 32) metadata];
-    [v19 setByteLength:v18];
+    v17 = [v14 length];
+    v18 = [*(a1 + 32) metadata];
+    [v18 setByteLength:v17];
 
-    v20 = objc_autoreleasePoolPush();
-    v21 = *(a1 + 32);
-    v22 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    v19 = objc_autoreleasePoolPush();
+    v20 = *(a1 + 32);
+    v21 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
-      v23 = HMFGetLogIdentifier();
+      v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v40 = v23;
-      v41 = 2048;
-      v42 = [v15 length];
-      _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Appending %lu bytes of data to streaming asset", buf, 0x16u);
+      v37 = v22;
+      v38 = 2048;
+      v39 = [v14 length];
+      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Appending %lu bytes of data to streaming asset", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v20);
-    v24 = objc_alloc_init(MEMORY[0x277D2C900]);
-    v25 = [objc_alloc(MEMORY[0x277CBC6D8]) initWithStreamingAsset:v11];
-    v26 = [*(a1 + 32) dataSource];
-    v27 = [v24 completionHandlerAdapter];
-    [v26 appendData:v15 toStreamingAssetAppendContext:v25 completion:v27];
+    objc_autoreleasePoolPop(v19);
+    v23 = objc_alloc_init(MEMORY[0x277D2C900]);
+    v24 = [objc_alloc(MEMORY[0x277CBC6D8]) initWithStreamingAsset:v10];
+    v25 = [*(a1 + 32) dataSource];
+    v26 = [v23 completionHandlerAdapter];
+    [v25 appendData:v14 toStreamingAssetAppendContext:v24 completion:v26];
 
-    v4 = v38;
+    v4 = v35;
   }
 
   else
   {
-    v28 = objc_autoreleasePoolPush();
-    v29 = *(a1 + 32);
-    v30 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v27 = objc_autoreleasePoolPush();
+    v28 = *(a1 + 32);
+    v29 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      v31 = HMFGetLogIdentifier();
-      v32 = *(a1 + 32);
-      v33 = [objc_opt_class() streamingAssetPropertyName];
+      v30 = HMFGetLogIdentifier();
+      v31 = [objc_opt_class() streamingAssetPropertyName];
       *buf = 138544130;
-      v40 = v31;
-      v41 = 2112;
-      v42 = v33;
-      v43 = 2112;
-      v44 = objc_opt_class();
-      v45 = 2112;
-      v46 = v8;
-      v34 = v44;
-      _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@Property %@ was of unexpected class %@: %@", buf, 0x2Au);
+      v37 = v30;
+      v38 = 2112;
+      v39 = v31;
+      v40 = 2112;
+      v41 = objc_opt_class();
+      v42 = 2112;
+      v43 = v7;
+      v32 = v41;
+      _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@Property %@ was of unexpected class %@: %@", buf, 0x2Au);
     }
 
-    objc_autoreleasePoolPop(v28);
-    v35 = MEMORY[0x277D2C900];
-    v11 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:3];
-    v24 = [v35 futureWithError:v11];
+    objc_autoreleasePoolPop(v27);
+    v33 = MEMORY[0x277D2C900];
+    v10 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:3];
+    v23 = [v33 futureWithError:v10];
   }
 
-  v36 = *MEMORY[0x277D85DE8];
-
-  return v24;
+  return v23;
 }
 
 id __50__HMDCameraClipAppendStreamingAssetOperation_main__block_invoke_28(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -377,22 +365,20 @@ id __50__HMDCameraClipAppendStreamingAssetOperation_main__block_invoke_28(uint64
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Successfully appended to streaming asset", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Successfully appended to streaming asset", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   v8 = [*(a1 + 32) _updateClipModel:*(*(*(a1 + 40) + 8) + 40) usingStreamingAsset:v3];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 void __50__HMDCameraClipAppendStreamingAssetOperation_main__block_invoke_30(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -400,20 +386,18 @@ void __50__HMDCameraClipAppendStreamingAssetOperation_main__block_invoke_30(uint
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Successfully updated clip model with updated streaming asset", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Successfully updated clip model with updated streaming asset", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   [*(a1 + 32) finish];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __50__HMDCameraClipAppendStreamingAssetOperation_main__block_invoke_32(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -421,11 +405,11 @@ void __50__HMDCameraClipAppendStreamingAssetOperation_main__block_invoke_32(uint
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v28 = 138543618;
-    v29 = v7;
-    v30 = 2112;
-    v31 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to append to streaming asset: %@", &v28, 0x16u);
+    v27 = 138543618;
+    v28 = v7;
+    v29 = 2112;
+    v30 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to append to streaming asset: %@", &v27, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -449,11 +433,11 @@ void __50__HMDCameraClipAppendStreamingAssetOperation_main__block_invoke_32(uint
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = HMFGetLogIdentifier();
-      v28 = 138543618;
-      v29 = v15;
-      v30 = 2112;
-      v31 = v9;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Retrying failed append in %@ seconds", &v28, 0x16u);
+      v27 = 138543618;
+      v28 = v15;
+      v29 = 2112;
+      v30 = v9;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Retrying failed append in %@ seconds", &v27, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -482,16 +466,14 @@ void __50__HMDCameraClipAppendStreamingAssetOperation_main__block_invoke_32(uint
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       v26 = HMFGetLogIdentifier();
-      v28 = 138543362;
-      v29 = v26;
-      _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Unable to retry append operation, canceling", &v28, 0xCu);
+      v27 = 138543362;
+      v28 = v26;
+      _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Unable to retry append operation, canceling", &v27, 0xCu);
     }
 
     objc_autoreleasePoolPop(v23);
     [*(a1 + 32) cancelWithError:v3];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDCameraClipAppendStreamingAssetOperation)initWithClipModelID:(id)d localZone:(id)zone data:(id)data metadata:(id)metadata encryptionManager:(id)manager dataSource:(id)source
@@ -585,10 +567,9 @@ LABEL_15:
 
 void __57__HMDCameraClipAppendStreamingAssetOperation_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v13_186182;
-  logCategory__hmf_once_v13_186182 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v13_186182;
+  logCategory__hmf_once_v13_186182 = v0;
 }
 
 + (BOOL)shouldRetry

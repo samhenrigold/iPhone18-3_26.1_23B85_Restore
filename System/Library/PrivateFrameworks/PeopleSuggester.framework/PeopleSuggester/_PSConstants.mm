@@ -11,28 +11,29 @@
 
 + (id)sharePlayBundleId
 {
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
   v2 = getTUBundleIdentifierCallServicesDaemonSymbolLoc_ptr;
-  v12 = getTUBundleIdentifierCallServicesDaemonSymbolLoc_ptr;
+  v13 = getTUBundleIdentifierCallServicesDaemonSymbolLoc_ptr;
   if (!getTUBundleIdentifierCallServicesDaemonSymbolLoc_ptr)
   {
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __getTUBundleIdentifierCallServicesDaemonSymbolLoc_block_invoke;
-    v8[3] = &unk_1E7C23BF0;
-    v8[4] = &v9;
-    __getTUBundleIdentifierCallServicesDaemonSymbolLoc_block_invoke(v8);
-    v2 = v10[3];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __getTUBundleIdentifierCallServicesDaemonSymbolLoc_block_invoke;
+    v9[3] = &unk_1E7C23BF0;
+    v9[4] = &v10;
+    __getTUBundleIdentifierCallServicesDaemonSymbolLoc_block_invoke(v9);
+    v2 = v11[3];
   }
 
-  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(&v10, 8);
   if (!v2)
   {
-    beginSyncingWithTU = [_PSBlockedHandlesCache beginSyncingWithTU];
-    _Block_object_dispose(&v9, 8);
-    _Unwind_Resume(beginSyncingWithTU);
+    [_PSBlockedHandlesCache beginSyncingWithTU];
+    v8 = v7;
+    _Block_object_dispose(&v10, 8);
+    _Unwind_Resume(v8);
   }
 
   v3 = *v2;

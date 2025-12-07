@@ -1226,21 +1226,21 @@ LABEL_4:
   return 1;
 }
 
-void __66__DBSceneWidgetViewController_listener_shouldAcceptNewConnection___block_invoke()
+void __66__DBSceneWidgetViewController_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v0 = DBLogForCategory(2uLL);
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = DBLogForCategory(2uLL);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __66__DBSceneWidgetViewController_listener_shouldAcceptNewConnection___block_invoke_cold_1();
+    __66__DBSceneWidgetViewController_listener_shouldAcceptNewConnection___block_invoke_cold_1(a1);
   }
 }
 
-void __66__DBSceneWidgetViewController_listener_shouldAcceptNewConnection___block_invoke_342()
+void __66__DBSceneWidgetViewController_listener_shouldAcceptNewConnection___block_invoke_342(uint64_t a1)
 {
-  v0 = DBLogForCategory(2uLL);
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = DBLogForCategory(2uLL);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __66__DBSceneWidgetViewController_listener_shouldAcceptNewConnection___block_invoke_342_cold_1();
+    __66__DBSceneWidgetViewController_listener_shouldAcceptNewConnection___block_invoke_342_cold_1(a1);
   }
 }
 
@@ -1598,11 +1598,11 @@ LABEL_15:
 
 void __50__DBSceneWidgetViewController_setWidgetContextId___block_invoke(uint64_t a1, void *a2)
 {
-  v2 = a2;
-  v3 = DBLogForCategory(2uLL);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v3 = a2;
+  v4 = DBLogForCategory(2uLL);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __50__DBSceneWidgetViewController_setWidgetContextId___block_invoke_cold_1();
+    __50__DBSceneWidgetViewController_setWidgetContextId___block_invoke_cold_1(a1);
   }
 }
 
@@ -1722,28 +1722,28 @@ void __53__DBSceneWidgetViewController__beginTouchCancelation__block_invoke()
   return WeakRetained;
 }
 
-void __66__DBSceneWidgetViewController_listener_shouldAcceptNewConnection___block_invoke_cold_1()
+void __66__DBSceneWidgetViewController_listener_shouldAcceptNewConnection___block_invoke_cold_1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v6 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-void __66__DBSceneWidgetViewController_listener_shouldAcceptNewConnection___block_invoke_342_cold_1()
+void __66__DBSceneWidgetViewController_listener_shouldAcceptNewConnection___block_invoke_342_cold_1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v6 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-void __50__DBSceneWidgetViewController_setWidgetContextId___block_invoke_cold_1()
+void __50__DBSceneWidgetViewController_setWidgetContextId___block_invoke_cold_1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v6 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 @end

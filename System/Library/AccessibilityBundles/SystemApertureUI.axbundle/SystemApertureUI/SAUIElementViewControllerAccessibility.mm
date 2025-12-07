@@ -58,17 +58,17 @@
   dispatch_async(MEMORY[0x29EDCA578], v11);
 }
 
-void __82__SAUIElementViewControllerAccessibility__axShiftFocusToElementViewForPowerAlerts__block_invoke(uint64_t a1)
+void __82__SAUIElementViewControllerAccessibility__axShiftFocusToElementViewForPowerAlerts__block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v2 = [*(a1 + 32) safeUIViewForKey:@"_elementView"];
-  v3 = __UIAccessibilityCastAsSafeCategory();
+  v3 = [*(a1 + 32) safeUIViewForKey:@"_elementView"];
+  v4 = __UIAccessibilityCastAsSafeCategory();
 
-  v4 = [v3 safeValueForKey:@"elementViewProvider"];
+  v5 = [v4 safeValueForKey:@"elementViewProvider"];
   MEMORY[0x29ED3A9D0](@"SBPowerAlertElement");
   if (objc_opt_isKindOfClass())
   {
-    UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], v3);
+    UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], v4);
   }
 }
 

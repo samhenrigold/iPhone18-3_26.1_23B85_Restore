@@ -42,7 +42,6 @@
 
 uint64_t __41__PPSDataIngesterRegistry_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   objc_opt_class();
   sharedInstance_instance_0 = objc_opt_new();
 
@@ -61,21 +60,21 @@ uint64_t __41__PPSDataIngesterRegistry_sharedInstance__block_invoke(uint64_t a1)
   {
     if (type > 2)
     {
-      v11 = PPSReaderLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v12 = PPSReaderLog(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        [PPSDataIngesterRegistry dataIngesterForFilepath:type requestType:v11];
+        [PPSDataIngesterRegistry dataIngesterForFilepath:type requestType:v12];
       }
 
-      v10 = 0;
+      v11 = 0;
     }
 
     else
     {
-      v10 = objc_opt_class();
+      v11 = objc_opt_class();
     }
 
-    v9 = [[v10 alloc] initWithFilepath:filepathCopy];
+    v9 = [[v11 alloc] initWithFilepath:filepathCopy];
     if (v6)
     {
       dataIngesters2 = [sharedInstance dataIngesters];
@@ -110,11 +109,10 @@ uint64_t __41__PPSDataIngesterRegistry_sharedInstance__block_invoke(uint64_t a1)
 
 + (void)dataIngesterForFilepath:(uint64_t)a1 requestType:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_debug_impl(&dword_25E225000, a2, OS_LOG_TYPE_DEBUG, "Invalid ingester type: %ld.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_debug_impl(&dword_25E225000, a2, OS_LOG_TYPE_DEBUG, "Invalid ingester type: %ld.", &v2, 0xCu);
 }
 
 @end

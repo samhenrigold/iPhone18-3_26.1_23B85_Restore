@@ -2,6 +2,7 @@
 - (BOOL)resume;
 - (BOOL)suspendWithInfo:(id)info;
 - (NSXPCConnection)connection;
+- (_NFXPCSession)initWithRemoteObject:(id)object workQueue:(id)queue allowsBackgroundMode:(BOOL)mode;
 - (id)bundleIdentifier;
 - (id)checkSessionAllowed;
 - (id)clientName;
@@ -18,6 +19,24 @@
 @end
 
 @implementation _NFXPCSession
+
+- (_NFXPCSession)initWithRemoteObject:(id)object workQueue:(id)queue allowsBackgroundMode:(BOOL)mode
+{
+  modeCopy = mode;
+  objectCopy = object;
+  v14.receiver = self;
+  v14.super_class = _NFXPCSession;
+  v10 = [(_NFSession *)&v14 initWithWorkQueue:queue allowsBackgroundMode:modeCopy];
+  v11 = v10;
+  if (v10)
+  {
+    objc_storeStrong(&v10->_remoteObject, object);
+    expressModeManager = v11->_expressModeManager;
+    v11->_expressModeManager = 0;
+  }
+
+  return v11;
+}
 
 - (id)checkSessionAllowed
 {

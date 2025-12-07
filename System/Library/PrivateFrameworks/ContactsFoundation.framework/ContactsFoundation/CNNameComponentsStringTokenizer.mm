@@ -135,7 +135,7 @@
   _Block_object_dispose(v11, 8);
 }
 
-uint64_t __61__CNNameComponentsStringTokenizer_removeParentheticalContent__block_invoke(uint64_t result, uint64_t a2)
+void *__61__CNNameComponentsStringTokenizer_removeParentheticalContent__block_invoke(void *result, uint64_t a2)
 {
   if (a2 <= 90)
   {
@@ -143,20 +143,20 @@ uint64_t __61__CNNameComponentsStringTokenizer_removeParentheticalContent__block
     {
       if (a2 == 41)
       {
-        v2 = *(result + 40);
+        v2 = *(result + 5);
         goto LABEL_8;
       }
 
 LABEL_10:
-      if (!*(*(*(result + 40) + 8) + 24) && !*(*(*(result + 48) + 8) + 24))
+      if (!*(*(*(result + 5) + 8) + 24) && !*(*(*(result + 6) + 8) + 24))
       {
-        return [*(result + 32) appendFormat:@"%C", a2];
+        return [*(result + 4) appendFormat:@"%C", a2];
       }
 
       return result;
     }
 
-    v6 = *(result + 40);
+    v6 = *(result + 5);
 LABEL_14:
     v3 = *(v6 + 8);
     v5 = *(v3 + 24) + 1;
@@ -165,7 +165,7 @@ LABEL_14:
 
   if (a2 == 91)
   {
-    v6 = *(result + 48);
+    v6 = *(result + 6);
     goto LABEL_14;
   }
 
@@ -174,7 +174,7 @@ LABEL_14:
     goto LABEL_10;
   }
 
-  v2 = *(result + 48);
+  v2 = *(result + 6);
 LABEL_8:
   v3 = *(v2 + 8);
   v4 = *(v3 + 24);
@@ -655,14 +655,12 @@ void __56__CNNameComponentsStringTokenizer_nameComponentElements__block_invoke(u
 
 - (void)initWithString:(void *)a1 options:.cold.2(void *a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v4 = 138543362;
-  v5 = objc_opt_class();
-  v2 = v5;
-  _os_log_fault_impl(&dword_1859F0000, v1, OS_LOG_TYPE_FAULT, "parameter ‘string’ must be of type %{public}@", &v4, 0xCu);
-
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = objc_opt_class();
+  v2 = v4;
+  _os_log_fault_impl(&dword_1859F0000, v1, OS_LOG_TYPE_FAULT, "parameter ‘string’ must be of type %{public}@", &v3, 0xCu);
 }
 
 @end

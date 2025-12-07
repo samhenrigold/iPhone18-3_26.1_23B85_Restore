@@ -53,9 +53,9 @@
   return _init;
 }
 
-uint64_t __40__RETrainingSimulationCoordinator__init__block_invoke()
+uint64_t __40__RETrainingSimulationCoordinator__init__block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = _REGetIsInternalBuild();
+  result = _REGetIsInternalBuild(a1, a2);
   _isInternalDevice_1 = result;
   return result;
 }
@@ -252,18 +252,19 @@ void __91__RETrainingSimulationCoordinator_relevanceEngine_createElementFromDesc
 
 void __89__RETrainingSimulationCoordinator_relevanceEngine_performCommand_withOptions_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
-    if ([*(a1 + 32) isEqualToString:@"sysdiagnose"])
+    v4 = [*(a1 + 32) isEqualToString:@"sysdiagnose"];
+    if (v4)
     {
       if (_fetchedInternalBuildOnceToken_1 != -1)
       {
         __89__RETrainingSimulationCoordinator_relevanceEngine_performCommand_withOptions_completion___block_invoke_cold_1();
       }
 
-      if (_isInternalDevice_1 == 1 && (REProcessIsRelevanced() & 1) != 0)
+      if (_isInternalDevice_1 == 1 && (REProcessIsRelevanced(v4, v5) & 1) != 0)
       {
         goto LABEL_31;
       }
@@ -274,8 +275,8 @@ void __89__RETrainingSimulationCoordinator_relevanceEngine_performCommand_withOp
       if (([*(a1 + 40) isActivelyTraining] & 1) == 0)
       {
         [*(a1 + 40) setIsActivelyTraining:1];
-        v4 = [MEMORY[0x277CCAB98] defaultCenter];
-        [v4 postNotificationName:@"RETrainingSimulationCoordinatorDidBeginTraining" object:*(a1 + 40)];
+        v6 = [MEMORY[0x277CCAB98] defaultCenter];
+        [v6 postNotificationName:@"RETrainingSimulationCoordinatorDidBeginTraining" object:*(a1 + 40)];
       }
 
       [v3 pauseForSimulation];
@@ -284,17 +285,17 @@ void __89__RETrainingSimulationCoordinator_relevanceEngine_performCommand_withOp
 
     if ([*(a1 + 32) isEqualToString:@"end"])
     {
-      v6 = +[(RESingleton *)RELocationPredictor];
-      [v6 _setOverrideLocation:-1 forEngine:*(a1 + 48)];
+      v8 = +[(RESingleton *)RELocationPredictor];
+      [v8 _setOverrideLocation:-1 forEngine:*(a1 + 48)];
 
-      v7 = +[(RESingleton *)REDailyRoutinePredictor];
-      [v7 _setOverrideRoutineType:0];
+      v9 = +[(RESingleton *)REDailyRoutinePredictor];
+      [v9 _setOverrideRoutineType:0];
 
       if ([*(a1 + 40) isActivelyTraining])
       {
         [*(a1 + 40) setIsActivelyTraining:0];
-        v8 = [MEMORY[0x277CCAB98] defaultCenter];
-        [v8 postNotificationName:@"RETrainingSimulationCoordinatorDidEndTraining" object:*(a1 + 40)];
+        v10 = [MEMORY[0x277CCAB98] defaultCenter];
+        [v10 postNotificationName:@"RETrainingSimulationCoordinatorDidEndTraining" object:*(a1 + 40)];
       }
 
       [v3 resumeFromSimulation];
@@ -303,41 +304,41 @@ void __89__RETrainingSimulationCoordinator_relevanceEngine_performCommand_withOp
 
     if ([*(a1 + 32) isEqualToString:@"reset"])
     {
-      v35 = 0u;
       v36 = 0u;
-      v33 = 0u;
+      v37 = 0u;
       v34 = 0u;
-      v9 = [*(*(a1 + 40) + 16) objectForKeyedSubscript:*(a1 + 48)];
-      v10 = v9;
-      v11 = MEMORY[0x277CBEBF8];
-      if (v9)
+      v35 = 0u;
+      v11 = [*(*(a1 + 40) + 16) objectForKeyedSubscript:*(a1 + 48)];
+      v12 = v11;
+      v13 = MEMORY[0x277CBEBF8];
+      if (v11)
       {
-        v11 = v9;
+        v13 = v11;
       }
 
-      v12 = v11;
+      v14 = v13;
 
-      v13 = [v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
-      if (v13)
+      v15 = [v14 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      if (v15)
       {
-        v14 = v13;
-        v15 = *v34;
+        v16 = v15;
+        v17 = *v35;
         do
         {
-          for (i = 0; i != v14; ++i)
+          for (i = 0; i != v16; ++i)
           {
-            if (*v34 != v15)
+            if (*v35 != v17)
             {
-              objc_enumerationMutation(v12);
+              objc_enumerationMutation(v14);
             }
 
-            [v3 removeElement:*(*(&v33 + 1) + 8 * i)];
+            [v3 removeElement:*(*(&v34 + 1) + 8 * i)];
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v34 objects:v38 count:16];
         }
 
-        while (v14);
+        while (v16);
       }
 
       [*(*(a1 + 40) + 16) setObject:0 forKeyedSubscript:*(a1 + 48)];
@@ -347,11 +348,11 @@ void __89__RETrainingSimulationCoordinator_relevanceEngine_performCommand_withOp
     if ([*(a1 + 32) isEqualToString:@"clear"])
     {
       [v3 trainPendingEventsWithCompletion:0];
-      v17 = [v3 modelManager];
-      [v17 performModelClearWithCompletion:&__block_literal_global_48];
+      v19 = [v3 modelManager];
+      [v19 performModelClearWithCompletion:&__block_literal_global_48];
 
 LABEL_31:
-      v5 = 0;
+      v7 = 0;
       goto LABEL_32;
     }
 
@@ -363,19 +364,19 @@ LABEL_31:
 
     if ([*(a1 + 32) isEqualToString:@"set_core_routine"])
     {
-      v5 = [*(a1 + 56) objectForKeyedSubscript:@"core_routine"];
-      v19 = RELocationPredictorUserLocationFromString(v5);
-      v20 = +[(RESingleton *)RELocationPredictor];
-      [v20 _setOverrideLocation:v19 forEngine:*(a1 + 48)];
+      v7 = [*(a1 + 56) objectForKeyedSubscript:@"core_routine"];
+      v20 = RELocationPredictorUserLocationFromString(v7);
+      v21 = +[(RESingleton *)RELocationPredictor];
+      [v21 _setOverrideLocation:v20 forEngine:*(a1 + 48)];
 
-      v21 = dispatch_time(0, 1000000000);
+      v22 = dispatch_time(0, 1000000000);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __89__RETrainingSimulationCoordinator_relevanceEngine_performCommand_withOptions_completion___block_invoke_4;
       block[3] = &unk_2785FA040;
-      v32 = *(a1 + 64);
-      dispatch_after(v21, MEMORY[0x277D85CD0], block);
-      v22 = v32;
+      v33 = *(a1 + 64);
+      dispatch_after(v22, MEMORY[0x277D85CD0], block);
+      v23 = v33;
 LABEL_38:
 
       goto LABEL_33;
@@ -383,104 +384,101 @@ LABEL_38:
 
     if ([*(a1 + 32) isEqualToString:@"set_routine_type"])
     {
-      v5 = [*(a1 + 56) objectForKeyedSubscript:@"routine_type"];
-      v23 = REDailyRoutineTypeFromString(v5);
-      v24 = +[(RESingleton *)REDailyRoutinePredictor];
-      [v24 _setOverrideRoutineType:v23];
+      v7 = [*(a1 + 56) objectForKeyedSubscript:@"routine_type"];
+      v24 = REDailyRoutineTypeFromString(v7);
+      v25 = +[(RESingleton *)REDailyRoutinePredictor];
+      [v25 _setOverrideRoutineType:v24];
 
-      v25 = dispatch_time(0, 1000000000);
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __89__RETrainingSimulationCoordinator_relevanceEngine_performCommand_withOptions_completion___block_invoke_5;
-      v29[3] = &unk_2785FA040;
-      v30 = *(a1 + 64);
-      dispatch_after(v25, MEMORY[0x277D85CD0], v29);
-      v22 = v30;
+      v26 = dispatch_time(0, 1000000000);
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __89__RETrainingSimulationCoordinator_relevanceEngine_performCommand_withOptions_completion___block_invoke_5;
+      v30[3] = &unk_2785FA040;
+      v31 = *(a1 + 64);
+      dispatch_after(v26, MEMORY[0x277D85CD0], v30);
+      v23 = v31;
       goto LABEL_38;
     }
 
-    v26 = [v3 trainingManager];
-    v27 = [v26 currentTrainingContext];
+    v27 = [v3 trainingManager];
+    v28 = [v27 currentTrainingContext];
 
-    if (v27)
+    if (v28)
     {
-      if ([v27 performSimulationCommand:*(a1 + 32) withOptions:*(a1 + 56)])
+      if ([v28 performSimulationCommand:*(a1 + 32) withOptions:*(a1 + 56)])
       {
-        v5 = 0;
+        v7 = 0;
 LABEL_45:
 
         goto LABEL_32;
       }
 
-      v28 = 100;
+      v29 = 100;
     }
 
     else
     {
-      v28 = 3;
+      v29 = 3;
     }
 
-    v5 = RECreateErrorWithCode(v28);
+    v7 = RECreateErrorWithCode(v29);
     goto LABEL_45;
   }
 
-  v5 = [*(a1 + 40) _unavailableEngineWithNameError:*(a1 + 48)];
+  v7 = [*(a1 + 40) _unavailableEngineWithNameError:*(a1 + 48)];
 LABEL_32:
   (*(*(a1 + 64) + 16))();
 LABEL_33:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __89__RETrainingSimulationCoordinator_relevanceEngine_performCommand_withOptions_completion___block_invoke_2()
+uint64_t __89__RETrainingSimulationCoordinator_relevanceEngine_performCommand_withOptions_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  result = _REGetIsInternalBuild();
+  result = _REGetIsInternalBuild(a1, a2);
   _isInternalDevice_1 = result;
   return result;
 }
 
 - (void)availableRelevanceEngines:(id)engines
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   enginesCopy = engines;
   array = [MEMORY[0x277CBEB18] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = +[(RESingleton *)RERelevanceEngineDebugger];
   availableEngines = [v5 availableEngines];
 
-  v7 = [availableEngines countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [availableEngines countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(availableEngines);
         }
 
-        name = [*(*(&v13 + 1) + 8 * v10) name];
+        name = [*(*(&v12 + 1) + 8 * v10) name];
         [array addObject:name];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [availableEngines countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [availableEngines countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
 
   enginesCopy[2](enginesCopy, array, 0);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchAllElementIdentifiersInRelevanceEngine:(id)engine completion:(id)completion
@@ -651,7 +649,7 @@ void __85__RETrainingSimulationCoordinator_gatherDiagnosticLogsForRelevanceEngin
 
 void __97__RETrainingSimulationCoordinator_relevanceEngine_runActionOfElementWithDescription1_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (!v3)
@@ -677,52 +675,50 @@ LABEL_8:
     v6 = [[RESectionPath alloc] initWithSectionName:@"defaultSectionIdentifier" element:v5];
     v7 = [v4 elementAtPath:v6];
 
-    v19 = 0;
-    v20 = &v19;
-    v21 = 0x2020000000;
-    v22 = 0;
-    v23[0] = @"REContentDescription1TextKey";
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __97__RETrainingSimulationCoordinator_relevanceEngine_runActionOfElementWithDescription1_completion___block_invoke_2;
-    v16[3] = &unk_2785FC138;
-    v17 = *(a1 + 32);
-    v18 = &v19;
-    REEnumerateContentAttributesOfElement(v8, v7, v16);
-    if (*(v20 + 24) == 1)
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x2020000000;
+    v21 = 0;
+    v22[0] = @"REContentDescription1TextKey";
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __97__RETrainingSimulationCoordinator_relevanceEngine_runActionOfElementWithDescription1_completion___block_invoke_2;
+    v15[3] = &unk_2785FC138;
+    v16 = *(a1 + 32);
+    v17 = &v18;
+    REEnumerateContentAttributesOfElement(v8, v7, v15);
+    if (*(v19 + 24) == 1)
     {
       break;
     }
 
-    _Block_object_dispose(&v19, 8);
+    _Block_object_dispose(&v18, 8);
     if (++v5 >= [v4 numberOfElementsInSection:@"defaultSectionIdentifier"])
     {
       goto LABEL_6;
     }
   }
 
-  v11 = [v7 action];
-  v12 = *(*(a1 + 40) + 24);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __97__RETrainingSimulationCoordinator_relevanceEngine_runActionOfElementWithDescription1_completion___block_invoke_3;
-  v14[3] = &unk_2785FC160;
-  v15 = *(a1 + 56);
-  v13 = MEMORY[0x22AABC5E0](v14);
-  [v12 setObject:v13 forKey:v11];
+  v10 = [v7 action];
+  v11 = *(*(a1 + 40) + 24);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __97__RETrainingSimulationCoordinator_relevanceEngine_runActionOfElementWithDescription1_completion___block_invoke_3;
+  v13[3] = &unk_2785FC160;
+  v14 = *(a1 + 56);
+  v12 = MEMORY[0x22AABC5E0](v13);
+  [v11 setObject:v12 forKey:v10];
 
-  [v11 setForceExecution:1];
-  [v11 setDelegate:*(a1 + 40)];
-  [v11 _performWithContext:MEMORY[0x277CBEC10]];
+  [v10 setForceExecution:1];
+  [v10 setDelegate:*(a1 + 40)];
+  [v10 _performWithContext:MEMORY[0x277CBEC10]];
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v18, 8);
 LABEL_9:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __97__RETrainingSimulationCoordinator_relevanceEngine_runActionOfElementWithDescription1_completion___block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
+void *__97__RETrainingSimulationCoordinator_relevanceEngine_runActionOfElementWithDescription1_completion___block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 isEqualToString:*(a1 + 32)];
   if (result)
@@ -864,7 +860,7 @@ void __63__RETrainingSimulationCoordinator_elementAction_didFinishTask___block_i
 {
   actionCopy = action;
   displayedCopy = displayed;
-  if (UIKitLibraryCore())
+  if (UIKitLibraryCore(0))
   {
     v12 = 0;
     v13 = &v12;

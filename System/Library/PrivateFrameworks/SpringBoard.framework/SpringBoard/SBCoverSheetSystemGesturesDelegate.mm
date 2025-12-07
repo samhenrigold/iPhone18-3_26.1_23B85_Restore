@@ -188,9 +188,9 @@
 
 - (BOOL)gestureRecognizerShouldBegin:(id)begin
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   beginCopy = begin;
-  v5 = SBLogSystemGestureCoverSheet();
+  v5 = SBLogSystemGestureCoverSheet(beginCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     sb_briefDescription = [(UIPanGestureRecognizer *)beginCopy sb_briefDescription];
@@ -204,10 +204,10 @@
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v70 = 0x3032000000;
-  v71 = __Block_byref_object_copy__106;
-  v72 = __Block_byref_object_dispose__106;
-  v73 = 0;
+  v71 = 0x3032000000;
+  v72 = __Block_byref_object_copy__106;
+  v73 = __Block_byref_object_dispose__106;
+  v74 = 0;
   view = [(UIPanGestureRecognizer *)beginCopy view];
   _sbWindowScene = [view _sbWindowScene];
 
@@ -218,20 +218,20 @@
   }
 
   controlCenterController = [_sbWindowScene controlCenterController];
-  v66[0] = MEMORY[0x277D85DD0];
-  v66[1] = 3221225472;
-  v66[2] = __67__SBCoverSheetSystemGesturesDelegate_gestureRecognizerShouldBegin___block_invoke;
-  v66[3] = &unk_2783BF5F0;
-  v66[4] = &buf;
-  v11 = MEMORY[0x223D6F7F0](v66);
+  v67[0] = MEMORY[0x277D85DD0];
+  v67[1] = 3221225472;
+  v67[2] = __67__SBCoverSheetSystemGesturesDelegate_gestureRecognizerShouldBegin___block_invoke;
+  v67[3] = &unk_2783BF5F0;
+  v67[4] = &buf;
+  v11 = MEMORY[0x223D6F7F0](v67);
   presentGestures = [(SBCoverSheetSystemGesturesDelegate *)self presentGestures];
-  v13 = [presentGestures containsObject:beginCopy];
+  v13 = objc_msgSend_containsObject_(presentGestures);
 
   if (v13)
   {
-    v65 = 0;
-    v14 = [policyAggregator allowsCapability:13 explanation:&v65];
-    v15 = v65;
+    v66 = 0;
+    v14 = [policyAggregator allowsCapability:13 explanation:&v66];
+    v15 = v66;
     if (v14)
     {
       v16 = +[SBSystemGestureManager mainDisplayManager];
@@ -247,8 +247,8 @@
         if (indirectPresentGestureRecognizer == beginCopy)
         {
           [(SBIndirectPanGestureRecognizer *)indirectPresentGestureRecognizer origin];
-          v38 = v53;
-          v40 = v54;
+          v39 = v54;
+          v41 = v55;
         }
 
         else
@@ -256,11 +256,11 @@
           statusBarManager = [_sbWindowScene statusBarManager];
           statusBar = [statusBarManager statusBar];
           _UISystemGestureLocationInView();
-          v38 = v37;
-          v40 = v39;
+          v39 = v38;
+          v41 = v40;
         }
 
-        v21 = [menuBarManager shouldAllowCoverSheetPresentationGestureAtLocation:self->_presentGestureRecognizer == beginCopy isTouchGesture:{v38, v40}];
+        v21 = [menuBarManager shouldAllowCoverSheetPresentationGestureAtLocation:self->_presentGestureRecognizer == beginCopy isTouchGesture:{v39, v41}];
       }
 
       else
@@ -272,7 +272,7 @@
       {
 
 LABEL_43:
-        v55 = 1;
+        v56 = 1;
         goto LABEL_59;
       }
 
@@ -312,62 +312,62 @@ LABEL_43:
   }
 
   dismissGestures = [(SBCoverSheetSystemGesturesDelegate *)self dismissGestures];
-  v23 = [dismissGestures containsObject:beginCopy];
+  v23 = objc_msgSend_containsObject_(dismissGestures);
 
   if (v23)
   {
-    v64 = 0;
-    v24 = [policyAggregator allowsCapability:14 explanation:&v64];
-    v15 = v64;
-    if (v24)
+    v65 = 0;
+    v25 = [policyAggregator allowsCapability:14 explanation:&v65];
+    v15 = v65;
+    if (v25)
     {
       extendSwipeUpRegion = [(CSCoverSheetDismissGestureSettings *)self->_dismissGestureSettings extendSwipeUpRegion];
       WeakRetained = objc_loadWeakRetained(&self->_dismissAddendumGestureRecognizer);
-      v27 = WeakRetained == beginCopy;
+      v28 = WeakRetained == beginCopy;
 
-      if ((v27 & extendSwipeUpRegion) == 1)
+      if ((v28 & extendSwipeUpRegion) == 1)
       {
         [(CSCoverSheetDismissGestureSettings *)self->_dismissGestureSettings extendedRegionInsetX];
-        v29 = v28;
-        v30 = [(SBCoverSheetSystemGesturesDelegate *)self viewForSystemGestureRecognizer:beginCopy];
-        [v30 bounds];
-        v76 = CGRectInset(v75, v29, 0.0);
-        x = v76.origin.x;
-        y = v76.origin.y;
-        width = v76.size.width;
-        height = v76.size.height;
+        v30 = v29;
+        v31 = [(SBCoverSheetSystemGesturesDelegate *)self viewForSystemGestureRecognizer:beginCopy];
+        [v31 bounds];
+        v77 = CGRectInset(v76, v30, 0.0);
+        x = v77.origin.x;
+        y = v77.origin.y;
+        width = v77.size.width;
+        height = v77.size.height;
         _UISystemGestureLocationInView();
-        v77.origin.x = x;
-        v77.origin.y = y;
-        v77.size.width = width;
-        v77.size.height = height;
-        CGRectGetMinX(v77);
+        v78.origin.x = x;
+        v78.origin.y = y;
+        v78.size.width = width;
+        v78.size.height = height;
+        CGRectGetMinX(v78);
         if (BSFloatGreaterThanOrEqualToFloat())
         {
-          v78.origin.x = x;
-          v78.origin.y = y;
-          v78.size.width = width;
-          v78.size.height = height;
-          CGRectGetMaxX(v78);
-          v61 = BSFloatLessThanOrEqualToFloat();
+          v79.origin.x = x;
+          v79.origin.y = y;
+          v79.size.width = width;
+          v79.size.height = height;
+          CGRectGetMaxX(v79);
+          v62 = BSFloatLessThanOrEqualToFloat();
         }
 
         else
         {
-          v61 = 0;
+          v62 = 0;
         }
       }
 
       else
       {
-        v61 = 1;
+        v62 = 1;
       }
 
-      v41 = +[SBSystemGestureManager mainDisplayManager];
-      v59 = [v41 isGestureWithTypeAllowed:2];
+      v42 = +[SBSystemGestureManager mainDisplayManager];
+      v60 = [v42 isGestureWithTypeAllowed:2];
 
-      v42 = +[SBWorkspace mainWorkspace];
-      transientOverlayPresentationManager = [v42 transientOverlayPresentationManager];
+      v43 = +[SBWorkspace mainWorkspace];
+      transientOverlayPresentationManager = [v43 transientOverlayPresentationManager];
       hasActivePresentation = [transientOverlayPresentationManager hasActivePresentation];
 
       isPresented = [controlCenterController isPresented];
@@ -381,12 +381,12 @@ LABEL_43:
         isVisible = [controlCenterController isVisible];
       }
 
-      v47 = +[SBCoverSheetPresentationManager sharedInstance];
-      hasBeenDismissedSinceKeybagLock = [v47 hasBeenDismissedSinceKeybagLock];
+      v48 = +[SBCoverSheetPresentationManager sharedInstance];
+      hasBeenDismissedSinceKeybagLock = [v48 hasBeenDismissedSinceKeybagLock];
 
-      v49 = SBHomeGestureEnabled();
+      v50 = SBHomeGestureEnabled();
       _canDismissGestureBegin = [(SBCoverSheetSystemGesturesDelegate *)self _canDismissGestureBegin];
-      if (!(v49 & 1 | ((_canDismissGestureBegin & 1) == 0)))
+      if (!(v50 & 1 | ((_canDismissGestureBegin & 1) == 0)))
       {
         authenticationController = [SBApp authenticationController];
         isAuthenticated = [authenticationController isAuthenticated];
@@ -394,17 +394,17 @@ LABEL_43:
         _canDismissGestureBegin = isAuthenticated & hasBeenDismissedSinceKeybagLock;
       }
 
-      if (_canDismissGestureBegin & v59 & (isVisible ^ 1) & (hasActivePresentation ^ 1) & v61)
+      if (_canDismissGestureBegin & v60 & (isVisible ^ 1) & (hasActivePresentation ^ 1) & v62)
       {
         goto LABEL_43;
       }
 
-      if (!(_canDismissGestureBegin & 1 | ((v49 & 1) == 0)))
+      if (!(_canDismissGestureBegin & 1 | ((v50 & 1) == 0)))
       {
         (v11)[2](v11, @"either _canDismissGestureBegin is NO or can't pull up when not authenticated and not in notification center mode");
       }
 
-      if ((v59 & 1) == 0)
+      if ((v60 & 1) == 0)
       {
         (v11)[2](v11, @"gesture with type SBSystemGestureTypeDismissCoverSheet is not allowed by SBSystemGestureManager");
       }
@@ -419,7 +419,7 @@ LABEL_43:
         (v11)[2](v11, @"control center is visible");
       }
 
-      if ((v61 & 1) == 0)
+      if ((v62 & 1) == 0)
       {
         (v11)[2](v11, @"isn't within X margin");
       }
@@ -434,20 +434,20 @@ LABEL_54:
 LABEL_55:
   }
 
-  v15 = SBLogSystemGestureCoverSheet();
+  v15 = SBLogSystemGestureCoverSheet(v24);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v56 = *(*(&buf + 1) + 40);
-    *v67 = 138543362;
-    v68 = v56;
-    _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "should not begin for reason: %{public}@", v67, 0xCu);
+    v57 = *(*(&buf + 1) + 40);
+    *v68 = 138543362;
+    v69 = v57;
+    _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "should not begin for reason: %{public}@", v68, 0xCu);
   }
 
-  v55 = 0;
+  v56 = 0;
 LABEL_59:
 
   _Block_object_dispose(&buf, 8);
-  return v55;
+  return v56;
 }
 
 void __67__SBCoverSheetSystemGesturesDelegate_gestureRecognizerShouldBegin___block_invoke(uint64_t a1, void *a2)
@@ -498,69 +498,70 @@ void __67__SBCoverSheetSystemGesturesDelegate_gestureRecognizerShouldBegin___blo
 
 - (BOOL)_isGestureAllowedByTransientOverlaysOrTopmostApp
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = +[SBWorkspace mainWorkspace];
   transientOverlayPresentationManager = [v2 transientOverlayPresentationManager];
 
-  if ([transientOverlayPresentationManager shouldDisableCoverSheetGesture])
+  shouldDisableCoverSheetGesture = [transientOverlayPresentationManager shouldDisableCoverSheetGesture];
+  if (shouldDisableCoverSheetGesture)
   {
-    v4 = SBLogSystemGestureCoverSheet();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = SBLogSystemGestureCoverSheet(shouldDisableCoverSheetGesture);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Not allowing transition because transient overlays suppress CoverSheet.", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Not allowing transition because transient overlays suppress CoverSheet.", buf, 2u);
     }
 
 LABEL_18:
-    v7 = 0;
+    v8 = 0;
 LABEL_19:
 
     goto LABEL_20;
   }
 
-  v5 = +[SBMainSwitcherControllerCoordinator sharedInstance];
-  isAnySwitcherVisible = [v5 isAnySwitcherVisible];
+  v6 = +[SBMainSwitcherControllerCoordinator sharedInstance];
+  isAnySwitcherVisible = [v6 isAnySwitcherVisible];
 
   if ((isAnySwitcherVisible & 1) == 0)
   {
+    v20 = 0u;
+    v21 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    v4 = SBWorkspaceApplicationSceneHandlesInLockedOrUnlockedEnvironmentLayoutState();
-    v8 = [v4 countByEnumeratingWithState:&v16 objects:v21 count:16];
-    if (v8)
+    v5 = SBWorkspaceApplicationSceneHandlesInLockedOrUnlockedEnvironmentLayoutState();
+    v9 = [v5 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    if (v9)
     {
-      v9 = v8;
-      v10 = *v17;
+      v10 = v9;
+      v11 = *v19;
       while (2)
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v10)
+          if (*v19 != v11)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v5);
           }
 
-          application = [*(*(&v16 + 1) + 8 * i) application];
+          application = [*(*(&v18 + 1) + 8 * i) application];
           suppressesCoverSheetGesture = [application suppressesCoverSheetGesture];
 
           if (suppressesCoverSheetGesture)
           {
-            v14 = SBLogSystemGestureCoverSheet();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+            v16 = SBLogSystemGestureCoverSheet(v15);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Not allowing transition because the top app suppresses CoverSheet.", buf, 2u);
+              _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "Not allowing transition because the top app suppresses CoverSheet.", buf, 2u);
             }
 
             goto LABEL_18;
           }
         }
 
-        v9 = [v4 countByEnumeratingWithState:&v16 objects:v21 count:16];
-        v7 = 1;
-        if (v9)
+        v10 = [v5 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v8 = 1;
+        if (v10)
         {
           continue;
         }
@@ -571,16 +572,16 @@ LABEL_19:
 
     else
     {
-      v7 = 1;
+      v8 = 1;
     }
 
     goto LABEL_19;
   }
 
-  v7 = 1;
+  v8 = 1;
 LABEL_20:
 
-  return v7;
+  return v8;
 }
 
 - (BOOL)_canDismissGestureBegin

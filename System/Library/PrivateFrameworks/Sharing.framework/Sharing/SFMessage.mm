@@ -55,26 +55,28 @@
 
 - (id)description
 {
+  v13 = 0;
   v3 = objc_opt_class();
-  identifier = NSStringFromClass(v3);
-  NSAppendPrintF();
-  v4 = 0;
+  v4 = NSStringFromClass(v3);
+  NSAppendPrintF(&v13, "%@ %{ptr}", v4, self);
+  v5 = v13;
 
-  if (self->_identifier)
+  identifier = self->_identifier;
+  if (identifier)
   {
-    identifier = self->_identifier;
-    NSAppendPrintF();
-    v5 = v4;
+    v12 = v5;
+    NSAppendPrintF(&v12, ", ID %@", identifier);
+    v7 = v12;
 
-    v4 = v5;
+    v5 = v7;
   }
 
-  [(NSDictionary *)self->_headerFields count:identifier];
-  [(NSData *)self->_bodyData length];
-  NSAppendPrintF();
-  v6 = v4;
+  v11 = v5;
+  NSAppendPrintF(&v11, ", %ld fields, %ld body bytes", [(NSDictionary *)self->_headerFields count], [(NSData *)self->_bodyData length]);
+  v8 = v11;
+  v9 = v11;
 
-  return v4;
+  return v8;
 }
 
 - (void)invalidate
@@ -86,47 +88,42 @@
 - (SFMessage)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v42.receiver = self;
-  v42.super_class = SFMessage;
-  v5 = [(SFMessage *)&v42 init];
+  v37.receiver = self;
+  v37.super_class = SFMessage;
+  v5 = [(SFMessage *)&v37 init];
   if (v5)
   {
-    v6 = 0x1E695D000uLL;
     if ([coderCopy containsValueForKey:@"bodyData"])
     {
-      v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"bodyData"];
+      v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"bodyData"];
       bodyData = v5->_bodyData;
-      v5->_bodyData = v7;
+      v5->_bodyData = v6;
     }
 
-    v9 = [coderCopy containsValueForKey:@"deviceIDs"];
-    v10 = 0x1E696A000uLL;
-    v11 = MEMORY[0x1E695D940];
-    if (v9)
+    v8 = [coderCopy containsValueForKey:@"deviceIDs"];
+    v9 = MEMORY[0x1E695D940];
+    if (v8)
     {
-      v12 = MEMORY[0x1E695DFD8];
-      v13 = objc_opt_class();
-      v14 = [v12 setWithObjects:{v13, objc_opt_class(), 0}];
-      v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"deviceIDs"];
+      v10 = MEMORY[0x1E695DFD8];
+      v11 = objc_opt_class();
+      v12 = [v10 setWithObjects:{v11, objc_opt_class(), 0}];
+      v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"deviceIDs"];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v16 = MEMORY[0x1E695DF30];
-        v17 = *v11;
-        v18 = _NSMethodExceptionProem();
-        [v16 raise:v17 format:{@"%@: non-set value for key %@ : %@", v18, @"deviceIDs", v15}];
-
-        v10 = 0x1E696A000;
+        v14 = MEMORY[0x1E695DF30];
+        v15 = *v9;
+        v16 = _NSMethodExceptionProem();
+        [v14 raise:v15 format:{@"%@: non-set value for key %@ : %@", v16, @"deviceIDs", v13}];
       }
 
-      objc_storeStrong(&v5->_deviceIDs, v15);
-      v6 = 0x1E695D000;
+      objc_storeStrong(&v5->_deviceIDs, v13);
     }
 
     else
     {
-      v14 = 0;
-      v15 = 0;
+      v12 = 0;
+      v13 = 0;
     }
 
     if ([coderCopy containsValueForKey:@"expectsResponse"])
@@ -136,56 +133,52 @@
 
     if ([coderCopy containsValueForKey:@"headerFields"])
     {
-      v41 = MEMORY[0x1E695DFD8];
-      v40 = objc_opt_class();
-      v19 = *(v6 + 3824);
-      v39 = objc_opt_class();
+      v36 = MEMORY[0x1E695DFD8];
+      v35 = objc_opt_class();
+      v34 = objc_opt_class();
+      v17 = objc_opt_class();
+      v18 = objc_opt_class();
+      v19 = v12;
       v20 = objc_opt_class();
       v21 = objc_opt_class();
-      v22 = v14;
-      v23 = objc_opt_class();
-      v24 = objc_opt_class();
-      v25 = objc_opt_class();
-      v26 = *(v10 + 4016);
-      v27 = [v41 setWithObjects:{v40, v39, v20, v21, v23, v24, v25, objc_opt_class(), 0}];
+      v22 = objc_opt_class();
+      v23 = [v36 setWithObjects:{v35, v34, v17, v18, v20, v21, v22, objc_opt_class(), 0}];
 
-      v28 = [coderCopy decodeObjectOfClasses:v27 forKey:@"headerFields"];
+      v24 = [coderCopy decodeObjectOfClasses:v23 forKey:@"headerFields"];
 
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v29 = MEMORY[0x1E695DF30];
-        v30 = *MEMORY[0x1E695D940];
-        v31 = _NSMethodExceptionProem();
-        [v29 raise:v30 format:{@"%@: non-dictionary value for key %@ : %@", v31, @"headerFields", v28}];
+        v25 = MEMORY[0x1E695DF30];
+        v26 = *MEMORY[0x1E695D940];
+        v27 = _NSMethodExceptionProem();
+        [v25 raise:v26 format:{@"%@: non-dictionary value for key %@ : %@", v27, @"headerFields", v24}];
       }
 
-      objc_storeStrong(&v5->_headerFields, v28);
-      v14 = v27;
-      v10 = 0x1E696A000;
+      objc_storeStrong(&v5->_headerFields, v24);
+      v12 = v23;
     }
 
     else
     {
-      v28 = v15;
+      v24 = v13;
     }
 
     if ([coderCopy containsValueForKey:@"identifier"])
     {
-      v32 = *(v10 + 4016);
-      v33 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
+      v28 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
       identifier = v5->_identifier;
-      v5->_identifier = v33;
+      v5->_identifier = v28;
     }
 
     if ([coderCopy containsValueForKey:@"peerDevice"])
     {
-      v35 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"peerDevice"];
+      v30 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"peerDevice"];
       peerDevice = v5->_peerDevice;
-      v5->_peerDevice = v35;
+      v5->_peerDevice = v30;
     }
 
-    v37 = v5;
+    v32 = v5;
   }
 
   return v5;

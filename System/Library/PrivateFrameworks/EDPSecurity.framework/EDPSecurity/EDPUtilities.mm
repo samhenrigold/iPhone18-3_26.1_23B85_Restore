@@ -1,6 +1,7 @@
 @interface EDPUtilities
 + (id)createSignature:(id)signature withCertChain:(id)chain withTime:(id)time withRemoteHandler:(id)handler withError:(id *)error;
 + (id)getCertificateChain:(__SecIdentity *)chain withError:(id *)error;
++ (id)signDigest:(id)digest algorithm:(unsigned int)algorithm identity:(__SecIdentity *)identity error:(id *)error;
 + (id)validateSignature:(id)signature requireTrust:(BOOL)trust withError:(id *)error;
 @end
 
@@ -255,6 +256,43 @@ LABEL_36:
 LABEL_37:
 
   return v32;
+}
+
++ (id)signDigest:(id)digest algorithm:(unsigned int)algorithm identity:(__SecIdentity *)identity error:(id *)error
+{
+  v8 = *&algorithm;
+  digestCopy = digest;
+  privateKeyRef = 0;
+  SecIdentityCopyPrivateKey(identity, &privateKeyRef);
+  v10 = pickKeyAlgorithm(privateKeyRef, v8, error);
+  if (!v10)
+  {
+LABEL_6:
+    Signature = 0;
+    goto LABEL_7;
+  }
+
+  v13 = 0;
+  Signature = SecKeyCreateSignature(privateKeyRef, v10, digestCopy, &v13);
+  if (!Signature || v13)
+  {
+    if (error)
+    {
+      Signature = 0;
+      *error = v13;
+      goto LABEL_7;
+    }
+
+    goto LABEL_6;
+  }
+
+LABEL_7:
+  if (privateKeyRef)
+  {
+    CFRelease(privateKeyRef);
+  }
+
+  return Signature;
 }
 
 + (id)validateSignature:(id)signature requireTrust:(BOOL)trust withError:(id *)error

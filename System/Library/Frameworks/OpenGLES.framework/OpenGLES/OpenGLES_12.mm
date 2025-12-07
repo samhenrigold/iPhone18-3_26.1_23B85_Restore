@@ -578,7 +578,7 @@ LABEL_67:
               goto LABEL_191;
             }
 
-            LODWORD(v79) = *(v68 + v71);
+            v79 = *(v68 + v71);
             *(a1 + 260) = v66 + 5;
             LODWORD(v71) = v66 + 8;
             if (v66 + 8 > v67)
@@ -609,7 +609,7 @@ LABEL_67:
               goto LABEL_191;
             }
 
-            LODWORD(v79) = *(v68 + v71);
+            v79 = *(v68 + v71);
             *(a1 + 260) = v66 + 5;
             if (v66 + 5 >= v67)
             {
@@ -626,7 +626,7 @@ LABEL_67:
               goto LABEL_191;
             }
 
-            LODWORD(v79) = *(v68 + v71);
+            v79 = *(v68 + v71);
             v84 = (v66 + 5);
             *(a1 + 260) = v84;
             if (v84 + 2 > v67)
@@ -653,7 +653,7 @@ LABEL_67:
           goto LABEL_191;
         }
 
-        LODWORD(v79) = *(v68 + v71);
+        v79 = *(v68 + v71);
         LODWORD(v71) = v66 + 5;
         goto LABEL_159;
       }
@@ -664,7 +664,7 @@ LABEL_67:
         goto LABEL_191;
       }
 
-      LODWORD(v79) = *(v68 + v71) | (*(v68 + v71 + 2) << 16);
+      v79 = *(v68 + v71) | (*(v68 + v71 + 2) << 16);
       *(a1 + 260) = v82;
       LODWORD(v71) = v82;
 LABEL_160:
@@ -679,7 +679,7 @@ LABEL_160:
         v86 = 0;
       }
 
-      LODWORD(v70) = v79 | v86;
+      v70 = v79 | v86;
       if (v79 | v86)
       {
 LABEL_114:
@@ -907,7 +907,7 @@ LABEL_180:
         goto LABEL_191;
       }
 
-      LODWORD(v79) = *(v68 + v71);
+      v79 = *(v68 + v71);
       LODWORD(v71) = v66 + 3;
     }
 
@@ -918,7 +918,7 @@ LABEL_180:
         goto LABEL_191;
       }
 
-      LODWORD(v79) = *(v68 + v71);
+      v79 = *(v68 + v71);
       LODWORD(v71) = v66 + 2;
     }
 
@@ -932,545 +932,546 @@ LABEL_159:
 
 void *glpLinkProgram(void *a1)
 {
-  v565[7] = *MEMORY[0x277D85DE8];
-  bzero(v543, 0x230uLL);
+  v506[7] = *MEMORY[0x277D85DE8];
+  bzero(v484, 0x230uLL);
+  v2 = 0;
+  v3 = 0;
+  v4 = 0;
+  v5 = 0;
   v6 = 0;
   v7 = 0;
-  v8 = 0;
-  v9 = 0;
-  v10 = 0;
-  v11 = 0;
-  memset(v521, 0, sizeof(v521));
-  v491 = a1 + 23;
-  v518 = a1;
-  v500 = a1 + 13;
-  v496 = 1;
+  memset(v462, 0, sizeof(v462));
+  v432 = a1 + 23;
+  v459 = a1;
+  v441 = a1 + 13;
+  v437 = 1;
   do
   {
-    v12 = &v500[2 * v6];
-    v13 = *(v12 + 1);
-    if (v13)
+    v8 = &v441[2 * v2];
+    v9 = *(v8 + 1);
+    if (v9)
     {
-      v505 = v11;
-      v511 = v8;
-      v14 = &v543[14 * v6];
-      memset(v565, 0, 56);
-      v563 = 0u;
-      v564 = 0u;
-      v561 = 0u;
-      v562 = 0u;
-      v559 = 0u;
-      v560 = 0u;
-      v557 = 0u;
-      v558 = 0u;
-      v555 = 0u;
-      v556 = 0u;
-      v553 = 0u;
-      v554 = 0u;
-      v551 = 0u;
-      v552 = 0u;
-      v550 = 0u;
-      glpASTMergeInitContext(&v550, v518, v6);
-      v15 = 0;
-      v16 = 8 * v13;
+      v446 = v7;
+      v452 = v4;
+      v10 = &v484[14 * v2];
+      memset(v506, 0, 56);
+      v504 = 0u;
+      v505 = 0u;
+      v502 = 0u;
+      v503 = 0u;
+      v500 = 0u;
+      v501 = 0u;
+      v498 = 0u;
+      v499 = 0u;
+      v496 = 0u;
+      v497 = 0u;
+      v494 = 0u;
+      v495 = 0u;
+      v492 = 0u;
+      v493 = 0u;
+      v491 = 0u;
+      glpASTMergeInitContext(&v491, v459, v2);
+      v11 = 0;
+      v12 = 8 * v9;
       do
       {
-        v17 = glpDeserializeAST(v518, *(*(v12[1] + v15) + 16), *(*(v12[1] + v15) + 8));
-        if (!v17)
+        v13 = glpDeserializeAST(v459, *(*(v8[1] + v11) + 16), *(*(v8[1] + v11) + 8));
+        if (!v13)
         {
-          v491[v6] = 0;
-          v24 = v518[8];
-          v25 = glpLanguageToString(v6);
-          *&v540 = "-1";
-          *(&v540 + 1) = 0xEDA00000002;
-          *&v541 = 0xFFFFFFFFLL;
-          glpLogMessage(v24, 0, &v540, "Compiled %s shader was corrupt.", v26, v27, v28, v29, v25);
+          v432[v2] = 0;
+          v20 = v459[8];
+          v21 = glpLanguageToString(v2);
+          *&v481 = "-1";
+          *(&v481 + 1) = 0xEDA00000002;
+          *&v482 = 0xFFFFFFFFLL;
+          glpLogMessage(v20, 0, &v481, "Compiled %s shader was corrupt.", v21);
           goto LABEL_13;
         }
 
-        if (!glpASTMergePhase1AddTopLevelNode(&v550, v17))
+        if (!glpASTMergePhase1AddTopLevelNode(&v491, v13))
         {
           goto LABEL_13;
         }
 
-        v15 += 8;
+        v11 += 8;
       }
 
-      while (v16 != v15);
-      v18 = glpASTMergePhase2(&v550);
-      if (v18 != -1)
+      while (v12 != v11);
+      v14 = glpASTMergePhase2(&v491);
+      if (v14 != -1)
       {
-        v491[v6] = v18;
-        v19 = vextq_s8(v563, v563, 8uLL);
-        *v14 = v562;
-        *(v14 + 1) = v19;
-        *(v14 + 2) = v564;
-        v20 = v560;
-        v14[6] = v565[0];
-        v14[7] = v20;
-        v21 = *(&v552 + 1);
-        v14[8] = v559;
-        v14[9] = v21;
-        v22 = *&v565[3];
-        *(v14 + 5) = *&v565[1];
-        *(v14 + 6) = v22;
+        v432[v2] = v14;
+        v15 = vextq_s8(v504, v504, 8uLL);
+        *v10 = v503;
+        *(v10 + 1) = v15;
+        *(v10 + 2) = v505;
+        v16 = v501;
+        v10[6] = v506[0];
+        v10[7] = v16;
+        v17 = *(&v493 + 1);
+        v10[8] = v500;
+        v10[9] = v17;
+        v18 = *&v506[3];
+        *(v10 + 5) = *&v506[1];
+        *(v10 + 6) = v18;
         goto LABEL_14;
       }
 
 LABEL_13:
-      v496 = 0;
+      v437 = 0;
 LABEL_14:
-      v23 = *(v12 + 1);
-      v8 = v511;
-      if (v505)
+      v19 = *(v8 + 1);
+      v4 = v452;
+      if (v446)
       {
 LABEL_10:
-        if (v23)
+        if (v19)
         {
           goto LABEL_17;
         }
 
 LABEL_28:
-        v11 = 1;
+        v7 = 1;
         goto LABEL_29;
       }
     }
 
     else
     {
-      v23 = 0;
-      v491[v6] = 0;
-      if (v11)
+      v19 = 0;
+      v432[v2] = 0;
+      if (v7)
       {
         goto LABEL_10;
       }
     }
 
-    if (v23)
+    if (v19)
     {
-      glpPopulatePrecisionWidths(*(*v12[1] + 4), v521);
-      v23 = *(v12 + 1);
-      if (*(v12 + 1))
+      glpPopulatePrecisionWidths(*(*v8[1] + 4), v462);
+      v19 = *(v8 + 1);
+      if (*(v8 + 1))
       {
 LABEL_17:
-        v30 = v12[1];
+        v22 = v8[1];
         while (1)
         {
-          v31 = *(*v30 + 4);
-          if (v31 > 9)
+          v23 = *(*v22 + 4);
+          if (v23 > 9)
           {
             break;
           }
 
-          if (((1 << v31) & 0x3B8) != 0)
+          if (((1 << v23) & 0x3B8) != 0)
           {
-            v10 = 1;
+            v6 = 1;
           }
 
-          else if (((1 << v31) & 6) != 0)
+          else if (((1 << v23) & 6) != 0)
           {
-            v9 = 1;
+            v5 = 1;
           }
 
           else
           {
-            if (v31 != 6)
+            if (v23 != 6)
             {
               break;
             }
 
-            v7 = 1;
+            v3 = 1;
           }
 
 LABEL_27:
-          v30 += 8;
-          if (!--v23)
+          v22 += 8;
+          if (!--v19)
           {
             goto LABEL_28;
           }
         }
 
-        if (v31)
+        if (v23)
         {
-LABEL_510:
+LABEL_509:
           abort();
         }
 
-        v8 = 1;
+        v4 = 1;
         goto LABEL_27;
       }
 
       goto LABEL_28;
     }
 
-    v11 = 0;
+    v7 = 0;
 LABEL_29:
-    ++v6;
+    ++v2;
   }
 
-  while (v6 != 5);
-  if (!v496)
+  while (v2 != 5);
+  if (!v437)
   {
-    goto LABEL_37;
+    return 0;
   }
 
-  if (v7 && v8)
+  if (v3 && v4)
   {
-    v32 = v518[8];
-    *&v550 = "-1";
-    *(&v550 + 1) = 0xEDA00000002;
-    *&v551 = 0xFFFFFFFFLL;
-    v33 = "Error: Version 100 and Version 300 shaders may not be linked together.";
-LABEL_36:
-    glpLogMessage(v32, 0, &v550, v33, v2, v3, v4, v5, v466);
-    goto LABEL_37;
+    v24 = v459[8];
+    *&v491 = "-1";
+    *(&v491 + 1) = 0xEDA00000002;
+    *&v492 = 0xFFFFFFFFLL;
+    glpLogMessage(v24, 0, &v491, "Error: Version 100 and Version 300 shaders may not be linked together.");
+    return 0;
   }
 
-  v37 = v7 | v8;
-  v38 = v518;
-  if (v37)
+  v27 = v3 | v4;
+  v28 = v459;
+  if (v27)
   {
-    v39 = v491;
-    if (v9 | v10)
+    v29 = v432;
+    if (v5 | v6)
     {
-      v32 = v518[8];
-      *&v550 = "-1";
-      *(&v550 + 1) = 0xEDA00000002;
-      *&v551 = 0xFFFFFFFFLL;
-      v33 = "Error: Linking ES shaders with non-ES shaders is not supported.";
-      goto LABEL_36;
+      v30 = v459[8];
+      *&v491 = "-1";
+      *(&v491 + 1) = 0xEDA00000002;
+      *&v492 = 0xFFFFFFFFLL;
+      glpLogMessage(v30, 0, &v491, "Error: Linking ES shaders with non-ES shaders is not supported.");
+      return 0;
     }
   }
 
   else
   {
-    v39 = v491;
-    if (v9 && v10)
+    v29 = v432;
+    if (v5 && v6)
     {
-      v32 = v518[8];
-      *&v550 = "-1";
-      *(&v550 + 1) = 0xEDA00000002;
-      *&v551 = 0xFFFFFFFFLL;
-      v33 = "Error: Linking legacy shaders with core profile shaders is not supported.";
-      goto LABEL_36;
+      v31 = v459[8];
+      *&v491 = "-1";
+      *(&v491 + 1) = 0xEDA00000002;
+      *&v492 = 0xFFFFFFFFLL;
+      glpLogMessage(v31, 0, &v491, "Error: Linking legacy shaders with core profile shaders is not supported.");
+      return 0;
     }
   }
 
-  v40 = v518[24];
-  if (v40)
+  v32 = v459[24];
+  if (v32)
   {
-    GlobalTypeQualifier = glpTopLevelNodeGetGlobalTypeQualifier(v40, 0x40000000);
+    GlobalTypeQualifier = glpTopLevelNodeGetGlobalTypeQualifier(v32, 0x40000000);
     if (GlobalTypeQualifier)
     {
       Layout = glpGlobalTypeQualifierNodeGetLayout(GlobalTypeQualifier);
       if (glpLayoutObjectFind(Layout, 18))
       {
-        *(v518 + 80) = *(glpLayoutObjectFind(Layout, 18) + 4);
+        *(v459 + 80) = *(glpLayoutObjectFind(Layout, 18) + 4);
       }
     }
   }
 
-  v43 = v518[25];
-  if (v43)
+  v35 = v459[25];
+  if (v35)
   {
-    v44 = glpTopLevelNodeGetGlobalTypeQualifier(v43, 0x20000000);
-    if (!v44)
+    v36 = glpTopLevelNodeGetGlobalTypeQualifier(v35, 0x20000000);
+    if (!v36)
     {
-      goto LABEL_80;
+      goto LABEL_79;
     }
 
-    v45 = glpGlobalTypeQualifierNodeGetLayout(v44);
-    if (glpLayoutObjectFind(v45, 3))
+    v37 = glpGlobalTypeQualifierNodeGetLayout(v36);
+    if (glpLayoutObjectFind(v37, 3))
     {
-      *(v518 + 81) = 4;
-      v46 = 1;
+      *(v459 + 81) = 4;
+      v38 = 1;
     }
 
     else
     {
-      v46 = 0;
+      v38 = 0;
     }
 
-    if (glpLayoutObjectFind(v45, 10))
+    if (glpLayoutObjectFind(v37, 10))
     {
-      *(v518 + 81) = 7;
-      v46 = 1;
+      *(v459 + 81) = 7;
+      v38 = 1;
     }
 
-    if (glpLayoutObjectFind(v45, 11))
+    if (glpLayoutObjectFind(v37, 11))
     {
-      *(v518 + 81) = 36474;
-      v46 = 1;
+      *(v459 + 81) = 36474;
+      v38 = 1;
     }
 
-    if (glpLayoutObjectFind(v45, 12))
+    if (glpLayoutObjectFind(v37, 12))
     {
-      *(v518 + 82) = 514;
+      *(v459 + 82) = 514;
     }
 
-    if (glpLayoutObjectFind(v45, 13))
+    if (glpLayoutObjectFind(v37, 13))
     {
-      *(v518 + 82) = 36476;
+      *(v459 + 82) = 36476;
     }
 
-    if (glpLayoutObjectFind(v45, 14))
+    if (glpLayoutObjectFind(v37, 14))
     {
-      *(v518 + 82) = 36475;
+      *(v459 + 82) = 36475;
     }
 
-    if (glpLayoutObjectFind(v45, 15))
+    if (glpLayoutObjectFind(v37, 15))
     {
-      *(v518 + 83) = 2304;
+      *(v459 + 83) = 2304;
     }
 
-    if (glpLayoutObjectFind(v45, 16))
+    if (glpLayoutObjectFind(v37, 16))
     {
-      *(v518 + 83) = 2305;
+      *(v459 + 83) = 2305;
     }
 
-    if (glpLayoutObjectFind(v45, 17))
+    if (glpLayoutObjectFind(v37, 17))
     {
-      *(v518 + 84) = 1;
+      *(v459 + 84) = 1;
     }
 
-    if (!v46)
+    if (!v38)
     {
-LABEL_80:
-      v32 = v518[8];
-      *&v550 = "-1";
-      *(&v550 + 1) = 0xEDA00000002;
-      *&v551 = 0xFFFFFFFFLL;
-      v33 = "Tessellation evaluation shader must specify triangles, quads or isolines.";
-      goto LABEL_36;
+LABEL_79:
+      v46 = v459[8];
+      *&v491 = "-1";
+      *(&v491 + 1) = 0xEDA00000002;
+      *&v492 = 0xFFFFFFFFLL;
+      glpLogMessage(v46, 0, &v491, "Tessellation evaluation shader must specify triangles, quads or isolines.");
+      return 0;
     }
   }
 
-  v47 = v518[26];
-  if (v47)
+  v39 = v459[26];
+  if (v39)
   {
-    v48 = glpTopLevelNodeGetGlobalTypeQualifier(v47, 0x20000000);
-    v49 = glpTopLevelNodeGetGlobalTypeQualifier(v518[26], 0x40000000);
-    if (v48)
+    v40 = glpTopLevelNodeGetGlobalTypeQualifier(v39, 0x20000000);
+    v41 = glpTopLevelNodeGetGlobalTypeQualifier(v459[26], 0x40000000);
+    if (v40)
     {
-      v50 = glpGlobalTypeQualifierNodeGetLayout(v48);
-      glpLayoutObjectGetGeomInOut(v50, 0, 0, v518 + 77, 0, v518 + 79);
+      v42 = glpGlobalTypeQualifierNodeGetLayout(v40);
+      glpLayoutObjectGetGeomInOut(v42, 0, 0, v459 + 77, 0, v459 + 79);
     }
 
-    if (v49)
+    if (v41)
     {
-      v51 = glpGlobalTypeQualifierNodeGetLayout(v49);
-      glpLayoutObjectGetGeomInOut(v51, 0, v518 + 76, 0, v518 + 78, 0);
-      v52 = *(v518 + 39);
-      if (v52)
+      v43 = glpGlobalTypeQualifierNodeGetLayout(v41);
+      glpLayoutObjectGetGeomInOut(v43, 0, v459 + 76, 0, v459 + 78, 0);
+      v44 = *(v459 + 39);
+      if (v44)
       {
-        v53 = v518[20];
-        while ((*(*v53 + 12) & 1) == 0)
+        v45 = v459[20];
+        while ((*(*v45 + 12) & 1) == 0)
         {
-          v53 += 8;
-          if (!--v52)
+          v45 += 8;
+          if (!--v44)
           {
-            goto LABEL_83;
+            goto LABEL_82;
           }
         }
 
-        if (*(v518 + 78))
+        if (*(v459 + 78))
         {
-          v32 = v518[8];
-          *&v550 = "-1";
-          *(&v550 + 1) = 0xEDA00000002;
-          *&v551 = 0xFFFFFFFFLL;
-          v33 = "Use of EmitStreamVertex or EndStreamPrimitive requires layout(points) out.";
-          goto LABEL_36;
+          v47 = v459[8];
+          *&v491 = "-1";
+          *(&v491 + 1) = 0xEDA00000002;
+          *&v492 = 0xFFFFFFFFLL;
+          glpLogMessage(v47, 0, &v491, "Use of EmitStreamVertex or EndStreamPrimitive requires layout(points) out.");
+          return 0;
         }
       }
     }
   }
 
-LABEL_83:
-  if (!glpIsLegalStageCombination(v518, v518[23] != 0, v518[24] != 0, v518[25] != 0, v518[26] != 0, v518[27] != 0))
+LABEL_82:
+  if (!glpIsLegalStageCombination(v459, v459[23] != 0, v459[24] != 0, v459[25] != 0, v459[26] != 0, v459[27] != 0))
   {
-    goto LABEL_37;
+    return 0;
   }
 
-  if (*v39 && v518[27] && !*(*v518[14] + 4))
+  if (*v29 && v459[27] && !*(*v459[14] + 4))
   {
-    v273 = *v546;
-    v274 = v549;
-    v275 = glpStringHashGet(*v546, "gl_Position", 0x64C66BD10000000BuLL);
-    v276 = glpStringHashGet(v274, "gl_FragCoord", 0xFCBC8470000000CuLL);
-    if (v276 && (*(v276 + 52) & 0x80) != 0 && (!v275 || (*(v275 + 52) & 0x80) == 0))
+    v255 = *v487;
+    v256 = v490;
+    v257 = glpStringHashGet(*v487, "gl_Position", 0x64C66BD10000000BuLL);
+    v258 = glpStringHashGet(v256, "gl_FragCoord", 0xFCBC8470000000CuLL);
+    if (v258 && (*(v258 + 52) & 0x80) != 0 && (!v257 || (*(v257 + 52) & 0x80) == 0))
     {
-      v32 = v518[8];
-      *&v550 = "-1";
-      *(&v550 + 1) = 0xEDA00000002;
-      *&v551 = 0xFFFFFFFFLL;
-      v33 = "gl_FragCoord can be declared invariant if and only if gl_Position is declared invariant.";
-      goto LABEL_36;
+      v259 = v459[8];
+      *&v491 = "-1";
+      *(&v491 + 1) = 0xEDA00000002;
+      *&v492 = 0xFFFFFFFFLL;
+      glpLogMessage(v259, 0, &v491, "gl_FragCoord can be declared invariant if and only if gl_Position is declared invariant.");
+      return 0;
     }
 
-    v277 = glpStringHashGet(v273, "gl_PointSize", 0x3BD84BA50000000CuLL);
-    v278 = glpStringHashGet(v274, "gl_PointCoord", 0x15E256410000000DuLL);
-    if (v278 && (*(v278 + 52) & 0x80) != 0 && (!v277 || (*(v277 + 52) & 0x80) == 0))
+    v260 = glpStringHashGet(v255, "gl_PointSize", 0x3BD84BA50000000CuLL);
+    v261 = glpStringHashGet(v256, "gl_PointCoord", 0x15E256410000000DuLL);
+    if (v261)
     {
-      v32 = v518[8];
-      *&v550 = "-1";
-      *(&v550 + 1) = 0xEDA00000002;
-      *&v551 = 0xFFFFFFFFLL;
-      v33 = "gl_PointCoord can be declared invariant if and only if gl_PointSize is declared invariant.";
-      goto LABEL_36;
+      if ((*(v261 + 52) & 0x80) != 0 && (!v260 || (*(v260 + 52) & 0x80) == 0))
+      {
+        v262 = v459[8];
+        *&v491 = "-1";
+        *(&v491 + 1) = 0xEDA00000002;
+        *&v492 = 0xFFFFFFFFLL;
+        glpLogMessage(v262, 0, &v491, "gl_PointCoord can be declared invariant if and only if gl_PointSize is declared invariant.");
+        return 0;
+      }
     }
   }
 
   for (i = 0; i != 5; ++i)
   {
-    if (v518[i + 23])
+    if (v459[i + 23])
     {
       break;
     }
   }
 
-  v55 = 4;
+  v49 = 4;
   do
   {
-    if (v39[v55])
+    if (v29[v49])
     {
       break;
     }
 
-    --v55;
+    --v49;
   }
 
-  while (v55);
-  StringHash = glpMakeStringHash(v518);
-  v61 = glpMakeStringHash(v518);
-  *&v552 = 0;
-  v550 = 0u;
-  v551 = 0u;
-  v542 = 0;
-  v540 = 0u;
-  v541 = 0u;
-  memset(v539, 0, 40);
-  v538 = 0;
-  memset(v537, 0, sizeof(v537));
-  memset(v536, 0, 40);
-  v535 = 0;
-  memset(v534, 0, sizeof(v534));
-  v532[0] = 0;
-  v532[1] = 0;
-  v533 = 0;
-  if (!i && !glpMakeVertexInputBindings(v518, v543[0], &v550, v539, v536))
+  while (v49);
+  StringHash = glpMakeStringHash(v459);
+  v51 = glpMakeStringHash(v459);
+  *&v493 = 0;
+  v491 = 0u;
+  v492 = 0u;
+  v483 = 0;
+  v481 = 0u;
+  v482 = 0u;
+  memset(v480, 0, 40);
+  v479 = 0;
+  memset(v478, 0, sizeof(v478));
+  memset(v477, 0, 40);
+  v476 = 0;
+  memset(v475, 0, sizeof(v475));
+  v473[0] = 0;
+  v473[1] = 0;
+  v474 = 0;
+  if (!i && !glpMakeVertexInputBindings(v459, v484[0], &v491, v480, v477))
   {
-    goto LABEL_37;
+    return 0;
   }
 
-  v467 = v61;
-  v473 = StringHash;
-  if (i <= v55)
+  v408 = v51;
+  v414 = StringHash;
+  if (i <= v49)
   {
-    v62 = i;
-    v482 = &v539[v55];
-    v478 = &v536[v55];
-    v484 = &v537[v55];
-    v63 = &v547[7 * i + 2];
-    v64 = i;
-    v65 = v55 + 1;
-    v66 = &v550 + 8;
-    v67 = &v539[1];
-    v68 = &v536[1];
-    v69 = v518 + 24;
-    v480 = &v534[v55];
+    v52 = i;
+    v423 = &v480[v49];
+    v419 = &v477[v49];
+    v425 = &v478[v49];
+    v53 = &v488[7 * i + 2];
+    v54 = i;
+    v55 = v49 + 1;
+    v56 = &v491 + 8;
+    v57 = &v480[1];
+    v58 = &v477[1];
+    v59 = v459 + 24;
+    v421 = &v475[v49];
     do
     {
-      if (v39[v62])
+      if (v29[v52])
       {
-        v501 = v69;
-        v506 = v68;
-        *v512 = v67;
-        v70 = &v543[14 * v62];
-        if (!glpMergeUniforms(*(v38 + 64), StringHash, v70[3]) || !glpMergeInterfaceBlocks(*(v38 + 64), v62, v61, v70[6], 0))
+        v442 = v59;
+        v447 = v58;
+        *v453 = v57;
+        v60 = &v484[14 * v52];
+        if (!glpMergeUniforms(*(v28 + 64), StringHash, v60[3]) || !glpMergeInterfaceBlocks(*(v28 + 64), v52, v51, v60[6], 0))
         {
-          goto LABEL_37;
+          return 0;
         }
 
-        v492 = &v543[14 * v62];
-        v494 = v66;
-        v69 = v501;
-        v68 = v506;
-        v71 = v501;
-        v72 = v506;
-        v67 = *v512;
-        v73 = *v512;
-        v74 = v66;
-        v497 = v63;
-        v75 = v63;
-        v76 = v62;
+        v433 = &v484[14 * v52];
+        v435 = v56;
+        v59 = v442;
+        v58 = v447;
+        v61 = v442;
+        v62 = v447;
+        v57 = *v453;
+        v63 = *v453;
+        v64 = v56;
+        v438 = v53;
+        v65 = v53;
+        v66 = v52;
         do
         {
-          v77 = v76;
-          v78 = v75;
-          v79 = v74;
-          v80 = v73;
-          v81 = v72;
-          if (v76 > 3)
+          v67 = v66;
+          v68 = v65;
+          v69 = v64;
+          v70 = v63;
+          v71 = v62;
+          if (v66 > 3)
           {
             break;
           }
 
-          v82 = v71[v64];
-          v75 += 14;
-          v74 += 8;
-          ++v73;
-          ++v72;
-          ++v71;
-          ++v76;
+          v72 = v61[v54];
+          v65 += 14;
+          v64 += 8;
+          ++v63;
+          ++v62;
+          ++v61;
+          ++v66;
         }
 
-        while (!v82);
-        v83 = 0;
-        if (v62 != 4 && v77 >= 3)
+        while (!v72);
+        v73 = 0;
+        if (v52 != 4 && v67 >= 3)
         {
-          v83 = *(v518[12] + 4) != 0;
+          v73 = *(v459[12] + 4) != 0;
         }
 
-        *(v532 + v62) = v83;
-        if (v62 == v55)
+        *(v473 + v52) = v73;
+        if (v52 == v49)
         {
-          v38 = v518;
-          v39 = v491;
-          StringHash = v473;
-          v66 = v494;
-          v63 = v497;
-          if (!v55)
+          v28 = v459;
+          v29 = v432;
+          StringHash = v414;
+          v56 = v435;
+          v53 = v438;
+          if (!v49)
           {
-            goto LABEL_513;
+            goto LABEL_512;
           }
 
-          if (!*v482 && !*v478)
+          if (!*v423 && !*v419)
           {
-            v487 = v83;
-            InterstageBindings = glpMakeInterstageBindings(v518, v55, v55, 0, 0, 0, *v492, 0, &v550 + v55, 0, v482, 0, v478);
-            v83 = v487;
-            v69 = v501;
-            v68 = v506;
-            v67 = *v512;
+            v428 = v73;
+            InterstageBindings = glpMakeInterstageBindings(v459, v49, v49, 0, 0, 0, *v433, 0, &v491 + v49, 0, v423, 0, v419);
+            v73 = v428;
+            v59 = v442;
+            v58 = v447;
+            v57 = *v453;
             if (!InterstageBindings)
             {
-              goto LABEL_37;
+              return 0;
             }
           }
 
-          if (v62 != 4)
+          if (v52 != 4)
           {
-LABEL_513:
-            if (!*v484 && !*v480)
+LABEL_512:
+            if (!*v425 && !*v421)
             {
-              v85 = glpMakeInterstageBindings(v518, v55, v55, v83, v492[1], v492[2], 0, &v540 + v55, 0, v484, 0, v480, 0);
-              v69 = v501;
-              v68 = v506;
-              v67 = *v512;
-              if (!v85)
+              v75 = glpMakeInterstageBindings(v459, v49, v49, v73, v433[1], v433[2], 0, &v481 + v49, 0, v425, 0, v421, 0);
+              v59 = v442;
+              v58 = v447;
+              v57 = *v453;
+              if (!v75)
               {
-                goto LABEL_37;
+                return 0;
               }
             }
           }
@@ -1478,804 +1479,806 @@ LABEL_513:
 
         else
         {
-          v488 = v83;
-          v86 = glpMakeStringHash(v518);
-          if (!glpMergeInterfaceBlocks(v518[8], v62, v86, v492[4], 0))
+          v429 = v73;
+          v76 = glpMakeStringHash(v459);
+          if (!glpMergeInterfaceBlocks(v459[8], v52, v76, v433[4], 0))
           {
-            goto LABEL_37;
+            return 0;
           }
 
-          if (!glpMergeInterfaceBlocks(v518[8], v62, v86, v492[5], v62 == 3))
+          if (!glpMergeInterfaceBlocks(v459[8], v52, v76, v433[5], v52 == 3))
           {
-            goto LABEL_37;
+            return 0;
           }
 
-          v87 = v77 + 1;
-          v38 = v518;
-          v88 = glpMakeInterstageBindings(v518, v62, v87, v488, v492[1], v492[2], *v78, &v540 + v62, &v79[v64 * 8], &v537[v62], &v80[v64], &v534[v62], &v81[v64]);
-          v39 = v491;
-          v61 = v467;
-          StringHash = v473;
-          v65 = v55 + 1;
-          v66 = v494;
-          v63 = v497;
-          v68 = v506;
-          v67 = *v512;
-          v69 = v501;
-          if (!v88)
+          v77 = v67 + 1;
+          v28 = v459;
+          v78 = glpMakeInterstageBindings(v459, v52, v77, v429, v433[1], v433[2], *v68, &v481 + v52, &v69[v54 * 8], &v478[v52], &v70[v54], &v475[v52], &v71[v54]);
+          v29 = v432;
+          v51 = v408;
+          StringHash = v414;
+          v55 = v49 + 1;
+          v56 = v435;
+          v53 = v438;
+          v58 = v447;
+          v57 = *v453;
+          v59 = v442;
+          if (!v78)
           {
-            goto LABEL_37;
+            return 0;
           }
         }
       }
 
-      ++v62;
-      v63 += 7;
-      v66 += 8;
-      ++v67;
-      ++v68;
-      ++v69;
+      ++v52;
+      v53 += 7;
+      v56 += 8;
+      ++v57;
+      ++v58;
+      ++v59;
     }
 
-    while (v62 != v65);
+    while (v52 != v55);
   }
 
-  if (v55 == 4 && !glpMakeFragmentOutputBindings(v38, v548, &v542, &v538, &v535))
+  if (v49 == 4 && !glpMakeFragmentOutputBindings(v28, v489, &v483, &v479, &v476))
   {
-    goto LABEL_37;
+    return 0;
   }
 
-  if (!v550)
+  if (!v491)
   {
-    v89 = *(v38 + 80);
-    v90 = *(v89 + 32);
-    if (v90)
+    v79 = *(v28 + 80);
+    v80 = *(v79 + 32);
+    if (v80)
     {
-      v91 = 0;
-      for (j = 0; j < v90; ++j)
+      v81 = 0;
+      for (j = 0; j < v80; ++j)
       {
-        v93 = *(v89 + 40);
-        if (*(v93 + v91))
+        v83 = *(v79 + 40);
+        if (*(v83 + v81))
         {
-          v94 = v93 + v91;
-          v95 = *(v93 + v91 + 8);
-          v96 = *(v38 + 64);
-          LODWORD(v94) = *(v94 + 16);
-          *v522 = "-1";
-          *&v522[8] = 0xEDA00000002;
-          *&v522[16] = 0xFFFFFFFFLL;
-          glpLogMessage(v96, 1u, v522, "Do not have an attached vertex shader to match BindAttributeLocation request for '%.*s'.", v57, v58, v59, v60, v94);
-          v90 = *(v89 + 32);
+          v84 = v83 + v81;
+          v85 = *(v83 + v81 + 8);
+          v86 = *(v28 + 64);
+          LODWORD(v84) = *(v84 + 16);
+          *v463 = "-1";
+          *&v463[8] = 0xEDA00000002;
+          *&v463[16] = 0xFFFFFFFFLL;
+          glpLogMessage(v86, 1, v463, "Do not have an attached vertex shader to match BindAttributeLocation request for '%.*s'.", v84, v85);
+          v80 = *(v79 + 32);
         }
 
-        v91 += 32;
+        v81 += 32;
       }
     }
   }
 
-  v97 = 0;
-  v98 = v547;
+  v87 = 0;
+  v88 = v488;
   do
   {
-    if (v491[v97])
+    if (v432[v87])
     {
-      v99 = *(v532 + v97);
-      if (v99)
+      v89 = *(v473 + v87);
+      if (v89)
       {
-        v100 = v38 + 224;
+        v90 = v28 + 224;
       }
 
       else
       {
-        v100 = 0;
+        v90 = 0;
       }
 
-      if (v99)
+      if (v89)
       {
-        v101 = v38 + 240;
+        v91 = v28 + 240;
       }
 
       else
       {
-        v101 = 0;
+        v91 = 0;
       }
 
-      glpGenerateCopyInOut(v518, v97, v536[v97], v539[v97], v534[v97], v537[v97], v100, v101, v491[v97], *v98);
+      glpGenerateCopyInOut(v459, v87, v477[v87], v480[v87], v475[v87], v478[v87], v90, v91, v432[v87], *v88);
     }
 
-    ++v97;
-    v98 += 14;
+    ++v87;
+    v88 += 14;
   }
 
-  while (v97 != 5);
-  v102 = v518;
-  v103 = v491;
-  if (!v542)
+  while (v87 != 5);
+  v92 = v459;
+  v93 = v432;
+  if (!v483)
   {
-    v104 = v518[11];
-    v105 = *(v104 + 32);
-    if (v105)
+    v94 = v459[11];
+    v95 = *(v94 + 32);
+    if (v95)
     {
-      v106 = 0;
-      for (k = 0; k < v105; ++k)
+      v96 = 0;
+      for (k = 0; k < v95; ++k)
       {
-        v108 = *(v104 + 40);
-        if (*(v108 + v106))
+        v98 = *(v94 + 40);
+        if (*(v98 + v96))
         {
-          v109 = v108 + v106;
-          v110 = *(v108 + v106 + 8);
-          v111 = v518[8];
-          LODWORD(v109) = *(v109 + 16);
-          *v522 = "-1";
-          *&v522[8] = 0xEDA00000002;
-          *&v522[16] = 0xFFFFFFFFLL;
-          glpLogMessage(v111, 1u, v522, "Do not have an attached fragment shader to match FragDataBinding request for '%.*s'.", v57, v58, v59, v60, v109);
-          v105 = *(v104 + 32);
+          v99 = v98 + v96;
+          v100 = *(v98 + v96 + 8);
+          v101 = v459[8];
+          LODWORD(v99) = *(v99 + 16);
+          *v463 = "-1";
+          *&v463[8] = 0xEDA00000002;
+          *&v463[16] = 0xFFFFFFFFLL;
+          glpLogMessage(v101, 1, v463, "Do not have an attached fragment shader to match FragDataBinding request for '%.*s'.", v99, v100);
+          v95 = *(v94 + 32);
         }
 
-        v106 += 32;
+        v96 += 32;
       }
     }
   }
 
-  if (v540)
+  if (v481)
   {
-    v112 = 0;
+    v102 = 0;
   }
 
   else
   {
-    v112 = v541 == 0;
+    v102 = v482 == 0;
   }
 
-  if (v112 && *(&v541 + 1) == 0)
+  if (v102 && *(&v482 + 1) == 0)
   {
-    v114 = v518[12];
-    if (*(v114 + 4))
+    v104 = v459[12];
+    if (*(v104 + 4))
     {
-      v115 = 0;
-      v116 = 0;
+      v105 = 0;
+      v106 = 0;
       do
       {
-        v117 = (*(v114 + 8) + v115);
-        v118 = *v117;
-        v119 = v518[8];
-        LODWORD(v117) = *(v117 + 2);
-        *v522 = "-1";
-        *&v522[8] = 0xEDA00000002;
-        *&v522[16] = 0xFFFFFFFFLL;
-        glpLogMessage(v119, 0, v522, "Do not have an attached vertex or evaluation or geometry shader to match transform feedback binding for '%.*s.'. ", v57, v58, v59, v60, v117);
-        ++v116;
-        v114 = v518[12];
-        v115 += 16;
+        v107 = *(v104 + 8) + v105;
+        v108 = *v107;
+        v109 = v459[8];
+        LODWORD(v107) = *(v107 + 8);
+        *v463 = "-1";
+        *&v463[8] = 0xEDA00000002;
+        *&v463[16] = 0xFFFFFFFFLL;
+        glpLogMessage(v109, 0, v463, "Do not have an attached vertex or evaluation or geometry shader to match transform feedback binding for '%.*s.'. ", v107, v108);
+        ++v106;
+        v104 = v459[12];
+        v105 += 16;
       }
 
-      while (v116 < *(v114 + 4));
-      goto LABEL_37;
+      while (v106 < *(v104 + 4));
+      return 0;
     }
   }
 
-  v495 = __abort_calloc();
-  v530[0] = 0;
-  v530[1] = 0;
-  v531 = 0;
-  v528[0] = 0;
-  v528[1] = 0;
-  v529 = 0;
-  v495[10] = glpMakeStringHash(&GLP_MALLOC_ALLOCATOR);
-  v495[25] = 4;
-  v495[26] = (*(&GLP_MALLOC_ALLOCATOR + 1))(GLP_MALLOC_ALLOCATOR, 16, "Vector Storage (int)");
-  v474 = 0;
-  __src = (*(&GLP_MALLOC_ALLOCATOR + 1))(GLP_MALLOC_ALLOCATOR, 32, "Vector Storage (GLPVariableObject *)");
-  v502 = 0;
-  v476 = 0;
+  v436 = __abort_calloc();
+  v471[0] = 0;
+  v471[1] = 0;
+  v472 = 0;
+  v469[0] = 0;
+  v469[1] = 0;
   v470 = 0;
-  v471 = 0;
-  v121 = v473;
-  v122 = *(v473 + 32);
-  v123 = v122;
-  v472 = 4;
+  v436[10] = glpMakeStringHash(&GLP_MALLOC_ALLOCATOR);
+  v436[25] = 4;
+  v436[26] = (*(&GLP_MALLOC_ALLOCATOR + 1))(GLP_MALLOC_ALLOCATOR, 16, "Vector Storage (int)");
+  v415 = 0;
+  __src = (*(&GLP_MALLOC_ALLOCATOR + 1))(GLP_MALLOC_ALLOCATOR, 32, "Vector Storage (GLPVariableObject *)");
+  v443 = 0;
+  v417 = 0;
+  v411 = 0;
+  v412 = 0;
+  v111 = v414;
+  v112 = *(v414 + 32);
+  v113 = v112;
+  v413 = 4;
   while (2)
   {
-    if (v123)
+    if (v113)
     {
-      v124 = 0;
+      v114 = 0;
       while (1)
       {
-        v125 = (*(v121 + 40) + 32 * v124);
-        v126 = *v125;
-        if (*v125)
+        v115 = (*(v111 + 40) + 32 * v114);
+        v116 = *v115;
+        if (*v115)
         {
           break;
         }
 
-LABEL_293:
-        ++v124;
-        v123 = v122;
-        if (v124 >= v122)
+LABEL_292:
+        ++v114;
+        v113 = v112;
+        if (v114 >= v112)
         {
-          goto LABEL_299;
+          goto LABEL_298;
         }
       }
 
-      v127 = 0;
-      v128 = 0;
-      v129 = v125[1];
-      v130 = v125[2];
-      v479 = v124;
-      ArrayType = *v126;
-      v483 = *(v126 + 120);
-      v131 = *(v126 + 128);
-      memset(v522, 0, 20);
-      v132 = v544;
+      v117 = 0;
+      v118 = 0;
+      v119 = v115[1];
+      v120 = v115[2];
+      v420 = v114;
+      ArrayType = *v116;
+      v424 = *(v116 + 120);
+      v121 = *(v116 + 128);
+      memset(v463, 0, 20);
+      v122 = v485;
       do
       {
-        if (v102[v127 + 23])
+        if (v92[v117 + 23])
         {
-          v133 = glpStringHashGet(*v132, v129, v130);
-          v134 = 1 << v127;
-          if (!v133)
+          v123 = glpStringHashGet(*v122, v119, v120);
+          v124 = 1 << v117;
+          if (!v123)
           {
-            v134 = 0;
+            v124 = 0;
           }
 
-          v128 |= v134;
+          v118 |= v124;
         }
 
-        ++v127;
-        v132 += 14;
+        ++v117;
+        v122 += 14;
       }
 
-      while (v127 != 5);
-      v135 = v495;
-      if (v128 != 1 << v471)
+      while (v117 != 5);
+      v125 = v436;
+      if (v118 != 1 << v412)
       {
-        if (v471 != 5)
+        if (v412 != 5)
         {
-          goto LABEL_187;
+          goto LABEL_186;
         }
 
-        v120.i32[0] = v128;
-        v120 = vcnt_s8(v120);
-        v120.i16[0] = vaddlv_u8(v120);
-        if (v120.i32[0] < 2u)
+        v110.i32[0] = v118;
+        v110 = vcnt_s8(v110);
+        v110.i16[0] = vaddlv_u8(v110);
+        if (v110.i32[0] < 2u)
         {
-          goto LABEL_187;
+          goto LABEL_186;
         }
       }
 
-      *v513 = v129;
-      if (!*(v126 + 88))
+      *v454 = v119;
+      if (!*(v116 + 88))
       {
-        v147 = v522;
-        v148 = v544;
-        v149 = 23;
-        v150 = v483;
+        v137 = v463;
+        v138 = v485;
+        v139 = 23;
+        v140 = v424;
         do
         {
-          if (v518[v149])
+          if (v459[v139])
           {
-            v151 = glpStringHashGet(*v148, v129, v130);
-            if (v151)
+            v141 = glpStringHashGet(*v138, v119, v120);
+            if (v141)
             {
-              v152 = v151;
-              v150 = BitSetOr(v150, *(v151 + 120));
-              v153 = *(v152 + 128);
-              if (v131 <= v153)
+              v142 = v141;
+              v140 = BitSetOr(v140, *(v141 + 120));
+              v143 = *(v142 + 128);
+              if (v121 <= v143)
               {
-                v131 = *(v152 + 128);
+                v121 = *(v142 + 128);
               }
 
-              *v147 = v153;
-              if (glpTypeGetKind(*v152) == 2 && *(v152 + 120))
+              *v137 = v143;
+              if (glpTypeGetKind(*v142) == 2 && *(v142 + 120))
               {
-                ElementType = glpArrayTypeGetElementType(*v152);
-                v155 = glpABIGetTypeSize(0, ElementType, 0);
-                Size = glpTypeSizeGetSize(v155);
-                v157 = *(v152 + 128);
-                v158 = v157 % Size ? v157 / Size + 1 : v157 / Size;
-                if (glpArrayTypeGetElementCount(*v152) != v158)
+                ElementType = glpArrayTypeGetElementType(*v142);
+                glpABIGetTypeSize(0, ElementType, 0);
+                glpTypeSizeGetSize();
+                v146 = *(v142 + 128);
+                v147 = v146 % v145 ? v146 / v145 + 1 : v146 / v145;
+                if (glpArrayTypeGetElementCount(*v142) != v147)
                 {
-                  v159 = glpArrayTypeGetElementType(*v152);
-                  *v152 = glpMakeArrayType(v518, v159, v158, -1);
+                  v148 = glpArrayTypeGetElementType(*v142);
+                  *v142 = glpMakeArrayType(v459, v148, v147, -1);
                 }
               }
             }
 
-            v135 = v495;
+            v125 = v436;
           }
 
-          ++v149;
-          ++v147;
-          v148 += 14;
+          ++v139;
+          ++v137;
+          v138 += 14;
         }
 
-        while (v149 != 28);
-        v483 = v150;
+        while (v139 != 28);
+        v424 = v140;
         if (glpTypeGetKind(ArrayType) == 2)
         {
-          v102 = v518;
-          v103 = v491;
-          if (v483)
+          v92 = v459;
+          v93 = v432;
+          if (v424)
           {
-            v160 = glpArrayTypeGetElementType(ArrayType);
-            v161 = glpABIGetTypeSize(0, v160, 0);
-            v162 = glpTypeSizeGetSize(v161);
-            v163 = v131 % v162 ? v131 / v162 + 1 : v131 / v162;
-            if (glpArrayTypeGetElementCount(ArrayType) != v163)
+            v149 = glpArrayTypeGetElementType(ArrayType);
+            glpABIGetTypeSize(0, v149, 0);
+            glpTypeSizeGetSize();
+            v151 = v121 % v150 ? v121 / v150 + 1 : v121 / v150;
+            if (glpArrayTypeGetElementCount(ArrayType) != v151)
             {
-              v164 = glpArrayTypeGetElementType(ArrayType);
-              ArrayType = glpMakeArrayType(v518, v164, v163, -1);
+              v152 = glpArrayTypeGetElementType(ArrayType);
+              ArrayType = glpMakeArrayType(v459, v152, v151, -1);
             }
           }
         }
 
         else
         {
-          v102 = v518;
-          v103 = v491;
+          v92 = v459;
+          v93 = v432;
         }
       }
 
-      v136 = v130;
-      if (v130 && *v129 == 36)
+      v126 = v120;
+      if (v120 && *v119 == 36)
       {
-        if (v130 < 9 || (v137 = strncmp("$ib$", v129, 4uLL), v136 = v130, v137) || (v138 = strncmp("$gl_", v129 + 5, 4uLL), v136 = v130, v138))
+        if (v120 < 9 || (v127 = strncmp("$ib$", v119, 4uLL), v126 = v120, v127) || (v128 = strncmp("$gl_", v119 + 5, 4uLL), v126 = v120, v128))
         {
-          if ((v102[5] & 2) != 0 && (*(v126 + 52) & 0xC) == 0)
+          if ((v92[5] & 2) != 0 && (*(v116 + 52) & 0xC) == 0)
           {
-            v165 = 0;
-            v166 = v544;
+            v153 = 0;
+            v154 = v485;
             do
             {
-              if (v103[v165])
+              if (v93[v153])
               {
-                glpStringHashGet(*v166, v129, v130);
+                glpStringHashGet(*v154, v119, v120);
               }
 
-              ++v165;
-              v166 += 14;
+              ++v153;
+              v154 += 14;
             }
 
-            while (v165 != 5);
-            if (v474 + 1 <= v472)
+            while (v153 != 5);
+            if (v415 + 1 <= v413)
             {
-              v171 = v474;
-              v121 = v473;
-              v172 = __src;
+              v159 = v415;
+              v111 = v414;
+              v160 = __src;
             }
 
             else
             {
-              if (v472 <= 1)
+              if (v413 <= 1)
               {
-                v167 = 1;
+                v155 = 1;
               }
 
               else
               {
-                v167 = v472;
+                v155 = v413;
               }
 
-              v168 = 2 * v167;
-              if (v168 <= (v474 + 1))
+              v156 = 2 * v155;
+              if (v156 <= (v415 + 1))
               {
-                v169 = v474 + 1;
+                v157 = v415 + 1;
               }
 
               else
               {
-                v169 = v168;
+                v157 = v156;
               }
 
-              v170 = (*(&GLP_MALLOC_ALLOCATOR + 1))(GLP_MALLOC_ALLOCATOR, 8 * v169, "Vector Storage (GLPVariableObject *, growth)");
-              v171 = v474;
-              memcpy(v170, __src, 8 * v474);
+              v158 = (*(&GLP_MALLOC_ALLOCATOR + 1))(GLP_MALLOC_ALLOCATOR, 8 * v157, "Vector Storage (GLPVariableObject *, growth)");
+              v159 = v415;
+              memcpy(v158, __src, 8 * v415);
               off_2819B9B80(GLP_MALLOC_ALLOCATOR, __src);
-              v172 = v170;
-              v472 = v169;
-              v121 = v473;
+              v160 = v158;
+              v413 = v157;
+              v111 = v414;
             }
 
-            v124 = v479;
-            __src = v172;
-            *(v172 + v171) = v126;
-            ++v474;
+            v114 = v420;
+            __src = v160;
+            *(v160 + v159) = v116;
+            ++v415;
           }
 
           else
           {
-            if (v130 >= 9)
+            if (v120 >= 9)
             {
-              goto LABEL_178;
+              goto LABEL_177;
             }
 
-LABEL_187:
-            v121 = v473;
-            v124 = v479;
+LABEL_186:
+            v111 = v414;
+            v114 = v420;
           }
 
-LABEL_292:
-          v122 = *(v121 + 32);
-          goto LABEL_293;
+LABEL_291:
+          v112 = *(v111 + 32);
+          goto LABEL_292;
         }
 
-LABEL_178:
-        v139 = v136;
-        if (strncmp("$ib$", v129, 4uLL))
+LABEL_177:
+        v129 = v126;
+        if (strncmp("$ib$", v119, 4uLL))
         {
-          goto LABEL_187;
+          goto LABEL_186;
         }
 
-        v140 = strncmp("$gl_", v129 + 5, 4uLL);
-        v136 = v139;
-        if (v140)
+        v130 = strncmp("$gl_", v119 + 5, 4uLL);
+        v126 = v129;
+        if (v130)
         {
-          goto LABEL_187;
+          goto LABEL_186;
         }
       }
 
-      if ((*(v126 + 52) & 4) != 0)
+      if ((*(v116 + 52) & 4) != 0)
       {
-        goto LABEL_187;
+        goto LABEL_186;
       }
 
-      v141 = v136;
-      v142 = malloc_type_malloc(v136, 0xCA0EF1E7uLL);
-      if (!v142)
+      v131 = v126;
+      v132 = malloc_type_malloc(v126, 0xCA0EF1E7uLL);
+      if (!v132)
       {
-        goto LABEL_510;
+        goto LABEL_509;
       }
 
-      v468 = v142;
-      v469 = v141;
-      memcpy(v142, v129, v141);
-      v143 = malloc_type_malloc(0x58uLL, 0xCA0EF1E7uLL);
-      if (!v143)
+      v409 = v132;
+      v410 = v131;
+      memcpy(v132, v119, v131);
+      v133 = malloc_type_malloc(0x58uLL, 0xCA0EF1E7uLL);
+      if (!v133)
       {
-        goto LABEL_510;
+        goto LABEL_509;
       }
 
-      v144 = v143;
-      v143[10] = 0;
-      *(v143 + 3) = 0u;
-      *(v143 + 4) = 0u;
-      *(v143 + 1) = 0u;
-      *(v143 + 2) = 0u;
-      *v143 = 0u;
-      if (v130 < 3)
+      v134 = v133;
+      v133[10] = 0;
+      *(v133 + 3) = 0u;
+      *(v133 + 4) = 0u;
+      *(v133 + 1) = 0u;
+      *(v133 + 2) = 0u;
+      *v133 = 0u;
+      if (v120 < 3)
       {
-LABEL_227:
-        v173 = 1;
+LABEL_226:
+        v161 = 1;
       }
 
       else
       {
-        v145 = *v129;
-        if (v145 == 103)
+        v135 = *v119;
+        if (v135 == 103)
         {
-          v145 = *(v129 + 1);
-          if (v145 == 108)
+          v135 = *(v119 + 1);
+          if (v135 == 108)
           {
-            v145 = *(v129 + 2);
-            v146 = 95;
+            v135 = *(v119 + 2);
+            v136 = 95;
           }
 
           else
           {
-            v146 = 108;
+            v136 = 108;
           }
         }
 
         else
         {
-          v146 = 103;
+          v136 = 103;
         }
 
-        if (v146 == v145)
+        if (v136 == v135)
         {
-          v173 = 0;
-          goto LABEL_230;
+          v161 = 0;
+          goto LABEL_229;
         }
 
-        if (v130 < 9 || strncmp("$ib$", v129, 4uLL))
+        if (v120 < 9 || strncmp("$ib$", v119, 4uLL))
         {
-          goto LABEL_227;
+          goto LABEL_226;
         }
 
-        v229 = strncmp("$gl_", v129 + 5, 4uLL);
-        v173 = v229 != 0;
-        if (!v229)
+        v216 = strncmp("$gl_", v119 + 5, 4uLL);
+        v161 = v216 != 0;
+        if (!v216)
         {
+LABEL_229:
+          v162 = -1;
 LABEL_230:
-          v174 = -1;
-LABEL_231:
-          v490 = v174;
-          v175 = 0;
-          v507 = 0;
-          v498 = v130;
-          v486 = v144;
-          v485 = v173;
+          v431 = v162;
+          v163 = 0;
+          v448 = 0;
+          v439 = v120;
+          v427 = v134;
+          v426 = v161;
           do
           {
-            if (v103[v175])
+            if (v93[v163])
             {
-              v176 = glpStringHashGet(v543[14 * v175 + 3], v129, v130);
-              if (v176)
+              v164 = glpStringHashGet(v484[14 * v163 + 3], v119, v120);
+              if (v164)
               {
-                v177 = v176;
-                v493 = v175;
-                *v144 |= 1 << v175;
-                *(v176 + 156) = v490;
-                if (v173)
+                v165 = v164;
+                v434 = v163;
+                *v134 |= 1 << v163;
+                *(v164 + 156) = v431;
+                if (v161)
                 {
-                  v178 = glpABIGetTypeSize(0, *v176, 0);
-                  v179 = glpTypeSizeGetSize(v178);
+                  glpABIGetTypeSize(0, *v164, 0);
+                  glpTypeSizeGetSize();
                 }
 
                 else
                 {
-                  v179 = 0;
+                  v166 = 0;
                 }
 
-                *(v530 + v175) += v179;
-                SamplerCount = glpTypeGetSamplerCount(*v177);
-                *(v528 + v175) += SamplerCount;
-                if (!v173 && (v102[5] & 2) != 0)
+                *(v471 + v163) += v166;
+                SamplerCount = glpTypeGetSamplerCount(*v165);
+                *(v469 + v163) += SamplerCount;
+                if (!v161 && (v92[5] & 2) != 0)
                 {
-                  v186 = v177[1];
-                  if (!v186 || (v187 = SamplerCount, v188 = glpLayoutObjectFind(v186, 28), SamplerCount = v187, !v188))
+                  v173 = v165[1];
+                  if (!v173 || (v174 = SamplerCount, v175 = glpLayoutObjectFind(v173, 28), SamplerCount = v174, !v175))
                   {
-                    if (v474 + 1 <= v472)
+                    if (v415 + 1 <= v413)
                     {
-                      v194 = v474;
-                      v193 = __src;
+                      v181 = v415;
+                      v180 = __src;
                     }
 
                     else
                     {
-                      if (v472 <= 1)
+                      if (v413 <= 1)
                       {
-                        v189 = 1;
+                        v176 = 1;
                       }
 
                       else
                       {
-                        v189 = v472;
+                        v176 = v413;
                       }
 
-                      v190 = 2 * v189;
-                      if (v190 <= (v474 + 1))
+                      v177 = 2 * v176;
+                      if (v177 <= (v415 + 1))
                       {
-                        v191 = v474 + 1;
+                        v178 = v415 + 1;
                       }
 
                       else
                       {
-                        v191 = v190;
+                        v178 = v177;
                       }
 
-                      v472 = v191;
-                      v192 = SamplerCount;
-                      v193 = (*(&GLP_MALLOC_ALLOCATOR + 1))(GLP_MALLOC_ALLOCATOR, 8 * v191, "Vector Storage (GLPVariableObject *, growth)");
-                      v194 = v474;
-                      memcpy(v193, __src, 8 * v474);
-                      v129 = *v513;
+                      v413 = v178;
+                      v179 = SamplerCount;
+                      v180 = (*(&GLP_MALLOC_ALLOCATOR + 1))(GLP_MALLOC_ALLOCATOR, 8 * v178, "Vector Storage (GLPVariableObject *, growth)");
+                      v181 = v415;
+                      memcpy(v180, __src, 8 * v415);
+                      v119 = *v454;
                       off_2819B9B80(GLP_MALLOC_ALLOCATOR, __src);
-                      SamplerCount = v192;
-                      v103 = v491;
+                      SamplerCount = v179;
+                      v93 = v432;
                     }
 
-                    *(v193 + v194) = v177;
-                    ++v474;
-                    __src = v193;
-                    v144 = v486;
-                    v173 = v485;
+                    *(v180 + v181) = v165;
+                    ++v415;
+                    __src = v180;
+                    v134 = v427;
+                    v161 = v426;
                   }
                 }
 
-                v195 = v177[9];
-                if (v195 && !*(v144 + 16))
+                v182 = v165[9];
+                if (v182 && !*(v134 + 16))
                 {
-                  v196 = SamplerCount;
-                  v197 = glpCopyValue(&GLP_MALLOC_ALLOCATOR, *v177, v195, v180, v181, v182, v183, v184);
-                  SamplerCount = v196;
-                  *(v144 + 16) = v197;
+                  v183 = SamplerCount;
+                  v184 = glpCopyValue(&GLP_MALLOC_ALLOCATOR, *v165, v182, v167, v168, v169, v170, v171);
+                  SamplerCount = v183;
+                  *(v134 + 16) = v184;
                 }
 
-                if ((v102[5] & 2) != 0 && SamplerCount >= 1)
+                if ((v92[5] & 2) != 0 && SamplerCount >= 1)
                 {
-                  v489 = SamplerCount;
-                  glpLLVMAllocVariableExtra(v102, v177);
-                  v198 = glpABIGetTypeSize(0, *v177, 0);
-                  v199 = glpTypeSizeGetSize(v198);
-                  v200 = v102;
-                  v201 = v199;
-                  v202 = (v102[1])(*v102, 4 * v199, "Primitive Types");
-                  v203 = (v102[1])(*v102, v199, "Flags");
-                  glpTypeGetAppleVec4Types(*v177, v202, 1, 0, 0, v203, 0, 0, 0);
-                  v204 = (v102[1])(*v102, 16, "Sampler Uniform");
-                  *(v177[18] + 8) = v204;
-                  *v204 = v507;
-                  *(v204 + 8) = (v200[1])(*v200, 16 * v507, "Vector Storage (GLPLLVMSampler)");
-                  if (v199)
+                  v430 = SamplerCount;
+                  glpLLVMAllocVariableExtra(v92, v165);
+                  glpABIGetTypeSize(0, *v165, 0);
+                  glpTypeSizeGetSize();
+                  v186 = v185;
+                  v187 = v92;
+                  v188 = v185;
+                  v189 = (v92[1])(*v92, 4 * v185, "Primitive Types");
+                  v190 = (v92[1])(*v92, v188, "Flags");
+                  glpTypeGetAppleVec4Types(*v165, v189, 1, 0, 0, v190, 0, 0, 0);
+                  v191 = (v92[1])(*v92, 16, "Sampler Uniform");
+                  *(v165[18] + 8) = v191;
+                  *v191 = v448;
+                  *(v191 + 8) = (v187[1])(*v187, 16 * v448, "Vector Storage (GLPLLVMSampler)");
+                  if (v186)
                   {
-                    v205 = 0;
-                    v206 = v476;
+                    v192 = 0;
+                    v193 = v417;
                     do
                     {
-                      if (glpPrimitiveTypeGetCategory(*v202) == 4)
+                      if (glpPrimitiveTypeGetCategory(*v189) == 4)
                       {
-                        if (!v507)
+                        if (!v448)
                         {
-                          v207 = *(v135 + 50);
-                          v208 = *(v135 + 51);
-                          if (v208 + 1 <= v207)
+                          v194 = *(v125 + 50);
+                          v195 = *(v125 + 51);
+                          if (v195 + 1 <= v194)
                           {
-                            v211 = v135[26];
-                            v212 = *(v135 + 51);
+                            v198 = v125[26];
+                            v199 = *(v125 + 51);
                           }
 
                           else
                           {
-                            if (v207 <= 1)
+                            if (v194 <= 1)
                             {
-                              v207 = 1;
+                              v194 = 1;
                             }
 
-                            v209 = 2 * v207;
-                            if (v209 <= v208 + 1)
+                            v196 = 2 * v194;
+                            if (v196 <= v195 + 1)
                             {
-                              v210 = v208 + 1;
+                              v197 = v195 + 1;
                             }
 
                             else
                             {
-                              v210 = v209;
+                              v197 = v196;
                             }
 
-                            v211 = (*(&GLP_MALLOC_ALLOCATOR + 1))(GLP_MALLOC_ALLOCATOR, 4 * v210, "Vector Storage (int, growth)");
-                            memcpy(v211, v135[26], 4 * *(v135 + 51));
-                            off_2819B9B80(GLP_MALLOC_ALLOCATOR, v135[26]);
-                            *(v135 + 50) = v210;
-                            v135[26] = v211;
-                            v212 = *(v135 + 51);
+                            v198 = (*(&GLP_MALLOC_ALLOCATOR + 1))(GLP_MALLOC_ALLOCATOR, 4 * v197, "Vector Storage (int, growth)");
+                            memcpy(v198, v125[26], 4 * *(v125 + 51));
+                            off_2819B9B80(GLP_MALLOC_ALLOCATOR, v125[26]);
+                            *(v125 + 50) = v197;
+                            v125[26] = v198;
+                            v199 = *(v125 + 51);
                           }
 
-                          memmove(&v211[4 * v208 + 4], &v211[4 * v208], 4 * (v212 - v208));
-                          *(v135[26] + 4 * v208) = v206;
-                          ++*(v135 + 51);
+                          memmove(&v198[4 * v195 + 4], &v198[4 * v195], 4 * (v199 - v195));
+                          *(v125[26] + 4 * v195) = v193;
+                          ++*(v125 + 51);
                         }
 
-                        v213 = *v202;
-                        v214 = *v204;
-                        v215 = *(v204 + 4);
-                        if ((v215 + 1) <= *v204)
+                        v200 = *v189;
+                        v201 = *v191;
+                        v202 = *(v191 + 4);
+                        if ((v202 + 1) <= *v191)
                         {
-                          v218 = *(v204 + 8);
-                          v219 = *(v204 + 4);
+                          v205 = *(v191 + 8);
+                          v206 = *(v191 + 4);
                         }
 
                         else
                         {
-                          if (v214 <= 1)
+                          if (v201 <= 1)
                           {
-                            v214 = 1;
+                            v201 = 1;
                           }
 
-                          v216 = 2 * v214;
-                          if (v216 <= v215 + 1)
+                          v203 = 2 * v201;
+                          if (v203 <= v202 + 1)
                           {
-                            v217 = v215 + 1;
+                            v204 = v202 + 1;
                           }
 
                           else
                           {
-                            v217 = v216;
+                            v204 = v203;
                           }
 
-                          v218 = (v518[1])(*v518, 16 * v217, "Vector Storage (GLPLLVMSampler, growth)");
-                          memcpy(v218, *(v204 + 8), 16 * *(v204 + 4));
-                          v135 = v495;
-                          (v518[3])(*v518, *(v204 + 8));
-                          *v204 = v217;
-                          *(v204 + 8) = v218;
-                          v219 = *(v204 + 4);
+                          v205 = (v459[1])(*v459, 16 * v204, "Vector Storage (GLPLLVMSampler, growth)");
+                          memcpy(v205, *(v191 + 8), 16 * *(v191 + 4));
+                          v125 = v436;
+                          (v459[3])(*v459, *(v191 + 8));
+                          *v191 = v204;
+                          *(v191 + 8) = v205;
+                          v206 = *(v191 + 4);
                         }
 
-                        memmove(&v218[16 * v215 + 16], &v218[16 * v215], 16 * (v219 - v215));
-                        v220 = (*(v204 + 8) + 16 * v215);
-                        *v220 = v205 + v502;
-                        v220[1] = -1;
-                        v220[2] = v206;
-                        v220[3] = v213;
-                        ++*(v204 + 4);
-                        ++v205;
-                        v130 = v498;
-                        v129 = *v513;
+                        memmove(&v205[16 * v202 + 16], &v205[16 * v202], 16 * (v206 - v202));
+                        v207 = (*(v191 + 8) + 16 * v202);
+                        *v207 = v192 + v443;
+                        v207[1] = -1;
+                        v207[2] = v193;
+                        v207[3] = v200;
+                        ++*(v191 + 4);
+                        ++v192;
+                        v120 = v439;
+                        v119 = *v454;
                       }
 
-                      ++v206;
-                      ++v202;
-                      --v201;
+                      ++v193;
+                      ++v189;
+                      --v188;
                     }
 
-                    while (v201);
+                    while (v188);
                   }
 
-                  v507 = v489;
-                  v102 = v518;
-                  v103 = v491;
-                  v144 = v486;
-                  v173 = v485;
+                  v448 = v430;
+                  v92 = v459;
+                  v93 = v432;
+                  v134 = v427;
+                  v161 = v426;
                 }
 
-                v175 = v493;
+                v163 = v434;
               }
             }
 
-            ++v175;
+            ++v163;
           }
 
-          while (v175 != 5);
-          *(v144 + 4) = v490;
-          *(v144 + 8) = 0xFFFFFFFFLL;
-          *(v144 + 24) = glpDeepCopyType(&GLP_MALLOC_ALLOCATOR, ArrayType);
-          v221 = v483;
-          if (v483)
+          while (v163 != 5);
+          *(v134 + 4) = v431;
+          *(v134 + 8) = 0xFFFFFFFFLL;
+          *(v134 + 24) = glpDeepCopyType(&GLP_MALLOC_ALLOCATOR, ArrayType);
+          v208 = v424;
+          if (v424)
           {
-            v221 = BitSetCloneWithAllocator(v483, GLP_MALLOC_ALLOCATOR, *(&GLP_MALLOC_ALLOCATOR + 1), off_2819B9B78, off_2819B9B80);
+            v208 = BitSetCloneWithAllocator(v424, GLP_MALLOC_ALLOCATOR, *(&GLP_MALLOC_ALLOCATOR + 1), off_2819B9B78, off_2819B9B80);
           }
 
-          *(v144 + 32) = v221;
-          *(v144 + 80) = 0;
-          v222 = *v522;
-          *(v144 + 40) = *v522;
-          *(v144 + 56) = *&v522[16];
-          v223 = v135[10];
-          if (v130)
+          *(v134 + 32) = v208;
+          *(v134 + 80) = 0;
+          v209 = *v463;
+          *(v134 + 40) = *v463;
+          *(v134 + 56) = *&v463[16];
+          v210 = v125[10];
+          if (v120)
           {
-            v224 = v130 >> 5;
-            LODWORD(v225) = v130;
-            v226 = ~(v130 >> 5);
-            v121 = v473;
-            v124 = v479;
+            v211 = v120 >> 5;
+            LODWORD(v212) = v120;
+            v213 = ~(v120 >> 5);
+            v111 = v414;
+            v114 = v420;
             do
             {
-              v225 = (32 * v225 + (v225 >> 2) + v468[(v130 - 1)]) ^ v225;
-              LODWORD(v130) = v130 + v226;
+              v212 = (32 * v212 + (v212 >> 2) + v409[(v120 - 1)]) ^ v212;
+              LODWORD(v120) = v120 + v213;
             }
 
-            while (v130 > v224);
-            v227 = v225 << 32;
+            while (v120 > v211);
+            v214 = v212 << 32;
           }
 
           else
           {
-            v227 = 0;
-            v121 = v473;
-            v124 = v479;
+            v214 = 0;
+            v111 = v414;
+            v114 = v420;
           }
 
-          glpStringHashPut(v223, v468, v227 | v469, v144, v222);
-          if (v173)
+          glpStringHashPut(v210, v409, v214 | v410, v209, v134);
+          if (v161)
           {
-            v228 = glpABIGetTypeSize(0, ArrayType, 0);
-            v476 += glpTypeSizeGetSize(v228);
+            glpABIGetTypeSize(0, ArrayType, 0);
+            glpTypeSizeGetSize();
+            v417 += v215;
           }
 
-          v502 += v507;
-          v470 += glpTypeGetSamplerCount(ArrayType);
-          goto LABEL_292;
+          v443 += v448;
+          v411 += glpTypeGetSamplerCount(ArrayType);
+          goto LABEL_291;
         }
       }
 
-      v174 = v476;
-      goto LABEL_231;
+      v162 = v417;
+      goto LABEL_230;
     }
 
-LABEL_299:
-    if (++v471 != 6)
+LABEL_298:
+    if (++v412 != 6)
     {
       continue;
     }
@@ -2283,943 +2286,932 @@ LABEL_299:
     break;
   }
 
-  v519 = 4;
-  v230 = (*(&GLP_MALLOC_ALLOCATOR + 1))(GLP_MALLOC_ALLOCATOR, 64, "Vector Storage (GLPContextStateUniformEntry)");
-  v520 = v230;
-  if (v474)
+  v460 = 4;
+  v217 = (*(&GLP_MALLOC_ALLOCATOR + 1))(GLP_MALLOC_ALLOCATOR, 64, "Vector Storage (GLPContextStateUniformEntry)");
+  v461 = v217;
+  if (v415)
   {
-    v231 = v230;
-    LODWORD(v232) = 0;
-    v233 = 0;
-    v234 = v476;
+    v218 = v217;
+    LODWORD(v219) = 0;
+    v220 = 0;
+    v221 = v417;
     do
     {
-      *v514 = v233;
-      v235 = *(__src + v233);
-      *(v235 + 156) = v234;
-      v236 = glpABIGetTypeSize(0, *v235, 0);
-      v237 = glpTypeSizeGetSize(v236);
-      v477 = v234;
-      if (v237)
+      *v455 = v220;
+      v222 = *(__src + v220);
+      *(v222 + 156) = v221;
+      glpABIGetTypeSize(0, *v222, 0);
+      glpTypeSizeGetSize();
+      v418 = v221;
+      if (v223)
       {
-        v238 = v237;
-        v239 = 0;
-        for (m = 0; m != v238; ++m)
+        v224 = v223;
+        v225 = 0;
+        for (m = 0; m != v224; ++m)
         {
-          *v522 = v234;
-          v241 = glpLayoutObjectFind(*(v235 + 8), 46);
-          if (!v241 || *(v241 + 4) != 9)
+          *v463 = v221;
+          v227 = glpLayoutObjectFind(*(v222 + 8), 46);
+          if (!v227 || *(v227 + 4) != 9)
           {
-            v242 = glpLayoutObjectFind(*(v235 + 8), 46);
+            v228 = glpLayoutObjectFind(*(v222 + 8), 46);
+            if (v228)
+            {
+              *&v463[8] = *&v463[8] & 0xFFFFFFFFFFFFE0FFLL | ((v228[2] & 0x1F) << 8);
+            }
+
+            v229 = glpLayoutObjectFind(*(v222 + 8), 48);
+            if (v229)
+            {
+              *&v463[8] = *&v463[8] & 0xFFFFFFF8FFFFFFFFLL | ((v229[2] & 7) << 32);
+            }
+
+            v230 = glpLayoutObjectFind(*(v222 + 8), 49);
+            if (v230)
+            {
+              *&v463[8] = *&v463[8] & 0xFFFFFF07FFFFFFFFLL | ((v230[2] & 0x1F) << 35);
+            }
+
+            v231 = glpLayoutObjectFind(*(v222 + 8), 51);
+            if (v231)
+            {
+              *&v463[8] = *&v463[8] & 0xFFFFF0FFFFFFFFFFLL | ((v231[2] & 0xF) << 40);
+            }
+
+            v232 = glpLayoutObjectFind(*(v222 + 8), 53);
+            if (v232)
+            {
+              *&v463[8] = *&v463[8] & 0xFFFFFEFFFFFFFFFFLL | ((v232[2] & 1) << 40);
+            }
+
+            v233 = glpLayoutObjectFind(*(v222 + 8), 54);
+            if (v233)
+            {
+              *&v463[8] = *&v463[8] & 0xFFFFF9FFFFFFFFFFLL | ((v233[2] & 3) << 41);
+            }
+
+            v234 = glpLayoutObjectFind(*(v222 + 8), 55);
+            if (v234)
+            {
+              *&v463[8] = *&v463[8] & 0xFFFFFFFEFFFFFFFFLL | ((v234[2] & 1) << 32);
+            }
+
+            v235 = glpLayoutObjectFind(*(v222 + 8), 56);
+            if (v235)
+            {
+              *&v463[8] = *&v463[8] & 0xFFFFFFF1FFFFFFFFLL | ((v235[2] & 7) << 33);
+            }
+
+            v236 = glpLayoutObjectFind(*(v222 + 8), 58);
+            if (v236)
+            {
+              *&v463[8] = *&v463[8] & 0xFFFFFC7FFFFFFFFFLL | ((v236[2] & 7) << 39);
+            }
+
+            v237 = glpLayoutObjectFind(*(v222 + 8), 62);
+            if (v237)
+            {
+              *&v463[8] = *&v463[8] & 0xFFFFFCFFFFFFFFFFLL | ((v237[2] & 3) << 40);
+            }
+
+            v238 = glpLayoutObjectFind(*(v222 + 8), 64);
+            if (v238)
+            {
+              *&v463[8] = *&v463[8] & 0xFFFF8FFFFFFFFFFFLL | ((v238[2] & 7) << 44);
+            }
+
+            v239 = glpLayoutObjectFind(*(v222 + 8), 65);
+            if (v239)
+            {
+              *&v463[8] = *&v463[8] & 0xFFFFFFF0FFFFFFFFLL | ((v239[2] & 0xF) << 32);
+            }
+
+            v240 = glpLayoutObjectFind(*(v222 + 8), 66);
+            if (v240)
+            {
+              *&v463[8] = *&v463[8] & 0xFFFFFF0FFFFFFFFFLL | ((v240[2] & 0xF) << 36);
+            }
+
+            v241 = glpLayoutObjectFind(*(v222 + 8), 67);
+            if (v241)
+            {
+              *&v463[8] = *&v463[8] & 0xFFFFFFFFFFLL | (*(v241 + 4) << 40);
+            }
+
+            v242 = glpLayoutObjectFind(*(v222 + 8), 47);
             if (v242)
             {
-              *&v522[8] = *&v522[8] & 0xFFFFFFFFFFFFE0FFLL | ((v242[2] & 0x1F) << 8);
+              *&v463[8] = *&v463[8] & 0xFFFFFFFF0000FFFFLL | (v225 + (*(v242 + 4) << 16));
             }
 
-            v243 = glpLayoutObjectFind(*(v235 + 8), 48);
+            v243 = glpLayoutObjectFind(*(v222 + 8), 50);
             if (v243)
             {
-              *&v522[8] = *&v522[8] & 0xFFFFFFF8FFFFFFFFLL | ((v243[2] & 7) << 32);
+              v463[12] = m + *(v243 + 16);
             }
 
-            v244 = glpLayoutObjectFind(*(v235 + 8), 49);
+            v244 = glpLayoutObjectFind(*(v222 + 8), 52);
             if (v244)
             {
-              *&v522[8] = *&v522[8] & 0xFFFFFF07FFFFFFFFLL | ((v244[2] & 0x1F) << 35);
+              v463[12] = m + *(v244 + 16);
             }
 
-            v245 = glpLayoutObjectFind(*(v235 + 8), 51);
+            v245 = glpLayoutObjectFind(*(v222 + 8), 57);
             if (v245)
             {
-              *&v522[8] = *&v522[8] & 0xFFFFF0FFFFFFFFFFLL | ((v245[2] & 0xF) << 40);
+              *&v463[8] = *&v463[8] & 0xFFFFFF80FFFFFFFFLL | (((m + *(v245 + 4)) & 0x7F) << 32);
             }
 
-            v246 = glpLayoutObjectFind(*(v235 + 8), 53);
+            v246 = glpLayoutObjectFind(*(v222 + 8), 59);
             if (v246)
             {
-              *&v522[8] = *&v522[8] & 0xFFFFFEFFFFFFFFFFLL | ((v246[2] & 1) << 40);
+              *&v463[8] = *&v463[8] & 0xFFFFFF80FFFFFFFFLL | (((m + *(v246 + 4)) & 0x7F) << 32);
             }
 
-            v247 = glpLayoutObjectFind(*(v235 + 8), 54);
+            v247 = glpLayoutObjectFind(*(v222 + 8), 60);
             if (v247)
             {
-              *&v522[8] = *&v522[8] & 0xFFFFF9FFFFFFFFFFLL | ((v247[2] & 3) << 41);
+              v463[12] = m + *(v247 + 16);
             }
 
-            v248 = glpLayoutObjectFind(*(v235 + 8), 55);
+            v248 = glpLayoutObjectFind(*(v222 + 8), 61);
             if (v248)
             {
-              *&v522[8] = *&v522[8] & 0xFFFFFFFEFFFFFFFFLL | ((v248[2] & 1) << 32);
+              v463[12] = *(v248 + 16) + (m >> 2);
             }
 
-            v249 = glpLayoutObjectFind(*(v235 + 8), 56);
+            v249 = glpLayoutObjectFind(*(v222 + 8), 63);
             if (v249)
             {
-              *&v522[8] = *&v522[8] & 0xFFFFFFF1FFFFFFFFLL | ((v249[2] & 7) << 33);
+              *&v463[8] = *&v463[8] & 0xFFFFF3FFFFFFFFFFLL | (((m + *(v249 + 4)) & 3) << 42);
             }
 
-            v250 = glpLayoutObjectFind(*(v235 + 8), 58);
-            if (v250)
+            PPStreamTokenConvertParamBindingsToGeneric(&v463[8], 1);
+            v467 = *v463;
+            v250 = v460;
+            if (v219 + 1 <= v460)
             {
-              *&v522[8] = *&v522[8] & 0xFFFFFC7FFFFFFFFFLL | ((v250[2] & 7) << 39);
-            }
-
-            v251 = glpLayoutObjectFind(*(v235 + 8), 62);
-            if (v251)
-            {
-              *&v522[8] = *&v522[8] & 0xFFFFFCFFFFFFFFFFLL | ((v251[2] & 3) << 40);
-            }
-
-            v252 = glpLayoutObjectFind(*(v235 + 8), 64);
-            if (v252)
-            {
-              *&v522[8] = *&v522[8] & 0xFFFF8FFFFFFFFFFFLL | ((v252[2] & 7) << 44);
-            }
-
-            v253 = glpLayoutObjectFind(*(v235 + 8), 65);
-            if (v253)
-            {
-              *&v522[8] = *&v522[8] & 0xFFFFFFF0FFFFFFFFLL | ((v253[2] & 0xF) << 32);
-            }
-
-            v254 = glpLayoutObjectFind(*(v235 + 8), 66);
-            if (v254)
-            {
-              *&v522[8] = *&v522[8] & 0xFFFFFF0FFFFFFFFFLL | ((v254[2] & 0xF) << 36);
-            }
-
-            v255 = glpLayoutObjectFind(*(v235 + 8), 67);
-            if (v255)
-            {
-              *&v522[8] = *&v522[8] & 0xFFFFFFFFFFLL | (*(v255 + 4) << 40);
-            }
-
-            v256 = glpLayoutObjectFind(*(v235 + 8), 47);
-            if (v256)
-            {
-              *&v522[8] = *&v522[8] & 0xFFFFFFFF0000FFFFLL | (v239 + (*(v256 + 4) << 16));
-            }
-
-            v257 = glpLayoutObjectFind(*(v235 + 8), 50);
-            if (v257)
-            {
-              v258 = m + *(v257 + 4);
-              v522[12] = m + *(v257 + 16);
-            }
-
-            v259 = glpLayoutObjectFind(*(v235 + 8), 52);
-            if (v259)
-            {
-              v260 = m + *(v259 + 4);
-              v522[12] = m + *(v259 + 16);
-            }
-
-            v261 = glpLayoutObjectFind(*(v235 + 8), 57);
-            if (v261)
-            {
-              *&v522[8] = *&v522[8] & 0xFFFFFF80FFFFFFFFLL | (((m + *(v261 + 4)) & 0x7F) << 32);
-            }
-
-            v262 = glpLayoutObjectFind(*(v235 + 8), 59);
-            if (v262)
-            {
-              *&v522[8] = *&v522[8] & 0xFFFFFF80FFFFFFFFLL | (((m + *(v262 + 4)) & 0x7F) << 32);
-            }
-
-            v263 = glpLayoutObjectFind(*(v235 + 8), 60);
-            if (v263)
-            {
-              v264 = m + *(v263 + 4);
-              v522[12] = m + *(v263 + 16);
-            }
-
-            v265 = glpLayoutObjectFind(*(v235 + 8), 61);
-            if (v265)
-            {
-              v266 = *(v265 + 4) + (m >> 2);
-              v522[12] = *(v265 + 16) + (m >> 2);
-            }
-
-            v267 = glpLayoutObjectFind(*(v235 + 8), 63);
-            if (v267)
-            {
-              *&v522[8] = *&v522[8] & 0xFFFFF3FFFFFFFFFFLL | (((m + *(v267 + 4)) & 3) << 42);
-            }
-
-            PPStreamTokenConvertParamBindingsToGeneric(&v522[8], 1);
-            v526 = *v522;
-            v268 = v519;
-            if (v232 + 1 <= v519)
-            {
-              v232 = v232;
+              v219 = v219;
             }
 
             else
             {
-              if (v519 <= 1)
+              if (v460 <= 1)
               {
-                v268 = 1;
+                v250 = 1;
               }
 
-              v269 = 2 * v268;
-              if (v269 <= v232 + 1)
+              v251 = 2 * v250;
+              if (v251 <= v219 + 1)
               {
-                v270 = v232 + 1;
+                v252 = v219 + 1;
               }
 
               else
               {
-                v270 = v269;
+                v252 = v251;
               }
 
-              v271 = (*(&GLP_MALLOC_ALLOCATOR + 1))(GLP_MALLOC_ALLOCATOR, 16 * v270, "Vector Storage (GLPContextStateUniformEntry, growth)");
-              v232 = v232;
-              memcpy(v271, v231, 16 * v232);
-              off_2819B9B80(GLP_MALLOC_ALLOCATOR, v231);
-              LODWORD(v519) = v270;
-              v520 = v271;
+              v253 = (*(&GLP_MALLOC_ALLOCATOR + 1))(GLP_MALLOC_ALLOCATOR, 16 * v252, "Vector Storage (GLPContextStateUniformEntry, growth)");
+              v219 = v219;
+              memcpy(v253, v218, 16 * v219);
+              off_2819B9B80(GLP_MALLOC_ALLOCATOR, v218);
+              LODWORD(v460) = v252;
+              v461 = v253;
             }
 
-            v231 = v520;
-            *(v520 + v232) = v526;
-            LODWORD(v232) = ++HIDWORD(v519);
+            v218 = v461;
+            *(v461 + v219) = v467;
+            LODWORD(v219) = ++HIDWORD(v460);
           }
 
-          v239 += 0x40000;
-          ++v234;
+          v225 += 0x40000;
+          ++v221;
         }
       }
 
-      v272 = glpABIGetTypeSize(0, *v235, 0);
-      v234 = glpTypeSizeGetSize(v272) + v477;
-      v233 = *v514 + 1;
+      glpABIGetTypeSize(0, *v222, 0);
+      glpTypeSizeGetSize();
+      v221 = v254 + v418;
+      v220 = *v455 + 1;
     }
 
-    while (*v514 + 1 != v474);
+    while (*v455 + 1 != v415);
   }
 
   else
   {
-    v234 = v476;
+    v221 = v417;
   }
 
   off_2819B9B80(GLP_MALLOC_ALLOCATOR, __src);
-  v495[27] = glpCopyContextState(&v519);
-  off_2819B9B80(GLP_MALLOC_ALLOCATOR, v520);
-  v283 = 0;
-  *(v495 + 56) = v234;
-  v284 = v467;
+  v436[27] = glpCopyContextState(&v460);
+  off_2819B9B80(GLP_MALLOC_ALLOCATOR, v461);
+  v263 = 0;
+  *(v436 + 56) = v221;
+  v264 = v408;
   do
   {
-    if (*(v528 + v283) >= 17)
+    if (*(v469 + v263) >= 17)
     {
-      v286 = v518[8];
-      glpLanguageToString(v283);
-      glpLanguageToString(v283);
-      *v522 = "-1";
-      *&v522[8] = 0xEDA00000002;
-      *&v522[16] = 0xFFFFFFFFLL;
-      glpLogMessage(v286, 0, v522, "Implementation limit of %d active %s shader samplers (e.g., maximum number of supported image units) exceeded, %s shader uses %d samplers", v287, v288, v289, v290, 16);
-      goto LABEL_381;
+      v267 = v459[8];
+      glpLanguageToString(v263);
+      glpLanguageToString(v263);
+      *v463 = "-1";
+      *&v463[8] = 0xEDA00000002;
+      *&v463[16] = 0xFFFFFFFFLL;
+      glpLogMessage(v267, 0, v463, "Implementation limit of %d active %s shader samplers (e.g., maximum number of supported image units) exceeded, %s shader uses %d samplers");
+      goto LABEL_380;
     }
 
-    if (*(v530 + v283) >= 1025)
+    v265 = *(v471 + v263);
+    if (v265 >= 1025)
     {
-      v291 = v518[8];
-      glpLanguageToString(v283);
-      *v522 = "-1";
-      *&v522[8] = 0xEDA00000002;
-      *&v522[16] = 0xFFFFFFFFLL;
-      glpLogMessage(v291, 0, v522, "Implementation limit of %d (e.g., number of built-in plus user defined active uniforms components) exceeded, %s shader uses %d total uniforms.", v292, v293, v294, v295, 0);
-      goto LABEL_381;
+      v268 = v459[8];
+      glpLanguageToString(v263);
+      *v463 = "-1";
+      *&v463[8] = 0xEDA00000002;
+      *&v463[16] = 0xFFFFFFFFLL;
+      glpLogMessage(v268, 0, v463, "Implementation limit of %d (e.g., number of built-in plus user defined active uniforms components) exceeded, %s shader uses %d total uniforms.");
+      goto LABEL_380;
     }
 
-    ++v283;
+    ++v263;
   }
 
-  while (v283 != 5);
-  if (v470 >= 33)
+  while (v263 != 5);
+  if (v411 >= 33)
   {
-    v285 = v518[8];
-    *v522 = "-1";
-    *&v522[8] = 0xEDA00000002;
-    *&v522[16] = 0xFFFFFFFFLL;
-    glpLogMessage(v285, 0, v522, "Implementation limit of %d active samplers (e.g., maximum number of supported image units) exceeded, linked shaders use %d samplers", v279, v280, v281, v282, 32);
-LABEL_381:
-    v296 = v495;
-    goto LABEL_382;
+    v266 = v459[8];
+    *v463 = "-1";
+    *&v463[8] = 0xEDA00000002;
+    *&v463[16] = 0xFFFFFFFFLL;
+    glpLogMessage(v266, 0, v463, "Implementation limit of %d active samplers (e.g., maximum number of supported image units) exceeded, linked shaders use %d samplers");
+LABEL_380:
+    v269 = v436;
+    goto LABEL_381;
   }
 
-  v526 = 0uLL;
-  v527 = 0;
-  v34 = v495;
-  v495[11] = glpMakeStringHash(&GLP_MALLOC_ALLOCATOR);
-  v297 = *(v473 + 32);
-  if (v297)
+  v467 = 0uLL;
+  v468 = 0;
+  v25 = v436;
+  v436[11] = glpMakeStringHash(&GLP_MALLOC_ALLOCATOR);
+  v270 = *(v414 + 32);
+  if (v270)
   {
-    v298 = 0;
-    v299 = 0;
-    v300 = 0;
+    v271 = 0;
+    v272 = 0;
+    v273 = 0;
     do
     {
-      v301 = (*(v473 + 40) + 32 * v298);
-      v302 = *v301;
-      if (*v301 && (*(v302 + 52) & 4) != 0)
+      v274 = (*(v414 + 40) + 32 * v271);
+      v275 = *v274;
+      if (*v274 && (*(v275 + 52) & 4) != 0)
       {
-        v303 = v301[1];
-        v304 = v301[2];
-        v305 = __abort_malloc_0(v304);
-        memcpy(v305, v303, v304);
-        v306 = __abort_malloc_0(0x58uLL);
-        *v306 = 0u;
-        v306[1] = 0u;
-        v306[2] = 0u;
-        v306[3] = 0u;
-        v306[4] = 0u;
-        *(v306 + 10) = 0;
-        v503 = v299;
-        *(v306 + 1) = v299;
-        *(v306 + 2) = v300;
-        v515 = v300;
-        *(v306 + 3) = 0;
-        v307 = 0;
-        *(v306 + 3) = glpDeepCopyType(&GLP_MALLOC_ALLOCATOR, *v302);
-        *(v306 + 4) = 0;
-        *(v306 + 80) = 0;
-        *v306 = 0;
-        v309 = v544;
+        v276 = v274[1];
+        v277 = v274[2];
+        v278 = __abort_malloc_0(v277);
+        memcpy(v278, v276, v277);
+        v279 = __abort_malloc_0(0x58uLL);
+        *v279 = 0u;
+        v279[1] = 0u;
+        v279[2] = 0u;
+        v279[3] = 0u;
+        v279[4] = 0u;
+        *(v279 + 10) = 0;
+        v444 = v272;
+        *(v279 + 1) = v272;
+        *(v279 + 2) = v273;
+        v456 = v273;
+        *(v279 + 3) = 0;
+        v280 = 0;
+        *(v279 + 3) = glpDeepCopyType(&GLP_MALLOC_ALLOCATOR, *v275);
+        *(v279 + 4) = 0;
+        *(v279 + 80) = 0;
+        *v279 = 0;
+        v282 = v485;
         do
         {
-          if (v491[v307])
+          if (v432[v280])
           {
-            v310 = glpStringHashGet(*v309, v303, v304);
-            if (v310)
+            v283 = glpStringHashGet(*v282, v276, v277);
+            if (v283)
             {
-              *v306 |= 1 << v307;
-              *(*(v310 + 88) + 28) = *(v306 + 2);
-              *(v306 + v307 + 10) = 0;
-              ++*(&v526 + v307);
+              *v279 |= 1 << v280;
+              *(*(v283 + 88) + 28) = *(v279 + 2);
+              *(v279 + v280 + 10) = 0;
+              ++*(&v467 + v280);
             }
           }
 
-          ++v307;
-          v309 += 14;
+          ++v280;
+          v282 += 14;
         }
 
-        while (v307 != 5);
-        if (v304)
+        while (v280 != 5);
+        if (v277)
         {
-          v311 = v304;
-          LODWORD(v312) = v304;
-          v284 = v467;
-          v313 = v515;
+          v284 = v277;
+          LODWORD(v285) = v277;
+          v264 = v408;
+          v286 = v456;
           do
           {
-            v312 = (32 * v312 + (v312 >> 2) + v305[v311 - 1]) ^ v312;
-            v311 += ~(v304 >> 5);
+            v285 = (32 * v285 + (v285 >> 2) + v278[v284 - 1]) ^ v285;
+            v284 += ~(v277 >> 5);
           }
 
-          while (v311 > v304 >> 5);
-          v314 = v312 << 32;
+          while (v284 > v277 >> 5);
+          v287 = v285 << 32;
         }
 
         else
         {
-          v314 = 0;
-          v284 = v467;
-          v313 = v515;
+          v287 = 0;
+          v264 = v408;
+          v286 = v456;
         }
 
-        glpStringHashPut(v495[11], v305, v314 | v304, v306, v308);
-        Vec4s_1 = glpTypeGetVec4s_1(*v302);
-        if (16 * glpTypeGetVec4s_1(*v302) > 0x4000)
+        glpStringHashPut(v436[11], v278, v287 | v277, v281, v279);
+        glpTypeGetVec4s_1(*v275);
+        v289 = v288;
+        glpTypeGetVec4s_1(*v275);
+        if ((16 * v290) > 0x4000)
         {
-          v452 = v518[8];
-          glpTypeGetVec4s_1(*v302);
-          *v522 = "-1";
-          *&v522[8] = 0xEDA00000002;
-          *&v522[16] = 0xFFFFFFFFLL;
-          glpLogMessage(v452, 0, v522, "Bindable uniform %.*s too large (%d exceeds max %d)", v453, v454, v455, v456, v304);
-          goto LABEL_381;
+          v402 = v459[8];
+          glpTypeGetVec4s_1(*v275);
+          *v463 = "-1";
+          *&v463[8] = 0xEDA00000002;
+          *&v463[16] = 0xFFFFFFFFLL;
+          glpLogMessage(v402, 0, v463, "Bindable uniform %.*s too large (%d exceeds max %d)");
+          goto LABEL_380;
         }
 
-        if (glpTypeGetSamplerCount(*v302))
+        if (glpTypeGetSamplerCount(*v275))
         {
-          v457 = v518[8];
-          *v522 = "-1";
-          *&v522[8] = 0xEDA00000002;
-          *&v522[16] = 0xFFFFFFFFLL;
-          glpLogMessage(v457, 0, v522, "Bindable uniform %.*s not allowed to have samplers", v316, v317, v318, v319, v304);
-          goto LABEL_381;
+          v403 = v459[8];
+          *v463 = "-1";
+          *&v463[8] = 0xEDA00000002;
+          *&v463[16] = 0xFFFFFFFFLL;
+          glpLogMessage(v403, 0, v463, "Bindable uniform %.*s not allowed to have samplers");
+          goto LABEL_380;
         }
 
-        v299 = Vec4s_1 + v503;
-        v300 = v313 + 1;
-        v297 = *(v473 + 32);
-        v34 = v495;
+        v272 = v289 + v444;
+        v273 = v286 + 1;
+        v270 = *(v414 + 32);
+        v25 = v436;
       }
 
-      ++v298;
+      ++v271;
     }
 
-    while (v298 < v297);
+    while (v271 < v270);
   }
 
-  v320 = 0;
-  v321 = v518;
+  v291 = 0;
+  v292 = v459;
   do
   {
-    if (*(&v526 + v320) > dword_23A29C788[v320])
+    if (*(&v467 + v291) > dword_23A29C788[v291])
     {
-      v440 = v518[8];
-      v441 = glpLanguageToString(v320);
-      *v522 = "-1";
-      *&v522[8] = 0xEDA00000002;
-      *&v522[16] = 0xFFFFFFFFLL;
-      glpLogMessage(v440, 0, v522, "Too many bindable uniforms in %s shader (%d exceeds max %d)", v442, v443, v444, v445, v441);
-      goto LABEL_503;
+      v400 = v459[8];
+      glpLanguageToString(v291);
+      *v463 = "-1";
+      *&v463[8] = 0xEDA00000002;
+      *&v463[16] = 0xFFFFFFFFLL;
+      glpLogMessage(v400, 0, v463, "Too many bindable uniforms in %s shader (%d exceeds max %d)");
+      goto LABEL_502;
     }
 
-    ++v320;
+    ++v291;
   }
 
-  while (v320 != 5);
-  v524[0] = 0;
-  v524[1] = 0;
-  v525 = 0;
-  v34[12] = glpMakeStringHash(&GLP_MALLOC_ALLOCATOR);
-  v322 = *(v284 + 32);
-  if (!v322)
+  while (v291 != 5);
+  v465[0] = 0;
+  v465[1] = 0;
+  v466 = 0;
+  v25[12] = glpMakeStringHash(&GLP_MALLOC_ALLOCATOR);
+  v293 = *(v264 + 32);
+  if (v293)
   {
-LABEL_421:
-    for (n = 0; n != 5; ++n)
-    {
-      if (*(v524 + n) > dword_23A29C79C[n])
-      {
-        v446 = *(v321 + 64);
-        v447 = glpLanguageToString(n);
-        *v522 = "-1";
-        *&v522[8] = 0xEDA00000002;
-        *&v522[16] = 0xFFFFFFFFLL;
-        glpLogMessage(v446, 0, v522, "Too many uniform interface blocks in %s shader (%d exceeds max %d)", v448, v449, v450, v451, v447);
-        goto LABEL_503;
-      }
-    }
-
-    v347 = 0;
-    v348 = (v34 + 13);
-    *v516 = v34 + 18;
-    v499 = (v34 + 13);
+    v294 = 0;
+    v295 = 0;
     do
     {
-      *&v348[8 * v347] = glpMakeStringHash(&GLP_MALLOC_ALLOCATOR);
-      v349 = v491[v347];
-      if (v349 && glpTopLevelNodeGetDefCount(v349))
+      v296 = (*(v264 + 40) + 32 * v294);
+      v297 = *v296;
+      if (*v296)
       {
-        v350 = 0;
-        v351 = 0;
-        v352 = v491;
+        v298 = v296[1];
+        v299 = v296[2];
+        v300 = __abort_malloc_0(v299);
+        memcpy(v300, v298, v299);
+        v301 = __abort_malloc_0(0x58uLL);
+        *v301 = 0u;
+        v301[1] = 0u;
+        v301[2] = 0u;
+        v301[3] = 0u;
+        v301[4] = 0u;
+        *(v301 + 10) = 0;
+        *(v301 + 1) = -1;
+        *(v301 + 2) = v295;
+        v449 = v295;
+        v302 = 0;
+        *(v301 + 3) = glpDeepCopyType(&GLP_MALLOC_ALLOCATOR, *(v297 + 64));
+        *(v301 + 4) = 0;
+        *(v301 + 80) = *(v297 + 32) == 0;
+        *v301 = 0;
+        v304 = &v486;
         do
         {
-          Def = glpTopLevelNodeGetDef(v352[v347], v350);
-          if (Def)
+          if (v432[v302])
           {
-            v354 = Def;
-            if (glpASTNodeGetKind(Def) == 51)
+            v305 = glpStringHashGet(*v304, v298, v299);
+            if (v305)
             {
-              Prototype = glpFunctionDefinitionNodeGetPrototype(v354);
-              Extra = glpFunctionPrototypeNodeGetExtra(Prototype);
-              if ((*(Extra + 10) & 0x10) != 0)
-              {
-                v357 = Extra;
-                *(Extra + 160) = v351;
-                v358 = __abort_malloc_0(0x10uLL);
-                *v358 = 0;
-                v358[1] = 0;
-                *v358 = -1;
-                *(v358 + 1) = *(v357 + 160);
-                v358[1] = 0;
-                v359 = __abort_malloc_0(*(v357 + 32));
-                memcpy(v359, *(v357 + 24), *(v357 + 32));
-                v361 = *(v357 + 32);
-                if (v361)
-                {
-                  v362 = *(v357 + 32);
-                  LODWORD(v363) = v362;
-                  do
-                  {
-                    v363 = (32 * v363 + (v363 >> 2) + v359[v362 - 1]) ^ v363;
-                    v362 += ~(v361 >> 5);
-                  }
-
-                  while (v362 > v361 >> 5);
-                  v364 = v363 << 32;
-                }
-
-                else
-                {
-                  v364 = 0;
-                }
-
-                glpStringHashPut(*&v348[8 * v347], v359, v364 | v361, v358, v360);
-                ++v351;
-              }
+              *v301 |= 1 << v302;
+              v306 = *(v305 + 80);
+              *(v301 + 3) = *(v306 + 8);
+              *(v306 + 28) = *(v301 + 2);
+              *(v301 + v302 + 10) = 0;
+              *(v465 + v302) += *(*(v297 + 80) + 12);
             }
           }
 
-          ++v350;
-          v352 = v491;
+          ++v302;
+          v304 += 14;
         }
 
-        while (v350 < glpTopLevelNodeGetDefCount(v491[v347]));
-        if (v351 > 4096)
+        while (v302 != 5);
+        v25 = v436;
+        if (v299)
         {
-          v464 = *(v321 + 64);
-          *v522 = "-1";
-          *&v522[8] = 0xEDA00000002;
-          *&v522[16] = 0xFFFFFFFFLL;
-          glpLogMessage(v464, 0, v522, "Too many subroutines (%d exceeds max %d)", v365, v366, v367, v368, v351);
-          goto LABEL_503;
-        }
-      }
-
-      *(*v516 + 8 * v347) = glpMakeStringHash(&GLP_MALLOC_ALLOCATOR);
-      if (v491[v347])
-      {
-        v509 = &v543[14 * v347];
-        v373 = v509[7];
-        v374 = *(v373 + 32);
-        if (v374)
-        {
-          v375 = 0;
-          v376 = 0;
+          v307 = v299;
+          LODWORD(v308) = v299;
+          v309 = v299;
           do
           {
-            v377 = *(v373 + 40) + 32 * v375;
-            v378 = *v377;
-            if (*v377)
+            v308 = (32 * v308 + (v308 >> 2) + v300[v307 - 1]) ^ v308;
+            v307 += ~(v299 >> 5);
+          }
+
+          while (v307 > v299 >> 5);
+          v310 = v308 << 32;
+        }
+
+        else
+        {
+          v310 = 0;
+          v309 = v299;
+        }
+
+        glpStringHashPut(v436[12], v300, v310 | v309, v303, v301);
+        v311 = *(v297 + 80);
+        v312 = *(v311 + 12);
+        if (glpBufferObjectGetMinimumBufferSize(v311) > 0x4000)
+        {
+          v404 = v459[8];
+          glpBufferObjectGetMinimumBufferSize(*(v297 + 80));
+          *v463 = "-1";
+          *&v463[8] = 0xEDA00000002;
+          *&v463[16] = 0xFFFFFFFFLL;
+          glpLogMessage(v404, 0, v463, "Uniform interface block %.*s too large (%d exceeds max %d)");
+          goto LABEL_502;
+        }
+
+        v292 = v459;
+        if (glpTypeGetSamplerCount(*(v297 + 64)))
+        {
+          v405 = v459[8];
+          *v463 = "-1";
+          *&v463[8] = 0xEDA00000002;
+          *&v463[16] = 0xFFFFFFFFLL;
+          glpLogMessage(v405, 0, v463, "Uniform interface block %.*s not allowed to have samplers");
+LABEL_502:
+          v269 = v25;
+LABEL_381:
+          glpDestroyLinkedProgram(v269);
+          return 0;
+        }
+
+        v295 = v312 + v449;
+        v264 = v408;
+        v293 = *(v408 + 32);
+      }
+
+      ++v294;
+    }
+
+    while (v294 < v293);
+  }
+
+  for (n = 0; n != 5; ++n)
+  {
+    if (*(v465 + n) > dword_23A29C79C[n])
+    {
+      v401 = *(v292 + 64);
+      glpLanguageToString(n);
+      *v463 = "-1";
+      *&v463[8] = 0xEDA00000002;
+      *&v463[16] = 0xFFFFFFFFLL;
+      glpLogMessage(v401, 0, v463, "Too many uniform interface blocks in %s shader (%d exceeds max %d)");
+      goto LABEL_502;
+    }
+  }
+
+  v314 = 0;
+  v315 = (v25 + 13);
+  *v457 = v25 + 18;
+  v440 = (v25 + 13);
+  do
+  {
+    *&v315[8 * v314] = glpMakeStringHash(&GLP_MALLOC_ALLOCATOR);
+    v316 = v432[v314];
+    if (v316 && glpTopLevelNodeGetDefCount(v316))
+    {
+      v317 = 0;
+      v318 = 0;
+      v319 = v432;
+      do
+      {
+        Def = glpTopLevelNodeGetDef(v319[v314], v317);
+        if (Def)
+        {
+          v321 = Def;
+          if (glpASTNodeGetKind(Def) == 51)
+          {
+            Prototype = glpFunctionDefinitionNodeGetPrototype(v321);
+            Extra = glpFunctionPrototypeNodeGetExtra(Prototype);
+            if ((*(Extra + 10) & 0x10) != 0)
             {
-              v379 = *(v377 + 8);
-              v380 = *(v377 + 16);
-              v381 = *(v378 + 16);
-              if (glpTypeGetKind(v381) == 2)
+              v324 = Extra;
+              *(Extra + 160) = v318;
+              v325 = __abort_malloc_0(0x10uLL);
+              *v325 = 0;
+              v325[1] = 0;
+              *v325 = -1;
+              *(v325 + 1) = *(v324 + 160);
+              v325[1] = 0;
+              v326 = __abort_malloc_0(*(v324 + 32));
+              memcpy(v326, *(v324 + 24), *(v324 + 32));
+              v328 = *(v324 + 32);
+              if (v328)
               {
-                v381 = glpArrayTypeGetElementType(v381);
-              }
-
-              v382 = __abort_malloc_0(v380);
-              memcpy(v382, v379, v380);
-              v383 = __abort_malloc_0(0x58uLL);
-              *v383 = 0u;
-              v383[1] = 0u;
-              v383[2] = 0u;
-              v383[3] = 0u;
-              v383[4] = 0u;
-              *(v383 + 10) = 0;
-              *(v383 + 1) = v376;
-              *(v383 + 1) = 0xFFFFFFFFLL;
-              *(v383 + 3) = glpDeepCopyType(&GLP_MALLOC_ALLOCATOR, *(v378 + 16));
-              *(v383 + 4) = 0;
-              *(v383 + 80) = 0;
-              *v383 = 1 << v347;
-              v384 = glpPointerHashGet(v509[8], v381);
-              v385 = *(v384 + 4);
-              *(v383 + 8) = v385;
-              *(v383 + 9) = (*(&GLP_MALLOC_ALLOCATOR + 1))(GLP_MALLOC_ALLOCATOR, 4 * v385, "Vector Storage (int)");
-              if (*(v384 + 4))
-              {
-                v387 = 0;
+                v329 = *(v324 + 32);
+                LODWORD(v330) = v329;
                 do
                 {
-                  v388 = glpFunctionDefinitionNodeGetPrototype(*(*(v384 + 8) + 8 * v387));
-                  *(*(v383 + 9) + 4 * (*(v383 + 17))++) = *(glpFunctionPrototypeNodeGetExtra(v388) + 160);
-                  ++v387;
+                  v330 = (32 * v330 + (v330 >> 2) + v326[v329 - 1]) ^ v330;
+                  v329 += ~(v328 >> 5);
                 }
 
-                while (v387 < *(v384 + 4));
-              }
-
-              *(v378 + 40) = *(v383 + 1);
-              if (v380)
-              {
-                v389 = v380;
-                LODWORD(v390) = v380;
-                v321 = v518;
-                do
-                {
-                  v390 = (32 * v390 + (v390 >> 2) + v382[v389 - 1]) ^ v390;
-                  v389 += ~(v380 >> 5);
-                }
-
-                while (v389 > v380 >> 5);
-                v391 = v390 << 32;
+                while (v329 > v328 >> 5);
+                v331 = v330 << 32;
               }
 
               else
               {
-                v391 = 0;
-                v321 = v518;
+                v331 = 0;
               }
 
-              glpStringHashPut(*(*v516 + 8 * v347), v382, v391 | v380, v383, v386);
-              v376 += glpTypeGetVec4s_1(*(v378 + 16));
-              v374 = *(v373 + 32);
+              glpStringHashPut(*&v315[8 * v314], v326, v331 | v328, v327, v325);
+              ++v318;
             }
-
-            ++v375;
-          }
-
-          while (v375 < v374);
-          v348 = v499;
-          if (v376 > 4096)
-          {
-            v465 = *(v321 + 64);
-            *v522 = "-1";
-            *&v522[8] = 0xEDA00000002;
-            *&v522[16] = 0xFFFFFFFFLL;
-            glpLogMessage(v465, 0, v522, "Too many subroutine uniforms (%d exceeds max %d)", v369, v370, v371, v372, v376);
-            goto LABEL_381;
           }
         }
+
+        ++v317;
+        v319 = v432;
       }
 
-      ++v347;
-      v34 = v495;
+      while (v317 < glpTopLevelNodeGetDefCount(v432[v314]));
+      if (v318 > 4096)
+      {
+        v406 = *(v292 + 64);
+        *v463 = "-1";
+        *&v463[8] = 0xEDA00000002;
+        *&v463[16] = 0xFFFFFFFFLL;
+        glpLogMessage(v406, 0, v463, "Too many subroutines (%d exceeds max %d)");
+        goto LABEL_502;
+      }
     }
 
-    while (v347 != 5);
-    v495[23] = glpMakeStringHash(&GLP_MALLOC_ALLOCATOR);
-    v392 = v550;
-    if (v550)
+    *(*v457 + 8 * v314) = glpMakeStringHash(&GLP_MALLOC_ALLOCATOR);
+    if (v432[v314])
     {
-      v393 = *(v550 + 32);
-      if (v393)
+      v450 = &v484[14 * v314];
+      v332 = v450[7];
+      v333 = *(v332 + 32);
+      if (v333)
       {
-        for (ii = 0; ii < v393; ++ii)
+        v334 = 0;
+        v335 = 0;
+        do
         {
-          v395 = *(v392 + 40) + 32 * ii;
-          v396 = *v395;
-          if (*v395)
+          v336 = *(v332 + 40) + 32 * v334;
+          v337 = *v336;
+          if (*v336)
           {
-            v397 = *(v395 + 8);
-            v398 = *(v395 + 16);
-            v399 = __abort_malloc_0(0x10uLL);
-            *v399 = 0;
-            v399[1] = 0;
-            *v399 = *v396;
-            v399[1] = glpDeepCopyType(&GLP_MALLOC_ALLOCATOR, *(v396 + 8));
-            v400 = __abort_malloc_0(v398);
-            memcpy(v400, v397, v398);
-            if (v398)
+            v338 = *(v336 + 8);
+            v339 = *(v336 + 16);
+            v340 = *(v337 + 16);
+            if (glpTypeGetKind(v340) == 2)
             {
-              v402 = v398;
-              LODWORD(v403) = v398;
+              v340 = glpArrayTypeGetElementType(v340);
+            }
+
+            v341 = __abort_malloc_0(v339);
+            memcpy(v341, v338, v339);
+            v342 = __abort_malloc_0(0x58uLL);
+            *v342 = 0u;
+            v342[1] = 0u;
+            v342[2] = 0u;
+            v342[3] = 0u;
+            v342[4] = 0u;
+            *(v342 + 10) = 0;
+            *(v342 + 1) = v335;
+            *(v342 + 1) = 0xFFFFFFFFLL;
+            *(v342 + 3) = glpDeepCopyType(&GLP_MALLOC_ALLOCATOR, *(v337 + 16));
+            *(v342 + 4) = 0;
+            *(v342 + 80) = 0;
+            *v342 = 1 << v314;
+            v343 = glpPointerHashGet(v450[8], v340);
+            v344 = *(v343 + 4);
+            *(v342 + 8) = v344;
+            *(v342 + 9) = (*(&GLP_MALLOC_ALLOCATOR + 1))(GLP_MALLOC_ALLOCATOR, 4 * v344, "Vector Storage (int)");
+            if (*(v343 + 4))
+            {
+              v346 = 0;
               do
               {
-                v403 = (32 * v403 + (v403 >> 2) + v400[v402 - 1]) ^ v403;
-                v402 += ~(v398 >> 5);
+                v347 = glpFunctionDefinitionNodeGetPrototype(*(*(v343 + 8) + 8 * v346));
+                *(*(v342 + 9) + 4 * (*(v342 + 17))++) = *(glpFunctionPrototypeNodeGetExtra(v347) + 160);
+                ++v346;
               }
 
-              while (v402 > v398 >> 5);
-              v404 = v403 << 32;
+              while (v346 < *(v343 + 4));
             }
 
-            else
+            *(v337 + 40) = *(v342 + 1);
+            if (v339)
             {
-              v404 = 0;
-            }
-
-            v405 = v404 | v398;
-            v34 = v495;
-            glpStringHashPut(v495[23], v400, v405, v399, v401);
-            v393 = *(v392 + 32);
-          }
-        }
-      }
-    }
-
-    v34[24] = glpMakeStringHash(&GLP_MALLOC_ALLOCATOR);
-    v406 = v542;
-    if (v542)
-    {
-      v407 = *(v542 + 32);
-      if (v407)
-      {
-        for (jj = 0; jj < v407; ++jj)
-        {
-          v409 = *(v406 + 40) + 32 * jj;
-          v410 = *v409;
-          if (*v409)
-          {
-            v411 = *(v409 + 8);
-            v412 = *(v409 + 16);
-            v413 = __abort_malloc_0(0x10uLL);
-            *v413 = 0;
-            v413[1] = 0;
-            *v413 = *v410;
-            v413[1] = glpDeepCopyType(&GLP_MALLOC_ALLOCATOR, v410[1]);
-            v414 = __abort_malloc_0(v412);
-            memcpy(v414, v411, v412);
-            if (v412)
-            {
-              v416 = v412;
-              LODWORD(v417) = v412;
+              v348 = v339;
+              LODWORD(v349) = v339;
+              v292 = v459;
               do
               {
-                v417 = (32 * v417 + (v417 >> 2) + v414[v416 - 1]) ^ v417;
-                v416 += ~(v412 >> 5);
+                v349 = (32 * v349 + (v349 >> 2) + v341[v348 - 1]) ^ v349;
+                v348 += ~(v339 >> 5);
               }
 
-              while (v416 > v412 >> 5);
-              v418 = v417 << 32;
+              while (v348 > v339 >> 5);
+              v350 = v349 << 32;
             }
 
             else
             {
-              v418 = 0;
+              v350 = 0;
+              v292 = v459;
             }
 
-            v419 = v418 | v412;
-            v34 = v495;
-            glpStringHashPut(v495[24], v414, v419, v413, v415);
-            v407 = *(v406 + 32);
+            glpStringHashPut(*(*v457 + 8 * v314), v341, v350 | v339, v345, v342);
+            glpTypeGetVec4s_1(*(v337 + 16));
+            v335 += v351;
+            v333 = *(v332 + 32);
           }
+
+          ++v334;
+        }
+
+        while (v334 < v333);
+        v315 = v440;
+        if (v335 > 4096)
+        {
+          v407 = *(v292 + 64);
+          *v463 = "-1";
+          *&v463[8] = 0xEDA00000002;
+          *&v463[16] = 0xFFFFFFFFLL;
+          glpLogMessage(v407, 0, v463, "Too many subroutine uniforms (%d exceeds max %d)");
+          goto LABEL_380;
         }
       }
     }
 
-    v420 = 0;
-    v421 = *(v321 + 296);
-    v422 = *(v321 + 328);
-    *(v34 + 18) = *(v321 + 312);
-    *(v34 + 19) = v422;
-    *(v34 + 17) = v421;
-    v423 = (v34 + 5);
-    v424 = v321 + 256;
-    v425 = (v34 + 29);
-    v426 = v321 + 276;
-    v427 = v34 + 252;
-    v34[40] = *(v321 + 344);
-    *(v321 + 344) = 0;
-    v510 = (v34 + 29);
-    *v517 = v321 + 256;
-    v504 = v34 + 252;
-    do
+    ++v314;
+    v25 = v436;
+  }
+
+  while (v314 != 5);
+  v436[23] = glpMakeStringHash(&GLP_MALLOC_ALLOCATOR);
+  v352 = v491;
+  if (v491)
+  {
+    v353 = *(v491 + 32);
+    if (v353)
     {
-      v34[v420] = 0;
-      *&v423[8 * v420] = 0;
-      v428 = v491[v420];
-      if (v428)
+      for (ii = 0; ii < v353; ++ii)
       {
-        *v522 = v321;
-        *&v522[8] = *(v321 + 64);
-        v523 = v428;
-        v491[v420] = glpPPTNode(v522, v428);
-        *&v425[4 * v420] = *(v424 + 4 * v420);
-        *&v427[4 * v420] = *(v426 + 4 * v420);
-        v429 = *(v321 + 40);
-        if ((v429 & 2) != 0)
+        v355 = *(v352 + 40) + 32 * ii;
+        v356 = *v355;
+        if (*v355)
         {
-          v430 = v426;
-          glpCreateShaderByteCode();
-          *&v423[8 * v420] = v431;
-          if ((*(v321 + 40) & 8) != 0)
+          v357 = *(v355 + 8);
+          v358 = *(v355 + 16);
+          v359 = __abort_malloc_0(0x10uLL);
+          *v359 = 0;
+          v359[1] = 0;
+          *v359 = *v356;
+          v359[1] = glpDeepCopyType(&GLP_MALLOC_ALLOCATOR, *(v356 + 8));
+          v360 = __abort_malloc_0(v358);
+          memcpy(v360, v357, v358);
+          if (v358)
           {
-            if (*(v532 + v420))
+            v362 = v358;
+            LODWORD(v363) = v358;
+            do
             {
-              v432 = 2;
+              v363 = (32 * v363 + (v363 >> 2) + v360[v362 - 1]) ^ v363;
+              v362 += ~(v358 >> 5);
             }
 
-            else
-            {
-              v432 = 1;
-            }
+            while (v362 > v358 >> 5);
+            v364 = v363 << 32;
           }
 
           else
           {
-            v432 = 1;
+            v364 = 0;
           }
 
-          v433 = 0;
-          v434 = *(v532 + v420);
-          do
-          {
-            if (v433)
-            {
-              v435 = 1;
-            }
-
-            else
-            {
-              v435 = v434 == 0;
-            }
-
-            v436 = !v435;
-            LLVMCodeGenContext = glpMakeLLVMCodeGenContext(v518, v495, *&v423[8 * v420], v420, v521, v433, v436);
-            glpLLVMCGTopLevel(LLVMCodeGenContext, v491[v420]);
-            glpDestroyLLVMCodeGenContext(LLVMCodeGenContext);
-            ++v433;
-          }
-
-          while (v432 != v433);
-          v429 = *(v518 + 10);
-          v321 = v518;
-          v34 = v495;
-          v425 = v510;
-          v424 = *v517;
-          v426 = v430;
-          v427 = v504;
-        }
-
-        if (v429)
-        {
-          v438 = PPStreamCreate();
-          v34[v420] = v438;
-          CodeGenContext = glpMakeCodeGenContext(v321, v438, v420);
-          if (glpCGTopLevel(CodeGenContext, v491[v420], &v547[7 * v420]) == -1)
-          {
-            goto LABEL_503;
-          }
-
-          glpDestroyCodeGenContext(CodeGenContext);
+          v365 = v364 | v358;
+          v25 = v436;
+          glpStringHashPut(v436[23], v360, v365, v361, v359);
+          v353 = *(v352 + 32);
         }
       }
-
-      ++v420;
     }
-
-    while (v420 != 5);
-    goto LABEL_38;
   }
 
-  v323 = 0;
-  v324 = 0;
-  while (2)
+  v25[24] = glpMakeStringHash(&GLP_MALLOC_ALLOCATOR);
+  v366 = v483;
+  if (v483)
   {
-    v325 = (*(v284 + 40) + 32 * v323);
-    v326 = *v325;
-    if (!*v325)
+    v367 = *(v483 + 32);
+    if (v367)
     {
-LABEL_420:
-      if (++v323 >= v322)
+      for (jj = 0; jj < v367; ++jj)
       {
-        goto LABEL_421;
+        v369 = *(v366 + 40) + 32 * jj;
+        v370 = *v369;
+        if (*v369)
+        {
+          v371 = *(v369 + 8);
+          v372 = *(v369 + 16);
+          v373 = __abort_malloc_0(0x10uLL);
+          *v373 = 0;
+          v373[1] = 0;
+          *v373 = *v370;
+          v373[1] = glpDeepCopyType(&GLP_MALLOC_ALLOCATOR, v370[1]);
+          v374 = __abort_malloc_0(v372);
+          memcpy(v374, v371, v372);
+          if (v372)
+          {
+            v376 = v372;
+            LODWORD(v377) = v372;
+            do
+            {
+              v377 = (32 * v377 + (v377 >> 2) + v374[v376 - 1]) ^ v377;
+              v376 += ~(v372 >> 5);
+            }
+
+            while (v376 > v372 >> 5);
+            v378 = v377 << 32;
+          }
+
+          else
+          {
+            v378 = 0;
+          }
+
+          v379 = v378 | v372;
+          v25 = v436;
+          glpStringHashPut(v436[24], v374, v379, v375, v373);
+          v367 = *(v366 + 32);
+        }
       }
-
-      continue;
     }
-
-    break;
   }
 
-  v327 = v325[1];
-  v328 = v325[2];
-  v329 = __abort_malloc_0(v328);
-  memcpy(v329, v327, v328);
-  v330 = __abort_malloc_0(0x58uLL);
-  *v330 = 0u;
-  v330[1] = 0u;
-  v330[2] = 0u;
-  v330[3] = 0u;
-  v330[4] = 0u;
-  *(v330 + 10) = 0;
-  *(v330 + 1) = -1;
-  *(v330 + 2) = v324;
-  v508 = v324;
-  v331 = 0;
-  *(v330 + 3) = glpDeepCopyType(&GLP_MALLOC_ALLOCATOR, *(v326 + 64));
-  *(v330 + 4) = 0;
-  *(v330 + 80) = *(v326 + 32) == 0;
-  *v330 = 0;
-  v333 = &v545;
+  v380 = 0;
+  v381 = *(v292 + 296);
+  v382 = *(v292 + 328);
+  *(v25 + 18) = *(v292 + 312);
+  *(v25 + 19) = v382;
+  *(v25 + 17) = v381;
+  v383 = (v25 + 5);
+  v384 = v292 + 256;
+  v385 = (v25 + 29);
+  v386 = v292 + 276;
+  v387 = v25 + 252;
+  v25[40] = *(v292 + 344);
+  *(v292 + 344) = 0;
+  v451 = (v25 + 29);
+  *v458 = v292 + 256;
+  v445 = v25 + 252;
   do
   {
-    if (v491[v331])
+    v25[v380] = 0;
+    *&v383[8 * v380] = 0;
+    v388 = v432[v380];
+    if (v388)
     {
-      v334 = glpStringHashGet(*v333, v327, v328);
-      if (v334)
+      *v463 = v292;
+      *&v463[8] = *(v292 + 64);
+      v464 = v388;
+      v432[v380] = glpPPTNode(v463, v388);
+      *&v385[4 * v380] = *(v384 + 4 * v380);
+      *&v387[4 * v380] = *(v386 + 4 * v380);
+      v389 = *(v292 + 40);
+      if ((v389 & 2) != 0)
       {
-        *v330 |= 1 << v331;
-        v335 = *(v334 + 80);
-        *(v330 + 3) = *(v335 + 8);
-        *(v335 + 28) = *(v330 + 2);
-        *(v330 + v331 + 10) = 0;
-        *(v524 + v331) += *(*(v326 + 80) + 12);
+        v390 = v386;
+        glpCreateShaderByteCode();
+        *&v383[8 * v380] = v391;
+        if ((*(v292 + 40) & 8) != 0)
+        {
+          if (*(v473 + v380))
+          {
+            v392 = 2;
+          }
+
+          else
+          {
+            v392 = 1;
+          }
+        }
+
+        else
+        {
+          v392 = 1;
+        }
+
+        v393 = 0;
+        v394 = *(v473 + v380);
+        do
+        {
+          if (v393)
+          {
+            v395 = 1;
+          }
+
+          else
+          {
+            v395 = v394 == 0;
+          }
+
+          v396 = !v395;
+          LLVMCodeGenContext = glpMakeLLVMCodeGenContext(v459, v436, *&v383[8 * v380], v380, v462, v393, v396);
+          glpLLVMCGTopLevel(LLVMCodeGenContext, v432[v380]);
+          glpDestroyLLVMCodeGenContext(LLVMCodeGenContext);
+          ++v393;
+        }
+
+        while (v392 != v393);
+        v389 = *(v459 + 10);
+        v292 = v459;
+        v25 = v436;
+        v385 = v451;
+        v384 = *v458;
+        v386 = v390;
+        v387 = v445;
+      }
+
+      if (v389)
+      {
+        v398 = PPStreamCreate();
+        v25[v380] = v398;
+        CodeGenContext = glpMakeCodeGenContext(v292, v398, v380);
+        if (glpCGTopLevel(CodeGenContext, v432[v380], &v488[7 * v380]) == -1)
+        {
+          goto LABEL_502;
+        }
+
+        glpDestroyCodeGenContext(CodeGenContext);
       }
     }
 
-    ++v331;
-    v333 += 14;
+    ++v380;
   }
 
-  while (v331 != 5);
-  v34 = v495;
-  if (v328)
-  {
-    v336 = v328;
-    LODWORD(v337) = v328;
-    v338 = v328;
-    do
-    {
-      v337 = (32 * v337 + (v337 >> 2) + v329[v336 - 1]) ^ v337;
-      v336 += ~(v328 >> 5);
-    }
-
-    while (v336 > v328 >> 5);
-    v339 = v337 << 32;
-  }
-
-  else
-  {
-    v339 = 0;
-    v338 = v328;
-  }
-
-  glpStringHashPut(v495[12], v329, v339 | v338, v330, v332);
-  v340 = *(v326 + 80);
-  v341 = *(v340 + 12);
-  if (glpBufferObjectGetMinimumBufferSize(v340) > 0x4000)
-  {
-    v458 = v518[8];
-    glpBufferObjectGetMinimumBufferSize(*(v326 + 80));
-    *v522 = "-1";
-    *&v522[8] = 0xEDA00000002;
-    *&v522[16] = 0xFFFFFFFFLL;
-    glpLogMessage(v458, 0, v522, "Uniform interface block %.*s too large (%d exceeds max %d)", v459, v460, v461, v462, v328);
-    goto LABEL_503;
-  }
-
-  v321 = v518;
-  if (!glpTypeGetSamplerCount(*(v326 + 64)))
-  {
-    v324 = v341 + v508;
-    v284 = v467;
-    v322 = *(v467 + 32);
-    goto LABEL_420;
-  }
-
-  v463 = v518[8];
-  *v522 = "-1";
-  *&v522[8] = 0xEDA00000002;
-  *&v522[16] = 0xFFFFFFFFLL;
-  glpLogMessage(v463, 0, v522, "Uniform interface block %.*s not allowed to have samplers", v342, v343, v344, v345, v328);
-LABEL_503:
-  v296 = v34;
-LABEL_382:
-  glpDestroyLinkedProgram(v296);
-LABEL_37:
-  v34 = 0;
-LABEL_38:
-  v35 = *MEMORY[0x277D85DE8];
-  return v34;
+  while (v380 != 5);
+  return v25;
 }
 
-uint64_t glpTypeGetVec4s_1(uint64_t a1)
+void glpTypeGetVec4s_1(uint64_t a1)
 {
-  v1 = glpABIGetTypeSize(0, a1, 0);
+  glpABIGetTypeSize(0, a1, 0);
 
-  return glpTypeSizeGetSize(v1);
+  glpTypeSizeGetSize();
 }
 
 _DWORD *glpCopyContextState(uint64_t a1)
@@ -3577,8 +3569,9 @@ uint64_t glpLinkedProgramGetSubroutineUniformLocationCount(uint64_t a1, unsigned
     v7 = *(*(v2 + 40) + v4);
     if (v7)
     {
-      v8 = glpABIGetTypeSize(0, *(v7 + 24), 0);
-      v6 = glpTypeSizeGetSize(v8) + v6;
+      glpABIGetTypeSize(0, *(v7 + 24), 0);
+      glpTypeSizeGetSize();
+      v6 = (v8 + v6);
       v3 = *(v2 + 32);
     }
 
@@ -3640,25 +3633,25 @@ double glpCreateShaderByteCode()
 
 void *glpGenerateCopyInOut(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v266 = a8;
-  v263 = a7;
-  v272 = a6;
-  v262 = a5;
-  v268 = a2;
+  v258 = a8;
+  v255 = a7;
+  v264 = a6;
+  v254 = a5;
+  v260 = a2;
   v11 = a1;
-  v287 = a10;
-  v305 = *MEMORY[0x277D85DE8];
-  SlotVars = generateSlotVars(a1, a3, "$in%u");
+  v279 = a10;
+  v297 = *MEMORY[0x277D85DE8];
+  SlotVars = generateSlotVars(a1, a3, "$in%u", v253);
   PrimitiveType = glpGetPrimitiveType(5u);
-  *&v297[0] = 0;
-  v269 = a9;
-  CopyFunction = makeCopyFunction(v11, a9, "$copy_in", 0x2CF8B77300000008uLL, v297);
+  *&v289[0] = 0;
+  v261 = a9;
+  CopyFunction = makeCopyFunction(v11, a9, "$copy_in", 0x2CF8B77300000008uLL, v289);
   v13 = *(a4 + 32);
-  v288 = v11;
+  v280 = v11;
   if (v13)
   {
     v14 = 0;
-    v265 = a4;
+    v257 = a4;
     do
     {
       v15 = *(a4 + 40) + 32 * v14;
@@ -3667,158 +3660,159 @@ void *glpGenerateCopyInOut(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t 
       {
         v18 = *(v15 + 8);
         v17 = *(v15 + 16);
-        v281 = v18;
-        v280 = v17;
-        v282 = v16;
+        v273 = v18;
+        v272 = v17;
+        v274 = v16;
         ElementType = **v16;
         if (glpTypeGetKind(ElementType))
         {
-          LODWORD(v279) = 0;
+          LODWORD(v271) = 0;
         }
 
         else
         {
           v20 = glpPrimitiveTypeGetPrimitiveType(ElementType);
-          LODWORD(v279) = glpPrimitiveTypeGetCategory(v20) != 3;
+          LODWORD(v271) = glpPrimitiveTypeGetCategory(v20) != 3;
         }
 
         if (glpTypeGetKind(ElementType) == 3)
         {
-          LODWORD(v271) = glpBankTypeGetElementCount(ElementType);
+          LODWORD(v263) = glpBankTypeGetElementCount(ElementType);
           ElementType = glpBankTypeGetElementType(ElementType);
         }
 
         else
         {
-          LODWORD(v271) = 0;
+          LODWORD(v263) = 0;
         }
 
-        v21 = glpABIGetTypeSize(0, ElementType, 0);
-        Size = glpTypeSizeGetSize(v21);
-        v23 = (v11[1])(*v11, 4 * Size, "Array of vec4 types for Copy In (why not stack alloc'd?)");
-        v24 = (v11[1])(*v11, Size, "Array of flags for Copy In (why not stack alloc'd?)");
-        v286 = v23;
+        glpABIGetTypeSize(0, ElementType, 0);
+        glpTypeSizeGetSize();
+        v22 = v21;
+        v23 = (v11[1])(*v11, 4 * v21, "Array of vec4 types for Copy In (why not stack alloc'd?)");
+        v24 = (v11[1])(*v11, v22, "Array of flags for Copy In (why not stack alloc'd?)");
+        v278 = v23;
         glpTypeGetAppleVec4Types(ElementType, v23, 1, 0, 0, v24, 0, 0, 0);
-        if (*(v282 + 2))
+        if (*(v274 + 2))
         {
-          v267 = v14;
+          v259 = v14;
           v30 = 0;
-          v31 = v271;
-          if (v271 <= 1)
+          v31 = v263;
+          if (v263 <= 1)
           {
             v31 = 1;
           }
 
-          LODWORD(v270) = v31;
-          v278 = v282 + 2;
-          v32 = v282;
-          v274 = Size;
+          LODWORD(v262) = v31;
+          v270 = v274 + 2;
+          v32 = v274;
+          v266 = v22;
           do
           {
-            if (v271)
+            if (v263)
             {
               MutableValue = glpMakeMutableValue(v11, PrimitiveType, 1, v25, v26, v27, v28, v29, v30);
-              v34 = glpTypedValueHashCache(v287, PrimitiveType, MutableValue, MutableValue);
-              v298.n128_u64[0] = "-1";
-              v298.n128_u64[1] = 0xEDA00000002;
-              v299 = 0xFFFFFFFFLL;
-              glpMakeConstantNode(v11, &v298, PrimitiveType, v34);
+              v34 = glpTypedValueHashCache(v279, PrimitiveType, MutableValue, MutableValue);
+              v290.n128_u64[0] = "-1";
+              v290.n128_u64[1] = 0xEDA00000002;
+              v291 = 0xFFFFFFFFLL;
+              glpMakeConstantNode(v11, &v290, PrimitiveType, v34);
               v36 = v35;
               glpASTNodeSetSaType(v35, PrimitiveType);
-              v298.n128_u64[0] = "-1";
-              v298.n128_u64[1] = 0xEDA00000002;
-              v299 = 0xFFFFFFFFLL;
-              VRLFunctionFragment = glpMakeVRLFunctionFragment(v11, &v298, v36);
-              glpBlockNodeAddStatement(v11, *&v297[0], VRLFunctionFragment);
+              v290.n128_u64[0] = "-1";
+              v290.n128_u64[1] = 0xEDA00000002;
+              v291 = 0xFFFFFFFFLL;
+              VRLFunctionFragment = glpMakeVRLFunctionFragment(v11, &v290, v36);
+              glpBlockNodeAddStatement(v11, *&v289[0], VRLFunctionFragment);
               v38 = glpGetPrimitiveType(0);
               glpASTNodeSetSaType(VRLFunctionFragment, v38);
             }
 
-            v273 = v30;
-            if (Size)
+            v265 = v30;
+            if (v22)
             {
               v39 = 0;
               v40 = 0;
-              LODWORD(v275) = v273 * Size;
+              LODWORD(v267) = v265 * v22;
               do
               {
                 if (BitSetGetEquals(*(*v32 + 120), v39))
                 {
-                  ScalarCount = glpPrimitiveTypeGetScalarCount(v286[v39]);
+                  ScalarCount = glpPrimitiveTypeGetScalarCount(v278[v39]);
                   v42 = (v24[v39] >> 1) & 2;
-                  LODWORD(v285) = ScalarCount;
+                  LODWORD(v277) = ScalarCount;
                   v43 = ScalarCount + v42;
                   v44 = v39 + 1;
-                  if (v39 + 1 < Size && (v24[v44] & 4) != 0)
+                  if (v39 + 1 < v22 && (v24[v44] & 4) != 0)
                   {
-                    v43 += glpPrimitiveTypeGetScalarCount(v286[v44]);
+                    v43 += glpPrimitiveTypeGetScalarCount(v278[v44]);
                   }
 
-                  ScalarType = glpPrimitiveTypeGetScalarType(v286[v39]);
-                  LODWORD(v284) = glpGetVectorType(ScalarType, v43);
-                  if (v285)
+                  ScalarType = glpPrimitiveTypeGetScalarType(v278[v39]);
+                  LODWORD(v276) = glpGetVectorType(ScalarType, v43);
+                  if (v277)
                   {
-                    v276 = v39 + 1;
+                    v268 = v39 + 1;
                     v46 = 0;
-                    LODWORD(v283) = v275 + v39;
+                    LODWORD(v275) = v267 + v39;
                     do
                     {
-                      v47 = &v278[v40];
+                      v47 = &v270[v40];
                       v48 = glpIntHashGet(SlotVars, *v47);
                       Extra = glpVariableDeclarationNodeGetExtra(v48);
-                      v295 = 0;
-                      *&v296[0] = 0;
-                      v289.n128_u64[0] = 0;
-                      v294 = 0;
-                      v293 = 0;
-                      v55 = glpMakeMutableValue(v11, PrimitiveType, 1, v50, v51, v52, v53, v54, v283 - ((v24[v39] >> 2) & 1));
-                      v56 = glpTypedValueHashCache(v287, PrimitiveType, v55, v55);
+                      v287 = 0;
+                      *&v288[0] = 0;
+                      v281.n128_u64[0] = 0;
+                      v286 = 0;
+                      v285 = 0;
+                      v55 = glpMakeMutableValue(v11, PrimitiveType, 1, v50, v51, v52, v53, v54, v275 - ((v24[v39] >> 2) & 1));
+                      v56 = glpTypedValueHashCache(v279, PrimitiveType, v55, v55);
                       v57 = *v32;
-                      v298.n128_u64[0] = "-1";
-                      v298.n128_u64[1] = 0xEDA00000002;
-                      v299 = 0xFFFFFFFFLL;
-                      CopyInAssignFragment = glpMakeCopyInAssignFragment(v11, &v298, v296, v281, v280, v57, &v289, &v293, v56, &v295, Extra[2], Extra[3], Extra, &v294);
-                      v59 = glpPrimitiveTypeGetScalarType(v286[v39]);
+                      v290.n128_u64[0] = "-1";
+                      v290.n128_u64[1] = 0xEDA00000002;
+                      v291 = 0xFFFFFFFFLL;
+                      CopyInAssignFragment = glpMakeCopyInAssignFragment(v11, &v290, v288, v273, v272, v57, &v281, &v285, v56, &v287, Extra[2], Extra[3], Extra, &v286);
+                      v59 = glpPrimitiveTypeGetScalarType(v278[v39]);
                       v60 = glpGetPrimitiveType(v59);
-                      glpASTNodeSetSaType(*&v296[0], v60);
-                      glpASTNodeSetSaFlags(*&v296[0], Extra[6] & 0x1F);
-                      glpOffsetNodeSetPreSwizzlePrimitiveType(v289.n128_i64[0], v284);
-                      glpASTNodeSetSaType(v295, v60);
-                      glpASTNodeSetSaFlags(v295, Extra[6] & 0x1F);
-                      v61 = v294;
+                      glpASTNodeSetSaType(*&v288[0], v60);
+                      glpASTNodeSetSaFlags(*&v288[0], Extra[6] & 0x1F);
+                      glpOffsetNodeSetPreSwizzlePrimitiveType(v281.n128_i64[0], v276);
+                      glpASTNodeSetSaType(v287, v60);
+                      glpASTNodeSetSaFlags(v287, Extra[6] & 0x1F);
+                      v61 = v286;
                       v62 = glpPrimitiveTypeGetPrimitiveType(*Extra);
                       glpOffsetNodeSetPreSwizzlePrimitiveType(v61, v62);
-                      glpASTNodeSetSaType(v293, PrimitiveType);
+                      glpASTNodeSetSaType(v285, PrimitiveType);
                       v63 = v60;
-                      v11 = v288;
+                      v11 = v280;
                       glpASTNodeSetSaType(CopyInAssignFragment, v63);
                       glpASTNodeSetSaFlags(CopyInAssignFragment, Extra[6] & 0x1F);
-                      v64 = v289.n128_u64[0];
-                      glpMakeOffsetObject(v288);
+                      v64 = v281.n128_u64[0];
+                      glpMakeOffsetObject(v280);
                       v66 = glpOffsetNodeSetExtra(v64, v65);
-                      if (v279)
+                      if (v271)
                       {
-                        v66 = glpOffsetNodeSetOffsetExpr(v289.n128_i64[0], 0);
+                        v66 = glpOffsetNodeSetOffsetExpr(v281.n128_i64[0], 0);
                       }
 
-                      v74 = v289.n128_u64[0];
+                      v74 = v281.n128_u64[0];
                       Swizzle_1 = glpMakeSwizzle_1(v66, v67, v68, v69, v70, v71, v72, v73, v46 + ((v24[v39] >> 1) & 2u));
                       glpOffsetNodeSetSwizzle(v74, Swizzle_1);
-                      v76 = v294;
-                      glpMakeOffsetObject(v288);
+                      v76 = v286;
+                      glpMakeOffsetObject(v280);
                       v78 = glpOffsetNodeSetExtra(v76, v77);
-                      v79 = v294;
+                      v79 = v286;
                       v87 = glpMakeSwizzle_1(v78, v80, v81, v82, v83, v84, v85, v86, *(v47 + 1));
                       glpOffsetNodeSetSwizzle(v79, v87);
-                      glpBlockNodeAddStatement(v288, *&v297[0], CopyInAssignFragment);
+                      glpBlockNodeAddStatement(v280, *&v289[0], CopyInAssignFragment);
                       ++v40;
                       ++v46;
-                      v32 = v282;
+                      v32 = v274;
                     }
 
-                    while (v285 != v46);
-                    Size = v274;
-                    v44 = v276;
+                    while (v277 != v46);
+                    v22 = v266;
+                    v44 = v268;
                   }
                 }
 
@@ -3830,16 +3824,16 @@ void *glpGenerateCopyInOut(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t 
                 v39 = v44;
               }
 
-              while (v44 != Size);
+              while (v44 != v22);
             }
 
-            v30 = (v273 + 1);
+            v30 = (v265 + 1);
           }
 
-          while (v30 != v270);
-          (v11[3])(*v11, v286);
-          a4 = v265;
-          v14 = v267;
+          while (v30 != v262);
+          (v11[3])(*v11, v278);
+          a4 = v257;
+          v14 = v259;
         }
       }
 
@@ -3850,7 +3844,7 @@ void *glpGenerateCopyInOut(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t 
   }
 
   v88 = *(SlotVars + 8);
-  v89 = v269;
+  v89 = v261;
   if (v88)
   {
     v90 = 0;
@@ -3859,7 +3853,7 @@ void *glpGenerateCopyInOut(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t 
       v92 = SlotVars[5][v90];
       if (v92)
       {
-        glpTopLevelNodeInsertDef(v11, v269, v92, 0);
+        glpTopLevelNodeInsertDef(v11, v261, v92, 0);
         v88 = *(SlotVars + 8);
       }
 
@@ -3867,43 +3861,43 @@ void *glpGenerateCopyInOut(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t 
     }
   }
 
-  glpFixInterpolateAt(v11, v269, a4, SlotVars);
-  if (v268 == 1)
+  glpFixInterpolateAt(v11, v261, a4, SlotVars);
+  if (v260 == 1)
   {
     v93 = 0;
   }
 
   else
   {
-    v93 = generateSlotVars(v11, v262, "$out%u");
+    v93 = generateSlotVars(v11, v254, "$out%u", v253);
   }
 
   v94 = 0;
-  memset(v297, 0, sizeof(v297));
-  memset(v296, 0, sizeof(v296));
-  v276 = v93;
+  memset(v289, 0, sizeof(v289));
+  memset(v288, 0, sizeof(v288));
+  v268 = v93;
   do
   {
-    v285 = glpGetPrimitiveType(5u);
-    v298.n128_u64[0] = "$copy_out_0";
-    v298.n128_u64[1] = 0x825A57630000000BLL;
-    v299 = "$copy_out_1";
-    v300 = 0xB37B1E010000000BLL;
-    v301 = "$copy_out_2";
-    v302 = 0xF3BAF9AE0000000BLL;
-    v303 = "$copy_out_3";
-    v304 = 0xDFDE69E90000000BLL;
-    *(v296 + v94) = 0;
-    v271 = v94;
-    v95 = &v298 + v94;
+    v277 = glpGetPrimitiveType(5u);
+    v290.n128_u64[0] = "$copy_out_0";
+    v290.n128_u64[1] = 0x825A57630000000BLL;
+    v291 = "$copy_out_1";
+    v292 = 0xB37B1E010000000BLL;
+    v293 = "$copy_out_2";
+    v294 = 0xF3BAF9AE0000000BLL;
+    v295 = "$copy_out_3";
+    v296 = 0xDFDE69E90000000BLL;
+    *(v288 + v94) = 0;
+    v263 = v94;
+    v95 = &v290 + v94;
     v96 = v95->n128_u64[0];
     v97 = v95->n128_u64[1];
-    v280 = v296 + v94;
-    v270 = makeCopyFunction(v11, v89, v96, v97, v280);
-    if (v268 != 1 && !v271)
+    v272 = v288 + v94;
+    v262 = makeCopyFunction(v11, v89, v96, v97, v272);
+    if (v260 != 1 && !v263)
     {
-      v98 = v272;
-      if (*(v272 + 32))
+      v98 = v264;
+      if (*(v264 + 32))
       {
         v99 = 0;
         do
@@ -3914,82 +3908,83 @@ void *glpGenerateCopyInOut(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t 
           {
             v103 = *(v100 + 8);
             v102 = *(v100 + 16);
-            v279 = v103;
-            v278 = v102;
+            v271 = v103;
+            v270 = v102;
             v104 = **v101;
-            v105 = glpABIGetTypeSize(0, v104, 0);
-            v106 = glpTypeSizeGetSize(v105);
-            LODWORD(v281) = 0;
+            glpABIGetTypeSize(0, v104, 0);
+            glpTypeSizeGetSize();
+            v106 = v105;
+            LODWORD(v273) = 0;
             if (!glpTypeGetKind(v104))
             {
               v107 = glpPrimitiveTypeGetPrimitiveType(v104);
-              LODWORD(v281) = glpPrimitiveTypeGetCategory(v107) != 3;
+              LODWORD(v273) = glpPrimitiveTypeGetCategory(v107) != 3;
             }
 
             v108 = v106;
             v109 = (v11[1])(*v11, 4 * v106, "Array of vec4 types for Copy Out (why not stack alloc'd?)");
             v110 = (v11[1])(*v11, v106, "Array of flags for Copy Out (why not stack alloc'd?)");
-            v284 = v109;
+            v276 = v109;
             v111 = v109;
             v112 = v110;
             glpTypeGetAppleVec4Types(v104, v111, 1, 0, 0, v110, 0, 0, 0);
             if (*(v101 + 2))
             {
-              v273 = v99;
+              v265 = v99;
               if (v106)
               {
                 v113 = 0;
                 v114 = 0;
                 SlotVars = v101 + 2;
-                v286 = v112;
-                v274 = v108;
+                v278 = v112;
+                v266 = v108;
                 do
                 {
                   if (BitSetGetEquals((*v101)[15], v113))
                   {
-                    v115 = glpPrimitiveTypeGetScalarCount(*(v284 + 4 * v113));
+                    v115 = glpPrimitiveTypeGetScalarCount(*(v276 + 4 * v113));
                     v116 = (v112[v113] >> 1) & 2;
-                    LODWORD(v283) = v115;
+                    LODWORD(v275) = v115;
                     v117 = v115 + v116;
                     v118 = v113 + 1;
                     if (v113 + 1 < v108 && (v112[v118] & 4) != 0)
                     {
-                      v117 += glpPrimitiveTypeGetScalarCount(*(v284 + 4 * v118));
+                      v117 += glpPrimitiveTypeGetScalarCount(*(v276 + 4 * v118));
                     }
 
-                    v119 = glpPrimitiveTypeGetScalarType(*(v284 + 4 * v113));
-                    LODWORD(v282) = glpGetVectorType(v119, v117);
-                    if (v283)
+                    v119 = glpPrimitiveTypeGetScalarType(*(v276 + 4 * v113));
+                    LODWORD(v274) = glpGetVectorType(v119, v117);
+                    if (v275)
                     {
-                      v275 = v113 + 1;
+                      v267 = v113 + 1;
                       v120 = 0;
                       do
                       {
                         v121 = &SlotVars[v114];
                         v122 = glpIntHashGet(v93, *v121);
                         v123 = glpVariableDeclarationNodeGetExtra(v122);
-                        v294 = 0;
-                        v295 = 0;
-                        v293 = 0;
-                        v292 = 0;
-                        v291 = 0;
-                        v129 = glpMakeMutableValue(v11, v285, 1, v124, v125, v126, v127, v128, v113 - ((v112[v113] >> 2) & 1));
-                        v130 = glpTypedValueHashCache(v287, v285, v129, v129);
+                        v286 = 0;
+                        v287 = 0;
+                        v285 = 0;
+                        v284 = 0;
+                        v283 = 0;
+                        v129 = glpMakeMutableValue(v11, v277, 1, v124, v125, v126, v127, v128, v113 - ((v112[v113] >> 2) & 1));
+                        v130 = glpTypedValueHashCache(v279, v277, v129, v129);
                         v131 = *v101;
-                        v289.n128_u64[0] = "-1";
-                        v289.n128_u64[1] = 0xEDA00000002;
-                        v290 = 0xFFFFFFFFLL;
+                        v281.n128_u64[0] = "-1";
+                        v281.n128_u64[1] = 0xEDA00000002;
+                        v282 = 0xFFFFFFFFLL;
                         v132 = v112;
-                        CopyOutAssignFragment = glpMakeCopyOutAssignFragment(v11, &v289, &v295, v123[2], v123[3], v123, &v294, &v293, v279, v278, v131, &v292, &v291, v130);
-                        v134 = glpPrimitiveTypeGetScalarType(*(v284 + 4 * v113));
+                        CopyOutAssignFragment = glpMakeCopyOutAssignFragment(v11, &v281, &v287, v123[2], v123[3], v123, &v286, &v285, v271, v270, v131, &v284, &v283, v130);
+                        v134 = glpPrimitiveTypeGetScalarType(*(v276 + 4 * v113));
                         v135 = glpGetPrimitiveType(v134);
-                        glpASTNodeSetSaType(v295, v135);
-                        glpASTNodeSetSaFlags(v295, v123[6] & 0x1F);
-                        v136 = v294;
+                        glpASTNodeSetSaType(v287, v135);
+                        glpASTNodeSetSaFlags(v287, v123[6] & 0x1F);
+                        v136 = v286;
                         v137 = glpPrimitiveTypeGetPrimitiveType(*v123);
                         glpOffsetNodeSetPreSwizzlePrimitiveType(v136, v137);
-                        glpASTNodeSetSaType(v293, v135);
-                        v138 = v293;
+                        glpASTNodeSetSaType(v285, v135);
+                        v138 = v285;
                         if (glpTypeGetKind(**v101) == 1)
                         {
                           v139 = v132[v113] >> 3;
@@ -4001,53 +3996,53 @@ void *glpGenerateCopyInOut(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t 
                         }
 
                         glpASTNodeSetSaFlags(v138, v139);
-                        glpOffsetNodeSetPreSwizzlePrimitiveType(v292, v282);
+                        glpOffsetNodeSetPreSwizzlePrimitiveType(v284, v274);
                         glpASTNodeSetSaType(CopyOutAssignFragment, v135);
                         glpASTNodeSetSaFlags(CopyOutAssignFragment, v123[6] & 0x1F);
-                        glpASTNodeSetSaType(v291, v285);
-                        v140 = v294;
-                        glpMakeOffsetObject(v288);
+                        glpASTNodeSetSaType(v283, v277);
+                        v140 = v286;
+                        glpMakeOffsetObject(v280);
                         v142 = glpOffsetNodeSetExtra(v140, v141);
-                        v143 = v294;
+                        v143 = v286;
                         v151 = glpMakeSwizzle_1(v142, v144, v145, v146, v147, v148, v149, v150, *(v121 + 1));
                         glpOffsetNodeSetSwizzle(v143, v151);
-                        v152 = v292;
-                        glpMakeOffsetObject(v288);
+                        v152 = v284;
+                        glpMakeOffsetObject(v280);
                         v154 = glpOffsetNodeSetExtra(v152, v153);
-                        if (v281)
+                        if (v273)
                         {
-                          v154 = glpOffsetNodeSetOffsetExpr(v292, 0);
+                          v154 = glpOffsetNodeSetOffsetExpr(v284, 0);
                         }
 
-                        v162 = v292;
-                        v163 = glpMakeSwizzle_1(v154, v155, v156, v157, v158, v159, v160, v161, v120 + ((*(v286 + v113) >> 1) & 2u));
+                        v162 = v284;
+                        v163 = glpMakeSwizzle_1(v154, v155, v156, v157, v158, v159, v160, v161, v120 + ((*(v278 + v113) >> 1) & 2u));
                         glpOffsetNodeSetSwizzle(v162, v163);
                         v164 = v123[6] & 0x1F;
                         if (((*v101)[6] & 0x1F) != v164)
                         {
-                          v289.n128_u64[0] = "-1";
-                          v289.n128_u64[1] = 0xEDA00000002;
-                          v290 = 0xFFFFFFFFLL;
-                          glpMakeTypeConversionNode(v288, &v289, v135, v164);
+                          v281.n128_u64[0] = "-1";
+                          v281.n128_u64[1] = 0xEDA00000002;
+                          v282 = 0xFFFFFFFFLL;
+                          glpMakeTypeConversionNode(v280, &v281, v135, v164);
                           v166 = v165;
-                          glpUnaryOperatorNodeSetExpr(v165, v293);
+                          glpUnaryOperatorNodeSetExpr(v165, v285);
                           glpASTNodeSetSaType(v166, v135);
-                          SaFlags = glpASTNodeGetSaFlags(v293);
+                          SaFlags = glpASTNodeGetSaFlags(v285);
                           glpASTNodeSetSaFlags(v166, SaFlags & 0xFFFFFFFFFFFFFFE0 | v164);
                           glpBinaryOperatorNodeSetRhs(CopyOutAssignFragment, v166);
                         }
 
-                        v11 = v288;
-                        glpBlockNodeAddStatement(v288, *v280, CopyOutAssignFragment);
+                        v11 = v280;
+                        glpBlockNodeAddStatement(v280, *v272, CopyOutAssignFragment);
                         ++v114;
                         ++v120;
-                        v93 = v276;
-                        v112 = v286;
+                        v93 = v268;
+                        v112 = v278;
                       }
 
-                      while (v283 != v120);
-                      v108 = v274;
-                      v118 = v275;
+                      while (v275 != v120);
+                      v108 = v266;
+                      v118 = v267;
                     }
                   }
 
@@ -4062,20 +4057,20 @@ void *glpGenerateCopyInOut(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t 
                 while (v118 != v108);
               }
 
-              (v11[3])(*v11, v284);
-              v99 = v273;
+              (v11[3])(*v11, v276);
+              v99 = v265;
             }
           }
 
           ++v99;
-          v98 = v272;
+          v98 = v264;
         }
 
-        while (v99 < *(v272 + 32));
+        while (v99 < *(v264 + 32));
       }
 
       v168 = *(v93 + 32);
-      v89 = v269;
+      v89 = v261;
       if (v168)
       {
         v169 = 0;
@@ -4084,17 +4079,17 @@ void *glpGenerateCopyInOut(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t 
           v171 = *(*(v93 + 40) + v169);
           if (v171)
           {
-            v289.n128_u64[0] = "-1";
-            v289.n128_u64[1] = 0xEDA00000002;
-            v290 = 0xFFFFFFFFLL;
-            glpMakeWriteOutputNode(v11, &v289);
+            v281.n128_u64[0] = "-1";
+            v281.n128_u64[1] = 0xEDA00000002;
+            v282 = 0xFFFFFFFFLL;
+            glpMakeWriteOutputNode(v11, &v281);
             v173 = v172;
             v174 = glpVariableDeclarationNodeGetExtra(v171);
             glpWriteOutputNodeSetExtra(v173, v174);
             v175 = v173;
-            v89 = v269;
-            glpBlockNodeAddStatement(v11, *v280, v175);
-            glpTopLevelNodeInsertDef(v11, v269, v171, 0);
+            v89 = v261;
+            glpBlockNodeAddStatement(v11, *v272, v175);
+            glpTopLevelNodeInsertDef(v11, v261, v171, 0);
             v168 = *(v93 + 32);
           }
 
@@ -4103,156 +4098,157 @@ void *glpGenerateCopyInOut(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t 
       }
     }
 
-    v176 = v271;
-    *(v297 + v271) = v270;
+    v176 = v263;
+    *(v289 + v263) = v262;
     v94 = v176 + 1;
   }
 
   while (v94 != 4);
-  v177 = v263;
-  if (v263 && v266)
+  v177 = v255;
+  if (v255 && v258)
   {
     v178 = glpGetPrimitiveType(5u);
-    v280 = &v261;
-    v179 = *(v263 + 4);
+    v272 = &v253;
     MEMORY[0x28223BE20](v178);
-    v285 = (&v261 - ((v180 + 15) & 0xFFFFFFFF0));
-    bzero(v285, v180);
+    v277 = (&v253 - ((v179 + 15) & 0xFFFFFFFF0));
+    bzero(v277, v179);
     if (*(v177 + 4))
     {
-      v181 = v89;
-      v182 = 0;
+      v180 = v89;
+      v181 = 0;
       do
       {
-        v183 = *(*(v177 + 8) + 8 * v182);
+        v182 = *(*(v177 + 8) + 8 * v181);
         StringBuffer = glpMakeStringBuffer(v11);
-        glpStringBufferAppendFormat(StringBuffer, "TFBuffer%u", v185, v186, v187, v188, v189, v190, v182);
+        glpStringBufferAppendFormat(StringBuffer, "TFBuffer%u", v181);
         String = glpStringBufferGetString(StringBuffer);
+        v186 = v185;
+        v187 = glpMakeStringBuffer(v280);
+        glpStringBufferAppendCString(v187, "<TFBuffer ");
+        glpStringBufferAppendString(v187, String, v186);
+        glpStringBufferAppendCString(v187, ">");
+        v188 = glpStringBufferGetString(v187);
+        v190 = v189;
+        v290.n128_u64[0] = "-1";
+        v290.n128_u64[1] = 0xEDA00000002;
+        v291 = 0xFFFFFFFFLL;
+        CopyVarDeclFragment = glpMakeCopyVarDeclFragment(v280, &v290, String, v186);
+        glpMakeVariableObject(v280, v178, *v182, 0x80000000, String, v186, v188, v190, 0, 0, 0);
         v193 = v192;
-        v194 = glpMakeStringBuffer(v288);
-        glpStringBufferAppendCString(v194, "<TFBuffer ");
-        glpStringBufferAppendString(v194, String, v193);
-        glpStringBufferAppendCString(v194, ">");
-        v195 = glpStringBufferGetString(v194);
-        v197 = v196;
-        v298.n128_u64[0] = "-1";
-        v298.n128_u64[1] = 0xEDA00000002;
-        v299 = 0xFFFFFFFFLL;
-        CopyVarDeclFragment = glpMakeCopyVarDeclFragment(v288, &v298, String, v193);
-        glpMakeVariableObject(v288, v178, *v183, 0x80000000, String, v193, v195, v197, 0, 0, 0);
-        v200 = v199;
-        v201 = glpABIGetTypeSize(0, v178, 0);
-        *(v200 + 128) = glpTypeSizeGetSize(v201);
+        glpABIGetTypeSize(0, v178, 0);
+        glpTypeSizeGetSize();
+        *(v193 + 128) = v194;
         glpASTNodeSetSaType(CopyVarDeclFragment, v178);
         glpASTNodeSetSaFlags(CopyVarDeclFragment, 0x80000000);
-        glpVariableDeclarationNodeSetExtra(CopyVarDeclFragment, v200);
-        *&v285[2 * v182] = v200;
-        v11 = v288;
-        glpTopLevelNodeInsertDef(v288, v181, CopyVarDeclFragment, 0);
-        ++v182;
+        glpVariableDeclarationNodeSetExtra(CopyVarDeclFragment, v193);
+        *&v277[2 * v181] = v193;
+        v11 = v280;
+        glpTopLevelNodeInsertDef(v280, v180, CopyVarDeclFragment, 0);
+        ++v181;
       }
 
-      while (v182 < *(v177 + 4));
+      while (v181 < *(v177 + 4));
     }
 
-    v202 = v266;
-    if (*(v266 + 4))
+    v195 = v258;
+    if (*(v258 + 4))
     {
-      v203 = 0;
+      v196 = 0;
       do
       {
-        v204 = *(v202 + 8);
-        v281 = v203;
-        v205 = *(v204 + 8 * v203);
-        v206 = glpABIGetTypeSize(0, **v205, 0);
-        v207 = glpTypeSizeGetSize(v206);
-        Kind = glpTypeGetKind(**v205);
-        LODWORD(v286) = 0;
+        v197 = *(v195 + 8);
+        v273 = v196;
+        v198 = *(v197 + 8 * v196);
+        glpABIGetTypeSize(0, **v198, 0);
+        glpTypeSizeGetSize();
+        v200 = v199;
+        Kind = glpTypeGetKind(**v198);
+        LODWORD(v278) = 0;
         if (!Kind)
         {
-          v209 = glpPrimitiveTypeGetPrimitiveType(**v205);
-          LODWORD(v286) = glpPrimitiveTypeGetCategory(v209) != 3;
+          v202 = glpPrimitiveTypeGetPrimitiveType(**v198);
+          LODWORD(v278) = glpPrimitiveTypeGetCategory(v202) != 3;
         }
 
-        v210 = (v11[1])(*v11, 4 * v207, "Primitive Types");
-        v211 = (v11[1])(*v11, v207, "Flags");
-        glpTypeGetAppleVec4Types(**v205, v210, 1, 0, 0, v211, 0, 0, 0);
-        if (*(v205 + 12))
+        v203 = (v11[1])(*v11, 4 * v200, "Primitive Types");
+        v204 = (v11[1])(*v11, v200, "Flags");
+        glpTypeGetAppleVec4Types(**v198, v203, 1, 0, 0, v204, 0, 0, 0);
+        if (*(v198 + 12))
         {
-          v212 = *(v205 + 8);
-          v213 = *(v205 + 20);
-          v284 = v207;
-          v282 = v211;
-          v283 = v210;
+          v205 = *(v198 + 8);
+          v206 = *(v198 + 20);
+          v276 = v200;
+          v274 = v204;
+          v275 = v203;
           do
           {
-            v214 = glpPrimitiveTypeGetScalarCount(v210[v212]);
-            v215 = (*(v211 + v212) >> 2) & 1;
-            v216 = v214 + 2 * v215;
-            v217 = v212 + 1;
-            if (v212 + 1 < v207 && (*(v211 + v217) & 4) != 0)
+            v207 = glpPrimitiveTypeGetScalarCount(v203[v205]);
+            v208 = (*(v204 + v205) >> 2) & 1;
+            v209 = v207 + 2 * v208;
+            v210 = v205 + 1;
+            if (v205 + 1 < v200 && (*(v204 + v210) & 4) != 0)
             {
-              ++v215;
-              v216 += glpPrimitiveTypeGetScalarCount(v210[v217]);
+              ++v208;
+              v209 += glpPrimitiveTypeGetScalarCount(v203[v210]);
             }
 
-            v218 = glpPrimitiveTypeGetScalarType(v210[v212]);
-            VectorType = glpGetVectorType(v218, v216);
-            v289.n128_u64[0] = 0;
-            v220 = v288;
-            v226 = glpMakeMutableValue(v288, v178, 1, v221, v222, v223, v224, v225, v213);
-            v227 = v287;
-            v228 = glpTypedValueHashCache(v287, v178, v226, v226);
-            v294 = 0;
-            v295 = 0;
-            v293 = 0;
-            v292 = 0;
-            v234 = glpMakeMutableValue(v220, v178, 1, v229, v230, v231, v232, v233, v212);
-            v235 = glpTypedValueHashCache(v227, v178, v234, v234);
-            v236 = *&v285[2 * *(v205 + 16)];
-            v237 = *v205;
-            v298.n128_u64[0] = "-1";
-            v298.n128_u64[1] = 0xEDA00000002;
-            v299 = 0xFFFFFFFFLL;
-            StoreFragment = glpMakeStoreFragment(v220, &v298, VectorType, &v289, v228, &v295, *(v236 + 16), *(v236 + 24), v236, &v294, v237[2], v237[3], v237, &v293, &v292, v235);
-            glpASTNodeSetSaType(v289.n128_i64[0], v178);
-            glpASTNodeSetSaType(v295, v178);
-            v239 = v294;
-            v240 = glpGetPrimitiveType(VectorType);
-            glpASTNodeSetSaType(v239, v240);
-            glpASTNodeSetSaFlags(v294, *(*v205 + 48));
-            v241 = v293;
-            glpMakeOffsetObject(v220);
-            glpOffsetNodeSetExtra(v241, v242);
-            if (v286)
+            v211 = glpPrimitiveTypeGetScalarType(v203[v205]);
+            VectorType = glpGetVectorType(v211, v209);
+            v281.n128_u64[0] = 0;
+            v213 = v280;
+            v219 = glpMakeMutableValue(v280, v178, 1, v214, v215, v216, v217, v218, v206);
+            v220 = v279;
+            v221 = glpTypedValueHashCache(v279, v178, v219, v219);
+            v286 = 0;
+            v287 = 0;
+            v285 = 0;
+            v284 = 0;
+            v227 = glpMakeMutableValue(v213, v178, 1, v222, v223, v224, v225, v226, v205);
+            v228 = glpTypedValueHashCache(v220, v178, v227, v227);
+            v229 = *&v277[2 * *(v198 + 16)];
+            v230 = *v198;
+            v290.n128_u64[0] = "-1";
+            v290.n128_u64[1] = 0xEDA00000002;
+            v291 = 0xFFFFFFFFLL;
+            StoreFragment = glpMakeStoreFragment(v213, &v290, VectorType, &v281, v221, &v287, *(v229 + 16), *(v229 + 24), v229, &v286, v230[2], v230[3], v230, &v285, &v284, v228);
+            glpASTNodeSetSaType(v281.n128_i64[0], v178);
+            glpASTNodeSetSaType(v287, v178);
+            v232 = v286;
+            v233 = glpGetPrimitiveType(VectorType);
+            glpASTNodeSetSaType(v232, v233);
+            glpASTNodeSetSaFlags(v286, *(*v198 + 48));
+            v234 = v285;
+            glpMakeOffsetObject(v213);
+            glpOffsetNodeSetExtra(v234, v235);
+            if (v278)
             {
-              glpOffsetNodeSetOffsetExpr(v293, 0);
+              glpOffsetNodeSetOffsetExpr(v285, 0);
             }
 
-            glpASTNodeSetSaType(v292, v178);
-            v243 = glpGetPrimitiveType(0);
-            glpASTNodeSetSaType(StoreFragment, v243);
-            glpBlockNodeAddStatement(v288, *(v296 + *(v205 + 24)), StoreFragment);
-            v244 = glpPrimitiveTypeGetScalarCount(VectorType);
-            v213 = v213 + glpPrimitiveTypeGetBytesPerComponent(VectorType) * v244;
-            v212 = v217 + v215;
-            LODWORD(v207) = v284;
-            v210 = v283;
-            v211 = v282;
+            glpASTNodeSetSaType(v284, v178);
+            v236 = glpGetPrimitiveType(0);
+            glpASTNodeSetSaType(StoreFragment, v236);
+            glpBlockNodeAddStatement(v280, *(v288 + *(v198 + 24)), StoreFragment);
+            v237 = glpPrimitiveTypeGetScalarCount(VectorType);
+            v206 = v206 + glpPrimitiveTypeGetBytesPerComponent(VectorType) * v237;
+            v205 = v210 + v208;
+            LODWORD(v200) = v276;
+            v203 = v275;
+            v204 = v274;
           }
 
-          while (v217 + v215 - *(v205 + 8) < *(v205 + 12));
+          while (v210 + v208 - *(v198 + 8) < *(v198 + 12));
         }
 
-        v203 = v281 + 1;
-        v202 = v266;
-        v11 = v288;
+        v196 = v273 + 1;
+        v195 = v258;
+        v11 = v280;
       }
 
-      while (v281 + 1 < *(v266 + 4));
+      while (v273 + 1 < *(v258 + 4));
     }
 
-    v89 = v269;
+    v89 = v261;
   }
 
   DefCount = glpTopLevelNodeGetDefCount(v89);
@@ -4289,33 +4285,32 @@ void *glpGenerateCopyInOut(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t 
   }
 
 LABEL_106:
-  v298.n128_u64[0] = "-1";
-  v298.n128_u64[1] = 0xEDA00000002;
-  v299 = 0xFFFFFFFFLL;
-  glpMakeRawCallNode(v11, &v298, *(CopyFunction + 24), *(CopyFunction + 32), CopyFunction);
-  v253 = v252;
-  v254 = glpGetPrimitiveType(0);
-  glpASTNodeSetSaType(v253, v254);
-  result = glpBlockNodeInsertStatement(v11, Body, v253, 0);
-  if (v268 != 3)
+  v290.n128_u64[0] = "-1";
+  v290.n128_u64[1] = 0xEDA00000002;
+  v291 = 0xFFFFFFFFLL;
+  glpMakeRawCallNode(v11, &v290, *(CopyFunction + 24), *(CopyFunction + 32), CopyFunction);
+  v246 = v245;
+  v247 = glpGetPrimitiveType(0);
+  glpASTNodeSetSaType(v246, v247);
+  result = glpBlockNodeInsertStatement(v11, Body, v246, 0);
+  if (v260 != 3)
   {
-    v256 = *&v297[0];
-    copyOutBeforeReturnsIn(v11, *&v297[0], Def);
-    v298.n128_u64[0] = "-1";
-    v298.n128_u64[1] = 0xEDA00000002;
-    v299 = 0xFFFFFFFFLL;
-    glpMakeRawCallNode(v11, &v298, *(v256 + 24), *(v256 + 32), v256);
-    v258 = v257;
-    v259 = glpGetPrimitiveType(0);
-    glpASTNodeSetSaType(v258, v259);
-    result = glpBlockNodeAddStatement(v11, Body, v258);
+    v249 = *&v289[0];
+    copyOutBeforeReturnsIn(v11, *&v289[0], Def);
+    v290.n128_u64[0] = "-1";
+    v290.n128_u64[1] = 0xEDA00000002;
+    v291 = 0xFFFFFFFFLL;
+    glpMakeRawCallNode(v11, &v290, *(v249 + 24), *(v249 + 32), v249);
+    v251 = v250;
+    v252 = glpGetPrimitiveType(0);
+    glpASTNodeSetSaType(v251, v252);
+    return glpBlockNodeAddStatement(v11, Body, v251);
   }
 
-  v260 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t generateSlotVars(void *a1, uint64_t a2, char *a3)
+uint64_t generateSlotVars(void *a1, uint64_t a2, char *a3, ...)
 {
   IntHash = glpMakeIntHash(a1);
   v4 = *(a2 + 32);
@@ -4323,7 +4318,7 @@ uint64_t generateSlotVars(void *a1, uint64_t a2, char *a3)
   {
     v5 = 0;
     v6 = 0;
-    v33 = a2;
+    v27 = a2;
     do
     {
       v7 = *(a2 + 40);
@@ -4331,35 +4326,36 @@ uint64_t generateSlotVars(void *a1, uint64_t a2, char *a3)
       if ((v8 + 1) >= 2)
       {
         v9 = *(v7 + v5 + 8);
-        v38 = v9;
+        v32 = v9;
         StringBuffer = glpMakeStringBuffer(a1);
-        glpStringBufferAppendFormat(StringBuffer, a3, v11, v12, v13, v14, v15, v16, v9);
+        glpStringBufferAppendFormat(StringBuffer, a3, v9);
         String = glpStringBufferGetString(StringBuffer);
-        v19 = v18;
-        v20 = glpMakeStringBuffer(a1);
-        glpStringBufferAppendCString(v20, "<Compiler Temporary ");
-        glpStringBufferAppendString(v20, String, v19);
-        glpStringBufferAppendCString(v20, ">");
-        v37 = glpStringBufferGetString(v20);
-        v22 = v21;
-        v39.n128_u64[0] = "-1";
-        v39.n128_u64[1] = 0xEDA00000002;
-        v40 = 0xFFFFFFFFLL;
-        CopyVarDeclFragment = glpMakeCopyVarDeclFragment(a1, &v39, String, v19);
-        v24 = *(v8 + 24);
+        v13 = v12;
+        v14 = glpMakeStringBuffer(a1);
+        glpStringBufferAppendCString(v14, "<Compiler Temporary ");
+        glpStringBufferAppendString(v14, String, v13);
+        glpStringBufferAppendCString(v14, ">");
+        v31 = glpStringBufferGetString(v14);
+        v16 = v15;
+        v33.n128_u64[0] = "-1";
+        v33.n128_u64[1] = 0xEDA00000002;
+        v34 = 0xFFFFFFFFLL;
+        CopyVarDeclFragment = glpMakeCopyVarDeclFragment(a1, &v33, String, v13);
+        v18 = *(v8 + 24);
         PrimitiveType = glpGetPrimitiveType(*(v8 + 4));
-        v26 = *(v8 + 8);
-        glpMakeVariableObject(a1, PrimitiveType, v24, v26 | 0x80000000, String, v19, v37, v22, 0, 0, 0);
-        v28 = v27;
-        v29 = glpABIGetTypeSize(0, PrimitiveType, 0);
-        *(v28 + 128) = glpTypeSizeGetSize(v29);
+        v20 = *(v8 + 8);
+        glpMakeVariableObject(a1, PrimitiveType, v18, v20 | 0x80000000, String, v13, v31, v16, 0, 0, 0);
+        v22 = v21;
+        glpABIGetTypeSize(0, PrimitiveType, 0);
+        glpTypeSizeGetSize();
+        *(v22 + 128) = v23;
         glpASTNodeSetSaType(CopyVarDeclFragment, PrimitiveType);
-        glpASTNodeSetSaFlags(CopyVarDeclFragment, v26 | 0x80000000);
-        v30 = v28;
-        a2 = v33;
-        glpVariableDeclarationNodeSetExtra(CopyVarDeclFragment, v30);
-        glpIntHashPut(IntHash, v38, CopyVarDeclFragment, v31);
-        v4 = *(v33 + 32);
+        glpASTNodeSetSaFlags(CopyVarDeclFragment, v20 | 0x80000000);
+        v24 = v22;
+        a2 = v27;
+        glpVariableDeclarationNodeSetExtra(CopyVarDeclFragment, v24);
+        glpIntHashPut(IntHash, v32, CopyVarDeclFragment, v25);
+        v4 = *(v27 + 32);
       }
 
       ++v6;
@@ -4470,85 +4466,83 @@ uint64_t glpIsLegalStageCombination(uint64_t a1, int a2, int a3, int a4, int a5,
   if (!a2 && a5 && !v6)
   {
     InfoLog = glpLinkerGetInfoLog(a1);
-    v17 = "-1";
-    v18 = 0xEDA00000002;
-    v19 = 0xFFFFFFFFLL;
-    v12 = "Can't have a geometry shader without a vertex shader";
-LABEL_27:
-    glpLogMessage(InfoLog, 0, &v17, v12, v8, v9, v10, v11, v16);
+    v16 = "-1";
+    v17 = 0xEDA00000002;
+    v18 = 0xFFFFFFFFLL;
+    glpLogMessage(InfoLog, 0, &v16, "Can't have a geometry shader without a vertex shader");
     return 0;
   }
 
   if (!a2 && a4 && !v6)
   {
-    InfoLog = glpLinkerGetInfoLog(a1);
-    v17 = "-1";
-    v18 = 0xEDA00000002;
-    v19 = 0xFFFFFFFFLL;
-    v12 = "Can't have a tessellation evaluation shader without a vertex shader";
-    goto LABEL_27;
+    v8 = glpLinkerGetInfoLog(a1);
+    v16 = "-1";
+    v17 = 0xEDA00000002;
+    v18 = 0xFFFFFFFFLL;
+    glpLogMessage(v8, 0, &v16, "Can't have a tessellation evaluation shader without a vertex shader");
+    return 0;
   }
 
   if (a3)
   {
-    v13 = v6 == 0;
+    v9 = v6 == 0;
   }
 
   else
   {
-    v13 = 0;
+    v9 = 0;
   }
 
-  v14 = !v13;
-  if (!a2 && (v14 & 1) == 0)
+  v10 = !v9;
+  if (!a2 && (v10 & 1) == 0)
   {
-    InfoLog = glpLinkerGetInfoLog(a1);
-    v17 = "-1";
-    v18 = 0xEDA00000002;
-    v19 = 0xFFFFFFFFLL;
-    v12 = "Can't have a tessellation control shader without a vertex shader";
-    goto LABEL_27;
+    v11 = glpLinkerGetInfoLog(a1);
+    v16 = "-1";
+    v17 = 0xEDA00000002;
+    v18 = 0xFFFFFFFFLL;
+    glpLogMessage(v11, 0, &v16, "Can't have a tessellation control shader without a vertex shader");
+    return 0;
   }
 
   if (a4)
   {
-    v14 = 1;
+    v10 = 1;
   }
 
-  if ((v14 & 1) == 0)
+  if ((v10 & 1) == 0)
   {
-    InfoLog = glpLinkerGetInfoLog(a1);
-    v17 = "-1";
-    v18 = 0xEDA00000002;
-    v19 = 0xFFFFFFFFLL;
-    v12 = "Can't have a tessellation control shader without a tessellation evaluation shader";
-    goto LABEL_27;
+    v13 = glpLinkerGetInfoLog(a1);
+    v16 = "-1";
+    v17 = 0xEDA00000002;
+    v18 = 0xFFFFFFFFLL;
+    glpLogMessage(v13, 0, &v16, "Can't have a tessellation control shader without a tessellation evaluation shader");
+    return 0;
   }
 
   if ((!a2 || !a6) && !v6 && (*(a1 + 60) - 3) <= 1)
   {
-    InfoLog = glpLinkerGetInfoLog(a1);
-    v17 = "-1";
-    v18 = 0xEDA00000002;
-    v19 = 0xFFFFFFFFLL;
-    v12 = "OpenGL ES requires exactly one vertex and one fragment shader to validly link.";
-    goto LABEL_27;
+    v15 = glpLinkerGetInfoLog(a1);
+    v16 = "-1";
+    v17 = 0xEDA00000002;
+    v18 = 0xFFFFFFFFLL;
+    glpLogMessage(v15, 0, &v16, "OpenGL ES requires exactly one vertex and one fragment shader to validly link.");
+    return 0;
   }
 
   if (!(a6 | a2) && (*(a1 + 60) - 3) <= 1)
   {
-    InfoLog = glpLinkerGetInfoLog(a1);
-    v17 = "-1";
-    v18 = 0xEDA00000002;
-    v19 = 0xFFFFFFFFLL;
-    v12 = "Must have at least one shader stage in a program";
-    goto LABEL_27;
+    v12 = glpLinkerGetInfoLog(a1);
+    v16 = "-1";
+    v17 = 0xEDA00000002;
+    v18 = 0xFFFFFFFFLL;
+    glpLogMessage(v12, 0, &v16, "Must have at least one shader stage in a program");
+    return 0;
   }
 
   return 1;
 }
 
-uint64_t glpMergeUniforms(uint64_t **a1, uint64_t a2, uint64_t a3)
+uint64_t glpMergeUniforms(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a3 + 32))
   {
@@ -4570,29 +4564,25 @@ uint64_t glpMergeUniforms(uint64_t **a1, uint64_t a2, uint64_t a3)
           v16 = v14;
           if (!glpTypesEqual(*v10, *v14))
           {
-            v27 = *(v10 + 32);
-            v28 = *(v10 + 40);
-            v30 = "-1";
-            v31 = 0xEDA00000002;
-            v32 = 0xFFFFFFFFLL;
-            glpLogMessage(a1, 0, &v30, "Uniform type mismatch '%.*s'", v17, v18, v19, v20, v28);
+            v20 = "-1";
+            v21 = 0xEDA00000002;
+            v22 = 0xFFFFFFFFLL;
+            glpLogMessage(a1, 0, &v20, "Uniform type mismatch '%.*s'");
             goto LABEL_14;
           }
 
-          v21 = *(v10 + 72);
-          if (v21)
+          v17 = *(v10 + 72);
+          if (v17)
           {
-            v22 = v16[9];
-            if (v22)
+            v18 = v16[9];
+            if (v18)
             {
-              if (glpCompareValues(v21, *v10, v22))
+              if (glpCompareValues(v17, *v10, v18))
               {
-                v23 = *(v10 + 32);
-                v24 = *(v10 + 40);
-                v30 = "-1";
-                v31 = 0xEDA00000002;
-                v32 = 0xFFFFFFFFLL;
-                glpLogMessage(a1, 0, &v30, "Uniform initializer mismatch '%.*s'", v17, v18, v19, v20, v24);
+                v20 = "-1";
+                v21 = 0xEDA00000002;
+                v22 = 0xFFFFFFFFLL;
+                glpLogMessage(a1, 0, &v20, "Uniform initializer mismatch '%.*s'");
 LABEL_14:
                 v8 = 0;
                 goto LABEL_15;
@@ -4602,17 +4592,15 @@ LABEL_14:
 
           if (((*(v16 + 12) ^ *(v10 + 48)) & 0x1FLL) != 0)
           {
-            v25 = *(v10 + 32);
-            v26 = *(v10 + 40);
-            v30 = "-1";
-            v31 = 0xEDA00000002;
-            v32 = 0xFFFFFFFFLL;
-            glpLogMessage(a1, 0, &v30, "Uniform precision mismatch '%.*s'", v17, v18, v19, v20, v26);
+            v20 = "-1";
+            v21 = 0xEDA00000002;
+            v22 = 0xFFFFFFFFLL;
+            glpLogMessage(a1, 0, &v20, "Uniform precision mismatch '%.*s'");
             goto LABEL_14;
           }
         }
 
-        glpStringHashPut(a2, v12, v13, v10, v15);
+        glpStringHashPut(a2, v12, v13, v15, v10);
       }
 
 LABEL_15:
@@ -4628,7 +4616,7 @@ LABEL_15:
   return 1;
 }
 
-uint64_t glpMergeInterfaceBlocks(uint64_t **a1, unsigned int a2, uint64_t a3, uint64_t a4, int a5)
+uint64_t glpMergeInterfaceBlocks(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, int a5)
 {
   if (!*(a4 + 32))
   {
@@ -4662,16 +4650,16 @@ uint64_t glpMergeInterfaceBlocks(uint64_t **a1, unsigned int a2, uint64_t a3, ui
       if (glpTypesEqual(*(v12 + 64), ElementType))
       {
 LABEL_9:
-        glpStringHashPut(a3, v15, v14, v12, v17);
+        glpStringHashPut(a3, v15, v14, v17, v12);
       }
 
       else
       {
-        glpLanguageToString(a2);
-        v26[0] = "-1";
-        v26[1] = 0xEDA00000002;
-        v26[2] = 0xFFFFFFFFLL;
-        glpLogMessage(a1, 0, v26, "Multiple declarations of interface block '%.*s' in %s shader do not match", v19, v20, v21, v22, v14);
+        v19 = glpLanguageToString(a2);
+        v23[0] = "-1";
+        v23[1] = 0xEDA00000002;
+        v23[2] = 0xFFFFFFFFLL;
+        glpLogMessage(a1, 0, v23, "Multiple declarations of interface block '%.*s' in %s shader do not match", v14, v15, v19);
         v10 = 0;
       }
     }
@@ -4686,24 +4674,23 @@ LABEL_9:
 
 uint64_t glpMakeVertexInputBindings(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
 {
-  v9 = a1;
-  Allocator = glpLinkerGetAllocator(a1);
-  v202 = a3;
-  *a3 = glpMakeStringHash(Allocator);
-  v11 = glpLinkerGetAllocator(v9);
+  glpLinkerGetAllocator();
+  v195 = a3;
+  *a3 = glpMakeStringHash(v10);
+  glpLinkerGetAllocator();
   *a4 = glpMakeStringHash(v11);
-  v12 = glpLinkerGetAllocator(v9);
+  glpLinkerGetAllocator();
   *a5 = glpMakeIntHash(v12);
   LODWORD(v13) = *(a2 + 32);
-  v228 = v9;
-  v203 = a4;
-  v224 = a5;
-  v193 = a2;
+  v219 = a1;
+  v196 = a4;
+  v215 = a5;
+  v186 = a2;
   if (v13)
   {
     v14 = 0;
-    v229 = 0;
-    v208 = 1;
+    v220 = 0;
+    v201 = 1;
     while (1)
     {
       v15 = (*(a2 + 40) + 32 * v14);
@@ -4737,155 +4724,156 @@ LABEL_12:
           if (v20)
           {
             v21 = *(v16 + 8);
-            v212 = v20;
+            v205 = v20;
             if (v21)
             {
-              v194 = glpLayoutObjectFind(v21, 79) != 0;
+              v187 = glpLayoutObjectFind(v21, 79) != 0;
             }
 
             else
             {
-              v194 = 0;
+              v187 = 0;
             }
 
-            v22 = glpABIGetTypeSize(0, *v16, 0);
-            LODWORD(v23) = glpTypeSizeGetSize(v22);
-            v24 = glpLinkerPoolAlloc(v9);
-            v225 = glpLinkerPoolAlloc(v9);
-            glpTypeGetAppleVec4Types(*v16, v24, 1, 0, 0, v225, 0, 0, 0);
-            v220 = v23;
-            v25 = glpLinkerPoolAlloc(v9);
-            *v25 = v16;
-            v25[1] = 0;
+            glpABIGetTypeSize(0, *v16, 0);
+            glpTypeSizeGetSize();
+            v23 = v22;
+            v24 = v22;
+            v25 = glpLinkerPoolAlloc(a1);
+            v216 = glpLinkerPoolAlloc(a1);
+            glpTypeGetAppleVec4Types(*v16, v25, 1, 0, 0, v216, 0, 0, 0);
+            v26 = glpLinkerPoolAlloc(a1);
+            *v26 = v16;
+            v26[1] = 0;
             __n = v17;
-            v198 = v18;
-            glpStringHashPut(*v203, v17, v18, v25, v26);
+            v191 = v18;
+            glpStringHashPut(*v196, v17, v18, v27, v26);
             if (v23)
             {
-              v27 = 0;
-              v28 = *(v212 + 16) - 1;
-              v23 = v23;
-              v216 = v16;
+              v28 = 0;
+              v29 = *(v205 + 16) - 1;
+              v30 = v24;
+              v209 = v16;
               do
               {
-                v29 = (v225[v27] >> 2) & 1;
-                v28 += (v225[v27] & 4) == 0;
-                if (glpIntHashGet(*v224, v28 | (v29 << 16)))
+                v31 = (v216[v28] >> 2) & 1;
+                v29 += (v216[v28] & 4) == 0;
+                if (glpIntHashGet(*v215, v29 | (v31 << 16)))
                 {
-                  InfoLog = glpLinkerGetInfoLog(v228);
-                  v31 = *(v16 + 32);
-                  v32 = *(v16 + 40);
-                  v230 = "-1";
-                  v231 = 0xEDA00000002;
-                  v232 = 0xFFFFFFFFLL;
-                  glpLogMessage(InfoLog, 0, &v230, "Active attribute aliasing. Slot %d unavailable for '%.*s' from layout location request.", v33, v34, v35, v36, v28);
-                  v208 = 0;
+                  InfoLog = glpLinkerGetInfoLog(v219);
+                  v33 = *(v16 + 32);
+                  v34 = *(v16 + 40);
+                  v221 = "-1";
+                  v222 = 0xEDA00000002;
+                  v223 = 0xFFFFFFFFLL;
+                  glpLogMessage(InfoLog, 0, &v221, "Active attribute aliasing. Slot %d unavailable for '%.*s' from layout location request.", v29, v34, v33);
+                  v201 = 0;
                 }
 
                 else
                 {
-                  v37 = glpLinkerPoolAlloc(v228);
-                  *v37 = 0u;
-                  *(v37 + 16) = 0u;
-                  glpIntHashPut(*v224, v28 | (v29 << 16), v37, 0.0);
-                  if (v229 <= v28)
+                  v35 = glpLinkerPoolAlloc(v219);
+                  *v35 = 0u;
+                  *(v35 + 16) = 0u;
+                  glpIntHashPut(*v215, v29 | (v31 << 16), v35, 0.0);
+                  if (v220 <= v29)
                   {
-                    v38 = v28;
+                    v36 = v29;
                   }
 
                   else
                   {
-                    v38 = v229;
+                    v36 = v220;
                   }
 
-                  v229 = v38;
-                  if (BitSetGetEquals(*(v16 + 120), v27) && glpPrimitiveTypeGetScalarCount(v24[v27]))
+                  v220 = v36;
+                  if (BitSetGetEquals(*(v16 + 120), v28) && glpPrimitiveTypeGetScalarCount(v25[v28]))
                   {
-                    v39 = 0;
+                    v37 = 0;
                     do
                     {
-                      v40 = *(v25 + 2);
-                      v41 = &v25[v40 + 2];
-                      *v41 = v28 | (v29 << 16);
-                      v41[1] = v39;
-                      *(v25 + 2) = v40 + 1;
-                      *v37 |= 1 << v39++;
+                      v38 = *(v26 + 2);
+                      v39 = &v26[v38 + 2];
+                      *v39 = v29 | (v31 << 16);
+                      v39[1] = v37;
+                      *(v26 + 2) = v38 + 1;
+                      *v35 |= 1 << v37++;
                     }
 
-                    while (v39 < glpPrimitiveTypeGetScalarCount(v24[v27]));
+                    while (v37 < glpPrimitiveTypeGetScalarCount(v25[v28]));
                   }
 
-                  v16 = v216;
-                  *(v37 + 8) = *(v216 + 48) & 0x7F00000001FLL | (v225[v27] >> 3);
-                  *(v37 + 4) = v24[v27];
-                  v42 = *(v216 + 8);
-                  if (v42 && glpLayoutObjectFind(v42, 33))
+                  v16 = v209;
+                  *(v35 + 8) = *(v209 + 48) & 0x7F00000001FLL | (v216[v28] >> 3);
+                  *(v35 + 4) = v25[v28];
+                  v40 = *(v209 + 8);
+                  if (v40 && glpLayoutObjectFind(v40, 33))
                   {
-                    *(v37 + 24) = offsetLayout(v228, *(v216 + 8), v29);
+                    *(v35 + 24) = offsetLayout(v219, *(v209 + 8), v31);
                   }
 
                   else
                   {
-                    v43 = glpLinkerGetAllocator(v228);
-                    *(v37 + 24) = glpMakeLayoutObject(v43);
-                    v44 = glpLinkerGetAllocator(v228);
-                    v45 = *(v37 + 24);
-                    v230 = "-1";
-                    v231 = 0xEDA00000002;
-                    v232 = 0xFFFFFFFFLL;
-                    glpLayoutObjectAppendInteger(v44, 0, &v230, 0, 0, v45, 33, 0);
-                    v46 = glpLinkerGetAllocator(v228);
-                    v47 = *(v37 + 24);
-                    v230 = "-1";
-                    v231 = 0xEDA00000002;
-                    v232 = 0xFFFFFFFFLL;
-                    glpLayoutObjectAppendInteger(v46, 0, &v230, 0, 0, v47, 34, 28);
-                    v48 = glpLinkerGetAllocator(v228);
-                    v49 = *(v37 + 24);
-                    if (v28 >= 15)
+                    glpLinkerGetAllocator();
+                    *(v35 + 24) = glpMakeLayoutObject(v41);
+                    glpLinkerGetAllocator();
+                    v42 = *(v35 + 24);
+                    v221 = "-1";
+                    v222 = 0xEDA00000002;
+                    v223 = 0xFFFFFFFFLL;
+                    glpLayoutObjectAppendInteger(v43, 0, &v221, 0, 0, v42, 33, 0);
+                    glpLinkerGetAllocator();
+                    v44 = *(v35 + 24);
+                    v221 = "-1";
+                    v222 = 0xEDA00000002;
+                    v223 = 0xFFFFFFFFLL;
+                    glpLayoutObjectAppendInteger(v45, 0, &v221, 0, 0, v44, 34, 28);
+                    glpLinkerGetAllocator();
+                    v47 = *(v35 + 24);
+                    if (v29 >= 15)
                     {
-                      v50 = 15;
+                      v48 = 15;
                     }
 
                     else
                     {
-                      v50 = v28;
+                      v48 = v29;
                     }
 
-                    v230 = "-1";
-                    v231 = 0xEDA00000002;
-                    v232 = 0xFFFFFFFFLL;
-                    glpLayoutObjectAppendInteger(v48, 0, &v230, 0, 0, v49, 35, v50 + 16);
-                    v51 = glpLinkerGetAllocator(v228);
-                    v52 = *(v37 + 24);
-                    v230 = "-1";
-                    v231 = 0xEDA00000002;
-                    v232 = 0xFFFFFFFFLL;
-                    glpLayoutObjectAppendInteger(v51, 0, &v230, 0, 0, v52, 37, v29);
+                    v221 = "-1";
+                    v222 = 0xEDA00000002;
+                    v223 = 0xFFFFFFFFLL;
+                    glpLayoutObjectAppendInteger(v46, 0, &v221, 0, 0, v47, 35, v48 + 16);
+                    glpLinkerGetAllocator();
+                    v49 = *(v35 + 24);
+                    v221 = "-1";
+                    v222 = 0xEDA00000002;
+                    v223 = 0xFFFFFFFFLL;
+                    glpLayoutObjectAppendInteger(v50, 0, &v221, 0, 0, v49, 37, v31);
                   }
 
-                  v23 = v220;
+                  v30 = v24;
                 }
 
-                ++v27;
+                ++v28;
               }
 
-              while (v27 != v23);
+              while (v28 != v30);
             }
 
-            v9 = v228;
-            if (!v194)
+            a1 = v219;
+            if (!v187)
             {
-              *(v228 + 256) += *(v25 + 2);
+              *(v219 + 256) += *(v26 + 2);
             }
 
-            v53 = glpLinkerPoolAlloc(v228);
-            *v53 = 0;
-            v53[1] = 0;
-            *v53 = *(v212 + 16);
-            v53[1] = *v16;
-            glpStringHashPut(*v202, __n, v198, v53, v54);
-            a2 = v193;
+            v51 = glpLinkerPoolAlloc(v219);
+            *v51 = 0;
+            v51[1] = 0;
+            *v51 = *(v205 + 16);
+            v51[1] = *v16;
+            glpStringHashPut(*v195, __n, v191, v52, v51);
+            a2 = v186;
           }
         }
       }
@@ -4899,437 +4887,451 @@ LABEL_12:
     }
   }
 
-  v229 = 0;
-  v208 = 1;
+  v220 = 0;
+  v201 = 1;
 LABEL_42:
-  v55 = *(v9 + 80);
-  if (!*(v55 + 32))
+  v53 = *(a1 + 80);
+  if (!*(v53 + 32))
   {
     goto LABEL_77;
   }
 
-  v56 = 0;
-  v191 = *(v9 + 80);
+  v54 = 0;
+  v184 = *(a1 + 80);
   do
   {
-    v57 = (*(v55 + 40) + 32 * v56);
-    v58 = *v57;
-    if (!*v57)
+    v55 = (*(v53 + 40) + 32 * v54);
+    v56 = *v55;
+    if (!*v55)
     {
       goto LABEL_75;
     }
 
-    v60 = v57[1];
-    v59 = v57[2];
-    v61 = glpStringHashGet(a2, v60, v59);
-    if (v61)
+    v58 = v55[1];
+    v57 = v55[2];
+    v59 = glpStringHashGet(a2, v58, v57);
+    if (v59)
     {
-      v217 = v61;
-      v62 = *(v61 + 8);
-      if (v62)
+      v210 = v59;
+      v60 = *(v59 + 8);
+      if (v60)
       {
-        if (glpLayoutObjectFind(v62, 26))
+        if (glpLayoutObjectFind(v60, 26))
         {
-          v9 = v228;
+          a1 = v219;
           goto LABEL_75;
         }
 
-        v68 = v217[1];
-        v213 = v58;
-        if (v68)
+        v62 = v210[1];
+        v206 = v56;
+        if (v62)
         {
-          v195 = glpLayoutObjectFind(v68, 79) != 0;
+          v188 = glpLayoutObjectFind(v62, 79) != 0;
         }
 
         else
         {
-          v195 = 0;
+          v188 = 0;
         }
       }
 
       else
       {
-        v213 = v58;
-        v195 = 0;
+        v206 = v56;
+        v188 = 0;
       }
 
-      v209 = v56;
-      v69 = glpABIGetTypeSize(0, *v217, 0);
-      Size = glpTypeSizeGetSize(v69);
-      v71 = glpLinkerPoolAlloc(v228);
-      v226 = glpLinkerPoolAlloc(v228);
-      glpTypeGetAppleVec4Types(*v217, v71, 1, 0, 0, v226, 0, 0, 0);
-      v221 = Size;
-      v72 = glpLinkerPoolAlloc(v228);
-      *v72 = v217;
-      v72[1] = 0;
-      v199 = v60;
-      __na = v59;
-      glpStringHashPut(*v203, v60, v59, v72, v73);
-      if (Size)
+      v202 = v54;
+      glpABIGetTypeSize(0, *v210, 0);
+      glpTypeSizeGetSize();
+      v64 = v63;
+      v65 = v63;
+      v66 = glpLinkerPoolAlloc(v219);
+      v217 = glpLinkerPoolAlloc(v219);
+      glpTypeGetAppleVec4Types(*v210, v66, 1, 0, 0, v217, 0, 0, 0);
+      v67 = glpLinkerPoolAlloc(v219);
+      *v67 = v210;
+      v67[1] = 0;
+      v192 = v58;
+      __na = v57;
+      glpStringHashPut(*v196, v58, v57, v68, v67);
+      if (v64)
       {
-        v74 = 0;
-        v75 = v217;
-        v76 = *v213 - 1;
+        v69 = 0;
+        v70 = v210;
+        v71 = *v206 - 1;
         do
         {
-          v77 = (v226[v74] >> 2) & 1;
-          v76 += (v226[v74] & 4) == 0;
-          if (glpIntHashGet(*v224, v76 | (v77 << 16)))
+          v72 = (v217[v69] >> 2) & 1;
+          v71 += (v217[v69] & 4) == 0;
+          if (glpIntHashGet(*v215, v71 | (v72 << 16)))
           {
-            v78 = glpLinkerGetInfoLog(v228);
-            v79 = v75[4];
-            v80 = *(v75 + 10);
-            v230 = "-1";
-            v231 = 0xEDA00000002;
-            v232 = 0xFFFFFFFFLL;
-            glpLogMessage(v78, 0, &v230, "Active attribute aliasing. Slot %d unavailable for '%.*s' from BindAttributeLocation request.", v81, v82, v83, v84, v76);
-            v208 = 0;
+            v73 = glpLinkerGetInfoLog(v219);
+            v74 = v70[4];
+            v75 = *(v70 + 10);
+            v221 = "-1";
+            v222 = 0xEDA00000002;
+            v223 = 0xFFFFFFFFLL;
+            glpLogMessage(v73, 0, &v221, "Active attribute aliasing. Slot %d unavailable for '%.*s' from BindAttributeLocation request.", v71, v75, v74);
+            v201 = 0;
           }
 
           else
           {
-            v85 = glpLinkerPoolAlloc(v228);
-            *v85 = 0u;
-            *(v85 + 16) = 0u;
-            glpIntHashPut(*v224, v76 | (v77 << 16), v85, 0.0);
-            if (v229 <= v76)
+            v76 = glpLinkerPoolAlloc(v219);
+            *v76 = 0u;
+            *(v76 + 16) = 0u;
+            glpIntHashPut(*v215, v71 | (v72 << 16), v76, 0.0);
+            if (v220 <= v71)
             {
-              v86 = v76;
+              v77 = v71;
             }
 
             else
             {
-              v86 = v229;
+              v77 = v220;
             }
 
-            v229 = v86;
-            if (BitSetGetEquals(v75[15], v74) && glpPrimitiveTypeGetScalarCount(v71[v74]))
+            v220 = v77;
+            if (BitSetGetEquals(v70[15], v69) && glpPrimitiveTypeGetScalarCount(v66[v69]))
             {
-              v87 = 0;
+              v78 = 0;
               do
               {
-                v88 = *(v72 + 2);
-                v89 = &v72[v88 + 2];
-                *v89 = v76 | (v77 << 16);
-                v89[1] = v87;
-                *(v72 + 2) = v88 + 1;
-                *v85 |= 1 << v87++;
+                v79 = *(v67 + 2);
+                v80 = &v67[v79 + 2];
+                *v80 = v71 | (v72 << 16);
+                v80[1] = v78;
+                *(v67 + 2) = v79 + 1;
+                *v76 |= 1 << v78++;
               }
 
-              while (v87 < glpPrimitiveTypeGetScalarCount(v71[v74]));
+              while (v78 < glpPrimitiveTypeGetScalarCount(v66[v69]));
             }
 
-            *(v85 + 8) = v217[6] & 0x7F00000001FLL | (v226[v74] >> 3);
-            *(v85 + 4) = v71[v74];
-            v90 = glpLinkerGetAllocator(v228);
-            *(v85 + 24) = glpMakeLayoutObject(v90);
-            v91 = glpLinkerGetAllocator(v228);
-            v92 = *(v85 + 24);
-            v230 = "-1";
-            v231 = 0xEDA00000002;
-            v232 = 0xFFFFFFFFLL;
-            glpLayoutObjectAppendInteger(v91, 0, &v230, 0, 0, v92, 33, 0);
-            v93 = glpLinkerGetAllocator(v228);
-            v94 = *(v85 + 24);
-            v230 = "-1";
-            v231 = 0xEDA00000002;
-            v232 = 0xFFFFFFFFLL;
-            glpLayoutObjectAppendInteger(v93, 0, &v230, 0, 0, v94, 34, 28);
-            v95 = glpLinkerGetAllocator(v228);
-            v96 = *(v85 + 24);
-            if (v76 >= 15)
+            *(v76 + 8) = v210[6] & 0x7F00000001FLL | (v217[v69] >> 3);
+            *(v76 + 4) = v66[v69];
+            glpLinkerGetAllocator();
+            *(v76 + 24) = glpMakeLayoutObject(v81);
+            glpLinkerGetAllocator();
+            v82 = *(v76 + 24);
+            v221 = "-1";
+            v222 = 0xEDA00000002;
+            v223 = 0xFFFFFFFFLL;
+            glpLayoutObjectAppendInteger(v83, 0, &v221, 0, 0, v82, 33, 0);
+            glpLinkerGetAllocator();
+            v84 = *(v76 + 24);
+            v221 = "-1";
+            v222 = 0xEDA00000002;
+            v223 = 0xFFFFFFFFLL;
+            glpLayoutObjectAppendInteger(v85, 0, &v221, 0, 0, v84, 34, 28);
+            glpLinkerGetAllocator();
+            v87 = *(v76 + 24);
+            if (v71 >= 15)
             {
-              v97 = 15;
+              v88 = 15;
             }
 
             else
             {
-              v97 = v76;
+              v88 = v71;
             }
 
-            v230 = "-1";
-            v231 = 0xEDA00000002;
-            v232 = 0xFFFFFFFFLL;
-            glpLayoutObjectAppendInteger(v95, 0, &v230, 0, 0, v96, 35, v97 + 16);
-            v98 = glpLinkerGetAllocator(v228);
-            v99 = *(v85 + 24);
-            v75 = v217;
-            v230 = "-1";
-            v231 = 0xEDA00000002;
-            v232 = 0xFFFFFFFFLL;
-            glpLayoutObjectAppendInteger(v98, 0, &v230, 0, 0, v99, 37, v77);
+            v221 = "-1";
+            v222 = 0xEDA00000002;
+            v223 = 0xFFFFFFFFLL;
+            glpLayoutObjectAppendInteger(v86, 0, &v221, 0, 0, v87, 35, v88 + 16);
+            glpLinkerGetAllocator();
+            v89 = *(v76 + 24);
+            v70 = v210;
+            v221 = "-1";
+            v222 = 0xEDA00000002;
+            v223 = 0xFFFFFFFFLL;
+            glpLayoutObjectAppendInteger(v90, 0, &v221, 0, 0, v89, 37, v72);
           }
 
-          ++v74;
+          ++v69;
         }
 
-        while (v74 != v221);
+        while (v69 != v65);
       }
 
       else
       {
-        v75 = v217;
+        v70 = v210;
       }
 
-      if (!v195)
+      if (!v188)
       {
-        *(v228 + 256) += *(v72 + 2);
+        *(v219 + 256) += *(v67 + 2);
       }
 
-      v9 = v228;
-      v100 = glpLinkerPoolAlloc(v228);
-      *v100 = 0;
-      v100[1] = 0;
-      *v100 = *v213;
-      v100[1] = *v75;
-      glpStringHashPut(*v202, v199, __na, v100, v101);
-      v55 = v191;
-      a2 = v193;
-      v56 = v209;
+      a1 = v219;
+      v91 = glpLinkerPoolAlloc(v219);
+      *v91 = 0;
+      v91[1] = 0;
+      *v91 = *v206;
+      v91[1] = *v70;
+      glpStringHashPut(*v195, v192, __na, v92, v91);
+      v53 = v184;
+      a2 = v186;
+      v54 = v202;
     }
 
     else
     {
-      v9 = v228;
-      v63 = glpLinkerGetInfoLog(v228);
-      v230 = "-1";
-      v231 = 0xEDA00000002;
-      v232 = 0xFFFFFFFFLL;
-      glpLogMessage(v63, 1u, &v230, "Could not find vertex shader attribute '%.*s' to match BindAttributeLocation request.", v64, v65, v66, v67, v59);
+      a1 = v219;
+      v61 = glpLinkerGetInfoLog(v219);
+      v221 = "-1";
+      v222 = 0xEDA00000002;
+      v223 = 0xFFFFFFFFLL;
+      glpLogMessage(v61, 1, &v221, "Could not find vertex shader attribute '%.*s' to match BindAttributeLocation request.", v57, v58);
     }
 
 LABEL_75:
-    ++v56;
+    ++v54;
   }
 
-  while (v56 < *(v55 + 32));
+  while (v54 < *(v53 + 32));
   LODWORD(v13) = *(a2 + 32);
 LABEL_77:
-  v102 = 8;
-  v103 = v13;
+  v93 = 8;
+  v94 = v13;
   while (2)
   {
-    if (!v103)
+    if (!v94)
     {
-      goto LABEL_131;
+      goto LABEL_133;
     }
 
-    v104 = 0;
+    v95 = 0;
     while (2)
     {
-      v105 = *(a2 + 40) + 32 * v104;
-      v106 = *v105;
-      if (*v105)
+      v96 = *(a2 + 40) + 32 * v95;
+      v97 = *v96;
+      if (*v96)
       {
-        v107 = *(v105 + 8);
-        v222 = *(v105 + 16);
-        v108 = glpStringHashGet(*(v9 + 80), v107, v222);
-        v109 = v106[1];
-        if (v109)
+        v98 = *(v96 + 8);
+        v213 = *(v96 + 16);
+        v99 = glpStringHashGet(*(a1 + 80), v98, v213);
+        v100 = v97[1];
+        if (v100)
         {
-          v110 = glpLayoutObjectFind(v109, 26) != 0;
-          if (v108)
+          v101 = glpLayoutObjectFind(v100, 26) != 0;
+          if (v99)
           {
-            goto LABEL_129;
+            goto LABEL_131;
           }
 
 LABEL_85:
-          if (v222 < 3)
+          if (v213 < 3)
           {
             goto LABEL_96;
           }
 
-          v111 = *v107;
-          if (v111 == 103)
+          v102 = *v98;
+          if (v102 == 103)
           {
-            v112 = *(v107 + 1);
-            if (v112 == 108)
+            v103 = *(v98 + 1);
+            if (v103 == 108)
             {
-              v112 = *(v107 + 2);
-              v113 = 95;
+              v103 = *(v98 + 2);
+              v104 = 95;
             }
 
             else
             {
-              v113 = 108;
+              v104 = 108;
             }
 
-            if (v113 != v112)
+            if (v104 != v103)
             {
 LABEL_93:
-              if (v222 < 9 || strncmp("$ib$", v107, 4uLL) || strncmp("$gl_", v107 + 5, 4uLL))
+              if (v213 < 9 || strncmp("$ib$", v98, 4uLL) || strncmp("$gl_", v98 + 5, 4uLL))
               {
 LABEL_96:
-                if (v222 && *v107 == 36)
+                if (v213 && *v98 == 36)
                 {
-                  if (v222 < 9 || strncmp("$ib$", v107, 4uLL) || strncmp("$gl_", v107 + 5, 4uLL) != 0 || v110)
+                  if (v213 < 9 || strncmp("$ib$", v98, 4uLL) || strncmp("$gl_", v98 + 5, 4uLL) != 0 || v101)
                   {
-                    goto LABEL_129;
+                    goto LABEL_131;
                   }
                 }
 
-                else if (v110)
+                else if (v101)
                 {
-                  goto LABEL_129;
+                  goto LABEL_131;
                 }
 
-                v114 = glpABIGetTypeSize(0, *v106, 0);
-                if (glpTypeSizeGetSize(v114) == v102)
+                glpABIGetTypeSize(0, *v97, 0);
+                glpTypeSizeGetSize();
+                if (v105 == v93)
                 {
-                  v115 = v106[1];
-                  __nb = v107;
-                  if (v115)
+                  v106 = v97[1];
+                  __nb = v98;
+                  if (v106)
                   {
-                    v200 = glpLayoutObjectFind(v115, 79) != 0;
+                    v193 = glpLayoutObjectFind(v106, 79) != 0;
                   }
 
                   else
                   {
-                    v200 = 0;
+                    v193 = 0;
                   }
 
-                  v116 = glpABIGetTypeSize(0, *v106, 0);
-                  v117 = glpTypeSizeGetSize(v116);
-                  v118 = v106;
-                  v119 = glpLinkerPoolAlloc(v9);
-                  v120 = glpLinkerPoolAlloc(v9);
-                  glpTypeGetAppleVec4Types(*v118, v119, 1, 0, 0, v120, 0, 0, 0);
-                  v121 = glpLinkerPoolAlloc(v9);
-                  *v121 = v118;
-                  v121[1] = 0;
-                  glpStringHashPut(*v203, __nb, v222, v121, v122);
-                  if (v117)
+                  glpABIGetTypeSize(0, *v97, 0);
+                  glpTypeSizeGetSize();
+                  v108 = v107;
+                  v109 = v107;
+                  v110 = v97;
+                  v111 = glpLinkerPoolAlloc(a1);
+                  v112 = glpLinkerPoolAlloc(a1);
+                  glpTypeGetAppleVec4Types(*v110, v111, 1, 0, 0, v112, 0, 0, 0);
+                  v113 = glpLinkerPoolAlloc(a1);
+                  *v113 = v110;
+                  v113[1] = 0;
+                  glpStringHashPut(*v196, __nb, v213, v114, v113);
+                  if (v108)
                   {
-                    v123 = 0;
-                    v124 = v117;
-                    v125 = v120;
+                    v115 = 0;
+                    v116 = v109;
+                    v117 = v112;
+                    v118 = v109;
                     do
                     {
-                      v126 = *v125++;
-                      if ((v126 & 4) == 0)
+                      v119 = *v117++;
+                      if ((v119 & 4) == 0)
                       {
-                        ++v123;
+                        ++v115;
                       }
 
-                      --v124;
+                      --v116;
                     }
 
-                    while (v124);
-                    AttribForSize = allocateAttribForSize(*v224, v123);
-                    v192 = v102;
-                    v127 = 0;
-                    v128 = AttribForSize - 1;
-                    v129 = v118;
-                    v210 = v117;
-                    v218 = v120;
-                    do
+                    while (v116);
+                    AttribForSize = allocateAttribForSize(*v215, v115);
+                    v189 = AttribForSize;
+                    if (v109)
                     {
-                      v128 += (v120[v127] & 4) == 0;
-                      v214 = (v120[v127] >> 2) & 1;
-                      v130 = v128 | (v214 << 16);
-                      v131 = glpLinkerPoolAlloc(v9);
-                      *v131 = 0u;
-                      *(v131 + 16) = 0u;
-                      glpIntHashPut(*v224, v130, v131, 0.0);
-                      if (v229 <= v128)
+                      v185 = v93;
+                      v121 = 0;
+                      v122 = AttribForSize - 1;
+                      v123 = v110;
+                      v203 = v118;
+                      v211 = v112;
+                      do
                       {
-                        v132 = v128;
-                      }
-
-                      else
-                      {
-                        v132 = v229;
-                      }
-
-                      v229 = v132;
-                      if (BitSetGetEquals(v129[15], v127) && glpPrimitiveTypeGetScalarCount(v119[v127]))
-                      {
-                        v133 = 0;
-                        do
+                        v122 += (v112[v121] & 4) == 0;
+                        v207 = (v112[v121] >> 2) & 1;
+                        v124 = v122 | (v207 << 16);
+                        v125 = glpLinkerPoolAlloc(a1);
+                        *v125 = 0u;
+                        *(v125 + 16) = 0u;
+                        glpIntHashPut(*v215, v124, v125, 0.0);
+                        if (v220 <= v122)
                         {
-                          v134 = *(v121 + 2);
-                          v135 = &v121[v134 + 2];
-                          *v135 = v130;
-                          v135[1] = v133;
-                          *(v121 + 2) = v134 + 1;
-                          *v131 |= 1 << v133++;
+                          v126 = v122;
                         }
 
-                        while (v133 < glpPrimitiveTypeGetScalarCount(v119[v127]));
+                        else
+                        {
+                          v126 = v220;
+                        }
+
+                        v220 = v126;
+                        if (BitSetGetEquals(v123[15], v121) && glpPrimitiveTypeGetScalarCount(v111[v121]))
+                        {
+                          v127 = 0;
+                          do
+                          {
+                            v128 = *(v113 + 2);
+                            v129 = &v113[v128 + 2];
+                            *v129 = v124;
+                            v129[1] = v127;
+                            *(v113 + 2) = v128 + 1;
+                            *v125 |= 1 << v127++;
+                          }
+
+                          while (v127 < glpPrimitiveTypeGetScalarCount(v111[v121]));
+                        }
+
+                        a1 = v219;
+                        *(v125 + 8) = v110[6] & 0x7F00000001FLL | (v211[v121] >> 3);
+                        *(v125 + 4) = v111[v121];
+                        glpLinkerGetAllocator();
+                        *(v125 + 24) = glpMakeLayoutObject(v130);
+                        glpLinkerGetAllocator();
+                        v131 = *(v125 + 24);
+                        v221 = "-1";
+                        v222 = 0xEDA00000002;
+                        v223 = 0xFFFFFFFFLL;
+                        glpLayoutObjectAppendInteger(v132, 0, &v221, 0, 0, v131, 33, 0);
+                        glpLinkerGetAllocator();
+                        v133 = *(v125 + 24);
+                        v221 = "-1";
+                        v222 = 0xEDA00000002;
+                        v223 = 0xFFFFFFFFLL;
+                        glpLayoutObjectAppendInteger(v134, 0, &v221, 0, 0, v133, 34, 28);
+                        glpLinkerGetAllocator();
+                        v136 = *(v125 + 24);
+                        if (v122 >= 15)
+                        {
+                          v137 = 15;
+                        }
+
+                        else
+                        {
+                          v137 = v122;
+                        }
+
+                        v221 = "-1";
+                        v222 = 0xEDA00000002;
+                        v223 = 0xFFFFFFFFLL;
+                        glpLayoutObjectAppendInteger(v135, 0, &v221, 0, 0, v136, 35, v137 + 16);
+                        glpLinkerGetAllocator();
+                        v138 = *(v125 + 24);
+                        v221 = "-1";
+                        v222 = 0xEDA00000002;
+                        v123 = v110;
+                        v112 = v211;
+                        v223 = 0xFFFFFFFFLL;
+                        glpLayoutObjectAppendInteger(v139, 0, &v221, 0, 0, v138, 37, v207);
+                        ++v121;
                       }
 
-                      v9 = v228;
-                      *(v131 + 8) = v118[6] & 0x7F00000001FLL | (v218[v127] >> 3);
-                      *(v131 + 4) = v119[v127];
-                      v136 = glpLinkerGetAllocator(v228);
-                      *(v131 + 24) = glpMakeLayoutObject(v136);
-                      v137 = glpLinkerGetAllocator(v228);
-                      v138 = *(v131 + 24);
-                      v230 = "-1";
-                      v231 = 0xEDA00000002;
-                      v232 = 0xFFFFFFFFLL;
-                      glpLayoutObjectAppendInteger(v137, 0, &v230, 0, 0, v138, 33, 0);
-                      v139 = glpLinkerGetAllocator(v228);
-                      v140 = *(v131 + 24);
-                      v230 = "-1";
-                      v231 = 0xEDA00000002;
-                      v232 = 0xFFFFFFFFLL;
-                      glpLayoutObjectAppendInteger(v139, 0, &v230, 0, 0, v140, 34, 28);
-                      v141 = glpLinkerGetAllocator(v228);
-                      v142 = *(v131 + 24);
-                      if (v128 >= 15)
-                      {
-                        v143 = 15;
-                      }
-
-                      else
-                      {
-                        v143 = v128;
-                      }
-
-                      v230 = "-1";
-                      v231 = 0xEDA00000002;
-                      v232 = 0xFFFFFFFFLL;
-                      glpLayoutObjectAppendInteger(v141, 0, &v230, 0, 0, v142, 35, v143 + 16);
-                      v144 = glpLinkerGetAllocator(v228);
-                      v145 = *(v131 + 24);
-                      v230 = "-1";
-                      v231 = 0xEDA00000002;
-                      v129 = v118;
-                      v120 = v218;
-                      v232 = 0xFFFFFFFFLL;
-                      glpLayoutObjectAppendInteger(v144, 0, &v230, 0, 0, v145, 37, v214);
-                      ++v127;
+                      while (v121 != v203);
+                      a2 = v186;
+                      v93 = v185;
                     }
 
-                    while (v127 != v210);
-                    a2 = v193;
-                    v102 = v192;
+                    else
+                    {
+                      a2 = v186;
+                    }
                   }
 
                   else
                   {
-                    AttribForSize = allocateAttribForSize(*v224, 0);
+                    v189 = allocateAttribForSize(*v215, 0);
                   }
 
-                  if (!v200)
+                  if (!v193)
                   {
-                    *(v9 + 256) += *(v121 + 2);
+                    *(a1 + 256) += *(v113 + 2);
                   }
 
-                  v146 = glpLinkerPoolAlloc(v9);
-                  *v146 = 0;
-                  v146[1] = 0;
-                  *v146 = AttribForSize;
-                  v146[1] = *v118;
-                  glpStringHashPut(*v202, __nb, v222, v146, v147);
+                  v140 = glpLinkerPoolAlloc(a1);
+                  *v140 = 0;
+                  v140[1] = 0;
+                  *v140 = v189;
+                  v140[1] = *v110;
+                  glpStringHashPut(*v195, __nb, v213, v141, v140);
                 }
               }
             }
           }
 
-          else if (103 != v111)
+          else if (103 != v102)
           {
             goto LABEL_93;
           }
@@ -5337,18 +5339,18 @@ LABEL_96:
 
         else
         {
-          v110 = 0;
-          if (!v108)
+          v101 = 0;
+          if (!v99)
           {
             goto LABEL_85;
           }
         }
       }
 
-LABEL_129:
-      ++v104;
+LABEL_131:
+      ++v95;
       v13 = *(a2 + 32);
-      if (v104 < v13)
+      if (v95 < v13)
       {
         continue;
       }
@@ -5356,9 +5358,9 @@ LABEL_129:
       break;
     }
 
-    v103 = *(a2 + 32);
-LABEL_131:
-    if (--v102)
+    v94 = *(a2 + 32);
+LABEL_133:
+    if (--v93)
     {
       continue;
     }
@@ -5366,70 +5368,71 @@ LABEL_131:
     break;
   }
 
-  v148 = 8;
+  v142 = 8;
   while (2)
   {
     if (v13)
     {
       for (i = 0; i < v13; ++i)
       {
-        v150 = (*(a2 + 40) + 32 * i);
-        if (!*v150)
+        v144 = (*(a2 + 40) + 32 * i);
+        if (!*v144)
         {
-          goto LABEL_176;
+          goto LABEL_180;
         }
 
-        v151 = v150[1];
-        v152 = v150[2];
-        v227 = *v150;
-        v153 = (*v150)[1];
-        v154 = v153 && glpLayoutObjectFind(v153, 26) != 0;
-        if (v152 < 3)
+        v145 = v144[1];
+        v146 = v144[2];
+        v218 = *v144;
+        v147 = (*v144)[1];
+        v148 = v147 && glpLayoutObjectFind(v147, 26) != 0;
+        if (v146 < 3)
         {
-          goto LABEL_176;
+          goto LABEL_180;
         }
 
-        v155 = *v151;
-        if (v155 == 103)
+        v149 = *v145;
+        if (v149 == 103)
         {
-          v156 = *(v151 + 1);
-          if (v156 == 108)
+          v150 = *(v145 + 1);
+          if (v150 == 108)
           {
-            if (95 == v151[2])
+            if (95 == v145[2])
             {
-              goto LABEL_150;
+              goto LABEL_152;
             }
           }
 
-          else if (108 == v156)
+          else if (108 == v150)
           {
-LABEL_150:
-            if (!v154)
+LABEL_152:
+            if (!v148)
             {
-              goto LABEL_151;
+              goto LABEL_153;
             }
 
-            goto LABEL_176;
+            goto LABEL_180;
           }
         }
 
-        else if (103 == v155)
+        else if (103 == v149)
         {
-          goto LABEL_150;
+          goto LABEL_152;
         }
 
-        if (v152 >= 9 && !strncmp("$ib$", v151, 4uLL) && strncmp("$gl_", v151 + 5, 4uLL) == 0 && !v154)
+        if (v146 >= 9 && !strncmp("$ib$", v145, 4uLL) && strncmp("$gl_", v145 + 5, 4uLL) == 0 && !v148)
         {
-LABEL_151:
-          v215 = v152;
-          v157 = glpABIGetTypeSize(0, *v227, 0);
-          if (glpTypeSizeGetSize(v157) == v148)
+LABEL_153:
+          v208 = v146;
+          glpABIGetTypeSize(0, *v218, 0);
+          glpTypeSizeGetSize();
+          if (v151 == v142)
           {
-            v211 = v151;
-            v158 = v227[1];
-            if (v158)
+            v204 = v145;
+            v152 = v218[1];
+            if (v152)
             {
-              __nc = glpLayoutObjectFind(v158, 79) != 0;
+              __nc = glpLayoutObjectFind(v152, 79) != 0;
             }
 
             else
@@ -5437,123 +5440,137 @@ LABEL_151:
               __nc = 0;
             }
 
-            v159 = glpABIGetTypeSize(0, *v227, 0);
-            v160 = glpTypeSizeGetSize(v159);
-            v161 = glpLinkerPoolAlloc(v9);
-            v162 = v9;
-            v163 = glpLinkerPoolAlloc(v9);
-            glpTypeGetAppleVec4Types(*v227, v161, 1, 0, 0, v163, 0, 0, 0);
-            v164 = glpLinkerPoolAlloc(v162);
-            *v164 = v227;
-            v164[1] = 0;
-            glpStringHashPut(*v203, v151, v152, v164, v165);
-            if (v160)
+            glpABIGetTypeSize(0, *v218, 0);
+            glpTypeSizeGetSize();
+            v154 = v153;
+            v155 = v153;
+            v156 = glpLinkerPoolAlloc(a1);
+            v157 = a1;
+            v158 = glpLinkerPoolAlloc(a1);
+            glpTypeGetAppleVec4Types(*v218, v156, 1, 0, 0, v158, 0, 0, 0);
+            v159 = glpLinkerPoolAlloc(v157);
+            *v159 = v218;
+            v159[1] = 0;
+            glpStringHashPut(*v196, v145, v146, v160, v159);
+            if (v154)
             {
-              v166 = 0;
-              v167 = v160;
-              v223 = v163;
+              v161 = 0;
+              v162 = v155;
+              v214 = v158;
+              v163 = v155;
               do
               {
-                v168 = *v163++;
-                if ((v168 & 4) == 0)
+                v164 = *v158++;
+                if ((v164 & 4) == 0)
                 {
-                  ++v166;
+                  ++v161;
                 }
 
-                --v167;
+                --v162;
               }
 
-              while (v167);
-              v197 = allocateAttribForSize(*v224, v166);
-              v201 = v148;
-              v169 = 0;
-              v170 = v228;
-              v171 = v197 - 1;
-              v172 = v223;
-              v219 = v160;
-              do
+              while (v162);
+              v165 = allocateAttribForSize(*v215, v161);
+              v166 = v165;
+              a1 = v219;
+              if (v163)
               {
-                v171 += (*(v172 + v169) & 4) == 0;
-                v173 = v171 | (((*(v172 + v169) >> 2) & 1) << 16);
-                v174 = glpLinkerPoolAlloc(v170);
-                *v174 = 0u;
-                *(v174 + 16) = 0u;
-                glpIntHashPut(*v224, v173, v174, 0.0);
-                if (v229 <= v171)
+                v190 = v165;
+                v194 = v142;
+                v167 = 0;
+                v168 = v219;
+                v169 = v166 - 1;
+                v170 = v214;
+                v212 = v163;
+                do
                 {
-                  v175 = v171;
-                }
-
-                else
-                {
-                  v175 = v229;
-                }
-
-                v229 = v175;
-                if (BitSetGetEquals(v227[15], v169) && glpPrimitiveTypeGetScalarCount(v161[v169]))
-                {
-                  v176 = 0;
-                  do
+                  v169 += (*(v170 + v167) & 4) == 0;
+                  v171 = v169 | (((*(v170 + v167) >> 2) & 1) << 16);
+                  v172 = glpLinkerPoolAlloc(v168);
+                  *v172 = 0u;
+                  *(v172 + 16) = 0u;
+                  glpIntHashPut(*v215, v171, v172, 0.0);
+                  if (v220 <= v169)
                   {
-                    v177 = *(v164 + 2);
-                    v178 = &v164[v177 + 2];
-                    *v178 = v173;
-                    v178[1] = v176;
-                    *(v164 + 2) = v177 + 1;
-                    *v174 |= 1 << v176++;
+                    v173 = v169;
                   }
 
-                  while (v176 < glpPrimitiveTypeGetScalarCount(v161[v169]));
+                  else
+                  {
+                    v173 = v220;
+                  }
+
+                  v220 = v173;
+                  if (BitSetGetEquals(v218[15], v167) && glpPrimitiveTypeGetScalarCount(v156[v167]))
+                  {
+                    v174 = 0;
+                    do
+                    {
+                      v175 = *(v159 + 2);
+                      v176 = &v159[v175 + 2];
+                      *v176 = v171;
+                      v176[1] = v174;
+                      *(v159 + 2) = v175 + 1;
+                      *v172 |= 1 << v174++;
+                    }
+
+                    while (v174 < glpPrimitiveTypeGetScalarCount(v156[v167]));
+                  }
+
+                  v170 = v214;
+                  *(v172 + 8) = v218[6] & 0x7F00000001FLL | (*(v214 + v167) >> 3);
+                  *(v172 + 4) = v156[v167];
+                  *(v172 + 24) = offsetLayout(v219, v218[1], v167);
+                  v177 = v218[1];
+                  if (v177)
+                  {
+                    glpLayoutObjectFind(v177, 33);
+                  }
+
+                  ++v167;
+                  v168 = v219;
                 }
 
-                v172 = v223;
-                *(v174 + 8) = v227[6] & 0x7F00000001FLL | (*(v223 + v169) >> 3);
-                *(v174 + 4) = v161[v169];
-                *(v174 + 24) = offsetLayout(v228, v227[1], v169);
-                v179 = v227[1];
-                if (v179)
-                {
-                  glpLayoutObjectFind(v179, 33);
-                }
-
-                ++v169;
-                v170 = v228;
+                while (v167 != v212);
+                a2 = v186;
+                a1 = v219;
+                v166 = v190;
+                v142 = v194;
+                v145 = v204;
               }
 
-              while (v169 != v219);
-              a2 = v193;
-              v9 = v228;
-              v180 = v197;
-              v148 = v201;
-              v151 = v211;
+              else
+              {
+                a2 = v186;
+              }
             }
 
             else
             {
-              v180 = allocateAttribForSize(*v224, 0);
-              v9 = v228;
+              v166 = allocateAttribForSize(*v215, 0);
+              a1 = v219;
             }
 
             if (!__nc)
             {
-              *(v9 + 256) += *(v164 + 2);
+              *(a1 + 256) += *(v159 + 2);
             }
 
-            v181 = glpLinkerPoolAlloc(v9);
-            *v181 = 0;
-            v181[1] = 0;
-            *v181 = v180;
-            v181[1] = *v227;
-            glpStringHashPut(*v202, v151, v215, v181, v182);
+            v178 = glpLinkerPoolAlloc(a1);
+            *v178 = 0;
+            v178[1] = 0;
+            *v178 = v166;
+            v178[1] = *v218;
+            glpStringHashPut(*v195, v145, v208, v179, v178);
           }
         }
 
-LABEL_176:
+LABEL_180:
         v13 = *(a2 + 32);
       }
     }
 
-    if (--v148)
+    if (--v142)
     {
       continue;
     }
@@ -5561,32 +5578,32 @@ LABEL_176:
     break;
   }
 
-  v183 = *(*v203 + 32);
-  result = v208;
-  if (v183)
+  v180 = *(*v196 + 32);
+  result = v201;
+  if (v180)
   {
-    v185 = *(*v203 + 40);
+    v182 = *(*v196 + 40);
     do
     {
-      if (*v185)
+      if (*v182)
       {
-        *(**v185 + 8) = 0;
+        *(**v182 + 8) = 0;
       }
 
-      v185 += 32;
-      --v183;
+      v182 += 32;
+      --v180;
     }
 
-    while (v183);
+    while (v180);
   }
 
-  if (v229 >= 0x10)
+  if (v220 >= 0x10)
   {
-    v186 = glpLinkerGetInfoLog(v9);
-    v230 = "-1";
-    v231 = 0xEDA00000002;
-    v232 = 0xFFFFFFFFLL;
-    glpLogMessage(v186, 0, &v230, "Implementation limit of %d MAX_VERTEX_ATTRIBS (e.g., number of generic plus conventional active vec4 attributes) exceeded, shader uses up to vec4 attribute %d.", v187, v188, v189, v190, 16);
+    v183 = glpLinkerGetInfoLog(a1);
+    v221 = "-1";
+    v222 = 0xEDA00000002;
+    v223 = 0xFFFFFFFFLL;
+    glpLogMessage(v183, 0, &v221, "Implementation limit of %d MAX_VERTEX_ATTRIBS (e.g., number of generic plus conventional active vec4 attributes) exceeded, shader uses up to vec4 attribute %d.", 16, v220);
     return 0;
   }
 
@@ -5595,8 +5612,8 @@ LABEL_176:
 
 uint64_t *offsetLayout(uint64_t a1, void **a2, unsigned int a3)
 {
-  Allocator = glpLinkerGetAllocator(a1);
-  v6 = glpCopyLayoutObject(Allocator, a2);
+  glpLinkerGetAllocator();
+  v6 = glpCopyLayoutObject(v5, a2);
   v7 = glpLayoutObjectFind(v6, 35);
   if (v7)
   {
@@ -5753,38 +5770,37 @@ uint64_t allocateAttribForSize(uint64_t a1, int a2)
 
 uint64_t glpMakeFragmentOutputBindings(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
 {
-  v9 = a1;
-  Allocator = glpLinkerGetAllocator(a1);
-  v265 = a3;
-  *a3 = glpMakeStringHash(Allocator);
-  v11 = glpLinkerGetAllocator(v9);
-  v266 = a4;
+  glpLinkerGetAllocator();
+  v212 = a3;
+  *a3 = glpMakeStringHash(v10);
+  glpLinkerGetAllocator();
+  v213 = a4;
   *a4 = glpMakeStringHash(v11);
-  v12 = glpLinkerGetAllocator(v9);
-  v290 = a5;
+  glpLinkerGetAllocator();
+  v237 = a5;
   *a5 = glpMakeIntHash(v12);
   v13 = *(a2 + 32);
-  v288 = 1;
-  v287 = v9;
-  v264 = a2;
+  v235 = 1;
+  v234 = a1;
+  v211 = a2;
   if (!v13)
   {
     v48 = 0;
-    LODWORD(v110) = 0;
+    LODWORD(v96) = 0;
     v47 = 0;
-    v274 = 0;
+    v221 = 0;
     v45 = 0;
     goto LABEL_103;
   }
 
   v14 = 0;
-  v279 = 0;
-  v285 = 0;
+  v226 = 0;
+  v232 = 0;
   v15 = 0x80000000;
   while (1)
   {
     v16 = (*(a2 + 40) + 32 * v14);
-    v289 = *v16;
+    v236 = *v16;
     if (!*v16)
     {
       goto LABEL_46;
@@ -5837,17 +5853,17 @@ LABEL_15:
 LABEL_46:
     if (++v14 >= v13)
     {
-      v288 = 1;
+      v235 = 1;
       goto LABEL_48;
     }
   }
 
   __n = v18;
-  v22 = *(v289 + 8);
+  v22 = *(v236 + 8);
   if (v22)
   {
     v23 = glpLayoutObjectFind(v22, 79) != 0;
-    v22 = *(v289 + 8);
+    v22 = *(v236 + 8);
   }
 
   else
@@ -5855,70 +5871,71 @@ LABEL_46:
     v23 = 0;
   }
 
-  v24 = v285;
+  v24 = v232;
   v25 = glpLayoutObjectFind(v22, 72);
-  v26 = glpLayoutObjectFind(*(v289 + 8), 77);
-  if (!v285 || !v26)
+  v26 = glpLayoutObjectFind(*(v236 + 8), 77);
+  if (!v232 || !v26)
   {
-    v252 = v23;
-    v273 = v26;
+    v199 = v23;
+    v220 = v26;
     if (v26)
     {
-      v24 = v289;
+      v24 = v236;
     }
 
-    v285 = v24;
-    v27 = glpABIGetTypeSize(0, *v289, 0);
-    Size = glpTypeSizeGetSize(v27);
-    v29 = glpLinkerPoolAlloc(v9);
-    v270 = glpLinkerPoolAlloc(v9);
-    glpTypeGetAppleVec4Types(*v289, v29, 1, 0, 0, v270, 0, 0, 0);
-    v30 = v289;
-    v31 = glpLinkerPoolAlloc(v9);
+    v232 = v24;
+    glpABIGetTypeSize(0, *v236, 0);
+    glpTypeSizeGetSize();
+    v28 = v27;
+    v29 = glpLinkerPoolAlloc(a1);
+    v217 = glpLinkerPoolAlloc(a1);
+    glpTypeGetAppleVec4Types(*v236, v29, 1, 0, 0, v217, 0, 0, 0);
+    v30 = v236;
+    v31 = glpLinkerPoolAlloc(a1);
     v32 = v17;
     v33 = v31;
-    *v31 = v289;
+    *v31 = v236;
     v31[1] = 0;
-    v256 = v32;
-    glpStringHashPut(*v266, v18, v32, v31, v34);
-    v275 = v15;
+    v203 = v32;
+    glpStringHashPut(*v213, v18, v32, v34, v31);
+    v222 = v15;
     if (v25)
     {
-      v275 = *(v25 + 4);
+      v222 = *(v25 + 4);
     }
 
-    if (Size)
+    if (v28)
     {
-      for (i = 0; i != Size; ++i)
+      for (i = 0; i != v28; ++i)
       {
         if (BitSetGetEquals(v30[15], i))
         {
           v36 = v15;
-          v37 = glpLinkerPoolAlloc(v287);
+          v37 = glpLinkerPoolAlloc(v234);
           *v37 = 0u;
           *(v37 + 16) = 0u;
-          glpIntHashPut(*v290, v275 + i, v37, 0.0);
-          if (v279 <= v275 + i)
+          glpIntHashPut(*v237, v222 + i, v37, 0.0);
+          if (v226 <= v222 + i)
           {
-            v38 = v275 + i;
+            v38 = v222 + i;
           }
 
           else
           {
-            v38 = v279;
+            v38 = v226;
           }
 
-          if (v273)
+          if (v220)
           {
             v39 = v38;
           }
 
           else
           {
-            v39 = v279;
+            v39 = v226;
           }
 
-          v279 = v39;
+          v226 = v39;
           if (glpPrimitiveTypeGetScalarCount(v29[i]))
           {
             v40 = 0;
@@ -5926,7 +5943,7 @@ LABEL_46:
             {
               v41 = *(v33 + 2);
               v42 = &v33[v41 + 2];
-              *v42 = v275 + i;
+              *v42 = v222 + i;
               v42[1] = v40;
               *(v33 + 2) = v41 + 1;
               *v37 |= 1 << v40++;
@@ -5935,495 +5952,460 @@ LABEL_46:
             while (v40 < glpPrimitiveTypeGetScalarCount(v29[i]));
           }
 
-          v30 = v289;
-          *(v37 + 8) = *(v289 + 48) & 0x7F00000001FLL | (v270[i] >> 3);
+          v30 = v236;
+          *(v37 + 8) = *(v236 + 48) & 0x7F00000001FLL | (v217[i] >> 3);
           *(v37 + 4) = v29[i];
-          *(v37 + 24) = offsetLayout(v287, *(v289 + 8), i);
-          v15 = v36 + (v273 == 0);
+          *(v37 + 24) = offsetLayout(v234, *(v236 + 8), i);
+          v15 = v36 + (v220 == 0);
         }
       }
     }
 
-    v9 = v287;
-    if (!v252)
+    a1 = v234;
+    if (!v199)
     {
-      *(v287 + 292) += *(v33 + 2);
+      *(v234 + 292) += *(v33 + 2);
     }
 
-    v43 = glpLinkerPoolAlloc(v287);
+    v43 = glpLinkerPoolAlloc(v234);
     *v43 = 0;
     v43[1] = 0;
-    *v43 = v275;
+    *v43 = v222;
     v43[1] = *v30;
-    glpStringHashPut(*v265, __n, v256, v43, v44);
-    a2 = v264;
-    v13 = *(v264 + 32);
+    glpStringHashPut(*v212, __n, v203, v44, v43);
+    a2 = v211;
+    v13 = *(v211 + 32);
     goto LABEL_46;
   }
 
-  InfoLog = glpLinkerGetInfoLog(v9);
-  v239 = *(v289 + 32);
-  v240 = *(v285 + 32);
-  v241 = *(v289 + 40);
-  v242 = *(v285 + 40);
-  v291 = "-1";
-  v292 = 0xEDA00000002;
-  v293 = 0xFFFFFFFFLL;
-  glpLogMessage(InfoLog, 0, &v291, "Cannot mix builtin fragment outputs '%.*s' and '%.*s'.", v243, v244, v245, v246, v241);
-  v288 = 0;
+  InfoLog = glpLinkerGetInfoLog(a1);
+  v191 = *(v236 + 32);
+  v192 = *(v232 + 32);
+  v193 = *(v236 + 40);
+  v194 = *(v232 + 40);
+  v238 = "-1";
+  v239 = 0xEDA00000002;
+  v240 = 0xFFFFFFFFLL;
+  glpLogMessage(InfoLog, 0, &v238, "Cannot mix builtin fragment outputs '%.*s' and '%.*s'.", v193, v191, v194, v192);
+  v235 = 0;
   v13 = *(a2 + 32);
 LABEL_48:
-  v45 = v279;
+  v45 = v226;
   if (v13)
   {
     v46 = 0;
-    v274 = 0;
+    v221 = 0;
     v47 = 0;
-    v48 = v285;
+    v48 = v232;
     do
     {
-      v49 = (*(a2 + 40) + 32 * v46);
+      v49 = *(a2 + 40) + 32 * v46;
       v50 = *v49;
       if (*v49)
       {
-        v52 = v49[1];
-        v51 = v49[2];
-        v53 = *(v50 + 8);
+        v52 = *(v49 + 8);
+        v51 = *(v49 + 16);
+        v53 = v50[1];
         if (v53)
         {
-          v54 = v49[2];
+          v54 = *(v49 + 16);
           v55 = glpLayoutObjectFind(v53, 26);
           v51 = v54;
-          v282 = v55;
+          v229 = v55;
         }
 
         else
         {
-          v282 = 0;
+          v229 = 0;
         }
 
-        if (v51 < 3)
+        if (v51 < 3 || ((v56 = *v52, v56 != 103) ? (v57 = 103) : (v56 = *(v52 + 1), v56 != 108) ? (v57 = 108) : (v56 = *(v52 + 2), v57 = 95), v57 != v56 && (v51 < 9 || (v58 = v51, v59 = strncmp("$ib$", v52, 4uLL), v51 = v58, v59) || (v60 = strncmp("$gl_", v52 + 5, 4uLL), v51 = v58, v60))))
         {
-          goto LABEL_213;
-        }
-
-        v56 = *v52;
-        if (v56 == 103)
-        {
-          v56 = *(v52 + 1);
-          if (v56 == 108)
+          if (!v51 || *v52 != 36 || v51 >= 9 && (v61 = v51, !strncmp("$ib$", v52, 4uLL)) && (v62 = strncmp("$gl_", v52 + 5, 4uLL) == 0, v51 = v61, v62))
           {
-            v56 = *(v52 + 2);
-            v57 = 95;
-          }
-
-          else
-          {
-            v57 = 108;
-          }
-        }
-
-        else
-        {
-          v57 = 103;
-        }
-
-        if (v57 != v56)
-        {
-          if (v51 < 9 || (v58 = v51, v59 = strncmp("$ib$", v52, 4uLL), v51 = v58, v59) || (v60 = strncmp("$gl_", v52 + 5, 4uLL), v51 = v58, v60))
-          {
-LABEL_213:
-            if (!v51 || *v52 != 36 || v51 >= 9 && (v61 = v51, !strncmp("$ib$", v52, 4uLL)) && (v62 = strncmp("$gl_", v52 + 5, 4uLL) == 0, v51 = v61, v62))
+            if (v229)
             {
-              if (v282)
+              __na = v51;
+              v63 = v50[1];
+              v218 = v47;
+              if (v63)
               {
-                __na = v51;
-                v63 = *(v50 + 8);
-                v271 = v47;
-                if (v63)
-                {
-                  v248 = glpLayoutObjectFind(v63, 79) != 0;
-                }
+                v195 = glpLayoutObjectFind(v63, 79) != 0;
+              }
 
-                else
-                {
-                  v248 = 0;
-                }
+              else
+              {
+                v195 = 0;
+              }
 
-                v64 = glpABIGetTypeSize(0, *v50, 0);
-                v65 = glpTypeSizeGetSize(v64);
-                v66 = glpLinkerPoolAlloc(v9);
-                v67 = v9;
-                v68 = v66;
-                v257 = glpLinkerPoolAlloc(v67);
-                glpTypeGetAppleVec4Types(*v50, v68, 1, 0, 0, v257, 0, 0, 0);
-                v69 = *(v50 + 8);
-                v253 = v46;
-                if (v69 && (v70 = glpLayoutObjectFind(v69, 27)) != 0)
-                {
-                  v267 = *(v70 + 4);
-                }
+              glpABIGetTypeSize(0, *v50, 0);
+              glpTypeSizeGetSize();
+              v65 = v64;
+              v66 = glpLinkerPoolAlloc(a1);
+              v67 = a1;
+              v68 = v66;
+              v204 = glpLinkerPoolAlloc(v67);
+              glpTypeGetAppleVec4Types(*v50, v68, 1, 0, 0, v204, 0, 0, 0);
+              v69 = v50[1];
+              v200 = v46;
+              if (v69 && (v70 = glpLayoutObjectFind(v69, 27)) != 0)
+              {
+                v214 = *(v70 + 4);
+              }
 
-                else
-                {
-                  v267 = 0;
-                }
+              else
+              {
+                v214 = 0;
+              }
 
-                v71 = glpLinkerPoolAlloc(v287);
-                *v71 = v50;
-                v71[1] = 0;
-                v249 = v52;
-                glpStringHashPut(*v266, v52, __na, v71, v72);
-                if (v65)
+              v71 = glpLinkerPoolAlloc(v234);
+              *v71 = v50;
+              v71[1] = 0;
+              v196 = v52;
+              glpStringHashPut(*v213, v52, __na, v72, v71);
+              if (v65)
+              {
+                v73 = 0;
+                v74 = v214 << 16;
+                do
                 {
-                  for (j = 0; j != v65; ++j)
+                  v75 = (*(v229 + 4) + v73) | v74;
+                  v76 = glpIntHashGet(*v237, (*(v229 + 4) + v73) | v74);
+                  if (v48)
                   {
-                    v74 = (*(v282 + 4) + j) | (v267 << 16);
-                    v75 = glpIntHashGet(*v290, v74);
-                    if (v48)
-                    {
-                      v76 = glpLinkerGetInfoLog(v287);
-                      v77 = *(v50 + 32);
-                      v78 = *(v48 + 32);
-                      v79 = *(v50 + 40);
-                      v80 = *(v48 + 40);
-                      v291 = "-1";
-                      v292 = 0xEDA00000002;
-                      v293 = 0xFFFFFFFFLL;
-                      glpLogMessage(v76, 0, &v291, "Cannot mix builtin and user defined fragment outputs '%.*s' and '%.*s'.", v81, v82, v83, v84, v79);
-                    }
+                    v77 = glpLinkerGetInfoLog(v234);
+                    v238 = "-1";
+                    v239 = 0xEDA00000002;
+                    v240 = 0xFFFFFFFFLL;
+                    glpLogMessage(v77, 0, &v238, "Cannot mix builtin and user defined fragment outputs '%.*s' and '%.*s'.");
+                  }
 
-                    else
+                  else
+                  {
+                    if (!v76)
                     {
-                      if (!v75)
+                      if (BitSetGetEquals(v50[15], v73))
                       {
-                        if (BitSetGetEquals(*(v50 + 120), j))
+                        v79 = glpLinkerPoolAlloc(v234);
+                        *v79 = 0u;
+                        *(v79 + 16) = 0u;
+                        glpIntHashPut(*v237, v75, v79, 0.0);
+                        if (v226 <= *(v229 + 4) + v73)
                         {
-                          v93 = glpLinkerPoolAlloc(v287);
-                          *v93 = 0u;
-                          *(v93 + 16) = 0u;
-                          glpIntHashPut(*v290, v74, v93, 0.0);
-                          if (v279 <= *(v282 + 4) + j)
-                          {
-                            v94 = *(v282 + 4) + j;
-                          }
-
-                          else
-                          {
-                            v94 = v279;
-                          }
-
-                          v279 = v94;
-                          v95 = v274;
-                          if (v274 <= v267)
-                          {
-                            v95 = v267;
-                          }
-
-                          v274 = v95;
-                          if (glpPrimitiveTypeGetScalarCount(v68[j]))
-                          {
-                            v96 = 0;
-                            do
-                            {
-                              v97 = *(v71 + 2);
-                              v98 = &v71[v97 + 2];
-                              *v98 = v74;
-                              v98[1] = v96;
-                              *(v71 + 2) = v97 + 1;
-                              *v93 |= 1 << v96++;
-                            }
-
-                            while (v96 < glpPrimitiveTypeGetScalarCount(v68[j]));
-                          }
-
-                          *(v93 + 8) = *(v50 + 48) & 0x7F00000001FLL | (v257[j] >> 3);
-                          *(v93 + 4) = v68[j];
-                          *(v93 + 24) = addPPDrawBuffersToLayout(v287, *(v93 + 24));
-                          v99 = glpLinkerGetAllocator(v287);
-                          v100 = *(v93 + 24);
-                          v291 = "-1";
-                          v292 = 0xEDA00000002;
-                          v293 = 0xFFFFFFFFLL;
-                          glpLayoutObjectAppendInteger(v99, 0, &v291, 0, 0, v100, 33, 3);
-                          v101 = glpLinkerGetAllocator(v287);
-                          v102 = *(v93 + 24);
-                          v291 = "-1";
-                          v292 = 0xEDA00000002;
-                          v293 = 0xFFFFFFFFLL;
-                          glpLayoutObjectAppendInteger(v101, 0, &v291, 0, 0, v102, 68, 4);
-                          v103 = glpLinkerGetAllocator(v287);
-                          v104 = *(v93 + 24);
-                          v105 = *(v282 + 4);
-                          v291 = "-1";
-                          v292 = 0xEDA00000002;
-                          v293 = 0xFFFFFFFFLL;
-                          glpLayoutObjectAppendInteger(v103, 0, &v291, 0, 0, v104, 72, v105 + j);
-                          v106 = glpLinkerGetAllocator(v287);
-                          v107 = *(v93 + 24);
-                          v291 = "-1";
-                          v292 = 0xEDA00000002;
-                          v293 = 0xFFFFFFFFLL;
-                          glpLayoutObjectAppendInteger(v106, 0, &v291, 0, 0, v107, 73, v267);
-                          v48 = v285;
+                          v80 = *(v229 + 4) + v73;
                         }
 
-                        continue;
+                        else
+                        {
+                          v80 = v226;
+                        }
+
+                        v226 = v80;
+                        v81 = v221;
+                        if (v221 <= v214)
+                        {
+                          v81 = v214;
+                        }
+
+                        v221 = v81;
+                        if (glpPrimitiveTypeGetScalarCount(v68[v73]))
+                        {
+                          v82 = 0;
+                          do
+                          {
+                            v83 = *(v71 + 2);
+                            v84 = &v71[v83 + 2];
+                            *v84 = v75;
+                            v84[1] = v82;
+                            *(v71 + 2) = v83 + 1;
+                            *v79 |= 1 << v82++;
+                          }
+
+                          while (v82 < glpPrimitiveTypeGetScalarCount(v68[v73]));
+                        }
+
+                        *(v79 + 8) = v50[6] & 0x7F00000001FLL | (v204[v73] >> 3);
+                        *(v79 + 4) = v68[v73];
+                        *(v79 + 24) = addPPDrawBuffersToLayout(v234, *(v79 + 24));
+                        glpLinkerGetAllocator();
+                        v85 = *(v79 + 24);
+                        v238 = "-1";
+                        v239 = 0xEDA00000002;
+                        v240 = 0xFFFFFFFFLL;
+                        glpLayoutObjectAppendInteger(v86, 0, &v238, 0, 0, v85, 33, 3);
+                        glpLinkerGetAllocator();
+                        v87 = *(v79 + 24);
+                        v238 = "-1";
+                        v239 = 0xEDA00000002;
+                        v240 = 0xFFFFFFFFLL;
+                        glpLayoutObjectAppendInteger(v88, 0, &v238, 0, 0, v87, 68, 4);
+                        glpLinkerGetAllocator();
+                        v89 = *(v79 + 24);
+                        v90 = *(v229 + 4);
+                        v238 = "-1";
+                        v239 = 0xEDA00000002;
+                        v240 = 0xFFFFFFFFLL;
+                        glpLayoutObjectAppendInteger(v91, 0, &v238, 0, 0, v89, 72, v90 + v73);
+                        glpLinkerGetAllocator();
+                        v92 = *(v79 + 24);
+                        v238 = "-1";
+                        v239 = 0xEDA00000002;
+                        v240 = 0xFFFFFFFFLL;
+                        glpLayoutObjectAppendInteger(v93, 0, &v238, 0, 0, v92, 73, v214);
+                        v48 = v232;
                       }
 
-                      v85 = glpLinkerGetInfoLog(v287);
-                      v86 = *(v282 + 4) + j;
-                      v87 = *(v50 + 32);
-                      v88 = *(v50 + 40);
-                      v291 = "-1";
-                      v292 = 0xEDA00000002;
-                      v293 = 0xFFFFFFFFLL;
-                      glpLogMessage(v85, 0, &v291, "Active output aliasing. Slot %d unavailable for '%.*s' from layout location request.", v89, v90, v91, v92, v86);
+                      goto LABEL_84;
                     }
 
-                    v288 = 0;
+                    v78 = glpLinkerGetInfoLog(v234);
+                    v238 = "-1";
+                    v239 = 0xEDA00000002;
+                    v240 = 0xFFFFFFFFLL;
+                    glpLogMessage(v78, 0, &v238, "Active output aliasing. Slot %d unavailable for '%.*s' from layout location request.");
                   }
+
+                  v235 = 0;
+LABEL_84:
+                  ++v73;
                 }
 
-                v9 = v287;
-                if (!v248)
-                {
-                  *(v287 + 292) += *(v71 + 2);
-                }
-
-                v108 = glpLinkerPoolAlloc(v287);
-                *v108 = 0;
-                *(v108 + 8) = 0;
-                *v108 = *(v282 + 4);
-                *(v108 + 4) = v267;
-                *(v108 + 8) = *v50;
-                glpStringHashPut(*v265, v249, __na, v108, v109);
-                v47 = v271 + 1;
-                a2 = v264;
-                v46 = v253;
+                while (v73 != v65);
               }
+
+              a1 = v234;
+              if (!v195)
+              {
+                *(v234 + 292) += *(v71 + 2);
+              }
+
+              v94 = glpLinkerPoolAlloc(v234);
+              *v94 = 0;
+              *(v94 + 8) = 0;
+              *v94 = *(v229 + 4);
+              *(v94 + 4) = v214;
+              *(v94 + 8) = *v50;
+              glpStringHashPut(*v212, v196, __na, v95, v94);
+              v47 = v218 + 1;
+              a2 = v211;
+              v46 = v200;
             }
           }
         }
       }
 
       ++v46;
-      v110 = *(a2 + 32);
+      v96 = *(a2 + 32);
     }
 
-    while (v46 < v110);
-    v45 = v279;
+    while (v46 < v96);
+    v45 = v226;
   }
 
   else
   {
-    LODWORD(v110) = 0;
+    LODWORD(v96) = 0;
     v47 = 0;
-    v274 = 0;
-    v48 = v285;
+    v221 = 0;
+    v48 = v232;
   }
 
 LABEL_103:
-  v286 = v48;
-  v111 = *(v9 + 88);
-  if (!*(v111 + 32))
+  v233 = v48;
+  v97 = *(a1 + 88);
+  if (!*(v97 + 32))
   {
     goto LABEL_138;
   }
 
-  v280 = v45;
-  v112 = 0;
-  *v250 = *(v9 + 88);
+  v227 = v45;
+  v98 = 0;
+  *v197 = *(a1 + 88);
   while (2)
   {
-    v113 = *(v111 + 40) + 32 * v112;
-    v114 = *v113;
-    if (*v113)
+    v99 = *(v97 + 40) + 32 * v98;
+    v100 = *v99;
+    if (*v99)
     {
-      v115 = *(v113 + 8);
-      v116 = *(v113 + 16);
-      v117 = glpStringHashGet(a2, v115, v116);
-      if (v117)
+      v101 = *(v99 + 8);
+      v102 = *(v99 + 16);
+      v103 = glpStringHashGet(a2, v101, v102);
+      if (v103)
       {
-        v118 = v117;
-        v119 = *(v117 + 8);
-        if (!v119)
+        v104 = v103;
+        v105 = *(v103 + 8);
+        if (!v105)
         {
-          v276 = v115;
-          __nb = v112;
+          v223 = v101;
+          __nb = v98;
           goto LABEL_113;
         }
 
-        if (!glpLayoutObjectFind(v119, 26))
+        if (!glpLayoutObjectFind(v105, 26))
         {
-          v120 = *(v118 + 8);
-          __nb = v112;
-          v276 = v115;
-          if (v120)
+          v106 = v104[1];
+          __nb = v98;
+          v223 = v101;
+          if (v106)
           {
-            v254 = glpLayoutObjectFind(v120, 79) != 0;
+            v201 = glpLayoutObjectFind(v106, 79) != 0;
             goto LABEL_114;
           }
 
 LABEL_113:
-          v254 = 0;
+          v201 = 0;
 LABEL_114:
-          v272 = v47;
-          v126 = glpABIGetTypeSize(0, *v118, 0);
-          v127 = glpTypeSizeGetSize(v126);
-          v128 = glpLinkerPoolAlloc(v9);
-          v268 = glpLinkerPoolAlloc(v9);
-          glpTypeGetAppleVec4Types(*v118, v128, 1, 0, 0, v268, 0, 0, 0);
-          v283 = v127;
-          v129 = v9;
-          v130 = glpLinkerPoolAlloc(v9);
-          *v130 = v118;
-          v130[1] = 0;
-          v258 = v116;
-          glpStringHashPut(*v266, v276, v116, v130, v131);
-          if (v127)
+          v219 = v47;
+          glpABIGetTypeSize(0, *v104, 0);
+          glpTypeSizeGetSize();
+          v109 = v108;
+          v110 = v108;
+          v111 = glpLinkerPoolAlloc(a1);
+          v215 = glpLinkerPoolAlloc(a1);
+          glpTypeGetAppleVec4Types(*v104, v111, 1, 0, 0, v215, 0, 0, 0);
+          v230 = v110;
+          v112 = a1;
+          v113 = glpLinkerPoolAlloc(a1);
+          *v113 = v104;
+          v113[1] = 0;
+          v205 = v102;
+          glpStringHashPut(*v213, v223, v102, v114, v113);
+          if (v109)
           {
-            for (k = 0; k != v283; ++k)
+            for (j = 0; j != v230; ++j)
             {
-              v133 = (*v114 + k) | (*(v114 + 1) << 16);
-              v134 = glpIntHashGet(*v290, v133);
-              if (v286)
+              v116 = (*v100 + j) | (*(v100 + 1) << 16);
+              v117 = glpIntHashGet(*v237, (*v100 + j) | (*(v100 + 1) << 16));
+              if (v233)
               {
-                v135 = glpLinkerGetInfoLog(v129);
-                v136 = *(v118 + 32);
-                v137 = *(v286 + 32);
-                v138 = *(v118 + 40);
-                v139 = *(v286 + 40);
-                v291 = "-1";
-                v292 = 0xEDA00000002;
-                v293 = 0xFFFFFFFFLL;
-                glpLogMessage(v135, 0, &v291, "Cannot mix builtin and user defined fragment outputs '%.*s' and '%.*s'.", v140, v141, v142, v143, v138);
+                v118 = glpLinkerGetInfoLog(v112);
+                v238 = "-1";
+                v239 = 0xEDA00000002;
+                v240 = 0xFFFFFFFFLL;
+                glpLogMessage(v118, 0, &v238, "Cannot mix builtin and user defined fragment outputs '%.*s' and '%.*s'.");
               }
 
               else
               {
-                if (!v134)
+                if (!v117)
                 {
-                  if (BitSetGetEquals(*(v118 + 120), k))
+                  if (BitSetGetEquals(v104[15], j))
                   {
-                    v152 = glpLinkerPoolAlloc(v129);
-                    *v152 = 0u;
-                    *(v152 + 16) = 0u;
-                    glpIntHashPut(*v290, v133, v152, 0.0);
-                    if (v280 <= *v114 + k)
+                    v120 = glpLinkerPoolAlloc(v112);
+                    *v120 = 0u;
+                    *(v120 + 16) = 0u;
+                    glpIntHashPut(*v237, v116, v120, 0.0);
+                    if (v227 <= *v100 + j)
                     {
-                      v153 = *v114 + k;
+                      v121 = *v100 + j;
                     }
 
                     else
                     {
-                      v153 = v280;
+                      v121 = v227;
                     }
 
-                    v280 = v153;
-                    v154 = v274;
-                    if (v274 <= *(v114 + 1))
+                    v227 = v121;
+                    v122 = v221;
+                    if (v221 <= *(v100 + 1))
                     {
-                      v154 = *(v114 + 1);
+                      v122 = *(v100 + 1);
                     }
 
-                    v274 = v154;
-                    if (glpPrimitiveTypeGetScalarCount(v128[k]))
+                    v221 = v122;
+                    if (glpPrimitiveTypeGetScalarCount(v111[j]))
                     {
-                      v155 = 0;
+                      v123 = 0;
                       do
                       {
-                        v156 = *(v130 + 2);
-                        v157 = &v130[v156 + 2];
-                        *v157 = v133;
-                        v157[1] = v155;
-                        *(v130 + 2) = v156 + 1;
-                        *v152 |= 1 << v155++;
+                        v124 = *(v113 + 2);
+                        v125 = &v113[v124 + 2];
+                        *v125 = v116;
+                        v125[1] = v123;
+                        *(v113 + 2) = v124 + 1;
+                        *v120 |= 1 << v123++;
                       }
 
-                      while (v155 < glpPrimitiveTypeGetScalarCount(v128[k]));
+                      while (v123 < glpPrimitiveTypeGetScalarCount(v111[j]));
                     }
 
-                    *(v152 + 8) = *(v118 + 48) & 0x7F00000001FLL | (v268[k] >> 3);
-                    *(v152 + 4) = v128[k];
-                    *(v152 + 24) = addPPDrawBuffersToLayout(v287, *(v152 + 24));
-                    v158 = glpLinkerGetAllocator(v287);
-                    v159 = *(v152 + 24);
-                    v291 = "-1";
-                    v292 = 0xEDA00000002;
-                    v293 = 0xFFFFFFFFLL;
-                    glpLayoutObjectAppendInteger(v158, 0, &v291, 0, 0, v159, 33, 3);
-                    v160 = glpLinkerGetAllocator(v287);
-                    v161 = *(v152 + 24);
-                    v291 = "-1";
-                    v292 = 0xEDA00000002;
-                    v293 = 0xFFFFFFFFLL;
-                    glpLayoutObjectAppendInteger(v160, 0, &v291, 0, 0, v161, 68, 4);
-                    v162 = glpLinkerGetAllocator(v287);
-                    v163 = *(v152 + 24);
-                    v164 = *v114;
-                    v291 = "-1";
-                    v292 = 0xEDA00000002;
-                    v293 = 0xFFFFFFFFLL;
-                    glpLayoutObjectAppendInteger(v162, 0, &v291, 0, 0, v163, 72, v164 + k);
-                    v129 = v287;
-                    v165 = glpLinkerGetAllocator(v287);
-                    v166 = *(v152 + 24);
-                    v167 = *(v114 + 1);
-                    v291 = "-1";
-                    v292 = 0xEDA00000002;
-                    v293 = 0xFFFFFFFFLL;
-                    glpLayoutObjectAppendInteger(v165, 0, &v291, 0, 0, v166, 73, v167);
+                    *(v120 + 8) = v104[6] & 0x7F00000001FLL | (v215[j] >> 3);
+                    *(v120 + 4) = v111[j];
+                    *(v120 + 24) = addPPDrawBuffersToLayout(v234, *(v120 + 24));
+                    glpLinkerGetAllocator();
+                    v126 = *(v120 + 24);
+                    v238 = "-1";
+                    v239 = 0xEDA00000002;
+                    v240 = 0xFFFFFFFFLL;
+                    glpLayoutObjectAppendInteger(v127, 0, &v238, 0, 0, v126, 33, 3);
+                    glpLinkerGetAllocator();
+                    v128 = *(v120 + 24);
+                    v238 = "-1";
+                    v239 = 0xEDA00000002;
+                    v240 = 0xFFFFFFFFLL;
+                    glpLayoutObjectAppendInteger(v129, 0, &v238, 0, 0, v128, 68, 4);
+                    glpLinkerGetAllocator();
+                    v130 = *(v120 + 24);
+                    v131 = *v100;
+                    v238 = "-1";
+                    v239 = 0xEDA00000002;
+                    v240 = 0xFFFFFFFFLL;
+                    glpLayoutObjectAppendInteger(v132, 0, &v238, 0, 0, v130, 72, v131 + j);
+                    v112 = v234;
+                    glpLinkerGetAllocator();
+                    v133 = *(v120 + 24);
+                    v134 = *(v100 + 1);
+                    v238 = "-1";
+                    v239 = 0xEDA00000002;
+                    v240 = 0xFFFFFFFFLL;
+                    glpLayoutObjectAppendInteger(v135, 0, &v238, 0, 0, v133, 73, v134);
                   }
 
                   continue;
                 }
 
-                v144 = glpLinkerGetInfoLog(v129);
-                v145 = *v114 + k;
-                v146 = *(v118 + 32);
-                v147 = *(v118 + 40);
-                v291 = "-1";
-                v292 = 0xEDA00000002;
-                v293 = 0xFFFFFFFFLL;
-                glpLogMessage(v144, 0, &v291, "Active output aliasing. Slot %d unavailable for '%.*s' from FragDataBinding request.", v148, v149, v150, v151, v145);
+                v119 = glpLinkerGetInfoLog(v112);
+                v238 = "-1";
+                v239 = 0xEDA00000002;
+                v240 = 0xFFFFFFFFLL;
+                glpLogMessage(v119, 0, &v238, "Active output aliasing. Slot %d unavailable for '%.*s' from FragDataBinding request.");
               }
 
-              v288 = 0;
+              v235 = 0;
             }
           }
 
-          v9 = v129;
-          if (!v254)
+          a1 = v112;
+          if (!v201)
           {
-            *(v129 + 292) += *(v130 + 2);
+            *(v112 + 292) += *(v113 + 2);
           }
 
-          v168 = glpLinkerPoolAlloc(v129);
-          *v168 = 0;
-          v168[1] = 0;
-          v169 = *v114;
-          *v168 = *v114;
-          v168[1] = *v118;
-          glpStringHashPut(*v265, v276, v258, v168, v169);
-          v47 = v272 + 1;
-          v112 = __nb;
-          a2 = v264;
-          v111 = *v250;
+          v136 = glpLinkerPoolAlloc(v112);
+          *v136 = 0;
+          v136[1] = 0;
+          v137 = *v100;
+          *v136 = *v100;
+          v136[1] = *v104;
+          glpStringHashPut(*v212, v223, v205, v137, v136);
+          v47 = v219 + 1;
+          v98 = __nb;
+          a2 = v211;
+          v97 = *v197;
         }
       }
 
       else
       {
-        v121 = glpLinkerGetInfoLog(v9);
-        v291 = "-1";
-        v292 = 0xEDA00000002;
-        v293 = 0xFFFFFFFFLL;
-        glpLogMessage(v121, 1u, &v291, "Could not find fragment shader output '%.*s' to match FragDataBinding request.", v122, v123, v124, v125, v116);
+        v107 = glpLinkerGetInfoLog(a1);
+        v238 = "-1";
+        v239 = 0xEDA00000002;
+        v240 = 0xFFFFFFFFLL;
+        glpLogMessage(v107, 1, &v238, "Could not find fragment shader output '%.*s' to match FragDataBinding request.", v102, v101);
       }
     }
 
-    if (++v112 < *(v111 + 32))
+    if (++v98 < *(v97 + 32))
     {
       continue;
     }
@@ -6431,37 +6413,37 @@ LABEL_114:
     break;
   }
 
-  LODWORD(v110) = *(a2 + 32);
-  v45 = v280;
+  LODWORD(v96) = *(a2 + 32);
+  v45 = v227;
 LABEL_138:
-  if (!v110)
+  if (!v96)
   {
 LABEL_197:
-    result = v288;
+    result = v235;
     goto LABEL_198;
   }
 
-  v281 = v45;
-  v170 = 0;
-  v171 = 0;
+  v228 = v45;
+  v138 = 0;
+  v139 = 0;
   while (2)
   {
-    v172 = (*(a2 + 40) + 32 * v170);
-    v173 = *v172;
-    if (!*v172)
+    v140 = (*(a2 + 40) + 32 * v138);
+    v141 = *v140;
+    if (!*v140)
     {
       goto LABEL_165;
     }
 
-    v175 = v172[1];
-    v174 = v172[2];
-    v176 = glpStringHashGet(*(v9 + 88), v175, v174);
-    v177 = *(v173 + 8);
-    if (!v177)
+    v143 = v140[1];
+    v142 = v140[2];
+    v144 = glpStringHashGet(*(a1 + 88), v143, v142);
+    v145 = *(v141 + 8);
+    if (!v145)
     {
-      v178 = 0;
+      v146 = 0;
 LABEL_146:
-      if (v176)
+      if (v144)
       {
         goto LABEL_165;
       }
@@ -6469,24 +6451,24 @@ LABEL_146:
       goto LABEL_147;
     }
 
-    v178 = glpLayoutObjectFind(v177, 26) != 0;
-    v179 = *(v173 + 8);
-    if (!v179)
+    v146 = glpLayoutObjectFind(v145, 26) != 0;
+    v147 = *(v141 + 8);
+    if (!v147)
     {
       goto LABEL_146;
     }
 
-    if (glpLayoutObjectFind(v179, 29) | v176)
+    if (glpLayoutObjectFind(v147, 29) | v144)
     {
       goto LABEL_165;
     }
 
 LABEL_147:
-    if (v174 < 3 || ((v180 = *v175, v180 != 103) ? (v181 = 103) : (v180 = *(v175 + 1), v180 != 108) ? (v181 = 108) : (v180 = *(v175 + 2), v181 = 95), v181 != v180 && (v174 < 9 || strncmp("$ib$", v175, 4uLL) || strncmp("$gl_", v175 + 5, 4uLL))))
+    if (v142 < 3 || ((v148 = *v143, v148 != 103) ? (v149 = 103) : (v148 = *(v143 + 1), v148 != 108) ? (v149 = 108) : (v148 = *(v143 + 2), v149 = 95), v149 != v148 && (v142 < 9 || strncmp("$ib$", v143, 4uLL) || strncmp("$gl_", v143 + 5, 4uLL))))
     {
-      if (v174 && *v175 == 36)
+      if (v142 && *v143 == 36)
       {
-        if (v174 >= 9 && !strncmp("$ib$", v175, 4uLL) && strncmp("$gl_", v175 + 5, 4uLL) == 0 && !v178)
+        if (v142 >= 9 && !strncmp("$ib$", v143, 4uLL) && strncmp("$gl_", v143 + 5, 4uLL) == 0 && !v146)
         {
           goto LABEL_162;
         }
@@ -6494,176 +6476,178 @@ LABEL_147:
 
       else
       {
-        if (v178)
+        if (v146)
         {
           goto LABEL_165;
         }
 
 LABEL_162:
-        v182 = *(v173 + 8);
-        v259 = v171;
-        __nc = v174;
-        if (v182)
+        v150 = *(v141 + 8);
+        v206 = v139;
+        __nc = v142;
+        if (v150)
         {
-          v183 = glpLayoutObjectFind(v182, 79) != 0;
+          v151 = glpLayoutObjectFind(v150, 79) != 0;
         }
 
         else
         {
-          v183 = 0;
+          v151 = 0;
         }
 
-        v184 = glpABIGetTypeSize(0, *v173, 0);
-        v185 = glpTypeSizeGetSize(v184);
-        v186 = glpLinkerPoolAlloc(v9);
-        v269 = glpLinkerPoolAlloc(v9);
-        glpTypeGetAppleVec4Types(*v173, v186, 1, 0, 0, v269, 0, 0, 0);
-        v284 = v185;
-        v187 = glpLinkerPoolAlloc(v9);
-        *v187 = v173;
-        v187[1] = 0;
-        glpStringHashPut(*v266, v175, __nc, v187, v188);
-        if (v185)
+        glpABIGetTypeSize(0, *v141, 0);
+        glpTypeSizeGetSize();
+        v153 = v152;
+        v154 = v152;
+        v155 = glpLinkerPoolAlloc(a1);
+        v216 = glpLinkerPoolAlloc(a1);
+        glpTypeGetAppleVec4Types(*v141, v155, 1, 0, 0, v216, 0, 0, 0);
+        v231 = v154;
+        v156 = glpLinkerPoolAlloc(a1);
+        *v156 = v141;
+        v156[1] = 0;
+        glpStringHashPut(*v213, v143, __nc, v157, v156);
+        if (v153)
         {
-          v251 = v183;
-          v255 = v175;
-          v189 = 0;
-          v190 = *v290;
+          v198 = v151;
+          v202 = v143;
+          v158 = 0;
+          v159 = *v237;
           do
           {
-            v191 = v185;
-            v277 = v189;
-            while (!glpIntHashGet(v190, v189))
+            v160 = v153;
+            v224 = v158;
+            while (!glpIntHashGet(v159, v158))
             {
-              ++v189;
-              if (!--v191)
+              ++v158;
+              if (!--v160)
               {
-                v189 = v277;
+                v158 = v224;
                 goto LABEL_175;
               }
             }
 
-            v189 = v277 + 1;
+            v158 = v224 + 1;
           }
 
-          while (v277 + 1 < v277 + 1 + v185);
+          while (v224 + 1 < v224 + 1 + v153);
 LABEL_175:
-          v278 = v189;
-          v192 = 0;
-          v193 = v286;
+          v225 = v158;
+          v161 = 0;
+          v162 = v233;
           do
           {
-            if (v193)
+            if (v162)
             {
-              v194 = glpLinkerGetInfoLog(v287);
-              v195 = *(v173 + 32);
-              v196 = *(v193 + 32);
-              v197 = *(v173 + 40);
-              v198 = *(v193 + 40);
-              v291 = "-1";
-              v292 = 0xEDA00000002;
-              v293 = 0xFFFFFFFFLL;
-              glpLogMessage(v194, 0, &v291, "Cannot mix builtin and user defined fragment outputs '%.*s' and '%.*s'.", v199, v200, v201, v202, v197);
-              v288 = 0;
+              v163 = glpLinkerGetInfoLog(v234);
+              v164 = *(v141 + 32);
+              v165 = *(v162 + 32);
+              v166 = *(v141 + 40);
+              v167 = *(v162 + 40);
+              v238 = "-1";
+              v239 = 0xEDA00000002;
+              v240 = 0xFFFFFFFFLL;
+              glpLogMessage(v163, 0, &v238, "Cannot mix builtin and user defined fragment outputs '%.*s' and '%.*s'.", v166, v164, v167, v165);
+              v235 = 0;
             }
 
-            else if (BitSetGetEquals(*(v173 + 120), v192))
+            else if (BitSetGetEquals(*(v141 + 120), v161))
             {
-              v203 = glpLinkerPoolAlloc(v287);
-              *v203 = 0u;
-              *(v203 + 16) = 0u;
-              v204 = v278 + v192;
-              glpIntHashPut(*v290, v278 + v192, v203, 0.0);
-              if (v281 <= v278 + v192)
+              v168 = glpLinkerPoolAlloc(v234);
+              *v168 = 0u;
+              *(v168 + 16) = 0u;
+              v169 = v225 + v161;
+              glpIntHashPut(*v237, v225 + v161, v168, 0.0);
+              if (v228 <= v225 + v161)
               {
-                v205 = v278 + v192;
+                v170 = v225 + v161;
               }
 
               else
               {
-                v205 = v281;
+                v170 = v228;
               }
 
-              v281 = v205;
-              if (glpPrimitiveTypeGetScalarCount(v186[v192]))
+              v228 = v170;
+              if (glpPrimitiveTypeGetScalarCount(v155[v161]))
               {
-                v206 = 0;
+                v171 = 0;
                 do
                 {
-                  v207 = *(v187 + 2);
-                  v208 = &v187[v207 + 2];
-                  *v208 = v204;
-                  v208[1] = v206;
-                  *(v187 + 2) = v207 + 1;
-                  *v203 |= 1 << v206++;
+                  v172 = *(v156 + 2);
+                  v173 = &v156[v172 + 2];
+                  *v173 = v169;
+                  v173[1] = v171;
+                  *(v156 + 2) = v172 + 1;
+                  *v168 |= 1 << v171++;
                 }
 
-                while (v206 < glpPrimitiveTypeGetScalarCount(v186[v192]));
+                while (v171 < glpPrimitiveTypeGetScalarCount(v155[v161]));
               }
 
-              *(v203 + 8) = *(v173 + 48) & 0x7F00000001FLL | (v269[v192] >> 3);
-              *(v203 + 4) = v186[v192];
-              *(v203 + 24) = addPPDrawBuffersToLayout(v287, *(v203 + 24));
-              v209 = glpLinkerGetAllocator(v287);
-              v210 = *(v203 + 24);
-              v291 = "-1";
-              v292 = 0xEDA00000002;
-              v293 = 0xFFFFFFFFLL;
-              glpLayoutObjectAppendInteger(v209, 0, &v291, 0, 0, v210, 33, 3);
-              v211 = glpLinkerGetAllocator(v287);
-              v212 = *(v203 + 24);
-              v291 = "-1";
-              v292 = 0xEDA00000002;
-              v293 = 0xFFFFFFFFLL;
-              glpLayoutObjectAppendInteger(v211, 0, &v291, 0, 0, v212, 68, 4);
-              v213 = glpLinkerGetAllocator(v287);
-              v214 = *(v203 + 24);
-              v291 = "-1";
-              v292 = 0xEDA00000002;
-              v293 = 0xFFFFFFFFLL;
-              glpLayoutObjectAppendInteger(v213, 0, &v291, 0, 0, v214, 72, v204);
-              v215 = glpLinkerGetAllocator(v287);
-              v216 = *(v203 + 24);
-              v291 = "-1";
-              v292 = 0xEDA00000002;
-              v293 = 0xFFFFFFFFLL;
-              glpLayoutObjectAppendInteger(v215, 0, &v291, 0, 0, v216, 73, 0);
-              v193 = v286;
+              *(v168 + 8) = *(v141 + 48) & 0x7F00000001FLL | (v216[v161] >> 3);
+              *(v168 + 4) = v155[v161];
+              *(v168 + 24) = addPPDrawBuffersToLayout(v234, *(v168 + 24));
+              glpLinkerGetAllocator();
+              v174 = *(v168 + 24);
+              v238 = "-1";
+              v239 = 0xEDA00000002;
+              v240 = 0xFFFFFFFFLL;
+              glpLayoutObjectAppendInteger(v175, 0, &v238, 0, 0, v174, 33, 3);
+              glpLinkerGetAllocator();
+              v176 = *(v168 + 24);
+              v238 = "-1";
+              v239 = 0xEDA00000002;
+              v240 = 0xFFFFFFFFLL;
+              glpLayoutObjectAppendInteger(v177, 0, &v238, 0, 0, v176, 68, 4);
+              glpLinkerGetAllocator();
+              v178 = *(v168 + 24);
+              v238 = "-1";
+              v239 = 0xEDA00000002;
+              v240 = 0xFFFFFFFFLL;
+              glpLayoutObjectAppendInteger(v179, 0, &v238, 0, 0, v178, 72, v169);
+              glpLinkerGetAllocator();
+              v180 = *(v168 + 24);
+              v238 = "-1";
+              v239 = 0xEDA00000002;
+              v240 = 0xFFFFFFFFLL;
+              glpLayoutObjectAppendInteger(v181, 0, &v238, 0, 0, v180, 73, 0);
+              v162 = v233;
             }
 
-            ++v192;
+            ++v161;
           }
 
-          while (v192 != v284);
-          v9 = v287;
-          a2 = v264;
-          v175 = v255;
-          v183 = v251;
+          while (v161 != v231);
+          a1 = v234;
+          a2 = v211;
+          v143 = v202;
+          v151 = v198;
         }
 
         else
         {
-          v278 = 0;
+          v225 = 0;
         }
 
-        if (!v183)
+        if (!v151)
         {
-          *(v9 + 292) += *(v187 + 2);
+          *(a1 + 292) += *(v156 + 2);
         }
 
-        v217 = glpLinkerPoolAlloc(v9);
-        *v217 = 0;
-        v217[1] = 0;
-        *v217 = v278;
-        v217[1] = *v173;
-        glpStringHashPut(*v265, v175, __nc, v217, v218);
+        v182 = glpLinkerPoolAlloc(a1);
+        *v182 = 0;
+        v182[1] = 0;
+        *v182 = v225;
+        v182[1] = *v141;
+        glpStringHashPut(*v212, v143, __nc, v183, v182);
         ++v47;
-        v171 = v259 + 1;
+        v139 = v206 + 1;
       }
     }
 
 LABEL_165:
-    if (++v170 < *(a2 + 32))
+    if (++v138 < *(a2 + 32))
     {
       continue;
     }
@@ -6673,59 +6657,58 @@ LABEL_165:
 
   if (v47 < 2)
   {
-    v45 = v281;
+    v45 = v228;
     goto LABEL_197;
   }
 
-  v45 = v281;
-  result = v288;
-  if (v171 && *(**(v9 + 176) + 4) == 6)
+  v45 = v228;
+  result = v235;
+  if (v139 && *(**(a1 + 176) + 4) == 6)
   {
-    v220 = glpLinkerGetInfoLog(v9);
-    v291 = "-1";
-    v292 = 0xEDA00000002;
-    v293 = 0xFFFFFFFFLL;
-    glpLogMessage(v220, 0, &v291, "GLSL 300 requires that all fragment shader outputs have a location if there is more than one output.", v221, v222, v223, v224, v247);
+    v185 = glpLinkerGetInfoLog(a1);
+    v238 = "-1";
+    v239 = 0xEDA00000002;
+    v240 = 0xFFFFFFFFLL;
+    glpLogMessage(v185, 0, &v238, "GLSL 300 requires that all fragment shader outputs have a location if there is more than one output.");
     result = 0;
   }
 
 LABEL_198:
-  v225 = *(*v266 + 32);
-  if (v225)
+  v186 = *(*v213 + 32);
+  if (v186)
   {
-    v226 = *(*v266 + 40);
+    v187 = *(*v213 + 40);
     do
     {
-      if (*v226)
+      if (*v187)
       {
-        *(**v226 + 8) = 0;
+        *(**v187 + 8) = 0;
       }
 
-      v226 += 32;
-      --v225;
+      v187 += 32;
+      --v186;
     }
 
-    while (v225);
+    while (v186);
   }
 
-  if (v274 && v45)
+  if (v221 && v45)
   {
-    v227 = glpLinkerGetInfoLog(v9);
-    v291 = "-1";
-    v292 = 0xEDA00000002;
-    v293 = 0xFFFFFFFFLL;
-    glpLogMessage(v227, 0, &v291, "Exceeded max dual source draw buffers of %d, shader uses up to %d.", v228, v229, v230, v231, 1);
+    v188 = glpLinkerGetInfoLog(a1);
+    v238 = "-1";
+    v239 = 0xEDA00000002;
+    v240 = 0xFFFFFFFFLL;
+    glpLogMessage(v188, 0, &v238, "Exceeded max dual source draw buffers of %d, shader uses up to %d.");
     return 0;
   }
 
-  if (v45 >= glpBuiltInConstantValues[8 * (*(v9 + 60) == 4) + 7])
+  if (v45 >= glpBuiltInConstantValues[8 * (*(a1 + 60) == 4) + 7])
   {
-    v232 = glpLinkerGetInfoLog(v9);
-    v233 = glpBuiltInConstantValues[8 * (*(v9 + 60) == 4) + 7];
-    v291 = "-1";
-    v292 = 0xEDA00000002;
-    v293 = 0xFFFFFFFFLL;
-    glpLogMessage(v232, 0, &v291, "Exceeded max draw buffers of %d, shader uses up to %d.", v234, v235, v236, v237, v233);
+    v189 = glpLinkerGetInfoLog(a1);
+    v238 = "-1";
+    v239 = 0xEDA00000002;
+    v240 = 0xFFFFFFFFLL;
+    glpLogMessage(v189, 0, &v238, "Exceeded max draw buffers of %d, shader uses up to %d.");
     return 0;
   }
 
@@ -6734,100 +6717,100 @@ LABEL_198:
 
 void *addPPDrawBuffersToLayout(uint64_t a1, void **a2)
 {
-  Allocator = glpLinkerGetAllocator(a1);
-  LayoutObject = glpCopyLayoutObject(Allocator, a2);
+  glpLinkerGetAllocator();
+  LayoutObject = glpCopyLayoutObject(v3, a2);
   if (!LayoutObject)
   {
-    v6 = glpLinkerGetAllocator(a1);
-    LayoutObject = glpMakeLayoutObject(v6);
+    glpLinkerGetAllocator();
+    LayoutObject = glpMakeLayoutObject(v5);
   }
 
-  v7 = glpLinkerGetAllocator(a1);
-  v9[0] = "-1";
-  v9[1] = 0xEDA00000002;
-  v9[2] = 0xFFFFFFFFLL;
-  glpLayoutObjectAppendInteger(v7, 0, v9, 0, 0, LayoutObject, 77, 2);
+  glpLinkerGetAllocator();
+  v8[0] = "-1";
+  v8[1] = 0xEDA00000002;
+  v8[2] = 0xFFFFFFFFLL;
+  glpLayoutObjectAppendInteger(v6, 0, v8, 0, 0, LayoutObject, 77, 2);
   return LayoutObject;
 }
 
 uint64_t glpMakeInterstageBindings(uint64_t StringHash, unsigned int a2, unsigned int a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t *a8, uint64_t *a9, uint64_t *a10, uint64_t *a11, uint64_t *a12, uint64_t *a13)
 {
-  v552 = a8;
+  v480 = a8;
   v13 = a7;
-  v564 = a3;
-  v556 = a2;
+  v492 = a3;
+  v484 = a2;
   v17 = StringHash;
-  v582[1] = *MEMORY[0x277D85DE8];
+  v510[1] = *MEMORY[0x277D85DE8];
   if (a7)
   {
-    Allocator = glpLinkerGetAllocator(StringHash);
-    StringHash = glpMakeStringHash(Allocator);
+    glpLinkerGetAllocator();
+    StringHash = glpMakeStringHash(v18);
     *a9 = StringHash;
   }
 
-  v553 = a11;
+  v481 = a11;
   if (a5)
   {
-    v19 = glpLinkerGetAllocator(v17);
+    glpLinkerGetAllocator();
     StringHash = glpMakeStringHash(v19);
-    *v552 = StringHash;
+    *v480 = StringHash;
   }
 
-  v550 = a10;
+  v478 = a10;
   if (v13)
   {
-    v20 = glpLinkerGetAllocator(v17);
+    glpLinkerGetAllocator();
     StringHash = glpMakeStringHash(v20);
-    *v553 = StringHash;
+    *v481 = StringHash;
   }
 
-  v563 = a13;
+  v491 = a13;
   if (a5)
   {
-    v21 = glpLinkerGetAllocator(v17);
+    glpLinkerGetAllocator();
     StringHash = glpMakeStringHash(v21);
-    *v550 = StringHash;
+    *v478 = StringHash;
   }
 
-  v558 = a12;
+  v486 = a12;
   if (v13)
   {
-    v22 = glpLinkerGetAllocator(v17);
+    glpLinkerGetAllocator();
     StringHash = glpMakeIntHash(v22);
-    *v563 = StringHash;
+    *v491 = StringHash;
   }
 
   if (a5)
   {
-    v23 = glpLinkerGetAllocator(v17);
+    glpLinkerGetAllocator();
     StringHash = glpMakeIntHash(v23);
-    *v558 = StringHash;
+    *v486 = StringHash;
   }
 
   v24 = 1;
-  v561 = v13;
-  v562 = a5;
-  v565 = v17;
-  v554 = a9;
+  v489 = v13;
+  v490 = a5;
+  v493 = v17;
+  v482 = a9;
   if (a4 && a6)
   {
-    LODWORD(v560) = *(v17 + 60);
-    v25 = glpLinkerGetAllocator(v17);
+    LODWORD(v488) = *(v17 + 60);
+    glpLinkerGetAllocator();
     v26 = glpMakeStringHash(v25);
     *(v17 + 344) = glpMakeIntHash(&GLP_MALLOC_ALLOCATOR);
     v27 = *(v17 + 96);
     LODWORD(v28) = *(v27 + 4);
     if (v28)
     {
-      v547 = a6;
+      v475 = a6;
       v29 = 0;
-      LODWORD(v551) = 0;
-      LODWORD(v549) = 0;
-      v555 = 0;
+      LODWORD(v479) = 0;
+      LODWORD(v477) = 0;
+      v483 = 0;
       v30 = 0;
-      LODWORD(v548) = -1;
-      v557 = v26;
-      v31 = v560;
+      LODWORD(v476) = -1;
+      v485 = v26;
+      v31 = v488;
       while (1)
       {
         v32 = v29 == v28 - 1 || *(v17 + 300) == 35981;
@@ -6868,64 +6851,64 @@ LABEL_43:
           if (*(v17 + 300) != 35980)
           {
             InfoLog = glpLinkerGetInfoLog(v17);
-            *&v571 = "-1";
-            *(&v571 + 1) = 0xEDA00000002;
-            *&v572 = 0xFFFFFFFFLL;
-            glpLogMessage(InfoLog, 0, &v571, "Usage of '%.*s' disallowed if transformFeedbackBufferMode != GL_INTERLEAVED_ATTRIBS.", v53, v54, v55, v56, v35);
+            *&v499 = "-1";
+            *(&v499 + 1) = 0xEDA00000002;
+            *&v500 = 0xFFFFFFFFLL;
+            glpLogMessage(InfoLog, 0, &v499, "Usage of '%.*s' disallowed if transformFeedbackBufferMode != GL_INTERLEAVED_ATTRIBS.", v35, v34);
             v24 = 0;
-            a5 = v562;
+            a5 = v490;
 LABEL_58:
-            v31 = v560;
+            v31 = v488;
             goto LABEL_59;
           }
 
-          LODWORD(v559) = v24;
+          LODWORD(v487) = v24;
           PrimitiveType = 0;
           goto LABEL_45;
         }
 
-        v567 = 0;
-        v566 = 0;
-        v581 = 0;
-        v582[0] = 0;
-        if (!glpTypeParseDeref(v547, topLevelLookUpObjectTypeFromStringHash, v34, v35, &v566, v582, &v581))
+        v495 = 0;
+        v494 = 0;
+        v509 = 0;
+        v510[0] = 0;
+        if (!glpTypeParseDeref(v475, topLevelLookUpObjectTypeFromStringHash, v34, v35, &v494, v510, &v509))
         {
-          v96 = glpLinkerGetInfoLog(v17);
-          *&v571 = "-1";
-          *(&v571 + 1) = 0xEDA00000002;
-          *&v572 = 0xFFFFFFFFLL;
-          glpLogMessage(v96, 0, &v571, "Could not find transform feedback binding for '%.*s.'", v97, v98, v99, v100, v35);
+          v85 = glpLinkerGetInfoLog(v17);
+          *&v499 = "-1";
+          *(&v499 + 1) = 0xEDA00000002;
+          *&v500 = 0xFFFFFFFFLL;
+          glpLogMessage(v85, 0, &v499, "Could not find transform feedback binding for '%.*s.'");
           goto LABEL_88;
         }
 
-        v86 = glpStringHashGet(v547, v566, v567);
-        v87 = *(v86 + 8);
-        if (v87)
+        v79 = glpStringHashGet(v475, v494, v495);
+        v80 = *(v79 + 8);
+        if (v80)
         {
-          v88 = glpLayoutObjectFind(v87, 9);
-          if (v88)
+          v81 = glpLayoutObjectFind(v80, 9);
+          if (v81)
           {
-            if (*(v88 + 4))
+            if (*(v81 + 4))
             {
-              v89 = glpLinkerGetInfoLog(v565);
-              *&v571 = "-1";
-              *(&v571 + 1) = 0xEDA00000002;
-              *&v572 = 0xFFFFFFFFLL;
-              v17 = v565;
-              glpLogMessage(v89, 0, &v571, "Exceeded max vertex streams of %d, with %d.", v90, v91, v92, v93, 1);
+              v82 = glpLinkerGetInfoLog(v493);
+              *&v499 = "-1";
+              *(&v499 + 1) = 0xEDA00000002;
+              *&v500 = 0xFFFFFFFFLL;
+              v17 = v493;
+              glpLogMessage(v82, 0, &v499, "Exceeded max vertex streams of %d, with %d.");
               goto LABEL_88;
             }
           }
         }
 
-        v548 = v86;
-        Kind = glpTypeGetKind(v582[0]);
-        ElementType = v582[0];
+        v476 = v79;
+        Kind = glpTypeGetKind(v510[0]);
+        ElementType = v510[0];
         if (Kind == 2)
         {
-          ElementCount = glpArrayTypeGetElementCount(v582[0]);
-          ElementType = glpArrayTypeGetElementType(v582[0]);
-          v582[0] = ElementType;
+          ElementCount = glpArrayTypeGetElementCount(v510[0]);
+          ElementType = glpArrayTypeGetElementType(v510[0]);
+          v510[0] = ElementType;
         }
 
         else
@@ -6933,102 +6916,104 @@ LABEL_58:
           ElementCount = 1;
         }
 
-        v17 = v565;
+        v17 = v493;
         if (glpTypeGetKind(ElementType))
         {
-          v101 = glpLinkerGetInfoLog(v565);
-          *&v571 = "-1";
-          *(&v571 + 1) = 0xEDA00000002;
-          *&v572 = 0xFFFFFFFFLL;
-          glpLogMessage(v101, 0, &v571, "Type of '%.*s' not valid for transform feedback.", v102, v103, v104, v105, v35);
+          v86 = glpLinkerGetInfoLog(v493);
+          *&v499 = "-1";
+          *(&v499 + 1) = 0xEDA00000002;
+          *&v500 = 0xFFFFFFFFLL;
+          glpLogMessage(v86, 0, &v499, "Type of '%.*s' not valid for transform feedback.");
           goto LABEL_87;
         }
 
-        LODWORD(v559) = v24;
-        PrimitiveType = glpPrimitiveTypeGetPrimitiveType(v582[0]);
+        LODWORD(v487) = v24;
+        PrimitiveType = glpPrimitiveTypeGetPrimitiveType(v510[0]);
         if (glpStringHashGet(v26, v34, v35))
         {
-          v107 = glpLinkerGetInfoLog(v565);
-          *&v571 = "-1";
-          *(&v571 + 1) = 0xEDA00000002;
-          *&v572 = 0xFFFFFFFFLL;
-          glpLogMessage(v107, 0, &v571, "Duplicate transform feedback bindings specified for '%.*s.'", v108, v109, v110, v111, v35);
+          v88 = glpLinkerGetInfoLog(v493);
+          *&v499 = "-1";
+          *(&v499 + 1) = 0xEDA00000002;
+          *&v500 = 0xFFFFFFFFLL;
+          glpLogMessage(v88, 0, &v499, "Duplicate transform feedback bindings specified for '%.*s.'");
 LABEL_87:
-          LODWORD(v548) = 0;
+          LODWORD(v476) = 0;
 LABEL_88:
-          v31 = v560;
+          v31 = v488;
           goto LABEL_56;
         }
 
-        glpStringHashPut(v26, v34, v35, 1, v106);
-        v112 = v565;
-        v113 = glpLinkerPoolAlloc(v565);
-        *v113 = v548;
-        *(v113 + 8) = v581;
-        *(v113 + 16) = v555;
-        *(v113 + 20) = v30;
-        *(v113 + 24) = 0;
-        v114 = *(v112 + 240);
-        v115 = *(v112 + 244);
-        LODWORD(v116) = v115 + 1;
-        if (v115 + 1 <= v114)
+        glpStringHashPut(v26, v34, v35, v87, 1);
+        v89 = v493;
+        v90 = glpLinkerPoolAlloc(v493);
+        *v90 = v476;
+        *(v90 + 8) = v509;
+        *(v90 + 16) = v483;
+        *(v90 + 20) = v30;
+        *(v90 + 24) = 0;
+        v91 = *(v89 + 240);
+        v92 = *(v89 + 244);
+        LODWORD(v93) = v92 + 1;
+        if (v92 + 1 <= v91)
         {
-          v118 = *(v112 + 248);
-          v119 = *(v112 + 244);
+          v96 = *(v89 + 248);
+          v97 = *(v89 + 244);
         }
 
         else
         {
-          if (v114 <= 1)
+          if (v91 <= 1)
           {
-            v114 = 1;
+            v91 = 1;
           }
 
-          v117 = 2 * v114;
-          if (v117 <= v116)
+          v94 = 2 * v91;
+          if (v94 <= v93)
           {
-            v116 = v116;
+            v93 = v93;
           }
 
           else
           {
-            v116 = v117;
+            v93 = v94;
           }
 
-          Size = v116;
-          v545 = glpLinkerGetAllocator(v112);
-          v544 = (*(v545 + 8))(*v545, 8 * Size, "Vector Storage (GLPTFStore *, growth)");
-          memcpy(v544, *(v112 + 248), 8 * *(v112 + 244));
-          (*(v545 + 24))(*v545, *(v112 + 248));
-          v118 = v544;
-          *(v112 + 240) = Size;
-          *(v112 + 248) = v118;
-          v119 = *(v112 + 244);
+          v474 = v93;
+          glpLinkerGetAllocator();
+          v473 = v95;
+          v472 = (*(v95 + 8))(*v95, 8 * v474, "Vector Storage (GLPTFStore *, growth)");
+          memcpy(v472, *(v89 + 248), 8 * *(v89 + 244));
+          (*(v473 + 24))(*v473, *(v89 + 248));
+          v96 = v472;
+          *(v89 + 240) = v474;
+          *(v89 + 248) = v96;
+          v97 = *(v89 + 244);
         }
 
-        memmove(&v118[8 * v115 + 8], &v118[8 * v115], 8 * (v119 - v115));
-        *(*(v112 + 248) + 8 * v115) = v113;
-        ++*(v112 + 244);
-        v120 = v548;
-        *(v548 + 112) = 1;
-        v121 = glpABIGetTypeSize(0, *v120, 0);
-        Size = glpTypeSizeGetSize(v121);
-        v122 = glpLinkerPoolAlloc(v112);
-        v123 = glpLinkerPoolAlloc(v112);
-        glpTypeGetAppleVec4Types(*v120, v122, 1, 0, 0, v123, 0, 0, 0);
-        if (HIDWORD(v581))
+        memmove(&v96[8 * v92 + 8], &v96[8 * v92], 8 * (v97 - v92));
+        *(*(v89 + 248) + 8 * v92) = v90;
+        ++*(v89 + 244);
+        v98 = v476;
+        *(v476 + 112) = 1;
+        glpABIGetTypeSize(0, *v98, 0);
+        glpTypeSizeGetSize();
+        v474 = v99;
+        v100 = glpLinkerPoolAlloc(v89);
+        v101 = glpLinkerPoolAlloc(v89);
+        glpTypeGetAppleVec4Types(*v98, v100, 1, 0, 0, v101, 0, 0, 0);
+        if (HIDWORD(v509))
         {
-          v124 = v581;
+          v102 = v509;
           do
           {
-            ScalarCount = glpPrimitiveTypeGetScalarCount(v122[v124]);
-            v30 += glpPrimitiveTypeGetBytesPerComponent(v122[v124++]) * ScalarCount;
+            ScalarCount = glpPrimitiveTypeGetScalarCount(v100[v102]);
+            v30 += glpPrimitiveTypeGetBytesPerComponent(v100[v102++]) * ScalarCount;
           }
 
-          while ((v124 - v581) < HIDWORD(v581));
+          while ((v102 - v509) < HIDWORD(v509));
         }
 
-        LODWORD(v548) = 0;
+        LODWORD(v476) = 0;
 LABEL_45:
         v42 = malloc_type_malloc(0x18uLL, 0xCA0EF1E7uLL);
         if (!v42 || (v43 = v42, *v42 = 0, v42[1] = 0, v44 = v35, v42[2] = 0, (v45 = malloc_type_malloc(v35, 0xCA0EF1E7uLL)) == 0))
@@ -7062,130 +7047,131 @@ LABEL_45:
         *(v43 + 8) = v51 | v44;
         *(v43 + 16) = ElementCount;
         *(v43 + 20) = PrimitiveType;
-        glpIntHashPut(*(v565 + 344), v29, v43, v47);
+        glpIntHashPut(*(v493 + 344), v29, v43, v47);
         if (!v32)
         {
-          v13 = v561;
-          a5 = v562;
-          v17 = v565;
-          v24 = v559;
-          v26 = v557;
+          v13 = v489;
+          a5 = v490;
+          v17 = v493;
+          v24 = v487;
+          v26 = v485;
           goto LABEL_58;
         }
 
-        v57 = v555;
-        v13 = v561;
-        v26 = v557;
-        v31 = v560;
-        if (v555 < 4)
+        v53 = v483;
+        v13 = v489;
+        v26 = v485;
+        v31 = v488;
+        if (v483 < 4)
         {
-          v63 = v565;
-          v64 = glpLinkerPoolAlloc(v565);
-          v65 = glpLinkerGetAllocator(v565);
-          *v64 = glpMakeLayoutObject(v65);
-          a5 = v562;
+          v55 = v493;
+          v56 = glpLinkerPoolAlloc(v493);
+          glpLinkerGetAllocator();
+          *v56 = glpMakeLayoutObject(v57);
+          a5 = v490;
           if (v30)
           {
-            v66 = glpLinkerGetAllocator(v63);
-            v67 = *v64;
-            *&v571 = "-1";
-            *(&v571 + 1) = 0xEDA00000002;
-            *&v572 = 0xFFFFFFFFLL;
-            glpLayoutObjectAppendInteger(v66, 0, &v571, 0, 0, v67, 33, 2);
-            v68 = glpLinkerGetAllocator(v63);
-            v69 = *v64;
-            *&v571 = "-1";
-            *(&v571 + 1) = 0xEDA00000002;
-            *&v572 = 0xFFFFFFFFLL;
-            glpLayoutObjectAppendInteger(v68, 0, &v571, 0, 0, v69, 46, 10);
-            v70 = glpLinkerGetAllocator(v63);
-            v71 = *v64;
-            *&v571 = "-1";
-            *(&v571 + 1) = 0xEDA00000002;
-            *&v572 = 0xFFFFFFFFLL;
-            glpLayoutObjectAppendInteger(v70, 0, &v571, 0, 0, v71, 65, v57);
-            v72 = glpLinkerGetAllocator(v63);
-            v73 = *v64;
-            *&v571 = "-1";
-            *(&v571 + 1) = 0xEDA00000002;
-            *&v572 = 0xFFFFFFFFLL;
-            glpLayoutObjectAppendInteger(v72, 0, &v571, 0, 0, v73, 66, v548);
-            v74 = glpLinkerGetAllocator(v63);
-            v75 = *v64;
-            *&v571 = "-1";
-            *(&v571 + 1) = 0xEDA00000002;
-            *&v572 = 0xFFFFFFFFLL;
-            glpLayoutObjectAppendInteger(v74, 0, &v571, 0, 0, v75, 67, v30);
+            glpLinkerGetAllocator();
+            v58 = *v56;
+            *&v499 = "-1";
+            *(&v499 + 1) = 0xEDA00000002;
+            *&v500 = 0xFFFFFFFFLL;
+            glpLayoutObjectAppendInteger(v59, 0, &v499, 0, 0, v58, 33, 2);
+            glpLinkerGetAllocator();
+            v60 = *v56;
+            *&v499 = "-1";
+            *(&v499 + 1) = 0xEDA00000002;
+            *&v500 = 0xFFFFFFFFLL;
+            glpLayoutObjectAppendInteger(v61, 0, &v499, 0, 0, v60, 46, 10);
+            glpLinkerGetAllocator();
+            v62 = *v56;
+            *&v499 = "-1";
+            *(&v499 + 1) = 0xEDA00000002;
+            *&v500 = 0xFFFFFFFFLL;
+            glpLayoutObjectAppendInteger(v63, 0, &v499, 0, 0, v62, 65, v53);
+            glpLinkerGetAllocator();
+            v64 = *v56;
+            *&v499 = "-1";
+            *(&v499 + 1) = 0xEDA00000002;
+            *&v500 = 0xFFFFFFFFLL;
+            glpLayoutObjectAppendInteger(v65, 0, &v499, 0, 0, v64, 66, v476);
+            glpLinkerGetAllocator();
+            v66 = *v56;
+            *&v499 = "-1";
+            *(&v499 + 1) = 0xEDA00000002;
+            *&v500 = 0xFFFFFFFFLL;
+            glpLayoutObjectAppendInteger(v67, 0, &v499, 0, 0, v66, 67, v30);
           }
 
-          v76 = *(v63 + 224);
-          v77 = *(v63 + 228);
-          if (v77 + 1 <= v76)
+          v68 = *(v55 + 224);
+          v69 = *(v55 + 228);
+          if (v69 + 1 <= v68)
           {
-            v81 = v63;
-            v82 = *(v63 + 232);
-            v83 = v77;
+            v74 = v55;
+            v75 = *(v55 + 232);
+            v76 = v69;
           }
 
           else
           {
-            if (v76 <= 1)
+            if (v68 <= 1)
             {
-              v76 = 1;
+              v68 = 1;
             }
 
-            v78 = 2 * v76;
-            if (v78 <= v77 + 1)
+            v70 = 2 * v68;
+            if (v70 <= v69 + 1)
             {
-              v79 = v77 + 1;
+              v71 = v69 + 1;
             }
 
             else
             {
-              v79 = v78;
+              v71 = v70;
             }
 
-            v80 = glpLinkerGetAllocator(v63);
-            v81 = v63;
-            v82 = (v80[1])(*v80, 8 * v79, "Vector Storage (GLPTFBuffer *, growth)");
-            memcpy(v82, *(v81 + 232), 8 * *(v81 + 228));
-            (v80[3])(*v80, *(v81 + 232));
-            *(v81 + 224) = v79;
-            v31 = v560;
-            *(v81 + 232) = v82;
-            v83 = *(v81 + 228);
+            glpLinkerGetAllocator();
+            v73 = v72;
+            v74 = v55;
+            v75 = (*(v72 + 8))(*v72, 8 * v71, "Vector Storage (GLPTFBuffer *, growth)");
+            memcpy(v75, *(v74 + 232), 8 * *(v74 + 228));
+            (*(v73 + 24))(*v73, *(v74 + 232));
+            *(v74 + 224) = v71;
+            v31 = v488;
+            *(v74 + 232) = v75;
+            v76 = *(v74 + 228);
           }
 
-          memmove(&v82[8 * v77 + 8], &v82[8 * v77], 8 * (v83 - v77));
-          *(*(v81 + 232) + 8 * v77) = v64;
-          v84 = *(v81 + 228) + 1;
-          v85 = v551;
-          if (v551 <= v30)
+          memmove(&v75[8 * v69 + 8], &v75[8 * v69], 8 * (v76 - v69));
+          *(*(v74 + 232) + 8 * v69) = v56;
+          v77 = *(v74 + 228) + 1;
+          v78 = v479;
+          if (v479 <= v30)
           {
-            v85 = v30;
+            v78 = v30;
           }
 
-          LODWORD(v551) = v85;
-          *(v81 + 228) = v84;
-          LODWORD(v549) = v30 + v549;
-          v555 = (v555 + 1);
-          LODWORD(v548) = -1;
+          LODWORD(v479) = v78;
+          *(v74 + 228) = v77;
+          LODWORD(v477) = v30 + v477;
+          v483 = (v483 + 1);
+          LODWORD(v476) = -1;
           v30 = 0;
-          v17 = v81;
-          v24 = v559;
-          v26 = v557;
+          v17 = v74;
+          v24 = v487;
+          v26 = v485;
           goto LABEL_59;
         }
 
-        v17 = v565;
-        v58 = glpLinkerGetInfoLog(v565);
-        *&v571 = "-1";
-        *(&v571 + 1) = 0xEDA00000002;
-        *&v572 = 0xFFFFFFFFLL;
-        glpLogMessage(v58, 0, &v571, "Exceeded max transform feedback buffers of %d, with %d.", v59, v60, v61, v62, 4);
+        v17 = v493;
+        v54 = glpLinkerGetInfoLog(v493);
+        *&v499 = "-1";
+        *(&v499 + 1) = 0xEDA00000002;
+        *&v500 = 0xFFFFFFFFLL;
+        glpLogMessage(v54, 0, &v499, "Exceeded max transform feedback buffers of %d, with %d.", 4, v483);
 LABEL_56:
         v24 = 0;
-        a5 = v562;
+        a5 = v490;
 LABEL_59:
         ++v29;
         v27 = *(v17 + 96);
@@ -7201,45 +7187,43 @@ LABEL_59:
       goto LABEL_43;
     }
 
-    LODWORD(v549) = 0;
-    LODWORD(v551) = 0;
+    LODWORD(v477) = 0;
+    LODWORD(v479) = 0;
 LABEL_102:
     StringHash = glpDestroyStringHash(v26);
-    v126 = *(v17 + 300);
-    if (v126 == 35980)
+    v104 = *(v17 + 300);
+    if (v104 == 35980)
     {
-      if (v549 >= 0x104)
+      if (v477 >= 0x104)
       {
-        v132 = glpLinkerGetInfoLog(v17);
-        *&v571 = "-1";
-        *(&v571 + 1) = 0xEDA00000002;
-        *&v572 = 0xFFFFFFFFLL;
-        glpLogMessage(v132, 0, &v571, "Exceeded max transform feedback interleaved components of %d, with %d.", v133, v134, v135, v136, 64);
-        goto LABEL_108;
+        v106 = glpLinkerGetInfoLog(v17);
+        *&v499 = "-1";
+        *(&v499 + 1) = 0xEDA00000002;
+        *&v500 = 0xFFFFFFFFLL;
+        glpLogMessage(v106, 0, &v499, "Exceeded max transform feedback interleaved components of %d, with %d.");
+        return 0;
       }
     }
 
-    else if (v126 == 35981 && v551 >= 0x14)
+    else if (v104 == 35981 && v479 >= 0x14)
     {
-      v127 = glpLinkerGetInfoLog(v17);
-      *&v571 = "-1";
-      *(&v571 + 1) = 0xEDA00000002;
-      *&v572 = 0xFFFFFFFFLL;
-      glpLogMessage(v127, 0, &v571, "Exceeded max transform feedback separate components of %d, with %d.", v128, v129, v130, v131, 4);
-LABEL_108:
-      v24 = 0;
-      goto LABEL_516;
+      v105 = glpLinkerGetInfoLog(v17);
+      *&v499 = "-1";
+      *(&v499 + 1) = 0xEDA00000002;
+      *&v500 = 0xFFFFFFFFLL;
+      glpLogMessage(v105, 0, &v499, "Exceeded max transform feedback separate components of %d, with %d.");
+      return 0;
     }
 
     if (!v24)
     {
-      goto LABEL_516;
+      return v24;
     }
   }
 
-  if (!a5 || (v137 = *(a5 + 32), !v137))
+  if (!a5 || (v107 = *(a5 + 32), !v107))
   {
-    LODWORD(v139) = 0x80000000;
+    v109 = 0x80000000;
     if (v13)
     {
       goto LABEL_204;
@@ -7248,89 +7232,88 @@ LABEL_108:
 LABEL_201:
     if (!a5)
     {
-      goto LABEL_501;
+      goto LABEL_507;
     }
 
 LABEL_332:
-    v335 = v24;
-    v541 = &v541;
-    v336 = *(a5 + 36);
+    v301 = v24;
+    v469 = &v469;
     MEMORY[0x28223BE20](StringHash);
-    v560 = &v541 - ((v337 + 15) & 0xFFFFFFFF0);
-    bzero(v560, v337);
-    v338 = *(a5 + 32);
-    if (v338)
+    v488 = &v469 - ((v302 + 15) & 0xFFFFFFFF0);
+    bzero(v488, v302);
+    v303 = *(a5 + 32);
+    if (v303)
     {
-      v339 = 0;
-      v340 = (*(a5 + 40) + 16);
+      v304 = 0;
+      v305 = (*(a5 + 40) + 16);
       while (1)
       {
-        v341 = *(v340 - 2);
-        if (v341)
+        v306 = *(v305 - 2);
+        if (v306)
         {
           break;
         }
 
 LABEL_357:
-        v340 += 4;
-        if (!--v338)
+        v305 += 4;
+        if (!--v303)
         {
           goto LABEL_360;
         }
       }
 
-      v343 = *(v340 - 1);
-      v342 = *v340;
-      if (*v340 < 3)
+      v308 = *(v305 - 1);
+      v307 = *v305;
+      if (*v305 < 3)
       {
         goto LABEL_346;
       }
 
-      v344 = *v343;
-      if (v344 == 103)
+      v309 = *v308;
+      if (v309 == 103)
       {
-        v345 = *(v343 + 1);
-        if (v345 == 108)
+        v310 = *(v308 + 1);
+        if (v310 == 108)
         {
-          v345 = *(v343 + 2);
-          v346 = 95;
+          v310 = *(v308 + 2);
+          v311 = 95;
         }
 
         else
         {
-          v346 = 108;
+          v311 = 108;
         }
 
-        if (v346 == v345)
+        if (v311 == v310)
         {
           goto LABEL_356;
         }
       }
 
-      else if (103 == v344)
+      else if (103 == v309)
       {
         goto LABEL_356;
       }
 
-      if (v342 < 9 || (StringHash = strncmp("$ib$", *(v340 - 1), 4uLL), StringHash) || (StringHash = strncmp("$gl_", v343 + 5, 4uLL), StringHash))
+      if (v307 < 9 || (StringHash = strncmp("$ib$", *(v305 - 1), 4uLL), StringHash) || (StringHash = strncmp("$gl_", v308 + 5, 4uLL), StringHash))
       {
 LABEL_346:
-        if (!v342)
+        if (!v307)
         {
           goto LABEL_355;
         }
 
-        if (*v343 != 36)
+        if (*v308 != 36)
         {
           goto LABEL_355;
         }
 
-        if (v342 >= 9)
+        if (v307 >= 9)
         {
-          StringHash = strncmp("$ib$", v343, 4uLL);
+          StringHash = strncmp("$ib$", v308, 4uLL);
           if (!StringHash)
           {
-            StringHash = strncmp("$gl_", v343 + 5, 4uLL);
+            StringHash = strncmp("$gl_", v308 + 5, 4uLL);
             if (!StringHash)
             {
               goto LABEL_355;
@@ -7338,101 +7321,101 @@ LABEL_346:
           }
         }
 
-        if ((v342 & 0xFFFFFFFC) != 0)
+        if ((v307 & 0xFFFFFFFC) != 0)
         {
-          v17 = v565;
-          if (v343[1] != 105 || v343[2] != 98)
+          v17 = v493;
+          if (v308[1] != 105 || v308[2] != 98)
           {
             goto LABEL_357;
           }
 
-          if (v343[3] == 36)
+          if (v308[3] == 36)
           {
 LABEL_355:
-            *&v560[8 * v339++] = v341;
+            *&v488[8 * v304++] = v306;
           }
         }
       }
 
 LABEL_356:
-      v17 = v565;
+      v17 = v493;
       goto LABEL_357;
     }
 
-    v339 = 0;
+    v304 = 0;
 LABEL_360:
     if (*(v17 + 296))
     {
-      qsort(v560, v339, 8uLL, compareVariableObjectsLocationFirstNameSecond);
+      qsort(v488, v304, 8uLL, compareVariableObjectsLocationFirstNameSecond);
     }
 
-    v13 = v561;
-    if (!v339)
+    v13 = v489;
+    if (!v304)
     {
-      v24 = v335;
-LABEL_434:
-      a5 = v562;
+      v24 = v301;
+LABEL_437:
+      a5 = v490;
       if (v13)
       {
-        goto LABEL_435;
+        goto LABEL_438;
       }
 
-      goto LABEL_501;
+      goto LABEL_507;
     }
 
-    v347 = 0;
-    if (v556 == 1)
+    v312 = 0;
+    if (v484 == 1)
     {
-      v348 = 5;
+      v313 = 5;
     }
 
     else
     {
-      v348 = 3;
+      v313 = 3;
     }
 
-    LODWORD(v544) = v348;
-    v542 = v17 + 276;
-    v557 = v339;
-    v24 = v335;
+    LODWORD(v472) = v313;
+    v470 = v17 + 276;
+    v485 = v304;
+    v24 = v301;
     while (1)
     {
-      v349 = *&v560[8 * v347];
-      v582[0] = *(v349 + 15);
-      v581 = *v349;
-      v579 = 0u;
-      v580 = 0u;
-      v577 = 0u;
-      v578 = 0u;
-      v575 = 0u;
-      v576 = 0u;
-      v574 = 0u;
-      v573 = 0u;
-      v572 = 0u;
-      v571 = 0u;
-      v350 = *v349;
-      v572 = v349[1];
-      v351 = v349[2];
-      v352 = v349[3];
-      v353 = v349[5];
-      v575 = v349[4];
-      v576 = v353;
-      v574 = v352;
-      v573 = v351;
-      v354 = v349[6];
-      v355 = v349[7];
-      v356 = v349[9];
-      v579 = v349[8];
-      v580 = v356;
-      v577 = v354;
-      v578 = v355;
-      v571 = v350;
-      v357 = *(v349 + 2);
-      v358 = *(v349 + 3);
-      v359 = *(v349 + 1);
-      if (v359)
+      v314 = *&v488[8 * v312];
+      v510[0] = *(v314 + 15);
+      v509 = *v314;
+      v507 = 0u;
+      v508 = 0u;
+      v505 = 0u;
+      v506 = 0u;
+      v503 = 0u;
+      v504 = 0u;
+      v502 = 0u;
+      v501 = 0u;
+      v500 = 0u;
+      v499 = 0u;
+      v315 = *v314;
+      v500 = v314[1];
+      v316 = v314[2];
+      v317 = v314[3];
+      v318 = v314[5];
+      v503 = v314[4];
+      v504 = v318;
+      v502 = v317;
+      v501 = v316;
+      v319 = v314[6];
+      v320 = v314[7];
+      v321 = v314[9];
+      v507 = v314[8];
+      v508 = v321;
+      v505 = v319;
+      v506 = v320;
+      v499 = v315;
+      v322 = *(v314 + 2);
+      v323 = *(v314 + 3);
+      v324 = *(v314 + 1);
+      if (v324)
       {
-        v360 = glpLayoutObjectFind(v359, 79) != 0;
+        v325 = glpLayoutObjectFind(v324, 79) != 0;
         if (!v13)
         {
           break;
@@ -7441,7 +7424,7 @@ LABEL_434:
 
       else
       {
-        v360 = 0;
+        v325 = 0;
         if (!v13)
         {
           break;
@@ -7453,101 +7436,96 @@ LABEL_434:
         break;
       }
 
-      v361 = inputForOutput(v13, v357, v358);
-      if (!v361)
+      v326 = inputForOutput(v13, v322, v323);
+      if (!v326)
       {
         break;
       }
 
-      v362 = v361;
-      v570 = *(v361 + 120);
-      v569 = *v361;
-      InputOutputBitsType = getInputOutputBitsType(v17, v564, v361, &v570, &v569, v556, v582, &v581);
-      StringHash = v581;
-      *(&v578 + 1) = v582[0];
-      *&v571 = v581;
+      v327 = v326;
+      v498 = *(v326 + 120);
+      v497 = *v326;
+      InputOutputBitsType = getInputOutputBitsType(v17, v492, v326, &v498, &v497, v484, v510, &v509);
+      StringHash = v509;
+      *(&v506 + 1) = v510[0];
+      *&v499 = v509;
       if (v24)
       {
-        v364 = InputOutputBitsType == 0;
+        v329 = InputOutputBitsType == 0;
       }
 
       else
       {
-        v364 = 1;
+        v329 = 1;
       }
 
-      v24 = !v364;
+      v24 = !v329;
       if (InputOutputBitsType)
       {
-        if (!glpTypesEqual(v581, v569) || ((*(v362 + 48) ^ *(v349 + 6)) & 0x6F000000000) != 0)
+        if (!glpTypesEqual(v509, v497) || ((*(v327 + 48) ^ *(v314 + 6)) & 0x6F000000000) != 0)
         {
-          v365 = v360;
-          v366 = glpLinkerGetInfoLog(v17);
-          v367 = glpLanguageToString(v564);
-          v368 = *(v362 + 32);
-          v369 = *(v362 + 40);
-          glpLanguageToString(v556);
-          v566 = "-1";
-          v567 = 0xEDA00000002;
-          v568 = 0xFFFFFFFFLL;
-          v13 = v561;
-          v539 = v367;
-          v17 = v565;
-          v370 = v366;
-          v360 = v365;
-          glpLogMessage(v370, 0, &v566, "Input of %s shader '%.*s' differs in type/qualifiers to that written by %s shader", v371, v372, v373, v374, v539);
+          v330 = v325;
+          v331 = glpLinkerGetInfoLog(v17);
+          glpLanguageToString(v492);
+          glpLanguageToString(v484);
+          v494 = "-1";
+          v495 = 0xEDA00000002;
+          v496 = 0xFFFFFFFFLL;
+          v13 = v489;
+          v17 = v493;
+          v332 = v331;
+          v325 = v330;
+          glpLogMessage(v332, 0, &v494, "Input of %s shader '%.*s' differs in type/qualifiers to that written by %s shader");
           goto LABEL_383;
         }
 
         if (v24)
         {
-          LODWORD(v555) = v360;
-          SizeInBits = BitSetGetSizeInBits(*(&v578 + 1));
-          if (SizeInBits < BitSetGetSizeInBits(v570))
+          LODWORD(v483) = v325;
+          SizeInBits = BitSetGetSizeInBits(*(&v506 + 1));
+          if (SizeInBits < BitSetGetSizeInBits(v498))
           {
-            v434 = glpLinkerGetAllocator(v17);
-            v435 = BitSetGetSizeInBits(v570);
-            v436 = BitSetNewWithAllocator(v435, *v434, *(v434 + 8), *(v434 + 16), *(v434 + 24));
-            if (BitSetGetSizeInBits(*(&v578 + 1)))
+            glpLinkerGetAllocator();
+            v383 = v382;
+            v384 = BitSetGetSizeInBits(v498);
+            v385 = BitSetNewWithAllocator(v384, *v383, *(v383 + 8), *(v383 + 16), *(v383 + 24));
+            if (BitSetGetSizeInBits(*(&v506 + 1)))
             {
-              v437 = 0;
+              v386 = 0;
               do
               {
-                if (BitSetGetEquals(*(&v578 + 1), v437))
+                if (BitSetGetEquals(*(&v506 + 1), v386))
                 {
-                  BitSetSetEquals(v436, v437);
+                  BitSetSetEquals(v385, v386);
                 }
 
-                ++v437;
+                ++v386;
               }
 
-              while (v437 < BitSetGetSizeInBits(*(&v578 + 1)));
+              while (v386 < BitSetGetSizeInBits(*(&v506 + 1)));
             }
 
-            *(&v578 + 1) = v436;
-            *(v349 + 15) = v436;
-            v17 = v565;
+            *(&v506 + 1) = v385;
+            *(v314 + 15) = v385;
+            v17 = v493;
           }
 
-          BitSetAndEquals(*(&v578 + 1), v570);
-          v438 = BitSetEqualsTest(*(&v578 + 1), v570);
-          v360 = v555;
-          if (!v438)
+          BitSetAndEquals(*(&v506 + 1), v498);
+          v387 = BitSetEqualsTest(*(&v506 + 1), v498);
+          v325 = v483;
+          if (!v387)
           {
-            v439 = glpLinkerGetInfoLog(v17);
-            v440 = glpLanguageToString(v564);
-            v441 = *(v362 + 32);
-            v442 = *(v362 + 40);
-            glpLanguageToString(v556);
-            v566 = "-1";
-            v567 = 0xEDA00000002;
-            v568 = 0xFFFFFFFFLL;
-            v13 = v561;
-            v540 = v440;
-            v17 = v565;
-            v443 = v439;
-            v360 = v555;
-            glpLogMessage(v443, 0, &v566, "Input of %s shader '%.*s' not properly written by %s shader", v444, v445, v446, v447, v540);
+            v388 = glpLinkerGetInfoLog(v17);
+            glpLanguageToString(v492);
+            glpLanguageToString(v484);
+            v494 = "-1";
+            v495 = 0xEDA00000002;
+            v496 = 0xFFFFFFFFLL;
+            v13 = v489;
+            v17 = v493;
+            v389 = v388;
+            v325 = v483;
+            glpLogMessage(v389, 0, &v494, "Input of %s shader '%.*s' not properly written by %s shader");
             goto LABEL_383;
           }
         }
@@ -7558,231 +7536,244 @@ LABEL_383:
           v24 = 0;
         }
 
-        v375 = 1;
+        v333 = 1;
 LABEL_387:
-        StringHash = *(v349 + 1);
-        v376 = StringHash && (StringHash = glpLayoutObjectFind(StringHash, 9)) != 0 && *(StringHash + 16) != 0;
+        StringHash = *(v314 + 1);
+        v334 = StringHash && (StringHash = glpLayoutObjectFind(StringHash, 9)) != 0 && *(StringHash + 16) != 0;
         if (*(v17 + 296))
         {
-          v377 = 1;
+          v335 = 1;
         }
 
         else
         {
-          v377 = v375;
+          v335 = v333;
         }
 
-        if (v377)
+        if (v335)
         {
-          if (!v376 && v24)
+          if (!v334 && v24)
           {
-            LODWORD(v555) = v360;
-            v378 = glpABIGetTypeSize(0, v571, 0);
-            glpTypeSizeGetSize(v378);
-            v379 = glpLinkerPoolAlloc(v17);
-            *v379 = 0;
-            *(v379 + 8) = 0;
-            *v379 = &v571;
-            Size = *(v349 + 6);
-            v380 = Size & 0x7F00000001FLL;
-            v549 = (Size & 0x7F00000001FLL);
-            if (v375)
+            LODWORD(v483) = v325;
+            glpABIGetTypeSize(0, v499, 0);
+            glpTypeSizeGetSize();
+            v336 = glpLinkerPoolAlloc(v17);
+            *v336 = 0;
+            *(v336 + 8) = 0;
+            *v336 = &v499;
+            v474 = *(v314 + 6);
+            v337 = v474 & 0x7F00000001FLL;
+            v477 = (v474 & 0x7F00000001FLL);
+            if (v333)
             {
-              v380 = *(v362 + 48) & 0x7F00000001FLL;
+              v337 = *(v327 + 48) & 0x7F00000001FLL;
             }
 
-            v548 = v380;
-            v381 = *(v349 + 1);
-            LODWORD(v559) = v24;
-            v551 = v358;
-            if (v381 && (v382 = glpLayoutObjectFind(v381, 26)) != 0)
+            v476 = v337;
+            v338 = *(v314 + 1);
+            LODWORD(v487) = v24;
+            v479 = v323;
+            if (v338 && (v339 = glpLayoutObjectFind(v338, 26)) != 0)
             {
-              LODWORD(v545) = 0;
-              v543 = v382;
-              v383 = remapSlotToCode[*(v382 + 4)];
-              v384 = &v575;
+              LODWORD(v473) = 0;
+              v471 = v339;
+              v340 = remapSlotToCode[*(v339 + 4)];
+              v341 = &v503;
             }
 
             else
             {
-              v543 = 0;
-              LODWORD(v547) = -1;
-              v383 = 1;
-              v384 = &v574;
+              v471 = 0;
+              LODWORD(v475) = -1;
+              v340 = 1;
+              v341 = &v502;
             }
 
-            *(v384 - 64) = v383;
-            v394 = glpLinkerGetAllocator(v17);
-            LayoutObject = glpMakeLayoutObject(v394);
-            v396 = glpLinkerGetAllocator(v17);
-            v566 = "-1";
-            v567 = 0xEDA00000002;
-            v568 = 0xFFFFFFFFLL;
-            glpLayoutObjectAppendInteger(v396, 0, &v566, 0, 0, LayoutObject, 33, v544);
-            v397 = glpLinkerGetAllocator(v17);
-            v566 = "-1";
-            v567 = 0xEDA00000002;
-            v568 = 0xFFFFFFFFLL;
-            glpLayoutObjectAppendInteger(v397, 0, &v566, 0, 0, LayoutObject, 68, 17);
-            v398 = glpLinkerGetAllocator(v17);
-            v566 = "-1";
-            v567 = 0xEDA00000002;
-            v568 = 0xFFFFFFFFLL;
-            glpLayoutObjectAppendInteger(v398, 0, &v566, 0, 0, LayoutObject, 69, 0);
-            v399 = glpLinkerGetAllocator(v17);
-            v566 = "-1";
-            v567 = 0xEDA00000002;
-            v568 = 0xFFFFFFFFLL;
-            glpLayoutObjectAppendInteger(v399, 0, &v566, 0, 0, LayoutObject, 70, 1);
-            v400 = glpLinkerGetAllocator(v17);
-            v401 = glpMakeLayoutObject(v400);
-            v402 = glpLinkerGetAllocator(v17);
-            v566 = "-1";
-            v567 = 0xEDA00000002;
-            v568 = 0xFFFFFFFFLL;
-            glpLayoutObjectAppendInteger(v402, 0, &v566, 0, 0, v401, 33, 0);
-            v403 = glpLinkerGetAllocator(v17);
-            v566 = "-1";
-            v567 = 0xEDA00000002;
-            v568 = 0xFFFFFFFFLL;
-            glpLayoutObjectAppendInteger(v403, 0, &v566, 0, 0, v401, 34, 28);
-            v404 = glpLinkerGetAllocator(v17);
-            v566 = "-1";
-            v567 = 0xEDA00000002;
-            v568 = 0xFFFFFFFFLL;
-            glpLayoutObjectAppendInteger(v404, 0, &v566, 0, 0, v401, 35, 0);
-            v405 = glpLinkerGetAllocator(v17);
-            v566 = "-1";
-            v567 = 0xEDA00000002;
-            v568 = 0xFFFFFFFFLL;
-            glpLayoutObjectAppendInteger(v405, 0, &v566, 0, 0, v401, 38, 1);
-            v406 = 0;
-            v407 = v375 ^ 1;
-            if (!v563)
+            *(v341 - 64) = v340;
+            glpLinkerGetAllocator();
+            LayoutObject = glpMakeLayoutObject(v349);
+            glpLinkerGetAllocator();
+            v494 = "-1";
+            v495 = 0xEDA00000002;
+            v496 = 0xFFFFFFFFLL;
+            glpLayoutObjectAppendInteger(v351, 0, &v494, 0, 0, LayoutObject, 33, v472);
+            glpLinkerGetAllocator();
+            v494 = "-1";
+            v495 = 0xEDA00000002;
+            v496 = 0xFFFFFFFFLL;
+            glpLayoutObjectAppendInteger(v352, 0, &v494, 0, 0, LayoutObject, 68, 17);
+            glpLinkerGetAllocator();
+            v494 = "-1";
+            v495 = 0xEDA00000002;
+            v496 = 0xFFFFFFFFLL;
+            glpLayoutObjectAppendInteger(v353, 0, &v494, 0, 0, LayoutObject, 69, 0);
+            glpLinkerGetAllocator();
+            v494 = "-1";
+            v495 = 0xEDA00000002;
+            v496 = 0xFFFFFFFFLL;
+            glpLayoutObjectAppendInteger(v354, 0, &v494, 0, 0, LayoutObject, 70, 1);
+            glpLinkerGetAllocator();
+            v356 = glpMakeLayoutObject(v355);
+            glpLinkerGetAllocator();
+            v494 = "-1";
+            v495 = 0xEDA00000002;
+            v496 = 0xFFFFFFFFLL;
+            glpLayoutObjectAppendInteger(v357, 0, &v494, 0, 0, v356, 33, 0);
+            glpLinkerGetAllocator();
+            v494 = "-1";
+            v495 = 0xEDA00000002;
+            v496 = 0xFFFFFFFFLL;
+            glpLayoutObjectAppendInteger(v358, 0, &v494, 0, 0, v356, 34, 28);
+            glpLinkerGetAllocator();
+            v494 = "-1";
+            v495 = 0xEDA00000002;
+            v496 = 0xFFFFFFFFLL;
+            glpLayoutObjectAppendInteger(v359, 0, &v494, 0, 0, v356, 35, 0);
+            glpLinkerGetAllocator();
+            v494 = "-1";
+            v495 = 0xEDA00000002;
+            v496 = 0xFFFFFFFFLL;
+            glpLayoutObjectAppendInteger(v360, 0, &v494, 0, 0, v356, 38, 1);
+            v361 = 0;
+            v362 = v333 ^ 1;
+            if (!v491)
             {
-              v407 = 1;
+              v362 = 1;
             }
 
-            if ((v407 & 1) == 0)
+            if ((v362 & 1) == 0)
             {
-              v406 = *v563;
+              v361 = *v491;
             }
 
-            v408 = v547;
-            SlotsWithGLPType = allocateSlotsWithGLPType(v565, *v558, v406, v379, v548, v549, LayoutObject, v401, v547, glpBuiltInConstantValues[8 * (*(v565 + 60) == 4) + 2]);
-            v411 = SlotsWithGLPType;
-            v24 = v559;
-            v412 = v551;
-            if (v556 == 1)
+            v363 = v475;
+            SlotsWithGLPType = allocateSlotsWithGLPType(v493, *v486, v361, v336, v476, v477, LayoutObject, v356, v475, glpBuiltInConstantValues[8 * (*(v493 + 60) == 4) + 2]);
+            v366 = SlotsWithGLPType;
+            v24 = v487;
+            v367 = v479;
+            if (v484 == 1)
             {
               if (SlotsWithGLPType)
               {
-                v413 = glpIntHashGet(*v558, v408);
-                if (v413)
+                v368 = glpIntHashGet(*v486, v363);
+                if (v368)
                 {
-                  *(v349 + 1) = *(v413 + 24);
+                  *(v314 + 1) = *(v368 + 24);
                 }
               }
             }
 
-            v13 = v561;
-            if ((v555 & 1) == 0)
+            v13 = v489;
+            if ((v483 & 1) == 0)
             {
-              *(v542 + 4 * v556) += *(v379 + 8);
+              *(v470 + 4 * v484) += *(v336 + 8);
             }
 
-            v414 = v565;
-            if (!v411)
+            v369 = v493;
+            if (!v366)
             {
-              v415 = glpLinkerGetInfoLog(v565);
-              v416 = 4 * glpBuiltInConstantValues[8 * (*(v414 + 60) == 4) + 2];
-              v417 = *(v349 + 4);
-              v418 = *(v349 + 10);
-              v566 = "-1";
-              v567 = 0xEDA00000002;
-              v568 = 0xFFFFFFFFLL;
-              glpLogMessage(v415, 0, &v566, "Implementation limit of %d %s components exceeded. Unable to allocate '%.*s'.", v419, v420, v421, v422, v416);
-              v24 = 0;
-              if ((v545 & 1) == 0)
+              v370 = glpLinkerGetInfoLog(v493);
+              v371 = 4 * glpBuiltInConstantValues[8 * (*(v369 + 60) == 4) + 2];
+              v372 = *(v314 + 4);
+              v373 = *(v314 + 10);
+              v374 = "patch";
+              if ((v474 & 0x20000000000) == 0)
               {
-                v423 = glpLinkerGetInfoLog(v414);
-                v424 = *(v349 + 4);
-                v425 = *(v543 + 4);
-                v426 = *(v349 + 10);
-                v566 = "-1";
-                v567 = 0xEDA00000002;
-                v568 = 0xFFFFFFFFLL;
-                glpLogMessage(v423, 0, &v566, "Or active varying aliasing. One or more slots starting at %d unavailable for '%.*s' from layout location request.", v427, v428, v429, v430, v425);
+                v374 = "varying";
+              }
+
+              v494 = "-1";
+              v495 = 0xEDA00000002;
+              v496 = 0xFFFFFFFFLL;
+              v365 = glpLogMessage(v370, 0, &v494, "Implementation limit of %d %s components exceeded. Unable to allocate '%.*s'.", v371, v374, v373, v372);
+              v24 = 0;
+              if ((v473 & 1) == 0)
+              {
+                v375 = glpLinkerGetInfoLog(v369);
+                v376 = *(v314 + 4);
+                v377 = *(v471 + 4);
+                v378 = *(v314 + 10);
+                v494 = "-1";
+                v495 = 0xEDA00000002;
+                v496 = 0xFFFFFFFFLL;
+                v365 = glpLogMessage(v375, 0, &v494, "Or active varying aliasing. One or more slots starting at %d unavailable for '%.*s' from layout location request.", v377, v378, v376);
                 v24 = 0;
               }
             }
 
-            *v379 = v349;
-            glpStringHashPut(*v550, v357, v412, v379, v410);
-            v431 = glpLinkerPoolAlloc(v414);
-            *v431 = 0;
-            v431[1] = 0;
-            *v431 = -1;
-            v431[1] = *v349;
-            StringHash = glpStringHashPut(*v552, v357, v412, v431, v432);
-            v17 = v414;
+            *v336 = v314;
+            glpStringHashPut(*v478, v322, v367, v365, v336);
+            v379 = glpLinkerPoolAlloc(v369);
+            *v379 = 0;
+            v379[1] = 0;
+            *v379 = -1;
+            v379[1] = *v314;
+            StringHash = glpStringHashPut(*v480, v322, v367, v380, v379);
+            v17 = v369;
           }
         }
 
-        else if (*(v349 + 112) == 0 && !v376)
+        else if (*(v314 + 112) == 0 && !v334)
         {
-          v385 = v24;
-          v386 = glpLinkerGetInfoLog(v17);
-          v391 = glpLanguageToString(v556);
-          v392 = *(v349 + 10);
-          v393 = *(v349 + 4);
+          v342 = v24;
+          v343 = glpLinkerGetInfoLog(v17);
+          v344 = glpLanguageToString(v484);
+          v345 = *(v314 + 10);
+          v346 = *(v314 + 4);
           if (v13)
           {
-            glpLanguageToString(v564);
+            v347 = glpLanguageToString(v492);
+            v348 = "shader";
           }
 
-          v566 = "-1";
-          v567 = 0xEDA00000002;
-          v568 = 0xFFFFFFFFLL;
-          StringHash = glpLogMessage(v386, 1u, &v566, "Output of %s shader '%.*s' not read by %s %s", v387, v388, v389, v390, v391);
-          v17 = v565;
-          v24 = v385;
+          else
+          {
+            v348 = "stage";
+            v347 = "next";
+          }
+
+          v494 = "-1";
+          v495 = 0xEDA00000002;
+          v496 = 0xFFFFFFFFLL;
+          glpLogMessage(v343, 1, &v494, "Output of %s shader '%.*s' not read by %s %s", v344, v345, v346, v347, v348);
+          v17 = v493;
+          v24 = v342;
         }
       }
 
-      if (++v347 == v557)
+      if (++v312 == v485)
       {
-        goto LABEL_434;
+        goto LABEL_437;
       }
     }
 
-    v375 = 0;
-    v362 = 0;
-    if (glpTypeGetKind(v571) == 3)
+    v333 = 0;
+    v327 = 0;
+    if (glpTypeGetKind(v499) == 3)
     {
-      *&v571 = glpBankTypeGetElementType(v571);
+      *&v499 = glpBankTypeGetElementType(v499);
     }
 
     goto LABEL_387;
   }
 
-  v138 = 0;
-  v545 = v17 + 276;
-  v139 = 0x80000000;
+  v108 = 0;
+  v473 = v17 + 276;
+  v109 = 0x80000000;
   do
   {
-    v140 = (*(a5 + 40) + 32 * v138);
-    v141 = *v140;
-    if (!*v140)
+    v110 = (*(a5 + 40) + 32 * v108);
+    v111 = *v110;
+    if (!*v110)
     {
       goto LABEL_199;
     }
 
-    v143 = v140[1];
-    v142 = v140[2];
-    v582[0] = *(v141 + 15);
-    StringHash = *(v141 + 1);
-    v581 = *v141;
+    v113 = v110[1];
+    v112 = v110[2];
+    v510[0] = *(v111 + 120);
+    StringHash = *(v111 + 8);
+    v509 = *v111;
     if (StringHash)
     {
       StringHash = glpLayoutObjectFind(StringHash, 28);
@@ -7791,106 +7782,106 @@ LABEL_387:
         goto LABEL_198;
       }
 
-      StringHash = glpLayoutObjectFind(*(v141 + 1), 29);
+      StringHash = glpLayoutObjectFind(*(v111 + 8), 29);
       if (StringHash)
       {
         goto LABEL_198;
       }
     }
 
-    v579 = 0u;
-    v580 = 0u;
-    v577 = 0u;
-    v578 = 0u;
-    v575 = 0u;
-    v576 = 0u;
-    v574 = 0u;
-    v573 = 0u;
-    v572 = 0u;
-    v571 = 0u;
-    v144 = *v141;
-    v572 = v141[1];
-    v571 = v144;
-    v145 = v141[2];
-    v146 = v141[3];
-    v147 = v141[5];
-    v575 = v141[4];
-    v576 = v147;
-    v574 = v146;
-    v573 = v145;
-    v148 = v141[6];
-    v149 = v141[7];
-    v150 = v141[9];
-    v579 = v141[8];
-    v580 = v150;
-    v577 = v148;
-    v578 = v149;
-    if (v142 < 3)
+    v507 = 0u;
+    v508 = 0u;
+    v505 = 0u;
+    v506 = 0u;
+    v503 = 0u;
+    v504 = 0u;
+    v502 = 0u;
+    v501 = 0u;
+    v500 = 0u;
+    v499 = 0u;
+    v114 = *v111;
+    v500 = *(v111 + 16);
+    v499 = v114;
+    v115 = *(v111 + 32);
+    v116 = *(v111 + 48);
+    v117 = *(v111 + 80);
+    v503 = *(v111 + 64);
+    v504 = v117;
+    v502 = v116;
+    v501 = v115;
+    v118 = *(v111 + 96);
+    v119 = *(v111 + 112);
+    v120 = *(v111 + 144);
+    v507 = *(v111 + 128);
+    v508 = v120;
+    v505 = v118;
+    v506 = v119;
+    if (v112 < 3)
     {
       goto LABEL_198;
     }
 
-    v549 = v142;
-    v151 = *v143;
-    if (v151 == 103)
+    v477 = v112;
+    v121 = *v113;
+    if (v121 == 103)
     {
-      v152 = v143[1];
-      if (v152 == 108)
+      v122 = v113[1];
+      if (v122 == 108)
       {
-        v152 = v143[2];
-        v153 = 95;
+        v122 = v113[2];
+        v123 = 95;
       }
 
       else
       {
-        v153 = 108;
+        v123 = 108;
       }
 
-      if (v153 == v152)
+      if (v123 == v122)
       {
         goto LABEL_128;
       }
     }
 
-    else if (103 == v151)
+    else if (103 == v121)
     {
       goto LABEL_128;
     }
 
-    if (v549 < 9)
+    if (v477 < 9)
     {
       goto LABEL_198;
     }
 
-    StringHash = strncmp("$ib$", v143, 4uLL);
+    StringHash = strncmp("$ib$", v113, 4uLL);
     if (StringHash)
     {
       goto LABEL_198;
     }
 
-    StringHash = strncmp("$gl_", v143 + 5, 4uLL);
+    StringHash = strncmp("$gl_", v113 + 5, 4uLL);
     if (StringHash)
     {
       goto LABEL_198;
     }
 
 LABEL_128:
-    if (v549)
+    if (v477)
     {
-      if (v151 == 36)
+      if (v121 == 36)
       {
-        if (v549 < 9)
+        if (v477 < 9)
         {
           goto LABEL_198;
         }
 
-        StringHash = strncmp("$ib$", v143, 4uLL);
+        StringHash = strncmp("$ib$", v113, 4uLL);
         if (StringHash)
         {
           goto LABEL_198;
         }
 
-        StringHash = strncmp("$gl_", v143 + 5, 4uLL);
+        StringHash = strncmp("$gl_", v113 + 5, 4uLL);
         if (StringHash)
         {
           goto LABEL_198;
@@ -7898,12 +7889,12 @@ LABEL_128:
       }
     }
 
-    v154 = *(v141 + 1);
-    if (!v154)
+    v124 = *(v111 + 8);
+    if (!v124)
     {
-      LODWORD(Size) = 0;
+      LODWORD(v474) = 0;
 LABEL_138:
-      v156 = 0;
+      v126 = 0;
       if (!v13)
       {
         goto LABEL_153;
@@ -7912,282 +7903,283 @@ LABEL_138:
       goto LABEL_139;
     }
 
-    LODWORD(Size) = glpLayoutObjectFind(v154, 79) != 0;
-    v155 = *(v141 + 1);
-    if (!v155)
+    LODWORD(v474) = glpLayoutObjectFind(v124, 79) != 0;
+    v125 = *(v111 + 8);
+    if (!v125)
     {
       goto LABEL_138;
     }
 
-    v156 = glpLayoutObjectFind(v155, 80) != 0;
+    v126 = glpLayoutObjectFind(v125, 80) != 0;
     if (!v13)
     {
       goto LABEL_153;
     }
 
 LABEL_139:
-    if (*(v565 + 296) || (v157 = inputForOutput(v13, v143, v549), v157 == 0 || !v156) || !*(v141 + 32) || (v158 = v157, !*(v157 + 128)))
+    if (*(v493 + 296) || (v127 = inputForOutput(v13, v113, v477), v127 == 0 || !v126) || !*(v111 + 128) || (v128 = v127, !*(v127 + 128)))
     {
 LABEL_153:
-      if (glpTypeGetKind(v571) == 3)
+      if (glpTypeGetKind(v499) == 3)
       {
-        *&v571 = glpBankTypeGetElementType(v571);
+        *&v499 = glpBankTypeGetElementType(v499);
       }
 
 LABEL_155:
-      v169 = glpABIGetTypeSize(0, v571, 0);
-      v170 = glpTypeSizeGetSize(v169);
-      StringHash = glpLinkerPoolAlloc(v565);
+      glpABIGetTypeSize(0, v499, 0);
+      glpTypeSizeGetSize();
+      v137 = v136;
+      StringHash = glpLinkerPoolAlloc(v493);
       *StringHash = 0;
       *(StringHash + 8) = 0;
-      v560 = StringHash;
-      *StringHash = &v571;
+      v488 = StringHash;
+      *StringHash = &v499;
       if (v24)
       {
-        v171 = *(v141 + 6);
-        v172 = glpLayoutObjectFind(*(v141 + 1), 78);
-        if (v172)
+        v138 = *(v111 + 48);
+        v139 = glpLayoutObjectFind(*(v111 + 8), 78);
+        if (v139)
         {
-          glpIntHashPut(*v558, *(v172 + 4), -1, v173);
+          glpIntHashPut(*v486, *(v139 + 4), -1, v140);
         }
 
-        LODWORD(v559) = v24;
-        v174 = glpLayoutObjectFind(*(v141 + 1), 69);
-        v555 = v141;
-        v544 = v138;
-        if (v174)
+        LODWORD(v487) = v24;
+        v141 = glpLayoutObjectFind(*(v111 + 8), 69);
+        v483 = v111;
+        v472 = v108;
+        if (v141)
         {
-          v175 = v565;
-          v176 = glpLinkerGetAllocator(v565);
-          v177 = glpCopyLayoutObject(v176, *(v141 + 1));
-          v178 = glpLayoutObjectFind(v177, 69);
-          v179 = *(v178 + 4);
-          *(v178 + 4) = 0;
-          v180 = allocateSlotsWithGLPType(v175, *v558, 0, v560, v171 & 0x7F00000001FLL, v171 & 0x7F00000001FLL, v177, 0, v179, 0x20u);
-          if (v556 == 1 && v180)
+          v142 = v493;
+          glpLinkerGetAllocator();
+          v144 = glpCopyLayoutObject(v143, *(v111 + 8));
+          v145 = glpLayoutObjectFind(v144, 69);
+          v146 = *(v145 + 4);
+          *(v145 + 4) = 0;
+          v147 = allocateSlotsWithGLPType(v142, *v486, 0, v488, v138 & 0x7F00000001FLL, v138 & 0x7F00000001FLL, v144, 0, v146, 0x20u);
+          if (v484 == 1 && v147)
           {
-            *(v141 + 1) = *(glpIntHashGet(*v558, v179) + 24);
+            *(v111 + 8) = *(glpIntHashGet(*v486, v146) + 24);
           }
         }
 
         else
         {
-          v182 = glpLinkerPoolAlloc(v565);
-          v548 = v170;
-          v551 = glpLinkerPoolAlloc(v565);
-          glpTypeGetAppleVec4Types(v571, v182, 1, 0, 0, v551, 0, 0, 0);
-          if (glpLayoutObjectFind(*(v141 + 1), 31))
+          v149 = glpLinkerPoolAlloc(v493);
+          v476 = v137;
+          v479 = glpLinkerPoolAlloc(v493);
+          glpTypeGetAppleVec4Types(v499, v149, 1, 0, 0, v479, 0, 0, 0);
+          if (glpLayoutObjectFind(*(v111 + 8), 31))
           {
-            if (v170)
+            if (v137)
             {
-              v183 = 0;
-              v184 = 0;
-              v185 = 0;
-              v186 = 0;
-              v187 = 0;
-              v557 = (v560 + 16);
-              v547 = v143;
+              v150 = 0;
+              v151 = 0;
+              v152 = 0;
+              v153 = 0;
+              v154 = 0;
+              v485 = (v488 + 16);
+              v475 = v113;
               do
               {
-                if (glpPrimitiveTypeGetScalarCount(v182[v183]))
+                if (glpPrimitiveTypeGetScalarCount(v149[v150]))
                 {
-                  v188 = 0;
+                  v155 = 0;
                   do
                   {
-                    if (v186 <= 3)
+                    if (v153 <= 3)
                     {
-                      v189 = v187;
+                      v156 = v154;
                     }
 
                     else
                     {
-                      v189 = 0;
+                      v156 = 0;
                     }
 
-                    if (v186 <= 3)
+                    if (v153 <= 3)
                     {
-                      v190 = v186;
+                      v157 = v153;
                     }
 
                     else
                     {
-                      v190 = 0;
+                      v157 = 0;
                     }
 
-                    if (v186 > 3)
+                    if (v153 > 3)
                     {
-                      ++v185;
+                      ++v152;
                     }
 
-                    if (BitSetGetEquals(*(&v578 + 1), v183))
+                    if (BitSetGetEquals(*(&v506 + 1), v150))
                     {
-                      if (v189)
+                      if (v156)
                       {
-                        v191 = v184;
+                        v158 = v151;
                       }
 
                       else
                       {
-                        v192 = v565;
-                        v187 = glpLinkerPoolAlloc(v565);
-                        *v187 = 0u;
-                        *(v187 + 16) = 0u;
-                        glpIntHashPut(*v558, v139, v187, 0.0);
-                        v193 = v555;
-                        *(v187 + 8) = *(v555 + 48) & 0x7F00000001FLL | (v551[v183] >> 3);
-                        *(v187 + 4) = glpPrimitiveTypeGetScalarType(v182[v183]);
-                        *(v187 + 24) = offsetLayout(v192, *(v193 + 8), v185);
-                        v191 = v139;
-                        v139 = (v139 + 1);
+                        v159 = v493;
+                        v154 = glpLinkerPoolAlloc(v493);
+                        *v154 = 0u;
+                        *(v154 + 16) = 0u;
+                        glpIntHashPut(*v486, v109, v154, 0.0);
+                        v160 = v483;
+                        *(v154 + 8) = *(v483 + 48) & 0x7F00000001FLL | (v479[v150] >> 3);
+                        *(v154 + 4) = glpPrimitiveTypeGetScalarType(v149[v150]);
+                        *(v154 + 24) = offsetLayout(v159, *(v160 + 8), v152);
+                        v158 = v109;
+                        v109 = (v109 + 1);
                       }
 
-                      v194 = v560;
-                      v195 = *(v560 + 2);
-                      v196 = (v557 + 8 * v195);
-                      v184 = v191;
-                      *v196 = v191;
-                      v196[1] = v190;
-                      *(v194 + 2) = v195 + 1;
-                      *v187 |= 1 << v190;
-                      ScalarType = glpPrimitiveTypeGetScalarType(v182[v183]);
-                      v198 = componentCountForSet(*v187);
-                      *(v187 + 4) = glpGetVectorType(ScalarType, v198);
-                      v189 = v187;
+                      v161 = v488;
+                      v162 = *(v488 + 2);
+                      v163 = (v485 + 8 * v162);
+                      v151 = v158;
+                      *v163 = v158;
+                      v163[1] = v157;
+                      *(v161 + 2) = v162 + 1;
+                      *v154 |= 1 << v157;
+                      ScalarType = glpPrimitiveTypeGetScalarType(v149[v150]);
+                      v165 = componentCountForSet(*v154);
+                      *(v154 + 4) = glpGetVectorType(ScalarType, v165);
+                      v156 = v154;
                     }
 
                     else
                     {
-                      v187 = v189;
+                      v154 = v156;
                     }
 
-                    ++v188;
-                    v186 = v190 + 1;
+                    ++v155;
+                    v153 = v157 + 1;
                   }
 
-                  while (v188 < glpPrimitiveTypeGetScalarCount(v182[v183]));
+                  while (v155 < glpPrimitiveTypeGetScalarCount(v149[v150]));
                 }
 
                 else
                 {
-                  v189 = v187;
+                  v156 = v154;
                 }
 
-                ++v183;
-                v187 = v189;
-                a5 = v562;
-                v143 = v547;
+                ++v150;
+                v154 = v156;
+                a5 = v490;
+                v113 = v475;
               }
 
-              while (v183 != v548);
+              while (v150 != v476);
             }
           }
 
-          else if (v170)
+          else if (v137)
           {
-            v199 = 0;
-            v200 = v560 + 16;
-            v547 = v143;
+            v166 = 0;
+            v167 = v488 + 16;
+            v475 = v113;
             do
             {
-              if (BitSetGetEquals(*(&v578 + 1), v199))
+              if (BitSetGetEquals(*(&v506 + 1), v166))
               {
-                v201 = glpLinkerPoolAlloc(v565);
-                *v201 = 0u;
-                *(v201 + 16) = 0u;
-                glpIntHashPut(*v558, v139, v201, 0.0);
-                v202 = v560;
-                if (glpPrimitiveTypeGetScalarCount(v182[v199]))
+                v168 = glpLinkerPoolAlloc(v493);
+                *v168 = 0u;
+                *(v168 + 16) = 0u;
+                glpIntHashPut(*v486, v109, v168, 0.0);
+                v169 = v488;
+                if (glpPrimitiveTypeGetScalarCount(v149[v166]))
                 {
-                  v203 = 0;
+                  v170 = 0;
                   do
                   {
-                    v204 = *(v202 + 2);
-                    v205 = &v200[8 * v204];
-                    *v205 = v139;
-                    *(v205 + 1) = v203;
-                    *(v202 + 2) = v204 + 1;
-                    *v201 |= 1 << v203++;
+                    v171 = *(v169 + 2);
+                    v172 = &v167[8 * v171];
+                    *v172 = v109;
+                    *(v172 + 1) = v170;
+                    *(v169 + 2) = v171 + 1;
+                    *v168 |= 1 << v170++;
                   }
 
-                  while (v203 < glpPrimitiveTypeGetScalarCount(v182[v199]));
+                  while (v170 < glpPrimitiveTypeGetScalarCount(v149[v166]));
                 }
 
-                v206 = v555;
-                *(v201 + 8) = *(v555 + 48) & 0x7F00000001FLL | (v551[v199] >> 3);
-                *(v201 + 4) = v182[v199];
-                *(v201 + 24) = offsetLayout(v565, *(v206 + 8), v199);
-                v139 = (v139 + 1);
-                v143 = v547;
+                v173 = v483;
+                *(v168 + 8) = *(v483 + 48) & 0x7F00000001FLL | (v479[v166] >> 3);
+                *(v168 + 4) = v149[v166];
+                *(v168 + 24) = offsetLayout(v493, *(v173 + 8), v166);
+                v109 = (v109 + 1);
+                v113 = v475;
               }
 
-              ++v199;
+              ++v166;
             }
 
-            while (v199 != v548);
+            while (v166 != v476);
           }
         }
 
-        v207 = v560;
-        v208 = v555;
-        *v560 = v555;
-        v209 = v549;
-        glpStringHashPut(*v550, v143, v549, v207, v181);
-        if ((Size & 1) == 0)
+        v174 = v488;
+        v175 = v483;
+        *v488 = v483;
+        v176 = v477;
+        glpStringHashPut(*v478, v113, v477, v148, v174);
+        if ((v474 & 1) == 0)
         {
-          *(v545 + 4 * v556) += *(v207 + 2);
+          *(v473 + 4 * v484) += *(v174 + 2);
         }
 
-        v17 = v565;
-        v210 = glpLinkerPoolAlloc(v565);
-        *v210 = 0;
-        v210[1] = 0;
-        *v210 = -1;
-        v210[1] = *v208;
-        StringHash = glpStringHashPut(*v552, v143, v209, v210, v211);
-        v13 = v561;
-        v24 = v559;
-        v138 = v544;
+        v17 = v493;
+        v177 = glpLinkerPoolAlloc(v493);
+        *v177 = 0;
+        v177[1] = 0;
+        *v177 = -1;
+        v177[1] = *v175;
+        StringHash = glpStringHashPut(*v480, v113, v176, v178, v177);
+        v13 = v489;
+        v24 = v487;
+        v108 = v472;
       }
 
       else
       {
-        v17 = v565;
+        v17 = v493;
       }
 
       goto LABEL_198;
     }
 
-    v570 = *(v157 + 120);
-    v569 = *v157;
-    v17 = v565;
-    v159 = getInputOutputBitsType(v565, v564, v157, &v570, &v569, v556, v582, &v581);
-    StringHash = v581;
-    *(&v578 + 1) = v582[0];
-    *&v571 = v581;
+    v498 = *(v127 + 120);
+    v497 = *v127;
+    v17 = v493;
+    v129 = getInputOutputBitsType(v493, v492, v127, &v498, &v497, v484, v510, &v509);
+    StringHash = v509;
+    *(&v506 + 1) = v510[0];
+    *&v499 = v509;
     if (v24)
     {
-      v160 = v159 == 0;
+      v130 = v129 == 0;
     }
 
     else
     {
-      v160 = 1;
+      v130 = 1;
     }
 
-    v24 = !v160;
-    if (v159)
+    v24 = !v130;
+    if (v129)
     {
-      if (!glpTypesEqual(v581, v569) || ((*(v158 + 48) ^ *(v141 + 6)) & 0x6F000000000) != 0)
+      if (!glpTypesEqual(v509, v497) || ((*(v128 + 48) ^ *(v111 + 48)) & 0x6F000000000) != 0)
       {
-        v161 = glpLinkerGetInfoLog(v565);
-        v162 = glpLanguageToString(v564);
-        v163 = *(v158 + 32);
-        v164 = *(v158 + 40);
-        glpLanguageToString(v556);
-        v566 = "-1";
-        v567 = 0xEDA00000002;
-        v568 = 0xFFFFFFFFLL;
-        glpLogMessage(v161, 0, &v566, "Input of %s shader '%.*s' differs in type/qualifiers to that written by %s shader", v165, v166, v167, v168, v162);
+        v131 = glpLinkerGetInfoLog(v493);
+        v132 = glpLanguageToString(v492);
+        v133 = *(v128 + 32);
+        v134 = *(v128 + 40);
+        v135 = glpLanguageToString(v484);
+        v494 = "-1";
+        v495 = 0xEDA00000002;
+        v496 = 0xFFFFFFFFLL;
+        glpLogMessage(v131, 0, &v494, "Input of %s shader '%.*s' differs in type/qualifiers to that written by %s shader", v132, v134, v133, v135);
         v24 = 0;
       }
 
@@ -8195,12 +8187,12 @@ LABEL_155:
     }
 
 LABEL_198:
-    v137 = *(a5 + 32);
+    v107 = *(a5 + 32);
 LABEL_199:
-    ++v138;
+    ++v108;
   }
 
-  while (v138 < v137);
+  while (v108 < v107);
   if (!v13)
   {
     goto LABEL_201;
@@ -8209,587 +8201,588 @@ LABEL_199:
 LABEL_204:
   if (*(v13 + 32))
   {
-    v212 = 0;
-    v545 = v17 + 256;
+    v179 = 0;
+    v473 = v17 + 256;
     while (1)
     {
-      v213 = *(v13 + 40) + 32 * v212;
-      v214 = *v213;
-      if (!*v213)
+      v180 = *(v13 + 40) + 32 * v179;
+      v181 = *v180;
+      if (!*v180)
       {
         goto LABEL_265;
       }
 
-      v215 = *(v213 + 8);
-      v216 = *(v213 + 16);
-      StringHash = v214[1];
+      v182 = *(v180 + 8);
+      v183 = *(v180 + 16);
+      StringHash = v181[1];
       if (StringHash)
       {
-        v217 = *(v213 + 8);
+        v184 = *(v180 + 8);
         StringHash = glpLayoutObjectFind(StringHash, 28);
         if (StringHash)
         {
           goto LABEL_265;
         }
 
-        StringHash = glpLayoutObjectFind(v214[1], 29);
-        v215 = v217;
+        StringHash = glpLayoutObjectFind(v181[1], 29);
+        v182 = v184;
         if (StringHash)
         {
           goto LABEL_265;
         }
       }
 
-      v560 = v214;
-      if (v216 >= 3)
+      v488 = v181;
+      if (v183 >= 3)
       {
         break;
       }
 
 LABEL_225:
-      if (v564 != 4 || (v214[6] & 0x40000000) == 0)
+      if (v492 != 4 || (v181[6] & 0x40000000) == 0)
       {
         goto LABEL_265;
       }
 
-      v549 = v215;
-      v223 = v214[1];
-      if (v223)
+      v477 = v182;
+      v190 = v181[1];
+      if (v190)
       {
-        LODWORD(v547) = glpLayoutObjectFind(v223, 79) != 0;
+        LODWORD(v475) = glpLayoutObjectFind(v190, 79) != 0;
       }
 
       else
       {
-        LODWORD(v547) = 0;
+        LODWORD(v475) = 0;
       }
 
-      v224 = v214[15];
-      v225 = *v214;
-      LODWORD(v551) = v24 != 0;
-      v579 = 0u;
-      v580 = 0u;
-      v577 = 0u;
-      v578 = 0u;
-      v575 = 0u;
-      v576 = 0u;
-      v574 = 0u;
-      v573 = 0u;
-      v572 = 0u;
-      v571 = 0u;
-      v226 = *(v214 + 8);
-      v227 = *(v214 + 9);
-      v228 = *(v214 + 6);
-      v578 = *(v214 + 7);
-      v229 = *(v214 + 1);
-      v571 = *v214;
-      v572 = v229;
-      v230 = *(v214 + 2);
-      v231 = *(v214 + 3);
-      v232 = *(v214 + 5);
-      v575 = *(v214 + 4);
-      v576 = v232;
-      v574 = v231;
-      v573 = v230;
-      v579 = v226;
-      v580 = v227;
-      v577 = v228;
-      *(&v578 + 1) = v224;
-      *&v571 = v225;
-      v233 = glpTypeGetKind(v225);
-      v234 = v571;
-      if (v233 == 3)
+      v191 = v181[15];
+      v192 = *v181;
+      LODWORD(v479) = v24 != 0;
+      v507 = 0u;
+      v508 = 0u;
+      v505 = 0u;
+      v506 = 0u;
+      v503 = 0u;
+      v504 = 0u;
+      v502 = 0u;
+      v501 = 0u;
+      v500 = 0u;
+      v499 = 0u;
+      v193 = *(v181 + 8);
+      v194 = *(v181 + 9);
+      v195 = *(v181 + 6);
+      v506 = *(v181 + 7);
+      v196 = *(v181 + 1);
+      v499 = *v181;
+      v500 = v196;
+      v197 = *(v181 + 2);
+      v198 = *(v181 + 3);
+      v199 = *(v181 + 5);
+      v503 = *(v181 + 4);
+      v504 = v199;
+      v502 = v198;
+      v501 = v197;
+      v507 = v193;
+      v508 = v194;
+      v505 = v195;
+      *(&v506 + 1) = v191;
+      *&v499 = v192;
+      v200 = glpTypeGetKind(v192);
+      v201 = v499;
+      if (v200 == 3)
       {
-        v234 = glpBankTypeGetElementType(v571);
+        v201 = glpBankTypeGetElementType(v499);
       }
 
-      v235 = glpABIGetTypeSize(0, v234, 0);
-      v236 = glpTypeSizeGetSize(v235);
-      StringHash = glpLinkerPoolAlloc(v565);
-      *StringHash = &v571;
+      glpABIGetTypeSize(0, v201, 0);
+      glpTypeSizeGetSize();
+      v203 = v202;
+      StringHash = glpLinkerPoolAlloc(v493);
+      *StringHash = &v499;
       *(StringHash + 8) = 0;
       if (v24)
       {
-        v237 = StringHash;
-        Size = v212;
-        v238 = v214[1];
-        if (v238)
+        v204 = StringHash;
+        v474 = v179;
+        v205 = v181[1];
+        if (v205)
         {
-          v239 = glpLayoutObjectFind(v238, 78);
-          if (v239)
+          v206 = glpLayoutObjectFind(v205, 78);
+          if (v206)
           {
-            glpIntHashPut(*v563, *(v239 + 4), -1, v240);
+            glpIntHashPut(*v491, *(v206 + 4), -1, v207);
           }
         }
 
-        v241 = glpLinkerPoolAlloc(v565);
-        v559 = v236;
-        v557 = glpLinkerPoolAlloc(v565);
-        v242 = v571;
-        if (glpTypeGetKind(v571) == 3)
+        v208 = glpLinkerPoolAlloc(v493);
+        v487 = v203;
+        v485 = glpLinkerPoolAlloc(v493);
+        v209 = v499;
+        if (glpTypeGetKind(v499) == 3)
         {
-          v242 = glpBankTypeGetElementType(v242);
+          v209 = glpBankTypeGetElementType(v209);
         }
 
-        glpTypeGetAppleVec4Types(v242, v241, 1, 0, 0, v557, 0, 0, 0);
-        v243 = v214[1];
-        if (v243)
+        glpTypeGetAppleVec4Types(v209, v208, 1, 0, 0, v485, 0, 0, 0);
+        v210 = v181[1];
+        if (v210)
         {
-          v244 = glpLayoutObjectFind(v243, 26);
+          v211 = glpLayoutObjectFind(v210, 26);
         }
 
         else
         {
-          v244 = 0;
+          v211 = 0;
         }
 
-        v247 = glpStringHashGet(*(v565 + 80), v214[2], v214[3]);
-        if (v244)
+        v214 = glpStringHashGet(*(v493 + 80), v181[2], v181[3]);
+        if (v211)
         {
-          v247 = v244 + 2;
+          v214 = v211 + 2;
           goto LABEL_247;
         }
 
-        if (v247)
+        if (v214)
         {
 LABEL_247:
-          LODWORD(v555) = *v247;
+          LODWORD(v483) = *v214;
         }
 
         else
         {
-          LODWORD(v555) = 0;
+          LODWORD(v483) = 0;
         }
 
-        v548 = v216;
-        if (v236)
+        v476 = v183;
+        if (v203)
         {
-          v248 = 0;
+          v215 = 0;
           do
           {
-            if (BitSetGetEquals(*(&v578 + 1), v248))
+            if (BitSetGetEquals(*(&v506 + 1), v215))
             {
-              v249 = glpLinkerPoolAlloc(v565);
-              *v249 = 0u;
-              *(v249 + 16) = 0u;
-              glpIntHashPut(*v563, v139, v249, 0.0);
-              if (glpPrimitiveTypeGetScalarCount(v241[v248]))
+              v216 = glpLinkerPoolAlloc(v493);
+              *v216 = 0u;
+              *(v216 + 16) = 0u;
+              glpIntHashPut(*v491, v109, v216, 0.0);
+              if (glpPrimitiveTypeGetScalarCount(v208[v215]))
               {
-                v250 = 0;
+                v217 = 0;
                 do
                 {
-                  v251 = *(v237 + 8);
-                  v252 = (v237 + 16 + 8 * v251);
-                  *v252 = v139;
-                  v252[1] = v250;
-                  *(v237 + 8) = v251 + 1;
-                  *v249 |= 1 << v250++;
+                  v218 = *(v204 + 8);
+                  v219 = (v204 + 16 + 8 * v218);
+                  *v219 = v109;
+                  v219[1] = v217;
+                  *(v204 + 8) = v218 + 1;
+                  *v216 |= 1 << v217++;
                 }
 
-                while (v250 < glpPrimitiveTypeGetScalarCount(v241[v248]));
+                while (v217 < glpPrimitiveTypeGetScalarCount(v208[v215]));
               }
 
-              *(v249 + 8) = v214[6] & 0x7F00000001FLL | (*(v557 + v248) >> 3);
-              *(v249 + 4) = v241[v248];
-              v253 = v565;
-              v254 = glpLinkerGetAllocator(v565);
-              v255 = glpCopyLayoutObject(v254, *(v249 + 24));
-              *(v249 + 24) = v255;
-              if (!v255)
+              *(v216 + 8) = v181[6] & 0x7F00000001FLL | (*(v485 + v215) >> 3);
+              *(v216 + 4) = v208[v215];
+              glpLinkerGetAllocator();
+              v221 = glpCopyLayoutObject(v220, *(v216 + 24));
+              *(v216 + 24) = v221;
+              if (!v221)
               {
-                v256 = glpLinkerGetAllocator(v253);
-                *(v249 + 24) = glpMakeLayoutObject(v256);
+                glpLinkerGetAllocator();
+                *(v216 + 24) = glpMakeLayoutObject(v222);
               }
 
-              v257 = glpLinkerGetAllocator(v253);
-              v258 = *(v249 + 24);
-              v566 = "-1";
-              v567 = 0xEDA00000002;
-              v568 = 0xFFFFFFFFLL;
-              glpLayoutObjectAppendInteger(v257, 0, &v566, 0, 0, v258, 33, 0);
-              v259 = glpLinkerGetAllocator(v253);
-              v260 = *(v249 + 24);
-              v566 = "-1";
-              v567 = 0xEDA00000002;
-              v568 = 0xFFFFFFFFLL;
-              glpLayoutObjectAppendInteger(v259, 0, &v566, 0, 0, v260, 34, 27);
-              v261 = glpLinkerGetAllocator(v253);
-              v262 = *(v249 + 24);
-              v566 = "-1";
-              v567 = 0xEDA00000002;
-              v568 = 0xFFFFFFFFLL;
-              glpLayoutObjectAppendInteger(v261, 0, &v566, 0, 0, v262, 45, v555 + v248);
-              LODWORD(v139) = v139 + 1;
-              v214 = v560;
+              glpLinkerGetAllocator();
+              v223 = *(v216 + 24);
+              v494 = "-1";
+              v495 = 0xEDA00000002;
+              v496 = 0xFFFFFFFFLL;
+              glpLayoutObjectAppendInteger(v224, 0, &v494, 0, 0, v223, 33, 0);
+              glpLinkerGetAllocator();
+              v225 = *(v216 + 24);
+              v494 = "-1";
+              v495 = 0xEDA00000002;
+              v496 = 0xFFFFFFFFLL;
+              glpLayoutObjectAppendInteger(v226, 0, &v494, 0, 0, v225, 34, 27);
+              glpLinkerGetAllocator();
+              v227 = *(v216 + 24);
+              v494 = "-1";
+              v495 = 0xEDA00000002;
+              v496 = 0xFFFFFFFFLL;
+              glpLayoutObjectAppendInteger(v228, 0, &v494, 0, 0, v227, 45, v483 + v215);
+              v109 = (v109 + 1);
+              v181 = v488;
             }
 
-            ++v248;
+            ++v215;
           }
 
-          while (v248 != v559);
+          while (v215 != v487);
         }
 
-        v17 = v565;
-        v263 = propagateCopyBindings(v565, v214, v237);
-        v264 = v548;
-        glpStringHashPut(*v553, v549, v548, v263, v265);
-        v13 = v561;
-        v212 = Size;
-        if ((v547 & 1) == 0)
+        v17 = v493;
+        v229 = propagateCopyBindings(v493, v181, v204);
+        v230 = v476;
+        glpStringHashPut(*v481, v477, v476, v231, v229);
+        v13 = v489;
+        v179 = v474;
+        if ((v475 & 1) == 0)
         {
-          if (glpTypeGetKind(v571) == 3)
+          if (glpTypeGetKind(v499) == 3)
           {
-            v266 = glpBankTypeGetElementCount(v571);
+            v232 = glpBankTypeGetElementCount(v499);
           }
 
           else
           {
-            v266 = 1;
+            v232 = 1;
           }
 
-          *(v565 + 272) += *(v263 + 2) * v266;
+          *(v493 + 272) += *(v229 + 2) * v232;
         }
 
-        v267 = glpLinkerPoolAlloc(v17);
-        *v267 = 0;
-        v267[1] = 0;
-        *v267 = -1;
-        v267[1] = *v214;
-        StringHash = glpStringHashPut(*v554, v549, v264, v267, v268);
+        v233 = glpLinkerPoolAlloc(v17);
+        *v233 = 0;
+        v233[1] = 0;
+        *v233 = -1;
+        v233[1] = *v181;
+        StringHash = glpStringHashPut(*v482, v477, v230, v234, v233);
         goto LABEL_264;
       }
 
-      v17 = v565;
+      v17 = v493;
 LABEL_264:
-      v24 = v551;
+      v24 = v479;
 LABEL_265:
-      if (++v212 >= *(v13 + 32))
+      if (++v179 >= *(v13 + 32))
       {
         goto LABEL_318;
       }
     }
 
-    v218 = *v215;
-    if (v218 == 103)
+    v185 = *v182;
+    if (v185 == 103)
     {
-      v219 = *(v215 + 1);
-      if (v219 == 108)
+      v186 = *(v182 + 1);
+      if (v186 == 108)
       {
-        v219 = *(v215 + 2);
-        v220 = 95;
+        v186 = *(v182 + 2);
+        v187 = 95;
       }
 
       else
       {
-        v220 = 108;
+        v187 = 108;
       }
 
-      if (v220 != v219)
+      if (v187 != v186)
       {
         goto LABEL_218;
       }
     }
 
-    else if (103 != v218)
+    else if (103 != v185)
     {
 LABEL_218:
-      if (v216 < 9)
+      if (v183 < 9)
       {
         goto LABEL_225;
       }
 
-      v221 = v215;
-      StringHash = strncmp("$ib$", v215, 4uLL);
-      v215 = v221;
+      v188 = v182;
+      StringHash = strncmp("$ib$", v182, 4uLL);
+      v182 = v188;
       if (StringHash)
       {
         goto LABEL_225;
       }
 
-      StringHash = strncmp("$gl_", v221 + 5, 4uLL);
-      v215 = v221;
+      StringHash = strncmp("$gl_", v188 + 5, 4uLL);
+      v182 = v188;
       if (StringHash)
       {
         goto LABEL_225;
       }
     }
 
-    if (v218 != 36 || v216 >= 9 && (v222 = v215, StringHash = strncmp("$ib$", v215, 4uLL), v215 = v222, !StringHash) && (StringHash = strncmp("$gl_", v222 + 5, 4uLL), v215 = v222, !StringHash))
+    if (v185 != 36 || v183 >= 9 && (v189 = v182, StringHash = strncmp("$ib$", v182, 4uLL), v182 = v189, !StringHash) && (StringHash = strncmp("$gl_", v189 + 5, 4uLL), v182 = v189, !StringHash))
     {
-      v549 = v215;
-      v245 = v214[1];
-      if (v245)
+      v477 = v182;
+      v212 = v181[1];
+      if (v212)
       {
-        v246 = glpLayoutObjectFind(v245, 79) != 0;
+        v213 = glpLayoutObjectFind(v212, 79) != 0;
       }
 
       else
       {
-        v246 = 0;
+        v213 = 0;
       }
 
-      v269 = v214[15];
-      v566 = v269;
-      v270 = *v214;
-      v582[0] = *v214;
+      v235 = v181[15];
+      v494 = v235;
+      v236 = *v181;
+      v510[0] = *v181;
       if (v24)
       {
-        v24 = getInputOutputBitsType(v17, v564, v214, &v566, v582, 5, 0, 0) != 0;
-        v269 = v566;
-        v270 = v582[0];
+        v24 = getInputOutputBitsType(v17, v492, v181, &v494, v510, 5, 0, 0) != 0;
+        v235 = v494;
+        v236 = v510[0];
       }
 
-      v579 = 0u;
-      v580 = 0u;
-      v577 = 0u;
-      v578 = 0u;
-      v575 = 0u;
-      v576 = 0u;
-      v574 = 0u;
-      v573 = 0u;
-      v572 = 0u;
-      v571 = 0u;
-      v271 = *(v214 + 8);
-      v272 = *(v214 + 9);
-      v273 = *(v214 + 6);
-      v578 = *(v214 + 7);
-      v274 = *(v214 + 1);
-      v571 = *v214;
-      v572 = v274;
-      v275 = *(v214 + 2);
-      v276 = *(v214 + 3);
-      v277 = *(v214 + 5);
-      v575 = *(v214 + 4);
-      v576 = v277;
-      v574 = v276;
-      v573 = v275;
-      v579 = v271;
-      v580 = v272;
-      v577 = v273;
-      *(&v578 + 1) = v269;
-      *&v571 = v270;
-      v278 = glpTypeGetKind(v270);
-      v279 = v571;
-      if (v278 == 3)
+      v507 = 0u;
+      v508 = 0u;
+      v505 = 0u;
+      v506 = 0u;
+      v503 = 0u;
+      v504 = 0u;
+      v502 = 0u;
+      v501 = 0u;
+      v500 = 0u;
+      v499 = 0u;
+      v237 = *(v181 + 8);
+      v238 = *(v181 + 9);
+      v239 = *(v181 + 6);
+      v506 = *(v181 + 7);
+      v240 = *(v181 + 1);
+      v499 = *v181;
+      v500 = v240;
+      v241 = *(v181 + 2);
+      v242 = *(v181 + 3);
+      v243 = *(v181 + 5);
+      v503 = *(v181 + 4);
+      v504 = v243;
+      v502 = v242;
+      v501 = v241;
+      v507 = v237;
+      v508 = v238;
+      v505 = v239;
+      *(&v506 + 1) = v235;
+      *&v499 = v236;
+      v244 = glpTypeGetKind(v236);
+      v245 = v499;
+      if (v244 == 3)
       {
-        v279 = glpBankTypeGetElementType(v571);
+        v245 = glpBankTypeGetElementType(v499);
       }
 
-      v280 = glpABIGetTypeSize(0, v279, 0);
-      v281 = glpTypeSizeGetSize(v280);
-      StringHash = glpLinkerPoolAlloc(v565);
+      glpABIGetTypeSize(0, v245, 0);
+      glpTypeSizeGetSize();
+      v247 = v246;
+      StringHash = glpLinkerPoolAlloc(v493);
       *StringHash = 0;
       *(StringHash + 8) = 0;
-      v557 = StringHash;
-      *StringHash = &v571;
+      v485 = StringHash;
+      *StringHash = &v499;
       if (v24)
       {
-        LODWORD(v544) = v246;
-        v282 = v214[6];
-        v283 = glpLayoutObjectFind(v214[1], 78);
-        if (v283)
+        LODWORD(v472) = v213;
+        v248 = v181[6];
+        v249 = glpLayoutObjectFind(v181[1], 78);
+        if (v249)
         {
-          glpIntHashPut(*v563, *(v283 + 4), -1, v284);
+          glpIntHashPut(*v491, *(v249 + 4), -1, v250);
         }
 
-        Size = v212;
-        if (glpLayoutObjectFind(v214[1], 35))
+        v474 = v179;
+        if (glpLayoutObjectFind(v181[1], 35))
         {
-          v285 = v565;
-          v286 = glpLinkerGetAllocator(v565);
-          v287 = glpCopyLayoutObject(v286, v214[1]);
-          v288 = glpLayoutObjectFind(v287, 35);
-          v289 = *(v288 + 4);
-          *(v288 + 4) = 0;
-          allocateSlotsWithGLPType(v285, 0, *v563, v557, v282 & 0x7F00000001FLL, v282 & 0x7F00000001FLL, 0, v287, v289, 0x20u);
+          v251 = v493;
+          glpLinkerGetAllocator();
+          v253 = glpCopyLayoutObject(v252, v181[1]);
+          v254 = glpLayoutObjectFind(v253, 35);
+          v255 = *(v254 + 4);
+          *(v254 + 4) = 0;
+          allocateSlotsWithGLPType(v251, 0, *v491, v485, v248 & 0x7F00000001FLL, v248 & 0x7F00000001FLL, 0, v253, v255, 0x20u);
         }
 
         else
         {
-          v294 = glpLinkerPoolAlloc(v565);
-          v547 = v281;
-          v551 = glpLinkerPoolAlloc(v565);
-          v295 = v571;
-          if (glpTypeGetKind(v571) == 3)
+          v260 = glpLinkerPoolAlloc(v493);
+          v475 = v247;
+          v479 = glpLinkerPoolAlloc(v493);
+          v261 = v499;
+          if (glpTypeGetKind(v499) == 3)
           {
-            v295 = glpBankTypeGetElementType(v295);
+            v261 = glpBankTypeGetElementType(v261);
           }
 
-          glpTypeGetAppleVec4Types(v295, v294, 1, 0, 0, v551, 0, 0, 0);
-          v296 = glpLayoutObjectFind(v214[1], 31);
-          LODWORD(v559) = v24;
-          if (v296)
+          glpTypeGetAppleVec4Types(v261, v260, 1, 0, 0, v479, 0, 0, 0);
+          v262 = glpLayoutObjectFind(v181[1], 31);
+          LODWORD(v487) = v24;
+          if (v262)
           {
-            if (v281)
+            if (v247)
             {
-              v297 = 0;
-              v298 = 0;
-              v299 = 0;
-              v300 = 0;
-              v301 = 0;
-              v555 = v557 + 16;
-              v548 = v216;
+              v263 = 0;
+              v264 = 0;
+              v265 = 0;
+              v266 = 0;
+              v267 = 0;
+              v483 = v485 + 16;
+              v476 = v183;
               do
               {
-                if (glpPrimitiveTypeGetScalarCount(v294[v297]))
+                if (glpPrimitiveTypeGetScalarCount(v260[v263]))
                 {
-                  v302 = 0;
+                  v268 = 0;
                   do
                   {
-                    v303 = v300 > 3;
-                    if (v300 <= 3)
+                    v269 = v266 > 3;
+                    if (v266 <= 3)
                     {
-                      v304 = v301;
+                      v270 = v267;
                     }
 
                     else
                     {
-                      v304 = 0;
+                      v270 = 0;
                     }
 
-                    if (v300 > 3)
+                    if (v266 > 3)
                     {
-                      v300 = 0;
+                      v266 = 0;
                     }
 
-                    if (v303)
+                    if (v269)
                     {
-                      ++v299;
+                      ++v265;
                     }
 
-                    if (BitSetGetEquals(*(&v578 + 1), v297))
+                    if (BitSetGetEquals(*(&v506 + 1), v263))
                     {
-                      if (!v304)
+                      if (!v270)
                       {
-                        v305 = v565;
-                        v301 = glpLinkerPoolAlloc(v565);
-                        *v301 = 0u;
-                        *(v301 + 16) = 0u;
-                        glpIntHashPut(*v563, v139, v301, 0.0);
-                        v306 = v560;
-                        *(v301 + 8) = *(v560 + 6) & 0x7F00000001FLL | (v551[v297] >> 3);
-                        *(v301 + 4) = glpPrimitiveTypeGetScalarType(v294[v297]);
-                        *(v301 + 24) = offsetLayout(v305, *(v306 + 1), v299);
-                        v298 = v139;
-                        LODWORD(v139) = v139 + 1;
+                        v271 = v493;
+                        v267 = glpLinkerPoolAlloc(v493);
+                        *v267 = 0u;
+                        *(v267 + 16) = 0u;
+                        glpIntHashPut(*v491, v109, v267, 0.0);
+                        v272 = v488;
+                        *(v267 + 8) = *(v488 + 6) & 0x7F00000001FLL | (v479[v263] >> 3);
+                        *(v267 + 4) = glpPrimitiveTypeGetScalarType(v260[v263]);
+                        *(v267 + 24) = offsetLayout(v271, *(v272 + 1), v265);
+                        v264 = v109;
+                        v109 = (v109 + 1);
                       }
 
-                      v307 = v557;
-                      v308 = *(v557 + 8);
-                      v309 = (v555 + 8 * v308);
-                      *v309 = v298;
-                      v309[1] = v300;
-                      *(v307 + 8) = v308 + 1;
-                      *v301 |= 1 << v300;
-                      v310 = glpPrimitiveTypeGetScalarType(v294[v297]);
-                      v311 = componentCountForSet(*v301);
-                      *(v301 + 4) = glpGetVectorType(v310, v311);
-                      v304 = v301;
+                      v273 = v485;
+                      v274 = *(v485 + 8);
+                      v275 = (v483 + 8 * v274);
+                      *v275 = v264;
+                      v275[1] = v266;
+                      *(v273 + 8) = v274 + 1;
+                      *v267 |= 1 << v266;
+                      v276 = glpPrimitiveTypeGetScalarType(v260[v263]);
+                      v277 = componentCountForSet(*v267);
+                      *(v267 + 4) = glpGetVectorType(v276, v277);
+                      v270 = v267;
                     }
 
                     else
                     {
-                      v301 = v304;
+                      v267 = v270;
                     }
 
-                    ++v302;
-                    ++v300;
+                    ++v268;
+                    ++v266;
                   }
 
-                  while (v302 < glpPrimitiveTypeGetScalarCount(v294[v297]));
+                  while (v268 < glpPrimitiveTypeGetScalarCount(v260[v263]));
                 }
 
                 else
                 {
-                  v304 = v301;
+                  v270 = v267;
                 }
 
-                ++v297;
-                v301 = v304;
-                v24 = v559;
-                v216 = v548;
+                ++v263;
+                v267 = v270;
+                v24 = v487;
+                v183 = v476;
               }
 
-              while (v297 != v547);
+              while (v263 != v475);
             }
           }
 
-          else if (v281)
+          else if (v247)
           {
-            v314 = 0;
-            v315 = (v557 + 16);
+            v280 = 0;
+            v281 = (v485 + 16);
             do
             {
-              if (BitSetGetEquals(*(&v578 + 1), v314))
+              if (BitSetGetEquals(*(&v506 + 1), v280))
               {
-                v316 = glpLinkerPoolAlloc(v565);
-                *v316 = 0u;
-                *(v316 + 16) = 0u;
-                glpIntHashPut(*v563, v139, v316, 0.0);
-                v317 = v557;
-                if (glpPrimitiveTypeGetScalarCount(v294[v314]))
+                v282 = glpLinkerPoolAlloc(v493);
+                *v282 = 0u;
+                *(v282 + 16) = 0u;
+                glpIntHashPut(*v491, v109, v282, 0.0);
+                v283 = v485;
+                if (glpPrimitiveTypeGetScalarCount(v260[v280]))
                 {
-                  v318 = 0;
+                  v284 = 0;
                   do
                   {
-                    v319 = *(v317 + 8);
-                    v320 = &v315[8 * v319];
-                    *v320 = v139;
-                    v320[1] = v318;
-                    *(v317 + 8) = v319 + 1;
-                    *v316 |= 1 << v318++;
+                    v285 = *(v283 + 8);
+                    v286 = &v281[8 * v285];
+                    *v286 = v109;
+                    v286[1] = v284;
+                    *(v283 + 8) = v285 + 1;
+                    *v282 |= 1 << v284++;
                   }
 
-                  while (v318 < glpPrimitiveTypeGetScalarCount(v294[v314]));
+                  while (v284 < glpPrimitiveTypeGetScalarCount(v260[v280]));
                 }
 
-                v321 = v560;
-                *(v316 + 8) = *(v560 + 6) & 0x7F00000001FLL | (v551[v314] >> 3);
-                *(v316 + 4) = v294[v314];
-                *(v316 + 24) = offsetLayout(v565, *(v321 + 1), v314);
-                LODWORD(v139) = v139 + 1;
-                v24 = v559;
+                v287 = v488;
+                *(v282 + 8) = *(v488 + 6) & 0x7F00000001FLL | (v479[v280] >> 3);
+                *(v282 + 4) = v260[v280];
+                *(v282 + 24) = offsetLayout(v493, *(v287 + 1), v280);
+                v109 = (v109 + 1);
+                v24 = v487;
               }
 
-              ++v314;
+              ++v280;
             }
 
-            while (v314 != v547);
+            while (v280 != v475);
           }
         }
 
-        v17 = v565;
-        v290 = v560;
-        v291 = propagateCopyBindings(v565, v560, v557);
-        glpStringHashPut(*v553, v549, v216, v291, v292);
-        v13 = v561;
-        v212 = Size;
-        if ((v544 & 1) == 0)
+        v17 = v493;
+        v256 = v488;
+        v257 = propagateCopyBindings(v493, v488, v485);
+        glpStringHashPut(*v481, v477, v183, v258, v257);
+        v13 = v489;
+        v179 = v474;
+        if ((v472 & 1) == 0)
         {
-          if (glpTypeGetKind(v571) == 3)
+          if (glpTypeGetKind(v499) == 3)
           {
-            v293 = glpBankTypeGetElementCount(v571);
+            v259 = glpBankTypeGetElementCount(v499);
           }
 
           else
           {
-            v293 = 1;
+            v259 = 1;
           }
 
-          *(v545 + 4 * v564) += *(v291 + 2) * v293;
+          *(v473 + 4 * v492) += *(v257 + 2) * v259;
         }
 
-        v312 = glpLinkerPoolAlloc(v17);
-        *v312 = 0;
-        v312[1] = 0;
-        *v312 = -1;
-        v312[1] = *v290;
-        StringHash = glpStringHashPut(*v554, v549, v216, v312, v313);
+        v278 = glpLinkerPoolAlloc(v17);
+        *v278 = 0;
+        v278[1] = 0;
+        *v278 = -1;
+        v278[1] = *v256;
+        StringHash = glpStringHashPut(*v482, v477, v183, v279, v278);
       }
 
       else
       {
-        v17 = v565;
+        v17 = v493;
       }
 
       goto LABEL_265;
@@ -8799,420 +8792,430 @@ LABEL_218:
   }
 
 LABEL_318:
-  a5 = v562;
-  if (v562)
+  a5 = v490;
+  if (v490)
   {
-    v322 = v24;
-    v323 = *v558;
-    if (*(*v558 + 32))
+    v288 = v24;
+    v289 = *v486;
+    if (*(*v486 + 32))
     {
-      v324 = 0;
-      v325 = 0;
+      v290 = 0;
+      v291 = 0;
       do
       {
-        v326 = *(v323 + 40);
-        if (*(v326 + v324))
+        v292 = *(v289 + 40);
+        if (*(v292 + v290))
         {
-          v327 = *(v326 + v324 + 8);
-          StringHash = glpIntHashGet(*v563, v327);
+          v293 = *(v292 + v290 + 8);
+          StringHash = glpIntHashGet(*v491, *(v292 + v290 + 8));
           if (!StringHash)
           {
-            StringHash = glpIntHashPut(*v563, v327, -1, v328);
+            StringHash = glpIntHashPut(*v491, v293, -1, v294);
           }
         }
 
-        ++v325;
-        v324 += 16;
+        ++v291;
+        v290 += 16;
       }
 
-      while (v325 < *(v323 + 32));
+      while (v291 < *(v289 + 32));
     }
 
-    v329 = *v563;
-    if (*(*v563 + 32))
+    v295 = *v491;
+    if (*(*v491 + 32))
     {
-      v330 = 0;
-      v331 = 0;
+      v296 = 0;
+      v297 = 0;
       do
       {
-        v332 = *(v329 + 40);
-        if (*(v332 + v330))
+        v298 = *(v295 + 40);
+        if (*(v298 + v296))
         {
-          v333 = *(v332 + v330 + 8);
-          StringHash = glpIntHashGet(*v558, v333);
+          v299 = *(v298 + v296 + 8);
+          StringHash = glpIntHashGet(*v486, *(v298 + v296 + 8));
           if (!StringHash)
           {
-            StringHash = glpIntHashPut(*v558, v333, -1, v334);
+            StringHash = glpIntHashPut(*v486, v299, -1, v300);
           }
         }
 
-        ++v331;
-        v330 += 16;
+        ++v297;
+        v296 += 16;
       }
 
-      while (v331 < *(v329 + 32));
+      while (v297 < *(v295 + 32));
     }
 
-    v17 = v565;
-    v24 = v322;
+    v17 = v493;
+    v24 = v288;
     goto LABEL_332;
   }
 
-LABEL_435:
-  v448 = v24;
-  v549 = &v541;
-  v449 = *(v13 + 36);
+LABEL_438:
+  v390 = v24;
+  v477 = &v469;
   MEMORY[0x28223BE20](StringHash);
-  v451 = &v541 - ((v450 + 15) & 0xFFFFFFFF0);
-  bzero(v451, v450);
-  v452 = *(v13 + 32);
-  if (v452)
+  v392 = &v469 - ((v391 + 15) & 0xFFFFFFFF0);
+  bzero(v392, v391);
+  v393 = *(v13 + 32);
+  if (v393)
   {
-    v453 = 0;
-    v454 = (*(v13 + 40) + 16);
+    v394 = 0;
+    v395 = (*(v13 + 40) + 16);
     do
     {
-      v455 = *(v454 - 2);
-      if (v455)
+      v396 = *(v395 - 2);
+      if (v396)
       {
-        v456 = *(v454 - 1);
-        v457 = *v454;
-        if (*v454 < 3 || ((v458 = *v456, v458 != 103) ? (v459 = 103) : (v458 = *(v456 + 1), v458 != 108) ? (v459 = 108) : (v458 = *(v456 + 2), v459 = 95), v459 != v458 && (v457 < 9 || strncmp("$ib$", *(v454 - 1), 4uLL) || strncmp("$gl_", v456 + 5, 4uLL))))
+        v397 = *(v395 - 1);
+        v398 = *v395;
+        if (*v395 < 3 || ((v399 = *v397, v399 != 103) ? (v400 = 103) : (v399 = *(v397 + 1), v399 != 108) ? (v400 = 108) : (v399 = *(v397 + 2), v400 = 95), v400 != v399 && (v398 < 9 || strncmp("$ib$", *(v395 - 1), 4uLL) || strncmp("$gl_", v397 + 5, 4uLL))))
         {
-          if ((!v457 || *v456 != 36 || v457 >= 9 && !strncmp("$ib$", v456, 4uLL) && !strncmp("$gl_", v456 + 5, 4uLL) || (v457 & 0xFFFFFFFC) != 0 && v456[1] == 105 && v456[2] == 98 && v456[3] == 36) && (v564 != 4 || (*(v455 + 51) & 0x40) == 0))
+          if ((!v398 || *v397 != 36 || v398 >= 9 && !strncmp("$ib$", v397, 4uLL) && !strncmp("$gl_", v397 + 5, 4uLL) || (v398 & 0xFFFFFFFC) != 0 && v397[1] == 105 && v397[2] == 98 && v397[3] == 36) && (v492 != 4 || (*(v396 + 51) & 0x40) == 0))
           {
-            *&v451[8 * v453++] = v455;
+            *&v392[8 * v394++] = v396;
           }
         }
       }
 
-      v454 += 4;
-      --v452;
+      v395 += 4;
+      --v393;
     }
 
-    while (v452);
+    while (v393);
   }
 
   else
   {
-    v453 = 0;
+    v394 = 0;
   }
 
-  v460 = v565;
-  if (*(v565 + 296))
+  v401 = v493;
+  if (*(v493 + 296))
   {
-    qsort(v451, v453, 8uLL, compareVariableObjectsLocationFirstNameSecond);
+    qsort(v392, v394, 8uLL, compareVariableObjectsLocationFirstNameSecond);
   }
 
-  v13 = v561;
-  v461 = v554;
-  if (v453)
+  v13 = v489;
+  v402 = v482;
+  if (v394)
   {
-    v462 = v453;
-    v551 = (v460 + 256);
+    v403 = v394;
+    v479 = (v401 + 256);
     do
     {
-      v463 = *v451;
-      v465 = *(*v451 + 16);
-      v464 = *(*v451 + 24);
-      v466 = *(*v451 + 8);
-      if (v466)
+      v404 = *v392;
+      v406 = *(*v392 + 16);
+      v405 = *(*v392 + 24);
+      v407 = *(*v392 + 8);
+      if (v407)
       {
-        v467 = glpLayoutObjectFind(v466, 79) != 0;
+        v408 = glpLayoutObjectFind(v407, 79) != 0;
       }
 
       else
       {
-        v467 = 0;
+        v408 = 0;
       }
 
-      if (!*(v460 + 296))
+      if (!*(v401 + 296))
       {
-        if (v562 && (v471 = outputForInput(*v552, v465, v464)) != 0)
+        if (v490 && (v412 = outputForInput(*v480, v406, v405)) != 0)
         {
-          if (v448)
+          if (v390)
           {
-            glpStringHashPut(*v461, v465, v464, v471, v472);
-            v473 = outputForInput(*v550, v465, v464);
-            v474 = propagateCopyBindings(v460, v463, v473);
-            glpStringHashPut(*v553, v465, v464, v474, v475);
-            if (!v467)
+            glpStringHashPut(*v402, v406, v405, v413, v412);
+            v414 = outputForInput(*v478, v406, v405);
+            v415 = propagateCopyBindings(v401, v404, v414);
+            glpStringHashPut(*v481, v406, v405, v416, v415);
+            if (!v408)
             {
-              *&v551[4 * v564] += *(v474 + 2);
+              *&v479[4 * v492] += *(v415 + 2);
             }
           }
         }
 
         else
         {
-          v508 = glpLinkerGetInfoLog(v460);
-          v513 = glpLanguageToString(v564);
-          v514 = *(v463 + 40);
-          v515 = *(v463 + 32);
-          if (v562)
+          v448 = glpLinkerGetInfoLog(v401);
+          v449 = glpLanguageToString(v492);
+          v450 = *(v404 + 40);
+          v451 = *(v404 + 32);
+          if (v490)
           {
-            glpLanguageToString(v556);
+            v452 = glpLanguageToString(v484);
+            v453 = "shader";
           }
 
-          *&v571 = "-1";
-          *(&v571 + 1) = 0xEDA00000002;
-          *&v572 = 0xFFFFFFFFLL;
-          glpLogMessage(v508, 0, &v571, "Input of %s shader '%.*s' not written by %s %s", v509, v510, v511, v512, v513);
-          v448 = 0;
-          v460 = v565;
+          else
+          {
+            v453 = "stage";
+            v452 = "previous";
+          }
+
+          *&v499 = "-1";
+          *(&v499 + 1) = 0xEDA00000002;
+          *&v500 = 0xFFFFFFFFLL;
+          glpLogMessage(v448, 0, &v499, "Input of %s shader '%.*s' not written by %s %s", v449, v450, v451, v452, v453);
+          v390 = 0;
+          v401 = v493;
         }
 
-        goto LABEL_499;
+        goto LABEL_505;
       }
 
-      LODWORD(v560) = v467;
-      v468 = *(v463 + 120);
-      v582[0] = v468;
-      v469 = *v463;
-      v581 = *v463;
-      if (v448)
+      LODWORD(v488) = v408;
+      v409 = *(v404 + 120);
+      v510[0] = v409;
+      v410 = *v404;
+      v509 = *v404;
+      if (v390)
       {
-        v470 = getInputOutputBitsType(v460, v564, v463, v582, &v581, 5, 0, 0) != 0;
-        v469 = v581;
-        v468 = v582[0];
+        v411 = getInputOutputBitsType(v401, v492, v404, v510, &v509, 5, 0, 0) != 0;
+        v410 = v509;
+        v409 = v510[0];
       }
 
       else
       {
-        v470 = 0;
+        v411 = 0;
       }
 
-      v579 = 0u;
-      v580 = 0u;
-      v577 = 0u;
-      v578 = 0u;
-      v575 = 0u;
-      v576 = 0u;
-      v574 = 0u;
-      v573 = 0u;
-      v572 = 0u;
-      v571 = 0u;
-      v476 = *(v463 + 128);
-      v477 = *(v463 + 144);
-      v478 = *(v463 + 96);
-      v578 = *(v463 + 112);
-      v479 = *(v463 + 16);
-      v571 = *v463;
-      v572 = v479;
-      v480 = *(v463 + 32);
-      v481 = *(v463 + 48);
-      v482 = *(v463 + 80);
-      v575 = *(v463 + 64);
-      v576 = v482;
-      v574 = v481;
-      v573 = v480;
-      v579 = v476;
-      v580 = v477;
-      v577 = v478;
-      *(&v578 + 1) = v468;
-      *&v571 = v469;
-      v483 = glpTypeGetKind(v469);
-      v484 = v571;
-      if (v483 == 3)
+      v507 = 0u;
+      v508 = 0u;
+      v505 = 0u;
+      v506 = 0u;
+      v503 = 0u;
+      v504 = 0u;
+      v502 = 0u;
+      v501 = 0u;
+      v500 = 0u;
+      v499 = 0u;
+      v417 = *(v404 + 128);
+      v418 = *(v404 + 144);
+      v419 = *(v404 + 96);
+      v506 = *(v404 + 112);
+      v420 = *(v404 + 16);
+      v499 = *v404;
+      v500 = v420;
+      v421 = *(v404 + 32);
+      v422 = *(v404 + 48);
+      v423 = *(v404 + 80);
+      v503 = *(v404 + 64);
+      v504 = v423;
+      v502 = v422;
+      v501 = v421;
+      v507 = v417;
+      v508 = v418;
+      v505 = v419;
+      *(&v506 + 1) = v409;
+      *&v499 = v410;
+      v424 = glpTypeGetKind(v410);
+      v425 = v499;
+      if (v424 == 3)
       {
-        v484 = glpBankTypeGetElementType(v571);
+        v425 = glpBankTypeGetElementType(v499);
       }
 
-      v485 = glpABIGetTypeSize(0, v484, 0);
-      glpTypeSizeGetSize(v485);
-      v486 = glpLinkerPoolAlloc(v460);
-      *v486 = 0;
-      *(v486 + 8) = 0;
-      *v486 = &v571;
-      v487 = *(v463 + 48);
-      v488 = *(v463 + 8);
-      if (v488)
+      glpABIGetTypeSize(0, v425, 0);
+      glpTypeSizeGetSize();
+      v426 = glpLinkerPoolAlloc(v401);
+      *v426 = 0;
+      *(v426 + 8) = 0;
+      *v426 = &v499;
+      v427 = *(v404 + 48);
+      v428 = *(v404 + 8);
+      if (v428)
       {
-        v489 = glpLayoutObjectFind(v488, 26);
-        v490 = v489;
-        if (v489)
+        v429 = glpLayoutObjectFind(v428, 26);
+        v430 = v429;
+        if (v429)
         {
-          v491 = 0;
-          v492 = remapSlotToCode[*(v489 + 4)];
-          if (!v470)
+          v431 = 0;
+          v432 = remapSlotToCode[*(v429 + 4)];
+          if (!v411)
           {
-            goto LABEL_484;
+            goto LABEL_487;
           }
 
-          goto LABEL_487;
+          goto LABEL_490;
         }
       }
 
       else
       {
-        v490 = 0;
+        v430 = 0;
       }
 
-      v492 = -1;
-      v491 = 1;
-      if (!v470)
+      v432 = -1;
+      v431 = 1;
+      if (!v411)
       {
-LABEL_484:
-        v448 = 0;
-        v460 = v565;
-LABEL_496:
-        v461 = v554;
-        goto LABEL_497;
-      }
-
 LABEL_487:
-      LODWORD(v555) = v491;
-      v558 = v465;
-      v559 = v464;
-      v493 = v565;
-      LODWORD(v557) = v492;
-      v494 = glpLinkerGetAllocator(v565);
-      v495 = glpMakeLayoutObject(v494);
-      v496 = glpLinkerGetAllocator(v493);
-      v566 = "-1";
-      v567 = 0xEDA00000002;
-      v568 = 0xFFFFFFFFLL;
-      glpLayoutObjectAppendInteger(v496, 0, &v566, 0, 0, v495, 33, 0);
-      v497 = glpLinkerGetAllocator(v493);
-      v566 = "-1";
-      v567 = 0xEDA00000002;
-      v568 = 0xFFFFFFFFLL;
-      glpLayoutObjectAppendInteger(v497, 0, &v566, 0, 0, v495, 34, 28);
-      v498 = glpLinkerGetAllocator(v493);
-      v566 = "-1";
-      v567 = 0xEDA00000002;
-      v568 = 0xFFFFFFFFLL;
-      glpLayoutObjectAppendInteger(v498, 0, &v566, 0, 0, v495, 35, 0);
-      v499 = glpLinkerGetAllocator(v493);
-      v566 = "-1";
-      v567 = 0xEDA00000002;
-      v568 = 0xFFFFFFFFLL;
-      glpLayoutObjectAppendInteger(v499, 0, &v566, 0, 0, v495, 38, 1);
-      v500 = allocateSlotsWithGLPType(v493, 0, *v563, v486, v487 & 0x7F00000001FLL, v487 & 0x7F00000001FLL, 0, v495, v557, glpBuiltInConstantValues[8 * (*(v493 + 60) == 4) + 2]);
-      if ((v560 & 1) == 0)
-      {
-        *&v551[4 * v564] += *(v486 + 8);
+        v390 = 0;
+        v401 = v493;
+LABEL_501:
+        v402 = v482;
+        goto LABEL_502;
       }
 
-      v501 = v559;
-      v502 = v558;
-      if (!v500)
+LABEL_490:
+      LODWORD(v483) = v431;
+      v486 = v406;
+      v487 = v405;
+      v433 = v493;
+      LODWORD(v485) = v432;
+      glpLinkerGetAllocator();
+      v435 = glpMakeLayoutObject(v434);
+      glpLinkerGetAllocator();
+      v494 = "-1";
+      v495 = 0xEDA00000002;
+      v496 = 0xFFFFFFFFLL;
+      glpLayoutObjectAppendInteger(v436, 0, &v494, 0, 0, v435, 33, 0);
+      glpLinkerGetAllocator();
+      v494 = "-1";
+      v495 = 0xEDA00000002;
+      v496 = 0xFFFFFFFFLL;
+      glpLayoutObjectAppendInteger(v437, 0, &v494, 0, 0, v435, 34, 28);
+      glpLinkerGetAllocator();
+      v494 = "-1";
+      v495 = 0xEDA00000002;
+      v496 = 0xFFFFFFFFLL;
+      glpLayoutObjectAppendInteger(v438, 0, &v494, 0, 0, v435, 35, 0);
+      glpLinkerGetAllocator();
+      v494 = "-1";
+      v495 = 0xEDA00000002;
+      v496 = 0xFFFFFFFFLL;
+      glpLayoutObjectAppendInteger(v439, 0, &v494, 0, 0, v435, 38, 1);
+      v440 = allocateSlotsWithGLPType(v433, 0, *v491, v426, v427 & 0x7F00000001FLL, v427 & 0x7F00000001FLL, 0, v435, v485, glpBuiltInConstantValues[8 * (*(v433 + 60) == 4) + 2]);
+      if ((v488 & 1) == 0)
       {
-        v460 = v565;
-        v516 = glpLinkerGetInfoLog(v565);
-        v517 = 4 * glpBuiltInConstantValues[8 * (*(v460 + 60) == 4) + 2];
-        v518 = *(v463 + 32);
-        v519 = *(v463 + 40);
-        v566 = "-1";
-        v567 = 0xEDA00000002;
-        v568 = 0xFFFFFFFFLL;
-        glpLogMessage(v516, 0, &v566, "Implementation limit of %d %s components exceeded. Unable to allocate '%.*s'.", v520, v521, v522, v523, v517);
-        if ((v555 & 1) == 0)
+        *&v479[4 * v492] += *(v426 + 8);
+      }
+
+      v441 = v487;
+      v442 = v486;
+      if (!v440)
+      {
+        v401 = v493;
+        v454 = glpLinkerGetInfoLog(v493);
+        v455 = 4 * glpBuiltInConstantValues[8 * (*(v401 + 60) == 4) + 2];
+        v456 = *(v404 + 32);
+        v457 = *(v404 + 40);
+        v458 = "patch";
+        if ((v427 & 0x20000000000) == 0)
         {
-          v524 = glpLinkerGetInfoLog(v460);
-          v525 = *(v463 + 32);
-          v526 = *(v490 + 4);
-          v527 = *(v463 + 40);
-          v566 = "-1";
-          v567 = 0xEDA00000002;
-          v568 = 0xFFFFFFFFLL;
-          glpLogMessage(v524, 0, &v566, "Or active varying aliasing. One or more slots starting at %d unavailable for '%.*s' from layout location request.", v528, v529, v530, v531, v526);
+          v458 = "varying";
         }
 
-        v448 = 0;
-        goto LABEL_496;
+        v494 = "-1";
+        v495 = 0xEDA00000002;
+        v496 = 0xFFFFFFFFLL;
+        glpLogMessage(v454, 0, &v494, "Implementation limit of %d %s components exceeded. Unable to allocate '%.*s'.", v455, v458, v457, v456);
+        if ((v483 & 1) == 0)
+        {
+          v459 = glpLinkerGetInfoLog(v401);
+          v460 = *(v404 + 32);
+          v461 = *(v430 + 4);
+          v462 = *(v404 + 40);
+          v494 = "-1";
+          v495 = 0xEDA00000002;
+          v496 = 0xFFFFFFFFLL;
+          glpLogMessage(v459, 0, &v494, "Or active varying aliasing. One or more slots starting at %d unavailable for '%.*s' from layout location request.", v461, v462, v460);
+        }
+
+        v390 = 0;
+        goto LABEL_501;
       }
 
-      v503 = v486;
-      v460 = v565;
-      v504 = propagateCopyBindings(v565, v463, v503);
-      glpStringHashPut(*v553, v502, v501, v504, v505);
-      v506 = glpLinkerPoolAlloc(v460);
-      *v506 = 0;
-      v506[1] = 0;
-      *v506 = -1;
-      v506[1] = *v463;
-      v461 = v554;
-      glpStringHashPut(*v554, v502, v501, v506, v507);
-      v448 = 1;
-LABEL_497:
-      v13 = v561;
-LABEL_499:
-      v451 += 8;
-      --v462;
+      v443 = v426;
+      v401 = v493;
+      v444 = propagateCopyBindings(v493, v404, v443);
+      glpStringHashPut(*v481, v442, v441, v445, v444);
+      v446 = glpLinkerPoolAlloc(v401);
+      *v446 = 0;
+      v446[1] = 0;
+      *v446 = -1;
+      v446[1] = *v404;
+      v402 = v482;
+      glpStringHashPut(*v482, v442, v441, v447, v446);
+      v390 = 1;
+LABEL_502:
+      v13 = v489;
+LABEL_505:
+      v392 += 8;
+      --v403;
     }
 
-    while (v462);
+    while (v403);
   }
 
-  a5 = v562;
-  v24 = v448;
-LABEL_501:
-  if (v556 != 1)
+  a5 = v490;
+  v24 = v390;
+LABEL_507:
+  if (v484 != 1)
   {
     if (a5)
     {
-      v532 = *(*v550 + 32);
-      if (v532)
+      v463 = *(*v478 + 32);
+      if (v463)
       {
-        v533 = *(*v550 + 40);
+        v464 = *(*v478 + 40);
         do
         {
-          if (*v533)
+          if (*v464)
           {
-            *(**v533 + 8) = 0;
+            *(**v464 + 8) = 0;
           }
 
-          v533 += 32;
-          --v532;
+          v464 += 32;
+          --v463;
         }
 
-        while (v532);
+        while (v463);
       }
     }
   }
 
   if (v13)
   {
-    v534 = *(*v553 + 32);
-    if (v534)
+    v465 = *(*v481 + 32);
+    if (v465)
     {
-      v535 = *(*v553 + 40);
+      v466 = *(*v481 + 40);
       do
       {
-        if (*v535)
+        if (*v466)
         {
-          v536 = **v535;
-          if (v564 != 4 || (*(v536 + 48) & 0x40000000) == 0)
+          v467 = **v466;
+          if (v492 != 4 || (*(v467 + 48) & 0x40000000) == 0)
           {
-            *(v536 + 8) = 0;
+            *(v467 + 8) = 0;
           }
         }
 
-        v535 += 4;
-        --v534;
+        v466 += 4;
+        --v465;
       }
 
-      while (v534);
+      while (v465);
     }
   }
 
-LABEL_516:
-  v537 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 uint64_t inputForOutput(uint64_t a1, _BYTE *a2, size_t __n)
 {
   v3 = __n;
-  v15[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   if ((__n & 0xFFFFFFFC) != 0 && *a2 == 36 && a2[1] == 105 && a2[2] == 98 && a2[3] == 36)
   {
     v6 = __n;
     MEMORY[0x28223BE20](a1);
-    v7 = v15 - ((v3 + 15) & 0x1FFFFFFF0);
+    v7 = v13 - ((v3 + 15) & 0x1FFFFFFF0);
     bzero(v7, v3);
-    memcpy(v15 - ((v6 + 15) & 0x1FFFFFFF0), a2, v3);
+    memcpy(v13 - ((v6 + 15) & 0x1FFFFFFF0), a2, v3);
     v7[4] = 105;
     if (v3)
     {
@@ -9234,21 +9237,17 @@ uint64_t inputForOutput(uint64_t a1, _BYTE *a2, size_t __n)
       v11 = 0;
     }
 
-    result = glpStringHashGet(a1, v15 - ((v6 + 15) & 0x1FFFFFFF0), v11 | v6);
-    v14 = *MEMORY[0x277D85DE8];
+    return glpStringHashGet(a1, v13 - ((v6 + 15) & 0x1FFFFFFF0), v11 | v6);
   }
 
   else
   {
-    v12 = *MEMORY[0x277D85DE8];
 
     return glpStringHashGet(a1, a2, __n);
   }
-
-  return result;
 }
 
-uint64_t getInputOutputBitsType(uint64_t a1, unsigned int a2, uint64_t a3, void *a4, unsigned int **a5, int a6, uint64_t *a7, unsigned int **a8)
+uint64_t getInputOutputBitsType(uint64_t a1, unsigned int a2, uint64_t a3, void *a4, uint64_t *a5, int a6, uint64_t *a7, uint64_t *a8)
 {
   if (a7)
   {
@@ -9315,45 +9314,39 @@ LABEL_34:
 
   v19 = 2;
 LABEL_14:
-  v45 = v19;
+  v26 = v19;
   if (glpTypeGetKind(v17) != 3)
   {
     InfoLog = glpLinkerGetInfoLog(a1);
-    v29 = glpLanguageToString(a2);
-    v30 = *(a3 + 32);
-    v31 = *(a3 + 40);
-    v46 = "-1";
-    v47 = 0xEDA00000002;
-    v48 = 0xFFFFFFFFLL;
-    glpLogMessage(InfoLog, 0, &v46, "Input of %s shader '%.*s' not an array", v32, v33, v34, v35, v29);
+    glpLanguageToString(a2);
+    v27 = "-1";
+    v28 = 0xEDA00000002;
+    v29 = 0xFFFFFFFFLL;
+    glpLogMessage(InfoLog, 0, &v27, "Input of %s shader '%.*s' not an array");
     return 0;
   }
 
-  if (glpBankTypeGetElementCount(v17) != v45 && glpBankTypeGetElementCount(v17) != -1)
+  if (glpBankTypeGetElementCount(v17) != v26 && glpBankTypeGetElementCount(v17) != -1)
   {
     v20 = glpLinkerGetInfoLog(a1);
     if (a2 == 3)
     {
       v21 = glpLanguageToString(3u);
-      v22 = *(a3 + 32);
-      v23 = *(a3 + 40);
-      v46 = "-1";
-      v47 = 0xEDA00000002;
-      v48 = 0xFFFFFFFFLL;
       glpBankTypeGetElementCount(v17);
-      glpLogMessage(v20, 0, &v46, "Input of %s shader '%.*s' must be an array, with size matching input type (input type expects %u, got %u)", v24, v25, v26, v27, v21);
+      v27 = "-1";
+      v28 = 0xEDA00000002;
+      v29 = 0xFFFFFFFFLL;
+      glpLogMessage(v20, 0, &v27, "Input of %s shader '%.*s' must be an array, with size matching input type (input type expects %u, got %u)", v21);
     }
 
     else
     {
-      v38 = glpLanguageToString(a2);
-      v39 = *(a3 + 32);
-      v40 = *(a3 + 40);
-      v46 = "-1";
-      v47 = 0xEDA00000002;
-      v48 = 0xFFFFFFFFLL;
+      v25 = glpLanguageToString(a2);
       glpBankTypeGetElementCount(v17);
-      glpLogMessage(v20, 0, &v46, "Input of %s shader '%.*s' must be an array, with size matching gl_MaxPatchVertices (expected %u, got %u)", v41, v42, v43, v44, v38);
+      v27 = "-1";
+      v28 = 0xEDA00000002;
+      v29 = 0xFFFFFFFFLL;
+      glpLogMessage(v20, 0, &v27, "Input of %s shader '%.*s' must be an array, with size matching gl_MaxPatchVertices (expected %u, got %u)", v25);
     }
 
     return 0;
@@ -9385,55 +9378,57 @@ LABEL_14:
 uint64_t allocateSlotsWithGLPType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t **a4, uint64_t a5, unint64_t a6, uint64_t *a7, void **a8, int a9, unsigned int a10)
 {
   v12 = a4;
-  v16 = glpABIGetTypeSize(0, **a4, 0);
-  Size = glpTypeSizeGetSize(v16);
-  v18 = glpLinkerPoolAlloc(a1);
-  v100 = a1;
-  v96 = Size;
-  v91 = glpLinkerPoolAlloc(a1);
-  v92 = v18;
-  glpTypeGetAppleVec4Types(**v12, v18, 1, 0, 0, v91, 0, 0, 0);
-  v93 = a5;
+  glpABIGetTypeSize(0, **a4, 0);
+  glpTypeSizeGetSize();
+  v17 = v16;
+  v18 = v16;
+  v19 = glpLinkerPoolAlloc(a1);
+  v101 = a1;
+  v97 = v18;
+  v92 = glpLinkerPoolAlloc(a1);
+  v93 = v19;
+  glpTypeGetAppleVec4Types(**v12, v19, 1, 0, 0, v92, 0, 0, 0);
+  v94 = a5;
   if ((a5 & 0x1Fu) >= (a6 & 0x1F))
   {
-    v19 = a6;
+    v20 = a6;
   }
 
   else
   {
-    v19 = a6 & 0xFFFFFFFFFFFFFFE0 | a5 & 0x1F;
+    v20 = a6 & 0xFFFFFFFFFFFFFFE0 | a5 & 0x1F;
   }
 
-  if (!Size)
+  if (!v17)
   {
     return 1;
   }
 
-  v20 = 0;
-  v89 = v19;
-  v95 = v12 + 2;
-  v22 = 1;
-  v101 = v12;
-  v106 = (v19 >> 11) & 0x40000000;
+  v21 = 0;
+  v90 = v20;
+  v96 = v12 + 2;
+  v23 = 1;
+  v102 = v12;
+  v107 = (v20 >> 11) & 0x40000000;
   do
   {
-    Equals = BitSetGetEquals((*v12)[15], v20);
-    if (!Equals && !*(v100 + 296) || !v22)
+    Equals = BitSetGetEquals((*v12)[15], v21);
+    if (!Equals && !*(v101 + 296) || !v23)
     {
       goto LABEL_9;
     }
 
-    v23 = v91[v20];
-    v103 = v89 | (v23 >> 3);
-    v104 = v93 | (v23 >> 3);
-    v105 = v92[v20];
-    v99 = v20;
-    v24 = a10;
+    v24 = v92[v21];
+    v104 = v90 | (v24 >> 3);
+    v105 = v94 | (v24 >> 3);
+    v106 = v93[v21];
+    v100 = v21;
+    v25 = a10;
     if (!a10)
     {
-      v22 = 0;
-      v35 = a9;
-      v36 = a7;
+      v23 = 0;
+      v36 = a9;
+      v37 = a7;
       if (a7)
       {
         goto LABEL_71;
@@ -9442,15 +9437,15 @@ uint64_t allocateSlotsWithGLPType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
       goto LABEL_73;
     }
 
-    v25 = &remapSlotToCode;
+    v26 = remapSlotToCode;
     while (1)
     {
-      v27 = *v25++;
-      v26 = v27;
-      v28 = v27 | v106;
+      v28 = *v26++;
+      v27 = v28;
+      v29 = v28 | v107;
       if (a2)
       {
-        v29 = glpIntHashGet(a2, v28);
+        v30 = glpIntHashGet(a2, v29);
         if (a3)
         {
           goto LABEL_18;
@@ -9459,77 +9454,77 @@ uint64_t allocateSlotsWithGLPType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
 
       else
       {
-        v29 = 0;
+        v30 = 0;
         if (a3)
         {
 LABEL_18:
-          v30 = glpIntHashGet(a3, v28);
+          v31 = glpIntHashGet(a3, v29);
           goto LABEL_21;
         }
       }
 
-      v30 = 0;
+      v31 = 0;
 LABEL_21:
-      if (v29)
+      if (v30)
       {
-        v31 = v29;
+        v32 = v30;
       }
 
       else
       {
-        v31 = v30;
+        v32 = v31;
       }
 
-      if (v31 == -1)
+      if (v32 == -1)
       {
         goto LABEL_37;
       }
 
-      if (v31)
+      if (v32)
       {
         break;
       }
 
-      if (a9 == -1 || v28 == a9)
+      if (a9 == -1 || v29 == a9)
       {
         goto LABEL_41;
       }
 
 LABEL_37:
-      if (!--v24)
+      if (!--v25)
       {
         goto LABEL_38;
       }
     }
 
-    v32 = *v31;
-    v33 = a9 == -1 || v28 == a9;
-    v34 = v33;
-    if (v32 || (v34 & 1) == 0)
+    v33 = *v32;
+    v34 = a9 == -1 || v29 == a9;
+    v35 = v34;
+    if (v33 || (v35 & 1) == 0)
     {
       goto LABEL_37;
     }
 
 LABEL_41:
-    if (!(v29 | v30))
+    if (!(v30 | v31))
     {
       if (a2)
       {
-        v29 = glpLinkerPoolAlloc(v100);
-        *v29 = 0u;
-        *(v29 + 16) = 0u;
-        glpIntHashPut(a2, v28, v29, 0.0);
+        v30 = glpLinkerPoolAlloc(v101);
+        *v30 = 0u;
+        *(v30 + 16) = 0u;
+        glpIntHashPut(a2, v29, v30, 0.0);
         if (!a3)
         {
-          if (v29)
+          if (v30)
           {
-            v30 = 0;
+            v31 = 0;
             goto LABEL_50;
           }
 
 LABEL_38:
-          v22 = 0;
-          v35 = a9;
+          v23 = 0;
+          v36 = a9;
           goto LABEL_70;
         }
       }
@@ -9541,135 +9536,140 @@ LABEL_38:
           goto LABEL_38;
         }
 
-        v29 = 0;
+        v30 = 0;
       }
 
-      v30 = glpLinkerPoolAlloc(v100);
-      *v30 = 0u;
-      *(v30 + 16) = 0u;
-      glpIntHashPut(a3, v28, v30, 0.0);
+      v31 = glpLinkerPoolAlloc(v101);
+      *v31 = 0u;
+      *(v31 + 16) = 0u;
+      glpIntHashPut(a3, v29, v31, 0.0);
     }
 
-    if (v29)
+    if (v30)
     {
 LABEL_50:
-      *(v29 + 8) = v103;
-      ScalarType = glpPrimitiveTypeGetScalarType(v105);
-      *(v29 + 4) = glpGetVectorType(ScalarType, 4);
-      *(v29 + 24) = offsetLayout(v100, a7, v26);
-      if (!v30)
+      *(v30 + 8) = v104;
+      ScalarType = glpPrimitiveTypeGetScalarType(v106);
+      *(v30 + 4) = glpGetVectorType(ScalarType, 4);
+      *(v30 + 24) = offsetLayout(v101, a7, v27);
+      if (!v31)
       {
-        v38 = 0;
+        v39 = 0;
         goto LABEL_55;
       }
     }
 
     else
     {
-      if (!v30)
+      if (!v31)
       {
         goto LABEL_38;
       }
 
-      v29 = 0;
+      v30 = 0;
     }
 
-    *(v30 + 8) = v104;
-    v39 = glpPrimitiveTypeGetScalarType(v105);
-    *(v30 + 4) = glpGetVectorType(v39, 4);
-    *(v30 + 24) = offsetLayout(v100, a8, v26);
-    v38 = 1;
-    if (v29)
+    *(v31 + 8) = v105;
+    v40 = glpPrimitiveTypeGetScalarType(v106);
+    *(v31 + 4) = glpGetVectorType(v40, 4);
+    *(v31 + 24) = offsetLayout(v101, a8, v27);
+    v39 = 1;
+    if (v30)
     {
 LABEL_55:
-      v97 = a9;
-      v40 = 1;
-      v41 = v29;
+      v98 = a9;
+      v41 = 1;
+      v42 = v30;
     }
 
     else
     {
-      v97 = a9;
-      v40 = 0;
-      v41 = v30;
+      v98 = a9;
+      v41 = 0;
+      v42 = v31;
     }
 
-    v42 = *v41;
-    if (glpPrimitiveTypeGetScalarCount(v105))
+    v43 = *v42;
+    if (glpPrimitiveTypeGetScalarCount(v106))
     {
-      v43 = 0;
+      v44 = 0;
       do
       {
         if (Equals)
         {
-          v44 = *(v101 + 2);
-          v45 = &v95[v44];
-          *v45 = v28;
-          v45[1] = v43;
-          *(v101 + 2) = v44 + 1;
+          v45 = *(v102 + 2);
+          v46 = &v96[v45];
+          *v46 = v29;
+          *(v46 + 1) = v44;
+          *(v102 + 2) = v45 + 1;
         }
 
-        v42 |= 1 << v43;
-        if (v40)
+        v43 |= 1 << v44;
+        if (v41)
         {
-          *v29 = v42;
-          v46 = glpPrimitiveTypeGetScalarType(*(v29 + 4));
-          v47 = componentCountForSet(*v29);
-          *(v29 + 4) = glpGetVectorType(v46, v47);
+          *v30 = v43;
+          v47 = glpPrimitiveTypeGetScalarType(*(v30 + 4));
+          v48 = componentCountForSet(*v30);
+          *(v30 + 4) = glpGetVectorType(v47, v48);
         }
 
-        if (v38)
+        if (v39)
         {
-          *v30 = v42;
-          v48 = glpPrimitiveTypeGetScalarType(*(v30 + 4));
-          v49 = componentCountForSet(*v30);
-          *(v30 + 4) = glpGetVectorType(v48, v49);
+          *v31 = v43;
+          v49 = glpPrimitiveTypeGetScalarType(*(v31 + 4));
+          v50 = componentCountForSet(*v31);
+          *(v31 + 4) = glpGetVectorType(v49, v50);
         }
 
-        ++v43;
+        ++v44;
       }
 
-      while (v43 < glpPrimitiveTypeGetScalarCount(v105));
+      while (v44 < glpPrimitiveTypeGetScalarCount(v106));
     }
 
-    a9 = v97;
-    if (v97 == -1)
+    a9 = v98;
+    if (v98 == -1)
     {
-      v35 = -1;
+      v36 = -1;
     }
 
     else
     {
-      v35 = v97 + 1;
+      v36 = v98 + 1;
     }
 
-    v22 = 1;
-    v12 = v101;
+    v23 = 1;
+    v12 = v102;
 LABEL_70:
-    v36 = a7;
-    v20 = v99;
+    v37 = a7;
+    v21 = v100;
     if (a7)
     {
 LABEL_71:
-      v50 = glpLayoutObjectFind(v36, 33);
-      if (v50)
+      v51 = glpLayoutObjectFind(v37, 33);
+      if (v51)
       {
-        v51 = *(v50 + 4) == 5;
+        v52 = *(v51 + 4) == 5;
         goto LABEL_74;
       }
     }
 
 LABEL_73:
-    v51 = 0;
+    v52 = 0;
 LABEL_74:
-    if (*(v100 + 296))
+    if (*(v101 + 296))
     {
-      v52 = 1;
+      v53 = 1;
     }
 
     else
     {
-      v52 = v22;
+      v53 = v23;
+    }
+
+    if (v53)
+    {
+      goto LABEL_9;
     }
 
     if (v52)
@@ -9677,116 +9677,111 @@ LABEL_74:
       goto LABEL_9;
     }
 
-    if (v51)
+    if (v36 != -1)
     {
       goto LABEL_9;
     }
 
-    if (v35 != -1)
+    v54 = v107;
+    if (glpPrimitiveTypeGetScalarType(v106) == 62)
     {
       goto LABEL_9;
     }
 
-    v53 = v106;
-    if (glpPrimitiveTypeGetScalarType(v105) == 62)
+    if (!glpPrimitiveTypeGetScalarCount(v106))
     {
+      v23 = 1;
       goto LABEL_9;
     }
 
-    if (!glpPrimitiveTypeGetScalarCount(v105))
-    {
-      v22 = 1;
-      goto LABEL_9;
-    }
-
-    v54 = 0;
-    v98 = a9;
+    v55 = 0;
+    v99 = a9;
     while (2)
     {
       if (!a10)
       {
-        v64 = 0;
-        v22 = 0;
+        v65 = 0;
+        v23 = 0;
         goto LABEL_138;
       }
 
-      v55 = &remapSlotToCode;
-      v56 = a10;
+      v56 = remapSlotToCode;
+      v57 = a10;
       while (2)
       {
-        v58 = *v55++;
-        v57 = v58;
-        v59 = v58 | v53;
+        v59 = *v56++;
+        v58 = v59;
+        v60 = v59 | v54;
         if (a2)
         {
-          v22 = glpIntHashGet(a2, v59);
+          v23 = glpIntHashGet(a2, v60);
           if (a3)
           {
             goto LABEL_87;
           }
 
 LABEL_89:
-          v60 = 0;
+          v61 = 0;
         }
 
         else
         {
-          v22 = 0;
+          v23 = 0;
           if (!a3)
           {
             goto LABEL_89;
           }
 
 LABEL_87:
-          v60 = glpIntHashGet(a3, v59);
+          v61 = glpIntHashGet(a3, v60);
         }
 
-        if (v22)
+        if (v23)
         {
-          v61 = v22;
+          v62 = v23;
         }
 
         else
         {
-          v61 = v60;
+          v62 = v61;
         }
 
-        if (v61 == -1)
+        if (v62 == -1)
         {
           goto LABEL_105;
         }
 
-        if (!v61)
+        if (!v62)
         {
           goto LABEL_108;
         }
 
-        if (*v61 == 15)
+        if (*v62 == 15)
         {
           goto LABEL_105;
         }
 
-        if (!*v61)
+        if (!*v62)
         {
           goto LABEL_108;
         }
 
-        v62 = v103;
-        if (!v22)
+        v63 = v104;
+        if (!v23)
         {
-          v62 = v104;
+          v63 = v105;
         }
 
-        if (*(v61 + 8) != v62 || (v63 = glpPrimitiveTypeGetScalarType(*(v61 + 4)), v33 = v63 == glpPrimitiveTypeGetScalarType(v105), v53 = v106, !v33))
+        if (*(v62 + 8) != v63 || (v64 = glpPrimitiveTypeGetScalarType(*(v62 + 4)), v34 = v64 == glpPrimitiveTypeGetScalarType(v106), v54 = v107, !v34))
         {
 LABEL_105:
-          if (!--v56)
+          if (!--v57)
           {
-            v64 = 0;
-            v22 = 0;
-            v12 = v101;
-            v20 = v99;
-            a9 = v98;
+            v65 = 0;
+            v23 = 0;
+            v12 = v102;
+            v21 = v100;
+            a9 = v99;
             goto LABEL_138;
           }
 
@@ -9796,9 +9791,9 @@ LABEL_105:
         break;
       }
 
-      if (v22 && v60)
+      if (v23 && v61)
       {
-        if (*(v60 + 8) == v104)
+        if (*(v61 + 8) == v105)
         {
           goto LABEL_117;
         }
@@ -9807,9 +9802,9 @@ LABEL_105:
       }
 
 LABEL_108:
-      v12 = v101;
-      a9 = v98;
-      if (v22 | v60)
+      v12 = v102;
+      a9 = v99;
+      if (v23 | v61)
       {
         goto LABEL_116;
       }
@@ -9818,56 +9813,56 @@ LABEL_108:
       {
         if (a3)
         {
-          v22 = 0;
+          v23 = 0;
 LABEL_115:
-          v60 = glpLinkerPoolAlloc(v100);
-          *v60 = 0u;
-          *(v60 + 16) = 0u;
-          glpIntHashPut(a3, v59, v60, 0.0);
+          v61 = glpLinkerPoolAlloc(v101);
+          *v61 = 0u;
+          *(v61 + 16) = 0u;
+          glpIntHashPut(a3, v60, v61, 0.0);
 LABEL_116:
-          if (v22)
+          if (v23)
           {
 LABEL_117:
-            *(v22 + 8) = v103;
-            *(v22 + 4) = glpPrimitiveTypeGetScalarType(v105);
-            *(v22 + 24) = offsetLayout(v100, a7, v57);
-            if (v60)
+            *(v23 + 8) = v104;
+            *(v23 + 4) = glpPrimitiveTypeGetScalarType(v106);
+            *(v23 + 24) = offsetLayout(v101, a7, v58);
+            if (v61)
             {
-              v12 = v101;
-              a9 = v98;
+              v12 = v102;
+              a9 = v99;
               goto LABEL_121;
             }
 
-            v65 = 0;
-            v12 = v101;
-            a9 = v98;
+            v66 = 0;
+            v12 = v102;
+            a9 = v99;
 LABEL_124:
-            v66 = 1;
-            v67 = v22;
+            v67 = 1;
+            v68 = v23;
             goto LABEL_126;
           }
 
-          if (v60)
+          if (v61)
           {
-            v22 = 0;
+            v23 = 0;
 LABEL_121:
-            *(v60 + 8) = v104;
-            *(v60 + 4) = glpPrimitiveTypeGetScalarType(v105);
-            *(v60 + 24) = offsetLayout(v100, a8, v57);
-            v65 = 1;
-            if (v22)
+            *(v61 + 8) = v105;
+            *(v61 + 4) = glpPrimitiveTypeGetScalarType(v106);
+            *(v61 + 24) = offsetLayout(v101, a8, v58);
+            v66 = 1;
+            if (v23)
             {
               goto LABEL_124;
             }
 
-            v66 = 0;
-            v67 = v60;
+            v67 = 0;
+            v68 = v61;
 LABEL_126:
-            v68 = 0;
-            v69 = *v67;
-            while (((1 << v68) & v69) != 0)
+            v69 = 0;
+            v70 = *v68;
+            while (((1 << v69) & v70) != 0)
             {
-              if (++v68 == 4)
+              if (++v69 == 4)
               {
                 goto LABEL_136;
               }
@@ -9875,67 +9870,67 @@ LABEL_126:
 
             if (Equals)
             {
-              v70 = *(v12 + 2);
-              v71 = &v95[v70];
-              *v71 = v59;
-              v71[1] = v68;
-              *(v12 + 2) = v70 + 1;
+              v71 = *(v12 + 2);
+              v72 = &v96[v71];
+              *v72 = v60;
+              *(v72 + 1) = v69;
+              *(v12 + 2) = v71 + 1;
             }
 
-            v72 = (1 << v68) | v69;
+            v73 = (1 << v69) | v70;
+            if (v67)
+            {
+              *v23 = v73;
+              v74 = glpPrimitiveTypeGetScalarType(*(v23 + 4));
+              v75 = componentCountForSet(*v23);
+              *(v23 + 4) = glpGetVectorType(v74, v75);
+            }
+
             if (v66)
             {
-              *v22 = v72;
-              v73 = glpPrimitiveTypeGetScalarType(*(v22 + 4));
-              v74 = componentCountForSet(*v22);
-              *(v22 + 4) = glpGetVectorType(v73, v74);
-            }
-
-            if (v65)
-            {
-              *v60 = v72;
-              v75 = glpPrimitiveTypeGetScalarType(*(v60 + 4));
-              v76 = componentCountForSet(*v60);
-              *(v60 + 4) = glpGetVectorType(v75, v76);
+              *v61 = v73;
+              v76 = glpPrimitiveTypeGetScalarType(*(v61 + 4));
+              v77 = componentCountForSet(*v61);
+              *(v61 + 4) = glpGetVectorType(v76, v77);
             }
 
 LABEL_136:
-            v64 = 1;
-            v22 = 1;
+            v65 = 1;
+            v23 = 1;
             goto LABEL_137;
           }
         }
 
-        v64 = 0;
-        v22 = 0;
+        v65 = 0;
+        v23 = 0;
         goto LABEL_137;
       }
 
-      v22 = glpLinkerPoolAlloc(v100);
-      *v22 = 0u;
-      *(v22 + 16) = 0u;
-      glpIntHashPut(a2, v59, v22, 0.0);
+      v23 = glpLinkerPoolAlloc(v101);
+      *v23 = 0u;
+      *(v23 + 16) = 0u;
+      glpIntHashPut(a2, v60, v23, 0.0);
       if (a3)
       {
         goto LABEL_115;
       }
 
-      if (v22)
+      if (v23)
       {
-        v60 = 0;
+        v61 = 0;
         goto LABEL_117;
       }
 
-      v64 = 0;
+      v65 = 0;
 LABEL_137:
-      v20 = v99;
+      v21 = v100;
 LABEL_138:
-      ScalarCount = glpPrimitiveTypeGetScalarCount(v105);
-      if (v64)
+      ScalarCount = glpPrimitiveTypeGetScalarCount(v106);
+      if (v65)
       {
-        ++v54;
-        v53 = v106;
-        if (v54 < ScalarCount)
+        ++v55;
+        v54 = v107;
+        if (v55 < ScalarCount)
         {
           continue;
         }
@@ -9955,21 +9950,21 @@ LABEL_9:
       ++a9;
     }
 
-    ++v20;
+    ++v21;
   }
 
-  while (v20 != v96);
-  if (!v22)
+  while (v21 != v97);
+  if (!v23)
   {
     if (*(v12 + 2))
     {
-      v78 = 0;
-      v79 = v12 + 5;
+      v79 = 0;
+      v80 = v12 + 5;
       do
       {
         if (a2)
         {
-          v80 = glpIntHashGet(a2, *(v79 - 1));
+          v81 = glpIntHashGet(a2, *(v80 - 1));
           if (a3)
           {
             goto LABEL_149;
@@ -9978,12 +9973,12 @@ LABEL_9:
 
         else
         {
-          v80 = 0;
+          v81 = 0;
           if (a3)
           {
 LABEL_149:
-            v81 = glpIntHashGet(a3, *(v79 - 1));
-            if (v80)
+            v82 = glpIntHashGet(a3, *(v80 - 1));
+            if (v81)
             {
               goto LABEL_153;
             }
@@ -9992,46 +9987,46 @@ LABEL_149:
           }
         }
 
-        v81 = 0;
-        if (v80)
+        v82 = 0;
+        if (v81)
         {
 LABEL_153:
-          v82 = 1;
-          v83 = v80[1];
-          *v80 &= ~(1 << *v79);
-          v84 = glpPrimitiveTypeGetScalarType(v83);
-          if (*v80)
+          v83 = 1;
+          v84 = v81[1];
+          *v81 &= ~(1 << *v80);
+          v85 = glpPrimitiveTypeGetScalarType(v84);
+          if (*v81)
           {
-            v82 = componentCountForSet(*v80);
+            v83 = componentCountForSet(*v81);
           }
 
-          v80[1] = glpGetVectorType(v84, v82);
+          v81[1] = glpGetVectorType(v85, v83);
         }
 
 LABEL_156:
-        if (v81)
+        if (v82)
         {
-          v85 = 1;
-          v86 = v81[1];
-          *v81 &= ~(1 << *v79);
-          v87 = glpPrimitiveTypeGetScalarType(v86);
-          if (*v81)
+          v86 = 1;
+          v87 = v82[1];
+          *v82 &= ~(1 << *v80);
+          v88 = glpPrimitiveTypeGetScalarType(v87);
+          if (*v82)
           {
-            v85 = componentCountForSet(*v81);
+            v86 = componentCountForSet(*v82);
           }
 
-          v81[1] = glpGetVectorType(v87, v85);
+          v82[1] = glpGetVectorType(v88, v86);
         }
 
-        ++v78;
-        v79 += 2;
+        ++v79;
+        v80 += 2;
       }
 
-      while (v78 < *(v12 + 2));
+      while (v79 < *(v12 + 2));
     }
 
     *(v12 + 2) = 0;
   }
 
-  return v22;
+  return v23;
 }

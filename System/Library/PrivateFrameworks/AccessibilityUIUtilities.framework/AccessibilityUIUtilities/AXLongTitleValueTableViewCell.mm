@@ -298,7 +298,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t __46__AXLongTitleValueTableViewCell_sizeThatFits___block_invoke(uint64_t a1)
+void *__46__AXLongTitleValueTableViewCell_sizeThatFits___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) imageRectForContentRect:{0.0, 0.0, *(a1 + 48), *(a1 + 56)}];
   v3 = *(*(a1 + 40) + 8);

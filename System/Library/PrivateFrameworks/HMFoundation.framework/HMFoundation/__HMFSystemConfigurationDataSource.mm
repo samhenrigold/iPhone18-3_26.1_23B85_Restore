@@ -9,10 +9,10 @@
 
 - (__HMFSystemConfigurationDataSource)init
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v33.receiver = self;
-  v33.super_class = __HMFSystemConfigurationDataSource;
-  v2 = [(__HMFSystemConfigurationDataSource *)&v33 init];
+  v39 = *MEMORY[0x277D85DE8];
+  v35.receiver = self;
+  v35.super_class = __HMFSystemConfigurationDataSource;
+  v2 = [(__HMFSystemConfigurationDataSource *)&v35 init];
   v3 = v2;
   if (v2)
   {
@@ -29,18 +29,18 @@
     v10 = SCDynamicStoreCreate(0, @"HostNameChange", __updateName, &context);
     if (!v10)
     {
-      v23 = objc_autoreleasePoolPush();
-      v24 = v9;
-      v25 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v24 = objc_autoreleasePoolPush();
+      v25 = v9;
+      v27 = HMFGetOSLogHandle(v25, v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v26 = HMFGetLogIdentifier(v24);
+        v28 = HMFGetLogIdentifier(v25);
         *buf = 138543362;
-        v35 = v26;
-        _os_log_impl(&dword_22ADEC000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to create store", buf, 0xCu);
+        v37 = v28;
+        _os_log_impl(&dword_22ADEC000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to create store", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v23);
+      objc_autoreleasePoolPop(v24);
       goto LABEL_20;
     }
 
@@ -65,35 +65,35 @@
 LABEL_18:
             CFRelease(v11);
             CFRelease(v13);
-            v27 = v15;
+            v29 = v15;
             goto LABEL_19;
           }
 
           v18 = objc_autoreleasePoolPush();
           v19 = v9;
-          v20 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v21 = HMFGetOSLogHandle(v19, v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            v21 = HMFGetLogIdentifier(v19);
+            v22 = HMFGetLogIdentifier(v19);
             LODWORD(context.version) = 138543362;
-            *(&context.version + 4) = v21;
-            v22 = "%{public}@Failed to set DispatchQueue on DynamicStore";
+            *(&context.version + 4) = v22;
+            v23 = "%{public}@Failed to set DispatchQueue on DynamicStore";
 LABEL_16:
-            _os_log_impl(&dword_22ADEC000, v20, OS_LOG_TYPE_ERROR, v22, &context, 0xCu);
+            _os_log_impl(&dword_22ADEC000, v21, OS_LOG_TYPE_ERROR, v23, &context, 0xCu);
           }
         }
 
         else
         {
           v18 = objc_autoreleasePoolPush();
-          v28 = v9;
-          v20 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v30 = v9;
+          v21 = HMFGetOSLogHandle(v30, v31);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            v21 = HMFGetLogIdentifier(v28);
+            v22 = HMFGetLogIdentifier(v30);
             LODWORD(context.version) = 138543362;
-            *(&context.version + 4) = v21;
-            v22 = "%{public}@Failed to set Notification on DynamicStore";
+            *(&context.version + 4) = v22;
+            v23 = "%{public}@Failed to set Notification on DynamicStore";
             goto LABEL_16;
           }
         }
@@ -103,24 +103,23 @@ LABEL_16:
       }
 
       CFRelease(v11);
-      v27 = v13;
+      v29 = v13;
     }
 
     else
     {
-      v27 = v11;
+      v29 = v11;
     }
 
 LABEL_19:
-    CFRelease(v27);
+    CFRelease(v29);
 LABEL_20:
 
-    v29 = SCDynamicStoreCopyLocalHostName(0);
+    v32 = SCDynamicStoreCopyLocalHostName(0);
     name = v9->_name;
-    v9->_name = &v29->isa;
+    v9->_name = &v32->isa;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

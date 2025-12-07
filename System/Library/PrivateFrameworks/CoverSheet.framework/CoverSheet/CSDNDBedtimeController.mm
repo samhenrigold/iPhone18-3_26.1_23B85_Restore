@@ -238,7 +238,7 @@ void __36__CSDNDBedtimeController_setActive___block_invoke(uint64_t a1)
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __60__CSDNDBedtimeController_sleepStore_sleepSettingsDidChange___block_invoke(uint64_t a1)
+void *__60__CSDNDBedtimeController_sleepStore_sleepSettingsDidChange___block_invoke(uint64_t a1)
 {
   v2 = SBLogDoNotDisturbBedtime();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))

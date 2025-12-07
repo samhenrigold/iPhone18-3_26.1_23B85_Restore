@@ -2,7 +2,7 @@
 + (id)tailspinDirectory;
 + (uint64_t)isReservedSignpostName:(uint64_t)name;
 + (uint64_t)isReservedWorkflowName:(uint64_t)name;
-+ (void)cleanupDirectory:(void *)directory ofFilesWithSuffix:(void *)suffix olderThan:;
++ (void)cleanupDirectory:(void *)directory ofFilesWithSuffix:(double)suffix olderThan:;
 + (void)cleanupWorkflowResponsivenessDiagnosticsDirectory;
 + (void)makeTailspinDirectory;
 - ($F99D9A4FB75BC57F3386B8DC8EE08D7A)stats;
@@ -30,7 +30,6 @@
 - (id)valueForFieldName:(void *)name inSignpostEvent:;
 - (id)valueForFieldName:(void *)name inSignpostObject:;
 - (uint64_t)gatherDiagnosticsWithTailspin:(int)tailspin tailspinIncludeOSLogs:;
-- (uint64_t)handleError:(void *)error atEndTime:;
 - (uint64_t)handleSignpost:(void *)signpost wrsignpost:;
 - (uint64_t)haveAnyEndSignpostsWithIndividuationFieldName:(uint64_t)name;
 - (void)applySignpost:(void *)signpost toSignpostTracker:;
@@ -39,6 +38,7 @@
 - (void)fillInNonDiagnosticSignpost:(void *)signpost;
 - (void)gatherDiagnosticsIfNeeded;
 - (void)generateTelemetry;
+- (void)handleError:(void *)error atEndTime:;
 - (void)initWithEncodedData:(void *)data error:;
 - (void)newConcurrentEventWithIdentifier:(void *)identifier;
 - (void)reportCoreAnalyticsEventForSignpost:(void *)signpost allCount:(void *)count allDurationUnionSec:(void *)sec allDurationSumSec:(void *)sumSec allDurationLongestSec:(void *)longestSec allDurationUntrackedSec:(void *)untrackedSec allDurationNonNetworkBoundSec:(void *)boundSec allTimeUntilFirstSignpost:(void *)self0 allTimeAfterLastSignpost:(void *)self1 incompleteCount:(void *)self2 completeDurationUnionSec:(void *)self3 completeDurationSumSec:(void *)self4 completeDurationLongestSec:(void *)self5 completeTimeUntilFirstSignpost:(void *)self6 environment:;
@@ -123,7 +123,7 @@
 
 - (id)valueForFieldName:(void *)name inSignpostObject:
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v5 = a2;
   nameCopy = name;
   v7 = 0;
@@ -144,48 +144,49 @@
         [self eventIdentifier];
         eventIdentifier = [self eventIdentifier];
 
-        v11 = *__error();
-        v12 = _wrlog();
-        v13 = os_log_type_enabled(v12, OS_LOG_TYPE_FAULT);
+        v11 = __error();
+        v12 = *v11;
+        v13 = _wrlog(v11);
+        v14 = os_log_type_enabled(v13, OS_LOG_TYPE_FAULT);
         if (eventIdentifier)
         {
-          if (v13)
+          if (v14)
           {
             workflow2 = [self workflow];
             name = [workflow2 name];
             eventIdentifier2 = [self eventIdentifier];
             name2 = [beginEvent name];
             *buf = 138544386;
-            v44 = name;
-            v45 = 2114;
-            v46 = eventIdentifier2;
+            v46 = name;
             v47 = 2114;
-            v48 = name2;
+            v48 = eventIdentifier2;
             v49 = 2114;
-            v50 = v5;
-            v51 = 2112;
-            v52 = 0;
-            _os_log_fault_impl(&dword_2746E5000, v12, OS_LOG_TYPE_FAULT, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: No field value", buf, 0x34u);
+            v50 = name2;
+            v51 = 2114;
+            v52 = v5;
+            v53 = 2112;
+            v54 = 0;
+            _os_log_fault_impl(&dword_2746E5000, v13, OS_LOG_TYPE_FAULT, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: No field value", buf, 0x34u);
           }
         }
 
-        else if (v13)
+        else if (v14)
         {
           workflow3 = [self workflow];
           name3 = [workflow3 name];
           name4 = [beginEvent name];
           *buf = 138544130;
-          v44 = name3;
-          v45 = 2114;
-          v46 = name4;
+          v46 = name3;
           v47 = 2114;
-          v48 = v5;
-          v49 = 2112;
-          v50 = 0;
-          _os_log_fault_impl(&dword_2746E5000, v12, OS_LOG_TYPE_FAULT, "%{public}@: %{public}@: %{public}@->%@: No field value", buf, 0x2Au);
+          v48 = name4;
+          v49 = 2114;
+          v50 = v5;
+          v51 = 2112;
+          v52 = 0;
+          _os_log_fault_impl(&dword_2746E5000, v13, OS_LOG_TYPE_FAULT, "%{public}@: %{public}@: %{public}@->%@: No field value", buf, 0x2Au);
         }
 
-        *__error() = v11;
+        *__error() = v12;
       }
 
 LABEL_29:
@@ -197,17 +198,17 @@ LABEL_29:
     if (objc_opt_isKindOfClass())
     {
       beginEvent = [nameCopy beginEvent];
-      v18 = [(WRWorkflowEventTracker *)self valueForFieldName:v5 inSignpostEvent:beginEvent];
-      if (v18)
+      v19 = [(WRWorkflowEventTracker *)self valueForFieldName:v5 inSignpostEvent:beginEvent];
+      if (v19)
       {
-        v7 = v18;
+        v7 = v19;
       }
 
       else
       {
         endEvent = [nameCopy endEvent];
-        v25 = [(WRWorkflowEventTracker *)self valueForFieldName:v5 inSignpostEvent:endEvent];
-        if (!v25)
+        v27 = [(WRWorkflowEventTracker *)self valueForFieldName:v5 inSignpostEvent:endEvent];
+        if (!v27)
         {
           [nameCopy name];
 
@@ -217,51 +218,52 @@ LABEL_29:
           [self eventIdentifier];
           eventIdentifier3 = [self eventIdentifier];
 
-          v28 = *__error();
-          v29 = _wrlog();
-          v30 = os_log_type_enabled(v29, OS_LOG_TYPE_FAULT);
+          v30 = __error();
+          v31 = *v30;
+          v32 = _wrlog(v30);
+          v33 = os_log_type_enabled(v32, OS_LOG_TYPE_FAULT);
           if (eventIdentifier3)
           {
-            if (v30)
+            if (v33)
             {
               workflow5 = [self workflow];
               name5 = [workflow5 name];
               eventIdentifier4 = [self eventIdentifier];
               name6 = [nameCopy name];
               *buf = 138544386;
-              v44 = name5;
-              v45 = 2114;
-              v46 = eventIdentifier4;
+              v46 = name5;
               v47 = 2114;
-              v48 = name6;
+              v48 = eventIdentifier4;
               v49 = 2114;
-              v50 = v5;
-              v51 = 2112;
-              v52 = 0;
-              _os_log_fault_impl(&dword_2746E5000, v29, OS_LOG_TYPE_FAULT, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: No field value", buf, 0x34u);
+              v50 = name6;
+              v51 = 2114;
+              v52 = v5;
+              v53 = 2112;
+              v54 = 0;
+              _os_log_fault_impl(&dword_2746E5000, v32, OS_LOG_TYPE_FAULT, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: No field value", buf, 0x34u);
             }
           }
 
-          else if (v30)
+          else if (v33)
           {
             workflow6 = [self workflow];
             name7 = [workflow6 name];
             name8 = [nameCopy name];
             *buf = 138544130;
-            v44 = name7;
-            v45 = 2114;
-            v46 = name8;
+            v46 = name7;
             v47 = 2114;
-            v48 = v5;
-            v49 = 2112;
-            v50 = 0;
-            _os_log_fault_impl(&dword_2746E5000, v29, OS_LOG_TYPE_FAULT, "%{public}@: %{public}@: %{public}@->%@: No field value", buf, 0x2Au);
+            v48 = name8;
+            v49 = 2114;
+            v50 = v5;
+            v51 = 2112;
+            v52 = 0;
+            _os_log_fault_impl(&dword_2746E5000, v32, OS_LOG_TYPE_FAULT, "%{public}@: %{public}@: %{public}@->%@: No field value", buf, 0x2Au);
           }
 
-          *__error() = v28;
+          *__error() = v31;
         }
 
-        v7 = v25;
+        v7 = v27;
       }
 
       goto LABEL_29;
@@ -273,85 +275,84 @@ LABEL_29:
     [self eventIdentifier];
     eventIdentifier5 = [self eventIdentifier];
 
-    v21 = *__error();
-    v22 = _wrlog();
-    v23 = os_log_type_enabled(v22, OS_LOG_TYPE_FAULT);
+    v22 = __error();
+    v23 = *v22;
+    v24 = _wrlog(v22);
+    v25 = os_log_type_enabled(v24, OS_LOG_TYPE_FAULT);
     if (eventIdentifier5)
     {
-      if (v23)
+      if (v25)
       {
         [WRWorkflowEventTracker valueForFieldName:inSignpostObject:];
       }
     }
 
-    else if (v23)
+    else if (v25)
     {
       [WRWorkflowEventTracker valueForFieldName:inSignpostObject:];
     }
 
     v7 = 0;
-    *__error() = v21;
+    *__error() = v23;
   }
 
 LABEL_30:
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)valueForFieldName:(void *)name inSignpostEvent:
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   v5 = a2;
   nameCopy = name;
   v7 = nameCopy;
   stringValue = 0;
   if (self && v5)
   {
-    v51 = 0u;
     v52 = 0u;
-    v49 = 0u;
+    v53 = 0u;
     v50 = 0u;
+    v51 = 0u;
     obj = [nameCopy metadataSegments];
-    v9 = [obj countByEnumeratingWithState:&v49 objects:v64 count:16];
+    v9 = [obj countByEnumeratingWithState:&v50 objects:v65 count:16];
     if (v9)
     {
       v10 = v9;
       selfCopy = self;
-      v42 = v7;
-      v44 = v5;
-      v11 = *v50;
+      v43 = v7;
+      v45 = v5;
+      v11 = *v51;
       while (1)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v50 != v11)
+          if (*v51 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v49 + 1) + 8 * i);
-          v45 = 0u;
+          v13 = *(*(&v50 + 1) + 8 * i);
           v46 = 0u;
           v47 = 0u;
           v48 = 0u;
+          v49 = 0u;
           placeholderTokens = [v13 placeholderTokens];
-          v15 = [placeholderTokens countByEnumeratingWithState:&v45 objects:v63 count:16];
+          v15 = [placeholderTokens countByEnumeratingWithState:&v46 objects:v64 count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v46;
+            v17 = *v47;
 LABEL_10:
             v18 = 0;
             while (1)
             {
-              if (*v46 != v17)
+              if (*v47 != v17)
               {
                 objc_enumerationMutation(placeholderTokens);
               }
 
-              v19 = *(*(&v45 + 1) + 8 * v18);
+              v19 = *(*(&v46 + 1) + 8 * v18);
               if ([v19 hasPrefix:@"name="])
               {
                 break;
@@ -359,7 +360,7 @@ LABEL_10:
 
               if (v16 == ++v18)
               {
-                v16 = [placeholderTokens countByEnumeratingWithState:&v45 objects:v63 count:16];
+                v16 = [placeholderTokens countByEnumeratingWithState:&v46 objects:v64 count:16];
                 if (v16)
                 {
                   goto LABEL_10;
@@ -369,7 +370,7 @@ LABEL_10:
               }
             }
 
-            v20 = PlaceholderNameMatches(v19, v44);
+            v20 = PlaceholderNameMatches(v19, v45);
 
             if (!v20)
             {
@@ -377,9 +378,9 @@ LABEL_10:
             }
 
             argument = [v13 argument];
-            v7 = v42;
-            v5 = v44;
-            [(WRWorkflowEventTracker *)selfCopy checkForNonPublicField:v42 fieldName:v44 messageArgument:argument];
+            v7 = v43;
+            v5 = v45;
+            [(WRWorkflowEventTracker *)selfCopy checkForNonPublicField:v43 fieldName:v45 messageArgument:argument];
             type = [argument type];
             switch(type)
             {
@@ -389,7 +390,7 @@ LABEL_10:
 
                 goto LABEL_38;
               case 2:
-                [v42 name];
+                [v43 name];
 
                 workflow = [selfCopy workflow];
                 [workflow name];
@@ -397,55 +398,56 @@ LABEL_10:
                 [selfCopy eventIdentifier];
                 eventIdentifier = [selfCopy eventIdentifier];
 
-                v25 = *__error();
-                v26 = _wrlog();
-                v27 = os_log_type_enabled(v26, OS_LOG_TYPE_FAULT);
+                v25 = __error();
+                v26 = *v25;
+                v27 = _wrlog(v25);
+                v28 = os_log_type_enabled(v27, OS_LOG_TYPE_FAULT);
                 if (eventIdentifier)
                 {
-                  if (v27)
+                  if (v28)
                   {
                     workflow2 = [selfCopy workflow];
                     name = [workflow2 name];
                     eventIdentifier2 = [selfCopy eventIdentifier];
-                    name2 = [v42 name];
+                    name2 = [v43 name];
                     *buf = 138544386;
-                    v54 = name;
-                    v55 = 2114;
-                    v56 = eventIdentifier2;
-                    v57 = 2114;
-                    v58 = name2;
-                    v59 = 2114;
-                    v60 = v44;
-                    v61 = 2112;
-                    v62 = 0;
-                    _os_log_fault_impl(&dword_2746E5000, v26, OS_LOG_TYPE_FAULT, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: metadata is data type", buf, 0x34u);
+                    v55 = name;
+                    v56 = 2114;
+                    v57 = eventIdentifier2;
+                    v58 = 2114;
+                    v59 = name2;
+                    v60 = 2114;
+                    v61 = v45;
+                    v62 = 2112;
+                    v63 = 0;
+                    _os_log_fault_impl(&dword_2746E5000, v27, OS_LOG_TYPE_FAULT, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: metadata is data type", buf, 0x34u);
                     goto LABEL_33;
                   }
 
 LABEL_37:
 
                   stringValue = 0;
-                  *__error() = v25;
+                  *__error() = v26;
                   goto LABEL_38;
                 }
 
-                if (!v27)
+                if (!v28)
                 {
                   goto LABEL_37;
                 }
 
                 workflow3 = [selfCopy workflow];
                 name3 = [workflow3 name];
-                name4 = [v42 name];
+                name4 = [v43 name];
                 *buf = 138544130;
-                v54 = name3;
-                v55 = 2114;
-                v56 = name4;
-                v57 = 2114;
-                v58 = v44;
-                v59 = 2112;
-                v60 = 0;
-                _os_log_fault_impl(&dword_2746E5000, v26, OS_LOG_TYPE_FAULT, "%{public}@: %{public}@: %{public}@->%@: metadata is data type", buf, 0x2Au);
+                v55 = name3;
+                v56 = 2114;
+                v57 = name4;
+                v58 = 2114;
+                v59 = v45;
+                v60 = 2112;
+                v61 = 0;
+                _os_log_fault_impl(&dword_2746E5000, v27, OS_LOG_TYPE_FAULT, "%{public}@: %{public}@: %{public}@->%@: metadata is data type", buf, 0x2Au);
                 break;
               case 1:
                 stringValue = [argument argumentObject];
@@ -453,7 +455,7 @@ LABEL_38:
 
                 goto LABEL_39;
               default:
-                [v42 name];
+                [v43 name];
 
                 workflow4 = [selfCopy workflow];
                 [workflow4 name];
@@ -461,53 +463,54 @@ LABEL_38:
                 [selfCopy eventIdentifier];
                 eventIdentifier3 = [selfCopy eventIdentifier];
 
-                v25 = *__error();
-                v26 = _wrlog();
-                v35 = os_log_type_enabled(v26, OS_LOG_TYPE_ERROR);
+                v36 = __error();
+                v26 = *v36;
+                v27 = _wrlog(v36);
+                v37 = os_log_type_enabled(v27, OS_LOG_TYPE_ERROR);
                 if (eventIdentifier3)
                 {
-                  if (v35)
+                  if (v37)
                   {
                     workflow2 = [selfCopy workflow];
                     name = [workflow2 name];
                     eventIdentifier2 = [selfCopy eventIdentifier];
-                    name2 = [v42 name];
+                    name2 = [v43 name];
                     *buf = 138544386;
-                    v54 = name;
-                    v55 = 2114;
-                    v56 = eventIdentifier2;
-                    v57 = 2114;
-                    v58 = name2;
-                    v59 = 2114;
-                    v60 = v44;
-                    v61 = 2112;
-                    v62 = 0;
-                    _os_log_error_impl(&dword_2746E5000, v26, OS_LOG_TYPE_ERROR, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: found missing individuation identifier", buf, 0x34u);
+                    v55 = name;
+                    v56 = 2114;
+                    v57 = eventIdentifier2;
+                    v58 = 2114;
+                    v59 = name2;
+                    v60 = 2114;
+                    v61 = v45;
+                    v62 = 2112;
+                    v63 = 0;
+                    _os_log_error_impl(&dword_2746E5000, v27, OS_LOG_TYPE_ERROR, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: found missing individuation identifier", buf, 0x34u);
 LABEL_33:
 
-                    v5 = v44;
+                    v5 = v45;
                   }
 
                   goto LABEL_37;
                 }
 
-                if (!v35)
+                if (!v37)
                 {
                   goto LABEL_37;
                 }
 
                 workflow3 = [selfCopy workflow];
                 name3 = [workflow3 name];
-                name4 = [v42 name];
+                name4 = [v43 name];
                 *buf = 138544130;
-                v54 = name3;
-                v55 = 2114;
-                v56 = name4;
-                v57 = 2114;
-                v58 = v44;
-                v59 = 2112;
-                v60 = 0;
-                _os_log_error_impl(&dword_2746E5000, v26, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@: %{public}@->%@: found missing individuation identifier", buf, 0x2Au);
+                v55 = name3;
+                v56 = 2114;
+                v57 = name4;
+                v58 = 2114;
+                v59 = v45;
+                v60 = 2112;
+                v61 = 0;
+                _os_log_error_impl(&dword_2746E5000, v27, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@: %{public}@->%@: found missing individuation identifier", buf, 0x2Au);
                 break;
             }
 
@@ -517,12 +520,12 @@ LABEL_33:
 LABEL_16:
         }
 
-        v10 = [obj countByEnumeratingWithState:&v49 objects:v64 count:16];
+        v10 = [obj countByEnumeratingWithState:&v50 objects:v65 count:16];
         if (!v10)
         {
           stringValue = 0;
-          v5 = v44;
-          v7 = v42;
+          v5 = v45;
+          v7 = v43;
           goto LABEL_39;
         }
       }
@@ -532,72 +535,70 @@ LABEL_16:
 LABEL_39:
   }
 
-  v39 = *MEMORY[0x277D85DE8];
-
   return stringValue;
 }
 
 void __58__WRWorkflowEventTracker_applySignpost_toSignpostTracker___block_invoke(uint64_t a1, void *a2)
 {
-  v159 = *MEMORY[0x277D85DE8];
+  v164 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v125 = a1;
-  v124 = (a1 + 32);
+  v130 = a1;
+  v129 = (a1 + 32);
   v4 = [*(a1 + 32) signpost];
   v5 = [v4 environmentFieldNames];
 
   if (v5)
   {
-    v127 = v5;
-    v140 = 0u;
-    v141 = 0u;
-    v138 = 0u;
-    v139 = 0u;
-    v123 = v3;
+    v132 = v5;
+    v145 = 0u;
+    v146 = 0u;
+    v143 = 0u;
+    v144 = 0u;
+    v128 = v3;
     obj = [v3 metadataSegments];
-    v129 = [obj countByEnumeratingWithState:&v138 objects:v158 count:16];
-    if (!v129)
+    v134 = [obj countByEnumeratingWithState:&v143 objects:v163 count:16];
+    if (!v134)
     {
       goto LABEL_108;
     }
 
-    v128 = *v139;
+    v133 = *v144;
     *&v6 = 138543874;
-    v109 = v6;
+    v114 = v6;
     while (1)
     {
       v7 = 0;
       do
       {
-        if (*v139 != v128)
+        if (*v144 != v133)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v138 + 1) + 8 * v7);
-        v134 = 0u;
-        v135 = 0u;
-        v136 = 0u;
-        v137 = 0u;
+        v8 = *(*(&v143 + 1) + 8 * v7);
+        v139 = 0u;
+        v140 = 0u;
+        v141 = 0u;
+        v142 = 0u;
         v9 = [v8 placeholderTokens];
-        v10 = [v9 countByEnumeratingWithState:&v134 objects:v157 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v139 objects:v162 count:16];
         if (!v10)
         {
           goto LABEL_25;
         }
 
         v11 = v10;
-        v12 = *v135;
+        v12 = *v140;
 LABEL_9:
         v13 = 0;
         while (1)
         {
-          if (*v135 != v12)
+          if (*v140 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v134 + 1) + 8 * v13);
+          v14 = *(*(&v139 + 1) + 8 * v13);
           if ([v14 hasPrefix:@"name="])
           {
             break;
@@ -605,7 +606,7 @@ LABEL_9:
 
           if (v11 == ++v13)
           {
-            v11 = [v9 countByEnumeratingWithState:&v134 objects:v157 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v139 objects:v162 count:16];
             if (!v11)
             {
 LABEL_25:
@@ -617,29 +618,29 @@ LABEL_25:
           }
         }
 
-        v132 = 0u;
-        v133 = 0u;
-        v130 = 0u;
-        v131 = 0u;
-        v15 = v127;
-        v16 = [v15 countByEnumeratingWithState:&v130 objects:v156 count:16];
+        v137 = 0u;
+        v138 = 0u;
+        v135 = 0u;
+        v136 = 0u;
+        v15 = v132;
+        v16 = [v15 countByEnumeratingWithState:&v135 objects:v161 count:16];
         if (!v16)
         {
           goto LABEL_24;
         }
 
         v17 = v16;
-        v18 = *v131;
+        v18 = *v136;
 LABEL_18:
         v19 = 0;
         while (1)
         {
-          if (*v131 != v18)
+          if (*v136 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v130 + 1) + 8 * v19);
+          v20 = *(*(&v135 + 1) + 8 * v19);
           if (PlaceholderNameMatches(v14, v20))
           {
             break;
@@ -647,7 +648,7 @@ LABEL_18:
 
           if (v17 == ++v19)
           {
-            v17 = [v15 countByEnumeratingWithState:&v130 objects:v156 count:16];
+            v17 = [v15 countByEnumeratingWithState:&v135 objects:v161 count:16];
             if (!v17)
             {
 LABEL_24:
@@ -759,21 +760,21 @@ LABEL_47:
           goto LABEL_48;
         }
 
-        v33 = [v127 indexOfObject:v32];
+        v33 = [v132 indexOfObject:v32];
         if (v33 == 0x7FFFFFFFFFFFFFFFLL)
         {
           goto LABEL_48;
         }
 
-        v34 = [v127 objectAtIndexedSubscript:v33];
+        v34 = [v132 objectAtIndexedSubscript:v33];
 
         if (v34)
         {
           v21 = v34;
 LABEL_55:
           v32 = [v8 argument];
-          [(WRWorkflowEventTracker *)*(v125 + 40) checkForNonPublicField:v123 fieldName:v21 messageArgument:v32];
-          Property = *(v125 + 32);
+          [(WRWorkflowEventTracker *)*(v130 + 40) checkForNonPublicField:v128 fieldName:v21 messageArgument:v32];
+          Property = *(v130 + 32);
           if (Property)
           {
             Property = objc_getProperty(Property, v35, 32, 1);
@@ -781,7 +782,7 @@ LABEL_55:
 
           if (!Property)
           {
-            __58__WRWorkflowEventTracker_applySignpost_toSignpostTracker___block_invoke_cold_1(v124);
+            __58__WRWorkflowEventTracker_applySignpost_toSignpostTracker___block_invoke_cold_1(v129);
           }
 
           v37 = [v32 type];
@@ -789,130 +790,132 @@ LABEL_55:
           {
             if (v37 == 2)
             {
-              v53 = [*v124 signpost];
-              v54 = [v53 individuationFieldName];
+              v54 = [*v129 signpost];
+              v55 = [v54 individuationFieldName];
 
-              if (v54)
+              if (v55)
               {
-                v55 = [*(v125 + 32) signpost];
-                [v55 individuationFieldName];
+                v56 = [*(v130 + 32) signpost];
+                [v56 individuationFieldName];
 
-                [*(v125 + 32) individuationIdentifier];
-                [v123 name];
+                [*(v130 + 32) individuationIdentifier];
+                [v128 name];
 
-                v56 = [*(v125 + 40) workflow];
-                [v56 name];
+                v57 = [*(v130 + 40) workflow];
+                [v57 name];
 
-                [*(v125 + 40) eventIdentifier];
-                v57 = [*(v125 + 40) eventIdentifier];
+                [*(v130 + 40) eventIdentifier];
+                v58 = [*(v130 + 40) eventIdentifier];
 
-                v58 = *__error();
-                v59 = _wrlog();
-                v60 = os_log_type_enabled(v59, OS_LOG_TYPE_FAULT);
-                if (v57)
+                v59 = __error();
+                v60 = *v59;
+                v61 = _wrlog(v59);
+                v62 = os_log_type_enabled(v61, OS_LOG_TYPE_FAULT);
+                if (v58)
                 {
-                  if (v60)
+                  if (v62)
                   {
-                    v115 = [*(v125 + 40) workflow];
-                    log = [v115 name];
-                    v61 = [*(v125 + 40) eventIdentifier];
-                    v62 = [v123 name];
-                    v112 = [*(v125 + 32) signpost];
-                    v63 = [v112 individuationFieldName];
-                    v64 = [*(v125 + 32) individuationIdentifier];
+                    v120 = [*(v130 + 40) workflow];
+                    log = [v120 name];
+                    v63 = [*(v130 + 40) eventIdentifier];
+                    v64 = [v128 name];
+                    v117 = [*(v130 + 32) signpost];
+                    v65 = [v117 individuationFieldName];
+                    v66 = [*(v130 + 32) individuationIdentifier];
                     *buf = 138544642;
-                    v143 = log;
-                    v144 = 2114;
-                    v145 = v61;
-                    v146 = 2114;
-                    v147 = v62;
-                    v148 = 2114;
-                    v149 = v63;
-                    v150 = 2112;
-                    v151 = v64;
-                    v152 = 2114;
-                    v153 = v21;
-                    _os_log_fault_impl(&dword_2746E5000, v59, OS_LOG_TYPE_FAULT, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: contained environment %{public}@ not a number/string", buf, 0x3Eu);
+                    v148 = log;
+                    v149 = 2114;
+                    v150 = v63;
+                    v151 = 2114;
+                    v152 = v64;
+                    v153 = 2114;
+                    v154 = v65;
+                    v155 = 2112;
+                    v156 = v66;
+                    v157 = 2114;
+                    v158 = v21;
+                    _os_log_fault_impl(&dword_2746E5000, v61, OS_LOG_TYPE_FAULT, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: contained environment %{public}@ not a number/string", buf, 0x3Eu);
                     goto LABEL_74;
                   }
 
                   goto LABEL_103;
                 }
 
-                if (!v60)
+                if (!v62)
                 {
                   goto LABEL_103;
                 }
 
-                loga = [*(v125 + 40) workflow];
-                v99 = [loga name];
-                v100 = [v123 name];
-                v117 = [*(v125 + 32) signpost];
-                v101 = [v117 individuationFieldName];
-                v102 = [*(v125 + 32) individuationIdentifier];
+                loga = [*(v130 + 40) workflow];
+                v105 = [loga name];
+                v106 = [v128 name];
+                v122 = [*(v130 + 32) signpost];
+                v107 = [v122 individuationFieldName];
+                v108 = [*(v130 + 32) individuationIdentifier];
                 *buf = 138544386;
-                v143 = v99;
-                v144 = 2114;
-                v145 = v100;
-                v146 = 2114;
-                v147 = v101;
-                v148 = 2112;
-                v149 = v102;
-                v150 = 2114;
-                v151 = v21;
-                _os_log_fault_impl(&dword_2746E5000, v59, OS_LOG_TYPE_FAULT, "%{public}@: %{public}@: %{public}@->%@: contained environment %{public}@ not a number/string", buf, 0x34u);
+                v148 = v105;
+                v149 = 2114;
+                v150 = v106;
+                v151 = 2114;
+                v152 = v107;
+                v153 = 2112;
+                v154 = v108;
+                v155 = 2114;
+                v156 = v21;
+                _os_log_fault_impl(&dword_2746E5000, v61, OS_LOG_TYPE_FAULT, "%{public}@: %{public}@: %{public}@->%@: contained environment %{public}@ not a number/string", buf, 0x34u);
                 goto LABEL_95;
               }
 
-              [v123 name];
+              [v128 name];
 
-              v85 = [*(v125 + 40) workflow];
-              [v85 name];
+              v89 = [*(v130 + 40) workflow];
+              [v89 name];
 
-              [*(v125 + 40) eventIdentifier];
-              v86 = [*(v125 + 40) eventIdentifier];
+              [*(v130 + 40) eventIdentifier];
+              v90 = [*(v130 + 40) eventIdentifier];
 
-              v58 = *__error();
-              v59 = _wrlog();
-              v87 = os_log_type_enabled(v59, OS_LOG_TYPE_FAULT);
-              if (v86)
+              v91 = __error();
+              v60 = *v91;
+              v61 = _wrlog(v91);
+              v92 = os_log_type_enabled(v61, OS_LOG_TYPE_FAULT);
+              if (v90)
               {
-                if (!v87)
+                if (!v92)
                 {
                   goto LABEL_103;
                 }
 
-                v88 = [*(v125 + 40) workflow];
-                v89 = [v88 name];
-                v90 = [*(v125 + 40) eventIdentifier];
-                v91 = [v123 name];
+                v93 = [*(v130 + 40) workflow];
+                v94 = [v93 name];
+                v95 = [*(v130 + 40) eventIdentifier];
+                v96 = [v128 name];
                 *buf = 138544130;
-                v143 = v89;
-                v144 = 2114;
-                v145 = v90;
-                v146 = 2114;
-                v147 = v91;
-                v148 = 2114;
-                v149 = v21;
-                _os_log_fault_impl(&dword_2746E5000, v59, OS_LOG_TYPE_FAULT, "%{public}@<%{public}@>: %{public}@: contained environment %{public}@ not a number/string", buf, 0x2Au);
+                v148 = v94;
+                v149 = 2114;
+                v150 = v95;
+                v151 = 2114;
+                v152 = v96;
+                v153 = 2114;
+                v154 = v21;
+                _os_log_fault_impl(&dword_2746E5000, v61, OS_LOG_TYPE_FAULT, "%{public}@<%{public}@>: %{public}@: contained environment %{public}@ not a number/string", buf, 0x2Au);
                 goto LABEL_88;
               }
 
-              if (!v87)
+              if (!v92)
               {
                 goto LABEL_103;
               }
 
-              v88 = [*(v125 + 40) workflow];
-              v103 = [v88 name];
-              v104 = [v123 name];
-              *buf = v109;
-              v143 = v103;
-              v144 = 2114;
-              v145 = v104;
-              v146 = 2114;
-              v147 = v21;
-              _os_log_fault_impl(&dword_2746E5000, v59, OS_LOG_TYPE_FAULT, "%{public}@: %{public}@: contained environment %{public}@ not a number/string", buf, 0x20u);
+              v93 = [*(v130 + 40) workflow];
+              v109 = [v93 name];
+              v110 = [v128 name];
+              *buf = v114;
+              v148 = v109;
+              v149 = 2114;
+              v150 = v110;
+              v151 = 2114;
+              v152 = v21;
+              _os_log_fault_impl(&dword_2746E5000, v61, OS_LOG_TYPE_FAULT, "%{public}@: %{public}@: contained environment %{public}@ not a number/string", buf, 0x20u);
             }
 
             else
@@ -922,310 +925,314 @@ LABEL_55:
                 goto LABEL_62;
               }
 
-              v65 = [*v124 signpost];
-              v66 = [v65 individuationFieldName];
+              v67 = [*v129 signpost];
+              v68 = [v67 individuationFieldName];
 
-              if (v66)
+              if (v68)
               {
-                v67 = [*(v125 + 32) signpost];
-                [v67 individuationFieldName];
+                v69 = [*(v130 + 32) signpost];
+                [v69 individuationFieldName];
 
-                [*(v125 + 32) individuationIdentifier];
-                [v123 name];
+                [*(v130 + 32) individuationIdentifier];
+                [v128 name];
 
-                v68 = [*(v125 + 40) workflow];
-                [v68 name];
+                v70 = [*(v130 + 40) workflow];
+                [v70 name];
 
-                [*(v125 + 40) eventIdentifier];
-                v69 = [*(v125 + 40) eventIdentifier];
+                [*(v130 + 40) eventIdentifier];
+                v71 = [*(v130 + 40) eventIdentifier];
 
-                v58 = *__error();
-                v59 = _wrlog();
-                v70 = os_log_type_enabled(v59, OS_LOG_TYPE_ERROR);
-                if (v69)
+                v72 = __error();
+                v60 = *v72;
+                v61 = _wrlog(v72);
+                v73 = os_log_type_enabled(v61, OS_LOG_TYPE_ERROR);
+                if (v71)
                 {
-                  if (v70)
+                  if (v73)
                   {
-                    v115 = [*(v125 + 40) workflow];
-                    log = [v115 name];
-                    v61 = [*(v125 + 40) eventIdentifier];
-                    v62 = [v123 name];
-                    v112 = [*(v125 + 32) signpost];
-                    v63 = [v112 individuationFieldName];
-                    v64 = [*(v125 + 32) individuationIdentifier];
+                    v120 = [*(v130 + 40) workflow];
+                    log = [v120 name];
+                    v63 = [*(v130 + 40) eventIdentifier];
+                    v64 = [v128 name];
+                    v117 = [*(v130 + 32) signpost];
+                    v65 = [v117 individuationFieldName];
+                    v66 = [*(v130 + 32) individuationIdentifier];
                     *buf = 138544642;
-                    v143 = log;
-                    v144 = 2114;
-                    v145 = v61;
-                    v146 = 2114;
-                    v147 = v62;
-                    v148 = 2114;
-                    v149 = v63;
-                    v150 = 2112;
-                    v151 = v64;
-                    v152 = 2114;
-                    v153 = v21;
-                    _os_log_error_impl(&dword_2746E5000, v59, OS_LOG_TYPE_ERROR, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: missing environment %{public}@", buf, 0x3Eu);
+                    v148 = log;
+                    v149 = 2114;
+                    v150 = v63;
+                    v151 = 2114;
+                    v152 = v64;
+                    v153 = 2114;
+                    v154 = v65;
+                    v155 = 2112;
+                    v156 = v66;
+                    v157 = 2114;
+                    v158 = v21;
+                    _os_log_error_impl(&dword_2746E5000, v61, OS_LOG_TYPE_ERROR, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: missing environment %{public}@", buf, 0x3Eu);
 LABEL_74:
 
-                    v71 = v115;
+                    v74 = v120;
 LABEL_96:
                   }
 
 LABEL_103:
 
-                  *__error() = v58;
-                  v83 = [MEMORY[0x277CBEB68] null];
+                  *__error() = v60;
+                  v87 = [MEMORY[0x277CBEB68] null];
 LABEL_104:
-                  v105 = v83;
-                  v106 = *v124;
-                  if (*v124)
+                  v111 = v87;
+                  v112 = *v129;
+                  if (*v129)
                   {
-                    v106 = objc_getProperty(v106, v84, 32, 1);
+                    v112 = objc_getProperty(v112, v88, 32, 1);
                   }
 
-                  [v106 setObject:v105 forKeyedSubscript:v21];
+                  [v112 setObject:v111 forKeyedSubscript:v21];
 
 LABEL_48:
                   goto LABEL_49;
                 }
 
-                if (!v70)
+                if (!v73)
                 {
                   goto LABEL_103;
                 }
 
-                loga = [*(v125 + 40) workflow];
-                v99 = [loga name];
-                v100 = [v123 name];
-                v117 = [*(v125 + 32) signpost];
-                v101 = [v117 individuationFieldName];
-                v102 = [*(v125 + 32) individuationIdentifier];
+                loga = [*(v130 + 40) workflow];
+                v105 = [loga name];
+                v106 = [v128 name];
+                v122 = [*(v130 + 32) signpost];
+                v107 = [v122 individuationFieldName];
+                v108 = [*(v130 + 32) individuationIdentifier];
                 *buf = 138544386;
-                v143 = v99;
-                v144 = 2114;
-                v145 = v100;
-                v146 = 2114;
-                v147 = v101;
-                v148 = 2112;
-                v149 = v102;
-                v150 = 2114;
-                v151 = v21;
-                _os_log_error_impl(&dword_2746E5000, v59, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@: %{public}@->%@: missing environment %{public}@", buf, 0x34u);
+                v148 = v105;
+                v149 = 2114;
+                v150 = v106;
+                v151 = 2114;
+                v152 = v107;
+                v153 = 2112;
+                v154 = v108;
+                v155 = 2114;
+                v156 = v21;
+                _os_log_error_impl(&dword_2746E5000, v61, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@: %{public}@->%@: missing environment %{public}@", buf, 0x34u);
 LABEL_95:
 
-                v71 = loga;
+                v74 = loga;
                 goto LABEL_96;
               }
 
-              [v123 name];
+              [v128 name];
 
-              v92 = [*(v125 + 40) workflow];
-              [v92 name];
+              v97 = [*(v130 + 40) workflow];
+              [v97 name];
 
-              [*(v125 + 40) eventIdentifier];
-              v93 = [*(v125 + 40) eventIdentifier];
+              [*(v130 + 40) eventIdentifier];
+              v98 = [*(v130 + 40) eventIdentifier];
 
-              v58 = *__error();
-              v59 = _wrlog();
-              v94 = os_log_type_enabled(v59, OS_LOG_TYPE_ERROR);
-              if (v93)
+              v99 = __error();
+              v60 = *v99;
+              v61 = _wrlog(v99);
+              v100 = os_log_type_enabled(v61, OS_LOG_TYPE_ERROR);
+              if (v98)
               {
-                if (!v94)
+                if (!v100)
                 {
                   goto LABEL_103;
                 }
 
-                v88 = [*(v125 + 40) workflow];
-                v89 = [v88 name];
-                v90 = [*(v125 + 40) eventIdentifier];
-                v91 = [v123 name];
+                v93 = [*(v130 + 40) workflow];
+                v94 = [v93 name];
+                v95 = [*(v130 + 40) eventIdentifier];
+                v96 = [v128 name];
                 *buf = 138544130;
-                v143 = v89;
-                v144 = 2114;
-                v145 = v90;
-                v146 = 2114;
-                v147 = v91;
-                v148 = 2114;
-                v149 = v21;
-                _os_log_error_impl(&dword_2746E5000, v59, OS_LOG_TYPE_ERROR, "%{public}@<%{public}@>: %{public}@: missing environment %{public}@", buf, 0x2Au);
+                v148 = v94;
+                v149 = 2114;
+                v150 = v95;
+                v151 = 2114;
+                v152 = v96;
+                v153 = 2114;
+                v154 = v21;
+                _os_log_error_impl(&dword_2746E5000, v61, OS_LOG_TYPE_ERROR, "%{public}@<%{public}@>: %{public}@: missing environment %{public}@", buf, 0x2Au);
 LABEL_88:
 
 LABEL_102:
                 goto LABEL_103;
               }
 
-              if (!v94)
+              if (!v100)
               {
                 goto LABEL_103;
               }
 
-              v88 = [*(v125 + 40) workflow];
-              v103 = [v88 name];
-              v104 = [v123 name];
-              *buf = v109;
-              v143 = v103;
-              v144 = 2114;
-              v145 = v104;
-              v146 = 2114;
-              v147 = v21;
-              _os_log_error_impl(&dword_2746E5000, v59, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@: missing environment %{public}@", buf, 0x20u);
+              v93 = [*(v130 + 40) workflow];
+              v109 = [v93 name];
+              v110 = [v128 name];
+              *buf = v114;
+              v148 = v109;
+              v149 = 2114;
+              v150 = v110;
+              v151 = 2114;
+              v152 = v21;
+              _os_log_error_impl(&dword_2746E5000, v61, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@: missing environment %{public}@", buf, 0x20u);
             }
 
             goto LABEL_102;
           }
 
 LABEL_62:
-          v38 = [*v124 signpost];
+          v38 = [*v129 signpost];
           v39 = [v38 individuationFieldName];
 
           if (v39)
           {
-            v40 = [*(v125 + 32) signpost];
+            v40 = [*(v130 + 32) signpost];
             [v40 individuationFieldName];
 
-            [*(v125 + 32) individuationIdentifier];
-            [v123 name];
+            [*(v130 + 32) individuationIdentifier];
+            [v128 name];
 
-            v41 = [*(v125 + 40) workflow];
+            v41 = [*(v130 + 40) workflow];
             [v41 name];
 
-            [*(v125 + 40) eventIdentifier];
-            v42 = [*(v125 + 40) eventIdentifier];
+            [*(v130 + 40) eventIdentifier];
+            v42 = [*(v130 + 40) eventIdentifier];
 
-            v43 = *__error();
-            v44 = _wrlog();
-            v45 = os_log_type_enabled(v44, OS_LOG_TYPE_INFO);
+            v43 = __error();
+            v44 = *v43;
+            v45 = _wrlog(v43);
+            v46 = os_log_type_enabled(v45, OS_LOG_TYPE_INFO);
             if (v42)
             {
-              if (v45)
+              if (v46)
               {
-                v111 = [*(v125 + 40) workflow];
-                [v111 name];
-                v46 = v114 = v43;
-                v47 = [*(v125 + 40) eventIdentifier];
-                v48 = [v123 name];
-                v110 = [*(v125 + 32) signpost];
-                [v110 individuationFieldName];
-                v49 = logb = v44;
-                v50 = [*(v125 + 32) individuationIdentifier];
-                v51 = [v32 argumentObject];
+                v116 = [*(v130 + 40) workflow];
+                [v116 name];
+                v47 = v119 = v44;
+                v48 = [*(v130 + 40) eventIdentifier];
+                v49 = [v128 name];
+                v115 = [*(v130 + 32) signpost];
+                [v115 individuationFieldName];
+                v50 = logb = v45;
+                v51 = [*(v130 + 32) individuationIdentifier];
+                v52 = [v32 argumentObject];
                 *buf = 138544898;
-                v143 = v46;
-                v144 = 2114;
-                v145 = v47;
-                v146 = 2114;
-                v147 = v48;
-                v148 = 2114;
-                v149 = v49;
-                v150 = 2112;
-                v151 = v50;
-                v152 = 2114;
-                v153 = v21;
-                v154 = 2114;
-                v155 = v51;
+                v148 = v47;
+                v149 = 2114;
+                v150 = v48;
+                v151 = 2114;
+                v152 = v49;
+                v153 = 2114;
+                v154 = v50;
+                v155 = 2112;
+                v156 = v51;
+                v157 = 2114;
+                v158 = v21;
+                v159 = 2114;
+                v160 = v52;
                 _os_log_impl(&dword_2746E5000, logb, OS_LOG_TYPE_INFO, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: contained environment %{public}@->%{public}@", buf, 0x48u);
 
-                v44 = logb;
-                v43 = v114;
-                v52 = v111;
+                v45 = logb;
+                v44 = v119;
+                v53 = v116;
                 goto LABEL_80;
               }
 
               goto LABEL_81;
             }
 
-            if (!v45)
+            if (!v46)
             {
               goto LABEL_81;
             }
 
-            v116 = [*(v125 + 40) workflow];
-            logd = [v116 name];
-            v79 = [v123 name];
-            v113 = [*(v125 + 32) signpost];
-            v80 = [v113 individuationFieldName];
-            v81 = [*(v125 + 32) individuationIdentifier];
-            v82 = [v32 argumentObject];
+            v121 = [*(v130 + 40) workflow];
+            logd = [v121 name];
+            v83 = [v128 name];
+            v118 = [*(v130 + 32) signpost];
+            v84 = [v118 individuationFieldName];
+            v85 = [*(v130 + 32) individuationIdentifier];
+            v86 = [v32 argumentObject];
             *buf = 138544642;
-            v143 = logd;
-            v144 = 2114;
-            v145 = v79;
-            v146 = 2114;
-            v147 = v80;
-            v148 = 2112;
-            v149 = v81;
-            v150 = 2114;
-            v151 = v21;
-            v152 = 2114;
-            v153 = v82;
-            _os_log_impl(&dword_2746E5000, v44, OS_LOG_TYPE_INFO, "%{public}@: %{public}@: %{public}@->%@: contained environment %{public}@->%{public}@", buf, 0x3Eu);
+            v148 = logd;
+            v149 = 2114;
+            v150 = v83;
+            v151 = 2114;
+            v152 = v84;
+            v153 = 2112;
+            v154 = v85;
+            v155 = 2114;
+            v156 = v21;
+            v157 = 2114;
+            v158 = v86;
+            _os_log_impl(&dword_2746E5000, v45, OS_LOG_TYPE_INFO, "%{public}@: %{public}@: %{public}@->%@: contained environment %{public}@->%{public}@", buf, 0x3Eu);
 
-            v52 = v116;
+            v53 = v121;
           }
 
           else
           {
-            [v123 name];
+            [v128 name];
 
-            v72 = [*(v125 + 40) workflow];
-            [v72 name];
+            v75 = [*(v130 + 40) workflow];
+            [v75 name];
 
-            [*(v125 + 40) eventIdentifier];
-            v73 = [*(v125 + 40) eventIdentifier];
+            [*(v130 + 40) eventIdentifier];
+            v76 = [*(v130 + 40) eventIdentifier];
 
-            v43 = *__error();
-            v44 = _wrlog();
-            v74 = os_log_type_enabled(v44, OS_LOG_TYPE_INFO);
-            if (!v73)
+            v77 = __error();
+            v44 = *v77;
+            v45 = _wrlog(v77);
+            v78 = os_log_type_enabled(v45, OS_LOG_TYPE_INFO);
+            if (!v76)
             {
-              if (v74)
+              if (v78)
               {
-                v95 = [*(v125 + 40) workflow];
-                v96 = [v95 name];
-                v97 = [v123 name];
-                v98 = [v32 argumentObject];
+                v101 = [*(v130 + 40) workflow];
+                v102 = [v101 name];
+                v103 = [v128 name];
+                v104 = [v32 argumentObject];
                 *buf = 138544130;
-                v143 = v96;
-                v144 = 2114;
-                v145 = v97;
-                v146 = 2114;
-                v147 = v21;
-                v148 = 2114;
-                v149 = v98;
-                _os_log_impl(&dword_2746E5000, v44, OS_LOG_TYPE_INFO, "%{public}@: %{public}@: contained environment %{public}@->%{public}@", buf, 0x2Au);
+                v148 = v102;
+                v149 = 2114;
+                v150 = v103;
+                v151 = 2114;
+                v152 = v21;
+                v153 = 2114;
+                v154 = v104;
+                _os_log_impl(&dword_2746E5000, v45, OS_LOG_TYPE_INFO, "%{public}@: %{public}@: contained environment %{public}@->%{public}@", buf, 0x2Au);
               }
 
               goto LABEL_81;
             }
 
-            if (!v74)
+            if (!v78)
             {
 LABEL_81:
 
-              *__error() = v43;
-              v83 = [v32 argumentObject];
+              *__error() = v44;
+              v87 = [v32 argumentObject];
               goto LABEL_104;
             }
 
-            logc = [*(v125 + 40) workflow];
-            v75 = [logc name];
-            v76 = [*(v125 + 40) eventIdentifier];
-            v77 = [v123 name];
-            v78 = [v32 argumentObject];
+            logc = [*(v130 + 40) workflow];
+            v79 = [logc name];
+            v80 = [*(v130 + 40) eventIdentifier];
+            v81 = [v128 name];
+            v82 = [v32 argumentObject];
             *buf = 138544386;
-            v143 = v75;
-            v144 = 2114;
-            v145 = v76;
-            v146 = 2114;
-            v147 = v77;
-            v148 = 2114;
-            v149 = v21;
-            v150 = 2114;
-            v151 = v78;
-            _os_log_impl(&dword_2746E5000, v44, OS_LOG_TYPE_INFO, "%{public}@<%{public}@>: %{public}@: contained environment %{public}@->%{public}@", buf, 0x34u);
+            v148 = v79;
+            v149 = 2114;
+            v150 = v80;
+            v151 = 2114;
+            v152 = v81;
+            v153 = 2114;
+            v154 = v21;
+            v155 = 2114;
+            v156 = v82;
+            _os_log_impl(&dword_2746E5000, v45, OS_LOG_TYPE_INFO, "%{public}@<%{public}@>: %{public}@: contained environment %{public}@->%{public}@", buf, 0x34u);
 
-            v52 = logc;
+            v53 = logc;
           }
 
 LABEL_80:
@@ -1237,21 +1244,19 @@ LABEL_49:
         ++v7;
       }
 
-      while (v7 != v129);
-      v107 = [obj countByEnumeratingWithState:&v138 objects:v158 count:16];
-      v129 = v107;
-      if (!v107)
+      while (v7 != v134);
+      v113 = [obj countByEnumeratingWithState:&v143 objects:v163 count:16];
+      v134 = v113;
+      if (!v113)
       {
 LABEL_108:
 
-        v3 = v123;
-        v5 = v127;
+        v3 = v128;
+        v5 = v132;
         break;
       }
     }
   }
-
-  v108 = *MEMORY[0x277D85DE8];
 }
 
 - (void)doneHandlingSignpostsWithEndTimeMachContNs:(unint64_t)ns
@@ -1259,7 +1264,7 @@ LABEL_108:
   v26 = *MEMORY[0x277D85DE8];
   if (![(WRWorkflowEventTracker *)self inMiddleOfEvent])
   {
-    goto LABEL_14;
+    return;
   }
 
   workflow = [(WRWorkflowEventTracker *)self workflow];
@@ -1276,7 +1281,7 @@ LABEL_108:
       if (!ignoreEventTimeouts)
       {
         [WRWorkflowEventTracker doneHandlingSignpostsWithEndTimeMachContNs:];
-        goto LABEL_14;
+        return;
       }
 
       goto LABEL_8;
@@ -1290,12 +1295,13 @@ LABEL_8:
   [(WRWorkflowEventTracker *)self eventIdentifier];
   eventIdentifier = [(WRWorkflowEventTracker *)self eventIdentifier];
 
-  v13 = *__error();
-  v14 = _wrlog();
-  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+  v13 = __error();
+  v14 = *v13;
+  v15 = _wrlog(v13);
+  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
   if (eventIdentifier)
   {
-    if (v15)
+    if (v16)
     {
       workflow4 = [(WRWorkflowEventTracker *)self workflow];
       name = [workflow4 name];
@@ -1304,27 +1310,25 @@ LABEL_8:
       v23 = name;
       v24 = 2114;
       v25 = eventIdentifier2;
-      _os_log_impl(&dword_2746E5000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@<%{public}@>: Incomplete event when done handling signposts, ignoring", &v22, 0x16u);
+      _os_log_impl(&dword_2746E5000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@<%{public}@>: Incomplete event when done handling signposts, ignoring", &v22, 0x16u);
     }
   }
 
-  else if (v15)
+  else if (v16)
   {
     workflow5 = [(WRWorkflowEventTracker *)self workflow];
     name2 = [workflow5 name];
     v22 = 138543362;
     v23 = name2;
-    _os_log_impl(&dword_2746E5000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Incomplete event when done handling signposts, ignoring", &v22, 0xCu);
+    _os_log_impl(&dword_2746E5000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: Incomplete event when done handling signposts, ignoring", &v22, 0xCu);
   }
 
-  *__error() = v13;
-LABEL_14:
-  v21 = *MEMORY[0x277D85DE8];
+  *__error() = v14;
 }
 
 - (BOOL)handleSignpost:(id)signpost
 {
-  v185 = *MEMORY[0x277D85DE8];
+  v194 = *MEMORY[0x277D85DE8];
   signpostCopy = signpost;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -1348,33 +1352,33 @@ LABEL_14:
 
     if (workflowSupportsConcurrentEvents)
     {
-      v160 = v8;
+      v169 = v8;
       selfa = self;
       if (v5)
       {
         individuationFieldName = [v8 individuationFieldName];
         if (individuationFieldName && ![v5 eventType])
         {
-          v44 = isSyntheticIntervalEvent;
+          v46 = isSyntheticIntervalEvent;
           workflow3 = [(WRWorkflowEventTracker *)selfa workflow];
           startSignposts = [workflow3 startSignposts];
           if ([startSignposts indexOfObjectIdenticalTo:v8] == 0x7FFFFFFFFFFFFFFFLL)
           {
             individuationFieldName2 = [v8 individuationFieldName];
-            v120 = [(WRWorkflowEventTracker *)selfa haveAnyEndSignpostsWithIndividuationFieldName:individuationFieldName2];
+            v128 = [(WRWorkflowEventTracker *)selfa haveAnyEndSignpostsWithIndividuationFieldName:individuationFieldName2];
 
-            if (v120)
+            if (v128)
             {
-              v8 = v160;
+              v8 = v169;
               selfCopy = selfa;
-              [(WRWorkflowEventTracker *)v160 handleSignpost:v5, buf];
+              [(WRWorkflowEventTracker *)v169 handleSignpost:v5, buf];
               v12 = *buf;
             }
 
             else
             {
               v12 = 0;
-              v8 = v160;
+              v8 = v169;
               selfCopy = selfa;
             }
           }
@@ -1386,7 +1390,7 @@ LABEL_14:
             selfCopy = selfa;
           }
 
-          isSyntheticIntervalEvent = v44;
+          isSyntheticIntervalEvent = v46;
 LABEL_11:
           eventIdentifierFieldName = [v8 eventIdentifierFieldName];
           if (eventIdentifierFieldName)
@@ -1395,10 +1399,10 @@ LABEL_11:
 
           else if (([v8 eventIdentifierIsSignpostID] & 1) == 0)
           {
-            v169 = 0u;
-            v170 = 0u;
-            v167 = 0u;
-            v168 = 0u;
+            v178 = 0u;
+            v179 = 0u;
+            v176 = 0u;
+            v177 = 0u;
             if (selfCopy)
             {
               Property = objc_getProperty(selfCopy, v15, 112, 1);
@@ -1410,27 +1414,27 @@ LABEL_11:
             }
 
             v17 = [Property copy];
-            v18 = [v17 countByEnumeratingWithState:&v167 objects:v184 count:16];
+            v18 = [v17 countByEnumeratingWithState:&v176 objects:v193 count:16];
             if (v18)
             {
               v19 = v18;
-              v150 = v5;
-              v153 = v12;
-              v155 = isSyntheticIntervalEvent;
+              v159 = v5;
+              v162 = v12;
+              v164 = isSyntheticIntervalEvent;
               v20 = 0;
-              v21 = *v168;
-              v159 = v17;
+              v21 = *v177;
+              v168 = v17;
               do
               {
                 v22 = 0;
                 do
                 {
-                  if (*v168 != v21)
+                  if (*v177 != v21)
                   {
                     objc_enumerationMutation(v17);
                   }
 
-                  v23 = *(*(&v167 + 1) + 8 * v22);
+                  v23 = *(*(&v176 + 1) + 8 * v22);
                   v24 = [(WRWorkflowEventTracker *)v23 handleSignpost:signpostCopy wrsignpost:v8];
                   if (([v23 inMiddleOfEvent] & 1) == 0)
                   {
@@ -1444,46 +1448,47 @@ LABEL_11:
                       [v23 eventIdentifier];
                       eventIdentifier = [v23 eventIdentifier];
 
-                      v30 = *__error();
-                      v31 = _wrlog();
-                      v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG);
+                      v30 = __error();
+                      v31 = *v30;
+                      v32 = _wrlog(v30);
+                      v33 = os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG);
                       if (eventIdentifier)
                       {
-                        if (v32)
+                        if (v33)
                         {
                           workflow5 = [(WRWorkflowEventTracker *)selfa workflow];
                           name = [workflow5 name];
                           eventIdentifier2 = [v23 eventIdentifier];
                           *buf = 138543618;
                           *&buf[4] = name;
-                          v174 = 2114;
-                          v175 = eventIdentifier2;
-                          v34 = eventIdentifier2;
-                          _os_log_debug_impl(&dword_2746E5000, v31, OS_LOG_TYPE_DEBUG, "%{public}@<%{public}@>: concurrent workflow done", buf, 0x16u);
+                          v183 = 2114;
+                          v184 = eventIdentifier2;
+                          v35 = eventIdentifier2;
+                          _os_log_debug_impl(&dword_2746E5000, v32, OS_LOG_TYPE_DEBUG, "%{public}@<%{public}@>: concurrent workflow done", buf, 0x16u);
                         }
                       }
 
-                      else if (v32)
+                      else if (v33)
                       {
-                        [(WRWorkflowEventTracker *)v182 handleSignpost:&v183, v31];
+                        [(WRWorkflowEventTracker *)v191 handleSignpost:&v192, v32];
                       }
 
-                      *__error() = v30;
+                      *__error() = v31;
                       selfCopy = selfa;
                       if (selfa)
                       {
-                        v36 = objc_getProperty(selfa, v35, 112, 1);
+                        v37 = objc_getProperty(selfa, v36, 112, 1);
                       }
 
                       else
                       {
-                        v36 = 0;
+                        v37 = 0;
                       }
 
                       signpostCopy = v27;
-                      v17 = v159;
-                      [v36 removeObjectIdenticalTo:v23];
-                      v8 = v160;
+                      v17 = v168;
+                      [v37 removeObjectIdenticalTo:v23];
+                      v8 = v169;
                     }
                   }
 
@@ -1492,19 +1497,19 @@ LABEL_11:
                 }
 
                 while (v19 != v22);
-                v37 = [v17 countByEnumeratingWithState:&v167 objects:v184 count:16];
-                v19 = v37;
+                v38 = [v17 countByEnumeratingWithState:&v176 objects:v193 count:16];
+                v19 = v38;
               }
 
-              while (v37);
+              while (v38);
 
-              v5 = v150;
-              v12 = v153;
-              isSyntheticIntervalEvent = v155;
+              v5 = v159;
+              v12 = v162;
+              isSyntheticIntervalEvent = v164;
               if (v20)
               {
-                v39 = 1;
-                if (!v153)
+                v40 = 1;
+                if (!v162)
                 {
 LABEL_39:
                   if (isSyntheticIntervalEvent)
@@ -1514,7 +1519,7 @@ LABEL_140:
                     goto LABEL_141;
                   }
 
-                  if (v39)
+                  if (v40)
                   {
                     ++selfa->_numHandledSignposts;
                     goto LABEL_140;
@@ -1526,13 +1531,13 @@ LABEL_52:
                 }
 
 LABEL_120:
-                v118 = selfa;
+                v126 = selfa;
                 if (selfa)
                 {
-                  v118 = objc_getProperty(selfa, v38, 136, 1);
+                  v126 = objc_getProperty(selfa, v39, 136, 1);
                 }
 
-                if (v118)
+                if (v126)
                 {
                   [(WRWorkflowEventTracker *)selfa == 0 handleSignpost:v12];
                 }
@@ -1557,14 +1562,15 @@ LABEL_120:
               workflow6 = [(WRWorkflowEventTracker *)selfCopy workflow];
               [workflow6 name];
 
-              v42 = *__error();
-              v43 = _wrlog();
-              if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+              v43 = __error();
+              v44 = *v43;
+              v45 = _wrlog(v43);
+              if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
               {
                 [WRWorkflowEventTracker handleSignpost:];
               }
 
-              *__error() = v42;
+              *__error() = v44;
               if (isSyntheticIntervalEvent)
               {
                 goto LABEL_140;
@@ -1573,187 +1579,190 @@ LABEL_120:
               goto LABEL_52;
             }
 
-            v76 = isSyntheticIntervalEvent;
-            v77 = [objc_getProperty(v12 v38];
+            v80 = isSyntheticIntervalEvent;
+            v81 = [objc_getProperty(v12 v39];
 
-            if (v77)
+            if (v81)
             {
-              [objc_getProperty(v12 v78];
+              [objc_getProperty(v12 v82];
 
-              objc_getProperty(v12, v100, 16, 1);
+              objc_getProperty(v12, v107, 16, 1);
               [signpostCopy name];
 
               workflow7 = [(WRWorkflowEventTracker *)selfa workflow];
               [workflow7 name];
 
-              v81 = *__error();
-              _wrlog();
-              v82 = v102 = v12;
-              if (os_log_type_enabled(v82, OS_LOG_TYPE_DEBUG))
+              v109 = __error();
+              v86 = *v109;
+              _wrlog(v109);
+              v87 = v110 = v12;
+              if (os_log_type_enabled(v87, OS_LOG_TYPE_DEBUG))
               {
                 workflow8 = [(WRWorkflowEventTracker *)selfa workflow];
                 name2 = [workflow8 name];
                 name3 = [signpostCopy name];
-                [objc_getProperty(v102 v106];
-                v107 = v152 = v5;
-                v79 = v102;
-                v109 = objc_getProperty(v102, v108, 16, 1);
+                [objc_getProperty(v110 v114];
+                v115 = v161 = v5;
+                v83 = v110;
+                v117 = objc_getProperty(v110, v116, 16, 1);
                 startMachContinuousTime = [signpostCopy startMachContinuousTime];
                 *buf = 138544386;
                 *&buf[4] = name2;
-                v174 = 2114;
-                v175 = name3;
-                v176 = 2114;
-                v177 = v107;
-                v178 = 2112;
-                v179 = v109;
-                v180 = 2048;
-                v181 = startMachContinuousTime;
-                _os_log_debug_impl(&dword_2746E5000, v82, OS_LOG_TYPE_DEBUG, "%{public}@: %{public}@: %{public}@->%@: outside any workflow event (%llu)", buf, 0x34u);
+                v183 = 2114;
+                v184 = name3;
+                v185 = 2114;
+                v186 = v115;
+                v187 = 2112;
+                v188 = v117;
+                v189 = 2048;
+                v190 = startMachContinuousTime;
+                _os_log_debug_impl(&dword_2746E5000, v87, OS_LOG_TYPE_DEBUG, "%{public}@: %{public}@: %{public}@->%@: outside any workflow event (%llu)", buf, 0x34u);
 
-                v5 = v152;
-                v8 = v160;
+                v5 = v161;
+                v8 = v169;
               }
 
               else
               {
-                v79 = v102;
+                v83 = v110;
               }
             }
 
             else
             {
-              v79 = v12;
+              v83 = v12;
               [signpostCopy name];
 
               workflow9 = [(WRWorkflowEventTracker *)selfa workflow];
               [workflow9 name];
 
-              v81 = *__error();
-              v82 = _wrlog();
-              if (os_log_type_enabled(v82, OS_LOG_TYPE_DEBUG))
+              v85 = __error();
+              v86 = *v85;
+              v87 = _wrlog(v85);
+              if (os_log_type_enabled(v87, OS_LOG_TYPE_DEBUG))
               {
                 [WRWorkflowEventTracker handleSignpost:];
               }
             }
 
-            isSyntheticIntervalEvent = v76;
+            isSyntheticIntervalEvent = v80;
 
-            v39 = 0;
-            *__error() = v81;
-            v12 = v79;
+            v40 = 0;
+            *__error() = v86;
+            v12 = v83;
             goto LABEL_120;
           }
 
           [(WRWorkflowEventTracker *)selfCopy eventIdentifierForSignpostObject:signpostCopy wrSignopst:v8];
-          v49 = v47 = v8;
-          v156 = isSyntheticIntervalEvent;
-          v154 = v12;
-          if (v49)
+          v51 = v49 = v8;
+          v165 = isSyntheticIntervalEvent;
+          v163 = v12;
+          if (v51)
           {
-            v164 = 0u;
-            v165 = 0u;
-            v162 = 0u;
-            v163 = 0u;
-            v151 = v5;
-            v50 = signpostCopy;
+            v173 = 0u;
+            v174 = 0u;
+            v171 = 0u;
+            v172 = 0u;
+            v160 = v5;
+            v52 = signpostCopy;
             if (selfCopy)
             {
-              v51 = objc_getProperty(selfCopy, v48, 112, 1);
+              v53 = objc_getProperty(selfCopy, v50, 112, 1);
             }
 
             else
             {
-              v51 = 0;
+              v53 = 0;
             }
 
-            v52 = [v51 copy];
-            v53 = [v52 countByEnumeratingWithState:&v162 objects:v171 count:16];
-            if (v53)
+            v54 = [v53 copy];
+            v55 = [v54 countByEnumeratingWithState:&v171 objects:v180 count:16];
+            if (v55)
             {
-              v54 = v53;
-              v55 = *v163;
+              v56 = v55;
+              v57 = *v172;
               while (2)
               {
-                for (i = 0; i != v54; ++i)
+                for (i = 0; i != v56; ++i)
                 {
-                  if (*v163 != v55)
+                  if (*v172 != v57)
                   {
-                    objc_enumerationMutation(v52);
+                    objc_enumerationMutation(v54);
                   }
 
-                  v57 = *(*(&v162 + 1) + 8 * i);
-                  eventIdentifier3 = [v57 eventIdentifier];
-                  v59 = [eventIdentifier3 isEqualToString:v49];
+                  v59 = *(*(&v171 + 1) + 8 * i);
+                  eventIdentifier3 = [v59 eventIdentifier];
+                  v61 = [eventIdentifier3 isEqualToString:v51];
 
-                  if (v59)
+                  if (v61)
                   {
-                    signpostCopy = v50;
-                    v66 = [(WRWorkflowEventTracker *)v57 handleSignpost:v50 wrsignpost:v160];
-                    v5 = v151;
-                    v68 = selfa;
-                    if (([v57 inMiddleOfEvent] & 1) == 0)
+                    signpostCopy = v52;
+                    v69 = [(WRWorkflowEventTracker *)v59 handleSignpost:v52 wrsignpost:v169];
+                    v5 = v160;
+                    v71 = selfa;
+                    if (([v59 inMiddleOfEvent] & 1) == 0)
                     {
-                      v69 = v57 ? objc_getProperty(v57, v67, 136, 1) : 0;
-                      if (![v69 count])
+                      v72 = v59 ? objc_getProperty(v59, v70, 136, 1) : 0;
+                      if (![v72 count])
                       {
                         workflow10 = [(WRWorkflowEventTracker *)selfa workflow];
                         [workflow10 name];
 
-                        [v57 eventIdentifier];
-                        eventIdentifier4 = [v57 eventIdentifier];
+                        [v59 eventIdentifier];
+                        eventIdentifier4 = [v59 eventIdentifier];
 
-                        v72 = *__error();
-                        v73 = _wrlog();
-                        v74 = os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG);
+                        v75 = __error();
+                        v76 = *v75;
+                        v77 = _wrlog(v75);
+                        v78 = os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG);
                         if (eventIdentifier4)
                         {
-                          if (v74)
+                          if (v78)
                           {
                             [WRWorkflowEventTracker handleSignpost:];
                           }
                         }
 
-                        else if (v74)
+                        else if (v78)
                         {
                           [WRWorkflowEventTracker handleSignpost:?];
                         }
 
-                        *__error() = v72;
-                        v5 = v151;
-                        v68 = selfa;
+                        *__error() = v76;
+                        v5 = v160;
+                        v71 = selfa;
                         if (selfa)
                         {
-                          v123 = objc_getProperty(selfa, v122, 112, 1);
+                          v132 = objc_getProperty(selfa, v131, 112, 1);
                         }
 
                         else
                         {
-                          v123 = 0;
+                          v132 = 0;
                         }
 
-                        [v123 removeObjectIdenticalTo:v57];
+                        [v132 removeObjectIdenticalTo:v59];
                       }
                     }
 
-                    if ((v156 & 1) == 0)
+                    if ((v165 & 1) == 0)
                     {
-                      v124 = 80;
-                      if (v66)
+                      v133 = 80;
+                      if (v69)
                       {
-                        v124 = 72;
+                        v133 = 72;
                       }
 
-                      ++*(&v68->super.isa + v124);
+                      ++*(&v71->super.isa + v133);
                     }
 
-                    v12 = v154;
+                    v12 = v163;
                     goto LABEL_139;
                   }
                 }
 
-                v54 = [v52 countByEnumeratingWithState:&v162 objects:v171 count:16];
-                if (v54)
+                v56 = [v54 countByEnumeratingWithState:&v171 objects:v180 count:16];
+                if (v56)
                 {
                   continue;
                 }
@@ -1762,89 +1771,91 @@ LABEL_120:
               }
             }
 
-            signpostCopy = v50;
-            [v50 name];
+            signpostCopy = v52;
+            [v52 name];
 
             workflow11 = [(WRWorkflowEventTracker *)selfa workflow];
             [workflow11 name];
 
-            v61 = *__error();
-            v62 = _wrlog();
-            if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
+            v63 = __error();
+            v64 = *v63;
+            v65 = _wrlog(v63);
+            if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
             {
               workflow12 = [(WRWorkflowEventTracker *)selfa workflow];
               name4 = [workflow12 name];
-              name5 = [v50 name];
+              name5 = [v52 name];
               *buf = 138543874;
               *&buf[4] = name4;
-              v174 = 2114;
-              v175 = v49;
-              v176 = 2114;
-              v177 = name5;
-              _os_log_debug_impl(&dword_2746E5000, v62, OS_LOG_TYPE_DEBUG, "%{public}@<%{public}@>: %{public}@: No concurrent event with event identifier", buf, 0x20u);
+              v183 = 2114;
+              v184 = v51;
+              v185 = 2114;
+              v186 = name5;
+              _os_log_debug_impl(&dword_2746E5000, v65, OS_LOG_TYPE_DEBUG, "%{public}@<%{public}@>: %{public}@: No concurrent event with event identifier", buf, 0x20u);
             }
 
-            *__error() = v61;
+            *__error() = v64;
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
               workflow13 = [(WRWorkflowEventTracker *)selfa workflow];
               startSignposts2 = [workflow13 startSignposts];
-              v65 = [startSignposts2 indexOfObjectIdenticalTo:v160] != 0x7FFFFFFFFFFFFFFFLL;
+              v68 = [startSignposts2 indexOfObjectIdenticalTo:v169] != 0x7FFFFFFFFFFFFFFFLL;
             }
 
             else
             {
-              v65 = 0;
+              v68 = 0;
             }
 
-            v5 = v151;
-            v12 = v154;
-            v111 = v156;
-            if (v65 || v154)
+            v5 = v160;
+            v12 = v163;
+            v119 = v165;
+            if (v68 || v163)
             {
-              [v50 name];
+              [v52 name];
 
               workflow14 = [(WRWorkflowEventTracker *)selfa workflow];
               [workflow14 name];
 
-              v134 = *__error();
-              v135 = _wrlog();
-              if (os_log_type_enabled(v135, OS_LOG_TYPE_DEBUG))
+              v142 = __error();
+              v143 = *v142;
+              v144 = _wrlog(v142);
+              if (os_log_type_enabled(v144, OS_LOG_TYPE_DEBUG))
               {
                 workflow15 = [(WRWorkflowEventTracker *)selfa workflow];
                 name6 = [workflow15 name];
-                name7 = [v50 name];
+                name7 = [v52 name];
                 *buf = 138543874;
                 *&buf[4] = name6;
-                v174 = 2114;
-                v175 = v49;
-                v176 = 2114;
-                v177 = name7;
-                _os_log_debug_impl(&dword_2746E5000, v135, OS_LOG_TYPE_DEBUG, "%{public}@<%{public}@>: %{public}@: Allocating new concurrent event", buf, 0x20u);
+                v183 = 2114;
+                v184 = v51;
+                v185 = 2114;
+                v186 = name7;
+                _os_log_debug_impl(&dword_2746E5000, v144, OS_LOG_TYPE_DEBUG, "%{public}@<%{public}@>: %{public}@: Allocating new concurrent event", buf, 0x20u);
 
-                v111 = v156;
-                v12 = v154;
+                v119 = v165;
+                v12 = v163;
 
-                v5 = v151;
+                v5 = v160;
               }
 
-              *__error() = v134;
-              v139 = [(WRWorkflowEventTracker *)selfa newConcurrentEventWithIdentifier:v49];
-              v140 = [(WRWorkflowEventTracker *)v139 handleSignpost:v50 wrsignpost:v160];
-              if ((v111 & 1) == 0)
+              *__error() = v143;
+              v148 = [(WRWorkflowEventTracker *)selfa newConcurrentEventWithIdentifier:v51];
+              v149 = [(WRWorkflowEventTracker *)v148 handleSignpost:v52 wrsignpost:v169];
+              if ((v119 & 1) == 0)
               {
-                v141 = 80;
-                if (v140)
+                v150 = 80;
+                if (v149)
                 {
-                  v141 = 72;
+                  v150 = 72;
                 }
 
-                ++*(&selfa->super.isa + v141);
+                ++*(&selfa->super.isa + v150);
               }
             }
 
-            else if ((v156 & 1) == 0)
+            else if ((v165 & 1) == 0)
             {
               ++selfa->_numOutsideSignposts;
             }
@@ -1852,93 +1863,96 @@ LABEL_120:
             goto LABEL_139;
           }
 
-          if ([v47 eventIdentifierIsSignpostID])
+          if ([v49 eventIdentifierIsSignpostID])
           {
             eventIdentifierFieldName2 = @"signpost id";
           }
 
           else
           {
-            eventIdentifierFieldName2 = [v47 eventIdentifierFieldName];
+            eventIdentifierFieldName2 = [v49 eventIdentifierFieldName];
             if (!eventIdentifierFieldName2)
             {
-              v83 = v5;
+              v88 = v5;
               [signpostCopy name];
 
               workflow16 = [(WRWorkflowEventTracker *)selfCopy workflow];
               [workflow16 name];
 
-              v85 = *__error();
-              v86 = _wrlog();
-              if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+              v130 = __error();
+              v91 = *v130;
+              v92 = _wrlog(v130);
+              if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
               {
-                v88 = selfa;
+                v94 = selfa;
                 [WRWorkflowEventTracker handleSignpost:];
                 eventIdentifierFieldName2 = 0;
-                v87 = 1;
+                v93 = 1;
                 goto LABEL_89;
               }
 
               eventIdentifierFieldName2 = 0;
-              v87 = 1;
+              v93 = 1;
               goto LABEL_88;
             }
           }
 
-          v83 = v5;
+          v88 = v5;
           [signpostCopy name];
 
           workflow17 = [(WRWorkflowEventTracker *)selfCopy workflow];
           [workflow17 name];
 
-          v85 = *__error();
-          v86 = _wrlog();
-          if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+          v90 = __error();
+          v91 = *v90;
+          v92 = _wrlog(v90);
+          if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
           {
             workflow18 = [(WRWorkflowEventTracker *)selfa workflow];
             name8 = [workflow18 name];
             name9 = [signpostCopy name];
             *buf = 138544130;
             *&buf[4] = name8;
-            v174 = 2114;
-            v175 = name9;
-            v176 = 2114;
-            v177 = eventIdentifierFieldName2;
-            v178 = 2112;
-            v179 = 0;
-            _os_log_error_impl(&dword_2746E5000, v86, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@: %{public}@->%@: Unable to get event identifier, ignoring signpost", buf, 0x2Au);
+            v183 = 2114;
+            v184 = name9;
+            v185 = 2114;
+            v186 = eventIdentifierFieldName2;
+            v187 = 2112;
+            v188 = 0;
+            _os_log_error_impl(&dword_2746E5000, v92, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@: %{public}@->%@: Unable to get event identifier, ignoring signpost", buf, 0x2Au);
 
-            v88 = selfa;
-            v87 = 0;
+            v94 = selfa;
+            v93 = 0;
             goto LABEL_89;
           }
 
-          v87 = 0;
+          v93 = 0;
 LABEL_88:
-          v88 = selfa;
+          v94 = selfa;
 LABEL_89:
 
-          *__error() = v85;
-          [(WRWorkflowEventTracker *)v88 workflow];
-          v90 = v89 = v88;
-          startSignposts3 = [v90 startSignposts];
-          v92 = [startSignposts3 indexOfObjectIdenticalTo:v160];
+          *__error() = v91;
+          [(WRWorkflowEventTracker *)v94 workflow];
+          v96 = v95 = v94;
+          startSignposts3 = [v96 startSignposts];
+          v98 = [startSignposts3 indexOfObjectIdenticalTo:v169];
 
           [signpostCopy name];
-          workflow19 = [(WRWorkflowEventTracker *)v89 workflow];
+          workflow19 = [(WRWorkflowEventTracker *)v95 workflow];
           [workflow19 name];
 
-          v94 = *__error();
-          v95 = _wrlog();
-          v96 = os_log_type_enabled(v95, OS_LOG_TYPE_ERROR);
-          v5 = v83;
-          if (v92 == 0x7FFFFFFFFFFFFFFFLL)
+          v100 = __error();
+          v101 = *v100;
+          v102 = _wrlog(v100);
+          v103 = os_log_type_enabled(v102, OS_LOG_TYPE_ERROR);
+          v5 = v88;
+          if (v98 == 0x7FFFFFFFFFFFFFFFLL)
           {
-            v97 = v156;
-            if (v87)
+            v104 = v165;
+            if (v93)
             {
-              v98 = selfa;
-              if (v96)
+              v105 = selfa;
+              if (v103)
               {
                 [WRWorkflowEventTracker handleSignpost:];
               }
@@ -1946,39 +1960,39 @@ LABEL_89:
 
             else
             {
-              v98 = selfa;
-              if (v96)
+              v105 = selfa;
+              if (v103)
               {
                 workflow20 = [(WRWorkflowEventTracker *)selfa workflow];
                 [workflow20 name];
-                v144 = v143 = v5;
+                v153 = v152 = v5;
                 name10 = [signpostCopy name];
                 *buf = 138544130;
-                *&buf[4] = v144;
-                v174 = 2114;
-                v175 = name10;
-                v176 = 2114;
-                v177 = eventIdentifierFieldName2;
-                v178 = 2112;
-                v179 = 0;
-                _os_log_error_impl(&dword_2746E5000, v95, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@: %{public}@->%@: Unable to get event identifier, ignoring signpost", buf, 0x2Au);
+                *&buf[4] = v153;
+                v183 = 2114;
+                v184 = name10;
+                v185 = 2114;
+                v186 = eventIdentifierFieldName2;
+                v187 = 2112;
+                v188 = 0;
+                _os_log_error_impl(&dword_2746E5000, v102, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@: %{public}@->%@: Unable to get event identifier, ignoring signpost", buf, 0x2Au);
 
-                v5 = v143;
-                v98 = selfa;
+                v5 = v152;
+                v105 = selfa;
               }
             }
 
-            *__error() = v94;
-            v12 = v154;
+            *__error() = v101;
+            v12 = v163;
           }
 
           else
           {
-            v97 = v156;
-            if (v87)
+            v104 = v165;
+            if (v93)
             {
-              v99 = selfa;
-              if (v96)
+              v106 = selfa;
+              if (v103)
               {
                 [WRWorkflowEventTracker handleSignpost:];
               }
@@ -1986,69 +2000,69 @@ LABEL_89:
 
             else
             {
-              v99 = selfa;
-              if (v96)
+              v106 = selfa;
+              if (v103)
               {
                 workflow21 = [(WRWorkflowEventTracker *)selfa workflow];
                 [workflow21 name];
-                v148 = v147 = v5;
+                v157 = v156 = v5;
                 name11 = [signpostCopy name];
                 *buf = 138544130;
-                *&buf[4] = v148;
-                v174 = 2114;
-                v175 = name11;
-                v176 = 2114;
-                v177 = eventIdentifierFieldName2;
-                v178 = 2112;
-                v179 = 0;
-                _os_log_error_impl(&dword_2746E5000, v95, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@: %{public}@->%@: Unable to get event identifier for start signpost, throwing out all current events in case they were incomplete events", buf, 0x2Au);
+                *&buf[4] = v157;
+                v183 = 2114;
+                v184 = name11;
+                v185 = 2114;
+                v186 = eventIdentifierFieldName2;
+                v187 = 2112;
+                v188 = 0;
+                _os_log_error_impl(&dword_2746E5000, v102, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@: %{public}@->%@: Unable to get event identifier for start signpost, throwing out all current events in case they were incomplete events", buf, 0x2Au);
 
-                v5 = v147;
-                v99 = selfa;
+                v5 = v156;
+                v106 = selfa;
               }
             }
 
-            *__error() = v94;
-            memset(v166, 0, sizeof(v166));
-            if (v99)
+            *__error() = v101;
+            memset(v175, 0, sizeof(v175));
+            if (v106)
             {
-              v113 = objc_getProperty(v99, v112, 112, 1);
+              v121 = objc_getProperty(v106, v120, 112, 1);
             }
 
             else
             {
-              v113 = 0;
+              v121 = 0;
             }
 
-            v12 = v154;
-            v114 = v113;
-            v115 = [v114 countByEnumeratingWithState:v166 objects:v172 count:16];
-            if (v115)
+            v12 = v163;
+            v122 = v121;
+            v123 = [v122 countByEnumeratingWithState:v175 objects:v181 count:16];
+            if (v123)
             {
-              [(WRWorkflowEventTracker *)v166 handleSignpost:v114, v115, v172];
+              [(WRWorkflowEventTracker *)v175 handleSignpost:v122, v123, v181];
             }
 
-            v98 = selfa;
+            v105 = selfa;
             if (selfa)
             {
-              v117 = objc_getProperty(selfa, v116, 112, 1);
+              v125 = objc_getProperty(selfa, v124, 112, 1);
             }
 
             else
             {
-              v117 = 0;
+              v125 = 0;
             }
 
-            [v117 removeAllObjects];
+            [v125 removeAllObjects];
           }
 
-          if ((v97 & 1) == 0)
+          if ((v104 & 1) == 0)
           {
-            ++v98->_numOutsideSignposts;
+            ++v105->_numOutsideSignposts;
           }
 
 LABEL_139:
-          v8 = v160;
+          v8 = v169;
           goto LABEL_140;
         }
       }
@@ -2058,10 +2072,10 @@ LABEL_139:
       goto LABEL_11;
     }
 
-    v40 = [(WRWorkflowEventTracker *)self handleSignpost:signpostCopy wrsignpost:v8];
+    v41 = [(WRWorkflowEventTracker *)self handleSignpost:signpostCopy wrsignpost:v8];
     if ((isSyntheticIntervalEvent & 1) == 0)
     {
-      if (v40)
+      if (v41)
       {
         ++self->_numHandledSignposts;
       }
@@ -2080,14 +2094,13 @@ LABEL_139:
 
 LABEL_141:
 
-  v125 = *MEMORY[0x277D85DE8];
   return v8 != 0;
 }
 
 - (uint64_t)handleSignpost:(void *)signpost wrsignpost:
 {
-  v429 = *MEMORY[0x277D85DE8];
-  v391 = a2;
+  v441 = *MEMORY[0x277D85DE8];
+  v403 = a2;
   newValue = signpost;
   if (!self)
   {
@@ -2096,7 +2109,6 @@ LABEL_141:
 
   self = self;
   workflow = objc_getProperty(self, v5, 120, 1);
-  v7 = 0x277D54000uLL;
   if (workflow)
   {
     goto LABEL_3;
@@ -2126,12 +2138,12 @@ LABEL_9:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      timeRecordedNanoseconds = [v391 timeRecordedNanoseconds];
+      timeRecordedNanoseconds = [v403 timeRecordedNanoseconds];
     }
 
     else
     {
-      beginEvent = [v391 beginEvent];
+      beginEvent = [v403 beginEvent];
       timeRecordedNanoseconds = [beginEvent timeRecordedNanoseconds];
 
       selfCopy5 = self;
@@ -2141,36 +2153,34 @@ LABEL_9:
     machContTimeNs = [eventStart machContTimeNs];
     workflow2 = [self workflow];
     [workflow2 maximumEventDuration];
-    v148 = machContTimeNs + (v147 * 1000000000.0);
+    v149 = machContTimeNs + (v148 * 1000000000.0);
 
-    v149 = v148 >= timeRecordedNanoseconds;
+    v150 = v149 >= timeRecordedNanoseconds;
     selfCopy5 = self;
-    v7 = 0x277D54000;
-    if (!v149)
+    if (!v150)
     {
-      [(WRWorkflowEventTracker *)v391 handleSignpost:timeRecordedNanoseconds wrsignpost:self, buf];
+      [(WRWorkflowEventTracker *)v403 handleSignpost:timeRecordedNanoseconds wrsignpost:self, buf];
       workflow = *buf;
       goto LABEL_3;
     }
   }
 
 LABEL_10:
-  v11 = *(v7 + 4088);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     goto LABEL_76;
   }
 
-  v373 = v391;
+  v385 = v403;
   workflow3 = [selfCopy5 workflow];
   startSignposts = [workflow3 startSignposts];
-  v14 = [startSignposts indexOfObjectIdenticalTo:newValue];
+  v12 = [startSignposts indexOfObjectIdenticalTo:newValue];
 
-  if (v14 != 0x7FFFFFFFFFFFFFFFLL)
+  if (v12 != 0x7FFFFFFFFFFFFFFFLL)
   {
     inMiddleOfEvent = [self inMiddleOfEvent];
-    [v373 name];
+    [v385 name];
 
     workflow4 = [self workflow];
     [workflow4 name];
@@ -2178,105 +2188,106 @@ LABEL_10:
     [self eventIdentifier];
     eventIdentifier = [self eventIdentifier];
 
-    v19 = *__error();
-    v20 = _wrlog();
-    v21 = v20;
+    v17 = __error();
+    v18 = *v17;
+    v19 = _wrlog(v17);
+    v20 = v19;
     if (inMiddleOfEvent)
     {
-      v22 = os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
+      v21 = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
       if (eventIdentifier)
       {
-        if (v22)
+        if (v21)
         {
-          [WRWorkflowEventTracker handleSignpost:v373 wrsignpost:?];
+          [WRWorkflowEventTracker handleSignpost:v385 wrsignpost:?];
         }
       }
 
-      else if (v22)
+      else if (v21)
       {
-        [WRWorkflowEventTracker handleSignpost:v373 wrsignpost:?];
+        [WRWorkflowEventTracker handleSignpost:v385 wrsignpost:?];
       }
     }
 
     else
     {
-      v23 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+      v22 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
       if (eventIdentifier)
       {
-        if (v23)
+        if (v22)
         {
           workflow5 = [self workflow];
           name = [workflow5 name];
           eventIdentifier2 = [self eventIdentifier];
-          [v373 name];
+          [v385 name];
+          v26 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+          [v385 beginDate];
           v27 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-          [v373 beginDate];
-          v28 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-          v29 = COERCE_DOUBLE([v373 startMachContinuousTime]);
+          v28 = COERCE_DOUBLE([v385 startMachContinuousTime]);
           *buf = 138544386;
           *&buf[4] = name;
-          v410 = 2114;
-          v411 = eventIdentifier2;
-          v412 = 2114;
-          v413 = v27;
-          v414 = 2112;
-          v415 = v28;
-          v416 = 2048;
-          v417 = v29;
-          _os_log_impl(&dword_2746E5000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@<%{public}@>: %{public}@: event start @ %@ (%llu)", buf, 0x34u);
+          v422 = 2114;
+          v423 = eventIdentifier2;
+          v424 = 2114;
+          v425 = v26;
+          v426 = 2112;
+          v427 = v27;
+          v428 = 2048;
+          v429 = v28;
+          _os_log_impl(&dword_2746E5000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@<%{public}@>: %{public}@: event start @ %@ (%llu)", buf, 0x34u);
         }
       }
 
-      else if (v23)
+      else if (v22)
       {
         workflow6 = [self workflow];
         name2 = [workflow6 name];
-        name3 = [v373 name];
-        [v373 beginDate];
-        v33 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-        v34 = COERCE_DOUBLE([v373 startMachContinuousTime]);
+        name3 = [v385 name];
+        [v385 beginDate];
+        v32 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+        v33 = COERCE_DOUBLE([v385 startMachContinuousTime]);
         *buf = 138544130;
         *&buf[4] = name2;
-        v410 = 2114;
-        v411 = name3;
-        v412 = 2112;
-        v413 = v33;
-        v414 = 2048;
-        v415 = v34;
-        _os_log_impl(&dword_2746E5000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@: event start @ %@ (%llu)", buf, 0x2Au);
+        v422 = 2114;
+        v423 = name3;
+        v424 = 2112;
+        v425 = v32;
+        v426 = 2048;
+        v427 = v33;
+        _os_log_impl(&dword_2746E5000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@: event start @ %@ (%llu)", buf, 0x2Au);
       }
     }
 
-    *__error() = v19;
-    v36 = objc_getProperty(self, v35, 136, 1);
-    timeRecordedNanoseconds2 = [v373 timeRecordedNanoseconds];
-    beginDate = [v373 beginDate];
-    v39 = [beginDate dateByAddingTimeInterval:{(objc_msgSend(v373, "timeRecordedNanoseconds") - objc_msgSend(v373, "startNanoseconds")) / 1000000000.0}];
-    [(WRWorkflowEventTracker *)self reportErrorsAndResetAtMachContNs:timeRecordedNanoseconds2 date:v39];
+    *__error() = v18;
+    v35 = objc_getProperty(self, v34, 136, 1);
+    timeRecordedNanoseconds2 = [v385 timeRecordedNanoseconds];
+    beginDate = [v385 beginDate];
+    v38 = [beginDate dateByAddingTimeInterval:{(objc_msgSend(v385, "timeRecordedNanoseconds") - objc_msgSend(v385, "startNanoseconds")) / 1000000000.0}];
+    [(WRWorkflowEventTracker *)self reportErrorsAndResetAtMachContNs:timeRecordedNanoseconds2 date:v38];
 
-    v407 = 0u;
-    v408 = 0u;
-    v405 = 0u;
-    v406 = 0u;
-    obj = v36;
-    v41 = [obj countByEnumeratingWithState:&v405 objects:v428 count:16];
-    if (v41)
+    v419 = 0u;
+    v420 = 0u;
+    v417 = 0u;
+    v418 = 0u;
+    obj = v35;
+    v40 = [obj countByEnumeratingWithState:&v417 objects:v440 count:16];
+    if (v40)
     {
-      v42 = *v406;
+      v41 = *v418;
       do
       {
-        v43 = 0;
+        v42 = 0;
         do
         {
-          if (*v406 != v42)
+          if (*v418 != v41)
           {
             objc_enumerationMutation(obj);
           }
 
-          v44 = *(*(&v405 + 1) + 8 * v43);
-          if (v44)
+          v43 = *(*(&v417 + 1) + 8 * v42);
+          if (v43)
           {
-            Property = objc_getProperty(*(*(&v405 + 1) + 8 * v43), v40, 8, 1);
+            Property = objc_getProperty(*(*(&v417 + 1) + 8 * v42), v39, 8, 1);
           }
 
           else
@@ -2284,14 +2295,29 @@ LABEL_10:
             Property = 0;
           }
 
-          v46 = Property;
-          individuationFieldName = [v46 individuationFieldName];
+          v45 = Property;
+          individuationFieldName = [v45 individuationFieldName];
 
           if (individuationFieldName)
           {
-            if (v44)
+            if (v43)
             {
-              v49 = objc_getProperty(v44, v48, 16, 1);
+              v48 = objc_getProperty(v43, v47, 16, 1);
+            }
+
+            else
+            {
+              v48 = 0;
+            }
+
+            [(WRWorkflowEventTracker *)self sawIndividuationFieldName:individuationFieldName withIndividuationIdentifier:v48];
+          }
+
+          else
+          {
+            if (v43)
+            {
+              v49 = objc_getProperty(v43, v47, 8, 1);
             }
 
             else
@@ -2299,23 +2325,8 @@ LABEL_10:
               v49 = 0;
             }
 
-            [(WRWorkflowEventTracker *)self sawIndividuationFieldName:individuationFieldName withIndividuationIdentifier:v49];
-          }
-
-          else
-          {
-            if (v44)
-            {
-              v50 = objc_getProperty(v44, v48, 8, 1);
-            }
-
-            else
-            {
-              v50 = 0;
-            }
-
-            v51 = v50;
-            [v51 name];
+            v50 = v49;
+            [v50 name];
 
             workflow7 = [self workflow];
             [workflow7 name];
@@ -2323,19 +2334,20 @@ LABEL_10:
             [self eventIdentifier];
             eventIdentifier3 = [self eventIdentifier];
 
-            v54 = eventIdentifier3 == 0;
-            v55 = *__error();
-            v56 = _wrlog();
+            v53 = eventIdentifier3 == 0;
+            v54 = __error();
+            v55 = *v54;
+            v56 = _wrlog(v54);
             v57 = os_log_type_enabled(v56, OS_LOG_TYPE_FAULT);
-            if (v54)
+            if (v53)
             {
               if (v57)
               {
                 workflow8 = [self workflow];
                 name4 = [workflow8 name];
-                if (v44)
+                if (v43)
                 {
-                  v66 = objc_getProperty(v44, v65, 8, 1);
+                  v66 = objc_getProperty(v43, v65, 8, 1);
                 }
 
                 else
@@ -2345,9 +2357,9 @@ LABEL_10:
 
                 v67 = v66;
                 name5 = [v67 name];
-                if (v44)
+                if (v43)
                 {
-                  v70 = objc_getProperty(v44, v68, 16, 1);
+                  v70 = objc_getProperty(v43, v68, 16, 1);
                 }
 
                 else
@@ -2358,10 +2370,10 @@ LABEL_10:
                 v71 = COERCE_DOUBLE(v70);
                 *buf = 138543874;
                 *&buf[4] = name4;
-                v410 = 2114;
-                v411 = name5;
-                v412 = 2112;
-                v413 = v71;
+                v422 = 2114;
+                v423 = name5;
+                v424 = 2112;
+                v425 = v71;
                 _os_log_fault_impl(&dword_2746E5000, v56, OS_LOG_TYPE_FAULT, "%{public}@: %{public}@: No indivudation field name for identifier %@", buf, 0x20u);
               }
             }
@@ -2371,9 +2383,9 @@ LABEL_10:
               workflow9 = [self workflow];
               name6 = [workflow9 name];
               eventIdentifier4 = [self eventIdentifier];
-              if (v44)
+              if (v43)
               {
-                v59 = objc_getProperty(v44, v58, 8, 1);
+                v59 = objc_getProperty(v43, v58, 8, 1);
               }
 
               else
@@ -2384,9 +2396,9 @@ LABEL_10:
               v60 = v59;
               [v60 name];
               v62 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-              if (v44)
+              if (v43)
               {
-                v63 = objc_getProperty(v44, v61, 16, 1);
+                v63 = objc_getProperty(v43, v61, 16, 1);
               }
 
               else
@@ -2397,24 +2409,24 @@ LABEL_10:
               v64 = COERCE_DOUBLE(v63);
               *buf = 138544130;
               *&buf[4] = name6;
-              v410 = 2114;
-              v411 = eventIdentifier4;
-              v412 = 2114;
-              v413 = v62;
-              v414 = 2112;
-              v415 = v64;
+              v422 = 2114;
+              v423 = eventIdentifier4;
+              v424 = 2114;
+              v425 = v62;
+              v426 = 2112;
+              v427 = v64;
               _os_log_fault_impl(&dword_2746E5000, v56, OS_LOG_TYPE_FAULT, "%{public}@<%{public}@>: %{public}@: No indivudation field name for identifier %@", buf, 0x2Au);
             }
 
             *__error() = v55;
           }
 
-          ++v43;
+          ++v42;
         }
 
-        while (v41 != v43);
-        v72 = [obj countByEnumeratingWithState:&v405 objects:v428 count:16];
-        v41 = v72;
+        while (v40 != v42);
+        v72 = [obj countByEnumeratingWithState:&v417 objects:v440 count:16];
+        v40 = v72;
       }
 
       while (v72);
@@ -2422,10 +2434,10 @@ LABEL_10:
 
     objc_setProperty_atomic(self, v73, newValue, 40);
     v74 = [WRTimestampAndThread alloc];
-    processID = [v373 processID];
-    threadID = [v373 threadID];
-    startNanoseconds = [v373 startNanoseconds];
-    beginDate2 = [v373 beginDate];
+    processID = [v385 processID];
+    threadID = [v385 threadID];
+    startNanoseconds = [v385 startNanoseconds];
+    beginDate2 = [v385 beginDate];
     v79 = [(WRTimestampAndThread *)&v74->super.isa initWithPID:processID threadID:threadID machContTimeNs:startNanoseconds date:beginDate2];
     objc_setProperty_atomic(self, v80, v79, 32);
 
@@ -2447,7 +2459,7 @@ LABEL_73:
         goto LABEL_74;
       }
 
-      startNanoseconds2 = [v373 startNanoseconds];
+      startNanoseconds2 = [v385 startNanoseconds];
       workflow10 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, v82);
       workflow11 = [self workflow];
       [workflow11 maximumEventDuration];
@@ -2482,31 +2494,31 @@ LABEL_73:
     goto LABEL_73;
   }
 
-  if (![v373 eventType] && (objc_msgSend(self, "inMiddleOfEvent") & 1) == 0)
+  if (![v385 eventType] && (objc_msgSend(self, "inMiddleOfEvent") & 1) == 0)
   {
     individuationFieldName2 = [newValue individuationFieldName];
 
     if (individuationFieldName2)
     {
-      [(WRWorkflowEventTracker *)newValue handleSignpost:v373 wrsignpost:?];
+      [(WRWorkflowEventTracker *)newValue handleSignpost:v385 wrsignpost:?];
     }
   }
 
 LABEL_74:
-  isSyntheticIntervalEvent = [v373 isSyntheticIntervalEvent];
+  isSyntheticIntervalEvent = [v385 isSyntheticIntervalEvent];
 
   if ((isSyntheticIntervalEvent & 1) == 0)
   {
 LABEL_76:
     [newValue individuationFieldName];
     obja = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-    [(WRWorkflowEventTracker *)self individuationIdentifierForSignpostObject:v391 individuationFieldName:*&obja];
-    v390 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-    v387 = [(WRWorkflowEventTracker *)self trackerForWRSignpost:*&v390 individuationIdentifier:?];
-    if (![self inMiddleOfEvent] || (v96 = objc_msgSend(v391, "endNanoseconds"), objc_msgSend(self, "eventStart"), v97 = objc_claimAutoreleasedReturnValue(), LODWORD(v96) = v96 < objc_msgSend(v97, "machContTimeNs"), v97, v96))
+    [(WRWorkflowEventTracker *)self individuationIdentifierForSignpostObject:v403 individuationFieldName:*&obja];
+    v402 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+    v399 = [(WRWorkflowEventTracker *)self trackerForWRSignpost:*&v402 individuationIdentifier:?];
+    if (![self inMiddleOfEvent] || (v96 = objc_msgSend(v403, "endNanoseconds"), objc_msgSend(self, "eventStart"), v97 = objc_claimAutoreleasedReturnValue(), LODWORD(v96) = v96 < objc_msgSend(v97, "machContTimeNs"), v97, v96))
     {
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && (v98 = [v391 startNanoseconds], objc_msgSend(v391, "beginEvent"), v99 = objc_claimAutoreleasedReturnValue(), v100 = objc_msgSend(v99, "threadID"), v99, objc_msgSend(objc_getProperty(self, v101, 136, 1), "count")))
+      if ((objc_opt_isKindOfClass() & 1) != 0 && (v98 = [v403 startNanoseconds], objc_msgSend(v403, "beginEvent"), v99 = objc_claimAutoreleasedReturnValue(), v100 = objc_msgSend(v99, "threadID"), v99, objc_msgSend(objc_getProperty(self, v101, 136, 1), "count")))
       {
         [(WRWorkflowEventTracker *)self handleSignpost:v98 wrsignpost:v100, buf];
         v95 = buf[0];
@@ -2520,14 +2532,14 @@ LABEL_76:
       goto LABEL_200;
     }
 
-    if (obja != 0.0 && v390 != 0.0)
+    if (obja != 0.0 && v402 != 0.0)
     {
-      [(WRWorkflowEventTracker *)self sawIndividuationFieldName:*&v390 withIndividuationIdentifier:?];
+      [(WRWorkflowEventTracker *)self sawIndividuationFieldName:*&v402 withIndividuationIdentifier:?];
     }
 
-    startNanoseconds3 = [v391 startNanoseconds];
-    v103 = startNanoseconds3 == [v391 endNanoseconds];
-    [v391 name];
+    startNanoseconds3 = [v403 startNanoseconds];
+    v103 = startNanoseconds3 == [v403 endNanoseconds];
+    [v403 name];
 
     workflow13 = [self workflow];
     [workflow13 name];
@@ -2535,114 +2547,115 @@ LABEL_76:
     [self eventIdentifier];
     eventIdentifier5 = [self eventIdentifier];
 
-    v106 = *__error();
-    v107 = _wrlog();
-    v108 = os_log_type_enabled(v107, OS_LOG_TYPE_INFO);
+    v106 = __error();
+    v107 = *v106;
+    v108 = _wrlog(v106);
+    v109 = os_log_type_enabled(v108, OS_LOG_TYPE_INFO);
     if (v103)
     {
       if (obja == 0.0)
       {
         if (eventIdentifier5)
         {
-          if (v108)
+          if (v109)
           {
             workflow14 = [self workflow];
             name7 = [workflow14 name];
             eventIdentifier6 = [self eventIdentifier];
-            [v391 name];
-            v129 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-            startNanoseconds4 = [v391 startNanoseconds];
+            [v403 name];
+            v130 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+            startNanoseconds4 = [v403 startNanoseconds];
             eventStart2 = [self eventStart];
             machContTimeNs2 = [eventStart2 machContTimeNs];
-            v133 = COERCE_DOUBLE([v391 startMachContinuousTime]);
+            v134 = COERCE_DOUBLE([v403 startMachContinuousTime]);
             *buf = 138544386;
             *&buf[4] = name7;
-            v410 = 2114;
-            v411 = eventIdentifier6;
-            v412 = 2114;
-            v413 = v129;
-            v414 = 2048;
-            v415 = (startNanoseconds4 - machContTimeNs2) / 1000000000.0;
-            v416 = 2048;
-            v417 = v133;
-            _os_log_impl(&dword_2746E5000, v107, OS_LOG_TYPE_INFO, "%{public}@<%{public}@>: %{public}@: event middle %+.3fs @%llu", buf, 0x34u);
+            v422 = 2114;
+            v423 = eventIdentifier6;
+            v424 = 2114;
+            v425 = v130;
+            v426 = 2048;
+            v427 = (startNanoseconds4 - machContTimeNs2) / 1000000000.0;
+            v428 = 2048;
+            v429 = v134;
+            _os_log_impl(&dword_2746E5000, v108, OS_LOG_TYPE_INFO, "%{public}@<%{public}@>: %{public}@: event middle %+.3fs @%llu", buf, 0x34u);
           }
         }
 
-        else if (v108)
+        else if (v109)
         {
           workflow15 = [self workflow];
           name8 = [workflow15 name];
-          name9 = [v391 name];
-          startNanoseconds5 = [v391 startNanoseconds];
+          name9 = [v403 name];
+          startNanoseconds5 = [v403 startNanoseconds];
           eventStart3 = [self eventStart];
           machContTimeNs3 = [eventStart3 machContTimeNs];
-          v172 = COERCE_DOUBLE([v391 startMachContinuousTime]);
+          v173 = COERCE_DOUBLE([v403 startMachContinuousTime]);
           *buf = 138544130;
           *&buf[4] = name8;
-          v410 = 2114;
-          v411 = name9;
-          v412 = 2048;
-          v413 = (startNanoseconds5 - machContTimeNs3) / 1000000000.0;
-          v414 = 2048;
-          v415 = v172;
-          _os_log_impl(&dword_2746E5000, v107, OS_LOG_TYPE_INFO, "%{public}@: %{public}@: event middle %+.3fs @%llu", buf, 0x2Au);
+          v422 = 2114;
+          v423 = name9;
+          v424 = 2048;
+          v425 = (startNanoseconds5 - machContTimeNs3) / 1000000000.0;
+          v426 = 2048;
+          v427 = v173;
+          _os_log_impl(&dword_2746E5000, v108, OS_LOG_TYPE_INFO, "%{public}@: %{public}@: event middle %+.3fs @%llu", buf, 0x2Au);
         }
       }
 
       else if (eventIdentifier5)
       {
-        if (v108)
+        if (v109)
         {
           workflow16 = [self workflow];
           name10 = [workflow16 name];
           eventIdentifier7 = [self eventIdentifier];
-          [v391 name];
-          v112 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-          startNanoseconds6 = [v391 startNanoseconds];
+          [v403 name];
+          v113 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+          startNanoseconds6 = [v403 startNanoseconds];
           eventStart4 = [self eventStart];
           machContTimeNs4 = [eventStart4 machContTimeNs];
-          *&v116 = COERCE_DOUBLE([v391 startMachContinuousTime]);
+          *&v117 = COERCE_DOUBLE([v403 startMachContinuousTime]);
           *buf = 138544898;
           *&buf[4] = name10;
-          v410 = 2114;
-          v411 = eventIdentifier7;
-          v412 = 2114;
-          v413 = v112;
-          v414 = 2114;
-          v415 = obja;
-          v416 = 2112;
-          v417 = v390;
-          v418 = 2048;
-          v419 = (startNanoseconds6 - machContTimeNs4) / 1000000000.0;
-          v420 = 2048;
-          v421 = *&v116;
-          _os_log_impl(&dword_2746E5000, v107, OS_LOG_TYPE_INFO, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: event middle %+.3fs @%llu", buf, 0x48u);
+          v422 = 2114;
+          v423 = eventIdentifier7;
+          v424 = 2114;
+          v425 = v113;
+          v426 = 2114;
+          v427 = obja;
+          v428 = 2112;
+          v429 = v402;
+          v430 = 2048;
+          v431 = (startNanoseconds6 - machContTimeNs4) / 1000000000.0;
+          v432 = 2048;
+          v433 = *&v117;
+          _os_log_impl(&dword_2746E5000, v108, OS_LOG_TYPE_INFO, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: event middle %+.3fs @%llu", buf, 0x48u);
         }
       }
 
-      else if (v108)
+      else if (v109)
       {
         workflow17 = [self workflow];
         name11 = [workflow17 name];
-        name12 = [v391 name];
-        startNanoseconds7 = [v391 startNanoseconds];
+        name12 = [v403 name];
+        startNanoseconds7 = [v403 startNanoseconds];
         eventStart5 = [self eventStart];
         machContTimeNs5 = [eventStart5 machContTimeNs];
-        v156 = COERCE_DOUBLE([v391 startMachContinuousTime]);
+        v157 = COERCE_DOUBLE([v403 startMachContinuousTime]);
         *buf = 138544642;
         *&buf[4] = name11;
-        v410 = 2114;
-        v411 = name12;
-        v412 = 2114;
-        v413 = obja;
-        v414 = 2112;
-        v415 = v390;
-        v416 = 2048;
-        v417 = (startNanoseconds7 - machContTimeNs5) / 1000000000.0;
-        v418 = 2048;
-        v419 = v156;
-        _os_log_impl(&dword_2746E5000, v107, OS_LOG_TYPE_INFO, "%{public}@: %{public}@: %{public}@->%@: event middle %+.3fs @%llu", buf, 0x3Eu);
+        v422 = 2114;
+        v423 = name12;
+        v424 = 2114;
+        v425 = obja;
+        v426 = 2112;
+        v427 = v402;
+        v428 = 2048;
+        v429 = (startNanoseconds7 - machContTimeNs5) / 1000000000.0;
+        v430 = 2048;
+        v431 = v157;
+        _os_log_impl(&dword_2746E5000, v108, OS_LOG_TYPE_INFO, "%{public}@: %{public}@: %{public}@->%@: event middle %+.3fs @%llu", buf, 0x3Eu);
       }
     }
 
@@ -2650,159 +2663,159 @@ LABEL_76:
     {
       if (eventIdentifier5)
       {
-        if (v108)
+        if (v109)
         {
           workflow18 = [self workflow];
           name13 = [workflow18 name];
           eventIdentifier8 = [self eventIdentifier];
-          [v391 name];
-          v366 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-          startNanoseconds8 = [v391 startNanoseconds];
+          [v403 name];
+          v378 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+          startNanoseconds8 = [v403 startNanoseconds];
           eventStart6 = [self eventStart];
           machContTimeNs6 = [eventStart6 machContTimeNs];
-          endNanoseconds = [v391 endNanoseconds];
+          endNanoseconds = [v403 endNanoseconds];
           eventStart7 = [self eventStart];
           machContTimeNs7 = [eventStart7 machContTimeNs];
-          endNanoseconds2 = [v391 endNanoseconds];
-          startNanoseconds9 = [v391 startNanoseconds];
-          *&v141 = COERCE_DOUBLE([v391 startMachContinuousTime]);
-          v142 = COERCE_DOUBLE([v391 endMachContinuousTime]);
+          endNanoseconds2 = [v403 endNanoseconds];
+          startNanoseconds9 = [v403 startNanoseconds];
+          *&v142 = COERCE_DOUBLE([v403 startMachContinuousTime]);
+          v143 = COERCE_DOUBLE([v403 endMachContinuousTime]);
           *buf = 138545154;
           *&buf[4] = name13;
-          v410 = 2114;
-          v411 = eventIdentifier8;
-          v412 = 2114;
-          v413 = v366;
-          v414 = 2048;
-          v415 = (startNanoseconds8 - machContTimeNs6) / 1000000000.0;
-          v416 = 2048;
-          v417 = (endNanoseconds - machContTimeNs7) / 1000000000.0;
-          v418 = 2048;
-          v419 = (endNanoseconds2 - startNanoseconds9) / 1000000000.0;
-          v420 = 2048;
-          v421 = *&v141;
-          v422 = 2048;
-          v423 = v142;
-          _os_log_impl(&dword_2746E5000, v107, OS_LOG_TYPE_INFO, "%{public}@<%{public}@>: %{public}@: event middle %+.3fs - %+.3fs (%.3fs) @%llu-%llu", buf, 0x52u);
+          v422 = 2114;
+          v423 = eventIdentifier8;
+          v424 = 2114;
+          v425 = v378;
+          v426 = 2048;
+          v427 = (startNanoseconds8 - machContTimeNs6) / 1000000000.0;
+          v428 = 2048;
+          v429 = (endNanoseconds - machContTimeNs7) / 1000000000.0;
+          v430 = 2048;
+          v431 = (endNanoseconds2 - startNanoseconds9) / 1000000000.0;
+          v432 = 2048;
+          v433 = *&v142;
+          v434 = 2048;
+          v435 = v143;
+          _os_log_impl(&dword_2746E5000, v108, OS_LOG_TYPE_INFO, "%{public}@<%{public}@>: %{public}@: event middle %+.3fs - %+.3fs (%.3fs) @%llu-%llu", buf, 0x52u);
         }
       }
 
-      else if (v108)
+      else if (v109)
       {
         workflow19 = [self workflow];
         name14 = [workflow19 name];
-        name15 = [v391 name];
-        startNanoseconds10 = [v391 startNanoseconds];
+        name15 = [v403 name];
+        startNanoseconds10 = [v403 startNanoseconds];
         eventStart8 = [self eventStart];
         machContTimeNs8 = [eventStart8 machContTimeNs];
-        endNanoseconds3 = [v391 endNanoseconds];
+        endNanoseconds3 = [v403 endNanoseconds];
         eventStart9 = [self eventStart];
         machContTimeNs9 = [eventStart9 machContTimeNs];
-        endNanoseconds4 = [v391 endNanoseconds];
-        startNanoseconds11 = [v391 startNanoseconds];
-        v180 = COERCE_DOUBLE([v391 startMachContinuousTime]);
-        *&v181 = COERCE_DOUBLE([v391 endMachContinuousTime]);
+        endNanoseconds4 = [v403 endNanoseconds];
+        startNanoseconds11 = [v403 startNanoseconds];
+        v181 = COERCE_DOUBLE([v403 startMachContinuousTime]);
+        *&v182 = COERCE_DOUBLE([v403 endMachContinuousTime]);
         *buf = 138544898;
         *&buf[4] = name14;
-        v410 = 2114;
-        v411 = name15;
-        v412 = 2048;
-        v413 = (startNanoseconds10 - machContTimeNs8) / 1000000000.0;
-        v414 = 2048;
-        v415 = (endNanoseconds3 - machContTimeNs9) / 1000000000.0;
-        v416 = 2048;
-        v417 = (endNanoseconds4 - startNanoseconds11) / 1000000000.0;
-        v418 = 2048;
-        v419 = v180;
-        v420 = 2048;
-        v421 = *&v181;
-        _os_log_impl(&dword_2746E5000, v107, OS_LOG_TYPE_INFO, "%{public}@: %{public}@: event middle %+.3fs - %+.3fs (%.3fs) @%llu-%llu", buf, 0x48u);
+        v422 = 2114;
+        v423 = name15;
+        v424 = 2048;
+        v425 = (startNanoseconds10 - machContTimeNs8) / 1000000000.0;
+        v426 = 2048;
+        v427 = (endNanoseconds3 - machContTimeNs9) / 1000000000.0;
+        v428 = 2048;
+        v429 = (endNanoseconds4 - startNanoseconds11) / 1000000000.0;
+        v430 = 2048;
+        v431 = v181;
+        v432 = 2048;
+        v433 = *&v182;
+        _os_log_impl(&dword_2746E5000, v108, OS_LOG_TYPE_INFO, "%{public}@: %{public}@: event middle %+.3fs - %+.3fs (%.3fs) @%llu-%llu", buf, 0x48u);
       }
     }
 
     else if (eventIdentifier5)
     {
-      if (v108)
+      if (v109)
       {
         workflow20 = [self workflow];
         name16 = [workflow20 name];
         eventIdentifier9 = [self eventIdentifier];
-        [v391 name];
-        v365 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-        startNanoseconds12 = [v391 startNanoseconds];
+        [v403 name];
+        v377 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+        startNanoseconds12 = [v403 startNanoseconds];
         eventStart10 = [self eventStart];
         machContTimeNs10 = [eventStart10 machContTimeNs];
-        endNanoseconds5 = [v391 endNanoseconds];
+        endNanoseconds5 = [v403 endNanoseconds];
         eventStart11 = [self eventStart];
         machContTimeNs11 = [eventStart11 machContTimeNs];
-        endNanoseconds6 = [v391 endNanoseconds];
-        startNanoseconds13 = [v391 startNanoseconds];
-        startMachContinuousTime = [v391 startMachContinuousTime];
-        endMachContinuousTime = [v391 endMachContinuousTime];
+        endNanoseconds6 = [v403 endNanoseconds];
+        startNanoseconds13 = [v403 startNanoseconds];
+        startMachContinuousTime = [v403 startMachContinuousTime];
+        endMachContinuousTime = [v403 endMachContinuousTime];
         *buf = 138545666;
         *&buf[4] = name16;
-        v410 = 2114;
-        v411 = eventIdentifier9;
-        v412 = 2114;
-        v413 = v365;
-        v414 = 2114;
-        v415 = obja;
-        v416 = 2112;
-        v417 = v390;
-        v418 = 2048;
-        v419 = (startNanoseconds12 - machContTimeNs10) / 1000000000.0;
-        v420 = 2048;
-        v421 = (endNanoseconds5 - machContTimeNs11) / 1000000000.0;
-        v422 = 2048;
-        v423 = (endNanoseconds6 - startNanoseconds13) / 1000000000.0;
-        v424 = 2048;
-        v425 = startMachContinuousTime;
-        v426 = 2048;
-        v427 = endMachContinuousTime;
-        _os_log_impl(&dword_2746E5000, v107, OS_LOG_TYPE_INFO, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: event middle %+.3fs - %+.3fs (%.3fs) @%llu-%llu", buf, 0x66u);
+        v422 = 2114;
+        v423 = eventIdentifier9;
+        v424 = 2114;
+        v425 = v377;
+        v426 = 2114;
+        v427 = obja;
+        v428 = 2112;
+        v429 = v402;
+        v430 = 2048;
+        v431 = (startNanoseconds12 - machContTimeNs10) / 1000000000.0;
+        v432 = 2048;
+        v433 = (endNanoseconds5 - machContTimeNs11) / 1000000000.0;
+        v434 = 2048;
+        v435 = (endNanoseconds6 - startNanoseconds13) / 1000000000.0;
+        v436 = 2048;
+        v437 = startMachContinuousTime;
+        v438 = 2048;
+        v439 = endMachContinuousTime;
+        _os_log_impl(&dword_2746E5000, v108, OS_LOG_TYPE_INFO, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: event middle %+.3fs - %+.3fs (%.3fs) @%llu-%llu", buf, 0x66u);
       }
     }
 
-    else if (v108)
+    else if (v109)
     {
       workflow21 = [self workflow];
       name17 = [workflow21 name];
-      name18 = [v391 name];
-      startNanoseconds14 = [v391 startNanoseconds];
+      name18 = [v403 name];
+      startNanoseconds14 = [v403 startNanoseconds];
       eventStart12 = [self eventStart];
       machContTimeNs12 = [eventStart12 machContTimeNs];
-      endNanoseconds7 = [v391 endNanoseconds];
+      endNanoseconds7 = [v403 endNanoseconds];
       eventStart13 = [self eventStart];
       machContTimeNs13 = [eventStart13 machContTimeNs];
-      endNanoseconds8 = [v391 endNanoseconds];
-      startNanoseconds15 = [v391 startNanoseconds];
-      v164 = COERCE_DOUBLE([v391 startMachContinuousTime]);
-      endMachContinuousTime2 = [v391 endMachContinuousTime];
+      endNanoseconds8 = [v403 endNanoseconds];
+      startNanoseconds15 = [v403 startNanoseconds];
+      v165 = COERCE_DOUBLE([v403 startMachContinuousTime]);
+      endMachContinuousTime2 = [v403 endMachContinuousTime];
       *buf = 138545410;
       *&buf[4] = name17;
-      v410 = 2114;
-      v411 = name18;
-      v412 = 2114;
-      v413 = obja;
-      v414 = 2112;
-      v415 = v390;
-      v416 = 2048;
-      v417 = (startNanoseconds14 - machContTimeNs12) / 1000000000.0;
-      v418 = 2048;
-      v419 = (endNanoseconds7 - machContTimeNs13) / 1000000000.0;
-      v420 = 2048;
-      v421 = (endNanoseconds8 - startNanoseconds15) / 1000000000.0;
-      v422 = 2048;
-      v423 = v164;
-      v424 = 2048;
-      v425 = endMachContinuousTime2;
-      _os_log_impl(&dword_2746E5000, v107, OS_LOG_TYPE_INFO, "%{public}@: %{public}@: %{public}@->%@: event middle %+.3fs - %+.3fs (%.3fs) @%llu-%llu", buf, 0x5Cu);
+      v422 = 2114;
+      v423 = name18;
+      v424 = 2114;
+      v425 = obja;
+      v426 = 2112;
+      v427 = v402;
+      v428 = 2048;
+      v429 = (startNanoseconds14 - machContTimeNs12) / 1000000000.0;
+      v430 = 2048;
+      v431 = (endNanoseconds7 - machContTimeNs13) / 1000000000.0;
+      v432 = 2048;
+      v433 = (endNanoseconds8 - startNanoseconds15) / 1000000000.0;
+      v434 = 2048;
+      v435 = v165;
+      v436 = 2048;
+      v437 = endMachContinuousTime2;
+      _os_log_impl(&dword_2746E5000, v108, OS_LOG_TYPE_INFO, "%{public}@: %{public}@: %{public}@->%@: event middle %+.3fs - %+.3fs (%.3fs) @%llu-%llu", buf, 0x5Cu);
     }
 
-    *__error() = v106;
-    [(WRWorkflowEventTracker *)self applySignpost:v391 toSignpostTracker:v387];
+    *__error() = v107;
+    [(WRWorkflowEventTracker *)self applySignpost:v403 toSignpostTracker:v399];
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && ![v391 eventType])
+    if ((objc_opt_isKindOfClass() & 1) != 0 && ![v403 eventType])
     {
 LABEL_199:
       v95 = 1;
@@ -2811,38 +2824,38 @@ LABEL_200:
       goto LABEL_201;
     }
 
-    v183 = objc_getProperty(self, v182, 152, 1);
-    v184 = [v183 count] == 0;
+    v184 = objc_getProperty(self, v183, 152, 1);
+    v185 = [v184 count] == 0;
 
-    if (v184)
+    if (v185)
     {
       goto LABEL_186;
     }
 
-    v384 = 0;
-    v186 = 0;
+    v396 = 0;
     v187 = 0;
+    v188 = 0;
     while (1)
     {
-      v188 = objc_getProperty(self, v185, 152, 1);
-      v189 = [v188 objectAtIndexedSubscript:v187];
+      v189 = objc_getProperty(self, v186, 152, 1);
+      v190 = [v189 objectAtIndexedSubscript:v188];
 
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        if (v186)
+        if (v187)
         {
           goto LABEL_190;
         }
 
         workflow22 = [self workflow];
         endSignpostGroups = [workflow22 endSignpostGroups];
-        v192 = [endSignpostGroups objectAtIndexedSubscript:v187];
-        v193 = [v192 indexOfObjectIdenticalTo:newValue] == 0x7FFFFFFFFFFFFFFFLL;
+        v193 = [endSignpostGroups objectAtIndexedSubscript:v188];
+        v194 = [v193 indexOfObjectIdenticalTo:newValue] == 0x7FFFFFFFFFFFFFFFLL;
 
-        if (!v193)
+        if (!v194)
         {
-          if (v390 == 0.0)
+          if (v402 == 0.0)
           {
             [newValue name];
 
@@ -2852,84 +2865,85 @@ LABEL_200:
             [self eventIdentifier];
             eventIdentifier10 = [self eventIdentifier];
 
-            v197 = *__error();
-            v198 = _wrlog();
-            v199 = os_log_type_enabled(v198, OS_LOG_TYPE_INFO);
+            v198 = __error();
+            v199 = *v198;
+            v200 = _wrlog(v198);
+            v201 = os_log_type_enabled(v200, OS_LOG_TYPE_INFO);
             if (obja == 0.0)
             {
               if (eventIdentifier10)
               {
-                if (v199)
+                if (v201)
                 {
                   workflow24 = [self workflow];
                   name19 = [workflow24 name];
                   eventIdentifier11 = [self eventIdentifier];
                   [newValue name];
-                  v219 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+                  v222 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
                   *buf = 138543874;
                   *&buf[4] = name19;
-                  v410 = 2114;
-                  v411 = eventIdentifier11;
-                  v412 = 2114;
-                  v413 = v219;
-                  _os_log_impl(&dword_2746E5000, v198, OS_LOG_TYPE_INFO, "%{public}@<%{public}@>: %{public}@: End signpost group candidate", buf, 0x20u);
+                  v422 = 2114;
+                  v423 = eventIdentifier11;
+                  v424 = 2114;
+                  v425 = v222;
+                  _os_log_impl(&dword_2746E5000, v200, OS_LOG_TYPE_INFO, "%{public}@<%{public}@>: %{public}@: End signpost group candidate", buf, 0x20u);
                 }
               }
 
-              else if (v199)
+              else if (v201)
               {
                 workflow25 = [self workflow];
                 name20 = [workflow25 name];
                 name21 = [newValue name];
                 *buf = 138543618;
                 *&buf[4] = name20;
-                v410 = 2114;
-                v411 = name21;
-                _os_log_impl(&dword_2746E5000, v198, OS_LOG_TYPE_INFO, "%{public}@: %{public}@: End signpost group candidate", buf, 0x16u);
+                v422 = 2114;
+                v423 = name21;
+                _os_log_impl(&dword_2746E5000, v200, OS_LOG_TYPE_INFO, "%{public}@: %{public}@: End signpost group candidate", buf, 0x16u);
               }
             }
 
             else if (eventIdentifier10)
             {
-              if (v199)
+              if (v201)
               {
                 workflow26 = [self workflow];
                 name22 = [workflow26 name];
                 eventIdentifier12 = [self eventIdentifier];
                 [newValue name];
-                v203 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+                v205 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
                 *buf = 138544386;
                 *&buf[4] = name22;
-                v410 = 2114;
-                v411 = eventIdentifier12;
-                v412 = 2114;
-                v413 = v203;
-                v414 = 2114;
-                v415 = obja;
-                v416 = 2112;
-                v417 = 0.0;
-                _os_log_impl(&dword_2746E5000, v198, OS_LOG_TYPE_INFO, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: End signpost group candidate", buf, 0x34u);
+                v422 = 2114;
+                v423 = eventIdentifier12;
+                v424 = 2114;
+                v425 = v205;
+                v426 = 2114;
+                v427 = obja;
+                v428 = 2112;
+                v429 = 0.0;
+                _os_log_impl(&dword_2746E5000, v200, OS_LOG_TYPE_INFO, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: End signpost group candidate", buf, 0x34u);
               }
             }
 
-            else if (v199)
+            else if (v201)
             {
               workflow27 = [self workflow];
               name23 = [workflow27 name];
               name24 = [newValue name];
               *buf = 138544130;
               *&buf[4] = name23;
-              v410 = 2114;
-              v411 = name24;
-              v412 = 2114;
-              v413 = obja;
-              v414 = 2112;
-              v415 = 0.0;
-              _os_log_impl(&dword_2746E5000, v198, OS_LOG_TYPE_INFO, "%{public}@: %{public}@: %{public}@->%@: End signpost group candidate", buf, 0x2Au);
+              v422 = 2114;
+              v423 = name24;
+              v424 = 2114;
+              v425 = obja;
+              v426 = 2112;
+              v427 = 0.0;
+              _os_log_impl(&dword_2746E5000, v200, OS_LOG_TYPE_INFO, "%{public}@: %{public}@: %{public}@->%@: End signpost group candidate", buf, 0x2Au);
             }
 
-            *__error() = v197;
-            [objc_getProperty(self v231];
+            *__error() = v199;
+            [objc_getProperty(self v234];
           }
 
           else
@@ -2937,15 +2951,15 @@ LABEL_200:
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v194 = v189;
+              v195 = v190;
             }
 
             else
             {
               null = [MEMORY[0x277CBEB68] null];
-              v205 = v189 == null;
+              v207 = v190 == null;
 
-              if (!v205)
+              if (!v207)
               {
                 [newValue name];
 
@@ -2955,120 +2969,121 @@ LABEL_200:
                 [self eventIdentifier];
                 eventIdentifier13 = [self eventIdentifier];
 
-                v208 = *__error();
-                v209 = _wrlog();
-                v210 = os_log_type_enabled(v209, OS_LOG_TYPE_FAULT);
+                v210 = __error();
+                v211 = *v210;
+                v212 = _wrlog(v210);
+                v213 = os_log_type_enabled(v212, OS_LOG_TYPE_FAULT);
                 if (obja == 0.0)
                 {
                   if (eventIdentifier13)
                   {
-                    if (v210)
+                    if (v213)
                     {
                       workflow29 = [self workflow];
                       name25 = [workflow29 name];
                       eventIdentifier14 = [self eventIdentifier];
                       [newValue name];
-                      v226 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-                      *&v227 = COERCE_DOUBLE(object_getClassName(v189));
+                      v229 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+                      *&v230 = COERCE_DOUBLE(object_getClassName(v190));
                       *buf = 138544130;
                       *&buf[4] = name25;
-                      v410 = 2114;
-                      v411 = eventIdentifier14;
-                      v412 = 2114;
-                      v413 = v226;
-                      v414 = 2080;
-                      v415 = *&v227;
-                      _os_log_fault_impl(&dword_2746E5000, v209, OS_LOG_TYPE_FAULT, "%{public}@<%{public}@>: %{public}@: candidateEndSignpostTracker is bad class %s", buf, 0x2Au);
+                      v422 = 2114;
+                      v423 = eventIdentifier14;
+                      v424 = 2114;
+                      v425 = v229;
+                      v426 = 2080;
+                      v427 = *&v230;
+                      _os_log_fault_impl(&dword_2746E5000, v212, OS_LOG_TYPE_FAULT, "%{public}@<%{public}@>: %{public}@: candidateEndSignpostTracker is bad class %s", buf, 0x2Au);
                     }
                   }
 
-                  else if (v210)
+                  else if (v213)
                   {
                     workflow30 = [self workflow];
                     name26 = [workflow30 name];
                     name27 = [newValue name];
-                    *&v298 = COERCE_DOUBLE(object_getClassName(v189));
+                    *&v309 = COERCE_DOUBLE(object_getClassName(v190));
                     *buf = 138543874;
                     *&buf[4] = name26;
-                    v410 = 2114;
-                    v411 = name27;
-                    v412 = 2080;
-                    v413 = *&v298;
-                    _os_log_fault_impl(&dword_2746E5000, v209, OS_LOG_TYPE_FAULT, "%{public}@: %{public}@: candidateEndSignpostTracker is bad class %s", buf, 0x20u);
+                    v422 = 2114;
+                    v423 = name27;
+                    v424 = 2080;
+                    v425 = *&v309;
+                    _os_log_fault_impl(&dword_2746E5000, v212, OS_LOG_TYPE_FAULT, "%{public}@: %{public}@: candidateEndSignpostTracker is bad class %s", buf, 0x20u);
                   }
                 }
 
                 else if (eventIdentifier13)
                 {
-                  if (v210)
+                  if (v213)
                   {
                     workflow31 = [self workflow];
                     name28 = [workflow31 name];
                     eventIdentifier15 = [self eventIdentifier];
                     [newValue name];
-                    v214 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-                    *&v215 = COERCE_DOUBLE(object_getClassName(v189));
+                    v217 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+                    *&v218 = COERCE_DOUBLE(object_getClassName(v190));
                     *buf = 138544642;
                     *&buf[4] = name28;
-                    v410 = 2114;
-                    v411 = eventIdentifier15;
-                    v412 = 2114;
-                    v413 = v214;
-                    v414 = 2114;
-                    v415 = obja;
-                    v416 = 2112;
-                    v417 = v390;
-                    v418 = 2080;
-                    v419 = *&v215;
-                    _os_log_fault_impl(&dword_2746E5000, v209, OS_LOG_TYPE_FAULT, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: candidateEndSignpostTracker is bad class %s", buf, 0x3Eu);
+                    v422 = 2114;
+                    v423 = eventIdentifier15;
+                    v424 = 2114;
+                    v425 = v217;
+                    v426 = 2114;
+                    v427 = obja;
+                    v428 = 2112;
+                    v429 = v402;
+                    v430 = 2080;
+                    v431 = *&v218;
+                    _os_log_fault_impl(&dword_2746E5000, v212, OS_LOG_TYPE_FAULT, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: candidateEndSignpostTracker is bad class %s", buf, 0x3Eu);
                   }
                 }
 
-                else if (v210)
+                else if (v213)
                 {
                   workflow32 = [self workflow];
                   name29 = [workflow32 name];
                   name30 = [newValue name];
-                  *&v235 = COERCE_DOUBLE(object_getClassName(v189));
+                  *&v238 = COERCE_DOUBLE(object_getClassName(v190));
                   *buf = 138544386;
                   *&buf[4] = name29;
-                  v410 = 2114;
-                  v411 = name30;
-                  v412 = 2114;
-                  v413 = obja;
-                  v414 = 2112;
-                  v415 = v390;
-                  v416 = 2080;
-                  v417 = *&v235;
-                  _os_log_fault_impl(&dword_2746E5000, v209, OS_LOG_TYPE_FAULT, "%{public}@: %{public}@: %{public}@->%@: candidateEndSignpostTracker is bad class %s", buf, 0x34u);
+                  v422 = 2114;
+                  v423 = name30;
+                  v424 = 2114;
+                  v425 = obja;
+                  v426 = 2112;
+                  v427 = v402;
+                  v428 = 2080;
+                  v429 = *&v238;
+                  _os_log_fault_impl(&dword_2746E5000, v212, OS_LOG_TYPE_FAULT, "%{public}@: %{public}@: %{public}@->%@: candidateEndSignpostTracker is bad class %s", buf, 0x34u);
                 }
 
-                *__error() = v208;
+                *__error() = v211;
               }
 
-              v194 = objc_alloc_init(MEMORY[0x277CBEB38]);
-              v237 = objc_getProperty(self, v236, 152, 1);
-              [v237 setObject:v194 atIndexedSubscript:v187];
+              v195 = objc_alloc_init(MEMORY[0x277CBEB38]);
+              v240 = objc_getProperty(self, v239, 152, 1);
+              [v240 setObject:v195 atIndexedSubscript:v188];
             }
 
-            v398 = 0;
-            v399 = &v398;
-            v400 = 0x3032000000;
-            v401 = __Block_byref_object_copy_;
-            v402 = __Block_byref_object_dispose_;
-            v403 = 0;
-            v395[0] = MEMORY[0x277D85DD0];
-            v395[1] = 3221225472;
-            v395[2] = __52__WRWorkflowEventTracker_handleSignpost_wrsignpost___block_invoke_209;
-            v395[3] = &unk_279EE32E0;
-            v238 = *&v390;
-            v396 = v238;
-            v397 = &v398;
-            [v194 enumerateKeysAndObjectsUsingBlock:v395];
-            v239 = *(v399 + 5);
-            if (v239)
+            v410 = 0;
+            v411 = &v410;
+            v412 = 0x3032000000;
+            v413 = __Block_byref_object_copy_;
+            v414 = __Block_byref_object_dispose_;
+            v415 = 0;
+            v407[0] = MEMORY[0x277D85DD0];
+            v407[1] = 3221225472;
+            v407[2] = __52__WRWorkflowEventTracker_handleSignpost_wrsignpost___block_invoke_209;
+            v407[3] = &unk_279EE32E0;
+            v241 = *&v402;
+            v408 = v241;
+            v409 = &v410;
+            [v195 enumerateKeysAndObjectsUsingBlock:v407];
+            v242 = *(v411 + 5);
+            if (v242)
             {
-              [v194 setObject:v387 forKeyedSubscript:v238];
+              [v195 setObject:v399 forKeyedSubscript:v241];
               if (obja == 0.0)
               {
                 [newValue name];
@@ -3081,56 +3096,58 @@ LABEL_200:
 
                 if (!eventIdentifier16)
                 {
-                  v254 = *__error();
-                  v255 = _wrlog();
-                  if (os_log_type_enabled(v255, OS_LOG_TYPE_DEBUG))
+                  v274 = __error();
+                  v261 = *v274;
+                  v262 = _wrlog(v274);
+                  if (os_log_type_enabled(v262, OS_LOG_TYPE_DEBUG))
                   {
-                    v290 = v239;
+                    v301 = v242;
                     workflow34 = [self workflow];
                     name31 = [workflow34 name];
                     name32 = [newValue name];
-                    v294 = v399[5];
+                    v305 = v411[5];
                     *buf = 138543874;
                     *&buf[4] = name31;
-                    v410 = 2114;
-                    v411 = name32;
-                    v412 = 2112;
-                    v413 = v294;
-                    _os_log_debug_impl(&dword_2746E5000, v255, OS_LOG_TYPE_DEBUG, "%{public}@: %{public}@: End signpost with individuation, still needs %@", buf, 0x20u);
+                    v422 = 2114;
+                    v423 = name32;
+                    v424 = 2112;
+                    v425 = v305;
+                    _os_log_debug_impl(&dword_2746E5000, v262, OS_LOG_TYPE_DEBUG, "%{public}@: %{public}@: End signpost with individuation, still needs %@", buf, 0x20u);
 
-                    v239 = v290;
+                    v242 = v301;
                   }
 
                   goto LABEL_175;
                 }
 
-                v242 = *__error();
-                v243 = _wrlog();
-                if (os_log_type_enabled(v243, OS_LOG_TYPE_DEBUG))
+                v259 = __error();
+                v246 = *v259;
+                v247 = _wrlog(v259);
+                if (os_log_type_enabled(v247, OS_LOG_TYPE_DEBUG))
                 {
-                  v279 = v239;
+                  v290 = v242;
                   workflow35 = [self workflow];
                   name33 = [workflow35 name];
                   eventIdentifier17 = [self eventIdentifier];
                   [newValue name];
-                  v283 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-                  v284 = v399[5];
+                  v294 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+                  v295 = v411[5];
                   *buf = 138544130;
                   *&buf[4] = name33;
-                  v410 = 2114;
-                  v411 = eventIdentifier17;
-                  v412 = 2114;
-                  v413 = v283;
-                  v414 = 2112;
-                  v415 = v284;
-                  _os_log_debug_impl(&dword_2746E5000, v243, OS_LOG_TYPE_DEBUG, "%{public}@<%{public}@>: %{public}@: End signpost with individuation, still needs %@", buf, 0x2Au);
+                  v422 = 2114;
+                  v423 = eventIdentifier17;
+                  v424 = 2114;
+                  v425 = v294;
+                  v426 = 2112;
+                  v427 = v295;
+                  _os_log_debug_impl(&dword_2746E5000, v247, OS_LOG_TYPE_DEBUG, "%{public}@<%{public}@>: %{public}@: End signpost with individuation, still needs %@", buf, 0x2Au);
 
-                  v239 = v279;
+                  v242 = v290;
                 }
 
 LABEL_162:
 
-                *__error() = v242;
+                *__error() = v246;
               }
 
               else
@@ -3145,67 +3162,69 @@ LABEL_162:
 
                 if (eventIdentifier18)
                 {
-                  v242 = *__error();
-                  v243 = _wrlog();
-                  if (os_log_type_enabled(v243, OS_LOG_TYPE_DEBUG))
+                  v245 = __error();
+                  v246 = *v245;
+                  v247 = _wrlog(v245);
+                  if (os_log_type_enabled(v247, OS_LOG_TYPE_DEBUG))
                   {
-                    v273 = v239;
+                    v284 = v242;
                     workflow37 = [self workflow];
                     name34 = [workflow37 name];
                     eventIdentifier19 = [self eventIdentifier];
                     [newValue name];
-                    v277 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-                    v278 = v399[5];
+                    v288 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+                    v289 = v411[5];
                     *buf = 138544642;
                     *&buf[4] = name34;
-                    v410 = 2114;
-                    v411 = eventIdentifier19;
-                    v412 = 2114;
-                    v413 = v277;
-                    v414 = 2114;
-                    v415 = obja;
-                    v416 = 2112;
-                    v417 = v390;
-                    v418 = 2112;
-                    v419 = v278;
-                    _os_log_debug_impl(&dword_2746E5000, v243, OS_LOG_TYPE_DEBUG, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: End signpost with individuation, still needs %@", buf, 0x3Eu);
+                    v422 = 2114;
+                    v423 = eventIdentifier19;
+                    v424 = 2114;
+                    v425 = v288;
+                    v426 = 2114;
+                    v427 = obja;
+                    v428 = 2112;
+                    v429 = v402;
+                    v430 = 2112;
+                    v431 = v289;
+                    _os_log_debug_impl(&dword_2746E5000, v247, OS_LOG_TYPE_DEBUG, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: End signpost with individuation, still needs %@", buf, 0x3Eu);
 
-                    v239 = v273;
+                    v242 = v284;
                   }
 
                   goto LABEL_162;
                 }
 
-                v254 = *__error();
-                v255 = _wrlog();
-                if (os_log_type_enabled(v255, OS_LOG_TYPE_DEBUG))
+                v260 = __error();
+                v261 = *v260;
+                v262 = _wrlog(v260);
+                if (os_log_type_enabled(v262, OS_LOG_TYPE_DEBUG))
                 {
-                  v285 = v239;
+                  v296 = v242;
                   workflow38 = [self workflow];
                   name35 = [workflow38 name];
                   name36 = [newValue name];
-                  v289 = v399[5];
+                  v300 = v411[5];
                   *buf = 138544386;
                   *&buf[4] = name35;
-                  v410 = 2114;
-                  v411 = name36;
-                  v412 = 2114;
-                  v413 = obja;
-                  v414 = 2112;
-                  v415 = v390;
-                  v416 = 2112;
-                  v417 = v289;
-                  _os_log_debug_impl(&dword_2746E5000, v255, OS_LOG_TYPE_DEBUG, "%{public}@: %{public}@: %{public}@->%@: End signpost with individuation, still needs %@", buf, 0x34u);
+                  v422 = 2114;
+                  v423 = name36;
+                  v424 = 2114;
+                  v425 = obja;
+                  v426 = 2112;
+                  v427 = v402;
+                  v428 = 2112;
+                  v429 = v300;
+                  _os_log_debug_impl(&dword_2746E5000, v262, OS_LOG_TYPE_DEBUG, "%{public}@: %{public}@: %{public}@->%@: End signpost with individuation, still needs %@", buf, 0x34u);
 
-                  v239 = v285;
+                  v242 = v296;
                 }
 
 LABEL_175:
 
-                *__error() = v254;
+                *__error() = v261;
               }
 
-              v384 = 1;
+              v396 = 1;
             }
 
             else
@@ -3222,43 +3241,45 @@ LABEL_175:
 
                 if (eventIdentifier20)
                 {
-                  v246 = *__error();
-                  v247 = _wrlog();
-                  if (os_log_type_enabled(v247, OS_LOG_TYPE_INFO))
+                  v265 = __error();
+                  v251 = *v265;
+                  v252 = _wrlog(v265);
+                  if (os_log_type_enabled(v252, OS_LOG_TYPE_INFO))
                   {
                     workflow40 = [self workflow];
                     name37 = [workflow40 name];
                     eventIdentifier21 = [self eventIdentifier];
                     [newValue name];
-                    v261 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+                    v269 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
                     *buf = 138543874;
                     *&buf[4] = name37;
-                    v410 = 2114;
-                    v411 = eventIdentifier21;
-                    v412 = 2114;
-                    v413 = v261;
-                    _os_log_impl(&dword_2746E5000, v247, OS_LOG_TYPE_INFO, "%{public}@<%{public}@>: %{public}@: End signpost with individuation, set as candidate for group", buf, 0x20u);
+                    v422 = 2114;
+                    v423 = eventIdentifier21;
+                    v424 = 2114;
+                    v425 = v269;
+                    _os_log_impl(&dword_2746E5000, v252, OS_LOG_TYPE_INFO, "%{public}@<%{public}@>: %{public}@: End signpost with individuation, set as candidate for group", buf, 0x20u);
 
-                    v239 = 0;
+                    v242 = 0;
                   }
                 }
 
                 else
                 {
-                  v246 = *__error();
-                  v247 = _wrlog();
-                  if (os_log_type_enabled(v247, OS_LOG_TYPE_INFO))
+                  v275 = __error();
+                  v251 = *v275;
+                  v252 = _wrlog(v275);
+                  if (os_log_type_enabled(v252, OS_LOG_TYPE_INFO))
                   {
                     workflow41 = [self workflow];
                     name38 = [workflow41 name];
                     name39 = [newValue name];
                     *buf = 138543618;
                     *&buf[4] = name38;
-                    v410 = 2114;
-                    v411 = name39;
-                    _os_log_impl(&dword_2746E5000, v247, OS_LOG_TYPE_INFO, "%{public}@: %{public}@: End signpost with individuation, set as candidate for group", buf, 0x16u);
+                    v422 = 2114;
+                    v423 = name39;
+                    _os_log_impl(&dword_2746E5000, v252, OS_LOG_TYPE_INFO, "%{public}@: %{public}@: End signpost with individuation, set as candidate for group", buf, 0x16u);
 
-                    v239 = 0;
+                    v242 = 0;
                   }
                 }
               }
@@ -3275,65 +3296,67 @@ LABEL_175:
 
                 if (eventIdentifier22)
                 {
-                  v246 = *__error();
-                  v247 = _wrlog();
-                  if (os_log_type_enabled(v247, OS_LOG_TYPE_INFO))
+                  v250 = __error();
+                  v251 = *v250;
+                  v252 = _wrlog(v250);
+                  if (os_log_type_enabled(v252, OS_LOG_TYPE_INFO))
                   {
                     workflow43 = [self workflow];
                     name40 = [workflow43 name];
                     eventIdentifier23 = [self eventIdentifier];
                     [newValue name];
-                    v251 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+                    v256 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
                     *buf = 138544386;
                     *&buf[4] = name40;
-                    v410 = 2114;
-                    v411 = eventIdentifier23;
-                    v412 = 2114;
-                    v413 = v251;
-                    v414 = 2114;
-                    v415 = obja;
-                    v416 = 2112;
-                    v417 = v390;
-                    _os_log_impl(&dword_2746E5000, v247, OS_LOG_TYPE_INFO, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: End signpost with individuation, set as candidate for group", buf, 0x34u);
+                    v422 = 2114;
+                    v423 = eventIdentifier23;
+                    v424 = 2114;
+                    v425 = v256;
+                    v426 = 2114;
+                    v427 = obja;
+                    v428 = 2112;
+                    v429 = v402;
+                    _os_log_impl(&dword_2746E5000, v252, OS_LOG_TYPE_INFO, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: End signpost with individuation, set as candidate for group", buf, 0x34u);
 
-                    v239 = 0;
+                    v242 = 0;
                   }
                 }
 
                 else
                 {
-                  v246 = *__error();
-                  v247 = _wrlog();
-                  if (os_log_type_enabled(v247, OS_LOG_TYPE_INFO))
+                  v270 = __error();
+                  v251 = *v270;
+                  v252 = _wrlog(v270);
+                  if (os_log_type_enabled(v252, OS_LOG_TYPE_INFO))
                   {
                     workflow44 = [self workflow];
                     name41 = [workflow44 name];
                     name42 = [newValue name];
                     *buf = 138544130;
                     *&buf[4] = name41;
-                    v410 = 2114;
-                    v411 = name42;
-                    v412 = 2114;
-                    v413 = obja;
-                    v414 = 2112;
-                    v415 = v390;
-                    _os_log_impl(&dword_2746E5000, v247, OS_LOG_TYPE_INFO, "%{public}@: %{public}@: %{public}@->%@: End signpost with individuation, set as candidate for group", buf, 0x2Au);
+                    v422 = 2114;
+                    v423 = name42;
+                    v424 = 2114;
+                    v425 = obja;
+                    v426 = 2112;
+                    v427 = v402;
+                    _os_log_impl(&dword_2746E5000, v252, OS_LOG_TYPE_INFO, "%{public}@: %{public}@: %{public}@->%@: End signpost with individuation, set as candidate for group", buf, 0x2Au);
 
-                    v239 = 0;
+                    v242 = 0;
                   }
                 }
               }
 
-              *__error() = v246;
-              v269 = objc_getProperty(self, v268, 152, 1);
-              [v269 setObject:v387 atIndexedSubscript:v187];
+              *__error() = v251;
+              v280 = objc_getProperty(self, v279, 152, 1);
+              [v280 setObject:v399 atIndexedSubscript:v188];
             }
 
-            _Block_object_dispose(&v398, 8);
-            if (v239)
+            _Block_object_dispose(&v410, 8);
+            if (v242)
             {
 
-              if (v384)
+              if (v396)
               {
                 goto LABEL_199;
               }
@@ -3342,38 +3365,38 @@ LABEL_175:
             }
           }
 
-          if (v384)
+          if (v396)
           {
 LABEL_190:
 
             goto LABEL_199;
           }
 
-          v384 = 0;
-          v186 = 1;
+          v396 = 0;
+          v187 = 1;
           goto LABEL_183;
         }
 
-        v186 = 0;
-        v384 = 1;
+        v187 = 0;
+        v396 = 1;
       }
 
 LABEL_183:
 
-      v271 = objc_getProperty(self, v270, 152, 1);
-      v272 = [v271 count];
+      v282 = objc_getProperty(self, v281, 152, 1);
+      v283 = [v282 count];
 
-      if (++v187 >= v272)
+      if (++v188 >= v283)
       {
-        if (v384)
+        if (v396)
         {
           goto LABEL_199;
         }
 
-        if ((v186 & 1) == 0)
+        if ((v187 & 1) == 0)
         {
 LABEL_186:
-          [v391 name];
+          [v403 name];
 
           workflow45 = [self workflow];
           [workflow45 name];
@@ -3381,71 +3404,72 @@ LABEL_186:
           [self eventIdentifier];
           eventIdentifier24 = [self eventIdentifier];
 
-          v301 = *__error();
-          v302 = _wrlog();
-          v303 = os_log_type_enabled(v302, OS_LOG_TYPE_FAULT);
+          v312 = __error();
+          v313 = *v312;
+          v314 = _wrlog(v312);
+          v315 = os_log_type_enabled(v314, OS_LOG_TYPE_FAULT);
           if (obja == 0.0)
           {
             if (eventIdentifier24)
             {
-              if (v303)
+              if (v315)
               {
                 [WRWorkflowEventTracker handleSignpost:wrsignpost:];
               }
             }
 
-            else if (v303)
+            else if (v315)
             {
-              [WRWorkflowEventTracker handleSignpost:v391 wrsignpost:?];
+              [WRWorkflowEventTracker handleSignpost:v403 wrsignpost:?];
             }
           }
 
           else if (eventIdentifier24)
           {
-            if (v303)
+            if (v315)
             {
               workflow46 = [self workflow];
               name43 = [workflow46 name];
               eventIdentifier25 = [self eventIdentifier];
-              [v391 name];
-              v307 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+              [v403 name];
+              v319 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
               *buf = 138544386;
               *&buf[4] = name43;
-              v410 = 2114;
-              v411 = eventIdentifier25;
-              v412 = 2114;
-              v413 = v307;
-              v414 = 2114;
-              v415 = obja;
-              v416 = 2112;
-              v417 = v390;
-              _os_log_fault_impl(&dword_2746E5000, v302, OS_LOG_TYPE_FAULT, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: No missing end signposts, but didn't find an end signpost tracker", buf, 0x34u);
+              v422 = 2114;
+              v423 = eventIdentifier25;
+              v424 = 2114;
+              v425 = v319;
+              v426 = 2114;
+              v427 = obja;
+              v428 = 2112;
+              v429 = v402;
+              _os_log_fault_impl(&dword_2746E5000, v314, OS_LOG_TYPE_FAULT, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: No missing end signposts, but didn't find an end signpost tracker", buf, 0x34u);
             }
           }
 
-          else if (v303)
+          else if (v315)
           {
             workflow47 = [self workflow];
             name44 = [workflow47 name];
-            name45 = [v391 name];
+            name45 = [v403 name];
             *buf = 138544130;
             *&buf[4] = name44;
-            v410 = 2114;
-            v411 = name45;
-            v412 = 2114;
-            v413 = obja;
-            v414 = 2112;
-            v415 = v390;
-            _os_log_fault_impl(&dword_2746E5000, v302, OS_LOG_TYPE_FAULT, "%{public}@: %{public}@: %{public}@->%@: No missing end signposts, but didn't find an end signpost tracker", buf, 0x2Au);
+            v422 = 2114;
+            v423 = name45;
+            v424 = 2114;
+            v425 = obja;
+            v426 = 2112;
+            v427 = v402;
+            _os_log_fault_impl(&dword_2746E5000, v314, OS_LOG_TYPE_FAULT, "%{public}@: %{public}@: %{public}@->%@: No missing end signposts, but didn't find an end signpost tracker", buf, 0x2Au);
           }
 
-          *__error() = v301;
+          *__error() = v313;
           [(WRWorkflowEventTracker *)self resetWithoutReportingErrors];
           goto LABEL_199;
         }
 
 LABEL_203:
-        [v391 name];
+        [v403 name];
 
         workflow48 = [self workflow];
         [workflow48 name];
@@ -3453,120 +3477,121 @@ LABEL_203:
         [self eventIdentifier];
         eventIdentifier26 = [self eventIdentifier];
 
-        v316 = *__error();
-        v317 = _wrlog();
-        v318 = os_log_type_enabled(v317, OS_LOG_TYPE_DEFAULT);
+        v327 = __error();
+        v328 = *v327;
+        v329 = _wrlog(v327);
+        v330 = os_log_type_enabled(v329, OS_LOG_TYPE_DEFAULT);
         if (obja == 0.0)
         {
           if (eventIdentifier26)
           {
-            if (v318)
+            if (v330)
             {
               workflow49 = [self workflow];
               name46 = [workflow49 name];
               eventIdentifier27 = [self eventIdentifier];
-              [v391 name];
-              v330 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-              endNanoseconds9 = [v391 endNanoseconds];
+              [v403 name];
+              v342 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+              endNanoseconds9 = [v403 endNanoseconds];
               eventStart14 = [self eventStart];
               machContTimeNs14 = [eventStart14 machContTimeNs];
-              v334 = COERCE_DOUBLE([v391 endMachContinuousTime]);
+              v346 = COERCE_DOUBLE([v403 endMachContinuousTime]);
               *buf = 138544386;
               *&buf[4] = name46;
-              v410 = 2114;
-              v411 = eventIdentifier27;
-              v412 = 2114;
-              v413 = v330;
-              v414 = 2048;
-              v415 = (endNanoseconds9 - machContTimeNs14) / 1000000000.0;
-              v416 = 2048;
-              v417 = v334;
-              _os_log_impl(&dword_2746E5000, v317, OS_LOG_TYPE_DEFAULT, "%{public}@<%{public}@>: %{public}@: event end %+.3fs @%llu", buf, 0x34u);
+              v422 = 2114;
+              v423 = eventIdentifier27;
+              v424 = 2114;
+              v425 = v342;
+              v426 = 2048;
+              v427 = (endNanoseconds9 - machContTimeNs14) / 1000000000.0;
+              v428 = 2048;
+              v429 = v346;
+              _os_log_impl(&dword_2746E5000, v329, OS_LOG_TYPE_DEFAULT, "%{public}@<%{public}@>: %{public}@: event end %+.3fs @%llu", buf, 0x34u);
             }
           }
 
-          else if (v318)
+          else if (v330)
           {
             workflow50 = [self workflow];
             name47 = [workflow50 name];
-            name48 = [v391 name];
-            endNanoseconds10 = [v391 endNanoseconds];
+            name48 = [v403 name];
+            endNanoseconds10 = [v403 endNanoseconds];
             eventStart15 = [self eventStart];
             machContTimeNs15 = [eventStart15 machContTimeNs];
-            v348 = COERCE_DOUBLE([v391 endMachContinuousTime]);
+            v360 = COERCE_DOUBLE([v403 endMachContinuousTime]);
             *buf = 138544130;
             *&buf[4] = name47;
-            v410 = 2114;
-            v411 = name48;
-            v412 = 2048;
-            v413 = (endNanoseconds10 - machContTimeNs15) / 1000000000.0;
-            v414 = 2048;
-            v415 = v348;
-            _os_log_impl(&dword_2746E5000, v317, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@: event end %+.3fs @%llu", buf, 0x2Au);
+            v422 = 2114;
+            v423 = name48;
+            v424 = 2048;
+            v425 = (endNanoseconds10 - machContTimeNs15) / 1000000000.0;
+            v426 = 2048;
+            v427 = v360;
+            _os_log_impl(&dword_2746E5000, v329, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@: event end %+.3fs @%llu", buf, 0x2Au);
           }
         }
 
         else if (eventIdentifier26)
         {
-          if (v318)
+          if (v330)
           {
             workflow51 = [self workflow];
             name49 = [workflow51 name];
             eventIdentifier28 = [self eventIdentifier];
-            [v391 name];
-            v322 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-            endNanoseconds11 = [v391 endNanoseconds];
+            [v403 name];
+            v334 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+            endNanoseconds11 = [v403 endNanoseconds];
             eventStart16 = [self eventStart];
             machContTimeNs16 = [eventStart16 machContTimeNs];
-            *&v326 = COERCE_DOUBLE([v391 endMachContinuousTime]);
+            *&v338 = COERCE_DOUBLE([v403 endMachContinuousTime]);
             *buf = 138544898;
             *&buf[4] = name49;
-            v410 = 2114;
-            v411 = eventIdentifier28;
-            v412 = 2114;
-            v413 = v322;
-            v414 = 2114;
-            v415 = obja;
-            v416 = 2112;
-            v417 = v390;
-            v418 = 2048;
-            v419 = (endNanoseconds11 - machContTimeNs16) / 1000000000.0;
-            v420 = 2048;
-            v421 = *&v326;
-            _os_log_impl(&dword_2746E5000, v317, OS_LOG_TYPE_DEFAULT, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: event end %+.3fs @%llu", buf, 0x48u);
+            v422 = 2114;
+            v423 = eventIdentifier28;
+            v424 = 2114;
+            v425 = v334;
+            v426 = 2114;
+            v427 = obja;
+            v428 = 2112;
+            v429 = v402;
+            v430 = 2048;
+            v431 = (endNanoseconds11 - machContTimeNs16) / 1000000000.0;
+            v432 = 2048;
+            v433 = *&v338;
+            _os_log_impl(&dword_2746E5000, v329, OS_LOG_TYPE_DEFAULT, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: event end %+.3fs @%llu", buf, 0x48u);
           }
         }
 
-        else if (v318)
+        else if (v330)
         {
           workflow52 = [self workflow];
           name50 = [workflow52 name];
-          name51 = [v391 name];
-          endNanoseconds12 = [v391 endNanoseconds];
+          name51 = [v403 name];
+          endNanoseconds12 = [v403 endNanoseconds];
           eventStart17 = [self eventStart];
           machContTimeNs17 = [eventStart17 machContTimeNs];
-          v341 = COERCE_DOUBLE([v391 endMachContinuousTime]);
+          v353 = COERCE_DOUBLE([v403 endMachContinuousTime]);
           *buf = 138544642;
           *&buf[4] = name50;
-          v410 = 2114;
-          v411 = name51;
-          v412 = 2114;
-          v413 = obja;
-          v414 = 2112;
-          v415 = v390;
-          v416 = 2048;
-          v417 = (endNanoseconds12 - machContTimeNs17) / 1000000000.0;
-          v418 = 2048;
-          v419 = v341;
-          _os_log_impl(&dword_2746E5000, v317, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@: %{public}@->%@: event end %+.3fs @%llu", buf, 0x3Eu);
+          v422 = 2114;
+          v423 = name51;
+          v424 = 2114;
+          v425 = obja;
+          v426 = 2112;
+          v427 = v402;
+          v428 = 2048;
+          v429 = (endNanoseconds12 - machContTimeNs17) / 1000000000.0;
+          v430 = 2048;
+          v431 = v353;
+          _os_log_impl(&dword_2746E5000, v329, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@: %{public}@->%@: event end %+.3fs @%llu", buf, 0x3Eu);
         }
 
-        *__error() = v316;
+        *__error() = v328;
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          processID2 = [v391 processID];
-          threadID2 = [v391 threadID];
+          processID2 = [v403 processID];
+          threadID2 = [v403 threadID];
         }
 
         else
@@ -3574,10 +3599,10 @@ LABEL_203:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            endEvent = [v391 endEvent];
+            endEvent = [v403 endEvent];
             processID2 = [endEvent processID];
 
-            endEvent2 = [v391 endEvent];
+            endEvent2 = [v403 endEvent];
             threadID2 = [endEvent2 threadID];
           }
 
@@ -3588,17 +3613,17 @@ LABEL_203:
           }
         }
 
-        v353 = [WRTimestampAndThread alloc];
-        endNanoseconds13 = [v391 endNanoseconds];
-        endDate = [v391 endDate];
-        v356 = [(WRTimestampAndThread *)&v353->super.isa initWithPID:processID2 threadID:threadID2 machContTimeNs:endNanoseconds13 date:endDate];
-        objc_setProperty_atomic(self, v357, v356, 48);
+        v365 = [WRTimestampAndThread alloc];
+        endNanoseconds13 = [v403 endNanoseconds];
+        endDate = [v403 endDate];
+        v368 = [(WRTimestampAndThread *)&v365->super.isa initWithPID:processID2 threadID:threadID2 machContTimeNs:endNanoseconds13 date:endDate];
+        objc_setProperty_atomic(self, v369, v368, 48);
 
-        signpost = [v387 signpost];
-        objc_setProperty_atomic(self, v359, signpost, 56);
+        signpost = [v399 signpost];
+        objc_setProperty_atomic(self, v371, signpost, 56);
 
-        v361 = objc_getProperty(self, v360, 144, 1);
-        v361[2](v361, self);
+        v373 = objc_getProperty(self, v372, 144, 1);
+        v373[2](v373, self);
 
         [(WRWorkflowEventTracker *)self resetWithoutReportingErrors];
         goto LABEL_199;
@@ -3610,7 +3635,6 @@ LABEL_75:
   v95 = 0;
 LABEL_201:
 
-  v312 = *MEMORY[0x277D85DE8];
   return v95;
 }
 
@@ -3720,14 +3744,15 @@ uint64_t __43__WRWorkflowEventTracker_tailspinDirectory__block_invoke()
 
 void __47__WRWorkflowEventTracker_makeTailspinDirectory__block_invoke()
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   v0 = +[WRWorkflowEventTracker tailspinDirectory];
   v1 = [v0 path];
   if (!v1)
   {
-    v6 = *__error();
-    v7 = _wrlog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v9 = __error();
+    v7 = *v9;
+    v8 = _wrlog(v9);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       __47__WRWorkflowEventTracker_makeTailspinDirectory__block_invoke_cold_7();
     }
@@ -3738,9 +3763,10 @@ void __47__WRWorkflowEventTracker_makeTailspinDirectory__block_invoke()
   v2 = [v0 fileSystemRepresentation];
   if (!v2)
   {
-    v6 = *__error();
-    v7 = _wrlog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v10 = __error();
+    v7 = *v10;
+    v8 = _wrlog(v10);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       __47__WRWorkflowEventTracker_makeTailspinDirectory__block_invoke_cold_6();
     }
@@ -3756,155 +3782,157 @@ void __47__WRWorkflowEventTracker_makeTailspinDirectory__block_invoke()
   {
     if (geteuid())
     {
-      v6 = *__error();
-      v7 = _wrlog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v6 = __error();
+      v7 = *v6;
+      v8 = _wrlog(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         __47__WRWorkflowEventTracker_makeTailspinDirectory__block_invoke_cold_1();
       }
 
 LABEL_11:
 
-      *__error() = v6;
+      *__error() = v7;
       goto LABEL_12;
     }
 
-    v25 = *MEMORY[0x277CCA180];
-    v26[0] = &unk_28838A6C8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
-    v10 = [MEMORY[0x277CCAA00] defaultManager];
-    v24 = 0;
-    v11 = [v10 createDirectoryAtURL:v0 withIntermediateDirectories:1 attributes:v9 error:&v24];
-    v12 = v24;
+    v30 = *MEMORY[0x277CCA180];
+    v31[0] = &unk_28838A6C8;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+    v12 = [MEMORY[0x277CCAA00] defaultManager];
+    v29 = 0;
+    v13 = [v12 createDirectoryAtURL:v0 withIntermediateDirectories:1 attributes:v11 error:&v29];
+    v14 = v29;
 
-    if (v11)
+    if (v13)
     {
-      v13 = open(v3, 0);
-      if (v13 == -1)
+      v15 = open(v3, 0);
+      if (v15 == -1)
       {
-        v21 = *__error();
-        v22 = _wrlog();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+        v25 = __error();
+        v26 = *v25;
+        v27 = _wrlog(v25);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
         {
           __47__WRWorkflowEventTracker_makeTailspinDirectory__block_invoke_cold_5();
         }
 
-        *__error() = v21;
+        *__error() = v26;
       }
 
       else
       {
-        v14 = v13;
-        v23 = 74245;
-        v15 = ffsctl(v13, 0xC0084A44uLL, &v23, 0);
-        v16 = *__error();
-        v17 = _wrlog();
-        v18 = v17;
-        if (v15)
+        v16 = v15;
+        v28 = 74245;
+        v17 = ffsctl(v15, 0xC0084A44uLL, &v28, 0);
+        v18 = __error();
+        v19 = *v18;
+        v20 = _wrlog(v18);
+        v21 = v20;
+        if (v17)
         {
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
           {
             __47__WRWorkflowEventTracker_makeTailspinDirectory__block_invoke_cold_3();
           }
         }
 
-        else if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        else if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
           __47__WRWorkflowEventTracker_makeTailspinDirectory__block_invoke_cold_4();
         }
 
-        *__error() = v16;
-        close(v14);
+        *__error() = v19;
+        close(v16);
       }
     }
 
     else
     {
-      v19 = *__error();
-      v20 = _wrlog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+      v22 = __error();
+      v23 = *v22;
+      v24 = _wrlog(v22);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
       {
         __47__WRWorkflowEventTracker_makeTailspinDirectory__block_invoke_cold_2();
       }
 
-      *__error() = v19;
+      *__error() = v23;
     }
   }
 
 LABEL_12:
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)cleanupWorkflowResponsivenessDiagnosticsDirectory
 {
   v4 = +[WRWorkflowEventTracker tailspinDirectory];
-  [(WRWorkflowEventTracker *)259200.0 cleanupDirectory:self ofFilesWithSuffix:v4 olderThan:@"tailspin"];
+  [(WRWorkflowEventTracker *)self cleanupDirectory:v4 ofFilesWithSuffix:@"tailspin" olderThan:259200.0];
   v3 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:@"/private/var/db/WorkflowResponsiveness" isDirectory:1];
-  [(WRWorkflowEventTracker *)259200.0 cleanupDirectory:self ofFilesWithSuffix:v3 olderThan:@"tailspin"];
+  [(WRWorkflowEventTracker *)self cleanupDirectory:v3 ofFilesWithSuffix:@"tailspin" olderThan:259200.0];
 }
 
-+ (void)cleanupDirectory:(void *)directory ofFilesWithSuffix:(void *)suffix olderThan:
++ (void)cleanupDirectory:(void *)directory ofFilesWithSuffix:(double)suffix olderThan:
 {
-  v73[3] = *MEMORY[0x277D85DE8];
+  v81[3] = *MEMORY[0x277D85DE8];
+  v6 = a2;
   directoryCopy = directory;
-  suffixCopy = suffix;
   objc_opt_self();
-  path = [directoryCopy path];
+  path = [v6 path];
   if (path)
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     if ([defaultManager fileExistsAtPath:path])
     {
-      v54 = *MEMORY[0x277CBE8A8];
-      v55 = *MEMORY[0x277CBE8E8];
-      v73[0] = *MEMORY[0x277CBE8E8];
-      v73[1] = v54;
+      v62 = *MEMORY[0x277CBE8A8];
+      v63 = *MEMORY[0x277CBE8E8];
+      v81[0] = *MEMORY[0x277CBE8E8];
+      v81[1] = v62;
       v9 = *MEMORY[0x277CBE7C0];
-      v73[2] = *MEMORY[0x277CBE7C0];
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:3];
-      v11 = [defaultManager enumeratorAtURL:directoryCopy includingPropertiesForKeys:v10 options:5 errorHandler:&__block_literal_global_233];
+      v81[2] = *MEMORY[0x277CBE7C0];
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v81 count:3];
+      v11 = [defaultManager enumeratorAtURL:v6 includingPropertiesForKeys:v10 options:5 errorHandler:&__block_literal_global_233];
 
       if (v11)
       {
-        v50 = defaultManager;
-        v48 = path;
-        v49 = directoryCopy;
-        v61 = 0u;
-        v62 = 0u;
-        v59 = 0u;
-        v60 = 0u;
-        v47 = v11;
+        v58 = defaultManager;
+        v56 = path;
+        v57 = v6;
+        v69 = 0u;
+        v70 = 0u;
+        v67 = 0u;
+        v68 = 0u;
+        v55 = v11;
         obj = v11;
-        v56 = [obj countByEnumeratingWithState:&v59 objects:v72 count:16];
-        if (!v56)
+        v64 = [obj countByEnumeratingWithState:&v67 objects:v80 count:16];
+        if (!v64)
         {
           goto LABEL_43;
         }
 
-        v53 = *v60;
-        v12 = -self;
+        v61 = *v68;
+        v12 = -suffix;
         while (1)
         {
           v13 = 0;
           do
           {
-            if (*v60 != v53)
+            if (*v68 != v61)
             {
               objc_enumerationMutation(obj);
             }
 
-            v14 = *(*(&v59 + 1) + 8 * v13);
-            v71[0] = v55;
-            v71[1] = v54;
-            v71[2] = v9;
-            v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:3];
-            v58 = 0;
-            v16 = [v14 resourceValuesForKeys:v15 error:&v58];
-            v17 = v58;
+            v14 = *(*(&v67 + 1) + 8 * v13);
+            v79[0] = v63;
+            v79[1] = v62;
+            v79[2] = v9;
+            v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:3];
+            v66 = 0;
+            v16 = [v14 resourceValuesForKeys:v15 error:&v66];
+            v17 = v66;
 
-            v18 = [v16 objectForKeyedSubscript:v55];
-            v19 = [v16 objectForKeyedSubscript:v54];
+            v18 = [v16 objectForKeyedSubscript:v63];
+            v19 = [v16 objectForKeyedSubscript:v62];
             v20 = [v16 objectForKeyedSubscript:v9];
             v21 = v20;
             if (v18)
@@ -3919,23 +3947,24 @@ LABEL_12:
 
             if (v22 || v20 == 0)
             {
-              v24 = *__error();
-              v25 = _wrlog();
-              if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+              v24 = __error();
+              v25 = *v24;
+              v26 = _wrlog(v24);
+              if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138413058;
-                v64 = v14;
-                v65 = 2112;
-                v66 = v18;
-                v67 = 2112;
-                v68 = v19;
-                v69 = 2112;
-                v70 = v21;
-                v26 = v25;
-                v27 = "WR cleanup: Unable to get info about %@: filename:%@ isRegularFile:%@ creationDate:%@";
-                v28 = 42;
+                v72 = v14;
+                v73 = 2112;
+                v74 = v18;
+                v75 = 2112;
+                v76 = v19;
+                v77 = 2112;
+                v78 = v21;
+                v27 = v26;
+                v28 = "WR cleanup: Unable to get info about %@: filename:%@ isRegularFile:%@ creationDate:%@";
+                v29 = 42;
 LABEL_19:
-                _os_log_error_impl(&dword_2746E5000, v26, OS_LOG_TYPE_ERROR, v27, buf, v28);
+                _os_log_error_impl(&dword_2746E5000, v27, OS_LOG_TYPE_ERROR, v28, buf, v29);
               }
             }
 
@@ -3944,90 +3973,94 @@ LABEL_19:
               bOOLValue = [v19 BOOLValue];
               if (bOOLValue)
               {
-                if ([v18 hasSuffix:suffixCopy])
+                if ([v18 hasSuffix:directoryCopy])
                 {
                   [v21 timeIntervalSinceNow];
-                  v31 = v30;
-                  v24 = *__error();
-                  v25 = _wrlog();
-                  v32 = os_log_type_enabled(v25, OS_LOG_TYPE_INFO);
-                  if (v31 <= v12)
+                  v32 = v31;
+                  v33 = __error();
+                  v25 = *v33;
+                  v26 = _wrlog(v33);
+                  v34 = os_log_type_enabled(v26, OS_LOG_TYPE_INFO);
+                  if (v32 <= v12)
                   {
-                    if (v32)
+                    if (v34)
                     {
                       *buf = 138543618;
-                      v64 = v14;
-                      v65 = 2114;
-                      v66 = v21;
-                      _os_log_impl(&dword_2746E5000, v25, OS_LOG_TYPE_INFO, "WR cleanup: %{public}@ created at %{public}@, removing", buf, 0x16u);
+                      v72 = v14;
+                      v73 = 2114;
+                      v74 = v21;
+                      _os_log_impl(&dword_2746E5000, v26, OS_LOG_TYPE_INFO, "WR cleanup: %{public}@ created at %{public}@, removing", buf, 0x16u);
                     }
 
-                    *__error() = v24;
-                    v57 = 0;
-                    v37 = [v50 removeItemAtURL:v14 error:&v57];
-                    v38 = v57;
-                    v17 = v38;
-                    if ((v37 & 1) == 0)
+                    *__error() = v25;
+                    v65 = 0;
+                    v41 = [v58 removeItemAtURL:v14 error:&v65];
+                    v42 = v65;
+                    v17 = v42;
+                    if ((v41 & 1) == 0)
                     {
-                      v24 = *__error();
-                      v25 = _wrlog();
-                      if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+                      v44 = __error();
+                      v25 = *v44;
+                      v26 = _wrlog(v44);
+                      if (!os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
                       {
                         goto LABEL_38;
                       }
 
                       *buf = 138543618;
-                      v64 = v14;
-                      v65 = 2114;
-                      v66 = v17;
-                      v26 = v25;
-                      v27 = "Unable to remove %{public}@: %{public}@";
-                      v28 = 22;
+                      v72 = v14;
+                      v73 = 2114;
+                      v74 = v17;
+                      v27 = v26;
+                      v28 = "Unable to remove %{public}@: %{public}@";
+                      v29 = 22;
                       goto LABEL_19;
                     }
 
-                    if (!v38)
+                    if (!v42)
                     {
                       goto LABEL_39;
                     }
 
-                    v24 = *__error();
-                    v25 = _wrlog();
-                    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+                    v43 = __error();
+                    v25 = *v43;
+                    v26 = _wrlog(v43);
+                    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
                     {
                       *buf = 138543618;
-                      v64 = v14;
-                      v65 = 2114;
-                      v66 = v17;
-                      v33 = v25;
-                      v34 = "Removed %{public}@ successfully, but received error: %{public}@";
+                      v72 = v14;
+                      v73 = 2114;
+                      v74 = v17;
+                      v35 = v26;
+                      v36 = "Removed %{public}@ successfully, but received error: %{public}@";
                       goto LABEL_36;
                     }
                   }
 
-                  else if (v32)
+                  else if (v34)
                   {
                     *buf = 138543618;
-                    v64 = v14;
-                    v65 = 2114;
-                    v66 = v21;
-                    v33 = v25;
-                    v34 = "WR cleanup: %{public}@ created at %{public}@, skipping";
+                    v72 = v14;
+                    v73 = 2114;
+                    v74 = v21;
+                    v35 = v26;
+                    v36 = "WR cleanup: %{public}@ created at %{public}@, skipping";
 LABEL_36:
-                    _os_log_impl(&dword_2746E5000, v33, OS_LOG_TYPE_INFO, v34, buf, 0x16u);
+                    _os_log_impl(&dword_2746E5000, v35, OS_LOG_TYPE_INFO, v36, buf, 0x16u);
                   }
                 }
 
                 else
                 {
-                  v24 = *__error();
-                  v25 = _wrlog();
-                  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+                  v40 = __error();
+                  v25 = *v40;
+                  v26 = _wrlog(v40);
+                  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138412290;
-                    v64 = v14;
-                    v35 = v25;
-                    v36 = "WR cleanup: %@ is not a tailspin file";
+                    v72 = v14;
+                    v38 = v26;
+                    v39 = "WR cleanup: %@ is not a tailspin file";
                     goto LABEL_29;
                   }
                 }
@@ -4035,95 +4068,98 @@ LABEL_36:
 
               else
               {
-                v24 = *__error();
-                v25 = _wrlog();
-                if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+                v37 = __error();
+                v25 = *v37;
+                v26 = _wrlog(v37);
+                if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412290;
-                  v64 = v14;
-                  v35 = v25;
-                  v36 = "WR cleanup: %@ is not a regular file";
+                  v72 = v14;
+                  v38 = v26;
+                  v39 = "WR cleanup: %@ is not a regular file";
 LABEL_29:
-                  _os_log_debug_impl(&dword_2746E5000, v35, OS_LOG_TYPE_DEBUG, v36, buf, 0xCu);
+                  _os_log_debug_impl(&dword_2746E5000, v38, OS_LOG_TYPE_DEBUG, v39, buf, 0xCu);
                 }
               }
             }
 
 LABEL_38:
 
-            *__error() = v24;
+            *__error() = v25;
 LABEL_39:
 
             ++v13;
           }
 
-          while (v56 != v13);
-          v39 = [obj countByEnumeratingWithState:&v59 objects:v72 count:16];
-          v56 = v39;
-          if (!v39)
+          while (v64 != v13);
+          v45 = [obj countByEnumeratingWithState:&v67 objects:v80 count:16];
+          v64 = v45;
+          if (!v45)
           {
 LABEL_43:
 
-            path = v48;
-            directoryCopy = v49;
-            defaultManager = v50;
-            v11 = v47;
+            path = v56;
+            v6 = v57;
+            defaultManager = v58;
+            v11 = v55;
             goto LABEL_53;
           }
         }
       }
 
-      v44 = *__error();
-      v45 = _wrlog();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
+      v52 = __error();
+      v53 = *v52;
+      v54 = _wrlog(v52);
+      if (os_log_type_enabled(v54, OS_LOG_TYPE_FAULT))
       {
         +[WRWorkflowEventTracker cleanupDirectory:ofFilesWithSuffix:olderThan:];
       }
 
-      *__error() = v44;
+      *__error() = v53;
 LABEL_53:
     }
 
     else
     {
-      v42 = *__error();
-      v43 = _wrlog();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+      v49 = __error();
+      v50 = *v49;
+      v51 = _wrlog(v49);
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
       {
-        [WRWorkflowEventTracker cleanupDirectory:v43 ofFilesWithSuffix:? olderThan:?];
+        [WRWorkflowEventTracker cleanupDirectory:v51 ofFilesWithSuffix:? olderThan:?];
       }
 
-      *__error() = v42;
+      *__error() = v50;
     }
   }
 
   else
   {
-    v40 = *__error();
-    v41 = _wrlog();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_FAULT))
+    v46 = __error();
+    v47 = *v46;
+    v48 = _wrlog(v46);
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_FAULT))
     {
       +[WRWorkflowEventTracker cleanupDirectory:ofFilesWithSuffix:olderThan:];
     }
 
-    *__error() = v40;
+    *__error() = v47;
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __71__WRWorkflowEventTracker_cleanupDirectory_ofFilesWithSuffix_olderThan___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v4 = a2;
   v5 = a3;
-  v6 = *__error();
-  v7 = _wrlog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v6 = __error();
+  v7 = *v6;
+  v8 = _wrlog(v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     __71__WRWorkflowEventTracker_cleanupDirectory_ofFilesWithSuffix_olderThan___block_invoke_cold_1();
   }
 
-  *__error() = v6;
+  *__error() = v7;
   return 1;
 }
 
@@ -4338,7 +4374,7 @@ LABEL_55:
 
 void __52__WRWorkflowEventTracker_initWithEncodedDict_error___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   objc_opt_class();
@@ -4347,27 +4383,27 @@ void __52__WRWorkflowEventTracker_initWithEncodedDict_error___block_invoke(uint6
     v9 = [(WRWorkflow *)*(a1 + 32) wrsignpostWithName:v7];
     if (v9)
     {
-      v50 = a4;
-      v54 = 0u;
-      v55 = 0u;
-      v52 = 0u;
+      v49 = a4;
       v53 = 0u;
+      v54 = 0u;
+      v51 = 0u;
+      v52 = 0u;
       v10 = v8;
-      v11 = [v10 countByEnumeratingWithState:&v52 objects:v56 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v51 objects:v55 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v53;
+        v13 = *v52;
         while (2)
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v53 != v13)
+            if (*v52 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v52 + 1) + 8 * i);
+            v15 = *(*(&v51 + 1) + 8 * i);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
@@ -4378,7 +4414,7 @@ void __52__WRWorkflowEventTracker_initWithEncodedDict_error___block_invoke(uint6
               *(v47 + 40) = v46;
 
 LABEL_17:
-              *v50 = 1;
+              *v49 = 1;
               goto LABEL_18;
             }
 
@@ -4395,7 +4431,7 @@ LABEL_17:
             [*(a1 + 40) addObject:v18];
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v52 objects:v56 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v51 objects:v55 count:16];
           if (v12)
           {
             continue;
@@ -4431,8 +4467,6 @@ LABEL_18:
 
     *a4 = 1;
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 - (WRWorkflowEventTracker)initWithTailspin:(id)tailspin error:(id *)error
@@ -4569,19 +4603,19 @@ LABEL_12:
   return selfCopy;
 }
 
-uint64_t __49__WRWorkflowEventTracker_initWithTailspin_error___block_invoke(uint64_t a1)
+uint64_t __49__WRWorkflowEventTracker_initWithTailspin_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = ktrace_chunk_tag();
-  v3 = ktrace_chunk_version_major();
+  v3 = ktrace_chunk_tag();
+  v4 = ktrace_chunk_version_major();
   if (ktrace_config_create())
   {
     reason = ktrace_config_get_reason();
     if (reason)
     {
-      v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:reason];
-      v6 = *(*(a1 + 32) + 8);
-      v7 = *(v6 + 40);
-      *(v6 + 40) = v5;
+      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:reason];
+      v7 = *(*(a1 + 32) + 8);
+      v8 = *(v7 + 40);
+      *(v7 + 40) = v6;
 LABEL_8:
 
       return 0;
@@ -4591,15 +4625,15 @@ LABEL_8:
   }
 
   result = 1;
-  if (v2 == 36867 && v3 <= 1)
+  if (v3 == 36867 && v4 <= 1)
   {
-    v9 = ktrace_chunk_size();
-    v7 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:ktrace_chunk_map_data() length:v9 freeWhenDone:0];
-    v10 = [MEMORY[0x277CCAC58] propertyListWithData:v7 options:0 format:0 error:0];
-    v11 = [v10 objectForKeyedSubscript:*MEMORY[0x277D82D08]];
-    v12 = *(*(a1 + 32) + 8);
-    v13 = *(v12 + 40);
-    *(v12 + 40) = v11;
+    v10 = ktrace_chunk_size();
+    v8 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:ktrace_chunk_map_data() length:v10 freeWhenDone:0];
+    v11 = [MEMORY[0x277CCAC58] propertyListWithData:v8 options:0 format:0 error:0];
+    v12 = [v11 objectForKeyedSubscript:*MEMORY[0x277D82D08]];
+    v13 = *(*(a1 + 32) + 8);
+    v14 = *(v13 + 40);
+    *(v13 + 40) = v12;
 
     ktrace_chunk_unmap_data();
     goto LABEL_8;
@@ -4802,7 +4836,7 @@ LABEL_24:
 - (BOOL)gatherDiagnosticsIfNeeded
 {
   selfCopy = self;
-  v197 = *MEMORY[0x277D85DE8];
+  v206 = *MEMORY[0x277D85DE8];
   eventStart = [(WRWorkflowEventTracker *)self eventStart];
   if (!eventStart)
   {
@@ -4845,18 +4879,19 @@ LABEL_8:
     [(WRWorkflowEventTracker *)selfCopy eventIdentifier];
     eventIdentifier = [(WRWorkflowEventTracker *)selfCopy eventIdentifier];
 
-    v12 = *__error();
-    v13 = _wrlog();
-    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_FAULT);
+    v12 = __error();
+    v13 = *v12;
+    v14 = _wrlog(v12);
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_FAULT);
     if (eventIdentifier)
     {
-      if (v14)
+      if (v15)
       {
         [WRWorkflowEventTracker gatherDiagnosticsIfNeeded];
       }
     }
 
-    else if (v14)
+    else if (v15)
     {
       [(WRWorkflowEventTracker *)selfCopy gatherDiagnosticsIfNeeded];
     }
@@ -4871,28 +4906,28 @@ LABEL_16:
 
   if (!v21)
   {
-    v181 = 0u;
-    v182 = 0u;
-    v179 = 0u;
-    v180 = 0u;
+    v190 = 0u;
+    v191 = 0u;
+    v188 = 0u;
+    v189 = 0u;
     workflow3 = [(WRWorkflowEventTracker *)selfCopy workflow];
     allSignposts = [workflow3 allSignposts];
 
-    v24 = [allSignposts countByEnumeratingWithState:&v179 objects:v196 count:16];
+    v24 = [allSignposts countByEnumeratingWithState:&v188 objects:v205 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v180;
+      v26 = *v189;
 LABEL_19:
       v27 = 0;
       while (1)
       {
-        if (*v180 != v26)
+        if (*v189 != v26)
         {
           objc_enumerationMutation(allSignposts);
         }
 
-        diagnostics = [*(*(&v179 + 1) + 8 * v27) diagnostics];
+        diagnostics = [*(*(&v188 + 1) + 8 * v27) diagnostics];
         v29 = [diagnostics count];
 
         if (v29)
@@ -4902,7 +4937,7 @@ LABEL_19:
 
         if (v25 == ++v27)
         {
-          v25 = [allSignposts countByEnumeratingWithState:&v179 objects:v196 count:16];
+          v25 = [allSignposts countByEnumeratingWithState:&v188 objects:v205 count:16];
           if (!v25)
           {
             goto LABEL_25;
@@ -4923,389 +4958,394 @@ LABEL_25:
     [(WRWorkflowEventTracker *)selfCopy eventIdentifier];
     eventIdentifier2 = [(WRWorkflowEventTracker *)selfCopy eventIdentifier];
 
-    v12 = *__error();
-    v13 = _wrlog();
-    v32 = os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG);
+    v32 = __error();
+    v13 = *v32;
+    v14 = _wrlog(v32);
+    v33 = os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG);
     if (eventIdentifier2)
     {
-      if (v32)
+      if (v33)
       {
         [WRWorkflowEventTracker gatherDiagnosticsIfNeeded];
       }
     }
 
-    else if (v32)
+    else if (v33)
     {
       [(WRWorkflowEventTracker *)selfCopy gatherDiagnosticsIfNeeded];
     }
 
 LABEL_13:
 
-    v15 = 0;
-    *__error() = v12;
-    goto LABEL_14;
+    v16 = 0;
+    *__error() = v13;
+    return v16;
   }
 
 LABEL_29:
-  v33 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v175 = 0u;
-  v176 = 0u;
-  v177 = 0u;
-  v178 = 0u;
+  v34 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v184 = 0u;
+  v185 = 0u;
+  v186 = 0u;
+  v187 = 0u;
   allSignpostTrackers = [(WRWorkflowEventTracker *)selfCopy allSignpostTrackers];
-  v141 = [allSignpostTrackers countByEnumeratingWithState:&v175 objects:v195 count:16];
-  if (!v141)
+  v150 = [allSignpostTrackers countByEnumeratingWithState:&v184 objects:v204 count:16];
+  if (!v150)
   {
     goto LABEL_69;
   }
 
-  v35 = *v176;
-  v149 = allSignpostTrackers;
+  v36 = *v185;
+  v158 = allSignpostTrackers;
   do
   {
-    v36 = 0;
+    v37 = 0;
     do
     {
-      if (*v176 != v35)
+      if (*v185 != v36)
       {
         objc_enumerationMutation(allSignpostTrackers);
       }
 
-      obj = v36;
-      v37 = *(*(&v175 + 1) + 8 * v36);
-      v171 = 0u;
-      v172 = 0u;
-      v173 = 0u;
-      v174 = 0u;
-      v147 = v37;
-      emits = [v37 emits];
-      v39 = [emits countByEnumeratingWithState:&v171 objects:v194 count:16];
-      if (v39)
+      obj = v37;
+      v38 = *(*(&v184 + 1) + 8 * v37);
+      v180 = 0u;
+      v181 = 0u;
+      v182 = 0u;
+      v183 = 0u;
+      v156 = v38;
+      emits = [v38 emits];
+      v40 = [emits countByEnumeratingWithState:&v180 objects:v203 count:16];
+      if (v40)
       {
-        v40 = v39;
-        v41 = *v172;
+        v41 = v40;
+        v42 = *v181;
         do
         {
-          for (i = 0; i != v40; ++i)
+          for (i = 0; i != v41; ++i)
           {
-            if (*v172 != v41)
+            if (*v181 != v42)
             {
               objc_enumerationMutation(emits);
             }
 
-            v43 = *(*(&v171 + 1) + 8 * i);
-            v44 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v43, "pid")}];
-            if (([v33 containsObject:v44] & 1) == 0)
+            v44 = *(*(&v180 + 1) + 8 * i);
+            v45 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v44, "pid")}];
+            if (([v34 containsObject:v45] & 1) == 0)
             {
-              if (WRProcessIsBeingDebugged([v43 pid]))
+              if (WRProcessIsBeingDebugged([v44 pid]))
               {
                 workflow5 = [(WRWorkflowEventTracker *)selfCopy workflow];
                 [workflow5 name];
 
                 [(WRWorkflowEventTracker *)selfCopy eventIdentifier];
-                v77 = selfCopy;
+                v78 = selfCopy;
                 eventIdentifier3 = [(WRWorkflowEventTracker *)selfCopy eventIdentifier];
 
-                v79 = *__error();
-                v80 = _wrlog();
-                v81 = os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT);
+                v80 = __error();
+                v81 = *v80;
+                v82 = _wrlog(v80);
+                v83 = os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT);
                 if (!eventIdentifier3)
                 {
-                  if (v81)
+                  if (v83)
                   {
-                    workflow6 = [(WRWorkflowEventTracker *)v77 workflow];
+                    workflow6 = [(WRWorkflowEventTracker *)v78 workflow];
                     name = [workflow6 name];
-                    v88 = [v43 pid];
+                    v90 = [v44 pid];
                     *buf = 138543618;
-                    v189 = name;
-                    v190 = 1024;
-                    LODWORD(v191) = v88;
-                    _os_log_impl(&dword_2746E5000, v80, OS_LOG_TYPE_DEFAULT, "%{public}@: Process [%d] is being debugged, not saving diagnostics", buf, 0x12u);
+                    v198 = name;
+                    v199 = 1024;
+                    LODWORD(v200) = v90;
+                    _os_log_impl(&dword_2746E5000, v82, OS_LOG_TYPE_DEFAULT, "%{public}@: Process [%d] is being debugged, not saving diagnostics", buf, 0x12u);
 
                     goto LABEL_108;
                   }
 
 LABEL_109:
 
-                  *__error() = v79;
-                  v15 = 0;
+                  *__error() = v81;
+                  v16 = 0;
                   goto LABEL_110;
                 }
 
-                if (!v81)
+                if (!v83)
                 {
                   goto LABEL_109;
                 }
 
-                workflow7 = [(WRWorkflowEventTracker *)v77 workflow];
+                workflow7 = [(WRWorkflowEventTracker *)v78 workflow];
                 name2 = [workflow7 name];
-                eventIdentifier4 = [(WRWorkflowEventTracker *)v77 eventIdentifier];
-                v85 = [v43 pid];
+                eventIdentifier4 = [(WRWorkflowEventTracker *)v78 eventIdentifier];
+                v87 = [v44 pid];
                 *buf = 138543874;
-                v189 = name2;
-                v190 = 2114;
-                v191 = eventIdentifier4;
-                v192 = 1024;
-                v193 = v85;
-                _os_log_impl(&dword_2746E5000, v80, OS_LOG_TYPE_DEFAULT, "%{public}@<%{public}@>: Process [%d] is being debugged, not saving diagnostics", buf, 0x1Cu);
+                v198 = name2;
+                v199 = 2114;
+                v200 = eventIdentifier4;
+                v201 = 1024;
+                v202 = v87;
+                _os_log_impl(&dword_2746E5000, v82, OS_LOG_TYPE_DEFAULT, "%{public}@<%{public}@>: Process [%d] is being debugged, not saving diagnostics", buf, 0x1Cu);
 LABEL_94:
 
                 goto LABEL_109;
               }
 
-              [v33 addObject:v44];
+              [v34 addObject:v45];
             }
           }
 
-          v40 = [emits countByEnumeratingWithState:&v171 objects:v194 count:16];
+          v41 = [emits countByEnumeratingWithState:&v180 objects:v203 count:16];
         }
 
-        while (v40);
+        while (v41);
       }
 
-      v140 = v35;
-      v145 = selfCopy;
+      v149 = v36;
+      v154 = selfCopy;
 
-      v169 = 0u;
-      v170 = 0u;
-      v167 = 0u;
-      v168 = 0u;
-      emits = [v147 intervals];
-      v45 = [emits countByEnumeratingWithState:&v167 objects:v187 count:16];
-      if (!v45)
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      emits = [v156 intervals];
+      v46 = [emits countByEnumeratingWithState:&v176 objects:v196 count:16];
+      if (!v46)
       {
         goto LABEL_57;
       }
 
-      v46 = v45;
-      v47 = *v168;
+      v47 = v46;
+      v48 = *v177;
       do
       {
-        for (j = 0; j != v46; ++j)
+        for (j = 0; j != v47; ++j)
         {
-          if (*v168 != v47)
+          if (*v177 != v48)
           {
             objc_enumerationMutation(emits);
           }
 
-          v49 = *(*(&v167 + 1) + 8 * j);
-          v50 = MEMORY[0x277CCABB0];
-          start = [v49 start];
-          v44 = [v50 numberWithInt:{objc_msgSend(start, "pid")}];
+          v50 = *(*(&v176 + 1) + 8 * j);
+          v51 = MEMORY[0x277CCABB0];
+          start = [v50 start];
+          v45 = [v51 numberWithInt:{objc_msgSend(start, "pid")}];
 
-          if (([v33 containsObject:v44] & 1) == 0)
+          if (([v34 containsObject:v45] & 1) == 0)
           {
-            start2 = [v49 start];
+            start2 = [v50 start];
             IsBeingDebugged = WRProcessIsBeingDebugged([start2 pid]);
 
             if (IsBeingDebugged)
             {
-              workflow8 = [(WRWorkflowEventTracker *)v145 workflow];
+              workflow8 = [(WRWorkflowEventTracker *)v154 workflow];
               [workflow8 name];
 
-              [(WRWorkflowEventTracker *)v145 eventIdentifier];
-              eventIdentifier5 = [(WRWorkflowEventTracker *)v145 eventIdentifier];
+              [(WRWorkflowEventTracker *)v154 eventIdentifier];
+              eventIdentifier5 = [(WRWorkflowEventTracker *)v154 eventIdentifier];
 
-              v79 = *__error();
-              v80 = _wrlog();
-              v91 = os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT);
+              v93 = __error();
+              v81 = *v93;
+              v82 = _wrlog(v93);
+              v94 = os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT);
               if (eventIdentifier5)
               {
-                if (!v91)
+                if (!v94)
                 {
                   goto LABEL_109;
                 }
 
-                workflow7 = [(WRWorkflowEventTracker *)v145 workflow];
+                workflow7 = [(WRWorkflowEventTracker *)v154 workflow];
                 name2 = [workflow7 name];
-                eventIdentifier4 = [(WRWorkflowEventTracker *)v145 eventIdentifier];
-                start3 = [v49 start];
-                v93 = [start3 pid];
+                eventIdentifier4 = [(WRWorkflowEventTracker *)v154 eventIdentifier];
+                start3 = [v50 start];
+                v96 = [start3 pid];
                 *buf = 138543874;
-                v189 = name2;
-                v190 = 2114;
-                v191 = eventIdentifier4;
-                v192 = 1024;
-                v193 = v93;
+                v198 = name2;
+                v199 = 2114;
+                v200 = eventIdentifier4;
+                v201 = 1024;
+                v202 = v96;
 LABEL_93:
-                _os_log_impl(&dword_2746E5000, v80, OS_LOG_TYPE_DEFAULT, "%{public}@<%{public}@>: Process [%d] is being debugged, not saving diagnostics", buf, 0x1Cu);
+                _os_log_impl(&dword_2746E5000, v82, OS_LOG_TYPE_DEFAULT, "%{public}@<%{public}@>: Process [%d] is being debugged, not saving diagnostics", buf, 0x1Cu);
 
                 goto LABEL_94;
               }
 
-              if (!v91)
+              if (!v94)
               {
                 goto LABEL_109;
               }
 
-              workflow6 = [(WRWorkflowEventTracker *)v145 workflow];
+              workflow6 = [(WRWorkflowEventTracker *)v154 workflow];
               name3 = [workflow6 name];
-              start4 = [v49 start];
-              v107 = [start4 pid];
+              start4 = [v50 start];
+              v112 = [start4 pid];
               *buf = 138543618;
-              v189 = name3;
-              v190 = 1024;
-              LODWORD(v191) = v107;
+              v198 = name3;
+              v199 = 1024;
+              LODWORD(v200) = v112;
 LABEL_104:
-              _os_log_impl(&dword_2746E5000, v80, OS_LOG_TYPE_DEFAULT, "%{public}@: Process [%d] is being debugged, not saving diagnostics", buf, 0x12u);
+              _os_log_impl(&dword_2746E5000, v82, OS_LOG_TYPE_DEFAULT, "%{public}@: Process [%d] is being debugged, not saving diagnostics", buf, 0x12u);
 
               goto LABEL_107;
             }
 
-            [v33 addObject:v44];
+            [v34 addObject:v45];
           }
 
-          v54 = MEMORY[0x277CCABB0];
-          v55 = [v49 end];
-          v44 = [v54 numberWithInt:{objc_msgSend(v55, "pid")}];
+          v55 = MEMORY[0x277CCABB0];
+          v56 = [v50 end];
+          v45 = [v55 numberWithInt:{objc_msgSend(v56, "pid")}];
 
-          if ([v33 containsObject:v44])
+          if ([v34 containsObject:v45])
           {
             goto LABEL_55;
           }
 
-          v56 = [v49 end];
-          v57 = WRProcessIsBeingDebugged([v56 pid]);
+          v57 = [v50 end];
+          v58 = WRProcessIsBeingDebugged([v57 pid]);
 
-          if (v57)
+          if (v58)
           {
-            workflow9 = [(WRWorkflowEventTracker *)v145 workflow];
+            workflow9 = [(WRWorkflowEventTracker *)v154 workflow];
             [workflow9 name];
 
-            [(WRWorkflowEventTracker *)v145 eventIdentifier];
-            eventIdentifier6 = [(WRWorkflowEventTracker *)v145 eventIdentifier];
+            [(WRWorkflowEventTracker *)v154 eventIdentifier];
+            eventIdentifier6 = [(WRWorkflowEventTracker *)v154 eventIdentifier];
 
-            v79 = *__error();
-            v80 = _wrlog();
-            v96 = os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT);
+            v99 = __error();
+            v81 = *v99;
+            v82 = _wrlog(v99);
+            v100 = os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT);
             if (eventIdentifier6)
             {
-              if (!v96)
-              {
-                goto LABEL_109;
-              }
-
-              workflow7 = [(WRWorkflowEventTracker *)v145 workflow];
-              name2 = [workflow7 name];
-              eventIdentifier4 = [(WRWorkflowEventTracker *)v145 eventIdentifier];
-              start3 = [v49 end];
-              v97 = [start3 pid];
-              *buf = 138543874;
-              v189 = name2;
-              v190 = 2114;
-              v191 = eventIdentifier4;
-              v192 = 1024;
-              v193 = v97;
-              goto LABEL_93;
-            }
-
-            if (!v96)
-            {
-              goto LABEL_109;
-            }
-
-            workflow6 = [(WRWorkflowEventTracker *)v145 workflow];
-            name3 = [workflow6 name];
-            start4 = [v49 end];
-            v108 = [start4 pid];
-            *buf = 138543618;
-            v189 = name3;
-            v190 = 1024;
-            LODWORD(v191) = v108;
-            goto LABEL_104;
-          }
-
-          [v33 addObject:v44];
-LABEL_55:
-        }
-
-        v46 = [emits countByEnumeratingWithState:&v167 objects:v187 count:16];
-      }
-
-      while (v46);
-LABEL_57:
-
-      v165 = 0u;
-      v166 = 0u;
-      v163 = 0u;
-      v164 = 0u;
-      emits = [v147 incompleteIntervalStarts];
-      v58 = [emits countByEnumeratingWithState:&v163 objects:v186 count:16];
-      v35 = v140;
-      if (v58)
-      {
-        v59 = v58;
-        v60 = *v164;
-LABEL_59:
-        v61 = 0;
-        while (1)
-        {
-          if (*v164 != v60)
-          {
-            objc_enumerationMutation(emits);
-          }
-
-          v62 = *(*(&v163 + 1) + 8 * v61);
-          v44 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v62, "pid", v140)}];
-          if (([v33 containsObject:v44] & 1) == 0)
-          {
-            if (WRProcessIsBeingDebugged([v62 pid]))
-            {
-              workflow10 = [(WRWorkflowEventTracker *)v145 workflow];
-              [workflow10 name];
-
-              [(WRWorkflowEventTracker *)v145 eventIdentifier];
-              eventIdentifier7 = [(WRWorkflowEventTracker *)v145 eventIdentifier];
-
-              v79 = *__error();
-              v80 = _wrlog();
-              v100 = os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT);
-              if (eventIdentifier7)
-              {
-                if (v100)
-                {
-                  workflow11 = [(WRWorkflowEventTracker *)v145 workflow];
-                  name4 = [workflow11 name];
-                  eventIdentifier8 = [(WRWorkflowEventTracker *)v145 eventIdentifier];
-                  v104 = [v62 pid];
-                  *buf = 138543874;
-                  v189 = name4;
-                  v190 = 2114;
-                  v191 = eventIdentifier8;
-                  v192 = 1024;
-                  v193 = v104;
-                  _os_log_impl(&dword_2746E5000, v80, OS_LOG_TYPE_DEFAULT, "%{public}@<%{public}@>: Process [%d] is being debugged, not saving diagnostics", buf, 0x1Cu);
-                }
-
-                goto LABEL_109;
-              }
-
               if (!v100)
               {
                 goto LABEL_109;
               }
 
-              workflow6 = [(WRWorkflowEventTracker *)v145 workflow];
+              workflow7 = [(WRWorkflowEventTracker *)v154 workflow];
+              name2 = [workflow7 name];
+              eventIdentifier4 = [(WRWorkflowEventTracker *)v154 eventIdentifier];
+              start3 = [v50 end];
+              v101 = [start3 pid];
+              *buf = 138543874;
+              v198 = name2;
+              v199 = 2114;
+              v200 = eventIdentifier4;
+              v201 = 1024;
+              v202 = v101;
+              goto LABEL_93;
+            }
+
+            if (!v100)
+            {
+              goto LABEL_109;
+            }
+
+            workflow6 = [(WRWorkflowEventTracker *)v154 workflow];
+            name3 = [workflow6 name];
+            start4 = [v50 end];
+            v113 = [start4 pid];
+            *buf = 138543618;
+            v198 = name3;
+            v199 = 1024;
+            LODWORD(v200) = v113;
+            goto LABEL_104;
+          }
+
+          [v34 addObject:v45];
+LABEL_55:
+        }
+
+        v47 = [emits countByEnumeratingWithState:&v176 objects:v196 count:16];
+      }
+
+      while (v47);
+LABEL_57:
+
+      v174 = 0u;
+      v175 = 0u;
+      v172 = 0u;
+      v173 = 0u;
+      emits = [v156 incompleteIntervalStarts];
+      v59 = [emits countByEnumeratingWithState:&v172 objects:v195 count:16];
+      v36 = v149;
+      if (v59)
+      {
+        v60 = v59;
+        v61 = *v173;
+LABEL_59:
+        v62 = 0;
+        while (1)
+        {
+          if (*v173 != v61)
+          {
+            objc_enumerationMutation(emits);
+          }
+
+          v63 = *(*(&v172 + 1) + 8 * v62);
+          v45 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v63, "pid", v149)}];
+          if (([v34 containsObject:v45] & 1) == 0)
+          {
+            if (WRProcessIsBeingDebugged([v63 pid]))
+            {
+              workflow10 = [(WRWorkflowEventTracker *)v154 workflow];
+              [workflow10 name];
+
+              [(WRWorkflowEventTracker *)v154 eventIdentifier];
+              eventIdentifier7 = [(WRWorkflowEventTracker *)v154 eventIdentifier];
+
+              v104 = __error();
+              v81 = *v104;
+              v82 = _wrlog(v104);
+              v105 = os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT);
+              if (eventIdentifier7)
+              {
+                if (v105)
+                {
+                  workflow11 = [(WRWorkflowEventTracker *)v154 workflow];
+                  name4 = [workflow11 name];
+                  eventIdentifier8 = [(WRWorkflowEventTracker *)v154 eventIdentifier];
+                  v109 = [v63 pid];
+                  *buf = 138543874;
+                  v198 = name4;
+                  v199 = 2114;
+                  v200 = eventIdentifier8;
+                  v201 = 1024;
+                  v202 = v109;
+                  _os_log_impl(&dword_2746E5000, v82, OS_LOG_TYPE_DEFAULT, "%{public}@<%{public}@>: Process [%d] is being debugged, not saving diagnostics", buf, 0x1Cu);
+                }
+
+                goto LABEL_109;
+              }
+
+              if (!v105)
+              {
+                goto LABEL_109;
+              }
+
+              workflow6 = [(WRWorkflowEventTracker *)v154 workflow];
               name3 = [workflow6 name];
-              v109 = [v62 pid];
+              v114 = [v63 pid];
               *buf = 138543618;
-              v189 = name3;
-              v190 = 1024;
-              LODWORD(v191) = v109;
-              _os_log_impl(&dword_2746E5000, v80, OS_LOG_TYPE_DEFAULT, "%{public}@: Process [%d] is being debugged, not saving diagnostics", buf, 0x12u);
+              v198 = name3;
+              v199 = 1024;
+              LODWORD(v200) = v114;
+              _os_log_impl(&dword_2746E5000, v82, OS_LOG_TYPE_DEFAULT, "%{public}@: Process [%d] is being debugged, not saving diagnostics", buf, 0x12u);
 LABEL_107:
 
 LABEL_108:
               goto LABEL_109;
             }
 
-            [v33 addObject:v44];
+            [v34 addObject:v45];
           }
 
-          if (v59 == ++v61)
+          if (v60 == ++v62)
           {
-            v59 = [emits countByEnumeratingWithState:&v163 objects:v186 count:16];
-            if (v59)
+            v60 = [emits countByEnumeratingWithState:&v172 objects:v195 count:16];
+            if (v60)
             {
               goto LABEL_59;
             }
@@ -5315,58 +5355,58 @@ LABEL_108:
         }
       }
 
-      v36 = obj + 1;
-      selfCopy = v145;
-      allSignpostTrackers = v149;
+      v37 = obj + 1;
+      selfCopy = v154;
+      allSignpostTrackers = v158;
     }
 
-    while (obj + 1 != v141);
-    v141 = [v149 countByEnumeratingWithState:&v175 objects:v195 count:16];
+    while (obj + 1 != v150);
+    v150 = [v158 countByEnumeratingWithState:&v184 objects:v204 count:16];
   }
 
-  while (v141);
+  while (v150);
 LABEL_69:
 
-  v161 = 0u;
-  v162 = 0u;
-  v159 = 0u;
-  v160 = 0u;
-  v146 = selfCopy;
+  v170 = 0u;
+  v171 = 0u;
+  v168 = 0u;
+  v169 = 0u;
+  v155 = selfCopy;
   diagnosticsExceedingThresholds = [(WRWorkflowEventTracker *)selfCopy diagnosticsExceedingThresholds];
-  v64 = [diagnosticsExceedingThresholds countByEnumeratingWithState:&v159 objects:v185 count:16];
-  v65 = v64;
-  v66 = v64 != 0;
-  v67 = 0;
-  if (v64)
+  v65 = [diagnosticsExceedingThresholds countByEnumeratingWithState:&v168 objects:v194 count:16];
+  v66 = v65;
+  v67 = v65 != 0;
+  v68 = 0;
+  if (v65)
   {
-    v68 = *v160;
-    v69 = v64;
+    v69 = *v169;
+    v70 = v65;
     while (2)
     {
-      for (k = 0; k != v69; ++k)
+      for (k = 0; k != v70; ++k)
       {
-        if (*v160 != v68)
+        if (*v169 != v69)
         {
           objc_enumerationMutation(diagnosticsExceedingThresholds);
         }
 
-        v71 = *(*(&v159 + 1) + 8 * k);
-        if ([v71 gatherTailspin])
+        v72 = *(*(&v168 + 1) + 8 * k);
+        if ([v72 gatherTailspin])
         {
-          if ([v71 tailspinIncludeOSLogs])
+          if ([v72 tailspinIncludeOSLogs])
           {
 
-            LOBYTE(v75) = 1;
-            v72 = v146;
+            LOBYTE(v76) = 1;
+            v73 = v155;
             goto LABEL_112;
           }
 
-          v67 = 1;
+          v68 = 1;
         }
       }
 
-      v69 = [diagnosticsExceedingThresholds countByEnumeratingWithState:&v159 objects:v185 count:16];
-      if (v69)
+      v70 = [diagnosticsExceedingThresholds countByEnumeratingWithState:&v168 objects:v194 count:16];
+      if (v70)
       {
         continue;
       }
@@ -5375,18 +5415,18 @@ LABEL_69:
     }
   }
 
-  v72 = v146;
-  error2 = [(WRWorkflowEventTracker *)v146 error];
+  v73 = v155;
+  error2 = [(WRWorkflowEventTracker *)v155 error];
 
   if (!error2)
   {
-    v157 = 0u;
-    v158 = 0u;
-    v155 = 0u;
-    v156 = 0u;
-    if (v146)
+    v166 = 0u;
+    v167 = 0u;
+    v164 = 0u;
+    v165 = 0u;
+    if (v155)
     {
-      Property = objc_getProperty(v146, v74, 104, 1);
+      Property = objc_getProperty(v155, v75, 104, 1);
     }
 
     else
@@ -5395,70 +5435,70 @@ LABEL_69:
     }
 
     obja = Property;
-    v150 = [obja countByEnumeratingWithState:&v155 objects:v184 count:16];
-    v75 = 0;
-    if (v150)
+    v159 = [obja countByEnumeratingWithState:&v164 objects:v193 count:16];
+    v76 = 0;
+    if (v159)
     {
-      v148 = *v156;
+      v157 = *v165;
       while (2)
       {
-        v116 = 0;
-        v117 = v75;
+        v122 = 0;
+        v123 = v76;
         do
         {
-          if (*v156 != v148)
+          if (*v165 != v157)
           {
             objc_enumerationMutation(obja);
           }
 
-          v118 = *(*(&v155 + 1) + 8 * v116);
-          v151 = 0u;
-          v152 = 0u;
-          v153 = 0u;
-          v154 = 0u;
-          eventStart2 = [(WRWorkflowEventTracker *)v72 eventStart];
+          v124 = *(*(&v164 + 1) + 8 * v122);
+          v160 = 0u;
+          v161 = 0u;
+          v162 = 0u;
+          v163 = 0u;
+          eventStart2 = [(WRWorkflowEventTracker *)v73 eventStart];
           [eventStart2 machContTimeNs];
-          eventEnd2 = [(WRWorkflowEventTracker *)v72 eventEnd];
+          eventEnd2 = [(WRWorkflowEventTracker *)v73 eventEnd];
           [eventEnd2 machContTimeNs];
-          v121 = [WRSignpostTracker diagnosticsExceedingThresholdsWithEventStartNs:v118 eventEndNs:?];
+          v128 = [WRSignpostTracker diagnosticsExceedingThresholdsWithEventStartNs:v124 eventEndNs:v127];
 
-          v122 = [v121 countByEnumeratingWithState:&v151 objects:v183 count:16];
-          if (v122)
+          v129 = [v128 countByEnumeratingWithState:&v160 objects:v192 count:16];
+          if (v129)
           {
-            v123 = v122;
-            v142 = v117;
-            v124 = *v152;
+            v130 = v129;
+            v151 = v123;
+            v131 = *v161;
 LABEL_127:
-            v125 = 0;
+            v132 = 0;
             while (1)
             {
-              if (*v152 != v124)
+              if (*v161 != v131)
               {
-                objc_enumerationMutation(v121);
+                objc_enumerationMutation(v128);
               }
 
-              v126 = *(*(&v151 + 1) + 8 * v125);
-              if ([v126 gatherTailspin])
+              v133 = *(*(&v160 + 1) + 8 * v132);
+              if ([v133 gatherTailspin])
               {
+                v68 = 1;
+                v76 = 1;
                 v67 = 1;
-                v75 = 1;
-                v66 = 1;
-                if ([v126 tailspinIncludeOSLogs])
+                if ([v133 tailspinIncludeOSLogs])
                 {
                   break;
                 }
               }
 
-              if (v123 == ++v125)
+              if (v130 == ++v132)
               {
-                v123 = [v121 countByEnumeratingWithState:&v151 objects:v183 count:16];
-                if (v123)
+                v130 = [v128 countByEnumeratingWithState:&v160 objects:v192 count:16];
+                if (v130)
                 {
                   goto LABEL_127;
                 }
 
-                v66 = 1;
-                v75 = v142;
+                v67 = 1;
+                v76 = v151;
                 break;
               }
             }
@@ -5466,25 +5506,25 @@ LABEL_127:
 
           else
           {
-            v75 = v117;
+            v76 = v123;
           }
 
-          if (v67 & 1) != 0 && (v75)
+          if (v68 & 1) != 0 && (v76)
           {
-            LOBYTE(v75) = 1;
-            v67 = 1;
-            v72 = v146;
+            LOBYTE(v76) = 1;
+            v68 = 1;
+            v73 = v155;
             goto LABEL_142;
           }
 
-          ++v116;
-          v117 = v75;
-          v72 = v146;
+          ++v122;
+          v123 = v76;
+          v73 = v155;
         }
 
-        while (v116 != v150);
-        v150 = [obja countByEnumeratingWithState:&v155 objects:v184 count:16];
-        if (v150)
+        while (v122 != v159);
+        v159 = [obja countByEnumeratingWithState:&v164 objects:v193 count:16];
+        if (v159)
         {
           continue;
         }
@@ -5495,176 +5535,179 @@ LABEL_127:
 
 LABEL_142:
 
-    if (!v66)
+    if (!v67)
     {
       goto LABEL_147;
     }
 
 LABEL_143:
-    if (v67)
+    if (v68)
     {
 LABEL_112:
       if (MEMORY[0x2822399D0])
       {
-        v15 = [(WRWorkflowEventTracker *)v72 gatherDiagnosticsWithTailspin:v75 & 1 tailspinIncludeOSLogs:?];
+        v16 = [(WRWorkflowEventTracker *)v73 gatherDiagnosticsWithTailspin:v76 & 1 tailspinIncludeOSLogs:?];
         goto LABEL_110;
       }
 
-      workflow12 = [(WRWorkflowEventTracker *)v72 workflow];
+      workflow12 = [(WRWorkflowEventTracker *)v73 workflow];
       [workflow12 name];
 
-      [(WRWorkflowEventTracker *)v72 eventIdentifier];
-      eventIdentifier9 = [(WRWorkflowEventTracker *)v72 eventIdentifier];
+      [(WRWorkflowEventTracker *)v73 eventIdentifier];
+      eventIdentifier9 = [(WRWorkflowEventTracker *)v73 eventIdentifier];
 
-      v112 = *__error();
-      v113 = _wrlog();
-      v114 = os_log_type_enabled(v113, OS_LOG_TYPE_ERROR);
+      v117 = __error();
+      v118 = *v117;
+      v119 = _wrlog(v117);
+      v120 = os_log_type_enabled(v119, OS_LOG_TYPE_ERROR);
       if (eventIdentifier9)
       {
-        if (v114)
+        if (v120)
         {
           [WRWorkflowEventTracker gatherDiagnosticsIfNeeded];
         }
       }
 
-      else if (v114)
+      else if (v120)
       {
-        [(WRWorkflowEventTracker *)v72 gatherDiagnosticsIfNeeded];
+        [(WRWorkflowEventTracker *)v73 gatherDiagnosticsIfNeeded];
       }
     }
 
     else
     {
-      workflow13 = [(WRWorkflowEventTracker *)v72 workflow];
+      workflow13 = [(WRWorkflowEventTracker *)v73 workflow];
       [workflow13 name];
 
-      [(WRWorkflowEventTracker *)v72 eventIdentifier];
-      eventIdentifier10 = [(WRWorkflowEventTracker *)v72 eventIdentifier];
+      [(WRWorkflowEventTracker *)v73 eventIdentifier];
+      eventIdentifier10 = [(WRWorkflowEventTracker *)v73 eventIdentifier];
 
-      v112 = *__error();
-      v113 = _wrlog();
-      v129 = os_log_type_enabled(v113, OS_LOG_TYPE_ERROR);
+      v136 = __error();
+      v118 = *v136;
+      v119 = _wrlog(v136);
+      v137 = os_log_type_enabled(v119, OS_LOG_TYPE_ERROR);
       if (eventIdentifier10)
       {
-        if (v129)
+        if (v137)
         {
           [WRWorkflowEventTracker gatherDiagnosticsIfNeeded];
         }
       }
 
-      else if (v129)
+      else if (v137)
       {
-        [(WRWorkflowEventTracker *)v72 gatherDiagnosticsIfNeeded];
+        [(WRWorkflowEventTracker *)v73 gatherDiagnosticsIfNeeded];
       }
     }
 
-    v15 = 0;
-    *__error() = v112;
+    v16 = 0;
+    *__error() = v118;
     goto LABEL_110;
   }
 
-  if (v65)
+  if (v66)
   {
-    LOBYTE(v75) = 0;
+    LOBYTE(v76) = 0;
     goto LABEL_143;
   }
 
 LABEL_147:
-  workflow14 = [(WRWorkflowEventTracker *)v72 workflow];
+  workflow14 = [(WRWorkflowEventTracker *)v73 workflow];
   [workflow14 name];
 
-  [(WRWorkflowEventTracker *)v72 eventIdentifier];
-  eventIdentifier11 = [(WRWorkflowEventTracker *)v72 eventIdentifier];
+  [(WRWorkflowEventTracker *)v73 eventIdentifier];
+  eventIdentifier11 = [(WRWorkflowEventTracker *)v73 eventIdentifier];
 
-  v132 = *__error();
-  v133 = _wrlog();
-  v134 = os_log_type_enabled(v133, OS_LOG_TYPE_INFO);
+  v140 = __error();
+  v141 = *v140;
+  v142 = _wrlog(v140);
+  v143 = os_log_type_enabled(v142, OS_LOG_TYPE_INFO);
   if (eventIdentifier11)
   {
-    if (v134)
+    if (v143)
     {
-      workflow15 = [(WRWorkflowEventTracker *)v72 workflow];
+      workflow15 = [(WRWorkflowEventTracker *)v73 workflow];
       name5 = [workflow15 name];
-      eventIdentifier12 = [(WRWorkflowEventTracker *)v72 eventIdentifier];
+      eventIdentifier12 = [(WRWorkflowEventTracker *)v73 eventIdentifier];
       *buf = 138543618;
-      v189 = name5;
-      v190 = 2114;
-      v191 = eventIdentifier12;
-      _os_log_impl(&dword_2746E5000, v133, OS_LOG_TYPE_INFO, "%{public}@<%{public}@>: No diagnostic thresholds were exceeded", buf, 0x16u);
+      v198 = name5;
+      v199 = 2114;
+      v200 = eventIdentifier12;
+      _os_log_impl(&dword_2746E5000, v142, OS_LOG_TYPE_INFO, "%{public}@<%{public}@>: No diagnostic thresholds were exceeded", buf, 0x16u);
     }
   }
 
-  else if (v134)
+  else if (v143)
   {
-    workflow16 = [(WRWorkflowEventTracker *)v72 workflow];
+    workflow16 = [(WRWorkflowEventTracker *)v73 workflow];
     name6 = [workflow16 name];
     *buf = 138543362;
-    v189 = name6;
-    _os_log_impl(&dword_2746E5000, v133, OS_LOG_TYPE_INFO, "%{public}@: No diagnostic thresholds were exceeded", buf, 0xCu);
+    v198 = name6;
+    _os_log_impl(&dword_2746E5000, v142, OS_LOG_TYPE_INFO, "%{public}@: No diagnostic thresholds were exceeded", buf, 0xCu);
   }
 
-  v15 = 0;
-  *__error() = v132;
+  v16 = 0;
+  *__error() = v141;
 LABEL_110:
 
-LABEL_14:
-  v16 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v16;
 }
 
 uint64_t __78__WRWorkflowEventTracker_gatherDiagnosticsWithTailspin_tailspinIncludeOSLogs___block_invoke(uint64_t a1, char a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   if ((a2 & 1) == 0)
   {
-    v10 = (a1 + 32);
-    v11 = [*(a1 + 32) workflow];
-    [v11 name];
+    v11 = (a1 + 32);
+    v12 = [*(a1 + 32) workflow];
+    [v12 name];
 
-    [*v10 eventIdentifier];
-    v12 = [*v10 eventIdentifier];
+    [*v11 eventIdentifier];
+    v13 = [*v11 eventIdentifier];
 
-    v13 = *__error();
-    v14 = _wrlog();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
-    if (v12)
+    v14 = __error();
+    v15 = *v14;
+    v16 = _wrlog(v14);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+    if (v13)
     {
-      if (v15)
+      if (v17)
       {
         __78__WRWorkflowEventTracker_gatherDiagnosticsWithTailspin_tailspinIncludeOSLogs___block_invoke_cold_1();
       }
     }
 
-    else if (v15)
+    else if (v17)
     {
       __78__WRWorkflowEventTracker_gatherDiagnosticsWithTailspin_tailspinIncludeOSLogs___block_invoke_cold_2();
     }
 
-    *__error() = v13;
-    goto LABEL_24;
+    *__error() = v15;
+    return close(*(a1 + 56));
   }
 
   v3 = [*(a1 + 40) fileSystemRepresentation];
   if (!v3)
   {
-    v16 = [*(a1 + 32) workflow];
-    [v16 name];
+    v18 = [*(a1 + 32) workflow];
+    [v18 name];
 
     [*(a1 + 32) eventIdentifier];
-    v17 = [*(a1 + 32) eventIdentifier];
+    v19 = [*(a1 + 32) eventIdentifier];
 
-    v7 = *__error();
-    v8 = _wrlog();
-    v18 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-    if (v17)
+    v20 = __error();
+    v8 = *v20;
+    v9 = _wrlog(v20);
+    v21 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+    if (v19)
     {
-      if (v18)
+      if (v21)
       {
         __78__WRWorkflowEventTracker_gatherDiagnosticsWithTailspin_tailspinIncludeOSLogs___block_invoke_cold_5();
       }
     }
 
-    else if (v18)
+    else if (v21)
     {
       __78__WRWorkflowEventTracker_gatherDiagnosticsWithTailspin_tailspinIncludeOSLogs___block_invoke_cold_6();
     }
@@ -5681,89 +5724,86 @@ uint64_t __78__WRWorkflowEventTracker_gatherDiagnosticsWithTailspin_tailspinIncl
     [*(a1 + 32) eventIdentifier];
     v6 = [*(a1 + 32) eventIdentifier];
 
-    v7 = *__error();
-    v8 = _wrlog();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+    v7 = __error();
+    v8 = *v7;
+    v9 = _wrlog(v7);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
     if (v6)
     {
-      if (v9)
+      if (v10)
       {
         __78__WRWorkflowEventTracker_gatherDiagnosticsWithTailspin_tailspinIncludeOSLogs___block_invoke_cold_3();
       }
     }
 
-    else if (v9)
+    else if (v10)
     {
       __78__WRWorkflowEventTracker_gatherDiagnosticsWithTailspin_tailspinIncludeOSLogs___block_invoke_cold_4();
     }
 
 LABEL_23:
 
-    *__error() = v7;
-LABEL_24:
-    result = close(*(a1 + 56));
-    goto LABEL_25;
+    *__error() = v8;
+    return close(*(a1 + 56));
   }
 
   close(*(a1 + 56));
-  v19 = [*(a1 + 32) workflow];
-  [v19 name];
+  v22 = [*(a1 + 32) workflow];
+  [v22 name];
 
   [*(a1 + 32) eventIdentifier];
-  v20 = [*(a1 + 32) eventIdentifier];
+  v23 = [*(a1 + 32) eventIdentifier];
 
-  v21 = *__error();
-  v22 = _wrlog();
-  v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
-  if (v20)
+  v24 = __error();
+  v25 = *v24;
+  v26 = _wrlog(v24);
+  v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
+  if (v23)
   {
-    if (v23)
+    if (v27)
     {
-      v24 = [*(a1 + 32) workflow];
-      v25 = [v24 name];
-      v26 = [*(a1 + 32) eventIdentifier];
-      v31 = 138543874;
-      v32 = v25;
-      v33 = 2114;
-      v34 = v26;
-      v35 = 2082;
-      v36 = v4;
-      _os_log_impl(&dword_2746E5000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@<%{public}@>: saved tailspin file %{public}s for slow workflow, notifying spindump", &v31, 0x20u);
+      v28 = [*(a1 + 32) workflow];
+      v29 = [v28 name];
+      v30 = [*(a1 + 32) eventIdentifier];
+      v34 = 138543874;
+      v35 = v29;
+      v36 = 2114;
+      v37 = v30;
+      v38 = 2082;
+      v39 = v4;
+      _os_log_impl(&dword_2746E5000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@<%{public}@>: saved tailspin file %{public}s for slow workflow, notifying spindump", &v34, 0x20u);
     }
   }
 
-  else if (v23)
+  else if (v27)
   {
-    v29 = [*(a1 + 32) workflow];
-    v30 = [v29 name];
-    v31 = 138543618;
-    v32 = v30;
-    v33 = 2082;
-    v34 = v4;
-    _os_log_impl(&dword_2746E5000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@: saved tailspin file %{public}s for slow workflow, notifying spindump", &v31, 0x16u);
+    v32 = [*(a1 + 32) workflow];
+    v33 = [v32 name];
+    v34 = 138543618;
+    v35 = v33;
+    v36 = 2082;
+    v37 = v4;
+    _os_log_impl(&dword_2746E5000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@: saved tailspin file %{public}s for slow workflow, notifying spindump", &v34, 0x16u);
   }
 
-  *__error() = v21;
+  *__error() = v25;
   SPReportWorkflowResponsivenessDelay();
-  result = +[WRWorkflowEventTracker cleanupWorkflowResponsivenessDiagnosticsDirectory];
-LABEL_25:
-  v28 = *MEMORY[0x277D85DE8];
-  return result;
+  return +[WRWorkflowEventTracker cleanupWorkflowResponsivenessDiagnosticsDirectory];
 }
 
 - ($F99D9A4FB75BC57F3386B8DC8EE08D7A)stats
 {
   v4 = retstr;
-  v161 = *MEMORY[0x277D85DE8];
+  v164 = *MEMORY[0x277D85DE8];
   retstr->var0 = 0;
   retstr->var1 = 0;
   retstr->var2 = 0;
-  v146 = 0;
+  v149 = 0;
+  v150 = 0;
   v147 = 0;
-  v144 = 0;
+  v148 = 0;
   v145 = 0;
-  v142 = 0;
-  v143 = 0;
+  v146 = 0;
   eventStart = [(WRWorkflowEventTracker *)self eventStart];
   machContTimeNs = [eventStart machContTimeNs];
 
@@ -5773,52 +5813,52 @@ LABEL_25:
 
   if (!machContTimeNs || !machContTimeNs2 || machContTimeNs2 <= machContTimeNs)
   {
-    goto LABEL_100;
+    return result;
   }
 
-  v109 = machContTimeNs2 - machContTimeNs;
-  v140 = 0u;
+  v112 = machContTimeNs2 - machContTimeNs;
+  v143 = 0u;
+  v144 = 0u;
   v141 = 0u;
-  v138 = 0u;
-  v139 = 0u;
+  v142 = 0u;
   obj = [(WRWorkflowEventTracker *)self allSignpostTrackers];
-  v123 = [obj countByEnumeratingWithState:&v138 objects:v160 count:16];
-  if (v123)
+  v126 = [obj countByEnumeratingWithState:&v141 objects:v163 count:16];
+  if (v126)
   {
-    v131 = 0;
-    v132 = 0;
-    v10 = 0;
     v134 = 0;
+    v135 = 0;
+    v10 = 0;
+    v137 = 0;
     v11 = 0;
     v12 = 0;
-    v122 = *v139;
-    v121 = v4;
+    v125 = *v142;
+    v124 = v4;
     while (1)
     {
-      for (i = 0; i != v123; ++i)
+      for (i = 0; i != v126; ++i)
       {
-        if (*v139 != v122)
+        if (*v142 != v125)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v138 + 1) + 8 * i);
+        v14 = *(*(&v141 + 1) + 8 * i);
         signpost = [v14 signpost];
         networkBound = [signpost networkBound];
 
         intervals = [v14 intervals];
         v17 = [intervals count];
-        v133 = v14;
+        v136 = v14;
         incompleteIntervalStarts = [v14 incompleteIntervalStarts];
-        v135 = [incompleteIntervalStarts count];
-        if (!(v17 + v135))
+        v138 = [incompleteIntervalStarts count];
+        if (!(v17 + v138))
         {
           goto LABEL_52;
         }
 
-        v126 = v12;
-        v125 = i;
-        v124 = networkBound;
+        v129 = v12;
+        v128 = i;
+        v127 = networkBound;
         if (v17)
         {
           __ptr = v10;
@@ -5857,28 +5897,28 @@ LABEL_25:
             if (v27 >= v23)
             {
               __ptr = reallocf(__ptr, 16 * (v11 + 1));
-              v36 = &__ptr[16 * v11];
-              *v36 = v23;
-              v36[1] = v27;
-              signpost2 = [v133 signpost];
+              v37 = &__ptr[16 * v11];
+              *v37 = v23;
+              v37[1] = v27;
+              signpost2 = [v136 signpost];
               networkBound2 = [signpost2 networkBound];
 
               if (networkBound2)
               {
-                v132 = reallocf(v132, 16 * (HIDWORD(v134) + 1));
-                v39 = &v132[16 * HIDWORD(v134)];
-                *v39 = v23;
-                v39[1] = v27;
-                ++HIDWORD(v134);
+                v135 = reallocf(v135, 16 * (HIDWORD(v137) + 1));
+                v40 = &v135[16 * HIDWORD(v137)];
+                *v40 = v23;
+                v40[1] = v27;
+                ++HIDWORD(v137);
               }
 
               else
               {
-                v131 = reallocf(v131, 16 * (v134 + 1));
-                v40 = &v131[16 * v134];
-                *v40 = v23;
-                v40[1] = v27;
-                LODWORD(v134) = v134 + 1;
+                v134 = reallocf(v134, 16 * (v137 + 1));
+                v41 = &v134[16 * v137];
+                *v41 = v23;
+                v41[1] = v27;
+                LODWORD(v137) = v137 + 1;
               }
 
               ++v11;
@@ -5892,111 +5932,112 @@ LABEL_25:
             [(WRWorkflowEventTracker *)selfCopy eventIdentifier];
             eventIdentifier = [(WRWorkflowEventTracker *)selfCopy eventIdentifier];
 
-            v30 = *__error();
-            v31 = _wrlog();
-            v32 = os_log_type_enabled(v31, OS_LOG_TYPE_FAULT);
+            v30 = __error();
+            v31 = *v30;
+            v32 = _wrlog(v30);
+            v33 = os_log_type_enabled(v32, OS_LOG_TYPE_FAULT);
             v17 = v19;
             if (eventIdentifier)
             {
-              if (v32)
+              if (v33)
               {
                 workflow2 = [(WRWorkflowEventTracker *)selfCopy workflow];
                 name = [workflow2 name];
                 eventIdentifier2 = [(WRWorkflowEventTracker *)selfCopy eventIdentifier];
-                v116 = [intervals objectAtIndexedSubscript:v18];
-                start2 = [v116 start];
+                v119 = [intervals objectAtIndexedSubscript:v18];
+                start2 = [v119 start];
                 machContTimeNs5 = [start2 machContTimeNs];
                 v17 = v19;
-                v112 = [intervals objectAtIndexedSubscript:v18];
-                v34 = [v112 end];
-                machContTimeNs6 = [v34 machContTimeNs];
+                v115 = [intervals objectAtIndexedSubscript:v18];
+                v35 = [v115 end];
+                machContTimeNs6 = [v35 machContTimeNs];
                 *buf = 138544642;
-                v149 = name;
-                v150 = 2114;
-                v151 = eventIdentifier2;
-                v152 = 2048;
-                v153 = machContTimeNs5;
-                v154 = 2048;
-                v155 = machContTimeNs6;
-                v156 = 2048;
-                v157 = machContTimeNs;
-                v158 = 2048;
-                v159 = machContTimeNs2;
-                _os_log_fault_impl(&dword_2746E5000, v31, OS_LOG_TYPE_FAULT, "%{public}@<%{public}@>: signpost interval %llu-%llu outside event time range %llu-%llu", buf, 0x3Eu);
+                v152 = name;
+                v153 = 2114;
+                v154 = eventIdentifier2;
+                v155 = 2048;
+                v156 = machContTimeNs5;
+                v157 = 2048;
+                v158 = machContTimeNs6;
+                v159 = 2048;
+                v160 = machContTimeNs;
+                v161 = 2048;
+                v162 = machContTimeNs2;
+                _os_log_fault_impl(&dword_2746E5000, v32, OS_LOG_TYPE_FAULT, "%{public}@<%{public}@>: signpost interval %llu-%llu outside event time range %llu-%llu", buf, 0x3Eu);
 
 LABEL_31:
               }
             }
 
-            else if (v32)
+            else if (v33)
             {
               workflow2 = [(WRWorkflowEventTracker *)selfCopy workflow];
               name = [workflow2 name];
-              v117 = [intervals objectAtIndexedSubscript:v18];
-              start3 = [v117 start];
+              v120 = [intervals objectAtIndexedSubscript:v18];
+              start3 = [v120 start];
               machContTimeNs7 = [start3 machContTimeNs];
               v17 = v19;
-              v41 = [intervals objectAtIndexedSubscript:v18];
-              v42 = [v41 end];
-              machContTimeNs8 = [v42 machContTimeNs];
+              v42 = [intervals objectAtIndexedSubscript:v18];
+              v43 = [v42 end];
+              machContTimeNs8 = [v43 machContTimeNs];
               *buf = 138544386;
-              v149 = name;
-              v150 = 2048;
-              v151 = machContTimeNs7;
-              v152 = 2048;
-              v153 = machContTimeNs8;
-              v154 = 2048;
-              v155 = machContTimeNs;
-              v156 = 2048;
-              v157 = machContTimeNs2;
-              _os_log_fault_impl(&dword_2746E5000, v31, OS_LOG_TYPE_FAULT, "%{public}@: signpost interval %llu-%llu outside event time range %llu-%llu", buf, 0x34u);
+              v152 = name;
+              v153 = 2048;
+              v154 = machContTimeNs7;
+              v155 = 2048;
+              v156 = machContTimeNs8;
+              v157 = 2048;
+              v158 = machContTimeNs;
+              v159 = 2048;
+              v160 = machContTimeNs2;
+              _os_log_fault_impl(&dword_2746E5000, v32, OS_LOG_TYPE_FAULT, "%{public}@: signpost interval %llu-%llu outside event time range %llu-%llu", buf, 0x34u);
 
               goto LABEL_31;
             }
 
-            *__error() = v30;
+            *__error() = v31;
 LABEL_28:
             if (v17 == ++v18)
             {
               v10 = __ptr;
-              v147 = __ptr;
-              v143 = v131;
-              v145 = v132;
-              v4 = v121;
-              v12 = v126;
-              i = v125;
-              networkBound = v124;
+              v150 = __ptr;
+              v146 = v134;
+              v148 = v135;
+              v4 = v124;
+              v12 = v129;
+              i = v128;
+              networkBound = v127;
               break;
             }
           }
         }
 
-        LODWORD(v146) = v11;
-        LODWORD(v144) = HIDWORD(v134);
-        LODWORD(v142) = v134;
-        if (!v135)
+        LODWORD(v149) = v11;
+        LODWORD(v147) = HIDWORD(v137);
+        LODWORD(v145) = v137;
+        if (!v138)
         {
           goto LABEL_51;
         }
 
-        v44 = 0;
+        v45 = 0;
         var2 = v4->var2;
         do
         {
-          v46 = [incompleteIntervalStarts objectAtIndexedSubscript:v44];
-          machContTimeNs9 = [v46 machContTimeNs];
+          v47 = [incompleteIntervalStarts objectAtIndexedSubscript:v45];
+          machContTimeNs9 = [v47 machContTimeNs];
 
           if (machContTimeNs9 <= machContTimeNs)
           {
-            v48 = machContTimeNs;
+            v49 = machContTimeNs;
           }
 
           else
           {
-            v48 = machContTimeNs9;
+            v49 = machContTimeNs9;
           }
 
-          if (machContTimeNs2 < v48)
+          if (machContTimeNs2 < v49)
           {
             workflow3 = [(WRWorkflowEventTracker *)selfCopy workflow];
             [workflow3 name];
@@ -6004,105 +6045,106 @@ LABEL_28:
             [(WRWorkflowEventTracker *)selfCopy eventIdentifier];
             eventIdentifier3 = [(WRWorkflowEventTracker *)selfCopy eventIdentifier];
 
-            v51 = *__error();
-            v52 = _wrlog();
-            v53 = os_log_type_enabled(v52, OS_LOG_TYPE_FAULT);
+            v52 = __error();
+            v53 = *v52;
+            v54 = _wrlog(v52);
+            v55 = os_log_type_enabled(v54, OS_LOG_TYPE_FAULT);
             if (eventIdentifier3)
             {
-              if (v53)
+              if (v55)
               {
                 workflow4 = [(WRWorkflowEventTracker *)selfCopy workflow];
                 __ptra = [workflow4 name];
                 eventIdentifier4 = [(WRWorkflowEventTracker *)selfCopy eventIdentifier];
-                v55 = [incompleteIntervalStarts objectAtIndexedSubscript:v44];
-                machContTimeNs10 = [v55 machContTimeNs];
+                v57 = [incompleteIntervalStarts objectAtIndexedSubscript:v45];
+                machContTimeNs10 = [v57 machContTimeNs];
                 *buf = 138544130;
-                v149 = __ptra;
-                v150 = 2114;
-                v151 = eventIdentifier4;
-                v152 = 2048;
-                v153 = machContTimeNs10;
-                v154 = 2048;
-                v155 = machContTimeNs2;
-                _os_log_fault_impl(&dword_2746E5000, v52, OS_LOG_TYPE_FAULT, "%{public}@<%{public}@>: incomplete interval %llu after event end %llu", buf, 0x2Au);
+                v152 = __ptra;
+                v153 = 2114;
+                v154 = eventIdentifier4;
+                v155 = 2048;
+                v156 = machContTimeNs10;
+                v157 = 2048;
+                v158 = machContTimeNs2;
+                _os_log_fault_impl(&dword_2746E5000, v54, OS_LOG_TYPE_FAULT, "%{public}@<%{public}@>: incomplete interval %llu after event end %llu", buf, 0x2Au);
 
-                v57 = workflow4;
+                v59 = workflow4;
                 goto LABEL_50;
               }
             }
 
-            else if (v53)
+            else if (v55)
             {
               __ptrb = [(WRWorkflowEventTracker *)selfCopy workflow];
               name2 = [__ptrb name];
-              v64 = [incompleteIntervalStarts objectAtIndexedSubscript:v44];
-              machContTimeNs11 = [v64 machContTimeNs];
+              v66 = [incompleteIntervalStarts objectAtIndexedSubscript:v45];
+              machContTimeNs11 = [v66 machContTimeNs];
               *buf = 138543874;
-              v149 = name2;
-              v150 = 2048;
-              v151 = machContTimeNs11;
-              v152 = 2048;
-              v153 = machContTimeNs2;
-              _os_log_fault_impl(&dword_2746E5000, v52, OS_LOG_TYPE_FAULT, "%{public}@: incomplete interval %llu after event end %llu", buf, 0x20u);
+              v152 = name2;
+              v153 = 2048;
+              v154 = machContTimeNs11;
+              v155 = 2048;
+              v156 = machContTimeNs2;
+              _os_log_fault_impl(&dword_2746E5000, v54, OS_LOG_TYPE_FAULT, "%{public}@: incomplete interval %llu after event end %llu", buf, 0x20u);
 
-              v57 = __ptrb;
+              v59 = __ptrb;
 LABEL_50:
             }
 
-            *__error() = v51;
+            *__error() = v53;
             goto LABEL_47;
           }
 
           ++var2;
           v10 = reallocf(v10, 16 * (v11 + 1));
-          v58 = &v10[16 * v11];
-          *v58 = v48;
-          v58[1] = machContTimeNs2;
-          signpost3 = [v133 signpost];
+          v60 = &v10[16 * v11];
+          *v60 = v49;
+          v60[1] = machContTimeNs2;
+          signpost3 = [v136 signpost];
           networkBound3 = [signpost3 networkBound];
 
           if (networkBound3)
           {
-            v132 = reallocf(v132, 16 * (HIDWORD(v134) + 1));
-            v61 = &v132[16 * HIDWORD(v134)];
-            *v61 = v48;
-            v61[1] = machContTimeNs2;
-            ++HIDWORD(v134);
+            v135 = reallocf(v135, 16 * (HIDWORD(v137) + 1));
+            v63 = &v135[16 * HIDWORD(v137)];
+            *v63 = v49;
+            v63[1] = machContTimeNs2;
+            ++HIDWORD(v137);
           }
 
           else
           {
-            v131 = reallocf(v131, 16 * (v134 + 1));
-            v62 = &v131[16 * v134];
-            *v62 = v48;
-            v62[1] = machContTimeNs2;
-            LODWORD(v134) = v134 + 1;
+            v134 = reallocf(v134, 16 * (v137 + 1));
+            v64 = &v134[16 * v137];
+            *v64 = v49;
+            v64[1] = machContTimeNs2;
+            LODWORD(v137) = v137 + 1;
           }
 
           ++v11;
 LABEL_47:
-          ++v44;
+          ++v45;
         }
 
-        while (v135 != v44);
-        v4 = v121;
-        v121->var2 = var2;
-        v147 = v10;
-        v143 = v131;
-        v145 = v132;
-        v12 = v126;
-        i = v125;
-        networkBound = v124;
+        while (v138 != v45);
+        v4 = v124;
+        v124->var2 = var2;
+        v150 = v10;
+        v146 = v134;
+        v148 = v135;
+        v12 = v129;
+        i = v128;
+        networkBound = v127;
 LABEL_51:
-        LODWORD(v146) = v11;
-        LODWORD(v144) = HIDWORD(v134);
-        LODWORD(v142) = v134;
+        LODWORD(v149) = v11;
+        LODWORD(v147) = HIDWORD(v137);
+        LODWORD(v145) = v137;
 LABEL_52:
         v12 |= networkBound;
       }
 
-      v123 = [obj countByEnumeratingWithState:&v138 objects:v160 count:16];
-      if (!v123)
+      v126 = [obj countByEnumeratingWithState:&v141 objects:v163 count:16];
+      if (!v126)
       {
         goto LABEL_56;
       }
@@ -6112,21 +6154,21 @@ LABEL_52:
   LOBYTE(v12) = 0;
 LABEL_56:
 
-  WRRangesSortAndCoalesce(&v146);
-  v66 = v146;
-  v67 = 0;
-  if (v146)
+  WRRangesSortAndCoalesce(&v149);
+  v68 = v149;
+  v69 = 0;
+  if (v149)
   {
-    v68 = v147 + 8;
+    v70 = v150 + 8;
     do
     {
-      v67 = &v67[*v68 - *(v68 - 1)];
-      v68 += 2;
-      --v66;
+      v69 = &v69[*v70 - *(v70 - 1)];
+      v70 += 2;
+      --v68;
     }
 
-    while (v66);
-    if (v67 > v109)
+    while (v68);
+    if (v69 > v112)
     {
       workflow5 = [(WRWorkflowEventTracker *)selfCopy workflow];
       [workflow5 name];
@@ -6134,169 +6176,170 @@ LABEL_56:
       [(WRWorkflowEventTracker *)selfCopy eventIdentifier];
       eventIdentifier5 = [(WRWorkflowEventTracker *)selfCopy eventIdentifier];
 
-      v71 = *__error();
-      v72 = _wrlog();
-      v73 = os_log_type_enabled(v72, OS_LOG_TYPE_FAULT);
+      v73 = __error();
+      v74 = *v73;
+      v75 = _wrlog(v73);
+      v76 = os_log_type_enabled(v75, OS_LOG_TYPE_FAULT);
       if (eventIdentifier5)
       {
-        if (v73)
+        if (v76)
         {
           workflow6 = [(WRWorkflowEventTracker *)selfCopy workflow];
           name3 = [workflow6 name];
           eventIdentifier6 = [(WRWorkflowEventTracker *)selfCopy eventIdentifier];
           *buf = 138544130;
-          v149 = name3;
-          v150 = 2114;
-          v151 = eventIdentifier6;
-          v152 = 2048;
-          v153 = v67;
-          v154 = 2048;
-          v155 = v109;
-          _os_log_fault_impl(&dword_2746E5000, v72, OS_LOG_TYPE_FAULT, "%{public}@<%{public}@>: union of all signposts duration %llu > workflow event duration %llu", buf, 0x2Au);
+          v152 = name3;
+          v153 = 2114;
+          v154 = eventIdentifier6;
+          v155 = 2048;
+          v156 = v69;
+          v157 = 2048;
+          v158 = v112;
+          _os_log_fault_impl(&dword_2746E5000, v75, OS_LOG_TYPE_FAULT, "%{public}@<%{public}@>: union of all signposts duration %llu > workflow event duration %llu", buf, 0x2Au);
 
 LABEL_102:
         }
       }
 
-      else if (v73)
+      else if (v76)
       {
         workflow6 = [(WRWorkflowEventTracker *)selfCopy workflow];
         name3 = [workflow6 name];
         *buf = 138543874;
-        v149 = name3;
-        v150 = 2048;
-        v151 = v67;
-        v152 = 2048;
-        v153 = v109;
-        _os_log_fault_impl(&dword_2746E5000, v72, OS_LOG_TYPE_FAULT, "%{public}@: union of all signposts duration %llu > workflow event duration %llu", buf, 0x20u);
+        v152 = name3;
+        v153 = 2048;
+        v154 = v69;
+        v155 = 2048;
+        v156 = v112;
+        _os_log_fault_impl(&dword_2746E5000, v75, OS_LOG_TYPE_FAULT, "%{public}@: union of all signposts duration %llu > workflow event duration %llu", buf, 0x20u);
         goto LABEL_102;
       }
 
-      v78 = __error();
-      v77 = 0;
-      *v78 = v71;
+      v81 = __error();
+      v80 = 0;
+      *v81 = v74;
       goto LABEL_66;
     }
   }
 
-  v77 = v109 - v67;
+  v80 = v112 - v69;
 LABEL_66:
-  v4->var0 = v77;
-  LODWORD(v146) = 0;
-  free(v147);
-  v147 = 0;
+  v4->var0 = v80;
+  LODWORD(v149) = 0;
+  free(v150);
+  v150 = 0;
   if (v12)
   {
-    WRRangesSortAndCoalesce(&v144);
-    WRRangesSortAndCoalesce(&v142);
-    v79 = v144;
-    if (!v144)
+    WRRangesSortAndCoalesce(&v147);
+    WRRangesSortAndCoalesce(&v145);
+    v82 = v147;
+    if (!v147)
     {
       goto LABEL_90;
     }
 
-    v80 = v142;
-    if (!v142)
+    v83 = v145;
+    if (!v145)
     {
       goto LABEL_86;
     }
 
-    v81 = 0;
-    v82 = 0;
+    v84 = 0;
+    v85 = 0;
     do
     {
-      if (v82 < v80)
+      if (v85 < v83)
       {
-        v83 = v145;
-        v84 = 16 * v82;
+        v86 = v148;
+        v87 = 16 * v85;
         do
         {
-          v85 = *(v143 + v84 + 8);
-          v86 = &v83[2 * v81];
-          if (v85 > *v86)
+          v88 = *(v146 + v87 + 8);
+          v89 = &v86[2 * v84];
+          if (v88 > *v89)
           {
-            v87 = *(v143 + v84);
-            v88 = v86[1];
-            if (v87 >= v88)
+            v90 = *(v146 + v87);
+            v91 = v89[1];
+            if (v90 >= v91)
             {
               break;
             }
 
-            if (*v86 >= v87)
+            if (*v89 >= v90)
             {
-              if (v85 >= v88)
+              if (v88 >= v91)
               {
-                *v86 = v88;
+                *v89 = v91;
               }
 
               else
               {
-                *v86 = v85;
-                v83[2 * v81 + 1] = v88;
+                *v89 = v88;
+                v86[2 * v84 + 1] = v91;
               }
             }
 
             else
             {
-              v86[1] = v87;
-              if (v85 < v88)
+              v89[1] = v90;
+              if (v88 < v91)
               {
-                v89 = v144 + ~v81;
-                LODWORD(v144) = v144 + 1;
-                v90 = reallocf(v83, 16 * v144);
-                v83 = v90;
-                v145 = v90;
-                if (v89)
+                v92 = v147 + ~v84;
+                LODWORD(v147) = v147 + 1;
+                v93 = reallocf(v86, 16 * v147);
+                v86 = v93;
+                v148 = v93;
+                if (v92)
                 {
-                  memmove(&v90[16 * v81 + 32], &v90[16 * v81 + 16], v89);
+                  memmove(&v93[16 * v84 + 32], &v93[16 * v84 + 16], v92);
                 }
 
-                v91 = &v83[2 * ++v81];
-                *v91 = v85;
-                v91[1] = v88;
-                v80 = v142;
+                v94 = &v86[2 * ++v84];
+                *v94 = v88;
+                v94[1] = v91;
+                v83 = v145;
               }
             }
           }
 
-          ++v82;
-          v84 += 16;
+          ++v85;
+          v87 += 16;
         }
 
-        while (v82 < v80);
-        v82 = v82;
-        v79 = v144;
+        while (v85 < v83);
+        v85 = v85;
+        v82 = v147;
       }
 
-      ++v81;
+      ++v84;
     }
 
-    while (v81 < v79);
-    WRRangesSortAndCoalesce(&v144);
-    v79 = v144;
-    if (v144)
+    while (v84 < v82);
+    WRRangesSortAndCoalesce(&v147);
+    v82 = v147;
+    if (v147)
     {
 LABEL_86:
-      v92 = 0;
-      v93 = v79;
-      v94 = v145 + 8;
+      v95 = 0;
+      v96 = v82;
+      v97 = v148 + 8;
       do
       {
-        v92 = &v92[*v94 - *(v94 - 1)];
-        v94 += 2;
-        --v93;
+        v95 = &v95[*v97 - *(v97 - 1)];
+        v97 += 2;
+        --v96;
       }
 
-      while (v93);
+      while (v96);
     }
 
     else
     {
 LABEL_90:
-      v92 = 0;
+      v95 = 0;
     }
 
-    if (v109 <= v92)
+    if (v112 <= v95)
     {
       workflow7 = [(WRWorkflowEventTracker *)selfCopy workflow];
       [workflow7 name];
@@ -6304,47 +6347,48 @@ LABEL_90:
       [(WRWorkflowEventTracker *)selfCopy eventIdentifier];
       eventIdentifier7 = [(WRWorkflowEventTracker *)selfCopy eventIdentifier];
 
-      v100 = *__error();
-      v101 = _wrlog();
-      v102 = os_log_type_enabled(v101, OS_LOG_TYPE_FAULT);
+      v103 = __error();
+      v104 = *v103;
+      v105 = _wrlog(v103);
+      v106 = os_log_type_enabled(v105, OS_LOG_TYPE_FAULT);
       if (eventIdentifier7)
       {
-        if (v102)
+        if (v106)
         {
           workflow8 = [(WRWorkflowEventTracker *)selfCopy workflow];
           name4 = [workflow8 name];
           eventIdentifier8 = [(WRWorkflowEventTracker *)selfCopy eventIdentifier];
           *buf = 138544130;
-          v149 = name4;
-          v150 = 2114;
-          v151 = eventIdentifier8;
-          v152 = 2048;
-          v153 = v92;
-          v154 = 2048;
-          v155 = v109;
-          _os_log_fault_impl(&dword_2746E5000, v101, OS_LOG_TYPE_FAULT, "%{public}@<%{public}@>: network-bound duration %llu > workflow event duration %llu", buf, 0x2Au);
+          v152 = name4;
+          v153 = 2114;
+          v154 = eventIdentifier8;
+          v155 = 2048;
+          v156 = v95;
+          v157 = 2048;
+          v158 = v112;
+          _os_log_fault_impl(&dword_2746E5000, v105, OS_LOG_TYPE_FAULT, "%{public}@<%{public}@>: network-bound duration %llu > workflow event duration %llu", buf, 0x2Au);
         }
       }
 
-      else if (v102)
+      else if (v106)
       {
         workflow9 = [(WRWorkflowEventTracker *)selfCopy workflow];
         name5 = [workflow9 name];
         *buf = 138543874;
-        v149 = name5;
-        v150 = 2048;
-        v151 = v92;
-        v152 = 2048;
-        v153 = v109;
-        _os_log_fault_impl(&dword_2746E5000, v101, OS_LOG_TYPE_FAULT, "%{public}@: network-bound duration %llu > workflow event duration %llu", buf, 0x20u);
+        v152 = name5;
+        v153 = 2048;
+        v154 = v95;
+        v155 = 2048;
+        v156 = v112;
+        _os_log_fault_impl(&dword_2746E5000, v105, OS_LOG_TYPE_FAULT, "%{public}@: network-bound duration %llu > workflow event duration %llu", buf, 0x20u);
       }
 
-      *__error() = v100;
+      *__error() = v104;
     }
 
     else
     {
-      v4->var1 = v109 - v92;
+      v4->var1 = v112 - v95;
     }
   }
 
@@ -6356,23 +6400,18 @@ LABEL_90:
     v4->var1 = machContTimeNs12 - [eventStart2 machContTimeNs];
   }
 
-  free(v143);
-  free(v145);
-LABEL_100:
-  v106 = *MEMORY[0x277D85DE8];
+  free(v146);
+  free(v148);
   return result;
 }
 
 - (void)generateTelemetry
 {
-  v9 = *MEMORY[0x277D85DE8];
   workflow = [self workflow];
   name = [workflow name];
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_5();
   _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportCoreAnalyticsEventForSignpost:(void *)signpost allCount:(void *)count allDurationUnionSec:(void *)sec allDurationSumSec:(void *)sumSec allDurationLongestSec:(void *)longestSec allDurationUntrackedSec:(void *)untrackedSec allDurationNonNetworkBoundSec:(void *)boundSec allTimeUntilFirstSignpost:(void *)self0 allTimeAfterLastSignpost:(void *)self1 incompleteCount:(void *)self2 completeDurationUnionSec:(void *)self3 completeDurationSumSec:(void *)self4 completeDurationLongestSec:(void *)self5 completeTimeUntilFirstSignpost:(void *)self6 environment:
@@ -6411,7 +6450,7 @@ LABEL_100:
 
     error = [self error];
     [v25 setObject:v28 forKeyedSubscript:@"workflowName"];
-    v58 = v29;
+    v59 = v29;
     if (error)
     {
       v31 = sumSecCopy;
@@ -6437,23 +6476,24 @@ LABEL_100:
         [self eventIdentifier];
         eventIdentifier = [self eventIdentifier];
 
-        v40 = *__error();
-        v41 = _wrlog();
-        v42 = os_log_type_enabled(v41, OS_LOG_TYPE_FAULT);
+        v40 = __error();
+        v41 = *v40;
+        v42 = _wrlog(v40);
+        v43 = os_log_type_enabled(v42, OS_LOG_TYPE_FAULT);
         if (eventIdentifier)
         {
-          if (v42)
+          if (v43)
           {
             [WRWorkflowEventTracker reportCoreAnalyticsEventForSignpost:allCount:allDurationUnionSec:allDurationSumSec:allDurationLongestSec:allDurationUntrackedSec:allDurationNonNetworkBoundSec:allTimeUntilFirstSignpost:allTimeAfterLastSignpost:incompleteCount:completeDurationUnionSec:completeDurationSumSec:completeDurationLongestSec:completeTimeUntilFirstSignpost:environment:];
           }
         }
 
-        else if (v42)
+        else if (v43)
         {
           [WRWorkflowEventTracker reportCoreAnalyticsEventForSignpost:self allCount:error allDurationUnionSec:? allDurationSumSec:? allDurationLongestSec:? allDurationUntrackedSec:? allDurationNonNetworkBoundSec:? allTimeUntilFirstSignpost:? allTimeAfterLastSignpost:? incompleteCount:? completeDurationUnionSec:? completeDurationSumSec:? completeDurationLongestSec:? completeTimeUntilFirstSignpost:? environment:?];
         }
 
-        *__error() = v40;
+        *__error() = v41;
         [v25 setObject:&unk_28838A6E0 forKeyedSubscript:@"error"];
         v22 = v37;
         secCopy = v36;
@@ -6461,7 +6501,7 @@ LABEL_100:
         v28 = v35;
       }
 
-      v29 = v58;
+      v29 = v59;
     }
 
     [v25 setObject:v29 forKeyedSubscript:@"signpostName"];
@@ -6470,7 +6510,7 @@ LABEL_100:
     [v25 setObject:firstSignpostCopy forKeyedSubscript:@"delayAfterSec"];
     [v25 setObject:secCopy forKeyedSubscript:@"durationSec"];
     [v25 setObject:countCopy forKeyedSubscript:@"durationUnionSec"];
-    v54 = sumSecCopy;
+    v55 = sumSecCopy;
     [v25 setObject:sumSecCopy forKeyedSubscript:@"durationLongestSec"];
     [v25 setObject:longestSecCopy forKeyedSubscript:@"durationUntrackedSec"];
     [v25 setObject:untrackedSecCopy forKeyedSubscript:@"durationNonNetworkBoundSec"];
@@ -6479,120 +6519,121 @@ LABEL_100:
     [v25 setObject:unionSecCopy forKeyedSubscript:@"completeDurationSec"];
     [v25 setObject:incompleteCountCopy forKeyedSubscript:@"completeDurationUnionSec"];
     [v25 setObject:durationSumSecCopy forKeyedSubscript:@"completeDurationLongestSec"];
-    v55 = secCopy;
-    v57 = v28;
+    v56 = secCopy;
+    v58 = v28;
     if (error)
     {
-      v43 = [@"com.apple.workflow-responsiveness" stringByAppendingString:@"-error"];
+      v44 = [@"com.apple.workflow-responsiveness" stringByAppendingString:@"-error"];
     }
 
     else
     {
-      v43 = @"com.apple.workflow-responsiveness";
+      v44 = @"com.apple.workflow-responsiveness";
     }
 
-    v44 = [(__CFString *)v43 stringByAppendingString:@"-generic"];
-    [(WRWorkflowEventTracker *)self submitCAEventName:v44 dict:v25 forSignpost:v22];
-    v76 = 0;
-    v77 = &v76;
-    v78 = 0x2020000000;
-    v79 = 0;
+    v45 = [(__CFString *)v44 stringByAppendingString:@"-generic"];
+    [(WRWorkflowEventTracker *)self submitCAEventName:v45 dict:v25 forSignpost:v22];
+    v77 = 0;
+    v78 = &v77;
+    v79 = 0x2020000000;
+    v80 = 0;
     if (untilFirstSignpostCopy)
     {
-      v71[0] = MEMORY[0x277D85DD0];
-      v71[1] = 3221225472;
-      v71[2] = __370__WRWorkflowEventTracker_reportCoreAnalyticsEventForSignpost_allCount_allDurationUnionSec_allDurationSumSec_allDurationLongestSec_allDurationUntrackedSec_allDurationNonNetworkBoundSec_allTimeUntilFirstSignpost_allTimeAfterLastSignpost_incompleteCount_completeDurationUnionSec_completeDurationSumSec_completeDurationLongestSec_completeTimeUntilFirstSignpost_environment___block_invoke;
-      v71[3] = &unk_279EE3438;
-      v75 = &v76;
-      v45 = v25;
-      v72 = v45;
-      v46 = v22;
+      v72[0] = MEMORY[0x277D85DD0];
+      v72[1] = 3221225472;
+      v72[2] = __370__WRWorkflowEventTracker_reportCoreAnalyticsEventForSignpost_allCount_allDurationUnionSec_allDurationSumSec_allDurationLongestSec_allDurationUntrackedSec_allDurationNonNetworkBoundSec_allTimeUntilFirstSignpost_allTimeAfterLastSignpost_incompleteCount_completeDurationUnionSec_completeDurationSumSec_completeDurationLongestSec_completeTimeUntilFirstSignpost_environment___block_invoke;
+      v72[3] = &unk_279EE3438;
+      v76 = &v77;
+      v46 = v25;
       v73 = v46;
+      v47 = v22;
+      v74 = v47;
       selfCopy = self;
-      [untilFirstSignpostCopy enumerateKeysAndObjectsUsingBlock:v71];
+      [untilFirstSignpostCopy enumerateKeysAndObjectsUsingBlock:v72];
 
-      if (v77[3])
+      if (v78[3])
       {
-        if (v58)
+        if (v59)
         {
-          [(__CFString *)v43 stringByAppendingFormat:@"-%@-%@", v57, v58];
+          [(__CFString *)v44 stringByAppendingFormat:@"-%@-%@", v58, v59];
         }
 
         else
         {
-          [(__CFString *)v43 stringByAppendingFormat:@"-%@", v57];
+          [(__CFString *)v44 stringByAppendingFormat:@"-%@", v58];
         }
-        v47 = ;
-        v48 = v47;
+        v48 = ;
+        v49 = v48;
         if (v22)
         {
-          v53 = v47;
+          v54 = v48;
           workflow3 = [self workflow];
-          v50 = [(WRWorkflow *)workflow3 wrsignpostWithName:v46];
+          v51 = [(WRWorkflow *)workflow3 wrsignpostWithName:v47];
 
-          if (v50)
+          if (v51)
           {
-            customEnvironmentCoreAnalyticsEventName = [v50 customEnvironmentCoreAnalyticsEventName];
+            customEnvironmentCoreAnalyticsEventName = [v51 customEnvironmentCoreAnalyticsEventName];
 
             if (customEnvironmentCoreAnalyticsEventName)
             {
-              customEnvironmentCoreAnalyticsEventName2 = [v50 customEnvironmentCoreAnalyticsEventName];
+              customEnvironmentCoreAnalyticsEventName2 = [v51 customEnvironmentCoreAnalyticsEventName];
 
-              v53 = customEnvironmentCoreAnalyticsEventName2;
+              v54 = customEnvironmentCoreAnalyticsEventName2;
             }
           }
 
-          v48 = v53;
+          v49 = v54;
         }
 
-        [(WRWorkflowEventTracker *)self submitCAEventName:v48 dict:v45 forSignpost:v46];
+        [(WRWorkflowEventTracker *)self submitCAEventName:v49 dict:v46 forSignpost:v47];
       }
     }
 
-    _Block_object_dispose(&v76, 8);
+    _Block_object_dispose(&v77, 8);
 
-    sumSecCopy = v54;
-    secCopy = v55;
+    sumSecCopy = v55;
+    secCopy = v56;
   }
 }
 
-void __43__WRWorkflowEventTracker_generateTelemetry__block_invoke(uint64_t a1, void *a2)
+void __43__WRWorkflowEventTracker_generateTelemetry__block_invoke(void *a1, void *a2)
 {
   v3 = a2;
   v4 = v3;
   if (v3)
   {
-    [v3 statsWithEventEndNs:*(a1 + 40)];
+    objc_msgSend_statsWithEventEndNs_(v3);
   }
 
   v5 = [v4 signpost];
   [v5 name];
 
-  v7 = *(a1 + 32);
-  v6 = (a1 + 32);
+  v7 = a1[4];
+  v6 = (a1 + 4);
   v8 = [v7 workflow];
   [v8 name];
 
   [*v6 eventIdentifier];
   v9 = [*v6 eventIdentifier];
 
-  v10 = *__error();
-  v11 = _wrlog();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG);
+  v10 = __error();
+  v11 = *v10;
+  v12 = _wrlog(v10);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
   if (v9)
   {
-    if (v12)
+    if (v13)
     {
       __43__WRWorkflowEventTracker_generateTelemetry__block_invoke_cold_1();
     }
   }
 
-  else if (v12)
+  else if (v13)
   {
     __43__WRWorkflowEventTracker_generateTelemetry__block_invoke_cold_2(v6);
   }
 
-  *__error() = v10;
+  *__error() = v11;
 }
 
 void __370__WRWorkflowEventTracker_reportCoreAnalyticsEventForSignpost_allCount_allDurationUnionSec_allDurationSumSec_allDurationLongestSec_allDurationUntrackedSec_allDurationNonNetworkBoundSec_allTimeUntilFirstSignpost_allTimeAfterLastSignpost_incompleteCount_completeDurationUnionSec_completeDurationSumSec_completeDurationLongestSec_completeTimeUntilFirstSignpost_environment___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -6624,57 +6665,56 @@ LABEL_9:
     [*(a1 + 48) eventIdentifier];
     v12 = [*(a1 + 48) eventIdentifier];
 
-    v13 = *__error();
-    v14 = _wrlog();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
+    v13 = __error();
+    v14 = *v13;
+    v15 = _wrlog(v13);
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
     if (v12)
     {
-      if (v15)
+      if (v16)
       {
-        v16 = [*(a1 + 48) workflow];
-        v17 = [v16 name];
-        v18 = [*(a1 + 48) eventIdentifier];
-        v19 = *(a1 + 40);
+        v17 = [*(a1 + 48) workflow];
+        v18 = [v17 name];
+        v19 = [*(a1 + 48) eventIdentifier];
+        v20 = *(a1 + 40);
         *buf = 138544386;
-        v23 = v17;
+        v23 = v18;
         v24 = 2114;
-        v25 = v18;
+        v25 = v19;
         v26 = 2114;
-        v27 = v19;
+        v27 = v20;
         v28 = 2114;
         v29 = v5;
         v30 = 2112;
         v31 = v6;
-        _os_log_error_impl(&dword_2746E5000, v14, OS_LOG_TYPE_ERROR, "%{public}@<%{public}@>: %{public}@: Cannot log telemetry for %{public}@ -> %@, conflicts with existing entry", buf, 0x34u);
+        _os_log_error_impl(&dword_2746E5000, v15, OS_LOG_TYPE_ERROR, "%{public}@<%{public}@>: %{public}@: Cannot log telemetry for %{public}@ -> %@, conflicts with existing entry", buf, 0x34u);
 
 LABEL_12:
       }
     }
 
-    else if (v15)
+    else if (v16)
     {
-      v16 = [*(a1 + 48) workflow];
-      v17 = [v16 name];
+      v17 = [*(a1 + 48) workflow];
+      v18 = [v17 name];
       v21 = *(a1 + 40);
       *buf = 138544130;
-      v23 = v17;
+      v23 = v18;
       v24 = 2114;
       v25 = v21;
       v26 = 2114;
       v27 = v5;
       v28 = 2112;
       v29 = v6;
-      _os_log_error_impl(&dword_2746E5000, v14, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@: Cannot log telemetry for %{public}@ -> %@, conflicts with existing entry", buf, 0x2Au);
+      _os_log_error_impl(&dword_2746E5000, v15, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@: Cannot log telemetry for %{public}@ -> %@, conflicts with existing entry", buf, 0x2Au);
       goto LABEL_12;
     }
 
-    *__error() = v13;
+    *__error() = v14;
     goto LABEL_9;
   }
 
 LABEL_10:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 + (uint64_t)isReservedWorkflowName:(uint64_t)name
@@ -6752,7 +6792,6 @@ void __67__WRWorkflowEventTracker_initWithWorkflow_eventCompletionCallback___blo
 
 - (void)reset
 {
-  v18 = *MEMORY[0x277D85DE8];
   [(WRWorkflowEventTracker *)self reportErrorsAndResetAtMachContNs:0 date:?];
   OUTLINED_FUNCTION_52();
   if (self)
@@ -6771,18 +6810,18 @@ void __67__WRWorkflowEventTracker_initWithWorkflow_eventCompletionCallback___blo
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       v10 = 0;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(WRWorkflowEventTracker *)*(v16 + 8 * v10++) reportErrorsAndResetAtMachContNs:0 date:?];
+        [(WRWorkflowEventTracker *)*(v15 + 8 * v10++) reportErrorsAndResetAtMachContNs:0 date:?];
       }
 
       while (v8 != v10);
@@ -6792,8 +6831,6 @@ void __67__WRWorkflowEventTracker_initWithWorkflow_eventCompletionCallback___blo
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportErrorsAndResetAtMachContNs:(void *)ns date:
@@ -6815,12 +6852,13 @@ LABEL_19:
     [self eventIdentifier];
     eventIdentifier = [self eventIdentifier];
 
-    v10 = *__error();
-    v11 = _wrlog();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
+    v10 = __error();
+    v11 = *v10;
+    v12 = _wrlog(v10);
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
     if (eventIdentifier)
     {
-      if (v12)
+      if (v13)
       {
         workflow2 = [self workflow];
         [workflow2 name];
@@ -6830,27 +6868,27 @@ LABEL_19:
         v47 = name;
         v48 = 2114;
         v49 = eventIdentifier2;
-        _os_log_error_impl(&dword_2746E5000, v11, OS_LOG_TYPE_ERROR, "%{public}@<%{public}@>: reset in middle of event, reporting error", buf, 0x16u);
+        _os_log_error_impl(&dword_2746E5000, v12, OS_LOG_TYPE_ERROR, "%{public}@<%{public}@>: reset in middle of event, reporting error", buf, 0x16u);
 
         goto LABEL_8;
       }
     }
 
-    else if (v12)
+    else if (v13)
     {
       workflow2 = [self workflow];
       name = [workflow2 name];
       *buf = 138543362;
       v47 = name;
-      _os_log_error_impl(&dword_2746E5000, v11, OS_LOG_TYPE_ERROR, "%{public}@: reset in middle of event, reporting error", buf, 0xCu);
+      _os_log_error_impl(&dword_2746E5000, v12, OS_LOG_TYPE_ERROR, "%{public}@: reset in middle of event, reporting error", buf, 0xCu);
 LABEL_8:
     }
 
-    *__error() = v10;
+    *__error() = v11;
     if (!a2 || !nsCopy)
     {
-      v32 = WRMakeError(5, @"Workflow event incomplete", v15, v16, v17, v18, v19, v20, v44);
-      [(WRWorkflowEventTracker *)self handleError:v32 atEndTime:0];
+      v33 = WRMakeError(5, @"Workflow event incomplete", v16, v17, v18, v19, v20, v21, v44);
+      [(WRWorkflowEventTracker *)self handleError:v33 atEndTime:0];
       goto LABEL_18;
     }
 
@@ -6861,7 +6899,7 @@ LABEL_8:
       machContTimeNs = [eventStart machContTimeNs];
       workflow4 = [self workflow];
       [workflow4 maximumEventDuration];
-      if (machContTimeNs + (v25 * 1000000000.0) <= a2)
+      if (machContTimeNs + (v26 * 1000000000.0) <= a2)
       {
         ignoreEventTimeouts = [self ignoreEventTimeouts];
 
@@ -6878,23 +6916,23 @@ LABEL_8:
           objc_claimAutoreleasedReturnValue();
           workflow6 = [OUTLINED_FUNCTION_34() workflow];
           [workflow6 maximumEventDuration];
-          v43 = [v10 dateByAddingTimeInterval:?];
-          v32 = [(WRTimestampAndThread *)&v45->super.isa initWithPID:0 threadID:&workflow4[v40] machContTimeNs:v43 date:?];
+          v43 = [v11 dateByAddingTimeInterval:?];
+          v33 = [(WRTimestampAndThread *)&v45->super.isa initWithPID:0 threadID:&workflow4[v40] machContTimeNs:v43 date:?];
 
-          v33 = @"Workflow event timed out";
-          v34 = 4;
+          v34 = @"Workflow event timed out";
+          v35 = 4;
           goto LABEL_16;
         }
 
 LABEL_15:
-        v32 = [[WRTimestampAndThread alloc] initWithPID:0 threadID:a2 machContTimeNs:nsCopy date:?];
-        v33 = @"Workflow event incomplete";
-        v34 = 5;
+        v33 = [[WRTimestampAndThread alloc] initWithPID:0 threadID:a2 machContTimeNs:nsCopy date:?];
+        v34 = @"Workflow event incomplete";
+        v35 = 5;
 LABEL_16:
-        WRMakeError(v34, v33, v26, v27, v28, v29, v30, v31, v44);
+        WRMakeError(v35, v34, v27, v28, v29, v30, v31, v32, v44);
         objc_claimAutoreleasedReturnValue();
-        v35 = OUTLINED_FUNCTION_87();
-        [(WRWorkflowEventTracker *)v35 handleError:workflow3 atEndTime:v32];
+        v36 = OUTLINED_FUNCTION_87();
+        [(WRWorkflowEventTracker *)v36 handleError:workflow3 atEndTime:v33];
 
 LABEL_18:
         goto LABEL_19;
@@ -6905,11 +6943,9 @@ LABEL_18:
   }
 
 LABEL_20:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
-- (uint64_t)handleError:(void *)error atEndTime:
+- (void)handleError:(void *)error atEndTime:
 {
   if (result)
   {
@@ -6999,7 +7035,6 @@ LABEL_20:
 
 - (id)eventIdentifierForSignpostObject:(void *)object wrSignopst:
 {
-  v41 = *MEMORY[0x277D85DE8];
   v8 = a2;
   objectCopy = object;
   v10 = objectCopy;
@@ -7007,39 +7042,39 @@ LABEL_20:
   {
     if ([objectCopy eventIdentifierIsSignpostID])
     {
-      objc_opt_class();
-      if (OUTLINED_FUNCTION_73())
+      v11 = objc_opt_class();
+      if (OUTLINED_FUNCTION_73(v11))
       {
         endEvent = v8;
 LABEL_8:
-        v14 = endEvent;
+        v16 = endEvent;
         scope = [endEvent scope];
-        v16 = objc_alloc(MEMORY[0x277CCACA8]);
+        v18 = objc_alloc(MEMORY[0x277CCACA8]);
         [OUTLINED_FUNCTION_65() scope];
-        v17 = OUTLINED_FUNCTION_33();
+        v19 = OUTLINED_FUNCTION_33();
         if (scope == 2)
         {
-          [v17 threadID];
-          v18 = [v3 initWithFormat:@"%lu-%llu-%llu", v4, 2, objc_msgSend(OUTLINED_FUNCTION_90(), "signpostId")];
+          [v19 threadID];
+          v20 = [v3 initWithFormat:@"%lu-%llu-%llu", v4, 2, objc_msgSend(OUTLINED_FUNCTION_90(), "signpostId")];
         }
 
         else if (scope == 1)
         {
-          v18 = [v3 initWithFormat:@"%lu-%d-%llu", v4, objc_msgSend(v17, "processID"), objc_msgSend(v14, "signpostId")];
+          v20 = [v3 initWithFormat:@"%lu-%d-%llu", v4, objc_msgSend(v19, "processID"), objc_msgSend(v16, "signpostId")];
         }
 
         else
         {
-          v18 = [v3 initWithFormat:@"%lu-%llu", v4, objc_msgSend(v17, "signpostId"), v38];
+          v20 = [v3 initWithFormat:@"%lu-%llu", v4, objc_msgSend(v19, "signpostId"), v40];
         }
 
-        v13 = v18;
+        v14 = v20;
 
         goto LABEL_20;
       }
 
-      objc_opt_class();
-      if (OUTLINED_FUNCTION_73())
+      v15 = objc_opt_class();
+      if (OUTLINED_FUNCTION_73(v15))
       {
         endEvent = [v8 endEvent];
         goto LABEL_8;
@@ -7051,12 +7086,13 @@ LABEL_8:
       [self eventIdentifier];
       eventIdentifier = [self eventIdentifier];
 
-      v21 = *__error();
-      v22 = _wrlog();
-      v23 = OUTLINED_FUNCTION_99(v22);
+      v23 = __error();
+      v24 = *v23;
+      v25 = _wrlog(v23);
+      v26 = OUTLINED_FUNCTION_99(v25);
       if (eventIdentifier)
       {
-        if (v23)
+        if (v26)
         {
           workflow2 = [self workflow];
           [workflow2 name];
@@ -7064,69 +7100,65 @@ LABEL_8:
           eventIdentifier2 = [OUTLINED_FUNCTION_90() eventIdentifier];
           object_getClassName(v8);
           OUTLINED_FUNCTION_37();
-          _os_log_fault_impl(v25, v26, v27, v28, v29, 0x20u);
+          _os_log_fault_impl(v28, v29, v30, v31, v32, 0x20u);
         }
       }
 
-      else if (v23)
+      else if (v26)
       {
         workflow3 = [self workflow];
         name = [workflow3 name];
         object_getClassName(v8);
         OUTLINED_FUNCTION_37();
-        _os_log_fault_impl(v33, v34, v35, v36, v37, 0x16u);
+        _os_log_fault_impl(v35, v36, v37, v38, v39, 0x16u);
       }
 
-      v13 = 0;
-      *__error() = v21;
+      v14 = 0;
+      *__error() = v24;
     }
 
     else
     {
       [v10 eventIdentifierFieldName];
       objc_claimAutoreleasedReturnValue();
-      v12 = OUTLINED_FUNCTION_33();
-      v13 = [(WRWorkflowEventTracker *)v12 valueForFieldName:v4 inSignpostObject:v8];
+      v13 = OUTLINED_FUNCTION_33();
+      v14 = [(WRWorkflowEventTracker *)v13 valueForFieldName:v4 inSignpostObject:v8];
     }
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
 LABEL_20:
 
-  v30 = *MEMORY[0x277D85DE8];
-
-  return v13;
+  return v14;
 }
 
 - (void)checkForNonPublicField:(void *)field fieldName:(void *)name messageArgument:
 {
-  v14 = a2;
+  v12 = a2;
   fieldCopy = field;
   nameCopy = name;
   v10 = nameCopy;
   if (self && nameCopy && *(self + 96) && [nameCopy privacyLevel] != 2)
   {
-    v11 = *(self + 96);
-    [v14 name];
+    [v12 name];
     objc_claimAutoreleasedReturnValue();
-    v12 = [OUTLINED_FUNCTION_50() objectForKeyedSubscript:v4];
+    v11 = [OUTLINED_FUNCTION_50() objectForKeyedSubscript:v4];
 
-    if (!v12)
+    if (!v11)
     {
-      v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v13 = *(self + 96);
-      [v14 name];
+      v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      [v12 name];
       objc_claimAutoreleasedReturnValue();
-      [OUTLINED_FUNCTION_33() setObject:v12 forKeyedSubscript:v4];
+      [OUTLINED_FUNCTION_33() setObject:v11 forKeyedSubscript:v4];
     }
 
-    if (([v12 containsObject:fieldCopy] & 1) == 0)
+    if (([v11 containsObject:fieldCopy] & 1) == 0)
     {
-      [v12 addObject:fieldCopy];
+      [v11 addObject:fieldCopy];
     }
   }
 }
@@ -7144,7 +7176,6 @@ LABEL_20:
 
 - (id)trackerForWRSignpost:(void *)signpost individuationIdentifier:
 {
-  v30 = *MEMORY[0x277D85DE8];
   v6 = a2;
   signpostCopy = signpost;
   if (self)
@@ -7156,29 +7187,28 @@ LABEL_20:
     if (v11)
     {
       v3 = v11;
-      v12 = *v29;
 LABEL_4:
-      v13 = 0;
+      v12 = 0;
       while (1)
       {
-        OUTLINED_FUNCTION_91(v29);
-        if (!v14)
+        OUTLINED_FUNCTION_91();
+        if (!v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(v28 + 8 * v13);
-        signpost = [v15 signpost];
+        v14 = *(v26 + 8 * v12);
+        signpost = [v14 signpost];
 
         if (signpost == v6)
         {
           break;
         }
 
-        if (v3 == ++v13)
+        if (v3 == ++v12)
         {
           OUTLINED_FUNCTION_76();
-          v3 = OUTLINED_FUNCTION_100(v17, v18, v19, v20);
+          v3 = OUTLINED_FUNCTION_100(v16, v17, v18, v19);
           if (v3)
           {
             goto LABEL_4;
@@ -7188,11 +7218,11 @@ LABEL_4:
         }
       }
 
-      individuationIdentifier = [v15 individuationIdentifier];
-      v22 = individuationIdentifier;
+      individuationIdentifier = [v14 individuationIdentifier];
+      v21 = individuationIdentifier;
       if (individuationIdentifier == signpostCopy || signpostCopy && individuationIdentifier && ([signpostCopy isEqualToString:individuationIdentifier] & 1) != 0)
       {
-        v3 = v15;
+        v3 = v14;
 
         goto LABEL_16;
       }
@@ -7200,10 +7230,10 @@ LABEL_4:
 
 LABEL_20:
 
-    v25 = [WRSignpostTracker alloc];
+    v23 = [WRSignpostTracker alloc];
     [WRSignpostTracker initWithSignpost:individuationIdentifier:];
-    v26 = OUTLINED_FUNCTION_33();
-    [OUTLINED_FUNCTION_69(v26 v27)];
+    v24 = OUTLINED_FUNCTION_33();
+    [OUTLINED_FUNCTION_69(v24 v25)];
   }
 
   else
@@ -7213,56 +7243,53 @@ LABEL_20:
 
 LABEL_16:
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (uint64_t)haveAnyEndSignpostsWithIndividuationFieldName:(uint64_t)name
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (name)
   {
     workflow = [OUTLINED_FUNCTION_77() workflow];
     endSignpostGroups = [workflow endSignpostGroups];
 
-    v8 = OUTLINED_FUNCTION_74(v6, v7, v32, v36);
+    v8 = OUTLINED_FUNCTION_74(v6, v7, v30, v33);
     if (v8)
     {
       v9 = v8;
-      v27 = *v34;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          OUTLINED_FUNCTION_92(v34);
+          OUTLINED_FUNCTION_92();
           if (!v11)
           {
             objc_enumerationMutation(endSignpostGroups);
           }
 
-          v12 = *(v33 + 8 * i);
+          v12 = *(v31 + 8 * i);
+          v26 = 0u;
+          v27 = 0u;
           v28 = 0u;
           v29 = 0u;
-          v30 = 0u;
-          v31 = 0u;
           v13 = v12;
-          v14 = [v13 countByEnumeratingWithState:&v28 objects:v35 count:16];
+          v14 = [v13 countByEnumeratingWithState:&v26 objects:v32 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v29;
+            v16 = *v27;
             while (2)
             {
               for (j = 0; j != v15; ++j)
               {
-                if (*v29 != v16)
+                if (*v27 != v16)
                 {
                   objc_enumerationMutation(v13);
                 }
 
-                individuationFieldName = [*(*(&v28 + 1) + 8 * j) individuationFieldName];
+                individuationFieldName = [*(*(&v26 + 1) + 8 * j) individuationFieldName];
                 v19 = [individuationFieldName isEqualToString:v3];
 
                 if (v19)
@@ -7273,7 +7300,7 @@ LABEL_16:
                 }
               }
 
-              v15 = OUTLINED_FUNCTION_100(v20, v21, &v28, v35);
+              v15 = OUTLINED_FUNCTION_100(v20, v21, &v26, v32);
               if (v15)
               {
                 continue;
@@ -7284,7 +7311,7 @@ LABEL_16:
           }
         }
 
-        v9 = OUTLINED_FUNCTION_74(v22, v23, v32, v36);
+        v9 = OUTLINED_FUNCTION_74(v22, v23, v30, v33);
         v24 = 0;
       }
 
@@ -7304,13 +7331,12 @@ LABEL_20:
     v24 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 - (void)sawIndividuationFieldName:(void *)name withIndividuationIdentifier:
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   v5 = a2;
   nameCopy = name;
   if (self)
@@ -7328,38 +7354,34 @@ LABEL_20:
     while (1)
     {
       v9 = [endSignpostGroups objectAtIndexedSubscript:v8];
-      v78 = 0u;
-      v79 = 0u;
-      v80 = 0u;
-      v81 = 0u;
+      memset(v78, 0, sizeof(v78));
       obj = v9;
-      v10 = [v9 countByEnumeratingWithState:&v78 objects:v94 count:16];
+      v10 = [v9 countByEnumeratingWithState:v78 objects:v91 count:16];
       if (!v10)
       {
         goto LABEL_43;
       }
 
       v11 = v10;
-      v12 = *v79;
       v76 = v8;
       do
       {
-        v13 = 0;
+        v12 = 0;
         do
         {
-          OUTLINED_FUNCTION_92(v79);
-          if (!v14)
+          OUTLINED_FUNCTION_92();
+          if (!v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v78 + 1) + 8 * v13);
-          individuationFieldName = [v15 individuationFieldName];
-          v17 = [individuationFieldName isEqualToString:v5];
+          v14 = *(*(&v78[0] + 1) + 8 * v12);
+          individuationFieldName = [v14 individuationFieldName];
+          v16 = [individuationFieldName isEqualToString:v5];
 
-          if (v17)
+          if (v16)
           {
-            v19 = [OUTLINED_FUNCTION_96(self v18)];
+            v18 = [OUTLINED_FUNCTION_96(self v17)];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -7369,13 +7391,13 @@ LABEL_20:
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v20 = v19;
+              v19 = v18;
               goto LABEL_20;
             }
 
             null = [MEMORY[0x277CBEB68] null];
 
-            if (v19 != null)
+            if (v18 != null)
             {
               workflow2 = [self workflow];
               [workflow2 name];
@@ -7383,8 +7405,9 @@ LABEL_20:
               [self eventIdentifier];
               eventIdentifier = [self eventIdentifier];
 
-              v24 = *__error();
-              v25 = _wrlog();
+              v23 = __error();
+              v24 = *v23;
+              v25 = _wrlog(v23);
               v26 = os_log_type_enabled(v25, OS_LOG_TYPE_FAULT);
               if (eventIdentifier)
               {
@@ -7393,11 +7416,11 @@ LABEL_20:
                   loga = [self workflow];
                   name = [loga name];
                   eventIdentifier2 = [self eventIdentifier];
-                  object_getClassName(v19);
+                  object_getClassName(v18);
                   *buf = 138543874;
                   OUTLINED_FUNCTION_85();
-                  v86 = 2080;
-                  v87 = v28;
+                  v83 = 2080;
+                  v84 = v28;
                   OUTLINED_FUNCTION_78();
                   _os_log_fault_impl(v29, v30, v31, "%{public}@<%{public}@>: candidateEndSignpostTracker is bad class %s", v32, 0x20u);
 
@@ -7410,13 +7433,13 @@ LABEL_20:
               {
                 workflow3 = [self workflow];
                 name2 = [workflow3 name];
-                ClassName = object_getClassName(v19);
+                ClassName = object_getClassName(v18);
                 *buf = 138543618;
-                v83 = name2;
-                v84 = 2080;
-                v85 = ClassName;
+                v80 = name2;
+                v81 = 2080;
+                v82 = ClassName;
                 OUTLINED_FUNCTION_78();
-                _os_log_fault_impl(v60, v61, v62, "%{public}@: candidateEndSignpostTracker is bad class %s", v63, 0x16u);
+                _os_log_fault_impl(v61, v62, v63, "%{public}@: candidateEndSignpostTracker is bad class %s", v64, 0x16u);
 
                 v33 = workflow3;
 LABEL_41:
@@ -7425,10 +7448,10 @@ LABEL_41:
               *__error() = v24;
             }
 
-            v20 = objc_alloc_init(MEMORY[0x277CBEB38]);
+            v19 = objc_alloc_init(MEMORY[0x277CBEB38]);
             [OUTLINED_FUNCTION_96(self v34)];
 LABEL_20:
-            v35 = [v20 objectForKeyedSubscript:nameCopy];
+            v35 = [v19 objectForKeyedSubscript:nameCopy];
 
             if (v35)
             {
@@ -7441,34 +7464,35 @@ LABEL_20:
             [self eventIdentifier];
             eventIdentifier3 = [self eventIdentifier];
 
-            v73 = *__error();
-            v38 = _wrlog();
-            v39 = os_log_type_enabled(v38, OS_LOG_TYPE_INFO);
+            v38 = __error();
+            v73 = *v38;
+            v39 = _wrlog(v38);
+            v40 = os_log_type_enabled(v39, OS_LOG_TYPE_INFO);
             if (v5)
             {
               if (eventIdentifier3)
               {
-                if (v39)
+                if (v40)
                 {
                   workflow5 = [self workflow];
                   [workflow5 name];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_43() eventIdentifier];
-                  v40 = logb = v38;
-                  name3 = [v15 name];
+                  v41 = logb = v39;
+                  name3 = [v14 name];
                   OUTLINED_FUNCTION_28();
-                  v85 = v40;
-                  v86 = v42;
-                  v87 = @"<signpost>";
-                  v88 = v42;
-                  v89 = v5;
-                  v90 = 2112;
-                  v91 = nameCopy;
-                  v92 = 2112;
-                  v93 = v43;
+                  v82 = v41;
+                  v83 = v43;
+                  v84 = @"<signpost>";
+                  v85 = v43;
+                  v86 = v5;
+                  v87 = 2112;
+                  v88 = nameCopy;
+                  v89 = 2112;
+                  v90 = v44;
                   _os_log_impl(&dword_2746E5000, logb, OS_LOG_TYPE_INFO, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: Saw new individuation identifier needed for end signpost %@", buf, 0x3Eu);
 
-                  v38 = logb;
+                  v39 = logb;
                   goto LABEL_28;
                 }
 
@@ -7476,7 +7500,7 @@ LABEL_35:
 
                 *__error() = v73;
                 null2 = [MEMORY[0x277CBEB68] null];
-                [v20 setObject:null2 forKeyedSubscript:nameCopy];
+                [v19 setObject:null2 forKeyedSubscript:nameCopy];
 
 LABEL_36:
                 v8 = v76;
@@ -7485,54 +7509,54 @@ LABEL_37:
                 goto LABEL_38;
               }
 
-              if (!v39)
+              if (!v40)
               {
                 goto LABEL_35;
               }
 
               log = [self workflow];
               name4 = [log name];
-              name5 = [v15 name];
+              name5 = [v14 name];
               OUTLINED_FUNCTION_28();
-              v85 = @"<signpost>";
-              v86 = v51;
-              v87 = v5;
-              v88 = 2112;
-              v89 = nameCopy;
-              v90 = 2112;
-              v91 = v52;
-              v53 = v38;
-              v54 = "%{public}@: %{public}@: %{public}@->%@: Saw new individuation identifier needed for end signpost %@";
-              v55 = 52;
+              v82 = @"<signpost>";
+              v83 = v52;
+              v84 = v5;
+              v85 = 2112;
+              v86 = nameCopy;
+              v87 = 2112;
+              v88 = v53;
+              v54 = v39;
+              v55 = "%{public}@: %{public}@: %{public}@->%@: Saw new individuation identifier needed for end signpost %@";
+              v56 = 52;
 LABEL_33:
-              _os_log_impl(&dword_2746E5000, v53, OS_LOG_TYPE_INFO, v54, buf, v55);
+              _os_log_impl(&dword_2746E5000, v54, OS_LOG_TYPE_INFO, v55, buf, v56);
 
-              v48 = log;
+              v49 = log;
             }
 
             else
             {
               if (!eventIdentifier3)
               {
-                if (!v39)
+                if (!v40)
                 {
                   goto LABEL_35;
                 }
 
                 log = [self workflow];
                 name4 = [log name];
-                name5 = [v15 name];
+                name5 = [v14 name];
                 OUTLINED_FUNCTION_28();
-                v85 = @"<signpost>";
-                v86 = 2112;
-                v87 = v56;
-                v53 = v38;
-                v54 = "%{public}@: %{public}@: Saw new individuation identifier needed for end signpost %@";
-                v55 = 32;
+                v82 = @"<signpost>";
+                v83 = 2112;
+                v84 = v57;
+                v54 = v39;
+                v55 = "%{public}@: %{public}@: Saw new individuation identifier needed for end signpost %@";
+                v56 = 32;
                 goto LABEL_33;
               }
 
-              if (!v39)
+              if (!v40)
               {
                 goto LABEL_35;
               }
@@ -7540,32 +7564,32 @@ LABEL_33:
               workflow5 = [self workflow];
               logc = [workflow5 name];
               eventIdentifier4 = [self eventIdentifier];
-              name6 = [v15 name];
+              name6 = [v14 name];
               *buf = 138544130;
               OUTLINED_FUNCTION_85();
-              v86 = v46;
-              v87 = @"<signpost>";
-              v88 = 2112;
-              v89 = v47;
-              _os_log_impl(&dword_2746E5000, v38, OS_LOG_TYPE_INFO, "%{public}@<%{public}@>: %{public}@: Saw new individuation identifier needed for end signpost %@", buf, 0x2Au);
+              v83 = v47;
+              v84 = @"<signpost>";
+              v85 = 2112;
+              v86 = v48;
+              _os_log_impl(&dword_2746E5000, v39, OS_LOG_TYPE_INFO, "%{public}@<%{public}@>: %{public}@: Saw new individuation identifier needed for end signpost %@", buf, 0x2Au);
 
 LABEL_28:
-              v48 = workflow5;
+              v49 = workflow5;
             }
 
             goto LABEL_35;
           }
 
 LABEL_38:
-          ++v13;
+          ++v12;
         }
 
-        while (v11 != v13);
-        v64 = [obj countByEnumeratingWithState:&v78 objects:v94 count:16];
-        v11 = v64;
+        while (v11 != v12);
+        v65 = [obj countByEnumeratingWithState:v78 objects:v91 count:16];
+        v11 = v65;
       }
 
-      while (v64);
+      while (v65);
 LABEL_43:
 
       ++v8;
@@ -7578,28 +7602,26 @@ LABEL_44:
       }
     }
   }
-
-  v65 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applySignpost:(void *)signpost toSignpostTracker:
 {
-  v189 = *MEMORY[0x277D85DE8];
+  v195 = *MEMORY[0x277D85DE8];
   v7 = a2;
   signpostCopy = signpost;
   v9 = signpostCopy;
   if (self)
   {
-    v178[0] = MEMORY[0x277D85DD0];
-    v178[1] = 3221225472;
-    v178[2] = __58__WRWorkflowEventTracker_applySignpost_toSignpostTracker___block_invoke;
-    v178[3] = &unk_279EE3290;
+    v184[0] = MEMORY[0x277D85DD0];
+    v184[1] = 3221225472;
+    v184[2] = __58__WRWorkflowEventTracker_applySignpost_toSignpostTracker___block_invoke;
+    v184[3] = &unk_279EE3290;
     v10 = signpostCopy;
-    v179 = v10;
+    v185 = v10;
     selfCopy = self;
-    v11 = MEMORY[0x277C5A9A0](v178);
-    objc_opt_class();
-    if (OUTLINED_FUNCTION_73())
+    v11 = MEMORY[0x277C5A9A0](v184);
+    v12 = objc_opt_class();
+    if (OUTLINED_FUNCTION_73(v12))
     {
       beginEvent = v7;
       if ([beginEvent isSyntheticIntervalEvent])
@@ -7621,12 +7643,13 @@ LABEL_44:
           [self eventIdentifier];
           eventIdentifier = [self eventIdentifier];
 
-          v18 = *__error();
-          v19 = _wrlog();
-          v20 = os_log_type_enabled(v19, OS_LOG_TYPE_FAULT);
+          v19 = __error();
+          v20 = *v19;
+          v21 = _wrlog(v19);
+          v22 = os_log_type_enabled(v21, OS_LOG_TYPE_FAULT);
           if (eventIdentifier)
           {
-            if (v20)
+            if (v22)
             {
               workflow2 = [self workflow];
               name = [workflow2 name];
@@ -7636,21 +7659,21 @@ LABEL_44:
               individuationFieldName2 = [signpost3 individuationFieldName];
               individuationIdentifier = [v10 individuationIdentifier];
               OUTLINED_FUNCTION_25();
-              v184 = eventIdentifier2;
-              v185 = v24;
-              *v186 = name2;
-              *&v186[8] = v24;
-              *&v186[10] = individuationFieldName2;
-              *&v186[18] = 2112;
-              *&v186[20] = v25;
+              v190 = eventIdentifier2;
+              v191 = v26;
+              *v192 = name2;
+              *&v192[8] = v26;
+              *&v192[10] = individuationFieldName2;
+              *&v192[18] = 2112;
+              *&v192[20] = v27;
               OUTLINED_FUNCTION_78();
-              _os_log_fault_impl(v26, v27, v28, v29, v30, 0x34u);
+              _os_log_fault_impl(v28, v29, v30, v31, v32, 0x34u);
 
 LABEL_71:
             }
           }
 
-          else if (v20)
+          else if (v22)
           {
             workflow2 = [self workflow];
             [workflow2 name];
@@ -7660,19 +7683,19 @@ LABEL_71:
             individuationFieldName3 = [signpost4 individuationFieldName];
             individuationIdentifier2 = [v10 individuationIdentifier];
             *buf = 138544130;
-            v182 = v4;
+            v188 = v4;
             OUTLINED_FUNCTION_10();
-            *v186 = individuationFieldName3;
-            *&v186[8] = 2112;
-            *&v186[10] = v122;
+            *v192 = individuationFieldName3;
+            *&v192[8] = 2112;
+            *&v192[10] = v128;
             OUTLINED_FUNCTION_78();
-            _os_log_fault_impl(v123, v124, v125, v126, v127, 0x2Au);
+            _os_log_fault_impl(v129, v130, v131, v132, v133, 0x2Au);
 
             goto LABEL_71;
           }
 
 LABEL_21:
-          *__error() = v18;
+          *__error() = v20;
 LABEL_22:
 
           goto LABEL_23;
@@ -7686,95 +7709,96 @@ LABEL_22:
         [self eventIdentifier];
         eventIdentifier3 = [self eventIdentifier];
 
-        v18 = *__error();
-        v46 = _wrlog();
-        v47 = OUTLINED_FUNCTION_99(v46);
+        v50 = __error();
+        v20 = *v50;
+        v51 = _wrlog(v50);
+        v52 = OUTLINED_FUNCTION_99(v51);
         if (eventIdentifier3)
         {
-          if (v47)
+          if (v52)
           {
             workflow4 = [self workflow];
             individuationFieldName = [workflow4 name];
             eventIdentifier4 = [self eventIdentifier];
             name4 = [beginEvent name];
             *buf = 138543874;
-            v182 = individuationFieldName;
+            v188 = individuationFieldName;
             OUTLINED_FUNCTION_10();
-            *v186 = v51;
+            *v192 = v56;
             OUTLINED_FUNCTION_23();
-            _os_log_fault_impl(v52, v53, v54, v55, v56, 0x20u);
+            _os_log_fault_impl(v57, v58, v59, v60, v61, 0x20u);
 
 LABEL_90:
           }
         }
 
-        else if (v47)
+        else if (v52)
         {
           workflow4 = [self workflow];
           [workflow4 name];
           objc_claimAutoreleasedReturnValue();
           eventIdentifier4 = [OUTLINED_FUNCTION_64() name];
           OUTLINED_FUNCTION_25();
-          v184 = v151;
+          v190 = v157;
           OUTLINED_FUNCTION_23();
-          _os_log_fault_impl(v152, v153, v154, v155, v156, 0x16u);
+          _os_log_fault_impl(v158, v159, v160, v161, v162, 0x16u);
           goto LABEL_90;
         }
 
         goto LABEL_21;
       }
 
-      v58 = OUTLINED_FUNCTION_53();
-      v59(v58, beginEvent);
-      v60 = [WRTimestampAndThread alloc];
+      v62 = OUTLINED_FUNCTION_53();
+      v63(v62, beginEvent);
+      v64 = [WRTimestampAndThread alloc];
       processID = [OUTLINED_FUNCTION_67() processID];
       threadID = [beginEvent threadID];
       [beginEvent endNanoseconds];
       endDate = [OUTLINED_FUNCTION_84() endDate];
-      v64 = [(WRTimestampAndThread *)name5 initWithPID:processID threadID:threadID machContTimeNs:v4 date:endDate];
+      v68 = [(WRTimestampAndThread *)name5 initWithPID:processID threadID:threadID machContTimeNs:v4 date:endDate];
 
       if ([beginEvent eventType])
       {
-        if (!v10 || (v66 = OUTLINED_FUNCTION_94(v10, v65)) == 0)
+        if (!v10 || (v70 = OUTLINED_FUNCTION_94(v10, v69)) == 0)
         {
-          v68 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          v72 = objc_alloc_init(MEMORY[0x277CBEB18]);
           if (v10)
           {
-            v69 = v10;
-            v70 = v68;
-            v71 = 48;
+            v73 = v10;
+            v74 = v72;
+            v75 = 48;
             goto LABEL_45;
           }
 
 LABEL_47:
-          [(WRTimestampAndThread *)v64 insertIntoSortedArray:v68];
+          [(WRTimestampAndThread *)v68 insertIntoSortedArray:v72];
 
           goto LABEL_22;
         }
       }
 
-      else if (!v10 || (v66 = OUTLINED_FUNCTION_94(v10, v65)) == 0)
+      else if (!v10 || (v70 = OUTLINED_FUNCTION_94(v10, v69)) == 0)
       {
-        v68 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v72 = objc_alloc_init(MEMORY[0x277CBEB18]);
         if (v10)
         {
-          v69 = v10;
-          v70 = v68;
-          v71 = 56;
+          v73 = v10;
+          v74 = v72;
+          v75 = 56;
 LABEL_45:
-          objc_setProperty_atomic(v69, v67, v70, v71);
+          objc_setProperty_atomic(v73, v71, v74, v75);
           goto LABEL_47;
         }
 
         goto LABEL_47;
       }
 
-      v68 = v66;
+      v72 = v70;
       goto LABEL_47;
     }
 
-    objc_opt_class();
-    if ((OUTLINED_FUNCTION_73() & 1) == 0)
+    v33 = objc_opt_class();
+    if ((OUTLINED_FUNCTION_73(v33) & 1) == 0)
     {
       workflow5 = [self workflow];
       [workflow5 name];
@@ -7782,45 +7806,46 @@ LABEL_45:
       [self eventIdentifier];
       eventIdentifier5 = [self eventIdentifier];
 
-      v33 = *__error();
-      v34 = _wrlog();
-      v35 = OUTLINED_FUNCTION_99(v34);
+      v36 = __error();
+      v37 = *v36;
+      v38 = _wrlog(v36);
+      v39 = OUTLINED_FUNCTION_99(v38);
       if (eventIdentifier5)
       {
-        if (v35)
+        if (v39)
         {
           workflow6 = [self workflow];
           name5 = [workflow6 name];
           eventIdentifier6 = [self eventIdentifier];
           object_getClassName(v7);
           OUTLINED_FUNCTION_24();
-          v184 = eventIdentifier6;
-          v185 = 2082;
-          *v186 = v38;
+          v190 = eventIdentifier6;
+          v191 = 2082;
+          *v192 = v42;
           OUTLINED_FUNCTION_23();
-          _os_log_fault_impl(v39, v40, v41, v42, v43, 0x20u);
+          _os_log_fault_impl(v43, v44, v45, v46, v47, 0x20u);
 
 LABEL_49:
         }
       }
 
-      else if (v35)
+      else if (v39)
       {
         workflow6 = [self workflow];
         [workflow6 name];
         objc_claimAutoreleasedReturnValue();
-        v83 = OUTLINED_FUNCTION_68();
-        ClassName = object_getClassName(v83);
+        v87 = OUTLINED_FUNCTION_68();
+        ClassName = object_getClassName(v87);
         *buf = 138543618;
-        v182 = name5;
-        v183 = 2082;
-        v184 = ClassName;
+        v188 = name5;
+        v189 = 2082;
+        v190 = ClassName;
         OUTLINED_FUNCTION_23();
-        _os_log_fault_impl(v85, v86, v87, v88, v89, 0x16u);
+        _os_log_fault_impl(v89, v90, v91, v92, v93, 0x16u);
         goto LABEL_49;
       }
 
-      *__error() = v33;
+      *__error() = v37;
 LABEL_23:
 
       goto LABEL_24;
@@ -7828,7 +7853,7 @@ LABEL_23:
 
     beginEvent = [v7 beginEvent];
     endEvent = [v7 endEvent];
-    v74 = endEvent;
+    v78 = endEvent;
     beginDate = 0;
     if (!v10)
     {
@@ -7836,21 +7861,21 @@ LABEL_23:
     }
 
 LABEL_31:
-    for (i = OUTLINED_FUNCTION_71(endEvent, v73); ; i = 0)
+    for (i = OUTLINED_FUNCTION_71(endEvent, v77); ; i = 0)
     {
-      v77 = [i count];
-      if (beginDate >= v77)
+      v81 = [i count];
+      if (beginDate >= v81)
       {
-        v80 = 0;
+        v84 = 0;
         goto LABEL_53;
       }
 
-      v79 = v10 ? OUTLINED_FUNCTION_71(v77, v78) : 0;
-      v80 = [v79 objectAtIndexedSubscript:beginDate];
-      [v80 machContTimeNs];
+      v83 = v10 ? OUTLINED_FUNCTION_71(v81, v82) : 0;
+      v84 = [v83 objectAtIndexedSubscript:beginDate];
+      [v84 machContTimeNs];
       if (name5 == [OUTLINED_FUNCTION_67() startNanoseconds])
       {
-        [v80 threadID];
+        [v84 threadID];
         threadID2 = [OUTLINED_FUNCTION_67() threadID];
         if (name5 == threadID2)
         {
@@ -7870,32 +7895,32 @@ LABEL_38:
 
     if (v10)
     {
-      v90 = OUTLINED_FUNCTION_71(threadID2, v82);
+      v94 = OUTLINED_FUNCTION_71(threadID2, v86);
     }
 
     else
     {
-      v90 = 0;
+      v94 = 0;
     }
 
-    [v90 removeObjectAtIndex:beginDate];
+    [v94 removeObjectAtIndex:beginDate];
 LABEL_53:
-    if (([beginEvent isSyntheticIntervalEvent] & 1) == 0 && !v80)
+    if (([beginEvent isSyntheticIntervalEvent] & 1) == 0 && !v84)
     {
-      v91 = OUTLINED_FUNCTION_53();
-      v92(v91, beginEvent);
+      v95 = OUTLINED_FUNCTION_53();
+      v96(v95, beginEvent);
     }
 
-    v93 = OUTLINED_FUNCTION_53();
-    v94(v93, v74);
+    v97 = OUTLINED_FUNCTION_53();
+    v98(v97, v78);
     processID2 = [beginEvent processID];
     threadID3 = [beginEvent threadID];
-    processID3 = [v74 processID];
-    threadID4 = [v74 threadID];
-    v172 = v74;
-    if (([beginEvent overridesBeginTime] & 1) == 0 && !objc_msgSend(v74, "overridesBeginTime"))
+    processID3 = [v78 processID];
+    threadID4 = [v78 threadID];
+    v178 = v78;
+    if (([beginEvent overridesBeginTime] & 1) == 0 && !objc_msgSend(v78, "overridesBeginTime"))
     {
-      if (([beginEvent overridesEndTime] & 1) != 0 || objc_msgSend(v74, "overridesEndTime"))
+      if (([beginEvent overridesEndTime] & 1) != 0 || objc_msgSend(v78, "overridesEndTime"))
       {
         threadID4 = 0;
         processID3 = -1;
@@ -7904,41 +7929,41 @@ LABEL_53:
       goto LABEL_81;
     }
 
-    if (([beginEvent overridesEndTime] & 1) == 0 && !objc_msgSend(v74, "overridesEndTime"))
+    if (([beginEvent overridesEndTime] & 1) == 0 && !objc_msgSend(v78, "overridesEndTime"))
     {
       threadID3 = 0;
       processID2 = -1;
 LABEL_81:
-      if (v80)
+      if (v84)
       {
-        v140 = v80;
+        v146 = v84;
       }
 
       else
       {
-        v141 = [WRTimestampAndThread alloc];
+        v147 = [WRTimestampAndThread alloc];
         startNanoseconds = [OUTLINED_FUNCTION_67() startNanoseconds];
         beginDate = [beginEvent beginDate];
-        v140 = [(WRTimestampAndThread *)name5 initWithPID:processID2 threadID:threadID3 machContTimeNs:startNanoseconds date:beginDate];
+        v146 = [(WRTimestampAndThread *)name5 initWithPID:processID2 threadID:threadID3 machContTimeNs:startNanoseconds date:beginDate];
       }
 
-      v143 = [WRTimestampAndThread alloc];
+      v149 = [WRTimestampAndThread alloc];
       [OUTLINED_FUNCTION_68() endNanoseconds];
       endDate2 = [OUTLINED_FUNCTION_27() endDate];
-      v145 = [(WRTimestampAndThread *)name5 initWithPID:processID3 threadID:threadID4 machContTimeNs:beginDate date:endDate2];
+      v151 = [(WRTimestampAndThread *)name5 initWithPID:processID3 threadID:threadID4 machContTimeNs:beginDate date:endDate2];
 
-      v146 = [WRIntervalAndThreads alloc];
-      v148 = [WRIntervalAndThreads initWithStart:end:];
-      if (!v10 || (v149 = objc_getProperty(v10, v147, 40, 1)) == 0)
+      v152 = [WRIntervalAndThreads alloc];
+      v154 = [WRIntervalAndThreads initWithStart:end:];
+      if (!v10 || (v155 = objc_getProperty(v10, v153, 40, 1)) == 0)
       {
-        v149 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v155 = objc_alloc_init(MEMORY[0x277CBEB18]);
         if (v10)
         {
-          objc_setProperty_atomic(v10, v150, v149, 40);
+          objc_setProperty_atomic(v10, v156, v155, 40);
         }
       }
 
-      [(WRIntervalAndThreads *)v148 insertIntoSortedArray:v149];
+      [(WRIntervalAndThreads *)v154 insertIntoSortedArray:v155];
 
       goto LABEL_22;
     }
@@ -7948,7 +7973,7 @@ LABEL_81:
 
     if (!individuationFieldName4)
     {
-      [v74 name];
+      [v78 name];
 
       workflow7 = [self workflow];
       [workflow7 name];
@@ -7956,59 +7981,60 @@ LABEL_81:
       [self eventIdentifier];
       name5 = [self eventIdentifier];
 
-      v98 = *__error();
-      beginDate = _wrlog();
-      v99 = os_log_type_enabled(beginDate, OS_LOG_TYPE_INFO);
+      v102 = __error();
+      v103 = *v102;
+      beginDate = _wrlog(v102);
+      v104 = os_log_type_enabled(beginDate, OS_LOG_TYPE_INFO);
       if (name5)
       {
-        if (v99)
+        if (v104)
         {
           workflow8 = [self workflow];
           [workflow8 name];
-          v128 = loga = v98;
+          v134 = loga = v103;
           name5 = [self eventIdentifier];
-          name6 = [v172 name];
+          name6 = [v178 name];
           *buf = 138544898;
-          v182 = v128;
-          v183 = 2114;
-          v184 = name5;
-          v185 = 2114;
-          *v186 = name6;
-          *&v186[8] = 1024;
-          *&v186[10] = processID2;
-          *&v186[14] = 2048;
-          *&v186[16] = threadID3;
-          *&v186[24] = 1024;
-          *&v186[26] = processID3;
-          *&v186[30] = 2048;
-          *&v186[32] = threadID4;
+          v188 = v134;
+          v189 = 2114;
+          v190 = name5;
+          v191 = 2114;
+          *v192 = name6;
+          *&v192[8] = 1024;
+          *&v192[10] = processID2;
+          *&v192[14] = 2048;
+          *&v192[16] = threadID3;
+          *&v192[24] = 1024;
+          *&v192[26] = processID3;
+          *&v192[30] = 2048;
+          *&v192[32] = threadID4;
           OUTLINED_FUNCTION_54();
-          _os_log_impl(v130, v131, v132, v133, v134, 0x40u);
+          _os_log_impl(v136, v137, v138, v139, v140, 0x40u);
 
-          v98 = loga;
+          v103 = loga;
         }
       }
 
-      else if (v99)
+      else if (v104)
       {
         workflow9 = [self workflow];
         name5 = [workflow9 name];
-        name7 = [v172 name];
+        name7 = [v178 name];
         OUTLINED_FUNCTION_24();
-        v184 = v101;
-        v185 = 1024;
-        *v186 = processID2;
-        *&v186[4] = 2048;
-        *&v186[6] = threadID3;
-        *&v186[14] = 1024;
-        *&v186[16] = processID3;
-        *&v186[20] = 2048;
-        *&v186[22] = threadID4;
+        v190 = v106;
+        v191 = 1024;
+        *v192 = processID2;
+        *&v192[4] = 2048;
+        *&v192[6] = threadID3;
+        *&v192[14] = 1024;
+        *&v192[16] = processID3;
+        *&v192[20] = 2048;
+        *&v192[22] = threadID4;
         OUTLINED_FUNCTION_54();
-        _os_log_impl(v102, v103, v104, v105, v106, 0x36u);
+        _os_log_impl(v107, v108, v109, v110, v111, 0x36u);
       }
 
-      *__error() = v98;
+      *__error() = v103;
       goto LABEL_81;
     }
 
@@ -8016,7 +8042,7 @@ LABEL_81:
     [signpost6 individuationFieldName];
 
     [v10 individuationIdentifier];
-    [v74 name];
+    [v78 name];
 
     workflow10 = [self workflow];
     [workflow10 name];
@@ -8024,85 +8050,84 @@ LABEL_81:
     [self eventIdentifier];
     name5 = [self eventIdentifier];
 
-    v166 = *__error();
-    beginDate = _wrlog();
-    v109 = os_log_type_enabled(beginDate, OS_LOG_TYPE_INFO);
+    v114 = __error();
+    v172 = *v114;
+    beginDate = _wrlog(v114);
+    v115 = os_log_type_enabled(beginDate, OS_LOG_TYPE_INFO);
     if (name5)
     {
-      if (v109)
+      if (v115)
       {
         workflow11 = [self workflow];
         name8 = [workflow11 name];
         eventIdentifier7 = [self eventIdentifier];
-        name5 = [v74 name];
+        name5 = [v78 name];
         signpost7 = [v10 signpost];
         [signpost7 individuationFieldName];
-        v136 = logb = beginDate;
+        v142 = logb = beginDate;
         [v10 individuationIdentifier];
         objc_claimAutoreleasedReturnValue();
         *buf = 138545410;
-        v182 = name8;
+        v188 = name8;
         OUTLINED_FUNCTION_10();
-        *v186 = name5;
-        *&v186[8] = v137;
-        *&v186[10] = v136;
-        *&v186[18] = 2112;
-        *&v186[20] = v138;
-        v139 = v138;
-        *&v186[28] = 1024;
-        *&v186[30] = processID2;
-        *&v186[34] = 2048;
-        *&v186[36] = threadID3;
-        *&v186[44] = 1024;
-        *&v186[46] = processID3;
-        v187 = 2048;
-        v188 = threadID4;
+        *v192 = name5;
+        *&v192[8] = v143;
+        *&v192[10] = v142;
+        *&v192[18] = 2112;
+        *&v192[20] = v144;
+        v145 = v144;
+        *&v192[28] = 1024;
+        *&v192[30] = processID2;
+        *&v192[34] = 2048;
+        *&v192[36] = threadID3;
+        *&v192[44] = 1024;
+        *&v192[46] = processID3;
+        v193 = 2048;
+        v194 = threadID4;
         _os_log_impl(&dword_2746E5000, logb, OS_LOG_TYPE_INFO, "%{public}@<%{public}@>: %{public}@: %{public}@->%@: Both begin and end times are overridden - assuming they occurred on [%d] thread 0x%#llx and [%d] thread 0x%#llx", buf, 0x54u);
 
         beginDate = logb;
-        v118 = workflow11;
+        v124 = workflow11;
         goto LABEL_79;
       }
     }
 
-    else if (v109)
+    else if (v115)
     {
       log = [self workflow];
       name9 = [log name];
-      name10 = [v74 name];
+      name10 = [v78 name];
       signpost8 = [v10 signpost];
       individuationFieldName5 = [signpost8 individuationFieldName];
       [v10 individuationIdentifier];
       objc_claimAutoreleasedReturnValue();
       *buf = 138545154;
-      v182 = name9;
+      v188 = name9;
       OUTLINED_FUNCTION_10();
-      *v186 = individuationFieldName5;
-      *&v186[8] = 2112;
-      *&v186[10] = v112;
-      name5 = v112;
-      *&v186[18] = 1024;
-      *&v186[20] = processID2;
-      *&v186[24] = 2048;
-      *&v186[26] = threadID3;
-      *&v186[34] = 1024;
-      *&v186[36] = processID3;
-      *&v186[40] = 2048;
-      *&v186[42] = threadID4;
+      *v192 = individuationFieldName5;
+      *&v192[8] = 2112;
+      *&v192[10] = v118;
+      name5 = v118;
+      *&v192[18] = 1024;
+      *&v192[20] = processID2;
+      *&v192[24] = 2048;
+      *&v192[26] = threadID3;
+      *&v192[34] = 1024;
+      *&v192[36] = processID3;
+      *&v192[40] = 2048;
+      *&v192[42] = threadID4;
       OUTLINED_FUNCTION_54();
-      _os_log_impl(v113, v114, v115, v116, v117, 0x4Au);
+      _os_log_impl(v119, v120, v121, v122, v123, 0x4Au);
 
-      v118 = log;
+      v124 = log;
 LABEL_79:
     }
 
-    *__error() = v166;
+    *__error() = v172;
     goto LABEL_81;
   }
 
 LABEL_24:
-
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 - (void)newConcurrentEventWithIdentifier:(void *)identifier
@@ -8155,7 +8180,6 @@ LABEL_24:
 
 - (void)fillInNonDiagnosticSignpost:(void *)signpost
 {
-  v58 = *MEMORY[0x277D85DE8];
   v7 = a2;
   if (signpost)
   {
@@ -8167,8 +8191,8 @@ LABEL_24:
       goto LABEL_5;
     }
 
-    objc_opt_class();
-    if (OUTLINED_FUNCTION_73() & 1) != 0 && ([v7 isSyntheticIntervalEvent])
+    v10 = objc_opt_class();
+    if (OUTLINED_FUNCTION_73(v10) & 1) != 0 && ([v7 isSyntheticIntervalEvent])
     {
       goto LABEL_5;
     }
@@ -8191,16 +8215,17 @@ LABEL_24:
     [signpost eventIdentifier];
     eventIdentifier = [signpost eventIdentifier];
 
-    v57 = *__error();
-    v15 = _wrlog();
-    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_INFO);
+    v15 = __error();
+    v58 = *v15;
+    v16 = _wrlog(v15);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_INFO);
     if (eventStart == name2)
     {
       if (workflow)
       {
         if (!eventIdentifier)
         {
-          if (v16)
+          if (v17)
           {
             workflow3 = [signpost workflow];
             [workflow3 name];
@@ -8214,20 +8239,20 @@ LABEL_24:
             OUTLINED_FUNCTION_12();
             OUTLINED_FUNCTION_42();
             OUTLINED_FUNCTION_6();
-            v22 = 62;
+            v23 = 62;
             goto LABEL_19;
           }
 
 LABEL_36:
 
-          *__error() = v57;
+          *__error() = v58;
           [(WRWorkflowEventTracker *)signpost applySignpost:v7 toSignpostTracker:v3];
 
 LABEL_5:
           goto LABEL_6;
         }
 
-        if (!v16)
+        if (!v17)
         {
           goto LABEL_36;
         }
@@ -8245,14 +8270,14 @@ LABEL_5:
         OUTLINED_FUNCTION_36();
         OUTLINED_FUNCTION_41();
         OUTLINED_FUNCTION_6();
-        v35 = 72;
+        v36 = 72;
       }
 
       else
       {
         if (!eventIdentifier)
         {
-          if (v16)
+          if (v17)
           {
             workflow3 = [signpost workflow];
             [workflow3 name];
@@ -8265,9 +8290,9 @@ LABEL_5:
             OUTLINED_FUNCTION_98();
             OUTLINED_FUNCTION_12();
             OUTLINED_FUNCTION_6();
-            v22 = 42;
+            v23 = 42;
 LABEL_19:
-            _os_log_impl(v17, v18, v19, v20, v21, v22);
+            _os_log_impl(v18, v19, v20, v21, v22, v23);
 LABEL_33:
 
             goto LABEL_34;
@@ -8276,7 +8301,7 @@ LABEL_33:
           goto LABEL_36;
         }
 
-        if (!v16)
+        if (!v17)
         {
           goto LABEL_36;
         }
@@ -8294,10 +8319,10 @@ LABEL_33:
         OUTLINED_FUNCTION_36();
         OUTLINED_FUNCTION_83();
         OUTLINED_FUNCTION_6();
-        v35 = 52;
+        v36 = 52;
       }
 
-      _os_log_impl(v30, v31, v32, v33, v34, v35);
+      _os_log_impl(v31, v32, v33, v34, v35, v36);
     }
 
     else
@@ -8306,7 +8331,7 @@ LABEL_33:
       {
         if (eventIdentifier)
         {
-          if (v16)
+          if (v17)
           {
             workflow3 = [signpost workflow];
             name2 = [workflow3 name];
@@ -8327,7 +8352,7 @@ LABEL_33:
             OUTLINED_FUNCTION_12();
             OUTLINED_FUNCTION_41();
             OUTLINED_FUNCTION_6();
-            _os_log_impl(v42, v43, v44, v45, v46, 0x66u);
+            _os_log_impl(v43, v44, v45, v46, v47, 0x66u);
 
             goto LABEL_33;
           }
@@ -8335,7 +8360,7 @@ LABEL_33:
           goto LABEL_36;
         }
 
-        if (!v16)
+        if (!v17)
         {
           goto LABEL_36;
         }
@@ -8358,14 +8383,14 @@ LABEL_33:
         OUTLINED_FUNCTION_36();
         OUTLINED_FUNCTION_42();
         OUTLINED_FUNCTION_6();
-        v28 = 92;
+        v29 = 92;
       }
 
       else
       {
         if (eventIdentifier)
         {
-          if (v16)
+          if (v17)
           {
             workflow4 = [signpost workflow];
             name3 = [workflow4 name];
@@ -8386,9 +8411,9 @@ LABEL_33:
             OUTLINED_FUNCTION_36();
             OUTLINED_FUNCTION_83();
             OUTLINED_FUNCTION_6();
-            _os_log_impl(v36, v37, v38, v39, v40, 0x52u);
+            _os_log_impl(v37, v38, v39, v40, v41, 0x52u);
 
-            v41 = workflow4;
+            v42 = workflow4;
 LABEL_35:
 
             goto LABEL_36;
@@ -8397,7 +8422,7 @@ LABEL_35:
           goto LABEL_36;
         }
 
-        if (!v16)
+        if (!v17)
         {
           goto LABEL_36;
         }
@@ -8419,30 +8444,28 @@ LABEL_35:
         [OUTLINED_FUNCTION_45() endMachContinuousTime];
         OUTLINED_FUNCTION_36();
         OUTLINED_FUNCTION_6();
-        v28 = 72;
+        v29 = 72;
       }
 
-      _os_log_impl(v23, v24, v25, v26, v27, v28);
+      _os_log_impl(v24, v25, v26, v27, v28, v29);
     }
 
 LABEL_34:
-    v41 = workflow3;
+    v42 = workflow3;
     goto LABEL_35;
   }
 
 LABEL_6:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (NSMutableDictionary)environment
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   if (self)
   {
     v5 = OUTLINED_FUNCTION_69(self, v3);
@@ -8454,69 +8477,67 @@ LABEL_6:
   }
 
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
+        v11 = *(*(&v18 + 1) + 8 * i);
         environment = [v11 environment];
-        v17[0] = MEMORY[0x277D85DD0];
-        v17[1] = 3221225472;
-        v17[2] = __37__WRWorkflowEventTracker_environment__block_invoke;
-        v17[3] = &unk_279EE3308;
-        v17[4] = v11;
-        v18 = v4;
-        [environment enumerateKeysAndObjectsUsingBlock:v17];
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __37__WRWorkflowEventTracker_environment__block_invoke;
+        v16[3] = &unk_279EE3308;
+        v16[4] = v11;
+        v17 = v4;
+        [environment enumerateKeysAndObjectsUsingBlock:v16];
       }
 
-      v8 = OUTLINED_FUNCTION_74(v13, v14, &v19, v23);
+      v8 = OUTLINED_FUNCTION_74(v13, v14, &v18, v22);
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)diagnosticsExceedingThresholds
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if (self)
   {
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     workflow = [self workflow];
     workflowDiagnostics = [workflow workflowDiagnostics];
 
-    v6 = OUTLINED_FUNCTION_75(v4, v5, &v31, v35);
+    v6 = OUTLINED_FUNCTION_75(v4, v5, &v30, v34);
     if (v6)
     {
       v7 = v6;
-      v8 = *v32;
+      v8 = *v31;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v32 != v8)
+          if (*v31 != v8)
           {
             objc_enumerationMutation(workflowDiagnostics);
           }
 
-          v10 = *(*(&v31 + 1) + 8 * i);
+          v10 = *(*(&v30 + 1) + 8 * i);
           if ([v10 hasTriggerThresholdDurationSingle])
           {
             eventEnd = [self eventEnd];
@@ -8533,7 +8554,7 @@ LABEL_6:
                 {
                   if ([v10 reportOmittingNetworkBoundIntervals])
                   {
-                    [self stats];
+                    objc_msgSend_stats(self);
                     v16 = 0;
                   }
 
@@ -8589,7 +8610,7 @@ LABEL_6:
           }
         }
 
-        v7 = OUTLINED_FUNCTION_75(triggerEventTimeout, v22, &v31, v35);
+        v7 = OUTLINED_FUNCTION_75(triggerEventTimeout, v22, &v30, v34);
         if (v7)
         {
           continue;
@@ -8610,14 +8631,12 @@ LABEL_27:
     v28 = 0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v28;
 }
 
 - (id)encodedDict
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CBEB38]);
   workflow = [(WRWorkflowEventTracker *)self workflow];
   encodedDict = [workflow encodedDict];
@@ -8644,13 +8663,13 @@ LABEL_27:
 LABEL_10:
       error3 = [(WRWorkflowEventTracker *)self error];
       [error3 code];
-      v27 = [OUTLINED_FUNCTION_88() numberWithInteger:?];
+      v28 = [OUTLINED_FUNCTION_88() numberWithInteger:?];
       [OUTLINED_FUNCTION_48() setObject:? forKeyedSubscript:?];
 
       error4 = [(WRWorkflowEventTracker *)self error];
       userInfo = [error4 userInfo];
-      v30 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CCA068]];
-      [v6 setObject:v30 forKeyedSubscript:@"wt_error_description"];
+      v31 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CCA068]];
+      [v6 setObject:v31 forKeyedSubscript:@"wt_error_description"];
 
       goto LABEL_11;
     }
@@ -8661,45 +8680,46 @@ LABEL_10:
     [(WRWorkflowEventTracker *)self eventIdentifier];
     eventIdentifier = [(WRWorkflowEventTracker *)self eventIdentifier];
 
-    v17 = *__error();
-    v18 = _wrlog();
-    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_FAULT);
+    v17 = __error();
+    v18 = *v17;
+    v19 = _wrlog(v17);
+    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_FAULT);
     if (eventIdentifier)
     {
-      if (v19)
+      if (v20)
       {
         workflow3 = [(WRWorkflowEventTracker *)self workflow];
         [workflow3 name];
         objc_claimAutoreleasedReturnValue();
         eventIdentifier2 = [OUTLINED_FUNCTION_66() eventIdentifier];
         error5 = [(WRWorkflowEventTracker *)self error];
-        v59 = 138543874;
-        v60 = v14;
+        v55 = 138543874;
+        v56 = v14;
         OUTLINED_FUNCTION_35();
-        v62 = eventIdentifier2;
-        v63 = 2112;
-        v64 = v24;
-        OUTLINED_FUNCTION_56(&dword_2746E5000, v18, v25, "%{public}@<%{public}@>: Have error with bad domain %@", &v59);
+        v58 = eventIdentifier2;
+        v59 = 2112;
+        v60 = v25;
+        OUTLINED_FUNCTION_56(&dword_2746E5000, v19, v26, "%{public}@<%{public}@>: Have error with bad domain %@", &v55);
 
         goto LABEL_8;
       }
     }
 
-    else if (v19)
+    else if (v20)
     {
       workflow3 = [(WRWorkflowEventTracker *)self workflow];
       [workflow3 name];
       objc_claimAutoreleasedReturnValue();
       eventIdentifier2 = [OUTLINED_FUNCTION_66() error];
-      v59 = 138543618;
-      v60 = v14;
-      v61 = 2112;
-      v62 = eventIdentifier2;
-      OUTLINED_FUNCTION_44(&dword_2746E5000, v18, v22, "%{public}@: Have error with bad domain %@", &v59);
+      v55 = 138543618;
+      v56 = v14;
+      v57 = 2112;
+      v58 = eventIdentifier2;
+      OUTLINED_FUNCTION_44(&dword_2746E5000, v19, v23, "%{public}@: Have error with bad domain %@", &v55);
 LABEL_8:
     }
 
-    *__error() = v17;
+    *__error() = v18;
     goto LABEL_10;
   }
 
@@ -8715,53 +8735,48 @@ LABEL_11:
   eventIdentifier3 = [(WRWorkflowEventTracker *)self eventIdentifier];
   [OUTLINED_FUNCTION_48() setObject:? forKeyedSubscript:?];
 
-  v36 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v54 = 0u;
-  v55 = 0u;
-  v56 = 0u;
-  v57 = 0u;
+  v37 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  memset(v53, 0, sizeof(v53));
   allSignpostTrackers = [(WRWorkflowEventTracker *)self allSignpostTrackers];
-  v38 = [allSignpostTrackers countByEnumeratingWithState:&v54 objects:v58 count:16];
-  if (v38)
+  v39 = [allSignpostTrackers countByEnumeratingWithState:v53 objects:v54 count:16];
+  if (v39)
   {
-    v39 = v38;
-    v40 = *v55;
+    v40 = v39;
     do
     {
-      for (i = 0; i != v39; ++i)
+      for (i = 0; i != v40; ++i)
       {
-        OUTLINED_FUNCTION_91(v55);
+        OUTLINED_FUNCTION_91();
         if (!v42)
         {
           objc_enumerationMutation(allSignpostTrackers);
         }
 
-        v43 = *(*(&v54 + 1) + 8 * i);
+        v43 = *(*(&v53[0] + 1) + 8 * i);
         signpost = [v43 signpost];
         name3 = [signpost name];
 
-        v46 = [v36 objectForKeyedSubscript:name3];
+        v46 = [v37 objectForKeyedSubscript:name3];
         if (!v46)
         {
           v46 = objc_alloc_init(MEMORY[0x277CBEB18]);
-          [v36 setObject:v46 forKeyedSubscript:name3];
+          [v37 setObject:v46 forKeyedSubscript:name3];
         }
 
         encodedDict4 = [(WRSignpostTracker *)v43 encodedDict];
         [v46 addObject:encodedDict4];
       }
 
-      v39 = OUTLINED_FUNCTION_74(v48, v49, &v54, v58);
+      v40 = OUTLINED_FUNCTION_74(v48, v49, v53, v54);
     }
 
-    while (v39);
+    while (v40);
   }
 
-  v50 = [v36 copy];
+  v50 = [v37 copy];
   [OUTLINED_FUNCTION_49() setObject:? forKeyedSubscript:?];
 
   v51 = [v6 copy];
-  v52 = *MEMORY[0x277D85DE8];
 
   return v51;
 }
@@ -8809,7 +8824,7 @@ LABEL_11:
 - (uint64_t)gatherDiagnosticsWithTailspin:(int)tailspin tailspinIncludeOSLogs:
 {
   selfCopy = self;
-  v164 = *MEMORY[0x277D85DE8];
+  v171 = *MEMORY[0x277D85DE8];
   if (self)
   {
     workflow = [self workflow];
@@ -8818,12 +8833,13 @@ LABEL_11:
     [selfCopy eventIdentifier];
     eventIdentifier = [selfCopy eventIdentifier];
 
-    v6 = *__error();
-    v7 = _wrlog();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    v6 = __error();
+    v7 = *v6;
+    v8 = _wrlog(v6);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
     if (eventIdentifier)
     {
-      if (!v8)
+      if (!v9)
       {
         goto LABEL_8;
       }
@@ -8834,13 +8850,13 @@ LABEL_11:
       *buf = 138543618;
       *&buf[4] = name;
       OUTLINED_FUNCTION_35();
-      v161 = v12;
-      _os_log_impl(&dword_2746E5000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@<%{public}@>: Generating diagnostics", buf, 0x16u);
+      v168 = v13;
+      _os_log_impl(&dword_2746E5000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@<%{public}@>: Generating diagnostics", buf, 0x16u);
     }
 
     else
     {
-      if (!v8)
+      if (!v9)
       {
         goto LABEL_8;
       }
@@ -8849,13 +8865,13 @@ LABEL_11:
       name = [workflow2 name];
       *buf = 138543362;
       *&buf[4] = name;
-      _os_log_impl(&dword_2746E5000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Generating diagnostics", buf, 0xCu);
+      _os_log_impl(&dword_2746E5000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Generating diagnostics", buf, 0xCu);
     }
 
 LABEL_8:
-    *__error() = v6;
+    *__error() = v7;
     +[WRWorkflowEventTracker makeTailspinDirectory];
-    v13 = MEMORY[0x277CCACA8];
+    v14 = MEMORY[0x277CCACA8];
     workflow3 = [selfCopy workflow];
     name2 = [workflow3 name];
     eventStart = [selfCopy eventStart];
@@ -8866,45 +8882,45 @@ LABEL_8:
       date2 = [MEMORY[0x277CBEAA8] date];
     }
 
-    v19 = _MergedGlobals;
-    v20 = date2;
-    if (v19 != -1)
+    v20 = _MergedGlobals;
+    v21 = date2;
+    if (v20 != -1)
     {
       dispatch_once(&_MergedGlobals, &__block_literal_global_538);
     }
 
-    v21 = [qword_28159D110 stringFromDate:v20];
+    v22 = [qword_28159D110 stringFromDate:v21];
 
-    v22 = [v13 stringWithFormat:@"%@-%@.%@", name2, v21, @"tailspin"];
+    v23 = [v14 stringWithFormat:@"%@-%@.%@", name2, v22, @"tailspin"];
 
     if (!date)
     {
     }
 
-    v23 = +[WRWorkflowEventTracker tailspinDirectory];
-    v155 = v22;
-    v24 = [v23 URLByAppendingPathComponent:v22];
+    v24 = +[WRWorkflowEventTracker tailspinDirectory];
+    v162 = v23;
+    v25 = [v24 URLByAppendingPathComponent:v23];
 
-    v157 = 0;
-    v25 = [selfCopy encodedStringWithError:&v157];
-    v26 = v157;
-    if (v25)
+    v164 = 0;
+    v26 = [selfCopy encodedStringWithError:&v164];
+    v27 = v164;
+    if (v26)
     {
 LABEL_20:
-      v46 = [v24 URLByAppendingPathExtension:@"temp"];
-      v47 = v46;
-      if (v46)
+      v48 = [v25 URLByAppendingPathExtension:@"temp"];
+      v49 = v48;
+      if (v48)
       {
-        fileSystemRepresentation = [v46 fileSystemRepresentation];
+        fileSystemRepresentation = [v48 fileSystemRepresentation];
         if (fileSystemRepresentation)
         {
-          v49 = fileSystemRepresentation;
-          v50 = open(fileSystemRepresentation, 3586, 420);
-          if (v50 != -1)
+          v51 = fileSystemRepresentation;
+          v52 = open(fileSystemRepresentation, 3586, 420);
+          if (v52 != -1)
           {
-            v51 = v50;
-            v151 = v26;
-            if (unlink(v49))
+            v53 = v52;
+            v158 = v27;
+            if (unlink(v51))
             {
               workflow4 = [selfCopy workflow];
               [workflow4 name];
@@ -8912,77 +8928,78 @@ LABEL_20:
               [selfCopy eventIdentifier];
               eventIdentifier3 = [selfCopy eventIdentifier];
 
-              v54 = *__error();
-              v55 = _wrlog();
-              v56 = os_log_type_enabled(v55, OS_LOG_TYPE_ERROR);
+              v56 = __error();
+              v57 = *v56;
+              v58 = _wrlog(v56);
+              v59 = os_log_type_enabled(v58, OS_LOG_TYPE_ERROR);
               if (eventIdentifier3)
               {
-                if (v56)
+                if (v59)
                 {
                   workflow5 = [selfCopy workflow];
                   name3 = [workflow5 name];
                   eventIdentifier4 = [selfCopy eventIdentifier];
-                  v60 = __error();
-                  OUTLINED_FUNCTION_15(*v60, 5.8384e-34);
+                  v63 = __error();
+                  OUTLINED_FUNCTION_15(*v63, 5.8384e-34);
                   OUTLINED_FUNCTION_8();
-                  _os_log_error_impl(v61, v62, v63, v64, v65, 0x26u);
+                  _os_log_error_impl(v64, v65, v66, v67, v68, 0x26u);
                 }
               }
 
-              else if (v56)
+              else if (v59)
               {
                 workflow6 = [selfCopy workflow];
                 name4 = [workflow6 name];
-                v137 = *__error();
+                v144 = *__error();
                 *buf = 138543874;
                 *&buf[4] = name4;
-                OUTLINED_FUNCTION_47(v137);
+                OUTLINED_FUNCTION_47(v144);
                 OUTLINED_FUNCTION_8();
-                _os_log_error_impl(v138, v139, v140, v141, v142, 0x1Cu);
+                _os_log_error_impl(v145, v146, v147, v148, v149, 0x1Cu);
               }
 
-              *__error() = v54;
-              close(v51);
+              *__error() = v57;
+              close(v53);
               selfCopy = 0;
             }
 
             else
             {
               *buf = 0;
-              mach_get_times();
-              v113 = *MEMORY[0x277D82D28];
-              v158[0] = *MEMORY[0x277D82CC8];
-              v158[1] = v113;
-              v159[0] = MEMORY[0x277CBEC38];
-              v159[1] = MEMORY[0x277CBEC28];
-              v158[2] = *MEMORY[0x277D82D18];
-              v114 = [MEMORY[0x277CCABB0] numberWithInt:WRIsAppleInternal() ^ 1];
-              v158[3] = *MEMORY[0x277D82D08];
-              v159[2] = v114;
-              v159[3] = v25;
-              v115 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v159 forKeys:v158 count:4];
-              v116 = [v115 mutableCopy];
+              times = mach_get_times();
+              v120 = *MEMORY[0x277D82D28];
+              v165[0] = *MEMORY[0x277D82CC8];
+              v165[1] = v120;
+              v166[0] = MEMORY[0x277CBEC38];
+              v166[1] = MEMORY[0x277CBEC28];
+              v165[2] = *MEMORY[0x277D82D18];
+              v122 = [MEMORY[0x277CCABB0] numberWithInt:{WRIsAppleInternal(times, v121) ^ 1}];
+              v165[3] = *MEMORY[0x277D82D08];
+              v166[2] = v122;
+              v166[3] = v26;
+              v123 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v166 forKeys:v165 count:4];
+              v124 = [v123 mutableCopy];
 
               if (tailspin)
               {
-                [v116 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277D82CC0]];
+                [v124 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277D82CC0]];
               }
 
               dispatch_get_global_queue(0, 0);
               objc_claimAutoreleasedReturnValue();
               workflow7 = [OUTLINED_FUNCTION_64() workflow];
               name5 = [workflow7 name];
-              v119 = WRCreateOSTransaction("Gathering tailspin for workflow %s", [name5 UTF8String]);
+              v127 = WRCreateOSTransaction("Gathering tailspin for workflow %s", [name5 UTF8String]);
 
-              v156 = v24;
-              v120 = v119;
+              v163 = v25;
+              v128 = v127;
               tailspin_dump_output_with_options();
 
               selfCopy = 1;
             }
 
-            v22 = v155;
-            v26 = v151;
+            v23 = v162;
+            v27 = v158;
             goto LABEL_52;
           }
 
@@ -8992,45 +9009,46 @@ LABEL_20:
           [selfCopy eventIdentifier];
           eventIdentifier5 = [selfCopy eventIdentifier];
 
-          v68 = *__error();
-          v69 = _wrlog();
-          v92 = os_log_type_enabled(v69, OS_LOG_TYPE_ERROR);
+          v97 = __error();
+          v72 = *v97;
+          v73 = _wrlog(v97);
+          v98 = os_log_type_enabled(v73, OS_LOG_TYPE_ERROR);
           if (eventIdentifier5)
           {
-            if (v92)
+            if (v98)
             {
               workflow9 = [selfCopy workflow];
               [workflow9 name];
-              v94 = v153 = v26;
+              v100 = v160 = v27;
               eventIdentifier6 = [selfCopy eventIdentifier];
-              v96 = __error();
-              OUTLINED_FUNCTION_15(*v96, 5.8384e-34);
+              v102 = __error();
+              OUTLINED_FUNCTION_15(*v102, 5.8384e-34);
               OUTLINED_FUNCTION_8();
-              _os_log_error_impl(v97, v98, v99, v100, v101, 0x26u);
+              _os_log_error_impl(v103, v104, v105, v106, v107, 0x26u);
 
-              v26 = v153;
+              v27 = v160;
             }
           }
 
-          else if (v92)
+          else if (v98)
           {
             workflow10 = [selfCopy workflow];
             name6 = [workflow10 name];
-            v145 = *__error();
+            v152 = *__error();
             *buf = 138543874;
             *&buf[4] = name6;
-            OUTLINED_FUNCTION_47(v145);
+            OUTLINED_FUNCTION_47(v152);
             OUTLINED_FUNCTION_8();
-            _os_log_error_impl(v146, v147, v148, v149, v150, 0x1Cu);
+            _os_log_error_impl(v153, v154, v155, v156, v157, 0x1Cu);
           }
 
 LABEL_41:
 
           selfCopy = 0;
-          *__error() = v68;
+          *__error() = v72;
 LABEL_52:
 
-          goto LABEL_53;
+          return selfCopy;
         }
 
         workflow11 = [selfCopy workflow];
@@ -9039,12 +9057,13 @@ LABEL_52:
         [selfCopy eventIdentifier];
         eventIdentifier7 = [selfCopy eventIdentifier];
 
-        v68 = *__error();
-        v69 = _wrlog();
-        v84 = os_log_type_enabled(v69, OS_LOG_TYPE_FAULT);
+        v88 = __error();
+        v72 = *v88;
+        v73 = _wrlog(v88);
+        v89 = os_log_type_enabled(v73, OS_LOG_TYPE_FAULT);
         if (eventIdentifier7)
         {
-          if (!v84)
+          if (!v89)
           {
             goto LABEL_41;
           }
@@ -9054,18 +9073,18 @@ LABEL_52:
           objc_claimAutoreleasedReturnValue();
           selfCopy = [OUTLINED_FUNCTION_84() eventIdentifier];
           OUTLINED_FUNCTION_51(5.8383e-34);
-          *(v85 + 4) = v21;
+          *(v90 + 4) = v22;
           OUTLINED_FUNCTION_35();
-          *(v87 + 14) = v86;
-          v162 = v88;
-          v163 = v47;
-          OUTLINED_FUNCTION_56(&dword_2746E5000, v69, v89, "%{public}@<%{public}@>: Unable to get fileSystemRepresentation for %{public}@", buf);
+          *(v92 + 14) = v91;
+          v169 = v93;
+          v170 = v49;
+          OUTLINED_FUNCTION_56(&dword_2746E5000, v73, v94, "%{public}@<%{public}@>: Unable to get fileSystemRepresentation for %{public}@", buf);
 LABEL_33:
 
           goto LABEL_41;
         }
 
-        if (!v84)
+        if (!v89)
         {
           goto LABEL_41;
         }
@@ -9073,10 +9092,10 @@ LABEL_33:
         workflow13 = [selfCopy workflow];
         name7 = [workflow13 name];
         OUTLINED_FUNCTION_51(5.8382e-34);
-        *(v132 + 4) = v131;
+        *(v139 + 4) = v138;
         OUTLINED_FUNCTION_35();
-        *(v133 + 14) = v47;
-        OUTLINED_FUNCTION_44(&dword_2746E5000, v69, v134, "%{public}@: Unable to get fileSystemRepresentation for %{public}@", buf);
+        *(v140 + 14) = v49;
+        OUTLINED_FUNCTION_44(&dword_2746E5000, v73, v141, "%{public}@: Unable to get fileSystemRepresentation for %{public}@", buf);
       }
 
       else
@@ -9087,12 +9106,13 @@ LABEL_33:
         [selfCopy eventIdentifier];
         eventIdentifier8 = [selfCopy eventIdentifier];
 
-        v68 = *__error();
-        v69 = _wrlog();
-        v70 = os_log_type_enabled(v69, OS_LOG_TYPE_ERROR);
+        v71 = __error();
+        v72 = *v71;
+        v73 = _wrlog(v71);
+        v74 = os_log_type_enabled(v73, OS_LOG_TYPE_ERROR);
         if (eventIdentifier8)
         {
-          if (!v70)
+          if (!v74)
           {
             goto LABEL_41;
           }
@@ -9103,34 +9123,34 @@ LABEL_33:
           [OUTLINED_FUNCTION_84() eventIdentifier];
           objc_claimAutoreleasedReturnValue();
           [OUTLINED_FUNCTION_66() path];
-          v72 = v152 = v26;
+          v76 = v159 = v27;
           OUTLINED_FUNCTION_51(5.8383e-34);
-          *(v73 + 4) = v21;
+          *(v77 + 4) = v22;
           OUTLINED_FUNCTION_35();
-          *(v74 + 14) = selfCopy;
-          v162 = v75;
-          v163 = v76;
+          *(v78 + 14) = selfCopy;
+          v169 = v79;
+          v170 = v80;
           OUTLINED_FUNCTION_8();
-          _os_log_error_impl(v77, v78, v79, v80, v81, 0x20u);
+          _os_log_error_impl(v81, v82, v83, v84, v85, 0x20u);
 
-          v26 = v152;
+          v27 = v159;
           goto LABEL_33;
         }
 
-        if (!v70)
+        if (!v74)
         {
           goto LABEL_41;
         }
 
         workflow13 = [selfCopy workflow];
         name7 = [workflow13 name];
-        path = [v24 path];
+        path = [v25 path];
         OUTLINED_FUNCTION_51(5.8382e-34);
-        *(v105 + 4) = name7;
+        *(v111 + 4) = name7;
         OUTLINED_FUNCTION_35();
-        *(v107 + 14) = v106;
+        *(v113 + 14) = v112;
         OUTLINED_FUNCTION_8();
-        _os_log_error_impl(v108, v109, v110, v111, v112, 0x16u);
+        _os_log_error_impl(v114, v115, v116, v117, v118, 0x16u);
       }
 
       goto LABEL_41;
@@ -9142,60 +9162,58 @@ LABEL_33:
     [selfCopy eventIdentifier];
     eventIdentifier9 = [selfCopy eventIdentifier];
 
-    v29 = *__error();
-    v30 = _wrlog();
-    v31 = OUTLINED_FUNCTION_99(v30);
+    v30 = __error();
+    v31 = *v30;
+    v32 = _wrlog(v30);
+    v33 = OUTLINED_FUNCTION_99(v32);
     if (eventIdentifier9)
     {
-      if (v31)
+      if (v33)
       {
         workflow16 = [selfCopy workflow];
         [workflow16 name];
         objc_claimAutoreleasedReturnValue();
         eventIdentifier10 = [OUTLINED_FUNCTION_64() eventIdentifier];
         OUTLINED_FUNCTION_51(5.8383e-34);
-        *(v34 + 4) = date2;
+        *(v36 + 4) = date2;
         OUTLINED_FUNCTION_35();
-        *(v36 + 14) = v35;
-        v162 = v37;
-        v163 = v26;
+        *(v38 + 14) = v37;
+        v169 = v39;
+        v170 = v27;
         OUTLINED_FUNCTION_37();
-        _os_log_fault_impl(v38, v39, v40, v41, v42, 0x20u);
+        _os_log_fault_impl(v40, v41, v42, v43, v44, 0x20u);
 
 LABEL_55:
       }
     }
 
-    else if (v31)
+    else if (v33)
     {
       workflow16 = [selfCopy workflow];
       date2 = [workflow16 name];
       OUTLINED_FUNCTION_51(5.8382e-34);
-      *(v124 + 4) = v123;
+      *(v131 + 4) = v130;
       OUTLINED_FUNCTION_35();
-      *(v125 + 14) = v26;
+      *(v132 + 14) = v27;
       OUTLINED_FUNCTION_37();
-      _os_log_fault_impl(v126, v127, v128, v129, v130, 0x16u);
+      _os_log_fault_impl(v133, v134, v135, v136, v137, 0x16u);
       goto LABEL_55;
     }
 
-    *__error() = v29;
-    v43 = objc_alloc(MEMORY[0x277CCACA8]);
+    *__error() = v31;
+    v45 = objc_alloc(MEMORY[0x277CCACA8]);
     workflow17 = [selfCopy workflow];
     name8 = [workflow17 name];
-    v25 = [v43 initWithFormat:@"Workflow responsiveness delay detected in %@", name8];
+    v26 = [v45 initWithFormat:@"Workflow responsiveness delay detected in %@", name8];
 
     goto LABEL_20;
   }
 
-LABEL_53:
-  v121 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (void)submitCAEventName:(void *)name dict:(void *)dict forSignpost:
 {
-  v33 = *MEMORY[0x277D85DE8];
   v8 = a2;
   nameCopy = name;
   dictCopy = dict;
@@ -9207,14 +9225,15 @@ LABEL_53:
     [self eventIdentifier];
     eventIdentifier = [self eventIdentifier];
 
-    v13 = *__error();
-    v14 = _wrlog();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG);
+    v13 = __error();
+    v14 = *v13;
+    v15 = _wrlog(v13);
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG);
     if (dictCopy)
     {
       if (eventIdentifier)
       {
-        if (v15)
+        if (v16)
         {
           workflow2 = [self workflow];
           [workflow2 name];
@@ -9222,9 +9241,9 @@ LABEL_53:
           eventIdentifier2 = [OUTLINED_FUNCTION_64() eventIdentifier];
           OUTLINED_FUNCTION_3();
           OUTLINED_FUNCTION_26();
-          v23 = 52;
+          v24 = 52;
 LABEL_9:
-          _os_log_debug_impl(v18, v19, v20, v21, v22, v23);
+          _os_log_debug_impl(v19, v20, v21, v22, v23, v24);
 
           goto LABEL_13;
         }
@@ -9232,7 +9251,7 @@ LABEL_9:
         goto LABEL_13;
       }
 
-      if (!v15)
+      if (!v16)
       {
         goto LABEL_13;
       }
@@ -9242,14 +9261,14 @@ LABEL_9:
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_63();
       OUTLINED_FUNCTION_26();
-      v31 = 42;
+      v32 = 42;
     }
 
     else
     {
       if (eventIdentifier)
       {
-        if (v15)
+        if (v16)
         {
           workflow2 = [self workflow];
           [workflow2 name];
@@ -9258,18 +9277,18 @@ LABEL_9:
           OUTLINED_FUNCTION_3();
           OUTLINED_FUNCTION_63();
           OUTLINED_FUNCTION_26();
-          v23 = 42;
+          v24 = 42;
           goto LABEL_9;
         }
 
 LABEL_13:
 
-        *__error() = v13;
+        *__error() = v14;
         AnalyticsSendEvent();
         goto LABEL_14;
       }
 
-      if (!v15)
+      if (!v16)
       {
         goto LABEL_13;
       }
@@ -9278,24 +9297,21 @@ LABEL_13:
       name = [workflow3 name];
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_26();
-      v31 = 32;
+      v32 = 32;
     }
 
-    _os_log_debug_impl(v26, v27, v28, v29, v30, v31);
+    _os_log_debug_impl(v27, v28, v29, v30, v31, v32);
 
     goto LABEL_13;
   }
 
 LABEL_14:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)valueForFieldName:inSignpostObject:.cold.1()
 {
   OUTLINED_FUNCTION_86();
   OUTLINED_FUNCTION_22();
-  v11 = *MEMORY[0x277D85DE8];
   v3 = [v2 workflow];
   [v3 name];
   objc_claimAutoreleasedReturnValue();
@@ -9309,14 +9325,12 @@ LABEL_14:
   OUTLINED_FUNCTION_18();
   OUTLINED_FUNCTION_56(v5, v6, v7, v8, v9);
 
-  v10 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_81();
 }
 
 - (void)valueForFieldName:inSignpostObject:.cold.2()
 {
   OUTLINED_FUNCTION_14();
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [v1 workflow];
   [v2 name];
   objc_claimAutoreleasedReturnValue();
@@ -9324,8 +9338,6 @@ LABEL_14:
   object_getClassName(v3);
   OUTLINED_FUNCTION_5();
   _os_log_fault_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __58__WRWorkflowEventTracker_applySignpost_toSignpostTracker___block_invoke_cold_1(id *a1)
@@ -9359,7 +9371,6 @@ void __58__WRWorkflowEventTracker_applySignpost_toSignpostTracker___block_invoke
 - (void)handleSignpost:.cold.3()
 {
   OUTLINED_FUNCTION_86();
-  v9 = *MEMORY[0x277D85DE8];
   v3 = [v2 workflow];
   [v3 name];
   objc_claimAutoreleasedReturnValue();
@@ -9371,7 +9382,6 @@ void __58__WRWorkflowEventTracker_applySignpost_toSignpostTracker___block_invoke
   OUTLINED_FUNCTION_18();
   _os_log_debug_impl(v4, v5, OS_LOG_TYPE_DEBUG, v6, v7, 0x20u);
 
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_81();
 }
 
@@ -9403,7 +9413,6 @@ void __58__WRWorkflowEventTracker_applySignpost_toSignpostTracker___block_invoke
 - (void)handleSignpost:.cold.7()
 {
   OUTLINED_FUNCTION_14();
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [v1 workflow];
   [v2 name];
   objc_claimAutoreleasedReturnValue();
@@ -9411,26 +9420,20 @@ void __58__WRWorkflowEventTracker_applySignpost_toSignpostTracker___block_invoke
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_9();
   _os_log_debug_impl(v4, v5, OS_LOG_TYPE_DEBUG, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleSignpost:(void *)a1 .cold.8(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 workflow];
   v2 = [v1 name];
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_9();
   _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleSignpost:.cold.9()
 {
   OUTLINED_FUNCTION_14();
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [v1 workflow];
   [v2 name];
   objc_claimAutoreleasedReturnValue();
@@ -9438,14 +9441,11 @@ void __58__WRWorkflowEventTracker_applySignpost_toSignpostTracker___block_invoke
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleSignpost:.cold.10()
 {
   OUTLINED_FUNCTION_14();
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [v1 workflow];
   [v2 name];
   objc_claimAutoreleasedReturnValue();
@@ -9453,28 +9453,26 @@ void __58__WRWorkflowEventTracker_applySignpost_toSignpostTracker___block_invoke
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-- (uint64_t)handleSignpost:(uint64_t)a3 .cold.11(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+- (void)handleSignpost:(void *)a3 .cold.11(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
-  v8 = **(a1 + 16);
   do
   {
-    v9 = 0;
+    v8 = 0;
     do
     {
-      OUTLINED_FUNCTION_92(*(a1 + 16));
-      if (!v11)
+      OUTLINED_FUNCTION_92();
+      if (!v10)
       {
         objc_enumerationMutation(a2);
       }
 
-      [(WRWorkflowEventTracker *)*(*(a1 + 8) + 8 * v9++) resetWithoutReportingErrors];
+      [(WRWorkflowEventTracker *)*(*(a1 + 8) + 8 * v8) resetWithoutReportingErrors];
+      v8 = v8 + 1;
     }
 
-    while (a3 != v9);
+    while (a3 != v8);
     result = [a2 countByEnumeratingWithState:a1 objects:a4 count:16];
     a3 = result;
   }
@@ -9494,7 +9492,6 @@ void __58__WRWorkflowEventTracker_applySignpost_toSignpostTracker___block_invoke
 
 - (void)handleSignpost:(void *)a1 wrsignpost:(void *)a2 .cold.2(void *a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v4 = [a1 workflow];
   v5 = [v4 name];
   v6 = [a1 eventIdentifier];
@@ -9506,13 +9503,10 @@ void __58__WRWorkflowEventTracker_applySignpost_toSignpostTracker___block_invoke
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_59();
   _os_log_error_impl(v9, v10, OS_LOG_TYPE_ERROR, v11, v12, 0x34u);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleSignpost:(void *)a1 wrsignpost:(void *)a2 .cold.3(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v4 = [a1 workflow];
   v5 = [v4 name];
   v6 = [a2 name];
@@ -9523,8 +9517,6 @@ void __58__WRWorkflowEventTracker_applySignpost_toSignpostTracker___block_invoke
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_59();
   _os_log_error_impl(v8, v9, OS_LOG_TYPE_ERROR, v10, v11, 0x2Au);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleSignpost:wrsignpost:.cold.5()
@@ -9532,7 +9524,6 @@ void __58__WRWorkflowEventTracker_applySignpost_toSignpostTracker___block_invoke
   OUTLINED_FUNCTION_86();
   v1 = v0;
   v3 = v2;
-  v14 = *MEMORY[0x277D85DE8];
   v4 = [v2 workflow];
   v5 = [v4 name];
   v6 = [v3 eventIdentifier];
@@ -9543,13 +9534,11 @@ void __58__WRWorkflowEventTracker_applySignpost_toSignpostTracker___block_invoke
   OUTLINED_FUNCTION_59();
   OUTLINED_FUNCTION_56(v8, v9, v10, v11, v12);
 
-  v13 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_81();
 }
 
 - (void)handleSignpost:(void *)a1 wrsignpost:(void *)a2 .cold.6(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = [a1 workflow];
   v4 = [v3 name];
   v5 = [a2 name];
@@ -9557,11 +9546,9 @@ void __58__WRWorkflowEventTracker_applySignpost_toSignpostTracker___block_invoke
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_18();
   OUTLINED_FUNCTION_44(v6, v7, v8, v9, v10);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-- (void)handleSignpost:(uint64_t)a3 wrsignpost:(_BYTE *)a4 .cold.7(void *a1, const char *a2, uint64_t a3, _BYTE *a4)
+- (void)handleSignpost:(void *)a3 wrsignpost:(_BYTE *)a4 .cold.7(void *a1, const char *a2, void *a3, _BYTE *a4)
 {
   v8 = 0;
   while (1)
@@ -9597,89 +9584,49 @@ LABEL_12:
 void __47__WRWorkflowEventTracker_makeTailspinDirectory__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_17();
-  v6 = *MEMORY[0x277D85DE8];
   geteuid();
   OUTLINED_FUNCTION_61();
   OUTLINED_FUNCTION_5();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __47__WRWorkflowEventTracker_makeTailspinDirectory__block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_11();
-  v4 = 2112;
-  v5 = v0;
-  OUTLINED_FUNCTION_44(&dword_2746E5000, v1, v1, "Unable to create folder at %{public}@: %@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  OUTLINED_FUNCTION_44(&dword_2746E5000, v1, v1, "Unable to create folder at %{public}@: %@", v2);
 }
 
 void __47__WRWorkflowEventTracker_makeTailspinDirectory__block_invoke_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_11();
-  v4 = 1024;
-  v5 = v0;
-  _os_log_fault_impl(&dword_2746E5000, v1, OS_LOG_TYPE_FAULT, "Failed to mark %{public}@ with purgeable children: %{errno}d", v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 1024;
+  v4 = v0;
+  _os_log_fault_impl(&dword_2746E5000, v1, OS_LOG_TYPE_FAULT, "Failed to mark %{public}@ with purgeable children: %{errno}d", v2, 0x12u);
 }
 
 void __47__WRWorkflowEventTracker_makeTailspinDirectory__block_invoke_cold_4()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_11();
-  _os_log_debug_impl(&dword_2746E5000, v0, OS_LOG_TYPE_DEBUG, "Marked %{public}@ with purgeable children", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_2746E5000, v0, OS_LOG_TYPE_DEBUG, "Marked %{public}@ with purgeable children", v1, 0xCu);
 }
 
 void __47__WRWorkflowEventTracker_makeTailspinDirectory__block_invoke_cold_5()
 {
   OUTLINED_FUNCTION_17();
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_61();
   OUTLINED_FUNCTION_5();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __47__WRWorkflowEventTracker_makeTailspinDirectory__block_invoke_cold_6()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_11();
-  OUTLINED_FUNCTION_46(&dword_2746E5000, v0, v1, "WR mkdir: Unable to get path cstr from %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __47__WRWorkflowEventTracker_makeTailspinDirectory__block_invoke_cold_7()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_11();
-  OUTLINED_FUNCTION_46(&dword_2746E5000, v0, v1, "WR mkdir: Unable to get path from %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)cleanupDirectory:ofFilesWithSuffix:olderThan:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_11();
-  OUTLINED_FUNCTION_46(&dword_2746E5000, v0, v1, "WR cleanup: Unable to create enumerator for %{public}@ to clean up workflow responsiveness directory", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)cleanupDirectory:ofFilesWithSuffix:olderThan:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_11();
-  OUTLINED_FUNCTION_46(&dword_2746E5000, v0, v1, "WR cleanup: Unable to get path from %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void __71__WRWorkflowEventTracker_cleanupDirectory_ofFilesWithSuffix_olderThan___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_14();
-  v9 = *MEMORY[0x277D85DE8];
   [v1 path];
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_43() debugDescription];
@@ -9687,8 +9634,6 @@ void __71__WRWorkflowEventTracker_cleanupDirectory_ofFilesWithSuffix_olderThan__
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)initWithEncodedDict:error:.cold.1()
@@ -9713,109 +9658,89 @@ void __71__WRWorkflowEventTracker_cleanupDirectory_ofFilesWithSuffix_olderThan__
 
 - (void)gatherDiagnosticsIfNeeded
 {
-  v9 = *MEMORY[0x277D85DE8];
   workflow = [self workflow];
   name = [workflow name];
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_5();
   _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __78__WRWorkflowEventTracker_gatherDiagnosticsWithTailspin_tailspinIncludeOSLogs___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_86();
   OUTLINED_FUNCTION_22();
-  v2 = *MEMORY[0x277D85DE8];
-  v4 = [OUTLINED_FUNCTION_60(v3) workflow];
-  v5 = [v4 name];
-  v6 = [*v1 eventIdentifier];
-  v7 = [*(v0 + 40) path];
+  v3 = [OUTLINED_FUNCTION_60(v2) workflow];
+  v4 = [v3 name];
+  v5 = [*v1 eventIdentifier];
+  v6 = [*(v0 + 40) path];
   OUTLINED_FUNCTION_79();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_38();
   OUTLINED_FUNCTION_18();
-  _os_log_error_impl(v8, v9, OS_LOG_TYPE_ERROR, v10, v11, 0x20u);
+  _os_log_error_impl(v7, v8, OS_LOG_TYPE_ERROR, v9, v10, 0x20u);
 
-  v12 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_81();
 }
 
 void __78__WRWorkflowEventTracker_gatherDiagnosticsWithTailspin_tailspinIncludeOSLogs___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_14();
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [*v1 workflow];
   v3 = [v2 name];
   v4 = [*(v0 + 40) path];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __78__WRWorkflowEventTracker_gatherDiagnosticsWithTailspin_tailspinIncludeOSLogs___block_invoke_cold_3()
 {
   OUTLINED_FUNCTION_86();
   OUTLINED_FUNCTION_22();
-  v1 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_60(v2) workflow];
-  v4 = [v3 name];
-  v5 = [*v0 eventIdentifier];
-  v6 = *__error();
+  v2 = [OUTLINED_FUNCTION_60(v1) workflow];
+  v3 = [v2 name];
+  v4 = [*v0 eventIdentifier];
+  __error();
   OUTLINED_FUNCTION_79();
   OUTLINED_FUNCTION_18();
-  _os_log_error_impl(v7, v8, OS_LOG_TYPE_ERROR, v9, v10, 0x26u);
+  _os_log_error_impl(v5, v6, OS_LOG_TYPE_ERROR, v7, v8, 0x26u);
 
-  v11 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_81();
 }
 
 void __78__WRWorkflowEventTracker_gatherDiagnosticsWithTailspin_tailspinIncludeOSLogs___block_invoke_cold_4()
 {
   OUTLINED_FUNCTION_14();
-  v0 = *MEMORY[0x277D85DE8];
-  v2 = [OUTLINED_FUNCTION_60(v1) workflow];
-  v9 = [v2 name];
-  v10 = *__error();
+  v1 = [OUTLINED_FUNCTION_60(v0) workflow];
+  v7 = [v1 name];
+  __error();
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x1Cu);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
 }
 
 void __78__WRWorkflowEventTracker_gatherDiagnosticsWithTailspin_tailspinIncludeOSLogs___block_invoke_cold_5()
 {
   OUTLINED_FUNCTION_86();
   OUTLINED_FUNCTION_14();
-  v2 = v1;
-  v3 = *MEMORY[0x277D85DE8];
-  v4 = [OUTLINED_FUNCTION_60(v1) workflow];
-  v5 = [v4 name];
-  v6 = [*v2 eventIdentifier];
-  v7 = *v0;
+  v1 = v0;
+  v2 = [OUTLINED_FUNCTION_60(v0) workflow];
+  v3 = [v2 name];
+  v4 = [*v1 eventIdentifier];
   OUTLINED_FUNCTION_79();
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(v8, v9, v10, v11, v12, 0x20u);
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
 
-  v13 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_81();
 }
 
 void __78__WRWorkflowEventTracker_gatherDiagnosticsWithTailspin_tailspinIncludeOSLogs___block_invoke_cold_6()
 {
   OUTLINED_FUNCTION_14();
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = [*v1 workflow];
-  v3 = [v2 name];
-  v4 = *v0;
+  v1 = [*v0 workflow];
+  v2 = [v1 name];
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)reportCoreAnalyticsEventForSignpost:allCount:allDurationUnionSec:allDurationSumSec:allDurationLongestSec:allDurationUntrackedSec:allDurationNonNetworkBoundSec:allTimeUntilFirstSignpost:allTimeAfterLastSignpost:incompleteCount:completeDurationUnionSec:completeDurationSumSec:completeDurationLongestSec:completeTimeUntilFirstSignpost:environment:.cold.1()
@@ -9823,7 +9748,6 @@ void __78__WRWorkflowEventTracker_gatherDiagnosticsWithTailspin_tailspinIncludeO
   OUTLINED_FUNCTION_86();
   v1 = v0;
   v3 = v2;
-  v14 = *MEMORY[0x277D85DE8];
   v4 = [v2 workflow];
   v5 = [v4 name];
   v6 = [v3 eventIdentifier];
@@ -9834,46 +9758,39 @@ void __78__WRWorkflowEventTracker_gatherDiagnosticsWithTailspin_tailspinIncludeO
   OUTLINED_FUNCTION_59();
   OUTLINED_FUNCTION_56(v8, v9, v10, v11, v12);
 
-  v13 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_81();
 }
 
 - (void)reportCoreAnalyticsEventForSignpost:(void *)a1 allCount:(void *)a2 allDurationUnionSec:allDurationSumSec:allDurationLongestSec:allDurationUntrackedSec:allDurationNonNetworkBoundSec:allTimeUntilFirstSignpost:allTimeAfterLastSignpost:incompleteCount:completeDurationUnionSec:completeDurationSumSec:completeDurationLongestSec:completeTimeUntilFirstSignpost:environment:.cold.2(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = [a1 workflow];
   v4 = [v3 name];
   v5 = [a2 domain];
   OUTLINED_FUNCTION_62();
   OUTLINED_FUNCTION_18();
   OUTLINED_FUNCTION_44(v6, v7, v8, v9, v10);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __43__WRWorkflowEventTracker_generateTelemetry__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_86();
   OUTLINED_FUNCTION_55();
-  v1 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_60(v2) workflow];
-  v4 = [v3 name];
+  v2 = [OUTLINED_FUNCTION_60(v1) workflow];
+  v3 = [v2 name];
   [*v0 eventIdentifier];
   objc_claimAutoreleasedReturnValue();
-  v5 = [OUTLINED_FUNCTION_50() signpost];
-  v6 = [v5 name];
+  v4 = [OUTLINED_FUNCTION_50() signpost];
+  v5 = [v4 name];
   OUTLINED_FUNCTION_61();
   OUTLINED_FUNCTION_38();
   OUTLINED_FUNCTION_59();
-  _os_log_debug_impl(v7, v8, OS_LOG_TYPE_DEBUG, v9, v10, 0x20u);
+  _os_log_debug_impl(v6, v7, OS_LOG_TYPE_DEBUG, v8, v9, 0x20u);
 
-  v11 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_81();
 }
 
 void __43__WRWorkflowEventTracker_generateTelemetry__block_invoke_cold_2(id *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [*a1 workflow];
   [v2 name];
   objc_claimAutoreleasedReturnValue();
@@ -9882,8 +9799,6 @@ void __43__WRWorkflowEventTracker_generateTelemetry__block_invoke_cold_2(id *a1)
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_18();
   _os_log_debug_impl(v5, v6, OS_LOG_TYPE_DEBUG, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -11,26 +11,24 @@
 
 - (id)attributeDescriptions
 {
-  v19[2] = *MEMORY[0x1E69E9840];
-  v18.receiver = self;
-  v18.super_class = HMCameraClipVideoDataSegment;
-  attributeDescriptions = [(HMCameraClipVideoSegment *)&v18 attributeDescriptions];
+  v18[2] = *MEMORY[0x1E69E9840];
+  v17.receiver = self;
+  v17.super_class = HMCameraClipVideoDataSegment;
+  attributeDescriptions = [(HMCameraClipVideoSegment *)&v17 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x1E69A29C8]);
   v5 = MEMORY[0x1E696AEC0];
   [(HMCameraClipVideoDataSegment *)self duration];
   v7 = [v5 stringWithFormat:@"%.3f", v6];
   v8 = [v4 initWithName:@"Duration" value:v7];
-  v19[0] = v8;
+  v18[0] = v8;
   v9 = objc_alloc(MEMORY[0x1E69A29C8]);
   v10 = MEMORY[0x1E696AEC0];
   [(HMCameraClipVideoDataSegment *)self timeOffset];
   v12 = [v10 stringWithFormat:@"%.3f", v11];
   v13 = [v9 initWithName:@"Time Offset" value:v12];
-  v19[1] = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+  v18[1] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
   v15 = [attributeDescriptions arrayByAddingObjectsFromArray:v14];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

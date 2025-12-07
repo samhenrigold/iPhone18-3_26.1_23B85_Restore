@@ -67,44 +67,44 @@
 
   selfCopy = self;
   sub_1B3885E38(favorite, v6, v7);
-  sub_1B36F9DA0(v6);
+  sub_1B36F9DA0(v6, v7);
 }
 
 - (void)presentShareSheet
 {
   selfCopy = self;
-  sub_1B38860F8();
+  sub_1B38860F8(v2);
 }
 
 - (void)presentTitleEditor
 {
   selfCopy = self;
-  sub_1B388637C();
+  sub_1B388637C(selfCopy, v2);
 }
 
 - (void)deleteMemory
 {
   selfCopy = self;
-  sub_1B38863D0();
+  sub_1B38863D0(selfCopy, v2);
 }
 
 - (void)featureLess:(id)less
 {
   lessCopy = less;
   selfCopy = self;
-  sub_1B3886468();
+  sub_1B3886468(lessCopy, selfCopy);
 }
 
 - (void)fileRadar
 {
   selfCopy = self;
-  sub_1B3886510();
+  sub_1B3886510(v2);
 }
 
 - (void)showVisualDiagnostics
 {
   selfCopy = self;
-  sub_1B3886C9C();
+  sub_1B3886C9C(selfCopy, v2);
 }
 
 @end

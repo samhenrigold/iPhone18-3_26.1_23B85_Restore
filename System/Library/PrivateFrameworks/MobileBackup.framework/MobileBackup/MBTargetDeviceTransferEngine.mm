@@ -179,18 +179,18 @@
       *buf = 138412290;
       v40 = objc_opt_class();
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Finishing %@", buf, 0xCu);
-      v29 = objc_opt_class();
-      _MBLog();
+      v9 = objc_opt_class();
+      _MBLog(@"Df", "Finishing %@", v9);
     }
 
     [(MBTargetDeviceTransferEngine *)selfCopy startTime];
-    v9 = 0.0;
-    if (v10 > 0.0)
+    v10 = 0.0;
+    if (v11 > 0.0)
     {
       +[NSDate timeIntervalSinceReferenceDate];
-      v12 = v11;
+      v13 = v12;
       [(MBTargetDeviceTransferEngine *)selfCopy startTime];
-      v9 = v12 - v13;
+      v10 = v13 - v14;
     }
 
     transaction = [(MBTargetDeviceTransferEngine *)selfCopy transaction];
@@ -224,18 +224,18 @@
     }
 
     progressGroup = [(MBTargetDeviceTransferEngine *)selfCopy progressGroup];
-    v21 = dispatch_get_global_queue(17, 0);
+    v22 = dispatch_get_global_queue(17, 0);
     v35[0] = _NSConcreteStackBlock;
     v35[1] = 3221225472;
     v35[2] = sub_10010F828;
     v35[3] = &unk_1003BC060;
-    v22 = v7;
-    v36 = v22;
+    v23 = v7;
+    v36 = v23;
     v37 = selfCopy;
-    dispatch_group_async(progressGroup, v21, v35);
+    dispatch_group_async(progressGroup, v22, v35);
 
-    v23 = +[MBDaemon sharedDaemon];
-    [v23 holdWorkAssertion:a2];
+    v24 = +[MBDaemon sharedDaemon];
+    [v24 holdWorkAssertion:a2];
 
     progressGroup2 = [(MBTargetDeviceTransferEngine *)selfCopy progressGroup];
     sessionQueue2 = [(MBTargetDeviceTransferEngine *)selfCopy sessionQueue];
@@ -244,13 +244,13 @@
     v30[2] = sub_10010F9F4;
     v30[3] = &unk_1003BD018;
     v30[4] = selfCopy;
-    v31 = v22;
-    v34 = v9;
+    v31 = v23;
+    v34 = v10;
     v32 = powerAssertion;
     v33 = transaction;
-    v26 = transaction;
-    v27 = powerAssertion;
-    v28 = v22;
+    v27 = transaction;
+    v28 = powerAssertion;
+    v29 = v23;
     dispatch_group_notify(progressGroup2, sessionQueue2, v30);
   }
 }
@@ -323,7 +323,7 @@ LABEL_4:
       {
         *v15 = 0;
         _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Signaling backup request semaphore", v15, 2u);
-        _MBLog();
+        _MBLog(@"Df", "Signaling backup request semaphore");
       }
 
       dispatch_semaphore_signal(requestBackupSemaphore);
@@ -338,7 +338,7 @@ LABEL_4:
       {
         *v15 = 0;
         _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Signaling keychain transfer request semaphore", v15, 2u);
-        _MBLog();
+        _MBLog(@"Df", "Signaling keychain transfer request semaphore");
       }
 
       dispatch_semaphore_signal(requestKeychainSemaphore);
@@ -353,7 +353,7 @@ LABEL_4:
       {
         *v15 = 0;
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Signaling keychain preflight request semaphore", v15, 2u);
-        _MBLog();
+        _MBLog(@"Df", "Signaling keychain preflight request semaphore");
       }
 
       dispatch_semaphore_signal(requestPreflightSemaphore);
@@ -368,7 +368,7 @@ LABEL_4:
       {
         *v15 = 0;
         _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Signaling init request semaphore", v15, 2u);
-        _MBLog();
+        _MBLog(@"Df", "Signaling init request semaphore");
       }
 
       dispatch_semaphore_signal(requestInitSemaphore);
@@ -439,7 +439,7 @@ LABEL_4:
       *buf = 134217984;
       v15 = v7;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Started the disconnect timer (%llus)", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Started the disconnect timer (%llus)", v7);
     }
 
     objc_destroyWeak(&v12);
@@ -462,7 +462,7 @@ LABEL_4:
     {
       *v6 = 0;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Canceled the disconnect timer", v6, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Canceled the disconnect timer");
     }
   }
 }
@@ -492,15 +492,14 @@ LABEL_4:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v14 = d2dTransferDisconnectTimeout;
+    v13 = d2dTransferDisconnectTimeout;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Waiting for up to %llus to allow a control connection to show up", buf, 0xCu);
-    v12 = d2dTransferDisconnectTimeout;
-    _MBLog();
+    _MBLog(@"Df", "Waiting for up to %llus to allow a control connection to show up", d2dTransferDisconnectTimeout);
   }
 
   v9 = dispatch_time(0, 1000000000 * d2dTransferDisconnectTimeout);
   v10 = dispatch_semaphore_wait(v5, v9) == 0;
-  [(MBTargetDeviceTransferEngine *)self setConnectSemaphore:0, v12];
+  [(MBTargetDeviceTransferEngine *)self setConnectSemaphore:0];
 
   return v10;
 }
@@ -517,10 +516,10 @@ LABEL_4:
       p_peerConnected = &self->_peerConnected;
       v6 = atomic_load(p_peerConnected);
       *buf = 67109120;
-      v8 = v6 & 1;
+      v9 = v6 & 1;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Started tracking the peer connection status (%d)", buf, 8u);
-      atomic_load(p_peerConnected);
-      _MBLog();
+      v7 = atomic_load(p_peerConnected);
+      _MBLog(@"Df", "Started tracking the peer connection status (%d)", v7 & 1);
     }
   }
 }
@@ -537,10 +536,10 @@ LABEL_4:
       p_peerConnected = &self->_peerConnected;
       v6 = atomic_load(p_peerConnected);
       *buf = 67109120;
-      v8 = v6 & 1;
+      v9 = v6 & 1;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Stopped tracking the peer connection status (%d)", buf, 8u);
-      atomic_load(p_peerConnected);
-      _MBLog();
+      v7 = atomic_load(p_peerConnected);
+      _MBLog(@"Df", "Stopped tracking the peer connection status (%d)", v7 & 1);
     }
   }
 }
@@ -588,7 +587,7 @@ LABEL_19:
     [v7 setConnectionType:{-[MBTargetDeviceTransferEngine connectionType](self, "connectionType")}];
     if ([(MBTargetDeviceTransferEngine *)self connectionType]== 1)
     {
-      v8 = MBSetChargeLimit();
+      v8 = MBSetChargeLimit(25);
       v9 = MBGetDefaultLog();
       v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
       if (v8)
@@ -596,10 +595,9 @@ LABEL_19:
         if (v10)
         {
           *buf = 67109120;
-          v18 = 25;
+          v17 = 25;
           _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Set charge limit to %d", buf, 8u);
-          v16 = 25;
-          _MBLog();
+          _MBLog(@"Df", "Set charge limit to %d", 25);
         }
 
         [(MBTargetDeviceTransferEngine *)self setChargeToken:v8];
@@ -610,10 +608,9 @@ LABEL_19:
         if (v10)
         {
           *buf = 67109120;
-          v18 = 25;
+          v17 = 25;
           _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Failed to set charge limit to %d", buf, 8u);
-          v16 = 25;
-          _MBLog();
+          _MBLog(@"Df", "Failed to set charge limit to %d", 25);
         }
       }
     }
@@ -689,7 +686,7 @@ LABEL_21:
     *buf = 138412290;
     v22 = fileTransferSession;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Setting up the FT session: %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Setting up the FT session: %@", fileTransferSession);
   }
 
   objc_initWeak(buf, self);
@@ -743,7 +740,7 @@ LABEL_21:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Not disabling infra WiFi in USB-only mode", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Not disabling infra WiFi in USB-only mode");
     }
   }
 
@@ -763,8 +760,7 @@ LABEL_21:
       *buf = 67109120;
       flags = [v5 flags];
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Disabled infra WiFi, flags:0x%x", buf, 8u);
-      [v5 flags];
-      _MBLog();
+      _MBLog(@"Df", "Disabled infra WiFi, flags:0x%x", [v5 flags]);
     }
   }
 }
@@ -781,7 +777,7 @@ LABEL_21:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Not enabling infra WiFi in USB-only mode", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Not enabling infra WiFi in USB-only mode");
     }
   }
 
@@ -801,8 +797,7 @@ LABEL_21:
       *buf = 67109120;
       flags = [v5 flags];
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Enabled infra WiFi, flags:0x%x", buf, 8u);
-      [v5 flags];
-      _MBLog();
+      _MBLog(@"Df", "Enabled infra WiFi, flags:0x%x", [v5 flags]);
     }
   }
 }
@@ -834,7 +829,7 @@ LABEL_21:
       v17 = 2048;
       spaceCopy = space;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Insufficient free disk space - totalSize:%llu, reservedSize:%llu, freeDiskSpace:%llu", buf, 0x20u);
-      _MBLog();
+      _MBLog(@"E ", "Insufficient free disk space - totalSize:%llu, reservedSize:%llu, freeDiskSpace:%llu", v9, 0x1C0000000, space);
     }
 
     v11 = [MBError errorWithCode:106 format:@"Insufficient free disk space"];
@@ -864,7 +859,7 @@ LABEL_21:
     LODWORD(buf) = 134217984;
     *(&buf + 4) = v6;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Starting preflight (freeDiskSpace:%llu)", &buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Starting preflight (freeDiskSpace:%llu)", v6);
   }
 
   *&buf = 0;
@@ -930,7 +925,7 @@ LABEL_21:
     LODWORD(buf) = 134217984;
     *(&buf + 4) = v6;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Starting keychain data transfer (freeDiskSpace:%llu)", &buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Starting keychain data transfer (freeDiskSpace:%llu)", v6);
   }
 
   *&buf = 0;
@@ -1002,7 +997,7 @@ LABEL_21:
     LODWORD(buf) = 134217984;
     *(&buf + 4) = v9;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Starting keychain data import (freeDiskSpace:%llu)", &buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Starting keychain data import (freeDiskSpace:%llu)", v9);
   }
 
   *&buf = 0;
@@ -1066,7 +1061,7 @@ LABEL_21:
     LODWORD(buf) = 134217984;
     *(&buf + 4) = v9;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Starting data transfer (freeDiskSpace:%llu)", &buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Starting data transfer (freeDiskSpace:%llu)", v9);
   }
 
   *&buf = 0;
@@ -1118,9 +1113,9 @@ LABEL_21:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = v6;
+    v17 = v6;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Removing %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Removing %@", v6);
   }
 
   v8 = +[NSFileManager defaultManager];
@@ -1153,12 +1148,11 @@ LABEL_5:
   {
     v14 = *error;
     *buf = 138412546;
-    v18 = v6;
-    v19 = 2112;
-    v20 = v14;
+    v17 = v6;
+    v18 = 2112;
+    v19 = v14;
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to remove the directory at %@: %@", buf, 0x16u);
-    v16 = *error;
-    _MBLog();
+    _MBLog(@"E ", "Failed to remove the directory at %@: %@", v6, *error);
   }
 
   v10 = 0;
@@ -1297,10 +1291,10 @@ LABEL_16:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v10 = objc_opt_class();
+    v11 = objc_opt_class();
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "========== %@ starting", buf, 0xCu);
-    objc_opt_class();
-    _MBLog();
+    v6 = objc_opt_class();
+    _MBLog(@"Df", "========== %@ starting", v6);
   }
 
   MBLogDeviceProperties();
@@ -1373,50 +1367,50 @@ LABEL_16:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Sending the init request to the source", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Sending the init request to the source");
   }
 
   v7 = dispatch_semaphore_create(0);
   [(MBTargetDeviceTransferEngine *)self setRequestInitSemaphore:v7];
   if ([(MBEngine *)self isCanceled]&& ![(MBTargetDeviceTransferEngine *)self _handleTimeout:0 error:error])
   {
-    v18 = 0;
+    v19 = 0;
     goto LABEL_34;
   }
 
   *buf = 0;
-  v54 = buf;
-  v55 = 0x3032000000;
-  v56 = sub_100111BA4;
-  v57 = sub_100111BB4;
-  v58 = 0;
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x3032000000;
-  v50 = sub_100111BA4;
-  v51 = sub_100111BB4;
-  v52 = 0;
-  v42 = MBDeviceUDID_Legacy();
-  v41 = MBDeviceName();
-  v40 = MBDeviceClass();
+  v53 = buf;
+  v54 = 0x3032000000;
+  v55 = sub_100111BA4;
+  v56 = sub_100111BB4;
+  v57 = 0;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = sub_100111BA4;
+  v50 = sub_100111BB4;
+  v51 = 0;
+  v41 = MBDeviceUDID_Legacy();
+  v40 = MBDeviceName();
+  v39 = MBDeviceClass();
   v8 = MBBuildVersion();
   v9 = MBProductVersion();
-  v10 = [[MBPeerInitRequest alloc] initWithTargetDeviceUDID:v42 deviceName:v41 deviceClass:v40 buildVersion:v8 productVersion:v9];
-  v43[0] = _NSConcreteStackBlock;
-  v43[1] = 3221225472;
-  v43[2] = sub_100114F38;
-  v43[3] = &unk_1003BEF80;
-  v45 = &v47;
-  v46 = buf;
+  v10 = [[MBPeerInitRequest alloc] initWithTargetDeviceUDID:v41 deviceName:v40 deviceClass:v39 buildVersion:v8 productVersion:v9];
+  v42[0] = _NSConcreteStackBlock;
+  v42[1] = 3221225472;
+  v42[2] = sub_100114F38;
+  v42[3] = &unk_1003BEF80;
+  v44 = &v46;
+  v45 = buf;
   v11 = v7;
-  v44 = v11;
-  [MBPeerMessenger sendRequest:v10 session:fileTransferSession responseHandler:v43];
+  v43 = v11;
+  [MBPeerMessenger sendRequest:v10 session:fileTransferSession responseHandler:v42];
   v12 = dispatch_time(0, 3600000000000);
   v13 = dispatch_semaphore_wait(v11, v12);
   [(MBTargetDeviceTransferEngine *)self setRequestInitSemaphore:0];
   if ([(MBTargetDeviceTransferEngine *)self _handleTimeout:v13 != 0 error:error])
   {
-    if (*(v54 + 5))
+    if (*(v53 + 5))
     {
       v14 = MBGetDefaultLog();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
@@ -1425,120 +1419,118 @@ LABEL_16:
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           v16 = objc_opt_class();
-          v17 = *(v54 + 5);
-          *v59 = 138412546;
-          v60 = v16;
-          v61 = 2112;
-          v62 = v17;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Request %@ failed: %@", v59, 0x16u);
+          v17 = *(v53 + 5);
+          *v58 = 138412546;
+          v59 = v16;
+          v60 = 2112;
+          v61 = v17;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Request %@ failed: %@", v58, 0x16u);
         }
 
-        objc_opt_class();
-        v37 = *(v54 + 5);
-        _MBLog();
+        v18 = objc_opt_class();
+        _MBLog(@"E ", "Request %@ failed: %@", v18, *(v53 + 5));
       }
 
-      v18 = 0;
-      *error = *(v54 + 5);
+      v19 = 0;
+      *error = *(v53 + 5);
       goto LABEL_33;
     }
 
-    v19 = MBGetDefaultLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = MBGetDefaultLog();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = v48[5];
-      *v59 = 138412290;
-      v60 = v20;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Received init response: %@", v59, 0xCu);
-      v36 = v48[5];
-      _MBLog();
+      v21 = v47[5];
+      *v58 = 138412290;
+      v59 = v21;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Received init response: %@", v58, 0xCu);
+      _MBLog(@"Df", "Received init response: %@", v47[5]);
     }
 
-    sourceProtocolVersion = [v48[5] sourceProtocolVersion];
+    sourceProtocolVersion = [v47[5] sourceProtocolVersion];
     if (!sourceProtocolVersion)
     {
       __assert_rtn("[MBTargetDeviceTransferEngine _requestInitWithError:]", "MBTargetDeviceTransferEngine.m", 953, "sourceProtocolVersion");
     }
 
-    sourceProductVersion = [v48[5] sourceProductVersion];
+    sourceProductVersion = [v47[5] sourceProductVersion];
     if (!sourceProductVersion)
     {
       __assert_rtn("[MBTargetDeviceTransferEngine _requestInitWithError:]", "MBTargetDeviceTransferEngine.m", 955, "sourceProductVersion");
     }
 
-    sourceRequiredProductVersion = [v48[5] sourceRequiredProductVersion];
-    sourceDeviceClass = [v48[5] sourceDeviceClass];
-    v38 = sourceProductVersion;
+    sourceRequiredProductVersion = [v47[5] sourceRequiredProductVersion];
+    sourceDeviceClass = [v47[5] sourceDeviceClass];
+    v37 = sourceProductVersion;
     if (!sourceDeviceClass)
     {
       __assert_rtn("[MBTargetDeviceTransferEngine _requestInitWithError:]", "MBTargetDeviceTransferEngine.m", 958, "sourceDeviceClass");
     }
 
-    v24 = sourceDeviceClass;
+    v25 = sourceDeviceClass;
     if ([sourceProtocolVersion unsignedLongValue] <= 1)
     {
-      v26 = MBProductVersion();
-      v27 = MBIsRestoreCompatible();
+      v27 = MBProductVersion();
+      v28 = MBIsRestoreCompatible();
 
-      if (v27)
+      if (v28)
       {
-        v28 = MBDeviceClass();
-        v29 = [v24 isEqualToString:v28];
+        v29 = MBDeviceClass();
+        v30 = [v25 isEqualToString:v29];
 
-        if (v29)
+        if (v30)
         {
-          v30 = 0;
+          v31 = 0;
 LABEL_32:
-          v18 = v48[5];
+          v19 = v47[5];
 
           goto LABEL_33;
         }
 
-        v25 = @"Cross-device data transfer is not supported";
-        v31 = 1;
+        v26 = @"Cross-device data transfer is not supported";
+        v32 = 1;
 LABEL_28:
-        v30 = [MBError errorWithCode:v31 format:v25, v36];
-        if (v30)
+        v31 = [MBError errorWithCode:v32 format:v26];
+        if (v31)
         {
-          v32 = v48[5];
-          v48[5] = 0;
+          v33 = v47[5];
+          v47[5] = 0;
 
-          v33 = v30;
-          *error = v30;
-          v34 = MBGetDefaultLog();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+          v34 = v31;
+          *error = v31;
+          v35 = MBGetDefaultLog();
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
           {
-            *v59 = 138412290;
-            v60 = v30;
-            _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "Failed to handshake with the source: %@", v59, 0xCu);
-            _MBLog();
+            *v58 = 138412290;
+            v59 = v31;
+            _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "Failed to handshake with the source: %@", v58, 0xCu);
+            _MBLog(@"E ", "Failed to handshake with the source: %@", v31);
           }
         }
 
         goto LABEL_32;
       }
 
-      v25 = @"Incompatible product version";
+      v26 = @"Incompatible product version";
     }
 
     else
     {
-      v25 = @"Incompatible protocol version";
+      v26 = @"Incompatible protocol version";
     }
 
-    v31 = 203;
+    v32 = 203;
     goto LABEL_28;
   }
 
-  v18 = 0;
+  v19 = 0;
 LABEL_33:
 
-  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v46, 8);
   _Block_object_dispose(buf, 8);
 
 LABEL_34:
 
-  return v18;
+  return v19;
 }
 
 - (id)_requestPreflightWithSourceInfo:(id)info error:(id *)error
@@ -1579,47 +1571,45 @@ LABEL_34:
     *&buf[12] = 2112;
     *&buf[14] = sourceDeviceUDID;
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Starting to preflight on %@ (%@)", buf, 0x16u);
-    v27 = sourceDeviceName;
-    v28 = sourceDeviceUDID;
-    _MBLog();
+    _MBLog(@"Df", "Starting to preflight on %@ (%@)", sourceDeviceName, sourceDeviceUDID);
   }
 
   v15 = dispatch_semaphore_create(0);
   [(MBTargetDeviceTransferEngine *)self setRequestPreflightSemaphore:v15];
   if ([(MBEngine *)self isCanceled]&& ![(MBTargetDeviceTransferEngine *)self _handleTimeout:0 error:error])
   {
-    v24 = 0;
+    v25 = 0;
   }
 
   else
   {
-    v30 = v10;
+    v28 = v10;
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v46 = sub_100111BA4;
-    v47 = sub_100111BB4;
-    v48 = 0;
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x3032000000;
-    v38 = sub_100111BA4;
-    v39 = sub_100111BB4;
-    v40 = 0;
+    v44 = sub_100111BA4;
+    v45 = sub_100111BB4;
+    v46 = 0;
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x3032000000;
+    v36 = sub_100111BA4;
+    v37 = sub_100111BB4;
+    v38 = 0;
     v16 = [[MBPeerPreflightRequest alloc] initWithFreeDiskSpace:MBFreeDiskSpace() purgeSize:0];
-    v31[0] = _NSConcreteStackBlock;
-    v31[1] = 3221225472;
-    v31[2] = sub_100115598;
-    v31[3] = &unk_1003BEFA8;
-    v33 = &v35;
-    v34 = buf;
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_100115598;
+    v29[3] = &unk_1003BEFA8;
+    v31 = &v33;
+    v32 = buf;
     v17 = v15;
-    v32 = v17;
-    [MBPeerMessenger sendRequest:v16 session:fileTransferSession responseHandler:v31];
+    v30 = v17;
+    [MBPeerMessenger sendRequest:v16 session:fileTransferSession responseHandler:v29];
     v18 = dispatch_time(0, 604800000000000);
     v19 = dispatch_semaphore_wait(v17, v18);
     [(MBTargetDeviceTransferEngine *)self setRequestPreflightSemaphore:0];
-    if ([(MBTargetDeviceTransferEngine *)self _handleTimeout:v19 != 0 error:error, v27, v28])
+    if ([(MBTargetDeviceTransferEngine *)self _handleTimeout:v19 != 0 error:error])
     {
       if (*(*&buf[8] + 40))
       {
@@ -1631,50 +1621,49 @@ LABEL_34:
           {
             v22 = objc_opt_class();
             v23 = *(*&buf[8] + 40);
-            *v41 = 138412546;
-            v42 = v22;
-            v43 = 2112;
-            v44 = v23;
-            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Request %@ failed: %@", v41, 0x16u);
+            *v39 = 138412546;
+            v40 = v22;
+            v41 = 2112;
+            v42 = v23;
+            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Request %@ failed: %@", v39, 0x16u);
           }
 
-          objc_opt_class();
-          v29 = *(*&buf[8] + 40);
-          _MBLog();
+          v24 = objc_opt_class();
+          _MBLog(@"E ", "Request %@ failed: %@", v24, *(*&buf[8] + 40));
         }
 
-        v24 = 0;
+        v25 = 0;
         *error = *(*&buf[8] + 40);
       }
 
       else
       {
-        [(MBTargetDeviceTransferEngine *)self setPreflightDuration:(clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW) - v30) / 0x3B9ACA00];
-        v25 = MBGetDefaultLog();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        [(MBTargetDeviceTransferEngine *)self setPreflightDuration:(clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW) - v28) / 0x3B9ACA00];
+        v26 = MBGetDefaultLog();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
-          *v41 = 138412546;
-          v42 = sourceDeviceName;
-          v43 = 2112;
-          v44 = sourceDeviceUDID;
-          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Finished preflighting on %@ (%@)", v41, 0x16u);
-          _MBLog();
+          *v39 = 138412546;
+          v40 = sourceDeviceName;
+          v41 = 2112;
+          v42 = sourceDeviceUDID;
+          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Finished preflighting on %@ (%@)", v39, 0x16u);
+          _MBLog(@"Df", "Finished preflighting on %@ (%@)", sourceDeviceName, sourceDeviceUDID);
         }
 
-        v24 = v36[5];
+        v25 = v34[5];
       }
     }
 
     else
     {
-      v24 = 0;
+      v25 = 0;
     }
 
-    _Block_object_dispose(&v35, 8);
+    _Block_object_dispose(&v33, 8);
     _Block_object_dispose(buf, 8);
   }
 
-  return v24;
+  return v25;
 }
 
 - (id)_requestKeychainWithSourceInfo:(id)info error:(id *)error
@@ -1707,16 +1696,14 @@ LABEL_34:
     *&buf[12] = 2112;
     *&buf[14] = sourceDeviceUDID;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Starting to transfer the keychain data from %@ (%@)", buf, 0x16u);
-    v25 = sourceDeviceName;
-    v26 = sourceDeviceUDID;
-    _MBLog();
+    _MBLog(@"Df", "Starting to transfer the keychain data from %@ (%@)", sourceDeviceName, sourceDeviceUDID);
   }
 
-  v28 = dispatch_semaphore_create(0);
+  v26 = dispatch_semaphore_create(0);
   [(MBTargetDeviceTransferEngine *)self setRequestKeychainSemaphore:?];
   if ([(MBEngine *)self isCanceled]&& ![(MBTargetDeviceTransferEngine *)self _handleTimeout:0 error:error])
   {
-    v22 = 0;
+    v23 = 0;
   }
 
   else
@@ -1724,31 +1711,31 @@ LABEL_34:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v44 = sub_100111BA4;
-    v45 = sub_100111BB4;
-    v46 = 0;
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x3032000000;
-    v36 = sub_100111BA4;
-    v37 = sub_100111BB4;
-    v38 = 0;
+    v42 = sub_100111BA4;
+    v43 = sub_100111BB4;
+    v44 = 0;
+    v31 = 0;
+    v32 = &v31;
+    v33 = 0x3032000000;
+    v34 = sub_100111BA4;
+    v35 = sub_100111BB4;
+    v36 = 0;
     errorCopy = error;
     v13 = objc_opt_new();
-    v29[0] = _NSConcreteStackBlock;
-    v29[1] = 3221225472;
-    v29[2] = sub_100115B64;
-    v29[3] = &unk_1003BEFD0;
-    v31 = &v33;
-    v32 = buf;
-    v14 = v28;
-    v30 = v14;
+    v27[0] = _NSConcreteStackBlock;
+    v27[1] = 3221225472;
+    v27[2] = sub_100115B64;
+    v27[3] = &unk_1003BEFD0;
+    v29 = &v31;
+    v30 = buf;
+    v14 = v26;
+    v28 = v14;
     v15 = v13;
-    [MBPeerMessenger sendRequest:v13 session:fileTransferSession responseHandler:v29];
+    [MBPeerMessenger sendRequest:v13 session:fileTransferSession responseHandler:v27];
     v16 = dispatch_time(0, 3600000000000);
     v17 = dispatch_semaphore_wait(v14, v16);
     [(MBTargetDeviceTransferEngine *)self setRequestKeychainSemaphore:0];
-    if ([(MBTargetDeviceTransferEngine *)self _handleTimeout:v17 != 0 error:errorCopy, v25, v26])
+    if ([(MBTargetDeviceTransferEngine *)self _handleTimeout:v17 != 0 error:errorCopy])
     {
       if (*(*&buf[8] + 40))
       {
@@ -1760,49 +1747,48 @@ LABEL_34:
           {
             v20 = objc_opt_class();
             v21 = *(*&buf[8] + 40);
-            *v39 = 138412546;
-            v40 = v20;
-            v41 = 2112;
-            v42 = v21;
-            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Request %@ failed: %@", v39, 0x16u);
+            *v37 = 138412546;
+            v38 = v20;
+            v39 = 2112;
+            v40 = v21;
+            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Request %@ failed: %@", v37, 0x16u);
           }
 
-          objc_opt_class();
-          v27 = *(*&buf[8] + 40);
-          _MBLog();
+          v22 = objc_opt_class();
+          _MBLog(@"E ", "Request %@ failed: %@", v22, *(*&buf[8] + 40));
         }
 
-        v22 = 0;
+        v23 = 0;
         *errorCopy = *(*&buf[8] + 40);
       }
 
       else
       {
-        v23 = MBGetDefaultLog();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v24 = MBGetDefaultLog();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
-          *v39 = 138412546;
-          v40 = sourceDeviceName;
-          v41 = 2112;
-          v42 = sourceDeviceUDID;
-          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Finished transferring the keychain data from %@ (%@)", v39, 0x16u);
-          _MBLog();
+          *v37 = 138412546;
+          v38 = sourceDeviceName;
+          v39 = 2112;
+          v40 = sourceDeviceUDID;
+          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Finished transferring the keychain data from %@ (%@)", v37, 0x16u);
+          _MBLog(@"Df", "Finished transferring the keychain data from %@ (%@)", sourceDeviceName, sourceDeviceUDID);
         }
 
-        v22 = v34[5];
+        v23 = v32[5];
       }
     }
 
     else
     {
-      v22 = 0;
+      v23 = 0;
     }
 
-    _Block_object_dispose(&v33, 8);
+    _Block_object_dispose(&v31, 8);
     _Block_object_dispose(buf, 8);
   }
 
-  return v22;
+  return v23;
 }
 
 - (BOOL)_restoreKeychainWithKeychainTransferResponse:(id)response error:(id *)error
@@ -1868,9 +1854,7 @@ LABEL_23:
       v40 = 2048;
       v41 = v19;
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Restoring the keychain from %@ (size:%llu, keybagData.length:%ld)", buf, 0x20u);
-      [v31 unsignedLongLongValue];
-      [keybagData length];
-      _MBLog();
+      _MBLog(@"Df", "Restoring the keychain from %@ (size:%llu, keybagData.length:%ld)", path, [v31 unsignedLongLongValue], objc_msgSend(keybagData, "length"));
     }
 
     v34 = v16;
@@ -1887,7 +1871,7 @@ LABEL_23:
         v38 = 2112;
         v39 = v21;
         _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Failed to restore the keychain from %@: %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "Failed to restore the keychain from %@: %@", path, v21);
       }
 
       v23 = v21;
@@ -1900,7 +1884,7 @@ LABEL_23:
       *buf = 138412290;
       v37 = path;
       _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Removing the keychain temporary file at %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Removing the keychain temporary file at %@", path);
     }
 
     v25 = +[NSFileManager defaultManager];
@@ -1918,7 +1902,7 @@ LABEL_23:
         v38 = 2112;
         v39 = v16;
         _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "Failed to remove the keychain temporary file at %@: %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "Failed to remove the keychain temporary file at %@: %@", path, v16);
       }
     }
   }
@@ -1933,7 +1917,7 @@ LABEL_23:
       v38 = 2112;
       v39 = v16;
       _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Failed to fetch the attributes for %@: %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch the attributes for %@: %@", path, v16);
     }
 
     [MBError errorWithCode:1 error:v16 format:@"Failed to fetch the attributes for the keychain temporary file"];
@@ -1963,14 +1947,14 @@ LABEL_28:
     __assert_rtn("[MBTargetDeviceTransferEngine _requestBackupWithSourceInfo:preflightInfo:error:]", "MBTargetDeviceTransferEngine.m", 1118, "error");
   }
 
-  v45 = preflightInfoCopy;
+  v43 = preflightInfoCopy;
   fileTransferSession = [(MBTargetDeviceTransferEngine *)self fileTransferSession];
   if (!fileTransferSession)
   {
     __assert_rtn("[MBTargetDeviceTransferEngine _requestBackupWithSourceInfo:preflightInfo:error:]", "MBTargetDeviceTransferEngine.m", 1120, "fileTransferSession");
   }
 
-  v46 = self->_transferSummary;
+  v44 = self->_transferSummary;
   v10 = +[NSDate date];
   [(MBTargetDeviceTransferEngine *)self setFileTransferStartDate:v10];
   progressModel = [(MBTargetDeviceTransferEngine *)self progressModel];
@@ -1979,11 +1963,11 @@ LABEL_28:
   progressModel2 = [(MBTargetDeviceTransferEngine *)self progressModel];
   [progressModel2 updateTotalProgressWithPhaseProgress:3 phase:0.0];
 
-  sourceDeviceDataSize = [v45 sourceDeviceDataSize];
+  sourceDeviceDataSize = [v43 sourceDeviceDataSize];
   sourceDeviceName = [infoCopy sourceDeviceName];
   [infoCopy sourceDeviceUDID];
-  *&v43 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-  [(MBTargetDeviceTransferSummary *)v46 trackDataTransferStart];
+  *&v41 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+  [(MBTargetDeviceTransferSummary *)v44 trackDataTransferStart];
   +[NSDate timeIntervalSinceReferenceDate];
   v14 = v13;
   v15 = MBGetDefaultLog();
@@ -1994,28 +1978,25 @@ LABEL_28:
     *&buf[12] = 2112;
     *&buf[14] = sourceDeviceName;
     *&buf[22] = 2112;
-    v61 = v43;
+    v59 = v41;
     _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Starting to transfer data (%llu) from %@ (%@)", buf, 0x20u);
-    v37 = sourceDeviceName;
-    v39 = v43;
-    v36 = sourceDeviceDataSize;
-    _MBLog();
+    _MBLog(@"Df", "Starting to transfer data (%llu) from %@ (%@)", sourceDeviceDataSize, sourceDeviceName, v41);
   }
 
   objc_initWeak(&location, self);
-  v51[0] = _NSConcreteStackBlock;
-  v51[1] = 3221225472;
-  v51[2] = sub_100116928;
-  v51[3] = &unk_1003BEFF8;
-  objc_copyWeak(&v52, &location);
+  v49[0] = _NSConcreteStackBlock;
+  v49[1] = 3221225472;
+  v49[2] = sub_100116928;
+  v49[3] = &unk_1003BEFF8;
+  objc_copyWeak(&v50, &location);
   transferDrive = [(MBTargetDeviceTransferEngine *)self transferDrive];
-  [transferDrive setReceiveProgressHandler:v51];
+  [transferDrive setReceiveProgressHandler:v49];
 
   v17 = dispatch_semaphore_create(0);
   [(MBTargetDeviceTransferEngine *)self setRequestBackupSemaphore:v17];
   if ([(MBEngine *)self isCanceled]&& ![(MBTargetDeviceTransferEngine *)self _handleTimeout:0 error:error])
   {
-    v29 = 0;
+    v30 = 0;
   }
 
   else
@@ -2023,20 +2004,20 @@ LABEL_28:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v61 = sub_100111BA4;
-    v62 = sub_100111BB4;
-    v63 = 0;
-    v42 = MBDeviceUDID_Legacy();
-    v41 = [NSNumber numberWithUnsignedLongLong:MBFreeDiskSpace()];
-    v18 = [[MBPeerTransferRequest alloc] initWithTargetDeviceUDID:v42 freeDiskSpace:v41];
-    v48[0] = _NSConcreteStackBlock;
-    v48[1] = 3221225472;
-    v48[2] = sub_1001169CC;
-    v48[3] = &unk_1003BF020;
-    v50 = buf;
+    v59 = sub_100111BA4;
+    v60 = sub_100111BB4;
+    v61 = 0;
+    v40 = MBDeviceUDID_Legacy();
+    v39 = [NSNumber numberWithUnsignedLongLong:MBFreeDiskSpace()];
+    v18 = [[MBPeerTransferRequest alloc] initWithTargetDeviceUDID:v40 freeDiskSpace:v39];
+    v46[0] = _NSConcreteStackBlock;
+    v46[1] = 3221225472;
+    v46[2] = sub_1001169CC;
+    v46[3] = &unk_1003BF020;
+    v48 = buf;
     v19 = v17;
-    v49 = v19;
-    [MBPeerMessenger sendRequest:v18 session:fileTransferSession responseHandler:v48];
+    v47 = v19;
+    [MBPeerMessenger sendRequest:v18 session:fileTransferSession responseHandler:v46];
     v20 = dispatch_time(0, 604800000000000);
     v21 = dispatch_semaphore_wait(v19, v20);
     [(MBTargetDeviceTransferEngine *)self setRequestBackupSemaphore:0];
@@ -2046,8 +2027,8 @@ LABEL_28:
     progressModel3 = [(MBTargetDeviceTransferEngine *)self progressModel];
     progressInfo = [progressModel3 progressInfo];
 
-    -[MBTargetDeviceTransferSummary trackDataTransferEndWithTotalByteCount:totalFileCount:bytesTransferred:filesTransferred:](v46, "trackDataTransferEndWithTotalByteCount:totalFileCount:bytesTransferred:filesTransferred:", [progressInfo totalByteCount], objc_msgSend(progressInfo, "totalFileCount"), objc_msgSend(progressInfo, "bytesTransferred"), objc_msgSend(progressInfo, "filesTransferred"));
-    if ([(MBTargetDeviceTransferEngine *)self _handleTimeout:v21 != 0 error:error, v36, v37, v39])
+    -[MBTargetDeviceTransferSummary trackDataTransferEndWithTotalByteCount:totalFileCount:bytesTransferred:filesTransferred:](v44, "trackDataTransferEndWithTotalByteCount:totalFileCount:bytesTransferred:filesTransferred:", [progressInfo totalByteCount], objc_msgSend(progressInfo, "totalFileCount"), objc_msgSend(progressInfo, "bytesTransferred"), objc_msgSend(progressInfo, "filesTransferred"));
+    if ([(MBTargetDeviceTransferEngine *)self _handleTimeout:v21 != 0 error:error])
     {
       if (*(*&buf[8] + 40))
       {
@@ -2059,69 +2040,69 @@ LABEL_28:
           {
             v27 = objc_opt_class();
             v28 = *(*&buf[8] + 40);
-            *v54 = 138412546;
-            v55 = v27;
-            v56 = 2112;
-            v57 = v28;
-            _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Request %@ failed: %@", v54, 0x16u);
+            *v52 = 138412546;
+            v53 = v27;
+            v54 = 2112;
+            v55 = v28;
+            _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Request %@ failed: %@", v52, 0x16u);
           }
 
-          objc_opt_class();
-          v38 = *(*&buf[8] + 40);
-          _MBLog();
+          v29 = objc_opt_class();
+          _MBLog(@"E ", "Request %@ failed: %@", v29, *(*&buf[8] + 40));
         }
 
-        v29 = 0;
+        v30 = 0;
         *error = *(*&buf[8] + 40);
       }
 
       else
       {
         +[NSDate timeIntervalSinceReferenceDate];
-        v31 = v30;
-        v32 = MBGetDefaultLog();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
-        {
-          *v54 = 138412546;
-          v55 = sourceDeviceName;
-          v56 = 2112;
-          v57 = *&v43;
-          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Finished transferring data from %@ (%@)", v54, 0x16u);
-          _MBLog();
-        }
-
+        v32 = v31;
         v33 = MBGetDefaultLog();
         if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
-          *v54 = 134218496;
-          v55 = sourceDeviceDataSize;
-          v56 = 2048;
-          v57 = v31 - v14;
-          v58 = 2048;
-          v59 = (sourceDeviceDataSize >> 20) / (v31 - v14);
-          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Total bytes transferred: %llu. Total time spent on transferring: %f. Average throughput: %.2f", v54, 0x20u);
-          _MBLog();
+          *v52 = 138412546;
+          v53 = sourceDeviceName;
+          v54 = 2112;
+          v55 = *&v41;
+          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Finished transferring data from %@ (%@)", v52, 0x16u);
+          _MBLog(@"Df", "Finished transferring data from %@ (%@)", sourceDeviceName, v41);
         }
 
-        v34 = +[NSDate date];
-        [(MBTargetDeviceTransferEngine *)self setFileTransferEndDate:v34];
+        v34 = MBGetDefaultLog();
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+        {
+          v35 = v32 - v14;
+          *v52 = 134218496;
+          v53 = sourceDeviceDataSize;
+          v54 = 2048;
+          v55 = v35;
+          v56 = 2048;
+          v57 = (sourceDeviceDataSize >> 20) / v35;
+          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Total bytes transferred: %llu. Total time spent on transferring: %f. Average throughput: %.2f", v52, 0x20u);
+          _MBLog(@"Df", "Total bytes transferred: %llu. Total time spent on transferring: %f. Average throughput: %.2f", sourceDeviceDataSize, v35, (sourceDeviceDataSize >> 20) / v35);
+        }
 
-        v29 = 1;
+        v36 = +[NSDate date];
+        [(MBTargetDeviceTransferEngine *)self setFileTransferEndDate:v36];
+
+        v30 = 1;
       }
     }
 
     else
     {
-      v29 = 0;
+      v30 = 0;
     }
 
     _Block_object_dispose(buf, 8);
   }
 
-  objc_destroyWeak(&v52);
+  objc_destroyWeak(&v50);
   objc_destroyWeak(&location);
 
-  return v29;
+  return v30;
 }
 
 - (void)_saveDeviceTransferInfo
@@ -2213,7 +2194,7 @@ LABEL_28:
     v30 = 2112;
     v31 = v3;
     _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Saved %{public}@: %@", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"Df", "Saved %{public}@: %@", @"DeviceTransferInfo", v3);
   }
 }
 
@@ -2243,7 +2224,7 @@ LABEL_28:
     v22 = 2112;
     v23 = sourceDeviceUDID;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Starting to restore data from %@ (%@)", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"Df", "Starting to restore data from %@ (%@)", sourceDeviceName, sourceDeviceUDID);
   }
 
   v12 = +[NSDate date];
@@ -2269,7 +2250,7 @@ LABEL_28:
       v24 = 2112;
       v25 = restore;
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Failed to restore data from %@ (%@): %@", buf, 0x20u);
-      _MBLog();
+      _MBLog(@"E ", "Failed to restore data from %@ (%@): %@", sourceDeviceName, sourceDeviceUDID, restore);
     }
 
     v18 = restore;
@@ -2285,7 +2266,7 @@ LABEL_28:
       v22 = 2112;
       v23 = sourceDeviceUDID;
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Finished restoring data from %@ (%@)", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"Df", "Finished restoring data from %@ (%@)", sourceDeviceName, sourceDeviceUDID);
     }
   }
 
@@ -2343,10 +2324,10 @@ LABEL_28:
     if (os_log_type_enabled(&v10->super, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v27 = objc_opt_class();
+      v28 = objc_opt_class();
       _os_log_impl(&_mh_execute_header, &v10->super, OS_LOG_TYPE_DEFAULT, "Not sending %@", buf, 0xCu);
-      objc_opt_class();
-      _MBLog();
+      v11 = objc_opt_class();
+      _MBLog(@"Df", "Not sending %@", v11);
     }
   }
 
@@ -2354,36 +2335,36 @@ LABEL_28:
   {
     v10 = self->_transferSummary;
     [(MBTargetDeviceTransferSummary *)v10 trackDoneStart];
-    v11 = [[MBPeerDoneRequest alloc] initWithError:errorCopy];
-    v12 = dispatch_semaphore_create(0);
-    v19 = _NSConcreteStackBlock;
-    v20 = 3221225472;
-    v21 = sub_100117598;
-    v22 = &unk_1003BF048;
-    v13 = v11;
-    v23 = v13;
-    selfCopy = self;
+    v12 = [[MBPeerDoneRequest alloc] initWithError:errorCopy];
+    v13 = dispatch_semaphore_create(0);
+    v20 = _NSConcreteStackBlock;
+    v21 = 3221225472;
+    v22 = sub_100117598;
+    v23 = &unk_1003BF048;
     v14 = v12;
-    v25 = v14;
-    [MBPeerMessenger sendRequest:v13 session:v6 responseHandler:&v19];
-    v15 = dispatch_time(0, 30000000000);
-    if (dispatch_semaphore_wait(v14, v15))
+    v24 = v14;
+    selfCopy = self;
+    v15 = v13;
+    v26 = v15;
+    [MBPeerMessenger sendRequest:v14 session:v6 responseHandler:&v20];
+    v16 = dispatch_time(0, 30000000000);
+    if (dispatch_semaphore_wait(v15, v16))
     {
-      v16 = MBGetDefaultLog();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = MBGetDefaultLog();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v17 = objc_opt_class();
-        *buf = 138412290;
-        v27 = v17;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Timed out waiting for %@", buf, 0xCu);
         v18 = objc_opt_class();
-        _MBLog();
+        *buf = 138412290;
+        v28 = v18;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Timed out waiting for %@", buf, 0xCu);
+        v19 = objc_opt_class();
+        _MBLog(@"E ", "Timed out waiting for %@", v19, v20, v21, v22, v23, v24, selfCopy);
       }
 
       [(MBTargetDeviceTransferEngine *)self _stopTrackingPeerConnectionStatus];
     }
 
-    [(MBTargetDeviceTransferSummary *)v10 trackDoneEnd:v18];
+    [(MBTargetDeviceTransferSummary *)v10 trackDoneEnd];
   }
 }
 
@@ -2414,17 +2395,17 @@ LABEL_28:
       if (percentage <= 0x64 && (atomic_exchange(&selfCopy->_sendingRestoreProgressMessage, 1u) & 1) == 0)
       {
         progressGroup = [(MBTargetDeviceTransferEngine *)selfCopy progressGroup];
-        v12 = dispatch_get_global_queue(17, 0);
+        v13 = dispatch_get_global_queue(17, 0);
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = sub_1001179A8;
         block[3] = &unk_1003BDB10;
         percentageCopy = percentage;
-        v14 = v6;
-        v15 = selfCopy;
-        dispatch_group_async(progressGroup, v12, block);
+        v15 = v6;
+        v16 = selfCopy;
+        dispatch_group_async(progressGroup, v13, block);
 
-        v9 = v14;
+        v9 = v15;
         goto LABEL_12;
       }
     }
@@ -2443,10 +2424,10 @@ LABEL_28:
     {
 LABEL_11:
       *buf = 138412290;
-      v18 = objc_opt_class();
+      v19 = objc_opt_class();
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Not sending %@", buf, 0xCu);
-      objc_opt_class();
-      _MBLog();
+      v11 = objc_opt_class();
+      _MBLog(@"Df", "Not sending %@", v11);
     }
   }
 

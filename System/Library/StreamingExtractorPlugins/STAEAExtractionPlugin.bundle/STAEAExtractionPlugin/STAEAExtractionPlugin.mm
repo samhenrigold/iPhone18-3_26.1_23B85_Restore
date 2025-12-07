@@ -5,7 +5,7 @@ id sub_1010(void *a1, uint64_t a2, void *a3, void *a4, void *a5, uint64_t a6, ui
   v17 = a4;
   v18 = a5;
   v19 = [NSString stringWithFormat:@"[%s:%d][%s] %@", a7, a8, a6, v16];
-  v20 = sub_124C();
+  v20 = sub_124C(v19);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     v25 = &stru_C498;
@@ -55,16 +55,16 @@ id sub_1010(void *a1, uint64_t a2, void *a3, void *a4, void *a5, uint64_t a6, ui
   return v23;
 }
 
-id sub_124C()
+id sub_124C(uint64_t a1)
 {
   if (qword_10A30 != -1)
   {
     sub_3814();
   }
 
-  v1 = off_10960;
+  v2 = off_10960;
 
-  return v1;
+  return v2;
 }
 
 void sub_1290(id a1)
@@ -75,16 +75,16 @@ void sub_1290(id a1)
   _objc_release_x1();
 }
 
-id sub_12D4()
+id sub_12D4(uint64_t a1)
 {
   if (qword_10A38 != -1)
   {
     sub_3828();
   }
 
-  v1 = off_10968;
+  v2 = off_10968;
 
-  return v1;
+  return v2;
 }
 
 void sub_1318(id a1)
@@ -165,19 +165,19 @@ uint64_t sub_2470(void *a1, uint64_t a2)
 
   else
   {
-    sub_4F54();
+    sub_4F54(a1);
     return 0xFFFFFFFFLL;
   }
 }
 
-void sub_2848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -192,10 +192,10 @@ uint64_t sub_2894(uint64_t result, uint64_t a2)
 
 void sub_28AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  v8 = sub_124C();
+  v8 = sub_124C(a1);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    sub_52B0(a1);
+    sub_52B0();
   }
 
   if (!*(*(*(a1 + 40) + 8) + 40))
@@ -208,20 +208,19 @@ void sub_28AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
         goto LABEL_20;
       }
 
-      v10 = *(*(a1 + 32) + 8);
-      v11 = AAAssetExtractorWrite();
-      v12 = v11;
-      if (v11 < 0)
+      v10 = AAAssetExtractorWrite();
+      v11 = v10;
+      if (v10 < 0)
       {
         break;
       }
 
-      if (!v11)
+      if (!v10)
       {
-        v20 = sub_124C();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v19 = sub_124C(0);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          sub_534C(a1 + 32);
+          sub_534C();
         }
 
         [*(a1 + 32) setIsComplete:1];
@@ -230,22 +229,22 @@ LABEL_19:
         goto LABEL_20;
       }
 
-      v9 += v11;
-      v13 = sub_124C();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v9 += v10;
+      v12 = sub_124C(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        v14 = *(*(a1 + 32) + 32);
+        v13 = *(*(a1 + 32) + 32);
         *buf = 138413314;
-        v22 = v14;
-        v23 = 2082;
-        v24 = "[STAEAExtractor supplyBytes:withCompletionBlock:]_block_invoke";
-        v25 = 2048;
-        v26 = v12;
-        v27 = 2048;
-        v28 = v9;
-        v29 = 2048;
-        v30 = a4;
-        _os_log_debug_impl(&dword_0, v13, OS_LOG_TYPE_DEBUG, "[%@] %{public}s: AAAssetExtractorWrite wrote %ld bytes which brings it to %zu out of %zu", buf, 0x34u);
+        v21 = v13;
+        v22 = 2082;
+        v23 = "[STAEAExtractor supplyBytes:withCompletionBlock:]_block_invoke";
+        v24 = 2048;
+        v25 = v11;
+        v26 = 2048;
+        v27 = v9;
+        v28 = 2048;
+        v29 = a4;
+        _os_log_debug_impl(&dword_0, v12, OS_LOG_TYPE_DEBUG, "[%@] %{public}s: AAAssetExtractorWrite wrote %ld bytes which brings it to %zu out of %zu", buf, 0x34u);
       }
 
       if (*(*(*(a1 + 40) + 8) + 40))
@@ -254,17 +253,17 @@ LABEL_19:
       }
     }
 
-    v15 = sub_124C();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v14 = sub_124C(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_53D0(a1 + 32);
+      sub_53D0();
     }
 
-    v16 = [NSString stringWithFormat:@"AAAssetExtractorWrite returned %ld", v12];
-    v17 = STCreateAEAError(v16, "[STAEAExtractor supplyBytes:withCompletionBlock:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractor/AEAExtractionPlugin/STAEAExtractorPlugin.m", 441);
-    v18 = *(*(a1 + 40) + 8);
-    v19 = *(v18 + 40);
-    *(v18 + 40) = v17;
+    v15 = [NSString stringWithFormat:@"AAAssetExtractorWrite returned %ld", v11];
+    v16 = STCreateAEAError(v15, "[STAEAExtractor supplyBytes:withCompletionBlock:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractor/AEAExtractionPlugin/STAEAExtractorPlugin.m", 441);
+    v17 = *(*(a1 + 40) + 8);
+    v18 = *(v17 + 40);
+    *(v17 + 40) = v16;
 
     *(*(*(a1 + 48) + 8) + 24) = 0;
     goto LABEL_19;
@@ -275,16 +274,18 @@ LABEL_20:
   *(*(a1 + 32) + 16) += v9;
 }
 
-void sub_35B4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_35B4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x3Au);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x3Au);
 }
 
-void sub_3650(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void sub_3650(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_error_impl(a1, v11, OS_LOG_TYPE_ERROR, a4, &buf, 0x3Au);
+  _os_log_error_impl(a1, v10, OS_LOG_TYPE_ERROR, a4, va, 0x3Au);
 }
 
 id sub_36A0(uint64_t a1)
@@ -297,13 +298,6 @@ void sub_36BC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
 {
 
   _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, a5, 0x3Au);
-}
-
-uint64_t sub_36D4@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 32);
-  return result;
 }
 
 BOOL sub_36E0(NSObject *a1)
@@ -343,79 +337,85 @@ void sub_3768(void *a1, NSObject *a2)
 
 void sub_383C(void *a1)
 {
-  v3 = sub_124C();
+  v3 = sub_124C(a1);
   if (sub_36E0(v3))
   {
+    v10 = 136447490;
     sub_351C();
     sub_3670();
     sub_3564();
-    sub_35B4(&dword_0, v4, v5, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v6, v7, v8, v9, 2u);
+    sub_35B4(&dword_0, v4, v5, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v6, v7, v8, v9, v10);
   }
 }
 
 void sub_3904(void *a1)
 {
-  v3 = sub_124C();
+  v3 = sub_124C(a1);
   if (sub_36E0(v3))
   {
+    v10 = 136447490;
     sub_351C();
     sub_3670();
     sub_3564();
-    sub_35B4(&dword_0, v4, v5, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v6, v7, v8, v9, 2u);
+    sub_35B4(&dword_0, v4, v5, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v6, v7, v8, v9, v10);
   }
 }
 
 void sub_39CC(void *a1)
 {
-  v3 = sub_124C();
+  v3 = sub_124C(a1);
   if (sub_36E0(v3))
   {
+    v10 = 136447490;
     sub_351C();
     sub_3670();
     sub_3564();
-    sub_35B4(&dword_0, v4, v5, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v6, v7, v8, v9, 2u);
+    sub_35B4(&dword_0, v4, v5, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v6, v7, v8, v9, v10);
   }
 }
 
 void sub_3A94(void *a1)
 {
-  v3 = sub_124C();
+  v3 = sub_124C(a1);
   if (sub_36E0(v3))
   {
+    v10 = 136447490;
     sub_351C();
     sub_3670();
     sub_3564();
-    sub_35B4(&dword_0, v4, v5, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v6, v7, v8, v9, 2u);
+    sub_35B4(&dword_0, v4, v5, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v6, v7, v8, v9, v10);
   }
 }
 
 void sub_3B5C(void *a1)
 {
-  v3 = sub_124C();
+  v3 = sub_124C(a1);
   if (sub_36E0(v3))
   {
+    v10 = 136447490;
     sub_351C();
     sub_3670();
     sub_3564();
-    sub_35B4(&dword_0, v4, v5, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v6, v7, v8, v9, 2u);
+    sub_35B4(&dword_0, v4, v5, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v6, v7, v8, v9, v10);
   }
 }
 
 void sub_3C24(void *a1)
 {
-  v3 = sub_124C();
+  v3 = sub_124C(a1);
   if (sub_36E0(v3))
   {
+    v10 = 136447490;
     sub_351C();
     sub_3670();
     sub_3564();
-    sub_35B4(&dword_0, v4, v5, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v6, v7, v8, v9, 2u);
+    sub_35B4(&dword_0, v4, v5, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v6, v7, v8, v9, v10);
   }
 }
 
 id sub_3CEC(void *a1, void *a2, uint64_t *a3)
 {
-  v7 = sub_124C();
+  v7 = sub_124C(a1);
   if (sub_3750(v7))
   {
     v13[0] = 136447490;
@@ -436,7 +436,7 @@ id sub_3CEC(void *a1, void *a2, uint64_t *a3)
 
 void sub_3E28(void *a1, uint64_t a2, uint64_t *a3)
 {
-  v7 = sub_124C();
+  v7 = sub_124C(a1);
   if (sub_3750(v7))
   {
     v13[0] = 136447490;
@@ -457,7 +457,7 @@ void sub_3E28(void *a1, uint64_t a2, uint64_t *a3)
 
 id sub_3F8C(void *a1, void *a2, uint64_t *a3)
 {
-  v7 = sub_124C();
+  v7 = sub_124C(a1);
   if (sub_3750(v7))
   {
     v13[0] = 136447490;
@@ -480,10 +480,11 @@ void sub_40C8(NSObject *a1)
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
+    v17 = 136447490;
     sub_358C();
     sub_35E4();
     sub_354C();
-    sub_35B4(&dword_0, v11, v12, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v13, v14, v15, v16, 2u);
+    sub_35B4(&dword_0, v11, v12, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v13, v14, v15, v16, v17);
   }
 
   v2 = STExtractorErrorDomain;
@@ -493,32 +494,34 @@ void sub_40C8(NSObject *a1)
   sub_36A0(v10);
 }
 
-void sub_41E4()
+void sub_41E4(uint64_t a1)
 {
-  v1 = sub_124C();
-  if (sub_36E0(v1))
+  v2 = sub_124C(a1);
+  if (sub_36E0(v2))
   {
+    v18 = 136447490;
     sub_358C();
     sub_35E4();
     sub_354C();
-    sub_35B4(&dword_0, v11, v12, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v13, v14, v15, v16, 2u);
+    sub_35B4(&dword_0, v12, v13, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v14, v15, v16, v17, v18);
   }
 
-  v2 = STExtractorErrorDomain;
-  v3 = [NSString stringWithFormat:@"Failed to set encryption key on extractor context"];
-  v4 = sub_35F4();
-  v10 = sub_1238(v4, v5, v6, v7, v8, v9, 255);
-  sub_36A0(v10);
+  v3 = STExtractorErrorDomain;
+  v4 = [NSString stringWithFormat:@"Failed to set encryption key on extractor context"];
+  v5 = sub_35F4();
+  v11 = sub_1238(v5, v6, v7, v8, v9, v10, 255);
+  sub_36A0(v11);
 }
 
 void sub_4300(NSObject *a1)
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
+    v17 = 136447490;
     sub_358C();
     sub_35E4();
     sub_354C();
-    sub_35B4(&dword_0, v11, v12, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v13, v14, v15, v16, 2u);
+    sub_35B4(&dword_0, v11, v12, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v13, v14, v15, v16, v17);
   }
 
   v2 = STExtractorErrorDomain;
@@ -539,40 +542,42 @@ void sub_441C()
   sub_36BC(&dword_0, v0, v1, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v2);
 }
 
-void sub_44C4()
+void sub_44C4(uint64_t a1)
 {
-  v1 = sub_124C();
-  if (sub_36E0(v1))
+  v2 = sub_124C(a1);
+  if (sub_36E0(v2))
   {
+    v18 = 136447490;
     sub_358C();
     sub_35E4();
     sub_354C();
-    sub_35B4(&dword_0, v11, v12, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v13, v14, v15, v16, 2u);
+    sub_35B4(&dword_0, v12, v13, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v14, v15, v16, v17, v18);
   }
 
-  v2 = STExtractorErrorDomain;
-  v3 = [NSString stringWithFormat:@"Failed to set signing key on extractor context"];
-  v4 = sub_35F4();
-  v10 = sub_1238(v4, v5, v6, v7, v8, v9, 267);
-  sub_36A0(v10);
+  v3 = STExtractorErrorDomain;
+  v4 = [NSString stringWithFormat:@"Failed to set signing key on extractor context"];
+  v5 = sub_35F4();
+  v11 = sub_1238(v5, v6, v7, v8, v9, v10, 267);
+  sub_36A0(v11);
 }
 
-void sub_45E0()
+void sub_45E0(uint64_t a1)
 {
-  v1 = sub_124C();
-  if (sub_36E0(v1))
+  v2 = sub_124C(a1);
+  if (sub_36E0(v2))
   {
+    v18 = 136447490;
     sub_358C();
     sub_35E4();
     sub_354C();
-    sub_35B4(&dword_0, v11, v12, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v13, v14, v15, v16, 2u);
+    sub_35B4(&dword_0, v12, v13, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v14, v15, v16, v17, v18);
   }
 
-  v2 = STExtractorErrorDomain;
-  v3 = [NSString stringWithFormat:@"Archive is not signed - signing key was provided and is required"];
-  v4 = sub_35F4();
-  v10 = sub_1238(v4, v5, v6, v7, v8, v9, 261);
-  sub_36A0(v10);
+  v3 = STExtractorErrorDomain;
+  v4 = [NSString stringWithFormat:@"Archive is not signed - signing key was provided and is required"];
+  v5 = sub_35F4();
+  v11 = sub_1238(v5, v6, v7, v8, v9, v10, 261);
+  sub_36A0(v11);
 }
 
 void sub_46FC(uint64_t a1, uint64_t a2)
@@ -586,7 +591,7 @@ void sub_46FC(uint64_t a1, uint64_t a2)
 
 uint64_t sub_479C(uint64_t *a1)
 {
-  v3 = sub_124C();
+  v3 = sub_124C(a1);
   if (sub_36E0(v3))
   {
     v10[0] = 136447490;
@@ -608,7 +613,7 @@ uint64_t sub_479C(uint64_t *a1)
 
 void sub_48F0(void *a1, uint64_t a2, uint64_t *a3)
 {
-  v7 = sub_124C();
+  v7 = sub_124C(a1);
   if (sub_3750(v7))
   {
     v11[0] = 136447490;
@@ -627,91 +632,92 @@ void sub_48F0(void *a1, uint64_t a2, uint64_t *a3)
 void sub_4A24()
 {
   sub_36F8();
-  v3 = sub_124C();
-  if (sub_3704(v3))
+  v4 = sub_124C(v3);
+  if (sub_3704(v4))
   {
     sub_3578();
     sub_35D4();
     sub_3534();
-    sub_3650(&dword_0, v5, v6, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v7, v8, v9, v10, v11, v12, 2u);
+    sub_3650(&dword_0, v6, v7, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v8, v9, v10, v11, v12, v13);
   }
 
-  v4 = [NSString stringWithFormat:@"Couldn't set extractor context callback, returned %d", v1];
-  *v0 = STCreateAEAError(v4, "[STAEAExtractor prepareForExtractionToPath:withCompletionBlock:]", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractor/AEAExtractionPlugin/STAEAExtractorPlugin.m", 384);
+  v5 = [NSString stringWithFormat:@"Couldn't set extractor context callback, returned %d", v1];
+  *v0 = STCreateAEAError(v5, "[STAEAExtractor prepareForExtractionToPath:withCompletionBlock:]", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractor/AEAExtractionPlugin/STAEAExtractorPlugin.m", 384);
 }
 
 void sub_4B30()
 {
   sub_36F8();
-  v3 = sub_124C();
-  if (sub_3704(v3))
+  v4 = sub_124C(v3);
+  if (sub_3704(v4))
   {
     sub_3578();
     sub_35D4();
     sub_3534();
-    sub_3650(&dword_0, v5, v6, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v7, v8, v9, v10, v11, v12, 2u);
+    sub_3650(&dword_0, v6, v7, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v8, v9, v10, v11, v12, v13);
   }
 
-  v4 = [NSString stringWithFormat:@"Couldn't set extractor progress callback, returned %d", v1];
-  *v0 = STCreateAEAError(v4, "[STAEAExtractor prepareForExtractionToPath:withCompletionBlock:]", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractor/AEAExtractionPlugin/STAEAExtractorPlugin.m", 387);
+  v5 = [NSString stringWithFormat:@"Couldn't set extractor progress callback, returned %d", v1];
+  *v0 = STCreateAEAError(v5, "[STAEAExtractor prepareForExtractionToPath:withCompletionBlock:]", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractor/AEAExtractionPlugin/STAEAExtractorPlugin.m", 387);
 }
 
 void sub_4C3C()
 {
   sub_36F8();
-  v3 = sub_124C();
-  if (sub_3704(v3))
+  v4 = sub_124C(v3);
+  if (sub_3704(v4))
   {
     sub_3578();
     sub_35D4();
     sub_3534();
-    sub_3650(&dword_0, v5, v6, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v7, v8, v9, v10, v11, v12, 2u);
+    sub_3650(&dword_0, v6, v7, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v8, v9, v10, v11, v12, v13);
   }
 
-  v4 = [NSString stringWithFormat:@"Couldn't set extractor entry message callback, returned %d", v1];
-  *v0 = STCreateAEAError(v4, "[STAEAExtractor prepareForExtractionToPath:withCompletionBlock:]", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractor/AEAExtractionPlugin/STAEAExtractorPlugin.m", 390);
+  v5 = [NSString stringWithFormat:@"Couldn't set extractor entry message callback, returned %d", v1];
+  *v0 = STCreateAEAError(v5, "[STAEAExtractor prepareForExtractionToPath:withCompletionBlock:]", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractor/AEAExtractionPlugin/STAEAExtractorPlugin.m", 390);
 }
 
 void sub_4D48()
 {
   sub_36F8();
-  v3 = sub_124C();
-  if (sub_3704(v3))
+  v4 = sub_124C(v3);
+  if (sub_3704(v4))
   {
     sub_3578();
     sub_35D4();
     sub_3534();
-    sub_3650(&dword_0, v5, v6, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v7, v8, v9, v10, v11, v12, 2u);
+    sub_3650(&dword_0, v6, v7, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v8, v9, v10, v11, v12, v13);
   }
 
-  v4 = [NSString stringWithFormat:@"Couldn't set extractor progress arg, returned %d", v1];
-  *v0 = STCreateAEAError(v4, "[STAEAExtractor prepareForExtractionToPath:withCompletionBlock:]", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractor/AEAExtractionPlugin/STAEAExtractorPlugin.m", 393);
+  v5 = [NSString stringWithFormat:@"Couldn't set extractor progress arg, returned %d", v1];
+  *v0 = STCreateAEAError(v5, "[STAEAExtractor prepareForExtractionToPath:withCompletionBlock:]", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractor/AEAExtractionPlugin/STAEAExtractorPlugin.m", 393);
 }
 
 void sub_4E54(NSObject *a1, uint64_t *a2)
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
+    v11 = 136447490;
     sub_358C();
     sub_35E4();
     sub_354C();
-    sub_35B4(&dword_0, v5, v6, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v7, v8, v9, v10, 2u);
+    sub_35B4(&dword_0, v5, v6, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v7, v8, v9, v10, v11);
   }
 
   v4 = [NSString stringWithFormat:@"Couldn't create extractor"];
   *a2 = STCreateAEAError(v4, "[STAEAExtractor prepareForExtractionToPath:withCompletionBlock:]", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractor/AEAExtractionPlugin/STAEAExtractorPlugin.m", 369);
 }
 
-void sub_4F54()
+void sub_4F54(uint64_t a1)
 {
-  v0 = sub_124C();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = sub_124C(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     sub_351C();
     sub_3670();
     sub_3564();
     sub_3608();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0x3Au);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0x3Au);
   }
 }
 
@@ -727,12 +733,12 @@ void sub_5024(NSObject *a1)
   }
 }
 
-void sub_50F0(uint64_t a1)
+void sub_50F0()
 {
-  v1 = *(sub_36D4(a1, __stack_chk_guard) + 16);
+  sub_36D4(__stack_chk_guard);
   sub_35A0();
   sub_368C();
-  sub_3730(&dword_0, v2, v3, "[%@] %{public}s: Received %zu bytes for extraction, offset %lld");
+  sub_3730(&dword_0, v0, v1, "[%@] %{public}s: Received %zu bytes for extraction, offset %lld");
 }
 
 void sub_5170(uint64_t a1, void *a2, uint8_t *buf, os_log_t log)
@@ -758,35 +764,33 @@ void sub_51EC(NSObject *a1)
   }
 }
 
-void sub_52B0(uint64_t a1)
+void sub_52B0()
 {
-  sub_36D4(a1, __stack_chk_guard);
-  *v4 = 138413058;
-  *&v4[4] = *(v1 + 32);
-  *&v4[12] = 2082;
-  *&v4[14] = "[STAEAExtractor supplyBytes:withCompletionBlock:]_block_invoke";
-  *&v4[22] = 2048;
-  LOWORD(v5) = 2048;
-  *(&v5 + 2) = *(v1 + 16);
-  sub_3730(&dword_0, v2, v3, "[%@] %{public}s: Extracting %zu bytes, offset %lld", *v4, *&v4[8], *&v4[16], v2, v5, WORD4(v5));
+  sub_36D4(__stack_chk_guard);
+  *v3 = 138413058;
+  *&v3[4] = *(v0 + 32);
+  *&v3[12] = 2082;
+  *&v3[14] = "[STAEAExtractor supplyBytes:withCompletionBlock:]_block_invoke";
+  *&v3[22] = 2048;
+  LOWORD(v4) = 2048;
+  *(&v4 + 2) = *(v0 + 16);
+  sub_3730(&dword_0, v1, v2, "[%@] %{public}s: Extracting %zu bytes, offset %lld", *v3, *&v3[8], *&v3[16], v1, v4, WORD4(v4));
 }
 
-void sub_534C(uint64_t a1)
+void sub_534C()
 {
-  v1 = *(*a1 + 32);
   sub_35A0();
   sub_368C();
   sub_3640();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void sub_53D0(uint64_t a1)
+void sub_53D0()
 {
-  v1 = *(*a1 + 32);
   sub_35A0();
   sub_368C();
   sub_3640();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void sub_5454(uint64_t a1, uint64_t a2)
@@ -801,25 +805,25 @@ void sub_5454(uint64_t a1, uint64_t a2)
 void sub_54F4()
 {
   sub_36F8();
-  v3 = sub_124C();
-  if (sub_3704(v3))
+  v4 = sub_124C(v3);
+  if (sub_3704(v4))
   {
     sub_3578();
     sub_35D4();
     sub_3534();
-    sub_3650(&dword_0, v5, v6, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v7, v8, v9, v10, v11, v12, 2u);
+    sub_3650(&dword_0, v6, v7, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v8, v9, v10, v11, v12, v13);
   }
 
-  v4 = [NSString stringWithFormat:@"failed to suspend stream: %d", v1];
-  *v0 = STCreateAEAError(v4, "[STAEAExtractor suspendStreamWithCompletionBlock:]", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractor/AEAExtractionPlugin/STAEAExtractorPlugin.m", 507);
+  v5 = [NSString stringWithFormat:@"failed to suspend stream: %d", v1];
+  *v0 = STCreateAEAError(v5, "[STAEAExtractor suspendStreamWithCompletionBlock:]", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractor/AEAExtractionPlugin/STAEAExtractorPlugin.m", 507);
 }
 
-void sub_5600(uint64_t a1)
+void sub_5600()
 {
-  sub_36D4(a1, __stack_chk_guard);
+  sub_36D4(__stack_chk_guard);
   sub_35A0();
-  v3 = "[STAEAExtractor suspendStreamWithCompletionBlock:]";
-  _os_log_error_impl(&dword_0, v1, OS_LOG_TYPE_ERROR, "[%@] %{public}s: No extractor to suspend", v2, 0x16u);
+  v2 = "[STAEAExtractor suspendStreamWithCompletionBlock:]";
+  _os_log_error_impl(&dword_0, v0, OS_LOG_TYPE_ERROR, "[%@] %{public}s: No extractor to suspend", v1, 0x16u);
 }
 
 void sub_5680(uint64_t a1, uint64_t a2)
@@ -831,21 +835,21 @@ void sub_5680(uint64_t a1, uint64_t a2)
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
-void sub_5720(uint64_t a1)
+void sub_5720()
 {
-  sub_36D4(a1, __stack_chk_guard);
+  sub_36D4(__stack_chk_guard);
   sub_35A0();
   sub_371C();
   sub_3640();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_579C(uint64_t a1)
+void sub_579C()
 {
-  sub_36D4(a1, __stack_chk_guard);
+  sub_36D4(__stack_chk_guard);
   sub_35A0();
   sub_3640();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void sub_5824(uint64_t a1, uint64_t a2)
@@ -857,11 +861,11 @@ void sub_5824(uint64_t a1, uint64_t a2)
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
-void sub_58C4(uint64_t a1)
+void sub_58C4()
 {
-  sub_36D4(a1, __stack_chk_guard);
+  sub_36D4(__stack_chk_guard);
   sub_35A0();
   sub_371C();
   sub_3640();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }

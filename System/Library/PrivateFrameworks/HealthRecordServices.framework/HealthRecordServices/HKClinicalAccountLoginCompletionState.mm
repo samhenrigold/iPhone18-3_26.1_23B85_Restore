@@ -96,11 +96,10 @@
   v4 = objc_opt_class();
   identifier = [(HKClinicalAccount *)self->_account identifier];
   alternateCredentialPersistentID = self->_alternateCredentialPersistentID;
-  wasRelogin = self->_wasRelogin;
-  v8 = HKStringFromBool();
-  v9 = [v3 stringWithFormat:@"<%@ %p> account: %@, alternate credential: %@, was relogin: %@, error: %@", v4, self, identifier, alternateCredentialPersistentID, v8, self->_error];
+  v7 = HKStringFromBool();
+  v8 = [v3 stringWithFormat:@"<%@ %p> account: %@, alternate credential: %@, was relogin: %@, error: %@", v4, self, identifier, alternateCredentialPersistentID, v7, self->_error];
 
-  return v9;
+  return v8;
 }
 
 @end

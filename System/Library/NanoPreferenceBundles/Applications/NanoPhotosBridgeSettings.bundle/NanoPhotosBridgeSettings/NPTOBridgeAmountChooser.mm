@@ -6,6 +6,7 @@
 - (unint64_t)_syncedAmount;
 - (void)_setSyncedAmount:(unint64_t)amount;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation NPTOBridgeAmountChooser
@@ -38,6 +39,14 @@
   _preferencesAccessor = [(NPTOBridgeAmountChooser *)self _preferencesAccessor];
   v4 = [NSNumber numberWithUnsignedInteger:amount];
   [_preferencesAccessor setObject:v4 forKey:NPTOPreferencesSyncedPhotosLimitKey];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = NPTOBridgeAmountChooser;
+  [(NPTOBridgeAmountChooser *)&v3 viewWillAppear:appear];
+  +[NPTOBridgeUserVisitDonation donateUserVisitForPhotosLimitSection];
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path

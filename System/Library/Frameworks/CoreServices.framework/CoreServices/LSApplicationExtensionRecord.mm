@@ -4,25 +4,35 @@
 + (id)applicationExtensionRecordsForUUIDs:(id)ds outContainingBundleRecords:(id *)records error:(id *)error;
 + (id)enumeratorWithExtensionPointRecord:(id)record options:(unint64_t)options;
 + (id)enumeratorWithOptions:(unint64_t)options;
++ (id)redactedAppexRecordWithUUID:(id)d node:(id)node bundleIdentifier:(id)identifier platform:(unsigned int)platform error:(id *)error;
 - (BOOL)_usesSystemPersona;
 - (BOOL)appProtectionHidden;
 - (BOOL)appProtectionLocked;
 - (BOOL)isUpdating;
+- (LSApplicationExtensionRecord)initWithBundleIdentifier:(id)identifier requireValid:(BOOL)valid platform:(unsigned int)platform error:(id *)error;
+- (LSApplicationExtensionRecord)initWithURL:(id)l requireValid:(BOOL)valid error:(id *)error;
 - (LSBundleRecord)containingBundleRecord;
 - (char)developerType;
 - (id)_containingBundleRecordWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const LSPluginData *)bytes;
 - (id)_initWithContext:(LSContext *)context persistentIdentifierData:(const LSPersistentIdentifierData *)data length:(unint64_t)length;
+- (id)_initWithContext:(LSContext *)context pluginID:(unsigned int)d pluginData:(const LSPluginData *)data error:(id *)error;
+- (id)_initWithContext:(LSContext *)context pluginID:(unsigned int)d pluginData:(const LSPluginData *)data extensionPointRecord:(id)record error:(id *)error;
+- (id)_initWithUUID:(id)d node:(id)node bundleIdentifier:(id)identifier context:(LSContext *)context requireValid:(BOOL)valid error:(id *)error;
+- (id)_initWithUUID:(id)d node:(id)node bundleIdentifier:(id)identifier platform:(unsigned int)platform context:(LSContext *)CurrentContext requireValid:(BOOL)valid allowRedacted:(BOOL)redacted error:(id *)self0;
 - (id)_intentsArrayForKey:(id)key;
 - (id)_personasWithAttributes;
 - (id)_replacementObjectForResolvedPropertyValue:(id)value forGetter:(SEL)getter encoder:(id)encoder;
+- (id)appProtectionEffectiveContainerWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const LSPluginData *)bytes;
 - (id)associatedPersonas;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)effectiveBundleIdentifierWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const LSPluginData *)bytes;
 - (id)extensionPointRecordWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const LSPluginData *)bytes;
+- (id)iconDictionaryWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const LSPluginData *)bytes;
 - (id)managedPersonas;
 - (id)recordForUnredactingWithContext:(LSContext *)context error:(id *)error;
 - (id)uniqueIdentifierWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const LSPluginData *)bytes;
 - (unint64_t)compatibilityState;
+- (void)_detachFromContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const void *)bytes;
 @end
 
 @implementation LSApplicationExtensionRecord
@@ -61,12 +71,11 @@
 
 + (id)_propertyClasses
 {
-  v5[3] = *MEMORY[0x1E69E9840];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:3];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[3] = *MEMORY[0x1E69E9840];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:3];
 
   return v2;
 }
@@ -95,45 +104,59 @@
   return _usesSystemPersona;
 }
 
+- (LSApplicationExtensionRecord)initWithURL:(id)l requireValid:(BOOL)valid error:(id *)error
+{
+  validCopy = valid;
+  v8 = [[FSNode alloc] initWithURL:l flags:32 error:0];
+  v9 = [(LSApplicationExtensionRecord *)self _initWithUUID:0 node:v8 bundleIdentifier:0 context:0 requireValid:validCopy error:error];
+
+  return v9;
+}
+
+- (LSApplicationExtensionRecord)initWithBundleIdentifier:(id)identifier requireValid:(BOOL)valid platform:(unsigned int)platform error:(id *)error
+{
+  v7 = *&platform;
+  validCopy = valid;
+  LOBYTE(v12) = _LSCurrentProcessMayMapDatabase() == 0;
+  return [(LSApplicationExtensionRecord *)self _initWithUUID:0 node:0 bundleIdentifier:identifier platform:v7 context:0 requireValid:validCopy allowRedacted:v12 error:error];
+}
+
 - (id)effectiveBundleIdentifierWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const LSPluginData *)bytes
 {
-  var3 = bytes->var3;
   [(_LSDatabase *)context->db store];
-  v9 = _CSStringCopyCFString();
-  v10 = v9;
-  if (v9)
+  v7 = _CSStringCopyCFString();
+  v8 = v7;
+  if (v7)
   {
-    v11 = v9;
+    v9 = v7;
   }
 
   else
   {
-    exactIdentifier = bytes->var0.exactIdentifier;
     [(_LSDatabase *)context->db store];
-    v11 = _CSStringCopyCFString();
+    v9 = _CSStringCopyCFString();
   }
 
-  v13 = v11;
+  v10 = v9;
 
-  return v13;
+  return v10;
 }
 
 - (id)uniqueIdentifierWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const LSPluginData *)bytes
 {
-  var7 = bytes->var7;
   [(_LSDatabase *)context->db store];
-  v7 = _CSStringCopyCFString();
-  if (v7)
+  v6 = _CSStringCopyCFString();
+  if (v6)
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v7];
+    v7 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v6];
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  return v8;
+  return v7;
 }
 
 - (id)extensionPointRecordWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const LSPluginData *)bytes
@@ -168,46 +191,179 @@
   return hasParallelPlaceholder;
 }
 
+- (id)_initWithUUID:(id)d node:(id)node bundleIdentifier:(id)identifier context:(LSContext *)context requireValid:(BOOL)valid error:(id *)error
+{
+  validCopy = valid;
+  LOBYTE(v16) = _LSCurrentProcessMayMapDatabase() == 0;
+  return [(LSApplicationExtensionRecord *)self _initWithUUID:d node:node bundleIdentifier:identifier platform:0 context:context requireValid:validCopy allowRedacted:v16 error:error];
+}
+
+- (id)_initWithUUID:(id)d node:(id)node bundleIdentifier:(id)identifier platform:(unsigned int)platform context:(LSContext *)CurrentContext requireValid:(BOOL)valid allowRedacted:(BOOL)redacted error:(id *)self0
+{
+  validCopy = valid;
+  v12 = *&platform;
+  MayMapDatabase = _LSCurrentProcessMayMapDatabase();
+  if (!MayMapDatabase && redacted)
+  {
+    v18 = [LSApplicationExtensionRecord redactedAppexRecordWithUUID:d node:node bundleIdentifier:identifier platform:v12 error:error];
+
+    v19 = v18;
+    if (!d)
+    {
+      return v19;
+    }
+
+    goto LABEL_20;
+  }
+
+  if (!CurrentContext)
+  {
+    CurrentContext = _LSDatabaseContextGetCurrentContext(MayMapDatabase);
+  }
+
+  v32 = CurrentContext;
+  v33 = 0;
+  v34 = 0;
+  v35 = 0;
+  v20 = +[_LSDServiceDomain defaultServiceDomain];
+  v21 = LaunchServices::Database::Context::_get(&v32, v20, 0);
+
+  if (!v21)
+  {
+    if (error)
+    {
+      v25 = +[_LSDServiceDomain defaultServiceDomain];
+      v26 = LaunchServices::Database::Context::_get(&v32, v25, 0);
+
+      if (v26)
+      {
+        v27 = 0;
+      }
+
+      else
+      {
+        v27 = v35;
+      }
+
+      *error = v27;
+    }
+
+    goto LABEL_15;
+  }
+
+  v31 = 0;
+  PluginDataInContext = findPluginDataInContext(v21, d, node, identifier, validCopy, v12, &v31, error);
+  if (!v31)
+  {
+LABEL_15:
+
+    v19 = 0;
+    goto LABEL_16;
+  }
+
+  v23 = PluginDataInContext;
+  schema = [(_LSDatabase *)*v21 schema];
+  v19 = [(LSBundleRecord *)self _initWithNode:node bundleIdentifier:identifier context:v21 tableID:*(schema + 1588) unitID:v31 bundleBaseData:v23 error:error];
+LABEL_16:
+  if (v32 && v34 == 1)
+  {
+    _LSContextDestroy(&v32->db);
+  }
+
+  v28 = v33;
+  v32 = 0;
+  v33 = 0;
+
+  v34 = 0;
+  v29 = v35;
+  v35 = 0;
+
+  if (d)
+  {
+LABEL_20:
+    if (v19)
+    {
+      [v19 _setResolvedPropertyValue:d forGetter:sel_uniqueIdentifier];
+    }
+  }
+
+  return v19;
+}
+
+- (id)_initWithContext:(LSContext *)context pluginID:(unsigned int)d pluginData:(const LSPluginData *)data extensionPointRecord:(id)record error:(id *)error
+{
+  v8 = [(LSApplicationExtensionRecord *)self _initWithContext:context pluginID:*&d pluginData:data error:error];
+  [v8 _setResolvedPropertyValue:record forGetter:sel_extensionPointRecord];
+  return v8;
+}
+
+- (id)_initWithContext:(LSContext *)context pluginID:(unsigned int)d pluginData:(const LSPluginData *)data error:(id *)error
+{
+  dataCopy = data;
+  v8 = *&d;
+  v14[1] = *MEMORY[0x1E69E9840];
+  if (data || (dataCopy = _LSGetPlugin(context->db, *&d)) != 0)
+  {
+    if (self)
+    {
+      return [(LSBundleRecord *)self _initWithNode:0 bundleIdentifier:0 context:context tableID:*([(_LSDatabase *)context->db schema]+ 1588) unitID:v8 bundleBaseData:dataCopy error:error];
+    }
+  }
+
+  else
+  {
+    if (error)
+    {
+      v13 = *MEMORY[0x1E696A278];
+      v14[0] = @"Unable to find this application extension record in the Launch Services database.";
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      *error = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -10814, v12, "[LSApplicationExtensionRecord _initWithContext:pluginID:pluginData:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Record/LSApplicationExtensionRecord.mm", 248);
+    }
+  }
+
+  return 0;
+}
+
 + (id)applicationExtensionRecordsForUUIDs:(id)ds outContainingBundleRecords:(id *)records error:(id *)error
 {
-  v93 = *MEMORY[0x1E69E9840];
-  v86 = 0;
-  v83 = 0;
+  v91 = *MEMORY[0x1E69E9840];
   v84 = 0;
-  v85 = 0;
+  v81 = 0;
+  v82 = 0;
+  v83 = 0;
   v6 = +[_LSDServiceDomain defaultServiceDomain];
-  v7 = LaunchServices::Database::Context::_get(&v83, v6, 0);
+  v7 = LaunchServices::Database::Context::_get(&v81, v6, 0);
 
   if (v7)
   {
+    v78 = 0;
+    v79 = 0;
     v80 = 0;
-    v81 = 0;
-    v82 = 0;
     v8 = objc_autoreleasePoolPush();
-    v78 = 0u;
-    v79 = 0u;
     v76 = 0u;
     v77 = 0u;
+    v74 = 0u;
+    v75 = 0u;
     dsCopy = ds;
     v10 = 0;
-    v11 = [dsCopy countByEnumeratingWithState:&v76 objects:v92 count:16];
+    v11 = [dsCopy countByEnumeratingWithState:&v74 objects:v90 count:16];
     if (v11)
     {
-      v12 = *v77;
+      v12 = *v75;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v77 != v12)
+          if (*v75 != v12)
           {
             objc_enumerationMutation(dsCopy);
           }
 
-          v14 = *(*(&v76 + 1) + 8 * i);
+          v14 = *(*(&v74 + 1) + 8 * i);
           *buf = 0;
-          v75 = v10;
-          PluginDataInContext = findPluginDataInContext(v7, v14, 0, 0, 0, 0, buf, &v75);
-          v16 = v75;
+          v73 = v10;
+          PluginDataInContext = findPluginDataInContext(v7, v14, 0, 0, 0, 0, buf, &v73);
+          v16 = v73;
 
           v10 = v16;
           if (PluginDataInContext)
@@ -222,111 +378,110 @@
 
           if (!v17)
           {
-            LODWORD(v72) = *buf;
-            *(&v72 + 1) = v14;
-            std::vector<std::pair<unsigned int,NSUUID * {__strong}>>::push_back[abi:nn200100](&v80, &v72);
+            LODWORD(v70) = *buf;
+            *(&v70 + 1) = v14;
+            std::vector<std::pair<unsigned int,NSUUID * {__strong}>>::push_back[abi:nn200100](&v78, &v70);
           }
         }
 
-        v11 = [dsCopy countByEnumeratingWithState:&v76 objects:v92 count:16];
+        v11 = [dsCopy countByEnumeratingWithState:&v74 objects:v90 count:16];
       }
 
       while (v11);
     }
 
     objc_autoreleasePoolPop(v8);
-    v60 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v72 = 0u;
-    v73 = 0u;
-    v74 = 1065353216;
-    v18 = v80;
-    v63 = v81;
-    if (v80 != v81)
+    v58 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v70 = 0u;
+    v71 = 0u;
+    v72 = 1065353216;
+    v18 = v78;
+    v61 = v79;
+    if (v78 != v79)
     {
-      v19 = *MEMORY[0x1E696A768];
-      v58 = *MEMORY[0x1E696A768];
-      v59 = *MEMORY[0x1E696A278];
+      v56 = *MEMORY[0x1E696A768];
+      v57 = *MEMORY[0x1E696A278];
       do
       {
-        v64 = *v18;
-        v20 = _LSGetPlugin(*v7, *v18);
-        v21 = v20;
-        if (v20)
+        v62 = *v18;
+        v19 = _LSGetPlugin(*v7, v62);
+        v20 = v19;
+        if (v19)
         {
-          v71 = *(v20 + 224);
-          if (v71)
+          v69 = *(v19 + 224);
+          if (v69)
           {
-            v22 = std::__hash_table<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>>>::find<unsigned int>(&v72, &v71);
-            v61 = v21;
-            if (v22)
+            v21 = std::__hash_table<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>>>::find<unsigned int>(&v70, &v69);
+            v59 = v20;
+            if (v21)
             {
-              v23 = v22[3];
-              if (!v23)
+              v22 = v21[3];
+              if (!v22)
               {
                 currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
                 [currentHandler handleFailureInMethod:a2 object:self file:@"LSApplicationExtensionRecord.mm" lineNumber:320 description:@"why don't we have a container in the map?"];
 
-                v23 = 0;
+                v22 = 0;
               }
             }
 
             else
             {
-              v30 = [LSApplicationRecord alloc];
-              v70 = v10;
-              v31 = [(LSApplicationRecord *)v30 _initWithContext:v7 bundleID:v71 bundleData:0 error:&v70];
-              v32 = v70;
+              v29 = [LSApplicationRecord alloc];
+              v68 = v10;
+              v30 = [(LSApplicationRecord *)v29 _initWithContext:v7 bundleID:v69 bundleData:0 error:&v68];
+              v31 = v68;
 
-              if (v31)
+              if (v30)
               {
-                *buf = v71;
-                v33 = v31;
-                *&v91[4] = v33;
-                std::__hash_table<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int,LSApplicationRecord * {__strong}>>(&v72, buf);
+                *buf = v69;
+                v32 = v30;
+                *&v89[4] = v32;
+                std::__hash_table<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int,LSApplicationRecord * {__strong}>>(&v70, buf, buf);
 
-                v10 = v32;
-                v23 = v33;
+                v10 = v31;
+                v22 = v32;
               }
 
               else
               {
-                v23 = 0;
-                v10 = v32;
+                v22 = 0;
+                v10 = v31;
               }
             }
 
-            v68 = 0u;
-            v69 = 0u;
             v66 = 0u;
             v67 = 0u;
-            v62 = v23;
-            applicationExtensionRecords = [v23 applicationExtensionRecords];
-            v35 = [applicationExtensionRecords countByEnumeratingWithState:&v66 objects:v89 count:16];
-            if (v35)
+            v64 = 0u;
+            v65 = 0u;
+            v60 = v22;
+            applicationExtensionRecords = [v22 applicationExtensionRecords];
+            v34 = [applicationExtensionRecords countByEnumeratingWithState:&v64 objects:v87 count:16];
+            if (v34)
             {
-              v36 = *v67;
+              v35 = *v65;
 LABEL_29:
-              v37 = 0;
+              v36 = 0;
               while (1)
               {
-                if (*v67 != v36)
+                if (*v65 != v35)
                 {
                   objc_enumerationMutation(applicationExtensionRecords);
                 }
 
-                v38 = *(*(&v66 + 1) + 8 * v37);
-                uniqueIdentifier = [v38 uniqueIdentifier];
-                v40 = [uniqueIdentifier isEqual:*(v18 + 1)];
+                v37 = *(*(&v64 + 1) + 8 * v36);
+                uniqueIdentifier = [v37 uniqueIdentifier];
+                v39 = [uniqueIdentifier isEqual:*(v18 + 1)];
 
-                if (v40)
+                if (v39)
                 {
                   break;
                 }
 
-                if (v35 == ++v37)
+                if (v34 == ++v36)
                 {
-                  v35 = [applicationExtensionRecords countByEnumeratingWithState:&v66 objects:v89 count:16];
-                  if (v35)
+                  v34 = [applicationExtensionRecords countByEnumeratingWithState:&v64 objects:v87 count:16];
+                  if (v34)
                   {
                     goto LABEL_29;
                   }
@@ -335,10 +490,10 @@ LABEL_29:
                 }
               }
 
-              v29 = v38;
+              v28 = v37;
 
-              v21 = v61;
-              if (v29)
+              v20 = v59;
+              if (v28)
               {
                 goto LABEL_38;
               }
@@ -348,116 +503,114 @@ LABEL_29:
             {
 LABEL_35:
 
-              v21 = v61;
+              v20 = v59;
             }
           }
 
-          v41 = [LSApplicationExtensionRecord alloc];
-          v65 = v10;
-          v29 = [(LSApplicationExtensionRecord *)v41 _initWithContext:v7 pluginID:v64 pluginData:v21 error:&v65];
-          v42 = v65;
+          v40 = [LSApplicationExtensionRecord alloc];
+          v63 = v10;
+          v28 = [(LSApplicationExtensionRecord *)v40 _initWithContext:v7 pluginID:v62 pluginData:v20 error:&v63];
+          v41 = v63;
 
-          v10 = v42;
-          if (v29)
+          v10 = v41;
+          if (v28)
           {
 LABEL_38:
-            [v60 addObject:v29];
+            [v58 addObject:v28];
           }
         }
 
         else
         {
-          v25 = _LSDefaultLog();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          v24 = _LSDefaultLog(0);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
           {
             *buf = 134217984;
-            *v91 = v64;
-            _os_log_error_impl(&dword_18162D000, v25, OS_LOG_TYPE_ERROR, "unexpected error finding plugin with unit %lu", buf, 0xCu);
+            *v89 = v62;
+            _os_log_error_impl(&dword_18162D000, v24, OS_LOG_TYPE_ERROR, "unexpected error finding plugin with unit %lu", buf, 0xCu);
           }
 
-          v87 = v59;
-          v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Could not find plugin for unit %lu", v64];
-          v88 = v26;
-          v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
-          v28 = _LSMakeNSErrorImpl(v58, -10810, v27, "+[LSApplicationExtensionRecord applicationExtensionRecordsForUUIDs:outContainingBundleRecords:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Record/LSApplicationExtensionRecord.mm", 345);
+          v85 = v57;
+          v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Could not find plugin for unit %lu", v62];
+          v86 = v25;
+          v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
+          v27 = _LSMakeNSErrorImpl(v56, -10810, v26, "+[LSApplicationExtensionRecord applicationExtensionRecordsForUUIDs:outContainingBundleRecords:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Record/LSApplicationExtensionRecord.mm", 345);
 
-          v29 = 0;
-          v10 = v28;
+          v28 = 0;
+          v10 = v27;
         }
 
         v18 += 4;
       }
 
-      while (v18 != v63);
+      while (v18 != v61);
     }
 
-    if ([v60 count])
+    if ([v58 count])
     {
-      v43 = v60;
+      v42 = v58;
       if (records)
       {
-        v44 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        for (j = v73; j; j = *j)
+        v43 = objc_alloc_init(MEMORY[0x1E695DF70]);
+        for (j = v71; j; j = *j)
         {
-          [v44 addObject:j[3]];
+          [v43 addObject:j[3]];
         }
 
-        v46 = *records;
-        *records = v44;
+        v45 = *records;
+        *records = v43;
       }
     }
 
     else
     {
-      v43 = 0;
+      v42 = 0;
     }
 
-    std::__hash_table<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>>>::~__hash_table(&v72);
+    std::__hash_table<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>>>::~__hash_table(&v70);
 
-    *&v72 = &v80;
-    std::vector<std::pair<unsigned int,NSUUID * {__strong}>>::__destroy_vector::operator()[abi:nn200100](&v72);
+    *&v70 = &v78;
+    std::vector<std::pair<unsigned int,NSUUID * {__strong}>>::__destroy_vector::operator()[abi:nn200100](&v70);
   }
 
   else
   {
-    v47 = +[_LSDServiceDomain defaultServiceDomain];
-    v48 = LaunchServices::Database::Context::_get(&v83, v47, 0);
+    v46 = +[_LSDServiceDomain defaultServiceDomain];
+    v47 = LaunchServices::Database::Context::_get(&v81, v46, 0);
 
-    if (v48)
+    if (v47)
     {
       v10 = 0;
     }
 
     else
     {
-      v10 = v86;
+      v10 = v84;
     }
 
-    v43 = 0;
+    v42 = 0;
   }
 
-  if (error && !v43)
+  if (error && !v42)
   {
-    v49 = v10;
+    v48 = v10;
     *error = v10;
   }
 
-  if (v83 && v85 == 1)
+  if (v81 && v83 == 1)
   {
-    _LSContextDestroy(v83);
+    _LSContextDestroy(v81);
   }
 
-  v50 = v84;
+  v49 = v82;
+  v81 = 0;
+  v82 = 0;
+
   v83 = 0;
+  v50 = v84;
   v84 = 0;
 
-  v85 = 0;
-  v51 = v86;
-  v86 = 0;
-
-  v52 = *MEMORY[0x1E69E9840];
-
-  return v43;
+  return v42;
 }
 
 - (id)_containingBundleRecordWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const LSPluginData *)bytes
@@ -538,6 +691,30 @@ LABEL_3:
   return [(LSBundleRecord *)&v13 _initWithContext:context persistentIdentifierData:data length:length];
 }
 
+- (void)_detachFromContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const void *)bytes
+{
+  v7 = *&iD;
+  v8 = *&d;
+  [(LSApplicationExtensionRecord *)self uniqueIdentifier];
+
+  v15.receiver = self;
+  v15.super_class = LSApplicationExtensionRecord;
+  [(LSBundleRecord *)&v15 _detachFromContext:context tableID:v8 unitID:v7 unitBytes:bytes];
+  v11 = [(LSRecord *)self _resolvedPropertyValueForGetter:sel__containingBundleRecord];
+  v12 = v11;
+  if (v11)
+  {
+    [v11 detach];
+  }
+
+  v13 = [(LSRecord *)self _resolvedPropertyValueForGetter:sel_extensionPointRecord];
+  v14 = v13;
+  if (v13)
+  {
+    [v13 detach];
+  }
+}
+
 - (id)_replacementObjectForResolvedPropertyValue:(id)value forGetter:(SEL)getter encoder:(id)encoder
 {
   if (sel__containingBundleRecord == getter)
@@ -567,6 +744,73 @@ LABEL_3:
   }
 
   return v4;
+}
+
+- (id)iconDictionaryWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const LSPluginData *)bytes
+{
+  infoDictionary = bytes->var0.infoDictionary;
+  if (infoDictionary)
+  {
+    v7 = [_LSLazyPropertyList lazyPropertyListWithContext:context unit:infoDictionary, *&iD];
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v8 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:3];
+  v9 = [v7 objectForKey:@"CFBundleIcons" ofClass:objc_opt_class()];
+  v10 = v9;
+  if (!v9)
+  {
+    goto LABEL_12;
+  }
+
+  v11 = [v9 objectForKey:@"CFBundlePrimaryIcon"];
+  if (_NSIsNSDictionary())
+  {
+    v12 = v11;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  v13 = [v10 objectForKey:@"ISGraphicIconConfiguration"];
+
+  if (_NSIsNSDictionary())
+  {
+    [v8 setObject:v13 forKeyedSubscript:@"ISGraphicIconConfiguration"];
+  }
+
+  if (v12)
+  {
+    [v8 addEntriesFromDictionary:v12];
+  }
+
+  else
+  {
+LABEL_12:
+    v14 = [v7 objectForKey:@"CFBundleIconFile" ofClass:objc_opt_class()];
+    if (v14)
+    {
+      [v8 setObject:v14 forKeyedSubscript:@"CFBundleIconFile"];
+    }
+
+    v15 = [v7 objectForKey:@"CFBundleIconName" ofClass:objc_opt_class()];
+    if (v15)
+    {
+      [v8 setObject:v15 forKeyedSubscript:@"CFBundleIconName"];
+    }
+
+    v12 = 0;
+  }
+
+  v16 = [v8 copy];
+
+  return v16;
 }
 
 - (id)_intentsArrayForKey:(id)key
@@ -621,6 +865,50 @@ LABEL_13:
   return v9;
 }
 
++ (id)redactedAppexRecordWithUUID:(id)d node:(id)node bundleIdentifier:(id)identifier platform:(unsigned int)platform error:(id *)error
+{
+  v8 = *&platform;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__0;
+  v28 = __Block_byref_object_dispose__0;
+  v29 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__0;
+  v22 = __Block_byref_object_dispose__0;
+  v23 = 0;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __108__LSApplicationExtensionRecord_Redaction__redactedAppexRecordWithUUID_node_bundleIdentifier_platform_error___block_invoke;
+  v17[3] = &unk_1E6A18DF0;
+  v17[4] = &v24;
+  v12 = [(_LSDService *)_LSDReadService synchronousXPCProxyWithErrorHandler:v17];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __108__LSApplicationExtensionRecord_Redaction__redactedAppexRecordWithUUID_node_bundleIdentifier_platform_error___block_invoke_2;
+  v16[3] = &unk_1E6A18E18;
+  v16[4] = &v18;
+  v16[5] = &v24;
+  [v12 getRedactedAppexRecordForSystemAppexWithUUID:d node:node bundleIdentifier:identifier platform:v8 completionHandler:v16];
+
+  v13 = v19[5];
+  if (error && !v13)
+  {
+    *error = v25[5];
+    v13 = v19[5];
+  }
+
+  v14 = v13;
+  _Block_object_dispose(&v18, 8);
+
+  _Block_object_dispose(&v24, 8);
+
+  return v14;
+}
+
 void __108__LSApplicationExtensionRecord_Redaction__redactedAppexRecordWithUUID_node_bundleIdentifier_platform_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
@@ -640,12 +928,29 @@ void __108__LSApplicationExtensionRecord_Redaction__redactedAppexRecordWithUUID_
   return v10;
 }
 
+- (id)appProtectionEffectiveContainerWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const LSPluginData *)bytes
+{
+  if (bytes->var9)
+  {
+    [(_LSDatabase *)context->db store];
+    bundleIdentifier = _CSStringCopyCFString();
+  }
+
+  else
+  {
+    v7 = [(LSApplicationExtensionRecord *)self containingBundleRecord:context];
+    bundleIdentifier = [v7 bundleIdentifier];
+  }
+
+  return bundleIdentifier;
+}
+
 + (id)appexRecordsForUnitIDsWithContext:(LSContext *)context unitIDs:(const void *)ds
 {
   v24 = *MEMORY[0x1E69E9840];
   if (*(ds + 1) == *ds)
   {
-    v15 = MEMORY[0x1E695E0F0];
+    v16 = MEMORY[0x1E695E0F0];
   }
 
   else
@@ -664,6 +969,7 @@ void __108__LSApplicationExtensionRecord_Redaction__redactedAppexRecordWithUUID_
         v19 = 0;
         v12 = [(LSApplicationExtensionRecord *)v11 _initWithContext:context pluginID:v10 pluginData:0 error:&v19];
         v13 = v19;
+        v14 = v13;
         if (v12)
         {
           [v6 addObject:v12];
@@ -671,14 +977,14 @@ void __108__LSApplicationExtensionRecord_Redaction__redactedAppexRecordWithUUID_
 
         else
         {
-          v14 = _LSDefaultLog();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v15 = _LSDefaultLog(v13);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             *buf = v18;
             v21 = v10;
             v22 = 2112;
-            v23 = v13;
-            _os_log_error_impl(&dword_18162D000, v14, OS_LOG_TYPE_ERROR, "Unable to create appex record for unit ID 0x%llx: %@", buf, 0x16u);
+            v23 = v14;
+            _os_log_error_impl(&dword_18162D000, v15, OS_LOG_TYPE_ERROR, "Unable to create appex record for unit ID 0x%llx: %@", buf, 0x16u);
           }
         }
 
@@ -688,12 +994,10 @@ void __108__LSApplicationExtensionRecord_Redaction__redactedAppexRecordWithUUID_
       while (v8 != v9);
     }
 
-    v15 = [v6 copy];
+    v16 = [v6 copy];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v15;
+  return v16;
 }
 
 + (id)enumeratorWithOptions:(unint64_t)options

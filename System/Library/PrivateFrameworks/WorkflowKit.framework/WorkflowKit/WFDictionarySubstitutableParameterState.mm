@@ -185,18 +185,16 @@ LABEL_3:
 
 + (id)serializedRepresentationFromValue:(id)value
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v3 = [value if_map:&__block_literal_global_64374];
-  v9 = v3;
-  v10[0] = @"WFSerializationType";
-  v10[1] = @"Value";
-  v11[0] = @"WFDictionaryFieldValue";
-  v8 = @"WFDictionaryFieldValueItems";
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
-  v11[1] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8 = v3;
+  v9[0] = @"WFSerializationType";
+  v9[1] = @"Value";
+  v10[0] = @"WFDictionaryFieldValue";
+  v7 = @"WFDictionaryFieldValueItems";
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v8 forKeys:&v7 count:1];
+  v10[1] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   return v5;
 }

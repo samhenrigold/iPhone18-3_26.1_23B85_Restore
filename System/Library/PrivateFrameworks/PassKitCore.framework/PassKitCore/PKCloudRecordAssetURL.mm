@@ -24,9 +24,9 @@
     v5->_fd = -1;
     anyObject = [recordsCopy anyObject];
     recordType = [anyObject recordType];
-    v9 = [recordType isEqualToString:@"RemoteAsset"];
+    isEqualToString = objc_msgSend_isEqualToString_(recordType);
 
-    if (v9)
+    if (isEqualToString)
     {
       v10 = [anyObject objectForKey:@"asset"];
       v11 = v10;

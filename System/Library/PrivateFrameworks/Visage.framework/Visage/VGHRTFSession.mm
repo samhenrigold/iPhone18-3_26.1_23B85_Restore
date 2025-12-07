@@ -18,19 +18,19 @@
   {
     [configCopy overwriteWithDefaults];
     objc_storeStrong(&v8->_config, config);
-    v9 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = __VGLogSharedInstance(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       writeDebugData = [(VGHRTFSessionConfig *)v8->_config writeDebugData];
-      v11 = @"NO";
+      v12 = @"NO";
       if (writeDebugData)
       {
-        v11 = @"YES";
+        v12 = @"YES";
       }
 
       *buf = 138412290;
-      v40 = v11;
-      _os_log_impl(&dword_270F06000, v9, OS_LOG_TYPE_DEBUG, " Write HRTF debug data: %@ ", buf, 0xCu);
+      v40 = v12;
+      _os_log_impl(&dword_270F06000, v10, OS_LOG_TYPE_DEBUG, " Write HRTF debug data: %@ ", buf, 0xCu);
     }
 
     if ([(VGHRTFSessionConfig *)v8->_config writeDebugData])
@@ -38,98 +38,96 @@
       debugDataRootPath = [(VGHRTFSessionConfig *)v8->_config debugDataRootPath];
       if (!debugDataRootPath)
       {
-        v13 = objc_opt_new();
-        [v13 setDateFormat:@"yyyyMMdd_HHmmss_SSS"];
+        v14 = objc_opt_new();
+        [v14 setDateFormat:@"yyyyMMdd_HHmmss_SSS"];
         date = [MEMORY[0x277CBEAA8] date];
-        v15 = [v13 stringFromDate:date];
+        v16 = [v14 stringFromDate:date];
 
-        debugDataRootPath = [@"/private/var/mobile/Library/Caches/VisageTestApp/HRTF/" stringByAppendingPathComponent:v15];
+        debugDataRootPath = [@"/private/var/mobile/Library/Caches/VisageTestApp/HRTF/" stringByAppendingPathComponent:v16];
       }
 
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v17 = [defaultManager fileExistsAtPath:debugDataRootPath];
+      v18 = [defaultManager fileExistsAtPath:debugDataRootPath];
 
-      if (v17)
+      if (v18)
       {
         NSLog(&cfstr_PathAlreadyExi.isa, debugDataRootPath);
 
 LABEL_23:
-        v18 = 0;
+        v19 = 0;
         goto LABEL_24;
       }
 
       defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
       v37 = 0;
       [defaultManager2 createDirectoryAtPath:debugDataRootPath withIntermediateDirectories:1 attributes:0 error:&v37];
-      v20 = v37;
+      v21 = v37;
 
-      if (v20)
+      if (v21)
       {
-        v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to create debug path %@.", debugDataRootPath];
-        vg::hrtf::setError(error, v21);
+        v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to create debug path %@.", debugDataRootPath];
+        vg::hrtf::setError(error, v22);
 
         goto LABEL_23;
       }
 
-      [(VGHRTFSessionConfig *)v8->_config setDebugDataRootPath:debugDataRootPath];
-      v22 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+      v23 = __VGLogSharedInstance([(VGHRTFSessionConfig *)v8->_config setDebugDataRootPath:debugDataRootPath]);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         debugDataRootPath2 = [(VGHRTFSessionConfig *)v8->_config debugDataRootPath];
         *buf = 138412290;
         v40 = debugDataRootPath2;
-        _os_log_impl(&dword_270F06000, v22, OS_LOG_TYPE_DEBUG, " Using path for dumping HRTF debug data: %@ ", buf, 0xCu);
+        _os_log_impl(&dword_270F06000, v23, OS_LOG_TYPE_DEBUG, " Using path for dumping HRTF debug data: %@ ", buf, 0xCu);
       }
     }
 
-    v24 = [[VGHRTFCaptureProcessor alloc] initWithConfig:v8->_config error:error];
+    v25 = [[VGHRTFCaptureProcessor alloc] initWithConfig:v8->_config error:error];
     captureProcessor = v8->_captureProcessor;
-    v8->_captureProcessor = v24;
+    v8->_captureProcessor = v25;
 
     if (v8->_captureProcessor)
     {
-      v26 = [[VGHRTFPostProcessor alloc] initWithConfig:v8->_config error:error];
+      v27 = [[VGHRTFPostProcessor alloc] initWithConfig:v8->_config error:error];
       postProcessor = v8->_postProcessor;
-      v8->_postProcessor = v26;
+      v8->_postProcessor = v27;
 
       if (v8->_postProcessor)
       {
-        v28 = dispatch_queue_create("com.apple.visage.hrtf.processor", 0);
+        v29 = dispatch_queue_create("com.apple.visage.hrtf.processor", 0);
         processQueue = v8->_processQueue;
-        v8->_processQueue = v28;
+        v8->_processQueue = v29;
 
-        v30 = dispatch_group_create();
+        v31 = dispatch_group_create();
         processGroup = v8->_processGroup;
-        v8->_processGroup = v30;
+        v8->_processGroup = v31;
 
-        v32 = dispatch_queue_create("com.apple.visage.hrtf.timer", 0);
+        v33 = dispatch_queue_create("com.apple.visage.hrtf.timer", 0);
         timerQueue = v8->_timerQueue;
-        v8->_timerQueue = v32;
+        v8->_timerQueue = v33;
 
         atomic_store(0, &v8->_processing);
         atomic_store(0, &v8->_captureFinished);
-        v18 = v8;
+        v19 = v8;
         goto LABEL_24;
       }
 
-      v34 = @"Failed to initialize post processor.";
+      v35 = @"Failed to initialize post processor.";
     }
 
     else
     {
-      v34 = @"Failed to initialize capture processor.";
+      v35 = @"Failed to initialize capture processor.";
     }
 
-    vg::hrtf::setError(error, v34);
+    vg::hrtf::setError(error, v35);
     goto LABEL_23;
   }
 
   vg::hrtf::setError(error, @"Failed to initialize VGHRTFSession.");
-  v18 = 0;
+  v19 = 0;
 LABEL_24:
 
-  v35 = *MEMORY[0x277D85DE8];
-  return v18;
+  return v19;
 }
 
 - (BOOL)_asyncProcessCaptureData:(id)data faceData:(id)faceData userData:(id)userData error:(id *)error
@@ -166,78 +164,78 @@ LABEL_24:
     delegate = [(VGHRTFSessionConfig *)self->_config delegate];
     [delegate updateWithData:initEmpty error:error];
 
-    v17 = atomic_load(&self->_captureFinished);
-    if ((v17 & 1) == 0)
+    v18 = atomic_load(&self->_captureFinished);
+    if ((v18 & 1) == 0)
     {
       goto LABEL_19;
     }
 
-    v18 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v19 = __VGLogSharedInstance(v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_270F06000, v18, OS_LOG_TYPE_DEBUG, " Capture finished, starting post-processing... ", buf, 2u);
+      _os_log_impl(&dword_270F06000, v19, OS_LOG_TYPE_DEBUG, " Capture finished, starting post-processing... ", buf, 2u);
     }
 
     captureProcessor = self->_captureProcessor;
     self->_captureProcessor = 0;
 
-    v20 = dispatch_source_create(MEMORY[0x277D85D38], 0, 1uLL, self->_timerQueue);
+    v21 = dispatch_source_create(MEMORY[0x277D85D38], 0, 1uLL, self->_timerQueue);
     *buf = 0;
-    v35 = buf;
-    v36 = 0x3032000000;
-    v37 = __Block_byref_object_copy_;
-    v38 = __Block_byref_object_dispose_;
-    v39 = 0;
+    v38 = buf;
+    v39 = 0x3032000000;
+    v40 = __Block_byref_object_copy_;
+    v41 = __Block_byref_object_dispose_;
+    v42 = 0;
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 3221225472;
     handler[2] = __66__VGHRTFSession__asyncProcessCaptureData_faceData_userData_error___block_invoke;
     handler[3] = &unk_279E28D28;
-    v21 = v14;
-    v31 = v21;
+    v22 = v14;
+    v34 = v22;
     selfCopy = self;
-    v33 = buf;
-    dispatch_source_set_event_handler(v20, handler);
+    v36 = buf;
+    dispatch_source_set_event_handler(v21, handler);
     if (error)
     {
-      *error = *(v35 + 5);
+      *error = *(v38 + 5);
     }
 
-    dispatch_source_set_timer(v20, 0, 0x3B9ACA00uLL, 0);
-    dispatch_resume(v20);
-    v22 = [(VGHRTFPostProcessor *)self->_postProcessor processCaptureUpdateData:v21 error:error];
-    dispatch_suspend(v20);
-    dispatch_source_cancel(v20);
-    dispatch_resume(v20);
-    if (v22)
+    dispatch_source_set_timer(v21, 0, 0x3B9ACA00uLL, 0);
+    dispatch_resume(v21);
+    v23 = [(VGHRTFPostProcessor *)self->_postProcessor processCaptureUpdateData:v22 error:error];
+    dispatch_suspend(v21);
+    dispatch_source_cancel(v21);
+    dispatch_resume(v21);
+    if (v23)
     {
       initEmpty2 = [[VGHRTFUpdateData alloc] initEmpty];
-      [initEmpty2 setCaptureUpdateData:v21];
+      [initEmpty2 setCaptureUpdateData:v22];
       [initEmpty2 setStep:3];
-      [initEmpty2 setPostProcessUpdateData:v22];
+      [initEmpty2 setPostProcessUpdateData:v23];
       delegate2 = [(VGHRTFSessionConfig *)self->_config delegate];
       [delegate2 updateWithData:initEmpty2 error:error];
 
-      initEmpty3 = __VGLogSharedInstance();
+      initEmpty3 = __VGLogSharedInstance(v27);
       if (os_log_type_enabled(initEmpty3, OS_LOG_TYPE_DEBUG))
       {
-        *v29 = 0;
-        _os_log_impl(&dword_270F06000, initEmpty3, OS_LOG_TYPE_DEBUG, " Successfully completed post-processing ", v29, 2u);
+        *v32 = 0;
+        _os_log_impl(&dword_270F06000, initEmpty3, OS_LOG_TYPE_DEBUG, " Successfully completed post-processing ", v32, 2u);
       }
     }
 
     else
     {
-      v26 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v29 = __VGLogSharedInstance(v24);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        *v29 = 0;
-        _os_log_impl(&dword_270F06000, v26, OS_LOG_TYPE_ERROR, " Post-processing failed! ", v29, 2u);
+        *v32 = 0;
+        _os_log_impl(&dword_270F06000, v29, OS_LOG_TYPE_ERROR, " Post-processing failed! ", v32, 2u);
       }
 
       vg::hrtf::setError(error, @"Failed to run post-processing.");
       initEmpty2 = [[VGHRTFUpdateData alloc] initEmpty];
-      [initEmpty2 setCaptureUpdateData:v21];
+      [initEmpty2 setCaptureUpdateData:v22];
       [initEmpty2 setStep:3];
       initEmpty3 = [[VGHRTFPostProcessUpdateData alloc] initEmpty];
       [initEmpty3 setState:1];
@@ -248,7 +246,7 @@ LABEL_24:
     }
 
     _Block_object_dispose(buf, 8);
-    if (!v22)
+    if (!v23)
     {
       v12 = 0;
     }

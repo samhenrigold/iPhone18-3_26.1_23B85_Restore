@@ -2,6 +2,7 @@
 + (id)SKUITrending_defaultButtonFont;
 + (id)SKUITrending_searchButtonWithElement:()SKUITrendingSearchButtons;
 + (id)SKUITrending_searchButtonWithTitle:()SKUITrendingSearchButtons;
++ (void)SKUITrending_defaultButtonFont;
 - (void)SKUITrending_applyConfigurationFromElement:()SKUITrendingSearchButtons;
 @end
 
@@ -13,17 +14,17 @@
   {
     if (_os_feature_enabled_impl())
     {
-      v0 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v0)
+      v2 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
+      if (v2)
       {
-        [(UIButton(SKUITrendingSearchButtons) *)v0 SKUITrending_defaultButtonFont:v1];
+        [(UIButton(SKUITrendingSearchButtons) *)v2 SKUITrending_defaultButtonFont:v3];
       }
     }
   }
 
-  v8 = [MEMORY[0x277D74300] systemFontOfSize:17.0];
+  v10 = [MEMORY[0x277D74300] systemFontOfSize:17.0];
 
-  return v8;
+  return v10;
 }
 
 + (id)SKUITrending_searchButtonWithElement:()SKUITrendingSearchButtons
@@ -142,6 +143,30 @@
   [titleLabel setNumberOfLines:v28];
   [titleLabel setTextAlignment:1];
   [titleLabel setLineBreakMode:4];
+}
+
++ (void)SKUITrending_defaultButtonFont
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[UIButton(SKUITrendingSearchButtons) SKUITrending_defaultButtonFont]";
+}
+
++ (void)SKUITrending_searchButtonWithElement:()SKUITrendingSearchButtons .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[UIButton(SKUITrendingSearchButtons) SKUITrending_searchButtonWithElement:]";
+}
+
++ (void)SKUITrending_searchButtonWithTitle:()SKUITrendingSearchButtons .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[UIButton(SKUITrendingSearchButtons) SKUITrending_searchButtonWithTitle:]";
+}
+
+- (void)SKUITrending_applyConfigurationFromElement:()SKUITrendingSearchButtons .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[UIButton(SKUITrendingSearchButtons) SKUITrending_applyConfigurationFromElement:]";
 }
 
 @end

@@ -181,17 +181,17 @@ LABEL_10:
     v5 = self->_breadcrumbs;
     objc_sync_enter(v5);
     location = [withinCopy location];
-    [(MapsSuggestionsDestinationLink *)self containsLocation:location];
-    v8 = v7;
-    MapsSuggestionsConfidenceLevelFromPrecent(0.75);
-    v10 = v9;
+    v7 = [(MapsSuggestionsDestinationLink *)self containsLocation:location];
+    v9 = v8;
+    MapsSuggestionsConfidenceLevelFromPrecent(v7, v10, 0.75);
+    v12 = v11;
 
-    if (v8 > v10)
+    if (v9 > v12)
     {
       [(NSMutableArray *)self->_breadcrumbs addObject:withinCopy];
       objc_sync_exit(v5);
 
-      v12 = 1;
+      v14 = 1;
       goto LABEL_9;
     }
 
@@ -200,136 +200,137 @@ LABEL_10:
 
   else
   {
-    v11 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v13 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      v14 = 136446978;
-      v15 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsDestinationLink.mm";
-      v16 = 1024;
-      v17 = 74;
-      v18 = 2082;
-      v19 = "[MapsSuggestionsDestinationLink addBreadCrumbIfWithin:]";
+      v16 = 136446978;
+      v17 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsDestinationLink.mm";
+      v18 = 1024;
+      v19 = 74;
       v20 = 2082;
-      v21 = "nil == (breadcrumb)";
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_FAULT, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a breadcrumb", &v14, 0x26u);
+      v21 = "[MapsSuggestionsDestinationLink addBreadCrumbIfWithin:]";
+      v22 = 2082;
+      v23 = "nil == (breadcrumb)";
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_FAULT, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a breadcrumb", &v16, 0x26u);
     }
   }
 
-  v12 = 0;
+  v14 = 0;
 LABEL_9:
 
-  return v12;
+  return v14;
 }
 
 - (double)containsLocation:(id)location
 {
   locationCopy = location;
+  v6 = locationCopy;
   if (locationCopy)
   {
-    v5 = MapsSuggestionsConfidenceDontKnow();
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
-    v55 = 0u;
-    v6 = self->_destinationLinkOptions;
-    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v54 objects:v58 count:16];
-    if (v7)
+    v7 = MapsSuggestionsConfidenceDontKnow(locationCopy, v5);
+    v64 = 0u;
+    v65 = 0u;
+    v62 = 0u;
+    v63 = 0u;
+    v8 = self->_destinationLinkOptions;
+    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v62 objects:v66 count:16];
+    if (v9)
     {
-      v8 = *v55;
+      v10 = *v63;
       do
       {
-        for (i = 0; i != v7; i = i + 1)
+        for (i = 0; i != v9; i = i + 1)
         {
-          if (*v55 != v8)
+          if (*v63 != v10)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v8);
           }
 
-          [*(*(&v54 + 1) + 8 * i) containsLocation:locationCopy];
-          v5 = MapsSuggestionsBestConfidence(v5, v10);
+          v12 = [*(*(&v62 + 1) + 8 * i) containsLocation:v6];
+          v7 = MapsSuggestionsBestConfidence(v12, v13, v7, v14);
         }
 
-        v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v54 objects:v58 count:16];
+        v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v62 objects:v66 count:16];
       }
 
-      while (v7);
+      while (v9);
     }
 
-    if (v5 == MapsSuggestionsConfidenceDontKnow())
+    if (v7 == MapsSuggestionsConfidenceDontKnow(v15, v16))
     {
       WeakRetained = objc_loadWeakRetained(&self->_from);
-      v12 = objc_loadWeakRetained(&self->_to);
+      v18 = objc_loadWeakRetained(&self->_to);
       if (WeakRetained)
       {
         location = [WeakRetained location];
-        v14 = location == 0;
+        v20 = location == 0;
 
-        if (v12)
+        if (v18)
         {
-          v15 = v14;
+          v21 = v20;
         }
 
         else
         {
-          v15 = 1;
+          v21 = 1;
         }
 
-        if ((v15 & 1) == 0)
+        if ((v21 & 1) == 0)
         {
-          location2 = [v12 location];
-          v17 = location2 == 0;
+          location2 = [v18 location];
+          v23 = location2 == 0;
 
-          if (!v17)
+          if (!v23)
           {
-            [locationCopy coordinate];
-            v19 = v18;
+            [v6 coordinate];
+            v25 = v24;
             location3 = [WeakRetained location];
-            v53 = v19;
+            v61 = v25;
             [location3 coordinate];
-            v52 = v21;
+            v60 = v27;
 
-            [locationCopy coordinate];
-            v23 = v22;
-            location4 = [v12 location];
-            v51 = v23;
+            [v6 coordinate];
+            v29 = v28;
+            location4 = [v18 location];
+            v59 = v29;
             [location4 coordinate];
-            v50 = v25;
+            v58 = v31;
 
-            location5 = [v12 location];
+            location5 = [v18 location];
             [location5 coordinate];
-            v28 = v27;
+            v34 = v33;
             location6 = [WeakRetained location];
             [location6 coordinate];
-            v31 = v30;
+            v37 = v36;
 
-            [locationCopy coordinate];
-            v33 = v32;
+            [v6 coordinate];
+            v39 = v38;
             location7 = [WeakRetained location];
             [location7 coordinate];
-            v36 = v35;
+            v42 = v41;
 
-            [locationCopy coordinate];
-            v38 = v37;
-            location8 = [v12 location];
-            [location8 coordinate];
-            v41 = v40;
-
-            location9 = [v12 location];
-            [location9 coordinate];
+            [v6 coordinate];
             v44 = v43;
-            location10 = [WeakRetained location];
-            [location10 coordinate];
+            location8 = [v18 location];
+            [location8 coordinate];
             v47 = v46;
 
-            v48 = sqrt((v44 - v47) * (v44 - v47) + (v28 - v31) * (v28 - v31)) / (sqrt((v33 - v36) * (v33 - v36) + (v53 - v52) * (v53 - v52)) + sqrt((v38 - v41) * (v38 - v41) + (v51 - v50) * (v51 - v50))) * 2.0 + -1.0;
-            if (v48 <= 0.0)
+            location9 = [v18 location];
+            [location9 coordinate];
+            v50 = v49;
+            location10 = [WeakRetained location];
+            [location10 coordinate];
+            v53 = v52;
+
+            v56 = sqrt((v50 - v53) * (v50 - v53) + (v34 - v37) * (v34 - v37)) / (sqrt((v39 - v42) * (v39 - v42) + (v61 - v60) * (v61 - v60)) + sqrt((v44 - v47) * (v44 - v47) + (v59 - v58) * (v59 - v58))) * 2.0 + -1.0;
+            if (v56 <= 0.0)
             {
-              v5 = MapsSuggestionsConfidenceDefinitelyFalse();
+              v7 = MapsSuggestionsConfidenceDefinitelyFalse(v54, v55);
             }
 
             else
             {
-              v5 = v48 * MapsSuggestionsConfidenceDefinitelyTrue();
+              v7 = v56 * MapsSuggestionsConfidenceDefinitelyTrue(v54, v55);
             }
           }
         }
@@ -339,57 +340,58 @@ LABEL_9:
 
   else
   {
-    v5 = MapsSuggestionsConfidenceDontKnow();
+    v7 = MapsSuggestionsConfidenceDontKnow(0, v5);
   }
 
-  return v5;
+  return v7;
 }
 
 - (double)containsTime:(id)time
 {
   timeCopy = time;
+  v6 = timeCopy;
   if (timeCopy)
   {
-    v5 = MapsSuggestionsConfidenceDontKnow();
-    v6 = self->_destinationLinkOptions;
-    objc_sync_enter(v6);
-    v13 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v7 = self->_destinationLinkOptions;
-    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v8)
+    v7 = MapsSuggestionsConfidenceDontKnow(timeCopy, v5);
+    v8 = self->_destinationLinkOptions;
+    objc_sync_enter(v8);
+    v17 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v9 = self->_destinationLinkOptions;
+    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    if (v10)
     {
-      v9 = *v14;
+      v11 = *v18;
       do
       {
-        for (i = 0; i != v8; i = i + 1)
+        for (i = 0; i != v10; i = i + 1)
         {
-          if (*v14 != v9)
+          if (*v18 != v11)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v9);
           }
 
-          [*(*(&v13 + 1) + 8 * i) containsTime:{timeCopy, v13}];
-          v5 = MapsSuggestionsBestConfidence(v5, v11);
+          v13 = [*(*(&v17 + 1) + 8 * i) containsTime:{v6, v17}];
+          v7 = MapsSuggestionsBestConfidence(v13, v14, v7, v15);
         }
 
-        v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
-      while (v8);
+      while (v10);
     }
 
-    objc_sync_exit(v6);
+    objc_sync_exit(v8);
   }
 
   else
   {
-    v5 = MapsSuggestionsConfidenceDontKnow();
+    v7 = MapsSuggestionsConfidenceDontKnow(0, v5);
   }
 
-  return v5;
+  return v7;
 }
 
 - (double)confidenceOfHavingBeenOnDestinationLink
@@ -401,24 +403,24 @@ LABEL_9:
   {
     if (v4 == 1)
     {
-      v5 = MapsSuggestionsConfidenceDontKnow();
+      v6 = MapsSuggestionsConfidenceDontKnow(1, v5);
     }
 
     else
     {
-      v5 = MapsSuggestionsConfidenceDefinitelyTrue();
+      v6 = MapsSuggestionsConfidenceDefinitelyTrue(v4, v5);
     }
   }
 
   else
   {
-    v5 = MapsSuggestionsConfidenceDefinitelyFalse();
+    v6 = MapsSuggestionsConfidenceDefinitelyFalse(0, v5);
   }
 
-  v6 = v5;
+  v7 = v6;
   objc_sync_exit(v3);
 
-  return v6;
+  return v7;
 }
 
 - (BOOL)hasLinkOptions

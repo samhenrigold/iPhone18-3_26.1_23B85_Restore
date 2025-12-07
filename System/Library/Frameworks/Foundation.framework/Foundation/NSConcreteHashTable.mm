@@ -73,7 +73,7 @@
     capacity = self->capacity;
     if (*(internalProps + 3) && *(internalProps + 6))
     {
-      empty(&self->slice, capacity);
+      empty(&self->slice.items, capacity);
       internalProps = p_slice->internalProps;
     }
 
@@ -205,7 +205,7 @@
 
 - (void)removeAllItems
 {
-  empty(&self->slice, self->capacity);
+  empty(&self->slice.items, self->capacity);
   ++self->mutations;
   self->count = 0;
 }

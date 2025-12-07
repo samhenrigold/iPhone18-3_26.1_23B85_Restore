@@ -21,24 +21,24 @@
 
 - (NTKUnity2025ChimesObserver)init
 {
-  v9.receiver = self;
-  v9.super_class = NTKUnity2025ChimesObserver;
-  v2 = [(NTKUnity2025ChimesObserver *)&v9 init];
+  v11.receiver = self;
+  v11.super_class = NTKUnity2025ChimesObserver;
+  v2 = [(NTKUnity2025ChimesObserver *)&v11 init];
   if (v2)
   {
     v3 = objc_alloc(MEMORY[0x277D2C0A0]);
-    v4 = [v3 initWithCollectionIdentifier:*MEMORY[0x277D2BEA0] deviceUUID:0];
+    v5 = objc_msgSend_initWithCollectionIdentifier_deviceUUID_(v3, v4, *MEMORY[0x277D2BEA0], 0);
     libraryFaceCollection = v2->_libraryFaceCollection;
-    v2->_libraryFaceCollection = v4;
+    v2->_libraryFaceCollection = v5;
 
-    v6 = _NTKLoggingObjectForDomain();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_23C099000, v6, OS_LOG_TYPE_DEFAULT, "Unity2025: Add chimes observer", v8, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_23C099000, v7, OS_LOG_TYPE_DEFAULT, "Unity2025: Add chimes observer", v10, 2u);
     }
 
-    [(NTKPersistentFaceCollection *)v2->_libraryFaceCollection addObserver:v2];
+    objc_msgSend_addObserver_(v2->_libraryFaceCollection, v8, v2);
   }
 
   return v2;
@@ -53,47 +53,45 @@
     _os_log_impl(&dword_23C099000, v3, OS_LOG_TYPE_DEFAULT, "Unity2025: Remove chimes observer", buf, 2u);
   }
 
-  [(NTKPersistentFaceCollection *)self->_libraryFaceCollection removeObserver:self];
-  v4.receiver = self;
-  v4.super_class = NTKUnity2025ChimesObserver;
-  [(NTKUnity2025ChimesObserver *)&v4 dealloc];
+  objc_msgSend_removeObserver_(self->_libraryFaceCollection, v4, self);
+  v5.receiver = self;
+  v5.super_class = NTKUnity2025ChimesObserver;
+  [(NTKUnity2025ChimesObserver *)&v5 dealloc];
 }
 
 - (void)faceCollection:(id)collection didSelectFace:(id)face atIndex:(unint64_t)index
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   faceCopy = face;
   v6 = _NTKLoggingObjectForDomain();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v15) = 0;
-    _os_log_impl(&dword_23C099000, v6, OS_LOG_TYPE_DEFAULT, "Unity2025: Face collection changed selected face", &v15, 2u);
+    LOWORD(v27) = 0;
+    _os_log_impl(&dword_23C099000, v6, OS_LOG_TYPE_DEFAULT, "Unity2025: Face collection changed selected face", &v27, 2u);
   }
 
-  bundleIdentifier = [faceCopy bundleIdentifier];
+  v9 = objc_msgSend_bundleIdentifier(faceCopy, v7, v8);
 
-  v8 = +[(NTKFaceBundle *)NTKUnity2025FaceBundle];
-  v9 = [bundleIdentifier isEqual:v8];
+  v12 = objc_msgSend_identifier(NTKUnity2025FaceBundle, v10, v11);
+  isEqual = objc_msgSend_isEqual_(v9, v13, v12);
 
-  mEMORY[0x277CE6FA8] = [MEMORY[0x277CE6FA8] sharedInstance];
-  LODWORD(v8) = [mEMORY[0x277CE6FA8] voiceOverTapticChimesUnity25Active];
+  v17 = objc_msgSend_sharedInstance(MEMORY[0x277CE6FA8], v15, v16);
+  LODWORD(v12) = objc_msgSend_voiceOverTapticChimesUnity25Active(v17, v18, v19);
 
-  if (v9 != v8)
+  if (isEqual != v12)
   {
-    v11 = _NTKLoggingObjectForDomain();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v20 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = [MEMORY[0x277CCABB0] numberWithBool:v9];
-      v15 = 138412290;
-      v16 = v12;
-      _os_log_impl(&dword_23C099000, v11, OS_LOG_TYPE_DEFAULT, "Unity2025: Set Unity chimes active preference to %@", &v15, 0xCu);
+      v22 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v21, isEqual);
+      v27 = 138412290;
+      v28 = v22;
+      _os_log_impl(&dword_23C099000, v20, OS_LOG_TYPE_DEFAULT, "Unity2025: Set Unity chimes active preference to %@", &v27, 0xCu);
     }
 
-    mEMORY[0x277CE6FA8]2 = [MEMORY[0x277CE6FA8] sharedInstance];
-    [mEMORY[0x277CE6FA8]2 setVoiceOverTapticChimesUnity25Active:v9];
+    v25 = objc_msgSend_sharedInstance(MEMORY[0x277CE6FA8], v23, v24);
+    objc_msgSend_setVoiceOverTapticChimesUnity25Active_(v25, v26, isEqual);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

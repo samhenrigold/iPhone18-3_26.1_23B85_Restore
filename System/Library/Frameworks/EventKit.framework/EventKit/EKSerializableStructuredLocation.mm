@@ -8,14 +8,12 @@
 
 + (id)classesForKey
 {
-  v8[1] = *MEMORY[0x1E69E9840];
-  v7 = @"calLocation";
-  v6 = objc_opt_class();
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v6 count:1];
-  v8[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
+  v6 = @"calLocation";
+  v5 = objc_opt_class();
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v5 count:1];
+  v7[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v3;
 }

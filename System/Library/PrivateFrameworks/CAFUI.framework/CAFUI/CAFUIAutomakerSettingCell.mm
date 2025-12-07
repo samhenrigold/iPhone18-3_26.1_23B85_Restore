@@ -10,7 +10,7 @@
 - (void)prepareForReuse
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for CAFUIAutomakerSettingCell();
+  v3.super_class = type metadata accessor for CAFUIAutomakerSettingCell(0);
   v2 = v3.receiver;
   [(CAFUITileBaseCell *)&v3 prepareForReuse];
   CAFUIAutomakerSettingCell.representable.setter(0, 0);
@@ -29,7 +29,7 @@
   selfCopy = self;
   CAFUIAutomakerSettingCell.preferredFocusEnvironments.getter();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18UIFocusEnvironment_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18UIFocusEnvironment_pMd, &_sSo18UIFocusEnvironment_pMR);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -42,7 +42,7 @@
   y = frame.origin.y;
   x = frame.origin.x;
   v8 = (&self->super.super.super.super.super.super.super.isa + OBJC_IVAR____TtC5CAFUI25CAFUIAutomakerSettingCell_representable);
-  v9 = type metadata accessor for CAFUIAutomakerSettingCell();
+  v9 = type metadata accessor for CAFUIAutomakerSettingCell(0);
   *v8 = 0;
   v8[1] = 0;
   v11.receiver = self;

@@ -1,8 +1,11 @@
 @interface _INPBCallRecordValue
 - (BOOL)isEqual:(id)equal;
 - (_INPBCallRecordValue)initWithCoder:(id)coder;
+- (id)callCapabilityAsString:(int)string;
+- (id)callTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)preferredCallProviderAsString:(int)string;
 - (int)StringAsCallCapability:(id)capability;
 - (int)StringAsCallType:(id)type;
 - (int)StringAsPreferredCallProvider:(id)provider;
@@ -27,7 +30,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(_INPBCallRecordValue *)self hasCallCapability])
   {
@@ -99,30 +102,30 @@
   if ([(NSArray *)self->_participants count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     v21 = self->_participants;
-    v22 = [(NSArray *)v21 countByEnumeratingWithState:&v36 objects:v40 count:16];
+    v22 = [(NSArray *)v21 countByEnumeratingWithState:&v35 objects:v39 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v37;
+      v24 = *v36;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v37 != v24)
+          if (*v36 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          dictionaryRepresentation5 = [*(*(&v36 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation5 = [*(*(&v35 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation5];
         }
 
-        v23 = [(NSArray *)v21 countByEnumeratingWithState:&v36 objects:v40 count:16];
+        v23 = [(NSArray *)v21 countByEnumeratingWithState:&v35 objects:v39 count:16];
       }
 
       while (v23);
@@ -166,8 +169,6 @@
     v33 = [MEMORY[0x1E696AD98] numberWithBool:{-[_INPBCallRecordValue unseen](self, "unseen")}];
     [dictionary setObject:v33 forKeyedSubscript:@"unseen"];
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -615,11 +616,10 @@ LABEL_59:
 
 - (void)writeTo:(id)to
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ([(_INPBCallRecordValue *)self hasCallCapability])
   {
-    callCapability = self->_callCapability;
     PBDataWriterWriteInt32Field();
   }
 
@@ -633,7 +633,6 @@ LABEL_59:
 
   if ([(_INPBCallRecordValue *)self hasCallType])
   {
-    callType = self->_callType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -657,13 +656,11 @@ LABEL_59:
 
   if (identifier)
   {
-    identifier = self->_identifier;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBCallRecordValue *)self hasIsCallerIdBlocked])
   {
-    isCallerIdBlocked = self->_isCallerIdBlocked;
     PBDataWriterWriteBOOLField();
   }
 
@@ -675,41 +672,39 @@ LABEL_59:
     PBDataWriterWriteSubmessage();
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v18 = self->_participants;
-  v19 = [(NSArray *)v18 countByEnumeratingWithState:&v31 objects:v35 count:16];
-  if (v19)
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v14 = self->_participants;
+  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  if (v15)
   {
-    v20 = v19;
-    v21 = *v32;
+    v16 = v15;
+    v17 = *v22;
     do
     {
-      v22 = 0;
+      v18 = 0;
       do
       {
-        if (*v32 != v21)
+        if (*v22 != v17)
         {
-          objc_enumerationMutation(v18);
+          objc_enumerationMutation(v14);
         }
 
-        v23 = *(*(&v31 + 1) + 8 * v22);
         PBDataWriterWriteSubmessage();
-        ++v22;
+        ++v18;
       }
 
-      while (v20 != v22);
-      v20 = [(NSArray *)v18 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      while (v16 != v18);
+      v16 = [(NSArray *)v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
-    while (v20);
+    while (v16);
   }
 
   if ([(_INPBCallRecordValue *)self hasPreferredCallProvider])
   {
-    preferredCallProvider = self->_preferredCallProvider;
     PBDataWriterWriteInt32Field();
   }
 
@@ -717,7 +712,6 @@ LABEL_59:
 
   if (providerBundleId)
   {
-    providerBundleId = self->_providerBundleId;
     PBDataWriterWriteStringField();
   }
 
@@ -725,17 +719,13 @@ LABEL_59:
 
   if (providerId)
   {
-    providerId = self->_providerId;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBCallRecordValue *)self hasUnseen])
   {
-    unseen = self->_unseen;
     PBDataWriterWriteBOOLField();
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setHasUnseen:(BOOL)unseen
@@ -792,6 +782,21 @@ LABEL_59:
   else
   {
     v4 = 2;
+  }
+
+  return v4;
+}
+
+- (id)preferredCallProviderAsString:(int)string
+{
+  if ((string - 2) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7284198[string - 2];
   }
 
   return v4;
@@ -929,6 +934,22 @@ LABEL_59:
   return v4;
 }
 
+- (id)callTypeAsString:(int)string
+{
+  v4 = string - 2;
+  if (string - 2) < 9 && ((0x1EFu >> v4))
+  {
+    v5 = off_1E7284150[v4];
+  }
+
+  else
+  {
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v5;
+}
+
 - (void)setHasCallType:(BOOL)type
 {
   if (type)
@@ -974,6 +995,26 @@ LABEL_59:
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)callCapabilityAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"AUDIO_CALL";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"VIDEO_CALL";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;

@@ -1,3 +1,41 @@
+id sub_1001393EC(uint64_t a1)
+{
+  v1 = [[EKUIReadonlyEventViewController alloc] initWithEvent:*(a1 + 32)];
+  [v1 setAllowsCalendarPreview:1];
+  [v1 setInlineDayViewRespectsSelectedCalendarsFilter:0];
+  [v1 setCalendarPreviewIsInlineDayView:1];
+
+  return v1;
+}
+
+id sub_100139458(uint64_t a1)
+{
+  v2 = [*(a1 + 32) tableView];
+  v3 = [v2 cellForRowAtIndexPath:*(a1 + 40)];
+
+  v16 = *(a1 + 48);
+  v4 = [NSArray arrayWithObjects:&v16 count:1];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_1001395F4;
+  v11[3] = &unk_1002121C0;
+  v5 = *(a1 + 32);
+  v12 = v3;
+  v13 = v5;
+  v6 = *(a1 + 72);
+  v14 = *(a1 + 56);
+  v15 = v6;
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_100139680;
+  v10[3] = &unk_10020EC18;
+  v10[4] = v5;
+  v7 = v3;
+  v8 = [EKUIContextMenuActions menuForEvents:v4 presentationController:v5 isEditMenu:0 overrideActionBlock:v11 completionBlock:v10];
+
+  return v8;
+}
+
 BOOL sub_1001395F4(uint64_t a1, uint64_t a2)
 {
   v3 = [EKUIContextMenuActions statusButtonsActionFromContextMenuAction:a2];
@@ -121,9 +159,9 @@ LABEL_9:
 LABEL_10:
 }
 
-void sub_10013B3D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10013B3D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -426,23 +464,23 @@ void sub_10013DF98(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_10013DFB4(uint64_t a1)
+void sub_10013DFB4(uint64_t a1, uint64_t a2)
 {
   if ((CalSolariumEnabled() & 1) == 0)
   {
-    v2 = (a1 + 40);
-    v3 = objc_loadWeakRetained((a1 + 40));
-    v4 = [v3 tableView];
-    if ([v3 numberOfSectionsInTableView:v4] < 1)
+    v3 = (a1 + 40);
+    v4 = objc_loadWeakRetained((a1 + 40));
+    v5 = [v4 tableView];
+    if ([v4 numberOfSectionsInTableView:v5] < 1)
     {
       WeakRetained = objc_loadWeakRetained((a1 + 40));
-      v6 = [WeakRetained searchBar];
-      v7 = [v6 text];
-      v8 = [v7 length];
+      v7 = [WeakRetained searchBar];
+      v8 = [v7 text];
+      v9 = [v8 length];
 
-      if (!v8)
+      if (!v9)
       {
-        v9 = 0.0;
+        v10 = 0.0;
         if ([*(a1 + 32) destination] == 2)
         {
           return;
@@ -457,12 +495,12 @@ void sub_10013DFB4(uint64_t a1)
     }
   }
 
-  v2 = (a1 + 40);
-  v9 = 1.0;
+  v3 = (a1 + 40);
+  v10 = 1.0;
 LABEL_6:
-  v11 = objc_loadWeakRetained(v2);
-  v10 = [v11 view];
-  [v10 setAlpha:v9];
+  v12 = objc_loadWeakRetained(v3);
+  v11 = [v12 view];
+  [v11 setAlpha:v10];
 }
 
 void sub_10013E6A4(uint64_t a1)
@@ -1290,9 +1328,9 @@ id sub_100150828(uint64_t a1, uint64_t a2)
   return v7;
 }
 
-void sub_100150C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100150C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1314,9 +1352,9 @@ void sub_100150CC0(uint64_t a1)
   *(v4 + 40) = v3;
 }
 
-void sub_10015127C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10015127C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1389,9 +1427,9 @@ uint64_t sub_10015551C(uint64_t a1)
   return result;
 }
 
-void sub_100157180(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100157180(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1466,7 +1504,7 @@ void sub_100158A4C(void *a1)
       *&v1[OBJC_IVAR____TtC9MobileCal32AddReminderViewControllerManager_undoManager] = v9;
       *&v1[OBJC_IVAR____TtC9MobileCal32AddReminderViewControllerManager_model] = a1;
       v10.receiver = v1;
-      v10.super_class = type metadata accessor for AddReminderViewControllerManager();
+      v10.super_class = type metadata accessor for AddReminderViewControllerManager(0);
       objc_msgSendSuper2(&v10, "init");
       return;
     }
@@ -1490,7 +1528,7 @@ uint64_t sub_100159090(void *a1)
   v45 = &v37 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v5);
   v41 = &v37 - v7;
-  v8 = sub_10015E0CC(&qword_100250F10);
+  v8 = sub_10015E0CC(&qword_100250F10, &unk_1001F8FC0);
   __chkstk_darwin(v8 - 8);
   v10 = &v37 - v9;
   v11 = type metadata accessor for RemindersInCalendarEditingReminderProperties();
@@ -1501,7 +1539,7 @@ uint64_t sub_100159090(void *a1)
   v40 = v13;
   __chkstk_darwin(v13);
   v15 = &v37 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = sub_10015E0CC(&qword_100250F30);
+  v16 = sub_10015E0CC(&qword_100250F30, &qword_1001F8998);
   v17 = __chkstk_darwin(v16 - 8);
   v43 = &v37 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   v19 = __chkstk_darwin(v17);
@@ -1510,12 +1548,12 @@ uint64_t sub_100159090(void *a1)
   v22 = &v37 - v21;
   v23 = OBJC_IVAR____TtC9MobileCal32AddReminderViewControllerManager_creationModule;
   swift_beginAccess();
-  sub_10015F168(v1 + v23, v22, &qword_100250F30);
+  sub_10015F168(v1 + v23, v22, &qword_100250F30, &qword_1001F8998);
   v24 = *(v4 + 48);
   v46 = v3;
   v42 = v24;
   LODWORD(v3) = v24(v22, 1, v3);
-  sub_10015EE80(v22, &qword_100250F30);
+  sub_10015EE80(v22, &qword_100250F30, &qword_1001F8998);
   if (v3 == 1)
   {
     RemindersInCalendarUtilities.ReminderCreationConfiguration.init()();
@@ -1526,7 +1564,7 @@ uint64_t sub_100159090(void *a1)
     (*(*(v26 - 8) + 56))(v10, 1, 1, v26);
     sub_100159744(v25, v10, 0);
 
-    sub_10015EE80(v10, &qword_100250F10);
+    sub_10015EE80(v10, &qword_100250F10, &unk_1001F8FC0);
     RemindersInCalendarUtilities.ReminderCreationConfiguration.initialProperties.setter();
     v27 = *(v1 + OBJC_IVAR____TtC9MobileCal32AddReminderViewControllerManager_undoManager);
     RemindersInCalendarUtilities.ReminderCreationConfiguration.undoManager.setter();
@@ -1536,7 +1574,7 @@ uint64_t sub_100159090(void *a1)
     static RemindersInCalendarUtilities.makeReminderCreationModule(configuration:)();
     RemindersInCalendarUtilities.ReminderCreationModule.moduleInterface.getter();
     swift_getObjectType();
-    sub_10015F240(&qword_100250F78, type metadata accessor for AddReminderViewControllerManager);
+    sub_10015F240(&qword_100250F78, type metadata accessor for AddReminderViewControllerManager, &unk_1001F893C);
     swift_unknownObjectRetain();
     dispatch thunk of RemindersInCalendarReminderCreationModuleInterface.moduleDelegate.setter();
     swift_unknownObjectRelease();
@@ -1545,7 +1583,7 @@ uint64_t sub_100159090(void *a1)
     (*(v4 + 16))(v38, v28, v46);
     (*(v4 + 56))(v29, 0, 1, v30);
     swift_beginAccess();
-    sub_10015F288(v29, v2 + v23, &qword_100250F30);
+    sub_10015F288(v29, v2 + v23, &qword_100250F30, &qword_1001F8998);
     swift_endAccess();
     v31 = [v44 addItemState];
     sub_10015A604(v31);
@@ -1555,11 +1593,11 @@ uint64_t sub_100159090(void *a1)
   }
 
   v32 = v43;
-  sub_10015F168(v2 + v23, v43, &qword_100250F30);
+  sub_10015F168(v2 + v23, v43, &qword_100250F30, &qword_1001F8998);
   v33 = v46;
   if (v42(v32, 1, v46) == 1)
   {
-    sub_10015EE80(v32, &qword_100250F30);
+    sub_10015EE80(v32, &qword_100250F30, &qword_1001F8998);
     result = _assertionFailure(_:_:file:line:flags:)();
     __break(1u);
   }
@@ -1593,7 +1631,7 @@ void sub_100159744(void *a1, uint64_t a2, void *a3)
   v10 = *(v71 - 8);
   __chkstk_darwin(v71);
   v64 = &v61 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = sub_10015E0CC(&qword_100250F10);
+  v12 = sub_10015E0CC(&qword_100250F10, &unk_1001F8FC0);
   v13 = __chkstk_darwin(v12 - 8);
   v69 = &v61 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   v15 = __chkstk_darwin(v13);
@@ -1602,7 +1640,7 @@ void sub_100159744(void *a1, uint64_t a2, void *a3)
   v19 = &v61 - v18;
   __chkstk_darwin(v17);
   v21 = &v61 - v20;
-  v22 = sub_10015E0CC(&qword_100250F60);
+  v22 = sub_10015E0CC(&qword_100250F60, &qword_1001F89C8);
   __chkstk_darwin(v22 - 8);
   v24 = &v61 - v23;
   RemindersInCalendarEditingReminderProperties.init()();
@@ -1666,11 +1704,11 @@ void sub_100159744(void *a1, uint64_t a2, void *a3)
 
   else
   {
-    sub_10015F168(v67, v19, &qword_100250F10);
+    sub_10015F168(v67, v19, &qword_100250F10, &unk_1001F8FC0);
     v39 = v71;
     if ((*(v10 + 48))(v19, 1, v71) == 1)
     {
-      sub_10015EE80(v19, &qword_100250F10);
+      sub_10015EE80(v19, &qword_100250F10, &unk_1001F8FC0);
       v40 = [v26 startDate];
       if (v40)
       {
@@ -1726,15 +1764,15 @@ void sub_100159744(void *a1, uint64_t a2, void *a3)
   v53 = OBJC_IVAR____TtC9MobileCal32AddReminderViewControllerManager_initialDateComponents;
   swift_beginAccess();
   v54 = v69;
-  sub_10015F168(v31 + v53, v69, &qword_100250F10);
+  sub_10015F168(v31 + v53, v69, &qword_100250F10, &unk_1001F8FC0);
   v55 = (*(v10 + 48))(v54, 1, v39);
-  sub_10015EE80(v54, &qword_100250F10);
+  sub_10015EE80(v54, &qword_100250F10, &unk_1001F8FC0);
   if (v55 == 1)
   {
     v56 = v68;
     RemindersInCalendarEditingReminderProperties.dueDateComponents.getter();
     swift_beginAccess();
-    sub_10015F288(v56, v31 + v53, &qword_100250F10);
+    sub_10015F288(v56, v31 + v53, &qword_100250F10, &unk_1001F8FC0);
     swift_endAccess();
   }
 
@@ -1746,11 +1784,11 @@ void sub_100159744(void *a1, uint64_t a2, void *a3)
 
     if (v58)
     {
-      sub_10000376C(0, &qword_100250F70);
+      sub_10000376C(0, &qword_100250F70, EKRecurrenceRule_ptr);
       static Array._unconditionallyBridgeFromObjectiveC(_:)();
     }
 
-    sub_10000376C(0, &qword_100250F68);
+    sub_10000376C(0, &qword_100250F68, REMRecurrenceRule_ptr);
     v59 = [v57 accountID];
     v60 = [v57 objectID];
     static REMRecurrenceRule.convert(_:account:reminder:)();
@@ -1778,7 +1816,7 @@ id sub_100159FA8@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X8>)
     v13 = *(v5 + 32);
     v29 = v4;
     v13(v10, v8, v4);
-    sub_10015E0CC(&qword_100250F40);
+    sub_10015E0CC(&qword_100250F40, &qword_1001F89B8);
     v14 = type metadata accessor for Calendar.Component();
     v15 = *(v14 - 8);
     v16 = *(v15 + 72);
@@ -1836,7 +1874,7 @@ id sub_100159FA8@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X8>)
 
 uint64_t sub_10015A43C()
 {
-  v1 = sub_10015E0CC(&qword_100250F30);
+  v1 = sub_10015E0CC(&qword_100250F30, &qword_1001F8998);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
   v4 = type metadata accessor for RemindersInCalendarUtilities.ReminderCreationModule();
@@ -1845,10 +1883,10 @@ uint64_t sub_10015A43C()
   v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = OBJC_IVAR____TtC9MobileCal32AddReminderViewControllerManager_creationModule;
   swift_beginAccess();
-  sub_10015F168(v0 + v8, v3, &qword_100250F30);
+  sub_10015F168(v0 + v8, v3, &qword_100250F30, &qword_1001F8998);
   if ((*(v5 + 48))(v3, 1, v4) == 1)
   {
-    sub_10015EE80(v3, &qword_100250F30);
+    sub_10015EE80(v3, &qword_100250F30, &qword_1001F8998);
     return 0;
   }
 
@@ -1864,7 +1902,7 @@ uint64_t sub_10015A43C()
 uint64_t sub_10015A604(void *a1)
 {
   v31 = a1;
-  v2 = sub_10015E0CC(&qword_100250F10);
+  v2 = sub_10015E0CC(&qword_100250F10, &unk_1001F8FC0);
   v3 = __chkstk_darwin(v2 - 8);
   v5 = v27 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
@@ -1874,7 +1912,7 @@ uint64_t sub_10015A604(void *a1)
   v30 = v7;
   __chkstk_darwin(v7);
   v9 = v27 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_10015E0CC(&qword_100250F30);
+  v10 = sub_10015E0CC(&qword_100250F30, &qword_1001F8998);
   __chkstk_darwin(v10 - 8);
   v12 = v27 - v11;
   v13 = type metadata accessor for RemindersInCalendarUtilities.ReminderCreationModule();
@@ -1883,10 +1921,10 @@ uint64_t sub_10015A604(void *a1)
   v16 = v27 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   v17 = OBJC_IVAR____TtC9MobileCal32AddReminderViewControllerManager_creationModule;
   swift_beginAccess();
-  sub_10015F168(v1 + v17, v12, &qword_100250F30);
+  sub_10015F168(v1 + v17, v12, &qword_100250F30, &qword_1001F8998);
   if ((*(v14 + 48))(v12, 1, v13) == 1)
   {
-    return sub_10015EE80(v12, &qword_100250F30);
+    return sub_10015EE80(v12, &qword_100250F30, &qword_1001F8998);
   }
 
   v27[2] = v1;
@@ -1933,7 +1971,7 @@ uint64_t sub_10015A604(void *a1)
   swift_unknownObjectRelease();
   sub_100159744(v31, v22, v26);
 
-  sub_10015EE80(v22, &qword_100250F10);
+  sub_10015EE80(v22, &qword_100250F10, &unk_1001F8FC0);
   dispatch thunk of RemindersInCalendarReminderCreationModuleInterface.editReminder(with:)();
   swift_unknownObjectRelease();
   (*(v29 + 8))(v9, v30);
@@ -1943,7 +1981,7 @@ uint64_t sub_10015A604(void *a1)
 void sub_10015AAC8(void *a1)
 {
   v2 = v1;
-  v4 = sub_10015E0CC(&qword_100250F10);
+  v4 = sub_10015E0CC(&qword_100250F10, &unk_1001F8FC0);
   __chkstk_darwin(v4 - 8);
   v80 = &v77 - v5;
   v83 = type metadata accessor for DateComponents();
@@ -1954,7 +1992,7 @@ void sub_10015AAC8(void *a1)
   v10 = &v77 - v9;
   __chkstk_darwin(v8);
   v82 = &v77 - v11;
-  v12 = sub_10015E0CC(&qword_100250F30);
+  v12 = sub_10015E0CC(&qword_100250F30, &qword_1001F8998);
   __chkstk_darwin(v12 - 8);
   v14 = &v77 - v13;
   v15 = type metadata accessor for RemindersInCalendarUtilities.ReminderCreationModule();
@@ -1968,11 +2006,11 @@ void sub_10015AAC8(void *a1)
   v21 = v2 + v20;
   v22 = v15;
   v23 = v16;
-  sub_10015F168(v21, v14, &qword_100250F30);
+  sub_10015F168(v21, v14, &qword_100250F30, &qword_1001F8998);
   if ((*(v16 + 48))(v14, 1, v22) == 1)
   {
 
-    sub_10015EE80(v14, &qword_100250F30);
+    sub_10015EE80(v14, &qword_100250F30, &qword_1001F8998);
     return;
   }
 
@@ -2007,11 +2045,11 @@ void sub_10015AAC8(void *a1)
     swift_beginAccess();
     v34 = v2 + v33;
     v35 = v80;
-    sub_10015F168(v34, v80, &qword_100250F10);
+    sub_10015F168(v34, v80, &qword_100250F10, &unk_1001F8FC0);
     if ((*(v28 + 48))(v35, 1, v32) == 1)
     {
       (*(v28 + 8))(v29, v32);
-      sub_10015EE80(v35, &qword_100250F10);
+      sub_10015EE80(v35, &qword_100250F10, &unk_1001F8FC0);
       v26 = v19;
       goto LABEL_43;
     }
@@ -2156,7 +2194,7 @@ LABEL_42:
   }
 
 LABEL_43:
-  v85[3] = sub_10000376C(0, &qword_100250F38);
+  v85[3] = sub_10000376C(0, &qword_100250F38, REMReminderChangeItem_ptr);
   v85[4] = &protocol witness table for REMReminderChangeItem;
   v85[0] = v24;
   v76 = v24;
@@ -2170,7 +2208,7 @@ LABEL_43:
 uint64_t sub_10015B1E0()
 {
   v1 = v0;
-  v2 = sub_10015E0CC(&qword_100250F30);
+  v2 = sub_10015E0CC(&qword_100250F30, &qword_1001F8998);
   v3 = __chkstk_darwin(v2 - 8);
   v5 = &v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
@@ -2183,11 +2221,11 @@ uint64_t sub_10015B1E0()
   v13 = &v22 - v12;
   v14 = OBJC_IVAR____TtC9MobileCal32AddReminderViewControllerManager_creationModule;
   swift_beginAccess();
-  sub_10015F168(v1 + v14, v7, &qword_100250F30);
+  sub_10015F168(v1 + v14, v7, &qword_100250F30, &qword_1001F8998);
   v15 = *(v9 + 48);
   if (v15(v7, 1, v8) == 1)
   {
-    sub_10015EE80(v7, &qword_100250F30);
+    sub_10015EE80(v7, &qword_100250F30, &qword_1001F8998);
   }
 
   else
@@ -2204,10 +2242,10 @@ uint64_t sub_10015B1E0()
     }
   }
 
-  sub_10015F168(v1 + v14, v5, &qword_100250F30);
+  sub_10015F168(v1 + v14, v5, &qword_100250F30, &qword_1001F8998);
   if (v15(v5, 1, v8) == 1)
   {
-    sub_10015EE80(v5, &qword_100250F30);
+    sub_10015EE80(v5, &qword_100250F30, &qword_1001F8998);
     v18 = 1;
   }
 
@@ -2226,107 +2264,107 @@ uint64_t sub_10015B1E0()
   return v18 & 1;
 }
 
-id sub_10015B518()
+id sub_10015B518(uint64_t a1, uint64_t a2)
 {
-  v0 = type metadata accessor for LocalizedStringResource.BundleDescription();
-  v1 = *(v0 - 8);
-  __chkstk_darwin(v0);
-  v3 = v44 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for Locale();
-  __chkstk_darwin(v4 - 8);
-  v6 = v44 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for String.LocalizationValue();
-  __chkstk_darwin(v7 - 8);
-  v9 = v44 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v57 = type metadata accessor for LocalizedStringResource();
-  v53 = *(v57 - 8);
-  v10 = v53;
-  v11 = __chkstk_darwin(v57);
-  v54 = v44 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = __chkstk_darwin(v11);
-  v47 = v44 - v14;
+  v2 = type metadata accessor for LocalizedStringResource.BundleDescription();
+  v3 = *(v2 - 8);
+  __chkstk_darwin(v2);
+  v5 = v46 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for Locale();
+  __chkstk_darwin(v6 - 8);
+  v8 = v46 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for String.LocalizationValue();
+  __chkstk_darwin(v9 - 8);
+  v11 = v46 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v59 = type metadata accessor for LocalizedStringResource();
+  v55 = *(v59 - 8);
+  v12 = v55;
+  v13 = __chkstk_darwin(v59);
+  v56 = v46 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   v15 = __chkstk_darwin(v13);
-  v17 = v44 - v16;
-  __chkstk_darwin(v15);
-  v19 = v44 - v18;
-  v44[1] = v9;
+  v49 = v46 - v16;
+  v17 = __chkstk_darwin(v15);
+  v19 = v46 - v18;
+  __chkstk_darwin(v17);
+  v21 = v46 - v20;
+  v46[1] = v11;
   String.LocalizationValue.init(stringLiteral:)();
-  v56 = v6;
+  v58 = v8;
   static Locale.current.getter();
-  v58 = enum case for LocalizedStringResource.BundleDescription.main(_:);
-  v20 = *(v1 + 104);
-  v45 = v3;
-  v48 = v0;
-  v20(v3);
-  v49 = v20;
-  v50 = v1 + 104;
-  v55 = v19;
+  v60 = enum case for LocalizedStringResource.BundleDescription.main(_:);
+  v22 = *(v3 + 104);
+  v47 = v5;
+  v50 = v2;
+  v22(v5);
+  v51 = v22;
+  v52 = v3 + 104;
+  v57 = v21;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
-  v46 = *(v10 + 16);
-  v21 = v57;
-  v46(v17, v19, v57);
+  v48 = *(v12 + 16);
+  v23 = v59;
+  v48(v19, v21, v59);
   String.init(localized:)();
-  v22 = String._bridgeToObjectiveC()();
+  v24 = String._bridgeToObjectiveC()();
 
-  v23 = [objc_opt_self() alertControllerWithTitle:0 message:v22 preferredStyle:0];
+  v25 = [objc_opt_self() alertControllerWithTitle:0 message:v24 preferredStyle:0];
 
-  [v23 setProhibitsRotation:1];
+  [v25 setProhibitsRotation:1];
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v24 = v45;
-  (v20)(v45, v58, v0);
-  v51 = v17;
-  v25 = v24;
+  v26 = v47;
+  (v22)(v47, v60, v2);
+  v53 = v19;
+  v27 = v26;
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
-  v26 = v46;
-  v27 = v47;
-  v46(v47, v17, v21);
-  v28 = v23;
-  v29 = v27;
+  v28 = v48;
+  v29 = v49;
+  v48(v49, v19, v23);
+  v30 = v25;
+  v31 = v29;
   String.init(localized:)();
-  v30 = swift_allocObject();
-  v31 = v52;
-  *(v30 + 16) = v52;
-  v32 = v31;
-  v33 = String._bridgeToObjectiveC()();
+  v32 = swift_allocObject();
+  v33 = v54;
+  *(v32 + 16) = v54;
+  v34 = v33;
+  v35 = String._bridgeToObjectiveC()();
 
   aBlock[4] = sub_10015F114;
-  aBlock[5] = v30;
+  aBlock[5] = v32;
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1107296256;
   aBlock[2] = sub_10015BD68;
   aBlock[3] = &unk_100212978;
-  v34 = _Block_copy(aBlock);
+  v36 = _Block_copy(aBlock);
 
-  v35 = objc_opt_self();
-  v36 = [v35 actionWithTitle:v33 style:2 handler:v34];
-  _Block_release(v34);
+  v37 = objc_opt_self();
+  v38 = [v37 actionWithTitle:v35 style:2 handler:v36];
+  _Block_release(v36);
 
-  [v28 addAction:v36];
+  [v30 addAction:v38];
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (v49)(v25, v58, v48);
+  (v51)(v27, v60, v50);
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
-  v37 = v29;
-  v38 = v29;
-  v39 = v57;
-  v26(v54, v37, v57);
+  v39 = v31;
+  v40 = v31;
+  v41 = v59;
+  v28(v56, v39, v59);
   String.init(localized:)();
-  v40 = String._bridgeToObjectiveC()();
+  v42 = String._bridgeToObjectiveC()();
 
-  v41 = [v35 actionWithTitle:v40 style:1 handler:0];
+  v43 = [v37 actionWithTitle:v42 style:1 handler:0];
 
-  [v28 addAction:v41];
-  v42 = *(v53 + 8);
-  v42(v38, v39);
-  v42(v51, v39);
-  v42(v55, v39);
-  return v28;
+  [v30 addAction:v43];
+  v44 = *(v55 + 8);
+  v44(v40, v41);
+  v44(v53, v41);
+  v44(v57, v41);
+  return v30;
 }
 
 uint64_t sub_10015BB84(uint64_t a1, uint64_t a2)
 {
-  v3 = sub_10015E0CC(&qword_100250F30);
+  v3 = sub_10015E0CC(&qword_100250F30, &qword_1001F8998);
   __chkstk_darwin(v3 - 8);
   v5 = &v12 - v4;
   v6 = type metadata accessor for RemindersInCalendarUtilities.ReminderCreationModule();
@@ -2335,10 +2373,10 @@ uint64_t sub_10015BB84(uint64_t a1, uint64_t a2)
   v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = OBJC_IVAR____TtC9MobileCal32AddReminderViewControllerManager_creationModule;
   swift_beginAccess();
-  sub_10015F168(a2 + v10, v5, &qword_100250F30);
+  sub_10015F168(a2 + v10, v5, &qword_100250F30, &qword_1001F8998);
   if ((*(v7 + 48))(v5, 1, v6) == 1)
   {
-    return sub_10015EE80(v5, &qword_100250F30);
+    return sub_10015EE80(v5, &qword_100250F30, &qword_1001F8998);
   }
 
   (*(v7 + 32))(v9, v5, v6);
@@ -2359,7 +2397,7 @@ void sub_10015BD68(uint64_t a1, void *a2)
 
 uint64_t sub_10015BE84()
 {
-  v1 = sub_10015E0CC(&qword_100250F30);
+  v1 = sub_10015E0CC(&qword_100250F30, &qword_1001F8998);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
   v4 = type metadata accessor for RemindersInCalendarUtilities.ReminderCreationModule();
@@ -2368,10 +2406,10 @@ uint64_t sub_10015BE84()
   v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = OBJC_IVAR____TtC9MobileCal32AddReminderViewControllerManager_creationModule;
   swift_beginAccess();
-  sub_10015F168(v0 + v8, v3, &qword_100250F30);
+  sub_10015F168(v0 + v8, v3, &qword_100250F30, &qword_1001F8998);
   if ((*(v5 + 48))(v3, 1, v4) == 1)
   {
-    sub_10015EE80(v3, &qword_100250F30);
+    sub_10015EE80(v3, &qword_100250F30, &qword_1001F8998);
     v9 = 0;
   }
 
@@ -2394,22 +2432,22 @@ uint64_t sub_10015C0A0()
   v2 = *(v1 - 8);
   __chkstk_darwin(v1);
   v4 = &v11 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_10015E0CC(&qword_100250F30);
+  v5 = sub_10015E0CC(&qword_100250F30, &qword_1001F8998);
   __chkstk_darwin(v5 - 8);
   v7 = &v11 - v6;
   v8 = OBJC_IVAR____TtC9MobileCal32AddReminderViewControllerManager_creationModule;
   swift_beginAccess();
-  sub_10015F168(v0 + v8, v7, &qword_100250F30);
+  sub_10015F168(v0 + v8, v7, &qword_100250F30, &qword_1001F8998);
   if ((*(v2 + 48))(v7, 1, v1))
   {
-    sub_10015EE80(v7, &qword_100250F30);
+    sub_10015EE80(v7, &qword_100250F30, &qword_1001F8998);
     v9 = 0;
   }
 
   else
   {
     (*(v2 + 16))(v4, v7, v1);
-    sub_10015EE80(v7, &qword_100250F30);
+    sub_10015EE80(v7, &qword_100250F30, &qword_1001F8998);
     RemindersInCalendarUtilities.ReminderCreationModule.moduleInterface.getter();
     (*(v2 + 8))(v4, v1);
     swift_getObjectType();
@@ -2420,66 +2458,67 @@ uint64_t sub_10015C0A0()
   return v9 & 1;
 }
 
-uint64_t sub_10015C2D0(uint64_t a1, uint64_t a2)
+uint64_t sub_10015C2D0(void (*a1)(uint64_t), void (*a2)(uint64_t))
 {
-  v34 = a2;
-  v35 = a1;
-  v3 = sub_10015E0CC(&qword_100251560);
+  v35 = a2;
+  v36 = a1;
+  v3 = sub_10015E0CC(&qword_100251560, &qword_1001F8990);
   __chkstk_darwin(v3 - 8);
-  v5 = &v29 - v4;
-  v6 = sub_10015E0CC(&qword_100250F30);
+  v5 = &v30 - v4;
+  v6 = sub_10015E0CC(&qword_100250F30, &qword_1001F8998);
   __chkstk_darwin(v6 - 8);
-  v8 = &v29 - v7;
+  v8 = &v30 - v7;
   v9 = type metadata accessor for RemindersInCalendarUtilities.ReminderCreationModule();
   v10 = *(v9 - 8);
   v11 = *(v10 + 64);
   v12 = __chkstk_darwin(v9);
-  v33 = &v29 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v34 = &v30 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v12);
-  v14 = &v29 - v13;
+  v14 = &v30 - v13;
   v15 = OBJC_IVAR____TtC9MobileCal32AddReminderViewControllerManager_creationModule;
   swift_beginAccess();
-  sub_10015F168(v2 + v15, v8, &qword_100250F30);
+  sub_10015F168(v2 + v15, v8, &qword_100250F30, &qword_1001F8998);
   if ((*(v10 + 48))(v8, 1, v9) == 1)
   {
-    result = sub_10015EE80(v8, &qword_100250F30);
-    v17 = v35;
-    if (v35)
+    v16 = v35;
+    result = sub_10015EE80(v8, &qword_100250F30, &qword_1001F8998);
+    v18 = v36;
+    if (v36)
     {
 
-      v17(v18);
-      return sub_10015F010(v17);
+      v18(v19);
+      return sub_10015F010(v18, v16);
     }
   }
 
   else
   {
-    v19 = *(v10 + 32);
-    v31 = v14;
-    v32 = v19;
-    v20 = v14;
-    v19(v14, v8, v9);
-    v21 = type metadata accessor for TaskPriority();
-    (*(*(v21 - 8) + 56))(v5, 1, 1, v21);
-    v22 = v33;
-    (*(v10 + 16))(v33, v20, v9);
+    v20 = *(v10 + 32);
+    v32 = v14;
+    v33 = v20;
+    v21 = v14;
+    v20(v14, v8, v9);
+    v22 = type metadata accessor for TaskPriority();
+    (*(*(v22 - 8) + 56))(v5, 1, 1, v22);
+    v23 = v34;
+    (*(v10 + 16))(v34, v21, v9);
     type metadata accessor for MainActor();
-    v23 = v35;
-    v30 = v5;
-    v24 = v34;
-    sub_10015F020(v35);
-    v25 = static MainActor.shared.getter();
-    v26 = (*(v10 + 80) + 32) & ~*(v10 + 80);
-    v27 = swift_allocObject();
-    *(v27 + 16) = v25;
-    *(v27 + 24) = &protocol witness table for MainActor;
-    v32(v27 + v26, v22, v9);
-    v28 = (v27 + ((v11 + v26 + 7) & 0xFFFFFFFFFFFFFFF8));
-    *v28 = v23;
-    v28[1] = v24;
-    sub_100167F80(0, 0, v30, &unk_1001F89B0, v27);
+    v24 = v36;
+    v31 = v5;
+    v25 = v35;
+    sub_10015F020(v36, v35);
+    v26 = static MainActor.shared.getter();
+    v27 = (*(v10 + 80) + 32) & ~*(v10 + 80);
+    v28 = swift_allocObject();
+    *(v28 + 16) = v26;
+    *(v28 + 24) = &protocol witness table for MainActor;
+    v33(v28 + v27, v23, v9);
+    v29 = (v28 + ((v11 + v27 + 7) & 0xFFFFFFFFFFFFFFF8));
+    *v29 = v24;
+    v29[1] = v25;
+    sub_100167F80(0, 0, v31, &unk_1001F89B0, v28);
 
-    return (*(v10 + 8))(v31, v9);
+    return (*(v10 + 8))(v32, v9);
   }
 
   return result;
@@ -2504,27 +2543,27 @@ uint64_t sub_10015C650(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return _swift_task_switch(sub_10015C754, v9, v8);
 }
 
-uint64_t sub_10015C754()
+uint64_t sub_10015C754(uint64_t a1)
 {
-  v1 = RemindersInCalendarUtilities.ReminderCreationModule.viewController.getter();
-  v2 = [v1 view];
+  v2 = RemindersInCalendarUtilities.ReminderCreationModule.viewController.getter();
+  v3 = [v2 view];
 
-  if (v2)
+  if (v3)
   {
-    [v2 endEditing:1];
+    [v3 endEditing:1];
 
-    v7 = RemindersInCalendarUtilities.ReminderCreationModule.moduleInterface.getter();
-    v9 = v8;
-    v0[12] = v7;
+    v8 = RemindersInCalendarUtilities.ReminderCreationModule.moduleInterface.getter();
+    v10 = v9;
+    v1[12] = v8;
     ObjectType = swift_getObjectType();
-    v11 = swift_task_alloc();
-    v0[13] = v11;
-    *v11 = v0;
-    v11[1] = sub_10015C864;
-    v3 = v0[8];
-    v4 = 1;
-    v5 = ObjectType;
-    v6 = v9;
+    v12 = swift_task_alloc();
+    v1[13] = v12;
+    *v12 = v1;
+    v12[1] = sub_10015C864;
+    v4 = v1[8];
+    v5 = 1;
+    v6 = ObjectType;
+    v7 = v10;
   }
 
   else
@@ -2532,7 +2571,7 @@ uint64_t sub_10015C754()
     __break(1u);
   }
 
-  return dispatch thunk of RemindersInCalendarReminderCreationModuleInterface.commitEditing(allowingUserConfirmation:)(v3, v4, v5, v6);
+  return dispatch thunk of RemindersInCalendarReminderCreationModuleInterface.commitEditing(allowingUserConfirmation:)(v4, v5, v6, v7);
 }
 
 uint64_t sub_10015C864()
@@ -2560,22 +2599,23 @@ uint64_t sub_10015C9A8()
   if ((v5 & 1) != 0 && v4)
   {
     v7 = v0[3];
+    v8 = v0[4];
 
-    v7(v8);
-    sub_10015F010(v7);
+    v7(v9);
+    sub_10015F010(v7, v8);
   }
 
   v6(v0[8], v0[5]);
 
-  v9 = v0[1];
+  v10 = v0[1];
 
-  return v9();
+  return v10();
 }
 
 uint64_t sub_10015CB9C()
 {
   v1 = v0;
-  v2 = sub_10015E0CC(&qword_100250F30);
+  v2 = sub_10015E0CC(&qword_100250F30, &qword_1001F8998);
   __chkstk_darwin(v2 - 8);
   v4 = &v11 - v3;
   v5 = type metadata accessor for RemindersInCalendarUtilities.ReminderCreationModule();
@@ -2584,10 +2624,10 @@ uint64_t sub_10015CB9C()
   v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = OBJC_IVAR____TtC9MobileCal32AddReminderViewControllerManager_creationModule;
   swift_beginAccess();
-  sub_10015F168(v1 + v9, v4, &qword_100250F30);
+  sub_10015F168(v1 + v9, v4, &qword_100250F30, &qword_1001F8998);
   if ((*(v6 + 48))(v4, 1, v5) == 1)
   {
-    return sub_10015EE80(v4, &qword_100250F30);
+    return sub_10015EE80(v4, &qword_100250F30, &qword_1001F8998);
   }
 
   (*(v6 + 32))(v8, v4, v5);
@@ -2600,10 +2640,10 @@ uint64_t sub_10015CB9C()
 
 uint64_t sub_10015CDD8()
 {
-  v1 = sub_10015E0CC(&qword_100251560);
+  v1 = sub_10015E0CC(&qword_100251560, &qword_1001F8990);
   __chkstk_darwin(v1 - 8);
   v24 = &v22 - v2;
-  v3 = sub_10015E0CC(&qword_100250F30);
+  v3 = sub_10015E0CC(&qword_100250F30, &qword_1001F8998);
   __chkstk_darwin(v3 - 8);
   v5 = &v22 - v4;
   v6 = type metadata accessor for RemindersInCalendarUtilities.ReminderCreationModule();
@@ -2615,10 +2655,10 @@ uint64_t sub_10015CDD8()
   v12 = &v22 - v11;
   v13 = OBJC_IVAR____TtC9MobileCal32AddReminderViewControllerManager_creationModule;
   swift_beginAccess();
-  sub_10015F168(v0 + v13, v5, &qword_100250F30);
+  sub_10015F168(v0 + v13, v5, &qword_100250F30, &qword_1001F8998);
   if ((*(v7 + 48))(v5, 1, v6) == 1)
   {
-    return sub_10015EE80(v5, &qword_100250F30);
+    return sub_10015EE80(v5, &qword_100250F30, &qword_1001F8998);
   }
 
   v23 = *(v7 + 32);
@@ -2668,7 +2708,7 @@ void sub_10015D3E8(void *a1)
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v61 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_10015E0CC(&qword_100250F10);
+  v7 = sub_10015E0CC(&qword_100250F10, &unk_1001F8FC0);
   __chkstk_darwin(v7 - 8);
   v9 = &v61 - v8;
   v10 = [a1 dueDateComponents];
@@ -2676,7 +2716,7 @@ void sub_10015D3E8(void *a1)
   {
     v36 = type metadata accessor for DateComponents();
     (*(*(v36 - 8) + 56))(v9, 1, 1, v36);
-    sub_10015EE80(v9, &qword_100250F10);
+    sub_10015EE80(v9, &qword_100250F10, &unk_1001F8FC0);
     if (qword_100250DA0 != -1)
     {
       swift_once();
@@ -2702,7 +2742,7 @@ void sub_10015D3E8(void *a1)
 
   v12 = type metadata accessor for DateComponents();
   (*(*(v12 - 8) + 56))(v9, 0, 1, v12);
-  sub_10015EE80(v9, &qword_100250F10);
+  sub_10015EE80(v9, &qword_100250F10, &unk_1001F8FC0);
   v13 = *(v1 + OBJC_IVAR____TtC9MobileCal32AddReminderViewControllerManager_model);
   v14 = [v13 eventStore];
   if (!v14)
@@ -2846,7 +2886,7 @@ LABEL_34:
       *(v58 + 4) = v60;
       *v59 = v60;
       _os_log_impl(&_mh_execute_header, v56, v57, "Error saving event for new reminder %@", v58, 0xCu);
-      sub_10015EE80(v59, &qword_100250F18);
+      sub_10015EE80(v59, &qword_100250F18, &qword_1001F8980);
     }
 
     else
@@ -2877,7 +2917,7 @@ LABEL_34:
 id sub_10015DD34()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for AddReminderViewControllerManager();
+  v2.super_class = type metadata accessor for AddReminderViewControllerManager(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
@@ -2904,18 +2944,18 @@ uint64_t variable initialization expression of RootNavigationErrorDisplayManager
   __chkstk_darwin(v4);
   v5 = type metadata accessor for DispatchQoS();
   __chkstk_darwin(v5 - 8);
-  sub_10000376C(0, &qword_100250DC0);
+  sub_10000376C(0, &qword_100250DC0, OS_dispatch_queue_ptr);
   static DispatchQoS.unspecified.getter();
   v7[1] = &_swiftEmptyArrayStorage;
-  sub_10015F240(&qword_100250DC8, &type metadata accessor for OS_dispatch_queue.Attributes);
-  sub_10015E0CC(&qword_100250DD0);
+  sub_10015F240(&qword_100250DC8, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+  sub_10015E0CC(&qword_100250DD0, &qword_1001F8820);
   sub_10015E114();
   dispatch thunk of SetAlgebra.init<A>(_:)();
   (*(v1 + 104))(v3, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v0);
   return OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
 }
 
-uint64_t sub_10015E0CC(uint64_t *a1)
+uint64_t sub_10015E0CC(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -2932,7 +2972,7 @@ unint64_t sub_10015E114()
   result = qword_100250DD8;
   if (!qword_100250DD8)
   {
-    sub_10015E178(&qword_100250DD0);
+    sub_10015E178(&qword_100250DD0, &qword_1001F8820);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100250DD8);
   }
@@ -2940,7 +2980,7 @@ unint64_t sub_10015E114()
   return result;
 }
 
-uint64_t sub_10015E178(uint64_t *a1)
+uint64_t sub_10015E178(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -3253,7 +3293,7 @@ void *sub_10015E6BC(uint64_t a1, uint64_t a2)
     return &_swiftEmptyArrayStorage;
   }
 
-  sub_10015E0CC(&unk_100250F20);
+  sub_10015E0CC(&unk_100250F20, &qword_1001F8988);
   v4 = swift_allocObject();
   v5 = j__malloc_size(v4);
   result = v4;
@@ -3303,7 +3343,7 @@ char *sub_10015E730(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    sub_10015E0CC(&unk_100250F20);
+    sub_10015E0CC(&unk_100250F20, &qword_1001F8988);
     v10 = swift_allocObject();
     v11 = j__malloc_size(v10);
     *(v10 + 2) = v8;
@@ -3339,14 +3379,14 @@ void *sub_10015E824(uint64_t a1)
 {
   v2 = type metadata accessor for Calendar.Component();
   v3 = *(v2 - 8);
-  v4 = (__chkstk_darwin)();
+  v4 = __chkstk_darwin(v2);
   v6 = &v30 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v4);
   v37 = &v30 - v7;
   v8 = *(a1 + 16);
   if (v8)
   {
-    sub_10015E0CC(&qword_100250F48);
+    sub_10015E0CC(&qword_100250F48, &qword_1001F89C0);
     v9 = static _SetStorage.allocate(capacity:)();
     v10 = 0;
     v12 = *(v3 + 16);
@@ -3363,7 +3403,7 @@ void *sub_10015E824(uint64_t a1)
     {
       v34 = v10;
       v35(v37, v33 + v14 * v10, v2);
-      sub_10015F240(&qword_100250F50, &type metadata accessor for Calendar.Component);
+      sub_10015F240(&qword_100250F50, &type metadata accessor for Calendar.Component, &protocol conformance descriptor for Calendar.Component);
       v16 = dispatch thunk of Hashable._rawHashValue(seed:)();
       v17 = ~(-1 << *(v9 + 32));
       v18 = v16 & v17;
@@ -3376,7 +3416,7 @@ void *sub_10015E824(uint64_t a1)
         {
           v22 = v11;
           v35(v6, *(v9 + 48) + v18 * v14, v2);
-          sub_10015F240(&qword_100250F58, &type metadata accessor for Calendar.Component);
+          sub_10015F240(&qword_100250F58, &type metadata accessor for Calendar.Component, &protocol conformance descriptor for Calendar.Component);
           v23 = dispatch thunk of static Equatable.== infix(_:_:)();
           v24 = *v15;
           (*v15)(v6, v2);
@@ -3429,7 +3469,7 @@ LABEL_8:
   return &_swiftEmptySetSingleton;
 }
 
-uint64_t sub_10015EB44(void *a1)
+void *sub_10015EB44(void *a1)
 {
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
@@ -3454,7 +3494,7 @@ uint64_t sub_10015EB44(void *a1)
   return result;
 }
 
-uint64_t type metadata accessor for AddReminderViewControllerManager()
+uint64_t type metadata accessor for AddReminderViewControllerManager(uint64_t a1)
 {
   result = qword_100250E88;
   if (!qword_100250E88)
@@ -3465,20 +3505,20 @@ uint64_t type metadata accessor for AddReminderViewControllerManager()
   return result;
 }
 
-void sub_10015EC58()
+void sub_10015EC58(uint64_t a1)
 {
   sub_10015ED7C(319, &qword_100250E98, &type metadata accessor for RemindersInCalendarUtilities.ReminderCreationModule);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_10015ED7C(319, &qword_100250EA0, &type metadata accessor for DateComponents);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_updateClassMetadata2();
     }
   }
 }
 
-void sub_10015ED7C(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_10015ED7C(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -3511,10 +3551,10 @@ uint64_t sub_10015EE20(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_10015EE80(uint64_t a1, uint64_t *a2)
+uint64_t sub_10015EE80(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = sub_10015E0CC(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = sub_10015E0CC(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
@@ -3535,7 +3575,7 @@ uint64_t sub_10015EEE0(uint64_t a1)
   return sub_10015C650(a1, v6, v7, v1 + v5, v9, v10);
 }
 
-uint64_t sub_10015F010(uint64_t result)
+uint64_t sub_10015F010(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -3544,7 +3584,7 @@ uint64_t sub_10015F010(uint64_t result)
   return result;
 }
 
-uint64_t sub_10015F020(uint64_t result)
+uint64_t sub_10015F020(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -3569,9 +3609,9 @@ uint64_t sub_10015F030()
   return _swift_deallocObject(v0, v5 + 16, v3 | 7);
 }
 
-uint64_t sub_10015F11C(uint64_t a1)
+uint64_t sub_10015F11C(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -3582,21 +3622,21 @@ uint64_t sub_10015F11C(uint64_t a1)
   }
 }
 
-uint64_t sub_10015F168(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t sub_10015F168(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = sub_10015E0CC(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = sub_10015E0CC(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
 uint64_t sub_10015F1D0(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_10015E0CC(&qword_100250F10);
+  v4 = sub_10015E0CC(&qword_100250F10, &unk_1001F8FC0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
-uint64_t sub_10015F240(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_10015F240(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3609,10 +3649,10 @@ uint64_t sub_10015F240(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_10015F288(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t sub_10015F288(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = sub_10015E0CC(a3);
-  (*(*(v5 - 8) + 40))(a2, a1, v5);
+  v6 = sub_10015E0CC(a3, a4);
+  (*(*(v6 - 8) + 40))(a2, a1, v6);
   return a2;
 }
 
@@ -3711,7 +3751,7 @@ char *sub_10015F660()
   UIButton.Configuration.cornerStyle.setter();
   (*(v106 + 104))(v105, enum case for UIButton.Configuration.Size.large(_:), v110);
   UIButton.Configuration.buttonSize.setter();
-  sub_10000376C(0, &unk_100251200);
+  sub_10000376C(0, &unk_100251200, UIButton_ptr);
   (*(v108 + 16))(v102, v34, v109);
   v38 = UIButton.init(configuration:primaryAction:)();
   *&v1[OBJC_IVAR____TtC9MobileCal15DockedEventView_actionButton] = v38;
@@ -3742,7 +3782,7 @@ char *sub_10015F660()
   [v48 addSubview:*&v48[OBJC_IVAR____TtC9MobileCal15DockedEventView_calendarBar]];
   [v48 addSubview:*&v44[v42]];
   v104 = objc_opt_self();
-  sub_10015E0CC(&qword_1002511E0);
+  sub_10015E0CC(&qword_1002511E0, &qword_1001F8AB8);
   v52 = swift_allocObject();
   *(v52 + 16) = xmmword_1001F89F0;
   v53 = [*&v48[v51] leadingAnchor];
@@ -3820,7 +3860,7 @@ char *sub_10015F660()
   v98 = [v96 constraintEqualToAnchor:v97 constant:10.0];
 
   *(v52 + 136) = v98;
-  sub_10000376C(0, &qword_1002511E8);
+  sub_10000376C(0, &qword_1002511E8, NSLayoutConstraint_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v104 activateConstraints:isa];
@@ -3834,7 +3874,7 @@ void sub_100160478(void *a1, uint64_t a2, uint64_t a3)
   v4 = v3;
   v49 = a2;
   v50 = a3;
-  v6 = sub_10015E0CC(&qword_1002511F8);
+  v6 = sub_10015E0CC(&qword_1002511F8, &qword_1001F8AC0);
   v7 = __chkstk_darwin(v6 - 8);
   v9 = &v46 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v7);
@@ -4031,7 +4071,7 @@ LABEL_23:
   [result setTranslatesAutoresizingMaskIntoConstraints:0];
 
   [v6 setTranslatesAutoresizingMaskIntoConstraints:0];
-  sub_10015E0CC(&qword_1002511E0);
+  sub_10015E0CC(&qword_1002511E0, &qword_1001F8AB8);
   v8 = swift_allocObject();
   *(v8 + 16) = xmmword_1001F8A00;
   result = [v1 view];
@@ -4187,7 +4227,7 @@ LABEL_35:
 
   v45 = [v41 constraintEqualToAnchor:v44];
   *(v8 + 88) = v45;
-  sub_10000376C(0, &qword_1002511E8);
+  sub_10000376C(0, &qword_1002511E8, NSLayoutConstraint_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v43 activateConstraints:isa];
@@ -4195,76 +4235,76 @@ LABEL_35:
   return [v1 didMoveToParentViewController:v0];
 }
 
-void sub_10016143C()
+void sub_10016143C(uint64_t a1, uint64_t a2)
 {
-  v1 = v0;
-  v30.receiver = v0;
-  v30.super_class = type metadata accessor for DockableEventContainerController();
-  objc_msgSendSuper2(&v30, "viewDidLayoutSubviews");
-  if (([v0 isBeingDismissed] & 1) == 0)
+  v3 = v2;
+  v32.receiver = v2;
+  v32.super_class = type metadata accessor for DockableEventContainerController();
+  objc_msgSendSuper2(&v32, "viewDidLayoutSubviews");
+  if (([v2 isBeingDismissed] & 1) == 0)
   {
-    v2 = *&v0[OBJC_IVAR____TtC9MobileCal32DockableEventContainerController_dockedEventView];
-    v3 = *&v1[OBJC_IVAR____TtC9MobileCal32DockableEventContainerController_fullViewController];
-    v4 = [v3 eventForDockedView];
-    v5 = [v3 actionButtonSymbol];
-    v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v8 = v7;
+    v4 = *&v2[OBJC_IVAR____TtC9MobileCal32DockableEventContainerController_dockedEventView];
+    v5 = *&v3[OBJC_IVAR____TtC9MobileCal32DockableEventContainerController_fullViewController];
+    v6 = [v5 eventForDockedView];
+    v7 = [v5 actionButtonSymbol];
+    v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v10 = v9;
 
-    sub_100160478(v4, v6, v8);
+    sub_100160478(v6, v8, v10);
 
-    v9 = [v1 view];
-    if (v9)
+    v11 = [v3 view];
+    if (v11)
     {
-      v10 = v9;
-      [v9 bounds];
       v12 = v11;
+      [v11 bounds];
       v14 = v13;
       v16 = v15;
       v18 = v17;
+      v20 = v19;
 
-      v31.origin.x = v12;
-      v31.origin.y = v14;
-      v31.size.width = v16;
-      v31.size.height = v18;
-      Height = CGRectGetHeight(v31);
-      [*&v2[OBJC_IVAR____TtC9MobileCal15DockedEventView_titleLabel] sizeThatFits:{1.79769313e308, 1.79769313e308}];
-      v21 = v20;
-      [*&v2[OBJC_IVAR____TtC9MobileCal15DockedEventView_timeLabel] sizeThatFits:{1.79769313e308, 1.79769313e308}];
-      v23 = v21 + v22 + 30.0 + 2.0;
-      v24 = v23 < Height;
-      v25 = OBJC_IVAR____TtC9MobileCal32DockableEventContainerController_isShowingFull;
-      v26 = v1[OBJC_IVAR____TtC9MobileCal32DockableEventContainerController_isShowingFull];
-      v1[OBJC_IVAR____TtC9MobileCal32DockableEventContainerController_isShowingFull] = v24;
-      if (v26 == v24)
+      v33.origin.x = v14;
+      v33.origin.y = v16;
+      v33.size.width = v18;
+      v33.size.height = v20;
+      Height = CGRectGetHeight(v33);
+      [*&v4[OBJC_IVAR____TtC9MobileCal15DockedEventView_titleLabel] sizeThatFits:{1.79769313e308, 1.79769313e308}];
+      v23 = v22;
+      [*&v4[OBJC_IVAR____TtC9MobileCal15DockedEventView_timeLabel] sizeThatFits:{1.79769313e308, 1.79769313e308}];
+      v25 = v23 + v24 + 30.0 + 2.0;
+      v26 = v25 < Height;
+      v27 = OBJC_IVAR____TtC9MobileCal32DockableEventContainerController_isShowingFull;
+      v28 = v3[OBJC_IVAR____TtC9MobileCal32DockableEventContainerController_isShowingFull];
+      v3[OBJC_IVAR____TtC9MobileCal32DockableEventContainerController_isShowingFull] = v26;
+      if (v28 == v26)
       {
         return;
       }
 
-      if (v23 < Height)
+      if (v25 < Height)
       {
-        v27 = v2;
+        v29 = v4;
 LABEL_8:
-        v29 = [v3 view];
-        if (v29)
+        v31 = [v5 view];
+        if (v31)
         {
 LABEL_11:
-          [v29 setHidden:0];
-          [objc_opt_self() transitionFromView:v27 toView:v29 duration:5243136 options:0 completion:0.3];
+          [v31 setHidden:0];
+          [objc_opt_self() transitionFromView:v29 toView:v31 duration:5243136 options:0 completion:0.3];
 
           return;
         }
 
         __break(1u);
 LABEL_10:
-        v29 = v2;
+        v31 = v4;
         goto LABEL_11;
       }
 
-      v28 = [v3 view];
-      if (v28)
+      v30 = [v5 view];
+      if (v30)
       {
-        v27 = v28;
-        if (v1[v25] != 1)
+        v29 = v30;
+        if (v3[v27] != 1)
         {
           goto LABEL_10;
         }
@@ -4399,13 +4439,13 @@ char *sub_100161A80(void *a1)
 
   if (v10)
   {
-    sub_10000376C(0, &qword_1002511F0);
+    sub_10000376C(0, &qword_1002511F0, UISheetPresentationControllerDetent_ptr);
     *(swift_allocObject() + 16) = v8;
     v11 = v8;
     v12 = static UISheetPresentationControllerDetent.custom(identifier:resolver:)();
 
     [v10 setDelegate:v11];
-    sub_10015E0CC(&qword_1002511E0);
+    sub_10015E0CC(&qword_1002511E0, &qword_1001F8AB8);
     v13 = swift_allocObject();
     *(v13 + 16) = xmmword_1001F8A10;
     *(v13 + 32) = [objc_opt_self() largeDetent];
@@ -4433,14 +4473,14 @@ char *sub_100161A80(void *a1)
 
 uint64_t sub_100161DE0(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_10015E0CC(&qword_1002511F8);
+  v4 = sub_10015E0CC(&qword_1002511F8, &qword_1001F8AC0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_100161E50(uint64_t a1)
 {
-  v2 = sub_10015E0CC(&qword_1002511F8);
+  v2 = sub_10015E0CC(&qword_1002511F8, &qword_1001F8AC0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -4453,11 +4493,11 @@ Swift::Int sub_100161ED0()
   return Hasher._finalize()();
 }
 
-Swift::Int sub_100161F44()
+Swift::Int sub_100161F44(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  Hasher._combine(_:)(v1);
+  Hasher._combine(_:)(v2);
   return Hasher._finalize()();
 }
 
@@ -4479,7 +4519,7 @@ uint64_t Application.open(view:)(uint64_t a1)
 uint64_t sub_10016208C()
 {
   v1 = [*(v0 + 24) allSceneManagers];
-  sub_10000376C(0, &qword_100251330);
+  sub_10000376C(0, &qword_100251330, off_10020D488);
   v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (!(v2 >> 62))
@@ -4616,12 +4656,12 @@ uint64_t Application.open(date:)(uint64_t a1)
 {
   v2[2] = a1;
   v2[3] = v1;
-  sub_10015E0CC(&qword_100251218);
+  sub_10015E0CC(&qword_100251218, &qword_1001F8AD8);
   v2[4] = swift_task_alloc();
   v2[5] = swift_task_alloc();
-  sub_10015E0CC(&qword_100251220);
+  sub_10015E0CC(&qword_100251220, &qword_1001F8AE0);
   v2[6] = swift_task_alloc();
-  sub_10015E0CC(&qword_100251228);
+  sub_10015E0CC(&qword_100251228, &qword_1001F8D50);
   v2[7] = swift_task_alloc();
   type metadata accessor for MainActor();
   v2[8] = static MainActor.shared.getter();
@@ -4633,7 +4673,7 @@ uint64_t Application.open(date:)(uint64_t a1)
 uint64_t sub_100162574()
 {
   v1 = [*(v0 + 24) allSceneManagers];
-  sub_10000376C(0, &qword_100251330);
+  sub_10000376C(0, &qword_100251330, off_10020D488);
   v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (!(v2 >> 62))
@@ -4713,7 +4753,7 @@ LABEL_20:
   v20 = *(v0 + 40);
   v19 = *(v0 + 48);
 
-  sub_10000376C(0, &qword_100251230);
+  sub_10000376C(0, &qword_100251230, EKCalendarDate_ptr);
   Calendar.timeZone.getter();
   (*(v17 + 8))(v20, v16);
   v21 = type metadata accessor for TimeZone();
@@ -4744,7 +4784,7 @@ LABEL_15:
 
 uint64_t sub_1001629C4(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_10015E0CC(&qword_100251218);
+  v4 = sub_10015E0CC(&qword_100251218, &qword_1001F8AD8);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -4827,7 +4867,7 @@ LABEL_20:
   }
 
   v5 = [*(v0 + 32) allSceneManagers];
-  sub_10000376C(0, &qword_100251330);
+  sub_10000376C(0, &qword_100251330, off_10020D488);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (!(v6 >> 62))
@@ -4935,7 +4975,7 @@ uint64_t sub_10016319C()
   v1 = *(v0 + 24);
 
   v2 = [v1 allSceneManagers];
-  sub_10000376C(0, &qword_100251330);
+  sub_10000376C(0, &qword_100251330, off_10020D488);
   v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v3 >> 62)
@@ -5008,7 +5048,7 @@ uint64_t sub_1001633D4()
   v1 = v0[3];
 
   v2 = [v1 allSceneManagers];
-  sub_10000376C(0, &qword_100251330);
+  sub_10000376C(0, &qword_100251330, off_10020D488);
   v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v3 >> 62)
@@ -5083,7 +5123,7 @@ uint64_t sub_100163628()
 {
   v1 = *(v0 + 208);
   v2 = objc_opt_self();
-  sub_10000376C(0, &qword_100251240);
+  sub_10000376C(0, &qword_100251240, EKParticipant_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
   LODWORD(v1) = [v2 canShowViewControllerForEvent:v1 withParticipantRecipients:isa];
 
@@ -5100,7 +5140,7 @@ LABEL_15:
   }
 
   v4 = [*(v0 + 224) allSceneManagers];
-  sub_10000376C(0, &qword_100251330);
+  sub_10000376C(0, &qword_100251330, off_10020D488);
   v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v5 >> 62)
@@ -5161,7 +5201,7 @@ LABEL_4:
     *(v0 + 56) = v0 + 304;
     *(v0 + 24) = sub_100163A60;
     v15 = swift_continuation_init();
-    *(v0 + 200) = sub_10015E0CC(&qword_100251248);
+    *(v0 + 200) = sub_10015E0CC(&qword_100251248, &qword_1001F8B08);
     *(v0 + 144) = _NSConcreteStackBlock;
     *(v0 + 152) = 1107296256;
     *(v0 + 160) = sub_100163F70;
@@ -5231,7 +5271,7 @@ uint64_t sub_100163B68()
   v0[10] = v0;
   v0[11] = sub_100163DDC;
   v10 = swift_continuation_init();
-  v0[25] = sub_10015E0CC(&qword_100251250);
+  v0[25] = sub_10015E0CC(&qword_100251250, qword_1001F8B10);
   v0[18] = _NSConcreteStackBlock;
   v0[19] = 1107296256;
   v0[20] = sub_100164134;
@@ -5269,22 +5309,22 @@ uint64_t sub_100163F70(uint64_t a1, char a2)
   return _swift_continuation_resume(v3);
 }
 
-void sub_100163FCC()
+void sub_100163FCC(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = [Strong viewController];
-    if (v2)
+    v3 = Strong;
+    v4 = [Strong viewController];
+    if (v4)
     {
-      v3 = v2;
-      v4 = [v2 presentingViewController];
+      v5 = v4;
+      v6 = [v4 presentingViewController];
 
-      if (v4)
+      if (v6)
       {
-        [v4 dismissViewControllerAnimated:1 completion:0];
+        [v6 dismissViewControllerAnimated:1 completion:0];
       }
     }
 
@@ -5294,7 +5334,7 @@ void sub_100163FCC()
     }
 
     swift_beginAccess();
-    v5 = sub_1001653C8(v1);
+    v7 = sub_1001653C8(v3);
     swift_endAccess();
   }
 }
@@ -5383,7 +5423,7 @@ uint64_t sub_100164548(uint64_t a1, uint64_t a2)
   return Application.composeEmail(event:recipients:)(a1, a2);
 }
 
-uint64_t sub_1001645F0(void *a1, void *a2)
+uint64_t sub_1001645F0(uint64_t *a1, void *a2)
 {
   v3 = v2;
   v6 = *v2;
@@ -5406,10 +5446,10 @@ uint64_t sub_1001645F0(void *a1, void *a2)
     if (v9)
     {
 
-      sub_10000376C(0, &qword_100251260);
+      sub_10000376C(0, &qword_100251260, EKUIEmailCompositionManager_ptr);
       swift_dynamicCast();
       result = 0;
-      *a1 = v22;
+      *a1 = v23;
       return result;
     }
 
@@ -5421,9 +5461,10 @@ uint64_t sub_1001645F0(void *a1, void *a2)
     }
 
     v19 = sub_100164A58(v7, result + 1);
-    if (v19[3] <= v19[2])
+    v20 = v19[2];
+    if (v19[3] <= v20)
     {
-      sub_100164C48();
+      sub_100164C48(v20 + 1);
     }
 
     v18 = v8;
@@ -5433,7 +5474,7 @@ uint64_t sub_1001645F0(void *a1, void *a2)
     goto LABEL_16;
   }
 
-  sub_10000376C(0, &qword_100251260);
+  sub_10000376C(0, &qword_100251260, EKUIEmailCompositionManager_ptr);
   v11 = NSObject._rawHashValue(seed:)(*(v6 + 40));
   v12 = -1 << *(v6 + 32);
   v13 = v11 & ~v12;
@@ -5441,10 +5482,10 @@ uint64_t sub_1001645F0(void *a1, void *a2)
   {
 LABEL_11:
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v23 = *v3;
+    v24 = *v3;
     v18 = a2;
     sub_100164EF4(v18, v13, isUniquelyReferenced_nonNull_native);
-    *v3 = v23;
+    *v3 = v24;
 LABEL_16:
     *a1 = v18;
     return 1;
@@ -5468,9 +5509,9 @@ LABEL_16:
     }
   }
 
-  v20 = *(*(v6 + 48) + 8 * v13);
-  *a1 = v20;
-  v21 = v20;
+  v21 = *(*(v6 + 48) + 8 * v13);
+  *a1 = v21;
+  v22 = v21;
   return 0;
 }
 
@@ -5669,61 +5710,62 @@ Swift::Int sub_100164A58(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    sub_10015E0CC(&qword_100251268);
+    sub_10015E0CC(&qword_100251268, &qword_1001F8C78);
     v2 = static _SetStorage.convert(_:capacity:)();
-    v14 = v2;
+    v15 = v2;
     __CocoaSet.makeIterator()();
     if (__CocoaSet.Iterator.next()())
     {
-      sub_10000376C(0, &qword_100251260);
+      sub_10000376C(0, &qword_100251260, EKUIEmailCompositionManager_ptr);
       do
       {
         swift_dynamicCast();
-        if (*(v2 + 24) <= *(v2 + 16))
+        v9 = *(v2 + 16);
+        if (*(v2 + 24) <= v9)
         {
-          sub_100164C48();
+          sub_100164C48(v9 + 1);
         }
 
-        v2 = v14;
-        result = NSObject._rawHashValue(seed:)(*(v14 + 40));
-        v4 = v14 + 56;
-        v5 = -1 << *(v14 + 32);
+        v2 = v15;
+        result = NSObject._rawHashValue(seed:)(*(v15 + 40));
+        v4 = v15 + 56;
+        v5 = -1 << *(v15 + 32);
         v6 = result & ~v5;
         v7 = v6 >> 6;
-        if (((-1 << v6) & ~*(v14 + 56 + 8 * (v6 >> 6))) != 0)
+        if (((-1 << v6) & ~*(v15 + 56 + 8 * (v6 >> 6))) != 0)
         {
-          v8 = __clz(__rbit64((-1 << v6) & ~*(v14 + 56 + 8 * (v6 >> 6)))) | v6 & 0x7FFFFFFFFFFFFFC0;
+          v8 = __clz(__rbit64((-1 << v6) & ~*(v15 + 56 + 8 * (v6 >> 6)))) | v6 & 0x7FFFFFFFFFFFFFC0;
         }
 
         else
         {
-          v9 = 0;
-          v10 = (63 - v5) >> 6;
+          v10 = 0;
+          v11 = (63 - v5) >> 6;
           do
           {
-            if (++v7 == v10 && (v9 & 1) != 0)
+            if (++v7 == v11 && (v10 & 1) != 0)
             {
               __break(1u);
               return result;
             }
 
-            v11 = v7 == v10;
-            if (v7 == v10)
+            v12 = v7 == v11;
+            if (v7 == v11)
             {
               v7 = 0;
             }
 
-            v9 |= v11;
-            v12 = *(v4 + 8 * v7);
+            v10 |= v12;
+            v13 = *(v4 + 8 * v7);
           }
 
-          while (v12 == -1);
-          v8 = __clz(__rbit64(~v12)) + (v7 << 6);
+          while (v13 == -1);
+          v8 = __clz(__rbit64(~v13)) + (v7 << 6);
         }
 
         *(v4 + ((v8 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v8;
-        *(*(v14 + 48) + 8 * v8) = v13;
-        ++*(v14 + 16);
+        *(*(v15 + 48) + 8 * v8) = v14;
+        ++*(v15 + 16);
       }
 
       while (__CocoaSet.Iterator.next()());
@@ -5739,58 +5781,58 @@ Swift::Int sub_100164A58(uint64_t a1, uint64_t a2)
   return v2;
 }
 
-uint64_t sub_100164C48()
+Swift::Int sub_100164C48(uint64_t a1)
 {
-  v1 = v0;
-  v2 = *v0;
-  sub_10015E0CC(&qword_100251268);
+  v2 = v1;
+  v3 = *v1;
+  sub_10015E0CC(&qword_100251268, &qword_1001F8C78);
   result = static _SetStorage.resize(original:capacity:move:)();
-  v4 = result;
-  if (*(v2 + 16))
+  v5 = result;
+  if (*(v3 + 16))
   {
-    v5 = 0;
-    v6 = (v2 + 56);
-    v7 = 1 << *(v2 + 32);
-    if (v7 < 64)
+    v6 = 0;
+    v7 = (v3 + 56);
+    v8 = 1 << *(v3 + 32);
+    if (v8 < 64)
     {
-      v8 = ~(-1 << v7);
+      v9 = ~(-1 << v8);
     }
 
     else
     {
-      v8 = -1;
+      v9 = -1;
     }
 
-    v9 = v8 & *(v2 + 56);
-    v10 = (v7 + 63) >> 6;
-    v11 = result + 56;
-    while (v9)
+    v10 = v9 & *(v3 + 56);
+    v11 = (v8 + 63) >> 6;
+    v12 = result + 56;
+    while (v10)
     {
-      v13 = __clz(__rbit64(v9));
-      v9 &= v9 - 1;
+      v14 = __clz(__rbit64(v10));
+      v10 &= v10 - 1;
 LABEL_15:
-      v16 = *(*(v2 + 48) + 8 * (v13 | (v5 << 6)));
-      result = NSObject._rawHashValue(seed:)(*(v4 + 40));
-      v17 = -1 << *(v4 + 32);
-      v18 = result & ~v17;
-      v19 = v18 >> 6;
-      if (((-1 << v18) & ~*(v11 + 8 * (v18 >> 6))) == 0)
+      v17 = *(*(v3 + 48) + 8 * (v14 | (v6 << 6)));
+      result = NSObject._rawHashValue(seed:)(*(v5 + 40));
+      v18 = -1 << *(v5 + 32);
+      v19 = result & ~v18;
+      v20 = v19 >> 6;
+      if (((-1 << v19) & ~*(v12 + 8 * (v19 >> 6))) == 0)
       {
-        v20 = 0;
-        v21 = (63 - v17) >> 6;
-        while (++v19 != v21 || (v20 & 1) == 0)
+        v21 = 0;
+        v22 = (63 - v18) >> 6;
+        while (++v20 != v22 || (v21 & 1) == 0)
         {
-          v22 = v19 == v21;
-          if (v19 == v21)
+          v23 = v20 == v22;
+          if (v20 == v22)
           {
-            v19 = 0;
+            v20 = 0;
           }
 
-          v20 |= v22;
-          v23 = *(v11 + 8 * v19);
-          if (v23 != -1)
+          v21 |= v23;
+          v24 = *(v12 + 8 * v20);
+          if (v24 != -1)
           {
-            v12 = __clz(__rbit64(~v23)) + (v19 << 6);
+            v13 = __clz(__rbit64(~v24)) + (v20 << 6);
             goto LABEL_7;
           }
         }
@@ -5800,53 +5842,53 @@ LABEL_30:
         return result;
       }
 
-      v12 = __clz(__rbit64((-1 << v18) & ~*(v11 + 8 * (v18 >> 6)))) | v18 & 0x7FFFFFFFFFFFFFC0;
+      v13 = __clz(__rbit64((-1 << v19) & ~*(v12 + 8 * (v19 >> 6)))) | v19 & 0x7FFFFFFFFFFFFFC0;
 LABEL_7:
-      *(v11 + ((v12 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v12;
-      *(*(v4 + 48) + 8 * v12) = v16;
-      ++*(v4 + 16);
+      *(v12 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v13;
+      *(*(v5 + 48) + 8 * v13) = v17;
+      ++*(v5 + 16);
     }
 
-    v14 = v5;
+    v15 = v6;
     while (1)
     {
-      v5 = v14 + 1;
-      if (__OFADD__(v14, 1))
+      v6 = v15 + 1;
+      if (__OFADD__(v15, 1))
       {
         __break(1u);
         goto LABEL_30;
       }
 
-      if (v5 >= v10)
+      if (v6 >= v11)
       {
         break;
       }
 
-      v15 = v6[v5];
-      ++v14;
-      if (v15)
+      v16 = v7[v6];
+      ++v15;
+      if (v16)
       {
-        v13 = __clz(__rbit64(v15));
-        v9 = (v15 - 1) & v15;
+        v14 = __clz(__rbit64(v16));
+        v10 = (v16 - 1) & v16;
         goto LABEL_15;
       }
     }
 
-    v24 = 1 << *(v2 + 32);
-    if (v24 >= 64)
+    v25 = 1 << *(v3 + 32);
+    if (v25 >= 64)
     {
-      bzero((v2 + 56), ((v24 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      bzero((v3 + 56), ((v25 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      *v6 = -1 << v24;
+      *v7 = -1 << v25;
     }
 
-    *(v2 + 16) = 0;
+    *(v3 + 16) = 0;
   }
 
-  *v1 = v4;
+  *v2 = v5;
   return result;
 }
 
@@ -5871,7 +5913,7 @@ void sub_100164EF4(uint64_t a1, unint64_t a2, char a3)
 
   if (a3)
   {
-    sub_100164C48();
+    sub_100164C48(v6 + 1);
   }
 
   else
@@ -5882,7 +5924,7 @@ void sub_100164EF4(uint64_t a1, unint64_t a2, char a3)
       goto LABEL_12;
     }
 
-    sub_1001651B4();
+    sub_1001651B4(v6 + 1);
   }
 
   v8 = *v3;
@@ -5892,7 +5934,7 @@ void sub_100164EF4(uint64_t a1, unint64_t a2, char a3)
   if ((*(v8 + 56 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2))
   {
     v11 = ~v10;
-    sub_10000376C(0, &qword_100251260);
+    sub_10000376C(0, &qword_100251260, EKUIEmailCompositionManager_ptr);
     do
     {
       v12 = *(*(v8 + 48) + 8 * a2);
@@ -5931,7 +5973,7 @@ LABEL_15:
 id sub_100165064()
 {
   v1 = v0;
-  sub_10015E0CC(&qword_100251268);
+  sub_10015E0CC(&qword_100251268, &qword_1001F8C78);
   v2 = *v0;
   v3 = static _SetStorage.copy(original:)();
   v4 = v3;
@@ -6009,59 +6051,59 @@ LABEL_19:
   return result;
 }
 
-uint64_t sub_1001651B4()
+Swift::Int sub_1001651B4(uint64_t a1)
 {
-  v1 = v0;
-  v2 = *v0;
-  sub_10015E0CC(&qword_100251268);
+  v2 = v1;
+  v3 = *v1;
+  sub_10015E0CC(&qword_100251268, &qword_1001F8C78);
   result = static _SetStorage.resize(original:capacity:move:)();
-  v4 = result;
-  if (*(v2 + 16))
+  v5 = result;
+  if (*(v3 + 16))
   {
-    v24 = v0;
-    v5 = 0;
-    v6 = 1 << *(v2 + 32);
-    if (v6 < 64)
+    v25 = v1;
+    v6 = 0;
+    v7 = 1 << *(v3 + 32);
+    if (v7 < 64)
     {
-      v7 = ~(-1 << v6);
+      v8 = ~(-1 << v7);
     }
 
     else
     {
-      v7 = -1;
+      v8 = -1;
     }
 
-    v8 = v7 & *(v2 + 56);
-    v9 = (v6 + 63) >> 6;
-    v10 = result + 56;
-    while (v8)
+    v9 = v8 & *(v3 + 56);
+    v10 = (v7 + 63) >> 6;
+    v11 = result + 56;
+    while (v9)
     {
-      v12 = __clz(__rbit64(v8));
-      v8 &= v8 - 1;
+      v13 = __clz(__rbit64(v9));
+      v9 &= v9 - 1;
 LABEL_15:
-      v15 = *(v4 + 40);
-      v16 = *(*(v2 + 48) + 8 * (v12 | (v5 << 6)));
-      result = NSObject._rawHashValue(seed:)(v15);
-      v17 = -1 << *(v4 + 32);
-      v18 = result & ~v17;
-      v19 = v18 >> 6;
-      if (((-1 << v18) & ~*(v10 + 8 * (v18 >> 6))) == 0)
+      v16 = *(v5 + 40);
+      v17 = *(*(v3 + 48) + 8 * (v13 | (v6 << 6)));
+      result = NSObject._rawHashValue(seed:)(v16);
+      v18 = -1 << *(v5 + 32);
+      v19 = result & ~v18;
+      v20 = v19 >> 6;
+      if (((-1 << v19) & ~*(v11 + 8 * (v19 >> 6))) == 0)
       {
-        v20 = 0;
-        v21 = (63 - v17) >> 6;
-        while (++v19 != v21 || (v20 & 1) == 0)
+        v21 = 0;
+        v22 = (63 - v18) >> 6;
+        while (++v20 != v22 || (v21 & 1) == 0)
         {
-          v22 = v19 == v21;
-          if (v19 == v21)
+          v23 = v20 == v22;
+          if (v20 == v22)
           {
-            v19 = 0;
+            v20 = 0;
           }
 
-          v20 |= v22;
-          v23 = *(v10 + 8 * v19);
-          if (v23 != -1)
+          v21 |= v23;
+          v24 = *(v11 + 8 * v20);
+          if (v24 != -1)
           {
-            v11 = __clz(__rbit64(~v23)) + (v19 << 6);
+            v12 = __clz(__rbit64(~v24)) + (v20 << 6);
             goto LABEL_7;
           }
         }
@@ -6069,35 +6111,35 @@ LABEL_15:
         goto LABEL_28;
       }
 
-      v11 = __clz(__rbit64((-1 << v18) & ~*(v10 + 8 * (v18 >> 6)))) | v18 & 0x7FFFFFFFFFFFFFC0;
+      v12 = __clz(__rbit64((-1 << v19) & ~*(v11 + 8 * (v19 >> 6)))) | v19 & 0x7FFFFFFFFFFFFFC0;
 LABEL_7:
-      *(v10 + ((v11 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v11;
-      *(*(v4 + 48) + 8 * v11) = v16;
-      ++*(v4 + 16);
+      *(v11 + ((v12 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v12;
+      *(*(v5 + 48) + 8 * v12) = v17;
+      ++*(v5 + 16);
     }
 
-    v13 = v5;
+    v14 = v6;
     while (1)
     {
-      v5 = v13 + 1;
-      if (__OFADD__(v13, 1))
+      v6 = v14 + 1;
+      if (__OFADD__(v14, 1))
       {
         break;
       }
 
-      if (v5 >= v9)
+      if (v6 >= v10)
       {
 
-        v1 = v24;
+        v2 = v25;
         goto LABEL_26;
       }
 
-      v14 = *(v2 + 56 + 8 * v5);
-      ++v13;
-      if (v14)
+      v15 = *(v3 + 56 + 8 * v6);
+      ++v14;
+      if (v15)
       {
-        v12 = __clz(__rbit64(v14));
-        v8 = (v14 - 1) & v14;
+        v13 = __clz(__rbit64(v15));
+        v9 = (v15 - 1) & v15;
         goto LABEL_15;
       }
     }
@@ -6111,7 +6153,7 @@ LABEL_28:
   {
 
 LABEL_26:
-    *v1 = v4;
+    *v2 = v5;
   }
 
   return result;
@@ -6122,93 +6164,102 @@ uint64_t sub_1001653C8(void *a1)
   v3 = *v1;
   if ((*v1 & 0xC000000000000001) != 0)
   {
-
-    v4 = a1;
-    v5 = __CocoaSet.contains(_:)();
-
-    if (v5)
+    if (v3 < 0)
     {
-      v6 = sub_100165560();
+      v4 = *v1;
+    }
 
-      return v6;
+    else
+    {
+      v4 = v3 & 0xFFFFFFFFFFFFFF8;
+    }
+
+    v5 = a1;
+    v6 = __CocoaSet.contains(_:)();
+
+    if (v6)
+    {
+      v7 = sub_100165560(v4, v5);
+
+      return v7;
     }
 
     return 0;
   }
 
-  v8 = v1;
-  sub_10000376C(0, &qword_100251260);
-  v9 = NSObject._rawHashValue(seed:)(*(v3 + 40));
-  v10 = -1 << *(v3 + 32);
-  v11 = v9 & ~v10;
-  if (((*(v3 + 56 + ((v11 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v11) & 1) == 0)
+  v9 = v1;
+  sub_10000376C(0, &qword_100251260, EKUIEmailCompositionManager_ptr);
+  v10 = NSObject._rawHashValue(seed:)(*(v3 + 40));
+  v11 = -1 << *(v3 + 32);
+  v12 = v10 & ~v11;
+  if (((*(v3 + 56 + ((v12 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v12) & 1) == 0)
   {
     return 0;
   }
 
-  v12 = ~v10;
+  v13 = ~v11;
   while (1)
   {
-    v13 = *(*(v3 + 48) + 8 * v11);
-    v14 = static NSObject.== infix(_:_:)();
+    v14 = *(*(v3 + 48) + 8 * v12);
+    v15 = static NSObject.== infix(_:_:)();
 
-    if (v14)
+    if (v15)
     {
       break;
     }
 
-    v11 = (v11 + 1) & v12;
-    if (((*(v3 + 56 + ((v11 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v11) & 1) == 0)
+    v12 = (v12 + 1) & v13;
+    if (((*(v3 + 56 + ((v12 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v12) & 1) == 0)
     {
       return 0;
     }
   }
 
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v16 = *v8;
-  v18 = *v8;
+  v17 = *v9;
+  v19 = *v9;
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
     sub_100165064();
-    v16 = v18;
+    v17 = v19;
   }
 
-  v17 = *(*(v16 + 48) + 8 * v11);
-  sub_1001656C8(v11);
-  result = v17;
-  *v8 = v18;
+  v18 = *(*(v17 + 48) + 8 * v12);
+  sub_1001656C8(v12);
+  result = v18;
+  *v9 = v19;
   return result;
 }
 
-uint64_t sub_100165560()
+uint64_t sub_100165560(uint64_t a1, uint64_t a2)
 {
-  v1 = v0;
+  v3 = v2;
 
-  v2 = __CocoaSet.count.getter();
-  v3 = swift_unknownObjectRetain();
-  v4 = sub_100164A58(v3, v2);
-  v14 = v4;
-  v5 = *(v4 + 40);
+  v4 = __CocoaSet.count.getter();
+  v5 = swift_unknownObjectRetain();
+  v6 = sub_100164A58(v5, v4);
+  v16 = v6;
+  v7 = *(v6 + 40);
 
-  v6 = NSObject._rawHashValue(seed:)(v5);
-  v7 = -1 << *(v4 + 32);
-  v8 = v6 & ~v7;
-  if ((*(v4 + 56 + ((v8 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v8))
+  v8 = NSObject._rawHashValue(seed:)(v7);
+  v9 = -1 << *(v6 + 32);
+  v10 = v8 & ~v9;
+  if ((*(v6 + 56 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10))
   {
-    v9 = ~v7;
-    sub_10000376C(0, &qword_100251260);
+    v11 = ~v9;
+    sub_10000376C(0, &qword_100251260, EKUIEmailCompositionManager_ptr);
     while (1)
     {
-      v10 = *(*(v4 + 48) + 8 * v8);
-      v11 = static NSObject.== infix(_:_:)();
+      v12 = *(*(v6 + 48) + 8 * v10);
+      v13 = static NSObject.== infix(_:_:)();
 
-      if (v11)
+      if (v13)
       {
         break;
       }
 
-      v8 = (v8 + 1) & v9;
-      if (((*(v4 + 56 + ((v8 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v8) & 1) == 0)
+      v10 = (v10 + 1) & v11;
+      if (((*(v6 + 56 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10) & 1) == 0)
       {
         goto LABEL_5;
       }
@@ -6222,13 +6273,13 @@ LABEL_5:
     __break(1u);
   }
 
-  v12 = *(*(v4 + 48) + 8 * v8);
-  sub_1001656C8(v8);
+  v14 = *(*(v6 + 48) + 8 * v10);
+  sub_1001656C8(v10);
   result = static NSObject.== infix(_:_:)();
   if (result)
   {
-    *v1 = v14;
-    return v12;
+    *v3 = v16;
+    return v14;
   }
 
   else
@@ -6327,7 +6378,7 @@ void *sub_100165870(uint64_t a1)
   }
 }
 
-uint64_t RootNavigationErrorDisplayManager.delegate.setter()
+uint64_t RootNavigationErrorDisplayManager.delegate.setter(uint64_t a1)
 {
   swift_beginAccess();
   swift_unknownObjectWeakAssign();
@@ -6407,7 +6458,7 @@ id RootNavigationErrorDisplayManager.__deallocating_deinit()
 
   sub_100011DC8(0);
   v6.receiver = v0;
-  v6.super_class = type metadata accessor for RootNavigationErrorDisplayManager();
+  v6.super_class = type metadata accessor for RootNavigationErrorDisplayManager(0);
   return objc_msgSendSuper2(&v6, "dealloc");
 }
 
@@ -6416,12 +6467,12 @@ uint64_t sub_100165E4C(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
   v5 = v4;
   v10 = type metadata accessor for DispatchWorkItemFlags();
   v29 = *(v10 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v10);
   v12 = &v27 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v13 = type metadata accessor for DispatchQoS();
   v27 = *(v13 - 8);
   v28 = v13;
-  __chkstk_darwin();
+  __chkstk_darwin(v13);
   v15 = &v27 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (a4)
   {
@@ -6433,7 +6484,7 @@ uint64_t sub_100165E4C(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
 
   v18 = &v5[OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_currentlyDisplayedAccount];
   *v18 = a1;
-  v18[1] = a2;
+  *(v18 + 1) = a2;
 
   v19 = &v5[OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_currentlyDisplayedError];
   *v19 = a3;
@@ -6449,7 +6500,7 @@ uint64_t sub_100165E4C(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
   sub_100167734(a3, a1, a2, isUniquelyReferenced_nonNull_native);
   *&v5[v20] = v31;
   swift_endAccess();
-  sub_10000376C(0, &qword_100250DC0);
+  sub_10000376C(0, &qword_100250DC0, OS_dispatch_queue_ptr);
   v22 = static OS_dispatch_queue.main.getter();
   v23 = swift_allocObject();
   v23[2] = v5;
@@ -6468,9 +6519,9 @@ uint64_t sub_100165E4C(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
 
   static DispatchQoS.unspecified.getter();
   aBlock[0] = &_swiftEmptyArrayStorage;
-  sub_100004530(&qword_100251288, &type metadata accessor for DispatchWorkItemFlags);
-  sub_10015E0CC(&qword_100251290);
-  sub_100005EF8(&qword_100251298, &qword_100251290);
+  sub_100004530(&qword_100251288, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  sub_10015E0CC(&qword_100251290, &qword_1001F8C80);
+  sub_100005EF8(&qword_100251298, &qword_100251290, &qword_1001F8C80);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   OS_dispatch_queue.async(group:qos:flags:execute:)();
   _Block_release(v24);
@@ -6481,7 +6532,7 @@ uint64_t sub_100165E4C(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
   return sub_100166994();
 }
 
-uint64_t sub_100166250(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void *sub_100166250(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
@@ -6501,11 +6552,11 @@ uint64_t sub_10016631C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = type metadata accessor for DispatchWorkItemFlags();
   v7 = *(v6 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v6);
   v9 = v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v18 = type metadata accessor for DispatchQoS();
   v10 = *(v18 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v18);
   v12 = v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v17[1] = *&v3[OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_timerQueue];
   v13 = swift_allocObject();
@@ -6520,9 +6571,9 @@ uint64_t sub_10016631C(uint64_t a1, uint64_t a2, uint64_t a3)
   v15 = v3;
   static DispatchQoS.unspecified.getter();
   v19 = &_swiftEmptyArrayStorage;
-  sub_100004530(&qword_100251288, &type metadata accessor for DispatchWorkItemFlags);
-  sub_10015E0CC(&qword_100251290);
-  sub_100005EF8(&qword_100251298, &qword_100251290);
+  sub_100004530(&qword_100251288, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  sub_10015E0CC(&qword_100251290, &qword_1001F8C80);
+  sub_100005EF8(&qword_100251298, &qword_100251290, &qword_1001F8C80);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   OS_dispatch_queue.async(group:qos:flags:execute:)();
   _Block_release(v14);
@@ -6561,7 +6612,7 @@ uint64_t sub_1001665C8(char *a1)
     *v17 = 0;
     v17[8] = 1;
     sub_100011DC8(0);
-    sub_10000376C(0, &qword_100250DC0);
+    sub_10000376C(0, &qword_100250DC0, OS_dispatch_queue_ptr);
     v23 = static OS_dispatch_queue.main.getter();
     v18 = swift_allocObject();
     *(v18 + 16) = a1;
@@ -6576,9 +6627,9 @@ uint64_t sub_1001665C8(char *a1)
 
     static DispatchQoS.unspecified.getter();
     aBlock[0] = &_swiftEmptyArrayStorage;
-    sub_100004530(&qword_100251288, &type metadata accessor for DispatchWorkItemFlags);
-    sub_10015E0CC(&qword_100251290);
-    sub_100005EF8(&qword_100251298, &qword_100251290);
+    sub_100004530(&qword_100251288, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+    sub_10015E0CC(&qword_100251290, &qword_1001F8C80);
+    sub_100005EF8(&qword_100251298, &qword_100251290, &qword_1001F8C80);
     dispatch thunk of SetAlgebra.init<A>(_:)();
     v21 = v23;
     OS_dispatch_queue.async(group:qos:flags:execute:)();
@@ -6591,44 +6642,44 @@ uint64_t sub_1001665C8(char *a1)
 
 void sub_1001669BC(uint64_t a1)
 {
-  sub_10015E0CC(&qword_100251228);
-  __chkstk_darwin();
-  v3 = &v17 - v2;
-  v4 = OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_displayTimer;
+  v2 = sub_10015E0CC(&qword_100251228, &qword_1001F8D50);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v18 - v3;
+  v5 = OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_displayTimer;
   [*(a1 + OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_displayTimer) invalidate];
-  v5 = *(a1 + v4);
-  *(a1 + v4) = 0;
+  v6 = *(a1 + v5);
+  *(a1 + v5) = 0;
 
-  v6 = OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_isObserving;
+  v7 = OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_isObserving;
   if ((*(a1 + OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_isObserving) & 1) == 0)
   {
-    v7 = objc_opt_self();
-    v8 = [v7 defaultCenter];
-    [v8 addObserver:a1 selector:"appDidEnterBackground" name:UIApplicationDidEnterBackgroundNotification object:0];
+    v8 = objc_opt_self();
+    v9 = [v8 defaultCenter];
+    [v9 addObserver:a1 selector:"appDidEnterBackground" name:UIApplicationDidEnterBackgroundNotification object:0];
 
-    v9 = [v7 defaultCenter];
-    [v9 addObserver:a1 selector:"appDidBecomeActive" name:UIApplicationDidBecomeActiveNotification object:0];
+    v10 = [v8 defaultCenter];
+    [v10 addObserver:a1 selector:"appDidBecomeActive" name:UIApplicationDidBecomeActiveNotification object:0];
 
-    *(a1 + v6) = 1;
+    *(a1 + v7) = 1;
   }
 
   Date.init()();
-  v10 = type metadata accessor for Date();
-  (*(*(v10 - 8) + 56))(v3, 0, 1, v10);
-  v11 = OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_timerStartTime;
+  v11 = type metadata accessor for Date();
+  (*(*(v11 - 8) + 56))(v4, 0, 1, v11);
+  v12 = OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_timerStartTime;
   swift_beginAccess();
-  sub_100167B98(v3, a1 + v11);
+  sub_100167B98(v4, a1 + v12);
   swift_endAccess();
-  v12 = [objc_opt_self() timerWithTimeInterval:a1 target:"showNextItem" selector:0 userInfo:0 repeats:*(a1 + OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_secondsRemaining)];
-  v13 = *(a1 + v4);
-  *(a1 + v4) = v12;
+  v13 = [objc_opt_self() timerWithTimeInterval:a1 target:"showNextItem" selector:0 userInfo:0 repeats:*(a1 + OBJC_IVAR____TtC9MobileCal33RootNavigationErrorDisplayManager_secondsRemaining)];
+  v14 = *(a1 + v5);
+  *(a1 + v5) = v13;
 
-  v14 = [objc_opt_self() mainRunLoop];
-  v15 = *(a1 + v4);
-  if (v15)
+  v15 = [objc_opt_self() mainRunLoop];
+  v16 = *(a1 + v5);
+  if (v16)
   {
-    v16 = v14;
-    [v14 addTimer:v15 forMode:NSRunLoopCommonModes];
+    v17 = v15;
+    [v15 addTimer:v16 forMode:NSRunLoopCommonModes];
   }
 
   else
@@ -6639,7 +6690,7 @@ void sub_1001669BC(uint64_t a1)
 
 uint64_t sub_100166C60(uint64_t a1)
 {
-  v2 = sub_10015E0CC(&qword_100251228);
+  v2 = sub_10015E0CC(&qword_100251228, &qword_1001F8D50);
   __chkstk_darwin(v2 - 8);
   v4 = &v20 - v3;
   v5 = type metadata accessor for Date();
@@ -6748,12 +6799,13 @@ unint64_t sub_100167180(uint64_t a1, uint64_t a2, uint64_t a3)
   return v5;
 }
 
-uint64_t sub_100167238(uint64_t a1, char a2)
+Swift::Int sub_100167238(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  sub_10015E0CC(&unk_100250F80);
-  v34 = a2;
+  sub_10015E0CC(&unk_100250F80, &unk_1001F89E0);
+  v34 = v4;
   result = static _DictionaryStorage.resize(original:capacity:move:)();
   v7 = result;
   if (*(v5 + 16))
@@ -7054,7 +7106,7 @@ LABEL_15:
 void *sub_100167898()
 {
   v1 = v0;
-  sub_10015E0CC(&unk_100250F80);
+  sub_10015E0CC(&unk_100250F80, &unk_1001F89E0);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -7167,21 +7219,21 @@ LABEL_8:
 
 uint64_t sub_100167AB8(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_10015E0CC(&qword_100251228);
+  v4 = sub_10015E0CC(&qword_100251228, &qword_1001F8D50);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_100167B28(uint64_t a1)
 {
-  v2 = sub_10015E0CC(&qword_100251228);
+  v2 = sub_10015E0CC(&qword_100251228, &qword_1001F8D50);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
 uint64_t sub_100167B98(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_10015E0CC(&qword_100251228);
+  v4 = sub_10015E0CC(&qword_100251228, &qword_1001F8D50);
   (*(*(v4 - 8) + 40))(a2, a1, v4);
   return a2;
 }
@@ -7259,7 +7311,7 @@ unint64_t sub_100167D94()
 
 id sub_100167E24@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
-  a2[3] = sub_10000376C(0, &qword_100251368);
+  a2[3] = sub_10000376C(0, &qword_100251368, off_10020D480);
   a2[4] = sub_100167F18();
   *a2 = a1;
 
@@ -7292,7 +7344,7 @@ unint64_t sub_100167F18()
   result = qword_100251370;
   if (!qword_100251370)
   {
-    sub_10000376C(255, &qword_100251368);
+    sub_10000376C(255, &qword_100251368, off_10020D480);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100251370);
   }
@@ -7302,7 +7354,7 @@ unint64_t sub_100167F18()
 
 uint64_t sub_100167F80(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v9 = sub_10015E0CC(&qword_100251560);
+  v9 = sub_10015E0CC(&qword_100251560, &qword_1001F8990);
   __chkstk_darwin(v9 - 8);
   v11 = v25 - v10;
   sub_10016A9F0(a3, v25 - v10);
@@ -7312,7 +7364,7 @@ uint64_t sub_100167F80(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
   if (v14 == 1)
   {
-    sub_10015EE80(v11, &qword_100251560);
+    sub_10015EE80(v11, &qword_100251560, &qword_1001F8990);
   }
 
   else
@@ -7357,7 +7409,7 @@ LABEL_6:
       v25[3] = v19;
       v23 = swift_task_create();
 
-      sub_10015EE80(a3, &qword_100251560);
+      sub_10015EE80(a3, &qword_100251560, &qword_1001F8990);
 
       return v23;
     }
@@ -7373,7 +7425,7 @@ LABEL_6:
     }
   }
 
-  sub_10015EE80(a3, &qword_100251560);
+  sub_10015EE80(a3, &qword_100251560, &qword_1001F8990);
   v22 = swift_allocObject();
   *(v22 + 16) = a4;
   *(v22 + 24) = a5;
@@ -7427,7 +7479,7 @@ void sub_1001683A8()
 
 Swift::Void __swiftcall TipsManager.addTipObservers(for:todayButton:)(UIViewController a1, UIBarButtonItem todayButton)
 {
-  v3 = sub_10015E0CC(&qword_100251560);
+  v3 = sub_10015E0CC(&qword_100251560, &qword_1001F8990);
   __chkstk_darwin(v3 - 8);
   v5 = &v13 - v4;
   v6 = OBJC_IVAR____TtC9MobileCal11TipsManager_tipObservationTask;
@@ -7460,21 +7512,21 @@ Swift::Void __swiftcall TipsManager.addTipObservers(for:todayButton:)(UIViewCont
 uint64_t sub_100168598(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4[12] = a4;
-  sub_10015E0CC(&qword_100251408);
+  sub_10015E0CC(&qword_100251408, &qword_1001F8DF8);
   v4[13] = swift_task_alloc();
   v5 = type metadata accessor for Tips.Status();
   v4[14] = v5;
   v4[15] = *(v5 - 8);
   v4[16] = swift_task_alloc();
-  v4[17] = sub_10015E0CC(&qword_100251410);
+  v4[17] = sub_10015E0CC(&qword_100251410, &qword_1001F8E00);
   v4[18] = swift_task_alloc();
-  v4[19] = sub_10015E0CC(&qword_100251418);
+  v4[19] = sub_10015E0CC(&qword_100251418, &qword_1001F8E08);
   v4[20] = swift_task_alloc();
-  v6 = sub_10015E0CC(&qword_100251420);
+  v6 = sub_10015E0CC(&qword_100251420, &qword_1001F8E10);
   v4[21] = v6;
   v4[22] = *(v6 - 8);
   v4[23] = swift_task_alloc();
-  v7 = sub_10015E0CC(&qword_100251428);
+  v7 = sub_10015E0CC(&qword_100251428, &qword_1001F8E18);
   v4[24] = v7;
   v4[25] = *(v7 - 8);
   v4[26] = swift_task_alloc();
@@ -7496,7 +7548,7 @@ uint64_t sub_100168810()
   sub_10016A73C();
   Tip.shouldDisplayUpdates.getter();
   AsyncMapSequence.base.getter();
-  sub_1000102B0(&qword_100251430, &qword_100251410);
+  sub_1000102B0(&qword_100251430, &qword_100251410, &qword_1001F8E00, &protocol conformance descriptor for AsyncStream<A>);
   dispatch thunk of AsyncSequence.makeAsyncIterator()();
   AsyncMapSequence.transform.getter();
   (*(v2 + 8))(v1, v3);
@@ -7527,7 +7579,7 @@ uint64_t sub_1001689AC()
 {
   v1 = v0[32];
   v0[35] = AsyncMapSequence.Iterator.baseIterator.modify();
-  sub_1000102B0(&qword_100251438, &qword_100251418);
+  sub_1000102B0(&qword_100251438, &qword_100251418, &qword_1001F8E08, &protocol conformance descriptor for AsyncStream<A>.Iterator);
   v2 = swift_task_alloc();
   v0[36] = v2;
   *v2 = v0;
@@ -7545,7 +7597,7 @@ uint64_t sub_100168AB0()
   if ((*(v2 + 48))(v3, 1, v1) == 1)
   {
 
-    sub_10015EE80(v3, &qword_100251408);
+    sub_10015EE80(v3, &qword_100251408, &qword_1001F8DF8);
     v4 = v0[29];
     v5 = v0[30];
 
@@ -7772,7 +7824,7 @@ LABEL_26:
         v29 = v28;
         v30 = [v28 subviews];
 
-        sub_10000376C(0, &qword_1002513E8);
+        sub_10000376C(0, &qword_1002513E8, UIView_ptr);
         v31 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
         sub_10016A284(v31);
@@ -7811,12 +7863,12 @@ double sub_100169680(void *a1)
     {
       v3 = v2;
       ObjectType = swift_getObjectType();
-      if (ObjectType != sub_10000376C(0, &qword_100251400))
+      if (ObjectType != sub_10000376C(0, &qword_100251400, UIWindow_ptr))
       {
         v5 = v3;
         sub_100169680(v3);
 
-        sub_10015E0CC(&qword_1002511E0);
+        sub_10015E0CC(&qword_1002511E0, &qword_1001F8AB8);
         inited = swift_initStackObject();
         *(inited + 16) = xmmword_1001F8D80;
         *(inited + 32) = v1;
@@ -7827,7 +7879,7 @@ double sub_100169680(void *a1)
       }
     }
 
-    sub_10015E0CC(&qword_1002511E0);
+    sub_10015E0CC(&qword_1002511E0, &qword_1001F8AB8);
     v9 = swift_allocObject();
     *&result = 1;
     *(v9 + 16) = xmmword_1001F8D80;
@@ -7837,14 +7889,14 @@ double sub_100169680(void *a1)
   return result;
 }
 
-void sub_1001697AC(void (*a1)(void))
+void sub_1001697AC(void (*a1)(void), uint64_t a2, uint64_t a3)
 {
   a1();
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v2 = Strong;
+    v4 = Strong;
     swift_unknownObjectWeakAssign();
   }
 }
@@ -7886,7 +7938,7 @@ void TipsManager.dismissTipIfPresentedWithCompletionBlock(_:)(void (*a1)(uint64_
       swift_once();
     }
 
-    v11 = sub_10015E0CC(&qword_1002513A8);
+    v11 = sub_10015E0CC(&qword_1002513A8, &qword_1001F8DB0);
     sub_10000F8DC(v11, qword_100252608);
     swift_beginAccess();
     Tips.Parameter.wrappedValue.setter();
@@ -7902,7 +7954,7 @@ uint64_t sub_100169A2C(uint64_t (*a1)(uint64_t))
     swift_once();
   }
 
-  v2 = sub_10015E0CC(&qword_1002513A8);
+  v2 = sub_10015E0CC(&qword_1002513A8, &qword_1001F8DB0);
   sub_10000F8DC(v2, qword_100252608);
   swift_beginAccess();
   Tips.Parameter.wrappedValue.setter();
@@ -7922,11 +7974,11 @@ id TipsManager.init()()
   return objc_msgSendSuper2(&v2, "init");
 }
 
-id TipsManager.__deallocating_deinit()
+id TipsManager.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for TipsManager();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for TipsManager();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 Swift::Void __swiftcall TipsManager.jumpToTodayActionPerformed()()
@@ -7942,15 +7994,15 @@ Swift::Void __swiftcall TipsManager.jumpToTodayActionPerformed()()
   (*(v1 + 8))(v3, v0);
 }
 
-uint64_t sub_100169FD0(uint64_t a1, void *a2, uint64_t a3)
+uint64_t sub_100169FD0(char a1, void *a2, uint64_t a3, uint64_t a4)
 {
   if (*a2 != -1)
   {
     swift_once();
   }
 
-  v4 = sub_10015E0CC(&qword_1002513A8);
-  sub_10000F8DC(v4, a3);
+  v5 = sub_10015E0CC(&qword_1002513A8, &qword_1001F8DB0);
+  sub_10000F8DC(v5, a3);
   swift_beginAccess();
   Tips.Parameter.wrappedValue.setter();
   return swift_endAccess();
@@ -8012,7 +8064,7 @@ LABEL_13:
   }
 
 LABEL_5:
-  sub_10016A374(result);
+  sub_10016A374(result, 1);
   v7 = *v1;
   v8 = *v1 & 0xFFFFFFFFFFFFFF8;
   sub_10016A414(v8 + 8 * *(v8 + 0x10) + 32, (*(v8 + 0x18) >> 1) - *(v8 + 0x10), a1);
@@ -8046,16 +8098,16 @@ LABEL_15:
   return result;
 }
 
-uint64_t sub_10016A374(uint64_t a1)
+uint64_t sub_10016A374(uint64_t a1, char a2)
 {
-  v3 = *v1;
+  v4 = *v2;
   result = swift_isUniquelyReferenced_nonNull_bridgeObject();
-  *v1 = v3;
+  *v2 = v4;
   if (result)
   {
-    if ((v3 & 0x8000000000000000) == 0 && (v3 & 0x4000000000000000) == 0)
+    if ((v4 & 0x8000000000000000) == 0 && (v4 & 0x4000000000000000) == 0)
     {
-      if (a1 <= *((v3 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      if (a1 <= *((v4 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
         return result;
       }
@@ -8064,7 +8116,7 @@ uint64_t sub_10016A374(uint64_t a1)
     }
   }
 
-  else if ((v3 & 0x8000000000000000) == 0 && (v3 & 0x4000000000000000) == 0)
+  else if ((v4 & 0x8000000000000000) == 0 && (v4 & 0x4000000000000000) == 0)
   {
     goto LABEL_9;
   }
@@ -8072,7 +8124,7 @@ uint64_t sub_10016A374(uint64_t a1)
   _CocoaArrayWrapper.endIndex.getter();
 LABEL_9:
   result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-  *v1 = result;
+  *v2 = result;
   return result;
 }
 
@@ -8111,10 +8163,10 @@ uint64_t sub_10016A414(uint64_t result, uint64_t a2, unint64_t a3)
       {
         if (v6 >= 1)
         {
-          sub_1000102B0(&qword_1002513F8, &qword_1002513F0);
+          sub_1000102B0(&qword_1002513F8, &qword_1002513F0, &qword_1001F8DD8, &protocol conformance descriptor for [A]);
           for (i = 0; i != v6; ++i)
           {
-            sub_10015E0CC(&qword_1002513F0);
+            sub_10015E0CC(&qword_1002513F0, &qword_1001F8DD8);
             v9 = sub_10016A5C8(v13, i, a3);
             v11 = *v10;
             (v9)(v13, 0);
@@ -8132,7 +8184,7 @@ uint64_t sub_10016A414(uint64_t result, uint64_t a2, unint64_t a3)
     {
       if (*((a3 & 0xFFFFFFFFFFFFFF8) + 0x10) <= a2)
       {
-        sub_10000376C(0, &qword_1002513E8);
+        sub_10000376C(0, &qword_1002513E8, UIView_ptr);
         swift_arrayInitWithCopy();
         return a3;
       }
@@ -8241,7 +8293,7 @@ void sub_10016A790(uint64_t a1, void (**a2)(void))
       swift_once();
     }
 
-    v11 = sub_10015E0CC(&qword_1002513A8);
+    v11 = sub_10015E0CC(&qword_1002513A8, &qword_1001F8DB0);
     sub_10000F8DC(v11, qword_100252608);
     v13 = 0;
     swift_beginAccess();
@@ -8253,7 +8305,7 @@ void sub_10016A790(uint64_t a1, void (**a2)(void))
 
 uint64_t sub_10016A9F0(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_10015E0CC(&qword_100251560);
+  v4 = sub_10015E0CC(&qword_100251560, &qword_1001F8990);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -8288,7 +8340,7 @@ uint64_t sub_10016ABD0()
 
 uint64_t sub_10016AC90(void *a1)
 {
-  v2 = sub_10015E0CC(&qword_100251458);
+  v2 = sub_10015E0CC(&qword_100251458, &qword_1001F8EC8);
   __chkstk_darwin(v2 - 8);
   v4 = &v22 - v3;
   v5 = type metadata accessor for AppEntityID();
@@ -8317,7 +8369,7 @@ uint64_t sub_10016AC90(void *a1)
       v25 = v17;
       type metadata accessor for _RepresentedEntityElement();
       swift_allocObject();
-      sub_10016BC10(&qword_100251460, &type metadata accessor for EventEntity);
+      sub_10016BC10(&qword_100251460, &type metadata accessor for EventEntity, &protocol conformance descriptor for EventEntity);
       v19 = _RepresentedEntityElement.init<A>(appEntityType:identifier:geometry:state:subelements:)();
 
       return v19;
@@ -8337,7 +8389,7 @@ uint64_t sub_10016AC90(void *a1)
         type metadata accessor for ReminderEntity();
         type metadata accessor for _RepresentedEntityElement();
         swift_allocObject();
-        sub_10016BC10(&qword_100251468, &type metadata accessor for ReminderEntity);
+        sub_10016BC10(&qword_100251468, &type metadata accessor for ReminderEntity, &protocol conformance descriptor for ReminderEntity);
         v21 = _RepresentedEntityElement.init<A>(appEntityType:identifier:geometry:state:subelements:)();
 
         (*(v18 + 8))(v10, v5);
@@ -8441,8 +8493,8 @@ uint64_t sub_10016B2B4(char a1)
   __chkstk_darwin(v4);
   v8 = v16 - v7;
   v16[1] = &_swiftEmptyArrayStorage;
-  sub_10016BC10(&qword_100251470, &type metadata accessor for AppEntityVisualState);
-  sub_10015E0CC(&qword_100251478);
+  sub_10016BC10(&qword_100251470, &type metadata accessor for AppEntityVisualState, &protocol conformance descriptor for AppEntityVisualState);
+  sub_10015E0CC(&qword_100251478, &qword_1001F8ED0);
   sub_10016B8B8();
   result = dispatch thunk of SetAlgebra.init<A>(_:)();
   if (a1)
@@ -8638,7 +8690,7 @@ uint64_t sub_10016B810@<X0>(void **a1@<X0>, uint64_t *a2@<X8>)
 
 uint64_t sub_10016B850(uint64_t a1)
 {
-  v2 = sub_10015E0CC(&qword_100251458);
+  v2 = sub_10015E0CC(&qword_100251458, &qword_1001F8EC8);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -8648,7 +8700,7 @@ unint64_t sub_10016B8B8()
   result = qword_100251480;
   if (!qword_100251480)
   {
-    sub_10015E178(&qword_100251478);
+    sub_10015E178(&qword_100251478, &qword_1001F8ED0);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100251480);
   }
@@ -8659,7 +8711,7 @@ unint64_t sub_10016B8B8()
 uint64_t sub_10016B91C(uint64_t a1, uint64_t a2)
 {
   v28 = a1;
-  v26 = sub_10015E0CC(&qword_100251488);
+  v26 = sub_10015E0CC(&qword_100251488, qword_1001F8ED8);
   v4 = __chkstk_darwin(v26);
   v27 = &v23 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v4);
@@ -8673,10 +8725,10 @@ uint64_t sub_10016B91C(uint64_t a1, uint64_t a2)
   v15 = *(v9 + 16);
   v25 = v2;
   v15(v12, v2, v8);
-  v23 = sub_10016BC10(&qword_100251470, &type metadata accessor for AppEntityVisualState);
+  v23 = sub_10016BC10(&qword_100251470, &type metadata accessor for AppEntityVisualState, &protocol conformance descriptor for AppEntityVisualState);
   dispatch thunk of SetAlgebra.intersection(_:)();
   v16 = v26;
-  sub_10016BC10(&unk_100251490, &type metadata accessor for AppEntityVisualState);
+  sub_10016BC10(&unk_100251490, &type metadata accessor for AppEntityVisualState, &protocol conformance descriptor for AppEntityVisualState);
   v24 = a2;
   v17 = dispatch thunk of static Equatable.== infix(_:_:)();
   v18 = *(v16 + 48);
@@ -8702,7 +8754,7 @@ uint64_t sub_10016B91C(uint64_t a1, uint64_t a2)
   return v21;
 }
 
-uint64_t sub_10016BC10(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_10016BC10(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -8717,7 +8769,7 @@ uint64_t sub_10016BC10(unint64_t *a1, void (*a2)(uint64_t))
 
 uint64_t sub_10016BC58(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_10015E0CC(&qword_100251488);
+  v4 = sub_10015E0CC(&qword_100251488, qword_1001F8ED8);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -8725,10 +8777,10 @@ uint64_t sub_10016BC58(uint64_t a1, uint64_t a2)
 uint64_t sub_10016BF5C()
 {
   v1 = v0;
-  v2 = sub_10015E0CC(&qword_100251568);
+  v2 = sub_10015E0CC(&qword_100251568, &qword_1001F8FA8);
   __chkstk_darwin(v2 - 8);
   v50 = &v46 - v3;
-  v4 = sub_10015E0CC(&qword_100250F10);
+  v4 = sub_10015E0CC(&qword_100250F10, &unk_1001F8FC0);
   v5 = __chkstk_darwin(v4 - 8);
   v48 = &v46 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v5);
@@ -8747,7 +8799,7 @@ uint64_t sub_10016BF5C()
   v52 = v12;
   __chkstk_darwin(v12);
   v14 = &v46 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = sub_10015E0CC(&qword_100251578);
+  v15 = sub_10015E0CC(&qword_100251578, &qword_1001F8FF0);
   __chkstk_darwin(v15 - 8);
   v17 = (&v46 - v16);
   v18 = type metadata accessor for RemindersInCalendarUtilities.ReminderEditingConfiguration.ReminderSpecifier();
@@ -8763,7 +8815,7 @@ uint64_t sub_10016BF5C()
 
   if ((*(v19 + 48))(v17, 1, v18) == 1)
   {
-    return sub_10015EE80(v17, &qword_100251578);
+    return sub_10015EE80(v17, &qword_100251578, &qword_1001F8FF0);
   }
 
   (*(v19 + 32))(v24, v17, v18);
@@ -8831,11 +8883,11 @@ uint64_t sub_10016BF5C()
   swift_beginAccess();
   sub_10016F360(v39, &v1[v41]);
   swift_endAccess();
-  sub_10015E0CC(&qword_1002511E0);
+  sub_10015E0CC(&qword_1002511E0, &qword_1001F8AB8);
   v42 = swift_allocObject();
   *(v42 + 16) = xmmword_1001F8D80;
   *(v42 + 32) = RemindersInCalendarUtilities.ReminderEditingModule.viewController.getter();
-  sub_10000376C(0, &unk_100251590);
+  sub_10000376C(0, &unk_100251590, UIViewController_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v1 setViewControllers:isa animated:0];
@@ -8857,9 +8909,9 @@ uint64_t sub_10016BF5C()
 
 uint64_t sub_10016C6E8@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
-  v5 = sub_10015E0CC(&qword_100250F10);
+  v5 = sub_10015E0CC(&qword_100250F10, &unk_1001F8FC0);
   __chkstk_darwin(v5 - 8);
-  v6 = sub_10015E0CC(&qword_100250F60);
+  v6 = sub_10015E0CC(&qword_100250F60, &qword_1001F89C8);
   __chkstk_darwin(v6 - 8);
   v8 = &v40 - v7;
   v9 = type metadata accessor for URL();
@@ -8901,7 +8953,7 @@ LABEL_12:
       if ((*(v10 + 48))(v8, 1, v9) == 1)
       {
 
-        sub_10015EE80(v8, &qword_100250F60);
+        sub_10015EE80(v8, &qword_100250F60, &qword_1001F89C8);
 LABEL_19:
         v39 = type metadata accessor for RemindersInCalendarUtilities.ReminderEditingConfiguration.ReminderSpecifier();
         return (*(*(v39 - 8) + 56))(a2, 1, 1, v39);
@@ -8961,14 +9013,14 @@ LABEL_7:
 
 uint64_t sub_10016CBCC()
 {
-  v1 = sub_10015E0CC(&qword_100250F10);
+  v1 = sub_10015E0CC(&qword_100250F10, &unk_1001F8FC0);
   __chkstk_darwin(v1 - 8);
   v3 = &v23 - v2;
   v4 = type metadata accessor for RemindersInCalendarEditingReminderProperties();
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
   v7 = &v23 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_10015E0CC(&qword_100251568);
+  v8 = sub_10015E0CC(&qword_100251568, &qword_1001F8FA8);
   __chkstk_darwin(v8 - 8);
   v10 = &v23 - v9;
   v11 = type metadata accessor for RemindersInCalendarUtilities.ReminderEditingModule();
@@ -8980,7 +9032,7 @@ uint64_t sub_10016CBCC()
   sub_10016EFB0(v0 + v15, v10);
   if ((*(v12 + 48))(v10, 1, v11) == 1)
   {
-    return sub_10015EE80(v10, &qword_100251568);
+    return sub_10015EE80(v10, &qword_100251568, &qword_1001F8FA8);
   }
 
   (*(v12 + 32))(v14, v10, v11);
@@ -9019,7 +9071,7 @@ uint64_t sub_10016CBCC()
 
 uint64_t sub_10016D024()
 {
-  v1 = sub_10015E0CC(&qword_100251568);
+  v1 = sub_10015E0CC(&qword_100251568, &qword_1001F8FA8);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
   v4 = type metadata accessor for RemindersInCalendarUtilities.ReminderEditingModule();
@@ -9031,7 +9083,7 @@ uint64_t sub_10016D024()
   sub_10016EFB0(v0 + v8, v3);
   if ((*(v5 + 48))(v3, 1, v4) == 1)
   {
-    sub_10015EE80(v3, &qword_100251568);
+    sub_10015EE80(v3, &qword_100251568, &qword_1001F8FA8);
     v9 = 0;
   }
 
@@ -9054,7 +9106,7 @@ uint64_t sub_10016D228()
   v2 = *(v1 - 8);
   __chkstk_darwin(v1);
   v4 = &v11 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_10015E0CC(&qword_100251568);
+  v5 = sub_10015E0CC(&qword_100251568, &qword_1001F8FA8);
   __chkstk_darwin(v5 - 8);
   v7 = &v11 - v6;
   v8 = OBJC_IVAR____TtC9MobileCal28EKReminderEditViewController_currentModule;
@@ -9062,14 +9114,14 @@ uint64_t sub_10016D228()
   sub_10016EFB0(v0 + v8, v7);
   if ((*(v2 + 48))(v7, 1, v1))
   {
-    sub_10015EE80(v7, &qword_100251568);
+    sub_10015EE80(v7, &qword_100251568, &qword_1001F8FA8);
     v9 = 0;
   }
 
   else
   {
     (*(v2 + 16))(v4, v7, v1);
-    sub_10015EE80(v7, &qword_100251568);
+    sub_10015EE80(v7, &qword_100251568, &qword_1001F8FA8);
     RemindersInCalendarUtilities.ReminderEditingModule.moduleInterface.getter();
     (*(v2 + 8))(v4, v1);
     swift_getObjectType();
@@ -9080,12 +9132,12 @@ uint64_t sub_10016D228()
   return v9 & 1;
 }
 
-uint64_t sub_10016D440(void (*a1)(uint64_t), void (*a2)(uint64_t))
+uint64_t sub_10016D440(void (*a1)(uint64_t), uint64_t a2)
 {
-  v5 = sub_10015E0CC(&qword_100251560);
+  v5 = sub_10015E0CC(&qword_100251560, &qword_1001F8990);
   __chkstk_darwin(v5 - 8);
   v29 = &v27 - v6;
-  v7 = sub_10015E0CC(&qword_100251568);
+  v7 = sub_10015E0CC(&qword_100251568, &qword_1001F8FA8);
   __chkstk_darwin(v7 - 8);
   v9 = &v27 - v8;
   v10 = type metadata accessor for RemindersInCalendarUtilities.ReminderEditingModule();
@@ -9100,12 +9152,12 @@ uint64_t sub_10016D440(void (*a1)(uint64_t), void (*a2)(uint64_t))
   sub_10016EFB0(v2 + v17, v9);
   if ((*(v11 + 48))(v9, 1, v10) == 1)
   {
-    result = sub_10015EE80(v9, &qword_100251568);
+    result = sub_10015EE80(v9, &qword_100251568, &qword_1001F8FA8);
     if (a1)
     {
 
       a1(v19);
-      return sub_10015F010(a1);
+      return sub_10015F010(a1, a2);
     }
   }
 
@@ -9117,7 +9169,7 @@ uint64_t sub_10016D440(void (*a1)(uint64_t), void (*a2)(uint64_t))
     (*(*(v20 - 8) + 56))(v29, 1, 1, v20);
     (*(v11 + 16))(v14, v16, v10);
     type metadata accessor for MainActor();
-    sub_10015F020(a1);
+    sub_10015F020(a1, a2);
     v21 = static MainActor.shared.getter();
     v22 = (*(v11 + 80) + 32) & ~*(v11 + 80);
     v27 = a2;
@@ -9195,9 +9247,9 @@ uint64_t sub_10016DA8C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v4[6] = v5;
   v4[7] = *(v5 - 8);
   v4[8] = swift_task_alloc();
-  sub_10015E0CC(&qword_100251568);
+  sub_10015E0CC(&qword_100251568, &qword_1001F8FA8);
   v4[9] = swift_task_alloc();
-  sub_10015E0CC(&qword_100251570);
+  sub_10015E0CC(&qword_100251570, &qword_1001F8FE0);
   v4[10] = swift_task_alloc();
   type metadata accessor for MainActor();
   v4[11] = static MainActor.shared.getter();
@@ -9221,11 +9273,11 @@ uint64_t sub_10016DBF0()
   {
     v6 = v0[9];
 
-    sub_10015EE80(v6, &qword_100251568);
+    sub_10015EE80(v6, &qword_100251568, &qword_1001F8FA8);
     v7 = v0[10];
     v8 = type metadata accessor for RemindersInCalendarEditingResult();
     (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
-    sub_10015EE80(v7, &qword_100251570);
+    sub_10015EE80(v7, &qword_100251570, &qword_1001F8FE0);
 
     v9 = v0[1];
 
@@ -9240,7 +9292,7 @@ uint64_t sub_10016DBF0()
     v14 = v0[7];
     v15 = v0[5];
     (*(v14 + 16))(v11, v12, v13);
-    sub_10015EE80(v12, &qword_100251568);
+    sub_10015EE80(v12, &qword_100251568, &qword_1001F8FA8);
     v16 = RemindersInCalendarUtilities.ReminderEditingModule.moduleInterface.getter();
     v18 = v17;
     v0[14] = v16;
@@ -9274,7 +9326,7 @@ uint64_t sub_10016DFA8()
   v1 = *(v0 + 80);
   v2 = type metadata accessor for RemindersInCalendarEditingResult();
   (*(*(v2 - 8) + 56))(v1, 0, 1, v2);
-  sub_10015EE80(v1, &qword_100251570);
+  sub_10015EE80(v1, &qword_100251570, &qword_1001F8FE0);
 
   v3 = *(v0 + 8);
 
@@ -9284,7 +9336,7 @@ uint64_t sub_10016DFA8()
 void sub_10016E1FC(char a1)
 {
   v7.receiver = v1;
-  v7.super_class = type metadata accessor for EKReminderEditViewController();
+  v7.super_class = type metadata accessor for EKReminderEditViewController(0);
   objc_msgSendSuper2(&v7, "viewWillAppear:", a1 & 1);
   v3 = [v1 presentationController];
   v4 = [v3 delegate];
@@ -9307,7 +9359,7 @@ void sub_10016E1FC(char a1)
 
 uint64_t sub_10016E494(void *a1)
 {
-  v2 = sub_10015E0CC(&qword_100251560);
+  v2 = sub_10015E0CC(&qword_100251560, &qword_1001F8990);
   __chkstk_darwin(v2 - 8);
   v4 = &v9 - v3;
   v5 = type metadata accessor for TaskPriority();
@@ -9323,11 +9375,11 @@ uint64_t sub_10016E494(void *a1)
 id sub_10016E63C()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for EKReminderEditViewController();
+  v2.super_class = type metadata accessor for EKReminderEditViewController(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-uint64_t type metadata accessor for EKReminderEditViewController()
+uint64_t type metadata accessor for EKReminderEditViewController(uint64_t a1)
 {
   result = qword_1002514D8;
   if (!qword_1002514D8)
@@ -9338,24 +9390,24 @@ uint64_t type metadata accessor for EKReminderEditViewController()
   return result;
 }
 
-void sub_10016E744()
+void sub_10016E744(uint64_t a1)
 {
-  sub_10016E7F4();
-  if (v0 <= 0x3F)
+  sub_10016E7F4(319);
+  if (v1 <= 0x3F)
   {
     swift_updateClassMetadata2();
   }
 }
 
-void sub_10016E7F4()
+void sub_10016E7F4(uint64_t a1)
 {
   if (!qword_1002514E8)
   {
     type metadata accessor for RemindersInCalendarUtilities.ReminderEditingModule();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1002514E8);
+      atomic_store(v1, &qword_1002514E8);
     }
   }
 }
@@ -9366,7 +9418,7 @@ uint64_t sub_10016E858()
   v2 = *(v1 - 8);
   __chkstk_darwin(v1);
   v4 = &v12 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_10015E0CC(&qword_100251568);
+  v5 = sub_10015E0CC(&qword_100251568, &qword_1001F8FA8);
   __chkstk_darwin(v5 - 8);
   v7 = &v12 - v6;
   v8 = OBJC_IVAR____TtC9MobileCal28EKReminderEditViewController_currentModule;
@@ -9374,14 +9426,14 @@ uint64_t sub_10016E858()
   sub_10016EFB0(v0 + v8, v7);
   if ((*(v2 + 48))(v7, 1, v1))
   {
-    sub_10015EE80(v7, &qword_100251568);
+    sub_10015EE80(v7, &qword_100251568, &qword_1001F8FA8);
     v9 = 1;
   }
 
   else
   {
     (*(v2 + 16))(v4, v7, v1);
-    sub_10015EE80(v7, &qword_100251568);
+    sub_10015EE80(v7, &qword_100251568, &qword_1001F8FA8);
     RemindersInCalendarUtilities.ReminderEditingModule.moduleInterface.getter();
     (*(v2 + 8))(v4, v1);
     swift_getObjectType();
@@ -9414,7 +9466,7 @@ void *sub_10016EA40()
 
 void sub_10016EAC8(void *a1, void *a2, void *a3)
 {
-  v19[3] = sub_10000376C(0, &unk_100251550);
+  v19[3] = sub_10000376C(0, &unk_100251550, REMReminder_ptr);
   v19[4] = &protocol witness table for REMReminder;
   v19[0] = a2;
   v6 = a2;
@@ -9470,7 +9522,7 @@ void sub_10016EAC8(void *a1, void *a2, void *a3)
       *(v16 + 4) = v18;
       *v17 = v18;
       _os_log_impl(&_mh_execute_header, v14, v15, "Error saving reminder changes onto event %@", v16, 0xCu);
-      sub_10015EE80(v17, &qword_100250F18);
+      sub_10015EE80(v17, &qword_100250F18, &qword_1001F8980);
     }
 
     else
@@ -9479,7 +9531,7 @@ void sub_10016EAC8(void *a1, void *a2, void *a3)
   }
 }
 
-uint64_t sub_10016EDAC(void *a1)
+void *sub_10016EDAC(void *a1)
 {
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
@@ -9537,7 +9589,7 @@ uint64_t sub_10016EEFC(uint64_t a1)
 
 uint64_t sub_10016EFB0(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_10015E0CC(&qword_100251568);
+  v4 = sub_10015E0CC(&qword_100251568, &qword_1001F8FA8);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -9597,7 +9649,7 @@ unint64_t sub_10016F308()
   result = qword_100251580;
   if (!qword_100251580)
   {
-    type metadata accessor for EKReminderEditViewController();
+    type metadata accessor for EKReminderEditViewController(255);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100251580);
   }
@@ -9607,7 +9659,7 @@ unint64_t sub_10016F308()
 
 uint64_t sub_10016F360(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_10015E0CC(&qword_100251568);
+  v4 = sub_10015E0CC(&qword_100251568, &qword_1001F8FA8);
   (*(*(v4 - 8) + 40))(a2, a1, v4);
   return a2;
 }
@@ -9646,7 +9698,7 @@ unint64_t sub_10016F52C()
 
 uint64_t sub_10016F580()
 {
-  v0 = sub_10015E0CC(&qword_1002513A8);
+  v0 = sub_10015E0CC(&qword_1002513A8, &qword_1001F8DB0);
   sub_10016F444(v0, qword_100252608);
   sub_10000F8DC(v0, qword_100252608);
   return Tips.Parameter.init<A>(_:_:_:_:)();
@@ -9654,7 +9706,7 @@ uint64_t sub_10016F580()
 
 uint64_t sub_10016F634()
 {
-  v0 = sub_10015E0CC(&qword_1002513A8);
+  v0 = sub_10015E0CC(&qword_1002513A8, &qword_1001F8DB0);
   sub_10016F444(v0, qword_100252620);
   sub_10000F8DC(v0, qword_100252620);
   return Tips.Parameter.init<A>(_:_:_:_:)();
@@ -9662,7 +9714,7 @@ uint64_t sub_10016F634()
 
 uint64_t sub_10016F6E8()
 {
-  v0 = sub_10015E0CC(&qword_1002513A8);
+  v0 = sub_10015E0CC(&qword_1002513A8, &qword_1001F8DB0);
   sub_10016F444(v0, qword_100252638);
   sub_10000F8DC(v0, qword_100252638);
   return Tips.Parameter.init<A>(_:_:_:_:)();

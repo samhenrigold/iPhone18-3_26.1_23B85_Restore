@@ -14,11 +14,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance ARPlane
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ARPlaneAnchor.Classification.Status()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ARPlaneAnchor.Classification.Status(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x29C2A8660](v1);
+  MEMORY[0x29C2A8660](v2);
   return Hasher._finalize()();
 }
 
@@ -561,12 +561,12 @@ uint64_t storeEnumTagSinglePayload for simd_float4x4(uint64_t result, int a2, in
   return result;
 }
 
-void type metadata accessor for ARConfidenceLevel(uint64_t a1, unint64_t *a2)
+void type metadata accessor for ARConfidenceLevel(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -736,7 +736,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -767,31 +766,24 @@ uint64_t ARGeometrySource.subscript.getter(int a1)
   }
 
   v4 = [v1 buffer];
-  v5 = [v4 contents];
-  v6 = v4;
-  v7 = [v1 offset];
+  [v4 contents];
+  v5 = v4;
+  v6 = [v1 offset];
   result = [v1 stride];
-  v8 = result * a1;
-  if ((result * a1) >> 64 != v8 >> 63)
+  v7 = result * a1;
+  if ((result * a1) >> 64 != v7 >> 63)
   {
 LABEL_6:
     __break(1u);
     goto LABEL_7;
   }
 
-  v9 = __OFADD__(v7, v8);
-  v10 = &v7[v8];
-  if (!v9)
+  if (__OFADD__(v6, v7))
   {
-    v11 = &v10[v5];
-    v12 = *v11;
-    v13 = *(v11 + 1);
-    v14 = *(v11 + 2);
-    return result;
+LABEL_7:
+    __break(1u);
   }
 
-LABEL_7:
-  __break(1u);
   return result;
 }
 
@@ -1059,21 +1051,49 @@ ARGeoAnchor __swiftcall ARGeoAnchor.init(coordinate:altitude:)(CLLocationCoordin
   latitude = coordinate.latitude;
   if (v2)
   {
-    v5 = objc_allocWithZone(swift_getObjCClassFromMetadata());
-    v6 = sel_initWithCoordinate_;
-    v7 = latitude;
-    v8 = longitude;
+    v7 = objc_allocWithZone(swift_getObjCClassFromMetadata(__PAIR128__(v5, *&coordinate.latitude), __PAIR128__(v6, *&coordinate.longitude), *&altitude.value));
+    v8 = sel_initWithCoordinate_;
+    v9 = latitude;
+    v10 = longitude;
   }
 
   else
   {
-    v5 = objc_allocWithZone(swift_getObjCClassFromMetadata());
-    v6 = sel_initWithCoordinate_altitude_;
-    v7 = latitude;
-    v8 = longitude;
+    v7 = objc_allocWithZone(swift_getObjCClassFromMetadata(__PAIR128__(v12, *&coordinate.latitude), __PAIR128__(v13, *&coordinate.longitude), *&altitude.value));
+    v8 = sel_initWithCoordinate_altitude_;
+    v9 = latitude;
+    v10 = longitude;
   }
 
-  return [v5 v6];
+  return [v7 v8];
+}
+
+ARGeoAnchor __swiftcall ARGeoAnchor.init(name:coordinate:altitude:)(Swift::String name, CLLocationCoordinate2D coordinate, Swift::Double_optional altitude)
+{
+  longitude = coordinate.longitude;
+  latitude = coordinate.latitude;
+  object = name._object;
+  countAndFlagsBits = name._countAndFlagsBits;
+  if (v3)
+  {
+    v10 = objc_allocWithZone(swift_getObjCClassFromMetadata(__PAIR128__(v8, *&coordinate.latitude), __PAIR128__(v9, *&coordinate.longitude), *&altitude.value));
+    v11 = MEMORY[0x29C2A8600](countAndFlagsBits, object);
+
+    v12 = [v10 initWithName:v11 coordinate:{latitude, longitude}];
+  }
+
+  else
+  {
+    v13 = *&altitude.is_nil;
+    v16 = objc_allocWithZone(swift_getObjCClassFromMetadata(__PAIR128__(v14, *&coordinate.latitude), __PAIR128__(v15, *&coordinate.longitude), *&altitude.value));
+    v11 = MEMORY[0x29C2A8600](countAndFlagsBits, object);
+
+    v12 = [v16 initWithName:v11 coordinate:latitude altitude:{longitude, v13}];
+  }
+
+  v17.super.super.isa = v12;
+
+  return v17;
 }
 
 double ARGeoAnchor.altitude.getter()
@@ -1282,7 +1302,7 @@ void *ARSkeleton2D.landmark(for:)(uint64_t a1)
   return result;
 }
 
-char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, int64_t a2, char a3)
+char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;

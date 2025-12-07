@@ -67,10 +67,14 @@
 {
   selfCopy = self;
   sub_1BD49D038();
+  v4 = v3;
+  v6 = v5;
 
-  v3 = sub_1BE052404();
+  v6, v7, v8, v9, v10, v11, v12, v13;
+  v14 = sub_1BE052404();
+  v4, v15, v16, v17, v18, v19, v20, v21;
 
-  return v3;
+  return v14;
 }
 
 - (id)defaultHeaderViewSubTitle
@@ -78,18 +82,21 @@
   selfCopy = self;
   sub_1BD49D038();
   v4 = v3;
+  v6 = v5;
 
-  if (v4)
+  v4, v7, v8, v9, v10, v11, v12, v13;
+  if (v6)
   {
-    v5 = sub_1BE052404();
+    v14 = sub_1BE052404();
+    v6, v15, v16, v17, v18, v19, v20, v21;
   }
 
   else
   {
-    v5 = 0;
+    v14 = 0;
   }
 
-  return v5;
+  return v14;
 }
 
 - (id)defaultFields

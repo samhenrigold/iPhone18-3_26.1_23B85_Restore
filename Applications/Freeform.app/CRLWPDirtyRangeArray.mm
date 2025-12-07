@@ -39,10 +39,10 @@
   v5 = v4;
   if (v4)
   {
-    p_rangeVector = &v4->_rangeVector;
+    p_begin = &v4->_rangeVector.__begin_;
     if (&v5->_rangeVector != vector)
     {
-      sub_10013DFB0(p_rangeVector, *vector, *(vector + 1), 0xAAAAAAAAAAAAAAABLL * ((*(vector + 1) - *vector) >> 3));
+      sub_10013DFB0(p_begin, *vector, *(vector + 1), 0xAAAAAAAAAAAAAAABLL * ((*(vector + 1) - *vector) >> 3));
     }
   }
 

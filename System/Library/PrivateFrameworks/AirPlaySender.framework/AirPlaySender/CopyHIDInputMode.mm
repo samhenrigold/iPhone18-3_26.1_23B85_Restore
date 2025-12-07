@@ -12,7 +12,7 @@ uint64_t __carEndpoint_CopyHIDInputMode_block_invoke(uint64_t a1)
     result = *(*(*(a1 + 32) + 8) + 24);
     if (result)
     {
-      return __carEndpoint_CopyHIDInputMode_block_invoke_cold_1();
+      return __carEndpoint_CopyHIDInputMode_block_invoke_cold_1(result);
     }
   }
 

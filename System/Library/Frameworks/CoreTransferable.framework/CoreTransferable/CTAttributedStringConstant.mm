@@ -114,8 +114,8 @@
 
 + (void)documentType
 {
-  dlerror();
-  abort_report_np();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
   JSONDecoder.init()();
 }
 

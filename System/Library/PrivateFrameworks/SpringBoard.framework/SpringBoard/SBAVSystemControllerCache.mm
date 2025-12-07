@@ -125,9 +125,9 @@
   queueCopy = queue;
   centerCopy = center;
   initializerCopy = initializer;
-  v33.receiver = self;
-  v33.super_class = SBAVSystemControllerCache;
-  v12 = [(SBAVSystemControllerCache *)&v33 init];
+  v34.receiver = self;
+  v34.super_class = SBAVSystemControllerCache;
+  v12 = [(SBAVSystemControllerCache *)&v34 init];
   v13 = v12;
   if (v12)
   {
@@ -158,20 +158,20 @@
     backgroundQueryQueue = v13->_backgroundQueryQueue;
     v13->_backgroundQueryQueue = v25;
 
-    v27 = SBLogAVSystemControllerCache();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v28 = SBLogAVSystemControllerCache(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v27, OS_LOG_TYPE_DEFAULT, "Creating SBAVSystemControllerCache", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v28, OS_LOG_TYPE_DEFAULT, "Creating SBAVSystemControllerCache", buf, 2u);
     }
 
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __93__SBAVSystemControllerCache_initWithCallOutQueue_notificationCenter_dataProviderInitializer___block_invoke;
     block[3] = &unk_2783A8C18;
-    v31 = v13;
-    v28 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, 0, block);
-    dispatch_async(v13->_queue, v28);
+    v32 = v13;
+    v29 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, 0, block);
+    dispatch_async(v13->_queue, v29);
   }
 
   return v13;
@@ -274,15 +274,15 @@ void __43__SBAVSystemControllerCache_sharedInstance__block_invoke()
   dispatch_async(queue, v8);
 }
 
-uint64_t __41__SBAVSystemControllerCache_addObserver___block_invoke(uint64_t a1)
+void *__41__SBAVSystemControllerCache_addObserver___block_invoke(uint64_t a1, const char *a2)
 {
-  result = [*(*(a1 + 32) + 40) containsObject:*(a1 + 40)];
+  result = objc_msgSend_containsObject_(*(*(a1 + 32) + 40), a2, *(a1 + 40));
   if ((result & 1) == 0)
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 32) + 40);
+    v4 = *(a1 + 40);
+    v5 = *(*(a1 + 32) + 40);
 
-    return [v4 addObject:v3];
+    return [v5 addObject:v4];
   }
 
   return result;
@@ -577,7 +577,7 @@ uint64_t __167__SBAVSystemControllerCache__queue_updateFullyMutedFromNotificatio
     }
 
     *(v3 + 96) = a2;
-    v4 = SBLogAVSystemControllerCache();
+    v4 = SBLogAVSystemControllerCache(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(*(a1 + 32) + 96);
@@ -592,7 +592,7 @@ LABEL_7:
   else
   {
     *(v3 + 96) = a2;
-    v4 = SBLogAVSystemControllerCache();
+    v4 = SBLogAVSystemControllerCache(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(*(a1 + 32) + 96);
@@ -704,7 +704,7 @@ uint64_t __168__SBAVSystemControllerCache__queue_updateRingerMutedFromNotificati
     if (*(v4 + 97) != a2)
     {
       *(v4 + 97) = a2;
-      v5 = SBLogAVSystemControllerCache();
+      v5 = SBLogAVSystemControllerCache(a1);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         v6 = *(*(a1 + 32) + 97);
@@ -727,7 +727,7 @@ uint64_t __168__SBAVSystemControllerCache__queue_updateRingerMutedFromNotificati
   else
   {
     *(v4 + 97) = a2;
-    v8 = SBLogAVSystemControllerCache();
+    v8 = SBLogAVSystemControllerCache(a1);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(*(a1 + 32) + 97);
@@ -835,44 +835,45 @@ LABEL_6:
 
 uint64_t __176__SBAVSystemControllerCache__queue_updateAudioSessionPlayingFromNotification_allowingBackgroundQueries_backgroundQueriesCancelledBlock_cancelBackgroundQueriesBlock_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = [a2 count] != 0;
-  v4 = *(a1 + 32);
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = [a2 count];
+  v4 = v3 != 0;
+  v5 = *(a1 + 32);
   if (*(a1 + 48) == 1)
   {
-    if (*(v4 + 98) != v3)
+    if (*(v5 + 98) != v4)
     {
-      *(v4 + 98) = v3;
-      v5 = SBLogAVSystemControllerCache();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      *(v5 + 98) = v4;
+      v6 = SBLogAVSystemControllerCache(v3);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = *(*(a1 + 32) + 98);
+        v7 = *(*(a1 + 32) + 98);
         *buf = 67109120;
-        v14 = v6;
-        _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Updated audioSessionPlaying to %{BOOL}i", buf, 8u);
+        v15 = v7;
+        _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Updated audioSessionPlaying to %{BOOL}i", buf, 8u);
       }
 
-      v7 = *(a1 + 32);
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = __176__SBAVSystemControllerCache__queue_updateAudioSessionPlayingFromNotification_allowingBackgroundQueries_backgroundQueriesCancelledBlock_cancelBackgroundQueriesBlock_completion___block_invoke_56;
-      v11[3] = &unk_2783B1EC0;
-      v11[4] = v7;
-      v12 = v3;
-      [v7 _queue_notifyObserversWithBlock:v11];
+      v8 = *(a1 + 32);
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __176__SBAVSystemControllerCache__queue_updateAudioSessionPlayingFromNotification_allowingBackgroundQueries_backgroundQueriesCancelledBlock_cancelBackgroundQueriesBlock_completion___block_invoke_56;
+      v12[3] = &unk_2783B1EC0;
+      v12[4] = v8;
+      v13 = v4;
+      [v8 _queue_notifyObserversWithBlock:v12];
     }
   }
 
   else
   {
-    *(v4 + 98) = v3;
-    v8 = SBLogAVSystemControllerCache();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    *(v5 + 98) = v4;
+    v9 = SBLogAVSystemControllerCache(v3);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(*(a1 + 32) + 98);
+      v10 = *(*(a1 + 32) + 98);
       *buf = 67109120;
-      v14 = v9;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Initialized audioSessionPlaying to %{BOOL}i", buf, 8u);
+      v15 = v10;
+      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Initialized audioSessionPlaying to %{BOOL}i", buf, 8u);
     }
   }
 
@@ -975,7 +976,7 @@ uint64_t __176__SBAVSystemControllerCache__queue_updateAudioSessionPlayingFromNo
     v22 = v21;
     if (!v20 || !v21)
     {
-      v23 = SBLogAVSystemControllerCache();
+      v23 = SBLogAVSystemControllerCache(v21);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         [SBAVSystemControllerCache _queue_updateActiveCategoryNameFromNotification:allowingBackgroundQueries:backgroundQueriesCancelledBlock:cancelBackgroundQueriesBlock:completion:];
@@ -990,50 +991,50 @@ uint64_t __176__SBAVSystemControllerCache__queue_updateAudioSessionPlayingFromNo
 
 void __175__SBAVSystemControllerCache__queue_updateActiveCategoryNameFromNotification_allowingBackgroundQueries_backgroundQueriesCancelledBlock_cancelBackgroundQueriesBlock_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = a2;
   if (*(a1 + 48) == 1)
   {
     if ((BSEqualStrings() & 1) == 0)
     {
       objc_storeStrong((*(a1 + 32) + 104), a2);
-      v9 = SBLogAVSystemControllerCache();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = SBLogAVSystemControllerCache(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = *(*(a1 + 32) + 104);
+        v11 = *(*(a1 + 32) + 104);
         *buf = 138412290;
-        v18 = v10;
-        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Updated activeCategoryName to %@", buf, 0xCu);
+        v20 = v11;
+        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Updated activeCategoryName to %@", buf, 0xCu);
       }
 
-      v11 = *(a1 + 32);
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __175__SBAVSystemControllerCache__queue_updateActiveCategoryNameFromNotification_allowingBackgroundQueries_backgroundQueriesCancelledBlock_cancelBackgroundQueriesBlock_completion___block_invoke_61;
-      v15[3] = &unk_2783B1F38;
-      v15[4] = v11;
-      v16 = v4;
-      [v11 _queue_notifyObserversWithBlock:v15];
+      v12 = *(a1 + 32);
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __175__SBAVSystemControllerCache__queue_updateActiveCategoryNameFromNotification_allowingBackgroundQueries_backgroundQueriesCancelledBlock_cancelBackgroundQueriesBlock_completion___block_invoke_61;
+      v17[3] = &unk_2783B1F38;
+      v17[4] = v12;
+      v18 = v4;
+      [v12 _queue_notifyObserversWithBlock:v17];
     }
   }
 
   else
   {
     objc_storeStrong((*(a1 + 32) + 104), a2);
-    v12 = SBLogAVSystemControllerCache();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = SBLogAVSystemControllerCache(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *(*(a1 + 32) + 104);
+      v15 = *(*(a1 + 32) + 104);
       *buf = 138412290;
-      v18 = v13;
-      _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Initialized activeCategoryName to %@", buf, 0xCu);
+      v20 = v15;
+      _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Initialized activeCategoryName to %@", buf, 0xCu);
     }
   }
 
-  v14 = *(a1 + 40);
-  if (v14)
+  v16 = *(a1 + 40);
+  if (v16)
   {
-    (*(v14 + 16))(v14, v5, v6, v7, v8);
+    (*(v16 + 16))(v16, v5, v6, v7, v8);
   }
 }
 
@@ -1065,7 +1066,7 @@ void __175__SBAVSystemControllerCache__queue_updateActiveCategoryNameFromNotific
 
   if (v6)
   {
-    v7 = SBLogAVSystemControllerCache();
+    v7 = SBLogAVSystemControllerCache(v4);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __175__SBAVSystemControllerCache__queue_updateActiveCategoryNameFromNotification_allowingBackgroundQueries_backgroundQueriesCancelledBlock_cancelBackgroundQueriesBlock_completion___block_invoke_65_cold_1();
@@ -1146,7 +1147,7 @@ uint64_t __175__SBAVSystemControllerCache__queue_updateActiveCategoryNameFromNot
 
 void __173__SBAVSystemControllerCache__queue_updateActiveAudioRouteFromNotification_allowingBackgroundQueries_backgroundQueriesCancelledBlock_cancelBackgroundQueriesBlock_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   v8 = a1 + 32;
@@ -1154,25 +1155,25 @@ void __173__SBAVSystemControllerCache__queue_updateActiveAudioRouteFromNotificat
   {
     objc_storeStrong((*(a1 + 32) + 112), a2);
     objc_storeStrong((*v8 + 120), a3);
-    v17 = SBLogAVSystemControllerCache();
-    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG);
+    v20 = SBLogAVSystemControllerCache(v19);
+    v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
 
-    v19 = SBLogAVSystemControllerCache();
-    v20 = v19;
-    if (v18)
+    v23 = SBLogAVSystemControllerCache(v22);
+    v24 = v23;
+    if (v21)
     {
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         __173__SBAVSystemControllerCache__queue_updateActiveAudioRouteFromNotification_allowingBackgroundQueries_backgroundQueriesCancelledBlock_cancelBackgroundQueriesBlock_completion___block_invoke_cold_1();
       }
     }
 
-    else if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = *(*v8 + 112);
+      v25 = *(*v8 + 112);
       *buf = 138412290;
-      v31 = v21;
-      _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_DEFAULT, "Initialized activeAudioRoute (and attributes) to %@", buf, 0xCu);
+      v35 = v25;
+      _os_log_impl(&dword_21ED4E000, v24, OS_LOG_TYPE_DEFAULT, "Initialized activeAudioRoute (and attributes) to %@", buf, 0xCu);
     }
 
     goto LABEL_15;
@@ -1182,47 +1183,47 @@ void __173__SBAVSystemControllerCache__queue_updateActiveAudioRouteFromNotificat
   {
     objc_storeStrong((*v8 + 112), a2);
     objc_storeStrong((*v8 + 120), a3);
-    v13 = SBLogAVSystemControllerCache();
-    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG);
+    v14 = SBLogAVSystemControllerCache(v13);
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG);
 
-    v15 = SBLogAVSystemControllerCache();
-    v16 = v15;
-    if (v14)
+    v17 = SBLogAVSystemControllerCache(v16);
+    v18 = v17;
+    if (v15)
     {
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         __173__SBAVSystemControllerCache__queue_updateActiveAudioRouteFromNotification_allowingBackgroundQueries_backgroundQueriesCancelledBlock_cancelBackgroundQueriesBlock_completion___block_invoke_cold_2();
       }
     }
 
-    else if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = *(*v8 + 112);
+      v26 = *(*v8 + 112);
       *buf = 138412290;
-      v31 = v22;
-      _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "Updated activeAudioRoute (and attributes) to %@", buf, 0xCu);
+      v35 = v26;
+      _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "Updated activeAudioRoute (and attributes) to %@", buf, 0xCu);
     }
 
-    v23 = *(*v8 + 136);
-    v24 = *v8;
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __173__SBAVSystemControllerCache__queue_updateActiveAudioRouteFromNotification_allowingBackgroundQueries_backgroundQueriesCancelledBlock_cancelBackgroundQueriesBlock_completion___block_invoke_67;
-    v26[3] = &unk_2783B1F88;
-    v26[4] = v24;
-    v27 = v6;
-    v28 = v7;
-    v29 = v23;
-    v20 = v23;
-    [v24 _queue_notifyObserversWithBlock:v26];
+    v27 = *(*v8 + 136);
+    v28 = *v8;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __173__SBAVSystemControllerCache__queue_updateActiveAudioRouteFromNotification_allowingBackgroundQueries_backgroundQueriesCancelledBlock_cancelBackgroundQueriesBlock_completion___block_invoke_67;
+    v30[3] = &unk_2783B1F88;
+    v30[4] = v28;
+    v31 = v6;
+    v32 = v7;
+    v33 = v27;
+    v24 = v27;
+    [v28 _queue_notifyObserversWithBlock:v30];
 
 LABEL_15:
   }
 
-  v25 = *(a1 + 40);
-  if (v25)
+  v29 = *(a1 + 40);
+  if (v29)
   {
-    (*(v25 + 16))(v25, v9, v10, v11, v12);
+    (*(v29 + 16))(v29, v9, v10, v11, v12);
   }
 }
 
@@ -1327,69 +1328,69 @@ void __176__SBAVSystemControllerCache__queue_updateActiveOutputDevicesFromNotifi
     }
 
     objc_storeStrong((*(a1 + 40) + 136), a2);
-    v9 = SBLogAVSystemControllerCache();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
+    v10 = SBLogAVSystemControllerCache(v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
 
-    v11 = SBLogAVSystemControllerCache();
-    v12 = v11;
-    if (v10)
+    v13 = SBLogAVSystemControllerCache(v12);
+    v14 = v13;
+    if (v11)
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         __176__SBAVSystemControllerCache__queue_updateActiveOutputDevicesFromNotification_allowingBackgroundQueries_backgroundQueriesCancelledBlock_cancelBackgroundQueriesBlock_completion___block_invoke_cold_2();
       }
     }
 
-    else if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Updated activeOutputDevices", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Updated activeOutputDevices", buf, 2u);
     }
 
-    v17 = *(*(a1 + 40) + 112);
-    v18 = *(*(a1 + 40) + 120);
-    v19 = *(a1 + 40);
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __176__SBAVSystemControllerCache__queue_updateActiveOutputDevicesFromNotification_allowingBackgroundQueries_backgroundQueriesCancelledBlock_cancelBackgroundQueriesBlock_completion___block_invoke_74;
-    v22[3] = &unk_2783B1F88;
-    v22[4] = v19;
-    v23 = v17;
-    v24 = v18;
-    v25 = v4;
-    v20 = v18;
-    v16 = v17;
-    [v19 _queue_notifyObserversWithBlock:v22];
+    v21 = *(*(a1 + 40) + 112);
+    v22 = *(*(a1 + 40) + 120);
+    v23 = *(a1 + 40);
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __176__SBAVSystemControllerCache__queue_updateActiveOutputDevicesFromNotification_allowingBackgroundQueries_backgroundQueriesCancelledBlock_cancelBackgroundQueriesBlock_completion___block_invoke_74;
+    v26[3] = &unk_2783B1F88;
+    v26[4] = v23;
+    v27 = v21;
+    v28 = v22;
+    v29 = v4;
+    v24 = v22;
+    v20 = v21;
+    [v23 _queue_notifyObserversWithBlock:v26];
   }
 
   else
   {
     objc_storeStrong((*(a1 + 40) + 136), a2);
-    v13 = SBLogAVSystemControllerCache();
-    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG);
+    v16 = SBLogAVSystemControllerCache(v15);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
 
-    v15 = SBLogAVSystemControllerCache();
-    v16 = v15;
-    if (v14)
+    v19 = SBLogAVSystemControllerCache(v18);
+    v20 = v19;
+    if (v17)
     {
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         __176__SBAVSystemControllerCache__queue_updateActiveOutputDevicesFromNotification_allowingBackgroundQueries_backgroundQueriesCancelledBlock_cancelBackgroundQueriesBlock_completion___block_invoke_cold_1();
       }
     }
 
-    else if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "Initialized activeOutputDevices", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_DEFAULT, "Initialized activeOutputDevices", buf, 2u);
     }
   }
 
 LABEL_15:
-  v21 = *(a1 + 48);
-  if (v21)
+  v25 = *(a1 + 48);
+  if (v25)
   {
-    (*(v21 + 16))(v21, v5, v6, v7, v8);
+    (*(v25 + 16))(v25, v5, v6, v7, v8);
   }
 }
 
@@ -1484,63 +1485,63 @@ void __171__SBAVSystemControllerCache__queue_updatePickableRoutesFromNotificatio
     if ((BSEqualObjects() & 1) == 0)
     {
       objc_storeStrong((*v5 + 128), a2);
-      v10 = SBLogAVSystemControllerCache();
-      v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
+      v11 = SBLogAVSystemControllerCache(v10);
+      v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG);
 
-      v12 = SBLogAVSystemControllerCache();
-      v13 = v12;
-      if (v11)
+      v14 = SBLogAVSystemControllerCache(v13);
+      v15 = v14;
+      if (v12)
       {
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
           __171__SBAVSystemControllerCache__queue_updatePickableRoutesFromNotification_allowingBackgroundQueries_backgroundQueriesCancelledBlock_cancelBackgroundQueriesBlock_completion___block_invoke_cold_2();
         }
       }
 
-      else if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      else if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "Updated pickableRoutes", buf, 2u);
+        _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "Updated pickableRoutes", buf, 2u);
       }
 
-      v18 = *v5;
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __171__SBAVSystemControllerCache__queue_updatePickableRoutesFromNotification_allowingBackgroundQueries_backgroundQueriesCancelledBlock_cancelBackgroundQueriesBlock_completion___block_invoke_78;
-      v20[3] = &unk_2783B1F38;
-      v20[4] = v18;
-      v21 = v4;
-      [v18 _queue_notifyObserversWithBlock:v20];
+      v22 = *v5;
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __171__SBAVSystemControllerCache__queue_updatePickableRoutesFromNotification_allowingBackgroundQueries_backgroundQueriesCancelledBlock_cancelBackgroundQueriesBlock_completion___block_invoke_78;
+      v24[3] = &unk_2783B1F38;
+      v24[4] = v22;
+      v25 = v4;
+      [v22 _queue_notifyObserversWithBlock:v24];
     }
   }
 
   else
   {
     objc_storeStrong((*(a1 + 32) + 128), a2);
-    v14 = SBLogAVSystemControllerCache();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG);
+    v17 = SBLogAVSystemControllerCache(v16);
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG);
 
-    v16 = SBLogAVSystemControllerCache();
-    v17 = v16;
-    if (v15)
+    v20 = SBLogAVSystemControllerCache(v19);
+    v21 = v20;
+    if (v18)
     {
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         __171__SBAVSystemControllerCache__queue_updatePickableRoutesFromNotification_allowingBackgroundQueries_backgroundQueriesCancelledBlock_cancelBackgroundQueriesBlock_completion___block_invoke_cold_1();
       }
     }
 
-    else if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "Initialized pickableRoutes", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v21, OS_LOG_TYPE_DEFAULT, "Initialized pickableRoutes", buf, 2u);
     }
   }
 
-  v19 = *(a1 + 40);
-  if (v19)
+  v23 = *(a1 + 40);
+  if (v23)
   {
-    (*(v19 + 16))(v19, v6, v7, v8, v9);
+    (*(v23 + 16))(v23, v6, v7, v8, v9);
   }
 }
 
@@ -1633,7 +1634,7 @@ uint64_t __177__SBAVSystemControllerCache__queue_updateAirplayDisplayActiveFromN
     if (*(v4 + 99) != a2)
     {
       *(v4 + 99) = a2;
-      v5 = SBLogAVSystemControllerCache();
+      v5 = SBLogAVSystemControllerCache(a1);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         v6 = *(*(a1 + 32) + 99);
@@ -1656,7 +1657,7 @@ uint64_t __177__SBAVSystemControllerCache__queue_updateAirplayDisplayActiveFromN
   else
   {
     *(v4 + 99) = a2;
-    v8 = SBLogAVSystemControllerCache();
+    v8 = SBLogAVSystemControllerCache(a1);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(*(a1 + 32) + 99);
@@ -1791,37 +1792,38 @@ uint64_t __177__SBAVSystemControllerCache__queue_updateAirplayDisplayActiveFromN
 
 void __48__SBAVSystemControllerCache__queue_rebuildCache__block_invoke(uint64_t a1)
 {
-  if ([*(a1 + 32) hasBeenSignalled])
+  v2 = [*(a1 + 32) hasBeenSignalled];
+  if (v2)
   {
-    v2 = SBLogAVSystemControllerCache();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = SBLogAVSystemControllerCache(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "Cancelling rebuilding data provider since the server has died", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "Cancelling rebuilding data provider since the server has died", buf, 2u);
     }
   }
 
   else
   {
-    v3 = [*(a1 + 40) _backgroundQueryQueue_rebuildDataProvider];
+    v4 = [*(a1 + 40) _backgroundQueryQueue_rebuildDataProvider];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __48__SBAVSystemControllerCache__queue_rebuildCache__block_invoke_88;
     block[3] = &unk_2783A8ED8;
-    v4 = *(a1 + 32);
+    v5 = *(a1 + 32);
     block[4] = *(a1 + 40);
-    v7 = v3;
     v8 = v4;
-    v2 = v3;
-    v5 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, 0, block);
-    dispatch_async(*(*(a1 + 40) + 32), v5);
+    v9 = v5;
+    v3 = v4;
+    v6 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, 0, block);
+    dispatch_async(*(*(a1 + 40) + 32), v6);
   }
 }
 
 - (id)_backgroundQueryQueue_rebuildDataProvider
 {
   v21[10] = *MEMORY[0x277D85DE8];
-  v3 = SBLogAVSystemControllerCache();
+  v3 = SBLogAVSystemControllerCache(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1849,7 +1851,7 @@ void __48__SBAVSystemControllerCache__queue_rebuildCache__block_invoke(uint64_t 
   v19 = 0;
   v12 = [v4 setAttribute:v10 forKey:v11 error:&v19];
   v13 = v19;
-  v14 = SBLogAVSystemControllerCache();
+  v14 = SBLogAVSystemControllerCache(v13);
   v15 = v14;
   if (v12)
   {
@@ -1884,64 +1886,65 @@ void __48__SBAVSystemControllerCache__queue_rebuildCache__block_invoke(uint64_t 
   providerCopy = provider;
   signalCopy = signal;
   hasBeenSignalled = [signalCopy hasBeenSignalled];
-  v10 = SBLogAVSystemControllerCache();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-  if (hasBeenSignalled)
+  v10 = hasBeenSignalled;
+  v11 = SBLogAVSystemControllerCache(hasBeenSignalled);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  if (v10)
   {
-    if (v11)
+    if (v12)
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Cancelling finishing rebuilding cache since the server has died", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Cancelling finishing rebuilding cache since the server has died", buf, 2u);
     }
   }
 
   else
   {
-    if (v11)
+    if (v12)
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Finishing rebuilding cache", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Finishing rebuilding cache", buf, 2u);
     }
 
     objc_storeStrong(&self->_queue_dataProvider, provider);
     *buf = 0;
-    v29 = buf;
-    v30 = 0x2020000000;
-    v31 = 0;
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __92__SBAVSystemControllerCache__queue_finishRebuildingCacheWithDataProvider_serverDeathSignal___block_invoke;
-    v25[3] = &unk_2783A92D8;
-    v12 = signalCopy;
-    v26 = v12;
+    v30 = buf;
+    v31 = 0x2020000000;
+    v32 = 0;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __92__SBAVSystemControllerCache__queue_finishRebuildingCacheWithDataProvider_serverDeathSignal___block_invoke;
+    v26[3] = &unk_2783A92D8;
+    v13 = signalCopy;
+    v27 = v13;
     selfCopy = self;
-    v13 = MEMORY[0x223D6F7F0](v25);
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __92__SBAVSystemControllerCache__queue_finishRebuildingCacheWithDataProvider_serverDeathSignal___block_invoke_3;
-    v22[3] = &unk_2783B2050;
-    v24 = buf;
-    v14 = v13;
-    v23 = v14;
-    v15 = MEMORY[0x223D6F7F0](v22);
+    v14 = MEMORY[0x223D6F7F0](v26);
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __92__SBAVSystemControllerCache__queue_finishRebuildingCacheWithDataProvider_serverDeathSignal___block_invoke_3;
+    v23[3] = &unk_2783B2050;
+    v25 = buf;
+    v15 = v14;
+    v24 = v15;
+    v16 = MEMORY[0x223D6F7F0](v23);
     notificationToHandlerMap = self->_notificationToHandlerMap;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __92__SBAVSystemControllerCache__queue_finishRebuildingCacheWithDataProvider_serverDeathSignal___block_invoke_4;
-    v18[3] = &unk_2783B20A0;
-    v18[4] = self;
-    v19 = v12;
-    v17 = v15;
-    v20 = v17;
-    v21 = buf;
-    [(NSMutableDictionary *)notificationToHandlerMap enumerateKeysAndObjectsUsingBlock:v18];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __92__SBAVSystemControllerCache__queue_finishRebuildingCacheWithDataProvider_serverDeathSignal___block_invoke_4;
+    v19[3] = &unk_2783B20A0;
+    v19[4] = self;
+    v20 = v13;
+    v18 = v16;
+    v21 = v18;
+    v22 = buf;
+    [(NSMutableDictionary *)notificationToHandlerMap enumerateKeysAndObjectsUsingBlock:v19];
     self->_queue_initialized = 1;
 
     _Block_object_dispose(buf, 8);
   }
 }
 
-uint64_t __92__SBAVSystemControllerCache__queue_finishRebuildingCacheWithDataProvider_serverDeathSignal___block_invoke(uint64_t a1)
+void *__92__SBAVSystemControllerCache__queue_finishRebuildingCacheWithDataProvider_serverDeathSignal___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) hasBeenSignalled];
   if ((result & 1) == 0)
@@ -2067,7 +2070,7 @@ uint64_t __92__SBAVSystemControllerCache__queue_finishRebuildingCacheWithDataPro
 uint64_t __41__SBAVSystemControllerCache__serverDied___block_invoke(uint64_t a1)
 {
   v7 = *MEMORY[0x277D85DE8];
-  v2 = SBLogAVSystemControllerCache();
+  v2 = SBLogAVSystemControllerCache(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) name];
@@ -2103,7 +2106,7 @@ uint64_t __41__SBAVSystemControllerCache__serverDied___block_invoke(uint64_t a1)
 
 void __66__SBAVSystemControllerCache__receiveUpdatedValueFromNotification___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
   v5 = (a1 + 32);
@@ -2118,14 +2121,14 @@ void __66__SBAVSystemControllerCache__receiveUpdatedValueFromNotification___bloc
       v12 = *(a1 + 32);
       v13 = objc_opt_class();
       v14 = [v10 stringWithFormat:@"sender: <%@:%p> data provider: <%@:%p>, output context: <%@:%p>", v11, v12, v13, *(*(a1 + 40) + 56), objc_opt_class(), *(*(a1 + 40) + 48)];;
-      v15 = SBLogAVSystemControllerCache();
+      v15 = SBLogAVSystemControllerCache(v14);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         v16 = *(a1 + 48);
         *buf = 138543618;
-        v37 = v16;
-        v38 = 2114;
-        v39 = v14;
+        v38 = v16;
+        v39 = 2114;
+        v40 = v14;
         _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "Ignoring notification '%{public}@' from %{public}@", buf, 0x16u);
       }
 
@@ -2133,53 +2136,53 @@ void __66__SBAVSystemControllerCache__receiveUpdatedValueFromNotification___bloc
     }
   }
 
-  v17 = SBLogAVSystemControllerCache();
+  v17 = SBLogAVSystemControllerCache(v3);
   v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG);
 
-  v19 = SBLogAVSystemControllerCache();
-  v20 = v19;
+  v20 = SBLogAVSystemControllerCache(v19);
+  v21 = v20;
   if (v18)
   {
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      __66__SBAVSystemControllerCache__receiveUpdatedValueFromNotification___block_invoke_cold_1(a1, v5, v20);
+      __66__SBAVSystemControllerCache__receiveUpdatedValueFromNotification___block_invoke_cold_1(a1, v5, v21);
     }
   }
 
-  else if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
-    v21 = *(a1 + 48);
+    v22 = *(a1 + 48);
     *buf = 138412290;
-    v37 = v21;
-    _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_INFO, "Notification '%@' received", buf, 0xCu);
+    v38 = v22;
+    _os_log_impl(&dword_21ED4E000, v21, OS_LOG_TYPE_INFO, "Notification '%@' received", buf, 0xCu);
   }
 
-  v22 = [*(*(a1 + 40) + 64) objectForKeyedSubscript:*(a1 + 48)];
-  v14 = v22;
-  if (v22)
+  v23 = [*(*(a1 + 40) + 64) objectForKeyedSubscript:*(a1 + 48)];
+  v14 = v23;
+  if (v23)
   {
-    v23 = [v22 pointerValue];
-    v24 = [*(a1 + 40) methodForSelector:v23];
-    v25 = *(*(a1 + 40) + 88);
-    v26 = [*(a1 + 40) _queue_backgroundQueryCancellationSignalForNotificationCreatingIfNecessary:*(a1 + 48)];
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __66__SBAVSystemControllerCache__receiveUpdatedValueFromNotification___block_invoke_95;
-    v33[3] = &unk_2783A94B0;
-    v34 = v26;
-    v35 = v25;
-    v15 = v25;
-    v27 = v26;
-    v28 = MEMORY[0x223D6F7F0](v33);
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __66__SBAVSystemControllerCache__receiveUpdatedValueFromNotification___block_invoke_2;
-    v31[3] = &unk_2783A92D8;
-    v29 = *(a1 + 48);
-    v31[4] = *(a1 + 40);
-    v32 = v29;
-    v30 = MEMORY[0x223D6F7F0](v31);
-    v24(*(a1 + 40), v23, *(a1 + 56), *(*(a1 + 40) + 80), v28, v30, 0);
+    v24 = [v23 pointerValue];
+    v25 = [*(a1 + 40) methodForSelector:v24];
+    v26 = *(*(a1 + 40) + 88);
+    v27 = [*(a1 + 40) _queue_backgroundQueryCancellationSignalForNotificationCreatingIfNecessary:*(a1 + 48)];
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __66__SBAVSystemControllerCache__receiveUpdatedValueFromNotification___block_invoke_95;
+    v34[3] = &unk_2783A94B0;
+    v35 = v27;
+    v36 = v26;
+    v15 = v26;
+    v28 = v27;
+    v29 = MEMORY[0x223D6F7F0](v34);
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __66__SBAVSystemControllerCache__receiveUpdatedValueFromNotification___block_invoke_2;
+    v32[3] = &unk_2783A92D8;
+    v30 = *(a1 + 48);
+    v32[4] = *(a1 + 40);
+    v33 = v30;
+    v31 = MEMORY[0x223D6F7F0](v32);
+    v25(*(a1 + 40), v24, *(a1 + 56), *(*(a1 + 40) + 80), v29, v31, 0);
 
 LABEL_20:
   }

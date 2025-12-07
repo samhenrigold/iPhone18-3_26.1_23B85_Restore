@@ -300,7 +300,6 @@ LABEL_11:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    heOmitxSched = self->_heOmitxSched;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x20) == 0)
@@ -320,7 +319,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  heOmitxSuccess = self->_heOmitxSuccess;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -335,7 +333,6 @@ LABEL_4:
   }
 
 LABEL_14:
-  heOmitxRetries = self->_heOmitxRetries;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -350,7 +347,6 @@ LABEL_5:
   }
 
 LABEL_15:
-  heOmitxDur = self->_heOmitxDur;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -365,7 +361,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  heOmitxUlmucfg = self->_heOmitxUlmucfg;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -380,7 +375,6 @@ LABEL_7:
   }
 
 LABEL_17:
-  heOmitxUlmucfgAck = self->_heOmitxUlmucfgAck;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -395,7 +389,6 @@ LABEL_8:
   }
 
 LABEL_18:
-  heOmitxTxnsts = self->_heOmitxTxnsts;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -407,7 +400,6 @@ LABEL_9:
     }
 
 LABEL_20:
-    heOmitxDlmursdrec = self->_heOmitxDlmursdrec;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 2) == 0)
     {
@@ -418,7 +410,6 @@ LABEL_20:
   }
 
 LABEL_19:
-  heOmitxTxnstsAck = self->_heOmitxTxnstsAck;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if (has)
@@ -433,7 +424,6 @@ LABEL_10:
   }
 
 LABEL_21:
-  heOmitxDlmursdrecAck = self->_heOmitxDlmursdrecAck;
 
   PBDataWriterWriteUint32Field();
 }

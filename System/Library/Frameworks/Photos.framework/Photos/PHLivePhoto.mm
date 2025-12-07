@@ -684,7 +684,7 @@ void __30__PHLivePhoto_imageFileLoader__block_invoke_3(uint64_t a1, uint64_t a2,
 
   if ((self->_photoTime.flags & 0x1D) != 1)
   {
-    [PHLivePhoto _photoTimeForLivePhotoWithImageURL:self->_imageURL videoURL:self->_videoURL];
+    objc_msgSend__photoTimeForLivePhotoWithImageURL_videoURL_(PHLivePhoto, a2, self->_imageURL, self->_videoURL);
     *&self->_photoTime.value = v10;
     self->_photoTime.epoch = v11;
   }
@@ -924,7 +924,7 @@ void __57__PHLivePhoto__synchronouslyLoadImageURL_videoURL_error___block_invoke(
     v22->_prefersHDR = r;
     if (metadataCopy)
     {
-      [metadataCopy imageDisplayTime];
+      objc_msgSend_imageDisplayTime(metadataCopy);
       *&v22->_photoTime.value = v26;
       v22->_photoTime.epoch = v27;
     }
@@ -958,7 +958,7 @@ void __57__PHLivePhoto__synchronouslyLoadImageURL_videoURL_error___block_invoke(
     v20->_prefersHDR = r;
     if (metadataCopy)
     {
-      [metadataCopy imageDisplayTime];
+      objc_msgSend_imageDisplayTime(metadataCopy);
       *&v20->_photoTime.value = v24;
       v20->_photoTime.epoch = v25;
     }
@@ -1011,7 +1011,7 @@ void __57__PHLivePhoto__synchronouslyLoadImageURL_videoURL_error___block_invoke(
     v11 = v10;
     if (v10)
     {
-      [v10 imageDisplayTime];
+      objc_msgSend_imageDisplayTime(v10);
     }
 
     else
@@ -1496,9 +1496,11 @@ uint64_t __117__PHLivePhoto_requestLivePhotoWithResourceFileURLs_placeholderImag
   v3 = sOperationsByRequestQueue;
   sOperationsByRequestQueue = v2;
 
-  sCreationOperationsByRequestID = [MEMORY[0x1E695DF90] dictionary];
+  v4 = [MEMORY[0x1E695DF90] dictionary];
+  v5 = sCreationOperationsByRequestID;
+  sCreationOperationsByRequestID = v4;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v4, v5);
 }
 
 + (id)objectWithItemProviderData:(id)data typeIdentifier:(id)identifier error:(id *)error

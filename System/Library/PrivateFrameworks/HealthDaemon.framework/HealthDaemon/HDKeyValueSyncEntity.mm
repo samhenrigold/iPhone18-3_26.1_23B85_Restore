@@ -59,44 +59,43 @@
 
 uint64_t __99__HDKeyValueSyncEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = [*(a1 + 72) entityEncoderForProfile:*(a1 + 32) transaction:v4 purpose:0 encodingOptions:0 authorizationFilter:0];
   v6 = [v5 orderedProperties];
-  v30[0] = @"domain";
-  v30[1] = @"sync_identity";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
-  v22 = [v6 arrayByAddingObjectsFromArray:v7];
+  v29[0] = @"domain";
+  v29[1] = @"sync_identity";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+  v21 = [v6 arrayByAddingObjectsFromArray:v7];
 
   v9 = *(a1 + 40);
   v8 = *(a1 + 48);
   v10 = *(a1 + 72);
   v11 = *(*(a1 + 64) + 8) + 24;
   v12 = [*(a1 + 32) database];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __99__HDKeyValueSyncEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_2;
-  v24[3] = &unk_27862AEC0;
-  v25 = v5;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __99__HDKeyValueSyncEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_2;
+  v23[3] = &unk_27862AEC0;
+  v24 = v5;
   v13 = *(a1 + 56);
   v14 = *(a1 + 96);
-  v26 = v13;
-  v29 = v14;
-  v27 = *(a1 + 32);
-  v28 = v4;
+  v25 = v13;
+  v28 = v14;
+  v26 = *(a1 + 32);
+  v27 = v4;
   v16 = *(a1 + 80);
   v15 = *(a1 + 88);
   v17 = v4;
   v18 = v5;
-  v19 = [v10 enumerateEntitiesForSyncWithProperties:v22 predicate:v9 session:v8 syncAnchorRange:v16 limit:v15 lastSyncAnchor:0 healthDatabase:v11 error:v12 block:{a3, v24}];
+  v19 = [v10 enumerateEntitiesForSyncWithProperties:v21 predicate:v9 session:v8 syncAnchorRange:v16 limit:v15 lastSyncAnchor:0 healthDatabase:v11 error:v12 block:{a3, v23}];
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 BOOL __99__HDKeyValueSyncEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = [*(a1 + 32) codableRepresentationForPersistentID:objc_msgSend(a2 row:"persistentID") error:{a4, a8}];
+  v10 = [*(a1 + 32) codableRepresentationForPersistentID:objc_msgSend(a2 row:"persistentID" error:{a3, a4, a5, a6, a7), a4, a8}];
   v11 = HDSQLiteColumnWithNameAsString();
   if ([v11 isEqualToString:&stru_283BF39C8])
   {
@@ -157,44 +156,44 @@ LABEL_6:
 
 + (int64_t)receiveSyncObjects:(id)objects version:(id)version syncStore:(id)store profile:(id)profile error:(id *)error
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   storeCopy = store;
   profileCopy = profile;
   category = [self category];
-  v47 = [HDKeyValueEntity _entityClassForKeyValueCategory:category];
+  v46 = [HDKeyValueEntity _entityClassForKeyValueCategory:category];
   v13 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v14 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
   v15 = objectsCopy;
-  v55 = [v15 countByEnumeratingWithState:&v60 objects:v67 count:16];
-  if (!v55)
+  v54 = [v15 countByEnumeratingWithState:&v59 objects:v66 count:16];
+  if (!v54)
   {
 
     v16 = storeCopy;
     goto LABEL_37;
   }
 
-  v51 = v14;
-  v54 = *v61;
-  v53 = 1;
+  v50 = v14;
+  v53 = *v60;
+  v52 = 1;
   v16 = storeCopy;
-  v49 = profileCopy;
-  v50 = v15;
+  v48 = profileCopy;
+  v49 = v15;
   do
   {
     v17 = 0;
     do
     {
-      if (*v61 != v54)
+      if (*v60 != v53)
       {
         objc_enumerationMutation(v15);
       }
 
-      v18 = *(*(&v60 + 1) + 8 * v17);
+      v18 = *(*(&v59 + 1) + 8 * v17);
       if (([v18 hasCategory] & 1) == 0)
       {
         _HKInitializeLogging();
@@ -219,7 +218,7 @@ LABEL_6:
           v38 = v23;
           category2 = [v18 category];
           *buf = 134217984;
-          v66 = category2;
+          v65 = category2;
           _os_log_error_impl(&dword_228986000, v38, OS_LOG_TYPE_ERROR, "ignoring synced dictionary with incorrect category %ld", buf, 0xCu);
         }
 
@@ -237,14 +236,14 @@ LABEL_16:
       }
 
       v19 = v15;
-      if (v53)
+      if (v52)
       {
-        v53 = -[objc_class _insertCodableCategoryDomainDictionary:provenance:profile:error:](v47, "_insertCodableCategoryDomainDictionary:provenance:profile:error:", v18, [v16 syncProvenance], profileCopy, error);
+        v52 = -[objc_class _insertCodableCategoryDomainDictionary:provenance:profile:error:](v46, "_insertCodableCategoryDomainDictionary:provenance:profile:error:", v18, [v16 syncProvenance], profileCopy, error);
       }
 
       else
       {
-        v53 = 0;
+        v52 = 0;
       }
 
       v28 = category;
@@ -253,29 +252,29 @@ LABEL_16:
       if (domain)
       {
         domain2 = [v18 domain];
-        [v51 addObject:domain2];
+        [v50 addObject:domain2];
       }
 
-      v58 = 0u;
-      v59 = 0u;
-      v56 = 0u;
       v57 = 0u;
+      v58 = 0u;
+      v55 = 0u;
+      v56 = 0u;
       keyValuePairs = [v18 keyValuePairs];
-      v31 = [keyValuePairs countByEnumeratingWithState:&v56 objects:v64 count:16];
+      v31 = [keyValuePairs countByEnumeratingWithState:&v55 objects:v63 count:16];
       if (v31)
       {
         v32 = v31;
-        v33 = *v57;
+        v33 = *v56;
         do
         {
           for (i = 0; i != v32; ++i)
           {
-            if (*v57 != v33)
+            if (*v56 != v33)
             {
               objc_enumerationMutation(keyValuePairs);
             }
 
-            v35 = *(*(&v56 + 1) + 8 * i);
+            v35 = *(*(&v55 + 1) + 8 * i);
             v36 = [v35 key];
 
             if (v36)
@@ -285,14 +284,14 @@ LABEL_16:
             }
           }
 
-          v32 = [keyValuePairs countByEnumeratingWithState:&v56 objects:v64 count:16];
+          v32 = [keyValuePairs countByEnumeratingWithState:&v55 objects:v63 count:16];
         }
 
         while (v32);
         v16 = storeCopy;
-        profileCopy = v49;
+        profileCopy = v48;
         category = v28;
-        v15 = v50;
+        v15 = v49;
       }
 
       else
@@ -305,15 +304,15 @@ LABEL_17:
       ++v17;
     }
 
-    while (v17 != v55);
-    v40 = [v15 countByEnumeratingWithState:&v60 objects:v67 count:16];
-    v55 = v40;
+    while (v17 != v54);
+    v40 = [v15 countByEnumeratingWithState:&v59 objects:v66 count:16];
+    v54 = v40;
   }
 
   while (v40);
 
-  v14 = v51;
-  if (v53)
+  v14 = v50;
+  if (v52)
   {
 LABEL_37:
     allObjects = [v14 allObjects];
@@ -329,7 +328,6 @@ LABEL_37:
   v41 = 1;
 LABEL_38:
 
-  v44 = *MEMORY[0x277D85DE8];
   return v41;
 }
 

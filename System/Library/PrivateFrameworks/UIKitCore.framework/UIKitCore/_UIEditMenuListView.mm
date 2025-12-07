@@ -578,7 +578,7 @@
   if (v19 != *MEMORY[0x1E695F060] || v18 != *(MEMORY[0x1E695F060] + 8))
   {
     v20 = objc_opt_new();
-    v21 = +[UIColor blackColor];
+    v21 = objc_msgSend_blackColor(UIColor);
     -[CAShapeLayer setFillColor:](v20, "setFillColor:", [v21 CGColor]);
 
     layer = [(UIView *)v16 layer];
@@ -2872,9 +2872,9 @@ LABEL_9:
   if ([(_UIEditMenuListView *)self _canSelectItemAtIndexPath:pathCopy])
   {
     v6 = [MEMORY[0x1E696AC88] indexPathWithIndex:0];
-    v7 = [v20 isEqual:v6];
+    isEqual = objc_msgSend_isEqual_(v20);
 
-    if (v7)
+    if (isEqual)
     {
       leftButton = [(_UIEditMenuListView *)self leftButton];
     }
@@ -2882,7 +2882,7 @@ LABEL_9:
     else
     {
       v9 = [MEMORY[0x1E696AC88] indexPathWithIndex:1];
-      v10 = [v20 isEqual:v9];
+      v10 = objc_msgSend_isEqual_(v20);
 
       if (!v10)
       {
@@ -2922,16 +2922,16 @@ LABEL_13:
 - (void)_highlightItemAtIndexPath:(id)path
 {
   pathCopy = path;
-  if (([(NSIndexPath *)self->_highlightedIndexPath isEqual:?]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_highlightedIndexPath) & 1) == 0)
   {
     [(_UIEditMenuListView *)self _unhighlightCurrentlyHighlightedItem];
     if ([(_UIEditMenuListView *)self _canSelectItemAtIndexPath:pathCopy])
     {
       objc_storeStrong(&self->_highlightedIndexPath, path);
       v5 = [MEMORY[0x1E696AC88] indexPathWithIndex:0];
-      v6 = [pathCopy isEqual:v5];
+      isEqual = objc_msgSend_isEqual_(pathCopy);
 
-      if (v6)
+      if (isEqual)
       {
         v7 = 584;
 LABEL_7:
@@ -2940,7 +2940,7 @@ LABEL_7:
       }
 
       v8 = [MEMORY[0x1E696AC88] indexPathWithIndex:1];
-      v9 = [pathCopy isEqual:v8];
+      v9 = objc_msgSend_isEqual_(pathCopy);
 
       if (v9)
       {
@@ -2969,9 +2969,9 @@ LABEL_9:
   }
 
   v4 = [MEMORY[0x1E696AC88] indexPathWithIndex:0];
-  v5 = [(NSIndexPath *)highlightedIndexPath isEqual:v4];
+  isEqual = objc_msgSend_isEqual_(highlightedIndexPath);
 
-  if (v5)
+  if (isEqual)
   {
     v6 = 584;
   }
@@ -2980,7 +2980,7 @@ LABEL_9:
   {
     v7 = self->_highlightedIndexPath;
     v8 = [MEMORY[0x1E696AC88] indexPathWithIndex:1];
-    LODWORD(v7) = [(NSIndexPath *)v7 isEqual:v8];
+    LODWORD(v7) = objc_msgSend_isEqual_(v7);
 
     if (!v7)
     {

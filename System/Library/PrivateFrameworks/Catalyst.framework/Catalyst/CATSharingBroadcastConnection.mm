@@ -23,9 +23,9 @@
 {
   primitivesCopy = primitives;
   sourceCopy = source;
-  v17.receiver = self;
-  v17.super_class = CATSharingBroadcastConnection;
-  v9 = [(CATSharingBroadcastConnection *)&v17 init];
+  v18.receiver = self;
+  v18.super_class = CATSharingBroadcastConnection;
+  v9 = [(CATSharingBroadcastConnection *)&v18 init];
   v10 = v9;
   if (v9)
   {
@@ -40,8 +40,8 @@
     mCatalystQueue = v10->mCatalystQueue;
     v10->mCatalystQueue = v13;
 
-    v15 = CATGetCatalystQueue();
-    [(CATOperationQueue *)v10->mCatalystQueue setUnderlyingQueue:v15];
+    v16 = CATGetCatalystQueue(v15);
+    [(CATOperationQueue *)v10->mCatalystQueue setUnderlyingQueue:v16];
   }
 
   return v10;
@@ -62,7 +62,7 @@
   v9 = completionCopy;
   v14 = v9;
   v10 = v12;
-  v11 = CATGetCatalystQueue();
+  v11 = CATGetCatalystQueue(v10);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_1;
@@ -89,7 +89,7 @@ void __53__CATSharingBroadcastConnection_sendData_completion___block_invoke(uint
   v4[3] = &unk_278DA7120;
   objc_copyWeak(&v5, &location);
   v2 = v4;
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(v2);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_1;
@@ -111,7 +111,7 @@ void __38__CATSharingBroadcastConnection_close__block_invoke(uint64_t a1)
 {
   dataCopy = data;
   completionCopy = completion;
-  v7 = CATGetCatalystQueue();
+  v7 = CATGetCatalystQueue(completionCopy);
   CATAssertIsQueue(v7);
 
   if (self->mIsClosing || [(CATSharingBroadcastConnection *)self isClosed])
@@ -130,7 +130,7 @@ void __38__CATSharingBroadcastConnection_close__block_invoke(uint64_t a1)
 
 - (void)_close
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   if (![(CATSharingBroadcastConnection *)self isClosed]&& !self->mIsClosing)
@@ -144,7 +144,7 @@ void __38__CATSharingBroadcastConnection_close__block_invoke(uint64_t a1)
 {
   messageCopy = message;
   completionCopy = completion;
-  v8 = CATGetCatalystQueue();
+  v8 = CATGetCatalystQueue(completionCopy);
   CATAssertIsQueue(v8);
 
   if ([(CATSharingBroadcastConnection *)self isClosed])
@@ -178,7 +178,7 @@ void __38__CATSharingBroadcastConnection_close__block_invoke(uint64_t a1)
 
 void __56__CATSharingBroadcastConnection_sendMessage_completion___block_invoke(uint64_t a1)
 {
-  v2 = CATGetCatalystQueue();
+  v2 = CATGetCatalystQueue(a1);
   CATAssertIsQueue(v2);
 
   v4 = [*(a1 + 32) error];
@@ -193,7 +193,7 @@ void __56__CATSharingBroadcastConnection_sendMessage_completion___block_invoke(u
 - (void)closeWithError:(id)error reportToRemote:(BOOL)remote
 {
   errorCopy = error;
-  v6 = CATGetCatalystQueue();
+  v6 = CATGetCatalystQueue(errorCopy);
   CATAssertIsQueue(v6);
 
   if (![(CATSharingBroadcastConnection *)self isClosed]&& !self->mIsClosing)
@@ -214,7 +214,7 @@ void __56__CATSharingBroadcastConnection_sendMessage_completion___block_invoke(u
 - (void)tombstoneWithError:(id)error
 {
   errorCopy = error;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(errorCopy);
   CATAssertIsQueue(v4);
 
   if (![(CATSharingBroadcastConnection *)self isClosed])
@@ -288,7 +288,7 @@ void __62__CATSharingBroadcastConnection_addBroadcastPrimitiveHandlers__block_in
 
 - (void)removeBroadcastPrimitiveHandlers
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   [(CATSharingBroadcastPrimitives *)self->mBroadcastPrimitives setInvalidationHandler:0];
@@ -300,7 +300,7 @@ void __62__CATSharingBroadcastConnection_addBroadcastPrimitiveHandlers__block_in
 - (void)messageReceived:(id)received
 {
   receivedCopy = received;
-  v5 = CATGetCatalystQueue();
+  v5 = CATGetCatalystQueue(receivedCopy);
   CATAssertIsQueue(v5);
 
   v6 = [CATSharingMessage instanceWithDictionary:receivedCopy];
@@ -309,6 +309,7 @@ void __62__CATSharingBroadcastConnection_addBroadcastPrimitiveHandlers__block_in
   {
     messageType = [v6 messageType];
     contentDictionaryValue = [v7 contentDictionaryValue];
+    v10 = contentDictionaryValue;
     if (messageType == 1)
     {
       [(CATSharingBroadcastConnection *)self handleSentMessage:contentDictionaryValue];
@@ -321,13 +322,13 @@ void __62__CATSharingBroadcastConnection_addBroadcastPrimitiveHandlers__block_in
 
     else
     {
-      v10 = _CATLogGeneral_0();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = _CATLogGeneral_0(contentDictionaryValue);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [(CATSharingBroadcastConnection *)messageType messageReceived:v10];
+        [(CATSharingBroadcastConnection *)messageType messageReceived:v11];
       }
 
-      [(CATSharingBroadcastConnection *)self handleUnparsableMessageDictionary:contentDictionaryValue];
+      [(CATSharingBroadcastConnection *)self handleUnparsableMessageDictionary:v10];
     }
   }
 
@@ -340,26 +341,27 @@ void __62__CATSharingBroadcastConnection_addBroadcastPrimitiveHandlers__block_in
 - (void)handleUnparsableMessageDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v5 = CATGetCatalystQueue();
+  v5 = CATGetCatalystQueue(dictionaryCopy);
   CATAssertIsQueue(v5);
 
-  if (![(CATSharingBroadcastConnection *)self isClosed])
+  isClosed = [(CATSharingBroadcastConnection *)self isClosed];
+  if ((isClosed & 1) == 0)
   {
-    v6 = _CATLogGeneral_0();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _CATLogGeneral_0(isClosed);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(CATSharingBroadcastConnection *)dictionaryCopy handleUnparsableMessageDictionary:v6];
+      [(CATSharingBroadcastConnection *)dictionaryCopy handleUnparsableMessageDictionary:v7];
     }
 
-    v7 = CATErrorWithCodeAndUserInfo(300, 0);
-    [(CATSharingBroadcastConnection *)self closeWithError:v7 reportToRemote:!self->mIsClosing];
+    v8 = CATErrorWithCodeAndUserInfo(300, 0);
+    [(CATSharingBroadcastConnection *)self closeWithError:v8 reportToRemote:!self->mIsClosing];
   }
 }
 
 - (void)handleCloseMessage:(id)message
 {
   messageCopy = message;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(messageCopy);
   CATAssertIsQueue(v4);
 
   v5 = [CATSharingCloseMessage instanceWithDictionary:messageCopy];
@@ -382,7 +384,7 @@ void __62__CATSharingBroadcastConnection_addBroadcastPrimitiveHandlers__block_in
 - (void)handleSentMessage:(id)message
 {
   messageCopy = message;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(messageCopy);
   CATAssertIsQueue(v4);
 
   v5 = [CATSharingSentMessage instanceWithDictionary:messageCopy];
@@ -421,7 +423,7 @@ void __62__CATSharingBroadcastConnection_addBroadcastPrimitiveHandlers__block_in
   mTimerSource = self->mTimerSource;
   v11 = objc_opt_class();
   v12 = NSStringFromClass(v11);
-  v13 = CATGetCatalystQueue();
+  v13 = CATGetCatalystQueue(v12);
   v17[0] = MEMORY[0x277D85DD0];
   v17[1] = 3221225472;
   v17[2] = __62__CATSharingBroadcastConnection_sendTearDownMessageWithError___block_invoke_9;
@@ -440,12 +442,13 @@ void __62__CATSharingBroadcastConnection_addBroadcastPrimitiveHandlers__block_in
 void __62__CATSharingBroadcastConnection_sendTearDownMessageWithError___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = _CATLogGeneral_0();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _CATLogGeneral_0(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __62__CATSharingBroadcastConnection_sendTearDownMessageWithError___block_invoke_cold_1(v2, v3);
+      __62__CATSharingBroadcastConnection_sendTearDownMessageWithError___block_invoke_cold_1(v3, v4);
     }
   }
 }
@@ -478,31 +481,27 @@ uint64_t __62__CATSharingBroadcastConnection_sendTearDownMessageWithError___bloc
 
 - (void)messageReceived:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:a1];
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_error_impl(&dword_24329F000, a2, OS_LOG_TYPE_ERROR, "Unknown message type: %{public}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_error_impl(&dword_24329F000, a2, OS_LOG_TYPE_ERROR, "Unknown message type: %{public}@", &v4, 0xCu);
 }
 
 - (void)handleUnparsableMessageDictionary:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_24329F000, a2, OS_LOG_TYPE_ERROR, "Unable to decode message: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_24329F000, a2, OS_LOG_TYPE_ERROR, "Unable to decode message: %{public}@", &v2, 0xCu);
 }
 
 void __62__CATSharingBroadcastConnection_sendTearDownMessageWithError___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_24329F000, a2, OS_LOG_TYPE_ERROR, "Error sending close message: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_24329F000, a2, OS_LOG_TYPE_ERROR, "Error sending close message: %{public}@", &v2, 0xCu);
 }
 
 @end

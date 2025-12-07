@@ -104,22 +104,22 @@
   y = point.y;
   x = point.x;
   objc_msgSend_sourceRect(self, a2, point.x, point.y, v3);
-  v27.x = x;
-  v27.y = y;
-  if (!CGRectContainsPoint(v28, v27))
+  v26.x = x;
+  v26.y = y;
+  if (!CGRectContainsPoint(v27, v26))
   {
     return 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  objc_msgSend_transform(self, v7, v8, v9, v10);
-  objc_msgSend_targetSize(self, v11, y * v25 + v24 * x, v25, v26);
+  objc_msgSend_transform(self, v7, v8, v9);
+  objc_msgSend_targetSize(self, v10, y * v24 + v23 * x, v24, v25);
   TSUClamp();
-  v13 = v12;
-  objc_msgSend_targetSize(self, v14, v12, v15, v16);
+  v12 = v11;
+  objc_msgSend_targetSize(self, v13, v11, v14, v15);
   TSUClamp();
-  v18 = v17;
-  objc_msgSend_targetSize(self, v19, v17, v20, v21);
-  return v13 + v22 * v18;
+  v17 = v16;
+  objc_msgSend_targetSize(self, v18, v16, v19, v20);
+  return v12 + v21 * v17;
 }
 
 - (CGSize)targetSize

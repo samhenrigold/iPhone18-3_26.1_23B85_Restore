@@ -8,11 +8,11 @@
 
 - (ASAccessoryCompanionAppView)initWithBundleID:(id)d
 {
-  v46[1] = *MEMORY[0x277D85DE8];
+  v45[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v44.receiver = self;
-  v44.super_class = ASAccessoryCompanionAppView;
-  v6 = [(ASAccessoryCompanionAppView *)&v44 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v43.receiver = self;
+  v43.super_class = ASAccessoryCompanionAppView;
+  v6 = [(ASAccessoryCompanionAppView *)&v43 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
   v7 = v6;
   if (v6)
   {
@@ -38,13 +38,13 @@
     v7->_viewButton = v16;
 
     plainButtonConfiguration = [MEMORY[0x277D75230] plainButtonConfiguration];
-    v43 = [MEMORY[0x277D74300] boldSystemFontOfSize:16.0];
+    v42 = [MEMORY[0x277D74300] boldSystemFontOfSize:16.0];
     v19 = objc_alloc(MEMORY[0x277CCA898]);
     v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v21 = [v20 localizedStringForKey:@"OPEN" value:&stru_28499D698 table:0];
-    v45 = *MEMORY[0x277D740A8];
-    v46[0] = v43;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:&v45 count:1];
+    v44 = *MEMORY[0x277D740A8];
+    v45[0] = v42;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
     v23 = [v19 initWithString:v21 attributes:v22];
     [plainButtonConfiguration setAttributedTitle:v23];
 
@@ -105,13 +105,12 @@
     [(ASAccessoryCompanionAppView *)v7 setNeedsUpdateConstraints];
   }
 
-  v41 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)updateConstraints
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   widthAnchor = [(UIImageView *)self->_iconView widthAnchor];
   v5 = [widthAnchor constraintEqualToConstant:60.0];
@@ -131,30 +130,30 @@
   v13 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
   [(NSArray *)v3 addObject:v13];
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   publisherLabel = self->_publisherLabel;
-  v54[0] = self->_nameLabel;
-  v54[1] = publisherLabel;
-  v54[2] = self->_installedLabel;
-  obj = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:3];
-  v15 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
+  v53[0] = self->_nameLabel;
+  v53[1] = publisherLabel;
+  v53[2] = self->_installedLabel;
+  obj = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:3];
+  v15 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
   if (v15)
   {
     v17 = v15;
-    v18 = *v51;
+    v18 = *v50;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v51 != v18)
+        if (*v50 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v50 + 1) + 8 * i);
+        v20 = *(*(&v49 + 1) + 8 * i);
         LODWORD(v16) = 1132003328;
         [v20 setContentHuggingPriority:0 forAxis:v16];
         leadingAnchor3 = [v20 leadingAnchor];
@@ -168,7 +167,7 @@
         [(NSArray *)v3 addObject:v26];
       }
 
-      v17 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
+      v17 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
     }
 
     while (v17);
@@ -210,11 +209,9 @@
   v46 = v3;
 
   [MEMORY[0x277CCAAD0] activateConstraints:self->_currentConstraints];
-  v49.receiver = self;
-  v49.super_class = ASAccessoryCompanionAppView;
-  [(ASAccessoryCompanionAppView *)&v49 updateConstraints];
-
-  v47 = *MEMORY[0x277D85DE8];
+  v48.receiver = self;
+  v48.super_class = ASAccessoryCompanionAppView;
+  [(ASAccessoryCompanionAppView *)&v48 updateConstraints];
 }
 
 - (void)_viewButtonTapped:(id)tapped

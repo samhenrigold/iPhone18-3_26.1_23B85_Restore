@@ -26,7 +26,7 @@
 
 - (void)stream:(id)stream handleEvent:(unint64_t)event
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -46,32 +46,32 @@
     {
       if (event == 8)
       {
-        v29 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        v35 = mmcs_logging_logger_default(v9, v10);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
           streamError = [streamCopy streamError];
-          v31 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ stream %@ error %@", selfCopy, streamCopy, streamError);
+          v37 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ stream %@ error %@", selfCopy, streamCopy, streamError);
 
-          v32 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+          v40 = mmcs_logging_logger_default(v38, v39);
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v46 = v31;
-            _os_log_impl(&dword_2577D8000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+            v54 = v37;
+            _os_log_impl(&dword_2577D8000, v40, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
           }
 
-          if (v31)
+          if (v37)
           {
-            CFRelease(v31);
+            CFRelease(v37);
           }
         }
 
-        v33 = MEMORY[0x277CCACA8];
+        v41 = MEMORY[0x277CCACA8];
         streamError2 = [streamCopy streamError];
-        v35 = [v33 stringWithFormat:@"Write stream had error:%@", streamError2];
+        v43 = [v41 stringWithFormat:@"Write stream had error:%@", streamError2];
 
         streamError3 = [streamCopy streamError];
-        error_with_underlying_error = mmcs_cferror_create_error_with_underlying_error(@"com.apple.mmcs", 38, streamError3, @"%@", v37, v38, v39, v40, v35);
+        error_with_underlying_error = mmcs_cferror_create_error_with_underlying_error(@"com.apple.mmcs", 38, streamError3, @"%@", v45, v46, v47, v48, v43);
         mmcs_http_context_set_error([(MMCSHTTPContext *)selfCopy hc], error_with_underlying_error);
         if (error_with_underlying_error)
         {
@@ -98,35 +98,35 @@
 
       if (gMMCS_DebugLevel >= 4)
       {
-        v17 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v20 = mmcs_logging_logger_default(v9, v10);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
-          v18 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ stream %@ ended", selfCopy, streamCopy);
-          v19 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+          v21 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ stream %@ ended", selfCopy, streamCopy);
+          v23 = mmcs_logging_logger_default(v21, v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138543362;
-            v46 = v18;
-            _os_log_impl(&dword_2577D8000, v19, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+            v54 = v21;
+            _os_log_impl(&dword_2577D8000, v23, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
           }
 
-          if (v18)
+          if (v21)
           {
-            CFRelease(v18);
+            CFRelease(v21);
           }
         }
       }
 
       if (![(MMCSHTTPContext *)selfCopy hc][496])
       {
-        v43 = 148;
+        v51 = 148;
         goto LABEL_59;
       }
 
-      v20 = [(MMCSHTTPContext *)selfCopy hc][496];
-      v21 = [(MMCSHTTPContext *)selfCopy hc];
-      v22 = [(MMCSHTTPContext *)selfCopy hc];
-      v23 = 4;
+      v24 = [(MMCSHTTPContext *)selfCopy hc][496];
+      v25 = [(MMCSHTTPContext *)selfCopy hc];
+      v26 = [(MMCSHTTPContext *)selfCopy hc];
+      v27 = 4;
     }
 
     else
@@ -137,21 +137,21 @@
         {
           if (gMMCS_DebugLevel >= 5)
           {
-            v14 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+            v16 = mmcs_logging_logger_default(v9, v10);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
             {
-              v15 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ stream %@ has space available", selfCopy, streamCopy);
-              v16 = mmcs_logging_logger_default();
-              if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+              v17 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ stream %@ has space available", selfCopy, streamCopy);
+              v19 = mmcs_logging_logger_default(v17, v18);
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138543362;
-                v46 = v15;
-                _os_log_impl(&dword_2577D8000, v16, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+                v54 = v17;
+                _os_log_impl(&dword_2577D8000, v19, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
               }
 
-              if (v15)
+              if (v17)
               {
-                CFRelease(v15);
+                CFRelease(v17);
               }
             }
           }
@@ -167,25 +167,25 @@
             goto LABEL_9;
           }
 
-          v43 = 121;
+          v51 = 121;
 LABEL_59:
-          __assert_rtn("[MMCSHTTPContext stream:handleEvent:]", "MMCSHTTPContext.m", v43, "self.hc->requestBodyCallback");
+          __assert_rtn("[MMCSHTTPContext stream:handleEvent:]", "MMCSHTTPContext.m", v51, "self.hc->requestBodyCallback");
         }
 
 LABEL_33:
-        v24 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v28 = mmcs_logging_logger_default(v9, v10);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
-          v10 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ ignoring stream event %u from stream %@", selfCopy, event, streamCopy);
-          v25 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          v12 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ ignoring stream event %u from stream %@", selfCopy, event, streamCopy);
+          v30 = mmcs_logging_logger_default(v12, v29);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v46 = v10;
-            _os_log_impl(&dword_2577D8000, v25, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+            v54 = v12;
+            _os_log_impl(&dword_2577D8000, v30, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
           }
 
-          if (v10)
+          if (v12)
           {
             goto LABEL_8;
           }
@@ -196,70 +196,69 @@ LABEL_33:
 
       if (gMMCS_DebugLevel >= 4)
       {
-        v26 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+        v31 = mmcs_logging_logger_default(v9, v10);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
         {
-          v27 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ stream %@ opened", selfCopy, streamCopy);
-          v28 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+          v32 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ stream %@ opened", selfCopy, streamCopy);
+          v34 = mmcs_logging_logger_default(v32, v33);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138543362;
-            v46 = v27;
-            _os_log_impl(&dword_2577D8000, v28, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+            v54 = v32;
+            _os_log_impl(&dword_2577D8000, v34, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
           }
 
-          if (v27)
+          if (v32)
           {
-            CFRelease(v27);
+            CFRelease(v32);
           }
         }
       }
 
       if (![(MMCSHTTPContext *)selfCopy hc][496])
       {
-        v43 = 113;
+        v51 = 113;
         goto LABEL_59;
       }
 
-      v20 = [(MMCSHTTPContext *)selfCopy hc][496];
-      v21 = [(MMCSHTTPContext *)selfCopy hc];
-      v22 = [(MMCSHTTPContext *)selfCopy hc];
-      v23 = 1;
+      v24 = [(MMCSHTTPContext *)selfCopy hc][496];
+      v25 = [(MMCSHTTPContext *)selfCopy hc];
+      v26 = [(MMCSHTTPContext *)selfCopy hc];
+      v27 = 1;
     }
 
-    v20(v21, *(v22 + 576), v23);
+    v24(v25, *(v26 + 576), v27);
     goto LABEL_9;
   }
 
 LABEL_4:
-  v9 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v11 = mmcs_logging_logger_default(v9, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    v10 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ ignoring stream event %u from stream %@", selfCopy, event, streamCopy);
-    v11 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ ignoring stream event %u from stream %@", selfCopy, event, streamCopy);
+    v14 = mmcs_logging_logger_default(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v46 = v10;
-      _os_log_impl(&dword_2577D8000, v11, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+      v54 = v12;
+      _os_log_impl(&dword_2577D8000, v14, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
     }
 
-    if (v10)
+    if (v12)
     {
 LABEL_8:
-      CFRelease(v10);
+      CFRelease(v12);
     }
   }
 
 LABEL_9:
 
   os_activity_scope_leave(&state);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)writeRequestBody:(const char *)body maxLength:(unint64_t)length
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   outputStream = [(MMCSHTTPContext *)selfCopy outputStream];
@@ -268,24 +267,24 @@ LABEL_9:
 
   if (outputStream == 0 || isHandlingError)
   {
-    v9 = mmcs_logging_logger_default();
+    v11 = mmcs_logging_logger_default(v9, v10);
     if (outputStream)
     {
       if (!isHandlingError)
       {
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
-          v10 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ not writing to output stream for unknown reason; attempted to write %lu bytes.", selfCopy, length);
-          v19 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+          v12 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ not writing to output stream for unknown reason; attempted to write %lu bytes.", selfCopy, length);
+          v25 = mmcs_logging_logger_default(v12, v24);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v24 = v10;
-            _os_log_impl(&dword_2577D8000, v19, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+            v31 = v12;
+            _os_log_impl(&dword_2577D8000, v25, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
           }
 
-          v14 = -1;
-          if (v10)
+          v18 = -1;
+          if (v12)
           {
             goto LABEL_27;
           }
@@ -293,63 +292,63 @@ LABEL_9:
 
         else
         {
-          v14 = -1;
+          v18 = -1;
         }
 
         goto LABEL_28;
       }
 
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v10 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ writing 0 bytes because request cannot accept data at the moment.", selfCopy);
-        v11 = mmcs_logging_logger_default();
-        if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+        v12 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ writing 0 bytes because request cannot accept data at the moment.", selfCopy);
+        v14 = mmcs_logging_logger_default(v12, v13);
+        if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
           goto LABEL_26;
         }
 
         *buf = 138543362;
-        v24 = v10;
-        v12 = v11;
-        v13 = OS_LOG_TYPE_DEBUG;
+        v31 = v12;
+        v15 = v14;
+        v16 = OS_LOG_TYPE_DEBUG;
         goto LABEL_25;
       }
 
 LABEL_14:
-      v14 = 0;
+      v18 = 0;
       goto LABEL_28;
     }
 
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_14;
     }
 
-    v10 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ output stream is nil; attempted to write %lu bytes.", selfCopy, length);
-    v18 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v12 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ output stream is nil; attempted to write %lu bytes.", selfCopy, length);
+    v23 = mmcs_logging_logger_default(v12, v22);
+    if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_26;
     }
 
     *buf = 138543362;
-    v24 = v10;
+    v31 = v12;
 LABEL_24:
-    v12 = v18;
-    v13 = OS_LOG_TYPE_ERROR;
+    v15 = v23;
+    v16 = OS_LOG_TYPE_ERROR;
 LABEL_25:
-    _os_log_impl(&dword_2577D8000, v12, v13, "%{public}@", buf, 0xCu);
+    _os_log_impl(&dword_2577D8000, v15, v16, "%{public}@", buf, 0xCu);
     goto LABEL_26;
   }
 
-  v14 = [outputStream write:body maxLength:length];
-  if (v14 != -1)
+  v18 = [outputStream write:body maxLength:length];
+  if (v18 != -1)
   {
     goto LABEL_28;
   }
 
-  v15 = mmcs_logging_logger_default();
-  if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v19 = mmcs_logging_logger_default(-1, v17);
+  if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     goto LABEL_14;
   }
@@ -357,72 +356,68 @@ LABEL_25:
   streamStatus = [outputStream streamStatus];
   if (streamStatus > 7)
   {
-    v17 = @"none";
+    v21 = @"none";
   }
 
   else
   {
-    v17 = off_279845078[streamStatus];
+    v21 = off_279845078[streamStatus];
   }
 
   streamError = [outputStream streamError];
-  v10 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ output stream %@ had an error writing in state %@: stream error %@: Ignoring this, and treating this as if the stream cannot accept data at the moment", selfCopy, outputStream, v17, streamError);
+  v12 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ output stream %@ had an error writing in state %@: stream error %@: Ignoring this, and treating this as if the stream cannot accept data at the moment", selfCopy, outputStream, v21, streamError);
 
-  v18 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v23 = mmcs_logging_logger_default(v27, v28);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v24 = v10;
+    v31 = v12;
     goto LABEL_24;
   }
 
 LABEL_26:
-  v14 = 0;
-  if (v10)
+  v18 = 0;
+  if (v12)
   {
 LABEL_27:
-    CFRelease(v10);
+    CFRelease(v12);
   }
 
 LABEL_28:
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v18;
 }
 
 - (void)requestBodyDone
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   outputStream = [(MMCSHTTPContext *)self outputStream];
 
   if (outputStream)
   {
     outputStream2 = [(MMCSHTTPContext *)self outputStream];
     [outputStream2 close];
-    v4 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v5 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = mmcs_logging_logger_default(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v6 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ has no output stream to close.", self);
-      v7 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v7 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ has no output stream to close.", self);
+      v9 = mmcs_logging_logger_default(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v11 = v6;
-        _os_log_impl(&dword_2577D8000, v7, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        v12 = v7;
+        _os_log_impl(&dword_2577D8000, v9, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      if (v6)
+      if (v7)
       {
-        CFRelease(v6);
+        CFRelease(v7);
       }
     }
-
-    v8 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -503,7 +498,7 @@ void __39__MMCSHTTPContext_invalidateStreamPair__block_invoke(uint64_t a1)
 
 - (BOOL)requestBodyCanAcceptData
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   outputStream = [(MMCSHTTPContext *)selfCopy outputStream];
@@ -528,32 +523,31 @@ void __39__MMCSHTTPContext_invalidateStreamPair__block_invoke(uint64_t a1)
 
   if (gMMCS_DebugLevel >= 5)
   {
-    v6 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v8 = mmcs_logging_logger_default(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v7 = @"NO";
+      v9 = @"NO";
       if (outputStream)
       {
-        v7 = @"YES";
+        v9 = @"YES";
       }
 
-      v8 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ canAcceptData %@", selfCopy, v7);
-      v9 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ canAcceptData %@", selfCopy, v9);
+      v12 = mmcs_logging_logger_default(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v13 = v8;
-        _os_log_impl(&dword_2577D8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v15 = v10;
+        _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v8)
+      if (v10)
       {
-        CFRelease(v8);
+        CFRelease(v10);
       }
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return outputStream;
 }
 
@@ -567,19 +561,19 @@ void __39__MMCSHTTPContext_invalidateStreamPair__block_invoke(uint64_t a1)
 
 - (BOOL)createNewRequestBodyInputStream
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (gMMCS_DebugLevel >= 4)
   {
-    v3 = mmcs_logging_logger_default();
+    v3 = mmcs_logging_logger_default(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       v4 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"createNewRequestBodyInputStream %@", self);
-      v5 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v6 = mmcs_logging_logger_default(v4, v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v17 = v4;
-        _os_log_impl(&dword_2577D8000, v5, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v19 = v4;
+        _os_log_impl(&dword_2577D8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
       if (v4)
@@ -590,40 +584,40 @@ void __39__MMCSHTTPContext_invalidateStreamPair__block_invoke(uint64_t a1)
   }
 
   [(MMCSHTTPContext *)self invalidateStreamPair];
-  mmcs_http_reset_context_for_new_stream([(MMCSHTTPContext *)self hc]);
-  v14 = 0;
-  v15 = 0;
-  [MEMORY[0x277CBEBA0] getBoundStreamsWithBufferSize:0x8000 inputStream:&v15 outputStream:&v14];
-  v6 = v15;
-  v7 = v14;
-  v8 = v7;
-  if (v6)
+  v7 = [(MMCSHTTPContext *)self hc];
+  mmcs_http_reset_context_for_new_stream(v7, v8);
+  v16 = 0;
+  v17 = 0;
+  [MEMORY[0x277CBEBA0] getBoundStreamsWithBufferSize:0x8000 inputStream:&v17 outputStream:&v16];
+  v9 = v17;
+  v10 = v16;
+  v11 = v10;
+  if (v9)
   {
-    v9 = v7 == 0;
+    v12 = v10 == 0;
   }
 
   else
   {
-    v9 = 1;
+    v12 = 1;
   }
 
-  v10 = !v9;
-  if (!v9)
+  v13 = !v12;
+  if (!v12)
   {
-    [(MMCSHTTPContext *)self setInputStream:v6];
-    [(MMCSHTTPContext *)self setOutputStream:v8];
+    [(MMCSHTTPContext *)self setInputStream:v9];
+    [(MMCSHTTPContext *)self setOutputStream:v11];
     selfCopy = self;
     objc_sync_enter(selfCopy);
     [(MMCSHTTPContext *)selfCopy setIsHandlingError:0];
     objc_sync_exit(selfCopy);
 
-    [v8 setDelegate:selfCopy];
-    mmcs_nshttp_schedule_stream([(MMCSHTTPContext *)selfCopy hc]);
-    [v8 open];
+    [v11 setDelegate:selfCopy];
+    mmcs_nshttp_schedule_stream([(MMCSHTTPContext *)selfCopy hc], v11);
+    [v11 open];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v13;
 }
 
 - (MMCSHTTPContext)initWithContext:(mmcs_http_context *)context options:(const mmcs_http_context_options *)options activityMarker:(os_activity_s *)marker
@@ -715,7 +709,7 @@ void __39__MMCSHTTPContext_invalidateStreamPair__block_invoke(uint64_t a1)
         goto LABEL_69;
       }
 
-      v48 = v7;
+      v50 = v7;
       v11 = v9;
       v12 = v5;
       v13 = mEMORY[0x277CF36D8];
@@ -725,7 +719,7 @@ void __39__MMCSHTTPContext_invalidateStreamPair__block_invoke(uint64_t a1)
 
     else
     {
-      v48 = v7;
+      v50 = v7;
       v11 = v9;
       v12 = v5;
       inputStream = CFHTTPMessageCopyBody([(MMCSHTTPContext *)self hc][336]);
@@ -737,9 +731,9 @@ void __39__MMCSHTTPContext_invalidateStreamPair__block_invoke(uint64_t a1)
     }
 
     v16 = MEMORY[0x277CCACA8];
-    v52.receiver = self;
-    v52.super_class = MMCSHTTPContext;
-    v17 = [(MMCSHTTPContext *)&v52 description];
+    v54.receiver = self;
+    v54.super_class = MMCSHTTPContext;
+    v17 = [(MMCSHTTPContext *)&v54 description];
     v18 = [v16 stringWithFormat:@"%@ hc=%p tx%04ld uuid:%@", v17, -[MMCSHTTPContext hc](self, "hc"), -[MMCSHTTPContext hc](self, "hc")[272], -[MMCSHTTPContext hc](self, "hc")[304]];
 
     if (mmcs_http_request_options_is_background(v3) && [(MMCSHTTPContext *)self hc][384] > 0.0)
@@ -755,7 +749,7 @@ void __39__MMCSHTTPContext_invalidateStreamPair__block_invoke(uint64_t a1)
     mEMORY[0x277CF36D8] = v13;
     if (v13)
     {
-      v47 = v13;
+      v49 = v13;
       v21 = objc_alloc_init(MEMORY[0x277CF36E0]);
       v22 = [(MMCSHTTPContext *)self hc][368];
       v5 = v12;
@@ -764,7 +758,7 @@ void __39__MMCSHTTPContext_invalidateStreamPair__block_invoke(uint64_t a1)
         [v21 setDiscretionaryNetworkBehavior:?];
       }
 
-      v46 = v18;
+      v48 = v18;
       v9 = v11;
       if (*(v22 + 88) <= 2uLL)
       {
@@ -772,7 +766,7 @@ void __39__MMCSHTTPContext_invalidateStreamPair__block_invoke(uint64_t a1)
       }
 
       [v21 set_allowsRetryForBackgroundDataTasks:*(v22 + 96) != 0];
-      v7 = v48;
+      v7 = v50;
       if (*(v22 + 104))
       {
         v23 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:CFBooleanGetValue(*(v22 + 104)) != 0];
@@ -829,7 +823,7 @@ void __39__MMCSHTTPContext_invalidateStreamPair__block_invoke(uint64_t a1)
       }
 
       v29 = *(v22 + 136);
-      mEMORY[0x277CF36D8] = v47;
+      mEMORY[0x277CF36D8] = v49;
       if (v29)
       {
         *valuePtr = 0;
@@ -854,9 +848,9 @@ void __39__MMCSHTTPContext_invalidateStreamPair__block_invoke(uint64_t a1)
         [v21 set_sourceApplicationAuditTokenData:{*(-[MMCSHTTPContext hc](self, "hc")[368] + 40)}];
       }
 
-      v50 = 0;
-      v30 = [v47 createDataTaskWithRequest:v6 options:v21 delegate:self sessionHandle:&v50];
-      v31 = v50;
+      v52 = 0;
+      v30 = [v49 createDataTaskWithRequest:v6 options:v21 delegate:self sessionHandle:&v52];
+      v31 = v52;
       [(MMCSHTTPContext *)self setDataTask:v30];
 
       dataTask = [(MMCSHTTPContext *)self dataTask];
@@ -887,27 +881,28 @@ void __39__MMCSHTTPContext_invalidateStreamPair__block_invoke(uint64_t a1)
           {
             if (!v37->var48)
             {
-              v49 = 0;
-              v38 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v21 requiringSecureCoding:1 error:&v49];
-              v39 = v49;
+              v51 = 0;
+              v38 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v21 requiringSecureCoding:1 error:&v51];
+              v39 = v51;
+              v41 = v39;
               if (v38)
               {
-                v40 = v38;
-                *([(MMCSHTTPContext *)self hc]+ 616) = v40;
+                v42 = v38;
+                *([(MMCSHTTPContext *)self hc]+ 616) = v42;
               }
 
               else
               {
-                v41 = mmcs_logging_logger_default();
-                if (v39)
+                v43 = mmcs_logging_logger_default(v39, v40);
+                if (v41)
                 {
-                  XCFPrintError(v41, @"ErrorSerializingWarmRequestOptions", v39);
+                  XCFPrintError(v43, @"ErrorSerializingWarmRequestOptions", v41);
                 }
 
                 else
                 {
-                  log = v41;
-                  if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+                  log = v43;
+                  if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
                   {
                     *valuePtr = 0;
                     _os_log_impl(&dword_2577D8000, log, OS_LOG_TYPE_ERROR, "Unable to serialize archivedData, error not returned.", valuePtr, 2u);
@@ -919,7 +914,7 @@ void __39__MMCSHTTPContext_invalidateStreamPair__block_invoke(uint64_t a1)
         }
       }
 
-      v18 = v46;
+      v18 = v48;
     }
 
     else
@@ -927,7 +922,7 @@ void __39__MMCSHTTPContext_invalidateStreamPair__block_invoke(uint64_t a1)
       v31 = 0;
       v5 = v12;
       v9 = v11;
-      v7 = v48;
+      v7 = v50;
     }
 
     dataTask4 = [(MMCSHTTPContext *)self dataTask];
@@ -960,16 +955,16 @@ LABEL_70:
   v10 = *MEMORY[0x277D85DE8];
   if (gMMCS_DebugLevel >= 5)
   {
-    v3 = mmcs_logging_logger_default();
+    v3 = mmcs_logging_logger_default(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       v4 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"dealloc");
-      v5 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v6 = mmcs_logging_logger_default(v4, v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
         v9 = v4;
-        _os_log_impl(&dword_2577D8000, v5, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        _os_log_impl(&dword_2577D8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
       if (v4)
@@ -994,7 +989,6 @@ LABEL_70:
   v7.receiver = self;
   v7.super_class = MMCSHTTPContext;
   [(MMCSHTTPContext *)&v7 dealloc];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cleanupResponse
@@ -1010,16 +1004,16 @@ LABEL_70:
   v10 = *MEMORY[0x277D85DE8];
   if (gMMCS_DebugLevel >= 4)
   {
-    v3 = mmcs_logging_logger_default();
+    v3 = mmcs_logging_logger_default(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       v4 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ invalidate", self);
-      v5 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v6 = mmcs_logging_logger_default(v4, v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
         v9 = v4;
-        _os_log_impl(&dword_2577D8000, v5, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        _os_log_impl(&dword_2577D8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
       if (v4)
@@ -1036,7 +1030,6 @@ LABEL_70:
 
   [(MMCSHTTPContext *)self setDataTask:0];
   [(MMCSHTTPContext *)self setUrlSession:0];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session task:(id)task willPerformHTTPRedirection:(id)redirection newRequest:(id)request completionHandler:(id)handler
@@ -1053,7 +1046,7 @@ LABEL_70:
 
 - (void)URLSession:(id)session task:(id)task didSendBodyData:(int64_t)data totalBytesSent:(int64_t)sent totalBytesExpectedToSend:(int64_t)send
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   state.opaque[0] = 0;
@@ -1061,26 +1054,27 @@ LABEL_70:
   os_activity_scope_enter([(MMCSHTTPContext *)self activityMarker], &state);
   if (gMMCS_DebugLevel >= 5)
   {
-    v12 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v14 = mmcs_logging_logger_default(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v13 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ %@ %@ didSendBodyData:%lld totalBytesSent:%lld totalBytesExpectedToSend:%lld", self, sessionCopy, taskCopy, data, sent, send);
-      v14 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v15 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ %@ %@ didSendBodyData:%lld totalBytesSent:%lld totalBytesExpectedToSend:%lld", self, sessionCopy, taskCopy, data, sent, send);
+      v17 = mmcs_logging_logger_default(v15, v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v35 = v13;
-        _os_log_impl(&dword_2577D8000, v14, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v44 = v15;
+        _os_log_impl(&dword_2577D8000, v17, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v13)
+      if (v15)
       {
-        CFRelease(v13);
+        CFRelease(v15);
       }
     }
   }
 
-  if ([(MMCSHTTPContext *)self isValid])
+  isValid = [(MMCSHTTPContext *)self isValid];
+  if (isValid)
   {
     dataTask = [(MMCSHTTPContext *)self dataTask];
     taskDescription = [dataTask taskDescription];
@@ -1089,19 +1083,19 @@ LABEL_70:
       dataTask2 = [(MMCSHTTPContext *)self dataTask];
       taskDescription2 = [dataTask2 taskDescription];
       taskDescription3 = [taskCopy taskDescription];
-      v20 = [taskDescription2 isEqualToString:taskDescription3];
+      v25 = [taskDescription2 isEqualToString:taskDescription3];
 
-      if (v20)
+      if (v25)
       {
-        v32[0] = MEMORY[0x277D85DD0];
-        v32[1] = 3221225472;
-        v32[2] = __91__MMCSHTTPContext_URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend___block_invoke;
-        v32[3] = &unk_279844F90;
-        v32[4] = self;
-        v32[5] = data;
-        v32[6] = sent;
-        v32[7] = send;
-        HttpContextPerformBlockAsync(self, v32);
+        v41[0] = MEMORY[0x277D85DD0];
+        v41[1] = 3221225472;
+        v41[2] = __91__MMCSHTTPContext_URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend___block_invoke;
+        v41[3] = &unk_279844F90;
+        v41[4] = self;
+        v41[5] = data;
+        v41[6] = sent;
+        v41[7] = send;
+        HttpContextPerformBlockAsync(self, v41);
         goto LABEL_22;
       }
     }
@@ -1110,45 +1104,45 @@ LABEL_70:
     {
     }
 
-    v24 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v32 = mmcs_logging_logger_default(v26, v27);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
     {
       taskDescription4 = [taskCopy taskDescription];
       dataTask3 = [(MMCSHTTPContext *)self dataTask];
       taskDescription5 = [dataTask3 taskDescription];
-      v22 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ unknown task %@. Expected %@: ignoring delegate callback", self, taskDescription4, taskDescription5);
+      v29 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ unknown task %@. Expected %@: ignoring delegate callback", self, taskDescription4, taskDescription5);
 
-      v28 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+      v38 = mmcs_logging_logger_default(v36, v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v35 = v22;
-        _os_log_impl(&dword_2577D8000, v28, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v44 = v29;
+        _os_log_impl(&dword_2577D8000, v38, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v22)
+      if (v29)
       {
 LABEL_21:
-        CFRelease(v22);
+        CFRelease(v29);
       }
     }
   }
 
   else
   {
-    v21 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v28 = mmcs_logging_logger_default(isValid, v19);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
-      v22 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ invalid: ignoring delegate callback", self);
-      v23 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v29 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ invalid: ignoring delegate callback", self);
+      v31 = mmcs_logging_logger_default(v29, v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v35 = v22;
-        _os_log_impl(&dword_2577D8000, v23, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v44 = v29;
+        _os_log_impl(&dword_2577D8000, v31, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v22)
+      if (v29)
       {
         goto LABEL_21;
       }
@@ -1157,36 +1151,33 @@ LABEL_21:
 
 LABEL_22:
   os_activity_scope_leave(&state);
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __91__MMCSHTTPContext_URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x277D85DE8];
-  if ([*(a1 + 32) isValid])
+  v2 = [*(a1 + 32) isValid];
+  if (v2)
   {
-    v2 = [*(a1 + 32) hc];
-    v3 = *(a1 + 40);
-    v4 = *(a1 + 48);
-    v5 = *(a1 + 56);
-    v6 = *MEMORY[0x277D85DE8];
+    v4 = [*(a1 + 32) hc];
+    v5 = *(a1 + 40);
+    v6 = *(a1 + 48);
 
-    mmcs_nshttp_sent_data(v2, v3, v4);
+    mmcs_nshttp_sent_data(v4, v5, v6);
   }
 
   else
   {
-    v7 = mmcs_logging_logger_default();
+    v7 = mmcs_logging_logger_default(v2, v3);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       v8 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"mmcs runloop: %@ invalid: ignoring delegate callback", *(a1 + 32));
-      v9 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = mmcs_logging_logger_default(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
         v12 = v8;
-        _os_log_impl(&dword_2577D8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        _os_log_impl(&dword_2577D8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
       if (v8)
@@ -1194,14 +1185,12 @@ void __91__MMCSHTTPContext_URLSession_task_didSendBodyData_totalBytesSent_totalB
         CFRelease(v8);
       }
     }
-
-    v10 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)URLSession:(id)session task:(id)task needNewBodyStream:(id)stream
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   streamCopy = stream;
@@ -1210,49 +1199,50 @@ void __91__MMCSHTTPContext_URLSession_task_didSendBodyData_totalBytesSent_totalB
   os_activity_scope_enter([(MMCSHTTPContext *)self activityMarker], &state);
   if (gMMCS_DebugLevel >= 5)
   {
-    v11 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v13 = mmcs_logging_logger_default(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v12 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ %@ %@ needNewBodyStream", self, sessionCopy, taskCopy);
-      v13 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v14 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ %@ %@ needNewBodyStream", self, sessionCopy, taskCopy);
+      v16 = mmcs_logging_logger_default(v14, v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v35 = v12;
-        _os_log_impl(&dword_2577D8000, v13, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v44 = v14;
+        _os_log_impl(&dword_2577D8000, v16, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v12)
+      if (v14)
       {
-        CFRelease(v12);
+        CFRelease(v14);
       }
     }
   }
 
-  if (![(MMCSHTTPContext *)self isValid])
+  isValid = [(MMCSHTTPContext *)self isValid];
+  if ((isValid & 1) == 0)
   {
-    v20 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v27 = mmcs_logging_logger_default(isValid, v18);
+    if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_22;
     }
 
-    v21 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ invalid: calling completionHandler with nil", self);
-    v22 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    v28 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ invalid: calling completionHandler with nil", self);
+    v30 = mmcs_logging_logger_default(v28, v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v35 = v21;
-      _os_log_impl(&dword_2577D8000, v22, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      v44 = v28;
+      _os_log_impl(&dword_2577D8000, v30, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
-    if (!v21)
+    if (!v28)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    CFRelease(v21);
+    CFRelease(v28);
 LABEL_22:
     streamCopy[2](streamCopy, 0);
     goto LABEL_23;
@@ -1269,13 +1259,13 @@ LABEL_22:
   dataTask2 = [(MMCSHTTPContext *)self dataTask];
   taskDescription2 = [dataTask2 taskDescription];
   taskDescription3 = [taskCopy taskDescription];
-  v19 = [taskDescription2 isEqualToString:taskDescription3];
+  v24 = [taskDescription2 isEqualToString:taskDescription3];
 
-  if ((v19 & 1) == 0)
+  if ((v24 & 1) == 0)
   {
 LABEL_17:
-    v23 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    v31 = mmcs_logging_logger_default(v25, v26);
+    if (!os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_22;
     }
@@ -1283,17 +1273,17 @@ LABEL_17:
     taskDescription4 = [taskCopy taskDescription];
     dataTask3 = [(MMCSHTTPContext *)self dataTask];
     taskDescription5 = [dataTask3 taskDescription];
-    v21 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ unknown task %@. Expected %@: ignoring delegate callback", self, taskDescription4, taskDescription5);
+    v28 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ unknown task %@. Expected %@: ignoring delegate callback", self, taskDescription4, taskDescription5);
 
-    v27 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    v37 = mmcs_logging_logger_default(v35, v36);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v35 = v21;
-      _os_log_impl(&dword_2577D8000, v27, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      v44 = v28;
+      _os_log_impl(&dword_2577D8000, v37, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
-    if (!v21)
+    if (!v28)
     {
       goto LABEL_22;
     }
@@ -1301,44 +1291,43 @@ LABEL_17:
     goto LABEL_21;
   }
 
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __53__MMCSHTTPContext_URLSession_task_needNewBodyStream___block_invoke;
-  v29[3] = &unk_279844FB8;
-  v29[4] = self;
-  v32 = streamCopy;
-  v30 = sessionCopy;
-  v31 = taskCopy;
-  HttpContextPerformBlockAsync(self, v29);
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __53__MMCSHTTPContext_URLSession_task_needNewBodyStream___block_invoke;
+  v38[3] = &unk_279844FB8;
+  v38[4] = self;
+  v41 = streamCopy;
+  v39 = sessionCopy;
+  v40 = taskCopy;
+  HttpContextPerformBlockAsync(self, v38);
 
 LABEL_23:
   os_activity_scope_leave(&state);
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __53__MMCSHTTPContext_URLSession_task_needNewBodyStream___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  if ([*(a1 + 32) isValid])
+  v15 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) isValid];
+  if (v2)
   {
     if (gMMCS_DebugLevel >= 4)
     {
-      v2 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+      v4 = mmcs_logging_logger_default(v2, v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
-        v3 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ %@ %@ needNewBodyStream on run loop", *(a1 + 32), *(a1 + 40), *(a1 + 48));
-        v4 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+        v5 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ %@ %@ needNewBodyStream on run loop", *(a1 + 32), *(a1 + 40), *(a1 + 48));
+        v7 = mmcs_logging_logger_default(v5, v6);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          v11 = v3;
-          _os_log_impl(&dword_2577D8000, v4, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+          v14 = v5;
+          _os_log_impl(&dword_2577D8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
         }
 
-        if (v3)
+        if (v5)
         {
-          CFRelease(v3);
+          CFRelease(v5);
         }
       }
     }
@@ -1346,12 +1335,12 @@ void __53__MMCSHTTPContext_URLSession_task_needNewBodyStream___block_invoke(uint
     [*(a1 + 32) setDidOpen:0];
     if ([*(a1 + 32) createNewRequestBodyInputStream])
     {
-      v5 = [*(a1 + 32) inputStream];
+      v8 = [*(a1 + 32) inputStream];
     }
 
     else
     {
-      v5 = 0;
+      v8 = 0;
     }
 
     (*(*(a1 + 56) + 16))();
@@ -1359,33 +1348,31 @@ void __53__MMCSHTTPContext_URLSession_task_needNewBodyStream___block_invoke(uint
 
   else
   {
-    v6 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v9 = mmcs_logging_logger_default(v2, v3);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v7 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"mmcs runloop: %@ invalid. Returning nil body stream", *(a1 + 32));
-      v8 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v10 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"mmcs runloop: %@ invalid. Returning nil body stream", *(a1 + 32));
+      v12 = mmcs_logging_logger_default(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v11 = v7;
-        _os_log_impl(&dword_2577D8000, v8, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v14 = v10;
+        _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v7)
+      if (v10)
       {
-        CFRelease(v7);
+        CFRelease(v10);
       }
     }
 
     (*(*(a1 + 56) + 16))();
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   errorCopy = error;
@@ -1404,41 +1391,42 @@ void __53__MMCSHTTPContext_URLSession_task_needNewBodyStream___block_invoke(uint
   [(MMCSHTTPContext *)selfCopy setIsHandlingError:1];
   objc_sync_exit(selfCopy);
 
-  v13 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v15 = mmcs_logging_logger_default(v13, v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     originalRequest = [taskCopy originalRequest];
-    v15 = [originalRequest URL];
+    v17 = [originalRequest URL];
     if (errorCopy)
     {
-      v16 = [errorCopy description];
+      v18 = [errorCopy description];
     }
 
     else
     {
-      v16 = &stru_2868BF3F0;
+      v18 = &stru_2868BF3F0;
     }
 
-    v17 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ with %@ did complete %@", selfCopy, v15, v16);
+    v19 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ with %@ did complete %@", selfCopy, v17, v18);
     if (errorCopy)
     {
     }
 
-    v18 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v22 = mmcs_logging_logger_default(v20, v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v39 = v17;
-      _os_log_impl(&dword_2577D8000, v18, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      v49 = v19;
+      _os_log_impl(&dword_2577D8000, v22, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
-    if (v17)
+    if (v19)
     {
-      CFRelease(v17);
+      CFRelease(v19);
     }
   }
 
-  if ([(MMCSHTTPContext *)selfCopy isValid])
+  isValid = [(MMCSHTTPContext *)selfCopy isValid];
+  if (isValid)
   {
     dataTask = [(MMCSHTTPContext *)selfCopy dataTask];
     taskDescription = [dataTask taskDescription];
@@ -1447,18 +1435,18 @@ void __53__MMCSHTTPContext_URLSession_task_needNewBodyStream___block_invoke(uint
       dataTask2 = [(MMCSHTTPContext *)selfCopy dataTask];
       taskDescription2 = [dataTask2 taskDescription];
       taskDescription3 = [taskCopy taskDescription];
-      v24 = [taskDescription2 isEqualToString:taskDescription3];
+      v30 = [taskDescription2 isEqualToString:taskDescription3];
 
-      if (v24)
+      if (v30)
       {
-        v34[0] = MEMORY[0x277D85DD0];
-        v34[1] = 3221225472;
-        v34[2] = __56__MMCSHTTPContext_URLSession_task_didCompleteWithError___block_invoke;
-        v34[3] = &unk_279844FE0;
-        v34[4] = selfCopy;
-        v35 = taskCopy;
-        v36 = errorCopy;
-        HttpContextPerformBlockAsync(selfCopy, v34);
+        v44[0] = MEMORY[0x277D85DD0];
+        v44[1] = 3221225472;
+        v44[2] = __56__MMCSHTTPContext_URLSession_task_didCompleteWithError___block_invoke;
+        v44[3] = &unk_279844FE0;
+        v44[4] = selfCopy;
+        v45 = taskCopy;
+        v46 = errorCopy;
+        HttpContextPerformBlockAsync(selfCopy, v44);
 
         goto LABEL_28;
       }
@@ -1468,45 +1456,45 @@ void __53__MMCSHTTPContext_URLSession_task_needNewBodyStream___block_invoke(uint
     {
     }
 
-    v28 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+    v37 = mmcs_logging_logger_default(v31, v32);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
     {
       taskDescription4 = [taskCopy taskDescription];
       dataTask3 = [(MMCSHTTPContext *)selfCopy dataTask];
       taskDescription5 = [dataTask3 taskDescription];
-      v26 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ unknown task %@. Expected %@: ignoring delegate callback", selfCopy, taskDescription4, taskDescription5);
+      v34 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ unknown task %@. Expected %@: ignoring delegate callback", selfCopy, taskDescription4, taskDescription5);
 
-      v32 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+      v43 = mmcs_logging_logger_default(v41, v42);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v39 = v26;
-        _os_log_impl(&dword_2577D8000, v32, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v49 = v34;
+        _os_log_impl(&dword_2577D8000, v43, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v26)
+      if (v34)
       {
 LABEL_27:
-        CFRelease(v26);
+        CFRelease(v34);
       }
     }
   }
 
   else
   {
-    v25 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+    v33 = mmcs_logging_logger_default(isValid, v24);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
     {
-      v26 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ invalid: ignoring delegate callback", selfCopy);
-      v27 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+      v34 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ invalid: ignoring delegate callback", selfCopy);
+      v36 = mmcs_logging_logger_default(v34, v35);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v39 = v26;
-        _os_log_impl(&dword_2577D8000, v27, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v49 = v34;
+        _os_log_impl(&dword_2577D8000, v36, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v26)
+      if (v34)
       {
         goto LABEL_27;
       }
@@ -1515,41 +1503,40 @@ LABEL_27:
 
 LABEL_28:
   os_activity_scope_leave(&state);
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __56__MMCSHTTPContext_URLSession_task_didCompleteWithError___block_invoke(id *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   [a1[4] invalidateStreamPair];
-  if ([a1[4] isValid])
+  v2 = [a1[4] isValid];
+  if (v2)
   {
-    v2 = [a1[5] _timingData];
-    [a1[4] setTimingData:v2];
+    v4 = [a1[5] _timingData];
+    [a1[4] setTimingData:v4];
 
     if (gMMCS_DebugLevel >= 5)
     {
-      v3 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+      v7 = mmcs_logging_logger_default(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        v4 = *MEMORY[0x277CBECE8];
-        v5 = a1[4];
-        v6 = [v5 timingData];
-        v7 = [v6 description];
-        v8 = CFStringCreateWithFormat(v4, 0, @"%@ %@", v5, v7);
+        v8 = *MEMORY[0x277CBECE8];
+        v9 = a1[4];
+        v10 = [v9 timingData];
+        v11 = [v10 description];
+        v12 = CFStringCreateWithFormat(v8, 0, @"%@ %@", v9, v11);
 
-        v9 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v15 = mmcs_logging_logger_default(v13, v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          v17 = v8;
-          _os_log_impl(&dword_2577D8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+          v23 = v12;
+          _os_log_impl(&dword_2577D8000, v15, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
         }
 
-        if (v8)
+        if (v12)
         {
-          CFRelease(v8);
+          CFRelease(v12);
         }
       }
     }
@@ -1560,47 +1547,46 @@ void __56__MMCSHTTPContext_URLSession_task_didCompleteWithError___block_invoke(i
       mmcs_nshttp_did_open([a1[4] hc]);
     }
 
-    v10 = [a1[4] hc];
-    v11 = [a1[5] countOfBytesSent];
+    v16 = [a1[4] hc];
+    v17 = [a1[5] countOfBytesSent];
     [a1[5] countOfBytesExpectedToSend];
-    mmcs_nshttp_sent_data(v10, 0, v11);
+    mmcs_nshttp_sent_data(v16, 0, v17);
     mmcs_nshttp_did_complete([a1[4] hc], a1[6]);
   }
 
   else
   {
-    v12 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v18 = mmcs_logging_logger_default(v2, v3);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      v13 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"mmcs runloop: %@ invalid: ignoring delegate callback", a1[4]);
-      v14 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v19 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"mmcs runloop: %@ invalid: ignoring delegate callback", a1[4]);
+      v21 = mmcs_logging_logger_default(v19, v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v17 = v13;
-        _os_log_impl(&dword_2577D8000, v14, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v23 = v19;
+        _os_log_impl(&dword_2577D8000, v21, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v13)
+      if (v19)
       {
-        CFRelease(v13);
+        CFRelease(v19);
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session dataTask:(id)task didReceiveData:(id)data
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   dataCopy = data;
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter([(MMCSHTTPContext *)self activityMarker], &state);
-  if ([(MMCSHTTPContext *)self isValid])
+  isValid = [(MMCSHTTPContext *)self isValid];
+  if (isValid)
   {
     dataTask = [(MMCSHTTPContext *)self dataTask];
     taskDescription = [dataTask taskDescription];
@@ -1609,19 +1595,19 @@ void __56__MMCSHTTPContext_URLSession_task_didCompleteWithError___block_invoke(i
       dataTask2 = [(MMCSHTTPContext *)self dataTask];
       taskDescription2 = [dataTask2 taskDescription];
       taskDescription3 = [taskCopy taskDescription];
-      v16 = [taskDescription2 isEqualToString:taskDescription3];
+      v18 = [taskDescription2 isEqualToString:taskDescription3];
 
-      if (v16)
+      if (v18)
       {
 LABEL_16:
-        v27[0] = MEMORY[0x277D85DD0];
-        v27[1] = 3221225472;
-        v27[2] = __54__MMCSHTTPContext_URLSession_dataTask_didReceiveData___block_invoke;
-        v27[3] = &unk_279844FE0;
-        v27[4] = self;
-        v28 = taskCopy;
-        v29 = dataCopy;
-        HttpContextPerformBlockSync(self, v27);
+        v33[0] = MEMORY[0x277D85DD0];
+        v33[1] = 3221225472;
+        v33[2] = __54__MMCSHTTPContext_URLSession_dataTask_didReceiveData___block_invoke;
+        v33[3] = &unk_279844FE0;
+        v33[4] = self;
+        v34 = taskCopy;
+        v35 = dataCopy;
+        HttpContextPerformBlockSync(self, v33);
 
         goto LABEL_17;
       }
@@ -1631,81 +1617,81 @@ LABEL_16:
     {
     }
 
-    v20 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v25 = mmcs_logging_logger_default(v19, v20);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
       taskDescription4 = [taskCopy taskDescription];
       dataTask3 = [(MMCSHTTPContext *)self dataTask];
       taskDescription5 = [dataTask3 taskDescription];
-      v24 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ unknown task %@. Expected %@: ignoring delegate callback", self, taskDescription4, taskDescription5);
+      v29 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ unknown task %@. Expected %@: ignoring delegate callback", self, taskDescription4, taskDescription5);
 
-      v25 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+      v32 = mmcs_logging_logger_default(v30, v31);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v32 = v24;
-        _os_log_impl(&dword_2577D8000, v25, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v38 = v29;
+        _os_log_impl(&dword_2577D8000, v32, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v24)
+      if (v29)
       {
-        CFRelease(v24);
+        CFRelease(v29);
       }
     }
 
     goto LABEL_16;
   }
 
-  v17 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v21 = mmcs_logging_logger_default(isValid, v12);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
-    v18 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ invalid: ignoring delegate callback", self);
-    v19 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v22 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ invalid: ignoring delegate callback", self);
+    v24 = mmcs_logging_logger_default(v22, v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v32 = v18;
-      _os_log_impl(&dword_2577D8000, v19, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      v38 = v22;
+      _os_log_impl(&dword_2577D8000, v24, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
-    if (v18)
+    if (v22)
     {
-      CFRelease(v18);
+      CFRelease(v22);
     }
   }
 
 LABEL_17:
   os_activity_scope_leave(&state);
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __54__MMCSHTTPContext_URLSession_dataTask_didReceiveData___block_invoke(id *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if ([a1[4] isValid])
+  v20 = *MEMORY[0x277D85DE8];
+  v2 = [a1[4] isValid];
+  if (v2)
   {
-    if (([a1[4] didOpen] & 1) == 0)
+    v4 = [a1[4] didOpen];
+    if ((v4 & 1) == 0)
     {
-      v2 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+      v6 = mmcs_logging_logger_default(v4, v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v3 = *MEMORY[0x277CBECE8];
-        v4 = a1[4];
-        v5 = [a1[5] response];
-        v6 = CFStringCreateWithFormat(v3, 0, @"%@ not already open. Is there a response?'%@'", v4, v5);
+        v7 = *MEMORY[0x277CBECE8];
+        v8 = a1[4];
+        v9 = [a1[5] response];
+        v10 = CFStringCreateWithFormat(v7, 0, @"%@ not already open. Is there a response?'%@'", v8, v9);
 
-        v7 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v13 = mmcs_logging_logger_default(v11, v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v13 = v6;
-          _os_log_impl(&dword_2577D8000, v7, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+          v19 = v10;
+          _os_log_impl(&dword_2577D8000, v13, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
         }
 
-        if (v6)
+        if (v10)
         {
-          CFRelease(v6);
+          CFRelease(v10);
         }
       }
 
@@ -1718,31 +1704,29 @@ void __54__MMCSHTTPContext_URLSession_dataTask_didReceiveData___block_invoke(id 
 
   else
   {
-    v8 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v14 = mmcs_logging_logger_default(v2, v3);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v9 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"mmcs runloop: %@ invalid: ignoring delegate callback", a1[4]);
-      v10 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v15 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"mmcs runloop: %@ invalid: ignoring delegate callback", a1[4]);
+      v17 = mmcs_logging_logger_default(v15, v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v13 = v9;
-        _os_log_impl(&dword_2577D8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v19 = v15;
+        _os_log_impl(&dword_2577D8000, v17, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v9)
+      if (v15)
       {
-        CFRelease(v9);
+        CFRelease(v15);
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session dataTask:(id)task didReceiveResponse:(id)response completionHandler:(id)handler
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   responseCopy = response;
@@ -1750,21 +1734,21 @@ void __54__MMCSHTTPContext_URLSession_dataTask_didReceiveData___block_invoke(id 
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter([(MMCSHTTPContext *)self activityMarker], &state);
-  v13 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v15 = mmcs_logging_logger_default(v13, v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    v14 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ URLSession:%@ dataTask:%@ didReceiveResponse:%@", self, sessionCopy, taskCopy, responseCopy);
-    v15 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v16 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ URLSession:%@ dataTask:%@ didReceiveResponse:%@", self, sessionCopy, taskCopy, responseCopy);
+    v18 = mmcs_logging_logger_default(v16, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v37 = v14;
-      _os_log_impl(&dword_2577D8000, v15, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      v46 = v16;
+      _os_log_impl(&dword_2577D8000, v18, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
-    if (v14)
+    if (v16)
     {
-      CFRelease(v14);
+      CFRelease(v16);
     }
   }
 
@@ -1774,30 +1758,31 @@ void __54__MMCSHTTPContext_URLSession_dataTask_didReceiveData___block_invoke(id 
     *([(MMCSHTTPContext *)self hc]+ 120) = Current;
   }
 
-  if (![(MMCSHTTPContext *)self isValid])
+  isValid = [(MMCSHTTPContext *)self isValid];
+  if ((isValid & 1) == 0)
   {
-    v23 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    v30 = mmcs_logging_logger_default(isValid, v21);
+    if (!os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_23;
     }
 
-    v24 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ invalid: calling completionHandler with NSURLSessionResponseCancel", self);
-    v25 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+    v31 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ invalid: calling completionHandler with NSURLSessionResponseCancel", self);
+    v33 = mmcs_logging_logger_default(v31, v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v37 = v24;
-      _os_log_impl(&dword_2577D8000, v25, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      v46 = v31;
+      _os_log_impl(&dword_2577D8000, v33, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
-    if (!v24)
+    if (!v31)
     {
       goto LABEL_23;
     }
 
 LABEL_22:
-    CFRelease(v24);
+    CFRelease(v31);
 LABEL_23:
     handlerCopy[2](handlerCopy, 0);
     goto LABEL_24;
@@ -1814,13 +1799,13 @@ LABEL_23:
   dataTask2 = [(MMCSHTTPContext *)self dataTask];
   taskDescription2 = [dataTask2 taskDescription];
   taskDescription3 = [taskCopy taskDescription];
-  v22 = [taskDescription2 isEqualToString:taskDescription3];
+  v27 = [taskDescription2 isEqualToString:taskDescription3];
 
-  if ((v22 & 1) == 0)
+  if ((v27 & 1) == 0)
   {
 LABEL_18:
-    v26 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+    v34 = mmcs_logging_logger_default(v28, v29);
+    if (!os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_23;
     }
@@ -1828,17 +1813,17 @@ LABEL_18:
     taskDescription4 = [taskCopy taskDescription];
     dataTask3 = [(MMCSHTTPContext *)self dataTask];
     taskDescription5 = [dataTask3 taskDescription];
-    v24 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ unknown task %@. Expected %@: ignoring delegate callback", self, taskDescription4, taskDescription5);
+    v31 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ unknown task %@. Expected %@: ignoring delegate callback", self, taskDescription4, taskDescription5);
 
-    v30 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+    v40 = mmcs_logging_logger_default(v38, v39);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v37 = v24;
-      _os_log_impl(&dword_2577D8000, v30, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      v46 = v31;
+      _os_log_impl(&dword_2577D8000, v40, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
-    if (!v24)
+    if (!v31)
     {
       goto LABEL_23;
     }
@@ -1846,24 +1831,23 @@ LABEL_18:
     goto LABEL_22;
   }
 
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __76__MMCSHTTPContext_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke;
-  v33[3] = &unk_279845008;
-  v33[4] = self;
-  v34 = handlerCopy;
-  HttpContextPerformBlockAsync(self, v33);
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __76__MMCSHTTPContext_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke;
+  v42[3] = &unk_279845008;
+  v42[4] = self;
+  v43 = handlerCopy;
+  HttpContextPerformBlockAsync(self, v42);
 
 LABEL_24:
   os_activity_scope_leave(&state);
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __76__MMCSHTTPContext_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  if ([*(a1 + 32) isValid])
+  v12 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) isValid];
+  if (v2)
   {
     if (([*(a1 + 32) didOpen] & 1) == 0)
     {
@@ -1871,42 +1855,38 @@ uint64_t __76__MMCSHTTPContext_URLSession_dataTask_didReceiveResponse_completion
       mmcs_nshttp_did_open([*(a1 + 32) hc]);
     }
 
-    v2 = *(*(a1 + 40) + 16);
-    v3 = *MEMORY[0x277D85DE8];
+    v4 = *(*(a1 + 40) + 16);
 
-    return v2();
+    return v4();
   }
 
   else
   {
-    v5 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = mmcs_logging_logger_default(v2, v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v6 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"mmcs runloop: %@ invalid: ignoring delegate callback", *(a1 + 32));
-      v7 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v7 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"mmcs runloop: %@ invalid: ignoring delegate callback", *(a1 + 32));
+      v9 = mmcs_logging_logger_default(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v10 = v6;
-        _os_log_impl(&dword_2577D8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v11 = v7;
+        _os_log_impl(&dword_2577D8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v6)
+      if (v7)
       {
-        CFRelease(v6);
+        CFRelease(v7);
       }
     }
 
-    result = (*(*(a1 + 40) + 16))();
-    v8 = *MEMORY[0x277D85DE8];
+    return (*(*(a1 + 40) + 16))();
   }
-
-  return result;
 }
 
 - (void)URLSession:(id)session task:(id)task _willSendRequestForEstablishedConnection:(id)connection completionHandler:(id)handler
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   connectionCopy = connection;
@@ -1916,53 +1896,54 @@ uint64_t __76__MMCSHTTPContext_URLSession_dataTask_didReceiveResponse_completion
   os_activity_scope_enter([(MMCSHTTPContext *)self activityMarker], &state);
   if (gMMCS_DebugLevel >= 4)
   {
-    v12 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v14 = mmcs_logging_logger_default(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v13 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ %@ %@ %@", self, sessionCopy, taskCopy, connectionCopy);
-      v14 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v15 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ %@ %@ %@", self, sessionCopy, taskCopy, connectionCopy);
+      v17 = mmcs_logging_logger_default(v15, v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v51 = v13;
-        _os_log_impl(&dword_2577D8000, v14, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v64 = v15;
+        _os_log_impl(&dword_2577D8000, v17, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v13)
+      if (v15)
       {
-        CFRelease(v13);
+        CFRelease(v15);
       }
     }
   }
 
-  if (![(MMCSHTTPContext *)self isValid])
+  isValid = [(MMCSHTTPContext *)self isValid];
+  if ((isValid & 1) == 0)
   {
-    v25 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+    v34 = mmcs_logging_logger_default(isValid, v19);
+    if (!os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_26;
     }
 
-    v26 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ invalid: calling completionHandler with nil request", self);
-    v27 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    v35 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ invalid: calling completionHandler with nil request", self);
+    v37 = mmcs_logging_logger_default(v35, v36);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v51 = v26;
-      _os_log_impl(&dword_2577D8000, v27, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      v64 = v35;
+      _os_log_impl(&dword_2577D8000, v37, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
-    if (!v26)
+    if (!v35)
     {
       goto LABEL_26;
     }
 
 LABEL_25:
-    CFRelease(v26);
+    CFRelease(v35);
 LABEL_26:
-    v33 = 0;
+    v45 = 0;
 LABEL_27:
-    (handlerCopy)[2](handlerCopy, v33);
+    (handlerCopy)[2](handlerCopy, v45);
     goto LABEL_28;
   }
 
@@ -1977,13 +1958,13 @@ LABEL_27:
   dataTask2 = [(MMCSHTTPContext *)self dataTask];
   taskDescription2 = [dataTask2 taskDescription];
   taskDescription3 = [taskCopy taskDescription];
-  v20 = [taskDescription2 isEqualToString:taskDescription3];
+  v25 = [taskDescription2 isEqualToString:taskDescription3];
 
-  if ((v20 & 1) == 0)
+  if ((v25 & 1) == 0)
   {
 LABEL_21:
-    v28 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+    v38 = mmcs_logging_logger_default(v26, v27);
+    if (!os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_26;
     }
@@ -1991,17 +1972,17 @@ LABEL_21:
     taskDescription4 = [taskCopy taskDescription];
     dataTask3 = [(MMCSHTTPContext *)self dataTask];
     taskDescription5 = [dataTask3 taskDescription];
-    v26 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ unknown task %@. Expected %@: ignoring delegate callback", self, taskDescription4, taskDescription5);
+    v35 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ unknown task %@. Expected %@: ignoring delegate callback", self, taskDescription4, taskDescription5);
 
-    v32 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+    v44 = mmcs_logging_logger_default(v42, v43);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v51 = v26;
-      _os_log_impl(&dword_2577D8000, v32, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      v64 = v35;
+      _os_log_impl(&dword_2577D8000, v44, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
-    if (!v26)
+    if (!v35)
     {
       goto LABEL_26;
     }
@@ -2009,40 +1990,41 @@ LABEL_21:
     goto LABEL_25;
   }
 
-  if (![(MMCSHTTPContext *)self requestIsStreamed])
+  requestIsStreamed = [(MMCSHTTPContext *)self requestIsStreamed];
+  if ((requestIsStreamed & 1) == 0)
   {
-    v33 = connectionCopy;
+    v45 = connectionCopy;
     if (gMMCS_DebugLevel < 5)
     {
       goto LABEL_27;
     }
 
-    v35 = mmcs_logging_logger_default();
-    v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG);
-    v33 = connectionCopy;
-    if (!v36)
+    v46 = mmcs_logging_logger_default(requestIsStreamed, connectionCopy);
+    v47 = os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG);
+    v45 = connectionCopy;
+    if (!v47)
     {
       goto LABEL_27;
     }
 
-    v37 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ %@ %@ %@ is not streamed; using as is.", self, sessionCopy, taskCopy, connectionCopy);
-    v38 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+    v48 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ %@ %@ %@ is not streamed; using as is.", self, sessionCopy, taskCopy, connectionCopy);
+    v50 = mmcs_logging_logger_default(v48, v49);
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v51 = v37;
-      _os_log_impl(&dword_2577D8000, v38, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      v64 = v48;
+      _os_log_impl(&dword_2577D8000, v50, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
-    v33 = connectionCopy;
-    if (!v37)
+    v45 = connectionCopy;
+    if (!v48)
     {
       goto LABEL_27;
     }
 
 LABEL_34:
-    CFRelease(v37);
-    v33 = connectionCopy;
+    CFRelease(v48);
+    v45 = connectionCopy;
     goto LABEL_27;
   }
 
@@ -2053,35 +2035,35 @@ LABEL_34:
     {
       hTTPBodyStream2 = [connectionCopy HTTPBodyStream];
       inputStream = [(MMCSHTTPContext *)self inputStream];
-      v24 = hTTPBodyStream2 == inputStream;
+      v32 = hTTPBodyStream2 == inputStream;
 
-      if (v24)
+      if (v32)
       {
-        v33 = connectionCopy;
+        v45 = connectionCopy;
         if (gMMCS_DebugLevel < 5)
         {
           goto LABEL_27;
         }
 
-        v39 = mmcs_logging_logger_default();
-        v40 = os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG);
-        v33 = connectionCopy;
-        if (!v40)
+        v51 = mmcs_logging_logger_default(v33, connectionCopy);
+        v52 = os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG);
+        v45 = connectionCopy;
+        if (!v52)
         {
           goto LABEL_27;
         }
 
-        v37 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ %@ %@ %@ is streamed, and the request input stream is non-nil and equal context input stream; using as is.", self, sessionCopy, taskCopy, connectionCopy);
-        v41 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+        v48 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ %@ %@ %@ is streamed, and the request input stream is non-nil and equal context input stream; using as is.", self, sessionCopy, taskCopy, connectionCopy);
+        v54 = mmcs_logging_logger_default(v48, v53);
+        if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          v51 = v37;
-          _os_log_impl(&dword_2577D8000, v41, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+          v64 = v48;
+          _os_log_impl(&dword_2577D8000, v54, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
         }
 
-        v33 = connectionCopy;
-        if (!v37)
+        v45 = connectionCopy;
+        if (!v48)
         {
           goto LABEL_27;
         }
@@ -2091,156 +2073,152 @@ LABEL_34:
     }
   }
 
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __94__MMCSHTTPContext_URLSession_task__willSendRequestForEstablishedConnection_completionHandler___block_invoke;
-  v44[3] = &unk_279845030;
-  v44[4] = self;
-  v48 = handlerCopy;
-  v45 = sessionCopy;
-  v46 = taskCopy;
-  v47 = connectionCopy;
-  HttpContextPerformBlockAsync(self, v44);
+  v57[0] = MEMORY[0x277D85DD0];
+  v57[1] = 3221225472;
+  v57[2] = __94__MMCSHTTPContext_URLSession_task__willSendRequestForEstablishedConnection_completionHandler___block_invoke;
+  v57[3] = &unk_279845030;
+  v57[4] = self;
+  v61 = handlerCopy;
+  v58 = sessionCopy;
+  v59 = taskCopy;
+  v60 = connectionCopy;
+  HttpContextPerformBlockAsync(self, v57);
 
 LABEL_28:
   os_activity_scope_leave(&state);
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __94__MMCSHTTPContext_URLSession_task__willSendRequestForEstablishedConnection_completionHandler___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  if (([*(a1 + 32) isValid] & 1) == 0)
+  v29 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) isValid];
+  if (v2)
   {
-    v14 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    if (gMMCS_DebugLevel >= 5)
     {
-      v15 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"mmcs runloop: %@ invalid: ignoring delegate callback", *(a1 + 32));
-      v16 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v4 = mmcs_logging_logger_default(v2, v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+      {
+        v5 = *MEMORY[0x277CBECE8];
+        v6 = *(a1 + 32);
+        v26 = *(a1 + 40);
+        v7 = *(a1 + 56);
+        v8 = [v6 inputStream];
+        v9 = @"using existing stream";
+        if (!v8)
+        {
+          v9 = @"creating new stream";
+        }
+
+        v10 = CFStringCreateWithFormat(v5, 0, @"%@ %@ %@ %@ is streamed, and the request input stream is nil or not equal the context input stream; %@.", v6, v26, v7, v9);
+
+        v13 = mmcs_logging_logger_default(v11, v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 138543362;
+          v28 = v10;
+          _os_log_impl(&dword_2577D8000, v13, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        }
+
+        if (v10)
+        {
+          CFRelease(v10);
+        }
+      }
+    }
+
+    mmcs_http_context_mark_as_writing([*(a1 + 32) hc]);
+    v14 = [*(a1 + 32) inputStream];
+
+    if (!v14)
+    {
+      [*(a1 + 32) createNewRequestBodyInputStream];
+    }
+
+    v15 = [*(a1 + 32) inputStream];
+
+    if (v15)
+    {
+      v18 = [*(a1 + 56) mutableCopy];
+      v19 = [*(a1 + 32) inputStream];
+      [v18 setHTTPBodyStream:v19];
+
+      (*(*(a1 + 64) + 16))();
+      return;
+    }
+
+    v24 = mmcs_logging_logger_default(v16, v17);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    {
+      v21 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"mmcs runloop: %@ unable to create new input stream", *(a1 + 32));
+      v23 = mmcs_logging_logger_default(v21, v25);
+      if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_21;
       }
 
       *buf = 138543362;
-      v21 = v15;
+      v28 = v21;
+LABEL_20:
+      _os_log_impl(&dword_2577D8000, v23, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+LABEL_21:
+      if (v21)
+      {
+        CFRelease(v21);
+      }
+    }
+  }
+
+  else
+  {
+    v20 = mmcs_logging_logger_default(v2, v3);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    {
+      v21 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"mmcs runloop: %@ invalid: ignoring delegate callback", *(a1 + 32));
+      v23 = mmcs_logging_logger_default(v21, v22);
+      if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      {
+        goto LABEL_21;
+      }
+
+      *buf = 138543362;
+      v28 = v21;
       goto LABEL_20;
     }
-
-LABEL_23:
-    (*(*(a1 + 64) + 16))();
-    goto LABEL_24;
   }
-
-  if (gMMCS_DebugLevel >= 5)
-  {
-    v2 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
-    {
-      v3 = *MEMORY[0x277CBECE8];
-      v4 = *(a1 + 32);
-      v19 = *(a1 + 40);
-      v5 = *(a1 + 56);
-      v6 = [v4 inputStream];
-      v7 = @"using existing stream";
-      if (!v6)
-      {
-        v7 = @"creating new stream";
-      }
-
-      v8 = CFStringCreateWithFormat(v3, 0, @"%@ %@ %@ %@ is streamed, and the request input stream is nil or not equal the context input stream; %@.", v4, v19, v5, v7);
-
-      v9 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 138543362;
-        v21 = v8;
-        _os_log_impl(&dword_2577D8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
-      }
-
-      if (v8)
-      {
-        CFRelease(v8);
-      }
-    }
-  }
-
-  mmcs_http_context_mark_as_writing([*(a1 + 32) hc]);
-  v10 = [*(a1 + 32) inputStream];
-
-  if (!v10)
-  {
-    [*(a1 + 32) createNewRequestBodyInputStream];
-  }
-
-  v11 = [*(a1 + 32) inputStream];
-
-  if (!v11)
-  {
-    v17 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
-    {
-      v15 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"mmcs runloop: %@ unable to create new input stream", *(a1 + 32));
-      v16 = mmcs_logging_logger_default();
-      if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
-      {
-        goto LABEL_21;
-      }
-
-      *buf = 138543362;
-      v21 = v15;
-LABEL_20:
-      _os_log_impl(&dword_2577D8000, v16, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
-LABEL_21:
-      if (v15)
-      {
-        CFRelease(v15);
-      }
-
-      goto LABEL_23;
-    }
-
-    goto LABEL_23;
-  }
-
-  v12 = [*(a1 + 56) mutableCopy];
-  v13 = [*(a1 + 32) inputStream];
-  [v12 setHTTPBodyStream:v13];
 
   (*(*(a1 + 64) + 16))();
-LABEL_24:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session _willRetryBackgroundDataTask:(id)task withError:(id)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   errorCopy = error;
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter([(MMCSHTTPContext *)self activityMarker], &state);
-  v11 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v13 = mmcs_logging_logger_default(v11, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v12 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ %@ %@ _willRetryBackgroundDataTask after error %@", self, sessionCopy, taskCopy, errorCopy);
-    v13 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ %@ %@ _willRetryBackgroundDataTask after error %@", self, sessionCopy, taskCopy, errorCopy);
+    v16 = mmcs_logging_logger_default(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v35 = v12;
-      _os_log_impl(&dword_2577D8000, v13, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      v44 = v14;
+      _os_log_impl(&dword_2577D8000, v16, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
-    if (v12)
+    if (v14)
     {
-      CFRelease(v12);
+      CFRelease(v14);
     }
   }
 
-  if ([(MMCSHTTPContext *)self isValid])
+  isValid = [(MMCSHTTPContext *)self isValid];
+  if (isValid)
   {
     dataTask = [(MMCSHTTPContext *)self dataTask];
     taskDescription = [dataTask taskDescription];
@@ -2249,23 +2227,23 @@ LABEL_24:
       dataTask2 = [(MMCSHTTPContext *)self dataTask];
       taskDescription2 = [dataTask2 taskDescription];
       taskDescription3 = [taskCopy taskDescription];
-      v19 = [taskDescription2 isEqualToString:taskDescription3];
+      v24 = [taskDescription2 isEqualToString:taskDescription3];
 
-      if (v19)
+      if (v24)
       {
         selfCopy = self;
         objc_sync_enter(selfCopy);
         [(MMCSHTTPContext *)selfCopy setIsHandlingError:1];
         objc_sync_exit(selfCopy);
 
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __69__MMCSHTTPContext_URLSession__willRetryBackgroundDataTask_withError___block_invoke;
-        v30[3] = &unk_279844FE0;
-        v30[4] = selfCopy;
-        v31 = taskCopy;
-        v32 = errorCopy;
-        HttpContextPerformBlockSync(selfCopy, v30);
+        v39[0] = MEMORY[0x277D85DD0];
+        v39[1] = 3221225472;
+        v39[2] = __69__MMCSHTTPContext_URLSession__willRetryBackgroundDataTask_withError___block_invoke;
+        v39[3] = &unk_279844FE0;
+        v39[4] = selfCopy;
+        v40 = taskCopy;
+        v41 = errorCopy;
+        HttpContextPerformBlockSync(selfCopy, v39);
 
         goto LABEL_21;
       }
@@ -2275,45 +2253,45 @@ LABEL_24:
     {
     }
 
-    v24 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v32 = mmcs_logging_logger_default(v25, v26);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
     {
       taskDescription4 = [taskCopy taskDescription];
       dataTask3 = [(MMCSHTTPContext *)self dataTask];
       taskDescription5 = [dataTask3 taskDescription];
-      v22 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ unknown task %@. Expected %@: ignoring delegate callback", self, taskDescription4, taskDescription5);
+      v29 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ unknown task %@. Expected %@: ignoring delegate callback", self, taskDescription4, taskDescription5);
 
-      v28 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+      v38 = mmcs_logging_logger_default(v36, v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v35 = v22;
-        _os_log_impl(&dword_2577D8000, v28, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v44 = v29;
+        _os_log_impl(&dword_2577D8000, v38, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v22)
+      if (v29)
       {
 LABEL_20:
-        CFRelease(v22);
+        CFRelease(v29);
       }
     }
   }
 
   else
   {
-    v21 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v28 = mmcs_logging_logger_default(isValid, v18);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
-      v22 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ invalid: ignoring delegate callback", self);
-      v23 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v29 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@ invalid: ignoring delegate callback", self);
+      v31 = mmcs_logging_logger_default(v29, v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v35 = v22;
-        _os_log_impl(&dword_2577D8000, v23, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v44 = v29;
+        _os_log_impl(&dword_2577D8000, v31, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v22)
+      if (v29)
       {
         goto LABEL_20;
       }
@@ -2322,148 +2300,145 @@ LABEL_20:
 
 LABEL_21:
   os_activity_scope_leave(&state);
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
-void __69__MMCSHTTPContext_URLSession__willRetryBackgroundDataTask_withError___block_invoke(id *a1)
+void __69__MMCSHTTPContext_URLSession__willRetryBackgroundDataTask_withError___block_invoke(id *a1, uint64_t a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v2 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v38 = *MEMORY[0x277D85DE8];
+  v3 = mmcs_logging_logger_default(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v26 = a1[4];
-    v3 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"mmcs runloop: %@ synchronous callback");
-    v4 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v4 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"mmcs runloop: %@ synchronous callback", a1[4]);
+    v6 = mmcs_logging_logger_default(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v28 = v3;
-      _os_log_impl(&dword_2577D8000, v4, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      v37 = v4;
+      _os_log_impl(&dword_2577D8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
-    if (v3)
+    if (v4)
     {
-      CFRelease(v3);
+      CFRelease(v4);
     }
   }
 
-  if ([a1[4] isValid])
+  v7 = [a1[4] isValid];
+  if (v7)
   {
-    v5 = [a1[5] _timingData];
-    [a1[4] setTimingData:v5];
+    v9 = [a1[5] _timingData];
+    [a1[4] setTimingData:v9];
 
     [a1[4] invalidateStreamPair];
     mmcs_nshttp_will_retry_in_background([a1[4] hc], a1[6]);
     if (![a1[4] hc] || *(objc_msgSend(a1[4], "hc") + 292))
     {
-LABEL_9:
-      if ([a1[4] isValid])
-      {
-        [a1[4] setDidOpen:0];
-      }
-
-      goto LABEL_16;
+      goto LABEL_9;
     }
 
     user_data = mmcs_http_context_get_user_data([a1[4] hc]);
     if (*([a1[4] hc] + 368) && *(*(objc_msgSend(a1[4], "hc") + 368) + 77))
     {
-      v11 = [a1[6] domain];
-      if (![v11 isEqualToString:*MEMORY[0x277CCA738]])
+      v15 = [a1[6] domain];
+      if ([v15 isEqualToString:*MEMORY[0x277CCA738]])
       {
+        v16 = [a1[6] code];
 
-        goto LABEL_9;
-      }
-
-      v12 = [a1[6] code];
-
-      if (v12 != -1001)
-      {
-        goto LABEL_9;
-      }
-
-      v13 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-      {
-        v18 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Cancelling request with FailFail enabled after initial background error");
-        v19 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        if (v16 == -1001)
         {
-          *buf = 138543362;
-          v28 = v18;
-          _os_log_impl(&dword_2577D8000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
-        }
+          v19 = mmcs_logging_logger_default(v17, v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          {
+            v24 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Cancelling request with FailFail enabled after initial background error");
+            v26 = mmcs_logging_logger_default(v24, v25);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 138543362;
+              v37 = v24;
+              _os_log_impl(&dword_2577D8000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+            }
 
-        if (v18)
-        {
-          CFRelease(v18);
+            if (v24)
+            {
+              CFRelease(v24);
+            }
+          }
+
+          v27 = a1[6];
+          v28 = @"Fastfail enabled; cancelling background request after timeout.";
+LABEL_36:
+          error_with_underlying_error = mmcs_cferror_create_error_with_underlying_error(@"com.apple.mmcs", 38, v27, v28, v20, v21, v22, v23);
+          mmcs_http_context_should_cancel([a1[4] hc], error_with_underlying_error);
+          if (error_with_underlying_error)
+          {
+            CFRelease(error_with_underlying_error);
+          }
         }
       }
 
-      v20 = a1[6];
-      v21 = @"Fastfail enabled; cancelling background request after timeout.";
+      else
+      {
+      }
     }
 
-    else
+    else if (mmcs_http_context_is_request_body_done([a1[4] hc]))
     {
-      if (!mmcs_http_context_is_request_body_done([a1[4] hc]) || !user_data || !mmcs_http_request_is_put_complete_at_edge_protocol_v2(*(user_data + 24)))
+      if (user_data)
       {
-        goto LABEL_9;
-      }
-
-      v22 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
-      {
-        v23 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Cancelling background retry with PutCompleteAtEdge && RequestBodyDone after initial background error");
-        v24 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        is_put_complete_at_edge_protocol_v2 = mmcs_http_request_is_put_complete_at_edge_protocol_v2(*(user_data + 24));
+        if (is_put_complete_at_edge_protocol_v2)
         {
-          *buf = 138543362;
-          v28 = v23;
-          _os_log_impl(&dword_2577D8000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
-        }
+          v31 = mmcs_logging_logger_default(is_put_complete_at_edge_protocol_v2, v30);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+          {
+            v32 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Cancelling background retry with PutCompleteAtEdge && RequestBodyDone after initial background error");
+            v34 = mmcs_logging_logger_default(v32, v33);
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 138543362;
+              v37 = v32;
+              _os_log_impl(&dword_2577D8000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+            }
 
-        if (v23)
-        {
-          CFRelease(v23);
+            if (v32)
+            {
+              CFRelease(v32);
+            }
+          }
+
+          v27 = a1[6];
+          v28 = @"PutCompleteAtEdge && RequestBodyDone; cancelling background request upon automatic retry.";
+          goto LABEL_36;
         }
       }
-
-      v20 = a1[6];
-      v21 = @"PutCompleteAtEdge && RequestBodyDone; cancelling background request upon automatic retry.";
     }
 
-    error_with_underlying_error = mmcs_cferror_create_error_with_underlying_error(@"com.apple.mmcs", 38, v20, v21, v14, v15, v16, v17, v26);
-    mmcs_http_context_should_cancel([a1[4] hc], error_with_underlying_error);
-    if (error_with_underlying_error)
+LABEL_9:
+    if ([a1[4] isValid])
     {
-      CFRelease(error_with_underlying_error);
+      [a1[4] setDidOpen:0];
     }
 
-    goto LABEL_9;
+    return;
   }
 
-  v6 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v10 = mmcs_logging_logger_default(v7, v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v7 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"mmcs runloop: %@ invalid: ignoring delegate callback", a1[4]);
-    v8 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v11 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"mmcs runloop: %@ invalid: ignoring delegate callback", a1[4]);
+    v13 = mmcs_logging_logger_default(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v28 = v7;
-      _os_log_impl(&dword_2577D8000, v8, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      v37 = v11;
+      _os_log_impl(&dword_2577D8000, v13, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
-    if (v7)
+    if (v11)
     {
-      CFRelease(v7);
+      CFRelease(v11);
     }
   }
-
-LABEL_16:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

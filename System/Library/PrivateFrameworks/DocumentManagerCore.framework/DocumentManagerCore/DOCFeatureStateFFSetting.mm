@@ -88,7 +88,7 @@ void __90__DOCFeatureStateFFSetting_initWithDomainID_featureID_overrideKey_value
 
 + (id)defaultsOverrideForDomainID:(id)d featureID:(id)iD overrideKey:(id)key
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   keyCopy = key;
@@ -126,9 +126,9 @@ LABEL_6:
     if (v16)
     {
       standardUserDefaults2 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-      v24 = v12;
-      v25[0] = v16;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+      v23 = v12;
+      v24[0] = v16;
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
       [standardUserDefaults2 registerDefaults:v18];
     }
   }
@@ -141,8 +141,6 @@ LABEL_6:
     v21 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:v10];
     v20 = [v21 valueForKey:v12];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

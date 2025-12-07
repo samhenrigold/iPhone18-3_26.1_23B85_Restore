@@ -936,11 +936,11 @@ LABEL_20:
   return v30;
 }
 
-uint64_t __102__SBLockScreenBiometricAuthenticationCoordinator_biometricUnlockBehavior_requestsUnlock_withFeedback___block_invoke_2(uint64_t result, int a2)
+void *__102__SBLockScreenBiometricAuthenticationCoordinator_biometricUnlockBehavior_requestsUnlock_withFeedback___block_invoke_2(void *result, int a2)
 {
   if (a2)
   {
-    return [MEMORY[0x277D67938] activateAlertItem:*(result + 32)];
+    return [MEMORY[0x277D67938] activateAlertItem:result[4]];
   }
 
   return result;
@@ -1158,28 +1158,28 @@ void __84__SBLockScreenBiometricAuthenticationCoordinator__updateMatchingForStat
   *(*(a1 + 32) + 104) = *(a1 + 40);
 }
 
-uint64_t __84__SBLockScreenBiometricAuthenticationCoordinator__updateMatchingForState_forReason___block_invoke_223(uint64_t a1)
+uint64_t __84__SBLockScreenBiometricAuthenticationCoordinator__updateMatchingForState_forReason___block_invoke_223(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  if ((*(v2 + 120) & 1) == 0)
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = *(a1 + 32);
+  if ((*(v3 + 120) & 1) == 0)
   {
-    v3 = SBLogLockScreenBiometricCoordinator();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = SBLogLockScreenBiometricCoordinator();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = NSStringFromBOOL();
-      v7 = 138543362;
-      v8 = v4;
-      _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "Matching assertion invalidation timer fired before matched with result: %{public}@", &v7, 0xCu);
+      v5 = NSStringFromBOOL();
+      v8 = 138543362;
+      v9 = v5;
+      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Matching assertion invalidation timer fired before matched with result: %{public}@", &v8, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 24));
     [WeakRetained biometricAuthenticationCoordinator:*(a1 + 32) handleIdentityMatchSuccess:0];
 
-    v2 = *(a1 + 32);
+    v3 = *(a1 + 32);
   }
 
-  [*(v2 + 96) invalidate];
+  [*(v3 + 96) invalidate];
   return (*(*(a1 + 40) + 16))();
 }
 
@@ -1326,22 +1326,22 @@ LABEL_18:
   }
 }
 
-uint64_t __69__SBLockScreenBiometricAuthenticationCoordinator__pendUnlockRequest___block_invoke(uint64_t result)
+void *__69__SBLockScreenBiometricAuthenticationCoordinator__pendUnlockRequest___block_invoke(void *result, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  if (*(*(result + 32) + 128) == *(result + 40))
+  v7 = *MEMORY[0x277D85DE8];
+  if (*(result[4] + 128) == result[5])
   {
-    v1 = result;
-    v2 = SBLogLockScreenBiometricCoordinator();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v2 = result;
+    v3 = SBLogLockScreenBiometricCoordinator();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = *(*(v1 + 32) + 128);
-      v4 = 138412290;
-      v5 = v3;
-      _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_INFO, "Dropping pended unlock request because it expired: %@", &v4, 0xCu);
+      v4 = *(v2[4] + 128);
+      v5 = 138412290;
+      v6 = v4;
+      _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_INFO, "Dropping pended unlock request because it expired: %@", &v5, 0xCu);
     }
 
-    return [*(v1 + 32) _clearPendingUnlockRequest];
+    return [v2[4] _clearPendingUnlockRequest];
   }
 
   return result;

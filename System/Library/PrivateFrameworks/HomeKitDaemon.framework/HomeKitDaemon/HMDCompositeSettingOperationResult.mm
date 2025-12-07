@@ -7,26 +7,24 @@
 
 - (id)attributeDescriptions
 {
-  v18[4] = *MEMORY[0x277D85DE8];
+  v17[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   keyPath = [(HMDCompositeSettingOperationResult *)self keyPath];
   v5 = [v3 initWithName:@"keyPath" value:keyPath];
-  v18[0] = v5;
+  v17[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   setting = [(HMDCompositeSettingOperationResult *)self setting];
   v8 = [v6 initWithName:@"setting" value:setting];
-  v18[1] = v8;
+  v17[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   error = [(HMDCompositeSettingOperationResult *)self error];
   v11 = [v9 initWithName:@"error" value:error];
-  v18[2] = v11;
+  v17[2] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   metadata = [(HMDCompositeSettingOperationResult *)self metadata];
   v14 = [v12 initWithName:@"metadata" value:metadata];
-  v18[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v17[3] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:4];
 
   return v15;
 }

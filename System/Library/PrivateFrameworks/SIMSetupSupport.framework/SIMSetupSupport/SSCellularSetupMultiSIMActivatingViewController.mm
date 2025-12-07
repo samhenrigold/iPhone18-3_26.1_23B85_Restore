@@ -61,12 +61,13 @@
 
         else
         {
-          if ([v12 count] == 1)
+          v20 = [v12 count];
+          if (v20 == 1)
           {
             goto LABEL_13;
           }
 
-          v19 = _TSLogDomain();
+          v19 = _TSLogDomain(v20);
           if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
           {
             [(SSCellularSetupMultiSIMActivatingViewController *)buf initWithPlanInfos:v19];
@@ -89,7 +90,6 @@ LABEL_15:
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -114,7 +114,7 @@ LABEL_15:
 
   else
   {
-    v13 = _TSLogDomain();
+    v13 = _TSLogDomain(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       [SSCellularSetupMultiSIMActivatingViewController updateInstallationStatus:dCopy forPlanID:v13];
@@ -387,68 +387,68 @@ LABEL_18:
 {
   pathCopy = path;
   v6 = [pathCopy row];
-  if (v6 >= [(NSArray *)self->_plans count])
+  v7 = [(NSArray *)self->_plans count];
+  if (v6 >= v7)
   {
-    v17 = _TSLogDomain();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    v18 = _TSLogDomain(v7);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
-      [SSCellularSetupMultiSIMActivatingViewController(UITableViewDataSource) tableView:v17 cellForRowAtIndexPath:?];
+      [SSCellularSetupMultiSIMActivatingViewController(UITableViewDataSource) tableView:v18 cellForRowAtIndexPath:?];
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v7 = -[NSArray objectAtIndexedSubscript:](self->_plans, "objectAtIndexedSubscript:", [pathCopy row]);
-    identifier = [v7 identifier];
-    v9 = [objc_alloc(MEMORY[0x277D75B48]) initWithStyle:3 reuseIdentifier:identifier];
-    defaultConfig = [v9 defaultConfig];
-    text = [v7 text];
+    v8 = -[NSArray objectAtIndexedSubscript:](self->_plans, "objectAtIndexedSubscript:", [pathCopy row]);
+    identifier = [v8 identifier];
+    v10 = [objc_alloc(MEMORY[0x277D75B48]) initWithStyle:3 reuseIdentifier:identifier];
+    defaultConfig = [v10 defaultConfig];
+    text = [v8 text];
     [defaultConfig setText:text];
 
-    v12 = [(NSMutableDictionary *)self->_planStatusDescriptions objectForKeyedSubscript:identifier];
-    [defaultConfig setSecondaryText:v12];
+    v13 = [(NSMutableDictionary *)self->_planStatusDescriptions objectForKeyedSubscript:identifier];
+    [defaultConfig setSecondaryText:v13];
 
-    v13 = MEMORY[0x277D755B8];
-    imageName = [v7 imageName];
-    v15 = [v13 systemImageNamed:imageName];
-    [defaultConfig setImage:v15];
+    v14 = MEMORY[0x277D755B8];
+    imageName = [v8 imageName];
+    v16 = [v14 systemImageNamed:imageName];
+    [defaultConfig setImage:v16];
 
-    [v9 setContentConfiguration:defaultConfig];
-    v16 = [(SSCellularSetupMultiSIMActivatingViewController *)self accessoryViewForStatus:v7];
-    [v9 setAccessoryView:v16];
+    [v10 setContentConfiguration:defaultConfig];
+    v17 = [(SSCellularSetupMultiSIMActivatingViewController *)self accessoryViewForStatus:v8];
+    [v10 setAccessoryView:v17];
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)prepare:(id)prepare
 {
   v12 = *MEMORY[0x277D85DE8];
   prepareCopy = prepare;
-  if ([(NSArray *)self->_plans count]> 1)
+  v5 = [(NSArray *)self->_plans count];
+  if (v5 > 1)
   {
     prepareCopy[2](prepareCopy, 1);
   }
 
   else
   {
-    v5 = _TSLogDomain();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _TSLogDomain(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [(NSArray *)self->_plans count];
+      v7 = [(NSArray *)self->_plans count];
       v8 = 134218242;
-      v9 = v6;
+      v9 = v7;
       v10 = 2080;
       v11 = "[SSCellularSetupMultiSIMActivatingViewController(TSSetupFlowItem) prepare:]";
-      _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "skip. count : %lu @%s", &v8, 0x16u);
+      _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "skip. count : %lu @%s", &v8, 0x16u);
     }
 
     prepareCopy[2](prepareCopy, 0);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithPlanInfos:(os_log_t)log .cold.1(uint8_t *buf, void *a2, os_log_t log)
@@ -460,13 +460,12 @@ LABEL_18:
 
 - (void)updateInstallationStatus:(uint64_t)a1 forPlanID:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = a1;
-  v5 = 2080;
-  v6 = "[SSCellularSetupMultiSIMActivatingViewController updateInstallationStatus:forPlanID:]";
-  _os_log_fault_impl(&dword_262AA8000, a2, OS_LOG_TYPE_FAULT, "[F]cannot find plan id : %@ @%s", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = a1;
+  v4 = 2080;
+  v5 = "[SSCellularSetupMultiSIMActivatingViewController updateInstallationStatus:forPlanID:]";
+  _os_log_fault_impl(&dword_262AA8000, a2, OS_LOG_TYPE_FAULT, "[F]cannot find plan id : %@ @%s", &v2, 0x16u);
 }
 
 @end

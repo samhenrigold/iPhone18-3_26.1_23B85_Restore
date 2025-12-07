@@ -106,11 +106,7 @@ uint64_t __46__FLTCDMCATISwiftBitVector_addObjectToBuffer___block_invoke(uint64_
 
 - (void)data:(id)data
 {
-  root = self->_root;
-  v5 = &root[-*root->var0];
   dataCopy = data;
-  v7 = *root[*v5[12].var0 + *root[*v5[12].var0].var0].var0;
-  v8 = dataCopy;
   (*(data + 2))();
 }
 

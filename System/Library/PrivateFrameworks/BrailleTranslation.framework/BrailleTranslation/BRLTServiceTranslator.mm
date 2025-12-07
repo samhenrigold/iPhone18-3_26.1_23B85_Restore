@@ -10,11 +10,11 @@
 
 - (BRLTServiceTranslator)initWithTable:(id)table
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   tableCopy = table;
-  v29.receiver = self;
-  v29.super_class = BRLTServiceTranslator;
-  v6 = [(BRLTServiceTranslator *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = BRLTServiceTranslator;
+  v6 = [(BRLTServiceTranslator *)&v28 init];
   v7 = v6;
   if (!v6)
   {
@@ -25,26 +25,26 @@ LABEL_13:
 
   objc_storeStrong(&v6->_table, table);
   +[BRLTTableEnumerator tableEnumeratorWithSystemBundlePath];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v24 = v28 = 0u;
-  translatorBundles = [v24 translatorBundles];
-  v9 = [translatorBundles countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v23 = v27 = 0u;
+  translatorBundles = [v23 translatorBundles];
+  v9 = [translatorBundles countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v26;
+    v11 = *v25;
 LABEL_4:
     v12 = 0;
     while (1)
     {
-      if (*v26 != v11)
+      if (*v25 != v11)
       {
         objc_enumerationMutation(translatorBundles);
       }
 
-      v13 = *(*(&v25 + 1) + 8 * v12);
+      v13 = *(*(&v24 + 1) + 8 * v12);
       bundleIdentifier = [v13 bundleIdentifier];
       serviceIdentifier = [tableCopy serviceIdentifier];
       v16 = [bundleIdentifier isEqualToString:serviceIdentifier];
@@ -56,7 +56,7 @@ LABEL_4:
 
       if (v10 == ++v12)
       {
-        v10 = [translatorBundles countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v10 = [translatorBundles countByEnumeratingWithState:&v24 objects:v29 count:16];
         if (v10)
         {
           goto LABEL_4;
@@ -92,7 +92,6 @@ LABEL_14:
   v20 = 0;
 LABEL_17:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -227,13 +226,11 @@ LABEL_6:
 
 - (void)initWithTable:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 serviceIdentifier];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_241DFD000, a2, OS_LOG_TYPE_ERROR, "Couldn't load braille bundle for identifier: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_241DFD000, a2, OS_LOG_TYPE_ERROR, "Couldn't load braille bundle for identifier: %@", &v4, 0xCu);
 }
 
 @end

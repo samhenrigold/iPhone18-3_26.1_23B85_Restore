@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)symptomAsString:(int)string;
 - (int)StringAsSymptom:(id)symptom;
 - (int)symptom;
 - (unint64_t)hash;
@@ -42,6 +43,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)symptomAsString:(int)string
+{
+  if (string >= 5)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE33258[string];
+  }
 }
 
 - (int)StringAsSymptom:(id)symptom
@@ -176,7 +190,6 @@ LABEL_5:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -188,7 +201,6 @@ LABEL_3:
       }
 
 LABEL_8:
-      problemAC = self->_problemAC;
       PBDataWriterWriteUint32Field();
       if ((*&self->_has & 8) == 0)
       {
@@ -204,7 +216,6 @@ LABEL_8:
     goto LABEL_3;
   }
 
-  symptom = self->_symptom;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) != 0)
@@ -219,7 +230,6 @@ LABEL_4:
   }
 
 LABEL_9:
-  facetimeCallInProgress = self->_facetimeCallInProgress;
 
   PBDataWriterWriteBOOLField();
 }

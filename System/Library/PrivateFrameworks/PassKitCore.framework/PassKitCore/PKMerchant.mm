@@ -519,9 +519,9 @@
       goto LABEL_30;
     }
 
-    v10 = [(NSString *)v7 isEqualToString:v8];
+    isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-    if (!v10)
+    if (!isEqualToString)
     {
       goto LABEL_30;
     }
@@ -1600,9 +1600,9 @@ LABEL_118:
       if (v48 && v49)
       {
         v50 = v48;
-        v51 = [v48 isEqualToString:v49];
+        isEqualToString = objc_msgSend_isEqualToString_(v48);
 
-        if (v51)
+        if (isEqualToString)
         {
           v52 = 1;
           goto LABEL_108;

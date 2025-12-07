@@ -62,7 +62,7 @@ LABEL_12:
 
 + (id)runAssetCommand:(id)command
 {
-  v85[1] = *MEMORY[0x1E69E9840];
+  v84[1] = *MEMORY[0x1E69E9840];
   commandCopy = command;
   if ([commandCopy count] >= 2)
   {
@@ -135,7 +135,7 @@ LABEL_73:
       }
 
       lowercaseString10 = assetConfigDump;
-      v47 = [v43 initWithFormat:@"\n%@\n", assetConfigDump, v70];
+      v47 = [v43 initWithFormat:@"\n%@\n", assetConfigDump, v69];
       goto LABEL_70;
     }
 
@@ -209,12 +209,12 @@ LABEL_63:
         lowercaseString7 = [v23 lowercaseString];
         v25 = languageFromLowerCaseString(lowercaseString7);
 
-        v78 = 0;
-        v79 = &v78;
-        v80 = 0x3032000000;
-        v81 = __Block_byref_object_copy_;
-        v82 = __Block_byref_object_dispose_;
-        v83 = 0;
+        v77 = 0;
+        v78 = &v77;
+        v79 = 0x3032000000;
+        v80 = __Block_byref_object_copy_;
+        v81 = __Block_byref_object_dispose_;
+        v82 = 0;
         v26 = +[SRDefaultsManager sharedDefaultsManager];
         allLoadedAssets = [v26 allLoadedAssets];
 
@@ -223,19 +223,19 @@ LABEL_63:
         if (v28)
         {
           v29 = [allLoadedAssets objectForKeyedSubscript:v25];
-          v75[0] = MEMORY[0x1E69E9820];
-          v75[1] = 3221225472;
-          v75[2] = __34__SRAssetCommand_runAssetCommand___block_invoke;
-          v75[3] = &unk_1E7A2B100;
-          v76 = lowercaseString6;
-          v77 = &v78;
-          [v29 enumerateKeysAndObjectsUsingBlock:v75];
+          v74[0] = MEMORY[0x1E69E9820];
+          v74[1] = 3221225472;
+          v74[2] = __34__SRAssetCommand_runAssetCommand___block_invoke;
+          v74[3] = &unk_1E7A2B100;
+          v75 = lowercaseString6;
+          v76 = &v77;
+          [v29 enumerateKeysAndObjectsUsingBlock:v74];
         }
 
         v30 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v20 = [v30 initWithFormat:@"\n%@\n", v79[5]];
+        v20 = [v30 initWithFormat:@"\n%@\n", v78[5]];
 
-        _Block_object_dispose(&v78, 8);
+        _Block_object_dispose(&v77, 8);
         goto LABEL_74;
       }
 
@@ -280,8 +280,8 @@ LABEL_74:
 
       v55 = +[SRDefaultsManager sharedDefaultsManager];
       v56 = objc_alloc(MEMORY[0x1E695DFD8]);
-      v85[0] = v54;
-      v57 = [MEMORY[0x1E695DEC8] arrayWithObjects:v85 count:1];
+      v84[0] = v54;
+      v57 = [MEMORY[0x1E695DEC8] arrayWithObjects:v84 count:1];
       v58 = [v56 initWithArray:v57];
       [v55 requestAssetsForLanguages:v58 removeExisting:0 force:v33];
 
@@ -334,30 +334,30 @@ LABEL_70:
     {
       preferredLanguages = [MEMORY[0x1E695DF58] preferredLanguages];
       v35 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+      v70 = 0u;
       v71 = 0u;
       v72 = 0u;
       v73 = 0u;
-      v74 = 0u;
       v36 = preferredLanguages;
-      v37 = [v36 countByEnumeratingWithState:&v71 objects:v84 count:16];
+      v37 = [v36 countByEnumeratingWithState:&v70 objects:v83 count:16];
       if (v37)
       {
-        v38 = *v72;
+        v38 = *v71;
         do
         {
           for (i = 0; i != v37; ++i)
           {
-            if (*v72 != v38)
+            if (*v71 != v38)
             {
               objc_enumerationMutation(v36);
             }
 
-            v40 = normalizedLocaleForIdentifier(*(*(&v71 + 1) + 8 * i));
+            v40 = normalizedLocaleForIdentifier(*(*(&v70 + 1) + 8 * i));
             v41 = languageCodeForLocale(v40);
             [v35 addObject:v41];
           }
 
-          v37 = [v36 countByEnumeratingWithState:&v71 objects:v84 count:16];
+          v37 = [v36 countByEnumeratingWithState:&v70 objects:v83 count:16];
         }
 
         while (v37);
@@ -383,8 +383,6 @@ LABEL_70:
   }
 
 LABEL_75:
-
-  v68 = *MEMORY[0x1E69E9840];
 
   return v20;
 }

@@ -30,7 +30,7 @@
 
 + (id)defaultConfigurationForVersion:(unint64_t)version withError:(id *)error
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   if (version == 0x10000 || version == 196613)
   {
     v5 = [ANSTISPInferenceConfiguration alloc];
@@ -42,16 +42,14 @@
     if (error)
     {
       v9 = MEMORY[0x277CCA9B8];
-      v14 = *MEMORY[0x277CCA068];
-      v15[0] = @"Unrecognized version.";
-      v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v15, &v14, 1);
+      v13 = *MEMORY[0x277CCA068];
+      v14[0] = @"Unrecognized version.";
+      v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v14, &v13, 1);
       *error = objc_msgSend_errorWithDomain_code_userInfo_(v9, v11, @"ANSTErrorDomain", 14, v10);
     }
 
     v7 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -288,7 +286,7 @@
 
 - (ANSTISPInferenceConfiguration)initWithCoder:(id)coder
 {
-  v126[1] = *MEMORY[0x277D85DE8];
+  v125[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = objc_opt_class();
   v6 = NSStringFromSelector(sel_version);
@@ -325,29 +323,29 @@
             v31 = NSStringFromSelector(sel_isDepthEnabled);
             v33 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v32, v30, v31);
 
-            v108 = v33;
+            v107 = v33;
             if (v33)
             {
               v35 = objc_opt_class();
               v36 = NSStringFromSelector(sel_resolution);
               v38 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v37, v35, v36);
 
-              v107 = v38;
+              v106 = v38;
               if (v38)
               {
                 v40 = objc_opt_class();
                 v41 = NSStringFromSelector(sel_frameRate);
                 v43 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v42, v40, v41);
 
-                v106 = v43;
+                v105 = v43;
                 if (v43)
                 {
                   v45 = NSStringFromSelector(sel_useE5);
                   v47 = objc_msgSend_decodeBoolForKey_(coderCopy, v46, v45);
 
-                  v110.receiver = selfCopy;
-                  v110.super_class = ANSTISPInferenceConfiguration;
-                  v50 = [(ANSTISPInferenceConfiguration *)&v110 init];
+                  v109.receiver = selfCopy;
+                  v109.super_class = ANSTISPInferenceConfiguration;
+                  v50 = [(ANSTISPInferenceConfiguration *)&v109 init];
                   if (v50)
                   {
                     v50->_version = objc_msgSend_unsignedIntegerValue(v8, v48, v49);
@@ -356,8 +354,8 @@
                     v50->_skinToneEnabled = objc_msgSend_BOOLValue(v23, v55, v56);
                     v50->_bodyKeypointsEnabled = objc_msgSend_BOOLValue(v28, v57, v58);
                     v50->_depthEnabled = objc_msgSend_BOOLValue(v33, v59, v60);
-                    v50->_resolution = objc_msgSend_integerValue(v107, v61, v62);
-                    v50->_frameRate = objc_msgSend_integerValue(v106, v63, v64);
+                    v50->_resolution = objc_msgSend_integerValue(v106, v61, v62);
+                    v50->_frameRate = objc_msgSend_integerValue(v105, v63, v64);
                     v50->_useE5 = v47;
                   }
 
@@ -369,9 +367,9 @@
                 {
                   v98 = MEMORY[0x277CCA9B8];
                   v99 = *MEMORY[0x277CCA050];
-                  v111 = *MEMORY[0x277CCA068];
-                  v112 = @"-frameRate was not encoded.";
-                  v100 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v44, &v112, &v111, 1);
+                  v110 = *MEMORY[0x277CCA068];
+                  v111 = @"-frameRate was not encoded.";
+                  v100 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v44, &v111, &v110, 1);
                   v102 = objc_msgSend_errorWithDomain_code_userInfo_(v98, v101, v99, 4865, v100);
                   objc_msgSend_failWithError_(coderCopy, v103, v102);
 
@@ -379,17 +377,17 @@
                   self = selfCopy;
                 }
 
-                v91 = v106;
-                v86 = v107;
+                v91 = v105;
+                v86 = v106;
               }
 
               else
               {
                 v93 = MEMORY[0x277CCA9B8];
                 v94 = *MEMORY[0x277CCA050];
-                v113 = *MEMORY[0x277CCA068];
-                v114 = @"-resolution was not encoded.";
-                v91 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v39, &v114, &v113, 1);
+                v112 = *MEMORY[0x277CCA068];
+                v113 = @"-resolution was not encoded.";
+                v91 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v39, &v113, &v112, 1);
                 v96 = objc_msgSend_errorWithDomain_code_userInfo_(v93, v95, v94, 4865, v91);
                 objc_msgSend_failWithError_(coderCopy, v97, v96);
 
@@ -403,25 +401,25 @@
             {
               v88 = MEMORY[0x277CCA9B8];
               v89 = *MEMORY[0x277CCA050];
-              v115 = *MEMORY[0x277CCA068];
-              v116 = @"-isDepthEnabled was not encoded.";
-              v86 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v34, &v116, &v115, 1);
+              v114 = *MEMORY[0x277CCA068];
+              v115 = @"-isDepthEnabled was not encoded.";
+              v86 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v34, &v115, &v114, 1);
               v91 = objc_msgSend_errorWithDomain_code_userInfo_(v88, v90, v89, 4865, v86);
               objc_msgSend_failWithError_(coderCopy, v92, v91);
               selfCopy2 = 0;
               self = selfCopy;
             }
 
-            v81 = v108;
+            v81 = v107;
           }
 
           else
           {
             v83 = MEMORY[0x277CCA9B8];
             v84 = *MEMORY[0x277CCA050];
-            v117 = *MEMORY[0x277CCA068];
-            v118 = @"-isBodyKeypointsEnabled was not encoded.";
-            v81 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v29, &v118, &v117, 1);
+            v116 = *MEMORY[0x277CCA068];
+            v117 = @"-isBodyKeypointsEnabled was not encoded.";
+            v81 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v29, &v117, &v116, 1);
             v86 = objc_msgSend_errorWithDomain_code_userInfo_(v83, v85, v84, 4865, v81);
             objc_msgSend_failWithError_(coderCopy, v87, v86);
             selfCopy2 = 0;
@@ -433,9 +431,9 @@
         {
           v78 = MEMORY[0x277CCA9B8];
           v79 = *MEMORY[0x277CCA050];
-          v119 = *MEMORY[0x277CCA068];
-          v120 = @"-isSkinToneEnabled was not encoded.";
-          v28 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v24, &v120, &v119, 1);
+          v118 = *MEMORY[0x277CCA068];
+          v119 = @"-isSkinToneEnabled was not encoded.";
+          v28 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v24, &v119, &v118, 1);
           v81 = objc_msgSend_errorWithDomain_code_userInfo_(v78, v80, v79, 4865, v28);
           objc_msgSend_failWithError_(coderCopy, v82, v81);
           selfCopy2 = 0;
@@ -446,9 +444,9 @@
       {
         v74 = MEMORY[0x277CCA9B8];
         v75 = *MEMORY[0x277CCA050];
-        v121 = *MEMORY[0x277CCA068];
-        v122 = @"-isSegmentationEnabled was not encoded.";
-        v23 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v19, &v122, &v121, 1);
+        v120 = *MEMORY[0x277CCA068];
+        v121 = @"-isSegmentationEnabled was not encoded.";
+        v23 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v19, &v121, &v120, 1);
         v28 = objc_msgSend_errorWithDomain_code_userInfo_(v74, v76, v75, 4865, v23);
         objc_msgSend_failWithError_(coderCopy, v77, v28);
         selfCopy2 = 0;
@@ -459,9 +457,9 @@
     {
       v70 = MEMORY[0x277CCA9B8];
       v71 = *MEMORY[0x277CCA050];
-      v123 = *MEMORY[0x277CCA068];
-      v124 = @"-isObjectTrackingEnabled was not encoded.";
-      v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v14, &v124, &v123, 1);
+      v122 = *MEMORY[0x277CCA068];
+      v123 = @"-isObjectTrackingEnabled was not encoded.";
+      v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v14, &v123, &v122, 1);
       v23 = objc_msgSend_errorWithDomain_code_userInfo_(v70, v72, v71, 4865, v18);
       objc_msgSend_failWithError_(coderCopy, v73, v23);
       selfCopy2 = 0;
@@ -472,15 +470,14 @@
   {
     v66 = MEMORY[0x277CCA9B8];
     v67 = *MEMORY[0x277CCA050];
-    v125 = *MEMORY[0x277CCA068];
-    v126[0] = @"ISP inference configuration version was not encoded.";
-    v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v9, v126, &v125, 1);
+    v124 = *MEMORY[0x277CCA068];
+    v125[0] = @"ISP inference configuration version was not encoded.";
+    v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v9, v125, &v124, 1);
     v18 = objc_msgSend_errorWithDomain_code_userInfo_(v66, v68, v67, 4865, v13);
     objc_msgSend_failWithError_(coderCopy, v69, v18);
     selfCopy2 = 0;
   }
 
-  v104 = *MEMORY[0x277D85DE8];
   return selfCopy2;
 }
 

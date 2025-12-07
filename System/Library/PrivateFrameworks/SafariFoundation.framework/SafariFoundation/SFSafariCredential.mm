@@ -6,7 +6,6 @@
 - (SFSafariCredential)initWithUser:(id)user password:(id)password site:(id)site creationDate:(id)date customTitle:(id)title groupName:(id)name requestedHost:(id)host;
 - (SFSafariCredential)initWithUser:(id)user password:(id)password site:(id)site creationDate:(id)date customTitle:(id)title requestedHost:(id)host;
 - (SFSafariCredential)initWithUser:(id)user password:(id)password site:(id)site creationDate:(id)date requestedHost:(id)host;
-- (id)description;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -167,14 +166,6 @@
   return v7;
 }
 
-- (id)description
-{
-  v3 = MEMORY[0x277CCACA8];
-  v4 = objc_opt_class();
-  user = self->_user;
-  return [v3 stringWithFormat:@"<%@: %p; site = %@; user = %@; date = %@", v4, self, self->_site, user, self->_creationDate];
-}
-
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
@@ -215,7 +206,6 @@
               creationDate = [(SFSafariCredential *)v6 creationDate];
               if ([(NSDate *)creationDate isEqual:creationDate])
               {
-                requestedHost = self->_requestedHost;
                 requestedHost = [(SFSafariCredential *)v6 requestedHost];
                 v9 = WBSIsEqual();
               }

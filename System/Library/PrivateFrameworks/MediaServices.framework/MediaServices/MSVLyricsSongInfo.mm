@@ -181,42 +181,40 @@ LABEL_14:
 
 - (id)lyricsWordsAtTimeOffset:(double)offset errorMargin:(double)margin
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   lyricsLines = [(MSVLyricsSongInfo *)self lyricsLines];
   v7 = [MSVLyricsSongInfo _elementsInArray:lyricsLines atTimeOffset:offset errorMargin:margin];
 
   v8 = [MEMORY[0x1E695DF70] arrayWithCapacity:10];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        words = [*(*(&v18 + 1) + 8 * i) words];
+        words = [*(*(&v17 + 1) + 8 * i) words];
         v15 = [MSVLyricsSongInfo _elementsInArray:words atTimeOffset:offset errorMargin:margin];
         [v8 addObjectsFromArray:v15];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -231,30 +229,30 @@ LABEL_14:
 
 - (void)setTranslations:(id)translations
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   translationsCopy = translations;
   objc_storeStrong(&self->_translations, translations);
   v6 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v7 = translationsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         if (![v12 type])
         {
           linesMap = [v12 linesMap];
@@ -263,14 +261,13 @@ LABEL_14:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
 
   [(MSVLyricsSongInfo *)self setTranslationsMap:v6];
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (MSVLyricsSongInfo)init
@@ -320,31 +317,31 @@ LABEL_14:
 
 + (id)_elementsInArray:(id)array atTimeOffset:(double)offset errorMargin:(double)margin
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   v8 = [MEMORY[0x1E695DF70] arrayWithCapacity:5];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v9 = arrayCopy;
-  v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
     v12 = offset - margin;
     v13 = offset + margin;
-    v14 = *v23;
+    v14 = *v22;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v14)
+        if (*v22 != v14)
         {
           objc_enumerationMutation(v9);
         }
 
-        v16 = *(*(&v22 + 1) + 8 * i);
+        v16 = *(*(&v21 + 1) + 8 * i);
         [v16 startTime];
         if (v13 >= v17 && ([v16 endTime], v12 <= v18))
         {
@@ -361,15 +358,13 @@ LABEL_14:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v11);
   }
 
 LABEL_13:
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

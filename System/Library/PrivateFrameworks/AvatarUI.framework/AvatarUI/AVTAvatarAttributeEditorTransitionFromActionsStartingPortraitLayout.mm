@@ -15,19 +15,19 @@
 
 - (double)initWithContainerSize:(uint64_t)size insets:(char)insets userInfoViewHeight:(uint64_t)height screenScale:(uint64_t)scale RTL:(uint64_t)l avatarViewContainerFrame:(uint64_t)frame attributesContentViewFrameExtraHeight:(double)extraHeight avatarViewAlpha:(double)self0 showSideGroupPicker:(double)self1
 {
-  v17.receiver = self;
-  v17.super_class = AVTAvatarAttributeEditorTransitionFromActionsStartingPortraitLayout;
-  v15 = objc_msgSendSuper2(&v17, sel_initWithContainerSize_insets_userInfoViewHeight_screenScale_RTL_showSideGroupPicker_);
-  if (v15)
+  v25.receiver = self;
+  v25.super_class = AVTAvatarAttributeEditorTransitionFromActionsStartingPortraitLayout;
+  v23 = objc_msgSendSuper2(&v25, sel_initWithContainerSize_insets_userInfoViewHeight_screenScale_RTL_showSideGroupPicker_, size, insets, height, scale, l, frame, extraHeight, alpha, picker, a12, a13, a14, a15, a16);
+  if (v23)
   {
     result = a20;
-    *(v15 + 15) = a17;
-    *(v15 + 16) = a18;
-    *(v15 + 17) = a19;
-    v15[18] = a20;
-    *(v15 + 14) = a21;
-    *(v15 + 13) = a22;
-    *(v15 + 96) = insets;
+    *(v23 + 15) = a17;
+    *(v23 + 16) = a18;
+    *(v23 + 17) = a19;
+    v23[18] = a20;
+    *(v23 + 14) = a21;
+    *(v23 + 13) = a22;
+    *(v23 + 96) = insets;
   }
 
   return result;

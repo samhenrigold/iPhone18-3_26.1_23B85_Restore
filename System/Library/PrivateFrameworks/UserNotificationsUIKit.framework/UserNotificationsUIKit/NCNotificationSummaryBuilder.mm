@@ -19,9 +19,10 @@
 
 - (void)_updateSummaryText
 {
-  self->_summaryText = [(NCNotificationSummaryBuilder *)self _buildSummaryText];
+  _buildSummaryText = [(NCNotificationSummaryBuilder *)self _buildSummaryText];
+  self->_summaryText = _buildSummaryText;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](_buildSummaryText);
 }
 
 - (id)_buildSummaryText
@@ -272,7 +273,7 @@ void __58__NCNotificationSummaryBuilder__summaryNotificationsCount__block_invoke
   {
     v6 = @"DEFAULT_PRIORITY_CATEGORY_SUMMARY_FORMAT";
 LABEL_5:
-    v7 = NCUserNotificationsUIKitFrameworkBundle();
+    v7 = NCUserNotificationsUIKitFrameworkBundle(self);
     v8 = [v7 localizedStringForKey:v6 value:&stru_282FE84F8 table:0];
 
     goto LABEL_7;
@@ -288,28 +289,29 @@ LABEL_7:
 - (id)_defaultLocalizedSummaryWithNotificationsCount:(unint64_t)count arguments:(id)arguments
 {
   argumentsCopy = arguments;
+  v7 = argumentsCopy;
   style = self->_style;
   if (!style)
   {
-    v8 = @"DEFAULT_CATEGORY_SUMMARY_FORMAT_WITH_ARGUMENTS";
+    v9 = @"DEFAULT_CATEGORY_SUMMARY_FORMAT_WITH_ARGUMENTS";
     goto LABEL_5;
   }
 
   if (style == 1)
   {
-    v8 = @"DEFAULT_PRIORITY_CATEGORY_SUMMARY_FORMAT_WITH_ARGUMENTS";
+    v9 = @"DEFAULT_PRIORITY_CATEGORY_SUMMARY_FORMAT_WITH_ARGUMENTS";
 LABEL_5:
-    v9 = NCUserNotificationsUIKitFrameworkBundle();
-    v10 = [v9 localizedStringForKey:v8 value:&stru_282FE84F8 table:0];
+    v10 = NCUserNotificationsUIKitFrameworkBundle(argumentsCopy);
+    v11 = [v10 localizedStringForKey:v9 value:&stru_282FE84F8 table:0];
 
     goto LABEL_7;
   }
 
-  v10 = 0;
+  v11 = 0;
 LABEL_7:
-  v11 = [(NCNotificationSummaryBuilder *)self _localizedSummaryWithFormat:v10 notificationsCount:count arguments:argumentsCopy];
+  v12 = [(NCNotificationSummaryBuilder *)self _localizedSummaryWithFormat:v11 notificationsCount:count arguments:v7];
 
-  return v11;
+  return v12;
 }
 
 - (id)_localizedSummaryWithFormats:(id)formats andCounts:(id)counts
@@ -544,7 +546,7 @@ LABEL_37:
 - (id)_formatListWithArguments:(id)arguments truncated:(BOOL)truncated truncatedArgumentsCount:(unint64_t *)count
 {
   truncatedCopy = truncated;
-  v27[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   argumentsCopy = arguments;
   v8 = argumentsCopy;
   if (count)
@@ -567,7 +569,7 @@ LABEL_37:
   if ([v8 count] == 2)
   {
     v10 = MEMORY[0x277CCACA8];
-    v11 = NCUserNotificationsUIKitFrameworkBundle();
+    v11 = NCUserNotificationsUIKitFrameworkBundle(2);
     v12 = [v11 localizedStringForKey:@"CATEGORY_SUMMARY_LIST_TWO_ELEMENTS_FORMAT" value:&stru_282FE84F8 table:0];
     v13 = [v8 objectAtIndexedSubscript:0];
     v14 = [v8 objectAtIndexedSubscript:1];
@@ -579,32 +581,34 @@ LABEL_9:
 
   if (truncatedCopy && [v8 count] >= 5)
   {
-    v11 = [v8 subarrayWithRange:{0, 3}];
+    v15 = [v8 subarrayWithRange:{0, 3}];
+    v11 = v15;
     if (count)
     {
-      v15 = [v8 count];
-      *count = v15 - [v11 count];
+      v16 = [v8 count];
+      v15 = [v11 count];
+      *count = v16 - v15;
     }
 
-    v16 = NCUserNotificationsUIKitFrameworkBundle();
-    v17 = [v16 localizedStringForKey:@"CATEGORY_SUMMARY_LIST_SEPARATOR" value:&stru_282FE84F8 table:0];
-    v9 = [v11 componentsJoinedByString:v17];
+    v17 = NCUserNotificationsUIKitFrameworkBundle(v15);
+    v18 = [v17 localizedStringForKey:@"CATEGORY_SUMMARY_LIST_SEPARATOR" value:&stru_282FE84F8 table:0];
+    v9 = [v11 componentsJoinedByString:v18];
 
     goto LABEL_9;
   }
 
   lastObject = [v8 lastObject];
-  v27[0] = lastObject;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
-  v20 = [v8 arrayByExcludingObjectsInArray:v19];
+  v30[0] = lastObject;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+  v21 = [v8 arrayByExcludingObjectsInArray:v20];
 
-  v21 = NCUserNotificationsUIKitFrameworkBundle();
-  v22 = [v21 localizedStringForKey:@"CATEGORY_SUMMARY_LIST_SEPARATOR" value:&stru_282FE84F8 table:0];
-  v23 = [v20 componentsJoinedByString:v22];
+  v23 = NCUserNotificationsUIKitFrameworkBundle(v22);
+  v24 = [v23 localizedStringForKey:@"CATEGORY_SUMMARY_LIST_SEPARATOR" value:&stru_282FE84F8 table:0];
+  v25 = [v21 componentsJoinedByString:v24];
 
-  v24 = NCUserNotificationsUIKitFrameworkBundle();
-  v25 = [v24 localizedStringForKey:@"CATEGORY_SUMMARY_LIST_SEPARATOR_LAST_ELEMENT" value:&stru_282FE84F8 table:0];
-  v9 = [v23 stringByAppendingFormat:v25, lastObject];
+  v27 = NCUserNotificationsUIKitFrameworkBundle(v26);
+  v28 = [v27 localizedStringForKey:@"CATEGORY_SUMMARY_LIST_SEPARATOR_LAST_ELEMENT" value:&stru_282FE84F8 table:0];
+  v9 = [v25 stringByAppendingFormat:v28, lastObject];
 
 LABEL_16:
 

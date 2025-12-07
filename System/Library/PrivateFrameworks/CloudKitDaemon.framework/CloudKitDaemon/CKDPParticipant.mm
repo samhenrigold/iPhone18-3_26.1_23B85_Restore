@@ -780,31 +780,30 @@ LABEL_40:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v21 = toCopy;
+  v8 = toCopy;
   if (self->_participantId)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v21;
+    toCopy = v8;
   }
 
   if (self->_userId)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v21;
+    toCopy = v8;
   }
 
   if (self->_contactInformation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v21;
+    toCopy = v8;
   }
 
   has = self->_has;
   if ((has & 0x40) != 0)
   {
-    state = self->_state;
     PBDataWriterWriteInt32Field();
-    toCopy = v21;
+    toCopy = v8;
     has = self->_has;
     if ((has & 8) == 0)
     {
@@ -823,67 +822,62 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  participantType = self->_participantType;
   PBDataWriterWriteInt32Field();
-  toCopy = v21;
+  toCopy = v8;
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_10:
-    permission = self->_permission;
     PBDataWriterWriteInt32Field();
-    toCopy = v21;
+    toCopy = v8;
   }
 
 LABEL_11:
   if (self->_inviterId)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v21;
+    toCopy = v8;
   }
 
   if ((*&self->_has & 0x100) != 0)
   {
-    createdInProcess = self->_createdInProcess;
     PBDataWriterWriteBOOLField();
-    toCopy = v21;
+    toCopy = v8;
   }
 
   if (self->_publicKey)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v21;
+    toCopy = v8;
   }
 
   if (*&self->_has)
   {
-    acceptTimestamp = self->_acceptTimestamp;
     PBDataWriterWriteInt64Field();
-    toCopy = v21;
+    toCopy = v8;
   }
 
   if (self->_protectionInfo)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v21;
+    toCopy = v8;
   }
 
   if (self->_outOfNetworkPrivateKey)
   {
     PBDataWriterWriteDataField();
-    toCopy = v21;
+    toCopy = v8;
   }
 
-  v9 = self->_has;
-  if ((v9 & 4) != 0)
+  v6 = self->_has;
+  if ((v6 & 4) != 0)
   {
-    outOfNetworkKeyType = self->_outOfNetworkKeyType;
     PBDataWriterWriteInt32Field();
-    toCopy = v21;
-    v9 = self->_has;
-    if ((v9 & 0x20) == 0)
+    toCopy = v8;
+    v6 = self->_has;
+    if ((v6 & 0x20) == 0)
     {
 LABEL_25:
-      if ((v9 & 0x80) == 0)
+      if ((v6 & 0x80) == 0)
       {
         goto LABEL_26;
       }
@@ -892,19 +886,18 @@ LABEL_25:
     }
   }
 
-  else if ((v9 & 0x20) == 0)
+  else if ((v6 & 0x20) == 0)
   {
     goto LABEL_25;
   }
 
-  publicKeyVersion = self->_publicKeyVersion;
   PBDataWriterWriteInt32Field();
-  toCopy = v21;
-  v9 = self->_has;
-  if ((v9 & 0x80) == 0)
+  toCopy = v8;
+  v6 = self->_has;
+  if ((v6 & 0x80) == 0)
   {
 LABEL_26:
-    if ((v9 & 0x800) == 0)
+    if ((v6 & 0x800) == 0)
     {
       goto LABEL_28;
     }
@@ -913,82 +906,76 @@ LABEL_26:
   }
 
 LABEL_56:
-  acceptedInProcess = self->_acceptedInProcess;
   PBDataWriterWriteBOOLField();
-  toCopy = v21;
+  toCopy = v8;
   if ((*&self->_has & 0x800) != 0)
   {
 LABEL_27:
-    isInNetwork = self->_isInNetwork;
     PBDataWriterWriteBOOLField();
-    toCopy = v21;
+    toCopy = v8;
   }
 
 LABEL_28:
   if (self->_acceptedTimestampDate)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v21;
+    toCopy = v8;
   }
 
   if ((*&self->_has & 0x1000) != 0)
   {
-    isOrgUser = self->_isOrgUser;
     PBDataWriterWriteBOOLField();
-    toCopy = v21;
+    toCopy = v8;
   }
 
   if (self->_protectionInfoPublicKey)
   {
     PBDataWriterWriteDataField();
-    toCopy = v21;
+    toCopy = v8;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    keyHealth = self->_keyHealth;
     PBDataWriterWriteInt32Field();
-    toCopy = v21;
+    toCopy = v8;
   }
 
   if (self->_inviteTimestampDate)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v21;
+    toCopy = v8;
   }
 
-  v13 = self->_has;
-  if ((v13 & 0x200) != 0)
+  v7 = self->_has;
+  if ((v7 & 0x200) != 0)
   {
-    isAnonymousInvitedParticipant = self->_isAnonymousInvitedParticipant;
     PBDataWriterWriteBOOLField();
-    toCopy = v21;
-    v13 = self->_has;
+    toCopy = v8;
+    v7 = self->_has;
   }
 
-  if ((v13 & 0x400) != 0)
+  if ((v7 & 0x400) != 0)
   {
-    isApprovedRequester = self->_isApprovedRequester;
     PBDataWriterWriteBOOLField();
-    toCopy = v21;
+    toCopy = v8;
   }
 
   if (self->_encryptedContactInformation)
   {
     PBDataWriterWriteDataField();
-    toCopy = v21;
+    toCopy = v8;
   }
 
   if (self->_inviteNSSecTimestampDate)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v21;
+    toCopy = v8;
   }
 
   if (self->_acceptedNSSecTimestampDate)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v21;
+    toCopy = v8;
   }
 }
 
@@ -1486,7 +1473,6 @@ LABEL_14:
       goto LABEL_48;
     }
 
-    v20 = *(equalCopy + 145);
     if (self->_createdInProcess)
     {
       if ((*(equalCopy + 145) & 1) == 0)
@@ -1533,58 +1519,57 @@ LABEL_14:
   }
 
   protectionInfo = self->_protectionInfo;
-  v22 = equalCopy[13];
-  if (protectionInfo | v22 && !objc_msgSend_isEqual_(protectionInfo, v7, v22))
+  v21 = equalCopy[13];
+  if (protectionInfo | v21 && !objc_msgSend_isEqual_(protectionInfo, v7, v21))
   {
     goto LABEL_48;
   }
 
   outOfNetworkPrivateKey = self->_outOfNetworkPrivateKey;
-  v24 = equalCopy[10];
-  if (outOfNetworkPrivateKey | v24)
+  v23 = equalCopy[10];
+  if (outOfNetworkPrivateKey | v23)
   {
-    if (!objc_msgSend_isEqual_(outOfNetworkPrivateKey, v7, v24))
+    if (!objc_msgSend_isEqual_(outOfNetworkPrivateKey, v7, v23))
     {
       goto LABEL_48;
     }
   }
 
-  v25 = self->_has;
-  v26 = *(equalCopy + 76);
-  if ((v25 & 4) != 0)
+  v24 = self->_has;
+  v25 = *(equalCopy + 76);
+  if ((v24 & 4) != 0)
   {
-    if ((v26 & 4) == 0 || self->_outOfNetworkKeyType != *(equalCopy + 19))
+    if ((v25 & 4) == 0 || self->_outOfNetworkKeyType != *(equalCopy + 19))
     {
       goto LABEL_48;
     }
   }
 
-  else if ((v26 & 4) != 0)
+  else if ((v25 & 4) != 0)
   {
     goto LABEL_48;
   }
 
-  if ((v25 & 0x20) != 0)
+  if ((v24 & 0x20) != 0)
   {
-    if ((v26 & 0x20) == 0 || self->_publicKeyVersion != *(equalCopy + 32))
+    if ((v25 & 0x20) == 0 || self->_publicKeyVersion != *(equalCopy + 32))
     {
       goto LABEL_48;
     }
   }
 
-  else if ((v26 & 0x20) != 0)
+  else if ((v25 & 0x20) != 0)
   {
     goto LABEL_48;
   }
 
-  if ((v25 & 0x80) != 0)
+  if ((v24 & 0x80) != 0)
   {
-    if ((v26 & 0x80) == 0)
+    if ((v25 & 0x80) == 0)
     {
       goto LABEL_48;
     }
 
-    v33 = *(equalCopy + 144);
     if (self->_acceptedInProcess)
     {
       if ((equalCopy[18] & 1) == 0)
@@ -1599,7 +1584,7 @@ LABEL_14:
     }
   }
 
-  else if ((v26 & 0x80) != 0)
+  else if ((v25 & 0x80) != 0)
   {
     goto LABEL_48;
   }
@@ -1611,7 +1596,6 @@ LABEL_14:
       goto LABEL_48;
     }
 
-    v34 = *(equalCopy + 148);
     if (self->_isInNetwork)
     {
       if ((*(equalCopy + 148) & 1) == 0)
@@ -1632,26 +1616,25 @@ LABEL_14:
   }
 
   acceptedTimestampDate = self->_acceptedTimestampDate;
-  v30 = equalCopy[3];
-  if (acceptedTimestampDate | v30)
+  v29 = equalCopy[3];
+  if (acceptedTimestampDate | v29)
   {
-    if (!objc_msgSend_isEqual_(acceptedTimestampDate, v7, v30))
+    if (!objc_msgSend_isEqual_(acceptedTimestampDate, v7, v29))
     {
       goto LABEL_48;
     }
 
-    v25 = self->_has;
-    v26 = *(equalCopy + 76);
+    v24 = self->_has;
+    v25 = *(equalCopy + 76);
   }
 
-  if ((v25 & 0x1000) != 0)
+  if ((v24 & 0x1000) != 0)
   {
-    if ((v26 & 0x1000) == 0)
+    if ((v25 & 0x1000) == 0)
     {
       goto LABEL_48;
     }
 
-    v35 = *(equalCopy + 149);
     if (self->_isOrgUser)
     {
       if ((*(equalCopy + 149) & 1) == 0)
@@ -1666,58 +1649,57 @@ LABEL_14:
     }
   }
 
-  else if ((v26 & 0x1000) != 0)
+  else if ((v25 & 0x1000) != 0)
   {
     goto LABEL_48;
   }
 
   protectionInfoPublicKey = self->_protectionInfoPublicKey;
-  v32 = equalCopy[14];
-  if (protectionInfoPublicKey | v32)
+  v31 = equalCopy[14];
+  if (protectionInfoPublicKey | v31)
   {
-    if (!objc_msgSend_isEqual_(protectionInfoPublicKey, v7, v32))
+    if (!objc_msgSend_isEqual_(protectionInfoPublicKey, v7, v31))
     {
       goto LABEL_48;
     }
 
-    v25 = self->_has;
-    v26 = *(equalCopy + 76);
+    v24 = self->_has;
+    v25 = *(equalCopy + 76);
   }
 
-  if ((v25 & 2) != 0)
+  if ((v24 & 2) != 0)
   {
-    if ((v26 & 2) == 0 || self->_keyHealth != *(equalCopy + 18))
+    if ((v25 & 2) == 0 || self->_keyHealth != *(equalCopy + 18))
     {
       goto LABEL_48;
     }
   }
 
-  else if ((v26 & 2) != 0)
+  else if ((v25 & 2) != 0)
   {
     goto LABEL_48;
   }
 
   inviteTimestampDate = self->_inviteTimestampDate;
-  v37 = equalCopy[7];
-  if (inviteTimestampDate | v37)
+  v33 = equalCopy[7];
+  if (inviteTimestampDate | v33)
   {
-    if (!objc_msgSend_isEqual_(inviteTimestampDate, v7, v37))
+    if (!objc_msgSend_isEqual_(inviteTimestampDate, v7, v33))
     {
       goto LABEL_48;
     }
 
-    v25 = self->_has;
-    v26 = *(equalCopy + 76);
+    v24 = self->_has;
+    v25 = *(equalCopy + 76);
   }
 
-  if ((v25 & 0x200) != 0)
+  if ((v24 & 0x200) != 0)
   {
-    if ((v26 & 0x200) == 0)
+    if ((v25 & 0x200) == 0)
     {
       goto LABEL_48;
     }
 
-    v38 = *(equalCopy + 146);
     if (self->_isAnonymousInvitedParticipant)
     {
       if ((*(equalCopy + 146) & 1) == 0)
@@ -1732,14 +1714,14 @@ LABEL_14:
     }
   }
 
-  else if ((v26 & 0x200) != 0)
+  else if ((v25 & 0x200) != 0)
   {
     goto LABEL_48;
   }
 
-  if ((v25 & 0x400) == 0)
+  if ((v24 & 0x400) == 0)
   {
-    if ((v26 & 0x400) == 0)
+    if ((v25 & 0x400) == 0)
     {
       goto LABEL_111;
     }
@@ -1749,12 +1731,11 @@ LABEL_48:
     goto LABEL_49;
   }
 
-  if ((v26 & 0x400) == 0)
+  if ((v25 & 0x400) == 0)
   {
     goto LABEL_48;
   }
 
-  v39 = *(equalCopy + 147);
   if (!self->_isApprovedRequester)
   {
     if ((*(equalCopy + 147) & 1) == 0)
@@ -1772,27 +1753,27 @@ LABEL_48:
 
 LABEL_111:
   encryptedContactInformation = self->_encryptedContactInformation;
-  v41 = equalCopy[5];
-  if (encryptedContactInformation | v41 && !objc_msgSend_isEqual_(encryptedContactInformation, v7, v41))
+  v35 = equalCopy[5];
+  if (encryptedContactInformation | v35 && !objc_msgSend_isEqual_(encryptedContactInformation, v7, v35))
   {
     goto LABEL_48;
   }
 
   inviteNSSecTimestampDate = self->_inviteNSSecTimestampDate;
-  v43 = equalCopy[6];
-  if (inviteNSSecTimestampDate | v43)
+  v37 = equalCopy[6];
+  if (inviteNSSecTimestampDate | v37)
   {
-    if (!objc_msgSend_isEqual_(inviteNSSecTimestampDate, v7, v43))
+    if (!objc_msgSend_isEqual_(inviteNSSecTimestampDate, v7, v37))
     {
       goto LABEL_48;
     }
   }
 
   acceptedNSSecTimestampDate = self->_acceptedNSSecTimestampDate;
-  v45 = equalCopy[2];
-  if (acceptedNSSecTimestampDate | v45)
+  v39 = equalCopy[2];
+  if (acceptedNSSecTimestampDate | v39)
   {
-    isEqual = objc_msgSend_isEqual_(acceptedNSSecTimestampDate, v7, v45);
+    isEqual = objc_msgSend_isEqual_(acceptedNSSecTimestampDate, v7, v39);
   }
 
   else

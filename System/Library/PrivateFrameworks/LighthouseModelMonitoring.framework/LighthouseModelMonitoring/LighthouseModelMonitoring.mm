@@ -1,4 +1,4 @@
-void LCFModelMonitoringLoggingUtilsInit()
+void LCFModelMonitoringLoggingUtilsInit(uint64_t result, uint64_t a2)
 {
   if (LCFModelMonitoringLoggingUtilsInit_once != -1)
   {

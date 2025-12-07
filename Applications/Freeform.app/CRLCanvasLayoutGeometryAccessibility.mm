@@ -26,7 +26,7 @@
   v3 = crlaxTarget;
   if (crlaxTarget)
   {
-    [crlaxTarget transform];
+    objc_msgSend_transform(crlaxTarget);
   }
 
   else
@@ -50,7 +50,7 @@
   v3 = crlaxTarget;
   if (crlaxTarget)
   {
-    [crlaxTarget transform];
+    objc_msgSend_transform(crlaxTarget);
   }
 
   else

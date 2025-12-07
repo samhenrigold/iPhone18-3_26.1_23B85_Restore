@@ -1,5 +1,6 @@
 @interface TSUWarning
 + (id)fontWarningWithMessage:(id)message fontNames:(id)names;
++ (id)mediaUploadWarningWithMessage:(id)message data:(id)data isFromUploader:(BOOL)uploader;
 + (id)missingMediaWarningWithMessage:(id)message data:(id)data;
 + (id)warningWithKind:(int64_t)kind message:(id)message;
 + (id)warningWithMessage:(id)message;
@@ -220,6 +221,22 @@ LABEL_18:
   }
 
   return v8;
+}
+
++ (id)mediaUploadWarningWithMessage:(id)message data:(id)data isFromUploader:(BOOL)uploader
+{
+  uploaderCopy = uploader;
+  dataCopy = data;
+  messageCopy = message;
+  v9 = [[TSUMediaUploadWarning alloc] initWithKind:3 message:messageCopy isFromUploader:uploaderCopy];
+
+  if (dataCopy)
+  {
+    v10 = [NSSet setWithObject:dataCopy];
+    [(TSUWarning *)v9 setAffectedObjects:v10];
+  }
+
+  return v9;
 }
 
 - (BOOL)isUploaderWarning

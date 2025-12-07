@@ -64,38 +64,38 @@
 - (void)p_stageToWorld
 {
   p_validBits = &self->_validBits;
-  v39 = 1;
+  v38 = 1;
   first = self->_validBits.__first_;
-  v40 = (first & 2) != 0;
+  v39 = (first & 2) != 0;
   if ((first & 2) == 0)
   {
     v7 = objc_msgSend_accessor(self, a2, v2, v3, v4);
     v12 = v7;
     if (v7)
     {
-      objc_msgSend_transform(v7, v8, v9, v10, v11);
-      objc_msgSend_stageTransform(v12, v13, v14, v15, v16);
+      objc_msgSend_transform(v7, v9, v10, v11);
+      objc_msgSend_stageTransform(v12, v13, v14, v15);
     }
 
     else
     {
-      v17 = MEMORY[0x277D81150];
-      v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, v9, v10, v11, "[TSCH3DLabelsRendererTransforms p_stageToWorld]");
-      v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, v20, v21, v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelsRendererTransforms.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v24, v25, v26, v27, v18, v23, 80, 0, "invalid nil value for '%{public}s'", "accessor");
+      v16 = MEMORY[0x277D81150];
+      v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, v9, v10, v11, "[TSCH3DLabelsRendererTransforms p_stageToWorld]");
+      v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, v19, v20, v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelsRendererTransforms.mm");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v23, v24, v25, v26, v17, v22, 80, 0, "invalid nil value for '%{public}s'", "accessor");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29, v30, v31);
-      memset(v36, 0, sizeof(v36));
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v28, v29, v30);
       memset(v35, 0, sizeof(v35));
+      memset(v34, 0, sizeof(v34));
     }
 
-    sub_2761558A0(v36, v35, v37);
-    v32 = v37[1];
-    self->_stageToWorld.value[0] = v37[0];
-    self->_stageToWorld.value[1] = v32;
-    v33 = v37[3];
-    self->_stageToWorld.value[2] = v37[2];
-    self->_stageToWorld.value[3] = v33;
+    sub_2761558A0(v35, v34, v36);
+    v31 = v36[1];
+    self->_stageToWorld.value[0] = v36[0];
+    self->_stageToWorld.value[1] = v31;
+    v32 = v36[3];
+    self->_stageToWorld.value[2] = v36[2];
+    self->_stageToWorld.value[3] = v32;
   }
 
   sub_27635BCB8(&p_validBits);
@@ -127,9 +127,9 @@
 - (void)unitToWorld
 {
   p_validBits = &self->_validBits;
-  v43 = 3;
+  v42 = 3;
   first = self->_validBits.__first_;
-  v44 = (first & 8) != 0;
+  v43 = (first & 8) != 0;
   if ((first & 8) == 0)
   {
     v8 = objc_msgSend_accessor(self, a2, v2, v3, v4);
@@ -143,29 +143,29 @@
       objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v23, v24, v25, v26);
     }
 
-    v28 = objc_msgSend_p_stageToWorld(self, v7, v9, v10, v11);
+    v27 = objc_msgSend_p_stageToWorld(self, v7, v9, v10, v11);
     if (v8)
     {
-      objc_msgSend_stageScale(v8, v27, v29, v30, v31);
-      v33 = v39;
-      v32 = v40;
-      v34 = v41;
+      objc_msgSend_stageScale(v8, v28, v29, v30);
+      v32 = v38;
+      v31 = v39;
+      v33 = v40;
     }
 
     else
     {
-      v34 = 0.0;
-      v32 = 0.0;
       v33 = 0.0;
+      v31 = 0.0;
+      v32 = 0.0;
     }
 
-    v35 = vmulq_n_f32(*(v28 + 16), v32);
-    v36 = *(v28 + 48);
-    v37 = vmulq_n_f32(*(v28 + 32), v34);
-    self->_unitToWorld.value[0] = vmulq_n_f32(*v28, v33);
-    self->_unitToWorld.value[1] = v35;
-    self->_unitToWorld.value[2] = v37;
-    self->_unitToWorld.value[3] = v36;
+    v34 = vmulq_n_f32(*(v27 + 16), v31);
+    v35 = *(v27 + 48);
+    v36 = vmulq_n_f32(*(v27 + 32), v33);
+    self->_unitToWorld.value[0] = vmulq_n_f32(*v27, v32);
+    self->_unitToWorld.value[1] = v34;
+    self->_unitToWorld.value[2] = v36;
+    self->_unitToWorld.value[3] = v35;
   }
 
   sub_27635BCB8(&p_validBits);
@@ -188,47 +188,50 @@
 - (void)p_projector
 {
   p_validBits = &self->_validBits;
-  v44 = 4;
+  v46 = 4;
   first = self->_validBits.__first_;
-  v45 = (first & 0x10) != 0;
+  v47 = (first & 0x10) != 0;
   if ((first & 0x10) == 0)
   {
-    objc_msgSend_samples(self, a2, v2, v3, v4);
-    objc_msgSend_samples(self, v7, v8, v9, v10);
-    LODWORD(v14) = v41.i32[1];
-    if (v42[0].f32[0] != v41.f32[1])
+    objc_msgSend_samples(self, v2, v3, v4, a2);
+    objc_msgSend_samples(self, v7, v8, v9);
+    LODWORD(v13) = v40.i32[1];
+    if (v44[0].f32[0] != v40.f32[1])
     {
-      v15 = MEMORY[0x277D81150];
-      v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v14, v12, v13, "[TSCH3DLabelsRendererTransforms p_projector]");
-      v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, v18, v19, v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelsRendererTransforms.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v22, v23, v24, v25, v16, v21, 112, 0, "samples must be the same in both dimensions");
+      v14 = MEMORY[0x277D81150];
+      v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v13, v11, v12, "[TSCH3DLabelsRendererTransforms p_projector]");
+      v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelsRendererTransforms.mm");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v21, v22, v23, v24, v15, v20, 112, 0, "samples must be the same in both dimensions");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27, v28, v29);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26, v27, v28);
     }
 
     camera = self->_camera;
-    objc_msgSend_samples(self, v11, v14, v12, v13);
+    objc_msgSend_samples(self, v13, v11, v12);
     if (camera)
     {
-      LODWORD(v33) = 1.0;
-      *&v32 = 1.0 / v40;
-      objc_msgSend_modelViewViewportProjectionWithViewportScale_(camera, v31, v32, v33, v34);
+      LODWORD(v32) = 1.0;
+      *&v31 = 1.0 / v39;
+      objc_msgSend_modelViewViewportProjectionWithViewportScale_(camera, v31, v32, v33);
     }
 
     else
     {
-      v35 = 0.0;
-      memset(&v41, 0, 64);
+      v34 = 0.0;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
     }
 
-    v36 = objc_msgSend_unitToWorld(self, v31, v35, v33, v34);
-    sub_2761558A0(&v41, v36, v42);
-    v37 = v42[1];
-    self->_projector.value[0] = v42[0];
-    self->_projector.value[1] = v37;
-    v38 = v42[3];
-    self->_projector.value[2] = v42[2];
-    self->_projector.value[3] = v38;
+    v35 = objc_msgSend_unitToWorld(self, v30, v34, v32, v33);
+    sub_2761558A0(&v40, v35, v44);
+    v36 = v44[1];
+    self->_projector.value[0] = v44[0];
+    self->_projector.value[1] = v36;
+    v37 = v44[3];
+    self->_projector.value[2] = v44[2];
+    self->_projector.value[3] = v37;
   }
 
   sub_27635BCB8(&p_validBits);
@@ -245,12 +248,12 @@
   v14 = (v10[7].f32[0] + (((v11 * v10[3].f32[0]) + (v10[1].f32[0] * *point)) + (v10[5].f32[0] * *&v12))) / *v13.i32;
   v15 = vadd_f32(vdiv_f32(vadd_f32(v10[6], vmla_n_f32(vmla_n_f32(vmul_n_f32(v10[2], v11), *v10, *point), v10[4], *&v12)), vdup_lane_s32(v13, 0)), 0x3F0000003F000000);
   v16 = vrndm_f32(v15);
-  v18 = objc_msgSend_samples(self, v17, *&v15, 0.0000305175853, v12);
-  *v9 = vmul_f32(v20, v16);
-  v9[1].f32[0] = v14 * v21;
-  result.var0 = v18;
-  result.var1 = *(&v18 + 4);
-  result.var2 = v19;
+  v17 = objc_msgSend_samples(self, *&v15, 0.0000305175853, v12);
+  *v9 = vmul_f32(v19, v16);
+  v9[1].f32[0] = v14 * v20;
+  result.var0 = v17;
+  result.var1 = *(&v17 + 4);
+  result.var2 = v18;
   return result;
 }
 

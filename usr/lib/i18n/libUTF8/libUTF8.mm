@@ -1,8 +1,8 @@
-uint64_t _citrus_UTF8_stdenc_mbtocsn(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int *a5, unsigned __int8 **a6, unint64_t a7, uint64_t a8, void *a9, uint64_t a10, void (*a11)(uint64_t), uint64_t a12)
+uint64_t _citrus_UTF8_stdenc_mbtocsn(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int *a5, unsigned __int8 **a6, unint64_t a7, uint64_t a8, void *a9, void (**a10)(void), void (*a11)(uint64_t), uint64_t a12)
 {
   v12 = *a6;
   *a9 = 0;
-  v30 = 0;
+  v29 = 0;
   if (*a5 >= a7)
   {
     v13 = a7;
@@ -18,26 +18,26 @@ uint64_t _citrus_UTF8_stdenc_mbtocsn(uint64_t a1, uint64_t a2, uint64_t a3, uint
     v14 = a7;
     v16 = 0;
     v17 = 0;
-    v25 = v12;
-    v31 = 0;
+    v24 = v12;
+    v30 = 0;
     while (1)
     {
       a11(a12);
-      result = _citrus_UTF8_mbrtowc_priv(&v31, a6, v14, a8, &v30);
+      result = _citrus_UTF8_mbrtowc_priv(&v30, a6, v14, a8, &v29);
       if (result)
       {
         break;
       }
 
-      v19 = v30;
-      if (v30 == -2)
+      v19 = v29;
+      if (v29 == -2)
       {
         result = 0;
         *a9 = -2;
         break;
       }
 
-      v20 = v31;
+      v20 = v30;
       *(a2 + 4 * v17) = 0;
       *(a3 + 4 * v17) = v20;
       if (v19 > v14)
@@ -53,20 +53,19 @@ uint64_t _citrus_UTF8_stdenc_mbtocsn(uint64_t a1, uint64_t a2, uint64_t a3, uint
         _citrus_UTF8_stdenc_mbtocsn_cold_1();
       }
 
-      *(a4 + 2 * v17) = v21 - v25;
+      *(a4 + 2 * v17) = v21 - v24;
       if (a10 && *a10)
       {
-        v22 = *(a10 + 16);
         (*a10)();
       }
 
       result = 0;
       if (++v17 < v13)
       {
-        v23 = &v12[v14];
+        v22 = &v12[v14];
         v12 = v21;
-        v14 = v23 - v21;
-        if (v23 != v21)
+        v14 = v22 - v21;
+        if (v22 != v21)
         {
           continue;
         }

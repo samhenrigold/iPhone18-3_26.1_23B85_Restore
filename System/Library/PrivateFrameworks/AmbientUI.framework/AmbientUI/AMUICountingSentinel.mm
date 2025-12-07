@@ -35,7 +35,7 @@ id __53__AMUICountingSentinel_appendDescriptionToFormatter___block_invoke(uint64
 
 - (void)_addToCounter:(int64_t)counter
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   counter = self->_counter;
   self->_counter = (counter + counter) & ~((counter + counter) >> 63);
   if (counter)
@@ -52,56 +52,54 @@ id __53__AMUICountingSentinel_appendDescriptionToFormatter___block_invoke(uint64
   {
     v6 = [(NSMutableArray *)self->_deferredBlocks copy];
     [(NSMutableArray *)self->_deferredBlocks removeAllObjects];
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          (*(*(*(&v13 + 1) + 8 * i) + 16))(*(*(&v13 + 1) + 8 * i));
+          (*(*(*(&v12 + 1) + 8 * i) + 16))(*(*(&v12 + 1) + 8 * i));
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)increment
 {
-  if (self)
+  if (result)
   {
-    return [self _addToCounter:1];
+    return [result _addToCounter:1];
   }
 
-  return self;
+  return result;
 }
 
 - (void)decrement
 {
-  if (self)
+  if (result)
   {
-    return [self _addToCounter:-1];
+    return [result _addToCounter:-1];
   }
 
-  return self;
+  return result;
 }
 
 - (void)performWhenCountAtZero:(uint64_t)zero

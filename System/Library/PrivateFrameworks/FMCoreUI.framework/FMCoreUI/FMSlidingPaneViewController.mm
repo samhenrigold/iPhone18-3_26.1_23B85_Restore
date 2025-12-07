@@ -85,11 +85,11 @@
 
 - (id)traitCollectionForChildViewController:(id)controller
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
-  v19.receiver = self;
-  v19.super_class = FMSlidingPaneViewController;
-  traitCollection = [(FMSlidingPaneViewController *)&v19 traitCollection];
+  v20.receiver = self;
+  v20.super_class = FMSlidingPaneViewController;
+  traitCollection = [(FMSlidingPaneViewController *)&v20 traitCollection];
   paneState = [(FMSlidingPaneViewController *)self paneState];
   if (paneState)
   {
@@ -107,12 +107,12 @@
         if (edge == 8)
         {
 LABEL_10:
-          v12 = [MEMORY[0x277D75C80] traitCollectionWithHorizontalSizeClass:1];
-          v13 = MEMORY[0x277D75C80];
-          v20[0] = traitCollection;
-          v20[1] = v12;
-          v14 = MEMORY[0x277CBEA60];
-          v15 = v20;
+          v13 = [MEMORY[0x277D75C80] traitCollectionWithHorizontalSizeClass:1];
+          v14 = MEMORY[0x277D75C80];
+          v21[0] = traitCollection;
+          v21[1] = v13;
+          v15 = MEMORY[0x277CBEA60];
+          v16 = v21;
           goto LABEL_11;
         }
 
@@ -127,8 +127,8 @@ LABEL_10:
         if (edge != 2)
         {
 LABEL_16:
-          v12 = LogCategory_Unspecified();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+          v13 = LogCategory_Unspecified(v12);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
             [FMSlidingPaneViewController traitCollectionForChildViewController:?];
           }
@@ -139,17 +139,17 @@ LABEL_16:
         goto LABEL_10;
       }
 
-      v12 = [MEMORY[0x277D75C80] traitCollectionWithVerticalSizeClass:1];
-      v13 = MEMORY[0x277D75C80];
-      v21[0] = traitCollection;
-      v21[1] = v12;
-      v14 = MEMORY[0x277CBEA60];
-      v15 = v21;
+      v13 = [MEMORY[0x277D75C80] traitCollectionWithVerticalSizeClass:1];
+      v14 = MEMORY[0x277D75C80];
+      v22[0] = traitCollection;
+      v22[1] = v13;
+      v15 = MEMORY[0x277CBEA60];
+      v16 = v22;
 LABEL_11:
-      v16 = [v14 arrayWithObjects:v15 count:2];
-      v17 = [v13 traitCollectionWithTraitsFromCollections:v16];
+      v17 = [v15 arrayWithObjects:v16 count:2];
+      v18 = [v14 traitCollectionWithTraitsFromCollections:v17];
 
-      traitCollection = v17;
+      traitCollection = v18;
 LABEL_12:
     }
   }
@@ -220,21 +220,21 @@ LABEL_12:
 - (void)presentPaneViewController:(id)controller fromEdge:(unint64_t)edge animated:(BOOL)animated completion:(id)completion
 {
   animatedCopy = animated;
-  v42 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   completionCopy = completion;
   paneState = [(FMSlidingPaneViewController *)self paneState];
-  objc_initWeak(&location, self);
-  v13 = LogCategory_FMSlidingPaneViewController();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  inited = objc_initWeak(&location, self);
+  v14 = LogCategory_FMSlidingPaneViewController(inited);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v37 = controllerCopy;
-    v38 = 2048;
+    v39 = controllerCopy;
+    v40 = 2048;
     edgeCopy = edge;
-    v40 = 1024;
-    v41 = animatedCopy;
-    _os_log_impl(&dword_24A315000, v13, OS_LOG_TYPE_DEFAULT, "presentPaneViewController: %@ fromEdge:%ld animated:%d completed:", buf, 0x1Cu);
+    v42 = 1024;
+    v43 = animatedCopy;
+    _os_log_impl(&dword_24A315000, v14, OS_LOG_TYPE_DEFAULT, "presentPaneViewController: %@ fromEdge:%ld animated:%d completed:", buf, 0x1Cu);
   }
 
   view = [controllerCopy view];
@@ -252,44 +252,45 @@ LABEL_12:
     }
   }
 
-  v19 = [[SlidingPaneViewState alloc] initWithViewController:controllerCopy edge:edge];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __86__FMSlidingPaneViewController_presentPaneViewController_fromEdge_animated_completion___block_invoke;
-  v29[3] = &unk_278FDBA38;
-  objc_copyWeak(&v33, &location);
-  v20 = v19;
-  v30 = v20;
-  v21 = paneState;
-  v31 = v21;
-  v22 = completionCopy;
-  v32 = v22;
-  v34 = animatedCopy;
-  v23 = MEMORY[0x24C216350](v29);
+  v20 = [[SlidingPaneViewState alloc] initWithViewController:controllerCopy edge:edge];
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __86__FMSlidingPaneViewController_presentPaneViewController_fromEdge_animated_completion___block_invoke;
+  v31[3] = &unk_278FDBA38;
+  objc_copyWeak(&v35, &location);
+  v21 = v20;
+  v32 = v21;
+  v22 = paneState;
+  v33 = v22;
+  v23 = completionCopy;
+  v34 = v23;
+  v36 = animatedCopy;
+  v24 = MEMORY[0x24C216350](v31);
   currentFuture = [(FMSlidingPaneViewController *)self currentFuture];
+  v26 = currentFuture;
   if (currentFuture)
   {
-    v25 = LogCategory_FMSlidingPaneViewController();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v27 = LogCategory_FMSlidingPaneViewController(currentFuture);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_24A315000, v25, OS_LOG_TYPE_DEFAULT, "Deferring presenting until previous action is complete", buf, 2u);
+      _os_log_impl(&dword_24A315000, v27, OS_LOG_TYPE_DEFAULT, "Deferring presenting until previous action is complete", buf, 2u);
     }
 
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __86__FMSlidingPaneViewController_presentPaneViewController_fromEdge_animated_completion___block_invoke_80;
-    v27[3] = &unk_278FDBA60;
-    v28 = v23;
-    v26 = [currentFuture addCompletionBlock:v27];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __86__FMSlidingPaneViewController_presentPaneViewController_fromEdge_animated_completion___block_invoke_80;
+    v29[3] = &unk_278FDBA60;
+    v30 = v24;
+    v28 = [v26 addCompletionBlock:v29];
   }
 
   else
   {
-    v23[2](v23);
+    v24[2](v24);
   }
 
-  objc_destroyWeak(&v33);
+  objc_destroyWeak(&v35);
   objc_destroyWeak(&location);
 }
 
@@ -312,20 +313,20 @@ void __86__FMSlidingPaneViewController_presentPaneViewController_fromEdge_animat
 
 - (void)presentPaneViewController:(id)controller fromEdge:(unint64_t)edge withPercent:(double)percent completion:(id)completion
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   completionCopy = completion;
   paneState = [(FMSlidingPaneViewController *)self paneState];
-  v13 = LogCategory_FMSlidingPaneViewController();
+  v13 = LogCategory_FMSlidingPaneViewController(paneState);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v50 = 138412802;
-    v51 = controllerCopy;
-    v52 = 2048;
-    edgeCopy = edge;
+    v52 = 138412802;
+    v53 = controllerCopy;
     v54 = 2048;
+    edgeCopy = edge;
+    v56 = 2048;
     percentCopy = percent;
-    _os_log_impl(&dword_24A315000, v13, OS_LOG_TYPE_DEFAULT, "presentPaneViewController: %@ fromEdge:%ld withPercent:%f completion:", &v50, 0x20u);
+    _os_log_impl(&dword_24A315000, v13, OS_LOG_TYPE_DEFAULT, "presentPaneViewController: %@ fromEdge:%ld withPercent:%f completion:", &v52, 0x20u);
   }
 
   view = [controllerCopy view];
@@ -348,20 +349,20 @@ void __86__FMSlidingPaneViewController_presentPaneViewController_fromEdge_animat
 
   if (currentFuture)
   {
-    v21 = LogCategory_FMSlidingPaneViewController();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = LogCategory_FMSlidingPaneViewController(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [FMSlidingPaneViewController presentPaneViewController:fromEdge:withPercent:completion:];
     }
   }
 
   paneViewController = [paneState paneViewController];
-  v23 = [paneViewController isEqual:controllerCopy];
+  v24 = [paneViewController isEqual:controllerCopy];
 
-  if ((v23 & 1) == 0)
+  if ((v24 & 1) == 0)
   {
-    v24 = [[SlidingPaneViewState alloc] initWithViewController:controllerCopy edge:edge];
-    [(FMSlidingPaneViewController *)self setPaneState:v24];
+    v25 = [[SlidingPaneViewState alloc] initWithViewController:controllerCopy edge:edge];
+    [(FMSlidingPaneViewController *)self setPaneState:v25];
 
     paneState2 = [(FMSlidingPaneViewController *)self paneState];
     if (paneState)
@@ -377,8 +378,8 @@ void __86__FMSlidingPaneViewController_presentPaneViewController_fromEdge_animat
 
   paneState3 = [(FMSlidingPaneViewController *)self paneState];
   [(FMSlidingPaneViewController *)self _preferredSizeForPaneState:paneState3];
-  v28 = v27;
-  v30 = v29;
+  v29 = v28;
+  v31 = v30;
 
   paneState4 = [(FMSlidingPaneViewController *)self paneState];
   edge = [paneState4 edge];
@@ -389,13 +390,13 @@ void __86__FMSlidingPaneViewController_presentPaneViewController_fromEdge_animat
     {
       if (edge == 2)
       {
-        v33 = -((v28 + 2.0) * (1.0 - percent));
+        v35 = -((v29 + 2.0) * (1.0 - percent));
 LABEL_22:
         paneState5 = [(FMSlidingPaneViewController *)self paneState];
         paneHorizontalPositionConstraint = [paneState5 paneHorizontalPositionConstraint];
 LABEL_28:
-        v36 = paneHorizontalPositionConstraint;
-        [paneHorizontalPositionConstraint setConstant:v33];
+        v38 = paneHorizontalPositionConstraint;
+        [paneHorizontalPositionConstraint setConstant:v35];
 
         goto LABEL_29;
       }
@@ -403,7 +404,7 @@ LABEL_28:
       goto LABEL_23;
     }
 
-    v33 = -((v30 + 2.0) * (1.0 - percent));
+    v35 = -((v31 + 2.0) * (1.0 - percent));
 LABEL_27:
     paneState5 = [(FMSlidingPaneViewController *)self paneState];
     paneHorizontalPositionConstraint = [paneState5 paneVerticalPositionConstraint];
@@ -412,18 +413,18 @@ LABEL_27:
 
   if (edge == 4)
   {
-    v33 = (1.0 - percent) * (v30 + 2.0);
+    v35 = (1.0 - percent) * (v31 + 2.0);
     goto LABEL_27;
   }
 
   if (edge == 8)
   {
-    v33 = (1.0 - percent) * (v28 + 2.0);
+    v35 = (1.0 - percent) * (v29 + 2.0);
     goto LABEL_22;
   }
 
 LABEL_23:
-  paneState5 = LogCategory_Unspecified();
+  paneState5 = LogCategory_Unspecified(v34);
   if (os_log_type_enabled(paneState5, OS_LOG_TYPE_ERROR))
   {
     [FMSlidingPaneViewController traitCollectionForChildViewController:?];
@@ -435,19 +436,19 @@ LABEL_29:
   {
     view2 = [(FMSlidingPaneViewController *)self view];
     [view2 frame];
-    v39 = v38;
+    v41 = v40;
     paneState6 = [(FMSlidingPaneViewController *)self paneState];
     paneView = [paneState6 paneView];
     [paneView bounds];
-    v43 = v39 - v42;
+    v45 = v41 - v44;
     paneState7 = [(FMSlidingPaneViewController *)self paneState];
     paneView2 = [paneState7 paneView];
     [paneView2 bounds];
-    v47 = v46;
+    v49 = v48;
 
     paneState8 = [(FMSlidingPaneViewController *)self paneState];
     paneViewController2 = [paneState8 paneViewController];
-    [(FMSlidingPaneViewController *)self didPresentPane:paneViewController2 inRect:0 animated:0.0, v43, v47, v30];
+    [(FMSlidingPaneViewController *)self didPresentPane:paneViewController2 inRect:0 animated:0.0, v45, v49, v31];
 
     if (completionCopy)
     {
@@ -459,51 +460,52 @@ LABEL_29:
 - (void)dismissPaneViewControllerAnimated:(BOOL)animated completion:(id)completion
 {
   animatedCopy = animated;
-  v22 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  objc_initWeak(&location, self);
-  v7 = LogCategory_Unspecified();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  inited = objc_initWeak(&location, self);
+  v8 = LogCategory_Unspecified(inited);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v21 = animatedCopy;
-    _os_log_impl(&dword_24A315000, v7, OS_LOG_TYPE_DEFAULT, "dismissPaneViewControllerAnimated:%d completion:", buf, 8u);
+    v23 = animatedCopy;
+    _os_log_impl(&dword_24A315000, v8, OS_LOG_TYPE_DEFAULT, "dismissPaneViewControllerAnimated:%d completion:", buf, 8u);
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __76__FMSlidingPaneViewController_dismissPaneViewControllerAnimated_completion___block_invoke;
-  v15[3] = &unk_278FDBA88;
-  objc_copyWeak(&v17, &location);
-  v8 = completionCopy;
-  v15[4] = self;
-  v16 = v8;
-  v18 = animatedCopy;
-  v9 = MEMORY[0x24C216350](v15);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __76__FMSlidingPaneViewController_dismissPaneViewControllerAnimated_completion___block_invoke;
+  v17[3] = &unk_278FDBA88;
+  objc_copyWeak(&v19, &location);
+  v9 = completionCopy;
+  v17[4] = self;
+  v18 = v9;
+  v20 = animatedCopy;
+  v10 = MEMORY[0x24C216350](v17);
   currentFuture = [(FMSlidingPaneViewController *)self currentFuture];
+  v12 = currentFuture;
   if (currentFuture)
   {
-    v11 = LogCategory_FMSlidingPaneViewController();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = LogCategory_FMSlidingPaneViewController(currentFuture);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_24A315000, v11, OS_LOG_TYPE_DEFAULT, "Deferring dismissing until previous action is complete", buf, 2u);
+      _os_log_impl(&dword_24A315000, v13, OS_LOG_TYPE_DEFAULT, "Deferring dismissing until previous action is complete", buf, 2u);
     }
 
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __76__FMSlidingPaneViewController_dismissPaneViewControllerAnimated_completion___block_invoke_82;
-    v13[3] = &unk_278FDBA60;
-    v14 = v9;
-    v12 = [currentFuture addCompletionBlock:v13];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __76__FMSlidingPaneViewController_dismissPaneViewControllerAnimated_completion___block_invoke_82;
+    v15[3] = &unk_278FDBA60;
+    v16 = v10;
+    v14 = [v12 addCompletionBlock:v15];
   }
 
   else
   {
-    v9[2](v9);
+    v10[2](v10);
   }
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(&location);
 }
 
@@ -580,14 +582,14 @@ LABEL_7:
     paneState2 = [(FMSlidingPaneViewController *)self paneState];
     paneVerticalPositionConstraint = [paneState2 paneHorizontalPositionConstraint];
 LABEL_12:
-    v9 = paneVerticalPositionConstraint;
+    v10 = paneVerticalPositionConstraint;
     [paneVerticalPositionConstraint setConstant:constant];
 
     goto LABEL_13;
   }
 
 LABEL_8:
-  paneState2 = LogCategory_Unspecified();
+  paneState2 = LogCategory_Unspecified(v7);
   if (os_log_type_enabled(paneState2, OS_LOG_TYPE_ERROR))
   {
     [FMSlidingPaneViewController traitCollectionForChildViewController:?];
@@ -607,26 +609,27 @@ LABEL_13:
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   paneCopy = pane;
   delegate = [(FMSlidingPaneViewController *)self delegate];
-  if (objc_opt_respondsToSelector())
+  v13 = objc_opt_respondsToSelector();
+  if (v13)
   {
-    v13 = LogCategory_FMSlidingPaneViewController();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = LogCategory_FMSlidingPaneViewController(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v22.origin.x = x;
-      v22.origin.y = y;
-      v22.size.width = width;
-      v22.size.height = height;
-      v14 = NSStringFromCGRect(v22);
-      v15 = 138412802;
-      v16 = paneCopy;
-      v17 = 2112;
-      v18 = v14;
-      v19 = 1024;
-      v20 = animatedCopy;
-      _os_log_impl(&dword_24A315000, v13, OS_LOG_TYPE_DEFAULT, "Calling willPresentPane: %@ inRect: %@ animated:%d", &v15, 0x1Cu);
+      v23.origin.x = x;
+      v23.origin.y = y;
+      v23.size.width = width;
+      v23.size.height = height;
+      v15 = NSStringFromCGRect(v23);
+      v16 = 138412802;
+      v17 = paneCopy;
+      v18 = 2112;
+      v19 = v15;
+      v20 = 1024;
+      v21 = animatedCopy;
+      _os_log_impl(&dword_24A315000, v14, OS_LOG_TYPE_DEFAULT, "Calling willPresentPane: %@ inRect: %@ animated:%d", &v16, 0x1Cu);
     }
 
     [delegate slidingPaneViewController:self willPresentPane:paneCopy inRect:animatedCopy animated:{x, y, width, height}];
@@ -640,26 +643,27 @@ LABEL_13:
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   paneCopy = pane;
   delegate = [(FMSlidingPaneViewController *)self delegate];
-  if (objc_opt_respondsToSelector())
+  v13 = objc_opt_respondsToSelector();
+  if (v13)
   {
-    v13 = LogCategory_FMSlidingPaneViewController();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = LogCategory_FMSlidingPaneViewController(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v22.origin.x = x;
-      v22.origin.y = y;
-      v22.size.width = width;
-      v22.size.height = height;
-      v14 = NSStringFromCGRect(v22);
-      v15 = 138412802;
-      v16 = paneCopy;
-      v17 = 2112;
-      v18 = v14;
-      v19 = 1024;
-      v20 = animatedCopy;
-      _os_log_impl(&dword_24A315000, v13, OS_LOG_TYPE_DEFAULT, "Calling didPresentPane: %@ inRect: %@ animated:%d", &v15, 0x1Cu);
+      v23.origin.x = x;
+      v23.origin.y = y;
+      v23.size.width = width;
+      v23.size.height = height;
+      v15 = NSStringFromCGRect(v23);
+      v16 = 138412802;
+      v17 = paneCopy;
+      v18 = 2112;
+      v19 = v15;
+      v20 = 1024;
+      v21 = animatedCopy;
+      _os_log_impl(&dword_24A315000, v14, OS_LOG_TYPE_DEFAULT, "Calling didPresentPane: %@ inRect: %@ animated:%d", &v16, 0x1Cu);
     }
 
     [delegate slidingPaneViewController:self didPresentPane:paneCopy inRect:animatedCopy animated:{x, y, width, height}];
@@ -669,19 +673,20 @@ LABEL_13:
 - (void)willDismissPane:(id)pane animated:(BOOL)animated
 {
   animatedCopy = animated;
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   paneCopy = pane;
   delegate = [(FMSlidingPaneViewController *)self delegate];
-  if (objc_opt_respondsToSelector())
+  v8 = objc_opt_respondsToSelector();
+  if (v8)
   {
-    v8 = LogCategory_FMSlidingPaneViewController();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = LogCategory_FMSlidingPaneViewController(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412546;
-      v10 = paneCopy;
-      v11 = 1024;
-      v12 = animatedCopy;
-      _os_log_impl(&dword_24A315000, v8, OS_LOG_TYPE_DEFAULT, "Calling willDismissPane: %@ animated:%d", &v9, 0x12u);
+      v10 = 138412546;
+      v11 = paneCopy;
+      v12 = 1024;
+      v13 = animatedCopy;
+      _os_log_impl(&dword_24A315000, v9, OS_LOG_TYPE_DEFAULT, "Calling willDismissPane: %@ animated:%d", &v10, 0x12u);
     }
 
     [delegate slidingPaneViewController:self willDismissPane:paneCopy animated:animatedCopy];
@@ -691,19 +696,20 @@ LABEL_13:
 - (void)didDismissPane:(id)pane animated:(BOOL)animated
 {
   animatedCopy = animated;
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   paneCopy = pane;
   delegate = [(FMSlidingPaneViewController *)self delegate];
-  if (objc_opt_respondsToSelector())
+  v8 = objc_opt_respondsToSelector();
+  if (v8)
   {
-    v8 = LogCategory_FMSlidingPaneViewController();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = LogCategory_FMSlidingPaneViewController(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412546;
-      v10 = paneCopy;
-      v11 = 1024;
-      v12 = animatedCopy;
-      _os_log_impl(&dword_24A315000, v8, OS_LOG_TYPE_DEFAULT, "Calling didDismissPane: %@ animated:%d", &v9, 0x12u);
+      v10 = 138412546;
+      v11 = paneCopy;
+      v12 = 1024;
+      v13 = animatedCopy;
+      _os_log_impl(&dword_24A315000, v9, OS_LOG_TYPE_DEFAULT, "Calling didDismissPane: %@ animated:%d", &v10, 0x12u);
     }
 
     [delegate slidingPaneViewController:self didDismissPane:paneCopy animated:animatedCopy];
@@ -716,24 +722,25 @@ LABEL_13:
   width = changed.size.width;
   y = changed.origin.y;
   x = changed.origin.x;
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   delegate = [(FMSlidingPaneViewController *)self delegate];
-  if (objc_opt_respondsToSelector())
+  v11 = objc_opt_respondsToSelector();
+  if (v11)
   {
-    v11 = LogCategory_FMSlidingPaneViewController();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = LogCategory_FMSlidingPaneViewController(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v18.origin.x = x;
-      v18.origin.y = y;
-      v18.size.width = width;
-      v18.size.height = height;
-      v12 = NSStringFromCGRect(v18);
-      v13 = 138412546;
-      v14 = v12;
-      v15 = 2112;
-      v16 = controllerCopy;
-      _os_log_impl(&dword_24A315000, v11, OS_LOG_TYPE_DEFAULT, "Calling paneSizeChanged: %@ forViewController: %@", &v13, 0x16u);
+      v19.origin.x = x;
+      v19.origin.y = y;
+      v19.size.width = width;
+      v19.size.height = height;
+      v13 = NSStringFromCGRect(v19);
+      v14 = 138412546;
+      v15 = v13;
+      v16 = 2112;
+      v17 = controllerCopy;
+      _os_log_impl(&dword_24A315000, v12, OS_LOG_TYPE_DEFAULT, "Calling paneSizeChanged: %@ forViewController: %@", &v14, 0x16u);
     }
 
     [delegate slidingPaneViewController:self paneSizeChanged:controllerCopy forViewController:{x, y, width, height}];
@@ -766,7 +773,7 @@ LABEL_13:
   {
     height = size.height;
     width = size.width;
-    v8 = LogCategory_FMSlidingPaneViewController();
+    v8 = LogCategory_FMSlidingPaneViewController(self);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v15.width = width;
@@ -809,7 +816,7 @@ LABEL_13:
 
 - (CGSize)_preferredSizeForPaneState:(id)state
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   paneViewController = [stateCopy paneViewController];
   [paneViewController preferredContentSize];
@@ -828,28 +835,28 @@ LABEL_13:
 
     if (v6 == 0.0 || v8 == 0.0)
     {
-      v15 = LogCategory_Unspecified();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = LogCategory_Unspecified(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v27.width = v6;
-        v27.height = v8;
-        v18 = NSStringFromCGSize(v27);
+        v28.width = v6;
+        v28.height = v8;
+        v19 = NSStringFromCGSize(v28);
         paneViewController3 = [stateCopy paneViewController];
         view2 = [paneViewController3 view];
         constraints = [view2 constraints];
-        v22 = 138412546;
-        v23 = v18;
-        v24 = 2112;
-        v25 = constraints;
-        _os_log_error_impl(&dword_24A315000, v15, OS_LOG_TYPE_ERROR, "Bad systemLayoutSize: %@ from constraints: %@", &v22, 0x16u);
+        v23 = 138412546;
+        v24 = v19;
+        v25 = 2112;
+        v26 = constraints;
+        _os_log_error_impl(&dword_24A315000, v16, OS_LOG_TYPE_ERROR, "Bad systemLayoutSize: %@ from constraints: %@", &v23, 0x16u);
       }
     }
   }
 
-  v16 = v6;
-  v17 = v8;
-  result.height = v17;
-  result.width = v16;
+  v17 = v6;
+  v18 = v8;
+  result.height = v18;
+  result.width = v17;
   return result;
 }
 
@@ -938,7 +945,7 @@ LABEL_9:
         }
 
 LABEL_19:
-        v38 = LogCategory_Unspecified();
+        v38 = LogCategory_Unspecified(edge2);
         if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
           [FMSlidingPaneViewController _createPaneViewForState:stateCopy];
@@ -1041,7 +1048,7 @@ LABEL_25:
   }
 
 LABEL_17:
-  paneView = LogCategory_Unspecified();
+  paneView = LogCategory_Unspecified(edge);
   if (os_log_type_enabled(paneView, OS_LOG_TYPE_ERROR))
   {
     [FMSlidingPaneViewController _createPaneViewForState:stateCopy];
@@ -1069,18 +1076,18 @@ LABEL_26:
 
 - (void)_removeChildViewControllerForState:(id)state
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   paneViewController = [stateCopy paneViewController];
   [paneViewController willMoveToParentViewController:0];
 
-  v5 = LogCategory_FMSlidingPaneViewController();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = LogCategory_FMSlidingPaneViewController(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     paneViewController2 = [stateCopy paneViewController];
-    v10 = 138412290;
-    v11 = paneViewController2;
-    _os_log_impl(&dword_24A315000, v5, OS_LOG_TYPE_DEFAULT, "_removeChildViewControllerForState: %@", &v10, 0xCu);
+    v11 = 138412290;
+    v12 = paneViewController2;
+    _os_log_impl(&dword_24A315000, v6, OS_LOG_TYPE_DEFAULT, "_removeChildViewControllerForState: %@", &v11, 0xCu);
   }
 
   paneViewController3 = [stateCopy paneViewController];
@@ -1095,52 +1102,53 @@ LABEL_26:
 {
   interactiveCopy = interactive;
   animatedCopy = animated;
-  v96 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   completionCopy = completion;
   objc_initWeak(&location, self);
   selfCopy = self;
   newActionFuture = [(FMSlidingPaneViewController *)selfCopy newActionFuture];
+  v15 = newActionFuture;
   if (!stateCopy)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:selfCopy file:@"FMSlidingPaneViewController.m" lineNumber:571 description:{@"Invalid parameter not satisfying: %@", @"paneState != nil"}];
   }
 
-  v15 = LogCategory_FMSlidingPaneViewController();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = LogCategory_FMSlidingPaneViewController(newActionFuture);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     paneViewController = [stateCopy paneViewController];
     *buf = 138412802;
-    v91 = paneViewController;
-    v92 = 1024;
-    v93 = animatedCopy;
+    v93 = paneViewController;
     v94 = 1024;
-    v95 = interactiveCopy;
-    _os_log_impl(&dword_24A315000, v15, OS_LOG_TYPE_DEFAULT, "_presentPaneState: %@ animated:%d interactive:%d completion:", buf, 0x18u);
+    v95 = animatedCopy;
+    v96 = 1024;
+    v97 = interactiveCopy;
+    _os_log_impl(&dword_24A315000, v16, OS_LOG_TYPE_DEFAULT, "_presentPaneState: %@ animated:%d interactive:%d completion:", buf, 0x18u);
   }
 
   paneView = [stateCopy paneView];
-  v18 = paneView == 0;
+  v19 = paneView == 0;
 
-  if (v18)
+  if (v19)
   {
     [(FMSlidingPaneViewController *)selfCopy _createPaneViewForState:stateCopy];
   }
 
   [(FMSlidingPaneViewController *)selfCopy _preferredSizeForPaneState:stateCopy];
-  v20 = v19;
-  v22 = v21;
+  v21 = v20;
+  v23 = v22;
   paneView2 = [stateCopy paneView];
   [paneView2 layoutIfNeeded];
 
-  v24 = LogCategory_FMSlidingPaneViewController();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v26 = LogCategory_FMSlidingPaneViewController(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     paneViewController2 = [stateCopy paneViewController];
     *buf = 138412290;
-    v91 = paneViewController2;
-    _os_log_impl(&dword_24A315000, v24, OS_LOG_TYPE_DEFAULT, "addChildViewController: %@", buf, 0xCu);
+    v93 = paneViewController2;
+    _os_log_impl(&dword_24A315000, v26, OS_LOG_TYPE_DEFAULT, "addChildViewController: %@", buf, 0xCu);
   }
 
   paneViewController3 = [stateCopy paneViewController];
@@ -1148,13 +1156,13 @@ LABEL_26:
 
   paneView3 = [stateCopy paneView];
   [paneView3 bounds];
-  v29 = v28;
   v31 = v30;
   v33 = v32;
   v35 = v34;
+  v37 = v36;
   paneViewController4 = [stateCopy paneViewController];
   view = [paneViewController4 view];
-  [view setFrame:{v29, v31, v33, v35}];
+  [view setFrame:{v31, v33, v35, v37}];
 
   paneView4 = [stateCopy paneView];
   paneViewController5 = [stateCopy paneViewController];
@@ -1171,14 +1179,14 @@ LABEL_26:
     if (edge == 4)
     {
       paneVerticalPositionConstraint = [stateCopy paneVerticalPositionConstraint];
-      [paneVerticalPositionConstraint setConstant:v22 + 2.0];
+      [paneVerticalPositionConstraint setConstant:v23 + 2.0];
       goto LABEL_20;
     }
 
     if (edge == 8)
     {
       paneVerticalPositionConstraint = [stateCopy paneHorizontalPositionConstraint];
-      [paneVerticalPositionConstraint setConstant:v20 + 2.0];
+      [paneVerticalPositionConstraint setConstant:v21 + 2.0];
       goto LABEL_20;
     }
   }
@@ -1188,19 +1196,19 @@ LABEL_26:
     if (edge == 1)
     {
       paneVerticalPositionConstraint = [stateCopy paneVerticalPositionConstraint];
-      [paneVerticalPositionConstraint setConstant:2.0 - v22];
+      [paneVerticalPositionConstraint setConstant:2.0 - v23];
       goto LABEL_20;
     }
 
     if (edge == 2)
     {
       paneVerticalPositionConstraint = [stateCopy paneHorizontalPositionConstraint];
-      [paneVerticalPositionConstraint setConstant:2.0 - v20];
+      [paneVerticalPositionConstraint setConstant:2.0 - v21];
       goto LABEL_20;
     }
   }
 
-  paneVerticalPositionConstraint = LogCategory_FMSlidingPaneViewController();
+  paneVerticalPositionConstraint = LogCategory_FMSlidingPaneViewController(edge);
   if (os_log_type_enabled(paneVerticalPositionConstraint, OS_LOG_TYPE_ERROR))
   {
     -[FMSlidingPaneViewController _presentPaneState:animated:interactive:completion:].cold.1(buf, [stateCopy edge], paneVerticalPositionConstraint);
@@ -1212,20 +1220,20 @@ LABEL_20:
   [paneView5 layoutIfNeeded];
 
   [(FMSlidingPaneViewController *)selfCopy _preferredSizeForPaneState:stateCopy];
-  v46 = v45;
+  v48 = v47;
   view3 = [(FMSlidingPaneViewController *)selfCopy view];
   [view3 frame];
-  v49 = v48;
+  v51 = v50;
   paneView6 = [stateCopy paneView];
   [paneView6 bounds];
-  v52 = v51;
+  v54 = v53;
   paneView7 = [stateCopy paneView];
   [paneView7 bounds];
-  v55 = v54;
+  v57 = v56;
 
   paneViewController7 = [stateCopy paneViewController];
-  v57 = v49 - v52;
-  [(FMSlidingPaneViewController *)selfCopy willPresentPane:paneViewController7 inRect:animatedCopy animated:0.0, v57, *&v55, *&v46];
+  v59 = v51 - v54;
+  [(FMSlidingPaneViewController *)selfCopy willPresentPane:paneViewController7 inRect:animatedCopy animated:0.0, v59, *&v57, *&v48];
 
   [stateCopy setShouldNotifyOfPaneSizeChanges:1];
   view4 = [(FMSlidingPaneViewController *)selfCopy view];
@@ -1237,18 +1245,18 @@ LABEL_20:
     if (edge2 == 4)
     {
       [(FMSlidingPaneViewController *)selfCopy paneInsets];
-      v68 = v67;
+      v70 = v69;
       paneVerticalPositionConstraint2 = [stateCopy paneVerticalPositionConstraint];
-      [paneVerticalPositionConstraint2 setConstant:-v68];
+      [paneVerticalPositionConstraint2 setConstant:-v70];
       goto LABEL_31;
     }
 
     if (edge2 == 8)
     {
       [(FMSlidingPaneViewController *)selfCopy paneInsets];
-      v64 = v63;
+      v66 = v65;
       paneVerticalPositionConstraint2 = [stateCopy paneHorizontalPositionConstraint];
-      [paneVerticalPositionConstraint2 setConstant:-v64];
+      [paneVerticalPositionConstraint2 setConstant:-v66];
       goto LABEL_31;
     }
   }
@@ -1258,61 +1266,61 @@ LABEL_20:
     if (edge2 == 1)
     {
       [(FMSlidingPaneViewController *)selfCopy paneInsets];
-      v66 = v65;
+      v68 = v67;
       paneVerticalPositionConstraint2 = [stateCopy paneVerticalPositionConstraint];
-      [paneVerticalPositionConstraint2 setConstant:v66];
+      [paneVerticalPositionConstraint2 setConstant:v68];
       goto LABEL_31;
     }
 
     if (edge2 == 2)
     {
       [(FMSlidingPaneViewController *)selfCopy paneInsets];
-      v61 = v60;
+      v63 = v62;
       paneVerticalPositionConstraint2 = [stateCopy paneHorizontalPositionConstraint];
-      [paneVerticalPositionConstraint2 setConstant:v61];
+      [paneVerticalPositionConstraint2 setConstant:v63];
       goto LABEL_31;
     }
   }
 
-  paneVerticalPositionConstraint2 = LogCategory_FMSlidingPaneViewController();
+  paneVerticalPositionConstraint2 = LogCategory_FMSlidingPaneViewController(edge2);
   if (os_log_type_enabled(paneVerticalPositionConstraint2, OS_LOG_TYPE_ERROR))
   {
-    -[FMSlidingPaneViewController _presentPaneState:animated:interactive:completion:].cold.1(v89, [stateCopy edge], paneVerticalPositionConstraint2);
+    -[FMSlidingPaneViewController _presentPaneState:animated:interactive:completion:].cold.1(v91, [stateCopy edge], paneVerticalPositionConstraint2);
   }
 
 LABEL_31:
 
   if (animatedCopy)
   {
-    v69 = MEMORY[0x277D75D18];
+    v71 = MEMORY[0x277D75D18];
     [(FMSlidingPaneViewController *)selfCopy animationDuration];
-    v71 = v70;
-    [(FMSlidingPaneViewController *)selfCopy animationSpringDamping];
     v73 = v72;
-    [(FMSlidingPaneViewController *)selfCopy animationInitialVelocity];
+    [(FMSlidingPaneViewController *)selfCopy animationSpringDamping];
     v75 = v74;
+    [(FMSlidingPaneViewController *)selfCopy animationInitialVelocity];
+    v77 = v76;
     animationOptions = [(FMSlidingPaneViewController *)selfCopy animationOptions];
-    v86[0] = MEMORY[0x277D85DD0];
-    v86[1] = 3221225472;
-    v86[2] = __81__FMSlidingPaneViewController__presentPaneState_animated_interactive_completion___block_invoke;
-    v86[3] = &unk_278FDB978;
-    v87 = stateCopy;
-    v81[0] = MEMORY[0x277D85DD0];
-    v81[1] = 3221225472;
-    v81[2] = __81__FMSlidingPaneViewController__presentPaneState_animated_interactive_completion___block_invoke_2;
-    v81[3] = &unk_278FDBAB0;
-    objc_copyWeak(v84, &location);
-    v81[4] = selfCopy;
-    v82 = newActionFuture;
-    v84[1] = 0;
-    v84[2] = *&v57;
-    v84[3] = v55;
-    v84[4] = v46;
-    v85 = animatedCopy;
-    v83 = completionCopy;
-    [v69 animateWithDuration:animationOptions | 4 delay:v86 usingSpringWithDamping:v81 initialSpringVelocity:v71 options:0.0 animations:v73 completion:v75];
+    v88[0] = MEMORY[0x277D85DD0];
+    v88[1] = 3221225472;
+    v88[2] = __81__FMSlidingPaneViewController__presentPaneState_animated_interactive_completion___block_invoke;
+    v88[3] = &unk_278FDB978;
+    v89 = stateCopy;
+    v83[0] = MEMORY[0x277D85DD0];
+    v83[1] = 3221225472;
+    v83[2] = __81__FMSlidingPaneViewController__presentPaneState_animated_interactive_completion___block_invoke_2;
+    v83[3] = &unk_278FDBAB0;
+    objc_copyWeak(v86, &location);
+    v83[4] = selfCopy;
+    v84 = v15;
+    v86[1] = 0;
+    v86[2] = *&v59;
+    v86[3] = v57;
+    v86[4] = v48;
+    v87 = animatedCopy;
+    v85 = completionCopy;
+    [v71 animateWithDuration:animationOptions | 4 delay:v88 usingSpringWithDamping:v83 initialSpringVelocity:v73 options:0.0 animations:v75 completion:v77];
 
-    objc_destroyWeak(v84);
+    objc_destroyWeak(v86);
   }
 
   else
@@ -1320,12 +1328,12 @@ LABEL_31:
     paneView8 = [stateCopy paneView];
     [paneView8 layoutIfNeeded];
 
-    [(FMSlidingPaneViewController *)selfCopy completeFuture:newActionFuture];
+    [(FMSlidingPaneViewController *)selfCopy completeFuture:v15];
     if (!interactiveCopy)
     {
       paneState = [(FMSlidingPaneViewController *)selfCopy paneState];
       paneViewController8 = [paneState paneViewController];
-      [(FMSlidingPaneViewController *)selfCopy didPresentPane:paneViewController8 inRect:0 animated:0.0, v57, *&v55, *&v46];
+      [(FMSlidingPaneViewController *)selfCopy didPresentPane:paneViewController8 inRect:0 animated:0.0, v59, *&v57, *&v48];
 
       if (completionCopy)
       {
@@ -1360,11 +1368,11 @@ void __81__FMSlidingPaneViewController__presentPaneState_animated_interactive_co
 
   if (*(a1 + 48))
   {
-    v5 = LogCategory_FMSlidingPaneViewController();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = LogCategory_FMSlidingPaneViewController(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_24A315000, v5, OS_LOG_TYPE_DEFAULT, "Calling present completion block", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_24A315000, v6, OS_LOG_TYPE_DEFAULT, "Calling present completion block", v7, 2u);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -1385,7 +1393,7 @@ void __81__FMSlidingPaneViewController__presentPaneState_animated_interactive_co
   }
 
   newActionFuture = [(FMSlidingPaneViewController *)self newActionFuture];
-  v12 = LogCategory_FMSlidingPaneViewController();
+  v12 = LogCategory_FMSlidingPaneViewController(newActionFuture);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     paneViewController = [stateCopy paneViewController];
@@ -1396,8 +1404,7 @@ void __81__FMSlidingPaneViewController__presentPaneState_animated_interactive_co
     _os_log_impl(&dword_24A315000, v12, OS_LOG_TYPE_DEFAULT, "_dismissPaneState: %@ animated: %d completion:", buf, 0x12u);
   }
 
-  [stateCopy setShouldNotifyOfPaneSizeChanges:0];
-  v14 = LogCategory_FMSlidingPaneViewController();
+  v14 = LogCategory_FMSlidingPaneViewController([stateCopy setShouldNotifyOfPaneSizeChanges:0]);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     paneViewController2 = [stateCopy paneViewController];
@@ -1462,7 +1469,7 @@ void __81__FMSlidingPaneViewController__presentPaneState_animated_interactive_co
     }
   }
 
-  paneView = LogCategory_FMSlidingPaneViewController();
+  paneView = LogCategory_FMSlidingPaneViewController(edge);
   if (os_log_type_enabled(paneView, OS_LOG_TYPE_ERROR))
   {
     -[FMSlidingPaneViewController _presentPaneState:animated:interactive:completion:].cold.1(buf, [stateCopy edge], paneView);
@@ -1544,11 +1551,11 @@ void __69__FMSlidingPaneViewController__dismissPaneState_animated_completion___b
 
   if (*(a1 + 56))
   {
-    v5 = LogCategory_FMSlidingPaneViewController();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = LogCategory_FMSlidingPaneViewController(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_24A315000, v5, OS_LOG_TYPE_DEFAULT, "Calling dismiss completionBlock", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_24A315000, v6, OS_LOG_TYPE_DEFAULT, "Calling dismiss completionBlock", v7, 2u);
     }
 
     (*(*(a1 + 56) + 16))();
@@ -1560,7 +1567,7 @@ void __69__FMSlidingPaneViewController__dismissPaneState_animated_completion___b
 - (void)_crossDissolveOldPaneState:(id)state newPaneState:(id)paneState animated:(BOOL)animated completion:(id)completion
 {
   animatedCopy = animated;
-  v73 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   paneStateCopy = paneState;
   completionCopy = completion;
@@ -1623,13 +1630,13 @@ LABEL_3:
   view4 = [(FMSlidingPaneViewController *)selfCopy view];
   [view4 updateConstraintsIfNeeded];
 
-  v38 = LogCategory_FMSlidingPaneViewController();
-  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+  v39 = LogCategory_FMSlidingPaneViewController(v38);
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
   {
     paneViewController3 = [paneStateCopy paneViewController];
     *buf = 138412290;
-    v72 = paneViewController3;
-    _os_log_impl(&dword_24A315000, v38, OS_LOG_TYPE_DEFAULT, "addChildViewController: %@", buf, 0xCu);
+    v73 = paneViewController3;
+    _os_log_impl(&dword_24A315000, v39, OS_LOG_TYPE_DEFAULT, "addChildViewController: %@", buf, 0xCu);
   }
 
   paneViewController4 = [paneStateCopy paneViewController];
@@ -1642,13 +1649,13 @@ LABEL_3:
   [paneView5 layoutIfNeeded];
 
   [(FMSlidingPaneViewController *)selfCopy _preferredSizeForPaneState:paneStateCopy];
-  v44 = v43;
+  v45 = v44;
   view5 = [(FMSlidingPaneViewController *)selfCopy view];
   [view5 frame];
-  v47 = v46 - v44;
+  v48 = v47 - v45;
   paneView6 = [paneStateCopy paneView];
   [paneView6 bounds];
-  v50 = v49;
+  v51 = v50;
 
   [stateCopy setShouldNotifyOfPaneSizeChanges:0];
   paneViewController6 = [stateCopy paneViewController];
@@ -1657,27 +1664,27 @@ LABEL_3:
     [(FMSlidingPaneViewController *)selfCopy willDismissPane:paneViewController6 animated:1];
 
     paneViewController7 = [paneStateCopy paneViewController];
-    [(FMSlidingPaneViewController *)selfCopy willPresentPane:paneViewController7 inRect:1 animated:0.0, v47, v50, v44];
+    [(FMSlidingPaneViewController *)selfCopy willPresentPane:paneViewController7 inRect:1 animated:0.0, v48, v51, v45];
 
     [paneStateCopy setShouldNotifyOfPaneSizeChanges:1];
-    v53 = MEMORY[0x277D75D18];
+    v54 = MEMORY[0x277D75D18];
     paneView7 = [stateCopy paneView];
     paneView8 = [paneStateCopy paneView];
-    v61[0] = MEMORY[0x277D85DD0];
-    v61[1] = 3221225472;
-    v61[2] = __91__FMSlidingPaneViewController__crossDissolveOldPaneState_newPaneState_animated_completion___block_invoke;
-    v61[3] = &unk_278FDBB00;
-    v61[4] = selfCopy;
-    v62 = stateCopy;
-    v70 = animatedCopy;
-    v63 = paneStateCopy;
-    v66 = 0;
-    v67 = v47;
-    v68 = v50;
-    v69 = v44;
-    v64 = v15;
-    v65 = completionCopy;
-    [v53 transitionFromView:paneView7 toView:paneView8 duration:5243264 options:v61 completion:0.150000006];
+    v62[0] = MEMORY[0x277D85DD0];
+    v62[1] = 3221225472;
+    v62[2] = __91__FMSlidingPaneViewController__crossDissolveOldPaneState_newPaneState_animated_completion___block_invoke;
+    v62[3] = &unk_278FDBB00;
+    v62[4] = selfCopy;
+    v63 = stateCopy;
+    v71 = animatedCopy;
+    v64 = paneStateCopy;
+    v67 = 0;
+    v68 = v48;
+    v69 = v51;
+    v70 = v45;
+    v65 = v15;
+    v66 = completionCopy;
+    [v54 transitionFromView:paneView7 toView:paneView8 duration:5243264 options:v62 completion:0.150000006];
   }
 
   else
@@ -1685,7 +1692,7 @@ LABEL_3:
     [(FMSlidingPaneViewController *)selfCopy willDismissPane:paneViewController6 animated:0];
 
     paneViewController8 = [paneStateCopy paneViewController];
-    [(FMSlidingPaneViewController *)selfCopy willPresentPane:paneViewController8 inRect:0 animated:0.0, v47, v50, v44];
+    [(FMSlidingPaneViewController *)selfCopy willPresentPane:paneViewController8 inRect:0 animated:0.0, v48, v51, v45];
 
     paneView9 = [stateCopy paneView];
     [paneView9 setHidden:1];
@@ -1698,7 +1705,7 @@ LABEL_3:
     [(FMSlidingPaneViewController *)selfCopy didDismissPane:paneViewController9 animated:0];
 
     paneViewController10 = [paneStateCopy paneViewController];
-    [(FMSlidingPaneViewController *)selfCopy didPresentPane:paneViewController10 inRect:0 animated:0.0, v47, v50, v44];
+    [(FMSlidingPaneViewController *)selfCopy didPresentPane:paneViewController10 inRect:0 animated:0.0, v48, v51, v45];
 
     [(FMSlidingPaneViewController *)selfCopy completeFuture:v15];
     if (completionCopy)
@@ -1804,7 +1811,7 @@ uint64_t __91__FMSlidingPaneViewController__crossDissolveOldPaneState_newPaneSta
   v1 = [a1 paneState];
   [v1 edge];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_24A315000, v2, v3, "Unknown edge: %lu", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_24A315000, v2, v3, "Unknown edge: %lu", v4, v5, v6, v7);
 }
 
 - (void)presentPaneViewController:fromEdge:withPercent:completion:.cold.1()
@@ -1818,7 +1825,7 @@ uint64_t __91__FMSlidingPaneViewController__crossDissolveOldPaneState_newPaneSta
 {
   [a1 edge];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_24A315000, v1, v2, "Unknown edge: %lu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_0(&dword_24A315000, v1, v2, "Unknown edge: %lu", v3, v4, v5, v6);
 }
 
 - (void)_presentPaneState:(NSObject *)a3 animated:interactive:completion:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)

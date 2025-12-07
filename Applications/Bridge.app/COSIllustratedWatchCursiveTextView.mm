@@ -63,9 +63,9 @@
 {
   if (_UISolariumEnabled())
   {
-    v5 = &type metadata for FeatureFlags;
-    v6 = sub_100144D98();
-    v4[0] = 3;
+    v4[3] = &type metadata for FeatureFlags;
+    v4[4] = sub_100144D98();
+    LOBYTE(v4[0]) = 3;
     v2 = isFeatureEnabled(_:)();
     sub_10014A63C(v4);
   }

@@ -987,7 +987,7 @@ LABEL_26:
   width = frameRect.size.width;
   y = frameRect.origin.y;
   x = frameRect.origin.x;
-  v168[12] = *MEMORY[0x1E69E9840];
+  v168 = *MEMORY[0x1E69E9840];
   *&v165 = frameRect.origin.x;
   *(&v165 + 1) = *&frameRect.origin.y;
   *&v166 = frameRect.size.width;
@@ -1006,7 +1006,7 @@ LABEL_26:
   v149 = [(NSTextBlock *)block borderColorForEdge:2];
   v150 = [(NSTextBlock *)block borderColorForEdge:3];
   v163 = v165;
-  v164 = v166;
+  *v164 = v166;
   v161 = v165;
   v162 = v166;
   v159 = v165;
@@ -1073,8 +1073,8 @@ LABEL_26:
   v36 = v29[24];
   v37 = v29[26];
   v38 = v29[27];
-  *&v164 = *&v164 - (v31 + v30 + v36 + v35);
-  *(&v164 + 1) = *(&v164 + 1) - (v33 + v34 + v38 + v37);
+  v164[0] = v164[0] - (v31 + v30 + v36 + v35);
+  v164[1] = v164[1] - (v33 + v34 + v38 + v37);
   if (collapsesBorders)
   {
     v39 = [-[NSTextStorage attribute:atIndex:effectiveRange:](v153 "attribute:"textBlocks" atIndex:? effectiveRange:?")];
@@ -1356,7 +1356,7 @@ LABEL_118:
           rects[0].origin.y = v49;
           rects[0].size.width = v108 - v46;
           rects[0].size.height = v50;
-          v109 = v168;
+          v109 = &rects[1];
           v110 = 1;
         }
 

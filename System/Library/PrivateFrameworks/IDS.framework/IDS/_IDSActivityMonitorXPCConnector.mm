@@ -215,38 +215,36 @@
 
 - (void)_handleInterruption
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = self->_listenersByActivity;
-  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [(_IDSActivityMonitorXPCConnector *)self _updateActivity:*(*(&v9 + 1) + 8 * v7++) isSupported:1, v9];
+        [(_IDSActivityMonitorXPCConnector *)self _updateActivity:*(*(&v8 + 1) + 8 * v7++) isSupported:1, v8];
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateActivity:(id)activity isSupported:(BOOL)supported
@@ -269,7 +267,7 @@
 
 - (void)handleIncomingUpdate:(id)update onActivity:(id)activity completion:(id)completion
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   activityCopy = activity;
   block = completion;
@@ -278,40 +276,40 @@
   allObjects = [v11 allObjects];
 
   v13 = dispatch_group_create();
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = allObjects;
-  v14 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v14 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v27;
+    v16 = *v26;
     do
     {
       v17 = 0;
       do
       {
-        if (*v27 != v16)
+        if (*v26 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v26 + 1) + 8 * v17);
+        v18 = *(*(&v25 + 1) + 8 * v17);
         dispatch_group_enter(v13);
-        v24[0] = MEMORY[0x1E69E9820];
-        v24[1] = 3221225472;
-        v24[2] = sub_195B207E0;
-        v24[3] = &unk_1E743E878;
-        v25 = v13;
-        [v18 handleIncomingUpdate:updateCopy onActivity:activityCopy completion:v24];
+        v23[0] = MEMORY[0x1E69E9820];
+        v23[1] = 3221225472;
+        v23[2] = sub_195B207E0;
+        v23[3] = &unk_1E743E878;
+        v24 = v13;
+        [v18 handleIncomingUpdate:updateCopy onActivity:activityCopy completion:v23];
 
         ++v17;
       }
 
       while (v15 != v17);
-      v15 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v15 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v15);
@@ -320,8 +318,6 @@
   v19 = +[IDSInternalQueueController sharedInstance];
   queue = [v19 queue];
   dispatch_group_notify(v13, queue, block);
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 @end

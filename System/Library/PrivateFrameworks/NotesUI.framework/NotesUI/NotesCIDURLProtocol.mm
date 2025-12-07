@@ -48,7 +48,7 @@ uint64_t __54__NotesCIDURLProtocol_registerDataProvider_forCIDURL___block_invoke
   v4 = [request URL];
 
   client = [(NSURLProtocol *)self client];
-  v6 = [s_providersByCID objectForKeyedSubscript:v4];
+  v6 = objc_msgSend_objectForKeyedSubscript_(s_providersByCID);
   v7 = v6;
   if (v6)
   {

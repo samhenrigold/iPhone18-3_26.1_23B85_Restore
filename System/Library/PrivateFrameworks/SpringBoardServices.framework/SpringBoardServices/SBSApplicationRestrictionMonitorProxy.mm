@@ -64,7 +64,7 @@
 
 uint64_t __83__SBSApplicationRestrictionMonitorProxy_observeUpdateWithApplicationRestrictState___block_invoke(uint64_t a1)
 {
-  v2 = SBLogApplicationRestrictionMonitoring();
+  v2 = SBLogApplicationRestrictionMonitoring(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -76,7 +76,7 @@ uint64_t __83__SBSApplicationRestrictionMonitorProxy_observeUpdateWithApplicatio
 
 - (void)invalidate
 {
-  v3 = SBLogApplicationRestrictionMonitoring();
+  v3 = SBLogApplicationRestrictionMonitoring(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -124,7 +124,7 @@ void __55__SBSApplicationRestrictionMonitorProxy_makeConnection__block_invoke_2(
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = SBLogApplicationRestrictionMonitoring();
+  v3 = SBLogApplicationRestrictionMonitoring(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138543362;
@@ -136,7 +136,7 @@ void __55__SBSApplicationRestrictionMonitorProxy_makeConnection__block_invoke_2(
 void __55__SBSApplicationRestrictionMonitorProxy_makeConnection__block_invoke_8(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = SBLogApplicationRestrictionMonitoring();
+  v4 = SBLogApplicationRestrictionMonitoring(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __76__SBSSystemNotesPresentationClientToServerProxy__setupAndActivateConnection__block_invoke_19_cold_1(v3, v4);

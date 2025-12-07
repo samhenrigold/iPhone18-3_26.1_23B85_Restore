@@ -8,7 +8,7 @@
 
 - (void)nt_resolveFallbacksWithPaidAccessChecker:()Mastering heldArticleRecords:
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   if (!v6 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -31,76 +31,76 @@
   }
 
 LABEL_6:
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   obj = [self todayQueueConfigs];
-  v36 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
-  if (v36)
+  v35 = [obj countByEnumeratingWithState:&v50 objects:v56 count:16];
+  if (v35)
   {
-    v35 = *v52;
+    v34 = *v51;
     do
     {
       v8 = 0;
       do
       {
-        if (*v52 != v35)
+        if (*v51 != v34)
         {
           objc_enumerationMutation(obj);
         }
 
-        v37 = v8;
-        v9 = *(*(&v51 + 1) + 8 * v8);
+        v36 = v8;
+        v9 = *(*(&v50 + 1) + 8 * v8);
+        v46 = 0u;
         v47 = 0u;
         v48 = 0u;
         v49 = 0u;
-        v50 = 0u;
         todaySectionConfigs = [v9 todaySectionConfigs];
-        v10 = [todaySectionConfigs countByEnumeratingWithState:&v47 objects:v56 count:16];
+        v10 = [todaySectionConfigs countByEnumeratingWithState:&v46 objects:v55 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v48;
-          v38 = *v48;
+          v12 = *v47;
+          v37 = *v47;
           do
           {
             v13 = 0;
-            v42 = v11;
+            v41 = v11;
             do
             {
-              if (*v48 != v12)
+              if (*v47 != v12)
               {
                 objc_enumerationMutation(todaySectionConfigs);
               }
 
-              v14 = *(*(&v47 + 1) + 8 * v13);
+              v14 = *(*(&v46 + 1) + 8 * v13);
               sectionType = [v14 sectionType];
               if (sectionType == 5)
               {
                 itemsTodaySectionConfig = [v14 itemsTodaySectionConfig];
+                v42 = 0u;
                 v43 = 0u;
                 v44 = 0u;
                 v45 = 0u;
-                v46 = 0u;
                 items = [itemsTodaySectionConfig items];
-                v26 = [items countByEnumeratingWithState:&v43 objects:v55 count:16];
+                v26 = [items countByEnumeratingWithState:&v42 objects:v54 count:16];
                 if (v26)
                 {
                   v27 = v26;
-                  v39 = itemsTodaySectionConfig;
-                  v40 = v13;
-                  v28 = *v44;
+                  v38 = itemsTodaySectionConfig;
+                  v39 = v13;
+                  v28 = *v43;
                   do
                   {
                     for (i = 0; i != v27; ++i)
                     {
-                      if (*v44 != v28)
+                      if (*v43 != v28)
                       {
                         objc_enumerationMutation(items);
                       }
 
-                      v30 = *(*(&v43 + 1) + 8 * i);
+                      v30 = *(*(&v42 + 1) + 8 * i);
                       article = [v30 article];
                       if (article)
                       {
@@ -109,14 +109,14 @@ LABEL_6:
                       }
                     }
 
-                    v27 = [items countByEnumeratingWithState:&v43 objects:v55 count:16];
+                    v27 = [items countByEnumeratingWithState:&v42 objects:v54 count:16];
                   }
 
                   while (v27);
-                  v12 = v38;
-                  itemsTodaySectionConfig = v39;
-                  v11 = v42;
-                  v13 = v40;
+                  v12 = v37;
+                  itemsTodaySectionConfig = v38;
+                  v11 = v41;
+                  v13 = v39;
                 }
               }
 
@@ -154,7 +154,7 @@ LABEL_6:
                   [articleIDsTodaySectionConfig setArticles:v19];
                 }
 
-                v11 = v42;
+                v11 = v41;
               }
 
 LABEL_33:
@@ -162,37 +162,35 @@ LABEL_33:
             }
 
             while (v13 != v11);
-            v11 = [todaySectionConfigs countByEnumeratingWithState:&v47 objects:v56 count:16];
+            v11 = [todaySectionConfigs countByEnumeratingWithState:&v46 objects:v55 count:16];
           }
 
           while (v11);
         }
 
-        v8 = v37 + 1;
+        v8 = v36 + 1;
       }
 
-      while (v37 + 1 != v36);
-      v36 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
+      while (v36 + 1 != v35);
+      v35 = [obj countByEnumeratingWithState:&v50 objects:v56 count:16];
     }
 
-    while (v36);
+    while (v35);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_resolveArticle:()Mastering withPaidAccessChecker:heldArticleRecords:
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v7 = a3;
-  v54 = a4;
-  v55 = a5;
+  v56 = a4;
+  v57 = a5;
   v8 = v7;
-  v9 = NTSharedLog();
+  v9 = NTSharedLog(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543362;
-    v57 = v8;
+    v59 = v8;
     _os_log_impl(&dword_25BF21000, v9, OS_LOG_TYPE_DEBUG, "resolving article %{public}@", buf, 0xCu);
   }
 
@@ -201,104 +199,85 @@ LABEL_33:
   if (paidArticle)
   {
     v12 = paidArticle;
-    v50 = v8;
+    v52 = v8;
     while (1)
     {
-      v13 = NTSharedLog();
+      v13 = NTSharedLog(paidArticle);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v57 = v12;
+        v59 = v12;
         _os_log_impl(&dword_25BF21000, v13, OS_LOG_TYPE_DEBUG, "considering paid article %{public}@", buf, 0xCu);
       }
 
       articleID = [v12 articleID];
-      v15 = [v55 recordWithID:articleID];
+      v15 = [v57 recordWithID:articleID];
 
       if (v15)
       {
         isPaid = [v15 isPaid];
         isBundlePaid = [v15 isBundlePaid];
         sourceChannelTagID = [v15 sourceChannelTagID];
-        v19 = v54;
-        v20 = sourceChannelTagID;
-        bundleSubscriptionProvider = [v19 bundleSubscriptionProvider];
-        purchaseProvider = [v19 purchaseProvider];
-        v23 = bundleSubscriptionProvider;
-        v24 = purchaseProvider;
-        v25 = v20;
+        v20 = v56;
+        v21 = sourceChannelTagID;
+        bundleSubscriptionProvider = [v20 bundleSubscriptionProvider];
+        purchaseProvider = [v20 purchaseProvider];
+        v24 = bundleSubscriptionProvider;
+        v25 = purchaseProvider;
+        v26 = v21;
         if ((isPaid & 1) == 0 && !isBundlePaid)
         {
           goto LABEL_28;
         }
 
-        v26 = isPaid ^ 1;
-        if (!v24)
+        v27 = isPaid ^ 1;
+        if (!v25)
         {
-          v26 = 1;
+          v27 = 1;
         }
 
-        if ((v26 & 1) == 0)
+        if ((v27 & 1) == 0)
         {
-          purchasedTagIDs = [v24 purchasedTagIDs];
-          v28 = [purchasedTagIDs containsObject:v25];
+          purchasedTagIDs = [v25 purchasedTagIDs];
+          v29 = [purchasedTagIDs containsObject:v26];
 
-          if (v28)
+          if (v29)
           {
 LABEL_28:
 
-            v46 = NTSharedLog();
-            if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+            v49 = NTSharedLog(v48);
+            if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
             {
               articleID2 = [v12 articleID];
               *buf = 138543362;
-              v57 = articleID2;
-              _os_log_impl(&dword_25BF21000, v46, OS_LOG_TYPE_DEBUG, "user has access to %{public}@", buf, 0xCu);
+              v59 = articleID2;
+              _os_log_impl(&dword_25BF21000, v49, OS_LOG_TYPE_DEBUG, "user has access to %{public}@", buf, 0xCu);
             }
 
             v11 = v12;
-            v8 = v50;
+            v8 = v52;
 
             break;
           }
         }
 
-        v29 = isBundlePaid ^ 1;
-        if (!v23)
+        v30 = isBundlePaid ^ 1;
+        if (!v24)
         {
-          v29 = 1;
+          v30 = 1;
         }
 
-        if ((v29 & 1) == 0)
+        if ((v30 & 1) == 0)
         {
-          v30 = v23;
-          v31 = v25;
-          if (!v31)
+          v31 = v24;
+          v32 = v26;
+          if (v32 && ([v31 bundleSubscription], v33 = objc_claimAutoreleasedReturnValue(), objc_getAssociatedObject(v33, (v33 + 1)), v54 = v32, v34 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend(v34, "unsignedIntegerValue"), v36 = v35, objc_getAssociatedObject(v33, ~v35), v55 = v20, v37 = v31, v38 = objc_claimAutoreleasedReturnValue(), v39 = objc_msgSend(v38, "unsignedIntegerValue") ^ v36, v38, v31 = v37, v20 = v55, v34, v32 = v54, v33, (v39 & 1) != 0))
           {
-            goto LABEL_19;
-          }
+            bundleSubscription = [v31 bundleSubscription];
+            bundleChannelIDs = [bundleSubscription bundleChannelIDs];
+            v53 = [bundleChannelIDs containsObject:v54];
 
-          bundleSubscription = [v30 bundleSubscription];
-          objc_getAssociatedObject(bundleSubscription, (bundleSubscription + 1));
-          v33 = v52 = v31;
-          unsignedIntegerValue = [v33 unsignedIntegerValue];
-          v35 = unsignedIntegerValue;
-          objc_getAssociatedObject(bundleSubscription, ~unsignedIntegerValue);
-          v53 = v19;
-          v37 = v36 = v30;
-          v38 = [v37 unsignedIntegerValue] ^ v35;
-
-          v30 = v36;
-          v19 = v53;
-
-          v31 = v52;
-          if (v38)
-          {
-            bundleSubscription2 = [v30 bundleSubscription];
-            bundleChannelIDs = [bundleSubscription2 bundleChannelIDs];
-            v51 = [bundleChannelIDs containsObject:v52];
-
-            if (v51)
+            if (v53)
             {
               goto LABEL_28;
             }
@@ -306,34 +285,33 @@ LABEL_28:
 
           else
           {
-LABEL_19:
           }
         }
 
-        v39 = NTSharedLog();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+        v40 = NTSharedLog(v46);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
         {
           articleID3 = [v12 articleID];
           *buf = 138543362;
-          v57 = articleID3;
-          v41 = v39;
-          v42 = "user does not have access to %{public}@";
+          v59 = articleID3;
+          v42 = v40;
+          v43 = "user does not have access to %{public}@";
           goto LABEL_25;
         }
       }
 
       else
       {
-        v39 = NTSharedLog();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+        v40 = NTSharedLog(v16);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
         {
           articleID3 = [v12 articleID];
           *buf = 138543362;
-          v57 = articleID3;
-          v41 = v39;
-          v42 = "did not find record for article %{public}@";
+          v59 = articleID3;
+          v42 = v40;
+          v43 = "did not find record for article %{public}@";
 LABEL_25:
-          _os_log_impl(&dword_25BF21000, v41, OS_LOG_TYPE_DEBUG, v42, buf, 0xCu);
+          _os_log_impl(&dword_25BF21000, v42, OS_LOG_TYPE_DEBUG, v43, buf, 0xCu);
         }
       }
 
@@ -342,14 +320,12 @@ LABEL_25:
       v12 = paidArticle2;
       if (!paidArticle2)
       {
-        v8 = v50;
-        v11 = v50;
+        v8 = v52;
+        v11 = v52;
         break;
       }
     }
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -374,32 +350,28 @@ LABEL_25:
 
 - (void)nt_resolveFallbacksWithPaidAccessChecker:()Mastering heldArticleRecords:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "paidAccessChecker"];
   *buf = 136315906;
-  v3 = "[NTPBTodayConfig(Mastering) nt_resolveFallbacksWithPaidAccessChecker:heldArticleRecords:]";
-  v4 = 2080;
-  v5 = "NTTodayConfig+Mastering.m";
-  v6 = 1024;
+  v2 = "[NTPBTodayConfig(Mastering) nt_resolveFallbacksWithPaidAccessChecker:heldArticleRecords:]";
+  v3 = 2080;
+  v4 = "NTTodayConfig+Mastering.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(&dword_25BF21000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)nt_resolveFallbacksWithPaidAccessChecker:()Mastering heldArticleRecords:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "heldArticleRecords"];
   *buf = 136315906;
-  v3 = "[NTPBTodayConfig(Mastering) nt_resolveFallbacksWithPaidAccessChecker:heldArticleRecords:]";
-  v4 = 2080;
-  v5 = "NTTodayConfig+Mastering.m";
-  v6 = 1024;
+  v2 = "[NTPBTodayConfig(Mastering) nt_resolveFallbacksWithPaidAccessChecker:heldArticleRecords:]";
+  v3 = 2080;
+  v4 = "NTTodayConfig+Mastering.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(&dword_25BF21000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -34,7 +34,7 @@
   peakCopy = peak;
   nudgePeakCopy = nudgePeak;
   completionCopy = completion;
-  v13 = sharedBluetoothSettingsLogComponent();
+  v13 = sharedBluetoothSettingsLogComponent(completionCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;

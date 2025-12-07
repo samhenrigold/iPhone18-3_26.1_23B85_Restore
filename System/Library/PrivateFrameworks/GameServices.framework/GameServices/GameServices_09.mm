@@ -1,8908 +1,8 @@
-uint64_t sub_1D8502C0C()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  v3 = v2;
-  OUTLINED_FUNCTION_62();
-  *v4 = v3;
-  v6 = *(v5 + 176);
-  v7 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v8 = v7;
-  v3[23] = v0;
-
-  if (v0)
-  {
-    OUTLINED_FUNCTION_149();
-
-    return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-  }
-
-  else
-  {
-    v12 = v3[18];
-    v13 = v3[15];
-
-    OUTLINED_FUNCTION_57();
-
-    return v14();
-  }
-}
-
-uint64_t sub_1D8502D34()
-{
-  OUTLINED_FUNCTION_537();
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_330();
-  v1 = OUTLINED_FUNCTION_77();
-  v2(v1);
-  v3 = OUTLINED_FUNCTION_80();
-  v4(v3);
-  OUTLINED_FUNCTION_331();
-
-  v5 = *(v0 + 168);
-  OUTLINED_FUNCTION_370_0();
-
-  OUTLINED_FUNCTION_146();
-  OUTLINED_FUNCTION_511();
-
-  return v7(v6, v7, v8, v9, v10, v11, v12, v13);
-}
-
-uint64_t sub_1D8502DD8()
-{
-  OUTLINED_FUNCTION_148();
-  v1 = *(v0 + 184);
-  OUTLINED_FUNCTION_370_0();
-
-  OUTLINED_FUNCTION_146();
-
-  return v2();
-}
-
-uint64_t sub_1D8502E3C(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
-{
-  v8 = *a2;
-  v5[2] = *a2;
-  v9 = *(v8 - 8);
-  v5[3] = v9;
-  v10 = *(v9 + 64) + 15;
-  v11 = swift_task_alloc();
-  v5[4] = v11;
-  sub_1D8580F88();
-  v12 = *v11;
-  v13 = *a4;
-  v15 = *a5;
-  v14 = a5[1];
-  v16 = swift_task_alloc();
-  v5[5] = v16;
-  *v16 = v5;
-  v16[1] = sub_1D84A7CAC;
-
-  return DistributedGameServicesDebuggerProtocol<>.resetLeaderboards(_:)();
-}
-
-uint64_t sub_1D8502FC8()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_366();
-  OUTLINED_FUNCTION_31_0(&unk_1D85A1040);
-  v0 = swift_task_alloc();
-  v1 = OUTLINED_FUNCTION_176(v0);
-  *v1 = v2;
-  v3 = OUTLINED_FUNCTION_42_0(v1);
-
-  return v4(v3);
-}
-
-uint64_t sub_1D8503054(uint64_t a1)
-{
-  v2[7] = a1;
-  v2[8] = v1;
-  v3 = sub_1D8581018();
-  v2[9] = v3;
-  v4 = *(v3 - 8);
-  v2[10] = v4;
-  v5 = *(v4 + 64) + 15;
-  v2[11] = swift_task_alloc();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39738, &unk_1D859F280);
-  v2[12] = v6;
-  v7 = *(v6 - 8);
-  v2[13] = v7;
-  v8 = *(v7 + 64) + 15;
-  v2[14] = swift_task_alloc();
-
-  return MEMORY[0x1EEE6DFA0](sub_1D850317C, 0, 0);
-}
-
-uint64_t sub_1D850317C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
-{
-  OUTLINED_FUNCTION_257();
-  OUTLINED_FUNCTION_177();
-  v14 = v13[8];
-  if ((swift_distributed_actor_is_remote() & 1) == 0)
-  {
-    OUTLINED_FUNCTION_24(&unk_1D85A1040);
-    v15 = swift_task_alloc();
-    v16 = OUTLINED_FUNCTION_201_0(v15);
-    *v16 = v17;
-    OUTLINED_FUNCTION_33_1(v16);
-    OUTLINED_FUNCTION_197();
-
-    return v19(v18, v19, v20, v21, v22, v23, v24, v25, a9, a10, a11, a12);
-  }
-
-  OUTLINED_FUNCTION_91_1();
-  type metadata accessor for $DistributedGameServicesDebuggerProtocol();
-  OUTLINED_FUNCTION_91();
-  if (v12)
-  {
-    OUTLINED_FUNCTION_342();
-
-    goto LABEL_9;
-  }
-
-  OUTLINED_FUNCTION_175_0();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39740, &unk_1D8596160);
-  OUTLINED_FUNCTION_284_2();
-  OUTLINED_FUNCTION_11_2();
-  sub_1D8581038();
-  sub_1D8491E2C();
-  sub_1D8491EDC();
-  OUTLINED_FUNCTION_31();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-  OUTLINED_FUNCTION_156();
-  GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v27);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39770, &unk_1D8596170);
-  sub_1D8491F8C();
-  sub_1D84920E8();
-  OUTLINED_FUNCTION_16();
-  OUTLINED_FUNCTION_353();
-  GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-  if (v28)
-  {
-    OUTLINED_FUNCTION_453();
-    v29 = OUTLINED_FUNCTION_49_0();
-    v30(v29);
-    OUTLINED_FUNCTION_331();
-
-LABEL_9:
-    OUTLINED_FUNCTION_191_2();
-
-    OUTLINED_FUNCTION_48();
-    OUTLINED_FUNCTION_197();
-
-    return v19(v18, v19, v20, v21, v22, v23, v24, v25, a9, a10, a11, a12);
-  }
-
-  v31 = v13[11];
-  OUTLINED_FUNCTION_184_0();
-  sub_1D8581028();
-  v32 = swift_task_alloc();
-  OUTLINED_FUNCTION_203_0(v32);
-  OUTLINED_FUNCTION_0_6();
-  sub_1D8526788(v33);
-  OUTLINED_FUNCTION_98();
-  v13[2] = v34;
-  OUTLINED_FUNCTION_419();
-  OUTLINED_FUNCTION_9_0(v35);
-  OUTLINED_FUNCTION_118_0();
-
-  return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-}
-
-uint64_t DistributedGameServicesDebuggerProtocol<>.describeLeaderboardSets(_:)()
-{
-  OUTLINED_FUNCTION_148();
-  v5 = OUTLINED_FUNCTION_371(v1, v2, v3, v4);
-  v0[14] = v5;
-  OUTLINED_FUNCTION_39(v5);
-  v0[15] = v6;
-  v8 = *(v7 + 64);
-  v0[16] = OUTLINED_FUNCTION_332();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39738, &unk_1D859F280);
-  OUTLINED_FUNCTION_29(v9);
-  v0[18] = v10;
-  v12 = *(v11 + 64);
-  v0[19] = OUTLINED_FUNCTION_332();
-  v13 = OUTLINED_FUNCTION_64_0();
-
-  return MEMORY[0x1EEE6DFA0](v13, v14, v15);
-}
-
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_250(v0, v1, v2);
-  OUTLINED_FUNCTION_198();
-  v3 = OUTLINED_FUNCTION_63();
-
-  return MEMORY[0x1EEE6DFA0](v3, v4, v5);
-}
-
-uint64_t sub_1D85034FC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
-{
-  OUTLINED_FUNCTION_208();
-  OUTLINED_FUNCTION_185();
-  v16 = v15[13];
-  is_remote = swift_distributed_actor_is_remote();
-  v18 = v15[13];
-  if (is_remote)
-  {
-    OUTLINED_FUNCTION_73();
-    OUTLINED_FUNCTION_110_0();
-    OUTLINED_FUNCTION_90();
-    if (v14)
-    {
-      OUTLINED_FUNCTION_342();
-
-LABEL_12:
-      OUTLINED_FUNCTION_168_0();
-
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_169();
-
-      return v40(v39, v40, v41, v42, v43, v44, v45, v46, a9, a10, a11, a12, a13, a14);
-    }
-
-    OUTLINED_FUNCTION_174_0();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39740, &unk_1D8596160);
-    OUTLINED_FUNCTION_195();
-    OUTLINED_FUNCTION_11_2();
-    sub_1D8581038();
-    sub_1D8491E2C();
-    sub_1D8491EDC();
-    OUTLINED_FUNCTION_31();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_156();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v35);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39770, &unk_1D8596170);
-    sub_1D8491F8C();
-    sub_1D84920E8();
-    OUTLINED_FUNCTION_16();
-    OUTLINED_FUNCTION_353();
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v36)
-    {
-      OUTLINED_FUNCTION_452();
-      v37 = OUTLINED_FUNCTION_49_0();
-      v38(v37);
-      OUTLINED_FUNCTION_331();
-
-      goto LABEL_12;
-    }
-
-    v47 = v15[16];
-    OUTLINED_FUNCTION_184_0();
-    sub_1D8581028();
-    v48 = swift_task_alloc();
-    v49 = OUTLINED_FUNCTION_90_0(v48);
-    *v49 = v50;
-    OUTLINED_FUNCTION_294(v49);
-    OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_112();
-
-    return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-  }
-
-  else
-  {
-    v19 = *(OUTLINED_FUNCTION_210(v15[12]) + 120);
-    OUTLINED_FUNCTION_54();
-    v52 = v20 + *v20;
-    v22 = *(v21 + 4);
-    v23 = swift_task_alloc();
-    v24 = OUTLINED_FUNCTION_286(v23);
-    *v24 = v25;
-    OUTLINED_FUNCTION_17(v24);
-    OUTLINED_FUNCTION_169();
-
-    return v29(v26, v27, v28, v29, v30, v31, v32, v33, a9, a10, v52, a12, a13, a14);
-  }
-}
-
-uint64_t sub_1D85037D0(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
-{
-  v5[2] = a3;
-  v8 = *a2;
-  v5[3] = *a2;
-  v9 = *(v8 - 8);
-  v5[4] = v9;
-  v10 = *(v9 + 64) + 15;
-  v11 = swift_task_alloc();
-  v5[5] = v11;
-  sub_1D8580F88();
-  v12 = *v11;
-  v13 = *a4;
-  v15 = *a5;
-  v14 = a5[1];
-  v16 = swift_task_alloc();
-  v5[6] = v16;
-  *v16 = v5;
-  v16[1] = sub_1D84A7CD8;
-
-  return DistributedGameServicesDebuggerProtocol<>.describeLeaderboardSets(_:)();
-}
-
-uint64_t sub_1D8503960()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_366();
-  OUTLINED_FUNCTION_31_0(&unk_1D85A1038);
-  v0 = swift_task_alloc();
-  v1 = OUTLINED_FUNCTION_176(v0);
-  *v1 = v2;
-  v3 = OUTLINED_FUNCTION_42_0(v1);
-
-  return v4(v3);
-}
-
-uint64_t sub_1D85039EC(uint64_t a1)
-{
-  v2[7] = a1;
-  v2[8] = v1;
-  v3 = sub_1D8581018();
-  v2[9] = v3;
-  v4 = *(v3 - 8);
-  v2[10] = v4;
-  v5 = *(v4 + 64) + 15;
-  v2[11] = swift_task_alloc();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39578, &unk_1D85981A0);
-  v2[12] = v6;
-  v7 = *(v6 - 8);
-  v2[13] = v7;
-  v8 = *(v7 + 64) + 15;
-  v2[14] = swift_task_alloc();
-
-  return MEMORY[0x1EEE6DFA0](sub_1D8503B14, 0, 0);
-}
-
-uint64_t sub_1D8503B14(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
-{
-  OUTLINED_FUNCTION_257();
-  OUTLINED_FUNCTION_177();
-  v14 = v13[8];
-  if ((swift_distributed_actor_is_remote() & 1) == 0)
-  {
-    OUTLINED_FUNCTION_24(&unk_1D85A1038);
-    v15 = swift_task_alloc();
-    v16 = OUTLINED_FUNCTION_201_0(v15);
-    *v16 = v17;
-    OUTLINED_FUNCTION_33_1(v16);
-    OUTLINED_FUNCTION_197();
-
-    return v19(v18, v19, v20, v21, v22, v23, v24, v25, a9, a10, a11, a12);
-  }
-
-  OUTLINED_FUNCTION_91_1();
-  type metadata accessor for $DistributedGameServicesDebuggerProtocol();
-  OUTLINED_FUNCTION_91();
-  if (v12)
-  {
-    OUTLINED_FUNCTION_342();
-
-    goto LABEL_9;
-  }
-
-  OUTLINED_FUNCTION_175_0();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA392E0, &qword_1D8591020);
-  OUTLINED_FUNCTION_87_0();
-  OUTLINED_FUNCTION_284_2();
-  OUTLINED_FUNCTION_100_1();
-  sub_1D8581038();
-  sub_1D847C154();
-  sub_1D847C0A4();
-  OUTLINED_FUNCTION_31();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-  OUTLINED_FUNCTION_156();
-  GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v27);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA397B0, &unk_1D8596190);
-  sub_1D8492BB0();
-  sub_1D8492C60();
-  OUTLINED_FUNCTION_16();
-  OUTLINED_FUNCTION_353();
-  GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-  if (v28)
-  {
-    OUTLINED_FUNCTION_453();
-    v29 = OUTLINED_FUNCTION_49_0();
-    v30(v29);
-    OUTLINED_FUNCTION_331();
-
-LABEL_9:
-    OUTLINED_FUNCTION_191_2();
-
-    OUTLINED_FUNCTION_48();
-    OUTLINED_FUNCTION_197();
-
-    return v19(v18, v19, v20, v21, v22, v23, v24, v25, a9, a10, a11, a12);
-  }
-
-  v31 = v13[11];
-  OUTLINED_FUNCTION_184_0();
-  sub_1D8581028();
-  v32 = swift_task_alloc();
-  OUTLINED_FUNCTION_203_0(v32);
-  OUTLINED_FUNCTION_0_6();
-  sub_1D8526788(v33);
-  OUTLINED_FUNCTION_98();
-  v13[2] = v34;
-  OUTLINED_FUNCTION_419();
-  OUTLINED_FUNCTION_9_0(v35);
-  OUTLINED_FUNCTION_118_0();
-
-  return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-}
-
-uint64_t DistributedGameServicesDebuggerProtocol<>.listLeaderboardSets(games:)()
-{
-  OUTLINED_FUNCTION_148();
-  v5 = OUTLINED_FUNCTION_371(v1, v2, v3, v4);
-  v0[14] = v5;
-  OUTLINED_FUNCTION_39(v5);
-  v0[15] = v6;
-  v8 = *(v7 + 64);
-  v0[16] = OUTLINED_FUNCTION_332();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39578, &unk_1D85981A0);
-  OUTLINED_FUNCTION_29(v9);
-  v0[18] = v10;
-  v12 = *(v11 + 64);
-  v0[19] = OUTLINED_FUNCTION_332();
-  v13 = OUTLINED_FUNCTION_64_0();
-
-  return MEMORY[0x1EEE6DFA0](v13, v14, v15);
-}
-
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_250(v0, v1, v2);
-  OUTLINED_FUNCTION_198();
-  v3 = OUTLINED_FUNCTION_63();
-
-  return MEMORY[0x1EEE6DFA0](v3, v4, v5);
-}
-
-uint64_t sub_1D8503E94(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
-{
-  OUTLINED_FUNCTION_208();
-  OUTLINED_FUNCTION_185();
-  v16 = v15[13];
-  is_remote = swift_distributed_actor_is_remote();
-  v18 = v15[13];
-  if (is_remote)
-  {
-    OUTLINED_FUNCTION_73();
-    OUTLINED_FUNCTION_110_0();
-    OUTLINED_FUNCTION_90();
-    if (v14)
-    {
-      OUTLINED_FUNCTION_342();
-
-LABEL_12:
-      OUTLINED_FUNCTION_168_0();
-
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_169();
-
-      return v40(v39, v40, v41, v42, v43, v44, v45, v46, a9, a10, a11, a12, a13, a14);
-    }
-
-    OUTLINED_FUNCTION_174_0();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA392E0, &qword_1D8591020);
-    OUTLINED_FUNCTION_87_0();
-    OUTLINED_FUNCTION_195();
-    OUTLINED_FUNCTION_100_1();
-    sub_1D8581038();
-    sub_1D847C154();
-    sub_1D847C0A4();
-    OUTLINED_FUNCTION_31();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_156();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v35);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA397B0, &unk_1D8596190);
-    sub_1D8492BB0();
-    sub_1D8492C60();
-    OUTLINED_FUNCTION_16();
-    OUTLINED_FUNCTION_353();
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v36)
-    {
-      OUTLINED_FUNCTION_452();
-      v37 = OUTLINED_FUNCTION_49_0();
-      v38(v37);
-      OUTLINED_FUNCTION_331();
-
-      goto LABEL_12;
-    }
-
-    v47 = v15[16];
-    OUTLINED_FUNCTION_184_0();
-    sub_1D8581028();
-    v48 = swift_task_alloc();
-    v49 = OUTLINED_FUNCTION_90_0(v48);
-    *v49 = v50;
-    OUTLINED_FUNCTION_294(v49);
-    OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_112();
-
-    return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-  }
-
-  else
-  {
-    v19 = *(OUTLINED_FUNCTION_210(v15[12]) + 128);
-    OUTLINED_FUNCTION_54();
-    v52 = v20 + *v20;
-    v22 = *(v21 + 4);
-    v23 = swift_task_alloc();
-    v24 = OUTLINED_FUNCTION_286(v23);
-    *v24 = v25;
-    OUTLINED_FUNCTION_17(v24);
-    OUTLINED_FUNCTION_169();
-
-    return v29(v26, v27, v28, v29, v30, v31, v32, v33, a9, a10, v52, a12, a13, a14);
-  }
-}
-
-uint64_t sub_1D8504168(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
-{
-  v5[2] = a3;
-  v8 = *a2;
-  v5[3] = *a2;
-  v9 = *(v8 - 8);
-  v5[4] = v9;
-  v10 = *(v9 + 64) + 15;
-  v11 = swift_task_alloc();
-  v5[5] = v11;
-  sub_1D8580F88();
-  v12 = *v11;
-  v13 = *a4;
-  v15 = *a5;
-  v14 = a5[1];
-  v16 = swift_task_alloc();
-  v5[6] = v16;
-  *v16 = v5;
-  v16[1] = sub_1D84A7CD8;
-
-  return DistributedGameServicesDebuggerProtocol<>.listLeaderboardSets(games:)();
-}
-
-uint64_t sub_1D85042F8()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_366();
-  OUTLINED_FUNCTION_31_0(&unk_1D85A1030);
-  v0 = swift_task_alloc();
-  v1 = OUTLINED_FUNCTION_176(v0);
-  *v1 = v2;
-  v3 = OUTLINED_FUNCTION_42_0(v1);
-
-  return v4(v3);
-}
-
-uint64_t sub_1D8504384(uint64_t a1)
-{
-  v2[7] = a1;
-  v2[8] = v1;
-  v3 = sub_1D8581018();
-  v2[9] = v3;
-  v4 = *(v3 - 8);
-  v2[10] = v4;
-  v5 = *(v4 + 64) + 15;
-  v2[11] = swift_task_alloc();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39738, &unk_1D859F280);
-  v2[12] = v6;
-  v7 = *(v6 - 8);
-  v2[13] = v7;
-  v8 = *(v7 + 64) + 15;
-  v2[14] = swift_task_alloc();
-
-  return MEMORY[0x1EEE6DFA0](sub_1D85044AC, 0, 0);
-}
-
-uint64_t sub_1D85044AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
-{
-  OUTLINED_FUNCTION_257();
-  OUTLINED_FUNCTION_177();
-  v14 = v13[8];
-  if ((swift_distributed_actor_is_remote() & 1) == 0)
-  {
-    OUTLINED_FUNCTION_24(&unk_1D85A1030);
-    v15 = swift_task_alloc();
-    v16 = OUTLINED_FUNCTION_201_0(v15);
-    *v16 = v17;
-    OUTLINED_FUNCTION_33_1(v16);
-    OUTLINED_FUNCTION_197();
-
-    return v19(v18, v19, v20, v21, v22, v23, v24, v25, a9, a10, a11, a12);
-  }
-
-  OUTLINED_FUNCTION_91_1();
-  type metadata accessor for $DistributedGameServicesDebuggerProtocol();
-  OUTLINED_FUNCTION_91();
-  if (v12)
-  {
-    OUTLINED_FUNCTION_342();
-
-    goto LABEL_9;
-  }
-
-  OUTLINED_FUNCTION_175_0();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39740, &unk_1D8596160);
-  OUTLINED_FUNCTION_138_1();
-  OUTLINED_FUNCTION_284_2();
-  OUTLINED_FUNCTION_198();
-  sub_1D8581038();
-  sub_1D8491E2C();
-  sub_1D8491EDC();
-  OUTLINED_FUNCTION_31();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-  OUTLINED_FUNCTION_156();
-  GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v27);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA396D8, &unk_1D859F230);
-  sub_1D848FFF0();
-  sub_1D84900A0();
-  OUTLINED_FUNCTION_16();
-  OUTLINED_FUNCTION_353();
-  GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-  if (v28)
-  {
-    OUTLINED_FUNCTION_453();
-    v29 = OUTLINED_FUNCTION_49_0();
-    v30(v29);
-    OUTLINED_FUNCTION_331();
-
-LABEL_9:
-    OUTLINED_FUNCTION_191_2();
-
-    OUTLINED_FUNCTION_48();
-    OUTLINED_FUNCTION_197();
-
-    return v19(v18, v19, v20, v21, v22, v23, v24, v25, a9, a10, a11, a12);
-  }
-
-  v31 = v13[11];
-  OUTLINED_FUNCTION_184_0();
-  sub_1D8581028();
-  v32 = swift_task_alloc();
-  OUTLINED_FUNCTION_203_0(v32);
-  OUTLINED_FUNCTION_0_6();
-  sub_1D8526788(v33);
-  OUTLINED_FUNCTION_98();
-  v13[2] = v34;
-  OUTLINED_FUNCTION_419();
-  OUTLINED_FUNCTION_9_0(v35);
-  OUTLINED_FUNCTION_118_0();
-
-  return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-}
-
-uint64_t DistributedGameServicesDebuggerProtocol<>.listLeaderboards(leaderboardSets:)()
-{
-  OUTLINED_FUNCTION_148();
-  v5 = OUTLINED_FUNCTION_371(v1, v2, v3, v4);
-  v0[14] = v5;
-  OUTLINED_FUNCTION_39(v5);
-  v0[15] = v6;
-  v8 = *(v7 + 64);
-  v0[16] = OUTLINED_FUNCTION_332();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39738, &unk_1D859F280);
-  OUTLINED_FUNCTION_29(v9);
-  v0[18] = v10;
-  v12 = *(v11 + 64);
-  v0[19] = OUTLINED_FUNCTION_332();
-  v13 = OUTLINED_FUNCTION_64_0();
-
-  return MEMORY[0x1EEE6DFA0](v13, v14, v15);
-}
-
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_250(v0, v1, v2);
-  OUTLINED_FUNCTION_198();
-  v3 = OUTLINED_FUNCTION_63();
-
-  return MEMORY[0x1EEE6DFA0](v3, v4, v5);
-}
-
-uint64_t sub_1D8504830(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
-{
-  OUTLINED_FUNCTION_208();
-  OUTLINED_FUNCTION_185();
-  v16 = v15[13];
-  is_remote = swift_distributed_actor_is_remote();
-  v18 = v15[13];
-  if (is_remote)
-  {
-    OUTLINED_FUNCTION_73();
-    OUTLINED_FUNCTION_110_0();
-    OUTLINED_FUNCTION_90();
-    if (v14)
-    {
-      OUTLINED_FUNCTION_342();
-
-LABEL_12:
-      OUTLINED_FUNCTION_168_0();
-
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_169();
-
-      return v40(v39, v40, v41, v42, v43, v44, v45, v46, a9, a10, a11, a12, a13, a14);
-    }
-
-    OUTLINED_FUNCTION_174_0();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39740, &unk_1D8596160);
-    OUTLINED_FUNCTION_138_1();
-    OUTLINED_FUNCTION_195();
-    OUTLINED_FUNCTION_198();
-    sub_1D8581038();
-    sub_1D8491E2C();
-    sub_1D8491EDC();
-    OUTLINED_FUNCTION_31();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_156();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v35);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA396D8, &unk_1D859F230);
-    sub_1D848FFF0();
-    sub_1D84900A0();
-    OUTLINED_FUNCTION_16();
-    OUTLINED_FUNCTION_353();
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v36)
-    {
-      OUTLINED_FUNCTION_452();
-      v37 = OUTLINED_FUNCTION_49_0();
-      v38(v37);
-      OUTLINED_FUNCTION_331();
-
-      goto LABEL_12;
-    }
-
-    v47 = v15[16];
-    OUTLINED_FUNCTION_184_0();
-    sub_1D8581028();
-    v48 = swift_task_alloc();
-    v49 = OUTLINED_FUNCTION_90_0(v48);
-    *v49 = v50;
-    OUTLINED_FUNCTION_294(v49);
-    OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_112();
-
-    return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-  }
-
-  else
-  {
-    v19 = *(OUTLINED_FUNCTION_210(v15[12]) + 136);
-    OUTLINED_FUNCTION_54();
-    v52 = v20 + *v20;
-    v22 = *(v21 + 4);
-    v23 = swift_task_alloc();
-    v24 = OUTLINED_FUNCTION_286(v23);
-    *v24 = v25;
-    OUTLINED_FUNCTION_17(v24);
-    OUTLINED_FUNCTION_169();
-
-    return v29(v26, v27, v28, v29, v30, v31, v32, v33, a9, a10, v52, a12, a13, a14);
-  }
-}
-
-uint64_t sub_1D8504B08(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
-{
-  v5[2] = a3;
-  v8 = *a2;
-  v5[3] = *a2;
-  v9 = *(v8 - 8);
-  v5[4] = v9;
-  v10 = *(v9 + 64) + 15;
-  v11 = swift_task_alloc();
-  v5[5] = v11;
-  sub_1D8580F88();
-  v12 = *v11;
-  v13 = *a4;
-  v15 = *a5;
-  v14 = a5[1];
-  v16 = swift_task_alloc();
-  v5[6] = v16;
-  *v16 = v5;
-  v16[1] = sub_1D84A7CD8;
-
-  return DistributedGameServicesDebuggerProtocol<>.listLeaderboards(leaderboardSets:)();
-}
-
-uint64_t sub_1D8504C98()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_366();
-  OUTLINED_FUNCTION_31_0(&unk_1D85A1028);
-  v0 = swift_task_alloc();
-  v1 = OUTLINED_FUNCTION_176(v0);
-  *v1 = v2;
-  v3 = OUTLINED_FUNCTION_42_0(v1);
-
-  return v4(v3);
-}
-
-uint64_t sub_1D8504D24(uint64_t a1)
-{
-  v2[7] = a1;
-  v2[8] = v1;
-  v3 = sub_1D8581018();
-  v2[9] = v3;
-  v4 = *(v3 - 8);
-  v2[10] = v4;
-  v5 = *(v4 + 64) + 15;
-  v2[11] = swift_task_alloc();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38FE0, &qword_1D8590E40);
-  v2[12] = v6;
-  v7 = *(v6 - 8);
-  v2[13] = v7;
-  v8 = *(v7 + 64) + 15;
-  v2[14] = swift_task_alloc();
-
-  return MEMORY[0x1EEE6DFA0](sub_1D8504E4C, 0, 0);
-}
-
-uint64_t sub_1D8504E4C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
-{
-  OUTLINED_FUNCTION_257();
-  OUTLINED_FUNCTION_177();
-  v14 = v13[8];
-  if ((swift_distributed_actor_is_remote() & 1) == 0)
-  {
-    OUTLINED_FUNCTION_24(&unk_1D85A1028);
-    v15 = swift_task_alloc();
-    v16 = OUTLINED_FUNCTION_201_0(v15);
-    *v16 = v17;
-    OUTLINED_FUNCTION_33_1(v16);
-    OUTLINED_FUNCTION_197();
-
-    return v19(v18, v19, v20, v21, v22, v23, v24, v25, a9, a10, a11, a12);
-  }
-
-  OUTLINED_FUNCTION_91_1();
-  type metadata accessor for $DistributedGameServicesDebuggerProtocol();
-  OUTLINED_FUNCTION_91();
-  if (v12)
-  {
-    OUTLINED_FUNCTION_342();
-
-    goto LABEL_9;
-  }
-
-  OUTLINED_FUNCTION_175_0();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38E10, &qword_1D8590D20);
-  OUTLINED_FUNCTION_284_2();
-  OUTLINED_FUNCTION_11_2();
-  sub_1D8581038();
-  sub_1D84769B4();
-  sub_1D8476AE8();
-  OUTLINED_FUNCTION_31();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-  OUTLINED_FUNCTION_156();
-  GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v27);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A1A0, &qword_1D859F2E8);
-  sub_1D8505630();
-  sub_1D850578C();
-  OUTLINED_FUNCTION_16();
-  OUTLINED_FUNCTION_353();
-  GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-  if (v28)
-  {
-    OUTLINED_FUNCTION_453();
-    v29 = OUTLINED_FUNCTION_49_0();
-    v30(v29);
-    OUTLINED_FUNCTION_331();
-
-LABEL_9:
-    OUTLINED_FUNCTION_191_2();
-
-    OUTLINED_FUNCTION_48();
-    OUTLINED_FUNCTION_197();
-
-    return v19(v18, v19, v20, v21, v22, v23, v24, v25, a9, a10, a11, a12);
-  }
-
-  v31 = v13[11];
-  OUTLINED_FUNCTION_184_0();
-  sub_1D8581028();
-  v32 = swift_task_alloc();
-  OUTLINED_FUNCTION_203_0(v32);
-  OUTLINED_FUNCTION_0_6();
-  sub_1D8526788(v33);
-  OUTLINED_FUNCTION_98();
-  v13[2] = v34;
-  OUTLINED_FUNCTION_419();
-  OUTLINED_FUNCTION_9_0(v35);
-  OUTLINED_FUNCTION_118_0();
-
-  return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-}
-
-uint64_t DistributedGameServicesDebuggerProtocol<>.describePlayerProfiles(_:)()
-{
-  OUTLINED_FUNCTION_148();
-  v5 = OUTLINED_FUNCTION_371(v1, v2, v3, v4);
-  v0[14] = v5;
-  OUTLINED_FUNCTION_39(v5);
-  v0[15] = v6;
-  v8 = *(v7 + 64);
-  v0[16] = OUTLINED_FUNCTION_332();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38FE0, &qword_1D8590E40);
-  OUTLINED_FUNCTION_29(v9);
-  v0[18] = v10;
-  v12 = *(v11 + 64);
-  v0[19] = OUTLINED_FUNCTION_332();
-  v13 = OUTLINED_FUNCTION_64_0();
-
-  return MEMORY[0x1EEE6DFA0](v13, v14, v15);
-}
-
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_250(v0, v1, v2);
-  OUTLINED_FUNCTION_198();
-  v3 = OUTLINED_FUNCTION_63();
-
-  return MEMORY[0x1EEE6DFA0](v3, v4, v5);
-}
-
-uint64_t sub_1D85051CC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
-{
-  OUTLINED_FUNCTION_208();
-  OUTLINED_FUNCTION_185();
-  v16 = v15[13];
-  is_remote = swift_distributed_actor_is_remote();
-  v18 = v15[13];
-  if (is_remote)
-  {
-    OUTLINED_FUNCTION_73();
-    OUTLINED_FUNCTION_110_0();
-    OUTLINED_FUNCTION_90();
-    if (v14)
-    {
-      OUTLINED_FUNCTION_342();
-
-LABEL_12:
-      OUTLINED_FUNCTION_168_0();
-
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_169();
-
-      return v40(v39, v40, v41, v42, v43, v44, v45, v46, a9, a10, a11, a12, a13, a14);
-    }
-
-    OUTLINED_FUNCTION_174_0();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38E10, &qword_1D8590D20);
-    OUTLINED_FUNCTION_195();
-    OUTLINED_FUNCTION_11_2();
-    sub_1D8581038();
-    sub_1D84769B4();
-    sub_1D8476AE8();
-    OUTLINED_FUNCTION_31();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_156();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v35);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A1A0, &qword_1D859F2E8);
-    sub_1D8505630();
-    sub_1D850578C();
-    OUTLINED_FUNCTION_16();
-    OUTLINED_FUNCTION_353();
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v36)
-    {
-      OUTLINED_FUNCTION_452();
-      v37 = OUTLINED_FUNCTION_49_0();
-      v38(v37);
-      OUTLINED_FUNCTION_331();
-
-      goto LABEL_12;
-    }
-
-    v47 = v15[16];
-    OUTLINED_FUNCTION_184_0();
-    sub_1D8581028();
-    v48 = swift_task_alloc();
-    v49 = OUTLINED_FUNCTION_90_0(v48);
-    *v49 = v50;
-    OUTLINED_FUNCTION_294(v49);
-    OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_112();
-
-    return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-  }
-
-  else
-  {
-    v19 = *(OUTLINED_FUNCTION_210(v15[12]) + 144);
-    OUTLINED_FUNCTION_54();
-    v52 = v20 + *v20;
-    v22 = *(v21 + 4);
-    v23 = swift_task_alloc();
-    v24 = OUTLINED_FUNCTION_286(v23);
-    *v24 = v25;
-    OUTLINED_FUNCTION_17(v24);
-    OUTLINED_FUNCTION_169();
-
-    return v29(v26, v27, v28, v29, v30, v31, v32, v33, a9, a10, v52, a12, a13, a14);
-  }
-}
-
-uint64_t sub_1D85054A0(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
-{
-  v5[2] = a3;
-  v8 = *a2;
-  v5[3] = *a2;
-  v9 = *(v8 - 8);
-  v5[4] = v9;
-  v10 = *(v9 + 64) + 15;
-  v11 = swift_task_alloc();
-  v5[5] = v11;
-  sub_1D8580F88();
-  v12 = *v11;
-  v13 = *a4;
-  v15 = *a5;
-  v14 = a5[1];
-  v16 = swift_task_alloc();
-  v5[6] = v16;
-  *v16 = v5;
-  v16[1] = sub_1D84A7CD8;
-
-  return DistributedGameServicesDebuggerProtocol<>.describePlayerProfiles(_:)();
-}
-
-unint64_t sub_1D8505630()
-{
-  result = qword_1ECA3A1A8;
-  if (!qword_1ECA3A1A8)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1ECA3A1A0, &qword_1D859F2E8);
-    sub_1D85056B4();
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1ECA3A1A8);
-  }
-
-  return result;
-}
-
-unint64_t sub_1D85056B4()
-{
-  result = qword_1ECA3A1B0;
-  if (!qword_1ECA3A1B0)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1ECA3A1B8, &qword_1D859F2F0);
-    sub_1D8505738();
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1ECA3A1B0);
-  }
-
-  return result;
-}
-
-unint64_t sub_1D8505738()
-{
-  result = qword_1ECA3A1C0;
-  if (!qword_1ECA3A1C0)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1ECA3A1C0);
-  }
-
-  return result;
-}
-
-unint64_t sub_1D850578C()
-{
-  result = qword_1ECA3A1C8;
-  if (!qword_1ECA3A1C8)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1ECA3A1A0, &qword_1D859F2E8);
-    sub_1D8505810();
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1ECA3A1C8);
-  }
-
-  return result;
-}
-
-unint64_t sub_1D8505810()
-{
-  result = qword_1ECA3A1D0;
-  if (!qword_1ECA3A1D0)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1ECA3A1B8, &qword_1D859F2F0);
-    sub_1D8505894();
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1ECA3A1D0);
-  }
-
-  return result;
-}
-
-unint64_t sub_1D8505894()
-{
-  result = qword_1ECA3A1D8;
-  if (!qword_1ECA3A1D8)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1ECA3A1D8);
-  }
-
-  return result;
-}
-
-uint64_t sub_1D85058E8()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_366();
-  OUTLINED_FUNCTION_31_0(&unk_1D85A1020);
-  v0 = swift_task_alloc();
-  v1 = OUTLINED_FUNCTION_176(v0);
-  *v1 = v2;
-  v3 = OUTLINED_FUNCTION_42_0(v1);
-
-  return v4(v3);
-}
-
-uint64_t sub_1D8505974(uint64_t a1)
-{
-  v2[7] = a1;
-  v2[8] = v1;
-  v3 = sub_1D8581018();
-  v2[9] = v3;
-  v4 = *(v3 - 8);
-  v2[10] = v4;
-  v5 = *(v4 + 64) + 15;
-  v2[11] = swift_task_alloc();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39578, &unk_1D85981A0);
-  v2[12] = v6;
-  v7 = *(v6 - 8);
-  v2[13] = v7;
-  v8 = *(v7 + 64) + 15;
-  v2[14] = swift_task_alloc();
-
-  return MEMORY[0x1EEE6DFA0](sub_1D8505A9C, 0, 0);
-}
-
-uint64_t sub_1D8505A9C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
-{
-  OUTLINED_FUNCTION_257();
-  OUTLINED_FUNCTION_177();
-  v14 = v13[8];
-  if ((swift_distributed_actor_is_remote() & 1) == 0)
-  {
-    OUTLINED_FUNCTION_24(&unk_1D85A1020);
-    v15 = swift_task_alloc();
-    v16 = OUTLINED_FUNCTION_201_0(v15);
-    *v16 = v17;
-    OUTLINED_FUNCTION_33_1(v16);
-    OUTLINED_FUNCTION_197();
-
-    return v19(v18, v19, v20, v21, v22, v23, v24, v25, a9, a10, a11, a12);
-  }
-
-  OUTLINED_FUNCTION_91_1();
-  type metadata accessor for $DistributedGameServicesDebuggerProtocol();
-  OUTLINED_FUNCTION_91();
-  if (v12)
-  {
-    OUTLINED_FUNCTION_342();
-
-    goto LABEL_9;
-  }
-
-  OUTLINED_FUNCTION_175_0();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA392E0, &qword_1D8591020);
-  OUTLINED_FUNCTION_284_2();
-  OUTLINED_FUNCTION_11_2();
-  sub_1D8581038();
-  sub_1D847C154();
-  sub_1D847C0A4();
-  OUTLINED_FUNCTION_31();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-  OUTLINED_FUNCTION_156();
-  GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v27);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A1E0, &qword_1D859F308);
-  sub_1D8506280();
-  sub_1D85063DC();
-  OUTLINED_FUNCTION_16();
-  OUTLINED_FUNCTION_353();
-  GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-  if (v28)
-  {
-    OUTLINED_FUNCTION_453();
-    v29 = OUTLINED_FUNCTION_49_0();
-    v30(v29);
-    OUTLINED_FUNCTION_331();
-
-LABEL_9:
-    OUTLINED_FUNCTION_191_2();
-
-    OUTLINED_FUNCTION_48();
-    OUTLINED_FUNCTION_197();
-
-    return v19(v18, v19, v20, v21, v22, v23, v24, v25, a9, a10, a11, a12);
-  }
-
-  v31 = v13[11];
-  OUTLINED_FUNCTION_184_0();
-  sub_1D8581028();
-  v32 = swift_task_alloc();
-  OUTLINED_FUNCTION_203_0(v32);
-  OUTLINED_FUNCTION_0_6();
-  sub_1D8526788(v33);
-  OUTLINED_FUNCTION_98();
-  v13[2] = v34;
-  OUTLINED_FUNCTION_419();
-  OUTLINED_FUNCTION_9_0(v35);
-  OUTLINED_FUNCTION_118_0();
-
-  return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-}
-
-uint64_t DistributedGameServicesDebuggerProtocol<>.describeGameLockups(_:)()
-{
-  OUTLINED_FUNCTION_148();
-  v5 = OUTLINED_FUNCTION_371(v1, v2, v3, v4);
-  v0[14] = v5;
-  OUTLINED_FUNCTION_39(v5);
-  v0[15] = v6;
-  v8 = *(v7 + 64);
-  v0[16] = OUTLINED_FUNCTION_332();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39578, &unk_1D85981A0);
-  OUTLINED_FUNCTION_29(v9);
-  v0[18] = v10;
-  v12 = *(v11 + 64);
-  v0[19] = OUTLINED_FUNCTION_332();
-  v13 = OUTLINED_FUNCTION_64_0();
-
-  return MEMORY[0x1EEE6DFA0](v13, v14, v15);
-}
-
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_250(v0, v1, v2);
-  OUTLINED_FUNCTION_198();
-  v3 = OUTLINED_FUNCTION_63();
-
-  return MEMORY[0x1EEE6DFA0](v3, v4, v5);
-}
-
-uint64_t sub_1D8505E1C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
-{
-  OUTLINED_FUNCTION_208();
-  OUTLINED_FUNCTION_185();
-  v16 = v15[13];
-  is_remote = swift_distributed_actor_is_remote();
-  v18 = v15[13];
-  if (is_remote)
-  {
-    OUTLINED_FUNCTION_73();
-    OUTLINED_FUNCTION_110_0();
-    OUTLINED_FUNCTION_90();
-    if (v14)
-    {
-      OUTLINED_FUNCTION_342();
-
-LABEL_12:
-      OUTLINED_FUNCTION_168_0();
-
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_169();
-
-      return v40(v39, v40, v41, v42, v43, v44, v45, v46, a9, a10, a11, a12, a13, a14);
-    }
-
-    OUTLINED_FUNCTION_174_0();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA392E0, &qword_1D8591020);
-    OUTLINED_FUNCTION_195();
-    OUTLINED_FUNCTION_11_2();
-    sub_1D8581038();
-    sub_1D847C154();
-    sub_1D847C0A4();
-    OUTLINED_FUNCTION_31();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_156();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v35);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A1E0, &qword_1D859F308);
-    sub_1D8506280();
-    sub_1D85063DC();
-    OUTLINED_FUNCTION_16();
-    OUTLINED_FUNCTION_353();
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v36)
-    {
-      OUTLINED_FUNCTION_452();
-      v37 = OUTLINED_FUNCTION_49_0();
-      v38(v37);
-      OUTLINED_FUNCTION_331();
-
-      goto LABEL_12;
-    }
-
-    v47 = v15[16];
-    OUTLINED_FUNCTION_184_0();
-    sub_1D8581028();
-    v48 = swift_task_alloc();
-    v49 = OUTLINED_FUNCTION_90_0(v48);
-    *v49 = v50;
-    OUTLINED_FUNCTION_294(v49);
-    OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_112();
-
-    return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-  }
-
-  else
-  {
-    v19 = *(OUTLINED_FUNCTION_210(v15[12]) + 152);
-    OUTLINED_FUNCTION_54();
-    v52 = v20 + *v20;
-    v22 = *(v21 + 4);
-    v23 = swift_task_alloc();
-    v24 = OUTLINED_FUNCTION_286(v23);
-    *v24 = v25;
-    OUTLINED_FUNCTION_17(v24);
-    OUTLINED_FUNCTION_169();
-
-    return v29(v26, v27, v28, v29, v30, v31, v32, v33, a9, a10, v52, a12, a13, a14);
-  }
-}
-
-uint64_t sub_1D85060F0(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
-{
-  v5[2] = a3;
-  v8 = *a2;
-  v5[3] = *a2;
-  v9 = *(v8 - 8);
-  v5[4] = v9;
-  v10 = *(v9 + 64) + 15;
-  v11 = swift_task_alloc();
-  v5[5] = v11;
-  sub_1D8580F88();
-  v12 = *v11;
-  v13 = *a4;
-  v15 = *a5;
-  v14 = a5[1];
-  v16 = swift_task_alloc();
-  v5[6] = v16;
-  *v16 = v5;
-  v16[1] = sub_1D84A7CD8;
-
-  return DistributedGameServicesDebuggerProtocol<>.describeGameLockups(_:)();
-}
-
-unint64_t sub_1D8506280()
-{
-  result = qword_1ECA3A1E8;
-  if (!qword_1ECA3A1E8)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1ECA3A1E0, &qword_1D859F308);
-    sub_1D8506304();
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1ECA3A1E8);
-  }
-
-  return result;
-}
-
-unint64_t sub_1D8506304()
-{
-  result = qword_1ECA3A1F0;
-  if (!qword_1ECA3A1F0)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1ECA3A1F8, &qword_1D859F310);
-    sub_1D8506388();
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1ECA3A1F0);
-  }
-
-  return result;
-}
-
-unint64_t sub_1D8506388()
-{
-  result = qword_1ECA3A200;
-  if (!qword_1ECA3A200)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1ECA3A200);
-  }
-
-  return result;
-}
-
-unint64_t sub_1D85063DC()
-{
-  result = qword_1ECA3A208;
-  if (!qword_1ECA3A208)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1ECA3A1E0, &qword_1D859F308);
-    sub_1D8506460();
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1ECA3A208);
-  }
-
-  return result;
-}
-
-unint64_t sub_1D8506460()
-{
-  result = qword_1ECA3A210;
-  if (!qword_1ECA3A210)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1ECA3A1F8, &qword_1D859F310);
-    sub_1D85064E4();
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1ECA3A210);
-  }
-
-  return result;
-}
-
-unint64_t sub_1D85064E4()
-{
-  result = qword_1ECA3A218;
-  if (!qword_1ECA3A218)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1ECA3A218);
-  }
-
-  return result;
-}
-
-uint64_t sub_1D8506538(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
-{
-  OUTLINED_FUNCTION_225();
-  OUTLINED_FUNCTION_185();
-  HIDWORD(a10) = v17;
-  v45 = v18;
-  v19 = *v16;
-  v21 = *v20;
-  v22 = v20[1];
-  v24 = *v23;
-  v25 = v23[1];
-  OUTLINED_FUNCTION_24(&unk_1D85A1018);
-  v28 = *v26;
-  v27 = v26[1];
-  v30 = *v29;
-  v31 = swift_task_alloc();
-  v32 = OUTLINED_FUNCTION_97(v31);
-  *v32 = v33;
-  v32[1] = sub_1D8442F30;
-  OUTLINED_FUNCTION_170();
-
-  return v42(v34, v35, v36, v37, v38, v39, v40, v41, a9, a10, v45, a12, a13, a14, a15, a16);
-}
-
-uint64_t sub_1D8506614(uint64_t a1, uint64_t a2, uint64_t a3, __int16 a4, uint64_t a5, char a6, uint64_t a7, uint64_t a8)
-{
-  *(v9 + 160) = v31;
-  *(v9 + 168) = v8;
-  *(v9 + 144) = a8;
-  *(v9 + 152) = v30;
-  *(v9 + 128) = a5;
-  *(v9 + 136) = a7;
-  *(v9 + 99) = a6;
-  *(v9 + 100) = a4;
-  *(v9 + 112) = a2;
-  *(v9 + 120) = a3;
-  *(v9 + 104) = a1;
-  v10 = sub_1D8581018();
-  *(v9 + 176) = v10;
-  v11 = *(v10 - 8);
-  *(v9 + 184) = v11;
-  v12 = *(v11 + 64) + 15;
-  *(v9 + 192) = swift_task_alloc();
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38DB0, &qword_1D8590D00);
-  *(v9 + 200) = v13;
-  v14 = *(v13 - 8);
-  *(v9 + 208) = v14;
-  v15 = *(v14 + 64) + 15;
-  *(v9 + 216) = swift_task_alloc();
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38CB0, &unk_1D8590C60);
-  *(v9 + 224) = v16;
-  v17 = *(v16 - 8);
-  *(v9 + 232) = v17;
-  v18 = *(v17 + 64) + 15;
-  *(v9 + 240) = swift_task_alloc();
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A220, &unk_1D85A7890);
-  *(v9 + 248) = v19;
-  v20 = *(v19 - 8);
-  *(v9 + 256) = v20;
-  v21 = *(v20 + 64) + 15;
-  *(v9 + 264) = swift_task_alloc();
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A228, &unk_1D859F330);
-  *(v9 + 272) = v22;
-  v23 = *(v22 - 8);
-  *(v9 + 280) = v23;
-  v24 = *(v23 + 64) + 15;
-  *(v9 + 288) = swift_task_alloc();
-  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A230, &unk_1D85A78A0);
-  *(v9 + 296) = v25;
-  v26 = *(v25 - 8);
-  *(v9 + 304) = v26;
-  v27 = *(v26 + 64) + 15;
-  *(v9 + 312) = swift_task_alloc();
-
-  return MEMORY[0x1EEE6DFA0](sub_1D85068FC, 0, 0);
-}
-
-uint64_t sub_1D85068FC()
-{
-  OUTLINED_FUNCTION_289_1();
-  v2 = *(v1 + 168);
-  if ((swift_distributed_actor_is_remote() & 1) == 0)
-  {
-    v4 = *(v1 + 99);
-    OUTLINED_FUNCTION_50(&unk_1D85A1018);
-    swift_task_alloc();
-    OUTLINED_FUNCTION_168();
-    *(v1 + 328) = v5;
-    *v5 = v6;
-    v5[1] = sub_1D8506F8C;
-    v7 = *(v1 + 168);
-    v8 = *(v1 + 144);
-    v9 = *(v1 + 128);
-    v10 = *(v1 + 136);
-    v11 = *(v1 + 112);
-    v12 = *(v1 + 120);
-    v13 = *(v1 + 104);
-    v14 = *(v1 + 100);
-    v64 = *(v1 + 152);
-    v65 = *(v1 + 160);
-    OUTLINED_FUNCTION_284();
-
-    __asm { BR              X8 }
-  }
-
-  v3 = *(v1 + 168);
-  *(v1 + 320) = OUTLINED_FUNCTION_209_1();
-  OUTLINED_FUNCTION_354();
-  type metadata accessor for $DistributedGameServicesDebuggerProtocol();
-  OUTLINED_FUNCTION_91();
-  if (v0)
-  {
-    OUTLINED_FUNCTION_342();
-
-LABEL_9:
-    OUTLINED_FUNCTION_319_1();
-
-    OUTLINED_FUNCTION_48();
-    OUTLINED_FUNCTION_284();
-
-    return v45();
-  }
-
-  v17 = *(v1 + 312);
-  v18 = *(v1 + 112);
-  v19 = *(v1 + 120);
-  *(v1 + 40) = v18;
-  *(v1 + 48) = v19;
-  sub_1D8508B60(v18, v19);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A238, &unk_1D859F340);
-  OUTLINED_FUNCTION_313_0();
-  OUTLINED_FUNCTION_284_2();
-  OUTLINED_FUNCTION_252();
-  sub_1D8508B74();
-  sub_1D8508C4C();
-  OUTLINED_FUNCTION_31();
-  v20 = *(v1 + 288);
-  *(v1 + 97) = *(v1 + 100);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A260, &qword_1D85A78B0);
-  OUTLINED_FUNCTION_108_3();
-  sub_1D8581038();
-  sub_1D8508D24();
-  sub_1D8508DFC();
-  OUTLINED_FUNCTION_31();
-  v21 = *(v1 + 264);
-  v22 = *(v1 + 99);
-  *(v1 + 88) = *(v1 + 128);
-  *(v1 + 96) = v22 & 1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A288, &qword_1D859F350);
-  OUTLINED_FUNCTION_312_1();
-  OUTLINED_FUNCTION_250_1();
-  sub_1D8581038();
-  OUTLINED_FUNCTION_137_0(&unk_1ECA3A290);
-  OUTLINED_FUNCTION_136_2(&unk_1ECA3A298);
-  OUTLINED_FUNCTION_31();
-  v23 = *(v1 + 240);
-  v24 = *(v1 + 144);
-  *(v1 + 56) = *(v1 + 136);
-  *(v1 + 64) = v24;
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38CB8, &unk_1D8596010);
-  OUTLINED_FUNCTION_26_1();
-  OUTLINED_FUNCTION_95_0();
-  OUTLINED_FUNCTION_252();
-  sub_1D84751F0();
-  sub_1D8475274();
-  OUTLINED_FUNCTION_31();
-  v25 = *(v1 + 216);
-  v26 = *(v1 + 160);
-  *(v1 + 72) = *(v1 + 152);
-  *(v1 + 80) = v26;
-
-  OUTLINED_FUNCTION_232_0();
-  OUTLINED_FUNCTION_117();
-  OUTLINED_FUNCTION_361_1();
-  sub_1D8581038();
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_302_1(v27);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_302_1(v28);
-  OUTLINED_FUNCTION_36();
-  OUTLINED_FUNCTION_155();
-  GameServicesActorSystem.JSONInvocationEncoder.recordArgument<A>(_:)(v29, v30);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-  OUTLINED_FUNCTION_156();
-  GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v31);
-  OUTLINED_FUNCTION_269_0();
-  OUTLINED_FUNCTION_17_3();
-  sub_1D848211C(v32);
-  OUTLINED_FUNCTION_16_4();
-  sub_1D848211C(v33);
-  OUTLINED_FUNCTION_16();
-  OUTLINED_FUNCTION_353();
-  GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-  if (v34)
-  {
-    v35 = *(v1 + 304);
-    v62 = *(v1 + 296);
-    v63 = *(v1 + 312);
-    v36 = *(v1 + 280);
-    v60 = *(v1 + 272);
-    v61 = *(v1 + 288);
-    v37 = *(v1 + 256);
-    v58 = *(v1 + 248);
-    v59 = *(v1 + 264);
-    v38 = *(v1 + 232);
-    v56 = *(v1 + 224);
-    v57 = *(v1 + 240);
-    v39 = *(v1 + 208);
-    v40 = *(v1 + 216);
-    v41 = *(v1 + 200);
-
-    v42 = *(v39 + 8);
-    v43 = OUTLINED_FUNCTION_221();
-    v44(v43);
-    (*(v38 + 8))(v57, v56);
-    (*(v37 + 8))(v59, v58);
-    (*(v36 + 8))(v61, v60);
-    (*(v35 + 8))(v63, v62);
-    OUTLINED_FUNCTION_331();
-
-    goto LABEL_9;
-  }
-
-  v48 = *(v1 + 192);
-  OUTLINED_FUNCTION_184_0();
-  sub_1D8581028();
-  v49 = swift_task_alloc();
-  *(v1 + 336) = v49;
-  OUTLINED_FUNCTION_0_6();
-  sub_1D8526788(v50);
-  OUTLINED_FUNCTION_217();
-  *v49 = v51;
-  v49[1] = sub_1D8507124;
-  v52 = *(v1 + 192);
-  v53 = *(v1 + 168);
-  v54 = *(v1 + 104);
-  OUTLINED_FUNCTION_11();
-  OUTLINED_FUNCTION_266_2();
-
-  return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-}
-
-uint64_t sub_1D8506F8C()
-{
-  OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_334();
-  v2 = v0[41];
-  v3 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v4 = v3;
-
-  OUTLINED_FUNCTION_341();
-  v6 = *(v5 + 312);
-  v7 = v0[36];
-  v8 = v0[33];
-  v9 = v0[30];
-  v10 = v0[27];
-  v11 = v0[24];
-
-  OUTLINED_FUNCTION_137();
-
-  return v12();
-}
-
-uint64_t sub_1D8507124()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  OUTLINED_FUNCTION_42();
-  *v3 = v2;
-  v5 = *(v4 + 336);
-  v6 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 344) = v0;
-
-  OUTLINED_FUNCTION_149();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-uint64_t DistributedGameServicesDebuggerProtocol<>.listGames(by:sortBy:upTo:after:belongingTo:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
-{
-  OUTLINED_FUNCTION_536();
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_373_1();
-  *(v19 + 200) = a18;
-  *(v19 + 208) = v18;
-  *(v19 + 184) = v21;
-  *(v19 + 192) = a17;
-  *(v19 + 149) = v22;
-  *(v19 + 168) = v23;
-  *(v19 + 176) = v24;
-  v25 = sub_1D8581018();
-  *(v19 + 216) = v25;
-  OUTLINED_FUNCTION_39(v25);
-  *(v19 + 224) = v26;
-  v28 = *(v27 + 64);
-  *(v19 + 232) = OUTLINED_FUNCTION_332();
-  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38DB0, &qword_1D8590D00);
-  *(v19 + 240) = v29;
-  OUTLINED_FUNCTION_39(v29);
-  *(v19 + 248) = v30;
-  v32 = *(v31 + 64);
-  *(v19 + 256) = OUTLINED_FUNCTION_332();
-  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38CB0, &unk_1D8590C60);
-  *(v19 + 264) = v33;
-  OUTLINED_FUNCTION_39(v33);
-  *(v19 + 272) = v34;
-  v36 = *(v35 + 64);
-  *(v19 + 280) = OUTLINED_FUNCTION_332();
-  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A220, &unk_1D85A7890);
-  *(v19 + 288) = v37;
-  OUTLINED_FUNCTION_39(v37);
-  *(v19 + 296) = v38;
-  v40 = *(v39 + 64);
-  *(v19 + 304) = OUTLINED_FUNCTION_332();
-  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A228, &unk_1D859F330);
-  *(v19 + 312) = v41;
-  OUTLINED_FUNCTION_39(v41);
-  *(v19 + 320) = v42;
-  v44 = *(v43 + 64);
-  *(v19 + 328) = OUTLINED_FUNCTION_332();
-  v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A230, &unk_1D85A78A0);
-  *(v19 + 336) = v45;
-  OUTLINED_FUNCTION_39(v45);
-  *(v19 + 344) = v46;
-  v48 = *(v47 + 64);
-  *(v19 + 352) = OUTLINED_FUNCTION_332();
-  *(v19 + 360) = OUTLINED_FUNCTION_371_0();
-  *(v19 + 376) = v49;
-  v50 = v20[1];
-  *(v19 + 392) = *v20;
-  *(v19 + 400) = v50;
-  OUTLINED_FUNCTION_64_0();
-  OUTLINED_FUNCTION_535();
-  return OUTLINED_FUNCTION_523(v51, v52, v53);
-}
-
-uint64_t sub_1D85076AC()
-{
-  OUTLINED_FUNCTION_289_1();
-  v1 = *(v0 + 208);
-  if ((swift_distributed_actor_is_remote() & 1) == 0)
-  {
-    v5 = *(v0 + 376);
-    *(v0 + 40) = *(v0 + 360);
-    v7 = *(v0 + 392);
-    v6 = *(v0 + 400);
-    v8 = *(v0 + 150);
-    v9 = *(v0 + 200);
-    *(v0 + 152) = *(v0 + 208);
-    *(v0 + 145) = v8;
-    *(v0 + 56) = v5;
-    v10 = *(v0 + 149);
-    *(v0 + 72) = v7;
-    *(v0 + 80) = v6;
-    v81 = (*(v9 + 16) + 160);
-    v83 = *v81 + **v81;
-    v11 = (*v81)[1];
-    swift_task_alloc();
-    OUTLINED_FUNCTION_168();
-    *(v0 + 432) = v12;
-    *v12 = v13;
-    v12[1] = sub_1D8507FDC;
-    v14 = *(v0 + 176);
-    v15 = *(v0 + 184);
-    v16 = *(v0 + 168);
-    OUTLINED_FUNCTION_397();
-    OUTLINED_FUNCTION_284();
-
-    __asm { BRAA            X8, X16 }
-  }
-
-  v2 = *(v0 + 208);
-  v3 = *(v0 + 184);
-  v4 = *(*(v0 + 192) + 8);
-  OUTLINED_FUNCTION_166();
-  sub_1D8580F98();
-  *(v0 + 408) = *(v0 + 160);
-  OUTLINED_FUNCTION_355();
-  OUTLINED_FUNCTION_90();
-  if (v3)
-  {
-    OUTLINED_FUNCTION_342();
-
-LABEL_9:
-    v57 = *(v0 + 352);
-    v58 = *(v0 + 328);
-    v59 = *(v0 + 304);
-    v60 = *(v0 + 280);
-    v61 = *(v0 + 256);
-    v62 = *(v0 + 232);
-
-    OUTLINED_FUNCTION_48();
-    OUTLINED_FUNCTION_284();
-
-    return v63();
-  }
-
-  v19 = *(v0 + 360);
-  v20 = *(v0 + 368);
-  v21 = *(v0 + 352);
-  *(v0 + 88) = v19;
-  *(v0 + 96) = v20;
-  sub_1D8508B60(v19, v20);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A238, &unk_1D859F340);
-  OUTLINED_FUNCTION_313_0();
-  OUTLINED_FUNCTION_261_0();
-  sub_1D8581038();
-  sub_1D8508B74();
-  sub_1D8508C4C();
-  OUTLINED_FUNCTION_31();
-  v22 = *(v0 + 328);
-  *(v0 + 147) = *(v0 + 150);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A260, &qword_1D85A78B0);
-  OUTLINED_FUNCTION_108_3();
-  sub_1D8581038();
-  sub_1D8508D24();
-  sub_1D8508DFC();
-  OUTLINED_FUNCTION_31();
-  v23 = *(v0 + 304);
-  v24 = *(v0 + 149);
-  *(v0 + 136) = *(v0 + 176);
-  *(v0 + 144) = v24 & 1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A288, &qword_1D859F350);
-  OUTLINED_FUNCTION_312_1();
-  OUTLINED_FUNCTION_250_1();
-  sub_1D8581038();
-  OUTLINED_FUNCTION_137_0(&unk_1ECA3A290);
-  OUTLINED_FUNCTION_136_2(&unk_1ECA3A298);
-  OUTLINED_FUNCTION_31();
-  v25 = *(v0 + 384);
-  v26 = *(v0 + 280);
-  *(v0 + 104) = *(v0 + 376);
-  *(v0 + 112) = v25;
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38CB8, &unk_1D8596010);
-  OUTLINED_FUNCTION_26_1();
-  OUTLINED_FUNCTION_214();
-  sub_1D84751F0();
-  sub_1D8475274();
-  OUTLINED_FUNCTION_31();
-  v27 = *(v0 + 400);
-  v28 = *(v0 + 256);
-  *(v0 + 120) = *(v0 + 392);
-  *(v0 + 128) = v27;
-
-  OUTLINED_FUNCTION_232_0();
-  OUTLINED_FUNCTION_117();
-  sub_1D8581038();
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_302_1(v29);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_302_1(v30);
-  OUTLINED_FUNCTION_36();
-  OUTLINED_FUNCTION_155();
-  GameServicesActorSystem.JSONInvocationEncoder.recordArgument<A>(_:)(v31, v32);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-  OUTLINED_FUNCTION_156();
-  GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v33);
-  OUTLINED_FUNCTION_269_0();
-  OUTLINED_FUNCTION_17_3();
-  sub_1D848211C(v34);
-  OUTLINED_FUNCTION_16_4();
-  sub_1D848211C(v35);
-  OUTLINED_FUNCTION_16();
-  OUTLINED_FUNCTION_353();
-  GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-  if (v36)
-  {
-    v37 = *(v0 + 344);
-    v82 = *(v0 + 336);
-    v84 = *(v0 + 352);
-    v38 = *(v0 + 320);
-    v79 = *(v0 + 312);
-    v80 = *(v0 + 328);
-    v39 = *(v0 + 296);
-    v77 = *(v0 + 288);
-    v78 = *(v0 + 304);
-    v40 = *(v0 + 272);
-    v75 = *(v0 + 264);
-    v76 = *(v0 + 280);
-    v41 = *(v0 + 248);
-    v42 = *(v0 + 256);
-    v43 = *(v0 + 240);
-
-    v44 = *(v41 + 8);
-    v45 = OUTLINED_FUNCTION_221();
-    v47 = v46(v45);
-    v55 = OUTLINED_FUNCTION_224(v47, v48, v49, v50, v51, v52, v53, v54, v74, v75, v76);
-    v56(v55);
-    (*(v39 + 8))(v78, v77);
-    (*(v38 + 8))(v80, v79);
-    (*(v37 + 8))(v84, v82);
-    OUTLINED_FUNCTION_331();
-
-    goto LABEL_9;
-  }
-
-  v66 = *(v0 + 232);
-  OUTLINED_FUNCTION_184_0();
-  sub_1D8581028();
-  swift_task_alloc();
-  OUTLINED_FUNCTION_168();
-  *(v0 + 416) = v67;
-  *v67 = v68;
-  v67[1] = sub_1D8507DC4;
-  v69 = *(v0 + 232);
-  v70 = *(v0 + 208);
-  v71 = *(v0 + 184);
-  v72 = *(v0 + 168);
-  OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_266_2();
-
-  return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-}
-
-uint64_t sub_1D8507DC4()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  OUTLINED_FUNCTION_42();
-  *v3 = v2;
-  v5 = *(v4 + 416);
-  v6 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 424) = v0;
-
-  OUTLINED_FUNCTION_149();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-uint64_t sub_1D8507FDC()
-{
-  OUTLINED_FUNCTION_536();
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_153();
-  v3 = v2;
-  OUTLINED_FUNCTION_62();
-  *v4 = v3;
-  v6 = *(v5 + 432);
-  v7 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v8 = v7;
-  v3[55] = v0;
-
-  if (v0)
-  {
-    OUTLINED_FUNCTION_149();
-    OUTLINED_FUNCTION_535();
-
-    return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-  }
-
-  else
-  {
-    v13 = v3[44];
-    v14 = v3[41];
-    v15 = v3[38];
-    v16 = v3[35];
-    v17 = v3[32];
-    v18 = v3[29];
-
-    OUTLINED_FUNCTION_57();
-    OUTLINED_FUNCTION_535();
-
-    return v20(v19, v20, v21, v22, v23, v24, v25, v26);
-  }
-}
-
-uint64_t sub_1D850824C()
-{
-  OUTLINED_FUNCTION_537();
-  OUTLINED_FUNCTION_204();
-  v1 = *(v0 + 440);
-  OUTLINED_FUNCTION_318_1();
-
-  OUTLINED_FUNCTION_146();
-  OUTLINED_FUNCTION_511();
-
-  return v3(v2, v3, v4, v5, v6, v7, v8, v9);
-}
-
-uint64_t sub_1D85082D4(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
-{
-  v21 = *a2;
-  v18[2] = *a2;
-  v22 = *(v21 - 8);
-  v18[3] = v22;
-  v23 = *(v22 + 64) + 15;
-  v24 = swift_task_alloc();
-  v18[4] = v24;
-  sub_1D8580F88();
-  v50 = a3;
-  v25 = a2[1];
-  v18[5] = v25;
-  v26 = *(v25 - 8);
-  v18[6] = v26;
-  v27 = *(v26 + 64) + 15;
-  v28 = swift_task_alloc();
-  v18[7] = v28;
-  sub_1D8580F88();
-  v49 = v28;
-  v29 = a2[2];
-  v18[8] = v29;
-  v30 = *(v29 - 8);
-  v18[9] = v30;
-  v31 = *(v30 + 64) + 15;
-  v32 = swift_task_alloc();
-  v18[10] = v32;
-  sub_1D8580F88();
-  v48 = v24;
-  v47 = *v32;
-  v46 = *(v32 + 8);
-  v33 = a2[3];
-  v18[11] = v33;
-  v34 = *(v33 - 8);
-  v18[12] = v34;
-  v35 = *(v34 + 64) + 15;
-  v36 = swift_task_alloc();
-  v18[13] = v36;
-  sub_1D8580F88();
-  v37 = a2[4];
-  v18[14] = v37;
-  v38 = *(v37 - 8);
-  v18[15] = v38;
-  v39 = *(v38 + 64) + 15;
-  v40 = swift_task_alloc();
-  v18[16] = v40;
-  sub_1D8580F88();
-  v41 = *a4;
-  v42 = *a5;
-  v43 = a5[1];
-  v44 = swift_task_alloc();
-  v18[17] = v44;
-  *v44 = v18;
-  v44[1] = sub_1D85087FC;
-
-  return DistributedGameServicesDebuggerProtocol<>.listGames(by:sortBy:upTo:after:belongingTo:)(v50, v48, v49, v47, v46, v36, v40, v41, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18);
-}
-
-uint64_t sub_1D85087FC()
-{
-  OUTLINED_FUNCTION_153();
-  v1 = *(v0 + 136);
-  v33 = *(v0 + 128);
-  OUTLINED_FUNCTION_193();
-  v32 = *(v2 + 120);
-  OUTLINED_FUNCTION_193();
-  v29 = *(v3 + 112);
-  OUTLINED_FUNCTION_193();
-  v31 = *(v4 + 104);
-  OUTLINED_FUNCTION_193();
-  v30 = *(v5 + 96);
-  OUTLINED_FUNCTION_193();
-  v26 = *(v6 + 88);
-  OUTLINED_FUNCTION_193();
-  v28 = *(v7 + 80);
-  OUTLINED_FUNCTION_193();
-  v27 = *(v8 + 72);
-  OUTLINED_FUNCTION_193();
-  v10 = *(v9 + 64);
-  v25 = *(v11 + 56);
-  OUTLINED_FUNCTION_193();
-  v24 = *(v12 + 48);
-  OUTLINED_FUNCTION_193();
-  v14 = *(v13 + 40);
-  v16 = v15[4];
-  v17 = v15[3];
-  v18 = v15[2];
-  OUTLINED_FUNCTION_171_0();
-  v20 = v19;
-  OUTLINED_FUNCTION_37();
-  *v21 = v20;
-
-  (*(v17 + 8))(v16, v18);
-  (*(v24 + 8))(v25, v14);
-  (*(v27 + 8))(v28, v10);
-  (*(v30 + 8))(v31, v26);
-  (*(v32 + 8))(v33, v29);
-
-  v22 = *(v20 + 8);
-
-  return v22();
-}
-
-uint64_t sub_1D8508B60(uint64_t a1, uint64_t a2)
-{
-  if (a2 != 1)
-  {
-  }
-
-  return result;
-}
-
-unint64_t sub_1D8508B74()
-{
-  result = qword_1ECA3A240;
-  if (!qword_1ECA3A240)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1ECA3A238, &unk_1D859F340);
-    sub_1D8508BF8();
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1ECA3A240);
-  }
-
-  return result;
-}
-
-unint64_t sub_1D8508BF8()
-{
-  result = qword_1ECA3A248;
-  if (!qword_1ECA3A248)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1ECA3A248);
-  }
-
-  return result;
-}
-
-unint64_t sub_1D8508C4C()
-{
-  result = qword_1ECA3A250;
-  if (!qword_1ECA3A250)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1ECA3A238, &unk_1D859F340);
-    sub_1D8508CD0();
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1ECA3A250);
-  }
-
-  return result;
-}
-
-unint64_t sub_1D8508CD0()
-{
-  result = qword_1ECA3A258;
-  if (!qword_1ECA3A258)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1ECA3A258);
-  }
-
-  return result;
-}
-
-unint64_t sub_1D8508D24()
-{
-  result = qword_1ECA3A268;
-  if (!qword_1ECA3A268)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1ECA3A260, &qword_1D85A78B0);
-    sub_1D8508DA8();
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1ECA3A268);
-  }
-
-  return result;
-}
-
-unint64_t sub_1D8508DA8()
-{
-  result = qword_1ECA3A270;
-  if (!qword_1ECA3A270)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1ECA3A270);
-  }
-
-  return result;
-}
-
-unint64_t sub_1D8508DFC()
-{
-  result = qword_1ECA3A278;
-  if (!qword_1ECA3A278)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1ECA3A260, &qword_1D85A78B0);
-    sub_1D8508E80();
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1ECA3A278);
-  }
-
-  return result;
-}
-
-unint64_t sub_1D8508E80()
-{
-  result = qword_1ECA3A280;
-  if (!qword_1ECA3A280)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1ECA3A280);
-  }
-
-  return result;
-}
-
-unint64_t sub_1D8508ED4(uint64_t a1)
-{
-  result = OUTLINED_FUNCTION_505(a1);
-  if (!result)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1ECA3A288, &qword_1D859F350);
-    result = OUTLINED_FUNCTION_524();
-    atomic_store(result, v1);
-  }
-
-  return result;
-}
-
-uint64_t sub_1D8508F2C()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_206();
-  OUTLINED_FUNCTION_24(&unk_1D85A1010);
-  v0 = swift_task_alloc();
-  v1 = OUTLINED_FUNCTION_176(v0);
-  *v1 = v2;
-  v3 = OUTLINED_FUNCTION_28_3(v1);
-
-  return v5(v3);
-}
-
-uint64_t sub_1D8508FC0(uint64_t a1, uint64_t a2)
-{
-  v3[8] = a2;
-  v3[9] = v2;
-  v3[7] = a1;
-  v4 = sub_1D8581018();
-  v3[10] = v4;
-  v5 = *(v4 - 8);
-  v3[11] = v5;
-  v6 = *(v5 + 64) + 15;
-  v3[12] = swift_task_alloc();
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A2B8, &qword_1D859F370);
-  v3[13] = v7;
-  v8 = *(v7 - 8);
-  v3[14] = v8;
-  v9 = *(v8 + 64) + 15;
-  v3[15] = swift_task_alloc();
-
-  return MEMORY[0x1EEE6DFA0](sub_1D85090EC, 0, 0);
-}
-
-uint64_t sub_1D85090EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
-{
-  OUTLINED_FUNCTION_469();
-  OUTLINED_FUNCTION_219();
-  v12 = v11[9];
-  if (swift_distributed_actor_is_remote())
-  {
-    v13 = v11[9];
-    v11[16] = OUTLINED_FUNCTION_209_1();
-    OUTLINED_FUNCTION_354();
-    type metadata accessor for $DistributedGameServicesDebuggerProtocol();
-    OUTLINED_FUNCTION_91();
-    if (v10)
-    {
-      OUTLINED_FUNCTION_342();
-
-LABEL_11:
-      OUTLINED_FUNCTION_349_0();
-
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_239_1();
-
-      return v38(v37, v38, v39, v40, v41, v42, v43, v44, a9, a10);
-    }
-
-    v26 = v11[15];
-    v27 = v11[8];
-    v11[5] = v11[7];
-    v11[6] = v27;
-
-    OUTLINED_FUNCTION_94_1();
-    v28 = OUTLINED_FUNCTION_55_1();
-    GameServicesActorSystem.JSONInvocationEncoder.recordArgument<A>(_:)(v28, v29);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_156();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v30);
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v31)
-    {
-      v33 = v11[14];
-      v32 = v11[15];
-      v34 = v11[13];
-
-      v35 = OUTLINED_FUNCTION_49_0();
-      v36(v35);
-      OUTLINED_FUNCTION_331();
-
-      goto LABEL_11;
-    }
-
-    v45 = v11[12];
-    OUTLINED_FUNCTION_184_0();
-    OUTLINED_FUNCTION_408_1();
-    v46 = swift_task_alloc();
-    v11[18] = v46;
-    OUTLINED_FUNCTION_0_6();
-    sub_1D8526788(v47);
-    OUTLINED_FUNCTION_81();
-    *v46 = v48;
-    OUTLINED_FUNCTION_195_0();
-    OUTLINED_FUNCTION_66();
-    OUTLINED_FUNCTION_239_1();
-
-    return GameServicesActorSystem.remoteCallVoid<A, B>(on:target:invocation:throwing:)(v49, v50, v51, v52, v53, v54, v55);
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_24(&unk_1D85A1010);
-    v14 = swift_task_alloc();
-    v15 = OUTLINED_FUNCTION_207_3(v14);
-    *v15 = v16;
-    OUTLINED_FUNCTION_52_1(v15);
-    OUTLINED_FUNCTION_239_1();
-
-    return v19(v17, v18, v19, v20, v21, v22, v23, v24, a9, a10);
-  }
-}
-
-uint64_t sub_1D8509350()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  OUTLINED_FUNCTION_42();
-  *v3 = v2;
-  v5 = *(v4 + 144);
-  v6 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 152) = v0;
-
-  OUTLINED_FUNCTION_149();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-uint64_t sub_1D8509448()
-{
-  OUTLINED_FUNCTION_537();
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_332_0();
-  v0 = OUTLINED_FUNCTION_77();
-  v1(v0);
-  v2 = OUTLINED_FUNCTION_80();
-  v3(v2);
-  OUTLINED_FUNCTION_331();
-
-  OUTLINED_FUNCTION_349_0();
-
-  OUTLINED_FUNCTION_57();
-  OUTLINED_FUNCTION_511();
-
-  return v5(v4, v5, v6, v7, v8, v9, v10, v11);
-}
-
-uint64_t DistributedGameServicesDebuggerProtocol<>.enableGameDebugging(bundleID:)()
-{
-  OUTLINED_FUNCTION_148();
-  v6 = OUTLINED_FUNCTION_336_0(v1, v2, v3, v4, v5);
-  v0[15] = v6;
-  OUTLINED_FUNCTION_39(v6);
-  v0[16] = v7;
-  v9 = *(v8 + 64);
-  v0[17] = OUTLINED_FUNCTION_332();
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A2B8, &qword_1D859F370);
-  v0[18] = v10;
-  OUTLINED_FUNCTION_39(v10);
-  v0[19] = v11;
-  v13 = *(v12 + 64);
-  v0[20] = OUTLINED_FUNCTION_332();
-  v14 = OUTLINED_FUNCTION_64_0();
-
-  return MEMORY[0x1EEE6DFA0](v14, v15, v16);
-}
-
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_401(v0, v1, v2, v3);
-  OUTLINED_FUNCTION_198();
-  v4 = OUTLINED_FUNCTION_63();
-
-  return MEMORY[0x1EEE6DFA0](v4, v5, v6);
-}
-
-uint64_t sub_1D85095D8()
-{
-  OUTLINED_FUNCTION_177();
-  v1 = v0[14];
-  is_remote = swift_distributed_actor_is_remote();
-  v3 = v0[14];
-  if ((is_remote & 1) == 0)
-  {
-    v6 = *(OUTLINED_FUNCTION_256_3(v0[13]) + 168);
-    OUTLINED_FUNCTION_54();
-    v42 = v7 + *v7;
-    v9 = *(v8 + 4);
-    v10 = swift_task_alloc();
-    v0[24] = v10;
-    *v10 = v0;
-    OUTLINED_FUNCTION_77_1(v10);
-    OUTLINED_FUNCTION_330_2();
-
-    __asm { BRAA            X4, X16 }
-  }
-
-  v4 = v0[11];
-  v5 = *(v0[12] + 8);
-  OUTLINED_FUNCTION_166();
-  sub_1D8580F98();
-  v0[21] = v0[8];
-  OUTLINED_FUNCTION_355();
-  OUTLINED_FUNCTION_90();
-  if (v4)
-  {
-    OUTLINED_FUNCTION_342();
-
-    goto LABEL_11;
-  }
-
-  v13 = v0[20];
-  v14 = v0[10];
-  v0[5] = v0[9];
-  v0[6] = v14;
-
-  OUTLINED_FUNCTION_94_1();
-  v15 = OUTLINED_FUNCTION_55_1();
-  GameServicesActorSystem.JSONInvocationEncoder.recordArgument<A>(_:)(v15, v16);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-  OUTLINED_FUNCTION_156();
-  GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v17);
-  GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-  if (v18)
-  {
-    v20 = v0[19];
-    v19 = v0[20];
-    v21 = v0[18];
-
-    v22 = OUTLINED_FUNCTION_49_0();
-    v23(v22);
-    OUTLINED_FUNCTION_331();
-
-LABEL_11:
-    v24 = v0[20];
-    v25 = v0[17];
-
-    OUTLINED_FUNCTION_48();
-    OUTLINED_FUNCTION_330_2();
-
-    __asm { BRAA            X1, X16 }
-  }
-
-  v28 = v0[17];
-  OUTLINED_FUNCTION_184_0();
-  OUTLINED_FUNCTION_408_1();
-  v29 = swift_task_alloc();
-  v30 = OUTLINED_FUNCTION_322_0(v29);
-  *v30 = v31;
-  OUTLINED_FUNCTION_145_0(v30);
-  OUTLINED_FUNCTION_53(v32);
-  OUTLINED_FUNCTION_330_2();
-
-  return GameServicesActorSystem.remoteCallVoid<A, B>(on:target:invocation:throwing:)(v33, v34, v35, v36, v37, v38, v39);
-}
-
-uint64_t sub_1D850989C()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  OUTLINED_FUNCTION_42();
-  *v3 = v2;
-  v5 = *(v4 + 176);
-  v6 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 184) = v0;
-
-  OUTLINED_FUNCTION_149();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-uint64_t sub_1D8509994()
-{
-  OUTLINED_FUNCTION_537();
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_395_1();
-  v1 = OUTLINED_FUNCTION_77();
-  v2(v1);
-  v3 = OUTLINED_FUNCTION_80();
-  v4(v3);
-  OUTLINED_FUNCTION_331();
-
-  v5 = *(v0 + 160);
-  v6 = *(v0 + 136);
-
-  OUTLINED_FUNCTION_57();
-  OUTLINED_FUNCTION_511();
-
-  return v8(v7, v8, v9, v10, v11, v12, v13, v14);
-}
-
-uint64_t sub_1D8509A38()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  v3 = v2;
-  OUTLINED_FUNCTION_62();
-  *v4 = v3;
-  v6 = *(v5 + 192);
-  v7 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v8 = v7;
-  v3[25] = v0;
-
-  if (v0)
-  {
-    OUTLINED_FUNCTION_149();
-
-    return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-  }
-
-  else
-  {
-    v12 = v3[20];
-    v13 = v3[17];
-
-    OUTLINED_FUNCTION_57();
-
-    return v14();
-  }
-}
-
-uint64_t sub_1D8509B60()
-{
-  OUTLINED_FUNCTION_537();
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_395_1();
-  v1 = OUTLINED_FUNCTION_77();
-  v2(v1);
-  v3 = OUTLINED_FUNCTION_80();
-  v4(v3);
-  OUTLINED_FUNCTION_331();
-
-  v5 = v0[23];
-  v6 = v0[20];
-  v7 = v0[17];
-
-  OUTLINED_FUNCTION_146();
-  OUTLINED_FUNCTION_511();
-
-  return v9(v8, v9, v10, v11, v12, v13, v14, v15);
-}
-
-uint64_t sub_1D8509C08()
-{
-  OUTLINED_FUNCTION_148();
-  v1 = v0[25];
-  v2 = v0[20];
-  v3 = v0[17];
-
-  OUTLINED_FUNCTION_146();
-
-  return v4();
-}
-
-uint64_t sub_1D8509C70(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
-{
-  v8 = *a2;
-  v5[2] = *a2;
-  v9 = *(v8 - 8);
-  v5[3] = v9;
-  v10 = *(v9 + 64) + 15;
-  v11 = swift_task_alloc();
-  v5[4] = v11;
-  sub_1D8580F88();
-  v12 = *v11;
-  v13 = v11[1];
-  v14 = *a4;
-  v16 = *a5;
-  v15 = a5[1];
-  v17 = swift_task_alloc();
-  v5[5] = v17;
-  *v17 = v5;
-  v17[1] = sub_1D84911F8;
-
-  return DistributedGameServicesDebuggerProtocol<>.enableGameDebugging(bundleID:)();
-}
-
-uint64_t sub_1D8509E00()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_206();
-  OUTLINED_FUNCTION_24(&unk_1D85A1008);
-  v0 = swift_task_alloc();
-  v1 = OUTLINED_FUNCTION_176(v0);
-  *v1 = v2;
-  v3 = OUTLINED_FUNCTION_28_3(v1);
-
-  return v5(v3);
-}
-
-uint64_t sub_1D8509E94(uint64_t a1, uint64_t a2)
-{
-  v3[8] = a2;
-  v3[9] = v2;
-  v3[7] = a1;
-  v4 = sub_1D8581018();
-  v3[10] = v4;
-  v5 = *(v4 - 8);
-  v3[11] = v5;
-  v6 = *(v5 + 64) + 15;
-  v3[12] = swift_task_alloc();
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A2B8, &qword_1D859F370);
-  v3[13] = v7;
-  v8 = *(v7 - 8);
-  v3[14] = v8;
-  v9 = *(v8 + 64) + 15;
-  v3[15] = swift_task_alloc();
-
-  return MEMORY[0x1EEE6DFA0](sub_1D8509FC0, 0, 0);
-}
-
-uint64_t sub_1D8509FC0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
-{
-  OUTLINED_FUNCTION_469();
-  OUTLINED_FUNCTION_219();
-  v12 = v11[9];
-  if (swift_distributed_actor_is_remote())
-  {
-    v13 = v11[9];
-    v11[16] = OUTLINED_FUNCTION_209_1();
-    OUTLINED_FUNCTION_354();
-    type metadata accessor for $DistributedGameServicesDebuggerProtocol();
-    OUTLINED_FUNCTION_91();
-    if (v10)
-    {
-      OUTLINED_FUNCTION_342();
-
-LABEL_11:
-      OUTLINED_FUNCTION_349_0();
-
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_239_1();
-
-      return v38(v37, v38, v39, v40, v41, v42, v43, v44, a9, a10);
-    }
-
-    v26 = v11[15];
-    v27 = v11[8];
-    v11[5] = v11[7];
-    v11[6] = v27;
-
-    OUTLINED_FUNCTION_94_1();
-    v28 = OUTLINED_FUNCTION_55_1();
-    GameServicesActorSystem.JSONInvocationEncoder.recordArgument<A>(_:)(v28, v29);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_156();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v30);
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v31)
-    {
-      v33 = v11[14];
-      v32 = v11[15];
-      v34 = v11[13];
-
-      v35 = OUTLINED_FUNCTION_49_0();
-      v36(v35);
-      OUTLINED_FUNCTION_331();
-
-      goto LABEL_11;
-    }
-
-    v45 = v11[12];
-    OUTLINED_FUNCTION_184_0();
-    sub_1D8581028();
-    v46 = swift_task_alloc();
-    v11[18] = v46;
-    OUTLINED_FUNCTION_0_6();
-    sub_1D8526788(v47);
-    OUTLINED_FUNCTION_81();
-    *v46 = v48;
-    OUTLINED_FUNCTION_195_0();
-    OUTLINED_FUNCTION_66();
-    OUTLINED_FUNCTION_239_1();
-
-    return GameServicesActorSystem.remoteCallVoid<A, B>(on:target:invocation:throwing:)(v49, v50, v51, v52, v53, v54, v55);
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_24(&unk_1D85A1008);
-    v14 = swift_task_alloc();
-    v15 = OUTLINED_FUNCTION_207_3(v14);
-    *v15 = v16;
-    OUTLINED_FUNCTION_52_1(v15);
-    OUTLINED_FUNCTION_239_1();
-
-    return v19(v17, v18, v19, v20, v21, v22, v23, v24, a9, a10);
-  }
-}
-
-uint64_t sub_1D850A22C()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  OUTLINED_FUNCTION_42();
-  *v3 = v2;
-  v5 = *(v4 + 144);
-  v6 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 152) = v0;
-
-  OUTLINED_FUNCTION_149();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-uint64_t DistributedGameServicesDebuggerProtocol<>.disableGameDebugging(bundleID:)()
-{
-  OUTLINED_FUNCTION_148();
-  v6 = OUTLINED_FUNCTION_336_0(v1, v2, v3, v4, v5);
-  v0[15] = v6;
-  OUTLINED_FUNCTION_39(v6);
-  v0[16] = v7;
-  v9 = *(v8 + 64);
-  v0[17] = OUTLINED_FUNCTION_332();
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A2B8, &qword_1D859F370);
-  v0[18] = v10;
-  OUTLINED_FUNCTION_39(v10);
-  v0[19] = v11;
-  v13 = *(v12 + 64);
-  v0[20] = OUTLINED_FUNCTION_332();
-  v14 = OUTLINED_FUNCTION_64_0();
-
-  return MEMORY[0x1EEE6DFA0](v14, v15, v16);
-}
-
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_401(v0, v1, v2, v3);
-  OUTLINED_FUNCTION_198();
-  v4 = OUTLINED_FUNCTION_63();
-
-  return MEMORY[0x1EEE6DFA0](v4, v5, v6);
-}
-
-uint64_t sub_1D850A418()
-{
-  OUTLINED_FUNCTION_177();
-  v1 = v0[14];
-  is_remote = swift_distributed_actor_is_remote();
-  v3 = v0[14];
-  if ((is_remote & 1) == 0)
-  {
-    v6 = *(OUTLINED_FUNCTION_256_3(v0[13]) + 176);
-    OUTLINED_FUNCTION_54();
-    v42 = v7 + *v7;
-    v9 = *(v8 + 4);
-    v10 = swift_task_alloc();
-    v0[24] = v10;
-    *v10 = v0;
-    OUTLINED_FUNCTION_77_1(v10);
-    OUTLINED_FUNCTION_330_2();
-
-    __asm { BRAA            X4, X16 }
-  }
-
-  v4 = v0[11];
-  v5 = *(v0[12] + 8);
-  OUTLINED_FUNCTION_166();
-  sub_1D8580F98();
-  v0[21] = v0[8];
-  OUTLINED_FUNCTION_355();
-  OUTLINED_FUNCTION_90();
-  if (v4)
-  {
-    OUTLINED_FUNCTION_342();
-
-    goto LABEL_11;
-  }
-
-  v13 = v0[20];
-  v14 = v0[10];
-  v0[5] = v0[9];
-  v0[6] = v14;
-
-  OUTLINED_FUNCTION_94_1();
-  v15 = OUTLINED_FUNCTION_55_1();
-  GameServicesActorSystem.JSONInvocationEncoder.recordArgument<A>(_:)(v15, v16);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-  OUTLINED_FUNCTION_156();
-  GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v17);
-  GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-  if (v18)
-  {
-    v20 = v0[19];
-    v19 = v0[20];
-    v21 = v0[18];
-
-    v22 = OUTLINED_FUNCTION_49_0();
-    v23(v22);
-    OUTLINED_FUNCTION_331();
-
-LABEL_11:
-    v24 = v0[20];
-    v25 = v0[17];
-
-    OUTLINED_FUNCTION_48();
-    OUTLINED_FUNCTION_330_2();
-
-    __asm { BRAA            X1, X16 }
-  }
-
-  v28 = v0[17];
-  OUTLINED_FUNCTION_184_0();
-  sub_1D8581028();
-  v29 = swift_task_alloc();
-  v30 = OUTLINED_FUNCTION_322_0(v29);
-  *v30 = v31;
-  OUTLINED_FUNCTION_145_0(v30);
-  OUTLINED_FUNCTION_53(v32);
-  OUTLINED_FUNCTION_330_2();
-
-  return GameServicesActorSystem.remoteCallVoid<A, B>(on:target:invocation:throwing:)(v33, v34, v35, v36, v37, v38, v39);
-}
-
-uint64_t sub_1D850A6E4()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  OUTLINED_FUNCTION_42();
-  *v3 = v2;
-  v5 = *(v4 + 176);
-  v6 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 184) = v0;
-
-  OUTLINED_FUNCTION_149();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-uint64_t sub_1D850A7DC()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  v3 = v2;
-  OUTLINED_FUNCTION_62();
-  *v4 = v3;
-  v6 = *(v5 + 192);
-  v7 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v8 = v7;
-  v3[25] = v0;
-
-  if (v0)
-  {
-    OUTLINED_FUNCTION_149();
-
-    return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-  }
-
-  else
-  {
-    v12 = v3[20];
-    v13 = v3[17];
-
-    OUTLINED_FUNCTION_57();
-
-    return v14();
-  }
-}
-
-uint64_t sub_1D850A904(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
-{
-  v8 = *a2;
-  v5[2] = *a2;
-  v9 = *(v8 - 8);
-  v5[3] = v9;
-  v10 = *(v9 + 64) + 15;
-  v11 = swift_task_alloc();
-  v5[4] = v11;
-  sub_1D8580F88();
-  v12 = *v11;
-  v13 = v11[1];
-  v14 = *a4;
-  v16 = *a5;
-  v15 = a5[1];
-  v17 = swift_task_alloc();
-  v5[5] = v17;
-  *v17 = v5;
-  v17[1] = sub_1D84A7CAC;
-
-  return DistributedGameServicesDebuggerProtocol<>.disableGameDebugging(bundleID:)();
-}
-
-uint64_t sub_1D850AA94()
-{
-  OUTLINED_FUNCTION_219();
-  v1 = *v0;
-  v3 = *v2;
-  v4 = v2[1];
-  OUTLINED_FUNCTION_24(&unk_1D85A1000);
-  v6 = *v5;
-  v7 = v5[1];
-  v8 = swift_task_alloc();
-  v9 = OUTLINED_FUNCTION_97(v8);
-  *v9 = v10;
-  v9[1] = sub_1D8442F30;
-  OUTLINED_FUNCTION_377_1();
-
-  return v12();
-}
-
-uint64_t sub_1D850AB60(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v7[15] = a6;
-  v7[16] = v6;
-  v7[13] = a4;
-  v7[14] = a5;
-  v7[11] = a2;
-  v7[12] = a3;
-  v7[10] = a1;
-  v8 = sub_1D8581018();
-  v7[17] = v8;
-  v9 = *(v8 - 8);
-  v7[18] = v9;
-  v10 = *(v9 + 64) + 15;
-  v7[19] = swift_task_alloc();
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38CB0, &unk_1D8590C60);
-  v7[20] = v11;
-  v12 = *(v11 - 8);
-  v7[21] = v12;
-  v13 = *(v12 + 64) + 15;
-  v7[22] = swift_task_alloc();
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA397E0, &unk_1D85962B0);
-  v7[23] = v14;
-  v15 = *(v14 - 8);
-  v7[24] = v15;
-  v16 = *(v15 + 64) + 15;
-  v7[25] = swift_task_alloc();
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C30, &qword_1D8590C00);
-  v7[26] = v17;
-  v18 = *(v17 - 8);
-  v7[27] = v18;
-  v19 = *(v18 + 64) + 15;
-  v7[28] = swift_task_alloc();
-
-  return MEMORY[0x1EEE6DFA0](sub_1D850AD64, 0, 0);
-}
-
-uint64_t DistributedGameServicesDebuggerProtocol<>.listGameActivityDefinitions(game:filters:after:)()
-{
-  OUTLINED_FUNCTION_174();
-  v3 = v2;
-  v5 = v4;
-  *(v1 + 160) = v6;
-  *(v1 + 168) = v0;
-  *(v1 + 144) = v7;
-  *(v1 + 152) = v8;
-  *(v1 + 128) = v9;
-  *(v1 + 136) = v10;
-  v11 = sub_1D8581018();
-  *(v1 + 176) = v11;
-  OUTLINED_FUNCTION_39(v11);
-  *(v1 + 184) = v12;
-  v14 = *(v13 + 64);
-  *(v1 + 192) = OUTLINED_FUNCTION_332();
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38CB0, &unk_1D8590C60);
-  *(v1 + 200) = v15;
-  OUTLINED_FUNCTION_39(v15);
-  *(v1 + 208) = v16;
-  v18 = *(v17 + 64);
-  *(v1 + 216) = OUTLINED_FUNCTION_332();
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA397E0, &unk_1D85962B0);
-  *(v1 + 224) = v19;
-  OUTLINED_FUNCTION_39(v19);
-  *(v1 + 232) = v20;
-  v22 = *(v21 + 64);
-  *(v1 + 240) = OUTLINED_FUNCTION_332();
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C30, &qword_1D8590C00);
-  *(v1 + 248) = v23;
-  OUTLINED_FUNCTION_39(v23);
-  *(v1 + 256) = v24;
-  v26 = *(v25 + 64);
-  v27 = OUTLINED_FUNCTION_332();
-  v28 = *v5;
-  v29 = v5[1];
-  *(v1 + 264) = v27;
-  *(v1 + 272) = v28;
-  *(v1 + 280) = v29;
-  *(v1 + 288) = *v3;
-  v30 = OUTLINED_FUNCTION_64_0();
-
-  return MEMORY[0x1EEE6DFA0](v30, v31, v32);
-}
-
-{
-  OUTLINED_FUNCTION_148();
-  v1 = *(v0 + 8);
-  sub_1D8580FA8();
-  OUTLINED_FUNCTION_198();
-  v2 = OUTLINED_FUNCTION_63();
-
-  return MEMORY[0x1EEE6DFA0](v2, v3, v4);
-}
-
-uint64_t sub_1D850B884()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  OUTLINED_FUNCTION_42();
-  *v3 = v2;
-  v5 = *(v4 + 312);
-  v6 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 320) = v0;
-
-  OUTLINED_FUNCTION_149();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-uint64_t sub_1D850BA58(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
-{
-  v7 = *a2;
-  v5[2] = *a2;
-  v8 = *(v7 - 8);
-  v5[3] = v8;
-  v9 = *(v8 + 64) + 15;
-  v5[4] = swift_task_alloc();
-  sub_1D8580F88();
-  v10 = a2[1];
-  v5[5] = v10;
-  v11 = *(v10 - 8);
-  v5[6] = v11;
-  v12 = *(v11 + 64) + 15;
-  v13 = swift_task_alloc();
-  v5[7] = v13;
-  sub_1D8580F88();
-  v22 = *v13;
-  v14 = a2[2];
-  v5[8] = v14;
-  v15 = *(v14 - 8);
-  v5[9] = v15;
-  v16 = *(v15 + 64) + 15;
-  v5[10] = swift_task_alloc();
-  sub_1D8580F88();
-  v17 = *a4;
-  v18 = *a5;
-  v19 = a5[1];
-  v20 = swift_task_alloc();
-  v5[11] = v20;
-  *v20 = v5;
-  v20[1] = sub_1D850BD74;
-
-  return DistributedGameServicesDebuggerProtocol<>.listGameActivityDefinitions(game:filters:after:)();
-}
-
-uint64_t sub_1D850BD74()
-{
-  OUTLINED_FUNCTION_487();
-  OUTLINED_FUNCTION_153();
-  v1 = v0[11];
-  v2 = v0[10];
-  v19 = v0[9];
-  OUTLINED_FUNCTION_193();
-  v4 = *(v3 + 64);
-  v6 = *(v5 + 56);
-  v18 = *(v5 + 48);
-  OUTLINED_FUNCTION_193();
-  v8 = *(v7 + 40);
-  v10 = v9[4];
-  v11 = v9[3];
-  v12 = v9[2];
-  OUTLINED_FUNCTION_171_0();
-  v14 = v13;
-  OUTLINED_FUNCTION_37();
-  *v15 = v14;
-
-  (*(v11 + 8))(v10, v12);
-  (*(v18 + 8))(v6, v8);
-  (*(v19 + 8))(v2, v4);
-
-  OUTLINED_FUNCTION_146();
-
-  return v16();
-}
-
-uint64_t sub_1D850BFD8()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_366();
-  OUTLINED_FUNCTION_31_0(&unk_1D85A0FF8);
-  v0 = swift_task_alloc();
-  v1 = OUTLINED_FUNCTION_176(v0);
-  *v1 = v2;
-  v3 = OUTLINED_FUNCTION_42_0(v1);
-
-  return v4(v3);
-}
-
-uint64_t sub_1D850C064(uint64_t a1)
-{
-  v2[7] = a1;
-  v2[8] = v1;
-  v3 = sub_1D8581018();
-  v2[9] = v3;
-  v4 = *(v3 - 8);
-  v2[10] = v4;
-  v5 = *(v4 + 64) + 15;
-  v2[11] = swift_task_alloc();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39840, &qword_1D85962E0);
-  v2[12] = v6;
-  v7 = *(v6 - 8);
-  v2[13] = v7;
-  v8 = *(v7 + 64) + 15;
-  v2[14] = swift_task_alloc();
-
-  return MEMORY[0x1EEE6DFA0](sub_1D850C18C, 0, 0);
-}
-
-uint64_t sub_1D850C18C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
-{
-  OUTLINED_FUNCTION_257();
-  OUTLINED_FUNCTION_177();
-  v14 = v13[8];
-  if ((swift_distributed_actor_is_remote() & 1) == 0)
-  {
-    OUTLINED_FUNCTION_24(&unk_1D85A0FF8);
-    v15 = swift_task_alloc();
-    v16 = OUTLINED_FUNCTION_201_0(v15);
-    *v16 = v17;
-    OUTLINED_FUNCTION_33_1(v16);
-    OUTLINED_FUNCTION_197();
-
-    return v19(v18, v19, v20, v21, v22, v23, v24, v25, a9, a10, a11, a12);
-  }
-
-  OUTLINED_FUNCTION_91_1();
-  type metadata accessor for $DistributedGameServicesDebuggerProtocol();
-  OUTLINED_FUNCTION_91();
-  if (v12)
-  {
-    OUTLINED_FUNCTION_342();
-
-    goto LABEL_9;
-  }
-
-  v27 = v13[14];
-  v13[5] = v13[7];
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39848, &qword_1D85962E8);
-  OUTLINED_FUNCTION_44_2();
-  sub_1D8581038();
-  sub_1D849EA88();
-  sub_1D849EB38();
-  OUTLINED_FUNCTION_31();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-  OUTLINED_FUNCTION_156();
-  GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v28);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39878, &qword_1D85962F8);
-  sub_1D849EBE8();
-  sub_1D849ED24();
-  OUTLINED_FUNCTION_16();
-  GameServicesActorSystem.JSONInvocationEncoder.recordReturnType<A>(_:)();
-  GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-  if (v29)
-  {
-    OUTLINED_FUNCTION_453();
-    v30 = OUTLINED_FUNCTION_49_0();
-    v31(v30);
-    OUTLINED_FUNCTION_331();
-
-LABEL_9:
-    OUTLINED_FUNCTION_191_2();
-
-    OUTLINED_FUNCTION_48();
-    OUTLINED_FUNCTION_197();
-
-    return v19(v18, v19, v20, v21, v22, v23, v24, v25, a9, a10, a11, a12);
-  }
-
-  v32 = v13[11];
-  sub_1D8581028();
-  v33 = swift_task_alloc();
-  OUTLINED_FUNCTION_203_0(v33);
-  OUTLINED_FUNCTION_0_6();
-  sub_1D8526788(v34);
-  OUTLINED_FUNCTION_98();
-  v13[2] = v35;
-  OUTLINED_FUNCTION_419();
-  OUTLINED_FUNCTION_11();
-  OUTLINED_FUNCTION_118_0();
-
-  return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-}
-
-uint64_t sub_1D850C45C()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  OUTLINED_FUNCTION_42();
-  *v3 = v2;
-  v5 = *(v4 + 136);
-  v6 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 144) = v0;
-
-  OUTLINED_FUNCTION_149();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-uint64_t sub_1D850C554()
-{
-  OUTLINED_FUNCTION_537();
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_366_1();
-  v2 = v0[10];
-  v1 = v0[11];
-  v3 = v0[9];
-
-  v4 = OUTLINED_FUNCTION_77();
-  v5(v4);
-  v6 = OUTLINED_FUNCTION_80();
-  v7(v6);
-  OUTLINED_FUNCTION_331();
-
-  v8 = v0[6];
-  OUTLINED_FUNCTION_304_0();
-
-  OUTLINED_FUNCTION_72();
-  OUTLINED_FUNCTION_511();
-
-  return v11(v9, v10, v11, v12, v13, v14, v15, v16);
-}
-
-uint64_t sub_1D850C604()
-{
-  OUTLINED_FUNCTION_537();
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_366_1();
-  v2 = v0[10];
-  v1 = v0[11];
-  v3 = v0[9];
-
-  v4 = OUTLINED_FUNCTION_77();
-  v5(v4);
-  v6 = OUTLINED_FUNCTION_80();
-  v7(v6);
-  OUTLINED_FUNCTION_331();
-
-  v8 = v0[18];
-  OUTLINED_FUNCTION_304_0();
-
-  OUTLINED_FUNCTION_146();
-  OUTLINED_FUNCTION_511();
-
-  return v10(v9, v10, v11, v12, v13, v14, v15, v16);
-}
-
-uint64_t DistributedGameServicesDebuggerProtocol<>.describeGameActivityDefinitions(_:)()
-{
-  OUTLINED_FUNCTION_148();
-  v5 = OUTLINED_FUNCTION_371(v1, v2, v3, v4);
-  v0[14] = v5;
-  OUTLINED_FUNCTION_39(v5);
-  v0[15] = v6;
-  v8 = *(v7 + 64);
-  v0[16] = OUTLINED_FUNCTION_332();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39840, &qword_1D85962E0);
-  OUTLINED_FUNCTION_29(v9);
-  v0[18] = v10;
-  v12 = *(v11 + 64);
-  v0[19] = OUTLINED_FUNCTION_332();
-  v13 = OUTLINED_FUNCTION_64_0();
-
-  return MEMORY[0x1EEE6DFA0](v13, v14, v15);
-}
-
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_250(v0, v1, v2);
-  OUTLINED_FUNCTION_198();
-  v3 = OUTLINED_FUNCTION_63();
-
-  return MEMORY[0x1EEE6DFA0](v3, v4, v5);
-}
-
-uint64_t sub_1D850C7A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
-{
-  OUTLINED_FUNCTION_208();
-  OUTLINED_FUNCTION_185();
-  v16 = v15[13];
-  is_remote = swift_distributed_actor_is_remote();
-  v18 = v15[13];
-  if (is_remote)
-  {
-    OUTLINED_FUNCTION_73();
-    OUTLINED_FUNCTION_110_0();
-    OUTLINED_FUNCTION_90();
-    if (v14)
-    {
-      OUTLINED_FUNCTION_342();
-
-LABEL_12:
-      OUTLINED_FUNCTION_168_0();
-
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_169();
-
-      return v41(v40, v41, v42, v43, v44, v45, v46, v47, a9, a10, a11, a12, a13, a14);
-    }
-
-    v35 = v15[19];
-    v15[7] = v15[9];
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39848, &qword_1D85962E8);
-    OUTLINED_FUNCTION_36_3();
-    sub_1D8581038();
-    sub_1D849EA88();
-    sub_1D849EB38();
-    OUTLINED_FUNCTION_31();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_156();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v36);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39878, &qword_1D85962F8);
-    sub_1D849EBE8();
-    sub_1D849ED24();
-    OUTLINED_FUNCTION_16();
-    GameServicesActorSystem.JSONInvocationEncoder.recordReturnType<A>(_:)();
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v37)
-    {
-      OUTLINED_FUNCTION_452();
-      v38 = OUTLINED_FUNCTION_49_0();
-      v39(v38);
-      OUTLINED_FUNCTION_331();
-
-      goto LABEL_12;
-    }
-
-    v48 = v15[16];
-    sub_1D8581028();
-    v49 = swift_task_alloc();
-    v50 = OUTLINED_FUNCTION_90_0(v49);
-    *v50 = v51;
-    OUTLINED_FUNCTION_294(v50);
-    OUTLINED_FUNCTION_112();
-
-    return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-  }
-
-  else
-  {
-    v19 = *(OUTLINED_FUNCTION_210(v15[12]) + 192);
-    OUTLINED_FUNCTION_54();
-    v53 = v20 + *v20;
-    v22 = *(v21 + 4);
-    v23 = swift_task_alloc();
-    v24 = OUTLINED_FUNCTION_286(v23);
-    *v24 = v25;
-    OUTLINED_FUNCTION_17(v24);
-    OUTLINED_FUNCTION_169();
-
-    return v29(v26, v27, v28, v29, v30, v31, v32, v33, a9, a10, v53, a12, a13, a14);
-  }
-}
-
-uint64_t sub_1D850CAC8()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  OUTLINED_FUNCTION_42();
-  *v3 = v2;
-  v5 = *(v4 + 168);
-  v6 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 176) = v0;
-
-  OUTLINED_FUNCTION_149();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-uint64_t sub_1D850CBC0()
-{
-  OUTLINED_FUNCTION_537();
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_380_0();
-  v2 = v0[15];
-  v1 = v0[16];
-  v3 = v0[14];
-
-  v4 = OUTLINED_FUNCTION_77();
-  v5(v4);
-  v6 = OUTLINED_FUNCTION_80();
-  v7(v6);
-  OUTLINED_FUNCTION_331();
-
-  v8 = v0[8];
-  OUTLINED_FUNCTION_243_0();
-
-  OUTLINED_FUNCTION_72();
-  OUTLINED_FUNCTION_511();
-
-  return v11(v9, v10, v11, v12, v13, v14, v15, v16);
-}
-
-uint64_t sub_1D850CC70()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_95();
-  v3 = v2;
-  OUTLINED_FUNCTION_62();
-  *v4 = v3;
-  v6 = *(v5 + 184);
-  v7 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v8 = v7;
-  *(v3 + 192) = v0;
-
-  if (v0)
-  {
-    OUTLINED_FUNCTION_149();
-
-    return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_236_2();
-
-    v12 = OUTLINED_FUNCTION_56_0();
-
-    return v13(v12);
-  }
-}
-
-uint64_t sub_1D850CDA0()
-{
-  OUTLINED_FUNCTION_537();
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_380_0();
-  v2 = v0[15];
-  v1 = v0[16];
-  v3 = v0[14];
-
-  v4 = OUTLINED_FUNCTION_77();
-  v5(v4);
-  v6 = OUTLINED_FUNCTION_80();
-  v7(v6);
-  OUTLINED_FUNCTION_331();
-
-  v8 = v0[22];
-  OUTLINED_FUNCTION_243_0();
-
-  OUTLINED_FUNCTION_146();
-  OUTLINED_FUNCTION_511();
-
-  return v10(v9, v10, v11, v12, v13, v14, v15, v16);
-}
-
-uint64_t sub_1D850CE50(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
-{
-  v5[2] = a3;
-  v8 = *a2;
-  v5[3] = *a2;
-  v9 = *(v8 - 8);
-  v5[4] = v9;
-  v10 = *(v9 + 64) + 15;
-  v11 = swift_task_alloc();
-  v5[5] = v11;
-  sub_1D8580F88();
-  v12 = *v11;
-  v13 = *a4;
-  v15 = *a5;
-  v14 = a5[1];
-  v16 = swift_task_alloc();
-  v5[6] = v16;
-  *v16 = v5;
-  v16[1] = sub_1D84A1FE0;
-
-  return DistributedGameServicesDebuggerProtocol<>.describeGameActivityDefinitions(_:)();
-}
-
-uint64_t sub_1D850CFE0()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_366();
-  OUTLINED_FUNCTION_31_0(&unk_1D85A0FF0);
-  v0 = swift_task_alloc();
-  v1 = OUTLINED_FUNCTION_176(v0);
-  *v1 = v2;
-  v3 = OUTLINED_FUNCTION_42_0(v1);
-
-  return v4(v3);
-}
-
-uint64_t sub_1D850D06C(uint64_t a1)
-{
-  v2[5] = a1;
-  v2[6] = v1;
-  v3 = sub_1D8581018();
-  v2[7] = v3;
-  v4 = *(v3 - 8);
-  v2[8] = v4;
-  v5 = *(v4 + 64) + 15;
-  v2[9] = swift_task_alloc();
-  v6 = type metadata accessor for GameActivityInstance(0);
-  v2[10] = v6;
-  v7 = *(*(v6 - 8) + 64) + 15;
-  v2[11] = swift_task_alloc();
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39998, &qword_1D8596388);
-  v2[12] = v8;
-  v9 = *(v8 - 8);
-  v2[13] = v9;
-  v10 = *(v9 + 64) + 15;
-  v2[14] = swift_task_alloc();
-
-  return MEMORY[0x1EEE6DFA0](sub_1D850D1C4, 0, 0);
-}
-
-uint64_t sub_1D850D1C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
-{
-  OUTLINED_FUNCTION_245_0();
-  OUTLINED_FUNCTION_177();
-  v14 = v13[6];
-  if ((swift_distributed_actor_is_remote() & 1) == 0)
-  {
-    OUTLINED_FUNCTION_31_0(&unk_1D85A0FF0);
-    v16 = swift_task_alloc();
-    v17 = OUTLINED_FUNCTION_201_0(v16);
-    *v17 = v18;
-    v17[1] = sub_1D850D464;
-    v19 = v13[6];
-    OUTLINED_FUNCTION_207_0(v13[5]);
-    OUTLINED_FUNCTION_207();
-
-    return v21(v20, v21, v22, v23, v24, v25, v26, v27, a9, a10, a11, a12);
-  }
-
-  v15 = v13[6];
-  v13[15] = OUTLINED_FUNCTION_209_1();
-  OUTLINED_FUNCTION_354();
-  type metadata accessor for $DistributedGameServicesDebuggerProtocol();
-  OUTLINED_FUNCTION_91();
-  if (v12)
-  {
-    OUTLINED_FUNCTION_342();
-
-    goto LABEL_9;
-  }
-
-  v29 = v13[14];
-  v30 = v13[10];
-  sub_1D84A3A34(v13[5], v13[11]);
-  OUTLINED_FUNCTION_241_1();
-  OUTLINED_FUNCTION_186_2();
-  sub_1D8581038();
-  OUTLINED_FUNCTION_107_2();
-  OUTLINED_FUNCTION_283_1(v31);
-  OUTLINED_FUNCTION_120_0(&qword_1ECA39988);
-  OUTLINED_FUNCTION_31();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-  OUTLINED_FUNCTION_156();
-  GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v32);
-  GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-  if (v33)
-  {
-    OUTLINED_FUNCTION_453();
-    v34 = OUTLINED_FUNCTION_49_0();
-    v35(v34);
-    OUTLINED_FUNCTION_331();
-
-LABEL_9:
-    OUTLINED_FUNCTION_191_2();
-    v36 = v13[9];
-
-    OUTLINED_FUNCTION_48();
-    OUTLINED_FUNCTION_207();
-
-    return v21(v20, v21, v22, v23, v24, v25, v26, v27, a9, a10, a11, a12);
-  }
-
-  v37 = v13[9];
-  OUTLINED_FUNCTION_184_0();
-  OUTLINED_FUNCTION_408_1();
-  v38 = swift_task_alloc();
-  OUTLINED_FUNCTION_203_0(v38);
-  OUTLINED_FUNCTION_0_6();
-  sub_1D8526788(v39);
-  OUTLINED_FUNCTION_81();
-  v13[2] = v40;
-  v13[3] = sub_1D850D598;
-  v41 = v13[9];
-  v42 = v13[6];
-  OUTLINED_FUNCTION_66();
-  OUTLINED_FUNCTION_207();
-
-  return GameServicesActorSystem.remoteCallVoid<A, B>(on:target:invocation:throwing:)(v43, v44, v45, v46, v47, v48, v49);
-}
-
-uint64_t sub_1D850D464()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_334();
-  v2 = v0[16];
-  v3 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v4 = v3;
-
-  OUTLINED_FUNCTION_341();
-  v6 = *(v5 + 112);
-  v7 = v0[11];
-  v8 = v0[9];
-
-  OUTLINED_FUNCTION_137();
-
-  return v9();
-}
-
-uint64_t sub_1D850D598()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  OUTLINED_FUNCTION_42();
-  *v3 = v2;
-  v5 = *(v4 + 136);
-  v6 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 144) = v0;
-
-  OUTLINED_FUNCTION_149();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-uint64_t sub_1D850D690()
-{
-  OUTLINED_FUNCTION_537();
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_366_1();
-  v2 = v0[8];
-  v1 = v0[9];
-  v3 = v0[7];
-
-  v4 = OUTLINED_FUNCTION_77();
-  v5(v4);
-  v6 = OUTLINED_FUNCTION_80();
-  v7(v6);
-  OUTLINED_FUNCTION_331();
-
-  OUTLINED_FUNCTION_191_2();
-  v8 = v0[9];
-
-  OUTLINED_FUNCTION_57();
-  OUTLINED_FUNCTION_511();
-
-  return v10(v9, v10, v11, v12, v13, v14, v15, v16);
-}
-
-uint64_t sub_1D850D748()
-{
-  OUTLINED_FUNCTION_537();
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_366_1();
-  v2 = v0[8];
-  v1 = v0[9];
-  v3 = v0[7];
-
-  v4 = OUTLINED_FUNCTION_77();
-  v5(v4);
-  v6 = OUTLINED_FUNCTION_80();
-  v7(v6);
-  OUTLINED_FUNCTION_331();
-
-  v8 = v0[18];
-  OUTLINED_FUNCTION_304_0();
-  v9 = v0[9];
-
-  OUTLINED_FUNCTION_146();
-  OUTLINED_FUNCTION_511();
-
-  return v11(v10, v11, v12, v13, v14, v15, v16, v17);
-}
-
-uint64_t DistributedGameServicesDebuggerProtocol<>.invokeActivity(_:)()
-{
-  OUTLINED_FUNCTION_148();
-  v5 = OUTLINED_FUNCTION_393_1(v1, v2, v3, v4);
-  OUTLINED_FUNCTION_38_0(v5);
-  v0[13] = v6;
-  v8 = *(v7 + 64);
-  v0[14] = OUTLINED_FUNCTION_332();
-  v9 = type metadata accessor for GameActivityInstance(0);
-  v0[15] = v9;
-  v10 = *(*(v9 - 8) + 64);
-  v0[16] = OUTLINED_FUNCTION_332();
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39998, &qword_1D8596388);
-  OUTLINED_FUNCTION_29(v11);
-  v0[18] = v12;
-  v14 = *(v13 + 64);
-  v0[19] = OUTLINED_FUNCTION_332();
-  v15 = OUTLINED_FUNCTION_64_0();
-
-  return MEMORY[0x1EEE6DFA0](v15, v16, v17);
-}
-
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_250(v0, v1, v2);
-  OUTLINED_FUNCTION_198();
-  v3 = OUTLINED_FUNCTION_63();
-
-  return MEMORY[0x1EEE6DFA0](v3, v4, v5);
-}
-
-uint64_t sub_1D850D918(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
-{
-  OUTLINED_FUNCTION_245_0();
-  OUTLINED_FUNCTION_177();
-  v13 = v12[11];
-  is_remote = swift_distributed_actor_is_remote();
-  v15 = v12[11];
-  if (is_remote)
-  {
-    v16 = v12[8];
-    OUTLINED_FUNCTION_83_0(v12[9]);
-    OUTLINED_FUNCTION_110_0();
-    OUTLINED_FUNCTION_90();
-    if (v16)
-    {
-      OUTLINED_FUNCTION_342();
-
-LABEL_11:
-      OUTLINED_FUNCTION_168_0();
-      v41 = v12[14];
-
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_207();
-
-      return v43(v42, v43, v44, v45, v46, v47, v48, v49, a9, a10, a11, a12);
-    }
-
-    v34 = v12[19];
-    v35 = v12[15];
-    sub_1D84A3A34(v12[7], v12[16]);
-    OUTLINED_FUNCTION_241_1();
-    OUTLINED_FUNCTION_186_2();
-    sub_1D8581038();
-    OUTLINED_FUNCTION_107_2();
-    OUTLINED_FUNCTION_283_1(v36);
-    OUTLINED_FUNCTION_120_0(&qword_1ECA39988);
-    OUTLINED_FUNCTION_31();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_156();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v37);
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v38)
-    {
-      OUTLINED_FUNCTION_452();
-      v39 = OUTLINED_FUNCTION_49_0();
-      v40(v39);
-      OUTLINED_FUNCTION_331();
-
-      goto LABEL_11;
-    }
-
-    v50 = v12[14];
-    OUTLINED_FUNCTION_184_0();
-    OUTLINED_FUNCTION_408_1();
-    v51 = swift_task_alloc();
-    v52 = OUTLINED_FUNCTION_213_1(v51);
-    *v52 = v53;
-    v52[1] = sub_1D850DBFC;
-    v54 = v12[14];
-    v55 = v12[8];
-    OUTLINED_FUNCTION_53(v12[11]);
-    OUTLINED_FUNCTION_207();
-
-    return GameServicesActorSystem.remoteCallVoid<A, B>(on:target:invocation:throwing:)(v56, v57, v58, v59, v60, v61, v62);
-  }
-
-  else
-  {
-    v17 = *(OUTLINED_FUNCTION_210(v12[10]) + 200);
-    OUTLINED_FUNCTION_131();
-    v64 = v18 + *v18;
-    v20 = *(v19 + 4);
-    v21 = swift_task_alloc();
-    v22 = OUTLINED_FUNCTION_286(v21);
-    *v22 = v23;
-    v22[1] = sub_1D850DDAC;
-    v24 = v12[8];
-    OUTLINED_FUNCTION_44(v12[7]);
-    OUTLINED_FUNCTION_207();
-
-    return v28(v25, v26, v27, v28, v29, v30, v31, v32, a9, v64, a11, a12);
-  }
-}
-
-uint64_t sub_1D850DBFC()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  OUTLINED_FUNCTION_42();
-  *v3 = v2;
-  v5 = *(v4 + 168);
-  v6 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 176) = v0;
-
-  OUTLINED_FUNCTION_149();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-uint64_t sub_1D850DCF4()
-{
-  OUTLINED_FUNCTION_537();
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_380_0();
-  v2 = v0[13];
-  v1 = v0[14];
-  v3 = v0[12];
-
-  v4 = OUTLINED_FUNCTION_77();
-  v5(v4);
-  v6 = OUTLINED_FUNCTION_80();
-  v7(v6);
-  OUTLINED_FUNCTION_331();
-
-  OUTLINED_FUNCTION_168_0();
-  v8 = v0[14];
-
-  OUTLINED_FUNCTION_57();
-  OUTLINED_FUNCTION_511();
-
-  return v10(v9, v10, v11, v12, v13, v14, v15, v16);
-}
-
-uint64_t sub_1D850DDAC()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  v3 = v2;
-  OUTLINED_FUNCTION_62();
-  *v4 = v3;
-  v6 = *(v5 + 184);
-  v7 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v8 = v7;
-  *(v3 + 192) = v0;
-
-  if (v0)
-  {
-    OUTLINED_FUNCTION_149();
-
-    return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_236_2();
-    v12 = *(v3 + 112);
-
-    OUTLINED_FUNCTION_57();
-
-    return v13();
-  }
-}
-
-uint64_t sub_1D850DEDC()
-{
-  OUTLINED_FUNCTION_537();
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_380_0();
-  v2 = v0[13];
-  v1 = v0[14];
-  v3 = v0[12];
-
-  v4 = OUTLINED_FUNCTION_77();
-  v5(v4);
-  v6 = OUTLINED_FUNCTION_80();
-  v7(v6);
-  OUTLINED_FUNCTION_331();
-
-  v8 = v0[22];
-  OUTLINED_FUNCTION_243_0();
-  v9 = v0[14];
-
-  OUTLINED_FUNCTION_146();
-  OUTLINED_FUNCTION_511();
-
-  return v11(v10, v11, v12, v13, v14, v15, v16, v17);
-}
-
-uint64_t sub_1D850DF98()
-{
-  OUTLINED_FUNCTION_174();
-  v1 = *(v0 + 192);
-  OUTLINED_FUNCTION_243_0();
-  v2 = *(v0 + 112);
-
-  OUTLINED_FUNCTION_146();
-
-  return v3();
-}
-
-uint64_t sub_1D850E010(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
-{
-  v8 = *a2;
-  v5[2] = *a2;
-  v9 = *(v8 - 8);
-  v5[3] = v9;
-  v10 = *(v9 + 64) + 15;
-  v5[4] = swift_task_alloc();
-  sub_1D8580F88();
-  v11 = *a4;
-  v12 = *a5;
-  v13 = a5[1];
-  v14 = swift_task_alloc();
-  v5[5] = v14;
-  *v14 = v5;
-  v14[1] = sub_1D84911F8;
-
-  return DistributedGameServicesDebuggerProtocol<>.invokeActivity(_:)();
-}
-
-uint64_t sub_1D850E198()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_366();
-  OUTLINED_FUNCTION_31_0(&unk_1D85A0FE8);
-  v0 = swift_task_alloc();
-  v1 = OUTLINED_FUNCTION_97(v0);
-  *v1 = v2;
-  v3 = OUTLINED_FUNCTION_314_2(v1);
-
-  return v5(v3);
-}
-
-uint64_t sub_1D850E228(uint64_t a1)
-{
-  v2[5] = a1;
-  v2[6] = v1;
-  v3 = sub_1D8581018();
-  v2[7] = v3;
-  v4 = *(v3 - 8);
-  v2[8] = v4;
-  v5 = *(v4 + 64) + 15;
-  v2[9] = swift_task_alloc();
-
-  return MEMORY[0x1EEE6DFA0](sub_1D850E2E8, 0, 0);
-}
-
-uint64_t sub_1D850E2E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
-{
-  OUTLINED_FUNCTION_257();
-  OUTLINED_FUNCTION_177();
-  v14 = v13[6];
-  if ((swift_distributed_actor_is_remote() & 1) == 0)
-  {
-    OUTLINED_FUNCTION_24(&unk_1D85A0FE8);
-    swift_task_alloc();
-    OUTLINED_FUNCTION_168();
-    v13[11] = v29;
-    *v29 = v30;
-    v29[1] = sub_1D850E54C;
-    v31 = v13[5];
-    v32 = v13[6];
-    OUTLINED_FUNCTION_197();
-
-    return v21(v20, v21, v22, v23, v24, v25, v26, v27, a9, a10, a11, a12);
-  }
-
-  v15 = v13[6];
-  v13[10] = OUTLINED_FUNCTION_209_1();
-  OUTLINED_FUNCTION_354();
-  type metadata accessor for $DistributedGameServicesDebuggerProtocol();
-  OUTLINED_FUNCTION_91();
-  if (v12)
-  {
-    goto LABEL_4;
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-  OUTLINED_FUNCTION_156();
-  GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v16);
-  type metadata accessor for DefaultGameActivityEnvironment(0);
-  OUTLINED_FUNCTION_106_2();
-  OUTLINED_FUNCTION_283_1(v17);
-  OUTLINED_FUNCTION_119_1(&unk_1ECA39FA8);
-  OUTLINED_FUNCTION_16();
-  OUTLINED_FUNCTION_353();
-  GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-  if (v18)
-  {
-LABEL_4:
-    OUTLINED_FUNCTION_342();
-
-    v19 = v13[9];
-
-    OUTLINED_FUNCTION_48();
-    OUTLINED_FUNCTION_197();
-
-    return v21(v20, v21, v22, v23, v24, v25, v26, v27, a9, a10, a11, a12);
-  }
-
-  v33 = v13[9];
-  OUTLINED_FUNCTION_184_0();
-  sub_1D8581028();
-  v34 = swift_task_alloc();
-  v13[12] = v34;
-  OUTLINED_FUNCTION_0_6();
-  sub_1D8526788(v35);
-  OUTLINED_FUNCTION_217();
-  *v34 = v36;
-  OUTLINED_FUNCTION_378_1();
-  v38 = v13[5];
-  v37 = v13[6];
-  OUTLINED_FUNCTION_11();
-  OUTLINED_FUNCTION_118_0();
-
-  return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-}
-
-uint64_t sub_1D850E54C()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_334();
-  v2 = *(v0 + 88);
-  v3 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v4 = v3;
-
-  OUTLINED_FUNCTION_341();
-  v6 = *(v5 + 72);
-
-  OUTLINED_FUNCTION_137();
-
-  return v7();
-}
-
-uint64_t sub_1D850E648()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  OUTLINED_FUNCTION_42();
-  *v3 = v2;
-  v5 = *(v4 + 96);
-  v6 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 104) = v0;
-
-  OUTLINED_FUNCTION_149();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-uint64_t sub_1D850E740()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_409_1();
-  v1 = OUTLINED_FUNCTION_74();
-  v2(v1);
-  OUTLINED_FUNCTION_331();
-
-  v3 = *(v0 + 72);
-
-  OUTLINED_FUNCTION_57();
-
-  return v4();
-}
-
-uint64_t DistributedGameServicesDebuggerProtocol<>.getDefaultGameActivityEnvironment()()
-{
-  OUTLINED_FUNCTION_148();
-  v5 = OUTLINED_FUNCTION_393_1(v1, v2, v3, v4);
-  OUTLINED_FUNCTION_38_0(v5);
-  *(v0 + 104) = v6;
-  v8 = *(v7 + 64);
-  *(v0 + 112) = OUTLINED_FUNCTION_332();
-  v9 = OUTLINED_FUNCTION_64_0();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_250(v0, v1, v2);
-  OUTLINED_FUNCTION_198();
-  v3 = OUTLINED_FUNCTION_63();
-
-  return MEMORY[0x1EEE6DFA0](v3, v4, v5);
-}
-
-uint64_t sub_1D850E860(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
-{
-  OUTLINED_FUNCTION_208();
-  OUTLINED_FUNCTION_185();
-  v15 = v14[11];
-  is_remote = swift_distributed_actor_is_remote();
-  v17 = v14[11];
-  if (is_remote)
-  {
-    v18 = v14[8];
-    OUTLINED_FUNCTION_83_0(v14[9]);
-    v14[15] = v14[6];
-    OUTLINED_FUNCTION_355();
-    OUTLINED_FUNCTION_90();
-    if (v18)
-    {
-      goto LABEL_6;
-    }
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_156();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v19);
-    type metadata accessor for DefaultGameActivityEnvironment(0);
-    OUTLINED_FUNCTION_106_2();
-    OUTLINED_FUNCTION_283_1(v20);
-    OUTLINED_FUNCTION_119_1(&unk_1ECA39FA8);
-    OUTLINED_FUNCTION_16();
-    OUTLINED_FUNCTION_353();
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v21)
-    {
-LABEL_6:
-      OUTLINED_FUNCTION_342();
-
-      v22 = v14[14];
-
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_169();
-
-      return v24(v23, v24, v25, v26, v27, v28, v29, v30, a9, a10, a11, a12, a13, a14);
-    }
-
-    else
-    {
-      v48 = v14[14];
-      OUTLINED_FUNCTION_184_0();
-      sub_1D8581028();
-      swift_task_alloc();
-      OUTLINED_FUNCTION_168();
-      v14[16] = v49;
-      *v49 = v50;
-      v49[1] = sub_1D850EB08;
-      OUTLINED_FUNCTION_367_0();
-      v51 = v14[7];
-      v52 = v14[8];
-      OUTLINED_FUNCTION_8();
-      OUTLINED_FUNCTION_112();
-
-      return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-    }
-  }
-
-  else
-  {
-    v32 = *(OUTLINED_FUNCTION_210(v14[10]) + 208);
-    OUTLINED_FUNCTION_54();
-    v54 = v33 + *v33;
-    v35 = *(v34 + 4);
-    swift_task_alloc();
-    OUTLINED_FUNCTION_168();
-    v14[18] = v36;
-    *v36 = v37;
-    v36[1] = sub_1D850EC88;
-    v38 = v14[7];
-    v39 = v14[8];
-    OUTLINED_FUNCTION_169();
-
-    return v43(v40, v41, v42, v43, v44, v45, v46, v47, a9, a10, v54, a12, a13, a14);
-  }
-}
-
-uint64_t sub_1D850EB08()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  OUTLINED_FUNCTION_42();
-  *v3 = v2;
-  v5 = *(v4 + 128);
-  v6 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 136) = v0;
-
-  OUTLINED_FUNCTION_149();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-uint64_t sub_1D850EC00()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_407_0();
-  v1 = OUTLINED_FUNCTION_74();
-  v2(v1);
-  OUTLINED_FUNCTION_331();
-
-  v3 = *(v0 + 112);
-
-  OUTLINED_FUNCTION_57();
-
-  return v4();
-}
-
-uint64_t sub_1D850EC88()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  v3 = v2;
-  OUTLINED_FUNCTION_62();
-  *v4 = v3;
-  v6 = *(v5 + 144);
-  v7 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v8 = v7;
-  *(v3 + 152) = v0;
-
-  if (v0)
-  {
-    OUTLINED_FUNCTION_149();
-
-    return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-  }
-
-  else
-  {
-    v12 = *(v3 + 112);
-
-    OUTLINED_FUNCTION_146();
-
-    return v13();
-  }
-}
-
-uint64_t sub_1D850EDA4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
-{
-  v6 = *a4;
-  v7 = *a5;
-  v8 = a5[1];
-  v9 = swift_task_alloc();
-  *(v5 + 16) = v9;
-  *v9 = v5;
-  v9[1] = sub_1D8442FA8;
-
-  return DistributedGameServicesDebuggerProtocol<>.getDefaultGameActivityEnvironment()();
-}
-
-uint64_t sub_1D850EE68()
-{
-  OUTLINED_FUNCTION_148();
-  v1 = *v0;
-  OUTLINED_FUNCTION_24(&unk_1D85A0FE0);
-  v2 = swift_task_alloc();
-  v3 = OUTLINED_FUNCTION_176(v2);
-  *v3 = v4;
-  OUTLINED_FUNCTION_191(v3);
-
-  return v6();
-}
-
-uint64_t sub_1D850EEF4()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_95();
-  v3 = *(v2 + 16);
-  v4 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v5 = v4;
-
-  OUTLINED_FUNCTION_298_1();
-  if (!v0)
-  {
-    v6 = OUTLINED_FUNCTION_506();
-  }
-
-  return v7(v6);
-}
-
-uint64_t sub_1D850EFE8()
-{
-  v1[7] = v0;
-  v2 = sub_1D8581018();
-  v1[8] = v2;
-  v3 = *(v2 - 8);
-  v1[9] = v3;
-  v4 = *(v3 + 64) + 15;
-  v1[10] = swift_task_alloc();
-
-  return MEMORY[0x1EEE6DFA0](sub_1D850F0A8, 0, 0);
-}
-
-uint64_t sub_1D850F0A8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
-{
-  OUTLINED_FUNCTION_257();
-  OUTLINED_FUNCTION_177();
-  v14 = v13[7];
-  if (swift_distributed_actor_is_remote())
-  {
-    v15 = v13[7];
-    v13[11] = OUTLINED_FUNCTION_209_1();
-    OUTLINED_FUNCTION_354();
-    type metadata accessor for $DistributedGameServicesDebuggerProtocol();
-    OUTLINED_FUNCTION_91();
-    if (v12 || (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0), OUTLINED_FUNCTION_156(), GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v16), OUTLINED_FUNCTION_56(), GameServicesActorSystem.JSONInvocationEncoder.doneRecording()(), v17))
-    {
-      OUTLINED_FUNCTION_342();
-
-      v18 = v13[10];
-
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_197();
-
-      return v20(v19, v20, v21, v22, v23, v24, v25, v26, a9, a10, a11, a12);
-    }
-
-    else
-    {
-      v38 = v13[10];
-      OUTLINED_FUNCTION_184_0();
-      sub_1D8581028();
-      v39 = swift_task_alloc();
-      v13[13] = v39;
-      OUTLINED_FUNCTION_0_6();
-      sub_1D8526788(v40);
-      OUTLINED_FUNCTION_98();
-      *v39 = v41;
-      v39[1] = sub_1D850F3F0;
-      v42 = v13[10];
-      v43 = v13[7];
-      OUTLINED_FUNCTION_9_0(v44);
-      OUTLINED_FUNCTION_118_0();
-
-      return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_24(&unk_1D85A0FE0);
-    v28 = swift_task_alloc();
-    v13[12] = v28;
-    *v28 = v13;
-    v28[1] = sub_1D850F2D8;
-    v29 = v13[7];
-    OUTLINED_FUNCTION_197();
-
-    return v30(v30, v31, v32, v33, v34, v35, v36, v37, a9, a10, a11, a12);
-  }
-}
-
-uint64_t sub_1D850F2D8()
-{
-  OUTLINED_FUNCTION_536();
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_95_2();
-  v3 = *(v2 + 96);
-  v4 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v5 = v4;
-
-  OUTLINED_FUNCTION_214_3();
-  v7 = *(v6 + 80);
-
-  v8 = *(v4 + 8);
-  if (!v0)
-  {
-    OUTLINED_FUNCTION_506();
-  }
-
-  OUTLINED_FUNCTION_535();
-
-  return v12(v9, v10, v11, v12, v13, v14, v15, v16);
-}
-
-uint64_t sub_1D850F3F0()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  OUTLINED_FUNCTION_42();
-  *v3 = v2;
-  v5 = *(v4 + 104);
-  v6 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 112) = v0;
-
-  OUTLINED_FUNCTION_149();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-uint64_t sub_1D850F4E8()
-{
-  OUTLINED_FUNCTION_174();
-  v2 = v0[10];
-  v1 = v0[11];
-  v3 = v0[8];
-  v4 = v0[9];
-
-  v5 = OUTLINED_FUNCTION_74();
-  v6(v5);
-  OUTLINED_FUNCTION_331();
-
-  v8 = v0[5];
-  v7 = v0[6];
-  v9 = v0[10];
-
-  OUTLINED_FUNCTION_298_1();
-  v10 = OUTLINED_FUNCTION_151();
-
-  return v11(v10);
-}
-
-uint64_t sub_1D850F584()
-{
-  OUTLINED_FUNCTION_174();
-  v2 = v0[10];
-  v1 = v0[11];
-  v3 = v0[8];
-  v4 = v0[9];
-
-  v5 = OUTLINED_FUNCTION_74();
-  v6(v5);
-  OUTLINED_FUNCTION_331();
-
-  v7 = v0[14];
-  v8 = v0[10];
-
-  OUTLINED_FUNCTION_146();
-
-  return v9();
-}
-
-uint64_t DistributedGameServicesDebuggerProtocol<>.getServiceVersion()()
-{
-  OUTLINED_FUNCTION_148();
-  v1[11] = v2;
-  v1[12] = v0;
-  v1[9] = v3;
-  v1[10] = v4;
-  v5 = sub_1D8581018();
-  v1[13] = v5;
-  OUTLINED_FUNCTION_39(v5);
-  v1[14] = v6;
-  v8 = *(v7 + 64);
-  v1[15] = OUTLINED_FUNCTION_332();
-  v9 = OUTLINED_FUNCTION_64_0();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-{
-  OUTLINED_FUNCTION_148();
-  v1 = *(v0 + 8);
-  sub_1D8580FA8();
-  OUTLINED_FUNCTION_198();
-  v2 = OUTLINED_FUNCTION_63();
-
-  return MEMORY[0x1EEE6DFA0](v2, v3, v4);
-}
-
-uint64_t sub_1D850F6C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
-{
-  OUTLINED_FUNCTION_208();
-  OUTLINED_FUNCTION_185();
-  v15 = v14[12];
-  is_remote = swift_distributed_actor_is_remote();
-  v17 = v14[12];
-  if (is_remote)
-  {
-    v18 = v14[9];
-    v19 = *(v14[10] + 8);
-    OUTLINED_FUNCTION_166();
-    sub_1D8580F98();
-    v14[16] = v14[8];
-    OUTLINED_FUNCTION_355();
-    OUTLINED_FUNCTION_90();
-    if (v18 || (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0), OUTLINED_FUNCTION_156(), GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v20), OUTLINED_FUNCTION_56(), GameServicesActorSystem.JSONInvocationEncoder.doneRecording()(), v21))
-    {
-      OUTLINED_FUNCTION_342();
-
-      v22 = v14[15];
-
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_169();
-
-      return v24(v23, v24, v25, v26, v27, v28, v29, v30, a9, a10, a11, a12, a13, a14);
-    }
-
-    else
-    {
-      v45 = v14[15];
-      OUTLINED_FUNCTION_184_0();
-      sub_1D8581028();
-      swift_task_alloc();
-      OUTLINED_FUNCTION_168();
-      v14[17] = v46;
-      *v46 = v47;
-      v46[1] = sub_1D850F944;
-      v48 = v14[15];
-      v49 = v14[12];
-      v50 = v14[9];
-      OUTLINED_FUNCTION_8();
-      OUTLINED_FUNCTION_112();
-
-      return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-    }
-  }
-
-  else
-  {
-    v32 = *(OUTLINED_FUNCTION_256_3(v14[11]) + 216);
-    OUTLINED_FUNCTION_54();
-    v52 = v33 + *v33;
-    v35 = *(v34 + 4);
-    v36 = swift_task_alloc();
-    v14[19] = v36;
-    *v36 = v14;
-    v36[1] = sub_1D850FAD8;
-    OUTLINED_FUNCTION_332_2(v14[9]);
-    OUTLINED_FUNCTION_169();
-
-    return v39(v37, v38, v39, v40, v41, v42, v43, v44, a9, a10, v52, a12, a13, a14);
-  }
-}
-
-uint64_t sub_1D850F944()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  OUTLINED_FUNCTION_42();
-  *v3 = v2;
-  v5 = *(v4 + 136);
-  v6 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 144) = v0;
-
-  OUTLINED_FUNCTION_149();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-uint64_t sub_1D850FA3C()
-{
-  OUTLINED_FUNCTION_174();
-  v2 = v0[15];
-  v1 = v0[16];
-  v3 = v0[13];
-  v4 = v0[14];
-
-  v5 = OUTLINED_FUNCTION_74();
-  v6(v5);
-  OUTLINED_FUNCTION_331();
-
-  v8 = v0[5];
-  v7 = v0[6];
-  v9 = v0[15];
-
-  OUTLINED_FUNCTION_298_1();
-  v10 = OUTLINED_FUNCTION_151();
-
-  return v11(v10);
-}
-
-uint64_t sub_1D850FAD8()
-{
-  OUTLINED_FUNCTION_536();
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_153();
-  v3 = v2;
-  OUTLINED_FUNCTION_62();
-  *v4 = v3;
-  v6 = *(v5 + 152);
-  v7 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v8 = v7;
-  *(v3 + 160) = v0;
-
-  if (v0)
-  {
-    OUTLINED_FUNCTION_149();
-    OUTLINED_FUNCTION_535();
-
-    return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-  }
-
-  else
-  {
-    v13 = *(v3 + 120);
-
-    v14 = *(v7 + 8);
-    OUTLINED_FUNCTION_482();
-    OUTLINED_FUNCTION_535();
-
-    return v18(v15, v16, v17, v18, v19, v20, v21, v22);
-  }
-}
-
-uint64_t sub_1D850FC18()
-{
-  OUTLINED_FUNCTION_174();
-  v2 = v0[15];
-  v1 = v0[16];
-  v3 = v0[13];
-  v4 = v0[14];
-
-  v5 = OUTLINED_FUNCTION_74();
-  v6(v5);
-  OUTLINED_FUNCTION_331();
-
-  v7 = v0[18];
-  v8 = v0[15];
-
-  OUTLINED_FUNCTION_146();
-
-  return v9();
-}
-
-uint64_t sub_1D850FCAC()
-{
-  OUTLINED_FUNCTION_148();
-  v1 = *(v0 + 160);
-  v2 = *(v0 + 120);
-
-  OUTLINED_FUNCTION_146();
-
-  return v3();
-}
-
-uint64_t sub_1D850FD08(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
-{
-  *(v5 + 16) = a3;
-  v6 = *a4;
-  v7 = *a5;
-  v8 = a5[1];
-  v9 = swift_task_alloc();
-  *(v5 + 24) = v9;
-  *v9 = v5;
-  v9[1] = sub_1D850FDBC;
-
-  return DistributedGameServicesDebuggerProtocol<>.getServiceVersion()();
-}
-
-uint64_t sub_1D850FDBC()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  v2 = *(v1 + 24);
-  v3 = *(v1 + 16);
-  v8 = *v0;
-  *v3 = v4;
-  v3[1] = v5;
-
-  OUTLINED_FUNCTION_146();
-
-  return v6();
-}
-
-uint64_t GameLockup.name.getter()
-{
-  v1 = *v0;
-  v2 = v0[1];
-
-  return OUTLINED_FUNCTION_194();
-}
-
-uint64_t GameLockup.shortName.getter()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-
-  return OUTLINED_FUNCTION_194();
-}
-
-uint64_t GameLockup.artwork.getter@<X0>(void *a1@<X8>)
-{
-  memcpy(__dst, (v1 + 48), 0x70uLL);
-  memcpy(a1, (v1 + 48), 0x70uLL);
-  return sub_1D8511308(__dst, v4, &qword_1ECA39200, &qword_1D859A990);
-}
-
-uint64_t GameLockup.rawResponse.getter()
-{
-  v1 = *(v0 + 160);
-  v2 = *(v0 + 168);
-
-  return OUTLINED_FUNCTION_194();
-}
-
-void *GameLockup.init(name:shortName:ref:artwork:rawResponse:)@<X0>(void *__src@<X5>, uint64_t a2@<X0>, uint64_t a3@<X1>, uint64_t a4@<X2>, uint64_t a5@<X3>, uint64_t *a6@<X4>, uint64_t a7@<X6>, uint64_t a8@<X7>, void *a9@<X8>)
-{
-  v12 = *a6;
-  v13 = a6[1];
-  *a9 = a2;
-  a9[1] = a3;
-  a9[2] = a4;
-  a9[3] = a5;
-  a9[4] = v12;
-  a9[5] = v13;
-  result = memcpy(a9 + 6, __src, 0x70uLL);
-  a9[20] = a7;
-  a9[21] = a8;
-  return result;
-}
-
-uint64_t static GameLockup.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
-{
-  v4 = *a1;
-  v5 = a1[1];
-  v6 = a1[2];
-  v7 = a1[3];
-  v101 = a1[5];
-  v106 = a1[4];
-  memcpy(__dst, a1 + 6, sizeof(__dst));
-  v76 = a1[20];
-  v8 = *a2;
-  v9 = a2[1];
-  v11 = a2[2];
-  v10 = a2[3];
-  v96 = a2[4];
-  v86 = a1[21];
-  v91 = a2[5];
-  memcpy(v118, a2 + 6, 0x70uLL);
-  v71 = a2[20];
-  v81 = a2[21];
-  if (v4 != v8 || v5 != v9)
-  {
-    OUTLINED_FUNCTION_258();
-    if ((sub_1D8581AB8() & 1) == 0)
-    {
-      return 0;
-    }
-  }
-
-  if (v7)
-  {
-    if (!v10)
-    {
-      return 0;
-    }
-
-    v13 = v6 == v11 && v7 == v10;
-    if (!v13 && (sub_1D8581AB8() & 1) == 0)
-    {
-      return 0;
-    }
-  }
-
-  else if (v10)
-  {
-    return 0;
-  }
-
-  if ((sub_1D8510440() & 1) == 0)
-  {
-    return 0;
-  }
-
-  v14 = __dst[0];
-  v15 = __dst[1];
-  v17 = v118[0];
-  v16 = v118[1];
-  if (__dst[1])
-  {
-    __src[0] = __dst[0];
-    __src[1] = __dst[1];
-    OUTLINED_FUNCTION_405_0();
-    memcpy(v114, __src, sizeof(v114));
-    if (v16)
-    {
-      memcpy(&v113[2], a2 + 8, 0x60uLL);
-      v113[0] = v17;
-      v113[1] = v16;
-      OUTLINED_FUNCTION_352_0(__dst, v18, v19, v20, v21, v22, v23, v24, v66, v71, v76, v81, v86, v91, v96, v101, v106, v111[0], v111[1], v111[2], v111[3], v111[4], v111[5], v111[6], v111[7], v111[8], v111[9], v111[10], v111[11], v111[12], v111[13], v112[0]);
-      OUTLINED_FUNCTION_352_0(v118, v25, v26, v27, v28, v29, v30, v31, v67, v72, v77, v82, v87, v92, v97, v102, v107, v111[0], v111[1], v111[2], v111[3], v111[4], v111[5], v111[6], v111[7], v111[8], v111[9], v111[10], v111[11], v111[12], v111[13], v112[0]);
-      OUTLINED_FUNCTION_352_0(__src, v32, v33, v34, v35, v36, v37, v38, v68, v73, v78, v83, v88, v93, v98, v103, v108, v111[0], v111[1], v111[2], v111[3], v111[4], v111[5], v111[6], v111[7], v111[8], v111[9], v111[10], v111[11], v111[12], v111[13], v112[0]);
-      sub_1D847B878();
-      v39 = sub_1D8581208();
-      memcpy(v111, v113, sizeof(v111));
-      sub_1D847B824(v111);
-      memcpy(v112, v114, sizeof(v112));
-      sub_1D847B824(v112);
-      v113[0] = v14;
-      v113[1] = v15;
-      memcpy(&v113[2], a1 + 8, 0x60uLL);
-      OUTLINED_FUNCTION_164();
-      sub_1D84F589C(v40, v41, v42);
-      if ((v39 & 1) == 0)
-      {
-        return 0;
-      }
-
-      goto LABEL_27;
-    }
-
-    memcpy(v113, __src, sizeof(v113));
-    OUTLINED_FUNCTION_351_1(__dst, v43, v44, v45, v46, v47, v48, v49, v66, v71, v76, v81, v86, v91, v96, v101, v106, v111[0], v111[1], v111[2], v111[3], v111[4], v111[5], v111[6], v111[7], v111[8], v111[9], v111[10], v111[11], v111[12], v111[13], v112[0]);
-    OUTLINED_FUNCTION_351_1(v118, v50, v51, v52, v53, v54, v55, v56, v69, v74, v79, v84, v89, v94, v99, v104, v109, v111[0], v111[1], v111[2], v111[3], v111[4], v111[5], v111[6], v111[7], v111[8], v111[9], v111[10], v111[11], v111[12], v111[13], v112[0]);
-    OUTLINED_FUNCTION_351_1(__src, v57, v58, v59, v60, v61, v62, v63, v70, v75, v80, v85, v90, v95, v100, v105, v110, v111[0], v111[1], v111[2], v111[3], v111[4], v111[5], v111[6], v111[7], v111[8], v111[9], v111[10], v111[11], v111[12], v111[13], v112[0]);
-    sub_1D847B824(v113);
-LABEL_23:
-    __src[0] = v14;
-    __src[1] = v15;
-    memcpy(&__src[2], a1 + 8, 0x60uLL);
-    __src[14] = v17;
-    __src[15] = v16;
-    memcpy(v116, a2 + 8, sizeof(v116));
-    sub_1D84F589C(__src, &qword_1ECA39210, &qword_1D859A9A0);
-    return 0;
-  }
-
-  if (v118[1])
-  {
-    sub_1D8511308(__dst, __src, &qword_1ECA39200, &qword_1D859A990);
-    sub_1D8511308(v118, __src, &qword_1ECA39200, &qword_1D859A990);
-    goto LABEL_23;
-  }
-
-  __src[0] = __dst[0];
-  __src[1] = 0;
-  OUTLINED_FUNCTION_405_0();
-  sub_1D8511308(__dst, v114, &qword_1ECA39200, &qword_1D859A990);
-  sub_1D8511308(v118, v114, &qword_1ECA39200, &qword_1D859A990);
-  sub_1D84F589C(__src, &qword_1ECA39200, &qword_1D859A990);
-LABEL_27:
-  if (v86)
-  {
-    if (v81)
-    {
-      v65 = v76 == v71 && v86 == v81;
-      if (v65 || (sub_1D8581AB8() & 1) != 0)
-      {
-        return 1;
-      }
-    }
-  }
-
-  else if (!v81)
-  {
-    return 1;
-  }
-
-  return 0;
-}
-
-uint64_t sub_1D8510440()
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38B38, &qword_1D85981B0);
-  sub_1D848211C(&unk_1ECA394D0);
-  sub_1D85813D8();
-  sub_1D85813D8();
-  if (v5 == v3 && v6 == v4)
-  {
-    v1 = 1;
-  }
-
-  else
-  {
-    v1 = sub_1D8581AB8();
-  }
-
-  return v1 & 1;
-}
-
-uint64_t sub_1D851052C(uint64_t a1, uint64_t a2)
-{
-  v3 = a1 == 1701667182 && a2 == 0xE400000000000000;
-  if (v3 || (OUTLINED_FUNCTION_7() & 1) != 0)
-  {
-
-    return 0;
-  }
-
-  else
-  {
-    v6 = a1 == 0x6D614E74726F6873 && a2 == 0xE900000000000065;
-    if (v6 || (OUTLINED_FUNCTION_7() & 1) != 0)
-    {
-
-      return 1;
-    }
-
-    else
-    {
-      v7 = a1 == 6710642 && a2 == 0xE300000000000000;
-      if (v7 || (OUTLINED_FUNCTION_7() & 1) != 0)
-      {
-
-        return 2;
-      }
-
-      else
-      {
-        v8 = a1 == 0x6B726F77747261 && a2 == 0xE700000000000000;
-        if (v8 || (OUTLINED_FUNCTION_7() & 1) != 0)
-        {
-
-          return 3;
-        }
-
-        else if (a1 == OUTLINED_FUNCTION_356_1() && a2 == v9)
-        {
-
-          return 4;
-        }
-
-        else
-        {
-          v11 = OUTLINED_FUNCTION_7();
-
-          if (v11)
-          {
-            return 4;
-          }
-
-          else
-          {
-            return 5;
-          }
-        }
-      }
-    }
-  }
-}
-
-uint64_t sub_1D8510684(char a1)
-{
-  result = 1701667182;
-  switch(a1)
-  {
-    case 1:
-      result = 0x6D614E74726F6873;
-      break;
-    case 2:
-      result = 6710642;
-      break;
-    case 3:
-      result = 0x6B726F77747261;
-      break;
-    case 4:
-      result = OUTLINED_FUNCTION_356_1();
-      break;
-    default:
-      return result;
-  }
-
-  return result;
-}
-
-uint64_t sub_1D851071C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
-{
-  result = sub_1D851052C(a1, a2);
-  *a3 = result;
-  return result;
-}
-
-uint64_t sub_1D8510750(uint64_t a1)
-{
-  v2 = sub_1D8510AC4();
-
-  return MEMORY[0x1EEE6BB70](a1, v2);
-}
-
-uint64_t sub_1D851078C(uint64_t a1)
-{
-  v2 = sub_1D8510AC4();
-
-  return MEMORY[0x1EEE6BB78](a1, v2);
-}
-
-uint64_t GameLockup.encode(to:)(void *a1)
-{
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A2C0, &qword_1D859F3F0);
-  v4 = OUTLINED_FUNCTION_1(v3);
-  v6 = v5;
-  v8 = *(v7 + 64);
-  MEMORY[0x1EEE9AC00](v4);
-  v9 = *v1;
-  v25 = v1[2];
-  v26 = v1[1];
-  v23 = v1[4];
-  v24 = v1[3];
-  v22 = v1[5];
-  memcpy(__dst, v1 + 6, 0x70uLL);
-  v20 = v1[21];
-  v21 = v1[20];
-  v10 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  sub_1D8510AC4();
-  sub_1D8581BB8();
-  LOBYTE(v28[0]) = 0;
-  v11 = v30;
-  sub_1D8581A08();
-  if (v11)
-  {
-    v12 = *(v6 + 8);
-    v13 = OUTLINED_FUNCTION_238();
-    return v14(v13);
-  }
-
-  else
-  {
-    sub_1D8581998();
-    v28[0] = v23;
-    v28[1] = v22;
-    v27[0] = 2;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38B38, &qword_1D85981B0);
-    OUTLINED_FUNCTION_4();
-    sub_1D848211C(v16);
-    sub_1D8581A58();
-
-    OUTLINED_FUNCTION_530(v28);
-    v27[119] = 3;
-    sub_1D8511308(__dst, v27, &qword_1ECA39200, &qword_1D859A990);
-    sub_1D847B920();
-    sub_1D85819E8();
-    memcpy(v27, v28, 0x70uLL);
-    sub_1D84F589C(v27, &qword_1ECA39200, &qword_1D859A990);
-    sub_1D8581998();
-    v17 = *(v6 + 8);
-    v18 = OUTLINED_FUNCTION_238();
-    return v19(v18);
-  }
-}
-
-unint64_t sub_1D8510AC4()
-{
-  result = qword_1ECA4DE40[0];
-  if (!qword_1ECA4DE40[0])
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, qword_1ECA4DE40);
-  }
-
-  return result;
-}
-
-uint64_t GameLockup.hash(into:)()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  v6 = v0[4];
-  v5 = v0[5];
-  v7 = v0[6];
-  v8 = v0[7];
-  v9 = v0[21];
-  v11 = v0[20];
-  sub_1D85812B8();
-  sub_1D8581B78();
-  if (v4)
-  {
-    sub_1D85812B8();
-  }
-
-  __dst[0] = v6;
-  __dst[1] = v5;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38B38, &qword_1D85981B0);
-  OUTLINED_FUNCTION_358_1(&unk_1ECA38B58);
-  sub_1D85811E8();
-  if (v8)
-  {
-    memcpy(&__src[2], v0 + 8, 0x60uLL);
-    __src[0] = v7;
-    __src[1] = v8;
-    sub_1D8581B78();
-    v13[0] = v7;
-    v13[1] = v8;
-    memcpy(v14, v0 + 8, sizeof(v14));
-    sub_1D847BC2C(v13, __dst);
-    sub_1D847BC88();
-    sub_1D85811E8();
-    memcpy(__dst, __src, 0x70uLL);
-    sub_1D847B824(__dst);
-    if (v9)
-    {
-LABEL_5:
-      sub_1D8581B78();
-      return sub_1D85812B8();
-    }
-  }
-
-  else
-  {
-    sub_1D8581B78();
-    if (v9)
-    {
-      goto LABEL_5;
-    }
-  }
-
-  return sub_1D8581B78();
-}
-
-uint64_t GameLockup.hashValue.getter()
-{
-  sub_1D8581B58();
-  GameLockup.hash(into:)();
-  return sub_1D8581B98();
-}
-
-uint64_t GameLockup.init(from:)@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
-{
-  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A2C8, &qword_1D859F3F8);
-  v5 = OUTLINED_FUNCTION_1(v25);
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](v5);
-  v8 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  sub_1D8510AC4();
-  sub_1D8581BA8();
-  if (v2)
-  {
-    return __swift_destroy_boxed_opaque_existential_1(a1);
-  }
-
-  OUTLINED_FUNCTION_376_1();
-  v22 = sub_1D8581908();
-  v24 = v9;
-  LOBYTE(v27) = 1;
-  OUTLINED_FUNCTION_376_1();
-  v10 = sub_1D8581898();
-  v23 = v11;
-  v21 = v10;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38B38, &qword_1D85981B0);
-  LOBYTE(v26[0]) = 2;
-  OUTLINED_FUNCTION_3();
-  sub_1D848211C(v12);
-  sub_1D8581958();
-  v13 = v27;
-  v14 = v28;
-  __dst[135] = 3;
-  sub_1D847BCDC();
-  OUTLINED_FUNCTION_376_1();
-  sub_1D85818E8();
-  memcpy(__dst, v34, 0x70uLL);
-  __dst[134] = 4;
-  OUTLINED_FUNCTION_376_1();
-  v15 = sub_1D8581898();
-  v16 = OUTLINED_FUNCTION_227_1();
-  v18 = v17;
-  v19(v16, v25);
-  v26[0] = v22;
-  v26[1] = v24;
-  v26[2] = v21;
-  v26[3] = v23;
-  v26[4] = v13;
-  v26[5] = v14;
-  OUTLINED_FUNCTION_530(&v26[6]);
-  v26[20] = v15;
-  v26[21] = v18;
-  memcpy(a2, v26, 0xB0uLL);
-  sub_1D8511160(v26, &v27);
-  __swift_destroy_boxed_opaque_existential_1(a1);
-  v27 = v22;
-  v28 = v24;
-  v29 = v21;
-  v30 = v23;
-  v31 = v13;
-  v32 = v14;
-  OUTLINED_FUNCTION_530(v33);
-  v33[14] = v15;
-  v33[15] = v18;
-  return sub_1D8511198(&v27);
-}
-
-uint64_t sub_1D8511124()
-{
-  sub_1D8581B58();
-  GameLockup.hash(into:)();
-  return sub_1D8581B98();
-}
-
-uint64_t sub_1D85111C8()
-{
-  v0 = sub_1D857D550();
-  v2 = *v0;
-  v1 = v0[1];
-  qword_1EE0E1208 = v2;
-  unk_1EE0E1210 = v1;
-}
-
-uint64_t *sub_1D8511200()
-{
-  if (_MergedGlobals_0 != -1)
-  {
-    OUTLINED_FUNCTION_251_0();
-  }
-
-  return &qword_1EE0E1208;
-}
-
-uint64_t static GameDebuggerServiceWorkaround.actorID.getter@<X0>(void *a1@<X8>)
-{
-  if (_MergedGlobals_0 != -1)
-  {
-    OUTLINED_FUNCTION_251_0();
-  }
-
-  v2 = unk_1EE0E1210;
-  *a1 = qword_1EE0E1208;
-  a1[1] = v2;
-}
-
-double sub_1D85112A0@<D0>(uint64_t a1@<X8>)
-{
-  *(a1 + 32) = 0;
-  result = 0.0;
-  *a1 = 0u;
-  *(a1 + 16) = 0u;
-  return result;
-}
-
-uint64_t sub_1D8511308(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
-{
-  v5 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(a3, a4) - 8) + 16);
-  v6 = OUTLINED_FUNCTION_194();
-  v7(v6);
-  return a2;
-}
-
-uint64_t sub_1D851136C(uint64_t a1)
-{
-  swift_beginAccess();
-  sub_1D85113BC(a1, v1 + 136);
-  return swift_endAccess();
-}
-
-uint64_t sub_1D85113BC(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A2D0, &qword_1D859F400);
-  (*(*(v4 - 8) + 40))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t GameDebuggerServiceWorkaround.__allocating_init(actorSystem:delegate:)()
-{
-  v0 = swift_allocObject();
-  v1 = OUTLINED_FUNCTION_506();
-  GameDebuggerServiceWorkaround.init(actorSystem:delegate:)(v1, v2);
-  return v0;
-}
-
-uint64_t GameDebuggerServiceWorkaround.init(actorSystem:delegate:)(uint64_t a1, uint64_t *a2)
-{
-  swift_defaultActor_initialize();
-  *(v2 + 168) = 0;
-  *(v2 + 152) = 0u;
-  *(v2 + 136) = 0u;
-  *(v2 + 128) = a1;
-  type metadata accessor for GameDebuggerServiceWorkaround();
-  type metadata accessor for GameServicesActorSystem(0);
-  OUTLINED_FUNCTION_21_3();
-  sub_1D8526788(v5);
-  OUTLINED_FUNCTION_1_3();
-  sub_1D8526788(v6);
-
-  OUTLINED_FUNCTION_382_1();
-  sub_1D8580F58();
-  v7 = v9[1];
-  *(v2 + 112) = v9[0];
-  *(v2 + 120) = v7;
-  sub_1D84EB9C4(a2, v9);
-  swift_beginAccess();
-  sub_1D85113BC(v9, v2 + 136);
-  swift_endAccess();
-  v9[0] = *(v2 + 128);
-
-  OUTLINED_FUNCTION_382_1();
-  sub_1D8580F38();
-
-  __swift_destroy_boxed_opaque_existential_1(a2);
-
-  return v2;
-}
-
-uint64_t GameDebuggerServiceWorkaround.describeAchievements(_:)()
-{
-  OUTLINED_FUNCTION_148();
-  v2 = OUTLINED_FUNCTION_311_1(v1);
-  v0[9] = v2;
-  OUTLINED_FUNCTION_39(v2);
-  v0[10] = v3;
-  v5 = *(v4 + 64);
-  v0[11] = OUTLINED_FUNCTION_332();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39500, &unk_1D8595FD0);
-  OUTLINED_FUNCTION_38_0(v6);
-  v0[13] = v7;
-  v9 = *(v8 + 64);
-  v0[14] = OUTLINED_FUNCTION_332();
-  v10 = OUTLINED_FUNCTION_64_0();
-
-  return MEMORY[0x1EEE6DFA0](v10, v11, v12);
-}
-
-uint64_t sub_1D8511750(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
-{
-  OUTLINED_FUNCTION_196_0();
-  OUTLINED_FUNCTION_177();
-  v14 = v13[8];
-  if (swift_distributed_actor_is_remote())
-  {
-    OUTLINED_FUNCTION_98_1();
-    OUTLINED_FUNCTION_185_2();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39508, &unk_1D85A4F80);
-    OUTLINED_FUNCTION_11_2();
-    OUTLINED_FUNCTION_285_0();
-    sub_1D8484CB0();
-    sub_1D8484D60();
-    OUTLINED_FUNCTION_37_0();
-    if (v12)
-    {
-      goto LABEL_6;
-    }
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_76_1();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v15);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39538, &unk_1D8595FF0);
-    sub_1D8484E10();
-    sub_1D8484F6C();
-    OUTLINED_FUNCTION_41_1();
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v16)
-    {
-LABEL_6:
-      v17 = OUTLINED_FUNCTION_116_0();
-      v18(v17);
-      OUTLINED_FUNCTION_331();
-
-      OUTLINED_FUNCTION_191_2();
-
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_170_1();
-
-      return v20(v19, v20, v21, v22, v23, v24, v25, v26, a9, a10, a11, a12);
-    }
-
-    else
-    {
-      v33 = v13[11];
-      OUTLINED_FUNCTION_184_0();
-      sub_1D8581028();
-      v34 = swift_task_alloc();
-      OUTLINED_FUNCTION_309_2(v34);
-      OUTLINED_FUNCTION_1_3();
-      sub_1D8526788(v35);
-      OUTLINED_FUNCTION_98();
-      v13[2] = v36;
-      OUTLINED_FUNCTION_419();
-      OUTLINED_FUNCTION_2_4(v37);
-      OUTLINED_FUNCTION_143_0();
-
-      return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-    }
-  }
-
-  else
-  {
-    v28 = swift_task_alloc();
-    v29 = OUTLINED_FUNCTION_207_3(v28);
-    *v29 = v30;
-    OUTLINED_FUNCTION_33_1(v29);
-    OUTLINED_FUNCTION_170_1();
-
-    return sub_1D8511C38(v31);
-  }
-}
-
-uint64_t sub_1D85119A0()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  OUTLINED_FUNCTION_42();
-  *v3 = v2;
-  v5 = *(v4 + 120);
-  v6 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 128) = v0;
-
-  OUTLINED_FUNCTION_149();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-uint64_t sub_1D8511A98(uint64_t a1, uint64_t *a2, uint64_t a3)
-{
-  v3[2] = a3;
-  v4 = *a2;
-  v3[3] = *a2;
-  v5 = *(v4 - 8);
-  v3[4] = v5;
-  v6 = *(v5 + 64) + 15;
-  v7 = swift_task_alloc();
-  v3[5] = v7;
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-    __break(1u);
-    goto LABEL_7;
-  }
-
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_7:
-    __break(1u);
-    return result;
-  }
-
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v9 = *v7;
-  v10 = swift_task_alloc();
-  v3[6] = v10;
-  *v10 = v3;
-  v10[1] = sub_1D84A7CD8;
-
-  return GameDebuggerServiceWorkaround.describeAchievements(_:)();
-}
-
-uint64_t sub_1D8511C38(uint64_t a1)
-{
-  *(v2 + 96) = a1;
-  *(v2 + 104) = v1;
-  return OUTLINED_FUNCTION_10_4(a1, v1);
-}
-
-uint64_t sub_1D8511C50()
-{
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_90_1();
-  (*(v1 + 112))();
-  if (*(v0 + 40))
-  {
-    OUTLINED_FUNCTION_281_1();
-    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
-    v2 = *(OUTLINED_FUNCTION_14_3() + 8);
-    OUTLINED_FUNCTION_54();
-    v13 = v3 + *v3;
-    v5 = *(v4 + 4);
-    v6 = swift_task_alloc();
-    v7 = OUTLINED_FUNCTION_212_3(v6);
-    *v7 = v8;
-    v9 = OUTLINED_FUNCTION_9_2(v7);
-
-    return v10(v9);
-  }
-
-  else
-  {
-    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
-    OUTLINED_FUNCTION_69_2();
-
-    return v12(&unk_1F5394770);
-  }
-}
-
-uint64_t sub_1D8511DDC()
-{
-  OUTLINED_FUNCTION_536();
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_95_2();
-  OUTLINED_FUNCTION_37();
-  *v4 = v3;
-  v5 = v3[14];
-  *v4 = *v2;
-  v3[15] = v0;
-
-  OUTLINED_FUNCTION_214_3();
-  v7 = *(v6 + 104);
-  if (!v0)
-  {
-    v3[16] = v1;
-  }
-
-  OUTLINED_FUNCTION_184_2();
-  OUTLINED_FUNCTION_535();
-
-  return MEMORY[0x1EEE6DFA0](v8, v9, v10);
-}
-
-uint64_t GameDebuggerServiceWorkaround.listAchievements(games:after:)()
-{
-  OUTLINED_FUNCTION_148();
-  v3 = v2;
-  *(v1 + 88) = v4;
-  *(v1 + 96) = v0;
-  v5 = sub_1D8581018();
-  *(v1 + 104) = v5;
-  OUTLINED_FUNCTION_39(v5);
-  *(v1 + 112) = v6;
-  v8 = *(v7 + 64);
-  *(v1 + 120) = OUTLINED_FUNCTION_332();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38CB0, &unk_1D8590C60);
-  *(v1 + 128) = v9;
-  OUTLINED_FUNCTION_39(v9);
-  *(v1 + 136) = v10;
-  v12 = *(v11 + 64);
-  *(v1 + 144) = OUTLINED_FUNCTION_332();
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39578, &unk_1D85981A0);
-  *(v1 + 152) = v13;
-  OUTLINED_FUNCTION_39(v13);
-  *(v1 + 160) = v14;
-  v16 = *(v15 + 64);
-  *(v1 + 168) = OUTLINED_FUNCTION_332();
-  *(v1 + 176) = *v3;
-  v17 = OUTLINED_FUNCTION_64_0();
-
-  return MEMORY[0x1EEE6DFA0](v17, v18, v19);
-}
-
-uint64_t sub_1D8512054(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
-{
-  OUTLINED_FUNCTION_196_0();
-  OUTLINED_FUNCTION_177();
-  v13 = *(v12 + 96);
-  if (swift_distributed_actor_is_remote())
-  {
-    v14 = *(v12 + 168);
-    v15 = *(v12 + 88);
-    OUTLINED_FUNCTION_169_2(*(v12 + 96));
-    *(v12 + 72) = v15;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA392E0, &qword_1D8591020);
-    OUTLINED_FUNCTION_122_1();
-    OUTLINED_FUNCTION_100_1();
-    OUTLINED_FUNCTION_285_0();
-    sub_1D847C154();
-    sub_1D847C0A4();
-    OUTLINED_FUNCTION_37_0();
-    if (v14)
-    {
-      (*(*(v12 + 160) + 8))(*(v12 + 168), *(v12 + 152));
-LABEL_12:
-      OUTLINED_FUNCTION_331();
-
-      OUTLINED_FUNCTION_266_0();
-
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_170_1();
-
-      return v31(v30, v31, v32, v33, v34, v35, v36, v37, a9, a10, a11, a12);
-    }
-
-    v22 = *(v12 + 184);
-    v23 = *(v12 + 144);
-    *(v12 + 56) = *(v12 + 176);
-    *(v12 + 64) = v22;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38CB8, &unk_1D8596010);
-    OUTLINED_FUNCTION_26_1();
-    OUTLINED_FUNCTION_254_1();
-    sub_1D8581038();
-    sub_1D84751F0();
-    sub_1D8475274();
-    OUTLINED_FUNCTION_75_0();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_76_1();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v24);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39580, &unk_1D85A4FB0);
-    sub_1D8486070();
-    sub_1D8486120();
-    OUTLINED_FUNCTION_41_1();
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v25)
-    {
-      v26 = OUTLINED_FUNCTION_372_0();
-      v27(v26);
-      v28 = OUTLINED_FUNCTION_121_2();
-      v29(v28);
-      goto LABEL_12;
-    }
-
-    v38 = *(v12 + 120);
-    OUTLINED_FUNCTION_184_0();
-    sub_1D8581028();
-    v39 = swift_task_alloc();
-    OUTLINED_FUNCTION_396(v39);
-    type metadata accessor for GameDebuggerServiceWorkaround();
-    OUTLINED_FUNCTION_1_3();
-    sub_1D8526788(v40);
-    OUTLINED_FUNCTION_98();
-    *(v12 + 16) = v41;
-    OUTLINED_FUNCTION_258_2();
-    OUTLINED_FUNCTION_2_4(v42);
-    OUTLINED_FUNCTION_143_0();
-
-    return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-  }
-
-  else
-  {
-    *(v12 + 40) = *(v12 + 176);
-    v16 = swift_task_alloc();
-    *(v12 + 208) = v16;
-    *v16 = v12;
-    v16[1] = sub_1D8512514;
-    v17 = *(v12 + 96);
-    OUTLINED_FUNCTION_81_2(*(v12 + 88));
-    OUTLINED_FUNCTION_170_1();
-
-    return sub_1D8512A30(v18, v19);
-  }
-}
-
-uint64_t sub_1D851235C()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  OUTLINED_FUNCTION_42();
-  *v3 = v2;
-  v5 = *(v4 + 192);
-  v6 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 200) = v0;
-
-  OUTLINED_FUNCTION_149();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-uint64_t sub_1D8512454()
-{
-  OUTLINED_FUNCTION_537();
-  OUTLINED_FUNCTION_204();
-  v2 = v0[20];
-  v1 = v0[21];
-  v4 = v0[18];
-  v3 = v0[19];
-  v5 = v0[16];
-  v6 = v0[17];
-  v7 = OUTLINED_FUNCTION_246_2();
-  v8(v7);
-  v9 = OUTLINED_FUNCTION_77();
-  v10(v9);
-  v11 = OUTLINED_FUNCTION_80();
-  v12(v11);
-  OUTLINED_FUNCTION_331();
-
-  v13 = v0[10];
-  OUTLINED_FUNCTION_389();
-
-  OUTLINED_FUNCTION_72();
-  OUTLINED_FUNCTION_511();
-
-  return v16(v14, v15, v16, v17, v18, v19, v20, v21);
-}
-
-uint64_t sub_1D8512514()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_95();
-  v3 = v2;
-  OUTLINED_FUNCTION_62();
-  *v4 = v3;
-  v6 = *(v5 + 208);
-  v7 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v8 = v7;
-  v3[27] = v0;
-
-  if (v0)
-  {
-    OUTLINED_FUNCTION_149();
-
-    return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-  }
-
-  else
-  {
-    v12 = v3[21];
-    v13 = v3[18];
-    v14 = v3[15];
-
-    v15 = OUTLINED_FUNCTION_56_0();
-
-    return v16(v15);
-  }
-}
-
-uint64_t sub_1D8512654()
-{
-  OUTLINED_FUNCTION_537();
-  OUTLINED_FUNCTION_204();
-  v2 = v0[20];
-  v1 = v0[21];
-  v4 = v0[18];
-  v3 = v0[19];
-  v5 = v0[16];
-  v6 = v0[17];
-  v7 = OUTLINED_FUNCTION_246_2();
-  v8(v7);
-  v9 = OUTLINED_FUNCTION_77();
-  v10(v9);
-  v11 = OUTLINED_FUNCTION_80();
-  v12(v11);
-  OUTLINED_FUNCTION_331();
-
-  v13 = v0[25];
-  OUTLINED_FUNCTION_389();
-
-  OUTLINED_FUNCTION_146();
-  OUTLINED_FUNCTION_511();
-
-  return v15(v14, v15, v16, v17, v18, v19, v20, v21);
-}
-
-uint64_t sub_1D8512714()
-{
-  OUTLINED_FUNCTION_174();
-  v1 = *(v0 + 216);
-  OUTLINED_FUNCTION_389();
-
-  OUTLINED_FUNCTION_146();
-
-  return v2();
-}
-
-uint64_t sub_1D8512784(uint64_t a1, uint64_t *a2, uint64_t a3)
-{
-  v3[2] = a3;
-  v5 = *a2;
-  v3[3] = *a2;
-  v6 = *(v5 - 8);
-  v3[4] = v6;
-  v7 = *(v6 + 64) + 15;
-  v8 = swift_task_alloc();
-  v3[5] = v8;
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-    __break(1u);
-    goto LABEL_9;
-  }
-
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_9:
-    __break(1u);
-    goto LABEL_10;
-  }
-
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v14 = *v8;
-  v10 = a2[1];
-  v3[6] = v10;
-  v11 = *(v10 - 8);
-  v3[7] = v11;
-  v12 = *(v11 + 64) + 15;
-  v3[8] = swift_task_alloc();
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_10:
-    __break(1u);
-    goto LABEL_11;
-  }
-
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_11:
-    __break(1u);
-    return result;
-  }
-
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v13 = swift_task_alloc();
-  v3[9] = v13;
-  *v13 = v3;
-  v13[1] = sub_1D852A37C;
-
-  return GameDebuggerServiceWorkaround.listAchievements(games:after:)();
-}
-
-uint64_t sub_1D8512A30(uint64_t a1, _OWORD *a2)
-{
-  *(v3 + 112) = a1;
-  *(v3 + 120) = v2;
-  *(v3 + 128) = *a2;
-  return OUTLINED_FUNCTION_12_2();
-}
-
-uint64_t sub_1D8512A4C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
-{
-  OUTLINED_FUNCTION_469();
-  OUTLINED_FUNCTION_219();
-  v11 = v10[15];
-  OUTLINED_FUNCTION_163_1();
-  (*(v12 + 112))();
-  if (v10[5])
-  {
-    v14 = v10[16];
-    v13 = v10[17];
-    OUTLINED_FUNCTION_281_1();
-    sub_1D84F589C((v10 + 2), &qword_1ECA3A2D0, &qword_1D859F400);
-    OUTLINED_FUNCTION_18_1();
-    v15 = *(OUTLINED_FUNCTION_369_1() + 16);
-    OUTLINED_FUNCTION_131();
-    v39 = v16 + *v16;
-    v18 = *(v17 + 4);
-    v19 = swift_task_alloc();
-    v20 = OUTLINED_FUNCTION_306_1(v19);
-    *v20 = v21;
-    v20[1] = sub_1D8512BF0;
-    OUTLINED_FUNCTION_207_0(v10[14]);
-    OUTLINED_FUNCTION_383_1();
-    OUTLINED_FUNCTION_239_1();
-
-    return v26(v22, v23, v24, v25, v26, v27, v28, v29, a9, v39);
-  }
-
-  else
-  {
-    sub_1D84F589C((v10 + 2), &qword_1ECA3A2D0, &qword_1D859F400);
-    OUTLINED_FUNCTION_69_2();
-    OUTLINED_FUNCTION_239_1();
-
-    return v33(v31, v32, v33, v34, v35, v36, v37, v38, a9, a10);
-  }
-}
-
-uint64_t sub_1D8512BF0()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_95();
-  v4 = v3;
-  OUTLINED_FUNCTION_62();
-  *v5 = v4;
-  v7 = *(v6 + 144);
-  v8 = *v2;
-  OUTLINED_FUNCTION_37();
-  *v9 = v8;
-  v4[19] = v0;
-
-  v10 = v4[15];
-  if (!v0)
-  {
-    v4[20] = v1;
-  }
-
-  OUTLINED_FUNCTION_184_2();
-
-  return MEMORY[0x1EEE6DFA0](v11, v12, v13);
-}
-
-uint64_t sub_1D8512CFC()
-{
-  OUTLINED_FUNCTION_148();
-  __swift_destroy_boxed_opaque_existential_1((v0 + 56));
-  v1 = *(v0 + 160);
-  OUTLINED_FUNCTION_69_2();
-
-  return v2();
-}
-
-uint64_t sub_1D8512D5C()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_93_0();
-  v2 = *(v0 + 152);
-
-  return v1();
-}
-
-uint64_t GameDebuggerServiceWorkaround.getAchievementsProgresses(_:player:)()
-{
-  OUTLINED_FUNCTION_148();
-  v3 = v2;
-  v1[11] = v4;
-  v1[12] = v0;
-  v5 = sub_1D8581018();
-  v1[13] = v5;
-  OUTLINED_FUNCTION_39(v5);
-  v1[14] = v6;
-  v8 = *(v7 + 64);
-  v1[15] = OUTLINED_FUNCTION_332();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38DB0, &qword_1D8590D00);
-  v1[16] = v9;
-  OUTLINED_FUNCTION_39(v9);
-  v1[17] = v10;
-  v12 = *(v11 + 64);
-  v1[18] = OUTLINED_FUNCTION_332();
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39500, &unk_1D8595FD0);
-  v1[19] = v13;
-  OUTLINED_FUNCTION_39(v13);
-  v1[20] = v14;
-  v16 = *(v15 + 64);
-  v17 = OUTLINED_FUNCTION_332();
-  v18 = *v3;
-  v19 = v3[1];
-  v1[21] = v17;
-  v1[22] = v18;
-  v1[23] = v19;
-  v20 = OUTLINED_FUNCTION_64_0();
-
-  return MEMORY[0x1EEE6DFA0](v20, v21, v22);
-}
-
-uint64_t sub_1D8512F10(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
-{
-  OUTLINED_FUNCTION_196_0();
-  OUTLINED_FUNCTION_177();
-  v13 = v12[12];
-  if (swift_distributed_actor_is_remote())
-  {
-    v14 = v12[21];
-    v15 = v12[11];
-    OUTLINED_FUNCTION_169_2(v12[12]);
-    v12[9] = v15;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39508, &unk_1D85A4F80);
-    OUTLINED_FUNCTION_11_2();
-    OUTLINED_FUNCTION_285_0();
-    sub_1D8484CB0();
-    sub_1D8484D60();
-    OUTLINED_FUNCTION_37_0();
-    if (v14)
-    {
-      (*(v12[20] + 8))(v12[21], v12[19]);
-LABEL_12:
-      OUTLINED_FUNCTION_331();
-
-      OUTLINED_FUNCTION_266_0();
-
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_170_1();
-
-      return v36(v35, v36, v37, v38, v39, v40, v41, v42, a9, a10, a11, a12);
-    }
-
-    v23 = v12[23];
-    v24 = v12[18];
-    v12[7] = v12[22];
-    v12[8] = v23;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA389B8, &qword_1D8590B30);
-    OUTLINED_FUNCTION_70();
-    OUTLINED_FUNCTION_252();
-    OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_358_1(v25);
-    OUTLINED_FUNCTION_4();
-    OUTLINED_FUNCTION_358_1(v26);
-    OUTLINED_FUNCTION_164();
-    GameServicesActorSystem.JSONInvocationEncoder.recordArgument<A>(_:)(v27, v28);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_76_1();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v29);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA395B0, &qword_1D85A4FD0);
-    sub_1D8486FDC();
-    sub_1D8487094();
-    OUTLINED_FUNCTION_41_1();
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v30)
-    {
-      v31 = OUTLINED_FUNCTION_372_0();
-      v32(v31);
-      v33 = OUTLINED_FUNCTION_121_2();
-      v34(v33);
-      goto LABEL_12;
-    }
-
-    v43 = v12[15];
-    OUTLINED_FUNCTION_184_0();
-    sub_1D8581028();
-    v44 = swift_task_alloc();
-    OUTLINED_FUNCTION_396(v44);
-    type metadata accessor for GameDebuggerServiceWorkaround();
-    OUTLINED_FUNCTION_1_3();
-    sub_1D8526788(v45);
-    OUTLINED_FUNCTION_98();
-    v12[2] = v46;
-    OUTLINED_FUNCTION_258_2();
-    OUTLINED_FUNCTION_2_4(v47);
-    OUTLINED_FUNCTION_143_0();
-
-    return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-  }
-
-  else
-  {
-    v16 = v12[23];
-    v12[5] = v12[22];
-    v12[6] = v16;
-    v17 = swift_task_alloc();
-    v12[26] = v17;
-    *v17 = v12;
-    v17[1] = sub_1D8513340;
-    v18 = v12[12];
-    OUTLINED_FUNCTION_81_2(v12[11]);
-    OUTLINED_FUNCTION_170_1();
-
-    return sub_1D851372C(v19, v20);
-  }
-}
-
-uint64_t sub_1D8513248()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  OUTLINED_FUNCTION_42();
-  *v3 = v2;
-  v5 = *(v4 + 192);
-  v6 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 200) = v0;
-
-  OUTLINED_FUNCTION_149();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-uint64_t sub_1D8513340()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_95();
-  v3 = v2;
-  OUTLINED_FUNCTION_62();
-  *v4 = v3;
-  v6 = *(v5 + 208);
-  v7 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v8 = v7;
-  v3[27] = v0;
-
-  if (v0)
-  {
-    OUTLINED_FUNCTION_149();
-
-    return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-  }
-
-  else
-  {
-    v12 = v3[21];
-    v13 = v3[18];
-    v14 = v3[15];
-
-    v15 = OUTLINED_FUNCTION_56_0();
-
-    return v16(v15);
-  }
-}
-
-uint64_t sub_1D8513480(uint64_t a1, uint64_t *a2, uint64_t a3)
-{
-  v3[2] = a3;
-  v5 = *a2;
-  v3[3] = *a2;
-  v6 = *(v5 - 8);
-  v3[4] = v6;
-  v7 = *(v6 + 64) + 15;
-  v8 = swift_task_alloc();
-  v3[5] = v8;
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-    __break(1u);
-    goto LABEL_9;
-  }
-
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_9:
-    __break(1u);
-    goto LABEL_10;
-  }
-
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v14 = *v8;
-  v10 = a2[1];
-  v3[6] = v10;
-  v11 = *(v10 - 8);
-  v3[7] = v11;
-  v12 = *(v11 + 64) + 15;
-  v3[8] = swift_task_alloc();
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_10:
-    __break(1u);
-    goto LABEL_11;
-  }
-
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_11:
-    __break(1u);
-    return result;
-  }
-
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v13 = swift_task_alloc();
-  v3[9] = v13;
-  *v13 = v3;
-  v13[1] = sub_1D852A37C;
-
-  return GameDebuggerServiceWorkaround.getAchievementsProgresses(_:player:)();
-}
-
-uint64_t sub_1D851372C(uint64_t a1, void *a2)
-{
-  v3[14] = a1;
-  v3[15] = v2;
-  v4 = a2[1];
-  v3[16] = *a2;
-  v3[17] = v4;
-  return OUTLINED_FUNCTION_12_2();
-}
-
-uint64_t sub_1D8513748(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
-{
-  OUTLINED_FUNCTION_469();
-  OUTLINED_FUNCTION_219();
-  v11 = v10[15];
-  OUTLINED_FUNCTION_163_1();
-  (*(v12 + 112))();
-  if (v10[5])
-  {
-    v14 = v10[16];
-    v13 = v10[17];
-    OUTLINED_FUNCTION_281_1();
-    sub_1D84F589C((v10 + 2), &qword_1ECA3A2D0, &qword_1D859F400);
-    OUTLINED_FUNCTION_18_1();
-    v15 = *(OUTLINED_FUNCTION_369_1() + 24);
-    OUTLINED_FUNCTION_131();
-    v39 = v16 + *v16;
-    v18 = *(v17 + 4);
-    v19 = swift_task_alloc();
-    v20 = OUTLINED_FUNCTION_306_1(v19);
-    *v20 = v21;
-    v20[1] = sub_1D85138EC;
-    OUTLINED_FUNCTION_207_0(v10[14]);
-    OUTLINED_FUNCTION_383_1();
-    OUTLINED_FUNCTION_239_1();
-
-    return v26(v22, v23, v24, v25, v26, v27, v28, v29, a9, v39);
-  }
-
-  else
-  {
-    sub_1D84F589C((v10 + 2), &qword_1ECA3A2D0, &qword_1D859F400);
-    OUTLINED_FUNCTION_69_2();
-    OUTLINED_FUNCTION_239_1();
-
-    return v33(v31, v32, v33, v34, v35, v36, v37, v38, a9, a10);
-  }
-}
-
-uint64_t sub_1D85138EC()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_95();
-  v4 = v3;
-  OUTLINED_FUNCTION_62();
-  *v5 = v4;
-  v7 = *(v6 + 144);
-  v8 = *v2;
-  OUTLINED_FUNCTION_37();
-  *v9 = v8;
-  v4[19] = v0;
-
-  v10 = v4[15];
-  if (!v0)
-  {
-    v4[20] = v1;
-  }
-
-  OUTLINED_FUNCTION_184_2();
-
-  return MEMORY[0x1EEE6DFA0](v11, v12, v13);
-}
-
-uint64_t GameDebuggerServiceWorkaround.resetAchievementsProgress(_:players:)()
-{
-  OUTLINED_FUNCTION_148();
-  v3 = OUTLINED_FUNCTION_300_2(v1, v2);
-  v0[10] = v3;
-  OUTLINED_FUNCTION_39(v3);
-  v0[11] = v4;
-  v6 = *(v5 + 64);
-  v0[12] = OUTLINED_FUNCTION_332();
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38FE0, &qword_1D8590E40);
-  v0[13] = v7;
-  OUTLINED_FUNCTION_39(v7);
-  v0[14] = v8;
-  v10 = *(v9 + 64);
-  v0[15] = OUTLINED_FUNCTION_332();
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39500, &unk_1D8595FD0);
-  v0[16] = v11;
-  OUTLINED_FUNCTION_39(v11);
-  v0[17] = v12;
-  v14 = *(v13 + 64);
-  v0[18] = OUTLINED_FUNCTION_332();
-  v15 = OUTLINED_FUNCTION_64_0();
-
-  return MEMORY[0x1EEE6DFA0](v15, v16, v17);
-}
-
-uint64_t sub_1D8513B44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
-{
-  OUTLINED_FUNCTION_469();
-  OUTLINED_FUNCTION_219();
-  v11 = v10[9];
-  if (swift_distributed_actor_is_remote())
-  {
-    v12 = v10[18];
-    v13 = v10[7];
-    OUTLINED_FUNCTION_169_2(v10[9]);
-    OUTLINED_FUNCTION_185_2();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39508, &unk_1D85A4F80);
-    OUTLINED_FUNCTION_11_2();
-    OUTLINED_FUNCTION_285_0();
-    sub_1D8484CB0();
-    sub_1D8484D60();
-    OUTLINED_FUNCTION_37_0();
-    if (v12)
-    {
-      (*(v10[17] + 8))(v10[18], v10[16]);
-LABEL_11:
-      OUTLINED_FUNCTION_331();
-
-      OUTLINED_FUNCTION_231_0();
-      v28 = v10[12];
-
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_239_1();
-
-      return v30(v29, v30, v31, v32, v33, v34, v35, v36, a9, a10);
-    }
-
-    v21 = v10[15];
-    OUTLINED_FUNCTION_414_0();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38E10, &qword_1D8590D20);
-    OUTLINED_FUNCTION_51_4();
-    OUTLINED_FUNCTION_152_0();
-    sub_1D8581038();
-    sub_1D84769B4();
-    sub_1D8476AE8();
-    OUTLINED_FUNCTION_75_0();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_156();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v22);
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v23)
-    {
-      v24 = OUTLINED_FUNCTION_368_1();
-      v25(v24);
-      v26 = OUTLINED_FUNCTION_121_2();
-      v27(v26);
-      goto LABEL_11;
-    }
-
-    v37 = v10[12];
-    OUTLINED_FUNCTION_184_0();
-    sub_1D8581028();
-    v38 = swift_task_alloc();
-    v10[19] = v38;
-    type metadata accessor for GameDebuggerServiceWorkaround();
-    OUTLINED_FUNCTION_1_3();
-    sub_1D8526788(v39);
-    OUTLINED_FUNCTION_81();
-    *v38 = v40;
-    OUTLINED_FUNCTION_195_0();
-    OUTLINED_FUNCTION_31_2();
-    OUTLINED_FUNCTION_239_1();
-
-    return GameServicesActorSystem.remoteCallVoid<A, B>(on:target:invocation:throwing:)(v41, v42, v43, v44, v45, v46, v47);
-  }
-
-  else
-  {
-    v14 = swift_task_alloc();
-    v15 = OUTLINED_FUNCTION_213_1(v14);
-    *v15 = v16;
-    OUTLINED_FUNCTION_52_1(v15);
-    OUTLINED_FUNCTION_239_1();
-
-    return sub_1D85141A0(v17, v18);
-  }
-}
-
-uint64_t sub_1D8513DFC()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  OUTLINED_FUNCTION_42();
-  *v3 = v2;
-  v5 = *(v4 + 152);
-  v6 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 160) = v0;
-
-  OUTLINED_FUNCTION_149();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-uint64_t sub_1D8513EF4(uint64_t a1, uint64_t *a2)
-{
-  v4 = *a2;
-  v2[2] = *a2;
-  v5 = *(v4 - 8);
-  v2[3] = v5;
-  v6 = *(v5 + 64) + 15;
-  v7 = swift_task_alloc();
-  v2[4] = v7;
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-    __break(1u);
-    goto LABEL_9;
-  }
-
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_9:
-    __break(1u);
-    goto LABEL_10;
-  }
-
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v15 = *v7;
-  v9 = a2[1];
-  v2[5] = v9;
-  v10 = *(v9 - 8);
-  v2[6] = v10;
-  v11 = *(v10 + 64) + 15;
-  v12 = swift_task_alloc();
-  v2[7] = v12;
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_10:
-    __break(1u);
-    goto LABEL_11;
-  }
-
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_11:
-    __break(1u);
-    return result;
-  }
-
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v13 = *v12;
-  v14 = swift_task_alloc();
-  v2[8] = v14;
-  *v14 = v2;
-  v14[1] = sub_1D852A3A4;
-
-  return GameDebuggerServiceWorkaround.resetAchievementsProgress(_:players:)();
-}
-
-uint64_t sub_1D85141A0(uint64_t a1, uint64_t a2)
-{
-  v3[13] = a2;
-  v3[14] = v2;
-  v3[12] = a1;
-  return OUTLINED_FUNCTION_12_2();
-}
-
-uint64_t sub_1D85141B8()
-{
-  OUTLINED_FUNCTION_204();
-  v1 = *(v0 + 112);
-  OUTLINED_FUNCTION_163_1();
-  (*(v2 + 112))();
-  if (*(v0 + 40))
-  {
-    OUTLINED_FUNCTION_281_1();
-    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
-    v3 = *(OUTLINED_FUNCTION_14_3() + 32);
-    OUTLINED_FUNCTION_54();
-    v14 = v4 + *v4;
-    v6 = *(v5 + 4);
-    v7 = swift_task_alloc();
-    v8 = OUTLINED_FUNCTION_264_2(v7);
-    *v8 = v9;
-    v10 = OUTLINED_FUNCTION_65_2(v8);
-
-    return v11(v10);
-  }
-
-  else
-  {
-    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
-    OUTLINED_FUNCTION_57();
-
-    return v13();
-  }
-}
-
-uint64_t sub_1D851433C()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_334();
-  OUTLINED_FUNCTION_62();
-  *v4 = v3;
-  v5 = *(v1 + 120);
-  *v4 = *v2;
-  *(v3 + 128) = v0;
-
-  OUTLINED_FUNCTION_341();
-  v7 = *(v6 + 112);
-  OUTLINED_FUNCTION_184_2();
-
-  return MEMORY[0x1EEE6DFA0](v8, v9, v10);
-}
-
-uint64_t GameDebuggerServiceWorkaround.revealAchievements(_:players:)()
-{
-  OUTLINED_FUNCTION_148();
-  v3 = OUTLINED_FUNCTION_300_2(v1, v2);
-  v0[10] = v3;
-  OUTLINED_FUNCTION_39(v3);
-  v0[11] = v4;
-  v6 = *(v5 + 64);
-  v0[12] = OUTLINED_FUNCTION_332();
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38FE0, &qword_1D8590E40);
-  v0[13] = v7;
-  OUTLINED_FUNCTION_39(v7);
-  v0[14] = v8;
-  v10 = *(v9 + 64);
-  v0[15] = OUTLINED_FUNCTION_332();
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39500, &unk_1D8595FD0);
-  v0[16] = v11;
-  OUTLINED_FUNCTION_39(v11);
-  v0[17] = v12;
-  v14 = *(v13 + 64);
-  v0[18] = OUTLINED_FUNCTION_332();
-  v15 = OUTLINED_FUNCTION_64_0();
-
-  return MEMORY[0x1EEE6DFA0](v15, v16, v17);
-}
-
-uint64_t sub_1D851459C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
-{
-  OUTLINED_FUNCTION_469();
-  OUTLINED_FUNCTION_219();
-  v11 = v10[9];
-  if (swift_distributed_actor_is_remote())
-  {
-    v12 = v10[18];
-    v13 = v10[7];
-    OUTLINED_FUNCTION_169_2(v10[9]);
-    OUTLINED_FUNCTION_185_2();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39508, &unk_1D85A4F80);
-    OUTLINED_FUNCTION_11_2();
-    OUTLINED_FUNCTION_285_0();
-    sub_1D8484CB0();
-    sub_1D8484D60();
-    OUTLINED_FUNCTION_37_0();
-    if (v12)
-    {
-      (*(v10[17] + 8))(v10[18], v10[16]);
-LABEL_11:
-      OUTLINED_FUNCTION_331();
-
-      OUTLINED_FUNCTION_231_0();
-      v28 = v10[12];
-
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_239_1();
-
-      return v30(v29, v30, v31, v32, v33, v34, v35, v36, a9, a10);
-    }
-
-    v21 = v10[15];
-    OUTLINED_FUNCTION_414_0();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38E10, &qword_1D8590D20);
-    OUTLINED_FUNCTION_51_4();
-    OUTLINED_FUNCTION_152_0();
-    sub_1D8581038();
-    sub_1D84769B4();
-    sub_1D8476AE8();
-    OUTLINED_FUNCTION_75_0();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_156();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v22);
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v23)
-    {
-      v24 = OUTLINED_FUNCTION_368_1();
-      v25(v24);
-      v26 = OUTLINED_FUNCTION_121_2();
-      v27(v26);
-      goto LABEL_11;
-    }
-
-    v37 = v10[12];
-    OUTLINED_FUNCTION_184_0();
-    sub_1D8581028();
-    v38 = swift_task_alloc();
-    v10[19] = v38;
-    type metadata accessor for GameDebuggerServiceWorkaround();
-    OUTLINED_FUNCTION_1_3();
-    sub_1D8526788(v39);
-    OUTLINED_FUNCTION_81();
-    *v38 = v40;
-    OUTLINED_FUNCTION_195_0();
-    OUTLINED_FUNCTION_31_2();
-    OUTLINED_FUNCTION_239_1();
-
-    return GameServicesActorSystem.remoteCallVoid<A, B>(on:target:invocation:throwing:)(v41, v42, v43, v44, v45, v46, v47);
-  }
-
-  else
-  {
-    v14 = swift_task_alloc();
-    v15 = OUTLINED_FUNCTION_213_1(v14);
-    *v15 = v16;
-    OUTLINED_FUNCTION_52_1(v15);
-    OUTLINED_FUNCTION_239_1();
-
-    return sub_1D8514EA0(v17, v18);
-  }
-}
-
-uint64_t sub_1D8514854()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  OUTLINED_FUNCTION_42();
-  *v3 = v2;
-  v5 = *(v4 + 152);
-  v6 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 160) = v0;
-
-  OUTLINED_FUNCTION_149();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-uint64_t sub_1D851494C()
-{
-  OUTLINED_FUNCTION_537();
-  OUTLINED_FUNCTION_204();
-  v1 = OUTLINED_FUNCTION_301_0();
-  v2(v1);
-  v3 = OUTLINED_FUNCTION_77();
-  v4(v3);
-  v5 = OUTLINED_FUNCTION_80();
-  v6(v5);
-  OUTLINED_FUNCTION_331();
-
-  OUTLINED_FUNCTION_231_0();
-  v7 = *(v0 + 96);
-
-  OUTLINED_FUNCTION_57();
-  OUTLINED_FUNCTION_511();
-
-  return v9(v8, v9, v10, v11, v12, v13, v14, v15);
-}
-
-uint64_t sub_1D8514A04()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_334();
-  v2 = v0[21];
-  v3 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v4 = v3;
-
-  OUTLINED_FUNCTION_341();
-  v6 = *(v5 + 144);
-  v7 = v0[15];
-  v8 = v0[12];
-
-  OUTLINED_FUNCTION_137();
-
-  return v9();
-}
-
-uint64_t sub_1D8514B38()
-{
-  OUTLINED_FUNCTION_537();
-  OUTLINED_FUNCTION_204();
-  v1 = OUTLINED_FUNCTION_301_0();
-  v2(v1);
-  v3 = OUTLINED_FUNCTION_77();
-  v4(v3);
-  v5 = OUTLINED_FUNCTION_80();
-  v6(v5);
-  OUTLINED_FUNCTION_331();
-
-  v7 = *(v0 + 160);
-  OUTLINED_FUNCTION_370_0();
-  v8 = *(v0 + 96);
-
-  OUTLINED_FUNCTION_146();
-  OUTLINED_FUNCTION_511();
-
-  return v10(v9, v10, v11, v12, v13, v14, v15, v16);
-}
-
-uint64_t sub_1D8514BF4(uint64_t a1, uint64_t *a2)
-{
-  v4 = *a2;
-  v2[2] = *a2;
-  v5 = *(v4 - 8);
-  v2[3] = v5;
-  v6 = *(v5 + 64) + 15;
-  v7 = swift_task_alloc();
-  v2[4] = v7;
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-    __break(1u);
-    goto LABEL_9;
-  }
-
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_9:
-    __break(1u);
-    goto LABEL_10;
-  }
-
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v15 = *v7;
-  v9 = a2[1];
-  v2[5] = v9;
-  v10 = *(v9 - 8);
-  v2[6] = v10;
-  v11 = *(v10 + 64) + 15;
-  v12 = swift_task_alloc();
-  v2[7] = v12;
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_10:
-    __break(1u);
-    goto LABEL_11;
-  }
-
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_11:
-    __break(1u);
-    return result;
-  }
-
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v13 = *v12;
-  v14 = swift_task_alloc();
-  v2[8] = v14;
-  *v14 = v2;
-  v14[1] = sub_1D852A3A4;
-
-  return GameDebuggerServiceWorkaround.revealAchievements(_:players:)();
-}
-
-uint64_t sub_1D8514EA0(uint64_t a1, uint64_t a2)
-{
-  v3[13] = a2;
-  v3[14] = v2;
-  v3[12] = a1;
-  return OUTLINED_FUNCTION_12_2();
-}
-
-uint64_t sub_1D8514EB8()
-{
-  OUTLINED_FUNCTION_204();
-  v1 = *(v0 + 112);
-  OUTLINED_FUNCTION_163_1();
-  (*(v2 + 112))();
-  if (*(v0 + 40))
-  {
-    OUTLINED_FUNCTION_281_1();
-    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
-    v3 = *(OUTLINED_FUNCTION_14_3() + 40);
-    OUTLINED_FUNCTION_54();
-    v14 = v4 + *v4;
-    v6 = *(v5 + 4);
-    v7 = swift_task_alloc();
-    v8 = OUTLINED_FUNCTION_264_2(v7);
-    *v8 = v9;
-    v10 = OUTLINED_FUNCTION_65_2(v8);
-
-    return v11(v10);
-  }
-
-  else
-  {
-    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
-    OUTLINED_FUNCTION_57();
-
-    return v13();
-  }
-}
-
-uint64_t GameDebuggerServiceWorkaround.submitAchievementsProgress(_:)()
-{
-  OUTLINED_FUNCTION_148();
-  v1[6] = v2;
-  v1[7] = v0;
-  v3 = sub_1D8581018();
-  v1[8] = v3;
-  OUTLINED_FUNCTION_39(v3);
-  v1[9] = v4;
-  v6 = *(v5 + 64);
-  v1[10] = OUTLINED_FUNCTION_332();
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA395D8, &qword_1D8596070);
-  v1[11] = v7;
-  OUTLINED_FUNCTION_39(v7);
-  v1[12] = v8;
-  v10 = *(v9 + 64);
-  v1[13] = OUTLINED_FUNCTION_332();
-  v11 = OUTLINED_FUNCTION_64_0();
-
-  return MEMORY[0x1EEE6DFA0](v11, v12, v13);
-}
-
-uint64_t sub_1D8515138()
-{
-  OUTLINED_FUNCTION_536();
-  OUTLINED_FUNCTION_204();
-  v1 = v0[7];
-  if (swift_distributed_actor_is_remote())
-  {
-    v2 = v0[13];
-    v3 = v0[6];
-    OUTLINED_FUNCTION_169_2(v0[7]);
-    OUTLINED_FUNCTION_185_2();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA395B0, &qword_1D85A4FD0);
-    OUTLINED_FUNCTION_248_0();
-    OUTLINED_FUNCTION_83_3();
-    OUTLINED_FUNCTION_285_0();
-    sub_1D8486FDC();
-    sub_1D8487094();
-    OUTLINED_FUNCTION_37_0();
-    if (v2 || (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0), OUTLINED_FUNCTION_156(), GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v4), GameServicesActorSystem.JSONInvocationEncoder.doneRecording()(), v5))
-    {
-      v6 = OUTLINED_FUNCTION_204_0();
-      v7(v6);
-      OUTLINED_FUNCTION_331();
-
-      OUTLINED_FUNCTION_324_1();
-
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_535();
-
-      return v9(v8, v9, v10, v11, v12, v13, v14, v15);
-    }
-
-    else
-    {
-      v22 = v0[10];
-      OUTLINED_FUNCTION_184_0();
-      sub_1D8581028();
-      v23 = swift_task_alloc();
-      v0[14] = v23;
-      type metadata accessor for GameDebuggerServiceWorkaround();
-      OUTLINED_FUNCTION_1_3();
-      sub_1D8526788(v24);
-      OUTLINED_FUNCTION_81();
-      *v23 = v25;
-      OUTLINED_FUNCTION_256_0();
-      OUTLINED_FUNCTION_31_2();
-      OUTLINED_FUNCTION_535();
-
-      return GameServicesActorSystem.remoteCallVoid<A, B>(on:target:invocation:throwing:)(v26, v27, v28, v29, v30, v31, v32);
-    }
-  }
-
-  else
-  {
-    v17 = swift_task_alloc();
-    v18 = OUTLINED_FUNCTION_201_0(v17);
-    *v18 = v19;
-    OUTLINED_FUNCTION_113_1(v18);
-    OUTLINED_FUNCTION_535();
-
-    return sub_1D8515600(v20);
-  }
-}
-
-uint64_t sub_1D851536C()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  OUTLINED_FUNCTION_42();
-  *v3 = v2;
-  v5 = *(v4 + 112);
-  v6 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 120) = v0;
-
-  OUTLINED_FUNCTION_149();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-uint64_t sub_1D8515464(uint64_t a1, uint64_t *a2)
-{
-  v3 = *a2;
-  v2[2] = *a2;
-  v4 = *(v3 - 8);
-  v2[3] = v4;
-  v5 = *(v4 + 64) + 15;
-  v6 = swift_task_alloc();
-  v2[4] = v6;
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-    __break(1u);
-    goto LABEL_7;
-  }
-
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_7:
-    __break(1u);
-    return result;
-  }
-
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v8 = *v6;
-  v9 = swift_task_alloc();
-  v2[5] = v9;
-  *v9 = v2;
-  v9[1] = sub_1D84A7CAC;
-
-  return GameDebuggerServiceWorkaround.submitAchievementsProgress(_:)();
-}
-
-uint64_t sub_1D8515600(uint64_t a1)
-{
-  *(v2 + 96) = a1;
-  *(v2 + 104) = v1;
-  return OUTLINED_FUNCTION_10_4(a1, v1);
-}
-
-uint64_t sub_1D8515618()
-{
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_90_1();
-  (*(v1 + 112))();
-  if (*(v0 + 40))
-  {
-    OUTLINED_FUNCTION_281_1();
-    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
-    v2 = *(OUTLINED_FUNCTION_14_3() + 48);
-    OUTLINED_FUNCTION_54();
-    v13 = v3 + *v3;
-    v5 = *(v4 + 4);
-    v6 = swift_task_alloc();
-    v7 = OUTLINED_FUNCTION_212_3(v6);
-    *v7 = v8;
-    v9 = OUTLINED_FUNCTION_9_2(v7);
-
-    return v10(v9);
-  }
-
-  else
-  {
-    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
-    OUTLINED_FUNCTION_57();
-
-    return v12();
-  }
-}
-
-uint64_t sub_1D8515798()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_334();
-  OUTLINED_FUNCTION_62();
-  *v4 = v3;
-  v5 = *(v1 + 112);
-  *v4 = *v2;
-  *(v3 + 120) = v0;
-
-  OUTLINED_FUNCTION_341();
-  v7 = *(v6 + 104);
-  OUTLINED_FUNCTION_184_2();
-
-  return MEMORY[0x1EEE6DFA0](v8, v9, v10);
-}
-
-uint64_t GameDebuggerServiceWorkaround.getImageData(_:)()
-{
-  OUTLINED_FUNCTION_148();
-  v2 = OUTLINED_FUNCTION_311_1(v1);
-  v0[9] = v2;
-  OUTLINED_FUNCTION_39(v2);
-  v0[10] = v3;
-  v5 = *(v4 + 64);
-  v0[11] = OUTLINED_FUNCTION_332();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A150, &qword_1D859F178);
-  OUTLINED_FUNCTION_38_0(v6);
-  v0[13] = v7;
-  v9 = *(v8 + 64);
-  v0[14] = OUTLINED_FUNCTION_332();
-  v10 = OUTLINED_FUNCTION_64_0();
-
-  return MEMORY[0x1EEE6DFA0](v10, v11, v12);
-}
-
-uint64_t sub_1D851599C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
-{
-  OUTLINED_FUNCTION_196_0();
-  OUTLINED_FUNCTION_177();
-  v14 = v13[8];
-  if (swift_distributed_actor_is_remote())
-  {
-    OUTLINED_FUNCTION_98_1();
-    OUTLINED_FUNCTION_185_2();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A158, &unk_1D859F180);
-    OUTLINED_FUNCTION_11_2();
-    OUTLINED_FUNCTION_285_0();
-    sub_1D84FBF60();
-    sub_1D84FC010();
-    OUTLINED_FUNCTION_37_0();
-    if (v12)
-    {
-      goto LABEL_6;
-    }
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_76_1();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v15);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A170, &unk_1D859F190);
-    sub_1D84FC0C0();
-    sub_1D84FC21C();
-    OUTLINED_FUNCTION_41_1();
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v16)
-    {
-LABEL_6:
-      v17 = OUTLINED_FUNCTION_116_0();
-      v18(v17);
-      OUTLINED_FUNCTION_331();
-
-      OUTLINED_FUNCTION_191_2();
-
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_170_1();
-
-      return v20(v19, v20, v21, v22, v23, v24, v25, v26, a9, a10, a11, a12);
-    }
-
-    else
-    {
-      v33 = v13[11];
-      OUTLINED_FUNCTION_184_0();
-      sub_1D8581028();
-      v34 = swift_task_alloc();
-      OUTLINED_FUNCTION_309_2(v34);
-      OUTLINED_FUNCTION_1_3();
-      sub_1D8526788(v35);
-      OUTLINED_FUNCTION_98();
-      v13[2] = v36;
-      OUTLINED_FUNCTION_419();
-      OUTLINED_FUNCTION_2_4(v37);
-      OUTLINED_FUNCTION_143_0();
-
-      return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-    }
-  }
-
-  else
-  {
-    v28 = swift_task_alloc();
-    v29 = OUTLINED_FUNCTION_207_3(v28);
-    *v29 = v30;
-    OUTLINED_FUNCTION_33_1(v29);
-    OUTLINED_FUNCTION_170_1();
-
-    return sub_1D8515D8C(v31);
-  }
-}
-
-uint64_t sub_1D8515BEC(uint64_t a1, uint64_t *a2, uint64_t a3)
-{
-  v3[2] = a3;
-  v4 = *a2;
-  v3[3] = *a2;
-  v5 = *(v4 - 8);
-  v3[4] = v5;
-  v6 = *(v5 + 64) + 15;
-  v7 = swift_task_alloc();
-  v3[5] = v7;
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-    __break(1u);
-    goto LABEL_7;
-  }
-
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_7:
-    __break(1u);
-    return result;
-  }
-
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v9 = *v7;
-  v10 = swift_task_alloc();
-  v3[6] = v10;
-  *v10 = v3;
-  v10[1] = sub_1D84A7CD8;
-
-  return GameDebuggerServiceWorkaround.getImageData(_:)();
-}
-
-uint64_t sub_1D8515D8C(uint64_t a1)
-{
-  *(v2 + 96) = a1;
-  *(v2 + 104) = v1;
-  return OUTLINED_FUNCTION_10_4(a1, v1);
-}
-
-uint64_t sub_1D8515DA4()
-{
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_90_1();
-  (*(v1 + 112))();
-  if (*(v0 + 40))
-  {
-    OUTLINED_FUNCTION_281_1();
-    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
-    v2 = *(OUTLINED_FUNCTION_14_3() + 56);
-    OUTLINED_FUNCTION_54();
-    v14 = v3 + *v3;
-    v5 = *(v4 + 4);
-    v6 = swift_task_alloc();
-    v7 = OUTLINED_FUNCTION_212_3(v6);
-    *v7 = v8;
-    v9 = OUTLINED_FUNCTION_9_2(v7);
-
-    return v10(v9);
-  }
-
-  else
-  {
-    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
-    OUTLINED_FUNCTION_69_2();
-    v13 = MEMORY[0x1E69E7CC0];
-
-    return v12(v13);
-  }
-}
-
-uint64_t GameDebuggerServiceWorkaround.listLocalPlayers()()
-{
-  OUTLINED_FUNCTION_148();
-  v1[6] = v0;
-  v2 = sub_1D8581018();
-  v1[7] = v2;
-  OUTLINED_FUNCTION_39(v2);
-  v1[8] = v3;
-  v5 = *(v4 + 64);
-  v1[9] = OUTLINED_FUNCTION_332();
-  v6 = OUTLINED_FUNCTION_64_0();
-
-  return MEMORY[0x1EEE6DFA0](v6, v7, v8);
-}
-
-uint64_t sub_1D8515FD4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
-{
-  OUTLINED_FUNCTION_196_0();
-  OUTLINED_FUNCTION_177();
-  v13 = v12[6];
-  if (swift_distributed_actor_is_remote())
-  {
-    OUTLINED_FUNCTION_169_2(v12[6]);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_76_1();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v14);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38E10, &qword_1D8590D20);
-    sub_1D84769B4();
-    sub_1D8476AE8();
-    OUTLINED_FUNCTION_41_1();
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v15)
-    {
-      OUTLINED_FUNCTION_331();
-
-      v16 = v12[9];
-
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_170_1();
-
-      return v18(v17, v18, v19, v20, v21, v22, v23, v24, a9, a10, a11, a12);
-    }
-
-    else
-    {
-      v29 = v12[9];
-      OUTLINED_FUNCTION_184_0();
-      sub_1D8581028();
-      v30 = swift_task_alloc();
-      v12[10] = v30;
-      type metadata accessor for GameDebuggerServiceWorkaround();
-      OUTLINED_FUNCTION_1_3();
-      sub_1D8526788(v31);
-      OUTLINED_FUNCTION_98();
-      *v30 = v32;
-      OUTLINED_FUNCTION_378_1();
-      v33 = v12[6];
-      OUTLINED_FUNCTION_2_4(v34);
-      OUTLINED_FUNCTION_143_0();
-
-      return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-    }
-  }
-
-  else
-  {
-    v26 = swift_task_alloc();
-    v12[12] = v26;
-    *v26 = v12;
-    v26[1] = sub_1D8516368;
-    v27 = v12[6];
-    OUTLINED_FUNCTION_170_1();
-
-    return sub_1D851658C(v28);
-  }
-}
-
-uint64_t sub_1D85161F0()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  OUTLINED_FUNCTION_42();
-  *v3 = v2;
-  v5 = *(v4 + 80);
-  v6 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 88) = v0;
-
-  OUTLINED_FUNCTION_149();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-uint64_t sub_1D85162E8()
-{
-  OUTLINED_FUNCTION_148();
-  v1 = OUTLINED_FUNCTION_177_1();
-  v2(v1);
-  OUTLINED_FUNCTION_331();
-
-  v3 = *(v0 + 40);
-  v4 = *(v0 + 72);
-
-  v5 = OUTLINED_FUNCTION_72();
-
-  return v6(v5);
-}
-
-uint64_t sub_1D8516368()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_320();
-  v3 = *(v2 + 96);
-  v4 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v5 = v4;
-
-  OUTLINED_FUNCTION_510();
-  v7 = *(v6 + 72);
-
-  OUTLINED_FUNCTION_507();
-  if (!v0)
-  {
-    v8 = OUTLINED_FUNCTION_482();
-  }
-
-  return v9(v8);
-}
-
-uint64_t sub_1D8516474()
-{
-  OUTLINED_FUNCTION_148();
-  v1 = OUTLINED_FUNCTION_177_1();
-  v2(v1);
-  OUTLINED_FUNCTION_331();
-
-  v3 = *(v0 + 88);
-  v4 = *(v0 + 72);
-
-  OUTLINED_FUNCTION_146();
-
-  return v5();
-}
-
-uint64_t sub_1D85164F4(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  *(v3 + 16) = a3;
-  v4 = swift_task_alloc();
-  *(v3 + 24) = v4;
-  *v4 = v3;
-  v4[1] = sub_1D852A308;
-
-  return GameDebuggerServiceWorkaround.listLocalPlayers()();
-}
-
-uint64_t sub_1D85165A4()
-{
-  OUTLINED_FUNCTION_204();
-  v2 = v1[12];
-  OUTLINED_FUNCTION_163_1();
-  (*(v3 + 112))();
-  if (v1[5])
-  {
-    OUTLINED_FUNCTION_281_1();
-    sub_1D84F589C((v1 + 2), &qword_1ECA3A2D0, &qword_1D859F400);
-    v4 = *(OUTLINED_FUNCTION_14_3() + 64);
-    OUTLINED_FUNCTION_54();
-    v13 = (v5 + *v5);
-    v7 = *(v6 + 4);
-    v8 = swift_task_alloc();
-    v1[13] = v8;
-    *v8 = v1;
-    v9 = OUTLINED_FUNCTION_64(v8);
-
-    return v13(v9, v0);
-  }
-
-  else
-  {
-    sub_1D84F589C((v1 + 2), &qword_1ECA3A2D0, &qword_1D859F400);
-    OUTLINED_FUNCTION_69_2();
-    v12 = MEMORY[0x1E69E7CC0];
-
-    return v11(v12);
-  }
-}
-
-uint64_t sub_1D8516740()
-{
-  OUTLINED_FUNCTION_536();
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_95_2();
-  OUTLINED_FUNCTION_37();
-  *v4 = v3;
-  v5 = v3[13];
-  *v4 = *v2;
-  v3[14] = v0;
-
-  OUTLINED_FUNCTION_214_3();
-  v7 = *(v6 + 96);
-  if (!v0)
-  {
-    v3[15] = v1;
-  }
-
-  OUTLINED_FUNCTION_184_2();
-  OUTLINED_FUNCTION_535();
-
-  return MEMORY[0x1EEE6DFA0](v8, v9, v10);
-}
-
-uint64_t sub_1D8516858()
-{
-  OUTLINED_FUNCTION_148();
-  __swift_destroy_boxed_opaque_existential_1((v0 + 56));
-  v1 = *(v0 + 120);
-  OUTLINED_FUNCTION_69_2();
-
-  return v2();
-}
-
-uint64_t sub_1D85168B8()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_93_0();
-  v2 = *(v0 + 112);
-
-  return v1();
-}
-
-uint64_t GameDebuggerServiceWorkaround.describeLeaderboards(_:)()
-{
-  OUTLINED_FUNCTION_148();
-  v2 = OUTLINED_FUNCTION_311_1(v1);
-  v0[9] = v2;
-  OUTLINED_FUNCTION_39(v2);
-  v0[10] = v3;
-  v5 = *(v4 + 64);
-  v0[11] = OUTLINED_FUNCTION_332();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA395E0, &unk_1D8598150);
-  OUTLINED_FUNCTION_38_0(v6);
-  v0[13] = v7;
-  v9 = *(v8 + 64);
-  v0[14] = OUTLINED_FUNCTION_332();
-  v10 = OUTLINED_FUNCTION_64_0();
-
-  return MEMORY[0x1EEE6DFA0](v10, v11, v12);
-}
-
-uint64_t sub_1D85169FC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
-{
-  OUTLINED_FUNCTION_196_0();
-  OUTLINED_FUNCTION_177();
-  v14 = v13[8];
-  if (swift_distributed_actor_is_remote())
-  {
-    OUTLINED_FUNCTION_98_1();
-    OUTLINED_FUNCTION_185_2();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA395E8, &unk_1D8596090);
-    OUTLINED_FUNCTION_11_2();
-    OUTLINED_FUNCTION_285_0();
-    sub_1D848A55C();
-    sub_1D848A60C();
-    OUTLINED_FUNCTION_37_0();
-    if (v12)
-    {
-      goto LABEL_6;
-    }
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_76_1();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v15);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39600, &unk_1D85960A0);
-    sub_1D848A6BC();
-    sub_1D848A7F8();
-    OUTLINED_FUNCTION_41_1();
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v16)
-    {
-LABEL_6:
-      v17 = OUTLINED_FUNCTION_116_0();
-      v18(v17);
-      OUTLINED_FUNCTION_331();
-
-      OUTLINED_FUNCTION_191_2();
-
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_170_1();
-
-      return v20(v19, v20, v21, v22, v23, v24, v25, v26, a9, a10, a11, a12);
-    }
-
-    else
-    {
-      v33 = v13[11];
-      OUTLINED_FUNCTION_184_0();
-      sub_1D8581028();
-      v34 = swift_task_alloc();
-      OUTLINED_FUNCTION_309_2(v34);
-      OUTLINED_FUNCTION_1_3();
-      sub_1D8526788(v35);
-      OUTLINED_FUNCTION_98();
-      v13[2] = v36;
-      OUTLINED_FUNCTION_419();
-      OUTLINED_FUNCTION_2_4(v37);
-      OUTLINED_FUNCTION_143_0();
-
-      return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-    }
-  }
-
-  else
-  {
-    v28 = swift_task_alloc();
-    v29 = OUTLINED_FUNCTION_207_3(v28);
-    *v29 = v30;
-    OUTLINED_FUNCTION_33_1(v29);
-    OUTLINED_FUNCTION_170_1();
-
-    return sub_1D8516DEC(v31);
-  }
-}
-
-uint64_t sub_1D8516C4C(uint64_t a1, uint64_t *a2, uint64_t a3)
-{
-  v3[2] = a3;
-  v4 = *a2;
-  v3[3] = *a2;
-  v5 = *(v4 - 8);
-  v3[4] = v5;
-  v6 = *(v5 + 64) + 15;
-  v7 = swift_task_alloc();
-  v3[5] = v7;
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-    __break(1u);
-    goto LABEL_7;
-  }
-
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_7:
-    __break(1u);
-    return result;
-  }
-
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v9 = *v7;
-  v10 = swift_task_alloc();
-  v3[6] = v10;
-  *v10 = v3;
-  v10[1] = sub_1D84A7CD8;
-
-  return GameDebuggerServiceWorkaround.describeLeaderboards(_:)();
-}
-
-uint64_t sub_1D8516DEC(uint64_t a1)
-{
-  *(v2 + 96) = a1;
-  *(v2 + 104) = v1;
-  return OUTLINED_FUNCTION_10_4(a1, v1);
-}
-
-uint64_t sub_1D8516E04()
-{
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_90_1();
-  (*(v1 + 112))();
-  if (*(v0 + 40))
-  {
-    OUTLINED_FUNCTION_281_1();
-    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
-    v2 = *(OUTLINED_FUNCTION_14_3() + 72);
-    OUTLINED_FUNCTION_54();
-    v14 = v3 + *v3;
-    v5 = *(v4 + 4);
-    v6 = swift_task_alloc();
-    v7 = OUTLINED_FUNCTION_212_3(v6);
-    *v7 = v8;
-    v9 = OUTLINED_FUNCTION_9_2(v7);
-
-    return v10(v9);
-  }
-
-  else
-  {
-    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
-    OUTLINED_FUNCTION_69_2();
-    v13 = MEMORY[0x1E69E7CC0];
-
-    return v12(v13);
-  }
-}
-
-uint64_t GameDebuggerServiceWorkaround.listLeaderboardEntries(_:range:locale:timeScope:)()
-{
-  OUTLINED_FUNCTION_148();
-  v2 = v1;
-  v7 = OUTLINED_FUNCTION_371(v3, v4, v5, v6);
-  *(v0 + 112) = v7;
-  OUTLINED_FUNCTION_39(v7);
-  *(v0 + 120) = v8;
-  v10 = *(v9 + 64);
-  *(v0 + 128) = OUTLINED_FUNCTION_332();
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39640, &unk_1D85960C0);
-  OUTLINED_FUNCTION_29(v11);
-  *(v0 + 144) = v12;
-  v14 = *(v13 + 64);
-  *(v0 + 152) = OUTLINED_FUNCTION_332();
-  v15 = sub_1D8580EF8();
-  *(v0 + 160) = v15;
-  OUTLINED_FUNCTION_39(v15);
-  *(v0 + 168) = v16;
-  v18 = *(v17 + 64);
-  *(v0 + 176) = OUTLINED_FUNCTION_332();
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39648, &unk_1D859F1E0);
-  *(v0 + 184) = v19;
-  OUTLINED_FUNCTION_39(v19);
-  *(v0 + 192) = v20;
-  v22 = *(v21 + 64);
-  *(v0 + 200) = OUTLINED_FUNCTION_332();
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39650, &unk_1D85960D0);
-  *(v0 + 208) = v23;
-  OUTLINED_FUNCTION_39(v23);
-  *(v0 + 216) = v24;
-  v26 = *(v25 + 64);
-  *(v0 + 224) = OUTLINED_FUNCTION_332();
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA395E0, &unk_1D8598150);
-  *(v0 + 232) = v27;
-  OUTLINED_FUNCTION_39(v27);
-  *(v0 + 240) = v28;
-  v30 = *(v29 + 64);
-  *(v0 + 248) = OUTLINED_FUNCTION_332();
-  *(v0 + 290) = *v2;
-  v31 = OUTLINED_FUNCTION_64_0();
-
-  return MEMORY[0x1EEE6DFA0](v31, v32, v33);
-}
-
-uint64_t sub_1D85171E0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
-{
-  OUTLINED_FUNCTION_257();
-  OUTLINED_FUNCTION_177();
-  v13 = *(v12 + 104);
-  if (swift_distributed_actor_is_remote())
-  {
-    v14 = *(v12 + 248);
-    v15 = *(v12 + 72);
-    OUTLINED_FUNCTION_169_2(*(v12 + 104));
-    *(v12 + 56) = v15;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA395E8, &unk_1D8596090);
-    OUTLINED_FUNCTION_11_2();
-    OUTLINED_FUNCTION_285_0();
-    sub_1D848A55C();
-    sub_1D848A60C();
-    OUTLINED_FUNCTION_37_0();
-    if (v14)
-    {
-      (*(*(v12 + 240) + 8))(*(v12 + 248), *(v12 + 232));
-LABEL_9:
-      OUTLINED_FUNCTION_331();
-
-      OUTLINED_FUNCTION_317_1();
-
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_197();
-
-      return v46(v45, v46, v47, v48, v49, v50, v51, v52, a9, a10, a11, a12);
-    }
-
-    v25 = *(v12 + 224);
-    *(v12 + 40) = *(v12 + 80);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39658, &unk_1D859F1F0);
-    OUTLINED_FUNCTION_100_1();
-    sub_1D8581038();
-    OUTLINED_FUNCTION_134_0(&unk_1ECA39660);
-    OUTLINED_FUNCTION_133_0(&unk_1ECA39668);
-    OUTLINED_FUNCTION_75_0();
-    v26 = *(v12 + 200);
-    (*(*(v12 + 168) + 16))(*(v12 + 176), *(v12 + 96), *(v12 + 160));
-    OUTLINED_FUNCTION_111_0();
-    sub_1D8581038();
-    OUTLINED_FUNCTION_20_0();
-    OUTLINED_FUNCTION_283_1(v27);
-    OUTLINED_FUNCTION_27_3(&unk_1ECA39678);
-    OUTLINED_FUNCTION_75_0();
-    v28 = *(v12 + 152);
-    *(v12 + 289) = *(v12 + 290);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39680, &unk_1D85960E0);
-    OUTLINED_FUNCTION_109_1();
-    OUTLINED_FUNCTION_73_0();
-    sub_1D8581038();
-    sub_1D848CAC8();
-    sub_1D848CBA0();
-    OUTLINED_FUNCTION_75_0();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_76_1();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v29);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA396A8, &unk_1D859F200);
-    sub_1D848CC78();
-    sub_1D848CD28();
-    OUTLINED_FUNCTION_41_1();
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v30)
-    {
-      v31 = *(v12 + 240);
-      a9 = *(v12 + 248);
-      v33 = *(v12 + 224);
-      v32 = *(v12 + 232);
-      v34 = *(v12 + 208);
-      v35 = *(v12 + 216);
-      v36 = *(v12 + 192);
-      v37 = *(v12 + 200);
-      v38 = *(v12 + 184);
-      (*(*(v12 + 144) + 8))(*(v12 + 152), *(v12 + 136));
-      v39 = *(v36 + 8);
-      v40 = OUTLINED_FUNCTION_258();
-      v41(v40);
-      v42 = *(v35 + 8);
-      v43 = OUTLINED_FUNCTION_221();
-      v44(v43);
-      (*(v31 + 8))(a9, v32);
-      goto LABEL_9;
-    }
-
-    v53 = *(v12 + 128);
-    OUTLINED_FUNCTION_184_0();
-    sub_1D8581028();
-    v54 = swift_task_alloc();
-    *(v12 + 256) = v54;
-    type metadata accessor for GameDebuggerServiceWorkaround();
-    OUTLINED_FUNCTION_1_3();
-    sub_1D8526788(v55);
-    OUTLINED_FUNCTION_98();
-    *v54 = v56;
-    v54[1] = sub_1D85176CC;
-    v57 = *(v12 + 128);
-    v58 = *(v12 + 104);
-    OUTLINED_FUNCTION_2_4(v59);
-    OUTLINED_FUNCTION_118_0();
-
-    return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-  }
-
-  else
-  {
-    *(v12 + 288) = *(v12 + 290);
-    v16 = swift_task_alloc();
-    *(v12 + 272) = v16;
-    *v16 = v12;
-    OUTLINED_FUNCTION_385_1(v16);
-    OUTLINED_FUNCTION_207_0(v17);
-    OUTLINED_FUNCTION_197();
-
-    return sub_1D8518088(v18, v19, v20, v21, v22);
-  }
-}
-
-uint64_t sub_1D85176CC()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  OUTLINED_FUNCTION_42();
-  *v3 = v2;
-  v5 = *(v4 + 256);
-  v6 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 264) = v0;
-
-  OUTLINED_FUNCTION_149();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-uint64_t sub_1D85178B0()
-{
-  OUTLINED_FUNCTION_537();
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_95();
-  v3 = v2;
-  OUTLINED_FUNCTION_62();
-  *v4 = v3;
-  v6 = *(v5 + 272);
-  v7 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v8 = v7;
-  v3[35] = v0;
-
-  if (v0)
-  {
-    OUTLINED_FUNCTION_149();
-    OUTLINED_FUNCTION_511();
-
-    return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-  }
-
-  else
-  {
-    v13 = v3[31];
-    v14 = v3[28];
-    v15 = v3[25];
-    v16 = v3[22];
-    v17 = v3[19];
-    v18 = v3[16];
-
-    OUTLINED_FUNCTION_56_0();
-    OUTLINED_FUNCTION_511();
-
-    return v21(v19, v20, v21, v22, v23, v24, v25, v26);
-  }
-}
-
-uint64_t sub_1D8517B00()
-{
-  OUTLINED_FUNCTION_537();
-  OUTLINED_FUNCTION_204();
-  v1 = *(v0 + 280);
-  OUTLINED_FUNCTION_263();
-
-  OUTLINED_FUNCTION_146();
-  OUTLINED_FUNCTION_511();
-
-  return v3(v2, v3, v4, v5, v6, v7, v8, v9);
-}
-
-uint64_t sub_1D8517B88(uint64_t a1, uint64_t *a2, uint64_t a3)
-{
-  v3[2] = a3;
-  v5 = *a2;
-  v3[3] = *a2;
-  v6 = *(v5 - 8);
-  v3[4] = v6;
-  v7 = *(v6 + 64) + 15;
-  v8 = swift_task_alloc();
-  v3[5] = v8;
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-    __break(1u);
-    goto LABEL_13;
-  }
-
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_13:
-    __break(1u);
-    goto LABEL_14;
-  }
-
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v23 = *v8;
-  v10 = a2[1];
-  v3[6] = v10;
-  v11 = *(v10 - 8);
-  v3[7] = v11;
-  v12 = *(v11 + 64) + 15;
-  v13 = swift_task_alloc();
-  v3[8] = v13;
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_14:
-    __break(1u);
-    goto LABEL_15;
-  }
-
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_15:
-    __break(1u);
-    goto LABEL_16;
-  }
-
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v22 = *v13;
-  v21 = v13[1];
-  v14 = a2[2];
-  v3[9] = v14;
-  v15 = *(v14 - 8);
-  v3[10] = v15;
-  v16 = *(v15 + 64) + 15;
-  v3[11] = swift_task_alloc();
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_16:
-    __break(1u);
-    goto LABEL_17;
-  }
-
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_17:
-    __break(1u);
-    goto LABEL_18;
-  }
-
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v17 = a2[3];
-  v3[12] = v17;
-  v18 = *(v17 - 8);
-  v3[13] = v18;
-  v19 = *(v18 + 64) + 15;
-  v3[14] = swift_task_alloc();
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_18:
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_19:
-    __break(1u);
-    return result;
-  }
-
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v20 = swift_task_alloc();
-  v3[15] = v20;
-  *v20 = v3;
-  v20[1] = sub_1D852A2FC;
-
-  return GameDebuggerServiceWorkaround.listLeaderboardEntries(_:range:locale:timeScope:)();
-}
-
-uint64_t sub_1D8518088(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
-{
-  *(v6 + 120) = a4;
-  *(v6 + 128) = v5;
-  *(v6 + 104) = a2;
-  *(v6 + 112) = a3;
-  *(v6 + 96) = a1;
-  *(v6 + 161) = *a5;
-  return OUTLINED_FUNCTION_12_2();
-}
-
-uint64_t sub_1D85180AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
-{
-  OUTLINED_FUNCTION_478();
-  OUTLINED_FUNCTION_219();
-  v12 = *(v11 + 128);
-  OUTLINED_FUNCTION_163_1();
-  (*(v13 + 112))();
-  if (*(v11 + 40))
-  {
-    v14 = *(v11 + 161);
-    OUTLINED_FUNCTION_281_1();
-    sub_1D84F589C(v11 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
-    OUTLINED_FUNCTION_18_1();
-    *(v11 + 160) = v14;
-    v15 = *(v10 + 80);
-    OUTLINED_FUNCTION_54();
-    v43 = v16 + *v16;
-    v18 = *(v17 + 4);
-    v19 = swift_task_alloc();
-    v20 = OUTLINED_FUNCTION_207_3(v19);
-    *v20 = v21;
-    v20[1] = sub_1D8518268;
-    v22 = *(v11 + 112);
-    v23 = *(v11 + 120);
-    v24 = *(v11 + 104);
-    OUTLINED_FUNCTION_207_0(*(v11 + 96));
-    OUTLINED_FUNCTION_471();
-
-    return v32(v25, v26, v27, v28, v29, v30, v31, v32, a9, a10);
-  }
-
-  else
-  {
-    sub_1D84F589C(v11 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
-    OUTLINED_FUNCTION_69_2();
-    OUTLINED_FUNCTION_471();
-
-    return v37(v35, v36, v37, v38, v39, v40, v41, v42, a9, a10);
-  }
-}
-
-uint64_t sub_1D8518268()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_95();
-  v4 = v3;
-  OUTLINED_FUNCTION_62();
-  *v5 = v4;
-  v7 = *(v6 + 136);
-  v8 = *v2;
-  OUTLINED_FUNCTION_37();
-  *v9 = v8;
-  v4[18] = v0;
-
-  v10 = v4[16];
-  if (!v0)
-  {
-    v4[19] = v1;
-  }
-
-  OUTLINED_FUNCTION_184_2();
-
-  return MEMORY[0x1EEE6DFA0](v11, v12, v13);
-}
-
-uint64_t sub_1D8518374()
-{
-  OUTLINED_FUNCTION_148();
-  __swift_destroy_boxed_opaque_existential_1((v0 + 56));
-  v1 = *(v0 + 152);
-  OUTLINED_FUNCTION_69_2();
-
-  return v2();
-}
-
-uint64_t sub_1D85183D4()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_93_0();
-  v2 = *(v0 + 144);
-
-  return v1();
-}
-
-uint64_t GameDebuggerServiceWorkaround.listLeaderboardEntries(_:players:locale:timeScope:)()
-{
-  OUTLINED_FUNCTION_148();
-  v3 = v2;
-  *(v1 + 80) = v4;
-  *(v1 + 88) = v0;
-  *(v1 + 64) = v5;
-  *(v1 + 72) = v6;
-  v7 = sub_1D8581018();
-  OUTLINED_FUNCTION_38_0(v7);
-  *(v1 + 104) = v8;
-  v10 = *(v9 + 64);
-  *(v1 + 112) = OUTLINED_FUNCTION_332();
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39640, &unk_1D85960C0);
-  *(v1 + 120) = v11;
-  OUTLINED_FUNCTION_39(v11);
-  *(v1 + 128) = v12;
-  v14 = *(v13 + 64);
-  *(v1 + 136) = OUTLINED_FUNCTION_332();
-  v15 = sub_1D8580EF8();
-  *(v1 + 144) = v15;
-  OUTLINED_FUNCTION_39(v15);
-  *(v1 + 152) = v16;
-  v18 = *(v17 + 64);
-  *(v1 + 160) = OUTLINED_FUNCTION_332();
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39648, &unk_1D859F1E0);
-  *(v1 + 168) = v19;
-  OUTLINED_FUNCTION_39(v19);
-  *(v1 + 176) = v20;
-  v22 = *(v21 + 64);
-  *(v1 + 184) = OUTLINED_FUNCTION_332();
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38FE0, &qword_1D8590E40);
-  *(v1 + 192) = v23;
-  OUTLINED_FUNCTION_39(v23);
-  *(v1 + 200) = v24;
-  v26 = *(v25 + 64);
-  *(v1 + 208) = OUTLINED_FUNCTION_332();
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA395E0, &unk_1D8598150);
-  *(v1 + 216) = v27;
-  OUTLINED_FUNCTION_39(v27);
-  *(v1 + 224) = v28;
-  v30 = *(v29 + 64);
-  *(v1 + 232) = OUTLINED_FUNCTION_332();
-  *(v1 + 274) = *v3;
-  v31 = OUTLINED_FUNCTION_64_0();
-
-  return MEMORY[0x1EEE6DFA0](v31, v32, v33);
-}
-
-uint64_t sub_1D8518684(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
-{
-  OUTLINED_FUNCTION_257();
-  OUTLINED_FUNCTION_177();
-  v13 = *(v12 + 88);
-  if (swift_distributed_actor_is_remote())
-  {
-    v14 = *(v12 + 232);
-    v15 = *(v12 + 64);
-    OUTLINED_FUNCTION_169_2(*(v12 + 88));
-    OUTLINED_FUNCTION_185_2();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA395E8, &unk_1D8596090);
-    OUTLINED_FUNCTION_11_2();
-    OUTLINED_FUNCTION_285_0();
-    sub_1D848A55C();
-    sub_1D848A60C();
-    OUTLINED_FUNCTION_37_0();
-    if (v14)
-    {
-      (*(*(v12 + 224) + 8))(*(v12 + 232), *(v12 + 216));
-LABEL_9:
-      OUTLINED_FUNCTION_331();
-
-      OUTLINED_FUNCTION_320_1();
-
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_197();
-
-      return v47(v46, v47, v48, v49, v50, v51, v52, v53, a9, a10, a11, a12);
-    }
-
-    v26 = *(v12 + 208);
-    OUTLINED_FUNCTION_411_1();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38E10, &qword_1D8590D20);
-    OUTLINED_FUNCTION_51_4();
-    OUTLINED_FUNCTION_152_0();
-    sub_1D8581038();
-    sub_1D84769B4();
-    sub_1D8476AE8();
-    OUTLINED_FUNCTION_75_0();
-    v27 = *(v12 + 184);
-    (*(*(v12 + 152) + 16))(*(v12 + 160), *(v12 + 80), *(v12 + 144));
-    OUTLINED_FUNCTION_111_0();
-    sub_1D8581038();
-    OUTLINED_FUNCTION_20_0();
-    OUTLINED_FUNCTION_283_1(v28);
-    OUTLINED_FUNCTION_27_3(&unk_1ECA39678);
-    OUTLINED_FUNCTION_75_0();
-    v29 = *(v12 + 136);
-    *(v12 + 273) = *(v12 + 274);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39680, &unk_1D85960E0);
-    OUTLINED_FUNCTION_109_1();
-    OUTLINED_FUNCTION_73_0();
-    sub_1D8581038();
-    sub_1D848CAC8();
-    sub_1D848CBA0();
-    OUTLINED_FUNCTION_75_0();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_76_1();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v30);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA396A8, &unk_1D859F200);
-    sub_1D848CC78();
-    sub_1D848CD28();
-    OUTLINED_FUNCTION_41_1();
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v31)
-    {
-      v32 = *(v12 + 224);
-      a9 = *(v12 + 232);
-      v34 = *(v12 + 208);
-      v33 = *(v12 + 216);
-      v35 = *(v12 + 192);
-      v36 = *(v12 + 200);
-      v37 = *(v12 + 176);
-      v38 = *(v12 + 184);
-      v39 = *(v12 + 168);
-      (*(*(v12 + 128) + 8))(*(v12 + 136), *(v12 + 120));
-      v40 = *(v37 + 8);
-      v41 = OUTLINED_FUNCTION_258();
-      v42(v41);
-      v43 = *(v36 + 8);
-      v44 = OUTLINED_FUNCTION_221();
-      v45(v44);
-      (*(v32 + 8))(a9, v33);
-      goto LABEL_9;
-    }
-
-    v54 = *(v12 + 112);
-    OUTLINED_FUNCTION_184_0();
-    sub_1D8581028();
-    v55 = swift_task_alloc();
-    *(v12 + 240) = v55;
-    type metadata accessor for GameDebuggerServiceWorkaround();
-    OUTLINED_FUNCTION_1_3();
-    sub_1D8526788(v56);
-    OUTLINED_FUNCTION_98();
-    *v55 = v57;
-    v55[1] = sub_1D8518B38;
-    OUTLINED_FUNCTION_367_0();
-    OUTLINED_FUNCTION_2_4(v58);
-    OUTLINED_FUNCTION_118_0();
-
-    return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-  }
-
-  else
-  {
-    *(v12 + 272) = *(v12 + 274);
-    v16 = swift_task_alloc();
-    *(v12 + 256) = v16;
-    *v16 = v12;
-    v16[1] = sub_1D8518D1C;
-    v17 = *(v12 + 80);
-    v18 = *(v12 + 88);
-    v19 = *(v12 + 72);
-    OUTLINED_FUNCTION_207_0(*(v12 + 64));
-    OUTLINED_FUNCTION_197();
-
-    return sub_1D85194F4(v20, v21, v22, v23);
-  }
-}
-
-uint64_t sub_1D8518B38()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  OUTLINED_FUNCTION_42();
-  *v3 = v2;
-  v5 = *(v4 + 240);
-  v6 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 248) = v0;
-
-  OUTLINED_FUNCTION_149();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-uint64_t sub_1D8518D1C()
-{
-  OUTLINED_FUNCTION_537();
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_95();
-  v3 = v2;
-  OUTLINED_FUNCTION_62();
-  *v4 = v3;
-  v6 = *(v5 + 256);
-  v7 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v8 = v7;
-  v3[33] = v0;
-
-  if (v0)
-  {
-    OUTLINED_FUNCTION_149();
-    OUTLINED_FUNCTION_511();
-
-    return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-  }
-
-  else
-  {
-    v13 = v3[29];
-    v14 = v3[26];
-    v15 = v3[23];
-    v16 = v3[20];
-    v17 = v3[17];
-    v18 = v3[14];
-
-    OUTLINED_FUNCTION_56_0();
-    OUTLINED_FUNCTION_511();
-
-    return v21(v19, v20, v21, v22, v23, v24, v25, v26);
-  }
-}
-
-uint64_t sub_1D8518F6C()
-{
-  OUTLINED_FUNCTION_537();
-  OUTLINED_FUNCTION_204();
-  v1 = *(v0 + 264);
-  OUTLINED_FUNCTION_264_0();
-
-  OUTLINED_FUNCTION_146();
-  OUTLINED_FUNCTION_511();
-
-  return v3(v2, v3, v4, v5, v6, v7, v8, v9);
-}
-
-uint64_t sub_1D8518FF4(uint64_t a1, uint64_t *a2, uint64_t a3)
-{
-  v3[2] = a3;
-  v5 = *a2;
-  v3[3] = *a2;
-  v6 = *(v5 - 8);
-  v3[4] = v6;
-  v7 = *(v6 + 64) + 15;
-  v8 = swift_task_alloc();
-  v3[5] = v8;
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-    __break(1u);
-    goto LABEL_13;
-  }
-
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_13:
-    __break(1u);
-    goto LABEL_14;
-  }
-
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v21 = *v8;
-  v10 = a2[1];
-  v3[6] = v10;
-  v11 = *(v10 - 8);
-  v3[7] = v11;
-  v12 = *(v11 + 64) + 15;
-  v22 = swift_task_alloc();
-  v3[8] = v22;
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_14:
-    __break(1u);
-    goto LABEL_15;
-  }
-
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_15:
-    __break(1u);
-    goto LABEL_16;
-  }
-
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v20 = *v22;
-  v13 = a2[2];
-  v3[9] = v13;
-  v14 = *(v13 - 8);
-  v3[10] = v14;
-  v15 = *(v14 + 64) + 15;
-  v3[11] = swift_task_alloc();
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_16:
-    __break(1u);
-    goto LABEL_17;
-  }
-
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_17:
-    __break(1u);
-    goto LABEL_18;
-  }
-
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v16 = a2[3];
-  v3[12] = v16;
-  v17 = *(v16 - 8);
-  v3[13] = v17;
-  v18 = *(v17 + 64) + 15;
-  v3[14] = swift_task_alloc();
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_18:
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_19:
-    __break(1u);
-    return result;
-  }
-
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v19 = swift_task_alloc();
-  v3[15] = v19;
-  *v19 = v3;
-  v19[1] = sub_1D852A2FC;
-
-  return GameDebuggerServiceWorkaround.listLeaderboardEntries(_:players:locale:timeScope:)();
-}
-
-uint64_t sub_1D85194F4(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
-{
-  *(v5 + 112) = a3;
-  *(v5 + 120) = v4;
-  *(v5 + 96) = a1;
-  *(v5 + 104) = a2;
-  *(v5 + 153) = *a4;
-  return OUTLINED_FUNCTION_12_2();
-}
-
-uint64_t sub_1D8519514(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
-{
-  OUTLINED_FUNCTION_478();
-  OUTLINED_FUNCTION_219();
-  v12 = *(v11 + 120);
-  OUTLINED_FUNCTION_163_1();
-  (*(v13 + 112))();
-  if (*(v11 + 40))
-  {
-    v14 = *(v11 + 153);
-    OUTLINED_FUNCTION_281_1();
-    sub_1D84F589C(v11 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
-    OUTLINED_FUNCTION_18_1();
-    *(v11 + 152) = v14;
-    v15 = *(v10 + 88);
-    OUTLINED_FUNCTION_54();
-    v42 = v16 + *v16;
-    v18 = *(v17 + 4);
-    v19 = swift_task_alloc();
-    v20 = OUTLINED_FUNCTION_201_0(v19);
-    *v20 = v21;
-    v20[1] = sub_1D85196D0;
-    v22 = *(v11 + 104);
-    v23 = *(v11 + 112);
-    OUTLINED_FUNCTION_207_0(*(v11 + 96));
-    OUTLINED_FUNCTION_471();
-
-    return v30(v24, v25, v26, v27, v28, v29, v30, v31, a9, a10);
-  }
-
-  else
-  {
-    sub_1D84F589C(v11 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
-    OUTLINED_FUNCTION_69_2();
-    OUTLINED_FUNCTION_471();
-
-    return v36(v34, v35, v36, v37, v38, v39, v40, v41, a9, a10);
-  }
-}
-
-uint64_t sub_1D85196D0()
-{
-  OUTLINED_FUNCTION_174();
-  OUTLINED_FUNCTION_95();
-  v4 = v3;
-  OUTLINED_FUNCTION_62();
-  *v5 = v4;
-  v7 = *(v6 + 128);
-  v8 = *v2;
-  OUTLINED_FUNCTION_37();
-  *v9 = v8;
-  v4[17] = v0;
-
-  v10 = v4[15];
-  if (!v0)
-  {
-    v4[18] = v1;
-  }
-
-  OUTLINED_FUNCTION_184_2();
-
-  return MEMORY[0x1EEE6DFA0](v11, v12, v13);
-}
-
-uint64_t sub_1D85197DC()
-{
-  OUTLINED_FUNCTION_148();
-  __swift_destroy_boxed_opaque_existential_1((v0 + 56));
-  v1 = *(v0 + 144);
-  OUTLINED_FUNCTION_69_2();
-
-  return v2();
-}
-
-uint64_t sub_1D851983C()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_93_0();
-  v2 = *(v0 + 136);
-
-  return v1();
-}
-
-uint64_t GameDebuggerServiceWorkaround.listLeaderboards(games:players:)()
-{
-  OUTLINED_FUNCTION_148();
-  v1[9] = v2;
-  v1[10] = v0;
-  v1[8] = v3;
-  v4 = sub_1D8581018();
-  v1[11] = v4;
-  OUTLINED_FUNCTION_39(v4);
-  v1[12] = v5;
-  v7 = *(v6 + 64);
-  v1[13] = OUTLINED_FUNCTION_332();
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38FE0, &qword_1D8590E40);
-  v1[14] = v8;
-  OUTLINED_FUNCTION_39(v8);
-  v1[15] = v9;
-  v11 = *(v10 + 64);
-  v1[16] = OUTLINED_FUNCTION_332();
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39578, &unk_1D85981A0);
-  OUTLINED_FUNCTION_29(v12);
-  v1[18] = v13;
-  v15 = *(v14 + 64);
-  v1[19] = OUTLINED_FUNCTION_332();
-  v16 = OUTLINED_FUNCTION_64_0();
-
-  return MEMORY[0x1EEE6DFA0](v16, v17, v18);
-}
-
-uint64_t sub_1D85199E4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
-{
-  OUTLINED_FUNCTION_196_0();
-  OUTLINED_FUNCTION_177();
-  v13 = v12[10];
-  if (swift_distributed_actor_is_remote())
-  {
-    v14 = v12[19];
-    v15 = v12[8];
-    OUTLINED_FUNCTION_169_2(v12[10]);
-    OUTLINED_FUNCTION_185_2();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA392E0, &qword_1D8591020);
-    OUTLINED_FUNCTION_122_1();
-    OUTLINED_FUNCTION_100_1();
-    OUTLINED_FUNCTION_285_0();
-    sub_1D847C154();
-    sub_1D847C0A4();
-    OUTLINED_FUNCTION_37_0();
-    if (v14)
-    {
-      (*(v12[18] + 8))(v12[19], v12[17]);
-LABEL_12:
-      OUTLINED_FUNCTION_331();
-
-      OUTLINED_FUNCTION_168_0();
-      v33 = v12[13];
-
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_170_1();
-
-      return v35(v34, v35, v36, v37, v38, v39, v40, v41, a9, a10, a11, a12);
-    }
-
-    v25 = v12[16];
-    OUTLINED_FUNCTION_411_1();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38E10, &qword_1D8590D20);
-    OUTLINED_FUNCTION_51_4();
-    OUTLINED_FUNCTION_152_0();
-    sub_1D8581038();
-    sub_1D84769B4();
-    sub_1D8476AE8();
-    OUTLINED_FUNCTION_75_0();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_76_1();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v26);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA396D8, &unk_1D859F230);
-    sub_1D848FFF0();
-    sub_1D84900A0();
-    OUTLINED_FUNCTION_41_1();
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v27)
-    {
-      v29 = v12[18];
-      v28 = v12[19];
-      v30 = v12[17];
-      (*(v12[15] + 8))(v12[16], v12[14]);
-      v31 = OUTLINED_FUNCTION_121_2();
-      v32(v31);
-      goto LABEL_12;
-    }
-
-    v42 = v12[13];
-    OUTLINED_FUNCTION_184_0();
-    sub_1D8581028();
-    v43 = swift_task_alloc();
-    v12[20] = v43;
-    type metadata accessor for GameDebuggerServiceWorkaround();
-    OUTLINED_FUNCTION_1_3();
-    sub_1D8526788(v44);
-    OUTLINED_FUNCTION_98();
-    *v43 = v45;
-    v43[1] = sub_1D8519CEC;
-    v46 = v12[13];
-    v47 = v12[10];
-    OUTLINED_FUNCTION_2_4(v48);
-    OUTLINED_FUNCTION_143_0();
-
-    return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
-  }
-
-  else
-  {
-    v16 = swift_task_alloc();
-    v17 = OUTLINED_FUNCTION_322_0(v16);
-    *v17 = v18;
-    v17[1] = sub_1D8519EAC;
-    v19 = v12[9];
-    v20 = v12[10];
-    OUTLINED_FUNCTION_207_0(v12[8]);
-    OUTLINED_FUNCTION_170_1();
-
-    return sub_1D851A368(v21, v22);
-  }
-}
-
-uint64_t sub_1D8519CEC()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_153();
-  OUTLINED_FUNCTION_42();
-  *v3 = v2;
-  v5 = *(v4 + 160);
-  v6 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 168) = v0;
-
-  OUTLINED_FUNCTION_149();
-
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
-}
-
-uint64_t sub_1D8519DE4()
-{
-  OUTLINED_FUNCTION_537();
-  OUTLINED_FUNCTION_204();
-  v2 = v0[18];
-  v1 = v0[19];
-  v4 = v0[16];
-  v3 = v0[17];
-  v5 = v0[14];
-  v6 = v0[15];
-  v7 = OUTLINED_FUNCTION_204_0();
-  v8(v7);
-  v9 = OUTLINED_FUNCTION_77();
-  v10(v9);
-  v11 = OUTLINED_FUNCTION_80();
-  v12(v11);
-  OUTLINED_FUNCTION_331();
-
-  v13 = v0[7];
-  OUTLINED_FUNCTION_243_0();
-  v14 = v0[13];
-
-  OUTLINED_FUNCTION_72();
-  OUTLINED_FUNCTION_511();
-
-  return v17(v15, v16, v17, v18, v19, v20, v21, v22);
-}
-
-uint64_t sub_1D8519EAC()
-{
-  OUTLINED_FUNCTION_536();
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_320();
-  v3 = v2[22];
-  v4 = *v1;
-  OUTLINED_FUNCTION_37();
-  *v5 = v4;
-
-  OUTLINED_FUNCTION_510();
-  v7 = *(v6 + 152);
-  v8 = v2[16];
-  v9 = v2[13];
-
-  OUTLINED_FUNCTION_507();
-  if (!v0)
-  {
-    OUTLINED_FUNCTION_482();
-  }
-
-  OUTLINED_FUNCTION_535();
-
-  return v12(v10, v11, v12, v13, v14, v15, v16, v17);
-}
-
-uint64_t sub_1D8519FF0()
-{
-  OUTLINED_FUNCTION_537();
-  OUTLINED_FUNCTION_204();
-  v2 = v0[18];
-  v1 = v0[19];
-  v4 = v0[16];
-  v3 = v0[17];
-  v5 = v0[14];
-  v6 = v0[15];
-  v7 = OUTLINED_FUNCTION_204_0();
-  v8(v7);
-  v9 = OUTLINED_FUNCTION_77();
-  v10(v9);
-  v11 = OUTLINED_FUNCTION_80();
-  v12(v11);
-  OUTLINED_FUNCTION_331();
-
-  v13 = v0[21];
-  OUTLINED_FUNCTION_243_0();
-  v14 = v0[13];
-
-  OUTLINED_FUNCTION_146();
-  OUTLINED_FUNCTION_511();
-
-  return v16(v15, v16, v17, v18, v19, v20, v21, v22);
-}
-
-uint64_t sub_1D851A0B8(uint64_t a1, uint64_t *a2, uint64_t a3)
-{
-  v3[2] = a3;
-  v5 = *a2;
-  v3[3] = *a2;
-  v6 = *(v5 - 8);
-  v3[4] = v6;
-  v7 = *(v6 + 64) + 15;
-  v8 = swift_task_alloc();
-  v3[5] = v8;
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-    __break(1u);
-    goto LABEL_9;
-  }
-
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_9:
-    __break(1u);
-    goto LABEL_10;
-  }
-
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v16 = *v8;
-  v10 = a2[1];
-  v3[6] = v10;
-  v11 = *(v10 - 8);
-  v3[7] = v11;
-  v12 = *(v11 + 64) + 15;
-  v13 = swift_task_alloc();
-  v3[8] = v13;
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_10:
-    __break(1u);
-    goto LABEL_11;
-  }
-
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_11:
-    __break(1u);
-    return result;
-  }
-
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v14 = *v13;
-  v15 = swift_task_alloc();
-  v3[9] = v15;
-  *v15 = v3;
-  v15[1] = sub_1D852A37C;
-
-  return GameDebuggerServiceWorkaround.listLeaderboards(games:players:)();
-}
-
-uint64_t sub_1D851A368(uint64_t a1, uint64_t a2)
-{
-  v3[13] = a2;
-  v3[14] = v2;
-  v3[12] = a1;
-  return OUTLINED_FUNCTION_12_2();
-}
-
-uint64_t sub_1D851A380()
-{
-  OUTLINED_FUNCTION_204();
-  v1 = *(v0 + 112);
-  OUTLINED_FUNCTION_163_1();
-  (*(v2 + 112))();
-  if (*(v0 + 40))
-  {
-    OUTLINED_FUNCTION_281_1();
-    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
-    v3 = *(OUTLINED_FUNCTION_14_3() + 96);
-    OUTLINED_FUNCTION_54();
-    v15 = v4 + *v4;
-    v6 = *(v5 + 4);
-    v7 = swift_task_alloc();
-    v8 = OUTLINED_FUNCTION_264_2(v7);
-    *v8 = v9;
-    v10 = OUTLINED_FUNCTION_65_2(v8);
-
-    return v11(v10);
-  }
-
-  else
-  {
-    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
-    OUTLINED_FUNCTION_69_2();
-    v14 = MEMORY[0x1E69E7CC0];
-
-    return v13(v14);
-  }
-}
-
-uint64_t sub_1D851A510()
-{
-  OUTLINED_FUNCTION_536();
-  OUTLINED_FUNCTION_204();
-  OUTLINED_FUNCTION_95_2();
-  OUTLINED_FUNCTION_37();
-  *v4 = v3;
-  v5 = v3[15];
-  *v4 = *v2;
-  v3[16] = v0;
-
-  OUTLINED_FUNCTION_214_3();
-  v7 = *(v6 + 112);
-  if (!v0)
-  {
-    v3[17] = v1;
-  }
-
-  OUTLINED_FUNCTION_184_2();
-  OUTLINED_FUNCTION_535();
-
-  return MEMORY[0x1EEE6DFA0](v8, v9, v10);
-}
-
-uint64_t sub_1D851A628()
-{
-  OUTLINED_FUNCTION_148();
-  __swift_destroy_boxed_opaque_existential_1((v0 + 56));
-  v1 = *(v0 + 136);
-  OUTLINED_FUNCTION_69_2();
-
-  return v2();
-}
-
-uint64_t sub_1D851A688()
-{
-  OUTLINED_FUNCTION_148();
-  OUTLINED_FUNCTION_93_0();
-  v2 = *(v0 + 128);
-
-  return v1();
-}
-
-uint64_t GameDebuggerServiceWorkaround.submitLeaderboardEntries(_:)()
-{
-  OUTLINED_FUNCTION_148();
-  v1[6] = v2;
-  v1[7] = v0;
-  v3 = sub_1D8581018();
-  v1[8] = v3;
-  OUTLINED_FUNCTION_39(v3);
-  v1[9] = v4;
-  v6 = *(v5 + 64);
-  v1[10] = OUTLINED_FUNCTION_332();
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39708, &unk_1D859F250);
-  v1[11] = v7;
-  OUTLINED_FUNCTION_39(v7);
-  v1[12] = v8;
-  v10 = *(v9 + 64);
-  v1[13] = OUTLINED_FUNCTION_332();
-  v11 = OUTLINED_FUNCTION_64_0();
-
-  return MEMORY[0x1EEE6DFA0](v11, v12, v13);
-}
-
-uint64_t sub_1D851A7D8()
-{
-  OUTLINED_FUNCTION_536();
-  OUTLINED_FUNCTION_204();
-  v1 = v0[7];
-  if (swift_distributed_actor_is_remote())
-  {
-    v2 = v0[13];
-    v3 = v0[6];
-    OUTLINED_FUNCTION_169_2(v0[7]);
-    OUTLINED_FUNCTION_185_2();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39710, &qword_1D8596140);
-    OUTLINED_FUNCTION_257_1();
-    OUTLINED_FUNCTION_83_3();
-    OUTLINED_FUNCTION_285_0();
-    sub_1D849134C();
-    sub_1D8491404();
-    OUTLINED_FUNCTION_37_0();
-    if (v2 || (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0), OUTLINED_FUNCTION_156(), GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v4), GameServicesActorSystem.JSONInvocationEncoder.doneRecording()(), v5))
-    {
-      v6 = OUTLINED_FUNCTION_204_0();
-      v7(v6);
-      OUTLINED_FUNCTION_331();
-
-      OUTLINED_FUNCTION_324_1();
-
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_535();
-
-      return v9(v8, v9, v10, v11, v12, v13, v14, v15);
-    }
-
-    else
-    {
-      v22 = v0[10];
-      OUTLINED_FUNCTION_184_0();
-      sub_1D8581028();
-      v23 = swift_task_alloc();
-      v0[14] = v23;
-      type metadata accessor for GameDebuggerServiceWorkaround();
-      OUTLINED_FUNCTION_1_3();
-      sub_1D8526788(v24);
-      OUTLINED_FUNCTION_81();
-      *v23 = v25;
-      OUTLINED_FUNCTION_256_0();
-      OUTLINED_FUNCTION_31_2();
-      OUTLINED_FUNCTION_535();
-
-      return GameServicesActorSystem.remoteCallVoid<A, B>(on:target:invocation:throwing:)(v26, v27, v28, v29, v30, v31, v32);
-    }
-  }
-
-  else
-  {
-    v17 = swift_task_alloc();
-    v18 = OUTLINED_FUNCTION_201_0(v17);
-    *v18 = v19;
-    OUTLINED_FUNCTION_113_1(v18);
-    OUTLINED_FUNCTION_535();
-
-    return sub_1D851ABA8(v20);
-  }
-}
-
-uint64_t sub_1D851AA0C(uint64_t a1, uint64_t *a2)
-{
-  v3 = *a2;
-  v2[2] = *a2;
-  v4 = *(v3 - 8);
-  v2[3] = v4;
-  v5 = *(v4 + 64) + 15;
-  v6 = swift_task_alloc();
-  v2[4] = v6;
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-    __break(1u);
-    goto LABEL_7;
-  }
-
-  result = swift_conformsToProtocol2();
-  if (!result)
-  {
-LABEL_7:
-    __break(1u);
-    return result;
-  }
-
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v8 = *v6;
-  v9 = swift_task_alloc();
-  v2[5] = v9;
-  *v9 = v2;
-  v9[1] = sub_1D84A7CAC;
-
-  return GameDebuggerServiceWorkaround.submitLeaderboardEntries(_:)();
-}
-
 uint64_t sub_1D851ABA8(uint64_t a1)
 {
   *(v2 + 96) = a1;
   *(v2 + 104) = v1;
-  return OUTLINED_FUNCTION_10_4(a1, v1);
+  return OUTLINED_FUNCTION_10_4();
 }
 
 uint64_t sub_1D851ABC0()
@@ -8914,16 +14,14 @@ uint64_t sub_1D851ABC0()
   {
     OUTLINED_FUNCTION_281_1();
     sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
-    v2 = *(OUTLINED_FUNCTION_14_3() + 104);
+    OUTLINED_FUNCTION_14_3();
     OUTLINED_FUNCTION_54();
-    v13 = v3 + *v3;
-    v5 = *(v4 + 4);
-    v6 = swift_task_alloc();
-    v7 = OUTLINED_FUNCTION_212_3(v6);
-    *v7 = v8;
-    v9 = OUTLINED_FUNCTION_9_2(v7);
+    v2 = swift_task_alloc();
+    v3 = OUTLINED_FUNCTION_212_3(v2);
+    *v3 = v4;
+    v5 = OUTLINED_FUNCTION_9_2(v3);
 
-    return v10(v9);
+    return v6(v5);
   }
 
   else
@@ -8931,7 +29,7 @@ uint64_t sub_1D851ABC0()
     sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
     OUTLINED_FUNCTION_57();
 
-    return v12();
+    return v8();
   }
 }
 
@@ -8944,40 +42,36 @@ uint64_t GameDebuggerServiceWorkaround.resetLeaderboards(_:)()
   v1[8] = v3;
   OUTLINED_FUNCTION_39(v3);
   v1[9] = v4;
-  v6 = *(v5 + 64);
   v1[10] = OUTLINED_FUNCTION_332();
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA395E0, &unk_1D8598150);
-  v1[11] = v7;
-  OUTLINED_FUNCTION_39(v7);
-  v1[12] = v8;
-  v10 = *(v9 + 64);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA395E0, &unk_1D8598150);
+  v1[11] = v5;
+  OUTLINED_FUNCTION_39(v5);
+  v1[12] = v6;
   v1[13] = OUTLINED_FUNCTION_332();
-  v11 = OUTLINED_FUNCTION_64_0();
+  v7 = OUTLINED_FUNCTION_64_0();
 
-  return MEMORY[0x1EEE6DFA0](v11, v12, v13);
+  return MEMORY[0x1EEE6DFA0](v7);
 }
 
-uint64_t sub_1D851AE3C()
+uint64_t sub_1D851AE3C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
   OUTLINED_FUNCTION_536();
   OUTLINED_FUNCTION_204();
-  v1 = v0[7];
   if (swift_distributed_actor_is_remote())
   {
-    v2 = v0[13];
-    v3 = v0[6];
-    OUTLINED_FUNCTION_169_2(v0[7]);
+    v14 = *(v13 + 104);
+    OUTLINED_FUNCTION_169_2();
     OUTLINED_FUNCTION_185_2();
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA395E8, &unk_1D8596090);
-    OUTLINED_FUNCTION_11_2();
-    OUTLINED_FUNCTION_285_0();
+    v15 = OUTLINED_FUNCTION_11_2();
+    OUTLINED_FUNCTION_285_0(v15, v16, v17, v18);
     sub_1D848A55C();
     sub_1D848A60C();
     OUTLINED_FUNCTION_37_0();
-    if (v2 || (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0), OUTLINED_FUNCTION_156(), GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v4), GameServicesActorSystem.JSONInvocationEncoder.doneRecording()(), v5))
+    if (v14 || (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0), OUTLINED_FUNCTION_156(), GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v19), GameServicesActorSystem.JSONInvocationEncoder.doneRecording()(), v20))
     {
-      v6 = OUTLINED_FUNCTION_204_0();
-      v7(v6);
+      v21 = OUTLINED_FUNCTION_204_0();
+      v22(v21);
       OUTLINED_FUNCTION_331();
 
       OUTLINED_FUNCTION_324_1();
@@ -8985,38 +79,37 @@ uint64_t sub_1D851AE3C()
       OUTLINED_FUNCTION_48();
       OUTLINED_FUNCTION_535();
 
-      return v9(v8, v9, v10, v11, v12, v13, v14, v15);
+      return v24(v23, v24, v25, v26, v27, v28, v29, v30);
     }
 
     else
     {
-      v22 = v0[10];
       OUTLINED_FUNCTION_184_0();
       sub_1D8581028();
-      v23 = swift_task_alloc();
-      v0[14] = v23;
+      v37 = swift_task_alloc();
+      *(v13 + 112) = v37;
       type metadata accessor for GameDebuggerServiceWorkaround();
       OUTLINED_FUNCTION_1_3();
-      sub_1D8526788(v24);
+      sub_1D8526788(v38);
       OUTLINED_FUNCTION_81();
-      *v23 = v25;
+      *v37 = v39;
       OUTLINED_FUNCTION_256_0();
       OUTLINED_FUNCTION_31_2();
       OUTLINED_FUNCTION_535();
 
-      return GameServicesActorSystem.remoteCallVoid<A, B>(on:target:invocation:throwing:)(v26, v27, v28, v29, v30, v31, v32);
+      return GameServicesActorSystem.remoteCallVoid<A, B>(on:target:invocation:throwing:)(v40, v41, v42, v43, v44, v45, v46);
     }
   }
 
   else
   {
-    v17 = swift_task_alloc();
-    v18 = OUTLINED_FUNCTION_201_0(v17);
-    *v18 = v19;
-    OUTLINED_FUNCTION_113_1(v18);
+    v32 = swift_task_alloc();
+    v33 = OUTLINED_FUNCTION_201_0(v32);
+    *v33 = v34;
+    OUTLINED_FUNCTION_113_1(v33);
     OUTLINED_FUNCTION_535();
 
-    return sub_1D851B554(v20);
+    return sub_1D851B554(v35);
   }
 }
 
@@ -9026,15 +119,14 @@ uint64_t sub_1D851B06C()
   OUTLINED_FUNCTION_153();
   OUTLINED_FUNCTION_42();
   *v3 = v2;
-  v5 = *(v4 + 112);
-  v6 = *v1;
+  v4 = *v1;
   OUTLINED_FUNCTION_37();
-  *v7 = v6;
-  *(v8 + 120) = v0;
+  *v5 = v4;
+  *(v6 + 120) = v0;
 
   OUTLINED_FUNCTION_149();
 
-  return MEMORY[0x1EEE6DFA0](v9, v10, v11);
+  return MEMORY[0x1EEE6DFA0](v7);
 }
 
 uint64_t sub_1D851B164()
@@ -9057,47 +149,37 @@ uint64_t sub_1D851B1FC()
 {
   OUTLINED_FUNCTION_174();
   OUTLINED_FUNCTION_334();
-  v2 = *(v0 + 128);
-  v3 = *v1;
+  v1 = *v0;
   OUTLINED_FUNCTION_37();
-  *v4 = v3;
+  *v2 = v1;
 
   OUTLINED_FUNCTION_341();
-  v6 = *(v5 + 104);
-  v7 = *(v0 + 80);
 
   OUTLINED_FUNCTION_137();
 
-  return v8();
+  return v3();
 }
 
 uint64_t sub_1D851B314()
 {
   OUTLINED_FUNCTION_174();
-  v1 = OUTLINED_FUNCTION_364_0();
-  v2(v1);
-  v3 = OUTLINED_FUNCTION_74();
-  v4(v3);
+  v0 = OUTLINED_FUNCTION_364_0();
+  v1(v0);
+  v2 = OUTLINED_FUNCTION_74();
+  v3(v2);
   OUTLINED_FUNCTION_331();
-
-  v5 = v0[15];
-  v6 = v0[13];
-  v7 = v0[10];
 
   OUTLINED_FUNCTION_146();
 
-  return v8();
+  return v4();
 }
 
 uint64_t sub_1D851B3B8(uint64_t a1, uint64_t *a2)
 {
   v3 = *a2;
   v2[2] = *a2;
-  v4 = *(v3 - 8);
-  v2[3] = v4;
-  v5 = *(v4 + 64) + 15;
-  v6 = swift_task_alloc();
-  v2[4] = v6;
+  v2[3] = *(v3 - 8);
+  v2[4] = swift_task_alloc();
   result = swift_conformsToProtocol2();
   if (!result)
   {
@@ -9113,12 +195,11 @@ LABEL_7:
     return result;
   }
 
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v8 = *v6;
-  v9 = swift_task_alloc();
-  v2[5] = v9;
-  *v9 = v2;
-  v9[1] = sub_1D84A7CAC;
+  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()(v3);
+  v5 = swift_task_alloc();
+  v2[5] = v5;
+  *v5 = v2;
+  v5[1] = sub_1D84A7CAC;
 
   return GameDebuggerServiceWorkaround.resetLeaderboards(_:)();
 }
@@ -9127,7 +208,7 @@ uint64_t sub_1D851B554(uint64_t a1)
 {
   *(v2 + 96) = a1;
   *(v2 + 104) = v1;
-  return OUTLINED_FUNCTION_10_4(a1, v1);
+  return OUTLINED_FUNCTION_10_4();
 }
 
 uint64_t sub_1D851B56C()
@@ -9139,16 +220,14 @@ uint64_t sub_1D851B56C()
   {
     OUTLINED_FUNCTION_281_1();
     sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
-    v2 = *(OUTLINED_FUNCTION_14_3() + 112);
+    OUTLINED_FUNCTION_14_3();
     OUTLINED_FUNCTION_54();
-    v13 = v3 + *v3;
-    v5 = *(v4 + 4);
-    v6 = swift_task_alloc();
-    v7 = OUTLINED_FUNCTION_212_3(v6);
-    *v7 = v8;
-    v9 = OUTLINED_FUNCTION_9_2(v7);
+    v2 = swift_task_alloc();
+    v3 = OUTLINED_FUNCTION_212_3(v2);
+    *v3 = v4;
+    v5 = OUTLINED_FUNCTION_9_2(v3);
 
-    return v10(v9);
+    return v6(v5);
   }
 
   else
@@ -9156,7 +235,7 @@ uint64_t sub_1D851B56C()
     sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
     OUTLINED_FUNCTION_57();
 
-    return v12();
+    return v8();
   }
 }
 
@@ -9167,51 +246,34 @@ uint64_t GameDebuggerServiceWorkaround.describeLeaderboardSets(_:)()
   v0[9] = v2;
   OUTLINED_FUNCTION_39(v2);
   v0[10] = v3;
-  v5 = *(v4 + 64);
   v0[11] = OUTLINED_FUNCTION_332();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39738, &unk_1D859F280);
-  OUTLINED_FUNCTION_38_0(v6);
-  v0[13] = v7;
-  v9 = *(v8 + 64);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39738, &unk_1D859F280);
+  OUTLINED_FUNCTION_38_0(v4);
+  v0[13] = v5;
   v0[14] = OUTLINED_FUNCTION_332();
-  v10 = OUTLINED_FUNCTION_64_0();
+  v6 = OUTLINED_FUNCTION_64_0();
 
-  return MEMORY[0x1EEE6DFA0](v10, v11, v12);
+  return MEMORY[0x1EEE6DFA0](v6);
 }
 
 uint64_t sub_1D851B7DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   OUTLINED_FUNCTION_196_0();
   OUTLINED_FUNCTION_177();
-  v14 = v13[8];
   if (swift_distributed_actor_is_remote())
   {
     OUTLINED_FUNCTION_98_1();
     OUTLINED_FUNCTION_185_2();
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39740, &unk_1D8596160);
-    OUTLINED_FUNCTION_11_2();
-    OUTLINED_FUNCTION_285_0();
+    v14 = OUTLINED_FUNCTION_11_2();
+    OUTLINED_FUNCTION_285_0(v14, v15, v16, v17);
     sub_1D8491E2C();
     sub_1D8491EDC();
     OUTLINED_FUNCTION_37_0();
-    if (v12)
+    if (v12 || (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0), OUTLINED_FUNCTION_76_1(), GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v18), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39770, &unk_1D8596170), sub_1D8491F8C(), v19 = sub_1D84920E8(), OUTLINED_FUNCTION_41_1(v19), GameServicesActorSystem.JSONInvocationEncoder.doneRecording()(), v20))
     {
-      goto LABEL_6;
-    }
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_76_1();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v15);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39770, &unk_1D8596170);
-    sub_1D8491F8C();
-    sub_1D84920E8();
-    OUTLINED_FUNCTION_41_1();
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v16)
-    {
-LABEL_6:
-      v17 = OUTLINED_FUNCTION_116_0();
-      v18(v17);
+      v21 = OUTLINED_FUNCTION_116_0();
+      v22(v21);
       OUTLINED_FUNCTION_331();
 
       OUTLINED_FUNCTION_191_2();
@@ -9219,22 +281,21 @@ LABEL_6:
       OUTLINED_FUNCTION_48();
       OUTLINED_FUNCTION_170_1();
 
-      return v20(v19, v20, v21, v22, v23, v24, v25, v26, a9, a10, a11, a12);
+      return v24(v23, v24, v25, v26, v27, v28, v29, v30, a9, a10, a11, a12);
     }
 
     else
     {
-      v33 = v13[11];
       OUTLINED_FUNCTION_184_0();
       sub_1D8581028();
-      v34 = swift_task_alloc();
-      OUTLINED_FUNCTION_309_2(v34);
+      v37 = swift_task_alloc();
+      OUTLINED_FUNCTION_309_2(v37);
       OUTLINED_FUNCTION_1_3();
-      sub_1D8526788(v35);
+      sub_1D8526788(v38);
       OUTLINED_FUNCTION_98();
-      v13[2] = v36;
+      *(v13 + 16) = v39;
       OUTLINED_FUNCTION_419();
-      OUTLINED_FUNCTION_2_4(v37);
+      OUTLINED_FUNCTION_2_4(v40);
       OUTLINED_FUNCTION_143_0();
 
       return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
@@ -9243,13 +304,13 @@ LABEL_6:
 
   else
   {
-    v28 = swift_task_alloc();
-    v29 = OUTLINED_FUNCTION_207_3(v28);
-    *v29 = v30;
-    OUTLINED_FUNCTION_33_1(v29);
+    v32 = swift_task_alloc();
+    v33 = OUTLINED_FUNCTION_207_3(v32);
+    *v33 = v34;
+    OUTLINED_FUNCTION_33_1(v33);
     OUTLINED_FUNCTION_170_1();
 
-    return sub_1D851BBCC(v31);
+    return sub_1D851BBCC(v35);
   }
 }
 
@@ -9258,11 +319,8 @@ uint64_t sub_1D851BA2C(uint64_t a1, uint64_t *a2, uint64_t a3)
   v3[2] = a3;
   v4 = *a2;
   v3[3] = *a2;
-  v5 = *(v4 - 8);
-  v3[4] = v5;
-  v6 = *(v5 + 64) + 15;
-  v7 = swift_task_alloc();
-  v3[5] = v7;
+  v3[4] = *(v4 - 8);
+  v3[5] = swift_task_alloc();
   result = swift_conformsToProtocol2();
   if (!result)
   {
@@ -9278,12 +336,11 @@ LABEL_7:
     return result;
   }
 
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v9 = *v7;
-  v10 = swift_task_alloc();
-  v3[6] = v10;
-  *v10 = v3;
-  v10[1] = sub_1D84A7CD8;
+  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()(v4);
+  v6 = swift_task_alloc();
+  v3[6] = v6;
+  *v6 = v3;
+  v6[1] = sub_1D84A7CD8;
 
   return GameDebuggerServiceWorkaround.describeLeaderboardSets(_:)();
 }
@@ -9292,7 +349,7 @@ uint64_t sub_1D851BBCC(uint64_t a1)
 {
   *(v2 + 96) = a1;
   *(v2 + 104) = v1;
-  return OUTLINED_FUNCTION_10_4(a1, v1);
+  return OUTLINED_FUNCTION_10_4();
 }
 
 uint64_t sub_1D851BBE4()
@@ -9304,25 +361,23 @@ uint64_t sub_1D851BBE4()
   {
     OUTLINED_FUNCTION_281_1();
     sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
-    v2 = *(OUTLINED_FUNCTION_14_3() + 120);
+    OUTLINED_FUNCTION_14_3();
     OUTLINED_FUNCTION_54();
-    v14 = v3 + *v3;
-    v5 = *(v4 + 4);
-    v6 = swift_task_alloc();
-    v7 = OUTLINED_FUNCTION_212_3(v6);
-    *v7 = v8;
-    v9 = OUTLINED_FUNCTION_9_2(v7);
+    v2 = swift_task_alloc();
+    v3 = OUTLINED_FUNCTION_212_3(v2);
+    *v3 = v4;
+    v5 = OUTLINED_FUNCTION_9_2(v3);
 
-    return v10(v9);
+    return v6(v5);
   }
 
   else
   {
     sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
     OUTLINED_FUNCTION_69_2();
-    v13 = MEMORY[0x1E69E7CC0];
+    v9 = MEMORY[0x1E69E7CC0];
 
-    return v12(v13);
+    return v8(v9);
   }
 }
 
@@ -9333,23 +388,20 @@ uint64_t GameDebuggerServiceWorkaround.listLeaderboardSets(games:)()
   v0[9] = v2;
   OUTLINED_FUNCTION_39(v2);
   v0[10] = v3;
-  v5 = *(v4 + 64);
   v0[11] = OUTLINED_FUNCTION_332();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39578, &unk_1D85981A0);
-  OUTLINED_FUNCTION_38_0(v6);
-  v0[13] = v7;
-  v9 = *(v8 + 64);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39578, &unk_1D85981A0);
+  OUTLINED_FUNCTION_38_0(v4);
+  v0[13] = v5;
   v0[14] = OUTLINED_FUNCTION_332();
-  v10 = OUTLINED_FUNCTION_64_0();
+  v6 = OUTLINED_FUNCTION_64_0();
 
-  return MEMORY[0x1EEE6DFA0](v10, v11, v12);
+  return MEMORY[0x1EEE6DFA0](v6);
 }
 
 uint64_t sub_1D851BE60(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   OUTLINED_FUNCTION_196_0();
   OUTLINED_FUNCTION_177();
-  v14 = v13[8];
   if (swift_distributed_actor_is_remote())
   {
     OUTLINED_FUNCTION_98_1();
@@ -9357,28 +409,14 @@ uint64_t sub_1D851BE60(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA392E0, &qword_1D8591020);
     OUTLINED_FUNCTION_122_1();
     OUTLINED_FUNCTION_100_1();
-    OUTLINED_FUNCTION_285_0();
+    OUTLINED_FUNCTION_285_0(v14, v15, v16, v17);
     sub_1D847C154();
     sub_1D847C0A4();
     OUTLINED_FUNCTION_37_0();
-    if (v12)
+    if (v12 || (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0), OUTLINED_FUNCTION_76_1(), GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v18), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA397B0, &unk_1D8596190), sub_1D8492BB0(), v19 = sub_1D8492C60(), OUTLINED_FUNCTION_41_1(v19), GameServicesActorSystem.JSONInvocationEncoder.doneRecording()(), v20))
     {
-      goto LABEL_6;
-    }
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_76_1();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v15);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA397B0, &unk_1D8596190);
-    sub_1D8492BB0();
-    sub_1D8492C60();
-    OUTLINED_FUNCTION_41_1();
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v16)
-    {
-LABEL_6:
-      v17 = OUTLINED_FUNCTION_116_0();
-      v18(v17);
+      v21 = OUTLINED_FUNCTION_116_0();
+      v22(v21);
       OUTLINED_FUNCTION_331();
 
       OUTLINED_FUNCTION_191_2();
@@ -9386,22 +424,21 @@ LABEL_6:
       OUTLINED_FUNCTION_48();
       OUTLINED_FUNCTION_170_1();
 
-      return v20(v19, v20, v21, v22, v23, v24, v25, v26, a9, a10, a11, a12);
+      return v24(v23, v24, v25, v26, v27, v28, v29, v30, a9, a10, a11, a12);
     }
 
     else
     {
-      v33 = v13[11];
       OUTLINED_FUNCTION_184_0();
       sub_1D8581028();
-      v34 = swift_task_alloc();
-      OUTLINED_FUNCTION_309_2(v34);
+      v37 = swift_task_alloc();
+      OUTLINED_FUNCTION_309_2(v37);
       OUTLINED_FUNCTION_1_3();
-      sub_1D8526788(v35);
+      sub_1D8526788(v38);
       OUTLINED_FUNCTION_98();
-      v13[2] = v36;
+      *(v13 + 16) = v39;
       OUTLINED_FUNCTION_419();
-      OUTLINED_FUNCTION_2_4(v37);
+      OUTLINED_FUNCTION_2_4(v40);
       OUTLINED_FUNCTION_143_0();
 
       return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
@@ -9410,13 +447,13 @@ LABEL_6:
 
   else
   {
-    v28 = swift_task_alloc();
-    v29 = OUTLINED_FUNCTION_207_3(v28);
-    *v29 = v30;
-    OUTLINED_FUNCTION_33_1(v29);
+    v32 = swift_task_alloc();
+    v33 = OUTLINED_FUNCTION_207_3(v32);
+    *v33 = v34;
+    OUTLINED_FUNCTION_33_1(v33);
     OUTLINED_FUNCTION_170_1();
 
-    return sub_1D851C254(v31);
+    return sub_1D851C254(v35);
   }
 }
 
@@ -9425,11 +462,8 @@ uint64_t sub_1D851C0B4(uint64_t a1, uint64_t *a2, uint64_t a3)
   v3[2] = a3;
   v4 = *a2;
   v3[3] = *a2;
-  v5 = *(v4 - 8);
-  v3[4] = v5;
-  v6 = *(v5 + 64) + 15;
-  v7 = swift_task_alloc();
-  v3[5] = v7;
+  v3[4] = *(v4 - 8);
+  v3[5] = swift_task_alloc();
   result = swift_conformsToProtocol2();
   if (!result)
   {
@@ -9445,12 +479,11 @@ LABEL_7:
     return result;
   }
 
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v9 = *v7;
-  v10 = swift_task_alloc();
-  v3[6] = v10;
-  *v10 = v3;
-  v10[1] = sub_1D84A7CD8;
+  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()(v4);
+  v6 = swift_task_alloc();
+  v3[6] = v6;
+  *v6 = v3;
+  v6[1] = sub_1D84A7CD8;
 
   return GameDebuggerServiceWorkaround.listLeaderboardSets(games:)();
 }
@@ -9459,7 +492,7 @@ uint64_t sub_1D851C254(uint64_t a1)
 {
   *(v2 + 96) = a1;
   *(v2 + 104) = v1;
-  return OUTLINED_FUNCTION_10_4(a1, v1);
+  return OUTLINED_FUNCTION_10_4();
 }
 
 uint64_t sub_1D851C26C()
@@ -9471,25 +504,23 @@ uint64_t sub_1D851C26C()
   {
     OUTLINED_FUNCTION_281_1();
     sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
-    v2 = *(OUTLINED_FUNCTION_14_3() + 128);
+    OUTLINED_FUNCTION_14_3();
     OUTLINED_FUNCTION_54();
-    v14 = v3 + *v3;
-    v5 = *(v4 + 4);
-    v6 = swift_task_alloc();
-    v7 = OUTLINED_FUNCTION_212_3(v6);
-    *v7 = v8;
-    v9 = OUTLINED_FUNCTION_9_2(v7);
+    v2 = swift_task_alloc();
+    v3 = OUTLINED_FUNCTION_212_3(v2);
+    *v3 = v4;
+    v5 = OUTLINED_FUNCTION_9_2(v3);
 
-    return v10(v9);
+    return v6(v5);
   }
 
   else
   {
     sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
     OUTLINED_FUNCTION_69_2();
-    v13 = MEMORY[0x1E69E7CC0];
+    v9 = MEMORY[0x1E69E7CC0];
 
-    return v12(v13);
+    return v8(v9);
   }
 }
 
@@ -9500,23 +531,20 @@ uint64_t GameDebuggerServiceWorkaround.listLeaderboards(leaderboardSets:)()
   v0[9] = v2;
   OUTLINED_FUNCTION_39(v2);
   v0[10] = v3;
-  v5 = *(v4 + 64);
   v0[11] = OUTLINED_FUNCTION_332();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39738, &unk_1D859F280);
-  OUTLINED_FUNCTION_38_0(v6);
-  v0[13] = v7;
-  v9 = *(v8 + 64);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39738, &unk_1D859F280);
+  OUTLINED_FUNCTION_38_0(v4);
+  v0[13] = v5;
   v0[14] = OUTLINED_FUNCTION_332();
-  v10 = OUTLINED_FUNCTION_64_0();
+  v6 = OUTLINED_FUNCTION_64_0();
 
-  return MEMORY[0x1EEE6DFA0](v10, v11, v12);
+  return MEMORY[0x1EEE6DFA0](v6);
 }
 
 uint64_t sub_1D851C4E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   OUTLINED_FUNCTION_196_0();
   OUTLINED_FUNCTION_177();
-  v14 = v13[8];
   if (swift_distributed_actor_is_remote())
   {
     OUTLINED_FUNCTION_98_1();
@@ -9524,28 +552,14 @@ uint64_t sub_1D851C4E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39740, &unk_1D8596160);
     OUTLINED_FUNCTION_138_1();
     OUTLINED_FUNCTION_198();
-    OUTLINED_FUNCTION_285_0();
+    OUTLINED_FUNCTION_285_0(v14, v15, v16, v17);
     sub_1D8491E2C();
     sub_1D8491EDC();
     OUTLINED_FUNCTION_37_0();
-    if (v12)
+    if (v12 || (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0), OUTLINED_FUNCTION_76_1(), GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v18), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA396D8, &unk_1D859F230), sub_1D848FFF0(), v19 = sub_1D84900A0(), OUTLINED_FUNCTION_41_1(v19), GameServicesActorSystem.JSONInvocationEncoder.doneRecording()(), v20))
     {
-      goto LABEL_6;
-    }
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_76_1();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v15);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA396D8, &unk_1D859F230);
-    sub_1D848FFF0();
-    sub_1D84900A0();
-    OUTLINED_FUNCTION_41_1();
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v16)
-    {
-LABEL_6:
-      v17 = OUTLINED_FUNCTION_116_0();
-      v18(v17);
+      v21 = OUTLINED_FUNCTION_116_0();
+      v22(v21);
       OUTLINED_FUNCTION_331();
 
       OUTLINED_FUNCTION_191_2();
@@ -9553,22 +567,21 @@ LABEL_6:
       OUTLINED_FUNCTION_48();
       OUTLINED_FUNCTION_170_1();
 
-      return v20(v19, v20, v21, v22, v23, v24, v25, v26, a9, a10, a11, a12);
+      return v24(v23, v24, v25, v26, v27, v28, v29, v30, a9, a10, a11, a12);
     }
 
     else
     {
-      v33 = v13[11];
       OUTLINED_FUNCTION_184_0();
       sub_1D8581028();
-      v34 = swift_task_alloc();
-      OUTLINED_FUNCTION_309_2(v34);
+      v37 = swift_task_alloc();
+      OUTLINED_FUNCTION_309_2(v37);
       OUTLINED_FUNCTION_1_3();
-      sub_1D8526788(v35);
+      sub_1D8526788(v38);
       OUTLINED_FUNCTION_98();
-      v13[2] = v36;
+      *(v13 + 16) = v39;
       OUTLINED_FUNCTION_419();
-      OUTLINED_FUNCTION_2_4(v37);
+      OUTLINED_FUNCTION_2_4(v40);
       OUTLINED_FUNCTION_143_0();
 
       return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
@@ -9577,13 +590,13 @@ LABEL_6:
 
   else
   {
-    v28 = swift_task_alloc();
-    v29 = OUTLINED_FUNCTION_207_3(v28);
-    *v29 = v30;
-    OUTLINED_FUNCTION_33_1(v29);
+    v32 = swift_task_alloc();
+    v33 = OUTLINED_FUNCTION_207_3(v32);
+    *v33 = v34;
+    OUTLINED_FUNCTION_33_1(v33);
     OUTLINED_FUNCTION_170_1();
 
-    return sub_1D851C8DC(v31);
+    return sub_1D851C8DC(v35);
   }
 }
 
@@ -9592,11 +605,8 @@ uint64_t sub_1D851C73C(uint64_t a1, uint64_t *a2, uint64_t a3)
   v3[2] = a3;
   v4 = *a2;
   v3[3] = *a2;
-  v5 = *(v4 - 8);
-  v3[4] = v5;
-  v6 = *(v5 + 64) + 15;
-  v7 = swift_task_alloc();
-  v3[5] = v7;
+  v3[4] = *(v4 - 8);
+  v3[5] = swift_task_alloc();
   result = swift_conformsToProtocol2();
   if (!result)
   {
@@ -9612,12 +622,11 @@ LABEL_7:
     return result;
   }
 
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v9 = *v7;
-  v10 = swift_task_alloc();
-  v3[6] = v10;
-  *v10 = v3;
-  v10[1] = sub_1D84A7CD8;
+  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()(v4);
+  v6 = swift_task_alloc();
+  v3[6] = v6;
+  *v6 = v3;
+  v6[1] = sub_1D84A7CD8;
 
   return GameDebuggerServiceWorkaround.listLeaderboards(leaderboardSets:)();
 }
@@ -9626,7 +635,7 @@ uint64_t sub_1D851C8DC(uint64_t a1)
 {
   *(v2 + 96) = a1;
   *(v2 + 104) = v1;
-  return OUTLINED_FUNCTION_10_4(a1, v1);
+  return OUTLINED_FUNCTION_10_4();
 }
 
 uint64_t sub_1D851C8F4()
@@ -9638,25 +647,23 @@ uint64_t sub_1D851C8F4()
   {
     OUTLINED_FUNCTION_281_1();
     sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
-    v2 = *(OUTLINED_FUNCTION_14_3() + 136);
+    OUTLINED_FUNCTION_14_3();
     OUTLINED_FUNCTION_54();
-    v14 = v3 + *v3;
-    v5 = *(v4 + 4);
-    v6 = swift_task_alloc();
-    v7 = OUTLINED_FUNCTION_212_3(v6);
-    *v7 = v8;
-    v9 = OUTLINED_FUNCTION_9_2(v7);
+    v2 = swift_task_alloc();
+    v3 = OUTLINED_FUNCTION_212_3(v2);
+    *v3 = v4;
+    v5 = OUTLINED_FUNCTION_9_2(v3);
 
-    return v10(v9);
+    return v6(v5);
   }
 
   else
   {
     sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
     OUTLINED_FUNCTION_69_2();
-    v13 = MEMORY[0x1E69E7CC0];
+    v9 = MEMORY[0x1E69E7CC0];
 
-    return v12(v13);
+    return v8(v9);
   }
 }
 
@@ -9667,51 +674,34 @@ uint64_t GameDebuggerServiceWorkaround.describePlayerProfiles(_:)()
   v0[9] = v2;
   OUTLINED_FUNCTION_39(v2);
   v0[10] = v3;
-  v5 = *(v4 + 64);
   v0[11] = OUTLINED_FUNCTION_332();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38FE0, &qword_1D8590E40);
-  OUTLINED_FUNCTION_38_0(v6);
-  v0[13] = v7;
-  v9 = *(v8 + 64);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38FE0, &qword_1D8590E40);
+  OUTLINED_FUNCTION_38_0(v4);
+  v0[13] = v5;
   v0[14] = OUTLINED_FUNCTION_332();
-  v10 = OUTLINED_FUNCTION_64_0();
+  v6 = OUTLINED_FUNCTION_64_0();
 
-  return MEMORY[0x1EEE6DFA0](v10, v11, v12);
+  return MEMORY[0x1EEE6DFA0](v6);
 }
 
 uint64_t sub_1D851CB70(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   OUTLINED_FUNCTION_196_0();
   OUTLINED_FUNCTION_177();
-  v14 = v13[8];
   if (swift_distributed_actor_is_remote())
   {
     OUTLINED_FUNCTION_98_1();
     OUTLINED_FUNCTION_185_2();
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38E10, &qword_1D8590D20);
-    OUTLINED_FUNCTION_11_2();
-    OUTLINED_FUNCTION_285_0();
+    v14 = OUTLINED_FUNCTION_11_2();
+    OUTLINED_FUNCTION_285_0(v14, v15, v16, v17);
     sub_1D84769B4();
     sub_1D8476AE8();
     OUTLINED_FUNCTION_37_0();
-    if (v12)
+    if (v12 || (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0), OUTLINED_FUNCTION_76_1(), GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v18), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A1A0, &qword_1D859F2E8), sub_1D8505630(), v19 = sub_1D850578C(), OUTLINED_FUNCTION_41_1(v19), GameServicesActorSystem.JSONInvocationEncoder.doneRecording()(), v20))
     {
-      goto LABEL_6;
-    }
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_76_1();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v15);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A1A0, &qword_1D859F2E8);
-    sub_1D8505630();
-    sub_1D850578C();
-    OUTLINED_FUNCTION_41_1();
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v16)
-    {
-LABEL_6:
-      v17 = OUTLINED_FUNCTION_116_0();
-      v18(v17);
+      v21 = OUTLINED_FUNCTION_116_0();
+      v22(v21);
       OUTLINED_FUNCTION_331();
 
       OUTLINED_FUNCTION_191_2();
@@ -9719,22 +709,21 @@ LABEL_6:
       OUTLINED_FUNCTION_48();
       OUTLINED_FUNCTION_170_1();
 
-      return v20(v19, v20, v21, v22, v23, v24, v25, v26, a9, a10, a11, a12);
+      return v24(v23, v24, v25, v26, v27, v28, v29, v30, a9, a10, a11, a12);
     }
 
     else
     {
-      v33 = v13[11];
       OUTLINED_FUNCTION_184_0();
       sub_1D8581028();
-      v34 = swift_task_alloc();
-      OUTLINED_FUNCTION_309_2(v34);
+      v37 = swift_task_alloc();
+      OUTLINED_FUNCTION_309_2(v37);
       OUTLINED_FUNCTION_1_3();
-      sub_1D8526788(v35);
+      sub_1D8526788(v38);
       OUTLINED_FUNCTION_98();
-      v13[2] = v36;
+      *(v13 + 16) = v39;
       OUTLINED_FUNCTION_419();
-      OUTLINED_FUNCTION_2_4(v37);
+      OUTLINED_FUNCTION_2_4(v40);
       OUTLINED_FUNCTION_143_0();
 
       return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
@@ -9743,13 +732,13 @@ LABEL_6:
 
   else
   {
-    v28 = swift_task_alloc();
-    v29 = OUTLINED_FUNCTION_207_3(v28);
-    *v29 = v30;
-    OUTLINED_FUNCTION_33_1(v29);
+    v32 = swift_task_alloc();
+    v33 = OUTLINED_FUNCTION_207_3(v32);
+    *v33 = v34;
+    OUTLINED_FUNCTION_33_1(v33);
     OUTLINED_FUNCTION_170_1();
 
-    return sub_1D851CF60(v31);
+    return sub_1D851CF60(v35);
   }
 }
 
@@ -9758,11 +747,8 @@ uint64_t sub_1D851CDC0(uint64_t a1, uint64_t *a2, uint64_t a3)
   v3[2] = a3;
   v4 = *a2;
   v3[3] = *a2;
-  v5 = *(v4 - 8);
-  v3[4] = v5;
-  v6 = *(v5 + 64) + 15;
-  v7 = swift_task_alloc();
-  v3[5] = v7;
+  v3[4] = *(v4 - 8);
+  v3[5] = swift_task_alloc();
   result = swift_conformsToProtocol2();
   if (!result)
   {
@@ -9778,12 +764,11 @@ LABEL_7:
     return result;
   }
 
-  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()();
-  v9 = *v7;
-  v10 = swift_task_alloc();
-  v3[6] = v10;
-  *v10 = v3;
-  v10[1] = sub_1D84A7CD8;
+  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()(v4);
+  v6 = swift_task_alloc();
+  v3[6] = v6;
+  *v6 = v3;
+  v6[1] = sub_1D84A7CD8;
 
   return GameDebuggerServiceWorkaround.describePlayerProfiles(_:)();
 }
@@ -9792,7 +777,7 @@ uint64_t sub_1D851CF60(uint64_t a1)
 {
   *(v2 + 96) = a1;
   *(v2 + 104) = v1;
-  return OUTLINED_FUNCTION_10_4(a1, v1);
+  return OUTLINED_FUNCTION_10_4();
 }
 
 uint64_t sub_1D851CF78()
@@ -9804,25 +789,23 @@ uint64_t sub_1D851CF78()
   {
     OUTLINED_FUNCTION_281_1();
     sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
-    v2 = *(OUTLINED_FUNCTION_14_3() + 144);
+    OUTLINED_FUNCTION_14_3();
     OUTLINED_FUNCTION_54();
-    v14 = v3 + *v3;
-    v5 = *(v4 + 4);
-    v6 = swift_task_alloc();
-    v7 = OUTLINED_FUNCTION_212_3(v6);
-    *v7 = v8;
-    v9 = OUTLINED_FUNCTION_9_2(v7);
+    v2 = swift_task_alloc();
+    v3 = OUTLINED_FUNCTION_212_3(v2);
+    *v3 = v4;
+    v5 = OUTLINED_FUNCTION_9_2(v3);
 
-    return v10(v9);
+    return v6(v5);
   }
 
   else
   {
     sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
     OUTLINED_FUNCTION_69_2();
-    v13 = MEMORY[0x1E69E7CC0];
+    v9 = MEMORY[0x1E69E7CC0];
 
-    return v12(v13);
+    return v8(v9);
   }
 }
 
@@ -9833,51 +816,34 @@ uint64_t GameDebuggerServiceWorkaround.describeGameLockups(_:)()
   v0[9] = v2;
   OUTLINED_FUNCTION_39(v2);
   v0[10] = v3;
-  v5 = *(v4 + 64);
   v0[11] = OUTLINED_FUNCTION_332();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39578, &unk_1D85981A0);
-  OUTLINED_FUNCTION_38_0(v6);
-  v0[13] = v7;
-  v9 = *(v8 + 64);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39578, &unk_1D85981A0);
+  OUTLINED_FUNCTION_38_0(v4);
+  v0[13] = v5;
   v0[14] = OUTLINED_FUNCTION_332();
-  v10 = OUTLINED_FUNCTION_64_0();
+  v6 = OUTLINED_FUNCTION_64_0();
 
-  return MEMORY[0x1EEE6DFA0](v10, v11, v12);
+  return MEMORY[0x1EEE6DFA0](v6);
 }
 
 uint64_t sub_1D851D1F4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   OUTLINED_FUNCTION_196_0();
   OUTLINED_FUNCTION_177();
-  v14 = v13[8];
   if (swift_distributed_actor_is_remote())
   {
     OUTLINED_FUNCTION_98_1();
     OUTLINED_FUNCTION_185_2();
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA392E0, &qword_1D8591020);
-    OUTLINED_FUNCTION_11_2();
-    OUTLINED_FUNCTION_285_0();
+    v14 = OUTLINED_FUNCTION_11_2();
+    OUTLINED_FUNCTION_285_0(v14, v15, v16, v17);
     sub_1D847C154();
     sub_1D847C0A4();
     OUTLINED_FUNCTION_37_0();
-    if (v12)
+    if (v12 || (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0), OUTLINED_FUNCTION_76_1(), GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v18), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A1E0, &qword_1D859F308), sub_1D8506280(), v19 = sub_1D85063DC(), OUTLINED_FUNCTION_41_1(v19), GameServicesActorSystem.JSONInvocationEncoder.doneRecording()(), v20))
     {
-      goto LABEL_6;
-    }
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
-    OUTLINED_FUNCTION_76_1();
-    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v15);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A1E0, &qword_1D859F308);
-    sub_1D8506280();
-    sub_1D85063DC();
-    OUTLINED_FUNCTION_41_1();
-    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
-    if (v16)
-    {
-LABEL_6:
-      v17 = OUTLINED_FUNCTION_116_0();
-      v18(v17);
+      v21 = OUTLINED_FUNCTION_116_0();
+      v22(v21);
       OUTLINED_FUNCTION_331();
 
       OUTLINED_FUNCTION_191_2();
@@ -9885,22 +851,21 @@ LABEL_6:
       OUTLINED_FUNCTION_48();
       OUTLINED_FUNCTION_170_1();
 
-      return v20(v19, v20, v21, v22, v23, v24, v25, v26, a9, a10, a11, a12);
+      return v24(v23, v24, v25, v26, v27, v28, v29, v30, a9, a10, a11, a12);
     }
 
     else
     {
-      v33 = v13[11];
       OUTLINED_FUNCTION_184_0();
       sub_1D8581028();
-      v34 = swift_task_alloc();
-      OUTLINED_FUNCTION_309_2(v34);
+      v37 = swift_task_alloc();
+      OUTLINED_FUNCTION_309_2(v37);
       OUTLINED_FUNCTION_1_3();
-      sub_1D8526788(v35);
+      sub_1D8526788(v38);
       OUTLINED_FUNCTION_98();
-      v13[2] = v36;
+      *(v13 + 16) = v39;
       OUTLINED_FUNCTION_419();
-      OUTLINED_FUNCTION_2_4(v37);
+      OUTLINED_FUNCTION_2_4(v40);
       OUTLINED_FUNCTION_143_0();
 
       return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
@@ -9909,12 +874,8969 @@ LABEL_6:
 
   else
   {
-    v28 = swift_task_alloc();
-    v29 = OUTLINED_FUNCTION_207_3(v28);
-    *v29 = v30;
-    OUTLINED_FUNCTION_33_1(v29);
+    v32 = swift_task_alloc();
+    v33 = OUTLINED_FUNCTION_207_3(v32);
+    *v33 = v34;
+    OUTLINED_FUNCTION_33_1(v33);
     OUTLINED_FUNCTION_170_1();
 
-    return sub_1D851D5E4(v31);
+    return sub_1D851D5E4(v35);
   }
+}
+
+uint64_t sub_1D851D444(uint64_t a1, uint64_t *a2, uint64_t a3)
+{
+  v3[2] = a3;
+  v4 = *a2;
+  v3[3] = *a2;
+  v3[4] = *(v4 - 8);
+  v3[5] = swift_task_alloc();
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+LABEL_7:
+    __break(1u);
+    return result;
+  }
+
+  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()(v4);
+  v6 = swift_task_alloc();
+  v3[6] = v6;
+  *v6 = v3;
+  v6[1] = sub_1D84A7CD8;
+
+  return GameDebuggerServiceWorkaround.describeGameLockups(_:)();
+}
+
+uint64_t sub_1D851D5E4(uint64_t a1)
+{
+  *(v2 + 96) = a1;
+  *(v2 + 104) = v1;
+  return OUTLINED_FUNCTION_10_4();
+}
+
+uint64_t sub_1D851D5FC()
+{
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_90_1();
+  (*(v1 + 112))();
+  if (*(v0 + 40))
+  {
+    OUTLINED_FUNCTION_281_1();
+    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
+    OUTLINED_FUNCTION_14_3();
+    OUTLINED_FUNCTION_54();
+    v2 = swift_task_alloc();
+    v3 = OUTLINED_FUNCTION_212_3(v2);
+    *v3 = v4;
+    v5 = OUTLINED_FUNCTION_9_2(v3);
+
+    return v6(v5);
+  }
+
+  else
+  {
+    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
+    OUTLINED_FUNCTION_69_2();
+    v9 = MEMORY[0x1E69E7CC0];
+
+    return v8(v9);
+  }
+}
+
+uint64_t GameDebuggerServiceWorkaround.listGames(by:sortBy:upTo:after:belongingTo:)()
+{
+  OUTLINED_FUNCTION_536();
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_373_1();
+  *(v1 + 160) = v3;
+  *(v1 + 168) = v0;
+  *(v1 + 149) = v4;
+  *(v1 + 152) = v5;
+  v6 = sub_1D8581018();
+  *(v1 + 176) = v6;
+  OUTLINED_FUNCTION_39(v6);
+  *(v1 + 184) = v7;
+  *(v1 + 192) = OUTLINED_FUNCTION_332();
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38DB0, &qword_1D8590D00);
+  *(v1 + 200) = v8;
+  OUTLINED_FUNCTION_39(v8);
+  *(v1 + 208) = v9;
+  *(v1 + 216) = OUTLINED_FUNCTION_332();
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38CB0, &unk_1D8590C60);
+  *(v1 + 224) = v10;
+  OUTLINED_FUNCTION_39(v10);
+  *(v1 + 232) = v11;
+  *(v1 + 240) = OUTLINED_FUNCTION_332();
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A220, &unk_1D85A7890);
+  *(v1 + 248) = v12;
+  OUTLINED_FUNCTION_39(v12);
+  *(v1 + 256) = v13;
+  *(v1 + 264) = OUTLINED_FUNCTION_332();
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A228, &unk_1D859F330);
+  *(v1 + 272) = v14;
+  OUTLINED_FUNCTION_39(v14);
+  *(v1 + 280) = v15;
+  *(v1 + 288) = OUTLINED_FUNCTION_332();
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A230, &unk_1D85A78A0);
+  *(v1 + 296) = v16;
+  OUTLINED_FUNCTION_39(v16);
+  *(v1 + 304) = v17;
+  *(v1 + 312) = OUTLINED_FUNCTION_332();
+  *(v1 + 320) = OUTLINED_FUNCTION_371_0();
+  *(v1 + 336) = v18;
+  v19 = v2[1];
+  *(v1 + 352) = *v2;
+  *(v1 + 360) = v19;
+  OUTLINED_FUNCTION_64_0();
+  OUTLINED_FUNCTION_535();
+
+  return MEMORY[0x1EEE6DFA0](v20);
+}
+
+uint64_t sub_1D851DA08(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+{
+  OUTLINED_FUNCTION_268_0();
+  OUTLINED_FUNCTION_487();
+  if (swift_distributed_actor_is_remote())
+  {
+    v18 = *(v16 + 320);
+    v17 = *(v16 + 328);
+    OUTLINED_FUNCTION_169_2();
+    *(v16 + 88) = v18;
+    *(v16 + 96) = v17;
+    sub_1D8508B60(v18, v17);
+    v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A238, &unk_1D859F340);
+    OUTLINED_FUNCTION_313_0();
+    OUTLINED_FUNCTION_261_0();
+    sub_1D8581038();
+    sub_1D8508B74();
+    sub_1D8508C4C();
+    v20 = OUTLINED_FUNCTION_36();
+    GameServicesActorSystem.JSONInvocationEncoder.recordArgument<A>(_:)(v20, v19);
+    *(v16 + 147) = *(v16 + 150);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A260, &qword_1D85A78B0);
+    OUTLINED_FUNCTION_108_3();
+    sub_1D8581038();
+    sub_1D8508D24();
+    sub_1D8508DFC();
+    OUTLINED_FUNCTION_75_0();
+    v35 = *(v16 + 149);
+    *(v16 + 136) = *(v16 + 160);
+    *(v16 + 144) = v35 & 1;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A288, &qword_1D859F350);
+    OUTLINED_FUNCTION_312_1();
+    OUTLINED_FUNCTION_250_1();
+    sub_1D8581038();
+    OUTLINED_FUNCTION_137_0(&unk_1ECA3A290);
+    OUTLINED_FUNCTION_136_2(&unk_1ECA3A298, MEMORY[0x1E69E6818]);
+    OUTLINED_FUNCTION_75_0();
+    v36 = *(v16 + 344);
+    *(v16 + 104) = *(v16 + 336);
+    *(v16 + 112) = v36;
+
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38CB8, &unk_1D8596010);
+    OUTLINED_FUNCTION_26_1();
+    OUTLINED_FUNCTION_254_1();
+    sub_1D8581038();
+    sub_1D84751F0();
+    sub_1D8475274();
+    OUTLINED_FUNCTION_75_0();
+    v37 = *(v16 + 360);
+    *(v16 + 120) = *(v16 + 352);
+    *(v16 + 128) = v37;
+
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA389B8, &qword_1D8590B30);
+    v38 = OUTLINED_FUNCTION_117();
+    OUTLINED_FUNCTION_252(v38, v39, v40, v41, v16 + 120);
+    OUTLINED_FUNCTION_3();
+    OUTLINED_FUNCTION_358_1(v42);
+    OUTLINED_FUNCTION_4();
+    OUTLINED_FUNCTION_358_1(v43);
+    OUTLINED_FUNCTION_164();
+    GameServicesActorSystem.JSONInvocationEncoder.recordArgument<A>(_:)(v44, v45);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
+    OUTLINED_FUNCTION_76_1();
+    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v46);
+    v47 = OUTLINED_FUNCTION_238();
+    __swift_instantiateConcreteTypeFromMangledNameV2(v47, v48);
+    OUTLINED_FUNCTION_17_3();
+    sub_1D848211C(v49);
+    OUTLINED_FUNCTION_16_4();
+    v51 = sub_1D848211C(v50);
+    OUTLINED_FUNCTION_41_1(v51);
+    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
+    if (v52)
+    {
+      v53 = *(v16 + 304);
+      v74 = *(v16 + 296);
+      v75 = *(v16 + 312);
+      v54 = *(v16 + 280);
+      v72 = *(v16 + 272);
+      v73 = *(v16 + 288);
+      v55 = *(v16 + 240);
+      v57 = *(v16 + 224);
+      v56 = *(v16 + 232);
+      (*(*(v16 + 208) + 8))(*(v16 + 216), *(v16 + 200));
+      (*(v56 + 8))(v55, v57);
+      v58 = OUTLINED_FUNCTION_258();
+      v59(v58);
+      (*(v54 + 8))(v73, v72);
+      (*(v53 + 8))(v75, v74);
+      OUTLINED_FUNCTION_331();
+
+      OUTLINED_FUNCTION_319_1();
+
+      OUTLINED_FUNCTION_48();
+      OUTLINED_FUNCTION_177_0();
+
+      return v61(v60, v61, v62, v63, v64, v65, v66, v67, a9, v72, v73, v74, v75, a14, a15, a16);
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_184_0();
+      sub_1D8581028();
+      v68 = swift_task_alloc();
+      *(v16 + 368) = v68;
+      type metadata accessor for GameDebuggerServiceWorkaround();
+      OUTLINED_FUNCTION_1_3();
+      sub_1D8526788(v69);
+      OUTLINED_FUNCTION_217();
+      *v68 = v70;
+      v68[1] = sub_1D851E068;
+      OUTLINED_FUNCTION_7_4();
+      OUTLINED_FUNCTION_238_2();
+
+      return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
+    }
+  }
+
+  else
+  {
+    v21 = *(v16 + 336);
+    *(v16 + 40) = *(v16 + 320);
+    v23 = *(v16 + 352);
+    v22 = *(v16 + 360);
+    *(v16 + 145) = *(v16 + 150);
+    *(v16 + 56) = v21;
+    *(v16 + 72) = v23;
+    *(v16 + 80) = v22;
+    swift_task_alloc();
+    OUTLINED_FUNCTION_168();
+    *(v16 + 384) = v24;
+    *v24 = v25;
+    v24[1] = sub_1D851E264;
+    OUTLINED_FUNCTION_177_0();
+
+    return sub_1D851EBC0(v26, v27, v28, v29, v30, v31, v32);
+  }
+}
+
+uint64_t sub_1D851E068()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_153();
+  OUTLINED_FUNCTION_42();
+  *v3 = v2;
+  v4 = *v1;
+  OUTLINED_FUNCTION_37();
+  *v5 = v4;
+  *(v6 + 376) = v0;
+
+  OUTLINED_FUNCTION_149();
+
+  return MEMORY[0x1EEE6DFA0](v7);
+}
+
+uint64_t sub_1D851E264()
+{
+  OUTLINED_FUNCTION_536();
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_153();
+  v3 = v2;
+  OUTLINED_FUNCTION_62();
+  *v4 = v3;
+  v5 = *v1;
+  OUTLINED_FUNCTION_37();
+  *v6 = v5;
+  *(v3 + 392) = v0;
+
+  if (v0)
+  {
+    OUTLINED_FUNCTION_149();
+    OUTLINED_FUNCTION_535();
+
+    return MEMORY[0x1EEE6DFA0](v7);
+  }
+
+  else
+  {
+
+    OUTLINED_FUNCTION_57();
+    OUTLINED_FUNCTION_535();
+
+    return v10(v9, v10, v11, v12, v13, v14, v15, v16);
+  }
+}
+
+uint64_t sub_1D851E4C4()
+{
+  OUTLINED_FUNCTION_537();
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_218_1();
+
+  OUTLINED_FUNCTION_146();
+  OUTLINED_FUNCTION_511();
+
+  return v1(v0, v1, v2, v3, v4, v5, v6, v7);
+}
+
+uint64_t sub_1D851E54C(uint64_t a1, uint64_t *a2)
+{
+  v4 = *a2;
+  v2[2] = *a2;
+  v2[3] = *(v4 - 8);
+  v2[4] = swift_task_alloc();
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+    __break(1u);
+    goto LABEL_15;
+  }
+
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+LABEL_15:
+    __break(1u);
+    goto LABEL_16;
+  }
+
+  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()(v4);
+  v6 = a2[1];
+  v2[5] = v6;
+  v2[6] = *(v6 - 8);
+  v2[7] = swift_task_alloc();
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+LABEL_16:
+    __break(1u);
+    goto LABEL_17;
+  }
+
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+LABEL_17:
+    __break(1u);
+    goto LABEL_18;
+  }
+
+  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()(v6);
+  v7 = a2[2];
+  v2[8] = v7;
+  v2[9] = *(v7 - 8);
+  v2[10] = swift_task_alloc();
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+LABEL_18:
+    __break(1u);
+    goto LABEL_19;
+  }
+
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+LABEL_19:
+    __break(1u);
+    goto LABEL_20;
+  }
+
+  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()(v7);
+  v8 = a2[3];
+  v2[11] = v8;
+  v2[12] = *(v8 - 8);
+  v2[13] = swift_task_alloc();
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+LABEL_20:
+    __break(1u);
+    goto LABEL_21;
+  }
+
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+LABEL_21:
+    __break(1u);
+    goto LABEL_22;
+  }
+
+  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()(v8);
+  v9 = a2[4];
+  v2[14] = v9;
+  v2[15] = *(v9 - 8);
+  v2[16] = swift_task_alloc();
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+LABEL_22:
+    __break(1u);
+    goto LABEL_23;
+  }
+
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+LABEL_23:
+    __break(1u);
+    return result;
+  }
+
+  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()(v9);
+  v10 = swift_task_alloc();
+  v2[17] = v10;
+  *v10 = v2;
+  v10[1] = sub_1D852A39C;
+
+  return GameDebuggerServiceWorkaround.listGames(by:sortBy:upTo:after:belongingTo:)();
+}
+
+uint64_t sub_1D851EBC0(uint64_t a1, __int128 *a2, _WORD *a3, uint64_t a4, char a5, __int128 *a6, void *a7)
+{
+  *(v8 + 192) = a4;
+  *(v8 + 200) = v7;
+  *(v8 + 276) = a5;
+  *(v8 + 184) = a1;
+  v9 = *a2;
+  *(v8 + 272) = *a3;
+  v10 = *a6;
+  *(v8 + 208) = v9;
+  *(v8 + 224) = v10;
+  v11 = a7[1];
+  *(v8 + 240) = *a7;
+  *(v8 + 248) = v11;
+  return OUTLINED_FUNCTION_12_2();
+}
+
+uint64_t sub_1D851EBF8()
+{
+  OUTLINED_FUNCTION_214_0();
+  OUTLINED_FUNCTION_163_1();
+  (*(v1 + 112))();
+  if (*(v0 + 40))
+  {
+    v3 = *(v0 + 240);
+    v2 = *(v0 + 248);
+    v27 = *(v0 + 224);
+    v4 = *(v0 + 272);
+    v6 = *(v0 + 208);
+    v5 = *(v0 + 216);
+    OUTLINED_FUNCTION_281_1();
+    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
+    __swift_project_boxed_opaque_existential_1((v0 + 56), *(v0 + 80));
+    *(v0 + 136) = v6;
+    *(v0 + 144) = v5;
+    *(v0 + 274) = v4;
+    *(v0 + 152) = v27;
+    *(v0 + 168) = v3;
+    *(v0 + 176) = v2;
+    OUTLINED_FUNCTION_54();
+    swift_task_alloc();
+    OUTLINED_FUNCTION_168();
+    *(v0 + 256) = v7;
+    *v7 = v8;
+    v7[1] = sub_1D851EE84;
+    OUTLINED_FUNCTION_176_0();
+
+    __asm { BRAA            X8, X16 }
+  }
+
+  sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
+  v11 = OUTLINED_FUNCTION_188();
+  __swift_instantiateConcreteTypeFromMangledNameV2(v11, v12);
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_397();
+  sub_1D848211C(v13);
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_397();
+  v15 = sub_1D848211C(v14);
+  OUTLINED_FUNCTION_392_1(MEMORY[0x1E69E7CC0], v16, v17, v18, v15, v19, v20, v21, v24, v25, v26, v28, v29, 0);
+  OUTLINED_FUNCTION_57();
+
+  return v22();
+}
+
+uint64_t sub_1D851EE84()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_153();
+  v3 = v2;
+  OUTLINED_FUNCTION_62();
+  *v4 = v3;
+  v5 = *v1;
+  OUTLINED_FUNCTION_37();
+  *v6 = v5;
+  *(v3 + 264) = v0;
+
+  if (v0)
+  {
+    v7 = sub_1D851F008;
+  }
+
+  else
+  {
+    v7 = sub_1D851EF84;
+  }
+
+  return MEMORY[0x1EEE6DFA0](v7);
+}
+
+uint64_t sub_1D851EF84()
+{
+  OUTLINED_FUNCTION_204();
+  v1 = *(v0 + 184);
+  v2 = *(v0 + 96);
+  v5 = *(v0 + 120);
+  v6 = *(v0 + 104);
+  __swift_destroy_boxed_opaque_existential_1((v0 + 56));
+  *v1 = v2;
+  *(v1 + 24) = v5;
+  *(v1 + 8) = v6;
+  OUTLINED_FUNCTION_57();
+
+  return v3();
+}
+
+uint64_t sub_1D851F008()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_93_0();
+
+  return v0();
+}
+
+uint64_t GameDebuggerServiceWorkaround.enableGameDebugging(bundleID:)()
+{
+  OUTLINED_FUNCTION_148();
+  v3 = OUTLINED_FUNCTION_300_2(v1, v2);
+  v0[10] = v3;
+  OUTLINED_FUNCTION_39(v3);
+  v0[11] = v4;
+  v0[12] = OUTLINED_FUNCTION_332();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A2B8, &qword_1D859F370);
+  v0[13] = v5;
+  OUTLINED_FUNCTION_39(v5);
+  v0[14] = v6;
+  v0[15] = OUTLINED_FUNCTION_332();
+  v7 = OUTLINED_FUNCTION_64_0();
+
+  return MEMORY[0x1EEE6DFA0](v7);
+}
+
+uint64_t sub_1D851F150(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
+{
+  OUTLINED_FUNCTION_536();
+  OUTLINED_FUNCTION_204();
+  if (swift_distributed_actor_is_remote())
+  {
+    v14 = v13[8];
+    v15 = v13[7];
+    OUTLINED_FUNCTION_169_2();
+    v13[5] = v15;
+    v13[6] = v14;
+
+    v16 = OUTLINED_FUNCTION_110_3();
+    OUTLINED_FUNCTION_285_0(v16, 0xE800000000000000, v16, 0xE800000000000000);
+    v17 = OUTLINED_FUNCTION_166();
+    GameServicesActorSystem.JSONInvocationEncoder.recordArgument<A>(_:)(v17, v18);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
+    OUTLINED_FUNCTION_156();
+    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v19);
+    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
+    if (v20)
+    {
+      v21 = OUTLINED_FUNCTION_246_2();
+      v22(v21);
+      OUTLINED_FUNCTION_331();
+
+      OUTLINED_FUNCTION_349_0();
+
+      OUTLINED_FUNCTION_48();
+      OUTLINED_FUNCTION_535();
+
+      return v24(v23, v24, v25, v26, v27, v28, v29, v30);
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_184_0();
+      sub_1D8581028();
+      v38 = swift_task_alloc();
+      OUTLINED_FUNCTION_333_2(v38);
+      type metadata accessor for GameDebuggerServiceWorkaround();
+      OUTLINED_FUNCTION_1_3();
+      sub_1D8526788(v39);
+      OUTLINED_FUNCTION_81();
+      v13[2] = v40;
+      OUTLINED_FUNCTION_195_0();
+      OUTLINED_FUNCTION_31_2();
+      OUTLINED_FUNCTION_535();
+
+      return GameServicesActorSystem.remoteCallVoid<A, B>(on:target:invocation:throwing:)(v41, v42, v43, v44, v45, v46, v47);
+    }
+  }
+
+  else
+  {
+    v32 = swift_task_alloc();
+    v33 = OUTLINED_FUNCTION_306_1(v32);
+    *v33 = v34;
+    OUTLINED_FUNCTION_52_1(v33);
+    OUTLINED_FUNCTION_535();
+
+    return sub_1D851F884(v35, v36);
+  }
+}
+
+uint64_t sub_1D851F398()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_153();
+  OUTLINED_FUNCTION_42();
+  *v3 = v2;
+  v4 = *v1;
+  OUTLINED_FUNCTION_37();
+  *v5 = v4;
+  *(v6 + 136) = v0;
+
+  OUTLINED_FUNCTION_149();
+
+  return MEMORY[0x1EEE6DFA0](v7);
+}
+
+uint64_t sub_1D851F490()
+{
+  OUTLINED_FUNCTION_174();
+  v0 = OUTLINED_FUNCTION_360_0();
+  v1(v0);
+  v2 = OUTLINED_FUNCTION_74();
+  v3(v2);
+  OUTLINED_FUNCTION_331();
+
+  OUTLINED_FUNCTION_349_0();
+
+  OUTLINED_FUNCTION_57();
+
+  return v4();
+}
+
+uint64_t sub_1D851F528()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_334();
+  v1 = *v0;
+  OUTLINED_FUNCTION_37();
+  *v2 = v1;
+
+  OUTLINED_FUNCTION_341();
+
+  OUTLINED_FUNCTION_137();
+
+  return v3();
+}
+
+uint64_t sub_1D851F640()
+{
+  OUTLINED_FUNCTION_174();
+  v0 = OUTLINED_FUNCTION_360_0();
+  v1(v0);
+  v2 = OUTLINED_FUNCTION_74();
+  v3(v2);
+  OUTLINED_FUNCTION_331();
+
+  OUTLINED_FUNCTION_146();
+
+  return v4();
+}
+
+uint64_t sub_1D851F6E4(uint64_t a1, uint64_t *a2)
+{
+  v3 = *a2;
+  v2[2] = *a2;
+  v2[3] = *(v3 - 8);
+  v2[4] = swift_task_alloc();
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+LABEL_7:
+    __break(1u);
+    return result;
+  }
+
+  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()(v3);
+  v5 = swift_task_alloc();
+  v2[5] = v5;
+  *v5 = v2;
+  v5[1] = sub_1D84A7CAC;
+
+  return GameDebuggerServiceWorkaround.enableGameDebugging(bundleID:)();
+}
+
+uint64_t sub_1D851F884(uint64_t a1, uint64_t a2)
+{
+  v3[13] = a2;
+  v3[14] = v2;
+  v3[12] = a1;
+  return OUTLINED_FUNCTION_12_2();
+}
+
+uint64_t sub_1D851F89C()
+{
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_163_1();
+  (*(v1 + 112))();
+  if (*(v0 + 40))
+  {
+    OUTLINED_FUNCTION_281_1();
+    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
+    OUTLINED_FUNCTION_14_3();
+    OUTLINED_FUNCTION_54();
+    v2 = swift_task_alloc();
+    v3 = OUTLINED_FUNCTION_264_2(v2);
+    *v3 = v4;
+    v5 = OUTLINED_FUNCTION_65_2(v3);
+
+    return v6(v5);
+  }
+
+  else
+  {
+    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
+    OUTLINED_FUNCTION_57();
+
+    return v8();
+  }
+}
+
+uint64_t sub_1D851FA20()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_334();
+  OUTLINED_FUNCTION_62();
+  *v3 = v2;
+  *v3 = *v1;
+  *(v2 + 128) = v0;
+
+  OUTLINED_FUNCTION_341();
+  OUTLINED_FUNCTION_184_2();
+
+  return MEMORY[0x1EEE6DFA0](v4);
+}
+
+uint64_t sub_1D851FB34()
+{
+  OUTLINED_FUNCTION_148();
+  __swift_destroy_boxed_opaque_existential_1((v0 + 56));
+  OUTLINED_FUNCTION_57();
+
+  return v1();
+}
+
+uint64_t GameDebuggerServiceWorkaround.disableGameDebugging(bundleID:)()
+{
+  OUTLINED_FUNCTION_148();
+  v3 = OUTLINED_FUNCTION_300_2(v1, v2);
+  v0[10] = v3;
+  OUTLINED_FUNCTION_39(v3);
+  v0[11] = v4;
+  v0[12] = OUTLINED_FUNCTION_332();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A2B8, &qword_1D859F370);
+  v0[13] = v5;
+  OUTLINED_FUNCTION_39(v5);
+  v0[14] = v6;
+  v0[15] = OUTLINED_FUNCTION_332();
+  v7 = OUTLINED_FUNCTION_64_0();
+
+  return MEMORY[0x1EEE6DFA0](v7);
+}
+
+uint64_t sub_1D851FC80(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
+{
+  OUTLINED_FUNCTION_536();
+  OUTLINED_FUNCTION_204();
+  if (swift_distributed_actor_is_remote())
+  {
+    v14 = v13[8];
+    v15 = v13[7];
+    OUTLINED_FUNCTION_169_2();
+    v13[5] = v15;
+    v13[6] = v14;
+
+    v16 = OUTLINED_FUNCTION_110_3();
+    OUTLINED_FUNCTION_285_0(v16, 0xE800000000000000, v16, 0xE800000000000000);
+    v17 = OUTLINED_FUNCTION_166();
+    GameServicesActorSystem.JSONInvocationEncoder.recordArgument<A>(_:)(v17, v18);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
+    OUTLINED_FUNCTION_156();
+    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v19);
+    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
+    if (v20)
+    {
+      v21 = OUTLINED_FUNCTION_246_2();
+      v22(v21);
+      OUTLINED_FUNCTION_331();
+
+      OUTLINED_FUNCTION_349_0();
+
+      OUTLINED_FUNCTION_48();
+      OUTLINED_FUNCTION_535();
+
+      return v24(v23, v24, v25, v26, v27, v28, v29, v30);
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_184_0();
+      sub_1D8581028();
+      v38 = swift_task_alloc();
+      OUTLINED_FUNCTION_333_2(v38);
+      type metadata accessor for GameDebuggerServiceWorkaround();
+      OUTLINED_FUNCTION_1_3();
+      sub_1D8526788(v39);
+      OUTLINED_FUNCTION_81();
+      v13[2] = v40;
+      OUTLINED_FUNCTION_195_0();
+      OUTLINED_FUNCTION_31_2();
+      OUTLINED_FUNCTION_535();
+
+      return GameServicesActorSystem.remoteCallVoid<A, B>(on:target:invocation:throwing:)(v41, v42, v43, v44, v45, v46, v47);
+    }
+  }
+
+  else
+  {
+    v32 = swift_task_alloc();
+    v33 = OUTLINED_FUNCTION_306_1(v32);
+    *v33 = v34;
+    OUTLINED_FUNCTION_52_1(v33);
+    OUTLINED_FUNCTION_535();
+
+    return sub_1D8520160(v35, v36);
+  }
+}
+
+uint64_t sub_1D851FEC8()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_153();
+  OUTLINED_FUNCTION_42();
+  *v3 = v2;
+  v4 = *v1;
+  OUTLINED_FUNCTION_37();
+  *v5 = v4;
+  *(v6 + 136) = v0;
+
+  OUTLINED_FUNCTION_149();
+
+  return MEMORY[0x1EEE6DFA0](v7);
+}
+
+uint64_t sub_1D851FFC0(uint64_t a1, uint64_t *a2)
+{
+  v3 = *a2;
+  v2[2] = *a2;
+  v2[3] = *(v3 - 8);
+  v2[4] = swift_task_alloc();
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+LABEL_7:
+    __break(1u);
+    return result;
+  }
+
+  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()(v3);
+  v5 = swift_task_alloc();
+  v2[5] = v5;
+  *v5 = v2;
+  v5[1] = sub_1D84A7CAC;
+
+  return GameDebuggerServiceWorkaround.disableGameDebugging(bundleID:)();
+}
+
+uint64_t sub_1D8520160(uint64_t a1, uint64_t a2)
+{
+  v3[13] = a2;
+  v3[14] = v2;
+  v3[12] = a1;
+  return OUTLINED_FUNCTION_12_2();
+}
+
+uint64_t sub_1D8520178()
+{
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_163_1();
+  (*(v1 + 112))();
+  if (*(v0 + 40))
+  {
+    OUTLINED_FUNCTION_281_1();
+    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
+    OUTLINED_FUNCTION_14_3();
+    OUTLINED_FUNCTION_54();
+    v2 = swift_task_alloc();
+    v3 = OUTLINED_FUNCTION_264_2(v2);
+    *v3 = v4;
+    v5 = OUTLINED_FUNCTION_65_2(v3);
+
+    return v6(v5);
+  }
+
+  else
+  {
+    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
+    OUTLINED_FUNCTION_57();
+
+    return v8();
+  }
+}
+
+uint64_t GameDebuggerServiceWorkaround.listGameActivityDefinitions(game:filters:after:)()
+{
+  OUTLINED_FUNCTION_174();
+  v3 = v2;
+  v5 = v4;
+  *(v1 + 120) = v6;
+  *(v1 + 128) = v0;
+  *(v1 + 112) = v7;
+  v8 = sub_1D8581018();
+  OUTLINED_FUNCTION_29(v8);
+  *(v1 + 144) = v9;
+  *(v1 + 152) = OUTLINED_FUNCTION_332();
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38CB0, &unk_1D8590C60);
+  *(v1 + 160) = v10;
+  OUTLINED_FUNCTION_39(v10);
+  *(v1 + 168) = v11;
+  *(v1 + 176) = OUTLINED_FUNCTION_332();
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA397E0, &unk_1D85962B0);
+  *(v1 + 184) = v12;
+  OUTLINED_FUNCTION_39(v12);
+  *(v1 + 192) = v13;
+  *(v1 + 200) = OUTLINED_FUNCTION_332();
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C30, &qword_1D8590C00);
+  *(v1 + 208) = v14;
+  OUTLINED_FUNCTION_39(v14);
+  *(v1 + 216) = v15;
+  v16 = OUTLINED_FUNCTION_332();
+  v17 = *v5;
+  v18 = v5[1];
+  *(v1 + 224) = v16;
+  *(v1 + 232) = v17;
+  *(v1 + 240) = v18;
+  *(v1 + 248) = *v3;
+  v19 = OUTLINED_FUNCTION_64_0();
+
+  return MEMORY[0x1EEE6DFA0](v19);
+}
+
+uint64_t sub_1D85204C8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+{
+  OUTLINED_FUNCTION_196_0();
+  OUTLINED_FUNCTION_177();
+  if (swift_distributed_actor_is_remote())
+  {
+    v14 = *(v12 + 232);
+    v13 = *(v12 + 240);
+    OUTLINED_FUNCTION_169_2();
+    *(v12 + 72) = v14;
+    *(v12 + 80) = v13;
+
+    v15 = OUTLINED_FUNCTION_221();
+    __swift_instantiateConcreteTypeFromMangledNameV2(v15, v16);
+    OUTLINED_FUNCTION_202_2();
+    sub_1D8581038();
+    OUTLINED_FUNCTION_3();
+    sub_1D848211C(v17);
+    OUTLINED_FUNCTION_4();
+    sub_1D848211C(v18);
+    OUTLINED_FUNCTION_164();
+    GameServicesActorSystem.JSONInvocationEncoder.recordArgument<A>(_:)(v19, v20);
+    *(v12 + 104) = *(v12 + 120);
+
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA397E8, &unk_1D859A110);
+    OUTLINED_FUNCTION_28_0();
+    OUTLINED_FUNCTION_152_0();
+    sub_1D8581038();
+    sub_1D849DDF4();
+    sub_1D849DF50();
+    OUTLINED_FUNCTION_75_0();
+    v30 = *(v12 + 256);
+    *(v12 + 88) = *(v12 + 248);
+    *(v12 + 96) = v30;
+
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38CB8, &unk_1D8596010);
+    OUTLINED_FUNCTION_26_1();
+    OUTLINED_FUNCTION_254_1();
+    sub_1D8581038();
+    sub_1D84751F0();
+    sub_1D8475274();
+    OUTLINED_FUNCTION_75_0();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
+    OUTLINED_FUNCTION_76_1();
+    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v31);
+    v32 = OUTLINED_FUNCTION_238();
+    __swift_instantiateConcreteTypeFromMangledNameV2(v32, v33);
+    OUTLINED_FUNCTION_17_3();
+    sub_1D848211C(v34);
+    OUTLINED_FUNCTION_16_4();
+    v36 = sub_1D848211C(v35);
+    OUTLINED_FUNCTION_41_1(v36);
+    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
+    if (v37)
+    {
+      (*(*(v12 + 168) + 8))(*(v12 + 176), *(v12 + 160));
+      v38 = OUTLINED_FUNCTION_221();
+      v39(v38);
+      v40 = OUTLINED_FUNCTION_151();
+      v41(v40);
+      OUTLINED_FUNCTION_331();
+
+      OUTLINED_FUNCTION_111();
+
+      OUTLINED_FUNCTION_48();
+      OUTLINED_FUNCTION_170_1();
+
+      return v43(v42, v43, v44, v45, v46, v47, v48, v49, a9, a10, a11, a12);
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_184_0();
+      sub_1D8581028();
+      v50 = swift_task_alloc();
+      *(v12 + 264) = v50;
+      type metadata accessor for GameDebuggerServiceWorkaround();
+      OUTLINED_FUNCTION_1_3();
+      sub_1D8526788(v51);
+      OUTLINED_FUNCTION_217();
+      *v50 = v52;
+      v50[1] = sub_1D8520938;
+      OUTLINED_FUNCTION_7_4();
+      OUTLINED_FUNCTION_143_0();
+
+      return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
+    }
+  }
+
+  else
+  {
+    v21 = *(v12 + 240);
+    *(v12 + 40) = *(v12 + 232);
+    *(v12 + 48) = v21;
+    *(v12 + 56) = *(v12 + 248);
+    swift_task_alloc();
+    OUTLINED_FUNCTION_168();
+    *(v12 + 280) = v22;
+    *v22 = v23;
+    v22[1] = sub_1D8520B00;
+    OUTLINED_FUNCTION_170_1();
+
+    return sub_1D8521150(v24, v25, v26, v27);
+  }
+}
+
+uint64_t sub_1D8520938()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_153();
+  OUTLINED_FUNCTION_42();
+  *v3 = v2;
+  v4 = *v1;
+  OUTLINED_FUNCTION_37();
+  *v5 = v4;
+  *(v6 + 272) = v0;
+
+  OUTLINED_FUNCTION_149();
+
+  return MEMORY[0x1EEE6DFA0](v7);
+}
+
+uint64_t sub_1D8520A30(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+{
+  OUTLINED_FUNCTION_190();
+  OUTLINED_FUNCTION_177();
+  v12 = OUTLINED_FUNCTION_286_1();
+  v13(v12);
+  v14 = OUTLINED_FUNCTION_67();
+  v15(v14);
+  v16 = OUTLINED_FUNCTION_69();
+  v17(v16);
+  v18 = OUTLINED_FUNCTION_68();
+  v19(v18);
+  OUTLINED_FUNCTION_331();
+
+  OUTLINED_FUNCTION_111();
+
+  OUTLINED_FUNCTION_57();
+  OUTLINED_FUNCTION_173();
+
+  return v21(v20, v21, v22, v23, v24, v25, v26, v27, a9, a10, a11, a12);
+}
+
+uint64_t sub_1D8520B00()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_153();
+  v3 = v2;
+  OUTLINED_FUNCTION_62();
+  *v4 = v3;
+  v5 = *v1;
+  OUTLINED_FUNCTION_37();
+  *v6 = v5;
+  *(v3 + 288) = v0;
+
+  if (v0)
+  {
+    OUTLINED_FUNCTION_149();
+
+    return MEMORY[0x1EEE6DFA0](v7);
+  }
+
+  else
+  {
+
+    OUTLINED_FUNCTION_57();
+
+    return v8();
+  }
+}
+
+uint64_t sub_1D8520C4C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+{
+  OUTLINED_FUNCTION_190();
+  OUTLINED_FUNCTION_177();
+  v12 = OUTLINED_FUNCTION_286_1();
+  v13(v12);
+  v14 = OUTLINED_FUNCTION_67();
+  v15(v14);
+  v16 = OUTLINED_FUNCTION_69();
+  v17(v16);
+  v18 = OUTLINED_FUNCTION_68();
+  v19(v18);
+  OUTLINED_FUNCTION_331();
+
+  OUTLINED_FUNCTION_235();
+
+  OUTLINED_FUNCTION_146();
+  OUTLINED_FUNCTION_173();
+
+  return v21(v20, v21, v22, v23, v24, v25, v26, v27, a9, a10, a11, a12);
+}
+
+uint64_t sub_1D8520D18()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_235();
+
+  OUTLINED_FUNCTION_146();
+
+  return v0();
+}
+
+uint64_t sub_1D8520D90(uint64_t a1, uint64_t *a2)
+{
+  v4 = *a2;
+  v2[2] = *a2;
+  v2[3] = *(v4 - 8);
+  v2[4] = swift_task_alloc();
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+    __break(1u);
+    goto LABEL_11;
+  }
+
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+LABEL_11:
+    __break(1u);
+    goto LABEL_12;
+  }
+
+  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()(v4);
+  v6 = a2[1];
+  v2[5] = v6;
+  v2[6] = *(v6 - 8);
+  v2[7] = swift_task_alloc();
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+LABEL_12:
+    __break(1u);
+    goto LABEL_13;
+  }
+
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+LABEL_13:
+    __break(1u);
+    goto LABEL_14;
+  }
+
+  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()(v6);
+  v7 = a2[2];
+  v2[8] = v7;
+  v2[9] = *(v7 - 8);
+  v2[10] = swift_task_alloc();
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+LABEL_14:
+    __break(1u);
+    goto LABEL_15;
+  }
+
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+LABEL_15:
+    __break(1u);
+    return result;
+  }
+
+  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()(v7);
+  v8 = swift_task_alloc();
+  v2[11] = v8;
+  *v8 = v2;
+  v8[1] = sub_1D852A324;
+
+  return GameDebuggerServiceWorkaround.listGameActivityDefinitions(game:filters:after:)();
+}
+
+uint64_t sub_1D8521150(uint64_t a1, uint64_t *a2, uint64_t a3, _OWORD *a4)
+{
+  *(v5 + 168) = a1;
+  *(v5 + 176) = a3;
+  v6 = *a2;
+  v7 = a2[1];
+  *(v5 + 184) = v4;
+  *(v5 + 192) = v6;
+  *(v5 + 200) = v7;
+  *(v5 + 208) = *a4;
+  return OUTLINED_FUNCTION_12_2();
+}
+
+uint64_t sub_1D8521178()
+{
+  OUTLINED_FUNCTION_487();
+  OUTLINED_FUNCTION_163_1();
+  (*(v1 + 112))();
+  if (*(v0 + 40))
+  {
+    v3 = *(v0 + 208);
+    v2 = *(v0 + 216);
+    v23 = *(v0 + 192);
+    OUTLINED_FUNCTION_281_1();
+    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
+    OUTLINED_FUNCTION_18_1();
+    *(v0 + 136) = v23;
+    *(v0 + 152) = v3;
+    *(v0 + 160) = v2;
+    OUTLINED_FUNCTION_54();
+    v24 = (v4 + *v4);
+    swift_task_alloc();
+    OUTLINED_FUNCTION_168();
+    *(v0 + 224) = v5;
+    *v5 = v6;
+    v5[1] = sub_1D85213BC;
+    OUTLINED_FUNCTION_377_1();
+
+    return v24();
+  }
+
+  else
+  {
+    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
+    v8 = OUTLINED_FUNCTION_188();
+    __swift_instantiateConcreteTypeFromMangledNameV2(v8, v9);
+    OUTLINED_FUNCTION_3();
+    OUTLINED_FUNCTION_397();
+    sub_1D848211C(v10);
+    OUTLINED_FUNCTION_4();
+    OUTLINED_FUNCTION_397();
+    v12 = sub_1D848211C(v11);
+    OUTLINED_FUNCTION_392_1(MEMORY[0x1E69E7CC0], v13, v14, v15, v12, v16, v17, v18, v20, v21, v22, v25, v26, 0);
+    OUTLINED_FUNCTION_57();
+
+    return v19();
+  }
+}
+
+uint64_t sub_1D85213BC()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_153();
+  v3 = v2;
+  OUTLINED_FUNCTION_62();
+  *v4 = v3;
+  v5 = *v1;
+  OUTLINED_FUNCTION_37();
+  *v6 = v5;
+  *(v3 + 232) = v0;
+
+  if (v0)
+  {
+    v7 = sub_1D8521540;
+  }
+
+  else
+  {
+    v7 = sub_1D85214BC;
+  }
+
+  return MEMORY[0x1EEE6DFA0](v7);
+}
+
+uint64_t sub_1D85214BC()
+{
+  OUTLINED_FUNCTION_204();
+  v1 = *(v0 + 168);
+  v2 = *(v0 + 96);
+  v5 = *(v0 + 120);
+  v6 = *(v0 + 104);
+  __swift_destroy_boxed_opaque_existential_1((v0 + 56));
+  *v1 = v2;
+  *(v1 + 24) = v5;
+  *(v1 + 8) = v6;
+  OUTLINED_FUNCTION_57();
+
+  return v3();
+}
+
+uint64_t sub_1D8521540()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_93_0();
+
+  return v0();
+}
+
+uint64_t GameDebuggerServiceWorkaround.describeGameActivityDefinitions(_:)()
+{
+  OUTLINED_FUNCTION_148();
+  v2 = OUTLINED_FUNCTION_311_1(v1);
+  v0[9] = v2;
+  OUTLINED_FUNCTION_39(v2);
+  v0[10] = v3;
+  v0[11] = OUTLINED_FUNCTION_332();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39840, &qword_1D85962E0);
+  OUTLINED_FUNCTION_38_0(v4);
+  v0[13] = v5;
+  v0[14] = OUTLINED_FUNCTION_332();
+  v6 = OUTLINED_FUNCTION_64_0();
+
+  return MEMORY[0x1EEE6DFA0](v6);
+}
+
+uint64_t sub_1D8521684(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+{
+  OUTLINED_FUNCTION_257();
+  OUTLINED_FUNCTION_177();
+  if (swift_distributed_actor_is_remote())
+  {
+    OUTLINED_FUNCTION_98_1();
+    OUTLINED_FUNCTION_185_2();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39848, &qword_1D85962E8);
+    v14 = OUTLINED_FUNCTION_83_3();
+    OUTLINED_FUNCTION_285_0(v14, v15, 0xD000000000000017, v16);
+    sub_1D849EA88();
+    sub_1D849EB38();
+    OUTLINED_FUNCTION_37_0();
+    if (v12 || (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0), OUTLINED_FUNCTION_76_1(), GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v17), __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39878, &qword_1D85962F8), sub_1D849EBE8(), v18 = sub_1D849ED24(), OUTLINED_FUNCTION_41_1(v18), GameServicesActorSystem.JSONInvocationEncoder.doneRecording()(), v19))
+    {
+      v20 = OUTLINED_FUNCTION_116_0();
+      v21(v20);
+      OUTLINED_FUNCTION_331();
+
+      OUTLINED_FUNCTION_191_2();
+
+      OUTLINED_FUNCTION_48();
+      OUTLINED_FUNCTION_197();
+
+      return v23(v22, v23, v24, v25, v26, v27, v28, v29, a9, a10, a11, a12);
+    }
+
+    else
+    {
+      sub_1D8581028();
+      v36 = swift_task_alloc();
+      OUTLINED_FUNCTION_309_2(v36);
+      OUTLINED_FUNCTION_1_3();
+      sub_1D8526788(v37);
+      OUTLINED_FUNCTION_98();
+      *(v13 + 16) = v38;
+      OUTLINED_FUNCTION_419();
+      OUTLINED_FUNCTION_2_4(v39);
+      OUTLINED_FUNCTION_118_0();
+
+      return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
+    }
+  }
+
+  else
+  {
+    v31 = swift_task_alloc();
+    v32 = OUTLINED_FUNCTION_207_3(v31);
+    *v32 = v33;
+    OUTLINED_FUNCTION_33_1(v32);
+    OUTLINED_FUNCTION_197();
+
+    return sub_1D8521DF0(v34);
+  }
+}
+
+uint64_t sub_1D85218F0()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_153();
+  OUTLINED_FUNCTION_42();
+  *v3 = v2;
+  v4 = *v1;
+  OUTLINED_FUNCTION_37();
+  *v5 = v4;
+  *(v6 + 128) = v0;
+
+  OUTLINED_FUNCTION_149();
+
+  return MEMORY[0x1EEE6DFA0](v7);
+}
+
+uint64_t sub_1D85219E8()
+{
+  OUTLINED_FUNCTION_174();
+  v0 = OUTLINED_FUNCTION_387_1();
+  v1(v0);
+  v2 = OUTLINED_FUNCTION_74();
+  v3(v2);
+  OUTLINED_FUNCTION_331();
+
+  OUTLINED_FUNCTION_304_0();
+
+  v4 = OUTLINED_FUNCTION_72();
+
+  return v5(v4);
+}
+
+uint64_t sub_1D8521A88()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_320();
+  v2 = *v1;
+  OUTLINED_FUNCTION_37();
+  *v3 = v2;
+
+  OUTLINED_FUNCTION_510();
+
+  OUTLINED_FUNCTION_507();
+  if (!v0)
+  {
+    v4 = OUTLINED_FUNCTION_482();
+  }
+
+  return v5(v4);
+}
+
+uint64_t sub_1D8521BB0()
+{
+  OUTLINED_FUNCTION_174();
+  v0 = OUTLINED_FUNCTION_387_1();
+  v1(v0);
+  v2 = OUTLINED_FUNCTION_74();
+  v3(v2);
+  OUTLINED_FUNCTION_331();
+
+  OUTLINED_FUNCTION_304_0();
+
+  OUTLINED_FUNCTION_146();
+
+  return v4();
+}
+
+uint64_t sub_1D8521C50(uint64_t a1, uint64_t *a2, uint64_t a3)
+{
+  v3[2] = a3;
+  v4 = *a2;
+  v3[3] = *a2;
+  v3[4] = *(v4 - 8);
+  v3[5] = swift_task_alloc();
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+LABEL_7:
+    __break(1u);
+    return result;
+  }
+
+  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()(v4);
+  v6 = swift_task_alloc();
+  v3[6] = v6;
+  *v6 = v3;
+  v6[1] = sub_1D84A7CD8;
+
+  return GameDebuggerServiceWorkaround.describeGameActivityDefinitions(_:)();
+}
+
+uint64_t sub_1D8521DF0(uint64_t a1)
+{
+  *(v2 + 96) = a1;
+  *(v2 + 104) = v1;
+  return OUTLINED_FUNCTION_10_4();
+}
+
+uint64_t sub_1D8521E08()
+{
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_90_1();
+  (*(v1 + 112))();
+  if (*(v0 + 40))
+  {
+    OUTLINED_FUNCTION_281_1();
+    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
+    OUTLINED_FUNCTION_14_3();
+    OUTLINED_FUNCTION_54();
+    v2 = swift_task_alloc();
+    v3 = OUTLINED_FUNCTION_212_3(v2);
+    *v3 = v4;
+    v5 = OUTLINED_FUNCTION_9_2(v3);
+
+    return v6(v5);
+  }
+
+  else
+  {
+    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
+    OUTLINED_FUNCTION_69_2();
+    v9 = MEMORY[0x1E69E7CC0];
+
+    return v8(v9);
+  }
+}
+
+uint64_t sub_1D8521F94()
+{
+  OUTLINED_FUNCTION_536();
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_95_2();
+  OUTLINED_FUNCTION_37();
+  *v4 = v3;
+  *v4 = *v2;
+  *(v3 + 120) = v0;
+
+  OUTLINED_FUNCTION_214_3();
+  if (!v0)
+  {
+    *(v3 + 128) = v1;
+  }
+
+  OUTLINED_FUNCTION_184_2();
+  OUTLINED_FUNCTION_535();
+
+  return MEMORY[0x1EEE6DFA0](v5);
+}
+
+uint64_t sub_1D85220AC()
+{
+  OUTLINED_FUNCTION_148();
+  __swift_destroy_boxed_opaque_existential_1((v0 + 56));
+  OUTLINED_FUNCTION_69_2();
+
+  return v1();
+}
+
+uint64_t sub_1D852210C()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_93_0();
+
+  return v0();
+}
+
+uint64_t GameDebuggerServiceWorkaround.invokeActivity(_:)()
+{
+  OUTLINED_FUNCTION_148();
+  v1[5] = v2;
+  v1[6] = v0;
+  v3 = sub_1D8581018();
+  v1[7] = v3;
+  OUTLINED_FUNCTION_39(v3);
+  v1[8] = v4;
+  v1[9] = OUTLINED_FUNCTION_332();
+  v1[10] = type metadata accessor for GameActivityInstance(0);
+  v1[11] = OUTLINED_FUNCTION_332();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39998, &qword_1D8596388);
+  OUTLINED_FUNCTION_38_0(v5);
+  v1[13] = v6;
+  v1[14] = OUTLINED_FUNCTION_332();
+  v7 = OUTLINED_FUNCTION_64_0();
+
+  return MEMORY[0x1EEE6DFA0](v7);
+}
+
+uint64_t sub_1D8522280(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+{
+  OUTLINED_FUNCTION_469();
+  OUTLINED_FUNCTION_219();
+  if (swift_distributed_actor_is_remote())
+  {
+    v15 = v14[14];
+    v16 = v14[11];
+    v17 = v14[5];
+    OUTLINED_FUNCTION_169_2();
+    sub_1D84A3A34(v17, v16);
+    OUTLINED_FUNCTION_241_1();
+    OUTLINED_FUNCTION_83_3();
+    sub_1D8581038();
+    OUTLINED_FUNCTION_107_2();
+    OUTLINED_FUNCTION_283_1(v18);
+    OUTLINED_FUNCTION_120_0(&qword_1ECA39988);
+    OUTLINED_FUNCTION_37_0();
+    if (v15 || (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0), OUTLINED_FUNCTION_156(), GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v19), GameServicesActorSystem.JSONInvocationEncoder.doneRecording()(), v20))
+    {
+      v21 = OUTLINED_FUNCTION_116_0();
+      v22(v21);
+      OUTLINED_FUNCTION_331();
+
+      OUTLINED_FUNCTION_191_2();
+
+      OUTLINED_FUNCTION_48();
+      OUTLINED_FUNCTION_239_1();
+
+      return v24(v23, v24, v25, v26, v27, v28, v29, v30, a9, a10);
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_184_0();
+      sub_1D8581028();
+      v37 = swift_task_alloc();
+      OUTLINED_FUNCTION_309_2(v37);
+      OUTLINED_FUNCTION_1_3();
+      sub_1D8526788(v38);
+      OUTLINED_FUNCTION_81();
+      v14[2] = v39;
+      v14[3] = sub_1D85224F0;
+      OUTLINED_FUNCTION_31_2();
+      OUTLINED_FUNCTION_239_1();
+
+      return GameServicesActorSystem.remoteCallVoid<A, B>(on:target:invocation:throwing:)(v40, v41, v42, v43, v44, v45, v46);
+    }
+  }
+
+  else
+  {
+    v32 = swift_task_alloc();
+    v33 = OUTLINED_FUNCTION_207_3(v32);
+    *v33 = v34;
+    v33[1] = sub_1D8522698;
+    OUTLINED_FUNCTION_207_0(v14[5]);
+    OUTLINED_FUNCTION_239_1();
+
+    return sub_1D8522A18(v35);
+  }
+}
+
+uint64_t sub_1D85224F0()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_153();
+  OUTLINED_FUNCTION_42();
+  *v3 = v2;
+  v4 = *v1;
+  OUTLINED_FUNCTION_37();
+  *v5 = v4;
+  *(v6 + 128) = v0;
+
+  OUTLINED_FUNCTION_149();
+
+  return MEMORY[0x1EEE6DFA0](v7);
+}
+
+uint64_t sub_1D85225E8()
+{
+  OUTLINED_FUNCTION_174();
+  v0 = OUTLINED_FUNCTION_177_1();
+  v1(v0);
+  v2 = OUTLINED_FUNCTION_74();
+  v3(v2);
+  OUTLINED_FUNCTION_331();
+
+  OUTLINED_FUNCTION_191_2();
+
+  OUTLINED_FUNCTION_57();
+
+  return v4();
+}
+
+uint64_t sub_1D8522698()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_334();
+  v1 = *v0;
+  OUTLINED_FUNCTION_37();
+  *v2 = v1;
+
+  OUTLINED_FUNCTION_341();
+
+  OUTLINED_FUNCTION_137();
+
+  return v3();
+}
+
+uint64_t sub_1D85227CC()
+{
+  OUTLINED_FUNCTION_174();
+  v0 = OUTLINED_FUNCTION_177_1();
+  v1(v0);
+  v2 = OUTLINED_FUNCTION_74();
+  v3(v2);
+  OUTLINED_FUNCTION_331();
+
+  OUTLINED_FUNCTION_304_0();
+
+  OUTLINED_FUNCTION_146();
+
+  return v4();
+}
+
+uint64_t sub_1D8522880(uint64_t a1, uint64_t *a2)
+{
+  v3 = *a2;
+  v2[2] = *a2;
+  v2[3] = *(v3 - 8);
+  v2[4] = swift_task_alloc();
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  result = swift_conformsToProtocol2();
+  if (!result)
+  {
+LABEL_7:
+    __break(1u);
+    return result;
+  }
+
+  GameServicesActorSystem.JSONInvocationDecoder.decodeNextArgument<A>()(v3);
+  v5 = swift_task_alloc();
+  v2[5] = v5;
+  *v5 = v2;
+  v5[1] = sub_1D84A7CAC;
+
+  return GameDebuggerServiceWorkaround.invokeActivity(_:)();
+}
+
+uint64_t sub_1D8522A18(uint64_t a1)
+{
+  *(v2 + 96) = a1;
+  *(v2 + 104) = v1;
+  return OUTLINED_FUNCTION_10_4();
+}
+
+uint64_t sub_1D8522A30()
+{
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_90_1();
+  (*(v1 + 112))();
+  if (*(v0 + 40))
+  {
+    OUTLINED_FUNCTION_281_1();
+    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
+    OUTLINED_FUNCTION_14_3();
+    OUTLINED_FUNCTION_54();
+    v2 = swift_task_alloc();
+    v3 = OUTLINED_FUNCTION_212_3(v2);
+    *v3 = v4;
+    v5 = OUTLINED_FUNCTION_9_2(v3);
+
+    return v6(v5);
+  }
+
+  else
+  {
+    sub_1D84F589C(v0 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
+    OUTLINED_FUNCTION_57();
+
+    return v8();
+  }
+}
+
+uint64_t sub_1D8522BB0()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_334();
+  OUTLINED_FUNCTION_62();
+  *v3 = v2;
+  *v3 = *v1;
+  *(v2 + 120) = v0;
+
+  OUTLINED_FUNCTION_341();
+  OUTLINED_FUNCTION_184_2();
+
+  return MEMORY[0x1EEE6DFA0](v4);
+}
+
+uint64_t GameDebuggerServiceWorkaround.getDefaultGameActivityEnvironment()()
+{
+  OUTLINED_FUNCTION_148();
+  v1[5] = v2;
+  v1[6] = v0;
+  v3 = sub_1D8581018();
+  v1[7] = v3;
+  OUTLINED_FUNCTION_39(v3);
+  v1[8] = v4;
+  v1[9] = OUTLINED_FUNCTION_332();
+  v5 = OUTLINED_FUNCTION_64_0();
+
+  return MEMORY[0x1EEE6DFA0](v5);
+}
+
+uint64_t sub_1D8522D68(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+{
+  OUTLINED_FUNCTION_196_0();
+  OUTLINED_FUNCTION_177();
+  if (swift_distributed_actor_is_remote())
+  {
+    OUTLINED_FUNCTION_169_2();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
+    OUTLINED_FUNCTION_76_1();
+    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v13);
+    type metadata accessor for DefaultGameActivityEnvironment(0);
+    OUTLINED_FUNCTION_106_2();
+    OUTLINED_FUNCTION_283_1(v14);
+    v15 = OUTLINED_FUNCTION_119_1(&unk_1ECA39FA8);
+    OUTLINED_FUNCTION_41_1(v15);
+    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
+    if (v16)
+    {
+      OUTLINED_FUNCTION_331();
+
+      OUTLINED_FUNCTION_48();
+      OUTLINED_FUNCTION_170_1();
+
+      return v18(v17, v18, v19, v20, v21, v22, v23, v24, a9, a10, a11, a12);
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_184_0();
+      sub_1D8581028();
+      v29 = swift_task_alloc();
+      *(v12 + 80) = v29;
+      type metadata accessor for GameDebuggerServiceWorkaround();
+      OUTLINED_FUNCTION_1_3();
+      sub_1D8526788(v30);
+      OUTLINED_FUNCTION_217();
+      *v29 = v31;
+      OUTLINED_FUNCTION_378_1();
+      OUTLINED_FUNCTION_7_4();
+      OUTLINED_FUNCTION_143_0();
+
+      return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
+    }
+  }
+
+  else
+  {
+    swift_task_alloc();
+    OUTLINED_FUNCTION_168();
+    *(v12 + 96) = v26;
+    *v26 = v27;
+    v26[1] = sub_1D8523120;
+    OUTLINED_FUNCTION_170_1();
+
+    return sub_1D85232BC();
+  }
+}
+
+uint64_t sub_1D8522FAC()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_153();
+  OUTLINED_FUNCTION_42();
+  *v3 = v2;
+  v4 = *v1;
+  OUTLINED_FUNCTION_37();
+  *v5 = v4;
+  *(v6 + 88) = v0;
+
+  OUTLINED_FUNCTION_149();
+
+  return MEMORY[0x1EEE6DFA0](v7);
+}
+
+uint64_t sub_1D85230A4()
+{
+  OUTLINED_FUNCTION_148();
+  v0 = OUTLINED_FUNCTION_177_1();
+  v1(v0);
+  OUTLINED_FUNCTION_331();
+
+  OUTLINED_FUNCTION_57();
+
+  return v2();
+}
+
+uint64_t sub_1D8523120()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_334();
+  v1 = *v0;
+  OUTLINED_FUNCTION_37();
+  *v2 = v1;
+
+  OUTLINED_FUNCTION_341();
+
+  OUTLINED_FUNCTION_137();
+
+  return v3();
+}
+
+uint64_t sub_1D852321C()
+{
+  v1 = swift_task_alloc();
+  *(v0 + 16) = v1;
+  *v1 = v0;
+  v1[1] = sub_1D8442F30;
+
+  return GameDebuggerServiceWorkaround.getDefaultGameActivityEnvironment()();
+}
+
+uint64_t sub_1D85232BC()
+{
+  OUTLINED_FUNCTION_148();
+  v1[12] = v2;
+  v1[13] = v0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A2E0, &qword_1D85A0488);
+  v1[14] = OUTLINED_FUNCTION_332();
+
+  return MEMORY[0x1EEE6DFA0](sub_1D852334C);
+}
+
+uint64_t sub_1D852334C()
+{
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_90_1();
+  (*(v1 + 112))();
+  if (v0[5])
+  {
+    OUTLINED_FUNCTION_281_1();
+    sub_1D84F589C((v0 + 2), &qword_1ECA3A2D0, &qword_1D859F400);
+    OUTLINED_FUNCTION_14_3();
+    OUTLINED_FUNCTION_131();
+    v11 = (v2 + *v2);
+    swift_task_alloc();
+    OUTLINED_FUNCTION_168();
+    v0[15] = v3;
+    *v3 = v4;
+    v3[1] = sub_1D8523560;
+    OUTLINED_FUNCTION_397();
+
+    return v11();
+  }
+
+  else
+  {
+    v6 = v0[14];
+    sub_1D84F589C((v0 + 2), &qword_1ECA3A2D0, &qword_1D859F400);
+    v7 = type metadata accessor for DefaultGameActivityEnvironment(0);
+    __swift_storeEnumTagSinglePayload(v6, 1, 1, v7);
+    sub_1D84F589C(v0[14], &qword_1ECA3A2E0, &qword_1D85A0488);
+    sub_1D8448448();
+    swift_allocError();
+    OUTLINED_FUNCTION_315_1();
+    static GameServicesError.illegalState(message:)(0xD000000000000023, v8, v9);
+    swift_willThrow();
+
+    OUTLINED_FUNCTION_146();
+
+    return v10();
+  }
+}
+
+uint64_t sub_1D8523560()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_334();
+  OUTLINED_FUNCTION_62();
+  *v3 = v2;
+  *v3 = *v1;
+  *(v2 + 128) = v0;
+
+  OUTLINED_FUNCTION_341();
+  OUTLINED_FUNCTION_184_2();
+
+  return MEMORY[0x1EEE6DFA0](v4);
+}
+
+uint64_t sub_1D8523674()
+{
+  OUTLINED_FUNCTION_174();
+  v1 = v0[14];
+  v2 = type metadata accessor for DefaultGameActivityEnvironment(0);
+  __swift_storeEnumTagSinglePayload(v1, 0, 1, v2);
+  __swift_destroy_boxed_opaque_existential_1(v0 + 7);
+  if (__swift_getEnumTagSinglePayload(v1, 1, v2) == 1)
+  {
+    sub_1D84F589C(v0[14], &qword_1ECA3A2E0, &qword_1D85A0488);
+    sub_1D8448448();
+    swift_allocError();
+    OUTLINED_FUNCTION_315_1();
+    static GameServicesError.illegalState(message:)(0xD000000000000023, v3, v4);
+    swift_willThrow();
+
+    OUTLINED_FUNCTION_146();
+  }
+
+  else
+  {
+    sub_1D85237F4(v0[14], v0[12]);
+
+    OUTLINED_FUNCTION_57();
+  }
+
+  return v5();
+}
+
+uint64_t sub_1D8523790()
+{
+  OUTLINED_FUNCTION_148();
+  __swift_destroy_boxed_opaque_existential_1((v0 + 56));
+
+  OUTLINED_FUNCTION_146();
+
+  return v1();
+}
+
+uint64_t sub_1D85237F4(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for DefaultGameActivityEnvironment(0);
+  (*(*(v4 - 8) + 32))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t GameDebuggerServiceWorkaround.getServiceVersion()()
+{
+  OUTLINED_FUNCTION_148();
+  v1[7] = v0;
+  v2 = sub_1D8581018();
+  v1[8] = v2;
+  OUTLINED_FUNCTION_39(v2);
+  v1[9] = v3;
+  v1[10] = OUTLINED_FUNCTION_332();
+  v4 = OUTLINED_FUNCTION_64_0();
+
+  return MEMORY[0x1EEE6DFA0](v4);
+}
+
+uint64_t sub_1D85238FC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+{
+  OUTLINED_FUNCTION_196_0();
+  OUTLINED_FUNCTION_177();
+  if (swift_distributed_actor_is_remote())
+  {
+    OUTLINED_FUNCTION_169_2();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38C88, &qword_1D859EDF0);
+    OUTLINED_FUNCTION_76_1();
+    GameServicesActorSystem.JSONInvocationEncoder.recordErrorType<A>(_:)(v13);
+    OUTLINED_FUNCTION_164();
+    GameServicesActorSystem.JSONInvocationEncoder.recordReturnType<A>(_:)(v14, v15);
+    GameServicesActorSystem.JSONInvocationEncoder.doneRecording()();
+    if (v16)
+    {
+      OUTLINED_FUNCTION_331();
+
+      OUTLINED_FUNCTION_48();
+      OUTLINED_FUNCTION_170_1();
+
+      return v18(v17, v18, v19, v20, v21, v22, v23, v24, a9, a10, a11, a12);
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_184_0();
+      sub_1D8581028();
+      v28 = swift_task_alloc();
+      *(v12 + 88) = v28;
+      type metadata accessor for GameDebuggerServiceWorkaround();
+      OUTLINED_FUNCTION_1_3();
+      sub_1D8526788(v29);
+      OUTLINED_FUNCTION_98();
+      *v28 = v30;
+      v28[1] = sub_1D8523B20;
+      OUTLINED_FUNCTION_2_4(v31);
+      OUTLINED_FUNCTION_143_0();
+
+      return GameServicesActorSystem.remoteCall<A, B, C>(on:target:invocation:throwing:returning:)();
+    }
+  }
+
+  else
+  {
+    v26 = swift_task_alloc();
+    *(v12 + 104) = v26;
+    *v26 = v12;
+    v26[1] = sub_1D8523CA8;
+    OUTLINED_FUNCTION_170_1();
+
+    return sub_1D8523EE0();
+  }
+}
+
+uint64_t sub_1D8523B20()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_153();
+  OUTLINED_FUNCTION_42();
+  *v3 = v2;
+  v4 = *v1;
+  OUTLINED_FUNCTION_37();
+  *v5 = v4;
+  *(v6 + 96) = v0;
+
+  OUTLINED_FUNCTION_149();
+
+  return MEMORY[0x1EEE6DFA0](v7);
+}
+
+uint64_t sub_1D8523C18()
+{
+  OUTLINED_FUNCTION_148();
+  (*(v0[9] + 8))(v0[10], v0[8]);
+  OUTLINED_FUNCTION_331();
+
+  OUTLINED_FUNCTION_298_1();
+  v1 = OUTLINED_FUNCTION_151();
+
+  return v2(v1);
+}
+
+uint64_t sub_1D8523CA8()
+{
+  OUTLINED_FUNCTION_536();
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_95_2();
+  v2 = *v1;
+  OUTLINED_FUNCTION_37();
+  *v3 = v2;
+
+  OUTLINED_FUNCTION_214_3();
+
+  if (!v0)
+  {
+    OUTLINED_FUNCTION_506();
+  }
+
+  OUTLINED_FUNCTION_535();
+
+  return v7(v4, v5, v6, v7, v8, v9, v10, v11);
+}
+
+uint64_t sub_1D8523DC0()
+{
+  OUTLINED_FUNCTION_148();
+  (*(v0[9] + 8))(v0[10], v0[8]);
+  OUTLINED_FUNCTION_331();
+
+  OUTLINED_FUNCTION_146();
+
+  return v1();
+}
+
+uint64_t sub_1D8523E48(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *(v3 + 16) = a3;
+  v4 = swift_task_alloc();
+  *(v3 + 24) = v4;
+  *v4 = v3;
+  v4[1] = sub_1D852A300;
+
+  return GameDebuggerServiceWorkaround.getServiceVersion()();
+}
+
+uint64_t sub_1D8523EF8()
+{
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_163_1();
+  (*(v2 + 112))();
+  if (*(v1 + 40))
+  {
+    OUTLINED_FUNCTION_281_1();
+    sub_1D84F589C(v1 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
+    OUTLINED_FUNCTION_14_3();
+    OUTLINED_FUNCTION_131();
+    v10 = (v3 + *v3);
+    v4 = swift_task_alloc();
+    *(v1 + 104) = v4;
+    *v4 = v1;
+    v5 = OUTLINED_FUNCTION_64(v4);
+
+    return v10(v5, v0);
+  }
+
+  else
+  {
+    sub_1D84F589C(v1 + 16, &qword_1ECA3A2D0, &qword_1D859F400);
+    sub_1D8448448();
+    swift_allocError();
+    OUTLINED_FUNCTION_315_1();
+    static GameServicesError.illegalState(message:)(0xD00000000000001FLL, v7, v8);
+    swift_willThrow();
+    OUTLINED_FUNCTION_146();
+
+    return v9();
+  }
+}
+
+uint64_t sub_1D85240C8()
+{
+  OUTLINED_FUNCTION_537();
+  OUTLINED_FUNCTION_204();
+  v3 = v2;
+  v5 = v4;
+  v6 = *v1;
+  OUTLINED_FUNCTION_37();
+  *v7 = v6;
+  *v7 = *v1;
+  v6[14] = v0;
+
+  if (!v0)
+  {
+    v6[15] = v3;
+    v6[16] = v5;
+  }
+
+  OUTLINED_FUNCTION_511();
+
+  return MEMORY[0x1EEE6DFA0](v8);
+}
+
+uint64_t sub_1D85241F4()
+{
+  OUTLINED_FUNCTION_148();
+  __swift_destroy_boxed_opaque_existential_1(v0 + 7);
+  OUTLINED_FUNCTION_298_1();
+  v3 = v0[15];
+  v2 = v0[16];
+
+  return v1(v2, v3);
+}
+
+uint64_t sub_1D8524254()
+{
+  OUTLINED_FUNCTION_148();
+  __swift_destroy_boxed_opaque_existential_1((v0 + 56));
+  OUTLINED_FUNCTION_146();
+
+  return v1();
+}
+
+void *sub_1D852430C(void *a1, uint64_t a2, uint64_t (*a3)(void), uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  a3();
+  type metadata accessor for GameServicesActorSystem(0);
+  OUTLINED_FUNCTION_21_3();
+  sub_1D8526788(v10);
+  sub_1D8526788(a4);
+  v11 = sub_1D8580F48();
+  v12 = v11;
+  if (!v6 && !v11)
+  {
+    v12 = swift_distributedActor_remote_initialize();
+    v13 = a1[1];
+    v12[14] = *a1;
+    v12[15] = v13;
+    v12[16] = a2;
+  }
+
+  return v12;
+}
+
+uint64_t GameDebuggerServiceWorkaround.deinit()
+{
+  type metadata accessor for GameServicesActorSystem(0);
+  OUTLINED_FUNCTION_21_3();
+  v2 = sub_1D8526788(v1);
+  OUTLINED_FUNCTION_406_1(v2);
+
+  sub_1D84F589C(v0 + 136, &qword_1ECA3A2D0, &qword_1D859F400);
+  swift_defaultActor_destroy();
+  return v0;
+}
+
+uint64_t sub_1D85244C4(void (*a1)(void))
+{
+  if (swift_distributed_actor_is_remote())
+  {
+
+    swift_defaultActor_destroy();
+  }
+
+  else
+  {
+    a1();
+  }
+
+  return MEMORY[0x1EEE6DEF0](v1);
+}
+
+uint64_t sub_1D8524570()
+{
+  OUTLINED_FUNCTION_365_1();
+  v1 = sub_1D8581B58();
+  v0(v1);
+  OUTLINED_FUNCTION_200_1();
+  sub_1D8526788(v2);
+  sub_1D85811E8();
+  return sub_1D8581B98();
+}
+
+uint64_t sub_1D8524634()
+{
+  OUTLINED_FUNCTION_365_1();
+  if ((sub_1D8580FF8() & 1) == 0)
+  {
+    v1();
+    OUTLINED_FUNCTION_200_1();
+    sub_1D8526788(v2);
+    return sub_1D8580F28();
+  }
+
+  return v0;
+}
+
+uint64_t sub_1D85246C8()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_366();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_64(v1);
+
+  return GameDebuggerServiceWorkaround.describeAchievements(_:)();
+}
+
+uint64_t sub_1D852474C()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_206();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_28_3(v1);
+
+  return GameDebuggerServiceWorkaround.listAchievements(games:after:)();
+}
+
+uint64_t sub_1D85247D8()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_206();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_28_3(v1);
+
+  return GameDebuggerServiceWorkaround.getAchievementsProgresses(_:player:)();
+}
+
+uint64_t sub_1D8524864()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_206();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_28_3(v1);
+
+  return GameDebuggerServiceWorkaround.resetAchievementsProgress(_:players:)();
+}
+
+uint64_t sub_1D85248F0()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_206();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_28_3(v1);
+
+  return GameDebuggerServiceWorkaround.revealAchievements(_:players:)();
+}
+
+uint64_t sub_1D852497C()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_366();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_64(v1);
+
+  return GameDebuggerServiceWorkaround.submitAchievementsProgress(_:)();
+}
+
+uint64_t sub_1D8524A00()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_366();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_64(v1);
+
+  return GameDebuggerServiceWorkaround.getImageData(_:)();
+}
+
+uint64_t sub_1D8524A84()
+{
+  OUTLINED_FUNCTION_148();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_191(v1);
+
+  return GameDebuggerServiceWorkaround.listLocalPlayers()();
+}
+
+uint64_t sub_1D8524B08()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_366();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_64(v1);
+
+  return GameDebuggerServiceWorkaround.describeLeaderboards(_:)();
+}
+
+uint64_t sub_1D8524B8C()
+{
+  OUTLINED_FUNCTION_537();
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_326_0();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_191(v1);
+  OUTLINED_FUNCTION_327_1();
+  OUTLINED_FUNCTION_511();
+
+  return GameDebuggerServiceWorkaround.listLeaderboardEntries(_:range:locale:timeScope:)();
+}
+
+uint64_t sub_1D8524C20()
+{
+  OUTLINED_FUNCTION_536();
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_141_0();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_82_0(v1);
+  OUTLINED_FUNCTION_535();
+
+  return GameDebuggerServiceWorkaround.listLeaderboardEntries(_:players:locale:timeScope:)();
+}
+
+uint64_t sub_1D8524CB0()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_206();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_28_3(v1);
+
+  return GameDebuggerServiceWorkaround.listLeaderboards(games:players:)();
+}
+
+uint64_t sub_1D8524D3C()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_366();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_64(v1);
+
+  return GameDebuggerServiceWorkaround.submitLeaderboardEntries(_:)();
+}
+
+uint64_t sub_1D8524DC0()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_366();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_64(v1);
+
+  return GameDebuggerServiceWorkaround.resetLeaderboards(_:)();
+}
+
+uint64_t sub_1D8524E44()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_366();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_64(v1);
+
+  return GameDebuggerServiceWorkaround.describeLeaderboardSets(_:)();
+}
+
+uint64_t sub_1D8524EC8()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_366();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_64(v1);
+
+  return GameDebuggerServiceWorkaround.listLeaderboardSets(games:)();
+}
+
+uint64_t sub_1D8524F4C()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_366();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_64(v1);
+
+  return GameDebuggerServiceWorkaround.listLeaderboards(leaderboardSets:)();
+}
+
+uint64_t sub_1D8524FD0()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_366();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_64(v1);
+
+  return GameDebuggerServiceWorkaround.describePlayerProfiles(_:)();
+}
+
+uint64_t sub_1D8525054()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_366();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_64(v1);
+
+  return GameDebuggerServiceWorkaround.describeGameLockups(_:)();
+}
+
+uint64_t sub_1D85250D8()
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_381_0();
+  OUTLINED_FUNCTION_259_2();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_97(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_263_2(v1);
+
+  return GameDebuggerServiceWorkaround.listGames(by:sortBy:upTo:after:belongingTo:)();
+}
+
+uint64_t sub_1D8525184()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_206();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_28_3(v1);
+
+  return GameDebuggerServiceWorkaround.enableGameDebugging(bundleID:)();
+}
+
+uint64_t sub_1D8525210()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_206();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_28_3(v1);
+
+  return GameDebuggerServiceWorkaround.disableGameDebugging(bundleID:)();
+}
+
+uint64_t sub_1D852529C()
+{
+  OUTLINED_FUNCTION_536();
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_141_0();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_97(v0);
+  *v1 = v2;
+  v1[1] = sub_1D8442F30;
+  OUTLINED_FUNCTION_377_1();
+  OUTLINED_FUNCTION_200_1();
+  OUTLINED_FUNCTION_535();
+
+  return GameDebuggerServiceWorkaround.listGameActivityDefinitions(game:filters:after:)();
+}
+
+uint64_t sub_1D8525338()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_366();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_64(v1);
+
+  return GameDebuggerServiceWorkaround.describeGameActivityDefinitions(_:)();
+}
+
+uint64_t sub_1D85253BC()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_366();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_64(v1);
+
+  return GameDebuggerServiceWorkaround.invokeActivity(_:)();
+}
+
+uint64_t sub_1D8525440()
+{
+  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_366();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_97(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_314_2(v1);
+
+  return GameDebuggerServiceWorkaround.getDefaultGameActivityEnvironment()();
+}
+
+uint64_t sub_1D85254C4()
+{
+  OUTLINED_FUNCTION_148();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  OUTLINED_FUNCTION_191(v1);
+
+  return GameDebuggerServiceWorkaround.getServiceVersion()();
+}
+
+uint64_t sub_1D85255F0()
+{
+  OUTLINED_FUNCTION_381_0();
+  v0();
+  OUTLINED_FUNCTION_200_1();
+  sub_1D8526788(v1);
+  OUTLINED_FUNCTION_221();
+  return sub_1D8580FC8();
+}
+
+uint64_t sub_1D8525668(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void *))
+{
+  v5 = sub_1D8581B58();
+  a4(v5);
+  sub_1D85811E8();
+  return sub_1D8581B98();
+}
+
+uint64_t sub_1D8525718(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void), uint64_t a6)
+{
+  a5();
+  OUTLINED_FUNCTION_200_1();
+  sub_1D8526788(v6);
+  v7 = OUTLINED_FUNCTION_221();
+
+  return MEMORY[0x1EEE6CC98](v7);
+}
+
+uint64_t sub_1D85257E0(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void), uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  a4();
+  sub_1D8526788(a5);
+  sub_1D843D180();
+  OUTLINED_FUNCTION_258();
+  return sub_1D8580FD8();
+}
+
+uint64_t sub_1D85258B0@<X0>(void (*a2)(void)@<X3>, uint64_t a3@<X4>, uint64_t *a6@<X8>)
+{
+  a2();
+  sub_1D8526788(a3);
+  sub_1D843EE3C();
+  result = sub_1D8580FE8();
+  if (!v6)
+  {
+    *a6 = result;
+  }
+
+  return result;
+}
+
+uint64_t DistributedGameServicesDebuggerProtocol<>.listGames(by:sortBy:upTo:after:belongingTo:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  OUTLINED_FUNCTION_148();
+  sub_1D8580FA8();
+  OUTLINED_FUNCTION_198();
+  v9 = OUTLINED_FUNCTION_63();
+  return OUTLINED_FUNCTION_523(v9);
+}
+
+unint64_t sub_1D85265D0(uint64_t a1)
+{
+  OUTLINED_FUNCTION_0_6();
+  result = sub_1D8526788(v2);
+  *(a1 + 8) = result;
+  return result;
+}
+
+unint64_t sub_1D852668C()
+{
+  result = qword_1ECA3A300;
+  if (!qword_1ECA3A300)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1ECA3A300);
+  }
+
+  return result;
+}
+
+unint64_t sub_1D8526788(uint64_t a1)
+{
+  result = OUTLINED_FUNCTION_505(a1);
+  if (!result)
+  {
+    v4(v3);
+    result = swift_getWitnessTable();
+    atomic_store(result, v1);
+  }
+
+  return result;
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.describeAchievements(_:)()
+{
+  OUTLINED_FUNCTION_475();
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_296(v0, v1, v2);
+  OUTLINED_FUNCTION_131();
+  v3 = swift_task_alloc();
+  v4 = OUTLINED_FUNCTION_176(v3);
+  *v4 = v5;
+  OUTLINED_FUNCTION_12_0(v4);
+  OUTLINED_FUNCTION_309_1();
+
+  return v9(v6, v7, v8, v9, v10, v11, v12, v13);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.listAchievements(games:after:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  OUTLINED_FUNCTION_478();
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_141_0();
+  OUTLINED_FUNCTION_54();
+  v10 = swift_task_alloc();
+  v11 = OUTLINED_FUNCTION_176(v10);
+  *v11 = v12;
+  OUTLINED_FUNCTION_82_0(v11);
+  OUTLINED_FUNCTION_471();
+
+  return v17(v13, v14, v15, v16, v17, v18, v19, v20, a9, a10);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.getAchievementsProgresses(_:player:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  OUTLINED_FUNCTION_478();
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_141_0();
+  OUTLINED_FUNCTION_54();
+  v10 = swift_task_alloc();
+  v11 = OUTLINED_FUNCTION_176(v10);
+  *v11 = v12;
+  OUTLINED_FUNCTION_82_0(v11);
+  OUTLINED_FUNCTION_471();
+
+  return v17(v13, v14, v15, v16, v17, v18, v19, v20, a9, a10);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.resetAchievementsProgress(_:players:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  OUTLINED_FUNCTION_478();
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_141_0();
+  OUTLINED_FUNCTION_54();
+  v10 = swift_task_alloc();
+  v11 = OUTLINED_FUNCTION_176(v10);
+  *v11 = v12;
+  OUTLINED_FUNCTION_82_0(v11);
+  OUTLINED_FUNCTION_471();
+
+  return v17(v13, v14, v15, v16, v17, v18, v19, v20, a9, a10);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.revealAchievements(_:players:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  OUTLINED_FUNCTION_478();
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_141_0();
+  OUTLINED_FUNCTION_54();
+  v10 = swift_task_alloc();
+  v11 = OUTLINED_FUNCTION_176(v10);
+  *v11 = v12;
+  OUTLINED_FUNCTION_82_0(v11);
+  OUTLINED_FUNCTION_471();
+
+  return v17(v13, v14, v15, v16, v17, v18, v19, v20, a9, a10);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.submitAchievementsProgress(_:)()
+{
+  OUTLINED_FUNCTION_475();
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_296(v0, v1, v2);
+  OUTLINED_FUNCTION_131();
+  v3 = swift_task_alloc();
+  v4 = OUTLINED_FUNCTION_176(v3);
+  *v4 = v5;
+  OUTLINED_FUNCTION_12_0(v4);
+  OUTLINED_FUNCTION_309_1();
+
+  return v9(v6, v7, v8, v9, v10, v11, v12, v13);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.getImageData(_:)()
+{
+  OUTLINED_FUNCTION_475();
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_296(v0, v1, v2);
+  OUTLINED_FUNCTION_131();
+  v3 = swift_task_alloc();
+  v4 = OUTLINED_FUNCTION_176(v3);
+  *v4 = v5;
+  OUTLINED_FUNCTION_12_0(v4);
+  OUTLINED_FUNCTION_309_1();
+
+  return v9(v6, v7, v8, v9, v10, v11, v12, v13);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.listLocalPlayers()()
+{
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_54();
+  v6 = (v0 + *v0);
+  v1 = swift_task_alloc();
+  v2 = OUTLINED_FUNCTION_176(v1);
+  *v2 = v3;
+  v4 = OUTLINED_FUNCTION_28_3(v2);
+
+  return v6(v4);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.describeLeaderboards(_:)()
+{
+  OUTLINED_FUNCTION_475();
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_296(v0, v1, v2);
+  OUTLINED_FUNCTION_131();
+  v3 = swift_task_alloc();
+  v4 = OUTLINED_FUNCTION_176(v3);
+  *v4 = v5;
+  OUTLINED_FUNCTION_12_0(v4);
+  OUTLINED_FUNCTION_309_1();
+
+  return v9(v6, v7, v8, v9, v10, v11, v12, v13);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.listLeaderboardEntries(_:range:locale:timeScope:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+{
+  OUTLINED_FUNCTION_426();
+  OUTLINED_FUNCTION_177();
+  OUTLINED_FUNCTION_381_0();
+  OUTLINED_FUNCTION_259_2();
+  OUTLINED_FUNCTION_131();
+  v26 = v12 + *v12;
+  v13 = swift_task_alloc();
+  v14 = OUTLINED_FUNCTION_176(v13);
+  *v14 = v15;
+  OUTLINED_FUNCTION_191(v14);
+  OUTLINED_FUNCTION_240();
+
+  return v23(v16, v17, v18, v19, v20, v21, v22, v23, a9, v26, a11, a12);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.listLeaderboardEntries(_:players:locale:timeScope:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+{
+  OUTLINED_FUNCTION_245_0();
+  OUTLINED_FUNCTION_177();
+  OUTLINED_FUNCTION_163(v12, v13, v14, v15, v16, v17);
+  OUTLINED_FUNCTION_54();
+  v32 = v18 + *v18;
+  v19 = swift_task_alloc();
+  v20 = OUTLINED_FUNCTION_176(v19);
+  *v20 = v21;
+  OUTLINED_FUNCTION_191(v20);
+  OUTLINED_FUNCTION_85_0();
+  OUTLINED_FUNCTION_207();
+
+  return v28(v22, v23, v24, v25, v26, v27, v28, v29, a9, a10, v32, a12);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.listLeaderboards(games:players:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  OUTLINED_FUNCTION_478();
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_141_0();
+  OUTLINED_FUNCTION_54();
+  v10 = swift_task_alloc();
+  v11 = OUTLINED_FUNCTION_176(v10);
+  *v11 = v12;
+  OUTLINED_FUNCTION_82_0(v11);
+  OUTLINED_FUNCTION_471();
+
+  return v17(v13, v14, v15, v16, v17, v18, v19, v20, a9, a10);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.submitLeaderboardEntries(_:)()
+{
+  OUTLINED_FUNCTION_475();
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_296(v0, v1, v2);
+  OUTLINED_FUNCTION_131();
+  v3 = swift_task_alloc();
+  v4 = OUTLINED_FUNCTION_176(v3);
+  *v4 = v5;
+  OUTLINED_FUNCTION_12_0(v4);
+  OUTLINED_FUNCTION_309_1();
+
+  return v9(v6, v7, v8, v9, v10, v11, v12, v13);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.resetLeaderboards(_:)()
+{
+  OUTLINED_FUNCTION_475();
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_296(v0, v1, v2);
+  OUTLINED_FUNCTION_131();
+  v3 = swift_task_alloc();
+  v4 = OUTLINED_FUNCTION_176(v3);
+  *v4 = v5;
+  OUTLINED_FUNCTION_12_0(v4);
+  OUTLINED_FUNCTION_309_1();
+
+  return v9(v6, v7, v8, v9, v10, v11, v12, v13);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.describeLeaderboardSets(_:)()
+{
+  OUTLINED_FUNCTION_475();
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_296(v0, v1, v2);
+  OUTLINED_FUNCTION_131();
+  v3 = swift_task_alloc();
+  v4 = OUTLINED_FUNCTION_176(v3);
+  *v4 = v5;
+  OUTLINED_FUNCTION_12_0(v4);
+  OUTLINED_FUNCTION_309_1();
+
+  return v9(v6, v7, v8, v9, v10, v11, v12, v13);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.listLeaderboardSets(games:)()
+{
+  OUTLINED_FUNCTION_475();
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_296(v0, v1, v2);
+  OUTLINED_FUNCTION_131();
+  v3 = swift_task_alloc();
+  v4 = OUTLINED_FUNCTION_176(v3);
+  *v4 = v5;
+  OUTLINED_FUNCTION_12_0(v4);
+  OUTLINED_FUNCTION_309_1();
+
+  return v9(v6, v7, v8, v9, v10, v11, v12, v13);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.listLeaderboards(leaderboardSets:)()
+{
+  OUTLINED_FUNCTION_475();
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_296(v0, v1, v2);
+  OUTLINED_FUNCTION_131();
+  v3 = swift_task_alloc();
+  v4 = OUTLINED_FUNCTION_176(v3);
+  *v4 = v5;
+  OUTLINED_FUNCTION_12_0(v4);
+  OUTLINED_FUNCTION_309_1();
+
+  return v9(v6, v7, v8, v9, v10, v11, v12, v13);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.describePlayerProfiles(_:)()
+{
+  OUTLINED_FUNCTION_475();
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_296(v0, v1, v2);
+  OUTLINED_FUNCTION_131();
+  v3 = swift_task_alloc();
+  v4 = OUTLINED_FUNCTION_176(v3);
+  *v4 = v5;
+  OUTLINED_FUNCTION_12_0(v4);
+  OUTLINED_FUNCTION_309_1();
+
+  return v9(v6, v7, v8, v9, v10, v11, v12, v13);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.describeGameLockups(_:)()
+{
+  OUTLINED_FUNCTION_475();
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_296(v0, v1, v2);
+  OUTLINED_FUNCTION_131();
+  v3 = swift_task_alloc();
+  v4 = OUTLINED_FUNCTION_176(v3);
+  *v4 = v5;
+  OUTLINED_FUNCTION_12_0(v4);
+  OUTLINED_FUNCTION_309_1();
+
+  return v9(v6, v7, v8, v9, v10, v11, v12, v13);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.listGames(by:sortBy:upTo:after:belongingTo:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
+{
+  OUTLINED_FUNCTION_225();
+  OUTLINED_FUNCTION_185();
+  v32 = v15;
+  OUTLINED_FUNCTION_131();
+  v31 = v16 + *v16;
+  v17 = swift_task_alloc();
+  v18 = OUTLINED_FUNCTION_97(v17);
+  *v18 = v19;
+  v18[1] = sub_1D8442F30;
+  OUTLINED_FUNCTION_170();
+
+  return v28(v20, v21, v22, v23, v24, v25, v26, v27, a9, v31, v32, a12, a13, a14, a15);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.enableGameDebugging(bundleID:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  OUTLINED_FUNCTION_478();
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_141_0();
+  OUTLINED_FUNCTION_54();
+  v10 = swift_task_alloc();
+  v11 = OUTLINED_FUNCTION_176(v10);
+  *v11 = v12;
+  OUTLINED_FUNCTION_82_0(v11);
+  OUTLINED_FUNCTION_471();
+
+  return v17(v13, v14, v15, v16, v17, v18, v19, v20, a9, a10);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.disableGameDebugging(bundleID:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  OUTLINED_FUNCTION_478();
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_141_0();
+  OUTLINED_FUNCTION_54();
+  v10 = swift_task_alloc();
+  v11 = OUTLINED_FUNCTION_176(v10);
+  *v11 = v12;
+  OUTLINED_FUNCTION_82_0(v11);
+  OUTLINED_FUNCTION_471();
+
+  return v17(v13, v14, v15, v16, v17, v18, v19, v20, a9, a10);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.listGameActivityDefinitions(game:filters:after:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+{
+  OUTLINED_FUNCTION_245_0();
+  OUTLINED_FUNCTION_177();
+  OUTLINED_FUNCTION_163(v12, v13, v14, v15, v16, v17);
+  OUTLINED_FUNCTION_54();
+  v32 = v18 + *v18;
+  v19 = swift_task_alloc();
+  v20 = OUTLINED_FUNCTION_97(v19);
+  *v20 = v21;
+  v20[1] = sub_1D8442F30;
+  OUTLINED_FUNCTION_85_0();
+  OUTLINED_FUNCTION_207();
+
+  return v28(v22, v23, v24, v25, v26, v27, v28, v29, a9, a10, v32, a12);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.describeGameActivityDefinitions(_:)()
+{
+  OUTLINED_FUNCTION_475();
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_296(v0, v1, v2);
+  OUTLINED_FUNCTION_131();
+  v3 = swift_task_alloc();
+  v4 = OUTLINED_FUNCTION_176(v3);
+  *v4 = v5;
+  OUTLINED_FUNCTION_12_0(v4);
+  OUTLINED_FUNCTION_309_1();
+
+  return v9(v6, v7, v8, v9, v10, v11, v12, v13);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.invokeActivity(_:)()
+{
+  OUTLINED_FUNCTION_475();
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_296(v0, v1, v2);
+  OUTLINED_FUNCTION_131();
+  v3 = swift_task_alloc();
+  v4 = OUTLINED_FUNCTION_176(v3);
+  *v4 = v5;
+  OUTLINED_FUNCTION_12_0(v4);
+  OUTLINED_FUNCTION_309_1();
+
+  return v9(v6, v7, v8, v9, v10, v11, v12, v13);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.getDefaultGameActivityEnvironment()()
+{
+  OUTLINED_FUNCTION_475();
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_296(v0, v1, v2);
+  OUTLINED_FUNCTION_131();
+  v3 = swift_task_alloc();
+  v4 = OUTLINED_FUNCTION_97(v3);
+  *v4 = v5;
+  v4[1] = sub_1D8442F30;
+  OUTLINED_FUNCTION_309_1();
+
+  return v9(v6, v7, v8, v9, v10, v11, v12, v13);
+}
+
+uint64_t dispatch thunk of GameServicesDebuggerProtocol.getServiceVersion()()
+{
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_54();
+  v6 = (v0 + *v0);
+  v1 = swift_task_alloc();
+  v2 = OUTLINED_FUNCTION_176(v1);
+  *v2 = v3;
+  v4 = OUTLINED_FUNCTION_28_3(v2);
+
+  return v6(v4);
+}
+
+uint64_t sub_1D8528268(uint64_t a1, int a2)
+{
+  if (a2)
+  {
+    if (a2 < 0 && *(a1 + 176))
+    {
+      LODWORD(v2) = *a1 + 0x7FFFFFFF;
+    }
+
+    else
+    {
+      v2 = *(a1 + 8);
+      if (v2 >= 0xFFFFFFFF)
+      {
+        LODWORD(v2) = -1;
+      }
+    }
+  }
+
+  else
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t sub_1D85282A8(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 168) = 0;
+    *(result + 152) = 0u;
+    *(result + 136) = 0u;
+    *(result + 120) = 0u;
+    *(result + 104) = 0u;
+    *(result + 88) = 0u;
+    *(result + 72) = 0u;
+    *(result + 56) = 0u;
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 176) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 8) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 176) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.describeAchievements(_:)()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_92_1();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  v3 = OUTLINED_FUNCTION_46_1(v1);
+
+  return v4(v3);
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.listAchievements(games:after:)()
+{
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_86_2();
+  v6 = (*(v0 + 152) + **(v0 + 152));
+  v1 = swift_task_alloc();
+  v2 = OUTLINED_FUNCTION_176(v1);
+  *v2 = v3;
+  v4 = OUTLINED_FUNCTION_28_3(v2);
+
+  return v6(v4);
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.getAchievementsProgresses(_:player:)()
+{
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_86_2();
+  v6 = (*(v0 + 160) + **(v0 + 160));
+  v1 = swift_task_alloc();
+  v2 = OUTLINED_FUNCTION_176(v1);
+  *v2 = v3;
+  v4 = OUTLINED_FUNCTION_28_3(v2);
+
+  return v6(v4);
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.resetAchievementsProgress(_:players:)()
+{
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_86_2();
+  v6 = (*(v0 + 168) + **(v0 + 168));
+  v1 = swift_task_alloc();
+  v2 = OUTLINED_FUNCTION_176(v1);
+  *v2 = v3;
+  v4 = OUTLINED_FUNCTION_28_3(v2);
+
+  return v6(v4);
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.revealAchievements(_:players:)()
+{
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_86_2();
+  v6 = (*(v0 + 176) + **(v0 + 176));
+  v1 = swift_task_alloc();
+  v2 = OUTLINED_FUNCTION_176(v1);
+  *v2 = v3;
+  v4 = OUTLINED_FUNCTION_28_3(v2);
+
+  return v6(v4);
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.submitAchievementsProgress(_:)()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_92_1();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  v3 = OUTLINED_FUNCTION_46_1(v1);
+
+  return v4(v3);
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.getImageData(_:)()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_92_1();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  v3 = OUTLINED_FUNCTION_46_1(v1);
+
+  return v4(v3);
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.listLocalPlayers()()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_163_1();
+  v5 = (*(v0 + 200) + **(v0 + 200));
+  v1 = swift_task_alloc();
+  v2 = OUTLINED_FUNCTION_176(v1);
+  *v2 = v3;
+  OUTLINED_FUNCTION_191(v2);
+
+  return v5();
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.describeLeaderboards(_:)()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_92_1();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  v3 = OUTLINED_FUNCTION_46_1(v1);
+
+  return v4(v3);
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.listLeaderboardEntries(_:range:locale:timeScope:)()
+{
+  OUTLINED_FUNCTION_469();
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_326_0();
+  OUTLINED_FUNCTION_163_1();
+  v13 = v0 + 216;
+  v14 = *(v0 + 216) + **(v0 + 216);
+  v1 = swift_task_alloc();
+  v2 = OUTLINED_FUNCTION_176(v1);
+  *v2 = v3;
+  OUTLINED_FUNCTION_191(v2);
+  OUTLINED_FUNCTION_327_1();
+  OUTLINED_FUNCTION_239_1();
+
+  return v9(v4, v5, v6, v7, v8, v9, v10, v11, v13, v14);
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.listLeaderboardEntries(_:players:locale:timeScope:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  OUTLINED_FUNCTION_478();
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_141_0();
+  OUTLINED_FUNCTION_163_1();
+  v22 = v9 + 224;
+  v10 = swift_task_alloc();
+  v11 = OUTLINED_FUNCTION_176(v10);
+  *v11 = v12;
+  OUTLINED_FUNCTION_82_0(v11);
+  OUTLINED_FUNCTION_471();
+
+  return v17(v13, v14, v15, v16, v17, v18, v19, v20, a9, v22);
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.listLeaderboards(games:players:)()
+{
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_86_2();
+  v6 = (*(v0 + 232) + **(v0 + 232));
+  v1 = swift_task_alloc();
+  v2 = OUTLINED_FUNCTION_176(v1);
+  *v2 = v3;
+  v4 = OUTLINED_FUNCTION_28_3(v2);
+
+  return v6(v4);
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.submitLeaderboardEntries(_:)()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_92_1();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  v3 = OUTLINED_FUNCTION_46_1(v1);
+
+  return v4(v3);
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.resetLeaderboards(_:)()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_92_1();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  v3 = OUTLINED_FUNCTION_46_1(v1);
+
+  return v4(v3);
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.describeLeaderboardSets(_:)()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_92_1();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  v3 = OUTLINED_FUNCTION_46_1(v1);
+
+  return v4(v3);
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.listLeaderboardSets(games:)()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_92_1();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  v3 = OUTLINED_FUNCTION_46_1(v1);
+
+  return v4(v3);
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.listLeaderboards(leaderboardSets:)()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_92_1();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  v3 = OUTLINED_FUNCTION_46_1(v1);
+
+  return v4(v3);
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.describePlayerProfiles(_:)()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_92_1();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  v3 = OUTLINED_FUNCTION_46_1(v1);
+
+  return v4(v3);
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.describeGameLockups(_:)()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_92_1();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  v3 = OUTLINED_FUNCTION_46_1(v1);
+
+  return v4(v3);
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.listGames(by:sortBy:upTo:after:belongingTo:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+{
+  OUTLINED_FUNCTION_426();
+  OUTLINED_FUNCTION_177();
+  OUTLINED_FUNCTION_381_0();
+  OUTLINED_FUNCTION_259_2();
+  OUTLINED_FUNCTION_163_1();
+  v26 = (v12 + 296);
+  v27 = *v26 + **v26;
+  v13 = swift_task_alloc();
+  v14 = OUTLINED_FUNCTION_97(v13);
+  *v14 = v15;
+  OUTLINED_FUNCTION_263_2(v14);
+  OUTLINED_FUNCTION_240();
+
+  return v23(v16, v17, v18, v19, v20, v21, v22, v23, v26, v27, a11, a12);
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.enableGameDebugging(bundleID:)()
+{
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_86_2();
+  v6 = (*(v0 + 304) + **(v0 + 304));
+  v1 = swift_task_alloc();
+  v2 = OUTLINED_FUNCTION_176(v1);
+  *v2 = v3;
+  v4 = OUTLINED_FUNCTION_28_3(v2);
+
+  return v6(v4);
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.disableGameDebugging(bundleID:)()
+{
+  OUTLINED_FUNCTION_204();
+  OUTLINED_FUNCTION_86_2();
+  v6 = (*(v0 + 312) + **(v0 + 312));
+  v1 = swift_task_alloc();
+  v2 = OUTLINED_FUNCTION_176(v1);
+  *v2 = v3;
+  v4 = OUTLINED_FUNCTION_28_3(v2);
+
+  return v6(v4);
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.listGameActivityDefinitions(game:filters:after:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  OUTLINED_FUNCTION_478();
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_141_0();
+  OUTLINED_FUNCTION_163_1();
+  v22 = v9 + 320;
+  v10 = swift_task_alloc();
+  v11 = OUTLINED_FUNCTION_97(v10);
+  *v11 = v12;
+  v11[1] = sub_1D8442F30;
+  OUTLINED_FUNCTION_377_1();
+  OUTLINED_FUNCTION_200_1();
+  OUTLINED_FUNCTION_471();
+
+  return v17(v13, v14, v15, v16, v17, v18, v19, v20, a9, v22);
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.describeGameActivityDefinitions(_:)()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_92_1();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  v3 = OUTLINED_FUNCTION_46_1(v1);
+
+  return v4(v3);
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.invokeActivity(_:)()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_92_1();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_176(v0);
+  *v1 = v2;
+  v3 = OUTLINED_FUNCTION_46_1(v1);
+
+  return v4(v3);
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.getDefaultGameActivityEnvironment()()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_92_1();
+  v6 = (*(v0 + 344) + **(v0 + 344));
+  v1 = swift_task_alloc();
+  v2 = OUTLINED_FUNCTION_97(v1);
+  *v2 = v3;
+  v4 = OUTLINED_FUNCTION_314_2(v2);
+
+  return v6(v4);
+}
+
+uint64_t dispatch thunk of GameDebuggerServiceWorkaround.getServiceVersion()()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_163_1();
+  v5 = (*(v0 + 352) + **(v0 + 352));
+  v1 = swift_task_alloc();
+  v2 = OUTLINED_FUNCTION_176(v1);
+  *v2 = v3;
+  OUTLINED_FUNCTION_191(v2);
+
+  return v5();
+}
+
+uint64_t sub_1D8529F74()
+{
+  OUTLINED_FUNCTION_174();
+  OUTLINED_FUNCTION_95();
+  v1 = *v0;
+  OUTLINED_FUNCTION_37();
+  *v2 = v1;
+
+  OUTLINED_FUNCTION_298_1();
+  v3 = OUTLINED_FUNCTION_506();
+
+  return v4(v3);
+}
+
+uint64_t getEnumTagSinglePayload for GameLockup.CodingKeys(unsigned __int8 *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    v5 = -1;
+    return (v5 + 1);
+  }
+
+  if (a2 >= 0xFC)
+  {
+    if (a2 + 4 >= 0xFFFF00)
+    {
+      v2 = 4;
+    }
+
+    else
+    {
+      v2 = 2;
+    }
+
+    if ((a2 + 4) >> 8 < 0xFF)
+    {
+      v3 = 1;
+    }
+
+    else
+    {
+      v3 = v2;
+    }
+
+    if (v3 == 4)
+    {
+      v4 = *(a1 + 1);
+      if (!v4)
+      {
+        goto LABEL_17;
+      }
+    }
+
+    else if (v3 == 2)
+    {
+      v4 = *(a1 + 1);
+      if (!*(a1 + 1))
+      {
+        goto LABEL_17;
+      }
+    }
+
+    else
+    {
+      v4 = a1[1];
+      if (!a1[1])
+      {
+        goto LABEL_17;
+      }
+    }
+
+    v5 = (*a1 | (v4 << 8)) - 5;
+    return (v5 + 1);
+  }
+
+LABEL_17:
+  v6 = *a1;
+  v7 = v6 >= 5;
+  v5 = v6 - 5;
+  if (!v7)
+  {
+    v5 = -1;
+  }
+
+  return (v5 + 1);
+}
+
+_BYTE *storeEnumTagSinglePayload for GameLockup.CodingKeys(_BYTE *result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 4 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 4) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 >= 0xFC)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (a2 > 0xFB)
+  {
+    v6 = ((a2 - 252) >> 8) + 1;
+    *result = a2 + 4;
+    switch(v5)
+    {
+      case 1:
+        result[1] = v6;
+        break;
+      case 2:
+        *(result + 1) = v6;
+        break;
+      case 3:
+LABEL_23:
+        __break(1u);
+        break;
+      case 4:
+        *(result + 1) = v6;
+        break;
+      default:
+        return result;
+    }
+  }
+
+  else
+  {
+    switch(v5)
+    {
+      case 1:
+        result[1] = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      case 2:
+        *(result + 1) = 0;
+        goto LABEL_17;
+      case 3:
+        goto LABEL_23;
+      case 4:
+        *(result + 1) = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      default:
+LABEL_17:
+        if (a2)
+        {
+LABEL_18:
+          *result = a2 + 4;
+        }
+
+        break;
+    }
+  }
+
+  return result;
+}
+
+unint64_t sub_1D852A1F8()
+{
+  result = qword_1ECA4E850[0];
+  if (!qword_1ECA4E850[0])
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, qword_1ECA4E850);
+  }
+
+  return result;
+}
+
+unint64_t sub_1D852A250()
+{
+  result = qword_1ECA4E960;
+  if (!qword_1ECA4E960)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1ECA4E960);
+  }
+
+  return result;
+}
+
+unint64_t sub_1D852A2A8()
+{
+  result = qword_1ECA4E968[0];
+  if (!qword_1ECA4E968[0])
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, qword_1ECA4E968);
+  }
+
+  return result;
+}
+
+uint64_t OUTLINED_FUNCTION_14_3()
+{
+  v1 = v0[11];
+  __swift_project_boxed_opaque_existential_1(v0 + 7, v0[10]);
+  return v1;
+}
+
+uint64_t OUTLINED_FUNCTION_37_0()
+{
+
+  return GameServicesActorSystem.JSONInvocationEncoder.recordArgument<A>(_:)(v0, v1);
+}
+
+uint64_t OUTLINED_FUNCTION_75_0()
+{
+
+  return GameServicesActorSystem.JSONInvocationEncoder.recordArgument<A>(_:)(v0, v1);
+}
+
+uint64_t OUTLINED_FUNCTION_91_1()
+{
+  *(v0 + 120) = $DistributedGameServicesDebuggerProtocol.actorSystem.getter();
+
+  return GameServicesActorSystem.makeInvocationEncoder()((v0 + 16));
+}
+
+uint64_t OUTLINED_FUNCTION_98_1()
+{
+
+  return GameServicesActorSystem.makeInvocationEncoder()((v0 + 16));
+}
+
+unint64_t OUTLINED_FUNCTION_120_0(uint64_t a1)
+{
+
+  return sub_1D8526788(a1);
+}
+
+unint64_t OUTLINED_FUNCTION_137_0(uint64_t a1)
+{
+
+  return sub_1D8508ED4(a1);
+}
+
+uint64_t OUTLINED_FUNCTION_185_2()
+{
+  *(v0 + 40) = v1;
+}
+
+uint64_t OUTLINED_FUNCTION_218_1()
+{
+}
+
+uint64_t OUTLINED_FUNCTION_251_0(uint64_t a1)
+{
+
+  return swift_once();
+}
+
+uint64_t OUTLINED_FUNCTION_277_1(uint64_t a1)
+{
+}
+
+unint64_t OUTLINED_FUNCTION_283_1(uint64_t a1)
+{
+
+  return sub_1D8526788(a1);
+}
+
+uint64_t OUTLINED_FUNCTION_285_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+
+  return sub_1D8581038();
+}
+
+uint64_t OUTLINED_FUNCTION_300_2(uint64_t a1, uint64_t a2)
+{
+  v3[8] = a2;
+  v3[9] = v2;
+  v3[7] = a1;
+
+  return sub_1D8581018();
+}
+
+unint64_t OUTLINED_FUNCTION_302_1(uint64_t a1)
+{
+
+  return sub_1D848211C(a1);
+}
+
+uint64_t OUTLINED_FUNCTION_309_2(uint64_t a1)
+{
+  *(v1 + 120) = a1;
+
+  return type metadata accessor for GameDebuggerServiceWorkaround();
+}
+
+uint64_t OUTLINED_FUNCTION_311_1(uint64_t a1)
+{
+  *(v2 + 56) = a1;
+  *(v2 + 64) = v1;
+
+  return sub_1D8581018();
+}
+
+uint64_t OUTLINED_FUNCTION_317_1()
+{
+}
+
+uint64_t OUTLINED_FUNCTION_318_1()
+{
+}
+
+uint64_t OUTLINED_FUNCTION_319_1()
+{
+}
+
+uint64_t OUTLINED_FUNCTION_320_1()
+{
+}
+
+uint64_t OUTLINED_FUNCTION_338_1()
+{
+}
+
+uint64_t OUTLINED_FUNCTION_339_1()
+{
+  *(v0 + 40) = *(v0 + 48);
+}
+
+uint64_t OUTLINED_FUNCTION_342_2()
+{
+}
+
+uint64_t OUTLINED_FUNCTION_351_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
+{
+  va_start(va, a31);
+
+  return sub_1D8511308(a1, va, v31, v32);
+}
+
+uint64_t OUTLINED_FUNCTION_352_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
+{
+  va_start(va, a31);
+
+  return sub_1D8511308(a1, va, v31, v32);
+}
+
+unint64_t OUTLINED_FUNCTION_358_1(uint64_t a1)
+{
+
+  return sub_1D848211C(a1);
+}
+
+uint64_t OUTLINED_FUNCTION_369_1()
+{
+  *(v1 + 96) = v3;
+  *(v1 + 104) = v2;
+  return v0;
+}
+
+__n128 OUTLINED_FUNCTION_371_0()
+{
+  result = *v2;
+  *(v1 + 150) = *v0;
+  return result;
+}
+
+double OUTLINED_FUNCTION_392_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, __int128 a14)
+{
+
+  *&result = Page.init(_:next:)(a1, &a14, v14).n128_u64[0];
+  return result;
+}
+
+uint64_t OUTLINED_FUNCTION_393_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5[10] = a4;
+  v5[11] = v4;
+  v5[8] = a2;
+  v5[9] = a3;
+  v5[7] = a1;
+
+  return sub_1D8581018();
+}
+
+uint64_t OUTLINED_FUNCTION_395_1()
+{
+}
+
+void *OUTLINED_FUNCTION_405_0()
+{
+
+  return memcpy(&STACK[0x218], (v0 + 64), 0x60uLL);
+}
+
+uint64_t OUTLINED_FUNCTION_406_1(uint64_t a1)
+{
+
+  return sub_1D8580F68();
+}
+
+uint64_t OUTLINED_FUNCTION_407_0()
+{
+}
+
+uint64_t OUTLINED_FUNCTION_408_1(uint64_t a1, uint64_t a2)
+{
+
+  return sub_1D8581028();
+}
+
+uint64_t OUTLINED_FUNCTION_409_1()
+{
+}
+
+uint64_t OUTLINED_FUNCTION_411_1()
+{
+  *(v0 + 48) = *(v0 + 72);
+}
+
+uint64_t OUTLINED_FUNCTION_413_1(uint64_t a1, uint64_t a2)
+{
+
+  return sub_1D8581028();
+}
+
+uint64_t static GameActivityInstanceCoder.encodedData(_:)(uint64_t a1)
+{
+  sub_1D8580B18();
+  swift_allocObject();
+  sub_1D8580B08();
+  type metadata accessor for GameActivityInstance(0);
+  sub_1D852B210(&qword_1ECA39988, &protocol conformance descriptor for GameActivityInstance);
+  v2 = sub_1D8580AF8();
+  v4 = v3;
+
+  if (!v1)
+  {
+    v6 = sub_1D8580E28();
+    sub_1D843F6E8(v2, v4);
+    return v6;
+  }
+
+  return result;
+}
+
+uint64_t static GameActivityInstanceCoder.decodedInstance(_:)(uint64_t a1)
+{
+  sub_1D8580AE8();
+  swift_allocObject();
+  sub_1D8580AD8();
+  type metadata accessor for GameActivityInstance(0);
+  v1 = sub_1D8580E48();
+  v3 = v2;
+  sub_1D852B210(&qword_1ECA39970, &protocol conformance descriptor for GameActivityInstance);
+  sub_1D8580AC8();
+  sub_1D843F6E8(v1, v3);
+}
+
+uint64_t sub_1D852B210(unint64_t *a1, uint64_t a2)
+{
+  result = *a1;
+  if (!result)
+  {
+    type metadata accessor for GameActivityInstance(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for GameActivityInstanceCoder(unsigned int *a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if ((a2 + 1) >= 0x10000)
+  {
+    v2 = 4;
+  }
+
+  else
+  {
+    v2 = 2;
+  }
+
+  if ((a2 + 1) < 0x100)
+  {
+    v3 = 1;
+  }
+
+  else
+  {
+    v3 = v2;
+  }
+
+  if (v3 == 4)
+  {
+    return *a1;
+  }
+
+  if (v3 == 2)
+  {
+    return *a1;
+  }
+
+  return *a1;
+}
+
+_BYTE *storeEnumTagSinglePayload for GameActivityInstanceCoder(_BYTE *result, int a2, int a3)
+{
+  if ((a3 + 1) >= 0x10000)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 1) < 0x100)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (a2)
+  {
+    switch(v5)
+    {
+      case 1:
+        *result = a2;
+        break;
+      case 2:
+        *result = a2;
+        break;
+      case 3:
+        goto LABEL_19;
+      case 4:
+        *result = a2;
+        break;
+      default:
+        return result;
+    }
+  }
+
+  else
+  {
+    switch(v5)
+    {
+      case 1:
+        *result = 0;
+        break;
+      case 2:
+        *result = 0;
+        break;
+      case 3:
+LABEL_19:
+        __break(1u);
+        break;
+      case 4:
+        *result = 0;
+        break;
+      default:
+        return result;
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_1D852B3A0(uint64_t *a1, uint64_t *a2, unint64_t *a3, uint64_t (*a4)(void))
+{
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
+  sub_1D8437BA8(v6);
+  OUTLINED_FUNCTION_209_2();
+
+  v7 = OUTLINED_FUNCTION_115_1();
+  MEMORY[0x1DA718990](v7);
+  sub_1D8438004(0, a3, a4);
+  sub_1D85817E8();
+  return v9;
+}
+
+uint64_t sub_1D852B424(char a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A368, &qword_1D85A22C0);
+  v3 = sub_1D8437BA8(v2);
+  BYTE8(v5) = 0;
+  MEMORY[0x1DA718990](v3);
+
+  MEMORY[0x1DA718990](46, 0xE100000000000000);
+  *&v5 = a1 & 1;
+  sub_1D8438004(0, &qword_1ECA3A498, type metadata accessor for Ref<A>.ContactRefFields);
+  sub_1D85817E8();
+  return *(&v5 + 1);
+}
+
+uint64_t sub_1D852B4E8(uint64_t a1, uint64_t a2)
+{
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  sub_1D8437BA8(AssociatedTypeWitness);
+  OUTLINED_FUNCTION_209_2();
+
+  v3 = OUTLINED_FUNCTION_115_1();
+  MEMORY[0x1DA718990](v3);
+  sub_1D8581AA8();
+  return v5;
+}
+
+void Ref<A>.game.getter(uint64_t a1@<X8>)
+{
+  sub_1D852C230(&qword_1ECA39520, &unk_1D8595FE0, a1);
+}
+
+{
+  sub_1D852C230(&qword_1ECA39C60, &unk_1D859A7E0, a1);
+}
+
+{
+  sub_1D852C230(&qword_1ECA38A78, &unk_1D85A22B0, a1);
+}
+
+{
+  sub_1D852C230(&qword_1ECA39938, &qword_1D8596358, a1);
+}
+
+{
+  sub_1D852C230(&qword_1ECA39860, &qword_1D85962F0, a1);
+}
+
+{
+  sub_1D852C230(&qword_1ECA38A90, &qword_1D8590AB0, a1);
+}
+
+{
+  sub_1D852C230(&qword_1ECA39758, &unk_1D859F290, a1);
+}
+
+uint64_t sub_1D852B6F8(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  v2 = MEMORY[0x1E69E7CC0];
+  if (v1)
+  {
+    v13 = MEMORY[0x1E69E7CC0];
+    sub_1D8533A40(0, v1, 0);
+    v2 = v13;
+    v4 = (a1 + 32);
+    do
+    {
+      v5 = *v4;
+      v13 = v2;
+      v7 = *(v2 + 16);
+      v6 = *(v2 + 24);
+      if (v7 >= v6 >> 1)
+      {
+        sub_1D8533A40((v6 > 1), v7 + 1, 1);
+        v2 = v13;
+      }
+
+      sub_1D8438004(0, &qword_1ECA3A498, type metadata accessor for Ref<A>.ContactRefFields);
+      v11 = v8;
+      v12 = sub_1D8440D9C(&qword_1ECA3A5E8, &qword_1ECA3A498, type metadata accessor for Ref<A>.ContactRefFields, &unk_1D85A2770);
+      LOBYTE(v10) = v5;
+      *(v2 + 16) = v7 + 1;
+      sub_1D84F2D50(&v10, v2 + 40 * v7 + 32);
+      ++v4;
+      --v1;
+    }
+
+    while (v1);
+  }
+
+  return v2;
+}
+
+uint64_t sub_1D852B838(uint64_t a1)
+{
+  v3 = *(a1 + 16);
+  v4 = MEMORY[0x1E69E7CC0];
+  if (v3)
+  {
+    OUTLINED_FUNCTION_199_1();
+    v6 = v5;
+    OUTLINED_FUNCTION_163_2();
+    v4 = v23;
+    v7 = (v6 + 32);
+    do
+    {
+      v9 = *v7++;
+      v8 = v9;
+      OUTLINED_FUNCTION_186_3();
+      if (v11)
+      {
+        sub_1D8533A40((v10 > 1), v6, 1);
+        v4 = v23;
+      }
+
+      OUTLINED_FUNCTION_123_2();
+      sub_1D8438004(v12, v13, v14);
+      v21 = v15;
+      OUTLINED_FUNCTION_123_2();
+      v22 = sub_1D8440D9C(v16, v17, v18, v1);
+      LOBYTE(v20) = v8;
+      *(v4 + 16) = v6;
+      sub_1D84F2D50(&v20, v4 + 40 * v2 + 32);
+      --v3;
+    }
+
+    while (v3);
+  }
+
+  return v4;
+}
+
+uint64_t sub_1D852B91C(uint64_t a1)
+{
+  v4 = *(a1 + 16);
+  v5 = MEMORY[0x1E69E7CC0];
+  if (v4)
+  {
+    OUTLINED_FUNCTION_199_1();
+    OUTLINED_FUNCTION_163_2();
+    v5 = v19;
+    do
+    {
+      OUTLINED_FUNCTION_186_3();
+      if (v7)
+      {
+        sub_1D8533A40((v6 > 1), v2, 1);
+        v5 = v19;
+      }
+
+      OUTLINED_FUNCTION_123_2();
+      sub_1D8438004(v8, v9, v10);
+      v17 = v11;
+      OUTLINED_FUNCTION_123_2();
+      v18 = sub_1D8440D9C(v12, v13, v14, v1);
+      *(v5 + 16) = v2;
+      sub_1D84F2D50(&v16, v5 + 40 * v3 + 32);
+      --v4;
+    }
+
+    while (v4);
+  }
+
+  return v5;
+}
+
+void sub_1D852B9F0(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
+{
+  sub_1D8441004();
+  if (!v4)
+  {
+    v12 = v9;
+    v13 = v10;
+    v14 = v11;
+    v52 = a4;
+    v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA389B8, &qword_1D8590B30);
+    v15 = sub_1D8437BA8(v46);
+    v17 = v16;
+    v18 = v12 == v15 && v13 == v16;
+    if (v18 || (OUTLINED_FUNCTION_94_2(), v20 = v19, (sub_1D8581AB8() & 1) != 0))
+    {
+
+      sub_1D8533950(v21, v14);
+      v22 = *(a1 + 16);
+      if (v22)
+      {
+        v50 = MEMORY[0x1E69E7CC0];
+        sub_1D84E8374(0, v22, 0);
+        v23 = v50;
+        v24 = a1 + 32;
+        do
+        {
+          sub_1D84EB9C4(v24, v47);
+          v25 = v48;
+          v26 = v49;
+          __swift_project_boxed_opaque_existential_1(v47, v48);
+          OUTLINED_FUNCTION_45_1();
+          v28 = v27(v25, v26);
+          v30 = v29;
+          __swift_destroy_boxed_opaque_existential_1(v47);
+          v50 = v23;
+          v32 = *(v23 + 16);
+          v31 = *(v23 + 24);
+          if (v32 >= v31 >> 1)
+          {
+            v34 = OUTLINED_FUNCTION_337_0(v31);
+            sub_1D84E8374(v34, v32 + 1, 1);
+            v23 = v50;
+          }
+
+          *(v23 + 16) = v32 + 1;
+          v33 = v23 + 16 * v32;
+          *(v33 + 32) = v28;
+          *(v33 + 40) = v30;
+          v24 += 40;
+          --v22;
+        }
+
+        while (v22);
+      }
+
+      v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38B38, &qword_1D85981B0);
+      sub_1D8437BA8(v38);
+
+      v39 = OUTLINED_FUNCTION_221();
+      sub_1D8533E98(v39, v40);
+
+      sub_1D843808C();
+      v42 = v41;
+      v44 = v43;
+
+      v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39470, &unk_1D8592720);
+      Ref.init(rawValue:)(v42, v44, v45);
+    }
+
+    else
+    {
+
+      v47[0] = 0;
+      v47[1] = 0xE000000000000000;
+      sub_1D8581768();
+      v50 = a2;
+      v51 = a3;
+      sub_1D85817E8();
+      OUTLINED_FUNCTION_12_3();
+      OUTLINED_FUNCTION_129_1();
+      MEMORY[0x1DA718990](v20, v17);
+
+      OUTLINED_FUNCTION_48_0();
+      v35 = sub_1D8448448();
+      v36 = OUTLINED_FUNCTION_446(&type metadata for GameServicesError, v35);
+      *v37 = 0;
+      v37[1] = 0xE000000000000000;
+      OUTLINED_FUNCTION_120_1(v36, v37);
+    }
+  }
+
+  OUTLINED_FUNCTION_203_3();
+}
+
+void sub_1D852C230(uint64_t *a1@<X2>, uint64_t *a2@<X3>, uint64_t a3@<X8>)
+{
+  v9 = *v3;
+  v8 = v3[1];
+  OUTLINED_FUNCTION_0_7();
+  v11 = sub_1D852B838(v10);
+  sub_1D85811B8();
+  OUTLINED_FUNCTION_101_1();
+  sub_1D8441004();
+  if (!v4)
+  {
+    v14 = v12;
+    v36 = v13;
+    v42 = a3;
+    v15 = __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
+    sub_1D8437BA8(v15);
+    OUTLINED_FUNCTION_93_1();
+    v17 = v17 && v14 == v16;
+    if (v17 || (OUTLINED_FUNCTION_16_5() & 1) != 0)
+    {
+
+      v19 = sub_1D8533950(v18, v36);
+      v20 = v19;
+      if (*(v11 + 16))
+      {
+        v37 = v19;
+        v40 = MEMORY[0x1E69E7CC0];
+        OUTLINED_FUNCTION_61_2();
+        v21 = v40;
+        do
+        {
+          sub_1D84EB9C4(v11 + 32, v38);
+          v14 = v39;
+          __swift_project_boxed_opaque_existential_1(v38, v39);
+          v22 = OUTLINED_FUNCTION_6_3();
+          v23(v22);
+          OUTLINED_FUNCTION_58_2();
+          __swift_destroy_boxed_opaque_existential_1(v38);
+          v40 = v21;
+          OUTLINED_FUNCTION_28_4();
+          if (v24)
+          {
+            OUTLINED_FUNCTION_87_1();
+            sub_1D84E8374(v25, v26, v27);
+            v21 = v40;
+          }
+
+          OUTLINED_FUNCTION_14_4();
+        }
+
+        while (!v17);
+        v20 = v37;
+      }
+
+      v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38B38, &qword_1D85981B0);
+      sub_1D8437BA8(v32);
+      OUTLINED_FUNCTION_38_1();
+
+      OUTLINED_FUNCTION_62_1();
+      sub_1D8533E98(v33, v34);
+      OUTLINED_FUNCTION_67_2();
+
+      OUTLINED_FUNCTION_194();
+      sub_1D843808C();
+      OUTLINED_FUNCTION_58_2();
+
+      v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39470, &unk_1D8592720);
+      Ref.init(rawValue:)(v14, v20, v35);
+    }
+
+    else
+    {
+
+      v38[0] = 0;
+      v38[1] = 0xE000000000000000;
+      sub_1D8581768();
+      v40 = v9;
+      v41 = v8;
+      sub_1D85817E8();
+      OUTLINED_FUNCTION_12_3();
+      OUTLINED_FUNCTION_129_1();
+      v28 = OUTLINED_FUNCTION_174_1();
+      MEMORY[0x1DA718990](v28);
+
+      OUTLINED_FUNCTION_48_0();
+      v29 = sub_1D8448448();
+      v30 = OUTLINED_FUNCTION_446(&type metadata for GameServicesError, v29);
+      OUTLINED_FUNCTION_34_1(v30, v31);
+    }
+  }
+
+  OUTLINED_FUNCTION_102_2();
+}
+
+void Ref<A>.init(id:)()
+{
+  OUTLINED_FUNCTION_96_1();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A0E8, &unk_1D85A2270);
+  *(swift_initStackObject() + 16) = xmmword_1D8590A70;
+  OUTLINED_FUNCTION_13_2();
+  v0 = OUTLINED_FUNCTION_221();
+  v4 = sub_1D852B3A0(v0, v1, v2, v3);
+  OUTLINED_FUNCTION_200_2(v4, v5);
+  OUTLINED_FUNCTION_160_1();
+  sub_1D85811B8();
+  v6 = OUTLINED_FUNCTION_221();
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(v6, v7);
+  v9 = sub_1D8437BA8(v8);
+  OUTLINED_FUNCTION_145_1(v9, v10);
+  OUTLINED_FUNCTION_68_0();
+
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39440, &unk_1D85A22A0);
+  v12 = OUTLINED_FUNCTION_35_4(v11);
+  OUTLINED_FUNCTION_63_1(v12, v13, v14, v15, v16, v17, v18, v19, v20, v21);
+}
+
+uint64_t Ref<A>.invite(code:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+{
+  v5 = v3[1];
+  v9 = *v3;
+  v10 = v5;
+  v7[0] = a1;
+  v7[1] = a2;
+  v7[2] = 0;
+  v7[3] = 0;
+  v8 = 0;
+
+  return Ref<A>.init(challenge:inviteDetails:)(v7, a3);
+}
+
+uint64_t Ref<A>.init(challenge:inviteDetails:)@<X0>(uint64_t a1@<X1>, void *a2@<X8>)
+{
+  v33 = a2;
+  v3 = *(a1 + 8);
+  v4 = *(a1 + 16);
+  v5 = *(a1 + 24);
+  v6 = *(a1 + 32);
+  v30[0] = *a1;
+  LOBYTE(v31) = v6;
+  v7 = sub_1D852D688();
+  v8 = OUTLINED_FUNCTION_258();
+  sub_1D8534BE8(v8, v9, v4, v5, v6);
+  v10 = OUTLINED_FUNCTION_221();
+  sub_1D8440EEC(v10, v11, v12, v13, v14, v15, v16, v17, v29, v30[0], v3, v4, v5, v31, v32, v33, v34, v35, v36, v37, v38, v39);
+  v19 = v18;
+
+  if (v2)
+  {
+  }
+
+  swift_isUniquelyReferenced_nonNull_native();
+  v30[0] = v7;
+  OUTLINED_FUNCTION_2_5();
+  sub_1D853450C(v19, v21, 0, v22, v30);
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39038, &qword_1D8590E88);
+  sub_1D8437BA8(v23);
+  sub_1D843808C();
+  OUTLINED_FUNCTION_151_2();
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39480, &qword_1D85927C0);
+  v24 = OUTLINED_FUNCTION_221();
+  result = Ref.init(rawValue:)(v24, v25, v26);
+  v27 = v30[1];
+  v28 = v33;
+  *v33 = v30[0];
+  v28[1] = v27;
+  return result;
+}
+
+uint64_t Ref<A>.invite(from:to:)@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
+{
+  v6 = *a1;
+  v7 = a1[1];
+  v8 = *a2;
+  v9 = a2[1];
+  v10 = v3[1];
+  v23 = *v3;
+  v24 = v10;
+  *&v18[0] = v6;
+  *(&v18[0] + 1) = v7;
+  v20[0] = v8;
+  v20[1] = v9;
+
+  sub_1D852CC94(v18, v20, v21, v11, v12, v13, v14, v15, v16);
+  if (v4)
+  {
+  }
+
+  v18[0] = v21[0];
+  v18[1] = v21[1];
+  v19 = v22;
+  return Ref<A>.init(challenge:inviteDetails:)(v18, a3);
+}
+
+void sub_1D852CC94(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>, uint64_t a4@<X2>, uint64_t a5@<X3>, uint64_t a6@<X4>, uint64_t a7@<X5>, uint64_t a8@<X6>, uint64_t a9@<X7>)
+{
+  v11 = *a1;
+  v12 = a1[1];
+  v13 = *a2;
+  v14 = a2[1];
+  v39 = *a1;
+  v40 = v12;
+  Ref<A>.playerID.getter(&v34, a1, a2, a4, a5, a6, a7, a8, a9);
+  if (!v9)
+  {
+    v21 = v34;
+    v20 = v35;
+    if (v38 == 1)
+    {
+      v22 = v37;
+      v39 = v13;
+      v40 = v14;
+      Ref<A>.playerID.getter(&v34, v15, v16, v36, v37, v38, v17, v18, v19);
+      v29 = v34;
+      v30 = v35;
+      if (v38 == 1)
+      {
+        *a3 = v21;
+        *(a3 + 8) = v20;
+        *(a3 + 16) = v29;
+        *(a3 + 24) = v30;
+        *(a3 + 32) = 1;
+        goto LABEL_6;
+      }
+
+      sub_1D8534C38(v34, v35, v36, v37, v38);
+      v31 = OUTLINED_FUNCTION_18_2();
+      sub_1D8534C38(v31, v32, v33, v22, 1);
+      v34 = v13;
+      v35 = v14;
+    }
+
+    else
+    {
+      v23 = OUTLINED_FUNCTION_236_1();
+      sub_1D8534C38(v23, v24, v25, v26, v27);
+      v34 = v11;
+      v35 = v12;
+    }
+
+    v28 = sub_1D8448448();
+    OUTLINED_FUNCTION_446(&type metadata for GameServicesError, v28);
+    OUTLINED_FUNCTION_38_1();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38A18, &qword_1D8590940);
+    static GameServicesError.invalidReference<A>(ref:)(&v34, &v39);
+    swift_willThrow();
+  }
+
+LABEL_6:
+  OUTLINED_FUNCTION_203_3();
+}
+
+void Ref<A>.init(gameBundleID:vendorID:)(uint64_t a1)
+{
+  OUTLINED_FUNCTION_31_3();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A0E8, &unk_1D85A2270);
+  *(swift_initStackObject() + 16) = xmmword_1D85A2260;
+  OUTLINED_FUNCTION_1_4();
+  v5 = sub_1D84379E4(1, v1, v2, v3, v4);
+  OUTLINED_FUNCTION_202_3(v5, v6);
+  OUTLINED_FUNCTION_75_1();
+  v7 = OUTLINED_FUNCTION_368();
+  v11 = sub_1D852B3A0(v7, v8, v9, v10);
+  OUTLINED_FUNCTION_201_1(v11, v12);
+  OUTLINED_FUNCTION_152_2();
+  sub_1D85811B8();
+  v13 = OUTLINED_FUNCTION_368();
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(v13, v14);
+  v16 = sub_1D8437BA8(v15);
+  OUTLINED_FUNCTION_145_1(v16, v17);
+  OUTLINED_FUNCTION_68_0();
+
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39450, &qword_1D8592708);
+  v19 = OUTLINED_FUNCTION_35_4(v18);
+  OUTLINED_FUNCTION_63_1(v19, v20, v21, v22, v23, v24, v25, v26, v27, v28);
+}
+
+void Ref<A>.challenge.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30)
+{
+  OUTLINED_FUNCTION_118_2();
+  a29 = v31;
+  a30 = v32;
+  OUTLINED_FUNCTION_141_1();
+  OUTLINED_FUNCTION_27_4();
+  v34 = sub_1D852B91C(v33);
+  v35 = sub_1D85811B8();
+  OUTLINED_FUNCTION_258();
+  sub_1D8441004();
+  if (!v30)
+  {
+    OUTLINED_FUNCTION_32_2();
+    a20 = v35;
+    v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39038, &qword_1D8590E88);
+    sub_1D8437BA8(v36);
+    OUTLINED_FUNCTION_93_1();
+    v38 = v38 && v37 == 0;
+    if (v38 || (OUTLINED_FUNCTION_16_5() & 1) != 0)
+    {
+
+      OUTLINED_FUNCTION_101_1();
+      v41 = sub_1D8533950(v39, v40);
+      v42 = v41;
+      if (*(v34 + 16))
+      {
+        v60 = v41;
+        a17 = MEMORY[0x1E69E7CC0];
+        OUTLINED_FUNCTION_61_2();
+        v43 = a17;
+        do
+        {
+          sub_1D84EB9C4(v34 + 32, &a12);
+          __swift_project_boxed_opaque_existential_1(&a12, a15);
+          v44 = OUTLINED_FUNCTION_6_3();
+          v45(v44);
+          OUTLINED_FUNCTION_58_2();
+          __swift_destroy_boxed_opaque_existential_1(&a12);
+          a17 = v43;
+          OUTLINED_FUNCTION_28_4();
+          if (v47)
+          {
+            OUTLINED_FUNCTION_337_0(v46);
+            OUTLINED_FUNCTION_87_1();
+            sub_1D84E8374(v48, v49, v50);
+            v43 = a17;
+          }
+
+          OUTLINED_FUNCTION_14_4();
+        }
+
+        while (!v38);
+        v42 = v60;
+      }
+
+      v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38B48, &qword_1D8590B40);
+      sub_1D8437BA8(v55);
+      OUTLINED_FUNCTION_38_1();
+
+      OUTLINED_FUNCTION_62_1();
+      sub_1D8533E98(v56, v57);
+      OUTLINED_FUNCTION_67_2();
+
+      OUTLINED_FUNCTION_194();
+      sub_1D843808C();
+      OUTLINED_FUNCTION_58_2();
+
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39440, &unk_1D85A22A0);
+      v58 = OUTLINED_FUNCTION_139_1();
+      Ref.init(rawValue:)(v58, v42, v59);
+    }
+
+    else
+    {
+
+      OUTLINED_FUNCTION_119_2();
+      OUTLINED_FUNCTION_134_1();
+      sub_1D85817E8();
+      OUTLINED_FUNCTION_12_3();
+      OUTLINED_FUNCTION_129_1();
+      v51 = OUTLINED_FUNCTION_174_1();
+      MEMORY[0x1DA718990](v51);
+
+      OUTLINED_FUNCTION_48_0();
+      v52 = sub_1D8448448();
+      v53 = OUTLINED_FUNCTION_446(&type metadata for GameServicesError, v52);
+      OUTLINED_FUNCTION_34_1(v53, v54);
+    }
+  }
+
+  OUTLINED_FUNCTION_102_2();
+  OUTLINED_FUNCTION_117_2();
+}
+
+void Ref<A>.init(challengeID:inviteCode:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38)
+{
+  OUTLINED_FUNCTION_105_2();
+  a37 = v39;
+  a38 = v40;
+  v42 = v41;
+  v44 = v43;
+  v46 = v45;
+  v48 = v47;
+  v50 = v49;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A0E8, &unk_1D85A2270);
+  inited = swift_initStackObject();
+  *(inited + 16) = xmmword_1D8590A70;
+  OUTLINED_FUNCTION_13_2();
+  v52 = OUTLINED_FUNCTION_94_2();
+  v56 = sub_1D852B3A0(v52, v53, v54, v55);
+  *(inited + 32) = v56;
+  *(inited + 40) = v57;
+  *(inited + 48) = v48;
+  *(inited + 56) = v46;
+  OUTLINED_FUNCTION_161_0(v56, MEMORY[0x1E69E6158], v58, MEMORY[0x1E69E6168]);
+  v59 = OUTLINED_FUNCTION_94_2();
+  v61 = __swift_instantiateConcreteTypeFromMangledNameV2(v59, v60);
+  sub_1D8437BA8(v61);
+  sub_1D843808C();
+  v63 = v62;
+  v65 = v64;
+
+  v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39440, &unk_1D85A22A0);
+  Ref.init(rawValue:)(v63, v65, v66);
+  a15 = a10;
+  a16 = a11;
+  a10 = v44;
+  a11 = v42;
+  a12 = 0;
+  a13 = 0;
+  a14 = 0;
+  Ref<A>.init(challenge:inviteDetails:)(&a10, &a25);
+  if (!v38)
+  {
+    v67 = a26;
+    *v50 = a25;
+    v50[1] = v67;
+  }
+
+  OUTLINED_FUNCTION_104_3();
+}
+
+uint64_t Ref<A>.init(challengeID:from:to:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, void *a5@<X8>)
+{
+  v7 = *a3;
+  v8 = a3[1];
+  v10 = *a4;
+  v9 = a4[1];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A0E8, &unk_1D85A2270);
+  inited = swift_initStackObject();
+  *(inited + 16) = xmmword_1D8590A70;
+  OUTLINED_FUNCTION_13_2();
+  v12 = OUTLINED_FUNCTION_94_2();
+  v16 = sub_1D852B3A0(v12, v13, v14, v15);
+  *(inited + 32) = v16;
+  *(inited + 40) = v17;
+  *(inited + 48) = a1;
+  *(inited + 56) = a2;
+  OUTLINED_FUNCTION_161_0(v16, MEMORY[0x1E69E6158], v18, MEMORY[0x1E69E6168]);
+  v19 = OUTLINED_FUNCTION_94_2();
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(v19, v20);
+  sub_1D8437BA8(v21);
+  sub_1D843808C();
+  v23 = v22;
+  v25 = v24;
+
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39440, &unk_1D85A22A0);
+  Ref.init(rawValue:)(v23, v25, v26);
+  v42 = v40[0];
+  *&v37[0] = v7;
+  *(&v37[0] + 1) = v8;
+  v39[0] = v10;
+  v39[1] = v9;
+  v27 = v43[4];
+  sub_1D852CC94(v37, v39, v40, v28, v29, v30, v31, v32, v33);
+
+  if (v27)
+  {
+  }
+
+  v37[0] = v40[0];
+  v37[1] = v40[1];
+  v38 = v41;
+  result = Ref<A>.init(challenge:inviteDetails:)(v37, v43);
+  v35 = v43[1];
+  *a5 = v43[0];
+  a5[1] = v35;
+  return result;
+}
+
+uint64_t sub_1D852D688()
+{
+  v1 = *(v0 + 8);
+  v2 = *(v0 + 32);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A0E8, &unk_1D85A2270);
+  inited = swift_initStackObject();
+  *(inited + 16) = xmmword_1D8590A70;
+  OUTLINED_FUNCTION_4_4();
+  *(inited + 32) = sub_1D84379E4(0, v4, v5, v6, v7);
+  *(inited + 40) = v8;
+  v9 = 1701080931;
+  if (v2)
+  {
+    v9 = 0x726579616C70;
+  }
+
+  v10 = 0xE400000000000000;
+  if (v2)
+  {
+    v10 = 0xE600000000000000;
+  }
+
+  *(inited + 48) = v9;
+  *(inited + 56) = v10;
+  v11 = sub_1D85811B8();
+
+  if (v2)
+  {
+
+    v12 = sub_1D84379E4(1, &qword_1ECA39038, &qword_1D8590E88, &qword_1ECA3A470, type metadata accessor for Ref<A>.ChallengeInviteRefFields);
+    v14 = v13;
+    swift_isUniquelyReferenced_nonNull_native();
+    v15 = OUTLINED_FUNCTION_298();
+    sub_1D84E81D4(v15, v1, v12, v14, v16);
+
+    v17 = sub_1D84379E4(2, &qword_1ECA39038, &qword_1D8590E88, &qword_1ECA3A470, type metadata accessor for Ref<A>.ChallengeInviteRefFields);
+    v19 = v18;
+    swift_isUniquelyReferenced_nonNull_native();
+    v33 = v11;
+    v20 = OUTLINED_FUNCTION_233();
+    sub_1D84E81D4(v20, v21, v17, v19, v22);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_4_4();
+    v27 = sub_1D84379E4(3, v23, v24, v25, v26);
+    v29 = v28;
+    swift_isUniquelyReferenced_nonNull_native();
+    v33 = v11;
+    v30 = OUTLINED_FUNCTION_298();
+    sub_1D84E81D4(v30, v1, v27, v29, v31);
+  }
+
+  return v33;
+}
+
+void Ref<A>.playerID.getter(uint64_t a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>, uint64_t a4@<X2>, uint64_t a5@<X3>, uint64_t a6@<X4>, uint64_t a7@<X5>, uint64_t a8@<X6>, uint64_t a9@<X7>)
+{
+  v11 = Ref<A>.playerIDs.getter(a2, a3, a4, a5, a6, a7, a8, a9);
+  if (v9)
+  {
+    goto LABEL_11;
+  }
+
+  v12 = v11;
+  v13 = v11[2];
+  if (!v13)
+  {
+
+    v33 = sub_1D8448448();
+    OUTLINED_FUNCTION_446(&type metadata for GameServicesError, v33);
+    OUTLINED_FUNCTION_38_1();
+    v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38A18, &qword_1D8590940);
+    OUTLINED_FUNCTION_65_3(v34, v35, v36, v37, v38, v39, v40, v41, v42, v44, v46, v48);
+    swift_willThrow();
+LABEL_11:
+    OUTLINED_FUNCTION_203_3();
+    return;
+  }
+
+  v14 = v11[4];
+  v15 = v11[5];
+  v16 = v11[6];
+  v17 = *(v11 + 64);
+  v52 = v11[7];
+  sub_1D8534CB8(v14, v15, v16, v52, v17);
+  v18 = v17;
+  v19 = 1;
+LABEL_4:
+  v20 = &v12[5 * v19];
+  while (1)
+  {
+    if (v13 == v19)
+    {
+      v32 = v18;
+
+      *a1 = v14;
+      *(a1 + 8) = v15;
+      *(a1 + 16) = v16;
+      *(a1 + 24) = v52;
+      *(a1 + 32) = v32;
+      goto LABEL_11;
+    }
+
+    if (v19 >= v12[2])
+    {
+      break;
+    }
+
+    ++v19;
+    v21 = v20 + 5;
+    v22 = *(v20 + 64);
+    v20 += 5;
+    if (qword_1D85A3318[v22] < qword_1D85A3318[v18])
+    {
+      v49 = v22;
+      v50 = v14;
+      v51 = a1;
+      v14 = *(v21 - 1);
+      v23 = *v21;
+      v45 = v16;
+      v47 = v15;
+      v24 = v21[1];
+      v25 = v21[2];
+      v26 = OUTLINED_FUNCTION_221();
+      v43 = v27;
+      sub_1D8534CB8(v26, v28, v24, v25, v29);
+      sub_1D8534C38(v50, v47, v45, v52, v43);
+      v30 = v23;
+      a1 = v51;
+      v31 = v24;
+      v15 = v30;
+      v52 = v25;
+      v16 = v31;
+      v18 = v49;
+      goto LABEL_4;
+    }
+  }
+
+  __break(1u);
+}
+
+void static Ref<A>.InviteDetails.== infix(_:_:)()
+{
+  OUTLINED_FUNCTION_386();
+  v3 = *v1;
+  v2 = v1[1];
+  v5 = v1[2];
+  v4 = v1[3];
+  v6 = *(v1 + 32);
+  v8 = *v0;
+  v7 = v0[1];
+  v10 = v0[2];
+  v9 = v0[3];
+  v11 = *(v0 + 32);
+  if (v6)
+  {
+    if (v0[4])
+    {
+      v12 = v3 == v8 && v2 == v7;
+      if (v12 || (OUTLINED_FUNCTION_18_2(), OUTLINED_FUNCTION_185_3(), (sub_1D8581AB8() & 1) != 0))
+      {
+        if (v5 == v10 && v4 == v9)
+        {
+          OUTLINED_FUNCTION_123_2();
+          sub_1D8534D20(v79, v80, v81, v4, 1);
+          v82 = OUTLINED_FUNCTION_9_3();
+          sub_1D8534D20(v82, v83, v84, v85, 1);
+          v86 = OUTLINED_FUNCTION_9_3();
+          sub_1D8534BE8(v86, v87, v88, v89, 1);
+          OUTLINED_FUNCTION_123_2();
+          sub_1D8534BE8(v90, v91, v92, v4, 1);
+          goto LABEL_23;
+        }
+
+        OUTLINED_FUNCTION_54_0();
+        sub_1D8581AB8();
+        v14 = OUTLINED_FUNCTION_17_4();
+        sub_1D8534D20(v14, v15, v16, v17, 1);
+        v18 = OUTLINED_FUNCTION_9_3();
+        sub_1D8534D20(v18, v19, v20, v21, 1);
+        v22 = OUTLINED_FUNCTION_9_3();
+        sub_1D8534BE8(v22, v23, v24, v25, 1);
+        v26 = OUTLINED_FUNCTION_17_4();
+        v30 = 1;
+        goto LABEL_22;
+      }
+
+      v93 = OUTLINED_FUNCTION_17_4();
+      sub_1D8534D20(v93, v94, v95, v96, 1);
+      v97 = OUTLINED_FUNCTION_9_3();
+      sub_1D8534D20(v97, v98, v99, v100, 1);
+      v101 = OUTLINED_FUNCTION_9_3();
+      sub_1D8534BE8(v101, v102, v103, v104, 1);
+      v43 = OUTLINED_FUNCTION_17_4();
+      v47 = 1;
+LABEL_15:
+      sub_1D8534BE8(v43, v44, v45, v46, v47);
+      goto LABEL_23;
+    }
+
+LABEL_14:
+    v31 = OUTLINED_FUNCTION_17_4();
+    sub_1D8534D20(v31, v32, v33, v34, v11);
+    v35 = OUTLINED_FUNCTION_9_3();
+    sub_1D8534D20(v35, v36, v37, v38, v6);
+    v39 = OUTLINED_FUNCTION_9_3();
+    sub_1D8534BE8(v39, v40, v41, v42, v6);
+    v43 = OUTLINED_FUNCTION_17_4();
+    v47 = v11;
+    goto LABEL_15;
+  }
+
+  if (v0[4])
+  {
+    goto LABEL_14;
+  }
+
+  if (v3 == v8 && v2 == v7)
+  {
+    OUTLINED_FUNCTION_54_0();
+    sub_1D8534D20(v61, v62, v63, v64, v65);
+    v66 = OUTLINED_FUNCTION_9_3();
+    sub_1D8534D20(v66, v67, v68, v69, 0);
+    v70 = OUTLINED_FUNCTION_9_3();
+    sub_1D8534BE8(v70, v71, v72, v73, 0);
+    OUTLINED_FUNCTION_236_1();
+    OUTLINED_FUNCTION_54_0();
+    sub_1D8534BE8(v74, v75, v76, v77, v78);
+    goto LABEL_23;
+  }
+
+  OUTLINED_FUNCTION_185_3();
+  sub_1D8581AB8();
+  v49 = OUTLINED_FUNCTION_17_4();
+  sub_1D8534D20(v49, v50, v51, v52, 0);
+  v53 = OUTLINED_FUNCTION_9_3();
+  sub_1D8534D20(v53, v54, v55, v56, 0);
+  v57 = OUTLINED_FUNCTION_9_3();
+  sub_1D8534BE8(v57, v58, v59, v60, 0);
+  v26 = OUTLINED_FUNCTION_17_4();
+  v30 = 0;
+LABEL_22:
+  sub_1D8534BE8(v26, v27, v28, v29, v30);
+LABEL_23:
+  OUTLINED_FUNCTION_388();
+}
+
+uint64_t sub_1D852DC64()
+{
+  OUTLINED_FUNCTION_128_1();
+  OUTLINED_FUNCTION_4_4();
+  return sub_1D84379E4(v0, v1, v2, v3, v4);
+}
+
+uint64_t Ref<A>.ContactRefFields.hashValue.getter()
+{
+  OUTLINED_FUNCTION_196_1();
+  sub_1D8581B58();
+  v0 = OUTLINED_FUNCTION_298();
+  MEMORY[0x1DA7191F0](v0);
+  return sub_1D8581B98();
+}
+
+uint64_t sub_1D852E0A4()
+{
+  OUTLINED_FUNCTION_196_1();
+  sub_1D8581B58();
+  v0 = OUTLINED_FUNCTION_298();
+  MEMORY[0x1DA7191F0](v0);
+  return sub_1D8581B98();
+}
+
+void Ref<A>.friendSuggestion.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30)
+{
+  OUTLINED_FUNCTION_118_2();
+  a29 = v33;
+  a30 = v34;
+  OUTLINED_FUNCTION_141_1();
+  v35 = sub_1D852B6F8(&unk_1F5394D50);
+  v36 = sub_1D85811B8();
+  OUTLINED_FUNCTION_258();
+  sub_1D8441004();
+  if (!v30)
+  {
+    OUTLINED_FUNCTION_32_2();
+    a20 = v36;
+    v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A368, &qword_1D85A22C0);
+    sub_1D8437BA8(v37);
+    OUTLINED_FUNCTION_93_1();
+    v39 = v39 && v38 == 0;
+    if (v39 || (OUTLINED_FUNCTION_16_5() & 1) != 0)
+    {
+
+      sub_1D8533950(v40, v31);
+      OUTLINED_FUNCTION_195_2();
+      v41 = MEMORY[0x1E69E7CC0];
+      if (v32)
+      {
+        a17 = MEMORY[0x1E69E7CC0];
+        OUTLINED_FUNCTION_61_2();
+        v41 = a17;
+        v42 = v35 + 32;
+        do
+        {
+          sub_1D84EB9C4(v42, &a12);
+          v43 = a15;
+          v44 = a16;
+          __swift_project_boxed_opaque_existential_1(&a12, a15);
+          OUTLINED_FUNCTION_45_1();
+          v45(v43, v44);
+          __swift_destroy_boxed_opaque_existential_1(&a12);
+          a17 = v41;
+          OUTLINED_FUNCTION_28_4();
+          if (v47)
+          {
+            OUTLINED_FUNCTION_337_0(v46);
+            OUTLINED_FUNCTION_87_1();
+            sub_1D84E8374(v48, v49, v50);
+            v41 = a17;
+          }
+
+          OUTLINED_FUNCTION_147();
+        }
+
+        while (!v39);
+      }
+
+      v57 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A5D8, &qword_1D85A3300);
+      sub_1D8437BA8(v57);
+      OUTLINED_FUNCTION_38_1();
+
+      sub_1D8533E98(v37, v41);
+
+      OUTLINED_FUNCTION_194();
+      sub_1D843808C();
+      OUTLINED_FUNCTION_151_2();
+
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A5E0, &unk_1D85A3308);
+      v58 = OUTLINED_FUNCTION_139_1();
+      Ref.init(rawValue:)(v58, v37, v59);
+    }
+
+    else
+    {
+
+      OUTLINED_FUNCTION_119_2();
+      OUTLINED_FUNCTION_134_1();
+      sub_1D85817E8();
+      OUTLINED_FUNCTION_12_3();
+      OUTLINED_FUNCTION_129_1();
+      v51 = OUTLINED_FUNCTION_174_1();
+      MEMORY[0x1DA718990](v51);
+
+      OUTLINED_FUNCTION_48_0();
+      v52 = a12;
+      v53 = a13;
+      v54 = sub_1D8448448();
+      v55 = OUTLINED_FUNCTION_446(&type metadata for GameServicesError, v54);
+      *v56 = v52;
+      v56[1] = v53;
+      OUTLINED_FUNCTION_120_1(v55, v56);
+    }
+  }
+
+  OUTLINED_FUNCTION_117_2();
+}
+
+void Ref<A>.init(id:associationID:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  OUTLINED_FUNCTION_144_0();
+  v13 = v12;
+  if (v10 | v11)
+  {
+    v17 = v11;
+    v18 = v10;
+    v19 = sub_1D852B424(0);
+    v21 = v19;
+    v22 = v20;
+    v23 = MEMORY[0x1E69E7CC8];
+    if (v18)
+    {
+      swift_isUniquelyReferenced_nonNull_native();
+      a9 = v23;
+      v24 = OUTLINED_FUNCTION_190_2();
+      sub_1D84E81D4(v24, v25, v21, v22, v26);
+    }
+
+    else
+    {
+      v27 = sub_1D8436A4C(v19, v20);
+      if (v28)
+      {
+        v18 = v27;
+        swift_isUniquelyReferenced_nonNull_native();
+        a9 = v23;
+        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39F90, &unk_1D85A22D0);
+        sub_1D8581808();
+
+        OUTLINED_FUNCTION_154_1();
+        sub_1D8581828();
+      }
+    }
+
+    sub_1D852B424(1);
+    OUTLINED_FUNCTION_194_2();
+    if (v17)
+    {
+      swift_isUniquelyReferenced_nonNull_native();
+      a9 = v23;
+      v29 = OUTLINED_FUNCTION_52_2();
+      sub_1D84E81D4(v29, v30, v31, v22, v32);
+    }
+
+    else
+    {
+      sub_1D8436A4C(v18, v22);
+      if (v33)
+      {
+        swift_isUniquelyReferenced_nonNull_native();
+        a9 = v23;
+        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39F90, &unk_1D85A22D0);
+        sub_1D8581808();
+
+        OUTLINED_FUNCTION_192_1();
+        OUTLINED_FUNCTION_154_1();
+        sub_1D8581828();
+      }
+    }
+
+    v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A368, &qword_1D85A22C0);
+    sub_1D8437BA8(v34);
+    sub_1D843808C();
+    OUTLINED_FUNCTION_86_3();
+
+    v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A370, &qword_1D85A22C8);
+    OUTLINED_FUNCTION_42_1(v35);
+    *v13 = a9;
+    v13[1] = a10;
+  }
+
+  else
+  {
+    v14 = sub_1D8448448();
+    v15 = OUTLINED_FUNCTION_446(&type metadata for GameServicesError, v14);
+    *v16 = 0xD000000000000026;
+    v16[1] = 0x80000001D8587D50;
+    OUTLINED_FUNCTION_120_1(v15, v16);
+  }
+
+  OUTLINED_FUNCTION_143_1();
+}
+
+void Ref<A>.contact.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30)
+{
+  OUTLINED_FUNCTION_118_2();
+  a29 = v33;
+  a30 = v34;
+  OUTLINED_FUNCTION_141_1();
+  v35 = sub_1D852B6F8(&unk_1F5394D78);
+  v36 = sub_1D85811B8();
+  OUTLINED_FUNCTION_258();
+  sub_1D8441004();
+  if (!v30)
+  {
+    OUTLINED_FUNCTION_32_2();
+    a20 = v36;
+    v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A5D8, &qword_1D85A3300);
+    sub_1D8437BA8(v37);
+    OUTLINED_FUNCTION_93_1();
+    v39 = v39 && v38 == 0;
+    if (v39 || (OUTLINED_FUNCTION_16_5() & 1) != 0)
+    {
+
+      sub_1D8533950(v40, v31);
+      OUTLINED_FUNCTION_195_2();
+      v41 = MEMORY[0x1E69E7CC0];
+      if (v32)
+      {
+        a17 = MEMORY[0x1E69E7CC0];
+        OUTLINED_FUNCTION_61_2();
+        v41 = a17;
+        v42 = v35 + 32;
+        do
+        {
+          sub_1D84EB9C4(v42, &a12);
+          v43 = a15;
+          v44 = a16;
+          __swift_project_boxed_opaque_existential_1(&a12, a15);
+          OUTLINED_FUNCTION_45_1();
+          v45(v43, v44);
+          __swift_destroy_boxed_opaque_existential_1(&a12);
+          a17 = v41;
+          OUTLINED_FUNCTION_28_4();
+          if (v47)
+          {
+            OUTLINED_FUNCTION_337_0(v46);
+            OUTLINED_FUNCTION_87_1();
+            sub_1D84E8374(v48, v49, v50);
+            v41 = a17;
+          }
+
+          OUTLINED_FUNCTION_147();
+        }
+
+        while (!v39);
+      }
+
+      v57 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A368, &qword_1D85A22C0);
+      sub_1D8437BA8(v57);
+      OUTLINED_FUNCTION_38_1();
+
+      sub_1D8533E98(v37, v41);
+
+      OUTLINED_FUNCTION_194();
+      sub_1D843808C();
+      OUTLINED_FUNCTION_151_2();
+
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A370, &qword_1D85A22C8);
+      v58 = OUTLINED_FUNCTION_139_1();
+      Ref.init(rawValue:)(v58, v37, v59);
+    }
+
+    else
+    {
+
+      OUTLINED_FUNCTION_119_2();
+      OUTLINED_FUNCTION_134_1();
+      sub_1D85817E8();
+      OUTLINED_FUNCTION_12_3();
+      OUTLINED_FUNCTION_129_1();
+      v51 = OUTLINED_FUNCTION_174_1();
+      MEMORY[0x1DA718990](v51);
+
+      OUTLINED_FUNCTION_48_0();
+      v52 = a12;
+      v53 = a13;
+      v54 = sub_1D8448448();
+      v55 = OUTLINED_FUNCTION_446(&type metadata for GameServicesError, v54);
+      *v56 = v52;
+      v56[1] = v53;
+      OUTLINED_FUNCTION_120_1(v55, v56);
+    }
+  }
+
+  OUTLINED_FUNCTION_117_2();
+}
+
+void Ref<A>.adamID.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+{
+  OUTLINED_FUNCTION_215_1();
+  a21 = v22;
+  a22 = v23;
+  OUTLINED_FUNCTION_127_2();
+  OUTLINED_FUNCTION_71_0();
+  sub_1D8438004(0, &qword_1EE0E04A8, v24);
+  a13 = v25;
+  a14 = OUTLINED_FUNCTION_84_1(qword_1EE0E00B0);
+  LOBYTE(a10) = 0;
+  OUTLINED_FUNCTION_47_0();
+  sub_1D8440DE0(v26);
+  OUTLINED_FUNCTION_38_1();
+  __swift_destroy_boxed_opaque_existential_1(&a10);
+  OUTLINED_FUNCTION_41_2();
+  OUTLINED_FUNCTION_214_4();
+}
+
+void Ref<A>.gameActivityDefinition(id:activityEnvironment:)()
+{
+  OUTLINED_FUNCTION_285();
+  v3 = v2;
+  v5 = v4;
+  v60 = v6;
+  v63 = sub_1D8580D78();
+  OUTLINED_FUNCTION_1();
+  v62 = v7;
+  MEMORY[0x1EEE9AC00](v8);
+  OUTLINED_FUNCTION_2_1();
+  v11 = v10 - v9;
+  v61 = *v0;
+  v64 = v0[1];
+  v12 = sub_1D852B838(&unk_1F5394DA0);
+  OUTLINED_FUNCTION_0_7();
+  v14 = sub_1D852B838(v13);
+  v65[0] = v12;
+  sub_1D85347B4(v14);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A0E8, &unk_1D85A2270);
+  inited = swift_initStackObject();
+  *(inited + 16) = xmmword_1D859A760;
+  *(inited + 32) = OUTLINED_FUNCTION_207_4(0);
+  *(inited + 40) = v16;
+  *(inited + 48) = v60;
+  *(inited + 56) = v5;
+
+  *(inited + 64) = OUTLINED_FUNCTION_207_4(1);
+  *(inited + 72) = v17;
+  v19 = v3[3];
+  v18 = v3[4];
+  __swift_project_boxed_opaque_existential_1(v3, v19);
+  *(inited + 80) = (*(v18 + 32))(v19, v18);
+  *(inited + 88) = v20;
+  *(inited + 96) = sub_1D84379E4(2, &qword_1ECA39860, &qword_1D85962F0, &qword_1ECA3A390, type metadata accessor for Ref<A>.GameActivityDefinitionRefFields);
+  *(inited + 104) = v21;
+  v22 = v3[3];
+  v23 = v3[4];
+  __swift_project_boxed_opaque_existential_1(v3, v22);
+  (*(v23 + 40))(v22, v23);
+  sub_1D8580D48();
+  OUTLINED_FUNCTION_38_1();
+  (*(v62 + 8))(v11, v63);
+  *(inited + 112) = v22;
+  *(inited + 120) = v11;
+  OUTLINED_FUNCTION_152_2();
+  sub_1D85811B8();
+  sub_1D8441004();
+  if (!v1)
+  {
+    v26 = v24;
+    v27 = v25;
+    v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38B38, &qword_1D85981B0);
+    v29 = sub_1D8437BA8(v28);
+    v31 = v30;
+    v32 = v26 == v29 && v27 == v30;
+    if (v32 || (v33 = v29, OUTLINED_FUNCTION_190_2(), (sub_1D8581AB8() & 1) != 0))
+    {
+
+      OUTLINED_FUNCTION_101_1();
+      sub_1D8533950(v34, v35);
+      v36 = *(v12 + 16);
+      if (v36)
+      {
+        v68 = MEMORY[0x1E69E7CC0];
+        sub_1D84E8374(0, v36, 0);
+        v37 = v68;
+        v38 = v12 + 32;
+        do
+        {
+          sub_1D84EB9C4(v38, v65);
+          v39 = v66;
+          v40 = v67;
+          __swift_project_boxed_opaque_existential_1(v65, v66);
+          OUTLINED_FUNCTION_45_1();
+          v42 = v41(v39, v40);
+          v44 = v43;
+          __swift_destroy_boxed_opaque_existential_1(v65);
+          v68 = v37;
+          v46 = *(v37 + 16);
+          v45 = *(v37 + 24);
+          if (v46 >= v45 >> 1)
+          {
+            v48 = OUTLINED_FUNCTION_337_0(v45);
+            sub_1D84E8374(v48, v46 + 1, 1);
+            v37 = v68;
+          }
+
+          *(v37 + 16) = v46 + 1;
+          v47 = v37 + 16 * v46;
+          *(v47 + 32) = v42;
+          *(v47 + 40) = v44;
+          v38 += 40;
+          --v36;
+        }
+
+        while (v36);
+      }
+
+      v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39860, &qword_1D85962F0);
+      sub_1D8437BA8(v52);
+      OUTLINED_FUNCTION_38_1();
+
+      v53 = OUTLINED_FUNCTION_39_1();
+      sub_1D8533E98(v53, v54);
+      OUTLINED_FUNCTION_67_2();
+
+      OUTLINED_FUNCTION_194();
+      sub_1D843808C();
+      v56 = v55;
+      v58 = v57;
+
+      v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A090, &unk_1D859C228);
+      Ref.init(rawValue:)(v56, v58, v59);
+    }
+
+    else
+    {
+
+      v65[0] = 0;
+      v65[1] = 0xE000000000000000;
+      sub_1D8581768();
+      v68 = v61;
+      v69 = v64;
+      sub_1D85817E8();
+      OUTLINED_FUNCTION_12_3();
+      OUTLINED_FUNCTION_129_1();
+      MEMORY[0x1DA718990](v33, v31);
+
+      OUTLINED_FUNCTION_48_0();
+      v49 = sub_1D8448448();
+      v50 = OUTLINED_FUNCTION_446(&type metadata for GameServicesError, v49);
+      OUTLINED_FUNCTION_34_1(v50, v51);
+    }
+  }
+
+  OUTLINED_FUNCTION_102_2();
+  OUTLINED_FUNCTION_284_0();
+}
+
+uint64_t Ref<A>.init(bundleID:adamID:platform:shortBundleVersion:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t a6@<X6>, uint64_t a7@<X7>, uint64_t *a8@<X8>)
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A0E8, &unk_1D85A2270);
+  inited = swift_initStackObject();
+  *(inited + 16) = xmmword_1D8590A70;
+  *(inited + 32) = sub_1D84379E4(1, &qword_1ECA38B38, &qword_1D85981B0, &qword_1EE0E04A8, type metadata accessor for Ref<A>.GameRefFields);
+  *(inited + 40) = v13;
+  *(inited + 48) = a1;
+  *(inited + 56) = a2;
+  v14 = sub_1D85811B8();
+  v15 = sub_1D84379E4(0, &qword_1ECA38B38, &qword_1D85981B0, &qword_1EE0E04A8, type metadata accessor for Ref<A>.GameRefFields);
+  v17 = v15;
+  v18 = v16;
+  if (a3)
+  {
+    swift_isUniquelyReferenced_nonNull_native();
+    OUTLINED_FUNCTION_132_0();
+    v19 = OUTLINED_FUNCTION_190_2();
+    sub_1D84E81D4(v19, v20, v17, v18, v21);
+
+    v14 = v52;
+  }
+
+  else
+  {
+    v22 = sub_1D8436A4C(v15, v16);
+    if (v23)
+    {
+      a3 = v22;
+      swift_isUniquelyReferenced_nonNull_native();
+      v52 = v14;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39F90, &unk_1D85A22D0);
+      OUTLINED_FUNCTION_138_2();
+      sub_1D8581808();
+
+      OUTLINED_FUNCTION_154_1();
+      sub_1D8581828();
+    }
+  }
+
+  OUTLINED_FUNCTION_1_4();
+  sub_1D84379E4(2, v24, v25, v26, v27);
+  OUTLINED_FUNCTION_194_2();
+  if (a5)
+  {
+    swift_isUniquelyReferenced_nonNull_native();
+    OUTLINED_FUNCTION_132_0();
+    sub_1D84E81D4(a4, a5, a3, v18, v28);
+
+    v14 = v52;
+  }
+
+  else
+  {
+    sub_1D8436A4C(a3, v18);
+    if (v29)
+    {
+      swift_isUniquelyReferenced_nonNull_native();
+      v52 = v14;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39F90, &unk_1D85A22D0);
+      OUTLINED_FUNCTION_138_2();
+      sub_1D8581808();
+
+      OUTLINED_FUNCTION_192_1();
+      OUTLINED_FUNCTION_154_1();
+      sub_1D8581828();
+    }
+  }
+
+  OUTLINED_FUNCTION_1_4();
+  v34 = sub_1D84379E4(3, v30, v31, v32, v33);
+  v36 = v35;
+  if (a7)
+  {
+    swift_isUniquelyReferenced_nonNull_native();
+    OUTLINED_FUNCTION_132_0();
+    sub_1D84E81D4(a6, a7, v34, v36, v37);
+  }
+
+  else
+  {
+    v38 = OUTLINED_FUNCTION_233();
+    sub_1D8436A4C(v38, v39);
+    if (v40)
+    {
+      swift_isUniquelyReferenced_nonNull_native();
+      v52 = v14;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39F90, &unk_1D85A22D0);
+      OUTLINED_FUNCTION_138_2();
+      sub_1D8581808();
+
+      OUTLINED_FUNCTION_154_1();
+      sub_1D8581828();
+    }
+  }
+
+  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38B38, &qword_1D85981B0);
+  sub_1D8437BA8(v41);
+  sub_1D843808C();
+  v43 = v42;
+  v45 = v44;
+
+  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39470, &unk_1D8592720);
+  result = Ref.init(rawValue:)(v43, v45, v46);
+  *a8 = v52;
+  a8[1] = v53;
+  return result;
+}
+
+void Ref<A>.id.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+{
+  OUTLINED_FUNCTION_215_1();
+  a21 = v22;
+  a22 = v23;
+  OUTLINED_FUNCTION_127_2();
+  OUTLINED_FUNCTION_24_1();
+  sub_1D8438004(0, &qword_1ECA3A390, v24);
+  a13 = v25;
+  OUTLINED_FUNCTION_11_3();
+  OUTLINED_FUNCTION_97_0();
+  a14 = sub_1D8440D9C(v26, v27, v28, v29);
+  LOBYTE(a10) = 0;
+  OUTLINED_FUNCTION_47_0();
+  sub_1D8440DE0(v30);
+  OUTLINED_FUNCTION_38_1();
+  __swift_destroy_boxed_opaque_existential_1(&a10);
+  OUTLINED_FUNCTION_41_2();
+  OUTLINED_FUNCTION_214_4();
+}
+
+void Ref<A>.language.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+{
+  OUTLINED_FUNCTION_215_1();
+  a21 = v22;
+  a22 = v23;
+  OUTLINED_FUNCTION_127_2();
+  OUTLINED_FUNCTION_24_1();
+  sub_1D8438004(0, &qword_1ECA3A390, v24);
+  a13 = v25;
+  OUTLINED_FUNCTION_11_3();
+  OUTLINED_FUNCTION_97_0();
+  sub_1D8440D9C(v26, v27, v28, v29);
+  OUTLINED_FUNCTION_137_1();
+  OUTLINED_FUNCTION_47_0();
+  sub_1D8440DE0(v30);
+  OUTLINED_FUNCTION_38_1();
+  __swift_destroy_boxed_opaque_existential_1(&a10);
+  OUTLINED_FUNCTION_41_2();
+  OUTLINED_FUNCTION_214_4();
+}
+
+void Ref<A>.partyStartURLString.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+{
+  OUTLINED_FUNCTION_215_1();
+  a21 = v22;
+  a22 = v23;
+  OUTLINED_FUNCTION_127_2();
+  OUTLINED_FUNCTION_24_1();
+  sub_1D8438004(0, &qword_1ECA3A390, v24);
+  a13 = v25;
+  OUTLINED_FUNCTION_11_3();
+  OUTLINED_FUNCTION_97_0();
+  a14 = sub_1D8440D9C(v26, v27, v28, v29);
+  LOBYTE(a10) = 2;
+  OUTLINED_FUNCTION_47_0();
+  sub_1D8440DE0(v30);
+  OUTLINED_FUNCTION_38_1();
+  __swift_destroy_boxed_opaque_existential_1(&a10);
+  OUTLINED_FUNCTION_41_2();
+  OUTLINED_FUNCTION_214_4();
+}
+
+void Ref<A>.partyStartURL.getter()
+{
+  OUTLINED_FUNCTION_285();
+  v2 = v1;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39D88, &qword_1D859A988);
+  OUTLINED_FUNCTION_363(v3);
+  OUTLINED_FUNCTION_152();
+  MEMORY[0x1EEE9AC00](v4);
+  v6 = &v21 - v5;
+  sub_1D8438004(0, &qword_1ECA3A390, type metadata accessor for Ref<A>.GameActivityDefinitionRefFields);
+  v8 = v7;
+  v25 = v7;
+  OUTLINED_FUNCTION_11_3();
+  v11 = sub_1D8440D9C(v9, &qword_1ECA3A390, type metadata accessor for Ref<A>.GameActivityDefinitionRefFields, v10);
+  v26 = v11;
+  LOBYTE(v24[0]) = 2;
+  sub_1D8440DE0(v24);
+  if (v0)
+  {
+    __swift_destroy_boxed_opaque_existential_1(v24);
+  }
+
+  else
+  {
+    __swift_destroy_boxed_opaque_existential_1(v24);
+    OUTLINED_FUNCTION_174_1();
+    sub_1D8580D68();
+
+    v12 = sub_1D8580D78();
+    if (__swift_getEnumTagSinglePayload(v6, 1, v12) == 1)
+    {
+      sub_1D8535DE0(v6, &qword_1ECA39D88);
+      v24[0] = 0;
+      v24[1] = 0xE000000000000000;
+      sub_1D8581768();
+
+      OUTLINED_FUNCTION_149_0();
+      v22 = 0xD00000000000002DLL;
+      v23 = v13;
+      v25 = v8;
+      v26 = v11;
+      LOBYTE(v24[0]) = 2;
+      v14 = sub_1D8440DE0(v24);
+      v16 = v15;
+      __swift_destroy_boxed_opaque_existential_1(v24);
+      MEMORY[0x1DA718990](v14, v16);
+
+      v17 = v22;
+      v18 = v23;
+      v19 = sub_1D8448448();
+      OUTLINED_FUNCTION_446(&type metadata for GameServicesError, v19);
+      *v20 = v17;
+      *(v20 + 8) = v18;
+      *(v20 + 16) = 2;
+      swift_willThrow();
+    }
+
+    else
+    {
+      (*(*(v12 - 8) + 32))(v2, v6, v12);
+    }
+  }
+
+  OUTLINED_FUNCTION_284_0();
+}
+
+uint64_t sub_1D8530DFC()
+{
+  OUTLINED_FUNCTION_128_1();
+  OUTLINED_FUNCTION_22_1();
+  return sub_1D84379E4(v0, v1, v2, v3, v4);
+}
+
+double Ref<A>.artwork.getter@<D0>(uint64_t a1@<X8>)
+{
+  v3 = v1[1];
+  v6[0] = *v1;
+  v6[1] = v3;
+
+  Artwork.Size.init(width:height:)(1024.0, 1024.0);
+  v5[0] = v5[1];
+  *&result = Artwork.init(ref:sourceImageSize:backgroundColor:textColor1:textColor2:textColor3:textColor4:)(v6, v5, 0, 0, 0, 0, 0, 0, a1, 0, 0, 0).n128_u64[0];
+  return result;
+}
+
+void Ref<A>.init(templateURL:)()
+{
+  OUTLINED_FUNCTION_285();
+  v1 = v0;
+  v3 = v2;
+  v5 = v4;
+  sub_1D8580B38();
+  OUTLINED_FUNCTION_1();
+  MEMORY[0x1EEE9AC00](v6);
+  OUTLINED_FUNCTION_2_1();
+  v24 = v1;
+  sub_1D8580B28();
+  sub_1D8534D90();
+  v7 = sub_1D8581718();
+  v9 = v8;
+  v10 = OUTLINED_FUNCTION_190_2();
+  v11(v10);
+  if (v9)
+  {
+
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A0E8, &unk_1D85A2270);
+    inited = swift_initStackObject();
+    *(inited + 16) = xmmword_1D85A2260;
+    *(inited + 32) = sub_1D84379E4(0, &qword_1ECA389C8, &qword_1D8590820, &qword_1ECA3A3A8, type metadata accessor for Ref<A>.ImageRefFields);
+    *(inited + 40) = v13;
+    *(inited + 48) = v7;
+    *(inited + 56) = v9;
+    *(inited + 64) = sub_1D84379E4(2, &qword_1ECA389C8, &qword_1D8590820, &qword_1ECA3A3A8, type metadata accessor for Ref<A>.ImageRefFields);
+    *(inited + 72) = v14;
+    *(inited + 80) = 0x6574616C706D6574;
+    *(inited + 88) = 0xE800000000000000;
+    sub_1D85811B8();
+    v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA389C8, &qword_1D8590820);
+    sub_1D8437BA8(v15);
+    sub_1D843808C();
+    OUTLINED_FUNCTION_86_3();
+
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38A28, &qword_1D8590948);
+    v16 = OUTLINED_FUNCTION_69_1();
+    Ref.init(rawValue:)(v16, v17, v18);
+    *v5 = v3;
+    v5[1] = v24;
+  }
+
+  else
+  {
+    sub_1D8581768();
+
+    OUTLINED_FUNCTION_149_0();
+    v25 = v19;
+    v20 = OUTLINED_FUNCTION_233();
+    MEMORY[0x1DA718990](v20);
+
+    v21 = sub_1D8448448();
+    v22 = OUTLINED_FUNCTION_446(&type metadata for GameServicesError, v21);
+    *v23 = 0xD000000000000026;
+    v23[1] = v25;
+    OUTLINED_FUNCTION_120_1(v22, v23);
+  }
+
+  OUTLINED_FUNCTION_284_0();
+}
+
+uint64_t Ref<A>.ImageRefType.rawValue.getter()
+{
+  if (*v0)
+  {
+    return 0x6E6F6349707061;
+  }
+
+  else
+  {
+    return 0x6574616C706D6574;
+  }
+}
+
+uint64_t Ref<A>.ImageRefType.init(rawValue:)@<X0>(char *a1@<X8>)
+{
+  v2 = sub_1D8581868();
+
+  if (v2 == 1)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = 2;
+  }
+
+  if (!v2)
+  {
+    v4 = 0;
+  }
+
+  *a1 = v4;
+  return result;
+}
+
+uint64_t sub_1D8531328(char a1, char a2)
+{
+  v2 = (a1 & 1) == 0;
+  if (a1)
+  {
+    v3 = 0x6E6F6349707061;
+  }
+
+  else
+  {
+    v3 = 0x6574616C706D6574;
+  }
+
+  if (v2)
+  {
+    v4 = 0xE800000000000000;
+  }
+
+  else
+  {
+    v4 = 0xE700000000000000;
+  }
+
+  if (a2)
+  {
+    v5 = 0x6E6F6349707061;
+  }
+
+  else
+  {
+    v5 = 0x6574616C706D6574;
+  }
+
+  if (a2)
+  {
+    v6 = 0xE700000000000000;
+  }
+
+  else
+  {
+    v6 = 0xE800000000000000;
+  }
+
+  if (v3 == v5 && v4 == v6)
+  {
+    v8 = 1;
+  }
+
+  else
+  {
+    v8 = sub_1D8581AB8();
+  }
+
+  return v8 & 1;
+}
+
+uint64_t sub_1D85313E4(uint64_t a1, char a2)
+{
+  sub_1D85812B8();
+}
+
+uint64_t sub_1D8531458(uint64_t a1, char a2)
+{
+  sub_1D8581B58();
+  sub_1D85812B8();
+
+  return sub_1D8581B98();
+}
+
+uint64_t sub_1D85314E4@<X0>(uint64_t *a1@<X8>)
+{
+  result = Ref<A>.ImageRefType.rawValue.getter();
+  *a1 = result;
+  a1[1] = v3;
+  return result;
+}
+
+uint64_t Ref<A>.type.getter@<X0>(char *a1@<X8>)
+{
+  v4 = *v1;
+  v5 = v1[1];
+  sub_1D8438004(0, &qword_1ECA3A3A8, type metadata accessor for Ref<A>.ImageRefFields);
+  v13[3] = v6;
+  v13[4] = OUTLINED_FUNCTION_69_4(&qword_1ECA3A3B0);
+  LOBYTE(v13[0]) = 2;
+  sub_1D8440DE0(v13);
+  if (v2)
+  {
+    return __swift_destroy_boxed_opaque_existential_1(v13);
+  }
+
+  __swift_destroy_boxed_opaque_existential_1(v13);
+  v8 = sub_1D8581868();
+
+  if (!v8)
+  {
+    v9 = 0;
+    goto LABEL_7;
+  }
+
+  if (v8 == 1)
+  {
+    v9 = 1;
+LABEL_7:
+    *a1 = v9;
+    return result;
+  }
+
+  v13[0] = v4;
+  v13[1] = v5;
+  v10 = sub_1D8448448();
+  OUTLINED_FUNCTION_446(&type metadata for GameServicesError, v10);
+  v12 = v11;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38A28, &qword_1D8590948);
+  static GameServicesError.invalidReference<A>(ref:)(v13, v12);
+  return swift_willThrow();
+}
+
+uint64_t _s12GameServices3RefVA2A0A14ActivityEntity_pRszlE0adC6FieldsO9hashValueSivg_0()
+{
+  sub_1D8581B58();
+  MEMORY[0x1DA7191F0](0);
+  return sub_1D8581B98();
+}
+
+void Ref<A>.internalID.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v10 = *v8;
+  v11 = v8[1];
+  v18[0] = *v8;
+  v18[1] = v11;
+  Ref<A>.playerID.getter(&v13, a1, a2, a3, a4, a5, a6, a7, a8);
+  if (!v9 && v17 != 1)
+  {
+    sub_1D8534C38(v13, v14, v15, v16, v17);
+    v13 = v10;
+    v14 = v11;
+    v12 = sub_1D8448448();
+    OUTLINED_FUNCTION_446(&type metadata for GameServicesError, v12);
+    OUTLINED_FUNCTION_38_1();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38A18, &qword_1D8590940);
+    static GameServicesError.invalidReference<A>(ref:)(&v13, v18);
+    swift_willThrow();
+  }
+}
+
+void Ref<A>.init(internalID:)(uint64_t a1)
+{
+  OUTLINED_FUNCTION_96_1();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A0E8, &unk_1D85A2270);
+  *(swift_initStackObject() + 16) = xmmword_1D8590A70;
+  OUTLINED_FUNCTION_78_2();
+  OUTLINED_FUNCTION_97_0();
+  v6 = sub_1D84379E4(v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_200_2(v6, v7);
+  OUTLINED_FUNCTION_160_1();
+  sub_1D85811B8();
+  v8 = OUTLINED_FUNCTION_221();
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(v8, v9);
+  v11 = sub_1D8437BA8(v10);
+  OUTLINED_FUNCTION_145_1(v11, v12);
+  OUTLINED_FUNCTION_68_0();
+
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA38A18, &qword_1D8590940);
+  v14 = OUTLINED_FUNCTION_35_4(v13);
+  OUTLINED_FUNCTION_63_1(v14, v15, v16, v17, v18, v19, v20, v21, v22, v23);
+}
+
+void static Ref<A>.PlayerID.== infix(_:_:)()
+{
+  OUTLINED_FUNCTION_386();
+  v3 = *v1;
+  v2 = v1[1];
+  v4 = *(v1 + 32);
+  v6 = *v0;
+  v5 = v0[1];
+  v7 = *(v0 + 32);
+  if (!*(v1 + 32))
+  {
+    if (*(v0 + 32))
+    {
+      goto LABEL_25;
+    }
+
+    if (v3 != v6 || v2 != v5)
+    {
+      v28 = OUTLINED_FUNCTION_236_1();
+      if ((OUTLINED_FUNCTION_175_2(v28, v29) & 1) == 0)
+      {
+        v111 = OUTLINED_FUNCTION_10_5();
+        sub_1D8534CB8(v111, v112, v113, v114, 0);
+        v115 = OUTLINED_FUNCTION_8_1();
+        sub_1D8534CB8(v115, v116, v117, v118, 0);
+        v119 = OUTLINED_FUNCTION_8_1();
+        sub_1D8534C38(v119, v120, v121, v122, 0);
+        v82 = OUTLINED_FUNCTION_10_5();
+        v86 = 0;
+        goto LABEL_26;
+      }
+    }
+
+    v30 = OUTLINED_FUNCTION_10_5();
+    sub_1D8534CB8(v30, v31, v32, v33, 0);
+    v34 = OUTLINED_FUNCTION_8_1();
+    sub_1D8534CB8(v34, v35, v36, v37, 0);
+
+    OUTLINED_FUNCTION_51_5();
+    sub_1D8510440(v38, v39, v40, v41);
+    v42 = OUTLINED_FUNCTION_8_1();
+    sub_1D8534C38(v42, v43, v44, v45, 0);
+    v46 = OUTLINED_FUNCTION_10_5();
+    v50 = 0;
+LABEL_24:
+    sub_1D8534C38(v46, v47, v48, v49, v50);
+
+    goto LABEL_27;
+  }
+
+  if (v4 != 1)
+  {
+    if (v7 != 2)
+    {
+      goto LABEL_25;
+    }
+
+    if (v3 != v6 || v2 != v5)
+    {
+      v52 = OUTLINED_FUNCTION_236_1();
+      if ((OUTLINED_FUNCTION_175_2(v52, v53) & 1) == 0)
+      {
+        v99 = OUTLINED_FUNCTION_10_5();
+        sub_1D8534CB8(v99, v100, v101, v102, 2);
+        v103 = OUTLINED_FUNCTION_8_1();
+        sub_1D8534CB8(v103, v104, v105, v106, 2);
+        v107 = OUTLINED_FUNCTION_8_1();
+        sub_1D8534C38(v107, v108, v109, v110, 2);
+        v82 = OUTLINED_FUNCTION_10_5();
+        v86 = 2;
+        goto LABEL_26;
+      }
+    }
+
+    v54 = OUTLINED_FUNCTION_10_5();
+    sub_1D8534CB8(v54, v55, v56, v57, 2);
+    v58 = OUTLINED_FUNCTION_8_1();
+    sub_1D8534CB8(v58, v59, v60, v61, 2);
+
+    OUTLINED_FUNCTION_51_5();
+    sub_1D8510440(v62, v63, v64, v65);
+    v66 = OUTLINED_FUNCTION_8_1();
+    sub_1D8534C38(v66, v67, v68, v69, 2);
+    v46 = OUTLINED_FUNCTION_10_5();
+    v50 = 2;
+    goto LABEL_24;
+  }
+
+  if (v7 != 1)
+  {
+LABEL_25:
+    v70 = OUTLINED_FUNCTION_10_5();
+    sub_1D8534CB8(v70, v71, v72, v73, v7);
+    v74 = OUTLINED_FUNCTION_8_1();
+    sub_1D8534CB8(v74, v75, v76, v77, v4);
+    v78 = OUTLINED_FUNCTION_8_1();
+    sub_1D8534C38(v78, v79, v80, v81, v4);
+    v82 = OUTLINED_FUNCTION_10_5();
+    v86 = v7;
+LABEL_26:
+    sub_1D8534C38(v82, v83, v84, v85, v86);
+    goto LABEL_27;
+  }
+
+  if (v3 == v6 && v2 == v5)
+  {
+    OUTLINED_FUNCTION_236_1();
+    OUTLINED_FUNCTION_51_5();
+    sub_1D8534CB8(v87, v88, v89, v90, 1);
+    v91 = OUTLINED_FUNCTION_8_1();
+    sub_1D8534CB8(v91, v92, v93, v94, 1);
+    v95 = OUTLINED_FUNCTION_8_1();
+    sub_1D8534C38(v95, v96, v97, v98, 1);
+    OUTLINED_FUNCTION_236_1();
+    OUTLINED_FUNCTION_51_5();
+  }
+
+  else
+  {
+    v9 = OUTLINED_FUNCTION_236_1();
+    OUTLINED_FUNCTION_175_2(v9, v10);
+    v11 = OUTLINED_FUNCTION_10_5();
+    sub_1D8534CB8(v11, v12, v13, v14, 1);
+    v15 = OUTLINED_FUNCTION_8_1();
+    sub_1D8534CB8(v15, v16, v17, v18, 1);
+    v19 = OUTLINED_FUNCTION_8_1();
+    sub_1D8534C38(v19, v20, v21, v22, 1);
+    v23 = OUTLINED_FUNCTION_10_5();
+  }
+
+  sub_1D8534C38(v23, v24, v25, v26, 1);
+LABEL_27:
+  OUTLINED_FUNCTION_388();
+}
+
+uint64_t _s12GameServices3RefVA2A0A0_pRszlE0aC6FieldsO9hashValueSivg_0()
+{
+  OUTLINED_FUNCTION_196_1();
+  sub_1D8581B58();
+  v0 = OUTLINED_FUNCTION_298();
+  MEMORY[0x1DA7191F0](v0);
+  return sub_1D8581B98();
+}
+
+uint64_t sub_1D853278C()
+{
+  OUTLINED_FUNCTION_128_1();
+  OUTLINED_FUNCTION_78_2();
+  return sub_1D84379E4(v0, v1, v2, v3, v4);
+}
+
+uint64_t Ref<A>.game.getter()
+{
+  v2 = *v0;
+  v1 = v0[1];
+  OUTLINED_FUNCTION_0_7();
+  sub_1D852B838(v3);
+  sub_1D85811B8();
+  v4 = OUTLINED_FUNCTION_69_1();
+  sub_1D852B9F0(v4, v2, v1, v5);
+}
+
+void *Ref<A>.playerIDs.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v11 = *v8;
+  v10 = *(v8 + 8);
+  sub_1D8440EEC(v11, v10, &qword_1ECA38A18, &qword_1D8590940, &qword_1ECA389B8, &qword_1D8590B30, a7, a8, v64, v66, v68, v70, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81);
+  if (!v9)
+  {
+    v13 = v12;
+    v67 = v10;
+    v69 = v11;
+    v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA389B8, &qword_1D8590B30);
+    v15 = 0;
+    v11 = MEMORY[0x1E69E7CC0];
+    v71 = v14;
+    do
+    {
+      v16 = byte_1F5394C88[v15 + 32];
+      v17 = sub_1D8437BA8(v14);
+      MEMORY[0x1DA718990](v17);
+
+      v18 = OUTLINED_FUNCTION_115_1();
+      MEMORY[0x1DA718990](v18);
+      OUTLINED_FUNCTION_5_4();
+      sub_1D8438004(0, &qword_1ECA3A3E0, v19);
+      sub_1D85817E8();
+      if (*(v13 + 16))
+      {
+        v20 = sub_1D8436A4C(0, 0xE000000000000000);
+        v22 = v21;
+
+        if (v22)
+        {
+          v23 = (*(v13 + 56) + 16 * v20);
+          v25 = *v23;
+          v24 = v23[1];
+          if (v16)
+          {
+            if (v16 == 1)
+            {
+
+              if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+              {
+                v51 = OUTLINED_FUNCTION_95_3();
+                v11 = sub_1D85348F8(v51, v52, v53, v11);
+              }
+
+              OUTLINED_FUNCTION_135_1();
+              if (v27)
+              {
+                v54 = OUTLINED_FUNCTION_337_0(v26);
+                v11 = OUTLINED_FUNCTION_166_2(v54);
+              }
+
+              OUTLINED_FUNCTION_133_1();
+              *(v28 + 32) = v25;
+              *(v28 + 40) = v24;
+              *(v28 + 48) = 0;
+              *(v28 + 56) = 0;
+              v29 = 1;
+            }
+
+            else
+            {
+              v41 = *v23;
+
+              OUTLINED_FUNCTION_0_7();
+              sub_1D852B838(&unk_1F5394C10);
+              v42 = sub_1D85811B8();
+              OUTLINED_FUNCTION_142_2(v42, v43, v44, v45, v46, v47, v48, v49, v65, v67, v69, v71);
+
+              v65 = 0;
+              if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+              {
+                v59 = OUTLINED_FUNCTION_95_3();
+                v11 = sub_1D85348F8(v59, v60, v61, v11);
+              }
+
+              OUTLINED_FUNCTION_135_1();
+              if (v27)
+              {
+                v62 = OUTLINED_FUNCTION_337_0(v50);
+                v11 = OUTLINED_FUNCTION_166_2(v62);
+              }
+
+              OUTLINED_FUNCTION_133_1();
+              *(v28 + 32) = v41;
+              *(v28 + 40) = v24;
+              *(v28 + 48) = 0;
+              *(v28 + 56) = 0xE000000000000000;
+              v29 = 2;
+            }
+
+            *(v28 + 64) = v29;
+            v14 = v71;
+          }
+
+          else
+          {
+            v30 = *v23;
+
+            OUTLINED_FUNCTION_0_7();
+            sub_1D852B838(&unk_1F5394C10);
+            v31 = sub_1D85811B8();
+            OUTLINED_FUNCTION_142_2(v31, v32, v33, v34, v35, v36, v37, v38, v65, v67, v69, v71);
+            v65 = 0;
+
+            if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+            {
+              v55 = OUTLINED_FUNCTION_95_3();
+              v11 = sub_1D85348F8(v55, v56, v57, v11);
+            }
+
+            OUTLINED_FUNCTION_135_1();
+            if (v27)
+            {
+              v58 = OUTLINED_FUNCTION_337_0(v39);
+              v11 = OUTLINED_FUNCTION_166_2(v58);
+            }
+
+            OUTLINED_FUNCTION_133_1();
+            *(v40 + 32) = v30;
+            *(v40 + 40) = v24;
+            *(v40 + 48) = 0;
+            *(v40 + 56) = 0xE000000000000000;
+            *(v40 + 64) = 0;
+            v14 = v71;
+          }
+        }
+      }
+
+      else
+      {
+      }
+
+      ++v15;
+    }
+
+    while (v15 != 3);
+  }
+
+  return v11;
+}
+
+void sub_1D85333C4()
+{
+  OUTLINED_FUNCTION_285();
+  v3 = v2;
+  sub_1D8580B88();
+  OUTLINED_FUNCTION_1();
+  v75 = v4;
+  MEMORY[0x1EEE9AC00](v4);
+  OUTLINED_FUNCTION_2_1();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39E50, &unk_1D859AA30);
+  OUTLINED_FUNCTION_363(v5);
+  OUTLINED_FUNCTION_152();
+  MEMORY[0x1EEE9AC00](v6);
+  v7 = OUTLINED_FUNCTION_206_2();
+  OUTLINED_FUNCTION_1();
+  v9 = v8;
+  MEMORY[0x1EEE9AC00](v10);
+  OUTLINED_FUNCTION_2_1();
+  v13 = v12 - v11;
+  v15 = *v1;
+  v14 = v1[1];
+  sub_1D8580C38();
+  if (__swift_getEnumTagSinglePayload(v0, 1, v7) == 1)
+  {
+    sub_1D8535DE0(v0, &qword_1ECA39E50);
+LABEL_42:
+    v76 = v15;
+    v77 = v14;
+    v68 = sub_1D8448448();
+    OUTLINED_FUNCTION_446(&type metadata for GameServicesError, v68);
+    static GameServicesError.invalidReference<A>(ref:)(&v76, v69);
+    swift_willThrow();
+    goto LABEL_43;
+  }
+
+  (*(v9 + 32))(v13, v0, v7);
+  sub_1D8580C18();
+  if (!v16)
+  {
+    goto LABEL_41;
+  }
+
+  OUTLINED_FUNCTION_153_1();
+  v18 = v18 && v17 == 0xE500000000000000;
+  if (v18)
+  {
+  }
+
+  else
+  {
+    sub_1D8581AB8();
+    OUTLINED_FUNCTION_369();
+    if ((v13 & 1) == 0)
+    {
+      goto LABEL_41;
+    }
+  }
+
+  sub_1D8580BD8();
+  if (!v19)
+  {
+    goto LABEL_41;
+  }
+
+  OUTLINED_FUNCTION_90_2();
+  if (v18 && v20 == v21)
+  {
+
+    goto LABEL_19;
+  }
+
+  sub_1D8581AB8();
+  OUTLINED_FUNCTION_369();
+  if ((v13 & 1) == 0)
+  {
+LABEL_41:
+    v66 = OUTLINED_FUNCTION_136_3();
+    v67(v66);
+    goto LABEL_42;
+  }
+
+LABEL_19:
+  v23 = sub_1D8580B98();
+  if (!v23)
+  {
+    goto LABEL_41;
+  }
+
+  v74 = v23;
+  v24 = sub_1D8580BF8();
+  v26 = OUTLINED_FUNCTION_173_1(v24, v25);
+  MEMORY[0x1DA718930](v26);
+  OUTLINED_FUNCTION_184_3();
+
+  v27 = HIBYTE(v13) & 0xF;
+  if ((v13 & 0x2000000000000000) == 0)
+  {
+    v27 = v3 & 0xFFFFFFFFFFFFLL;
+  }
+
+  if (!v27)
+  {
+
+    v76 = v15;
+    v77 = v14;
+    v70 = sub_1D8448448();
+    OUTLINED_FUNCTION_446(&type metadata for GameServicesError, v70);
+    static GameServicesError.invalidReference<A>(ref:)(&v76, v71);
+    swift_willThrow();
+    v72 = OUTLINED_FUNCTION_136_3();
+    v73(v72);
+    goto LABEL_43;
+  }
+
+  v28 = sub_1D85811B8();
+  if (!*(v74 + 16))
+  {
+LABEL_40:
+
+    v64 = OUTLINED_FUNCTION_136_3();
+    v65(v64);
+LABEL_43:
+    OUTLINED_FUNCTION_284_0();
+    return;
+  }
+
+  v29 = v75;
+  v30 = OUTLINED_FUNCTION_89_1(v74);
+  while (*(v30 + 16))
+  {
+    v31 = OUTLINED_FUNCTION_114_1();
+    v32(v31);
+    v33 = sub_1D8580B58();
+    v35 = v34;
+    sub_1D8580B78();
+    if (v36)
+    {
+      swift_isUniquelyReferenced_nonNull_native();
+      v76 = v28;
+      v37 = OUTLINED_FUNCTION_69_1();
+      sub_1D8436A4C(v37, v38);
+      OUTLINED_FUNCTION_189_1();
+      if (__OFADD__(v41, v42))
+      {
+        goto LABEL_46;
+      }
+
+      v43 = v39;
+      v44 = v40;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39F90, &unk_1D85A22D0);
+      if (sub_1D8581808())
+      {
+        v45 = OUTLINED_FUNCTION_69_1();
+        v47 = sub_1D8436A4C(v45, v46);
+        if ((v44 & 1) != (v48 & 1))
+        {
+          goto LABEL_48;
+        }
+
+        v43 = v47;
+      }
+
+      v29 = v75;
+      if (v44)
+      {
+
+        v28 = v76;
+        OUTLINED_FUNCTION_197_2((*(v76 + 56) + 16 * v43));
+
+        v49 = OUTLINED_FUNCTION_40();
+        v50(v49, v75);
+      }
+
+      else
+      {
+        v28 = v76;
+        OUTLINED_FUNCTION_91_2(v76 + 8 * (v43 >> 6));
+        v58 = (*(v76 + 48) + 16 * v43);
+        *v58 = v33;
+        v58[1] = v35;
+        OUTLINED_FUNCTION_197_2((*(v28 + 56) + 16 * v43));
+        v59 = OUTLINED_FUNCTION_40();
+        v60(v59, v75);
+        v61 = *(v28 + 16);
+        v62 = __OFADD__(v61, 1);
+        v63 = v61 + 1;
+        if (v62)
+        {
+          goto LABEL_47;
+        }
+
+        *(v28 + 16) = v63;
+      }
+    }
+
+    else
+    {
+      v51 = OUTLINED_FUNCTION_69_1();
+      sub_1D8436A4C(v51, v52);
+      v54 = v53;
+
+      if (v54)
+      {
+        swift_isUniquelyReferenced_nonNull_native();
+        v76 = v28;
+        v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39F90, &unk_1D85A22D0);
+        OUTLINED_FUNCTION_172_0(v55);
+        OUTLINED_FUNCTION_212_4();
+        OUTLINED_FUNCTION_212_4();
+        sub_1D8581828();
+      }
+
+      v56 = OUTLINED_FUNCTION_40();
+      v57(v56, v29);
+    }
+
+    v30 = OUTLINED_FUNCTION_193_1();
+    if (v18)
+    {
+      goto LABEL_40;
+    }
+  }
+
+  __break(1u);
+LABEL_46:
+  __break(1u);
+LABEL_47:
+  __break(1u);
+LABEL_48:
+  sub_1D8581AF8();
+  __break(1u);
+}
+
+uint64_t sub_1D8533950(uint64_t a1, uint64_t a2)
+{
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v8 = a2;
+  sub_1D853450C(a1, sub_1D8534B74, 0, isUniquelyReferenced_nonNull_native, &v8);
+  v6 = v8;
+  if (v2)
+  {
+  }
+
+  return v6;
+}
+
+uint64_t sub_1D85339D4@<X0>(uint64_t *a2@<X8>)
+{
+  result = sub_1D8580B58();
+  *a2 = result;
+  a2[1] = v4;
+  return result;
+}
+
+void *sub_1D8533A40(void *a1, uint64_t a2, uint64_t a3)
+{
+  result = sub_1D8533A60(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+void *sub_1D8533A60(void *result, int64_t a2, char a3, void *a4)
+{
+  v5 = result;
+  if (a3)
+  {
+    v6 = a4[3];
+    v7 = v6 >> 1;
+    if ((v6 >> 1) < a2)
+    {
+      if (v7 + 0x4000000000000000 < 0)
+      {
+        __break(1u);
+        return result;
+      }
+
+      v7 = v6 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v6 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      {
+        v7 = a2;
+      }
+    }
+  }
+
+  else
+  {
+    v7 = a2;
+  }
+
+  v8 = a4[2];
+  if (v7 <= v8)
+  {
+    v9 = a4[2];
+  }
+
+  else
+  {
+    v9 = v7;
+  }
+
+  if (v9)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A5C8, &qword_1D85A32F0);
+    v10 = swift_allocObject();
+    v11 = _swift_stdlib_malloc_size(v10);
+    v10[2] = v8;
+    v10[3] = 2 * ((v11 - 32) / 40);
+  }
+
+  else
+  {
+    v10 = MEMORY[0x1E69E7CC0];
+  }
+
+  if (v5)
+  {
+    if (v10 != a4 || &a4[5 * v8 + 4] <= v10 + 4)
+    {
+      memmove(v10 + 4, a4 + 4, 40 * v8);
+    }
+
+    a4[2] = 0;
+  }
+
+  else
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A5D0, &qword_1D85A32F8);
+    swift_arrayInitWithCopy();
+  }
+
+  return v10;
+}
+
+uint64_t sub_1D8533B98(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  *a1 = a4;
+  a1[1] = a5;
+
+  return a2;
+}
+
+uint64_t sub_1D8533BE4(uint64_t a1, uint64_t a2)
+{
+  v3 = v2;
+  v4 = a2;
+  v5 = *v2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A5A0, &unk_1D85A3288);
+  v36 = v4;
+  result = sub_1D8581848();
+  v7 = result;
+  if (!*(v5 + 16))
+  {
+LABEL_31:
+
+LABEL_32:
+    *v3 = v7;
+    return result;
+  }
+
+  v35 = v5;
+  v8 = 0;
+  v9 = (v5 + 64);
+  v10 = 1 << *(v5 + 32);
+  if (v10 < 64)
+  {
+    v11 = ~(-1 << v10);
+  }
+
+  else
+  {
+    v11 = -1;
+  }
+
+  v12 = v11 & *(v5 + 64);
+  v13 = (v10 + 63) >> 6;
+  v14 = result + 64;
+  if (!v12)
+  {
+LABEL_7:
+    v16 = v8;
+    while (1)
+    {
+      v8 = v16 + 1;
+      if (__OFADD__(v16, 1))
+      {
+        __break(1u);
+        goto LABEL_34;
+      }
+
+      if (v8 >= v13)
+      {
+        break;
+      }
+
+      v17 = v9[v8];
+      ++v16;
+      if (v17)
+      {
+        v15 = __clz(__rbit64(v17));
+        v12 = (v17 - 1) & v17;
+        goto LABEL_12;
+      }
+    }
+
+    if ((v36 & 1) == 0)
+    {
+
+      v3 = v2;
+      goto LABEL_32;
+    }
+
+    v34 = 1 << *(v5 + 32);
+    v3 = v2;
+    if (v34 >= 64)
+    {
+      sub_1D84F52AC(0, (v34 + 63) >> 6, v9);
+    }
+
+    else
+    {
+      *v9 = -1 << v34;
+    }
+
+    *(v5 + 16) = 0;
+    goto LABEL_31;
+  }
+
+  while (1)
+  {
+    v15 = __clz(__rbit64(v12));
+    v12 &= v12 - 1;
+LABEL_12:
+    v18 = v15 | (v8 << 6);
+    v19 = (*(v5 + 48) + 16 * v18);
+    v20 = *v19;
+    v21 = v19[1];
+    v22 = (*(v5 + 56) + 16 * v18);
+    v23 = v22[1];
+    v37 = *v22;
+    if ((v36 & 1) == 0)
+    {
+    }
+
+    sub_1D8581B58();
+    sub_1D85812B8();
+    result = sub_1D8581B98();
+    v24 = -1 << *(v7 + 32);
+    v25 = result & ~v24;
+    v26 = v25 >> 6;
+    if (((-1 << v25) & ~*(v14 + 8 * (v25 >> 6))) == 0)
+    {
+      break;
+    }
+
+    v27 = __clz(__rbit64((-1 << v25) & ~*(v14 + 8 * (v25 >> 6)))) | v25 & 0x7FFFFFFFFFFFFFC0;
+LABEL_23:
+    *(v14 + ((v27 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v27;
+    v32 = (*(v7 + 48) + 16 * v27);
+    *v32 = v20;
+    v32[1] = v21;
+    v33 = (*(v7 + 56) + 16 * v27);
+    *v33 = v37;
+    v33[1] = v23;
+    ++*(v7 + 16);
+    v5 = v35;
+    if (!v12)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  v28 = 0;
+  v29 = (63 - v24) >> 6;
+  while (++v26 != v29 || (v28 & 1) == 0)
+  {
+    v30 = v26 == v29;
+    if (v26 == v29)
+    {
+      v26 = 0;
+    }
+
+    v28 |= v30;
+    v31 = *(v14 + 8 * v26);
+    if (v31 != -1)
+    {
+      v27 = __clz(__rbit64(~v31)) + (v26 << 6);
+      goto LABEL_23;
+    }
+  }
+
+LABEL_34:
+  __break(1u);
+  return result;
+}
+
+unint64_t *sub_1D8533E98(uint64_t a1, uint64_t a2)
+{
+  v4 = a1;
+  v13[1] = *MEMORY[0x1E69E9840];
+  v5 = *(a1 + 32);
+  v6 = v5 & 0x3F;
+  v7 = ((1 << v5) + 63) >> 6;
+  v8 = swift_bridgeObjectRetain_n();
+  if (v6 > 0xD)
+  {
+
+    if (!swift_stdlib_isStackAllocationSafe())
+    {
+      v12 = swift_slowAlloc();
+
+      v4 = sub_1D8534224(v12, v7, v4, a2);
+      MEMORY[0x1DA719810](v12, -1, -1);
+      swift_bridgeObjectRelease_n();
+      goto LABEL_6;
+    }
+  }
+
+  MEMORY[0x1EEE9AC00](v8);
+  v9 = (v13 - ((8 * v7 + 15) & 0x3FFFFFFFFFFFFFF0));
+  sub_1D84F52AC(0, v7, v9);
+
+  v10 = sub_1D853405C(v9, v7, v4, a2);
+  if (v2)
+  {
+    swift_willThrow();
+  }
+
+  else
+  {
+    v4 = v10;
+  }
+
+  swift_bridgeObjectRelease_n();
+LABEL_6:
+
+  return v4;
+}
+
+unint64_t *sub_1D853405C(unint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v24 = a3;
+  v25 = a4;
+  v21 = a2;
+  v22 = result;
+  v23 = 0;
+  v4 = 0;
+  v5 = a3 + 64;
+  v6 = 1 << *(a3 + 32);
+  v7 = -1;
+  if (v6 < 64)
+  {
+    v7 = ~(-1 << v6);
+  }
+
+  v8 = v7 & *(a3 + 64);
+  v9 = (v6 + 63) >> 6;
+  while (v8)
+  {
+    v10 = __clz(__rbit64(v8));
+    v8 &= v8 - 1;
+LABEL_11:
+    v13 = v10 | (v4 << 6);
+    v14 = (*(v24 + 48) + 16 * v13);
+    v15 = v14[1];
+    v26[0] = *v14;
+    v26[1] = v15;
+    MEMORY[0x1EEE9AC00](result);
+    v20[2] = v26;
+
+    v16 = v27;
+    v17 = sub_1D84F57EC(sub_1D84EC464, v20, v25);
+    v27 = v16;
+
+    if (v17)
+    {
+      *(v22 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v13;
+      if (__OFADD__(v23++, 1))
+      {
+        __break(1u);
+LABEL_15:
+        v19 = sub_1D85342C4(v22, v21, v23, v24);
+
+        return v19;
+      }
+    }
+  }
+
+  v11 = v4;
+  while (1)
+  {
+    v4 = v11 + 1;
+    if (__OFADD__(v11, 1))
+    {
+      break;
+    }
+
+    if (v4 >= v9)
+    {
+      goto LABEL_15;
+    }
+
+    v12 = *(v5 + 8 * v4);
+    ++v11;
+    if (v12)
+    {
+      v10 = __clz(__rbit64(v12));
+      v8 = (v12 - 1) & v12;
+      goto LABEL_11;
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+unint64_t *sub_1D8534224(unint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (a2 < 0)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    v7 = result;
+    if (a2)
+    {
+      bzero(result, 8 * a2);
+    }
+
+    swift_bridgeObjectRetain_n();
+    v8 = sub_1D853405C(v7, a2, a3, a4);
+    swift_bridgeObjectRelease_n();
+
+    return v8;
+  }
+
+  return result;
+}
+
+uint64_t sub_1D85342C4(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (!a3)
+  {
+    return MEMORY[0x1E69E7CC8];
+  }
+
+  v4 = a4;
+  v5 = a3;
+  if (*(a4 + 16) == a3)
+  {
+
+    return v4;
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A5A0, &unk_1D85A3288);
+  result = sub_1D8581858();
+  v9 = result;
+  if (a2 < 1)
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    v10 = *a1;
+  }
+
+  v11 = 0;
+  v12 = result + 64;
+  v34 = v4;
+  while (v10)
+  {
+    v13 = __clz(__rbit64(v10));
+    v10 &= v10 - 1;
+LABEL_16:
+    v16 = v13 | (v11 << 6);
+    v17 = *(v4 + 56);
+    v18 = (*(v4 + 48) + 16 * v16);
+    v19 = *v18;
+    v20 = v18[1];
+    v21 = (v17 + 16 * v16);
+    v22 = v21[1];
+    v35 = *v21;
+    sub_1D8581B58();
+
+    sub_1D85812B8();
+    result = sub_1D8581B98();
+    v23 = -1 << *(v9 + 32);
+    v24 = result & ~v23;
+    v25 = v24 >> 6;
+    if (((-1 << v24) & ~*(v12 + 8 * (v24 >> 6))) == 0)
+    {
+      v27 = 0;
+      v28 = (63 - v23) >> 6;
+      while (++v25 != v28 || (v27 & 1) == 0)
+      {
+        v29 = v25 == v28;
+        if (v25 == v28)
+        {
+          v25 = 0;
+        }
+
+        v27 |= v29;
+        v30 = *(v12 + 8 * v25);
+        if (v30 != -1)
+        {
+          v26 = __clz(__rbit64(~v30)) + (v25 << 6);
+          goto LABEL_25;
+        }
+      }
+
+      goto LABEL_30;
+    }
+
+    v26 = __clz(__rbit64((-1 << v24) & ~*(v12 + 8 * (v24 >> 6)))) | v24 & 0x7FFFFFFFFFFFFFC0;
+LABEL_25:
+    *(v12 + ((v26 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v26;
+    v31 = (*(v9 + 48) + 16 * v26);
+    *v31 = v19;
+    v31[1] = v20;
+    v32 = (*(v9 + 56) + 16 * v26);
+    *v32 = v35;
+    v32[1] = v22;
+    ++*(v9 + 16);
+    if (__OFSUB__(v5--, 1))
+    {
+      goto LABEL_31;
+    }
+
+    v4 = v34;
+    if (!v5)
+    {
+      return v9;
+    }
+  }
+
+  v14 = v11;
+  while (1)
+  {
+    v11 = v14 + 1;
+    if (__OFADD__(v14, 1))
+    {
+      break;
+    }
+
+    if (v11 >= a2)
+    {
+      return v9;
+    }
+
+    v15 = a1[v11];
+    ++v14;
+    if (v15)
+    {
+      v13 = __clz(__rbit64(v15));
+      v10 = (v15 - 1) & v15;
+      goto LABEL_16;
+    }
+  }
+
+  __break(1u);
+LABEL_30:
+  __break(1u);
+LABEL_31:
+  __break(1u);
+  return result;
+}
+
+uint64_t sub_1D853450C(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t *a5)
+{
+  v51 = a5;
+  sub_1D8535DA4(a1, a2, a3, v50);
+  v6 = v50[1];
+  v7 = v50[3];
+  v8 = v50[4];
+  v42 = v50[5];
+  v43 = v50[0];
+  v9 = (v50[2] + 64) >> 6;
+
+  v40 = v9;
+  v41 = v6;
+  if (v8)
+  {
+    while (1)
+    {
+      v44 = a4;
+      v10 = v7;
+LABEL_8:
+      v12 = (v10 << 10) | (16 * __clz(__rbit64(v8)));
+      v13 = (*(v43 + 48) + v12);
+      v14 = *v13;
+      v15 = v13[1];
+      v16 = (*(v43 + 56) + v12);
+      v17 = *v16;
+      v18 = v16[1];
+      v49[0] = v14;
+      v49[1] = v15;
+      v49[2] = v17;
+      v49[3] = v18;
+
+      v42(&v45, v49);
+
+      v19 = v45;
+      v20 = v46;
+      v21 = v47;
+      v22 = v48;
+      v23 = *v51;
+      v24 = sub_1D8436A4C(v45, v46);
+      OUTLINED_FUNCTION_189_1();
+      v28 = v26 + v27;
+      if (__OFADD__(v26, v27))
+      {
+        break;
+      }
+
+      v29 = v25;
+      if (*(v23 + 24) >= v28)
+      {
+        if ((v44 & 1) == 0)
+        {
+          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA39F90, &unk_1D85A22D0);
+          sub_1D8581818();
+        }
+      }
+
+      else
+      {
+        sub_1D8533BE4(v28, v44 & 1);
+        v30 = sub_1D8436A4C(v19, v20);
+        if ((v29 & 1) != (v31 & 1))
+        {
+          goto LABEL_24;
+        }
+
+        v24 = v30;
+      }
+
+      v8 &= v8 - 1;
+      v32 = *v51;
+      if (v29)
+      {
+
+        OUTLINED_FUNCTION_192_1();
+        *v33 = v21;
+        v33[1] = v22;
+      }
+
+      else
+      {
+        OUTLINED_FUNCTION_91_2(v32 + 8 * (v24 >> 6));
+        v34 = (*(v32 + 48) + 16 * v24);
+        *v34 = v19;
+        v34[1] = v20;
+        OUTLINED_FUNCTION_192_1();
+        *v35 = v21;
+        v35[1] = v22;
+        v36 = *(v32 + 16);
+        v37 = __OFADD__(v36, 1);
+        v38 = v36 + 1;
+        if (v37)
+        {
+          goto LABEL_23;
+        }
+
+        *(v32 + 16) = v38;
+      }
+
+      a4 = 1;
+      v7 = v10;
+      v9 = v40;
+      v6 = v41;
+      if (!v8)
+      {
+        goto LABEL_3;
+      }
+    }
+  }
+
+  else
+  {
+LABEL_3:
+    v11 = v7;
+    while (1)
+    {
+      v10 = v11 + 1;
+      if (__OFADD__(v11, 1))
+      {
+        break;
+      }
+
+      if (v10 >= v9)
+      {
+        sub_1D84F0B4C(v43);
+      }
+
+      v8 = *(v6 + 8 * v10);
+      ++v11;
+      if (v8)
+      {
+        v44 = a4;
+        goto LABEL_8;
+      }
+    }
+
+    __break(1u);
+  }
+
+  __break(1u);
+LABEL_23:
+  __break(1u);
+LABEL_24:
+  result = sub_1D8581AF8();
+  __break(1u);
+  return result;
+}
+
+uint64_t sub_1D85347B4(uint64_t a1)
+{
+  v3 = *(a1 + 16);
+  v4 = *(*v1 + 16);
+  result = v4 + v3;
+  if (__OFADD__(v4, v3))
+  {
+    __break(1u);
+LABEL_10:
+    __break(1u);
+    goto LABEL_11;
+  }
+
+  result = sub_1D8534890(result, 1);
+  v6 = *v1;
+  if (!*(a1 + 16))
+  {
+
+    if (!v3)
+    {
+      goto LABEL_8;
+    }
+
+    goto LABEL_10;
+  }
+
+  if ((*(v6 + 24) >> 1) - *(v6 + 16) < v3)
+  {
+LABEL_11:
+    __break(1u);
+    goto LABEL_12;
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A5D0, &qword_1D85A32F8);
+  swift_arrayInitWithCopy();
+
+  if (!v3)
+  {
+LABEL_8:
+    *v1 = v6;
+    return result;
+  }
+
+  v7 = *(v6 + 16);
+  v8 = __OFADD__(v7, v3);
+  v9 = v7 + v3;
+  if (!v8)
+  {
+    *(v6 + 16) = v9;
+    goto LABEL_8;
+  }
+
+LABEL_12:
+  __break(1u);
+  return result;
+}
+
+void *sub_1D8534890(uint64_t a1, char a2)
+{
+  v5 = *v2;
+  result = swift_isUniquelyReferenced_nonNull_native();
+  *v2 = v5;
+  if (!result || a1 > v5[3] >> 1)
+  {
+    if (v5[2] <= a1)
+    {
+      v7 = a1;
+    }
+
+    else
+    {
+      v7 = v5[2];
+    }
+
+    result = sub_1D8534A3C(result, v7, a2 & 1, v5);
+    *v2 = result;
+  }
+
+  return result;
+}
+
+void *sub_1D85348F8(void *result, int64_t a2, char a3, void *a4)
+{
+  v5 = result;
+  if (a3)
+  {
+    v6 = a4[3];
+    v7 = v6 >> 1;
+    if ((v6 >> 1) < a2)
+    {
+      if (v7 + 0x4000000000000000 < 0)
+      {
+        __break(1u);
+        return result;
+      }
+
+      v7 = v6 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v6 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      {
+        v7 = a2;
+      }
+    }
+  }
+
+  else
+  {
+    v7 = a2;
+  }
+
+  v8 = a4[2];
+  if (v7 <= v8)
+  {
+    v9 = a4[2];
+  }
+
+  else
+  {
+    v9 = v7;
+  }
+
+  if (v9)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A5A8, &unk_1D85A3298);
+    v10 = swift_allocObject();
+    v11 = _swift_stdlib_malloc_size(v10);
+    v10[2] = v8;
+    v10[3] = 2 * ((v11 - 32) / 40);
+  }
+
+  else
+  {
+    v10 = MEMORY[0x1E69E7CC0];
+  }
+
+  if (v5)
+  {
+    if (v10 != a4 || &a4[5 * v8 + 4] <= v10 + 4)
+    {
+      memmove(v10 + 4, a4 + 4, 40 * v8);
+    }
+
+    a4[2] = 0;
+  }
+
+  else
+  {
+    sub_1D8438004(0, &qword_1ECA3A5B0, type metadata accessor for Ref<A>.PlayerID);
+    swift_arrayInitWithCopy();
+  }
+
+  return v10;
+}
+
+void *sub_1D8534A3C(void *result, int64_t a2, char a3, void *a4)
+{
+  v5 = result;
+  if (a3)
+  {
+    v6 = a4[3];
+    v7 = v6 >> 1;
+    if ((v6 >> 1) < a2)
+    {
+      if (v7 + 0x4000000000000000 < 0)
+      {
+        __break(1u);
+        return result;
+      }
+
+      v7 = v6 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v6 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      {
+        v7 = a2;
+      }
+    }
+  }
+
+  else
+  {
+    v7 = a2;
+  }
+
+  v8 = a4[2];
+  if (v7 <= v8)
+  {
+    v9 = a4[2];
+  }
+
+  else
+  {
+    v9 = v7;
+  }
+
+  if (v9)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A5C8, &qword_1D85A32F0);
+    v10 = swift_allocObject();
+    v11 = _swift_stdlib_malloc_size(v10);
+    v10[2] = v8;
+    v10[3] = 2 * ((v11 - 32) / 40);
+  }
+
+  else
+  {
+    v10 = MEMORY[0x1E69E7CC0];
+  }
+
+  if (v5)
+  {
+    if (v10 != a4 || &a4[5 * v8 + 4] <= v10 + 4)
+    {
+      memmove(v10 + 4, a4 + 4, 40 * v8);
+    }
+
+    a4[2] = 0;
+  }
+
+  else
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECA3A5D0, &qword_1D85A32F8);
+    swift_arrayInitWithCopy();
+  }
+
+  return v10;
+}
+
+uint64_t sub_1D8534B74@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+{
+  result = sub_1D8533B98(v7, *a1, a1[1], a1[2], a1[3]);
+  v4 = v7[0];
+  v5 = v7[1];
+  *a2 = result;
+  a2[1] = v6;
+  a2[2] = v4;
+  a2[3] = v5;
+  return result;
+}
+
+uint64_t sub_1D8534BE8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
+{
+
+  if (a5)
+  {
+  }
+
+  return result;
+}
+
+uint64_t sub_1D8534C38(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
+{
+  if (a5 == 2)
+  {
+LABEL_4:
+
+    goto LABEL_5;
+  }
+
+  if (a5 != 1)
+  {
+    if (a5)
+    {
+      return result;
+    }
+
+    goto LABEL_4;
+  }
+
+LABEL_5:
+}
+
+uint64_t sub_1D8534CB8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
+{
+  if (a5 == 2)
+  {
+LABEL_4:
+
+    goto LABEL_5;
+  }
+
+  if (a5 != 1)
+  {
+    if (a5)
+    {
+      return result;
+    }
+
+    goto LABEL_4;
+  }
+
+LABEL_5:
+}
+
+uint64_t sub_1D8534D20(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
+{
+  if (a5)
+  {
+
+    v5 = vars8;
+  }
+}
+
+unint64_t sub_1D8534D90()
+{
+  result = qword_1ECA3A3A0;
+  if (!qword_1ECA3A3A0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1ECA3A3A0);
+  }
+
+  return result;
+}
+
+uint64_t sub_1D8534E84(uint64_t a1)
+{
+  OUTLINED_FUNCTION_83_4();
+  result = sub_1D8440D9C(v2, v3, v4, &protocol conformance descriptor for Ref<A><A>.AchievementRefFields);
+  *(a1 + 8) = result;
+  return result;
+}
+
+uint64_t sub_1D8534F44(uint64_t a1)
+{
+  OUTLINED_FUNCTION_73_1();
+  result = sub_1D8440D9C(v2, v3, v4, &protocol conformance descriptor for Ref<A><A>.AchievementDescriptionRefFields);
+  *(a1 + 8) = result;
+  return result;
+}
+
+uint64_t sub_1D8535004(uint64_t a1)
+{
+  OUTLINED_FUNCTION_27_4();
+  result = sub_1D8440D9C(v2, v3, v4, &protocol conformance descriptor for Ref<A><A>.ChallengeRefFields);
+  *(a1 + 8) = result;
+  return result;
+}
+
+uint64_t sub_1D85350C4(uint64_t a1)
+{
+  OUTLINED_FUNCTION_76_2();
+  result = sub_1D8440D9C(v2, v3, v4, &protocol conformance descriptor for Ref<A><A>.ChallengeDefinitionRefFields);
+  *(a1 + 8) = result;
+  return result;
+}
+
+uint64_t sub_1D853519C(uint64_t a1)
+{
+  OUTLINED_FUNCTION_72_1();
+  result = sub_1D8440D9C(v2, v3, v4, &protocol conformance descriptor for Ref<A><A>.ChallengeInviteRefFields);
+  *(a1 + 8) = result;
+  return result;
+}
+
+uint64_t sub_1D8535274(uint64_t a1)
+{
+  OUTLINED_FUNCTION_82_2();
+  result = sub_1D8440D9C(v2, v3, v4, &protocol conformance descriptor for Ref<A><A>.ContactRefFields);
+  *(a1 + 8) = result;
+  return result;
+}
+
+uint64_t sub_1D8535334(uint64_t a1)
+{
+  OUTLINED_FUNCTION_0_7();
+  result = sub_1D8440D9C(v2, v3, v4, &protocol conformance descriptor for Ref<A><A>.GameRefFields);
+  *(a1 + 8) = result;
+  return result;
+}
+
+uint64_t sub_1D85353F4(uint64_t a1)
+{
+  OUTLINED_FUNCTION_81_3();
+  result = sub_1D8440D9C(v2, v3, v4, &protocol conformance descriptor for Ref<A><A>.GameActivityRefFields);
+  *(a1 + 8) = result;
+  return result;
+}
+
+uint64_t sub_1D85354B4(uint64_t a1)
+{
+  OUTLINED_FUNCTION_74_1();
+  result = sub_1D8440D9C(v2, v3, v4, &protocol conformance descriptor for Ref<A><A>.GameActivityDefinitionRefFields);
+  *(a1 + 8) = result;
+  return result;
+}
+
+uint64_t sub_1D8535574(uint64_t a1)
+{
+  OUTLINED_FUNCTION_70_1();
+  result = sub_1D8440D9C(v2, v3, v4, &protocol conformance descriptor for Ref<A><A>.ImageRefFields);
+  *(a1 + 8) = result;
+  return result;
+}
+
+uint64_t sub_1D853569C(uint64_t a1)
+{
+  OUTLINED_FUNCTION_80_1();
+  result = sub_1D8440D9C(v2, v3, v4, &protocol conformance descriptor for Ref<A><A>.LeaderboardRefFields);
+  *(a1 + 8) = result;
+  return result;
+}
+
+uint64_t sub_1D853575C(uint64_t a1)
+{
+  OUTLINED_FUNCTION_79_2();
+  result = sub_1D8440D9C(v2, v3, v4, &protocol conformance descriptor for Ref<A><A>.LeaderboardSetRefFields);
+  *(a1 + 8) = result;
+  return result;
+}
+
+uint64_t sub_1D853581C(uint64_t a1)
+{
+  OUTLINED_FUNCTION_5_4();
+  result = sub_1D8440D9C(v2, v3, v4, &protocol conformance descriptor for Ref<A><A>.PlayerRefFields);
+  *(a1 + 8) = result;
+  return result;
+}
+
+uint64_t sub_1D853589C(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
+  swift_cvw_instantiateLayoutString();
+  return GenericValueMetadataWithLayoutString;
+}
+
+__n128 __swift_memcpy33_8(uint64_t a1, uint64_t a2)
+{
+  result = *a2;
+  v3 = *(a2 + 16);
+  *(a1 + 32) = *(a2 + 32);
+  *a1 = result;
+  *(a1 + 16) = v3;
+  return result;
+}
+
+uint64_t sub_1D85358F8(uint64_t a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return OUTLINED_FUNCTION_226(-1);
+  }
+
+  if (a2 >= 0xFF && *(a1 + 33))
+  {
+    return OUTLINED_FUNCTION_226(*a1 + 254);
+  }
+
+  v3 = *(a1 + 32);
+  if (v3 > 1)
+  {
+    return OUTLINED_FUNCTION_226(v3 ^ 0xFF);
+  }
+
+  else
+  {
+    return OUTLINED_FUNCTION_226(-1);
+  }
+}
+
+uint64_t sub_1D8535934(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0xFE)
+  {
+    *(result + 16) = 0;
+    *(result + 24) = 0;
+    *(result + 32) = 0;
+    *result = a2 - 255;
+    *(result + 8) = 0;
+    if (a3 >= 0xFF)
+    {
+      *(result + 33) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0xFF)
+    {
+      *(result + 33) = 0;
+    }
+
+    if (a2)
+    {
+      return OUTLINED_FUNCTION_171_1(result, -a2);
+    }
+  }
+
+  return result;
+}
+
+_BYTE *sub_1D853599C(_BYTE *result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 3 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 3) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 >= 0xFD)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (a2 > 0xFC)
+  {
+    v6 = ((a2 - 253) >> 8) + 1;
+    *result = a2 + 3;
+    switch(v5)
+    {
+      case 1:
+        result = OUTLINED_FUNCTION_282(result, v6);
+        break;
+      case 2:
+        result = OUTLINED_FUNCTION_280(result, v6);
+        break;
+      case 3:
+LABEL_23:
+        __break(1u);
+        break;
+      case 4:
+        result = OUTLINED_FUNCTION_281(result, v6);
+        break;
+      default:
+        return result;
+    }
+  }
+
+  else
+  {
+    switch(v5)
+    {
+      case 1:
+        result[1] = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      case 2:
+        *(result + 1) = 0;
+        goto LABEL_17;
+      case 3:
+        goto LABEL_23;
+      case 4:
+        *(result + 1) = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      default:
+LABEL_17:
+        if (a2)
+        {
+LABEL_18:
+          result = OUTLINED_FUNCTION_262(result, a2 + 3);
+        }
+
+        break;
+    }
+  }
+
+  return result;
+}
+
+_BYTE *sub_1D8535A64(_BYTE *result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 1 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 1) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 >= 0xFF)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (a2 > 0xFE)
+  {
+    v6 = ((a2 - 255) >> 8) + 1;
+    *result = a2 + 1;
+    switch(v5)
+    {
+      case 1:
+        result = OUTLINED_FUNCTION_282(result, v6);
+        break;
+      case 2:
+        result = OUTLINED_FUNCTION_280(result, v6);
+        break;
+      case 3:
+LABEL_23:
+        __break(1u);
+        break;
+      case 4:
+        result = OUTLINED_FUNCTION_281(result, v6);
+        break;
+      default:
+        return result;
+    }
+  }
+
+  else
+  {
+    switch(v5)
+    {
+      case 1:
+        result[1] = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      case 2:
+        *(result + 1) = 0;
+        goto LABEL_17;
+      case 3:
+        goto LABEL_23;
+      case 4:
+        *(result + 1) = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      default:
+LABEL_17:
+        if (a2)
+        {
+LABEL_18:
+          result = OUTLINED_FUNCTION_262(result, a2 + 1);
+        }
+
+        break;
+    }
+  }
+
+  return result;
+}
+
+_BYTE *sub_1D8535B20(_BYTE *result, int a2, int a3)
+{
+  if ((a3 + 1) >= 0x10000)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 1) < 0x100)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (a2)
+  {
+    switch(v5)
+    {
+      case 1:
+        *result = a2;
+        break;
+      case 2:
+        *result = a2;
+        break;
+      case 3:
+        goto LABEL_19;
+      case 4:
+        *result = a2;
+        break;
+      default:
+        return result;
+    }
+  }
+
+  else
+  {
+    switch(v5)
+    {
+      case 1:
+        *result = 0;
+        break;
+      case 2:
+        *result = 0;
+        break;
+      case 3:
+LABEL_19:
+        __break(1u);
+        break;
+      case 4:
+        *result = 0;
+        break;
+      default:
+        return result;
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_1D8535BBC(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
+  swift_cvw_instantiateLayoutString();
+  return GenericValueMetadataWithLayoutString;
+}
+
+uint64_t sub_1D8535C04(uint64_t a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return OUTLINED_FUNCTION_192();
+  }
+
+  if (a2 >= 0xFE && *(a1 + 33))
+  {
+    return (*a1 + 254);
+  }
+
+  v3 = *(a1 + 32);
+  if (v3 >= 3)
+  {
+    return (v3 ^ 0xFF) + 1;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t sub_1D8535C3C(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0xFD)
+  {
+    *(result + 32) = 0;
+    *result = 0u;
+    *(result + 16) = 0u;
+    *result = a2 - 254;
+    if (a3 >= 0xFE)
+    {
+      *(result + 33) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0xFE)
+    {
+      *(result + 33) = 0;
+    }
+
+    if (a2)
+    {
+      return OUTLINED_FUNCTION_171_1(result, -a2);
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_1D8535C84(uint64_t result, unsigned int a2)
+{
+  if (a2 > 2)
+  {
+    *result = 0u;
+    *(result + 16) = 0u;
+    *result = a2 - 3;
+    LOBYTE(a2) = 3;
+  }
+
+  *(result + 32) = a2;
+  return result;
+}
+
+_BYTE *sub_1D8535CC0(_BYTE *result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 2 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 2) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 >= 0xFE)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (a2 > 0xFD)
+  {
+    v6 = ((a2 - 254) >> 8) + 1;
+    *result = a2 + 2;
+    switch(v5)
+    {
+      case 1:
+        result = OUTLINED_FUNCTION_282(result, v6);
+        break;
+      case 2:
+        result = OUTLINED_FUNCTION_280(result, v6);
+        break;
+      case 3:
+LABEL_23:
+        __break(1u);
+        break;
+      case 4:
+        result = OUTLINED_FUNCTION_281(result, v6);
+        break;
+      default:
+        return result;
+    }
+  }
+
+  else
+  {
+    switch(v5)
+    {
+      case 1:
+        result[1] = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      case 2:
+        *(result + 1) = 0;
+        goto LABEL_17;
+      case 3:
+        goto LABEL_23;
+      case 4:
+        *(result + 1) = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      default:
+LABEL_17:
+        if (a2)
+        {
+LABEL_18:
+          result = OUTLINED_FUNCTION_262(result, a2 + 2);
+        }
+
+        break;
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_1D8535DA4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+{
+  v4 = -1 << *(a1 + 32);
+  *a4 = a1;
+  v7 = *(a1 + 64);
+  result = a1 + 64;
+  v6 = v7;
+  v8 = ~v4;
+  v9 = -v4;
+  a4[1] = result;
+  a4[2] = v8;
+  if (v9 < 64)
+  {
+    v10 = ~(-1 << v9);
+  }
+
+  else
+  {
+    v10 = -1;
+  }
+
+  a4[3] = 0;
+  a4[4] = v10 & v6;
+  a4[5] = a2;
+  a4[6] = a3;
+  return result;
+}
+
+uint64_t sub_1D8535DE0(uint64_t a1, uint64_t a2)
+{
+  v3 = OUTLINED_FUNCTION_198_0(a1, a2);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  (*(*(v5 - 8) + 8))(a1, v5);
+  return a1;
+}
+
+uint64_t sub_1D8535E3C(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = *a1;
+  if (!result)
+  {
+    v6 = OUTLINED_FUNCTION_198_0(0, a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(v6, v7);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+void OUTLINED_FUNCTION_14_4()
+{
+  *(v4 + 16) = v1;
+  v5 = v4 + 16 * v3;
+  *(v5 + 32) = v0;
+  *(v5 + 40) = v2;
+}
+
+uint64_t OUTLINED_FUNCTION_16_5()
+{
+
+  return sub_1D8581AB8();
+}
+
+char *OUTLINED_FUNCTION_29_3()
+{
+  *(v2 - 96) = v0;
+
+  return sub_1D84E8374(0, v1, 0);
+}
+
+uint64_t OUTLINED_FUNCTION_34_1(uint64_t a1, uint64_t a2)
+{
+  *a2 = v2;
+  *(a2 + 8) = v3;
+  *(a2 + 16) = 0;
+
+  return swift_willThrow();
+}
+
+uint64_t OUTLINED_FUNCTION_35_4(uint64_t a1)
+{
+
+  return Ref.init(rawValue:)(v1, v2, a1);
+}
+
+char *OUTLINED_FUNCTION_36_4@<X0>(unint64_t a1@<X8>)
+{
+
+  return sub_1D84E8374((a1 > 1), v1, 1);
+}
+
+void OUTLINED_FUNCTION_48_0()
+{
+
+  JUMPOUT(0x1DA718990);
+}
+
+uint64_t OUTLINED_FUNCTION_53_0(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+
+  return sub_1D853450C(v9, a2, 0, a4, &a9);
+}
+
+uint64_t OUTLINED_FUNCTION_56_1(uint64_t a1)
+{
+
+  return Ref.init(rawValue:)(v1, v2, a1);
+}
+
+uint64_t OUTLINED_FUNCTION_57_1()
+{
+
+  return sub_1D8581768();
+}
+
+char *OUTLINED_FUNCTION_61_2()
+{
+
+  return sub_1D84E8374(0, v0, 0);
+}
+
+uint64_t OUTLINED_FUNCTION_65_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+{
+  va_start(va, a12);
+
+  return static GameServicesError.invalidReference<A>(ref:)(va, v12);
+}
+
+uint64_t OUTLINED_FUNCTION_67_2()
+{
+}
+
+uint64_t OUTLINED_FUNCTION_84_1(unint64_t *a1)
+{
+
+  return sub_1D8440D9C(a1, v1, v2, &unk_1D85A2838);
+}
+
+uint64_t OUTLINED_FUNCTION_85_3()
+{
+}
+
+uint64_t OUTLINED_FUNCTION_86_3()
+{
+}
+
+uint64_t OUTLINED_FUNCTION_89_1(uint64_t result)
+{
+  *(v5 - 152) = result + ((*(v1 + 80) + 32) & ~*(v1 + 80));
+  *(v5 - 168) = v1 + 8;
+  *(v5 - 160) = v1 + 16;
+  *(v5 - 192) = v3;
+  *(v5 - 184) = v2;
+  *(v5 - 176) = v4;
+  return result;
+}
+
+uint64_t OUTLINED_FUNCTION_98_2(uint64_t *a1, uint64_t *a2, unint64_t *a3)
+{
+
+  return sub_1D852B3A0(a1, a2, a3, type metadata accessor for Ref<A>.GameActivityRefFields);
+}
+
+uint64_t OUTLINED_FUNCTION_100_2(uint64_t *a1, uint64_t *a2, unint64_t *a3)
+{
+
+  return sub_1D852B3A0(a1, a2, a3, type metadata accessor for Ref<A>.AchievementRefFields);
+}
+
+void OUTLINED_FUNCTION_106_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+{
+
+  sub_1D8440EEC(v23, v22, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22);
+}
+
+uint64_t OUTLINED_FUNCTION_108_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+
+  return sub_1D85817E8();
+}
+
+uint64_t OUTLINED_FUNCTION_109_2(uint64_t a1, uint64_t a2)
+{
+  v2[4] = a1;
+  v2[5] = a2;
+  v2[6] = v4;
+  v2[7] = v3;
+}
+
+void OUTLINED_FUNCTION_110_4()
+{
+
+  JUMPOUT(0x1DA718990);
+}
+
+uint64_t OUTLINED_FUNCTION_120_1(uint64_t a1, uint64_t a2)
+{
+  *(a2 + 16) = 0;
+
+  return swift_willThrow();
+}
+
+void OUTLINED_FUNCTION_147()
+{
+  *(v4 + 16) = v1;
+  v5 = v4 + 16 * v3;
+  *(v5 + 32) = v0;
+  *(v5 + 40) = v2;
+}
+
+uint64_t OUTLINED_FUNCTION_161_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+
+  return sub_1D85811B8();
+}
+
+uint64_t OUTLINED_FUNCTION_165_2(void *a1)
+{
+  __swift_destroy_boxed_opaque_existential_1(a1);
+}
+
+void *OUTLINED_FUNCTION_166_2(void *a1)
+{
+
+  return sub_1D85348F8(a1, v2, 1, v1);
+}
+
+unint64_t OUTLINED_FUNCTION_173_1(uint64_t a1, unint64_t a2)
+{
+
+  return sub_1D8441878(1uLL, a1, a2);
+}
+
+uint64_t OUTLINED_FUNCTION_179_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+
+  return sub_1D85811B8();
+}
+
+void OUTLINED_FUNCTION_180_0()
+{
+
+  sub_1D843808C();
+}
+
+uint64_t OUTLINED_FUNCTION_181_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
+{
+  va_start(va, a19);
+
+  return sub_1D84EB9C4(v19, va);
+}
+
+uint64_t OUTLINED_FUNCTION_182_0()
+{
+}
+
+uint64_t OUTLINED_FUNCTION_183_1(uint64_t a1)
+{
+
+  return sub_1D85347B4(a1);
+}
+
+void OUTLINED_FUNCTION_197_2(void *a1@<X8>)
+{
+  v2 = *(v1 - 120);
+  *a1 = *(v1 - 128);
+  a1[1] = v2;
+}
+
+uint64_t OUTLINED_FUNCTION_200_2(uint64_t result, uint64_t a2)
+{
+  v4[4] = result;
+  v4[5] = a2;
+  v4[6] = v3;
+  v4[7] = v2;
+  return result;
+}
+
+uint64_t OUTLINED_FUNCTION_204_1(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+
+  return sub_1D853450C(v16, a2, 0, a4, va);
+}
+
+uint64_t OUTLINED_FUNCTION_206_2()
+{
+
+  return sub_1D8580C68();
+}
+
+uint64_t OUTLINED_FUNCTION_207_4(uint64_t a1)
+{
+
+  return sub_1D84379E4(a1, v3, v4, v2, v1);
+}
+
+void OUTLINED_FUNCTION_209_2()
+{
+
+  JUMPOUT(0x1DA718990);
+}
+
+uint64_t OUTLINED_FUNCTION_212_4()
+{
+}
+
+uint64_t sub_1D8536A84@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a4@<X8>)
+{
+  if (*a1 != -1)
+  {
+    swift_once();
+  }
+
+  v6 = sub_1D85810A8();
+  v7 = __swift_project_value_buffer(v6, a2);
+  v8 = *(*(v6 - 8) + 16);
+
+  return v8(a4, v7, v6);
+}
+
+_BYTE *storeEnumTagSinglePayload for Loggers(_BYTE *result, int a2, int a3)
+{
+  if ((a3 + 1) >= 0x10000)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 1) < 0x100)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (a2)
+  {
+    switch(v5)
+    {
+      case 1:
+        *result = a2;
+        break;
+      case 2:
+        *result = a2;
+        break;
+      case 3:
+        goto LABEL_19;
+      case 4:
+        *result = a2;
+        break;
+      default:
+        return result;
+    }
+  }
+
+  else
+  {
+    switch(v5)
+    {
+      case 1:
+        *result = 0;
+        break;
+      case 2:
+        *result = 0;
+        break;
+      case 3:
+LABEL_19:
+        __break(1u);
+        break;
+      case 4:
+        *result = 0;
+        break;
+      default:
+        return result;
+    }
+  }
+
+  return result;
+}
+
+GameServices::ReleaseState_optional __swiftcall ReleaseState.init(rawValue:)(Swift::String rawValue)
+{
+  v2 = v1;
+  v3 = sub_1D8581868();
+
+  v5 = 3;
+  if (v3 < 3)
+  {
+    v5 = v3;
+  }
+
+  *v2 = v5;
+  return result;
+}
+
+uint64_t ReleaseState.rawValue.getter()
+{
+  v1 = 0x646567617473;
+  if (*v0 != 1)
+  {
+    v1 = 0x6D706F6C65766564;
+  }
+
+  if (*v0)
+  {
+    return v1;
+  }
+
+  else
+  {
+    return 1702259052;
+  }
+}
+
+uint64_t sub_1D8536C94@<X0>(uint64_t *a1@<X8>)
+{
+  result = ReleaseState.rawValue.getter();
+  *a1 = result;
+  a1[1] = v3;
+  return result;
+}
+
+unint64_t sub_1D8536CC0()
+{
+  result = qword_1ECA3A5F0;
+  if (!qword_1ECA3A5F0)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1ECA3A5F8, &qword_1D85A3388);
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1ECA3A5F0);
+  }
+
+  return result;
+}
+
+uint64_t sub_1D8536D34()
+{
+  OUTLINED_FUNCTION_99();
+  sub_1D8482160();
+  OUTLINED_FUNCTION_102();
+  return sub_1D8581438();
+}
+
+uint64_t sub_1D8536D7C()
+{
+  OUTLINED_FUNCTION_99();
+  sub_1D8482160();
+  OUTLINED_FUNCTION_102();
+  return sub_1D85813E8();
+}
+
+uint64_t sub_1D8536DE0(uint64_t a1, unsigned __int8 a2)
+{
+  sub_1D85812B8();
+}
+
+_BYTE *storeEnumTagSinglePayload for ReleaseState(_BYTE *result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 2 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 2) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 >= 0xFE)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (a2 > 0xFD)
+  {
+    v6 = ((a2 - 254) >> 8) + 1;
+    *result = a2 + 2;
+    switch(v5)
+    {
+      case 1:
+        result[1] = v6;
+        break;
+      case 2:
+        *(result + 1) = v6;
+        break;
+      case 3:
+LABEL_23:
+        __break(1u);
+        break;
+      case 4:
+        *(result + 1) = v6;
+        break;
+      default:
+        return result;
+    }
+  }
+
+  else
+  {
+    switch(v5)
+    {
+      case 1:
+        result[1] = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      case 2:
+        *(result + 1) = 0;
+        goto LABEL_17;
+      case 3:
+        goto LABEL_23;
+      case 4:
+        *(result + 1) = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      default:
+LABEL_17:
+        if (a2)
+        {
+LABEL_18:
+          *result = a2 + 2;
+        }
+
+        break;
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_1D8536F4C(uint64_t a1, char a2)
+{
+  sub_1D8581B58();
+  sub_1D85812B8();
+
+  return sub_1D8581B98();
+}
+
+uint64_t Page.elements.setter(uint64_t a1)
+{
+
+  *v1 = a1;
+  return result;
+}
+
+uint64_t Page.previous.setter(uint64_t *a1)
+{
+  v2 = *a1;
+  v3 = a1[1];
+
+  *(v1 + 8) = v2;
+  *(v1 + 16) = v3;
+  return result;
 }

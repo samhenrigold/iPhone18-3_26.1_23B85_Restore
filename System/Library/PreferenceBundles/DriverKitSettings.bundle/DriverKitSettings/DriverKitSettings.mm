@@ -114,262 +114,252 @@ LABEL_8:
 uint64_t sub_1D1C()
 {
   v1 = sub_4D80();
-  v2 = *(*(v1 - 8) + 64);
-  (__chkstk_darwin)();
-  v4 = &v30 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_4D60();
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = (__chkstk_darwin)();
-  v10 = &v30 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v8);
-  v12 = &v30 - v11;
-  v13 = sub_4D70();
-  v14 = *(*(v13 - 8) + 64);
-  __chkstk_darwin(v13 - 8);
-  v16 = &v30 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = *(v0 + 24);
-  v18 = direct field offset for DriverApprovalState.driver;
-  v19 = sub_4D50();
-  sub_3670(v17 + *(v19 + 20) + v18, v16, &type metadata accessor for DriverKitDriverSource);
-  if ((*(v6 + 48))(v16, 1, v5) == 1)
+  __chkstk_darwin(v1);
+  v3 = &v25 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_4D60();
+  v5 = *(v4 - 8);
+  v6 = __chkstk_darwin(v4);
+  v8 = &v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6);
+  v10 = &v25 - v9;
+  v11 = sub_4D70();
+  __chkstk_darwin(v11 - 8);
+  v13 = &v25 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = *(v0 + 24);
+  v15 = direct field offset for DriverApprovalState.driver;
+  v16 = sub_4D50();
+  sub_3670(v14 + *(v16 + 20) + v15, v13, &type metadata accessor for DriverKitDriverSource);
+  if ((*(v5 + 48))(v13, 1, v4) == 1)
   {
-    v20 = sub_4F30();
-    v21 = LocalizedString(v20);
+    v17 = sub_4F30();
+    v18 = LocalizedString(v17);
 
-    v22 = sub_4F40();
+    v19 = sub_4F40();
   }
 
   else
   {
-    sub_36D8(v16, v12, &type metadata accessor for DriverKitDriverApp);
-    sub_3670(v12, v10, &type metadata accessor for DriverKitDriverApp);
+    sub_36D8(v13, v10, &type metadata accessor for DriverKitDriverApp);
+    sub_3670(v10, v8, &type metadata accessor for DriverKitDriverApp);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      sub_3740(v10, &type metadata accessor for DriverKitDriverApp);
-      v23 = sub_4F30();
-      v24 = LocalizedString(v23);
+      sub_3740(v8, &type metadata accessor for DriverKitDriverApp);
+      v20 = sub_4F30();
+      v21 = LocalizedString(v20);
 
-      v22 = sub_4F40();
-      v25 = v12;
-      v26 = &type metadata accessor for DriverKitDriverApp;
+      v19 = sub_4F40();
+      v22 = v10;
+      v23 = &type metadata accessor for DriverKitDriverApp;
     }
 
     else
     {
-      sub_3740(v12, &type metadata accessor for DriverKitDriverApp);
-      sub_36D8(v10, v4, &type metadata accessor for SettingsApplicationRecord);
-      v27 = &v4[*(v1 + 36)];
-      v22 = *v27;
-      v28 = v27[1];
+      sub_3740(v10, &type metadata accessor for DriverKitDriverApp);
+      sub_36D8(v8, v3, &type metadata accessor for SettingsApplicationRecord);
+      v19 = *&v3[*(v1 + 36)];
 
-      v25 = v4;
-      v26 = &type metadata accessor for SettingsApplicationRecord;
+      v22 = v3;
+      v23 = &type metadata accessor for SettingsApplicationRecord;
     }
 
-    sub_3740(v25, v26);
+    sub_3740(v22, v23);
   }
 
-  return v22;
+  return v19;
 }
 
 __n128 sub_2068@<Q0>(uint64_t a1@<X8>)
 {
   v3 = *(v1 + 40);
   v4 = (*(v1 + 24) + direct field offset for DriverApprovalState.driver);
-  v5 = (v4 + *(sub_4D50() + 24));
-  v6 = v5[1];
+  v7 = (v4 + *(sub_4D50() + 24));
+  v8 = v7[1];
   if (v3 >= 2)
   {
-    if (v6)
+    if (v8)
     {
-      v9 = *v5;
-      v10 = v5[1];
+      v10 = *v7;
+      v11 = v7[1];
     }
 
     else
     {
-      v9 = *v4;
-      v26 = v4[1];
+      v10 = *v4;
     }
 
-    *&v36 = v9;
-    *(&v36 + 1) = v10;
-    sub_3420();
+    *&v34 = v10;
+    *(&v34 + 1) = v11;
+    sub_3420(v11, v5, v6);
 
     sub_4E40();
     sub_3140(&qword_C408, &qword_56B8);
-    sub_3474(&qword_C400, &qword_C408, &qword_56B8);
+    sub_3474(&qword_C400, &qword_C408, &qword_56B8, &protocol conformance descriptor for TupleView<A>);
     sub_4E00();
   }
 
   else
   {
-    v29 = a1;
-    if (v6)
+    v27 = a1;
+    if (v8)
     {
-      v7 = *v5;
-      v8 = v5[1];
+      v9 = v7[1];
     }
 
     else
     {
-      v12 = *v4;
-      v11 = v4[1];
     }
 
-    sub_3420();
+    sub_3420(v9, v5, v6);
 
-    v13 = sub_4E40();
-    v30 = v14;
-    v28 = v15;
+    v12 = sub_4E40();
+    v28 = v13;
+    v26 = v14;
     sub_1D1C();
-    v16 = sub_4E40();
-    v18 = v17;
-    v20 = v19;
+    v15 = sub_4E40();
+    v17 = v16;
+    v19 = v18;
     sub_4E10();
-    v21 = sub_4E30();
-    v23 = v22;
-    v25 = v24;
+    v20 = sub_4E30();
+    v22 = v21;
+    v24 = v23;
 
-    sub_3650(v16, v18, v20 & 1);
+    sub_3650(v15, v17, v19 & 1);
 
-    sub_3660(v13, v30, v28 & 1);
+    sub_3660(v12, v28, v26 & 1);
 
-    sub_3660(v21, v23, v25 & 1);
+    sub_3660(v20, v22, v24 & 1);
 
-    sub_3660(v13, v30, v28 & 1);
+    sub_3660(v12, v28, v26 & 1);
 
-    sub_3660(v21, v23, v25 & 1);
+    sub_3660(v20, v22, v24 & 1);
 
-    sub_3650(v21, v23, v25 & 1);
+    sub_3650(v20, v22, v24 & 1);
 
-    sub_3650(v13, v30, v28 & 1);
+    sub_3650(v12, v28, v26 & 1);
 
     sub_3140(&qword_C408, &qword_56B8);
-    sub_3474(&qword_C400, &qword_C408, &qword_56B8);
+    sub_3474(&qword_C400, &qword_C408, &qword_56B8, &protocol conformance descriptor for TupleView<A>);
     sub_4E00();
-    sub_3650(v21, v23, v25 & 1);
+    sub_3650(v20, v22, v24 & 1);
 
-    sub_3650(v13, v30, v28 & 1);
+    sub_3650(v12, v28, v26 & 1);
 
-    v38 = v33;
-    v39 = v34;
-    v40 = v35;
     v36 = v31;
     v37 = v32;
-    a1 = v29;
+    v38 = v33;
+    v34 = v29;
+    v35 = v30;
+    a1 = v27;
   }
 
-  *(a1 + 32) = v38;
-  *(a1 + 48) = v39;
-  *(a1 + 64) = v40;
-  result = v37;
-  *a1 = v36;
-  *(a1 + 16) = v37;
+  *(a1 + 32) = v36;
+  *(a1 + 48) = v37;
+  *(a1 + 64) = v38;
+  result = v35;
+  *a1 = v34;
+  *(a1 + 16) = v35;
   return result;
 }
 
 uint64_t sub_2428@<X0>(uint64_t a1@<X8>)
 {
   v2 = v1;
-  v37 = a1;
+  v42 = a1;
   v3 = sub_3140(&qword_C3E8, &qword_56A8);
-  v39 = *(v3 - 8);
-  v40 = v3;
-  v4 = *(v39 + 64);
+  v44 = *(v3 - 8);
+  v45 = v3;
   __chkstk_darwin(v3);
-  v6 = v32 - v5;
+  v5 = v37 - v4;
   sub_4F80();
-  sub_3188(v1, v45);
-  v7 = sub_4F70();
-  v8 = swift_allocObject();
-  *(v8 + 16) = v7;
-  *(v8 + 24) = &protocol witness table for MainActor;
-  v9 = v1[1];
-  *(v8 + 32) = *v1;
-  *(v8 + 48) = v9;
-  v10 = v1[3];
-  *(v8 + 64) = v1[2];
-  *(v8 + 80) = v10;
-  sub_3188(v1, v45);
-  v11 = sub_4F70();
-  v12 = swift_allocObject();
-  *(v12 + 16) = v11;
-  *(v12 + 24) = &protocol witness table for MainActor;
-  v13 = v2[1];
-  *(v12 + 32) = *v2;
-  *(v12 + 48) = v13;
-  v14 = v2[3];
-  *(v12 + 64) = v2[2];
-  *(v12 + 80) = v14;
+  sub_3188(v1, v50);
+  v6 = sub_4F70();
+  v7 = swift_allocObject();
+  *(v7 + 16) = v6;
+  *(v7 + 24) = &protocol witness table for MainActor;
+  v8 = v1[1];
+  *(v7 + 32) = *v1;
+  *(v7 + 48) = v8;
+  v9 = v1[3];
+  *(v7 + 64) = v1[2];
+  *(v7 + 80) = v9;
+  sub_3188(v1, v50);
+  v10 = sub_4F70();
+  v11 = swift_allocObject();
+  *(v11 + 16) = v10;
+  *(v11 + 24) = &protocol witness table for MainActor;
+  v12 = v2[1];
+  *(v11 + 32) = *v2;
+  *(v11 + 48) = v12;
+  v13 = v2[3];
+  *(v11 + 64) = v2[2];
+  *(v11 + 80) = v13;
   sub_4F00();
-  v15 = v45[0];
-  v16 = v45[1];
-  v41 = v2;
+  v14 = v50[0];
+  v15 = v50[1];
+  v46 = v2;
 
   sub_3140(&qword_C3F0, &qword_56B0);
   sub_32BC();
-  v38 = v6;
-  v36 = v15;
-  v35 = v16;
+  v43 = v5;
+  v41 = v14;
+  v40 = v15;
   sub_4EF0();
-  v17 = sub_4F30();
-  v18 = LocalizedString(v17);
+  v16 = sub_4F30();
+  v17 = LocalizedString(v16);
 
   sub_4F40();
   sub_3140(&qword_C410, &qword_56C0);
-  v19 = swift_allocObject();
-  *(v19 + 16) = xmmword_55A0;
-  v20 = (*(v2 + 3) + direct field offset for DriverApprovalState.driver);
-  v21 = (v20 + *(sub_4D50() + 24));
-  if (v21[1])
+  v18 = swift_allocObject();
+  *(v18 + 16) = xmmword_55A0;
+  v19 = (*(v2 + 3) + direct field offset for DriverApprovalState.driver);
+  v20 = sub_4D50();
+  v23 = (v19 + *(v20 + 24));
+  if (v23[1])
   {
-    v22 = *v21;
-    v23 = v21[1];
+    v24 = *v23;
+    v25 = v23[1];
   }
 
   else
   {
-    v22 = *v20;
-    v23 = v20[1];
+    v24 = *v19;
+    v25 = v19[1];
   }
 
-  *(v19 + 56) = &type metadata for String;
-  *(v19 + 64) = sub_33BC();
-  *(v19 + 32) = v22;
-  *(v19 + 40) = v23;
+  *(v18 + 56) = &type metadata for String;
+  *(v18 + 64) = sub_33BC(v20, v21, v22);
+  *(v18 + 32) = v24;
+  *(v18 + 40) = v25;
 
-  v24 = sub_4F50();
-  v26 = v25;
-  v34 = v25;
+  v26 = sub_4F50();
+  v28 = v27;
+  v39 = v27;
 
-  v43 = v24;
-  v44 = v26;
-  v42 = v2[3];
+  v48 = v26;
+  v49 = v28;
+  v47 = v2[3];
   sub_3140(&qword_C420, &qword_56C8);
-  v27 = sub_4EC0();
-  v33 = v32;
-  v32[3] = v46;
-  v28 = __chkstk_darwin(v27);
-  __chkstk_darwin(v28);
+  v29 = sub_4EC0();
+  v38 = v37;
+  v37[3] = v51;
+  v30 = __chkstk_darwin(v29);
+  __chkstk_darwin(v30);
   sub_3140(&qword_C428, &qword_56D0);
   sub_3140(&qword_C430, &qword_56D8);
-  sub_3474(&qword_C438, &qword_C3E8, &qword_56A8);
-  sub_3420();
-  sub_3474(&qword_C448, &qword_C428, &qword_56D0);
+  v31 = sub_3474(&qword_C438, &qword_C3E8, &qword_56A8, &protocol conformance descriptor for Toggle<A>);
+  sub_3420(v31, v32, v33);
+  sub_3474(&qword_C448, &qword_C428, &qword_56D0, &protocol conformance descriptor for TupleView<A>);
   sub_34BC();
-  v29 = v40;
-  v30 = v38;
+  v34 = v45;
+  v35 = v43;
   sub_4E90();
 
-  return (*(v39 + 8))(v30, v29);
+  return (*(v44 + 8))(v35, v34);
 }
 
-void sub_2948(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_2948(unsigned __int8 *a1, uint64_t a2, uint64_t a3, id *a4)
 {
   v5 = *a1;
-  v6 = *(a4 + 24);
   if (sub_4CF0())
   {
   }
@@ -380,13 +370,12 @@ void sub_2948(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
     {
       if (*a4)
       {
-        v8 = *a4;
+        v6 = *a4;
         sub_4D10();
       }
 
       else
       {
-        v7 = *(a4 + 8);
         sub_4D40();
         sub_35F8();
         sub_4DD0();
@@ -397,7 +386,6 @@ void sub_2948(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
   else if (v5)
   {
-    v9 = *(a4 + 48);
     sub_3140(&qword_C420, &qword_56C8);
     sub_4EB0();
   }
@@ -405,55 +393,53 @@ void sub_2948(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
 uint64_t sub_2A70@<X0>(_OWORD *a1@<X0>, char *a2@<X8>)
 {
-  v34 = a2;
+  v32 = a2;
   v3 = sub_3140(&qword_C458, &qword_56E0);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v33 - v5;
-  v7 = sub_3140(&qword_C460, &qword_56E8);
-  v8 = *(v7 - 8);
-  v9 = v8[8];
-  v10 = __chkstk_darwin(v7);
-  v12 = &v33 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = __chkstk_darwin(v10);
-  v15 = &v33 - v14;
-  v16 = __chkstk_darwin(v13);
-  v18 = &v33 - v17;
-  __chkstk_darwin(v16);
-  v20 = &v33 - v19;
+  v5 = &v31 - v4;
+  v6 = sub_3140(&qword_C460, &qword_56E8);
+  v7 = *(v6 - 8);
+  v8 = __chkstk_darwin(v6);
+  v10 = &v31 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = __chkstk_darwin(v8);
+  v13 = &v31 - v12;
+  v14 = __chkstk_darwin(v11);
+  v16 = &v31 - v15;
+  __chkstk_darwin(v14);
+  v18 = &v31 - v17;
   sub_4DA0();
-  v21 = sub_4DB0();
-  (*(*(v21 - 8) + 56))(v6, 0, 1, v21);
-  v22 = swift_allocObject();
-  v23 = a1[1];
-  v22[1] = *a1;
-  v22[2] = v23;
-  v24 = a1[3];
-  v22[3] = a1[2];
-  v22[4] = v24;
-  sub_3188(a1, v35);
+  v19 = sub_4DB0();
+  (*(*(v19 - 8) + 56))(v5, 0, 1, v19);
+  v20 = swift_allocObject();
+  v21 = a1[1];
+  v20[1] = *a1;
+  v20[2] = v21;
+  v22 = a1[3];
+  v20[3] = a1[2];
+  v20[4] = v22;
+  sub_3188(a1, v33);
   sub_4ED0();
-  v25 = swift_allocObject();
-  v26 = a1[1];
-  v25[1] = *a1;
-  v25[2] = v26;
-  v27 = a1[3];
-  v25[3] = a1[2];
-  v25[4] = v27;
-  sub_3188(a1, v35);
+  v23 = swift_allocObject();
+  v24 = a1[1];
+  v23[1] = *a1;
+  v23[2] = v24;
+  v25 = a1[3];
+  v23[3] = a1[2];
+  v23[4] = v25;
+  sub_3188(a1, v33);
   sub_4EE0();
-  v28 = v8[2];
-  v28(v15, v20, v7);
-  v28(v12, v18, v7);
-  v29 = v34;
-  v28(v34, v15, v7);
-  v30 = sub_3140(&qword_C468, &unk_56F0);
-  v28(&v29[*(v30 + 48)], v12, v7);
-  v31 = v8[1];
-  v31(v18, v7);
-  v31(v20, v7);
-  v31(v12, v7);
-  return (v31)(v15, v7);
+  v26 = *(v7 + 16);
+  v26(v13, v18, v6);
+  v26(v10, v16, v6);
+  v27 = v32;
+  v26(v32, v13, v6);
+  v28 = sub_3140(&qword_C468, &unk_56F0);
+  v26(&v27[*(v28 + 48)], v10, v6);
+  v29 = *(v7 + 8);
+  v29(v16, v6);
+  v29(v18, v6);
+  v29(v10, v6);
+  return (v29)(v13, v6);
 }
 
 uint64_t sub_2E08@<X0>(uint64_t a1@<X8>)
@@ -462,31 +448,27 @@ uint64_t sub_2E08@<X0>(uint64_t a1@<X8>)
   v3 = LocalizedString(v2);
 
   sub_4F40();
-  sub_3420();
+  sub_3420(v4, v5, v6);
   result = sub_4E40();
   *a1 = result;
-  *(a1 + 8) = v5;
-  *(a1 + 16) = v6 & 1;
-  *(a1 + 24) = v7;
+  *(a1 + 8) = v8;
+  *(a1 + 16) = v9 & 1;
+  *(a1 + 24) = v10;
   return result;
 }
 
-void sub_2EAC(uint64_t a1)
+void sub_2EAC(id *a1)
 {
-  v6 = *(a1 + 48);
   sub_3140(&qword_C420, &qword_56C8);
   sub_4EB0();
-  v2 = *a1;
   if (*a1)
   {
-    v3 = *(a1 + 24);
-    v4 = v2;
+    v2 = *a1;
     sub_4D10();
   }
 
   else
   {
-    v5 = *(a1 + 8);
     sub_4D40();
     sub_35F8();
     sub_4DD0();
@@ -500,12 +482,12 @@ uint64_t sub_2F54@<X0>(uint64_t a1@<X8>)
   v3 = LocalizedString(v2);
 
   sub_4F40();
-  sub_3420();
+  sub_3420(v4, v5, v6);
   result = sub_4E40();
   *a1 = result;
-  *(a1 + 8) = v5;
-  *(a1 + 16) = v6 & 1;
-  *(a1 + 24) = v7;
+  *(a1 + 8) = v8;
+  *(a1 + 16) = v9 & 1;
+  *(a1 + 24) = v10;
   return result;
 }
 
@@ -513,30 +495,22 @@ double sub_2FF8@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = *(a1 + 24);
   v4 = direct field offset for DriverApprovalState.driver;
-  v5 = (v3 + *(sub_4D50() + 28) + v4);
-  if (*(v5 + 1))
+  v5 = sub_4D50();
+  v8 = (v3 + *(v5 + 28) + v4);
+  if (*(v8 + 1))
   {
-    v7 = *v5;
-    sub_3420();
+    v10 = *v8;
+    sub_3420(v5, v6, v7);
 
     sub_4E40();
   }
 
   sub_4E00();
-  result = *&v7;
-  *a2 = v7;
-  *(a2 + 16) = v8;
-  *(a2 + 32) = v9;
+  result = *&v10;
+  *a2 = v10;
+  *(a2 + 16) = v11;
+  *(a2 + 32) = v12;
   return result;
-}
-
-uint64_t sub_3104@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *v1;
-  v4 = v1[1];
-  v5 = v1[2];
-  v6 = v1[3];
-  return sub_2428(a1);
 }
 
 uint64_t sub_3140(uint64_t *a1, uint64_t *a2)
@@ -544,7 +518,6 @@ uint64_t sub_3140(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -554,7 +527,6 @@ uint64_t sub_3140(uint64_t *a1, uint64_t *a2)
 
 uint64_t sub_31C4@<X0>(BOOL *a1@<X8>)
 {
-  v3 = *(v1 + 56);
   result = sub_4CE0();
   *a1 = result == 1;
   return result;
@@ -562,28 +534,24 @@ uint64_t sub_31C4@<X0>(BOOL *a1@<X8>)
 
 uint64_t sub_31FC()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
 
   if (*(v0 + 72) >= 2uLL)
   {
   }
 
-  v2 = *(v0 + 88);
-
   return _swift_deallocObject(v0, 96, 7);
 }
 
 __n128 sub_3268@<Q0>(uint64_t a1@<X8>)
 {
-  v3 = *(v1 + 16);
-  sub_2068(v6);
-  v4 = v6[3];
-  *(a1 + 32) = v6[2];
-  *(a1 + 48) = v4;
-  *(a1 + 64) = v7;
-  result = v6[1];
-  *a1 = v6[0];
+  sub_2068(v4);
+  v2 = v4[3];
+  *(a1 + 32) = v4[2];
+  *(a1 + 48) = v2;
+  *(a1 + 64) = v5;
+  result = v4[1];
+  *a1 = v4[0];
   *(a1 + 16) = result;
   return result;
 }
@@ -594,7 +562,7 @@ unint64_t sub_32BC()
   if (!qword_C3F8)
   {
     sub_3374(&qword_C3F0, &qword_56B0);
-    sub_3474(&qword_C400, &qword_C408, &qword_56B8);
+    sub_3474(&qword_C400, &qword_C408, &qword_56B8, &protocol conformance descriptor for TupleView<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_C3F8);
   }
@@ -607,7 +575,6 @@ uint64_t sub_3374(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -615,7 +582,7 @@ uint64_t sub_3374(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-unint64_t sub_33BC()
+unint64_t sub_33BC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = qword_C418;
   if (!qword_C418)
@@ -627,7 +594,7 @@ unint64_t sub_33BC()
   return result;
 }
 
-unint64_t sub_3420()
+unint64_t sub_3420(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = qword_C440;
   if (!qword_C440)
@@ -639,7 +606,7 @@ unint64_t sub_3420()
   return result;
 }
 
-uint64_t sub_3474(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t sub_3474(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -665,20 +632,11 @@ unint64_t sub_34BC()
   return result;
 }
 
-uint64_t sub_3544()
-{
-  v2 = *(v0 + 64);
-  sub_3140(&qword_C420, &qword_56C8);
-  return sub_4EB0();
-}
-
 uint64_t sub_3598()
 {
   if (*(v0 + 56) >= 2uLL)
   {
   }
-
-  v1 = *(v0 + 72);
 
   return _swift_deallocObject(v0, 80, 7);
 }
@@ -744,9 +702,9 @@ uint64_t sub_37A0()
   sub_3374(&qword_C3E8, &qword_56A8);
   sub_3374(&qword_C428, &qword_56D0);
   sub_3374(&qword_C430, &qword_56D8);
-  sub_3474(&qword_C438, &qword_C3E8, &qword_56A8);
-  sub_3420();
-  sub_3474(&qword_C448, &qword_C428, &qword_56D0);
+  v3 = sub_3474(&qword_C438, &qword_C3E8, &qword_56A8, &protocol conformance descriptor for Toggle<A>);
+  sub_3420(v3, v0, v1);
+  sub_3474(&qword_C448, &qword_C428, &qword_56D0, &protocol conformance descriptor for TupleView<A>);
   sub_34BC();
   return swift_getOpaqueTypeConformance2();
 }
@@ -1033,7 +991,7 @@ uint64_t sub_41FC@<X0>(uint64_t *a1@<X8>)
   v3 = *(v1 + 24);
   sub_4288(v4, v3);
   sub_4D40();
-  sub_4B58(&qword_C470, &type metadata accessor for DriverManager);
+  sub_4B58(&qword_C470, &type metadata accessor for DriverManager, &protocol conformance descriptor for DriverManager);
   result = sub_4DE0();
   *a1 = result;
   a1[1] = v6;
@@ -1108,7 +1066,7 @@ uint64_t sub_4300(uint64_t result, unsigned int a2, unsigned int a3)
   return result;
 }
 
-unint64_t sub_4368()
+unint64_t sub_4368(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = qword_C4C8;
   if (!qword_C4C8)
@@ -1120,13 +1078,13 @@ unint64_t sub_4368()
   return result;
 }
 
-uint64_t sub_43D8()
+uint64_t sub_43D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = sub_4F30();
-  v1 = LocalizedString(v0);
+  v4 = sub_4F30();
+  v5 = LocalizedString(v4);
 
   sub_4F40();
-  sub_3420();
+  sub_3420(v6, v7, v8);
   sub_4E40();
   sub_3140(&qword_C4F0, &qword_58C8);
   sub_4A20();
@@ -1148,16 +1106,16 @@ uint64_t sub_450C(void *a1, uint64_t a2, uint64_t a3, unint64_t a4)
     v10 = v8;
     sub_4288(a3, a4);
     sub_3140(&qword_C508, &unk_58D0);
-    sub_3474(&qword_C510, &qword_C508, &unk_58D0);
-    sub_4AA4();
-    sub_4B58(&qword_C518, &type metadata accessor for DriverApprovalState);
+    v11 = sub_3474(&qword_C510, &qword_C508, &unk_58D0, &protocol conformance descriptor for [A]);
+    sub_4AA4(v11, v12, v13);
+    sub_4B58(&qword_C518, &type metadata accessor for DriverApprovalState, &protocol conformance descriptor for DriverApprovalState);
     return sub_4F10();
   }
 
   else
   {
     sub_4D40();
-    sub_4B58(&qword_C470, &type metadata accessor for DriverManager);
+    sub_4B58(&qword_C470, &type metadata accessor for DriverManager, &protocol conformance descriptor for DriverManager);
     result = sub_4DD0();
     __break(1u);
   }
@@ -1165,16 +1123,16 @@ uint64_t sub_450C(void *a1, uint64_t a2, uint64_t a3, unint64_t a4)
   return result;
 }
 
-uint64_t sub_46D4@<X0>(id *a1@<X0>, uint64_t a2@<X3>, unint64_t a3@<X4>, uint64_t a4@<X8>)
+void *sub_46D4@<X0>(id *a1@<X0>, uint64_t a2@<X3>, unint64_t a3@<X4>, uint64_t a4@<X8>)
 {
   v7 = *a1;
   sub_4288(a2, a3);
   sub_4D40();
-  sub_4B58(&qword_C470, &type metadata accessor for DriverManager);
+  sub_4B58(&qword_C470, &type metadata accessor for DriverManager, &protocol conformance descriptor for DriverManager);
   v8 = sub_4DE0();
   v10 = v9;
   sub_4D00();
-  sub_4B58(&unk_C520, &type metadata accessor for DriverApprovalState);
+  sub_4B58(&unk_C520, &type metadata accessor for DriverApprovalState, &protocol conformance descriptor for DriverApprovalState);
   v11 = sub_4DC0();
   v13 = v12;
   result = sub_4EA0();
@@ -1193,27 +1151,17 @@ uint64_t sub_4814()
 {
   v1 = sub_3140(&qword_C4D0, &qword_58B8);
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
   __chkstk_darwin(v1);
-  v5 = &v8[-v4];
-  v6 = v0[1];
-  v9 = *v0;
-  v10 = v6;
+  v4 = &v7[-v3];
+  v5 = v0[1];
+  v8 = *v0;
+  v9 = v5;
   sub_3140(&qword_C4D8, &qword_58C0);
   sub_4988();
   sub_4E20();
-  sub_3474(&qword_C500, &qword_C4D0, &qword_58B8);
+  sub_3474(&qword_C500, &qword_C4D0, &qword_58B8, &protocol conformance descriptor for Form<A>);
   sub_4E50();
-  return (*(v2 + 8))(v5, v1);
-}
-
-uint64_t sub_497C()
-{
-  v1 = v0[2];
-  v2 = v0[3];
-  v3 = v0[4];
-  v4 = v0[5];
-  return sub_43D8();
+  return (*(v2 + 8))(v4, v1);
 }
 
 unint64_t sub_4988()
@@ -1235,8 +1183,8 @@ unint64_t sub_4A20()
   result = qword_C4E8;
   if (!qword_C4E8)
   {
-    sub_3374(&qword_C4F0, &qword_58C8);
-    sub_4AA4();
+    v1 = sub_3374(&qword_C4F0, &qword_58C8);
+    sub_4AA4(v1, v2, v3);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_C4E8);
   }
@@ -1244,7 +1192,7 @@ unint64_t sub_4A20()
   return result;
 }
 
-unint64_t sub_4AA4()
+unint64_t sub_4AA4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = qword_C4F8;
   if (!qword_C4F8)
@@ -1265,14 +1213,7 @@ uint64_t sub_4B04()
   return _swift_deallocObject(v0, 48, 7);
 }
 
-uint64_t sub_4B4C@<X0>(id *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2[2];
-  v4 = v2[3];
-  return sub_46D4(a1, v2[4], v2[5], a2);
-}
-
-uint64_t sub_4B58(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_4B58(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1288,7 +1229,7 @@ uint64_t sub_4B58(unint64_t *a1, void (*a2)(uint64_t))
 uint64_t sub_4BA0()
 {
   sub_3374(&qword_C4D0, &qword_58B8);
-  sub_3474(&qword_C500, &qword_C4D0, &qword_58B8);
+  sub_3474(&qword_C500, &qword_C4D0, &qword_58B8, &protocol conformance descriptor for Form<A>);
   return swift_getOpaqueTypeConformance2();
 }
 

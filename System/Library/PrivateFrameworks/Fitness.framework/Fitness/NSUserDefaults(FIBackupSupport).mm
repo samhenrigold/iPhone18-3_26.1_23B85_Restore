@@ -19,9 +19,9 @@
     +[NSUserDefaults(FIBackupSupport) fi_npsManager];
   }
 
-  v1 = fi_npsManager_npsManager;
+  v2 = fi_npsManager_npsManager;
 
-  return v1;
+  return v2;
 }
 
 + (void)fi_backupAndSetObject:()FIBackupSupport forKey:
@@ -90,24 +90,24 @@
 + (void)fi_backupStandardUserDefaultsKey:()FIBackupSupport useContainer:
 {
   _HKInitializeLogging();
-  v0 = *MEMORY[0x277CCC270];
+  v1 = *MEMORY[0x277CCC270];
   if (os_log_type_enabled(*MEMORY[0x277CCC270], OS_LOG_TYPE_ERROR))
   {
-    [NSUserDefaults(FIBackupSupport) fi_backupStandardUserDefaultsKey:v0 useContainer:?];
+    [NSUserDefaults(FIBackupSupport) fi_backupStandardUserDefaultsKey:v1 useContainer:?];
   }
 }
 
 + (void)fi_synchronizeStandardUserDefaultsKey:()FIBackupSupport useContainer:
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = a3;
   _HKInitializeLogging();
   v7 = *MEMORY[0x277CCC270];
   if (os_log_type_enabled(*MEMORY[0x277CCC270], OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412290;
-    v15 = v6;
-    _os_log_impl(&dword_24B35E000, v7, OS_LOG_TYPE_DEFAULT, "Synchronizing default with key: %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = v6;
+    _os_log_impl(&dword_24B35E000, v7, OS_LOG_TYPE_DEFAULT, "Synchronizing default with key: %@", &v13, 0xCu);
   }
 
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
@@ -126,8 +126,6 @@
   }
 
   [fi_npsManager synchronizeUserDefaultsDomain:bundleIdentifier keys:v11 container:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

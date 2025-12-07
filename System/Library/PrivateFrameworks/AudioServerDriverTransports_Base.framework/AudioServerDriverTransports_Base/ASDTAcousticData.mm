@@ -1,11 +1,93 @@
 @interface ASDTAcousticData
++ (id)createWithSysCfgData:(id)data andType:(int)type;
+- (ASDTAcousticData)initWithSysCfgData:(id)data andType:(int)type;
 @end
 
 @implementation ASDTAcousticData
 
++ (id)createWithSysCfgData:(id)data andType:(int)type
+{
+  v4 = *&type;
+  dataCopy = data;
+  v7 = dataCopy;
+  if (v4 == 1298745185 || v4 == 1399867233)
+  {
+    v8 = [[ASDTTrimGain alloc] initWithSysCfgData:dataCopy andType:v4];
+    goto LABEL_6;
+  }
+
+  if (v4 == 1399870547)
+  {
+    v8 = [[ASDTSpeakerThieleSmall alloc] initWithSysCfgData:dataCopy];
+LABEL_6:
+    v9 = v8;
+    goto LABEL_10;
+  }
+
+  v10 = ASDTBaseLogType(dataCopy, v6);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  {
+    [ASDTAcousticData createWithSysCfgData:v4 andType:v10];
+  }
+
+  v9 = 0;
+LABEL_10:
+
+  return v9;
+}
+
+- (ASDTAcousticData)initWithSysCfgData:(id)data andType:(int)type
+{
+  v4 = *&type;
+  dataCopy = data;
+  v20.receiver = self;
+  v20.super_class = ASDTAcousticData;
+  v7 = [(ASDTAcousticData *)&v20 init];
+  if (!v7)
+  {
+    goto LABEL_5;
+  }
+
+  bytes = [dataCopy bytes];
+  if (bytes)
+  {
+    bytes = [dataCopy length];
+    if (bytes > 6)
+    {
+      [(ASDTAcousticData *)v7 setDataType:v4];
+      v19 = 0;
+      v10 = vshlq_u32(vdupq_n_s32(v4), xmmword_2416A4AF0);
+      v11.i64[0] = 0x1F0000001FLL;
+      v11.i64[1] = 0x1F0000001FLL;
+      v12.i64[0] = 0x5F0000005FLL;
+      v12.i64[1] = 0x5F0000005FLL;
+      v13 = vcgtq_u32(v12, vsraq_n_s32(v11, vshlq_n_s32(v10, 0x18uLL), 0x18uLL));
+      *v10.i8 = vrev64_s16(vorr_s8(vmovn_s32(vandq_s8(v10, v13)), vbic_s8(0x3F003F003F003FLL, vmovn_s32(v13))));
+      v18 = vuzp1_s8(*v10.i8, *v10.i8).u32[0];
+      v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:&v18];
+      [(ASDTAcousticData *)v7 setName:v14];
+
+LABEL_5:
+      v15 = v7;
+      goto LABEL_9;
+    }
+  }
+
+  v16 = ASDTBaseLogType(bytes, v9);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  {
+    [ASDTAcousticData initWithSysCfgData:v16 andType:?];
+  }
+
+  v15 = 0;
+LABEL_9:
+
+  return v15;
+}
+
 + (void)createWithSysCfgData:(unsigned int)a1 andType:(NSObject *)a2 .cold.1(unsigned int a1, NSObject *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = HIBYTE(a1);
   if ((a1 - 0x20000000) >> 24 >= 0x5F)
   {
@@ -24,12 +106,12 @@
     v4 = 32;
   }
 
-  v7[0] = 67109888;
-  v7[1] = v2;
-  v8 = 1024;
-  v9 = v3;
-  v10 = 1024;
-  v11 = v4;
+  v6[0] = 67109888;
+  v6[1] = v2;
+  v7 = 1024;
+  v8 = v3;
+  v9 = 1024;
+  v10 = v4;
   if (a1 - 32 >= 0x5F)
   {
     v5 = 32;
@@ -40,10 +122,9 @@
     v5 = a1;
   }
 
-  v12 = 1024;
-  v13 = v5;
-  _os_log_error_impl(&dword_241659000, a2, OS_LOG_TYPE_ERROR, "ASDTAcousticData: Unsupported acoustic data type: '%c%c%c%c'", v7, 0x1Au);
-  v6 = *MEMORY[0x277D85DE8];
+  v11 = 1024;
+  v12 = v5;
+  _os_log_error_impl(&dword_241659000, a2, OS_LOG_TYPE_ERROR, "ASDTAcousticData: Unsupported acoustic data type: '%c%c%c%c'", v6, 0x1Au);
 }
 
 @end

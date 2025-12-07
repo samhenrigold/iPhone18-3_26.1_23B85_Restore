@@ -74,15 +74,16 @@
     v6 = [NSData dataWithContentsOfFile:path];
     if (v6)
     {
-      v11 = 0;
-      v7 = [NSPropertyListSerialization propertyListWithData:v6 options:0 format:0 error:&v11];
-      v8 = v11;
+      v12 = 0;
+      v7 = [NSPropertyListSerialization propertyListWithData:v6 options:0 format:0 error:&v12];
+      v8 = v12;
+      v9 = v8;
       if (!v7)
       {
-        v9 = NNSetupCompanionSyncLog();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v10 = NNSetupCompanionSyncLog(v8);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          sub_100008FF8(v6, v8, v9);
+          sub_100008FF8(v6, v9, v10);
         }
       }
 
@@ -110,11 +111,11 @@
 
 - (BOOL)shouldResumeSync
 {
-  v3 = NNSetupCompanionSyncLog();
+  v3 = NNSetupCompanionSyncLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v18) = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Checking if should resume sync…", &v18, 2u);
+    LOWORD(v21) = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Checking if should resume sync…", &v21, 2u);
   }
 
   pendingSyncFileURL = [(NNCompanionSyncServiceManager *)self pendingSyncFileURL];
@@ -125,51 +126,52 @@
   if (v7)
   {
     syncResultsFileURL = [(NNCompanionSyncServiceManager *)self syncResultsFileURL];
-    v9 = +[NSFileManager defaultManager];
+    v10 = +[NSFileManager defaultManager];
     path2 = [syncResultsFileURL path];
-    v11 = [v9 fileExistsAtPath:path2];
+    v12 = [v10 fileExistsAtPath:path2];
 
-    if (v11)
+    if (v12)
     {
-      v12 = [NSData dataWithContentsOfURL:pendingSyncFileURL];
-      v13 = [NSData dataWithContentsOfURL:syncResultsFileURL];
-      v14 = [v12 isEqual:v13];
-      v15 = NNSetupCompanionSyncLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v14 = [NSData dataWithContentsOfURL:pendingSyncFileURL];
+      v15 = [NSData dataWithContentsOfURL:syncResultsFileURL];
+      v16 = [v14 isEqual:v15];
+      v17 = v16;
+      v18 = NNSetupCompanionSyncLog(v16);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
-        v18 = 134217984;
-        v19 = v14;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Resume sync - Data equal = %ld", &v18, 0xCu);
+        v21 = 134217984;
+        v22 = v17;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Resume sync - Data equal = %ld", &v21, 0xCu);
       }
 
-      v16 = v14 ^ 1;
+      v19 = v17 ^ 1;
     }
 
     else
     {
-      v12 = NNSetupCompanionSyncLog();
-      v16 = 1;
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v14 = NNSetupCompanionSyncLog(v13);
+      v19 = 1;
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v18) = 0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "WILL resume sync - No sync'd data..", &v18, 2u);
+        LOWORD(v21) = 0;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "WILL resume sync - No sync'd data..", &v21, 2u);
       }
     }
   }
 
   else
   {
-    syncResultsFileURL = NNSetupCompanionSyncLog();
+    syncResultsFileURL = NNSetupCompanionSyncLog(v8);
     if (os_log_type_enabled(syncResultsFileURL, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&_mh_execute_header, syncResultsFileURL, OS_LOG_TYPE_INFO, "Will NOT resume sync - No data to sync.", &v18, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&_mh_execute_header, syncResultsFileURL, OS_LOG_TYPE_INFO, "Will NOT resume sync - No data to sync.", &v21, 2u);
     }
 
-    v16 = 0;
+    v19 = 0;
   }
 
-  return v16;
+  return v19;
 }
 
 - (void)enqueueHeadlineSyncWithData:(id)data
@@ -191,44 +193,44 @@
   pendingSyncFileURL = [(NNCompanionSyncServiceManager *)self pendingSyncFileURL];
   path = [pendingSyncFileURL path];
 
-  v5 = NNSetupCompanionSyncLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = NNSetupCompanionSyncLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v12 = 138412290;
-    v13 = path;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Looking for data at %@!", &v12, 0xCu);
+    v14 = 138412290;
+    v15 = path;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Looking for data at %@!", &v14, 0xCu);
   }
 
-  v6 = +[NSFileManager defaultManager];
-  v7 = [v6 fileExistsAtPath:path];
+  v7 = +[NSFileManager defaultManager];
+  v8 = [v7 fileExistsAtPath:path];
 
-  v8 = NNSetupCompanionSyncLog();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
-  if (v7)
+  v10 = NNSetupCompanionSyncLog(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
+  if (v8)
   {
-    if (v9)
+    if (v11)
     {
-      v12 = 138412290;
-      v13 = path;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Data found at %@!", &v12, 0xCu);
+      v14 = 138412290;
+      v15 = path;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Data found at %@!", &v14, 0xCu);
     }
 
-    v10 = [[NSData alloc] initWithContentsOfFile:path];
+    v12 = [[NSData alloc] initWithContentsOfFile:path];
   }
 
   else
   {
-    if (v9)
+    if (v11)
     {
-      v12 = 138412290;
-      v13 = path;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "No data to sync at %@!", &v12, 0xCu);
+      v14 = 138412290;
+      v15 = path;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "No data to sync at %@!", &v14, 0xCu);
     }
 
-    v10 = 0;
+    v12 = 0;
   }
 
-  return v10;
+  return v12;
 }
 
 - (void)companionSyncSessionManager:(id)manager didSyncHeadlineData:(id)data
@@ -242,16 +244,16 @@
 
   if ((v11 & 1) == 0)
   {
-    v12 = NNSetupCompanionSyncLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = NNSetupCompanionSyncLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       lastSyncFileURL2 = [(NNCompanionSyncServiceManager *)self lastSyncFileURL];
       path2 = [lastSyncFileURL2 path];
-      v15 = 138412546;
-      v16 = path2;
-      v17 = 2112;
-      v18 = dataCopy;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "ERROR writing file %@ with data %@.", &v15, 0x16u);
+      v16 = 138412546;
+      v17 = path2;
+      v18 = 2112;
+      v19 = dataCopy;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "ERROR writing file %@ with data %@.", &v16, 0x16u);
     }
   }
 
@@ -311,19 +313,19 @@
   serializer = [(NNCompanionSyncServiceManager *)self serializer];
   [sessionCopy setSerializer:serializer];
 
-  v10 = NNSetupCompanionSyncLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = NNSetupCompanionSyncLog(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     delegate = [sessionCopy delegate];
     targetQueue = [sessionCopy targetQueue];
     serializer2 = [sessionCopy serializer];
-    v15 = 138412802;
-    v16 = delegate;
-    v17 = 2112;
-    v18 = targetQueue;
-    v19 = 2112;
-    v20 = serializer2;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "STARTING sync session with delegate %@, queue %@, serializer %@.", &v15, 0x20u);
+    v16 = 138412802;
+    v17 = delegate;
+    v18 = 2112;
+    v19 = targetQueue;
+    v20 = 2112;
+    v21 = serializer2;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "STARTING sync session with delegate %@, queue %@, serializer %@.", &v16, 0x20u);
   }
 
   return 1;
@@ -332,7 +334,7 @@
 - (void)service:(id)service sessionEnded:(id)ended error:(id)error
 {
   endedCopy = ended;
-  v7 = NNSetupCompanionSyncLog();
+  v7 = NNSetupCompanionSyncLog(endedCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *v10 = 0;
@@ -351,7 +353,7 @@
 {
   serviceCopy = service;
   iDCopy = iD;
-  v9 = NNSetupCompanionSyncLog();
+  v9 = NNSetupCompanionSyncLog(iDCopy);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
   if (iDCopy)
   {

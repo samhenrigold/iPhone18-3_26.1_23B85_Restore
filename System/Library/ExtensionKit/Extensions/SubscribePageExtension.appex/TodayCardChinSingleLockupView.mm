@@ -44,17 +44,18 @@
   v2 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtension29TodayCardChinSingleLockupView_clickActionHandler);
   if (v2)
   {
+    v3 = *&self->lockupView[OBJC_IVAR____TtC22SubscribePageExtension29TodayCardChinSingleLockupView_clickActionHandler];
     selfCopy = self;
-    v4 = sub_10001B5AC(v2);
-    v2(v4);
+    v5 = sub_10001B5AC(v2, v3);
+    v2(v5);
 
-    sub_1000164A8(v2);
+    sub_1000164A8(v2, v3);
   }
 }
 
 - (NSArray)accessibilityElements
 {
-  sub_10000C518(&unk_1009259C0);
+  sub_10000C518(&unk_1009259C0, &unk_1007A9270);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_1007A5A00;
   v4 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtension29TodayCardChinSingleLockupView_lockupView);

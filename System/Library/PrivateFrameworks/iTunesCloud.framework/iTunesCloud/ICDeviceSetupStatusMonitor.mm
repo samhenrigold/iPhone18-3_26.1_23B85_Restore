@@ -111,9 +111,11 @@
 
 uint64_t __43__ICDeviceSetupStatusMonitor_sharedMonitor__block_invoke()
 {
-  sharedMonitor_sSharedMonitor_18381 = [[ICDeviceSetupStatusMonitor alloc] _init];
+  v0 = [[ICDeviceSetupStatusMonitor alloc] _init];
+  v1 = sharedMonitor_sSharedMonitor_18381;
+  sharedMonitor_sSharedMonitor_18381 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 void __35__ICDeviceSetupStatusMonitor__init__block_invoke(uint64_t a1)

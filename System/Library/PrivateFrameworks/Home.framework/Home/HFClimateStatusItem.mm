@@ -17,19 +17,17 @@
   return v3;
 }
 
-void __40__HFClimateStatusItem_statusItemClasses__block_invoke_2()
+void __40__HFClimateStatusItem_statusItemClasses__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5 = objc_opt_class();
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
   v6 = objc_opt_class();
   v7 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:3];
-  v2 = [v0 setWithArray:{v1, v5, v6}];
-  v3 = qword_280E03018;
-  qword_280E03018 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v8 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:3];
+  v4 = [v2 setWithArray:{v3, v6, v7}];
+  v5 = qword_280E03018;
+  qword_280E03018 = v4;
 }
 
 - (id)_subclass_updateWithOptions:(id)options
@@ -44,7 +42,7 @@ void __40__HFClimateStatusItem_statusItemClasses__block_invoke_2()
 
 id __51__HFClimateStatusItem__subclass_updateWithOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v2 = [a2 mutableCopy];
   v3 = [v2 objectForKeyedSubscript:@"hidden"];
   v4 = [v3 BOOLValue];
@@ -57,14 +55,12 @@ id __51__HFClimateStatusItem__subclass_updateWithOptions___block_invoke(uint64_t
 
   else
   {
-    v11 = @"hidden";
-    v12[0] = MEMORY[0x277CBEC38];
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = @"hidden";
+    v11[0] = MEMORY[0x277CBEC38];
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v8 = [HFItemUpdateOutcome outcomeWithResults:v7];
     v6 = [v5 futureWithResult:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

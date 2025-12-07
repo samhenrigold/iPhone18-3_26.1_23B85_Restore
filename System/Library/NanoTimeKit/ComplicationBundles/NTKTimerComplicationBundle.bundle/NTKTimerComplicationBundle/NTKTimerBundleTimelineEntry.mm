@@ -24,7 +24,9 @@
 - (id)_newSmallFlatUtilityTemplate;
 - (id)_newSmallModularTemplate;
 - (id)_relativeDateGaugeProviderForTimeInterval:(double)interval fullDuration:(double)duration paused:(BOOL)paused tintColor:(id)color;
+- (id)_relativeDateTextProviderForTimeInterval:(double)interval paused:(BOOL)paused twoDigitMinuteZeroPadding:(BOOL)padding;
 - (id)_templateMetadata;
+- (id)_textProviderForTimeAtState:(unint64_t)state withUnknownText:(id)text twoDigitMinuteZeroPadding:(BOOL)padding;
 - (id)_titleTextProvider:(BOOL)provider;
 - (id)templateForComplicationFamily:(int64_t)family;
 @end
@@ -852,6 +854,73 @@ LABEL_14:
   v9 = [CLKSimpleTextProvider textProviderWithText:title2];
 
   return v9;
+}
+
+- (id)_textProviderForTimeAtState:(unint64_t)state withUnknownText:(id)text twoDigitMinuteZeroPadding:(BOOL)padding
+{
+  paddingCopy = padding;
+  textCopy = text;
+  v9 = 0;
+  if (state <= 1)
+  {
+    if (!state)
+    {
+      goto LABEL_9;
+    }
+
+    if (state != 1)
+    {
+      goto LABEL_15;
+    }
+
+    [(NTKTimerBundleTimelineEntry *)self countdownDuration];
+    goto LABEL_11;
+  }
+
+  switch(state)
+  {
+    case 2uLL:
+      [(NTKTimerBundleTimelineEntry *)self remainingTime];
+LABEL_11:
+      selfCopy2 = self;
+      v12 = 1;
+LABEL_13:
+      v10 = [(NTKTimerBundleTimelineEntry *)selfCopy2 _relativeDateTextProviderForTimeInterval:v12 paused:paddingCopy twoDigitMinuteZeroPadding:?];
+      goto LABEL_14;
+    case 3uLL:
+      [(NTKTimerBundleTimelineEntry *)self remainingTime];
+      selfCopy2 = self;
+      v12 = 0;
+      goto LABEL_13;
+    case 4uLL:
+LABEL_9:
+      v10 = [CLKSimpleTextProvider textProviderWithText:textCopy];
+LABEL_14:
+      v9 = v10;
+      break;
+  }
+
+LABEL_15:
+
+  return v9;
+}
+
+- (id)_relativeDateTextProviderForTimeInterval:(double)interval paused:(BOOL)paused twoDigitMinuteZeroPadding:(BOOL)padding
+{
+  paddingCopy = padding;
+  pausedCopy = paused;
+  v9 = +[NSDate date];
+  v10 = [v9 dateByAddingTimeInterval:interval];
+  v11 = [CLKRelativeDateTextProvider textProviderWithDate:v10 style:2 units:224];
+  [v11 setPauseTimerAtZero:1];
+  [v11 setTwoDigitMinuteZeroPadding:paddingCopy];
+  if (pausedCopy)
+  {
+    [v11 setRelativeToDate:v9];
+    [(NTKTimerBundleTimelineEntry *)self _updateTextProviderForAOTPaused:v11];
+  }
+
+  return v11;
 }
 
 + (id)fullColorSymbolImageProviderForDevice:(id)device withOverridePointSize:(double)size

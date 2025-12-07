@@ -40,32 +40,31 @@
 
 - (FCNetworkOperation)initWithNetworkReachability:(id)reachability
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   reachabilityCopy = reachability;
   if (!reachabilityCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "networkReachability"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "networkReachability"];
     *buf = 136315906;
-    v13 = "[FCNetworkOperation initWithNetworkReachability:]";
-    v14 = 2080;
-    v15 = "FCNetworkOperation.m";
-    v16 = 1024;
-    v17 = 34;
-    v18 = 2114;
-    v19 = v10;
+    v12 = "[FCNetworkOperation initWithNetworkReachability:]";
+    v13 = 2080;
+    v14 = "FCNetworkOperation.m";
+    v15 = 1024;
+    v16 = 34;
+    v17 = 2114;
+    v18 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v11.receiver = self;
-  v11.super_class = FCNetworkOperation;
-  v6 = [(FCOperation *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = FCNetworkOperation;
+  v6 = [(FCOperation *)&v10 init];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(&v6->_networkReachability, reachability);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -204,12 +203,12 @@ uint64_t __45__FCNetworkOperation_validateOperationError___block_invoke(uint64_t
 
 - (void)networkReachabilityDidChange:(id)change
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   if ([(FCOperation *)self hasOperationStarted])
   {
-    v9 = 0;
-    if (![(FCNetworkOperation *)self areNetworkRequirementsSatisfiedWithReachability:changeCopy offlineReason:&v9])
+    v8 = 0;
+    if (![(FCNetworkOperation *)self areNetworkRequirementsSatisfiedWithReachability:changeCopy offlineReason:&v8])
     {
       v5 = FCOperationLog;
       if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
@@ -217,17 +216,15 @@ uint64_t __45__FCNetworkOperation_validateOperationError___block_invoke(uint64_t
         v6 = v5;
         shortOperationDescription = [(FCOperation *)self shortOperationDescription];
         *buf = 138543618;
-        v11 = shortOperationDescription;
-        v12 = 2048;
-        v13 = v9;
+        v10 = shortOperationDescription;
+        v11 = 2048;
+        v12 = v8;
         _os_log_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_DEFAULT, "cancelling %{public}@ due to failure to satisfy network requirements with offline reason %ld", buf, 0x16u);
       }
 
       [(FCOperation *)self cancel];
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

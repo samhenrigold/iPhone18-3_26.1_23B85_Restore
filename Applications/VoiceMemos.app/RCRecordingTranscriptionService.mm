@@ -33,46 +33,46 @@
 
 - (void)startTranscriptionFor:(id)for
 {
-  v4 = sub_1000C773C(&unk_1002D1D90);
-  __chkstk_darwin(v4 - 8, v5);
-  v7 = &v14 - v6;
-  v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v10 = v9;
-  v11 = type metadata accessor for TaskPriority();
-  (*(*(v11 - 8) + 56))(v7, 1, 1, v11);
-  v12 = swift_allocObject();
-  v12[2] = 0;
-  v12[3] = 0;
-  v12[4] = self;
-  v12[5] = v8;
-  v12[6] = v10;
+  v4 = sub_1000C773C(&unk_1002D1D90, &qword_1002422E0);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v13 - v5;
+  v7 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v9 = v8;
+  v10 = type metadata accessor for TaskPriority();
+  (*(*(v10 - 8) + 56))(v6, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = self;
+  v11[5] = v7;
+  v11[6] = v9;
   selfCopy = self;
-  sub_100179578(0, 0, v7, &unk_100243900, v12);
+  sub_100179578(0, 0, v6, &unk_100243900, v11);
 }
 
 - (void)cancelFileTranscriptionWithCompletionHandler:(id)handler
 {
-  v5 = sub_1000C773C(&unk_1002D1D90);
-  __chkstk_darwin(v5 - 8, v6);
-  v8 = &v15 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = type metadata accessor for TaskPriority();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v5 = sub_1000C773C(&unk_1002D1D90, &qword_1002422E0);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = type metadata accessor for TaskPriority();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_1002438F0;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_1002438F0;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_100243D40;
-  v13[5] = v12;
+  v12[4] = &unk_100243D40;
+  v12[5] = v11;
   selfCopy = self;
-  sub_1001A8E50(0, 0, v8, &unk_100243540, v13);
+  sub_1001A8E50(0, 0, v7, &unk_100243540, v12);
 }
 
 @end

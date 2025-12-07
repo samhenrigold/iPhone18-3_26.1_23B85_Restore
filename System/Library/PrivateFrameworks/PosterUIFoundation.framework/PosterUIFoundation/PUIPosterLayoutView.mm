@@ -242,15 +242,17 @@
     v7 = viewCopy;
     [(PUIReusableView *)backdropView removeFromSuperview];
     objc_storeStrong(&self->_backdropView, view);
+    viewCopy = v7;
     if (v7)
     {
       [(PUIPosterLayoutView *)self bounds];
       [(PUIReusableView *)v7 pui_setBoundsAndPositionFromFrame:?];
-      [(UIView *)self->_backdropContainerView addSubview:v7];
+      backdropView = [(UIView *)self->_backdropContainerView addSubview:v7];
+      viewCopy = v7;
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](backdropView, viewCopy);
 }
 
 - (void)setBackgroundView:(id)view
@@ -262,15 +264,17 @@
     v7 = viewCopy;
     [(PUIReusableView *)backgroundView removeFromSuperview];
     objc_storeStrong(&self->_backgroundView, view);
+    viewCopy = v7;
     if (v7)
     {
       [(PUIPosterLayoutView *)self bounds];
       [(PUIReusableView *)v7 pui_setBoundsAndPositionFromFrame:?];
-      [(UIView *)self->_backgroundContainerView addSubview:v7];
+      backgroundView = [(UIView *)self->_backgroundContainerView addSubview:v7];
+      viewCopy = v7;
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](backgroundView, viewCopy);
 }
 
 - (void)setForegroundView:(id)view
@@ -282,15 +286,17 @@
     v7 = viewCopy;
     [(PUIReusableView *)foregroundView removeFromSuperview];
     objc_storeStrong(&self->_foregroundView, view);
+    viewCopy = v7;
     if (v7)
     {
       [(PUIPosterLayoutView *)self bounds];
       [(PUIReusableView *)v7 pui_setBoundsAndPositionFromFrame:?];
-      [(UIView *)self->_foregroundContainerView addSubview:v7];
+      foregroundView = [(UIView *)self->_foregroundContainerView addSubview:v7];
+      viewCopy = v7;
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](foregroundView, viewCopy);
 }
 
 - (void)setFloatingUnderView:(id)view
@@ -302,15 +308,17 @@
     v7 = viewCopy;
     [(PUIReusableView *)floatingUnderView removeFromSuperview];
     objc_storeStrong(&self->_floatingUnderView, view);
+    viewCopy = v7;
     if (v7)
     {
       [(PUIPosterLayoutView *)self bounds];
       [(PUIReusableView *)v7 pui_setBoundsAndPositionFromFrame:?];
-      [(UIView *)self->_floatingUnderContainerView addSubview:v7];
+      floatingUnderView = [(UIView *)self->_floatingUnderContainerView addSubview:v7];
+      viewCopy = v7;
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](floatingUnderView, viewCopy);
 }
 
 - (void)setTimeView:(id)view
@@ -322,15 +330,17 @@
     v7 = viewCopy;
     [(PUIReusableView *)timeView removeFromSuperview];
     objc_storeStrong(&self->_timeView, view);
+    viewCopy = v7;
     if (v7)
     {
       [(PUIPosterLayoutView *)self bounds];
       [(PUIReusableView *)v7 pui_setBoundsAndPositionFromFrame:?];
-      [(UIView *)self->_timeContainerView addSubview:v7];
+      timeView = [(UIView *)self->_timeContainerView addSubview:v7];
+      viewCopy = v7;
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](timeView, viewCopy);
 }
 
 - (void)setFloatingView:(id)view
@@ -342,15 +352,17 @@
     v7 = viewCopy;
     [(PUIReusableView *)floatingView removeFromSuperview];
     objc_storeStrong(&self->_floatingView, view);
+    viewCopy = v7;
     if (v7)
     {
       [(PUIPosterLayoutView *)self bounds];
       [(PUIReusableView *)v7 pui_setBoundsAndPositionFromFrame:?];
-      [(UIView *)self->_floatingContainerView addSubview:v7];
+      floatingView = [(UIView *)self->_floatingContainerView addSubview:v7];
+      viewCopy = v7;
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](floatingView, viewCopy);
 }
 
 - (void)setCompositeView:(id)view
@@ -362,15 +374,17 @@
     v7 = viewCopy;
     [(PUIReusableView *)compositeView removeFromSuperview];
     objc_storeStrong(&self->_compositeView, view);
+    viewCopy = v7;
     if (v7)
     {
       [(PUIPosterLayoutView *)self bounds];
       [(PUIReusableView *)v7 pui_setBoundsAndPositionFromFrame:?];
-      [(UIView *)self->_compositeContainerView addSubview:v7];
+      compositeView = [(UIView *)self->_compositeContainerView addSubview:v7];
+      viewCopy = v7;
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](compositeView, viewCopy);
 }
 
 - (void)setModalView:(id)view
@@ -382,15 +396,17 @@
     v7 = viewCopy;
     [(PUIReusableView *)modalView removeFromSuperview];
     objc_storeStrong(&self->_modalView, view);
+    viewCopy = v7;
     if (v7)
     {
       [(PUIPosterLayoutView *)self bounds];
       [(PUIReusableView *)v7 pui_setBoundsAndPositionFromFrame:?];
-      [(UIView *)self->_modalContainerView addSubview:v7];
+      modalView = [(UIView *)self->_modalContainerView addSubview:v7];
+      viewCopy = v7;
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](modalView, viewCopy);
 }
 
 - (void)updateViewWithBlock:(id)block animated:(unint64_t)animated

@@ -454,7 +454,7 @@ void __52__GKNotificationBannerView_transitionToPlayerAvatar__block_invoke(uint6
   v8 = v7;
   if (v7)
   {
-    [v7 transform];
+    objc_msgSend_transform(v7);
   }
 
   else

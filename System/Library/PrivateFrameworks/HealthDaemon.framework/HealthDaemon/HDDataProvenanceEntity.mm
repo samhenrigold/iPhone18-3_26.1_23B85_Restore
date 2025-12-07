@@ -11,30 +11,29 @@
 
 + (id)uniquedColumns
 {
-  v5[14] = *MEMORY[0x277D85DE8];
-  v5[0] = @"sync_provenance";
-  v5[1] = @"origin_product_type";
-  v5[2] = @"origin_build";
-  v5[3] = @"local_product_type";
-  v5[4] = @"local_build";
-  v5[5] = @"source_id";
-  v5[6] = @"device_id";
-  v5[7] = @"contributor_id";
-  v5[8] = @"source_version";
-  v5[9] = @"tz_name";
-  v5[10] = @"origin_major_version";
-  v5[11] = @"origin_minor_version";
-  v5[12] = @"origin_patch_version";
-  v5[13] = @"sync_identity";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:14];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[14] = *MEMORY[0x277D85DE8];
+  v4[0] = @"sync_provenance";
+  v4[1] = @"origin_product_type";
+  v4[2] = @"origin_build";
+  v4[3] = @"local_product_type";
+  v4[4] = @"local_build";
+  v4[5] = @"source_id";
+  v4[6] = @"device_id";
+  v4[7] = @"contributor_id";
+  v4[8] = @"source_version";
+  v4[9] = @"tz_name";
+  v4[10] = @"origin_major_version";
+  v4[11] = @"origin_minor_version";
+  v4[12] = @"origin_patch_version";
+  v4[13] = @"sync_identity";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:14];
 
   return v2;
 }
 
 + (id)insertOrLookupDataProvenanceForSyncProvenance:(int64_t)provenance syncIdentity:(int64_t)identity originProductType:(id)type originSystemBuild:(id)build originOSVersion:(id *)version localProductType:(id)productType localSystemBuild:(id)systemBuild sourceVersion:(id)self0 timeZoneName:(id)self1 sourceID:(id)self2 deviceID:(id)self3 contributorID:(id)self4 transaction:(id)self5 error:(id *)self6
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   buildCopy = build;
   productTypeCopy = productType;
@@ -179,57 +178,57 @@ LABEL_10:
     [currentHandler10 handleFailureInMethod:a2 object:self file:@"HDDataProvenanceEntity.m" lineNumber:144 description:{@"Invalid parameter not satisfying: %@", @"transaction != nil"}];
   }
 
-  v95 = 0;
-  v96 = &v95;
-  v97 = 0x3032000000;
-  v98 = __Block_byref_object_copy__11;
-  v99 = __Block_byref_object_dispose__11;
-  v100 = 0;
+  v94 = 0;
+  v95 = &v94;
+  v96 = 0x3032000000;
+  v97 = __Block_byref_object_copy__11;
+  v98 = __Block_byref_object_dispose__11;
+  v99 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __248__HDDataProvenanceEntity_insertOrLookupDataProvenanceForSyncProvenance_syncIdentity_originProductType_originSystemBuild_originOSVersion_localProductType_localSystemBuild_sourceVersion_timeZoneName_sourceID_deviceID_contributorID_transaction_error___block_invoke;
   aBlock[3] = &unk_2786150B0;
   provenanceCopy = provenance;
-  v67 = typeCopy;
-  v82 = v67;
-  v69 = buildCopy;
-  v83 = v69;
-  v71 = productTypeCopy;
-  v84 = v71;
+  v66 = typeCopy;
+  v81 = v66;
+  v68 = buildCopy;
+  v82 = v68;
+  v70 = productTypeCopy;
+  v83 = v70;
   v27 = nameCopy;
   v28 = systemBuildCopy;
-  v85 = v28;
+  v84 = v28;
   v29 = dCopy;
-  v86 = v29;
+  v85 = v29;
   v30 = iDCopy;
-  v87 = v30;
+  v86 = v30;
   v31 = contributorIDCopy;
-  v88 = v31;
+  v87 = v31;
   v32 = sourceVersionCopy;
-  v89 = v32;
+  v88 = v32;
   v33 = v27;
-  v90 = v33;
-  v92 = *&version->var0;
+  v89 = v33;
+  v91 = *&version->var0;
   var2 = version->var2;
   identityCopy = identity;
   v34 = _Block_copy(aBlock);
   protectedDatabase = [transactionCopy protectedDatabase];
-  v79[0] = MEMORY[0x277D85DD0];
-  v79[1] = 3221225472;
-  v79[2] = __248__HDDataProvenanceEntity_insertOrLookupDataProvenanceForSyncProvenance_syncIdentity_originProductType_originSystemBuild_originOSVersion_localProductType_localSystemBuild_sourceVersion_timeZoneName_sourceID_deviceID_contributorID_transaction_error___block_invoke_2;
-  v79[3] = &unk_2786150D8;
-  v36 = v34;
-  v80 = v36;
   v78[0] = MEMORY[0x277D85DD0];
   v78[1] = 3221225472;
-  v78[2] = __248__HDDataProvenanceEntity_insertOrLookupDataProvenanceForSyncProvenance_syncIdentity_originProductType_originSystemBuild_originOSVersion_localProductType_localSystemBuild_sourceVersion_timeZoneName_sourceID_deviceID_contributorID_transaction_error___block_invoke_3;
-  v78[3] = &unk_278614620;
-  v78[4] = &v95;
-  v37 = [protectedDatabase executeSQL:@"SELECT ROWID FROM data_provenances WHERE sync_provenance = ? AND origin_product_type = ? AND origin_build = ? AND local_product_type = ? AND local_build = ? AND source_id = ? AND device_id = ? AND contributor_id = ? AND source_version = ? AND tz_name = ? AND origin_major_version = ? AND origin_minor_version = ? AND origin_patch_version = ? AND sync_identity = ?" error:error bindingHandler:v79 enumerationHandler:v78];
+  v78[2] = __248__HDDataProvenanceEntity_insertOrLookupDataProvenanceForSyncProvenance_syncIdentity_originProductType_originSystemBuild_originOSVersion_localProductType_localSystemBuild_sourceVersion_timeZoneName_sourceID_deviceID_contributorID_transaction_error___block_invoke_2;
+  v78[3] = &unk_2786150D8;
+  v36 = v34;
+  v79 = v36;
+  v77[0] = MEMORY[0x277D85DD0];
+  v77[1] = 3221225472;
+  v77[2] = __248__HDDataProvenanceEntity_insertOrLookupDataProvenanceForSyncProvenance_syncIdentity_originProductType_originSystemBuild_originOSVersion_localProductType_localSystemBuild_sourceVersion_timeZoneName_sourceID_deviceID_contributorID_transaction_error___block_invoke_3;
+  v77[3] = &unk_278614620;
+  v77[4] = &v94;
+  v37 = [protectedDatabase executeSQL:@"SELECT ROWID FROM data_provenances WHERE sync_provenance = ? AND origin_product_type = ? AND origin_build = ? AND local_product_type = ? AND local_build = ? AND source_id = ? AND device_id = ? AND contributor_id = ? AND source_version = ? AND tz_name = ? AND origin_major_version = ? AND origin_minor_version = ? AND origin_patch_version = ? AND sync_identity = ?" error:error bindingHandler:v78 enumerationHandler:v77];
 
   if (v37)
   {
-    v38 = v96[5];
+    v38 = v95[5];
     if (v38)
     {
       v39 = v38;
@@ -240,23 +239,23 @@ LABEL_10:
       longLongValue = [v29 longLongValue];
       unprotectedDatabase = [transactionCopy unprotectedDatabase];
       objc_opt_self();
-      v102 = 0;
-      v103 = &v102;
-      v104 = 0x2020000000;
-      v105 = 0;
+      v101 = 0;
+      v102 = &v101;
+      v103 = 0x2020000000;
+      v104 = 0;
       *&buf = MEMORY[0x277D85DD0];
       *(&buf + 1) = 3221225472;
-      v107 = __66__HDDataProvenanceEntity__derivedFlagsForSourceID_database_error___block_invoke_2;
-      v108 = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-      v109 = longLongValue;
-      v101[0] = MEMORY[0x277D85DD0];
-      v101[1] = 3221225472;
-      v101[2] = __66__HDDataProvenanceEntity__derivedFlagsForSourceID_database_error___block_invoke_3;
-      v101[3] = &unk_278614620;
-      v101[4] = &v102;
-      if ([unprotectedDatabase executeCachedStatementForKey:&_derivedFlagsForSourceID_database_error__lookupKey error:error SQLGenerator:&__block_literal_global_13 bindingHandler:&buf enumerationHandler:v101])
+      v106 = __66__HDDataProvenanceEntity__derivedFlagsForSourceID_database_error___block_invoke_2;
+      v107 = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
+      v108 = longLongValue;
+      v100[0] = MEMORY[0x277D85DD0];
+      v100[1] = 3221225472;
+      v100[2] = __66__HDDataProvenanceEntity__derivedFlagsForSourceID_database_error___block_invoke_3;
+      v100[3] = &unk_278614620;
+      v100[4] = &v101;
+      if ([unprotectedDatabase executeCachedStatementForKey:&_derivedFlagsForSourceID_database_error__lookupKey error:error SQLGenerator:&__block_literal_global_13 bindingHandler:&buf enumerationHandler:v100])
       {
-        v44 = [MEMORY[0x277CCABB0] numberWithLongLong:v103[3]];
+        v44 = [MEMORY[0x277CCABB0] numberWithLongLong:v102[3]];
       }
 
       else
@@ -264,25 +263,25 @@ LABEL_10:
         v44 = 0;
       }
 
-      _Block_object_dispose(&v102, 8);
+      _Block_object_dispose(&v101, 8);
 
       if (v44)
       {
         protectedDatabase2 = [transactionCopy protectedDatabase];
-        v75[0] = MEMORY[0x277D85DD0];
-        v75[1] = 3221225472;
-        v75[2] = __248__HDDataProvenanceEntity_insertOrLookupDataProvenanceForSyncProvenance_syncIdentity_originProductType_originSystemBuild_originOSVersion_localProductType_localSystemBuild_sourceVersion_timeZoneName_sourceID_deviceID_contributorID_transaction_error___block_invoke_397;
-        v75[3] = &unk_278615100;
-        v77 = v36;
-        v76 = v44;
-        v46 = [protectedDatabase2 executeSQL:@"INSERT INTO data_provenances (sync_provenance error:origin_product_type bindingHandler:origin_build enumerationHandler:{local_product_type, local_build, source_id, device_id, contributor_id, source_version, tz_name, origin_major_version, origin_minor_version, origin_patch_version, sync_identity, derived_flags) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", error, v75, 0}];
+        v74[0] = MEMORY[0x277D85DD0];
+        v74[1] = 3221225472;
+        v74[2] = __248__HDDataProvenanceEntity_insertOrLookupDataProvenanceForSyncProvenance_syncIdentity_originProductType_originSystemBuild_originOSVersion_localProductType_localSystemBuild_sourceVersion_timeZoneName_sourceID_deviceID_contributorID_transaction_error___block_invoke_397;
+        v74[3] = &unk_278615100;
+        v76 = v36;
+        v75 = v44;
+        v46 = [protectedDatabase2 executeSQL:@"INSERT INTO data_provenances (sync_provenance error:origin_product_type bindingHandler:origin_build enumerationHandler:{local_product_type, local_build, source_id, device_id, contributor_id, source_version, tz_name, origin_major_version, origin_minor_version, origin_patch_version, sync_identity, derived_flags) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", error, v74, 0}];
 
         if (v46)
         {
           protectedDatabase3 = [transactionCopy protectedDatabase];
           lastInsertRowID = [protectedDatabase3 lastInsertRowID];
-          v49 = v96[5];
-          v96[5] = lastInsertRowID;
+          v49 = v95[5];
+          v95[5] = lastInsertRowID;
         }
 
         else
@@ -303,7 +302,7 @@ LABEL_10:
           }
         }
 
-        v39 = v96[5];
+        v39 = v95[5];
       }
 
       else
@@ -348,8 +347,7 @@ LABEL_10:
     v39 = 0;
   }
 
-  _Block_object_dispose(&v95, 8);
-  v54 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v94, 8);
 
   return v39;
 }
@@ -357,27 +355,21 @@ LABEL_10:
 uint64_t __248__HDDataProvenanceEntity_insertOrLookupDataProvenanceForSyncProvenance_syncIdentity_originProductType_originSystemBuild_originOSVersion_localProductType_localSystemBuild_sourceVersion_timeZoneName_sourceID_deviceID_contributorID_transaction_error___block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
   sqlite3_bind_int64(a2, 1, *(a1 + 104));
-  v4 = *(a1 + 32);
   HDSQLiteBindStringToStatement();
-  v5 = *(a1 + 40);
   HDSQLiteBindStringToStatement();
-  v6 = *(a1 + 48);
   HDSQLiteBindStringToStatement();
-  v7 = *(a1 + 56);
   HDSQLiteBindStringToStatement();
   sqlite3_bind_int64(a2, 6, [*(a1 + 64) longLongValue]);
   sqlite3_bind_int64(a2, 7, [*(a1 + 72) longLongValue]);
   sqlite3_bind_int64(a2, 8, [*(a1 + 80) longLongValue]);
-  v8 = *(a1 + 88);
   HDSQLiteBindStringToStatement();
-  v9 = *(a1 + 96);
   HDSQLiteBindStringToStatement();
   sqlite3_bind_int64(a2, 11, *(a1 + 112));
   sqlite3_bind_int64(a2, 12, *(a1 + 120));
   sqlite3_bind_int64(a2, 13, *(a1 + 128));
-  v10 = *(a1 + 136);
+  v4 = *(a1 + 136);
 
-  return sqlite3_bind_int64(a2, 14, v10);
+  return sqlite3_bind_int64(a2, 14, v4);
 }
 
 uint64_t __248__HDDataProvenanceEntity_insertOrLookupDataProvenanceForSyncProvenance_syncIdentity_originProductType_originSystemBuild_originOSVersion_localProductType_localSystemBuild_sourceVersion_timeZoneName_sourceID_deviceID_contributorID_transaction_error___block_invoke_3(uint64_t a1, uint64_t a2)
@@ -490,7 +482,7 @@ BOOL __73__HDDataProvenanceEntity_originProvenanceForPersistentID_database_error
 
   if (error)
   {
-    v15 = [v13 copy];
+    v15 = objc_msgSend_copy(v13);
   }
 
   else
@@ -503,7 +495,7 @@ BOOL __73__HDDataProvenanceEntity_originProvenanceForPersistentID_database_error
 
 uint64_t __62__HDDataProvenanceEntity_deviceIDsForSourceIDs_profile_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277D10B28];
   v6 = *(a1 + 32);
   v7 = a2;
@@ -513,24 +505,23 @@ uint64_t __62__HDDataProvenanceEntity_deviceIDsForSourceIDs_profile_error___bloc
 
   v11 = [v9 queryWithDatabase:v10 predicate:v8];
 
-  v18[0] = @"device_id";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __62__HDDataProvenanceEntity_deviceIDsForSourceIDs_profile_error___block_invoke_2;
-  v16[3] = &unk_278615128;
-  v17 = *(a1 + 40);
-  v13 = [v11 enumeratePersistentIDsAndProperties:v12 error:a3 enumerationHandler:v16];
+  v17[0] = @"device_id";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __62__HDDataProvenanceEntity_deviceIDsForSourceIDs_profile_error___block_invoke_2;
+  v15[3] = &unk_278615128;
+  v16 = *(a1 + 40);
+  v13 = [v11 enumeratePersistentIDsAndProperties:v12 error:a3 enumerationHandler:v15];
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
-uint64_t __62__HDDataProvenanceEntity_deviceIDsForSourceIDs_profile_error___block_invoke_2(uint64_t a1)
+uint64_t __62__HDDataProvenanceEntity_deviceIDsForSourceIDs_profile_error___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = *(a1 + 32);
-  v2 = HDSQLiteColumnWithNameAsNumber();
-  [v1 addObject:v2];
+  v4 = *(a1 + 32);
+  v5 = HDSQLiteColumnWithNameAsNumber();
+  [v4 addObject:v5];
 
   return 1;
 }
@@ -556,15 +547,15 @@ uint64_t __93__HDDataProvenanceEntity__validateUnprotectedDatabaseReferencesOnPr
 
 uint64_t __93__HDDataProvenanceEntity__validateUnprotectedDatabaseReferencesOnProfile_error_errorHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v69[4] = *MEMORY[0x277D85DE8];
+  v68[4] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x22AAC6C80](a2, 0);
   v5 = HDSQLiteColumnAsInt64();
   v6 = MEMORY[0x22AAC6C80](a2, 2);
   v7 = MEMORY[0x22AAC6C80](a2, 3);
   if (!v4)
   {
-    v59 = [MEMORY[0x277CCA890] currentHandler];
-    [v59 handleFailureInMethod:*(a1 + 48) object:*(a1 + 56) file:@"HDDataProvenanceEntity.m" lineNumber:348 description:{@"Invalid parameter not satisfying: %@", @"rowID != nil"}];
+    v58 = [MEMORY[0x277CCA890] currentHandler];
+    [v58 handleFailureInMethod:*(a1 + 48) object:*(a1 + 56) file:@"HDDataProvenanceEntity.m" lineNumber:348 description:{@"Invalid parameter not satisfying: %@", @"rowID != nil"}];
 
     if (v6)
     {
@@ -572,8 +563,8 @@ uint64_t __93__HDDataProvenanceEntity__validateUnprotectedDatabaseReferencesOnPr
     }
 
 LABEL_21:
-    v60 = [MEMORY[0x277CCA890] currentHandler];
-    [v60 handleFailureInMethod:*(a1 + 48) object:*(a1 + 56) file:@"HDDataProvenanceEntity.m" lineNumber:349 description:{@"Invalid parameter not satisfying: %@", @"sourceID != nil"}];
+    v59 = [MEMORY[0x277CCA890] currentHandler];
+    [v59 handleFailureInMethod:*(a1 + 48) object:*(a1 + 56) file:@"HDDataProvenanceEntity.m" lineNumber:349 description:{@"Invalid parameter not satisfying: %@", @"sourceID != nil"}];
 
     goto LABEL_3;
   }
@@ -584,17 +575,17 @@ LABEL_21:
   }
 
 LABEL_3:
-  v63 = [MEMORY[0x277CCA9B8] hk_error:120 description:@"Record in data_provenances points to non existent record in another table"];
+  v62 = [MEMORY[0x277CCA9B8] hk_error:120 description:@"Record in data_provenances points to non existent record in another table"];
   v8 = [MEMORY[0x277CCABB0] numberWithLongLong:v5];
   v9 = [(HDSQLiteEntity *)HDSyncStoreEntity entityWithPersistentID:v8];
 
   v10 = [*(a1 + 32) unprotectedDatabase];
-  v62 = v9;
+  v61 = v9;
   v11 = [v9 existsInDatabase:v10];
 
   if ((v11 & 1) == 0 && v5)
   {
-    v68[0] = *MEMORY[0x277CCBD78];
+    v67[0] = *MEMORY[0x277CCBD78];
     v12 = [*(a1 + 56) databaseTable];
     v13 = v12;
     if (v12)
@@ -608,21 +599,21 @@ LABEL_3:
     }
 
     v15 = *MEMORY[0x277CCA7E8];
-    v69[0] = v14;
-    v69[1] = v63;
+    v68[0] = v14;
+    v68[1] = v62;
     v16 = *MEMORY[0x277CCBD88];
-    v68[1] = v15;
-    v68[2] = v16;
+    v67[1] = v15;
+    v67[2] = v16;
     v17 = MEMORY[0x277CCACA8];
     v18 = [MEMORY[0x277CCABB0] numberWithLongLong:v5];
     +[HDSyncStoreEntity databaseTable];
     v20 = v19 = v7;
     v21 = [*(a1 + 56) databaseTable];
     v22 = [v17 stringWithFormat:@"Cannot find rowid:%@ in table:%@ for rowid:%@ in table:%@", v18, v20, v4, v21];
-    v68[3] = *MEMORY[0x277CCBD70];
-    v69[2] = v22;
-    v69[3] = v4;
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:v68 count:4];
+    v67[3] = *MEMORY[0x277CCBD70];
+    v68[2] = v22;
+    v68[3] = v4;
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v67 count:4];
 
     v7 = v19;
     v24 = [MEMORY[0x277CCA9B8] hk_error:120 userInfo:v23];
@@ -635,7 +626,7 @@ LABEL_3:
 
   if ((v27 & 1) == 0)
   {
-    v66[0] = *MEMORY[0x277CCBD78];
+    v65[0] = *MEMORY[0x277CCBD78];
     v28 = [*(a1 + 56) databaseTable];
     v29 = v28;
     if (v28)
@@ -649,19 +640,19 @@ LABEL_3:
     }
 
     v31 = *MEMORY[0x277CCA7E8];
-    v67[0] = v30;
-    v67[1] = v63;
+    v66[0] = v30;
+    v66[1] = v62;
     v32 = *MEMORY[0x277CCBD88];
-    v66[1] = v31;
-    v66[2] = v32;
+    v65[1] = v31;
+    v65[2] = v32;
     v33 = MEMORY[0x277CCACA8];
     v34 = +[HDSourceEntity databaseTable];
     v35 = [*(a1 + 56) databaseTable];
     v36 = [v33 stringWithFormat:@"Cannot find rowid:%@ in table:%@ for rowid:%@ in table:%@", v6, v34, v4, v35];
-    v66[3] = *MEMORY[0x277CCBD70];
-    v67[2] = v36;
-    v67[3] = v4;
-    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:4];
+    v65[3] = *MEMORY[0x277CCBD70];
+    v66[2] = v36;
+    v66[3] = v4;
+    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:4];
     v38 = v37 = v7;
 
     v39 = [MEMORY[0x277CCA9B8] hk_error:120 userInfo:v38];
@@ -676,7 +667,7 @@ LABEL_3:
 
   if ((v42 & 1) == 0)
   {
-    v64[0] = *MEMORY[0x277CCBD78];
+    v63[0] = *MEMORY[0x277CCBD78];
     v43 = [*(a1 + 56) databaseTable];
     v44 = v43;
     if (v43)
@@ -690,33 +681,32 @@ LABEL_3:
     }
 
     v46 = *MEMORY[0x277CCA7E8];
-    v65[0] = v45;
-    v65[1] = v63;
+    v64[0] = v45;
+    v64[1] = v62;
     v47 = *MEMORY[0x277CCBD88];
-    v64[1] = v46;
-    v64[2] = v47;
+    v63[1] = v46;
+    v63[2] = v47;
     v48 = MEMORY[0x277CCACA8];
     v49 = +[HDDeviceEntity databaseTable];
     [*(a1 + 56) databaseTable];
-    v61 = a1;
+    v60 = a1;
     v50 = v25;
     v51 = v6;
     v53 = v52 = v7;
     v54 = [v48 stringWithFormat:@"Cannot find rowid:%@ in table:%@ for rowid:%@ in table:%@", v52, v49, v4, v53];
-    v64[3] = *MEMORY[0x277CCBD70];
-    v65[2] = v54;
-    v65[3] = v4;
-    v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:4];
+    v63[3] = *MEMORY[0x277CCBD70];
+    v64[2] = v54;
+    v64[3] = v4;
+    v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:v63 count:4];
 
     v7 = v52;
     v6 = v51;
     v25 = v50;
 
     v56 = [MEMORY[0x277CCA9B8] hk_error:120 userInfo:v55];
-    (*(*(v61 + 40) + 16))();
+    (*(*(v60 + 40) + 16))();
   }
 
-  v57 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -741,7 +731,7 @@ LABEL_3:
 
   if (error)
   {
-    v15 = [v13 copy];
+    v15 = objc_msgSend_copy(v13);
   }
 
   else
@@ -754,7 +744,7 @@ LABEL_3:
 
 uint64_t __77__HDDataProvenanceEntity_sourceIDsWithProvenanceFromSourceIDs_profile_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277D10B28];
   v6 = *(a1 + 32);
   v7 = a2;
@@ -764,24 +754,23 @@ uint64_t __77__HDDataProvenanceEntity_sourceIDsWithProvenanceFromSourceIDs_profi
 
   v11 = [v9 queryWithDatabase:v10 predicate:v8];
 
-  v18[0] = @"source_id";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __77__HDDataProvenanceEntity_sourceIDsWithProvenanceFromSourceIDs_profile_error___block_invoke_2;
-  v16[3] = &unk_278615128;
-  v17 = *(a1 + 40);
-  v13 = [v11 enumeratePersistentIDsAndProperties:v12 error:a3 enumerationHandler:v16];
+  v17[0] = @"source_id";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __77__HDDataProvenanceEntity_sourceIDsWithProvenanceFromSourceIDs_profile_error___block_invoke_2;
+  v15[3] = &unk_278615128;
+  v16 = *(a1 + 40);
+  v13 = [v11 enumeratePersistentIDsAndProperties:v12 error:a3 enumerationHandler:v15];
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
-uint64_t __77__HDDataProvenanceEntity_sourceIDsWithProvenanceFromSourceIDs_profile_error___block_invoke_2(uint64_t a1)
+uint64_t __77__HDDataProvenanceEntity_sourceIDsWithProvenanceFromSourceIDs_profile_error___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = *(a1 + 32);
-  v2 = HDSQLiteColumnWithNameAsNumber();
-  [v1 addObject:v2];
+  v4 = *(a1 + 32);
+  v5 = HDSQLiteColumnWithNameAsNumber();
+  [v4 addObject:v5];
 
   return 1;
 }

@@ -51,7 +51,7 @@ void __60___CHSRelevanceCacheBuf_deepCopyUsingBufferBuilder_changes___block_invo
   }
 }
 
-uint64_t __41___CHSRelevanceCacheBuf_verifyUTF8Fields__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__41___CHSRelevanceCacheBuf_verifyUTF8Fields__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 verifyUTF8Fields];
   if ((result & 1) == 0)

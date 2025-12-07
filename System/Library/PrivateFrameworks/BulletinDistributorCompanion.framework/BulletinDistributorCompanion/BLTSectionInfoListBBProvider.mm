@@ -73,37 +73,37 @@
 
 - (void)applicationsDidInstall:(id)install
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   installCopy = install;
   v5 = [MEMORY[0x277CBEB58] set];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v6 = installCopy;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        bundleIdentifier = [*(*(&v13 + 1) + 8 * v10) bundleIdentifier];
+        bundleIdentifier = [*(*(&v12 + 1) + 8 * v10) bundleIdentifier];
         [v5 addObject:bundleIdentifier];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
@@ -113,8 +113,6 @@
   {
     [(BLTSectionInfoObserver *)self->_observer updateSectionInfoBySectionIDs:v5 completion:0];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BLTSectionInfoListProviderDelegate)delegate

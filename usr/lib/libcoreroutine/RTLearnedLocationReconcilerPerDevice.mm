@@ -182,301 +182,301 @@ void __73__RTLearnedLocationReconcilerPerDevice_performReconciliationWithHandler
   [v7 performBlock:v8];
 }
 
-void __73__RTLearnedLocationReconcilerPerDevice_performReconciliationWithHandler___block_invoke_3(uint64_t a1)
+void __73__RTLearnedLocationReconcilerPerDevice_performReconciliationWithHandler___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v118[3] = *MEMORY[0x277D85DE8];
-  v88 = objc_opt_new();
-  v74 = +[RTDeviceMO fetchRequest];
-  v71 = [*(a1 + 32) _sortDescriptorForReconciliation];
-  v70 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"creationDate" ascending:0];
-  [v74 setFetchBatchSize:1];
-  v1 = *(a1 + 40);
-  v105 = 0;
-  v72 = [v1 executeFetchRequest:v74 error:&v105];
-  v73 = v105;
-  if (v73)
+  v119[3] = *MEMORY[0x277D85DE8];
+  v89 = objc_opt_new();
+  v75 = +[RTDeviceMO fetchRequest];
+  v72 = [*(a1 + 32) _sortDescriptorForReconciliation];
+  v71 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"creationDate" ascending:0];
+  [v75 setFetchBatchSize:1];
+  v2 = *(a1 + 40);
+  v106 = 0;
+  v73 = [v2 executeFetchRequest:v75 error:&v106];
+  v74 = v106;
+  if (v74)
   {
-    v2 = *(a1 + 48);
-    if (v2)
+    v3 = *(a1 + 48);
+    if (v3)
     {
-      (*(v2 + 16))(v2, 0, v73);
+      (*(v3 + 16))(v3, 0, v74);
     }
   }
 
   else
   {
-    v3 = [*(a1 + 40) currentDevice];
-    v4 = [v3 deviceClass];
-    v69 = [v4 isEqualToString:@"iPhone"];
+    v4 = [*(a1 + 40) currentDevice];
+    v5 = [v4 deviceClass];
+    v70 = [v5 isEqualToString:@"iPhone"];
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v5 = _rt_log_facility_get_os_log(RTLogFacilityLearnedLocation);
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v6 = _rt_log_facility_get_os_log(RTLogFacilityLearnedLocation);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        v6 = NSStringFromSelector(*(a1 + 56));
-        if (v69)
+        v7 = NSStringFromSelector(*(a1 + 56));
+        if (v70)
         {
-          v7 = @"YES";
+          v8 = @"YES";
         }
 
         else
         {
-          v7 = @"NO";
+          v8 = @"NO";
         }
 
-        v8 = [*(a1 + 40) currentDevice];
+        v9 = [*(a1 + 40) currentDevice];
         *buf = 138412802;
-        *&buf[4] = v6;
+        *&buf[4] = v7;
         *&buf[12] = 2112;
-        *&buf[14] = v7;
+        *&buf[14] = v8;
         *&buf[22] = 2112;
-        v113 = v8;
-        _os_log_impl(&dword_2304B3000, v5, OS_LOG_TYPE_INFO, "%@, prioritizeCurrentDevice, %@, current device, %@", buf, 0x20u);
+        v114 = v9;
+        _os_log_impl(&dword_2304B3000, v6, OS_LOG_TYPE_INFO, "%@, prioritizeCurrentDevice, %@, current device, %@", buf, 0x20u);
       }
     }
 
-    if (v69)
+    if (v70)
     {
-      v9 = MEMORY[0x277CCAC98];
-      v103[0] = MEMORY[0x277D85DD0];
-      v103[1] = 3221225472;
-      v103[2] = __73__RTLearnedLocationReconcilerPerDevice_performReconciliationWithHandler___block_invoke_30;
-      v103[3] = &unk_2788D2D70;
-      v104 = *(a1 + 40);
-      v10 = [v9 sortDescriptorWithKey:@"identifier" ascending:1 comparator:v103];
-      v118[0] = v71;
-      v118[1] = v10;
-      v118[2] = v70;
-      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v118 count:3];
-      v12 = [v72 sortedArrayUsingDescriptors:v11];
+      v10 = MEMORY[0x277CCAC98];
+      v104[0] = MEMORY[0x277D85DD0];
+      v104[1] = 3221225472;
+      v104[2] = __73__RTLearnedLocationReconcilerPerDevice_performReconciliationWithHandler___block_invoke_30;
+      v104[3] = &unk_2788D2D70;
+      v105 = *(a1 + 40);
+      v11 = [v10 sortDescriptorWithKey:@"identifier" ascending:1 comparator:v104];
+      v119[0] = v72;
+      v119[1] = v11;
+      v119[2] = v71;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v119 count:3];
+      v13 = [v73 sortedArrayUsingDescriptors:v12];
 
-      v13 = v104;
+      v14 = v105;
     }
 
     else
     {
-      v117[0] = v71;
-      v117[1] = v70;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v117 count:2];
-      v12 = [v72 sortedArrayUsingDescriptors:v13];
+      v118[0] = v72;
+      v118[1] = v71;
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v118 count:2];
+      v13 = [v73 sortedArrayUsingDescriptors:v14];
     }
 
-    v101 = 0u;
     v102 = 0u;
-    v99 = 0u;
+    v103 = 0u;
     v100 = 0u;
-    obj = v12;
-    v79 = [obj countByEnumeratingWithState:&v99 objects:v116 count:16];
-    if (v79)
+    v101 = 0u;
+    obj = v13;
+    v80 = [obj countByEnumeratingWithState:&v100 objects:v117 count:16];
+    if (v80)
     {
-      v80 = 0;
-      v78 = *v100;
+      v81 = 0;
+      v79 = *v101;
       do
       {
-        for (i = 0; i != v79; ++i)
+        for (i = 0; i != v80; ++i)
         {
-          if (*v100 != v78)
+          if (*v101 != v79)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v99 + 1) + 8 * i);
-          v86 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K != NULL", @"place.mapItem"];
-          v84 = +[RTCloudManagedObject notTombstonedPredicate];
-          v16 = MEMORY[0x277CCA920];
-          v115[0] = v86;
-          v115[1] = v84;
-          v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v115 count:2];
-          v82 = [v16 andPredicateWithSubpredicates:v17];
+          v16 = *(*(&v100 + 1) + 8 * i);
+          v87 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K != NULL", @"place.mapItem"];
+          v85 = +[RTCloudManagedObject notTombstonedPredicate];
+          v17 = MEMORY[0x277CCA920];
+          v116[0] = v87;
+          v116[1] = v85;
+          v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v116 count:2];
+          v83 = [v17 andPredicateWithSubpredicates:v18];
 
-          v18 = [v15 visits];
-          v19 = [v18 allObjects];
-          v20 = [v19 filteredArrayUsingPredicate:v82];
+          v19 = [v16 visits];
+          v20 = [v19 allObjects];
+          v21 = [v20 filteredArrayUsingPredicate:v83];
 
-          v21 = MEMORY[0x277CCAC30];
-          v97[0] = MEMORY[0x277D85DD0];
-          v97[1] = 3221225472;
-          v97[2] = __73__RTLearnedLocationReconcilerPerDevice_performReconciliationWithHandler___block_invoke_2_42;
-          v97[3] = &unk_2788C91B0;
-          v88 = v88;
-          v98 = v88;
-          v22 = [v21 predicateWithBlock:v97];
-          v23 = [v20 filteredArrayUsingPredicate:v22];
+          v22 = MEMORY[0x277CCAC30];
+          v98[0] = MEMORY[0x277D85DD0];
+          v98[1] = 3221225472;
+          v98[2] = __73__RTLearnedLocationReconcilerPerDevice_performReconciliationWithHandler___block_invoke_2_42;
+          v98[3] = &unk_2788C91B0;
+          v89 = v89;
+          v99 = v89;
+          v23 = [v22 predicateWithBlock:v98];
+          v24 = [v21 filteredArrayUsingPredicate:v23];
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
-            v24 = _rt_log_facility_get_os_log(RTLogFacilityLearnedLocation);
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+            v25 = _rt_log_facility_get_os_log(RTLogFacilityLearnedLocation);
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
             {
-              v77 = NSStringFromSelector(*(a1 + 56));
-              v25 = [v23 count];
-              v26 = [v88 firstObject];
-              v27 = [v26 entryDate];
-              v28 = [v27 stringFromDate];
+              v78 = NSStringFromSelector(*(a1 + 56));
+              v26 = [v24 count];
+              v27 = [v89 firstObject];
+              v28 = [v27 entryDate];
+              v29 = [v28 stringFromDate];
               *buf = 138413314;
-              *&buf[4] = v77;
+              *&buf[4] = v78;
               *&buf[12] = 2048;
-              *&buf[14] = v80;
+              *&buf[14] = v81;
               *&buf[22] = 2112;
-              v113 = v15;
-              *v114 = 2048;
-              *&v114[2] = v25;
-              *&v114[10] = 2112;
-              *&v114[12] = v28;
-              _os_log_impl(&dword_2304B3000, v24, OS_LOG_TYPE_INFO, "%@, idx, %lu, device, %@, filtered visit count, %lu, filter date, %@", buf, 0x34u);
+              v114 = v16;
+              *v115 = 2048;
+              *&v115[2] = v26;
+              *&v115[10] = 2112;
+              *&v115[12] = v29;
+              _os_log_impl(&dword_2304B3000, v25, OS_LOG_TYPE_INFO, "%@, idx, %lu, device, %@, filtered visit count, %lu, filter date, %@", buf, 0x34u);
             }
           }
 
-          if ([v23 count])
+          if ([v24 count])
           {
-            v29 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"entryDate" ascending:1];
-            v111 = v29;
-            v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v111 count:1];
-            v31 = [v23 sortedArrayUsingDescriptors:v30];
+            v30 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"entryDate" ascending:1];
+            v112 = v30;
+            v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v112 count:1];
+            v32 = [v24 sortedArrayUsingDescriptors:v31];
 
-            v32 = [v31 arrayByAddingObjectsFromArray:v88];
-            v33 = [v32 mutableCopy];
+            v33 = [v32 arrayByAddingObjectsFromArray:v89];
+            v34 = [v33 mutableCopy];
 
-            v88 = v33;
+            v89 = v34;
           }
 
-          ++v80;
+          ++v81;
         }
 
-        v79 = [obj countByEnumeratingWithState:&v99 objects:v116 count:16];
+        v80 = [obj countByEnumeratingWithState:&v100 objects:v117 count:16];
       }
 
-      while (v79);
+      while (v80);
     }
 
-    if (v69)
+    if (v70)
     {
       goto LABEL_45;
     }
 
+    v97 = 0u;
+    v95 = 0u;
     v96 = 0u;
     v94 = 0u;
-    v95 = 0u;
-    v93 = 0u;
-    v81 = obj;
-    v85 = [v81 countByEnumeratingWithState:&v93 objects:v110 count:16];
-    if (v85)
+    v82 = obj;
+    v86 = [v82 countByEnumeratingWithState:&v94 objects:v111 count:16];
+    if (v86)
     {
-      v83 = *v94;
+      v84 = *v95;
       do
       {
-        for (j = 0; j != v85; ++j)
+        for (j = 0; j != v86; ++j)
         {
-          if (*v94 != v83)
+          if (*v95 != v84)
           {
-            objc_enumerationMutation(v81);
+            objc_enumerationMutation(v82);
           }
 
-          v35 = *(*(&v93 + 1) + 8 * j);
-          v87 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K != NULL", @"place.mapItem"];
-          v36 = +[RTCloudManagedObject notTombstonedPredicate];
-          v37 = MEMORY[0x277CCA920];
-          v109[0] = v87;
-          v109[1] = v36;
-          v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v109 count:2];
-          v39 = [v37 andPredicateWithSubpredicates:v38];
+          v36 = *(*(&v94 + 1) + 8 * j);
+          v88 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K != NULL", @"place.mapItem"];
+          v37 = +[RTCloudManagedObject notTombstonedPredicate];
+          v38 = MEMORY[0x277CCA920];
+          v110[0] = v88;
+          v110[1] = v37;
+          v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v110 count:2];
+          v40 = [v38 andPredicateWithSubpredicates:v39];
 
-          v40 = [v35 visits];
-          v41 = [v40 allObjects];
-          v42 = [v41 filteredArrayUsingPredicate:v39];
+          v41 = [v36 visits];
+          v42 = [v41 allObjects];
+          v43 = [v42 filteredArrayUsingPredicate:v40];
 
-          v43 = MEMORY[0x277CCAC30];
-          v91[0] = MEMORY[0x277D85DD0];
-          v91[1] = 3221225472;
-          v91[2] = __73__RTLearnedLocationReconcilerPerDevice_performReconciliationWithHandler___block_invoke_47;
-          v91[3] = &unk_2788C91B0;
-          v44 = v88;
-          v92 = v44;
-          v45 = [v43 predicateWithBlock:v91];
-          v46 = [v42 filteredArrayUsingPredicate:v45];
-          if ([v46 count])
+          v44 = MEMORY[0x277CCAC30];
+          v92[0] = MEMORY[0x277D85DD0];
+          v92[1] = 3221225472;
+          v92[2] = __73__RTLearnedLocationReconcilerPerDevice_performReconciliationWithHandler___block_invoke_47;
+          v92[3] = &unk_2788C91B0;
+          v45 = v89;
+          v93 = v45;
+          v46 = [v44 predicateWithBlock:v92];
+          v47 = [v43 filteredArrayUsingPredicate:v46];
+          if ([v47 count])
           {
-            v47 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"entryDate" ascending:1];
-            v108 = v47;
-            v48 = [MEMORY[0x277CBEA60] arrayWithObjects:&v108 count:1];
-            v49 = [v46 sortedArrayUsingDescriptors:v48];
+            v48 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"entryDate" ascending:1];
+            v109 = v48;
+            v49 = [MEMORY[0x277CBEA60] arrayWithObjects:&v109 count:1];
+            v50 = [v47 sortedArrayUsingDescriptors:v49];
 
-            [v44 addObjectsFromArray:v49];
+            [v45 addObjectsFromArray:v50];
           }
         }
 
-        v85 = [v81 countByEnumeratingWithState:&v93 objects:v110 count:16];
+        v86 = [v82 countByEnumeratingWithState:&v94 objects:v111 count:16];
       }
 
-      while (v85);
+      while (v86);
     }
 
-    v50 = +[RTLearnedVisitMO fetchRequest];
-    v51 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"entryDate" ascending:1];
-    v107 = v51;
-    v52 = [MEMORY[0x277CBEA60] arrayWithObjects:&v107 count:1];
-    [v50 setSortDescriptors:v52];
+    v51 = +[RTLearnedVisitMO fetchRequest];
+    v52 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"entryDate" ascending:1];
+    v108 = v52;
+    v53 = [MEMORY[0x277CBEA60] arrayWithObjects:&v108 count:1];
+    [v51 setSortDescriptors:v53];
 
-    v53 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K != $RT_CURRENT_DEVICE", @"device"];
-    v54 = MEMORY[0x277CCAC30];
-    v55 = [v88 lastObject];
-    v56 = [v55 exitDate];
-    v57 = v56;
-    if (v56)
+    v54 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K != $RT_CURRENT_DEVICE", @"device"];
+    v55 = MEMORY[0x277CCAC30];
+    v56 = [v89 lastObject];
+    v57 = [v56 exitDate];
+    v58 = v57;
+    if (v57)
     {
-      v58 = [v54 predicateWithFormat:@"%K > %@", @"entryDate", v56];
+      v59 = [v55 predicateWithFormat:@"%K > %@", @"entryDate", v57];
     }
 
     else
     {
-      v59 = [MEMORY[0x277CBEAA8] distantPast];
-      v58 = [v54 predicateWithFormat:@"%K > %@", @"entryDate", v59];
+      v60 = [MEMORY[0x277CBEAA8] distantPast];
+      v59 = [v55 predicateWithFormat:@"%K > %@", @"entryDate", v60];
     }
 
-    v60 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K != NULL", @"place.mapItem"];
-    v61 = MEMORY[0x277CCA920];
-    v106[0] = v53;
-    v106[1] = v58;
-    v106[2] = v60;
-    v62 = [MEMORY[0x277CBEA60] arrayWithObjects:v106 count:3];
-    v63 = [v61 andPredicateWithSubpredicates:v62];
-    [v50 setPredicate:v63];
+    v61 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K != NULL", @"place.mapItem"];
+    v62 = MEMORY[0x277CCA920];
+    v107[0] = v54;
+    v107[1] = v59;
+    v107[2] = v61;
+    v63 = [MEMORY[0x277CBEA60] arrayWithObjects:v107 count:3];
+    v64 = [v62 andPredicateWithSubpredicates:v63];
+    [v51 setPredicate:v64];
 
-    v64 = *(a1 + 40);
-    v90 = 0;
-    v65 = [v64 executeFetchRequest:v50 error:&v90];
-    v66 = v90;
-    if (v66)
+    v65 = *(a1 + 40);
+    v91 = 0;
+    v66 = [v65 executeFetchRequest:v51 error:&v91];
+    v67 = v91;
+    if (v67)
     {
-      v67 = *(a1 + 48);
-      if (v67)
+      v68 = *(a1 + 48);
+      if (v68)
       {
-        (*(v67 + 16))(v67, 0, v66);
+        (*(v68 + 16))(v68, 0, v67);
       }
     }
 
     else
     {
-      [v88 addObjectsFromArray:v65];
+      [v89 addObjectsFromArray:v66];
     }
 
-    if (!v66)
+    if (!v67)
     {
 LABEL_45:
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v113 = __Block_byref_object_copy__196;
-      *v114 = __Block_byref_object_dispose__196;
-      *&v114[8] = 0;
-      v89[0] = MEMORY[0x277D85DD0];
-      v89[1] = 3221225472;
-      v89[2] = __73__RTLearnedLocationReconcilerPerDevice_performReconciliationWithHandler___block_invoke_59;
-      v89[3] = &unk_2788C9160;
-      v89[4] = buf;
-      v68 = [MEMORY[0x277CCAC30] predicateWithBlock:v89];
-      [v88 filterUsingPredicate:v68];
-      [*(a1 + 32) collapseReconciledVisitsToLocationsOfInterest:v88 context:*(a1 + 40) handler:*(a1 + 48)];
+      v114 = __Block_byref_object_copy__196;
+      *v115 = __Block_byref_object_dispose__196;
+      *&v115[8] = 0;
+      v90[0] = MEMORY[0x277D85DD0];
+      v90[1] = 3221225472;
+      v90[2] = __73__RTLearnedLocationReconcilerPerDevice_performReconciliationWithHandler___block_invoke_59;
+      v90[3] = &unk_2788C9160;
+      v90[4] = buf;
+      v69 = [MEMORY[0x277CCAC30] predicateWithBlock:v90];
+      [v89 filterUsingPredicate:v69];
+      [*(a1 + 32) collapseReconciledVisitsToLocationsOfInterest:v89 context:*(a1 + 40) handler:*(a1 + 48)];
 
       _Block_object_dispose(buf, 8);
     }

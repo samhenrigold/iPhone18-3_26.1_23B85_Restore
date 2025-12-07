@@ -3,9 +3,27 @@
 - (BOOL)matchesOptionsForProviderClass:(Class)class;
 - (id)keysToArchiveViaKVC;
 - (void)performInContext:(id)context;
+- (void)setMetaDataProviderClassesForEnums:(id)enums exclusive:(BOOL)exclusive;
+- (void)setMetaDataProviderClassesForOptions:(id)options exclusive:(BOOL)exclusive;
 @end
 
 @implementation DebugHierarchyMetaDataAction
+
+- (void)setMetaDataProviderClassesForEnums:(id)enums exclusive:(BOOL)exclusive
+{
+  exclusiveCopy = exclusive;
+  [(DebugHierarchyMetaDataAction *)self setMetaDataProviderClassesForEnums:enums];
+
+  [(DebugHierarchyMetaDataAction *)self setMetaDataProviderClassesForEnumsAreExclusive:exclusiveCopy];
+}
+
+- (void)setMetaDataProviderClassesForOptions:(id)options exclusive:(BOOL)exclusive
+{
+  exclusiveCopy = exclusive;
+  [(DebugHierarchyMetaDataAction *)self setMetaDataProviderClassesForOptions:options];
+
+  [(DebugHierarchyMetaDataAction *)self setMetaDataProviderClassesForOptionsAreExclusive:exclusiveCopy];
+}
 
 - (id)keysToArchiveViaKVC
 {

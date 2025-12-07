@@ -51,41 +51,39 @@
 
 - (id)_br_getAttributeValue:()BRAdditions_Private withSecondaryConnection:withError:
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v7 = a3;
-  v26[0] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__8;
-  v24 = __Block_byref_object_dispose__8;
-  v25 = 0;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__8;
-  v18 = __Block_byref_object_dispose__8;
+  v25[0] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
   v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__8;
+  v23 = __Block_byref_object_dispose__8;
+  v24 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__8;
+  v17 = __Block_byref_object_dispose__8;
+  v18 = 0;
   _br_itemServiceSyncProxy = [self _br_itemServiceSyncProxy];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __86__NSURL_BRAdditions_Private___br_getAttributeValue_withSecondaryConnection_withError___block_invoke;
-  v13[3] = &unk_1E7A14FA8;
-  v13[4] = &v20;
-  v13[5] = &v14;
-  [_br_itemServiceSyncProxy getAttributeValues:v8 reply:v13];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __86__NSURL_BRAdditions_Private___br_getAttributeValue_withSecondaryConnection_withError___block_invoke;
+  v12[3] = &unk_1E7A14FA8;
+  v12[4] = &v19;
+  v12[5] = &v13;
+  [_br_itemServiceSyncProxy getAttributeValues:v8 reply:v12];
   if (a5)
   {
-    *a5 = v15[5];
+    *a5 = v14[5];
   }
 
-  v10 = [v21[5] objectForKey:v7];
+  v10 = [v20[5] objectForKey:v7];
 
-  _Block_object_dispose(&v14, 8);
-  _Block_object_dispose(&v20, 8);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v19, 8);
 
   return v10;
 }
@@ -119,7 +117,7 @@
 
 - (BOOL)br_isIgnoredByFileProviderWithError:()BRAdditions_Private
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = getxattr([self fileSystemRepresentation], "com.apple.fileprovider.ignore#P", 0, 0, 0, 1);
   if (v4 < 0)
   {
@@ -136,13 +134,12 @@
     v6 = brc_default_log(1, 0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v5;
-      _os_log_impl(&dword_1AE2A9000, v6, OS_LOG_TYPE_DEFAULT, "[NOTICE] URL has com.apple.fileprovider.ignore#P attribute%@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v5;
+      _os_log_impl(&dword_1AE2A9000, v6, OS_LOG_TYPE_DEFAULT, "[NOTICE] URL has com.apple.fileprovider.ignore#P attribute%@", &v9, 0xCu);
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v4 >= 0;
 }
 
@@ -156,13 +153,10 @@
 
 - (void)br_getBirthDate:()BRAdditions_Private .cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696ABC0] br_errorFromErrno];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_3();
   _os_log_error_impl(v1, v2, 0x90u, v3, v4, 0x1Cu);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

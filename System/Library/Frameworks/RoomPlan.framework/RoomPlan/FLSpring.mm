@@ -168,7 +168,7 @@
 - (void)step:(double)step
 {
   memcpy(v6, &self->_s, sizeof(v6));
-  FLCompoundSpringStep(v6, __src, step);
+  FLCompoundSpringStep(__src, v6, step);
   memcpy(&self->_s, __src, sizeof(self->_s));
   anchor = self->_s.anchor.anchor;
   self->_targetVelocity = (anchor - self->_previousTarget) / step * 0.25 + self->_targetVelocity * 0.75;

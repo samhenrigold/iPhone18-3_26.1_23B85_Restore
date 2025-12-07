@@ -1,8 +1,8 @@
 @interface _DKActivityThrottler
+- (id)_minimumIntervalScheduledActionsContainsActionName:(id *)name;
 - (id)dateForKey:(uint64_t)key;
 - (id)description;
 - (id)keyForName:(void *)name;
-- (uint64_t)_minimumIntervalScheduledActionsContainsActionName:(uint64_t)name;
 - (void)_minimumIntervalScheduledActionsAddActionName:(uint64_t)name;
 - (void)_minimumIntervalScheduledActionsRemoveActionName:(uint64_t)name;
 - (void)_performNoMoreOftenInSecondsThan:(void *)than name:(void *)name activityBlock:(double)block throttleBlock:;
@@ -54,7 +54,7 @@
 
 - (void)_performOrScheduleWithTimeInterval:(void *)interval name:(void *)name queue:(unint64_t)queue activityBlock:(double)block callDepth:
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v11 = a2;
   intervalCopy = interval;
   nameCopy = name;
@@ -71,7 +71,7 @@
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           v17 = [MEMORY[0x1E696AD98] numberWithDouble:block];
-          [_DKActivityThrottler _performOrScheduleWithTimeInterval:v11 name:v17 queue:v40 activityBlock:? callDepth:?];
+          [_DKActivityThrottler _performOrScheduleWithTimeInterval:v11 name:v17 queue:v39 activityBlock:? callDepth:?];
         }
 
         goto LABEL_14;
@@ -88,20 +88,20 @@
       goto LABEL_14;
     }
 
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __94___DKActivityThrottler__performOrScheduleWithTimeInterval_name_queue_activityBlock_callDepth___block_invoke;
-    v34[3] = &unk_1E7369A10;
-    v34[4] = selfCopy;
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __94___DKActivityThrottler__performOrScheduleWithTimeInterval_name_queue_activityBlock_callDepth___block_invoke;
+    v33[3] = &unk_1E7369A10;
+    v33[4] = selfCopy;
     v18 = v11;
-    v35 = v18;
+    v34 = v18;
     blockCopy = block;
     v19 = intervalCopy;
-    v36 = v19;
+    v35 = v19;
     v20 = nameCopy;
-    v37 = v20;
+    v36 = v20;
     queueCopy = queue;
-    v21 = MEMORY[0x193B00C50](v34);
+    v21 = MEMORY[0x193B00C50](v33);
     [(_DKActivityThrottler *)selfCopy _minimumIntervalScheduledActionsAddActionName:v18];
     v22 = dispatch_get_current_queue();
     v23 = v22 == v19;
@@ -117,30 +117,28 @@
       v24 = v18;
       [v18 UTF8String];
       v25 = os_transaction_create();
-      v28[0] = MEMORY[0x1E69E9820];
-      v28[1] = 3221225472;
-      v28[2] = __94___DKActivityThrottler__performOrScheduleWithTimeInterval_name_queue_activityBlock_callDepth___block_invoke_2;
-      v28[3] = &unk_1E73699C0;
-      v28[4] = selfCopy;
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __94___DKActivityThrottler__performOrScheduleWithTimeInterval_name_queue_activityBlock_callDepth___block_invoke_2;
+      v27[3] = &unk_1E73699C0;
+      v27[4] = selfCopy;
       blockCopy2 = block;
-      v29 = v18;
-      v31 = v20;
-      v32 = v21;
-      v30 = v25;
+      v28 = v18;
+      v30 = v20;
+      v31 = v21;
+      v29 = v25;
       v26 = v25;
-      dispatch_async(v19, v28);
+      dispatch_async(v19, v27);
     }
 
 LABEL_14:
     objc_sync_exit(selfCopy);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_performWithDelayInSecondsOf:(void *)of name:(void *)name queue:(double)queue activityBlock:
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v9 = a2;
   ofCopy = of;
   nameCopy = name;
@@ -164,29 +162,27 @@ LABEL_14:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         v15 = [MEMORY[0x1E696AD98] numberWithDouble:queue];
-        [_DKActivityThrottler _performWithDelayInSecondsOf:v9 name:v15 queue:v25 activityBlock:?];
+        [_DKActivityThrottler _performWithDelayInSecondsOf:v9 name:v15 queue:v24 activityBlock:?];
       }
 
       v16 = v9;
       [v9 UTF8String];
       v17 = os_transaction_create();
       v18 = dispatch_time(0, (queue * 1000000000.0));
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __78___DKActivityThrottler__performWithDelayInSecondsOf_name_queue_activityBlock___block_invoke;
-      v21[3] = &unk_1E7369A38;
-      v24 = nameCopy;
-      v21[4] = selfCopy;
-      v22 = v9;
-      v23 = v17;
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __78___DKActivityThrottler__performWithDelayInSecondsOf_name_queue_activityBlock___block_invoke;
+      v20[3] = &unk_1E7369A38;
+      v23 = nameCopy;
+      v20[4] = selfCopy;
+      v21 = v9;
+      v22 = v17;
       v19 = v17;
-      dispatch_after(v18, ofCopy, v21);
+      dispatch_after(v18, ofCopy, v20);
     }
 
     objc_sync_exit(selfCopy);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearHistoryForName:(void *)name
@@ -205,14 +201,14 @@ LABEL_14:
   }
 }
 
-- (uint64_t)_minimumIntervalScheduledActionsContainsActionName:(uint64_t)name
+- (id)_minimumIntervalScheduledActionsContainsActionName:(id *)name
 {
   v3 = a2;
   if (name)
   {
-    v4 = *(name + 8);
+    v4 = name[1];
     objc_sync_enter(v4);
-    name = [*(name + 8) containsObject:v3];
+    name = [name[1] containsObject:v3];
     objc_sync_exit(v4);
   }
 
@@ -401,11 +397,10 @@ LABEL_15:
 
 - (void)_performOrScheduleWithTimeInterval:(uint64_t)a1 name:queue:activityBlock:callDepth:.cold.2(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138412290;
-  v3 = a1;
-  _os_log_debug_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Activity '%@' is already scheduled", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138412290;
+  v2 = a1;
+  _os_log_debug_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Activity '%@' is already scheduled", &v1, 0xCu);
 }
 
 - (void)_performWithDelayInSecondsOf:(uint64_t)a3 name:queue:activityBlock:.cold.1(uint64_t a1, void *a2, uint64_t a3)

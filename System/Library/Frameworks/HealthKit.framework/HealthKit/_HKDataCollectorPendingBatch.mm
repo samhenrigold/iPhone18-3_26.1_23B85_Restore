@@ -21,7 +21,7 @@
 
 - (_HKDataCollectorPendingBatch)initWithIdentifier:(id)identifier data:(id)data metadata:(id)metadata device:(id)device options:(unint64_t)options completion:(id)completion
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   metadataCopy = metadata;
   dataCopy = data;
@@ -29,8 +29,8 @@
   if (completion)
   {
     v18 = _Block_copy(completion);
-    v25[0] = v18;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
+    v24[0] = v18;
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
     v20 = [(_HKDataCollectorPendingBatch *)self initWithIdentifier:identifierCopy data:dataCopy metadata:metadataCopy device:deviceCopy options:options completions:v19];
 
     v21 = v20;
@@ -43,7 +43,6 @@
     v21 = v22;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -113,59 +112,58 @@
 
 - (void)callCompletionsWithSuccess:(BOOL)success error:(id)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   errorCopy = error;
-  if ([(NSArray *)self->_completions count])
+  v6 = [(NSArray *)self->_completions count];
+  if (v6)
   {
-    _HKInitializeLogging();
-    v6 = HKLogDataCollection;
+    _HKInitializeLogging(v6, v7);
+    v8 = HKLogDataCollection;
     if (os_log_type_enabled(HKLogDataCollection, OS_LOG_TYPE_INFO))
     {
       batchUUID = self->_batchUUID;
-      v8 = v6;
-      v9 = HKDiagnosticStringFromUUID(batchUUID);
-      v10 = [(NSArray *)self->_completions count];
+      v10 = v8;
+      v11 = HKDiagnosticStringFromUUID(batchUUID);
+      v12 = [(NSArray *)self->_completions count];
       *buf = 138543874;
       selfCopy = self;
-      v24 = 2114;
-      v25 = v9;
-      v26 = 2048;
-      v27 = v10;
-      _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_INFO, "%{public}@: Batch %{public}@: Calling %ld completions from client.", buf, 0x20u);
+      v25 = 2114;
+      v26 = v11;
+      v27 = 2048;
+      v28 = v12;
+      _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_INFO, "%{public}@: Batch %{public}@: Calling %ld completions from client.", buf, 0x20u);
     }
 
-    v19 = 0u;
     v20 = 0u;
-    v17 = 0u;
+    v21 = 0u;
     v18 = 0u;
-    v11 = [(NSArray *)self->_completions copy];
-    v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
-    if (v12)
+    v19 = 0u;
+    v13 = [(NSArray *)self->_completions copy];
+    v14 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    if (v14)
     {
-      v13 = v12;
-      v14 = *v18;
+      v15 = v14;
+      v16 = *v19;
       do
       {
-        v15 = 0;
+        v17 = 0;
         do
         {
-          if (*v18 != v14)
+          if (*v19 != v16)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v13);
           }
 
-          (*(*(*(&v17 + 1) + 8 * v15++) + 16))();
+          (*(*(*(&v18 + 1) + 8 * v17++) + 16))();
         }
 
-        while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        while (v15 != v17);
+        v15 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
-      while (v13);
+      while (v15);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description

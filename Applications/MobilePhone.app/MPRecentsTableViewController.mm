@@ -156,14 +156,14 @@
   v7 = [v5 callsWithPredicate:v6 limit:0 offset:0 batchSize:0];
   firstObject = [v7 firstObject];
 
-  v9 = PHDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = PHDefaultLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412546;
-    v16 = dCopy;
-    v17 = 2112;
-    v18 = firstObject;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "handleShowDetailsURLForUniqueID: %@ found recent call %@", &v15, 0x16u);
+    v16 = 138412546;
+    v17 = dCopy;
+    v18 = 2112;
+    v19 = firstObject;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "handleShowDetailsURLForUniqueID: %@ found recent call %@", &v16, 0x16u);
   }
 
   if (firstObject)
@@ -176,7 +176,7 @@
     if (isKindOfClass)
     {
       navigationController2 = [(MPRecentsTableViewController *)self navigationController];
-      v14 = [navigationController2 popViewControllerAnimated:0];
+      v15 = [navigationController2 popViewControllerAnimated:0];
     }
 
     [(MPRecentsTableViewController *)self showRecentCallDetailsViewControllerForRecentCall:firstObject animated:1];
@@ -366,9 +366,9 @@
 
 - (void)viewDidLoad
 {
-  v49.receiver = self;
-  v49.super_class = MPRecentsTableViewController;
-  [(MPRecentsTableViewController *)&v49 viewDidLoad];
+  v50.receiver = self;
+  v50.super_class = MPRecentsTableViewController;
+  [(MPRecentsTableViewController *)&v50 viewDidLoad];
   v3 = +[UIColor systemBackgroundColor];
   view = [(MPRecentsTableViewController *)self view];
   [view setBackgroundColor:v3];
@@ -438,25 +438,25 @@
 
   if (nameAndPhotoEnabledC3)
   {
-    v35 = PHDefaultLog();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v36 = PHDefaultLog(v35);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
-      *v48 = 0;
-      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Going to present CNSharedProfileOnboardingController on launch", v48, 2u);
+      *v49 = 0;
+      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Going to present CNSharedProfileOnboardingController on launch", v49, 2u);
     }
 
-    v36 = [CNSharedProfileOnboardingController alloc];
-    v37 = +[TUCallCenter sharedInstance];
-    contactStore = [v37 contactStore];
-    v39 = [v36 initWithContactStore:contactStore];
-    [(MPRecentsTableViewController *)self setOnboardingController:v39];
+    v37 = [CNSharedProfileOnboardingController alloc];
+    v38 = +[TUCallCenter sharedInstance];
+    contactStore = [v38 contactStore];
+    v40 = [v37 initWithContactStore:contactStore];
+    [(MPRecentsTableViewController *)self setOnboardingController:v40];
 
     onboardingController = [(MPRecentsTableViewController *)self onboardingController];
     [onboardingController presentOnboardingFlowIfNeededForMode:1 fromViewController:self];
   }
 
-  v41 = +[NSNotificationCenter defaultCenter];
-  [v41 addObserver:self selector:"updateNavigationItemsForEditing" name:UIApplicationWillEnterForegroundNotification object:0];
+  v42 = +[NSNotificationCenter defaultCenter];
+  [v42 addObserver:self selector:"updateNavigationItemsForEditing" name:UIApplicationWillEnterForegroundNotification object:0];
 
   featureFlags3 = [(MPRecentsTableViewController *)self featureFlags];
   callHistorySearchEnabled = [featureFlags3 callHistorySearchEnabled];
@@ -471,9 +471,9 @@
     -[MPRecentsTableViewController updateSearchBarLayoutMarginsPresentingSearchResults:](self, "updateSearchBarLayoutMarginsPresentingSearchResults:", [searchController isActive]);
   }
 
-  v46 = objc_opt_new();
+  v47 = objc_opt_new();
   tabBarItem = [(MPRecentsTableViewController *)self tabBarItem];
-  [tabBarItem setStandardAppearance:v46];
+  [tabBarItem setStandardAppearance:v47];
 }
 
 - (void)viewWillAppear:(BOOL)appear
@@ -527,9 +527,9 @@
 
 - (void)viewDidAppear:(BOOL)appear
 {
-  v11.receiver = self;
-  v11.super_class = MPRecentsTableViewController;
-  [(PhoneViewController *)&v11 viewDidAppear:appear];
+  v12.receiver = self;
+  v12.super_class = MPRecentsTableViewController;
+  [(PhoneViewController *)&v12 viewDidAppear:appear];
   navigationItem = [(MPRecentsTableViewController *)self navigationItem];
   [navigationItem setHidesSearchBarWhenScrolling:1];
 
@@ -545,22 +545,22 @@
   }
 
   [TPTipsHelper updateCanDisplayCallHistorySearchTip:[(MPRecentsTableViewController *)self canDisplaySearchBarPopover]];
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = __46__MPRecentsTableViewController_viewDidAppear___block_invoke_3;
-  v9[3] = &unk_100284FD0;
-  v9[4] = self;
-  dispatch_async(&_dispatch_main_q, v9);
-  v5 = PHDefaultLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = __46__MPRecentsTableViewController_viewDidAppear___block_invoke_3;
+  v10[3] = &unk_100284FD0;
+  v10[4] = self;
+  dispatch_async(&_dispatch_main_q, v10);
+  v6 = PHDefaultLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "MPRecentsTableViewController viewDidAppear:", v8, 2u);
+    *v9 = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "MPRecentsTableViewController viewDidAppear:", v9, 2u);
   }
 
-  v6 = createPHPhoneTabBarControllerTabViewDidAppearNotificationInfo(2, self);
-  v7 = +[NSNotificationCenter defaultCenter];
-  [v7 postNotificationName:@"PHPhoneTabBarControllerTabViewDidAppearNotification" object:v6];
+  v7 = createPHPhoneTabBarControllerTabViewDidAppearNotificationInfo(2, self);
+  v8 = +[NSNotificationCenter defaultCenter];
+  [v8 postNotificationName:@"PHPhoneTabBarControllerTabViewDidAppearNotification" object:v7];
 }
 
 id __46__MPRecentsTableViewController_viewDidAppear___block_invoke(uint64_t a1)
@@ -647,8 +647,8 @@ void __46__MPRecentsTableViewController_viewDidAppear___block_invoke_3(uint64_t 
 {
   animatedCopy = animated;
   editingCopy = editing;
-  v22.receiver = self;
-  v22.super_class = MPRecentsTableViewController;
+  v23.receiver = self;
+  v23.super_class = MPRecentsTableViewController;
   [MPRecentsTableViewController setEditing:"setEditing:animated:" animated:?];
   tableView = [(MPRecentsTableViewController *)self tableView];
   [tableView setEditing:editingCopy animated:animatedCopy];
@@ -665,16 +665,20 @@ void __46__MPRecentsTableViewController_viewDidAppear___block_invoke_3(uint64_t 
   [tableView2 setSeparatorInset:{v12, v14, v16, v18}];
 
   [(MPRecentsTableViewController *)self setNavigationItemsForEditing:editingCopy animated:animatedCopy];
-  if (!editingCopy && [(MPRecentsTableViewController *)self dataSourceNeedsReload])
+  if (!editingCopy)
   {
-    v20 = PHDefaultLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    dataSourceNeedsReload = [(MPRecentsTableViewController *)self dataSourceNeedsReload];
+    if (dataSourceNeedsReload)
     {
-      *v21 = 0;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Edit mode disabled; reloading data source", v21, 2u);
-    }
+      v21 = PHDefaultLog(dataSourceNeedsReload);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      {
+        *v22 = 0;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Edit mode disabled; reloading data source", v22, 2u);
+      }
 
-    [(MPRecentsTableViewController *)self reloadDataSource];
+      [(MPRecentsTableViewController *)self reloadDataSource];
+    }
   }
 }
 
@@ -988,19 +992,19 @@ TUSenderIdentity *__cdecl __69__MPRecentsTableViewController_searchControllersFo
   v2 = a2;
   v3 = +[PHApplicationServices sharedInstance];
   v4 = [v3 contactGeminiManager];
-  v10 = 0;
-  v5 = [v4 bestSenderIdentityForContact:v2 error:&v10];
-  v6 = v10;
+  v11 = 0;
+  v5 = [v4 bestSenderIdentityForContact:v2 error:&v11];
+  v6 = v11;
 
   if (v5)
   {
-    v7 = v5;
+    v8 = v5;
   }
 
   else
   {
-    v8 = PHDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = PHDefaultLog(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __69__MPRecentsTableViewController_searchControllersForDifferentSections__block_invoke_3_cold_1();
     }
@@ -1054,7 +1058,7 @@ TUCallProviderManager *__cdecl __69__MPRecentsTableViewController_searchControll
   return v2;
 }
 
-id __63__MPRecentsTableViewController_searchResultsControllerProvider__block_invoke(uint64_t a1)
+NSArray *__63__MPRecentsTableViewController_searchResultsControllerProvider__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
@@ -1538,7 +1542,7 @@ void __64__MPRecentsTableViewController_tableView_cellForRowAtIndexPath___block_
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section
 {
   v4 = [(MPRecentsTableViewController *)self rowCountForCurrentTableMode:view];
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [MPRecentsTableViewController tableView:v4 numberOfRowsInSection:v5];
@@ -1749,57 +1753,57 @@ void __93__MPRecentsTableViewController_tableView_trailingSwipeActionsConfigurat
 
   if (useSharedRecentsViewModel)
   {
-    v7 = PHDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = PHDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [MPRecentsTableViewController showReportingExtensionForCall:];
     }
   }
 
-  v8 = [ILCallCommunication alloc];
+  v9 = [ILCallCommunication alloc];
   callerId = [callCopy callerId];
   date = [callCopy date];
-  v11 = [v8 initWithSender:callerId dateReceived:date];
+  v12 = [v9 initWithSender:callerId dateReceived:date];
 
-  v12 = [ILCallClassificationRequest alloc];
-  v31 = v11;
-  v13 = [NSArray arrayWithObjects:&v31 count:1];
-  v14 = [v12 initWithCallCommunications:v13];
+  v13 = [ILCallClassificationRequest alloc];
+  v33 = v12;
+  v14 = [NSArray arrayWithObjects:&v33 count:1];
+  v15 = [v13 initWithCallCommunications:v14];
 
-  v15 = [ILClassificationUIExtensionHostViewController alloc];
+  v16 = [ILClassificationUIExtensionHostViewController alloc];
   callerId2 = [callCopy callerId];
   isoCountryCode = [callCopy isoCountryCode];
-  v18 = [v15 initUnactivatedVCWithRequest:v14 sender:callerId2 isoCountryCode:isoCountryCode];
-  [(MPRecentsTableViewController *)self setClassificationViewController:v18];
+  v19 = [v16 initUnactivatedVCWithRequest:v15 sender:callerId2 isoCountryCode:isoCountryCode];
+  [(MPRecentsTableViewController *)self setClassificationViewController:v19];
 
   classificationViewController = [(MPRecentsTableViewController *)self classificationViewController];
   [classificationViewController setDelegate:self];
 
   classificationViewController2 = [(MPRecentsTableViewController *)self classificationViewController];
-  v25[0] = _NSConcreteStackBlock;
-  v25[1] = 3221225472;
-  v25[2] = __62__MPRecentsTableViewController_showReportingExtensionForCall___block_invoke;
-  v25[3] = &unk_100285C08;
-  v26 = v11;
-  v27 = callCopy;
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = __62__MPRecentsTableViewController_showReportingExtensionForCall___block_invoke;
+  v27[3] = &unk_100285C08;
+  v28 = v12;
+  v29 = callCopy;
   selfCopy = self;
-  v21 = callCopy;
-  v22 = v11;
-  [classificationViewController2 activateExtensionWithCompletion:v25];
+  v22 = callCopy;
+  v23 = v12;
+  [classificationViewController2 activateExtensionWithCompletion:v27];
 
-  v23 = PHDefaultLog();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v25 = PHDefaultLog(v24);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     classificationViewController3 = [(MPRecentsTableViewController *)self classificationViewController];
     *buf = 138412290;
-    v30 = classificationViewController3;
-    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Created classification view controller: %@, waiting for ready", buf, 0xCu);
+    v32 = classificationViewController3;
+    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Created classification view controller: %@, waiting for ready", buf, 0xCu);
   }
 }
 
 void __62__MPRecentsTableViewController_showReportingExtensionForCall___block_invoke(uint64_t a1)
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -1855,7 +1859,7 @@ void __89__MPRecentsTableViewController_controller_didCompleteClassificationRequ
 
 void __89__MPRecentsTableViewController_controller_didCompleteClassificationRequest_withResponse___block_invoke_2(uint64_t a1)
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -1871,7 +1875,7 @@ void __89__MPRecentsTableViewController_controller_didCompleteClassificationRequ
 - (void)handleUIAccessibilityDarkerSystemColorsStatusDidChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -1924,7 +1928,7 @@ void __89__MPRecentsTableViewController_controller_didCompleteClassificationRequ
 - (void)appSuspended:(id)suspended
 {
   suspendedCopy = suspended;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(suspendedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -1943,26 +1947,27 @@ void __89__MPRecentsTableViewController_controller_didCompleteClassificationRequ
 - (void)appResumed:(id)resumed
 {
   resumedCopy = resumed;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(resumedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
     v7 = v6;
     name = [resumedCopy name];
-    v10 = 138412546;
-    v11 = v6;
-    v12 = 2112;
-    v13 = name;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ is handling <%@>", &v10, 0x16u);
+    v11 = 138412546;
+    v12 = v6;
+    v13 = 2112;
+    v14 = name;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ is handling <%@>", &v11, 0x16u);
   }
 
-  if ([(MPRecentsTableViewController *)self didEnterSuspended])
+  didEnterSuspended = [(MPRecentsTableViewController *)self didEnterSuspended];
+  if (didEnterSuspended)
   {
-    v9 = PHDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = PHDefaultLog(didEnterSuspended);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "reloading tableview because the app was in a suspended state and resumed", &v10, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "reloading tableview because the app was in a suspended state and resumed", &v11, 2u);
     }
 
     self->_didEnterSuspended = 0;
@@ -1973,7 +1978,7 @@ void __89__MPRecentsTableViewController_controller_didCompleteClassificationRequ
 - (void)applicationDidEnterBackground:(id)background
 {
   backgroundCopy = background;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(backgroundCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -2001,7 +2006,7 @@ void __89__MPRecentsTableViewController_controller_didCompleteClassificationRequ
 - (void)phoneApplicationDidChangeTabBarSelection:(id)selection
 {
   selectionCopy = selection;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(selectionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -2027,7 +2032,7 @@ void __89__MPRecentsTableViewController_controller_didCompleteClassificationRequ
 
 - (void)contentSizeCategoryDidChange
 {
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -2543,17 +2548,17 @@ void __62__MPRecentsTableViewController_removeRecentCallsAtIndexPaths___block_in
   v7 = [NSOrderedSet orderedSetWithArray:*(a1 + 40)];
   v8 = +[NSMutableSet set];
   +[NSMutableSet set];
-  v25 = _NSConcreteStackBlock;
-  v26 = 3221225472;
-  v27 = __62__MPRecentsTableViewController_removeRecentCallsAtIndexPaths___block_invoke_2;
-  v9 = v28 = &unk_1002863D8;
+  v28 = _NSConcreteStackBlock;
+  v29 = 3221225472;
+  v30 = __62__MPRecentsTableViewController_removeRecentCallsAtIndexPaths___block_invoke_2;
+  v9 = v31 = &unk_1002863D8;
   v10 = *(a1 + 32);
-  v29 = v9;
-  v30 = v10;
-  v31 = *(a1 + 48);
+  v32 = v9;
+  v33 = v10;
+  v34 = *(a1 + 48);
   v11 = v8;
-  v32 = v11;
-  [v7 enumerateObjectsWithOptions:2 usingBlock:&v25];
+  v35 = v11;
+  [v7 enumerateObjectsWithOptions:2 usingBlock:&v28];
   if ([v9 count])
   {
     [*(a1 + 32) setIndexPathsForMissedCalls:0];
@@ -2563,55 +2568,57 @@ void __62__MPRecentsTableViewController_removeRecentCallsAtIndexPaths___block_in
   v12 = [*(a1 + 32) tableView];
   [v12 setUserInteractionEnabled:0];
 
-  v13 = PHDefaultLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = PHDefaultLog(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = [*(a1 + 32) rowCountForCurrentTableMode];
+    v15 = [*(a1 + 32) rowCountForCurrentTableMode];
     *buf = 134218240;
-    v34 = v6;
-    v35 = 2048;
-    v36 = v14;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Beginning table view updates from row count %ld to %ld", buf, 0x16u);
+    v37 = v6;
+    v38 = 2048;
+    v39 = v15;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Beginning table view updates from row count %ld to %ld", buf, 0x16u);
   }
 
   if (a2)
   {
-    if ([v11 count])
+    v16 = [v11 count];
+    if (v16)
     {
-      v15 = PHDefaultLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = PHDefaultLog(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = [v11 count];
-        v17 = [v11 allObjects];
+        v18 = [v11 count];
+        v19 = [v11 allObjects];
         *buf = 134218242;
-        v34 = v16;
-        v35 = 2112;
-        v36 = v17;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Reloading %ld row(s): %@", buf, 0x16u);
+        v37 = v18;
+        v38 = 2112;
+        v39 = v19;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Reloading %ld row(s): %@", buf, 0x16u);
       }
 
-      v18 = [*(a1 + 32) tableView];
-      v19 = [v11 allObjects];
-      [v18 reloadRowsAtIndexPaths:v19 withRowAnimation:100];
+      v20 = [*(a1 + 32) tableView];
+      v21 = [v11 allObjects];
+      [v20 reloadRowsAtIndexPaths:v21 withRowAnimation:100];
     }
 
-    if ([v9 count])
+    v22 = [v9 count];
+    if (v22)
     {
-      v20 = PHDefaultLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v23 = PHDefaultLog(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = [v9 count];
-        v22 = [v9 allObjects];
+        v24 = [v9 count];
+        v25 = [v9 allObjects];
         *buf = 134218242;
-        v34 = v21;
-        v35 = 2112;
-        v36 = v22;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Deleting %ld row(s): %@", buf, 0x16u);
+        v37 = v24;
+        v38 = 2112;
+        v39 = v25;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Deleting %ld row(s): %@", buf, 0x16u);
       }
 
-      v23 = [*(a1 + 32) tableView];
-      v24 = [v9 allObjects];
-      [v23 deleteRowsAtIndexPaths:v24 withRowAnimation:2];
+      v26 = [*(a1 + 32) tableView];
+      v27 = [v9 allObjects];
+      [v26 deleteRowsAtIndexPaths:v27 withRowAnimation:2];
     }
   }
 }
@@ -2620,162 +2627,170 @@ void __62__MPRecentsTableViewController_removeRecentCallsAtIndexPaths___block_in
 {
   v3 = a2;
   v4 = [v3 row];
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v32 = v4;
+    v39 = v4;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Removing recent call at row %ld", buf, 0xCu);
   }
 
-  if (([a1[4] containsObject:v3] & 1) == 0)
+  v6 = [a1[4] containsObject:v3];
+  if ((v6 & 1) == 0)
   {
-    v6 = PHDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = PHDefaultLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v32 = v4;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Adding call (row %ld) to set to be removed from table view", buf, 0xCu);
+      v39 = v4;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Adding call (row %ld) to set to be removed from table view", buf, 0xCu);
     }
 
     [a1[4] addObject:v3];
   }
 
-  v7 = [a1[5] recentCallAtTableViewIndex:v4];
-  if (v7 && ([a1[6] containsObject:v7] & 1) == 0)
+  v8 = [a1[5] recentCallAtTableViewIndex:v4];
+  if (v8)
   {
-    v8 = PHDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = [a1[6] containsObject:v8];
+    if ((v9 & 1) == 0)
     {
-      *buf = 134218242;
-      v32 = v4;
-      v33 = 2112;
-      v34 = v7;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Adding call (row %ld) to array to be removed from recentsController: %@", buf, 0x16u);
-    }
+      v10 = PHDefaultLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 134218242;
+        v39 = v4;
+        v40 = 2112;
+        v41 = v8;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Adding call (row %ld) to array to be removed from recentsController: %@", buf, 0x16u);
+      }
 
-    [a1[6] addObject:v7];
+      [a1[6] addObject:v8];
+    }
   }
 
-  v9 = v4 - 1;
-  v10 = [a1[5] recentCallAtTableViewIndex:v4 - 1];
-  v11 = v4 + 1;
-  v12 = [a1[5] recentCallAtTableViewIndex:v4 + 1];
-  v13 = v12;
-  if (v10 && v12)
+  v11 = v4 - 1;
+  v12 = [a1[5] recentCallAtTableViewIndex:v4 - 1];
+  v13 = v4 + 1;
+  v14 = [a1[5] recentCallAtTableViewIndex:v4 + 1];
+  v15 = v14;
+  if (v12 && v14)
   {
-    v14 = PHDefaultLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = PHDefaultLog(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218754;
-      v32 = v9;
-      v33 = 2048;
-      v34 = v11;
-      v35 = 2112;
-      v36 = v10;
-      v37 = 2112;
-      v38 = v13;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Coalescing adjacent calls at indices %ld and %ld with PHRecentsController. Preceeding call: %@. Succeeding call: %@", buf, 0x2Au);
+      v39 = v11;
+      v40 = 2048;
+      v41 = v13;
+      v42 = 2112;
+      v43 = v12;
+      v44 = 2112;
+      v45 = v15;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Coalescing adjacent calls at indices %ld and %ld with PHRecentsController. Preceeding call: %@. Succeeding call: %@", buf, 0x2Au);
     }
 
-    v15 = [a1[5] recentsController];
-    v16 = [v15 coalesceRecentCall:v10 withRecentCall:v13];
+    v17 = [a1[5] recentsController];
+    v18 = [v17 coalesceRecentCall:v12 withRecentCall:v15];
 
-    if (v16)
+    if (v18)
     {
-      v17 = PHDefaultLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v20 = PHDefaultLog(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218240;
-        v32 = v9;
-        v33 = 2048;
-        v34 = v11;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Coalescing call in table view at row %ld with call at row %ld", buf, 0x16u);
+        v39 = v11;
+        v40 = 2048;
+        v41 = v13;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Coalescing call in table view at row %ld with call at row %ld", buf, 0x16u);
       }
 
-      v18 = +[NSIndexPath indexPathForRow:inSection:](NSIndexPath, "indexPathForRow:inSection:", v9, [v3 section]);
-      if (([a1[7] containsObject:v18] & 1) == 0)
+      v21 = +[NSIndexPath indexPathForRow:inSection:](NSIndexPath, "indexPathForRow:inSection:", v11, [v3 section]);
+      v22 = [a1[7] containsObject:v21];
+      if ((v22 & 1) == 0)
       {
-        v19 = PHDefaultLog();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v23 = PHDefaultLog(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v32 = v9;
-          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Adding preceding call (row %ld) to set to be reloaded in table view", buf, 0xCu);
+          v39 = v11;
+          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Adding preceding call (row %ld) to set to be reloaded in table view", buf, 0xCu);
         }
 
-        [a1[7] addObject:v18];
+        [a1[7] addObject:v21];
       }
 
-      v20 = +[NSIndexPath indexPathForRow:inSection:](NSIndexPath, "indexPathForRow:inSection:", v11, [v3 section]);
-      if (([a1[4] containsObject:v20] & 1) == 0)
+      v24 = +[NSIndexPath indexPathForRow:inSection:](NSIndexPath, "indexPathForRow:inSection:", v13, [v3 section]);
+      v25 = [a1[4] containsObject:v24];
+      if ((v25 & 1) == 0)
       {
-        v21 = PHDefaultLog();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v26 = PHDefaultLog(v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v32 = v11;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Adding succeeding call (row %ld) to set to be removed from table view", buf, 0xCu);
+          v39 = v13;
+          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Adding succeeding call (row %ld) to set to be removed from table view", buf, 0xCu);
         }
 
-        [a1[4] addObject:v20];
-        if ([a1[7] containsObject:v20])
+        [a1[4] addObject:v24];
+        v27 = [a1[7] containsObject:v24];
+        if (v27)
         {
-          v22 = PHDefaultLog();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v28 = PHDefaultLog(v27);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134217984;
-            v32 = v11;
-            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Removing succeeding call (row %ld) from set to be reloaded in table view", buf, 0xCu);
+            v39 = v13;
+            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Removing succeeding call (row %ld) from set to be reloaded in table view", buf, 0xCu);
           }
 
-          [a1[7] removeObject:v20];
+          [a1[7] removeObject:v24];
         }
 
-        v23 = [a1[5] recentCalls];
-        v24 = [v23 indexOfObjectIdenticalTo:v10];
+        v29 = [a1[5] recentCalls];
+        v30 = [v29 indexOfObjectIdenticalTo:v12];
 
-        if (v24 != 0x7FFFFFFFFFFFFFFFLL)
+        if (v30 != 0x7FFFFFFFFFFFFFFFLL)
         {
-          v25 = PHDefaultLog();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          v32 = PHDefaultLog(v31);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Replacing preceeding call with coalesced call in recent calls list", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Replacing preceeding call with coalesced call in recent calls list", buf, 2u);
           }
 
-          v26 = [a1[5] recentCalls];
-          [v26 setObject:v16 atIndexedSubscript:v24];
+          v33 = [a1[5] recentCalls];
+          [v33 setObject:v18 atIndexedSubscript:v30];
         }
 
-        v27 = PHDefaultLog();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        v34 = PHDefaultLog(v31);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Removing succeeding call from recentCalls array", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Removing succeeding call from recentCalls array", buf, 2u);
         }
 
-        v28 = [a1[5] recentCalls];
-        [v28 removeObject:v13];
+        v35 = [a1[5] recentCalls];
+        [v35 removeObject:v15];
       }
     }
   }
 
-  v29 = PHDefaultLog();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+  v36 = PHDefaultLog(v14);
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v32 = v7;
-    _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Removing call from recentCalls array: %@", buf, 0xCu);
+    v39 = v8;
+    _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Removing call from recentCalls array: %@", buf, 0xCu);
   }
 
-  v30 = [a1[5] recentCalls];
-  [v30 removeObject:v7];
+  v37 = [a1[5] recentCalls];
+  [v37 removeObject:v8];
 }
 
 void __62__MPRecentsTableViewController_removeRecentCallsAtIndexPaths___block_invoke_288(uint64_t a1)
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) rowCountForCurrentTableMode];
@@ -3057,7 +3072,7 @@ LABEL_15:
 - (void)contactViewController:(id)controller didExecuteBlockAndReportContactAction:(id)action
 {
   controllerCopy = controller;
-  v6 = PHDefaultLog();
+  v6 = PHDefaultLog(controllerCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -3065,13 +3080,14 @@ LABEL_15:
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v7 = PHDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = PHDefaultLog(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "viewController is PHContactViewController", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "viewController is PHContactViewController", v11, 2u);
     }
 
     recentCall = [controllerCopy recentCall];
@@ -3222,7 +3238,7 @@ LABEL_13:
 
 - (void)reloadDataSource
 {
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -3237,7 +3253,7 @@ LABEL_13:
 - (void)reloadDataSourceForCalls:(id)calls
 {
   callsCopy = calls;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(callsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -3270,55 +3286,60 @@ id __57__MPRecentsTableViewController_reloadDataSourceForCalls___block_invoke(ui
 
 - (void)reloadTableView
 {
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Asked to reload table view", buf, 2u);
   }
 
-  if ([(MPRecentsTableViewController *)self canPerformTableViewUpdates]&& ([(MPRecentsTableViewController *)self isEditing]& 1) == 0)
+  if ([(MPRecentsTableViewController *)self canPerformTableViewUpdates])
   {
-    v4 = PHDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    isEditing = [(MPRecentsTableViewController *)self isEditing];
+    if ((isEditing & 1) == 0)
     {
-      *v9 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Reloading table view", v9, 2u);
-    }
-
-    view = [(MPRecentsTableViewController *)self view];
-    window = [view window];
-
-    if (!window)
-    {
-      v7 = PHDefaultLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v5 = PHDefaultLog(isEditing);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        [MPRecentsTableViewController reloadTableView];
+        *v11 = 0;
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Reloading table view", v11, 2u);
       }
-    }
 
-    tableView = [(MPRecentsTableViewController *)self tableView];
-    [tableView reloadData];
+      view = [(MPRecentsTableViewController *)self view];
+      window = [view window];
+
+      if (!window)
+      {
+        v9 = PHDefaultLog(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        {
+          [MPRecentsTableViewController reloadTableView];
+        }
+      }
+
+      tableView = [(MPRecentsTableViewController *)self tableView];
+      [tableView reloadData];
+    }
   }
 }
 
 - (void)refreshView
 {
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Asked to refresh View", buf, 2u);
   }
 
-  if ([(MPRecentsTableViewController *)self canPerformTableViewUpdates])
+  canPerformTableViewUpdates = [(MPRecentsTableViewController *)self canPerformTableViewUpdates];
+  if (canPerformTableViewUpdates)
   {
-    v4 = PHDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = PHDefaultLog(canPerformTableViewUpdates);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Did refresh View", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Did refresh View", v6, 2u);
     }
 
     [(MPRecentsTableViewController *)self setContentUnavailable:[(MPRecentsTableViewController *)self rowCountForCurrentTableMode]== 0 animated:0];
@@ -3330,28 +3351,28 @@ id __57__MPRecentsTableViewController_reloadDataSourceForCalls___block_invoke(ui
 {
   animatedCopy = animated;
   navigationItem = [(MPRecentsTableViewController *)self navigationItem];
-  v7 = PHDefaultLog();
+  v7 = PHDefaultLog(navigationItem);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138412290;
-    v20 = navigationItem;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Current nav item: %@", &v19, 0xCu);
+    v21 = 138412290;
+    v22 = navigationItem;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Current nav item: %@", &v21, 0xCu);
   }
 
-  v8 = PHDefaultLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = PHDefaultLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     featureFlags = [(MPRecentsTableViewController *)self featureFlags];
-    v10 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [featureFlags nameAndPhotoEnabled]);
-    v11 = [NSNumber numberWithInteger:[(MPRecentsTableViewController *)self rowCountForCurrentTableMode]];
-    v12 = [NSNumber numberWithBool:[(MPRecentsTableViewController *)self isEditing]];
-    v19 = 138412802;
-    v20 = v10;
-    v21 = 2112;
+    v11 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [featureFlags nameAndPhotoEnabled]);
+    v12 = [NSNumber numberWithInteger:[(MPRecentsTableViewController *)self rowCountForCurrentTableMode]];
+    v13 = [NSNumber numberWithBool:[(MPRecentsTableViewController *)self isEditing]];
+    v21 = 138412802;
     v22 = v11;
     v23 = 2112;
     v24 = v12;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Updating nav item buttons based on SNAP: %@, rowcount: %@, editing: %@", &v19, 0x20u);
+    v25 = 2112;
+    v26 = v13;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Updating nav item buttons based on SNAP: %@, rowcount: %@, editing: %@", &v21, 0x20u);
   }
 
   if (navigationItem && [(MPRecentsTableViewController *)self isViewLoaded])
@@ -3376,29 +3397,29 @@ id __57__MPRecentsTableViewController_reloadDataSourceForCalls___block_invoke(ui
       doneButtonItem = [(MPRecentsTableViewController *)self nicknameEditButtonItem];
     }
 
-    v15 = doneButtonItem;
+    v16 = doneButtonItem;
     leftBarButtonItem = [navigationItem leftBarButtonItem];
 
-    if (leftBarButtonItem != v15)
+    if (leftBarButtonItem != v16)
     {
-      [navigationItem setLeftBarButtonItem:v15 animated:animatedCopy];
+      [navigationItem setLeftBarButtonItem:v16 animated:animatedCopy];
     }
 
     rightBarButtonItem = [navigationItem rightBarButtonItem];
 
     if (rightBarButtonItem != clearButtonItem)
     {
-      [navigationItem setRightBarButtonItem:clearButtonItem animated:animatedCopy];
+      v19 = [navigationItem setRightBarButtonItem:clearButtonItem animated:animatedCopy];
     }
 
-    v18 = PHDefaultLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v20 = PHDefaultLog(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412546;
-      v20 = v15;
-      v21 = 2112;
-      v22 = clearButtonItem;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Set nav item buttons to leftBarButtonItem: %@, rightBarButtonItem: %@", &v19, 0x16u);
+      v21 = 138412546;
+      v22 = v16;
+      v23 = 2112;
+      v24 = clearButtonItem;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Set nav item buttons to leftBarButtonItem: %@, rightBarButtonItem: %@", &v21, 0x16u);
     }
   }
 }
@@ -3949,26 +3970,28 @@ void __111__MPRecentsTableViewController_showRecentCallDetailsViewControllerForR
 
 - (void)updateTabBarItemWithCount:(unint64_t)count
 {
+  selfCopy = self;
   if (count)
   {
-    v4 = [NSString stringWithFormat:@"%lu", count];
+    self = [NSString stringWithFormat:@"%lu", count];
+    selfCopy2 = self;
   }
 
   else
   {
-    v4 = 0;
+    selfCopy2 = 0;
   }
 
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v8 = v4;
+    v8 = selfCopy2;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Setting tab bar item badge value to %@", buf, 0xCu);
   }
 
-  tabBarItem = [(MPRecentsTableViewController *)self tabBarItem];
-  [tabBarItem setBadgeValue:v4];
+  tabBarItem = [(MPRecentsTableViewController *)selfCopy tabBarItem];
+  [tabBarItem setBadgeValue:selfCopy2];
 }
 
 - (MPRecentsUnknownCallersViewController)unknownCallersViewController
@@ -4012,8 +4035,7 @@ void __111__MPRecentsTableViewController_showRecentCallDetailsViewControllerForR
 
 - (void)unknownCallersViewControllerDidRequestEnable:(id)enable
 {
-  [(MPRecentsTableViewController *)self dismissUnknownCallersViewController:enable];
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog([(MPRecentsTableViewController *)self dismissUnknownCallersViewController:enable]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -4030,35 +4052,35 @@ void __111__MPRecentsTableViewController_showRecentCallDetailsViewControllerForR
 - (void)recentsController:(id)controller didChangeCalls:(id)calls
 {
   callsCopy = calls;
-  v6 = PHDefaultLog();
+  v6 = PHDefaultLog(callsCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v28 = objc_opt_class();
-    v7 = v28;
+    v29 = objc_opt_class();
+    v7 = v29;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@ is handling recent calls change", buf, 0xCu);
   }
 
-  if (![(MPRecentsTableViewController *)self isViewLoaded]|| ([(MPRecentsTableViewController *)self isEditing]& 1) != 0)
+  if (![(MPRecentsTableViewController *)self isViewLoaded]|| (v8 = [(MPRecentsTableViewController *)self isEditing], (v8 & 1) != 0))
   {
     [(MPRecentsTableViewController *)self setDataSourceNeedsReload:1];
     goto LABEL_25;
   }
 
-  v8 = PHDefaultLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = PHDefaultLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Synchronizing recents table view with recents data source", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Synchronizing recents table view with recents data source", buf, 2u);
   }
 
-  v9 = [(MPRecentsTableViewController *)self callsWithValidHandles:callsCopy];
+  v10 = [(MPRecentsTableViewController *)self callsWithValidHandles:callsCopy];
   if ([(MPRecentsTableViewController *)self tableViewDisplayMode]== 1)
   {
-    v10 = [NSPredicate predicateWithBlock:&__block_literal_global_328];
-    v11 = [v9 filteredArrayUsingPredicate:v10];
+    v11 = [NSPredicate predicateWithBlock:&__block_literal_global_328];
+    v12 = [v10 filteredArrayUsingPredicate:v11];
 
-    v9 = v11;
+    v10 = v12;
   }
 
   featureFlags = [(MPRecentsTableViewController *)self featureFlags];
@@ -4069,49 +4091,49 @@ void __111__MPRecentsTableViewController_showRecentCallDetailsViewControllerForR
   }
 
   recentCalls = [(MPRecentsTableViewController *)self recentCalls];
-  v14 = [recentCalls isEqualToArray:v9];
+  v15 = [recentCalls isEqualToArray:v10];
 
-  if (!v14)
+  if (!v15)
   {
 LABEL_14:
     recentsController = [(MPRecentsTableViewController *)self recentsController];
-    v16 = objc_opt_class();
+    v17 = objc_opt_class();
     recentCalls2 = [(MPRecentsTableViewController *)self recentCalls];
-    v18 = [v16 indexPathsToInsertIntoCachedRecentCalls:recentCalls2 fromBackingRecentCalls:v9];
+    v19 = [v17 indexPathsToInsertIntoCachedRecentCalls:recentCalls2 fromBackingRecentCalls:v10];
 
-    v19 = [v18 count];
-    v20 = PHDefaultLog();
-    v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
-    if (v19)
+    v20 = [v19 count];
+    v21 = PHDefaultLog(v20);
+    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+    if (v20)
     {
-      if (v21)
+      if (v22)
       {
         *buf = 138412290;
-        v28 = v18;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Inserting index paths for new recent calls: %@", buf, 0xCu);
+        v29 = v19;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Inserting index paths for new recent calls: %@", buf, 0xCu);
       }
 
+      v25[0] = _NSConcreteStackBlock;
+      v25[1] = 3221225472;
+      v25[2] = __65__MPRecentsTableViewController_recentsController_didChangeCalls___block_invoke_329;
+      v25[3] = &unk_1002863B0;
+      v25[4] = self;
+      v26 = v10;
+      v27 = v19;
       v24[0] = _NSConcreteStackBlock;
       v24[1] = 3221225472;
-      v24[2] = __65__MPRecentsTableViewController_recentsController_didChangeCalls___block_invoke_329;
-      v24[3] = &unk_1002863B0;
+      v24[2] = __65__MPRecentsTableViewController_recentsController_didChangeCalls___block_invoke_2;
+      v24[3] = &unk_100285B20;
       v24[4] = self;
-      v25 = v9;
-      v26 = v18;
-      v23[0] = _NSConcreteStackBlock;
-      v23[1] = 3221225472;
-      v23[2] = __65__MPRecentsTableViewController_recentsController_didChangeCalls___block_invoke_2;
-      v23[3] = &unk_100285B20;
-      v23[4] = self;
-      [(MPRecentsTableViewController *)self performBatchUpdates:v24 completion:v23];
+      [(MPRecentsTableViewController *)self performBatchUpdates:v25 completion:v24];
     }
 
     else
     {
-      if (v21)
+      if (v22)
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Reloading data source", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Reloading data source", buf, 2u);
       }
 
       [(MPRecentsTableViewController *)self reloadDataSourceForCalls:callsCopy];
@@ -4120,7 +4142,7 @@ LABEL_14:
     goto LABEL_22;
   }
 
-  [(MPRecentsTableViewController *)self reconfiguringCellsForCalls:v9];
+  [(MPRecentsTableViewController *)self reconfiguringCellsForCalls:v10];
 LABEL_22:
   delegate = self->_delegate;
   if (delegate)
@@ -4159,37 +4181,37 @@ id __65__MPRecentsTableViewController_recentsController_didChangeCalls___block_i
 
   if (phoneRecentsAvatarsEnabled)
   {
-    v8 = PHDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = PHDefaultLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = objc_opt_class();
-      v10 = v9;
-      v15 = 138412546;
-      v16 = v9;
-      v17 = 2048;
-      v18 = [callsCopy count];
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@ is handling recent calls update for calls count : %lu", &v15, 0x16u);
+      v10 = objc_opt_class();
+      v11 = v10;
+      v17 = 138412546;
+      v18 = v10;
+      v19 = 2048;
+      v20 = [callsCopy count];
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@ is handling recent calls update for calls count : %lu", &v17, 0x16u);
     }
 
-    if ([(MPRecentsTableViewController *)self isViewLoaded]&& ([(MPRecentsTableViewController *)self isEditing]& 1) == 0)
+    if ([(MPRecentsTableViewController *)self isViewLoaded]&& (v12 = [(MPRecentsTableViewController *)self isEditing], (v12 & 1) == 0))
     {
-      v11 = PHDefaultLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = PHDefaultLog(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v15) = 0;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Synchronizing recents table view with recents data source", &v15, 2u);
+        LOWORD(v17) = 0;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Synchronizing recents table view with recents data source", &v17, 2u);
       }
 
-      v12 = [(MPRecentsTableViewController *)self callsWithValidHandles:callsCopy];
+      v14 = [(MPRecentsTableViewController *)self callsWithValidHandles:callsCopy];
       if ([(MPRecentsTableViewController *)self tableViewDisplayMode]== 1)
       {
-        v13 = [NSPredicate predicateWithBlock:&__block_literal_global_331];
-        v14 = [v12 filteredArrayUsingPredicate:v13];
+        v15 = [NSPredicate predicateWithBlock:&__block_literal_global_331];
+        v16 = [v14 filteredArrayUsingPredicate:v15];
 
-        v12 = v14;
+        v14 = v16;
       }
 
-      [(MPRecentsTableViewController *)self reconfiguringCellsForCalls:v12];
+      [(MPRecentsTableViewController *)self reconfiguringCellsForCalls:v14];
     }
 
     else
@@ -4217,7 +4239,7 @@ id __65__MPRecentsTableViewController_recentsController_didChangeCalls___block_i
 
 - (void)recentsController:(id)controller didChangeUnreadCallCount:(unint64_t)count
 {
-  v6 = PHDefaultLog();
+  v6 = PHDefaultLog(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = objc_opt_class();
@@ -4259,21 +4281,21 @@ id __65__MPRecentsTableViewController_recentsController_didChangeCalls___block_i
 
   if (phoneRecentsAvatarsEnabled)
   {
-    v7 = PHDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = PHDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v12 = [callsCopy count];
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "reconfiguringCellsForCalls: %lu", buf, 0xCu);
+      v13 = [callsCopy count];
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "reconfiguringCellsForCalls: %lu", buf, 0xCu);
     }
 
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = __59__MPRecentsTableViewController_reconfiguringCellsForCalls___block_invoke;
-    v8[3] = &unk_100285C58;
-    v9 = callsCopy;
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = __59__MPRecentsTableViewController_reconfiguringCellsForCalls___block_invoke;
+    v9[3] = &unk_100285C58;
+    v10 = callsCopy;
     selfCopy = self;
-    [(MPRecentsTableViewController *)self performBatchUpdates:v8 completion:0];
+    [(MPRecentsTableViewController *)self performBatchUpdates:v9 completion:0];
   }
 }
 
@@ -4286,51 +4308,52 @@ void __59__MPRecentsTableViewController_reconfiguringCellsForCalls___block_invok
     v5 = [v4 indexPathsForVisibleRows];
 
     v6 = objc_alloc_init(NSMutableArray);
-    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v18 objects:v24 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v19 objects:v25 count:16];
     if (v8)
     {
       v10 = v8;
-      v11 = *v19;
+      v11 = *v20;
       *&v9 = 138412290;
-      v17 = v9;
+      v18 = v9;
       do
       {
         for (i = 0; i != v10; i = i + 1)
         {
-          if (*v19 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * i);
-          v14 = [*(a1 + 40) recentCallAtTableViewIndex:{objc_msgSend(v13, "row", v17, v18)}];
-          if ([v3 containsObject:v14])
+          v13 = *(*(&v19 + 1) + 8 * i);
+          v14 = [*(a1 + 40) recentCallAtTableViewIndex:{objc_msgSend(v13, "row", v18, v19)}];
+          v15 = [v3 containsObject:v14];
+          if (v15)
           {
-            v15 = PHDefaultLog();
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+            v16 = PHDefaultLog(v15);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v17;
-              v23 = v13;
-              _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Reconfiguring cell for : %@", buf, 0xCu);
+              *buf = v18;
+              v24 = v13;
+              _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Reconfiguring cell for : %@", buf, 0xCu);
             }
 
             [v6 addObject:v13];
           }
         }
 
-        v10 = [v7 countByEnumeratingWithState:&v18 objects:v24 count:16];
+        v10 = [v7 countByEnumeratingWithState:&v19 objects:v25 count:16];
       }
 
       while (v10);
     }
 
-    v16 = [*(a1 + 40) tableView];
-    [v16 reconfigureRowsAtIndexPaths:v6];
+    v17 = [*(a1 + 40) tableView];
+    [v17 reconfigureRowsAtIndexPaths:v6];
   }
 }
 
@@ -4356,13 +4379,14 @@ void __59__MPRecentsTableViewController_reconfiguringCellsForCalls___block_invok
 {
   updatesCopy = updates;
   completionCopy = completion;
-  if (![(MPRecentsTableViewController *)self canPerformTableViewUpdates])
+  canPerformTableViewUpdates = [(MPRecentsTableViewController *)self canPerformTableViewUpdates];
+  if ((canPerformTableViewUpdates & 1) == 0)
   {
-    v8 = PHDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = PHDefaultLog(canPerformTableViewUpdates);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "performBatchUpdates: View is not loaded or not in view hierarchy, setting dataSourceNeedsReload to true, not performing updates", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "performBatchUpdates: View is not loaded or not in view hierarchy, setting dataSourceNeedsReload to true, not performing updates", buf, 2u);
     }
 
     [(MPRecentsTableViewController *)self setDataSourceNeedsReload:1];
@@ -4373,22 +4397,23 @@ void __59__MPRecentsTableViewController_reconfiguringCellsForCalls___block_invok
   }
 
   dataSourceNeedsReload = [(MPRecentsTableViewController *)self dataSourceNeedsReload];
-  v10 = PHDefaultLog();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-  if (dataSourceNeedsReload)
+  v11 = dataSourceNeedsReload;
+  v12 = PHDefaultLog(dataSourceNeedsReload);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  if (v11)
   {
-    if (v11)
+    if (v13)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "performBatchUpdates: Data source already needs a reload. Performing the reload instead", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "performBatchUpdates: Data source already needs a reload. Performing the reload instead", buf, 2u);
     }
 
     updatesCopy[2](updatesCopy, 0);
     recentsController = [(MPRecentsTableViewController *)self recentsController];
     recentCalls = [recentsController recentCalls];
-    v14 = [(MPRecentsTableViewController *)self callsWithValidHandles:recentCalls];
-    v15 = [v14 mutableCopy];
-    [(MPRecentsTableViewController *)self setRecentCalls:v15];
+    v16 = [(MPRecentsTableViewController *)self callsWithValidHandles:recentCalls];
+    v17 = [v16 mutableCopy];
+    [(MPRecentsTableViewController *)self setRecentCalls:v17];
 
     tableView = [(MPRecentsTableViewController *)self tableView];
     [tableView reloadData];
@@ -4401,19 +4426,19 @@ void __59__MPRecentsTableViewController_reconfiguringCellsForCalls___block_invok
 
   else
   {
-    if (v11)
+    if (v13)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "performBatchUpdates: Performing the batch update", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "performBatchUpdates: Performing the batch update", buf, 2u);
     }
 
     tableView2 = [(MPRecentsTableViewController *)self tableView];
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = __63__MPRecentsTableViewController_performBatchUpdates_completion___block_invoke;
-    v18[3] = &unk_100285590;
-    v19 = updatesCopy;
-    [tableView2 performBatchUpdates:v18 completion:completionCopy];
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = __63__MPRecentsTableViewController_performBatchUpdates_completion___block_invoke;
+    v20[3] = &unk_100285590;
+    v21 = updatesCopy;
+    [tableView2 performBatchUpdates:v20 completion:completionCopy];
   }
 
   [(MPRecentsTableViewController *)self setDataSourceNeedsReload:0];
@@ -4498,20 +4523,21 @@ BOOL __54__MPRecentsTableViewController_callsWithValidHandles___block_invoke(id 
         v16 = [v14 dateByAddingComponents:v13 toDate:v15 options:0];
 
         v17 = [NSPredicate predicateWithFormat:@"date >= %@ AND contactIdentifier == %@", v16, v7];
-        if ([v12 countCallsWithPredicate:v17] >= 5)
+        v18 = [v12 countCallsWithPredicate:v17];
+        if (v18 >= 5)
         {
-          v18 = PHDefaultLog();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v19 = PHDefaultLog(v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Logging Biome signal for calling a non-favorite contact.", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Logging Biome signal for calling a non-favorite contact.", buf, 2u);
           }
 
-          v19 = TUTipsEventCalledNonFavContact;
+          v20 = TUTipsEventCalledNonFavContact;
 LABEL_18:
-          if (v19)
+          if (v20)
           {
-            if (v19 == TUTipsEventCalledNonFavContact)
+            if (v20 == TUTipsEventCalledNonFavContact)
             {
               +[TPTipsHelper donateEventCalledNonFavContact];
             }
@@ -4532,19 +4558,19 @@ LABEL_18:
     else
     {
       callerIdForDisplay = [callCopy callerIdForDisplay];
-      v21 = [NSPredicate predicateWithFormat:@"callerIdForDisplay == %@", callerIdForDisplay];
-      v22 = [v12 countCallsWithPredicate:v21];
+      v22 = [NSPredicate predicateWithFormat:@"callerIdForDisplay == %@", callerIdForDisplay];
+      v23 = [v12 countCallsWithPredicate:v22];
 
-      if (v22 >= 3)
+      if (v23 >= 3)
       {
-        v23 = PHDefaultLog();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v25 = PHDefaultLog(v24);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
-          *v24 = 0;
-          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Logging Biome signal for calling a non-contact number.", v24, 2u);
+          *v26 = 0;
+          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Logging Biome signal for calling a non-contact number.", v26, 2u);
         }
 
-        v19 = TUTipsEventCalledNonContact;
+        v20 = TUTipsEventCalledNonContact;
         goto LABEL_18;
       }
     }
@@ -4563,53 +4589,53 @@ LABEL_25:
 
   if (useSharedRecentsViewModel)
   {
-    v7 = PHDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = PHDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [MPRecentsTableViewController isRecentCallContactInFavorites:];
     }
   }
 
   contactIdentifier = [favoritesCopy contactIdentifier];
-  v9 = contactIdentifier;
+  v10 = contactIdentifier;
   if (contactIdentifier && [contactIdentifier length])
   {
-    v10 = +[(PHApplicationServices *)MPApplicationServices];
-    favoritesController = [v10 favoritesController];
+    v11 = +[(PHApplicationServices *)MPApplicationServices];
+    favoritesController = [v11 favoritesController];
 
-    v24 = 0u;
     v25 = 0u;
-    v22 = 0u;
+    v26 = 0u;
     v23 = 0u;
+    v24 = 0u;
     favoritesEntries = [favoritesController favoritesEntries];
-    v13 = [favoritesEntries countByEnumeratingWithState:&v22 objects:v26 count:16];
-    if (v13)
+    v14 = [favoritesEntries countByEnumeratingWithState:&v23 objects:v27 count:16];
+    if (v14)
     {
-      v21 = favoritesController;
-      v14 = *v23;
+      v22 = favoritesController;
+      v15 = *v24;
       while (2)
       {
-        for (i = 0; i != v13; i = i + 1)
+        for (i = 0; i != v14; i = i + 1)
         {
-          if (*v23 != v14)
+          if (*v24 != v15)
           {
             objc_enumerationMutation(favoritesEntries);
           }
 
-          contactProperty = [*(*(&v22 + 1) + 8 * i) contactProperty];
+          contactProperty = [*(*(&v23 + 1) + 8 * i) contactProperty];
           contact = [contactProperty contact];
           identifier = [contact identifier];
-          v19 = [identifier isEqualToString:v9];
+          v20 = [identifier isEqualToString:v10];
 
-          if (v19)
+          if (v20)
           {
-            LOBYTE(v13) = 1;
+            LOBYTE(v14) = 1;
             goto LABEL_18;
           }
         }
 
-        v13 = [favoritesEntries countByEnumeratingWithState:&v22 objects:v26 count:16];
-        if (v13)
+        v14 = [favoritesEntries countByEnumeratingWithState:&v23 objects:v27 count:16];
+        if (v14)
         {
           continue;
         }
@@ -4618,16 +4644,16 @@ LABEL_25:
       }
 
 LABEL_18:
-      favoritesController = v21;
+      favoritesController = v22;
     }
   }
 
   else
   {
-    LOBYTE(v13) = 0;
+    LOBYTE(v14) = 0;
   }
 
-  return v13;
+  return v14;
 }
 
 - (void)presentCNSharedProfileOnboardingController
@@ -4637,19 +4663,19 @@ LABEL_18:
 
   if (nameAndPhotoEnabledC3)
   {
-    v5 = PHDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PHDefaultLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Going to present CNSharedProfileOnboardingController", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Going to present CNSharedProfileOnboardingController", v12, 2u);
     }
 
     [(MPRecentsTableViewController *)self dismissViewControllerAnimated:0 completion:0];
-    v6 = [CNSharedProfileOnboardingController alloc];
-    v7 = +[TUCallCenter sharedInstance];
-    contactStore = [v7 contactStore];
-    v9 = [v6 initWithContactStore:contactStore];
-    [(MPRecentsTableViewController *)self setOnboardingController:v9];
+    v7 = [CNSharedProfileOnboardingController alloc];
+    v8 = +[TUCallCenter sharedInstance];
+    contactStore = [v8 contactStore];
+    v10 = [v7 initWithContactStore:contactStore];
+    [(MPRecentsTableViewController *)self setOnboardingController:v10];
 
     onboardingController = [(MPRecentsTableViewController *)self onboardingController];
     [onboardingController startOnboardingOrEditForMode:1 fromViewController:self];
@@ -4658,7 +4684,7 @@ LABEL_18:
 
 - (id)fetchSubscriptionsInUse
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
@@ -4668,56 +4694,57 @@ LABEL_18:
   }
 
   v4 = objc_alloc_init(NSMutableArray);
-  v21 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2050000000;
+  v21 = 0u;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2050000000;
   v5 = getPSSimStatusCacheClass_softClass;
-  v26 = getPSSimStatusCacheClass_softClass;
+  v27 = getPSSimStatusCacheClass_softClass;
   if (!getPSSimStatusCacheClass_softClass)
   {
     *&buf = _NSConcreteStackBlock;
     *(&buf + 1) = 3221225472;
-    v29 = __getPSSimStatusCacheClass_block_invoke;
-    v30 = &unk_100286540;
-    v31 = &v23;
+    v30 = __getPSSimStatusCacheClass_block_invoke;
+    v31 = &unk_100286540;
+    v32 = &v24;
     __getPSSimStatusCacheClass_block_invoke(&buf);
-    v5 = v24[3];
+    v5 = v25[3];
   }
 
   v6 = v5;
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v24, 8);
   sharedInstance = [v5 sharedInstance];
   subscriptionsInUse = [sharedInstance subscriptionsInUse];
 
-  v9 = [subscriptionsInUse countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v9 = [subscriptionsInUse countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v9)
   {
-    v11 = *v20;
+    v11 = *v21;
     *&v10 = 138412290;
-    v18 = v10;
+    v19 = v10;
     do
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v20 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(subscriptionsInUse);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
-        if ([v13 isSimHidden])
+        v13 = *(*(&v20 + 1) + 8 * i);
+        isSimHidden = [v13 isSimHidden];
+        if (isSimHidden)
         {
-          v14 = PHDefaultLog();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v15 = PHDefaultLog(isSimHidden);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             uuid = [v13 uuid];
-            LODWORD(buf) = v18;
+            LODWORD(buf) = v19;
             *(&buf + 4) = uuid;
-            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Subscription: %@ is hidden", &buf, 0xCu);
+            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Subscription: %@ is hidden", &buf, 0xCu);
           }
         }
 
@@ -4727,15 +4754,15 @@ LABEL_18:
         }
       }
 
-      v9 = [subscriptionsInUse countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v9 = [subscriptionsInUse countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v9);
   }
 
-  v16 = [v4 copy];
+  v17 = [v4 copy];
 
-  return v16;
+  return v17;
 }
 
 - (id)fetchCarrierBundleValue:(id)value context:(id)context
@@ -4743,14 +4770,14 @@ LABEL_18:
   valueCopy = value;
   contextCopy = context;
   ctClient = [(MPRecentsTableViewController *)self ctClient];
-  v13 = 0;
-  v9 = [ctClient context:contextCopy getCarrierBundleValue:valueCopy error:&v13];
+  v14 = 0;
+  v9 = [ctClient context:contextCopy getCarrierBundleValue:valueCopy error:&v14];
 
-  v10 = v13;
+  v10 = v14;
   if (v10)
   {
-    v11 = PHDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = PHDefaultLog(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [MPRecentsTableViewController fetchCarrierBundleValue:context:];
     }
@@ -4845,49 +4872,49 @@ LABEL_18:
 
     if (v8 == 6)
     {
-      v9 = PHDefaultLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = PHDefaultLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "MPRecentsTableViewController: not a valid spam flow", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "MPRecentsTableViewController: not a valid spam flow", buf, 2u);
       }
 
-      v10 = 0;
+      v11 = 0;
     }
 
     else
     {
       callReportingViewModel3 = [(MPRecentsTableViewController *)self callReportingViewModel];
-      v9 = [callReportingViewModel3 reportActionTitleOfFlow:v8];
+      v10 = [callReportingViewModel3 reportActionTitleOfFlow:v8];
 
-      v16[0] = _NSConcreteStackBlock;
-      v16[1] = 3221225472;
-      v16[2] = __57__MPRecentsTableViewController_reportSwipeActionForCall___block_invoke;
-      v16[3] = &unk_1002864F0;
-      objc_copyWeak(v18, &location);
-      v18[1] = v8;
-      v17 = callCopy;
-      v10 = [UIContextualAction contextualActionWithStyle:0 title:v9 handler:v16];
-      v12 = +[UIColor orangeColor];
-      [v10 setBackgroundColor:v12];
+      v17[0] = _NSConcreteStackBlock;
+      v17[1] = 3221225472;
+      v17[2] = __57__MPRecentsTableViewController_reportSwipeActionForCall___block_invoke;
+      v17[3] = &unk_1002864F0;
+      objc_copyWeak(v19, &location);
+      v19[1] = v8;
+      v18 = callCopy;
+      v11 = [UIContextualAction contextualActionWithStyle:0 title:v10 handler:v17];
+      v13 = +[UIColor orangeColor];
+      [v11 setBackgroundColor:v13];
 
       callReportingViewModel4 = [(MPRecentsTableViewController *)self callReportingViewModel];
       reportActionImage = [callReportingViewModel4 reportActionImage];
-      [v10 setImage:reportActionImage];
+      [v11 setImage:reportActionImage];
 
-      [v10 setAccessibilityIdentifier:@"ReportAction"];
-      objc_destroyWeak(v18);
+      [v11 setAccessibilityIdentifier:@"ReportAction"];
+      objc_destroyWeak(v19);
     }
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
   objc_destroyWeak(&location);
 
-  return v10;
+  return v11;
 }
 
 void __57__MPRecentsTableViewController_reportSwipeActionForCall___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -4904,7 +4931,7 @@ void __57__MPRecentsTableViewController_reportSwipeActionForCall___block_invoke(
       {
         if (v8 == 1)
         {
-          v12 = PHDefaultLog();
+          v12 = PHDefaultLog(WeakRetained);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
             *v15 = 0;
@@ -4916,7 +4943,7 @@ void __57__MPRecentsTableViewController_reportSwipeActionForCall___block_invoke(
 
         else if (v8 == 2)
         {
-          v9 = PHDefaultLog();
+          v9 = PHDefaultLog(WeakRetained);
           if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
@@ -4929,7 +4956,7 @@ void __57__MPRecentsTableViewController_reportSwipeActionForCall___block_invoke(
 
       else
       {
-        v11 = PHDefaultLog();
+        v11 = PHDefaultLog(WeakRetained);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           *v16 = 0;
@@ -4949,7 +4976,7 @@ void __57__MPRecentsTableViewController_reportSwipeActionForCall___block_invoke(
 
       else if (v8 == 6)
       {
-        v10 = PHDefaultLog();
+        v10 = PHDefaultLog(WeakRetained);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *v13 = 0;
@@ -4982,81 +5009,81 @@ void __57__MPRecentsTableViewController_reportSwipeActionForCall___block_invoke(
 
   if (useSharedRecentsViewModel)
   {
-    v7 = PHDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = PHDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [MPRecentsTableViewController _showCarrierVoiceCallReportAlertForCall:];
     }
   }
 
   callReportingViewModel = [(MPRecentsTableViewController *)self callReportingViewModel];
-  v9 = [callReportingViewModel getCarrierNameOfCallForCall:callCopy];
+  v10 = [callReportingViewModel getCarrierNameOfCallForCall:callCopy];
 
   callReportingViewModel2 = [(MPRecentsTableViewController *)self callReportingViewModel];
-  v31 = v9;
-  v11 = [callReportingViewModel2 getCarrierSpamReportAlertTitleWithCarrierName:v9];
+  v32 = v10;
+  v12 = [callReportingViewModel2 getCarrierSpamReportAlertTitleWithCarrierName:v10];
 
-  v12 = [UIAlertController alertControllerWithTitle:v11 message:0 preferredStyle:0];
-  v13 = +[NSBundle mainBundle];
-  v14 = [v13 localizedStringForKey:@"REPORT_BLOCK_FACETIME_ALERT_BLOCK" value:&stru_10028F310 table:@"PHRecents"];
-  v36[0] = _NSConcreteStackBlock;
-  v36[1] = 3221225472;
-  v36[2] = __72__MPRecentsTableViewController__showCarrierVoiceCallReportAlertForCall___block_invoke;
-  v36[3] = &unk_100285E58;
-  v36[4] = self;
-  v15 = callCopy;
-  v37 = v15;
-  v16 = [UIAlertAction actionWithTitle:v14 style:2 handler:v36];
-  [v12 addAction:v16];
+  v13 = [UIAlertController alertControllerWithTitle:v12 message:0 preferredStyle:0];
+  v14 = +[NSBundle mainBundle];
+  v15 = [v14 localizedStringForKey:@"REPORT_BLOCK_FACETIME_ALERT_BLOCK" value:&stru_10028F310 table:@"PHRecents"];
+  v37[0] = _NSConcreteStackBlock;
+  v37[1] = 3221225472;
+  v37[2] = __72__MPRecentsTableViewController__showCarrierVoiceCallReportAlertForCall___block_invoke;
+  v37[3] = &unk_100285E58;
+  v37[4] = self;
+  v16 = callCopy;
+  v38 = v16;
+  v17 = [UIAlertAction actionWithTitle:v15 style:2 handler:v37];
+  [v13 addAction:v17];
 
-  v17 = +[NSBundle mainBundle];
-  v18 = [v17 localizedStringForKey:@"REPORT_BLOCK_FACETIME_ALERT_REPORT_BLOCK" value:&stru_10028F310 table:@"PHRecents"];
-  v34[0] = _NSConcreteStackBlock;
-  v34[1] = 3221225472;
-  v34[2] = __72__MPRecentsTableViewController__showCarrierVoiceCallReportAlertForCall___block_invoke_385;
-  v34[3] = &unk_100285E58;
-  v34[4] = self;
-  v19 = v15;
-  v35 = v19;
-  v20 = [UIAlertAction actionWithTitle:v18 style:2 handler:v34];
-  [v12 addAction:v20];
+  v18 = +[NSBundle mainBundle];
+  v19 = [v18 localizedStringForKey:@"REPORT_BLOCK_FACETIME_ALERT_REPORT_BLOCK" value:&stru_10028F310 table:@"PHRecents"];
+  v35[0] = _NSConcreteStackBlock;
+  v35[1] = 3221225472;
+  v35[2] = __72__MPRecentsTableViewController__showCarrierVoiceCallReportAlertForCall___block_invoke_385;
+  v35[3] = &unk_100285E58;
+  v35[4] = self;
+  v20 = v16;
+  v36 = v20;
+  v21 = [UIAlertAction actionWithTitle:v19 style:2 handler:v35];
+  [v13 addAction:v21];
 
-  v21 = +[NSBundle mainBundle];
-  v22 = [v21 localizedStringForKey:@"CANCEL" value:&stru_10028F310 table:@"PHRecents"];
-  v32[0] = _NSConcreteStackBlock;
-  v32[1] = 3221225472;
-  v32[2] = __72__MPRecentsTableViewController__showCarrierVoiceCallReportAlertForCall___block_invoke_386;
-  v32[3] = &unk_100285E58;
-  v32[4] = self;
-  v33 = v19;
-  v23 = v19;
-  v24 = [UIAlertAction actionWithTitle:v22 style:1 handler:v32];
-  [v12 addAction:v24];
+  v22 = +[NSBundle mainBundle];
+  v23 = [v22 localizedStringForKey:@"CANCEL" value:&stru_10028F310 table:@"PHRecents"];
+  v33[0] = _NSConcreteStackBlock;
+  v33[1] = 3221225472;
+  v33[2] = __72__MPRecentsTableViewController__showCarrierVoiceCallReportAlertForCall___block_invoke_386;
+  v33[3] = &unk_100285E58;
+  v33[4] = self;
+  v34 = v20;
+  v24 = v20;
+  v25 = [UIAlertAction actionWithTitle:v23 style:1 handler:v33];
+  [v13 addAction:v25];
 
-  popoverPresentationController = [v12 popoverPresentationController];
+  popoverPresentationController = [v13 popoverPresentationController];
   [popoverPresentationController setPermittedArrowDirections:1];
 
-  popoverPresentationController2 = [v12 popoverPresentationController];
+  popoverPresentationController2 = [v13 popoverPresentationController];
   WeakRetained = objc_loadWeakRetained(&self->_alertPresentingViewController);
   view = [WeakRetained view];
   [popoverPresentationController2 setSourceView:view];
 
-  v29 = objc_loadWeakRetained(&self->_alertPresentingViewController);
-  if (v29)
+  v30 = objc_loadWeakRetained(&self->_alertPresentingViewController);
+  if (v30)
   {
-    v30 = objc_loadWeakRetained(&self->_alertPresentingViewController);
-    [v30 presentViewController:v12 animated:1 completion:0];
+    v31 = objc_loadWeakRetained(&self->_alertPresentingViewController);
+    [v31 presentViewController:v13 animated:1 completion:0];
   }
 
   else
   {
-    [(MPRecentsTableViewController *)self presentViewController:v12 animated:1 completion:0];
+    [(MPRecentsTableViewController *)self presentViewController:v13 animated:1 completion:0];
   }
 }
 
 void __72__MPRecentsTableViewController__showCarrierVoiceCallReportAlertForCall___block_invoke(uint64_t a1)
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -5072,7 +5099,7 @@ void __72__MPRecentsTableViewController__showCarrierVoiceCallReportAlertForCall_
 
 void __72__MPRecentsTableViewController__showCarrierVoiceCallReportAlertForCall___block_invoke_385(uint64_t a1)
 {
-  v2 = PHDefaultLog();
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -5111,14 +5138,14 @@ void __72__MPRecentsTableViewController__showCarrierVoiceCallReportAlertForCall_
 
   if (callHistorySearchEnabled)
   {
-    v10 = PHDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = PHDefaultLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412546;
-      v12 = dCopy;
-      v13 = 2112;
-      v14 = textCopy;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Showing details for uniqueID: %@ and setting searchText as: %@", &v11, 0x16u);
+      v12 = 138412546;
+      v13 = dCopy;
+      v14 = 2112;
+      v15 = textCopy;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Showing details for uniqueID: %@ and setting searchText as: %@", &v12, 0x16u);
     }
 
     [(MPRecentsTableViewController *)self setPendingSearchText:textCopy];
@@ -5134,15 +5161,15 @@ void __72__MPRecentsTableViewController__showCarrierVoiceCallReportAlertForCall_
 
   if (callHistorySearchEnabled)
   {
-    v7 = PHDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = PHDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 138412290;
-      v23 = textCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Starting search for text: %@", &v22, 0xCu);
+      v23 = 138412290;
+      v24 = textCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Starting search for text: %@", &v23, 0xCu);
     }
 
-    if (-[MPRecentsTableViewController isViewLoaded](self, "isViewLoaded") && (-[MPRecentsTableViewController view](self, "view"), v8 = objc_claimAutoreleasedReturnValue(), [v8 window], v9 = objc_claimAutoreleasedReturnValue(), v9, v8, v9))
+    if (-[MPRecentsTableViewController isViewLoaded](self, "isViewLoaded") && (-[MPRecentsTableViewController view](self, "view"), v9 = objc_claimAutoreleasedReturnValue(), [v9 window], v10 = objc_claimAutoreleasedReturnValue(), v10, v9, v10))
     {
       searchController = [(MPRecentsTableViewController *)self searchController];
       isActive = [searchController isActive];

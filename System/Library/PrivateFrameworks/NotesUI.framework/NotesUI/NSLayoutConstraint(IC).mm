@@ -9,7 +9,7 @@
 
 + (id)ic_constraintWithItem:()IC attribute:relatedBy:toItem:attribute:multiplier:constant:priority:
 {
-  v5 = [self constraintWithItem:? attribute:? relatedBy:? toItem:? attribute:? multiplier:? constant:?];
+  v5 = [self constraintWithItem:a2 attribute:a3 relatedBy:? toItem:? attribute:? multiplier:? constant:?];
   *&v6 = a4;
   [v5 setPriority:v6];
 

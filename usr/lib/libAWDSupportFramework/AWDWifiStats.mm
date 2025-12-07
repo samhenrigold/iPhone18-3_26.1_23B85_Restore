@@ -420,7 +420,6 @@ LABEL_15:
   has = self->_has;
   if ((has & 0x1000) != 0)
   {
-    phyType = self->_phyType;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -440,7 +439,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  txbytes = self->_txbytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -455,7 +453,6 @@ LABEL_4:
   }
 
 LABEL_18:
-  rxbytes = self->_rxbytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -470,7 +467,6 @@ LABEL_5:
   }
 
 LABEL_19:
-  avgLatencyTx = self->_avgLatencyTx;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -485,7 +481,6 @@ LABEL_6:
   }
 
 LABEL_20:
-  avgJitterRx = self->_avgJitterRx;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -500,7 +495,6 @@ LABEL_7:
   }
 
 LABEL_21:
-  avgRssi = self->_avgRssi;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -515,7 +509,6 @@ LABEL_8:
   }
 
 LABEL_22:
-  avgRetx = self->_avgRetx;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -530,7 +523,6 @@ LABEL_9:
   }
 
 LABEL_23:
-  avgTimeBackoff = self->_avgTimeBackoff;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x2000) == 0)
@@ -545,7 +537,6 @@ LABEL_10:
   }
 
 LABEL_24:
-  powerSaveDur = self->_powerSaveDur;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -560,7 +551,6 @@ LABEL_11:
   }
 
 LABEL_25:
-  linkRateMbps = self->_linkRateMbps;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -575,7 +565,6 @@ LABEL_12:
   }
 
 LABEL_26:
-  effectiveLinkRateMpbs = self->_effectiveLinkRateMpbs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -587,7 +576,6 @@ LABEL_13:
     }
 
 LABEL_28:
-    effectiveDataTransferRateMpbs = self->_effectiveDataTransferRateMpbs;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 4) == 0)
     {
@@ -598,7 +586,6 @@ LABEL_28:
   }
 
 LABEL_27:
-  dataTransferRateMpbs = self->_dataTransferRateMpbs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x200) != 0)
@@ -613,7 +600,6 @@ LABEL_14:
   }
 
 LABEL_29:
-  averageCCA = self->_averageCCA;
 
   PBDataWriterWriteUint32Field();
 }

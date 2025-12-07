@@ -8,10 +8,10 @@
 
 - (SHSDualSIMToneTitleView)init
 {
-  v19[2] = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = SHSDualSIMToneTitleView;
-  v2 = [(SHSDualSIMToneTitleView *)&v18 init];
+  v18[2] = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = SHSDualSIMToneTitleView;
+  v2 = [(SHSDualSIMToneTitleView *)&v17 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x277D756B8]);
@@ -33,9 +33,9 @@
 
     v11 = objc_alloc(MEMORY[0x277D75A68]);
     badgeView = [(SHSDualSIMToneTitleView *)v2 badgeView];
-    v19[0] = badgeView;
-    v19[1] = v2->_titleLabel;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+    v18[0] = badgeView;
+    v18[1] = v2->_titleLabel;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
     v14 = [v11 initWithArrangedSubviews:v13];
     stackView = v2->_stackView;
     v2->_stackView = v14;
@@ -51,7 +51,6 @@
     [(SHSDualSIMToneTitleView *)v2 loadConstraintsForTitleView];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

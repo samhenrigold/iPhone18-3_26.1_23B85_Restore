@@ -104,7 +104,7 @@
 LABEL_3:
     v9 = [(NVMComplicationFormatter *)self imageProviderWithPrefix:v8];
 LABEL_22:
-    v12 = v9;
+    v13 = v9;
     v10 = [v7 templateWithImageProvider:v9];
     goto LABEL_23;
   }
@@ -127,17 +127,17 @@ LABEL_22:
       }
 
       v7 = CLKComplicationTemplateUtilitarianSmallSquare;
-      v16 = @"utility-corner";
+      v18 = @"utility-corner";
     }
 
     else
     {
       v7 = CLKComplicationTemplateModularSmallSimpleImage;
-      v16 = @"modular-sm";
+      v18 = @"modular-sm";
     }
 
 LABEL_21:
-    v9 = [(NVMComplicationFormatter *)self basicAccentImageProviderWithPrefix:v16];
+    v9 = [(NVMComplicationFormatter *)self basicAccentImageProviderWithPrefix:v18];
     goto LABEL_22;
   }
 
@@ -145,14 +145,14 @@ LABEL_21:
   {
     if (family == 10)
     {
-      v17 = [(NVMComplicationFormatter *)self fullColorImageProviderWithPrefix:@"graphic-circular" suffix:@"-394h"];
-      v10 = [CLKComplicationTemplateGraphicCircularImage templateWithImageProvider:v17];
+      v19 = [(NVMComplicationFormatter *)self fullColorImageProviderWithPrefix:@"graphic-circular" suffix:@"-394h"];
+      v10 = [CLKComplicationTemplateGraphicCircularImage templateWithImageProvider:v19];
 
-      v22 = @"NTKRichComplicationViewBackgroundColorKey";
-      v12 = sub_C54();
-      v23 = v12;
-      v13 = &v23;
-      v14 = &v22;
+      v25 = @"NTKRichComplicationViewBackgroundColorKey";
+      v13 = sub_C54(v20);
+      v26 = v13;
+      v14 = &v26;
+      v15 = &v25;
     }
 
     else
@@ -162,14 +162,14 @@ LABEL_21:
         goto LABEL_24;
       }
 
-      v15 = [(NVMComplicationFormatter *)self fullColorImageProviderWithPrefix:@"graphic-XL" suffix:@"-394h"];
-      v10 = [CLKComplicationTemplateGraphicExtraLargeCircularImage templateWithImageProvider:v15];
+      v16 = [(NVMComplicationFormatter *)self fullColorImageProviderWithPrefix:@"graphic-XL" suffix:@"-394h"];
+      v10 = [CLKComplicationTemplateGraphicExtraLargeCircularImage templateWithImageProvider:v16];
 
-      v20 = @"NTKRichComplicationViewBackgroundColorKey";
-      v12 = sub_C54();
-      v21 = v12;
-      v13 = &v21;
-      v14 = &v20;
+      v23 = @"NTKRichComplicationViewBackgroundColorKey";
+      v13 = sub_C54(v17);
+      v24 = v13;
+      v14 = &v24;
+      v15 = &v23;
     }
 
     goto LABEL_19;
@@ -178,7 +178,7 @@ LABEL_21:
   if (family == 7)
   {
     v7 = CLKComplicationTemplateExtraLargeSimpleImage;
-    v16 = @"XL";
+    v18 = @"XL";
     goto LABEL_21;
   }
 
@@ -190,14 +190,14 @@ LABEL_21:
   v11 = [(NVMComplicationFormatter *)self fullColorImageProviderWithPrefix:@"graphic-corner" suffix:@"-394h"];
   v10 = [CLKComplicationTemplateGraphicCornerCircularImage templateWithImageProvider:v11];
 
-  v24 = @"NTKRichComplicationViewBackgroundColorKey";
-  v12 = sub_C54();
-  v25 = v12;
-  v13 = &v25;
-  v14 = &v24;
+  v27 = @"NTKRichComplicationViewBackgroundColorKey";
+  v13 = sub_C54(v12);
+  v28 = v13;
+  v14 = &v28;
+  v15 = &v27;
 LABEL_19:
-  v18 = [NSDictionary dictionaryWithObjects:v13 forKeys:v14 count:1];
-  [v10 setMetadata:v18];
+  v21 = [NSDictionary dictionaryWithObjects:v14 forKeys:v15 count:1];
+  [v10 setMetadata:v21];
 
 LABEL_23:
 LABEL_24:

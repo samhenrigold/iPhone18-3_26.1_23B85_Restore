@@ -15,7 +15,7 @@ void sub_10000108C(id a1)
   }
 }
 
-const __CFString *sub_100001434(uint64_t a1)
+const __CFString *sub_100001434(uint64_t a1, uint64_t a2)
 {
   if (a1 < 4096)
   {
@@ -28,14 +28,14 @@ const __CFString *sub_100001434(uint64_t a1)
           return 0;
         }
 
-        v3 = [NSBundle bundleForClass:objc_opt_class()];
-        v4 = @"SRErrorNoAuthorization";
+        v4 = [NSBundle bundleForClass:objc_opt_class()];
+        v5 = @"SRErrorNoAuthorization";
       }
 
       else
       {
-        v3 = [NSBundle bundleForClass:objc_opt_class()];
-        v4 = @"SRErrorInvalidEntitlement";
+        v4 = [NSBundle bundleForClass:objc_opt_class()];
+        v5 = @"SRErrorInvalidEntitlement";
       }
     }
 
@@ -44,23 +44,23 @@ const __CFString *sub_100001434(uint64_t a1)
       switch(a1)
       {
         case 2:
-          v3 = [NSBundle bundleForClass:objc_opt_class()];
-          v4 = @"SRErrorDataInaccessible";
+          v4 = [NSBundle bundleForClass:objc_opt_class()];
+          v5 = @"SRErrorDataInaccessible";
           break;
         case 3:
-          v3 = [NSBundle bundleForClass:objc_opt_class()];
-          v4 = @"SRErrorFetchRequestInvalid";
+          v4 = [NSBundle bundleForClass:objc_opt_class()];
+          v5 = @"SRErrorFetchRequestInvalid";
           break;
         case 4:
-          v3 = [NSBundle bundleForClass:objc_opt_class()];
-          v4 = @"SRErrorPromptDeclined";
+          v4 = [NSBundle bundleForClass:objc_opt_class()];
+          v5 = @"SRErrorPromptDeclined";
           break;
         default:
           return 0;
       }
     }
 
-    return [(NSBundle *)v3 localizedStringForKey:v4 value:&stru_1000041B0 table:0];
+    return [(NSBundle *)v4 localizedStringForKey:v5 value:&stru_1000041B0 table:0];
   }
 
   else
@@ -218,11 +218,11 @@ const __CFString *sub_100001434(uint64_t a1)
   }
 }
 
-NSString *sub_100001818(uint64_t a1)
+NSString *sub_100001818(uint64_t a1, uint64_t a2)
 {
   if (a1 == 1)
   {
-    v1 = @"SRErrorNoAuthorizationRecovery";
+    v2 = @"SRErrorNoAuthorizationRecovery";
   }
 
   else
@@ -232,10 +232,10 @@ NSString *sub_100001818(uint64_t a1)
       return 0;
     }
 
-    v1 = @"SRErrorDataInaccessibleRecovery";
+    v2 = @"SRErrorDataInaccessibleRecovery";
   }
 
-  v2 = [NSBundle bundleForClass:objc_opt_class()];
+  v3 = [NSBundle bundleForClass:objc_opt_class()];
 
-  return [(NSBundle *)v2 localizedStringForKey:v1 value:&stru_1000041B0 table:0];
+  return [(NSBundle *)v3 localizedStringForKey:v2 value:&stru_1000041B0 table:0];
 }

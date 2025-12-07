@@ -44,14 +44,14 @@ void __40__EDPersonaPersistenceLayoutManager_log__block_invoke(uint64_t a1)
 
 + (id)baseAccountDirectoryPathForPersonaIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
   currentPersona = [mEMORY[0x1E69DF068] currentPersona];
 
-  v18 = 0;
-  v7 = [currentPersona copyCurrentPersonaContextWithError:&v18];
-  v8 = v18;
+  v17 = 0;
+  v7 = [currentPersona copyCurrentPersonaContextWithError:&v17];
+  v8 = v17;
   if (v8)
   {
     v9 = v8;
@@ -59,7 +59,7 @@ void __40__EDPersonaPersistenceLayoutManager_log__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       ef_publicDescription = [v9 ef_publicDescription];
-      [(EDPersonaPersistenceLayoutManager *)identifierCopy baseAccountDirectoryPathForPersonaIdentifier:ef_publicDescription, v19];
+      [(EDPersonaPersistenceLayoutManager *)identifierCopy baseAccountDirectoryPathForPersonaIdentifier:ef_publicDescription, v18];
     }
 
     v12 = 0;
@@ -74,7 +74,7 @@ void __40__EDPersonaPersistenceLayoutManager_log__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
         ef_publicDescription2 = [v9 ef_publicDescription];
-        [(EDPersonaPersistenceLayoutManager *)identifierCopy baseAccountDirectoryPathForPersonaIdentifier:ef_publicDescription2, v19];
+        [(EDPersonaPersistenceLayoutManager *)identifierCopy baseAccountDirectoryPathForPersonaIdentifier:ef_publicDescription2, v18];
       }
 
       v12 = 0;
@@ -88,8 +88,6 @@ void __40__EDPersonaPersistenceLayoutManager_log__block_invoke(uint64_t a1)
 
     v15 = [currentPersona restorePersonaWithSavedPersonaContext:v7];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -174,14 +172,13 @@ uint64_t __86__EDPersonaPersistenceLayoutManager_iOS_baseAccountDirectoryPathFor
 
 + (void)iOS_baseAccountDirectoryPathForPersonaIdentifier:(os_log_t)log .cold.2(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a2;
-  v5 = 138543618;
-  v6 = a1;
-  v7 = 2048;
-  v8 = v3;
-  _os_log_fault_impl(&dword_1C61EF000, log, OS_LOG_TYPE_FAULT, "Failed to create container with identifier %{public}@ due to container manager error: %llu", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = a1;
+  v6 = 2048;
+  v7 = v3;
+  _os_log_fault_impl(&dword_1C61EF000, log, OS_LOG_TYPE_FAULT, "Failed to create container with identifier %{public}@ due to container manager error: %llu", &v4, 0x16u);
 }
 
 @end

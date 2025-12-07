@@ -7,6 +7,7 @@
 - (REMAccountCapabilities)capabilities;
 - (REMAccountChangeItem)initWithObjectID:(id)d type:(int64_t)type name:(id)name insertIntoSaveRequest:(id)request;
 - (REMAccountChangeItem)initWithSaveRequest:(id)request storage:(id)storage capabilities:(id)capabilities changedKeysObserver:(id)observer;
+- (REMAccountChangeItem)initWithSaveRequest:(id)request storage:(id)storage capabilities:(id)capabilities observeInitialValues:(BOOL)values;
 - (REMAccountGroupContextChangeItem)groupContext;
 - (REMAccountPinnedListsContextChangeItem)pinnedListsContext;
 - (id)accountTypeHost;
@@ -24,6 +25,7 @@
 - (void)addMergeableOrderingNode:(id)node;
 - (void)addSmartListChangeItem:(id)item;
 - (void)capabilities;
+- (void)insertMergeableOrderingNode:(id)node adjacentToMergeableOrderingNode:(id)orderingNode isAfter:(BOOL)after withParentMergeableOrderingNode:(id)mergeableOrderingNode;
 - (void)insertMergeableOrderingNode:(id)node afterMergeableOrderingNode:(id)orderingNode;
 - (void)insertMergeableOrderingNode:(id)node beforeMergeableOrderingNode:(id)orderingNode;
 - (void)insertSmartListChangeItem:(id)item afterSmartListChangeItem:(id)changeItem;
@@ -89,6 +91,19 @@
   }
 
   return selfCopy;
+}
+
+- (REMAccountChangeItem)initWithSaveRequest:(id)request storage:(id)storage capabilities:(id)capabilities observeInitialValues:(BOOL)values
+{
+  valuesCopy = values;
+  capabilitiesCopy = capabilities;
+  requestCopy = request;
+  v12 = [storage copy];
+  v13 = [REMChangedKeysObserver alloc];
+  v14 = [(REMChangedKeysObserver *)v13 initWithTarget:v12 keysToObserve:__sKeysToObserve_0 includeInitial:valuesCopy];
+  v15 = [(REMAccountChangeItem *)self initWithSaveRequest:requestCopy storage:v12 capabilities:capabilitiesCopy changedKeysObserver:v14];
+
+  return v15;
 }
 
 - (REMAccountChangeItem)initWithObjectID:(id)d type:(int64_t)type name:(id)name insertIntoSaveRequest:(id)request
@@ -489,30 +504,30 @@ LABEL_18:
 
 - (id)mergeableOrderingNodesByOrderingMergeableOrderingNodes:(id)nodes
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   nodesCopy = nodes;
-  v23 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(nodesCopy, "count")}];
+  v22 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(nodesCopy, "count")}];
   v5 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(nodesCopy, "count")}];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v6 = nodesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v28;
+    v9 = *v27;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v28 != v9)
+        if (*v27 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v27 + 1) + 8 * i);
+        v11 = *(*(&v26 + 1) + 8 * i);
         remObjectID = [v11 remObjectID];
         uuid = [remObjectID uuid];
         uUIDString = [uuid UUIDString];
@@ -523,22 +538,22 @@ LABEL_18:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v8);
   }
 
   listIDsMergeableOrdering = [(REMAccountChangeItem *)self listIDsMergeableOrdering];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __79__REMAccountChangeItem_mergeableOrderingNodesByOrderingMergeableOrderingNodes___block_invoke;
-  v24[3] = &unk_1E7508648;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __79__REMAccountChangeItem_mergeableOrderingNodesByOrderingMergeableOrderingNodes___block_invoke;
+  v23[3] = &unk_1E7508648;
   v16 = v5;
-  v25 = v16;
-  v17 = v23;
-  v26 = v17;
-  [listIDsMergeableOrdering enumerateObjectsUsingBlock:v24];
+  v24 = v16;
+  v17 = v22;
+  v25 = v17;
+  [listIDsMergeableOrdering enumerateObjectsUsingBlock:v23];
 
   if ([v16 count])
   {
@@ -549,10 +564,9 @@ LABEL_18:
     }
   }
 
-  v19 = v26;
+  v19 = v25;
   v20 = v17;
 
-  v21 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -601,19 +615,19 @@ void __101__REMAccountChangeItem_lowLevelAddMergeableOrderingNodeIDToOrdering_wi
 
 - (id)lowLevelRemoveMergeableOrderingNodeIDFromOrdering:(id)ordering
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   orderingCopy = ordering;
   listIDsMergeableOrdering = [(REMAccountChangeItem *)self listIDsMergeableOrdering];
   uuid = [orderingCopy uuid];
   uUIDString = [uuid UUIDString];
   v8 = [listIDsMergeableOrdering indexOfEqualObject:uUIDString];
 
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__4;
-  v19 = __Block_byref_object_dispose__4;
-  v20 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__4;
+  v18 = __Block_byref_object_dispose__4;
+  v19 = 0;
   if (v8 == 0x7FFFFFFFFFFFFFFFLL)
   {
     v9 = +[REMLogStore write];
@@ -626,29 +640,24 @@ void __101__REMAccountChangeItem_lowLevelAddMergeableOrderingNodeIDToOrdering_wi
 
   else
   {
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __74__REMAccountChangeItem_lowLevelRemoveMergeableOrderingNodeIDFromOrdering___block_invoke;
-    v14[3] = &unk_1E7508698;
-    v14[4] = &v15;
-    v14[5] = v8;
-    [(REMAccountChangeItem *)self _editListIDsOrderingUsingBlock:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __74__REMAccountChangeItem_lowLevelRemoveMergeableOrderingNodeIDFromOrdering___block_invoke;
+    v13[3] = &unk_1E7508698;
+    v13[4] = &v14;
+    v13[5] = v8;
+    [(REMAccountChangeItem *)self _editListIDsOrderingUsingBlock:v13];
   }
 
-  v11 = v16[5];
-  _Block_object_dispose(&v15, 8);
-
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = v15[5];
+  _Block_object_dispose(&v14, 8);
 
   return v11;
 }
 
 uint64_t __74__REMAccountChangeItem_lowLevelRemoveMergeableOrderingNodeIDFromOrdering___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 removeObjectAtIndex:*(a1 + 40)];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [a2 removeObjectAtIndex:*(a1 + 40)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -718,6 +727,48 @@ void *__79__REMAccountChangeItem_test_lowLevelEditOrderingByMovingListObjectID_t
   return v6;
 }
 
+- (void)insertMergeableOrderingNode:(id)node adjacentToMergeableOrderingNode:(id)orderingNode isAfter:(BOOL)after withParentMergeableOrderingNode:(id)mergeableOrderingNode
+{
+  afterCopy = after;
+  nodeCopy = node;
+  orderingNodeCopy = orderingNode;
+  mergeableOrderingNodeCopy = mergeableOrderingNode;
+  saveRequest = [nodeCopy saveRequest];
+  saveRequest2 = [(REMAccountChangeItem *)self saveRequest];
+
+  if (saveRequest != saveRequest2)
+  {
+    v14 = MEMORY[0x1E695DF30];
+    v15 = *MEMORY[0x1E695D930];
+    saveRequest3 = [nodeCopy saveRequest];
+    saveRequest4 = [(REMAccountChangeItem *)self saveRequest];
+    [v14 raise:v15 format:{@"mergeableOrderingNode (%@) has incorrect saveRequest (%@). Expected %@", nodeCopy, saveRequest3, saveRequest4}];
+  }
+
+  if (nodeCopy != orderingNodeCopy)
+  {
+    goto LABEL_4;
+  }
+
+  parentSubContainerID = [nodeCopy parentSubContainerID];
+  if (mergeableOrderingNodeCopy | parentSubContainerID)
+  {
+    v19 = parentSubContainerID;
+    parentSubContainerID2 = [nodeCopy parentSubContainerID];
+    remObjectID = [mergeableOrderingNodeCopy remObjectID];
+    v22 = [parentSubContainerID2 isEqual:remObjectID];
+
+    if ((v22 & 1) == 0)
+    {
+
+      orderingNodeCopy = 0;
+LABEL_4:
+      [REMAccountChangeItem _reassignMergeableOrderingNode:"_reassignMergeableOrderingNode:withParentListChangeItem:" withParentListChangeItem:?];
+      [(REMAccountChangeItem *)self _lowLevelAddMergeableOrderingNodeToOrdering:nodeCopy atIndexOfSibling:orderingNodeCopy isAfter:afterCopy withParentMergeableOrderingNode:mergeableOrderingNodeCopy];
+    }
+  }
+}
+
 - (void)_reassignMergeableOrderingNode:(id)node withParentListChangeItem:(id)item
 {
   nodeCopy = node;
@@ -742,19 +793,8 @@ void *__79__REMAccountChangeItem_test_lowLevelEditOrderingByMovingListObjectID_t
   siblingCopy = sibling;
   nodeCopy = node;
   accountID = [orderingCopy accountID];
-  if (!accountID)
+  if (!accountID || (v12 = accountID, [orderingCopy accountID], v13 = objc_claimAutoreleasedReturnValue(), -[REMAccountChangeItem objectID](self, "objectID"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v13, "isEqual:", v14), v14, v13, v12, (v15 & 1) == 0))
   {
-    goto LABEL_13;
-  }
-
-  v12 = accountID;
-  accountID2 = [orderingCopy accountID];
-  objectID = [(REMAccountChangeItem *)self objectID];
-  v15 = [accountID2 isEqual:objectID];
-
-  if ((v15 & 1) == 0)
-  {
-LABEL_13:
     [REMAccountChangeItem _lowLevelAddMergeableOrderingNodeToOrdering:atIndexOfSibling:isAfter:withParentMergeableOrderingNode:];
   }
 
@@ -776,9 +816,9 @@ LABEL_13:
     goto LABEL_12;
   }
 
-  accountID3 = [orderingCopy accountID];
-  accountID4 = [siblingCopy accountID];
-  if (([accountID3 isEqual:accountID4] & 1) == 0)
+  accountID2 = [orderingCopy accountID];
+  accountID3 = [siblingCopy accountID];
+  if (([accountID2 isEqual:accountID3] & 1) == 0)
   {
 
     v27 = 0;
@@ -795,9 +835,9 @@ LABEL_16:
     {
 
 LABEL_15:
-      accountID3 = siblingCopy;
+      accountID2 = siblingCopy;
       listIDsMergeableOrdering3 = [(REMAccountChangeItem *)self listIDsMergeableOrdering];
-      remObjectID2 = [accountID3 remObjectID];
+      remObjectID2 = [accountID2 remObjectID];
       uuid2 = [remObjectID2 uuid];
       uUIDString2 = [uuid2 UUIDString];
       v32 = [listIDsMergeableOrdering3 indexOfEqualObject:uUIDString2];
@@ -993,7 +1033,6 @@ LABEL_28:
 - (void)initWithSaveRequest:storage:capabilities:changedKeysObserver:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E696AEC0];
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
@@ -1002,38 +1041,31 @@ LABEL_28:
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_5();
   _os_log_fault_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)shallowCopyWithSaveRequest:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E696AEC0];
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
   v4 = NSStringFromSelector(v0);
-  v11 = [v1 stringWithFormat:@"%@.%@", v3, v4];
+  v10 = [v1 stringWithFormat:@"%@.%@", v3, v4];
   OUTLINED_FUNCTION_1_5();
   _os_log_fault_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)shallowCopyWithSaveRequest:(os_log_t)log .cold.3(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "trackedAccountCapabilities";
-  _os_log_fault_impl(&dword_19A0DB000, log, OS_LOG_TYPE_FAULT, "rem_log_fault_if (!trackedAccountCapabilities) -- invalid nil value for '%s'", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "trackedAccountCapabilities";
+  _os_log_fault_impl(&dword_19A0DB000, log, OS_LOG_TYPE_FAULT, "rem_log_fault_if (!trackedAccountCapabilities) -- invalid nil value for '%s'", &v1, 0xCu);
 }
 
 - (void)shallowCopyWithSaveRequest:.cold.4()
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E696AEC0];
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
@@ -1042,31 +1074,23 @@ LABEL_28:
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_5();
   _os_log_fault_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)capabilities
 {
-  v7 = *MEMORY[0x1E69E9840];
   v0 = +[REMLogStore write];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
   {
     OUTLINED_FUNCTION_0_2();
-    _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_fault_impl(v1, v2, v3, v4, v5, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 - (void)mergeableOrderingNodesByOrderingMergeableOrderingNodes:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = [a1 allKeys];
+  v6 = [a1 allKeys];
   OUTLINED_FUNCTION_0_2();
   _os_log_fault_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)lowLevelRemoveMergeableOrderingNodeIDFromOrdering:(uint8_t *)buf .cold.1(uint64_t a1, void *a2, uint8_t *buf, os_log_t log)
@@ -1080,26 +1104,20 @@ LABEL_28:
 
 - (void)test_lowLevelEditOrderingByMovingListObjectID:(uint64_t)a1 toTarget:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AD98];
   v3 = [a2 listIDsMergeableOrdering];
   v4 = [v2 numberWithUnsignedInteger:{objc_msgSend(v3, "count")}];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_2();
   _os_log_fault_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)test_lowLevelEditOrderingByMovingListObjectID:(uint64_t)a1 toTarget:(void *)a2 .cold.2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = [a2 listIDsMergeableOrdering];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_2();
   _os_log_fault_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_lowLevelAddMergeableOrderingNodeToOrdering:atIndexOfSibling:isAfter:withParentMergeableOrderingNode:.cold.1()
@@ -1114,12 +1132,11 @@ LABEL_28:
 
 void __125__REMAccountChangeItem__lowLevelAddMergeableOrderingNodeToOrdering_atIndexOfSibling_isAfter_withParentMergeableOrderingNode___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "Failed to find the insert after index of the given sibling list -- Appending to the end {objectID: %@}.", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "Failed to find the insert after index of the given sibling list -- Appending to the end {objectID: %@}.", &v3, 0xCu);
 }
 
 @end

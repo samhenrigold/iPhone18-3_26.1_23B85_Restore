@@ -5,6 +5,7 @@
 - (HKUserDomainConceptNamedQuantity)init;
 - (HKUserDomainConceptNamedQuantity)initWithCoder:(id)coder;
 - (HKUserDomainConceptNamedQuantity)initWithName:(id)name quantity:(id)quantity type:(int64_t)type;
+- (HKUserDomainConceptNamedQuantity)initWithName:(id)name value:(double)value unitString:(id)string type:(int64_t)type version:(int64_t)version timestamp:(double)timestamp deleted:(BOOL)deleted;
 - (HKUserDomainConceptNamedQuantity)initWithType:(int64_t)type version:(int64_t)version timestamp:(double)timestamp deleted:(BOOL)deleted;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -47,6 +48,37 @@
   return v14;
 }
 
+- (HKUserDomainConceptNamedQuantity)initWithName:(id)name value:(double)value unitString:(id)string type:(int64_t)type version:(int64_t)version timestamp:(double)timestamp deleted:(BOOL)deleted
+{
+  deletedCopy = deleted;
+  nameCopy = name;
+  stringCopy = string;
+  v19 = stringCopy;
+  if (!stringCopy || ![stringCopy length])
+  {
+    [HKUserDomainConceptNamedQuantity initWithName:a2 value:self unitString:? type:? version:? timestamp:? deleted:?];
+  }
+
+  v26.receiver = self;
+  v26.super_class = HKUserDomainConceptNamedQuantity;
+  v20 = [(HKUserDomainConceptProperty *)&v26 initWithType:type version:version timestamp:deletedCopy deleted:timestamp];
+  if (v20)
+  {
+    v21 = [nameCopy copy];
+    name = v20->_name;
+    v20->_name = v21;
+
+    v20->_value = value;
+    v23 = [v19 copy];
+    unitString = v20->_unitString;
+    v20->_unitString = v23;
+
+    v20->_lock._os_unfair_lock_opaque = 0;
+  }
+
+  return v20;
+}
+
 + (id)nullPropertyWithType:(int64_t)type
 {
   v5 = +[HKUnit _nullUnit];
@@ -59,7 +91,6 @@
 
 - (HKQuantity)quantity
 {
-  v10 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   lock_quantity = self->_lock_quantity;
   if (!lock_quantity)
@@ -77,7 +108,6 @@
 
   v7 = lock_quantity;
   os_unfair_lock_unlock(&self->_lock);
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

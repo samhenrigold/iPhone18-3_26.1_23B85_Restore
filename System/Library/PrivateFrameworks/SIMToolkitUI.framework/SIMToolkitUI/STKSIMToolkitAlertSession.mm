@@ -44,34 +44,33 @@
   _STKWithLock(self, v4);
 }
 
-uint64_t __57__STKSIMToolkitAlertSession_sendResponse_withBOOLResult___block_invoke(uint64_t result)
+void *__57__STKSIMToolkitAlertSession_sendResponse_withBOOLResult___block_invoke(void *result)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v1 = *(result + 32);
+  v15 = *MEMORY[0x277D85DE8];
+  v1 = result[4];
   if ((*(v1 + 41) & 1) == 0)
   {
     v2 = result;
     v3 = *(v1 + 48);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(v2 + 32);
-      v4 = *(v2 + 40);
+      v5 = v2[4];
+      v4 = v2[5];
       v6 = v3;
       v7 = NSStringFromSTKSessionResponseType(v4);
       v8 = *(v2 + 48);
-      v10 = 134218498;
-      v11 = v5;
-      v12 = 2114;
-      v13 = v7;
-      v14 = 1024;
-      v15 = v8;
-      _os_log_impl(&dword_262BB4000, v6, OS_LOG_TYPE_DEFAULT, "Session <%p> - Sending response with type: %{public}@ - BOOL result: %d", &v10, 0x1Cu);
+      v9 = 134218498;
+      v10 = v5;
+      v11 = 2114;
+      v12 = v7;
+      v13 = 1024;
+      v14 = v8;
+      _os_log_impl(&dword_262BB4000, v6, OS_LOG_TYPE_DEFAULT, "Session <%p> - Sending response with type: %{public}@ - BOOL result: %d", &v9, 0x1Cu);
     }
 
-    result = [*(*(v2 + 32) + 16) sendResponse:*(v2 + 40) withBOOLResult:*(v2 + 48)];
+    return [*(v2[4] + 16) sendResponse:v2[5] withBOOLResult:*(v2 + 48)];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -86,40 +85,39 @@ uint64_t __57__STKSIMToolkitAlertSession_sendResponse_withBOOLResult___block_inv
   _STKWithLock(self, v3);
 }
 
-uint64_t __58__STKSIMToolkitAlertSession_sendSuccessWithSelectedIndex___block_invoke(uint64_t result)
+void *__58__STKSIMToolkitAlertSession_sendSuccessWithSelectedIndex___block_invoke(void *result)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v1 = *(result + 32);
+  v12 = *MEMORY[0x277D85DE8];
+  v1 = result[4];
   if ((*(v1 + 41) & 1) == 0)
   {
     v2 = result;
     v3 = *(v1 + 48);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(v2 + 32);
-      v5 = *(v2 + 40);
-      v7 = 134218498;
-      v8 = v4;
-      v9 = 2114;
-      v10 = @"Success";
-      v11 = 2048;
-      v12 = v5;
-      _os_log_impl(&dword_262BB4000, v3, OS_LOG_TYPE_DEFAULT, "Session <%p> - Sending response with type: %{public}@ - index result: %lu", &v7, 0x20u);
+      v4 = v2[4];
+      v5 = v2[5];
+      v6 = 134218498;
+      v7 = v4;
+      v8 = 2114;
+      v9 = @"Success";
+      v10 = 2048;
+      v11 = v5;
+      _os_log_impl(&dword_262BB4000, v3, OS_LOG_TYPE_DEFAULT, "Session <%p> - Sending response with type: %{public}@ - index result: %lu", &v6, 0x20u);
     }
 
-    result = [*(*(v2 + 32) + 16) sendSuccessWithSelectedIndex:*(v2 + 40)];
+    return [*(v2[4] + 16) sendSuccessWithSelectedIndex:v2[5]];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)remoteAlertHandleDidActivate:(id)activate
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = STKSIMToolkitAlertSession;
-  [(STKAlertSession *)&v8 remoteAlertHandleDidActivate:activate];
+  v10 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = STKSIMToolkitAlertSession;
+  [(STKAlertSession *)&v7 remoteAlertHandleDidActivate:activate];
   logger = self->super._logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
@@ -135,8 +133,6 @@ uint64_t __58__STKSIMToolkitAlertSession_sendSuccessWithSelectedIndex___block_in
   {
     [(STKAlertSession *)self sendResponse:0];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithLogger:responseProvider:event:options:behavior:sound:.cold.1()

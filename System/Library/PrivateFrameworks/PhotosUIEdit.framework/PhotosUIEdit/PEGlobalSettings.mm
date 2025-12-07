@@ -26,9 +26,11 @@
 
 uint64_t __34__PEGlobalSettings_globalSettings__block_invoke()
 {
-  globalSettings_sharedGlobalInstance = objc_alloc_init(PEGlobalSettings);
+  v0 = objc_alloc_init(PEGlobalSettings);
+  v1 = globalSettings_sharedGlobalInstance;
+  globalSettings_sharedGlobalInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (PEGlobalSettings)init

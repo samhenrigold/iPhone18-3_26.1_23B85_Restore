@@ -99,8 +99,8 @@ LABEL_26:
         goto LABEL_27;
       }
 
-      v27 = date2;
-      v28 = date;
+      v26 = date2;
+      v27 = date;
     }
 
     deviceUID = [(MRDeviceInfo *)self->_deviceInfo deviceUID];
@@ -117,7 +117,6 @@ LABEL_26:
         deviceInfo3 = [equalCopy deviceInfo];
         if (isAirPlayActive == [deviceInfo3 isAirPlayActive])
         {
-          contentItem = self->_contentItem;
           contentItem = [equalCopy contentItem];
           if (MRContentItemEqualToItem())
           {
@@ -170,8 +169,8 @@ LABEL_26:
       v16 = 0;
     }
 
-    date2 = v27;
-    date = v28;
+    date2 = v26;
+    date = v27;
     if (!v6)
     {
       goto LABEL_26;
@@ -241,9 +240,8 @@ LABEL_27:
     [v3 setObject:0 forKeyedSubscript:kMRMediaRemoteUpdatedContentItemsUserInfoKey];
   }
 
-  v8 = self->_contentItem;
-  v9 = MRContentItemCopyMinimalReadableDescription();
-  [v3 setObject:v9 forKeyedSubscript:@"contentItemDescription"];
+  v8 = MRContentItemCopyMinimalReadableDescription();
+  [v3 setObject:v8 forKeyedSubscript:@"contentItemDescription"];
 
   return v3;
 }

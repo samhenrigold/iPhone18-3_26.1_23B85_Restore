@@ -226,7 +226,7 @@ void __33__SBApplicationInfo_userDefaults__block_invoke(uint64_t a1)
 
 - (BOOL)browserEngineIsRegionallyRestricted
 {
-  if ([(NSSet *)self->_eligibilityDomains containsObject:&unk_2833702E0])
+  if (objc_msgSend_containsObject_(self->_eligibilityDomains, a2, &unk_2833702E0))
   {
     bundleIdentifier = [(SBApplicationInfo *)self bundleIdentifier];
     processIdentity = [(SBApplicationInfo *)self processIdentity];
@@ -244,7 +244,7 @@ void __33__SBApplicationInfo_userDefaults__block_invoke(uint64_t a1)
 
 - (BOOL)embeddedBrowserEngineIsRegionallyRestricted
 {
-  if ([(NSSet *)self->_eligibilityDomains containsObject:&unk_2833702F8])
+  if (objc_msgSend_containsObject_(self->_eligibilityDomains, a2, &unk_2833702F8))
   {
     bundleIdentifier = [(SBApplicationInfo *)self bundleIdentifier];
     processIdentity = [(SBApplicationInfo *)self processIdentity];
@@ -536,7 +536,7 @@ void __33__SBApplicationInfo_userDefaults__block_invoke(uint64_t a1)
   [(SBApplicationInfo *)self _overrideTags:v64];
 
   tags2 = [(SBApplicationInfo *)self tags];
-  self->_hasHiddenTag = [tags2 containsObject:@"hidden"];
+  self->_hasHiddenTag = objc_msgSend_containsObject_(tags2);
 
   isSystemApplication = [(SBApplicationInfo *)self isSystemApplication];
   if (isSystemApplication)
@@ -643,7 +643,7 @@ LABEL_70:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v89 = [v88 containsObject:@"hidpi"];
+      v89 = objc_msgSend_containsObject_(v88);
     }
 
     else
@@ -957,55 +957,39 @@ void __36__SBApplicationInfo__loadFromProxy___block_invoke()
 
       if (v13)
       {
-        v14 = @"user";
-        if (isCarrierInstall)
-        {
-          v14 = @"carrier";
-        }
-
-        if (isInternalInstall)
-        {
-          v15 = @"internal";
-        }
-
-        else
-        {
-          v15 = v14;
-        }
-
-        v16 = [v13 containsObject:v15];
+        v14 = objc_msgSend_containsObject_(v13);
       }
 
       else
       {
-        v16 = 0;
+        v14 = 0;
       }
 
-      v17 = objc_opt_self();
-      v18 = [v4 arrayForKey:@"SBIconVisibilityDefaultVisiblePlatforms" withValuesOfClass:v17];
+      v15 = objc_opt_self();
+      v16 = [v4 arrayForKey:@"SBIconVisibilityDefaultVisiblePlatforms" withValuesOfClass:v15];
 
-      if (v18)
+      if (v16)
       {
         deviceClass = [v6 deviceClass];
-        v16 |= [v18 containsObject:deviceClass];
+        v14 |= objc_msgSend_containsObject_(v16);
       }
 
-      v20 = [v4 stringForKey:@"SBIconVisibilityDefaultVisibleFeatureFlag"];
-      v21 = v20;
-      if (v20)
+      v18 = [v4 stringForKey:@"SBIconVisibilityDefaultVisibleFeatureFlag"];
+      v19 = v18;
+      if (v18)
       {
-        v22 = [v20 componentsSeparatedByString:@"/"];
-        if ([v22 count] == 2)
+        v20 = [v18 componentsSeparatedByString:@"/"];
+        if ([v20 count] == 2)
         {
-          v23 = [v22 objectAtIndex:0];
-          v24 = [v22 objectAtIndex:1];
-          [v23 UTF8String];
-          [v24 UTF8String];
-          LOBYTE(v16) = _os_feature_enabled_impl() | v16;
+          v21 = [v20 objectAtIndex:0];
+          v22 = [v20 objectAtIndex:1];
+          [v21 UTF8String];
+          [v22 UTF8String];
+          LOBYTE(v14) = _os_feature_enabled_impl() | v14;
         }
       }
 
-      if (v16)
+      if (v14)
       {
         v10 = 1;
       }

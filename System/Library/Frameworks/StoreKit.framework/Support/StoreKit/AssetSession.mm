@@ -454,8 +454,7 @@
             _os_log_error_impl(&_mh_execute_header, v64, OS_LOG_TYPE_ERROR, "[%{public}@] Canceling task: %{public}@ after receiving invalid status code: %ld", buf, 0x20u);
           }
 
-          v59 = [NSError errorWithDomain:@"AssetErrorDomain" code:asset_statusCode + 1000 userInfo:0];
-          v60 = objc_claimAutoreleasedReturnValue();
+          v60 = v59 = [NSError errorWithDomain:@"AssetErrorDomain" code:asset_statusCode + 1000 userInfo:0];
           v61 = ASDErrorWithUnderlyingErrorAndDescription();
           [v13 setError:v61];
 

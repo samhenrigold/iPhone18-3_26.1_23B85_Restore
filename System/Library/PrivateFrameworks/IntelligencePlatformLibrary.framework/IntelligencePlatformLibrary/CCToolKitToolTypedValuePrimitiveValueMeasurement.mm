@@ -277,7 +277,6 @@ LABEL_44:
           NSStringFromClass(v38);
           errorCopy = error;
           v41 = v40 = dataCopy;
-          v42 = *&v7[*v10];
           v11 = CCSkipFieldErrorForMessage();
 
           dataCopy = v40;
@@ -303,22 +302,21 @@ LABEL_44:
 LABEL_47:
   if (!*&v7[*v10])
   {
-    v46 = 1;
+    v44 = 1;
     goto LABEL_51;
   }
 
 LABEL_48:
-  v43 = objc_opt_class();
-  v11 = NSStringFromClass(v43);
-  v44 = *&v7[*v10];
-  v45 = CCInvalidBufferErrorForMessage();
+  v42 = objc_opt_class();
+  v11 = NSStringFromClass(v42);
+  v43 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_49:
-  v46 = 0;
+  v44 = 0;
 LABEL_51:
 
-  return v46;
+  return v44;
 }
 
 - (CCToolKitToolTypedValuePrimitiveValueMeasurement)initWithUnit:(id)unit value:(id)value unitType:(unsigned int)type error:(id *)error

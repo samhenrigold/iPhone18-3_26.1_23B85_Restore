@@ -136,10 +136,10 @@
 
 - (void)viewDidLoad
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v26.receiver = self;
-  v26.super_class = BCWebViewController;
-  [(BCWebViewController *)&v26 viewDidLoad];
+  v29 = *MEMORY[0x277D85DE8];
+  v25.receiver = self;
+  v25.super_class = BCWebViewController;
+  [(BCWebViewController *)&v25 viewDidLoad];
   [(BCWebViewController *)self setupSubviews];
   [(BCWebViewController *)self setupConstraints];
   if (self)
@@ -164,30 +164,28 @@
     [webkitView4 addObserver:self forKeyPath:@"canGoForward" options:1 context:0];
 
     [(BCProgressIndicatorView *)self->_progressIndicatorView setTranslatesAutoresizingMaskIntoConstraints:0];
-    v20 = MEMORY[0x277CCAAD0];
-    v25 = self->_progressIndicatorView;
-    topAnchor = [(BCProgressIndicatorView *)v25 topAnchor];
+    v19 = MEMORY[0x277CCAAD0];
+    v24 = self->_progressIndicatorView;
+    topAnchor = [(BCProgressIndicatorView *)v24 topAnchor];
     webkitView5 = [(BCWebViewController *)self webkitView];
     topAnchor2 = [webkitView5 topAnchor];
-    v21 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:-0.0];
-    *buf = v21;
+    v20 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:-0.0];
+    *buf = v20;
     v8 = self->_progressIndicatorView;
     leadingAnchor = [(BCProgressIndicatorView *)v8 leadingAnchor];
     webkitView6 = [(BCWebViewController *)self webkitView];
     leadingAnchor2 = [webkitView6 leadingAnchor];
     v11 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:-0.0];
-    v28 = v11;
+    v27 = v11;
     v12 = self->_progressIndicatorView;
     trailingAnchor = [(BCProgressIndicatorView *)v12 trailingAnchor];
     webkitView7 = [(BCWebViewController *)self webkitView];
     trailingAnchor2 = [webkitView7 trailingAnchor];
     v16 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:0.0];
-    v29 = v16;
+    v28 = v16;
     v17 = [MEMORY[0x277CBEA60] arrayWithObjects:buf count:3];
-    [v20 activateConstraints:v17];
+    [v19 activateConstraints:v17];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setupSubviews
@@ -220,89 +218,85 @@
 
 - (void)setupConstraints
 {
-  v27[4] = *MEMORY[0x277D85DE8];
+  v26[4] = *MEMORY[0x277D85DE8];
   webkitView = [(BCWebViewController *)self webkitView];
   [webkitView setTranslatesAutoresizingMaskIntoConstraints:0];
 
-  v17 = MEMORY[0x277CCAAD0];
+  v16 = MEMORY[0x277CCAAD0];
   webkitView2 = [(BCWebViewController *)self webkitView];
   topAnchor = [webkitView2 topAnchor];
   view = [(BCWebViewController *)self view];
   topAnchor2 = [view topAnchor];
-  v22 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v27[0] = v22;
+  v21 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v26[0] = v21;
   webkitView3 = [(BCWebViewController *)self webkitView];
   leftAnchor = [webkitView3 leftAnchor];
   view2 = [(BCWebViewController *)self view];
   leftAnchor2 = [view2 leftAnchor];
-  v16 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-  v27[1] = v16;
+  v15 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
+  v26[1] = v15;
   webkitView4 = [(BCWebViewController *)self webkitView];
   rightAnchor = [webkitView4 rightAnchor];
   view3 = [(BCWebViewController *)self view];
   rightAnchor2 = [view3 rightAnchor];
   v7 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-  v27[2] = v7;
+  v26[2] = v7;
   webkitView5 = [(BCWebViewController *)self webkitView];
   bottomAnchor = [webkitView5 bottomAnchor];
   view4 = [(BCWebViewController *)self view];
   bottomAnchor2 = [view4 bottomAnchor];
   v12 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v27[3] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:4];
-  [v17 activateConstraints:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v26[3] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:4];
+  [v16 activateConstraints:v13];
 }
 
 - (void)presentCertificatErrorForHost:(id)host
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   hostCopy = host;
   v5 = LogCategory_Daemon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v30 = hostCopy;
+    v29 = hostCopy;
     _os_log_impl(&dword_236EA0000, v5, OS_LOG_TYPE_DEFAULT, "BCWebViewController: presentCertificatErrorForHost: %@", buf, 0xCu);
   }
 
-  v27 = hostCopy;
+  v26 = hostCopy;
   v6 = [[BCInvalidCertificatView alloc] initWithHost:hostCopy];
   [v6 setTranslatesAutoresizingMaskIntoConstraints:0];
   view = [(BCWebViewController *)self view];
   [view addSubview:v6];
 
-  v19 = MEMORY[0x277CCAAD0];
+  v18 = MEMORY[0x277CCAAD0];
   topAnchor = [v6 topAnchor];
   webkitView = [(BCWebViewController *)self webkitView];
   topAnchor2 = [webkitView topAnchor];
-  v23 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v28[0] = v23;
+  v22 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v27[0] = v22;
   leftAnchor = [v6 leftAnchor];
   webkitView2 = [(BCWebViewController *)self webkitView];
   leftAnchor2 = [webkitView2 leftAnchor];
-  v18 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-  v28[1] = v18;
+  v17 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
+  v27[1] = v17;
   rightAnchor = [v6 rightAnchor];
   webkitView3 = [(BCWebViewController *)self webkitView];
   rightAnchor2 = [webkitView3 rightAnchor];
   v10 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-  v28[2] = v10;
+  v27[2] = v10;
   bottomAnchor = [v6 bottomAnchor];
   webkitView4 = [(BCWebViewController *)self webkitView];
   bottomAnchor2 = [webkitView4 bottomAnchor];
   v14 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v28[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:4];
-  [v19 activateConstraints:v15];
+  v27[3] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:4];
+  [v18 activateConstraints:v15];
 
   if (self)
   {
     objc_storeStrong(&self->_invalidCertificatView, v6);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -358,7 +352,7 @@
   }
 }
 
-uint64_t __70__BCWebViewController_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
+void *__70__BCWebViewController_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
   if (v1)
@@ -374,7 +368,7 @@ uint64_t __70__BCWebViewController_observeValueForKeyPath_ofObject_change_contex
 
 - (void)webView:(id)view decidePolicyForNavigationAction:(id)action decisionHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   handlerCopy = handler;
   viewCopy = view;
@@ -385,9 +379,9 @@ uint64_t __70__BCWebViewController_observeValueForKeyPath_ofObject_change_contex
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     baseURL = [v12 baseURL];
-    v21 = 138412290;
-    v22 = baseURL;
-    _os_log_impl(&dword_236EA0000, v13, OS_LOG_TYPE_DEFAULT, "BCWebViewController: decidePolicyFor %@", &v21, 0xCu);
+    v20 = 138412290;
+    v21 = baseURL;
+    _os_log_impl(&dword_236EA0000, v13, OS_LOG_TYPE_DEFAULT, "BCWebViewController: decidePolicyFor %@", &v20, 0xCu);
   }
 
   delegate = [(BCWebViewController *)self delegate];
@@ -400,9 +394,9 @@ uint64_t __70__BCWebViewController_observeValueForKeyPath_ofObject_change_contex
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       baseURL2 = [v12 baseURL];
-      v21 = 138412290;
-      v22 = baseURL2;
-      _os_log_impl(&dword_236EA0000, v17, OS_LOG_TYPE_DEFAULT, "BCWebViewController: capturing URL: %@", &v21, 0xCu);
+      v20 = 138412290;
+      v21 = baseURL2;
+      _os_log_impl(&dword_236EA0000, v17, OS_LOG_TYPE_DEFAULT, "BCWebViewController: capturing URL: %@", &v20, 0xCu);
     }
 
     if (self)
@@ -419,13 +413,11 @@ uint64_t __70__BCWebViewController_observeValueForKeyPath_ofObject_change_contex
   {
     handlerCopy[2](handlerCopy, 1);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)webView:(id)view didFailProvisionalNavigation:(id)navigation withError:(id)error
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v7 = LogCategory_Daemon();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
@@ -478,13 +470,13 @@ uint64_t __70__BCWebViewController_observeValueForKeyPath_ofObject_change_contex
       if (self)
       {
 LABEL_12:
-        v41 = delegate;
-        v42 = errorCopy;
+        v40 = delegate;
+        v41 = errorCopy;
         v18 = LogCategory_Daemon();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          *v43 = 0;
-          _os_log_impl(&dword_236EA0000, v18, OS_LOG_TYPE_DEFAULT, "BCWebViewController: presentServerError", v43, 2u);
+          *v42 = 0;
+          _os_log_impl(&dword_236EA0000, v18, OS_LOG_TYPE_DEFAULT, "BCWebViewController: presentServerError", v42, 2u);
         }
 
         v19 = objc_opt_new();
@@ -492,43 +484,41 @@ LABEL_12:
         view = [(BCWebViewController *)self view];
         [view addSubview:v19];
 
-        v33 = MEMORY[0x277CCAAD0];
+        v32 = MEMORY[0x277CCAAD0];
         topAnchor = [(BCServerErrorView *)v19 topAnchor];
         webkitView = [(BCWebViewController *)self webkitView];
         topAnchor2 = [webkitView topAnchor];
-        v37 = [topAnchor constraintEqualToAnchor:topAnchor2];
-        *&buf = v37;
+        v36 = [topAnchor constraintEqualToAnchor:topAnchor2];
+        *&buf = v36;
         leftAnchor = [(BCServerErrorView *)v19 leftAnchor];
         webkitView2 = [(BCWebViewController *)self webkitView];
         leftAnchor2 = [webkitView2 leftAnchor];
-        v32 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-        *(&buf + 1) = v32;
+        v31 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
+        *(&buf + 1) = v31;
         rightAnchor = [(BCServerErrorView *)v19 rightAnchor];
         webkitView3 = [(BCWebViewController *)self webkitView];
         rightAnchor2 = [webkitView3 rightAnchor];
         v23 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-        v45 = v23;
+        v44 = v23;
         bottomAnchor = [(BCServerErrorView *)v19 bottomAnchor];
         webkitView4 = [(BCWebViewController *)self webkitView];
         bottomAnchor2 = [webkitView4 bottomAnchor];
         v27 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-        v46 = v27;
+        v45 = v27;
         v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&buf count:4];
-        [v33 activateConstraints:v28];
+        [v32 activateConstraints:v28];
 
         serverErrorView = self->_serverErrorView;
         self->_serverErrorView = v19;
 
-        delegate = v41;
-        errorCopy = v42;
+        delegate = v40;
+        errorCopy = v41;
       }
     }
 
     [delegate didChangeSecureStatus:0];
 LABEL_16:
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)webView:(id)view didStartProvisionalNavigation:(id)navigation

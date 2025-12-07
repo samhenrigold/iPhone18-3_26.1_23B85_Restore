@@ -2,7 +2,9 @@
 - (VOTQuickSettingsViewController)initWithNibName:(id)name bundle:(id)bundle;
 - (VOTQuickSettingsViewControllerDelegate)delegate;
 - (void)_dismissQuickSettings;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation VOTQuickSettingsViewController
@@ -50,6 +52,25 @@
   searchController = [(VOTQuickSettingsListViewController *)self->_settingsListViewController searchController];
   navigationItem = [(VOTQuickSettingsViewController *)self navigationItem];
   [navigationItem setSearchController:searchController];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = VOTQuickSettingsViewController;
+  [(VOTQuickSettingsViewController *)&v5 viewWillAppear:appear];
+  navigationItem = [(VOTQuickSettingsViewController *)self navigationItem];
+  [navigationItem setHidesSearchBarWhenScrolling:0];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = VOTQuickSettingsViewController;
+  [(VOTQuickSettingsViewController *)&v6 viewDidAppear:appear];
+  v4 = UIAccessibilityLayoutChangedNotification;
+  navigationController = [(VOTQuickSettingsViewController *)self navigationController];
+  UIAccessibilityPostNotification(v4, navigationController);
 }
 
 - (void)_dismissQuickSettings

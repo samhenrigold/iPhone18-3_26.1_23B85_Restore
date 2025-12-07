@@ -271,7 +271,7 @@ LABEL_3:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   allowsKeyedCoding = [coder allowsKeyedCoding];
   v6 = [(NSCountedSet *)self count];
   v7 = v6;
@@ -297,8 +297,8 @@ LABEL_3:
 
   else
   {
-    v20 = v6;
-    v12 = [coder encodeValueOfObjCType:"I" at:&v20];
+    v21 = v6;
+    v12 = [coder encodeValueOfObjCType:"I" at:&v21];
     if (v7 >= 1)
     {
       if (v7 >> 60)
@@ -310,8 +310,8 @@ LABEL_3:
       }
 
       v13 = MEMORY[0x1EEE9AC00](v12);
-      v15 = (v19 - v14);
-      v19[1] = 0;
+      v15 = (&v19 - v14);
+      v20 = 0;
       if (v7 >= 0x101)
       {
         v15 = _CFCreateArrayStorage();
@@ -327,8 +327,8 @@ LABEL_3:
       do
       {
         [coder encodeBycopyObject:*v15];
-        v20 = [(NSCountedSet *)self countForObject:*v15];
-        [coder encodeValueOfObjCType:"I" at:&v20];
+        v21 = [(NSCountedSet *)self countForObject:*v15];
+        [coder encodeValueOfObjCType:"I" at:&v21];
         ++v15;
         --v7;
       }

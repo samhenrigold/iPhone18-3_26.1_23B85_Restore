@@ -51,13 +51,13 @@ uint64_t __47__BRCBuddyFlowObserver_sharedBuddyFlowObserver__block_invoke()
 
 - (void)_registerForBYSetupAssistantFinishedNotification
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = brc_bread_crumbs();
   v4 = brc_default_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = v3;
+    v19 = v3;
     _os_log_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] Register for BYSetupAssistantFinishedDarwinNotification%@", buf, 0xCu);
   }
 
@@ -72,21 +72,19 @@ uint64_t __47__BRCBuddyFlowObserver_sharedBuddyFlowObserver__block_invoke()
   v10 = [BRCUserDefaults defaultsForMangledID:0];
   [v10 buddyFlowObserverRefreshTimerInterval];
   v12 = v11;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __72__BRCBuddyFlowObserver__registerForBYSetupAssistantFinishedNotification__block_invoke;
-  v17[3] = &unk_278500FD8;
-  objc_copyWeak(&v18, buf);
-  v13 = [v9 initWithName:@"buddy-flow-observer" interval:v8 callbackQueue:v17 block:v12];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __72__BRCBuddyFlowObserver__registerForBYSetupAssistantFinishedNotification__block_invoke;
+  v16[3] = &unk_278500FD8;
+  objc_copyWeak(&v17, buf);
+  v13 = [v9 initWithName:@"buddy-flow-observer" interval:v8 callbackQueue:v16 block:v12];
   timer = self->_timer;
   p_timer = &self->_timer;
   *p_timer = v13;
 
   [*p_timer start];
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(buf);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __72__BRCBuddyFlowObserver__registerForBYSetupAssistantFinishedNotification__block_invoke(uint64_t a1)
@@ -114,24 +112,23 @@ LABEL_6:
 
 - (void)_unregisterForBYSetupAssistantFinishedNotification
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = brc_bread_crumbs();
   v4 = brc_default_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] Unregister for BYSetupAssistantFinishedDarwinNotification%@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] Unregister for BYSetupAssistantFinishedDarwinNotification%@", &v6, 0xCu);
   }
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterRemoveObserver(DarwinNotifyCenter, self, *MEMORY[0x277D4D9E8], 0);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)observeBuddyIfNecessaryWithKey:(id)key block:(id)block description:(id)description
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   blockCopy = block;
   descriptionCopy = description;
@@ -156,7 +153,7 @@ LABEL_6:
         *&buf[12] = 2112;
         *&buf[14] = keyCopy;
         *&buf[22] = 2112;
-        v46 = v12;
+        v45 = v12;
         _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, "[NOTICE] We are in Buddy. Register block [%@] with key [%@]%@", buf, 0x20u);
       }
 
@@ -170,9 +167,9 @@ LABEL_6:
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v46 = __Block_byref_object_copy__9;
-      v47 = __Block_byref_object_dispose__9;
-      v48 = 0;
+      v45 = __Block_byref_object_copy__9;
+      v46 = __Block_byref_object_dispose__9;
+      v47 = 0;
       if (keyCopy)
       {
         v16 = [(NSMutableDictionary *)selfCopy->_registerdKeyToToken objectForKeyedSubscript:keyCopy];
@@ -185,11 +182,11 @@ LABEL_6:
           v19 = brc_default_log();
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
-            *v41 = 138412546;
-            v42 = keyCopy;
-            v43 = 2112;
-            v44 = v18;
-            _os_log_impl(&dword_223E7A000, v19, OS_LOG_TYPE_DEFAULT, "[NOTICE] Key %@ already registered%@", v41, 0x16u);
+            *v40 = 138412546;
+            v41 = keyCopy;
+            v42 = 2112;
+            v43 = v18;
+            _os_log_impl(&dword_223E7A000, v19, OS_LOG_TYPE_DEFAULT, "[NOTICE] Key %@ already registered%@", v40, 0x16u);
           }
         }
 
@@ -197,21 +194,21 @@ LABEL_6:
         {
           defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
           observersQueue = selfCopy->_observersQueue;
-          v36[0] = MEMORY[0x277D85DD0];
-          v36[1] = 3221225472;
-          v36[2] = __73__BRCBuddyFlowObserver_observeBuddyIfNecessaryWithKey_block_description___block_invoke;
-          v36[3] = &unk_278501000;
-          v37 = descriptionCopy;
-          v38 = selfCopy;
+          v35[0] = MEMORY[0x277D85DD0];
+          v35[1] = 3221225472;
+          v35[2] = __73__BRCBuddyFlowObserver_observeBuddyIfNecessaryWithKey_block_description___block_invoke;
+          v35[3] = &unk_278501000;
+          v36 = descriptionCopy;
+          v37 = selfCopy;
           v27 = keyCopy;
-          v39 = v27;
-          v40 = blockCopy;
-          v28 = [defaultCenter addObserverForName:@"com.apple.clouddocs.buddy-flow-done" object:0 queue:observersQueue usingBlock:v36];
+          v38 = v27;
+          v39 = blockCopy;
+          v28 = [defaultCenter addObserverForName:@"com.apple.clouddocs.buddy-flow-done" object:0 queue:observersQueue usingBlock:v35];
           v29 = *(*&buf[8] + 40);
           *(*&buf[8] + 40) = v28;
 
           [(NSMutableDictionary *)selfCopy->_registerdKeyToToken setObject:*(*&buf[8] + 40) forKeyedSubscript:v27];
-          v18 = v37;
+          v18 = v36;
         }
       }
 
@@ -219,18 +216,18 @@ LABEL_6:
       {
         defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
         v22 = selfCopy->_observersQueue;
-        v32[0] = MEMORY[0x277D85DD0];
-        v32[1] = 3221225472;
-        v32[2] = __73__BRCBuddyFlowObserver_observeBuddyIfNecessaryWithKey_block_description___block_invoke_13;
-        v32[3] = &unk_278501028;
-        v33 = descriptionCopy;
-        v35 = buf;
-        v34 = blockCopy;
-        v23 = [defaultCenter2 addObserverForName:@"com.apple.clouddocs.buddy-flow-done" object:0 queue:v22 usingBlock:v32];
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __73__BRCBuddyFlowObserver_observeBuddyIfNecessaryWithKey_block_description___block_invoke_13;
+        v31[3] = &unk_278501028;
+        v32 = descriptionCopy;
+        v34 = buf;
+        v33 = blockCopy;
+        v23 = [defaultCenter2 addObserverForName:@"com.apple.clouddocs.buddy-flow-done" object:0 queue:v22 usingBlock:v31];
         v24 = *(*&buf[8] + 40);
         *(*&buf[8] + 40) = v23;
 
-        v18 = v33;
+        v18 = v32;
       }
 
       if (![(BRCBuddyFlowObserver *)selfCopy doesBuddyFlowNeedsToRun])
@@ -255,18 +252,36 @@ LABEL_6:
     v20 = 0;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 uint64_t __73__BRCBuddyFlowObserver_observeBuddyIfNecessaryWithKey_block_description___block_invoke(uint64_t a1)
+{
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = brc_bread_crumbs();
+  v3 = brc_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = *(a1 + 32);
+    v6 = 138412546;
+    v7 = v4;
+    v8 = 2112;
+    v9 = v2;
+    _os_log_impl(&dword_223E7A000, v3, OS_LOG_TYPE_DEFAULT, "[NOTICE] Buddy has finished. Execute block [%@]%@", &v6, 0x16u);
+  }
+
+  [*(a1 + 40) stopObservingBuddyWithKey:*(a1 + 48)];
+  return (*(*(a1 + 56) + 16))();
+}
+
+uint64_t __73__BRCBuddyFlowObserver_observeBuddyIfNecessaryWithKey_block_description___block_invoke_13(void *a1)
 {
   v11 = *MEMORY[0x277D85DE8];
   v2 = brc_bread_crumbs();
   v3 = brc_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
+    v4 = a1[4];
     v7 = 138412546;
     v8 = v4;
     v9 = 2112;
@@ -274,38 +289,15 @@ uint64_t __73__BRCBuddyFlowObserver_observeBuddyIfNecessaryWithKey_block_descrip
     _os_log_impl(&dword_223E7A000, v3, OS_LOG_TYPE_DEFAULT, "[NOTICE] Buddy has finished. Execute block [%@]%@", &v7, 0x16u);
   }
 
-  [*(a1 + 40) stopObservingBuddyWithKey:*(a1 + 48)];
-  result = (*(*(a1 + 56) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t __73__BRCBuddyFlowObserver_observeBuddyIfNecessaryWithKey_block_description___block_invoke_13(void *a1)
-{
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = brc_bread_crumbs();
-  v3 = brc_default_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-  {
-    v4 = a1[4];
-    v8 = 138412546;
-    v9 = v4;
-    v10 = 2112;
-    v11 = v2;
-    _os_log_impl(&dword_223E7A000, v3, OS_LOG_TYPE_DEFAULT, "[NOTICE] Buddy has finished. Execute block [%@]%@", &v8, 0x16u);
-  }
-
   v5 = [MEMORY[0x277CCAB98] defaultCenter];
   [v5 removeObserver:*(*(a1[6] + 8) + 40)];
 
-  result = (*(a1[5] + 16))();
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[5] + 16))();
 }
 
 - (void)logStatus
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v3 = brc_bread_crumbs();
@@ -318,63 +310,58 @@ uint64_t __73__BRCBuddyFlowObserver_observeBuddyIfNecessaryWithKey_block_descrip
       v5 = @"yes";
     }
 
-    v7 = 138412546;
-    v8 = v5;
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] Waiting for buddy to complete: %@%@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] Waiting for buddy to complete: %@%@", &v6, 0x16u);
   }
 
   objc_sync_exit(selfCopy);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopObservingBuddyAndExecuteCallbacks
 {
-  v15 = *MEMORY[0x277D85DE8];
-  if (!self->_waitingForBuddy)
-  {
-LABEL_8:
-    v8 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  obj = self;
-  objc_sync_enter(obj);
+  v13 = *MEMORY[0x277D85DE8];
   if (self->_waitingForBuddy)
   {
-    v3 = brc_bread_crumbs();
-    v4 = brc_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    obj = self;
+    objc_sync_enter(obj);
+    if (self->_waitingForBuddy)
     {
-      *buf = 138412290;
-      v12 = v3;
-      _os_log_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] Unregister for BYSetupAssistantFinishedDarwinNotification%@", buf, 0xCu);
+      v3 = brc_bread_crumbs();
+      v4 = brc_default_log();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v10 = v3;
+        _os_log_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] Unregister for BYSetupAssistantFinishedDarwinNotification%@", buf, 0xCu);
+      }
+
+      self->_waitingForBuddy = 0;
+      [(BRCBuddyFlowObserver *)obj _unregisterForBYSetupAssistantFinishedNotification];
+      objc_sync_exit(obj);
+
+      v5 = brc_bread_crumbs();
+      v6 = brc_default_log();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412546;
+        v10 = @"com.apple.clouddocs.buddy-flow-done";
+        v11 = 2112;
+        v12 = v5;
+        _os_log_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEFAULT, "[NOTICE] Trigger %@%@", buf, 0x16u);
+      }
+
+      defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+      [defaultCenter postNotificationName:@"com.apple.clouddocs.buddy-flow-done" object:0 userInfo:0];
     }
 
-    self->_waitingForBuddy = 0;
-    [(BRCBuddyFlowObserver *)obj _unregisterForBYSetupAssistantFinishedNotification];
-    objc_sync_exit(obj);
-
-    v5 = brc_bread_crumbs();
-    v6 = brc_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    else
     {
-      *buf = 138412546;
-      v12 = @"com.apple.clouddocs.buddy-flow-done";
-      v13 = 2112;
-      v14 = v5;
-      _os_log_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEFAULT, "[NOTICE] Trigger %@%@", buf, 0x16u);
+      objc_sync_exit(obj);
     }
-
-    defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    [defaultCenter postNotificationName:@"com.apple.clouddocs.buddy-flow-done" object:0 userInfo:0];
-
-    goto LABEL_8;
   }
-
-  objc_sync_exit(obj);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopObservingBuddyWithKey:(id)key

@@ -12,16 +12,16 @@
 
 - (void)cacheClearUUIDs
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Clearing cached UUIDs", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Clearing cached UUIDs", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -29,12 +29,11 @@
   selfCopy->_cachedEntries = MEMORY[0x277CBEBF8];
 
   NEHelperCacheClearUUIDs();
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cacheCopySigningIdentifierForProcessIdentifier:(id)identifier
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = [(HMDNEHelperClient *)self _signingIdentifierWithProcessId:identifierCopy];
   v6 = v5;
@@ -45,9 +44,9 @@
 
   else
   {
-    v14[0] = 0;
-    v14[1] = 0;
-    [identifierCopy getUUIDBytes:v14];
+    v13[0] = 0;
+    v13[1] = 0;
+    [identifierCopy getUUIDBytes:v13];
     v8 = NEHelperCacheCopySigningIdentifierMapping();
     v9 = v8;
     if (v8 && MEMORY[0x22AAD53D0](v8) == MEMORY[0x277D864C0])
@@ -62,8 +61,6 @@
       v7 = 0;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -131,16 +128,16 @@ uint64_t __73__HMDNEHelperClient_cacheCopyAppUUIDForSigningIdentifier_executable
 
 - (id)_signingIdentifierWithProcessId:(id)id
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   idCopy = id;
   cachedEntries = self->_cachedEntries;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __53__HMDNEHelperClient__signingIdentifierWithProcessId___block_invoke;
-  v16[3] = &unk_27866F5A0;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __53__HMDNEHelperClient__signingIdentifierWithProcessId___block_invoke;
+  v15[3] = &unk_27866F5A0;
   v6 = idCopy;
-  v17 = v6;
-  v7 = [(NSArray *)cachedEntries indexOfObjectPassingTest:v16];
+  v16 = v6;
+  v7 = [(NSArray *)cachedEntries indexOfObjectPassingTest:v15];
   if (v7 == 0x7FFFFFFFFFFFFFFFLL)
   {
     signingId = 0;
@@ -158,18 +155,16 @@ uint64_t __73__HMDNEHelperClient_cacheCopyAppUUIDForSigningIdentifier_executable
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v19 = v13;
-      v20 = 2112;
-      v21 = v6;
-      v22 = 2112;
-      v23 = signingId;
+      v18 = v13;
+      v19 = 2112;
+      v20 = v6;
+      v21 = 2112;
+      v22 = signingId;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Local cache hit for %@: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return signingId;
 }
@@ -184,17 +179,17 @@ uint64_t __53__HMDNEHelperClient__signingIdentifierWithProcessId___block_invoke(
 
 - (void)_addIdentifiers:(id)identifiers signingId:(id)id
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   idCopy = id;
   cachedEntries = self->_cachedEntries;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __47__HMDNEHelperClient__addIdentifiers_signingId___block_invoke;
-  v18[3] = &unk_27866F5A0;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __47__HMDNEHelperClient__addIdentifiers_signingId___block_invoke;
+  v17[3] = &unk_27866F5A0;
   v9 = idCopy;
-  v19 = v9;
-  if ([(NSArray *)cachedEntries indexOfObjectPassingTest:v18]== 0x7FFFFFFFFFFFFFFFLL)
+  v18 = v9;
+  if ([(NSArray *)cachedEntries indexOfObjectPassingTest:v17]== 0x7FFFFFFFFFFFFFFFLL)
   {
     v10 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -203,11 +198,11 @@ uint64_t __53__HMDNEHelperClient__signingIdentifierWithProcessId___block_invoke(
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v21 = v13;
-      v22 = 2112;
-      v23 = v9;
-      v24 = 2112;
-      v25 = identifiersCopy;
+      v20 = v13;
+      v21 = 2112;
+      v22 = v9;
+      v23 = 2112;
+      v24 = identifiersCopy;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Caching process identifiers for %@: %@", buf, 0x20u);
     }
 
@@ -217,8 +212,6 @@ uint64_t __53__HMDNEHelperClient__signingIdentifierWithProcessId___block_invoke(
     v16 = self->_cachedEntries;
     self->_cachedEntries = v15;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__HMDNEHelperClient__addIdentifiers_signingId___block_invoke(uint64_t a1, void *a2)
@@ -258,10 +251,9 @@ uint64_t __47__HMDNEHelperClient__addIdentifiers_signingId___block_invoke(uint64
 
 void __32__HMDNEHelperClient_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_13020;
-  logCategory__hmf_once_v4_13020 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_13020;
+  logCategory__hmf_once_v4_13020 = v0;
 }
 
 @end

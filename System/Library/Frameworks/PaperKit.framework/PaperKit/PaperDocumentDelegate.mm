@@ -29,7 +29,7 @@
 
 - (void)pdfDocument:(id)document detectedAnnotations:(id)annotations forPage:(id)page
 {
-  type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for PDFAnnotation);
+  type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for PDFAnnotation, 0x1E6978018);
   v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)

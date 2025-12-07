@@ -79,12 +79,12 @@
   passbookLoader = self->_passbookLoader;
   if (!passbookLoader)
   {
-    v6 = ISUIMobileStoreUIFramework();
+    v6 = ISUIMobileStoreUIFramework(0, a2);
     v7 = ISUIWeakLinkedClassForString(&cfstr_Suuiclientcont.isa, v6);
-    v8 = ISUIMobileStoreUIFramework();
-    v9 = [objc_alloc(ISUIWeakLinkedClassForString(&cfstr_Suuipassbooklo.isa v8))];
-    self->_passbookLoader = v9;
-    [(SUUIPassbookLoader *)v9 setDelegate:self];
+    v9 = ISUIMobileStoreUIFramework(v7, v8);
+    v10 = [objc_alloc(ISUIWeakLinkedClassForString(&cfstr_Suuipassbooklo.isa v9))];
+    self->_passbookLoader = v10;
+    [(SUUIPassbookLoader *)v10 setDelegate:self];
     passbookLoader = self->_passbookLoader;
   }
 

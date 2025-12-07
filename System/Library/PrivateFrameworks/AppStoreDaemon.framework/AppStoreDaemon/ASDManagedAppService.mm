@@ -46,9 +46,11 @@
 
 uint64_t __38__ASDManagedAppService_defaultService__block_invoke(uint64_t a1)
 {
-  _MergedGlobals_51 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = _MergedGlobals_51;
+  _MergedGlobals_51 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (ASDManagedAppService)init
@@ -83,26 +85,25 @@ void __55__ASDManagedAppService_requestStatusWithResultHandler___block_invoke(ui
 {
   if (a2)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __55__ASDManagedAppService_requestStatusWithResultHandler___block_invoke_2;
-    v9[3] = &unk_1E7CDB730;
-    v10 = *(a1 + 32);
-    v4 = [a2 remoteObjectProxyWithErrorHandler:v9];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __55__ASDManagedAppService_requestStatusWithResultHandler___block_invoke_3;
-    v7[3] = &unk_1E7CDCAB8;
-    v8 = *(a1 + 32);
-    [v4 requestStatusWithReply:v7];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __55__ASDManagedAppService_requestStatusWithResultHandler___block_invoke_2;
+    v8[3] = &unk_1E7CDB730;
+    v9 = *(a1 + 32);
+    v4 = [a2 remoteObjectProxyWithErrorHandler:v8];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __55__ASDManagedAppService_requestStatusWithResultHandler___block_invoke_3;
+    v6[3] = &unk_1E7CDCAB8;
+    v7 = *(a1 + 32);
+    [v4 requestStatusWithReply:v6];
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 32) + 16);
+    v5 = *(*(a1 + 32) + 16);
 
-    v6();
+    v5();
   }
 }
 

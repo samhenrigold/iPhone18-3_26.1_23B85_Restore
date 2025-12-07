@@ -12,7 +12,7 @@
 - (NSArray)playerViews
 {
   sub_24E16CDE0();
-  sub_24DF88A8C(0, &qword_27F1E2650);
+  sub_24DF88A8C(0, &qword_27F1E2650, off_279666D88);
   v2 = sub_24E347EE8();
 
   return v2;
@@ -20,7 +20,7 @@
 
 - (void)setPlayerViews:(id)views
 {
-  sub_24DF88A8C(0, &qword_27F1E2650);
+  sub_24DF88A8C(0, &qword_27F1E2650, off_279666D88);
   v4 = sub_24E347F08();
   selfCopy = self;
   sub_24E16CE70(v4);
@@ -42,22 +42,24 @@
 
 - (JUMeasurements)measurementsWithFitting:(CGSize)fitting in:(id)in
 {
+  height = fitting.height;
+  width = fitting.width;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v6 = sub_24E16D2FC();
-  v8 = v7;
+  v8 = sub_24E16D2FC(width, height);
   v10 = v9;
   v12 = v11;
+  v14 = v13;
   swift_unknownObjectRelease();
 
-  v13 = v6;
-  v14 = v8;
-  v15 = v10;
-  v16 = v12;
-  result.var3 = v16;
-  result.var2 = v15;
-  result.var1 = v14;
-  result.var0 = v13;
+  v15 = v8;
+  v16 = v10;
+  v17 = v12;
+  v18 = v14;
+  result.var3 = v18;
+  result.var2 = v17;
+  result.var1 = v16;
+  result.var0 = v15;
   return result;
 }
 
@@ -69,7 +71,7 @@
 
 - (void)applyWithPlayerAvatars:(id)avatars
 {
-  sub_24DF88A8C(0, &qword_27F1DF028);
+  sub_24DF88A8C(0, &qword_27F1DF028, 0x277D0C170);
   v4 = sub_24E347F08();
   selfCopy = self;
   sub_24E16D6B0(v4);

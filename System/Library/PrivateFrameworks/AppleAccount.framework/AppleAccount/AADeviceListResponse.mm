@@ -70,19 +70,18 @@
       responseDictionary3 = [(AAResponse *)v5 responseDictionary];
       v20 = [responseDictionary3 objectForKeyedSubscript:@"status-message"];
 
-      v21 = _AALogSystem();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v22 = _AALogSystem(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
         v30 = devices;
         v31 = 2112;
         v32 = v20;
-        _os_log_impl(&dword_1B6F6A000, v21, OS_LOG_TYPE_DEFAULT, "Error: Device list not seen in server response data with status=%@ message=%@", buf, 0x16u);
+        _os_log_impl(&dword_1B6F6A000, v22, OS_LOG_TYPE_DEFAULT, "Error: Device list not seen in server response data with status=%@ message=%@", buf, 0x16u);
       }
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

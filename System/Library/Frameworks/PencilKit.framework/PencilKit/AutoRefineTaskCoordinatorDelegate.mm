@@ -60,7 +60,7 @@
 
 - (void)autoRefineTaskCoordinator:(id)coordinator replaceStrokes:(id)strokes withRefinedStrokes:(id)refinedStrokes
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = &v16 - v7;
   v9 = static Array._unconditionallyBridgeFromObjectiveC(_:)();

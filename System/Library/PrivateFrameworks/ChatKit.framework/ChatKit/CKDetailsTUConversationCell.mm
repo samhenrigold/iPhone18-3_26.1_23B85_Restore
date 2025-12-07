@@ -89,7 +89,7 @@
   [titleLabel3 setFont:tuConversationViewActionButtonFont];
 
   actionButton3 = [(CKDetailsTUConversationCell *)self actionButton];
-  v19 = CKFrameworkBundle();
+  v19 = CKFrameworkBundle(actionButton3);
   v20 = [v19 localizedStringForKey:@"JOIN" value:&stru_1F04268F8 table:@"ChatKit"];
   [actionButton3 setTitle:v20 forState:0];
 
@@ -466,7 +466,7 @@
     }
 
     subtitleLabel = [(CKDetailsTUConversationCell *)self subtitleLabel];
-    conversation = CKFrameworkBundle();
+    conversation = CKFrameworkBundle(subtitleLabel);
     v5 = [conversation localizedStringForKey:@"CALL_ENDED" value:&stru_1F04268F8 table:@"ChatKit"];
   }
 
@@ -524,7 +524,7 @@ LABEL_8:
     [actionButton3 setBackgroundColor:multiwayButtonColor];
 
     actionButton = [(CKDetailsTUConversationCell *)self actionButton];
-    v7 = CKFrameworkBundle();
+    v7 = CKFrameworkBundle(actionButton);
     v8 = v7;
     v9 = @"JOIN";
     goto LABEL_9;
@@ -539,7 +539,7 @@ LABEL_5:
   [actionButton5 setBackgroundColor:systemRedColor];
 
   actionButton = [(CKDetailsTUConversationCell *)self actionButton];
-  v7 = CKFrameworkBundle();
+  v7 = CKFrameworkBundle(actionButton);
   v8 = v7;
   v9 = @"LEAVE";
 LABEL_9:
@@ -682,7 +682,7 @@ LABEL_10:
   [titleLabel4 setLineBreakMode:4];
 
   conversation = [(CKDetailsTUConversationCell *)self conversation];
-  v19 = +[CKTUConversationViewUtilities titleForAVMode:](CKTUConversationViewUtilities, "titleForAVMode:", [conversation avMode]);
+  v20 = +[CKTUConversationViewUtilities titleForAVMode:](CKTUConversationViewUtilities, "titleForAVMode:", [conversation avMode]);
 
   v13 = MEMORY[0x1E69A5B78];
   conversation2 = [(CKDetailsTUConversationCell *)self conversation];
@@ -690,14 +690,14 @@ LABEL_10:
 
   if (v13)
   {
-    v15 = CKFrameworkBundle();
-    v16 = [v15 localizedStringForKey:@"EXPANSE_DEFAULT" value:&stru_1F04268F8 table:@"ChatKit"];
+    v16 = CKFrameworkBundle(v15);
+    v17 = [v16 localizedStringForKey:@"EXPANSE_DEFAULT" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v19 = v16;
+    v20 = v17;
   }
 
   titleLabel5 = [(CKDetailsTUConversationCell *)self titleLabel];
-  [titleLabel5 setText:v19];
+  [titleLabel5 setText:v20];
 
   titleLabel6 = [(CKDetailsTUConversationCell *)self titleLabel];
   [titleLabel6 setTranslatesAutoresizingMaskIntoConstraints:0];

@@ -35,7 +35,6 @@
 - (id)messagesMatchingMask:(int)mask;
 - (id)textDocument;
 - (id)textFormElement;
-- (uint64_t)_zoomToRect:(CGFloat)rect ensuringVisibilityOfRect:(CGFloat)ofRect withScale:(CGFloat)scale forceScroll:(CGFloat)scroll formAssistantFrame:(CGFloat)frame animationDuration:(CGFloat)duration;
 - (unsigned)audioSessionCategoryOverride;
 - (void)_addAdditionalSubview:(id)subview;
 - (void)_assistFormNode:(id)node;
@@ -82,6 +81,7 @@
 - (void)_webThreadOverflowScrollOffsetChanged;
 - (void)_webTouchEventsRecognized:(id)recognized;
 - (void)_zoomToNode:(id)node forceScroll:(BOOL)scroll;
+- (void)_zoomToRect:(CGFloat)rect ensuringVisibilityOfRect:(CGFloat)ofRect withScale:(CGFloat)scale forceScroll:(CGFloat)scroll formAssistantFrame:(CGFloat)frame animationDuration:(CGFloat)duration;
 - (void)acceptedAutoFillWord:(id)word;
 - (void)accessoryClear;
 - (void)accessoryTab:(BOOL)tab;
@@ -848,7 +848,8 @@ LABEL_8:
 - (BOOL)_restoreFocusWithToken:(id)token
 {
   v5 = [(NSMutableDictionary *)self->_focusPreservingTokens objectForKey:?];
-  if (-[DOMNode isEqual:](v5, "isEqual:", [MEMORY[0x1E695DFB0] null]))
+  [MEMORY[0x1E695DFB0] null];
+  if (objc_msgSend_isEqual_(v5))
   {
     [(UIWebBrowserView *)self _stopAssistingFormNode];
     v6 = 1;
@@ -1410,7 +1411,7 @@ LABEL_8:
     documentView = [(WebFrame *)webFrame documentView];
     if (self->super._interaction.var0)
     {
-      [(DOMNode *)element absoluteQuad];
+      objc_msgSend_absoluteQuad(element);
       v12 = quadBoundingBox(&v35);
     }
 
@@ -1668,7 +1669,7 @@ LABEL_17:
   v15 = [objc_msgSend(-[UIWebDocumentView webView](self "webView")];
   if (node)
   {
-    [node absoluteQuad];
+    objc_msgSend_absoluteQuad(node);
   }
 
   else
@@ -1718,208 +1719,208 @@ LABEL_17:
   }
 }
 
-- (uint64_t)_zoomToRect:(CGFloat)rect ensuringVisibilityOfRect:(CGFloat)ofRect withScale:(CGFloat)scale forceScroll:(CGFloat)scroll formAssistantFrame:(CGFloat)frame animationDuration:(CGFloat)duration
+- (void)_zoomToRect:(CGFloat)rect ensuringVisibilityOfRect:(CGFloat)ofRect withScale:(CGFloat)scale forceScroll:(CGFloat)scroll formAssistantFrame:(CGFloat)frame animationDuration:(CGFloat)duration
 {
   _scroller = [self _scroller];
   window = [_scroller window];
-  v26 = a12 / *(self + 892);
+  v21 = a12 / *(self + 892);
   [_scroller minimumZoomScale];
-  if (v26 < v27)
+  if (v21 < v22)
   {
-    v26 = v27;
+    v21 = v22;
   }
 
   [_scroller maximumZoomScale];
-  if (v26 < v28)
+  if (v21 < v23)
   {
-    v28 = v26;
+    v23 = v21;
   }
 
-  v121 = v28;
-  v29 = [objc_msgSend(objc_msgSend(objc_msgSend(_scroller "_viewControllerForAncestor")];
-  if (v29)
+  v116 = v23;
+  v24 = [objc_msgSend(objc_msgSend(objc_msgSend(_scroller "_viewControllerForAncestor")];
+  if (v24)
   {
-    v30 = v29;
+    v25 = v24;
   }
 
   else
   {
-    v30 = window;
+    v25 = window;
   }
 
-  [v30 bounds];
-  [v30 convertRect:_scroller toView:?];
-  v129 = v31;
-  v109 = v33;
-  v110 = v32;
-  r2 = v34;
+  [v25 bounds];
+  [v25 convertRect:_scroller toView:?];
+  v124 = v26;
+  v104 = v28;
+  v105 = v27;
+  r2 = v29;
   [self exposedScrollViewRect];
-  v36 = v35;
-  v38 = v37;
-  v40 = v39;
-  v42 = v41;
+  v31 = v30;
+  v33 = v32;
+  v35 = v34;
+  v37 = v36;
   [_scroller bounds];
-  v44 = v43;
-  v46 = v45;
-  v48 = v47;
-  v50 = v49;
-  v135.origin.x = v36;
-  v135.origin.y = v38;
-  v135.size.width = v40;
-  v135.size.height = v42;
-  IsNull = CGRectIsNull(v135);
-  v106 = v48;
-  v107 = v50;
+  v39 = v38;
+  v41 = v40;
+  v43 = v42;
+  v45 = v44;
+  v130.origin.x = v31;
+  v130.origin.y = v33;
+  v130.size.width = v35;
+  v130.size.height = v37;
+  IsNull = CGRectIsNull(v130);
+  v101 = v43;
+  v102 = v45;
   if (IsNull)
   {
-    v52 = v48;
+    v47 = v43;
   }
 
   else
   {
-    v52 = v40;
+    v47 = v35;
   }
 
   if (IsNull)
   {
-    v53 = v50;
+    v48 = v45;
   }
 
   else
   {
-    v53 = v42;
+    v48 = v37;
   }
 
-  v104 = v44;
-  v105 = v46;
+  v99 = v39;
+  v100 = v41;
   if (IsNull)
   {
-    v54 = v46;
+    v49 = v41;
   }
 
   else
   {
-    v54 = v38;
+    v49 = v33;
   }
 
   if (IsNull)
   {
-    v55 = v44;
+    v50 = v39;
   }
 
   else
   {
-    v55 = v36;
+    v50 = v31;
   }
 
-  v126 = v55;
-  v127 = v54;
-  v151.origin.x = v129;
-  v151.size.width = v109;
-  v151.origin.y = v110;
-  v151.size.height = r2;
-  v136 = CGRectIntersection(*(&v52 - 2), v151);
-  x = v136.origin.x;
-  y = v136.origin.y;
-  width = v136.size.width;
-  height = v136.size.height;
+  v121 = v50;
+  v122 = v49;
+  v146.origin.x = v124;
+  v146.size.width = v104;
+  v146.origin.y = v105;
+  v146.size.height = r2;
+  v131 = CGRectIntersection(*(&v47 - 2), v146);
+  x = v131.origin.x;
+  y = v131.origin.y;
+  width = v131.size.width;
+  height = v131.size.height;
   [window convertRect:_scroller toView:{a13, a14, a15, a16}];
-  v152.origin.x = v60;
-  v152.origin.y = v61;
-  v152.size.width = v62;
-  v152.size.height = v63;
-  v137.origin.x = x;
+  v147.origin.x = v55;
+  v147.origin.y = v56;
+  v147.size.width = v57;
+  v147.size.height = v58;
+  v132.origin.x = x;
   rect = y;
-  v137.origin.y = y;
-  v137.size.width = width;
-  v137.size.height = height;
-  v138 = CGRectIntersection(v137, v152);
-  v64 = v138.origin.x;
-  v65 = v138.origin.y;
-  v66 = v138.size.width;
-  v67 = v138.size.height;
-  v130 = width;
-  v131 = 0.0;
-  if (CGRectIsEmpty(v138))
+  v132.origin.y = y;
+  v132.size.width = width;
+  v132.size.height = height;
+  v133 = CGRectIntersection(v132, v147);
+  v59 = v133.origin.x;
+  v60 = v133.origin.y;
+  v61 = v133.size.width;
+  v62 = v133.size.height;
+  v125 = width;
+  v126 = 0.0;
+  if (CGRectIsEmpty(v133))
   {
     goto LABEL_26;
   }
 
-  v139.origin.x = v64;
-  v139.origin.y = v65;
-  v139.size.width = v66;
-  v139.size.height = v67;
-  MinY = CGRectGetMinY(v139);
-  v140.origin.x = x;
-  v140.origin.y = rect;
-  v140.size.width = width;
-  v140.size.height = height;
-  v68 = CGRectGetMinY(v140);
-  v69 = x;
-  v70 = MinY - v68;
-  v111 = v69;
-  v141.origin.x = v69;
-  v141.origin.y = rect;
-  v71 = height;
-  v141.size.width = width;
-  v141.size.height = height;
-  MaxY = CGRectGetMaxY(v141);
-  v142.origin.x = v64;
-  v142.origin.y = v65;
-  v142.size.width = v66;
-  v142.size.height = v67;
-  height = MaxY - CGRectGetMaxY(v142);
-  v133 = v70;
-  if (v70 < 106.0 && height >= v70)
+  v134.origin.x = v59;
+  v134.origin.y = v60;
+  v134.size.width = v61;
+  v134.size.height = v62;
+  MinY = CGRectGetMinY(v134);
+  v135.origin.x = x;
+  v135.origin.y = rect;
+  v135.size.width = width;
+  v135.size.height = height;
+  v63 = CGRectGetMinY(v135);
+  v64 = x;
+  v65 = MinY - v63;
+  v106 = v64;
+  v136.origin.x = v64;
+  v136.origin.y = rect;
+  v66 = height;
+  v136.size.width = width;
+  v136.size.height = height;
+  MaxY = CGRectGetMaxY(v136);
+  v137.origin.x = v59;
+  v137.origin.y = v60;
+  v137.size.width = v61;
+  v137.size.height = v62;
+  height = MaxY - CGRectGetMaxY(v137);
+  v128 = v65;
+  if (v65 < 106.0 && height >= v65)
   {
-    v143.origin.x = v64;
-    v143.origin.y = v65;
-    v143.size.width = v66;
-    v143.size.height = v67;
-    v74 = CGRectGetMaxY(v143);
-    v144.origin.x = v111;
-    v144.origin.y = rect;
-    v144.size.width = width;
-    v144.size.height = v71;
-    v131 = v74 - CGRectGetMinY(v144);
+    v138.origin.x = v59;
+    v138.origin.y = v60;
+    v138.size.width = v61;
+    v138.size.height = v62;
+    v69 = CGRectGetMaxY(v138);
+    v139.origin.x = v106;
+    v139.origin.y = rect;
+    v139.size.width = width;
+    v139.size.height = v66;
+    v126 = v69 - CGRectGetMinY(v139);
 LABEL_26:
-    v133 = height;
+    v128 = height;
   }
 
-  v145.origin.x = scroll;
-  v145.origin.y = frame;
-  v145.size.width = duration;
-  v145.size.height = a9;
-  v75 = CGRectIsNull(v145);
+  v140.origin.x = scroll;
+  v140.origin.y = frame;
+  v140.size.width = duration;
+  v140.size.height = a9;
+  v70 = CGRectIsNull(v140);
   if ((a11 & 1) == 0)
   {
-    [_scroller convertPoint:self toView:{v126, v127}];
-    v93 = v146.origin.x;
-    v146.size.width = width;
-    v95 = v131 + v94;
-    v146.origin.y = v131 + v94;
-    v146.size.height = v133;
-    v153.origin.x = a2;
-    v153.origin.y = rect;
-    v153.size.width = ofRect;
-    v153.size.height = scale;
-    result = CGRectContainsRect(v146, v153);
+    [_scroller convertPoint:self toView:{v121, v122}];
+    v88 = v141.origin.x;
+    v141.size.width = width;
+    v90 = v126 + v89;
+    v141.origin.y = v126 + v89;
+    v141.size.height = v128;
+    v148.origin.x = a2;
+    v148.origin.y = rect;
+    v148.size.width = ofRect;
+    v148.size.height = scale;
+    result = CGRectContainsRect(v141, v148);
     if (result)
     {
       return result;
     }
 
-    if (!v75)
+    if (!v70)
     {
-      v149.origin.x = v93;
-      v149.origin.y = v95;
-      v154.origin.x = scroll;
-      v149.size.width = width;
-      v149.size.height = v133;
-      v154.origin.y = frame;
-      v154.size.width = duration;
-      v154.size.height = a9;
-      result = CGRectContainsRect(v149, v154);
+      v144.origin.x = v88;
+      v144.origin.y = v90;
+      v149.origin.x = scroll;
+      v144.size.width = width;
+      v144.size.height = v128;
+      v149.origin.y = frame;
+      v149.size.width = duration;
+      v149.size.height = a9;
+      result = CGRectContainsRect(v144, v149);
       if (result)
       {
         return result;
@@ -1927,99 +1928,99 @@ LABEL_26:
     }
   }
 
-  v76 = v121;
-  v77 = width;
-  v78 = (width - ofRect * v121) * 0.5;
-  if (v78 < 0.0)
+  v71 = v116;
+  v72 = width;
+  v73 = (width - ofRect * v116) * 0.5;
+  if (v73 < 0.0)
   {
-    v78 = 0.0;
+    v73 = 0.0;
   }
 
-  v79 = v133;
-  v80 = (v133 - scale * v121) * 0.5;
-  if (v80 < 0.0)
+  v74 = v128;
+  v75 = (v128 - scale * v116) * 0.5;
+  if (v75 < 0.0)
   {
-    v80 = 0.0;
+    v75 = 0.0;
   }
 
-  v81 = a2 * v121 - v78;
-  v125 = rect * v121 - v80;
+  v76 = a2 * v116 - v73;
+  v120 = rect * v116 - v75;
   [*(self + 880) documentBounds];
-  [self convertRect:_scroller toView:{v82 * a12, v83 * a12, v84 * a12, v85 * a12}];
-  v123 = v86;
-  v115 = v88;
-  v117 = v87;
-  recta = v89;
-  if (v75)
+  [self convertRect:_scroller toView:{v77 * a12, v78 * a12, v79 * a12, v80 * a12}];
+  v118 = v81;
+  v110 = v83;
+  v112 = v82;
+  recta = v84;
+  if (v70)
   {
-    v90 = -INFINITY;
-    v91 = v86;
-    v92 = v87;
+    v85 = -INFINITY;
+    v86 = v81;
+    v87 = v82;
     goto LABEL_42;
   }
 
-  v147.origin.x = scroll * v121;
-  v147.origin.y = frame * v121;
-  v147.size.width = duration * v121;
-  v147.size.height = a9 * v121;
-  v97 = CGRectGetMaxX(v147) + 20.0 - width;
-  v148.origin.x = scroll * v121;
-  v148.origin.y = frame * v121;
-  v79 = v133;
-  v148.size.width = duration * v121;
-  v148.size.height = a9 * v121;
-  v90 = CGRectGetMaxY(v148) + 20.0 - v133 - v131;
-  if (v81 >= v97)
+  v142.origin.x = scroll * v116;
+  v142.origin.y = frame * v116;
+  v142.size.width = duration * v116;
+  v142.size.height = a9 * v116;
+  v92 = CGRectGetMaxX(v142) + 20.0 - width;
+  v143.origin.x = scroll * v116;
+  v143.origin.y = frame * v116;
+  v74 = v128;
+  v143.size.width = duration * v116;
+  v143.size.height = a9 * v116;
+  v85 = CGRectGetMaxY(v143) + 20.0 - v128 - v126;
+  if (v76 >= v92)
   {
-    v76 = v121;
-    v91 = v123;
-    v77 = v130;
-    v88 = v115;
-    v92 = v117;
-    v89 = recta;
+    v71 = v116;
+    v86 = v118;
+    v72 = v125;
+    v83 = v110;
+    v87 = v112;
+    v84 = recta;
 LABEL_42:
-    v98 = !v75;
-    v99 = v91;
-    v100 = v92;
-    v101 = CGRectGetMaxX(*(&v88 - 2)) - v77;
-    if (v81 <= v101)
+    v93 = !v70;
+    v94 = v86;
+    v95 = v87;
+    v96 = CGRectGetMaxX(*(&v83 - 2)) - v72;
+    if (v76 <= v96)
     {
-      v97 = v81;
+      v92 = v76;
     }
 
     else
     {
-      v97 = v101;
+      v92 = v96;
     }
 
     goto LABEL_45;
   }
 
-  v98 = 1;
-  v76 = v121;
-  v91 = v123;
-  v92 = v117;
+  v93 = 1;
+  v71 = v116;
+  v86 = v118;
+  v87 = v112;
 LABEL_45:
-  v102 = v125 - v131;
-  if (!v98 || v102 >= v90)
+  v97 = v120 - v126;
+  if (!v93 || v97 >= v85)
   {
-    v150.origin.x = v91;
-    v150.origin.y = v92;
-    v150.size.height = recta;
-    v150.size.width = v115;
-    v103 = CGRectGetMaxY(v150) - v79;
-    if (v102 <= v103)
+    v145.origin.x = v86;
+    v145.origin.y = v87;
+    v145.size.height = recta;
+    v145.size.width = v110;
+    v98 = CGRectGetMaxY(v145) - v74;
+    if (v97 <= v98)
     {
-      v90 = v125 - v131;
+      v85 = v120 - v126;
     }
 
     else
     {
-      v90 = v103;
+      v85 = v98;
     }
   }
 
-  return [_scroller _zoomToCenter:1 scale:(v106 * 0.5 + v97 - (v126 - v104)) / v76 duration:(v107 * 0.5 + v90 - (v127 - v105)) / v76 force:{v76, a17}];
+  return [_scroller _zoomToCenter:1 scale:(v101 * 0.5 + v92 - (v121 - v99)) / v71 duration:(v102 * 0.5 + v85 - (v122 - v100)) / v71 force:{v71, a17}];
 }
 
 - (CGSize)_defaultScrollViewContentSize

@@ -481,7 +481,7 @@ void __30__MusicModelGridItem_isEqual___block_invoke(uint64_t a1)
 {
   forCopy = for;
   selfCopy = self;
-  v6 = sub_272264(forCopy);
+  v6 = sub_272264(forCopy, MusicModelRelationshipGridItemContentItem);
 
   return v6;
 }

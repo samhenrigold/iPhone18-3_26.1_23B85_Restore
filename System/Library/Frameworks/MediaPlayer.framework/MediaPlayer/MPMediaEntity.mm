@@ -62,7 +62,7 @@ void __66__MPMediaEntity_NewMP__genericModelObjectWithRequestedProperties___bloc
 
   if (v15)
   {
-    [(MPMediaLibraryView *)v15 mlCoreView];
+    objc_msgSend_mlCoreView(v15);
     v16 = *v29;
   }
 
@@ -96,7 +96,7 @@ LABEL_14:
   [*(a1 + 40) persistentID];
   if (v20)
   {
-    [v20 MLCorePropertiesForPropertySet:v6];
+    objc_msgSend_MLCorePropertiesForPropertySet_(v20);
   }
 
   else
@@ -156,7 +156,7 @@ LABEL_15:
       [*(a1 + 40) persistentID];
       if (v19)
       {
-        [v19 MLCorePropertiesForPropertySet:v18];
+        objc_msgSend_MLCorePropertiesForPropertySet_(v19);
       }
 
       else
@@ -213,7 +213,7 @@ LABEL_15:
       [*(a1 + 40) persistentID];
       if (v22)
       {
-        [v22 MLCorePropertiesForPropertySet:v21];
+        objc_msgSend_MLCorePropertiesForPropertySet_(v22);
       }
 
       else
@@ -275,7 +275,7 @@ LABEL_15:
       [*(a1 + 40) persistentID];
       if (v24)
       {
-        [v24 MLCorePropertiesForPropertySet:v23];
+        objc_msgSend_MLCorePropertiesForPropertySet_(v24);
       }
 
       else
@@ -337,7 +337,7 @@ LABEL_15:
       [*(a1 + 40) persistentID];
       if (v26)
       {
-        [v26 MLCorePropertiesForPropertySet:v25];
+        objc_msgSend_MLCorePropertiesForPropertySet_(v26);
       }
 
       else
@@ -399,7 +399,7 @@ LABEL_15:
       [*(a1 + 40) persistentID];
       if (v28)
       {
-        [v28 MLCorePropertiesForPropertySet:v27];
+        objc_msgSend_MLCorePropertiesForPropertySet_(v28);
       }
 
       else

@@ -6,6 +6,7 @@
 - (void)setAccountStatus:(unint64_t)status;
 - (void)setIDSAccountStatus:(unint64_t)status;
 - (void)setKTAccountKey:(id)key;
+- (void)setOptInState:(unint64_t)state everOptIn:(BOOL)in;
 - (void)setPendingChanges:(BOOL)changes;
 - (void)setSelfDevices:(id)devices;
 - (void)setSelfStatus:(unint64_t)status;
@@ -106,6 +107,30 @@
 {
   v3 = objc_alloc_init(KTSelfStatusResult);
   [(KTSystemStateProvider *)self setKtStatus:v3];
+}
+
+- (void)setOptInState:(unint64_t)state everOptIn:(BOOL)in
+{
+  inCopy = in;
+  ktStatus = [(KTSystemStateProvider *)self ktStatus];
+  [ktStatus setEverOptIn:inCopy];
+
+  ktStatus2 = [(KTSystemStateProvider *)self ktStatus];
+  optIn = [ktStatus2 optIn];
+
+  if (optIn != state)
+  {
+    ktStatus3 = [(KTSystemStateProvider *)self ktStatus];
+    [ktStatus3 setOptIn:state];
+
+    v11 = [(KTSystemStateProvider *)self dnc];
+    v12 = kTransparencyNotificationStatusChanged;
+    v15 = kKTStatusOptInState;
+    v13 = [NSNumber numberWithUnsignedInteger:state];
+    v16 = v13;
+    v14 = [NSDictionary dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+    [v11 postNotificationName:v12 object:0 userInfo:v14 deliverImmediately:1];
+  }
 }
 
 - (void)setServerOptInState:(unint64_t)state

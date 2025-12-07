@@ -83,29 +83,29 @@
 
 - (id)_residentDeviceWithIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   context = [(HMDResidentSelectionCoordinationElection *)self context];
   availableResidentDevices = [context availableResidentDevices];
 
-  v7 = [availableResidentDevices countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [availableResidentDevices countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(availableResidentDevices);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         identifier = [v10 identifier];
         v12 = [identifier isEqual:identifierCopy];
 
@@ -116,7 +116,7 @@
         }
       }
 
-      v7 = [availableResidentDevices countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [availableResidentDevices countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -128,101 +128,10 @@
 
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)sortedResidents
-{
-  v15 = *MEMORY[0x277D85DE8];
-  v4 = objc_autoreleasePoolPush();
-  selfCopy = self;
-  v6 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-  {
-    v7 = HMFGetLogIdentifier();
-    v8 = NSStringFromSelector(a2);
-    v11 = 138543618;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v8;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Method %@ not relevant in REv2", &v11, 0x16u);
-  }
-
-  objc_autoreleasePoolPop(v4);
-  v9 = *MEMORY[0x277D85DE8];
-  return 0;
-}
-
-- (void)didUpdateResidentStatus:(id)status residentsFound:(id)found residentsLost:(id)lost
-{
-  v22 = *MEMORY[0x277D85DE8];
-  statusCopy = status;
-  foundCopy = found;
-  lostCopy = lost;
-  v12 = objc_autoreleasePoolPush();
-  selfCopy = self;
-  v14 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
-  {
-    v15 = HMFGetLogIdentifier();
-    v16 = NSStringFromSelector(a2);
-    v18 = 138543618;
-    v19 = v15;
-    v20 = 2112;
-    v21 = v16;
-    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Method %@ not relevant in REv2", &v18, 0x16u);
-  }
-
-  objc_autoreleasePoolPop(v12);
-  v17 = *MEMORY[0x277D85DE8];
-}
-
-- (void)didReceiveSelectionMessage:(id)message
-{
-  v16 = *MEMORY[0x277D85DE8];
-  messageCopy = message;
-  v6 = objc_autoreleasePoolPush();
-  selfCopy = self;
-  v8 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
-  {
-    v9 = HMFGetLogIdentifier();
-    v10 = NSStringFromSelector(a2);
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v10;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Method %@ not relevant in REv2", &v12, 0x16u);
-  }
-
-  objc_autoreleasePoolPop(v6);
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-- (void)configureAsAResidentWithRunPrimaryEvaluation:(BOOL)evaluation
-{
-  v15 = *MEMORY[0x277D85DE8];
-  v5 = objc_autoreleasePoolPush();
-  selfCopy = self;
-  v7 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
-  {
-    v8 = HMFGetLogIdentifier();
-    v9 = NSStringFromSelector(a2);
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Method %@ not relevant in REv2", &v11, 0x16u);
-  }
-
-  objc_autoreleasePoolPop(v5);
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-- (void)currentDeviceReadyAsAResident
 {
   v14 = *MEMORY[0x277D85DE8];
   v4 = objc_autoreleasePoolPush();
@@ -240,12 +149,96 @@ LABEL_11:
   }
 
   objc_autoreleasePoolPop(v4);
-  v9 = *MEMORY[0x277D85DE8];
+  return 0;
+}
+
+- (void)didUpdateResidentStatus:(id)status residentsFound:(id)found residentsLost:(id)lost
+{
+  v21 = *MEMORY[0x277D85DE8];
+  statusCopy = status;
+  foundCopy = found;
+  lostCopy = lost;
+  v12 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v14 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  {
+    v15 = HMFGetLogIdentifier();
+    v16 = NSStringFromSelector(a2);
+    v17 = 138543618;
+    v18 = v15;
+    v19 = 2112;
+    v20 = v16;
+    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Method %@ not relevant in REv2", &v17, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v12);
+}
+
+- (void)didReceiveSelectionMessage:(id)message
+{
+  v15 = *MEMORY[0x277D85DE8];
+  messageCopy = message;
+  v6 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v8 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  {
+    v9 = HMFGetLogIdentifier();
+    v10 = NSStringFromSelector(a2);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2112;
+    v14 = v10;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Method %@ not relevant in REv2", &v11, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v6);
+}
+
+- (void)configureAsAResidentWithRunPrimaryEvaluation:(BOOL)evaluation
+{
+  v14 = *MEMORY[0x277D85DE8];
+  v5 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v7 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    v8 = HMFGetLogIdentifier();
+    v9 = NSStringFromSelector(a2);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Method %@ not relevant in REv2", &v10, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v5);
+}
+
+- (void)currentDeviceReadyAsAResident
+{
+  v13 = *MEMORY[0x277D85DE8];
+  v4 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v6 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    v7 = HMFGetLogIdentifier();
+    v8 = NSStringFromSelector(a2);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Method %@ not relevant in REv2", &v9, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v4);
 }
 
 - (void)didUpdateResidentSelectionModelTo:(id)to
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   toCopy = to;
   v6 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -254,20 +247,19 @@ LABEL_11:
   {
     v9 = HMFGetLogIdentifier();
     v10 = NSStringFromSelector(a2);
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v10;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Method %@ not relevant in REv2", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2112;
+    v14 = v10;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Method %@ not relevant in REv2", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performSelectionWithPreferredPrimaryResident:(id)resident requireAutoUpdate:(BOOL)update reason:(unint64_t)reason completion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   residentCopy = resident;
   completionCopy = completion;
   v11 = objc_autoreleasePoolPush();
@@ -277,15 +269,14 @@ LABEL_11:
   {
     v14 = HMFGetLogIdentifier();
     v15 = NSStringFromSelector(a2);
-    v17 = 138543618;
-    v18 = v14;
-    v19 = 2112;
-    v20 = v15;
-    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Method %@ not relevant in REv2", &v17, 0x16u);
+    v16 = 138543618;
+    v17 = v14;
+    v18 = 2112;
+    v19 = v15;
+    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Method %@ not relevant in REv2", &v16, 0x16u);
   }
 
   objc_autoreleasePoolPop(v11);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)allowExternalUpdateOfPrimaryResidentTo:(id)to selectionTimestamp:(id)timestamp
@@ -307,7 +298,7 @@ LABEL_11:
 
 - (id)residentsNotPresentInPreferredResidentsList:(id)list
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   listCopy = list;
   v6 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -316,15 +307,14 @@ LABEL_11:
   {
     v9 = HMFGetLogIdentifier();
     v10 = NSStringFromSelector(a2);
-    v13 = 138543618;
-    v14 = v9;
-    v15 = 2112;
-    v16 = v10;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Method %@ not relevant in REv2", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v9;
+    v14 = 2112;
+    v15 = v10;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Method %@ not relevant in REv2", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
-  v11 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

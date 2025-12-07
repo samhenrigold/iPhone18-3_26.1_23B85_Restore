@@ -3,7 +3,7 @@
 
 @implementation GetStatusOfValueForProperty
 
-uint64_t __remoteXPCAsset_GetStatusOfValueForProperty_block_invoke(uint64_t a1)
+const void *__remoteXPCAsset_GetStatusOfValueForProperty_block_invoke(uint64_t a1)
 {
   result = FigCFDictionaryGetInt32IfPresent();
   if (result)

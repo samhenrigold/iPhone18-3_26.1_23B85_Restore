@@ -72,16 +72,7 @@
   data = [MEMORY[0x277CBEA90] data];
   v9 = [defaultManager3 createFileAtPath:fileCopy contents:data attributes:0];
 
-  if (!v9)
-  {
-    goto LABEL_7;
-  }
-
-  v10 = [MEMORY[0x277CCA9F8] fileHandleForWritingAtPath:fileCopy];
-  v11 = _logFileHandle;
-  _logFileHandle = v10;
-
-  if (_logFileHandle)
+  if (v9 && ([MEMORY[0x277CCA9F8] fileHandleForWritingAtPath:fileCopy], v10 = objc_claimAutoreleasedReturnValue(), v11 = _logFileHandle, _logFileHandle = v10, v11, _logFileHandle))
   {
     v12 = fileCopy;
   }
@@ -99,7 +90,7 @@ LABEL_7:
 {
   if (_logFileHandle)
   {
-    TYLog(@"Closing log file", a2, v2, v3, v4, v5, v6, v7, v9);
+    TYLog(@"Closing log file", a2, v2, v3, v4, v5, v6, v7);
     [_logFileHandle closeFile];
     v8 = _logFileHandle;
     _logFileHandle = 0;

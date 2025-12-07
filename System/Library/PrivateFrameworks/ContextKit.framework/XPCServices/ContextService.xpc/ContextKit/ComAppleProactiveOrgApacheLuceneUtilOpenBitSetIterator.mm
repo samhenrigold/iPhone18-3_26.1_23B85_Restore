@@ -9,7 +9,7 @@
 
 - (ComAppleProactiveOrgApacheLuceneUtilOpenBitSetIterator)initWithLongArray:(id)array withInt:(int)int
 {
-  OrgApacheLuceneSearchDocIdSetIterator_init(self, a2);
+  OrgApacheLuceneSearchDocIdSetIterator_init();
   self->i_ = -1;
   self->curDocId_ = -1;
   JreStrongAssign(&self->arr_, array);

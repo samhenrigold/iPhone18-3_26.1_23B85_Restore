@@ -54,7 +54,7 @@
 
 - (id)fetchCachedArticleWithID:(id)d completionHandler:(id)handler
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dCopy = d;
   handlerCopy = handler;
   v8 = [FCOfflineArticleFetchOperation alloc];
@@ -65,96 +65,90 @@
   [(FCOperation *)v11 setQualityOfService:9];
   [(FCOfflineArticleFetchOperation *)v11 setQueuePriority:0];
   [(FCOfflineArticleFetchOperation *)v11 setCachedOnly:1];
-  v28[0] = 0;
-  v28[1] = v28;
-  v28[2] = 0x3032000000;
-  v28[3] = __Block_byref_object_copy__37;
-  v28[4] = __Block_byref_object_dispose__37;
-  v29 = +[FCContentArchive empty];
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __71__FCArticleDownloadService_fetchCachedArticleWithID_completionHandler___block_invoke;
-  v27[3] = &unk_1E7C36EF0;
-  v27[4] = v28;
-  [(FCOfflineArticleFetchOperation *)v11 setArchiveHandler:v27];
-  v20 = MEMORY[0x1E69E9820];
-  v21 = 3221225472;
-  v22 = __71__FCArticleDownloadService_fetchCachedArticleWithID_completionHandler___block_invoke_2;
-  v23 = &unk_1E7C36F18;
+  v27[0] = 0;
+  v27[1] = v27;
+  v27[2] = 0x3032000000;
+  v27[3] = __Block_byref_object_copy__37;
+  v27[4] = __Block_byref_object_dispose__37;
+  v28 = +[FCContentArchive empty];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __71__FCArticleDownloadService_fetchCachedArticleWithID_completionHandler___block_invoke;
+  v26[3] = &unk_1E7C36EF0;
+  v26[4] = v27;
+  [(FCOfflineArticleFetchOperation *)v11 setArchiveHandler:v26];
+  v19 = MEMORY[0x1E69E9820];
+  v20 = 3221225472;
+  v21 = __71__FCArticleDownloadService_fetchCachedArticleWithID_completionHandler___block_invoke_2;
+  v22 = &unk_1E7C36F18;
   v12 = dCopy;
-  v24 = v12;
+  v23 = v12;
   v13 = handlerCopy;
-  v25 = v13;
-  v26 = v28;
-  [(FCOfflineArticleFetchOperation *)v11 setFetchCompletionHandler:&v20];
+  v24 = v13;
+  v25 = v27;
+  [(FCOfflineArticleFetchOperation *)v11 setFetchCompletionHandler:&v19];
   v14 = FCOfflineDownloadsLog;
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = [(FCOperation *)v11 shortOperationDescription:v20];
+    v15 = [(FCOperation *)v11 shortOperationDescription:v19];
     *buf = 138543618;
-    v31 = v12;
-    v32 = 2114;
-    v33 = v15;
+    v30 = v12;
+    v31 = 2114;
+    v32 = v15;
     _os_log_impl(&dword_1B63EF000, v14, OS_LOG_TYPE_DEFAULT, "Will check cache for article %{public}@ with operation %{public}@", buf, 0x16u);
   }
 
   [FCTaskScheduler scheduleBackgroundDownloadOperation:v11];
-  v16 = v25;
+  v16 = v24;
   v17 = v11;
 
-  _Block_object_dispose(v28, 8);
-  v18 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v27, 8);
 
   return v17;
 }
 
 void __71__FCArticleDownloadService_fetchCachedArticleWithID_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
-  v10[0] = *(*(*(a1 + 32) + 8) + 40);
-  v10[1] = a2;
+  v9[2] = *MEMORY[0x1E69E9840];
+  v9[0] = *(*(*(a1 + 32) + 8) + 40);
+  v9[1] = a2;
   v3 = MEMORY[0x1E695DEC8];
   v4 = a2;
-  v5 = [v3 arrayWithObjects:v10 count:2];
+  v5 = [v3 arrayWithObjects:v9 count:2];
   v6 = [FCContentArchive archiveWithChildArchives:v5];
   v7 = *(*(a1 + 32) + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v6;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-void __71__FCArticleDownloadService_fetchCachedArticleWithID_completionHandler___block_invoke_2(void *a1, void *a2, void *a3)
+void __71__FCArticleDownloadService_fetchCachedArticleWithID_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = FCOfflineDownloadsLog;
   if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
   {
     v8 = @"not cached";
-    v9 = a1[4];
+    v9 = *(a1 + 32);
     if (!v6)
     {
       v8 = @"success";
     }
 
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2114;
-    v15 = v8;
-    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "Concluded cache check for article %{public}@ with status %{public}@", &v12, 0x16u);
+    v10 = 138543618;
+    v11 = v9;
+    v12 = 2114;
+    v13 = v8;
+    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "Concluded cache check for article %{public}@ with status %{public}@", &v10, 0x16u);
   }
 
-  v10 = *(*(a1[6] + 8) + 40);
-  (*(a1[5] + 16))();
-
-  v11 = *MEMORY[0x1E69E9840];
+  (*(*(a1 + 40) + 16))();
 }
 
 - (id)fetchCachedAudioWithArticleID:(id)d completionHandler:(id)handler
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dCopy = d;
   handlerCopy = handler;
   v8 = [FCOfflineAudioFetchOperation alloc];
@@ -164,96 +158,90 @@ void __71__FCArticleDownloadService_fetchCachedArticleWithID_completionHandler__
   [(FCOperation *)v10 setQualityOfService:9];
   [(FCOfflineAudioFetchOperation *)v10 setQueuePriority:0];
   [(FCOfflineAudioFetchOperation *)v10 setCachedOnly:1];
-  v27[0] = 0;
-  v27[1] = v27;
-  v27[2] = 0x3032000000;
-  v27[3] = __Block_byref_object_copy__37;
-  v27[4] = __Block_byref_object_dispose__37;
-  v28 = +[FCContentArchive empty];
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __76__FCArticleDownloadService_fetchCachedAudioWithArticleID_completionHandler___block_invoke;
-  v26[3] = &unk_1E7C36EF0;
-  v26[4] = v27;
-  [(FCOfflineAudioFetchOperation *)v10 setArchiveHandler:v26];
-  v19 = MEMORY[0x1E69E9820];
-  v20 = 3221225472;
-  v21 = __76__FCArticleDownloadService_fetchCachedAudioWithArticleID_completionHandler___block_invoke_2;
-  v22 = &unk_1E7C36F18;
+  v26[0] = 0;
+  v26[1] = v26;
+  v26[2] = 0x3032000000;
+  v26[3] = __Block_byref_object_copy__37;
+  v26[4] = __Block_byref_object_dispose__37;
+  v27 = +[FCContentArchive empty];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __76__FCArticleDownloadService_fetchCachedAudioWithArticleID_completionHandler___block_invoke;
+  v25[3] = &unk_1E7C36EF0;
+  v25[4] = v26;
+  [(FCOfflineAudioFetchOperation *)v10 setArchiveHandler:v25];
+  v18 = MEMORY[0x1E69E9820];
+  v19 = 3221225472;
+  v20 = __76__FCArticleDownloadService_fetchCachedAudioWithArticleID_completionHandler___block_invoke_2;
+  v21 = &unk_1E7C36F18;
   v11 = dCopy;
-  v23 = v11;
+  v22 = v11;
   v12 = handlerCopy;
-  v24 = v12;
-  v25 = v27;
-  [(FCOfflineAudioFetchOperation *)v10 setFetchCompletionHandler:&v19];
+  v23 = v12;
+  v24 = v26;
+  [(FCOfflineAudioFetchOperation *)v10 setFetchCompletionHandler:&v18];
   v13 = FCOfflineDownloadsLog;
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = [(FCOperation *)v10 shortOperationDescription:v19];
+    v14 = [(FCOperation *)v10 shortOperationDescription:v18];
     *buf = 138543618;
-    v30 = v11;
-    v31 = 2114;
-    v32 = v14;
+    v29 = v11;
+    v30 = 2114;
+    v31 = v14;
     _os_log_impl(&dword_1B63EF000, v13, OS_LOG_TYPE_DEFAULT, "Will check cache for audio %{public}@ with operation %{public}@", buf, 0x16u);
   }
 
   [FCTaskScheduler scheduleBackgroundDownloadOperation:v10];
-  v15 = v24;
+  v15 = v23;
   v16 = v10;
 
-  _Block_object_dispose(v27, 8);
-  v17 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v26, 8);
 
   return v16;
 }
 
 void __76__FCArticleDownloadService_fetchCachedAudioWithArticleID_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
-  v10[0] = *(*(*(a1 + 32) + 8) + 40);
-  v10[1] = a2;
+  v9[2] = *MEMORY[0x1E69E9840];
+  v9[0] = *(*(*(a1 + 32) + 8) + 40);
+  v9[1] = a2;
   v3 = MEMORY[0x1E695DEC8];
   v4 = a2;
-  v5 = [v3 arrayWithObjects:v10 count:2];
+  v5 = [v3 arrayWithObjects:v9 count:2];
   v6 = [FCContentArchive archiveWithChildArchives:v5];
   v7 = *(*(a1 + 32) + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v6;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-void __76__FCArticleDownloadService_fetchCachedAudioWithArticleID_completionHandler___block_invoke_2(void *a1, void *a2, void *a3)
+void __76__FCArticleDownloadService_fetchCachedAudioWithArticleID_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = FCOfflineDownloadsLog;
   if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
   {
     v8 = @"not cached";
-    v9 = a1[4];
+    v9 = *(a1 + 32);
     if (!v6)
     {
       v8 = @"success";
     }
 
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2114;
-    v15 = v8;
-    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "Concluded cache check for audio %{public}@ with status %{public}@", &v12, 0x16u);
+    v10 = 138543618;
+    v11 = v9;
+    v12 = 2114;
+    v13 = v8;
+    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "Concluded cache check for audio %{public}@ with status %{public}@", &v10, 0x16u);
   }
 
-  v10 = *(*(a1[6] + 8) + 40);
-  (*(a1[5] + 16))();
-
-  v11 = *MEMORY[0x1E69E9840];
+  (*(*(a1 + 40) + 16))();
 }
 
 - (BOOL)isArticleDownloadedEnoughToRead:(id)read
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   readCopy = read;
   context = [(FCArticleDownloadService *)self context];
   internalContentContext = [context internalContentContext];
@@ -279,7 +267,7 @@ void __76__FCArticleDownloadService_fetchCachedAudioWithArticleID_completionHand
           if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v29 = readCopy;
+            v28 = readCopy;
             _os_log_impl(&dword_1B63EF000, v15, OS_LOG_TYPE_DEFAULT, "Article %{public}@ is readable", buf, 0xCu);
           }
 
@@ -288,24 +276,24 @@ void __76__FCArticleDownloadService_fetchCachedAudioWithArticleID_completionHand
 
         else
         {
-          v19[0] = MEMORY[0x1E69E9820];
-          v19[1] = 3221225472;
-          v19[2] = __60__FCArticleDownloadService_isArticleDownloadedEnoughToRead___block_invoke_23;
-          v19[3] = &unk_1E7C36F68;
-          v20 = readCopy;
-          v21 = v14;
-          v16 = __60__FCArticleDownloadService_isArticleDownloadedEnoughToRead___block_invoke_23(v19);
+          v18[0] = MEMORY[0x1E69E9820];
+          v18[1] = 3221225472;
+          v18[2] = __60__FCArticleDownloadService_isArticleDownloadedEnoughToRead___block_invoke_23;
+          v18[3] = &unk_1E7C36F68;
+          v19 = readCopy;
+          v20 = v14;
+          v16 = __60__FCArticleDownloadService_isArticleDownloadedEnoughToRead___block_invoke_23(v18);
         }
       }
 
       else
       {
-        v22[0] = MEMORY[0x1E69E9820];
-        v22[1] = 3221225472;
-        v22[2] = __60__FCArticleDownloadService_isArticleDownloadedEnoughToRead___block_invoke_22;
-        v22[3] = &unk_1E7C36F40;
-        v23 = readCopy;
-        __60__FCArticleDownloadService_isArticleDownloadedEnoughToRead___block_invoke_22(v22);
+        v21[0] = MEMORY[0x1E69E9820];
+        v21[1] = 3221225472;
+        v21[2] = __60__FCArticleDownloadService_isArticleDownloadedEnoughToRead___block_invoke_22;
+        v21[3] = &unk_1E7C36F40;
+        v22 = readCopy;
+        __60__FCArticleDownloadService_isArticleDownloadedEnoughToRead___block_invoke_22(v21);
 
         v14 = 0;
         v16 = 0;
@@ -314,84 +302,80 @@ void __76__FCArticleDownloadService_fetchCachedAudioWithArticleID_completionHand
 
     else
     {
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __60__FCArticleDownloadService_isArticleDownloadedEnoughToRead___block_invoke_21;
-      v24[3] = &unk_1E7C36F40;
-      v25 = readCopy;
-      __60__FCArticleDownloadService_isArticleDownloadedEnoughToRead___block_invoke_21(v24);
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __60__FCArticleDownloadService_isArticleDownloadedEnoughToRead___block_invoke_21;
+      v23[3] = &unk_1E7C36F40;
+      v24 = readCopy;
+      __60__FCArticleDownloadService_isArticleDownloadedEnoughToRead___block_invoke_21(v23);
       v16 = 0;
-      v14 = v25;
+      v14 = v24;
     }
   }
 
   else
   {
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __60__FCArticleDownloadService_isArticleDownloadedEnoughToRead___block_invoke;
-    v26[3] = &unk_1E7C36F40;
-    v27 = readCopy;
-    __60__FCArticleDownloadService_isArticleDownloadedEnoughToRead___block_invoke(v26);
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __60__FCArticleDownloadService_isArticleDownloadedEnoughToRead___block_invoke;
+    v25[3] = &unk_1E7C36F40;
+    v26 = readCopy;
+    __60__FCArticleDownloadService_isArticleDownloadedEnoughToRead___block_invoke(v25);
     v16 = 0;
-    v9 = v27;
+    v9 = v26;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 uint64_t __60__FCArticleDownloadService_isArticleDownloadedEnoughToRead___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = FCOfflineDownloadsLog;
   if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Article %{public}@ is not readable because its article record is not cached", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Article %{public}@ is not readable because its article record is not cached", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t __60__FCArticleDownloadService_isArticleDownloadedEnoughToRead___block_invoke_21(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = FCOfflineDownloadsLog;
   if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Article %{public}@ is not readable because it has an unknown content type", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Article %{public}@ is not readable because it has an unknown content type", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t __60__FCArticleDownloadService_isArticleDownloadedEnoughToRead___block_invoke_22(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = FCOfflineDownloadsLog;
   if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Article %{public}@ is not readable because it is not ANF", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Article %{public}@ is not readable because it is not ANF", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t __60__FCArticleDownloadService_isArticleDownloadedEnoughToRead___block_invoke_23(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = FCOfflineDownloadsLog;
   if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
   {
@@ -401,20 +385,19 @@ uint64_t __60__FCArticleDownloadService_isArticleDownloadedEnoughToRead___block_
     v6 = [v3 anfDocumentAssetHandles];
     v7 = [v6 firstObject];
     v8 = [v7 uniqueKey];
-    v11 = 138543618;
-    v12 = v4;
-    v13 = 2114;
-    v14 = v8;
-    _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "Article %{public}@ is not readable because its ANF document is not cached, document=%{public}@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v4;
+    v12 = 2114;
+    v13 = v8;
+    _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "Article %{public}@ is not readable because its ANF document is not cached, document=%{public}@", &v10, 0x16u);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (BOOL)isArticleDownloadedEnoughToListen:(id)listen
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   listenCopy = listen;
   context = [(FCArticleDownloadService *)self context];
   internalContentContext = [context internalContentContext];
@@ -441,7 +424,7 @@ uint64_t __60__FCArticleDownloadService_isArticleDownloadedEnoughToRead___block_
           if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v27 = listenCopy;
+            v26 = listenCopy;
             _os_log_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_DEFAULT, "Article %{public}@ is listenable", buf, 0xCu);
           }
 
@@ -454,12 +437,12 @@ uint64_t __60__FCArticleDownloadService_isArticleDownloadedEnoughToRead___block_
       {
       }
 
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __62__FCArticleDownloadService_isArticleDownloadedEnoughToListen___block_invoke_25;
-      v20[3] = &unk_1E7C36F40;
-      v21 = v10;
-      __62__FCArticleDownloadService_isArticleDownloadedEnoughToListen___block_invoke_25(v20);
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __62__FCArticleDownloadService_isArticleDownloadedEnoughToListen___block_invoke_25;
+      v19[3] = &unk_1E7C36F40;
+      v20 = v10;
+      __62__FCArticleDownloadService_isArticleDownloadedEnoughToListen___block_invoke_25(v19);
 
       v17 = 0;
 LABEL_12:
@@ -467,12 +450,12 @@ LABEL_12:
       goto LABEL_13;
     }
 
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __62__FCArticleDownloadService_isArticleDownloadedEnoughToListen___block_invoke_24;
-    v22[3] = &unk_1E7C36F40;
-    v23 = listenCopy;
-    __62__FCArticleDownloadService_isArticleDownloadedEnoughToListen___block_invoke_24(v22);
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __62__FCArticleDownloadService_isArticleDownloadedEnoughToListen___block_invoke_24;
+    v21[3] = &unk_1E7C36F40;
+    v22 = listenCopy;
+    __62__FCArticleDownloadService_isArticleDownloadedEnoughToListen___block_invoke_24(v21);
 
     v10 = 0;
     v17 = 0;
@@ -480,67 +463,63 @@ LABEL_12:
 
   else
   {
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __62__FCArticleDownloadService_isArticleDownloadedEnoughToListen___block_invoke;
-    v24[3] = &unk_1E7C36F40;
-    v25 = listenCopy;
-    __62__FCArticleDownloadService_isArticleDownloadedEnoughToListen___block_invoke(v24);
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __62__FCArticleDownloadService_isArticleDownloadedEnoughToListen___block_invoke;
+    v23[3] = &unk_1E7C36F40;
+    v24 = listenCopy;
+    __62__FCArticleDownloadService_isArticleDownloadedEnoughToListen___block_invoke(v23);
     v17 = 0;
-    v10 = v25;
+    v10 = v24;
   }
 
 LABEL_13:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 uint64_t __62__FCArticleDownloadService_isArticleDownloadedEnoughToListen___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = FCOfflineDownloadsLog;
   if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Article %{public}@ is not listenable because its article record is not cached", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Article %{public}@ is not listenable because its article record is not cached", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t __62__FCArticleDownloadService_isArticleDownloadedEnoughToListen___block_invoke_24(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = FCOfflineDownloadsLog;
   if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Article %{public}@ is not listenable because it has no narrative track", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Article %{public}@ is not listenable because it has no narrative track", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t __62__FCArticleDownloadService_isArticleDownloadedEnoughToListen___block_invoke_25(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = FCOfflineDownloadsLog;
   if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Article %{public}@ is not listenable because its narrative track is not cached", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Article %{public}@ is not listenable because its narrative track is not cached", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

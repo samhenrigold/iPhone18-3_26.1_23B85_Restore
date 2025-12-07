@@ -11,7 +11,7 @@
 
 - (RTLocationOfInterestTransition)initWithIdentifier:(id)identifier startDate:(id)date stopDate:(id)stopDate visitIdentifierOrigin:(id)origin visitIdentifierDestination:(id)destination modeOfTransportation:(int64_t)transportation
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   dateCopy = date;
   stopDateCopy = stopDate;
@@ -31,9 +31,9 @@
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v36 = "[RTLocationOfInterestTransition initWithIdentifier:startDate:stopDate:visitIdentifierOrigin:visitIdentifierDestination:modeOfTransportation:]";
-      v37 = 1024;
-      v38 = 33;
+      v35 = "[RTLocationOfInterestTransition initWithIdentifier:startDate:stopDate:visitIdentifierOrigin:visitIdentifierDestination:modeOfTransportation:]";
+      v36 = 1024;
+      v37 = 33;
       _os_log_error_impl(&dword_1BF1C4000, v26, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: identifier (in %s:%d)", buf, 0x12u);
     }
 
@@ -53,9 +53,9 @@ LABEL_3:
   if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v36 = "[RTLocationOfInterestTransition initWithIdentifier:startDate:stopDate:visitIdentifierOrigin:visitIdentifierDestination:modeOfTransportation:]";
-    v37 = 1024;
-    v38 = 34;
+    v35 = "[RTLocationOfInterestTransition initWithIdentifier:startDate:stopDate:visitIdentifierOrigin:visitIdentifierDestination:modeOfTransportation:]";
+    v36 = 1024;
+    v37 = 34;
     _os_log_error_impl(&dword_1BF1C4000, v27, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: startDate (in %s:%d)", buf, 0x12u);
   }
 
@@ -72,9 +72,9 @@ LABEL_22:
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v36 = "[RTLocationOfInterestTransition initWithIdentifier:startDate:stopDate:visitIdentifierOrigin:visitIdentifierDestination:modeOfTransportation:]";
-      v37 = 1024;
-      v38 = 36;
+      v35 = "[RTLocationOfInterestTransition initWithIdentifier:startDate:stopDate:visitIdentifierOrigin:visitIdentifierDestination:modeOfTransportation:]";
+      v36 = 1024;
+      v37 = 36;
       _os_log_error_impl(&dword_1BF1C4000, v29, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: visitIdentifierOrigin (in %s:%d)", buf, 0x12u);
     }
 
@@ -91,9 +91,9 @@ LABEL_19:
   if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v36 = "[RTLocationOfInterestTransition initWithIdentifier:startDate:stopDate:visitIdentifierOrigin:visitIdentifierDestination:modeOfTransportation:]";
-    v37 = 1024;
-    v38 = 35;
+    v35 = "[RTLocationOfInterestTransition initWithIdentifier:startDate:stopDate:visitIdentifierOrigin:visitIdentifierDestination:modeOfTransportation:]";
+    v36 = 1024;
+    v37 = 35;
     _os_log_error_impl(&dword_1BF1C4000, v28, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: stopDate (in %s:%d)", buf, 0x12u);
   }
 
@@ -109,9 +109,9 @@ LABEL_6:
     selfCopy = 0;
     if (identifierCopy && dateCopy && stopDateCopy && originCopy)
     {
-      v34.receiver = self;
-      v34.super_class = RTLocationOfInterestTransition;
-      v20 = [(RTLocationOfInterestTransition *)&v34 init];
+      v33.receiver = self;
+      v33.super_class = RTLocationOfInterestTransition;
+      v20 = [(RTLocationOfInterestTransition *)&v33 init];
       v21 = v20;
       if (v20)
       {
@@ -141,16 +141,15 @@ LABEL_25:
   if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v36 = "[RTLocationOfInterestTransition initWithIdentifier:startDate:stopDate:visitIdentifierOrigin:visitIdentifierDestination:modeOfTransportation:]";
-    v37 = 1024;
-    v38 = 37;
+    v35 = "[RTLocationOfInterestTransition initWithIdentifier:startDate:stopDate:visitIdentifierOrigin:visitIdentifierDestination:modeOfTransportation:]";
+    v36 = 1024;
+    v37 = 37;
     _os_log_error_impl(&dword_1BF1C4000, v30, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: visitIdentifierDestination (in %s:%d)", buf, 0x12u);
   }
 
   selfCopy = 0;
 LABEL_28:
 
-  v31 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

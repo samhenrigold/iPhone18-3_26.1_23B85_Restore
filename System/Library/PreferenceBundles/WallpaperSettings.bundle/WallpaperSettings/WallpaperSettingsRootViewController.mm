@@ -3,6 +3,7 @@
 - (void)handleURL:(id)l withCompletion:(id)completion;
 - (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewIsAppearing:(BOOL)appearing;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
 
@@ -12,6 +13,16 @@
 {
   selfCopy = self;
   WallpaperSettingsRootViewController.viewDidLoad()();
+}
+
+- (void)viewIsAppearing:(BOOL)appearing
+{
+  appearingCopy = appearing;
+  v5.receiver = self;
+  v5.super_class = swift_getObjectType();
+  v4 = v5.receiver;
+  [(WallpaperSettingsRootViewController *)&v5 viewIsAppearing:appearingCopy];
+  sub_2118();
 }
 
 - (void)viewDidAppear:(BOOL)appear
@@ -71,7 +82,7 @@
 
   selfCopy = self;
   WallpaperSettingsRootViewController.handleURL(_:withCompletion:)(l, v8, v7);
-  sub_3754(v8);
+  sub_3754(v8, v7);
 }
 
 @end

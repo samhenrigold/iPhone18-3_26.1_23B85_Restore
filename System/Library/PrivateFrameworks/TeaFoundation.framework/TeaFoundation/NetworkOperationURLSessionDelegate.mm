@@ -52,8 +52,7 @@
 {
   v8 = sub_1BF17923C();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](v8);
+  MEMORY[0x1EEE9AC00](v8, v10);
   v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1BF1791BC();
   sessionCopy = session;

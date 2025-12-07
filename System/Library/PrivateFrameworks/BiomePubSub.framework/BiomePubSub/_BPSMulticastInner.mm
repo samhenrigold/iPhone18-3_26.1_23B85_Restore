@@ -112,16 +112,16 @@
 
 - (void)receiveCompletion:(id)completion
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   selfCopy = self;
   v6 = __biome_log_for_category();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v11 = 138412290;
-    v12 = objc_opt_class();
-    v7 = v12;
-    _os_log_impl(&dword_1C871B000, v6, OS_LOG_TYPE_INFO, "%@ - completion", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = objc_opt_class();
+    v7 = v11;
+    _os_log_impl(&dword_1C871B000, v6, OS_LOG_TYPE_INFO, "%@ - completion", &v10, 0xCu);
   }
 
   os_unfair_lock_lock(&selfCopy->_lock);
@@ -136,8 +136,6 @@
     [(BPSSubscriptionStatus *)selfCopy->_status setState:2];
     os_unfair_lock_unlock(&selfCopy->_lock);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancel
@@ -160,14 +158,14 @@
 
 - (id)upstreamSubscriptions
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   if ([(BPSSubscriptionStatus *)self->_status state]== 1)
   {
     subscription = [(BPSSubscriptionStatus *)self->_status subscription];
     os_unfair_lock_unlock(&self->_lock);
-    v7[0] = subscription;
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+    v6[0] = subscription;
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
   }
 
   else
@@ -176,18 +174,15 @@
     v4 = MEMORY[0x1E695E0F0];
   }
 
-  v5 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (void)receiveInput:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1C871B000, a2, OS_LOG_TYPE_DEBUG, "receiving: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1C871B000, a2, OS_LOG_TYPE_DEBUG, "receiving: %@", &v2, 0xCu);
 }
 
 - (void)requestDemand:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

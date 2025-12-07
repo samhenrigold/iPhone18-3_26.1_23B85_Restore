@@ -45,7 +45,8 @@
   airQualityAttribution2 = [cityCopy airQualityAttribution];
   stationLocationName = [airQualityAttribution2 stationLocationName];
 
-  if (![stationLocationName length])
+  v12 = [stationLocationName length];
+  if (!v12)
   {
     name = [cityCopy name];
 
@@ -54,60 +55,60 @@
 
   if (v9 == 1)
   {
-    v13 = MEMORY[0x277CCACA8];
-    v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v15 = v14;
-    v16 = @"AQI_VIEW_ATTRIBUTION_STATION_DATA_ONE_HOUR_AGO";
+    v14 = MEMORY[0x277CCACA8];
+    v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v16 = v15;
+    v17 = @"AQI_VIEW_ATTRIBUTION_STATION_DATA_ONE_HOUR_AGO";
   }
 
   else
   {
     if (v9)
     {
-      v19 = WANumberFormatterForDisplayingAQI();
-      v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v9];
-      v15 = [v19 stringFromNumber:v20];
+      v20 = WANumberFormatterForDisplayingAQI(v12);
+      v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v9];
+      v16 = [v20 stringFromNumber:v21];
 
-      v21 = MEMORY[0x277CCACA8];
-      v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v22 = [v17 localizedStringForKey:@"AQI_VIEW_ATTRIBUTION_STATION_DATA_MORE_THAN_ONE_HOUR_AGO" value:&stru_2882270E8 table:@"WeatherFrameworkLocalizableStrings"];
-      v18 = [v21 stringWithFormat:v22, stationLocationName, v15];
+      v22 = MEMORY[0x277CCACA8];
+      v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v23 = [v18 localizedStringForKey:@"AQI_VIEW_ATTRIBUTION_STATION_DATA_MORE_THAN_ONE_HOUR_AGO" value:&stru_2882270E8 table:@"WeatherFrameworkLocalizableStrings"];
+      v19 = [v22 stringWithFormat:v23, stationLocationName, v16];
 
       goto LABEL_9;
     }
 
-    v13 = MEMORY[0x277CCACA8];
-    v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v15 = v14;
-    v16 = @"AQI_VIEW_ATTRIBUTION_STATION_DATA_LESS_THAN_ONE_HOUR_AGO";
+    v14 = MEMORY[0x277CCACA8];
+    v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v16 = v15;
+    v17 = @"AQI_VIEW_ATTRIBUTION_STATION_DATA_LESS_THAN_ONE_HOUR_AGO";
   }
 
-  v17 = [v14 localizedStringForKey:v16 value:&stru_2882270E8 table:@"WeatherFrameworkLocalizableStrings"];
-  v18 = [v13 stringWithFormat:v17, stationLocationName];
+  v18 = [v15 localizedStringForKey:v17 value:&stru_2882270E8 table:@"WeatherFrameworkLocalizableStrings"];
+  v19 = [v14 stringWithFormat:v18, stationLocationName];
 LABEL_9:
 
   airQualityLearnMoreURL = [cityCopy airQualityLearnMoreURL];
   if (airQualityLearnMoreURL)
   {
-    v24 = airQualityLearnMoreURL;
+    v25 = airQualityLearnMoreURL;
     airQualityAttribution3 = [cityCopy airQualityAttribution];
 
     if (airQualityAttribution3)
     {
-      v26 = MEMORY[0x277CCACA8];
-      v27 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v28 = [v27 localizedStringForKey:@"AQI_VIEW_ATTRIBUTION_STATION_DATA_LEARN_MORE_SUFFIX" value:&stru_2882270E8 table:@"WeatherFrameworkLocalizableStrings"];
+      v27 = MEMORY[0x277CCACA8];
+      v28 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v29 = [v28 localizedStringForKey:@"AQI_VIEW_ATTRIBUTION_STATION_DATA_LEARN_MORE_SUFFIX" value:&stru_2882270E8 table:@"WeatherFrameworkLocalizableStrings"];
       airQualityAttribution4 = [cityCopy airQualityAttribution];
       name2 = [airQualityAttribution4 name];
-      v31 = [v26 stringWithFormat:v28, name2];
+      v32 = [v27 stringWithFormat:v29, name2];
 
-      v32 = [v18 stringByAppendingString:v31];
+      v33 = [v19 stringByAppendingString:v32];
 
-      v18 = v32;
+      v19 = v33;
     }
   }
 
-  return v18;
+  return v19;
 }
 
 @end

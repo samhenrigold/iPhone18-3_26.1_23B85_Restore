@@ -220,25 +220,25 @@
   y = CGRectNull.origin.y;
   width = CGRectNull.size.width;
   height = CGRectNull.size.height;
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   v11 = columnsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v52 objects:v56 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v51 objects:v55 count:16];
   if (v12)
   {
-    v13 = *v53;
+    v13 = *v52;
     while (2)
     {
       for (i = 0; i != v12; i = i + 1)
       {
-        if (*v53 != v13)
+        if (*v52 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v52 + 1) + 8 * i);
+        v15 = *(*(&v51 + 1) + 8 * i);
         [v15 caretRectForSelection:pointCopy];
         x = v16;
         y = v17;
@@ -260,7 +260,7 @@
         }
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v52 objects:v56 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v51 objects:v55 count:16];
       if (v12)
       {
         continue;
@@ -272,78 +272,78 @@
 
 LABEL_14:
 
-  v64.origin.x = CGRectNull.origin.x;
-  v64.origin.y = CGRectNull.origin.y;
-  v64.size.width = CGRectNull.size.width;
-  v64.size.height = CGRectNull.size.height;
-  v57.origin.x = x;
-  v57.origin.y = y;
-  v57.size.width = width;
-  v57.size.height = height;
-  if (!CGRectEqualToRect(v57, v64))
+  v63.origin.x = CGRectNull.origin.x;
+  v63.origin.y = CGRectNull.origin.y;
+  v63.size.width = CGRectNull.size.width;
+  v63.size.height = CGRectNull.size.height;
+  v56.origin.x = x;
+  v56.origin.y = y;
+  v56.size.width = width;
+  v56.size.height = height;
+  if (!CGRectEqualToRect(v56, v63))
   {
-    caretAffinity = [pointCopy caretAffinity];
-    v21 = +[CRLWPColumn columnForCharIndex:allowEndOfColumn:withColumns:](CRLWPColumn, "columnForCharIndex:allowEndOfColumn:withColumns:", [pointCopy start], caretAffinity == 1, v11);
-    if (v21)
+    v20 = +[CRLWPColumn columnForCharIndex:allowEndOfColumn:withColumns:](CRLWPColumn, "columnForCharIndex:allowEndOfColumn:withColumns:", [pointCopy start], objc_msgSend(pointCopy, "caretAffinity") == 1, v11);
+    if (v20)
     {
-      v51 = 0;
-      v49 = 0u;
-      v50 = 0u;
-      v47 = 0u;
+      v50 = 0;
       v48 = 0u;
-      v45 = 0u;
+      v49 = 0u;
       v46 = 0u;
-      v43 = 0u;
+      v47 = 0u;
       v44 = 0u;
-      v41 = 0u;
+      v45 = 0u;
       v42 = 0u;
-      v39 = 0u;
+      v43 = 0u;
       v40 = 0u;
-      v37 = 0u;
+      v41 = 0u;
       v38 = 0u;
-      v35 = 0u;
+      v39 = 0u;
       v36 = 0u;
-      v33 = 0u;
+      v37 = 0u;
       v34 = 0u;
-      v31 = 0u;
+      v35 = 0u;
       v32 = 0u;
-      [v21 lineMetricsAtCharIndex:objc_msgSend(pointCopy allowEndOfLine:{"start"), caretAffinity == 1}];
-      v58.origin = 0u;
-      v58.size = 0u;
-      if (!CGRectIsNull(v58))
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
+      [pointCopy start];
+      objc_msgSend_lineMetricsAtCharIndex_allowEndOfLine_(v20);
+      v57.origin = 0u;
+      v57.size = 0u;
+      if (!CGRectIsNull(v57))
       {
-        [v21 transformToWP];
-        v59.origin.x = x;
-        v59.origin.y = y;
-        v59.size.width = width;
-        v59.size.height = height;
-        v60 = CGRectApplyAffineTransform(v59, &v30);
-        v22 = v60.origin.x;
-        v23 = v60.size.width;
-        v24 = v60.size.height;
-        v25 = *(&v31 + 1);
-        [v21 transformFromWP];
-        v61.origin.x = v22;
-        v61.origin.y = v25;
-        v61.size.width = v23;
-        v61.size.height = v24;
-        v62 = CGRectApplyAffineTransform(v61, &v30);
-        x = v62.origin.x;
-        y = v62.origin.y;
-        width = v62.size.width;
-        height = v62.size.height;
+        objc_msgSend_transformToWP(v20);
+        v58.origin.x = x;
+        v58.origin.y = y;
+        v58.size.width = width;
+        v58.size.height = height;
+        v59 = CGRectApplyAffineTransform(v58, &v29);
+        v21 = v59.origin.x;
+        v22 = v59.size.width;
+        v23 = v59.size.height;
+        v24 = *(&v30 + 1);
+        objc_msgSend_transformFromWP(v20);
+        v60.origin.x = v21;
+        v60.origin.y = v24;
+        v60.size.width = v22;
+        v60.size.height = v23;
+        v61 = CGRectApplyAffineTransform(v60, &v29);
+        x = v61.origin.x;
+        y = v61.origin.y;
+        width = v61.size.width;
+        height = v61.size.height;
       }
     }
   }
 
-  v26 = x;
-  v27 = y;
-  v28 = width;
-  v29 = height;
-  result.size.height = v29;
-  result.size.width = v28;
-  result.origin.y = v27;
-  result.origin.x = v26;
+  v25 = x;
+  v26 = y;
+  v27 = width;
+  v28 = height;
+  result.size.height = v28;
+  result.size.width = v27;
+  result.origin.y = v26;
+  result.origin.x = v25;
   return result;
 }
 
@@ -578,10 +578,10 @@ LABEL_51:
 {
   selectionCopy = selection;
   columnsCopy = columns;
-  v160 = selectionCopy;
+  v146 = selectionCopy;
   type = [selectionCopy type];
   range = [selectionCopy range];
-  v155 = v11;
+  v141 = v11;
   firstObject = [columnsCopy firstObject];
   textIsVertical = [firstObject textIsVertical];
 
@@ -611,12 +611,12 @@ LABEL_51:
       sub_10130E89C();
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d illegal nil parameter", v130, v131, v132, v133, v134, v135, v136, "+[CRLWPColumn calculateSelectionPinRectsForSelection:inColumns:outSelectionPinRect:outSelectionTailPinRect:]");
-    v137 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[CRLWPColumn calculateSelectionPinRectsForSelection:inColumns:outSelectionPinRect:outSelectionTailPinRect:]");
-    v138 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPColumn.mm"];
-    [CRLAssertionHandler handleFailureInFunction:v137 file:v138 lineNumber:431 isFatal:1 description:"illegal nil parameter"];
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d illegal nil parameter", "+[CRLWPColumn calculateSelectionPinRectsForSelection:inColumns:outSelectionPinRect:outSelectionTailPinRect:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPColumn.mm", 431);
+    v130 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[CRLWPColumn calculateSelectionPinRectsForSelection:inColumns:outSelectionPinRect:outSelectionTailPinRect:]");
+    v131 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPColumn.mm"];
+    [CRLAssertionHandler handleFailureInFunction:v130 file:v131 lineNumber:431 isFatal:1 description:"illegal nil parameter"];
 
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v139, v140);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v132, v133);
 LABEL_168:
     abort();
   }
@@ -639,20 +639,20 @@ LABEL_168:
       sub_10134BBD0();
     }
 
-    v141 = off_1019EDA68;
-    if (os_log_type_enabled(v141, OS_LOG_TYPE_ERROR))
+    v134 = off_1019EDA68;
+    if (os_log_type_enabled(v134, OS_LOG_TYPE_ERROR))
     {
       +[CRLAssertionHandler packedBacktraceString];
       objc_claimAutoreleasedReturnValue();
       sub_10130E89C();
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d illegal nil parameter", v142, v143, v144, v145, v146, v147, v148, "+[CRLWPColumn calculateSelectionPinRectsForSelection:inColumns:outSelectionPinRect:outSelectionTailPinRect:]");
-    v149 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[CRLWPColumn calculateSelectionPinRectsForSelection:inColumns:outSelectionPinRect:outSelectionTailPinRect:]");
-    v150 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPColumn.mm"];
-    [CRLAssertionHandler handleFailureInFunction:v149 file:v150 lineNumber:432 isFatal:1 description:"illegal nil parameter"];
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d illegal nil parameter", "+[CRLWPColumn calculateSelectionPinRectsForSelection:inColumns:outSelectionPinRect:outSelectionTailPinRect:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPColumn.mm", 432);
+    v135 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[CRLWPColumn calculateSelectionPinRectsForSelection:inColumns:outSelectionPinRect:outSelectionTailPinRect:]");
+    v136 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/CRLWPColumn.mm"];
+    [CRLAssertionHandler handleFailureInFunction:v135 file:v136 lineNumber:432 isFatal:1 description:"illegal nil parameter"];
 
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v151, v152);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v137, v138);
     goto LABEL_168;
   }
 
@@ -670,8 +670,8 @@ LABEL_168:
       v15 = tailCharIndex;
     }
 
-    headCharIndex2 = [v160 headCharIndex];
-    tailCharIndex2 = [v160 tailCharIndex];
+    headCharIndex2 = [v146 headCharIndex];
+    tailCharIndex2 = [v146 tailCharIndex];
     if (headCharIndex2 <= tailCharIndex2)
     {
       v18 = tailCharIndex2;
@@ -694,7 +694,7 @@ LABEL_168:
 
     if (v18 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v20 = &range[v155];
+      v20 = &range[v141];
     }
 
     else
@@ -718,7 +718,7 @@ LABEL_168:
     }
 
     range = v20;
-    v155 = v21 - v20;
+    v141 = v21 - v20;
   }
 
   size = CGRectNull.size;
@@ -727,46 +727,46 @@ LABEL_168:
   v23 = CGRectNull.size;
   pinRect->origin = CGRectNull.origin;
   pinRect->size = v23;
-  v182 = 0u;
-  v183 = 0u;
-  v184 = 0u;
-  v185 = 0u;
+  v168 = 0u;
+  v169 = 0u;
+  v170 = 0u;
+  v171 = 0u;
   obj = columnsCopy;
-  v24 = [obj countByEnumeratingWithState:&v182 objects:v189 count:16];
+  v24 = [obj countByEnumeratingWithState:&v168 objects:v175 count:16];
   if (v24)
   {
-    v156 = *v183;
-    v164 = &range[v155];
+    v142 = *v169;
+    v150 = &range[v141];
     do
     {
       v25 = 0;
-      v157 = v24;
+      v143 = v24;
       do
       {
-        if (*v183 != v156)
+        if (*v169 != v142)
         {
           objc_enumerationMutation(obj);
         }
 
-        v26 = *(*(&v182 + 1) + 8 * v25);
+        v26 = *(*(&v168 + 1) + 8 * v25);
         [v26 frameBounds];
-        v175 = v28;
-        v176 = v27;
-        v173 = v30;
-        v174 = v29;
-        headCharIndex3 = [v160 headCharIndex];
+        v161 = v28;
+        v162 = v27;
+        v159 = v30;
+        v160 = v29;
+        headCharIndex3 = [v146 headCharIndex];
         headCharIndex4 = range;
         if (headCharIndex3 != 0x7FFFFFFFFFFFFFFFLL)
         {
-          headCharIndex4 = [v160 headCharIndex];
+          headCharIndex4 = [v146 headCharIndex];
         }
 
         v33 = [v26 lineFragmentForCharIndex:headCharIndex4 knobTag:11 selectionType:type];
-        tailCharIndex3 = [v160 tailCharIndex];
-        tailCharIndex4 = &range[v155];
+        tailCharIndex3 = [v146 tailCharIndex];
+        tailCharIndex4 = &range[v141];
         if (tailCharIndex3 != 0x7FFFFFFFFFFFFFFFLL)
         {
-          tailCharIndex4 = [v160 tailCharIndex];
+          tailCharIndex4 = [v146 tailCharIndex];
         }
 
         v36 = [v26 lineFragmentForCharIndex:tailCharIndex4 knobTag:10 selectionType:type];
@@ -805,111 +805,111 @@ LABEL_35:
         p_size = (v36 + 56);
         p_height = (v36 + 64);
 LABEL_36:
-        v171 = *v42;
+        v157 = *v42;
         x = v41->origin.x;
-        v169 = *v44;
+        v155 = *v44;
         width = v43->width;
-        v167 = *p_y;
-        v168 = v45->origin.x;
-        v165 = *p_height;
-        v166 = p_size->width;
-        if (type == 7 && [v160 validVisualRanges])
+        v153 = *p_y;
+        v154 = v45->origin.x;
+        v151 = *p_height;
+        v152 = p_size->width;
+        if (type == 7 && [v146 validVisualRanges])
         {
-          visualRangesArray = [v160 visualRangesArray];
+          visualRangesArray = [v146 visualRangesArray];
         }
 
         else
         {
-          v155 = [NSValue valueWithRange:range, v155];
-          v188 = v155;
-          visualRangesArray = [NSArray arrayWithObjects:&v188 count:1];
+          v141 = [NSValue valueWithRange:range, v141];
+          v174 = v141;
+          visualRangesArray = [NSArray arrayWithObjects:&v174 count:1];
         }
 
-        v180 = 0u;
-        v181 = 0u;
-        v178 = 0u;
-        v179 = 0u;
+        v166 = 0u;
+        v167 = 0u;
+        v164 = 0u;
+        v165 = 0u;
         v47 = [v26 rectsForSelectionRanges:visualRangesArray selectionType:type];
-        v48 = [v47 countByEnumeratingWithState:&v178 objects:v187 count:16];
-        v158 = v25;
+        v48 = [v47 countByEnumeratingWithState:&v164 objects:v173 count:16];
+        v144 = v25;
         if (v48)
         {
-          v49 = *v179;
+          v49 = *v165;
           do
           {
             for (i = 0; i != v48; i = i + 1)
             {
-              if (*v179 != v49)
+              if (*v165 != v49)
               {
                 objc_enumerationMutation(v47);
               }
 
-              [*(*(&v178 + 1) + 8 * i) CGRectValue];
-              v228.origin.y = v175;
-              v228.origin.x = v176;
-              v228.size.height = v173;
-              v228.size.width = v174;
-              v191 = CGRectIntersection(v190, v228);
-              v51 = v191.origin.x;
-              y = v191.origin.y;
-              v53 = v191.size.width;
-              height = v191.size.height;
+              [*(*(&v164 + 1) + 8 * i) CGRectValue];
+              v214.origin.y = v161;
+              v214.origin.x = v162;
+              v214.size.height = v159;
+              v214.size.width = v160;
+              v177 = CGRectIntersection(v176, v214);
+              v51 = v177.origin.x;
+              y = v177.origin.y;
+              v53 = v177.size.width;
+              height = v177.size.height;
               if (v26)
               {
-                [v26 transformToWP];
+                objc_msgSend_transformToWP(v26);
               }
 
               else
               {
-                memset(&v186, 0, sizeof(v186));
+                memset(&v172, 0, sizeof(v172));
               }
 
-              v192.origin.x = v51;
-              v192.origin.y = y;
-              v192.size.width = v53;
-              v192.size.height = height;
-              v193 = CGRectApplyAffineTransform(v192, &v186);
-              v55 = v193.origin.x;
-              v56 = v193.origin.y;
-              v57 = v193.size.width;
-              rect2 = v193.size.height;
+              v178.origin.x = v51;
+              v178.origin.y = y;
+              v178.size.width = v53;
+              v178.size.height = height;
+              v179 = CGRectApplyAffineTransform(v178, &v172);
+              v55 = v179.origin.x;
+              v56 = v179.origin.y;
+              v57 = v179.size.width;
+              rect2 = v179.size.height;
               if (type == 7)
               {
                 if (v33)
                 {
-                  v194.origin.y = v171;
-                  v194.origin.x = x;
-                  v194.size.height = v169;
-                  v194.size.width = width;
-                  v229.origin.x = v55;
-                  v229.origin.y = v56;
-                  v229.size.width = v57;
-                  v229.size.height = rect2;
-                  if (CGRectIntersectsRect(v194, v229))
+                  v180.origin.y = v157;
+                  v180.origin.x = x;
+                  v180.size.height = v155;
+                  v180.size.width = width;
+                  v215.origin.x = v55;
+                  v215.origin.y = v56;
+                  v215.size.width = v57;
+                  v215.size.height = rect2;
+                  if (CGRectIntersectsRect(v180, v215))
                   {
-                    v195.origin.y = v171;
-                    v195.origin.x = x;
-                    v195.size.height = v169;
-                    v195.size.width = width;
-                    MinY = CGRectGetMinY(v195);
-                    v196.origin.x = v55;
-                    v196.origin.y = v56;
-                    v196.size.width = v57;
-                    v196.size.height = rect2;
-                    v59 = CGRectGetMinY(v196);
+                    v181.origin.y = v157;
+                    v181.origin.x = x;
+                    v181.size.height = v155;
+                    v181.size.width = width;
+                    MinY = CGRectGetMinY(v181);
+                    v182.origin.x = v55;
+                    v182.origin.y = v56;
+                    v182.size.width = v57;
+                    v182.size.height = rect2;
+                    v59 = CGRectGetMinY(v182);
                     v60 = MinY < v59 || MinY == v59;
                     if (v60 || vabdd_f64(MinY, v59) < 0.01)
                     {
-                      v197.origin.x = v55;
-                      v197.origin.y = v56;
-                      v197.size.width = v57;
-                      v197.size.height = rect2;
-                      MaxY = CGRectGetMaxY(v197);
-                      v198.origin.y = v171;
-                      v198.origin.x = x;
-                      v198.size.height = v169;
-                      v198.size.width = width;
-                      v62 = CGRectGetMaxY(v198);
+                      v183.origin.x = v55;
+                      v183.origin.y = v56;
+                      v183.size.width = v57;
+                      v183.size.height = rect2;
+                      MaxY = CGRectGetMaxY(v183);
+                      v184.origin.y = v157;
+                      v184.origin.x = x;
+                      v184.size.height = v155;
+                      v184.size.width = width;
+                      v62 = CGRectGetMaxY(v184);
                       if (MaxY <= v62 || vabdd_f64(MaxY, v62) < 0.01)
                       {
                         v63 = rect->origin.x;
@@ -918,7 +918,7 @@ LABEL_36:
                         v66 = rect->size.height;
                         if ((v33[25] & 0x10) != 0)
                         {
-                          if (CGRectIsEmpty(*&v63) || (MaxX = CGRectGetMaxX(*rect), v205.origin.x = v51, v205.origin.y = y, v205.size.width = v53, v205.size.height = height, MaxX < CGRectGetMaxX(v205)))
+                          if (CGRectIsEmpty(*&v63) || (MaxX = CGRectGetMaxX(*rect), v191.origin.x = v51, v191.origin.y = y, v191.size.width = v53, v191.size.height = height, MaxX < CGRectGetMaxX(v191)))
                           {
                             v85 = v51;
                             v86 = y;
@@ -927,36 +927,36 @@ LABEL_36:
                             if (textIsVertical)
                             {
                               MinX = CGRectGetMinX(*&v85);
-                              v206.origin.x = v51;
-                              v206.origin.y = y;
-                              v206.size.width = v53;
-                              v206.size.height = height;
-                              v162 = CGRectGetMaxY(v206);
-                              v207.origin.x = v51;
-                              v207.origin.y = y;
-                              v207.size.width = v53;
-                              v207.size.height = height;
-                              v70 = CGRectGetWidth(v207);
+                              v192.origin.x = v51;
+                              v192.origin.y = y;
+                              v192.size.width = v53;
+                              v192.size.height = height;
+                              v148 = CGRectGetMaxY(v192);
+                              v193.origin.x = v51;
+                              v193.origin.y = y;
+                              v193.size.width = v53;
+                              v193.size.height = height;
+                              v70 = CGRectGetWidth(v193);
                               v71 = 1.0;
                             }
 
                             else
                             {
                               MinX = CGRectGetMaxX(*&v85);
-                              v208.origin.x = v51;
-                              v208.origin.y = y;
-                              v208.size.width = v53;
-                              v208.size.height = height;
-                              v162 = CGRectGetMinY(v208);
-                              v209.origin.x = v51;
-                              v209.origin.y = y;
-                              v209.size.width = v53;
-                              v209.size.height = height;
-                              v71 = CGRectGetHeight(v209);
+                              v194.origin.x = v51;
+                              v194.origin.y = y;
+                              v194.size.width = v53;
+                              v194.size.height = height;
+                              v148 = CGRectGetMinY(v194);
+                              v195.origin.x = v51;
+                              v195.origin.y = y;
+                              v195.size.width = v53;
+                              v195.size.height = height;
+                              v71 = CGRectGetHeight(v195);
                               v70 = 1.0;
                             }
 
-                            v69 = v162;
+                            v69 = v148;
 LABEL_89:
                             rect->origin.x = MinX;
                             rect->origin.y = v69;
@@ -978,11 +978,11 @@ LABEL_89:
                           }
 
                           v72 = CGRectGetMinX(*rect);
-                          v199.origin.x = v51;
-                          v199.origin.y = y;
-                          v199.size.width = v53;
-                          v199.size.height = height;
-                          v73 = v72 <= CGRectGetMinX(v199);
+                          v185.origin.x = v51;
+                          v185.origin.y = y;
+                          v185.size.width = v53;
+                          v185.size.height = height;
+                          v73 = v72 <= CGRectGetMinX(v185);
                           MinX = v51;
                           v69 = y;
                           v70 = v53;
@@ -999,39 +999,39 @@ LABEL_89:
 
                 if (v37)
                 {
-                  v210.origin.y = v167;
-                  v210.origin.x = v168;
-                  v210.size.height = v165;
-                  v210.size.width = v166;
-                  v231.origin.x = v55;
-                  v231.origin.y = v56;
-                  v231.size.width = v57;
-                  v231.size.height = rect2;
-                  if (CGRectIntersectsRect(v210, v231))
+                  v196.origin.y = v153;
+                  v196.origin.x = v154;
+                  v196.size.height = v151;
+                  v196.size.width = v152;
+                  v217.origin.x = v55;
+                  v217.origin.y = v56;
+                  v217.size.width = v57;
+                  v217.size.height = rect2;
+                  if (CGRectIntersectsRect(v196, v217))
                   {
-                    v211.origin.y = v167;
-                    v211.origin.x = v168;
-                    v211.size.height = v165;
-                    v211.size.width = v166;
-                    v89 = CGRectGetMinY(v211);
-                    v212.origin.x = v55;
-                    v212.origin.y = v56;
-                    v212.size.width = v57;
-                    v212.size.height = rect2;
-                    v90 = CGRectGetMinY(v212);
+                    v197.origin.y = v153;
+                    v197.origin.x = v154;
+                    v197.size.height = v151;
+                    v197.size.width = v152;
+                    v89 = CGRectGetMinY(v197);
+                    v198.origin.x = v55;
+                    v198.origin.y = v56;
+                    v198.size.width = v57;
+                    v198.size.height = rect2;
+                    v90 = CGRectGetMinY(v198);
                     v91 = v89 < v90 || v89 == v90;
                     if (v91 || vabdd_f64(v89, v90) < 0.01)
                     {
-                      v213.origin.x = v55;
-                      v213.origin.y = v56;
-                      v213.size.width = v57;
-                      v213.size.height = rect2;
-                      v92 = CGRectGetMaxY(v213);
-                      v214.origin.y = v167;
-                      v214.origin.x = v168;
-                      v214.size.height = v165;
-                      v214.size.width = v166;
-                      v93 = CGRectGetMaxY(v214);
+                      v199.origin.x = v55;
+                      v199.origin.y = v56;
+                      v199.size.width = v57;
+                      v199.size.height = rect2;
+                      v92 = CGRectGetMaxY(v199);
+                      v200.origin.y = v153;
+                      v200.origin.x = v154;
+                      v200.size.height = v151;
+                      v200.size.width = v152;
+                      v93 = CGRectGetMaxY(v200);
                       if (v92 <= v93 || vabdd_f64(v92, v93) < 0.01)
                       {
                         v94 = pinRect->origin.x;
@@ -1040,7 +1040,7 @@ LABEL_89:
                         v97 = pinRect->size.height;
                         if ((*(v37 + 25) & 0x10) != 0)
                         {
-                          if (CGRectIsEmpty(*&v94) || (v106 = CGRectGetMinX(*pinRect), v218.origin.x = v51, v218.origin.y = y, v218.size.width = v53, v218.size.height = height, v106 > CGRectGetMinX(v218)))
+                          if (CGRectIsEmpty(*&v94) || (v106 = CGRectGetMinX(*pinRect), v204.origin.x = v51, v204.origin.y = y, v204.size.width = v53, v204.size.height = height, v106 > CGRectGetMinX(v204)))
                           {
                             pinRect->origin.x = v51;
                             pinRect->origin.y = y;
@@ -1061,7 +1061,7 @@ LABEL_135:
                           }
                         }
 
-                        else if (CGRectIsEmpty(*&v94) || (v98 = CGRectGetMaxX(*pinRect), v215.origin.x = v51, v215.origin.y = y, v215.size.width = v53, v215.size.height = height, v98 < CGRectGetMaxX(v215)))
+                        else if (CGRectIsEmpty(*&v94) || (v98 = CGRectGetMaxX(*pinRect), v201.origin.x = v51, v201.origin.y = y, v201.size.width = v53, v201.size.height = height, v98 < CGRectGetMaxX(v201)))
                         {
                           v99 = v51;
                           v100 = y;
@@ -1070,16 +1070,16 @@ LABEL_135:
                           if (textIsVertical)
                           {
                             v103 = CGRectGetMinX(*&v99);
-                            v216.origin.x = v51;
-                            v216.origin.y = y;
-                            v216.size.width = v53;
-                            v216.size.height = height;
-                            v104 = CGRectGetMaxY(v216);
-                            v217.origin.x = v51;
-                            v217.origin.y = y;
-                            v217.size.width = v53;
-                            v217.size.height = height;
-                            v105 = CGRectGetWidth(v217);
+                            v202.origin.x = v51;
+                            v202.origin.y = y;
+                            v202.size.width = v53;
+                            v202.size.height = height;
+                            v104 = CGRectGetMaxY(v202);
+                            v203.origin.x = v51;
+                            v203.origin.y = y;
+                            v203.size.width = v53;
+                            v203.size.height = height;
+                            v105 = CGRectGetWidth(v203);
                             pinRect->origin.x = v103;
                             pinRect->origin.y = v104 + -1.0;
                             pinRect->size.width = v105;
@@ -1089,16 +1089,16 @@ LABEL_135:
                           else
                           {
                             v108 = CGRectGetMaxX(*&v99);
-                            v219.origin.x = v51;
-                            v219.origin.y = y;
-                            v219.size.width = v53;
-                            v219.size.height = height;
-                            v109 = CGRectGetMinY(v219);
-                            v220.origin.x = v51;
-                            v220.origin.y = y;
-                            v220.size.width = v53;
-                            v220.size.height = height;
-                            v110 = CGRectGetHeight(v220);
+                            v205.origin.x = v51;
+                            v205.origin.y = y;
+                            v205.size.width = v53;
+                            v205.size.height = height;
+                            v109 = CGRectGetMinY(v205);
+                            v206.origin.x = v51;
+                            v206.origin.y = y;
+                            v206.size.width = v53;
+                            v206.size.height = height;
+                            v110 = CGRectGetHeight(v206);
                             pinRect->origin.x = v108 + -1.0;
                             pinRect->origin.y = v109;
                             pinRect->size.width = 1.0;
@@ -1120,39 +1120,39 @@ LABEL_135:
 
               if (v33)
               {
-                v200.origin.y = v171;
-                v200.origin.x = x;
-                v200.size.height = v169;
-                v200.size.width = width;
-                v230.origin.x = v55;
-                v230.origin.y = v56;
-                v230.size.width = v57;
-                v230.size.height = rect2;
-                if (CGRectIntersectsRect(v200, v230))
+                v186.origin.y = v157;
+                v186.origin.x = x;
+                v186.size.height = v155;
+                v186.size.width = width;
+                v216.origin.x = v55;
+                v216.origin.y = v56;
+                v216.size.width = v57;
+                v216.size.height = rect2;
+                if (CGRectIntersectsRect(v186, v216))
                 {
-                  v201.origin.y = v171;
-                  v201.origin.x = x;
-                  v201.size.height = v169;
-                  v201.size.width = width;
-                  v74 = CGRectGetMinY(v201);
-                  v202.origin.x = v55;
-                  v202.origin.y = v56;
-                  v202.size.width = v57;
-                  v202.size.height = rect2;
-                  v75 = CGRectGetMinY(v202);
+                  v187.origin.y = v157;
+                  v187.origin.x = x;
+                  v187.size.height = v155;
+                  v187.size.width = width;
+                  v74 = CGRectGetMinY(v187);
+                  v188.origin.x = v55;
+                  v188.origin.y = v56;
+                  v188.size.width = v57;
+                  v188.size.height = rect2;
+                  v75 = CGRectGetMinY(v188);
                   v76 = v74 < v75 || v74 == v75;
                   if (v76 || vabdd_f64(v74, v75) < 0.01)
                   {
-                    v203.origin.x = v55;
-                    v203.origin.y = v56;
-                    v203.size.width = v57;
-                    v203.size.height = rect2;
-                    v77 = CGRectGetMaxY(v203);
-                    v204.origin.y = v171;
-                    v204.origin.x = x;
-                    v204.size.height = v169;
-                    v204.size.width = width;
-                    v78 = CGRectGetMaxY(v204);
+                    v189.origin.x = v55;
+                    v189.origin.y = v56;
+                    v189.size.width = v57;
+                    v189.size.height = rect2;
+                    v77 = CGRectGetMaxY(v189);
+                    v190.origin.y = v157;
+                    v190.origin.x = x;
+                    v190.size.height = v155;
+                    v190.size.width = width;
+                    v78 = CGRectGetMaxY(v190);
                     if (v77 <= v78 || vabdd_f64(v77, v78) < 0.01)
                     {
                       rect->origin.x = v51;
@@ -1165,10 +1165,10 @@ LABEL_135:
                       {
                         if (v26)
                         {
-                          [v26 transformFromWP];
-                          b = v186.b;
-                          ty = v186.ty;
-                          v83 = v186.d * 0.0;
+                          objc_msgSend_transformFromWP(v26);
+                          b = v172.b;
+                          ty = v172.ty;
+                          v83 = v172.d * 0.0;
                         }
 
                         else
@@ -1191,9 +1191,9 @@ LABEL_135:
               }
 
               range2 = [v26 range];
-              if (v164 < range2 || v164 - range2 >= v113)
+              if (v150 < range2 || v150 - range2 >= v113)
               {
-                if (!v37 || v164 != &range2[v113])
+                if (!v37 || v150 != &range2[v113])
                 {
                   continue;
                 }
@@ -1204,41 +1204,41 @@ LABEL_135:
                 continue;
               }
 
-              v221.origin.y = v167;
-              v221.origin.x = v168;
-              v221.size.height = v165;
-              v221.size.width = v166;
-              v232.origin.x = v55;
-              v232.origin.y = v56;
-              v232.size.width = v57;
-              v232.size.height = rect2;
-              if (CGRectIntersectsRect(v221, v232))
+              v207.origin.y = v153;
+              v207.origin.x = v154;
+              v207.size.height = v151;
+              v207.size.width = v152;
+              v218.origin.x = v55;
+              v218.origin.y = v56;
+              v218.size.width = v57;
+              v218.size.height = rect2;
+              if (CGRectIntersectsRect(v207, v218))
               {
-                v222.origin.y = v167;
-                v222.origin.x = v168;
-                v222.size.height = v165;
-                v222.size.width = v166;
-                v114 = CGRectGetMinY(v222);
-                v223.origin.x = v55;
-                v223.origin.y = v56;
-                v223.size.width = v57;
-                v223.size.height = rect2;
-                v115 = CGRectGetMinY(v223);
+                v208.origin.y = v153;
+                v208.origin.x = v154;
+                v208.size.height = v151;
+                v208.size.width = v152;
+                v114 = CGRectGetMinY(v208);
+                v209.origin.x = v55;
+                v209.origin.y = v56;
+                v209.size.width = v57;
+                v209.size.height = rect2;
+                v115 = CGRectGetMinY(v209);
                 if (v114 <= v115 || vabdd_f64(v114, v115) < 0.01)
                 {
-                  v224.origin.x = v55;
-                  v224.origin.y = v56;
-                  v224.size.width = v57;
-                  v224.size.height = rect2;
-                  v116 = CGRectGetMaxY(v224);
-                  v225.origin.y = v167;
-                  v225.origin.x = v168;
-                  v225.size.height = v165;
-                  v225.size.width = v166;
-                  v117 = CGRectGetMaxY(v225);
+                  v210.origin.x = v55;
+                  v210.origin.y = v56;
+                  v210.size.width = v57;
+                  v210.size.height = rect2;
+                  v116 = CGRectGetMaxY(v210);
+                  v211.origin.y = v153;
+                  v211.origin.x = v154;
+                  v211.size.height = v151;
+                  v211.size.width = v152;
+                  v117 = CGRectGetMaxY(v211);
                   if (v116 <= v117 || vabdd_f64(v116, v117) < 0.01)
                   {
-                    v118 = sub_100211E30(v37, v164, 0);
+                    v118 = sub_100211E30(v37, v150, 0);
                     v119 = v118;
                     pinRect->origin.x = v51;
                     pinRect->origin.y = y;
@@ -1252,10 +1252,10 @@ LABEL_135:
 
                     if (v26)
                     {
-                      [v26 transformFromWP];
-                      v120 = v186.b;
-                      v121 = v186.ty;
-                      v122 = v186.d * 0.0;
+                      objc_msgSend_transformFromWP(v26);
+                      v120 = v172.b;
+                      v121 = v172.ty;
+                      v122 = v172.d * 0.0;
                     }
 
                     else
@@ -1272,17 +1272,17 @@ LABEL_135:
               }
             }
 
-            v48 = [v47 countByEnumeratingWithState:&v178 objects:v187 count:16];
+            v48 = [v47 countByEnumeratingWithState:&v164 objects:v173 count:16];
           }
 
           while (v48);
         }
 
-        v25 = v158 + 1;
+        v25 = v144 + 1;
       }
 
-      while ((v158 + 1) != v157);
-      v24 = [obj countByEnumeratingWithState:&v182 objects:v189 count:16];
+      while ((v144 + 1) != v143);
+      v24 = [obj countByEnumeratingWithState:&v168 objects:v175 count:16];
     }
 
     while (v24);
@@ -1299,13 +1299,13 @@ LABEL_135:
       rect->size.height = 1.0;
     }
 
-    v226.origin.x = pinRect->origin.x;
-    v226.origin.y = pinRect->origin.y;
-    v226.size.width = pinRect->size.width;
+    v212.origin.x = pinRect->origin.x;
+    v212.origin.y = pinRect->origin.y;
+    v212.size.width = pinRect->size.width;
     v128 = pinRect->size.height;
     v127 = &pinRect->size.height;
-    v226.size.height = v128;
-    if (!CGRectIsNull(v226))
+    v212.size.height = v128;
+    if (!CGRectIsNull(v212))
     {
 LABEL_144:
       v127->width = 1.0;
@@ -1319,9 +1319,9 @@ LABEL_144:
       rect->size.width = 1.0;
     }
 
-    v227 = *pinRect;
+    v213 = *pinRect;
     v127 = &pinRect->size;
-    if (!CGRectIsNull(v227))
+    if (!CGRectIsNull(v213))
     {
       goto LABEL_144;
     }
@@ -1723,7 +1723,7 @@ LABEL_144:
 
             if (v11)
             {
-              [v11 transformFromWP];
+              objc_msgSend_transformFromWP(v11);
               v23 = v30;
               v24 = v31;
               v26 = v32;
@@ -1996,7 +1996,7 @@ LABEL_18:
   v12 = firstObject;
   if (firstObject)
   {
-    [firstObject transformToWP];
+    objc_msgSend_transformToWP(firstObject);
   }
 
   else
@@ -2135,7 +2135,7 @@ LABEL_18:
               v31 = v30;
               if (v22)
               {
-                [v22 transformToWP];
+                objc_msgSend_transformToWP(v22);
                 v32 = v47.f64[1];
                 v33 = v48.f64[1];
                 v34 = v48.f64[0];
@@ -2163,7 +2163,7 @@ LABEL_18:
               {
                 if (v22)
                 {
-                  [v22 transformFromWP];
+                  objc_msgSend_transformFromWP(v22);
                   v36 = v47;
                   v37 = v48;
                   v38 = v49;
@@ -2898,7 +2898,7 @@ LABEL_21:
     }
   }
 
-  [(CRLWPColumn *)self transformFromWP];
+  objc_msgSend_transformFromWP(self);
   v34.origin.x = v11;
   v34.origin.y = v12;
   v34.size.width = v13;
@@ -2975,7 +2975,7 @@ LABEL_21:
   y = self->_frameBounds.origin.y;
   width = self->_frameBounds.size.width;
   height = self->_frameBounds.size.height;
-  [(CRLWPColumn *)self transformFromWP];
+  objc_msgSend_transformFromWP(self, a2);
   v7.origin.x = x;
   v7.origin.y = y;
   v7.size.width = width;
@@ -3024,7 +3024,7 @@ LABEL_21:
             v18 = v17;
             if (v9)
             {
-              [v9 transformToWP];
+              objc_msgSend_transformToWP(v9);
               v19 = v34.f64[1];
               v20 = v35.f64[1];
               v21 = v35.f64[0];
@@ -3052,7 +3052,7 @@ LABEL_21:
             {
               if (v9)
               {
-                [v9 transformFromWP];
+                objc_msgSend_transformFromWP(v9);
                 v23 = v34;
                 v24 = v35;
                 v25 = v36;
@@ -3131,7 +3131,7 @@ LABEL_19:
   self->_erasableContentBottom = 0.0;
   self->_layoutResultFlags = flags;
   [(CRLWPColumn *)self setNextWidowPullsDownFromCharIndex:empty];
-  sub_1000F515C(self->_lineFragmentArray.__ptr_);
+  sub_1000F515C();
 
   [(CRLWPColumn *)self clearAdornments];
 }
@@ -3143,7 +3143,7 @@ LABEL_19:
   v6 = v4[6];
   v7 = v4[7];
   v8 = v4[8];
-  [(CRLWPColumn *)self transformFromWP];
+  objc_msgSend_transformFromWP(self);
   v10.origin.x = v5;
   v10.origin.y = v6;
   v10.size.width = v7;
@@ -3343,7 +3343,7 @@ LABEL_19:
       retstr->var3 = CTFontGetXHeight(v30);
     }
 
-    return [(CRLWPColumn *)self transformToWP];
+    return objc_msgSend_transformToWP(self);
   }
 
   return result;
@@ -3361,7 +3361,7 @@ LABEL_19:
 {
   y = point.y;
   x = point.x;
-  [(CRLWPColumn *)self transformToWP];
+  objc_msgSend_transformToWP(self, a2);
   lineFragmentArray = [(CRLWPColumn *)self lineFragmentArray];
   v9 = sub_1000F4FD8(*lineFragmentArray);
   if (!v9)
@@ -3919,7 +3919,7 @@ LABEL_21:
 LABEL_101:
 
 LABEL_102:
-        [(CRLWPColumn *)self transformFromWP];
+        objc_msgSend_transformFromWP(self, v20.recordType._countAndFlagsBits, v20.recordType._object);
         v85.origin.x = x;
         v85.origin.y = y;
         v85.size.width = width;
@@ -4137,12 +4137,12 @@ LABEL_103:
   y = CGRectNull.origin.y;
   width = CGRectNull.size.width;
   height = CGRectNull.size.height;
-  v84.location = [(CRLWPColumn *)self range];
-  v84.length = v12;
+  v86.location = [(CRLWPColumn *)self range];
+  v86.length = v12;
   range2.location = location;
-  v80.location = location;
-  v80.length = length;
-  v13 = sub_1002BC848(v80, v84, length == 0);
+  v82.location = location;
+  v82.length = length;
+  v13 = sub_1002BC848(v82, v86, length == 0);
   if (v13 != 0x7FFFFFFFFFFFFFFFLL)
   {
     ptr = self->_lineFragmentArray.__ptr_;
@@ -4152,7 +4152,7 @@ LABEL_103:
     {
       v18 = v13;
       v19 = v14;
-      v74 = v13 + v14;
+      v76 = v13 + v14;
       v20 = location + length;
       do
       {
@@ -4164,12 +4164,12 @@ LABEL_103:
 
         v23 = *v21;
         v22 = v21[1];
-        v81.location = *v21;
-        v81.length = v22;
-        v85.location = v18;
-        v85.length = v19;
-        v24.location = sub_1002BC848(v81, v85, v19 == 0);
-        if (v24.location != 0x7FFFFFFFFFFFFFFFLL || (!v22 ? (v25 = v23 == v74) : (v25 = 0), v25))
+        v83.location = *v21;
+        v83.length = v22;
+        v87.location = v18;
+        v87.length = v19;
+        v24.location = sub_1002BC848(v83, v87, v19 == 0);
+        if (v24.location != 0x7FFFFFFFFFFFFFFFLL || (!v22 ? (v25 = v23 == v76) : (v25 = 0), v25))
         {
           v26 = v24.location + v24.length;
           if (v24.location + v24.length >= v20)
@@ -4179,77 +4179,77 @@ LABEL_103:
 
           if (v24.location < v26)
           {
-            v82 = NSIntersectionRange(v24, v24);
-            v86.location = range2.location;
-            v86.length = length;
-            v27 = NSIntersectionRange(v82, v86);
+            v84 = NSIntersectionRange(v24, v24);
+            v88.location = range2.location;
+            v88.length = length;
+            v27 = NSIntersectionRange(v84, v88);
             if (v27.length)
             {
-              v75 = height;
-              v77 = width;
-              v72 = y;
-              v73 = x;
+              v77 = height;
+              v79 = width;
+              v74 = y;
+              v75 = x;
               v28 = sub_100210438(*v16, v27.location, v27.length, self);
               v30 = v29;
               v32 = v31;
               v34 = v33;
-              v88.origin.x = sub_100210A04(*v16, v27.location, v27.length);
-              v35 = v88.origin.x;
-              v36 = v88.origin.y;
-              v37 = v88.size.width;
-              v38 = v88.size.height;
-              if (!CGRectIsEmpty(v88))
+              v90.origin.x = sub_100210A04(*v16, v27.location, v27.length);
+              v35 = v90.origin.x;
+              v36 = v90.origin.y;
+              v37 = v90.size.width;
+              v38 = v90.size.height;
+              if (!CGRectIsEmpty(v90))
               {
-                v89.origin.x = v28;
-                v89.origin.y = v30;
-                v89.size.width = v32;
-                v89.size.height = v34;
-                v107.origin.x = v35;
-                v107.origin.y = v36;
-                v107.size.width = v37;
-                v107.size.height = v38;
-                v90 = CGRectUnion(v89, v107);
-                v28 = v90.origin.x;
-                v30 = v90.origin.y;
-                v32 = v90.size.width;
-                v34 = v90.size.height;
+                v91.origin.x = v28;
+                v91.origin.y = v30;
+                v91.size.width = v32;
+                v91.size.height = v34;
+                v109.origin.x = v35;
+                v109.origin.y = v36;
+                v109.size.width = v37;
+                v109.size.height = v38;
+                v92 = CGRectUnion(v91, v109);
+                v28 = v92.origin.x;
+                v30 = v92.origin.y;
+                v32 = v92.size.width;
+                v34 = v92.size.height;
               }
 
-              v91.origin.x = v28;
-              v91.origin.y = v30;
-              v91.size.width = v32;
-              v91.size.height = v34;
-              if (!CGRectIsEmpty(v91))
+              v93.origin.x = v28;
+              v93.origin.y = v30;
+              v93.size.width = v32;
+              v93.size.height = v34;
+              if (!CGRectIsEmpty(v93))
               {
-                v92.origin.x = v28;
-                v92.origin.y = v30;
-                v92.size.width = v32;
-                v92.size.height = v34;
-                v93 = CGRectIntegral(v92);
-                v28 = v93.origin.x;
-                v30 = v93.origin.y;
-                v32 = v93.size.width;
-                v34 = v93.size.height;
-                MaxX = CGRectGetMaxX(v93);
+                v94.origin.x = v28;
+                v94.origin.y = v30;
+                v94.size.width = v32;
+                v94.size.height = v34;
+                v95 = CGRectIntegral(v94);
+                v28 = v95.origin.x;
+                v30 = v95.origin.y;
+                v32 = v95.size.width;
+                v34 = v95.size.height;
+                MaxX = CGRectGetMaxX(v95);
                 if (MaxX == rint(CGRectGetMaxX(self->_frameBounds)) + -1.0)
                 {
                   v32 = v32 + 1.0;
                 }
               }
 
-              v108.size.height = v75;
-              v108.size.width = v77;
-              v94.origin.x = v28;
-              v94.origin.y = v30;
-              v94.size.width = v32;
-              v94.size.height = v34;
-              v108.origin.x = v73;
-              v108.origin.y = v72;
-              v95 = CGRectUnion(v94, v108);
-              x = v95.origin.x;
-              y = v95.origin.y;
-              width = v95.size.width;
-              height = v95.size.height;
+              v110.size.height = v77;
+              v110.size.width = v79;
+              v96.origin.x = v28;
+              v96.origin.y = v30;
+              v96.size.width = v32;
+              v96.size.height = v34;
+              v110.origin.x = v75;
+              v110.origin.y = v74;
+              v97 = CGRectUnion(v96, v110);
+              x = v97.origin.x;
+              y = v97.origin.y;
+              width = v97.size.width;
+              height = v97.size.height;
             }
           }
 
@@ -4271,11 +4271,11 @@ LABEL_103:
             if (v43)
             {
               v44 = v43;
-              v83.location = v42;
-              v83.length = 0;
-              v87.location = range2.location;
-              v87.length = length;
-              v45 = sub_1002BC848(v83, v87, 1);
+              v85.location = v42;
+              v85.length = 0;
+              v89.location = range2.location;
+              v89.length = length;
+              v45 = sub_1002BC848(v85, v89, 1);
 
               if (v45 != 0x7FFFFFFFFFFFFFFFLL)
               {
@@ -4285,68 +4285,69 @@ LABEL_103:
                 v52 = v51;
                 v53 = sub_10020BCF4(*v16);
                 textLine = [v53 textLine];
+                v56 = textLine;
                 if (textLine)
                 {
-                  v76 = height;
-                  v78 = width;
-                  v55 = sub_10020F064();
-                  ImageBounds = CTLineGetImageBounds(textLine, v55);
-                  v56 = ImageBounds.origin.x;
-                  v57 = ImageBounds.origin.y;
-                  v58 = ImageBounds.size.width;
-                  v59 = ImageBounds.size.height;
-                  v60 = sub_100210FD0(*v16);
-                  v62 = v61;
+                  v78 = height;
+                  v80 = width;
+                  v57 = sub_10020F064(textLine, v55);
+                  ImageBounds = CTLineGetImageBounds(v56, v57);
+                  v58 = ImageBounds.origin.x;
+                  v59 = ImageBounds.origin.y;
+                  v60 = ImageBounds.size.width;
+                  v61 = ImageBounds.size.height;
+                  v62 = sub_100210FD0(*v16);
+                  v64 = v63;
                   if ([v53 isLabelTateChuYoko])
                   {
                     CGAffineTransformMakeRotation(&range2.length, 1.57079633);
-                    v97.origin.x = v56;
-                    v97.origin.y = v57;
-                    v97.size.width = v58;
-                    v97.size.height = v59;
-                    v98 = CGRectApplyAffineTransform(v97, &range2.length);
-                    v56 = v98.origin.x;
-                    v57 = v98.origin.y;
-                    v58 = v98.size.width;
-                    v59 = v98.size.height;
+                    v99.origin.x = v58;
+                    v99.origin.y = v59;
+                    v99.size.width = v60;
+                    v99.size.height = v61;
+                    v100 = CGRectApplyAffineTransform(v99, &range2.length);
+                    v58 = v100.origin.x;
+                    v59 = v100.origin.y;
+                    v60 = v100.size.width;
+                    v61 = v100.size.height;
                   }
 
-                  v99.origin.x = v60 + v56;
-                  v99.origin.y = v62 - v57 - v59;
-                  v99.size.width = v58;
-                  v99.size.height = v59;
-                  v100 = CGRectIntegral(v99);
-                  v46 = v100.origin.x;
-                  v48 = v100.origin.y;
-                  v50 = v100.size.width;
-                  v52 = v100.size.height;
-                  height = v76;
-                  width = v78;
+                  v101.origin.x = v62 + v58;
+                  v101.origin.y = v64 - v59 - v61;
+                  v101.size.width = v60;
+                  v101.size.height = v61;
+                  v102 = CGRectIntegral(v101);
+                  v46 = v102.origin.x;
+                  v48 = v102.origin.y;
+                  v50 = v102.size.width;
+                  v52 = v102.size.height;
+                  height = v78;
+                  width = v80;
                 }
 
                 shadow = [v53 shadow];
                 if ([shadow isEnabled])
                 {
                   [shadow shadowBoundsForRect:{v46, v48, v50, v52}];
-                  v46 = v64;
-                  v48 = v65;
-                  v50 = v66;
-                  v52 = v67;
+                  v46 = v66;
+                  v48 = v67;
+                  v50 = v68;
+                  v52 = v69;
                 }
 
-                v101.origin.x = x;
-                v101.origin.y = y;
-                v101.size.width = width;
-                v101.size.height = height;
-                v109.origin.x = v46;
-                v109.origin.y = v48;
-                v109.size.width = v50;
-                v109.size.height = v52;
-                v102 = CGRectUnion(v101, v109);
-                x = v102.origin.x;
-                y = v102.origin.y;
-                width = v102.size.width;
-                height = v102.size.height;
+                v103.origin.x = x;
+                v103.origin.y = y;
+                v103.size.width = width;
+                v103.size.height = height;
+                v111.origin.x = v46;
+                v111.origin.y = v48;
+                v111.size.width = v50;
+                v111.size.height = v52;
+                v104 = CGRectUnion(v103, v111);
+                x = v104.origin.x;
+                y = v104.origin.y;
+                width = v104.size.width;
+                height = v104.size.height;
               }
             }
           }
@@ -4358,33 +4359,33 @@ LABEL_103:
       while (v16 != v17);
     }
 
-    v103.origin.x = x;
-    v103.origin.y = y;
-    v103.size.width = width;
-    v103.size.height = height;
-    if (!CGRectIsNull(v103))
+    v105.origin.x = x;
+    v105.origin.y = y;
+    v105.size.width = width;
+    v105.size.height = height;
+    if (!CGRectIsNull(v105))
     {
-      [(CRLWPColumn *)self transformFromWP];
-      v104.origin.x = x;
-      v104.origin.y = y;
-      v104.size.width = width;
-      v104.size.height = height;
-      v105 = CGRectApplyAffineTransform(v104, &range2.length);
-      x = v105.origin.x;
-      y = v105.origin.y;
-      width = v105.size.width;
-      height = v105.size.height;
+      objc_msgSend_transformFromWP(self);
+      v106.origin.x = x;
+      v106.origin.y = y;
+      v106.size.width = width;
+      v106.size.height = height;
+      v107 = CGRectApplyAffineTransform(v106, &range2.length);
+      x = v107.origin.x;
+      y = v107.origin.y;
+      width = v107.size.width;
+      height = v107.size.height;
     }
   }
 
-  v68 = x;
-  v69 = y;
-  v70 = width;
-  v71 = height;
-  result.size.height = v71;
-  result.size.width = v70;
-  result.origin.y = v69;
-  result.origin.x = v68;
+  v70 = x;
+  v71 = y;
+  v72 = width;
+  v73 = height;
+  result.size.height = v73;
+  result.size.width = v72;
+  result.origin.y = v71;
+  result.origin.x = v70;
   return result;
 }
 
@@ -4534,7 +4535,7 @@ LABEL_103:
     height = v21;
     if (!CGRectIsNull(*&v18))
     {
-      [(CRLWPColumn *)self transformFromWP];
+      objc_msgSend_transformFromWP(self);
       v27.origin.x = x;
       v27.origin.y = y;
       v27.size.width = width;
@@ -4744,12 +4745,12 @@ LABEL_14:
                 v39 = 0u;
                 if (v14)
                 {
-                  [v14 lineMetricsAtCharIndex:index allowEndOfLine:0];
+                  objc_msgSend_lineMetricsAtCharIndex_allowEndOfLine_(v14);
                   v22 = *(&v47 + 1);
                   v23 = *&v47;
                   v24 = *(&v48 + 1);
                   v25 = *&v48;
-                  [v14 transformFromWP];
+                  objc_msgSend_transformFromWP(v14);
                 }
 
                 else
@@ -4900,7 +4901,7 @@ LABEL_36:
 
   v24 = self->_frameBounds.origin.x;
   v25 = self->_frameBounds.size.width;
-  [(CRLWPColumn *)self transformFromWP];
+  objc_msgSend_transformFromWP(self);
   v32.origin.x = v24;
   v32.origin.y = y;
   v32.size.width = v25;
@@ -4933,7 +4934,7 @@ LABEL_36:
     height = v13.size.height;
   }
 
-  [(CRLWPColumn *)self transformFromWP];
+  objc_msgSend_transformFromWP(self, a2);
   v14.origin.x = x;
   v14.origin.y = y;
   v14.size.width = width;
@@ -5634,7 +5635,7 @@ LABEL_7:
         v13 = v12;
         v15 = v14;
 
-        [(CRLWPColumn *)self transformFromWP];
+        objc_msgSend_transformFromWP(self);
         v20.origin.x = v9;
         v20.origin.y = v11;
         v20.size.width = v13;
@@ -5795,7 +5796,7 @@ LABEL_7:
     }
   }
 
-  [(CRLWPColumn *)self transformFromWP];
+  objc_msgSend_transformFromWP(self);
   v20.origin.x = x;
   v20.origin.y = y;
   v20.size.width = width;
@@ -5977,7 +5978,7 @@ LABEL_7:
       v66 = v65;
       v68 = v67;
 
-      [(CRLWPColumn *)self transformFromWP];
+      objc_msgSend_transformFromWP(self);
       v100.origin.x = v62;
       v100.origin.y = v64;
       v100.size.width = v66;
@@ -6004,7 +6005,7 @@ LABEL_7:
   y = point.y;
   x = point.x;
   v45 = 1;
-  [(CRLWPColumn *)self transformToWP];
+  objc_msgSend_transformToWP(self, a2);
   v17 = vaddq_f64(*&buf[32], vmlaq_n_f64(vmulq_n_f64(*&buf[16], y), *buf, x));
   v44 = 0;
   if (line)
@@ -6172,7 +6173,7 @@ LABEL_47:
   tailCopy = tail;
   y = point.y;
   x = point.x;
-  [(CRLWPColumn *)self transformToWP];
+  objc_msgSend_transformToWP(self, a2);
   v46 = v53;
   v47 = v54;
   v48 = v52;
@@ -6948,7 +6949,7 @@ LABEL_15:
   v51 = v50;
   v53 = v52;
   v55 = v54;
-  [(CRLWPColumn *)self transformToWP];
+  objc_msgSend_transformToWP(self);
   v132.origin.x = v49;
   v132.origin.y = v51;
   v132.size.width = v53;

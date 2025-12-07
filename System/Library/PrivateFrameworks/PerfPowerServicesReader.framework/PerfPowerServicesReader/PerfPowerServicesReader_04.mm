@@ -4775,23 +4775,23 @@ LABEL_62:
   return [a2 hasError] ^ 1;
 }
 
-void sub_25E30EDD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25E30EDD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25E30F028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25E30F028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id PPSConvertValueWithNSUnit(void *a1, void *a2, void *a3, void *a4)
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a2;
   v9 = a3;
@@ -4814,15 +4814,13 @@ id PPSConvertValueWithNSUnit(void *a1, void *a2, void *a3, void *a4)
     v18 = [v15 stringWithFormat:@"Cannot convert value '%@' from unit type '%@' to unit type '%@'", v7, v16, v17];
 
     v19 = MEMORY[0x277CCA9B8];
-    v23 = *MEMORY[0x277CCA450];
-    v24[0] = v18;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v22 = *MEMORY[0x277CCA450];
+    v23[0] = v18;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
     *a4 = [v19 errorWithDomain:@"com.apple.PerfPowerServicesReader" code:1 userInfo:v20];
 
     v14 = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -4839,21 +4837,21 @@ id PPSConvertValueWithPPSUnit(void *a1, void *a2, void *a3, void *a4)
   return v11;
 }
 
-void sub_25E31299C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25E31299C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25E312CE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25E312CE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25E31445C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char *a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint8_t buf, int a47, int a48, __int16 a49, int a50, __int16 a51, __int16 a52, uint64_t a53, __int16 a54)
+void sub_25E31445C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, __int128 buf, int a47, __int16 a48, __int16 a49, uint64_t a50, __int128 a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61)
 {
   if (a2)
   {
@@ -4905,30 +4903,7 @@ void boost::archive::text_iarchive::~text_iarchive(boost::archive::text_iarchive
   boost::archive::basic_text_iprimitive<std::istream>::~basic_text_iprimitive();
 }
 
-id logHandle(void)
-{
-  if (logHandle(void)::onceToken != -1)
-  {
-    logHandle();
-  }
-
-  v1 = logHandle(void)::logHandle;
-
-  return v1;
-}
-
-{
-  if (logHandle(void)::onceToken != -1)
-  {
-    logHandle();
-  }
-
-  v1 = logHandle(void)::__logHandle;
-
-  return v1;
-}
-
-void sub_25E314B44(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint8_t buf, int a33, int a34, __int16 a35, int a36, __int16 a37, __int16 a38, uint64_t a39, __int16 a40)
+void sub_25E314B44(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, int buf, int a33, __int128 a34, uint64_t a35, __int128 a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45)
 {
   if (a2)
   {
@@ -4988,12 +4963,12 @@ void sub_25E31505C(_Unwind_Exception *exception_object, int a2)
   if (a2)
   {
 
-    __cxa_begin_catch(exception_object);
-    v6 = logHandle();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+    v6 = __cxa_begin_catch(exception_object);
+    v7 = logHandle(v6);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
     if (a2 == 2)
     {
-      if (v7)
+      if (v8)
       {
         [PPSHistogram initWithBinCount:range:metricName:];
       }
@@ -5003,7 +4978,7 @@ void sub_25E31505C(_Unwind_Exception *exception_object, int a2)
 
     else
     {
-      if (v7)
+      if (v8)
       {
         [PPSHistogram initWithBinCount:range:metricName:];
       }
@@ -5025,7 +5000,7 @@ void sub_25E3159A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -5039,13 +5014,55 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
+  return a1;
+}
+
+{
+  v4 = strlen(__s);
+  if (v4 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v5 = v4;
+  if (v4 >= 0x17)
+  {
+    if ((v4 | 7) == 0x17)
+    {
+      v7 = 25;
+    }
+
+    else
+    {
+      v7 = (v4 | 7) + 1;
+    }
+
+    v6 = operator new(v7);
+    a1[1] = v5;
+    a1[2] = v7 | 0x8000000000000000;
+    *a1 = v6;
+  }
+
+  else
+  {
+    *(a1 + 23) = v4;
+    v6 = a1;
+    if (!v4)
+    {
+      goto LABEL_10;
+    }
+  }
+
+  memmove(v6, __s, v5);
+LABEL_10:
+  *(v6 + v5) = 0;
   return a1;
 }
 
@@ -5056,9 +5073,10 @@ void sub_25E3161F0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25E3163A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, char a14)
+void sub_25E3163A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, ...)
 {
-  std::__function::__value_func<void ()(NSMutableArray *)>::~__value_func[abi:ne200100](&a14);
+  va_start(va, a13);
+  std::__function::__value_func<void ()(NSMutableArray *)>::~__value_func[abi:ne200100](va);
 
   if (__p)
   {
@@ -5080,7 +5098,7 @@ void std::function<void ()(NSMutableArray *)>::operator()(uint64_t a1, void *a2)
   (*(*v3 + 48))(v3, &v4);
 }
 
-void sub_25E31695C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, char *a28, uint64_t a29, void *a30, uint64_t a31)
+void sub_25E31695C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, void *a30, uint64_t a31)
 {
   if (__p)
   {
@@ -5097,23 +5115,20 @@ void sub_25E31695C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<double>::reserve(void *result, unint64_t a2)
+void std::vector<double>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<double>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<double>>(a1, a2);
     }
 
     std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<double>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -5172,18 +5187,18 @@ void sub_25E316F60(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 {
   if (a2)
   {
-    __cxa_begin_catch(exception_object);
-    v32 = logHandle();
-    v33 = os_log_type_enabled(v32, OS_LOG_TYPE_ERROR);
+    v32 = __cxa_begin_catch(exception_object);
+    v33 = logHandle(v32);
+    v34 = os_log_type_enabled(v33, OS_LOG_TYPE_ERROR);
     if (a2 == 2)
     {
-      if (v33)
+      if (v34)
       {
         [PPSHistogram recordSample:];
       }
     }
 
-    else if (v33)
+    else if (v34)
     {
       [PPSHistogram recordSample:];
     }
@@ -5308,11 +5323,11 @@ void *boost::serialization::singleton<boost::archive::detail::iserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::transform::id>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::transform::id>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::transform::id>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::transform::id>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::transform::id>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::transform::id>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::transform::id>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::transform::id>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::transform::id>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::transform::id>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::get_instance()
@@ -5323,11 +5338,11 @@ void *boost::serialization::singleton<boost::archive::detail::iserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::serialization::extended_type_info_typeid<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::get_instance()
@@ -5368,11 +5383,11 @@ void *boost::serialization::singleton<boost::archive::detail::iserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<double>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<double>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<double>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<double>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<double>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<double>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<double>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<double>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<double>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<double>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::get_instance()
@@ -5383,11 +5398,11 @@ void *boost::serialization::singleton<boost::archive::detail::iserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::serialization::extended_type_info_typeid<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::get_instance()
@@ -5413,11 +5428,11 @@ void *boost::serialization::singleton<boost::archive::detail::iserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance()
@@ -5428,11 +5443,11 @@ void *boost::serialization::singleton<boost::archive::detail::iserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance()
@@ -5443,11 +5458,11 @@ void *boost::serialization::singleton<boost::archive::detail::iserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::get_instance()
@@ -5458,11 +5473,11 @@ void *boost::serialization::singleton<boost::archive::detail::iserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::serialization::extended_type_info_typeid<boost::histogram::unlimited_storage<std::allocator<char>>>>::get_instance()
@@ -5518,11 +5533,11 @@ void *boost::serialization::singleton<boost::archive::detail::iserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<unsigned long long>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<unsigned long long>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<unsigned long long>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<unsigned long long>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<unsigned long long>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<unsigned long long>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<unsigned long long>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<unsigned long long>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<unsigned long long>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<unsigned long long>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::get_instance()
@@ -5533,11 +5548,11 @@ void *boost::serialization::singleton<boost::archive::detail::iserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::unlimited_storage<std::allocator<char>>>>::get_instance()
@@ -5548,11 +5563,11 @@ void *boost::serialization::singleton<boost::archive::detail::iserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::unlimited_storage<std::allocator<char>>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::unlimited_storage<std::allocator<char>>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::unlimited_storage<std::allocator<char>>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::unlimited_storage<std::allocator<char>>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::unlimited_storage<std::allocator<char>>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::unlimited_storage<std::allocator<char>>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::unlimited_storage<std::allocator<char>>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::unlimited_storage<std::allocator<char>>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::unlimited_storage<std::allocator<char>>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::unlimited_storage<std::allocator<char>>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::get_instance()
@@ -5563,11 +5578,11 @@ void *boost::serialization::singleton<boost::archive::detail::iserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::serialization::extended_type_info_typeid<std::vector<pps::AxisEnum>>>::get_instance()
@@ -5593,11 +5608,11 @@ void *boost::serialization::singleton<boost::archive::detail::iserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<pps::AxisEnum>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<pps::AxisEnum>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<pps::AxisEnum>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<pps::AxisEnum>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<pps::AxisEnum>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<pps::AxisEnum>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<pps::AxisEnum>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<pps::AxisEnum>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<pps::AxisEnum>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<pps::AxisEnum>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::serialization::extended_type_info_typeid<std::map<int,std::vector<std::string>>>>::get_instance()
@@ -5653,11 +5668,11 @@ void *boost::serialization::singleton<boost::archive::detail::iserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<std::string>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<std::string>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<std::string>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<std::string>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<std::string>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<std::string>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<std::string>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<std::string>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<std::string>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<std::string>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::pair<int const,std::vector<std::string>>>>::get_instance()
@@ -5668,11 +5683,11 @@ void *boost::serialization::singleton<boost::archive::detail::iserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::pair<int const,std::vector<std::string>>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::pair<int const,std::vector<std::string>>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::pair<int const,std::vector<std::string>>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::pair<int const,std::vector<std::string>>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::pair<int const,std::vector<std::string>>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::pair<int const,std::vector<std::string>>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::pair<int const,std::vector<std::string>>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::pair<int const,std::vector<std::string>>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::pair<int const,std::vector<std::string>>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::pair<int const,std::vector<std::string>>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::map<int,std::vector<std::string>>>>::get_instance()
@@ -5683,11 +5698,11 @@ void *boost::serialization::singleton<boost::archive::detail::iserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::map<int,std::vector<std::string>>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::map<int,std::vector<std::string>>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::map<int,std::vector<std::string>>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::map<int,std::vector<std::string>>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::map<int,std::vector<std::string>>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::map<int,std::vector<std::string>>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::map<int,std::vector<std::string>>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::map<int,std::vector<std::string>>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::map<int,std::vector<std::string>>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::map<int,std::vector<std::string>>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,pps::Histogram_Internal>>::get_instance()
@@ -5698,11 +5713,11 @@ void *boost::serialization::singleton<boost::archive::detail::iserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,pps::Histogram_Internal>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,pps::Histogram_Internal>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,pps::Histogram_Internal>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,pps::Histogram_Internal>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,pps::Histogram_Internal>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,pps::Histogram_Internal>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,pps::Histogram_Internal>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,pps::Histogram_Internal>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,pps::Histogram_Internal>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,pps::Histogram_Internal>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::transform::id>>::get_instance()
@@ -5713,11 +5728,11 @@ void *boost::serialization::singleton<boost::archive::detail::oserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::transform::id>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::transform::id>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::transform::id>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::transform::id>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::transform::id>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::transform::id>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::transform::id>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::transform::id>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::transform::id>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::transform::id>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::get_instance()
@@ -5728,11 +5743,11 @@ void *boost::serialization::singleton<boost::archive::detail::oserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<double>>>::get_instance()
@@ -5743,11 +5758,11 @@ void *boost::serialization::singleton<boost::archive::detail::oserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<double>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<double>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<double>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<double>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<double>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<double>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<double>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<double>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<double>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<double>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::get_instance()
@@ -5758,11 +5773,11 @@ void *boost::serialization::singleton<boost::archive::detail::oserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::get_instance()
@@ -5773,11 +5788,11 @@ void *boost::serialization::singleton<boost::archive::detail::oserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance()
@@ -5788,11 +5803,11 @@ void *boost::serialization::singleton<boost::archive::detail::oserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance()
@@ -5803,11 +5818,11 @@ void *boost::serialization::singleton<boost::archive::detail::oserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::get_instance()
@@ -5818,11 +5833,11 @@ void *boost::serialization::singleton<boost::archive::detail::oserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<unsigned long long>>>::get_instance()
@@ -5833,11 +5848,11 @@ void *boost::serialization::singleton<boost::archive::detail::oserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<unsigned long long>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<unsigned long long>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<unsigned long long>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<unsigned long long>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<unsigned long long>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<unsigned long long>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<unsigned long long>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<unsigned long long>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<unsigned long long>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<unsigned long long>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::get_instance()
@@ -5848,11 +5863,11 @@ void *boost::serialization::singleton<boost::archive::detail::oserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::unlimited_storage<std::allocator<char>>>>::get_instance()
@@ -5863,11 +5878,11 @@ void *boost::serialization::singleton<boost::archive::detail::oserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::unlimited_storage<std::allocator<char>>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::unlimited_storage<std::allocator<char>>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::unlimited_storage<std::allocator<char>>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::unlimited_storage<std::allocator<char>>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::unlimited_storage<std::allocator<char>>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::unlimited_storage<std::allocator<char>>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::unlimited_storage<std::allocator<char>>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::unlimited_storage<std::allocator<char>>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::unlimited_storage<std::allocator<char>>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::unlimited_storage<std::allocator<char>>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::get_instance()
@@ -5878,11 +5893,11 @@ void *boost::serialization::singleton<boost::archive::detail::oserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<pps::AxisEnum>>>::get_instance()
@@ -5893,11 +5908,11 @@ void *boost::serialization::singleton<boost::archive::detail::oserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<pps::AxisEnum>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<pps::AxisEnum>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<pps::AxisEnum>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<pps::AxisEnum>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<pps::AxisEnum>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<pps::AxisEnum>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<pps::AxisEnum>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<pps::AxisEnum>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<pps::AxisEnum>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<pps::AxisEnum>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<std::string>>>::get_instance()
@@ -5908,11 +5923,11 @@ void *boost::serialization::singleton<boost::archive::detail::oserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<std::string>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<std::string>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<std::string>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<std::string>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<std::string>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<std::string>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<std::string>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<std::string>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<std::string>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::vector<std::string>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::pair<int const,std::vector<std::string>>>>::get_instance()
@@ -5923,11 +5938,11 @@ void *boost::serialization::singleton<boost::archive::detail::oserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::pair<int const,std::vector<std::string>>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::pair<int const,std::vector<std::string>>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::pair<int const,std::vector<std::string>>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::pair<int const,std::vector<std::string>>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::pair<int const,std::vector<std::string>>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::pair<int const,std::vector<std::string>>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::pair<int const,std::vector<std::string>>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::pair<int const,std::vector<std::string>>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::pair<int const,std::vector<std::string>>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::pair<int const,std::vector<std::string>>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::map<int,std::vector<std::string>>>>::get_instance()
@@ -5938,11 +5953,11 @@ void *boost::serialization::singleton<boost::archive::detail::oserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::map<int,std::vector<std::string>>>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::map<int,std::vector<std::string>>>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::map<int,std::vector<std::string>>>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::map<int,std::vector<std::string>>>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::map<int,std::vector<std::string>>>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::map<int,std::vector<std::string>>>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::map<int,std::vector<std::string>>>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::map<int,std::vector<std::string>>>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::map<int,std::vector<std::string>>>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,std::map<int,std::vector<std::string>>>>::get_instance(void)::t;
 }
 
 void *boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,pps::Histogram_Internal>>::get_instance()
@@ -5953,11 +5968,11 @@ void *boost::serialization::singleton<boost::archive::detail::oserializer<boost:
   }
 
   {
-    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,pps::Histogram_Internal>>::singleton_wrapper(boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,pps::Histogram_Internal>>::get_instance(void)::t);
-    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,pps::Histogram_Internal>>::~singleton_wrapper, boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,pps::Histogram_Internal>>::get_instance(void)::t, &dword_25E225000);
+    boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,pps::Histogram_Internal>>::singleton_wrapper(&boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,pps::Histogram_Internal>>::get_instance(void)::t);
+    __cxa_atexit(boost::serialization::detail::singleton_wrapper<boost::archive::detail::oserializer<boost::archive::text_oarchive,pps::Histogram_Internal>>::~singleton_wrapper, &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,pps::Histogram_Internal>>::get_instance(void)::t, &dword_25E225000);
   }
 
-  return boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,pps::Histogram_Internal>>::get_instance(void)::t;
+  return &boost::serialization::singleton<boost::archive::detail::oserializer<boost::archive::text_oarchive,pps::Histogram_Internal>>::get_instance(void)::t;
 }
 
 void *boost::archive::detail::common_iarchive<boost::archive::text_iarchive>::vload(uint64_t a1, _DWORD *a2)
@@ -5982,15 +5997,14 @@ void *boost::archive::detail::common_iarchive<boost::archive::text_iarchive>::vl
 
 void *boost::archive::basic_text_iprimitive<std::istream>::load<unsigned int>(void *a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   result = MEMORY[0x25F8B0290](*a1);
   if ((*(result + *(*result - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v3, 8, 0, 0);
-    boost::serialization::throw_exception<boost::archive::archive_exception>(v3);
+    boost::archive::archive_exception::archive_exception(v2, 8, 0, 0);
+    boost::serialization::throw_exception<boost::archive::archive_exception>(v2);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6002,59 +6016,56 @@ void boost::serialization::throw_exception<boost::archive::archive_exception>(co
 
 void *boost::archive::basic_text_iprimitive<std::istream>::load<boost::archive::object_id_type>(void *a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   result = MEMORY[0x25F8B0290](*a1);
   if ((*(result + *(*result - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v3, 8, 0, 0);
-    boost::serialization::throw_exception<boost::archive::archive_exception>(v3);
+    boost::archive::archive_exception::archive_exception(v2, 8, 0, 0);
+    boost::serialization::throw_exception<boost::archive::archive_exception>(v2);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void *boost::archive::basic_text_iprimitive<std::istream>::load<boost::archive::class_id_type>(void *a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   result = MEMORY[0x25F8B02B0](*a1);
   if ((*(result + *(*result - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v3, 8, 0, 0);
-    boost::serialization::throw_exception<boost::archive::archive_exception>(v3);
+    boost::archive::archive_exception::archive_exception(v2, 8, 0, 0);
+    boost::serialization::throw_exception<boost::archive::archive_exception>(v2);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void *boost::archive::basic_text_iprimitive<std::istream>::load<boost::archive::tracking_type>(void *a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   result = MEMORY[0x25F8B0260](*a1);
   if ((*(result + *(*result - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v3, 8, 0, 0);
-    boost::serialization::throw_exception<boost::archive::archive_exception>(v3);
+    boost::archive::archive_exception::archive_exception(v2, 8, 0, 0);
+    boost::serialization::throw_exception<boost::archive::archive_exception>(v2);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void pps::Histogram_Internal::~Histogram_Internal(char **this)
+void pps::Histogram_Internal::~Histogram_Internal(pps::Histogram_Internal *this)
 {
   *this = &unk_286FF0218;
-  std::__tree<std::__value_type<int,std::vector<std::string>>,std::__map_value_compare<int,std::__value_type<int,std::vector<std::string>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<std::string>>>>::destroy((this + 11), this[12]);
-  v2 = this[8];
+  std::__tree<std::__value_type<int,std::vector<std::string>>,std::__map_value_compare<int,std::__value_type<int,std::vector<std::string>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<std::string>>>>::destroy(this + 88, *(this + 12));
+  v2 = *(this + 8);
   if (v2)
   {
-    this[9] = v2;
+    *(this + 9) = v2;
     operator delete(v2);
   }
 
-  boost::histogram::unlimited_storage<std::allocator<char>>::buffer_type::destroy((this + 4));
-  v3 = (this + 1);
+  boost::histogram::unlimited_storage<std::allocator<char>>::buffer_type::destroy(this + 32);
+  v3 = (this + 8);
   std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::__destroy_vector::operator()[abi:ne200100](&v3);
 }
 
@@ -6064,21 +6075,21 @@ void pps::Histogram_Internal::~Histogram_Internal(char **this)
   JUMPOUT(0x25F8B04C0);
 }
 
-void boost::histogram::unlimited_storage<std::allocator<char>>::buffer_type::destroy(uint64_t a1)
+void boost::histogram::unlimited_storage<std::allocator<char>>::buffer_type::destroy(uint64_t result)
 {
-  v1 = *(a1 + 24);
-  if ((v1 == 0) != (*(a1 + 8) == 0))
+  v1 = *(result + 24);
+  if ((v1 == 0) != (*(result + 8) == 0))
   {
     __assert_rtn("destroy", "unlimited_storage.hpp", 494, "(ptr == nullptr) == (size == 0)");
   }
 
   if (v1)
   {
-    v3 = a1;
-    _ZNK5boost9histogram17unlimited_storageINSt3__19allocatorIcEEE11buffer_type5applyIZNS6_7destroyEvEUlPT_E_JEEEDcOS8_DpOT0_(a1, &v3);
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
-    *(a1 + 24) = 0;
+    v3 = result;
+    _ZNK5boost9histogram17unlimited_storageINSt3__19allocatorIcEEE11buffer_type5applyIZNS6_7destroyEvEUlPT_E_JEEEDcOS8_DpOT0_(result, &v3);
+    *(result + 8) = 0;
+    *(result + 16) = 0;
+    *(result + 24) = 0;
   }
 }
 
@@ -6274,14 +6285,7 @@ uint64_t ___ZL9logHandlev_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void boost::archive::detail::common_oarchive<boost::archive::text_oarchive>::vsave(boost::archive::detail::basic_oarchive *a1, int *a2)
-{
-  boost::archive::detail::basic_oarchive::end_preamble(a1);
-  v3 = *a2;
-  boost::archive::basic_text_oarchive<boost::archive::text_oarchive>::newtoken();
-}
-
-void boost::archive::detail::common_oarchive<boost::archive::text_oarchive>::vsave(boost::archive::detail::basic_oarchive *a1)
+void boost::archive::detail::common_oarchive<boost::archive::text_oarchive>::vsave(boost::archive::detail::basic_oarchive *a1, uint64_t a2)
 {
   *(a1 + 10) = 1;
   boost::archive::detail::basic_oarchive::end_preamble(a1);
@@ -6308,94 +6312,82 @@ void boost::archive::detail::common_oarchive<boost::archive::text_oarchive>::vsa
   boost::archive::basic_text_oarchive<boost::archive::text_oarchive>::newtoken();
 }
 
-void boost::archive::basic_text_oprimitive<std::ostream>::save_impl<unsigned int>(void *a1, unsigned int *a2)
+void boost::archive::basic_text_oprimitive<std::ostream>::save_impl<unsigned int>(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   if ((*(*a1 + *(**a1 - 24) + 32) & 5) == 0)
   {
-    v2 = *a2;
-    v3 = *MEMORY[0x277D85DE8];
 
     JUMPOUT(0x25F8B0370);
   }
 
-  boost::archive::archive_exception::archive_exception(v4, 13, 0, 0);
-  boost::serialization::throw_exception<boost::archive::archive_exception>(v4);
+  boost::archive::archive_exception::archive_exception(v1, 13, 0, 0);
+  boost::serialization::throw_exception<boost::archive::archive_exception>(v1);
 }
 
-void boost::archive::basic_text_oprimitive<std::ostream>::save_impl<boost::archive::object_id_type>(void *a1, unsigned int *a2)
+void boost::archive::basic_text_oprimitive<std::ostream>::save_impl<boost::archive::object_id_type>(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   if ((*(*a1 + *(**a1 - 24) + 32) & 5) == 0)
   {
-    v2 = *a2;
-    v3 = *MEMORY[0x277D85DE8];
 
     JUMPOUT(0x25F8B0370);
   }
 
-  boost::archive::archive_exception::archive_exception(v4, 13, 0, 0);
-  boost::serialization::throw_exception<boost::archive::archive_exception>(v4);
+  boost::archive::archive_exception::archive_exception(v1, 13, 0, 0);
+  boost::serialization::throw_exception<boost::archive::archive_exception>(v1);
 }
 
-void boost::archive::basic_text_oprimitive<std::ostream>::save_impl<boost::archive::object_reference_type>(void *a1, unsigned int *a2)
+void boost::archive::basic_text_oprimitive<std::ostream>::save_impl<boost::archive::object_reference_type>(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   if ((*(*a1 + *(**a1 - 24) + 32) & 5) == 0)
   {
-    v2 = *a2;
-    v3 = *MEMORY[0x277D85DE8];
 
     JUMPOUT(0x25F8B0370);
   }
 
-  boost::archive::archive_exception::archive_exception(v4, 13, 0, 0);
-  boost::serialization::throw_exception<boost::archive::archive_exception>(v4);
+  boost::archive::archive_exception::archive_exception(v1, 13, 0, 0);
+  boost::serialization::throw_exception<boost::archive::archive_exception>(v1);
 }
 
-void boost::archive::basic_text_oprimitive<std::ostream>::save_impl<boost::archive::class_id_type>(void *a1, __int16 *a2)
+void boost::archive::basic_text_oprimitive<std::ostream>::save_impl<boost::archive::class_id_type>(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   if ((*(*a1 + *(**a1 - 24) + 32) & 5) == 0)
   {
-    v2 = *a2;
-    v3 = *MEMORY[0x277D85DE8];
 
     JUMPOUT(0x25F8B0390);
   }
 
-  boost::archive::archive_exception::archive_exception(v4, 13, 0, 0);
-  boost::serialization::throw_exception<boost::archive::archive_exception>(v4);
+  boost::archive::archive_exception::archive_exception(v1, 13, 0, 0);
+  boost::serialization::throw_exception<boost::archive::archive_exception>(v1);
 }
 
-void boost::archive::basic_text_oprimitive<std::ostream>::save_impl<boost::archive::class_id_reference_type>(void *a1, __int16 *a2)
+void boost::archive::basic_text_oprimitive<std::ostream>::save_impl<boost::archive::class_id_reference_type>(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   if ((*(*a1 + *(**a1 - 24) + 32) & 5) == 0)
   {
-    v2 = *a2;
-    v3 = *MEMORY[0x277D85DE8];
 
     JUMPOUT(0x25F8B0390);
   }
 
-  boost::archive::archive_exception::archive_exception(v4, 13, 0, 0);
-  boost::serialization::throw_exception<boost::archive::archive_exception>(v4);
+  boost::archive::archive_exception::archive_exception(v1, 13, 0, 0);
+  boost::serialization::throw_exception<boost::archive::archive_exception>(v1);
 }
 
-void boost::archive::basic_text_oprimitive<std::ostream>::save_impl<boost::archive::tracking_type>(void *a1, unsigned __int8 *a2)
+void boost::archive::basic_text_oprimitive<std::ostream>::save_impl<boost::archive::tracking_type>(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   if ((*(*a1 + *(**a1 - 24) + 32) & 5) == 0)
   {
-    v2 = *a2;
-    v3 = *MEMORY[0x277D85DE8];
 
     JUMPOUT(0x25F8B0340);
   }
 
-  boost::archive::archive_exception::archive_exception(v4, 13, 0, 0);
-  boost::serialization::throw_exception<boost::archive::archive_exception>(v4);
+  boost::archive::archive_exception::archive_exception(v1, 13, 0, 0);
+  boost::serialization::throw_exception<boost::archive::archive_exception>(v1);
 }
 
 uint64_t std::ostringstream::~ostringstream(uint64_t a1, uint64_t *a2)
@@ -6545,29 +6537,29 @@ void std::stringbuf::__init_buf_ptrs[abi:ne200100](uint64_t a1)
   }
 }
 
-void std::__tree<std::__value_type<int,std::vector<std::string>>,std::__map_value_compare<int,std::__value_type<int,std::vector<std::string>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<std::string>>>>::destroy(uint64_t a1, char *a2)
+void std::__tree<std::__value_type<int,std::vector<std::string>>,std::__map_value_compare<int,std::__value_type<int,std::vector<std::string>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<std::string>>>>::destroy(uint64_t a1, void *a2)
 {
   if (a2)
   {
     std::__tree<std::__value_type<int,std::vector<std::string>>,std::__map_value_compare<int,std::__value_type<int,std::vector<std::string>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<std::string>>>>::destroy(a1, *a2);
-    std::__tree<std::__value_type<int,std::vector<std::string>>,std::__map_value_compare<int,std::__value_type<int,std::vector<std::string>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<std::string>>>>::destroy(a1, *(a2 + 1));
-    v4 = (a2 + 40);
+    std::__tree<std::__value_type<int,std::vector<std::string>>,std::__map_value_compare<int,std::__value_type<int,std::vector<std::string>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::vector<std::string>>>>::destroy(a1, a2[1]);
+    v4 = (a2 + 5);
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v4);
     operator delete(a2);
   }
 }
 
-void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<pps::Histogram_Internal>>::~singleton_wrapper(boost::serialization::extended_type_info *a1)
+void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<pps::Histogram_Internal>>::~singleton_wrapper(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = &unk_286FF0338;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<pps::Histogram_Internal>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<pps::Histogram_Internal>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<pps::Histogram_Internal>::~extended_type_info_typeid(a1, a2);
 }
 
 {
   *a1 = &unk_286FF0338;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<pps::Histogram_Internal>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<pps::Histogram_Internal>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<pps::Histogram_Internal>::~extended_type_info_typeid(a1, a2);
 
   JUMPOUT(0x25F8B04C0);
 }
@@ -6587,21 +6579,21 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *boost::seriali
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = &unk_286FF03E0;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void boost::serialization::extended_type_info_typeid<pps::Histogram_Internal>::~extended_type_info_typeid(boost::serialization::extended_type_info *a1)
+void boost::serialization::extended_type_info_typeid<pps::Histogram_Internal>::~extended_type_info_typeid(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = &unk_286FF03E0;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
 {
-  boost::serialization::extended_type_info_typeid<pps::Histogram_Internal>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<pps::Histogram_Internal>::~extended_type_info_typeid(a1, a2);
 
   JUMPOUT(0x25F8B04C0);
 }
@@ -6661,11 +6653,11 @@ uint64_t boost::serialization::extended_type_info_typeid<pps::Histogram_Internal
   return result;
 }
 
-uint64_t boost::archive::detail::iserializer<boost::archive::text_iarchive,pps::Histogram_Internal>::load_object_data(uint64_t a1, char **a2, uint64_t a3)
+uint64_t boost::archive::detail::iserializer<boost::archive::text_iarchive,pps::Histogram_Internal>::load_object_data(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = boost::serialization::smart_cast_impl::reference<boost::archive::text_iarchive &>::polymorphic::cross::cast<boost::archive::detail::basic_iarchive>(a2);
+  v5 = boost::serialization::smart_cast_impl::reference<boost::archive::text_iarchive &>::polymorphic::cross::cast<boost::archive::detail::basic_iarchive>(a2);
 
-  return pps::Histogram_Internal::serialize<boost::archive::text_iarchive>(a3, v4);
+  return pps::Histogram_Internal::serialize<boost::archive::text_iarchive>(a3, v5);
 }
 
 uint64_t pps::Histogram_Internal::serialize<boost::archive::text_iarchive>(uint64_t a1, boost::archive::detail::basic_iarchive_impl **a2)
@@ -6679,9 +6671,8 @@ uint64_t pps::Histogram_Internal::serialize<boost::archive::text_iarchive>(uint6
   return boost::archive::detail::basic_iarchive::load_object(a2, a1 + 88, v6);
 }
 
-void *boost::serialization::smart_cast_impl::reference<boost::archive::text_iarchive &>::polymorphic::cross::cast<boost::archive::detail::basic_iarchive>(char **a1)
+void *boost::serialization::smart_cast_impl::reference<boost::archive::text_iarchive &>::polymorphic::cross::cast<boost::archive::detail::basic_iarchive>(const void *a1)
 {
-  v1 = **a1;
   if (!result)
   {
     __cxa_bad_cast();
@@ -6690,17 +6681,17 @@ void *boost::serialization::smart_cast_impl::reference<boost::archive::text_iarc
   return result;
 }
 
-void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::~singleton_wrapper(boost::serialization::extended_type_info *a1)
+void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::~singleton_wrapper(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = &unk_286FF0428;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>::~extended_type_info_typeid(a1, a2);
 }
 
 {
   *a1 = &unk_286FF0428;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>::~extended_type_info_typeid(a1, a2);
 
   JUMPOUT(0x25F8B04C0);
 }
@@ -6720,21 +6711,21 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *boost::seriali
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = &unk_286FF04D0;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void boost::serialization::extended_type_info_typeid<boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>::~extended_type_info_typeid(boost::serialization::extended_type_info *a1)
+void boost::serialization::extended_type_info_typeid<boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>::~extended_type_info_typeid(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = &unk_286FF04D0;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
 {
-  boost::serialization::extended_type_info_typeid<boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>::~extended_type_info_typeid(a1, a2);
 
   JUMPOUT(0x25F8B04C0);
 }
@@ -6770,12 +6761,12 @@ void boost::serialization::extended_type_info_typeid<boost::histogram::histogram
   boost::serialization::extended_type_info_typeid<pps::Histogram_Internal>::construct();
 }
 
-uint64_t boost::serialization::access::destroy<boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>(uint64_t result)
+void **boost::serialization::access::destroy<boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>(void **result)
 {
   if (result)
   {
     v1 = result;
-    boost::histogram::unlimited_storage<std::allocator<char>>::buffer_type::destroy(result + 24);
+    boost::histogram::unlimited_storage<std::allocator<char>>::buffer_type::destroy((result + 3));
     v2 = v1;
     std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::__destroy_vector::operator()[abi:ne200100](&v2);
     return MEMORY[0x25F8B04C0](v1, 0x10A0C400559A86CLL);
@@ -6784,11 +6775,11 @@ uint64_t boost::serialization::access::destroy<boost::histogram::histogram<std::
   return result;
 }
 
-uint64_t boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>::load_object_data(uint64_t a1, char **a2, unint64_t a3)
+uint64_t boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::histogram<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>>::load_object_data(uint64_t a1, const void *a2, unint64_t a3, uint64_t a4)
 {
-  v4 = boost::serialization::smart_cast_impl::reference<boost::archive::text_iarchive &>::polymorphic::cross::cast<boost::archive::detail::basic_iarchive>(a2);
+  v5 = boost::serialization::smart_cast_impl::reference<boost::archive::text_iarchive &>::polymorphic::cross::cast<boost::archive::detail::basic_iarchive>(a2);
 
-  return boost::histogram::serialize<boost::archive::text_iarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>(v4, a3);
+  return boost::histogram::serialize<boost::archive::text_iarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>(v5, a3);
 }
 
 uint64_t boost::histogram::serialize<boost::archive::text_iarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>,boost::histogram::unlimited_storage<std::allocator<char>>>(boost::archive::detail::basic_iarchive_impl **a1, unint64_t a2)
@@ -6800,17 +6791,17 @@ uint64_t boost::histogram::serialize<boost::archive::text_iarchive,std::vector<b
   return boost::archive::detail::basic_iarchive::load_object(a1, a2 + 24, v5);
 }
 
-void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::~singleton_wrapper(boost::serialization::extended_type_info *a1)
+void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::~singleton_wrapper(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = &unk_286FF0528;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::~extended_type_info_typeid(a1, a2);
 }
 
 {
   *a1 = &unk_286FF0528;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::~extended_type_info_typeid(a1, a2);
 
   JUMPOUT(0x25F8B04C0);
 }
@@ -6830,21 +6821,21 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *boost::seriali
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = &unk_286FF05D0;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void boost::serialization::extended_type_info_typeid<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::~extended_type_info_typeid(boost::serialization::extended_type_info *a1)
+void boost::serialization::extended_type_info_typeid<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::~extended_type_info_typeid(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = &unk_286FF05D0;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
 {
-  boost::serialization::extended_type_info_typeid<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::~extended_type_info_typeid(a1, a2);
 
   JUMPOUT(0x25F8B04C0);
 }
@@ -6893,10 +6884,10 @@ void **boost::serialization::access::destroy<std::vector<boost::histogram::axis:
   return result;
 }
 
-void boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::load_object_data(uint64_t a1, char **a2, uint64_t *a3)
+void boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::load_object_data(uint64_t a1, const void *a2, uint64_t *a3)
 {
   v4 = boost::serialization::smart_cast_impl::reference<boost::archive::text_iarchive &>::polymorphic::cross::cast<boost::archive::detail::basic_iarchive>(a2);
-  boost::archive::detail::basic_iarchive::get_library_version(v4, &v7);
+  boost::archive::detail::basic_iarchive::get_library_version(&v7, v4);
   v6 = 0;
   boost::archive::basic_text_iprimitive<std::istream>::load<boost::serialization::collection_size_type>(v4 + 5);
   if (v7 >= 4u)
@@ -6909,14 +6900,12 @@ void boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vect
   boost::serialization::stl::collection_load_impl<boost::archive::text_iarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>(v4, a3, &v5);
 }
 
-void *std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0x6DB6DB6DB6DB6DB7 * ((result[2] - *result) >> 3) < a2)
   {
     if (a2 < 0x492492492492493)
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>(result, a2);
     }
 
@@ -6926,14 +6915,14 @@ void *std::vector<boost::histogram::axis::variant<boost::histogram::axis::regula
   return result;
 }
 
-void sub_25E31BB90(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25E31BB90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void boost::serialization::stl::collection_load_impl<boost::archive::text_iarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>(boost::archive::detail::basic_iarchive_impl **a1, uint64_t *a2, unint64_t *a3)
+void boost::serialization::stl::collection_load_impl<boost::archive::text_iarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>(boost::archive::detail::basic_iarchive_impl **a1, void **a2, unint64_t *a3)
 {
   std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::resize(a2, *a3);
   v6 = *a2;
@@ -6953,15 +6942,14 @@ void boost::serialization::stl::collection_load_impl<boost::archive::text_iarchi
 
 void *boost::archive::basic_text_iprimitive<std::istream>::load<boost::serialization::collection_size_type>(void *a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   result = MEMORY[0x25F8B02A0](*a1);
   if ((*(result + *(*result - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v3, 8, 0, 0);
-    boost::serialization::throw_exception<boost::archive::archive_exception>(v3);
+    boost::archive::archive_exception::archive_exception(v2, 8, 0, 0);
+    boost::serialization::throw_exception<boost::archive::archive_exception>(v2);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7183,24 +7171,24 @@ uint64_t *std::vector<boost::histogram::axis::variant<boost::histogram::axis::re
   return result;
 }
 
-void sub_25E31C10C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25E31C10C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::~singleton_wrapper(boost::serialization::extended_type_info *a1)
+void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::~singleton_wrapper(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = &unk_286FF0628;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~extended_type_info_typeid(a1, a2);
 }
 
 {
   *a1 = &unk_286FF0628;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~extended_type_info_typeid(a1, a2);
 
   JUMPOUT(0x25F8B04C0);
 }
@@ -7220,21 +7208,21 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *boost::seriali
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = &unk_286FF06D0;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void boost::serialization::extended_type_info_typeid<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~extended_type_info_typeid(boost::serialization::extended_type_info *a1)
+void boost::serialization::extended_type_info_typeid<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~extended_type_info_typeid(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = &unk_286FF06D0;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
 {
-  boost::serialization::extended_type_info_typeid<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~extended_type_info_typeid(a1, a2);
 
   JUMPOUT(0x25F8B04C0);
 }
@@ -7282,7 +7270,7 @@ uint64_t boost::serialization::access::destroy<boost::histogram::axis::variant<b
   return result;
 }
 
-uint64_t boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::load_object_data(uint64_t a1, char **a2, unint64_t a3)
+uint64_t boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::load_object_data(uint64_t a1, const void *a2, unint64_t a3)
 {
   v4 = boost::serialization::smart_cast_impl::reference<boost::archive::text_iarchive &>::polymorphic::cross::cast<boost::archive::detail::basic_iarchive>(a2);
   instance = boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance();
@@ -7290,17 +7278,17 @@ uint64_t boost::archive::detail::iserializer<boost::archive::text_iarchive,boost
   return boost::archive::detail::basic_iarchive::load_object(v4, a3, instance);
 }
 
-void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::~singleton_wrapper(boost::serialization::extended_type_info *a1)
+void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::~singleton_wrapper(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = &unk_286FF0740;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~extended_type_info_typeid(a1, a2);
 }
 
 {
   *a1 = &unk_286FF0740;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~extended_type_info_typeid(a1, a2);
 
   JUMPOUT(0x25F8B04C0);
 }
@@ -7320,21 +7308,21 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *boost::seriali
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = &unk_286FF07E8;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void boost::serialization::extended_type_info_typeid<boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~extended_type_info_typeid(boost::serialization::extended_type_info *a1)
+void boost::serialization::extended_type_info_typeid<boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~extended_type_info_typeid(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = &unk_286FF07E8;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
 {
-  boost::serialization::extended_type_info_typeid<boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~extended_type_info_typeid(a1, a2);
 
   JUMPOUT(0x25F8B04C0);
 }
@@ -7370,32 +7358,23 @@ void boost::serialization::extended_type_info_typeid<boost::variant<boost::histo
   boost::serialization::extended_type_info_typeid<pps::Histogram_Internal>::construct();
 }
 
-void boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::load_object_data(uint64_t a1, char **a2, int *a3)
+void boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::load_object_data(uint64_t a1, const void *a2, int *a3, uint64_t a4)
 {
-  v4 = boost::serialization::smart_cast_impl::reference<boost::archive::text_iarchive &>::polymorphic::cross::cast<boost::archive::detail::basic_iarchive>(a2);
+  v5 = boost::serialization::smart_cast_impl::reference<boost::archive::text_iarchive &>::polymorphic::cross::cast<boost::archive::detail::basic_iarchive>(a2);
 
-  boost::serialization::load<boost::archive::text_iarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>(v4, a3);
-}
-
-void boost::serialization::load<boost::archive::text_iarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>(uint64_t a1, int *a2)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  boost::archive::basic_text_iprimitive<std::istream>::load<int>((a1 + 40));
-  boost::serialization::variant_impl<boost::mpl::l_item<mpl_::long_<3l>,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::mpl::l_item<mpl_::long_<2l>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::mpl::l_item<mpl_::long_<1l>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>,boost::mpl::l_end>>>>::load_impl::invoke<boost::archive::text_iarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>(a1, 0, a2);
-  v4 = *MEMORY[0x277D85DE8];
+  boost::serialization::load<boost::archive::text_iarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>(v5, a3);
 }
 
 void *boost::archive::basic_text_iprimitive<std::istream>::load<int>(void *a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   result = MEMORY[0x25F8B0280](*a1);
   if ((*(result + *(*result - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v3, 8, 0, 0);
-    boost::serialization::throw_exception<boost::archive::archive_exception>(v3);
+    boost::archive::archive_exception::archive_exception(v2, 8, 0, 0);
+    boost::serialization::throw_exception<boost::archive::archive_exception>(v2);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7421,7 +7400,7 @@ void boost::serialization::variant_impl<boost::mpl::l_item<mpl_::long_<3l>,boost
     if (!v7)
     {
       v12 = &unk_286FF0968;
-      boost::throw_exception<boost::bad_get>();
+      boost::throw_exception<boost::bad_get>(&v12);
     }
 
     boost::archive::detail::basic_iarchive::reset_object_address(a1, v7, &v8);
@@ -7444,21 +7423,19 @@ void sub_25E31C97C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::assign<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>(uint64_t a1, _DWORD *a2)
 {
-  v7[6] = *MEMORY[0x277D85DE8];
-  v5 = a2;
-  if ((boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::apply_visitor<boost::detail::variant::direct_assigner<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>(a1, &v5) & 1) == 0)
+  v6[6] = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  if ((boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::apply_visitor<boost::detail::variant::direct_assigner<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>(a1, &v4) & 1) == 0)
   {
-    v6 = boost::detail::variant::make_initializer_node::apply<boost::mpl::pair<boost::detail::variant::initializer_root,mpl_::int_<0>>,boost::mpl::l_iter<boost::mpl::list3<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::initializer_node::initialize(v7, a2);
-    boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::variant_assign(a1, &v6);
-    boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::destroy_content(&v6);
+    v5 = boost::detail::variant::make_initializer_node::apply<boost::mpl::pair<boost::detail::variant::initializer_root,mpl_::int_<0>>,boost::mpl::l_iter<boost::mpl::list3<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::initializer_node::initialize(v6, a2);
+    boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::variant_assign(a1, &v5);
+    boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::destroy_content(&v5);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25E31CA44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25E31CA44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::destroy_content(va);
   _Unwind_Resume(a1);
 }
@@ -7704,7 +7681,7 @@ __n128 std::vector<double>::__move_assign(uint64_t a1, __n128 *a2)
   return result;
 }
 
-void boost::throw_exception<boost::bad_get>()
+void boost::throw_exception<boost::bad_get>(uint64_t a1)
 {
   exception = __cxa_allocate_exception(0x38uLL);
   boost::wrapexcept<boost::bad_get>::wrapexcept(exception);
@@ -7741,19 +7718,20 @@ uint64_t boost::wrapexcept<boost::bad_get>::wrapexcept(uint64_t result)
   return result;
 }
 
-uint64_t boost::wrapexcept<boost::bad_get>::~wrapexcept(uint64_t a1)
+std::exception *boost::wrapexcept<boost::bad_get>::~wrapexcept(std::exception *a1)
 {
-  *(a1 + 16) = &unk_286FF0990;
-  boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr((a1 + 24));
-  std::exception::~exception((a1 + 8));
+  a1[2].__vftable = &unk_286FF0990;
+  boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr(&a1[3]);
+  std::exception::~exception(a1 + 1);
   return a1;
 }
 
-void sub_25E31D1B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+void sub_25E31D1B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
+  va_start(va, a9);
   boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr(&a9);
-  boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr(&a10);
-  (*(*v10 + 24))(v10);
+  boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr(va);
+  (*(*v9 + 24))(v9);
   _Unwind_Resume(a1);
 }
 
@@ -7763,26 +7741,26 @@ void boost::wrapexcept<boost::bad_get>::rethrow(uint64_t a1)
   boost::wrapexcept<boost::bad_get>::wrapexcept(exception, a1);
 }
 
-void boost::wrapexcept<boost::bad_get>::~wrapexcept(uint64_t a1)
+void boost::wrapexcept<boost::bad_get>::~wrapexcept(std::exception *a1)
 {
-  *(a1 + 16) = &unk_286FF0990;
-  boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr((a1 + 24));
-  std::exception::~exception((a1 + 8));
+  a1[2].__vftable = &unk_286FF0990;
+  boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr(&a1[3]);
+  std::exception::~exception(a1 + 1);
 
   JUMPOUT(0x25F8B04C0);
 }
 
-void non-virtual thunk toboost::wrapexcept<boost::bad_get>::~wrapexcept(uint64_t a1)
+void non-virtual thunk toboost::wrapexcept<boost::bad_get>::~wrapexcept(std::exception *a1)
 {
-  *(a1 + 8) = &unk_286FF0990;
-  boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr((a1 + 16));
+  a1[1].__vftable = &unk_286FF0990;
+  boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr(&a1[2]);
 
   std::exception::~exception(a1);
 }
 
 {
-  *(a1 + 8) = &unk_286FF0990;
-  boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr((a1 + 16));
+  a1[1].__vftable = &unk_286FF0990;
+  boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr(&a1[2]);
   std::exception::~exception(a1);
 
   JUMPOUT(0x25F8B04C0);
@@ -7885,7 +7863,7 @@ void boost::serialization::variant_impl<boost::mpl::l_item<mpl_::long_<2l>,boost
     if (!v7)
     {
       v11 = &unk_286FF0968;
-      boost::throw_exception<boost::bad_get>();
+      boost::throw_exception<boost::bad_get>(&v11);
     }
 
     boost::archive::detail::basic_iarchive::reset_object_address(a1, v7, v8);
@@ -7904,28 +7882,26 @@ void boost::serialization::variant_impl<boost::mpl::l_item<mpl_::long_<2l>,boost
 
 void boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::assign<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v5 = a2;
-  if ((boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::apply_visitor<boost::detail::variant::direct_assigner<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>(a1, &v5) & 1) == 0)
+  v8 = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  if ((boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::apply_visitor<boost::detail::variant::direct_assigner<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>(a1, &v4) & 1) == 0)
   {
-    memset(v7, 0, sizeof(v7));
-    std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(v7, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
+    memset(v6, 0, sizeof(v6));
+    std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(v6, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
     if (*(a2 + 47) < 0)
     {
-      std::string::__init_copy_ctor_external(&v8, *(a2 + 24), *(a2 + 32));
+      std::string::__init_copy_ctor_external(&v7, *(a2 + 24), *(a2 + 32));
     }
 
     else
     {
-      v8 = *(a2 + 24);
+      v7 = *(a2 + 24);
     }
 
-    v6 = 1;
-    boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::variant_assign(a1, &v6);
-    boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::destroy_content(&v6);
+    v5 = 1;
+    boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::variant_assign(a1, &v5);
+    boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::destroy_content(&v5);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25E31D8EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, void *__p, uint64_t a13)
@@ -7938,7 +7914,7 @@ void sub_25E31D8EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::apply_visitor<boost::detail::variant::direct_assigner<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>(uint64_t a1, const std::string **a2)
+uint64_t boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::apply_visitor<boost::detail::variant::direct_assigner<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>(uint64_t a1, std::string **a2)
 {
   v4 = *a1;
   v3 = (a1 + 8);
@@ -7952,7 +7928,7 @@ uint64_t boost::variant<boost::histogram::axis::regular<double,boost::use_defaul
       v6 = *a2;
       if (*a2 != v3)
       {
-        std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(v3, v6->__r_.__value_.__l.__data_, v6->__r_.__value_.__l.__size_, (v6->__r_.__value_.__l.__size_ - v6->__r_.__value_.__r.__words[0]) >> 3);
+        std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&v3->__r_.__value_.__l.__data_, v6->__r_.__value_.__l.__data_, v6->__r_.__value_.__l.__size_, (v6->__r_.__value_.__l.__size_ - v6->__r_.__value_.__r.__words[0]) >> 3);
       }
 
       std::string::operator=((a1 + 32), v6 + 1);
@@ -7965,7 +7941,7 @@ uint64_t boost::variant<boost::histogram::axis::regular<double,boost::use_defaul
   return v5;
 }
 
-void *std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -8040,7 +8016,7 @@ void *std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(v
   return result;
 }
 
-void std::vector<double>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<double>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -8060,7 +8036,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<double>>(uint64_t a1,
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8082,7 +8058,7 @@ void sub_25E31DBB8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_DWORD *boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::apply_visitor<boost::detail::variant::get_visitor<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>(int *a1)
+int *boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::apply_visitor<boost::detail::variant::get_visitor<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>(int *a1)
 {
   v1 = 0;
   switch(*a1 ^ (*a1 >> 31))
@@ -8116,7 +8092,7 @@ void boost::serialization::variant_impl<boost::mpl::l_item<mpl_::long_<1l>,boost
     if (!v6)
     {
       v12 = &unk_286FF0968;
-      boost::throw_exception<boost::bad_get>();
+      boost::throw_exception<boost::bad_get>(&v12);
     }
 
     boost::archive::detail::basic_iarchive::reset_object_address(a1, v6, &v7);
@@ -8139,21 +8115,19 @@ void sub_25E31DCE4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::assign<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>(uint64_t a1, _DWORD *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5 = a2;
-  if ((boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::apply_visitor<boost::detail::variant::direct_assigner<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>(a1, &v5) & 1) == 0)
+  v7 = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  if ((boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::apply_visitor<boost::detail::variant::direct_assigner<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>(a1, &v4) & 1) == 0)
   {
-    v6 = boost::detail::variant::make_initializer_node::apply<boost::mpl::pair<boost::detail::variant::make_initializer_node::apply<boost::mpl::pair<boost::detail::variant::make_initializer_node::apply<boost::mpl::pair<boost::detail::variant::initializer_root,mpl_::int_<0>>,boost::mpl::l_iter<boost::mpl::list3<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::initializer_node,mpl_::int_<1>>,boost::mpl::l_iter<boost::mpl::list2<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::initializer_node,mpl_::int_<2>>,boost::mpl::l_iter<boost::mpl::list1<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::initializer_node::initialize(v7, a2);
-    boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::variant_assign(a1, &v6);
-    boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::destroy_content(&v6);
+    v5 = boost::detail::variant::make_initializer_node::apply<boost::mpl::pair<boost::detail::variant::make_initializer_node::apply<boost::mpl::pair<boost::detail::variant::make_initializer_node::apply<boost::mpl::pair<boost::detail::variant::initializer_root,mpl_::int_<0>>,boost::mpl::l_iter<boost::mpl::list3<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::initializer_node,mpl_::int_<1>>,boost::mpl::l_iter<boost::mpl::list2<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::initializer_node,mpl_::int_<2>>,boost::mpl::l_iter<boost::mpl::list1<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::initializer_node::initialize(v6, a2);
+    boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::variant_assign(a1, &v5);
+    boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::destroy_content(&v5);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25E31DDAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25E31DDAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::destroy_content(va);
   _Unwind_Resume(a1);
 }
@@ -8214,17 +8188,17 @@ int *boost::variant<boost::histogram::axis::regular<double,boost::use_default,bo
   return a1 + 2;
 }
 
-void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::~singleton_wrapper(boost::serialization::extended_type_info *a1)
+void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::~singleton_wrapper(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = &unk_286FF09B0;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>::~extended_type_info_typeid(a1, a2);
 }
 
 {
   *a1 = &unk_286FF09B0;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>::~extended_type_info_typeid(a1, a2);
 
   JUMPOUT(0x25F8B04C0);
 }
@@ -8244,21 +8218,21 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *boost::seriali
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = &unk_286FF0A58;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void boost::serialization::extended_type_info_typeid<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>::~extended_type_info_typeid(boost::serialization::extended_type_info *a1)
+void boost::serialization::extended_type_info_typeid<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>::~extended_type_info_typeid(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = &unk_286FF0A58;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
 {
-  boost::serialization::extended_type_info_typeid<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>::~extended_type_info_typeid(a1, a2);
 
   JUMPOUT(0x25F8B04C0);
 }
@@ -8309,46 +8283,45 @@ uint64_t boost::serialization::access::destroy<boost::histogram::axis::regular<d
   return result;
 }
 
-void boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>::load_object_data(uint64_t a1, char **a2, unint64_t a3)
+void boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>::load_object_data(uint64_t a1, const void *a2, char *a3, uint64_t a4)
 {
-  v4 = boost::serialization::smart_cast_impl::reference<boost::archive::text_iarchive &>::polymorphic::cross::cast<boost::archive::detail::basic_iarchive>(a2);
+  v5 = boost::serialization::smart_cast_impl::reference<boost::archive::text_iarchive &>::polymorphic::cross::cast<boost::archive::detail::basic_iarchive>(a2);
 
-  boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>::serialize<boost::archive::text_iarchive>(a3, v4);
+  boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>::serialize<boost::archive::text_iarchive>(a3, v5);
 }
 
-void boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>::serialize<boost::archive::text_iarchive>(unint64_t a1, uint64_t a2)
+void boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>::serialize<boost::archive::text_iarchive>(char *a1, boost::archive::detail::basic_iarchive_impl **a2)
 {
   instance = boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::transform::id>>::get_instance();
   boost::archive::detail::basic_iarchive::load_object(a2, a1, instance);
-  boost::archive::basic_text_iprimitive<std::istream>::load<int>((a2 + 40));
+  boost::archive::basic_text_iprimitive<std::istream>::load<int>(a2 + 5);
   boost::archive::text_iarchive_impl<boost::archive::text_iarchive>::load();
 }
 
 void *boost::archive::basic_text_iprimitive<std::istream>::load<double>(void *a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   result = MEMORY[0x25F8B0270](*a1);
   if ((*(result + *(*result - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v3, 8, 0, 0);
-    boost::serialization::throw_exception<boost::archive::archive_exception>(v3);
+    boost::archive::archive_exception::archive_exception(v2, 8, 0, 0);
+    boost::serialization::throw_exception<boost::archive::archive_exception>(v2);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::axis::transform::id>>::~singleton_wrapper(boost::serialization::extended_type_info *a1)
+void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::axis::transform::id>>::~singleton_wrapper(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = &unk_286FF0AF8;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::axis::transform::id>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<boost::histogram::axis::transform::id>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::histogram::axis::transform::id>::~extended_type_info_typeid(a1, a2);
 }
 
 {
   *a1 = &unk_286FF0AF8;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::axis::transform::id>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<boost::histogram::axis::transform::id>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::histogram::axis::transform::id>::~extended_type_info_typeid(a1, a2);
 
   JUMPOUT(0x25F8B04C0);
 }
@@ -8368,21 +8341,21 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *boost::seriali
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = &unk_286FF0BA0;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void boost::serialization::extended_type_info_typeid<boost::histogram::axis::transform::id>::~extended_type_info_typeid(boost::serialization::extended_type_info *a1)
+void boost::serialization::extended_type_info_typeid<boost::histogram::axis::transform::id>::~extended_type_info_typeid(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = &unk_286FF0BA0;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
 {
-  boost::serialization::extended_type_info_typeid<boost::histogram::axis::transform::id>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::histogram::axis::transform::id>::~extended_type_info_typeid(a1, a2);
 
   JUMPOUT(0x25F8B04C0);
 }
@@ -8441,7 +8414,7 @@ void boost::serialization::detail::singleton_wrapper<boost::archive::detail::ise
   JUMPOUT(0x25F8B04C0);
 }
 
-void *boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::transform::id>>::singleton_wrapper(void *a1)
+boost::archive::detail::basic_iserializer *boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::transform::id>>::singleton_wrapper(boost::archive::detail::basic_iserializer *a1)
 {
   instance = boost::serialization::singleton<boost::serialization::extended_type_info_typeid<boost::histogram::axis::transform::id>>::get_instance();
   boost::archive::detail::basic_iserializer::basic_iserializer(a1, instance);
@@ -8477,7 +8450,7 @@ void boost::serialization::detail::singleton_wrapper<boost::archive::detail::ise
   JUMPOUT(0x25F8B04C0);
 }
 
-void *boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::singleton_wrapper(void *a1)
+boost::archive::detail::basic_iserializer *boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::singleton_wrapper(boost::archive::detail::basic_iserializer *a1)
 {
   instance = boost::serialization::singleton<boost::serialization::extended_type_info_typeid<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>>>::get_instance();
   boost::archive::detail::basic_iserializer::basic_iserializer(a1, instance);
@@ -8490,17 +8463,17 @@ void *boost::serialization::detail::singleton_wrapper<boost::archive::detail::is
   return a1;
 }
 
-void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::~singleton_wrapper(boost::serialization::extended_type_info *a1)
+void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::~singleton_wrapper(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = &unk_286FF0CE8;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>::~extended_type_info_typeid(a1, a2);
 }
 
 {
   *a1 = &unk_286FF0CE8;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>::~extended_type_info_typeid(a1, a2);
 
   JUMPOUT(0x25F8B04C0);
 }
@@ -8520,21 +8493,21 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *boost::seriali
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = &unk_286FF0D90;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void boost::serialization::extended_type_info_typeid<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>::~extended_type_info_typeid(boost::serialization::extended_type_info *a1)
+void boost::serialization::extended_type_info_typeid<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>::~extended_type_info_typeid(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = &unk_286FF0D90;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
 {
-  boost::serialization::extended_type_info_typeid<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>::~extended_type_info_typeid(a1, a2);
 
   JUMPOUT(0x25F8B04C0);
 }
@@ -8593,7 +8566,7 @@ uint64_t boost::serialization::access::destroy<boost::histogram::axis::variable<
   return result;
 }
 
-void boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>::load_object_data(uint64_t a1, char **a2, unint64_t a3)
+void boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>::load_object_data(uint64_t a1, const void *a2, char *a3)
 {
   v4 = boost::serialization::smart_cast_impl::reference<boost::archive::text_iarchive &>::polymorphic::cross::cast<boost::archive::detail::basic_iarchive>(a2);
   instance = boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<double>>>::get_instance();
@@ -8602,17 +8575,17 @@ void boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::hi
   boost::archive::text_iarchive_impl<boost::archive::text_iarchive>::load();
 }
 
-void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<std::vector<double>>>::~singleton_wrapper(boost::serialization::extended_type_info *a1)
+void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<std::vector<double>>>::~singleton_wrapper(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = &unk_286FF0E00;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<std::vector<double>>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<std::vector<double>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<std::vector<double>>::~extended_type_info_typeid(a1, a2);
 }
 
 {
   *a1 = &unk_286FF0E00;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<std::vector<double>>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<std::vector<double>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<std::vector<double>>::~extended_type_info_typeid(a1, a2);
 
   JUMPOUT(0x25F8B04C0);
 }
@@ -8632,21 +8605,21 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *boost::seriali
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = &unk_286FF0EA8;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void boost::serialization::extended_type_info_typeid<std::vector<double>>::~extended_type_info_typeid(boost::serialization::extended_type_info *a1)
+void boost::serialization::extended_type_info_typeid<std::vector<double>>::~extended_type_info_typeid(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = &unk_286FF0EA8;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
 {
-  boost::serialization::extended_type_info_typeid<std::vector<double>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<std::vector<double>>::~extended_type_info_typeid(a1, a2);
 
   JUMPOUT(0x25F8B04C0);
 }
@@ -8700,10 +8673,10 @@ void **boost::serialization::access::destroy<std::vector<double>>(void **result)
   return result;
 }
 
-void boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<double>>::load_object_data(uint64_t a1, char **a2, uint64_t *a3)
+void boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<double>>::load_object_data(uint64_t a1, const void *a2, uint64_t *a3)
 {
   v4 = boost::serialization::smart_cast_impl::reference<boost::archive::text_iarchive &>::polymorphic::cross::cast<boost::archive::detail::basic_iarchive>(a2);
-  boost::archive::detail::basic_iarchive::get_library_version(v4, &v7);
+  boost::archive::detail::basic_iarchive::get_library_version(&v7, v4);
   v6 = 0;
   boost::archive::basic_text_iprimitive<std::istream>::load<boost::serialization::collection_size_type>(v4 + 5);
   if (v7 >= 4u)
@@ -8734,20 +8707,20 @@ void boost::serialization::stl::collection_load_impl<boost::archive::text_iarchi
   }
 }
 
-void std::vector<double>::resize(void *a1, unint64_t a2)
+void std::vector<double>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<double>::__append(a1, a2 - v2);
+    std::vector<double>::__append(result, a2 - v2);
   }
 }
 
@@ -8827,7 +8800,7 @@ void boost::serialization::detail::singleton_wrapper<boost::archive::detail::ise
   JUMPOUT(0x25F8B04C0);
 }
 
-void *boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<double>>>::singleton_wrapper(void *a1)
+boost::archive::detail::basic_iserializer *boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<double>>>::singleton_wrapper(boost::archive::detail::basic_iserializer *a1)
 {
   instance = boost::serialization::singleton<boost::serialization::extended_type_info_typeid<std::vector<double>>>::get_instance();
   boost::archive::detail::basic_iserializer::basic_iserializer(a1, instance);
@@ -8855,7 +8828,7 @@ void boost::serialization::detail::singleton_wrapper<boost::archive::detail::ise
   JUMPOUT(0x25F8B04C0);
 }
 
-void *boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::singleton_wrapper(void *a1)
+boost::archive::detail::basic_iserializer *boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::singleton_wrapper(boost::archive::detail::basic_iserializer *a1)
 {
   instance = boost::serialization::singleton<boost::serialization::extended_type_info_typeid<boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>>>::get_instance();
   boost::archive::detail::basic_iserializer::basic_iserializer(a1, instance);
@@ -8868,17 +8841,17 @@ void *boost::serialization::detail::singleton_wrapper<boost::archive::detail::is
   return a1;
 }
 
-void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~singleton_wrapper(boost::serialization::extended_type_info *a1)
+void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~singleton_wrapper(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = &unk_286FF1000;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::~extended_type_info_typeid(a1, a2);
 }
 
 {
   *a1 = &unk_286FF1000;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::~extended_type_info_typeid(a1, a2);
 
   JUMPOUT(0x25F8B04C0);
 }
@@ -8898,21 +8871,21 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *boost::seriali
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = &unk_286FF10A8;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void boost::serialization::extended_type_info_typeid<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::~extended_type_info_typeid(boost::serialization::extended_type_info *a1)
+void boost::serialization::extended_type_info_typeid<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::~extended_type_info_typeid(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = &unk_286FF10A8;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
 {
-  boost::serialization::extended_type_info_typeid<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::~extended_type_info_typeid(a1, a2);
 
   JUMPOUT(0x25F8B04C0);
 }
@@ -8963,11 +8936,11 @@ uint64_t boost::serialization::access::destroy<boost::histogram::axis::integer<i
   return result;
 }
 
-void boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::load_object_data(uint64_t a1, char **a2, uint64_t a3)
+void boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>::load_object_data(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = boost::serialization::smart_cast_impl::reference<boost::archive::text_iarchive &>::polymorphic::cross::cast<boost::archive::detail::basic_iarchive>(a2);
+  v5 = boost::serialization::smart_cast_impl::reference<boost::archive::text_iarchive &>::polymorphic::cross::cast<boost::archive::detail::basic_iarchive>(a2);
 
-  boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>::serialize<boost::archive::text_iarchive>(a3, v4);
+  boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>::serialize<boost::archive::text_iarchive>(a3, v5);
 }
 
 void boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::~singleton_wrapper(boost::archive::detail::basic_iserializer *a1)
@@ -8985,7 +8958,7 @@ void boost::serialization::detail::singleton_wrapper<boost::archive::detail::ise
   JUMPOUT(0x25F8B04C0);
 }
 
-void *boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::singleton_wrapper(void *a1)
+boost::archive::detail::basic_iserializer *boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::singleton_wrapper(boost::archive::detail::basic_iserializer *a1)
 {
   instance = boost::serialization::singleton<boost::serialization::extended_type_info_typeid<boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::get_instance();
   boost::archive::detail::basic_iserializer::basic_iserializer(a1, instance);
@@ -9013,7 +8986,7 @@ void boost::serialization::detail::singleton_wrapper<boost::archive::detail::ise
   JUMPOUT(0x25F8B04C0);
 }
 
-void *boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::singleton_wrapper(void *a1)
+boost::archive::detail::basic_iserializer *boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::singleton_wrapper(boost::archive::detail::basic_iserializer *a1)
 {
   instance = boost::serialization::singleton<boost::serialization::extended_type_info_typeid<boost::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance();
   boost::archive::detail::basic_iserializer::basic_iserializer(a1, instance);
@@ -9041,7 +9014,7 @@ void boost::serialization::detail::singleton_wrapper<boost::archive::detail::ise
   JUMPOUT(0x25F8B04C0);
 }
 
-void *boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::singleton_wrapper(void *a1)
+boost::archive::detail::basic_iserializer *boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::singleton_wrapper(boost::archive::detail::basic_iserializer *a1)
 {
   instance = boost::serialization::singleton<boost::serialization::extended_type_info_typeid<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>::get_instance();
   boost::archive::detail::basic_iserializer::basic_iserializer(a1, instance);
@@ -9069,7 +9042,7 @@ void boost::serialization::detail::singleton_wrapper<boost::archive::detail::ise
   JUMPOUT(0x25F8B04C0);
 }
 
-void *boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::singleton_wrapper(void *a1)
+boost::archive::detail::basic_iserializer *boost::serialization::detail::singleton_wrapper<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::singleton_wrapper(boost::archive::detail::basic_iserializer *a1)
 {
   instance = boost::serialization::singleton<boost::serialization::extended_type_info_typeid<std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>>>::get_instance();
   boost::archive::detail::basic_iserializer::basic_iserializer(a1, instance);
@@ -9082,17 +9055,17 @@ void *boost::serialization::detail::singleton_wrapper<boost::archive::detail::is
   return a1;
 }
 
-void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::unlimited_storage<std::allocator<char>>>>::~singleton_wrapper(boost::serialization::extended_type_info *a1)
+void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::unlimited_storage<std::allocator<char>>>>::~singleton_wrapper(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = &unk_286FF1318;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::unlimited_storage<std::allocator<char>>>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<boost::histogram::unlimited_storage<std::allocator<char>>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::histogram::unlimited_storage<std::allocator<char>>>::~extended_type_info_typeid(a1, a2);
 }
 
 {
   *a1 = &unk_286FF1318;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::unlimited_storage<std::allocator<char>>>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<boost::histogram::unlimited_storage<std::allocator<char>>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::histogram::unlimited_storage<std::allocator<char>>>::~extended_type_info_typeid(a1, a2);
 
   JUMPOUT(0x25F8B04C0);
 }
@@ -9112,21 +9085,21 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *boost::seriali
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = &unk_286FF13C0;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void boost::serialization::extended_type_info_typeid<boost::histogram::unlimited_storage<std::allocator<char>>>::~extended_type_info_typeid(boost::serialization::extended_type_info *a1)
+void boost::serialization::extended_type_info_typeid<boost::histogram::unlimited_storage<std::allocator<char>>>::~extended_type_info_typeid(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = &unk_286FF13C0;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
 {
-  boost::serialization::extended_type_info_typeid<boost::histogram::unlimited_storage<std::allocator<char>>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::histogram::unlimited_storage<std::allocator<char>>>::~extended_type_info_typeid(a1, a2);
 
   JUMPOUT(0x25F8B04C0);
 }
@@ -9174,31 +9147,29 @@ uint64_t boost::serialization::access::destroy<boost::histogram::unlimited_stora
   return result;
 }
 
-unint64_t *boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::unlimited_storage<std::allocator<char>>>::load_object_data(uint64_t a1, char **a2, unint64_t *a3)
+unint64_t *boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::unlimited_storage<std::allocator<char>>>::load_object_data(uint64_t a1, const void *a2, unint64_t *a3, uint64_t a4)
 {
-  v4 = boost::serialization::smart_cast_impl::reference<boost::archive::text_iarchive &>::polymorphic::cross::cast<boost::archive::detail::basic_iarchive>(a2);
+  v5 = boost::serialization::smart_cast_impl::reference<boost::archive::text_iarchive &>::polymorphic::cross::cast<boost::archive::detail::basic_iarchive>(a2);
 
-  return boost::histogram::unlimited_storage<std::allocator<char>>::serialize<boost::archive::text_iarchive>(a3, v4);
+  return boost::histogram::unlimited_storage<std::allocator<char>>::serialize<boost::archive::text_iarchive>(a3, v5);
 }
 
 unint64_t *boost::histogram::unlimited_storage<std::allocator<char>>::serialize<boost::archive::text_iarchive>(unint64_t *a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v8 = 0;
-  v10 = 0;
-  v6[2] = 0;
-  boost::archive::basic_text_iprimitive<std::istream>::load<short>((a2 + 40));
+  v10 = *MEMORY[0x277D85DE8];
+  v7 = 0;
   v9 = 0;
+  v5[2] = 0;
+  boost::archive::basic_text_iprimitive<std::istream>::load<short>((a2 + 40));
+  v8 = 0;
   boost::archive::basic_text_iprimitive<std::istream>::load<unsigned long>((a2 + 40));
-  v6[0] = a1;
-  v6[1] = 0;
-  boost::histogram::unlimited_storage<std::allocator<char>>::buffer_type::apply<void boost::histogram::unlimited_storage<std::allocator<char>>::serialize<boost::archive::text_iarchive>(boost::archive::text_iarchive &,unsigned int)::{lambda(boost::archive::text_iarchive*)#1}>(&v7, v6);
-  boost::histogram::unlimited_storage<std::allocator<char>>::buffer_type::destroy(&v7);
-  v7 = a1;
-  v8 = a2;
-  result = boost::histogram::unlimited_storage<std::allocator<char>>::buffer_type::apply<void boost::histogram::unlimited_storage<std::allocator<char>>::serialize<boost::archive::text_iarchive>(boost::archive::text_iarchive &,unsigned int)::{lambda(boost::archive::text_iarchive*)#2}>(a1, &v7);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = a1;
+  v5[1] = 0;
+  boost::histogram::unlimited_storage<std::allocator<char>>::buffer_type::apply<void boost::histogram::unlimited_storage<std::allocator<char>>::serialize<boost::archive::text_iarchive>(boost::archive::text_iarchive &,unsigned int)::{lambda(boost::archive::text_iarchive*)#1}>(&v6, v5);
+  boost::histogram::unlimited_storage<std::allocator<char>>::buffer_type::destroy(&v6);
+  v6 = a1;
+  v7 = a2;
+  return boost::histogram::unlimited_storage<std::allocator<char>>::buffer_type::apply<void boost::histogram::unlimited_storage<std::allocator<char>>::serialize<boost::archive::text_iarchive>(boost::archive::text_iarchive &,unsigned int)::{lambda(boost::archive::text_iarchive*)#2}>(a1, &v6);
 }
 
 void boost::histogram::unlimited_storage<std::allocator<char>>::buffer_type::apply<void boost::histogram::unlimited_storage<std::allocator<char>>::serialize<boost::archive::text_iarchive>(boost::archive::text_iarchive &,unsigned int)::{lambda(boost::archive::text_iarchive*)#1}>(uint64_t a1, uint64_t *a2)
@@ -9415,33 +9386,31 @@ LABEL_24:
 
 void *boost::archive::basic_text_iprimitive<std::istream>::load<short>(void *a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   result = MEMORY[0x25F8B02B0](*a1);
   if ((*(result + *(*result - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v3, 8, 0, 0);
-    boost::serialization::throw_exception<boost::archive::archive_exception>(v3);
+    boost::archive::archive_exception::archive_exception(v2, 8, 0, 0);
+    boost::serialization::throw_exception<boost::archive::archive_exception>(v2);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void *boost::archive::basic_text_iprimitive<std::istream>::load<unsigned long>(void *a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   result = MEMORY[0x25F8B02A0](*a1);
   if ((*(result + *(*result - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v3, 8, 0, 0);
-    boost::serialization::throw_exception<boost::archive::archive_exception>(v3);
+    boost::archive::archive_exception::archive_exception(v2, 8, 0, 0);
+    boost::serialization::throw_exception<boost::archive::archive_exception>(v2);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void boost::histogram::unlimited_storage<std::allocator<char>>::buffer_type::make<unsigned char>(uint64_t a1, uint64_t a2)
+void boost::histogram::unlimited_storage<std::allocator<char>>::buffer_type::make<unsigned char>(uint64_t a1, size_t a2)
 {
   boost::histogram::unlimited_storage<std::allocator<char>>::buffer_type::destroy(a1);
   if (a2)
@@ -9541,17 +9510,17 @@ void boost::histogram::detail::create_buffer<std::allocator<boost::histogram::de
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<unsigned long long>::vector[abi:ne200100]<0>(void *result, unint64_t a2)
+uint64_t *std::vector<unsigned long long>::vector[abi:ne200100]<0>(uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<double>::__vallocate[abi:ne200100](result, a2);
+    std::vector<double>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_25E320958(_Unwind_Exception *exception_object)
@@ -9580,29 +9549,27 @@ void boost::histogram::unlimited_storage<std::allocator<char>>::buffer_type::mak
 
 void *boost::archive::basic_text_iprimitive<std::istream>::load<unsigned short>(void *a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   result = MEMORY[0x25F8B02C0](*a1);
   if ((*(result + *(*result - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v3, 8, 0, 0);
-    boost::serialization::throw_exception<boost::archive::archive_exception>(v3);
+    boost::archive::archive_exception::archive_exception(v2, 8, 0, 0);
+    boost::serialization::throw_exception<boost::archive::archive_exception>(v2);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void *boost::archive::basic_text_iprimitive<std::istream>::load<unsigned long long>(void *a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   result = MEMORY[0x25F8B02D0](*a1);
   if ((*(result + *(*result - 24) + 32) & 5) != 0)
   {
-    boost::archive::archive_exception::archive_exception(v3, 8, 0, 0);
-    boost::serialization::throw_exception<boost::archive::archive_exception>(v3);
+    boost::archive::archive_exception::archive_exception(v2, 8, 0, 0);
+    boost::serialization::throw_exception<boost::archive::archive_exception>(v2);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9626,17 +9593,17 @@ unint64_t *boost::serialization::array_wrapper<boost::histogram::detail::mp_int<
   return result;
 }
 
-void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::~singleton_wrapper(boost::serialization::extended_type_info *a1)
+void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::~singleton_wrapper(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = &unk_286FF1418;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>::~extended_type_info_typeid(a1, a2);
 }
 
 {
   *a1 = &unk_286FF1418;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>::~extended_type_info_typeid(a1, a2);
 
   JUMPOUT(0x25F8B04C0);
 }
@@ -9656,21 +9623,21 @@ boost::serialization::typeid_system::extended_type_info_typeid_0 *boost::seriali
 {
   v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
   *v2 = &unk_286FF14C0;
-  boost::serialization::extended_type_info::key_register(a1);
+  boost::serialization::extended_type_info::key_register(a1, v3);
   return a1;
 }
 
-void boost::serialization::extended_type_info_typeid<boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>::~extended_type_info_typeid(boost::serialization::extended_type_info *a1)
+void boost::serialization::extended_type_info_typeid<boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>::~extended_type_info_typeid(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = &unk_286FF14C0;
-  boost::serialization::extended_type_info::key_unregister(a1);
-  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1);
+  boost::serialization::extended_type_info::key_unregister(a1, a2);
+  boost::serialization::typeid_system::extended_type_info_typeid_0::type_unregister(a1, v3);
 
   boost::serialization::typeid_system::extended_type_info_typeid_0::~extended_type_info_typeid_0(a1);
 }
 
 {
-  boost::serialization::extended_type_info_typeid<boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>::~extended_type_info_typeid(a1, a2);
 
   JUMPOUT(0x25F8B04C0);
 }
@@ -9724,7 +9691,7 @@ void **boost::serialization::access::destroy<boost::histogram::detail::mp_int<st
   return result;
 }
 
-uint64_t boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>::load_object_data(uint64_t a1, char **a2, unint64_t a3)
+uint64_t boost::archive::detail::iserializer<boost::archive::text_iarchive,boost::histogram::detail::mp_int<std::allocator<unsigned long long>>>::load_object_data(uint64_t a1, const void *a2, unint64_t a3)
 {
   v4 = boost::serialization::smart_cast_impl::reference<boost::archive::text_iarchive &>::polymorphic::cross::cast<boost::archive::detail::basic_iarchive>(a2);
   instance = boost::serialization::singleton<boost::archive::detail::iserializer<boost::archive::text_iarchive,std::vector<unsigned long long>>>::get_instance();
@@ -9732,17 +9699,36 @@ uint64_t boost::archive::detail::iserializer<boost::archive::text_iarchive,boost
   return boost::archive::detail::basic_iarchive::load_object(v4, a3, instance);
 }
 
-void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<std::vector<unsigned long long>>>::~singleton_wrapper(boost::serialization::extended_type_info *a1)
+void boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<std::vector<unsigned long long>>>::~singleton_wrapper(boost::serialization::extended_type_info *a1, uint64_t a2)
 {
   *a1 = &unk_286FF1518;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<std::vector<unsigned long long>>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<std::vector<unsigned long long>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<std::vector<unsigned long long>>::~extended_type_info_typeid(a1, a2);
 }
 
 {
   *a1 = &unk_286FF1518;
   boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<std::vector<unsigned long long>>>::get_is_destroyed(void)::is_destroyed_flag = 1;
-  boost::serialization::extended_type_info_typeid<std::vector<unsigned long long>>::~extended_type_info_typeid(a1);
+  boost::serialization::extended_type_info_typeid<std::vector<unsigned long long>>::~extended_type_info_typeid(a1, a2);
 
   JUMPOUT(0x25F8B04C0);
+}
+
+boost::serialization::typeid_system::extended_type_info_typeid_0 *boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<std::vector<unsigned long long>>>::singleton_wrapper(boost::serialization::typeid_system::extended_type_info_typeid_0 *a1)
+{
+  *boost::serialization::extended_type_info_typeid<std::vector<unsigned long long>>::extended_type_info_typeid(a1) = &unk_286FF1518;
+  if (boost::serialization::detail::singleton_wrapper<boost::serialization::extended_type_info_typeid<std::vector<unsigned long long>>>::get_is_destroyed(void)::is_destroyed_flag == 1)
+  {
+    __assert_rtn("singleton_wrapper", "singleton.hpp", 148, "! is_destroyed()");
+  }
+
+  return a1;
+}
+
+boost::serialization::typeid_system::extended_type_info_typeid_0 *boost::serialization::extended_type_info_typeid<std::vector<unsigned long long>>::extended_type_info_typeid(boost::serialization::typeid_system::extended_type_info_typeid_0 *a1)
+{
+  v2 = boost::serialization::typeid_system::extended_type_info_typeid_0::extended_type_info_typeid_0(a1, 0);
+  *v2 = &unk_286FF15C0;
+  boost::serialization::extended_type_info::key_register(a1, v3);
+  return a1;
 }

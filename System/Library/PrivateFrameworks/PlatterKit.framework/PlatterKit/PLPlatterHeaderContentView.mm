@@ -152,8 +152,9 @@
   if (self->_usesLargeTextLayout != layout)
   {
     self->_usesLargeTextLayout = layout;
+    layoutManager = self->_layoutManager;
     self->_layoutManager = 0;
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](self, layoutManager);
   }
 }
 

@@ -91,34 +91,35 @@
       v5 = equalCopy;
       queryDescriptors = self->_queryDescriptors;
       v7 = v5->_queryDescriptors;
-      if (queryDescriptors != v7 && (!v7 || ![(NSArray *)queryDescriptors isEqual:?]))
+      v18 = 0;
+      if (queryDescriptors == v7 || v7 && [(NSArray *)queryDescriptors isEqual:?])
       {
-        goto LABEL_24;
-      }
-
-      sortDescriptors = self->_sortDescriptors;
-      v9 = v5->_sortDescriptors;
-      if (sortDescriptors != v9 && (!v9 || ![(NSArray *)sortDescriptors isEqual:?]))
-      {
-        goto LABEL_24;
-      }
-
-      followingAnchor = self->_followingAnchor;
-      v11 = v5->_followingAnchor;
-      if (followingAnchor != v11 && (!v11 || ![(HKQueryAnchor *)followingAnchor isEqual:?]))
-      {
-        goto LABEL_24;
-      }
-
-      if (((upToAndIncludingAnchor = self->_upToAndIncludingAnchor, v13 = v5->_upToAndIncludingAnchor, upToAndIncludingAnchor == v13) || v13 && [(HKQueryAnchor *)upToAndIncludingAnchor isEqual:?]) && ((distinctByKeyPaths = self->_distinctByKeyPaths, v15 = v5->_distinctByKeyPaths, distinctByKeyPaths == v15) || v15 && [(NSArray *)distinctByKeyPaths isEqual:?]) && ((state = self->_state, v17 = v5->_state, state == v17) || v17 && [(NSData *)state isEqual:?]))
-      {
-        v18 = 1;
-      }
-
-      else
-      {
-LABEL_24:
-        v18 = 0;
+        sortDescriptors = self->_sortDescriptors;
+        v9 = v5->_sortDescriptors;
+        if (sortDescriptors == v9 || v9 && [(NSArray *)sortDescriptors isEqual:?])
+        {
+          followingAnchor = self->_followingAnchor;
+          v11 = v5->_followingAnchor;
+          if (followingAnchor == v11 || v11 && [(HKQueryAnchor *)followingAnchor isEqual:?])
+          {
+            upToAndIncludingAnchor = self->_upToAndIncludingAnchor;
+            v13 = v5->_upToAndIncludingAnchor;
+            if (upToAndIncludingAnchor == v13 || v13 && [(HKQueryAnchor *)upToAndIncludingAnchor isEqual:?])
+            {
+              distinctByKeyPaths = self->_distinctByKeyPaths;
+              v15 = v5->_distinctByKeyPaths;
+              if (distinctByKeyPaths == v15 || v15 && [(NSArray *)distinctByKeyPaths isEqual:?])
+              {
+                state = self->_state;
+                v17 = v5->_state;
+                if (state == v17 || v17 && [(NSData *)state isEqual:?])
+                {
+                  v18 = 1;
+                }
+              }
+            }
+          }
+        }
       }
     }
 
@@ -145,7 +146,7 @@ LABEL_24:
 
 - (HKSampleIteratorQueryCursor)initWithCoder:(id)coder
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v4 = [MEMORY[0x1E695DFD8] hk_typesForArrayOf:objc_opt_class()];
   v5 = [coderCopy decodeObjectOfClasses:v4 forKey:@"queryDescriptors"];
@@ -159,38 +160,37 @@ LABEL_24:
   v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"DistinctByKeyPaths"];
 
   v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"State"];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v13 = v7;
-  v14 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v23;
+    v16 = *v22;
     do
     {
       v17 = 0;
       do
       {
-        if (*v23 != v16)
+        if (*v22 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [*(*(&v22 + 1) + 8 * v17++) allowEvaluation];
+        [*(*(&v21 + 1) + 8 * v17++) allowEvaluation];
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v15);
   }
 
   v18 = [(HKSampleIteratorQueryCursor *)self initWithQueryDescriptors:v5 sortDescriptors:v13 followingAnchor:v8 upToAndIncludingAnchor:v9 distinctByKeyPaths:v11 state:v12];
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 

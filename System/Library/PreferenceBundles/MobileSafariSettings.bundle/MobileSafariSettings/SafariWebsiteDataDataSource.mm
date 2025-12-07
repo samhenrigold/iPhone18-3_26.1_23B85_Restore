@@ -91,11 +91,6 @@ void __69__SafariWebsiteDataDataSource_createSpecifiersWithCompletionHandler___b
 void __69__SafariWebsiteDataDataSource_createSpecifiersWithCompletionHandler___block_invoke_2(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  if (WeakRetained)
-  {
-    v2 = *(a1 + 32);
-  }
-
   (*(*(a1 + 40) + 16))();
 }
 
@@ -137,12 +132,12 @@ void __69__SafariWebsiteDataDataSource_createSpecifiersWithCompletionHandler___b
   _Block_object_dispose(&v13, 8);
 }
 
-id __69__SafariWebsiteDataDataSource_deleteAllDataForProfileWithIdentifier___block_invoke(uint64_t a1)
+id __69__SafariWebsiteDataDataSource_deleteAllDataForProfileWithIdentifier___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+  v3 = WBS_LOG_CHANNEL_PREFIXWebsiteData(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    __69__SafariWebsiteDataDataSource_deleteAllDataForProfileWithIdentifier___block_invoke_cold_1(v2);
+    __69__SafariWebsiteDataDataSource_deleteAllDataForProfileWithIdentifier___block_invoke_cold_1(v3);
   }
 
   return [UIApp endBackgroundTask:*(*(*(a1 + 32) + 8) + 24)];

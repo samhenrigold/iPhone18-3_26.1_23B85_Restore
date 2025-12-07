@@ -4,6 +4,8 @@
 - (void)handleButtonActions:(id)actions;
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -31,6 +33,86 @@
 
   remoteViewController4 = [(HCSRemoteAlertServiceViewController *)self remoteViewController];
   [remoteViewController4 didMoveToParentViewController:self];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v15.receiver = self;
+  v15.super_class = HCSRemoteAlertServiceViewController;
+  [(HCSRemoteAlertServiceViewController *)&v15 viewWillAppear:appear];
+  v5 = HFLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = NSStringFromSelector(a2);
+    *buf = 138412546;
+    selfCopy2 = self;
+    v18 = 2112;
+    v19 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@: %@", buf, 0x16u);
+  }
+
+  v7 = HFLogForCategory();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = NSStringFromSelector(a2);
+    *buf = 138412546;
+    selfCopy2 = self;
+    v18 = 2112;
+    v19 = v8;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@: %@ Disabling idle timer", buf, 0x16u);
+  }
+
+  remoteViewController = [(HCSRemoteAlertServiceViewController *)self remoteViewController];
+  serviceContext = [remoteViewController serviceContext];
+  serviceType = [serviceContext serviceType];
+
+  if (serviceType == 2)
+  {
+    remoteViewController2 = [(HCSRemoteAlertServiceViewController *)self remoteViewController];
+    serviceContext2 = [remoteViewController2 serviceContext];
+    remoteViewControllerProxy = [serviceContext2 remoteViewControllerProxy];
+    [remoteViewControllerProxy setIdleTimerDisabled:1 forReason:@"DropIn"];
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v15.receiver = self;
+  v15.super_class = HCSRemoteAlertServiceViewController;
+  [(HCSRemoteAlertServiceViewController *)&v15 viewWillDisappear:disappear];
+  v5 = HFLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = NSStringFromSelector(a2);
+    *buf = 138412546;
+    selfCopy2 = self;
+    v18 = 2112;
+    v19 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@: %@", buf, 0x16u);
+  }
+
+  v7 = HFLogForCategory();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = NSStringFromSelector(a2);
+    *buf = 138412546;
+    selfCopy2 = self;
+    v18 = 2112;
+    v19 = v8;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@: %@ Enabling idle timer", buf, 0x16u);
+  }
+
+  remoteViewController = [(HCSRemoteAlertServiceViewController *)self remoteViewController];
+  serviceContext = [remoteViewController serviceContext];
+  serviceType = [serviceContext serviceType];
+
+  if (serviceType == 2)
+  {
+    remoteViewController2 = [(HCSRemoteAlertServiceViewController *)self remoteViewController];
+    serviceContext2 = [remoteViewController2 serviceContext];
+    remoteViewControllerProxy = [serviceContext2 remoteViewControllerProxy];
+    [remoteViewControllerProxy setIdleTimerDisabled:0 forReason:@"DropIn"];
+  }
 }
 
 - (void)viewWillLayoutSubviews

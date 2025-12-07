@@ -9,13 +9,13 @@ void __stream_Resume_block_invoke(uint64_t a1)
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APTransportStreamUnbuffered <= 30 && (gLogCategory_APTransportStreamUnbuffered != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APTransportStreamUnbuffered, "OSStatus stream_resumeInternal(FigTransportStreamRef)", 33554462, "[%{ptr}] Resuming.\n", v2);
   }
 
   if (*(DerivedStorage + 24))
   {
     APSLogErrorAt();
-    v19 = -16617;
+    v14 = -16617;
     goto LABEL_21;
   }
 
@@ -27,91 +27,85 @@ void __stream_Resume_block_invoke(uint64_t a1)
   v4 = *DerivedStorage;
   if (*DerivedStorage == 1935897198)
   {
-    v5 = *(DerivedStorage + 56);
     APSEventRecorderRecordEventWithFlags();
   }
 
-  v6 = *(DerivedStorage + 40);
-  v7 = *(DerivedStorage + 104);
-  v8 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-  if (!v8)
+  v5 = *(DerivedStorage + 40);
+  v6 = *(DerivedStorage + 104);
+  v7 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+  if (!v7)
   {
-    v19 = -12782;
+    v14 = -12782;
 LABEL_20:
     APSLogErrorAt();
     goto LABEL_21;
   }
 
-  v9 = v8(v6, v2, stream_handleEventFromSendConnection, v7, 0);
-  if (v9)
+  v8 = v7(v5, v2, stream_handleEventFromSendConnection, v6, 0);
+  if (v8)
   {
-    v19 = v9;
+    v14 = v8;
     goto LABEL_20;
   }
 
-  v10 = *(DerivedStorage + 40);
-  v11 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-  if (!v11)
+  v9 = *(DerivedStorage + 40);
+  v10 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+  if (!v10)
   {
-    v19 = -12782;
+    v14 = -12782;
     goto LABEL_20;
   }
 
-  v12 = v11(v10);
-  if (v12)
+  v11 = v10(v9);
+  if (v11)
   {
-    v19 = v12;
+    v14 = v11;
     goto LABEL_20;
   }
 
   if (v4 == 1935897198)
   {
-    v13 = *(DerivedStorage + 56);
     APSEventRecorderRecordEventWithFlags();
   }
 
   *(DerivedStorage + 25) = 1;
-  v14 = CMBaseObjectGetDerivedStorage();
-  v15 = *(v14 + 28);
-  if (v15)
+  v12 = *(CMBaseObjectGetDerivedStorage() + 28);
+  if (v12)
   {
-    v16 = v14;
     CFRetain(v2);
-    v17 = *(v16 + 104);
     OUTLINED_FUNCTION_4_8();
-    v21 = 0x40000000;
-    v22 = __stream_postCachedConnectionEvent_block_invoke;
-    v23 = &__block_descriptor_tmp_38;
-    v25 = v15;
-    v24 = v2;
-    dispatch_async(v18, block);
+    v16 = 0x40000000;
+    v17 = __stream_postCachedConnectionEvent_block_invoke;
+    v18 = &__block_descriptor_tmp_38;
+    v20 = v12;
+    v19 = v2;
+    dispatch_async(v13, block);
   }
 
 LABEL_17:
-  v19 = 0;
+  v14 = 0;
 LABEL_21:
-  *(DerivedStorage + 48) = v19;
-  *(*(*(a1 + 32) + 8) + 24) = v19;
+  *(DerivedStorage + 48) = v14;
+  *(*(*(a1 + 32) + 8) + 24) = v14;
 }
 
 void __stream_Resume_block_invoke_0(uint64_t a1)
 {
   v2 = *(a1 + 40);
-  v17 = 0;
+  v16 = 0;
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  if (gLogCategory_APTransportStream <= 30 && (gLogCategory_APTransportStream != -1 || OUTLINED_FUNCTION_8_0()))
+  if (gLogCategory_APTransportStream <= 30 && (gLogCategory_APTransportStream != -1 || OUTLINED_FUNCTION_8_0(&gLogCategory_APTransportStream)))
   {
-    OUTLINED_FUNCTION_7_0();
+    OUTLINED_FUNCTION_7_0(&gLogCategory_APTransportStream, "OSStatus stream_resumeInternal(FigTransportStreamRef)", v3, "[%{ptr}] Resuming.\n");
   }
 
   if (*(DerivedStorage + 72))
   {
     APSLogErrorAt();
-    v17 = -16617;
+    v16 = -16617;
     goto LABEL_20;
   }
 
-  v4 = *(DerivedStorage + 24);
   OUTLINED_FUNCTION_11_7();
   if (v6)
   {
@@ -128,21 +122,20 @@ void __stream_Resume_block_invoke_0(uint64_t a1)
     v12 = *(*(CMBaseObjectGetVTable() + 16) + 16);
     if (v12)
     {
-      v17 = v12(v9, v2, v8, v10, v11);
-      if (!v17)
+      v16 = v12(v9, v2, v8, v10, v11);
+      if (!v16)
       {
         v13 = *(v7 + 24);
         v14 = *(*(CMBaseObjectGetVTable() + 16) + 8);
         if (v14)
         {
-          v17 = v14(v13);
-          if (!v17)
+          v16 = v14(v13);
+          if (!v16)
           {
             if (APTransportStreamIDGetStreamCategory(*DerivedStorage) == 2)
             {
-              v15 = *(v7 + 24);
-              v16 = APSGetFBOPropertyInt64();
-              *DerivedStorage = APTransportStreamIDInsertPort(*DerivedStorage, v16);
+              v15 = APSGetFBOPropertyInt64();
+              *DerivedStorage = APTransportStreamIDInsertPort(*DerivedStorage, v15);
             }
 
             *(v7 + 9) = 1;
@@ -153,30 +146,71 @@ void __stream_Resume_block_invoke_0(uint64_t a1)
 
         else
         {
-          v17 = -12782;
+          v16 = -12782;
         }
       }
     }
 
     else
     {
-      v17 = -12782;
+      v16 = -12782;
     }
 
     APSLogErrorAt();
   }
 
 LABEL_20:
-  *(*(*(a1 + 32) + 8) + 24) = v17;
+  *(*(*(a1 + 32) + 8) + 24) = v16;
 }
 
-void __unbufnw_Resume_block_invoke_2(uint64_t a1)
+void __unbufnw_Resume_block_invoke_2(uint64_t a1, NSObject *a2)
 {
-  v2 = *(*(a1 + 40) + 168);
-  ASPrintF();
-  __unbufnw_Resume_block_invoke_2_cold_3(a1);
-  free(0);
-  sec_release(0);
+  v8 = *(*(a1 + 40) + 168);
+  application_protocol = 0;
+  ASPrintF(&application_protocol, "AirPlay/%@", v8);
+  if (application_protocol)
+  {
+    nw_quic_add_tls_application_protocol(a2, application_protocol);
+    nw_quic_set_idle_timeout(a2, 0);
+    v4 = nw_quic_copy_sec_protocol_options(a2);
+    v6 = v4;
+    if (v4)
+    {
+      if (*(*(a1 + 40) + 36))
+      {
+        SharedSelfSignedIdentity = APTransportConnectionGetSharedSelfSignedIdentity(v4, v5);
+        if (!SharedSelfSignedIdentity)
+        {
+          __unbufnw_Resume_block_invoke_2_cold_1();
+          goto LABEL_8;
+        }
+
+        sec_protocol_options_set_local_identity(v6, SharedSelfSignedIdentity);
+      }
+
+      else
+      {
+        sec_protocol_options_set_peer_authentication_required(v4, 0);
+      }
+
+      sec_protocol_options_append_tls_ciphersuite(v6, tls_ciphersuite_CHACHA20_POLY1305_SHA256);
+    }
+
+    else
+    {
+      __unbufnw_Resume_block_invoke_2_cold_2();
+    }
+  }
+
+  else
+  {
+    __unbufnw_Resume_block_invoke_2_cold_3();
+    v6 = 0;
+  }
+
+LABEL_8:
+  free(application_protocol);
+  sec_release(v6);
 }
 
 void __unbufnw_Resume_block_invoke_3(uint64_t a1, unsigned int a2, nw_error_t error)
@@ -204,14 +238,17 @@ void __unbufnw_Resume_block_invoke_3(uint64_t a1, unsigned int a2, nw_error_t er
 
   if (v6 >= gLogCategory_APTransportConnectionUnbufferedNW && (gLogCategory_APTransportConnectionUnbufferedNW != -1 || _LogCategory_Initialize()))
   {
-    v7 = *(*(v4 + 24) + 16);
-    if (a2 <= 4)
+    if (a2 > 4)
     {
-      v8 = off_278BC8720[a2];
+      v7 = "unknown";
     }
 
-    v10 = *(*(v4 + 24) + 16);
-    LogPrintF();
+    else
+    {
+      v7 = off_278BC8720[a2];
+    }
+
+    LogPrintF(&gLogCategory_APTransportConnectionUnbufferedNW, "void unbufnwGuts_listenerStateChangedHandler(APTransportConnectionUnbufferedNWListenerContext *, nw_listener_state_t, nw_error_t)", v6 | 0x2000000u, "[%{ptr}] listener state '%s'%?{end} err=%#m", *(*(v4 + 24) + 16), v7, error_code == 0, error_code);
   }
 
   if (a2 != 2)
@@ -220,7 +257,7 @@ void __unbufnw_Resume_block_invoke_3(uint64_t a1, unsigned int a2, nw_error_t er
     {
       if (!error_code)
       {
-        error_code = -6700;
+        LODWORD(error_code) = -6700;
       }
     }
 
@@ -231,7 +268,7 @@ void __unbufnw_Resume_block_invoke_3(uint64_t a1, unsigned int a2, nw_error_t er
         return;
       }
 
-      error_code = -6723;
+      LODWORD(error_code) = -6723;
     }
   }
 
@@ -245,51 +282,47 @@ void __unbufnw_Resume_block_invoke_3(uint64_t a1, unsigned int a2, nw_error_t er
   if (a2 == 4)
   {
     CFRelease(*(v4 + 24));
-    v9 = *(v4 + 40);
+    v8 = *(v4 + 40);
 
-    dispatch_release(v9);
+    dispatch_release(v8);
   }
 }
 
 uint64_t __unbufnw_Resume_block_invoke_4(uint64_t a1, NSObject *a2)
 {
-  v4 = *(*(a1 + 32) + 72);
   FigSimpleMutexLock();
   unbufnwGuts_handleNewConnectionGroupInternal(*(a1 + 32), a2);
-  v5 = *(*(a1 + 32) + 72);
 
   return FigSimpleMutexUnlock();
 }
 
 uint64_t __unbufnw_Resume_block_invoke_5(uint64_t a1, NSObject *a2)
 {
-  v4 = *(*(a1 + 32) + 72);
   FigSimpleMutexLock();
-  unbufnwGuts_handleNewConnectionInternal(*(a1 + 32), a2);
-  v5 = *(*(a1 + 32) + 72);
+  unbufnwGuts_handleNewConnectionInternal(*(a1 + 32), a2, 1);
 
   return FigSimpleMutexUnlock();
 }
 
-void __unbufnw_Resume_block_invoke_2_cold_1(uint64_t a1)
+void __unbufnw_Resume_block_invoke_2_cold_1()
 {
   APSLogErrorAt();
-  OUTLINED_FUNCTION_6_10(*(a1 + 32));
-  *(v2 + 24) = v3;
+  OUTLINED_FUNCTION_6_10();
+  *(v0 + 24) = v1;
 }
 
-void __unbufnw_Resume_block_invoke_2_cold_2(uint64_t a1)
+void __unbufnw_Resume_block_invoke_2_cold_2()
 {
   APSLogErrorAt();
-  OUTLINED_FUNCTION_6_10(*(a1 + 32));
-  *(v2 + 24) = v3;
+  OUTLINED_FUNCTION_6_10();
+  *(v0 + 24) = v1;
 }
 
-void __unbufnw_Resume_block_invoke_2_cold_3(uint64_t a1)
+void __unbufnw_Resume_block_invoke_2_cold_3()
 {
   APSLogErrorAt();
-  OUTLINED_FUNCTION_6_10(*(a1 + 32));
-  *(v2 + 24) = v3;
+  OUTLINED_FUNCTION_6_10();
+  *(v0 + 24) = v1;
 }
 
 void __lowPowerKeepAliveController_Resume_block_invoke(uint64_t a1)
@@ -313,7 +346,7 @@ void __lowPowerKeepAliveController_Resume_block_invoke(uint64_t a1)
       dispatch_resume(*(v4 + 24));
       if (gLogCategory_APTKeepAliveControllerLowPower <= 50 && (gLogCategory_APTKeepAliveControllerLowPower != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APTKeepAliveControllerLowPower, "OSStatus lowPowerKeepAliveController_resumeInternal(APTransportKeepAliveControllerRef)", 33554482, "[%{ptr}] Started keep alive with interval %d s", v2, 10);
       }
 
       *(v4 + 32) = 1;

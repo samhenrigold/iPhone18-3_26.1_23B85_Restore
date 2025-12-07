@@ -16,57 +16,58 @@
 
 - (id)initBase
 {
-  v9.receiver = self;
-  v9.super_class = EPPairer;
-  v2 = [(EPPairer *)&v9 init];
+  v11.receiver = self;
+  v11.super_class = EPPairer;
+  v2 = [(EPPairer *)&v11 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_1000A9948();
-    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+    v4 = sub_1000A9948(v2);
+    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-    if (v4)
+    if (v5)
     {
-      v5 = sub_1000A9948();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = sub_1000A9948(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = objc_opt_class();
-        v7 = NSStringFromClass(v6);
+        v8 = objc_opt_class();
+        v9 = NSStringFromClass(v8);
         *buf = 138412546;
-        v11 = v7;
-        v12 = 2048;
-        v13 = v2;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "init %@[%p]", buf, 0x16u);
+        v13 = v9;
+        v14 = 2048;
+        v15 = v3;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "init %@[%p]", buf, 0x16u);
       }
     }
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)dealloc
 {
-  v3 = sub_1000A9948();
+  v3 = sub_1000A9948(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = sub_1000A9948();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_1000A9948(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
       *buf = 138412546;
-      v10 = v7;
-      v11 = 2048;
+      v11 = v8;
+      v12 = 2048;
       selfCopy = self;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "dealloc %@[%p]", buf, 0x16u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "dealloc %@[%p]", buf, 0x16u);
     }
   }
 
   [(EPPairerList *)self->_pairerList removePairer:self];
-  v8.receiver = self;
-  v8.super_class = EPPairer;
-  [(EPPairer *)&v8 dealloc];
+  v9.receiver = self;
+  v9.super_class = EPPairer;
+  [(EPPairer *)&v9 dealloc];
 }
 
 - (EPPairer)initWithDevice:(id)device withDelegate:(id)delegate pairerList:(id)list
@@ -87,19 +88,15 @@
     agent = v13->_agent;
     v13->_agent = v16;
 
-    if (([deviceCopy isPeripheral] & 1) == 0)
+    if ([deviceCopy isPeripheral] & 1) == 0 && (objc_opt_respondsToSelector())
     {
-      delegate = v13->_delegate;
-      if (objc_opt_respondsToSelector())
-      {
-        v19 = +[EPFactory queue];
-        block[0] = _NSConcreteStackBlock;
-        block[1] = 3221225472;
-        block[2] = sub_10005E19C;
-        block[3] = &unk_100175660;
-        v22 = v13;
-        dispatch_async(v19, block);
-      }
+      v18 = +[EPFactory queue];
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_10005E19C;
+      block[3] = &unk_100175660;
+      v21 = v13;
+      dispatch_async(v18, block);
     }
   }
 
@@ -125,16 +122,16 @@
 - (void)respondWithType:(int64_t)type accept:(BOOL)accept data:(id)data
 {
   dataCopy = data;
-  v9 = sub_1000A98C0();
+  v9 = sub_1000A98C0(dataCopy);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
   if (v10)
   {
-    v11 = sub_1000A98C0();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_1000A98C0(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "ExtensiblePair EPPairer respondWithType:accept:data: called", v13, 2u);
+      *v14 = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "ExtensiblePair EPPairer respondWithType:accept:data: called", v14, 2u);
     }
   }
 
@@ -179,37 +176,37 @@ LABEL_4:
           if (pairingPhase == 3)
           {
             self->_shouldRespond = 0;
-            v6 = sub_1000A98C0();
-            v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+            v7 = sub_1000A98C0(v6);
+            v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-            if (v7)
+            if (v8)
             {
-              v8 = sub_1000A98C0();
-              if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+              v10 = sub_1000A98C0(v9);
+              if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
               {
                 info = [(EPDevice *)self->_device info];
                 peer = [info peer];
                 identifier = [peer identifier];
                 uUIDString = [identifier UUIDString];
-                v13 = [EPDevice stringFromCBPairingType:self->_type];
-                v14 = v13;
-                v15 = @"NO";
-                v16 = !self->_accept;
+                v15 = [EPDevice stringFromCBPairingType:self->_type];
+                v16 = v15;
+                v17 = @"NO";
+                v18 = !self->_accept;
                 data = self->_data;
                 *buf = 138413058;
-                if (!v16)
+                if (!v18)
                 {
-                  v15 = @"YES";
+                  v17 = @"YES";
                 }
 
-                v23 = uUIDString;
-                v24 = 2112;
-                v25 = v13;
+                v25 = uUIDString;
                 v26 = 2112;
                 v27 = v15;
                 v28 = 2112;
-                v29 = data;
-                _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBPairingAgent respondToPairingRequest:%@ type:%@ accept:%@ data:%@", buf, 0x2Au);
+                v29 = v17;
+                v30 = 2112;
+                v31 = data;
+                _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Calling CoreBluetooth CBPairingAgent respondToPairingRequest:%@ type:%@ accept:%@ data:%@", buf, 0x2Au);
               }
             }
 
@@ -231,7 +228,7 @@ LABEL_4:
 - (void)invalidateWithError:(id)error
 {
   errorCopy = error;
-  v5 = sub_1000A98C0();
+  v5 = sub_1000A98C0(errorCopy);
   v6 = v5;
   if (errorCopy)
   {
@@ -239,10 +236,10 @@ LABEL_4:
 
     if (v7)
     {
-      v8 = sub_1000A98C0();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = sub_1000A98C0(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        sub_1001007F8(errorCopy, v8);
+        sub_1001007F8(errorCopy, v9);
       }
 
 LABEL_8:
@@ -251,15 +248,15 @@ LABEL_8:
 
   else
   {
-    v9 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+    v10 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-    if (v9)
+    if (v10)
     {
-      v8 = sub_1000A98C0();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_1000A98C0(v11);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v10 = 0;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "ExtensiblePair EPPairer invalidateWithError: called with no error", v10, 2u);
+        *v12 = 0;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "ExtensiblePair EPPairer invalidateWithError: called with no error", v12, 2u);
       }
 
       goto LABEL_8;
@@ -272,25 +269,24 @@ LABEL_8:
 - (id)pairer:(id)pairer newEndpointWithDelegate:(id)delegate
 {
   delegateCopy = delegate;
-  v6 = sub_1000A98C0();
+  v6 = sub_1000A98C0(delegateCopy);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = sub_1000A98C0();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_1000A98C0(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      delegate = self->_delegate;
       v10 = objc_opt_class();
       v11 = NSStringFromClass(v10);
-      v12 = self->_delegate;
+      delegate = self->_delegate;
       v15 = 138412802;
       selfCopy = self;
       v17 = 2112;
       v18 = v11;
       v19 = 2048;
-      v20 = v12;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Calling pairer:newEndpointWithDelegate: with pairer %@ on %@[%p]", &v15, 0x20u);
+      delegateCopy2 = delegate;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Calling pairer:newEndpointWithDelegate: with pairer %@ on %@[%p]", &v15, 0x20u);
     }
   }
 
@@ -303,7 +299,7 @@ LABEL_8:
 {
   pairerCopy = pairer;
   errorCopy = error;
-  v8 = sub_1000A98C0();
+  v8 = sub_1000A98C0(errorCopy);
   v9 = v8;
   if (errorCopy)
   {
@@ -311,10 +307,10 @@ LABEL_8:
 
     if (v10)
     {
-      v11 = sub_1000A98C0();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = sub_1000A98C0(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        sub_100100870(self, errorCopy, v11);
+        sub_100100870(self, errorCopy, v12);
       }
 
 LABEL_8:
@@ -323,24 +319,23 @@ LABEL_8:
 
   else
   {
-    v12 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v13 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
-    if (v12)
+    if (v13)
     {
-      v11 = sub_1000A98C0();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_1000A98C0(v14);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
+        v15 = objc_opt_class();
+        v16 = NSStringFromClass(v15);
         delegate = self->_delegate;
-        v14 = objc_opt_class();
-        v15 = NSStringFromClass(v14);
-        v16 = self->_delegate;
-        v18 = 138412802;
+        v19 = 138412802;
         selfCopy = self;
-        v20 = 2112;
-        v21 = v15;
-        v22 = 2048;
-        v23 = v16;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Calling pairer:completedWithError: with pairer %@ on %@[%p] with no error", &v18, 0x20u);
+        v21 = 2112;
+        v22 = v16;
+        v23 = 2048;
+        v24 = delegate;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Calling pairer:completedWithError: with pairer %@ on %@[%p] with no error", &v19, 0x20u);
       }
 
       goto LABEL_8;
@@ -348,37 +343,36 @@ LABEL_8:
   }
 
   [(EPPairerDelegate *)self->_delegate pairer:self completedWithError:errorCopy];
-  v17 = self->_delegate;
+  v18 = self->_delegate;
   self->_delegate = 0;
 }
 
 - (void)pairer:(id)pairer requestWithType:(int64_t)type passkey:(id)passkey
 {
   passkeyCopy = passkey;
-  v8 = sub_1000A98C0();
+  v8 = sub_1000A98C0(passkeyCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = sub_1000A98C0();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_1000A98C0(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      delegate = self->_delegate;
       v12 = objc_opt_class();
       v13 = NSStringFromClass(v12);
-      v14 = self->_delegate;
+      delegate = self->_delegate;
       v15 = [EPDevice stringFromCBPairingType:type];
       v16 = 138413314;
       selfCopy = self;
       v18 = 2112;
       v19 = v13;
       v20 = 2048;
-      v21 = v14;
+      v21 = delegate;
       v22 = 2112;
       v23 = v15;
       v24 = 2112;
       v25 = passkeyCopy;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Calling pairer:requestWithType: with pairer %@ on %@[%p] with type %@ passkey %@", &v16, 0x34u);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Calling pairer:requestWithType: with pairer %@ on %@[%p] with type %@ passkey %@", &v16, 0x34u);
     }
   }
 
@@ -387,28 +381,27 @@ LABEL_8:
 
 - (void)pairerDidBeginToPair:(id)pair
 {
-  delegate = self->_delegate;
-  if (objc_opt_respondsToSelector())
+  v4 = objc_opt_respondsToSelector();
+  if (v4)
   {
-    v5 = sub_1000A98C0();
+    v5 = sub_1000A98C0(v4);
     v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
     if (v6)
     {
-      v7 = sub_1000A98C0();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = sub_1000A98C0(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = self->_delegate;
         v9 = objc_opt_class();
         v10 = NSStringFromClass(v9);
-        v11 = self->_delegate;
+        delegate = self->_delegate;
         v12 = 138412802;
         selfCopy = self;
         v14 = 2112;
         v15 = v10;
         v16 = 2048;
-        v17 = v11;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Calling pairerDidBeginToPair: with pairer %@ on %@[%p]", &v12, 0x20u);
+        v17 = delegate;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Calling pairerDidBeginToPair: with pairer %@ on %@[%p]", &v12, 0x20u);
       }
     }
 

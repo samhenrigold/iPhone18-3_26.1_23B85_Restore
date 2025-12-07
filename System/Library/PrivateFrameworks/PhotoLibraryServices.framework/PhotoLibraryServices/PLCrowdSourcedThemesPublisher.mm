@@ -178,7 +178,7 @@ LABEL_16:
     v10 = v8;
     v20 = v10;
     v11 = [v9 sinkWithCompletion:v21 receiveInput:&v16];
-    if ([v10 count:v16]|| !*(*(&buf + 1) + 40))
+    if (objc_msgSend_count(v10, v16, v17, v18, v19) || !*(*(&buf + 1) + 40))
     {
       v12 = v10;
     }

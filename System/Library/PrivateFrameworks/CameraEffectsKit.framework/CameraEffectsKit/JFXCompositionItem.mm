@@ -83,32 +83,33 @@
 - (JFXCompositionItem)initWithClip:(id)clip timeScale:(int)scale
 {
   clipCopy = clip;
-  v14.receiver = self;
-  v14.super_class = JFXCompositionItem;
-  v7 = [(JFXCompositionItem *)&v14 init];
+  v15.receiver = self;
+  v15.super_class = JFXCompositionItem;
+  v7 = [(JFXCompositionItem *)&v15 init];
   v8 = v7;
   if (v7)
   {
     [(JFXCompositionItem *)v7 setClip:clipCopy];
     v8->_timeScale = scale;
     CMTimeMake(&start, 0, scale);
-    CMTimeMake(&v11, 0, scale);
-    CMTimeRangeMake(&v13, &start, &v11);
-    v9 = *&v13.start.epoch;
-    *&v8->_sourceTimeRange.start.value = *&v13.start.value;
+    CMTimeMake(&v12, 0, scale);
+    CMTimeRangeMake(&v14, &start, &v12);
+    v9 = *&v14.start.epoch;
+    *&v8->_sourceTimeRange.start.value = *&v14.start.value;
     *&v8->_sourceTimeRange.start.epoch = v9;
-    *&v8->_sourceTimeRange.duration.timescale = *&v13.duration.timescale;
-    CMTimeMake(&v13.start, [clipCopy duration], scale);
-    *&v8->_destinationDuration.value = *&v13.start.value;
-    v8->_destinationDuration.epoch = v13.start.epoch;
+    *&v8->_sourceTimeRange.duration.timescale = *&v14.duration.timescale;
+    v10 = objc_msgSend_duration(clipCopy);
+    CMTimeMake(&v14.start, v10, scale);
+    *&v8->_destinationDuration.value = *&v14.start.value;
+    v8->_destinationDuration.epoch = v14.start.epoch;
     *&v8->_isFreezeFrame = 0;
     v8->_speed = 1.0;
-    CMTimeMake(&v13.start, 0, scale);
-    *&v8->_audioStartOffset.value = *&v13.start.value;
-    v8->_audioStartOffset.epoch = v13.start.epoch;
-    CMTimeMake(&v13.start, 0, scale);
-    *&v8->_audioEndOffset.value = *&v13.start.value;
-    v8->_audioEndOffset.epoch = v13.start.epoch;
+    CMTimeMake(&v14.start, 0, scale);
+    *&v8->_audioStartOffset.value = *&v14.start.value;
+    v8->_audioStartOffset.epoch = v14.start.epoch;
+    CMTimeMake(&v14.start, 0, scale);
+    *&v8->_audioEndOffset.value = *&v14.start.value;
+    v8->_audioEndOffset.epoch = v14.start.epoch;
   }
 
   return v8;

@@ -100,11 +100,11 @@
         v62 = v15;
         [v15 orientation];
         v16 = NUOrientationInverse();
-        [v6 extent];
+        objc_msgSend_extent(v6);
         v18 = v17;
         v20 = v19;
         cinematographyScript2 = [(PIPortraitVideoDebugDetectionsRenderNode *)self cinematographyScript];
-        [(PIPortraitVideoDebugDetectionsRenderNode *)self renderTime];
+        objc_msgSend_renderTime(self);
         v22 = [cinematographyScript2 frameNearestTime:buf];
 
         focusDetection = [v22 focusDetection];
@@ -417,9 +417,9 @@ LABEL_31:
 
 LABEL_37:
   roundedRectangleGeneratorFilter = [MEMORY[0x1E695F648] roundedRectangleGeneratorFilter];
-  [outputImage extent];
+  objc_msgSend_extent(outputImage);
   v57 = v56 + 4.0;
-  [outputImage extent];
+  objc_msgSend_extent(outputImage);
   [roundedRectangleGeneratorFilter setExtent:{0.0, 0.0, v57, v58 + 4.0}];
   [roundedRectangleGeneratorFilter setColor:v28];
   [roundedRectangleGeneratorFilter setRadius:0.0];
@@ -430,7 +430,7 @@ LABEL_37:
   v61 = [v59 imageByCompositingOverImage:outputImage2];
 
   memset(&v72, 0, sizeof(v72));
-  [v61 extent];
+  objc_msgSend_extent(v61);
   NUPixelSizeFromCGSize();
   NUOrientationMakeTransformWithSize();
   v71 = v72;
@@ -439,16 +439,16 @@ LABEL_37:
   switch(orientation)
   {
     case 3:
-      [v62 extent];
+      objc_msgSend_extent(v62);
       v32 = v32 + v35 - v64;
       goto LABEL_42;
     case 6:
 LABEL_42:
-      [v62 extent];
+      objc_msgSend_extent(v62);
       v33 = v33 + v36 - v65;
       break;
     case 8:
-      [v62 extent];
+      objc_msgSend_extent(v62);
       v32 = v32 + v35 - v63;
       break;
   }
@@ -584,7 +584,7 @@ LABEL_42:
 
     if (v13)
     {
-      [v13 time];
+      objc_msgSend_time(v13);
     }
 
     else

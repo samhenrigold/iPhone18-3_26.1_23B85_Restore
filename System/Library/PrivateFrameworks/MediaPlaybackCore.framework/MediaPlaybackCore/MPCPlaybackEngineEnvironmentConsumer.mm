@@ -465,7 +465,7 @@ LABEL_17:
 {
   if (event)
   {
-    [event monotonicTime];
+    objc_msgSend_monotonicTime(event, a2);
     v6 = v10;
     v7 = v11;
     v8 = v12;
@@ -571,7 +571,7 @@ LABEL_17:
 {
   if (event)
   {
-    [event monotonicTime];
+    objc_msgSend_monotonicTime(event, a2);
     v6 = v10;
     v7 = v11;
     v8 = v12;
@@ -818,7 +818,7 @@ LABEL_33:
 {
   if (event)
   {
-    [event monotonicTime];
+    objc_msgSend_monotonicTime(event, a2);
     v6 = v10;
     v7 = v11;
     v8 = v12;
@@ -954,7 +954,7 @@ LABEL_33:
   typeCopy = type;
   if (event)
   {
-    [event monotonicTime];
+    objc_msgSend_monotonicTime(event);
     v12 = v16;
     v13 = v17;
     v14 = v18;

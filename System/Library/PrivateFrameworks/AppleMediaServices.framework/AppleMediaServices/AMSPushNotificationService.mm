@@ -21,7 +21,7 @@
   return pushNotificationService;
 }
 
-void __49__AMSPushNotificationService__pushServicePromise__block_invoke(uint64_t a1, void *a2)
+void __49__AMSPushNotificationService__pushServicePromise__block_invoke(void *a1, void *a2)
 {
   v16 = *MEMORY[0x1E69E9840];
   v3 = a2;

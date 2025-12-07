@@ -14,7 +14,7 @@
     v21 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_socks5_connection_copy_description";
-    v22 = _os_log_send_and_compose_impl();
+    v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v21, 16, "%{public}s called with null socksConnection", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v31 = 0;
@@ -335,15 +335,15 @@ LABEL_63:
 
 - (void)dealloc
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
   networkd_settings_init();
   v3 = gLogObj;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136446466;
-    v32 = "[NWConcrete_nw_socks5_connection dealloc]";
-    v33 = 2114;
+    v31 = "[NWConcrete_nw_socks5_connection dealloc]";
+    v32 = 2114;
     selfCopy6 = self;
     _os_log_impl(&dword_181A37000, v3, OS_LOG_TYPE_DEBUG, "%{public}s %{public}@", buf, 0x16u);
   }
@@ -361,14 +361,12 @@ LABEL_63:
     networkd_settings_init();
     v5 = gLogObj;
     *buf = 136446210;
-    v32 = "[NWConcrete_nw_socks5_connection dealloc]";
-    v27 = 12;
-    v26 = buf;
-    v6 = _os_log_send_and_compose_impl();
+    v31 = "[NWConcrete_nw_socks5_connection dealloc]";
+    v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s over-release of nw_socks5_connection. Object should not be internally retained while deallocating", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
-    v29 = 0;
-    if (!__nwlog_fault(v6, &type, &v29))
+    v28 = 0;
+    if (!__nwlog_fault(v6, &type, &v28))
     {
       goto LABEL_11;
     }
@@ -382,7 +380,7 @@ LABEL_63:
       if (os_log_type_enabled(v7, type))
       {
         *buf = 136446210;
-        v32 = "[NWConcrete_nw_socks5_connection dealloc]";
+        v31 = "[NWConcrete_nw_socks5_connection dealloc]";
         _os_log_impl(&dword_181A37000, v7, v8, "%{public}s over-release of nw_socks5_connection. Object should not be internally retained while deallocating", buf, 0xCu);
       }
 
@@ -397,7 +395,7 @@ LABEL_11:
       goto LABEL_12;
     }
 
-    if (v29 != 1)
+    if (v28 != 1)
     {
       pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
       networkd_settings_init();
@@ -406,7 +404,7 @@ LABEL_11:
       if (os_log_type_enabled(v7, type))
       {
         *buf = 136446210;
-        v32 = "[NWConcrete_nw_socks5_connection dealloc]";
+        v31 = "[NWConcrete_nw_socks5_connection dealloc]";
         _os_log_impl(&dword_181A37000, v7, v22, "%{public}s over-release of nw_socks5_connection. Object should not be internally retained while deallocating, backtrace limit exceeded", buf, 0xCu);
       }
 
@@ -424,7 +422,7 @@ LABEL_11:
       if (v17)
       {
         *buf = 136446210;
-        v32 = "[NWConcrete_nw_socks5_connection dealloc]";
+        v31 = "[NWConcrete_nw_socks5_connection dealloc]";
         _os_log_impl(&dword_181A37000, v7, v16, "%{public}s over-release of nw_socks5_connection. Object should not be internally retained while deallocating, no backtrace", buf, 0xCu);
       }
 
@@ -434,8 +432,8 @@ LABEL_11:
     if (v17)
     {
       *buf = 136446466;
-      v32 = "[NWConcrete_nw_socks5_connection dealloc]";
-      v33 = 2082;
+      v31 = "[NWConcrete_nw_socks5_connection dealloc]";
+      v32 = 2082;
       selfCopy6 = backtrace_string;
       _os_log_impl(&dword_181A37000, v7, v16, "%{public}s over-release of nw_socks5_connection. Object should not be internally retained while deallocating, dumping backtrace:%{public}s", buf, 0x16u);
     }
@@ -460,18 +458,17 @@ LABEL_13:
   v9 = gLogObj;
   sc_busy_counter = self->sc_busy_counter;
   *buf = 136446722;
-  v32 = "[NWConcrete_nw_socks5_connection dealloc]";
-  v33 = 2112;
+  v31 = "[NWConcrete_nw_socks5_connection dealloc]";
+  v32 = 2112;
   selfCopy6 = self;
-  v35 = 2048;
-  v36 = sc_busy_counter;
-  v27 = 32;
-  v26 = buf;
-  v11 = _os_log_send_and_compose_impl();
+  v34 = 2048;
+  v35 = sc_busy_counter;
+  LODWORD(v26) = 32;
+  v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s %@ dealloc while busy count is %llu, not zero", buf, v26);
 
   type = OS_LOG_TYPE_ERROR;
-  v29 = 0;
-  if (__nwlog_fault(v11, &type, &v29))
+  v28 = 0;
+  if (__nwlog_fault(v11, &type, &v28))
   {
     if (type == OS_LOG_TYPE_FAULT)
     {
@@ -483,16 +480,16 @@ LABEL_13:
       {
         v14 = self->sc_busy_counter;
         *buf = 136446722;
-        v32 = "[NWConcrete_nw_socks5_connection dealloc]";
-        v33 = 2112;
+        v31 = "[NWConcrete_nw_socks5_connection dealloc]";
+        v32 = 2112;
         selfCopy6 = self;
-        v35 = 2048;
-        v36 = v14;
+        v34 = 2048;
+        v35 = v14;
         _os_log_impl(&dword_181A37000, v12, v13, "%{public}s %@ dealloc while busy count is %llu, not zero", buf, 0x20u);
       }
     }
 
-    else if (v29 == 1)
+    else if (v28 == 1)
     {
       v18 = __nw_create_backtrace_string();
       pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -506,13 +503,13 @@ LABEL_13:
         {
           v21 = self->sc_busy_counter;
           *buf = 136446978;
-          v32 = "[NWConcrete_nw_socks5_connection dealloc]";
-          v33 = 2112;
+          v31 = "[NWConcrete_nw_socks5_connection dealloc]";
+          v32 = 2112;
           selfCopy6 = self;
-          v35 = 2048;
-          v36 = v21;
-          v37 = 2082;
-          v38 = v18;
+          v34 = 2048;
+          v35 = v21;
+          v36 = 2082;
+          v37 = v18;
           _os_log_impl(&dword_181A37000, v12, v19, "%{public}s %@ dealloc while busy count is %llu, not zero, dumping backtrace:%{public}s", buf, 0x2Au);
         }
 
@@ -529,11 +526,11 @@ LABEL_13:
       {
         v25 = self->sc_busy_counter;
         *buf = 136446722;
-        v32 = "[NWConcrete_nw_socks5_connection dealloc]";
-        v33 = 2112;
+        v31 = "[NWConcrete_nw_socks5_connection dealloc]";
+        v32 = 2112;
         selfCopy6 = self;
-        v35 = 2048;
-        v36 = v25;
+        v34 = 2048;
+        v35 = v25;
         _os_log_impl(&dword_181A37000, v12, v19, "%{public}s %@ dealloc while busy count is %llu, not zero, no backtrace", buf, 0x20u);
       }
     }
@@ -548,11 +545,11 @@ LABEL_13:
       {
         v24 = self->sc_busy_counter;
         *buf = 136446722;
-        v32 = "[NWConcrete_nw_socks5_connection dealloc]";
-        v33 = 2112;
+        v31 = "[NWConcrete_nw_socks5_connection dealloc]";
+        v32 = 2112;
         selfCopy6 = self;
-        v35 = 2048;
-        v36 = v24;
+        v34 = 2048;
+        v35 = v24;
         _os_log_impl(&dword_181A37000, v12, v23, "%{public}s %@ dealloc while busy count is %llu, not zero, backtrace limit exceeded", buf, 0x20u);
       }
     }
@@ -565,9 +562,9 @@ LABEL_20:
   }
 
 LABEL_21:
-  v28.receiver = self;
-  v28.super_class = NWConcrete_nw_socks5_connection;
-  [(NWConcrete_nw_socks5_connection *)&v28 dealloc:v26];
+  v27.receiver = self;
+  v27.super_class = NWConcrete_nw_socks5_connection;
+  [(NWConcrete_nw_socks5_connection *)&v27 dealloc];
 }
 
 @end

@@ -39,48 +39,46 @@ LABEL_7:
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   serviceTypes = [objc_opt_class() serviceTypes];
   anyObject = [serviceTypes anyObject];
 
   v7 = [objc_opt_class() characteristicTypesForServiceType:anyObject includingAssociatedTypes:1];
-  v21[0] = anyObject;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v20[0] = anyObject;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   allObjects = [v7 allObjects];
   v10 = [(HFStatusItem *)self filteredServicesOfTypes:v8 containingCharacteristicTypes:allObjects];
 
   objc_initWeak(&location, self);
   valueSource = [(HFStatusItem *)self valueSource];
   v12 = [valueSource readValuesForCharacteristicTypes:v7 inServices:v10];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __57__HFContactSensorStatusItem__subclass_updateWithOptions___block_invoke;
-  v17[3] = &unk_277DF61A0;
-  objc_copyWeak(&v19, &location);
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __57__HFContactSensorStatusItem__subclass_updateWithOptions___block_invoke;
+  v16[3] = &unk_277DF61A0;
+  objc_copyWeak(&v18, &location);
   v13 = anyObject;
-  v18 = v13;
-  v14 = [v12 flatMap:v17];
+  v17 = v13;
+  v14 = [v12 flatMap:v16];
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(&location);
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 id __57__HFContactSensorStatusItem__subclass_updateWithOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (!WeakRetained)
   {
     v9 = MEMORY[0x277D2C900];
-    v39 = @"hidden";
-    v40[0] = MEMORY[0x277CBEC38];
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+    v38 = @"hidden";
+    v39[0] = MEMORY[0x277CBEC38];
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
     goto LABEL_5;
   }
 
@@ -104,16 +102,16 @@ LABEL_5:
   v12 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v13 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v14 = [v3 allServices];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __57__HFContactSensorStatusItem__subclass_updateWithOptions___block_invoke_2;
-  v35[3] = &unk_277DFD888;
-  v36 = v3;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __57__HFContactSensorStatusItem__subclass_updateWithOptions___block_invoke_2;
+  v34[3] = &unk_277DFD888;
+  v35 = v3;
   v15 = v12;
-  v37 = v15;
+  v36 = v15;
   v16 = v13;
-  v38 = v16;
-  [v14 enumerateObjectsUsingBlock:v35];
+  v37 = v16;
+  [v14 enumerateObjectsUsingBlock:v34];
 
   if ([v15 count])
   {
@@ -171,7 +169,6 @@ LABEL_14:
   v11 = [v31 futureWithResult:v32];
 
 LABEL_20:
-  v33 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

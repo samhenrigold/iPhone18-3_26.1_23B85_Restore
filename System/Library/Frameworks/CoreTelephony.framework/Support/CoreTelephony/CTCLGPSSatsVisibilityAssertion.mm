@@ -23,7 +23,7 @@
       v8 = "stw.gps.vis";
     }
 
-    ctu::OsLogContext::OsLogContext(location, kCtLoggingSystemName, v8);
+    ctu::OsLogContext::OsLogContext(&location, kCtLoggingSystemName, v8);
     operator new();
   }
 

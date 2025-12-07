@@ -10,8 +10,9 @@
 - (VTFrameRateConversionConfiguration)initWithFrameWidth:(int64_t)width frameHeight:(int64_t)height usePrecomputedFlow:(BOOL)flow qualityPrioritization:(int64_t)prioritization revision:(int64_t)revision
 {
   flowCopy = flow;
+  selfCopy = self;
   v29[4] = *MEMORY[0x1E69E9840];
-  if (!loadVEFrameworkOnce())
+  if (!loadVEFrameworkOnce(self, a2))
   {
     NSLog(&cfstr_ProcessorUnsup.isa);
 LABEL_9:
@@ -19,17 +20,17 @@ LABEL_9:
     return 0;
   }
 
-  v23.receiver = self;
+  v23.receiver = selfCopy;
   v23.super_class = VTFrameRateConversionConfiguration;
-  self = [(VTFrameRateConversionConfiguration *)&v23 init];
-  if (!self)
+  selfCopy = [(VTFrameRateConversionConfiguration *)&v23 init];
+  if (!selfCopy)
   {
     NSLog(&cfstr_FailToInitiali.isa);
     goto LABEL_9;
   }
 
   v13 = [objc_alloc(NSClassFromString(&cfstr_Veframeratecon.isa)) initWithFrameWidth:width frameHeight:height usePrecomputedFlow:flowCopy qualityPrioritization:prioritization revision:revision];
-  self->_veConfiguration = v13;
+  selfCopy->_veConfiguration = v13;
   if (!v13)
   {
     NSLog(&cfstr_FailToCreateEf.isa);
@@ -37,12 +38,12 @@ LABEL_9:
   }
 
   v14 = [-[VEFrameRateConversionConfiguration framePreferredPixelFormats](v13 "framePreferredPixelFormats")];
-  self->_revision = revision;
-  self->_frameSupportedPixelFormats = v14;
-  self->_frameWidth = width;
-  self->_frameHeight = height;
-  self->_usePrecomputedFlow = flowCopy;
-  self->_qualityPrioritization = prioritization;
+  selfCopy->_revision = revision;
+  selfCopy->_frameSupportedPixelFormats = v14;
+  selfCopy->_frameWidth = width;
+  selfCopy->_frameHeight = height;
+  selfCopy->_usePrecomputedFlow = flowCopy;
+  selfCopy->_qualityPrioritization = prioritization;
   v15 = *MEMORY[0x1E6966130];
   v29[0] = v14;
   v16 = *MEMORY[0x1E6966208];
@@ -57,8 +58,8 @@ LABEL_9:
   v20 = MEMORY[0x1E695E0F8];
   v29[2] = v18;
   v29[3] = MEMORY[0x1E695E0F8];
-  self->_sourcePixelBufferAttributes = [objc_msgSend(MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v26 count:{4), "copy"}];
-  v25[0] = self->_frameSupportedPixelFormats;
+  selfCopy->_sourcePixelBufferAttributes = [objc_msgSend(MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v26 count:{4), "copy"}];
+  v25[0] = selfCopy->_frameSupportedPixelFormats;
   v24[0] = v15;
   v24[1] = v16;
   v25[1] = [MEMORY[0x1E696AD98] numberWithInteger:width];
@@ -67,8 +68,8 @@ LABEL_9:
   v24[3] = v19;
   v25[2] = v21;
   v25[3] = v20;
-  self->_destinationPixelBufferAttributes = [objc_msgSend(MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:{4), "copy"}];
-  return self;
+  selfCopy->_destinationPixelBufferAttributes = [objc_msgSend(MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:{4), "copy"}];
+  return selfCopy;
 }
 
 - (void)dealloc
@@ -80,7 +81,7 @@ LABEL_9:
 
 + (int64_t)defaultRevision
 {
-  if (loadVEFrameworkOnce())
+  if (loadVEFrameworkOnce(self, a2))
   {
     v2 = NSClassFromString(&cfstr_Veframeratecon.isa);
 
@@ -96,7 +97,7 @@ LABEL_9:
 
 + (NSIndexSet)supportedRevisions
 {
-  if (loadVEFrameworkOnce())
+  if (loadVEFrameworkOnce(self, a2))
   {
     result = [NSClassFromString(&cfstr_Veframeratecon.isa) supportedRevisions];
     if (result)

@@ -152,7 +152,7 @@ LABEL_41:
           v32 = geometryInRoot;
           if (geometryInRoot)
           {
-            [geometryInRoot transform];
+            objc_msgSend_transform(geometryInRoot);
           }
 
           else

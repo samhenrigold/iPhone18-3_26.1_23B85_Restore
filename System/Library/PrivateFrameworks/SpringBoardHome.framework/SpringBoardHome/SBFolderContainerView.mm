@@ -9,7 +9,7 @@
 - (SBFolderContainerView)initWithFolderView:(id)view
 {
   viewCopy = view;
-  [viewCopy bounds];
+  objc_msgSend_bounds(viewCopy);
   v9.receiver = self;
   v9.super_class = SBFolderContainerView;
   v6 = [(SBFolderContainerView *)&v9 initWithFrame:?];
@@ -68,11 +68,11 @@
   backgroundView = self->_backgroundView;
   if (backgroundView)
   {
-    [(UIView *)backgroundView transform];
+    objc_msgSend_transform(backgroundView, a2);
     if (CGAffineTransformIsIdentity(&v8))
     {
       v7 = self->_backgroundView;
-      [(SBFolderContainerView *)self bounds];
+      objc_msgSend_bounds(self);
       [(UIView *)v7 setFrame:?];
     }
   }

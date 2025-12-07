@@ -40,24 +40,24 @@
   }
 
   selfCopy = self;
-  sub_22B772C7C(for, v6, v8);
+  v10 = sub_22B772C7C(for, v6, v8);
 
-  v10 = sub_22B7DB568();
+  v8, v11, v12, v13, v14, v15, v16, v17, v27, v29;
+  v18 = sub_22B7DB568();
+  v10, v19, v20, v21, v22, v23, v24, v25, v28, v30;
 
-  return v10;
+  return v18;
 }
 
 - (IMDSpamFilteringHelper)init
 {
   v3 = OBJC_IVAR___IMDSpamFilteringHelper_debugUIService;
-  v4 = sub_22B7DB448();
-  v5 = *(v4 + 48);
-  v6 = *(v4 + 52);
+  sub_22B7DB448();
   swift_allocObject();
   *(&self->super.isa + v3) = sub_22B7DB438();
-  v8.receiver = self;
-  v8.super_class = IMDSpamFilteringHelper;
-  return [(IMDSpamFilteringHelper *)&v8 init];
+  v5.receiver = self;
+  v5.super_class = IMDSpamFilteringHelper;
+  return [(IMDSpamFilteringHelper *)&v5 init];
 }
 
 @end

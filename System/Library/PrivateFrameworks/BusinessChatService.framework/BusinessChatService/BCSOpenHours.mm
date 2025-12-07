@@ -7,11 +7,11 @@
 - (BCSOpenHours)initWithTimeRanges:(id)ranges timeZone:(id)zone;
 - (BOOL)_validTimeRange:(void *)range;
 - (BOOL)isOpenAtDate:(id)date;
+- (char)_weekdayOrdinalFromDate:(void *)date timeZone:(void *)zone;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dateWhenOpenNextAfterDate:(id)date;
 - (id)debugDescription;
 - (uint64_t)_totalSecondsInLocalTimeFromPreviousMidnightWithDate:(void *)date timeZone:(void *)zone;
-- (uint64_t)_weekdayOrdinalFromDate:(void *)date timeZone:(void *)zone;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -67,7 +67,7 @@
 - (BOOL)isOpenAtDate:(id)date
 {
   dateCopy = date;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   if (self)
   {
     localTimeZone = self->_localTimeZone;
@@ -79,40 +79,40 @@
       timeRanges = self->_timeRanges;
       v10 = MEMORY[0x277CCABB0];
       v11 = timeRanges;
-      v30 = v8;
+      v29 = v8;
       v12 = [v10 numberWithUnsignedInteger:v8];
       v13 = [(NSDictionary *)v11 objectForKey:v12];
 
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
       v35 = 0u;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
       obj = v13;
-      v14 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
+      v14 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
       if (v14)
       {
         v15 = v14;
-        v33 = *v35;
-        v31 = dateCopy;
+        v32 = *v34;
+        v30 = dateCopy;
         while (2)
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v35 != v33)
+            if (*v34 != v32)
             {
               objc_enumerationMutation(obj);
             }
 
-            v17 = *(*(&v34 + 1) + 8 * i);
+            v17 = *(*(&v33 + 1) + 8 * i);
             v18 = [BCSOpenHours _validTimeRange:v17];
             if (!v18)
             {
               v19 = ABSLogCommon();
-              dateCopy = v31;
+              dateCopy = v30;
               if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
               {
                 *buf = 134217984;
-                v39 = v30;
+                v38 = v29;
                 _os_log_error_impl(&dword_242072000, v19, OS_LOG_TYPE_ERROR, "Does not have valid time range for weekdayIndex:%lu", buf, 0xCu);
               }
 
@@ -129,7 +129,7 @@
 
             if (v23 >= integerValue && v23 <= integerValue2)
             {
-              dateCopy = v31;
+              dateCopy = v30;
               v7 = v22;
 LABEL_21:
 
@@ -140,9 +140,9 @@ LABEL_21:
             dateCopy2 = v21;
           }
 
-          v15 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
+          v15 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
           v18 = 0;
-          dateCopy = v31;
+          dateCopy = v30;
           if (v15)
           {
             continue;
@@ -173,11 +173,10 @@ LABEL_22:
     v18 = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
-- (uint64_t)_weekdayOrdinalFromDate:(void *)date timeZone:(void *)zone
+- (char)_weekdayOrdinalFromDate:(void *)date timeZone:(void *)zone
 {
   v3 = MEMORY[0x277CBEA80];
   zoneCopy = zone;
@@ -188,7 +187,7 @@ LABEL_22:
   v7 = [currentCalendar components:512 fromDate:dateCopy];
 
   weekday = [v7 weekday];
-  return weekday - 1;
+  return (weekday - 1);
 }
 
 - (BOOL)_validTimeRange:(void *)range
@@ -225,14 +224,14 @@ LABEL_22:
 - (id)dateWhenOpenNextAfterDate:(id)date
 {
   dateCopy = date;
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   if (self)
   {
     selfCopy = self;
     localTimeZone = self->_localTimeZone;
     dateCopy2 = date;
     v7 = localTimeZone;
-    v38 = [BCSOpenHours _weekdayOrdinalFromDate:dateCopy2 timeZone:v7];
+    v37 = [BCSOpenHours _weekdayOrdinalFromDate:dateCopy2 timeZone:v7];
     v8 = [BCSOpenHours _totalSecondsInLocalTimeFromPreviousMidnightWithDate:dateCopy2 timeZone:selfCopy->_localTimeZone];
     if ([BCSOpenHours _validTimeRange:?])
     {
@@ -242,41 +241,41 @@ LABEL_22:
 
     else
     {
-      v34 = dateCopy2;
-      v35 = dateCopy;
+      v33 = dateCopy2;
+      v34 = dateCopy;
       v10 = 0;
-      v36 = 0;
+      v35 = 0;
       v11 = 0;
-      v37 = selfCopy;
+      v36 = selfCopy;
       do
       {
-        v12 = ((v11 + v38) * 0x2492492492492493uLL) >> 64;
-        v13 = -7 * ((v12 + ((v11 + v38 - v12) >> 1)) >> 2);
+        v12 = (&v37[v11] * 0x2492492492492493uLL) >> 64;
+        v13 = -7 * ((v12 + (&v37[v11 - v12] >> 1)) >> 2);
         v14 = MEMORY[0x277CCABB0];
         v15 = selfCopy->_timeRanges;
-        v16 = [v14 numberWithUnsignedInteger:v11 + v38 + v13];
+        v16 = [v14 numberWithUnsignedInteger:&v37[v11 + v13]];
         v17 = [(NSDictionary *)v15 objectForKey:v16];
 
-        v41 = 0u;
-        v42 = 0u;
-        v39 = 0u;
         v40 = 0u;
+        v41 = 0u;
+        v38 = 0u;
+        v39 = 0u;
         v18 = v17;
-        v19 = [v18 countByEnumeratingWithState:&v39 objects:v47 count:16];
+        v19 = [v18 countByEnumeratingWithState:&v38 objects:v46 count:16];
         if (v19)
         {
           v20 = v19;
-          v21 = *v40;
+          v21 = *v39;
           do
           {
             for (i = 0; i != v20; ++i)
             {
-              if (*v40 != v21)
+              if (*v39 != v21)
               {
                 objc_enumerationMutation(v18);
               }
 
-              v23 = *(*(&v39 + 1) + 8 * i);
+              v23 = *(*(&v38 + 1) + 8 * i);
               if ([BCSOpenHours _validTimeRange:v23])
               {
                 v24 = [v23 objectForKey:@"from"];
@@ -284,14 +283,14 @@ LABEL_22:
                 {
                   v26 = v23;
 
-                  v36 = v11;
+                  v35 = v11;
                   v10 = v26;
                   goto LABEL_19;
                 }
               }
             }
 
-            v20 = [v18 countByEnumeratingWithState:&v39 objects:v47 count:16];
+            v20 = [v18 countByEnumeratingWithState:&v38 objects:v46 count:16];
           }
 
           while (v20);
@@ -299,7 +298,7 @@ LABEL_22:
 
 LABEL_19:
 
-        selfCopy = v37;
+        selfCopy = v36;
         if ([BCSOpenHours _validTimeRange:v10])
         {
           break;
@@ -307,9 +306,9 @@ LABEL_19:
       }
 
       while (v11++ < 7);
-      v9 = 86400 * v36;
-      dateCopy = v35;
-      dateCopy2 = v34;
+      v9 = 86400 * v35;
+      dateCopy = v34;
+      dateCopy2 = v33;
     }
 
     if ([BCSOpenHours _validTimeRange:v10])
@@ -325,9 +324,9 @@ LABEL_19:
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v44 = dateCopy2;
-        v45 = 2048;
-        v46 = v38;
+        v43 = dateCopy2;
+        v44 = 2048;
+        v45 = v37;
         _os_log_error_impl(&dword_242072000, v28, OS_LOG_TYPE_ERROR, "Valid date not found for open next after date:%@ weekdayIndex:%lu", buf, 0x16u);
       }
 
@@ -341,8 +340,6 @@ LABEL_19:
     v7 = 0;
     v30 = 0;
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
@@ -385,7 +382,7 @@ LABEL_19:
   selfCopy2 = self;
   v3 = 0;
   v4 = &stru_28544C2A0;
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   do
   {
     if (selfCopy2)
@@ -417,22 +414,22 @@ LABEL_19:
       v10 = 0;
     }
 
-    v28 = v3;
+    v27 = v3;
     v11 = MEMORY[0x277CCACA8];
     v12 = v10;
     v13 = [v11 stringWithFormat:@"%@:\n", v12];
     v14 = [(__CFString *)v4 stringByAppendingString:v13];
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v15 = v9;
-    v16 = [v15 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v30;
+      v18 = *v29;
       v4 = v14;
       do
       {
@@ -440,12 +437,12 @@ LABEL_19:
         v20 = v4;
         do
         {
-          if (*v30 != v18)
+          if (*v29 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v21 = *(*(&v29 + 1) + 8 * v19);
+          v21 = *(*(&v28 + 1) + 8 * v19);
           v22 = [v21 objectForKey:@"from"];
           v23 = [v21 objectForKey:@"to"];
           v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"\t%d - %d\n", objc_msgSend(v22, "intValue"), objc_msgSend(v23, "intValue")];
@@ -456,7 +453,7 @@ LABEL_19:
         }
 
         while (v17 != v19);
-        v17 = [v15 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v17);
@@ -467,12 +464,11 @@ LABEL_19:
       v4 = v14;
     }
 
-    v3 = (v28 + 1);
+    v3 = (v27 + 1);
     selfCopy2 = self;
   }
 
-  while (v28 != 6);
-  v25 = *MEMORY[0x277D85DE8];
+  while (v27 != 6);
 
   return v4;
 }
@@ -489,54 +485,54 @@ LABEL_19:
 - (BCSOpenHours)initWithHoursMessages:(id)messages timeZone:(id)zone
 {
   selfCopy = self;
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   zoneCopy = zone;
-  v28 = objc_opt_new();
+  v27 = objc_opt_new();
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   obj = messagesCopy;
-  v29 = [obj countByEnumeratingWithState:&v36 objects:v43 count:16];
-  if (v29)
+  v28 = [obj countByEnumeratingWithState:&v35 objects:v42 count:16];
+  if (v28)
   {
-    v27 = *v37;
+    v26 = *v36;
     do
     {
       v6 = 0;
       do
       {
-        if (*v37 != v27)
+        if (*v36 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v31 = v6;
-        v7 = *(*(&v36 + 1) + 8 * v6);
+        v30 = v6;
+        v7 = *(*(&v35 + 1) + 8 * v6);
         timeRanges = [v7 timeRanges];
-        v30 = *[v7 days];
+        v29 = *[v7 days];
         v9 = objc_opt_new();
+        v31 = 0u;
         v32 = 0u;
         v33 = 0u;
         v34 = 0u;
-        v35 = 0u;
         v10 = timeRanges;
-        v11 = [v10 countByEnumeratingWithState:&v32 objects:v42 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v31 objects:v41 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v33;
+          v13 = *v32;
           do
           {
             for (i = 0; i != v12; ++i)
             {
-              if (*v33 != v13)
+              if (*v32 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v15 = *(*(&v32 + 1) + 8 * i);
+              v15 = *(*(&v31 + 1) + 8 * i);
               if ([v15 hasAllDay] && objc_msgSend(v15, "allDay"))
               {
                 v16 = [MEMORY[0x277CCABB0] numberWithInteger:86400];
@@ -549,37 +545,36 @@ LABEL_19:
                 v16 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v15, "to")}];
               }
 
-              v40[0] = @"from";
-              v40[1] = @"to";
-              v41[0] = v17;
-              v41[1] = v16;
-              v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:2];
+              v39[0] = @"from";
+              v39[1] = @"to";
+              v40[0] = v17;
+              v40[1] = v16;
+              v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
               [v9 addObject:v18];
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v32 objects:v42 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v31 objects:v41 count:16];
           }
 
           while (v12);
         }
 
-        v19 = [MEMORY[0x277CCABB0] numberWithInteger:v30 - 1];
-        [v28 setObject:v9 forKey:v19];
+        v19 = [MEMORY[0x277CCABB0] numberWithInteger:v29 - 1];
+        [v27 setObject:v9 forKey:v19];
 
-        v6 = v31 + 1;
+        v6 = v30 + 1;
       }
 
-      while (v31 + 1 != v29);
-      v29 = [obj countByEnumeratingWithState:&v36 objects:v43 count:16];
+      while (v30 + 1 != v28);
+      v28 = [obj countByEnumeratingWithState:&v35 objects:v42 count:16];
     }
 
-    while (v29);
+    while (v28);
   }
 
-  v20 = [v28 copy];
+  v20 = [v27 copy];
   v21 = [(BCSOpenHours *)selfCopy initWithTimeRanges:v20 timeZone:zoneCopy];
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -614,11 +609,11 @@ LABEL_19:
 
 - (BCSOpenHours)initWithOpenHours:(id)hours timeZone:(id)zone
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   hoursCopy = hours;
   zoneCopy = zone;
-  v34 = objc_opt_new();
-  v32 = hoursCopy;
+  v33 = objc_opt_new();
+  v31 = hoursCopy;
   firstObject = [hoursCopy firstObject];
   v7 = [firstObject objectForKeyedSubscript:@"hours"];
   objc_opt_class();
@@ -635,89 +630,88 @@ LABEL_19:
   }
 
   [firstObject objectForKeyedSubscript:{@"hours", firstObject}];
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
-  obj = v49 = 0u;
-  v37 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
-  if (v37)
+  obj = v48 = 0u;
+  v36 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
+  if (v36)
   {
-    v35 = *v47;
+    v34 = *v46;
     do
     {
-      for (i = 0; i != v37; ++i)
+      for (i = 0; i != v36; ++i)
       {
-        if (*v47 != v35)
+        if (*v46 != v34)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v46 + 1) + 8 * i);
+        v11 = *(*(&v45 + 1) + 8 * i);
         v12 = [v11 objectForKeyedSubscript:@"day"];
         firstObject2 = [v12 firstObject];
         v14 = [(BCSOpenHours *)self _weekdayIndexFromWeekdayString:firstObject2];
         if (v14 != -1)
         {
-          v38 = v14;
-          v39 = firstObject2;
-          v40 = v12;
-          v41 = i;
+          v37 = v14;
+          v38 = firstObject2;
+          v39 = v12;
+          v40 = i;
           v15 = objc_opt_new();
           v16 = [v11 objectForKeyedSubscript:@"timeRange"];
+          v41 = 0u;
           v42 = 0u;
           v43 = 0u;
           v44 = 0u;
-          v45 = 0u;
-          v17 = [v16 countByEnumeratingWithState:&v42 objects:v53 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v41 objects:v52 count:16];
           if (v17)
           {
             v18 = v17;
-            v19 = *v43;
+            v19 = *v42;
             do
             {
               for (j = 0; j != v18; ++j)
               {
-                if (*v43 != v19)
+                if (*v42 != v19)
                 {
                   objc_enumerationMutation(v16);
                 }
 
-                v21 = *(*(&v42 + 1) + 8 * j);
+                v21 = *(*(&v41 + 1) + 8 * j);
                 v22 = [v21 objectForKeyedSubscript:@"from"];
                 v23 = [v21 objectForKeyedSubscript:@"to"];
-                v51[0] = @"from";
-                v51[1] = @"to";
-                v52[0] = v22;
-                v52[1] = v23;
-                v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:2];
+                v50[0] = @"from";
+                v50[1] = @"to";
+                v51[0] = v22;
+                v51[1] = v23;
+                v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:2];
                 [v15 addObject:v24];
               }
 
-              v18 = [v16 countByEnumeratingWithState:&v42 objects:v53 count:16];
+              v18 = [v16 countByEnumeratingWithState:&v41 objects:v52 count:16];
             }
 
             while (v18);
           }
 
-          v25 = [MEMORY[0x277CCABB0] numberWithInteger:v38];
-          [v34 setObject:v15 forKey:v25];
+          v25 = [MEMORY[0x277CCABB0] numberWithInteger:v37];
+          [v33 setObject:v15 forKey:v25];
 
-          v12 = v40;
-          i = v41;
-          firstObject2 = v39;
+          v12 = v39;
+          i = v40;
+          firstObject2 = v38;
         }
       }
 
-      v37 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
+      v36 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
     }
 
-    while (v37);
+    while (v36);
   }
 
-  v26 = [v34 copy];
+  v26 = [v33 copy];
   v27 = [(BCSOpenHours *)self initWithTimeRanges:v26 timeZone:zoneCopy];
 
-  v28 = *MEMORY[0x277D85DE8];
   return v27;
 }
 

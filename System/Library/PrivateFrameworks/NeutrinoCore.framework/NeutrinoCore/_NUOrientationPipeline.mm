@@ -186,7 +186,7 @@
         v28 = [_NUMediaGeometry alloc];
         if (geometry2)
         {
-          [geometry2 duration];
+          objc_msgSend_duration(geometry2);
         }
 
         else

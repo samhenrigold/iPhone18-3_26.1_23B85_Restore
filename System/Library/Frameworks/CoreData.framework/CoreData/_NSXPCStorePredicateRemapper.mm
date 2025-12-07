@@ -52,7 +52,7 @@
 
 - (void)visitPredicateExpression:(id)expression
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -65,25 +65,24 @@
         if ([v5 count])
         {
           objc_opt_class();
+          v11 = 0u;
+          v12 = 0u;
           v13 = 0u;
           v14 = 0u;
-          v15 = 0u;
-          v16 = 0u;
-          v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+          v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
           if (v6)
           {
             v7 = v6;
-            v8 = *v14;
+            v8 = *v12;
 LABEL_8:
             v9 = 0;
             while (1)
             {
-              if (*v14 != v8)
+              if (*v12 != v8)
               {
                 objc_enumerationMutation(v5);
               }
 
-              v10 = *(*(&v13 + 1) + 8 * v9);
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
                 break;
@@ -91,7 +90,7 @@ LABEL_8:
 
               if (v7 == ++v9)
               {
-                v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+                v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
                 if (v7)
                 {
                   goto LABEL_8;
@@ -105,15 +104,13 @@ LABEL_8:
           else
           {
 LABEL_14:
-            v11 = objc_opt_class();
-            object_setClass(expression, v11);
+            v10 = objc_opt_class();
+            object_setClass(expression, v10);
           }
         }
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

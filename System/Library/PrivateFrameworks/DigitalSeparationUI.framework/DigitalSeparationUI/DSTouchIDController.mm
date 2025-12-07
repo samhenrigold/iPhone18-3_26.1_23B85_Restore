@@ -70,7 +70,7 @@
 - (void)shouldShowWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v4 = sharedWorkQueue();
+  v4 = sharedWorkQueue(completionCopy);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __48__DSTouchIDController_shouldShowWithCompletion___block_invoke;
@@ -482,7 +482,7 @@ LABEL_22:
 
 - (void)startRatchetEvalInPresentationContext:(id)context
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v18[4] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CD4860];
   contextCopy = context;
   v6 = objc_alloc_init(v4);
@@ -493,31 +493,29 @@ LABEL_22:
   deepLinkForCurrentFlowAndPane = [delegate deepLinkForCurrentFlowAndPane];
 
   v10 = MEMORY[0x277CD4858];
-  v18[0] = &unk_285BB9388;
+  v17[0] = &unk_285BB9388;
   v11 = DSUIDTOLocStringForKey(@"RATCHET_REASON_TOUCHID");
-  v19[0] = v11;
-  v18[1] = &unk_285BB93A0;
+  v18[0] = v11;
+  v17[1] = &unk_285BB93A0;
   v12 = DSUIDTOLocStringForKey(@"RATCHET_ENDED_DETAIL_TOUCHID");
-  v19[1] = v12;
-  v18[2] = &unk_285BB93B8;
+  v18[1] = v12;
+  v17[2] = &unk_285BB93B8;
   v13 = [MEMORY[0x277CBEBC0] URLWithString:deepLinkForCurrentFlowAndPane];
-  v18[3] = &unk_285BB93D0;
-  v19[2] = v13;
-  v19[3] = contextCopy;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
+  v17[3] = &unk_285BB93D0;
+  v18[2] = v13;
+  v18[3] = contextCopy;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
   v15 = [v10 makeViewControllerWithOptions:v14 configuration:v6];
   ratchetVC = self->_ratchetVC;
   self->_ratchetVC = v15;
 
   [(LARatchetViewController *)self->_ratchetVC setDelegate:self];
   [(LARatchetViewController *)self->_ratchetVC evaluateAndShowViewController];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ratchetViewController:(id)controller didFinishWithResult:(id)result error:(id)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   errorCopy = error;
   resultCopy = result;
@@ -531,8 +529,8 @@ LABEL_22:
     block[2] = __71__DSTouchIDController_ratchetViewController_didFinishWithResult_error___block_invoke;
     block[3] = &unk_278F752F8;
     block[4] = self;
-    v25 = delegate;
-    v26 = controllerCopy;
+    v24 = delegate;
+    v25 = controllerCopy;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 
@@ -547,7 +545,7 @@ LABEL_22:
       if (os_log_type_enabled(DSLogBiometrics_1, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v28 = errorCopy;
+        v27 = errorCopy;
         _os_log_impl(&dword_248C7E000, v16, OS_LOG_TYPE_INFO, "TouchID Change Ratchet not armed. Reason: %@", buf, 0xCu);
       }
 
@@ -577,8 +575,6 @@ LABEL_22:
       [delegate exitFlowForRatchetWait];
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __71__DSTouchIDController_ratchetViewController_didFinishWithResult_error___block_invoke(uint64_t a1)
@@ -607,11 +603,10 @@ void __71__DSTouchIDController_ratchetViewController_didFinishWithResult_error__
 
 void __38__DSTouchIDController_beginEnrollment__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "Error while evaluating Touch ID authentication policy, error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "Error while evaluating Touch ID authentication policy, error %@", &v2, 0xCu);
 }
 
 @end

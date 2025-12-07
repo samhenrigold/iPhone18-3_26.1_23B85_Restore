@@ -54,7 +54,7 @@
 
 - (void)_callStreamStoppedWithError:(id)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   sessionID = [(HMDCameraStreamControlManager *)self sessionID];
   v6 = objc_autoreleasePoolPush();
@@ -63,13 +63,13 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v13 = 138543874;
-    v14 = v9;
-    v15 = 2112;
-    v16 = sessionID;
-    v17 = 2112;
-    v18 = errorCopy;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Stream with session ID %@ stopped with error %@", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = v9;
+    v14 = 2112;
+    v15 = sessionID;
+    v16 = 2112;
+    v17 = errorCopy;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Stream with session ID %@ stopped with error %@", &v12, 0x20u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -81,22 +81,20 @@
   }
 
   [(HMDCameraStreamControlManager *)selfCopy _cleanUpStreamSessionWithError:errorCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callStreamReconfigured
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Stream reconfigured", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Stream reconfigured", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -106,22 +104,20 @@
   {
     [delegate streamControlManagerDidReconfigureStream:managerProtocol];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callStreamFirstFrameReceived
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@First frame received", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@First frame received", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -131,22 +127,20 @@
   {
     [delegate streamControlManagerDidReceiveFirstFrame:managerProtocol];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callStreamStarted
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Stream started", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Stream started", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -156,22 +150,20 @@
   {
     [delegate streamControlManagerDidStartStream:managerProtocol];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callStreamRemoteConnectionSetup
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Stream remote connection setup", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Stream remote connection setup", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -181,13 +173,11 @@
   {
     [delegate streamControlManagerDidSetUpRemoteConnection:managerProtocol];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callStreamNegotiated:(id)negotiated
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   negotiatedCopy = negotiated;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -195,9 +185,9 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v8;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Stream negotiated", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v8;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Stream negotiated", &v11, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -207,8 +197,6 @@
   {
     [delegate streamControlManager:managerProtocol didNegotiateStreamWithSelectedParameters:negotiatedCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)managerProtocol
@@ -329,12 +317,11 @@ LABEL_13:
 
 uint64_t __44__HMDCameraStreamControlManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v7_144634;
-  logCategory__hmf_once_v7_144634 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v7_144634;
+  logCategory__hmf_once_v7_144634 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

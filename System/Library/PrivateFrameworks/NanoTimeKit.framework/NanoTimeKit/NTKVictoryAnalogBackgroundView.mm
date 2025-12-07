@@ -1175,7 +1175,7 @@ void __57__NTKVictoryAnalogBackgroundView__applyPalette_forStyle___block_invoke(
   backgroundColor = [paletteCopy backgroundColor];
   v85 = toPaletteCopy;
   backgroundColor2 = [toPaletteCopy backgroundColor];
-  v17 = NTKInterpolateBetweenColors();
+  v17 = NTKInterpolateBetweenColors(fraction);
   selfCopy = self;
   [(NTKVictoryAnalogBackgroundView *)self setBackgroundColor:v17];
 
@@ -1377,8 +1377,8 @@ void __57__NTKVictoryAnalogBackgroundView__applyPalette_forStyle___block_invoke(
           v55 = [v53 numberWithInteger:{objc_msgSend(v54, "integerValue") + 1}];
           v56 = [v85 numberColorAtIndex:v55];
 
-          v57 = NTKInterpolateBetweenColors();
-          v58 = NTKInterpolateBetweenColors();
+          v57 = NTKInterpolateBetweenColors(v36);
+          v58 = NTKInterpolateBetweenColors(v36);
           [v40 setFillColor:v57 inRange:{0, 1}];
           [v40 setFillColor:v58 inRange:{1, 1}];
 
@@ -1423,10 +1423,10 @@ void __57__NTKVictoryAnalogBackgroundView__applyPalette_forStyle___block_invoke(
 
   logo = [v84 logo];
   logo2 = [v85 logo];
-  v70 = NTKInterpolateBetweenColors();
+  v70 = NTKInterpolateBetweenColors(v63);
   [(NTKVictoryLogoButton *)selfCopy->_logoButton setTintColor:v70];
 
-  v71 = NTKInterpolateBetweenColors();
+  v71 = NTKInterpolateBetweenColors(v63);
   [(NTKVictoryLogoButton *)selfCopy->_smallLogoButton setTintColor:v71];
 }
 
@@ -1447,23 +1447,23 @@ float __102__NTKVictoryAnalogBackgroundView_applyTransitionFraction_fromPalette_
   toColorCopy = toColor;
   if (CLKFloatEqualsFloat())
   {
-    v8 = colorCopy;
+    v9 = colorCopy;
   }
 
   else
   {
     if (!CLKFloatEqualsFloat())
     {
-      v10 = NTKInterpolateBetweenColors();
-      cGColor = [v10 CGColor];
+      v11 = NTKInterpolateBetweenColors(amount);
+      cGColor = [v11 CGColor];
 
       goto LABEL_7;
     }
 
-    v8 = toColorCopy;
+    v9 = toColorCopy;
   }
 
-  cGColor = [v8 CGColor];
+  cGColor = [v9 CGColor];
 LABEL_7:
 
   return cGColor;

@@ -84,9 +84,7 @@
 
 uint64_t __45__HMCContextProvider_unsafeSynchronousBlock___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   _HMFThreadLocalAsyncContextPush();
-  v3 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
   _HMFThreadLocalAsyncContextPop();
   return [*(a1 + 32) reset];
@@ -109,10 +107,9 @@ uint64_t __45__HMCContextProvider_unsafeSynchronousBlock___block_invoke(uint64_t
 
 void __35__HMCContextProvider_performBlock___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
-  v3 = [*(a1 + 32) managedObjectContext];
-  [v3 reset];
+  v2 = [*(a1 + 32) managedObjectContext];
+  [v2 reset];
 }
 
 - (HMCContextProvider)initWithContext:(id)context

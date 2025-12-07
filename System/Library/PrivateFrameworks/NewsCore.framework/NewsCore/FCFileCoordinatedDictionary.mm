@@ -37,35 +37,35 @@
 
 - (FCFileCoordinatedDictionary)initWithFileURL:(id)l allowedClasses:(id)classes qualityOfService:(int64_t)service
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   lCopy = l;
   classesCopy = classes;
   if (!lCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "fileURL"];
+    v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "fileURL"];
     *buf = 136315906;
-    v28 = "[FCFileCoordinatedDictionary initWithFileURL:allowedClasses:qualityOfService:]";
-    v29 = 2080;
-    v30 = "FCFileCoordinatedDictionary.m";
-    v31 = 1024;
-    v32 = 36;
-    v33 = 2114;
-    v34 = v24;
+    v27 = "[FCFileCoordinatedDictionary initWithFileURL:allowedClasses:qualityOfService:]";
+    v28 = 2080;
+    v29 = "FCFileCoordinatedDictionary.m";
+    v30 = 1024;
+    v31 = 36;
+    v32 = 2114;
+    v33 = v23;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v25.receiver = self;
-  v25.super_class = FCFileCoordinatedDictionary;
-  v10 = [(FCFileCoordinatedDictionary *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = FCFileCoordinatedDictionary;
+  v10 = [(FCFileCoordinatedDictionary *)&v24 init];
   if (v10)
   {
     v11 = [lCopy copy];
     fileURL = v10->_fileURL;
     v10->_fileURL = v11;
 
-    v26[0] = objc_opt_class();
-    v26[1] = objc_opt_class();
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+    v25[0] = objc_opt_class();
+    v25[1] = objc_opt_class();
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
     v14 = [classesCopy setByAddingObjectsFromArray:v13];
     allowedClasses = v10->_allowedClasses;
     v10->_allowedClasses = v14;
@@ -85,7 +85,6 @@
     v10->_asyncAccessQueue = v20;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -189,33 +188,31 @@ void __53__FCFileCoordinatedDictionary_writeSyncWithAccessor___block_invoke(uint
 
 - (void)readWithAccessor:(id)accessor
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   accessorCopy = accessor;
   if (!accessorCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "accessor"];
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "accessor"];
     *buf = 136315906;
-    v12 = "[FCFileCoordinatedDictionary readWithAccessor:]";
-    v13 = 2080;
-    v14 = "FCFileCoordinatedDictionary.m";
-    v15 = 1024;
-    v16 = 102;
-    v17 = 2114;
-    v18 = v8;
+    v11 = "[FCFileCoordinatedDictionary readWithAccessor:]";
+    v12 = 2080;
+    v13 = "FCFileCoordinatedDictionary.m";
+    v14 = 1024;
+    v15 = 102;
+    v16 = 2114;
+    v17 = v7;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   asyncAccessQueue = [(FCFileCoordinatedDictionary *)self asyncAccessQueue];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __48__FCFileCoordinatedDictionary_readWithAccessor___block_invoke;
-  v9[3] = &unk_1E7C446B0;
-  v9[4] = self;
-  v10 = accessorCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __48__FCFileCoordinatedDictionary_readWithAccessor___block_invoke;
+  v8[3] = &unk_1E7C446B0;
+  v8[4] = self;
+  v9 = accessorCopy;
   v6 = accessorCopy;
-  [asyncAccessQueue enqueueBlock:v9];
-
-  v7 = *MEMORY[0x1E69E9840];
+  [asyncAccessQueue enqueueBlock:v8];
 }
 
 void __48__FCFileCoordinatedDictionary_readWithAccessor___block_invoke(uint64_t a1, void *a2)
@@ -229,36 +226,34 @@ void __48__FCFileCoordinatedDictionary_readWithAccessor___block_invoke(uint64_t 
 
 - (void)writeWithAccessor:(id)accessor completion:(id)completion
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   accessorCopy = accessor;
   completionCopy = completion;
   if (!accessorCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "accessor"];
+    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "accessor"];
     *buf = 136315906;
-    v17 = "[FCFileCoordinatedDictionary writeWithAccessor:completion:]";
-    v18 = 2080;
-    v19 = "FCFileCoordinatedDictionary.m";
-    v20 = 1024;
-    v21 = 112;
-    v22 = 2114;
-    v23 = v12;
+    v16 = "[FCFileCoordinatedDictionary writeWithAccessor:completion:]";
+    v17 = 2080;
+    v18 = "FCFileCoordinatedDictionary.m";
+    v19 = 1024;
+    v20 = 112;
+    v21 = 2114;
+    v22 = v11;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   asyncAccessQueue = [(FCFileCoordinatedDictionary *)self asyncAccessQueue];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __60__FCFileCoordinatedDictionary_writeWithAccessor_completion___block_invoke;
-  v13[3] = &unk_1E7C446D8;
-  v13[4] = self;
-  v14 = accessorCopy;
-  v15 = completionCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __60__FCFileCoordinatedDictionary_writeWithAccessor_completion___block_invoke;
+  v12[3] = &unk_1E7C446D8;
+  v12[4] = self;
+  v13 = accessorCopy;
+  v14 = completionCopy;
   v9 = completionCopy;
   v10 = accessorCopy;
-  [asyncAccessQueue enqueueBlock:v13];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [asyncAccessQueue enqueueBlock:v12];
 }
 
 void __60__FCFileCoordinatedDictionary_writeWithAccessor_completion___block_invoke(uint64_t a1, void *a2)

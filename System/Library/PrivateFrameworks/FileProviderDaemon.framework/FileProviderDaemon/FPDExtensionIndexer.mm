@@ -69,13 +69,11 @@ void __53__FPDExtensionIndexer_dropIndexForReason_completion___block_invoke(uint
 
 void __53__FPDExtensionIndexer_dropIndexForReason_completion___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 fp_prettyDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_ERROR, "[ERROR] Failed to drop index in extension, will try in fileproviderd, error %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_ERROR, "[ERROR] Failed to drop index in extension, will try in fileproviderd, error %@", &v4, 0xCu);
 }
 
 @end

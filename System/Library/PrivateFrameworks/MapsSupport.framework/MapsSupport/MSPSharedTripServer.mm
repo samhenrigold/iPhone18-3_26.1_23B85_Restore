@@ -27,6 +27,7 @@
 - (void)fetchSharingIdentityWithCompletion:(id)completion;
 - (void)invalidateActiveHandlesForSenderController:(id)controller;
 - (void)purgeExpiredBlockedTripIdentifiers;
+- (void)relay:(id)relay accountStatusChanged:(BOOL)changed;
 - (void)reportUserConfirmationOfSharingIdentity:(id)identity completion:(id)completion;
 - (void)senderController:(id)controller didInvalidateSharedTripWithError:(id)error;
 - (void)senderController:(id)controller didStartSharingWithGroupIdentifier:(id)identifier;
@@ -58,58 +59,56 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
-  [(MSPSharedTripServer *)self cleanConnections];
-  v3 = MSPGetSharedTripLog();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = MSPGetSharedTripLog([(MSPSharedTripServer *)self cleanConnections]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136380675;
-    v7 = "[MSPSharedTripServer dealloc]";
+    v6 = "[MSPSharedTripServer dealloc]";
     _os_log_impl(&dword_25813A000, v3, OS_LOG_TYPE_DEBUG, "[Server] %{private}s", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = MSPSharedTripServer;
-  [(MSPSharedTripServer *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = MSPSharedTripServer;
+  [(MSPSharedTripServer *)&v4 dealloc];
 }
 
 - (void)cleanConnections
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v3 = MSPGetSharedTripLog();
+  v17 = *MEMORY[0x277D85DE8];
+  v3 = MSPGetSharedTripLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136380675;
-    v17 = "[MSPSharedTripServer cleanConnections]";
+    v16 = "[MSPSharedTripServer cleanConnections]";
     _os_log_impl(&dword_25813A000, v3, OS_LOG_TYPE_DEBUG, "[Server] %{private}s", buf, 0xCu);
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v4 = self->_connections;
-  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * i);
+        v9 = *(*(&v10 + 1) + 8 * i);
         [v9 invalidate];
         [v9 setExportedObject:0];
       }
 
-      v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
@@ -117,20 +116,19 @@
 
   [(MSPReceiverETAController *)self->_receivingController cleanTimer];
   [(NSXPCListener *)self->_listener invalidate];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createXPCListener
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (!self->_listener)
   {
-    v3 = MSPGetSharedTripLog();
+    v3 = MSPGetSharedTripLog(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v13 = 136380675;
-      v14 = "[MSPSharedTripServer createXPCListener]";
-      _os_log_impl(&dword_25813A000, v3, OS_LOG_TYPE_DEBUG, "[Server] %{private}s", &v13, 0xCu);
+      v12 = 136380675;
+      v13 = "[MSPSharedTripServer createXPCListener]";
+      _os_log_impl(&dword_25813A000, v3, OS_LOG_TYPE_DEBUG, "[Server] %{private}s", &v12, 0xCu);
     }
 
     v4 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:2];
@@ -154,8 +152,6 @@
     [(NSXPCListener *)self->_listener resume];
     notify_post(MSPSharedTripServerStartDarwinNotification);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
@@ -164,28 +160,27 @@
   listenerCopy = listener;
   connectionCopy = connection;
   v7 = [[MSPSharedTripXPCPeer alloc] initWithConnection:connectionCopy];
-  if ([(MSPSharedTripXPCPeer *)v7 canControlSharing]|| [(MSPSharedTripXPCPeer *)v7 canControlReceiving])
+  if ([(MSPSharedTripXPCPeer *)v7 canControlSharing]|| (v8 = [(MSPSharedTripXPCPeer *)v7 canControlReceiving], (v8 & 1) != 0))
   {
     [(NSMapTable *)self->_peersByConnection setObject:v7 forKey:connectionCopy];
-    v8 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_286963800];
-    v9 = MEMORY[0x277CBEB98];
-    v10 = objc_opt_class();
-    v11 = [v9 setWithObjects:{v10, objc_opt_class(), 0, listenerCopy}];
-    [v8 setClasses:v11 forSelector:sel_fetchSharedTripsWithCompletion_ argumentIndex:0 ofReply:1];
+    v9 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_286963800];
+    v10 = MEMORY[0x277CBEB98];
+    v11 = objc_opt_class();
+    v12 = [v10 setWithObjects:{v11, objc_opt_class(), 0, listenerCopy}];
+    [v9 setClasses:v12 forSelector:sel_fetchSharedTripsWithCompletion_ argumentIndex:0 ofReply:1];
 
-    v12 = MEMORY[0x277CBEB98];
-    v13 = objc_opt_class();
-    v14 = [v12 setWithObjects:{v13, objc_opt_class(), 0}];
-    [v8 setClasses:v14 forSelector:sel_checkinWithCompletion_ argumentIndex:3 ofReply:1];
+    v13 = MEMORY[0x277CBEB98];
+    v14 = objc_opt_class();
+    v15 = [v13 setWithObjects:{v14, objc_opt_class(), 0}];
+    [v9 setClasses:v15 forSelector:sel_checkinWithCompletion_ argumentIndex:3 ofReply:1];
 
-    [connectionCopy setExportedInterface:v8];
+    [connectionCopy setExportedInterface:v9];
     [connectionCopy setExportedObject:self];
-    v15 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_286972300];
-    [connectionCopy setRemoteObjectInterface:v15];
+    v16 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_286972300];
+    [connectionCopy setRemoteObjectInterface:v16];
 
-    [connectionCopy _setQueue:MEMORY[0x277D85CD0]];
-    v16 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v17 = MSPGetSharedTripLog([connectionCopy _setQueue:MEMORY[0x277D85CD0]]);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
       v29 = connectionCopy;
@@ -193,7 +188,7 @@
       canControlSharing = [(MSPSharedTripXPCPeer *)v7 canControlSharing];
       v32 = 1024;
       canControlReceiving = [(MSPSharedTripXPCPeer *)v7 canControlReceiving];
-      _os_log_impl(&dword_25813A000, v16, OS_LOG_TYPE_DEBUG, "[Server] Accepting new connection: %@, can share: %d, can receive: %d", buf, 0x18u);
+      _os_log_impl(&dword_25813A000, v17, OS_LOG_TYPE_DEBUG, "[Server] Accepting new connection: %@, can share: %d, can receive: %d", buf, 0x18u);
     }
 
     objc_initWeak(buf, connectionCopy);
@@ -220,36 +215,35 @@
     objc_destroyWeak(&v25);
     objc_destroyWeak(&location);
     objc_destroyWeak(buf);
-    v17 = 1;
+    v18 = 1;
   }
 
   else
   {
-    v8 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = MSPGetSharedTripLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
       v29 = connectionCopy;
-      _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_ERROR, "[Server] will not accept connection due to missing entitlements: %@", buf, 0xCu);
+      _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_ERROR, "[Server] will not accept connection due to missing entitlements: %@", buf, 0xCu);
     }
 
-    v17 = 0;
+    v18 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v18;
 }
 
 void __58__MSPSharedTripServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = MSPGetSharedTripLog();
+  v3 = MSPGetSharedTripLog(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412290;
-    v8 = WeakRetained;
-    _os_log_impl(&dword_25813A000, v3, OS_LOG_TYPE_ERROR, "[Server] Connection invalidated: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = WeakRetained;
+    _os_log_impl(&dword_25813A000, v3, OS_LOG_TYPE_ERROR, "[Server] Connection invalidated: %@", &v6, 0xCu);
   }
 
   v4 = objc_loadWeakRetained((a1 + 40));
@@ -260,20 +254,18 @@ void __58__MSPSharedTripServer_listener_shouldAcceptNewConnection___block_invoke
     [v5[8] removeObjectForKey:WeakRetained];
     [v5 _purgeSubscriptionsForConnection:WeakRetained];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __58__MSPSharedTripServer_listener_shouldAcceptNewConnection___block_invoke_113(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = MSPGetSharedTripLog();
+  v3 = MSPGetSharedTripLog(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412290;
-    v8 = WeakRetained;
-    _os_log_impl(&dword_25813A000, v3, OS_LOG_TYPE_ERROR, "[Server] Connection interrupted: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = WeakRetained;
+    _os_log_impl(&dword_25813A000, v3, OS_LOG_TYPE_ERROR, "[Server] Connection interrupted: %@", &v6, 0xCu);
   }
 
   v4 = objc_loadWeakRetained((a1 + 40));
@@ -284,8 +276,6 @@ void __58__MSPSharedTripServer_listener_shouldAcceptNewConnection___block_invoke
     [v5[8] removeObjectForKey:WeakRetained];
     [v5 _purgeSubscriptionsForConnection:WeakRetained];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_connectionCanControlSharing:(id)sharing
@@ -321,123 +311,121 @@ void __58__MSPSharedTripServer_listener_shouldAcceptNewConnection___block_invoke
   if (dCopy)
   {
     v7 = [(NSMutableDictionary *)self->_connectionSubscriptionsByTripID objectForKeyedSubscript:dCopy];
+    v8 = v7;
     if (v7)
     {
-      v8 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v8 = !neededCopy;
+      v9 = !neededCopy;
     }
 
-    if (!v8)
+    if (!v9)
     {
-      v9 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = MSPGetSharedTripLog(v7);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         v12 = 138412290;
         v13 = dCopy;
-        _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_DEBUG, "[Server] Initialising subscriptions for trip %@", &v12, 0xCu);
+        _os_log_impl(&dword_25813A000, v10, OS_LOG_TYPE_DEBUG, "[Server] Initialising subscriptions for trip %@", &v12, 0xCu);
       }
 
-      v7 = objc_alloc_init(MEMORY[0x277CBEB58]);
-      [(NSMutableDictionary *)self->_connectionSubscriptionsByTripID setObject:v7 forKeyedSubscript:dCopy];
+      v8 = objc_alloc_init(MEMORY[0x277CBEB58]);
+      [(NSMutableDictionary *)self->_connectionSubscriptionsByTripID setObject:v8 forKeyedSubscript:dCopy];
     }
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
-  return v7;
+  return v8;
 }
 
 - (void)_purgeSubscriptionsForConnection:(id)connection
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v5 = MSPGetSharedTripLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = MSPGetSharedTripLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v31 = connectionCopy;
-    _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_DEBUG, "[Server] Purging subscriptions for %@", buf, 0xCu);
+    v32 = connectionCopy;
+    _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_DEBUG, "[Server] Purging subscriptions for %@", buf, 0xCu);
   }
 
-  v6 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v7 = objc_alloc_init(MEMORY[0x277CBEB58]);
   connectionSubscriptionsByTripID = self->_connectionSubscriptionsByTripID;
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke;
-  v27[3] = &unk_279865ED0;
-  v21 = connectionCopy;
-  v28 = v21;
-  v8 = v6;
-  v29 = v8;
-  [(NSMutableDictionary *)connectionSubscriptionsByTripID enumerateKeysAndObjectsUsingBlock:v27];
-  v25 = 0u;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke;
+  v28[3] = &unk_279865ED0;
+  v22 = connectionCopy;
+  v29 = v22;
+  v9 = v7;
+  v30 = v9;
+  [(NSMutableDictionary *)connectionSubscriptionsByTripID enumerateKeysAndObjectsUsingBlock:v28];
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v23 objects:v34 count:16];
-  if (v10)
+  v25 = 0u;
+  v10 = v9;
+  v11 = [v10 countByEnumeratingWithState:&v24 objects:v35 count:16];
+  if (v11)
   {
-    v11 = v10;
-    v12 = *v24;
+    v12 = v11;
+    v13 = *v25;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v12; ++i)
       {
-        if (*v24 != v12)
+        if (*v25 != v13)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v23 + 1) + 8 * i);
-        v15 = [(MSPSharedTripServer *)self _subscribedConnectionsForTripID:v14 createIfNeeded:0];
-        if (![v15 count])
+        v15 = *(*(&v24 + 1) + 8 * i);
+        v16 = [(MSPSharedTripServer *)self _subscribedConnectionsForTripID:v15 createIfNeeded:0];
+        if (![v16 count])
         {
-          v16 = MSPGetSharedTripLog();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v17 = MSPGetSharedTripLog(0);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v31 = v14;
-            _os_log_impl(&dword_25813A000, v16, OS_LOG_TYPE_DEFAULT, "[Server] Unsubscribing from trip %@, no more connections", buf, 0xCu);
+            v32 = v15;
+            _os_log_impl(&dword_25813A000, v17, OS_LOG_TYPE_DEFAULT, "[Server] Unsubscribing from trip %@, no more connections", buf, 0xCu);
           }
 
-          [(NSMutableDictionary *)self->_connectionSubscriptionsByTripID setObject:0 forKeyedSubscript:v14];
+          [(NSMutableDictionary *)self->_connectionSubscriptionsByTripID setObject:0 forKeyedSubscript:v15];
           receivingController = self->_receivingController;
-          v22 = 0;
-          [(MSPReceiverETAController *)receivingController unsubscribeFromUpdatesToSharedTrip:v14 error:&v22];
-          v18 = v22;
-          if (v18)
+          v23 = 0;
+          [(MSPReceiverETAController *)receivingController unsubscribeFromUpdatesToSharedTrip:v15 error:&v23];
+          v19 = v23;
+          v20 = v19;
+          if (v19)
           {
-            v19 = MSPGetSharedTripLog();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+            v21 = MSPGetSharedTripLog(v19);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v31 = v14;
-              v32 = 2112;
-              v33 = v18;
-              _os_log_impl(&dword_25813A000, v19, OS_LOG_TYPE_ERROR, "[Server] Error unsubscribing from trip %@ for purged connection: %@", buf, 0x16u);
+              v32 = v15;
+              v33 = 2112;
+              v34 = v20;
+              _os_log_impl(&dword_25813A000, v21, OS_LOG_TYPE_ERROR, "[Server] Error unsubscribing from trip %@ for purged connection: %@", buf, 0x16u);
             }
           }
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v23 objects:v34 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v24 objects:v35 count:16];
     }
 
-    while (v11);
+    while (v12);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -468,9 +456,7 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
   self->_receivingController = v7;
 
   [(MSPReceiverETAController *)self->_receivingController setDelegate:self];
-  v9 = objc_alloc_init(MSPSharedTripCapabilityFetchingServer);
-  capabilityFetchingServer = self->_capabilityFetchingServer;
-  self->_capabilityFetchingServer = v9;
+  self->_capabilityFetchingServer = objc_alloc_init(MSPSharedTripCapabilityFetchingServer);
 
   MEMORY[0x2821F96F8]();
 }
@@ -479,7 +465,7 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
 {
   v24 = *MEMORY[0x277D85DE8];
   tripCopy = trip;
-  v6 = MSPGetSharedTripLog();
+  v6 = MSPGetSharedTripLog(tripCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136380675;
@@ -506,8 +492,9 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
           objc_enumerationMutation(connections);
         }
 
-        remoteObjectProxy = *(*(&v15 + 1) + 8 * i);
-        if (remoteObjectProxy && [(MSPSharedTripServer *)self _connectionCanControlReceiving:remoteObjectProxy])
+        v12 = *(*(&v15 + 1) + 8 * i);
+        remoteObjectProxy = v12;
+        if (v12 && (v12 = [(MSPSharedTripServer *)self _connectionCanControlReceiving:v12], (v12 & 1) != 0))
         {
 
           remoteObjectProxy = [remoteObjectProxy remoteObjectProxy];
@@ -516,14 +503,14 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
 
         else
         {
-          v13 = MSPGetSharedTripLog();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+          v14 = MSPGetSharedTripLog(v12);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
             v20 = "[MSPSharedTripServer etaController:didUpdateDestinationForSharedTrip:]";
             v21 = 2112;
             v22 = remoteObjectProxy;
-            _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_DEBUG, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
+            _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_DEBUG, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
           }
         }
       }
@@ -533,15 +520,13 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)etaController:(id)controller didUpdateReachedDestinationForSharedTrip:(id)trip
 {
   v24 = *MEMORY[0x277D85DE8];
   tripCopy = trip;
-  v6 = MSPGetSharedTripLog();
+  v6 = MSPGetSharedTripLog(tripCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136380675;
@@ -568,8 +553,9 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
           objc_enumerationMutation(connections);
         }
 
-        remoteObjectProxy = *(*(&v15 + 1) + 8 * i);
-        if (remoteObjectProxy && [(MSPSharedTripServer *)self _connectionCanControlReceiving:remoteObjectProxy])
+        v12 = *(*(&v15 + 1) + 8 * i);
+        remoteObjectProxy = v12;
+        if (v12 && (v12 = [(MSPSharedTripServer *)self _connectionCanControlReceiving:v12], (v12 & 1) != 0))
         {
 
           remoteObjectProxy = [remoteObjectProxy remoteObjectProxy];
@@ -578,14 +564,14 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
 
         else
         {
-          v13 = MSPGetSharedTripLog();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+          v14 = MSPGetSharedTripLog(v12);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
             v20 = "[MSPSharedTripServer etaController:didUpdateReachedDestinationForSharedTrip:]";
             v21 = 2112;
             v22 = remoteObjectProxy;
-            _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_DEBUG, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
+            _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_DEBUG, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
           }
         }
       }
@@ -595,15 +581,13 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)etaController:(id)controller didUpdateETAForSharedTrip:(id)trip
 {
   v24 = *MEMORY[0x277D85DE8];
   tripCopy = trip;
-  v6 = MSPGetSharedTripLog();
+  v6 = MSPGetSharedTripLog(tripCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136380675;
@@ -630,8 +614,9 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
           objc_enumerationMutation(connections);
         }
 
-        remoteObjectProxy = *(*(&v15 + 1) + 8 * i);
-        if (remoteObjectProxy && [(MSPSharedTripServer *)self _connectionCanControlReceiving:remoteObjectProxy])
+        v12 = *(*(&v15 + 1) + 8 * i);
+        remoteObjectProxy = v12;
+        if (v12 && (v12 = [(MSPSharedTripServer *)self _connectionCanControlReceiving:v12], (v12 & 1) != 0))
         {
 
           remoteObjectProxy = [remoteObjectProxy remoteObjectProxy];
@@ -640,14 +625,14 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
 
         else
         {
-          v13 = MSPGetSharedTripLog();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+          v14 = MSPGetSharedTripLog(v12);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
             v20 = "[MSPSharedTripServer etaController:didUpdateETAForSharedTrip:]";
             v21 = 2112;
             v22 = remoteObjectProxy;
-            _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_DEBUG, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
+            _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_DEBUG, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
           }
         }
       }
@@ -657,15 +642,13 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)etaController:(id)controller didUpdateRouteForSharedTrip:(id)trip
 {
   v24 = *MEMORY[0x277D85DE8];
   tripCopy = trip;
-  v6 = MSPGetSharedTripLog();
+  v6 = MSPGetSharedTripLog(tripCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136380675;
@@ -692,8 +675,9 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
           objc_enumerationMutation(connections);
         }
 
-        remoteObjectProxy = *(*(&v15 + 1) + 8 * i);
-        if (remoteObjectProxy && [(MSPSharedTripServer *)self _connectionCanControlReceiving:remoteObjectProxy])
+        v12 = *(*(&v15 + 1) + 8 * i);
+        remoteObjectProxy = v12;
+        if (v12 && (v12 = [(MSPSharedTripServer *)self _connectionCanControlReceiving:v12], (v12 & 1) != 0))
         {
 
           remoteObjectProxy = [remoteObjectProxy remoteObjectProxy];
@@ -702,14 +686,14 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
 
         else
         {
-          v13 = MSPGetSharedTripLog();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+          v14 = MSPGetSharedTripLog(v12);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
             v20 = "[MSPSharedTripServer etaController:didUpdateRouteForSharedTrip:]";
             v21 = 2112;
             v22 = remoteObjectProxy;
-            _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_DEBUG, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
+            _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_DEBUG, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
           }
         }
       }
@@ -719,15 +703,13 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)etaController:(id)controller sharedTripDidBecomeAvailable:(id)available
 {
   v24 = *MEMORY[0x277D85DE8];
   availableCopy = available;
-  v6 = MSPGetSharedTripLog();
+  v6 = MSPGetSharedTripLog(availableCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136380675;
@@ -754,8 +736,9 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
           objc_enumerationMutation(connections);
         }
 
-        remoteObjectProxy = *(*(&v15 + 1) + 8 * i);
-        if (remoteObjectProxy && [(MSPSharedTripServer *)self _connectionCanControlReceiving:remoteObjectProxy])
+        v12 = *(*(&v15 + 1) + 8 * i);
+        remoteObjectProxy = v12;
+        if (v12 && (v12 = [(MSPSharedTripServer *)self _connectionCanControlReceiving:v12], (v12 & 1) != 0))
         {
 
           remoteObjectProxy = [remoteObjectProxy remoteObjectProxy];
@@ -764,14 +747,14 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
 
         else
         {
-          v13 = MSPGetSharedTripLog();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+          v14 = MSPGetSharedTripLog(v12);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
             v20 = "[MSPSharedTripServer etaController:sharedTripDidBecomeAvailable:]";
             v21 = 2112;
             v22 = remoteObjectProxy;
-            _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_DEBUG, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
+            _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_DEBUG, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
           }
         }
       }
@@ -781,15 +764,13 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)etaController:(id)controller sharedTripDidBecomeUnavailable:(id)unavailable
 {
   v24 = *MEMORY[0x277D85DE8];
   unavailableCopy = unavailable;
-  v6 = MSPGetSharedTripLog();
+  v6 = MSPGetSharedTripLog(unavailableCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136380675;
@@ -816,8 +797,9 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
           objc_enumerationMutation(connections);
         }
 
-        remoteObjectProxy = *(*(&v15 + 1) + 8 * i);
-        if (remoteObjectProxy && [(MSPSharedTripServer *)self _connectionCanControlReceiving:remoteObjectProxy])
+        v12 = *(*(&v15 + 1) + 8 * i);
+        remoteObjectProxy = v12;
+        if (v12 && (v12 = [(MSPSharedTripServer *)self _connectionCanControlReceiving:v12], (v12 & 1) != 0))
         {
 
           remoteObjectProxy = [remoteObjectProxy remoteObjectProxy];
@@ -826,14 +808,14 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
 
         else
         {
-          v13 = MSPGetSharedTripLog();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+          v14 = MSPGetSharedTripLog(v12);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
             v20 = "[MSPSharedTripServer etaController:sharedTripDidBecomeUnavailable:]";
             v21 = 2112;
             v22 = remoteObjectProxy;
-            _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_DEBUG, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
+            _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_DEBUG, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
           }
         }
       }
@@ -843,15 +825,13 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)etaController:(id)controller sharedTripDidClose:(id)close
 {
   v24 = *MEMORY[0x277D85DE8];
   closeCopy = close;
-  v6 = MSPGetSharedTripLog();
+  v6 = MSPGetSharedTripLog(closeCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136380675;
@@ -878,8 +858,9 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
           objc_enumerationMutation(connections);
         }
 
-        remoteObjectProxy = *(*(&v15 + 1) + 8 * i);
-        if (remoteObjectProxy && [(MSPSharedTripServer *)self _connectionCanControlReceiving:remoteObjectProxy])
+        v12 = *(*(&v15 + 1) + 8 * i);
+        remoteObjectProxy = v12;
+        if (v12 && (v12 = [(MSPSharedTripServer *)self _connectionCanControlReceiving:v12], (v12 & 1) != 0))
         {
 
           remoteObjectProxy = [remoteObjectProxy remoteObjectProxy];
@@ -888,14 +869,14 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
 
         else
         {
-          v13 = MSPGetSharedTripLog();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+          v14 = MSPGetSharedTripLog(v12);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
             v20 = "[MSPSharedTripServer etaController:sharedTripDidClose:]";
             v21 = 2112;
             v22 = remoteObjectProxy;
-            _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_DEBUG, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
+            _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_DEBUG, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
           }
         }
       }
@@ -905,8 +886,6 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkinWithCompletion:(id)completion
@@ -937,36 +916,38 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
     serviceNamesByActiveHandle = MEMORY[0x277CBEC10];
   }
 
-  if ([v7 canControlReceiving])
+  canControlReceiving = [v7 canControlReceiving];
+  if (canControlReceiving)
   {
-    allTrips = [(MSPReceiverETAController *)self->_receivingController allTrips];
+    canControlReceiving = [(MSPReceiverETAController *)self->_receivingController allTrips];
+    v11 = canControlReceiving;
   }
 
   else
   {
-    allTrips = MEMORY[0x277CBEBF8];
+    v11 = MEMORY[0x277CBEBF8];
   }
 
-  v11 = MSPGetSharedTripLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = MSPGetSharedTripLog(canControlReceiving);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     if ([v7 canControlSharing])
     {
-      v12 = "";
+      v13 = "";
     }
 
     else
     {
-      v12 = " (not entitled)";
+      v13 = " (not entitled)";
     }
 
-    v13 = [allTrips count];
-    canControlReceiving = [v7 canControlReceiving];
+    v14 = [v11 count];
+    canControlReceiving2 = [v7 canControlReceiving];
     v19 = 138413571;
-    v15 = "";
-    if (!canControlReceiving)
+    v16 = "";
+    if (!canControlReceiving2)
     {
-      v15 = " (not entitled)";
+      v16 = " (not entitled)";
     }
 
     v20 = currentConnection;
@@ -975,28 +956,26 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
     v23 = 2113;
     v24 = activeHandles;
     v25 = 2080;
-    v26 = v12;
+    v26 = v13;
     v27 = 2048;
-    v28 = v13;
+    v28 = v14;
     v29 = 2080;
-    v30 = v15;
-    _os_log_impl(&dword_25813A000, v11, OS_LOG_TYPE_DEFAULT, "[Server] Checking in on %@ (identity: %{private}@, %{private}@%s, %lu%s trips", &v19, 0x3Eu);
+    v30 = v16;
+    _os_log_impl(&dword_25813A000, v12, OS_LOG_TYPE_DEFAULT, "[Server] Checking in on %@ (identity: %{private}@, %{private}@%s, %lu%s trips", &v19, 0x3Eu);
   }
 
   canControlSharing = [v7 canControlSharing];
   if ([v7 canControlReceiving])
   {
-    v17 = canControlSharing | 2;
+    v18 = canControlSharing | 2;
   }
 
   else
   {
-    v17 = canControlSharing;
+    v18 = canControlSharing;
   }
 
-  completionCopy[2](completionCopy, sharingIdentity, activeHandles, serviceNamesByActiveHandle, allTrips, v17);
-
-  v18 = *MEMORY[0x277D85DE8];
+  completionCopy[2](completionCopy, sharingIdentity, activeHandles, serviceNamesByActiveHandle, v11, v18);
 }
 
 - (void)fetchSharingIdentityWithCompletion:(id)completion
@@ -1005,138 +984,142 @@ void __56__MSPSharedTripServer__purgeSubscriptionsForConnection___block_invoke(u
   completionCopy = completion;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
-  if (currentConnection && [(MSPSharedTripServer *)self _connectionCanControlSharing:currentConnection])
+  sharingIdentity = currentConnection;
+  if (currentConnection && (currentConnection = [(MSPSharedTripServer *)self _connectionCanControlSharing:currentConnection], (currentConnection & 1) != 0))
   {
 
-    currentConnection = [(MSPSharedTripRelay *)self->_idsRelay sharingIdentity];
-    v6 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    sharingIdentity = [(MSPSharedTripRelay *)self->_idsRelay sharingIdentity];
+    v7 = MSPGetSharedTripLog(sharingIdentity);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 138477827;
-      v10 = currentConnection;
-      _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_DEFAULT, "[Server] fetchSendingIdentity: %{private}@)", &v9, 0xCu);
+      v10 = sharingIdentity;
+      _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_DEFAULT, "[Server] fetchSendingIdentity: %{private}@)", &v9, 0xCu);
     }
 
-    completionCopy[2](completionCopy, currentConnection);
+    completionCopy[2](completionCopy, sharingIdentity);
   }
 
   else
   {
-    v7 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = MSPGetSharedTripLog(currentConnection);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = 136315394;
       v10 = "[MSPSharedTripServer fetchSharingIdentityWithCompletion:]";
       v11 = 2112;
-      v12 = currentConnection;
-      _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", &v9, 0x16u);
+      v12 = sharingIdentity;
+      _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", &v9, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchRequiresUserConfirmationOfSharingIdentityWithCompletion:(id)completion
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
-  if (currentConnection && [(MSPSharedTripServer *)self _connectionCanControlSharing:currentConnection])
+  v6 = currentConnection;
+  if (currentConnection)
   {
-
-    v6 = [MSPMapsDefaultsAccessor get:@"MapsSharedETADefaultSender"];
-    sharingIdentity = [(MSPSharedTripRelay *)self->_idsRelay sharingIdentity];
-    handle = [sharingIdentity handle];
-
-    if (handle)
-    {
-      currentConnection = 0;
-    }
-
-    else
-    {
-      v19[0] = *MEMORY[0x277CCA068];
-      *v14 = @"Invalid account for sharing";
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v19 count:1];
-      currentConnection = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.Maps.SharedTrip" code:5 userInfo:v9];
-
-      if (currentConnection)
-      {
-        goto LABEL_10;
-      }
-    }
-
-    if (v6)
-    {
-      v10 = [v6 isEqual:handle]^ 1;
-      goto LABEL_15;
-    }
-
-LABEL_10:
+    currentConnection = [(MSPSharedTripServer *)self _connectionCanControlSharing:currentConnection];
     if (currentConnection)
     {
-      v11 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+
+      v7 = [MSPMapsDefaultsAccessor get:@"MapsSharedETADefaultSender"];
+      sharingIdentity = [(MSPSharedTripRelay *)self->_idsRelay sharingIdentity];
+      handle = [sharingIdentity handle];
+
+      if (handle)
       {
-        *v14 = 138412290;
-        *&v14[4] = currentConnection;
-        _os_log_impl(&dword_25813A000, v11, OS_LOG_TYPE_ERROR, "[Server] fetchRequiresUserConfirmationOfSharingIdentity failed with error: %@", v14, 0xCu);
+        v6 = 0;
       }
 
-      v10 = 1;
-      goto LABEL_19;
-    }
+      else
+      {
+        v20[0] = *MEMORY[0x277CCA068];
+        *v15 = @"Invalid account for sharing";
+        v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v20 count:1];
+        v6 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.Maps.SharedTrip" code:5 userInfo:v11];
 
-    v10 = 1;
+        if (v6)
+        {
+          goto LABEL_10;
+        }
+      }
+
+      if (v7)
+      {
+        v10 = [v7 isEqual:handle];
+        v12 = v10 ^ 1;
+        goto LABEL_15;
+      }
+
+LABEL_10:
+      if (v6)
+      {
+        v13 = MSPGetSharedTripLog(v10);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        {
+          *v15 = 138412290;
+          *&v15[4] = v6;
+          _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_ERROR, "[Server] fetchRequiresUserConfirmationOfSharingIdentity failed with error: %@", v15, 0xCu);
+        }
+
+        v12 = 1;
+        goto LABEL_19;
+      }
+
+      v12 = 1;
 LABEL_15:
-    v11 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-    {
-      v12 = "NO";
-      *v14 = 136315651;
-      if (v10)
+      v13 = MSPGetSharedTripLog(v10);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = "YES";
-      }
+        v14 = "NO";
+        *v15 = 136315651;
+        if (v12)
+        {
+          v14 = "YES";
+        }
 
-      *&v14[4] = v12;
-      v15 = 2113;
-      v16 = handle;
-      v17 = 2113;
-      v18 = v6;
-      _os_log_impl(&dword_25813A000, v11, OS_LOG_TYPE_DEFAULT, "[Server] fetchRequiresUserConfirmationOfSharingIdentity: %s, handle: %{private}@, last confirmed: %{private}@", v14, 0x20u);
-    }
+        *&v15[4] = v14;
+        v16 = 2113;
+        v17 = handle;
+        v18 = 2113;
+        v19 = v7;
+        _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_DEFAULT, "[Server] fetchRequiresUserConfirmationOfSharingIdentity: %s, handle: %{private}@, last confirmed: %{private}@", v15, 0x20u);
+      }
 
 LABEL_19:
 
-    completionCopy[2](completionCopy, v10, handle, currentConnection);
-    goto LABEL_20;
+      completionCopy[2](completionCopy, v12, handle, v6);
+      goto LABEL_20;
+    }
   }
 
-  v6 = MSPGetSharedTripLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = MSPGetSharedTripLog(currentConnection);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    *v14 = 136315394;
-    *&v14[4] = "[MSPSharedTripServer fetchRequiresUserConfirmationOfSharingIdentityWithCompletion:]";
-    v15 = 2112;
-    v16 = currentConnection;
-    _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", v14, 0x16u);
+    *v15 = 136315394;
+    *&v15[4] = "[MSPSharedTripServer fetchRequiresUserConfirmationOfSharingIdentityWithCompletion:]";
+    v16 = 2112;
+    v17 = v6;
+    _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", v15, 0x16u);
   }
 
 LABEL_20:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportUserConfirmationOfSharingIdentity:(id)identity completion:(id)completion
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   completionCopy = completion;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
-  if (currentConnection && [(MSPSharedTripServer *)self _connectionCanControlSharing:currentConnection])
+  v9 = currentConnection;
+  if (currentConnection && (currentConnection = [(MSPSharedTripServer *)self _connectionCanControlSharing:currentConnection], (currentConnection & 1) != 0))
   {
 
     sharingIdentity = [(MSPSharedTripRelay *)self->_idsRelay sharingIdentity];
@@ -1145,261 +1128,253 @@ LABEL_20:
     if (([handle isEqualToString:identityCopy]& 1) != 0)
     {
       [MSPMapsDefaultsAccessor set:@"MapsSharedETADefaultSender" value:identityCopy];
-      +[MSPMapsDefaultsAccessor synchronize];
-      v11 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = MSPGetSharedTripLog(+[MSPMapsDefaultsAccessor synchronize]);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        *v14 = 138477827;
-        *&v14[4] = identityCopy;
-        _os_log_impl(&dword_25813A000, v11, OS_LOG_TYPE_DEFAULT, "[Server] reportUserConfirmationOfSharingIdentity: set user-confirmed handle: %{private}@", v14, 0xCu);
+        *v15 = 138477827;
+        *&v15[4] = identityCopy;
+        _os_log_impl(&dword_25813A000, v12, OS_LOG_TYPE_DEFAULT, "[Server] reportUserConfirmationOfSharingIdentity: set user-confirmed handle: %{private}@", v15, 0xCu);
       }
 
-      currentConnection = 0;
+      v9 = 0;
     }
 
     else
     {
-      v17[0] = *MEMORY[0x277CCA068];
-      *v14 = @"The provided sharing handle does not match the current sharing identity";
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v17 count:1];
-      currentConnection = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.Maps.SharedTrip" code:6 userInfo:v12];
+      v18[0] = *MEMORY[0x277CCA068];
+      *v15 = @"The provided sharing handle does not match the current sharing identity";
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v18 count:1];
+      v9 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.Maps.SharedTrip" code:6 userInfo:v13];
 
-      v11 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = MSPGetSharedTripLog(v14);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        *v14 = 138412290;
-        *&v14[4] = currentConnection;
-        _os_log_impl(&dword_25813A000, v11, OS_LOG_TYPE_ERROR, "[Server] reportUserConfirmationOfSharingIdentity failed with error: %@", v14, 0xCu);
+        *v15 = 138412290;
+        *&v15[4] = v9;
+        _os_log_impl(&dword_25813A000, v12, OS_LOG_TYPE_ERROR, "[Server] reportUserConfirmationOfSharingIdentity failed with error: %@", v15, 0xCu);
       }
     }
 
-    completionCopy[2](completionCopy, currentConnection);
+    completionCopy[2](completionCopy, v9);
   }
 
   else
   {
-    handle = MSPGetSharedTripLog();
+    handle = MSPGetSharedTripLog(currentConnection);
     if (os_log_type_enabled(handle, OS_LOG_TYPE_ERROR))
     {
-      *v14 = 136315394;
-      *&v14[4] = "[MSPSharedTripServer reportUserConfirmationOfSharingIdentity:completion:]";
-      v15 = 2112;
-      v16 = currentConnection;
-      _os_log_impl(&dword_25813A000, handle, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", v14, 0x16u);
+      *v15 = 136315394;
+      *&v15[4] = "[MSPSharedTripServer reportUserConfirmationOfSharingIdentity:completion:]";
+      v16 = 2112;
+      v17 = v9;
+      _os_log_impl(&dword_25813A000, handle, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", v15, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startSharingTripWithContacts:(id)contacts capabilityType:(unint64_t)type serviceName:(id)name completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   contactsCopy = contacts;
   nameCopy = name;
   completionCopy = completion;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
-  if (currentConnection && [(MSPSharedTripServer *)self _connectionCanControlSharing:currentConnection])
+  v14 = currentConnection;
+  if (currentConnection && (currentConnection = [(MSPSharedTripServer *)self _connectionCanControlSharing:currentConnection], (currentConnection & 1) != 0))
   {
 
-    v14 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = MSPGetSharedTripLog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = contactsCopy;
-      _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_DEFAULT, "[Server] Start sharing with contacts: %@", buf, 0xCu);
+      v21 = contactsCopy;
+      _os_log_impl(&dword_25813A000, v16, OS_LOG_TYPE_DEFAULT, "[Server] Start sharing with contacts: %@", buf, 0xCu);
     }
 
     sendingController = self->_sendingController;
-    v18 = 0;
-    [(MSPSenderETAController *)sendingController startSharingWith:contactsCopy capabilityType:type serviceName:nameCopy error:&v18];
-    currentConnection = v18;
-    completionCopy[2](completionCopy, currentConnection);
+    v19 = 0;
+    [(MSPSenderETAController *)sendingController startSharingWith:contactsCopy capabilityType:type serviceName:nameCopy error:&v19];
+    v14 = v19;
+    completionCopy[2](completionCopy, v14);
   }
 
   else
   {
-    v16 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = MSPGetSharedTripLog(currentConnection);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[MSPSharedTripServer startSharingTripWithContacts:capabilityType:serviceName:completion:]";
-      v21 = 2112;
-      v22 = currentConnection;
-      _os_log_impl(&dword_25813A000, v16, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
+      v21 = "[MSPSharedTripServer startSharingTripWithContacts:capabilityType:serviceName:completion:]";
+      v22 = 2112;
+      v23 = v14;
+      _os_log_impl(&dword_25813A000, v18, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startSharingTripWithMessagesGroup:(id)group completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
-  groupCopy = group;
-  completionCopy = completion;
-  dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  currentConnection = [MEMORY[0x277CCAE80] currentConnection];
-  if (currentConnection && [(MSPSharedTripServer *)self _connectionCanControlSharing:currentConnection])
-  {
-
-    v9 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138412290;
-      v15 = groupCopy;
-      _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_DEFAULT, "[Service] Start sharing trip with group: %@", buf, 0xCu);
-    }
-
-    sendingController = self->_sendingController;
-    v13 = 0;
-    [(MSPSenderETAController *)sendingController startSharingWithGroup:groupCopy error:&v13];
-    currentConnection = v13;
-    completionCopy[2](completionCopy, currentConnection);
-  }
-
-  else
-  {
-    v11 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      v15 = "[MSPSharedTripServer startSharingTripWithMessagesGroup:completion:]";
-      v16 = 2112;
-      v17 = currentConnection;
-      _os_log_impl(&dword_25813A000, v11, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
-    }
-  }
-
-  v12 = *MEMORY[0x277D85DE8];
-}
-
-- (void)stopSharingTripWithContacts:(id)contacts reason:(unint64_t)reason completion:(id)completion
-{
-  v20 = *MEMORY[0x277D85DE8];
-  contactsCopy = contacts;
-  completionCopy = completion;
-  dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  currentConnection = [MEMORY[0x277CCAE80] currentConnection];
-  if (currentConnection && [(MSPSharedTripServer *)self _connectionCanControlSharing:currentConnection])
-  {
-
-    v11 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138412290;
-      v17 = contactsCopy;
-      _os_log_impl(&dword_25813A000, v11, OS_LOG_TYPE_DEFAULT, "[Service] stop sharing trip with Maps/Messages contacts: %@", buf, 0xCu);
-    }
-
-    sendingController = self->_sendingController;
-    v15 = 0;
-    [(MSPSenderETAController *)sendingController stopSharingWith:contactsCopy reason:reason error:&v15];
-    currentConnection = v15;
-    [MEMORY[0x277D0E788] captureUserAction:105 target:0 value:0];
-    completionCopy[2](completionCopy, currentConnection);
-  }
-
-  else
-  {
-    v13 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      v17 = "[MSPSharedTripServer stopSharingTripWithContacts:reason:completion:]";
-      v18 = 2112;
-      v19 = currentConnection;
-      _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
-    }
-  }
-
-  v14 = *MEMORY[0x277D85DE8];
-}
-
-- (void)stopSharingTripWithMessagesGroup:(id)group reason:(unint64_t)reason completion:(id)completion
-{
-  v20 = *MEMORY[0x277D85DE8];
-  groupCopy = group;
-  completionCopy = completion;
-  dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  currentConnection = [MEMORY[0x277CCAE80] currentConnection];
-  if (currentConnection && [(MSPSharedTripServer *)self _connectionCanControlSharing:currentConnection])
-  {
-
-    v11 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138412290;
-      v17 = groupCopy;
-      _os_log_impl(&dword_25813A000, v11, OS_LOG_TYPE_DEFAULT, "[Service] stop sharing trip with group: %@", buf, 0xCu);
-    }
-
-    sendingController = self->_sendingController;
-    v15 = 0;
-    [(MSPSenderETAController *)sendingController stopSharingWithGroup:groupCopy reason:reason error:&v15];
-    currentConnection = v15;
-    completionCopy[2](completionCopy, currentConnection);
-  }
-
-  else
-  {
-    v13 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      v17 = "[MSPSharedTripServer stopSharingTripWithMessagesGroup:reason:completion:]";
-      v18 = 2112;
-      v19 = currentConnection;
-      _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
-    }
-  }
-
-  v14 = *MEMORY[0x277D85DE8];
-}
-
-- (void)stopSharingTripWithReason:(unint64_t)reason completion:(id)completion
-{
   v19 = *MEMORY[0x277D85DE8];
+  groupCopy = group;
   completionCopy = completion;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
-  if (currentConnection && [(MSPSharedTripServer *)self _connectionCanControlSharing:currentConnection])
+  v9 = currentConnection;
+  if (currentConnection && (currentConnection = [(MSPSharedTripServer *)self _connectionCanControlSharing:currentConnection], (currentConnection & 1) != 0))
   {
 
-    v8 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v11 = MSPGetSharedTripLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *buf = 0;
-      _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_DEFAULT, "[Server] Stop sharing", buf, 2u);
+      *buf = 138412290;
+      v16 = groupCopy;
+      _os_log_impl(&dword_25813A000, v11, OS_LOG_TYPE_DEFAULT, "[Service] Start sharing trip with group: %@", buf, 0xCu);
     }
 
     sendingController = self->_sendingController;
     v14 = 0;
-    [(MSPSenderETAController *)sendingController stopSharingWithReason:reason error:&v14];
-    currentConnection = v14;
-    v10 = [[MSPSenderETAController alloc] initWithRelay:self->_idsRelay];
-    v11 = self->_sendingController;
-    self->_sendingController = v10;
-
-    [(MSPSenderETAController *)self->_sendingController setDelegate:self];
-    completionCopy[2](completionCopy, currentConnection);
+    [(MSPSenderETAController *)sendingController startSharingWithGroup:groupCopy error:&v14];
+    v9 = v14;
+    completionCopy[2](completionCopy, v9);
   }
 
   else
   {
-    v12 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = MSPGetSharedTripLog(currentConnection);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v16 = "[MSPSharedTripServer stopSharingTripWithReason:completion:]";
+      v16 = "[MSPSharedTripServer startSharingTripWithMessagesGroup:completion:]";
       v17 = 2112;
-      v18 = currentConnection;
-      _os_log_impl(&dword_25813A000, v12, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
+      v18 = v9;
+      _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
     }
   }
+}
 
-  v13 = *MEMORY[0x277D85DE8];
+- (void)stopSharingTripWithContacts:(id)contacts reason:(unint64_t)reason completion:(id)completion
+{
+  v21 = *MEMORY[0x277D85DE8];
+  contactsCopy = contacts;
+  completionCopy = completion;
+  dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
+  currentConnection = [MEMORY[0x277CCAE80] currentConnection];
+  v11 = currentConnection;
+  if (currentConnection && (currentConnection = [(MSPSharedTripServer *)self _connectionCanControlSharing:currentConnection], (currentConnection & 1) != 0))
+  {
+
+    v13 = MSPGetSharedTripLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v18 = contactsCopy;
+      _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_DEFAULT, "[Service] stop sharing trip with Maps/Messages contacts: %@", buf, 0xCu);
+    }
+
+    sendingController = self->_sendingController;
+    v16 = 0;
+    [(MSPSenderETAController *)sendingController stopSharingWith:contactsCopy reason:reason error:&v16];
+    v11 = v16;
+    [MEMORY[0x277D0E788] captureUserAction:105 target:0 value:0];
+    completionCopy[2](completionCopy, v11);
+  }
+
+  else
+  {
+    v15 = MSPGetSharedTripLog(currentConnection);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v18 = "[MSPSharedTripServer stopSharingTripWithContacts:reason:completion:]";
+      v19 = 2112;
+      v20 = v11;
+      _os_log_impl(&dword_25813A000, v15, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
+    }
+  }
+}
+
+- (void)stopSharingTripWithMessagesGroup:(id)group reason:(unint64_t)reason completion:(id)completion
+{
+  v21 = *MEMORY[0x277D85DE8];
+  groupCopy = group;
+  completionCopy = completion;
+  dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
+  currentConnection = [MEMORY[0x277CCAE80] currentConnection];
+  v11 = currentConnection;
+  if (currentConnection && (currentConnection = [(MSPSharedTripServer *)self _connectionCanControlSharing:currentConnection], (currentConnection & 1) != 0))
+  {
+
+    v13 = MSPGetSharedTripLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v18 = groupCopy;
+      _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_DEFAULT, "[Service] stop sharing trip with group: %@", buf, 0xCu);
+    }
+
+    sendingController = self->_sendingController;
+    v16 = 0;
+    [(MSPSenderETAController *)sendingController stopSharingWithGroup:groupCopy reason:reason error:&v16];
+    v11 = v16;
+    completionCopy[2](completionCopy, v11);
+  }
+
+  else
+  {
+    v15 = MSPGetSharedTripLog(currentConnection);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v18 = "[MSPSharedTripServer stopSharingTripWithMessagesGroup:reason:completion:]";
+      v19 = 2112;
+      v20 = v11;
+      _os_log_impl(&dword_25813A000, v15, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
+    }
+  }
+}
+
+- (void)stopSharingTripWithReason:(unint64_t)reason completion:(id)completion
+{
+  v20 = *MEMORY[0x277D85DE8];
+  completionCopy = completion;
+  dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
+  currentConnection = [MEMORY[0x277CCAE80] currentConnection];
+  v8 = currentConnection;
+  if (currentConnection && (currentConnection = [(MSPSharedTripServer *)self _connectionCanControlSharing:currentConnection], (currentConnection & 1) != 0))
+  {
+
+    v10 = MSPGetSharedTripLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_25813A000, v10, OS_LOG_TYPE_DEFAULT, "[Server] Stop sharing", buf, 2u);
+    }
+
+    sendingController = self->_sendingController;
+    v15 = 0;
+    [(MSPSenderETAController *)sendingController stopSharingWithReason:reason error:&v15];
+    v8 = v15;
+    v12 = [[MSPSenderETAController alloc] initWithRelay:self->_idsRelay];
+    v13 = self->_sendingController;
+    self->_sendingController = v12;
+
+    [(MSPSenderETAController *)self->_sendingController setDelegate:self];
+    completionCopy[2](completionCopy, v8);
+  }
+
+  else
+  {
+    v14 = MSPGetSharedTripLog(currentConnection);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v17 = "[MSPSharedTripServer stopSharingTripWithReason:completion:]";
+      v18 = 2112;
+      v19 = v8;
+      _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
+    }
+  }
 }
 
 - (void)fetchActiveHandlesWithCompletion:(id)completion
@@ -1408,63 +1383,63 @@ LABEL_20:
   completionCopy = completion;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
-  if (currentConnection && [(MSPSharedTripServer *)self _connectionCanControlSharing:currentConnection])
+  activeHandles = currentConnection;
+  if (currentConnection && (currentConnection = [(MSPSharedTripServer *)self _connectionCanControlSharing:currentConnection], (currentConnection & 1) != 0))
   {
 
-    currentConnection = [(MSPSenderETAController *)self->_sendingController activeHandles];
+    activeHandles = [(MSPSenderETAController *)self->_sendingController activeHandles];
     serviceNamesByActiveHandle = [(MSPSenderETAController *)self->_sendingController serviceNamesByActiveHandle];
-    v7 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = MSPGetSharedTripLog(serviceNamesByActiveHandle);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 138412290;
-      v10 = currentConnection;
-      _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_DEFAULT, "[Server] Fetch active handles: %@", &v9, 0xCu);
+      v10 = activeHandles;
+      _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_DEFAULT, "[Server] Fetch active handles: %@", &v9, 0xCu);
     }
 
-    completionCopy[2](completionCopy, currentConnection, serviceNamesByActiveHandle);
+    completionCopy[2](completionCopy, activeHandles, serviceNamesByActiveHandle);
   }
 
   else
   {
-    serviceNamesByActiveHandle = MSPGetSharedTripLog();
+    serviceNamesByActiveHandle = MSPGetSharedTripLog(currentConnection);
     if (os_log_type_enabled(serviceNamesByActiveHandle, OS_LOG_TYPE_ERROR))
     {
       v9 = 136315394;
       v10 = "[MSPSharedTripServer fetchActiveHandlesWithCompletion:]";
       v11 = 2112;
-      v12 = currentConnection;
+      v12 = activeHandles;
       _os_log_impl(&dword_25813A000, serviceNamesByActiveHandle, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", &v9, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)subscribeToSharedTripUpdatesWithIdentifier:(id)identifier completion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
-  if (currentConnection && [(MSPSharedTripServer *)self _connectionCanControlReceiving:currentConnection])
+  v9 = currentConnection;
+  if (currentConnection && (currentConnection = [(MSPSharedTripServer *)self _connectionCanControlReceiving:currentConnection], (currentConnection & 1) != 0))
   {
 
-    v9 = [(MSPSharedTripServer *)self _subscribedConnectionsForTripID:identifierCopy createIfNeeded:1];
-    v10 = [v9 count];
-    [v9 addObject:currentConnection];
-    v11 = [v9 count];
-    v12 = MSPGetSharedTripLog();
-    v13 = v12;
-    if (v10 == v11)
+    v10 = [(MSPSharedTripServer *)self _subscribedConnectionsForTripID:identifierCopy createIfNeeded:1];
+    v11 = [v10 count];
+    [v10 addObject:v9];
+    v12 = [v10 count];
+    v13 = MSPGetSharedTripLog(v12);
+    v14 = v13;
+    if (v11 == v12)
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v21 = currentConnection;
-        v22 = 2112;
-        v23 = identifierCopy;
-        _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_INFO, "[Server] %@ already subscribed to trip %@", buf, 0x16u);
+        v22 = v9;
+        v23 = 2112;
+        v24 = identifierCopy;
+        _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_INFO, "[Server] %@ already subscribed to trip %@", buf, 0x16u);
       }
 
       completionCopy[2](completionCopy, 0);
@@ -1472,136 +1447,134 @@ LABEL_20:
 
     else
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412802;
-        v21 = currentConnection;
-        v22 = 2112;
-        v23 = identifierCopy;
-        v24 = 2048;
-        v25 = [v9 count];
-        _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_DEFAULT, "[Server] Added %@ to subscriptions for trip %@ (%lu subscriptions)", buf, 0x20u);
+        v22 = v9;
+        v23 = 2112;
+        v24 = identifierCopy;
+        v25 = 2048;
+        v26 = [v10 count];
+        _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_DEFAULT, "[Server] Added %@ to subscriptions for trip %@ (%lu subscriptions)", buf, 0x20u);
       }
 
-      v16 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v17 = MSPGetSharedTripLog(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v21 = identifierCopy;
-        _os_log_impl(&dword_25813A000, v16, OS_LOG_TYPE_DEFAULT, "[Server] Subscribe to trip: %@", buf, 0xCu);
+        v22 = identifierCopy;
+        _os_log_impl(&dword_25813A000, v17, OS_LOG_TYPE_DEFAULT, "[Server] Subscribe to trip: %@", buf, 0xCu);
       }
 
       receivingController = self->_receivingController;
-      v19 = 0;
-      [(MSPReceiverETAController *)receivingController subscribeToUpdatesToSharedTrip:identifierCopy error:&v19];
-      v18 = v19;
-      (completionCopy)[2](completionCopy, v18);
+      v20 = 0;
+      [(MSPReceiverETAController *)receivingController subscribeToUpdatesToSharedTrip:identifierCopy error:&v20];
+      v19 = v20;
+      (completionCopy)[2](completionCopy, v19);
     }
   }
 
   else
   {
-    v14 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = MSPGetSharedTripLog(currentConnection);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "[MSPSharedTripServer subscribeToSharedTripUpdatesWithIdentifier:completion:]";
-      v22 = 2112;
-      v23 = currentConnection;
-      _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
+      v22 = "[MSPSharedTripServer subscribeToSharedTripUpdatesWithIdentifier:completion:]";
+      v23 = 2112;
+      v24 = v9;
+      _os_log_impl(&dword_25813A000, v15, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
     }
 
-    v9 = currentConnection;
+    v10 = v9;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unsubscribeFromSharedTripUpdatesWithIdentifier:(id)identifier completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
-  if (currentConnection && [(MSPSharedTripServer *)self _connectionCanControlReceiving:currentConnection])
+  v9 = currentConnection;
+  if (currentConnection && (currentConnection = [(MSPSharedTripServer *)self _connectionCanControlReceiving:currentConnection], (currentConnection & 1) != 0))
   {
 
-    v9 = [(MSPSharedTripServer *)self _subscribedConnectionsForTripID:identifierCopy createIfNeeded:0];
-    v10 = [v9 count];
-    [v9 removeObject:currentConnection];
-    v11 = [v9 count];
-    v12 = MSPGetSharedTripLog();
-    v13 = v12;
-    if (v10 == v11)
+    v10 = [(MSPSharedTripServer *)self _subscribedConnectionsForTripID:identifierCopy createIfNeeded:0];
+    v11 = [v10 count];
+    [v10 removeObject:v9];
+    v12 = [v10 count];
+    v13 = MSPGetSharedTripLog(v12);
+    v14 = v13;
+    if (v11 == v12)
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412546;
-        v21 = currentConnection;
-        v22 = 2112;
-        v23 = identifierCopy;
-        _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_DEBUG, "[Server] Connection %@ was not subscribed to trip: %@", buf, 0x16u);
+        v22 = v9;
+        v23 = 2112;
+        v24 = identifierCopy;
+        _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_DEBUG, "[Server] Connection %@ was not subscribed to trip: %@", buf, 0x16u);
       }
     }
 
     else
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v21 = currentConnection;
-        v22 = 2112;
-        v23 = identifierCopy;
-        _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_DEFAULT, "[Server] Removed connection %@ from subscriptions for trip: %@", buf, 0x16u);
+        v22 = v9;
+        v23 = 2112;
+        v24 = identifierCopy;
+        _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_DEFAULT, "[Server] Removed connection %@ from subscriptions for trip: %@", buf, 0x16u);
       }
 
-      if ([v9 count])
+      v15 = [v10 count];
+      if (v15)
       {
-        v15 = MSPGetSharedTripLog();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+        v16 = MSPGetSharedTripLog(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
-          v16 = [v9 count];
+          v17 = [v10 count];
           *buf = 134218242;
-          v21 = v16;
-          v22 = 2112;
-          v23 = identifierCopy;
-          _os_log_impl(&dword_25813A000, v15, OS_LOG_TYPE_DEBUG, "[Server] %lu subscribed connections for trip %@", buf, 0x16u);
+          v22 = v17;
+          v23 = 2112;
+          v24 = identifierCopy;
+          _os_log_impl(&dword_25813A000, v16, OS_LOG_TYPE_DEBUG, "[Server] %lu subscribed connections for trip %@", buf, 0x16u);
         }
       }
 
-      v17 = MSPGetSharedTripLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = MSPGetSharedTripLog(v15);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v21 = identifierCopy;
-        _os_log_impl(&dword_25813A000, v17, OS_LOG_TYPE_DEFAULT, "[Server] Unsubscribe from trip: %@", buf, 0xCu);
+        v22 = identifierCopy;
+        _os_log_impl(&dword_25813A000, v18, OS_LOG_TYPE_DEFAULT, "[Server] Unsubscribe from trip: %@", buf, 0xCu);
       }
 
       receivingController = self->_receivingController;
-      v19 = 0;
-      [(MSPReceiverETAController *)receivingController unsubscribeFromUpdatesToSharedTrip:identifierCopy error:&v19];
-      v13 = v19;
-      completionCopy[2](completionCopy, v13);
+      v20 = 0;
+      [(MSPReceiverETAController *)receivingController unsubscribeFromUpdatesToSharedTrip:identifierCopy error:&v20];
+      v14 = v20;
+      completionCopy[2](completionCopy, v14);
     }
   }
 
   else
   {
-    v13 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = MSPGetSharedTripLog(currentConnection);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "[MSPSharedTripServer unsubscribeFromSharedTripUpdatesWithIdentifier:completion:]";
-      v22 = 2112;
-      v23 = currentConnection;
-      _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
+      v22 = "[MSPSharedTripServer unsubscribeFromSharedTripUpdatesWithIdentifier:completion:]";
+      v23 = 2112;
+      v24 = v9;
+      _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
     }
 
-    v9 = currentConnection;
+    v10 = v9;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchSharedTripsWithCompletion:(id)completion
@@ -1610,52 +1583,52 @@ LABEL_20:
   completionCopy = completion;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
-  if (currentConnection && [(MSPSharedTripServer *)self _connectionCanControlReceiving:currentConnection])
+  allTrips = currentConnection;
+  if (currentConnection && (currentConnection = [(MSPSharedTripServer *)self _connectionCanControlReceiving:currentConnection], (currentConnection & 1) != 0))
   {
 
-    currentConnection = [(MSPReceiverETAController *)self->_receivingController allTrips];
-    v6 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    allTrips = [(MSPReceiverETAController *)self->_receivingController allTrips];
+    v7 = MSPGetSharedTripLog(allTrips);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 138412290;
-      v10 = currentConnection;
-      _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_DEFAULT, "[Server] Fetching all received trips: %@", &v9, 0xCu);
+      v10 = allTrips;
+      _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_DEFAULT, "[Server] Fetching all received trips: %@", &v9, 0xCu);
     }
 
-    completionCopy[2](completionCopy, currentConnection);
+    completionCopy[2](completionCopy, allTrips);
   }
 
   else
   {
-    v7 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = MSPGetSharedTripLog(currentConnection);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = 136315394;
       v10 = "[MSPSharedTripServer fetchSharedTripsWithCompletion:]";
       v11 = 2112;
-      v12 = currentConnection;
-      _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", &v9, 0x16u);
+      v12 = allTrips;
+      _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", &v9, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)blockSharedTrip:(id)trip
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   tripCopy = trip;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
-  if (currentConnection && [(MSPSharedTripServer *)self _connectionCanControlReceiving:currentConnection])
+  v6 = currentConnection;
+  if (currentConnection && (currentConnection = [(MSPSharedTripServer *)self _connectionCanControlReceiving:currentConnection], (currentConnection & 1) != 0))
   {
 
-    v6 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = MSPGetSharedTripLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = tripCopy;
-      _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_DEFAULT, "[Service] block sharing trip: %@", &v9, 0xCu);
+      v10 = 138412290;
+      v11 = tripCopy;
+      _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_DEFAULT, "[Service] block sharing trip: %@", &v10, 0xCu);
     }
 
     [(MSPReceiverETAController *)self->_receivingController blockSharedTrip:tripCopy];
@@ -1663,33 +1636,32 @@ LABEL_20:
 
   else
   {
-    v7 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = MSPGetSharedTripLog(currentConnection);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "[MSPSharedTripServer blockSharedTrip:]";
-      v11 = 2112;
-      v12 = currentConnection;
-      _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", &v9, 0x16u);
+      v10 = 136315394;
+      v11 = "[MSPSharedTripServer blockSharedTrip:]";
+      v12 = 2112;
+      v13 = v6;
+      _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", &v10, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearBlockedTripIdentifiers
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
-  if (currentConnection && [(MSPSharedTripServer *)self _connectionCanControlReceiving:currentConnection])
+  v4 = currentConnection;
+  if (currentConnection && (currentConnection = [(MSPSharedTripServer *)self _connectionCanControlReceiving:currentConnection], (currentConnection & 1) != 0))
   {
 
-    v4 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = MSPGetSharedTripLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v7) = 0;
-      _os_log_impl(&dword_25813A000, v4, OS_LOG_TYPE_DEFAULT, "[Service] clear blocked trip identifiers", &v7, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_DEFAULT, "[Service] clear blocked trip identifiers", &v8, 2u);
     }
 
     [(MSPReceiverETAController *)self->_receivingController clearBlockedTripIdentifiers];
@@ -1697,33 +1669,32 @@ LABEL_20:
 
   else
   {
-    v5 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = MSPGetSharedTripLog(currentConnection);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315394;
-      v8 = "[MSPSharedTripServer clearBlockedTripIdentifiers]";
-      v9 = 2112;
-      v10 = currentConnection;
-      _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", &v7, 0x16u);
+      v8 = 136315394;
+      v9 = "[MSPSharedTripServer clearBlockedTripIdentifiers]";
+      v10 = 2112;
+      v11 = v4;
+      _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", &v8, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)purgeExpiredBlockedTripIdentifiers
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
-  if (currentConnection && [(MSPSharedTripServer *)self _connectionCanControlReceiving:currentConnection])
+  v4 = currentConnection;
+  if (currentConnection && (currentConnection = [(MSPSharedTripServer *)self _connectionCanControlReceiving:currentConnection], (currentConnection & 1) != 0))
   {
 
-    v4 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = MSPGetSharedTripLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v7) = 0;
-      _os_log_impl(&dword_25813A000, v4, OS_LOG_TYPE_DEFAULT, "[Service] purge expired blocked trip identifiers", &v7, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_DEFAULT, "[Service] purge expired blocked trip identifiers", &v8, 2u);
     }
 
     [(MSPReceiverETAController *)self->_receivingController purgeExpiredBlockedTripIdentifiers];
@@ -1731,25 +1702,23 @@ LABEL_20:
 
   else
   {
-    v5 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = MSPGetSharedTripLog(currentConnection);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315394;
-      v8 = "[MSPSharedTripServer purgeExpiredBlockedTripIdentifiers]";
-      v9 = 2112;
-      v10 = currentConnection;
-      _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", &v7, 0x16u);
+      v8 = 136315394;
+      v9 = "[MSPSharedTripServer purgeExpiredBlockedTripIdentifiers]";
+      v10 = 2112;
+      v11 = v4;
+      _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_ERROR, "[Server] Will not %s, connection lacks entitlement: %@", &v8, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)senderController:(id)controller didStartSharingWithGroupIdentifier:(id)identifier
 {
   v24 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v6 = MSPGetSharedTripLog();
+  v6 = MSPGetSharedTripLog(identifierCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136380675;
@@ -1776,8 +1745,9 @@ LABEL_20:
           objc_enumerationMutation(connections);
         }
 
-        remoteObjectProxy = *(*(&v15 + 1) + 8 * i);
-        if (remoteObjectProxy && [(MSPSharedTripServer *)self _connectionCanControlSharing:remoteObjectProxy])
+        v12 = *(*(&v15 + 1) + 8 * i);
+        remoteObjectProxy = v12;
+        if (v12 && (v12 = [(MSPSharedTripServer *)self _connectionCanControlSharing:v12], (v12 & 1) != 0))
         {
 
           remoteObjectProxy = [remoteObjectProxy remoteObjectProxy];
@@ -1786,14 +1756,14 @@ LABEL_20:
 
         else
         {
-          v13 = MSPGetSharedTripLog();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+          v14 = MSPGetSharedTripLog(v12);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
             v20 = "[MSPSharedTripServer senderController:didStartSharingWithGroupIdentifier:]";
             v21 = 2112;
             v22 = remoteObjectProxy;
-            _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_DEBUG, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
+            _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_DEBUG, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
           }
         }
       }
@@ -1803,15 +1773,13 @@ LABEL_20:
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)senderController:(id)controller didInvalidateSharedTripWithError:(id)error
 {
   v24 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v6 = MSPGetSharedTripLog();
+  v6 = MSPGetSharedTripLog(errorCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136380675;
@@ -1838,8 +1806,9 @@ LABEL_20:
           objc_enumerationMutation(connections);
         }
 
-        remoteObjectProxy = *(*(&v15 + 1) + 8 * i);
-        if (remoteObjectProxy && [(MSPSharedTripServer *)self _connectionCanControlSharing:remoteObjectProxy])
+        v12 = *(*(&v15 + 1) + 8 * i);
+        remoteObjectProxy = v12;
+        if (v12 && (v12 = [(MSPSharedTripServer *)self _connectionCanControlSharing:v12], (v12 & 1) != 0))
         {
 
           remoteObjectProxy = [remoteObjectProxy remoteObjectProxy];
@@ -1848,14 +1817,14 @@ LABEL_20:
 
         else
         {
-          v13 = MSPGetSharedTripLog();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+          v14 = MSPGetSharedTripLog(v12);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
             v20 = "[MSPSharedTripServer senderController:didInvalidateSharedTripWithError:]";
             v21 = 2112;
             v22 = remoteObjectProxy;
-            _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_DEBUG, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
+            _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_DEBUG, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
           }
         }
       }
@@ -1865,15 +1834,13 @@ LABEL_20:
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateActiveHandlesForSenderController:(id)controller
 {
   v27 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
-  v5 = MSPGetSharedTripLog();
+  v5 = MSPGetSharedTripLog(controllerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
@@ -1904,8 +1871,9 @@ LABEL_20:
           objc_enumerationMutation(v9);
         }
 
-        remoteObjectProxy = *(*(&v18 + 1) + 8 * i);
-        if (remoteObjectProxy && [(MSPSharedTripServer *)self _connectionCanControlSharing:remoteObjectProxy])
+        v14 = *(*(&v18 + 1) + 8 * i);
+        remoteObjectProxy = v14;
+        if (v14 && (v14 = [(MSPSharedTripServer *)self _connectionCanControlSharing:v14], (v14 & 1) != 0))
         {
 
           remoteObjectProxy = [remoteObjectProxy remoteObjectProxy];
@@ -1914,14 +1882,14 @@ LABEL_20:
 
         else
         {
-          v15 = MSPGetSharedTripLog();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+          v16 = MSPGetSharedTripLog(v14);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
             v23 = "[MSPSharedTripServer invalidateActiveHandlesForSenderController:]";
             v24 = 2112;
             v25 = remoteObjectProxy;
-            _os_log_impl(&dword_25813A000, v15, OS_LOG_TYPE_DEBUG, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
+            _os_log_impl(&dword_25813A000, v16, OS_LOG_TYPE_DEBUG, "[Server] Will not %s, connection lacks entitlement: %@", buf, 0x16u);
           }
         }
       }
@@ -1931,8 +1899,69 @@ LABEL_20:
 
     while (v11);
   }
+}
 
-  v16 = *MEMORY[0x277D85DE8];
+- (void)relay:(id)relay accountStatusChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  v27 = *MEMORY[0x277D85DE8];
+  v6 = MSPGetSharedTripLog(self);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    v7 = [MEMORY[0x277CCABB0] numberWithBool:changedCopy];
+    *buf = 136380931;
+    v24 = "[MSPSharedTripServer relay:accountStatusChanged:]";
+    v25 = 2112;
+    v26 = v7;
+    _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_DEBUG, "[Server] %{private}s signedIntoiCloud %@", buf, 0x16u);
+  }
+
+  connections = [(MSPSharedTripServer *)self connections];
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v9 = [connections countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v19;
+    do
+    {
+      v12 = 0;
+      do
+      {
+        if (*v19 != v11)
+        {
+          objc_enumerationMutation(connections);
+        }
+
+        v13 = *(*(&v18 + 1) + 8 * v12);
+        v14 = MSPGetSharedTripLog(v9);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        {
+          remoteObjectProxy = [v13 remoteObjectProxy];
+          *buf = 138412546;
+          v24 = v13;
+          v25 = 2112;
+          v26 = remoteObjectProxy;
+          _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_DEBUG, "[Server] connection %@ %@", buf, 0x16u);
+        }
+
+        remoteObjectProxy2 = [v13 remoteObjectProxy];
+        sharingIdentity = [(MSPSharedTripRelay *)self->_idsRelay sharingIdentity];
+        [remoteObjectProxy2 sharingIdentityDidChange:sharingIdentity];
+
+        ++v12;
+      }
+
+      while (v10 != v12);
+      v9 = [connections countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = v9;
+    }
+
+    while (v9);
+  }
 }
 
 + (void)migrateIfNeeded
@@ -1943,16 +1972,18 @@ LABEL_20:
 
 uint64_t __49__MSPSharedTripServer_Migration__migrateIfNeeded__block_invoke()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  if (_GEOConfigHasValue())
+  v7 = *MEMORY[0x277D85DE8];
+  HasValue = _GEOConfigHasValue();
+  if (HasValue)
   {
     BOOL = GEOConfigGetBOOL();
-    v1 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
+    v2 = BOOL;
+    v3 = MSPGetSharedTripLog(BOOL);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v5[0] = 67109120;
-      v5[1] = BOOL;
-      _os_log_impl(&dword_25813A000, v1, OS_LOG_TYPE_INFO, "Will migrate legacy Share ETA user enabled flag: %d", v5, 8u);
+      v6[0] = 67109120;
+      v6[1] = v2;
+      _os_log_impl(&dword_25813A000, v3, OS_LOG_TYPE_INFO, "Will migrate legacy Share ETA user enabled flag: %d", v6, 8u);
     }
 
     GEOConfigSetBOOL();
@@ -1961,18 +1992,16 @@ uint64_t __49__MSPSharedTripServer_Migration__migrateIfNeeded__block_invoke()
 
   else
   {
-    v2 = MSPGetSharedTripLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v4 = MSPGetSharedTripLog(HasValue);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v5[0]) = 0;
-      _os_log_impl(&dword_25813A000, v2, OS_LOG_TYPE_DEBUG, "No legacy Share ETA user enabled flag to migrate", v5, 2u);
+      LOWORD(v6[0]) = 0;
+      _os_log_impl(&dword_25813A000, v4, OS_LOG_TYPE_DEBUG, "No legacy Share ETA user enabled flag to migrate", v6, 2u);
     }
   }
 
   +[MSPSharedTripStorageController removeFilesFromBackupsIfNeeded];
-  result = +[MSPSharedTripBlocklist migrateFromiCloudKVSIfNeeded];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return +[MSPSharedTripBlocklist migrateFromiCloudKVSIfNeeded];
 }
 
 @end

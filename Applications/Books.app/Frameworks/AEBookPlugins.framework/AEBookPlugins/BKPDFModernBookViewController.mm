@@ -385,30 +385,30 @@
 
 + (void)_minScaleFactorForPageBounds:(CGFloat)bounds viewBounds:(CGFloat)viewBounds safeAreaInsets:(double)insets pageBreakMargins:(double)margins
 {
-  v27 = insets + a10 + a14;
-  v28 = margins + a9 + a13;
-  v29 = a7 - (a10 + a12) - (a14 + a16);
-  v30 = a8 - (a9 + a11) - (a13 + a15);
-  v33.origin.x = v27;
-  v33.origin.y = v28;
-  v33.size.width = v29;
-  v33.size.height = v30;
-  CGRectGetWidth(v33);
-  v34.origin.x = self;
-  v34.origin.y = a2;
-  v34.size.width = bounds;
-  v34.size.height = viewBounds;
-  CGRectGetWidth(v34);
-  v35.origin.x = v27;
-  v35.origin.y = v28;
-  v35.size.width = v29;
-  v35.size.height = v30;
-  CGRectGetHeight(v35);
-  v36.origin.x = self;
-  v36.origin.y = a2;
-  v36.size.height = viewBounds;
-  v36.size.width = bounds;
-  CGRectGetHeight(v36);
+  v19 = insets + a10 + a14;
+  v20 = margins + a9 + a13;
+  v21 = a7 - (a10 + a12) - (a14 + a16);
+  v22 = a8 - (a9 + a11) - (a13 + a15);
+  v25.origin.x = v19;
+  v25.origin.y = v20;
+  v25.size.width = v21;
+  v25.size.height = v22;
+  CGRectGetWidth(v25);
+  v26.origin.x = self;
+  v26.origin.y = a2;
+  v26.size.width = bounds;
+  v26.size.height = viewBounds;
+  CGRectGetWidth(v26);
+  v27.origin.x = v19;
+  v27.origin.y = v20;
+  v27.size.width = v21;
+  v27.size.height = v22;
+  CGRectGetHeight(v27);
+  v28.origin.x = self;
+  v28.origin.y = a2;
+  v28.size.height = viewBounds;
+  v28.size.width = bounds;
+  CGRectGetHeight(v28);
 }
 
 - (void)handleContentScaling:(BOOL)scaling
@@ -1817,51 +1817,51 @@ LABEL_7:
   if (currentPage)
   {
     pdfDocument = [(BKPDFModernBookViewController *)self pdfDocument];
-    v11 = [pdfDocument indexForPage:currentPage];
+    v12 = [pdfDocument indexForPage:currentPage];
   }
 
   else
   {
-    v11 = 0x7FFFFFFFFFFFFFFFLL;
+    v12 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v12 = _AEBookPluginsLifeCycleLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = _AEBookPluginsLifeCycleLog(v10);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     [NSNumber numberWithInteger:number];
-    v13 = v23 = currentPage;
-    v14 = [NSNumber numberWithUnsignedInteger:v11];
-    v15 = [NSNumber numberWithUnsignedInteger:v7];
+    v14 = v24 = currentPage;
+    v15 = [NSNumber numberWithUnsignedInteger:v12];
+    v16 = [NSNumber numberWithUnsignedInteger:v7];
     book = [(BKBookViewController *)self book];
     [book assetLogID];
-    v24 = v7;
+    v25 = v7;
     numberCopy = number;
-    v19 = v18 = animateCopy;
+    v20 = v19 = animateCopy;
     *buf = 138544130;
-    v26 = v13;
-    v27 = 2114;
-    v28 = v14;
-    v29 = 2114;
-    v30 = v15;
-    v31 = 2114;
-    v32 = v19;
-    _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Scroll to page number:%{public}@, currentIndex:%{public}@, targetIndex:%{public}@, culogID:%{public}@", buf, 0x2Au);
+    v27 = v14;
+    v28 = 2114;
+    v29 = v15;
+    v30 = 2114;
+    v31 = v16;
+    v32 = 2114;
+    v33 = v20;
+    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Scroll to page number:%{public}@, currentIndex:%{public}@, targetIndex:%{public}@, culogID:%{public}@", buf, 0x2Au);
 
-    animateCopy = v18;
+    animateCopy = v19;
     number = numberCopy;
-    v7 = v24;
+    v7 = v25;
 
-    currentPage = v23;
+    currentPage = v24;
   }
 
-  if (v7 != v11)
+  if (v7 != v12)
   {
     [(BKPDFModernBookViewController *)self _willScrollPDFViewToPageNumber:number];
     pdfDocument2 = [(BKPDFModernBookViewController *)self pdfDocument];
-    v21 = [pdfDocument2 pageAtIndex:v7];
+    v22 = [pdfDocument2 pageAtIndex:v7];
 
     pdfView2 = [(BKPDFModernBookViewController *)self pdfView];
-    [pdfView2 goToPage:v21 animated:animateCopy];
+    [pdfView2 goToPage:v22 animated:animateCopy];
 
     [(BKPDFModernBookViewController *)self _didScrollPDFViewToPage];
   }
@@ -2660,7 +2660,7 @@ LABEL_10:
   v4 = objc_opt_new();
   v11 = v4;
   v5 = objc_retainBlock(v10);
-  v6 = AEBundle();
+  v6 = AEBundle(v5);
   v7 = [v6 localizedStringForKey:@"Search" value:&stru_1E7188 table:0];
   (v5[2])(v5, v7, "searchPDFUsingSelection:");
 

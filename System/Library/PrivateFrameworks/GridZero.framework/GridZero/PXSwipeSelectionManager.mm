@@ -133,13 +133,13 @@
   x = point.x;
   v18 = 0u;
   v19 = 0u;
-  [(PXSwipeSelectionManager *)self _itemIndexPathAtLocation:interaction, point.x];
+  objc_msgSend__itemIndexPathAtLocation_(self, a2, interaction, point.x);
   v16 = 0u;
   v17 = 0u;
-  [(PXSwipeSelectionManager *)self _itemIndexPathClosestLeadingLocation:x, y];
+  objc_msgSend__itemIndexPathClosestLeadingLocation_(self, x, y);
   v14 = 0u;
   v15 = 0u;
-  [(PXSwipeSelectionManager *)self _itemIndexPathClosestAboveLocation:x, y];
+  objc_msgSend__itemIndexPathClosestAboveLocation_(self, x, y);
   v7 = *MEMORY[0x277D3CF78];
   if (*MEMORY[0x277D3CF78])
   {
@@ -171,7 +171,7 @@ LABEL_9:
     }
   }
 
-  [(PXSwipeSelectionManager *)self _startingIndexPath];
+  objc_msgSend__startingIndexPath(self);
   if (*&v13[0] == v7 && v8)
   {
     goto LABEL_9;
@@ -205,7 +205,7 @@ LABEL_10:
     {
       v8 = 0u;
       v9 = 0u;
-      [(PXSwipeSelectionManager *)self _itemIndexPathAtLocation:x, y];
+      objc_msgSend__itemIndexPathAtLocation_(self, x, y);
       v7[0] = v8;
       v7[1] = v9;
       [(PXSwipeSelectionManager *)self _beginSelectionFromIndexPath:v7];
@@ -263,7 +263,7 @@ LABEL_10:
     }
   }
 
-  [(PXSwipeSelectionManager *)self _itemIndexPathAtLocation:x, y];
+  objc_msgSend__itemIndexPathAtLocation_(self, a2, x, y);
   v8 = v12;
   v15 = v13;
   v16 = v14;
@@ -308,12 +308,12 @@ LABEL_10:
     v11 = [historyCopy changeDetailsFromDataSourceIdentifier:v9 toDataSourceIdentifier:identifier];
     v29 = 0u;
     v30 = 0u;
-    [(PXSwipeSelectionManager *)self _startingIndexPath];
+    objc_msgSend__startingIndexPath(self);
     v27 = 0u;
     v28 = 0u;
     v25 = v29;
     v26 = v30;
-    [MEMORY[0x277D3CDD0] indexPathAfterApplyingChanges:v11 toIndexPath:&v25 hasIncrementalChanges:0 objectChanged:0];
+    objc_msgSend_indexPathAfterApplyingChanges_toIndexPath_hasIncrementalChanges_objectChanged_(MEMORY[0x277D3CDD0]);
     v25 = v27;
     v26 = v28;
     [(PXSwipeSelectionManager *)self _setStartingIndexPath:&v25];
@@ -391,10 +391,10 @@ LABEL_19:
 
     v29 = 0u;
     v30 = 0u;
-    [(PXSwipeSelectionManager *)self _startingIndexPath];
+    objc_msgSend__startingIndexPath(self);
     v27 = 0u;
     v28 = 0u;
-    [(PXSwipeSelectionManager *)self _currentIndexPath];
+    objc_msgSend__currentIndexPath(self);
     selectionManager = [(PXSwipeSelectionManager *)self selectionManager];
     dataSourceManager = [selectionManager dataSourceManager];
     dataSource = [dataSourceManager dataSource];
@@ -564,7 +564,7 @@ void __51__PXSwipeSelectionManager__setPausingChangesToken___block_invoke(uint64
 
 - (void)_updateSelectionWithHitIndexPath:(PXSimpleIndexPath *)path leadingClosestIndexPath:(PXSimpleIndexPath *)indexPath aboveClosestIndexPath:(PXSimpleIndexPath *)closestIndexPath
 {
-  [(PXSwipeSelectionManager *)self _startingIndexPath];
+  objc_msgSend__startingIndexPath(self);
   v10 = *MEMORY[0x277D3CF78];
   if (v21 == *MEMORY[0x277D3CF78])
   {
@@ -579,7 +579,7 @@ void __51__PXSwipeSelectionManager__setPausingChangesToken___block_invoke(uint64
   v22 = 0u;
   if ([(PXSwipeSelectionManager *)self _isSelecting])
   {
-    [(PXSwipeSelectionManager *)self _currentIndexPath];
+    objc_msgSend__currentIndexPath(self);
   }
 
   else
@@ -673,22 +673,21 @@ void __56__PXSwipeSelectionManager__beginSelectionFromIndexPath___block_invoke(u
   *&retstr->item = v7;
   if (BYTE3(self->section) == 1)
   {
-    selfCopy = self;
     delegate = [(PXSimpleIndexPath *)self delegate];
-    v10 = delegate;
+    v9 = delegate;
     if (delegate)
     {
-      [delegate swipeSelectionManager:selfCopy itemIndexPathClosestAboveLocation:{x, y}];
+      objc_msgSend_swipeSelectionManager_itemIndexPathClosestAboveLocation_(delegate, x, y);
     }
 
     else
     {
+      v10 = 0u;
       v11 = 0u;
-      v12 = 0u;
     }
 
-    *&retstr->dataSourceIdentifier = v11;
-    *&retstr->item = v12;
+    *&retstr->dataSourceIdentifier = v10;
+    *&retstr->item = v11;
   }
 
   return self;
@@ -703,22 +702,21 @@ void __56__PXSwipeSelectionManager__beginSelectionFromIndexPath___block_invoke(u
   *&retstr->item = v7;
   if (BYTE2(self->section) == 1)
   {
-    selfCopy = self;
     delegate = [(PXSimpleIndexPath *)self delegate];
-    v10 = delegate;
+    v9 = delegate;
     if (delegate)
     {
-      [delegate swipeSelectionManager:selfCopy itemIndexPathClosestLeadingLocation:{x, y}];
+      objc_msgSend_swipeSelectionManager_itemIndexPathClosestLeadingLocation_(delegate, x, y);
     }
 
     else
     {
+      v10 = 0u;
       v11 = 0u;
-      v12 = 0u;
     }
 
-    *&retstr->dataSourceIdentifier = v11;
-    *&retstr->item = v12;
+    *&retstr->dataSourceIdentifier = v10;
+    *&retstr->item = v11;
   }
 
   return self;
@@ -733,22 +731,21 @@ void __56__PXSwipeSelectionManager__beginSelectionFromIndexPath___block_invoke(u
   *&retstr->item = v7;
   if (BYTE1(self->section) == 1)
   {
-    selfCopy = self;
     delegate = [(PXSimpleIndexPath *)self delegate];
-    v10 = delegate;
+    v9 = delegate;
     if (delegate)
     {
-      [delegate swipeSelectionManager:selfCopy itemIndexPathAtLocation:{x, y}];
+      objc_msgSend_swipeSelectionManager_itemIndexPathAtLocation_(delegate, x, y);
     }
 
     else
     {
+      v10 = 0u;
       v11 = 0u;
-      v12 = 0u;
     }
 
-    *&retstr->dataSourceIdentifier = v11;
-    *&retstr->item = v12;
+    *&retstr->dataSourceIdentifier = v10;
+    *&retstr->item = v11;
   }
 
   return self;

@@ -5,6 +5,10 @@
 - (BOOL)_delegateRespondsToSelector:(SEL)selector;
 - (BOOL)_supportsWoL;
 - (BOOL)enableUAPSessionSecurityWithReadKey:(unsigned __int8)key[32] writeKey:(unsigned __int8)writeKey[32] error:(id *)error;
+- (HAPHTTPClient)initWithDNSName:(id)name port:(int64_t)port eventsEnabled:(BOOL)enabled queue:(id)queue wakeAddress:(id)address;
+- (HAPHTTPClient)initWithDNSName:(id)name port:(int64_t)port eventsEnabled:(BOOL)enabled queue:(id)queue wakeAddress:(id)address dependencyFactory:(id)factory;
+- (HAPHTTPClient)initWithSocketInfo:(id)info dnsName:(id)name eventsEnabled:(BOOL)enabled queue:(id)queue wakeAddress:(id)address;
+- (HAPHTTPClient)initWithSocketInfo:(id)info dnsName:(id)name eventsEnabled:(BOOL)enabled queue:(id)queue wakeAddress:(id)address dependencyFactory:(id)factory;
 - (HAPHTTPClientDebugDelegate)debugDelegate;
 - (HAPHTTPClientDelegate)delegate;
 - (HAPSocketInfo)peerSocketInfo;
@@ -121,7 +125,7 @@
 
 - (void)httpClient:(id)client willSendHTTPMessageWithHeaders:(id)headers body:(id)body
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   headersCopy = headers;
   bodyCopy = body;
@@ -133,11 +137,11 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       v14 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v14;
-      v22 = 2112;
-      v23 = headersCopy;
-      _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Sending headers: %@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v14;
+      v21 = 2112;
+      v22 = headersCopy;
+      _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Sending headers: %@", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -151,22 +155,20 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       v18 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v18;
-      v22 = 2112;
-      v23 = bodyCopy;
-      _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_DEBUG, "%{public}@Sending body: %@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v18;
+      v21 = 2112;
+      v22 = bodyCopy;
+      _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_DEBUG, "%{public}@Sending body: %@", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)httpClient:(id)client didReceiveHTTPMessageWithHeaders:(id)headers body:(id)body
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   headersCopy = headers;
   bodyCopy = body;
@@ -178,11 +180,11 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       v14 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v14;
-      v22 = 2112;
-      v23 = headersCopy;
-      _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Received headers: %@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v14;
+      v21 = 2112;
+      v22 = headersCopy;
+      _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Received headers: %@", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -196,17 +198,15 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       v18 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v18;
-      v22 = 2112;
-      v23 = bodyCopy;
-      _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_DEBUG, "%{public}@Received body: %@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v18;
+      v21 = 2112;
+      v22 = bodyCopy;
+      _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_DEBUG, "%{public}@Received body: %@", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_debugDelegateRespondsToSelector:(SEL)selector
@@ -263,11 +263,11 @@
 
 - (id)_deserializeUAPJSONData:(id)data error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v20 = 0;
-  v6 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:&v20];
-  v7 = v20;
+  v19 = 0;
+  v6 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:&v19];
+  v7 = v19;
   if (v7)
   {
     v8 = v7;
@@ -277,9 +277,9 @@
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v11;
-      v23 = 2112;
-      v24 = v8;
+      v21 = v11;
+      v22 = 2112;
+      v23 = v8;
       _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse JSON response with error: %@", buf, 0x16u);
     }
 
@@ -297,9 +297,9 @@
       v14 = HMFGetLogIdentifier();
       v15 = objc_opt_class();
       *buf = 138543618;
-      v22 = v14;
-      v23 = 2112;
-      v24 = v15;
+      v21 = v14;
+      v22 = 2112;
+      v23 = v15;
       v16 = v15;
       _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_ERROR, "%{public}@Request did not return a dictionary and instead returned a %@", buf, 0x16u);
     }
@@ -327,14 +327,12 @@ LABEL_12:
 
 LABEL_13:
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)_serializeUAPJSONObject:(id)object error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -350,9 +348,9 @@ LABEL_13:
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v18 = v10;
-      v19 = 2112;
-      v20 = objectCopy;
+      v17 = v10;
+      v18 = 2112;
+      v19 = objectCopy;
       _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_ERROR, "%{public}@Object is not valid JSON: %@", buf, 0x16u);
     }
 
@@ -368,9 +366,9 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v16 = 0;
-  v6 = [MEMORY[0x277CCAAA0] dataWithJSONObject:objectCopy options:0 error:&v16];
-  v7 = v16;
+  v15 = 0;
+  v6 = [MEMORY[0x277CCAAA0] dataWithJSONObject:objectCopy options:0 error:&v15];
+  v7 = v15;
   if (error)
   {
 LABEL_9:
@@ -391,13 +389,11 @@ LABEL_10:
 
   v13 = v12;
 
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (void)_handleHTTPResponseForMessage:(HTTPMessagePrivate *)message completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   currentActivity = [MEMORY[0x277D0F770] currentActivity];
   [currentActivity markWithReason:@"Received response"];
@@ -441,11 +437,10 @@ LABEL_10:
       if (message->var6)
       {
         v12 = [MEMORY[0x277CBEA90] dataWithBytes:? length:?];
-        var1 = message->var2.var1;
-        v21 = HTTPGetHeaderField();
-        if (v21)
+        v19 = HTTPGetHeaderField();
+        if (v19)
         {
-          var21 = v21;
+          var21 = v19;
         }
 
         else
@@ -470,7 +465,7 @@ LABEL_10:
 
   CFRelease(message);
   v14 = HMErrorFromOSStatus(var21);
-  [currentActivity markWithReason:{@"Completed request", v22}];
+  [currentActivity markWithReason:{@"Completed request", v20}];
   if ([(HAPHTTPClient *)self _supportsWoL])
   {
     [v14 domain];
@@ -485,18 +480,16 @@ LABEL_10:
   }
 
   handlerCopy[2](handlerCopy, 0, 4, var12, v14);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendHTTPRequestToURL:(id)l withMethod:(int)method requestObject:(id)object serializationType:(unint64_t)type timeout:(double)timeout activity:(id)activity completionHandler:(id)handler
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   lCopy = l;
   objectCopy = object;
   activityCopy = activity;
   handlerCopy = handler;
-  v68 = 0;
+  v67 = 0;
   delegate = [(HAPHTTPClient *)self delegate];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -509,32 +502,32 @@ LABEL_10:
     v20 = 0;
   }
 
-  v56 = v20;
+  v55 = v20;
 
   [(HAPHTTPClient *)self setRequestCounter:[(HAPHTTPClient *)self requestCounter]+ 1];
-  v67[0] = 0;
-  v67[1] = v67;
-  v67[2] = 0x2020000000;
-  v67[3] = 0;
+  v66[0] = 0;
+  v66[1] = v66;
+  v66[2] = 0x2020000000;
+  v66[3] = 0;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __117__HAPHTTPClient__sendHTTPRequestToURL_withMethod_requestObject_serializationType_timeout_activity_completionHandler___block_invoke;
   block[3] = &unk_2786D4CB0;
   v21 = activityCopy;
-  v63 = v21;
+  v62 = v21;
   selfCopy = self;
-  v66 = v67;
+  v65 = v66;
   v22 = handlerCopy;
-  v65 = v22;
+  v64 = v22;
   v23 = dispatch_block_create(DISPATCH_BLOCK_ASSIGN_CURRENT, block);
-  v59[0] = MEMORY[0x277D85DD0];
-  v59[1] = 3221225472;
-  v59[2] = __117__HAPHTTPClient__sendHTTPRequestToURL_withMethod_requestObject_serializationType_timeout_activity_completionHandler___block_invoke_2;
-  v59[3] = &unk_2786D4CD8;
-  v61 = v67;
-  v53 = v23;
-  v60 = v53;
-  v54 = MEMORY[0x231885210](v59);
+  v58[0] = MEMORY[0x277D85DD0];
+  v58[1] = 3221225472;
+  v58[2] = __117__HAPHTTPClient__sendHTTPRequestToURL_withMethod_requestObject_serializationType_timeout_activity_completionHandler___block_invoke_2;
+  v58[3] = &unk_2786D4CD8;
+  v60 = v66;
+  v52 = v23;
+  v59 = v52;
+  v53 = MEMORY[0x231885210](v58);
   v24 = 0;
   inited = 4294960591;
   v26 = 0;
@@ -550,8 +543,8 @@ LABEL_10:
   }
 
   HTTPMessageSetCompletionBlock();
-  v27 = v68;
-  *(v68 + 9640) = 15;
+  v27 = v67;
+  *(v67 + 9640) = 15;
   timeoutCopy = 30.0;
   if (timeout > 0.0)
   {
@@ -565,7 +558,7 @@ LABEL_10:
     {
       if (method == 2)
       {
-        *(v58 + 3) = 84;
+        *(v57 + 3) = 84;
         v29 = 1414745936;
         goto LABEL_24;
       }
@@ -578,9 +571,9 @@ LABEL_16:
       {
         v33 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v70 = v33;
-        v71 = 1024;
-        LODWORD(v72) = method;
+        v69 = v33;
+        v70 = 1024;
+        LODWORD(v71) = method;
         _os_log_impl(&dword_22AADC000, v32, OS_LOG_TYPE_ERROR, "%{public}@Invalid HTTP Request Method: %ud", buf, 0x12u);
       }
 
@@ -589,14 +582,14 @@ LABEL_16:
       goto LABEL_19;
     }
 
-    *(v58 + 3) = 0;
+    *(v57 + 3) = 0;
     v34 = 17735;
     goto LABEL_23;
   }
 
   if (method == 3)
   {
-    *(v58 + 3) = 0;
+    *(v57 + 3) = 0;
     v34 = 21840;
 LABEL_23:
     v29 = v34 | 0x540000;
@@ -608,10 +601,10 @@ LABEL_23:
     goto LABEL_16;
   }
 
-  strcpy(v58 + 3, "ETE");
+  strcpy(v57 + 3, "ETE");
   v29 = 1162626372;
 LABEL_24:
-  v58[0] = v29;
+  v57[0] = v29;
   v35 = lCopy;
   [lCopy UTF8String];
   inited = HTTPHeader_InitRequest();
@@ -626,9 +619,9 @@ LABEL_25:
   dnsName = [(HAPHTTPClient *)self dnsName];
   v24 = [HAPHTTPClient dnsNameForHTTPHeaderFromDNSNames:dnsName];
 
+  v47 = v67;
   v48 = v24;
-  uTF8String = [v24 UTF8String];
-  HTTPHeader_SetField();
+  HTTPHeader_SetField(v47 + 24, "Host", "%s", [v24 UTF8String]);
   if (!objectCopy || type != 1)
   {
     if (objectCopy && type == 2)
@@ -648,11 +641,11 @@ LABEL_45:
         }
 
 LABEL_48:
-        [v21 markWithReason:{@"Sending request", uTF8String}];
-        inited = [(HAPCoreUtilsHTTPClient *)self->_httpClient sendMessage:v68];
+        [v21 markWithReason:@"Sending request"];
+        inited = [(HAPCoreUtilsHTTPClient *)self->_httpClient sendMessage:v67];
         if (!inited)
         {
-          [v56 incrementHAPIPHTTPRequestsCount];
+          [v55 incrementHAPIPHTTPRequestsCount];
           v37 = 0;
           goto LABEL_32;
         }
@@ -688,9 +681,9 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  v57 = 0;
-  v26 = [(HAPHTTPClient *)self _serializeUAPJSONObject:objectCopy error:&v57, uTF8String];
-  v49 = v57;
+  v56 = 0;
+  v26 = [(HAPHTTPClient *)self _serializeUAPJSONObject:objectCopy error:&v56];
+  v49 = v56;
   if (v49)
   {
     v36 = v49;
@@ -718,7 +711,7 @@ LABEL_27:
 
     [v36 code];
     v39 = [HAPMetricsPowerManagementLogEvent alloc];
-    primaryAccessory = [v56 primaryAccessory];
+    primaryAccessory = [v55 primaryAccessory];
     v41 = [(HAPMetricsPowerManagementLogEvent *)v39 initForHAPAccessory:primaryAccessory withLogType:0];
 
     v42 = +[HAPMetricsDispatcher sharedInstance];
@@ -731,11 +724,11 @@ LABEL_27:
   {
     v45 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v70 = v45;
-    v71 = 2112;
-    v72 = v36;
-    v73 = 2112;
-    v74 = lCopy;
+    v69 = v45;
+    v70 = 2112;
+    v71 = v36;
+    v72 = 2112;
+    v73 = lCopy;
     _os_log_impl(&dword_22AADC000, v44, OS_LOG_TYPE_ERROR, "%{public}@[HAP HTTP Client] Encountered error %@ for sending HTTP request to %@", buf, 0x20u);
   }
 
@@ -745,9 +738,7 @@ LABEL_27:
   [v21 invalidate];
 
 LABEL_32:
-  _Block_object_dispose(v67, 8);
-
-  v46 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v66, 8);
 }
 
 uint64_t __117__HAPHTTPClient__sendHTTPRequestToURL_withMethod_requestObject_serializationType_timeout_activity_completionHandler___block_invoke(uint64_t a1)
@@ -858,7 +849,7 @@ uint64_t __117__HAPHTTPClient__sendHTTPRequestToURL_withMethod_requestObject_ser
 
 - (id)_connectionDestination
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dnsName = [(HAPHTTPClient *)self dnsName];
   wakeAddress = [(HAPHTTPClient *)self wakeAddress];
   if (wakeAddress)
@@ -879,9 +870,9 @@ uint64_t __117__HAPHTTPClient__sendHTTPRequestToURL_withMethod_requestObject_ser
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v20 = v11;
-      v21 = 2112;
-      v22 = ipAddressStringWithScope;
+      v19 = v11;
+      v20 = 2112;
+      v21 = ipAddressStringWithScope;
       _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Creating socket connection using address with scope %@", buf, 0x16u);
     }
 
@@ -896,13 +887,13 @@ uint64_t __117__HAPHTTPClient__sendHTTPRequestToURL_withMethod_requestObject_ser
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v20 = v15;
-        v21 = 2112;
-        v22 = ipAddressStringWithScope;
-        v23 = 2112;
-        v24 = dnsName;
-        v25 = 2112;
-        v26 = v5;
+        v19 = v15;
+        v20 = 2112;
+        v21 = ipAddressStringWithScope;
+        v22 = 2112;
+        v23 = dnsName;
+        v24 = 2112;
+        v25 = v5;
         _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Creating socket connection using both IP and DNS Name: %@ ... %@ with output string: %@", buf, 0x2Au);
       }
 
@@ -922,7 +913,6 @@ uint64_t __117__HAPHTTPClient__sendHTTPRequestToURL_withMethod_requestObject_ser
 LABEL_13:
 
 LABEL_14:
-  v17 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -930,7 +920,7 @@ LABEL_14:
 - (int)_initializeCoreUtilsHTTPClientWithPort:(int64_t)port withEventsEnabled:(BOOL)enabled factory:(id)factory
 {
   enabledCopy = enabled;
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   factoryCopy = factory;
   _connectionDestination = [(HAPHTTPClient *)self _connectionDestination];
   if (!_connectionDestination)
@@ -984,12 +974,12 @@ LABEL_15:
     v20 = HMFGetLogIdentifier();
     v21 = [MEMORY[0x277CCABB0] numberWithInteger:port];
     *buf = 138544130;
-    v30 = v20;
-    v31 = 2112;
-    v32 = _connectionDestination;
-    v33 = 2112;
-    v34 = v21;
-    v35 = 1024;
+    v29 = v20;
+    v30 = 2112;
+    v31 = _connectionDestination;
+    v32 = 2112;
+    v33 = v21;
+    v34 = 1024;
     clientID = [(HAPHTTPClient *)selfCopy clientID];
     _os_log_impl(&dword_22AADC000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@[HAP HTTP Client] Setting destination to %@:%@ with CID 0x%X", buf, 0x26u);
   }
@@ -998,7 +988,7 @@ LABEL_15:
   v22 = -[HAPCoreUtilsHTTPClient setDestination:port:](self->_httpClient, "setDestination:port:", [_connectionDestination UTF8String], port);
   if (!v22)
   {
-    v28[2] = 0;
+    v27[2] = 0;
     systemInfo = [MEMORY[0x277D0F910] systemInfo];
     productVariant = [systemInfo productVariant];
 
@@ -1008,18 +998,17 @@ LABEL_15:
     }
 
     v25 = selfCopy;
-    v28[3] = _HandleEvent_f;
-    v28[0] = v25;
-    v28[1] = _Invalidated_f;
-    v28[4] = _HandleSocketEvent_f;
-    [(HAPCoreUtilsHTTPClient *)self->_httpClient setDelegate:v28];
+    v27[3] = _HandleEvent_f;
+    v27[0] = v25;
+    v27[1] = _Invalidated_f;
+    v27[4] = _HandleSocketEvent_f;
+    [(HAPCoreUtilsHTTPClient *)self->_httpClient setDelegate:v27];
     [(HAPCoreUtilsHTTPClient *)self->_httpClient setContext:v25];
     goto LABEL_13;
   }
 
 LABEL_14:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -1044,10 +1033,10 @@ LABEL_14:
 
 - (NSString)peerEndpointDescription
 {
-  v9 = *MEMORY[0x277D85DE8];
-  memset(v6, 0, sizeof(v6));
-  v7 = 0;
-  v2 = [(HAPCoreUtilsHTTPClient *)self->_httpClient getPeerAddress:v6 maxLength:28 outLength:0];
+  v8 = *MEMORY[0x277D85DE8];
+  memset(v5, 0, sizeof(v5));
+  v6 = 0;
+  v2 = [(HAPCoreUtilsHTTPClient *)self->_httpClient getPeerAddress:v5 maxLength:28 outLength:0];
   v3 = 0;
   if (!v2)
   {
@@ -1058,39 +1047,35 @@ LABEL_14:
 
     else
     {
-      v3 = [MEMORY[0x277CCACA8] stringWithCString:v8 encoding:1];
+      v3 = [MEMORY[0x277CCACA8] stringWithCString:v7 encoding:1];
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (HAPSocketInfo)peerSocketInfo
 {
-  v6 = *MEMORY[0x277D85DE8];
-  memset(v5, 0, sizeof(v5));
-  if ([(HAPHTTPClient *)self getHttpClientPeerAddress:v5])
+  v5 = *MEMORY[0x277D85DE8];
+  memset(v4, 0, sizeof(v4));
+  if ([(HAPHTTPClient *)self getHttpClientPeerAddress:v4])
   {
     v2 = 0;
   }
 
   else
   {
-    v2 = [[HAPSocketInfo alloc] initWithSocket:v5];
+    v2 = [[HAPSocketInfo alloc] initWithSocket:v4];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 - (HMFNetAddress)peerAddressEx
 {
-  v20 = *MEMORY[0x277D85DE8];
-  memset(v19, 0, sizeof(v19));
-  v3 = [(HAPHTTPClient *)self getHttpClientPeerAddress:v19];
+  v19 = *MEMORY[0x277D85DE8];
+  memset(v18, 0, sizeof(v18));
+  v3 = [(HAPHTTPClient *)self getHttpClientPeerAddress:v18];
   if (v3)
   {
     v4 = v3;
@@ -1101,13 +1086,13 @@ LABEL_14:
     {
       v8 = HMFGetLogIdentifier();
       httpClient = selfCopy->_httpClient;
-      v13 = 138543874;
-      v14 = v8;
-      v15 = 1024;
-      v16 = v4;
-      v17 = 2048;
-      v18 = httpClient;
-      _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_ERROR, "%{public}@[IP Accessory Server HTTP Client] Failed to get peer address %d client ref %p", &v13, 0x1Cu);
+      v12 = 138543874;
+      v13 = v8;
+      v14 = 1024;
+      v15 = v4;
+      v16 = 2048;
+      v17 = httpClient;
+      _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_ERROR, "%{public}@[IP Accessory Server HTTP Client] Failed to get peer address %d client ref %p", &v12, 0x1Cu);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -1116,10 +1101,8 @@ LABEL_14:
 
   else
   {
-    v10 = [objc_alloc(MEMORY[0x277D0F858]) initWithSocketAddress:v19];
+    v10 = [objc_alloc(MEMORY[0x277D0F858]) initWithSocketAddress:v18];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1141,7 +1124,7 @@ LABEL_14:
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (self->_httpClient)
   {
     v3 = objc_autoreleasePoolPush();
@@ -1151,9 +1134,9 @@ LABEL_14:
       v5 = HMFGetLogIdentifier();
       dnsName = self->_dnsName;
       *buf = 138543618;
-      v10 = v5;
-      v11 = 2112;
-      v12 = dnsName;
+      v9 = v5;
+      v10 = 2112;
+      v11 = dnsName;
       _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_INFO, "%{public}@[IP Accessory Server HTTP Client %@] HTTPClient not invalidated - invalidating....", buf, 0x16u);
     }
 
@@ -1161,10 +1144,143 @@ LABEL_14:
     [(HAPHTTPClient *)self invalidate];
   }
 
-  v8.receiver = self;
-  v8.super_class = HAPHTTPClient;
-  [(HAPHTTPClient *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = HAPHTTPClient;
+  [(HAPHTTPClient *)&v7 dealloc];
+}
+
+- (HAPHTTPClient)initWithSocketInfo:(id)info dnsName:(id)name eventsEnabled:(BOOL)enabled queue:(id)queue wakeAddress:(id)address
+{
+  enabledCopy = enabled;
+  infoCopy = info;
+  nameCopy = name;
+  queueCopy = queue;
+  addressCopy = address;
+  v21.receiver = self;
+  v21.super_class = HAPHTTPClient;
+  v16 = [(HAPHTTPClient *)&v21 init];
+  if (v16)
+  {
+    v17 = v16;
+    v18 = objc_alloc_init(HAPHTTPClientDependencyFactory);
+    v19 = [(HAPHTTPClient *)v17 initWithSocketInfo:infoCopy dnsName:nameCopy eventsEnabled:enabledCopy queue:queueCopy wakeAddress:addressCopy dependencyFactory:v18];
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  return v19;
+}
+
+- (HAPHTTPClient)initWithSocketInfo:(id)info dnsName:(id)name eventsEnabled:(BOOL)enabled queue:(id)queue wakeAddress:(id)address dependencyFactory:(id)factory
+{
+  enabledCopy = enabled;
+  infoCopy = info;
+  nameCopy = name;
+  queueCopy = queue;
+  addressCopy = address;
+  factoryCopy = factory;
+  v20 = queueCopy;
+  if (!queueCopy)
+  {
+    v8 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v20 = dispatch_queue_create("com.apple.HAPHTTPClient", v8);
+  }
+
+  objc_storeStrong(&self->_queue, v20);
+  if (!queueCopy)
+  {
+  }
+
+  self->_invalidated = 0;
+  port = [(HAPSocketInfo *)infoCopy port];
+  self->_port = [port intValue];
+
+  wakeAddress = self->_wakeAddress;
+  self->_wakeAddress = addressCopy;
+  v23 = addressCopy;
+
+  invalidateReason = self->_invalidateReason;
+  self->_invalidateReason = 0;
+
+  self->_requestCounter = 1;
+  pendingConnectionSocketInfo = self->_pendingConnectionSocketInfo;
+  self->_pendingConnectionSocketInfo = infoCopy;
+  v26 = infoCopy;
+
+  dnsName = self->_dnsName;
+  self->_dnsName = nameCopy;
+
+  v28 = [(HAPHTTPClient *)self _initializeCoreUtilsHTTPClientWithPort:self->_port withEventsEnabled:enabledCopy factory:factoryCopy];
+  selfCopy = 0;
+  if (!v28)
+  {
+    selfCopy = self;
+  }
+
+  return selfCopy;
+}
+
+- (HAPHTTPClient)initWithDNSName:(id)name port:(int64_t)port eventsEnabled:(BOOL)enabled queue:(id)queue wakeAddress:(id)address dependencyFactory:(id)factory
+{
+  enabledCopy = enabled;
+  nameCopy = name;
+  nameCopy2 = name;
+  queueCopy = queue;
+  addressCopy = address;
+  factoryCopy = factory;
+  v26.receiver = self;
+  v26.super_class = HAPHTTPClient;
+  v19 = [(HAPHTTPClient *)&v26 init];
+  v20 = v19;
+  if (!v19)
+  {
+    goto LABEL_7;
+  }
+
+  objc_storeStrong(&v19->_dnsName, nameCopy);
+  v20->_port = port;
+  v21 = queueCopy;
+  if (!queueCopy)
+  {
+    nameCopy = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v21 = dispatch_queue_create("com.apple.HAPHTTPClient", nameCopy);
+  }
+
+  objc_storeStrong(&v20->_queue, v21);
+  if (!queueCopy)
+  {
+  }
+
+  v20->_invalidated = 0;
+  v20->_requestCounter = 1;
+  objc_storeStrong(&v20->_wakeAddress, address);
+  invalidateReason = v20->_invalidateReason;
+  v20->_invalidateReason = 0;
+
+  v23 = [(HAPHTTPClient *)v20 _initializeCoreUtilsHTTPClientWithPort:port withEventsEnabled:enabledCopy factory:factoryCopy];
+  v24 = 0;
+  if (!v23)
+  {
+LABEL_7:
+    v24 = v20;
+  }
+
+  return v24;
+}
+
+- (HAPHTTPClient)initWithDNSName:(id)name port:(int64_t)port eventsEnabled:(BOOL)enabled queue:(id)queue wakeAddress:(id)address
+{
+  enabledCopy = enabled;
+  addressCopy = address;
+  queueCopy = queue;
+  nameCopy = name;
+  v15 = objc_alloc_init(HAPHTTPClientDependencyFactory);
+  v16 = [(HAPHTTPClient *)self initWithDNSName:nameCopy port:port eventsEnabled:enabledCopy queue:queueCopy wakeAddress:addressCopy dependencyFactory:v15];
+
+  return v16;
 }
 
 + (id)logCategory
@@ -1181,7 +1297,6 @@ LABEL_14:
 
 uint64_t __28__HAPHTTPClient_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
   logCategory__hmf_once_v26 = HMFCreateOSLogHandle();
 
   return MEMORY[0x2821F96F8]();

@@ -52,32 +52,32 @@
   if (self->mUseVisibleRect)
   {
     [iccCopy visibleScaledRectForCanvasUI];
-    v81 = v11;
-    v82 = v10;
-    v80 = v12;
+    v82 = v11;
+    v83 = v10;
+    v81 = v12;
     rect = v13;
   }
 
   else
   {
-    v81 = CGRectNull.origin.y;
-    v82 = CGRectNull.origin.x;
-    v80 = CGRectNull.size.width;
+    v82 = CGRectNull.origin.y;
+    v83 = CGRectNull.origin.x;
+    v81 = CGRectNull.size.width;
     rect = CGRectNull.size.height;
   }
 
   [iccCopy viewScale];
-  v79 = v14;
-  CGAffineTransformMakeScale(&v84, v14, v14);
-  v85.origin.x = x;
-  v85.origin.y = y;
-  v85.size.width = width;
-  v85.size.height = height;
-  v86 = CGRectApplyAffineTransform(v85, &v84);
-  v15 = v86.origin.x;
-  v16 = v86.origin.y;
-  v17 = v86.size.width;
-  v18 = v86.size.height;
+  v80 = v14;
+  CGAffineTransformMakeScale(&v85, v14, v14);
+  v86.origin.x = x;
+  v86.origin.y = y;
+  v86.size.width = width;
+  v86.size.height = height;
+  v87 = CGRectApplyAffineTransform(v86, &v85);
+  v15 = v87.origin.x;
+  v16 = v87.origin.y;
+  v17 = v87.size.width;
+  v18 = v87.size.height;
   mHorizontalGeom = self->mHorizontalGeom;
   [(CRLSwappableAxesGeometry *)mHorizontalGeom rectMinX:?];
   v21 = v20;
@@ -91,31 +91,31 @@
   [(CRLSwappableAxesGeometry *)self->mHorizontalGeom rectMaxY:v15, v16, v17, v18];
   [(CRLSwappableAxesGeometry *)v27 makePointWithX:v29 Y:v30];
   v32 = v31;
-  v87.origin.y = v81;
-  v87.origin.x = v82;
-  v87.size.width = v80;
-  v87.size.height = rect;
-  if (!CGRectIsNull(v87))
+  v88.origin.y = v82;
+  v88.origin.x = v83;
+  v88.size.width = v81;
+  v88.size.height = rect;
+  if (!CGRectIsNull(v88))
   {
     v33 = self->mHorizontalGeom;
     [(CRLSwappableAxesGeometry *)v33 rectMinX:v15, v16, v17, v18];
-    v77 = v34;
+    v78 = v34;
     [(CRLSwappableAxesGeometry *)self->mHorizontalGeom rectMinY:v15, v16, v17, v18];
     v36 = v35;
-    [(CRLSwappableAxesGeometry *)self->mHorizontalGeom rectMinY:v82, v81, v80, rect];
-    [(CRLSwappableAxesGeometry *)v33 makePointWithX:v77 Y:fmax(v36, v37)];
-    v76 = v38;
-    v78 = v39;
+    [(CRLSwappableAxesGeometry *)self->mHorizontalGeom rectMinY:v83, v82, v81, rect];
+    [(CRLSwappableAxesGeometry *)v33 makePointWithX:v78 Y:fmax(v36, v37)];
+    v77 = v38;
+    v79 = v39;
     v40 = self->mHorizontalGeom;
     [(CRLSwappableAxesGeometry *)v40 rectMaxX:v15, v16, v17, v18];
     v42 = v41;
     [(CRLSwappableAxesGeometry *)self->mHorizontalGeom rectMaxY:v15, v16, v17, v18];
     v44 = v43;
-    v24 = v76;
-    [(CRLSwappableAxesGeometry *)self->mHorizontalGeom rectMaxY:v82, v81, v80, rect];
+    v24 = v77;
+    [(CRLSwappableAxesGeometry *)self->mHorizontalGeom rectMaxY:v83, v82, v81, rect];
     v46 = fmin(v44, v45);
     v47 = v42;
-    v26 = v78;
+    v26 = v79;
     [(CRLSwappableAxesGeometry *)v40 makePointWithX:v47 Y:v46];
     v32 = v48;
   }
@@ -128,22 +128,22 @@
   [(CRLSwappableAxesGeometry *)v56 rectMinX:?];
   v58 = v57;
   [(CRLSwappableAxesGeometry *)self->mHorizontalGeom rectMidY:v49, v51, v53, v55];
-  v60 = v59 + 1.0 + -7.0 / v79;
+  v60 = v59 + 1.0 + -7.0 / v80;
   [(CRLSwappableAxesGeometry *)self->mHorizontalGeom rectWidth:v49, v51, v53, v55];
   [(CRLSwappableAxesGeometry *)v56 makeRectWithX:v58 Y:v60 width:v61 height:15.0];
-  v66 = sub_1001221E0(v62, v63, v64, v65);
-  v68 = v67;
-  v70 = v69;
-  v72 = v71;
+  v67 = sub_1001221E0(v62, v63, v64, v65, v66);
+  v69 = v68;
+  v71 = v70;
+  v73 = v72;
   [(CRLCanvasSpacingGuideUILayer *)self setFrame:?];
   mWidth = self->mWidth;
-  [(CRLSwappableAxesGeometry *)self->mHorizontalGeom rectWidth:v66, v68, v70, v72];
-  if (mWidth != v74)
+  [(CRLSwappableAxesGeometry *)self->mHorizontalGeom rectWidth:v67, v69, v71, v73];
+  if (mWidth != v75)
   {
     [(CAShapeLayer *)self->mArrowLayer removeFromSuperlayer];
-    [(CRLCanvasSpacingGuideUILayer *)self p_generateArrowLayerForSpacingRect:v66 andViewScale:v68, v70, v72, v79];
-    [(CRLSwappableAxesGeometry *)self->mHorizontalGeom rectWidth:v66, v68, v70, v72];
-    self->mWidth = v75;
+    [(CRLCanvasSpacingGuideUILayer *)self p_generateArrowLayerForSpacingRect:v67 andViewScale:v69, v71, v73, v80];
+    [(CRLSwappableAxesGeometry *)self->mHorizontalGeom rectWidth:v67, v69, v71, v73];
+    self->mWidth = v76;
   }
 
   +[CATransaction commit];

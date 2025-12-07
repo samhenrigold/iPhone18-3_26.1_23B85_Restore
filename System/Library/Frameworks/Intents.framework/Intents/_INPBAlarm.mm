@@ -1,6 +1,7 @@
 @interface _INPBAlarm
 - (BOOL)isEqual:(id)equal;
 - (_INPBAlarm)initWithCoder:(id)coder;
+- (id)alarmRepeatScheduleOptionsAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (int)StringAsAlarmRepeatScheduleOptions:(id)options;
@@ -329,19 +330,17 @@ LABEL_32:
 
 - (void)writeTo:(id)to
 {
-  p_alarmRepeatScheduleOptions = &self->_alarmRepeatScheduleOptions;
   toCopy = to;
   if (self->_alarmRepeatScheduleOptions.count)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = p_alarmRepeatScheduleOptions->list[v5];
       PBDataWriterWriteInt32Field();
-      ++v5;
+      ++v4;
     }
 
-    while (v5 < self->_alarmRepeatScheduleOptions.count);
+    while (v4 < self->_alarmRepeatScheduleOptions.count);
   }
 
   dateTime = [(_INPBAlarm *)self dateTime];
@@ -354,13 +353,11 @@ LABEL_32:
 
   if ([(_INPBAlarm *)self hasEnabled])
   {
-    enabled = self->_enabled;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBAlarm *)self hasFiring])
   {
-    firing = self->_firing;
     PBDataWriterWriteBOOLField();
   }
 
@@ -368,7 +365,6 @@ LABEL_32:
 
   if (identifier)
   {
-    identifier = self->_identifier;
     PBDataWriterWriteStringField();
   }
 
@@ -382,13 +378,13 @@ LABEL_32:
 
   sleepAlarmAttribute = [(_INPBAlarm *)self sleepAlarmAttribute];
 
-  v16 = toCopy;
+  v11 = toCopy;
   if (sleepAlarmAttribute)
   {
     sleepAlarmAttribute2 = [(_INPBAlarm *)self sleepAlarmAttribute];
     PBDataWriterWriteSubmessage();
 
-    v16 = toCopy;
+    v11 = toCopy;
   }
 }
 
@@ -462,6 +458,21 @@ LABEL_32:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)alarmRepeatScheduleOptionsAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72881F8[string];
   }
 
   return v4;

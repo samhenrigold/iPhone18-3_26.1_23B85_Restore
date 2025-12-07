@@ -162,8 +162,8 @@
   [(CNVisualIdentityAvatarViewController *)self setVisualIdentity:updateCopy];
   if (layoutType == 3)
   {
-    contacts = [updateCopy contacts];
-    v9 = [contacts _cn_map:*MEMORY[0x1E695C408]];
+    avatarAlternativeImageView = objc_msgSend_contacts(updateCopy);
+    v9 = [avatarAlternativeImageView _cn_map:*MEMORY[0x1E695C408]];
     [(CNVisualIdentityAvatarViewController *)self layoutAvatarsWithIdentifiers:v9 shouldAnimateRemoval:removalCopy];
   }
 
@@ -189,8 +189,8 @@
       [(CNVisualIdentityAvatarViewController *)self updateBadgeViewFrame];
     }
 
-    contacts = [(CNVisualIdentityAvatarViewController *)self avatarAlternativeImageView];
-    [contacts setImage:0];
+    avatarAlternativeImageView = [(CNVisualIdentityAvatarViewController *)self avatarAlternativeImageView];
+    [avatarAlternativeImageView setImage:0];
   }
 }
 
@@ -260,8 +260,8 @@
   maxAvatarCount = [avatarLayoutManager maxAvatarCount];
 
   visualIdentity = [(CNVisualIdentityAvatarViewController *)self visualIdentity];
-  contacts = [visualIdentity contacts];
-  v7 = [contacts count];
+  v6 = objc_msgSend_contacts(visualIdentity);
+  v7 = [v6 count];
 
   if (maxAvatarCount >= v7)
   {
@@ -280,8 +280,8 @@
   v56 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   visualIdentity = [(CNVisualIdentityAvatarViewController *)self visualIdentity];
-  contacts = [visualIdentity contacts];
-  v13 = [contacts objectAtIndexedSubscript:index];
+  v12 = objc_msgSend_contacts(visualIdentity);
+  v13 = [v12 objectAtIndexedSubscript:index];
 
   v46 = 0;
   v47 = &v46;
@@ -991,13 +991,13 @@ id __59__CNVisualIdentityAvatarViewController_logSublayersContent__block_invoke(
     }
 
     visualIdentity5 = [(CNVisualIdentityAvatarViewController *)self visualIdentity];
-    contacts = [visualIdentity5 contacts];
+    v28 = objc_msgSend_contacts(visualIdentity5);
     v38[0] = MEMORY[0x1E69E9820];
     v38[1] = 3221225472;
     v38[2] = __61__CNVisualIdentityAvatarViewController_updateViewForContact___block_invoke;
     v38[3] = &unk_1E74E7880;
     v39 = contactCopy;
-    v23 = [contacts _cn_indexOfFirstObjectPassingTest:v38];
+    v23 = [v28 _cn_indexOfFirstObjectPassingTest:v38];
   }
 
   view = [(CNVisualIdentityAvatarViewController *)self view];
@@ -1071,13 +1071,13 @@ void __57__CNVisualIdentityAvatarViewController_contactDidChange___block_invoke(
 - (void)updateContactChangesNotifierRegistration
 {
   visualIdentity = [(CNVisualIdentityAvatarViewController *)self visualIdentity];
-  contacts = [visualIdentity contacts];
+  v4 = objc_msgSend_contacts(visualIdentity);
   v5[0] = MEMORY[0x1E69E9820];
   v5[1] = 3221225472;
   v5[2] = __80__CNVisualIdentityAvatarViewController_updateContactChangesNotifierRegistration__block_invoke;
   v5[3] = &unk_1E74E6AD0;
   v5[4] = self;
-  [contacts _cn_each:v5];
+  [v4 _cn_each:v5];
 }
 
 void __80__CNVisualIdentityAvatarViewController_updateContactChangesNotifierRegistration__block_invoke(uint64_t a1, void *a2)

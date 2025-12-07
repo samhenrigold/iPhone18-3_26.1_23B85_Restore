@@ -34,7 +34,7 @@
       v8 = 1;
       if (uid && uid != uidCopy)
       {
-        v8 = [(NSString *)uid isEqualToString:uidCopy];
+        v8 = objc_msgSend_isEqualToString_(uid);
       }
     }
 
@@ -63,13 +63,13 @@
     v12 = 1;
   }
 
-  if (v12 || [(NSString *)refId isEqualToString:idCopy])
+  if (v12 || objc_msgSend_isEqualToString_(refId))
   {
     refInstance = self->_refInstance;
     v14 = 1;
     if (refInstance && refInstance != instanceCopy)
     {
-      v14 = [(NSString *)refInstance isEqualToString:instanceCopy];
+      v14 = objc_msgSend_isEqualToString_(refInstance);
     }
   }
 

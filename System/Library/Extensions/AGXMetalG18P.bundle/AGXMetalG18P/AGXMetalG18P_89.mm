@@ -1,4 +1,4 @@
-uint64_t agxsTwiddle3DAddressCompressed<true,4u,2u,16ul,(TwiddleOrder)1>(uint64_t result, _OWORD *a2, int a3, int a4, uint64_t a5, unsigned int a6, unsigned int a7, uint64_t a8, unsigned int a9, unsigned int a10, unsigned int a11, int a12, int a13, unsigned int a14, uint64_t a15, uint64_t a16, unsigned __int16 *a17, unsigned int *a18)
+uint64_t agxsTwiddle3DAddressCompressed<true,4u,2u,16ul,(TwiddleOrder)1>(uint64_t result, _OWORD *a2, int a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9, unsigned int a10, unsigned int a11, int a12, int a13, unsigned int a14, uint64_t a15, uint64_t a16, unsigned __int16 *a17, unsigned int *a18)
 {
   if (result)
   {
@@ -8,12 +8,14 @@ uint64_t agxsTwiddle3DAddressCompressed<true,4u,2u,16ul,(TwiddleOrder)1>(uint64_
       v19 = a14;
       if (a14)
       {
+        v21 = a7;
+        v22 = a6;
         v23 = result;
         v25 = (a4 + 1) >> 1;
         v26 = (a3 + 3) >> 2;
         do
         {
-          result = agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,16ul,1u,(TwiddleOrder)1>>(v23 + a11++ * a8, v18, v26, v25, a6, a7, a9 >> 2, a10 >> 1, (a12 + 3) >> 2, (a13 + 1) >> 1, a15, a17, a18);
+          result = agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,16ul,1u,(TwiddleOrder)1>>(v23 + a11++ * a8, v18, v26, v25, v22, v21, a9 >> 2, a10 >> 1, (a12 + 3) >> 2, (a13 + 1) >> 1, a15, a17, a18);
           v18 = (v18 + a16);
           --v19;
         }
@@ -26,7 +28,7 @@ uint64_t agxsTwiddle3DAddressCompressed<true,4u,2u,16ul,(TwiddleOrder)1>(uint64_
   return result;
 }
 
-uint64_t agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,16ul,1u,(TwiddleOrder)1>>(uint64_t result, _OWORD *a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, int a9, unsigned int a10, uint64_t a11, unsigned __int16 *a12, unsigned int *a13)
+uint64_t agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,16ul,1u,(TwiddleOrder)1>>(uint64_t result, _OWORD *a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, int a9, int a10, uint64_t a11, unsigned __int16 *a12, unsigned int *a13)
 {
   if (!result || !a2)
   {
@@ -1371,7 +1373,7 @@ LABEL_15:
   return 0;
 }
 
-uint64_t agxsTwiddle3DAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,16ul,1u,(TwiddleOrder)1>,(AGXTextureMemoryLayout)4>(uint64_t result, _OWORD *a2, unsigned int a3, unsigned int a4, uint64_t a5, unsigned int a6, unsigned int a7, uint64_t a8, unsigned int a9, unsigned int a10, unsigned int a11, int a12, unsigned int a13, unsigned int a14, uint64_t a15, uint64_t a16, unsigned __int16 *a17, uint64_t a18)
+uint64_t agxsTwiddle3DAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,16ul,1u,(TwiddleOrder)1>,(AGXTextureMemoryLayout)4>(uint64_t result, _OWORD *a2, unsigned int a3, unsigned int a4, uint64_t a5, unsigned int a6, unsigned int a7, uint64_t a8, unsigned int a9, unsigned int a10, unsigned int a11, int a12, int a13, unsigned int a14, uint64_t a15, uint64_t a16, unsigned __int16 *a17, uint64_t a18)
 {
   if (result)
   {
@@ -1435,63 +1437,64 @@ uint64_t agxsTwiddle3DAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,1
   return result;
 }
 
-uint64_t agxsTwiddle3DAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,8ul,1u,(TwiddleOrder)1>,(AGXTextureMemoryLayout)4>(uint64_t result, void *a2, unsigned int a3, unsigned int a4, uint64_t a5, unsigned int a6, unsigned int a7, uint64_t a8, unsigned int a9, unsigned int a10, unsigned int a11, int a12, int a13, unsigned int a14, uint64_t a15, uint64_t a16, unsigned __int16 *a17, uint64_t a18)
+uint64_t agxsTwiddle3DAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,8ul,1u,(TwiddleOrder)1>,(AGXTextureMemoryLayout)4>(uint64_t result, void *a2, unsigned int a3, unsigned int a4, uint64_t a5, unsigned int a6, uint64_t a7, uint64_t a8, uint64_t a9, unsigned int a10, int a11, int a12, unsigned int a13, uint64_t a14, uint64_t a15, unsigned __int16 *a16, uint64_t a17)
 {
   if (result)
   {
-    v18 = a2;
+    v17 = a2;
     if (a2)
     {
-      v20 = a17;
-      v21 = a15;
+      v18 = a7;
+      v19 = a16;
+      v20 = a14;
+      v21 = a12;
       v22 = a13;
-      v23 = a14;
-      v24 = a12;
-      v26 = a9;
-      v34 = a7;
-      v30 = result;
-      if (a18)
+      v23 = a11;
+      v25 = a9;
+      v33 = v18;
+      v29 = result;
+      if (a17)
       {
-        if (a14)
+        if (a13)
         {
-          v27 = *(a18 + 24);
+          v26 = *(a17 + 24);
           do
           {
-            v28 = *(a18 + 20) * a11;
-            *(a18 + 24) = v27 + v28;
-            result = agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,8ul,1u,(TwiddleOrder)1>>(v30 + v28, v18, a3, a4, a6, a7, v26, a10, v24, v22, v21, v20, a18);
-            v26 = a9;
-            v24 = a12;
-            v22 = a13;
-            v21 = a15;
-            v20 = a17;
-            a7 = v34;
-            ++a11;
-            v18 = (v18 + a16);
-            --v23;
+            v27 = *(a17 + 20) * a10;
+            *(a17 + 24) = v26 + v27;
+            result = agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,8ul,1u,(TwiddleOrder)1>>(v29 + v27, v17, a3, a4, a6, v18, v25, HIDWORD(a9), v23, v21, v20, v19, a17);
+            v25 = a9;
+            v23 = a11;
+            v21 = a12;
+            v20 = a14;
+            v19 = a16;
+            v18 = v33;
+            ++a10;
+            v17 = (v17 + a15);
+            --v22;
           }
 
-          while (v23);
+          while (v22);
         }
       }
 
-      else if (a14)
+      else if (a13)
       {
         do
         {
-          result = agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,8ul,1u,(TwiddleOrder)1>>(v30 + a11 * a8, v18, a3, a4, a6, a7, v26, a10, v24, v22, v21, v20, 0);
-          v26 = a9;
-          v24 = a12;
-          v22 = a13;
-          v21 = a15;
-          v20 = a17;
-          a7 = v34;
-          ++a11;
-          v18 = (v18 + a16);
-          --v23;
+          result = agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,8ul,1u,(TwiddleOrder)1>>(v29 + a10 * a8, v17, a3, a4, a6, v18, v25, HIDWORD(a9), v23, v21, v20, v19, 0);
+          v25 = a9;
+          v23 = a11;
+          v21 = a12;
+          v20 = a14;
+          v19 = a16;
+          v18 = v33;
+          ++a10;
+          v17 = (v17 + a15);
+          --v22;
         }
 
-        while (v23);
+        while (v22);
       }
     }
   }
@@ -2673,63 +2676,64 @@ LABEL_192:
   return result;
 }
 
-uint64_t agxsTwiddle3DAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,4ul,1u,(TwiddleOrder)1>,(AGXTextureMemoryLayout)4>(uint64_t result, _DWORD *a2, unsigned int a3, unsigned int a4, uint64_t a5, unsigned int a6, unsigned int a7, uint64_t a8, unsigned int a9, unsigned int a10, unsigned int a11, int a12, int a13, unsigned int a14, uint64_t a15, uint64_t a16, unsigned __int16 *a17, uint64_t a18)
+uint64_t agxsTwiddle3DAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,4ul,1u,(TwiddleOrder)1>,(AGXTextureMemoryLayout)4>(uint64_t result, _DWORD *a2, unsigned int a3, unsigned int a4, uint64_t a5, unsigned int a6, uint64_t a7, uint64_t a8, uint64_t a9, unsigned int a10, int a11, int a12, unsigned int a13, uint64_t a14, uint64_t a15, unsigned __int16 *a16, uint64_t a17)
 {
   if (result)
   {
-    v18 = a2;
+    v17 = a2;
     if (a2)
     {
-      v20 = a17;
-      v21 = a15;
+      v18 = a7;
+      v19 = a16;
+      v20 = a14;
+      v21 = a12;
       v22 = a13;
-      v23 = a14;
-      v24 = a12;
-      v26 = a9;
-      v34 = a7;
-      v30 = result;
-      if (a18)
+      v23 = a11;
+      v25 = a9;
+      v33 = v18;
+      v29 = result;
+      if (a17)
       {
-        if (a14)
+        if (a13)
         {
-          v27 = *(a18 + 24);
+          v26 = *(a17 + 24);
           do
           {
-            v28 = *(a18 + 20) * a11;
-            *(a18 + 24) = v27 + v28;
-            result = agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,4ul,1u,(TwiddleOrder)1>>(v30 + v28, v18, a3, a4, a6, a7, v26, a10, v24, v22, v21, v20, a18);
-            v26 = a9;
-            v24 = a12;
-            v22 = a13;
-            v21 = a15;
-            v20 = a17;
-            a7 = v34;
-            ++a11;
-            v18 = (v18 + a16);
-            --v23;
+            v27 = *(a17 + 20) * a10;
+            *(a17 + 24) = v26 + v27;
+            result = agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,4ul,1u,(TwiddleOrder)1>>(v29 + v27, v17, a3, a4, a6, v18, v25, HIDWORD(a9), v23, v21, v20, v19, a17);
+            v25 = a9;
+            v23 = a11;
+            v21 = a12;
+            v20 = a14;
+            v19 = a16;
+            v18 = v33;
+            ++a10;
+            v17 = (v17 + a15);
+            --v22;
           }
 
-          while (v23);
+          while (v22);
         }
       }
 
-      else if (a14)
+      else if (a13)
       {
         do
         {
-          result = agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,4ul,1u,(TwiddleOrder)1>>(v30 + a11 * a8, v18, a3, a4, a6, a7, v26, a10, v24, v22, v21, v20, 0);
-          v26 = a9;
-          v24 = a12;
-          v22 = a13;
-          v21 = a15;
-          v20 = a17;
-          a7 = v34;
-          ++a11;
-          v18 = (v18 + a16);
-          --v23;
+          result = agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,4ul,1u,(TwiddleOrder)1>>(v29 + a10 * a8, v17, a3, a4, a6, v18, v25, HIDWORD(a9), v23, v21, v20, v19, 0);
+          v25 = a9;
+          v23 = a11;
+          v21 = a12;
+          v20 = a14;
+          v19 = a16;
+          v18 = v33;
+          ++a10;
+          v17 = (v17 + a15);
+          --v22;
         }
 
-        while (v23);
+        while (v22);
       }
     }
   }
@@ -5149,63 +5153,64 @@ LABEL_192:
   return result;
 }
 
-uint64_t agxsTwiddle3DAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,1ul,1u,(TwiddleOrder)1>,(AGXTextureMemoryLayout)4>(uint64_t result, char *a2, unsigned int a3, unsigned int a4, uint64_t a5, unsigned int a6, unsigned int a7, uint64_t a8, unsigned int a9, unsigned int a10, unsigned int a11, int a12, int a13, unsigned int a14, uint64_t a15, uint64_t a16, unsigned __int16 *a17, uint64_t a18)
+uint64_t agxsTwiddle3DAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,1ul,1u,(TwiddleOrder)1>,(AGXTextureMemoryLayout)4>(uint64_t result, char *a2, unsigned int a3, unsigned int a4, uint64_t a5, unsigned int a6, uint64_t a7, uint64_t a8, uint64_t a9, unsigned int a10, int a11, int a12, unsigned int a13, uint64_t a14, uint64_t a15, unsigned __int16 *a16, uint64_t a17)
 {
   if (result)
   {
-    v18 = a2;
+    v17 = a2;
     if (a2)
     {
-      v20 = a17;
-      v21 = a15;
+      v18 = a7;
+      v19 = a16;
+      v20 = a14;
+      v21 = a12;
       v22 = a13;
-      v23 = a14;
-      v24 = a12;
-      v26 = a9;
-      v34 = a7;
-      v30 = result;
-      if (a18)
+      v23 = a11;
+      v25 = a9;
+      v33 = v18;
+      v29 = result;
+      if (a17)
       {
-        if (a14)
+        if (a13)
         {
-          v27 = *(a18 + 24);
+          v26 = *(a17 + 24);
           do
           {
-            v28 = *(a18 + 20) * a11;
-            *(a18 + 24) = v27 + v28;
-            result = agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,1ul,1u,(TwiddleOrder)1>>(v30 + v28, v18, a3, a4, a6, a7, v26, a10, v24, v22, v21, v20, a18);
-            v26 = a9;
-            v24 = a12;
-            v22 = a13;
-            v21 = a15;
-            v20 = a17;
-            a7 = v34;
-            ++a11;
-            v18 += a16;
-            --v23;
+            v27 = *(a17 + 20) * a10;
+            *(a17 + 24) = v26 + v27;
+            result = agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,1ul,1u,(TwiddleOrder)1>>(v29 + v27, v17, a3, a4, a6, v18, v25, HIDWORD(a9), v23, v21, v20, v19, a17);
+            v25 = a9;
+            v23 = a11;
+            v21 = a12;
+            v20 = a14;
+            v19 = a16;
+            v18 = v33;
+            ++a10;
+            v17 += a15;
+            --v22;
           }
 
-          while (v23);
+          while (v22);
         }
       }
 
-      else if (a14)
+      else if (a13)
       {
         do
         {
-          result = agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,1ul,1u,(TwiddleOrder)1>>(v30 + a11 * a8, v18, a3, a4, a6, a7, v26, a10, v24, v22, v21, v20, 0);
-          v26 = a9;
-          v24 = a12;
-          v22 = a13;
-          v21 = a15;
-          v20 = a17;
-          a7 = v34;
-          ++a11;
-          v18 += a16;
-          --v23;
+          result = agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,1ul,1u,(TwiddleOrder)1>>(v29 + a10 * a8, v17, a3, a4, a6, v18, v25, HIDWORD(a9), v23, v21, v20, v19, 0);
+          v25 = a9;
+          v23 = a11;
+          v21 = a12;
+          v20 = a14;
+          v19 = a16;
+          v18 = v33;
+          ++a10;
+          v17 += a15;
+          --v22;
         }
 
-        while (v23);
+        while (v22);
       }
     }
   }

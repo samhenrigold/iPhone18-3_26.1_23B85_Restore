@@ -1,6 +1,574 @@
-void sub_218511AD8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_218510044(_Unwind_Exception *exception_object)
 {
-  va_start(va, a2);
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_2185100BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[21],char const(&)[15],0>(void *a1, char *a2, char *a3)
+{
+  v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
+  return a1;
+}
+
+void sub_2185101A4(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_21851021C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[29],char const(&)[23],0>(void *a1, char *a2, char *a3)
+{
+  v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
+  return a1;
+}
+
+void sub_218510304(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_21851037C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[32],char const(&)[26],0>(void *a1, char *a2, char *a3)
+{
+  v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
+  return a1;
+}
+
+void sub_218510464(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_2185104DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[18],char const(&)[12],0>(void *a1, char *a2, char *a3)
+{
+  v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
+  return a1;
+}
+
+void sub_2185105C4(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_21851063C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[16],char const(&)[10],0>(void *a1, char *a2, char *a3)
+{
+  v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
+  return a1;
+}
+
+void sub_218510724(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_21851079C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[24],char const(&)[18],0>(void *a1, char *a2, char *a3)
+{
+  v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
+  return a1;
+}
+
+void sub_218510884(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_2185108FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[14],char const(&)[8],0>(void *a1, char *a2, char *a3)
+{
+  v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
+  return a1;
+}
+
+void sub_2185109E4(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_218510A5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[20],char const(&)[14],0>(void *a1, char *a2, char *a3)
+{
+  v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
+  return a1;
+}
+
+void sub_218510B44(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_218510BBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[26],char const(&)[20],0>(void *a1, char *a2, char *a3)
+{
+  v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
+  return a1;
+}
+
+void sub_218510CA4(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_218510D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[30],char const(&)[24],0>(void *a1, char *a2, char *a3)
+{
+  v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
+  return a1;
+}
+
+void sub_218510E04(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_218510E7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[22],char const(&)[16],0>(void *a1, char *a2, char *a3)
+{
+  v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
+  return a1;
+}
+
+void sub_218510F64(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_218510FDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[23],char const(&)[17],0>(void *a1, char *a2, char *a3)
+{
+  v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
+  return a1;
+}
+
+void sub_2185110C4(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_21851113C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[25],char const(&)[19],0>(void *a1, char *a2, char *a3)
+{
+  v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
+  return a1;
+}
+
+void sub_218511224(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::string const&,std::string&>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
+{
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
+  {
+    goto LABEL_18;
+  }
+
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
+  {
+    v11 = v6;
+    if (v6 >= *&v8)
+    {
+      v11 = v6 % *&v8;
+    }
+  }
+
+  else
+  {
+    v11 = (*&v8 - 1) & v6;
+  }
+
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
+  {
+LABEL_18:
+    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__construct_node_hash<std::string const&,std::string&>();
+  }
+
+  while (1)
+  {
+    v14 = v13[1];
+    if (v14 == v7)
+    {
+      break;
+    }
+
+    if (v10 > 1)
+    {
+      if (v14 >= *&v8)
+      {
+        v14 %= *&v8;
+      }
+    }
+
+    else
+    {
+      v14 &= *&v8 - 1;
+    }
+
+    if (v14 != v11)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v13 = *v13;
+    if (!v13)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2))
+  {
+    goto LABEL_17;
+  }
+
+  return v13;
+}
+
+void sub_218511490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+std::string *std::pair<std::string const,std::string>::pair[abi:ne200100]<std::string const&,std::string&,0>(std::string *this, __int128 *a2, __int128 *a3)
+{
+  if (*(a2 + 23) < 0)
+  {
+    std::string::__init_copy_ctor_external(this, *a2, *(a2 + 1));
+  }
+
+  else
+  {
+    v5 = *a2;
+    this->__r_.__value_.__r.__words[2] = *(a2 + 2);
+    *&this->__r_.__value_.__l.__data_ = v5;
+  }
+
+  if (*(a3 + 23) < 0)
+  {
+    std::string::__init_copy_ctor_external(this + 1, *a3, *(a3 + 1));
+  }
+
+  else
+  {
+    v6 = *a3;
+    this[1].__r_.__value_.__r.__words[2] = *(a3 + 2);
+    *&this[1].__r_.__value_.__l.__data_ = v6;
+  }
+
+  return this;
+}
+
+void sub_2185115AC(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_218511624(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void *std::pair<std::string const,std::shared_ptr<MIL::IROperator const>>::pair[abi:ne200100]<char const(&)[28],std::unique_ptr<MIL::IROperator>,0>(void *a1, char *a2, uint64_t *a3)
+{
+  v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
+  std::shared_ptr<MIL::IROperator const>::shared_ptr[abi:ne200100]<MIL::IROperator,std::default_delete<MIL::IROperator>,0>(v5 + 3, a3);
+  return a1;
+}
+
+void sub_21851170C(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_218511784(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void *std::pair<std::string const,std::shared_ptr<MIL::IROperator const>>::pair[abi:ne200100]<char const(&)[23],std::unique_ptr<MIL::IROperator>,0>(void *a1, char *a2, uint64_t *a3)
+{
+  v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
+  std::shared_ptr<MIL::IROperator const>::shared_ptr[abi:ne200100]<MIL::IROperator,std::default_delete<MIL::IROperator>,0>(v5 + 3, a3);
+  return a1;
+}
+
+void sub_21851186C(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>>>::__emplace_unique_key_args<std::string,std::string const&,std::shared_ptr<MIL::IROperator const>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
+{
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
+  {
+    goto LABEL_18;
+  }
+
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
+  {
+    v11 = v6;
+    if (v6 >= *&v8)
+    {
+      v11 = v6 % *&v8;
+    }
+  }
+
+  else
+  {
+    v11 = (*&v8 - 1) & v6;
+  }
+
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
+  {
+LABEL_18:
+    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IROperator const>>>>::__construct_node_hash<std::string const&,std::shared_ptr<MIL::IROperator const>>();
+  }
+
+  while (1)
+  {
+    v14 = v13[1];
+    if (v14 == v7)
+    {
+      break;
+    }
+
+    if (v10 > 1)
+    {
+      if (v14 >= *&v8)
+      {
+        v14 %= *&v8;
+      }
+    }
+
+    else
+    {
+      v14 &= *&v8 - 1;
+    }
+
+    if (v14 != v11)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v13 = *v13;
+    if (!v13)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2))
+  {
+    goto LABEL_17;
+  }
+
+  return v13;
+}
+
+void sub_218511AD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -30,23 +598,24 @@ void sub_218511C60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_218511D4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
+void sub_218511D4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
+  va_start(va, a13);
   std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(&a9);
-  std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::~__hash_table(&a14);
+  std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-void MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(uint64_t a1@<X8>)
+void MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(uint64_t *__return_ptr a1@<X8>)
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 1065353216;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
   operator new();
 }
 
-void sub_218515F00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58)
+void sub_218515F00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, void *a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, void *a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58)
 {
   if (a42 < 0)
   {
@@ -91,16 +660,16 @@ LABEL_14:
   goto LABEL_14;
 }
 
-void MIL::Opsets::Common::ios17::ios17Opset::GetOperatorNameToNameMap(uint64_t a1@<X8>)
+void MIL::Opsets::Common::ios17::ios17Opset::GetOperatorNameToNameMap(uint64_t *__return_ptr a1@<X8>)
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v1 = *MEMORY[0x277D85DE8];
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 1065353216;
-  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_impl<char const(&)[10],char const(&)[4]>();
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
+  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_impl<char const(&)[10],char const(&)[4]>(a1);
 }
 
-void sub_2185178F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58)
+void sub_2185178F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, void *a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, void *a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58)
 {
   if (a42 < 0)
   {
@@ -147,7 +716,7 @@ LABEL_14:
 
 void MIL::Opsets::Common::ios17::ios17Opset::GetOps(MIL::Opsets::Common::ios17::ios17Opset *this, MIL::MILContext *a2)
 {
-  MEMORY[0x28223BE20](this);
+  MEMORY[0x28223BE20](this, a2);
   __p[285] = *MEMORY[0x277D85DE8];
   *v2 = 0u;
   *(v2 + 16) = 0u;
@@ -156,7 +725,7 @@ void MIL::Opsets::Common::ios17::ios17Opset::GetOps(MIL::Opsets::Common::ios17::
   MIL::Operators::Common::ios17::Abs::Make();
 }
 
-void sub_21851B298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
+void sub_21851B298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, void *a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, void *a49)
 {
   if (a42 < 0)
   {
@@ -578,9 +1147,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_12,std::allocator<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_12>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios17.clamped_relu");
-  MIL::Operators::Common::ios17::ClampedReLU::Make(v1, __p);
+  MIL::Operators::Common::ios17::ClampedReLU::Make(v2, __p);
 }
 
 void sub_21851D8BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -915,9 +1484,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_23,std::allocator<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_23>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios17.elu");
-  MIL::Operators::Common::ios17::ELU::Make(v1, __p);
+  MIL::Operators::Common::ios17::ELU::Make(v2, __p);
 }
 
 void sub_21851E7DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -1342,9 +1911,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_37,std::allocator<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_37>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios17.inverse");
-  MIL::Operators::Common::ios17::Inverse::Make(v1, __p);
+  MIL::Operators::Common::ios17::Inverse::Make(v2, __p);
 }
 
 void sub_21851FB1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -1439,9 +2008,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_40,std::allocator<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_40>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios17.leaky_relu");
-  MIL::Operators::Common::ios17::LeakyReLU::Make(v1, __p);
+  MIL::Operators::Common::ios17::LeakyReLU::Make(v2, __p);
 }
 
 void sub_21851FF3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -1566,9 +2135,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_44,std::allocator<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_44>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios17.linear_activation");
-  MIL::Operators::Common::ios17::LinearActivation::Make(v1, __p);
+  MIL::Operators::Common::ios17::LinearActivation::Make(v2, __p);
 }
 
 void sub_2185204BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -1633,9 +2202,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_46,std::allocator<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_46>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios17.log");
-  MIL::Operators::Common::ios17::Log::Make(v1, __p);
+  MIL::Operators::Common::ios17::Log::Make(v2, __p);
 }
 
 void sub_21852077C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -2180,9 +2749,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_64,std::allocator<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_64>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios17.reduce_argmax");
-  MIL::Operators::Common::ios17::ReduceArgmax::Make(v1, __p);
+  MIL::Operators::Common::ios17::ReduceArgmax::Make(v2, __p);
 }
 
 void sub_21852203C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -2217,9 +2786,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_65,std::allocator<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_65>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios17.reduce_argmin");
-  MIL::Operators::Common::ios17::ReduceArgmin::Make(v1, __p);
+  MIL::Operators::Common::ios17::ReduceArgmin::Make(v2, __p);
 }
 
 void sub_21852219C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -2494,9 +3063,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_74,std::allocator<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_74>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios17.rsqrt");
-  MIL::Operators::Common::ios17::Rsqrt::Make(v1, __p);
+  MIL::Operators::Common::ios17::Rsqrt::Make(v2, __p);
 }
 
 void sub_218522DFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -2531,9 +3100,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_75,std::allocator<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_75>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios17.scaled_tanh");
-  MIL::Operators::Common::ios17::ScaledTanh::Make(v1, __p);
+  MIL::Operators::Common::ios17::ScaledTanh::Make(v2, __p);
 }
 
 void sub_218522F5C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -2568,9 +3137,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_76,std::allocator<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_76>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios17.scatter");
-  MIL::Operators::Common::ios17::Scatter::Make(v1, __p);
+  MIL::Operators::Common::ios17::Scatter::Make(v2, __p);
 }
 
 void sub_2185230BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -2605,9 +3174,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_77,std::allocator<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_77>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios17.scatter_along_axis");
-  MIL::Operators::Common::ios17::ScatterAlongAxis::Make(v1, __p);
+  MIL::Operators::Common::ios17::ScatterAlongAxis::Make(v2, __p);
 }
 
 void sub_21852321C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -2642,9 +3211,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_78,std::allocator<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_78>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios17.scatter_nd");
-  MIL::Operators::Common::ios17::ScatterNd::Make(v1, __p);
+  MIL::Operators::Common::ios17::ScatterNd::Make(v2, __p);
 }
 
 void sub_21852337C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -2679,9 +3248,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_79,std::allocator<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_79>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios17.sigmoid_hard");
-  MIL::Operators::Common::ios17::SigmoidHard::Make(v1, __p);
+  MIL::Operators::Common::ios17::SigmoidHard::Make(v2, __p);
 }
 
 void sub_2185234DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -3256,9 +3825,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_98,std::allocator<MIL::Opsets::Common::ios17::ios17Opset::GetOperatorConstructors(MIL::MILContext &)::$_98>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios17.thresholded_relu");
-  MIL::Operators::Common::ios17::ThresholdedReLU::Make(v1, __p);
+  MIL::Operators::Common::ios17::ThresholdedReLU::Make(v2, __p);
 }
 
 void sub_218524EFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -3368,23 +3937,24 @@ void sub_21852530C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2185253F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
+void sub_2185253F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
+  va_start(va, a13);
   std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(&a9);
-  std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::~__hash_table(&a14);
+  std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-void MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(uint64_t a1@<X8>)
+void MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(uint64_t *__return_ptr a1@<X8>)
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 1065353216;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
   operator new();
 }
 
-void sub_21852A5D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, void *a54, uint64_t a55, int a56, __int16 a57, char a58, char a59)
+void sub_21852A5D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, void *a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, void *a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, void *a54, uint64_t a55, int a56, __int16 a57, char a58, char a59)
 {
   if (a42 < 0)
   {
@@ -3429,16 +3999,16 @@ LABEL_14:
   goto LABEL_14;
 }
 
-void MIL::Opsets::Common::ios18::ios18Opset::GetOperatorNameToNameMap(uint64_t a1@<X8>)
+void MIL::Opsets::Common::ios18::ios18Opset::GetOperatorNameToNameMap(uint64_t *__return_ptr a1@<X8>)
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v1 = *MEMORY[0x277D85DE8];
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 1065353216;
-  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_impl<char const(&)[10],char const(&)[4]>();
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
+  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_impl<char const(&)[10],char const(&)[4]>(a1);
 }
 
-void sub_21852C5D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, void *a54, uint64_t a55, int a56, __int16 a57, char a58, char a59)
+void sub_21852C5D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, void *a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, void *a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, void *a54, uint64_t a55, int a56, __int16 a57, char a58, char a59)
 {
   if (a42 < 0)
   {
@@ -3485,7 +4055,7 @@ LABEL_14:
 
 void MIL::Opsets::Common::ios18::ios18Opset::GetOps(MIL::Opsets::Common::ios18::ios18Opset *this, MIL::MILContext *a2)
 {
-  MEMORY[0x28223BE20](this);
+  MEMORY[0x28223BE20](this, a2);
   __p[372] = *MEMORY[0x277D85DE8];
   *v2 = 0u;
   *(v2 + 16) = 0u;
@@ -3494,7 +4064,7 @@ void MIL::Opsets::Common::ios18::ios18Opset::GetOps(MIL::Opsets::Common::ios18::
   MIL::Operators::Common::ios18::Abs::Make();
 }
 
-void sub_218530D44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
+void sub_218530D44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, void *a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, void *a49)
 {
   if (a42 < 0)
   {
@@ -3826,9 +4396,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_9,std::allocator<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_9>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios18.avg_pool");
-  MIL::Operators::Common::ios18::AvgPool::Make(v1, __p);
+  MIL::Operators::Common::ios18::AvgPool::Make(v2, __p);
 }
 
 void sub_218533404(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -3953,9 +4523,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_13,std::allocator<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_13>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios18.clamped_relu");
-  MIL::Operators::Common::ios18::ClampedReLU::Make(v1, __p);
+  MIL::Operators::Common::ios18::ClampedReLU::Make(v2, __p);
 }
 
 void sub_218533984(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -4470,9 +5040,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_30,std::allocator<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_30>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios18.elu");
-  MIL::Operators::Common::ios18::ELU::Make(v1, __p);
+  MIL::Operators::Common::ios18::ELU::Make(v2, __p);
 }
 
 void sub_2185350E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -4537,9 +5107,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_32,std::allocator<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_32>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios18.erf");
-  MIL::Operators::Common::ios18::ERF::Make(v1, __p);
+  MIL::Operators::Common::ios18::ERF::Make(v2, __p);
 }
 
 void sub_2185353A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -4964,9 +5534,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_46,std::allocator<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_46>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios18.inverse");
-  MIL::Operators::Common::ios18::Inverse::Make(v1, __p);
+  MIL::Operators::Common::ios18::Inverse::Make(v2, __p);
 }
 
 void sub_2185366E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -5031,9 +5601,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_48,std::allocator<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_48>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios18.l2_pool");
-  MIL::Operators::Common::ios18::L2Pool::Make(v1, __p);
+  MIL::Operators::Common::ios18::L2Pool::Make(v2, __p);
 }
 
 void sub_2185369A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -5098,9 +5668,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_50,std::allocator<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_50>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios18.leaky_relu");
-  MIL::Operators::Common::ios18::LeakyReLU::Make(v1, __p);
+  MIL::Operators::Common::ios18::LeakyReLU::Make(v2, __p);
 }
 
 void sub_218536C64(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -5225,9 +5795,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_54,std::allocator<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_54>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios18.linear_activation");
-  MIL::Operators::Common::ios18::LinearActivation::Make(v1, __p);
+  MIL::Operators::Common::ios18::LinearActivation::Make(v2, __p);
 }
 
 void sub_2185371E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -5292,9 +5862,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_56,std::allocator<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_56>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios18.log");
-  MIL::Operators::Common::ios18::Log::Make(v1, __p);
+  MIL::Operators::Common::ios18::Log::Make(v2, __p);
 }
 
 void sub_2185374A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -5509,9 +6079,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_63,std::allocator<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_63>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios18.max_pool");
-  MIL::Operators::Common::ios18::MaxPool::Make(v1, __p);
+  MIL::Operators::Common::ios18::MaxPool::Make(v2, __p);
 }
 
 void sub_218537E44(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -6026,9 +6596,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_80,std::allocator<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_80>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios18.reduce_argmax");
-  MIL::Operators::Common::ios18::ReduceArgmax::Make(v1, __p);
+  MIL::Operators::Common::ios18::ReduceArgmax::Make(v2, __p);
 }
 
 void sub_2185395A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -6063,9 +6633,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_81,std::allocator<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_81>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios18.reduce_argmin");
-  MIL::Operators::Common::ios18::ReduceArgmin::Make(v1, __p);
+  MIL::Operators::Common::ios18::ReduceArgmin::Make(v2, __p);
 }
 
 void sub_218539704(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -6100,9 +6670,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_82,std::allocator<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_82>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios18.relu");
-  MIL::Operators::Common::ios18::ReLU::Make(v1, __p);
+  MIL::Operators::Common::ios18::ReLU::Make(v2, __p);
 }
 
 void sub_218539864(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -6137,9 +6707,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_83,std::allocator<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_83>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios18.relu6");
-  MIL::Operators::Common::ios18::ReLU6::Make(v1, __p);
+  MIL::Operators::Common::ios18::ReLU6::Make(v2, __p);
 }
 
 void sub_2185399C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -6414,9 +6984,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_92,std::allocator<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_92>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios18.rsqrt");
-  MIL::Operators::Common::ios18::Rsqrt::Make(v1, __p);
+  MIL::Operators::Common::ios18::Rsqrt::Make(v2, __p);
 }
 
 void sub_21853A624(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -6481,9 +7051,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_94,std::allocator<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_94>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios18.scaled_tanh");
-  MIL::Operators::Common::ios18::ScaledTanh::Make(v1, __p);
+  MIL::Operators::Common::ios18::ScaledTanh::Make(v2, __p);
 }
 
 void sub_21853A8E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -6518,9 +7088,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_95,std::allocator<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_95>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios18.scatter");
-  MIL::Operators::Common::ios18::Scatter::Make(v1, __p);
+  MIL::Operators::Common::ios18::Scatter::Make(v2, __p);
 }
 
 void sub_21853AA44(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -6555,9 +7125,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_96,std::allocator<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_96>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios18.scatter_along_axis");
-  MIL::Operators::Common::ios18::ScatterAlongAxis::Make(v1, __p);
+  MIL::Operators::Common::ios18::ScatterAlongAxis::Make(v2, __p);
 }
 
 void sub_21853ABA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -6592,9 +7162,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_97,std::allocator<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_97>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios18.scatter_nd");
-  MIL::Operators::Common::ios18::ScatterNd::Make(v1, __p);
+  MIL::Operators::Common::ios18::ScatterNd::Make(v2, __p);
 }
 
 void sub_21853AD04(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -6629,9 +7199,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_98,std::allocator<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_98>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios18.sigmoid");
-  MIL::Operators::Common::ios18::Sigmoid::Make(v1, __p);
+  MIL::Operators::Common::ios18::Sigmoid::Make(v2, __p);
 }
 
 void sub_21853AE64(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -6666,9 +7236,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_99,std::allocator<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_99>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios18.sigmoid_hard");
-  MIL::Operators::Common::ios18::SigmoidHard::Make(v1, __p);
+  MIL::Operators::Common::ios18::SigmoidHard::Make(v2, __p);
 }
 
 void sub_21853AFC4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -6733,9 +7303,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_101,std::allocator<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_101>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios18.silu");
-  MIL::Operators::Common::ios18::SiLU::Make(v1, __p);
+  MIL::Operators::Common::ios18::SiLU::Make(v2, __p);
 }
 
 void sub_21853B284(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -6980,9 +7550,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_109,std::allocator<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_109>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios18.softplus");
-  MIL::Operators::Common::ios18::Softplus::Make(v1, __p);
+  MIL::Operators::Common::ios18::Softplus::Make(v2, __p);
 }
 
 void sub_21853BD84(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -7047,9 +7617,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_111,std::allocator<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_111>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios18.softsign");
-  MIL::Operators::Common::ios18::Softsign::Make(v1, __p);
+  MIL::Operators::Common::ios18::Softsign::Make(v2, __p);
 }
 
 void sub_21853C044(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -7384,9 +7954,9 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
 
 void std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_122,std::allocator<MIL::Opsets::Common::ios18::ios18Opset::GetOperatorConstructors(MIL::MILContext &)::$_122>,std::unique_ptr<MIL::IROperator> ()(void)>::operator()(uint64_t a1)
 {
-  v1 = *(a1 + 8);
+  v2 = *(a1 + 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "ios18.thresholded_relu");
-  MIL::Operators::Common::ios18::ThresholdedReLU::Make(v1, __p);
+  MIL::Operators::Common::ios18::ThresholdedReLU::Make(v2, __p);
 }
 
 void sub_21853CF64(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -7501,17 +8071,17 @@ uint64_t std::__function::__func<MIL::Opsets::Common::ios18::ios18Opset::GetOper
   }
 }
 
-void sub_21853D448(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21853D448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[38],char const(&)[32],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[38],char const(&)[32],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7525,17 +8095,17 @@ void sub_21853D530(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21853D5A8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21853D5A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[45],char const(&)[39],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[45],char const(&)[39],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7549,17 +8119,17 @@ void sub_21853D690(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21853D708(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21853D708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[35],char const(&)[29],0>(_BYTE *a1, char *a2, char *a3)
+void *std::pair<std::string const,std::string>::pair[abi:ne200100]<char const(&)[35],char const(&)[29],0>(void *a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 24, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 3, a3);
   return a1;
 }
 
@@ -7573,14 +8143,14 @@ void sub_21853D7F0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21853D868(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21853D868(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::shared_ptr<MIL::IROperator const>>::pair[abi:ne200100]<char const(&)[32],std::unique_ptr<MIL::IROperator>,0>(_BYTE *a1, char *a2, uint64_t *a3)
+void *std::pair<std::string const,std::shared_ptr<MIL::IROperator const>>::pair[abi:ne200100]<char const(&)[32],std::unique_ptr<MIL::IROperator>,0>(void *a1, char *a2, uint64_t *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
   std::shared_ptr<MIL::IROperator const>::shared_ptr[abi:ne200100]<MIL::IROperator,std::default_delete<MIL::IROperator>,0>(v5 + 3, a3);
@@ -7597,14 +8167,14 @@ void sub_21853D950(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21853D9C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21853D9C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::shared_ptr<MIL::IROperator const>>::pair[abi:ne200100]<char const(&)[39],std::unique_ptr<MIL::IROperator>,0>(_BYTE *a1, char *a2, uint64_t *a3)
+void *std::pair<std::string const,std::shared_ptr<MIL::IROperator const>>::pair[abi:ne200100]<char const(&)[39],std::unique_ptr<MIL::IROperator>,0>(void *a1, char *a2, uint64_t *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
   std::shared_ptr<MIL::IROperator const>::shared_ptr[abi:ne200100]<MIL::IROperator,std::default_delete<MIL::IROperator>,0>(v5 + 3, a3);
@@ -7621,14 +8191,14 @@ void sub_21853DAB0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21853DB28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21853DB28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::pair<std::string const,std::shared_ptr<MIL::IROperator const>>::pair[abi:ne200100]<char const(&)[29],std::unique_ptr<MIL::IROperator>,0>(_BYTE *a1, char *a2, uint64_t *a3)
+void *std::pair<std::string const,std::shared_ptr<MIL::IROperator const>>::pair[abi:ne200100]<char const(&)[29],std::unique_ptr<MIL::IROperator>,0>(void *a1, char *a2, uint64_t *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
   std::shared_ptr<MIL::IROperator const>::shared_ptr[abi:ne200100]<MIL::IROperator,std::default_delete<MIL::IROperator>,0>(v5 + 3, a3);
@@ -7670,23 +8240,24 @@ void sub_21853DD14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_21853DE00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
+void sub_21853DE00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
+  va_start(va, a13);
   std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(&a9);
-  std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::~__hash_table(&a14);
+  std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-void MIL::Opsets::Common::ios19::ios19Opset::GetOperatorConstructors(uint64_t a1@<X8>)
+void MIL::Opsets::Common::ios19::ios19Opset::GetOperatorConstructors(uint64_t *__return_ptr a1@<X8>)
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 1065353216;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
   operator new();
 }
 
-void sub_21853FA6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58)
+void sub_21853FA6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, void *a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, void *a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58)
 {
   if (a42 < 0)
   {
@@ -7731,16 +8302,16 @@ LABEL_14:
   goto LABEL_14;
 }
 
-void MIL::Opsets::Common::ios19::ios19Opset::GetOperatorNameToNameMap(uint64_t a1@<X8>)
+void MIL::Opsets::Common::ios19::ios19Opset::GetOperatorNameToNameMap(uint64_t *__return_ptr a1@<X8>)
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v1 = *MEMORY[0x277D85DE8];
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 1065353216;
-  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_impl<char const(&)[10],char const(&)[4]>();
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
+  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_impl<char const(&)[10],char const(&)[4]>(a1);
 }
 
-void sub_218540770(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37, uint64_t a38, void *__p, uint64_t a40, int a41, __int16 a42, char a43, char a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *a55, uint64_t a56, int a57, __int16 a58, char a59, char a60)
+void sub_218540770(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37, uint64_t a38, void *__p, uint64_t a40, int a41, __int16 a42, char a43, char a44, void *a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, void *a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *a55, uint64_t a56, int a57, __int16 a58, char a59, char a60)
 {
   if (a44 < 0)
   {
@@ -7785,17 +8356,17 @@ LABEL_14:
   goto LABEL_14;
 }
 
-void MIL::Opsets::Common::ios19::ios19Opset::GetOps(uint64_t a1@<X8>)
+void MIL::Opsets::Common::ios19::ios19Opset::GetOps(unint64_t a2@<X8>)
 {
   __p[129] = *MEMORY[0x277D85DE8];
-  *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 1065353216;
+  *a2 = 0u;
+  *(a2 + 16) = 0u;
+  *(a2 + 32) = 1065353216;
   std::string::basic_string[abi:ne200100]<0>(__p, "ios19.add");
   MIL::Operators::Common::ios19::Add::Make();
 }
 
-void sub_218542154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
+void sub_218542154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, void *a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, void *a49)
 {
   if (a42 < 0)
   {
@@ -9102,23 +9673,24 @@ void sub_21854640C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2185464F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
+void sub_2185464F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
+  va_start(va, a13);
   std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(&a9);
-  std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::~__hash_table(&a14);
+  std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<MIL::IROperator> ()(void)>>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-void MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(uint64_t a1@<X8>)
+void MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(uint64_t *__return_ptr a1@<X8>)
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 1065353216;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
   operator new();
 }
 
-void sub_2185475D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58)
+void sub_2185475D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, void *a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, void *a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58)
 {
   if (a42 < 0)
   {
@@ -9161,548 +9733,4 @@ LABEL_14:
 
   __cxa_free_exception(v59);
   goto LABEL_14;
-}
-
-void MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorNameToNameMap(uint64_t a1@<X8>)
-{
-  v2 = *MEMORY[0x277D85DE8];
-  *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 1065353216;
-  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_impl<char const(&)[17],char const(&)[7]>();
-}
-
-void sub_218547EA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58)
-{
-  if (a42 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a35 < 0)
-  {
-    operator delete(a30);
-  }
-
-  if (a16 < 0)
-  {
-    operator delete(a11);
-  }
-
-  if (a28 < 0)
-  {
-    operator delete(a23);
-  }
-
-  if (a22 < 0)
-  {
-    operator delete(a17);
-    if ((v60 & 1) == 0)
-    {
-LABEL_14:
-      std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(&a53);
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&a43);
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&a48);
-      std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(v58);
-      _Unwind_Resume(a1);
-    }
-  }
-
-  else if (!v60)
-  {
-    goto LABEL_14;
-  }
-
-  __cxa_free_exception(v59);
-  goto LABEL_14;
-}
-
-void MIL::Opsets::Prototype::prototype::prototypeOpset::GetOps(uint64_t a1@<X8>)
-{
-  __p[69] = *MEMORY[0x277D85DE8];
-  *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 1065353216;
-  std::string::basic_string[abi:ne200100]<0>(__p, "prototype.concat");
-  MIL::Operators::Prototype::prototype::Concat::Make();
-}
-
-void sub_218548E9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
-{
-  if (a42 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a35 < 0)
-  {
-    operator delete(a30);
-  }
-
-  if (a16 < 0)
-  {
-    operator delete(a11);
-  }
-
-  if (a28 < 0)
-  {
-    operator delete(a23);
-  }
-
-  if (a22 < 0)
-  {
-    operator delete(a17);
-    if ((v51 & 1) == 0)
-    {
-LABEL_14:
-      std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(&STACK[0x318]);
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&a44);
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&a49);
-      std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(v49);
-      _Unwind_Resume(a1);
-    }
-  }
-
-  else if (!v51)
-  {
-    goto LABEL_14;
-  }
-
-  __cxa_free_exception(v50);
-  goto LABEL_14;
-}
-
-void MIL::Opsets::Prototype::prototype::prototypeOpset::~prototypeOpset(MIL::Opsets::Prototype::prototype::prototypeOpset *this)
-{
-  MIL::IROpset::~IROpset(this);
-
-  JUMPOUT(0x21CEAFEA0);
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_0,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_0>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_2829FDE18;
-  a2[1] = v2;
-  return result;
-}
-
-void sub_2185495A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_0,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_0>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_1,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_1>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_2829FDE98;
-  a2[1] = v2;
-  return result;
-}
-
-void sub_218549700(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_1,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_1>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_2,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_2>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_2829FDF18;
-  a2[1] = v2;
-  return result;
-}
-
-void sub_218549860(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_2,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_2>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_3,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_3>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_2829FDF98;
-  a2[1] = v2;
-  return result;
-}
-
-void sub_2185499C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_3,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_3>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_4,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_4>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_2829FE018;
-  a2[1] = v2;
-  return result;
-}
-
-void sub_218549B20(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_4,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_4>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_5,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_5>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_2829FE098;
-  a2[1] = v2;
-  return result;
-}
-
-void sub_218549C80(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_5,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_5>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_6,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_6>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_2829FE118;
-  a2[1] = v2;
-  return result;
-}
-
-void sub_218549DE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_6,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_6>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_7,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_7>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_2829FE198;
-  a2[1] = v2;
-  return result;
-}
-
-void sub_218549F40(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_7,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_7>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_8,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_8>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_2829FE218;
-  a2[1] = v2;
-  return result;
-}
-
-void sub_21854A0A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_8,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_8>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_9,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_9>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_2829FE298;
-  a2[1] = v2;
-  return result;
-}
-
-void sub_21854A200(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_9,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_9>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_10,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_10>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_2829FE318;
-  a2[1] = v2;
-  return result;
-}
-
-void sub_21854A360(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_10,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_10>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_11,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_11>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_2829FE398;
-  a2[1] = v2;
-  return result;
-}
-
-void sub_21854A4C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_11,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_11>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_12,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_12>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_2829FE418;
-  a2[1] = v2;
-  return result;
-}
-
-void sub_21854A620(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_12,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_12>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_13,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_13>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_2829FE498;
-  a2[1] = v2;
-  return result;
-}
-
-void sub_21854A780(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_13,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_13>,std::unique_ptr<MIL::IROperator> ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_14,std::allocator<MIL::Opsets::Prototype::prototype::prototypeOpset::GetOperatorConstructors(MIL::MILContext &)::$_14>,std::unique_ptr<MIL::IROperator> ()(void)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_2829FE518;
-  a2[1] = v2;
-  return result;
 }

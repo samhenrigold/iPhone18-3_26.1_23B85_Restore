@@ -12,9 +12,9 @@
 - (PKPeerPaymentHeroBubbleView)initWithCurrencyAmount:(id)amount regitrationFlowState:(unint64_t)state
 {
   amountCopy = amount;
-  v39.receiver = self;
-  v39.super_class = PKPeerPaymentHeroBubbleView;
-  v7 = [(PKPeerPaymentHeroBubbleView *)&v39 init];
+  v40.receiver = self;
+  v40.super_class = PKPeerPaymentHeroBubbleView;
+  v7 = [(PKPeerPaymentHeroBubbleView *)&v40 init];
   v8 = v7;
   if (v7)
   {
@@ -63,41 +63,41 @@
 
     [(PKPeerPaymentBubbleView *)v8->_peerPaymentBubbleView setDisplaysCashLogo:1];
     [(PKPeerPaymentBubbleView *)v8->_peerPaymentBubbleView setLiveRenderingEnabled:0];
-    [(PKPeerPaymentBubbleView *)v8->_peerPaymentBubbleView setOutOfTranscript:1];
-    v24 = objc_alloc_init(_MergedGlobals_3_9[0]());
-    [v24 setCanUseOpaqueMask:0];
-    [v24 setOrientation:1];
-    [v24 setHasTail:1];
-    v25 = state - 3;
-    [v24 setOrientation:state - 3 < 0xFFFFFFFFFFFFFFFELL];
-    v26 = *MEMORY[0x1E69DDCE0];
-    v27 = *(MEMORY[0x1E69DDCE0] + 8);
-    v28 = *(MEMORY[0x1E69DDCE0] + 16);
-    v29 = *(MEMORY[0x1E69DDCE0] + 24);
-    [v24 setTextAlignmentInsets:{*MEMORY[0x1E69DDCE0], v27, v28, v29}];
-    [v24 setPluginView:v8->_peerPaymentBubbleView];
-    [v24 setBalloonCorners:-1];
+    v24 = [(PKPeerPaymentBubbleView *)v8->_peerPaymentBubbleView setOutOfTranscript:1];
+    v25 = objc_alloc_init(_MergedGlobals_3_9(v24));
+    [v25 setCanUseOpaqueMask:0];
+    [v25 setOrientation:1];
+    [v25 setHasTail:1];
+    v26 = state - 3;
+    [v25 setOrientation:state - 3 < 0xFFFFFFFFFFFFFFFELL];
+    v27 = *MEMORY[0x1E69DDCE0];
+    v28 = *(MEMORY[0x1E69DDCE0] + 8);
+    v29 = *(MEMORY[0x1E69DDCE0] + 16);
+    v30 = *(MEMORY[0x1E69DDCE0] + 24);
+    [v25 setTextAlignmentInsets:{*MEMORY[0x1E69DDCE0], v28, v29, v30}];
+    [v25 setPluginView:v8->_peerPaymentBubbleView];
+    [v25 setBalloonCorners:-1];
     mEMORY[0x1E6993C90] = [MEMORY[0x1E6993C90] sharedBehaviors];
     [mEMORY[0x1E6993C90] balloonCornerRadius];
-    [v24 setCornerRadius:?];
+    [v25 setCornerRadius:?];
 
-    [v24 sizeToFit];
-    [v24 prepareForDisplay];
-    objc_storeStrong(&v8->_pluginBalloonView, v24);
+    [v25 sizeToFit];
+    [v25 prepareForDisplay];
+    objc_storeStrong(&v8->_pluginBalloonView, v25);
     [(PKPeerPaymentHeroBubbleView *)v8 addSubview:v8->_pluginBalloonView];
-    sharedBehaviors = [off_1EE9A1D10[0]() sharedBehaviors];
-    v32 = sharedBehaviors;
-    v33 = v8->_peerPaymentBubbleView;
+    sharedBehaviors = [(objc_class *)(off_1EE9A1D10)() sharedBehaviors];
+    v33 = sharedBehaviors;
+    v34 = v8->_peerPaymentBubbleView;
     if (sharedBehaviors)
     {
-      [sharedBehaviors pluginBalloonInsetsForMessageFromMe:v25 < 0xFFFFFFFFFFFFFFFELL];
-      v26 = v34;
+      [sharedBehaviors pluginBalloonInsetsForMessageFromMe:v26 < 0xFFFFFFFFFFFFFFFELL];
       v27 = v35;
       v28 = v36;
       v29 = v37;
+      v30 = v38;
     }
 
-    [(PKPeerPaymentBubbleView *)v33 setContentInset:v26, v27, v28, v29];
+    [(PKPeerPaymentBubbleView *)v34 setContentInset:v27, v28, v29, v30];
     if (v8->_bubbleAmountLabel)
     {
       [(PKPeerPaymentHeroBubbleView *)v8 bringSubviewToFront:?];

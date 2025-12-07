@@ -5,6 +5,7 @@
 + (unint64_t)_optionsFromACAccount:(id)account currentOptions:(unint64_t)options;
 + (void)_setBackupEnabled:(BOOL)enabled account:(id)account completion:(id)completion;
 + (void)enableBackupInPreferences;
++ (void)setBackupEnabled:(BOOL)enabled completion:(id)completion;
 - (BOOL)hasAppleAccount;
 - (BOOL)isAuthenticated;
 - (BOOL)isBackupOnCellularEnabled;
@@ -34,6 +35,7 @@
 - (void)_updateAppleAccount:(id)account;
 - (void)_updateApplePassword:(id)password completionHandler:(id)handler;
 - (void)renewCredentials;
+- (void)setBackupEnabled:(BOOL)enabled completion:(id)completion;
 @end
 
 @implementation MBServiceAccount
@@ -58,42 +60,41 @@
 + (NSArray)allServiceAccounts
 {
   v2 = +[ACAccountStore defaultStore];
-  v27 = [v2 accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierAppleAccount];
-  v28 = v2;
+  v25 = [v2 accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierAppleAccount];
+  v26 = v2;
   v3 = [v2 accountsWithAccountType:?];
   v4 = MBGetDefaultLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v37 = [v3 count];
+    v35 = [v3 count];
     _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Found %ld system accounts", buf, 0xCu);
-    v25 = [v3 count];
-    _MBLog();
+    _MBLog(@"Df", "Found %ld system accounts", [v3 count]);
   }
 
-  v29 = objc_opt_new();
+  v27 = objc_opt_new();
+  v30 = 0u;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
   obj = v3;
-  v5 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v5 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v33;
+    v7 = *v31;
     v8 = AAAccountClassPrimary;
     do
     {
       v9 = 0;
       do
       {
-        if (*v33 != v7)
+        if (*v31 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v32 + 1) + 8 * v9);
+        v10 = *(*(&v30 + 1) + 8 * v9);
         v11 = objc_autoreleasePoolPush();
         personaIdentifier = [v10 personaIdentifier];
         if (personaIdentifier)
@@ -120,10 +121,9 @@ LABEL_19:
                 if (os_log_type_enabled(aa_accountClass2, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138543362;
-                  v37 = personaIdentifier;
+                  v35 = personaIdentifier;
                   _os_log_impl(&dword_0, aa_accountClass2, OS_LOG_TYPE_ERROR, "nil volumeMountPoint for %{public}@", buf, 0xCu);
-                  v25 = personaIdentifier;
-                  _MBLog();
+                  _MBLog(@"E ", "nil volumeMountPoint for %{public}@", personaIdentifier);
                 }
 
                 path = 0;
@@ -135,11 +135,11 @@ LABEL_33:
               }
 
 LABEL_20:
-              aa_accountClass2 = [MBPersona personaWithAttributes:v14 volumeMountPoint:path, v25, v26];
+              aa_accountClass2 = [MBPersona personaWithAttributes:v14 volumeMountPoint:path];
               v19 = [[self alloc] initWithPersona:aa_accountClass2 account:v10 options:0];
               if (v19)
               {
-                [v29 addObject:v19];
+                [v27 addObject:v19];
               }
 
               goto LABEL_33;
@@ -163,15 +163,13 @@ LABEL_27:
 
           aa_accountClass = [v10 aa_accountClass];
           *buf = 138543618;
-          v37 = personaIdentifier;
-          v38 = 2112;
-          v39 = aa_accountClass;
+          v35 = personaIdentifier;
+          v36 = 2112;
+          v37 = aa_accountClass;
           _os_log_impl(&dword_0, path, OS_LOG_TYPE_ERROR, "Failed to fetch the attributes for persona %{public}@ accountClass %@", buf, 0x16u);
 
           aa_accountClass2 = [v10 aa_accountClass];
-          v25 = personaIdentifier;
-          v26 = aa_accountClass2;
-          _MBLog();
+          _MBLog(@"E ", "Failed to fetch the attributes for persona %{public}@ accountClass %@", personaIdentifier, aa_accountClass2);
 LABEL_31:
           v14 = 0;
           goto LABEL_32;
@@ -192,7 +190,7 @@ LABEL_31:
           {
             *buf = 0;
             _os_log_impl(&dword_0, aa_accountClass2, OS_LOG_TYPE_ERROR, "Failed to fetch the attributes for personal persona", buf, 2u);
-            _MBLog();
+            _MBLog(@"E ", "Failed to fetch the attributes for personal persona");
           }
 
           path = 0;
@@ -216,7 +214,7 @@ LABEL_34:
       }
 
       while (v6 != v9);
-      v21 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v21 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
       v6 = v21;
     }
 
@@ -226,15 +224,14 @@ LABEL_34:
   v22 = MBGetDefaultLog();
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
-    v23 = [v29 count];
+    v23 = [v27 count];
     *buf = 134217984;
-    v37 = v23;
+    v35 = v23;
     _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEBUG, "Found %lu service accounts", buf, 0xCu);
-    [v29 count];
-    _MBLog();
+    _MBLog(@"Db", "Found %lu service accounts", [v27 count]);
   }
 
-  return v29;
+  return v27;
 }
 
 - (MBServiceAccount)initWithPersona:(id)persona error:(id *)error
@@ -272,7 +269,7 @@ LABEL_34:
           *buf = 138543362;
           v28 = personaIdentifier;
           _os_log_impl(&dword_0, v22, OS_LOG_TYPE_ERROR, "Found an unexpected persona type for persona %{public}@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"E ", "Found an unexpected persona type for persona %{public}@", personaIdentifier);
         }
 
         selfCopy = 0;
@@ -299,7 +296,7 @@ LABEL_34:
           _os_log_impl(&dword_0, v23, OS_LOG_TYPE_ERROR, "Persona identifier mismatch: %{public}@ != %{public}@", buf, 0x16u);
 
           personaIdentifier4 = [(MBServiceAccount *)v14 personaIdentifier];
-          _MBLog();
+          _MBLog(@"E ", "Persona identifier mismatch: %{public}@ != %{public}@", personaIdentifier4, personaIdentifier);
         }
 
         *error = [MBError errorWithCode:1 format:@"Persona identifier mismatch"];
@@ -321,7 +318,7 @@ LABEL_34:
           v31 = 2112;
           v32 = volumeMountPoint;
           _os_log_impl(&dword_0, v20, OS_LOG_TYPE_INFO, "Found personaIdentifier:%@, options:0x%lx, volumeMountPoint:%@", buf, 0x20u);
-          _MBLog();
+          _MBLog(@"I ", "Found personaIdentifier:%@, options:0x%lx, volumeMountPoint:%@", personaIdentifier, 0, volumeMountPoint);
         }
 
         self = [(MBServiceAccount *)self initWithPersona:v9 account:v14 options:0];
@@ -337,7 +334,7 @@ LABEL_34:
         *buf = 138543362;
         v28 = personaIdentifier;
         _os_log_impl(&dword_0, v21, OS_LOG_TYPE_ERROR, "Failed to find the account for persona %{public}@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Failed to find the account for persona %{public}@", personaIdentifier);
       }
 
       [MBError errorWithCode:210 format:@"No account found"];
@@ -480,9 +477,9 @@ LABEL_25:
   }
 
   v21 = rLCopy;
-  v39.receiver = self;
-  v39.super_class = MBServiceAccount;
-  v22 = [(MBServiceAccount *)&v39 init];
+  v46.receiver = self;
+  v46.super_class = MBServiceAccount;
+  v22 = [(MBServiceAccount *)&v46 init];
   if (v22)
   {
     v23 = [[_MBImmutableServiceAccountProperties alloc] _initWithPersona:personaCopy accountIdentifier:identifierCopy dsid:dsidCopy altDSID:dCopy serviceURL:lCopy chunkStoreURL:v21 options:options];
@@ -497,45 +494,47 @@ LABEL_25:
       isEnabledForBackup = [(MBServiceAccount *)v22 isEnabledForBackup];
       isEmailVerified = [(MBServiceAccount *)v22 isEmailVerified];
       isAuthenticated = [(MBServiceAccount *)v22 isAuthenticated];
-      v38 = dCopy;
+      v45 = dCopy;
       options = [(_MBImmutableServiceAccountProperties *)v22->_properties options];
       [personaCopy volumeMountPoint];
-      v29 = v37 = lCopy;
+      v29 = v44 = lCopy;
       isBackupOnCellularEnabled = [(MBServiceAccount *)v22 isBackupOnCellularEnabled];
       *buf = 138545666;
-      v41 = identifierCopy;
-      v42 = 2114;
-      v43 = personaIdentifier;
-      v44 = 2112;
-      v45 = dsidCopy;
-      v46 = 1024;
-      v47 = isEnabled;
-      v48 = 1024;
-      v49 = isEnabledForBackup;
-      v50 = 1024;
-      v51 = isEmailVerified;
-      v52 = 1024;
-      v53 = isAuthenticated;
-      v54 = 2048;
-      v55 = options;
-      v56 = 2114;
-      v57 = v29;
-      v58 = 1024;
-      v59 = isBackupOnCellularEnabled;
+      v48 = identifierCopy;
+      v49 = 2114;
+      v50 = personaIdentifier;
+      v51 = 2112;
+      v52 = dsidCopy;
+      v53 = 1024;
+      v54 = isEnabled;
+      v55 = 1024;
+      v56 = isEnabledForBackup;
+      v57 = 1024;
+      v58 = isEmailVerified;
+      v59 = 1024;
+      v60 = isAuthenticated;
+      v61 = 2048;
+      v62 = options;
+      v63 = 2114;
+      v64 = v29;
+      v65 = 1024;
+      v66 = isBackupOnCellularEnabled;
       _os_log_impl(&dword_0, v25, OS_LOG_TYPE_INFO, "Loaded properties for account %{public}@, persona:%{public}@, dsid:%@, enabled:%d, enabledForBackup:%d, emailVerified:%d, authenticated:%d, options:0x%lx, volume:%{public}@, isBackupOnCellularEnabled:%d", buf, 0x52u);
 
       personaIdentifier2 = [personaCopy personaIdentifier];
-      [(MBServiceAccount *)v22 isEnabled];
-      [(MBServiceAccount *)v22 isEnabledForBackup];
-      [(MBServiceAccount *)v22 isEmailVerified];
-      [(MBServiceAccount *)v22 isAuthenticated];
-      [(_MBImmutableServiceAccountProperties *)v22->_properties options];
+      isEnabled2 = [(MBServiceAccount *)v22 isEnabled];
+      isEnabledForBackup2 = [(MBServiceAccount *)v22 isEnabledForBackup];
+      isEmailVerified2 = [(MBServiceAccount *)v22 isEmailVerified];
+      isAuthenticated2 = [(MBServiceAccount *)v22 isAuthenticated];
+      v33 = v21;
+      options2 = [(_MBImmutableServiceAccountProperties *)v22->_properties options];
       volumeMountPoint = [personaCopy volumeMountPoint];
-      [(MBServiceAccount *)v22 isBackupOnCellularEnabled];
-      _MBLog();
+      v37 = options2;
+      v21 = v33;
+      _MBLog(@"I ", "Loaded properties for account %{public}@, persona:%{public}@, dsid:%@, enabled:%d, enabledForBackup:%d, emailVerified:%d, authenticated:%d, options:0x%lx, volume:%{public}@, isBackupOnCellularEnabled:%d", identifierCopy, personaIdentifier2, dsidCopy, isEnabled2, isEnabledForBackup2, isEmailVerified2, isAuthenticated2, v37, volumeMountPoint, [(MBServiceAccount *)v22 isBackupOnCellularEnabled]);
 
-      lCopy = v37;
-      dCopy = v38;
+      lCopy = v44;
+      dCopy = v45;
     }
   }
 
@@ -574,13 +573,7 @@ LABEL_25:
 
     accountIdentifier2 = [v6 accountIdentifier];
     dsid2 = [v6 dsid];
-    [(MBServiceAccount *)self isEnabled];
-    [(MBServiceAccount *)self isEnabledForBackup];
-    [(MBServiceAccount *)self isEmailVerified];
-    [(MBServiceAccount *)self isAuthenticated];
-    [v6 options];
-    [(MBServiceAccount *)self isBackupOnCellularEnabled];
-    _MBLog();
+    _MBLog(@"I ", "Reloaded properties for account %{public}@, dsid:%@, enabled:%d, enabledForBackup:%d, emailVerified:%d, authenticated:%d, options:0x%lx, isBackupOnCellularEnabled:%d", accountIdentifier2, dsid2, -[MBServiceAccount isEnabled](self, "isEnabled"), -[MBServiceAccount isEnabledForBackup](self, "isEnabledForBackup"), -[MBServiceAccount isEmailVerified](self, "isEmailVerified"), -[MBServiceAccount isAuthenticated](self, "isAuthenticated"), [v6 options], -[MBServiceAccount isBackupOnCellularEnabled](self, "isBackupOnCellularEnabled"));
   }
 }
 
@@ -783,7 +776,7 @@ LABEL_25:
     v32 = 1024;
     v33 = enabledCopy;
     _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "%s %{public}@ on account %{public}@ : %d", buf, 0x26u);
-    _MBLog();
+    _MBLog(@"Df", "%s %{public}@ on account %{public}@ : %d", v13, v11, identifier, enabledCopy);
   }
 
   v14 = +[MBManagedPolicy sharedPolicy];
@@ -823,10 +816,79 @@ LABEL_25:
       v30 = 2112;
       v31 = v16;
       _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Not changing the %{public}@ state on account %{public}@: %@", buf, 0x20u);
-      _MBLog();
+      _MBLog(@"Df", "Not changing the %{public}@ state on account %{public}@: %@", identifier, v11, v16);
     }
 
     v9[2](v9, 0);
+  }
+}
+
++ (void)setBackupEnabled:(BOOL)enabled completion:(id)completion
+{
+  enabledCopy = enabled;
+  completionCopy = completion;
+  if (!completionCopy)
+  {
+    sub_139AC();
+  }
+
+  v7 = completionCopy;
+  v8 = +[ACAccountStore defaultStore];
+  aa_primaryAppleAccount = [v8 aa_primaryAppleAccount];
+
+  if (aa_primaryAppleAccount)
+  {
+    [self _setBackupEnabled:enabledCopy account:aa_primaryAppleAccount completion:v7];
+  }
+
+  else
+  {
+    v10 = MBGetDefaultLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      *v12 = 0;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "Failed to fetch the primary account", v12, 2u);
+      _MBLog(@"E ", "Failed to fetch the primary account");
+    }
+
+    v11 = [MBError errorWithCode:210 format:@"Failed to fetch the primary account"];
+    (v7)[2](v7, v11);
+  }
+}
+
+- (void)setBackupEnabled:(BOOL)enabled completion:(id)completion
+{
+  enabledCopy = enabled;
+  completionCopy = completion;
+  if (!completionCopy)
+  {
+    sub_13A04();
+  }
+
+  v7 = completionCopy;
+  accountIdentifier = [(MBServiceAccount *)self accountIdentifier];
+  if (!accountIdentifier)
+  {
+    sub_139D8();
+  }
+
+  v9 = accountIdentifier;
+  v10 = +[ACAccountStore defaultStore];
+  v14 = 0;
+  v11 = [v10 accountWithIdentifier:v9 error:&v14];
+  v12 = v14;
+
+  if (v11)
+  {
+    [objc_opt_class() _setBackupEnabled:enabledCopy account:v11 completion:v7];
+  }
+
+  else
+  {
+    v13 = [MBError errorWithCode:210 error:v12 format:@"Failed to fetch the account"];
+
+    v7[2](v7, v13);
+    v12 = v13;
   }
 }
 
@@ -859,7 +921,7 @@ LABEL_25:
   {
     *buf = 0;
     _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Renewing account credentials", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Renewing account credentials");
   }
 
   if ([(MBServiceAccount *)self hasAppleAccount])
@@ -895,7 +957,7 @@ LABEL_25:
   {
     *buf = 0;
     _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEBUG, "Updating Apple Account", buf, 2u);
-    _MBLog();
+    _MBLog(@"Db", "Updating Apple Account");
   }
 
   if ([(MBServiceAccount *)self hasAppleAccount])
@@ -1038,7 +1100,7 @@ LABEL_25:
   {
     *buf = 0;
     _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Verifying account credentials", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Verifying account credentials");
   }
 
   v5 = objc_opt_new();
@@ -1054,58 +1116,56 @@ LABEL_25:
 
   v8 = objc_opt_new();
   *buf = 0;
-  v30 = buf;
-  v31 = 0x3032000000;
-  v32 = sub_1066C;
-  v33 = sub_1067C;
-  v34 = 0;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = sub_1066C;
-  v27 = sub_1067C;
-  v28 = 0;
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_11404;
-  v19[3] = &unk_24C50;
-  v21 = buf;
-  v22 = &v23;
+  v31 = buf;
+  v32 = 0x3032000000;
+  v33 = sub_1066C;
+  v34 = sub_1067C;
+  v35 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = sub_1066C;
+  v28 = sub_1067C;
+  v29 = 0;
+  v17 = _NSConcreteStackBlock;
+  v18 = 3221225472;
+  v19 = sub_11404;
+  v20 = &unk_24C50;
+  v22 = buf;
+  v23 = &v24;
   v9 = dispatch_semaphore_create(0);
-  v20 = v9;
-  [v8 authenticateWithContext:v5 completion:v19];
+  v21 = v9;
+  [v8 authenticateWithContext:v5 completion:&v17];
   MBSemaphoreWaitForever();
-  if (!*(v30 + 5))
+  if (!*(v31 + 5))
   {
     v12 = MBGetDefaultLog();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v14 = v24[5];
-      *v35 = 138412290;
-      v36 = v14;
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_ERROR, "Account credential verification failed to get password: %@", v35, 0xCu);
-      v18 = v24[5];
-      _MBLog();
+      v14 = v25[5];
+      *v36 = 138412290;
+      v37 = v14;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_ERROR, "Account credential verification failed to get password: %@", v36, 0xCu);
+      _MBLog(@"E ", "Account credential verification failed to get password: %@", v25[5], v17, v18, v19, v20);
     }
 
     goto LABEL_9;
   }
 
   v10 = [(MBServiceAccount *)self _updateApplePasswordSync:?];
-  v11 = v24[5];
-  v24[5] = v10;
+  v11 = v25[5];
+  v25[5] = v10;
 
-  if (v24[5])
+  if (v25[5])
   {
     v12 = MBGetDefaultLog();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v13 = v24[5];
-      *v35 = 138412290;
-      v36 = v13;
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_ERROR, "Account credential verification failed: %@", v35, 0xCu);
-      v17 = v24[5];
-      _MBLog();
+      v13 = v25[5];
+      *v36 = 138412290;
+      v37 = v13;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_ERROR, "Account credential verification failed: %@", v36, 0xCu);
+      _MBLog(@"E ", "Account credential verification failed: %@", v25[5], v17, v18, v19, v20);
     }
 
 LABEL_9:
@@ -1116,15 +1176,15 @@ LABEL_9:
   v12 = MBGetDefaultLog();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    *v35 = 0;
-    _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Account credential verification succeeded", v35, 2u);
-    _MBLog();
+    *v36 = 0;
+    _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Account credential verification succeeded", v36, 2u);
+    _MBLog(@"Df", "Account credential verification succeeded");
   }
 
   v15 = 1;
 LABEL_13:
 
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v24, 8);
   _Block_object_dispose(buf, 8);
 
   return v15;

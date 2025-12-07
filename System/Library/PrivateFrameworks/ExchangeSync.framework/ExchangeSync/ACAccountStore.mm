@@ -27,29 +27,29 @@ id __129__ACAccountStore_ESExtensions___esAccountsWithAccountTypeIdentifiers_ena
 
 void __129__ACAccountStore_ESExtensions___esAccountsWithAccountTypeIdentifiers_enabledForDADataclasses_filterOnDataclasses_withCompletion___block_invoke_3(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = [MEMORY[0x277D03740] sharedMonitor];
   v3 = [v2 monitoredAccounts];
 
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
+        v8 = *(*(&v10 + 1) + 8 * i);
         v9 = [v8 statusReport];
         if (v9)
         {
@@ -59,61 +59,59 @@ void __129__ACAccountStore_ESExtensions___esAccountsWithAccountTypeIdentifiers_e
         [v8 resetStatusReport];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __129__ACAccountStore_ESExtensions___esAccountsWithAccountTypeIdentifiers_enabledForDADataclasses_filterOnDataclasses_withCompletion___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v31[0] = 0;
-  v31[1] = v31;
-  v31[2] = 0x3032000000;
-  v31[3] = __Block_byref_object_copy__0;
-  v31[4] = __Block_byref_object_dispose__0;
+  v30[0] = 0;
+  v30[1] = v30;
+  v30[2] = 0x3032000000;
+  v30[3] = __Block_byref_object_copy__0;
+  v30[4] = __Block_byref_object_dispose__0;
   v6 = a3;
-  v32 = v6;
+  v31 = v6;
   v7 = [MEMORY[0x277CBEB18] array];
   v8 = dispatch_group_create();
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = v5;
-  v9 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v9 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
   if (v9)
   {
-    v10 = *v28;
+    v10 = *v27;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v28 != v10)
+        if (*v27 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v27 + 1) + 8 * i);
+        v12 = *(*(&v26 + 1) + 8 * i);
         dispatch_group_enter(v8);
         v13 = *(a1 + 32);
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __129__ACAccountStore_ESExtensions___esAccountsWithAccountTypeIdentifiers_enabledForDADataclasses_filterOnDataclasses_withCompletion___block_invoke_7;
-        v23[3] = &unk_278FC61F8;
-        v23[4] = v13;
-        v26 = v31;
-        v24 = v7;
-        v25 = v8;
-        [v13 accountWithIdentifier:v12 completion:v23];
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __129__ACAccountStore_ESExtensions___esAccountsWithAccountTypeIdentifiers_enabledForDADataclasses_filterOnDataclasses_withCompletion___block_invoke_7;
+        v22[3] = &unk_278FC61F8;
+        v22[4] = v13;
+        v25 = v30;
+        v23 = v7;
+        v24 = v8;
+        [v13 accountWithIdentifier:v12 completion:v22];
       }
 
-      v9 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v9 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
     }
 
     while (v9);
@@ -125,14 +123,13 @@ void __129__ACAccountStore_ESExtensions___esAccountsWithAccountTypeIdentifiers_e
   block[2] = __129__ACAccountStore_ESExtensions___esAccountsWithAccountTypeIdentifiers_enabledForDADataclasses_filterOnDataclasses_withCompletion___block_invoke_2_10;
   block[3] = &unk_278FC6220;
   v15 = *(a1 + 40);
-  v20 = v7;
-  v21 = v15;
-  v22 = v31;
+  v19 = v7;
+  v20 = v15;
+  v21 = v30;
   v16 = v7;
   dispatch_group_notify(v8, v14, block);
 
-  _Block_object_dispose(v31, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v30, 8);
 }
 
 void __129__ACAccountStore_ESExtensions___esAccountsWithAccountTypeIdentifiers_enabledForDADataclasses_filterOnDataclasses_withCompletion___block_invoke_7(uint64_t a1, void *a2, void *a3)
@@ -214,7 +211,7 @@ void __129__ACAccountStore_ESExtensions___esAccountsWithAccountTypeIdentifiers_e
 
 void __129__ACAccountStore_ESExtensions___esAccountsWithAccountTypeIdentifiers_enabledForDADataclasses_filterOnDataclasses_withCompletion___block_invoke_4_13(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
@@ -227,26 +224,26 @@ void __129__ACAccountStore_ESExtensions___esAccountsWithAccountTypeIdentifiers_e
     objc_storeStrong(v9, a3);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v11 = v5;
-  v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v12)
   {
-    v13 = *v18;
+    v13 = *v17;
     do
     {
       v14 = 0;
       do
       {
-        if (*v18 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = [ESAccount esAccountSubclassWithBackingAccountInfo:*(*(&v17 + 1) + 8 * v14), v17];
+        v15 = [ESAccount esAccountSubclassWithBackingAccountInfo:*(*(&v16 + 1) + 8 * v14), v16];
         if (v15)
         {
           [*(a1 + 40) addObject:v15];
@@ -256,7 +253,7 @@ void __129__ACAccountStore_ESExtensions___esAccountsWithAccountTypeIdentifiers_e
       }
 
       while (v12 != v14);
-      v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v12);
@@ -264,8 +261,6 @@ void __129__ACAccountStore_ESExtensions___esAccountsWithAccountTypeIdentifiers_e
 
   objc_sync_exit(v7);
   dispatch_group_leave(*(a1 + 48));
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __129__ACAccountStore_ESExtensions___esAccountsWithAccountTypeIdentifiers_enabledForDADataclasses_filterOnDataclasses_withCompletion___block_invoke_5(void *a1)

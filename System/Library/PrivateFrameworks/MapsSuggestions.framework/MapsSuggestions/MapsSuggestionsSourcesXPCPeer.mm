@@ -361,23 +361,23 @@
     {
       connection = self->_connection;
       *buf = 138412290;
-      v13 = connection;
+      v15 = connection;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "SourcesXPCPeer{%@} Received updateGraph", buf, 0xCu);
     }
 
-    if (MapsSuggestionsIsDestinationGraphEnabled())
+    if (MapsSuggestionsIsDestinationGraphEnabled(v8, v9))
     {
       objc_initWeak(buf, self);
       queue = self->_queue;
-      v9[0] = _NSConcreteStackBlock;
-      v9[1] = 3221225472;
-      v9[2] = sub_100028780;
-      v9[3] = &unk_100075B88;
-      objc_copyWeak(&v11, buf);
-      v10 = handlerCopy;
-      dispatch_async(queue, v9);
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_100028780;
+      v11[3] = &unk_100075B88;
+      objc_copyWeak(&v13, buf);
+      v12 = handlerCopy;
+      dispatch_async(queue, v11);
 
-      objc_destroyWeak(&v11);
+      objc_destroyWeak(&v13);
       objc_destroyWeak(buf);
     }
 
@@ -392,13 +392,13 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       *buf = 136446978;
-      v13 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/destinationd/MapsSuggestionsSourcesServer.m";
-      v14 = 1024;
-      v15 = 252;
-      v16 = 2082;
-      v17 = "[MapsSuggestionsSourcesXPCPeer updateGraphWithHandler:]";
+      v15 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/destinationd/MapsSuggestionsSourcesServer.m";
+      v16 = 1024;
+      v17 = 252;
       v18 = 2082;
-      v19 = "nil == (handler)";
+      v19 = "[MapsSuggestionsSourcesXPCPeer updateGraphWithHandler:]";
+      v20 = 2082;
+      v21 = "nil == (handler)";
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_FAULT, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a completion handler", buf, 0x26u);
     }
   }

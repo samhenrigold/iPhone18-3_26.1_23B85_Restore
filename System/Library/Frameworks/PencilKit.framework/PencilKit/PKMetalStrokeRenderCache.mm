@@ -77,8 +77,8 @@
 {
   inkCopy = ink;
   v7 = [(PKMetalStrokeRenderCache *)self ink];
-  version = [v7 version];
-  if (version == [inkCopy version])
+  v8 = objc_msgSend_version(v7);
+  if (v8 == objc_msgSend_version(inkCopy))
   {
     v9 = [(PKMetalStrokeRenderCache *)self ink];
     requiredContentVersion = [v9 requiredContentVersion];

@@ -36,10 +36,7 @@
 
 - (void)setCertificateSerialNumbers:(id)numbers
 {
-  v4 = [numbers copy];
-  identitySearchFilterInternal = self->_identitySearchFilterInternal;
-  v6 = identitySearchFilterInternal[1];
-  identitySearchFilterInternal[1] = v4;
+  *(self->_identitySearchFilterInternal + 1) = [numbers copy];
 
   MEMORY[0x2821F96F8]();
 }
@@ -53,10 +50,7 @@
 
 - (void)setCertificateTypes:(id)types
 {
-  v4 = [types copy];
-  identitySearchFilterInternal = self->_identitySearchFilterInternal;
-  v6 = identitySearchFilterInternal[2];
-  identitySearchFilterInternal[2] = v4;
+  *(self->_identitySearchFilterInternal + 2) = [types copy];
 
   MEMORY[0x2821F96F8]();
 }
@@ -70,10 +64,7 @@
 
 - (void)setKeySpecifiers:(id)specifiers
 {
-  v4 = [specifiers copy];
-  identitySearchFilterInternal = self->_identitySearchFilterInternal;
-  v6 = identitySearchFilterInternal[3];
-  identitySearchFilterInternal[3] = v4;
+  *(self->_identitySearchFilterInternal + 3) = [specifiers copy];
 
   MEMORY[0x2821F96F8]();
 }

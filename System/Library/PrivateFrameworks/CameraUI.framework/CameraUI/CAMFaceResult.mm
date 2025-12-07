@@ -78,7 +78,7 @@
   v11 = v10;
   if (underlyingFaceObject)
   {
-    [underlyingFaceObject time];
+    objc_msgSend_time(underlyingFaceObject);
   }
 
   else

@@ -1,5 +1,6 @@
 @interface MTLPointerTypeInternal
 - (BOOL)isEqual:(id)equal;
+- (MTLPointerTypeInternal)initWithElementType:(unint64_t)type elementTypeDescription:(id)description access:(unint64_t)access alignment:(unint64_t)alignment dataSize:(unint64_t)size elementIsIndirectArgumentBuffer:(BOOL)buffer isConstantBuffer:(BOOL)constantBuffer;
 - (MTLPointerTypeInternal)initWithElementType:(unint64_t)type elementTypeDescription:(id)description access:(unint64_t)access alignment:(unint64_t)alignment dataSize:(unint64_t)size elementIsIndirectArgumentBuffer:(BOOL)buffer isConstantBuffer:(BOOL)constantBuffer doRetain:(BOOL)self0;
 - (id)elementArrayType;
 - (id)elementStructType;
@@ -42,6 +43,13 @@
   return v16;
 }
 
+- (MTLPointerTypeInternal)initWithElementType:(unint64_t)type elementTypeDescription:(id)description access:(unint64_t)access alignment:(unint64_t)alignment dataSize:(unint64_t)size elementIsIndirectArgumentBuffer:(BOOL)buffer isConstantBuffer:(BOOL)constantBuffer
+{
+  BYTE1(v10) = 1;
+  LOBYTE(v10) = constantBuffer;
+  return [(MTLPointerTypeInternal *)self initWithElementType:type elementTypeDescription:description access:access alignment:alignment dataSize:size elementIsIndirectArgumentBuffer:buffer isConstantBuffer:v10 doRetain:?];
+}
+
 - (id)elementStructType
 {
   result = self->_elementTypeInfo;
@@ -82,19 +90,19 @@
 
 - (id)formattedDescription:(unint64_t)description withPrintedTypes:(id)types
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v7 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v8 = MEMORY[0x1E696AEC0];
-  v15 = v7;
-  v16 = @"DataType =";
-  v17 = MTLDataTypeString(self->_dataType);
-  v18 = v7;
-  v19 = @"ElementType =";
-  v20 = MTLDataTypeString(self->_elementType);
+  v14 = v7;
+  v15 = @"DataType =";
+  v16 = MTLDataTypeString(self->_dataType);
+  v17 = v7;
+  v18 = @"ElementType =";
+  v19 = MTLDataTypeString(self->_elementType);
   elementTypeInfo = self->_elementTypeInfo;
   if (elementTypeInfo)
   {
-    v10 = [v8 stringWithFormat:@"%@ ElementTypeDescription = %@", v7, -[MTLType formattedDescription:withPrintedTypes:](elementTypeInfo, "formattedDescription:withPrintedTypes:", description + 4, types), v15, v16, v17, v18, v19, v20];
+    v10 = [v8 stringWithFormat:@"%@ ElementTypeDescription = %@", v7, -[MTLType formattedDescription:withPrintedTypes:](elementTypeInfo, "formattedDescription:withPrintedTypes:", description + 4, types), v14, v15, v16, v17, v18, v19];
   }
 
   else
@@ -102,9 +110,9 @@
     v10 = &stru_1EF478240;
   }
 
-  v21 = v10;
-  v22 = v7;
-  v23 = @"Access =";
+  v20 = v10;
+  v21 = v7;
+  v22 = @"Access =";
   access = self->_access;
   if (access > 2)
   {
@@ -116,19 +124,17 @@
     v12 = off_1E6EECDC0[access];
   }
 
-  v24 = v12;
-  v25 = v7;
-  v26 = @"Alignment =";
-  v27 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_alignment];
-  v28 = v7;
-  v29 = @"DataSize =";
-  v30 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_dataSize];
-  v31 = v7;
-  v32 = @"ConstantBuffer = ";
-  v33 = [MEMORY[0x1E696AD98] numberWithBool:self->_isConstantBuffer];
-  result = [v8 stringWithFormat:@"%@", objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", &v15, 19), "componentsJoinedByString:", @" "];
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  v23 = v12;
+  v24 = v7;
+  v25 = @"Alignment =";
+  v26 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_alignment];
+  v27 = v7;
+  v28 = @"DataSize =";
+  v29 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_dataSize];
+  v30 = v7;
+  v31 = @"ConstantBuffer = ";
+  v32 = [MEMORY[0x1E696AD98] numberWithBool:self->_isConstantBuffer];
+  return [v8 stringWithFormat:@"%@", objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", &v14, 19), "componentsJoinedByString:", @" "];
 }
 
 - (BOOL)isEqual:(id)equal

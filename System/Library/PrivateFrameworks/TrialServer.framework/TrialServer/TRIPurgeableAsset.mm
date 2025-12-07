@@ -116,102 +116,8 @@ LABEL_3:
 {
   assetCopy = asset;
   v5 = assetCopy;
-  if (!assetCopy)
+  if (!assetCopy || (v6 = self->_factorName == 0, [assetCopy factorName], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (factorName = self->_factorName) != 0 && (objc_msgSend(v5, "factorName"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](factorName, "isEqual:", v10), v10, !v11) || (v12 = self->_assetId == 0, objc_msgSend(v5, "assetId"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14) || (assetId = self->_assetId) != 0 && (objc_msgSend(v5, "assetId"), v16 = objc_claimAutoreleasedReturnValue(), v17 = -[TRIAssetId isEqual:](assetId, "isEqual:", v16), v16, !v17) || (v18 = self->_filePath == 0, objc_msgSend(v5, "filePath"), v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 != 0, v19, v18 == v20) || (filePath = self->_filePath) != 0 && (objc_msgSend(v5, "filePath"), v22 = objc_claimAutoreleasedReturnValue(), v23 = -[NSString isEqual:](filePath, "isEqual:", v22), v22, !v23) || (v24 = self->_factorPackId == 0, objc_msgSend(v5, "factorPackId"), v25 = objc_claimAutoreleasedReturnValue(), v26 = v25 != 0, v25, v24 == v26) || (factorPackId = self->_factorPackId) != 0 && (objc_msgSend(v5, "factorPackId"), v28 = objc_claimAutoreleasedReturnValue(), v29 = -[TRIFactorPackId isEqual:](factorPackId, "isEqual:", v28), v28, !v29) || (v30 = self->_treatmentId == 0, objc_msgSend(v5, "treatmentId"), v31 = objc_claimAutoreleasedReturnValue(), v32 = v31 != 0, v31, v30 == v32))
   {
-    goto LABEL_17;
-  }
-
-  v6 = self->_factorName == 0;
-  factorName = [assetCopy factorName];
-  v8 = factorName != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_17;
-  }
-
-  factorName = self->_factorName;
-  if (factorName)
-  {
-    factorName2 = [v5 factorName];
-    v11 = [(NSString *)factorName isEqual:factorName2];
-
-    if (!v11)
-    {
-      goto LABEL_17;
-    }
-  }
-
-  v12 = self->_assetId == 0;
-  assetId = [v5 assetId];
-  v14 = assetId != 0;
-
-  if (v12 == v14)
-  {
-    goto LABEL_17;
-  }
-
-  assetId = self->_assetId;
-  if (assetId)
-  {
-    assetId2 = [v5 assetId];
-    v17 = [(TRIAssetId *)assetId isEqual:assetId2];
-
-    if (!v17)
-    {
-      goto LABEL_17;
-    }
-  }
-
-  v18 = self->_filePath == 0;
-  filePath = [v5 filePath];
-  v20 = filePath != 0;
-
-  if (v18 == v20)
-  {
-    goto LABEL_17;
-  }
-
-  filePath = self->_filePath;
-  if (filePath)
-  {
-    filePath2 = [v5 filePath];
-    v23 = [(NSString *)filePath isEqual:filePath2];
-
-    if (!v23)
-    {
-      goto LABEL_17;
-    }
-  }
-
-  v24 = self->_factorPackId == 0;
-  factorPackId = [v5 factorPackId];
-  v26 = factorPackId != 0;
-
-  if (v24 == v26)
-  {
-    goto LABEL_17;
-  }
-
-  factorPackId = self->_factorPackId;
-  if (factorPackId)
-  {
-    factorPackId2 = [v5 factorPackId];
-    v29 = [(TRIFactorPackId *)factorPackId isEqual:factorPackId2];
-
-    if (!v29)
-    {
-      goto LABEL_17;
-    }
-  }
-
-  v30 = self->_treatmentId == 0;
-  treatmentId = [v5 treatmentId];
-  v32 = treatmentId != 0;
-
-  if (v30 == v32)
-  {
-LABEL_17:
     v35 = 0;
   }
 
@@ -220,8 +126,8 @@ LABEL_17:
     treatmentId = self->_treatmentId;
     if (treatmentId)
     {
-      treatmentId2 = [v5 treatmentId];
-      v35 = [(NSString *)treatmentId isEqual:treatmentId2];
+      treatmentId = [v5 treatmentId];
+      v35 = [(NSString *)treatmentId isEqual:treatmentId];
     }
 
     else
@@ -261,11 +167,9 @@ LABEL_17:
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  v4 = *&self->_factorName;
-  v5 = [v3 initWithFormat:@"<TRIPurgeableAsset | factorName:%@ assetId:%@ filePath:%@ factorPackId:%@ treatmentId:%@>", self->_factorName, self->_assetId, self->_filePath, self->_factorPackId, self->_treatmentId];
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"<TRIPurgeableAsset | factorName:%@ assetId:%@ filePath:%@ factorPackId:%@ treatmentId:%@>", self->_factorName, self->_assetId, self->_filePath, self->_factorPackId, self->_treatmentId];
 
-  return v5;
+  return v2;
 }
 
 @end

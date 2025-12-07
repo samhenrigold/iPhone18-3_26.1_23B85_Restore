@@ -262,7 +262,6 @@ LABEL_10:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    mag = self->_mag;
     PBDataWriterWriteSint32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -282,7 +281,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  phase = self->_phase;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -297,7 +295,6 @@ LABEL_4:
   }
 
 LABEL_15:
-  accessory = self->_accessory;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -312,7 +309,6 @@ LABEL_5:
   }
 
 LABEL_16:
-  txPwrDb2 = self->_txPwrDb2;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -327,7 +323,6 @@ LABEL_6:
   }
 
 LABEL_17:
-  txSkuIdx = self->_txSkuIdx;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -342,7 +337,6 @@ LABEL_7:
   }
 
 LABEL_18:
-  scenario = self->_scenario;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -357,12 +351,10 @@ LABEL_8:
   }
 
 LABEL_19:
-  portPositionSf = self->_portPositionSf;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_9:
-    tunerStateCounter = self->_tunerStateCounter;
     PBDataWriterWriteUint32Field();
   }
 

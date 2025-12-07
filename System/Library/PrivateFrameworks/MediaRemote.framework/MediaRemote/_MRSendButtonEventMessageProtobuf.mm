@@ -101,12 +101,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    usagePage = self->_usagePage;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -125,15 +124,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  usage = self->_usage;
   PBDataWriterWriteUint32Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    buttonDown = self->_buttonDown;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:

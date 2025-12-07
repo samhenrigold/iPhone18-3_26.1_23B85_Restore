@@ -8,27 +8,25 @@
 
 - (id)handleRequestCommandTypeNames
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   v3 = +[(CDMBaseCommand *)CDMContextUpdateRequestCommand];
-  v8[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v5 = [v2 setWithArray:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)handle:(id)handle
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   v4 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v51 = "[CDMContextUpdateService handle:]";
+    v50 = "[CDMContextUpdateService handle:]";
     _os_log_impl(&dword_1DC287000, v4, OS_LOG_TYPE_INFO, "%s Calling Context Update Service", buf, 0xCu);
   }
 
@@ -53,7 +51,7 @@
 
       if (!v21)
       {
-        v48 = 0;
+        v47 = 0;
         qrHypotheses = 0;
         v27 = 0;
         goto LABEL_39;
@@ -70,7 +68,7 @@
         if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315138;
-          v51 = "[CDMContextUpdateService handle:]";
+          v50 = "[CDMContextUpdateService handle:]";
           _os_log_debug_impl(&dword_1DC287000, v34, OS_LOG_TYPE_DEBUG, "%s Handling Correction by Repetition Request", buf, 0xCu);
         }
 
@@ -78,7 +76,7 @@
         if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315138;
-          v51 = "[CDMContextUpdateService handle:]";
+          v50 = "[CDMContextUpdateService handle:]";
           _os_log_debug_impl(&dword_1DC287000, v26, OS_LOG_TYPE_DEBUG, "%s Reform type: Correction by Repetition", buf, 0xCu);
         }
 
@@ -92,7 +90,7 @@
         if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315138;
-          v51 = "[CDMContextUpdateService handle:]";
+          v50 = "[CDMContextUpdateService handle:]";
           _os_log_debug_impl(&dword_1DC287000, v25, OS_LOG_TYPE_DEBUG, "%s Handling AER Request", buf, 0xCu);
         }
 
@@ -101,24 +99,24 @@
         if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315138;
-          v51 = "[CDMContextUpdateService handle:]";
+          v50 = "[CDMContextUpdateService handle:]";
           _os_log_debug_impl(&dword_1DC287000, v26, OS_LOG_TYPE_DEBUG, "%s Reform type: Reference Resolution", buf, 0xCu);
         }
 
 LABEL_34:
 
-        v48 = 0;
+        v47 = 0;
         qrHypotheses = 0;
         goto LABEL_37;
       }
 
-      v48 = 0;
+      v47 = 0;
       qrHypotheses = 0;
     }
 
     else
     {
-      v48 = 0;
+      v47 = 0;
     }
 
     v27 = 0;
@@ -128,21 +126,21 @@ LABEL_34:
   v13 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v45 = @"AskRepeat";
+    v44 = @"AskRepeat";
     if (v12)
     {
-      v45 = @"Tap2Edit";
+      v44 = @"Tap2Edit";
     }
 
     *buf = 136315394;
-    v51 = "[CDMContextUpdateService handle:]";
-    v52 = 2112;
-    v53 = v45;
+    v50 = "[CDMContextUpdateService handle:]";
+    v51 = 2112;
+    v52 = v44;
     _os_log_debug_impl(&dword_1DC287000, v13, OS_LOG_TYPE_DEBUG, "%s Handling %@ triggered Request", buf, 0x16u);
   }
 
   qrHypotheses = 0;
-  v48 = v12 ^ 1;
+  v47 = v12 ^ 1;
   while ([v11 count])
   {
     lastObject = [v11 lastObject];
@@ -177,16 +175,16 @@ LABEL_34:
     v30 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
     {
-      v46 = @"AskRepeat";
+      v45 = @"AskRepeat";
       if (v12)
       {
-        v46 = @"Tap2Edit";
+        v45 = @"Tap2Edit";
       }
 
       *buf = 136315394;
-      v51 = "[CDMContextUpdateService handle:]";
-      v52 = 2112;
-      v53 = v46;
+      v50 = "[CDMContextUpdateService handle:]";
+      v51 = 2112;
+      v52 = v45;
       _os_log_debug_impl(&dword_1DC287000, v30, OS_LOG_TYPE_DEBUG, "%s Reform type: %@", buf, 0x16u);
     }
 
@@ -203,7 +201,7 @@ LABEL_34:
   if (os_log_type_enabled(ctxUpdateRequest3, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v51 = "[CDMContextUpdateService handle:]";
+    v50 = "[CDMContextUpdateService handle:]";
     _os_log_impl(&dword_1DC287000, ctxUpdateRequest3, OS_LOG_TYPE_INFO, "%s [WARN]: Received an invalid NluRequest with every turn as Tap2Edit/AskRepeat turns.", buf, 0xCu);
   }
 
@@ -225,32 +223,30 @@ LABEL_39:
   v39 = [requestId copy];
   [v36 setRequestId:v39];
 
-  v49 = v35;
-  v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v49 count:1];
+  v48 = v35;
+  v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v48 count:1];
   v41 = [v40 mutableCopy];
   [v36 setReformedTurnInputBundles:v41];
 
   v42 = [[CDMContextUpdateResponseCommand alloc] initWithCtxUpdateResponse:v36];
-  if ((v48 & 1) == 0)
+  if ((v47 & 1) == 0)
   {
     [(CDMContextUpdateService *)self doCoreAnalyticsForContextUpdateOutcome:v27 numTurnsRollback:qrHypotheses locale:self->locale];
   }
-
-  v43 = *MEMORY[0x1E69E9840];
 
   return v42;
 }
 
 - (id)setup:(id)setup
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   setupCopy = setup;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v13 = 136315138;
-    v14 = "[CDMContextUpdateService setup:]";
-    _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s Setting up Context Update Service", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[CDMContextUpdateService setup:]";
+    _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s Setting up Context Update Service", &v12, 0xCu);
   }
 
   dynamicConfig = [setupCopy dynamicConfig];
@@ -263,16 +259,14 @@ LABEL_39:
     v9 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v13 = 136315138;
-      v14 = "[CDMContextUpdateService setup:]";
-      _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s [WARN]: Received a setup request command with locale being nil.", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = "[CDMContextUpdateService setup:]";
+      _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s [WARN]: Received a setup request command with locale being nil.", &v12, 0xCu);
     }
   }
 
   self->super.super._serviceState = 2;
   createSetupResponseCommand = [(CDMBaseService *)self createSetupResponseCommand];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return createSetupResponseCommand;
 }

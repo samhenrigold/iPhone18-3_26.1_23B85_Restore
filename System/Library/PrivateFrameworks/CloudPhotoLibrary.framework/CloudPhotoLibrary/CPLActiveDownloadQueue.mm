@@ -46,32 +46,32 @@ LABEL_6:
 
 - (unint64_t)countOfTransferTasksInTransportTasks
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = self->_transportTasks;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        downloadTasks = [*(*(&v11 + 1) + 8 * i) downloadTasks];
+        downloadTasks = [*(*(&v10 + 1) + 8 * i) downloadTasks];
         v5 += [downloadTasks count];
       }
 
-      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
@@ -82,13 +82,12 @@ LABEL_6:
     v5 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (id)dequeueBatchOfTransferTasksDequeuedSize:(unint64_t *)size
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   selfCopy = self;
   transferTasks = self->_transferTasks;
@@ -102,31 +101,31 @@ LABEL_6:
     [(NSMutableArray *)transferTasks reverseObjectEnumerator];
   }
 
+  v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
-  v7 = v31 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v29 = 0u;
+  v7 = v30 = 0u;
+  v8 = [v7 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v8)
   {
     v9 = v8;
     sizeCopy = size;
     v10 = 0;
     v11 = 0;
-    v12 = *v31;
+    v12 = *v30;
     while (2)
     {
       v13 = v7;
       v14 = 0;
-      v28 = v11 + v9;
+      v27 = v11 + v9;
       do
       {
-        if (*v31 != v12)
+        if (*v30 != v12)
         {
           objc_enumerationMutation(v13);
         }
 
-        v15 = *(*(&v30 + 1) + 8 * v14);
+        v15 = *(*(&v29 + 1) + 8 * v14);
         cloudResource = [v15 cloudResource];
         estimatedResourceSize = [cloudResource estimatedResourceSize];
 
@@ -148,8 +147,8 @@ LABEL_6:
 
       while (v9 != v14);
       v7 = v13;
-      v9 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
-      v11 = v28;
+      v9 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v11 = v27;
       if (v9)
       {
         continue;
@@ -188,52 +187,48 @@ LABEL_18:
   {
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (void)addTransferTask:(id)task
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   taskCopy = task;
   v5 = taskCopy;
   if (!self->_FIFOQueue && [taskCopy willGenerateReport])
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v6 = self->_transferTasks;
-    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v13;
+      v9 = *v12;
       do
       {
         v10 = 0;
         do
         {
-          if (*v13 != v9)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [*(*(&v12 + 1) + 8 * v10++) noteTaskHasBeenPreempted];
+          [*(*(&v11 + 1) + 8 * v10++) noteTaskHasBeenPreempted];
         }
 
         while (v8 != v10);
-        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v8);
     }
   }
 
-  [(NSMutableArray *)self->_transferTasks addObject:v5, v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [(NSMutableArray *)self->_transferTasks addObject:v5, v11];
 }
 
 - (CPLActiveDownloadQueue)initWithName:(id)name type:(unint64_t)type FIFOQueue:(BOOL)queue maximumBatchSize:(unint64_t)size maximumConcurrentTransportTasks:(unint64_t)tasks coalescingInterval:(int64_t)interval groupConstructor:(id)constructor

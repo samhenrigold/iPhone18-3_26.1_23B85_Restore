@@ -988,7 +988,7 @@ LABEL_10:
           if ([v9 hasLayoutTag:layoutTag])
           {
             layoutTag2 = [v9 layoutTag];
-            if ([layoutTag2 isEqualToString:layoutTag])
+            if (objc_msgSend_isEqualToString_(layoutTag2))
             {
               v11 = [(UIKeyboardLayoutStar *)self shouldMergeKey:v9];
 
@@ -1084,9 +1084,9 @@ LABEL_23:
               if ([v29 hasLayoutTag:layoutTag])
               {
                 layoutTag3 = [v29 layoutTag];
-                v31 = [layoutTag3 isEqualToString:layoutTag];
+                isEqualToString = objc_msgSend_isEqualToString_(layoutTag3);
 
-                if ((v31 & 1) == 0)
+                if ((isEqualToString & 1) == 0)
                 {
                   v36[0] = MEMORY[0x1E69E9820];
                   v36[1] = 3221225472;
@@ -1218,7 +1218,7 @@ LABEL_23:
   v2 = UIKeyboardGetCurrentInputMode();
   v3 = KBStarLayoutString(v2);
 
-  if ([v3 isEqualToString:@"Korean"] & 1) != 0 || (objc_msgSend(v3, "isEqualToString:", @"Korean-With-QWERTY") & 1) != 0 || (objc_msgSend(v3, "isEqualToString:", @"Thai"))
+  if (objc_msgSend_isEqualToString_(v3) & 1) != 0 || (objc_msgSend_isEqualToString_(v3) & 1) != 0 || (objc_msgSend_isEqualToString_(v3))
   {
     v4 = 1;
   }
@@ -1274,15 +1274,15 @@ LABEL_23:
 
   if (v11 == self->_localizedInputKey)
   {
-    v12 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v12 = [(NSString *)v11 isEqual:?];
+    isEqual = objc_msgSend_isEqual_(v11);
   }
 
-  return v12;
+  return isEqual;
 }
 
 - (BOOL)shouldShowDictationKey
@@ -2084,9 +2084,9 @@ LABEL_27:
   v3 = +[UIKeyboardInputModeController sharedInputModeController];
   currentInputMode = [v3 currentInputMode];
   normalizedIdentifier = [currentInputMode normalizedIdentifier];
-  v6 = [normalizedIdentifier isEqualToString:@"emoji"];
+  isEqualToString = objc_msgSend_isEqualToString_(normalizedIdentifier);
 
-  if ((v6 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     normalizedEnabledInputModeIdentifiers = [v3 normalizedEnabledInputModeIdentifiers];
     activeUserSelectableInputModeIdentifiers = [v3 activeUserSelectableInputModeIdentifiers];
@@ -2099,7 +2099,7 @@ LABEL_27:
           currentInputMode2 = [v3 currentInputMode];
           identifier = [currentInputMode2 identifier];
           v12 = TIInputModeGetLanguage();
-          v7 = [v12 isEqualToString:@"zh"];
+          v7 = objc_msgSend_isEqualToString_(v12);
 
 LABEL_26:
           goto LABEL_27;
@@ -2144,7 +2144,7 @@ LABEL_14:
             }
 
             normalizedIdentifier2 = [v17 normalizedIdentifier];
-            v19 = [normalizedIdentifier2 isEqualToString:@"emoji"];
+            v19 = objc_msgSend_isEqualToString_(normalizedIdentifier2);
 
             if ((v19 & 1) == 0)
             {
@@ -3658,11 +3658,11 @@ LABEL_13:
 
     else
     {
-      v12 = [v10 isEqual:localizedInputMode] ^ 1;
+      v12 = objc_msgSend_isEqual_(v10) ^ 1;
     }
 
     appearanceCopy = appearance;
-    if ([v23 isEqualToString:self->_keyboardName] && self->_appearance == appearance && -[UITextInputTraits keyboardType](self->super._inputTraits, "keyboardType") != 126 && -[UIKBScreenTraits idiom](self->super._screenTraits, "idiom") != 3)
+    if (objc_msgSend_isEqualToString_(v23) && self->_appearance == appearance && [(UITextInputTraits *)self->super._inputTraits keyboardType]!= 126 && [(UIKBScreenTraits *)self->super._screenTraits idiom]!= 3)
     {
       visualStyling = [(UIKBTree *)self->_keyplane visualStyling];
       v13 = (visualStyling & 0x3F) == 3;
@@ -4264,7 +4264,7 @@ LABEL_13:
         }
 
         v8 = *(*(&v50 + 1) + 8 * v7);
-        if ([v8 displayType] != 23 || (objc_msgSend(v8, "displayString"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "isEqualToString:", @"shift"), v9, v10))
+        if ([v8 displayType] != 23 || (objc_msgSend(v8, "displayString"), v9 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v9), v9, isEqualToString))
         {
           localizationKey = [v8 localizationKey];
           if ([localizationKey hasPrefix:@"Localized-Number-"])
@@ -4344,7 +4344,7 @@ LABEL_36:
           if ([v8 interactionType] == 9)
           {
             representedString = [v8 representedString];
-            if (([representedString isEqualToString:@"NonASCII"] & 1) != 0 || objc_msgSend(representedString, "isEqualToString:", @"ASCIICapable"))
+            if ((objc_msgSend_isEqualToString_(representedString) & 1) != 0 || objc_msgSend_isEqualToString_(representedString))
             {
               inputModeToMergeCapsLockKey = [(UIKeyboardLayoutStar *)self inputModeToMergeCapsLockKey];
               identifier = [inputModeToMergeCapsLockKey identifier];
@@ -4396,7 +4396,7 @@ LABEL_37:
 
           if ([v8 displayType] == 20 && objc_msgSend(v8, "interactionType") == 14)
           {
-            if ([localizationKey isEqualToString:@"UI-Numbers"])
+            if (objc_msgSend_isEqualToString_(localizationKey))
             {
               preferredLocale2 = [MEMORY[0x1E695DF58] preferredLocale];
               v41 = UIKeyboardInputModeLanguageMatchesLocaleLanguage(v47, preferredLocale2);
@@ -4452,9 +4452,9 @@ LABEL_38:
 {
   nameCopy = name;
   v5 = nameCopy;
-  if (nameCopy && ([nameCopy isEqualToString:@"Unlabeled-Space-Key"] & 1) == 0 && (objc_msgSend(v5, "isEqualToString:", @" ") & 1) == 0)
+  if (nameCopy && (objc_msgSend_isEqualToString_(nameCopy) & 1) == 0 && (objc_msgSend_isEqualToString_(v5) & 1) == 0)
   {
-    if ([v5 isEqualToString:@"UI-Space"])
+    if (objc_msgSend_isEqualToString_(v5))
     {
       renderConfig = [(UIKeyboardLayoutStar *)self renderConfig];
       colorAdaptiveBackground = [renderConfig colorAdaptiveBackground];
@@ -4874,7 +4874,7 @@ LABEL_82:
 
   else
   {
-    v14 = [(NSString *)v13 isEqual:?]^ 1;
+    v14 = objc_msgSend_isEqual_(v13) ^ 1;
     if (v14)
     {
       goto LABEL_6;
@@ -5226,7 +5226,7 @@ void __52__UIKeyboardLayoutStar_sharedRivenKeyplaneGenerator__block_invoke()
     }
   }
 
-  if (![(UIKBRenderConfig *)self->_renderConfig isEqual:configCopy])
+  if ((objc_msgSend_isEqual_(self->_renderConfig) & 1) == 0)
   {
     if (keyplaneCopy)
     {
@@ -5260,7 +5260,7 @@ void __52__UIKeyboardLayoutStar_sharedRivenKeyplaneGenerator__block_invoke()
     inputAssistantItem = [delegateAsResponder inputAssistantItem];
     _dictationReplacementAction = [inputAssistantItem _dictationReplacementAction];
 
-    if (((_dictationReplacementAction != 0) & v14) != 0 || (v23 = self->_dictationReplacementKeycap, [_dictationReplacementAction title], v24 = objc_claimAutoreleasedReturnValue(), LOBYTE(v23) = -[NSString isEqualToString:](v23, "isEqualToString:", v24), v24, (v23 & 1) == 0))
+    if (((_dictationReplacementAction != 0) & v14) != 0 || (v23 = self->_dictationReplacementKeycap, [_dictationReplacementAction title], v24 = objc_claimAutoreleasedReturnValue(), LOBYTE(v23) = objc_msgSend_isEqualToString_(v23), v24, (v23 & 1) == 0))
     {
       title = [_dictationReplacementAction title];
       dictationReplacementKeycap = self->_dictationReplacementKeycap;
@@ -5727,12 +5727,12 @@ LABEL_44:
   return 0;
 }
 
-uint64_t __66__UIKeyboardLayoutStar_showsDedicatedEmojiKeyAlongsideGlobeButton__block_invoke()
+uint64_t __66__UIKeyboardLayoutStar_showsDedicatedEmojiKeyAlongsideGlobeButton__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = TIInputModeGetNormalizedIdentifier();
-  v1 = [v0 isEqualToString:@"emoji"];
+  v2 = TIInputModeGetNormalizedIdentifier();
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v1;
+  return isEqualToString;
 }
 
 - (BOOL)stretchKeyboardToFitKeyplane:(id)keyplane
@@ -7593,11 +7593,11 @@ LABEL_26:
     }
 
     representedString = [keyCopy representedString];
-    v10 = [representedString isEqualToString:@"NonASCII"];
-    if ((v10 & 1) == 0)
+    isEqualToString = objc_msgSend_isEqualToString_(representedString);
+    if ((isEqualToString & 1) == 0)
     {
       representedString2 = [keyCopy representedString];
-      if (([representedString2 isEqualToString:@"ASCIICapable"] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(representedString2) & 1) == 0)
       {
 
         goto LABEL_56;
@@ -7608,7 +7608,7 @@ LABEL_26:
     textInputTraits = [v11 textInputTraits];
     loadKeyboardsForSiriLanguage = [textInputTraits loadKeyboardsForSiriLanguage];
 
-    if (v10)
+    if (isEqualToString)
     {
 
       if (!loadKeyboardsForSiriLanguage)
@@ -8175,7 +8175,7 @@ LABEL_26:
             v18 = v5;
             v19 = v12;
             v21 = v20 = enabledCopy;
-            v22 = [nameCopy isEqualToString:v21];
+            isEqualToString = objc_msgSend_isEqualToString_(nameCopy);
 
             enabledCopy = v20;
             v12 = v19;
@@ -8183,7 +8183,7 @@ LABEL_26:
             v11 = v17;
             v13 = v16;
             self = selfCopy;
-            if (v22)
+            if (isEqualToString)
             {
               v23 = 0;
               goto LABEL_13;
@@ -8276,7 +8276,7 @@ uint64_t __58__UIKeyboardLayoutStar__stringContainsCurrencyCharacters___block_in
 
 uint64_t __58__UIKeyboardLayoutStar__stringContainsCurrencyCharacters___block_invoke_2(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  result = MEMORY[0x18CFEA920](_stringContainsCurrencyCharacters__currencySet);
+  result = MEMORY[0x18CFEA920](_stringContainsCurrencyCharacters__currencySet, a2);
   if (result)
   {
     *(*(*(a1 + 32) + 8) + 24) = 1;
@@ -8323,7 +8323,7 @@ uint64_t __58__UIKeyboardLayoutStar__stringContainsCurrencyCharacters___block_in
   [keyCopy setSecondaryDisplayStrings:v15];
 }
 
-uint64_t __70__UIKeyboardLayoutStar_updateCurrencySymbolForKey_withCurrencyString___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__70__UIKeyboardLayoutStar_updateCurrencySymbolForKey_withCurrencyString___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) _stringContainsCurrencyCharacters:a2];
   if (result)
@@ -8479,7 +8479,7 @@ uint64_t __70__UIKeyboardLayoutStar_updateCurrencySymbolForKey_withCurrencyStrin
     }
 
     v9 = localeIdentifier;
-    if (qword_1ED4932D0 && [qword_1ED4932C8 isEqualToString:v9])
+    if (qword_1ED4932D0 && objc_msgSend_isEqualToString_(qword_1ED4932C8))
     {
       v10 = qword_1ED4932D0;
     }
@@ -8592,7 +8592,7 @@ void __69__UIKeyboardLayoutStar_setPercentSignKeysForCurrentLocaleOnKeyplane___b
   qword_1ED493210 = v0;
 }
 
-uint64_t __69__UIKeyboardLayoutStar_setPercentSignKeysForCurrentLocaleOnKeyplane___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__69__UIKeyboardLayoutStar_setPercentSignKeysForCurrentLocaleOnKeyplane___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = [qword_1ED493210 containsObject:a2];
   if (result)
@@ -8945,9 +8945,9 @@ LABEL_27:
       v12 = [lowercaseString2 componentsSeparatedByString:@"-"];
       v13 = [v12 objectAtIndex:0];
       v14 = [v11 objectAtIndex:0];
-      v15 = [v13 isEqualToString:v14];
+      isEqualToString = objc_msgSend_isEqualToString_(v13);
 
-      if (v15)
+      if (isEqualToString)
       {
         v7 = 4;
       }
@@ -9582,17 +9582,17 @@ LABEL_46:
 uint64_t __54__UIKeyboardLayoutStar_updateMoreAndInternationalKeys__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  if ([v2 isEqualToString:@"International-Key"])
+  if (objc_msgSend_isEqualToString_(v2))
   {
-    v3 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v3 = [v2 isEqualToString:@"Dictation-Key"];
+    isEqualToString = objc_msgSend_isEqualToString_(v2);
   }
 
-  return v3;
+  return isEqualToString;
 }
 
 - (void)updateReturnKeysIfNeeded
@@ -9705,15 +9705,15 @@ LABEL_18:
   if (interactionType == 9)
   {
     representedString = [keyCopy representedString];
-    if ([representedString isEqualToString:@"ASCIICapable"])
+    if (objc_msgSend_isEqualToString_(representedString))
     {
-      v8 = 1;
+      isEqualToString = 1;
     }
 
     else
     {
       representedString2 = [keyCopy representedString];
-      v8 = [representedString2 isEqualToString:@"NonASCII"];
+      isEqualToString = objc_msgSend_isEqualToString_(representedString2);
     }
 
     if (self->_externalDictationAndInternationalKeys)
@@ -9722,7 +9722,7 @@ LABEL_18:
       goto LABEL_18;
     }
 
-    if (([(UITextInputTraits *)self->super._inputTraits keyboardType]!= 122) | v8 & 1)
+    if (([(UITextInputTraits *)self->super._inputTraits keyboardType]!= 122) | isEqualToString & 1)
     {
       v13 = +[UIKeyboardInputModeController sharedInputModeController];
       normalizedEnabledInputModeIdentifiers = [v13 normalizedEnabledInputModeIdentifiers];
@@ -9730,7 +9730,7 @@ LABEL_18:
       v15 = [normalizedEnabledInputModeIdentifiers containsObject:@"emoji"];
       v16 = ([normalizedEnabledInputModeIdentifiers count] == 2) & v15;
       keyboardType = [(UITextInputTraits *)self->super._inputTraits keyboardType];
-      if (v16 == 1 && keyboardType == 122 || (v29 = keyboardType, v18 = [(UITextInputTraits *)self->super._inputTraits keyboardType], (v8 & 1) == 0) && (v25 = v18, [(UIKeyboardLayoutStar *)self globeKeyDisplaysAsEmojiKey]) && v25 == 13)
+      if (v16 == 1 && keyboardType == 122 || (v29 = keyboardType, v18 = [(UITextInputTraits *)self->super._inputTraits keyboardType], (isEqualToString & 1) == 0) && (v25 = v18, [(UIKeyboardLayoutStar *)self globeKeyDisplaysAsEmojiKey]) && v25 == 13)
       {
         LOBYTE(v6) = 1;
       }
@@ -9771,7 +9771,7 @@ LABEL_18:
           }
         }
 
-        else if (v8)
+        else if (isEqualToString)
         {
           inputModeToMergeCapsLockKey2 = [(UIKeyboardLayoutStar *)self inputModeToMergeCapsLockKey];
           LOBYTE(v6) = inputModeToMergeCapsLockKey2 == 0;
@@ -11008,7 +11008,7 @@ LABEL_17:
       v12 = [v11 _stringByComposingDiacriticsLogicalOrder:0 allowedCharacters:v19];
     }
 
-    if ([v12 isEqualToString:v11])
+    if (objc_msgSend_isEqualToString_(v12))
     {
       v13 = [v9 objectForKey:inputCopy];
       v14 = v13;
@@ -11144,7 +11144,7 @@ LABEL_17:
 
   v16 = gestureKeyplaneName;
   representedString = [(UIKBTree *)v11 representedString];
-  if ([(__CFString *)actionCopy isEqualToString:representedString])
+  if (objc_msgSend_isEqualToString_(actionCopy))
   {
 
     gestureKey3 = v11;
@@ -11157,7 +11157,7 @@ LABEL_16:
   v41 = v12;
   gestureKey2 = [(UIKBTree *)v11 gestureKey];
   representedString2 = [gestureKey2 representedString];
-  LODWORD(v40) = [(__CFString *)actionCopy isEqualToString:representedString2];
+  LODWORD(v40) = objc_msgSend_isEqualToString_(actionCopy);
 
   if (v40)
   {
@@ -11710,9 +11710,9 @@ LABEL_48:
         else
         {
           overrideDisplayString2 = [firstObject overrideDisplayString];
-          v32 = [overrideDisplayString2 isEqualToString:v21];
+          isEqualToString = objc_msgSend_isEqualToString_(overrideDisplayString2);
 
-          if ((v32 & 1) == 0)
+          if ((isEqualToString & 1) == 0)
           {
             [firstObject setOverrideDisplayString:v21];
             v33 = [(UIKeyboardLayoutStar *)self viewForKey:firstObject];
@@ -12411,7 +12411,7 @@ void __39__UIKeyboardLayoutStar_longPressAction__block_invoke_7(uint64_t a1, voi
     [v9 removeObjectAtIndex:v10];
   }
 
-  if ([directionCopy isEqualToString:@"left"])
+  if (objc_msgSend_isEqualToString_(directionCopy))
   {
     [v9 addObject:stringCopy];
   }
@@ -12692,7 +12692,7 @@ LABEL_135:
               }
 
               v99 = v38;
-              if (([(__CFString *)v43 isEqualToString:?]& 1) != 0 || ([(__CFString *)v43 isEqualToString:@"strictly-left"]& 1) != 0 || [(__CFString *)v43 isEqualToString:@"fixed-left"])
+              if ((objc_msgSend_isEqualToString_(v43) & 1) != 0 || (objc_msgSend_isEqualToString_(v43) & 1) != 0 || objc_msgSend_isEqualToString_(v43))
               {
                 [v122 _kb_reverse];
                 [v119 _kb_reverse];
@@ -12767,7 +12767,7 @@ LABEL_63:
                     while (1)
                     {
                       v56 = [v122 objectAtIndex:v55];
-                      v57 = [v56 isEqualToString:representedString2];
+                      isEqualToString = objc_msgSend_isEqualToString_(v56);
 
                       v58 = [v119 objectAtIndex:v55];
                       if ([(UIKBTree *)self->_keyplane isShiftKeyplane]|| !+[UIKeyboardLayout _showSmallDisplayKeyplane])
@@ -12786,7 +12786,7 @@ LABEL_63:
                       v62 = v61;
                       displayString = [v53 displayString];
                       v121 = v62;
-                      if (([displayString isEqual:v62] & 1) == 0)
+                      if ((objc_msgSend_isEqual_(displayString) & 1) == 0)
                       {
                         v64 = [(NSMutableSet *)self->_allKeyplaneKeycaps containsObject:v60]&& (v13 & 0x10000) == 0;
                         if (v64 && [v53 variantType] != 9)
@@ -12796,9 +12796,9 @@ LABEL_63:
                       }
 
                       displayString = [v122 objectAtIndex:v55];
-                      if (!v57)
+                      if (!isEqualToString)
                       {
-                        if ([_stringByConvertingFromFullWidthToHalfWidth isEqualToString:displayString])
+                        if (objc_msgSend_isEqualToString_(_stringByConvertingFromFullWidthToHalfWidth))
                         {
                           displayString2 = UIKeyboardLocalizedString(v106, 0, 0, 0);
 
@@ -12871,7 +12871,7 @@ LABEL_105:
                     }
 
                     displayString2 = [v53 displayString];
-                    [displayString2 isEqualToString:v58];
+                    objc_msgSend_isEqualToString_(displayString2);
                     goto LABEL_104;
                   }
 
@@ -13131,7 +13131,7 @@ LABEL_36:
   }
 
   name2 = [keyCopy name];
-  v6 = [name2 isEqualToString:@"EmojiPopupKey"];
+  v6 = objc_msgSend_isEqualToString_(name2);
 
   if (v6)
   {
@@ -13927,7 +13927,7 @@ id __47__UIKeyboardLayoutStar_activationIndicatorView__block_invoke(void *a1, do
 
   v7 = [(UIKBTree *)self->_keyplane objectForProperty:@"restable"];
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 && ([v7 isEqualToString:@"nohomerow"])
+  if (objc_opt_isKindOfClass() & 1) != 0 && (objc_msgSend_isEqualToString_(v7))
   {
     v5 = 2;
   }
@@ -14833,7 +14833,7 @@ LABEL_14:
         return;
       }
 
-      v20 = +[UIColor blackColor];
+      v20 = objc_msgSend_blackColor(UIColor);
     }
 
     else
@@ -15569,7 +15569,7 @@ LABEL_20:
   v3 = +[UIKeyboardInputModeController sharedInputModeController];
   currentInputMode = [v3 currentInputMode];
   normalizedIdentifier = [currentInputMode normalizedIdentifier];
-  if ([normalizedIdentifier isEqualToString:@"emoji"])
+  if (objc_msgSend_isEqualToString_(normalizedIdentifier))
   {
     [(UIKBTree *)self->_keyplane frame];
     v7 = v6;
@@ -16289,7 +16289,7 @@ LABEL_23:
       goto LABEL_24;
     }
 
-    if ([v11 interactionType] == 4 && !+[_UIKBFeedbackGenerator _solariumKeyboardFeedbackEnabled]())
+    if ([v11 interactionType] == 4 && !+[_UIKBFeedbackGenerator _solariumKeyboardFeedbackEnabled](_UIKBFeedbackGenerator))
     {
       goto LABEL_23;
     }
@@ -16810,9 +16810,9 @@ LABEL_141:
               v70 = *(*(&v109 + 1) + 8 * j);
               v71 = [v70 key];
               name = [v71 name];
-              v73 = [name isEqual:@"EmojiPopupKey"];
+              isEqual = objc_msgSend_isEqual_(name);
 
-              if (v73)
+              if (isEqual)
               {
                 [v70 removeFromSuperview];
               }
@@ -17108,7 +17108,7 @@ void __53__UIKeyboardLayoutStar_incrementPunctuationIfNeeded___block_invoke()
   else
   {
     v5 = +[UIKeyboard keyboardBundleIdentifier];
-    v6 = [v5 isEqualToString:@"com.apple.purplebuddy"] ^ 1;
+    v6 = objc_msgSend_isEqualToString_(v5) ^ 1;
   }
 
   return v6;
@@ -17752,7 +17752,7 @@ LABEL_8:
             [v10 setInitialDragPoint:{v16, v18}];
             [v10 setDragged:1];
             [v12 touchLongPressTimer];
-            if (interactionType != 16 || ([(UIKeyboardLayoutStar *)self multitapInterrupted], multitapKey = self->_multitapKey, self->_multitapKey = 0, multitapKey, ![(UIKeyboardLayoutStar *)self handleFlick:v10]) && self->_preTouchKeyplaneName && ![(NSString *)self->_keyplaneName isEqualToString:?])
+            if (interactionType != 16 || ([(UIKeyboardLayoutStar *)self multitapInterrupted], multitapKey = self->_multitapKey, self->_multitapKey = 0, multitapKey, ![(UIKeyboardLayoutStar *)self handleFlick:v10]) && self->_preTouchKeyplaneName && !objc_msgSend_isEqualToString_(self->_keyplaneName))
             {
               v38 = [v10 key];
               v39 = [(UIKeyboardLayoutStar *)self shouldShowInternationalMenuForKey:v38];
@@ -17916,9 +17916,9 @@ LABEL_41:
 
                         v111 = [v10 key];
                         name = [v111 name];
-                        v113 = [name isEqual:@"EmojiPopupKey"];
+                        isEqual = objc_msgSend_isEqual_(name);
 
-                        if (v113)
+                        if (isEqual)
                         {
                           v114 = [v10 key];
                           v115 = [(UIKBKeyplaneView *)self->_keyplaneView existingVariantsKeyViewForKey:v114];
@@ -19558,8 +19558,7 @@ LABEL_14:
 - (BOOL)shouldSendTouchUpToInputManager:(id)manager
 {
   managerCopy = manager;
-  v4 = +[UIKeyboardImpl activeInstance];
-  v9 = [v4 canHandleKeyHitTest] && (objc_msgSend(managerCopy, "key"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "isExemptFromInputManagerLayout"), v5, (v6 & 1) == 0) && (objc_msgSend(managerCopy, "key"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "interactionType"), v7, v8 != 4) && (!objc_msgSend(v4, "canHandleKeyHitTest") || !objc_msgSend(managerCopy, "stage") || objc_msgSend(managerCopy, "stage") == 1);
+  v9 = [v4 canHandleKeyHitTest] && (objc_msgSend(managerCopy, "key"), v5 = v4 = +[UIKeyboardImpl activeInstance];
 
   return v9;
 }
@@ -20435,7 +20434,7 @@ LABEL_201:
                     goto LABEL_207;
                   }
 
-                  if (representedString2 == @"UIButtonBarKeyboardUndo.png" || -[__CFString isEqualToString:](representedString2, "isEqualToString:", @"undo") && ([upCopy key], v185 = objc_claimAutoreleasedReturnValue(), v186 = objc_msgSend(v185, "displayTypeHint"), v185, v186 == 10))
+                  if (representedString2 == @"UIButtonBarKeyboardUndo.png" || objc_msgSend_isEqualToString_(representedString2) && ([upCopy key], v185 = objc_claimAutoreleasedReturnValue(), v186 = objc_msgSend(v185, "displayTypeHint"), v185, v186 == 10))
                   {
 
                     delegateAsResponder2 = [v11 delegateAsResponder];
@@ -20450,7 +20449,7 @@ LABEL_201:
                     goto LABEL_201;
                   }
 
-                  if ([(__CFString *)representedString2 isEqualToString:@"redo"])
+                  if (objc_msgSend_isEqualToString_(representedString2))
                   {
                     v224 = [upCopy key];
                     displayTypeHint5 = [v224 displayTypeHint];
@@ -20780,7 +20779,7 @@ void __85__UIKeyboardLayoutStar_completeRetestForTouchUp_timestamp_interval_exec
     v8 = [*(a1 + 32) key];
     v9 = [v8 name];
 
-    if (([v9 isEqualToString:@"Space-Key"] & 1) != 0 || objc_msgSend(v9, "isEqualToString:", @"Email-Dot-Key"))
+    if ((objc_msgSend_isEqualToString_(v9) & 1) != 0 || objc_msgSend_isEqualToString_(v9))
     {
       v10 = +[UIKeyboardSceneDelegate activeKeyboardSceneDelegate];
       v11 = [v10 _textInputSessionAnalytics];
@@ -21042,7 +21041,7 @@ LABEL_6:
 
     v43 = [upCopy key];
     representedString2 = [v43 representedString];
-    if ([representedString2 isEqualToString:@"ASCIICapable"])
+    if (objc_msgSend_isEqualToString_(representedString2))
     {
     }
 
@@ -21051,7 +21050,7 @@ LABEL_6:
       v48 = [upCopy key];
       [v48 representedString];
       v49 = v55 = v43;
-      LODWORD(v52) = [v49 isEqualToString:@"NonASCII"];
+      LODWORD(v52) = objc_msgSend_isEqualToString_(v49);
 
       if (!v52)
       {
@@ -21135,7 +21134,7 @@ LABEL_20:
     v58 = v23;
     v30 = self->_lastInputMode;
     v31 = UIKeyboardGetCurrentInputMode();
-    LODWORD(v30) = [(NSString *)v30 isEqualToString:v31];
+    LODWORD(v30) = objc_msgSend_isEqualToString_(v30);
 
     if (v30)
     {
@@ -21310,12 +21309,12 @@ void __132__UIKeyboardLayoutStar_completeSendStringActionForTouchUp_withActions_
   }
 }
 
-uint64_t __132__UIKeyboardLayoutStar_completeSendStringActionForTouchUp_withActions_timestamp_interval_didLongPress_prevActions_executionContext___block_invoke_5()
+uint64_t __132__UIKeyboardLayoutStar_completeSendStringActionForTouchUp_withActions_timestamp_interval_didLongPress_prevActions_executionContext___block_invoke_5(uint64_t a1, uint64_t a2)
 {
-  v0 = TIInputModeGetNormalizedIdentifier();
-  v1 = [v0 isEqualToString:@"emoji"];
+  v2 = TIInputModeGetNormalizedIdentifier();
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v1;
+  return isEqualToString;
 }
 
 void __132__UIKeyboardLayoutStar_completeSendStringActionForTouchUp_withActions_timestamp_interval_didLongPress_prevActions_executionContext___block_invoke_6(uint64_t a1, void *a2)
@@ -21418,8 +21417,8 @@ void __132__UIKeyboardLayoutStar_completeSendStringActionForTouchUp_withActions_
   if (preTouchKeyplaneName2)
   {
     preTouchKeyplaneName3 = [(UIKeyboardLayoutStar *)self preTouchKeyplaneName];
-    v35 = [preTouchKeyplaneName3 isEqualToString:self->_keyplaneName];
-    if ((actions & 0x800000000) == 0 || (v35 & 1) == 0)
+    isEqualToString = objc_msgSend_isEqualToString_(preTouchKeyplaneName3);
+    if ((actions & 0x800000000) == 0 || (isEqualToString & 1) == 0)
     {
 
 LABEL_10:
@@ -21551,7 +21550,7 @@ LABEL_24:
   }
 
 LABEL_25:
-  if (actions & 0x100) == 0 || -[UIKBTree supportsType:](self->_keyplane, "supportsType:", -[UITextInputTraits keyboardType](self->super._inputTraits, "keyboardType")) || ([upCopy key], v28 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v28, "representedString"), v29 = objc_claimAutoreleasedReturnValue(), preTouchKeyplaneName3 = objc_msgSend(v29, "isEqualToString:", @"-"), v29, v28, (preTouchKeyplaneName3))
+  if (actions & 0x100) == 0 || -[UIKBTree supportsType:](self->_keyplane, "supportsType:", -[UITextInputTraits keyboardType](self->super._inputTraits, "keyboardType")) || ([upCopy key], v28 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v28, "representedString"), v29 = objc_claimAutoreleasedReturnValue(), preTouchKeyplaneName3 = objc_msgSend_isEqualToString_(v29), v29, v28, (preTouchKeyplaneName3))
   {
     v30 = 1;
     if ((actions & 0x400) == 0)
@@ -22624,9 +22623,9 @@ LABEL_58:
   if ([(UIKBScreenTraits *)self->super._screenTraits idiom]!= 2 && [(UITextInputTraits *)self->super._inputTraits keyboardType]== 7)
   {
     representedString = [keyCopy representedString];
-    v19 = [representedString isEqualToString:@"@"];
+    isEqualToString = objc_msgSend_isEqualToString_(representedString);
 
-    if (v19)
+    if (isEqualToString)
     {
       v5 &= 0x1FFFF7F7FuLL;
     }
@@ -23031,7 +23030,7 @@ LABEL_18:
   if (activeTouchInfoForShift && [keyCopy behavesAsShiftKey])
   {
     preTouchKeyplaneName = [(UIKeyboardLayoutStar *)self preTouchKeyplaneName];
-    if ([preTouchKeyplaneName isEqualToString:self->_keyplaneName])
+    if (objc_msgSend_isEqualToString_(preTouchKeyplaneName))
     {
 
 LABEL_24:
@@ -23040,9 +23039,9 @@ LABEL_24:
     }
 
     preTouchKeyplaneName2 = [(UIKeyboardLayoutStar *)self preTouchKeyplaneName];
-    v20 = [preTouchKeyplaneName2 isEqualToString:shiftAlternateKeyplaneName];
+    isEqualToString = objc_msgSend_isEqualToString_(preTouchKeyplaneName2);
 
-    if (v20)
+    if (isEqualToString)
     {
       goto LABEL_24;
     }
@@ -23159,7 +23158,7 @@ LABEL_26:
             name2 = [v20 name];
 
             name3 = [(UIKBTree *)self->_keyplane name];
-            LODWORD(shiftAlternateKeyplaneName2) = [name2 isEqualToString:name3];
+            LODWORD(shiftAlternateKeyplaneName2) = objc_msgSend_isEqualToString_(name2);
 
             if (shiftAlternateKeyplaneName2)
             {
@@ -23188,19 +23187,19 @@ LABEL_21:
   [(UIKeyboardLayoutStar *)self setMultitapReverseKeyState];
 }
 
-uint64_t __50__UIKeyboardLayoutStar_setMultitapReverseKeyState__block_invoke(uint64_t result)
+id *__50__UIKeyboardLayoutStar_setMultitapReverseKeyState__block_invoke(id *result)
 {
   v1 = result;
-  if (*(result + 32))
+  if (result[4])
   {
-    result = [*(result + 40) setState:objc_msgSend(*(result + 40) forKey:{"stateForMultitapReverseKey:"), *(result + 32)}];
+    result = [result[5] setState:objc_msgSend(result[5] forKey:{"stateForMultitapReverseKey:"), result[4]}];
   }
 
-  if (*(v1 + 48))
+  if (v1[6])
   {
-    v2 = *(v1 + 40);
+    v2 = v1[5];
     v3 = [v2 stateForMultitapForwardKey:?];
-    v4 = *(v1 + 48);
+    v4 = v1[6];
 
     return [v2 setState:v3 forKey:v4];
   }
@@ -23569,11 +23568,11 @@ LABEL_34:
     }
 
     keyplaneName = [(UIKeyboardLayoutStar *)self keyplaneName];
-    v10 = [keyplaneName isEqualToString:v4];
+    isEqualToString = objc_msgSend_isEqualToString_(keyplaneName);
 
-    if (![(UIKeyboardLayout *)self isFloating]|| (v10 & 1) == 0)
+    if (![(UIKeyboardLayout *)self isFloating]|| (isEqualToString & 1) == 0)
     {
-      if ((v10 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
         v11 = self->super._screenTraits;
         orientation = [(UIKBScreenTraits *)self->super._screenTraits orientation];
@@ -23688,9 +23687,9 @@ LABEL_34:
 
               v17 = *(*(&v67 + 1) + 8 * j);
               representedString = [v17 representedString];
-              v19 = [representedString isEqualToString:stringCopy];
+              isEqualToString = objc_msgSend_isEqualToString_(representedString);
 
-              if (v19)
+              if (isEqualToString)
               {
                 v44 = v17;
 
@@ -23805,7 +23804,7 @@ LABEL_34:
                       objc_enumerationMutation(v23);
                     }
 
-                    if ([*(*(&v55 + 1) + 8 * n) isEqualToString:stringCopy])
+                    if (objc_msgSend_isEqualToString_(*(*(&v55 + 1) + 8 * n)))
                     {
                       v44 = v30;
 
@@ -24006,9 +24005,9 @@ LABEL_11:
       if (!forVariants)
       {
         representedString = [v12 representedString];
-        v15 = [representedString isEqualToString:characterCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(representedString);
 
-        if ((v15 & 1) == 0)
+        if ((isEqualToString & 1) == 0)
         {
           NSLog(&cfstr_InsertingVaria.isa, characterCopy);
           v16 = +[UIKeyboardImpl activeInstance];
@@ -24055,7 +24054,7 @@ LABEL_7:
     }
 
     representedString3 = [v12 representedString];
-    v19 = [representedString3 isEqualToString:characterCopy];
+    v19 = objc_msgSend_isEqualToString_(representedString3);
 
     if (v19)
     {
@@ -24224,9 +24223,9 @@ uint64_t __43__UIKeyboardLayoutStar_fadeWithInvocation___block_invoke_2(uint64_t
         if ([v9 interactionType] != 16 || (objc_msgSend(v9, "fullRepresentedString"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "_containsSubstring:", stringCopy), v10, (v11 & 1) == 0))
         {
           representedString = [v9 representedString];
-          v13 = [representedString isEqualToString:stringCopy];
+          isEqualToString = objc_msgSend_isEqualToString_(representedString);
 
-          if ((v13 & 1) == 0)
+          if ((isEqualToString & 1) == 0)
           {
             continue;
           }
@@ -24277,7 +24276,7 @@ LABEL_13:
         v10 = *(*(&v42 + 1) + 8 * i);
         v11 = [v10 key];
         representedString = [v11 representedString];
-        if ([representedString isEqualToString:stringCopy])
+        if (objc_msgSend_isEqualToString_(representedString))
         {
           superview = [v10 superview];
 
@@ -24326,9 +24325,9 @@ LABEL_13:
 
         v19 = *(*(&v38 + 1) + 8 * j);
         representedString2 = [v19 representedString];
-        v21 = [representedString2 isEqualToString:stringCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(representedString2);
 
-        if (v21)
+        if (isEqualToString)
         {
           [v19 frame];
           v23 = v30;
@@ -24394,9 +24393,9 @@ LABEL_22:
 
         v11 = *(*(&v26 + 1) + 8 * i);
         representedString = [v11 representedString];
-        v13 = [representedString isEqualToString:stringCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(representedString);
 
-        if (v13)
+        if (isEqualToString)
         {
           [v11 frame];
           v14 = v18;
@@ -24553,9 +24552,9 @@ LABEL_11:
 
       v9 = UIKeyboardRomanAccentVariants(v6, v8, 38);
       v10 = [v9 objectForKey:@"Direction"];
-      v11 = [v10 isEqualToString:@"flick"];
+      isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-      if (v11)
+      if (isEqualToString)
       {
         v12 = v9;
       }
@@ -25385,11 +25384,11 @@ uint64_t __75__UIKeyboardLayoutStar_ContinuousPath__transitionToPunctuationKeysV
   return [v2 dimKeys:v4];
 }
 
-uint64_t __75__UIKeyboardLayoutStar_ContinuousPath__transitionToPunctuationKeysVisible___block_invoke_2(uint64_t result, int a2)
+id *__75__UIKeyboardLayoutStar_ContinuousPath__transitionToPunctuationKeysVisible___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) removeFromSuperview];
+    return [result[4] removeFromSuperview];
   }
 
   return result;
@@ -25497,7 +25496,7 @@ void __62__UIKeyboardLayoutStar_ContinuousPath__didBeginContinuousPath__block_in
   [v4 setAlpha:v5];
 }
 
-uint64_t __62__UIKeyboardLayoutStar_ContinuousPath__didBeginContinuousPath__block_invoke_2(uint64_t a1)
+void *__62__UIKeyboardLayoutStar_ContinuousPath__didBeginContinuousPath__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) _continuousPathSpotlightEffectEnabled];
   if (result)

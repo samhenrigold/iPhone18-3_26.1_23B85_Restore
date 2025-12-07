@@ -2,15 +2,18 @@
 - ($8EF4127CF77ECA3DDB612FCF233DC3A8)noiseConfiguration;
 - (BOOL)preSemaphoreComputeForTime:(double)time;
 - (BOOL)shouldForceRender;
+- (NTKPrideLinearQuad)initWithDevice:(id)device useXRsRGB:(BOOL)b;
 - (NTKPrideLinearQuad)initWithDevice:(id)device useXRsRGB:(BOOL)b touchCrownHandler:(id)handler;
-- (float)_xPositionForSpline:(int)spline;
+- (float)computeAmplitudeForControlPoint:(int)point inSpline:(int)spline atTime:(double)time;
 - (float)globalAmplitudeForTime:(double)time;
+- (float)interpolationStepSizeForSpline:(int)spline;
 - (float)noiseSamplePositionForControlPoint:(int)point inSpline:(int)spline;
 - (id)generateVignetteTextureData;
 - (id)getNTKPrideSplineDefinitionFiller;
 - (id)renderPipelineManager;
 - (int)numControlPointsPerSpline;
 - (int)numSplines;
+- (int)numVertsForSpline:(int)spline;
 - (void)_computePigeonLocationsForPigeons:(int)pigeons inHoles:(int)holes pigeonIndices:(int *)indices pigeonToHole:(int *)hole pigeonsPerHole:(int *)perHole;
 - (void)_generateControlPointDampingCoefficients;
 - (void)_generateSplineColors;
@@ -19,6 +22,7 @@
 - (void)applyTransitionFromBandedToFabricWithFraction:(double)fraction;
 - (void)clearWaves;
 - (void)dealloc;
+- (void)generateControlPointsForSpline:(int)spline;
 - (void)handleScreenOff;
 - (void)processSpline:(int)spline;
 - (void)setBandedMode;
@@ -75,6 +79,24 @@
   return DWORD1(v4);
 }
 
+- (int)numVertsForSpline:(int)spline
+{
+  LODWORD(v6) = 0;
+  v3 = [(NTKPrideMetalQuad *)self clkDevice:*&spline];
+  sub_528C(v3, &v5);
+
+  return HIDWORD(v5);
+}
+
+- (float)interpolationStepSizeForSpline:(int)spline
+{
+  LODWORD(v6) = 0;
+  v3 = [(NTKPrideMetalQuad *)self clkDevice:*&spline];
+  sub_528C(v3, v5);
+
+  return (v5[1] - 1) / (v5[3] / 2 - 1);
+}
+
 - (void)_generateSplineColors
 {
   clkDevice = [(NTKPrideMetalQuad *)self clkDevice];
@@ -94,23 +116,21 @@
     v7 = 312;
     do
     {
-      v8 = v5[v6];
       if (LOBYTE(self->_currentStyle) == 1)
       {
-        v9 = vmovl_s16(PRIDE_COLORS_2019_XR_SRGB[v8]);
         CLKUIConvertToRGBfFromXRSRGBf();
       }
 
       else
       {
-        v2 = v2 & 0xFFFFFFFF00000000 | PRIDE_COLORS_2019[v8];
+        v2 = v2 & 0xFFFFFFFF00000000 | PRIDE_COLORS_2019[v5[v6]];
         CLKUIConvertToRGBfFromSRGB8_fast();
       }
 
-      *(*&self->_controlPointsDampingCoefficients[88] + v7 - 56) = v10;
+      *(*&self->_controlPointsDampingCoefficients[88] + v7 - 56) = v8;
       clkDevice = clkDevice & 0xFFFFFFFF00000000 | PRIDE_COLORS_2018[*(*&self->_controlPointsDampingCoefficients[88] + v7)];
       CLKUIConvertToRGBfFromSRGB8_fast();
-      *(*&self->_controlPointsDampingCoefficients[88] + v7 - 24) = v11;
+      *(*&self->_controlPointsDampingCoefficients[88] + v7 - 24) = v9;
       ++v6;
       v7 += 320;
     }
@@ -283,14 +303,36 @@
   *(v7 - 1) = 1048576000;
 }
 
-- (float)_xPositionForSpline:(int)spline
+- (void)generateControlPointsForSpline:(int)spline
 {
-  v3 = *&self->_controlPointsDampingCoefficients[88] + 320 * spline;
-  v4 = *(v3 + 272);
-  v5 = *(v3 + 248);
-  aspectRatio = self->_aspectRatio;
-  CLKInterpolateBetweenFloatsUnclipped();
-  return v7;
+  v3 = *&spline;
+  LODWORD(v13) = 0;
+  v5 = [(NTKPrideMetalQuad *)self clkDevice:0];
+  sub_528C(v5, &v12);
+
+  [(NTKPrideLinearQuad *)self _xPositionForSpline:v3];
+  if (fabsf(self->_aspectRatio) < 0.00000011921)
+  {
+    v6 = *(*&self->_controlPointsDampingCoefficients[88] + 320 * v3 + 276);
+  }
+
+  v7 = DWORD1(v12);
+  if (SDWORD1(v12) >= 1)
+  {
+    v8 = 0;
+    v9 = (DWORD1(v12) - 1);
+    v10 = 320 * v3;
+    do
+    {
+      *&v11 = (v8 / v9 + -0.5) * 1.02 * *&self->_perSplineData + 0.5;
+      *(*&self->_controlPointsDampingCoefficients[88] + v10) = __PAIR64__(v11, v6);
+      ++v8;
+      v10 += 8;
+      --v7;
+    }
+
+    while (v7);
+  }
 }
 
 - (void)_initializePerSplineData
@@ -330,6 +372,22 @@
   v3 = qword_2CC48;
 
   return v3;
+}
+
+- (NTKPrideLinearQuad)initWithDevice:(id)device useXRsRGB:(BOOL)b
+{
+  bCopy = b;
+  v14 = 0;
+  memset(v13, 0, sizeof(v13));
+  deviceCopy = device;
+  sub_528C(deviceCopy, v13);
+  v7 = [NTKPrideTouchCrownHandler alloc];
+  LODWORD(v8) = 1.0;
+  LODWORD(v9) = 1.5;
+  v10 = [(NTKPrideTouchCrownHandler *)v7 initWithNumSplines:LODWORD(v13[0]) strumWidth:0 strumSpeed:2 isCyclical:v8 padding:v9];
+  v11 = [(NTKPrideLinearQuad *)self initWithDevice:deviceCopy useXRsRGB:bCopy touchCrownHandler:v10];
+
+  return v11;
 }
 
 - (NTKPrideLinearQuad)initWithDevice:(id)device useXRsRGB:(BOOL)b touchCrownHandler:(id)handler
@@ -473,6 +531,60 @@
   }
 
   return v5 * v6;
+}
+
+- (float)computeAmplitudeForControlPoint:(int)point inSpline:(int)spline atTime:(double)time
+{
+  v7 = *&spline;
+  v9 = *&self->_controlPointsDampingCoefficients[88] + 320 * spline;
+  if (*&self->_paused)
+  {
+    v10 = (v9 + 248);
+  }
+
+  else
+  {
+    v10 = (v9 + 276);
+  }
+
+  v11 = *(v9 + 8 * point);
+  LODWORD(v11) = *v10;
+  *&v5 = time;
+  LODWORD(v6) = 1.5;
+  [(NTKPrideSplinesQuad *)self combinedAmplitudeForControlPointAtPosition:v11 currentTime:v5 waveSpeed:v6];
+  v13 = v12;
+  v14 = *&self->_paused;
+  if (!v14)
+  {
+    touchCrownHandler = [(NTKPrideSplinesQuad *)self touchCrownHandler];
+    v19 = touchCrownHandler;
+    v20 = (v7 - *(*&self->_controlPointsDampingCoefficients[88] + 320 * v7 + 308));
+    goto LABEL_10;
+  }
+
+  if (v14 == 1)
+  {
+    touchCrownHandler = [(NTKPrideSplinesQuad *)self touchCrownHandler];
+    v19 = touchCrownHandler;
+    v20 = v7;
+LABEL_10:
+    [touchCrownHandler strumAmplitudeForSpline:v20];
+    v15 = v21;
+
+    v17 = 1.0;
+    v16 = 0.25;
+    return (fabsf(v15) * v17) + (v13 * v16);
+  }
+
+  v15 = 0.0;
+  v16 = 0.0;
+  v17 = 0.0;
+  if (v14 == 2)
+  {
+    sub_151A8();
+  }
+
+  return (fabsf(v15) * v17) + (v13 * v16);
 }
 
 - (void)startWavesAtTime:(double)time

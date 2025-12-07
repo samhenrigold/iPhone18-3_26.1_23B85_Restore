@@ -130,7 +130,7 @@ void __50__CPLPushChangeTasks__descriptionFromTasksByType___block_invoke(uint64_
 
 - (void)addTask:(int64_t)task forRecordWithScopedIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (identifierCopy)
   {
@@ -168,12 +168,10 @@ void __50__CPLPushChangeTasks__descriptionFromTasksByType___block_invoke(uint64_
     {
       v13 = [CPLPushChangeTasks descriptionForTaskType:task];
       *buf = 138543362;
-      v18 = v13;
+      v17 = v13;
       _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "Attempting to add a push change task %{public}@ for nil identifier", buf, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enumerateTasksWithBlock:(id)block
@@ -225,7 +223,6 @@ void __52__CPLPushChangeTasks_enumerateScopedTasksWithBlock___block_invoke(uint6
 
 uint64_t __52__CPLPushChangeTasks_enumerateScopedTasksWithBlock___block_invoke_2(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  v5 = *(a1 + 40);
   result = (*(*(a1 + 32) + 16))();
   if (*a3 == 1)
   {

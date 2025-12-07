@@ -16,13 +16,13 @@
 
 - (id)_initWithNode:(id)node item:(id)item rawName:(id)name hideExtension:(const void *)extension
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   nodeCopy = node;
   itemCopy = item;
   nameCopy = name;
-  v27.receiver = self;
-  v27.super_class = FIRenameOperation;
-  v13 = [(FIOperation *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = FIRenameOperation;
+  v13 = [(FIOperation *)&v26 init];
   if ((nodeCopy != 0) == (itemCopy != 0) || ![nameCopy length])
   {
     if (!(nodeCopy | itemCopy))
@@ -61,36 +61,35 @@
     [(FIRenameOperation *)v13 setHideExtension:*extension];
     if (nodeCopy)
     {
-      v32[0] = nodeCopy;
-      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:1];
+      v31[0] = nodeCopy;
+      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
       [(FIOperation *)v13 setSourceNodes:v14];
     }
 
     else
     {
       objc_storeStrong(&v13->_item, item);
-      v31 = itemCopy;
-      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
-      make_nsweak<FIRenameOperation>(v13, &v25);
-      v26 = itemCopy;
-      v30 = 0;
+      v30 = itemCopy;
+      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
+      make_nsweak<FIRenameOperation>(v13, &v24);
+      v25 = itemCopy;
+      v29 = 0;
       *buf = &unk_1F5F3D438;
-      objc_copyWeak(&buf[8], &v25);
-      objc_storeWeak(&v25, 0);
-      v22 = v26;
-      v26 = 0;
-      v29 = v22;
-      v30 = buf;
+      objc_copyWeak(&buf[8], &v24);
+      objc_storeWeak(&v24, 0);
+      v22 = v25;
+      v25 = 0;
+      v28 = v22;
+      v29 = buf;
       [(FIOperation *)v13 fetchNodesAsyncFor:v14 completion:buf];
       std::__function::__value_func<void ()(std::vector<std::optional<FINode * {__strong}>> const&)>::~__value_func[abi:ne200100](buf);
 
-      objc_destroyWeak(&v25);
+      objc_destroyWeak(&v24);
     }
 
     v21 = v13;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -203,7 +202,7 @@
 
 - (void)_initWithNode:item:rawName:hideExtension:
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v4 = TNSWeakPtr<FIRenameOperation>::Lock((self + 8));
   v5 = v4;
   if (v4)
@@ -214,23 +213,21 @@
     if (*(v7 - 8) == 1 && (v8 = *(v7 - 16)) != 0)
     {
       v9 = v8;
-      v13[0] = v8;
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+      v12[0] = v8;
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
       [v6 setSourceNodes:v10];
     }
 
     else
     {
-      v13[0] = *(self + 16);
-      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+      v12[0] = *(self + 16);
+      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
       [v6 setSourceFPItems:v11];
       v9 = v11;
     }
 
     objc_sync_exit(v6);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_initWithNode:item:rawName:hideExtension:

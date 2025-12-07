@@ -101,11 +101,10 @@
 
 uint64_t __82__MediaControlsHeaderViewAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 _accessibilityViewController];
-  v4 = *(a1 + 32);
-  LOBYTE(a1) = objc_opt_isKindOfClass();
+  v2 = [a2 _accessibilityViewController];
+  isKindOfClass = objc_opt_isKindOfClass();
 
-  return a1 & 1;
+  return isKindOfClass & 1;
 }
 
 id __82__MediaControlsHeaderViewAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_2(uint64_t a1)
@@ -214,27 +213,27 @@ uint64_t __82__MediaControlsHeaderViewAccessibility__accessibilityLoadAccessibil
   return v3;
 }
 
-id __74__MediaControlsHeaderViewAccessibility__accessibilityCombinedTitleElement__block_invoke(uint64_t a1)
+id __74__MediaControlsHeaderViewAccessibility__accessibilityCombinedTitleElement__block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = [WeakRetained safeValueForKey:@"primaryLabel"];
-  v4 = __UIAccessibilityCastAsClass();
+  v4 = [WeakRetained safeValueForKey:@"primaryLabel"];
+  v5 = __UIAccessibilityCastAsClass();
 
   objc_opt_class();
-  v5 = objc_loadWeakRetained((a1 + 32));
-  v6 = [v5 safeValueForKey:@"secondaryLabel"];
-  v7 = __UIAccessibilityCastAsClass();
+  v6 = objc_loadWeakRetained((a1 + 32));
+  v7 = [v6 safeValueForKey:@"secondaryLabel"];
+  v8 = __UIAccessibilityCastAsClass();
 
-  v8 = objc_loadWeakRetained((a1 + 32));
-  v9 = [v8 safeValueForKey:@"routeLabel"];
+  v9 = objc_loadWeakRetained((a1 + 32));
+  v10 = [v9 safeValueForKey:@"routeLabel"];
 
-  v10 = [v9 accessibilityLabel];
-  v11 = [v4 accessibilityLabel];
-  v14 = [v7 accessibilityLabel];
-  v12 = __UIAXStringForVariables();
+  v11 = [v10 accessibilityLabel];
+  v12 = [v5 accessibilityLabel];
+  v15 = [v8 accessibilityLabel];
+  v13 = __UIAXStringForVariables();
 
-  return v12;
+  return v13;
 }
 
 double __74__MediaControlsHeaderViewAccessibility__accessibilityCombinedTitleElement__block_invoke_2(uint64_t a1)
@@ -255,64 +254,64 @@ double __74__MediaControlsHeaderViewAccessibility__accessibilityCombinedTitleEle
   return v10;
 }
 
-id __74__MediaControlsHeaderViewAccessibility__accessibilityCombinedTitleElement__block_invoke_3(uint64_t a1)
+id __74__MediaControlsHeaderViewAccessibility__accessibilityCombinedTitleElement__block_invoke_3(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = [WeakRetained safeValueForKey:@"routeLabel"];
-  v4 = __UIAccessibilityCastAsClass();
+  v4 = [WeakRetained safeValueForKey:@"routeLabel"];
+  v5 = __UIAccessibilityCastAsClass();
 
   objc_opt_class();
-  v5 = [*(a1 + 32) safeValueForKey:@"launchNowPlayingAppButton"];
-  v6 = __UIAccessibilityCastAsClass();
+  v6 = [*(a1 + 32) safeValueForKey:@"launchNowPlayingAppButton"];
+  v7 = __UIAccessibilityCastAsClass();
 
-  LOBYTE(v5) = [v6 isHidden];
-  v7 = [*(a1 + 32) safeIntegerForKey:@"style"];
-  if (v5)
+  LOBYTE(v6) = [v7 isHidden];
+  v8 = [*(a1 + 32) safeIntegerForKey:@"style"];
+  if (v6)
   {
-    if (v7 == 2)
+    if (v8 == 2)
     {
-      v8 = MEMORY[0x29EDBA0F8];
-      v9 = accessibilityLocalizedString(@"expand.collapsed.route.hint");
-      v10 = [v4 accessibilityLabel];
-      v11 = [v8 localizedStringWithFormat:v9, v10];
+      v9 = MEMORY[0x29EDBA0F8];
+      v10 = accessibilityLocalizedString(@"expand.collapsed.route.hint");
+      v11 = [v5 accessibilityLabel];
+      v12 = [v9 localizedStringWithFormat:v10, v11];
     }
 
     else
     {
-      v11 = 0;
+      v12 = 0;
     }
   }
 
   else
   {
-    v11 = accessibilityLocalizedString(@"launch.now.playing.app.button.hint");
+    v12 = accessibilityLocalizedString(@"launch.now.playing.app.button.hint");
   }
 
-  v14 = UIAccessibilityControlCenterModuleExpandPlatterHint();
-  v12 = __UIAXStringForVariables();
+  v15 = UIAccessibilityControlCenterModuleExpandPlatterHint();
+  v13 = __UIAXStringForVariables();
 
-  return v12;
+  return v13;
 }
 
-uint64_t __74__MediaControlsHeaderViewAccessibility__accessibilityCombinedTitleElement__block_invoke_4(uint64_t a1)
+uint64_t __74__MediaControlsHeaderViewAccessibility__accessibilityCombinedTitleElement__block_invoke_4(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v2 = [*(a1 + 32) safeValueForKey:@"launchNowPlayingAppButton"];
-  v3 = __UIAccessibilityCastAsClass();
+  v3 = [*(a1 + 32) safeValueForKey:@"launchNowPlayingAppButton"];
+  v4 = __UIAccessibilityCastAsClass();
 
-  LOBYTE(v2) = [v3 isHidden];
-  if ((v2 & ([*(a1 + 32) safeIntegerForKey:@"style"] != 2)) != 0)
+  LOBYTE(v3) = [v4 isHidden];
+  if ((v3 & ([*(a1 + 32) safeIntegerForKey:@"style"] != 2)) != 0)
   {
-    v4 = MEMORY[0x29EDC7FA0];
+    v5 = MEMORY[0x29EDC7FA0];
   }
 
   else
   {
-    v4 = MEMORY[0x29EDC7F70];
+    v5 = MEMORY[0x29EDC7F70];
   }
 
-  return *v4 | *(a1 + 40);
+  return *v5 | *(a1 + 40);
 }
 
 @end

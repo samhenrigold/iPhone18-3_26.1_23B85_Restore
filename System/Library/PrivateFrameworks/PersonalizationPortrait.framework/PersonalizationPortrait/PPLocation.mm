@@ -462,7 +462,7 @@ LABEL_52:
 
 + (id)clusterIdentifierFromPlacemark:(id)placemark
 {
-  v28[3] = *MEMORY[0x1E69E9840];
+  v27[3] = *MEMORY[0x1E69E9840];
   placemarkCopy = placemark;
   v4 = objc_autoreleasePoolPush();
   name = [placemarkCopy name];
@@ -479,12 +479,12 @@ LABEL_52:
       if (thoroughfare)
       {
         name2 = [placemarkCopy name];
-        v28[0] = name2;
+        v27[0] = name2;
         subThoroughfare2 = [placemarkCopy subThoroughfare];
-        v28[1] = subThoroughfare2;
+        v27[1] = subThoroughfare2;
         thoroughfare2 = [placemarkCopy thoroughfare];
-        v28[2] = thoroughfare2;
-        v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:3];
+        v27[2] = thoroughfare2;
+        v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:3];
         v13 = [v12 _pas_componentsJoinedByString:@" "];
 
 LABEL_11:
@@ -502,11 +502,11 @@ LABEL_11:
       goto LABEL_12;
     }
 
-    v27[0] = name3;
+    v26[0] = name3;
     subThoroughfare2 = [placemarkCopy thoroughfare];
-    v27[1] = subThoroughfare2;
+    v26[1] = subThoroughfare2;
     v16 = MEMORY[0x1E695DEC8];
-    v17 = v27;
+    v17 = v26;
 LABEL_10:
     thoroughfare2 = [v16 arrayWithObjects:v17 count:2];
     v13 = [thoroughfare2 _pas_componentsJoinedByString:@" "];
@@ -524,9 +524,9 @@ LABEL_10:
   {
     name2 = [placemarkCopy subThoroughfare];
     subThoroughfare2 = [placemarkCopy thoroughfare];
-    v26[1] = subThoroughfare2;
+    v25[1] = subThoroughfare2;
     v16 = MEMORY[0x1E695DEC8];
-    v17 = v26;
+    v17 = v25;
     goto LABEL_10;
   }
 
@@ -557,8 +557,6 @@ LABEL_12:
   v22 = objc_autoreleasePoolPush();
   lowercaseString = [name2 lowercaseString];
   objc_autoreleasePoolPop(v22);
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return lowercaseString;
 }

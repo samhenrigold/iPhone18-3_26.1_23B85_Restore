@@ -21,14 +21,14 @@ uint64_t start(int a1, uint64_t a2)
   dword_10000800C = dword_100008004;
   if (a1 >= 2)
   {
-    v92 = 0;
-    v94 = 0;
+    v91 = 0;
+    v93 = 0;
     v8 = a1;
-    v93 = a1;
+    v92 = a1;
     v9 = &byte_100008000;
     v10 = 1;
-    v90 = a2;
-    v91 = a1;
+    v89 = a2;
+    v90 = a1;
     while (1)
     {
       v11 = *(a2 + 8 * v10);
@@ -49,8 +49,8 @@ uint64_t start(int a1, uint64_t a2)
                 switch(v13)
                 {
                   case 'p':
-                    *&v96.st_dev = 0;
-                    CFProperties = IORegistryEntryCreateCFProperties(*(v7 + 3), &v96, 0, 0);
+                    *&v95.st_dev = 0;
+                    CFProperties = IORegistryEntryCreateCFProperties(*(v7 + 3), &v95, 0, 0);
                     if (CFProperties)
                     {
                       sub_10000239C(CFProperties);
@@ -58,7 +58,7 @@ uint64_t start(int a1, uint64_t a2)
 
                     if (v9[17] == 1)
                     {
-                      Data = CFPropertyListCreateData(kCFAllocatorDefault, *&v96.st_dev, kCFPropertyListXMLFormat_v1_0, 0, 0);
+                      Data = CFPropertyListCreateData(kCFAllocatorDefault, *&v95.st_dev, kCFPropertyListXMLFormat_v1_0, 0, 0);
                       if (!Data)
                       {
                         sub_100002588();
@@ -74,10 +74,10 @@ uint64_t start(int a1, uint64_t a2)
 
                     else
                     {
-                      CFDictionaryApplyFunction(*&v96.st_dev, sub_100001DD8, 0);
+                      CFDictionaryApplyFunction(*&v95.st_dev, sub_100001DD8, 0);
                     }
 
-                    CFRelease(*&v96.st_dev);
+                    CFRelease(*&v95.st_dev);
                     break;
                   case 'r':
                     if (++v10 >= v8 || (v27 = *(a2 + 8 * v10), *v27 == 45))
@@ -89,12 +89,11 @@ LABEL_194:
                     v28 = sub_1000016A8("IONVRAM-DELETEWRET-PROPERTY", v27);
                     if (v28)
                     {
-                      v87 = *(a2 + 8 * v10);
                       mach_error_string(v28);
                       errx(1, "Error deleting variable - '%s': %s (0x%08x)");
                     }
 
-                    v94 = 0;
+                    v93 = 0;
                     break;
                   case 'h':
                     sub_10000158C(&unk_100002DA7);
@@ -205,12 +204,12 @@ LABEL_194:
 
                       if (v49 == 37 || !v51)
                       {
-                        v50 += sprintf(&v96 + v50, "%%%02x", v49);
+                        v50 += sprintf(&v95 + v50, "%%%02x", v49);
                       }
 
                       else
                       {
-                        *(&v96.st_dev + v50++) = v49;
+                        *(&v95.st_dev + v50++) = v49;
                       }
 
                       v49 = getc(v47);
@@ -223,8 +222,8 @@ LABEL_211:
                       sub_100002564();
                     }
 
-                    *(&v96.st_dev + v50) = 0;
-                    v43 = sub_1000016A8(v26, &v96);
+                    *(&v95.st_dev + v50) = 0;
+                    v43 = sub_1000016A8(v26, &v95);
                     if (v43)
                     {
 LABEL_195:
@@ -233,7 +232,7 @@ LABEL_195:
                     }
 
                     v7 = &byte_100008000;
-                    v8 = v93;
+                    v8 = v92;
                     v9 = &byte_100008000;
                   }
 
@@ -242,9 +241,9 @@ LABEL_195:
                   goto LABEL_179;
                 default:
 LABEL_204:
-                  strcpy(&v96, "no such option as --");
-                  *(&v96 + strlen(&v96) - 1) = v13;
-                  sub_10000158C(&v96);
+                  strcpy(&v95, "no such option as --");
+                  *(&v95 + strlen(&v95) - 1) = v13;
+                  sub_10000158C(&v95);
               }
             }
 
@@ -253,17 +252,17 @@ LABEL_204:
               switch(v13)
               {
                 case 'c':
-                  *&v96.st_dev = 0;
-                  v29 = IORegistryEntryCreateCFProperties(*(v7 + 3), &v96, 0, 0);
+                  *&v95.st_dev = 0;
+                  v29 = IORegistryEntryCreateCFProperties(*(v7 + 3), &v95, 0, 0);
                   LODWORD(format[0]) = v29;
                   if (v29)
                   {
                     sub_10000239C(v29);
                   }
 
-                  CFDictionaryApplyFunction(*&v96.st_dev, sub_1000022F8, format);
-                  CFRelease(*&v96.st_dev);
-                  v94 = LODWORD(format[0]);
+                  CFDictionaryApplyFunction(*&v95.st_dev, sub_1000022F8, format);
+                  CFRelease(*&v95.st_dev);
+                  v93 = LODWORD(format[0]);
                   break;
                 case 'd':
                   if (++v10 >= v8)
@@ -287,7 +286,7 @@ LABEL_204:
 
                   if (v9[17] == 1)
                   {
-                    memset(&v96, 0, sizeof(v96));
+                    memset(&v95, 0, sizeof(v95));
                     format[0] = kCFPropertyListBinaryFormat_v1_0;
                     v17 = open(v16, 256, 0x8000);
                     if (v17 == -1)
@@ -296,31 +295,31 @@ LABEL_204:
                     }
 
                     v18 = v17;
-                    if (fstat(v17, &v96) == -1)
+                    if (fstat(v17, &v95) == -1)
                     {
                       sub_1000024F4(v16);
                     }
 
-                    if (v96.st_size >= &_mh_execute_header)
+                    if (v95.st_size >= &_mh_execute_header)
                     {
                       sub_1000024D8();
                     }
 
-                    v19 = malloc_type_malloc(v96.st_size, 0x89FD19DDuLL);
+                    v19 = malloc_type_malloc(v95.st_size, 0x89FD19DDuLL);
                     if (!v19)
                     {
                       sub_1000024BC();
                     }
 
                     v20 = v19;
-                    v21 = read(v18, v19, v96.st_size);
-                    if (v21 != v96.st_size)
+                    v21 = read(v18, v19, v95.st_size);
+                    if (v21 != v95.st_size)
                     {
                       sub_100002430(v16);
                     }
 
                     close(v18);
-                    v22 = CFReadStreamCreateWithBytesNoCopy(kCFAllocatorDefault, v20, v96.st_size, kCFAllocatorNull);
+                    v22 = CFReadStreamCreateWithBytesNoCopy(kCFAllocatorDefault, v20, v95.st_size, kCFAllocatorNull);
                     if (!v22)
                     {
                       sub_1000024A0();
@@ -332,7 +331,7 @@ LABEL_204:
                       sub_100002484();
                     }
 
-                    v24 = CFPropertyListCreateWithStream(kCFAllocatorDefault, v23, v96.st_size, 0, format, 0);
+                    v24 = CFPropertyListCreateWithStream(kCFAllocatorDefault, v23, v95.st_size, 0, format, 0);
                     if (!v24)
                     {
                       sub_100002468();
@@ -388,7 +387,7 @@ LABEL_204:
                             if (!__maskrune(v39, 0x4000uLL))
                             {
 LABEL_93:
-                              *(&v96.st_dev + v40++) = v39;
+                              *(&v95.st_dev + v40++) = v39;
                               v42 = 5;
                             }
                           }
@@ -406,12 +405,12 @@ LABEL_93:
                             goto LABEL_93;
                           }
 
-                          if (*(&v96 + v40 - 1) != 92)
+                          if (*(&v95 + v40 - 1) != 92)
                           {
 LABEL_80:
                             *(format + v41) = 0;
-                            *(&v96.st_dev + v40) = 0;
-                            v43 = sub_1000016A8(format, &v96);
+                            *(&v95.st_dev + v40) = 0;
+                            v43 = sub_1000016A8(format, &v95);
                             if (v43)
                             {
                               goto LABEL_195;
@@ -420,7 +419,7 @@ LABEL_80:
                             goto LABEL_81;
                           }
 
-                          *(&v96 + v40 - 1) = 13;
+                          *(&v95 + v40 - 1) = 13;
                           v42 = 6;
                         }
                       }
@@ -542,7 +541,7 @@ LABEL_106:
 LABEL_112:
                   v15 = &byte_100008000;
                   v7 = &byte_100008000;
-                  v8 = v93;
+                  v8 = v92;
                   break;
                 default:
                   goto LABEL_204;
@@ -555,7 +554,7 @@ LABEL_112:
         }
       }
 
-      ++v92;
+      ++v91;
       v52 = (v11 + 1);
       while (v12 <= 44)
       {
@@ -622,8 +621,8 @@ LABEL_144:
           sub_100001DD8(v55, CFProperty);
           MutableCopy = 0;
           v53 = 0;
-          a2 = v90;
-          v8 = v93;
+          a2 = v89;
+          v8 = v92;
           goto LABEL_171;
         }
 
@@ -710,16 +709,16 @@ LABEL_156:
 
       v52 = v53;
 LABEL_168:
-      a2 = v90;
-      v8 = v93;
+      a2 = v89;
+      v8 = v92;
 LABEL_169:
       v83 = sub_1000016A8(v11, v52);
       sub_10000167C();
       if (v83)
       {
-        v88 = __stderrp;
-        v89 = mach_error_string(v83);
-        fprintf(v88, "Error setting variable - '%s': %s.\n", v11, v89);
+        v87 = __stderrp;
+        v88 = mach_error_string(v83);
+        fprintf(v87, "Error setting variable - '%s': %s.\n", v11, v88);
         if (v83 == -536870211)
         {
           sub_100001B7C();
@@ -744,7 +743,7 @@ LABEL_171:
         free(v53);
       }
 
-      a1 = v91;
+      a1 = v90;
       if (MutableCopy)
       {
         CFRelease(MutableCopy);
@@ -757,8 +756,8 @@ LABEL_179:
       {
         v5 = &byte_100008000;
         v6 = &byte_100008000;
-        v84 = v94;
-        if (!v92)
+        v84 = v93;
+        if (!v91)
         {
           goto LABEL_183;
         }

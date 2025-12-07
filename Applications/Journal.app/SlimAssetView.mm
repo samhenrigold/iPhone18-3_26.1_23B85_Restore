@@ -62,11 +62,11 @@
 - (NSArray)accessibilityCustomActions
 {
   selfCopy = self;
-  v3 = sub_100806708();
+  v3 = sub_100806708(selfCopy);
 
   if (v3)
   {
-    sub_1000065A8(0, &qword_100AD86C0);
+    sub_1000065A8(0, &qword_100AD86C0, UIAccessibilityCustomAction_ptr);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -83,7 +83,7 @@
   isa = actions;
   if (actions)
   {
-    sub_1000065A8(0, &qword_100AD86C0);
+    sub_1000065A8(0, &qword_100AD86C0, UIAccessibilityCustomAction_ptr);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
     selfCopy = self;
     isa = Array._bridgeToObjectiveC()().super.isa;

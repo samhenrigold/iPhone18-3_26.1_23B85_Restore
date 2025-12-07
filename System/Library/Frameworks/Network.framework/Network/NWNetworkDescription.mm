@@ -216,7 +216,7 @@ LABEL_6:
     v13 = gLogObj;
     *buf = 136446210;
     v66 = "[NWNetworkDescription matchesPath:]";
-    v14 = _os_log_send_and_compose_impl();
+    v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v13, 16, "%{public}s called with null path", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v59 = 0;

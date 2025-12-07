@@ -81,7 +81,7 @@
     v5 = v4;
     if (v4)
     {
-      [v4 realToken];
+      objc_msgSend_realToken(v4);
     }
 
     else

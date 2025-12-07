@@ -197,7 +197,7 @@ LABEL_10:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d connection is invalid", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d connection is invalid", v2, v3, v4, v5);
     }
   }
 

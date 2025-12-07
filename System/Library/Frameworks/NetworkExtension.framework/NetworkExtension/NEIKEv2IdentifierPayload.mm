@@ -3,6 +3,7 @@
 - (BOOL)hasRequiredFields;
 - (BOOL)parsePayloadData:(id)data;
 - (id)copyPayloadData;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)setPayloadData:(uint64_t)data;
 @end
 
@@ -10,16 +11,16 @@
 
 - (BOOL)parsePayloadData:(id)data
 {
-  *&v17[5] = *MEMORY[0x1E69E9840];
+  *&v16[5] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if ([dataCopy length] > 3)
   {
     v5 = [dataCopy copy];
     [(NEIKEv2IdentifierPayload *)self setPayloadData:v5];
-    v15 = 0;
-    [v5 getBytes:&v15 length:4];
+    v14 = 0;
+    [v5 getBytes:&v14 length:4];
     v6 = [v5 subdataWithRange:4, [v5 length]- 4];
-    v7 = [NEIKEv2Identifier createIdentifierWithType:v15 data:v6];
+    v7 = [NEIKEv2Identifier createIdentifierWithType:v14 data:v6];
     v9 = v7;
     if (self)
     {
@@ -42,9 +43,9 @@ LABEL_12:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109378;
-      v17[0] = v15;
-      LOWORD(v17[1]) = 2112;
-      *(&v17[1] + 2) = v6;
+      v16[0] = v14;
+      LOWORD(v16[1]) = 2112;
+      *(&v16[1] + 2) = v6;
       _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, "Failed to parse identifier type %u data %@", buf, 0x12u);
     }
 
@@ -56,14 +57,13 @@ LABEL_12:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    *v17 = "[NEIKEv2IdentifierPayload parsePayloadData:]";
+    *v16 = "[NEIKEv2IdentifierPayload parsePayloadData:]";
     _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "BACKTRACE %s called with null (payloadData.length >= sizeof(ikev2_payload_id_hdr_t))", buf, 0xCu);
   }
 
   hasRequiredFields = 0;
 LABEL_13:
 
-  v13 = *MEMORY[0x1E69E9840];
   return hasRequiredFields;
 }
 
@@ -77,7 +77,7 @@ LABEL_13:
 
 - (BOOL)generatePayloadData
 {
-  v61[1] = *MEMORY[0x1E69E9840];
+  v60[1] = *MEMORY[0x1E69E9840];
   if (!self)
   {
     hasRequiredFields = [0 hasRequiredFields];
@@ -124,7 +124,7 @@ LABEL_8:
               v35 = [(NEIKEv2IKESA *)v24 createConcatenatedSPIsAndReturnError:?];
               if (v35)
               {
-                v57 = v15;
+                v56 = v15;
                 v36 = [(NEIKEv2IKESA *)v24 createConcatedNoncesAndReturnError:?];
                 if (v36)
                 {
@@ -153,7 +153,7 @@ LABEL_8:
                   v43 = 0;
                 }
 
-                v15 = v57;
+                v15 = v56;
               }
 
               else
@@ -166,7 +166,7 @@ LABEL_8:
 
             else
             {
-              ErrorInternal = NEIKEv2CreateErrorInternal(@"Missing identifier data", v28, v29, v30, v31, v32, v33, v34, v56);
+              ErrorInternal = NEIKEv2CreateErrorInternal(@"Missing identifier data", v28, v29, v30, v31, v32, v33, v34, v55);
               v43 = 0;
               *location = ErrorInternal;
             }
@@ -187,7 +187,7 @@ LABEL_8:
 
           else
           {
-            v45 = NEIKEv2CreateErrorInternal(@"Missing IKE SA", v17, v18, v19, v20, v21, v22, v23, v56);
+            v45 = NEIKEv2CreateErrorInternal(@"Missing IKE SA", v17, v18, v19, v20, v21, v22, v23, v55);
             v43 = 0;
           }
 
@@ -231,9 +231,9 @@ LABEL_31:
         [v50 appendBytes:location length:4];
         [v50 appendData:identifierData];
         [(NEIKEv2IdentifierPayload *)self setPayloadData:v50];
-        v59 = v50;
+        v58 = v50;
         v3 = 1;
-        v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v59 count:1];
+        v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v58 count:1];
         [(NEIKEv2KeyExchangeHandler *)self setSharedSecret:v51];
 
         goto LABEL_44;
@@ -268,16 +268,16 @@ LABEL_41:
     payloadData = self->_payloadData;
     if (payloadData)
     {
-      v61[0] = self->_payloadData;
+      v60[0] = self->_payloadData;
       v5 = MEMORY[0x1E695DEC8];
       v6 = payloadData;
-      identifierData = [v5 arrayWithObjects:v61 count:1];
+      identifierData = [v5 arrayWithObjects:v60 count:1];
       [(NEIKEv2KeyExchangeHandler *)self setSharedSecret:identifierData];
 
       v3 = 1;
 LABEL_44:
 
-      goto LABEL_45;
+      return v3;
     }
 
     if ([(NEIKEv2IdentifierPayload *)self hasRequiredFields])
@@ -289,10 +289,7 @@ LABEL_44:
     goto LABEL_41;
   }
 
-  v3 = 1;
-LABEL_45:
-  v54 = *MEMORY[0x1E69E9840];
-  return v3;
+  return 1;
 }
 
 - (BOOL)hasRequiredFields
@@ -303,6 +300,28 @@ LABEL_45:
   }
 
   return self != 0;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  typeDescription = [(NEIKEv2IdentifierPayload *)self typeDescription];
+  [v7 appendPrettyObject:typeDescription withName:@"Payload Type" andIndent:v5 options:options];
+
+  if (self)
+  {
+    Property = objc_getProperty(self, v9, 32, 1);
+  }
+
+  else
+  {
+    Property = 0;
+  }
+
+  [v7 appendPrettyObject:Property withName:@"Identifier" andIndent:v5 options:options];
+
+  return v7;
 }
 
 - (id)copyPayloadData

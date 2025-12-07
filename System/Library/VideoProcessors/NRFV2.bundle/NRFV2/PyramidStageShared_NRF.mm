@@ -3,9 +3,71 @@
 + (id)compileShader:(id)shader kernelType:(int)type;
 + (id)compileShader:(id)shader lumaWrite:(BOOL)write chromaWrite:(BOOL)chromaWrite;
 + (id)getSharedInstanceOrRelease:(BOOL)release;
+- (id)getPipeline:(id)pipeline lumaWrite:(BOOL)write chromaWrite:(BOOL)chromaWrite;
+- (id)getRec709DownsamplePipelineState:(id)state kernelType:(int)type;
 @end
 
 @implementation PyramidStageShared_NRF
+
+- (id)getPipeline:(id)pipeline lumaWrite:(BOOL)write chromaWrite:(BOOL)chromaWrite
+{
+  chromaWriteCopy = chromaWrite;
+  writeCopy = write;
+  pipelineCopy = pipeline;
+  v9 = self + 16 * writeCopy + 8 * chromaWriteCopy;
+  v11 = *(v9 + 1);
+  v10 = (v9 + 8);
+  v13 = v11;
+  if (!v13)
+  {
+    v13 = objc_msgSend_compileShader_lumaWrite_chromaWrite_(PyramidStageShared_NRF, v12, pipelineCopy, writeCopy, chromaWriteCopy);
+    if (v13)
+    {
+      objc_storeStrong(v10, v13);
+    }
+
+    else
+    {
+      sub_2958989DC();
+    }
+  }
+
+  return v13;
+}
+
+- (id)getRec709DownsamplePipelineState:(id)state kernelType:(int)type
+{
+  v4 = *&type;
+  stateCopy = state;
+  if (v4 >= 0xC)
+  {
+    sub_295898B3C();
+    v11 = 0;
+  }
+
+  else
+  {
+    v7 = &self->super.isa + v4;
+    v9 = v7[5];
+    v8 = (v7 + 5);
+    v11 = v9;
+    if (!v11)
+    {
+      v11 = objc_msgSend_compileShader_kernelType_(PyramidStageShared_NRF, v10, stateCopy, v4);
+      if (v11)
+      {
+        objc_storeStrong(v8, v11);
+      }
+
+      else
+      {
+        sub_295898A8C();
+      }
+    }
+  }
+
+  return v11;
+}
 
 + (BOOL)isRec709DownsampleSupported
 {

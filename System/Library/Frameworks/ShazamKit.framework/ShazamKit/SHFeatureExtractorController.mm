@@ -32,37 +32,37 @@
 
   if (musicalFeaturesExtractor)
   {
-    v10 = sh_log_object();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = sh_log_object(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      *v20 = 0;
-      _os_log_impl(&dword_230F52000, v10, OS_LOG_TYPE_INFO, "A musical features extractor is already initialized", v20, 2u);
+      *v21 = 0;
+      _os_log_impl(&dword_230F52000, v11, OS_LOG_TYPE_INFO, "A musical features extractor is already initialized", v21, 2u);
     }
 
-    v11 = 1;
+    v12 = 1;
   }
 
   else
   {
     if (!configurationCopy)
     {
-      v15 = MEMORY[0x277CBEAD8];
-      v16 = *MEMORY[0x277CBE660];
-      v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"A Musical Features extractor must not be initialized with a nil configuration object"];
-      v18 = [v15 exceptionWithName:v16 reason:v17 userInfo:0];
-      v19 = v18;
+      v16 = MEMORY[0x277CBEAD8];
+      v17 = *MEMORY[0x277CBE660];
+      v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"A Musical Features extractor must not be initialized with a nil configuration object"];
+      v19 = [v16 exceptionWithName:v17 reason:v18 userInfo:0];
+      v20 = v19;
 
-      objc_exception_throw(v18);
+      objc_exception_throw(v19);
     }
 
-    v12 = [[SHMusicalFeaturesExtractor alloc] initWithConfiguration:configurationCopy sampleRate:error error:rate];
-    [(SHFeatureExtractorController *)self setMusicalFeaturesExtractor:v12];
+    v13 = [[SHMusicalFeaturesExtractor alloc] initWithConfiguration:configurationCopy sampleRate:error error:rate];
+    [(SHFeatureExtractorController *)self setMusicalFeaturesExtractor:v13];
 
     musicalFeaturesExtractor2 = [(SHFeatureExtractorController *)self musicalFeaturesExtractor];
-    v11 = musicalFeaturesExtractor2 != 0;
+    v12 = musicalFeaturesExtractor2 != 0;
   }
 
-  return v11;
+  return v12;
 }
 
 - (void)enableSpectralOutputWithConfiguration:(id)configuration completionHandler:(id)handler
@@ -90,18 +90,18 @@
 
 - (BOOL)flowBuffer:(id)buffer error:(id *)error
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   spectralPeaksExtractor = [(SHFeatureExtractorController *)self spectralPeaksExtractor];
-  v21 = 0;
-  v8 = [(SHFeatureExtractorController *)self flowBuffer:bufferCopy throughExtractor:spectralPeaksExtractor error:&v21];
-  v9 = v21;
+  v20 = 0;
+  v8 = [(SHFeatureExtractorController *)self flowBuffer:bufferCopy throughExtractor:spectralPeaksExtractor error:&v20];
+  v9 = v20;
 
   musicalFeaturesExtractor = [(SHFeatureExtractorController *)self musicalFeaturesExtractor];
-  v20 = 0;
-  LOBYTE(self) = [(SHFeatureExtractorController *)self flowBuffer:bufferCopy throughExtractor:musicalFeaturesExtractor error:&v20];
+  v19 = 0;
+  LOBYTE(self) = [(SHFeatureExtractorController *)self flowBuffer:bufferCopy throughExtractor:musicalFeaturesExtractor error:&v19];
 
-  v11 = v20;
+  v11 = v19;
   v12 = v8 & self;
   if (!v12)
   {
@@ -120,15 +120,14 @@
     v15 = [v14 count];
     if (error && v15)
     {
-      v22 = *MEMORY[0x277CCA578];
+      v21 = *MEMORY[0x277CCA578];
       v16 = [v14 copy];
-      v23[0] = v16;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v22[0] = v16;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       *error = [SHError errorWithCode:200 underlyingError:0 keyOverrides:v17];
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -138,39 +137,38 @@
   bufferCopy = buffer;
   extractorCopy = extractor;
   v9 = extractorCopy;
-  if (extractorCopy && ([extractorCopy flowBuffer:bufferCopy error:error] & 1) == 0)
+  if (extractorCopy && (v10 = [extractorCopy flowBuffer:bufferCopy error:error], (v10 & 1) == 0))
   {
-    v11 = sh_log_object();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sh_log_object(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v12 = *error;
+      v13 = *error;
       v15 = 138412290;
-      v16 = v12;
-      _os_log_impl(&dword_230F52000, v11, OS_LOG_TYPE_ERROR, "Error appending buffer to features extractor: %@", &v15, 0xCu);
+      v16 = v13;
+      _os_log_impl(&dword_230F52000, v12, OS_LOG_TYPE_ERROR, "Error appending buffer to features extractor: %@", &v15, 0xCu);
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v10 = 1;
+    v11 = 1;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v11;
 }
 
 - (id)signatureDataForExtractor:(id)extractor error:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   extractorCopy = extractor;
   v6 = extractorCopy;
   if (extractorCopy)
   {
-    v14 = 0;
-    v7 = [extractorCopy signatureWithError:&v14];
-    v8 = v14;
+    v13 = 0;
+    v7 = [extractorCopy signatureWithError:&v13];
+    v8 = v13;
     v9 = v8;
     if (v7)
     {
@@ -179,13 +177,13 @@
 
     else if (v8)
     {
-      v11 = sh_log_object();
+      v11 = sh_log_object(v8);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v16 = v6;
-        v17 = 2112;
-        v18 = v9;
+        v15 = v6;
+        v16 = 2112;
+        v17 = v9;
         _os_log_impl(&dword_230F52000, v11, OS_LOG_TYPE_ERROR, "Extractor %@ failed to generate a signature with error: %@", buf, 0x16u);
       }
 
@@ -197,8 +195,6 @@
   {
     v7 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

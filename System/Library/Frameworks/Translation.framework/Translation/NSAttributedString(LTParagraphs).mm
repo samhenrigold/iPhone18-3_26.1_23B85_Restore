@@ -54,34 +54,34 @@
 
 - (id)paragraphs
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CD89E0]) initWithUnit:2];
   string = [self string];
   [v2 setString:string];
 
-  v23 = v2;
+  v22 = v2;
   v4 = [v2 tokensForRange:{0, objc_msgSend(self, "length")}];
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v25;
+    v9 = *v24;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        rangeValue = [*(*(&v24 + 1) + 8 * i) rangeValue];
+        rangeValue = [*(*(&v23 + 1) + 8 * i) rangeValue];
         v13 = [self attributedSubstringFromRange:{rangeValue, v12}];
         whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
         v15 = [v13 _ltAttributedStringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
@@ -92,7 +92,7 @@
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v8);
@@ -112,11 +112,11 @@
       else
       {
         firstObject = [v5 firstObject];
-        v28 = firstObject;
-        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+        v27 = firstObject;
+        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
       }
 
-      v20 = v23;
+      v20 = v22;
 
       goto LABEL_19;
     }
@@ -129,44 +129,42 @@
     v16 = v5;
   }
 
-  v20 = v23;
+  v20 = v22;
 LABEL_19:
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 - (id)sentences
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CD89E0]) initWithUnit:1];
   string = [self string];
   [v2 setString:string];
 
-  v18 = v2;
+  v17 = v2;
   v4 = [v2 tokensForRange:{0, objc_msgSend(self, "length")}];
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        rangeValue = [*(*(&v19 + 1) + 8 * i) rangeValue];
+        rangeValue = [*(*(&v18 + 1) + 8 * i) rangeValue];
         v13 = [self attributedSubstringFromRange:{rangeValue, v12}];
         whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
         v15 = [v13 _ltAttributedStringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
@@ -177,13 +175,11 @@ LABEL_19:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v8);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

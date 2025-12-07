@@ -46,16 +46,16 @@ void __33__CDBDataProtectionObserver_init__block_invoke(uint64_t a1)
 
 - (void)_deviceLockStateChanged
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = CDBLogHandle;
   if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_DEBUG))
   {
     v4 = v3;
     [(CDBDataProtectionObserver *)self dataIsAccessible];
     v5 = CalBooleanAsString();
-    v9 = 138412290;
-    v10 = v5;
-    _os_log_impl(&dword_1DEBB1000, v4, OS_LOG_TYPE_DEBUG, "Device lock state changed.  New 'dataIsAccessible' state: [%@].", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v5;
+    _os_log_impl(&dword_1DEBB1000, v4, OS_LOG_TYPE_DEBUG, "Device lock state changed.  New 'dataIsAccessible' state: [%@].", &v8, 0xCu);
   }
 
   stateChangedCallback = [(CDBDataProtectionObserver *)self stateChangedCallback];
@@ -64,8 +64,6 @@ void __33__CDBDataProtectionObserver_init__block_invoke(uint64_t a1)
   {
     (*(stateChangedCallback + 16))(stateChangedCallback);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

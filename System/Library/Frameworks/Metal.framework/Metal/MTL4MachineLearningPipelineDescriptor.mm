@@ -305,7 +305,7 @@ LABEL_5:
   dimensionsCopy = dimensions;
   v9 = self->_extents;
   v11 = &indexCopy;
-  std::__hash_table<std::__hash_value_type<long,MTLTensorExtents *>,std::__unordered_map_hasher<long,std::__hash_value_type<long,MTLTensorExtents *>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,MTLTensorExtents *>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,MTLTensorExtents *>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v9, &indexCopy)[3] = dimensionsCopy;
+  std::__hash_table<std::__hash_value_type<long,MTLTensorExtents *>,std::__unordered_map_hasher<long,std::__hash_value_type<long,MTLTensorExtents *>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,MTLTensorExtents *>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,MTLTensorExtents *>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v9, &indexCopy, &std::piecewise_construct, &v11)[3] = dimensionsCopy;
 }
 
 - (void)setInputDimensions:(id)dimensions withRange:(_NSRange)range
@@ -350,7 +350,7 @@ LABEL_5:
       v21 = self->_extents;
       v23 = location + i;
       v24 = &v23;
-      std::__hash_table<std::__hash_value_type<long,MTLTensorExtents *>,std::__unordered_map_hasher<long,std::__hash_value_type<long,MTLTensorExtents *>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,MTLTensorExtents *>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,MTLTensorExtents *>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>(v21, &v23)[3] = v20;
+      std::__hash_table<std::__hash_value_type<long,MTLTensorExtents *>,std::__unordered_map_hasher<long,std::__hash_value_type<long,MTLTensorExtents *>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,MTLTensorExtents *>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,MTLTensorExtents *>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long &&>,std::tuple<>>(v21, &v23, &std::piecewise_construct, &v24)[3] = v20;
     }
   }
 }

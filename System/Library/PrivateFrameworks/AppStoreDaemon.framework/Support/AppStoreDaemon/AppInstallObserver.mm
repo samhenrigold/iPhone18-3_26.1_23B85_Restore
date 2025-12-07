@@ -23,11 +23,11 @@
       [(NSOperationQueue *)v5->_operationQueue setName:@"com.apple.appstored.AppInstallObserver.policyQueue"];
     }
 
-    v6 = sub_1003C27BC();
+    v6 = sub_1003C27BC(AppInstallsDatabaseStore);
     databaseStore = v2->_databaseStore;
     v2->_databaseStore = v6;
 
-    v8 = sub_1002C0D84();
+    v8 = sub_1002C0D84(AppInstallScheduler);
     installScheduler = v2->_installScheduler;
     v2->_installScheduler = v8;
 
@@ -139,7 +139,7 @@
 
   if (phase == 1)
   {
-    v11 = sub_1003649C8();
+    v11 = sub_1003649C8(ProgressCache);
     bundleID = [coordinatorCopy bundleID];
     sub_1003670E4(v11, bundleID, fmin(progress / 100.0, 1.0));
   }

@@ -167,7 +167,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    usbAction = self->_usbAction;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -187,7 +186,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  usbTotal = self->_usbTotal;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -202,7 +200,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  durationSinceUSBEventInSeconds = self->_durationSinceUSBEventInSeconds;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -217,12 +214,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  isVendorApple = self->_isVendorApple;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_6:
-    smartCCADesenseSupported = self->_smartCCADesenseSupported;
     PBDataWriterWriteBOOLField();
   }
 
@@ -420,7 +415,6 @@ LABEL_6:
       goto LABEL_25;
     }
 
-    v7 = *(equalCopy + 24);
     if (self->_isVendorApple)
     {
       if ((*(equalCopy + 24) & 1) == 0)

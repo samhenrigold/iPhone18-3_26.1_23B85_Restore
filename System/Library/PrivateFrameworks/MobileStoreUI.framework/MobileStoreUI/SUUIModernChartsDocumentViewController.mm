@@ -342,9 +342,9 @@ LABEL_9:
 
               v17 = *(*(&v36 + 1) + 8 * v16);
               title = [v17 title];
-              v19 = [title isEqualToString:string];
+              isEqualToString = objc_msgSend_isEqualToString_(title);
 
-              if (v19)
+              if (isEqualToString)
               {
                 break;
               }

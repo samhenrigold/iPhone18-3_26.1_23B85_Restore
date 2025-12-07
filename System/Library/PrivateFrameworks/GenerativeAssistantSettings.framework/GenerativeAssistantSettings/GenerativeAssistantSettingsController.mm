@@ -11,13 +11,12 @@
 {
   v2 = sub_2230C3714();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_2230C3704();
-  v7 = sub_2230C36D4();
-  (*(v3 + 8))(v6, v2);
-  return (v7 & 1) == 0;
+  v6 = sub_2230C36D4();
+  (*(v3 + 8))(v5, v2);
+  return (v6 & 1) == 0;
 }
 
 - (GenerativeAssistantSettingsController)initWithNibName:(id)name bundle:(id)bundle
@@ -46,7 +45,7 @@
   }
 
   v12.receiver = self;
-  v12.super_class = type metadata accessor for GenerativeAssistantSettingsController();
+  v12.super_class = type metadata accessor for GenerativeAssistantSettingsController(0);
   v10 = [(GenerativeAssistantSettingsController *)&v12 initWithNibName:v9 bundle:bundleCopy];
 
   return v10;
@@ -57,7 +56,7 @@
   coderCopy = coder;
   sub_2230C3704();
   v7.receiver = self;
-  v7.super_class = type metadata accessor for GenerativeAssistantSettingsController();
+  v7.super_class = type metadata accessor for GenerativeAssistantSettingsController(0);
   v5 = [(GenerativeAssistantSettingsController *)&v7 initWithCoder:coderCopy];
 
   if (v5)

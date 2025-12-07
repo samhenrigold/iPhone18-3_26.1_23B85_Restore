@@ -10,11 +10,11 @@
 
 - (_BlastDoorLPiTunesMediaSoftwareMetadata)initWithCoder:(id)coder
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v29.receiver = self;
-  v29.super_class = _BlastDoorLPiTunesMediaSoftwareMetadata;
-  v5 = [(_BlastDoorLPiTunesMediaSoftwareMetadata *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = _BlastDoorLPiTunesMediaSoftwareMetadata;
+  v5 = [(_BlastDoorLPiTunesMediaSoftwareMetadata *)&v28 init];
   if (v5)
   {
     v6 = decodeStringForKey(coderCopy, @"storeFrontIdentifier");
@@ -61,7 +61,6 @@
     v26 = v5;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -126,11 +125,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v19.receiver = self;
-  v19.super_class = _BlastDoorLPiTunesMediaSoftwareMetadata;
-  if ([(_BlastDoorLPiTunesMediaSoftwareMetadata *)&v19 isEqual:equalCopy])
+  v18.receiver = self;
+  v18.super_class = _BlastDoorLPiTunesMediaSoftwareMetadata;
+  if ([(_BlastDoorLPiTunesMediaSoftwareMetadata *)&v18 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -142,18 +141,7 @@
     {
       v6 = equalCopy;
       v7 = v6[2];
-      if (v7 | *&self->_isMessagesOnlyApp && ![v7 isEqual:?])
-      {
-        goto LABEL_26;
-      }
-
-      v8 = v6[3];
-      if (v8 | self->_storeFrontIdentifier && ![v8 isEqual:?])
-      {
-        goto LABEL_26;
-      }
-
-      if (((v9 = v6[4], !(v9 | self->_storeIdentifier)) || [v9 isEqual:?]) && ((v10 = v6[5], !(v10 | self->_name)) || objc_msgSend(v10, "isEqual:")) && ((v11 = v6[6], !(v11 | self->_subtitle)) || objc_msgSend(v11, "isEqual:")) && ((v12 = v6[7], !(v12 | self->_genre)) || objc_msgSend(v12, "isEqual:")) && ((v13 = v6[8], !(v13 | self->_platform)) || objc_msgSend(v13, "isEqual:")) && ((v14 = v6[9], !(v14 | self->_icon)) || objc_msgSend(v14, "isEqual:")) && ((v15 = v6[10], !(v15 | self->_screenshots)) || objc_msgSend(v15, "isEqual:")) && *(v6 + 9) == *(&self->super.__dummyPropertyForObservation + 1))
+      if ((!(v7 | *&self->_isMessagesOnlyApp) || [v7 isEqual:?]) && ((v8 = v6[3], !(v8 | self->_storeFrontIdentifier)) || objc_msgSend(v8, "isEqual:")) && ((v9 = v6[4], !(v9 | self->_storeIdentifier)) || objc_msgSend(v9, "isEqual:")) && ((v10 = v6[5], !(v10 | self->_name)) || objc_msgSend(v10, "isEqual:")) && ((v11 = v6[6], !(v11 | self->_subtitle)) || objc_msgSend(v11, "isEqual:")) && ((v12 = v6[7], !(v12 | self->_genre)) || objc_msgSend(v12, "isEqual:")) && ((v13 = v6[8], !(v13 | self->_platform)) || objc_msgSend(v13, "isEqual:")) && ((v14 = v6[9], !(v14 | self->_icon)) || objc_msgSend(v14, "isEqual:")) && ((v15 = v6[10], !(v15 | self->_screenshots)) || objc_msgSend(v15, "isEqual:")) && *(v6 + 9) == *(&self->super.__dummyPropertyForObservation + 1))
       {
         v16 = v6[11];
         if (v16 | self->_previewVideo)
@@ -169,7 +157,6 @@
 
       else
       {
-LABEL_26:
         v5 = 0;
       }
     }
@@ -180,7 +167,6 @@ LABEL_26:
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

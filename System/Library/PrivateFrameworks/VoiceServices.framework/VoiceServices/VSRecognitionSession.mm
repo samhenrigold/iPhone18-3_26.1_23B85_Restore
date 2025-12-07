@@ -2,7 +2,11 @@
 - (BOOL)_actionStarted:(id)started;
 - (BOOL)isActivelyRecognizing;
 - (BOOL)isRecognizing;
+- (BOOL)setBluetoothInputAllowed:(BOOL)allowed;
+- (BOOL)setDebugDumpEnabled:(BOOL)enabled;
 - (BOOL)setNextRecognitionAudioInputPath:(id)path;
+- (BOOL)setNextRecognitionRequiresReset:(BOOL)reset;
+- (BOOL)setPreferredEngine:(int)engine;
 - (VSRecognitionSession)init;
 - (VSRecognitionSession)initWithModelIdentifier:(id)identifier;
 - (__CFDictionary)_createKeywordIndex;
@@ -56,6 +60,62 @@
   self->_sessionFlags = (*&self->_sessionFlags & 0xFFFFFDFF | v3);
 }
 
+- (BOOL)setPreferredEngine:(int)engine
+{
+  if (((*&self->_sessionFlags >> 7) & 3) == engine)
+  {
+    LOBYTE(v3) = 1;
+  }
+
+  else
+  {
+    v4 = *&engine;
+    _currentRecognizeAction = [(VSRecognitionSession *)self _currentRecognizeAction];
+    if (!_currentRecognizeAction || (v3 = [_currentRecognizeAction _setPreferredEngine:v4]) != 0)
+    {
+      self->_sessionFlags = (*&self->_sessionFlags & 0xFFFFFE7F | ((v4 & 3) << 7));
+      LOBYTE(v3) = 1;
+    }
+  }
+
+  return v3;
+}
+
+- (BOOL)setNextRecognitionRequiresReset:(BOOL)reset
+{
+  if ((((*(&self->_sessionFlags + 1) & 0x10) == 0) ^ reset))
+  {
+    return 1;
+  }
+
+  resetCopy = reset;
+  _currentRecognizeAction = [(VSRecognitionSession *)self _currentRecognizeAction];
+  if (_currentRecognizeAction)
+  {
+    result = [_currentRecognizeAction _setEngineResetRequired:resetCopy];
+    v7 = *&self->_sessionFlags & 0xFFFFEFFF;
+  }
+
+  else
+  {
+    if (resetCopy)
+    {
+      v8 = 4096;
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+
+    v7 = *&self->_sessionFlags & 0xFFFFEFFF | v8;
+    result = 1;
+  }
+
+  self->_sessionFlags = v7;
+  return result;
+}
+
 - (BOOL)setNextRecognitionAudioInputPath:(id)path
 {
   if (self->_audioInputPath == path)
@@ -74,6 +134,51 @@
   return [_currentRecognizeAction _setAudioInputPath:path];
 }
 
+- (BOOL)setDebugDumpEnabled:(BOOL)enabled
+{
+  if ((((*&self->_sessionFlags & 0x40) == 0) ^ enabled))
+  {
+    LOBYTE(v3) = 1;
+  }
+
+  else
+  {
+    enabledCopy = enabled;
+
+    self->_debugDumpPath = 0;
+    _currentRecognizeAction = [(VSRecognitionSession *)self _currentRecognizeAction];
+    if (_currentRecognizeAction)
+    {
+      v7 = _currentRecognizeAction;
+      v3 = [_currentRecognizeAction _setDebugDumpEnabled:enabledCopy];
+      if (v3 && enabledCopy)
+      {
+        self->_debugDumpPath = [v7 _debugDumpPath];
+      }
+
+      else if (!v3)
+      {
+        return v3;
+      }
+    }
+
+    if (enabledCopy)
+    {
+      v8 = 64;
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+
+    self->_sessionFlags = (*&self->_sessionFlags & 0xFFFFFFBF | v8);
+    LOBYTE(v3) = 1;
+  }
+
+  return v3;
+}
+
 - (void)speechSynthesizer:(id)synthesizer didFinishSpeakingRequest:(id)request successfully:(BOOL)successfully phonemesSpoken:(id)spoken withError:(id)error
 {
   block[0] = MEMORY[0x277D85DD0];
@@ -86,16 +191,16 @@
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __105__VSRecognitionSession_speechSynthesizer_didFinishSpeakingRequest_successfully_phonemesSpoken_withError___block_invoke(uint64_t result)
+void *__105__VSRecognitionSession_speechSynthesizer_didFinishSpeakingRequest_successfully_phonemesSpoken_withError___block_invoke(void *result)
 {
-  v1 = *(result + 40);
-  if (*(result + 32) == *(v1 + 56))
+  v1 = *(result + 5);
+  if (*(result + 4) == *(v1 + 56))
   {
     v2 = *(v1 + 104);
     if ((v2 & 0x2000) != 0)
     {
       *(v1 + 104) = v2 & 0xFFFFDFFF;
-      return [*(result + 40) _notifyDelegateFinishedSpeakingWithError:*(result + 48)];
+      return [*(result + 5) _notifyDelegateFinishedSpeakingWithError:*(result + 6)];
     }
   }
 
@@ -181,14 +286,13 @@ uint64_t __105__VSRecognitionSession_speechSynthesizer_didFinishSpeakingRequest_
   userInfoKeys[1] = *MEMORY[0x277D85DE8];
   if ((*(&self->_sessionFlags + 1) & 0x20) != 0 || !self->_currentAction)
   {
-    v6 = *MEMORY[0x277CBECE8];
-    v7 = *MEMORY[0x277CBEE30];
+    v5 = *MEMORY[0x277CBECE8];
+    v6 = *MEMORY[0x277CBEE30];
     userInfoValues = @"session is already speaking";
-    userInfoKeys[0] = v7;
-    v8 = CFErrorCreateWithUserInfoKeysAndValues(v6, @"VSErrorDomain", -4003, userInfoKeys, &userInfoValues, 1);
-    v9 = v8;
-    v10 = *MEMORY[0x277D85DE8];
-    return v8;
+    userInfoKeys[0] = v6;
+    v7 = CFErrorCreateWithUserInfoKeysAndValues(v5, @"VSErrorDomain", -4003, userInfoKeys, &userInfoValues, 1);
+    v8 = v7;
+    return v7;
   }
 
   else
@@ -196,7 +300,6 @@ uint64_t __105__VSRecognitionSession_speechSynthesizer_didFinishSpeakingRequest_
     spokenFeedbackAttributedString = [(VSRecognitionSession *)self spokenFeedbackAttributedString];
     if (spokenFeedbackAttributedString)
     {
-      v4 = *MEMORY[0x277D85DE8];
 
       return [(VSRecognitionSession *)self _beginSpeakingAttributedString:spokenFeedbackAttributedString];
     }
@@ -204,7 +307,6 @@ uint64_t __105__VSRecognitionSession_speechSynthesizer_didFinishSpeakingRequest_
     else
     {
       spokenFeedbackString = [(VSRecognitionSession *)self spokenFeedbackString];
-      v12 = *MEMORY[0x277D85DE8];
 
       return [(VSRecognitionSession *)self beginSpeakingString:spokenFeedbackString];
     }
@@ -477,7 +579,6 @@ LABEL_8:
 
 - (id)_currentRecognizeAction
 {
-  currentAction = self->_currentAction;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -691,6 +792,37 @@ LABEL_8:
   return cancel;
 }
 
+- (BOOL)setBluetoothInputAllowed:(BOOL)allowed
+{
+  if ((((*(&self->_sessionFlags + 1) & 8) == 0) ^ allowed))
+  {
+    LOBYTE(v3) = 1;
+  }
+
+  else
+  {
+    allowedCopy = allowed;
+    _currentRecognizeAction = [(VSRecognitionSession *)self _currentRecognizeAction];
+    if (!_currentRecognizeAction || (v3 = [_currentRecognizeAction _setBluetoothInputAllowed:allowedCopy]) != 0)
+    {
+      if (allowedCopy)
+      {
+        v7 = 2048;
+      }
+
+      else
+      {
+        v7 = 0;
+      }
+
+      self->_sessionFlags = (*&self->_sessionFlags & 0xFFFFF7FF | v7);
+      LOBYTE(v3) = 1;
+    }
+  }
+
+  return v3;
+}
+
 - (void)setSensitiveActionsEnabled:(BOOL)enabled
 {
   if (enabled)
@@ -744,13 +876,11 @@ LABEL_8:
 
   else
   {
-    v8 = [[VSRecognitionRecognizeAction alloc] initWithModelIdentifier:self->_modelIdentifier];
-    [(VSRecognitionSession *)self _setAction:v8];
+    v7 = [[VSRecognitionRecognizeAction alloc] initWithModelIdentifier:self->_modelIdentifier];
+    [(VSRecognitionSession *)self _setAction:v7];
 
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -767,8 +897,7 @@ LABEL_8:
       self->_sessionFlags = (*&sessionFlags & 0xFFFEFFFF);
       [(VSRecognitionSession *)self _notifyDelegateActionStarted];
       [(VSRecognitionAction *)self->_currentAction _continueAfterDeferredStart];
-      perform = 0;
-      goto LABEL_20;
+      return 0;
     }
 
     v8 = *MEMORY[0x277CBECE8];
@@ -778,7 +907,7 @@ LABEL_10:
     userInfoValues = v9;
     perform = CFErrorCreateWithUserInfoKeysAndValues(v8, @"VSErrorDomain", -4003, userInfoKeys, &userInfoValues, 1);
     v10 = perform;
-    goto LABEL_20;
+    return perform;
   }
 
   if (!currentAction)
@@ -825,8 +954,6 @@ LABEL_10:
     }
   }
 
-LABEL_20:
-  v13 = *MEMORY[0x277D85DE8];
   return perform;
 }
 
@@ -846,12 +973,32 @@ LABEL_20:
     }
 
     self->_sessionFlags = (*&self->_sessionFlags & 0xFFFFFFFD | v4);
-    delegate = self->_delegate;
     self->_sessionFlags = (*&self->_sessionFlags & 0xFFFFFFFE | objc_opt_respondsToSelector() & 1);
-    v6 = self->_delegate;
     if (objc_opt_respondsToSelector())
     {
-      v7 = 4;
+      v5 = 4;
+    }
+
+    else
+    {
+      v5 = 0;
+    }
+
+    self->_sessionFlags = (*&self->_sessionFlags & 0xFFFFFFFB | v5);
+    if (objc_opt_respondsToSelector())
+    {
+      v6 = 8;
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+
+    self->_sessionFlags = (*&self->_sessionFlags & 0xFFFFFFF7 | v6);
+    if (objc_opt_respondsToSelector())
+    {
+      v7 = 32;
     }
 
     else
@@ -859,43 +1006,18 @@ LABEL_20:
       v7 = 0;
     }
 
-    self->_sessionFlags = (*&self->_sessionFlags & 0xFFFFFFFB | v7);
-    v8 = self->_delegate;
+    self->_sessionFlags = (*&self->_sessionFlags & 0xFFFFFFDF | v7);
     if (objc_opt_respondsToSelector())
     {
-      v9 = 8;
+      v8 = 16;
     }
 
     else
     {
-      v9 = 0;
+      v8 = 0;
     }
 
-    self->_sessionFlags = (*&self->_sessionFlags & 0xFFFFFFF7 | v9);
-    v10 = self->_delegate;
-    if (objc_opt_respondsToSelector())
-    {
-      v11 = 32;
-    }
-
-    else
-    {
-      v11 = 0;
-    }
-
-    self->_sessionFlags = (*&self->_sessionFlags & 0xFFFFFFDF | v11);
-    v12 = self->_delegate;
-    if (objc_opt_respondsToSelector())
-    {
-      v13 = 16;
-    }
-
-    else
-    {
-      v13 = 0;
-    }
-
-    self->_sessionFlags = (*&self->_sessionFlags & 0xFFFFFFEF | v13);
+    self->_sessionFlags = (*&self->_sessionFlags & 0xFFFFFFEF | v8);
   }
 }
 

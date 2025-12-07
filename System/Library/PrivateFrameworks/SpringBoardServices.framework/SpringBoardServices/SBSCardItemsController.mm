@@ -39,7 +39,7 @@
 {
   v9 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
-  v5 = SBLogWallet();
+  v5 = SBLogWallet(itemsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v7 = 134217984;
@@ -54,7 +54,7 @@
 void __39__SBSCardItemsController_setCardItems___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = SBLogWallet();
+  v3 = SBLogWallet(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __39__SBSCardItemsController_setCardItems___block_invoke_cold_1();
@@ -64,36 +64,37 @@ void __39__SBSCardItemsController_setCardItems___block_invoke(uint64_t a1, void 
 - (void)getCardItemsWithHandler:(id)handler
 {
   handlerCopy = handler;
+  v5 = handlerCopy;
   if (handlerCopy)
   {
-    v5 = SBLogWallet();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = SBLogWallet(handlerCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_19169D000, v5, OS_LOG_TYPE_INFO, "Get SBSCardItems", buf, 2u);
+      _os_log_impl(&dword_19169D000, v6, OS_LOG_TYPE_INFO, "Get SBSCardItems", buf, 2u);
     }
 
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __50__SBSCardItemsController_getCardItemsWithHandler___block_invoke;
-    v11[3] = &unk_1E735F0F8;
-    v6 = handlerCopy;
-    v12 = v6;
-    v7 = [(SBSCardItemsController *)self _remoteInterfaceWithErrorHandler:v11];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __50__SBSCardItemsController_getCardItemsWithHandler___block_invoke;
+    v12[3] = &unk_1E735F0F8;
+    v7 = v5;
+    v13 = v7;
+    v8 = [(SBSCardItemsController *)self _remoteInterfaceWithErrorHandler:v12];
     identifier = self->_identifier;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __50__SBSCardItemsController_getCardItemsWithHandler___block_invoke_175;
-    v9[3] = &unk_1E7361158;
-    v10 = v6;
-    [v7 getCardItemsForControllerWithIdentifier:identifier withHandler:v9];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __50__SBSCardItemsController_getCardItemsWithHandler___block_invoke_175;
+    v10[3] = &unk_1E7361158;
+    v11 = v7;
+    [v8 getCardItemsForControllerWithIdentifier:identifier withHandler:v10];
   }
 }
 
 void __50__SBSCardItemsController_getCardItemsWithHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = SBLogWallet();
+  v4 = SBLogWallet(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __50__SBSCardItemsController_getCardItemsWithHandler___block_invoke_cold_1();
@@ -104,34 +105,35 @@ void __50__SBSCardItemsController_getCardItemsWithHandler___block_invoke(uint64_
 
 void __50__SBSCardItemsController_getCardItemsWithHandler___block_invoke_175(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
-  v6 = a3;
-  if (v5 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  isKindOfClass = a3;
+  v7 = isKindOfClass;
+  if (v5 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
   {
-    v7 = SBLogWallet();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = SBLogWallet(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v10 = 134217984;
-      v11 = [v5 count];
-      _os_log_impl(&dword_19169D000, v7, OS_LOG_TYPE_INFO, "Got %ld SBSCardItems", &v10, 0xCu);
+      v11 = 134217984;
+      v12 = [v5 count];
+      _os_log_impl(&dword_19169D000, v8, OS_LOG_TYPE_INFO, "Got %ld SBSCardItems", &v11, 0xCu);
     }
 
-    v8 = *(*(a1 + 32) + 16);
+    v9 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    v9 = SBLogWallet();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = SBLogWallet(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __50__SBSCardItemsController_getCardItemsWithHandler___block_invoke_175_cold_1(v5, v9);
+      __50__SBSCardItemsController_getCardItemsWithHandler___block_invoke_175_cold_1(v5, v10);
     }
 
-    v8 = *(*(a1 + 32) + 16);
+    v9 = *(*(a1 + 32) + 16);
   }
 
-  v8();
+  v9();
 }
 
 - (id)_remoteInterfaceWithErrorHandler:(id)handler
@@ -153,7 +155,7 @@ void __50__SBSCardItemsController_getCardItemsWithHandler___block_invoke_175(uin
 void __59__SBSCardItemsController__remoteInterfaceWithErrorHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = SBLogWallet();
+  v4 = SBLogWallet(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __59__SBSCardItemsController__remoteInterfaceWithErrorHandler___block_invoke_cold_1();
@@ -209,7 +211,7 @@ void __53__SBSCardItemsController__connectToServerIfNecessary__block_invoke(uint
 
 - (void)_noteConnectionDropped
 {
-  v3 = SBLogWallet();
+  v3 = SBLogWallet(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [(SBSCardItemsController *)v3 _noteConnectionDropped];

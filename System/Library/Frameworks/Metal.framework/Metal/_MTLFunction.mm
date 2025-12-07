@@ -113,7 +113,7 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v20[12] = *MEMORY[0x1E69E9840];
+  v19[12] = *MEMORY[0x1E69E9840];
   v5 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v6 = [@"\n" stringByPaddingToLength:description + 5 withString:@" " startingAtIndex:0];
   stageInputAttributes = [(_MTLFunction *)self stageInputAttributes];
@@ -129,12 +129,12 @@
   }
 
   v10 = MEMORY[0x1E696AEC0];
-  v19.receiver = self;
-  v19.super_class = _MTLFunction;
-  v11 = [(_MTLFunction *)&v19 description];
+  v18.receiver = self;
+  v18.super_class = _MTLFunction;
+  v11 = [(_MTLFunction *)&v18 description];
   name = self->_name;
-  v20[0] = v5;
-  v20[1] = @"name =";
+  v19[0] = v5;
+  v19[1] = @"name =";
   if (name)
   {
     v13 = name;
@@ -145,9 +145,9 @@
     v13 = @"<none>";
   }
 
-  v20[2] = v13;
-  v20[3] = v5;
-  v20[4] = @"device =";
+  v19[2] = v13;
+  v19[3] = v5;
+  v19[4] = @"device =";
   device = self->_device;
   if (device)
   {
@@ -159,11 +159,11 @@
     v15 = @"<null>";
   }
 
-  v20[5] = v15;
-  v20[6] = v5;
-  v20[7] = @"functionType =";
-  v20[8] = MTLFunctionTypeString(self->_functionType);
-  v20[9] = v5;
+  v19[5] = v15;
+  v19[6] = v5;
+  v19[7] = @"functionType =";
+  v19[8] = MTLFunctionTypeString(self->_functionType);
+  v19[9] = v5;
   if (v9)
   {
     v16 = v9;
@@ -174,11 +174,9 @@
     v16 = @"<none>";
   }
 
-  v20[10] = @"attributes:";
-  v20[11] = v16;
-  result = [v10 stringWithFormat:@"%@%@", v11, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v20, 12), "componentsJoinedByString:", @" "];
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  v19[10] = @"attributes:";
+  v19[11] = v16;
+  return [v10 stringWithFormat:@"%@%@", v11, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v19, 12), "componentsJoinedByString:", @" "];
 }
 
 - (id)reflectionWithOptions:(unint64_t)options binaryArchives:(id)archives

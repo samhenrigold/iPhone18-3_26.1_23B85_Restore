@@ -9,7 +9,9 @@
 - (void)submitMeric5GVersusWiFiLinkMetrics;
 - (void)submitMericStreaming;
 - (void)submitMetricWiFiCallingEnd;
+- (void)submitMetricsCBRSForSim:(int64_t)sim dataLQM:(int)m congested:(BOOL)congested;
 - (void)submitMetricsFaceTimeHandover;
+- (void)submitMetricsTelephonyOrFtCallEnd:(BOOL)end;
 - (void)submitProximityMetrics:(BOOL)metrics;
 @end
 
@@ -83,6 +85,165 @@
   v5.receiver = self;
   v5.super_class = WRM_AWDService;
   [(WRM_AWDService *)&v5 dealloc];
+}
+
+- (void)submitMetricsTelephonyOrFtCallEnd:(BOOL)end
+{
+  endCopy = end;
+  v4 = [+[WRM_MetricsService getSingleton](WRM_MetricsService "getSingleton")];
+  if (v4)
+  {
+    v5 = v4;
+    if ((v4[22] - 1) >= 2)
+    {
+
+      [WCM_Logging logLevel:16 message:@"submitMetricsTelephonyOrFtCallEnd invalid callSimSlot"];
+    }
+
+    else
+    {
+      v6 = +[WRM_EnhancedCTService wrm_EnhancedCTServiceSingleton];
+      v7 = objc_alloc_init(sub_10001681C());
+      v8 = objc_alloc_init(sub_10001650C());
+      v9 = objc_alloc_init(sub_1000166E4());
+      [v7 setTimeOfDay:{+[WRM_Timer getTimeStamp](WRM_Timer, "getTimeStamp")}];
+      [v7 setIsCallFailed:endCopy];
+      v10 = *(v5 + 39) - 1;
+      if (v10 > 4)
+      {
+        v11 = 0;
+        v12 = 0;
+      }
+
+      else
+      {
+        v11 = dword_1001AE2D0[v10];
+        v12 = dword_1001AE2E4[v10];
+      }
+
+      [v7 setMessageType:v11];
+      [v7 setMessageTrigger:v12];
+      [v7 setWifiRssi:v5[2]];
+      [v7 setWifiSNR:v5[3]];
+      [v7 setWifiQbssLoad:*(v5 + 9)];
+      [v7 setWifiCca:*(v5 + 8)];
+      [v7 setWifiStationCount:*(v5 + 15)];
+      [v7 setWifiEstimatedBW:*(v5 + 16)];
+      [v7 setWifiRxPhyRate:*(v5 + 10)];
+      [v7 setWifiTxPhyRate:*(v5 + 13)];
+      [v7 setWifiTxPER:*(v5 + 12)];
+      [v7 setWifiRxRetry:*(v5 + 11)];
+      [v7 setWifiCaptiveNetworks:*(v5 + 56)];
+      [v7 setCellDataLQM:*(v5 + 30)];
+      [v7 setCellVoiceLQM:*(v5 + 31)];
+      v13 = v5[13];
+      if (v13)
+      {
+        if ([v13 isEqualToString:@"LTE"])
+        {
+          [WCM_Logging logLevel:25 message:@"submitMetricsTelephonyOrFtCallEnd rat= LTE, rsrp=%d, snr=%d, rsrq=%d", *(v5 + 32), *(v5 + 34), *(v5 + 33)];
+          [v7 setCellRatType:@"LTE"];
+          [v7 setCellLteRSRP:*(v5 + 32)];
+          [v7 setCellLteSNR:*(v5 + 34)];
+          [v7 setCellLteRSRQ:*(v5 + 33)];
+        }
+
+        else if ([v5[13] isEqualToString:@"N_RADIO"])
+        {
+          [WCM_Logging logLevel:25 message:@"submitMetricsTelephonyOrFtCallEnd rat= NR, rsrp=%d, snr=%d, rsrq=%d", *(v5 + 32), *(v5 + 34), *(v5 + 33)];
+          [v7 setCellRatType:@"N_RADIO"];
+          [v7 setCellNrRSRP:*(v5 + 32)];
+          [v7 setCellNrSNR:*(v5 + 34)];
+          [v7 setCellNrRSRQ:*(v5 + 33)];
+        }
+
+        else if ([v5[13] isEqualToString:@"UMTS"])
+        {
+          [WCM_Logging logLevel:25 message:@"submitMetricsTelephonyOrFtCallEnd rat= UMTS, rsrp=%d, snr=%d", *(v5 + 32), *(v5 + 34)];
+          [v7 setCellRatType:@"UMTS"];
+          [v7 setCellLteRSRP:*(v5 + 32)];
+          [v7 setCellLteSNR:*(v5 + 34)];
+        }
+      }
+
+      if ((*(v5 + 39) & 0xFFFFFFFE) == 2)
+      {
+        [v7 setFtFacetimeAction:*(v5 + 22)];
+        [v7 setFtFacetimePacketLoss:*(v5 + 23)];
+        [v7 setFtFacetimeTimeDelay:*(v5 + 24)];
+        [v7 setFtCounter:*(v5 + 2)];
+      }
+
+      [v7 setWrmAlertedMode:*(v5 + 140)];
+      [v7 setWrmIsPCDetected:*(v5 + 142)];
+      [v7 setWrmIsStallDetected:*(v5 + 143)];
+      [v7 setWrmAudioErasure:*(v5 + 36)];
+      [v7 setWrmVideoErasure:*(v5 + 37)];
+      [v6 getLastKnownLatitude];
+      [v8 setLat:?];
+      [v6 getLastKnownLongitude];
+      [v8 setLng:?];
+      [v9 setLatLng:v8];
+      [v7 setLocation:v9];
+      v14 = [NSDate alloc];
+      [v6 getLastKnownLocationTimestamp];
+      v15 = [v14 initWithTimeIntervalSince1970:?];
+      [v8 lat];
+      v17 = v16;
+      [v8 lng];
+      v19 = v18;
+      [v15 timeIntervalSinceNow];
+      [WCM_Logging logLevel:25 message:@"submitMetricsTelephonyOrFtCallEnd callFailed=%d, lat=%f, lng=%f location obtained from %fseconds before", endCopy, v17, v19, -v20];
+      [sub_100016BFC() reportCellConnectionQualityHarvestRecord:v7];
+
+      v21 = [objc_msgSend(+[WRM_HandoverManager WRM_HandoverManagerSingleton](WRM_HandoverManager "WRM_HandoverManagerSingleton")];
+      if (!v21)
+      {
+        [WCM_Logging logLevel:25 message:@"submitMetricsTelephonyOrFtCallEnd ABTest not active"];
+      }
+
+      v22 = [objc_msgSend(+[WRM_HandoverManager WRM_HandoverManagerSingleton](WRM_HandoverManager "WRM_HandoverManagerSingleton")];
+      v23 = [+[WRM_MetricsService getSingleton](WRM_MetricsService "getSingleton")];
+      if (v23)
+      {
+        v24 = *v23;
+      }
+
+      else
+      {
+        v24 = 0;
+      }
+
+      v25 = [+[WRM_MetricsService getSingleton](WRM_MetricsService "getSingleton")];
+      if (v25)
+      {
+        v26 = *v25;
+      }
+
+      else
+      {
+        v26 = 0;
+      }
+
+      +[WCM_Logging logLevel:message:](WCM_Logging, "logLevel:message:", 25, @"submitMetricsTelephonyOrFtCallEnd simSlot=%ld, expID=%@, deployID=%d, treatmentID=%@, RLPolicyEnabled=%d, callFailed=%d, callType=%d, iRatPolicy=%d, iRatPolicyOverriddenByRL=%d, cellDataLQM=%d,cellVoiceLQM=%d, ratType=%@, c2wc=%d, w2cc=%d", v5[22], [v21 experimentId], objc_msgSend(v21, "deploymentId"), objc_msgSend(v21, "treatmentId"), v22, endCopy, *(v5 + 39), *(v5 + v5[22] + 39), *(v5 + v5[22] + 167), *(v5 + 30), *(v5 + 31), v5[13], v24, v26);
+      v27[0] = _NSConcreteStackBlock;
+      v27[1] = 3221225472;
+      v27[2] = sub_100159448;
+      v27[3] = &unk_100242528;
+      v30 = v22;
+      v27[4] = v21;
+      v27[5] = v5;
+      v31 = endCopy;
+      v28 = v24;
+      v29 = v26;
+      [WRM_CAInterface sendCAEventLazy:@"com.apple.Telephony.wrmHandoverPolicyReinforcementLearning" payloadBuilder:v27];
+    }
+  }
+
+  else
+  {
+    [WCM_Logging logLevel:16 message:@"%s:metric is not ready", "[WRM_AWDService submitMetricsTelephonyOrFtCallEnd:]"];
+  }
 }
 
 - (void)submitMetricsFaceTimeHandover
@@ -391,6 +552,20 @@
 
     return @"Off";
   }
+}
+
+- (void)submitMetricsCBRSForSim:(int64_t)sim dataLQM:(int)m congested:(BOOL)congested
+{
+  [WCM_Logging logLevel:25 message:@"submit CA com.apple.Telephony.wrmCBRSRecommendation slot=%ld, lqm=%ld, isCongested=%d", sim, m, congested];
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_10015C478;
+  v9[3] = &unk_1002425B8;
+  v9[4] = self;
+  v9[5] = sim;
+  mCopy = m;
+  congestedCopy = congested;
+  [WRM_CAInterface sendCAEventLazy:@"com.apple.Telephony.wrmCBRSRecommendation" payloadBuilder:v9];
 }
 
 + (BOOL)checkSignificanLocationEnablementStatus

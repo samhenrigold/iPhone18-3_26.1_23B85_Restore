@@ -63,7 +63,7 @@
   sub_10007DA94();
   swift_allocObject();
   sub_10007DA84();
-  sub_100040CAC(&qword_1000B3310, type metadata accessor for CRLBoardLibraryViewModelWrappedNode);
+  sub_100040CAC(&qword_1000B3310, type metadata accessor for CRLBoardLibraryViewModelWrappedNode, &unk_1000878A0);
   sub_10007DA74();
   sub_100025ED8(v7, v9);
 

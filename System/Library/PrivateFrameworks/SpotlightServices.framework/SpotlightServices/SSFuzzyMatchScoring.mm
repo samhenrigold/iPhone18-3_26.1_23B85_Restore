@@ -86,9 +86,9 @@ LABEL_9:
 {
   matchCopy = match;
   patternCopy = pattern;
-  if ([matchCopy count] && objc_msgSend(patternCopy, "count"))
+  if (objc_msgSend_count(matchCopy) && objc_msgSend_count(patternCopy))
   {
-    if (![patternCopy count])
+    if (!objc_msgSend_count(patternCopy))
     {
       v13 = 1;
       goto LABEL_11;
@@ -96,7 +96,7 @@ LABEL_9:
 
     v7 = 0;
     v8 = 0;
-    while (v8 < [matchCopy count])
+    while (v8 < objc_msgSend_count(matchCopy))
     {
       v9 = [matchCopy objectAtIndexedSubscript:v8];
       unsignedIntValue = [v9 unsignedIntValue];
@@ -109,7 +109,7 @@ LABEL_9:
       {
         ++v7;
         v13 = 1;
-        if (v7 >= [patternCopy count])
+        if (v7 >= objc_msgSend_count(patternCopy))
         {
           goto LABEL_11;
         }
@@ -161,7 +161,7 @@ void __43__SSFuzzyMatchScoring_stringToUint32Array___block_invoke(uint64_t a1, v
 
 + (id)fuzzymatch:(id)fuzzymatch pattern:(id)pattern
 {
-  v140[1] = *MEMORY[0x1E69E9840];
+  v139[1] = *MEMORY[0x1E69E9840];
   fuzzymatchCopy = fuzzymatch;
   patternCopy = pattern;
   v8 = patternCopy;
@@ -173,20 +173,20 @@ void __43__SSFuzzyMatchScoring_stringToUint32Array___block_invoke(uint64_t a1, v
 
   v9 = [self stringToUint32Array:fuzzymatchCopy];
   v10 = [self stringToUint32Array:v8];
-  v11 = [v9 count];
-  v12 = [v10 count];
+  v11 = objc_msgSend_count(v9);
+  v12 = objc_msgSend_count(v10);
   if (!v12)
   {
     goto LABEL_16;
   }
 
-  v136 = v12;
+  v135 = v12;
   selfCopy = self;
-  v129 = v10;
+  v128 = v10;
   v13 = [v10 objectAtIndexedSubscript:0];
   unsignedIntValue = [v13 unsignedIntValue];
 
-  if ([v9 count])
+  if (objc_msgSend_count(v9))
   {
     v15 = 0;
     v16 = 0;
@@ -202,7 +202,7 @@ void __43__SSFuzzyMatchScoring_stringToUint32Array___block_invoke(uint64_t a1, v
 
       ++v16;
       v15 += 0x100000000;
-      if (v16 >= [v9 count])
+      if (v16 >= objc_msgSend_count(v9))
       {
         goto LABEL_14;
       }
@@ -211,26 +211,26 @@ void __43__SSFuzzyMatchScoring_stringToUint32Array___block_invoke(uint64_t a1, v
     if (v16 != -1)
     {
       v20 = selfCopy;
-      v10 = v129;
-      if ([selfCopy patternCanMatch:v9 pattern:v129])
+      v10 = v128;
+      if ([selfCopy patternCanMatch:v9 pattern:v128])
       {
-        v115 = v113;
+        v114 = v112;
         v21 = (4 * v11 + 15) & 0x7FFFFFFF0;
-        v134 = &v113[-v21];
-        bzero(&v113[-v21], 4 * v11);
-        v132 = &v113[-v21];
-        bzero(&v113[-v21], 4 * v11);
-        v128 = &v113[-v21];
-        bzero(&v113[-v21], 4 * v11);
-        v22 = v136;
-        v23 = 4 * v136;
-        v127 = &v113[-((v23 + 15) & 0x7FFFFFFF0)];
-        bzero(v127, v23);
+        v133 = &v112[-v21];
+        bzero(&v112[-v21], 4 * v11);
+        v131 = &v112[-v21];
+        bzero(&v112[-v21], 4 * v11);
+        v127 = &v112[-v21];
+        bzero(&v112[-v21], 4 * v11);
+        v22 = v135;
+        v23 = 4 * v135;
+        v126 = &v112[-((v23 + 15) & 0x7FFFFFFF0)];
+        bzero(v126, v23);
         v24 = [v10 objectAtIndexedSubscript:0];
-        LODWORD(v133) = [v24 unsignedIntValue];
+        LODWORD(v132) = [v24 unsignedIntValue];
 
         v25 = [v10 objectAtIndexedSubscript:0];
-        LODWORD(v135) = [v25 unsignedIntValue];
+        LODWORD(v134) = [v25 unsignedIntValue];
 
         if (v16 < 1)
         {
@@ -243,320 +243,310 @@ void __43__SSFuzzyMatchScoring_stringToUint32Array___block_invoke(uint64_t a1, v
           v27 = [v20 charClass:{objc_msgSend(v26, "unsignedIntValue")}];
         }
 
-        v116 = v8;
-        v117 = fuzzymatchCopy;
-        v139 = v9;
-        if (v16 < [v9 count])
+        v115 = v8;
+        v116 = fuzzymatchCopy;
+        v138 = v9;
+        if (v16 < objc_msgSend_count(v9))
         {
-          LODWORD(v138) = v27;
+          LODWORD(v137) = v27;
+          v29 = 0;
           v30 = 0;
-          v31 = 0;
-          LODWORD(v131) = 0;
-          v124 = 0;
-          LODWORD(v32) = 0;
-          v33 = 0;
-          LODWORD(v130) = v22 - 1;
-          v34 = v15 >> 32;
-          v35 = v139;
+          LODWORD(v130) = 0;
+          v123 = 0;
+          LODWORD(v31) = 0;
+          v32 = 0;
+          LODWORD(v129) = v22 - 1;
+          v33 = v15 >> 32;
+          v34 = v138;
           while (1)
           {
-            v36 = v138;
-            v37 = [v35 objectAtIndexedSubscript:v34];
-            unsignedIntValue3 = [v37 unsignedIntValue];
+            v35 = v137;
+            v36 = [v34 objectAtIndexedSubscript:v33];
+            unsignedIntValue3 = [v36 unsignedIntValue];
 
-            v39 = selfCopy;
-            LODWORD(v138) = [selfCopy charClass:unsignedIntValue3];
-            v40 = [v39 bonusFor:v36 charClass:?];
-            *&v128[4 * v34] = v40;
-            if (unsignedIntValue3 == v135)
+            v38 = selfCopy;
+            LODWORD(v137) = [selfCopy charClass:unsignedIntValue3];
+            v39 = [v38 bonusFor:v35 charClass:?];
+            *&v127[4 * v33] = v39;
+            if (unsignedIntValue3 == v134)
             {
-              v41 = v131;
-              if (v131 >= v136)
+              v40 = v130;
+              if (v130 >= v135)
               {
-                v124 = v16;
+                v123 = v16;
               }
 
               else
               {
-                v127[v131] = v16;
-                v42 = v41 + 1;
-                if (v41 + 1 < v130)
+                v126[v130] = v16;
+                v41 = v40 + 1;
+                if (v40 + 1 < v129)
                 {
-                  v43 = v41 + 1;
+                  v42 = v40 + 1;
                 }
 
                 else
                 {
-                  v43 = v130;
+                  v42 = v129;
                 }
 
-                v44 = [v129 objectAtIndexedSubscript:v43];
-                LODWORD(v135) = [v44 unsignedIntValue];
+                v43 = [v128 objectAtIndexedSubscript:v42];
+                LODWORD(v134) = [v43 unsignedIntValue];
 
-                v124 = v16;
-                LODWORD(v131) = v42;
+                v123 = v16;
+                LODWORD(v130) = v41;
               }
             }
 
-            v45 = unsignedIntValue3 != v133;
-            if (unsignedIntValue3 == v133)
+            v44 = unsignedIntValue3 != v132;
+            if (unsignedIntValue3 == v132)
             {
-              v32 = (v40 + 16);
-              *&v134[4 * v34] = v32;
-              *&v132[4 * v34] = 1;
-              if (v136 == 1 && v32 > v30)
+              v31 = (v39 + 16);
+              *&v133[4 * v33] = v31;
+              *&v131[4 * v33] = 1;
+              if (v135 == 1 && v31 > v29)
               {
-                if (v40 > 7)
+                if (v39 > 7)
                 {
-                  if (v131 != 1)
+                  if (v130 != 1)
                   {
                     goto LABEL_119;
                   }
 
 LABEL_52:
-                  v51 = [SSTermMatchResult alloc];
-                  v52 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v16];
-                  v140[0] = v52;
-                  v53 = [MEMORY[0x1E695DEC8] arrayWithObjects:v140 count:1];
-                  v8 = v116;
-                  v19 = [(SSTermMatchResult *)v51 initWithMatch:v116 start:v16 end:(v16 + 1) score:v32 pos:v53];
+                  v50 = [SSTermMatchResult alloc];
+                  v51 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v16];
+                  v139[0] = v51;
+                  v52 = [MEMORY[0x1E695DEC8] arrayWithObjects:v139 count:1];
+                  v8 = v115;
+                  v19 = [(SSTermMatchResult *)v50 initWithMatch:v115 start:v16 end:(v16 + 1) score:v31 pos:v52];
 
                   goto LABEL_120;
                 }
 
-                v31 = v16;
-                v30 = (v40 + 16);
+                v30 = v16;
+                v29 = (v39 + 16);
               }
             }
 
             else
             {
-              if (v32 <= 3)
+              if (v31 <= 3)
               {
-                v46 = 3;
+                v45 = 3;
               }
 
               else
               {
-                v46 = v32;
+                v45 = v31;
               }
 
-              v47 = v46 - 3;
-              if (v32 <= 1)
+              v46 = v45 - 3;
+              if (v31 <= 1)
               {
-                v48 = 1;
+                v47 = 1;
               }
 
               else
               {
-                v48 = v32;
+                v47 = v31;
               }
 
-              v49 = v48 - 1;
-              if (v33)
+              v48 = v47 - 1;
+              if (v32)
               {
-                LODWORD(v32) = v49;
+                LODWORD(v31) = v48;
               }
 
               else
               {
-                LODWORD(v32) = v47;
+                LODWORD(v31) = v46;
               }
 
-              *&v134[4 * v34] = v32;
-              *&v132[4 * v34] = 0;
+              *&v133[4 * v33] = v31;
+              *&v131[4 * v33] = 0;
             }
 
-            ++v34;
-            v35 = v139;
+            ++v33;
+            v34 = v138;
             v16 = (v16 + 1);
-            v33 = v45;
-            if (v34 >= [v139 count])
+            v32 = v44;
+            if (v33 >= objc_msgSend_count(v138))
             {
               goto LABEL_49;
             }
           }
         }
 
-        v124 = 0;
-        LODWORD(v131) = 0;
-        v31 = 0;
+        v123 = 0;
+        LODWORD(v130) = 0;
         v30 = 0;
+        v29 = 0;
 LABEL_49:
-        v50 = v136;
-        if (v131 == v136)
+        v49 = v135;
+        if (v130 == v135)
         {
-          if (v136 != 1)
+          if (v135 != 1)
           {
-            v54 = *v127;
-            v55 = v124;
-            v123 = v124 - v54 + 1;
-            v126 = (v123 * v136);
-            v56 = 4 * v126;
-            v57 = (4 * v126 + 15) & 0x7FFFFFFF0;
-            v125 = &v113[-v57];
-            bzero(&v113[-v57], 4 * v126);
-            v133 = &v113[-v57];
-            bzero(&v113[-v57], v56);
-            v119 = v54;
-            if (v55 >= v54)
+            v53 = *v126;
+            v54 = v123;
+            v122 = v123 - v53 + 1;
+            v125 = (v122 * v135);
+            v55 = 4 * v125;
+            v56 = (4 * v125 + 15) & 0x7FFFFFFF0;
+            v124 = &v112[-v56];
+            bzero(&v112[-v56], 4 * v125);
+            v132 = &v112[-v56];
+            bzero(&v112[-v56], v55);
+            v118 = v53;
+            if (v54 >= v53)
             {
-              v58 = 0;
-              v59 = &v134[4 * v119];
-              v60 = v123;
-              v61 = &v132[4 * v119];
+              v57 = 0;
+              v58 = &v133[4 * v118];
+              v59 = v122;
+              v60 = &v131[4 * v118];
               do
               {
-                if (v58 <= v55 - v54)
+                if (v57 <= v54 - v53)
                 {
-                  *&v125[4 * v58] = *v59;
-                  *&v133[4 * v58++] = *v61;
+                  *&v124[4 * v57] = *v58;
+                  *&v132[4 * v57++] = *v60;
                 }
 
-                ++v59;
-                ++v61;
-                --v60;
+                ++v58;
+                ++v60;
+                --v59;
               }
 
-              while (v60);
+              while (v59);
             }
 
-            v62 = (v50 - 1);
-            v63 = v127;
-            if (v50 > 1)
+            v61 = (v49 - 1);
+            v62 = v126;
+            if (v49 > 1)
             {
-              v118 = v50 & 0x7FFFFFFF;
-              v64 = v124 - 2 * v119;
-              v65 = ~v119;
-              v66 = 1;
-              v114 = v124 + 1;
-              v122 = v124 + 1 - 2 * v119;
-              v67 = v123;
+              v117 = v49 & 0x7FFFFFFF;
+              v63 = v123 - 2 * v118;
+              v64 = ~v118;
+              v65 = 1;
+              v113 = v123 + 1;
+              v121 = v123 + 1 - 2 * v118;
+              v66 = v122;
               do
               {
-                v68 = v63[v66];
-                v69 = [v129 objectAtIndexedSubscript:v66];
-                LODWORD(v138) = [v69 unsignedIntValue];
+                v67 = v62[v65];
+                v68 = [v128 objectAtIndexedSubscript:v65];
+                LODWORD(v137) = [v68 unsignedIntValue];
 
-                v70 = v68;
-                v71 = v125;
-                *&v125[4 * (v67 * v66 - v119) - 4 + 4 * v68] = 0;
-                v120 = v65;
-                v121 = v64;
-                if (v68 <= v124)
+                v69 = v67;
+                v70 = v124;
+                *&v124[4 * (v66 * v65 - v118) - 4 + 4 * v67] = 0;
+                v119 = v64;
+                v120 = v63;
+                if (v67 <= v123)
                 {
+                  v71 = 0;
                   v72 = 0;
-                  v73 = 0;
-                  v136 = &v71[4 * v70 + 4 * v64];
-                  selfCopy = v70;
-                  v131 = &v71[4 * v70 + 4 * v65];
-                  v132 = &v128[4 * v70];
-                  v135 = (v114 - v70);
-                  v130 = &v133[4 * v70 + 4 * v65];
-                  v134 = &v133[4 * v70 + 4 * v122];
-                  v74 = &v71[4 * v70 + 4 * v122];
+                  v135 = &v70[4 * v69 + 4 * v63];
+                  selfCopy = v69;
+                  v130 = &v70[4 * v69 + 4 * v64];
+                  v131 = &v127[4 * v69];
+                  v134 = (v113 - v69);
+                  v129 = &v132[4 * v69 + 4 * v64];
+                  v133 = &v132[4 * v69 + 4 * v121];
+                  v73 = &v70[4 * v69 + 4 * v121];
                   do
                   {
-                    v75 = v70;
-                    v76 = [v139 objectAtIndexedSubscript:v70 + v72];
-                    unsignedIntValue4 = [v76 unsignedIntValue];
+                    v74 = v69;
+                    v75 = [v138 objectAtIndexedSubscript:v69 + v71];
+                    unsignedIntValue4 = [v75 unsignedIntValue];
 
-                    if (v73)
+                    if (v72)
                     {
-                      v78 = -1;
+                      v77 = -1;
                     }
 
                     else
                     {
-                      v78 = -3;
+                      v77 = -3;
                     }
 
-                    v79 = *(v136 + 4 * v72) + v78;
-                    if (v138 == unsignedIntValue4)
+                    v78 = *(v135 + 4 * v71) + v77;
+                    if (v137 == unsignedIntValue4)
                     {
-                      v80 = *&v132[4 * v72];
-                      v81 = *&v130[4 * v72];
-                      v82 = v81 + 1;
-                      if (v81 < 1)
+                      v79 = *&v131[4 * v71];
+                      v80 = *&v129[4 * v71];
+                      v81 = v80 + 1;
+                      if (v80 < 1)
                       {
-                        v83 = *&v132[4 * v72];
+                        v82 = *&v131[4 * v71];
                       }
 
                       else
                       {
-                        v83 = *&v132[4 * v72 + 4 + -4 * v82];
-                        v84 = v80 > v83;
-                        if (v83 <= v80)
+                        v82 = *&v131[4 * v71 + 4 + -4 * v81];
+                        v83 = v79 > v82;
+                        if (v82 <= v79)
                         {
-                          v83 = *&v132[4 * v72];
+                          v82 = *&v131[4 * v71];
                         }
 
-                        if (v83 <= 4)
+                        if (v82 <= 4)
                         {
-                          v83 = 4;
+                          v82 = 4;
                         }
 
-                        if (v80 > 7 && v84)
+                        if (v79 > 7 && v83)
                         {
-                          v82 = 1;
-                          v83 = *&v132[4 * v72];
+                          v81 = 1;
+                          v82 = *&v131[4 * v71];
                         }
                       }
 
-                      v70 = v75;
-                      v86 = *&v131[4 * v72] + 16;
-                      v87 = v83 + v86;
-                      v85 = v86 + v80;
-                      if (v87 < v79)
+                      v69 = v74;
+                      v85 = *&v130[4 * v71] + 16;
+                      v86 = v82 + v85;
+                      v84 = v85 + v79;
+                      if (v86 < v78)
                       {
-                        v82 = 0;
+                        v81 = 0;
                       }
 
                       else
                       {
-                        v85 = v87;
+                        v84 = v86;
                       }
                     }
 
                     else
                     {
-                      v85 = 0;
-                      v82 = 0;
-                      v70 = v75;
+                      v84 = 0;
+                      v81 = 0;
+                      v69 = v74;
                     }
 
-                    v73 = v85 < v79;
-                    if (v85 > v79)
+                    v72 = v84 < v78;
+                    if (v84 > v78)
                     {
-                      v79 = v85;
+                      v78 = v84;
                     }
 
-                    v88 = v79 & ~(v79 >> 31);
-                    if (v88 <= v30)
+                    v87 = v78 & ~(v78 >> 31);
+                    if (v87 <= v29)
                     {
-                      v89 = v30;
-                    }
-
-                    else
-                    {
-                      v89 = v88;
-                    }
-
-                    v90 = v88 > v30 && v66 == v62;
-                    *&v134[4 * v72] = v82;
-                    if (v90)
-                    {
-                      v31 = (selfCopy + v72);
+                      v88 = v29;
                     }
 
                     else
                     {
-                      v31 = v31;
+                      v88 = v87;
                     }
 
-                    if (v66 == v62)
+                    v89 = v87 > v29 && v65 == v61;
+                    *&v133[4 * v71] = v81;
+                    if (v89)
                     {
-                      v30 = v89;
+                      v30 = (selfCopy + v71);
                     }
 
                     else
@@ -564,118 +554,128 @@ LABEL_49:
                       v30 = v30;
                     }
 
-                    *&v74[4 * v72++] = v88;
+                    if (v65 == v61)
+                    {
+                      v29 = v88;
+                    }
+
+                    else
+                    {
+                      v29 = v29;
+                    }
+
+                    *&v73[4 * v71++] = v87;
                   }
 
-                  while (v135 != v72);
+                  while (v134 != v71);
                 }
 
-                ++v66;
-                v67 = v123;
-                v64 = v121 + v123;
-                v65 = v120 + v123;
-                v122 += v123;
-                v63 = v127;
+                ++v65;
+                v66 = v122;
+                v63 = v120 + v122;
+                v64 = v119 + v122;
+                v121 += v122;
+                v62 = v126;
               }
 
-              while (v66 != v118);
+              while (v65 != v117);
             }
 
             array = [MEMORY[0x1E695DF70] array];
-            v92 = v125;
+            v91 = v124;
             selfCopy = array;
-            v138 = v125 - 4;
-            v93 = v123;
-            v94 = v124 - 2 * v119 + 2;
-            v95 = ~v124;
-            v96 = -v119;
-            v97 = 1;
-            for (i = v31; ; i = (i - 1))
+            v137 = v124 - 4;
+            v92 = v122;
+            v93 = v123 - 2 * v118 + 2;
+            v94 = ~v123;
+            v95 = -v118;
+            v96 = 1;
+            for (i = v30; ; i = (i - 1))
             {
-              v99 = v62 * v93;
-              if (v62 <= 0)
+              v98 = v61 * v92;
+              if (v61 <= 0)
               {
-                v101 = 0;
-                v100 = v63[v62];
+                v100 = 0;
+                v99 = v62[v61];
               }
 
               else
               {
-                v100 = v63[v62];
-                if (i >= v100)
+                v99 = v62[v61];
+                if (i >= v99)
                 {
-                  v101 = *&v138[4 * v95 + 4 * i + 4 * v99];
+                  v100 = *&v137[4 * v94 + 4 * i + 4 * v98];
                 }
 
                 else
                 {
-                  v101 = 0;
+                  v100 = 0;
                 }
               }
 
-              v102 = v96 + i + v99;
-              v103 = &v92[4 * v102];
-              if (i <= v100)
+              v101 = v95 + i + v98;
+              v102 = &v91[4 * v101];
+              if (i <= v99)
               {
-                v104 = 0;
+                v103 = 0;
               }
 
               else
               {
-                v104 = *(v103 - 1);
+                v103 = *(v102 - 1);
               }
 
-              v105 = *v103;
-              if (v105 > v101)
+              v104 = *v102;
+              if (v104 > v100)
               {
-                v106 = v105 == v104 && v97;
-                if (v105 > v104 || v106 != 0)
+                v105 = v104 == v103 && v96;
+                if (v104 > v103 || v105 != 0)
                 {
-                  v108 = [MEMORY[0x1E696AD98] numberWithInt:i];
-                  [selfCopy addObject:v108];
+                  v107 = [MEMORY[0x1E696AD98] numberWithInt:i];
+                  [selfCopy addObject:v107];
 
-                  if (!v62)
+                  if (!v61)
                   {
-                    v110 = [SSTermMatchResult alloc];
-                    v8 = v116;
-                    v111 = selfCopy;
-                    v19 = [(SSTermMatchResult *)v110 initWithMatch:v116 start:i end:(v31 + 1) score:v30 pos:selfCopy];
+                    v109 = [SSTermMatchResult alloc];
+                    v8 = v115;
+                    v110 = selfCopy;
+                    v19 = [(SSTermMatchResult *)v109 initWithMatch:v115 start:i end:(v30 + 1) score:v29 pos:selfCopy];
 
                     goto LABEL_120;
                   }
 
-                  LODWORD(v62) = v62 - 1;
-                  v63 = v127;
-                  v93 = v123;
-                  v92 = v125;
+                  LODWORD(v61) = v61 - 1;
+                  v62 = v126;
+                  v92 = v122;
+                  v91 = v124;
                 }
               }
 
-              if (*&v133[4 * v102] <= 1)
+              if (*&v132[4 * v101] <= 1)
               {
-                v109 = v94 + i + v99;
-                v97 = v109 < v126 && *&v133[4 * v109] > 0;
+                v108 = v93 + i + v98;
+                v96 = v108 < v125 && *&v132[4 * v108] > 0;
               }
 
               else
               {
-                v97 = 1;
+                v96 = 1;
               }
             }
           }
 
-          v16 = v31;
-          v32 = v30;
+          v16 = v30;
+          v31 = v29;
           goto LABEL_52;
         }
 
 LABEL_119:
-        v112 = [SSTermMatchResult alloc];
-        v8 = v116;
-        v19 = [(SSTermMatchResult *)v112 initWithoutMatch:v116];
+        v111 = [SSTermMatchResult alloc];
+        v8 = v115;
+        v19 = [(SSTermMatchResult *)v111 initWithoutMatch:v115];
 LABEL_120:
-        fuzzymatchCopy = v117;
-        v9 = v139;
+        fuzzymatchCopy = v116;
+        v9 = v138;
         goto LABEL_15;
       }
 
@@ -688,11 +688,10 @@ LABEL_16:
 LABEL_14:
   v19 = [[SSTermMatchResult alloc] initWithoutMatch:v8];
 LABEL_15:
-  v10 = v129;
+  v10 = v128;
 LABEL_17:
 
 LABEL_18:
-  v28 = *MEMORY[0x1E69E9840];
 
   return v19;
 }

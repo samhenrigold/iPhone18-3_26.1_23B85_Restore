@@ -11,7 +11,7 @@
 - (ARDepthEstimationTechnique)init
 {
   v27[1] = *MEMORY[0x1E69E9840];
-  v3 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.depthestimationtechnique");
+  v3 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.depthestimationtechnique", 0xFFFFFFFFLL);
   v4 = [objc_alloc(MEMORY[0x1E698C130]) initWithInputPrioritization:1];
   inferenceDescriptor = [v4 inferenceDescriptor];
   colorInput = [inferenceDescriptor colorInput];
@@ -109,7 +109,7 @@
 {
   height = interest.height;
   width = interest.width;
-  v60 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   var0 = tensors->var0;
   v15 = tensors->var3[0];
@@ -174,11 +174,12 @@
   {
     CVPixelBufferRelease(v19);
 LABEL_35:
-    v50 = 0;
+    v51 = 0;
     goto LABEL_36;
   }
 
   v37 = ARResizeBufferWithNearestNeighbors(v19, v36, 4uLL);
+  v38 = v37;
   if (v37)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
@@ -186,36 +187,36 @@ LABEL_35:
       [ARDepthEstimationTechnique createResultDataFromTensors:numberOfOutputTensors:imageDataForNeuralNetwork:inputImageData:rotationNeeded:regionOfInterest:];
     }
 
-    v38 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v39 = _ARLogTechnique();
-    v40 = v39;
-    if (v38 == 1)
+    v39 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v40 = _ARLogTechnique(v37);
+    v41 = v40;
+    if (v39 == 1)
     {
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
-        v41 = objc_opt_class();
-        v42 = NSStringFromClass(v41);
-        v54 = 138543874;
-        v55 = v42;
-        v56 = 2048;
+        v42 = objc_opt_class();
+        v43 = NSStringFromClass(v42);
+        v55 = 138543874;
+        v56 = v43;
+        v57 = 2048;
         selfCopy2 = self;
-        v58 = 1024;
-        v59 = v37;
-        _os_log_impl(&dword_1C241C000, v40, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to resample pixel buffer: %i", &v54, 0x1Cu);
+        v59 = 1024;
+        v60 = v38;
+        _os_log_impl(&dword_1C241C000, v41, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to resample pixel buffer: %i", &v55, 0x1Cu);
       }
     }
 
-    else if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
     {
-      v51 = objc_opt_class();
-      v52 = NSStringFromClass(v51);
-      v54 = 138543874;
-      v55 = v52;
-      v56 = 2048;
+      v52 = objc_opt_class();
+      v53 = NSStringFromClass(v52);
+      v55 = 138543874;
+      v56 = v53;
+      v57 = 2048;
       selfCopy2 = self;
-      v58 = 1024;
-      v59 = v37;
-      _os_log_impl(&dword_1C241C000, v40, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Unable to resample pixel buffer: %i", &v54, 0x1Cu);
+      v59 = 1024;
+      v60 = v38;
+      _os_log_impl(&dword_1C241C000, v41, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Unable to resample pixel buffer: %i", &v55, 0x1Cu);
     }
 
     CVPixelBufferRelease(v19);
@@ -225,25 +226,25 @@ LABEL_35:
 
   CVPixelBufferRelease(v19);
 LABEL_25:
-  v43 = objc_opt_new();
-  [v43 setPixelBuffer:v36];
+  v44 = objc_opt_new();
+  [v44 setPixelBuffer:v36];
   CVPixelBufferRelease(v36);
   rotationTechnique = self->_rotationTechnique;
   if (!rotationTechnique || [(ARImageRotationTechnique *)rotationTechnique rotationAngle]!= needed || [(ARImageRotationTechnique *)self->_rotationTechnique mirrorMode])
   {
-    v45 = [[ARImageRotationTechnique alloc] initWithRotation:needed mirror:0];
-    v46 = self->_rotationTechnique;
-    self->_rotationTechnique = v45;
+    v46 = [[ARImageRotationTechnique alloc] initWithRotation:needed mirror:0];
+    v47 = self->_rotationTechnique;
+    self->_rotationTechnique = v46;
   }
 
-  v47 = [(ARImageRotationTechnique *)self->_rotationTechnique processData:v43];
-  v48 = [ARMLDepthData alloc];
-  [dataCopy timestamp];
-  v50 = -[ARMLDepthData initWithTimestamp:depthBuffer:source:](v48, "initWithTimestamp:depthBuffer:source:", [v47 pixelBuffer], 1, v49);
+  v48 = [(ARImageRotationTechnique *)self->_rotationTechnique processData:v44];
+  v49 = [ARMLDepthData alloc];
+  objc_msgSend_timestamp(dataCopy);
+  v51 = -[ARMLDepthData initWithTimestamp:depthBuffer:source:](v49, "initWithTimestamp:depthBuffer:source:", [v48 pixelBuffer], 1, v50);
 
 LABEL_36:
 
-  return v50;
+  return v51;
 }
 
 @end

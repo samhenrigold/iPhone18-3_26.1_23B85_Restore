@@ -22,8 +22,9 @@
 
 - (void)setLocalRAT:(unsigned int)t
 {
+  v3 = *&t;
   os_unfair_lock_lock(&self->super._lock);
-  v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:IDSRadioAccessTechnologyToString(t)];
+  v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:IDSRadioAccessTechnologyToString(v3)];
   [(NSMutableDictionary *)self->super._attributes setObject:v5 forKeyedSubscript:@"lrat"];
 
   os_unfair_lock_unlock(&self->super._lock);
@@ -31,8 +32,9 @@
 
 - (void)setRemoteRAT:(unsigned int)t
 {
+  v3 = *&t;
   os_unfair_lock_lock(&self->super._lock);
-  v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:IDSRadioAccessTechnologyToString(t)];
+  v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:IDSRadioAccessTechnologyToString(v3)];
   [(NSMutableDictionary *)self->super._attributes setObject:v5 forKeyedSubscript:@"rrat"];
 
   os_unfair_lock_unlock(&self->super._lock);

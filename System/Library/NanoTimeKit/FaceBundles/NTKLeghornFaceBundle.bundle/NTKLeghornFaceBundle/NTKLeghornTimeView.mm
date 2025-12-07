@@ -27,16 +27,16 @@
   y = frame.origin.y;
   x = frame.origin.x;
   deviceCopy = device;
-  v21.receiver = self;
-  v21.super_class = NTKLeghornTimeView;
-  height = [(NTKLeghornTimeView *)&v21 initWithFrame:x, y, width, height];
+  v19.receiver = self;
+  v19.super_class = NTKLeghornTimeView;
+  height = [(NTKLeghornTimeView *)&v19 initWithFrame:x, y, width, height];
   v12 = height;
   if (height)
   {
     objc_storeStrong(&height->_device, device);
-    objc_msgSend_setUserInteractionEnabled_(v12, v13, v14, 0);
-    v17 = objc_msgSend_layer(v12, v15, v16);
-    objc_msgSend_setAllowsHitTesting_(v17, v18, v19, 0);
+    objc_msgSend_setUserInteractionEnabled_(v12, v13, 0);
+    v16 = objc_msgSend_layer(v12, v14, v15);
+    objc_msgSend_setAllowsHitTesting_(v16, v17, 0);
   }
 
   return v12;
@@ -48,20 +48,20 @@
   if (!analogTimeView)
   {
     v4 = [NTKLeghornHandsView alloc];
-    v7 = objc_msgSend_initForDevice_(v4, v5, v6, self->_device);
-    v8 = self->_analogTimeView;
-    self->_analogTimeView = v7;
+    v6 = objc_msgSend_initForDevice_(v4, v5, self->_device);
+    v7 = self->_analogTimeView;
+    self->_analogTimeView = v6;
 
-    objc_msgSend__updateAnalogViewColors(self, v9, v10);
-    v11 = self->_analogTimeView;
-    v12 = NTKIdealizedDate();
-    objc_msgSend_setOverrideDate_duration_(v11, v13, 0.0, v12);
+    objc_msgSend__updateAnalogViewColors(self, v8, v9);
+    v10 = self->_analogTimeView;
+    v11 = NTKIdealizedDate();
+    objc_msgSend_setOverrideDate_duration_(v10, v12, v11, 0.0);
 
-    objc_msgSend_addSubview_(self, v14, v15, self->_analogTimeView);
-    objc_msgSend_bounds(self, v16, v17);
-    objc_msgSend_setFrame_(self->_analogTimeView, v18, v19);
-    v22 = objc_msgSend_layer(self->_analogTimeView, v20, v21);
-    objc_msgSend_setAllowsHitTesting_(v22, v23, v24, 0);
+    objc_msgSend_addSubview_(self, v13, self->_analogTimeView);
+    objc_msgSend_bounds(self, v14, v15);
+    objc_msgSend_setFrame_(self->_analogTimeView, v16, v17);
+    v20 = objc_msgSend_layer(self->_analogTimeView, v18, v19);
+    objc_msgSend_setAllowsHitTesting_(v20, v21, 0);
 
     analogTimeView = self->_analogTimeView;
   }
@@ -87,19 +87,19 @@
   {
     v4 = [NTKFoghornTimeView alloc];
     objc_msgSend_bounds(self, v5, v6);
-    v9 = objc_msgSend_initWithFrame_forDevice_layout_(v4, v7, v8, self->_device, 6);
-    v10 = self->_digitalTimeView;
-    self->_digitalTimeView = v9;
+    v8 = objc_msgSend_initWithFrame_forDevice_layout_(v4, v7, self->_device, 6);
+    v9 = self->_digitalTimeView;
+    self->_digitalTimeView = v8;
 
-    objc_msgSend_setFrozen_(self->_digitalTimeView, v11, v12, 1);
-    objc_msgSend__updateDigitalViewColors(self, v13, v14);
-    v15 = self->_digitalTimeView;
-    v16 = NTKIdealizedDate();
-    objc_msgSend_setOverrideDate_duration_(v15, v17, 0.0, v16);
+    objc_msgSend_setFrozen_(self->_digitalTimeView, v10, 1);
+    objc_msgSend__updateDigitalViewColors(self, v11, v12);
+    v13 = self->_digitalTimeView;
+    v14 = NTKIdealizedDate();
+    objc_msgSend_setOverrideDate_duration_(v13, v15, v14, 0.0);
 
-    objc_msgSend_addSubview_(self, v18, v19, self->_digitalTimeView);
-    v22 = objc_msgSend_layer(self->_digitalTimeView, v20, v21);
-    objc_msgSend_setAllowsHitTesting_(v22, v23, v24, 0);
+    objc_msgSend_addSubview_(self, v16, self->_digitalTimeView);
+    v19 = objc_msgSend_layer(self->_digitalTimeView, v17, v18);
+    objc_msgSend_setAllowsHitTesting_(v19, v20, 0);
 
     digitalTimeView = self->_digitalTimeView;
   }
@@ -120,32 +120,34 @@
 
 - (void)applyTransitionFraction:(double)fraction fromStyle:(unint64_t)style toStyle:(unint64_t)toStyle
 {
-  v9 = style != toStyle && fraction > 0.0;
-  v20 = objc_msgSend__timeViewForStyle_force_(self, a2, fraction);
-  v12 = objc_msgSend__timeViewForStyle_force_(self, v10, v11, toStyle, v9);
-  v14 = v12;
+  v9 = style == toStyle;
+  v10 = style != toStyle && fraction < 1.0;
+  v11 = !v9 && fraction > 0.0;
+  v25 = objc_msgSend__timeViewForStyle_force_(self, a2, style, v10);
+  v13 = objc_msgSend__timeViewForStyle_force_(self, v12, toStyle, v11);
+  v16 = v13;
   if (style == toStyle)
   {
     if (fraction == 1.0)
     {
-      v16 = &OBJC_IVAR___NTKLeghornTimeView__analogTimeView;
+      v19 = &OBJC_IVAR___NTKLeghornTimeView__analogTimeView;
       if (style == 1)
       {
-        v16 = &OBJC_IVAR___NTKLeghornTimeView__digitalTimeView;
+        v19 = &OBJC_IVAR___NTKLeghornTimeView__digitalTimeView;
       }
 
-      v17 = *(&self->super.super.super.isa + *v16);
+      v20 = *(&self->super.super.super.isa + *v19);
 
-      objc_msgSend_setAlpha_(v14, v18, 1.0);
-      objc_msgSend_setAlpha_(v17, v19, 0.0);
-      v20 = v17;
+      objc_msgSend_setAlpha_(v16, v21, v22, 1.0);
+      objc_msgSend_setAlpha_(v20, v23, v24, 0.0);
+      v25 = v20;
     }
   }
 
   else
   {
-    objc_msgSend_setAlpha_(v12, v13, fraction);
-    objc_msgSend_setAlpha_(v20, v15, 1.0 - fraction);
+    objc_msgSend_setAlpha_(v13, v14, v15, fraction);
+    objc_msgSend_setAlpha_(v25, v17, v18, 1.0 - fraction);
   }
 }
 
@@ -155,34 +157,34 @@
   {
     if (force)
     {
-      v5 = objc_msgSend__getAnalogTimeView(self, a2, v4);
+      v4 = objc_msgSend__getAnalogTimeView(self, a2, 1);
       goto LABEL_11;
     }
 
-    v6 = 456;
+    v5 = 456;
   }
 
   else
   {
     if (style)
     {
-      v5 = 0;
+      v4 = 0;
       goto LABEL_11;
     }
 
     if (force)
     {
-      v5 = objc_msgSend__getDigitalTimeView(self, a2, v4);
+      v4 = objc_msgSend__getDigitalTimeView(self, a2, 0);
       goto LABEL_11;
     }
 
-    v6 = 448;
+    v5 = 448;
   }
 
-  v5 = *(&self->super.super.super.isa + v6);
+  v4 = *(&self->super.super.super.isa + v5);
 LABEL_11:
 
-  return v5;
+  return v4;
 }
 
 - (void)setTimeStyle:(unint64_t)style
@@ -198,28 +200,28 @@ LABEL_11:
         return;
       }
 
-      objc_msgSend__removeDigitalTimeView(self, a2, v3);
-      v8 = objc_msgSend__getAnalogTimeView(self, v6, v7);
+      objc_msgSend__removeDigitalTimeView(self, a2, 1);
+      v7 = objc_msgSend__getAnalogTimeView(self, v5, v6);
     }
 
     else
     {
-      objc_msgSend__removeAnalogTimeView(self, a2, v3);
+      objc_msgSend__removeAnalogTimeView(self, a2, 0);
       v12 = objc_msgSend__getDigitalTimeView(self, v10, v11);
       p_analogTimeView = &self->_digitalTimeView;
     }
 
     v13 = *p_analogTimeView;
 
-    objc_msgSend_setAlpha_(v13, v9, 1.0);
+    objc_msgSend_setAlpha_(v13, v8, v9, 1.0);
   }
 }
 
 - (void)setFrozen:(BOOL)frozen
 {
   frozenCopy = frozen;
-  objc_msgSend_setFrozen_(self->_digitalTimeView, a2, v3);
-  objc_msgSend_setFrozen_(self->_analogTimeView, v6, v7, frozenCopy);
+  objc_msgSend_setFrozen_(self->_digitalTimeView, a2, frozen);
+  objc_msgSend_setFrozen_(self->_analogTimeView, v5, frozenCopy);
   self->_frozen = frozenCopy;
 }
 
@@ -227,16 +229,16 @@ LABEL_11:
 {
   analogTimeView = self->_analogTimeView;
   dateCopy = date;
-  objc_msgSend_setOverrideDate_duration_(analogTimeView, v7, duration, dateCopy);
-  objc_msgSend_setOverrideDate_duration_(self->_digitalTimeView, v8, duration, dateCopy);
+  objc_msgSend_setOverrideDate_duration_(analogTimeView, v7, dateCopy, duration);
+  objc_msgSend_setOverrideDate_duration_(self->_digitalTimeView, v8, dateCopy, duration);
 }
 
 - (void)setTimeOffset:(double)offset
 {
-  objc_msgSend_setTimeOffset_(self->_analogTimeView, a2, offset);
+  objc_msgSend_setTimeOffset_(self->_analogTimeView, a2, v3);
   digitalTimeView = self->_digitalTimeView;
 
-  objc_msgSend_setTimeOffset_(digitalTimeView, v5, offset);
+  objc_msgSend_setTimeOffset_(digitalTimeView, v6, v7, offset);
 }
 
 - (CGRect)contentBounds
@@ -290,10 +292,10 @@ LABEL_8:
 - (void)_updateDigitalViewColors
 {
   v4 = objc_msgSend_timeMinutesColor(self->_palette, a2, v2);
-  objc_msgSend_setMinutesColor_(self->_digitalTimeView, v5, v6, v4);
+  objc_msgSend_setMinutesColor_(self->_digitalTimeView, v5, v4);
 
-  v11 = objc_msgSend_timeSecondsColor(self->_palette, v7, v8);
-  objc_msgSend_setSecondsColor_(self->_digitalTimeView, v9, v10, v11);
+  v9 = objc_msgSend_timeSecondsColor(self->_palette, v6, v7);
+  objc_msgSend_setSecondsColor_(self->_digitalTimeView, v8, v9);
 }
 
 + (void)drawSnapshotInContext:(CGContext *)context timeStyle:(unint64_t)style colorPalette:(id)palette forDevice:(id)device
@@ -302,17 +304,17 @@ LABEL_8:
   paletteCopy = palette;
   v11 = [NTKLeghornTimeView alloc];
   objc_msgSend_screenBounds(deviceCopy, v12, v13);
-  v29 = objc_msgSend_initWithFrame_forDevice_(v11, v14, v15, deviceCopy);
+  v24 = objc_msgSend_initWithFrame_forDevice_(v11, v14, deviceCopy);
 
-  objc_msgSend_setTimeStyle_(v29, v16, v17, style);
-  objc_msgSend_setPalette_(v29, v18, v19, paletteCopy);
+  objc_msgSend_setTimeStyle_(v24, v15, style);
+  objc_msgSend_setPalette_(v24, v16, paletteCopy);
 
-  objc_msgSend_setFrozen_(v29, v20, v21, 1);
-  v22 = NTKIdealizedDate();
-  objc_msgSend_setOverrideDate_duration_(v29, v23, 0.0, v22);
+  objc_msgSend_setFrozen_(v24, v17, 1);
+  v18 = NTKIdealizedDate();
+  objc_msgSend_setOverrideDate_duration_(v24, v19, v18, 0.0);
 
-  v26 = objc_msgSend_layer(v29, v24, v25);
-  objc_msgSend_renderInContext_(v26, v27, v28, context);
+  v22 = objc_msgSend_layer(v24, v20, v21);
+  objc_msgSend_renderInContext_(v22, v23, context);
 }
 
 - (CGRect)accessibilityFrame
@@ -367,7 +369,7 @@ LABEL_7:
   timeStyle = self->_timeStyle;
   if (timeStyle == 1)
   {
-    v11 = objc_msgSend_analogTimeView(self, v7, v9);
+    v11 = objc_msgSend_analogTimeView(self, v7, v8);
   }
 
   else
@@ -378,7 +380,7 @@ LABEL_7:
       goto LABEL_9;
     }
 
-    v11 = objc_msgSend_digitalTimeView(self, v7, v9);
+    v11 = objc_msgSend_digitalTimeView(self, v7, v8);
   }
 
   v14 = v11;

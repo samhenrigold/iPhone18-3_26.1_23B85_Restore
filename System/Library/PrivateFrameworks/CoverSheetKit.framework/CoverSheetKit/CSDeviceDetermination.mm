@@ -11,7 +11,7 @@
 
 + (unint64_t)categoryFromScreenSize
 {
-  v3 = _CSEmbeddedFBSDisplayConfiguration();
+  v3 = _CSEmbeddedFBSDisplayConfiguration(self);
   [v3 bounds];
   v5 = v4;
   v7 = v6;
@@ -411,7 +411,7 @@ LABEL_31:
 
 + (BOOL)_screenScaleMatchesZoomScale:(double)scale
 {
-  _CSEmbeddedDisplayNativeScale();
+  _CSEmbeddedDisplayNativeScale(self);
 
   return BSFloatEqualToFloat();
 }

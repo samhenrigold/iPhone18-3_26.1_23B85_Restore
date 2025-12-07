@@ -10,14 +10,14 @@
 
 - (SSBullseyeTopHitsManager)initWithQueryId:(int64_t)id categoryToResultMapping:(id)mapping currentTopHitSection:(id)section queryContext:(id)context ranker:(id)ranker
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   mappingCopy = mapping;
   sectionCopy = section;
   contextCopy = context;
   rankerCopy = ranker;
-  v30.receiver = self;
-  v30.super_class = SSBullseyeTopHitsManager;
-  v17 = [(SSBullseyeTopHitsManager *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = SSBullseyeTopHitsManager;
+  v17 = [(SSBullseyeTopHitsManager *)&v29 init];
   v18 = v17;
   if (v17)
   {
@@ -26,44 +26,43 @@
     objc_storeStrong(&v18->_topHitSection, section);
     objc_storeStrong(&v18->_queryContext, context);
     objc_storeStrong(&v18->_ranker, ranker);
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v19 = mappingCopy;
-    v20 = [v19 countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v27;
+      v22 = *v26;
       do
       {
         v23 = 0;
         do
         {
-          if (*v27 != v22)
+          if (*v26 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          SSScreenTimeStatusForBundleIDWithCompletionHandler(*(*(&v26 + 1) + 8 * v23++), 0);
+          SSScreenTimeStatusForBundleIDWithCompletionHandler(*(*(&v25 + 1) + 8 * v23++), 0);
         }
 
         while (v21 != v23);
-        v21 = [v19 countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
       while (v21);
     }
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (id)bullseyeTopHitSection
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   relatedSectionBundleIdentifier = [(SFMutableResultSection *)self->_topHitSection relatedSectionBundleIdentifier];
   if (relatedSectionBundleIdentifier)
   {
@@ -75,11 +74,11 @@
       {
         queryID = self->_queryID;
         title = [v4 title];
-        v11[0] = 67109378;
-        v11[1] = queryID;
-        v12 = 2112;
-        v13 = title;
-        _os_log_impl(&dword_1D9F69000, v5, OS_LOG_TYPE_INFO, "### [%d] top hit section title:%@", v11, 0x12u);
+        v10[0] = 67109378;
+        v10[1] = queryID;
+        v11 = 2112;
+        v12 = title;
+        _os_log_impl(&dword_1D9F69000, v5, OS_LOG_TYPE_INFO, "### [%d] top hit section title:%@", v10, 0x12u);
       }
 
       v8 = [(SSBullseyeTopHitsManager *)self bullseyeSectionForTopHit:v4 initiallyHidden:0 checkForTopHit:0 thresholdCounter:0];
@@ -96,28 +95,26 @@
     v8 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 - (id)bullseyeTopHitSections:(id)sections maxTopHitsCount:(int)count minThresholdForBigResult:(double)result needExceptionForSafariSection:(BOOL)section
 {
-  v186 = *MEMORY[0x1E69E9840];
+  v185 = *MEMORY[0x1E69E9840];
   sectionsCopy = sections;
   v9 = +[SSRankingManager getTopHitsContinuationThresholds];
-  v140 = +[SSRankingManager getForbiddenSecondSections];
+  v139 = +[SSRankingManager getForbiddenSecondSections];
   v10 = +[SSRankingManager getPoorSecondSections];
-  v144 = [sectionsCopy count];
-  v11 = [v9 count];
-  v147 = SSMaxSectionsBelowSuggestions();
+  v143 = objc_msgSend_count(sectionsCopy);
+  v11 = objc_msgSend_count(v9);
+  v146 = SSMaxSectionsBelowSuggestions(v11);
   v12 = PRSLogCategoryDefault();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 1.5047e-36;
-    v181 = v11;
-    v182 = 2112;
-    *v183 = v9;
+    v180 = v11;
+    v181 = 2112;
+    *v182 = v9;
     _os_log_impl(&dword_1D9F69000, v12, OS_LOG_TYPE_INFO, "### [%d] %@", buf, 0x12u);
   }
 
@@ -127,55 +124,55 @@
     goto LABEL_176;
   }
 
-  v139 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v143 = sectionsCopy;
+  v138 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v142 = sectionsCopy;
   countCopy = count;
-  v123 = v9;
-  v124 = v11;
-  v121 = v10;
+  v122 = v9;
+  v123 = v11;
+  v120 = v10;
   sectionCopy = section;
-  if (v147)
+  if (v146)
   {
-    v146 = 0;
-    v13 = v144;
+    v145 = 0;
+    v13 = v143;
   }
 
   else
   {
-    v175 = 0u;
-    v176 = 0u;
-    v173 = 0u;
     v174 = 0u;
+    v175 = 0u;
+    v172 = 0u;
+    v173 = 0u;
     v15 = sectionsCopy;
-    v16 = [v15 countByEnumeratingWithState:&v173 objects:v185 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v172 objects:v184 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v174;
+      v18 = *v173;
       while (2)
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v174 != v18)
+          if (*v173 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v173 + 1) + 8 * i);
+          v20 = *(*(&v172 + 1) + 8 * i);
           bundleIdentifier = [v20 bundleIdentifier];
           v22 = [bundleIdentifier isEqualToString:@"com.apple.searchd.suggestions"];
 
           if (v22)
           {
-            v146 = v20;
+            v145 = v20;
             count = countCopy;
             goto LABEL_18;
           }
 
-          v13 = v144;
+          v13 = v143;
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v173 objects:v185 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v172 objects:v184 count:16];
         if (v17)
         {
           continue;
@@ -184,27 +181,27 @@
         break;
       }
 
-      v146 = 0;
+      v145 = 0;
       count = countCopy;
     }
 
     else
     {
-      v146 = 0;
+      v145 = 0;
 LABEL_18:
-      v13 = v144;
+      v13 = v143;
     }
 
-    sectionsCopy = v143;
+    sectionsCopy = v142;
   }
 
-  v125 = 0;
-  v141 = 0;
+  v124 = 0;
+  v140 = 0;
   v23 = 0;
-  v128 = 0;
-  v133 = 0;
+  v127 = 0;
   v132 = 0;
-  v142 = 1;
+  v131 = 0;
+  v141 = 1;
   do
   {
     if (!v13 || v23 >= count)
@@ -212,22 +209,22 @@ LABEL_18:
       goto LABEL_163;
     }
 
-    v153 = 0;
-    v138 = 0;
+    v152 = 0;
+    v137 = 0;
     v24 = 0;
     do
     {
       v25 = [sectionsCopy objectAtIndexedSubscript:v24];
       bundleIdentifier2 = [v25 bundleIdentifier];
       domain = [v25 domain];
-      if (domain == 2 && (v153 & 1) != 0)
+      if (domain == 2 && (v152 & 1) != 0)
       {
         goto LABEL_51;
       }
 
-      v148 = domain;
-      v154 = v23;
-      v155 = bundleIdentifier2;
+      v147 = domain;
+      v153 = v23;
+      v154 = bundleIdentifier2;
       bundleIdentifier3 = [v25 bundleIdentifier];
       v29 = v25;
       v30 = [bundleIdentifier3 isEqualToString:@"com.apple.spotlight.tophits"];
@@ -235,27 +232,27 @@ LABEL_18:
       if (v30)
       {
         bundleIdentifier4 = objc_opt_new();
+        v168 = 0u;
         v169 = 0u;
         v170 = 0u;
         v171 = 0u;
-        v172 = 0u;
-        v151 = v29;
+        v150 = v29;
         resultSet = [v29 resultSet];
-        v33 = [resultSet countByEnumeratingWithState:&v169 objects:v184 count:16];
+        v33 = [resultSet countByEnumeratingWithState:&v168 objects:v183 count:16];
         if (v33)
         {
           v34 = v33;
-          v35 = *v170;
+          v35 = *v169;
           do
           {
             for (j = 0; j != v34; ++j)
             {
-              if (*v170 != v35)
+              if (*v169 != v35)
               {
                 objc_enumerationMutation(resultSet);
               }
 
-              v37 = *(*(&v169 + 1) + 8 * j);
+              v37 = *(*(&v168 + 1) + 8 * j);
               applicationBundleIdentifier = [v37 applicationBundleIdentifier];
               v39 = SSScreenTimeStatusForBundleIDWithCompletionHandler(applicationBundleIdentifier, 0);
 
@@ -265,30 +262,30 @@ LABEL_18:
               }
             }
 
-            v34 = [resultSet countByEnumeratingWithState:&v169 objects:v184 count:16];
+            v34 = [resultSet countByEnumeratingWithState:&v168 objects:v183 count:16];
           }
 
           while (v34);
         }
 
-        v40 = [bundleIdentifier4 count];
+        v40 = objc_msgSend_count(bundleIdentifier4);
         v41 = v40 == 0;
         if (v40)
         {
-          v25 = v151;
-          [v151 setResultSet:bundleIdentifier4];
+          v25 = v150;
+          [v150 setResultSet:bundleIdentifier4];
           v41 = 0;
-          sectionsCopy = v143;
-          v13 = v144;
+          sectionsCopy = v142;
+          v13 = v143;
           count = countCopy;
         }
 
         else
         {
-          sectionsCopy = v143;
-          v13 = v144;
+          sectionsCopy = v142;
+          v13 = v143;
           count = countCopy;
-          v25 = v151;
+          v25 = v150;
         }
       }
 
@@ -299,15 +296,15 @@ LABEL_18:
         v25 = v29;
       }
 
-      if (v25 == v146 && v147 == 0)
+      if (v25 == v145 && v146 == 0)
       {
-        v23 = v154;
+        v23 = v153;
 LABEL_50:
-        bundleIdentifier2 = v155;
+        bundleIdentifier2 = v154;
         goto LABEL_51;
       }
 
-      v23 = v154;
+      v23 = v153;
       if (v41)
       {
         goto LABEL_50;
@@ -322,7 +319,7 @@ LABEL_50:
       }
 
       bundleIdentifier6 = [v25 bundleIdentifier];
-      v152 = v25;
+      v151 = v25;
       if ([bundleIdentifier6 isEqualToString:@"com.apple.spotlight.tophits"])
       {
         relatedSectionBundleIdentifier = [v25 relatedSectionBundleIdentifier];
@@ -338,112 +335,112 @@ LABEL_50:
       {
       }
 
-      bundleIdentifier2 = v155;
-      if (v142 & 1) == 0 && ([v155 isEqualToString:@"com.apple.application"])
+      bundleIdentifier2 = v154;
+      if (v141 & 1) == 0 && ([v154 isEqualToString:@"com.apple.application"])
       {
-        v25 = v152;
+        v25 = v151;
         goto LABEL_51;
       }
 
-      v25 = v152;
-      if (v154 >= 1 && v155 && [v140 containsObject:v155])
+      v25 = v151;
+      if (v153 >= 1 && v154 && [v139 containsObject:v154])
       {
-        if (![v155 isEqualToString:@"com.apple.Preferences"])
+        if (![v154 isEqualToString:@"com.apple.Preferences"])
         {
           goto LABEL_51;
         }
 
-        resultSet2 = [v152 resultSet];
+        resultSet2 = [v151 resultSet];
         firstObject = [resultSet2 firstObject];
 
         if (!firstObject || ([firstObject rankingItem], v50 = objc_claimAutoreleasedReturnValue(), v51 = objc_msgSend(v50, "topHitReason") & 0xF, v50, !v51))
         {
-          bundleIdentifier2 = v155;
+          bundleIdentifier2 = v154;
           goto LABEL_160;
         }
       }
 
-      firstObject = [v152 title];
+      firstObject = [v151 title];
       v52 = PRSLogCategoryDefault();
       if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
       {
         queryID = self->_queryID;
         *buf = 1.5048e-36;
-        v181 = queryID;
-        v182 = 1024;
-        *v183 = v24;
-        *&v183[4] = 2112;
-        *&v183[6] = firstObject;
+        v180 = queryID;
+        v181 = 1024;
+        *v182 = v24;
+        *&v182[4] = 2112;
+        *&v182[6] = firstObject;
         _os_log_impl(&dword_1D9F69000, v52, OS_LOG_TYPE_INFO, "### [%d] section[%d] title:%@", buf, 0x18u);
       }
 
-      if (v148 == 3)
+      if (v147 == 3)
       {
-        v136 = 0;
+        v135 = 0;
       }
 
       else
       {
-        v136 = (v148 == 2) ^ (v148 != 10);
+        v135 = (v147 == 2) ^ (v147 != 10);
       }
 
-      bundleIdentifier7 = [v152 bundleIdentifier];
+      bundleIdentifier7 = [v151 bundleIdentifier];
       v55 = [bundleIdentifier7 isEqualToString:@"com.apple.searchd.suggestions"];
 
-      v138 |= v55;
-      v167 = 0u;
-      v168 = 0u;
-      v165 = 0u;
+      v137 |= v55;
       v166 = 0u;
-      resultSet3 = [v152 resultSet];
-      v57 = [resultSet3 countByEnumeratingWithState:&v165 objects:v179 count:16];
+      v167 = 0u;
+      v164 = 0u;
+      v165 = 0u;
+      resultSet3 = [v151 resultSet];
+      v57 = [resultSet3 countByEnumeratingWithState:&v164 objects:v178 count:16];
       if (v57)
       {
         v58 = v57;
-        v59 = *v166;
+        v59 = *v165;
         do
         {
           for (k = 0; k != v58; ++k)
           {
-            if (*v166 != v59)
+            if (*v165 != v59)
             {
               objc_enumerationMutation(resultSet3);
             }
 
-            v61 = *(*(&v165 + 1) + 8 * k);
-            v164 = 3233;
-            *buf = (v24 - (v138 & 1));
-            v181 = 0;
+            v61 = *(*(&v164 + 1) + 8 * k);
+            v163 = 3233;
+            *buf = (v24 - (v137 & 1));
+            v180 = 0;
             rankingItem = [v61 rankingItem];
             v63 = rankingItem;
             if (rankingItem)
             {
               l2FeatureVector = [rankingItem L2FeatureVector];
-              [l2FeatureVector setScores:buf forFeatures:&v164 count:1];
+              [l2FeatureVector setScores:buf forFeatures:&v163 count:1];
             }
           }
 
-          v58 = [resultSet3 countByEnumeratingWithState:&v165 objects:v179 count:16];
+          v58 = [resultSet3 countByEnumeratingWithState:&v164 objects:v178 count:16];
         }
 
         while (v58);
       }
 
-      v25 = v152;
-      v23 = v154;
-      v65 = [(SSBullseyeTopHitsManager *)self bullseyeSectionForTopHit:v152 initiallyHidden:0 checkForTopHit:v136 boostSafari:(v132 & 1) == 0 thresholdCounter:v154 existingResults:v139 allowMultipleTopHits:v147 == 0];
-      if (!v133)
+      v25 = v151;
+      v23 = v153;
+      v65 = [(SSBullseyeTopHitsManager *)self bullseyeSectionForTopHit:v151 initiallyHidden:0 checkForTopHit:v135 boostSafari:(v131 & 1) == 0 thresholdCounter:v153 existingResults:v138 allowMultipleTopHits:v146 == 0];
+      if (!v132)
       {
-        v133 = objc_opt_new();
+        v132 = objc_opt_new();
       }
 
       count = countCopy;
-      v13 = v144;
-      v134 = v65;
+      v13 = v143;
+      v133 = v65;
       if (![v65 resultsCount])
       {
-        v153 |= v148 == 2;
-        bundleIdentifier2 = v155;
+        v152 |= v147 == 2;
+        bundleIdentifier2 = v154;
         goto LABEL_159;
       }
 
@@ -452,27 +449,27 @@ LABEL_50:
 
       if (!firstObject2)
       {
-        bundleIdentifier2 = v155;
+        bundleIdentifier2 = v154;
         goto LABEL_158;
       }
 
-      v68 = v148 != 2;
-      v149 = v148 == 2;
+      v68 = v147 != 2;
+      v148 = v147 == 2;
       v69 = firstObject2;
-      v132 |= [firstObject2 isSafariTopHit];
+      v131 |= [firstObject2 isSafariTopHit];
       rankingItem2 = [firstObject2 rankingItem];
       l2FeatureVector2 = [rankingItem2 L2FeatureVector];
       [l2FeatureVector2 originalL2Score];
       v73 = v72;
 
       [v69 sectionBundleIdentifier];
-      v127 = v126 = v69;
+      v126 = v125 = v69;
       preferTopPlatter = [v69 preferTopPlatter];
       v75 = preferTopPlatter;
-      if (v154 > 0 || (v68 & preferTopPlatter & 1) != 0 || (v149 & preferTopPlatter & 1) != 0)
+      if (v153 > 0 || (v68 & preferTopPlatter & 1) != 0 || (v148 & preferTopPlatter & 1) != 0)
       {
-        sectionsCopy = v143;
-        if (v154 > 0)
+        sectionsCopy = v142;
+        if (v153 > 0)
         {
           goto LABEL_96;
         }
@@ -480,8 +477,8 @@ LABEL_50:
 
       else
       {
-        sectionsCopy = v143;
-        if (([v127 isEqualToString:@"com.apple.application"] & 1) == 0 && (objc_msgSend(v140, "containsObject:", v127) & 1) == 0)
+        sectionsCopy = v142;
+        if (([v126 isEqualToString:@"com.apple.application"] & 1) == 0 && (objc_msgSend(v139, "containsObject:", v126) & 1) == 0)
         {
           rankingItem3 = [v69 rankingItem];
           topHitReason = [rankingItem3 topHitReason];
@@ -489,7 +486,7 @@ LABEL_50:
           if (!topHitReason)
           {
 LABEL_96:
-            if (v147)
+            if (v146)
             {
 LABEL_112:
               LODWORD(v81) = 0;
@@ -497,76 +494,76 @@ LABEL_112:
 
             else
             {
-              if (!v128)
+              if (!v127)
               {
-                v128 = objc_opt_new();
+                v127 = objc_opt_new();
               }
 
-              v162 = 0u;
-              v163 = 0u;
-              v160 = 0u;
               v161 = 0u;
-              resultSet5 = [v134 resultSet];
-              v79 = [resultSet5 countByEnumeratingWithState:&v160 objects:v178 count:16];
+              v162 = 0u;
+              v159 = 0u;
+              v160 = 0u;
+              resultSet5 = [v133 resultSet];
+              v79 = [resultSet5 countByEnumeratingWithState:&v159 objects:v177 count:16];
               if (v79)
               {
                 v80 = v79;
-                v118 = firstObject;
+                v117 = firstObject;
                 LODWORD(v81) = 0;
-                v82 = *v161;
+                v82 = *v160;
                 do
                 {
                   for (m = 0; m != v80; ++m)
                   {
-                    if (*v161 != v82)
+                    if (*v160 != v82)
                     {
                       objc_enumerationMutation(resultSet5);
                     }
 
-                    v84 = *(*(&v160 + 1) + 8 * m);
+                    v84 = *(*(&v159 + 1) + 8 * m);
                     [v84 setUsesCompactDisplay:{objc_msgSend(v84, "shouldUseCompactDisplay") | objc_msgSend(v84, "usesCompactDisplay")}];
-                    if (v141 > countCopy)
+                    if (v140 > countCopy)
                     {
                       goto LABEL_109;
                     }
 
-                    if (([v139 containsObject:v84] & 1) == 0)
+                    if (([v138 containsObject:v84] & 1) == 0)
                     {
-                      [v128 addObject:v84];
-                      ++v141;
+                      [v127 addObject:v84];
+                      ++v140;
                       LODWORD(v81) = v81 + 1;
-                      [v139 addObject:v84];
+                      [v138 addObject:v84];
                     }
                   }
 
-                  v80 = [resultSet5 countByEnumeratingWithState:&v160 objects:v178 count:16];
+                  v80 = [resultSet5 countByEnumeratingWithState:&v159 objects:v177 count:16];
                 }
 
                 while (v80);
 LABEL_109:
                 count = countCopy;
-                LODWORD(v23) = v154;
-                firstObject = v118;
+                LODWORD(v23) = v153;
+                firstObject = v117;
               }
 
               else
               {
                 LODWORD(v81) = 0;
-                LODWORD(v23) = v154;
+                LODWORD(v23) = v153;
               }
 
 LABEL_151:
             }
 
-            v13 = v144;
+            v13 = v143;
 LABEL_153:
-            if (v124 <= v23)
+            if (v123 <= v23)
             {
               goto LABEL_155;
             }
 
             v103 = v73;
-            v104 = [v123 objectAtIndexedSubscript:v23];
+            v104 = [v122 objectAtIndexedSubscript:v23];
             [v104 doubleValue];
             v106 = v105;
 
@@ -583,7 +580,7 @@ LABEL_162:
 
       if (v75)
       {
-        if ([v133 count])
+        if (objc_msgSend_count(v132))
         {
           goto LABEL_112;
         }
@@ -591,10 +588,10 @@ LABEL_162:
 
       else
       {
-        resultSet5 = [v126 sectionBundleIdentifier];
-        if ([v121 containsObject:resultSet5])
+        resultSet5 = [v125 sectionBundleIdentifier];
+        if ([v120 containsObject:resultSet5])
         {
-          v85 = [v133 count];
+          v85 = objc_msgSend_count(v132);
 
           if (v85)
           {
@@ -604,7 +601,7 @@ LABEL_162:
 
         else
         {
-          rankingItem4 = [v126 rankingItem];
+          rankingItem4 = [v125 rankingItem];
           if (![rankingItem4 topHitReason])
           {
 
@@ -612,7 +609,7 @@ LABEL_162:
             goto LABEL_151;
           }
 
-          v87 = [v133 count];
+          v87 = objc_msgSend_count(v132);
 
           if (v87)
           {
@@ -621,46 +618,46 @@ LABEL_162:
         }
       }
 
-      v13 = v144;
-      v119 = firstObject;
-      if ([v155 isEqualToString:@"com.apple.spotlight.tophits"])
+      v13 = v143;
+      v118 = firstObject;
+      if ([v154 isEqualToString:@"com.apple.spotlight.tophits"])
       {
-        relatedSectionBundleIdentifier2 = [v152 relatedSectionBundleIdentifier];
+        relatedSectionBundleIdentifier2 = [v151 relatedSectionBundleIdentifier];
         v89 = [relatedSectionBundleIdentifier2 isEqualToString:@"com.apple.application"];
 
-        v142 &= v89 ^ 1;
+        v141 &= v89 ^ 1;
       }
 
-      [v133 addObject:v134];
-      v158 = 0u;
-      v159 = 0u;
-      v156 = 0u;
+      [v132 addObject:v133];
       v157 = 0u;
-      resultSet6 = [v134 resultSet];
-      v150 = [resultSet6 countByEnumeratingWithState:&v156 objects:v177 count:16];
+      v158 = 0u;
+      v155 = 0u;
+      v156 = 0u;
+      resultSet6 = [v133 resultSet];
+      v149 = [resultSet6 countByEnumeratingWithState:&v155 objects:v176 count:16];
       v91 = 0;
       v81 = 0;
-      if (!v150)
+      if (!v149)
       {
         goto LABEL_147;
       }
 
-      v137 = 0;
-      v129 = 0;
-      v122 = 0;
-      v135 = *v157;
+      v136 = 0;
+      v128 = 0;
+      v121 = 0;
+      v134 = *v156;
       while (2)
       {
-        for (n = 0; n != v150; ++n)
+        for (n = 0; n != v149; ++n)
         {
-          if (*v157 != v135)
+          if (*v156 != v134)
           {
             objc_enumerationMutation(resultSet6);
           }
 
-          v23 = *(*(&v156 + 1) + 8 * n);
+          v23 = *(*(&v155 + 1) + 8 * n);
           [v23 setUsesCompactDisplay:{objc_msgSend(v23, "shouldUseCompactDisplay") | objc_msgSend(v23, "usesCompactDisplay")}];
-          [v139 addObject:v23];
+          [v138 addObject:v23];
           sectionBundleIdentifier = [v23 sectionBundleIdentifier];
           if ([sectionBundleIdentifier isEqualToString:@"com.apple.application"])
           {
@@ -669,7 +666,7 @@ LABEL_162:
               v91 = 1;
             }
 
-            if (v137)
+            if (v136)
             {
               v81 = v81;
             }
@@ -679,30 +676,30 @@ LABEL_162:
               v81 = (v81 + 1);
             }
 
-            v94 = v141;
-            if ((v137 & 1) == 0)
+            v94 = v140;
+            if ((v136 & 1) == 0)
             {
-              v94 = v141 + 1;
+              v94 = v140 + 1;
             }
 
-            v141 = v94;
-            v137 = 1;
-            LODWORD(v23) = v154;
+            v140 = v94;
+            v136 = 1;
+            LODWORD(v23) = v153;
           }
 
           else
           {
-            if (v141 > countCopy)
+            if (v140 > countCopy)
             {
 
-              v13 = v144;
-              LODWORD(v23) = v154;
+              v13 = v143;
+              LODWORD(v23) = v153;
               goto LABEL_147;
             }
 
             if ([sectionBundleIdentifier isEqualToString:@"com.apple.mobiletimer"])
             {
-              v130 = v91;
+              v129 = v91;
               v95 = v81;
               v81 = resultSet6;
               rankingItem5 = [v23 rankingItem];
@@ -712,8 +709,8 @@ LABEL_162:
 
               if (v99 == 0.0)
               {
-                LODWORD(v23) = v154;
-                v129 |= v154 == 0;
+                LODWORD(v23) = v153;
+                v128 |= v153 == 0;
                 resultSet6 = v81;
                 LODWORD(v81) = v95;
               }
@@ -721,46 +718,46 @@ LABEL_162:
               else
               {
                 resultSet6 = v81;
-                if ((v99 != 1.0 || (v129 & 1) == 0) | v122 & 1)
+                if ((v99 != 1.0 || (v128 & 1) == 0) | v121 & 1)
                 {
-                  LODWORD(v23) = v154;
+                  LODWORD(v23) = v153;
                   v81 = v95;
-                  v91 = v130;
+                  v91 = v129;
                   goto LABEL_143;
                 }
 
                 [v23 setUsesCompactDisplay:1];
-                v100 = v128;
+                v100 = v127;
                 LODWORD(v81) = v95;
-                if (!v128)
+                if (!v127)
                 {
                   v100 = objc_opt_new();
                 }
 
-                v128 = v100;
+                v127 = v100;
                 [v100 addObject:v23];
-                [v139 addObject:v23];
-                v122 = 1;
-                LODWORD(v23) = v154;
+                [v138 addObject:v23];
+                v121 = 1;
+                LODWORD(v23) = v153;
               }
 
-              v91 = v130;
+              v91 = v129;
             }
 
             else
             {
-              LODWORD(v23) = v154;
+              LODWORD(v23) = v153;
             }
 
-            ++v141;
+            ++v140;
             v81 = (v81 + 1);
           }
 
 LABEL_143:
         }
 
-        v150 = [resultSet6 countByEnumeratingWithState:&v156 objects:v177 count:16];
-        if (v150)
+        v149 = [resultSet6 countByEnumeratingWithState:&v155 objects:v176 count:16];
+        if (v149)
         {
           continue;
         }
@@ -768,14 +765,14 @@ LABEL_143:
         break;
       }
 
-      v13 = v144;
+      v13 = v143;
 LABEL_147:
 
-      v101 = v134;
-      v102 = v132 | ~(v91 & sectionCopy);
-      v125 = v101;
+      v101 = v133;
+      v102 = v131 | ~(v91 & sectionCopy);
+      v124 = v101;
       count = countCopy;
-      firstObject = v119;
+      firstObject = v118;
       if (v102)
       {
         goto LABEL_153;
@@ -788,9 +785,9 @@ LABEL_155:
         v24 = 0;
       }
 
-      v25 = v152;
-      bundleIdentifier2 = v155;
-      firstObject2 = v126;
+      v25 = v151;
+      bundleIdentifier2 = v154;
+      firstObject2 = v125;
 LABEL_158:
 
 LABEL_159:
@@ -807,61 +804,60 @@ LABEL_163:
   }
 
   while (!v107);
-  v9 = v123;
-  v10 = v121;
-  if ([v128 count])
+  v9 = v122;
+  v10 = v120;
+  if (objc_msgSend_count(v127))
   {
-    if (v147)
+    if (v146)
     {
-      results = v125;
+      results = v124;
       if (!results)
       {
         v109 = [SFMutableResultSection alloc];
-        v110 = [v143 objectAtIndexedSubscript:0];
+        v110 = [v142 objectAtIndexedSubscript:0];
         results = [(SFMutableResultSection *)v109 initWithSection:v110];
 
         resultSet7 = [(SFMutableResultSection *)results resultSet];
         [resultSet7 removeAllObjects];
 
-        [v133 addObject:results];
+        [v132 addObject:results];
       }
 
       resultSet8 = [(SFMutableResultSection *)results resultSet];
-      [resultSet8 addObjectsFromArray:v128];
+      [resultSet8 addObjectsFromArray:v127];
     }
 
     else
     {
-      results = [v146 results];
-      if ([(SFMutableResultSection *)results count])
+      results = [v145 results];
+      if (objc_msgSend_count(results))
       {
         v113 = MEMORY[0x1E695DF70];
         firstObject3 = [(SFMutableResultSection *)results firstObject];
         resultSet8 = [v113 arrayWithObject:firstObject3];
 
-        [resultSet8 addObjectsFromArray:v128];
-        if ([(SFMutableResultSection *)results count]>= 2)
+        [resultSet8 addObjectsFromArray:v127];
+        if (objc_msgSend_count(results) >= 2)
         {
-          v115 = [(SFMutableResultSection *)results subarrayWithRange:1, [(SFMutableResultSection *)results count]- 1];
+          v115 = [(SFMutableResultSection *)results subarrayWithRange:1, objc_msgSend_count(results) - 1];
           [resultSet8 addObjectsFromArray:v115];
         }
       }
 
       else
       {
-        resultSet8 = v128;
+        resultSet8 = v127;
       }
 
-      [v146 setResults:resultSet8];
+      [v145 setResults:resultSet8];
     }
 
-    sectionsCopy = v143;
+    sectionsCopy = v142;
   }
 
-  v14 = v133;
+  v14 = v132;
 
 LABEL_176:
-  v116 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -869,47 +865,47 @@ LABEL_176:
 - (id)tagOrFilterHiddenSectionsForClient:(id)client isCommittedSearch:(BOOL)search maxVisibleSections:(int64_t)sections maxTopHitsCount:(int)count minThresholdForBigResult:(double)result topHitSection:(id *)section
 {
   searchCopy = search;
-  v335[16] = *MEMORY[0x1E69E9840];
+  v334[16] = *MEMORY[0x1E69E9840];
   clientCopy = client;
   selfCopy = self;
-  v244 = searchCopy;
+  v243 = searchCopy;
   sectionsCopy = sections;
   if (searchCopy)
   {
-    v239 = clientCopy;
+    v238 = clientCopy;
     v15 = 0;
     v16 = 0;
     v17 = 0;
     goto LABEL_75;
   }
 
-  LODWORD(v283) = count;
-  v297 = 0u;
-  v298 = 0u;
-  v295 = 0u;
+  LODWORD(v282) = count;
   v296 = 0u;
+  v297 = 0u;
+  v294 = 0u;
+  v295 = 0u;
   text = clientCopy;
-  v18 = [text countByEnumeratingWithState:&v295 objects:v335 count:16];
+  v18 = [text countByEnumeratingWithState:&v294 objects:v334 count:16];
   sectionCopy = section;
   if (v18)
   {
     v19 = v18;
     v20 = 0;
     v21 = 0;
-    v22 = *v296;
+    v22 = *v295;
     v23 = @"com.apple.application";
     v24 = @"com.apple.mobilesafari";
-    *&v286 = @"com.apple.application";
+    *&v285 = @"com.apple.application";
     while (2)
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v296 != v22)
+        if (*v295 != v22)
         {
           objc_enumerationMutation(text);
         }
 
-        v26 = *(*(&v295 + 1) + 8 * i);
+        v26 = *(*(&v294 + 1) + 8 * i);
         bundleIdentifier = [v26 bundleIdentifier];
         if ([bundleIdentifier isEqualToString:v23])
         {
@@ -943,10 +939,10 @@ LABEL_176:
           goto LABEL_17;
         }
 
-        v23 = v286;
+        v23 = v285;
       }
 
-      v19 = [text countByEnumeratingWithState:&v295 objects:v335 count:16];
+      v19 = [text countByEnumeratingWithState:&v294 objects:v334 count:16];
       if (v19)
       {
         continue;
@@ -967,14 +963,14 @@ LABEL_17:
   }
 
   score = objc_opt_new();
-  v37 = [(SSBullseyeTopHitsManager *)self bullseyeTopHitSections:text maxTopHitsCount:v283 minThresholdForBigResult:v36 needExceptionForSafariSection:result];
+  v37 = [(SSBullseyeTopHitsManager *)self bullseyeTopHitSections:text maxTopHitsCount:v282 minThresholdForBigResult:v36 needExceptionForSafariSection:result];
+  v290 = 0u;
   v291 = 0u;
   v292 = 0u;
   v293 = 0u;
-  v294 = 0u;
   v38 = text;
-  v16 = [v38 countByEnumeratingWithState:&v291 objects:v334 count:16];
-  v283 = v37;
+  v16 = [v38 countByEnumeratingWithState:&v290 objects:v333 count:16];
+  v282 = v37;
   if (!v16)
   {
     v48 = 0;
@@ -982,17 +978,17 @@ LABEL_17:
   }
 
   v39 = 0;
-  v40 = *v292;
+  v40 = *v291;
   while (2)
   {
     for (j = 0; j != v16; j = (j + 1))
     {
-      if (*v292 != v40)
+      if (*v291 != v40)
       {
         objc_enumerationMutation(v38);
       }
 
-      v42 = *(*(&v291 + 1) + 8 * j);
+      v42 = *(*(&v290 + 1) + 8 * j);
       bundleIdentifier3 = [v42 bundleIdentifier];
       v44 = [bundleIdentifier3 isEqualToString:@"com.apple.searchd.suggestions"];
 
@@ -1036,7 +1032,7 @@ LABEL_36:
       }
     }
 
-    v16 = [v38 countByEnumeratingWithState:&v291 objects:v334 count:16];
+    v16 = [v38 countByEnumeratingWithState:&v290 objects:v333 count:16];
     if (v16)
     {
       continue;
@@ -1050,22 +1046,22 @@ LABEL_36:
 LABEL_37:
   v16 = v39;
   section = sectionCopy;
-  v37 = v283;
+  v37 = v282;
 LABEL_38:
 
   results = [*section results];
-  v55 = [results count];
+  v55 = objc_msgSend_count(results);
 
   if (v55)
   {
     self->_haveBullseyeTopHitSection = 1;
-    if (![score count])
+    if (!objc_msgSend_count(score))
     {
       [score addObject:*section];
     }
   }
 
-  else if ([v37 count])
+  else if (objc_msgSend_count(v37))
   {
     [score addObjectsFromArray:v37];
     firstObject2 = [v37 firstObject];
@@ -1075,7 +1071,7 @@ LABEL_38:
     self->_haveBullseyeTopHitSection = 1;
   }
 
-  v235 = v48;
+  v234 = v48;
   if (v16)
   {
     [score addObject:v16];
@@ -1086,15 +1082,15 @@ LABEL_38:
 
     v68 = v38;
     v69 = 0;
-    v239 = v68;
-    v17 = v235;
+    v238 = v68;
+    v17 = v234;
     goto LABEL_206;
   }
 
   v58 = *section;
   results2 = [(SFMutableResultSection *)v58 results];
-  v277 = v58;
-  if ([results2 count] != 1)
+  v276 = v58;
+  if (objc_msgSend_count(results2) != 1)
   {
 
     firstObject3 = 0;
@@ -1110,8 +1106,8 @@ LABEL_55:
     text = firstObject3;
     sectionHeader = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
     v70 = [sectionHeader localizedStringForKey:@"DOMAIN_TOPHIT" value:&stru_1F556FE60 table:@"SpotlightServices"];
-    v67 = v277;
-    [(SFResultSection *)v277 setTitle:v70];
+    v67 = v276;
+    [(SFResultSection *)v276 setTitle:v70];
 
     goto LABEL_56;
   }
@@ -1128,10 +1124,10 @@ LABEL_55:
   if (![v65 isEqualToString:@"com.apple.calculation"])
   {
     sectionBundleIdentifier2 = [v64 sectionBundleIdentifier];
-    LODWORD(v286) = [sectionBundleIdentifier2 isEqualToString:@"com.apple.conversion"];
+    LODWORD(v285) = [sectionBundleIdentifier2 isEqualToString:@"com.apple.conversion"];
 
     firstObject3 = v64;
-    if (v286)
+    if (v285)
     {
       goto LABEL_52;
     }
@@ -1146,8 +1142,8 @@ LABEL_51:
 LABEL_52:
   text = firstObject3;
   sectionHeader = [firstObject3 sectionHeader];
-  v67 = v277;
-  [(SFResultSection *)v277 setTitle:sectionHeader];
+  v67 = v276;
+  [(SFResultSection *)v276 setTitle:sectionHeader];
   v16 = v62;
 LABEL_56:
 
@@ -1155,10 +1151,10 @@ LABEL_56:
   v72 = [v71 localizedStringForKey:@"SUGGESTIONS" value:&stru_1F556FE60 table:@"SpotlightServices"];
 
   results4 = [(SFMutableResultSection *)v67 results];
-  v74 = [results4 count];
+  v74 = objc_msgSend_count(results4);
 
   v15 = v67;
-  v236 = v16;
+  v235 = v16;
   sectionCopy = v72;
   if (v74)
   {
@@ -1170,30 +1166,30 @@ LABEL_56:
     [(SFResultSection *)v16 setTitle:v72];
   }
 
-  v289 = 0u;
-  v290 = 0u;
-  v287 = 0u;
   v288 = 0u;
+  v289 = 0u;
+  v286 = 0u;
+  v287 = 0u;
   v75 = v38;
-  v76 = [v75 countByEnumeratingWithState:&v287 objects:v333 count:16];
+  v76 = [v75 countByEnumeratingWithState:&v286 objects:v332 count:16];
   if (v76)
   {
     v77 = v76;
-    v78 = *v288;
-    *&v286 = @"com.apple.searchd.suggestions";
+    v78 = *v287;
+    *&v285 = @"com.apple.searchd.suggestions";
     do
     {
       for (k = 0; k != v77; ++k)
       {
-        if (*v288 != v78)
+        if (*v287 != v78)
         {
           objc_enumerationMutation(v75);
         }
 
-        v80 = *(*(&v287 + 1) + 8 * k);
+        v80 = *(*(&v286 + 1) + 8 * k);
         if (v80 != v15)
         {
-          bundleIdentifier5 = [*(*(&v287 + 1) + 8 * k) bundleIdentifier];
+          bundleIdentifier5 = [*(*(&v286 + 1) + 8 * k) bundleIdentifier];
           if ([bundleIdentifier5 isEqualToString:@"com.apple.spotlight.tophits"])
           {
           }
@@ -1201,33 +1197,22 @@ LABEL_56:
           else
           {
             bundleIdentifier6 = [(SFResultSection *)v80 bundleIdentifier];
-            v83 = [bundleIdentifier6 isEqualToString:v286];
+            v83 = [bundleIdentifier6 isEqualToString:v285];
 
-            v15 = v277;
+            v15 = v276;
             if ((v83 & 1) == 0)
             {
-              if (!selfCopy->_haveBullseyeTopHitSection)
+              if (selfCopy->_haveBullseyeTopHitSection && (-[SFMutableResultSection resultSet](v80, "resultSet"), v84 = objc_claimAutoreleasedReturnValue(), -[SFMutableResultSection resultSet](v276, "resultSet"), v85 = objc_claimAutoreleasedReturnValue(), v86 = [v84 intersectsOrderedSet:v85], v85, v15 = v276, v84, v86))
               {
-                goto LABEL_71;
-              }
-
-              resultSet2 = [(SFMutableResultSection *)v80 resultSet];
-              resultSet3 = [(SFMutableResultSection *)v277 resultSet];
-              v86 = [resultSet2 intersectsOrderedSet:resultSet3];
-
-              v15 = v277;
-              if (v86)
-              {
-                resultSet4 = [(SFMutableResultSection *)v277 resultSet];
-                v88 = [(SFMutableResultSection *)v80 copySectionRemovingResults:resultSet4];
+                resultSet2 = [(SFMutableResultSection *)v276 resultSet];
+                v88 = [(SFMutableResultSection *)v80 copySectionRemovingResults:resultSet2];
 
                 [score addObject:v88];
-                v15 = v277;
+                v15 = v276;
               }
 
               else
               {
-LABEL_71:
                 [score addObject:v80];
               }
             }
@@ -1235,102 +1220,102 @@ LABEL_71:
         }
       }
 
-      v77 = [v75 countByEnumeratingWithState:&v287 objects:v333 count:16];
+      v77 = [v75 countByEnumeratingWithState:&v286 objects:v332 count:16];
     }
 
     while (v77);
   }
 
   v89 = score;
-  v239 = v89;
+  v238 = v89;
 
   self = selfCopy;
-  v17 = v235;
-  v16 = v236;
+  v17 = v234;
+  v16 = v235;
 LABEL_75:
   queryKind = [(SPSearchQueryContext *)self->_queryContext queryKind];
   whyQuery = [(SPSearchQueryContext *)self->_queryContext whyQuery];
   v92 = PRSLogCategoryDefault();
-  v236 = v16;
-  v277 = v15;
+  v235 = v16;
+  v276 = v15;
   if (os_log_type_enabled(v92, OS_LOG_TYPE_INFO))
   {
     queryID = self->_queryID;
     searchString = [(SPSearchQueryContext *)self->_queryContext searchString];
     v95 = SSRedactString(searchString, 0);
-    v299 = 67109890;
-    *v300 = queryID;
-    v16 = v236;
-    *&v300[4] = 1024;
-    *&v300[6] = queryKind;
-    *v301 = 2112;
-    *&v301[2] = v95;
-    *&v301[10] = 2048;
-    *&v301[12] = whyQuery;
-    _os_log_impl(&dword_1D9F69000, v92, OS_LOG_TYPE_INFO, "### [%d] sections %d %@ %lu", &v299, 0x22u);
+    v298 = 67109890;
+    *v299 = queryID;
+    v16 = v235;
+    *&v299[4] = 1024;
+    *&v299[6] = queryKind;
+    *v300 = 2112;
+    *&v300[2] = v95;
+    *&v300[10] = 2048;
+    *&v300[12] = whyQuery;
+    _os_log_impl(&dword_1D9F69000, v92, OS_LOG_TYPE_INFO, "### [%d] sections %d %@ %lu", &v298, 0x22u);
 
-    v15 = v277;
+    v15 = v276;
     self = selfCopy;
   }
 
-  v252 = objc_opt_new();
-  v96 = v239;
-  v246 = [v239 count];
+  v251 = objc_opt_new();
+  v96 = v238;
+  v245 = objc_msgSend_count(v238);
   relatedSectionBundleIdentifier = [(SFMutableResultSection *)self->_topHitSection relatedSectionBundleIdentifier];
-  v232 = relatedSectionBundleIdentifier;
+  v231 = relatedSectionBundleIdentifier;
   if (relatedSectionBundleIdentifier)
   {
-    v237 = [(NSDictionary *)self->_categoryToResultMapping objectForKeyedSubscript:relatedSectionBundleIdentifier];
+    v236 = [(NSDictionary *)self->_categoryToResultMapping objectForKeyedSubscript:relatedSectionBundleIdentifier];
   }
 
   else
   {
-    v237 = 0;
+    v236 = 0;
   }
 
   v98 = sectionsCopy;
   ImportantBits = PRSRankingQueryImportantBits(1);
-  v256 = v100;
-  v257 = ImportantBits;
-  v231 = &v229;
-  v101 = v246;
-  v238 = &v229 - ((8 * v246 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v230 = 8 * v246;
-  bzero(v238, 8 * v246);
+  v255 = v100;
+  v256 = ImportantBits;
+  v230 = &v228;
+  v101 = v245;
+  v237 = &v228 - ((8 * v245 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v229 = 8 * v245;
+  bzero(v237, 8 * v245);
   if (v101 < 1)
   {
 LABEL_199:
-    v260 = 0;
+    v259 = 0;
     goto LABEL_200;
   }
 
-  v248 = 0;
+  v247 = 0;
   v103 = 0;
-  v242 = 0;
-  v250 = 0;
+  v241 = 0;
+  v249 = 0;
   v104 = 0;
-  v255 = @"com.apple.mobilesafari";
-  v233 = @"com.apple.parsec.related_search";
+  v254 = @"com.apple.mobilesafari";
+  v232 = @"com.apple.parsec.related_search";
   *&v102 = 138412546;
-  v229 = v102;
+  v228 = v102;
   *&v102 = 67109890;
-  v234 = v102;
+  v233 = v102;
   *&v102 = 67113218;
-  v245 = v102;
+  v244 = v102;
   *&v102 = 67114242;
-  v254 = v102;
-  v235 = v17;
+  v253 = v102;
+  v234 = v17;
   while (2)
   {
-    v260 = v103;
-    v105 = [v96 objectAtIndexedSubscript:{v104, v229}];
+    v259 = v103;
+    v105 = [v96 objectAtIndexedSubscript:{v104, v228}];
     v106 = v105;
-    if (v98 && !v244)
+    if (v98 && !v243)
     {
       if (v105 == v15 || v105 == v16)
       {
         v107 = v105;
-        [v252 addObject:?];
+        [v251 addObject:?];
         v106 = v107;
         ++v98;
         goto LABEL_186;
@@ -1341,7 +1326,7 @@ LABEL_199:
 
     if (v104)
     {
-      if (v105 == v237 || v244 && v105 == self->_topHitSection)
+      if (v105 == v236 || v243 && v105 == self->_topHitSection)
       {
         goto LABEL_186;
       }
@@ -1353,9 +1338,9 @@ LABEL_91:
     else if (v105 == self->_topHitSection)
     {
       v109 = v98;
-      v110 = v237;
+      v110 = v236;
       v111 = v105;
-      v112 = v237;
+      v112 = v236;
 
       if (!v110)
       {
@@ -1364,23 +1349,23 @@ LABEL_91:
         if (os_log_type_enabled(v211, OS_LOG_TYPE_DEFAULT))
         {
           topHitSection = self->_topHitSection;
-          v299 = v229;
-          *v300 = v232;
-          *&v300[8] = 2112;
-          *v301 = topHitSection;
-          _os_log_impl(&dword_1D9F69000, v211, OS_LOG_TYPE_DEFAULT, "### missing results section %@ for %@", &v299, 0x16u);
+          v298 = v228;
+          *v299 = v231;
+          *&v299[8] = 2112;
+          *v300 = topHitSection;
+          _os_log_impl(&dword_1D9F69000, v211, OS_LOG_TYPE_DEFAULT, "### missing results section %@ for %@", &v298, 0x16u);
         }
 
         v106 = 0;
         v98 = v109;
-        v96 = v239;
+        v96 = v238;
         goto LABEL_186;
       }
 
       v108 = 1;
       v106 = v112;
       v98 = v109;
-      v96 = v239;
+      v96 = v238;
       v104 = 0;
     }
 
@@ -1400,52 +1385,52 @@ LABEL_91:
     }
 
     v114 = v113;
-    if (v114 & v250)
+    if (v114 & v249)
     {
-      v250 = 1;
+      v249 = 1;
       goto LABEL_186;
     }
 
-    v240 = v108;
-    v253 = v106;
-    v270 = v104;
+    v239 = v108;
+    v252 = v106;
+    v269 = v104;
     sectionsCopy = v98;
     v115 = PRSLogCategoryDefault();
     if (os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
     {
       v116 = self->_queryID;
-      v117 = v253;
-      maxInitiallyVisibleResults = [(SFResultSection *)v253 maxInitiallyVisibleResults];
+      v117 = v252;
+      maxInitiallyVisibleResults = [(SFResultSection *)v252 maxInitiallyVisibleResults];
       title = [(SFResultSection *)v117 title];
-      v299 = v234;
-      *v300 = v116;
-      v15 = v277;
-      *&v300[4] = 1024;
-      *&v300[6] = v270;
-      *v301 = 1024;
-      *&v301[2] = maxInitiallyVisibleResults;
-      *&v301[6] = 2112;
-      *&v301[8] = title;
-      _os_log_impl(&dword_1D9F69000, v115, OS_LOG_TYPE_DEFAULT, "### [%d] section[%d] maxInitiallyVisibleResults[%d] %@", &v299, 0x1Eu);
+      v298 = v233;
+      *v299 = v116;
+      v15 = v276;
+      *&v299[4] = 1024;
+      *&v299[6] = v269;
+      *v300 = 1024;
+      *&v300[2] = maxInitiallyVisibleResults;
+      *&v300[6] = 2112;
+      *&v300[8] = title;
+      _os_log_impl(&dword_1D9F69000, v115, OS_LOG_TYPE_DEFAULT, "### [%d] section[%d] maxInitiallyVisibleResults[%d] %@", &v298, 0x1Eu);
     }
 
     v120 = [SFMutableResultSection alloc];
-    v121 = v253;
-    v122 = [(SFMutableResultSection *)v120 initWithPrototype:v253];
+    v121 = v252;
+    v122 = [(SFMutableResultSection *)v120 initWithPrototype:v252];
     v123 = objc_opt_new();
-    v243 = v122;
+    v242 = v122;
     [(SFMutableResultSection *)v122 setResultSet:v123];
-    resultSet5 = [(SFMutableResultSection *)v121 resultSet];
-    v124 = [resultSet5 count];
+    resultSet3 = [(SFMutableResultSection *)v121 resultSet];
+    v124 = objc_msgSend_count(resultSet3);
     maxInitiallyVisibleResults2 = [(SFResultSection *)v121 maxInitiallyVisibleResults];
-    v278 = v124;
-    v261 = v123;
+    v277 = v124;
+    v260 = v123;
     if (v124 < 1)
     {
-      v181 = [v123 count];
-      if ((v240 & 1) == 0)
+      v181 = objc_msgSend_count(v123);
+      if ((v239 & 1) == 0)
       {
-        [(SFResultSection *)v243 isInitiallyHidden];
+        [(SFResultSection *)v242 isInitiallyHidden];
       }
 
       v182 = 1;
@@ -1456,7 +1441,7 @@ LABEL_91:
     v126 = 0;
     while (2)
     {
-      v127 = [resultSet5 objectAtIndex:v125];
+      v127 = [resultSet3 objectAtIndex:v125];
       score = [v127 score];
       v129 = v128;
       [v127 l2score];
@@ -1499,12 +1484,12 @@ LABEL_91:
             v148 = 1;
           }
 
-          LODWORD(v286) = v148;
+          LODWORD(v285) = v148;
         }
 
         else
         {
-          LODWORD(v286) = 0;
+          LODWORD(v285) = 0;
           self = selfCopy2;
         }
 
@@ -1513,7 +1498,7 @@ LABEL_91:
 
       else
       {
-        LODWORD(v286) = shouldHideUnderShowMore;
+        LODWORD(v285) = shouldHideUnderShowMore;
       }
 
       topHit = [v127 topHit];
@@ -1521,8 +1506,8 @@ LABEL_91:
       text = [title2 text];
 
       v151 = score | v129;
-      v283 = PRSLogCategoryDefault();
-      v152 = os_log_type_enabled(v283, OS_LOG_TYPE_DEFAULT);
+      v282 = PRSLogCategoryDefault();
+      v152 = os_log_type_enabled(v282, OS_LOG_TYPE_DEFAULT);
       if (!v151)
       {
         if (v152)
@@ -1534,25 +1519,25 @@ LABEL_91:
           sectionBundleIdentifier3 = [v127 sectionBundleIdentifier];
           applicationBundleIdentifier2 = SSRedactSuggestionIdentifier(identifier, sectionBundleIdentifier3);
           sectionBundleIdentifier4 = [v127 sectionBundleIdentifier];
-          v276 = v126;
-          v275 = topHit;
-          v272 = identifier;
-          v268 = sectionBundleIdentifier4;
-          v269 = sectionBundleIdentifier3;
+          v275 = v126;
+          v274 = topHit;
+          v271 = identifier;
+          v267 = sectionBundleIdentifier4;
+          v268 = sectionBundleIdentifier3;
           LODWORD(sectionBundleIdentifier6) = v156;
-          if (sectionBundleIdentifier4 && ([v127 sectionBundleIdentifier], v251 = objc_claimAutoreleasedReturnValue(), (objc_msgSend(v251, "isEqualToString:", v255) & 1) != 0))
+          if (sectionBundleIdentifier4 && ([v127 sectionBundleIdentifier], v250 = objc_claimAutoreleasedReturnValue(), (objc_msgSend(v250, "isEqualToString:", v254) & 1) != 0))
           {
             v160 = text;
-            v266 = 0;
+            v265 = 0;
             v161 = @"(private)";
           }
 
           else
           {
-            v266 = 1;
+            v265 = 1;
             v160 = text;
             v161 = SSRedactString(text, 1);
-            v249 = v161;
+            v248 = v161;
           }
 
           rankingItem4 = [v127 rankingItem];
@@ -1560,51 +1545,51 @@ LABEL_91:
           attributes = [rankingItem5 attributes];
           rankingItem6 = [v127 rankingItem];
           Count = SSCompactRankingAttrsGetCount([rankingItem6 attributes]);
-          v299 = v245;
-          *v300 = sectionBundleIdentifier6;
-          *&v300[4] = 1024;
-          *&v300[6] = v270;
-          *v301 = 1024;
-          *&v301[2] = v125;
-          *&v301[6] = 1024;
-          *&v301[8] = v275;
-          *&v301[12] = 1024;
-          *&v301[14] = v286;
-          *&v301[18] = 1024;
-          v302 = sectionCopy;
-          v303 = 1024;
-          v304 = recentForTopHit;
-          v305 = 1024;
-          v306 = recentForAboveThresholdTopHit;
-          v307 = 2112;
-          v308 = score;
-          v309 = 2112;
-          v310 = applicationBundleIdentifier;
-          v311 = 2112;
-          v312 = applicationBundleIdentifier2;
-          v313 = 2048;
-          v314 = v135;
-          v315 = 2048;
-          v316 = v131;
-          v317 = 2112;
-          v318 = v161;
-          v319 = 2048;
-          v320 = rankingItem4;
-          v321 = 2048;
-          v322 = attributes;
-          v323 = 2048;
-          v324 = Count;
-          _os_log_impl(&dword_1D9F69000, v283, OS_LOG_TYPE_DEFAULT, "### [%d] result[%d,%d] %d %d %d %d %d %@ %@ %@ %f %f %@ (%p, %p, %lu)", &v299, 0x8Cu);
+          v298 = v244;
+          *v299 = sectionBundleIdentifier6;
+          *&v299[4] = 1024;
+          *&v299[6] = v269;
+          *v300 = 1024;
+          *&v300[2] = v125;
+          *&v300[6] = 1024;
+          *&v300[8] = v274;
+          *&v300[12] = 1024;
+          *&v300[14] = v285;
+          *&v300[18] = 1024;
+          v301 = sectionCopy;
+          v302 = 1024;
+          v303 = recentForTopHit;
+          v304 = 1024;
+          v305 = recentForAboveThresholdTopHit;
+          v306 = 2112;
+          v307 = score;
+          v308 = 2112;
+          v309 = applicationBundleIdentifier;
+          v310 = 2112;
+          v311 = applicationBundleIdentifier2;
+          v312 = 2048;
+          v313 = v135;
+          v314 = 2048;
+          v315 = v131;
+          v316 = 2112;
+          v317 = v161;
+          v318 = 2048;
+          v319 = rankingItem4;
+          v320 = 2048;
+          v321 = attributes;
+          v322 = 2048;
+          v323 = Count;
+          _os_log_impl(&dword_1D9F69000, v282, OS_LOG_TYPE_DEFAULT, "### [%d] result[%d,%d] %d %d %d %d %d %@ %@ %@ %f %f %@ (%p, %p, %lu)", &v298, 0x8Cu);
 
-          if (v266)
+          if (v265)
           {
           }
 
-          v123 = v261;
-          v126 = v276;
-          v178 = v268;
-          v179 = v269;
-          if (v268)
+          v123 = v260;
+          v126 = v275;
+          v178 = v267;
+          v179 = v268;
+          if (v267)
           {
           }
 
@@ -1616,8 +1601,8 @@ LABEL_91:
 LABEL_127:
         v160 = text;
 LABEL_140:
-        v172 = v286;
-        v168 = v283;
+        v172 = v285;
+        v168 = v282;
         goto LABEL_141;
       }
 
@@ -1631,101 +1616,101 @@ LABEL_140:
       applicationBundleIdentifier2 = [v127 applicationBundleIdentifier];
       identifier2 = [v127 identifier];
       sectionBundleIdentifier5 = [v127 sectionBundleIdentifier];
-      v272 = SSRedactSuggestionIdentifier(identifier2, sectionBundleIdentifier5);
+      v271 = SSRedactSuggestionIdentifier(identifier2, sectionBundleIdentifier5);
       sectionBundleIdentifier6 = [v127 sectionBundleIdentifier];
-      v268 = sectionBundleIdentifier5;
-      v276 = v126;
-      v275 = topHit;
-      v269 = identifier2;
-      v265 = v153;
-      if (sectionBundleIdentifier6 && ([v127 sectionBundleIdentifier], v259 = objc_claimAutoreleasedReturnValue(), (objc_msgSend(v259, "isEqualToString:", v255) & 1) != 0))
+      v267 = sectionBundleIdentifier5;
+      v275 = v126;
+      v274 = topHit;
+      v268 = identifier2;
+      v264 = v153;
+      if (sectionBundleIdentifier6 && ([v127 sectionBundleIdentifier], v258 = objc_claimAutoreleasedReturnValue(), (objc_msgSend(v258, "isEqualToString:", v254) & 1) != 0))
       {
-        v266 = 0;
-        v264 = @"(private)";
+        v265 = 0;
+        v263 = @"(private)";
       }
 
       else
       {
-        v266 = 1;
-        v258 = SSRedactString(text, 1);
-        v264 = v258;
+        v265 = 1;
+        v257 = SSRedactString(text, 1);
+        v263 = v257;
       }
 
-      v262 = v129 & v256;
+      v261 = v129 & v255;
       v162 = score;
-      v263 = score & v257;
+      v262 = score & v256;
       rankingItem7 = [v127 rankingItem];
       rankingItem8 = [v127 rankingItem];
       attributes2 = [rankingItem8 attributes];
       rankingItem9 = [v127 rankingItem];
       v167 = SSCompactRankingAttrsGetCount([rankingItem9 attributes]);
-      v299 = v254;
-      *v300 = v265;
-      *&v300[4] = 1024;
-      *&v300[6] = v270;
-      *v301 = 1024;
-      *&v301[2] = v125;
-      *&v301[6] = 1024;
-      *&v301[8] = v275;
-      *&v301[12] = 1024;
-      *&v301[14] = v286;
-      *&v301[18] = 1024;
-      v302 = sectionCopy;
-      v303 = 1024;
-      v304 = recentForTopHit;
-      v305 = 1024;
-      v306 = recentForAboveThresholdTopHit;
-      v307 = 2112;
-      v308 = applicationBundleIdentifier;
-      v309 = 2112;
-      v310 = applicationBundleIdentifier2;
-      v311 = 2112;
-      v312 = v272;
-      v313 = 2048;
-      v314 = v135;
-      v315 = 2048;
-      v316 = v131;
-      v317 = 2048;
-      v318 = v129;
-      v319 = 2048;
-      v320 = v162;
-      v321 = 2048;
-      v322 = v262;
-      v323 = 2048;
-      v324 = v263;
-      v325 = 2112;
-      v326 = v264;
-      v327 = 2048;
-      v328 = rankingItem7;
-      v329 = 2048;
-      v330 = attributes2;
-      v331 = 2048;
-      v332 = v167;
-      v168 = v283;
-      _os_log_impl(&dword_1D9F69000, v283, OS_LOG_TYPE_DEFAULT, "### [%d] result[%d,%d] %d %d %d %d %d %@ %@ %@ %f %f 0x%16.16llx%16.16llx 0x%16.16llx%16.16llx %@ (%p, %p, %lu)", &v299, 0xB4u);
+      v298 = v253;
+      *v299 = v264;
+      *&v299[4] = 1024;
+      *&v299[6] = v269;
+      *v300 = 1024;
+      *&v300[2] = v125;
+      *&v300[6] = 1024;
+      *&v300[8] = v274;
+      *&v300[12] = 1024;
+      *&v300[14] = v285;
+      *&v300[18] = 1024;
+      v301 = sectionCopy;
+      v302 = 1024;
+      v303 = recentForTopHit;
+      v304 = 1024;
+      v305 = recentForAboveThresholdTopHit;
+      v306 = 2112;
+      v307 = applicationBundleIdentifier;
+      v308 = 2112;
+      v309 = applicationBundleIdentifier2;
+      v310 = 2112;
+      v311 = v271;
+      v312 = 2048;
+      v313 = v135;
+      v314 = 2048;
+      v315 = v131;
+      v316 = 2048;
+      v317 = v129;
+      v318 = 2048;
+      v319 = v162;
+      v320 = 2048;
+      v321 = v261;
+      v322 = 2048;
+      v323 = v262;
+      v324 = 2112;
+      v325 = v263;
+      v326 = 2048;
+      v327 = rankingItem7;
+      v328 = 2048;
+      v329 = attributes2;
+      v330 = 2048;
+      v331 = v167;
+      v168 = v282;
+      _os_log_impl(&dword_1D9F69000, v282, OS_LOG_TYPE_DEFAULT, "### [%d] result[%d,%d] %d %d %d %d %d %@ %@ %@ %f %f 0x%16.16llx%16.16llx 0x%16.16llx%16.16llx %@ (%p, %p, %lu)", &v298, 0xB4u);
 
-      if (v266)
+      if (v265)
       {
       }
 
       v160 = text;
-      v123 = v261;
-      v126 = v276;
+      v123 = v260;
+      v126 = v275;
       v169 = sectionBundleIdentifier6;
-      v170 = v268;
+      v170 = v267;
       if (sectionBundleIdentifier6)
       {
       }
 
-      v171 = v272;
+      v171 = v271;
       self = selfCopy;
-      v172 = v286;
+      v172 = v285;
 LABEL_141:
 
       [v123 addObject:v127];
       v126 += v172 ^ 1u;
 
-      if (v278 != ++v125)
+      if (v277 != ++v125)
       {
         continue;
       }
@@ -1733,11 +1718,11 @@ LABEL_141:
       break;
     }
 
-    v181 = [v123 count];
-    if (v240)
+    v181 = objc_msgSend_count(v123);
+    if (v239)
     {
-      v17 = v235;
-      v16 = v236;
+      v17 = v234;
+      v16 = v235;
       if (!v126)
       {
         v182 = 1;
@@ -1746,11 +1731,11 @@ LABEL_141:
 
 LABEL_150:
       initiallyVisibleSectionSentCount = self->_initiallyVisibleSectionSentCount;
-      v185 = [v252 count];
-      if (initiallyVisibleSectionSentCount + v248 + v185 >= sectionsCopy)
+      v185 = objc_msgSend_count(v251);
+      if (initiallyVisibleSectionSentCount + v247 + v185 >= sectionsCopy)
       {
-        bundleIdentifier7 = [(SFResultSection *)v243 bundleIdentifier];
-        v182 = [bundleIdentifier7 isEqualToString:v233] ^ 1;
+        bundleIdentifier7 = [(SFResultSection *)v242 bundleIdentifier];
+        v182 = [bundleIdentifier7 isEqualToString:v232] ^ 1;
       }
 
       else
@@ -1761,9 +1746,9 @@ LABEL_150:
       goto LABEL_154;
     }
 
-    isInitiallyHidden = [(SFResultSection *)v243 isInitiallyHidden];
-    v17 = v235;
-    v16 = v236;
+    isInitiallyHidden = [(SFResultSection *)v242 isInitiallyHidden];
+    v17 = v234;
+    v16 = v235;
     if (!isInitiallyHidden && v126)
     {
       goto LABEL_150;
@@ -1773,14 +1758,14 @@ LABEL_150:
     if (!v126)
     {
 LABEL_160:
-      v15 = v277;
+      v15 = v276;
 LABEL_161:
       v189 = maxInitiallyVisibleResults2;
       goto LABEL_162;
     }
 
 LABEL_154:
-    bundleIdentifier8 = [(SFResultSection *)v243 bundleIdentifier];
+    bundleIdentifier8 = [(SFResultSection *)v242 bundleIdentifier];
     v188 = SSSectionIsSyndicatedPhotos(bundleIdentifier8);
 
     v189 = maxInitiallyVisibleResults2;
@@ -1799,7 +1784,7 @@ LABEL_154:
       v189 = v190;
     }
 
-    v15 = v277;
+    v15 = v276;
 LABEL_162:
     if (v189 >= v181)
     {
@@ -1811,11 +1796,11 @@ LABEL_162:
       v191 = v189;
     }
 
-    v192 = [v252 count];
-    v193 = v260;
+    v192 = objc_msgSend_count(v251);
+    v193 = v259;
     if (v17)
     {
-      v194 = v192 - v260 + self->_initiallyVisibleSectionSentCount == sectionsCopy - 1;
+      v194 = v192 - v259 + self->_initiallyVisibleSectionSentCount == sectionsCopy - 1;
     }
 
     else
@@ -1824,28 +1809,28 @@ LABEL_162:
     }
 
     v195 = !v194;
-    if ((v195 | v242 | v250))
+    if ((v195 | v241 | v249))
     {
 LABEL_181:
       if (v182)
       {
         v207 = v193 + 1;
-        v208 = v243;
-        objc_storeStrong(&v238[8 * v193], v243);
-        v260 = v207;
+        v208 = v242;
+        objc_storeStrong(&v237[8 * v193], v242);
+        v259 = v207;
       }
 
       else
       {
-        v208 = v243;
+        v208 = v242;
       }
 
-      v209 = v17 == v253;
+      v209 = v17 == v252;
       [(SFResultSection *)v208 setIsInitiallyHidden:v182];
       [(SFResultSection *)v208 setMaxInitiallyVisibleResults:v191];
-      [v252 addObject:v208];
-      v242 |= v209;
-      v104 = v270;
+      [v251 addObject:v208];
+      v241 |= v209;
+      v104 = v269;
     }
 
     else
@@ -1853,31 +1838,31 @@ LABEL_181:
       v196 = [[SFMutableResultSection alloc] initWithPrototype:v17];
       v197 = objc_opt_new();
       [(SFMutableResultSection *)v196 setResultSet:v197];
-      resultSet6 = [(SFMutableResultSection *)v17 resultSet];
-      v199 = [resultSet6 count];
+      resultSet4 = [(SFMutableResultSection *)v17 resultSet];
+      v199 = objc_msgSend_count(resultSet4);
       if (v199 >= 1)
       {
         v200 = v199;
         for (m = 0; m != v200; ++m)
         {
-          v202 = [resultSet6 objectAtIndex:m];
+          v202 = [resultSet4 objectAtIndex:m];
           [v197 addObject:v202];
         }
       }
 
-      v203 = v17 == v253;
+      v203 = v17 == v252;
       [(SFResultSection *)v196 setIsInitiallyHidden:[(SFResultSection *)v17 isInitiallyHidden]];
-      [v252 addObject:v196];
-      v16 = v236;
-      v123 = v261;
+      [v251 addObject:v196];
+      v16 = v235;
+      v123 = v260;
       if (((v203 | v182) & 1) == 0)
       {
         v204 = selfCopy->_initiallyVisibleSectionSentCount;
-        v205 = [v252 count];
-        if (v204 + v248 + v205 >= sectionsCopy)
+        v205 = objc_msgSend_count(v251);
+        if (v204 + v247 + v205 >= sectionsCopy)
         {
-          bundleIdentifier9 = [(SFResultSection *)v243 bundleIdentifier];
-          v182 = [bundleIdentifier9 isEqualToString:v233] ^ 1;
+          bundleIdentifier9 = [(SFResultSection *)v242 bundleIdentifier];
+          v182 = [bundleIdentifier9 isEqualToString:v232] ^ 1;
         }
 
         else
@@ -1886,31 +1871,31 @@ LABEL_181:
         }
       }
 
-      v250 = 1;
-      if (v17 != v253)
+      v249 = 1;
+      if (v17 != v252)
       {
         self = selfCopy;
-        v15 = v277;
-        v193 = v260;
+        v15 = v276;
+        v193 = v259;
         goto LABEL_181;
       }
 
-      v242 = 0;
-      v104 = v270;
+      v241 = 0;
+      v104 = v269;
       self = selfCopy;
-      v15 = v277;
-      v208 = v243;
+      v15 = v276;
+      v208 = v242;
     }
 
     v98 = sectionsCopy;
-    v96 = v239;
-    v106 = v253;
+    v96 = v238;
+    v106 = v252;
 LABEL_186:
 
     ++v104;
-    v103 = v260;
-    v248 = -v260;
-    if (v104 != v246)
+    v103 = v259;
+    v247 = -v259;
+    if (v104 != v245)
     {
       continue;
     }
@@ -1918,63 +1903,63 @@ LABEL_186:
     break;
   }
 
-  if (!v260)
+  if (!v259)
   {
     goto LABEL_199;
   }
 
-  if ((self->_initiallyHiddenSectionSentCount + v260) <= 1)
+  if ((self->_initiallyHiddenSectionSentCount + v259) <= 1)
   {
     v213 = 0;
     *&v210 = 134218498;
-    v286 = v210;
+    v285 = v210;
     do
     {
-      v214 = *&v238[8 * v213];
+      v214 = *&v237[8 * v213];
       [v214 setIsInitiallyHidden:0];
       v215 = SSGeneralLog();
       if (os_log_type_enabled(v215, OS_LOG_TYPE_DEFAULT))
       {
         bundleIdentifier10 = [v214 bundleIdentifier];
-        v299 = v286;
-        *v300 = v213;
-        *&v300[8] = 2112;
-        *v301 = bundleIdentifier10;
-        *&v301[8] = 1024;
-        *&v301[10] = 2;
-        _os_log_impl(&dword_1D9F69000, v215, OS_LOG_TYPE_DEFAULT, "[SpotlightRanking] Unhiding section (%lu) %@ due to minimum hiding quota (%d)", &v299, 0x1Cu);
+        v298 = v285;
+        *v299 = v213;
+        *&v299[8] = 2112;
+        *v300 = bundleIdentifier10;
+        *&v300[8] = 1024;
+        *&v300[10] = 2;
+        _os_log_impl(&dword_1D9F69000, v215, OS_LOG_TYPE_DEFAULT, "[SpotlightRanking] Unhiding section (%lu) %@ due to minimum hiding quota (%d)", &v298, 0x1Cu);
       }
 
       ++v213;
     }
 
-    while (v260 != v213);
-    v260 = 0;
+    while (v259 != v213);
+    v259 = 0;
     self = selfCopy;
-    v16 = v236;
+    v16 = v235;
   }
 
 LABEL_200:
-  v217 = [v252 count];
+  v217 = objc_msgSend_count(v251);
   v218 = v217;
-  if (!self->_initiallyVisibleSectionSentCount && !self->_initiallyHiddenSectionSentCount && (!v16 && v260 == v217 || v16 && v260 == v217 - 1))
+  if (!self->_initiallyVisibleSectionSentCount && !self->_initiallyHiddenSectionSentCount && (!v16 && v259 == v217 || v16 && v259 == v217 - 1))
   {
-    v224 = 2;
+    v223 = 2;
     if (v16)
     {
-      v224 = 3;
+      v223 = 3;
     }
 
-    v225 = v217 >= v224 ? v224 : v217;
+    v224 = v217 >= v223 ? v223 : v217;
     if (v217)
     {
-      for (n = 0; v225 != n; ++n)
+      for (n = 0; v224 != n; ++n)
       {
-        v227 = [v252 objectAtIndexedSubscript:n];
-        if ([v227 isInitiallyHidden])
+        v226 = [v251 objectAtIndexedSubscript:n];
+        if ([v226 isInitiallyHidden])
         {
-          [v227 setIsInitiallyHidden:0];
-          --v260;
+          [v226 setIsInitiallyHidden:0];
+          --v259;
         }
 
         else if (!v16 || n)
@@ -1986,14 +1971,14 @@ LABEL_200:
     }
   }
 
-  v219 = self->_initiallyHiddenSectionSentCount + v260;
-  self->_initiallyVisibleSectionSentCount += v218 - v260;
+  v219 = self->_initiallyHiddenSectionSentCount + v259;
+  self->_initiallyVisibleSectionSentCount += v218 - v259;
   self->_initiallyHiddenSectionSentCount = v219;
-  v68 = [SSBullseyeTopHitsManager dedupeWebURLSuggestionsFromSections:v252];
-  v220 = v230;
-  if (v246)
+  v68 = [SSBullseyeTopHitsManager dedupeWebURLSuggestionsFromSections:v251];
+  v220 = v229;
+  if (v245)
   {
-    v221 = v238 - 8;
+    v221 = v237 - 8;
     do
     {
 
@@ -2003,49 +1988,47 @@ LABEL_200:
     while (v220);
   }
 
-  v69 = v277;
+  v69 = v276;
 LABEL_206:
-
-  v222 = *MEMORY[0x1E69E9840];
 
   return v68;
 }
 
 + (id)dedupeWebURLSuggestionsFromSections:(id)sections
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   sectionsCopy = sections;
-  if ([sectionsCopy count] >= 2)
+  if (objc_msgSend_count(sectionsCopy) >= 2)
   {
-    v58 = objc_opt_new();
+    v55 = objc_opt_new();
     firstObject = [sectionsCopy firstObject];
     bundleIdentifier = [firstObject bundleIdentifier];
     v6 = [bundleIdentifier isEqualToString:@"com.apple.spotlight.tophits"];
 
     if (v6)
     {
-      v52 = sectionsCopy;
-      v65 = 0u;
-      v66 = 0u;
+      v49 = sectionsCopy;
+      v62 = 0u;
       v63 = 0u;
-      v64 = 0u;
+      v60 = 0u;
+      v61 = 0u;
       v7 = firstObject;
       results = [firstObject results];
-      v9 = [results countByEnumeratingWithState:&v63 objects:v68 count:16];
+      v9 = [results countByEnumeratingWithState:&v60 objects:v65 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v64;
+        v11 = *v61;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v64 != v11)
+            if (*v61 != v11)
             {
               objc_enumerationMutation(results);
             }
 
-            v13 = *(*(&v63 + 1) + 8 * i);
+            v13 = *(*(&v60 + 1) + 8 * i);
             v14 = [v13 url];
             v15 = v14;
             if (v14)
@@ -2077,58 +2060,57 @@ LABEL_206:
             v23 = strippedURL(v22);
             if (v23)
             {
-              [v58 addObject:v23];
+              [v55 addObject:v23];
             }
           }
 
-          v10 = [results countByEnumeratingWithState:&v63 objects:v68 count:16];
+          v10 = [results countByEnumeratingWithState:&v60 objects:v65 count:16];
         }
 
         while (v10);
       }
 
-      sectionsCopy = v52;
+      sectionsCopy = v49;
       firstObject = v7;
     }
 
     v24 = [sectionsCopy objectAtIndex:1];
-    if ([v58 count])
+    if (objc_msgSend_count(v55))
     {
       bundleIdentifier2 = [v24 bundleIdentifier];
       v26 = [bundleIdentifier2 isEqualToString:@"com.apple.searchd.suggestions"];
 
       if (v26)
       {
-        v51 = firstObject;
-        v53 = sectionsCopy;
-        v61 = 0u;
-        v62 = 0u;
+        v48 = firstObject;
+        v50 = sectionsCopy;
+        v58 = 0u;
         v59 = 0u;
-        v60 = 0u;
-        v54 = v24;
+        v56 = 0u;
+        v57 = 0u;
+        v51 = v24;
         results2 = [v24 results];
-        v28 = [results2 countByEnumeratingWithState:&v59 objects:v67 count:16];
+        v28 = [results2 countByEnumeratingWithState:&v56 objects:v64 count:16];
         if (v28)
         {
           v29 = v28;
-          v30 = *v60;
-          v31 = 0x1E69CA000uLL;
-          v55 = *v60;
-          v56 = results2;
+          v30 = *v57;
+          v52 = *v57;
+          v53 = results2;
           do
           {
-            v32 = 0;
-            v57 = v29;
+            v31 = 0;
+            v54 = v29;
             do
             {
-              if (*v60 != v30)
+              if (*v57 != v30)
               {
                 objc_enumerationMutation(results2);
               }
 
-              v33 = *(*(&v59 + 1) + 8 * v32);
-              compactCard = [v33 compactCard];
-              v35 = compactCard;
+              v32 = *(*(&v56 + 1) + 8 * v31);
+              compactCard = [v32 compactCard];
+              v34 = compactCard;
               if (compactCard)
               {
                 inlineCard = compactCard;
@@ -2136,22 +2118,21 @@ LABEL_206:
 
               else
               {
-                inlineCard = [v33 inlineCard];
+                inlineCard = [v32 inlineCard];
               }
 
-              v37 = inlineCard;
+              v36 = inlineCard;
 
-              cardSections = [v37 cardSections];
+              cardSections = [v36 cardSections];
               firstObject3 = [cardSections firstObject];
 
-              v40 = *(v31 + 1208);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v41 = firstObject3;
-                suggestionText = [v41 suggestionText];
+                v39 = firstObject3;
+                suggestionText = [v39 suggestionText];
                 text = [suggestionText text];
-                v44 = text;
+                v42 = text;
                 if (text)
                 {
                   text2 = text;
@@ -2163,49 +2144,46 @@ LABEL_206:
                   firstObject4 = [formattedTextPieces firstObject];
                   text2 = [firstObject4 text];
 
-                  results2 = v56;
-                  v30 = v55;
+                  results2 = v53;
+                  v30 = v52;
                 }
 
-                if ([v58 containsObject:text2] && objc_msgSend(v41, "suggestionType") == 4)
+                if ([v55 containsObject:text2] && objc_msgSend(v39, "suggestionType") == 4)
                 {
-                  [v54 removeResults:v33];
+                  [v51 removeResults:v32];
                 }
 
-                v31 = 0x1E69CA000;
-                v29 = v57;
+                v29 = v54;
               }
 
-              ++v32;
+              ++v31;
             }
 
-            while (v29 != v32);
-            v29 = [results2 countByEnumeratingWithState:&v59 objects:v67 count:16];
+            while (v29 != v31);
+            v29 = [results2 countByEnumeratingWithState:&v56 objects:v64 count:16];
           }
 
           while (v29);
         }
 
-        v24 = v54;
-        if ([v54 resultsCount])
+        v24 = v51;
+        if ([v51 resultsCount])
         {
-          sectionsCopy = v53;
+          sectionsCopy = v50;
         }
 
         else
         {
-          v48 = [v53 mutableCopy];
-          [v48 removeObject:v54];
+          v46 = [v50 mutableCopy];
+          [v46 removeObject:v51];
 
-          sectionsCopy = v48;
+          sectionsCopy = v46;
         }
 
-        firstObject = v51;
+        firstObject = v48;
       }
     }
   }
-
-  v49 = *MEMORY[0x1E69E9840];
 
   return sectionsCopy;
 }

@@ -3,6 +3,7 @@
 - (_TtC28LocalAuthenticationUIService35RatchetCoolOffContentViewController)initWithNavigationBarClass:(Class)class toolbarClass:(Class)toolbarClass;
 - (_TtC28LocalAuthenticationUIService35RatchetCoolOffContentViewController)initWithNibName:(id)name bundle:(id)bundle;
 - (_TtC28LocalAuthenticationUIService35RatchetCoolOffContentViewController)initWithRootViewController:(id)controller;
+- (void)pushViewController:(id)controller animated:(BOOL)animated;
 - (void)setCoolOffDuration:(double)duration;
 - (void)viewDidLoad;
 - (void)willMoveToParent:(id)parent;
@@ -44,6 +45,20 @@
   RatchetCoolOffContentViewController.setup()();
 }
 
+- (void)pushViewController:(id)controller animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  ObjectType = swift_getObjectType();
+  controllerCopy = controller;
+  selfCopy = self;
+  navigationItem = [controllerCopy navigationItem];
+  [navigationItem setHidesBackButton:1];
+
+  v11.receiver = selfCopy;
+  v11.super_class = ObjectType;
+  [(RatchetCoolOffContentViewController *)&v11 pushViewController:controllerCopy animated:animatedCopy];
+}
+
 - (_TtC28LocalAuthenticationUIService35RatchetCoolOffContentViewController)initWithNavigationBarClass:(Class)class toolbarClass:(Class)toolbarClass
 {
   result = _swift_stdlib_reportUnimplementedInitializer();
@@ -75,12 +90,11 @@
 
 - (void)setCoolOffDuration:(double)duration
 {
-  v5 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC28LocalAuthenticationUIService35RatchetCoolOffContentViewController_viewModel);
-  v6 = *&self->viewModel[OBJC_IVAR____TtC28LocalAuthenticationUIService35RatchetCoolOffContentViewController_viewModel];
+  v5 = *&self->viewModel[OBJC_IVAR____TtC28LocalAuthenticationUIService35RatchetCoolOffContentViewController_viewModel];
   ObjectType = swift_getObjectType();
-  v8 = *(v6 + 24);
+  v7 = *(v5 + 24);
   selfCopy = self;
-  v8(ObjectType, v6, duration);
+  v7(ObjectType, v5, duration);
 }
 
 @end

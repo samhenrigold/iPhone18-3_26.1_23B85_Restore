@@ -1,11 +1,13 @@
 @interface PARSession
 + (PARSession)sessionWithConfiguration:(id)configuration;
++ (PARSession)sessionWithConfiguration:(id)configuration delegate:(id)delegate startImmediately:(BOOL)immediately;
 + (id)sharedPARSessionWithConfiguration:(id)configuration;
 + (id)sharedSession;
 - (BOOL)loadCard:(id)card withCompletionHandler:(id)handler;
 - (BOOL)loadImage:(id)image withCompletionHandler:(id)handler;
 - (BOOL)loadImage:(id)image withContext:(id)context completionHandler:(id)handler;
 - (BOOL)loadMoreResults:(id)results withCompletionHandler:(id)handler;
+- (PARSession)initWithConfiguration:(id)configuration connection:(id)connection delegate:(id)delegate startImmediately:(BOOL)immediately;
 - (id)initInternal:(id)internal startImmediately:(BOOL)immediately;
 - (void)clearEngagedResult:(id)result completion:(id)completion;
 - (void)reportFeedback:(id)feedback;
@@ -42,16 +44,14 @@
 
 - (void)clearEngagedResult:(id)result completion:(id)completion
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   internal = self->_internal;
   resultCopy = result;
   v6 = MEMORY[0x1E695DEC8];
   completionCopy = completion;
   resultCopy2 = result;
   v9 = [v6 arrayWithObjects:&resultCopy count:1];
-  [(PARSessionSwiftInternal *)internal clearEngagedResults:v9 completion:completionCopy, resultCopy, v12];
-
-  v10 = *MEMORY[0x1E69E9840];
+  [(PARSessionSwiftInternal *)internal clearEngagedResults:v9 completion:completionCopy, resultCopy, v11];
 }
 
 void __32__PARSession_addEngagedResults___block_invoke(uint64_t a1, void *a2)
@@ -200,6 +200,55 @@ LABEL_14:
   }
 
   return v9;
+}
+
+- (PARSession)initWithConfiguration:(id)configuration connection:(id)connection delegate:(id)delegate startImmediately:(BOOL)immediately
+{
+  immediatelyCopy = immediately;
+  configurationCopy = configuration;
+  connectionCopy = connection;
+  delegateCopy = delegate;
+  if (checkValidParsecHost_once != -1)
+  {
+    dispatch_once(&checkValidParsecHost_once, &__block_literal_global_2685);
+  }
+
+  if (checkValidParsecHost_isValidHost == 1)
+  {
+    v13 = [[PARSessionSwiftInternal alloc] initWithSession:self configuration:configurationCopy connection:connectionCopy delegate:delegateCopy];
+    self = [(PARSession *)self initInternal:v13 startImmediately:immediatelyCopy];
+
+    selfCopy = self;
+  }
+
+  else
+  {
+    if (PARLogHandleForCategory_onceToken_2165 != -1)
+    {
+      dispatch_once(&PARLogHandleForCategory_onceToken_2165, &__block_literal_global_199);
+    }
+
+    v15 = PARLogHandleForCategory_logHandles_2_2166;
+    if (os_log_type_enabled(PARLogHandleForCategory_logHandles_2_2166, OS_LOG_TYPE_ERROR))
+    {
+      *v17 = 0;
+      _os_log_error_impl(&dword_1B1064000, v15, OS_LOG_TYPE_ERROR, "PARSession setup failed on host check", v17, 2u);
+    }
+
+    selfCopy = 0;
+  }
+
+  return selfCopy;
+}
+
++ (PARSession)sessionWithConfiguration:(id)configuration delegate:(id)delegate startImmediately:(BOOL)immediately
+{
+  immediatelyCopy = immediately;
+  delegateCopy = delegate;
+  configurationCopy = configuration;
+  v10 = [[self alloc] initWithConfiguration:configurationCopy connection:0 delegate:delegateCopy startImmediately:immediatelyCopy];
+
+  return v10;
 }
 
 + (PARSession)sessionWithConfiguration:(id)configuration

@@ -146,7 +146,7 @@
   return v18;
 }
 
-uint64_t __106__SKUIMenuBarTemplateShelfFixedElementsCollectionViewCell_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
+void *__106__SKUIMenuBarTemplateShelfFixedElementsCollectionViewCell_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) prefetchResourcesForViewElement:a2 reason:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = (*(*(*(a1 + 40) + 8) + 24) | result) & 1;
@@ -554,9 +554,9 @@ LABEL_24:
 
         v10 = *(*(&v15 + 1) + 8 * i);
         itmlID = [v10 itmlID];
-        v12 = [itmlID isEqualToString:identifierCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(itmlID);
 
-        if (v12)
+        if (isEqualToString)
         {
           v13 = [(NSMapTable *)self->_viewElementViews objectForKey:v10];
           goto LABEL_11;
@@ -682,10 +682,10 @@ void __96__SKUIMenuBarTemplateShelfFixedElementsCollectionViewCell__leftPosition
   v12 = a2;
   v3 = [v12 style];
   v4 = [v3 valueForStyle:@"itml-shelf-zooming-layout-element-placement"];
-  v5 = [v4 isEqualToString:@"fixed"];
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
 
   v6 = [v3 elementPosition];
-  if (v5)
+  if (isEqualToString)
   {
     if (v6 == 4)
     {
@@ -707,6 +707,30 @@ void __96__SKUIMenuBarTemplateShelfFixedElementsCollectionViewCell__leftPosition
       }
     }
   }
+}
+
+- (void)initWithFrame:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMenuBarTemplateShelfFixedElementsCollectionViewCell initWithFrame:]";
+}
+
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIMenuBarTemplateShelfFixedElementsCollectionViewCell prefetchResourcesForViewElement:reason:context:]";
+}
+
++ (void)preferredSizeForViewElement:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIMenuBarTemplateShelfFixedElementsCollectionViewCell preferredSizeForViewElement:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIMenuBarTemplateShelfFixedElementsCollectionViewCell sizeThatFitsWidth:viewElement:context:]";
 }
 
 @end

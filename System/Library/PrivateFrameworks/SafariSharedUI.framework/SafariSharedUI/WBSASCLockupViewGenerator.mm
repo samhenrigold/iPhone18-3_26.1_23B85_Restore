@@ -114,7 +114,7 @@ void __59__WBSASCLockupViewGenerator_recommendationsLockupViewGroup__block_invok
 
 void __127__WBSASCLockupViewGenerator_generateLockupViewsForAvailableApps_lockupViewType_maintainRequestedOrderOfApps_completionHandler___block_invoke(uint64_t a1)
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   if (*(*(a1 + 32) + 8) || ![*(a1 + 40) count])
   {
     v2 = *(*(a1 + 48) + 16);
@@ -172,32 +172,32 @@ void __127__WBSASCLockupViewGenerator_generateLockupViewsForAvailableApps_lockup
     v22 = *(*(a1 + 32) + 32);
     *(*v15 + 32) = v21;
 
+    v59 = 0u;
+    v60 = 0u;
     v57 = 0u;
     v58 = 0u;
-    v55 = 0u;
-    v56 = 0u;
     obj = *(a1 + 40);
-    v23 = [obj countByEnumeratingWithState:&v55 objects:v63 count:16];
+    v23 = [obj countByEnumeratingWithState:&v57 objects:v65 count:16];
     if (v23)
     {
-      v47 = *v56;
-      v46 = *MEMORY[0x1E698B370];
-      v45 = *MEMORY[0x1E698B340];
-      v43 = *MEMORY[0x1E698B360];
+      v49 = *v58;
+      v48 = *MEMORY[0x1E698B370];
+      v47 = *MEMORY[0x1E698B340];
+      v45 = *MEMORY[0x1E698B360];
       v24 = MEMORY[0x1E695F058];
       do
       {
-        v48 = v23;
-        for (i = 0; i != v48; ++i)
+        v50 = v23;
+        for (i = 0; i != v50; ++i)
         {
-          if (*v56 != v47)
+          if (*v58 != v49)
           {
             objc_enumerationMutation(obj);
           }
 
-          v26 = *(*(&v55 + 1) + 8 * i);
+          v26 = *(*(&v57 + 1) + 8 * i);
           v27 = [objc_alloc(MEMORY[0x1E698B3C8]) initWithFrame:{*v24, v24[1], v24[2], v24[3]}];
-          [v27 setSize:v46];
+          [v27 setSize:v48];
           [v27 setDelegate:*(a1 + 32)];
           v28 = [objc_opt_class() _lockupContextForLockupViewType:*(a1 + 56)];
           v29 = [objc_opt_class() _lockupViewGroupForLockupViewType:*(a1 + 56)];
@@ -208,21 +208,21 @@ void __127__WBSASCLockupViewGenerator_generateLockupViewsForAvailableApps_lockup
           if (v30)
           {
             v31 = [v27 group];
-            v49[0] = MEMORY[0x1E69E9820];
-            v49[1] = 3221225472;
-            v49[2] = __127__WBSASCLockupViewGenerator_generateLockupViewsForAvailableApps_lockupViewType_maintainRequestedOrderOfApps_completionHandler___block_invoke_33;
-            v49[3] = &unk_1E8283390;
+            v51[0] = MEMORY[0x1E69E9820];
+            v51[1] = 3221225472;
+            v51[2] = __127__WBSASCLockupViewGenerator_generateLockupViewsForAvailableApps_lockupViewType_maintainRequestedOrderOfApps_completionHandler___block_invoke_33;
+            v51[3] = &unk_1E8283390;
             v32 = v30;
-            v50 = v32;
-            v51 = v27;
+            v52 = v32;
+            v53 = v27;
             v33 = v28;
             v34 = *(a1 + 32);
-            v52 = v33;
-            v53 = v34;
-            v54 = v26;
-            [v31 _lockupRequestForBundleID:v32 withContext:v45 completionBlock:v49];
+            v54 = v33;
+            v55 = v34;
+            v56 = v26;
+            [v31 _lockupRequestForBundleID:v32 withContext:v47 completionBlock:v51];
 
-            v35 = v50;
+            v35 = v52;
           }
 
           else
@@ -237,29 +237,29 @@ void __127__WBSASCLockupViewGenerator_generateLockupViewsForAvailableApps_lockup
             v40 = v39;
             if (v37)
             {
-              v41 = [v39 _initWithID:v35 kind:v43 context:v28 clientID:@"SafariExtensions" enableAppDistribution:1];
+              v41 = [v39 _initWithID:v35 kind:v45 context:v28 clientID:@"SafariExtensions" enableAppDistribution:1];
             }
 
             else
             {
-              v41 = [v39 _initWithID:v35 kind:v43 context:v28 clientID:@"SafariExtensions"];
+              v41 = [v39 _initWithID:v35 kind:v45 context:v28 clientID:@"SafariExtensions"];
             }
 
             [v27 setRequest:v41];
 
-            v42 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-            if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+            v44 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v42, v43);
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
             {
               *buf = 138478083;
-              v60 = v35;
-              v61 = 2113;
-              v62 = v27;
-              _os_log_impl(&dword_1C6968000, v42, OS_LOG_TYPE_INFO, "Adam ID %{private}@ created lockup view %{private}@", buf, 0x16u);
+              v62 = v35;
+              v63 = 2113;
+              v64 = v27;
+              _os_log_impl(&dword_1C6968000, v44, OS_LOG_TYPE_INFO, "Adam ID %{private}@ created lockup view %{private}@", buf, 0x16u);
             }
           }
         }
 
-        v23 = [obj countByEnumeratingWithState:&v55 objects:v63 count:16];
+        v23 = [obj countByEnumeratingWithState:&v57 objects:v65 count:16];
       }
 
       while (v23);
@@ -286,57 +286,57 @@ void __127__WBSASCLockupViewGenerator_generateLockupViewsForAvailableApps_lockup
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __127__WBSASCLockupViewGenerator_generateLockupViewsForAvailableApps_lockupViewType_maintainRequestedOrderOfApps_completionHandler___block_invoke_2(uint64_t a1)
+void __127__WBSASCLockupViewGenerator_generateLockupViewsForAvailableApps_lockupViewType_maintainRequestedOrderOfApps_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-  v4 = v3;
-  if (v2)
+  v24 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 32);
+  v4 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(a1, a2);
+  v5 = v4;
+  if (v3)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v5 = *(a1 + 40);
-      v6 = *(a1 + 48);
-      v19 = 138478083;
-      v20 = v5;
-      v21 = 2113;
-      v22 = v6;
-      _os_log_impl(&dword_1C6968000, v4, OS_LOG_TYPE_INFO, "Bundle identifier %{private}@ created lockup view %{private}@", &v19, 0x16u);
+      v6 = *(a1 + 40);
+      v7 = *(a1 + 48);
+      v20 = 138478083;
+      v21 = v6;
+      v22 = 2113;
+      v23 = v7;
+      _os_log_impl(&dword_1C6968000, v5, OS_LOG_TYPE_INFO, "Bundle identifier %{private}@ created lockup view %{private}@", &v20, 0x16u);
     }
 
-    v7 = objc_alloc(MEMORY[0x1E698B3C0]);
-    v8 = objc_opt_respondsToSelector();
-    v9 = v7;
+    v8 = objc_alloc(MEMORY[0x1E698B3C0]);
+    v9 = objc_opt_respondsToSelector();
+    v10 = v8;
     [*(a1 + 32) id];
-    if (v8)
-      v10 = {;
-      v11 = [*(a1 + 32) kind];
-      v12 = [v9 _initWithID:v10 kind:v11 context:*(a1 + 56) clientID:@"SafariExtensions" enableAppDistribution:1];
+    if (v9)
+      v11 = {;
+      v12 = [*(a1 + 32) kind];
+      v13 = [v10 _initWithID:v11 kind:v12 context:*(a1 + 56) clientID:@"SafariExtensions" enableAppDistribution:1];
     }
 
     else
-      v10 = {;
-      v11 = [*(a1 + 32) kind];
-      v12 = [v9 _initWithID:v10 kind:v11 context:*(a1 + 56) clientID:@"SafariExtensions"];
+      v11 = {;
+      v12 = [*(a1 + 32) kind];
+      v13 = [v10 _initWithID:v11 kind:v12 context:*(a1 + 56) clientID:@"SafariExtensions"];
     }
 
-    [*(a1 + 48) setRequest:v12];
+    [*(a1 + 48) setRequest:v13];
 
-    v16 = [*(a1 + 72) requiredTeamID];
-    v17 = *(*(a1 + 64) + 32);
-    v18 = [*(a1 + 48) request];
-    [v17 setObject:v16 forKeyedSubscript:v18];
+    v17 = [*(a1 + 72) requiredTeamID];
+    v18 = *(*(a1 + 64) + 32);
+    v19 = [*(a1 + 48) request];
+    [v18 setObject:v17 forKeyedSubscript:v19];
   }
 
   else
   {
-    v13 = v3;
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = v4;
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v14 = *(a1 + 40);
-      v15 = [*(a1 + 80) safari_privacyPreservingDescription];
-      __127__WBSASCLockupViewGenerator_generateLockupViewsForAvailableApps_lockupViewType_maintainRequestedOrderOfApps_completionHandler___block_invoke_2_cold_1(v14, v15, &v19, v13);
+      v15 = *(a1 + 40);
+      v16 = [*(a1 + 80) safari_privacyPreservingDescription];
+      __127__WBSASCLockupViewGenerator_generateLockupViewsForAvailableApps_lockupViewType_maintainRequestedOrderOfApps_completionHandler___block_invoke_2_cold_1(v15, v16, &v20, v14);
     }
 
     [*(a1 + 64) _lockupViewRequestedCompleted:*(a1 + 48) loadedSuccessfully:0];
@@ -477,7 +477,7 @@ uint64_t __60__WBSASCLockupViewGenerator__allLockupViewRequestsCompleted__block_
 
 - (void)getAvailableAppsFromAppStoreExtensionEditorialContentWithCompletionHandler:(id)handler
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if ([(NSArray *)self->_cachedRecommendedAppsWithExtensions count])
   {
@@ -492,35 +492,35 @@ uint64_t __60__WBSASCLockupViewGenerator__allLockupViewRequestsCompleted__block_
     v8 = [v5 bagForProfile:bagSubProfile profileVersion:bagSubProfileVersion];
 
     v9 = [objc_alloc(MEMORY[0x1E698C9E0]) initWithType:5 clientIdentifier:@"com.apple.MobileSafari.Extensions" clientVersion:@"1" bag:v8];
-    v21[0] = @"1377753262";
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+    v22[0] = @"1377753262";
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
     [v9 setItemIdentifiers:v10];
 
-    v20 = @"canvas";
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
+    v21 = @"canvas";
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
     [v9 setIncludedResultKeys:v11];
 
     perform = [v9 perform];
     if (perform)
     {
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __104__WBSASCLockupViewGenerator_getAvailableAppsFromAppStoreExtensionEditorialContentWithCompletionHandler___block_invoke;
-      v14[3] = &unk_1E8283478;
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __104__WBSASCLockupViewGenerator_getAvailableAppsFromAppStoreExtensionEditorialContentWithCompletionHandler___block_invoke;
+      v15[3] = &unk_1E8283478;
       selfCopy = self;
-      v19 = handlerCopy;
-      v15 = @"relationships";
-      v16 = @"canvas";
-      v17 = @"data";
-      [perform addFinishBlock:v14];
+      v20 = handlerCopy;
+      v16 = @"relationships";
+      v17 = @"canvas";
+      v18 = @"data";
+      [perform addFinishBlock:v15];
     }
 
     else
     {
-      v13 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(0, v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [WBSASCLockupViewGenerator getAvailableAppsFromAppStoreExtensionEditorialContentWithCompletionHandler:v13];
+        [WBSASCLockupViewGenerator getAvailableAppsFromAppStoreExtensionEditorialContentWithCompletionHandler:v14];
       }
 
       handlerCopy[2](handlerCopy, MEMORY[0x1E695E0F0]);
@@ -530,86 +530,87 @@ uint64_t __60__WBSASCLockupViewGenerator__allLockupViewRequestsCompleted__block_
 
 void __104__WBSASCLockupViewGenerator_getAvailableAppsFromAppStoreExtensionEditorialContentWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v54 = *MEMORY[0x1E69E9840];
-  v34 = a2;
-  v33 = a3;
-  if (v33)
+  v56 = *MEMORY[0x1E69E9840];
+  v36 = a2;
+  v4 = a3;
+  v35 = v4;
+  if (v4)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v5 = [v33 safari_privacyPreservingDescription];
-      __104__WBSASCLockupViewGenerator_getAvailableAppsFromAppStoreExtensionEditorialContentWithCompletionHandler___block_invoke_cold_1(v5, buf, v4);
+      v7 = [v35 safari_privacyPreservingDescription];
+      __104__WBSASCLockupViewGenerator_getAvailableAppsFromAppStoreExtensionEditorialContentWithCompletionHandler___block_invoke_cold_1(v7, buf, v6);
     }
 
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __104__WBSASCLockupViewGenerator_getAvailableAppsFromAppStoreExtensionEditorialContentWithCompletionHandler___block_invoke_56;
     block[3] = &unk_1E8283428;
-    v50 = *(a1 + 64);
+    v52 = *(a1 + 64);
     dispatch_async(MEMORY[0x1E69E96A0], block);
-    v6 = v50;
+    v8 = v52;
   }
 
   else
   {
-    v37 = [MEMORY[0x1E695DF70] array];
-    v7 = [v34 responseDataItems];
-    if (v7)
+    v39 = [MEMORY[0x1E695DF70] array];
+    v9 = [v36 responseDataItems];
+    if (v9)
     {
-      v8 = [v34 responseDataItems];
-      v9 = [v8 count];
+      v10 = [v36 responseDataItems];
+      v11 = [v10 count];
 
-      if (v9)
+      if (v11)
       {
-        v10 = [v34 responseDataItems];
-        v11 = [v10 firstObject];
+        v12 = [v36 responseDataItems];
+        v13 = [v12 firstObject];
 
-        v12 = [v11 safari_dictionaryForKey:*(a1 + 32)];
-        v13 = [v12 safari_dictionaryForKey:*(a1 + 40)];
-        v14 = [v13 safari_arrayForKey:*(a1 + 48)];
+        v14 = [v13 safari_dictionaryForKey:*(a1 + 32)];
+        v15 = [v14 safari_dictionaryForKey:*(a1 + 40)];
+        v16 = [v15 safari_arrayForKey:*(a1 + 48)];
 
-        v47 = 0u;
+        v49 = 0u;
+        v50 = 0u;
         v48 = 0u;
-        v46 = 0u;
-        v45 = 0u;
-        obj = v14;
-        v15 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
-        if (v15)
+        v47 = 0u;
+        obj = v16;
+        v17 = [obj countByEnumeratingWithState:&v47 objects:v54 count:16];
+        if (v17)
         {
-          v16 = 0;
-          v17 = *v46;
-LABEL_9:
           v18 = 0;
+          v19 = *v48;
+LABEL_9:
+          v20 = 0;
           while (1)
           {
-            if (*v46 != v17)
+            if (*v48 != v19)
             {
               objc_enumerationMutation(obj);
             }
 
-            v19 = *(*(&v45 + 1) + 8 * v18);
+            v21 = *(*(&v47 + 1) + 8 * v20);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v20 = v19;
-              v21 = [v20 safari_dictionaryForKey:*(a1 + 32)];
-              v22 = [v21 safari_dictionaryForKey:@"contents"];
-              v23 = [v22 safari_arrayForKey:*(a1 + 48)];
+              v22 = v21;
+              v23 = [v22 safari_dictionaryForKey:*(a1 + 32)];
+              v24 = [v23 safari_dictionaryForKey:@"contents"];
+              v25 = [v24 safari_arrayForKey:*(a1 + 48)];
 
-              LOBYTE(v22) = [v23 count] == 0;
-              v16 = v23;
-              if ((v22 & 1) == 0)
+              LOBYTE(v24) = [v25 count] == 0;
+              v18 = v25;
+              if ((v24 & 1) == 0)
               {
                 break;
               }
             }
 
-            if (v15 == ++v18)
+            if (v17 == ++v20)
             {
-              v15 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
-              v23 = v16;
-              if (v15)
+              v17 = [obj countByEnumeratingWithState:&v47 objects:v54 count:16];
+              v25 = v18;
+              if (v17)
               {
                 goto LABEL_9;
               }
@@ -621,59 +622,59 @@ LABEL_9:
 
         else
         {
-          v23 = 0;
+          v25 = 0;
         }
 
+        v45 = 0u;
+        v46 = 0u;
         v43 = 0u;
         v44 = 0u;
-        v41 = 0u;
-        v42 = 0u;
-        v24 = v23;
-        v25 = [v24 countByEnumeratingWithState:&v41 objects:v51 count:16];
-        if (v25)
+        v26 = v25;
+        v27 = [v26 countByEnumeratingWithState:&v43 objects:v53 count:16];
+        if (v27)
         {
-          v26 = *v42;
+          v28 = *v44;
           do
           {
-            for (i = 0; i != v25; ++i)
+            for (i = 0; i != v27; ++i)
             {
-              if (*v42 != v26)
+              if (*v44 != v28)
               {
-                objc_enumerationMutation(v24);
+                objc_enumerationMutation(v26);
               }
 
-              v28 = *(*(&v41 + 1) + 8 * i);
+              v30 = *(*(&v43 + 1) + 8 * i);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v29 = v28;
-                v30 = [v29 safari_stringForKey:@"id"];
-                if (v30)
+                v31 = v30;
+                v32 = [v31 safari_stringForKey:@"id"];
+                if (v32)
                 {
-                  v31 = [[WBSAvailableAppWithExtension alloc] initWithAdamID:v30 platformSpecificBundleID:0];
-                  [v37 addObject:v31];
+                  v33 = [[WBSAvailableAppWithExtension alloc] initWithAdamID:v32 platformSpecificBundleID:0];
+                  [v39 addObject:v33];
                 }
               }
             }
 
-            v25 = [v24 countByEnumeratingWithState:&v41 objects:v51 count:16];
+            v27 = [v26 countByEnumeratingWithState:&v43 objects:v53 count:16];
           }
 
-          while (v25);
+          while (v27);
         }
       }
     }
 
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __104__WBSASCLockupViewGenerator_getAvailableAppsFromAppStoreExtensionEditorialContentWithCompletionHandler___block_invoke_2;
-    v38[3] = &unk_1E8283450;
-    v32 = *(a1 + 64);
-    v38[4] = *(a1 + 56);
-    v39 = v37;
-    v40 = v32;
-    v6 = v37;
-    dispatch_async(MEMORY[0x1E69E96A0], v38);
+    v40[0] = MEMORY[0x1E69E9820];
+    v40[1] = 3221225472;
+    v40[2] = __104__WBSASCLockupViewGenerator_getAvailableAppsFromAppStoreExtensionEditorialContentWithCompletionHandler___block_invoke_2;
+    v40[3] = &unk_1E8283450;
+    v34 = *(a1 + 64);
+    v40[4] = *(a1 + 56);
+    v41 = v39;
+    v42 = v34;
+    v8 = v39;
+    dispatch_async(MEMORY[0x1E69E96A0], v40);
   }
 }
 
@@ -691,14 +692,14 @@ uint64_t __104__WBSASCLockupViewGenerator_getAvailableAppsFromAppStoreExtensionE
 
 - (void)lockupViewDidBeginRequest:(id)request
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   requestCopy = request;
-  v4 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(requestCopy, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = 138477827;
-    v6 = requestCopy;
-    _os_log_impl(&dword_1C6968000, v4, OS_LOG_TYPE_INFO, "Started loading lockup view: %{private}@", &v5, 0xCu);
+    v6 = 138477827;
+    v7 = requestCopy;
+    _os_log_impl(&dword_1C6968000, v5, OS_LOG_TYPE_INFO, "Started loading lockup view: %{private}@", &v6, 0xCu);
   }
 }
 
@@ -737,49 +738,55 @@ uint64_t __104__WBSASCLockupViewGenerator_getAvailableAppsFromAppStoreExtensionE
   dispatch_async(MEMORY[0x1E69E96A0], v6);
 }
 
-void __56__WBSASCLockupViewGenerator_lockupViewDidFinishRequest___block_invoke(uint64_t a1)
+void __56__WBSASCLockupViewGenerator_lockupViewDidFinishRequest___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v20 = *MEMORY[0x1E69E9840];
+  v3 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 32);
-    v11 = 138477827;
-    v12 = v3;
-    _os_log_impl(&dword_1C6968000, v2, OS_LOG_TYPE_INFO, "Succeeded loading lockup view: %{private}@", &v11, 0xCu);
+    v4 = *(a1 + 32);
+    v14 = 138477827;
+    v15 = v4;
+    _os_log_impl(&dword_1C6968000, v3, OS_LOG_TYPE_INFO, "Succeeded loading lockup view: %{private}@", &v14, 0xCu);
   }
 
-  v4 = [*(a1 + 32) request];
-  v5 = [*(*(a1 + 40) + 32) objectForKeyedSubscript:v4];
-  [*(*(a1 + 40) + 32) removeObjectForKey:v4];
-  if (!v5)
+  v5 = [*(a1 + 32) request];
+  v6 = [*(*(a1 + 40) + 32) objectForKeyedSubscript:v5];
+  [*(*(a1 + 40) + 32) removeObjectForKey:v5];
+  if (!v6)
   {
-    v8 = 0;
+    v9 = 0;
 LABEL_10:
     [*(a1 + 40) _lockupViewRequestedCompleted:*(a1 + 32) loadedSuccessfully:1];
     goto LABEL_11;
   }
 
-  v6 = *(a1 + 32);
-  v7 = [v6 lockup];
-  v8 = [v7 contentProviderTeamID];
+  v7 = *(a1 + 32);
+  v8 = [v7 lockup];
+  v9 = [v8 contentProviderTeamID];
 
-  if (!v8 || ([v5 isEqualToString:v8] & 1) != 0)
+  if (!v9)
   {
     goto LABEL_10;
   }
 
-  v9 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v10 = [v6 isEqualToString:v9];
+  if (v10)
   {
-    v10 = *(a1 + 32);
-    v11 = 138478339;
-    v12 = v5;
-    v13 = 2113;
-    v14 = v8;
-    v15 = 2113;
-    v16 = v10;
-    _os_log_error_impl(&dword_1C6968000, v9, OS_LOG_TYPE_ERROR, "Hiding lockup view due to team ID mismatch (required team ID: %{private}@ vs computed team ID: %{private}@): %{private}@", &v11, 0x20u);
+    goto LABEL_10;
+  }
+
+  v12 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(v10, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  {
+    v13 = *(a1 + 32);
+    v14 = 138478339;
+    v15 = v6;
+    v16 = 2113;
+    v17 = v9;
+    v18 = 2113;
+    v19 = v13;
+    _os_log_error_impl(&dword_1C6968000, v12, OS_LOG_TYPE_ERROR, "Hiding lockup view due to team ID mismatch (required team ID: %{private}@ vs computed team ID: %{private}@): %{private}@", &v14, 0x20u);
   }
 
   [*(a1 + 40) _lockupViewRequestedCompleted:*(a1 + 32) loadedSuccessfully:0];
@@ -802,19 +809,19 @@ LABEL_11:
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __64__WBSASCLockupViewGenerator_lockupView_didFailRequestWithError___block_invoke(id *a1)
+uint64_t __64__WBSASCLockupViewGenerator_lockupView_didFailRequestWithError___block_invoke(id *a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v3 = [a1[4] safari_privacyPreservingDescription];
-    __64__WBSASCLockupViewGenerator_lockupView_didFailRequestWithError___block_invoke_cold_1(v3, a1, v7, v2);
+    v4 = [a1[4] safari_privacyPreservingDescription];
+    __64__WBSASCLockupViewGenerator_lockupView_didFailRequestWithError___block_invoke_cold_1(v4, a1, v8, v3);
   }
 
-  v4 = *(a1[6] + 4);
-  v5 = [a1[5] request];
-  [v4 removeObjectForKey:v5];
+  v5 = *(a1[6] + 4);
+  v6 = [a1[5] request];
+  [v5 removeObjectForKey:v6];
 
   return [a1[6] _lockupViewRequestedCompleted:a1[5] loadedSuccessfully:0];
 }

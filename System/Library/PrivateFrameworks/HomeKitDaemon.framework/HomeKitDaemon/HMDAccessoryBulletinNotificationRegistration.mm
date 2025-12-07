@@ -12,33 +12,31 @@
 
 - (id)attributeDescriptions
 {
-  v18[3] = *MEMORY[0x277D85DE8];
-  v17.receiver = self;
-  v17.super_class = HMDAccessoryBulletinNotificationRegistration;
-  attributeDescriptions = [(HMDBulletinNotificationRegistration *)&v17 attributeDescriptions];
+  v17[3] = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = HMDAccessoryBulletinNotificationRegistration;
+  attributeDescriptions = [(HMDBulletinNotificationRegistration *)&v16 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   accessoryUUID = [(HMDAccessoryBulletinNotificationRegistration *)self accessoryUUID];
   v6 = [v4 initWithName:@"accessoryUUID" value:accessoryUUID];
-  v18[0] = v6;
+  v17[0] = v6;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   serviceInstanceID = [(HMDAccessoryBulletinNotificationRegistration *)self serviceInstanceID];
   v9 = [v7 initWithName:@"serviceInstanceID" value:serviceInstanceID];
-  v18[1] = v9;
+  v17[1] = v9;
   v10 = objc_alloc(MEMORY[0x277D0F778]);
   characteristicInstanceID = [(HMDAccessoryBulletinNotificationRegistration *)self characteristicInstanceID];
   v12 = [v10 initWithName:@"characteristicInstanceID" value:characteristicInstanceID];
-  v18[2] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
+  v17[2] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
   v14 = [attributeDescriptions arrayByAddingObjectsFromArray:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (HMDAccessoryBulletinNotificationRegistration)initWithCoder:(id)coder
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [[HMDBulletinNotificationRegistration alloc] initWithCoder:coderCopy];
   if (v5)
@@ -66,11 +64,11 @@
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             v19 = HMFGetLogIdentifier();
-            v22 = 138543618;
-            v23 = v19;
-            v24 = 2112;
-            v25 = 0;
-            _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded characteristicInstanceID: %@", &v22, 0x16u);
+            v21 = 138543618;
+            v22 = v19;
+            v23 = 2112;
+            v24 = 0;
+            _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded characteristicInstanceID: %@", &v21, 0x16u);
           }
 
           objc_autoreleasePoolPop(v17);
@@ -86,11 +84,11 @@
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           v16 = HMFGetLogIdentifier();
-          v22 = 138543618;
-          v23 = v16;
-          v24 = 2112;
-          v25 = 0;
-          _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded serviceInstanceID: %@", &v22, 0x16u);
+          v21 = 138543618;
+          v22 = v16;
+          v23 = 2112;
+          v24 = 0;
+          _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded serviceInstanceID: %@", &v21, 0x16u);
         }
 
         objc_autoreleasePoolPop(v14);
@@ -106,11 +104,11 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v13 = HMFGetLogIdentifier();
-        v22 = 138543618;
-        v23 = v13;
-        v24 = 2112;
-        v25 = 0;
-        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded accessoryUUID: %@", &v22, 0x16u);
+        v21 = 138543618;
+        v22 = v13;
+        v23 = 2112;
+        v24 = 0;
+        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded accessoryUUID: %@", &v21, 0x16u);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -123,7 +121,6 @@
     selfCopy = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -296,16 +293,16 @@ LABEL_9:
   v15 = [(HMDBulletinNotificationRegistration *)&v27 initWithConditions:conditionsCopy];
   if (v15)
   {
-    v16 = [dCopy copy];
+    v16 = objc_msgSend_copy(dCopy);
     accessoryUUID = v15->_accessoryUUID;
     v15->_accessoryUUID = v16;
 
-    v18 = [iDCopy copy];
+    v18 = objc_msgSend_copy(iDCopy);
     v19 = HAPInstanceIDFromValue();
     serviceInstanceID = v15->_serviceInstanceID;
     v15->_serviceInstanceID = v19;
 
-    v21 = [instanceIDCopy copy];
+    v21 = objc_msgSend_copy(instanceIDCopy);
     v22 = HAPInstanceIDFromValue();
     characteristicInstanceID = v15->_characteristicInstanceID;
     v15->_characteristicInstanceID = v22;

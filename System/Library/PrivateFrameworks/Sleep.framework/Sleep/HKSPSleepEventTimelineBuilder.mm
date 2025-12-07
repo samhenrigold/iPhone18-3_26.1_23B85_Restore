@@ -125,43 +125,39 @@ LABEL_10:
 
 void __48__HKSPSleepEventTimelineBuilder__gatherSessions__block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = [v3 isValidOccurrence];
-  v5 = *(a1 + 48);
-  if (v4)
+  if ([v3 isValidOccurrence])
   {
-    v6 = *(a1 + 32);
-    v7 = *(a1 + 40);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
     if (*(a1 + 48))
     {
-      [v6 _gatherSessionsForValidationForOccurrence:v3 overrideOccurrence:v7];
+      [v4 _gatherSessionsForValidationForOccurrence:v3 overrideOccurrence:v5];
     }
 
     else
     {
-      [v6 _gatherSessionsForOccurrence:v3 overrideOccurrence:v7];
+      [v4 _gatherSessionsForOccurrence:v3 overrideOccurrence:v5];
     }
   }
 
   else if (*(a1 + 48))
   {
-    v8 = HKSPLogForCategory(6uLL);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v6 = HKSPLogForCategory(6uLL);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 32);
-      v11 = 138543618;
-      v12 = v10;
-      v13 = 2114;
-      v14 = v3;
-      _os_log_error_impl(&dword_269A84000, v8, OS_LOG_TYPE_ERROR, "[%{public}@] occurrence is invalid %{public}@", &v11, 0x16u);
+      v7 = *(a1 + 32);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2114;
+      v11 = v3;
+      _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] occurrence is invalid %{public}@", &v8, 0x16u);
     }
 
     [*(*(a1 + 32) + 8) setSleepScheduleInvalid:1];
     [*(*(a1 + 32) + 8) setSleepScheduleInvalidReason:1];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_gatherSessionsForValidationForOccurrence:(id)occurrence overrideOccurrence:(id)overrideOccurrence
@@ -250,7 +246,7 @@ void __94__HKSPSleepEventTimelineBuilder__gatherSessionsForValidationForOccurren
 
 void __94__HKSPSleepEventTimelineBuilder__gatherSessionsForValidationForOccurrence_overrideOccurrence___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v4 = [*(a1 + 32) wakeUpDateForDate:*(a1 + 40) day:a2 searchBackwards:*(a1 + 88) gregorianCalendar:*(*(a1 + 48) + 32)];
   if ([v4 hksp_isBeforeDate:*(*(*(a1 + 72) + 8) + 40)])
   {
@@ -298,11 +294,11 @@ void __94__HKSPSleepEventTimelineBuilder__gatherSessionsForValidationForOccurren
           {
             v21 = *(a1 + 48);
             v22 = [v14 occurrence];
-            v27 = 138543618;
-            v28 = v21;
-            v29 = 2114;
-            v30 = v22;
-            _os_log_impl(&dword_269A84000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] ignoring overlap with expired override occurrence %{public}@", &v27, 0x16u);
+            v26 = 138543618;
+            v27 = v21;
+            v28 = 2114;
+            v29 = v22;
+            _os_log_impl(&dword_269A84000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] ignoring overlap with expired override occurrence %{public}@", &v26, 0x16u);
           }
 
           goto LABEL_19;
@@ -334,8 +330,6 @@ void __94__HKSPSleepEventTimelineBuilder__gatherSessionsForValidationForOccurren
 
 LABEL_19:
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_gatherSessionsForOccurrence:(id)occurrence overrideOccurrence:(id)overrideOccurrence
@@ -449,7 +443,7 @@ LABEL_19:
 
 - (void)_adjustSessionForSnoozedWakeUpAlarm
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   sleepEventRecord = [(HKSPSleepScheduleModel *)self->_sleepScheduleModel sleepEventRecord];
   wakeUpAlarmSnoozedUntilDate = [sleepEventRecord wakeUpAlarmSnoozedUntilDate];
 
@@ -468,11 +462,11 @@ LABEL_19:
         v9 = HKSPLogForCategory(6uLL);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
-          v13 = 138543618;
+          v12 = 138543618;
           selfCopy = self;
-          v15 = 2114;
-          v16 = wakeUpAlarmSnoozedUntilDate;
-          _os_log_debug_impl(&dword_269A84000, v9, OS_LOG_TYPE_DEBUG, "[%{public}@] snoozed wake up alarm until %{public}@", &v13, 0x16u);
+          v14 = 2114;
+          v15 = wakeUpAlarmSnoozedUntilDate;
+          _os_log_debug_impl(&dword_269A84000, v9, OS_LOG_TYPE_DEBUG, "[%{public}@] snoozed wake up alarm until %{public}@", &v12, 0x16u);
         }
 
         v10 = [HKSPSleepEvent sleepEventWithIdentifier:@"HKSPSleepEventIdentifierWakeUp" dueDate:wakeUpAlarmSnoozedUntilDate type:1];
@@ -481,13 +475,11 @@ LABEL_19:
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_adjustSessionForConfirmedWakeUp
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   sleepEventRecord = [(HKSPSleepScheduleModel *)self->_sleepScheduleModel sleepEventRecord];
   wakeUpAlarmDismissedDate = [sleepEventRecord wakeUpAlarmDismissedDate];
 
@@ -553,13 +545,13 @@ LABEL_19:
         {
           if (v22)
           {
-            v32 = 138543874;
+            v31 = 138543874;
             selfCopy3 = self;
-            v34 = 2114;
-            v35 = v10;
-            v36 = 2114;
-            v37 = v9;
-            _os_log_debug_impl(&dword_269A84000, v21, OS_LOG_TYPE_DEBUG, "[%{public}@] confirmed wake up at %{public}@ until %{public}@", &v32, 0x20u);
+            v33 = 2114;
+            v34 = v10;
+            v35 = 2114;
+            v36 = v9;
+            _os_log_debug_impl(&dword_269A84000, v21, OS_LOG_TYPE_DEBUG, "[%{public}@] confirmed wake up at %{public}@ until %{public}@", &v31, 0x20u);
           }
 
           timeline = [(HKSPSleepEventTimelineResults *)self->_results timeline];
@@ -576,11 +568,11 @@ LABEL_19:
             {
               bedtimeEvent2 = [v21 bedtimeEvent];
               dueDate3 = [bedtimeEvent2 dueDate];
-              v32 = 138543618;
+              v31 = 138543618;
               selfCopy3 = self;
-              v34 = 2114;
-              v35 = dueDate3;
-              _os_log_debug_impl(&dword_269A84000, v27, OS_LOG_TYPE_DEBUG, "[%{public}@] ignoring confirmed wake up because bedtime event was at %{public}@", &v32, 0x16u);
+              v33 = 2114;
+              v34 = dueDate3;
+              _os_log_debug_impl(&dword_269A84000, v27, OS_LOG_TYPE_DEBUG, "[%{public}@] ignoring confirmed wake up because bedtime event was at %{public}@", &v31, 0x16u);
             }
           }
 
@@ -594,20 +586,18 @@ LABEL_19:
 
         else if (v22)
         {
-          v32 = 138543362;
+          v31 = 138543362;
           selfCopy3 = self;
-          _os_log_debug_impl(&dword_269A84000, v21, OS_LOG_TYPE_DEBUG, "[%{public}@] not adjusting occurrence because wake up date is after confirmed until date", &v32, 0xCu);
+          _os_log_debug_impl(&dword_269A84000, v21, OS_LOG_TYPE_DEBUG, "[%{public}@] not adjusting occurrence because wake up date is after confirmed until date", &v31, 0xCu);
         }
       }
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_validateSessionAdjustmentForSnoozedWakeUpAlarm
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   sleepEventRecord = [(HKSPSleepScheduleModel *)self->_sleepScheduleModel sleepEventRecord];
   wakeUpAlarmSnoozedUntilDate = [sleepEventRecord wakeUpAlarmSnoozedUntilDate];
 
@@ -626,19 +616,17 @@ LABEL_19:
         v9 = HKSPLogForCategory(6uLL);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
-          v11 = 138543618;
+          v10 = 138543618;
           selfCopy = self;
-          v13 = 2114;
-          v14 = wakeUpAlarmSnoozedUntilDate;
-          _os_log_debug_impl(&dword_269A84000, v9, OS_LOG_TYPE_DEBUG, "[%{public}@] snoozed wake up alarm for %{public}@ is for disabled alarm", &v11, 0x16u);
+          v12 = 2114;
+          v13 = wakeUpAlarmSnoozedUntilDate;
+          _os_log_debug_impl(&dword_269A84000, v9, OS_LOG_TYPE_DEBUG, "[%{public}@] snoozed wake up alarm for %{public}@ is for disabled alarm", &v10, 0x16u);
         }
 
         [(HKSPSleepEventTimelineResults *)self->_results setSnoozeFireDateNeedsReset:1];
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

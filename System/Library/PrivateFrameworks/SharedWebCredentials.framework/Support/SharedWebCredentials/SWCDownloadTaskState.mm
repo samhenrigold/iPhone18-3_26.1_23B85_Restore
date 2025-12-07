@@ -5,7 +5,6 @@
 - (id)description;
 - (id)redactedDescription;
 - (void)cancelTaskWithError:(id)error;
-- (void)receiveSIGTERMSignal;
 - (void)resumeTask;
 @end
 
@@ -42,13 +41,6 @@
   }
 
   return v11;
-}
-
-- (void)receiveSIGTERMSignal
-{
-  transaction = self->_transaction;
-  self->_transaction = 0;
-  _objc_release_x1();
 }
 
 - (void)resumeTask

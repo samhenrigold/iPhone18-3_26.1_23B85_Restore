@@ -15,7 +15,7 @@
   sessionCopy = session;
   accountCopy = account;
   swift_unknownObjectRetain();
-  return ClinicalSharingOnboardingInformationalViewController.init(onboardingSession:flowType:selectedAccount:delegate:)(sessionCopy, type, account);
+  return ClinicalSharingOnboardingInformationalViewController.init(onboardingSession:flowType:selectedAccount:delegate:)(sessionCopy, type, account, delegate);
 }
 
 - (void)dealloc
@@ -40,7 +40,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1D12CBBA4();
+  sub_1D12CBBA4(selfCopy);
 }
 
 - (void)nextButtonTappedForProviderSearch:(id)search
@@ -51,7 +51,7 @@
   swift_unknownObjectRelease();
   sub_1D12CD580();
 
-  __swift_destroy_boxed_opaque_existential_1Tm(&v5);
+  __swift_destroy_boxed_opaque_existential_1Tm(v5);
 }
 
 - (void)cancelButtonTapped:(id)tapped
@@ -62,7 +62,7 @@
   swift_unknownObjectRelease();
   [(HRClinicalSharingOnboardingInformationalViewController *)selfCopy dismissViewControllerAnimated:1 completion:0];
 
-  __swift_destroy_boxed_opaque_existential_1Tm(&v5);
+  __swift_destroy_boxed_opaque_existential_1Tm(v5);
 }
 
 - (HRClinicalSharingOnboardingInformationalViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

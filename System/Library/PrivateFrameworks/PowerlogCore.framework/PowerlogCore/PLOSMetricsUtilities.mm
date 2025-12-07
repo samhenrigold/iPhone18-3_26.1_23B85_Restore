@@ -40,10 +40,10 @@
   LOBYTE(valueCopy) = os_metric_dimensions_add();
   if ((valueCopy & 1) == 0)
   {
-    v11 = PLLogOSMetrics();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = PLLogOSMetrics(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [PLOSMetricsUtilities addDimensions:v11 withKey:? withValue:?];
+      [PLOSMetricsUtilities addDimensions:v12 withKey:? withValue:?];
     }
   }
 }

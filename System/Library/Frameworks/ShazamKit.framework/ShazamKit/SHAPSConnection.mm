@@ -6,7 +6,6 @@
 - (void)connection:(id)connection didReceiveIncomingMessage:(id)message;
 - (void)connection:(id)connection didReceivePublicToken:(id)token;
 - (void)fetchAPSEnvironmentWithCompletionHandler:(id)handler;
-- (void)finishLibrarySync;
 - (void)registerForPushNotifications;
 - (void)startListeningForPushNotifications;
 - (void)stopListeningForPushNotifications;
@@ -179,13 +178,6 @@
   [v4 postNotificationName:SHMediaLibraryRemoteChangeNotification object:0 userInfo:0 deliverImmediately:1];
 
   [(SHAPSConnection *)self finishLibrarySync];
-}
-
-- (void)finishLibrarySync
-{
-  libraryController = self->_libraryController;
-  self->_libraryController = 0;
-  _objc_release_x1();
 }
 
 - (SHMediaLibraryController)libraryController

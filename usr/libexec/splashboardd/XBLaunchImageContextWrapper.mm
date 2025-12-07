@@ -32,9 +32,9 @@
 {
   infoCopy = info;
   requestCopy = request;
-  v25.receiver = self;
-  v25.super_class = XBLaunchImageContextWrapper;
-  v11 = [(XBLaunchImageContextWrapper *)&v25 init];
+  v26.receiver = self;
+  v26.super_class = XBLaunchImageContextWrapper;
+  v11 = [(XBLaunchImageContextWrapper *)&v26 init];
   v12 = v11;
   if (v11)
   {
@@ -48,30 +48,30 @@
     v12->_captureOptions = options;
     if (options)
     {
-      v16 = objc_alloc_init(XBLaunchCaptureInformation);
+      v17 = objc_alloc_init(XBLaunchCaptureInformation);
       captureInformation = v12->_captureInformation;
-      v12->_captureInformation = v16;
+      v12->_captureInformation = v17;
     }
 
-    v18 = sub_1000012D0();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v19 = sub_1000012D0(v16);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       bundleIdentifier = [(XBApplicationLaunchCompatibilityInfo *)v12->_appInfo bundleIdentifier];
       launchInterfaceIdentifier2 = [requestCopy launchInterfaceIdentifier];
-      v21 = v12->_launchInterface;
+      v22 = v12->_launchInterface;
       captureOptions = v12->_captureOptions;
       launchRequest = v12->_launchRequest;
       *buf = 138544386;
-      v27 = bundleIdentifier;
-      v28 = 2114;
-      v29 = launchInterfaceIdentifier2;
-      v30 = 2114;
-      v31 = v21;
-      v32 = 2048;
-      v33 = captureOptions;
-      v34 = 2114;
-      v35 = launchRequest;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "[%{public}@] XBLaunchImageContextWrapper configuring with\nlaunchInterfaceIdentifier: %{public}@\nlaunchInterface: %{public}@\ncaptureOptions: %ld\nlaunchRequest: %{public}@", buf, 0x34u);
+      v28 = bundleIdentifier;
+      v29 = 2114;
+      v30 = launchInterfaceIdentifier2;
+      v31 = 2114;
+      v32 = v22;
+      v33 = 2048;
+      v34 = captureOptions;
+      v35 = 2114;
+      v36 = launchRequest;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "[%{public}@] XBLaunchImageContextWrapper configuring with\nlaunchInterfaceIdentifier: %{public}@\nlaunchInterface: %{public}@\ncaptureOptions: %ld\nlaunchRequest: %{public}@", buf, 0x34u);
     }
 
     [(XBLaunchImageContextWrapper *)v12 _configureNewWindow];
@@ -152,34 +152,35 @@
   nameCopy = name;
   bundleCopy = bundle;
   dCopy = d;
-  v21 = [UINib nibWithNibName:nameCopy bundle:bundleCopy];
-  [v21 instantiateWithOwner:0 options:0];
-  v26 = 0u;
+  v22 = [UINib nibWithNibName:nameCopy bundle:bundleCopy];
+  [v22 instantiateWithOwner:0 options:0];
   v27 = 0u;
-  v24 = 0u;
-  v11 = v25 = 0u;
-  v12 = [v11 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v28 = 0u;
+  v25 = 0u;
+  v11 = v26 = 0u;
+  v12 = [v11 countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v12)
   {
-    v13 = *v25;
+    v13 = *v26;
     while (2)
     {
       for (i = 0; i != v12; i = i + 1)
       {
-        if (*v25 != v13)
+        if (*v26 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v24 + 1) + 8 * i);
+        v15 = *(*(&v25 + 1) + 8 * i);
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
-          v16 = sub_1000012D0();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          v17 = sub_1000012D0(isKindOfClass);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             bundleIdentifier = [(XBApplicationLaunchCompatibilityInfo *)self->_appInfo bundleIdentifier];
-            sub_100005C88(bundleIdentifier, buf, &v29, v16);
+            sub_100005C88(bundleIdentifier, buf, &v30, v17);
           }
         }
 
@@ -202,7 +203,7 @@
         }
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v25 objects:v31 count:16];
       if (v12)
       {
         continue;
@@ -216,9 +217,9 @@ LABEL_17:
 
   if (error && !v12 && !*error)
   {
-    v18 = [XBLaunchImageError alloc];
+    v19 = [XBLaunchImageError alloc];
     nameCopy = [NSString stringWithFormat:@"Could not load any content for the interface named %@.", nameCopy];
-    *error = [v18 initWithCode:3 bundleID:dCopy reason:nameCopy fatal:0];
+    *error = [v19 initWithCode:3 bundleID:dCopy reason:nameCopy fatal:0];
   }
 
   return v12;
@@ -353,84 +354,88 @@ LABEL_19:
   bundleCopy = bundle;
   pathCopy = path;
   dCopy = d;
+  v16 = dCopy;
   if (!bundleCopy)
   {
-    v19 = sub_1000012D0();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v21 = sub_1000012D0(dCopy);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       sub_100005DB4();
     }
 
     if (error)
     {
-      v20 = [XBLaunchImageError alloc];
-      pathCopy = [NSString stringWithFormat:@"Failed to construct NSBundle for %@ at %@.", dCopy, pathCopy];
-      *error = [v20 initWithCode:4 bundleID:dCopy reason:pathCopy fatal:0];
+      v22 = [XBLaunchImageError alloc];
+      pathCopy = [NSString stringWithFormat:@"Failed to construct NSBundle for %@ at %@.", v16, pathCopy];
+      *error = [v22 initWithCode:4 bundleID:v16 reason:pathCopy fatal:0];
     }
 
     goto LABEL_10;
   }
 
-  if ([interfaceCopy isStoryboard])
+  isStoryboard = [interfaceCopy isStoryboard];
+  if (isStoryboard)
   {
-    v16 = sub_1000012D0();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v18 = sub_1000012D0(isStoryboard);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       sub_100005D80();
     }
 
     name = [(XBLaunchInterface *)self->_launchInterface name];
-    v18 = [(XBLaunchImageContextWrapper *)self _parseInterfaceWithStoryboardName:name bundle:bundleCopy bundleID:dCopy error:error];
+    v20 = [(XBLaunchImageContextWrapper *)self _parseInterfaceWithStoryboardName:name bundle:bundleCopy bundleID:v16 error:error];
 LABEL_19:
-    v22 = v18;
+    v24 = v20;
 
     goto LABEL_20;
   }
 
-  if ([interfaceCopy isXIB])
+  isXIB = [interfaceCopy isXIB];
+  if (isXIB)
   {
-    v23 = sub_1000012D0();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    v26 = sub_1000012D0(isXIB);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
       sub_100005D4C();
     }
 
     name = [(XBLaunchInterface *)self->_launchInterface name];
-    v18 = [(XBLaunchImageContextWrapper *)self _parseInterfaceWithNibName:name bundle:bundleCopy bundleID:dCopy error:error];
+    v20 = [(XBLaunchImageContextWrapper *)self _parseInterfaceWithNibName:name bundle:bundleCopy bundleID:v16 error:error];
     goto LABEL_19;
   }
 
-  if ([interfaceCopy isConfiguration])
+  isConfiguration = [interfaceCopy isConfiguration];
+  if (isConfiguration)
   {
-    v24 = sub_1000012D0();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v28 = sub_1000012D0(isConfiguration);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
       sub_100005D18();
     }
 
     name = [(XBLaunchInterface *)self->_launchInterface configuration];
-    v18 = [(XBLaunchImageContextWrapper *)self _parseInterfaceConfiguration:name bundle:bundleCopy bundleID:dCopy error:error];
+    v20 = [(XBLaunchImageContextWrapper *)self _parseInterfaceConfiguration:name bundle:bundleCopy bundleID:v16 error:error];
     goto LABEL_19;
   }
 
   if (!error)
   {
 LABEL_10:
-    v22 = 0;
+    v24 = 0;
     goto LABEL_20;
   }
 
-  v26 = sub_1000012D0();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+  v30 = sub_1000012D0(isConfiguration);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
   {
     sub_100005CE4();
   }
 
-  v22 = 0;
-  *error = [[XBLaunchImageError alloc] initWithCode:1 bundleID:dCopy reason:@"No such interface found." fatal:0];
+  v24 = 0;
+  *error = [[XBLaunchImageError alloc] initWithCode:1 bundleID:v16 reason:@"No such interface found." fatal:0];
 LABEL_20:
 
-  return v22;
+  return v24;
 }
 
 - (void)_configureRootViewForRTL:(id)l bundle:(id)bundle
@@ -468,8 +473,8 @@ LABEL_20:
     *size = v12;
   }
 
-  v13 = sub_1000010B0();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v14 = sub_1000010B0(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     sub_100005DE8();
   }
@@ -480,26 +485,27 @@ LABEL_20:
   }
 
   IsEnabled = _XBDebugCaptureIsEnabled();
+  v15 = IsEnabled;
   if (!IsEnabled)
   {
     if (error)
     {
-      v16 = [XBLaunchImageError alloc];
+      v18 = [XBLaunchImageError alloc];
       25000000 = [NSString stringWithFormat:@"[%@] Estimated size (%zu) is over limit (%zu)", dCopy, v12, 25000000];
-      *error = [v16 initWithCode:6 bundleID:dCopy reason:25000000 fatal:0];
+      *error = [v18 initWithCode:6 bundleID:dCopy reason:25000000 fatal:0];
     }
 
-    v15 = sub_1000010B0();
-    if (os_signpost_enabled(v15))
+    v17 = sub_1000010B0(IsEnabled);
+    if (os_signpost_enabled(v17))
     {
       bundleIdentifier = [(XBApplicationLaunchCompatibilityInfo *)self->_appInfo bundleIdentifier];
       *buf = 138543874;
-      v21 = bundleIdentifier;
-      v22 = 2050;
-      v23 = v12;
+      v23 = bundleIdentifier;
       v24 = 2050;
-      v25 = 25000000;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "OverMemoryLimit", "BundleIdOverride=%{public, signpost.description:attribute}@ estimate=%{signpost.telemetry:number1, public}zu limit=%{signpost.telemetry:number2, public}zu enableTelemetry=YES ", buf, 0x20u);
+      v25 = v12;
+      v26 = 2050;
+      v27 = 25000000;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "OverMemoryLimit", "BundleIdOverride=%{public, signpost.description:attribute}@ estimate=%{signpost.telemetry:number1, public}zu limit=%{signpost.telemetry:number2, public}zu enableTelemetry=YES ", buf, 0x20u);
     }
 
     goto LABEL_15;
@@ -507,8 +513,8 @@ LABEL_20:
 
   if (v12 != 25000000)
   {
-    v15 = sub_1000010B0();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v17 = sub_1000010B0(IsEnabled);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       sub_100005E60();
     }
@@ -519,10 +525,10 @@ LABEL_15:
   }
 
 LABEL_6:
-  LOBYTE(IsEnabled) = 1;
+  v15 = 1;
 LABEL_16:
 
-  return IsEnabled;
+  return v15;
 }
 
 - (void)_configureNewWindow
@@ -554,7 +560,7 @@ LABEL_16:
   if (v15 && !v13)
   {
     view = [(UIViewController *)v15 view];
-    v17 = sub_1000010B0();
+    v17 = sub_1000010B0(view);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       bundleIdentifier2 = [(XBApplicationLaunchCompatibilityInfo *)self->_appInfo bundleIdentifier];
@@ -617,7 +623,7 @@ LABEL_16:
     }
 
     v27 = v26;
-    v28 = sub_1000012D0();
+    v28 = sub_1000012D0(v27);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       bundleIdentifier4 = [(XBApplicationLaunchCompatibilityInfo *)self->_appInfo bundleIdentifier];
@@ -638,12 +644,12 @@ LABEL_16:
 - (void)_update
 {
   v3 = objc_autoreleasePoolPush();
-  v4 = sub_1000012D0();
+  v4 = sub_1000012D0(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     launchRequest = self->_launchRequest;
     *buf = 138543362;
-    v36 = launchRequest;
+    v32 = launchRequest;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Updating window to %{public}@", buf, 0xCu);
   }
 
@@ -665,10 +671,10 @@ LABEL_16:
   v18 = +[UITraitCollection traitCollectionWithUserInterfaceIdiom:](UITraitCollection, "traitCollectionWithUserInterfaceIdiom:", [screen _userInterfaceIdiom]);
   v19 = [UITraitCollection traitCollectionWithUserInterfaceStyle:userInterfaceStyle];
   wrapperWindow = self->_wrapperWindow;
-  v34[0] = v17;
-  v34[1] = v18;
-  v34[2] = v19;
-  v21 = [NSArray arrayWithObjects:v34 count:3];
+  v30[0] = v17;
+  v30[1] = v18;
+  v30[2] = v19;
+  v21 = [NSArray arrayWithObjects:v30 count:3];
   v22 = [UITraitCollection traitCollectionWithTraitsFromCollections:v21];
   [(_XBWrapperWindow *)wrapperWindow _setLocalOverrideTraitCollection:v22];
 
@@ -687,8 +693,7 @@ LABEL_16:
   [(_XBWrapperWindow *)self->_wrapperWindow setNeedsUpdateConstraints];
   [(_XBWrapperWindow *)self->_wrapperWindow setNeedsLayout];
   [(_XBWrapperWindow *)self->_wrapperWindow layoutIfNeeded];
-  [(_XBWrapperWindow *)self->_wrapperWindow setNeedsDisplay];
-  v26 = sub_1000012D0();
+  v26 = sub_1000012D0([(_XBWrapperWindow *)self->_wrapperWindow setNeedsDisplay]);
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -699,18 +704,14 @@ LABEL_16:
   +[CATransaction synchronize];
   captureOptions = self->_captureOptions;
   [(XBLaunchImageContextWrapper *)self contextID];
-  appInfo = self->_appInfo;
-  v29 = self->_launchRequest;
-  launchInterface = self->_launchInterface;
-  v30 = self->_wrapperWindow;
   if ((captureOptions & 2) != 0)
   {
     _XBPreparedLaunchInterfaceForCapture();
-    v32 = 0;
-    if (v32)
+    v28 = 0;
+    if (v28)
     {
-      v33 = v32;
-      [(XBLaunchCaptureInformation *)self->_captureInformation setCaarFilePath:v32];
+      v29 = v28;
+      [(XBLaunchCaptureInformation *)self->_captureInformation setCaarFilePath:v28];
     }
   }
 
@@ -751,7 +752,7 @@ LABEL_16:
   contents = [layer contents];
   if (!contents)
   {
-    v13 = sub_1000010B0();
+    v13 = sub_1000010B0(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       objc_opt_class();
@@ -773,19 +774,20 @@ LABEL_16:
 
       v13 = hierarchyCopy;
       image = [v13 image];
+      v18 = image;
       if (image)
       {
-        v18 = sub_1000010B0();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+        v19 = sub_1000010B0(image);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
           bundleIdentifier = [(XBApplicationLaunchCompatibilityInfo *)self->_appInfo bundleIdentifier];
           *buf = 138543874;
-          v47 = bundleIdentifier;
-          v48 = 2114;
-          v49 = v13;
-          v50 = 2114;
-          v51 = image;
-          _os_log_debug_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "[%{public}@] found UIImageView with no contents, but has image: %{public}@ %{public}@", buf, 0x20u);
+          v50 = bundleIdentifier;
+          v51 = 2114;
+          v52 = v13;
+          v53 = 2114;
+          v54 = v18;
+          _os_log_debug_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "[%{public}@] found UIImageView with no contents, but has image: %{public}@ %{public}@", buf, 0x20u);
         }
       }
     }
@@ -800,94 +802,95 @@ LABEL_16:
     width = [v7 width];
     height = [v8 height];
     allocationSize = [v8 allocationSize];
-    v12 = sub_1000010B0();
+    v12 = sub_1000010B0(allocationSize);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       bundleIdentifier2 = [(XBApplicationLaunchCompatibilityInfo *)self->_appInfo bundleIdentifier];
       *buf = 138544642;
-      v47 = bundleIdentifier2;
-      v48 = 2048;
-      v49 = width;
-      v50 = 2048;
-      v51 = height;
-      v52 = 2048;
-      v53 = allocationSize;
-      v54 = 2114;
-      v55 = hierarchyCopy;
-      v56 = 2114;
-      v57 = layer;
+      v50 = bundleIdentifier2;
+      v51 = 2048;
+      v52 = width;
+      v53 = 2048;
+      v54 = height;
+      v55 = 2048;
+      v56 = allocationSize;
+      v57 = 2114;
+      v58 = hierarchyCopy;
+      v59 = 2114;
+      v60 = layer;
       _os_log_debug_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "[%{public}@] found IOSurface in layer hierarchy; size: {%zu, %zu}; allocSize: %zu; view: %{public}@; layer: %{public}@", buf, 0x3Eu);
     }
   }
 
   else
   {
-    v19 = CFGetTypeID(contents);
-    if (v19 == CGImageGetTypeID())
+    v20 = CFGetTypeID(contents);
+    if (v20 == CGImageGetTypeID())
     {
       Width = CGImageGetWidth(contents);
       Height = CGImageGetHeight(contents);
       BitsPerPixel = CGImageGetBitsPerPixel(contents);
       BytesPerRow = CGImageGetBytesPerRow(contents);
-      if (CGImageGetAlphaInfo(contents) == kCGImageAlphaOnly)
+      AlphaInfo = CGImageGetAlphaInfo(contents);
+      if (AlphaInfo == 7)
       {
-        v24 = sub_1000010B0();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+        v26 = sub_1000010B0(AlphaInfo);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
         {
           bundleIdentifier3 = [(XBApplicationLaunchCompatibilityInfo *)self->_appInfo bundleIdentifier];
-          v26 = BitsPerPixel >> 3;
+          v28 = BitsPerPixel >> 3;
           *buf = 138543874;
-          v47 = bundleIdentifier3;
-          v27 = bundleIdentifier3;
-          v48 = 2048;
-          v49 = v26;
-          v50 = 2048;
-          v51 = BytesPerRow;
-          _os_log_debug_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "[%{public}@] found CGImage that's alpha only. Trusting %zu bytes per pixel and %zu bytes per row", buf, 0x20u);
+          v50 = bundleIdentifier3;
+          v29 = bundleIdentifier3;
+          v51 = 2048;
+          v52 = v28;
+          v53 = 2048;
+          v54 = BytesPerRow;
+          _os_log_debug_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "[%{public}@] found CGImage that's alpha only. Trusting %zu bytes per pixel and %zu bytes per row", buf, 0x20u);
         }
       }
 
       else
       {
-        v28 = BitsPerPixel >> 3;
-        v29 = 4;
-        if (v28 > 4)
+        v30 = BitsPerPixel >> 3;
+        v31 = 4;
+        if (v30 > 4)
         {
-          v29 = v28;
+          v31 = v30;
         }
 
-        BytesPerRow = v29 * Width;
-        v24 = sub_1000010B0();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+        BytesPerRow = v31 * Width;
+        v26 = sub_1000010B0(AlphaInfo);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
         {
           bundleIdentifier4 = [(XBApplicationLaunchCompatibilityInfo *)self->_appInfo bundleIdentifier];
           *buf = 138543874;
-          v47 = bundleIdentifier4;
-          v48 = 2048;
-          v49 = v28;
-          v50 = 2048;
-          v51 = BytesPerRow;
-          _os_log_debug_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "[%{public}@] found CGImage that's NOT alpha only. Taking MAX(4, %zu) bytes per pixel to calculate %zu bytes per row", buf, 0x20u);
+          v50 = bundleIdentifier4;
+          v51 = 2048;
+          v52 = v30;
+          v53 = 2048;
+          v54 = BytesPerRow;
+          _os_log_debug_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "[%{public}@] found CGImage that's NOT alpha only. Taking MAX(4, %zu) bytes per pixel to calculate %zu bytes per row", buf, 0x20u);
         }
       }
 
-      v30 = sub_1000010B0();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+      v33 = sub_1000010B0(v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
       {
         bundleIdentifier5 = [(XBApplicationLaunchCompatibilityInfo *)self->_appInfo bundleIdentifier];
         *buf = 138544642;
-        v47 = bundleIdentifier5;
-        v48 = 2048;
-        v49 = Width;
-        v50 = 2048;
-        v51 = Height;
-        v52 = 2048;
-        v53 = BytesPerRow;
-        v54 = 2114;
-        v55 = hierarchyCopy;
-        v56 = 2114;
-        v57 = layer;
-        _os_log_debug_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEBUG, "[%{public}@] found CGImage in layer hierarchy; size: {%zu, %zu}; bytesPerRow: %zu; view: %{public}@; layer: %{public}@", buf, 0x3Eu);
+        v50 = bundleIdentifier5;
+        v51 = 2048;
+        v52 = Width;
+        v53 = 2048;
+        v54 = Height;
+        v55 = 2048;
+        v56 = BytesPerRow;
+        v57 = 2114;
+        v58 = hierarchyCopy;
+        v59 = 2114;
+        v60 = layer;
+        _os_log_debug_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEBUG, "[%{public}@] found CGImage in layer hierarchy; size: {%zu, %zu}; bytesPerRow: %zu; view: %{public}@; layer: %{public}@", buf, 0x3Eu);
       }
 
       allocationSize = BytesPerRow * Height;
@@ -900,32 +903,32 @@ LABEL_16:
   }
 
 LABEL_30:
-  v43 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
+  v45 = 0u;
   subviews = [hierarchyCopy subviews];
-  v32 = [subviews countByEnumeratingWithState:&v41 objects:v45 count:16];
-  if (v32)
+  v35 = [subviews countByEnumeratingWithState:&v44 objects:v48 count:16];
+  if (v35)
   {
-    v33 = v32;
-    v34 = *v42;
+    v36 = v35;
+    v37 = *v45;
     do
     {
-      for (i = 0; i != v33; i = i + 1)
+      for (i = 0; i != v36; i = i + 1)
       {
-        if (*v42 != v34)
+        if (*v45 != v37)
         {
           objc_enumerationMutation(subviews);
         }
 
-        allocationSize += [(XBLaunchImageContextWrapper *)self _estimatedMemorySizeOfViewHierarchy:*(*(&v41 + 1) + 8 * i)];
+        allocationSize += [(XBLaunchImageContextWrapper *)self _estimatedMemorySizeOfViewHierarchy:*(*(&v44 + 1) + 8 * i)];
       }
 
-      v33 = [subviews countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v36 = [subviews countByEnumeratingWithState:&v44 objects:v48 count:16];
     }
 
-    while (v33);
+    while (v36);
   }
 
   return allocationSize;

@@ -17,25 +17,26 @@
 - (void)prepareURLRequest:(id)request
 {
   requestCopy = request;
-  v13 = 0;
-  v5 = [objc_opt_class() _requestURL:&v13];
-  v6 = v13;
+  v15 = 0;
+  v5 = [objc_opt_class() _requestURL:&v15];
+  v6 = v15;
+  v7 = v6;
   if (v5)
   {
-    v7 = WLKNetworkSignpostLogObject();
-    v8 = os_signpost_id_make_with_pointer(v7, self);
+    v8 = WLKNetworkSignpostLogObject(v6);
+    v9 = os_signpost_id_make_with_pointer(v8, self);
 
-    v9 = WLKNetworkSignpostLogObject();
-    v10 = v9;
-    if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+    v11 = WLKNetworkSignpostLogObject(v10);
+    v12 = v11;
+    if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
-      v12 = 0;
-      _os_signpost_emit_with_name_impl(&dword_272A0F000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "Settings.URLRequest", &unk_272A8884E, &v12, 2u);
+      v14 = 0;
+      _os_signpost_emit_with_name_impl(&dword_272A0F000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "Settings.URLRequest", &unk_272A8884E, &v14, 2u);
     }
 
-    v11 = [MEMORY[0x277CBAB50] requestWithURL:v5];
-    [v11 setTimeoutInterval:5.0];
-    requestCopy[2](requestCopy, v11, 0);
+    v13 = [MEMORY[0x277CBAB50] requestWithURL:v5];
+    [v13 setTimeoutInterval:5.0];
+    requestCopy[2](requestCopy, v13, 0);
   }
 
   else
@@ -47,32 +48,30 @@
 - (void)processResponse
 {
   v15 = *MEMORY[0x277D85DE8];
-  v3 = WLKNetworkSignpostLogObject();
+  v3 = WLKNetworkSignpostLogObject(self);
   v4 = os_signpost_id_make_with_pointer(v3, self);
 
-  v5 = WLKNetworkSignpostLogObject();
-  v6 = v5;
-  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  v6 = WLKNetworkSignpostLogObject(v5);
+  v7 = v6;
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
     LOWORD(v13) = 0;
-    _os_signpost_emit_with_name_impl(&dword_272A0F000, v6, OS_SIGNPOST_INTERVAL_END, v4, "Settings.URLRequest", &unk_272A8884E, &v13, 2u);
+    _os_signpost_emit_with_name_impl(&dword_272A0F000, v7, OS_SIGNPOST_INTERVAL_END, v4, "Settings.URLRequest", &unk_272A8884E, &v13, 2u);
   }
 
-  v7 = objc_alloc_init(WLKDictionaryResponseProcessor);
+  v8 = objc_alloc_init(WLKDictionaryResponseProcessor);
   data = [(WLKNetworkRequestOperation *)self data];
-  v9 = [(WLKDictionaryResponseProcessor *)v7 processResponseData:data error:0];
+  v10 = [(WLKDictionaryResponseProcessor *)v8 processResponseData:data error:0];
 
-  objc_storeStrong(&self->_response, v9);
-  v10 = WLKNetworkingLogObject();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  objc_storeStrong(&self->_response, v10);
+  v11 = WLKNetworkingLogObject();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     response = self->_response;
     v13 = 138412290;
     v14 = response;
-    _os_log_impl(&dword_272A0F000, v10, OS_LOG_TYPE_DEFAULT, "WLKSettingsRequestOperation - response: %@", &v13, 0xCu);
+    _os_log_impl(&dword_272A0F000, v11, OS_LOG_TYPE_DEFAULT, "WLKSettingsRequestOperation - response: %@", &v13, 0xCu);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_requestURL:(id *)l

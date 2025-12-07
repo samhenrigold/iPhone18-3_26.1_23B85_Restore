@@ -211,9 +211,9 @@ uint64_t __48__CACSpeechSystem_startPreventingDisplayDimming__block_invoke(uint6
 - (id)initLocaleIdentifer:(id)identifer microphoneIdentifier:(id)identifier
 {
   identiferCopy = identifer;
-  v16.receiver = self;
-  v16.super_class = CACSpeechSystem;
-  v6 = [(CACSpeechSystem *)&v16 init];
+  v17.receiver = self;
+  v17.super_class = CACSpeechSystem;
+  v6 = [(CACSpeechSystem *)&v17 init];
   if (v6)
   {
     v7 = +[CACPreferences sharedPreferences];
@@ -222,20 +222,20 @@ uint64_t __48__CACSpeechSystem_startPreventingDisplayDimming__block_invoke(uint6
     v6->_recognitionLocaleIdentifier = bestLocaleIdentifier;
 
     v10 = sRXAPIDispatchQueue;
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __60__CACSpeechSystem_initLocaleIdentifer_microphoneIdentifier___block_invoke;
-    v13[3] = &unk_279CEB4C0;
-    v14 = identiferCopy;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __60__CACSpeechSystem_initLocaleIdentifer_microphoneIdentifier___block_invoke;
+    v14[3] = &unk_279CEB4C0;
+    v15 = identiferCopy;
     v6 = v6;
-    v15 = v6;
-    dispatch_sync(v10, v13);
+    v16 = v6;
+    dispatch_sync(v10, v14);
     if (!v6->_recognitionSystemRef)
     {
-      v11 = CACLogRecognition();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = CACLogRecognition(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [CACSpeechSystem initLocaleIdentifer:v11 microphoneIdentifier:?];
+        [CACSpeechSystem initLocaleIdentifer:v12 microphoneIdentifier:?];
       }
 
       v6 = 0;
@@ -263,37 +263,37 @@ void __60__CACSpeechSystem_initLocaleIdentifer_microphoneIdentifier___block_invo
 
     if (v7 == 1)
     {
-      RXObjectSetProperty();
-      v8 = CACLogRecognition();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v8 = RXObjectSetProperty();
+      v9 = CACLogRecognition(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v14 = 0;
-        _os_log_impl(&dword_26B354000, v8, OS_LOG_TYPE_DEFAULT, "Filtering profanity", v14, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_26B354000, v9, OS_LOG_TYPE_DEFAULT, "Filtering profanity", v15, 2u);
       }
     }
 
     RXObjectSetProperty();
-    v9 = *(a1 + 32);
-    v10 = RXLocalesSupportingSpellingMode();
-    v11 = [CACLocaleUtilities isLocaleIdentifier:v9 containedInLocaleIdentifiers:v10];
+    v10 = *(a1 + 32);
+    v11 = RXLocalesSupportingSpellingMode();
+    v12 = [CACLocaleUtilities isLocaleIdentifier:v10 containedInLocaleIdentifiers:v11];
 
-    if (v11)
+    if (v12)
     {
-      v12 = RXObjectCopyProperty();
-      if (v12)
+      v13 = RXObjectCopyProperty();
+      if (v13)
       {
-        v13 = v12;
-        LOBYTE(v11) = [v12 containsObject:@"SpellCC"];
-        CFRelease(v13);
+        v14 = v13;
+        LOBYTE(v12) = [v13 containsObject:@"SpellCC"];
+        CFRelease(v14);
       }
 
       else
       {
-        LOBYTE(v11) = 0;
+        LOBYTE(v12) = 0;
       }
     }
 
-    *(*(a1 + 40) + 56) = v11;
+    *(*(a1 + 40) + 56) = v12;
   }
 }
 
@@ -305,17 +305,17 @@ uint64_t __60__CACSpeechSystem_initLocaleIdentifer_microphoneIdentifier___block_
   return +[CACSpeechSystem startPreventingDisplayDimming];
 }
 
-void __60__CACSpeechSystem_initLocaleIdentifer_microphoneIdentifier___block_invoke_4()
+void __60__CACSpeechSystem_initLocaleIdentifer_microphoneIdentifier___block_invoke_4(uint64_t a1)
 {
-  v0 = CACLogRecognition();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = CACLogRecognition(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_26B354000, v0, OS_LOG_TYPE_DEFAULT, "Handling kRXRecognitionSystemProperty_ServerErrorCallback", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_26B354000, v1, OS_LOG_TYPE_DEFAULT, "Handling kRXRecognitionSystemProperty_ServerErrorCallback", v3, 2u);
   }
 
-  v1 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
-  [v1 handleSRSystemServerError];
+  v2 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
+  [v2 handleSRSystemServerError];
 }
 
 - (void)_close

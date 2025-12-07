@@ -13,7 +13,6 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)fullDescription;
 - (void)_markPropertyDirty:(id)dirty;
-- (void)clearDirtyProperties;
 - (void)encodeWithCoder:(id)coder;
 - (void)markAllPropertiesDirty;
 - (void)setAccountIdentifier:(id)identifier;
@@ -398,13 +397,6 @@
   }
 
   [(NSMutableSet *)dirtyProperties addObject:dirtyCopy];
-}
-
-- (void)clearDirtyProperties
-{
-  dirtyProperties = self->_dirtyProperties;
-  self->_dirtyProperties = 0;
-  MEMORY[0x1EEE66BB8]();
 }
 
 - (ACAccountStore)accountStore

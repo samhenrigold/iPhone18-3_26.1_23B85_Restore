@@ -125,12 +125,12 @@
 
 + (id)fetchOrCreateDeviceWithIdentifier:(id)identifier inContext:(id)context error:(id *)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   contextCopy = context;
-  v19 = 0;
-  v10 = [self fetchDeviceWithIdentifier:identifierCopy inContext:contextCopy error:&v19];
-  v11 = v19;
+  v18 = 0;
+  v10 = [self fetchDeviceWithIdentifier:identifierCopy inContext:contextCopy error:&v18];
+  v11 = v18;
   v12 = v11;
   if (v10)
   {
@@ -160,9 +160,9 @@ LABEL_8:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v21 = "+[STCoreDevice fetchOrCreateDeviceWithIdentifier:inContext:error:]";
-      v22 = 2112;
-      v23 = identifierCopy;
+      v20 = "+[STCoreDevice fetchOrCreateDeviceWithIdentifier:inContext:error:]";
+      v21 = 2112;
+      v22 = identifierCopy;
       _os_log_impl(&dword_1B831F000, v15, OS_LOG_TYPE_DEFAULT, "%{public}s: Creating CoreDevice with deviceIdentifier: (%@)", buf, 0x16u);
     }
 
@@ -182,8 +182,6 @@ LABEL_10:
   }
 
 LABEL_11:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -262,7 +260,7 @@ LABEL_11:
     v5 = +[STLog coreDataValidation];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [STCoreDevice validateForUpdate:update];
+      [STCoreDevice validateForUpdate:];
     }
 
     v7 = 0;
@@ -316,7 +314,7 @@ LABEL_15:
     v5 = +[STLog coreDataValidation];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [STCoreDevice validateForInsert:insert];
+      [STCoreDevice validateForInsert:];
     }
 
     v7 = 0;
@@ -393,7 +391,7 @@ LABEL_15:
     v5 = +[STLog coreDataValidation];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [STCoreDevice validateForDelete:delete];
+      [STCoreDevice validateForDelete:];
     }
 
     v7 = 0;
@@ -404,7 +402,7 @@ LABEL_15:
 
 - (BOOL)_validateLocalDevice:(id)device
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   identifier = [(STCoreDevice *)self identifier];
   v6 = STGetDeviceUUID();
@@ -414,9 +412,9 @@ LABEL_15:
   if ((v7 & 1) == 0)
   {
     v9 = MEMORY[0x1E696ABC0];
-    v28 = *MEMORY[0x1E696A578];
-    v29[0] = @"A local device must have the UUID of the local device.";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v27 = *MEMORY[0x1E696A578];
+    v28[0] = @"A local device must have the UUID of the local device.";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
     v11 = [v9 errorWithDomain:@"STErrorDomain" code:521 userInfo:v10];
     [deviceCopy addObject:v11];
   }
@@ -424,9 +422,9 @@ LABEL_15:
   if ([(STCoreDevice *)self platform]!= 2)
   {
     v12 = MEMORY[0x1E696ABC0];
-    v26 = *v8;
-    v27 = @"A local device must match the platform of the current device.";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v25 = *v8;
+    v26 = @"A local device must match the platform of the current device.";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
     v14 = [v12 errorWithDomain:@"STErrorDomain" code:524 userInfo:v13];
     [deviceCopy addObject:v14];
   }
@@ -438,30 +436,29 @@ LABEL_15:
   if ((v17 & 1) == 0)
   {
     v18 = MEMORY[0x1E696ABC0];
-    v24 = *v8;
-    v25 = @"The localUserDeviceState of a local device MUST be in the device's userDeviceState.";
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v23 = *v8;
+    v24 = @"The localUserDeviceState of a local device MUST be in the device's userDeviceState.";
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
     v20 = [v18 errorWithDomain:@"STErrorDomain" code:523 userInfo:v19];
     [deviceCopy addObject:v20];
   }
 
   v21 = [deviceCopy count] == 0;
 
-  v22 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
 - (BOOL)_validateNumberOfLocalDevices:(id)devices
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   devicesCopy = devices;
   v4 = +[STCoreDevice fetchRequest];
   v5 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K != NULL", @"localUserDeviceState"];
   [v4 setPredicate:v5];
 
-  v17 = 0;
-  v6 = [v4 execute:&v17];
-  v7 = v17;
+  v16 = 0;
+  v6 = [v4 execute:&v16];
+  v7 = v16;
   if (!v6)
   {
     [devicesCopy addObject:v7];
@@ -473,9 +470,9 @@ LABEL_9:
   if ([v6 count] >= 2)
   {
     v8 = MEMORY[0x1E696ABC0];
-    v20 = *MEMORY[0x1E696A578];
-    v21[0] = @"There must be one and only device with localUserDeviceState.";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x1E696A578];
+    v20[0] = @"There must be one and only device with localUserDeviceState.";
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     v10 = v8;
     v11 = 518;
 LABEL_8:
@@ -488,9 +485,9 @@ LABEL_8:
   if (![v6 count])
   {
     v13 = MEMORY[0x1E696ABC0];
-    v18 = *MEMORY[0x1E696A578];
-    v19 = @"There must be local device (with localUserDeviceState).";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x1E696A578];
+    v18 = @"There must be local device (with localUserDeviceState).";
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
     v10 = v13;
     v11 = 519;
     goto LABEL_8;
@@ -499,32 +496,30 @@ LABEL_8:
   v12 = 1;
 LABEL_10:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (BOOL)_validateRemoteDevice:(id)device
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   platform = [(STCoreDevice *)self platform];
   if (!platform)
   {
     v6 = MEMORY[0x1E696ABC0];
-    v11 = *MEMORY[0x1E696A578];
-    v12[0] = @"A remote device must have a valid platform.";
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x1E696A578];
+    v11[0] = @"A remote device must have a valid platform.";
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v8 = [v6 errorWithDomain:@"STErrorDomain" code:526 userInfo:v7];
     [deviceCopy addObject:v8];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return platform != 0;
 }
 
 - (BOOL)_validateUniqueIdentifier:(id)identifier
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = +[STCoreDevice fetchRequest];
   v6 = MEMORY[0x1E696AE18];
@@ -532,9 +527,9 @@ LABEL_10:
   v8 = [v6 predicateWithFormat:@"%K == %@", @"identifier", identifier];
   [v5 setPredicate:v8];
 
-  v17 = 0;
-  v9 = [v5 execute:&v17];
-  v10 = v17;
+  v16 = 0;
+  v9 = [v5 execute:&v16];
+  v10 = v16;
   if (v9)
   {
     if ([v9 count] < 2)
@@ -544,9 +539,9 @@ LABEL_10:
     }
 
     v11 = MEMORY[0x1E696ABC0];
-    v18 = *MEMORY[0x1E696A578];
-    v19[0] = @"There must be one and only device with a given UUID.";
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x1E696A578];
+    v18[0] = @"There must be one and only device with a given UUID.";
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v13 = [v11 errorWithDomain:@"STErrorDomain" code:520 userInfo:v12];
     [identifierCopy addObject:v13];
   }
@@ -559,13 +554,12 @@ LABEL_10:
   v14 = 0;
 LABEL_7:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BOOL)_validateUserDeviceStates:(id)states
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   statesCopy = states;
   userDeviceStates = [(STCoreDevice *)self userDeviceStates];
   v6 = [userDeviceStates count];
@@ -573,14 +567,13 @@ LABEL_7:
   if (!v6)
   {
     v7 = MEMORY[0x1E696ABC0];
-    v12 = *MEMORY[0x1E696A578];
-    v13[0] = @"All devices must have at least 1 user device state.";
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x1E696A578];
+    v12[0] = @"All devices must have at least 1 user device state.";
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v9 = [v7 errorWithDomain:@"STErrorDomain" code:525 userInfo:v8];
     [statesCopy addObject:v9];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v6 != 0;
 }
 
@@ -593,80 +586,46 @@ LABEL_7:
   return v4 & 1;
 }
 
-+ (void)fetchDeviceWithIdentifier:inContext:error:.cold.1()
+- (void)validateForUpdate:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_6();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)fetchDeviceWithCoreDuetIdentifier:inContext:error:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_6();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)validateForUpdate:(uint64_t *)a1 .cold.1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_0_6();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)validateForUpdate:(void *)a1 .cold.2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 localUserDeviceState];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_2_1(&dword_1B831F000, v2, v3, "%{public}s Validate for Update on Core Device failed for %{public}s user with error: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_1(&dword_1B831F000, v2, v3, "%{public}s Validate for Update on Core Device failed for %{public}s user with error: %{public}@", v4, v5, v6, v7);
 }
 
-- (void)validateForInsert:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)validateForInsert:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_0_6();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)validateForInsert:(void *)a1 .cold.2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 localUserDeviceState];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_2_1(&dword_1B831F000, v2, v3, "%{public}s Validate for Update on Core Device failed for %{public}s user with error: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_1(&dword_1B831F000, v2, v3, "%{public}s Validate for Update on Core Device failed for %{public}s user with error: %{public}@", v4, v5, v6, v7);
 }
 
-- (void)validateForDelete:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)validateForDelete:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_0_6();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)validateForDelete:(void *)a1 .cold.2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 localUserDeviceState];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_2_1(&dword_1B831F000, v2, v3, "%{public}s Validate for Update on Core Device failed for %{public}s user with error: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_1(&dword_1B831F000, v2, v3, "%{public}s Validate for Update on Core Device failed for %{public}s user with error: %{public}@", v4, v5, v6, v7);
 }
 
 @end

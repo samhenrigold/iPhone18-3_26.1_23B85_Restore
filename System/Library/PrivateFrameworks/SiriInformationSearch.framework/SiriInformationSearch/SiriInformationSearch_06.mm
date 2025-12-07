@@ -1,1287 +1,43 @@
-NSObject *_s21SiriInformationSearch9EmittablePAAE21buildRequestLinkEvent15sourceComponent0I4UUID06targetJ00lK0So08SISchemafG0CSgSo0mJ4NameV_10Foundation0K0VAmPtFAA06PommesF19InstrumentationUtilC_Tt3g5Tm(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t Siri_Nlu_External_UserParse.firstOfflineSupportedPlayTask()(uint64_t a1)
 {
-  v5 = [objc_allocWithZone(MEMORY[0x277D5A9D0]) init];
-  if (!v5)
+  v3 = Siri_Nlu_External_Span.matcherNames.getter();
+  v4 = specialized Sequence.flatMap<A>(_:)(v3);
+
+  if (!v1)
   {
-    if (one-time initialization token for pommes != -1)
-    {
-      swift_once();
-    }
-
-    v17 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v17, static Logger.pommes);
-    v6 = Logger.logObject.getter();
-    v18 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v6, v18))
-    {
-      v19 = swift_slowAlloc();
-      v20 = swift_slowAlloc();
-      v44 = v20;
-      *v19 = 136315394;
-      v21 = SISchemaComponentName.description.getter();
-      v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v22, &v44);
-
-      *(v19 + 4) = v23;
-      *(v19 + 12) = 2080;
-      v24 = SISchemaComponentName.description.getter();
-      v26 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v24, v25, &v44);
-
-      *(v19 + 14) = v26;
-      _os_log_impl(&dword_2232BB000, v6, v18, "Failed to create RequestLink event for source component: %s and target component: %s", v19, 0x16u);
-      swift_arrayDestroy();
-      MEMORY[0x223DE0F80](v20, -1, -1);
-      MEMORY[0x223DE0F80](v19, -1, -1);
-    }
-
-    goto LABEL_14;
-  }
-
-  v6 = v5;
-  v7 = [objc_allocWithZone(MEMORY[0x277D5A9E0]) init];
-  if (!v7)
-  {
-    if (one-time initialization token for pommes != -1)
-    {
-      swift_once();
-    }
-
-    v27 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v27, static Logger.pommes);
-    v28 = Logger.logObject.getter();
-    v29 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v28, v29))
-    {
-      v30 = swift_slowAlloc();
-      v31 = swift_slowAlloc();
-      v44 = v31;
-      *v30 = 136315138;
-      v32 = SISchemaComponentName.description.getter();
-      v34 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v32, v33, &v44);
-
-      *(v30 + 4) = v34;
-      _os_log_impl(&dword_2232BB000, v28, v29, "Failed to create source link event for source component: %s", v30, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1(v31);
-      MEMORY[0x223DE0F80](v31, -1, -1);
-      MEMORY[0x223DE0F80](v30, -1, -1);
-    }
-
-LABEL_14:
-    return 0;
-  }
-
-  v8 = v7;
-  v9 = [objc_allocWithZone(MEMORY[0x277D5A9E0]) init];
-  if (!v9)
-  {
-    if (one-time initialization token for pommes != -1)
-    {
-      swift_once();
-    }
-
-    v36 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v36, static Logger.pommes);
-    v37 = Logger.logObject.getter();
-    v38 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v37, v38))
-    {
-      v39 = swift_slowAlloc();
-      v40 = swift_slowAlloc();
-      v44 = v40;
-      *v39 = 136315138;
-      v41 = SISchemaComponentName.description.getter();
-      v43 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v41, v42, &v44);
-
-      *(v39 + 4) = v43;
-      _os_log_impl(&dword_2232BB000, v37, v38, "Failed to create target link event for target component: %s", v39, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1(v40);
-      MEMORY[0x223DE0F80](v40, -1, -1);
-      MEMORY[0x223DE0F80](v39, -1, -1);
-    }
-
-    return 0;
-  }
-
-  v10 = v9;
-  [v8 setComponent_];
-  v11 = objc_allocWithZone(MEMORY[0x277D5AC78]);
-  isa = UUID._bridgeToObjectiveC()().super.isa;
-  v13 = [v11 initWithNSUUID_];
-
-  [v8 setUuid_];
-  [v10 setComponent_];
-  v14 = objc_allocWithZone(MEMORY[0x277D5AC78]);
-  v15 = UUID._bridgeToObjectiveC()().super.isa;
-  v16 = [v14 initWithNSUUID_];
-
-  [v10 setUuid_];
-  [v6 setSource:v8];
-  [v6 setTarget:v10];
-
-  return v6;
-}
-
-uint64_t outlined destroy of UUID?(uint64_t a1)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  (*(*(v2 - 8) + 8))(a1, v2);
-  return a1;
-}
-
-unint64_t lazy protocol witness table accessor for type UUID and conformance UUID()
-{
-  result = lazy protocol witness table cache variable for type UUID and conformance UUID;
-  if (!lazy protocol witness table cache variable for type UUID and conformance UUID)
-  {
-    type metadata accessor for UUID();
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type UUID and conformance UUID);
-  }
-
-  return result;
-}
-
-Swift::Int DataProviderError.hashValue.getter(char a1)
-{
-  Hasher.init(_seed:)();
-  MEMORY[0x223DE0370](a1 & 1);
-  return Hasher._finalize()();
-}
-
-uint64_t AnyDataProvider.oneTimeInit.setter(char a1)
-{
-  result = swift_beginAccess();
-  *(v1 + 88) = a1;
-  return result;
-}
-
-uint64_t AnyDataProvider.name.getter()
-{
-  v1 = *(v0 + 96);
-  v2 = *(v0 + 104);
-
-  return v1;
-}
-
-uint64_t AnyDataProvider.__allocating_init<A>(provider:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
-{
-  v6 = a4();
-  (*(*(a2 - 8) + 8))(a1, a2);
-  return v6;
-}
-
-uint64_t (*implicit closure #1 in AnyDataProvider.init<A>(provider:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4))()
-{
-  v7 = *(a3 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](a1, a1);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v7 + 16))(v9);
-  v10 = (*(v7 + 80) + 40) & ~*(v7 + 80);
-  v11 = swift_allocObject();
-  *(v11 + 2) = a2;
-  *(v11 + 3) = a3;
-  *(v11 + 4) = a4;
-  (*(v7 + 32))(&v11[v10], v9, a3);
-  return partial apply for implicit closure #2 in implicit closure #1 in AnyDataProvider.init<A>(provider:);
-}
-
-uint64_t (*implicit closure #3 in AnyDataProvider.init<A>(provider:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4))()
-{
-  v7 = *(a3 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](a1, a1);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v7 + 16))(v9);
-  v10 = (*(v7 + 80) + 40) & ~*(v7 + 80);
-  v11 = swift_allocObject();
-  *(v11 + 2) = a2;
-  *(v11 + 3) = a3;
-  *(v11 + 4) = a4;
-  (*(v7 + 32))(&v11[v10], v9, a3);
-  return partial apply for implicit closure #4 in implicit closure #3 in AnyDataProvider.init<A>(provider:);
-}
-
-uint64_t (*implicit closure #5 in AnyDataProvider.init<A>(provider:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4))()
-{
-  v7 = *(a3 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](a1, a1);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v7 + 16))(v9);
-  v10 = (*(v7 + 80) + 40) & ~*(v7 + 80);
-  v11 = swift_allocObject();
-  *(v11 + 2) = a2;
-  *(v11 + 3) = a3;
-  *(v11 + 4) = a4;
-  (*(v7 + 32))(&v11[v10], v9, a3);
-  return partial apply for implicit closure #6 in implicit closure #5 in AnyDataProvider.init<A>(provider:);
-}
-
-uint64_t (*implicit closure #7 in AnyDataProvider.init<A>(provider:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4))()
-{
-  v7 = *(a3 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](a1, a1);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v7 + 16))(v9);
-  v10 = (*(v7 + 80) + 40) & ~*(v7 + 80);
-  v11 = swift_allocObject();
-  *(v11 + 2) = a2;
-  *(v11 + 3) = a3;
-  *(v11 + 4) = a4;
-  (*(v7 + 32))(&v11[v10], v9, a3);
-  return partial apply for implicit closure #8 in implicit closure #7 in AnyDataProvider.init<A>(provider:);
-}
-
-uint64_t AnyDataProvider.prepare(dispatchQueue:)(uint64_t a1)
-{
-  v2 = v1;
-  v30 = a1;
-  v3 = type metadata accessor for PerformanceUtil.Ticket(0);
-  v4 = *(*(v3 - 1) + 64);
-  MEMORY[0x28223BE20](v3, v5);
-  v7 = &v29 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for pommes != -1)
-  {
-    swift_once();
-  }
-
-  v8 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v8, static Logger.pommes);
-
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.debug.getter();
-
-  if (os_log_type_enabled(v9, v10))
-  {
-    v11 = swift_slowAlloc();
-    v12 = swift_slowAlloc();
-    v31[0] = v12;
-    *v11 = 136315138;
-    *(v11 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(*(v2 + 96), *(v2 + 104), v31);
-    _os_log_impl(&dword_2232BB000, v9, v10, "%s preparing ...", v11, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v12);
-    MEMORY[0x223DE0F80](v12, -1, -1);
-    MEMORY[0x223DE0F80](v11, -1, -1);
-  }
-
-  v13 = *(v2 + 96);
-  v14 = *(v2 + 104);
-  v31[0] = v13;
-  v31[1] = v14;
-
-  MEMORY[0x223DDF6D0](0x7261706572705F20, 0xEB00000000292865);
-  v15 = v31[0];
-  Date.init()();
-  v16 = &v7[v3[5]];
-  *v16 = "SiriInformationSearch/DataProvider.swift";
-  *(v16 + 1) = 40;
-  v16[16] = 2;
-  *&v7[v3[6]] = 61;
-  v17 = &v7[v3[7]];
-  *v17 = "prepare(dispatchQueue:)";
-  *(v17 + 1) = 23;
-  v17[16] = 2;
-  v18 = specialized static PerformanceUtil.Ticket.trimIfNeeded(_:)(v15);
-  v20 = v19;
-
-  v21 = &v7[v3[8]];
-  *v21 = v18;
-  v21[1] = v20;
-  v22 = *(v2 + 24);
-  v23 = v31[3];
-  (*(v2 + 16))(v30);
-  if (!v23)
-  {
-
-    v24 = Logger.logObject.getter();
-    v25 = static os_log_type_t.debug.getter();
-
-    if (os_log_type_enabled(v24, v25))
-    {
-      v26 = swift_slowAlloc();
-      v27 = swift_slowAlloc();
-      v31[0] = v27;
-      *v26 = 136315138;
-      *(v26 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v14, v31);
-      _os_log_impl(&dword_2232BB000, v24, v25, "%s prepare complete", v26, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1(v27);
-      MEMORY[0x223DE0F80](v27, -1, -1);
-      MEMORY[0x223DE0F80](v26, -1, -1);
-    }
-  }
-
-  if (one-time initialization token for shared != -1)
-  {
-    swift_once();
-  }
-
-  (*(*static PerformanceUtil.shared + 184))(v7, 0);
-  return outlined destroy of PerformanceUtil.Ticket(v7);
-}
-
-uint64_t AnyDataProvider.wait(timeout:)()
-{
-  v1 = *(v0 + 32);
-  v2 = *(v0 + 40);
-  return v1() & 1;
-}
-
-uint64_t AnyDataProvider.fetch(for:assistantData:serviceHelper:dispatchQueue:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
-{
-  v25 = a3;
-  v26 = a4;
-  v23 = a1;
-  v24 = a2;
-  v27 = a5;
-  v6 = *v5;
-  v7 = type metadata accessor for Date();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7, v10);
-  v12 = &v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for shared != -1)
-  {
-    swift_once();
-  }
-
-  v13 = static PerformanceUtil.shared;
-  v14 = v5[13];
-  v28 = v5[12];
-  v29 = v14;
-
-  v15 = MEMORY[0x223DDF6D0](0x2868637465665F20, 0xE900000000000029);
-  v16 = v28;
-  v17 = v29;
-  MEMORY[0x28223BE20](v15, v18);
-  v22 = v24;
-  v19 = *(v6 + 80);
-  v20 = type metadata accessor for Optional();
-  Date.init()();
-  LOBYTE(v22) = 2;
-  (*(*v13 + 200))(v16, v17, 0, v12, "SiriInformationSearch/DataProvider.swift", 40, 2, 102, "fetch(for:assistantData:serviceHelper:dispatchQueue:)", 53, v22, partial apply for closure #1 in AnyDataProvider.fetch(for:assistantData:serviceHelper:dispatchQueue:), &v23 - 8, v20);
-
-  return (*(v8 + 8))(v12, v7);
-}
-
-uint64_t AnyDataProvider.fetch(for:assistantData:serviceHelper:dispatchQueue:timeout:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
-{
-  v7 = v6;
-  v52 = a3;
-  v53 = a4;
-  v50 = a1;
-  v51 = a2;
-  v57 = a6;
-  v9 = *v6;
-  v10 = type metadata accessor for PerformanceUtil.Ticket(0);
-  v11 = (v10 - 8);
-  v12 = *(*(v10 - 8) + 64);
-  MEMORY[0x28223BE20](v10, v13);
-  v15 = &v50 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = *(v9 + 80);
-  v56 = type metadata accessor for Optional();
-  v17 = *(v56 - 8);
-  v18 = *(v17 + 64);
-  v20 = MEMORY[0x28223BE20](v56, v19);
-  v54 = &v50 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v20, v22);
-  v24 = &v50 - v23;
-  (*(*(v16 - 8) + 56))(&v50 - v23, 1, 1, v16);
-  v25 = v7[13];
-  v55 = v7[12];
-  v58[0] = v55;
-  v58[1] = v25;
-
-  MEMORY[0x223DDF6D0](0x6420686374656620, 0xEB00000000617461);
-  v26 = v58[0];
-  Date.init()();
-  v27 = &v15[v11[7]];
-  *v27 = "SiriInformationSearch/DataProvider.swift";
-  *(v27 + 1) = 40;
-  v27[16] = 2;
-  *&v15[v11[8]] = 116;
-  v28 = &v15[v11[9]];
-  *v28 = "fetch(for:assistantData:serviceHelper:dispatchQueue:timeout:)";
-  *(v28 + 1) = 61;
-  v28[16] = 2;
-  v29 = specialized static PerformanceUtil.Ticket.trimIfNeeded(_:)(v26);
-  v31 = v30;
-
-  v32 = &v15[v11[10]];
-  *v32 = v29;
-  v32[1] = v31;
-  v33 = v7[10];
-  MEMORY[0x223DDFB80](a5);
-  (*(*v7 + 224))(a5);
-  if (one-time initialization token for shared != -1)
-  {
-    swift_once();
-  }
-
-  (*(*static PerformanceUtil.shared + 184))(v15, 0);
-  if (static DispatchTimeoutResult.== infix(_:_:)() & 1) != 0 && (static DispatchTimeoutResult.== infix(_:_:)())
-  {
-    v34 = v54;
-    (*(*v7 + 232))(v50, v51, v52, v53);
-    v35 = v56;
-    (*(v17 + 40))(v24, v34, v56);
-    if (one-time initialization token for pommes != -1)
-    {
-      swift_once();
-    }
-
-    v36 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v36, static Logger.pommes);
-
-    v37 = Logger.logObject.getter();
-    v38 = static os_log_type_t.debug.getter();
-
-    if (os_log_type_enabled(v37, v38))
-    {
-      v39 = swift_slowAlloc();
-      v40 = swift_slowAlloc();
-      v58[0] = v40;
-      *v39 = 136315394;
-      *(v39 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v55, v25, v58);
-      *(v39 + 12) = 2080;
-      swift_beginAccess();
-      (*(v17 + 16))(v34, v24, v35);
-      v41 = String.init<A>(describing:)();
-      v43 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v41, v42, v58);
-
-      *(v39 + 14) = v43;
-      _os_log_impl(&dword_2232BB000, v37, v38, "%s fetch complete %s", v39, 0x16u);
-      swift_arrayDestroy();
-      MEMORY[0x223DE0F80](v40, -1, -1);
-      MEMORY[0x223DE0F80](v39, -1, -1);
-    }
-
-    outlined destroy of PerformanceUtil.Ticket(v15);
-  }
-
-  else
-  {
-    if (one-time initialization token for pommes != -1)
-    {
-      swift_once();
-    }
-
-    v44 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v44, static Logger.pommes);
-
-    v45 = Logger.logObject.getter();
-    v46 = static os_log_type_t.error.getter();
-
-    if (os_log_type_enabled(v45, v46))
-    {
-      v47 = swift_slowAlloc();
-      v48 = swift_slowAlloc();
-      v58[0] = v48;
-      *v47 = 136315138;
-      *(v47 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v55, v25, v58);
-      _os_log_impl(&dword_2232BB000, v45, v46, "%s timeout while waiting for fetch", v47, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1(v48);
-      MEMORY[0x223DE0F80](v48, -1, -1);
-      MEMORY[0x223DE0F80](v47, -1, -1);
-    }
-
-    outlined destroy of PerformanceUtil.Ticket(v15);
-    v35 = v56;
-  }
-
-  swift_beginAccess();
-  (*(v17 + 16))(v57, v24, v35);
-  return (*(v17 + 8))(v24, v35);
-}
-
-uint64_t AnyDataProvider.deinit()
-{
-  v1 = *(v0 + 24);
-
-  v2 = *(v0 + 40);
-
-  v3 = *(v0 + 56);
-
-  v4 = *(v0 + 72);
-
-  v5 = *(v0 + 104);
-
-  return v0;
-}
-
-uint64_t AnyDataProvider.__deallocating_deinit()
-{
-  AnyDataProvider.deinit();
-
-  return swift_deallocClassInstance();
-}
-
-uint64_t AnyDataProvider.waitForPrepare(timeout:)(uint64_t a1)
-{
-  v2 = v1;
-  v4 = type metadata accessor for ContinuousClock();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4, v7);
-  v9 = &v19[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v24 = 1;
-  ContinuousClock.init()();
-  v20 = &v24;
-  v21 = v2;
-  v22 = a1;
-  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_1(&lazy protocol witness table cache variable for type ContinuousClock and conformance ContinuousClock, MEMORY[0x277D85928]);
-  Clock.measure(_:)();
-  (*(v5 + 8))(v9, v4);
-  if (one-time initialization token for pommes != -1)
-  {
-    swift_once();
-  }
-
-  v10 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v10, static Logger.pommes);
-
-  v11 = Logger.logObject.getter();
-  v12 = static os_log_type_t.info.getter();
-
-  if (os_log_type_enabled(v11, v12))
-  {
-    v13 = swift_slowAlloc();
-    v14 = swift_slowAlloc();
-    v23 = v14;
-    *v13 = 136315394;
-    v15 = Duration.description.getter();
-    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v16, &v23);
-
-    *(v13 + 4) = v17;
-    *(v13 + 12) = 2080;
-    *(v13 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(*(v2 + 96), *(v2 + 104), &v23);
-    _os_log_impl(&dword_2232BB000, v11, v12, "Waited %s for %s", v13, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x223DE0F80](v14, -1, -1);
-    MEMORY[0x223DE0F80](v13, -1, -1);
-  }
-
-  return v24;
-}
-
-uint64_t *specialized AnyDataProvider.init<A>(provider:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v7 = *v3;
-  v3[10] = dispatch_group_create();
-  *(v3 + 44) = 0;
-  v8 = *(v7 + 80);
-  v3[2] = implicit closure #1 in AnyDataProvider.init<A>(provider:)(a1, v8, a2, a3);
-  v3[3] = v9;
-  v3[4] = implicit closure #3 in AnyDataProvider.init<A>(provider:)(a1, v8, a2, a3);
-  v3[5] = v10;
-  v3[6] = implicit closure #5 in AnyDataProvider.init<A>(provider:)(a1, v8, a2, a3);
-  v3[7] = v11;
-  v3[8] = implicit closure #7 in AnyDataProvider.init<A>(provider:)(a1, v8, a2, a3);
-  v3[9] = v12;
-  swift_getMetatypeMetadata();
-  v3[12] = String.init<A>(describing:)();
-  v3[13] = v13;
-  return v3;
-}
-
-uint64_t *specialized AnyDataProvider.__allocating_init<A>(provider:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v7 = *(v3 + 80);
-  type metadata accessor for AnyDataProvider();
-  swift_allocObject();
-  return specialized AnyDataProvider.init<A>(provider:)(a1, a2, a3);
-}
-
-uint64_t partial apply for closure #1 in AnyDataProvider.fetch(for:assistantData:serviceHelper:dispatchQueue:)()
-{
-  v2 = v0[2];
-  v1 = v0[3];
-  v3 = v0[4];
-  v4 = v0[5];
-  v5 = v0[6];
-  v6 = *(v2 + 56);
-  return (*(v2 + 48))(v1, v3, v4, v5);
-}
-
-uint64_t partial apply for closure #1 in AnyDataProvider.waitForPrepare(timeout:)()
-{
-  v1 = v0[2];
-  v2 = v0[4];
-  v3 = *(v0[3] + 80);
-  result = MEMORY[0x223DDFB80](v2);
-  *v1 = result & 1;
-  return result;
-}
-
-uint64_t dispatch thunk of DataProvider.fetch(for:assistantData:serviceHelper:dispatchQueue:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v6 = *(a2 + 80);
-  v7 = *(a2 + 88);
-  v8 = *(a6 + 32);
-  v9 = *(a2 + 16);
-  v12[0] = *a2;
-  v12[1] = v9;
-  v10 = *(a2 + 48);
-  v12[2] = *(a2 + 32);
-  v12[3] = v10;
-  v12[4] = *(a2 + 64);
-  v13 = v6;
-  v14 = v7;
-  return v8(a1, v12);
-}
-
-uint64_t dispatch thunk of AnyDataProvider.prepare(dispatchQueue:)()
-{
-  return (*(*v0 + 208))();
-}
-
-{
-  return (*(*v0 + 216))();
-}
-
-uint64_t dispatch thunk of AnyDataProvider.fetch(for:assistantData:serviceHelper:dispatchQueue:)(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 80);
-  v4 = *(a2 + 88);
-  v5 = *(*v2 + 232);
-  v6 = *(a2 + 16);
-  v9[0] = *a2;
-  v9[1] = v6;
-  v7 = *(a2 + 48);
-  v9[2] = *(a2 + 32);
-  v9[3] = v7;
-  v9[4] = *(a2 + 64);
-  v10 = v3;
-  v11 = v4;
-  return v5(a1, v9);
-}
-
-uint64_t dispatch thunk of AnyDataProvider.fetch(for:assistantData:serviceHelper:dispatchQueue:timeout:)(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 80);
-  v4 = *(a2 + 88);
-  v5 = *(*v2 + 240);
-  v6 = *(a2 + 16);
-  v9[0] = *a2;
-  v9[1] = v6;
-  v7 = *(a2 + 48);
-  v9[2] = *(a2 + 32);
-  v9[3] = v7;
-  v9[4] = *(a2 + 64);
-  v10 = v3;
-  v11 = v4;
-  return v5(a1, v9);
-}
-
-uint64_t partial apply for implicit closure #6 in implicit closure #5 in AnyDataProvider.init<A>(provider:)()
-{
-  v1 = *(v0 + 32);
-  v2 = v0 + ((*(*(*(v0 + 24) - 8) + 80) + 40) & ~*(*(*(v0 + 24) - 8) + 80));
-  return (*(v1 + 32))();
-}
-
-uint64_t objectdestroy_9Tm()
-{
-  v1 = *(*(v0 + 24) - 8);
-  v2 = *(v1 + 80);
-  v3 = (v2 + 40) & ~v2;
-  v4 = *(v1 + 64);
-  (*(v1 + 8))(v0 + v3);
-
-  return MEMORY[0x2821FE8E8](v0, v3 + v4, v2 | 7);
-}
-
-BOOL UsoTask.isSmartPlayTask.getter()
-{
-  static UsoTask_CodegenConverter.convert(task:)();
-  if (!v9)
-  {
-    outlined destroy of Any?(v8);
-    return 0;
-  }
-
-  type metadata accessor for UsoTask_play_uso_NoEntity();
-  if ((swift_dynamicCast() & 1) == 0)
-  {
-    return 0;
-  }
-
-  v1 = _s12SiriOntology7UsoTaskC0A17InformationSearchE18getArgumentsAsType9arguments02asJ0SayxGSayAcDE0H0OG_xmtAA11CodeGenBaseCRbzlFA2H_AJtXEfU_AA0c18Entity_common_UserP0C_Tt3g5(MEMORY[0x277D84F90], byte_283695520, v0);
-
-  v2 = v1 >> 62 ? __CocoaSet.count.getter() : *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10);
-
-  if (v2)
-  {
-    return 0;
-  }
-
-  v3 = _s12SiriOntology7UsoTaskC0A17InformationSearchE18getArgumentsAsType9arguments02asJ0SayxGSayAcDE0H0OG_xmtAA11CodeGenBaseCRbzlFA2H_AJtXEfU_AA0c13Entity_uso_NoP0C_Tt3g5(MEMORY[0x277D84F90], byte_283695548, v0);
-
-  v4 = v3 >> 62 ? __CocoaSet.count.getter() : *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10);
-
-  if (v4)
-  {
-    return 0;
-  }
-
-  v5 = _s12SiriOntology7UsoTaskC0A17InformationSearchE18getArgumentsAsType9arguments02asJ0SayxGSayAcDE0H0OG_xmtAA11CodeGenBaseCRbzlFA2H_AJtXEfU_AA0C26Entity_common_EventTriggerC_Tt3g5(MEMORY[0x277D84F90], byte_283695570, v0);
-
-  if (v5 >> 62)
-  {
-    v6 = __CocoaSet.count.getter();
-  }
-
-  else
-  {
-    v6 = *((v5 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  }
-
-  return v6 == 0;
-}
-
-uint64_t UsoTask.isOfflineSupportedPlayTask.getter()
-{
-  static UsoTask_CodegenConverter.convert(task:)();
-  outlined init with copy of Any?(&v3, &v1);
-  if (*(&v2 + 1))
-  {
-    type metadata accessor for UsoTask_play_uso_NoEntity();
-    if (swift_dynamicCast())
-    {
-
-      outlined destroy of Any?(&v3);
-      return 1;
-    }
-  }
-
-  else
-  {
-    outlined destroy of Any?(&v1);
-  }
-
-  v1 = v3;
-  v2 = v4;
-  if (*(&v4 + 1))
-  {
-    type metadata accessor for UsoTask_play_common_MediaItem();
-    if (swift_dynamicCast())
-    {
-
-      return 1;
-    }
-  }
-
-  else
-  {
-    outlined destroy of Any?(&v1);
-  }
-
-  return 0;
-}
-
-BOOL UsoTask.isSummarizeMediaTask.getter()
-{
-  static UsoTask_CodegenConverter.convert(task:)();
-  if (!v5)
-  {
-    outlined destroy of Any?(v4);
-    goto LABEL_5;
-  }
-
-  type metadata accessor for UsoTask_summarise_common_MediaItem();
-  if (!swift_dynamicCast())
-  {
-LABEL_5:
-    v0 = 0;
-    goto LABEL_6;
-  }
-
-  v0 = v3;
-LABEL_6:
-  v1 = v0 != 0;
-
-  return v1;
-}
-
-uint64_t Siri_Nlu_External_UserParse.firstSmartPlayTask()()
-{
-  v1 = Siri_Nlu_External_Span.matcherNames.getter();
-  v2 = specialized Sequence.flatMap<A>(_:)(v1);
-
-  if (v0)
-  {
-    return result;
-  }
-
-  if (v2 >> 62)
-  {
-    goto LABEL_107;
-  }
-
-  v4 = *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  if (!v4)
-  {
-LABEL_108:
-    v64 = 0;
-    goto LABEL_109;
-  }
-
-LABEL_4:
-  v55 = v4;
-  v5 = 0;
-  v6 = v2 & 0xC000000000000001;
-  v7 = v2 & 0xFFFFFFFFFFFFFF8;
-  v8 = v2 + 32;
-  v56 = v2;
-  v61 = v2 & 0xC000000000000001;
-  v62 = v2 & 0xFFFFFFFFFFFFFF8;
-  v63 = v2 + 32;
-  while (1)
-  {
-    if (v6)
-    {
-      MEMORY[0x223DDFF80](v5, v2);
-      v10 = __OFADD__(v5++, 1);
-      if (v10)
-      {
-        goto LABEL_105;
-      }
-    }
-
-    else
-    {
-      if (v5 >= *(v7 + 16))
-      {
-        goto LABEL_106;
-      }
-
-      v9 = *(v8 + 8 * v5);
-
-      v10 = __OFADD__(v5++, 1);
-      if (v10)
-      {
-        goto LABEL_105;
-      }
-    }
-
-    static UsoTask_CodegenConverter.convert(task:)();
-    if (!v65[3])
-    {
-
-      outlined destroy of Any?(v65);
-      goto LABEL_6;
-    }
-
-    v64 = v11;
-    type metadata accessor for UsoTask_play_uso_NoEntity();
-    if ((swift_dynamicCast() & 1) == 0)
-    {
-
-      goto LABEL_6;
-    }
-
-    v12 = byte_283698340;
-    v13 = UsoTask.arguments.getter();
-    v14 = 0x636E657265666572;
-    if (v12 != 2)
-    {
-      v14 = 0x72656767697274;
-    }
-
-    v15 = 0xE700000000000000;
-    if (v12 == 2)
-    {
-      v15 = 0xE900000000000065;
-    }
-
-    v16 = 0x69746E4572657375;
-    if (v12)
-    {
-      v16 = 0x746567726174;
-    }
-
-    v17 = 0xE600000000000000;
-    if (!v12)
-    {
-      v17 = 0xEC00000073656974;
-    }
-
-    v18 = v12 <= 1 ? v16 : v14;
-    v19 = v12 <= 1 ? v17 : v15;
-    if (*(v13 + 16))
-    {
-      break;
-    }
-
-    v30 = MEMORY[0x277D84F90];
-LABEL_47:
-    v8 = v63;
-    if (v30 >> 62)
-    {
-      v51 = __CocoaSet.count.getter();
-      v8 = v63;
-
-      if (v51)
-      {
-        goto LABEL_85;
-      }
-    }
-
-    else
-    {
-      v31 = *((v30 & 0xFFFFFFFFFFFFFF8) + 0x10);
-
-      if (v31)
-      {
-        goto LABEL_85;
-      }
-    }
-
-    v32 = byte_283698368;
-    v33 = UsoTask.arguments.getter();
-    v34 = 0x636E657265666572;
-    if (v32 != 2)
-    {
-      v34 = 0x72656767697274;
-    }
-
-    v35 = 0xE700000000000000;
-    if (v32 == 2)
-    {
-      v35 = 0xE900000000000065;
-    }
-
-    v36 = 0x69746E4572657375;
-    if (v32)
-    {
-      v36 = 0x746567726174;
-    }
-
-    v37 = 0xE600000000000000;
-    if (!v32)
-    {
-      v37 = 0xEC00000073656974;
-    }
-
-    if (v32 <= 1)
-    {
-      v38 = v36;
-    }
-
-    else
-    {
-      v38 = v34;
-    }
-
-    if (v32 <= 1)
-    {
-      v39 = v37;
-    }
-
-    else
-    {
-      v39 = v35;
-    }
-
-    if (*(v33 + 16))
-    {
-      v40 = specialized __RawDictionaryStorage.find<A>(_:)(v38, v39);
-      v42 = v41;
-
-      if (v42)
-      {
-        v58 = v5;
-        v43 = *(*(v33 + 56) + 8 * v40);
-
-        v65[0] = MEMORY[0x277D84F90];
-        if (v43 >> 62)
-        {
-          v44 = __CocoaSet.count.getter();
-        }
-
-        else
-        {
-          v44 = *((v43 & 0xFFFFFFFFFFFFFF8) + 0x10);
-        }
-
-        v45 = 0;
-        v60 = MEMORY[0x277D84F90];
-        while (1)
-        {
-          if (v44 == v45)
-          {
-
-            v65[0] = MEMORY[0x277D84F90];
-            specialized Array.append<A>(contentsOf:)(v60);
-            v49 = v65[0];
-            v4 = v55;
-            v2 = v56;
-            v5 = v58;
-            goto LABEL_82;
-          }
-
-          if ((v43 & 0xC000000000000001) != 0)
-          {
-            MEMORY[0x223DDFF80](v45, v43);
-            v2 = v45 + 1;
-            if (__OFADD__(v45, 1))
-            {
-              goto LABEL_103;
-            }
-          }
-
-          else
-          {
-            if (v45 >= *((v43 & 0xFFFFFFFFFFFFFF8) + 0x10))
-            {
-              goto LABEL_104;
-            }
-
-            v46 = *(v43 + 8 * v45 + 32);
-
-            v2 = v45 + 1;
-            if (__OFADD__(v45, 1))
-            {
-LABEL_103:
-              __break(1u);
-LABEL_104:
-              __break(1u);
-LABEL_105:
-              __break(1u);
-LABEL_106:
-              __break(1u);
-LABEL_107:
-              v4 = __CocoaSet.count.getter();
-              if (!v4)
-              {
-                goto LABEL_108;
-              }
-
-              goto LABEL_4;
-            }
-          }
-
-          type metadata accessor for UsoEntity_uso_NoEntity();
-          dispatch thunk of UsoValue.getAsEntity()();
-          static UsoEntity_CodeGenConverter.convertAs<A>(entity:asType:)();
-
-          ++v45;
-          if (v66)
-          {
-            MEMORY[0x223DDF820](v47);
-            if (*((v65[0] & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v65[0] & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
-            {
-              v48 = *((v65[0] & 0xFFFFFFFFFFFFFF8) + 0x10);
-              specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-            }
-
-            specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-            v60 = v65[0];
-            v45 = v2;
-          }
-        }
-      }
-
-      v49 = MEMORY[0x277D84F90];
-LABEL_82:
-      v6 = v61;
-    }
-
-    else
-    {
-
-      v49 = MEMORY[0x277D84F90];
-    }
-
-    v8 = v63;
-    if (v49 >> 62)
-    {
-      v52 = __CocoaSet.count.getter();
-      v8 = v63;
-
-      if (v52)
-      {
-LABEL_85:
-
-        v7 = v62;
-        goto LABEL_6;
-      }
-    }
-
-    else
-    {
-      v50 = *((v49 & 0xFFFFFFFFFFFFFF8) + 0x10);
-
-      if (v50)
-      {
-        goto LABEL_85;
-      }
-    }
-
-    v53 = _s12SiriOntology7UsoTaskC0A17InformationSearchE18getArgumentsAsType9arguments02asJ0SayxGSayAcDE0H0OG_xmtAA11CodeGenBaseCRbzlFA2H_AJtXEfU_AA0C26Entity_common_EventTriggerC_Tt3g5(MEMORY[0x277D84F90], byte_283698390, v64);
-
-    if (v53 >> 62)
-    {
-      v54 = __CocoaSet.count.getter();
-      v8 = v63;
-    }
-
-    else
-    {
-      v54 = *((v53 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    }
-
-    if (!v54)
-    {
-      goto LABEL_109;
-    }
-
-    v7 = v62;
-LABEL_6:
-    if (v5 == v4)
-    {
-      v64 = 0;
-      goto LABEL_109;
-    }
-  }
-
-  v20 = specialized __RawDictionaryStorage.find<A>(_:)(v18, v19);
-  v22 = v21;
-
-  if ((v22 & 1) == 0)
-  {
-
-    v30 = MEMORY[0x277D84F90];
-LABEL_46:
-    v6 = v61;
-    goto LABEL_47;
-  }
-
-  v57 = v5;
-  v23 = *(*(v13 + 56) + 8 * v20);
-
-  v65[0] = MEMORY[0x277D84F90];
-  if (v23 >> 62)
-  {
-    v24 = __CocoaSet.count.getter();
-  }
-
-  else
-  {
-    v24 = *((v23 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  }
-
-  v25 = 0;
-  v59 = MEMORY[0x277D84F90];
-  while (1)
-  {
-    if (v24 == v25)
-    {
-
-      v65[0] = MEMORY[0x277D84F90];
-      specialized Array.append<A>(contentsOf:)(v59);
-      v30 = v65[0];
-      v4 = v55;
-      v2 = v56;
-      v5 = v57;
-      goto LABEL_46;
-    }
-
-    if ((v23 & 0xC000000000000001) == 0)
-    {
-      break;
-    }
-
-    MEMORY[0x223DDFF80](v25, v23);
-    v27 = v25 + 1;
-    if (__OFADD__(v25, 1))
-    {
-      goto LABEL_100;
-    }
-
-LABEL_35:
-    type metadata accessor for UsoEntity_common_UserEntity();
-    dispatch thunk of UsoValue.getAsEntity()();
-    static UsoEntity_CodeGenConverter.convertAs<A>(entity:asType:)();
-
-    ++v25;
-    if (v66)
-    {
-      MEMORY[0x223DDF820](v28);
-      if (*((v65[0] & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v65[0] & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
-      {
-        v29 = *((v65[0] & 0xFFFFFFFFFFFFFF8) + 0x10);
-        specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-      }
-
-      specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-      v59 = v65[0];
-      v25 = v27;
-    }
-  }
-
-  if (v25 >= *((v23 & 0xFFFFFFFFFFFFFF8) + 0x10))
-  {
-    goto LABEL_101;
-  }
-
-  v26 = *(v23 + 8 * v25 + 32);
-
-  v27 = v25 + 1;
-  if (!__OFADD__(v25, 1))
-  {
-    goto LABEL_35;
-  }
-
-LABEL_100:
-  __break(1u);
-LABEL_101:
-  __break(1u);
-LABEL_109:
-
-  return v64;
-}
-
-uint64_t Siri_Nlu_External_UserParse.firstOfflineSupportedPlayTask()()
-{
-  v2 = Siri_Nlu_External_Span.matcherNames.getter();
-  v3 = specialized Sequence.flatMap<A>(_:)(v2);
-
-  if (!v0)
-  {
-    if (v3 >> 62)
+    if (v4 >> 62)
     {
       goto LABEL_24;
     }
 
-    v4 = *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (v4)
+    v5 = *((v4 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v5)
     {
       while (1)
       {
-        v5 = 0;
-        while ((v3 & 0xC000000000000001) != 0)
+        v6 = 0;
+        while ((v4 & 0xC000000000000001) != 0)
         {
-          v1 = MEMORY[0x223DDFF80](v5, v3);
-          v6 = v5 + 1;
-          if (__OFADD__(v5, 1))
+          v2 = MEMORY[0x223DDFF80](v6, v4);
+          v7 = v6 + 1;
+          if (__OFADD__(v6, 1))
           {
 LABEL_19:
             __break(1u);
 LABEL_20:
 
-            outlined destroy of Any?(&v10);
+            outlined destroy of Any?(&v11);
 LABEL_22:
 
-            return v1;
+            return v2;
           }
 
 LABEL_10:
 
           static UsoTask_CodegenConverter.convert(task:)();
 
-          outlined init with copy of Any?(&v10, &v8);
-          if (*(&v9 + 1))
+          outlined init with copy of Any?(&v11, &v9);
+          if (*(&v10 + 1))
           {
             type metadata accessor for UsoTask_play_uso_NoEntity();
             if (swift_dynamicCast())
@@ -1292,12 +48,12 @@ LABEL_10:
 
           else
           {
-            outlined destroy of Any?(&v8);
+            outlined destroy of Any?(&v9);
           }
 
-          v8 = v10;
           v9 = v11;
-          if (*(&v11 + 1))
+          v10 = v12;
+          if (*(&v12 + 1))
           {
             type metadata accessor for UsoTask_play_common_MediaItem();
             if (swift_dynamicCast())
@@ -1310,34 +66,34 @@ LABEL_10:
           else
           {
 
-            outlined destroy of Any?(&v8);
+            outlined destroy of Any?(&v9);
           }
 
-          ++v5;
-          if (v6 == v4)
+          ++v6;
+          if (v7 == v5)
           {
             goto LABEL_25;
           }
         }
 
-        if (v5 < *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        if (v6 < *((v4 & 0xFFFFFFFFFFFFFF8) + 0x10))
         {
           break;
         }
 
         __break(1u);
 LABEL_24:
-        v4 = __CocoaSet.count.getter();
-        if (!v4)
+        v5 = __CocoaSet.count.getter();
+        if (!v5)
         {
           goto LABEL_25;
         }
       }
 
-      v1 = *(v3 + 8 * v5 + 32);
+      v2 = *(v4 + 8 * v6 + 32);
 
-      v6 = v5 + 1;
-      if (__OFADD__(v5, 1))
+      v7 = v6 + 1;
+      if (__OFADD__(v6, 1))
       {
         goto LABEL_19;
       }
@@ -1350,45 +106,45 @@ LABEL_25:
     return 0;
   }
 
-  return v1;
+  return v2;
 }
 
-uint64_t Siri_Nlu_External_UserParse.firstSummarizeMediaTask()()
+uint64_t Siri_Nlu_External_UserParse.firstSummarizeMediaTask()(uint64_t a1)
 {
-  v2 = Siri_Nlu_External_Span.matcherNames.getter();
-  v3 = specialized Sequence.flatMap<A>(_:)(v2);
+  v3 = Siri_Nlu_External_Span.matcherNames.getter();
+  v4 = specialized Sequence.flatMap<A>(_:)(v3);
 
-  if (!v0)
+  if (!v1)
   {
-    if (v3 >> 62)
+    if (v4 >> 62)
     {
       goto LABEL_18;
     }
 
-    v4 = *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (v4)
+    v5 = *((v4 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v5)
     {
       while (1)
       {
-        v5 = 0;
-        while ((v3 & 0xC000000000000001) != 0)
+        v6 = 0;
+        while ((v4 & 0xC000000000000001) != 0)
         {
-          v1 = MEMORY[0x223DDFF80](v5, v3);
-          v6 = v5 + 1;
-          if (__OFADD__(v5, 1))
+          v2 = MEMORY[0x223DDFF80](v6, v4);
+          v7 = v6 + 1;
+          if (__OFADD__(v6, 1))
           {
 LABEL_15:
             __break(1u);
 LABEL_16:
 
-            return v1;
+            return v2;
           }
 
 LABEL_10:
 
           static UsoTask_CodegenConverter.convert(task:)();
 
-          if (v8[3])
+          if (v9[3])
           {
             type metadata accessor for UsoTask_summarise_common_MediaItem();
             if (swift_dynamicCast())
@@ -1400,34 +156,34 @@ LABEL_10:
           else
           {
 
-            outlined destroy of Any?(v8);
+            outlined destroy of Any?(v9);
           }
 
-          ++v5;
-          if (v6 == v4)
+          ++v6;
+          if (v7 == v5)
           {
             goto LABEL_19;
           }
         }
 
-        if (v5 < *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        if (v6 < *((v4 & 0xFFFFFFFFFFFFFF8) + 0x10))
         {
           break;
         }
 
         __break(1u);
 LABEL_18:
-        v4 = __CocoaSet.count.getter();
-        if (!v4)
+        v5 = __CocoaSet.count.getter();
+        if (!v5)
         {
           goto LABEL_19;
         }
       }
 
-      v1 = *(v3 + 8 * v5 + 32);
+      v2 = *(v4 + 8 * v6 + 32);
 
-      v6 = v5 + 1;
-      if (__OFADD__(v5, 1))
+      v7 = v6 + 1;
+      if (__OFADD__(v6, 1))
       {
         goto LABEL_15;
       }
@@ -1440,26 +196,25 @@ LABEL_19:
     return 0;
   }
 
-  return v1;
+  return v2;
 }
 
 uint64_t RunningBoardForegroundAppProvider.getForegroundAppProfileSlice()@<X0>(uint64_t a1@<X8>)
 {
   v2 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSliceValue();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2, v5);
-  v7 = &v10[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x28223BE20](v2);
+  v5 = &v8[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
   specialized RunningBoardForegroundAppProvider.getForegroundAppId()();
 
-  _s10PegasusAPI43Apple_Parsec_Siri_V2alpha_ProfileSliceValueVAC21InternalSwiftProtobuf7MessageAAWlTm_0(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_ProfileSliceValue and conformance Apple_Parsec_Siri_V2alpha_ProfileSliceValue, MEMORY[0x277D39768]);
+  _s10PegasusAPI43Apple_Parsec_Siri_V2alpha_ProfileSliceValueVAC21InternalSwiftProtobuf7MessageAAWlTm_0(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_ProfileSliceValue and conformance Apple_Parsec_Siri_V2alpha_ProfileSliceValue, MEMORY[0x277D39768], MEMORY[0x277D39760]);
   static Message.with(_:)();
-  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSlice();
-  v11 = v7;
-  _s10PegasusAPI43Apple_Parsec_Siri_V2alpha_ProfileSliceValueVAC21InternalSwiftProtobuf7MessageAAWlTm_0(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_ProfileSlice and conformance Apple_Parsec_Siri_V2alpha_ProfileSlice, MEMORY[0x277D39460]);
+  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSlice();
+  v9 = v5;
+  _s10PegasusAPI43Apple_Parsec_Siri_V2alpha_ProfileSliceValueVAC21InternalSwiftProtobuf7MessageAAWlTm_0(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_ProfileSlice and conformance Apple_Parsec_Siri_V2alpha_ProfileSlice, MEMORY[0x277D39460], MEMORY[0x277D39458]);
   static Message.with(_:)();
-  (*(*(v8 - 8) + 56))(a1, 0, 1, v8);
-  return (*(v3 + 8))(v7, v2);
+  (*(*(v6 - 8) + 56))(a1, 0, 1, v6);
+  return (*(v3 + 8))(v5, v2);
 }
 
 void closure #1 in RunningBoardForegroundAppProvider.getForegroundAppId()(id *a1@<X0>, uint64_t *a2@<X8>)
@@ -1529,19 +284,16 @@ LABEL_9:
 uint64_t closure #1 in RunningBoardForegroundAppProvider.buildForegroundAppProfileSliceValue(_:)()
 {
   v0 = type metadata accessor for Google_Protobuf_Any();
-  v1 = *(*(v0 - 8) + 64);
-  MEMORY[0x28223BE20](v0 - 8, v2);
-  v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSliceValueResolutionState();
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v3, v6);
-  v8 = v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSliceValueLabel();
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9, v11);
-  (*(v13 + 104))(v15 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0), *MEMORY[0x277D39AE8]);
+  MEMORY[0x28223BE20](v0 - 8);
+  v1 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSliceValueResolutionState();
+  v2 = *(v1 - 8);
+  MEMORY[0x28223BE20](v1);
+  v4 = v9 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSliceValueLabel();
+  MEMORY[0x28223BE20](v5);
+  (*(v7 + 104))(v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), *MEMORY[0x277D39AE8]);
   Apple_Parsec_Siri_V2alpha_ProfileSlice.label.setter();
-  (*(v4 + 104))(v8, *MEMORY[0x277D39D58], v3);
+  (*(v2 + 104))(v4, *MEMORY[0x277D39D58], v1);
   Apple_Parsec_Siri_V2alpha_ProfileSliceValue.state.setter();
   Apple_Parsec_Siri_V2alpha_ProfileSliceValue.isPostResolution.setter();
   Google_Protobuf_Any.init()();
@@ -1551,34 +303,32 @@ uint64_t closure #1 in RunningBoardForegroundAppProvider.buildForegroundAppProfi
 uint64_t closure #1 in RunningBoardForegroundAppProvider.getForegroundAppProfileSlice()(uint64_t a1, uint64_t a2)
 {
   v3 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSliceLabel();
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x28223BE20](v3, v5);
-  (*(v7 + 104))(&v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), *MEMORY[0x277D39700]);
+  MEMORY[0x28223BE20](v3);
+  (*(v5 + 104))(&v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), *MEMORY[0x277D39700]);
   Apple_Parsec_Siri_V2alpha_ProfileSlice.label.setter();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10PegasusAPI43Apple_Parsec_Siri_V2alpha_ProfileSliceValueVGMd, &_ss23_ContiguousArrayStorageCy10PegasusAPI43Apple_Parsec_Siri_V2alpha_ProfileSliceValueVGMR);
-  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSliceValue();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 72);
-  v11 = (*(v9 + 80) + 32) & ~*(v9 + 80);
-  v12 = swift_allocObject();
-  *(v12 + 16) = xmmword_2234CF920;
-  (*(v9 + 16))(v12 + v11, a2, v8);
+  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSliceValue();
+  v7 = *(v6 - 8);
+  v8 = (*(v7 + 80) + 32) & ~*(v7 + 80);
+  v9 = swift_allocObject();
+  *(v9 + 16) = xmmword_2234CF920;
+  (*(v7 + 16))(v9 + v8, a2, v6);
   return Apple_Parsec_Siri_V2alpha_ProfileSlice.values.setter();
 }
 
 void specialized RunningBoardForegroundAppProvider.getForegroundAppId()()
 {
-  v54[9] = *MEMORY[0x277D85DE8];
+  v52[9] = *MEMORY[0x277D85DE8];
   v1 = [objc_allocWithZone(MEMORY[0x277D46FB0]) init];
   isa = Array._bridgeToObjectiveC()().super.isa;
   [v1 setEndowmentNamespaces_];
 
   [v1 setValues_];
-  v54[0] = 0;
-  v47 = [objc_opt_self() predicateMatchingProcessTypeApplication];
-  v48 = v1;
-  v3 = [objc_opt_self() statesForPredicate:v47 withDescriptor:v1 error:v54];
-  v4 = v54[0];
+  v52[0] = 0;
+  v45 = [objc_opt_self() predicateMatchingProcessTypeApplication];
+  v46 = v1;
+  v3 = [objc_opt_self() statesForPredicate:v45 withDescriptor:v1 error:v52];
+  v4 = v52[0];
   if (v3)
   {
     v5 = v3;
@@ -1586,20 +336,20 @@ void specialized RunningBoardForegroundAppProvider.getForegroundAppId()()
     v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
     v7 = v4;
 
-    v46 = 0;
+    v44 = 0;
   }
 
   else
   {
-    v8 = v54[0];
+    v8 = v52[0];
     v9 = _convertNSErrorToError(_:)();
 
     swift_willThrow();
-    v46 = 0;
+    v44 = 0;
     v6 = MEMORY[0x277D84F90];
   }
 
-  v49 = v6 >> 62;
+  v47 = v6 >> 62;
   v10 = v6 & 0xFFFFFFFFFFFFFF8;
   if (v6 >> 62)
   {
@@ -1615,15 +365,15 @@ void specialized RunningBoardForegroundAppProvider.getForegroundAppId()()
   v13 = v6 & 0xC000000000000001;
   v14 = v6 + 32;
   v15 = &unk_2784DB000;
-  v50 = v6;
-  v51 = v6 + 32;
-  v52 = v6 & 0xC000000000000001;
+  v48 = v6;
+  v49 = v6 + 32;
+  v50 = v6 & 0xC000000000000001;
   while (1)
   {
     if (v12 == v11)
     {
       v12 = v11;
-      if (v49)
+      if (v47)
       {
         goto LABEL_48;
       }
@@ -1633,7 +383,7 @@ void specialized RunningBoardForegroundAppProvider.getForegroundAppId()()
 
     if (v13)
     {
-      v17 = MEMORY[0x223DDFF80](v12, v50);
+      v17 = MEMORY[0x223DDFF80](v12, v48);
       goto LABEL_13;
     }
 
@@ -1654,108 +404,107 @@ LABEL_13:
       {
         v21 = v10;
         v22 = v15;
-        v23 = *(v20 + 40);
         Hasher.init(_seed:)();
         String.hash(into:)();
-        v24 = Hasher._finalize()();
-        v25 = -1 << *(v20 + 32);
-        v26 = v24 & ~v25;
-        if (((*(v20 + 56 + ((v26 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v26) & 1) == 0)
+        v23 = Hasher._finalize()();
+        v24 = -1 << *(v20 + 32);
+        v25 = v23 & ~v24;
+        if (((*(v20 + 56 + ((v25 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v25) & 1) == 0)
         {
 LABEL_24:
 
-          v14 = v51;
+          v14 = v49;
           v15 = v22;
 LABEL_33:
           v10 = v21;
-          v13 = v52;
+          v13 = v50;
           goto LABEL_8;
         }
 
-        v27 = ~v25;
+        v26 = ~v24;
         while (1)
         {
-          v28 = (*(v20 + 48) + 16 * v26);
-          v29 = *v28 == 0xD00000000000001FLL && 0x80000002234D9410 == v28[1];
-          if (v29 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+          v27 = (*(v20 + 48) + 16 * v25);
+          v28 = *v27 == 0xD00000000000001FLL && 0x80000002234D9410 == v27[1];
+          if (v28 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
           {
             break;
           }
 
-          v26 = (v26 + 1) & v27;
-          if (((*(v20 + 56 + ((v26 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v26) & 1) == 0)
+          v25 = (v25 + 1) & v26;
+          if (((*(v20 + 56 + ((v25 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v25) & 1) == 0)
           {
             goto LABEL_24;
           }
         }
 
-        v30 = [v0 process];
+        v29 = [v0 process];
         v15 = v22;
-        if (!v30)
+        if (!v29)
         {
 
-          v14 = v51;
+          v14 = v49;
           goto LABEL_33;
         }
 
-        v31 = v30;
-        v32 = [v30 bundle];
+        v30 = v29;
+        v31 = [v29 bundle];
 
         v10 = v21;
-        if (v32)
+        if (v31)
         {
-          v33 = [v32 identifier];
+          v32 = [v31 identifier];
 
-          v13 = v52;
-          if (v33)
+          v13 = v50;
+          if (v32)
           {
-            v34 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-            v36 = v35;
+            v33 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+            v35 = v34;
 
-            v37 = objc_allocWithZone(MEMORY[0x277CC1E70]);
+            v36 = objc_allocWithZone(MEMORY[0x277CC1E70]);
 
-            v38 = MEMORY[0x223DDF550](v34, v36);
+            v37 = MEMORY[0x223DDF550](v33, v35);
 
-            v54[0] = 0;
-            v39 = [v37 initWithBundleIdentifier:v38 allowPlaceholder:0 error:v54];
+            v52[0] = 0;
+            v38 = [v36 initWithBundleIdentifier:v37 allowPlaceholder:0 error:v52];
 
-            if (v39)
+            if (v38)
             {
-              v40 = v54[0];
-              v41 = [v39 developerType];
+              v39 = v52[0];
+              v40 = [v38 developerType];
 
-              if (v41 == 3)
+              if (v40 == 3)
               {
                 goto LABEL_47;
               }
 
-              v14 = v51;
+              v14 = v49;
             }
 
             else
             {
-              v42 = v54[0];
-              v43 = _convertNSErrorToError(_:)();
+              v41 = v52[0];
+              v42 = _convertNSErrorToError(_:)();
 
               swift_willThrow();
 
-              v46 = 0;
-              v14 = v51;
+              v44 = 0;
+              v14 = v49;
             }
           }
 
           else
           {
 
-            v14 = v51;
+            v14 = v49;
           }
         }
 
         else
         {
 
-          v14 = v51;
-          v13 = v52;
+          v14 = v49;
+          v13 = v50;
         }
       }
 
@@ -1780,8 +529,8 @@ LABEL_46:
   __break(1u);
 LABEL_47:
 
-  v14 = v51;
-  if (v49)
+  v14 = v49;
+  if (v47)
   {
 LABEL_48:
     if (v12 == __CocoaSet.count.getter())
@@ -1797,14 +546,13 @@ LABEL_39:
   {
 LABEL_49:
 
-    v45 = *MEMORY[0x277D85DE8];
     return;
   }
 
 LABEL_40:
   if (v13)
   {
-    v44 = MEMORY[0x223DDFF80](v12, v50);
+    v43 = MEMORY[0x223DDFF80](v12, v48);
   }
 
   else
@@ -1814,13 +562,13 @@ LABEL_40:
       __break(1u);
     }
 
-    v44 = *(v14 + 8 * v12);
+    v43 = *(v14 + 8 * v12);
   }
 
-  v53 = v44;
-  closure #1 in RunningBoardForegroundAppProvider.getForegroundAppId()(&v53, v54);
+  v51 = v43;
+  closure #1 in RunningBoardForegroundAppProvider.getForegroundAppId()(&v51, v52);
 
-  if (v54[1])
+  if (v52[1])
   {
     goto LABEL_49;
   }
@@ -1828,7 +576,7 @@ LABEL_40:
   __break(1u);
 }
 
-uint64_t _s10PegasusAPI43Apple_Parsec_Siri_V2alpha_ProfileSliceValueVAC21InternalSwiftProtobuf7MessageAAWlTm_0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t _s10PegasusAPI43Apple_Parsec_Siri_V2alpha_ProfileSliceValueVAC21InternalSwiftProtobuf7MessageAAWlTm_0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1857,175 +605,171 @@ unint64_t type metadata accessor for RBSProcessState()
 uint64_t SportsResolver.makeRecommendation(entities:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriInference14RecommendationOyAA10SportsItemVGMd, &_s13SiriInference14RecommendationOyAA10SportsItemVGMR);
-  v93 = *(v4 - 8);
-  v94 = v4;
-  v5 = *(v93 + 64);
-  v7 = MEMORY[0x28223BE20](v4, v6);
-  v9 = &v87 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7, v10);
-  v89 = &v87 - v11;
-  v12 = type metadata accessor for Date();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  MEMORY[0x28223BE20](v12, v15);
-  v17 = &v87 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy13SiriInference14RecommendationOyAC10SportsItemVGs5Error_pGMd, &_ss6ResultOy13SiriInference14RecommendationOyAC10SportsItemVGs5Error_pGMR);
-  v19 = *(*(v18 - 8) + 64);
-  v21 = MEMORY[0x28223BE20](v18, v20);
-  v23 = (&v87 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x28223BE20](v21, v24);
-  v26 = &v87 - v25;
-  v27 = type metadata accessor for SportsRecommendationQuery();
-  v28 = *(*(v27 - 8) + 64);
-  v30 = MEMORY[0x28223BE20](v27, v29);
-  v33 = &v87 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v82 = *(v4 - 8);
+  v83 = v4;
+  v5 = MEMORY[0x28223BE20](v4);
+  v7 = &v76 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v5);
+  v78 = &v76 - v8;
+  v9 = type metadata accessor for Date();
+  v10 = *(v9 - 8);
+  MEMORY[0x28223BE20](v9);
+  v12 = &v76 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy13SiriInference14RecommendationOyAC10SportsItemVGs5Error_pGMd, &_ss6ResultOy13SiriInference14RecommendationOyAC10SportsItemVGs5Error_pGMR);
+  v14 = MEMORY[0x28223BE20](v13);
+  v16 = (&v76 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x28223BE20](v14);
+  v18 = &v76 - v17;
+  v19 = type metadata accessor for SportsRecommendationQuery();
+  v20 = MEMORY[0x28223BE20](v19);
+  v23 = &v76 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (*(a1 + 16))
   {
-    v88 = v9;
-    v91 = v31;
-    v92 = v30;
-    v96 = a2;
+    v77 = v7;
+    v80 = v21;
+    v81 = v20;
+    v85 = a2;
 
-    v34 = SportsRecommendationQuery.init(sportsPersonalizationEntities:)();
+    v24 = SportsRecommendationQuery.init(sportsPersonalizationEntities:)();
     if (one-time initialization token for shared != -1)
     {
-      v34 = swift_once();
+      v24 = swift_once();
     }
 
-    v90 = &v87;
-    v36 = static PerformanceUtil.shared;
-    MEMORY[0x28223BE20](v34, v35);
-    v85 = v97;
-    v86 = v33;
-    v95 = v33;
+    v79 = &v76;
+    v25 = static PerformanceUtil.shared;
+    MEMORY[0x28223BE20](v24);
+    v74 = v86;
+    v75 = v23;
+    v84 = v23;
     Date.init()();
-    v37 = *(*v36 + 200);
-    v85 = &v84;
-    v86 = v18;
-    LOBYTE(v84) = 2;
-    v38 = v26;
-    v37(0xD000000000000025, 0x80000002234DBA90, 0, v17, "SiriInformationSearch/SportsInferenceQuerying.swift", 51, 2, 33, "makeRecommendation(entities:)", 29, v84, partial apply for closure #1 in SportsResolver.makeRecommendation(entities:));
-    (*(v13 + 8))(v17, v12);
-    outlined init with copy of Result<Recommendation<SportsItem>, Error>(v26, v23);
+    v26 = *(*v25 + 200);
+    v74 = &v73;
+    v75 = v13;
+    LOBYTE(v73) = 2;
+    v27 = v18;
+    v26(0xD000000000000025, 0x80000002234DBA90, 0, v12, "SiriInformationSearch/SportsInferenceQuerying.swift", 51, 2, 33, "makeRecommendation(entities:)", 29, v73, partial apply for closure #1 in SportsResolver.makeRecommendation(entities:));
+    (*(v10 + 8))(v12, v9);
+    outlined init with copy of Result<Recommendation<SportsItem>, Error>(v18, v16);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      v39 = *v23;
-      v40 = v96;
+      v28 = *v16;
+      v29 = v85;
       if (one-time initialization token for pommes != -1)
       {
         swift_once();
       }
 
-      v41 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v41, static Logger.pommes);
-      v42 = v39;
-      v43 = Logger.logObject.getter();
-      v44 = static os_log_type_t.error.getter();
+      v30 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v30, static Logger.pommes);
+      v31 = v28;
+      v32 = Logger.logObject.getter();
+      v33 = static os_log_type_t.error.getter();
 
-      if (os_log_type_enabled(v43, v44))
+      if (os_log_type_enabled(v32, v33))
       {
-        v45 = swift_slowAlloc();
-        v46 = swift_slowAlloc();
-        v98 = v39;
-        v99[0] = v46;
-        *v45 = 136315138;
-        v47 = v39;
+        v34 = swift_slowAlloc();
+        v35 = swift_slowAlloc();
+        v87 = v28;
+        v88[0] = v35;
+        *v34 = 136315138;
+        v36 = v28;
         __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
-        v48 = String.init<A>(describing:)();
-        v50 = v38;
-        v51 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v48, v49, v99);
+        v37 = String.init<A>(describing:)();
+        v39 = v27;
+        v40 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v37, v38, v88);
 
-        *(v45 + 4) = v51;
-        _os_log_impl(&dword_2232BB000, v43, v44, "Got error calling inference for sports recommendation: %s", v45, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1(v46);
-        MEMORY[0x223DE0F80](v46, -1, -1);
-        MEMORY[0x223DE0F80](v45, -1, -1);
+        *(v34 + 4) = v40;
+        _os_log_impl(&dword_2232BB000, v32, v33, "Got error calling inference for sports recommendation: %s", v34, 0xCu);
+        __swift_destroy_boxed_opaque_existential_1(v35);
+        MEMORY[0x223DE0F80](v35, -1, -1);
+        MEMORY[0x223DE0F80](v34, -1, -1);
 
-        v52 = v50;
+        v41 = v39;
       }
 
       else
       {
 
-        v52 = v38;
+        v41 = v27;
       }
 
-      outlined destroy of Result<Recommendation<SportsItem>, Error>(v52);
-      v66 = v95;
-      v67 = type metadata accessor for SportsItem();
-      (*(*(v67 - 8) + 56))(v40, 1, 1, v67);
-      return (*(v91 + 8))(v66, v92);
+      outlined destroy of Result<Recommendation<SportsItem>, Error>(v41);
+      v55 = v84;
+      v56 = type metadata accessor for SportsItem();
+      (*(*(v56 - 8) + 56))(v29, 1, 1, v56);
+      return (*(v80 + 8))(v55, v81);
     }
 
     else
     {
-      v61 = v93;
-      v60 = v94;
-      v62 = (*(v93 + 88))(v23, v94);
-      v63 = v96;
-      if (v62 == *MEMORY[0x277D56080])
+      v50 = v82;
+      v49 = v83;
+      v51 = (*(v82 + 88))(v16, v83);
+      v52 = v85;
+      if (v51 == *MEMORY[0x277D56080])
       {
-        outlined destroy of Result<Recommendation<SportsItem>, Error>(v26);
-        (*(v61 + 96))(v23, v60);
-        v64 = type metadata accessor for SportsItem();
-        v65 = *(v64 - 8);
-        (*(v65 + 32))(v63, v23, v64);
-        (*(v65 + 56))(v63, 0, 1, v64);
-        return (*(v91 + 8))(v95, v92);
+        outlined destroy of Result<Recommendation<SportsItem>, Error>(v18);
+        (*(v50 + 96))(v16, v49);
+        v53 = type metadata accessor for SportsItem();
+        v54 = *(v53 - 8);
+        (*(v54 + 32))(v52, v16, v53);
+        (*(v54 + 56))(v52, 0, 1, v53);
+        return (*(v80 + 8))(v84, v81);
       }
 
       else
       {
-        v68 = v89;
-        (*(v61 + 32))(v89, v23, v60);
-        v69 = v95;
+        v57 = v78;
+        (*(v50 + 32))(v78, v16, v49);
+        v58 = v84;
         if (one-time initialization token for pommes != -1)
         {
           swift_once();
         }
 
-        v70 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v70, static Logger.pommes);
-        v71 = v88;
-        (*(v61 + 16))(v88, v68, v60);
-        v72 = Logger.logObject.getter();
-        v73 = static os_log_type_t.debug.getter();
-        if (os_log_type_enabled(v72, v73))
+        v59 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v59, static Logger.pommes);
+        v60 = v77;
+        (*(v50 + 16))(v77, v57, v49);
+        v61 = Logger.logObject.getter();
+        v62 = static os_log_type_t.debug.getter();
+        if (os_log_type_enabled(v61, v62))
         {
-          v74 = swift_slowAlloc();
-          v75 = swift_slowAlloc();
-          v99[0] = v75;
-          *v74 = 136315138;
-          v76 = Recommendation.description.getter();
-          v78 = v77;
-          v79 = *(v61 + 8);
-          v79(v71);
-          v80 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v76, v78, v99);
-          v69 = v95;
+          v63 = swift_slowAlloc();
+          v64 = swift_slowAlloc();
+          v88[0] = v64;
+          *v63 = 136315138;
+          v65 = Recommendation.description.getter();
+          v67 = v66;
+          v68 = *(v50 + 8);
+          v68(v60);
+          v69 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v65, v67, v88);
+          v58 = v84;
 
-          *(v74 + 4) = v80;
-          _os_log_impl(&dword_2232BB000, v72, v73, "Got non-confident sports recommendation, will not select: '%s'", v74, 0xCu);
-          __swift_destroy_boxed_opaque_existential_1(v75);
-          v81 = v75;
-          v63 = v96;
-          MEMORY[0x223DE0F80](v81, -1, -1);
-          MEMORY[0x223DE0F80](v74, -1, -1);
+          *(v63 + 4) = v69;
+          _os_log_impl(&dword_2232BB000, v61, v62, "Got non-confident sports recommendation, will not select: '%s'", v63, 0xCu);
+          __swift_destroy_boxed_opaque_existential_1(v64);
+          v70 = v64;
+          v52 = v85;
+          MEMORY[0x223DE0F80](v70, -1, -1);
+          MEMORY[0x223DE0F80](v63, -1, -1);
 
-          (v79)(v89, v60);
+          (v68)(v78, v49);
         }
 
         else
         {
 
-          v82 = *(v61 + 8);
-          v82(v71, v60);
-          v82(v68, v60);
+          v71 = *(v50 + 8);
+          v71(v60, v49);
+          v71(v57, v49);
         }
 
-        outlined destroy of Result<Recommendation<SportsItem>, Error>(v38);
-        v83 = type metadata accessor for SportsItem();
-        (*(*(v83 - 8) + 56))(v63, 1, 1, v83);
-        return (*(v91 + 8))(v69, v92);
+        outlined destroy of Result<Recommendation<SportsItem>, Error>(v27);
+        v72 = type metadata accessor for SportsItem();
+        (*(*(v72 - 8) + 56))(v52, 1, 1, v72);
+        return (*(v80 + 8))(v58, v81);
       }
     }
   }
@@ -2037,50 +781,42 @@ uint64_t SportsResolver.makeRecommendation(entities:)@<X0>(uint64_t a1@<X0>, uin
       swift_once();
     }
 
-    v53 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v53, static Logger.pommes);
-    v54 = Logger.logObject.getter();
-    v55 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v54, v55))
+    v42 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v42, static Logger.pommes);
+    v43 = Logger.logObject.getter();
+    v44 = static os_log_type_t.debug.getter();
+    if (os_log_type_enabled(v43, v44))
     {
-      v56 = swift_slowAlloc();
-      *v56 = 0;
-      _os_log_impl(&dword_2232BB000, v54, v55, "Got no sports items from the alternative result entities. Nothing to recommend against...", v56, 2u);
-      MEMORY[0x223DE0F80](v56, -1, -1);
+      v45 = swift_slowAlloc();
+      *v45 = 0;
+      _os_log_impl(&dword_2232BB000, v43, v44, "Got no sports items from the alternative result entities. Nothing to recommend against...", v45, 2u);
+      MEMORY[0x223DE0F80](v45, -1, -1);
     }
 
-    v57 = type metadata accessor for SportsItem();
-    v58 = *(*(v57 - 8) + 56);
+    v46 = type metadata accessor for SportsItem();
+    v47 = *(*(v46 - 8) + 56);
 
-    return v58(a2, 1, 1, v57);
+    return v47(a2, 1, 1, v46);
   }
 }
 
-uint64_t closure #1 in SportsResolver.makeRecommendation(entities:)@<X0>(void *a1@<X8>)
+uint64_t closure #1 in SportsResolver.makeRecommendation(entities:)@<X0>(void *a2@<X8>)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy13SiriInference14RecommendationOyAC10SportsItemVGs5Error_pGMd, &_ss6ResultOy13SiriInference14RecommendationOyAC10SportsItemVGs5Error_pGMR);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x28223BE20](v3, v5);
-  v7 = &v9 - v6;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy13SiriInference14RecommendationOyAC10SportsItemVGs5Error_pGMd, &_ss6ResultOy13SiriInference14RecommendationOyAC10SportsItemVGs5Error_pGMR);
+  MEMORY[0x28223BE20](v4);
+  v6 = &v8 - v5;
   SportsResolver.makeRecommendation(query:)();
-  if (v1)
+  if (v2)
   {
-    *a1 = v1;
+    *a2 = v2;
     return swift_storeEnumTagMultiPayload();
   }
 
   else
   {
     swift_storeEnumTagMultiPayload();
-    return outlined init with take of Result<Recommendation<SportsItem>, Error>(v7, a1);
+    return outlined init with take of Result<Recommendation<SportsItem>, Error>(v6, a2);
   }
-}
-
-uint64_t partial apply for closure #1 in SportsResolver.makeRecommendation(entities:)@<X0>(void *a1@<X8>)
-{
-  v2 = *(v1 + 16);
-  v3 = *(v1 + 24);
-  return closure #1 in SportsResolver.makeRecommendation(entities:)(a1);
 }
 
 uint64_t outlined init with copy of Result<Recommendation<SportsItem>, Error>(uint64_t a1, uint64_t a2)
@@ -2396,123 +1132,111 @@ uint64_t destructiveInjectEnumTag for FeatureFlag(uint64_t result, unsigned int 
 
 void *PommesSearchRequestProcessor.__allocating_init(remoteClient:localClients:pegasusCacheManager:domainWarmup:pommesSearchRequest:muxContextManager:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v7 = v6;
-  v52 = a2;
-  v13 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
-  v58 = *(v13 - 8);
-  v59 = v13;
-  v14 = *(v58 + 64);
-  MEMORY[0x28223BE20](v13, v15);
-  v57 = v51 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v55 = type metadata accessor for OS_dispatch_queue.Attributes();
-  v17 = *(*(v55 - 8) + 64);
-  MEMORY[0x28223BE20](v55, v18);
-  v56 = v51 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = type metadata accessor for DispatchQoS();
-  v21 = *(*(v20 - 8) + 64);
-  MEMORY[0x28223BE20](v20 - 8, v22);
-  v54 = v51 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v24 = type metadata accessor for PommesSearchRequest.ParseState(0);
-  v25 = *(*(v24 - 8) + 64);
-  MEMORY[0x28223BE20](v24, v26);
-  v28 = (v51 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v29 = *(v7 + 48);
-  v30 = *(v7 + 52);
-  v31 = swift_allocObject();
+  v36 = a2;
+  v11 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
+  v42 = *(v11 - 8);
+  v43 = v11;
+  MEMORY[0x28223BE20](v11);
+  v41 = v35 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v39 = type metadata accessor for OS_dispatch_queue.Attributes();
+  MEMORY[0x28223BE20](v39);
+  v40 = v35 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = type metadata accessor for DispatchQoS();
+  MEMORY[0x28223BE20](v14 - 8);
+  v38 = v35 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = type metadata accessor for PommesSearchRequest.ParseState(0);
+  MEMORY[0x28223BE20](v16);
+  v18 = (v35 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v19 = swift_allocObject();
   type metadata accessor for AnalyticsComponentIdGenerator();
-  v32 = swift_allocObject();
+  v20 = swift_allocObject();
   type metadata accessor for OnDeviceSearchInstrumentationUtil();
-  v33 = swift_allocObject();
-  *(v33 + 16) = 0;
-  *(v33 + 24) = v32;
-  v31[6] = v33;
-  *(v31 + OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_attemptedProfileSliceLabels) = MEMORY[0x277D84FA0];
-  outlined init with copy of PommesSearchRequest(a5, v31 + OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_pommesSearchRequest, type metadata accessor for PommesSearchRequest);
-  v34 = a1;
-  v35 = v52;
-  v31[2] = a1;
-  v31[3] = v35;
-  v31[4] = a3;
-  v31[5] = a4;
-  *(v31 + OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_muxContextManager) = a6;
-  outlined init with copy of PommesSearchRequest(a5, v28, type metadata accessor for PommesSearchRequest.ParseState);
+  v21 = swift_allocObject();
+  *(v21 + 16) = 0;
+  *(v21 + 24) = v20;
+  v19[6] = v21;
+  *(v19 + OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_attemptedProfileSliceLabels) = MEMORY[0x277D84FA0];
+  outlined init with copy of PommesSearchRequest(a5, v19 + OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_pommesSearchRequest, type metadata accessor for PommesSearchRequest);
+  v22 = a1;
+  v23 = v36;
+  v19[2] = a1;
+  v19[3] = v23;
+  v19[4] = a3;
+  v19[5] = a4;
+  *(v19 + OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_muxContextManager) = a6;
+  outlined init with copy of PommesSearchRequest(a5, v18, type metadata accessor for PommesSearchRequest.ParseState);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  v38 = *v28;
-  v37 = v28[1];
-  v60 = a5;
-  v53 = v34;
-  v51[1] = a4;
-  v51[2] = a6;
-  v51[0] = a3;
+  v26 = *v18;
+  v25 = v18[1];
+  v44 = a5;
+  v37 = v22;
+  v35[1] = a4;
+  v35[2] = a6;
+  v35[0] = a3;
   if (EnumCaseMultiPayload)
   {
     if (EnumCaseMultiPayload == 1)
     {
-      v39 = v28[3];
 
-      v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS2id_SS5tcuId16SiriMessageTypes19TCUMappedNLResponseVSg8responsetMd, &_sSS2id_SS5tcuId16SiriMessageTypes19TCUMappedNLResponseVSg8responsetMR);
-      v41 = &_s16SiriMessageTypes19TCUMappedNLResponseVSgMd;
-      v42 = &_s16SiriMessageTypes19TCUMappedNLResponseVSgMR;
-      v43 = v28 + *(v40 + 64);
+      v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS2id_SS5tcuId16SiriMessageTypes19TCUMappedNLResponseVSg8responsetMd, &_sSS2id_SS5tcuId16SiriMessageTypes19TCUMappedNLResponseVSg8responsetMR);
+      v28 = &_s16SiriMessageTypes19TCUMappedNLResponseVSgMd;
+      v29 = &_s16SiriMessageTypes19TCUMappedNLResponseVSgMR;
+      v30 = v18 + *(v27 + 64);
     }
 
     else
     {
-      v45 = v28[2];
 
-      v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS5refId_Say12SiriNLUTypes0C23_Nlu_External_UserParseVG10userParsesAB0c1_e1_f10_DelegatedG9DialogActVSg08fallbackH0SSSg21responseVariantResulttMd, &_sSS5refId_Say12SiriNLUTypes0C23_Nlu_External_UserParseVG10userParsesAB0c1_e1_f10_DelegatedG9DialogActVSg08fallbackH0SSSg21responseVariantResulttMR);
-      v47 = *(v46 + 64);
-      v48 = *(v28 + *(v46 + 80) + 8);
+      v32 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS5refId_Say12SiriNLUTypes0C23_Nlu_External_UserParseVG10userParsesAB0c1_e1_f10_DelegatedG9DialogActVSg08fallbackH0SSSg21responseVariantResulttMd, &_sSS5refId_Say12SiriNLUTypes0C23_Nlu_External_UserParseVG10userParsesAB0c1_e1_f10_DelegatedG9DialogActVSg08fallbackH0SSSg21responseVariantResulttMR) + 64);
 
-      v41 = &_s12SiriNLUTypes0A36_Nlu_External_DelegatedUserDialogActVSgMd;
-      v42 = &_s12SiriNLUTypes0A36_Nlu_External_DelegatedUserDialogActVSgMR;
-      v43 = v28 + v47;
+      v28 = &_s12SiriNLUTypes0A36_Nlu_External_DelegatedUserDialogActVSgMd;
+      v29 = &_s12SiriNLUTypes0A36_Nlu_External_DelegatedUserDialogActVSgMR;
+      v30 = v18 + v32;
     }
 
-    outlined destroy of MediaUserStateCenter?(v43, v41, v42);
+    outlined destroy of MediaUserStateCenter?(v30, v28, v29);
   }
 
   else
   {
-    v44 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS2id_21SiriInformationSearch18NLXResultCandidateV09nlxResultF0tMd, &_sSS2id_21SiriInformationSearch18NLXResultCandidateV09nlxResultF0tMR) + 48);
+    v31 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS2id_21SiriInformationSearch18NLXResultCandidateV09nlxResultF0tMd, &_sSS2id_21SiriInformationSearch18NLXResultCandidateV09nlxResultF0tMR) + 48);
 
-    outlined destroy of PommesSearchRequest(v28 + v44, type metadata accessor for NLXResultCandidate);
+    outlined destroy of PommesSearchRequest(v18 + v31, type metadata accessor for NLXResultCandidate);
   }
 
   type metadata accessor for OS_dispatch_queue();
-  v61 = 0;
-  v62 = 0xE000000000000000;
+  v45 = 0;
+  v46 = 0xE000000000000000;
   _StringGuts.grow(_:)(35);
 
-  v61 = 0xD000000000000021;
-  v62 = 0x80000002234DA3B0;
-  MEMORY[0x223DDF6D0](v38, v37);
+  v45 = 0xD000000000000021;
+  v46 = 0x80000002234DA3B0;
+  MEMORY[0x223DDF6D0](v26, v25);
 
   static DispatchQoS.userInitiated.getter();
-  v61 = MEMORY[0x277D84F90];
-  lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes, MEMORY[0x277D85230]);
+  v45 = MEMORY[0x277D84F90];
+  lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes, MEMORY[0x277D85230], MEMORY[0x277D85238]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
   lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [OS_dispatch_queue.Attributes] and conformance [A], &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  (*(v58 + 104))(v57, *MEMORY[0x277D85260], v59);
-  v49 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
+  (*(v42 + 104))(v41, *MEMORY[0x277D85260], v43);
+  v33 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
 
-  outlined destroy of PommesSearchRequest(v60, type metadata accessor for PommesSearchRequest);
-  *(v31 + OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_requestQueue) = v49;
-  return v31;
+  outlined destroy of PommesSearchRequest(v44, type metadata accessor for PommesSearchRequest);
+  *(v19 + OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_requestQueue) = v33;
+  return v19;
 }
 
 uint64_t key path setter for PommesSearchRequestProcessor.pommesSearchRequest : PommesSearchRequestProcessor(uint64_t a1, uint64_t *a2)
 {
   v4 = type metadata accessor for PommesSearchRequest(0);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8, v6);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of PommesSearchRequest(a1, v8, type metadata accessor for PommesSearchRequest);
-  v9 = *a2;
-  v10 = OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_pommesSearchRequest;
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of PommesSearchRequest(a1, v6, type metadata accessor for PommesSearchRequest);
+  v7 = *a2;
+  v8 = OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_pommesSearchRequest;
   swift_beginAccess();
-  outlined assign with take of PommesSearchRequest(v8, v9 + v10);
+  outlined assign with take of PommesSearchRequest(v6, v7 + v8);
   return swift_endAccess();
 }
 
@@ -2527,30 +1251,26 @@ void *PommesSearchRequestProcessor.init(remoteClient:localClients:pegasusCacheMa
 {
   v7 = v6;
   v14 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
-  v51 = *(v14 - 8);
-  v52 = v14;
-  v15 = *(v51 + 64);
-  MEMORY[0x28223BE20](v14, v16);
-  v50 = v47 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v48 = type metadata accessor for OS_dispatch_queue.Attributes();
-  v18 = *(*(v48 - 8) + 64);
-  MEMORY[0x28223BE20](v48, v19);
-  v49 = v47 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = type metadata accessor for DispatchQoS();
-  v22 = *(*(v21 - 8) + 64);
-  MEMORY[0x28223BE20](v21 - 8, v23);
-  v47[3] = v47 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25 = type metadata accessor for PommesSearchRequest.ParseState(0);
-  v26 = *(*(v25 - 8) + 64);
-  MEMORY[0x28223BE20](v25, v27);
-  v29 = (v47 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v39 = *(v14 - 8);
+  v40 = v14;
+  MEMORY[0x28223BE20](v14);
+  v38 = v35 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v36 = type metadata accessor for OS_dispatch_queue.Attributes();
+  MEMORY[0x28223BE20](v36);
+  v37 = v35 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = type metadata accessor for DispatchQoS();
+  MEMORY[0x28223BE20](v17 - 8);
+  v35[3] = v35 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = type metadata accessor for PommesSearchRequest.ParseState(0);
+  MEMORY[0x28223BE20](v19);
+  v21 = (v35 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0));
   type metadata accessor for AnalyticsComponentIdGenerator();
-  v30 = swift_allocObject();
+  v22 = swift_allocObject();
   type metadata accessor for OnDeviceSearchInstrumentationUtil();
-  v31 = swift_allocObject();
-  *(v31 + 16) = 0;
-  *(v31 + 24) = v30;
-  v7[6] = v31;
+  v23 = swift_allocObject();
+  *(v23 + 16) = 0;
+  *(v23 + 24) = v22;
+  v7[6] = v23;
   *(v7 + OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_attemptedProfileSliceLabels) = MEMORY[0x277D84FA0];
   outlined init with copy of PommesSearchRequest(a5, v7 + OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_pommesSearchRequest, type metadata accessor for PommesSearchRequest);
   v7[2] = a1;
@@ -2558,69 +1278,65 @@ void *PommesSearchRequestProcessor.init(remoteClient:localClients:pegasusCacheMa
   v7[4] = a3;
   v7[5] = a4;
   *(v7 + OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_muxContextManager) = a6;
-  outlined init with copy of PommesSearchRequest(a5, v29, type metadata accessor for PommesSearchRequest.ParseState);
+  outlined init with copy of PommesSearchRequest(a5, v21, type metadata accessor for PommesSearchRequest.ParseState);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  v34 = *v29;
-  v33 = v29[1];
-  v53 = a5;
-  v47[1] = a4;
-  v47[2] = a6;
-  v47[0] = a3;
+  v26 = *v21;
+  v25 = v21[1];
+  v41 = a5;
+  v35[1] = a4;
+  v35[2] = a6;
+  v35[0] = a3;
   if (EnumCaseMultiPayload)
   {
     if (EnumCaseMultiPayload == 1)
     {
-      v35 = v29[3];
 
-      v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS2id_SS5tcuId16SiriMessageTypes19TCUMappedNLResponseVSg8responsetMd, &_sSS2id_SS5tcuId16SiriMessageTypes19TCUMappedNLResponseVSg8responsetMR);
-      v37 = &_s16SiriMessageTypes19TCUMappedNLResponseVSgMd;
-      v38 = &_s16SiriMessageTypes19TCUMappedNLResponseVSgMR;
-      v39 = v29 + *(v36 + 64);
+      v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS2id_SS5tcuId16SiriMessageTypes19TCUMappedNLResponseVSg8responsetMd, &_sSS2id_SS5tcuId16SiriMessageTypes19TCUMappedNLResponseVSg8responsetMR);
+      v28 = &_s16SiriMessageTypes19TCUMappedNLResponseVSgMd;
+      v29 = &_s16SiriMessageTypes19TCUMappedNLResponseVSgMR;
+      v30 = v21 + *(v27 + 64);
     }
 
     else
     {
-      v41 = v29[2];
 
-      v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS5refId_Say12SiriNLUTypes0C23_Nlu_External_UserParseVG10userParsesAB0c1_e1_f10_DelegatedG9DialogActVSg08fallbackH0SSSg21responseVariantResulttMd, &_sSS5refId_Say12SiriNLUTypes0C23_Nlu_External_UserParseVG10userParsesAB0c1_e1_f10_DelegatedG9DialogActVSg08fallbackH0SSSg21responseVariantResulttMR);
-      v43 = *(v42 + 64);
-      v44 = *(v29 + *(v42 + 80) + 8);
+      v32 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS5refId_Say12SiriNLUTypes0C23_Nlu_External_UserParseVG10userParsesAB0c1_e1_f10_DelegatedG9DialogActVSg08fallbackH0SSSg21responseVariantResulttMd, &_sSS5refId_Say12SiriNLUTypes0C23_Nlu_External_UserParseVG10userParsesAB0c1_e1_f10_DelegatedG9DialogActVSg08fallbackH0SSSg21responseVariantResulttMR) + 64);
 
-      v37 = &_s12SiriNLUTypes0A36_Nlu_External_DelegatedUserDialogActVSgMd;
-      v38 = &_s12SiriNLUTypes0A36_Nlu_External_DelegatedUserDialogActVSgMR;
-      v39 = v29 + v43;
+      v28 = &_s12SiriNLUTypes0A36_Nlu_External_DelegatedUserDialogActVSgMd;
+      v29 = &_s12SiriNLUTypes0A36_Nlu_External_DelegatedUserDialogActVSgMR;
+      v30 = v21 + v32;
     }
 
-    outlined destroy of MediaUserStateCenter?(v39, v37, v38);
+    outlined destroy of MediaUserStateCenter?(v30, v28, v29);
   }
 
   else
   {
-    v40 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS2id_21SiriInformationSearch18NLXResultCandidateV09nlxResultF0tMd, &_sSS2id_21SiriInformationSearch18NLXResultCandidateV09nlxResultF0tMR) + 48);
+    v31 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS2id_21SiriInformationSearch18NLXResultCandidateV09nlxResultF0tMd, &_sSS2id_21SiriInformationSearch18NLXResultCandidateV09nlxResultF0tMR) + 48);
 
-    outlined destroy of PommesSearchRequest(v29 + v40, type metadata accessor for NLXResultCandidate);
+    outlined destroy of PommesSearchRequest(v21 + v31, type metadata accessor for NLXResultCandidate);
   }
 
   type metadata accessor for OS_dispatch_queue();
-  v54 = 0;
-  v55 = 0xE000000000000000;
+  v42 = 0;
+  v43 = 0xE000000000000000;
   _StringGuts.grow(_:)(35);
 
-  v54 = 0xD000000000000021;
-  v55 = 0x80000002234DA3B0;
-  MEMORY[0x223DDF6D0](v34, v33);
+  v42 = 0xD000000000000021;
+  v43 = 0x80000002234DA3B0;
+  MEMORY[0x223DDF6D0](v26, v25);
 
   static DispatchQoS.userInitiated.getter();
-  v54 = MEMORY[0x277D84F90];
-  lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes, MEMORY[0x277D85230]);
+  v42 = MEMORY[0x277D84F90];
+  lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes, MEMORY[0x277D85230], MEMORY[0x277D85238]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
   lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [OS_dispatch_queue.Attributes] and conformance [A], &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  (*(v51 + 104))(v50, *MEMORY[0x277D85260], v52);
-  v45 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
+  (*(v39 + 104))(v38, *MEMORY[0x277D85260], v40);
+  v33 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
 
-  outlined destroy of PommesSearchRequest(v53, type metadata accessor for PommesSearchRequest);
-  *(v7 + OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_requestQueue) = v45;
+  outlined destroy of PommesSearchRequest(v41, type metadata accessor for PommesSearchRequest);
+  *(v7 + OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_requestQueue) = v33;
   return v7;
 }
 
@@ -2845,38 +1561,36 @@ uint64_t PommesSearchRequestProcessor.search(enabled:completion:)(char a1, uint6
   v4 = v3;
   v8 = type metadata accessor for DispatchWorkItemFlags();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v8, v11);
-  v13 = v22 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v23 = type metadata accessor for DispatchQoS();
-  v14 = *(v23 - 8);
-  v15 = *(v14 + 64);
-  MEMORY[0x28223BE20](v23, v16);
-  v18 = v22 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22[1] = *(v4 + OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_requestQueue);
-  v19 = swift_allocObject();
-  *(v19 + 16) = a1;
-  *(v19 + 24) = v4;
-  *(v19 + 32) = a2;
-  *(v19 + 40) = a3;
+  MEMORY[0x28223BE20](v8);
+  v11 = v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = type metadata accessor for DispatchQoS();
+  v12 = *(v19 - 8);
+  MEMORY[0x28223BE20](v19);
+  v14 = v18 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18[1] = *(v4 + OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_requestQueue);
+  v15 = swift_allocObject();
+  *(v15 + 16) = a1;
+  *(v15 + 24) = v4;
+  *(v15 + 32) = a2;
+  *(v15 + 40) = a3;
   aBlock[4] = partial apply for closure #1 in PommesSearchRequestProcessor.search(enabled:completion:);
-  aBlock[5] = v19;
+  aBlock[5] = v15;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
   aBlock[3] = &block_descriptor_6;
-  v20 = _Block_copy(aBlock);
+  v16 = _Block_copy(aBlock);
 
   static DispatchQoS.unspecified.getter();
-  v24 = MEMORY[0x277D84F90];
-  lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
+  v20 = MEMORY[0x277D84F90];
+  lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  MEMORY[0x223DDFBF0](0, v18, v13, v20);
-  _Block_release(v20);
-  (*(v9 + 8))(v13, v8);
-  (*(v14 + 8))(v18, v23);
+  MEMORY[0x223DDFBF0](0, v14, v11, v16);
+  _Block_release(v16);
+  (*(v9 + 8))(v11, v8);
+  (*(v12 + 8))(v14, v19);
 }
 
 void closure #1 in PommesSearchRequestProcessor.search(enabled:completion:)(char a1, uint64_t a2, void (*a3)(void *, uint64_t), uint64_t a4)
@@ -2934,255 +1648,250 @@ void closure #1 in PommesSearchRequestProcessor.search(enabled:completion:)(char
   }
 }
 
-uint64_t PommesSearchRequestProcessor.search_sync(completion:)(uint64_t (*a1)(void *, void), uint64_t a2)
+uint64_t PommesSearchRequestProcessor.search_sync(completion:)(void (*a1)(void *, void), uint64_t a2)
 {
   v3 = v2;
-  v136 = a1;
-  v137 = a2;
+  v121 = a1;
+  v122 = a2;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4, v6);
-  v138 = &v115 - v7;
-  v8 = type metadata accessor for DispatchTimeInterval();
-  v132 = *(v8 - 8);
-  v133 = v8;
-  v9 = *(v132 + 64);
-  MEMORY[0x28223BE20](v8, v10);
-  v129 = (&v115 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v12 = type metadata accessor for DispatchTime();
-  v130 = *(v12 - 8);
-  v131 = v12;
-  v13 = *(v130 + 64);
-  v15 = MEMORY[0x28223BE20](v12, v14);
-  v126 = &v115 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v15, v17);
-  v127 = &v115 - v18;
-  v19 = type metadata accessor for PommesSearchRequest(0);
-  v20 = *(*(v19 - 8) + 64);
-  MEMORY[0x28223BE20](v19 - 8, v21);
-  v23 = &v115 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v24 = type metadata accessor for SignpostToken();
-  v123 = *(v24 - 8);
-  v25 = v123[8];
-  v27 = MEMORY[0x28223BE20](v24 - 8, v26);
-  v121 = &v115 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v27, v28);
-  v30 = &v115 - v29;
-  v31 = type metadata accessor for PerformanceUtil.Ticket(0);
-  v120 = *(v31 - 1);
-  v32 = *(v120 + 64);
-  v34 = MEMORY[0x28223BE20](v31, v33);
-  v125 = &v115 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v36 = MEMORY[0x28223BE20](v34, v35);
-  v124 = &v115 - v37;
-  v39 = MEMORY[0x28223BE20](v36, v38);
-  v119 = &v115 - v40;
-  MEMORY[0x28223BE20](v39, v41);
-  v43 = &v115 - v42;
-  v122 = dispatch_semaphore_create(0);
-  v140 = dispatch_semaphore_create(0);
-  v141 = swift_allocBox();
-  v45 = v44;
-  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR);
-  v47 = *(*(v46 - 8) + 56);
-  v128 = v45;
-  v47(v45, 1, 1, v46);
-  v48 = swift_allocObject();
-  v143 = v48;
-  *(v48 + 16) = 0;
-  v115 = (v48 + 16);
+  MEMORY[0x28223BE20](v4);
+  v123 = &v100 - v5;
+  v6 = type metadata accessor for DispatchTimeInterval();
+  v117 = *(v6 - 8);
+  v118 = v6;
+  MEMORY[0x28223BE20](v6);
+  v114 = (&v100 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = type metadata accessor for DispatchTime();
+  v115 = *(v8 - 8);
+  v116 = v8;
+  v9 = MEMORY[0x28223BE20](v8);
+  v111 = &v100 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v112 = &v100 - v11;
+  v12 = type metadata accessor for PommesSearchRequest(0);
+  MEMORY[0x28223BE20](v12 - 8);
+  v14 = &v100 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = type metadata accessor for SignpostToken(0);
+  v108 = *(v15 - 8);
+  v16 = v108[8];
+  v17 = MEMORY[0x28223BE20](v15 - 8);
+  v106 = &v100 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v17);
+  v19 = &v100 - v18;
+  v20 = type metadata accessor for PerformanceUtil.Ticket(0);
+  v105 = *(v20 - 1);
+  v21 = *(v105 + 64);
+  v22 = MEMORY[0x28223BE20](v20);
+  v110 = &v100 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = MEMORY[0x28223BE20](v22);
+  v109 = &v100 - v24;
+  v25 = MEMORY[0x28223BE20](v23);
+  v104 = &v100 - v26;
+  MEMORY[0x28223BE20](v25);
+  v28 = &v100 - v27;
+  v107 = dispatch_semaphore_create(0);
+  v125 = dispatch_semaphore_create(0);
+  v126 = swift_allocBox();
+  v30 = v29;
+  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR);
+  v32 = *(*(v31 - 8) + 56);
+  v113 = v30;
+  v32(v30, 1, 1, v31);
+  v33 = swift_allocObject();
+  v128 = v33;
+  *(v33 + 16) = 0;
+  v100 = (v33 + 16);
   Date.init()();
-  v49 = &v43[v31[5]];
-  *v49 = "SiriInformationSearch/PommesSearchRequestProcessor.swift";
-  *(v49 + 1) = 56;
-  v49[16] = 2;
-  *&v43[v31[6]] = 108;
-  v50 = &v43[v31[7]];
-  *v50 = "search_sync(completion:)";
-  *(v50 + 1) = 24;
-  v50[16] = 2;
-  v51 = specialized static PerformanceUtil.Ticket.trimIfNeeded(_:)(0xD000000000000034);
-  v52 = &v43[v31[8]];
-  *v52 = v51;
-  v52[1] = v53;
+  v34 = &v28[v20[5]];
+  *v34 = "SiriInformationSearch/PommesSearchRequestProcessor.swift";
+  *(v34 + 1) = 56;
+  v34[16] = 2;
+  *&v28[v20[6]] = 108;
+  v35 = &v28[v20[7]];
+  *v35 = "search_sync(completion:)";
+  *(v35 + 1) = 24;
+  v35[16] = 2;
+  v36 = specialized static PerformanceUtil.Ticket.trimIfNeeded(_:)(0xD000000000000034, 0x80000002234DBCE0);
+  v37 = &v28[v20[8]];
+  *v37 = v36;
+  v37[1] = v38;
   if (one-time initialization token for pommes != -1)
   {
     swift_once();
   }
 
-  v54 = type metadata accessor for OSSignposter();
-  __swift_project_value_buffer(v54, static Signposter.pommes);
-  v55 = OSSignposter.begin(name:context:)("search.remote", 13, 2u, v3, v30);
-  v116 = v3[2];
-  v56 = (*v3 + 152);
-  v117 = *v56;
-  v118 = v56;
-  (v117)(v55);
-  v57 = swift_allocObject();
-  v139 = v23;
-  v142 = v3;
-  v58 = v57;
+  v39 = type metadata accessor for OSSignposter();
+  __swift_project_value_buffer(v39, static Signposter.pommes);
+  v40 = OSSignposter.begin(name:context:)("search.remote", 13, 2u, v3, v19);
+  v101 = v3[2];
+  v41 = (*v3 + 152);
+  v102 = *v41;
+  v103 = v41;
+  (v102)(v40);
+  v42 = swift_allocObject();
+  v124 = v14;
+  v127 = v3;
+  v43 = v42;
   swift_weakInit();
-  v134 = v43;
-  v59 = v119;
-  outlined init with copy of PommesSearchRequest(v43, v119, type metadata accessor for PerformanceUtil.Ticket);
-  v135 = v30;
-  v60 = v121;
-  outlined init with copy of PommesSearchRequest(v30, v121, type metadata accessor for SignpostToken);
-  v61 = (*(v120 + 80) + 16) & ~*(v120 + 80);
-  v62 = (v32 + *(v123 + 80) + v61) & ~*(v123 + 80);
-  v63 = (v25 + v62 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v64 = (v63 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v65 = swift_allocObject();
-  _s21SiriInformationSearch15PerformanceUtilC6TicketVWObTm_0(v59, v65 + v61, type metadata accessor for PerformanceUtil.Ticket);
-  _s21SiriInformationSearch15PerformanceUtilC6TicketVWObTm_0(v60, v65 + v62, type metadata accessor for SignpostToken);
-  v66 = v116;
-  v67 = v122;
-  *(v65 + v63) = v122;
-  *(v65 + v64) = v58;
-  *(v65 + ((v64 + 15) & 0xFFFFFFFFFFFFFFF8)) = v141;
-  v68 = *(*v66 + 568);
-  v123 = v67;
+  v119 = v28;
+  v44 = v104;
+  outlined init with copy of PommesSearchRequest(v28, v104, type metadata accessor for PerformanceUtil.Ticket);
+  v120 = v19;
+  v45 = v106;
+  outlined init with copy of PommesSearchRequest(v19, v106, type metadata accessor for SignpostToken);
+  v46 = (*(v105 + 80) + 16) & ~*(v105 + 80);
+  v47 = (v21 + *(v108 + 80) + v46) & ~*(v108 + 80);
+  v48 = (v16 + v47 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v49 = (v48 + 15) & 0xFFFFFFFFFFFFFFF8;
+  v50 = swift_allocObject();
+  _s21SiriInformationSearch15PerformanceUtilC6TicketVWObTm_0(v44, v50 + v46, type metadata accessor for PerformanceUtil.Ticket);
+  _s21SiriInformationSearch15PerformanceUtilC6TicketVWObTm_0(v45, v50 + v47, type metadata accessor for SignpostToken);
+  v51 = v101;
+  v52 = v107;
+  *(v50 + v48) = v107;
+  *(v50 + v49) = v43;
+  *(v50 + ((v49 + 15) & 0xFFFFFFFFFFFFFFF8)) = v126;
+  v53 = *(*v51 + 568);
+  v108 = v52;
 
-  v69 = v139;
-  v68(v139, partial apply for closure #1 in PommesSearchRequestProcessor.search_sync(completion:), v65);
+  v54 = v124;
+  v53(v124, partial apply for closure #1 in PommesSearchRequestProcessor.search_sync(completion:), v50);
 
-  v122 = type metadata accessor for PommesSearchRequest;
-  outlined destroy of PommesSearchRequest(v69, type metadata accessor for PommesSearchRequest);
+  v107 = type metadata accessor for PommesSearchRequest;
+  outlined destroy of PommesSearchRequest(v54, type metadata accessor for PommesSearchRequest);
 
-  v70 = v124;
+  v55 = v109;
   Date.init()();
-  v71 = &v70[v31[5]];
-  *v71 = "SiriInformationSearch/PommesSearchRequestProcessor.swift";
-  *(v71 + 1) = 56;
-  v71[16] = 2;
-  *&v70[v31[6]] = 123;
-  v72 = &v70[v31[7]];
-  *v72 = "search_sync(completion:)";
-  *(v72 + 1) = 24;
-  v72[16] = 2;
-  v73 = specialized static PerformanceUtil.Ticket.trimIfNeeded(_:)(0xD000000000000016);
-  v74 = &v70[v31[8]];
-  *v74 = v73;
-  v74[1] = v75;
-  v76 = v125;
+  v56 = &v55[v20[5]];
+  *v56 = "SiriInformationSearch/PommesSearchRequestProcessor.swift";
+  *(v56 + 1) = 56;
+  v56[16] = 2;
+  *&v55[v20[6]] = 123;
+  v57 = &v55[v20[7]];
+  *v57 = "search_sync(completion:)";
+  *(v57 + 1) = 24;
+  v57[16] = 2;
+  v58 = specialized static PerformanceUtil.Ticket.trimIfNeeded(_:)(0xD000000000000016, 0x80000002234DBD80);
+  v59 = &v55[v20[8]];
+  *v59 = v58;
+  v59[1] = v60;
+  v61 = v110;
   Date.init()();
-  v77 = &v76[v31[5]];
-  *v77 = "SiriInformationSearch/PommesSearchRequestProcessor.swift";
-  *(v77 + 1) = 56;
-  v77[16] = 2;
-  *&v76[v31[6]] = 124;
-  v78 = &v76[v31[7]];
-  *v78 = "search_sync(completion:)";
-  *(v78 + 1) = 24;
-  v78[16] = 2;
-  v79 = specialized static PerformanceUtil.Ticket.trimIfNeeded(_:)(0xD000000000000024);
-  v80 = &v76[v31[8]];
-  *v80 = v79;
-  v80[1] = v81;
-  v82 = v142;
-  v83 = v142[4];
-  v117();
-  v84 = v82[5];
-  v85 = swift_allocObject();
+  v62 = &v61[v20[5]];
+  *v62 = "SiriInformationSearch/PommesSearchRequestProcessor.swift";
+  *(v62 + 1) = 56;
+  v62[16] = 2;
+  *&v61[v20[6]] = 124;
+  v63 = &v61[v20[7]];
+  *v63 = "search_sync(completion:)";
+  *(v63 + 1) = 24;
+  v63[16] = 2;
+  v64 = specialized static PerformanceUtil.Ticket.trimIfNeeded(_:)(0xD000000000000024, 0x80000002234DBDA0);
+  v65 = &v61[v20[8]];
+  *v65 = v64;
+  v65[1] = v66;
+  v67 = v127;
+  v68 = v127[4];
+  v102();
+  v69 = v67[5];
+  v70 = swift_allocObject();
   swift_weakInit();
-  v86 = swift_allocObject();
-  v87 = v140;
-  v86[2] = v140;
-  v86[3] = v85;
-  v86[4] = v143;
-  v88 = *(*v83 + 200);
-  v140 = v87;
+  v71 = swift_allocObject();
+  v72 = v125;
+  v71[2] = v125;
+  v71[3] = v70;
+  v71[4] = v128;
+  v73 = *(*v68 + 200);
+  v125 = v72;
 
-  v89 = v139;
-  v88(v139, v84, partial apply for closure #2 in PommesSearchRequestProcessor.search_sync(completion:), v86);
+  v74 = v124;
+  v73(v124, v69, partial apply for closure #2 in PommesSearchRequestProcessor.search_sync(completion:), v71);
 
-  outlined destroy of PommesSearchRequest(v89, v122);
+  outlined destroy of PommesSearchRequest(v74, v107);
 
-  v90 = v126;
+  v75 = v111;
   static DispatchTime.now()();
-  v91 = v129;
-  *v129 = 200;
-  v93 = v132;
-  v92 = v133;
-  (*(v132 + 104))(v91, *MEMORY[0x277D85178], v133);
-  v94 = v127;
+  v76 = v114;
+  *v114 = 200;
+  v78 = v117;
+  v77 = v118;
+  (*(v117 + 104))(v76, *MEMORY[0x277D85178], v118);
+  v79 = v112;
   DispatchTime.advanced(by:)();
-  (*(v93 + 8))(v91, v92);
-  v95 = v131;
-  v96 = *(v130 + 8);
-  v96(v90, v131);
-  MEMORY[0x223DDFC40](v94);
-  v96(v94, v95);
-  v97 = v76;
-  v98 = v70;
-  v99 = v141;
+  (*(v78 + 8))(v76, v77);
+  v80 = v116;
+  v81 = *(v115 + 8);
+  v81(v75, v116);
+  MEMORY[0x223DDFC40](v79);
+  v81(v79, v80);
+  v82 = v61;
+  v83 = v55;
+  v84 = v126;
   if (one-time initialization token for shared != -1)
   {
     swift_once();
   }
 
-  v100 = *(*static PerformanceUtil.shared + 184);
-  v100(v97, 1);
-  if ((static DispatchTimeoutResult.== infix(_:_:)() & 1) != 0 && (v101 = v115, swift_beginAccess(), (v102 = *v101) != 0))
+  v85 = *(*static PerformanceUtil.shared + 184);
+  v85(v82, 1);
+  if ((static DispatchTimeoutResult.== infix(_:_:)() & 1) != 0 && (v86 = v100, swift_beginAccess(), (v87 = *v86) != 0))
   {
-    v103 = v102;
-    v136(v102, 0);
-    v104 = v123;
+    v88 = v87;
+    v121(v87, 0);
+    v89 = v108;
     OS_dispatch_semaphore.wait()();
-    v100(v98, 1);
-    v105 = v128;
+    v85(v83, 1);
+    v90 = v113;
     swift_beginAccess();
-    v106 = v105;
-    v107 = v138;
-    outlined init with copy of MediaUserStateCenter?(v106, v138, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
+    v91 = v90;
+    v92 = v123;
+    outlined init with copy of MediaUserStateCenter?(v91, v123, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
 
-    v108 = v142;
+    v93 = v127;
 
-    specialized PommesSearchRequestProcessor.handlePegasusResponse(_:_:)(v107, v108, v108, v99);
+    specialized PommesSearchRequestProcessor.handlePegasusResponse(_:_:)(v92, v93, v93, v84);
   }
 
   else
   {
-    v109 = v123;
+    v94 = v108;
     OS_dispatch_semaphore.wait()();
-    v100(v98, 1);
-    v110 = v128;
+    v85(v83, 1);
+    v95 = v113;
     swift_beginAccess();
-    v111 = v110;
-    v107 = v138;
-    outlined init with copy of MediaUserStateCenter?(v111, v138, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
+    v96 = v95;
+    v92 = v123;
+    outlined init with copy of MediaUserStateCenter?(v96, v123, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
 
-    v112 = v142;
+    v97 = v127;
 
-    v113 = v137;
+    v98 = v122;
 
-    specialized PommesSearchRequestProcessor.handlePegasusResponse(_:_:)(v107, v112, v136, v113, v112, v99);
+    specialized PommesSearchRequestProcessor.handlePegasusResponse(_:_:)(v92, v97, v121, v98, v97, v84);
   }
 
-  outlined destroy of MediaUserStateCenter?(v107, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
-  outlined destroy of PommesSearchRequest(v97, type metadata accessor for PerformanceUtil.Ticket);
-  outlined destroy of PommesSearchRequest(v98, type metadata accessor for PerformanceUtil.Ticket);
-  outlined destroy of PommesSearchRequest(v135, type metadata accessor for SignpostToken);
-  outlined destroy of PommesSearchRequest(v134, type metadata accessor for PerformanceUtil.Ticket);
+  outlined destroy of MediaUserStateCenter?(v92, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
+  outlined destroy of PommesSearchRequest(v82, type metadata accessor for PerformanceUtil.Ticket);
+  outlined destroy of PommesSearchRequest(v83, type metadata accessor for PerformanceUtil.Ticket);
+  outlined destroy of PommesSearchRequest(v120, type metadata accessor for SignpostToken);
+  outlined destroy of PommesSearchRequest(v119, type metadata accessor for PerformanceUtil.Ticket);
 }
 
-Swift::Int closure #1 in PommesSearchRequestProcessor.search_sync(completion:)(uint64_t a1, uint64_t a2, uint64_t a3)
+Swift::Int closure #1 in PommesSearchRequestProcessor.search_sync(completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8, v8);
-  v10 = &v15[-v9];
-  v11 = swift_projectBox();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
+  MEMORY[0x28223BE20](v9 - 8);
+  v11 = &v16[-v10];
+  v12 = swift_projectBox();
   swift_beginAccess();
   if (swift_weakLoadStrong())
   {
 
-    outlined init with copy of MediaUserStateCenter?(a1, v10, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR);
-    v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR);
-    (*(*(v12 - 8) + 56))(v10, 0, 1, v12);
+    outlined init with copy of MediaUserStateCenter?(a1, v11, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR);
+    v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR);
+    (*(*(v13 - 8) + 56))(v11, 0, 1, v13);
     swift_beginAccess();
-    outlined assign with take of MediaUserStateCenter?(v10, v11, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
+    outlined assign with take of MediaUserStateCenter?(v11, v12, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
   }
 
   if (one-time initialization token for shared != -1)
@@ -3196,8 +1905,8 @@ Swift::Int closure #1 in PommesSearchRequestProcessor.search_sync(completion:)(u
     swift_once();
   }
 
-  v13 = type metadata accessor for OSSignposter();
-  __swift_project_value_buffer(v13, static Signposter.pommes);
+  v14 = type metadata accessor for OSSignposter();
+  __swift_project_value_buffer(v14, static Signposter.pommes);
   OSSignposter.end(token:message:)(a3, 0, 0xE000000000000000);
   return OS_dispatch_semaphore.signal()();
 }
@@ -3217,180 +1926,172 @@ Swift::Int closure #2 in PommesSearchRequestProcessor.search_sync(completion:)(v
   return OS_dispatch_semaphore.signal()();
 }
 
-uint64_t closure #3 in PommesSearchRequestProcessor.search_sync(completion:)(void *a1, int a2, uint64_t a3)
+uint64_t closure #3 in PommesSearchRequestProcessor.search_sync(completion:)(void *a1, int a2, uint64_t a3, uint64_t a4)
 {
-  LODWORD(v47) = a2;
-  v45 = a1;
-  v46 = type metadata accessor for DispatchTimeInterval();
-  v44 = *(v46 - 8);
-  v4 = *(v44 + 64);
-  MEMORY[0x28223BE20](v46, v5);
-  v7 = (&v41 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v8 = type metadata accessor for PegasusSearchResponse(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8, v10);
-  v12 = &v41 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
-  v14 = *(*(v13 - 8) + 64);
-  v16 = MEMORY[0x28223BE20](v13 - 8, v15);
-  v18 = &v41 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v16, v19);
-  v21 = &v41 - v20;
-  v22 = type metadata accessor for PommesSearchRequest(0);
-  v23 = v22 - 8;
-  v24 = *(*(v22 - 8) + 64);
-  MEMORY[0x28223BE20](v22, v25);
-  v27 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v28 = swift_projectBox();
+  LODWORD(v39) = a2;
+  v37 = a1;
+  v38 = type metadata accessor for DispatchTimeInterval();
+  v36 = *(v38 - 8);
+  MEMORY[0x28223BE20](v38);
+  v6 = (&v33 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v7 = type metadata accessor for PegasusSearchResponse(0);
+  MEMORY[0x28223BE20](v7);
+  v9 = &v33 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
+  v11 = MEMORY[0x28223BE20](v10 - 8);
+  v13 = &v33 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v11);
+  v15 = &v33 - v14;
+  v16 = type metadata accessor for PommesSearchRequest(0);
+  v17 = v16 - 8;
+  MEMORY[0x28223BE20](v16);
+  v19 = &v33 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = swift_projectBox();
   (*(*a3 + 152))();
-  v29 = *&v27[*(v23 + 60)];
+  v21 = *&v19[*(v17 + 60)];
 
-  outlined destroy of PommesSearchRequest(v27, type metadata accessor for PommesSearchRequest);
-  if (v29)
+  outlined destroy of PommesSearchRequest(v19, type metadata accessor for PommesSearchRequest);
+  if (v21)
   {
-    v30 = *(v29 + OBJC_IVAR____TtC21SiriInformationSearch20PommesRequestContext_requestId + 8);
-    v43 = *(v29 + OBJC_IVAR____TtC21SiriInformationSearch20PommesRequestContext_requestId);
+    v22 = *(v21 + OBJC_IVAR____TtC21SiriInformationSearch20PommesRequestContext_requestId + 8);
+    v35 = *(v21 + OBJC_IVAR____TtC21SiriInformationSearch20PommesRequestContext_requestId);
   }
 
   else
   {
-    v43 = 0;
-    v30 = 0;
+    v35 = 0;
+    v22 = 0;
   }
 
   swift_beginAccess();
-  outlined init with copy of MediaUserStateCenter?(v28, v21, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
-  outlined init with copy of MediaUserStateCenter?(v21, v18, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
-  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR);
-  if ((*(*(v31 - 8) + 48))(v18, 1, v31) == 1)
+  outlined init with copy of MediaUserStateCenter?(v20, v15, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
+  outlined init with copy of MediaUserStateCenter?(v15, v13, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR);
+  if ((*(*(v23 - 8) + 48))(v13, 1, v23) == 1)
   {
-    v32 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd;
-    v33 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR;
+    v24 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd;
+    v25 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR;
 LABEL_8:
-    outlined destroy of MediaUserStateCenter?(v18, v32, v33);
+    outlined destroy of MediaUserStateCenter?(v13, v24, v25);
     goto LABEL_12;
   }
 
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    v32 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd;
-    v33 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR;
+    v24 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd;
+    v25 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR;
     goto LABEL_8;
   }
 
-  _s21SiriInformationSearch15PerformanceUtilC6TicketVWObTm_0(v18, v12, type metadata accessor for PegasusSearchResponse);
-  if ((v47 & 1) == 0)
+  _s21SiriInformationSearch15PerformanceUtilC6TicketVWObTm_0(v13, v9, type metadata accessor for PegasusSearchResponse);
+  if ((v39 & 1) == 0)
   {
-    v34 = *(a3 + 32);
-    v47 = *(v8 + 20);
-    *v7 = 5;
-    v35 = v44;
-    v36 = v46;
-    (*(v44 + 104))(v7, *MEMORY[0x277D85188], v46);
-    v42 = *(*v34 + 208);
-    v37 = v45;
-    v38 = v45;
-    v42(v43, v30, &v12[v47], v38, v7, closure #1 in PommesSearchRequestProcessor.handleResponseCaching(siriRequestId:searchResult:pommesResult:), 0);
-    outlined consume of Result<PommesResponse, Error>(v37);
-    (*(v35 + 8))(v7, v36);
+    v26 = *(a3 + 32);
+    v39 = *(v7 + 20);
+    *v6 = 5;
+    v27 = v36;
+    v28 = v38;
+    (*(v36 + 104))(v6, *MEMORY[0x277D85188], v38);
+    v34 = *(*v26 + 208);
+    v29 = v37;
+    v30 = v37;
+    v34(v35, v22, &v9[v39], v30, v6, closure #1 in PommesSearchRequestProcessor.handleResponseCaching(siriRequestId:searchResult:pommesResult:), 0);
+    outlined consume of Result<PommesResponse, Error>(v29);
+    (*(v27 + 8))(v6, v28);
   }
 
-  outlined destroy of PommesSearchRequest(v12, type metadata accessor for PegasusSearchResponse);
+  outlined destroy of PommesSearchRequest(v9, type metadata accessor for PegasusSearchResponse);
 LABEL_12:
 
-  v39 = outlined destroy of MediaUserStateCenter?(v21, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
-  return (*(**(a3 + 40) + 200))(v39);
+  v31 = outlined destroy of MediaUserStateCenter?(v15, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
+  return (*(**(a3 + 40) + 200))(v31);
 }
 
-uint64_t closure #4 in PommesSearchRequestProcessor.search_sync(completion:)(void *a1, int a2, uint64_t (*a3)(void *, void), uint64_t a4, uint64_t a5)
+uint64_t closure #4 in PommesSearchRequestProcessor.search_sync(completion:)(void *a1, int a2, uint64_t (*a3)(void *, void), uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v54 = type metadata accessor for DispatchTimeInterval();
-  v52 = *(v54 - 8);
-  v9 = *(v52 + 64);
-  MEMORY[0x28223BE20](v54, v10);
-  v51 = (v49 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v50 = type metadata accessor for PegasusSearchResponse(0);
-  v12 = *(*(v50 - 8) + 64);
-  MEMORY[0x28223BE20](v50, v13);
-  v55 = v49 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
-  v16 = *(*(v15 - 8) + 64);
-  v18 = MEMORY[0x28223BE20](v15 - 8, v17);
-  v20 = v49 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18, v21);
-  v23 = v49 - v22;
-  v24 = type metadata accessor for PommesSearchRequest(0);
-  v25 = v24 - 8;
-  v26 = *(*(v24 - 8) + 64);
-  MEMORY[0x28223BE20](v24, v27);
-  v29 = v49 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v30 = swift_projectBox();
-  LODWORD(v56) = a2;
-  v53 = a1;
-  v31 = a3(a1, a2 & 1);
-  (*(*a5 + 152))(v31);
-  v32 = *&v29[*(v25 + 60)];
+  v46 = type metadata accessor for DispatchTimeInterval();
+  v44 = *(v46 - 8);
+  MEMORY[0x28223BE20](v46);
+  v43 = (v41 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v42 = type metadata accessor for PegasusSearchResponse(0);
+  MEMORY[0x28223BE20](v42);
+  v47 = v41 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
+  v13 = MEMORY[0x28223BE20](v12 - 8);
+  v15 = v41 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v13);
+  v17 = v41 - v16;
+  v18 = type metadata accessor for PommesSearchRequest(0);
+  v19 = v18 - 8;
+  MEMORY[0x28223BE20](v18);
+  v21 = v41 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = swift_projectBox();
+  LODWORD(v48) = a2;
+  v45 = a1;
+  v23 = a3(a1, a2 & 1);
+  (*(*a5 + 152))(v23);
+  v24 = *&v21[*(v19 + 60)];
 
-  outlined destroy of PommesSearchRequest(v29, type metadata accessor for PommesSearchRequest);
-  if (v32)
+  outlined destroy of PommesSearchRequest(v21, type metadata accessor for PommesSearchRequest);
+  if (v24)
   {
-    v33 = *(v32 + OBJC_IVAR____TtC21SiriInformationSearch20PommesRequestContext_requestId);
-    v34 = *(v32 + OBJC_IVAR____TtC21SiriInformationSearch20PommesRequestContext_requestId + 8);
+    v25 = *(v24 + OBJC_IVAR____TtC21SiriInformationSearch20PommesRequestContext_requestId);
+    v26 = *(v24 + OBJC_IVAR____TtC21SiriInformationSearch20PommesRequestContext_requestId + 8);
   }
 
   else
   {
-    v33 = 0;
-    v34 = 0;
+    v25 = 0;
+    v26 = 0;
   }
 
   swift_beginAccess();
-  outlined init with copy of MediaUserStateCenter?(v30, v23, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
-  outlined init with copy of MediaUserStateCenter?(v23, v20, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
-  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR);
-  if ((*(*(v35 - 8) + 48))(v20, 1, v35) == 1)
+  outlined init with copy of MediaUserStateCenter?(v22, v17, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
+  outlined init with copy of MediaUserStateCenter?(v17, v15, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
+  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR);
+  if ((*(*(v27 - 8) + 48))(v15, 1, v27) == 1)
   {
-    v36 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd;
-    v37 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR;
+    v28 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd;
+    v29 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR;
 LABEL_8:
-    outlined destroy of MediaUserStateCenter?(v20, v36, v37);
+    outlined destroy of MediaUserStateCenter?(v15, v28, v29);
     goto LABEL_12;
   }
 
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    v36 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd;
-    v37 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR;
+    v28 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd;
+    v29 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR;
     goto LABEL_8;
   }
 
-  v38 = v55;
-  _s21SiriInformationSearch15PerformanceUtilC6TicketVWObTm_0(v20, v55, type metadata accessor for PegasusSearchResponse);
-  if ((v56 & 1) == 0)
+  v30 = v47;
+  _s21SiriInformationSearch15PerformanceUtilC6TicketVWObTm_0(v15, v47, type metadata accessor for PegasusSearchResponse);
+  if ((v48 & 1) == 0)
   {
-    v39 = *(a5 + 32);
-    v40 = v51;
-    v56 = *(v50 + 20);
-    *v51 = 5;
-    v41 = v52;
-    v42 = v33;
-    v43 = v54;
-    (*(v52 + 104))(v40, *MEMORY[0x277D85188], v54);
-    v44 = *(*v39 + 208);
-    v49[1] = *v39 + 208;
-    v50 = v44;
-    v45 = v53;
-    v46 = v53;
-    (v50)(v42, v34, v38 + v56, v46, v40, closure #1 in PommesSearchRequestProcessor.handleResponseCaching(siriRequestId:searchResult:pommesResult:), 0);
-    outlined consume of Result<PommesResponse, Error>(v45);
-    (*(v41 + 8))(v40, v43);
+    v31 = *(a5 + 32);
+    v32 = v43;
+    v48 = *(v42 + 20);
+    *v43 = 5;
+    v33 = v44;
+    v34 = v25;
+    v35 = v46;
+    (*(v44 + 104))(v32, *MEMORY[0x277D85188], v46);
+    v36 = *(*v31 + 208);
+    v41[1] = *v31 + 208;
+    v42 = v36;
+    v37 = v45;
+    v38 = v45;
+    (v42)(v34, v26, v30 + v48, v38, v32, closure #1 in PommesSearchRequestProcessor.handleResponseCaching(siriRequestId:searchResult:pommesResult:), 0);
+    outlined consume of Result<PommesResponse, Error>(v37);
+    (*(v33 + 8))(v32, v35);
   }
 
-  outlined destroy of PommesSearchRequest(v38, type metadata accessor for PegasusSearchResponse);
+  outlined destroy of PommesSearchRequest(v30, type metadata accessor for PegasusSearchResponse);
 LABEL_12:
 
-  v47 = outlined destroy of MediaUserStateCenter?(v23, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
-  return (*(**(a5 + 40) + 200))(v47);
+  v39 = outlined destroy of MediaUserStateCenter?(v17, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
+  return (*(**(a5 + 40) + 200))(v39);
 }
 
 void closure #1 in PommesSearchRequestProcessor.handleResponseCaching(siriRequestId:searchResult:pommesResult:)(char a1, int a2)
@@ -3445,314 +2146,307 @@ void closure #1 in PommesSearchRequestProcessor.handleResponseCaching(siriReques
 uint64_t PommesSearchRequestProcessor.clientSearch(pegasusResponse:)(uint64_t a1)
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s20SiriInformationTypes17PommesCandidateIdOSgMd, &_s20SiriInformationTypes17PommesCandidateIdOSgMR);
-  v3 = *(*(v2 - 8) + 64);
-  MEMORY[0x28223BE20](v2 - 8, v4);
-  v59 = (&v56 - v5);
-  v57 = type metadata accessor for PommesSearchRequest(0);
-  v6 = *(*(v57 - 8) + 64);
-  v8 = MEMORY[0x28223BE20](v57, v7);
-  v58 = &v56 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8, v10);
-  v12 = &v56 - v11;
-  v13 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  MEMORY[0x28223BE20](v13, v16);
-  v18 = &v56 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = type metadata accessor for SignpostToken();
-  v20 = *(*(v19 - 8) + 64);
-  MEMORY[0x28223BE20](v19 - 8, v21);
-  v23 = &v56 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v2 - 8);
+  v50 = (&v47 - v3);
+  v48 = type metadata accessor for PommesSearchRequest(0);
+  v4 = MEMORY[0x28223BE20](v48);
+  v49 = &v47 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v47 - v6;
+  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata();
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = &v47 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for SignpostToken(0);
+  MEMORY[0x28223BE20](v12 - 8);
+  v14 = &v47 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (one-time initialization token for pommes != -1)
   {
     swift_once();
   }
 
-  v24 = type metadata accessor for OSSignposter();
-  __swift_project_value_buffer(v24, static Signposter.pommes);
-  OSSignposter.begin(name:context:)("search.client", 13, 2u, 0, v23);
+  v15 = type metadata accessor for OSSignposter();
+  __swift_project_value_buffer(v15, static Signposter.pommes);
+  OSSignposter.begin(name:context:)("search.client", 13, 2u, 0, v14);
   Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
-  v25 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.domainName.getter();
-  v27 = v26;
-  (*(v14 + 8))(v18, v13);
-  if (v25 == 0x616964656DLL && v27 == 0xE500000000000000)
+  v16 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.domainName.getter();
+  v18 = v17;
+  (*(v9 + 8))(v11, v8);
+  if (v16 == 0x616964656DLL && v18 == 0xE500000000000000)
   {
   }
 
   else
   {
-    v29 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v20 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if ((v29 & 1) == 0)
+    if ((v20 & 1) == 0)
     {
 LABEL_22:
-      v46 = MEMORY[0x277D84F90];
+      v37 = MEMORY[0x277D84F90];
       goto LABEL_25;
     }
   }
 
-  v30 = v60[3];
-  if (!*(v30 + 16))
+  v21 = v51[3];
+  if (!*(v21 + 16))
   {
     goto LABEL_22;
   }
 
-  v31 = specialized __RawDictionaryStorage.find<A>(_:)(1);
-  if ((v32 & 1) == 0)
+  v22 = specialized __RawDictionaryStorage.find<A>(_:)(1);
+  if ((v23 & 1) == 0)
   {
     goto LABEL_22;
   }
 
-  outlined init with copy of AppDataProviding(*(v30 + 56) + 40 * v31, &v62);
-  outlined init with take of DomainWarmupHandling(&v62, v65);
+  outlined init with copy of AppDataProviding(*(v21 + 56) + 40 * v22, &v53);
+  outlined init with take of DomainWarmupHandling(&v53, v56);
   if (one-time initialization token for pommes != -1)
   {
     swift_once();
   }
 
-  v33 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v33, static Logger.pommes);
-  outlined init with copy of AppDataProviding(v65, &v62);
-  v34 = Logger.logObject.getter();
-  v35 = static os_log_type_t.debug.getter();
-  v36 = os_log_type_enabled(v34, v35);
-  v56 = a1;
-  if (v36)
+  v24 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v24, static Logger.pommes);
+  outlined init with copy of AppDataProviding(v56, &v53);
+  v25 = Logger.logObject.getter();
+  v26 = static os_log_type_t.debug.getter();
+  v27 = os_log_type_enabled(v25, v26);
+  v47 = a1;
+  if (v27)
+  {
+    v28 = swift_slowAlloc();
+    v29 = swift_slowAlloc();
+    v52 = v29;
+    *v28 = 136315138;
+    v30 = v54;
+    v31 = v55;
+    __swift_project_boxed_opaque_existential_1(&v53, v54);
+    v32 = (*(v31 + 8))(v30, v31);
+    if (v32)
+    {
+      v33 = 0x636973756DLL;
+    }
+
+    else
+    {
+      v33 = 1701736302;
+    }
+
+    if (v32)
+    {
+      v34 = 0xE500000000000000;
+    }
+
+    else
+    {
+      v34 = 0xE400000000000000;
+    }
+
+    __swift_destroy_boxed_opaque_existential_1(&v53);
+    v35 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v33, v34, &v52);
+
+    *(v28 + 4) = v35;
+    _os_log_impl(&dword_2232BB000, v25, v26, "PommesSearchRequestProcessor#clientSearch searching local %s domain", v28, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v29);
+    MEMORY[0x223DE0F80](v29, -1, -1);
+    MEMORY[0x223DE0F80](v28, -1, -1);
+  }
+
+  else
+  {
+
+    v36 = __swift_destroy_boxed_opaque_existential_1(&v53);
+  }
+
+  v38 = v51[6];
+  v39 = *(*v51 + 152);
+  v39(v36);
+  v40 = &v7[*(v48 + 32)];
+  v41 = v40[1];
+  v48 = *v40;
+
+  v42 = outlined destroy of PommesSearchRequest(v7, type metadata accessor for PommesSearchRequest);
+  v43 = v49;
+  v39(v42);
+  v44 = v50;
+  PommesSearchRequest.pommesCandidateId.getter(v50);
+  outlined destroy of PommesSearchRequest(v43, type metadata accessor for PommesSearchRequest);
+  v45 = type metadata accessor for PommesCandidateId();
+  (*(*(v45 - 8) + 56))(v44, 0, 1, v45);
+  (*(*v38 + 128))(v48, v41, v44, 1);
+
+  outlined destroy of MediaUserStateCenter?(v44, &_s20SiriInformationTypes17PommesCandidateIdOSgMd, &_s20SiriInformationTypes17PommesCandidateIdOSgMR);
+  v37 = PommesSearchRequestProcessor.clientSearchForMusic(_:musicDomainClient:)(v47, v56);
+  __swift_destroy_boxed_opaque_existential_1(v56);
+LABEL_25:
+  OSSignposter.end(token:message:)(v14, 0, 0xE000000000000000);
+  outlined destroy of PommesSearchRequest(v14, type metadata accessor for SignpostToken);
+  return v37;
+}
+
+uint64_t PommesSearchRequestProcessor.clientSearchForMusic(_:musicDomainClient:)(uint64_t a1, void *a2)
+{
+  v63 = a2;
+  v67 = a1;
+  v3 = type metadata accessor for PerformanceUtil.Ticket(0);
+  v4 = (v3 - 8);
+  MEMORY[0x28223BE20](v3);
+  v6 = v59 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for PommesCandidateId();
+  v69 = *(v7 - 8);
+  v8 = MEMORY[0x28223BE20](v7);
+  v64 = v9;
+  v65 = v59 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8);
+  v11 = (v59 - v10);
+  v12 = type metadata accessor for PommesSearchRequest(0);
+  v13 = v12 - 8;
+  MEMORY[0x28223BE20](v12);
+  v15 = v59 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = swift_allocObject();
+  v68 = v16;
+  *(v16 + 16) = MEMORY[0x277D84F90];
+  v66 = v16 + 16;
+  v17 = *(*v2 + 152);
+  v18 = *v2 + 152;
+  v17();
+  v19 = &v15[*(v13 + 40)];
+  v20 = *v19;
+  v61 = *(v19 + 1);
+  v62 = v20;
+
+  v21 = outlined destroy of PommesSearchRequest(v15, type metadata accessor for PommesSearchRequest);
+  v59[1] = v18;
+  v60 = v17;
+  (v17)(v21);
+  PommesSearchRequest.pommesCandidateId.getter(v11);
+  outlined destroy of PommesSearchRequest(v15, type metadata accessor for PommesSearchRequest);
+  v71 = 0;
+  v72 = 0xE000000000000000;
+  _StringGuts.grow(_:)(23);
+  v71 = v2;
+  type metadata accessor for PommesSearchRequestProcessor(0);
+
+  v22 = String.init<A>(describing:)();
+  v24 = v23;
+
+  v71 = v22;
+  v72 = v24;
+  MEMORY[0x223DDF6D0](0xD000000000000015, 0x80000002234DBF00);
+  v25 = v71;
+  v26 = v72;
+  Date.init()();
+  v27 = &v6[v4[7]];
+  *v27 = "SiriInformationSearch/PommesSearchRequestProcessor.swift";
+  *(v27 + 1) = 56;
+  v27[16] = 2;
+  *&v6[v4[8]] = 244;
+  v28 = &v6[v4[9]];
+  *v28 = "clientSearchForMusic(_:musicDomainClient:)";
+  *(v28 + 1) = 42;
+  v28[16] = 2;
+  v29 = specialized static PerformanceUtil.Ticket.trimIfNeeded(_:)(v25, v26);
+  v31 = v30;
+
+  v32 = v4[10];
+  v70 = v6;
+  v33 = &v6[v32];
+  *v33 = v29;
+  v33[1] = v31;
+  if (one-time initialization token for pommes != -1)
+  {
+    swift_once();
+  }
+
+  v34 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v34, static Logger.pommes);
+  v35 = Logger.logObject.getter();
+  v36 = static os_log_type_t.debug.getter();
+  if (os_log_type_enabled(v35, v36))
   {
     v37 = swift_slowAlloc();
     v38 = swift_slowAlloc();
-    v61 = v38;
+    v71 = v38;
     *v37 = 136315138;
-    v39 = v63;
-    v40 = v64;
-    __swift_project_boxed_opaque_existential_1(&v62, v63);
-    v41 = (*(v40 + 8))(v39, v40);
-    if (v41)
-    {
-      v42 = 0x636973756DLL;
-    }
+    v39 = MEMORY[0x223DDF850](MEMORY[0x277D84F90], MEMORY[0x277D837D0]);
+    v41 = v11;
+    v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v39, v40, &v71);
 
-    else
-    {
-      v42 = 1701736302;
-    }
-
-    if (v41)
-    {
-      v43 = 0xE500000000000000;
-    }
-
-    else
-    {
-      v43 = 0xE400000000000000;
-    }
-
-    __swift_destroy_boxed_opaque_existential_1(&v62);
-    v44 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v42, v43, &v61);
-
-    *(v37 + 4) = v44;
-    _os_log_impl(&dword_2232BB000, v34, v35, "PommesSearchRequestProcessor#clientSearch searching local %s domain", v37, 0xCu);
+    *(v37 + 4) = v42;
+    v11 = v41;
+    _os_log_impl(&dword_2232BB000, v35, v36, "PommesSearchRequestProcessor#clientSearchForMusic calling musicDomainClient.search sharedUserIds: %s", v37, 0xCu);
     __swift_destroy_boxed_opaque_existential_1(v38);
     MEMORY[0x223DE0F80](v38, -1, -1);
     MEMORY[0x223DE0F80](v37, -1, -1);
   }
 
-  else
-  {
-
-    v45 = __swift_destroy_boxed_opaque_existential_1(&v62);
-  }
-
-  v47 = v60[6];
-  v48 = *(*v60 + 152);
-  v48(v45);
-  v49 = &v12[*(v57 + 32)];
-  v50 = v49[1];
-  v57 = *v49;
-
-  v51 = outlined destroy of PommesSearchRequest(v12, type metadata accessor for PommesSearchRequest);
-  v52 = v58;
-  v48(v51);
-  v53 = v59;
-  PommesSearchRequest.pommesCandidateId.getter(v59);
-  outlined destroy of PommesSearchRequest(v52, type metadata accessor for PommesSearchRequest);
-  v54 = type metadata accessor for PommesCandidateId();
-  (*(*(v54 - 8) + 56))(v53, 0, 1, v54);
-  (*(*v47 + 128))(v57, v50, v53, 1);
-
-  outlined destroy of MediaUserStateCenter?(v53, &_s20SiriInformationTypes17PommesCandidateIdOSgMd, &_s20SiriInformationTypes17PommesCandidateIdOSgMR);
-  v46 = PommesSearchRequestProcessor.clientSearchForMusic(_:musicDomainClient:)(v56, v65);
-  __swift_destroy_boxed_opaque_existential_1(v65);
-LABEL_25:
-  OSSignposter.end(token:message:)(v23, 0, 0xE000000000000000);
-  outlined destroy of PommesSearchRequest(v23, type metadata accessor for SignpostToken);
-  return v46;
-}
-
-uint64_t PommesSearchRequestProcessor.clientSearchForMusic(_:musicDomainClient:)(uint64_t a1, void *a2)
-{
-  v69 = a2;
-  v73 = a1;
-  v3 = type metadata accessor for PerformanceUtil.Ticket(0);
-  v4 = (v3 - 8);
-  v5 = *(*(v3 - 8) + 64);
-  MEMORY[0x28223BE20](v3, v6);
-  v8 = v65 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for PommesCandidateId();
-  v75 = *(v9 - 8);
-  v10 = *(v75 + 64);
-  v12 = MEMORY[0x28223BE20](v9, v11);
-  v70 = v13;
-  v71 = v65 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v12, v14);
-  v16 = (v65 - v15);
-  v17 = type metadata accessor for PommesSearchRequest(0);
-  v18 = v17 - 8;
-  v19 = *(*(v17 - 8) + 64);
-  MEMORY[0x28223BE20](v17, v20);
-  v22 = v65 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v23 = swift_allocObject();
-  v74 = v23;
-  *(v23 + 16) = MEMORY[0x277D84F90];
-  v72 = v23 + 16;
-  v24 = *(*v2 + 152);
-  v25 = *v2 + 152;
-  v24();
-  v26 = &v22[*(v18 + 40)];
-  v27 = *v26;
-  v67 = *(v26 + 1);
-  v68 = v27;
-
-  v28 = outlined destroy of PommesSearchRequest(v22, type metadata accessor for PommesSearchRequest);
-  v65[1] = v25;
-  v66 = v24;
-  (v24)(v28);
-  PommesSearchRequest.pommesCandidateId.getter(v16);
-  outlined destroy of PommesSearchRequest(v22, type metadata accessor for PommesSearchRequest);
-  v77 = 0;
-  v78 = 0xE000000000000000;
-  _StringGuts.grow(_:)(23);
-  v77 = v2;
-  type metadata accessor for PommesSearchRequestProcessor();
-
-  v29 = String.init<A>(describing:)();
-  v31 = v30;
-
-  v77 = v29;
-  v78 = v31;
-  MEMORY[0x223DDF6D0](0xD000000000000015, 0x80000002234DBF00);
-  v32 = v77;
-  Date.init()();
-  v33 = &v8[v4[7]];
-  *v33 = "SiriInformationSearch/PommesSearchRequestProcessor.swift";
-  *(v33 + 1) = 56;
-  v33[16] = 2;
-  *&v8[v4[8]] = 244;
-  v34 = &v8[v4[9]];
-  *v34 = "clientSearchForMusic(_:musicDomainClient:)";
-  *(v34 + 1) = 42;
-  v34[16] = 2;
-  v35 = specialized static PerformanceUtil.Ticket.trimIfNeeded(_:)(v32);
-  v37 = v36;
-
-  v38 = v4[10];
-  v76 = v8;
-  v39 = &v8[v38];
-  *v39 = v35;
-  v39[1] = v37;
-  if (one-time initialization token for pommes != -1)
-  {
-    swift_once();
-  }
-
-  v40 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v40, static Logger.pommes);
-  v41 = Logger.logObject.getter();
-  v42 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v41, v42))
-  {
-    v43 = swift_slowAlloc();
-    v44 = swift_slowAlloc();
-    v77 = v44;
-    *v43 = 136315138;
-    v45 = MEMORY[0x223DDF850](MEMORY[0x277D84F90], MEMORY[0x277D837D0]);
-    v47 = v16;
-    v48 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v45, v46, &v77);
-
-    *(v43 + 4) = v48;
-    v16 = v47;
-    _os_log_impl(&dword_2232BB000, v41, v42, "PommesSearchRequestProcessor#clientSearchForMusic calling musicDomainClient.search sharedUserIds: %s", v43, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v44);
-    MEMORY[0x223DE0F80](v44, -1, -1);
-    MEMORY[0x223DE0F80](v43, -1, -1);
-  }
-
-  v65[0] = v16;
-  v49 = v69[3];
-  v50 = v69[4];
-  v69 = __swift_project_boxed_opaque_existential_1(v69, v49);
-  v66();
-  v51 = swift_allocObject();
+  v59[0] = v11;
+  v43 = v63[3];
+  v44 = v63[4];
+  v63 = __swift_project_boxed_opaque_existential_1(v63, v43);
+  v60();
+  v45 = swift_allocObject();
   swift_weakInit();
-  v52 = v75;
-  v53 = v71;
-  (*(v75 + 16))(v71, v16, v9);
-  v54 = (*(v52 + 80) + 40) & ~*(v52 + 80);
-  v55 = (v70 + v54 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v56 = swift_allocObject();
-  v57 = v67;
-  v58 = v68;
-  *(v56 + 2) = v51;
-  *(v56 + 3) = v58;
-  *(v56 + 4) = v57;
-  (*(v52 + 32))(&v56[v54], v53, v9);
-  v59 = v74;
-  *&v56[v55] = v74;
-  v71 = v9;
-  v60 = *(v50 + 24);
+  v46 = v69;
+  v47 = v65;
+  (*(v69 + 16))(v65, v11, v7);
+  v48 = (*(v46 + 80) + 40) & ~*(v46 + 80);
+  v49 = (v64 + v48 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v50 = swift_allocObject();
+  v51 = v61;
+  v52 = v62;
+  *(v50 + 2) = v45;
+  *(v50 + 3) = v52;
+  *(v50 + 4) = v51;
+  (*(v46 + 32))(&v50[v48], v47, v7);
+  v53 = v68;
+  *&v50[v49] = v68;
+  v65 = v7;
+  v54 = *(v44 + 24);
 
-  v60(v22, v73, 0, MEMORY[0x277D84F90], partial apply for closure #1 in PommesSearchRequestProcessor.clientSearchForMusic(_:musicDomainClient:), v56, v49, v50);
+  v54(v15, v67, 0, MEMORY[0x277D84F90], partial apply for closure #1 in PommesSearchRequestProcessor.clientSearchForMusic(_:musicDomainClient:), v50, v43, v44);
 
-  outlined destroy of PommesSearchRequest(v22, type metadata accessor for PommesSearchRequest);
+  outlined destroy of PommesSearchRequest(v15, type metadata accessor for PommesSearchRequest);
 
   swift_beginAccess();
-  v61 = *(v59 + 16);
-  v62 = one-time initialization token for shared;
+  v55 = *(v53 + 16);
+  v56 = one-time initialization token for shared;
 
-  if (v62 != -1)
+  if (v56 != -1)
   {
     swift_once();
   }
 
-  v63 = v76;
-  (*(*static PerformanceUtil.shared + 184))(v76, 1);
-  outlined destroy of PommesSearchRequest(v63, type metadata accessor for PerformanceUtil.Ticket);
-  (*(v52 + 8))(v65[0], v71);
+  v57 = v70;
+  (*(*static PerformanceUtil.shared + 184))(v70, 1);
+  outlined destroy of PommesSearchRequest(v57, type metadata accessor for PerformanceUtil.Ticket);
+  (*(v46 + 8))(v59[0], v65);
 
-  return v61;
+  return v55;
 }
 
 void closure #1 in PommesSearchRequestProcessor.clientSearchForMusic(_:musicDomainClient:)(void *a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s20SiriInformationTypes17PommesCandidateIdOSgMd, &_s20SiriInformationTypes17PommesCandidateIdOSgMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13 - 8, v15);
-  v17 = &v38[-1] - v16;
+  MEMORY[0x28223BE20](v13 - 8);
+  v15 = &v35[-1] - v14;
   if (a2)
   {
     swift_beginAccess();
     Strong = swift_weakLoadStrong();
     if (Strong)
     {
-      v19 = *(Strong + 48);
+      v17 = *(Strong + 48);
 
-      v20 = type metadata accessor for PommesCandidateId();
-      v21 = *(v20 - 8);
-      (*(v21 + 16))(v17, a6, v20);
-      (*(v21 + 56))(v17, 0, 1, v20);
-      (*(*v19 + 144))(a4, a5, v17, 1);
+      v18 = type metadata accessor for PommesCandidateId();
+      v19 = *(v18 - 8);
+      (*(v19 + 16))(v15, a6, v18);
+      (*(v19 + 56))(v15, 0, 1, v18);
+      (*(*v17 + 144))(a4, a5, v15, 1);
 
-      outlined destroy of MediaUserStateCenter?(v17, &_s20SiriInformationTypes17PommesCandidateIdOSgMd, &_s20SiriInformationTypes17PommesCandidateIdOSgMR);
+      outlined destroy of MediaUserStateCenter?(v15, &_s20SiriInformationTypes17PommesCandidateIdOSgMd, &_s20SiriInformationTypes17PommesCandidateIdOSgMR);
     }
 
     if (one-time initialization token for pommes != -1)
@@ -3760,51 +2454,50 @@ void closure #1 in PommesSearchRequestProcessor.clientSearchForMusic(_:musicDoma
       swift_once();
     }
 
-    v22 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v22, static Logger.pommes);
-    v23 = a1;
-    v24 = Logger.logObject.getter();
-    v25 = static os_log_type_t.error.getter();
+    v20 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v20, static Logger.pommes);
+    v21 = a1;
+    v22 = Logger.logObject.getter();
+    v23 = static os_log_type_t.error.getter();
     outlined consume of Result<[IQFMapsPersonalizationResult], Error>(a1, 1);
-    if (os_log_type_enabled(v24, v25))
+    if (os_log_type_enabled(v22, v23))
     {
-      v26 = swift_slowAlloc();
-      v27 = swift_slowAlloc();
-      v38[0] = v27;
-      *v26 = 136315138;
-      v38[3] = a1;
-      v28 = a1;
+      v24 = swift_slowAlloc();
+      v25 = swift_slowAlloc();
+      v35[0] = v25;
+      *v24 = 136315138;
+      v35[3] = a1;
+      v26 = a1;
       __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
-      v29 = String.init<A>(describing:)();
-      v31 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v29, v30, v38);
+      v27 = String.init<A>(describing:)();
+      v29 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v27, v28, v35);
 
-      *(v26 + 4) = v31;
-      _os_log_impl(&dword_2232BB000, v24, v25, "PommesSearchRequestProcessor#clientSearchForMusic local client search failed : %s", v26, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1(v27);
-      MEMORY[0x223DE0F80](v27, -1, -1);
-      MEMORY[0x223DE0F80](v26, -1, -1);
+      *(v24 + 4) = v29;
+      _os_log_impl(&dword_2232BB000, v22, v23, "PommesSearchRequestProcessor#clientSearchForMusic local client search failed : %s", v24, 0xCu);
+      __swift_destroy_boxed_opaque_existential_1(v25);
+      MEMORY[0x223DE0F80](v25, -1, -1);
+      MEMORY[0x223DE0F80](v24, -1, -1);
     }
   }
 
   else
   {
     swift_beginAccess();
-    v32 = swift_weakLoadStrong();
-    if (v32)
+    v30 = swift_weakLoadStrong();
+    if (v30)
     {
-      v33 = *(v32 + 48);
+      v31 = *(v30 + 48);
 
-      v34 = type metadata accessor for PommesCandidateId();
-      v35 = *(v34 - 8);
-      (*(v35 + 16))(v17, a6, v34);
-      (*(v35 + 56))(v17, 0, 1, v34);
-      (*(*v33 + 136))(a4, a5, v17);
+      v32 = type metadata accessor for PommesCandidateId();
+      v33 = *(v32 - 8);
+      (*(v33 + 16))(v15, a6, v32);
+      (*(v33 + 56))(v15, 0, 1, v32);
+      (*(*v31 + 136))(a4, a5, v15);
 
-      outlined destroy of MediaUserStateCenter?(v17, &_s20SiriInformationTypes17PommesCandidateIdOSgMd, &_s20SiriInformationTypes17PommesCandidateIdOSgMR);
+      outlined destroy of MediaUserStateCenter?(v15, &_s20SiriInformationTypes17PommesCandidateIdOSgMd, &_s20SiriInformationTypes17PommesCandidateIdOSgMR);
     }
 
     swift_beginAccess();
-    v36 = *(a7 + 16);
     *(a7 + 16) = a1;
   }
 }
@@ -3812,75 +2505,66 @@ void closure #1 in PommesSearchRequestProcessor.clientSearchForMusic(_:musicDoma
 uint64_t closure #4 in PommesSearchRequestProcessor.handleSuccess(_:_:_:)@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s21SiriInformationSearch23ClientExperienceSignalsVSgMd, &_s21SiriInformationSearch23ClientExperienceSignalsVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8, v10);
-  v12 = &v19 - v11;
-  v14 = a1[3];
-  v13 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, v14);
-  v15 = type metadata accessor for ClientExperienceSignals();
-  v16 = *(v15 - 8);
-  (*(v16 + 16))(v12, a3, v15);
-  (*(v16 + 56))(v12, 0, 1, v15);
-  v17 = (*(v13 + 8))(a2, v12, v14, v13);
-  result = outlined destroy of MediaUserStateCenter?(v12, &_s21SiriInformationSearch23ClientExperienceSignalsVSgMd, &_s21SiriInformationSearch23ClientExperienceSignalsVSgMR);
-  *a4 = v17;
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = &v17 - v9;
+  v12 = a1[3];
+  v11 = a1[4];
+  __swift_project_boxed_opaque_existential_1(a1, v12);
+  v13 = type metadata accessor for ClientExperienceSignals();
+  v14 = *(v13 - 8);
+  (*(v14 + 16))(v10, a3, v13);
+  (*(v14 + 56))(v10, 0, 1, v13);
+  v15 = (*(v11 + 8))(a2, v10, v12, v11);
+  result = outlined destroy of MediaUserStateCenter?(v10, &_s21SiriInformationSearch23ClientExperienceSignalsVSgMd, &_s21SiriInformationSearch23ClientExperienceSignalsVSgMR);
+  *a4 = v15;
   return result;
 }
 
-void closure #6 in PommesSearchRequestProcessor.handleSuccess(_:_:_:)(unint64_t a1, unint64_t a2, uint64_t a3, int64_t a4, char *a5, uint64_t a6, uint64_t a7, unsigned __int8 *a8)
+void closure #6 in PommesSearchRequestProcessor.handleSuccess(_:_:_:)(unint64_t a1, unint64_t a2, uint64_t a3, int64_t a4, char *a5, uint64_t a6, uint64_t a7, unsigned __int8 *a8, uint64_t a9, uint64_t a10)
 {
-  v164 = a8;
-  v174 = a7;
-  v170 = a6;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s21SiriInformationSearch13PommesContextVSgMd, &_s21SiriInformationSearch13PommesContextVSgMR);
-  v13 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12 - 8, v14);
-  v165 = &v161 - v15;
+  v134 = a8;
+  v144 = a7;
+  v140 = a6;
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s21SiriInformationSearch13PommesContextVSgMd, &_s21SiriInformationSearch13PommesContextVSgMR);
+  MEMORY[0x28223BE20](v14 - 8);
+  v135 = &v131 - v15;
   v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriNLUTypes0A36_Nlu_External_DelegatedUserDialogActVSgMd, &_s12SiriNLUTypes0A36_Nlu_External_DelegatedUserDialogActVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  MEMORY[0x28223BE20](v16 - 8, v18);
-  v175 = &v161 - v19;
+  MEMORY[0x28223BE20](v16 - 8);
+  v145 = &v131 - v17;
   Context = type metadata accessor for Apple_Parsec_Search_PegasusQueryContext();
-  v172 = *(Context - 8);
-  v20 = *(v172 + 64);
-  MEMORY[0x28223BE20](Context, v21);
-  v171 = &v161 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v168 = type metadata accessor for PommesSearchReason();
-  v167 = *(v168 - 8);
-  v23 = *(v167 + 64);
-  MEMORY[0x28223BE20](v168, v24);
-  v166 = &v161 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s20SiriInformationTypes17PommesCandidateIdOSgMd, &_s20SiriInformationTypes17PommesCandidateIdOSgMR);
-  v27 = *(*(v26 - 8) + 64);
-  MEMORY[0x28223BE20](v26 - 8, v28);
-  v178 = (&v161 - v29);
-  v183 = type metadata accessor for PommesSearchRequest(0);
-  v30 = *(*(v183 - 1) + 64);
-  v32 = MEMORY[0x28223BE20](v183, v31);
-  v163 = &v161 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v35 = MEMORY[0x28223BE20](v32, v34);
-  v162 = &v161 - v36;
-  v38 = MEMORY[0x28223BE20](v35, v37);
-  v169 = &v161 - v39;
-  MEMORY[0x28223BE20](v38, v40);
-  v182 = &v161 - v41;
-  v42 = type metadata accessor for Apple_Parsec_Siri_V2alpha_PegasusClientEventLog();
-  v43 = *(v42 - 8);
-  v194 = v42;
-  v195 = v43;
-  v44 = *(v43 + 64);
-  MEMORY[0x28223BE20](v42, v45);
-  v193 = &v161 - ((v46 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v47 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata();
-  v48 = *(v47 - 8);
-  v49 = *(v48 + 64);
-  v51 = MEMORY[0x28223BE20](v47, v50);
-  v176 = &v161 - ((v52 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v54 = MEMORY[0x28223BE20](v51, v53);
-  v177 = &v161 - v55;
-  MEMORY[0x28223BE20](v54, v56);
-  v58 = &v161 - v57;
+  v142 = *(Context - 8);
+  MEMORY[0x28223BE20](Context);
+  v141 = &v131 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v138 = type metadata accessor for PommesSearchReason();
+  v137 = *(v138 - 8);
+  MEMORY[0x28223BE20](v138);
+  v136 = &v131 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s20SiriInformationTypes17PommesCandidateIdOSgMd, &_s20SiriInformationTypes17PommesCandidateIdOSgMR);
+  MEMORY[0x28223BE20](v20 - 8);
+  v148 = (&v131 - v21);
+  v153 = type metadata accessor for PommesSearchRequest(0);
+  v22 = MEMORY[0x28223BE20](v153);
+  v133 = &v131 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = MEMORY[0x28223BE20](v22);
+  v132 = &v131 - v25;
+  v26 = MEMORY[0x28223BE20](v24);
+  v139 = &v131 - v27;
+  MEMORY[0x28223BE20](v26);
+  v152 = &v131 - v28;
+  v29 = type metadata accessor for Apple_Parsec_Siri_V2alpha_PegasusClientEventLog();
+  v30 = *(v29 - 8);
+  v164 = v29;
+  v165 = v30;
+  MEMORY[0x28223BE20](v29);
+  v163 = &v131 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v32 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata();
+  v33 = *(v32 - 8);
+  v34 = MEMORY[0x28223BE20](v32);
+  v146 = &v131 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v36 = MEMORY[0x28223BE20](v34);
+  v147 = &v131 - v37;
+  MEMORY[0x28223BE20](v36);
+  v39 = &v131 - v38;
 
   PommesResponse.Builder.experiences.setter();
 
@@ -3889,16 +2573,16 @@ void closure #6 in PommesSearchRequestProcessor.handleSuccess(_:_:_:)(unint64_t 
   PommesResponse.Builder.conversationContext.setter();
   Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
   Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.domainName.getter();
-  v59 = *(v48 + 8);
-  v59(v58, v47);
+  v40 = *(v33 + 8);
+  v40(v39, v32);
   PommesResponse.Builder.metadataDomainName.setter();
   Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
   Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.isFallbackTriggered.getter();
-  v179 = v58;
-  v187 = v48 + 8;
-  v188 = v47;
-  v186 = v59;
-  v59(v58, v47);
+  v149 = v39;
+  v157 = v33 + 8;
+  v158 = v32;
+  v156 = v40;
+  v40(v39, v32);
   PommesResponse.Builder.metadataFallbackTriggered.setter();
   if (a2 >> 62)
   {
@@ -3907,10 +2591,10 @@ void closure #6 in PommesSearchRequestProcessor.handleSuccess(_:_:_:)(unint64_t 
 
   for (i = *((a2 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = __CocoaSet.count.getter())
   {
-    v184 = a5;
-    v185 = a4;
-    v189 = a1;
-    v192 = a2;
+    v154 = a5;
+    v155 = a4;
+    v159 = a1;
+    v162 = a2;
     if (!i)
     {
       break;
@@ -3919,12 +2603,12 @@ void closure #6 in PommesSearchRequestProcessor.handleSuccess(_:_:_:)(unint64_t 
     a5 = 0;
     a1 = a2 & 0xC000000000000001;
     a2 &= 0xFFFFFFFFFFFFFF8uLL;
-    v61 = MEMORY[0x277D84F90];
+    v42 = MEMORY[0x277D84F90];
     while (1)
     {
       if (a1)
       {
-        v62 = MEMORY[0x223DDFF80](a5, v192);
+        v43 = MEMORY[0x223DDFF80](a5, v162);
       }
 
       else
@@ -3934,30 +2618,30 @@ void closure #6 in PommesSearchRequestProcessor.handleSuccess(_:_:_:)(unint64_t 
           goto LABEL_82;
         }
 
-        v62 = *(v192 + 8 * a5 + 32);
+        v43 = *(v162 + 8 * a5 + 32);
       }
 
-      v63 = v62;
-      v64 = a5 + 1;
+      v44 = v43;
+      v45 = a5 + 1;
       if (__OFADD__(a5, 1))
       {
         break;
       }
 
-      v65 = dispatch thunk of Experience.renderedTexts.getter();
+      v46 = dispatch thunk of Experience.renderedTexts.getter();
 
-      v66 = *(v65 + 16);
-      v67 = *(v61 + 2);
-      a4 = v67 + v66;
-      if (__OFADD__(v67, v66))
+      v47 = *(v46 + 16);
+      v48 = *(v42 + 2);
+      a4 = v48 + v47;
+      if (__OFADD__(v48, v47))
       {
         goto LABEL_83;
       }
 
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      if (isUniquelyReferenced_nonNull_native && a4 <= *(v61 + 3) >> 1)
+      if (isUniquelyReferenced_nonNull_native && a4 <= *(v42 + 3) >> 1)
       {
-        if (*(v65 + 16))
+        if (*(v46 + 16))
         {
           goto LABEL_20;
         }
@@ -3965,94 +2649,94 @@ void closure #6 in PommesSearchRequestProcessor.handleSuccess(_:_:_:)(unint64_t 
 
       else
       {
-        if (v67 <= a4)
+        if (v48 <= a4)
         {
-          v69 = v67 + v66;
+          v50 = v48 + v47;
         }
 
         else
         {
-          v69 = v67;
+          v50 = v48;
         }
 
-        v61 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v69, 1, v61);
-        if (*(v65 + 16))
+        v42 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v50, 1, v42);
+        if (*(v46 + 16))
         {
 LABEL_20:
-          if ((*(v61 + 3) >> 1) - *(v61 + 2) < v66)
+          if ((*(v42 + 3) >> 1) - *(v42 + 2) < v47)
           {
             goto LABEL_91;
           }
 
           swift_arrayInitWithCopy();
 
-          if (v66)
+          if (v47)
           {
-            v70 = *(v61 + 2);
-            v71 = __OFADD__(v70, v66);
-            v72 = v70 + v66;
-            if (v71)
+            v51 = *(v42 + 2);
+            v52 = __OFADD__(v51, v47);
+            v53 = v51 + v47;
+            if (v52)
             {
               goto LABEL_93;
             }
 
-            *(v61 + 2) = v72;
+            *(v42 + 2) = v53;
           }
 
           goto LABEL_6;
         }
       }
 
-      if (v66)
+      if (v47)
       {
         goto LABEL_84;
       }
 
 LABEL_6:
       ++a5;
-      if (v64 == i)
+      if (v45 == i)
       {
         PommesResponse.Builder.renderedTexts.setter();
-        v73 = 0;
+        v54 = 0;
         a5 = MEMORY[0x277D84F90];
         while (1)
         {
           if (a1)
           {
-            v74 = MEMORY[0x223DDFF80](v73, v192);
+            v55 = MEMORY[0x223DDFF80](v54, v162);
           }
 
           else
           {
-            if (v73 >= *(a2 + 16))
+            if (v54 >= *(a2 + 16))
             {
               goto LABEL_88;
             }
 
-            v74 = *(v192 + 8 * v73 + 32);
+            v55 = *(v162 + 8 * v54 + 32);
           }
 
-          v75 = v74;
-          v76 = v73 + 1;
-          if (__OFADD__(v73, 1))
+          v56 = v55;
+          v57 = v54 + 1;
+          if (__OFADD__(v54, 1))
           {
             goto LABEL_87;
           }
 
-          v77 = dispatch thunk of Experience.redactedRenderedTexts.getter();
+          v58 = dispatch thunk of Experience.redactedRenderedTexts.getter();
 
-          v78 = *(v77 + 16);
-          v79 = *(a5 + 2);
-          a4 = v79 + v78;
-          if (__OFADD__(v79, v78))
+          v59 = *(v58 + 16);
+          v60 = *(a5 + 2);
+          a4 = v60 + v59;
+          if (__OFADD__(v60, v59))
           {
             goto LABEL_89;
           }
 
-          v80 = swift_isUniquelyReferenced_nonNull_native();
-          if (v80 && a4 <= *(a5 + 3) >> 1)
+          v61 = swift_isUniquelyReferenced_nonNull_native();
+          if (v61 && a4 <= *(a5 + 3) >> 1)
           {
-            if (!*(v77 + 16))
+            if (!*(v58 + 16))
             {
               goto LABEL_26;
             }
@@ -4060,22 +2744,22 @@ LABEL_6:
 
           else
           {
-            if (v79 <= a4)
+            if (v60 <= a4)
             {
-              v81 = v79 + v78;
+              v62 = v60 + v59;
             }
 
             else
             {
-              v81 = v79;
+              v62 = v60;
             }
 
-            a5 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v80, v81, 1, a5);
-            if (!*(v77 + 16))
+            a5 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v61, v62, 1, a5);
+            if (!*(v58 + 16))
             {
 LABEL_26:
 
-              if (v78)
+              if (v59)
               {
                 goto LABEL_90;
               }
@@ -4084,29 +2768,29 @@ LABEL_26:
             }
           }
 
-          if ((*(a5 + 3) >> 1) - *(a5 + 2) < v78)
+          if ((*(a5 + 3) >> 1) - *(a5 + 2) < v59)
           {
             goto LABEL_92;
           }
 
           swift_arrayInitWithCopy();
 
-          if (v78)
+          if (v59)
           {
-            v82 = *(a5 + 2);
-            v71 = __OFADD__(v82, v78);
-            v83 = v82 + v78;
-            if (v71)
+            v63 = *(a5 + 2);
+            v52 = __OFADD__(v63, v59);
+            v64 = v63 + v59;
+            if (v52)
             {
               goto LABEL_94;
             }
 
-            *(a5 + 2) = v83;
+            *(a5 + 2) = v64;
           }
 
 LABEL_27:
-          ++v73;
-          if (v76 == i)
+          ++v54;
+          if (v57 == i)
           {
             goto LABEL_47;
           }
@@ -4148,120 +2832,117 @@ LABEL_95:
   PommesResponse.Builder.renderedTexts.setter();
 LABEL_47:
   PommesResponse.Builder.redactedRenderedTexts.setter();
-  v84 = v179;
+  v65 = v149;
   Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
-  v85 = v193;
+  v66 = v163;
   Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.pegasusClientEventLog.getter();
-  v186(v84, v188);
+  v156(v65, v158);
   Apple_Parsec_Siri_V2alpha_PegasusClientEventLog.pegasusDomainFlowStepLog.getter();
-  v86 = v194;
-  v87 = v195 + 8;
-  v88 = *(v195 + 1);
-  v88(v85, v194);
+  v67 = v164;
+  v68 = v165 + 8;
+  v69 = *(v165 + 1);
+  v69(v66, v164);
   PommesResponse.Builder.pegasusDomainFlowStepLog.setter();
   Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
   Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.pegasusClientEventLog.getter();
-  v186(v84, v188);
+  v156(v65, v158);
   Apple_Parsec_Siri_V2alpha_PegasusClientEventLog.pegasusDomainUserSensitiveTier1Log.getter();
-  v190 = v88;
-  v191 = v87;
-  v88(v85, v86);
+  v160 = v69;
+  v161 = v68;
+  v69(v66, v67);
   PommesResponse.Builder.pegasusDomainUserSensitiveTier1Log.setter();
   if (i)
   {
-    v89 = v184;
-    if ((v192 & 0xC000000000000001) != 0)
+    v70 = v154;
+    if ((v162 & 0xC000000000000001) != 0)
     {
-      v90 = MEMORY[0x223DDFF80](0);
+      v71 = MEMORY[0x223DDFF80](0);
     }
 
     else
     {
-      if (!*((v192 & 0xFFFFFFFFFFFFFF8) + 0x10))
+      if (!*((v162 & 0xFFFFFFFFFFFFFF8) + 0x10))
       {
         __break(1u);
         goto LABEL_98;
       }
 
-      v90 = *(v192 + 32);
+      v71 = *(v162 + 32);
     }
 
-    v91 = v90;
+    v72 = v71;
     dispatch thunk of Experience.listenAfterSpeaking.getter();
   }
 
   else
   {
-    v89 = v184;
+    v70 = v154;
   }
 
-  v92 = MEMORY[0x277D84F90];
-  v93 = PommesResponse.Builder.listenAfterSpeaking.setter();
-  v94 = *(*v89 + 152);
-  v95 = *v89 + 152;
-  v96 = v182;
-  v94(v93);
-  v97 = (v96 + v183[8]);
-  v98 = *v97;
-  v99 = v97[1];
+  v73 = MEMORY[0x277D84F90];
+  v74 = PommesResponse.Builder.listenAfterSpeaking.setter();
+  v75 = *(*v70 + 152);
+  v76 = *v70 + 152;
+  v77 = v152;
+  v75(v74);
 
   a5 = type metadata accessor for PommesSearchRequest;
-  outlined destroy of PommesSearchRequest(v96, type metadata accessor for PommesSearchRequest);
-  v100 = PommesResponse.Builder.requestId.setter();
-  v180 = v95;
-  v181 = v94;
-  v94(v100);
-  v101 = v178;
-  PommesSearchRequest.pommesCandidateId.getter(v178);
-  outlined destroy of PommesSearchRequest(v96, type metadata accessor for PommesSearchRequest);
-  v102 = type metadata accessor for PommesCandidateId();
-  (*(*(v102 - 8) + 56))(v101, 0, 1, v102);
+  outlined destroy of PommesSearchRequest(v77, type metadata accessor for PommesSearchRequest);
+  v78 = PommesResponse.Builder.requestId.setter();
+  v150 = v76;
+  v151 = v75;
+  v75(v78);
+  v79 = v148;
+  PommesSearchRequest.pommesCandidateId.getter(v148);
+  outlined destroy of PommesSearchRequest(v77, type metadata accessor for PommesSearchRequest);
+  v80 = type metadata accessor for PommesCandidateId();
+  (*(*(v80 - 8) + 56))(v79, 0, 1, v80);
   PommesResponse.Builder.pommesCandidateId.setter();
   PommesResponse.Builder.isHandledByPreflight.setter();
   PommesResponse.Builder.preflightClientHandlerIdentifier.setter();
-  v103 = v177;
-  a1 = v185;
+  v81 = v147;
+  a1 = v155;
   Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
-  v104 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.pegasusClientEventLogs.getter();
-  v186(v103, v188);
-  v105 = *(v104 + 16);
-  if (v105)
+  v82 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.pegasusClientEventLogs.getter();
+  v156(v81, v158);
+  v83 = *(v82 + 16);
+  if (v83)
   {
-    v196 = v92;
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v105, 0);
+    v166 = v73;
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v83, 0);
     a2 = 0;
-    a4 = v196;
-    v192 = v104 + ((*(v195 + 80) + 32) & ~*(v195 + 80));
-    while (a2 < *(v104 + 16))
+    a4 = v166;
+    v162 = v82 + ((*(v165 + 80) + 32) & ~*(v165 + 80));
+    while (a2 < *(v82 + 16))
     {
-      a1 = v105;
-      v106 = v194;
-      v107 = v193;
-      (*(v195 + 2))(v193, v192 + *(v195 + 9) * a2, v194);
-      v108 = Apple_Parsec_Siri_V2alpha_PegasusClientEventLog.pegasusDomainFlowStepLog.getter();
-      v110 = v109;
-      v190(v107, v106);
-      v196 = a4;
+      a1 = v83;
+      v84 = v164;
+      v85 = v163;
+      (*(v165 + 2))(v163, v162 + *(v165 + 9) * a2, v164);
+      v86 = Apple_Parsec_Siri_V2alpha_PegasusClientEventLog.pegasusDomainFlowStepLog.getter();
+      v88 = v87;
+      v160(v85, v84);
+      v166 = a4;
       a5 = *(a4 + 16);
-      v111 = *(a4 + 24);
-      if (a5 >= v111 >> 1)
+      v89 = *(a4 + 24);
+      if (a5 >= v89 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v111 > 1), (a5 + 1), 1);
-        a4 = v196;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v89 > 1), (a5 + 1), 1);
+        a4 = v166;
       }
 
       ++a2;
       *(a4 + 16) = a5 + 1;
-      v112 = a4 + 16 * a5;
-      *(v112 + 32) = v108;
-      *(v112 + 40) = v110;
-      v105 = a1;
+      v90 = a4 + 16 * a5;
+      *(v90 + 32) = v86;
+      *(v90 + 40) = v88;
+      v83 = a1;
       if (a1 == a2)
       {
 
-        v89 = v184;
-        a1 = v185;
-        v92 = MEMORY[0x277D84F90];
+        v70 = v154;
+        a1 = v155;
+        v73 = MEMORY[0x277D84F90];
         goto LABEL_61;
       }
     }
@@ -4271,46 +2952,46 @@ LABEL_47:
 
 LABEL_61:
   PommesResponse.Builder.taskStepLogs.setter();
-  v113 = v176;
+  v91 = v146;
   Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
-  v114 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.pegasusClientEventLogs.getter();
-  v186(v113, v188);
-  v115 = *(v114 + 16);
-  if (v115)
+  v92 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.pegasusClientEventLogs.getter();
+  v156(v91, v158);
+  v93 = *(v92 + 16);
+  if (v93)
   {
-    v196 = v92;
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v115, 0);
+    v166 = v73;
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v93, 0);
     a2 = 0;
-    a4 = v196;
-    v192 = v114 + ((*(v195 + 80) + 32) & ~*(v195 + 80));
-    while (a2 < *(v114 + 16))
+    a4 = v166;
+    v162 = v92 + ((*(v165 + 80) + 32) & ~*(v165 + 80));
+    while (a2 < *(v92 + 16))
     {
-      a1 = v115;
-      v116 = v194;
-      v117 = v193;
-      (*(v195 + 2))(v193, v192 + *(v195 + 9) * a2, v194);
-      v118 = Apple_Parsec_Siri_V2alpha_PegasusClientEventLog.pegasusDomainUserSensitiveTier1Log.getter();
-      v120 = v119;
-      v190(v117, v116);
-      v196 = a4;
+      a1 = v93;
+      v94 = v164;
+      v95 = v163;
+      (*(v165 + 2))(v163, v162 + *(v165 + 9) * a2, v164);
+      v96 = Apple_Parsec_Siri_V2alpha_PegasusClientEventLog.pegasusDomainUserSensitiveTier1Log.getter();
+      v98 = v97;
+      v160(v95, v94);
+      v166 = a4;
       a5 = *(a4 + 16);
-      v121 = *(a4 + 24);
-      if (a5 >= v121 >> 1)
+      v99 = *(a4 + 24);
+      if (a5 >= v99 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v121 > 1), (a5 + 1), 1);
-        a4 = v196;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v99 > 1), (a5 + 1), 1);
+        a4 = v166;
       }
 
       ++a2;
       *(a4 + 16) = a5 + 1;
-      v122 = a4 + 16 * a5;
-      *(v122 + 32) = v118;
-      *(v122 + 40) = v120;
-      v115 = a1;
+      v100 = a4 + 16 * a5;
+      *(v100 + 32) = v96;
+      *(v100 + 40) = v98;
+      v93 = a1;
       if (a1 == a2)
       {
 
-        v89 = v184;
+        v70 = v154;
         goto LABEL_69;
       }
     }
@@ -4321,58 +3002,52 @@ LABEL_61:
 LABEL_69:
   PommesResponse.Builder.userSensitiveTier1Logs.setter();
 
-  v123 = PommesResponse.Builder.componentsWarmedUp.setter();
-  v125 = v181;
-  v124 = v182;
-  v181(v123);
-  v126 = v183;
-  v127 = *(v124 + v183[20]);
-  v195 = type metadata accessor for PommesSearchRequest;
-  outlined destroy of PommesSearchRequest(v124, type metadata accessor for PommesSearchRequest);
-  v128 = MEMORY[0x277D56668];
-  if (!v127)
+  v101 = PommesResponse.Builder.componentsWarmedUp.setter();
+  v103 = v151;
+  v102 = v152;
+  v151(v101);
+  v104 = v153;
+  v105 = *(v102 + *(v153 + 80));
+  v165 = type metadata accessor for PommesSearchRequest;
+  outlined destroy of PommesSearchRequest(v102, type metadata accessor for PommesSearchRequest);
+  v106 = MEMORY[0x277D56668];
+  if (!v105)
   {
-    v128 = MEMORY[0x277D56670];
+    v106 = MEMORY[0x277D56670];
   }
 
-  (*(v167 + 104))(v166, *v128, v168);
-  v129 = PommesResponse.Builder.searchReason.setter();
-  v125(v129);
-  v130 = (v124 + v126[5]);
-  v131 = *v130;
-  v132 = v130[1];
+  (*(v137 + 104))(v136, *v106, v138);
+  v107 = PommesResponse.Builder.searchReason.setter();
+  v103(v107);
 
-  outlined destroy of PommesSearchRequest(v124, type metadata accessor for PommesSearchRequest);
+  outlined destroy of PommesSearchRequest(v102, type metadata accessor for PommesSearchRequest);
   PommesResponse.Builder.searchRequestUtterance.setter();
-  v133 = v171;
+  v108 = v141;
   Apple_Parsec_Siri_V2alpha_SiriPegasusRequest.queryContext.getter();
   Apple_Parsec_Search_PegasusQueryContext.countryCode.getter();
-  (*(v172 + 8))(v133, Context);
+  (*(v142 + 8))(v108, Context);
   PommesResponse.Builder.requestCountryCode.setter();
   closure #3 in closure #6 in PommesSearchRequestProcessor.handleSuccess(_:_:_:)();
   PommesResponse.Builder.requestLocation.setter();
-  v134 = PommesResponse.Builder.isCachedResponse.setter();
-  v125(v134);
-  v135 = (v124 + v126[21]);
-  v136 = *v135;
-  v137 = v135[1];
+  v109 = PommesResponse.Builder.isCachedResponse.setter();
+  v103(v109);
 
-  v138 = v195;
-  outlined destroy of PommesSearchRequest(v124, v195);
-  v139 = PommesResponse.Builder.sharedUserId.setter();
-  v140 = v169;
-  v125(v139);
-  v141 = *(v140 + v126[18]);
-  v142 = v141;
-  outlined destroy of PommesSearchRequest(v140, v138);
-  if (v141)
+  v110 = v165;
+  outlined destroy of PommesSearchRequest(v102, v165);
+  v111 = PommesResponse.Builder.sharedUserId.setter();
+  v112 = v139;
+  v103(v111);
+  v113 = *(v112 + *(v104 + 72));
+  v114 = v113;
+  outlined destroy of PommesSearchRequest(v112, v110);
+  if (v113)
   {
-    v143 = [v142 recognition];
+    v115 = [v114 recognition];
 
-    v144 = v175;
-    if (v143)
+    v116 = v145;
+    if (v115)
     {
-      v145 = [v143 aceRecognition];
+      v117 = [v115 aceRecognition];
 
       goto LABEL_75;
     }
@@ -4383,60 +3058,58 @@ LABEL_98:
 
   else
   {
-    v144 = v175;
+    v116 = v145;
 LABEL_75:
     PommesResponse.Builder.asrRecognition.setter();
-    closure #4 in closure #6 in PommesSearchRequestProcessor.handleSuccess(_:_:_:)(v89);
-    v146 = PommesResponse.Builder.encodedNLUserParses.setter();
-    v147 = v162;
-    v181(v146);
-    PommesSearchRequest.fallbackParse.getter(v144);
-    outlined destroy of PommesSearchRequest(v147, type metadata accessor for PommesSearchRequest);
-    v148 = type metadata accessor for Siri_Nlu_External_DelegatedUserDialogAct();
-    v149 = *(v148 - 8);
-    if ((*(v149 + 48))(v144, 1, v148) == 1)
+    closure #4 in closure #6 in PommesSearchRequestProcessor.handleSuccess(_:_:_:)(v70);
+    v118 = PommesResponse.Builder.encodedNLUserParses.setter();
+    v119 = v132;
+    v151(v118);
+    PommesSearchRequest.fallbackParse.getter(v116);
+    outlined destroy of PommesSearchRequest(v119, type metadata accessor for PommesSearchRequest);
+    v120 = type metadata accessor for Siri_Nlu_External_DelegatedUserDialogAct();
+    v121 = *(v120 - 8);
+    if ((*(v121 + 48))(v116, 1, v120) == 1)
     {
-      outlined destroy of MediaUserStateCenter?(v144, &_s12SiriNLUTypes0A36_Nlu_External_DelegatedUserDialogActVSgMd, &_s12SiriNLUTypes0A36_Nlu_External_DelegatedUserDialogActVSgMR);
+      outlined destroy of MediaUserStateCenter?(v116, &_s12SiriNLUTypes0A36_Nlu_External_DelegatedUserDialogActVSgMd, &_s12SiriNLUTypes0A36_Nlu_External_DelegatedUserDialogActVSgMR);
     }
 
     else
     {
-      lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Siri_Nlu_External_DelegatedUserDialogAct and conformance Siri_Nlu_External_DelegatedUserDialogAct, MEMORY[0x277D5DD80]);
+      lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Siri_Nlu_External_DelegatedUserDialogAct and conformance Siri_Nlu_External_DelegatedUserDialogAct, MEMORY[0x277D5DD80], MEMORY[0x277D5DD78]);
       Message.serializedData(partial:)();
-      (*(v149 + 8))(v144, v148);
+      (*(v121 + 8))(v116, v120);
     }
 
-    v150 = PommesResponse.Builder.encodedNLFallbackParse.setter();
-    v151 = v181;
-    v152 = v182;
-    v181(v150);
+    v122 = PommesResponse.Builder.encodedNLFallbackParse.setter();
+    v123 = v151;
+    v124 = v152;
+    v151(v122);
     PommesSearchRequest.responseVariantResult.getter();
-    outlined destroy of PommesSearchRequest(v152, type metadata accessor for PommesSearchRequest);
+    outlined destroy of PommesSearchRequest(v124, type metadata accessor for PommesSearchRequest);
     PommesResponse.Builder.responseVariantResult.setter();
-    v153 = *v164;
     PommesResponse.Builder.isLowConfidenceKnowledgeResult.setter();
 
-    v154 = PommesResponse.Builder.albusMultiturnRewrite.setter();
-    v151(v154);
-    v155 = v183;
-    outlined init with copy of MediaUserStateCenter?(v152 + v183[10], v165, &_s21SiriInformationSearch13PommesContextVSgMd, &_s21SiriInformationSearch13PommesContextVSgMR);
-    outlined destroy of PommesSearchRequest(v152, type metadata accessor for PommesSearchRequest);
+    v125 = PommesResponse.Builder.albusMultiturnRewrite.setter();
+    v123(v125);
+    v126 = v153;
+    outlined init with copy of MediaUserStateCenter?(v124 + *(v153 + 40), v135, &_s21SiriInformationSearch13PommesContextVSgMd, &_s21SiriInformationSearch13PommesContextVSgMR);
+    outlined destroy of PommesSearchRequest(v124, type metadata accessor for PommesSearchRequest);
     PommesResponse.Builder.previousPommesContext.setter();
-    v156 = v179;
+    v127 = v149;
     Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
     Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.domainUseCaseMetadata.getter();
-    v186(v156, v188);
+    v156(v127, v158);
     PommesResponse.Builder.domainUseCases.setter();
     Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.isQueryDirectQuestion.getter();
     Direct = PommesResponse.Builder.isQueryDirectQuestion.setter();
-    v158 = v163;
-    v151(Direct);
-    v159 = *(v158 + v155[13]);
+    v129 = v133;
+    v123(Direct);
+    v130 = *(v129 + *(v126 + 52));
 
-    outlined destroy of PommesSearchRequest(v158, type metadata accessor for PommesSearchRequest);
-    if (v159)
+    outlined destroy of PommesSearchRequest(v129, type metadata accessor for PommesSearchRequest);
+    if (v130)
     {
-      v160 = *(v159 + OBJC_IVAR____TtC21SiriInformationSearch20PommesRequestContext_isRelatedQuestion);
     }
 
     PommesResponse.Builder.isRelatedQuestion.setter();
@@ -4447,29 +3120,27 @@ id closure #3 in closure #6 in PommesSearchRequestProcessor.handleSuccess(_:_:_:
 {
   v0 = type metadata accessor for Apple_Parsec_Search_V2_Location();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  MEMORY[0x28223BE20](v0, v3);
-  v5 = &v19 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v0);
+  v3 = &v15 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   Context = type metadata accessor for Apple_Parsec_Search_PegasusQueryContext();
-  v7 = *(Context - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](Context, v9);
-  v11 = &v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = *(Context - 8);
+  MEMORY[0x28223BE20](Context);
+  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   Apple_Parsec_Siri_V2alpha_SiriPegasusRequest.queryContext.getter();
-  v12 = Apple_Parsec_Search_PegasusQueryContext.hasLocation.getter();
-  v13 = *(v7 + 8);
-  v13(v11, Context);
+  v8 = Apple_Parsec_Search_PegasusQueryContext.hasLocation.getter();
+  v9 = *(v5 + 8);
+  v9(v7, Context);
   result = 0;
-  if (v12)
+  if (v8)
   {
     Apple_Parsec_Siri_V2alpha_SiriPegasusRequest.queryContext.getter();
     Apple_Parsec_Search_PegasusQueryContext.location.getter();
-    v15 = (v13)(v11, Context);
-    v16 = MEMORY[0x223DDA150](v15);
+    v11 = (v9)(v7, Context);
+    v12 = MEMORY[0x223DDA150](v11);
     Apple_Parsec_Search_V2_Location.longitude.getter();
-    v18 = [objc_allocWithZone(MEMORY[0x277CE41F8]) initWithLatitude:v16 longitude:v17];
-    (*(v1 + 8))(v5, v0);
-    return v18;
+    v14 = [objc_allocWithZone(MEMORY[0x277CE41F8]) initWithLatitude:v12 longitude:v13];
+    (*(v1 + 8))(v3, v0);
+    return v14;
   }
 
   return result;
@@ -4479,84 +3150,80 @@ uint64_t closure #4 in closure #6 in PommesSearchRequestProcessor.handleSuccess(
 {
   v2 = type metadata accessor for Siri_Nlu_External_UserParse();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2, v5);
-  v7 = v34 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for PommesSearchRequest(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8, v10);
-  v12 = v34 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = type metadata accessor for JSONEncoder();
-  v14 = *(v13 + 48);
-  v15 = *(v13 + 52);
+  MEMORY[0x28223BE20](v2);
+  v5 = v27 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for PommesSearchRequest(0);
+  MEMORY[0x28223BE20](v6 - 8);
+  v8 = v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for JSONEncoder();
   swift_allocObject();
-  v16 = JSONEncoder.init()();
+  v9 = JSONEncoder.init()();
   (*(*a1 + 152))();
-  v17 = PommesSearchRequest.userParses.getter();
-  outlined destroy of PommesSearchRequest(v12, type metadata accessor for PommesSearchRequest);
-  v18 = *(v17 + 16);
-  if (v18)
+  v10 = PommesSearchRequest.userParses.getter();
+  outlined destroy of PommesSearchRequest(v8, type metadata accessor for PommesSearchRequest);
+  v11 = *(v10 + 16);
+  if (v11)
   {
-    v34[1] = v17;
-    v34[2] = v16;
-    v20 = *(v3 + 16);
-    v19 = v3 + 16;
-    v21 = v17 + ((*(v19 + 64) + 32) & ~*(v19 + 64));
-    v35 = *(v19 + 56);
-    v36 = v20;
-    v22 = (v19 - 8);
-    v23 = MEMORY[0x277D84F90];
-    v34[3] = v19;
-    v20(v7, v21, v2);
+    v27[1] = v10;
+    v27[2] = v9;
+    v13 = *(v3 + 16);
+    v12 = v3 + 16;
+    v14 = v10 + ((*(v12 + 64) + 32) & ~*(v12 + 64));
+    v28 = *(v12 + 56);
+    v29 = v13;
+    v15 = (v12 - 8);
+    v16 = MEMORY[0x277D84F90];
+    v27[3] = v12;
+    v13(v5, v14, v2);
     while (1)
     {
-      lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Siri_Nlu_External_UserParse and conformance Siri_Nlu_External_UserParse, MEMORY[0x277D5DB08]);
-      v24 = Message.serializedData(partial:)();
-      v26 = v25;
-      (*v22)(v7, v2);
+      lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Siri_Nlu_External_UserParse and conformance Siri_Nlu_External_UserParse, MEMORY[0x277D5DB08], MEMORY[0x277D5DB00]);
+      v17 = Message.serializedData(partial:)();
+      v19 = v18;
+      (*v15)(v5, v2);
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v23 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v23 + 2) + 1, 1, v23);
+        v16 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v16 + 2) + 1, 1, v16);
       }
 
-      v27 = v23;
-      v28 = *(v23 + 2);
-      v29 = v27;
-      v30 = *(v27 + 3);
-      if (v28 >= v30 >> 1)
+      v20 = v16;
+      v21 = *(v16 + 2);
+      v22 = v20;
+      v23 = *(v20 + 3);
+      if (v21 >= v23 >> 1)
       {
-        v29 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v30 > 1), v28 + 1, 1, v29);
+        v22 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v23 > 1), v21 + 1, 1, v22);
       }
 
-      *(v29 + 2) = v28 + 1;
-      v31 = &v29[16 * v28];
-      v23 = v29;
-      *(v31 + 4) = v24;
-      *(v31 + 5) = v26;
-      v21 += v35;
-      if (!--v18)
+      *(v22 + 2) = v21 + 1;
+      v24 = &v22[16 * v21];
+      v16 = v22;
+      *(v24 + 4) = v17;
+      *(v24 + 5) = v19;
+      v14 += v28;
+      if (!--v11)
       {
         break;
       }
 
-      v36(v7, v21, v2);
+      v29(v5, v14, v2);
     }
 
-    if (!*(v23 + 2))
+    if (!*(v16 + 2))
     {
       goto LABEL_14;
     }
 
 LABEL_13:
-    v37 = v23;
+    v30 = v16;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation4DataVGMd, &_sSay10Foundation4DataVGMR);
     lazy protocol witness table accessor for type [Data] and conformance <A> [A]();
-    v32 = dispatch thunk of JSONEncoder.encode<A>(_:)();
+    v25 = dispatch thunk of JSONEncoder.encode<A>(_:)();
 
-    return v32;
+    return v25;
   }
 
-  v23 = MEMORY[0x277D84F90];
+  v16 = MEMORY[0x277D84F90];
   if (*(MEMORY[0x277D84F90] + 16))
   {
     goto LABEL_13;
@@ -4570,29 +3237,16 @@ LABEL_14:
 uint64_t closure #1 in PommesSearchRequestProcessor.handleFailure(with:completion:)()
 {
   v0 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata();
-  v1 = *(*(v0 - 8) + 64);
-  MEMORY[0x28223BE20](v0, v2);
-  lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata and conformance Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata, MEMORY[0x277D38D90]);
+  MEMORY[0x28223BE20](v0);
+  lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata and conformance Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata, MEMORY[0x277D38D90], MEMORY[0x277D38D88]);
   static Message.with(_:)();
   return Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.setter();
 }
 
-void *PommesSearchRequestProcessor.deinit()
+uint64_t PommesSearchRequestProcessor.deinit()
 {
-  v1 = v0[2];
-
-  v2 = v0[3];
-
-  v3 = v0[4];
-
-  v4 = v0[5];
-
-  v5 = v0[6];
 
   outlined destroy of PommesSearchRequest(v0 + OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_pommesSearchRequest, type metadata accessor for PommesSearchRequest);
-  v6 = *(v0 + OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_muxContextManager);
-
-  v7 = *(v0 + OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_attemptedProfileSliceLabels);
 
   return v0;
 }
@@ -4600,8 +3254,6 @@ void *PommesSearchRequestProcessor.deinit()
 uint64_t PommesSearchRequestProcessor.__deallocating_deinit()
 {
   PommesSearchRequestProcessor.deinit();
-  v1 = *(*v0 + 48);
-  v2 = *(*v0 + 52);
 
   return swift_deallocClassInstance();
 }
@@ -4626,7 +3278,7 @@ Swift::Int partial apply for closure #1 in PommesSearchRequestProcessor.search_s
   v3 = *(type metadata accessor for PerformanceUtil.Ticket(0) - 8);
   v4 = (*(v3 + 80) + 16) & ~*(v3 + 80);
   v5 = *(v3 + 64);
-  v6 = *(type metadata accessor for SignpostToken() - 8);
+  v6 = *(type metadata accessor for SignpostToken(0) - 8);
   v7 = (v4 + v5 + *(v6 + 80)) & ~*(v6 + 80);
   v8 = (*(v6 + 64) + v7 + 7) & 0xFFFFFFFFFFFFFFF8;
   v9 = (v8 + 15) & 0xFFFFFFFFFFFFFFF8;
@@ -4634,401 +3286,387 @@ Swift::Int partial apply for closure #1 in PommesSearchRequestProcessor.search_s
   v11 = *(v1 + v9);
   v12 = *(v1 + ((v9 + 15) & 0xFFFFFFFFFFFFFFF8));
 
-  return closure #1 in PommesSearchRequestProcessor.search_sync(completion:)(a1, v1 + v4, v1 + v7);
+  return closure #1 in PommesSearchRequestProcessor.search_sync(completion:)(a1, v1 + v4, v1 + v7, v10, v11, v12);
 }
 
 void specialized PommesSearchRequestProcessor.handleSuccess(_:_:_:)(NSObject *a1, uint64_t a2, void *a3, uint64_t (*a4)(void *, void), uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v352 = a3;
-  v345 = a1;
-  v350 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSliceResolutionRequest();
-  v361 = *(v350 - 8);
-  v12 = *(v361 + 64);
-  v14 = MEMORY[0x28223BE20](v350, v13);
-  v314 = &v312 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v14, v16);
-  v364 = &v312 - v17;
-  v365 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSliceLabel();
-  v356 = *(v365 - 1);
-  v18 = *(v356 + 64);
-  v20 = MEMORY[0x28223BE20](v365, v19);
-  v313 = &v312 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v23 = MEMORY[0x28223BE20](v20, v22);
-  v362 = &v312 - v24;
-  v26 = MEMORY[0x28223BE20](v23, v25);
-  v353 = &v312 - v27;
-  v29 = MEMORY[0x28223BE20](v26, v28);
-  v363 = (&v312 - v30);
-  MEMORY[0x28223BE20](v29, v31);
-  v316 = &v312 - v32;
-  v359 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DomainUseCase();
-  v315 = *(v359 - 8);
-  v33 = *(v315 + 64);
-  MEMORY[0x28223BE20](v359, v34);
-  v358 = (&v312 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v354 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DomainUseCaseMetadata();
-  v360 = *(v354 - 8);
-  v36 = *(v360 + 8);
-  MEMORY[0x28223BE20](v354, v37);
-  v351 = (&v312 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0));
-  *&v342 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata();
-  v341 = *(v342 - 8);
-  v39 = v341[8];
-  v41 = MEMORY[0x28223BE20](v342, v40);
-  v318 = &v312 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v41, v43);
-  v340 = &v312 - v44;
-  v327 = type metadata accessor for Date();
-  v326 = *(v327 - 8);
-  v45 = *(v326 + 64);
-  MEMORY[0x28223BE20](v327, v46);
-  v325 = &v312 - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v323 = type metadata accessor for ClientExperienceSignals();
-  v322 = *(v323 - 8);
-  v48 = *(v322 + 64);
-  MEMORY[0x28223BE20](v323, v49);
-  v346 = &v312 - ((v50 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v319 = type metadata accessor for PommesSearchRequest(0);
-  v51 = *(*(v319 - 8) + 64);
-  v53 = MEMORY[0x28223BE20](v319, v52);
-  v317 = &v312 - ((v54 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v53, v55);
-  v324 = &v312 - v56;
-  v343 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileResolutionRequest();
-  v338 = *(v343 - 8);
-  v57 = *(v338 + 64);
-  MEMORY[0x28223BE20](v343, v58);
-  v335 = (&v312 - ((v59 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v337 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.SiriInstruction();
-  isa = v337[-1].isa;
-  v60 = *(isa + 8);
-  MEMORY[0x28223BE20](v337, v61);
-  v334 = &v312 - ((v62 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v63 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse();
-  v64 = *(v63 - 8);
-  v65 = *(v64 + 64);
-  v67 = MEMORY[0x28223BE20](v63, v66);
-  v339 = &v312 - ((v68 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v70 = MEMORY[0x28223BE20](v67, v69);
-  v332 = &v312 - v71;
-  v73 = MEMORY[0x28223BE20](v70, v72);
-  v321 = &v312 - v74;
-  v76 = MEMORY[0x28223BE20](v73, v75);
-  v320 = &v312 - v77;
-  v79 = MEMORY[0x28223BE20](v76, v78);
-  v81 = &v312 - v80;
-  MEMORY[0x28223BE20](v79, v82);
-  v84 = &v312 - v83;
-  v85 = swift_allocObject();
-  v328 = a4;
-  v85[2] = a4;
-  v85[3] = a5;
-  v85[4] = a6;
-  v85[5] = a7;
-  v333 = v85;
-  v371[3] = &type metadata for CallBusinessNoResultsExperiencesResolver;
-  v371[4] = &protocol witness table for CallBusinessNoResultsExperiencesResolver;
-  v371[0] = a2;
-  v86 = *(type metadata accessor for PegasusSearchResponse(0) + 20);
-  v349 = v64;
-  v89 = *(v64 + 16);
-  v87 = v64 + 16;
-  v88 = v89;
-  (v89)(v84, v345 + v86, v63);
-  v90 = one-time initialization token for pommes;
-  v329 = a5;
+  v313 = a3;
+  v306 = a1;
+  v311 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSliceResolutionRequest();
+  v322 = *(v311 - 8);
+  v12 = MEMORY[0x28223BE20](v311);
+  v275 = &v273 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v12);
+  v325 = &v273 - v14;
+  v326 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSliceLabel();
+  v317 = *(v326 - 1);
+  v15 = MEMORY[0x28223BE20](v326);
+  v274 = &v273 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = MEMORY[0x28223BE20](v15);
+  v323 = &v273 - v18;
+  v19 = MEMORY[0x28223BE20](v17);
+  v314 = &v273 - v20;
+  v21 = MEMORY[0x28223BE20](v19);
+  v324 = (&v273 - v22);
+  MEMORY[0x28223BE20](v21);
+  v277 = &v273 - v23;
+  v320 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DomainUseCase();
+  v276 = *(v320 - 8);
+  MEMORY[0x28223BE20](v320);
+  v319 = (&v273 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v315 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DomainUseCaseMetadata();
+  v321 = *(v315 - 8);
+  MEMORY[0x28223BE20](v315);
+  v312 = (&v273 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0));
+  *&v303 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata();
+  v302 = *(v303 - 8);
+  v26 = MEMORY[0x28223BE20](v303);
+  v279 = &v273 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v26);
+  v301 = &v273 - v28;
+  v288 = type metadata accessor for Date();
+  v287 = *(v288 - 8);
+  MEMORY[0x28223BE20](v288);
+  v286 = &v273 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v284 = type metadata accessor for ClientExperienceSignals();
+  v283 = *(v284 - 8);
+  MEMORY[0x28223BE20](v284);
+  v307 = &v273 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v280 = type metadata accessor for PommesSearchRequest(0);
+  v31 = MEMORY[0x28223BE20](v280);
+  v278 = &v273 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v31);
+  v285 = &v273 - v33;
+  v304 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileResolutionRequest();
+  v299 = *(v304 - 8);
+  MEMORY[0x28223BE20](v304);
+  v296 = (&v273 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v298 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.SiriInstruction();
+  isa = v298[-1].isa;
+  MEMORY[0x28223BE20](v298);
+  v295 = &v273 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v36 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse();
+  v37 = *(v36 - 8);
+  v38 = MEMORY[0x28223BE20](v36);
+  v300 = &v273 - ((v39 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v40 = MEMORY[0x28223BE20](v38);
+  v293 = &v273 - v41;
+  v42 = MEMORY[0x28223BE20](v40);
+  v282 = &v273 - v43;
+  v44 = MEMORY[0x28223BE20](v42);
+  v281 = &v273 - v45;
+  v46 = MEMORY[0x28223BE20](v44);
+  v48 = &v273 - v47;
+  MEMORY[0x28223BE20](v46);
+  v50 = &v273 - v49;
+  v51 = swift_allocObject();
+  v289 = a4;
+  v51[2] = a4;
+  v51[3] = a5;
+  v51[4] = a6;
+  v51[5] = a7;
+  v294 = v51;
+  v332[3] = &type metadata for CallBusinessNoResultsExperiencesResolver;
+  v332[4] = &protocol witness table for CallBusinessNoResultsExperiencesResolver;
+  v332[0] = a2;
+  v52 = *(type metadata accessor for PegasusSearchResponse(0) + 20);
+  v310 = v37;
+  v55 = *(v37 + 16);
+  v53 = v37 + 16;
+  v54 = v55;
+  (v55)(v50, v306 + v52, v36);
+  v56 = one-time initialization token for pommes;
+  v290 = a5;
 
-  v330 = a6;
+  v291 = a6;
 
-  v331 = a7;
+  v292 = a7;
 
-  if (v90 != -1)
+  if (v56 != -1)
   {
 LABEL_49:
     swift_once();
   }
 
-  v91 = type metadata accessor for Logger();
-  v92 = __swift_project_value_buffer(v91, static Logger.pommes);
-  v355 = v84;
-  v348 = v87;
-  (v88)(v81, v84, v63);
-  v357 = v92;
-  v93 = Logger.logObject.getter();
-  v94 = static os_log_type_t.debug.getter();
-  v95 = os_log_type_enabled(v93, v94);
-  v347 = v88;
-  if (v95)
+  v57 = type metadata accessor for Logger();
+  v58 = __swift_project_value_buffer(v57, static Logger.pommes);
+  v316 = v50;
+  v309 = v53;
+  (v54)(v48, v50, v36);
+  v318 = v58;
+  v59 = Logger.logObject.getter();
+  v60 = static os_log_type_t.debug.getter();
+  v61 = os_log_type_enabled(v59, v60);
+  v308 = v54;
+  if (v61)
   {
-    v96 = swift_slowAlloc();
-    v97 = swift_slowAlloc();
-    *&v368[0] = v97;
-    *v96 = 136315138;
-    lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_SiriPegasusResponse and conformance Apple_Parsec_Siri_V2alpha_SiriPegasusResponse, MEMORY[0x277D38DA0]);
-    v98 = Message.textFormatString()();
-    v344 = *(v349 + 8);
-    v344(v81, v63);
-    v99 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v98._countAndFlagsBits, v98._object, v368);
+    v62 = swift_slowAlloc();
+    v63 = swift_slowAlloc();
+    *&v329[0] = v63;
+    *v62 = 136315138;
+    lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_SiriPegasusResponse and conformance Apple_Parsec_Siri_V2alpha_SiriPegasusResponse, MEMORY[0x277D38DA0], MEMORY[0x277D38D98]);
+    v64 = Message.textFormatString()();
+    v305 = *(v310 + 8);
+    v305(v48, v36);
+    v65 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v64._countAndFlagsBits, v64._object, v329);
 
-    *(v96 + 4) = v99;
-    _os_log_impl(&dword_2232BB000, v93, v94, "PireneResponse: %s", v96, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v97);
-    MEMORY[0x223DE0F80](v97, -1, -1);
-    MEMORY[0x223DE0F80](v96, -1, -1);
+    *(v62 + 4) = v65;
+    _os_log_impl(&dword_2232BB000, v59, v60, "PireneResponse: %s", v62, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v63);
+    MEMORY[0x223DE0F80](v63, -1, -1);
+    MEMORY[0x223DE0F80](v62, -1, -1);
   }
 
   else
   {
 
-    v344 = *(v349 + 8);
-    v344(v81, v63);
+    v305 = *(v310 + 8);
+    v305(v48, v36);
   }
 
-  v100 = v343;
-  v101 = v338;
-  v102 = v337;
-  v103 = isa;
-  v104 = v335;
-  v105 = v334;
+  v66 = v304;
+  v67 = v299;
+  v68 = v298;
+  v69 = isa;
+  v70 = v296;
+  v71 = v295;
   Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.siriInstruction.getter();
   Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.SiriInstruction.resolutionRequest.getter();
-  v106 = (*(v103 + 1))(v105, v102);
-  v107 = MEMORY[0x223DDBA80](v106);
-  (*(v101 + 8))(v104, v100);
-  v108 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.hasSiriInstruction.getter();
-  v343 = v63;
-  if (v108)
+  v72 = (*(v69 + 1))(v71, v68);
+  v73 = MEMORY[0x223DDBA80](v72);
+  (*(v67 + 8))(v70, v66);
+  v74 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.hasSiriInstruction.getter();
+  v304 = v36;
+  if (v74)
   {
-    v109 = *(v107 + 16);
-    v110 = v346;
-    if (v109)
+    v75 = *(v73 + 16);
+    v76 = v307;
+    if (v75)
     {
-      *&v368[0] = MEMORY[0x277D84F90];
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v109, 0);
-      v81 = *&v368[0];
-      v111 = *(v361 + 16);
-      v112 = (*(v361 + 80) + 32) & ~*(v361 + 80);
-      v341 = v107;
-      v113 = v107 + v112;
-      v114 = *(v361 + 72);
-      v361 += 16;
-      v358 = (v361 - 8);
-      v354 = v356 + 32;
-      v339 = (v107 + v112);
-      v340 = v109;
-      v115 = v109;
-      v87 = v350;
-      v84 = v316;
-      v360 = v111;
-      v359 = v114;
+      *&v329[0] = MEMORY[0x277D84F90];
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v75, 0);
+      v48 = *&v329[0];
+      v77 = *(v322 + 16);
+      v78 = (*(v322 + 80) + 32) & ~*(v322 + 80);
+      v302 = v73;
+      v79 = v73 + v78;
+      v80 = *(v322 + 72);
+      v322 += 16;
+      v319 = (v322 - 8);
+      v315 = v317 + 32;
+      v300 = (v73 + v78);
+      v301 = v75;
+      v81 = v75;
+      v53 = v311;
+      v50 = v277;
+      v321 = v77;
+      v320 = v80;
       do
       {
-        v116 = v364;
-        v117 = (v111)(v364, v113, v87);
-        MEMORY[0x223DDBB90](v117);
-        v118 = *v358;
-        (*v358)(v116, v87);
-        *&v368[0] = v81;
-        v120 = *(v81 + 16);
-        v119 = *(v81 + 24);
-        if (v120 >= v119 >> 1)
+        v82 = v325;
+        v83 = (v77)(v325, v79, v53);
+        MEMORY[0x223DDBB90](v83);
+        v84 = *v319;
+        (*v319)(v82, v53);
+        *&v329[0] = v48;
+        v86 = *(v48 + 16);
+        v85 = *(v48 + 24);
+        if (v86 >= v85 >> 1)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v119 > 1, v120 + 1, 1);
-          v81 = *&v368[0];
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v85 > 1), v86 + 1, 1);
+          v48 = *&v329[0];
         }
 
-        *(v81 + 16) = v120 + 1;
-        v121 = (v81 + ((*(v356 + 80) + 32) & ~*(v356 + 80)));
-        v122 = *(v356 + 72);
-        (*(v356 + 32))(v121 + v122 * v120, v84, v365);
-        v113 += v359;
-        --v115;
-        v111 = v360;
+        *(v48 + 16) = v86 + 1;
+        v87 = (v48 + ((*(v317 + 80) + 32) & ~*(v317 + 80)));
+        v88 = *(v317 + 72);
+        (*(v317 + 32))(v87 + v88 * v86, v50, v326);
+        v79 += v320;
+        --v81;
+        v77 = v321;
       }
 
-      while (v115);
-      v347 = v121;
-      v348 = v120 + 1;
-      v354 = v81;
-      v351 = v118;
-      v63 = v352;
-      v346 = OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_attemptedProfileSliceLabels;
+      while (v81);
+      v308 = v87;
+      v309 = v86 + 1;
+      v315 = v48;
+      v312 = v84;
+      v36 = v313;
+      v307 = OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_attemptedProfileSliceLabels;
       swift_beginAccess();
-      v124 = 0;
-      v364 = v356 + 16;
-      v125 = (v356 + 8);
-      *&v126 = 134218240;
-      v342 = v126;
-      v88 = v365;
-      v127 = v353;
-      v128 = v363;
-      while (v124 != v348)
+      v90 = 0;
+      v325 = v317 + 16;
+      v91 = (v317 + 8);
+      *&v92 = 134218240;
+      v303 = v92;
+      v54 = v326;
+      v93 = v314;
+      v94 = v324;
+      while (v90 != v309)
       {
-        if (v124 >= *(v354 + 16))
+        if (v90 >= *(v315 + 16))
         {
           __break(1u);
           goto LABEL_49;
         }
 
-        v356 = v124;
-        v131 = *v364;
-        (*v364)(v128, v347 + v124 * v122, v88);
-        v132 = *&v346[v63];
-        if (*(v132 + 16))
+        v317 = v90;
+        v97 = *v325;
+        (*v325)(v94, v308 + v90 * v88, v54);
+        v98 = *&v307[v36];
+        if (*(v98 + 16))
         {
-          v133 = *(v132 + 40);
-          lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_ProfileSliceLabel and conformance Apple_Parsec_Siri_V2alpha_ProfileSliceLabel, MEMORY[0x277D39740]);
+          lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_ProfileSliceLabel and conformance Apple_Parsec_Siri_V2alpha_ProfileSliceLabel, MEMORY[0x277D39740], MEMORY[0x277D39748]);
 
-          v134 = dispatch thunk of Hashable._rawHashValue(seed:)();
-          v135 = -1 << *(v132 + 32);
-          v136 = v134 & ~v135;
-          if ((*(v132 + 56 + ((v136 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v136))
+          v99 = dispatch thunk of Hashable._rawHashValue(seed:)();
+          v100 = -1 << *(v98 + 32);
+          v101 = v99 & ~v100;
+          if ((*(v98 + 56 + ((v101 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v101))
           {
-            v137 = ~v135;
-            v138 = v362;
+            v102 = ~v100;
+            v103 = v323;
             do
             {
-              v139 = v365;
-              v131(v138, *(v132 + 48) + v136 * v122, v365);
-              lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_ProfileSliceLabel and conformance Apple_Parsec_Siri_V2alpha_ProfileSliceLabel, MEMORY[0x277D39740]);
-              v81 = dispatch thunk of static Equatable.== infix(_:_:)();
-              (*v125)(v138, v139);
-              if (v81)
+              v104 = v326;
+              v97(v103, *(v98 + 48) + v101 * v88, v326);
+              lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_ProfileSliceLabel and conformance Apple_Parsec_Siri_V2alpha_ProfileSliceLabel, MEMORY[0x277D39740], MEMORY[0x277D39750]);
+              v48 = dispatch thunk of static Equatable.== infix(_:_:)();
+              (*v91)(v103, v104);
+              if (v48)
               {
                 break;
               }
 
-              v136 = (v136 + 1) & v137;
-              v138 = v362;
+              v101 = (v101 + 1) & v102;
+              v103 = v323;
             }
 
-            while (((*(v132 + 56 + ((v136 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v136) & 1) != 0);
+            while (((*(v98 + 56 + ((v101 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v101) & 1) != 0);
           }
 
           else
           {
-            v81 = 0;
+            v48 = 0;
           }
 
-          v127 = v353;
-          v128 = v363;
+          v93 = v314;
+          v94 = v324;
         }
 
         else
         {
-          v81 = 0;
+          v48 = 0;
         }
 
-        v88 = v365;
-        v131(v127, v128, v365);
-        v140 = Logger.logObject.getter();
-        v141 = static os_log_type_t.debug.getter();
-        if (os_log_type_enabled(v140, v141))
+        v54 = v326;
+        v97(v93, v94, v326);
+        v105 = Logger.logObject.getter();
+        v106 = static os_log_type_t.debug.getter();
+        if (os_log_type_enabled(v105, v106))
         {
-          v142 = swift_slowAlloc();
-          *v142 = v342;
-          v345 = v140;
-          v143 = Apple_Parsec_Siri_V2alpha_SiriKitAppInfo.AppContext.rawValue.getter();
-          v129 = *v125;
-          (*v125)(v127, v88);
-          *(v142 + 4) = v143;
-          v140 = v345;
-          *(v142 + 12) = 1024;
-          *(v142 + 14) = v81 & 1;
-          _os_log_impl(&dword_2232BB000, v140, v141, "ProfileSliceLabel %ld previously attempted? %{BOOL}d", v142, 0x12u);
-          MEMORY[0x223DE0F80](v142, -1, -1);
+          v107 = swift_slowAlloc();
+          *v107 = v303;
+          v306 = v105;
+          v108 = Apple_Parsec_Siri_V2alpha_SiriKitAppInfo.AppContext.rawValue.getter();
+          v95 = *v91;
+          (*v91)(v93, v54);
+          *(v107 + 4) = v108;
+          v105 = v306;
+          *(v107 + 12) = 1024;
+          *(v107 + 14) = v48 & 1;
+          _os_log_impl(&dword_2232BB000, v105, v106, "ProfileSliceLabel %ld previously attempted? %{BOOL}d", v107, 0x12u);
+          MEMORY[0x223DE0F80](v107, -1, -1);
         }
 
         else
         {
-          v129 = *v125;
-          (*v125)(v127, v88);
+          v95 = *v91;
+          (*v91)(v93, v54);
         }
 
-        v63 = v352;
-        v130 = v356 + 1;
+        v36 = v313;
+        v96 = v317 + 1;
 
-        v128 = v363;
-        v129(v363, v88);
-        v124 = v130;
-        v84 = v355;
-        v87 = v350;
-        v127 = v353;
-        if (v81)
+        v94 = v324;
+        v95(v324, v54);
+        v90 = v96;
+        v50 = v316;
+        v53 = v311;
+        v93 = v314;
+        if (v48)
         {
 
-          v196 = Logger.logObject.getter();
-          v197 = static os_log_type_t.debug.getter();
-          if (os_log_type_enabled(v196, v197))
+          v158 = Logger.logObject.getter();
+          v159 = static os_log_type_t.debug.getter();
+          if (os_log_type_enabled(v158, v159))
           {
-            v198 = swift_slowAlloc();
-            *v198 = 0;
-            _os_log_impl(&dword_2232BB000, v196, v197, "Already attempted profile slice resolution; yielding error response", v198, 2u);
-            MEMORY[0x223DE0F80](v198, -1, -1);
+            v160 = swift_slowAlloc();
+            *v160 = 0;
+            _os_log_impl(&dword_2232BB000, v158, v159, "Already attempted profile slice resolution; yielding error response", v160, 2u);
+            MEMORY[0x223DE0F80](v160, -1, -1);
           }
 
           lazy protocol witness table accessor for type PommesSearchRequestProcessorError and conformance PommesSearchRequestProcessorError();
-          v199 = swift_allocError();
-          *v200 = 69;
-          closure #4 in PommesSearchRequestProcessor.search_sync(completion:)(v199, 1, v328, v329, v330);
+          v161 = swift_allocError();
+          *v162 = 69;
+          closure #4 in PommesSearchRequestProcessor.search_sync(completion:)(v161, 1, v289, v290, v291, v292);
 
-          v192 = v343;
+          v156 = v304;
           goto LABEL_88;
         }
       }
 
-      v365 = OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_attemptedProfileSliceLabels;
-      v176 = v314;
-      v177 = v313;
-      v178 = v362;
-      v179 = v340;
-      v180 = v63;
-      v181 = v339;
+      v326 = OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_attemptedProfileSliceLabels;
+      v140 = v275;
+      v141 = v274;
+      v142 = v323;
+      v143 = v301;
+      v144 = v36;
+      v145 = v300;
       do
       {
-        v182 = (v360)(v176, v181, v87);
-        MEMORY[0x223DDBB90](v182);
+        v146 = (v321)(v140, v145, v53);
+        MEMORY[0x223DDBB90](v146);
         swift_beginAccess();
-        specialized Set._Variant.insert(_:)(v178, v177);
-        (*v125)(v178, v88);
+        specialized Set._Variant.insert(_:)(v142, v141);
+        (*v91)(v142, v54);
         swift_endAccess();
-        v351(v176, v87);
-        v181 += v359;
-        --v179;
+        v312(v140, v53);
+        v145 += v320;
+        --v143;
       }
 
-      while (v179);
-      v183 = v180;
-      v184 = v341;
+      while (v143);
+      v147 = v144;
+      v148 = v302;
 
-      v185 = Logger.logObject.getter();
-      v186 = static os_log_type_t.debug.getter();
+      v149 = Logger.logObject.getter();
+      v150 = static os_log_type_t.debug.getter();
 
-      if (os_log_type_enabled(v185, v186))
+      if (os_log_type_enabled(v149, v150))
       {
-        v187 = swift_slowAlloc();
-        v188 = swift_slowAlloc();
-        v366 = v188;
-        *v187 = 136315138;
-        v189 = MEMORY[0x223DDF850](v184, v87);
-        v191 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v189, v190, &v366);
+        v151 = swift_slowAlloc();
+        v152 = swift_slowAlloc();
+        v327 = v152;
+        *v151 = 136315138;
+        v153 = MEMORY[0x223DDF850](v148, v53);
+        v155 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v153, v154, &v327);
 
-        *(v187 + 4) = v191;
-        _os_log_impl(&dword_2232BB000, v185, v186, "Adding profile slice resolution requests: %s", v187, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1(v188);
-        MEMORY[0x223DE0F80](v188, -1, -1);
-        MEMORY[0x223DE0F80](v187, -1, -1);
+        *(v151 + 4) = v155;
+        _os_log_impl(&dword_2232BB000, v149, v150, "Adding profile slice resolution requests: %s", v151, 0xCu);
+        __swift_destroy_boxed_opaque_existential_1(v152);
+        MEMORY[0x223DE0F80](v152, -1, -1);
+        MEMORY[0x223DE0F80](v151, -1, -1);
       }
 
-      v192 = v343;
-      v84 = v355;
-      v193 = v183 + OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_pommesSearchRequest;
+      v156 = v304;
+      v50 = v316;
+      v157 = v147 + OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_pommesSearchRequest;
       swift_beginAccess();
-      v194 = *(v319 + 92);
-      v195 = *(v193 + v194);
-      *(v193 + v194) = v184;
+      *(v157 + *(v280 + 92)) = v148;
 
-      (*(*v183 + 224))(closure #4 in PommesSearchRequestProcessor.search_sync(completion:)partial apply, v333);
+      (*(*v147 + 224))(closure #4 in PommesSearchRequestProcessor.search_sync(completion:)partial apply, v294);
       goto LABEL_88;
     }
   }
@@ -5036,76 +3674,76 @@ LABEL_49:
   else
   {
 
-    v110 = v346;
+    v76 = v307;
   }
 
-  v144 = v352;
-  v145 = v352[5];
-  v146 = *(*v352 + 152);
-  v147 = *v352 + 152;
-  v148 = v324;
-  (v146)(v123);
-  v149 = v355;
-  v361 = (*(*v145 + 168))(v148, v355);
-  v150 = outlined destroy of PommesSearchRequest(v148, type metadata accessor for PommesSearchRequest);
-  v151 = v144[2];
-  v364 = v147;
-  v365 = v146;
-  (v146)(v150);
-  (*(*v151 + 712))(v148);
-  v152 = outlined destroy of PommesSearchRequest(v148, type metadata accessor for PommesSearchRequest);
+  v109 = v313;
+  v110 = v313[5];
+  v111 = *(*v313 + 152);
+  v112 = *v313 + 152;
+  v113 = v285;
+  (v111)(v89);
+  v114 = v316;
+  v322 = (*(*v110 + 168))(v113, v316);
+  v115 = outlined destroy of PommesSearchRequest(v113, type metadata accessor for PommesSearchRequest);
+  v116 = v109[2];
+  v325 = v112;
+  v326 = v111;
+  (v111)(v115);
+  (*(*v116 + 712))(v113);
+  v117 = outlined destroy of PommesSearchRequest(v113, type metadata accessor for PommesSearchRequest);
   if (one-time initialization token for shared != -1)
   {
-    v152 = swift_once();
+    v117 = swift_once();
   }
 
-  v154 = static PerformanceUtil.shared;
-  MEMORY[0x28223BE20](v152, v153);
-  v308 = v371;
-  v309 = v149;
-  v310 = v110;
-  v155 = v325;
+  v118 = static PerformanceUtil.shared;
+  MEMORY[0x28223BE20](v117);
+  v269 = v332;
+  v270 = v114;
+  v271 = v76;
+  v119 = v286;
   Date.init()();
-  v156 = *(*v154 + 200);
-  v310 = v307;
-  v311 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay21SiriInformationSearch10ExperienceCGMd, &_sSay21SiriInformationSearch10ExperienceCGMR);
-  LOBYTE(v308) = 2;
-  v156(v368, 0xD00000000000002ALL, 0x80000002234DBF50, 0, v155, "SiriInformationSearch/PommesSearchRequestProcessor.swift", 56, 2, 348, "handleSuccess(_:_:_:)", 21, v308, closure #4 in PommesSearchRequestProcessor.handleSuccess(_:_:_:)partial apply);
-  (*(v326 + 8))(v155, v327);
-  v157 = *&v368[0];
-  v158 = PommesSearchRequestProcessor.clientSearch(pegasusResponse:)(v149);
-  v159 = Logger.logObject.getter();
-  v160 = static os_log_type_t.debug.getter();
-  v161 = os_log_type_enabled(v159, v160);
-  v356 = v158;
-  if (v161)
+  v120 = *(*v118 + 200);
+  v271 = v268;
+  v272 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay21SiriInformationSearch10ExperienceCGMd, &_sSay21SiriInformationSearch10ExperienceCGMR);
+  LOBYTE(v269) = 2;
+  v120(v329, 0xD00000000000002ALL, 0x80000002234DBF50, 0, v119, "SiriInformationSearch/PommesSearchRequestProcessor.swift", 56, 2, 348, "handleSuccess(_:_:_:)", 21, v269, closure #4 in PommesSearchRequestProcessor.handleSuccess(_:_:_:)partial apply);
+  (*(v287 + 8))(v119, v288);
+  v121 = *&v329[0];
+  v122 = PommesSearchRequestProcessor.clientSearch(pegasusResponse:)(v114);
+  v123 = Logger.logObject.getter();
+  v124 = static os_log_type_t.debug.getter();
+  v125 = os_log_type_enabled(v123, v124);
+  v317 = v122;
+  if (v125)
   {
-    v162 = swift_slowAlloc();
-    v163 = swift_slowAlloc();
-    *&v368[0] = v163;
-    *v162 = 136315138;
-    v164 = type metadata accessor for PommesResult();
-    v165 = MEMORY[0x223DDF870](v158, v164);
-    v167 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v165, v166, v368);
+    v126 = swift_slowAlloc();
+    v127 = swift_slowAlloc();
+    *&v329[0] = v127;
+    *v126 = 136315138;
+    v128 = type metadata accessor for PommesResult();
+    v129 = MEMORY[0x223DDF870](v122, v128);
+    v131 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v129, v130, v329);
 
-    *(v162 + 4) = v167;
-    _os_log_impl(&dword_2232BB000, v159, v160, "PommesSearchRequestProcessor#handleSuccess clientResults: %s", v162, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v163);
-    MEMORY[0x223DE0F80](v163, -1, -1);
-    MEMORY[0x223DE0F80](v162, -1, -1);
+    *(v126 + 4) = v131;
+    _os_log_impl(&dword_2232BB000, v123, v124, "PommesSearchRequestProcessor#handleSuccess clientResults: %s", v126, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v127);
+    MEMORY[0x223DE0F80](v127, -1, -1);
+    MEMORY[0x223DE0F80](v126, -1, -1);
   }
 
-  if (!(v157 >> 62))
+  if (!(v121 >> 62))
   {
-    if (*((v157 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    if (*((v121 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
       goto LABEL_35;
     }
 
 LABEL_51:
-    v171 = 0xE700000000000000;
-    v169 = 0x6E776F6E6B6E55;
-    v175 = 0;
+    v135 = 0xE700000000000000;
+    v133 = 0x6E776F6E6B6E55;
+    v139 = 0;
     goto LABEL_52;
   }
 
@@ -5115,387 +3753,387 @@ LABEL_51:
   }
 
 LABEL_35:
-  if ((v157 & 0xC000000000000001) != 0)
+  if ((v121 & 0xC000000000000001) != 0)
   {
-    v305 = MEMORY[0x223DDFF80](0, v157);
-    v169 = dispatch thunk of Experience.pluginIdentifier.getter();
-    v171 = v306;
+    v266 = MEMORY[0x223DDFF80](0, v121);
+    v133 = dispatch thunk of Experience.pluginIdentifier.getter();
+    v135 = v267;
 
-    v172 = MEMORY[0x223DDFF80](0, v157);
+    v136 = MEMORY[0x223DDFF80](0, v121);
     goto LABEL_39;
   }
 
-  if (*((v157 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  if (*((v121 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
-    v168 = v157[4];
-    v169 = dispatch thunk of Experience.pluginIdentifier.getter();
-    v171 = v170;
+    v132 = v121[4];
+    v133 = dispatch thunk of Experience.pluginIdentifier.getter();
+    v135 = v134;
 
-    if (*((v157 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    if (*((v121 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
-      v172 = v157[4];
+      v136 = v121[4];
 LABEL_39:
-      v173 = v172;
+      v137 = v136;
       dispatch thunk of Experience.queryConfidence.getter();
-      v175 = v174;
+      v139 = v138;
 
 LABEL_52:
 
-      v201 = Logger.logObject.getter();
-      v202 = static os_log_type_t.debug.getter();
+      v163 = Logger.logObject.getter();
+      v164 = static os_log_type_t.debug.getter();
 
-      if (os_log_type_enabled(v201, v202))
+      if (os_log_type_enabled(v163, v164))
       {
-        v203 = swift_slowAlloc();
-        v204 = swift_slowAlloc();
-        *&v368[0] = v204;
-        *v203 = 136315394;
-        v205 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v169, v171, v368);
+        v165 = swift_slowAlloc();
+        v166 = swift_slowAlloc();
+        *&v329[0] = v166;
+        *v165 = 136315394;
+        v167 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v133, v135, v329);
 
-        *(v203 + 4) = v205;
-        *(v203 + 12) = 2048;
-        *(v203 + 14) = v175;
-        _os_log_impl(&dword_2232BB000, v201, v202, "PommesResponse primaryPluginIdentifier %s     PommesResponse primaryQueryConfidence %f", v203, 0x16u);
-        __swift_destroy_boxed_opaque_existential_1(v204);
-        MEMORY[0x223DE0F80](v204, -1, -1);
-        MEMORY[0x223DE0F80](v203, -1, -1);
+        *(v165 + 4) = v167;
+        *(v165 + 12) = 2048;
+        *(v165 + 14) = v139;
+        _os_log_impl(&dword_2232BB000, v163, v164, "PommesResponse primaryPluginIdentifier %s     PommesResponse primaryQueryConfidence %f", v165, 0x16u);
+        __swift_destroy_boxed_opaque_existential_1(v166);
+        MEMORY[0x223DE0F80](v166, -1, -1);
+        MEMORY[0x223DE0F80](v165, -1, -1);
       }
 
       else
       {
       }
 
-      v206 = v343;
-      v207 = v347;
-      v208 = v320;
-      (v347)(v320, v355, v343);
-      v209 = Logger.logObject.getter();
-      v210 = static os_log_type_t.info.getter();
-      if (os_log_type_enabled(v209, v210))
+      v168 = v304;
+      v169 = v308;
+      v170 = v281;
+      (v308)(v281, v316, v304);
+      v171 = Logger.logObject.getter();
+      v172 = static os_log_type_t.info.getter();
+      if (os_log_type_enabled(v171, v172))
       {
-        v211 = swift_slowAlloc();
-        *v211 = 67109120;
-        v212 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.isLowConfidenceKnowledgeResult.getter() & 1;
-        v344(v208, v206);
-        *(v211 + 4) = v212;
-        _os_log_impl(&dword_2232BB000, v209, v210, "Low confidence knowledge fallback is supported, Pegasus returned value is: %{BOOL}d", v211, 8u);
-        MEMORY[0x223DE0F80](v211, -1, -1);
+        v173 = swift_slowAlloc();
+        *v173 = 67109120;
+        v174 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.isLowConfidenceKnowledgeResult.getter() & 1;
+        v305(v170, v168);
+        *(v173 + 4) = v174;
+        _os_log_impl(&dword_2232BB000, v171, v172, "Low confidence knowledge fallback is supported, Pegasus returned value is: %{BOOL}d", v173, 8u);
+        MEMORY[0x223DE0F80](v173, -1, -1);
       }
 
       else
       {
-        v344(v208, v206);
+        v305(v170, v168);
       }
 
-      v353 = v157;
+      v314 = v121;
 
-      v213 = v355;
-      v370 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.isLowConfidenceKnowledgeResult.getter() & 1;
-      v214 = v340;
+      v175 = v316;
+      v331 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.isLowConfidenceKnowledgeResult.getter() & 1;
+      v176 = v301;
       Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
-      v338 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.albusMultiturnRewrite.getter();
-      v350 = v215;
-      v217 = v341 + 1;
-      v216 = v341[1];
-      v218 = v342;
-      (v216)(v214, v342);
-      v219 = v321;
-      (v207)(v321, v213, v206);
-      v220 = Logger.logObject.getter();
-      v221 = static os_log_type_t.debug.getter();
-      v222 = os_log_type_enabled(v220, v221);
-      v362 = v216;
-      if (v222)
+      v299 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.albusMultiturnRewrite.getter();
+      v311 = v177;
+      v179 = v302 + 2;
+      v178 = *(v302 + 1);
+      v180 = v303;
+      (v178)(v176, v303);
+      v181 = v282;
+      (v169)(v282, v175, v168);
+      v182 = Logger.logObject.getter();
+      v183 = static os_log_type_t.debug.getter();
+      v184 = os_log_type_enabled(v182, v183);
+      v323 = v178;
+      if (v184)
       {
-        v223 = swift_slowAlloc();
-        v341 = v223;
-        v363 = swift_slowAlloc();
-        *&v368[0] = v363;
-        *v223 = 136315138;
+        v185 = swift_slowAlloc();
+        v302 = v185;
+        v324 = swift_slowAlloc();
+        *&v329[0] = v324;
+        *v185 = 136315138;
         Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
-        v224 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.albusMultiturnRewrite.getter();
-        v225 = v206;
-        v227 = v226;
-        v228 = v218;
-        v229 = v217;
-        (v216)(v214, v228);
-        v344(v219, v225);
-        v230 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v224, v227, v368);
+        v186 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.albusMultiturnRewrite.getter();
+        v187 = v168;
+        v189 = v188;
+        v190 = v180;
+        v191 = v179;
+        (v178)(v176, v190);
+        v305(v181, v187);
+        v192 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v186, v189, v329);
 
-        v231 = v341;
-        *(v341 + 4) = v230;
-        v232 = v231;
-        _os_log_impl(&dword_2232BB000, v220, v221, "got albusMultiturnRewrite as: %s", v231, 0xCu);
-        v233 = v363;
-        __swift_destroy_boxed_opaque_existential_1(v363);
-        v207 = v347;
-        MEMORY[0x223DE0F80](v233, -1, -1);
-        MEMORY[0x223DE0F80](v232, -1, -1);
+        v193 = v302;
+        *(v302 + 1) = v192;
+        v194 = v193;
+        _os_log_impl(&dword_2232BB000, v182, v183, "got albusMultiturnRewrite as: %s", v193, 0xCu);
+        v195 = v324;
+        __swift_destroy_boxed_opaque_existential_1(v324);
+        v169 = v308;
+        MEMORY[0x223DE0F80](v195, -1, -1);
+        MEMORY[0x223DE0F80](v194, -1, -1);
       }
 
       else
       {
-        v229 = v217;
+        v191 = v179;
 
-        v344(v219, v206);
+        v305(v181, v168);
       }
 
-      v234 = v339;
+      v196 = v300;
 
+      v197 = Logger.logObject.getter();
+      v198 = static os_log_type_t.debug.getter();
+
+      if (os_log_type_enabled(v197, v198))
+      {
+        v199 = swift_slowAlloc();
+        v200 = swift_slowAlloc();
+        *&v329[0] = v200;
+        *v199 = 136315138;
+        v201 = v278;
+        v326();
+        v202 = *(v201 + *(v280 + 52));
+
+        outlined destroy of PommesSearchRequest(v201, type metadata accessor for PommesSearchRequest);
+        if (v202)
+        {
+          v203 = *(v202 + OBJC_IVAR____TtC21SiriInformationSearch20PommesRequestContext_isRelatedQuestion);
+        }
+
+        else
+        {
+          v203 = 2;
+        }
+
+        v204 = v191;
+        LOBYTE(v327) = v203;
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+        v205 = String.init<A>(describing:)();
+        v207 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v205, v206, v329);
+
+        *(v199 + 4) = v207;
+        _os_log_impl(&dword_2232BB000, v197, v198, "got isRelatedQuestion as: %s", v199, 0xCu);
+        __swift_destroy_boxed_opaque_existential_1(v200);
+        MEMORY[0x223DE0F80](v200, -1, -1);
+        MEMORY[0x223DE0F80](v199, -1, -1);
+
+        v169 = v308;
+      }
+
+      else
+      {
+
+        v204 = v191;
+      }
+
+      v208 = v293;
+      v209 = v323;
+      v156 = v304;
+      (v169)(v293, v316, v304);
+      v210 = Logger.logObject.getter();
+      v211 = static os_log_type_t.info.getter();
+      if (os_log_type_enabled(v210, v211))
+      {
+        LODWORD(isa) = v211;
+        v298 = v210;
+        v212 = swift_slowAlloc();
+        v296 = swift_slowAlloc();
+        v327 = v296;
+        *v212 = 136315138;
+        v213 = v279;
+        Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
+        v214 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.domainUseCaseMetadata.getter();
+        v215 = v213;
+        v216 = v214;
+        v209(v215, v303);
+        v217 = *(v216 + 16);
+        if (v217)
+        {
+          v295 = v212;
+          v302 = v204;
+          v328 = MEMORY[0x277D84F90];
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v217, 0);
+          v218 = v328;
+          v326 = *(v321 + 2);
+          v219 = (v321[80] + 32) & ~v321[80];
+          v288 = v216;
+          v220 = v216 + v219;
+          v325 = *(v321 + 9);
+          v324 = (v276 + 8);
+          v321 += 16;
+          v221 = (v321 - 8);
+          do
+          {
+            v222 = v312;
+            v223 = v315;
+            (v326)(v312, v220, v315);
+            *&v329[0] = 0;
+            *(&v329[0] + 1) = 0xE000000000000000;
+            v224 = v319;
+            Apple_Parsec_Siri_V2alpha_DomainUseCaseMetadata.useCase.getter();
+            v225 = v320;
+            _print_unlocked<A, B>(_:_:)();
+            (*v324)(v224, v225);
+            v226 = v329[0];
+            (*v221)(v222, v223);
+            v328 = v218;
+            v228 = *(v218 + 16);
+            v227 = *(v218 + 24);
+            if (v228 >= v227 >> 1)
+            {
+              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v227 > 1), v228 + 1, 1);
+              v218 = v328;
+            }
+
+            *(v218 + 16) = v228 + 1;
+            *(v218 + 16 * v228 + 32) = v226;
+            v220 += v325;
+            --v217;
+          }
+
+          while (v217);
+
+          v156 = v304;
+          v208 = v293;
+          v209 = v323;
+          v212 = v295;
+        }
+
+        else
+        {
+
+          v218 = MEMORY[0x277D84F90];
+        }
+
+        v229 = MEMORY[0x223DDF850](v218, MEMORY[0x277D837D0]);
+        v231 = v230;
+
+        v305(v208, v156);
+        v232 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v229, v231, &v327);
+
+        *(v212 + 4) = v232;
+        v233 = v298;
+        _os_log_impl(&dword_2232BB000, v298, isa, "got usecases as: %s", v212, 0xCu);
+        v234 = v296;
+        __swift_destroy_boxed_opaque_existential_1(v296);
+        MEMORY[0x223DE0F80](v234, -1, -1);
+        MEMORY[0x223DE0F80](v212, -1, -1);
+
+        v196 = v300;
+        v169 = v308;
+      }
+
+      else
+      {
+
+        v305(v208, v156);
+      }
+
+      (v169)(v196, v316, v156);
       v235 = Logger.logObject.getter();
-      v236 = static os_log_type_t.debug.getter();
-
+      v236 = static os_log_type_t.info.getter();
       if (os_log_type_enabled(v235, v236))
       {
         v237 = swift_slowAlloc();
         v238 = swift_slowAlloc();
-        *&v368[0] = v238;
+        *&v329[0] = v238;
         *v237 = 136315138;
-        v239 = v317;
-        v365();
-        v240 = *(v239 + *(v319 + 52));
+        v239 = v209;
+        v240 = v301;
+        Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
+        v241 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.domainName.getter();
+        v243 = v242;
+        v239(v240, v303);
+        v305(v196, v304);
+        v244 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v241, v243, v329);
+        v156 = v304;
 
-        outlined destroy of PommesSearchRequest(v239, type metadata accessor for PommesSearchRequest);
-        if (v240)
-        {
-          v241 = *(v240 + OBJC_IVAR____TtC21SiriInformationSearch20PommesRequestContext_isRelatedQuestion);
-        }
-
-        else
-        {
-          v241 = 2;
-        }
-
-        v242 = v229;
-        LOBYTE(v366) = v241;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
-        v243 = String.init<A>(describing:)();
-        v245 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v243, v244, v368);
-
-        *(v237 + 4) = v245;
-        _os_log_impl(&dword_2232BB000, v235, v236, "got isRelatedQuestion as: %s", v237, 0xCu);
+        *(v237 + 4) = v244;
+        _os_log_impl(&dword_2232BB000, v235, v236, "got domain as: %s", v237, 0xCu);
         __swift_destroy_boxed_opaque_existential_1(v238);
         MEMORY[0x223DE0F80](v238, -1, -1);
         MEMORY[0x223DE0F80](v237, -1, -1);
-
-        v207 = v347;
       }
 
       else
       {
 
-        v242 = v229;
+        v305(v196, v156);
       }
 
-      v246 = v332;
-      v247 = v362;
-      v192 = v343;
-      (v207)(v332, v355, v343);
-      v248 = Logger.logObject.getter();
-      v249 = static os_log_type_t.info.getter();
-      if (os_log_type_enabled(v248, v249))
+      v245 = type metadata accessor for PommesResponse();
+      MEMORY[0x28223BE20](v245);
+      v246 = v317;
+      *(&v273 - 10) = v314;
+      *(&v273 - 9) = v246;
+      v50 = v316;
+      v247 = v313;
+      *(&v273 - 8) = v316;
+      *(&v273 - 7) = v247;
+      v268[0] = v322;
+      v268[1] = v306;
+      v269 = &v331;
+      v270 = v299;
+      v271 = v311;
+      v248 = PommesResponse.__allocating_init(_:)();
+
+      if (v248)
       {
-        LODWORD(isa) = v249;
-        v337 = v248;
-        v250 = swift_slowAlloc();
-        v335 = swift_slowAlloc();
-        v366 = v335;
-        *v250 = 136315138;
-        v251 = v318;
-        Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
-        v252 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.domainUseCaseMetadata.getter();
-        v253 = v251;
-        v254 = v252;
-        v247(v253, v342);
-        v255 = *(v254 + 16);
-        if (v255)
+        v249 = v248;
+        v250 = Logger.logObject.getter();
+        v251 = static os_log_type_t.debug.getter();
+
+        if (os_log_type_enabled(v250, v251))
         {
-          v334 = v250;
-          v341 = v242;
-          v367 = MEMORY[0x277D84F90];
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v255, 0);
-          v256 = v367;
-          v365 = *(v360 + 2);
-          v257 = (v360[80] + 32) & ~v360[80];
-          v327 = v254;
-          v258 = v254 + v257;
-          v364 = *(v360 + 9);
-          v363 = (v315 + 8);
-          v360 += 16;
-          v259 = (v360 - 8);
-          do
-          {
-            v260 = v351;
-            v261 = v354;
-            (v365)(v351, v258, v354);
-            *&v368[0] = 0;
-            *(&v368[0] + 1) = 0xE000000000000000;
-            v262 = v358;
-            Apple_Parsec_Siri_V2alpha_DomainUseCaseMetadata.useCase.getter();
-            v263 = v359;
-            _print_unlocked<A, B>(_:_:)();
-            (*v363)(v262, v263);
-            v264 = v368[0];
-            (*v259)(v260, v261);
-            v367 = v256;
-            v266 = *(v256 + 16);
-            v265 = *(v256 + 24);
-            if (v266 >= v265 >> 1)
-            {
-              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v265 > 1), v266 + 1, 1);
-              v256 = v367;
-            }
+          v252 = swift_slowAlloc();
+          v253 = swift_slowAlloc();
+          *&v329[0] = v253;
+          *v252 = 136315138;
+          v254 = [v249 debugDescription];
+          v255 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+          v257 = v256;
 
-            *(v256 + 16) = v266 + 1;
-            *(v256 + 16 * v266 + 32) = v264;
-            v258 += v364;
-            --v255;
-          }
+          v258 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v255, v257, v329);
+          v50 = v316;
 
-          while (v255);
-
-          v192 = v343;
-          v246 = v332;
-          v247 = v362;
-          v250 = v334;
+          *(v252 + 4) = v258;
+          _os_log_impl(&dword_2232BB000, v250, v251, "PommesSearchRequestProcessor#handleSuccess response: %s", v252, 0xCu);
+          __swift_destroy_boxed_opaque_existential_1(v253);
+          v259 = v253;
+          v156 = v304;
+          MEMORY[0x223DE0F80](v259, -1, -1);
+          MEMORY[0x223DE0F80](v252, -1, -1);
         }
 
-        else
-        {
-
-          v256 = MEMORY[0x277D84F90];
-        }
-
-        v267 = MEMORY[0x223DDF850](v256, MEMORY[0x277D837D0]);
-        v269 = v268;
-
-        v344(v246, v192);
-        v270 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v267, v269, &v366);
-
-        *(v250 + 4) = v270;
-        v271 = v337;
-        _os_log_impl(&dword_2232BB000, v337, isa, "got usecases as: %s", v250, 0xCu);
-        v272 = v335;
-        __swift_destroy_boxed_opaque_existential_1(v335);
-        MEMORY[0x223DE0F80](v272, -1, -1);
-        MEMORY[0x223DE0F80](v250, -1, -1);
-
-        v234 = v339;
-        v207 = v347;
+        v330 = 0;
+        memset(v329, 0, sizeof(v329));
+        static CurareDonation.donateCurareInfo(for:with:into:)(v50, v249, v329);
+        outlined destroy of MediaUserStateCenter?(v329, &_s21SiriInformationSearch23CurareInteractionStream_pSgMd, &_s21SiriInformationSearch23CurareInteractionStream_pSgMR);
+        v260 = v249;
+        closure #4 in PommesSearchRequestProcessor.search_sync(completion:)(v248, 0, v289, v290, v291, v292);
       }
 
       else
       {
-
-        v344(v246, v192);
-      }
-
-      (v207)(v234, v355, v192);
-      v273 = Logger.logObject.getter();
-      v274 = static os_log_type_t.info.getter();
-      if (os_log_type_enabled(v273, v274))
-      {
-        v275 = swift_slowAlloc();
-        v276 = swift_slowAlloc();
-        *&v368[0] = v276;
-        *v275 = 136315138;
-        v277 = v247;
-        v278 = v340;
-        Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
-        v279 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.domainName.getter();
-        v281 = v280;
-        v277(v278, v342);
-        v344(v234, v343);
-        v282 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v279, v281, v368);
-        v192 = v343;
-
-        *(v275 + 4) = v282;
-        _os_log_impl(&dword_2232BB000, v273, v274, "got domain as: %s", v275, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1(v276);
-        MEMORY[0x223DE0F80](v276, -1, -1);
-        MEMORY[0x223DE0F80](v275, -1, -1);
-      }
-
-      else
-      {
-
-        v344(v234, v192);
-      }
-
-      v283 = type metadata accessor for PommesResponse();
-      MEMORY[0x28223BE20](v283, v284);
-      v285 = v356;
-      *(&v312 - 10) = v353;
-      *(&v312 - 9) = v285;
-      v84 = v355;
-      v286 = v352;
-      *(&v312 - 8) = v355;
-      *(&v312 - 7) = v286;
-      v307[0] = v361;
-      v307[1] = v345;
-      v308 = &v370;
-      v309 = v338;
-      v310 = v350;
-      v287 = PommesResponse.__allocating_init(_:)();
-
-      if (v287)
-      {
-        v288 = v287;
-        v289 = Logger.logObject.getter();
-        v290 = static os_log_type_t.debug.getter();
-
-        if (os_log_type_enabled(v289, v290))
+        v261 = Logger.logObject.getter();
+        v262 = static os_log_type_t.error.getter();
+        if (os_log_type_enabled(v261, v262))
         {
-          v291 = swift_slowAlloc();
-          v292 = swift_slowAlloc();
-          *&v368[0] = v292;
-          *v291 = 136315138;
-          v293 = [v288 debugDescription];
-          v294 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-          v296 = v295;
-
-          v297 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v294, v296, v368);
-          v84 = v355;
-
-          *(v291 + 4) = v297;
-          _os_log_impl(&dword_2232BB000, v289, v290, "PommesSearchRequestProcessor#handleSuccess response: %s", v291, 0xCu);
-          __swift_destroy_boxed_opaque_existential_1(v292);
-          v298 = v292;
-          v192 = v343;
-          MEMORY[0x223DE0F80](v298, -1, -1);
-          MEMORY[0x223DE0F80](v291, -1, -1);
-        }
-
-        v369 = 0;
-        memset(v368, 0, sizeof(v368));
-        static CurareDonation.donateCurareInfo(for:with:into:)(v84, v288, v368);
-        outlined destroy of MediaUserStateCenter?(v368, &_s21SiriInformationSearch23CurareInteractionStream_pSgMd, &_s21SiriInformationSearch23CurareInteractionStream_pSgMR);
-        v299 = v288;
-        closure #4 in PommesSearchRequestProcessor.search_sync(completion:)(v287, 0, v328, v329, v330);
-      }
-
-      else
-      {
-        v300 = Logger.logObject.getter();
-        v301 = static os_log_type_t.error.getter();
-        if (os_log_type_enabled(v300, v301))
-        {
-          v302 = swift_slowAlloc();
-          *v302 = 0;
-          _os_log_impl(&dword_2232BB000, v300, v301, "PommesSearchRequestProcessor failed to build PommesResponse with given parameters", v302, 2u);
-          MEMORY[0x223DE0F80](v302, -1, -1);
+          v263 = swift_slowAlloc();
+          *v263 = 0;
+          _os_log_impl(&dword_2232BB000, v261, v262, "PommesSearchRequestProcessor failed to build PommesResponse with given parameters", v263, 2u);
+          MEMORY[0x223DE0F80](v263, -1, -1);
         }
 
         lazy protocol witness table accessor for type PommesSearchRequestProcessorError and conformance PommesSearchRequestProcessorError();
-        v303 = swift_allocError();
-        *v304 = 0x80;
-        closure #4 in PommesSearchRequestProcessor.search_sync(completion:)(v303, 1, v328, v329, v330);
+        v264 = swift_allocError();
+        *v265 = 0x80;
+        closure #4 in PommesSearchRequestProcessor.search_sync(completion:)(v264, 1, v289, v290, v291, v292);
       }
 
-      (*(v322 + 8))(v346, v323);
+      (*(v283 + 8))(v307, v284);
 LABEL_88:
-      v344(v84, v192);
-      __swift_destroy_boxed_opaque_existential_1(v371);
+      v305(v50, v156);
+      __swift_destroy_boxed_opaque_existential_1(v332);
 
       return;
     }
@@ -5511,63 +4149,56 @@ LABEL_88:
 
 uint64_t specialized PommesSearchRequestProcessor.handleFailure(with:completion:)(unsigned __int8 a1, void *a2, uint64_t (*a3)(void *, void), uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v113 = a6;
-  v114 = a5;
-  v115 = a4;
-  v111 = a2;
-  v112 = a3;
-  v107 = type metadata accessor for PegasusSearchResponse(0);
-  v7 = *(*(v107 - 8) + 64);
-  MEMORY[0x28223BE20](v107, v8);
-  v109 = (&v101 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v110 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse();
-  v108 = *(v110 - 8);
-  v10 = *(v108 + 64);
-  MEMORY[0x28223BE20](v110, v11);
-  v13 = &v101 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriMessageTypes19TCUMappedNLResponseVSgMd, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMR);
-  v15 = *(*(v14 - 8) + 64);
-  v17 = MEMORY[0x28223BE20](v14 - 8, v16);
-  v105 = &v101 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v17, v19);
-  v106 = &v101 - v20;
-  v21 = type metadata accessor for NLXResultCandidate();
-  v22 = *(*(v21 - 8) + 64);
-  MEMORY[0x28223BE20](v21 - 8, v23);
-  v25 = (&v101 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v26 = type metadata accessor for PommesSearchRequest.ParseState(0);
-  v27 = *(*(v26 - 8) + 64);
-  MEMORY[0x28223BE20](v26, v28);
-  v30 = &v101 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s21SiriInformationSearch13PommesContextVSgMd, &_s21SiriInformationSearch13PommesContextVSgMR);
-  v32 = *(*(v31 - 8) + 64);
-  MEMORY[0x28223BE20](v31 - 8, v33);
-  v35 = &v101 - v34;
-  v36 = type metadata accessor for PommesSearchRequest(0);
-  v37 = *(*(v36 - 8) + 64);
-  v39 = MEMORY[0x28223BE20](v36, v38);
-  v41 = &v101 - ((v40 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v43 = MEMORY[0x28223BE20](v39, v42);
-  v45 = &v101 - v44;
-  MEMORY[0x28223BE20](v43, v46);
-  v48 = &v101 - v47;
+  v93 = a6;
+  v94 = a5;
+  v95 = a4;
+  v91 = a2;
+  v92 = a3;
+  v87 = type metadata accessor for PegasusSearchResponse(0);
+  MEMORY[0x28223BE20](v87);
+  v89 = (&v81 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v90 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse();
+  v88 = *(v90 - 8);
+  MEMORY[0x28223BE20](v90);
+  v9 = &v81 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriMessageTypes19TCUMappedNLResponseVSgMd, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMR);
+  v11 = MEMORY[0x28223BE20](v10 - 8);
+  v85 = &v81 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v11);
+  v86 = &v81 - v13;
+  v14 = type metadata accessor for NLXResultCandidate(0);
+  MEMORY[0x28223BE20](v14 - 8);
+  v16 = (&v81 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v17 = type metadata accessor for PommesSearchRequest.ParseState(0);
+  MEMORY[0x28223BE20](v17);
+  v19 = &v81 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s21SiriInformationSearch13PommesContextVSgMd, &_s21SiriInformationSearch13PommesContextVSgMR);
+  MEMORY[0x28223BE20](v20 - 8);
+  v22 = &v81 - v21;
+  v23 = type metadata accessor for PommesSearchRequest(0);
+  v24 = MEMORY[0x28223BE20](v23);
+  v26 = &v81 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = MEMORY[0x28223BE20](v24);
+  v29 = &v81 - v28;
+  MEMORY[0x28223BE20](v27);
+  v31 = &v81 - v30;
   if (a1 <= 5u)
   {
     if (a1 <= 2u)
     {
-      v49 = v112;
+      v32 = v92;
       if (a1)
       {
         lazy protocol witness table accessor for type PommesSearchRequestProcessorError and conformance PommesSearchRequestProcessorError();
-        v51 = swift_allocError();
+        v34 = swift_allocError();
         if (a1 == 1)
         {
-          v52 = 1;
+          v35 = 1;
         }
 
         else
         {
-          v52 = -126;
+          v35 = -126;
         }
 
         goto LABEL_12;
@@ -5576,19 +4207,19 @@ uint64_t specialized PommesSearchRequestProcessor.handleFailure(with:completion:
       goto LABEL_11;
     }
 
-    v49 = v112;
+    v32 = v92;
     if (a1 - 4 < 2)
     {
       lazy protocol witness table accessor for type PommesSearchRequestProcessorError and conformance PommesSearchRequestProcessorError();
-      v51 = swift_allocError();
-      v52 = 68;
+      v34 = swift_allocError();
+      v35 = 68;
       goto LABEL_12;
     }
 
 LABEL_11:
     lazy protocol witness table accessor for type PommesSearchRequestProcessorError and conformance PommesSearchRequestProcessorError();
-    v51 = swift_allocError();
-    v52 = 67;
+    v34 = swift_allocError();
+    v35 = 67;
     goto LABEL_12;
   }
 
@@ -5597,78 +4228,80 @@ LABEL_11:
     if (a1 == 9)
     {
       lazy protocol witness table accessor for type PommesSearchRequestProcessorError and conformance PommesSearchRequestProcessorError();
-      v51 = swift_allocError();
-      v59 = 3;
+      v34 = swift_allocError();
+      v43 = 3;
       goto LABEL_20;
     }
 
     if (a1 == 10)
     {
       lazy protocol witness table accessor for type PommesSearchRequestProcessorError and conformance PommesSearchRequestProcessorError();
-      v51 = swift_allocError();
-      v59 = 4;
+      v34 = swift_allocError();
+      v43 = 4;
 LABEL_20:
-      *v58 = v59;
-      v53 = v115;
+      *v42 = v43;
+      v36 = v95;
 
-      v54 = v114;
+      v37 = v94;
 
-      v55 = v51;
-      v56 = v112;
+      v38 = v93;
+
+      v39 = v34;
+      v40 = v92;
       goto LABEL_13;
     }
 
-    v102 = v13;
-    v60 = (*v111 + 152);
-    v61 = *v60;
-    v101 = v30;
-    v62 = v60;
+    v82 = v9;
+    v44 = (*v91 + 152);
+    v45 = *v44;
+    v81 = v19;
+    v46 = v44;
 
-    v103 = v62;
-    v104 = v61;
-    (v61)(v63);
-    LOBYTE(v61) = v48[*(v36 + 80)];
-    v64 = outlined destroy of PommesSearchRequest(v48, type metadata accessor for PommesSearchRequest);
-    if ((v61 & 1) == 0)
+    v83 = v46;
+    v84 = v45;
+    (v45)(v47);
+    LOBYTE(v45) = v31[*(v23 + 80)];
+    v48 = outlined destroy of PommesSearchRequest(v31, type metadata accessor for PommesSearchRequest);
+    if ((v45 & 1) == 0)
     {
       goto LABEL_38;
     }
 
-    v65 = v104;
-    (v104)(v64);
-    outlined init with copy of MediaUserStateCenter?(&v45[*(v36 + 40)], v35, &_s21SiriInformationSearch13PommesContextVSgMd, &_s21SiriInformationSearch13PommesContextVSgMR);
-    outlined destroy of PommesSearchRequest(v45, type metadata accessor for PommesSearchRequest);
-    v66 = type metadata accessor for PommesContext();
-    v67 = *(v66 - 8);
-    if ((*(v67 + 48))(v35, 1, v66) == 1)
+    v49 = v84;
+    (v84)(v48);
+    outlined init with copy of MediaUserStateCenter?(&v29[*(v23 + 40)], v22, &_s21SiriInformationSearch13PommesContextVSgMd, &_s21SiriInformationSearch13PommesContextVSgMR);
+    outlined destroy of PommesSearchRequest(v29, type metadata accessor for PommesSearchRequest);
+    v50 = type metadata accessor for PommesContext();
+    v51 = *(v50 - 8);
+    if ((*(v51 + 48))(v22, 1, v50) == 1)
     {
-      outlined destroy of MediaUserStateCenter?(v35, &_s21SiriInformationSearch13PommesContextVSgMd, &_s21SiriInformationSearch13PommesContextVSgMR);
+      outlined destroy of MediaUserStateCenter?(v22, &_s21SiriInformationSearch13PommesContextVSgMd, &_s21SiriInformationSearch13PommesContextVSgMR);
 LABEL_38:
       lazy protocol witness table accessor for type PommesSearchRequestProcessorError and conformance PommesSearchRequestProcessorError();
-      v86 = swift_allocError();
-      *v87 = -127;
-      closure #4 in PommesSearchRequestProcessor.search_sync(completion:)(v86, 1, v112, v115, v114);
+      v68 = swift_allocError();
+      *v69 = -127;
+      closure #4 in PommesSearchRequestProcessor.search_sync(completion:)(v68, 1, v92, v95, v94, v93);
 
 LABEL_39:
     }
 
-    v68 = PommesContext.domain.getter();
-    v70 = v69;
-    (*(v67 + 8))(v35, v66);
-    if (!v70)
+    v52 = PommesContext.domain.getter();
+    v54 = v53;
+    (*(v51 + 8))(v22, v50);
+    if (!v54)
     {
       goto LABEL_38;
     }
 
-    if (v68 == 0x656E6F6870 && v70 == 0xE500000000000000)
+    if (v52 == 0x656E6F6870 && v54 == 0xE500000000000000)
     {
     }
 
     else
     {
-      v71 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v55 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-      if ((v71 & 1) == 0)
+      if ((v55 & 1) == 0)
       {
         goto LABEL_38;
       }
@@ -5679,515 +4312,499 @@ LABEL_39:
       swift_once();
     }
 
-    v72 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v72, static Logger.pommes);
-    v73 = Logger.logObject.getter();
-    v74 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v73, v74))
+    v56 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v56, static Logger.pommes);
+    v57 = Logger.logObject.getter();
+    v58 = static os_log_type_t.debug.getter();
+    if (os_log_type_enabled(v57, v58))
     {
-      v75 = swift_slowAlloc();
-      *v75 = 0;
-      _os_log_impl(&dword_2232BB000, v73, v74, "Handling no results from fallback request for phone domain as successful", v75, 2u);
-      MEMORY[0x223DE0F80](v75, -1, -1);
+      v59 = swift_slowAlloc();
+      *v59 = 0;
+      _os_log_impl(&dword_2232BB000, v57, v58, "Handling no results from fallback request for phone domain as successful", v59, 2u);
+      MEMORY[0x223DE0F80](v59, -1, -1);
     }
 
-    v65();
-    v76 = v101;
-    outlined init with copy of PommesSearchRequest(v41, v101, type metadata accessor for PommesSearchRequest.ParseState);
-    outlined destroy of PommesSearchRequest(v41, type metadata accessor for PommesSearchRequest);
+    v49();
+    v60 = v81;
+    outlined init with copy of PommesSearchRequest(v26, v81, type metadata accessor for PommesSearchRequest.ParseState);
+    outlined destroy of PommesSearchRequest(v26, type metadata accessor for PommesSearchRequest);
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-    v78 = v76[1];
 
     if (EnumCaseMultiPayload)
     {
       if (EnumCaseMultiPayload == 1)
       {
-        v79 = v76[3];
 
-        v80 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS2id_SS5tcuId16SiriMessageTypes19TCUMappedNLResponseVSg8responsetMd, &_sSS2id_SS5tcuId16SiriMessageTypes19TCUMappedNLResponseVSg8responsetMR);
-        v81 = v106;
-        outlined init with take of TCUMappedNLResponse?(v76 + *(v80 + 64), v106);
-        v82 = v105;
-        outlined init with copy of MediaUserStateCenter?(v81, v105, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMd, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMR);
-        v83 = type metadata accessor for TCUMappedNLResponse();
-        v84 = *(v83 - 8);
-        if ((*(v84 + 48))(v82, 1, v83) == 1)
+        v62 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS2id_SS5tcuId16SiriMessageTypes19TCUMappedNLResponseVSg8responsetMd, &_sSS2id_SS5tcuId16SiriMessageTypes19TCUMappedNLResponseVSg8responsetMR);
+        v63 = v86;
+        outlined init with take of TCUMappedNLResponse?(v60 + *(v62 + 64), v86);
+        v64 = v85;
+        outlined init with copy of MediaUserStateCenter?(v63, v85, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMd, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMR);
+        v65 = type metadata accessor for TCUMappedNLResponse();
+        v66 = *(v65 - 8);
+        if ((*(v66 + 48))(v64, 1, v65) == 1)
         {
-          outlined destroy of MediaUserStateCenter?(v82, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMd, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMR);
-          v85 = MEMORY[0x277D84F90];
+          outlined destroy of MediaUserStateCenter?(v64, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMd, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMR);
+          v67 = MEMORY[0x277D84F90];
         }
 
         else
         {
-          v96 = TCUMappedNLResponse.nlResponse.getter();
-          (*(v84 + 8))(v82, v83);
-          v85 = NLParseResponse.userParses.getter();
+          v76 = TCUMappedNLResponse.nlResponse.getter();
+          (*(v66 + 8))(v64, v65);
+          v67 = NLParseResponse.userParses.getter();
         }
 
-        v95 = v108;
-        v94 = v109;
-        outlined destroy of MediaUserStateCenter?(v81, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMd, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMR);
-        v92 = v112;
-        v93 = v110;
+        v75 = v88;
+        v74 = v89;
+        outlined destroy of MediaUserStateCenter?(v63, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMd, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMR);
+        v72 = v92;
+        v73 = v90;
         goto LABEL_45;
       }
 
-      v85 = v76[2];
-      v89 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS5refId_Say12SiriNLUTypes0C23_Nlu_External_UserParseVG10userParsesAB0c1_e1_f10_DelegatedG9DialogActVSg08fallbackH0SSSg21responseVariantResulttMd, &_sSS5refId_Say12SiriNLUTypes0C23_Nlu_External_UserParseVG10userParsesAB0c1_e1_f10_DelegatedG9DialogActVSg08fallbackH0SSSg21responseVariantResulttMR);
-      v90 = *(v89 + 64);
-      v91 = *(v76 + *(v89 + 80) + 8);
+      v67 = *(v60 + 16);
+      v71 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS5refId_Say12SiriNLUTypes0C23_Nlu_External_UserParseVG10userParsesAB0c1_e1_f10_DelegatedG9DialogActVSg08fallbackH0SSSg21responseVariantResulttMd, &_sSS5refId_Say12SiriNLUTypes0C23_Nlu_External_UserParseVG10userParsesAB0c1_e1_f10_DelegatedG9DialogActVSg08fallbackH0SSSg21responseVariantResulttMR) + 64);
 
-      outlined destroy of MediaUserStateCenter?(v76 + v90, &_s12SiriNLUTypes0A36_Nlu_External_DelegatedUserDialogActVSgMd, &_s12SiriNLUTypes0A36_Nlu_External_DelegatedUserDialogActVSgMR);
+      outlined destroy of MediaUserStateCenter?(v60 + v71, &_s12SiriNLUTypes0A36_Nlu_External_DelegatedUserDialogActVSgMd, &_s12SiriNLUTypes0A36_Nlu_External_DelegatedUserDialogActVSgMR);
     }
 
     else
     {
-      v88 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS2id_21SiriInformationSearch18NLXResultCandidateV09nlxResultF0tMd, &_sSS2id_21SiriInformationSearch18NLXResultCandidateV09nlxResultF0tMR);
-      _s21SiriInformationSearch15PerformanceUtilC6TicketVWObTm_0(v76 + *(v88 + 48), v25, type metadata accessor for NLXResultCandidate);
-      v85 = *v25;
+      v70 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS2id_21SiriInformationSearch18NLXResultCandidateV09nlxResultF0tMd, &_sSS2id_21SiriInformationSearch18NLXResultCandidateV09nlxResultF0tMR);
+      _s21SiriInformationSearch15PerformanceUtilC6TicketVWObTm_0(v60 + *(v70 + 48), v16, type metadata accessor for NLXResultCandidate);
+      v67 = *v16;
 
-      outlined destroy of PommesSearchRequest(v25, type metadata accessor for NLXResultCandidate);
+      outlined destroy of PommesSearchRequest(v16, type metadata accessor for NLXResultCandidate);
     }
 
-    v92 = v112;
-    v94 = v109;
-    v93 = v110;
-    v95 = v108;
+    v72 = v92;
+    v74 = v89;
+    v73 = v90;
+    v75 = v88;
 LABEL_45:
-    lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_SiriPegasusResponse and conformance Apple_Parsec_Siri_V2alpha_SiriPegasusResponse, MEMORY[0x277D38DA0]);
-    v97 = v102;
+    lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_SiriPegasusResponse and conformance Apple_Parsec_Siri_V2alpha_SiriPegasusResponse, MEMORY[0x277D38DA0], MEMORY[0x277D38D98]);
+    v77 = v82;
     static Message.with(_:)();
     Apple_Parsec_Siri_V2alpha_SiriPegasusRequest.init()();
-    (*(v95 + 16))(v94 + *(v107 + 20), v97, v93);
-    v98 = v115;
+    (*(v75 + 16))(v74 + *(v87 + 20), v77, v73);
+    v78 = v95;
 
-    v99 = v114;
+    v79 = v94;
 
-    v100 = v113;
+    v80 = v93;
 
-    specialized PommesSearchRequestProcessor.handleSuccess(_:_:_:)(v94, v85, v111, v92, v98, v99, v100);
+    specialized PommesSearchRequestProcessor.handleSuccess(_:_:_:)(v74, v67, v91, v72, v78, v79, v80);
 
-    outlined destroy of PommesSearchRequest(v94, type metadata accessor for PegasusSearchResponse);
-    (*(v95 + 8))(v97, v93);
+    outlined destroy of PommesSearchRequest(v74, type metadata accessor for PegasusSearchResponse);
+    (*(v75 + 8))(v77, v73);
     goto LABEL_39;
   }
 
-  v49 = v112;
+  v32 = v92;
   if (a1 - 7 < 2)
   {
     goto LABEL_11;
   }
 
   lazy protocol witness table accessor for type PommesSearchRequestProcessorError and conformance PommesSearchRequestProcessorError();
-  v51 = swift_allocError();
-  v52 = 69;
+  v34 = swift_allocError();
+  v35 = 69;
 LABEL_12:
-  *v50 = v52;
-  v53 = v115;
+  *v33 = v35;
+  v36 = v95;
 
-  v54 = v114;
+  v37 = v94;
 
-  v55 = v51;
-  v56 = v49;
+  v38 = v93;
+
+  v39 = v34;
+  v40 = v32;
 LABEL_13:
-  closure #4 in PommesSearchRequestProcessor.search_sync(completion:)(v55, 1, v56, v53, v54);
+  closure #4 in PommesSearchRequestProcessor.search_sync(completion:)(v39, 1, v40, v36, v37, v38);
 }
 
 void specialized PommesSearchRequestProcessor.handleSuccess(_:_:_:)(NSObject *a1, uint64_t a2, char *a3, uint64_t (*a4)(void *, void), uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v350 = a3;
-  v343 = a1;
-  v348 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSliceResolutionRequest();
-  v359 = *(v348 - 8);
-  v12 = *(v359 + 64);
-  v14 = MEMORY[0x28223BE20](v348, v13);
-  v313 = &v312 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v14, v16);
-  v362 = &v312 - v17;
-  v363 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSliceLabel();
-  v354 = *(v363 - 1);
-  v18 = *(v354 + 64);
-  v20 = MEMORY[0x28223BE20](v363, v19);
-  v312 = &v312 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v23 = MEMORY[0x28223BE20](v20, v22);
-  v360 = &v312 - v24;
-  v26 = MEMORY[0x28223BE20](v23, v25);
-  v351 = &v312 - v27;
-  v29 = MEMORY[0x28223BE20](v26, v28);
-  v361 = (&v312 - v30);
-  MEMORY[0x28223BE20](v29, v31);
-  v315 = &v312 - v32;
-  v357 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DomainUseCase();
-  v314 = *(v357 - 8);
-  v33 = *(v314 + 64);
-  MEMORY[0x28223BE20](v357, v34);
-  v356 = (&v312 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v352 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DomainUseCaseMetadata();
-  v358 = *(v352 - 8);
-  v36 = *(v358 + 8);
-  MEMORY[0x28223BE20](v352, v37);
-  v349 = (&v312 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0));
-  *&v340 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata();
-  v339 = *(v340 - 8);
-  v39 = v339[8];
-  v41 = MEMORY[0x28223BE20](v340, v40);
-  v317 = &v312 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v41, v43);
-  v338 = &v312 - v44;
-  v326 = type metadata accessor for Date();
-  v325 = *(v326 - 8);
-  v45 = *(v325 + 64);
-  MEMORY[0x28223BE20](v326, v46);
-  v324 = &v312 - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v322 = type metadata accessor for ClientExperienceSignals();
-  v321 = *(v322 - 8);
-  v48 = *(v321 + 64);
-  MEMORY[0x28223BE20](v322, v49);
-  v344 = &v312 - ((v50 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v318 = type metadata accessor for PommesSearchRequest(0);
-  v51 = *(*(v318 - 8) + 64);
-  v53 = MEMORY[0x28223BE20](v318, v52);
-  v316 = &v312 - ((v54 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v53, v55);
-  v323 = &v312 - v56;
-  v341 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileResolutionRequest();
-  v336 = *(v341 - 8);
-  v57 = *(v336 + 64);
-  MEMORY[0x28223BE20](v341, v58);
-  v335 = (&v312 - ((v59 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v60 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.SiriInstruction();
-  v334 = *(v60 - 8);
-  v61 = *(v334 + 64);
-  MEMORY[0x28223BE20](v60, v62);
-  v333 = (&v312 - ((v63 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v64 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse();
-  v65 = *(v64 - 8);
-  v66 = *(v65 + 64);
-  v68 = MEMORY[0x28223BE20](v64, v67);
-  v337 = &v312 - ((v69 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v71 = MEMORY[0x28223BE20](v68, v70);
-  v331 = &v312 - v72;
-  v74 = MEMORY[0x28223BE20](v71, v73);
-  v320 = &v312 - v75;
-  v77 = MEMORY[0x28223BE20](v74, v76);
-  v319 = &v312 - v78;
-  v80 = MEMORY[0x28223BE20](v77, v79);
-  v82 = &v312 - v81;
-  MEMORY[0x28223BE20](v80, v83);
-  v85 = &v312 - v84;
-  v86 = swift_allocObject();
-  v327 = a4;
-  v86[2] = a4;
-  v86[3] = a5;
-  v86[4] = a6;
-  v86[5] = a7;
-  v332 = v86;
-  v369[3] = &type metadata for DefaultExperiencesResolver;
-  v369[4] = &protocol witness table for DefaultExperiencesResolver;
-  v369[0] = swift_allocObject();
-  outlined init with copy of DefaultExperiencesResolver(a2, v369[0] + 16);
-  v87 = *(type metadata accessor for PegasusSearchResponse(0) + 20);
-  v347 = v65;
-  v90 = *(v65 + 16);
-  v89 = v65 + 16;
-  v88 = v90;
-  (v90)(v85, v343 + v87, v64);
-  v91 = one-time initialization token for pommes;
-  v328 = a5;
+  v311 = a3;
+  v304 = a1;
+  v309 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSliceResolutionRequest();
+  v320 = *(v309 - 8);
+  v12 = MEMORY[0x28223BE20](v309);
+  v274 = &v273 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v12);
+  v323 = &v273 - v14;
+  v324 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSliceLabel();
+  v315 = *(v324 - 1);
+  v15 = MEMORY[0x28223BE20](v324);
+  v273 = &v273 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = MEMORY[0x28223BE20](v15);
+  v321 = &v273 - v18;
+  v19 = MEMORY[0x28223BE20](v17);
+  v312 = &v273 - v20;
+  v21 = MEMORY[0x28223BE20](v19);
+  v322 = (&v273 - v22);
+  MEMORY[0x28223BE20](v21);
+  v276 = &v273 - v23;
+  v318 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DomainUseCase();
+  v275 = *(v318 - 8);
+  MEMORY[0x28223BE20](v318);
+  v317 = (&v273 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v313 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DomainUseCaseMetadata();
+  v319 = *(v313 - 8);
+  MEMORY[0x28223BE20](v313);
+  v310 = (&v273 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0));
+  *&v301 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata();
+  v300 = *(v301 - 8);
+  v26 = MEMORY[0x28223BE20](v301);
+  v278 = &v273 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v26);
+  v299 = &v273 - v28;
+  v287 = type metadata accessor for Date();
+  v286 = *(v287 - 8);
+  MEMORY[0x28223BE20](v287);
+  v285 = &v273 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v283 = type metadata accessor for ClientExperienceSignals();
+  v282 = *(v283 - 8);
+  MEMORY[0x28223BE20](v283);
+  v305 = &v273 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v279 = type metadata accessor for PommesSearchRequest(0);
+  v31 = MEMORY[0x28223BE20](v279);
+  v277 = &v273 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v31);
+  v284 = &v273 - v33;
+  v302 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileResolutionRequest();
+  v297 = *(v302 - 8);
+  MEMORY[0x28223BE20](v302);
+  v296 = (&v273 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v35 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.SiriInstruction();
+  v295 = *(v35 - 8);
+  MEMORY[0x28223BE20](v35);
+  v294 = (&v273 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v37 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse();
+  v38 = *(v37 - 8);
+  v39 = MEMORY[0x28223BE20](v37);
+  v298 = &v273 - ((v40 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v41 = MEMORY[0x28223BE20](v39);
+  v292 = &v273 - v42;
+  v43 = MEMORY[0x28223BE20](v41);
+  v281 = &v273 - v44;
+  v45 = MEMORY[0x28223BE20](v43);
+  v280 = &v273 - v46;
+  v47 = MEMORY[0x28223BE20](v45);
+  v49 = &v273 - v48;
+  MEMORY[0x28223BE20](v47);
+  v51 = &v273 - v50;
+  v52 = swift_allocObject();
+  v288 = a4;
+  v52[2] = a4;
+  v52[3] = a5;
+  v52[4] = a6;
+  v52[5] = a7;
+  v293 = v52;
+  v330[3] = &type metadata for DefaultExperiencesResolver;
+  v330[4] = &protocol witness table for DefaultExperiencesResolver;
+  v330[0] = swift_allocObject();
+  outlined init with copy of DefaultExperiencesResolver(a2, v330[0] + 16);
+  v53 = *(type metadata accessor for PegasusSearchResponse(0) + 20);
+  v308 = v38;
+  v56 = *(v38 + 16);
+  v55 = v38 + 16;
+  v54 = v56;
+  (v56)(v51, v304 + v53, v37);
+  v57 = one-time initialization token for pommes;
+  v289 = a5;
 
-  v329 = a6;
+  v290 = a6;
 
-  v330 = a7;
+  v291 = a7;
 
-  if (v91 != -1)
+  if (v57 != -1)
   {
 LABEL_49:
     swift_once();
   }
 
-  v92 = type metadata accessor for Logger();
-  v93 = __swift_project_value_buffer(v92, static Logger.pommes);
-  v353 = v85;
-  v346 = v89;
-  (v88)(v82, v85, v64);
-  v355 = v93;
-  v94 = Logger.logObject.getter();
-  v95 = static os_log_type_t.debug.getter();
-  v96 = os_log_type_enabled(v94, v95);
-  v97 = v64;
-  v345 = v88;
-  if (v96)
+  v58 = type metadata accessor for Logger();
+  v59 = __swift_project_value_buffer(v58, static Logger.pommes);
+  v314 = v51;
+  v307 = v55;
+  (v54)(v49, v51, v37);
+  v316 = v59;
+  v60 = Logger.logObject.getter();
+  v61 = static os_log_type_t.debug.getter();
+  v62 = os_log_type_enabled(v60, v61);
+  v63 = v37;
+  v306 = v54;
+  if (v62)
   {
-    v98 = swift_slowAlloc();
-    v99 = swift_slowAlloc();
-    *&v366[0] = v99;
-    *v98 = 136315138;
-    lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_SiriPegasusResponse and conformance Apple_Parsec_Siri_V2alpha_SiriPegasusResponse, MEMORY[0x277D38DA0]);
-    v100 = Message.textFormatString()();
-    v342 = *(v347 + 8);
-    v342(v82, v97);
-    v101 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v100._countAndFlagsBits, v100._object, v366);
+    v64 = swift_slowAlloc();
+    v65 = swift_slowAlloc();
+    *&v327[0] = v65;
+    *v64 = 136315138;
+    lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_SiriPegasusResponse and conformance Apple_Parsec_Siri_V2alpha_SiriPegasusResponse, MEMORY[0x277D38DA0], MEMORY[0x277D38D98]);
+    v66 = Message.textFormatString()();
+    v303 = *(v308 + 8);
+    v303(v49, v63);
+    v67 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v66._countAndFlagsBits, v66._object, v327);
 
-    *(v98 + 4) = v101;
-    _os_log_impl(&dword_2232BB000, v94, v95, "PireneResponse: %s", v98, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v99);
-    MEMORY[0x223DE0F80](v99, -1, -1);
-    MEMORY[0x223DE0F80](v98, -1, -1);
+    *(v64 + 4) = v67;
+    _os_log_impl(&dword_2232BB000, v60, v61, "PireneResponse: %s", v64, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v65);
+    MEMORY[0x223DE0F80](v65, -1, -1);
+    MEMORY[0x223DE0F80](v64, -1, -1);
   }
 
   else
   {
 
-    v342 = *(v347 + 8);
-    v342(v82, v64);
+    v303 = *(v308 + 8);
+    v303(v49, v37);
   }
 
-  v102 = v341;
-  v103 = v336;
-  v104 = v335;
-  v105 = v334;
-  v106 = v333;
+  v68 = v302;
+  v69 = v297;
+  v70 = v296;
+  v71 = v295;
+  v72 = v294;
   Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.siriInstruction.getter();
   Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.SiriInstruction.resolutionRequest.getter();
-  v107 = (*(v105 + 8))(v106, v60);
-  v108 = MEMORY[0x223DDBA80](v107);
-  (*(v103 + 8))(v104, v102);
-  v109 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.hasSiriInstruction.getter();
-  v341 = v97;
-  if (v109)
+  v73 = (*(v71 + 8))(v72, v35);
+  v74 = MEMORY[0x223DDBA80](v73);
+  (*(v69 + 8))(v70, v68);
+  v75 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.hasSiriInstruction.getter();
+  v302 = v63;
+  if (v75)
   {
-    v110 = *(v108 + 16);
-    v111 = v344;
-    if (v110)
+    v76 = *(v74 + 16);
+    v77 = v305;
+    if (v76)
     {
-      *&v366[0] = MEMORY[0x277D84F90];
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v110, 0);
-      v60 = *&v366[0];
-      v112 = *(v359 + 16);
-      v113 = (*(v359 + 80) + 32) & ~*(v359 + 80);
-      v339 = v108;
-      v114 = v108 + v113;
-      v115 = *(v359 + 72);
-      v359 += 16;
-      v356 = (v359 - 8);
-      v352 = v354 + 32;
-      v337 = (v108 + v113);
-      v338 = v110;
-      v116 = v110;
-      v89 = v348;
-      v85 = v315;
-      v358 = v112;
-      v357 = v115;
+      *&v327[0] = MEMORY[0x277D84F90];
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v76, 0);
+      v35 = *&v327[0];
+      v78 = *(v320 + 16);
+      v79 = (*(v320 + 80) + 32) & ~*(v320 + 80);
+      v300 = v74;
+      v80 = v74 + v79;
+      v81 = *(v320 + 72);
+      v320 += 16;
+      v317 = (v320 - 8);
+      v313 = v315 + 32;
+      v298 = (v74 + v79);
+      v299 = v76;
+      v82 = v76;
+      v55 = v309;
+      v51 = v276;
+      v319 = v78;
+      v318 = v81;
       do
       {
-        v117 = v362;
-        v118 = (v112)(v362, v114, v89);
-        MEMORY[0x223DDBB90](v118);
-        v119 = *v356;
-        (*v356)(v117, v89);
-        *&v366[0] = v60;
-        v121 = *(v60 + 16);
-        v120 = *(v60 + 24);
-        v122 = v121 + 1;
-        if (v121 >= v120 >> 1)
+        v83 = v323;
+        v84 = (v78)(v323, v80, v55);
+        MEMORY[0x223DDBB90](v84);
+        v85 = *v317;
+        (*v317)(v83, v55);
+        *&v327[0] = v35;
+        v87 = *(v35 + 16);
+        v86 = *(v35 + 24);
+        v88 = v87 + 1;
+        if (v87 >= v86 >> 1)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v120 > 1, v121 + 1, 1);
-          v60 = *&v366[0];
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v86 > 1), v87 + 1, 1);
+          v35 = *&v327[0];
         }
 
-        *(v60 + 16) = v122;
-        v123 = (v60 + ((*(v354 + 80) + 32) & ~*(v354 + 80)));
-        v124 = *(v354 + 72);
-        (*(v354 + 32))(&v123[v124 * v121], v85, v363);
-        v88 = v357;
-        v114 += v357;
-        --v116;
-        v112 = v358;
+        *(v35 + 16) = v88;
+        v89 = (v35 + ((*(v315 + 80) + 32) & ~*(v315 + 80)));
+        v90 = *(v315 + 72);
+        (*(v315 + 32))(&v89[v90 * v87], v51, v324);
+        v54 = v318;
+        v80 += v318;
+        --v82;
+        v78 = v319;
       }
 
-      while (v116);
-      v345 = v123;
-      v346 = v122;
-      v352 = v60;
-      v349 = v119;
-      v82 = v350;
-      v344 = OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_attemptedProfileSliceLabels;
+      while (v82);
+      v306 = v89;
+      v307 = v88;
+      v313 = v35;
+      v310 = v85;
+      v49 = v311;
+      v305 = OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_attemptedProfileSliceLabels;
       swift_beginAccess();
-      v126 = 0;
-      v362 = v354 + 16;
-      v127 = (v354 + 8);
-      *&v128 = 134218240;
-      v340 = v128;
-      v64 = v363;
-      v129 = v351;
-      v130 = v361;
-      while (v126 != v346)
+      v92 = 0;
+      v323 = v315 + 16;
+      v93 = (v315 + 8);
+      *&v94 = 134218240;
+      v301 = v94;
+      v37 = v324;
+      v95 = v312;
+      v96 = v322;
+      while (v92 != v307)
       {
-        if (v126 >= *(v352 + 16))
+        if (v92 >= *(v313 + 16))
         {
           __break(1u);
           goto LABEL_49;
         }
 
-        v354 = v126;
-        v88 = *v362;
-        (*v362)(v130, &v345[v126 * v124], v64);
-        v133 = *&v344[v82];
-        if (*(v133 + 16))
+        v315 = v92;
+        v54 = *v323;
+        (*v323)(v96, &v306[v92 * v90], v37);
+        v99 = *&v305[v49];
+        if (*(v99 + 16))
         {
-          v134 = *(v133 + 40);
-          lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_ProfileSliceLabel and conformance Apple_Parsec_Siri_V2alpha_ProfileSliceLabel, MEMORY[0x277D39740]);
+          lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_ProfileSliceLabel and conformance Apple_Parsec_Siri_V2alpha_ProfileSliceLabel, MEMORY[0x277D39740], MEMORY[0x277D39748]);
 
-          v135 = dispatch thunk of Hashable._rawHashValue(seed:)();
-          v136 = -1 << *(v133 + 32);
-          v137 = v135 & ~v136;
-          if ((*(v133 + 56 + ((v137 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v137))
+          v100 = dispatch thunk of Hashable._rawHashValue(seed:)();
+          v101 = -1 << *(v99 + 32);
+          v102 = v100 & ~v101;
+          if ((*(v99 + 56 + ((v102 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v102))
           {
-            v138 = ~v136;
-            v139 = v360;
+            v103 = ~v101;
+            v104 = v321;
             do
             {
-              v140 = v363;
-              (v88)(v139, *(v133 + 48) + v137 * v124, v363);
-              lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_ProfileSliceLabel and conformance Apple_Parsec_Siri_V2alpha_ProfileSliceLabel, MEMORY[0x277D39740]);
-              v60 = dispatch thunk of static Equatable.== infix(_:_:)();
-              (*v127)(v139, v140);
-              if (v60)
+              v105 = v324;
+              (v54)(v104, *(v99 + 48) + v102 * v90, v324);
+              lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_ProfileSliceLabel and conformance Apple_Parsec_Siri_V2alpha_ProfileSliceLabel, MEMORY[0x277D39740], MEMORY[0x277D39750]);
+              v35 = dispatch thunk of static Equatable.== infix(_:_:)();
+              (*v93)(v104, v105);
+              if (v35)
               {
                 break;
               }
 
-              v137 = (v137 + 1) & v138;
-              v139 = v360;
+              v102 = (v102 + 1) & v103;
+              v104 = v321;
             }
 
-            while (((*(v133 + 56 + ((v137 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v137) & 1) != 0);
+            while (((*(v99 + 56 + ((v102 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v102) & 1) != 0);
           }
 
           else
           {
-            v60 = 0;
+            v35 = 0;
           }
 
-          v129 = v351;
-          v130 = v361;
+          v95 = v312;
+          v96 = v322;
         }
 
         else
         {
-          v60 = 0;
+          v35 = 0;
         }
 
-        v64 = v363;
-        (v88)(v129, v130, v363);
-        v141 = Logger.logObject.getter();
-        v142 = static os_log_type_t.debug.getter();
-        if (os_log_type_enabled(v141, v142))
+        v37 = v324;
+        (v54)(v95, v96, v324);
+        v106 = Logger.logObject.getter();
+        v107 = static os_log_type_t.debug.getter();
+        if (os_log_type_enabled(v106, v107))
         {
-          v88 = swift_slowAlloc();
-          *v88 = v340;
-          v343 = v141;
-          v143 = Apple_Parsec_Siri_V2alpha_SiriKitAppInfo.AppContext.rawValue.getter();
-          v131 = *v127;
-          (*v127)(v129, v64);
-          *(v88 + 4) = v143;
-          v141 = v343;
-          *(v88 + 6) = 1024;
-          *(v88 + 14) = v60 & 1;
-          _os_log_impl(&dword_2232BB000, v141, v142, "ProfileSliceLabel %ld previously attempted? %{BOOL}d", v88, 0x12u);
-          MEMORY[0x223DE0F80](v88, -1, -1);
+          v54 = swift_slowAlloc();
+          *v54 = v301;
+          v304 = v106;
+          v108 = Apple_Parsec_Siri_V2alpha_SiriKitAppInfo.AppContext.rawValue.getter();
+          v97 = *v93;
+          (*v93)(v95, v37);
+          *(v54 + 4) = v108;
+          v106 = v304;
+          *(v54 + 6) = 1024;
+          *(v54 + 14) = v35 & 1;
+          _os_log_impl(&dword_2232BB000, v106, v107, "ProfileSliceLabel %ld previously attempted? %{BOOL}d", v54, 0x12u);
+          MEMORY[0x223DE0F80](v54, -1, -1);
         }
 
         else
         {
-          v131 = *v127;
-          (*v127)(v129, v64);
+          v97 = *v93;
+          (*v93)(v95, v37);
         }
 
-        v82 = v350;
-        v132 = v354 + 1;
+        v49 = v311;
+        v98 = v315 + 1;
 
-        v130 = v361;
-        v131(v361, v64);
-        v126 = v132;
-        v85 = v353;
-        v89 = v348;
-        v129 = v351;
-        if (v60)
+        v96 = v322;
+        v97(v322, v37);
+        v92 = v98;
+        v51 = v314;
+        v55 = v309;
+        v95 = v312;
+        if (v35)
         {
 
-          v196 = Logger.logObject.getter();
-          v197 = static os_log_type_t.debug.getter();
-          if (os_log_type_enabled(v196, v197))
+          v158 = Logger.logObject.getter();
+          v159 = static os_log_type_t.debug.getter();
+          if (os_log_type_enabled(v158, v159))
           {
-            v198 = swift_slowAlloc();
-            *v198 = 0;
-            _os_log_impl(&dword_2232BB000, v196, v197, "Already attempted profile slice resolution; yielding error response", v198, 2u);
-            MEMORY[0x223DE0F80](v198, -1, -1);
+            v160 = swift_slowAlloc();
+            *v160 = 0;
+            _os_log_impl(&dword_2232BB000, v158, v159, "Already attempted profile slice resolution; yielding error response", v160, 2u);
+            MEMORY[0x223DE0F80](v160, -1, -1);
           }
 
           lazy protocol witness table accessor for type PommesSearchRequestProcessorError and conformance PommesSearchRequestProcessorError();
-          v199 = swift_allocError();
-          *v200 = 69;
-          closure #4 in PommesSearchRequestProcessor.search_sync(completion:)(v199, 1, v327, v328, v329);
+          v161 = swift_allocError();
+          *v162 = 69;
+          closure #4 in PommesSearchRequestProcessor.search_sync(completion:)(v161, 1, v288, v289, v290, v291);
 
-          v192 = v341;
+          v156 = v302;
           goto LABEL_88;
         }
       }
 
-      v363 = OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_attemptedProfileSliceLabels;
-      v176 = v313;
-      v177 = v312;
-      v178 = v360;
-      v179 = v338;
-      v180 = v82;
-      v181 = v337;
+      v324 = OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_attemptedProfileSliceLabels;
+      v140 = v274;
+      v141 = v273;
+      v142 = v321;
+      v143 = v299;
+      v144 = v49;
+      v145 = v298;
       do
       {
-        v182 = (v358)(v176, v181, v89);
-        MEMORY[0x223DDBB90](v182);
+        v146 = (v319)(v140, v145, v55);
+        MEMORY[0x223DDBB90](v146);
         swift_beginAccess();
-        specialized Set._Variant.insert(_:)(v178, v177);
-        (*v127)(v178, v64);
+        specialized Set._Variant.insert(_:)(v142, v141);
+        (*v93)(v142, v37);
         swift_endAccess();
-        v349(v176, v89);
-        v181 += v357;
-        --v179;
+        v310(v140, v55);
+        v145 += v318;
+        --v143;
       }
 
-      while (v179);
-      v183 = v180;
-      v184 = v339;
+      while (v143);
+      v147 = v144;
+      v148 = v300;
 
-      v185 = Logger.logObject.getter();
-      v186 = static os_log_type_t.debug.getter();
+      v149 = Logger.logObject.getter();
+      v150 = static os_log_type_t.debug.getter();
 
-      if (os_log_type_enabled(v185, v186))
+      if (os_log_type_enabled(v149, v150))
       {
-        v187 = swift_slowAlloc();
-        v188 = swift_slowAlloc();
-        v364 = v188;
-        *v187 = 136315138;
-        v189 = MEMORY[0x223DDF850](v184, v89);
-        v191 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v189, v190, &v364);
+        v151 = swift_slowAlloc();
+        v152 = swift_slowAlloc();
+        v325 = v152;
+        *v151 = 136315138;
+        v153 = MEMORY[0x223DDF850](v148, v55);
+        v155 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v153, v154, &v325);
 
-        *(v187 + 4) = v191;
-        _os_log_impl(&dword_2232BB000, v185, v186, "Adding profile slice resolution requests: %s", v187, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1(v188);
-        MEMORY[0x223DE0F80](v188, -1, -1);
-        MEMORY[0x223DE0F80](v187, -1, -1);
+        *(v151 + 4) = v155;
+        _os_log_impl(&dword_2232BB000, v149, v150, "Adding profile slice resolution requests: %s", v151, 0xCu);
+        __swift_destroy_boxed_opaque_existential_1(v152);
+        MEMORY[0x223DE0F80](v152, -1, -1);
+        MEMORY[0x223DE0F80](v151, -1, -1);
       }
 
-      v192 = v341;
-      v85 = v353;
-      v193 = &v183[OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_pommesSearchRequest];
+      v156 = v302;
+      v51 = v314;
+      v157 = &v147[OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_pommesSearchRequest];
       swift_beginAccess();
-      v194 = *(v318 + 92);
-      v195 = *&v193[v194];
-      *&v193[v194] = v184;
+      *&v157[*(v279 + 92)] = v148;
 
-      (*(*v183 + 224))(partial apply for closure #4 in PommesSearchRequestProcessor.search_sync(completion:), v332);
+      (*(*v147 + 224))(partial apply for closure #4 in PommesSearchRequestProcessor.search_sync(completion:), v293);
       goto LABEL_88;
     }
   }
@@ -6195,76 +4812,76 @@ LABEL_49:
   else
   {
 
-    v111 = v344;
+    v77 = v305;
   }
 
-  v144 = v350;
-  v145 = *(v350 + 5);
-  v146 = *(*v350 + 152);
-  v147 = *v350 + 152;
-  v148 = v323;
-  (v146)(v125);
-  v149 = v353;
-  v359 = (*(*v145 + 168))(v148, v353);
-  v150 = outlined destroy of PommesSearchRequest(v148, type metadata accessor for PommesSearchRequest);
-  v151 = *(v144 + 2);
-  v362 = v147;
-  v363 = v146;
-  (v146)(v150);
-  (*(*v151 + 712))(v148);
-  v152 = outlined destroy of PommesSearchRequest(v148, type metadata accessor for PommesSearchRequest);
+  v109 = v311;
+  v110 = *(v311 + 5);
+  v111 = *(*v311 + 152);
+  v112 = *v311 + 152;
+  v113 = v284;
+  (v111)(v91);
+  v114 = v314;
+  v320 = (*(*v110 + 168))(v113, v314);
+  v115 = outlined destroy of PommesSearchRequest(v113, type metadata accessor for PommesSearchRequest);
+  v116 = *(v109 + 2);
+  v323 = v112;
+  v324 = v111;
+  (v111)(v115);
+  (*(*v116 + 712))(v113);
+  v117 = outlined destroy of PommesSearchRequest(v113, type metadata accessor for PommesSearchRequest);
   if (one-time initialization token for shared != -1)
   {
-    v152 = swift_once();
+    v117 = swift_once();
   }
 
-  v154 = static PerformanceUtil.shared;
-  MEMORY[0x28223BE20](v152, v153);
-  v308 = v369;
-  v309 = v149;
-  v310 = v111;
-  v155 = v324;
+  v118 = static PerformanceUtil.shared;
+  MEMORY[0x28223BE20](v117);
+  v269 = v330;
+  v270 = v114;
+  v271 = v77;
+  v119 = v285;
   Date.init()();
-  v156 = *(*v154 + 200);
-  v310 = v307;
-  v311 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay21SiriInformationSearch10ExperienceCGMd, &_sSay21SiriInformationSearch10ExperienceCGMR);
-  LOBYTE(v308) = 2;
-  v156(v366, 0xD00000000000002ALL, 0x80000002234DBF50, 0, v155, "SiriInformationSearch/PommesSearchRequestProcessor.swift", 56, 2, 348, "handleSuccess(_:_:_:)", 21, v308, closure #4 in PommesSearchRequestProcessor.handleSuccess(_:_:_:)partial apply);
-  (*(v325 + 8))(v155, v326);
-  v157 = *&v366[0];
-  v158 = PommesSearchRequestProcessor.clientSearch(pegasusResponse:)(v149);
-  v159 = Logger.logObject.getter();
-  v160 = static os_log_type_t.debug.getter();
-  v161 = os_log_type_enabled(v159, v160);
-  v354 = v158;
-  if (v161)
+  v120 = *(*v118 + 200);
+  v271 = v268;
+  v272 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay21SiriInformationSearch10ExperienceCGMd, &_sSay21SiriInformationSearch10ExperienceCGMR);
+  LOBYTE(v269) = 2;
+  v120(v327, 0xD00000000000002ALL, 0x80000002234DBF50, 0, v119, "SiriInformationSearch/PommesSearchRequestProcessor.swift", 56, 2, 348, "handleSuccess(_:_:_:)", 21, v269, closure #4 in PommesSearchRequestProcessor.handleSuccess(_:_:_:)partial apply);
+  (*(v286 + 8))(v119, v287);
+  v121 = *&v327[0];
+  v122 = PommesSearchRequestProcessor.clientSearch(pegasusResponse:)(v114);
+  v123 = Logger.logObject.getter();
+  v124 = static os_log_type_t.debug.getter();
+  v125 = os_log_type_enabled(v123, v124);
+  v315 = v122;
+  if (v125)
   {
-    v162 = swift_slowAlloc();
-    v163 = swift_slowAlloc();
-    *&v366[0] = v163;
-    *v162 = 136315138;
-    v164 = type metadata accessor for PommesResult();
-    v165 = MEMORY[0x223DDF870](v158, v164);
-    v167 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v165, v166, v366);
+    v126 = swift_slowAlloc();
+    v127 = swift_slowAlloc();
+    *&v327[0] = v127;
+    *v126 = 136315138;
+    v128 = type metadata accessor for PommesResult();
+    v129 = MEMORY[0x223DDF870](v122, v128);
+    v131 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v129, v130, v327);
 
-    *(v162 + 4) = v167;
-    _os_log_impl(&dword_2232BB000, v159, v160, "PommesSearchRequestProcessor#handleSuccess clientResults: %s", v162, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v163);
-    MEMORY[0x223DE0F80](v163, -1, -1);
-    MEMORY[0x223DE0F80](v162, -1, -1);
+    *(v126 + 4) = v131;
+    _os_log_impl(&dword_2232BB000, v123, v124, "PommesSearchRequestProcessor#handleSuccess clientResults: %s", v126, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v127);
+    MEMORY[0x223DE0F80](v127, -1, -1);
+    MEMORY[0x223DE0F80](v126, -1, -1);
   }
 
-  if (!(v157 >> 62))
+  if (!(v121 >> 62))
   {
-    if (*((v157 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    if (*((v121 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
       goto LABEL_35;
     }
 
 LABEL_51:
-    v171 = 0xE700000000000000;
-    v169 = 0x6E776F6E6B6E55;
-    v175 = 0;
+    v135 = 0xE700000000000000;
+    v133 = 0x6E776F6E6B6E55;
+    v139 = 0;
     goto LABEL_52;
   }
 
@@ -6274,387 +4891,387 @@ LABEL_51:
   }
 
 LABEL_35:
-  if ((v157 & 0xC000000000000001) != 0)
+  if ((v121 & 0xC000000000000001) != 0)
   {
-    v305 = MEMORY[0x223DDFF80](0, v157);
-    v169 = dispatch thunk of Experience.pluginIdentifier.getter();
-    v171 = v306;
+    v266 = MEMORY[0x223DDFF80](0, v121);
+    v133 = dispatch thunk of Experience.pluginIdentifier.getter();
+    v135 = v267;
 
-    v172 = MEMORY[0x223DDFF80](0, v157);
+    v136 = MEMORY[0x223DDFF80](0, v121);
     goto LABEL_39;
   }
 
-  if (*((v157 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  if (*((v121 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
-    v168 = v157[4];
-    v169 = dispatch thunk of Experience.pluginIdentifier.getter();
-    v171 = v170;
+    v132 = v121[4];
+    v133 = dispatch thunk of Experience.pluginIdentifier.getter();
+    v135 = v134;
 
-    if (*((v157 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    if (*((v121 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
-      v172 = v157[4];
+      v136 = v121[4];
 LABEL_39:
-      v173 = v172;
+      v137 = v136;
       dispatch thunk of Experience.queryConfidence.getter();
-      v175 = v174;
+      v139 = v138;
 
 LABEL_52:
 
-      v201 = Logger.logObject.getter();
-      v202 = static os_log_type_t.debug.getter();
+      v163 = Logger.logObject.getter();
+      v164 = static os_log_type_t.debug.getter();
 
-      if (os_log_type_enabled(v201, v202))
+      if (os_log_type_enabled(v163, v164))
       {
-        v203 = swift_slowAlloc();
-        v204 = swift_slowAlloc();
-        *&v366[0] = v204;
-        *v203 = 136315394;
-        v205 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v169, v171, v366);
+        v165 = swift_slowAlloc();
+        v166 = swift_slowAlloc();
+        *&v327[0] = v166;
+        *v165 = 136315394;
+        v167 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v133, v135, v327);
 
-        *(v203 + 4) = v205;
-        *(v203 + 12) = 2048;
-        *(v203 + 14) = v175;
-        _os_log_impl(&dword_2232BB000, v201, v202, "PommesResponse primaryPluginIdentifier %s     PommesResponse primaryQueryConfidence %f", v203, 0x16u);
-        __swift_destroy_boxed_opaque_existential_1(v204);
-        MEMORY[0x223DE0F80](v204, -1, -1);
-        MEMORY[0x223DE0F80](v203, -1, -1);
+        *(v165 + 4) = v167;
+        *(v165 + 12) = 2048;
+        *(v165 + 14) = v139;
+        _os_log_impl(&dword_2232BB000, v163, v164, "PommesResponse primaryPluginIdentifier %s     PommesResponse primaryQueryConfidence %f", v165, 0x16u);
+        __swift_destroy_boxed_opaque_existential_1(v166);
+        MEMORY[0x223DE0F80](v166, -1, -1);
+        MEMORY[0x223DE0F80](v165, -1, -1);
       }
 
       else
       {
       }
 
-      v206 = v341;
-      v207 = v345;
-      v208 = v319;
-      (v345)(v319, v353, v341);
-      v209 = Logger.logObject.getter();
-      v210 = static os_log_type_t.info.getter();
-      if (os_log_type_enabled(v209, v210))
+      v168 = v302;
+      v169 = v306;
+      v170 = v280;
+      (v306)(v280, v314, v302);
+      v171 = Logger.logObject.getter();
+      v172 = static os_log_type_t.info.getter();
+      if (os_log_type_enabled(v171, v172))
       {
-        v211 = swift_slowAlloc();
-        *v211 = 67109120;
-        v212 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.isLowConfidenceKnowledgeResult.getter() & 1;
-        v342(v208, v206);
-        *(v211 + 4) = v212;
-        _os_log_impl(&dword_2232BB000, v209, v210, "Low confidence knowledge fallback is supported, Pegasus returned value is: %{BOOL}d", v211, 8u);
-        MEMORY[0x223DE0F80](v211, -1, -1);
+        v173 = swift_slowAlloc();
+        *v173 = 67109120;
+        v174 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.isLowConfidenceKnowledgeResult.getter() & 1;
+        v303(v170, v168);
+        *(v173 + 4) = v174;
+        _os_log_impl(&dword_2232BB000, v171, v172, "Low confidence knowledge fallback is supported, Pegasus returned value is: %{BOOL}d", v173, 8u);
+        MEMORY[0x223DE0F80](v173, -1, -1);
       }
 
       else
       {
-        v342(v208, v206);
+        v303(v170, v168);
       }
 
-      v351 = v157;
+      v312 = v121;
 
-      v213 = v353;
-      v368 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.isLowConfidenceKnowledgeResult.getter() & 1;
-      v214 = v338;
+      v175 = v314;
+      v329 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.isLowConfidenceKnowledgeResult.getter() & 1;
+      v176 = v299;
       Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
-      v336 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.albusMultiturnRewrite.getter();
-      v348 = v215;
-      v217 = v339 + 1;
-      v216 = v339[1];
-      v218 = v340;
-      (v216)(v214, v340);
-      v219 = v320;
-      v207(v320, v213, v206);
-      v220 = Logger.logObject.getter();
-      v221 = static os_log_type_t.debug.getter();
-      v222 = os_log_type_enabled(v220, v221);
-      v360 = v216;
-      if (v222)
+      v297 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.albusMultiturnRewrite.getter();
+      v309 = v177;
+      v179 = v300 + 2;
+      v178 = *(v300 + 1);
+      v180 = v301;
+      (v178)(v176, v301);
+      v181 = v281;
+      v169(v281, v175, v168);
+      v182 = Logger.logObject.getter();
+      v183 = static os_log_type_t.debug.getter();
+      v184 = os_log_type_enabled(v182, v183);
+      v321 = v178;
+      if (v184)
       {
-        v223 = swift_slowAlloc();
-        v339 = v223;
-        v361 = swift_slowAlloc();
-        *&v366[0] = v361;
-        *v223 = 136315138;
+        v185 = swift_slowAlloc();
+        v300 = v185;
+        v322 = swift_slowAlloc();
+        *&v327[0] = v322;
+        *v185 = 136315138;
         Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
-        v224 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.albusMultiturnRewrite.getter();
-        v225 = v206;
-        v227 = v226;
-        v228 = v218;
-        v229 = v217;
-        (v216)(v214, v228);
-        v342(v219, v225);
-        v230 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v224, v227, v366);
+        v186 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.albusMultiturnRewrite.getter();
+        v187 = v168;
+        v189 = v188;
+        v190 = v180;
+        v191 = v179;
+        (v178)(v176, v190);
+        v303(v181, v187);
+        v192 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v186, v189, v327);
 
-        v231 = v339;
-        *(v339 + 4) = v230;
-        v232 = v231;
-        _os_log_impl(&dword_2232BB000, v220, v221, "got albusMultiturnRewrite as: %s", v231, 0xCu);
-        v233 = v361;
-        __swift_destroy_boxed_opaque_existential_1(v361);
-        v207 = v345;
-        MEMORY[0x223DE0F80](v233, -1, -1);
-        MEMORY[0x223DE0F80](v232, -1, -1);
+        v193 = v300;
+        *(v300 + 1) = v192;
+        v194 = v193;
+        _os_log_impl(&dword_2232BB000, v182, v183, "got albusMultiturnRewrite as: %s", v193, 0xCu);
+        v195 = v322;
+        __swift_destroy_boxed_opaque_existential_1(v322);
+        v169 = v306;
+        MEMORY[0x223DE0F80](v195, -1, -1);
+        MEMORY[0x223DE0F80](v194, -1, -1);
       }
 
       else
       {
-        v229 = v217;
+        v191 = v179;
 
-        v342(v219, v206);
+        v303(v181, v168);
       }
 
-      v234 = v337;
+      v196 = v298;
 
+      v197 = Logger.logObject.getter();
+      v198 = static os_log_type_t.debug.getter();
+
+      if (os_log_type_enabled(v197, v198))
+      {
+        v199 = swift_slowAlloc();
+        v200 = swift_slowAlloc();
+        *&v327[0] = v200;
+        *v199 = 136315138;
+        v201 = v277;
+        v324();
+        v202 = *(v201 + *(v279 + 52));
+
+        outlined destroy of PommesSearchRequest(v201, type metadata accessor for PommesSearchRequest);
+        if (v202)
+        {
+          v203 = *(v202 + OBJC_IVAR____TtC21SiriInformationSearch20PommesRequestContext_isRelatedQuestion);
+        }
+
+        else
+        {
+          v203 = 2;
+        }
+
+        v204 = v191;
+        LOBYTE(v325) = v203;
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+        v205 = String.init<A>(describing:)();
+        v207 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v205, v206, v327);
+
+        *(v199 + 4) = v207;
+        _os_log_impl(&dword_2232BB000, v197, v198, "got isRelatedQuestion as: %s", v199, 0xCu);
+        __swift_destroy_boxed_opaque_existential_1(v200);
+        MEMORY[0x223DE0F80](v200, -1, -1);
+        MEMORY[0x223DE0F80](v199, -1, -1);
+
+        v169 = v306;
+      }
+
+      else
+      {
+
+        v204 = v191;
+      }
+
+      v208 = v321;
+      v209 = v292;
+      v156 = v302;
+      v169(v292, v314, v302);
+      v210 = Logger.logObject.getter();
+      v211 = static os_log_type_t.info.getter();
+      if (os_log_type_enabled(v210, v211))
+      {
+        LODWORD(v295) = v211;
+        v296 = v210;
+        v212 = swift_slowAlloc();
+        v294 = swift_slowAlloc();
+        v325 = v294;
+        *v212 = 136315138;
+        v213 = v278;
+        Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
+        v214 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.domainUseCaseMetadata.getter();
+        v215 = v213;
+        v216 = v214;
+        v208(v215, v301);
+        v217 = *(v216 + 16);
+        if (v217)
+        {
+          v287 = v212;
+          v300 = v204;
+          v326 = MEMORY[0x277D84F90];
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v217, 0);
+          v218 = v326;
+          v324 = *(v319 + 2);
+          v219 = (v319[80] + 32) & ~v319[80];
+          v286 = v216;
+          v220 = v216 + v219;
+          v323 = *(v319 + 9);
+          v322 = (v275 + 8);
+          v319 += 16;
+          v221 = (v319 - 8);
+          do
+          {
+            v222 = v310;
+            v223 = v313;
+            (v324)(v310, v220, v313);
+            *&v327[0] = 0;
+            *(&v327[0] + 1) = 0xE000000000000000;
+            v224 = v317;
+            Apple_Parsec_Siri_V2alpha_DomainUseCaseMetadata.useCase.getter();
+            v225 = v318;
+            _print_unlocked<A, B>(_:_:)();
+            (*v322)(v224, v225);
+            v226 = v327[0];
+            (*v221)(v222, v223);
+            v326 = v218;
+            v228 = *(v218 + 16);
+            v227 = *(v218 + 24);
+            if (v228 >= v227 >> 1)
+            {
+              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v227 > 1), v228 + 1, 1);
+              v218 = v326;
+            }
+
+            *(v218 + 16) = v228 + 1;
+            *(v218 + 16 * v228 + 32) = v226;
+            v220 += v323;
+            --v217;
+          }
+
+          while (v217);
+
+          v156 = v302;
+          v209 = v292;
+          v208 = v321;
+          v212 = v287;
+        }
+
+        else
+        {
+
+          v218 = MEMORY[0x277D84F90];
+        }
+
+        v229 = MEMORY[0x223DDF850](v218, MEMORY[0x277D837D0]);
+        v231 = v230;
+
+        v303(v209, v156);
+        v232 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v229, v231, &v325);
+
+        *(v212 + 4) = v232;
+        v233 = v296;
+        _os_log_impl(&dword_2232BB000, v296, v295, "got usecases as: %s", v212, 0xCu);
+        v234 = v294;
+        __swift_destroy_boxed_opaque_existential_1(v294);
+        MEMORY[0x223DE0F80](v234, -1, -1);
+        MEMORY[0x223DE0F80](v212, -1, -1);
+
+        v196 = v298;
+        v169 = v306;
+      }
+
+      else
+      {
+
+        v303(v209, v156);
+      }
+
+      v169(v196, v314, v156);
       v235 = Logger.logObject.getter();
-      v236 = static os_log_type_t.debug.getter();
-
+      v236 = static os_log_type_t.info.getter();
       if (os_log_type_enabled(v235, v236))
       {
         v237 = swift_slowAlloc();
         v238 = swift_slowAlloc();
-        *&v366[0] = v238;
+        *&v327[0] = v238;
         *v237 = 136315138;
-        v239 = v316;
-        v363();
-        v240 = *(v239 + *(v318 + 52));
+        v239 = v208;
+        v240 = v299;
+        Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
+        v241 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.domainName.getter();
+        v243 = v242;
+        v239(v240, v301);
+        v303(v196, v302);
+        v244 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v241, v243, v327);
+        v156 = v302;
 
-        outlined destroy of PommesSearchRequest(v239, type metadata accessor for PommesSearchRequest);
-        if (v240)
-        {
-          v241 = *(v240 + OBJC_IVAR____TtC21SiriInformationSearch20PommesRequestContext_isRelatedQuestion);
-        }
-
-        else
-        {
-          v241 = 2;
-        }
-
-        v242 = v229;
-        LOBYTE(v364) = v241;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
-        v243 = String.init<A>(describing:)();
-        v245 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v243, v244, v366);
-
-        *(v237 + 4) = v245;
-        _os_log_impl(&dword_2232BB000, v235, v236, "got isRelatedQuestion as: %s", v237, 0xCu);
+        *(v237 + 4) = v244;
+        _os_log_impl(&dword_2232BB000, v235, v236, "got domain as: %s", v237, 0xCu);
         __swift_destroy_boxed_opaque_existential_1(v238);
         MEMORY[0x223DE0F80](v238, -1, -1);
         MEMORY[0x223DE0F80](v237, -1, -1);
-
-        v207 = v345;
       }
 
       else
       {
 
-        v242 = v229;
+        v303(v196, v156);
       }
 
-      v246 = v360;
-      v247 = v331;
-      v192 = v341;
-      v207(v331, v353, v341);
-      v248 = Logger.logObject.getter();
-      v249 = static os_log_type_t.info.getter();
-      if (os_log_type_enabled(v248, v249))
+      v245 = type metadata accessor for PommesResponse();
+      MEMORY[0x28223BE20](v245);
+      v246 = v315;
+      *(&v273 - 10) = v312;
+      *(&v273 - 9) = v246;
+      v51 = v314;
+      v247 = v311;
+      *(&v273 - 8) = v314;
+      *(&v273 - 7) = v247;
+      v268[0] = v320;
+      v268[1] = v304;
+      v269 = &v329;
+      v270 = v297;
+      v271 = v309;
+      v248 = PommesResponse.__allocating_init(_:)();
+
+      if (v248)
       {
-        LODWORD(v334) = v249;
-        v335 = v248;
-        v250 = swift_slowAlloc();
-        v333 = swift_slowAlloc();
-        v364 = v333;
-        *v250 = 136315138;
-        v251 = v317;
-        Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
-        v252 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.domainUseCaseMetadata.getter();
-        v253 = v251;
-        v254 = v252;
-        v246(v253, v340);
-        v255 = *(v254 + 16);
-        if (v255)
+        v249 = v248;
+        v250 = Logger.logObject.getter();
+        v251 = static os_log_type_t.debug.getter();
+
+        if (os_log_type_enabled(v250, v251))
         {
-          v326 = v250;
-          v339 = v242;
-          v365 = MEMORY[0x277D84F90];
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v255, 0);
-          v256 = v365;
-          v363 = *(v358 + 2);
-          v257 = (v358[80] + 32) & ~v358[80];
-          v325 = v254;
-          v258 = v254 + v257;
-          v362 = *(v358 + 9);
-          v361 = (v314 + 8);
-          v358 += 16;
-          v259 = (v358 - 8);
-          do
-          {
-            v260 = v349;
-            v261 = v352;
-            (v363)(v349, v258, v352);
-            *&v366[0] = 0;
-            *(&v366[0] + 1) = 0xE000000000000000;
-            v262 = v356;
-            Apple_Parsec_Siri_V2alpha_DomainUseCaseMetadata.useCase.getter();
-            v263 = v357;
-            _print_unlocked<A, B>(_:_:)();
-            (*v361)(v262, v263);
-            v264 = v366[0];
-            (*v259)(v260, v261);
-            v365 = v256;
-            v266 = *(v256 + 16);
-            v265 = *(v256 + 24);
-            if (v266 >= v265 >> 1)
-            {
-              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v265 > 1), v266 + 1, 1);
-              v256 = v365;
-            }
+          v252 = swift_slowAlloc();
+          v253 = swift_slowAlloc();
+          *&v327[0] = v253;
+          *v252 = 136315138;
+          v254 = [v249 debugDescription];
+          v255 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+          v257 = v256;
 
-            *(v256 + 16) = v266 + 1;
-            *(v256 + 16 * v266 + 32) = v264;
-            v258 += v362;
-            --v255;
-          }
+          v258 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v255, v257, v327);
+          v51 = v314;
 
-          while (v255);
-
-          v192 = v341;
-          v247 = v331;
-          v246 = v360;
-          v250 = v326;
+          *(v252 + 4) = v258;
+          _os_log_impl(&dword_2232BB000, v250, v251, "PommesSearchRequestProcessor#handleSuccess response: %s", v252, 0xCu);
+          __swift_destroy_boxed_opaque_existential_1(v253);
+          v259 = v253;
+          v156 = v302;
+          MEMORY[0x223DE0F80](v259, -1, -1);
+          MEMORY[0x223DE0F80](v252, -1, -1);
         }
 
-        else
-        {
-
-          v256 = MEMORY[0x277D84F90];
-        }
-
-        v267 = MEMORY[0x223DDF850](v256, MEMORY[0x277D837D0]);
-        v269 = v268;
-
-        v342(v247, v192);
-        v270 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v267, v269, &v364);
-
-        *(v250 + 4) = v270;
-        v271 = v335;
-        _os_log_impl(&dword_2232BB000, v335, v334, "got usecases as: %s", v250, 0xCu);
-        v272 = v333;
-        __swift_destroy_boxed_opaque_existential_1(v333);
-        MEMORY[0x223DE0F80](v272, -1, -1);
-        MEMORY[0x223DE0F80](v250, -1, -1);
-
-        v234 = v337;
-        v207 = v345;
+        v328 = 0;
+        memset(v327, 0, sizeof(v327));
+        static CurareDonation.donateCurareInfo(for:with:into:)(v51, v249, v327);
+        outlined destroy of MediaUserStateCenter?(v327, &_s21SiriInformationSearch23CurareInteractionStream_pSgMd, &_s21SiriInformationSearch23CurareInteractionStream_pSgMR);
+        v260 = v249;
+        closure #4 in PommesSearchRequestProcessor.search_sync(completion:)(v248, 0, v288, v289, v290, v291);
       }
 
       else
       {
-
-        v342(v247, v192);
-      }
-
-      v207(v234, v353, v192);
-      v273 = Logger.logObject.getter();
-      v274 = static os_log_type_t.info.getter();
-      if (os_log_type_enabled(v273, v274))
-      {
-        v275 = swift_slowAlloc();
-        v276 = swift_slowAlloc();
-        *&v366[0] = v276;
-        *v275 = 136315138;
-        v277 = v246;
-        v278 = v338;
-        Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
-        v279 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.domainName.getter();
-        v281 = v280;
-        v277(v278, v340);
-        v342(v234, v341);
-        v282 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v279, v281, v366);
-        v192 = v341;
-
-        *(v275 + 4) = v282;
-        _os_log_impl(&dword_2232BB000, v273, v274, "got domain as: %s", v275, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1(v276);
-        MEMORY[0x223DE0F80](v276, -1, -1);
-        MEMORY[0x223DE0F80](v275, -1, -1);
-      }
-
-      else
-      {
-
-        v342(v234, v192);
-      }
-
-      v283 = type metadata accessor for PommesResponse();
-      MEMORY[0x28223BE20](v283, v284);
-      v285 = v354;
-      *(&v312 - 10) = v351;
-      *(&v312 - 9) = v285;
-      v85 = v353;
-      v286 = v350;
-      *(&v312 - 8) = v353;
-      *(&v312 - 7) = v286;
-      v307[0] = v359;
-      v307[1] = v343;
-      v308 = &v368;
-      v309 = v336;
-      v310 = v348;
-      v287 = PommesResponse.__allocating_init(_:)();
-
-      if (v287)
-      {
-        v288 = v287;
-        v289 = Logger.logObject.getter();
-        v290 = static os_log_type_t.debug.getter();
-
-        if (os_log_type_enabled(v289, v290))
+        v261 = Logger.logObject.getter();
+        v262 = static os_log_type_t.error.getter();
+        if (os_log_type_enabled(v261, v262))
         {
-          v291 = swift_slowAlloc();
-          v292 = swift_slowAlloc();
-          *&v366[0] = v292;
-          *v291 = 136315138;
-          v293 = [v288 debugDescription];
-          v294 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-          v296 = v295;
-
-          v297 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v294, v296, v366);
-          v85 = v353;
-
-          *(v291 + 4) = v297;
-          _os_log_impl(&dword_2232BB000, v289, v290, "PommesSearchRequestProcessor#handleSuccess response: %s", v291, 0xCu);
-          __swift_destroy_boxed_opaque_existential_1(v292);
-          v298 = v292;
-          v192 = v341;
-          MEMORY[0x223DE0F80](v298, -1, -1);
-          MEMORY[0x223DE0F80](v291, -1, -1);
-        }
-
-        v367 = 0;
-        memset(v366, 0, sizeof(v366));
-        static CurareDonation.donateCurareInfo(for:with:into:)(v85, v288, v366);
-        outlined destroy of MediaUserStateCenter?(v366, &_s21SiriInformationSearch23CurareInteractionStream_pSgMd, &_s21SiriInformationSearch23CurareInteractionStream_pSgMR);
-        v299 = v288;
-        closure #4 in PommesSearchRequestProcessor.search_sync(completion:)(v287, 0, v327, v328, v329);
-      }
-
-      else
-      {
-        v300 = Logger.logObject.getter();
-        v301 = static os_log_type_t.error.getter();
-        if (os_log_type_enabled(v300, v301))
-        {
-          v302 = swift_slowAlloc();
-          *v302 = 0;
-          _os_log_impl(&dword_2232BB000, v300, v301, "PommesSearchRequestProcessor failed to build PommesResponse with given parameters", v302, 2u);
-          MEMORY[0x223DE0F80](v302, -1, -1);
+          v263 = swift_slowAlloc();
+          *v263 = 0;
+          _os_log_impl(&dword_2232BB000, v261, v262, "PommesSearchRequestProcessor failed to build PommesResponse with given parameters", v263, 2u);
+          MEMORY[0x223DE0F80](v263, -1, -1);
         }
 
         lazy protocol witness table accessor for type PommesSearchRequestProcessorError and conformance PommesSearchRequestProcessorError();
-        v303 = swift_allocError();
-        *v304 = 0x80;
-        closure #4 in PommesSearchRequestProcessor.search_sync(completion:)(v303, 1, v327, v328, v329);
+        v264 = swift_allocError();
+        *v265 = 0x80;
+        closure #4 in PommesSearchRequestProcessor.search_sync(completion:)(v264, 1, v288, v289, v290, v291);
       }
 
-      (*(v321 + 8))(v344, v322);
+      (*(v282 + 8))(v305, v283);
 LABEL_88:
-      v342(v85, v192);
-      __swift_destroy_boxed_opaque_existential_1(v369);
+      v303(v51, v156);
+      __swift_destroy_boxed_opaque_existential_1(v330);
 
       return;
     }
@@ -6670,48 +5287,46 @@ LABEL_88:
 
 uint64_t specialized PommesSearchRequestProcessor.handlePegasusResponse(_:_:)(uint64_t a1, char *a2, uint64_t (*a3)(void *, void), uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v46 = a2;
-  v47 = a3;
+  v41 = a2;
+  v42 = a3;
   v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
-  v11 = *(*(v10 - 8) + 64);
-  v13 = MEMORY[0x28223BE20](v10 - 8, v12);
-  v15 = &v46 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v13, v16);
-  v18 = &v46 - v17;
-  v19 = type metadata accessor for PegasusSearchResponse(0);
-  v20 = *(*(v19 - 8) + 64);
-  MEMORY[0x28223BE20](v19 - 8, v21);
-  v23 = (&v46 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0));
-  outlined init with copy of MediaUserStateCenter?(a1, v18, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR);
-  v25 = *(*(v24 - 8) + 48);
-  if (v25(v18, 1, v24) == 1)
+  v11 = MEMORY[0x28223BE20](v10 - 8);
+  v13 = &v41 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v11);
+  v15 = &v41 - v14;
+  v16 = type metadata accessor for PegasusSearchResponse(0);
+  MEMORY[0x28223BE20](v16 - 8);
+  v18 = (&v41 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
+  outlined init with copy of MediaUserStateCenter?(a1, v15, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR);
+  v20 = *(*(v19 - 8) + 48);
+  if (v20(v15, 1, v19) == 1)
   {
     swift_retain_n();
     swift_retain_n();
     swift_retain_n();
-    v26 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd;
-    v27 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR;
+    v21 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd;
+    v22 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR;
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() != 1)
     {
-      _s21SiriInformationSearch15PerformanceUtilC6TicketVWObTm_0(v18, v23, type metadata accessor for PegasusSearchResponse);
-      v49 = 0;
-      memset(v48, 0, sizeof(v48));
-      memset(v50, 0, sizeof(v50));
-      v51 = 0;
+      _s21SiriInformationSearch15PerformanceUtilC6TicketVWObTm_0(v15, v18, type metadata accessor for PegasusSearchResponse);
+      v44 = 0;
+      memset(v43, 0, sizeof(v43));
+      memset(v45, 0, sizeof(v45));
+      v46 = 0;
       swift_retain_n();
       swift_retain_n();
       swift_retain_n();
-      outlined assign with take of MediaUserStateCenter?(v48, v50, &_s21SiriInformationSearch40SportsPersonalizationExperiencesResolverVSgMd, &_s21SiriInformationSearch40SportsPersonalizationExperiencesResolverVSgMR);
+      outlined assign with take of MediaUserStateCenter?(v43, v45, &_s21SiriInformationSearch40SportsPersonalizationExperiencesResolverVSgMd, &_s21SiriInformationSearch40SportsPersonalizationExperiencesResolverVSgMR);
 
-      specialized PommesSearchRequestProcessor.handleSuccess(_:_:_:)(v23, v50, v46, v47, a4, a5, a6);
+      specialized PommesSearchRequestProcessor.handleSuccess(_:_:_:)(v18, v45, v41, v42, a4, a5, a6);
 
-      outlined destroy of PommesSearchRequest(v23, type metadata accessor for PegasusSearchResponse);
-      outlined destroy of DefaultExperiencesResolver(v50);
+      outlined destroy of PommesSearchRequest(v18, type metadata accessor for PegasusSearchResponse);
+      outlined destroy of DefaultExperiencesResolver(v45);
 LABEL_20:
 
       goto LABEL_21;
@@ -6720,535 +5335,521 @@ LABEL_20:
     swift_retain_n();
     swift_retain_n();
     swift_retain_n();
-    v26 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd;
-    v27 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR;
+    v21 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd;
+    v22 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR;
   }
 
-  outlined destroy of MediaUserStateCenter?(v18, v26, v27);
-  outlined init with copy of MediaUserStateCenter?(a1, v15, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
-  if (v25(v15, 1, v24) == 1)
+  outlined destroy of MediaUserStateCenter?(v15, v21, v22);
+  outlined init with copy of MediaUserStateCenter?(a1, v13, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
+  if (v20(v13, 1, v19) == 1)
   {
-    v28 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd;
-    v29 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR;
+    v23 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd;
+    v24 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR;
 LABEL_15:
-    outlined destroy of MediaUserStateCenter?(v15, v28, v29);
+    outlined destroy of MediaUserStateCenter?(v13, v23, v24);
     if (one-time initialization token for pommes != -1)
     {
       swift_once();
     }
 
-    v39 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v39, static Logger.pommes);
-    v40 = Logger.logObject.getter();
-    v41 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v40, v41))
+    v34 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v34, static Logger.pommes);
+    v35 = Logger.logObject.getter();
+    v36 = static os_log_type_t.debug.getter();
+    if (os_log_type_enabled(v35, v36))
     {
-      v42 = swift_slowAlloc();
-      *v42 = 0;
-      _os_log_impl(&dword_2232BB000, v40, v41, "PireneResponse failure: none", v42, 2u);
-      MEMORY[0x223DE0F80](v42, -1, -1);
+      v37 = swift_slowAlloc();
+      *v37 = 0;
+      _os_log_impl(&dword_2232BB000, v35, v36, "PireneResponse failure: none", v37, 2u);
+      MEMORY[0x223DE0F80](v37, -1, -1);
     }
 
     lazy protocol witness table accessor for type PommesSearchRequestProcessorError and conformance PommesSearchRequestProcessorError();
-    v43 = swift_allocError();
-    *v44 = 0x80;
-    closure #4 in PommesSearchRequestProcessor.search_sync(completion:)(v43, 1, v47, a4, a5);
+    v38 = swift_allocError();
+    *v39 = 0x80;
+    closure #4 in PommesSearchRequestProcessor.search_sync(completion:)(v38, 1, v42, a4, a5, a6);
 
     goto LABEL_20;
   }
 
   if (swift_getEnumCaseMultiPayload() != 1)
   {
-    v28 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd;
-    v29 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR;
+    v23 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd;
+    v24 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR;
     goto LABEL_15;
   }
 
-  v30 = *v15;
+  v25 = *v13;
   if (one-time initialization token for pommes != -1)
   {
     swift_once();
   }
 
-  v31 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v31, static Logger.pommes);
-  v32 = Logger.logObject.getter();
-  v33 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v32, v33))
+  v26 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v26, static Logger.pommes);
+  v27 = Logger.logObject.getter();
+  v28 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v27, v28))
   {
-    v34 = swift_slowAlloc();
-    v35 = swift_slowAlloc();
-    *&v50[0] = v35;
-    *v34 = 136315138;
-    LOBYTE(v48[0]) = v30;
-    v36 = String.init<A>(describing:)();
-    v38 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v36, v37, v50);
+    v29 = swift_slowAlloc();
+    v30 = swift_slowAlloc();
+    *&v45[0] = v30;
+    *v29 = 136315138;
+    LOBYTE(v43[0]) = v25;
+    v31 = String.init<A>(describing:)();
+    v33 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v31, v32, v45);
 
-    *(v34 + 4) = v38;
-    _os_log_impl(&dword_2232BB000, v32, v33, "POMMES-CURARE: {error:%s}", v34, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v35);
-    MEMORY[0x223DE0F80](v35, -1, -1);
-    MEMORY[0x223DE0F80](v34, -1, -1);
+    *(v29 + 4) = v33;
+    _os_log_impl(&dword_2232BB000, v27, v28, "POMMES-CURARE: {error:%s}", v29, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v30);
+    MEMORY[0x223DE0F80](v30, -1, -1);
+    MEMORY[0x223DE0F80](v29, -1, -1);
   }
 
-  specialized PommesSearchRequestProcessor.handleFailure(with:completion:)(v30, v46, v47, a4, a5, a6);
+  specialized PommesSearchRequestProcessor.handleFailure(with:completion:)(v25, v41, v42, a4, a5, a6);
 
 LABEL_21:
 }
 
 void specialized PommesSearchRequestProcessor.handleSuccess(_:_:_:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
 {
-  v352 = a3;
-  v350 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSliceResolutionRequest();
-  v359 = *(v350 - 8);
-  v9 = *(v359 + 64);
-  v11 = MEMORY[0x28223BE20](v350, v10);
-  v314 = &v313 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v11, v13);
-  v362 = &v313 - v14;
-  v363 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSliceLabel();
-  v354 = *(v363 - 1);
-  v15 = *(v354 + 64);
-  v17 = MEMORY[0x28223BE20](v363, v16);
-  v313 = &v313 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = MEMORY[0x28223BE20](v17, v19);
-  v360 = &v313 - v21;
-  v23 = MEMORY[0x28223BE20](v20, v22);
-  v342 = &v313 - v24;
-  v26 = MEMORY[0x28223BE20](v23, v25);
-  v361 = &v313 - v27;
-  MEMORY[0x28223BE20](v26, v28);
-  v316 = &v313 - v29;
-  v357 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DomainUseCase();
-  v315 = *(v357 - 8);
-  v30 = *(v315 + 64);
-  MEMORY[0x28223BE20](v357, v31);
-  v356 = (&v313 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v353 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DomainUseCaseMetadata();
-  v358 = *(v353 - 8);
-  v33 = *(v358 + 8);
-  MEMORY[0x28223BE20](v353, v34);
-  v351 = (&v313 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v340 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata();
-  v348 = *(v340 - 8);
-  v36 = *(v348 + 64);
-  v38 = MEMORY[0x28223BE20](v340, v37);
-  v318 = &v313 - ((v39 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v38, v40);
-  v339 = &v313 - v41;
-  v328 = type metadata accessor for Date();
-  v327 = *(v328 - 8);
-  v42 = *(v327 + 64);
-  MEMORY[0x28223BE20](v328, v43);
-  v326 = &v313 - ((v44 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v324 = type metadata accessor for ClientExperienceSignals();
-  v323 = *(v324 - 8);
-  v45 = *(v323 + 64);
-  MEMORY[0x28223BE20](v324, v46);
-  v346 = &v313 - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v319 = type metadata accessor for PommesSearchRequest(0);
-  v48 = *(*(v319 - 8) + 64);
-  v50 = MEMORY[0x28223BE20](v319, v49);
-  v317 = &v313 - ((v51 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v50, v52);
-  v325 = &v313 - v53;
-  v337 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileResolutionRequest();
-  v54 = *(v337 - 8);
-  v55 = *(v54 + 64);
-  MEMORY[0x28223BE20](v337, v56);
-  v336 = (&v313 - ((v57 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v335 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.SiriInstruction();
-  v334 = *(v335 - 8);
-  v58 = *(v334 + 64);
-  MEMORY[0x28223BE20](v335, v59);
-  v333 = (&v313 - ((v60 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v61 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse();
-  v62 = *(v61 - 8);
-  v63 = *(v62 + 64);
-  v65 = MEMORY[0x28223BE20](v61, v64);
-  v338 = &v313 - ((v66 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v68 = MEMORY[0x28223BE20](v65, v67);
-  v331 = (&v313 - v69);
-  v71 = MEMORY[0x28223BE20](v68, v70);
-  v321 = &v313 - v72;
-  v74 = MEMORY[0x28223BE20](v71, v73);
-  v320 = (&v313 - v75);
-  v77 = MEMORY[0x28223BE20](v74, v76);
-  v79 = (&v313 - v78);
-  MEMORY[0x28223BE20](v77, v80);
-  v82 = &v313 - v81;
-  v83 = swift_allocObject();
-  *(v83 + 16) = a4;
-  *(v83 + 24) = a5;
-  v332 = v83;
-  v369[3] = &type metadata for CallBusinessNoResultsExperiencesResolver;
-  v369[4] = &protocol witness table for CallBusinessNoResultsExperiencesResolver;
-  v369[0] = a2;
-  v84 = *(type metadata accessor for PegasusSearchResponse(0) + 20);
-  v349 = v62;
-  v87 = *(v62 + 16);
-  v86 = (v62 + 16);
-  v85 = v87;
-  v322 = a1;
-  v87(v82, a1 + v84, v61);
-  v88 = one-time initialization token for pommes;
-  v329 = a4;
+  v317 = a3;
+  v315 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSliceResolutionRequest();
+  v324 = *(v315 - 8);
+  v9 = MEMORY[0x28223BE20](v315);
+  v279 = &v278 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v327 = &v278 - v11;
+  v328 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSliceLabel();
+  v319 = *(v328 - 1);
+  v12 = MEMORY[0x28223BE20](v328);
+  v278 = &v278 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = MEMORY[0x28223BE20](v12);
+  v325 = &v278 - v15;
+  v16 = MEMORY[0x28223BE20](v14);
+  v307 = &v278 - v17;
+  v18 = MEMORY[0x28223BE20](v16);
+  v326 = &v278 - v19;
+  MEMORY[0x28223BE20](v18);
+  v281 = &v278 - v20;
+  v322 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DomainUseCase();
+  v280 = *(v322 - 8);
+  MEMORY[0x28223BE20](v322);
+  v321 = (&v278 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v318 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DomainUseCaseMetadata();
+  v323 = *(v318 - 8);
+  MEMORY[0x28223BE20](v318);
+  v316 = (&v278 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v305 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata();
+  v313 = *(v305 - 8);
+  v23 = MEMORY[0x28223BE20](v305);
+  v283 = &v278 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v23);
+  v304 = &v278 - v25;
+  v293 = type metadata accessor for Date();
+  v292 = *(v293 - 8);
+  MEMORY[0x28223BE20](v293);
+  v291 = &v278 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v289 = type metadata accessor for ClientExperienceSignals();
+  v288 = *(v289 - 8);
+  MEMORY[0x28223BE20](v289);
+  v311 = &v278 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v284 = type metadata accessor for PommesSearchRequest(0);
+  v28 = MEMORY[0x28223BE20](v284);
+  v282 = &v278 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v28);
+  v290 = &v278 - v30;
+  v302 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileResolutionRequest();
+  v31 = *(v302 - 8);
+  MEMORY[0x28223BE20](v302);
+  v301 = (&v278 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v300 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.SiriInstruction();
+  v299 = *(v300 - 8);
+  MEMORY[0x28223BE20](v300);
+  v298 = (&v278 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v34 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse();
+  v35 = *(v34 - 8);
+  v36 = MEMORY[0x28223BE20](v34);
+  v303 = &v278 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v38 = MEMORY[0x28223BE20](v36);
+  v296 = (&v278 - v39);
+  v40 = MEMORY[0x28223BE20](v38);
+  v286 = &v278 - v41;
+  v42 = MEMORY[0x28223BE20](v40);
+  v285 = (&v278 - v43);
+  v44 = MEMORY[0x28223BE20](v42);
+  v46 = (&v278 - v45);
+  MEMORY[0x28223BE20](v44);
+  v48 = &v278 - v47;
+  v49 = swift_allocObject();
+  *(v49 + 16) = a4;
+  *(v49 + 24) = a5;
+  v297 = v49;
+  v334[3] = &type metadata for CallBusinessNoResultsExperiencesResolver;
+  v334[4] = &protocol witness table for CallBusinessNoResultsExperiencesResolver;
+  v334[0] = a2;
+  v50 = *(type metadata accessor for PegasusSearchResponse(0) + 20);
+  v314 = v35;
+  v53 = *(v35 + 16);
+  v52 = (v35 + 16);
+  v51 = v53;
+  v287 = a1;
+  v53(v48, a1 + v50, v34);
+  v54 = one-time initialization token for pommes;
+  v294 = a4;
 
-  v330 = a5;
+  v295 = a5;
 
-  if (v88 != -1)
+  if (v54 != -1)
   {
 LABEL_47:
     swift_once();
   }
 
-  v89 = type metadata accessor for Logger();
-  v90 = __swift_project_value_buffer(v89, static Logger.pommes);
-  *&v341 = v86;
-  v347 = v85;
-  (v85)(v79, v82, v61);
-  v355 = v90;
-  v91 = Logger.logObject.getter();
-  v92 = static os_log_type_t.debug.getter();
-  v93 = os_log_type_enabled(v91, v92);
-  v345 = v61;
-  v343 = v82;
-  if (v93)
+  v55 = type metadata accessor for Logger();
+  v56 = __swift_project_value_buffer(v55, static Logger.pommes);
+  *&v306 = v52;
+  v312 = v51;
+  (v51)(v46, v48, v34);
+  v320 = v56;
+  v57 = Logger.logObject.getter();
+  v58 = static os_log_type_t.debug.getter();
+  v59 = os_log_type_enabled(v57, v58);
+  v310 = v34;
+  v308 = v48;
+  if (v59)
   {
-    v94 = swift_slowAlloc();
-    v95 = swift_slowAlloc();
-    *&v366[0] = v95;
-    *v94 = 136315138;
-    lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_SiriPegasusResponse and conformance Apple_Parsec_Siri_V2alpha_SiriPegasusResponse, MEMORY[0x277D38DA0]);
-    v96 = Message.textFormatString()();
-    v344 = *(v349 + 8);
-    v344(v79, v61);
-    v97 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v96._countAndFlagsBits, v96._object, v366);
+    v60 = swift_slowAlloc();
+    v61 = swift_slowAlloc();
+    *&v331[0] = v61;
+    *v60 = 136315138;
+    lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_SiriPegasusResponse and conformance Apple_Parsec_Siri_V2alpha_SiriPegasusResponse, MEMORY[0x277D38DA0], MEMORY[0x277D38D98]);
+    v62 = Message.textFormatString()();
+    v309 = *(v314 + 8);
+    v309(v46, v34);
+    v63 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v62._countAndFlagsBits, v62._object, v331);
 
-    *(v94 + 4) = v97;
-    _os_log_impl(&dword_2232BB000, v91, v92, "PireneResponse: %s", v94, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v95);
-    MEMORY[0x223DE0F80](v95, -1, -1);
-    v98 = v94;
-    v99 = v343;
-    MEMORY[0x223DE0F80](v98, -1, -1);
+    *(v60 + 4) = v63;
+    _os_log_impl(&dword_2232BB000, v57, v58, "PireneResponse: %s", v60, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v61);
+    MEMORY[0x223DE0F80](v61, -1, -1);
+    v64 = v60;
+    v65 = v308;
+    MEMORY[0x223DE0F80](v64, -1, -1);
   }
 
   else
   {
-    v99 = v82;
+    v65 = v48;
 
-    v344 = *(v349 + 8);
-    v344(v79, v61);
+    v309 = *(v314 + 8);
+    v309(v46, v34);
   }
 
-  v100 = v337;
-  v101 = v336;
-  v102 = v335;
-  v103 = v334;
-  v104 = v333;
+  v66 = v302;
+  v67 = v301;
+  v68 = v300;
+  v69 = v299;
+  v70 = v298;
   Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.siriInstruction.getter();
   Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.SiriInstruction.resolutionRequest.getter();
-  v105 = (*(v103 + 8))(v104, v102);
-  v106 = MEMORY[0x223DDBA80](v105);
-  (*(v54 + 8))(v101, v100);
-  v107 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.hasSiriInstruction.getter();
-  v108 = v346;
-  v109 = v350;
-  if (v107)
+  v71 = (*(v69 + 8))(v70, v68);
+  v72 = MEMORY[0x223DDBA80](v71);
+  (*(v31 + 8))(v67, v66);
+  v73 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.hasSiriInstruction.getter();
+  v74 = v311;
+  v75 = v315;
+  if (v73)
   {
-    v110 = *(v106 + 16);
-    if (v110)
+    v76 = *(v72 + 16);
+    if (v76)
     {
-      *&v366[0] = MEMORY[0x277D84F90];
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v110, 0);
-      v111 = *&v366[0];
-      v112 = *(v359 + 16);
-      v113 = (*(v359 + 80) + 32) & ~*(v359 + 80);
-      v340 = v106;
-      v114 = v106 + v113;
-      v115 = *(v359 + 72);
-      v359 += 16;
-      v356 = (v359 - 8);
-      v353 = v354 + 32;
-      v338 = (v106 + v113);
-      v339 = v110;
-      v116 = v110;
-      v85 = v316;
-      v358 = v112;
-      v357 = v115;
+      *&v331[0] = MEMORY[0x277D84F90];
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v76, 0);
+      v77 = *&v331[0];
+      v78 = *(v324 + 16);
+      v79 = (*(v324 + 80) + 32) & ~*(v324 + 80);
+      v305 = v72;
+      v80 = v72 + v79;
+      v81 = *(v324 + 72);
+      v324 += 16;
+      v321 = (v324 - 8);
+      v318 = v319 + 32;
+      v303 = (v72 + v79);
+      v304 = v76;
+      v82 = v76;
+      v51 = v281;
+      v323 = v78;
+      v322 = v81;
       do
       {
-        v117 = v362;
-        v118 = (v112)(v362, v114, v109);
-        MEMORY[0x223DDBB90](v118);
-        v119 = *v356;
-        (*v356)(v117, v109);
-        *&v366[0] = v111;
-        v121 = *(v111 + 16);
-        v120 = *(v111 + 24);
-        v122 = v121 + 1;
-        if (v121 >= v120 >> 1)
+        v83 = v327;
+        v84 = (v78)(v327, v80, v75);
+        MEMORY[0x223DDBB90](v84);
+        v85 = *v321;
+        (*v321)(v83, v75);
+        *&v331[0] = v77;
+        v87 = *(v77 + 16);
+        v86 = *(v77 + 24);
+        v88 = v87 + 1;
+        if (v87 >= v86 >> 1)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v120 > 1, v121 + 1, 1);
-          v111 = *&v366[0];
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v86 > 1), v87 + 1, 1);
+          v77 = *&v331[0];
         }
 
-        *(v111 + 16) = v122;
-        v123 = (v111 + ((*(v354 + 80) + 32) & ~*(v354 + 80)));
-        v124 = *(v354 + 72);
-        (*(v354 + 32))(&v123[v124 * v121], v85, v363);
-        v61 = v357;
-        v114 += v357;
-        --v116;
-        v112 = v358;
+        *(v77 + 16) = v88;
+        v89 = (v77 + ((*(v319 + 80) + 32) & ~*(v319 + 80)));
+        v90 = *(v319 + 72);
+        (*(v319 + 32))(&v89[v90 * v87], v51, v328);
+        v34 = v322;
+        v80 += v322;
+        --v82;
+        v78 = v323;
       }
 
-      while (v116);
-      v347 = v123;
-      v348 = v122;
-      v353 = v111;
-      v351 = v119;
-      v346 = OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_attemptedProfileSliceLabels;
+      while (v82);
+      v312 = v89;
+      v313 = v88;
+      v318 = v77;
+      v316 = v85;
+      v311 = OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_attemptedProfileSliceLabels;
       swift_beginAccess();
-      v54 = 0;
-      v362 = v354 + 16;
-      v82 = v354 + 8;
-      *&v156 = 134218240;
-      v341 = v156;
-      v86 = v342;
-      v157 = v361;
-      while (v54 != v348)
+      v31 = 0;
+      v327 = v319 + 16;
+      v48 = v319 + 8;
+      *&v121 = 134218240;
+      v306 = v121;
+      v52 = v307;
+      v122 = v326;
+      while (v31 != v313)
       {
-        v79 = v363;
-        if (v54 >= *(v353 + 16))
+        v46 = v328;
+        if (v31 >= *(v318 + 16))
         {
           __break(1u);
           goto LABEL_47;
         }
 
-        v159 = *v362;
-        (*v362)(v157, v347 + v54 * v124, v363);
-        v160 = *&v346[v352];
-        v161 = *(v160 + 16);
-        v354 = v54;
-        if (v161)
+        v124 = *v327;
+        (*v327)(v122, v312 + v31 * v90, v328);
+        v125 = *&v311[v317];
+        v126 = *(v125 + 16);
+        v319 = v31;
+        if (v126)
         {
-          v162 = *(v160 + 40);
-          lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_ProfileSliceLabel and conformance Apple_Parsec_Siri_V2alpha_ProfileSliceLabel, MEMORY[0x277D39740]);
+          lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_ProfileSliceLabel and conformance Apple_Parsec_Siri_V2alpha_ProfileSliceLabel, MEMORY[0x277D39740], MEMORY[0x277D39748]);
 
-          v163 = dispatch thunk of Hashable._rawHashValue(seed:)();
-          v164 = -1 << *(v160 + 32);
-          v165 = v163 & ~v164;
-          if ((*(v160 + 56 + ((v165 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v165))
+          v127 = dispatch thunk of Hashable._rawHashValue(seed:)();
+          v128 = -1 << *(v125 + 32);
+          v129 = v127 & ~v128;
+          if ((*(v125 + 56 + ((v129 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v129))
           {
-            v166 = ~v164;
+            v130 = ~v128;
             do
             {
-              v167 = v360;
-              v168 = v363;
-              v159(v360, *(v160 + 48) + v165 * v124, v363);
-              lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_ProfileSliceLabel and conformance Apple_Parsec_Siri_V2alpha_ProfileSliceLabel, MEMORY[0x277D39740]);
-              v85 = dispatch thunk of static Equatable.== infix(_:_:)();
-              (*v82)(v167, v168);
-              if (v85)
+              v131 = v325;
+              v132 = v328;
+              v124(v325, *(v125 + 48) + v129 * v90, v328);
+              lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_ProfileSliceLabel and conformance Apple_Parsec_Siri_V2alpha_ProfileSliceLabel, MEMORY[0x277D39740], MEMORY[0x277D39750]);
+              v51 = dispatch thunk of static Equatable.== infix(_:_:)();
+              (*v48)(v131, v132);
+              if (v51)
               {
                 break;
               }
 
-              v165 = (v165 + 1) & v166;
+              v129 = (v129 + 1) & v130;
             }
 
-            while (((*(v160 + 56 + ((v165 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v165) & 1) != 0);
+            while (((*(v125 + 56 + ((v129 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v129) & 1) != 0);
           }
 
           else
           {
-            v85 = 0;
+            v51 = 0;
           }
 
-          v79 = v363;
-          v86 = v342;
-          v157 = v361;
+          v46 = v328;
+          v52 = v307;
+          v122 = v326;
         }
 
         else
         {
-          v85 = 0;
+          v51 = 0;
         }
 
-        v159(v86, v157, v79);
-        v169 = Logger.logObject.getter();
-        v170 = static os_log_type_t.debug.getter();
-        v61 = v82 & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-        if (os_log_type_enabled(v169, v170))
+        v124(v52, v122, v46);
+        v133 = Logger.logObject.getter();
+        v134 = static os_log_type_t.debug.getter();
+        v34 = v48 & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+        if (os_log_type_enabled(v133, v134))
         {
-          v171 = swift_slowAlloc();
-          *v171 = v341;
-          v172 = Apple_Parsec_Siri_V2alpha_SiriKitAppInfo.AppContext.rawValue.getter();
-          v158 = *v82;
-          (*v82)(v86, v363);
-          *(v171 + 4) = v172;
-          *(v171 + 12) = 1024;
-          *(v171 + 14) = v85 & 1;
-          _os_log_impl(&dword_2232BB000, v169, v170, "ProfileSliceLabel %ld previously attempted? %{BOOL}d", v171, 0x12u);
-          MEMORY[0x223DE0F80](v171, -1, -1);
+          v135 = swift_slowAlloc();
+          *v135 = v306;
+          v136 = Apple_Parsec_Siri_V2alpha_SiriKitAppInfo.AppContext.rawValue.getter();
+          v123 = *v48;
+          (*v48)(v52, v328);
+          *(v135 + 4) = v136;
+          *(v135 + 12) = 1024;
+          *(v135 + 14) = v51 & 1;
+          _os_log_impl(&dword_2232BB000, v133, v134, "ProfileSliceLabel %ld previously attempted? %{BOOL}d", v135, 0x12u);
+          MEMORY[0x223DE0F80](v135, -1, -1);
         }
 
         else
         {
-          v158 = *v82;
-          (*v82)(v86, v363);
+          v123 = *v48;
+          (*v48)(v52, v328);
         }
 
-        v109 = v350;
-        v54 = v354 + 1;
+        v75 = v315;
+        v31 = v319 + 1;
 
-        v157 = v361;
-        v158(v361, v363);
-        if (v85)
+        v122 = v326;
+        v123(v326, v328);
+        if (v51)
         {
 
-          v193 = Logger.logObject.getter();
-          v194 = static os_log_type_t.debug.getter();
-          v195 = os_log_type_enabled(v193, v194);
-          v189 = v343;
-          if (v195)
+          v155 = Logger.logObject.getter();
+          v156 = static os_log_type_t.debug.getter();
+          v157 = os_log_type_enabled(v155, v156);
+          v153 = v308;
+          if (v157)
           {
-            v196 = swift_slowAlloc();
-            *v196 = 0;
-            _os_log_impl(&dword_2232BB000, v193, v194, "Already attempted profile slice resolution; yielding error response", v196, 2u);
-            MEMORY[0x223DE0F80](v196, -1, -1);
+            v158 = swift_slowAlloc();
+            *v158 = 0;
+            _os_log_impl(&dword_2232BB000, v155, v156, "Already attempted profile slice resolution; yielding error response", v158, 2u);
+            MEMORY[0x223DE0F80](v158, -1, -1);
           }
 
           lazy protocol witness table accessor for type PommesSearchRequestProcessorError and conformance PommesSearchRequestProcessorError();
-          v197 = swift_allocError();
-          *v198 = 69;
-          closure #3 in PommesSearchRequestProcessor.search_sync(completion:)(v197, 1, v329);
+          v159 = swift_allocError();
+          *v160 = 69;
+          closure #3 in PommesSearchRequestProcessor.search_sync(completion:)(v159, 1, v294, v295);
 
-          v188 = v345;
+          v152 = v310;
           goto LABEL_86;
         }
       }
 
-      v173 = v352;
-      v174 = v314;
-      v175 = v313;
-      v176 = v360;
-      v177 = v339;
-      v178 = v338;
+      v137 = v317;
+      v138 = v279;
+      v139 = v278;
+      v140 = v325;
+      v141 = v304;
+      v142 = v303;
       do
       {
-        v179 = (v358)(v174, v178, v109);
-        MEMORY[0x223DDBB90](v179);
+        v143 = (v323)(v138, v142, v75);
+        MEMORY[0x223DDBB90](v143);
         swift_beginAccess();
-        specialized Set._Variant.insert(_:)(v176, v175);
-        (*v82)(v176, v363);
+        specialized Set._Variant.insert(_:)(v140, v139);
+        (*v48)(v140, v328);
         swift_endAccess();
-        v351(v174, v109);
-        v178 += v357;
-        --v177;
+        v316(v138, v75);
+        v142 += v322;
+        --v141;
       }
 
-      while (v177);
-      v180 = v340;
+      while (v141);
+      v144 = v305;
 
-      v181 = Logger.logObject.getter();
-      v182 = static os_log_type_t.debug.getter();
+      v145 = Logger.logObject.getter();
+      v146 = static os_log_type_t.debug.getter();
 
-      if (os_log_type_enabled(v181, v182))
+      if (os_log_type_enabled(v145, v146))
       {
-        v183 = swift_slowAlloc();
-        v184 = swift_slowAlloc();
-        v364 = v184;
-        *v183 = 136315138;
-        v185 = MEMORY[0x223DDF850](v180, v109);
-        v187 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v185, v186, &v364);
+        v147 = swift_slowAlloc();
+        v148 = swift_slowAlloc();
+        v329 = v148;
+        *v147 = 136315138;
+        v149 = MEMORY[0x223DDF850](v144, v75);
+        v151 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v149, v150, &v329);
 
-        *(v183 + 4) = v187;
-        _os_log_impl(&dword_2232BB000, v181, v182, "Adding profile slice resolution requests: %s", v183, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1(v184);
-        MEMORY[0x223DE0F80](v184, -1, -1);
-        MEMORY[0x223DE0F80](v183, -1, -1);
+        *(v147 + 4) = v151;
+        _os_log_impl(&dword_2232BB000, v145, v146, "Adding profile slice resolution requests: %s", v147, 0xCu);
+        __swift_destroy_boxed_opaque_existential_1(v148);
+        MEMORY[0x223DE0F80](v148, -1, -1);
+        MEMORY[0x223DE0F80](v147, -1, -1);
       }
 
-      v188 = v345;
-      v189 = v343;
-      v190 = v173 + OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_pommesSearchRequest;
+      v152 = v310;
+      v153 = v308;
+      v154 = v137 + OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_pommesSearchRequest;
       swift_beginAccess();
-      v191 = *(v319 + 92);
-      v192 = *&v190[v191];
-      *&v190[v191] = v180;
+      *&v154[*(v284 + 92)] = v144;
 
-      (*(*v173 + 224))(closure #3 in PommesSearchRequestProcessor.search_sync(completion:)partial apply, v332);
+      (*(*v137 + 224))(closure #3 in PommesSearchRequestProcessor.search_sync(completion:)partial apply, v297);
       goto LABEL_86;
     }
   }
 
-  v126 = v352;
-  v127 = v352[5];
-  v128 = *(*v352 + 152);
-  v129 = *v352 + 152;
-  v130 = v325;
-  (v128)(v125);
-  v359 = (*(*v127 + 168))(v130, v99);
-  v131 = outlined destroy of PommesSearchRequest(v130, type metadata accessor for PommesSearchRequest);
-  v132 = v126[2];
-  v362 = v129;
-  v363 = v128;
-  (v128)(v131);
-  (*(*v132 + 712))(v130);
-  v133 = outlined destroy of PommesSearchRequest(v130, type metadata accessor for PommesSearchRequest);
+  v92 = v317;
+  v93 = v317[5];
+  v94 = *(*v317 + 152);
+  v95 = *v317 + 152;
+  v96 = v290;
+  (v94)(v91);
+  v324 = (*(*v93 + 168))(v96, v65);
+  v97 = outlined destroy of PommesSearchRequest(v96, type metadata accessor for PommesSearchRequest);
+  v98 = v92[2];
+  v327 = v95;
+  v328 = v94;
+  (v94)(v97);
+  (*(*v98 + 712))(v96);
+  v99 = outlined destroy of PommesSearchRequest(v96, type metadata accessor for PommesSearchRequest);
   if (one-time initialization token for shared != -1)
   {
-    v133 = swift_once();
+    v99 = swift_once();
   }
 
-  v135 = static PerformanceUtil.shared;
-  MEMORY[0x28223BE20](v133, v134);
-  v309 = v369;
-  v310 = v99;
-  v311 = v108;
-  v136 = v326;
+  v100 = static PerformanceUtil.shared;
+  MEMORY[0x28223BE20](v99);
+  v274 = v334;
+  v275 = v65;
+  v276 = v74;
+  v101 = v291;
   Date.init()();
-  v137 = *(*v135 + 200);
-  v311 = v308;
-  v312 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay21SiriInformationSearch10ExperienceCGMd, &_sSay21SiriInformationSearch10ExperienceCGMR);
-  LOBYTE(v309) = 2;
-  v137(v366, 0xD00000000000002ALL, 0x80000002234DBF50, 0, v136, "SiriInformationSearch/PommesSearchRequestProcessor.swift", 56, 2, 348, "handleSuccess(_:_:_:)", 21, v309, closure #4 in PommesSearchRequestProcessor.handleSuccess(_:_:_:)partial apply);
-  (*(v327 + 8))(v136, v328);
-  v138 = *&v366[0];
-  v139 = PommesSearchRequestProcessor.clientSearch(pegasusResponse:)(v343);
-  v140 = Logger.logObject.getter();
-  v141 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v140, v141))
+  v102 = *(*v100 + 200);
+  v276 = v273;
+  v277 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay21SiriInformationSearch10ExperienceCGMd, &_sSay21SiriInformationSearch10ExperienceCGMR);
+  LOBYTE(v274) = 2;
+  v102(v331, 0xD00000000000002ALL, 0x80000002234DBF50, 0, v101, "SiriInformationSearch/PommesSearchRequestProcessor.swift", 56, 2, 348, "handleSuccess(_:_:_:)", 21, v274, closure #4 in PommesSearchRequestProcessor.handleSuccess(_:_:_:)partial apply);
+  (*(v292 + 8))(v101, v293);
+  v103 = *&v331[0];
+  v104 = PommesSearchRequestProcessor.clientSearch(pegasusResponse:)(v308);
+  v105 = Logger.logObject.getter();
+  v106 = static os_log_type_t.debug.getter();
+  if (os_log_type_enabled(v105, v106))
   {
-    v142 = swift_slowAlloc();
-    v143 = swift_slowAlloc();
-    *&v366[0] = v143;
-    *v142 = 136315138;
-    v144 = type metadata accessor for PommesResult();
-    v145 = MEMORY[0x223DDF870](v139, v144);
-    v147 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v145, v146, v366);
+    v107 = swift_slowAlloc();
+    v108 = swift_slowAlloc();
+    *&v331[0] = v108;
+    *v107 = 136315138;
+    v109 = type metadata accessor for PommesResult();
+    v110 = MEMORY[0x223DDF870](v104, v109);
+    v112 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v110, v111, v331);
 
-    *(v142 + 4) = v147;
-    _os_log_impl(&dword_2232BB000, v140, v141, "PommesSearchRequestProcessor#handleSuccess clientResults: %s", v142, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v143);
-    MEMORY[0x223DE0F80](v143, -1, -1);
-    MEMORY[0x223DE0F80](v142, -1, -1);
+    *(v107 + 4) = v112;
+    _os_log_impl(&dword_2232BB000, v105, v106, "PommesSearchRequestProcessor#handleSuccess clientResults: %s", v107, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v108);
+    MEMORY[0x223DE0F80](v108, -1, -1);
+    MEMORY[0x223DE0F80](v107, -1, -1);
   }
 
-  if (!(v138 >> 62))
+  if (!(v103 >> 62))
   {
-    if (*((v138 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    if (*((v103 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
       goto LABEL_18;
     }
 
 LABEL_49:
-    v151 = 0xE700000000000000;
-    v149 = 0x6E776F6E6B6E55;
-    v155 = 0;
+    v116 = 0xE700000000000000;
+    v114 = 0x6E776F6E6B6E55;
+    v120 = 0;
     goto LABEL_50;
   }
 
@@ -7258,386 +5859,390 @@ LABEL_49:
   }
 
 LABEL_18:
-  if ((v138 & 0xC000000000000001) != 0)
+  if ((v103 & 0xC000000000000001) != 0)
   {
-    v306 = MEMORY[0x223DDFF80](0, v138);
-    v149 = dispatch thunk of Experience.pluginIdentifier.getter();
-    v151 = v307;
+    v271 = MEMORY[0x223DDFF80](0, v103);
+    v114 = dispatch thunk of Experience.pluginIdentifier.getter();
+    v116 = v272;
 
-    v152 = MEMORY[0x223DDFF80](0, v138);
+    v117 = MEMORY[0x223DDFF80](0, v103);
     goto LABEL_22;
   }
 
-  if (*((v138 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  if (*((v103 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
-    v148 = *(v138 + 32);
-    v149 = dispatch thunk of Experience.pluginIdentifier.getter();
-    v151 = v150;
+    v113 = *(v103 + 32);
+    v114 = dispatch thunk of Experience.pluginIdentifier.getter();
+    v116 = v115;
 
-    if (*((v138 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    if (*((v103 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
-      v152 = *(v138 + 32);
+      v117 = *(v103 + 32);
 LABEL_22:
-      v153 = v152;
+      v118 = v117;
       dispatch thunk of Experience.queryConfidence.getter();
-      v155 = v154;
+      v120 = v119;
 
 LABEL_50:
 
-      v199 = Logger.logObject.getter();
-      v200 = static os_log_type_t.debug.getter();
+      v161 = Logger.logObject.getter();
+      v162 = static os_log_type_t.debug.getter();
 
-      v201 = os_log_type_enabled(v199, v200);
-      v350 = v139;
-      if (v201)
+      v163 = os_log_type_enabled(v161, v162);
+      v315 = v104;
+      if (v163)
       {
-        v202 = swift_slowAlloc();
-        v203 = swift_slowAlloc();
-        *&v366[0] = v203;
-        *v202 = 136315394;
-        v204 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v149, v151, v366);
+        v164 = swift_slowAlloc();
+        v165 = swift_slowAlloc();
+        *&v331[0] = v165;
+        *v164 = 136315394;
+        v166 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v114, v116, v331);
 
-        *(v202 + 4) = v204;
-        *(v202 + 12) = 2048;
-        *(v202 + 14) = v155;
-        _os_log_impl(&dword_2232BB000, v199, v200, "PommesResponse primaryPluginIdentifier %s     PommesResponse primaryQueryConfidence %f", v202, 0x16u);
-        __swift_destroy_boxed_opaque_existential_1(v203);
-        MEMORY[0x223DE0F80](v203, -1, -1);
-        MEMORY[0x223DE0F80](v202, -1, -1);
+        *(v164 + 4) = v166;
+        *(v164 + 12) = 2048;
+        *(v164 + 14) = v120;
+        _os_log_impl(&dword_2232BB000, v161, v162, "PommesResponse primaryPluginIdentifier %s     PommesResponse primaryQueryConfidence %f", v164, 0x16u);
+        __swift_destroy_boxed_opaque_existential_1(v165);
+        MEMORY[0x223DE0F80](v165, -1, -1);
+        MEMORY[0x223DE0F80](v164, -1, -1);
       }
 
       else
       {
       }
 
-      v205 = v343;
-      v206 = v321;
-      v354 = v138;
-      v207 = v320;
-      v208 = v347;
-      v347(v320, v343, v345);
-      v209 = Logger.logObject.getter();
-      v210 = static os_log_type_t.info.getter();
-      if (os_log_type_enabled(v209, v210))
+      v167 = v308;
+      v168 = v286;
+      v319 = v103;
+      v169 = v285;
+      v170 = v312;
+      v312(v285, v308, v310);
+      v171 = Logger.logObject.getter();
+      v172 = static os_log_type_t.info.getter();
+      if (os_log_type_enabled(v171, v172))
       {
-        v211 = swift_slowAlloc();
-        *v211 = 67109120;
-        v212 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.isLowConfidenceKnowledgeResult.getter() & 1;
-        v344(v207, v345);
-        *(v211 + 4) = v212;
-        _os_log_impl(&dword_2232BB000, v209, v210, "Low confidence knowledge fallback is supported, Pegasus returned value is: %{BOOL}d", v211, 8u);
-        v213 = v211;
-        v208 = v347;
-        MEMORY[0x223DE0F80](v213, -1, -1);
+        v173 = swift_slowAlloc();
+        *v173 = 67109120;
+        v174 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.isLowConfidenceKnowledgeResult.getter() & 1;
+        v309(v169, v310);
+        *(v173 + 4) = v174;
+        _os_log_impl(&dword_2232BB000, v171, v172, "Low confidence knowledge fallback is supported, Pegasus returned value is: %{BOOL}d", v173, 8u);
+        v175 = v173;
+        v170 = v312;
+        MEMORY[0x223DE0F80](v175, -1, -1);
       }
 
       else
       {
-        v344(v207, v345);
+        v309(v169, v310);
       }
 
-      v214 = v340;
-      v215 = v348;
+      v176 = v305;
+      v177 = v313;
 
-      v368 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.isLowConfidenceKnowledgeResult.getter() & 1;
-      v216 = v339;
+      v333 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.isLowConfidenceKnowledgeResult.getter() & 1;
+      v178 = v304;
       Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
-      v337 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.albusMultiturnRewrite.getter();
-      v342 = v217;
-      v218 = *(v215 + 8);
-      v218(v216, v214);
-      v208(v206, v205, v345);
-      v219 = Logger.logObject.getter();
-      v220 = static os_log_type_t.debug.getter();
-      v221 = os_log_type_enabled(v219, v220);
-      v360 = v218;
-      v348 = v215 + 8;
-      if (v221)
+      v302 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.albusMultiturnRewrite.getter();
+      v307 = v179;
+      v180 = *(v177 + 8);
+      v180(v178, v176);
+      v170(v168, v167, v310);
+      v181 = Logger.logObject.getter();
+      v182 = static os_log_type_t.debug.getter();
+      v183 = os_log_type_enabled(v181, v182);
+      v325 = v180;
+      v313 = v177 + 8;
+      if (v183)
       {
-        v222 = swift_slowAlloc();
-        v223 = swift_slowAlloc();
-        *&v366[0] = v223;
-        *v222 = 136315138;
+        v184 = swift_slowAlloc();
+        v185 = swift_slowAlloc();
+        *&v331[0] = v185;
+        *v184 = 136315138;
         Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
-        v224 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.albusMultiturnRewrite.getter();
-        v225 = v214;
-        v226 = v206;
-        v228 = v227;
-        v218(v216, v225);
-        v344(v226, v345);
-        v229 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v224, v228, v366);
+        v186 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.albusMultiturnRewrite.getter();
+        v187 = v176;
+        v188 = v168;
+        v190 = v189;
+        v180(v178, v187);
+        v309(v188, v310);
+        v191 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v186, v190, v331);
 
-        *(v222 + 4) = v229;
-        _os_log_impl(&dword_2232BB000, v219, v220, "got albusMultiturnRewrite as: %s", v222, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1(v223);
-        MEMORY[0x223DE0F80](v223, -1, -1);
-        MEMORY[0x223DE0F80](v222, -1, -1);
+        *(v184 + 4) = v191;
+        _os_log_impl(&dword_2232BB000, v181, v182, "got albusMultiturnRewrite as: %s", v184, 0xCu);
+        __swift_destroy_boxed_opaque_existential_1(v185);
+        MEMORY[0x223DE0F80](v185, -1, -1);
+        MEMORY[0x223DE0F80](v184, -1, -1);
       }
 
       else
       {
 
-        v344(v206, v345);
+        v309(v168, v310);
       }
 
-      v230 = Logger.logObject.getter();
-      v231 = static os_log_type_t.debug.getter();
+      v192 = Logger.logObject.getter();
+      v193 = static os_log_type_t.debug.getter();
 
-      v232 = os_log_type_enabled(v230, v231);
-      v233 = v338;
-      if (v232)
+      v194 = os_log_type_enabled(v192, v193);
+      v195 = v303;
+      if (v194)
       {
-        v234 = swift_slowAlloc();
-        v235 = swift_slowAlloc();
-        *&v366[0] = v235;
-        *v234 = 136315138;
-        v236 = v317;
-        v363();
-        v237 = *(v236 + *(v319 + 52));
+        v196 = swift_slowAlloc();
+        v197 = swift_slowAlloc();
+        *&v331[0] = v197;
+        *v196 = 136315138;
+        v198 = v282;
+        v328();
+        v199 = *(v198 + *(v284 + 52));
 
-        outlined destroy of PommesSearchRequest(v236, type metadata accessor for PommesSearchRequest);
-        if (v237)
+        outlined destroy of PommesSearchRequest(v198, type metadata accessor for PommesSearchRequest);
+        if (v199)
         {
-          v238 = *(v237 + OBJC_IVAR____TtC21SiriInformationSearch20PommesRequestContext_isRelatedQuestion);
+          v200 = *(v199 + OBJC_IVAR____TtC21SiriInformationSearch20PommesRequestContext_isRelatedQuestion);
         }
 
         else
         {
-          v238 = 2;
+          v200 = 2;
         }
 
-        v188 = v345;
-        LOBYTE(v364) = v238;
+        v152 = v310;
+        LOBYTE(v329) = v200;
         __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
-        v239 = String.init<A>(describing:)();
-        v241 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v239, v240, v366);
+        v201 = String.init<A>(describing:)();
+        v203 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v201, v202, v331);
 
-        *(v234 + 4) = v241;
-        _os_log_impl(&dword_2232BB000, v230, v231, "got isRelatedQuestion as: %s", v234, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1(v235);
-        MEMORY[0x223DE0F80](v235, -1, -1);
-        MEMORY[0x223DE0F80](v234, -1, -1);
+        *(v196 + 4) = v203;
+        _os_log_impl(&dword_2232BB000, v192, v193, "got isRelatedQuestion as: %s", v196, 0xCu);
+        __swift_destroy_boxed_opaque_existential_1(v197);
+        MEMORY[0x223DE0F80](v197, -1, -1);
+        MEMORY[0x223DE0F80](v196, -1, -1);
       }
 
       else
       {
 
-        v188 = v345;
+        v152 = v310;
       }
 
-      v242 = v360;
-      v243 = v331;
-      v189 = v343;
-      v244 = v347;
-      v347(v331, v343, v188);
-      v245 = Logger.logObject.getter();
-      v246 = static os_log_type_t.info.getter();
-      if (os_log_type_enabled(v245, v246))
+      v204 = v325;
+      v205 = v296;
+      v153 = v308;
+      v206 = v312;
+      v312(v296, v308, v152);
+      v207 = Logger.logObject.getter();
+      v208 = static os_log_type_t.info.getter();
+      if (os_log_type_enabled(v207, v208))
       {
-        LODWORD(v334) = v246;
-        v336 = v245;
-        v247 = swift_slowAlloc();
-        v333 = swift_slowAlloc();
-        v364 = v333;
-        v335 = v247;
-        *v247 = 136315138;
-        v248 = v318;
+        LODWORD(v299) = v208;
+        v301 = v207;
+        v209 = swift_slowAlloc();
+        v298 = swift_slowAlloc();
+        v329 = v298;
+        v300 = v209;
+        *v209 = 136315138;
+        v210 = v283;
         Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
-        v249 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.domainUseCaseMetadata.getter();
-        v250 = v248;
-        v251 = v249;
-        v242(v250, v340);
-        v252 = *(v251 + 16);
-        if (v252)
+        v211 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.domainUseCaseMetadata.getter();
+        v212 = v210;
+        v213 = v211;
+        v204(v212, v305);
+        v214 = *(v213 + 16);
+        if (v214)
         {
-          v365 = MEMORY[0x277D84F90];
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v252, 0);
-          v253 = v365;
-          v363 = *(v358 + 2);
-          v254 = (v358[80] + 32) & ~v358[80];
-          v328 = v251;
-          v255 = v251 + v254;
-          v362 = *(v358 + 9);
-          v361 = (v315 + 8);
-          v358 += 16;
-          v256 = (v358 - 8);
+          v330 = MEMORY[0x277D84F90];
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v214, 0);
+          v215 = v330;
+          v328 = *(v323 + 2);
+          v216 = (v323[80] + 32) & ~v323[80];
+          v293 = v213;
+          v217 = v213 + v216;
+          v327 = *(v323 + 9);
+          v326 = (v280 + 8);
+          v323 += 16;
+          v218 = (v323 - 8);
           do
           {
-            v257 = v351;
-            v258 = v353;
-            (v363)(v351, v255, v353);
-            *&v366[0] = 0;
-            *(&v366[0] + 1) = 0xE000000000000000;
-            v259 = v356;
+            v219 = v316;
+            v220 = v318;
+            (v328)(v316, v217, v318);
+            *&v331[0] = 0;
+            *(&v331[0] + 1) = 0xE000000000000000;
+            v221 = v321;
             Apple_Parsec_Siri_V2alpha_DomainUseCaseMetadata.useCase.getter();
-            v260 = v357;
+            v222 = v322;
             _print_unlocked<A, B>(_:_:)();
-            (*v361)(v259, v260);
-            v261 = v366[0];
-            (*v256)(v257, v258);
-            v365 = v253;
-            v263 = *(v253 + 16);
-            v262 = *(v253 + 24);
-            if (v263 >= v262 >> 1)
+            (*v326)(v221, v222);
+            v223 = v331[0];
+            (*v218)(v219, v220);
+            v330 = v215;
+            v225 = *(v215 + 16);
+            v224 = *(v215 + 24);
+            if (v225 >= v224 >> 1)
             {
-              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v262 > 1), v263 + 1, 1);
-              v253 = v365;
+              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v224 > 1), v225 + 1, 1);
+              v215 = v330;
             }
 
-            *(v253 + 16) = v263 + 1;
-            *(v253 + 16 * v263 + 32) = v261;
-            v255 += v362;
-            --v252;
+            *(v215 + 16) = v225 + 1;
+            *(v215 + 16 * v225 + 32) = v223;
+            v217 += v327;
+            --v214;
           }
 
-          while (v252);
+          while (v214);
 
-          v188 = v345;
-          v189 = v343;
-          v244 = v347;
-          v243 = v331;
+          v152 = v310;
+          v153 = v308;
+          v206 = v312;
+          v205 = v296;
         }
 
         else
         {
 
-          v253 = MEMORY[0x277D84F90];
+          v215 = MEMORY[0x277D84F90];
         }
 
-        v264 = MEMORY[0x223DDF850](v253, MEMORY[0x277D837D0]);
-        v266 = v265;
+        v226 = MEMORY[0x223DDF850](v215, MEMORY[0x277D837D0]);
+        v228 = v227;
 
-        v344(v243, v188);
-        v267 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v264, v266, &v364);
+        v309(v205, v152);
+        v229 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v226, v228, &v329);
 
-        v268 = v335;
-        *(v335 + 4) = v267;
-        v269 = v336;
-        _os_log_impl(&dword_2232BB000, v336, v334, "got usecases as: %s", v268, 0xCu);
-        v270 = v333;
-        __swift_destroy_boxed_opaque_existential_1(v333);
-        MEMORY[0x223DE0F80](v270, -1, -1);
-        MEMORY[0x223DE0F80](v268, -1, -1);
+        v230 = v300;
+        *(v300 + 4) = v229;
+        v231 = v301;
+        _os_log_impl(&dword_2232BB000, v301, v299, "got usecases as: %s", v230, 0xCu);
+        v232 = v298;
+        __swift_destroy_boxed_opaque_existential_1(v298);
+        MEMORY[0x223DE0F80](v232, -1, -1);
+        MEMORY[0x223DE0F80](v230, -1, -1);
 
-        v233 = v338;
-        v242 = v360;
+        v195 = v303;
+        v204 = v325;
       }
 
       else
       {
 
-        v344(v243, v188);
+        v309(v205, v152);
       }
 
-      v244(v233, v189, v188);
-      v271 = Logger.logObject.getter();
-      v272 = static os_log_type_t.info.getter();
-      if (os_log_type_enabled(v271, v272))
+      v206(v195, v153, v152);
+      v233 = Logger.logObject.getter();
+      v234 = static os_log_type_t.info.getter();
+      if (os_log_type_enabled(v233, v234))
       {
-        v273 = swift_slowAlloc();
-        v274 = v242;
-        v275 = swift_slowAlloc();
-        *&v366[0] = v275;
-        *v273 = 136315138;
-        v276 = v339;
+        v235 = swift_slowAlloc();
+        v236 = v204;
+        v237 = swift_slowAlloc();
+        *&v331[0] = v237;
+        *v235 = 136315138;
+        v238 = v304;
         Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
-        v277 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.domainName.getter();
-        v279 = v278;
-        v274(v276, v340);
-        v344(v233, v188);
-        v280 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v277, v279, v366);
-        v189 = v343;
+        v239 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.domainName.getter();
+        v241 = v240;
+        v236(v238, v305);
+        v309(v195, v152);
+        v242 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v239, v241, v331);
+        v153 = v308;
 
-        *(v273 + 4) = v280;
-        _os_log_impl(&dword_2232BB000, v271, v272, "got domain as: %s", v273, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1(v275);
-        MEMORY[0x223DE0F80](v275, -1, -1);
-        MEMORY[0x223DE0F80](v273, -1, -1);
+        *(v235 + 4) = v242;
+        _os_log_impl(&dword_2232BB000, v233, v234, "got domain as: %s", v235, 0xCu);
+        __swift_destroy_boxed_opaque_existential_1(v237);
+        MEMORY[0x223DE0F80](v237, -1, -1);
+        MEMORY[0x223DE0F80](v235, -1, -1);
       }
 
       else
       {
 
-        v344(v233, v188);
+        v309(v195, v152);
       }
 
-      v281 = v346;
-      v282 = type metadata accessor for PommesResponse();
-      MEMORY[0x28223BE20](v282, v283);
-      v284 = v350;
-      *(&v313 - 10) = v354;
-      *(&v313 - 9) = v284;
-      v285 = v352;
-      *(&v313 - 8) = v189;
-      *(&v313 - 7) = v285;
-      v308[0] = v359;
-      v308[1] = v322;
-      v309 = &v368;
-      v310 = v337;
-      v311 = v342;
-      v286 = PommesResponse.__allocating_init(_:)();
+      v243 = v311;
+      v244 = type metadata accessor for PommesResponse();
+      MEMORY[0x28223BE20](v244);
+      v245 = v315;
+      *(&v278 - 10) = v319;
+      *(&v278 - 9) = v245;
+      v246 = v317;
+      *(&v278 - 8) = v153;
+      *(&v278 - 7) = v246;
+      v273[0] = v324;
+      v273[1] = v287;
+      v274 = &v333;
+      v275 = v302;
+      v276 = v307;
+      v247 = PommesResponse.__allocating_init(_:)();
 
-      if (v286)
+      if (v247)
       {
-        v287 = v286;
-        v288 = Logger.logObject.getter();
-        v289 = static os_log_type_t.debug.getter();
+        v248 = v247;
+        v249 = Logger.logObject.getter();
+        v250 = static os_log_type_t.debug.getter();
 
-        if (os_log_type_enabled(v288, v289))
+        v251 = os_log_type_enabled(v249, v250);
+        v252 = v295;
+        if (v251)
         {
-          v290 = swift_slowAlloc();
-          v291 = swift_slowAlloc();
-          *&v366[0] = v291;
-          *v290 = 136315138;
-          v292 = [v287 debugDescription];
-          v293 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-          v295 = v294;
+          v253 = swift_slowAlloc();
+          v254 = swift_slowAlloc();
+          *&v331[0] = v254;
+          *v253 = 136315138;
+          v255 = [v248 debugDescription];
+          v256 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+          v258 = v257;
 
-          v296 = v293;
-          v188 = v345;
-          v297 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v296, v295, v366);
+          v259 = v256;
+          v152 = v310;
+          v260 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v259, v258, v331);
 
-          *(v290 + 4) = v297;
-          _os_log_impl(&dword_2232BB000, v288, v289, "PommesSearchRequestProcessor#handleSuccess response: %s", v290, 0xCu);
-          __swift_destroy_boxed_opaque_existential_1(v291);
-          v298 = v291;
-          v189 = v343;
-          MEMORY[0x223DE0F80](v298, -1, -1);
-          v299 = v290;
-          v281 = v346;
-          MEMORY[0x223DE0F80](v299, -1, -1);
+          *(v253 + 4) = v260;
+          _os_log_impl(&dword_2232BB000, v249, v250, "PommesSearchRequestProcessor#handleSuccess response: %s", v253, 0xCu);
+          __swift_destroy_boxed_opaque_existential_1(v254);
+          v261 = v254;
+          v153 = v308;
+          MEMORY[0x223DE0F80](v261, -1, -1);
+          v262 = v253;
+          v243 = v311;
+          MEMORY[0x223DE0F80](v262, -1, -1);
         }
 
-        v367 = 0;
-        memset(v366, 0, sizeof(v366));
-        static CurareDonation.donateCurareInfo(for:with:into:)(v189, v287, v366);
-        outlined destroy of MediaUserStateCenter?(v366, &_s21SiriInformationSearch23CurareInteractionStream_pSgMd, &_s21SiriInformationSearch23CurareInteractionStream_pSgMR);
-        v300 = v287;
-        closure #3 in PommesSearchRequestProcessor.search_sync(completion:)(v286, 0, v329);
+        v332 = 0;
+        memset(v331, 0, sizeof(v331));
+        static CurareDonation.donateCurareInfo(for:with:into:)(v153, v248, v331);
+        outlined destroy of MediaUserStateCenter?(v331, &_s21SiriInformationSearch23CurareInteractionStream_pSgMd, &_s21SiriInformationSearch23CurareInteractionStream_pSgMR);
+        v263 = v248;
+        closure #3 in PommesSearchRequestProcessor.search_sync(completion:)(v247, 0, v294, v252);
       }
 
       else
       {
-        v301 = Logger.logObject.getter();
-        v302 = static os_log_type_t.error.getter();
-        if (os_log_type_enabled(v301, v302))
+        v264 = Logger.logObject.getter();
+        v265 = static os_log_type_t.error.getter();
+        v266 = os_log_type_enabled(v264, v265);
+        v267 = v295;
+        if (v266)
         {
-          v303 = swift_slowAlloc();
-          *v303 = 0;
-          _os_log_impl(&dword_2232BB000, v301, v302, "PommesSearchRequestProcessor failed to build PommesResponse with given parameters", v303, 2u);
-          MEMORY[0x223DE0F80](v303, -1, -1);
+          v268 = swift_slowAlloc();
+          *v268 = 0;
+          _os_log_impl(&dword_2232BB000, v264, v265, "PommesSearchRequestProcessor failed to build PommesResponse with given parameters", v268, 2u);
+          MEMORY[0x223DE0F80](v268, -1, -1);
         }
 
         lazy protocol witness table accessor for type PommesSearchRequestProcessorError and conformance PommesSearchRequestProcessorError();
-        v304 = swift_allocError();
-        *v305 = 0x80;
-        closure #3 in PommesSearchRequestProcessor.search_sync(completion:)(v304, 1, v329);
+        v269 = swift_allocError();
+        *v270 = 0x80;
+        closure #3 in PommesSearchRequestProcessor.search_sync(completion:)(v269, 1, v294, v267);
       }
 
-      (*(v323 + 8))(v281, v324);
+      (*(v288 + 8))(v243, v289);
 LABEL_86:
-      v344(v189, v188);
-      __swift_destroy_boxed_opaque_existential_1(v369);
+      v309(v153, v152);
+      __swift_destroy_boxed_opaque_existential_1(v334);
 
       return;
     }
@@ -7652,460 +6257,446 @@ LABEL_86:
 }
 
 {
-  v350 = a3;
-  v348 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSliceResolutionRequest();
-  v357 = *(v348 - 8);
-  v9 = *(v357 + 64);
-  v11 = MEMORY[0x28223BE20](v348, v10);
-  v313 = &v311 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v11, v13);
-  v360 = (&v311 - v14);
-  v361 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSliceLabel();
-  v352 = *(v361 - 1);
-  v15 = *(v352 + 64);
-  v17 = MEMORY[0x28223BE20](v361, v16);
-  v312 = &v311 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = MEMORY[0x28223BE20](v17, v19);
-  v358 = &v311 - v21;
-  v23 = MEMORY[0x28223BE20](v20, v22);
-  v340 = &v311 - v24;
-  v26 = MEMORY[0x28223BE20](v23, v25);
-  v359 = &v311 - v27;
-  MEMORY[0x28223BE20](v26, v28);
-  v315 = &v311 - v29;
-  v355 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DomainUseCase();
-  v314 = *(v355 - 8);
-  v30 = *(v314 + 64);
-  MEMORY[0x28223BE20](v355, v31);
-  v354 = (&v311 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v351 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DomainUseCaseMetadata();
-  v356 = *(v351 - 8);
-  v33 = *(v356 + 8);
-  MEMORY[0x28223BE20](v351, v34);
-  v349 = (&v311 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0));
-  *&v339 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata();
-  v345 = *(v339 - 8);
-  v36 = *(v345 + 64);
-  v38 = MEMORY[0x28223BE20](v339, v37);
-  v317 = &v311 - ((v39 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v38, v40);
-  v338 = &v311 - v41;
-  v327 = type metadata accessor for Date();
-  v326 = *(v327 - 1);
-  v42 = *(v326 + 64);
-  MEMORY[0x28223BE20](v327, v43);
-  v325 = &v311 - ((v44 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v45 = type metadata accessor for ClientExperienceSignals();
-  v322 = *(v45 - 8);
-  v46 = *(v322 + 64);
-  MEMORY[0x28223BE20](v45, v47);
-  v344 = &v311 - ((v48 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v318 = type metadata accessor for PommesSearchRequest(0);
-  v49 = *(*(v318 - 8) + 64);
-  v51 = MEMORY[0x28223BE20](v318, v50);
-  v316 = &v311 - ((v52 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v51, v53);
-  v324 = &v311 - v54;
-  v336 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileResolutionRequest();
-  v335 = *(v336 - 8);
-  v55 = *(v335 + 64);
-  MEMORY[0x28223BE20](v336, v56);
-  v58 = &v311 - ((v57 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v334 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.SiriInstruction();
-  isa = v334[-1].isa;
-  v59 = *(isa + 8);
-  MEMORY[0x28223BE20](v334, v60);
-  v332 = &v311 - ((v61 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v62 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse();
-  v63 = *(v62 - 8);
-  v64 = *(v63 + 64);
-  v66 = MEMORY[0x28223BE20](v62, v65);
-  v337 = &v311 - ((v67 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v69 = MEMORY[0x28223BE20](v66, v68);
-  v330 = &v311 - v70;
-  v72 = MEMORY[0x28223BE20](v69, v71);
-  v320 = &v311 - v73;
-  v75 = MEMORY[0x28223BE20](v72, v74);
-  v319 = &v311 - v76;
-  v78 = MEMORY[0x28223BE20](v75, v77);
-  v80 = &v311 - v79;
-  MEMORY[0x28223BE20](v78, v81);
-  v83 = (&v311 - v82);
-  v84 = swift_allocObject();
-  *(v84 + 16) = a4;
-  *(v84 + 24) = a5;
-  v331 = v84;
-  v367[3] = &type metadata for DefaultExperiencesResolver;
-  v367[4] = &protocol witness table for DefaultExperiencesResolver;
-  v367[0] = swift_allocObject();
-  outlined init with copy of DefaultExperiencesResolver(a2, v367[0] + 16);
-  v85 = *(type metadata accessor for PegasusSearchResponse(0) + 20);
-  v347 = v63;
-  v86 = v63;
-  v87 = v83;
-  v88 = v86 + 16;
-  v89 = *(v86 + 16);
-  v321 = a1;
-  v89(v87, a1 + v85, v62);
-  v90 = one-time initialization token for pommes;
-  v328 = a4;
+  v315 = a3;
+  v313 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSliceResolutionRequest();
+  v322 = *(v313 - 8);
+  v9 = MEMORY[0x28223BE20](v313);
+  v278 = (&v276 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x28223BE20](v9);
+  v325 = (&v276 - v11);
+  v326 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileSliceLabel();
+  v317 = *(v326 - 1);
+  v12 = MEMORY[0x28223BE20](v326);
+  v277 = &v276 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = MEMORY[0x28223BE20](v12);
+  v323 = &v276 - v15;
+  v16 = MEMORY[0x28223BE20](v14);
+  v305 = &v276 - v17;
+  v18 = MEMORY[0x28223BE20](v16);
+  v324 = &v276 - v19;
+  MEMORY[0x28223BE20](v18);
+  v280 = &v276 - v20;
+  v320 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DomainUseCase();
+  v279 = *(v320 - 8);
+  MEMORY[0x28223BE20](v320);
+  v319 = (&v276 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v316 = type metadata accessor for Apple_Parsec_Siri_V2alpha_DomainUseCaseMetadata();
+  v321 = *(v316 - 8);
+  MEMORY[0x28223BE20](v316);
+  v314 = (&v276 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0));
+  *&v304 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata();
+  v310 = *(v304 - 8);
+  v23 = MEMORY[0x28223BE20](v304);
+  v282 = &v276 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v23);
+  v303 = &v276 - v25;
+  v292 = type metadata accessor for Date();
+  v291 = *(v292 - 1);
+  MEMORY[0x28223BE20](v292);
+  v290 = &v276 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = type metadata accessor for ClientExperienceSignals();
+  v287 = *(v27 - 8);
+  MEMORY[0x28223BE20](v27);
+  v309 = &v276 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v283 = type metadata accessor for PommesSearchRequest(0);
+  v29 = MEMORY[0x28223BE20](v283);
+  v281 = &v276 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v29);
+  v289 = &v276 - v31;
+  v301 = type metadata accessor for Apple_Parsec_Siri_V2alpha_ProfileResolutionRequest();
+  v300 = *(v301 - 8);
+  MEMORY[0x28223BE20](v301);
+  v33 = &v276 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v299 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.SiriInstruction();
+  isa = v299[-1].isa;
+  MEMORY[0x28223BE20](v299);
+  v297 = &v276 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v35 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse();
+  v36 = *(v35 - 8);
+  v37 = MEMORY[0x28223BE20](v35);
+  v302 = &v276 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v39 = MEMORY[0x28223BE20](v37);
+  v295 = &v276 - v40;
+  v41 = MEMORY[0x28223BE20](v39);
+  v285 = &v276 - v42;
+  v43 = MEMORY[0x28223BE20](v41);
+  v284 = &v276 - v44;
+  v45 = MEMORY[0x28223BE20](v43);
+  v47 = &v276 - v46;
+  MEMORY[0x28223BE20](v45);
+  v49 = (&v276 - v48);
+  v50 = swift_allocObject();
+  *(v50 + 16) = a4;
+  *(v50 + 24) = a5;
+  v296 = v50;
+  v332[3] = &type metadata for DefaultExperiencesResolver;
+  v332[4] = &protocol witness table for DefaultExperiencesResolver;
+  v332[0] = swift_allocObject();
+  outlined init with copy of DefaultExperiencesResolver(a2, v332[0] + 16);
+  v51 = *(type metadata accessor for PegasusSearchResponse(0) + 20);
+  v312 = v36;
+  v52 = v36;
+  v53 = v49;
+  v54 = v52 + 16;
+  v55 = *(v52 + 16);
+  v286 = a1;
+  v55(v53, a1 + v51, v35);
+  v56 = one-time initialization token for pommes;
+  v293 = a4;
 
-  v329 = a5;
+  v294 = a5;
 
-  if (v90 != -1)
+  if (v56 != -1)
   {
 LABEL_47:
     swift_once();
   }
 
-  v91 = type metadata accessor for Logger();
-  v92 = __swift_project_value_buffer(v91, static Logger.pommes);
-  v89(v80, v87, v62);
-  v353 = v92;
-  v93 = Logger.logObject.getter();
-  v94 = static os_log_type_t.debug.getter();
-  v95 = os_log_type_enabled(v93, v94);
-  v343 = v62;
-  v341 = v87;
-  v323 = v45;
-  v346 = v89;
-  if (v95)
+  v57 = type metadata accessor for Logger();
+  v58 = __swift_project_value_buffer(v57, static Logger.pommes);
+  v55(v47, v53, v35);
+  v318 = v58;
+  v59 = Logger.logObject.getter();
+  v60 = static os_log_type_t.debug.getter();
+  v61 = os_log_type_enabled(v59, v60);
+  v308 = v35;
+  v306 = v53;
+  v288 = v27;
+  v311 = v55;
+  if (v61)
   {
-    v96 = swift_slowAlloc();
-    v97 = swift_slowAlloc();
-    *&v364[0] = v97;
-    *v96 = 136315138;
-    lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_SiriPegasusResponse and conformance Apple_Parsec_Siri_V2alpha_SiriPegasusResponse, MEMORY[0x277D38DA0]);
-    v98 = Message.textFormatString()();
-    v342 = *(v347 + 8);
-    v342(v80, v62);
-    v99 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v98._countAndFlagsBits, v98._object, v364);
+    v62 = swift_slowAlloc();
+    v63 = swift_slowAlloc();
+    *&v329[0] = v63;
+    *v62 = 136315138;
+    lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_SiriPegasusResponse and conformance Apple_Parsec_Siri_V2alpha_SiriPegasusResponse, MEMORY[0x277D38DA0], MEMORY[0x277D38D98]);
+    v64 = Message.textFormatString()();
+    v307 = *(v312 + 8);
+    v307(v47, v35);
+    v65 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v64._countAndFlagsBits, v64._object, v329);
 
-    *(v96 + 4) = v99;
-    _os_log_impl(&dword_2232BB000, v93, v94, "PireneResponse: %s", v96, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v97);
-    MEMORY[0x223DE0F80](v97, -1, -1);
-    v100 = v96;
-    v87 = v341;
-    MEMORY[0x223DE0F80](v100, -1, -1);
+    *(v62 + 4) = v65;
+    _os_log_impl(&dword_2232BB000, v59, v60, "PireneResponse: %s", v62, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v63);
+    MEMORY[0x223DE0F80](v63, -1, -1);
+    v66 = v62;
+    v53 = v306;
+    MEMORY[0x223DE0F80](v66, -1, -1);
   }
 
   else
   {
 
-    v342 = *(v347 + 8);
-    v342(v80, v62);
+    v307 = *(v312 + 8);
+    v307(v47, v35);
   }
 
-  v101 = v332;
+  v67 = v297;
   Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.siriInstruction.getter();
   Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.SiriInstruction.resolutionRequest.getter();
-  v102 = (*(isa + 1))(v101, v334);
-  v103 = MEMORY[0x223DDBA80](v102);
-  (*(v335 + 8))(v58, v336);
-  v104 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.hasSiriInstruction.getter();
-  v105 = v344;
-  v106 = v348;
-  v107 = v357;
-  if (v104)
+  v68 = (*(isa + 1))(v67, v299);
+  v69 = MEMORY[0x223DDBA80](v68);
+  (*(v300 + 8))(v33, v301);
+  v70 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.hasSiriInstruction.getter();
+  v71 = v309;
+  v72 = v313;
+  v73 = v322;
+  if (v70)
   {
-    v108 = *(v103 + 16);
-    if (v108)
+    v74 = *(v69 + 16);
+    if (v74)
     {
-      *&v364[0] = MEMORY[0x277D84F90];
-      v109 = v108;
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v108, 0);
-      v110 = *&v364[0];
-      v113 = *(v107 + 16);
-      v112 = v107 + 16;
-      v111 = v113;
-      v114 = (*(v112 + 64) + 32) & ~*(v112 + 64);
-      v338 = v103;
-      v87 = (v103 + v114);
-      v115 = *(v112 + 56);
-      v357 = v112;
-      v354 = (v112 - 8);
-      v351 = v352 + 32;
-      v336 = v103 + v114;
-      v337 = v109;
-      v80 = v315;
-      v356 = v113;
-      v355 = v115;
+      *&v329[0] = MEMORY[0x277D84F90];
+      v75 = v74;
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v74, 0);
+      v76 = *&v329[0];
+      v79 = *(v73 + 16);
+      v78 = v73 + 16;
+      v77 = v79;
+      v80 = (*(v78 + 64) + 32) & ~*(v78 + 64);
+      v303 = v69;
+      v53 = (v69 + v80);
+      v81 = *(v78 + 56);
+      v322 = v78;
+      v319 = (v78 - 8);
+      v316 = v317 + 32;
+      v301 = v69 + v80;
+      v302 = v75;
+      v47 = v280;
+      v321 = v79;
+      v320 = v81;
       do
       {
-        v116 = v360;
-        v117 = v111(v360, v87, v106);
-        MEMORY[0x223DDBB90](v117);
-        v118 = *v354;
-        (*v354)(v116, v106);
-        *&v364[0] = v110;
-        v120 = *(v110 + 16);
-        v119 = *(v110 + 24);
-        v121 = (v120 + 1);
-        if (v120 >= v119 >> 1)
+        v82 = v325;
+        v83 = v77(v325, v53, v72);
+        MEMORY[0x223DDBB90](v83);
+        v84 = *v319;
+        (*v319)(v82, v72);
+        *&v329[0] = v76;
+        v86 = *(v76 + 16);
+        v85 = *(v76 + 24);
+        v87 = (v86 + 1);
+        if (v86 >= v85 >> 1)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v119 > 1, v120 + 1, 1);
-          v110 = *&v364[0];
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v85 > 1), v86 + 1, 1);
+          v76 = *&v329[0];
         }
 
-        *(v110 + 16) = v121;
-        v122 = v110 + ((*(v352 + 80) + 32) & ~*(v352 + 80));
-        v89 = *(v352 + 72);
-        (*(v352 + 32))(v122 + v89 * v120, v80, v361);
-        v88 = v355;
-        v87 = (v87 + v355);
-        --v109;
-        v111 = v356;
+        *(v76 + 16) = v87;
+        v88 = v76 + ((*(v317 + 80) + 32) & ~*(v317 + 80));
+        v55 = *(v317 + 72);
+        (*(v317 + 32))(v88 + v55 * v86, v47, v326);
+        v54 = v320;
+        v53 = (v53 + v320);
+        --v75;
+        v77 = v321;
       }
 
-      while (v109);
-      v345 = v122;
-      v346 = v121;
-      v351 = v110;
-      v349 = v118;
-      v344 = OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_attemptedProfileSliceLabels;
+      while (v75);
+      v310 = v88;
+      v311 = v87;
+      v316 = v76;
+      v314 = v84;
+      v309 = OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_attemptedProfileSliceLabels;
       swift_beginAccess();
-      v58 = 0;
-      v360 = (v352 + 16);
-      v45 = v352 + 8;
-      *&v155 = 134218240;
-      v339 = v155;
-      v156 = v340;
-      v157 = v359;
-      while (v58 != v346)
+      v33 = 0;
+      v325 = (v317 + 16);
+      v27 = v317 + 8;
+      *&v120 = 134218240;
+      v304 = v120;
+      v121 = v305;
+      v122 = v324;
+      while (v33 != v311)
       {
-        v62 = v361;
-        if (v58 >= *(v351 + 16))
+        v35 = v326;
+        if (v33 >= *(v316 + 16))
         {
           __break(1u);
           goto LABEL_47;
         }
 
-        v159 = *v360;
-        (*v360)(v157, v345 + v58 * v89, v361);
-        v160 = *&v344[v350];
-        v161 = *(v160 + 16);
-        v352 = v58;
-        if (v161)
+        v124 = *v325;
+        (*v325)(v122, v310 + v33 * v55, v326);
+        v125 = *&v309[v315];
+        v126 = *(v125 + 16);
+        v317 = v33;
+        if (v126)
         {
-          v162 = *(v160 + 40);
-          lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_ProfileSliceLabel and conformance Apple_Parsec_Siri_V2alpha_ProfileSliceLabel, MEMORY[0x277D39740]);
+          lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_ProfileSliceLabel and conformance Apple_Parsec_Siri_V2alpha_ProfileSliceLabel, MEMORY[0x277D39740], MEMORY[0x277D39748]);
 
-          v163 = dispatch thunk of Hashable._rawHashValue(seed:)();
-          v164 = -1 << *(v160 + 32);
-          v165 = v163 & ~v164;
-          if ((*(v160 + 56 + ((v165 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v165))
+          v127 = dispatch thunk of Hashable._rawHashValue(seed:)();
+          v128 = -1 << *(v125 + 32);
+          v129 = v127 & ~v128;
+          if ((*(v125 + 56 + ((v129 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v129))
           {
-            v166 = ~v164;
+            v130 = ~v128;
             do
             {
-              v167 = v358;
-              v168 = v361;
-              v159(v358, *(v160 + 48) + v165 * v89, v361);
-              lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_ProfileSliceLabel and conformance Apple_Parsec_Siri_V2alpha_ProfileSliceLabel, MEMORY[0x277D39740]);
-              v80 = dispatch thunk of static Equatable.== infix(_:_:)();
-              (*v45)(v167, v168);
-              if (v80)
+              v131 = v323;
+              v132 = v326;
+              v124(v323, *(v125 + 48) + v129 * v55, v326);
+              lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_ProfileSliceLabel and conformance Apple_Parsec_Siri_V2alpha_ProfileSliceLabel, MEMORY[0x277D39740], MEMORY[0x277D39750]);
+              v47 = dispatch thunk of static Equatable.== infix(_:_:)();
+              (*v27)(v131, v132);
+              if (v47)
               {
                 break;
               }
 
-              v165 = (v165 + 1) & v166;
+              v129 = (v129 + 1) & v130;
             }
 
-            while (((*(v160 + 56 + ((v165 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v165) & 1) != 0);
+            while (((*(v125 + 56 + ((v129 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v129) & 1) != 0);
           }
 
           else
           {
-            v80 = 0;
+            v47 = 0;
           }
 
-          v62 = v361;
-          v156 = v340;
-          v157 = v359;
+          v35 = v326;
+          v121 = v305;
+          v122 = v324;
         }
 
         else
         {
-          v80 = 0;
+          v47 = 0;
         }
 
-        v159(v156, v157, v62);
-        v87 = Logger.logObject.getter();
-        v169 = static os_log_type_t.debug.getter();
-        v88 = v45 & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-        if (os_log_type_enabled(v87, v169))
+        v124(v121, v122, v35);
+        v53 = Logger.logObject.getter();
+        v133 = static os_log_type_t.debug.getter();
+        v54 = v27 & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+        if (os_log_type_enabled(v53, v133))
         {
-          v170 = swift_slowAlloc();
-          *v170 = v339;
-          v171 = Apple_Parsec_Siri_V2alpha_SiriKitAppInfo.AppContext.rawValue.getter();
-          v158 = *v45;
-          (*v45)(v156, v361);
-          *(v170 + 4) = v171;
-          *(v170 + 12) = 1024;
-          *(v170 + 14) = v80 & 1;
-          _os_log_impl(&dword_2232BB000, v87, v169, "ProfileSliceLabel %ld previously attempted? %{BOOL}d", v170, 0x12u);
-          MEMORY[0x223DE0F80](v170, -1, -1);
+          v134 = swift_slowAlloc();
+          *v134 = v304;
+          v135 = Apple_Parsec_Siri_V2alpha_SiriKitAppInfo.AppContext.rawValue.getter();
+          v123 = *v27;
+          (*v27)(v121, v326);
+          *(v134 + 4) = v135;
+          *(v134 + 12) = 1024;
+          *(v134 + 14) = v47 & 1;
+          _os_log_impl(&dword_2232BB000, v53, v133, "ProfileSliceLabel %ld previously attempted? %{BOOL}d", v134, 0x12u);
+          MEMORY[0x223DE0F80](v134, -1, -1);
         }
 
         else
         {
-          v158 = *v45;
-          (*v45)(v156, v361);
+          v123 = *v27;
+          (*v27)(v121, v326);
         }
 
-        v106 = v348;
-        v58 = v352 + 1;
+        v72 = v313;
+        v33 = v317 + 1;
 
-        v157 = v359;
-        v158(v359, v361);
-        if (v80)
+        v122 = v324;
+        v123(v324, v326);
+        if (v47)
         {
 
-          v193 = Logger.logObject.getter();
-          v194 = static os_log_type_t.debug.getter();
-          v195 = os_log_type_enabled(v193, v194);
-          v189 = v341;
-          if (v195)
+          v155 = Logger.logObject.getter();
+          v156 = static os_log_type_t.debug.getter();
+          v157 = os_log_type_enabled(v155, v156);
+          v153 = v306;
+          if (v157)
           {
-            v196 = swift_slowAlloc();
-            *v196 = 0;
-            _os_log_impl(&dword_2232BB000, v193, v194, "Already attempted profile slice resolution; yielding error response", v196, 2u);
-            MEMORY[0x223DE0F80](v196, -1, -1);
+            v158 = swift_slowAlloc();
+            *v158 = 0;
+            _os_log_impl(&dword_2232BB000, v155, v156, "Already attempted profile slice resolution; yielding error response", v158, 2u);
+            MEMORY[0x223DE0F80](v158, -1, -1);
           }
 
           lazy protocol witness table accessor for type PommesSearchRequestProcessorError and conformance PommesSearchRequestProcessorError();
-          v197 = swift_allocError();
-          *v198 = 69;
-          closure #3 in PommesSearchRequestProcessor.search_sync(completion:)(v197, 1, v328);
+          v159 = swift_allocError();
+          *v160 = 69;
+          closure #3 in PommesSearchRequestProcessor.search_sync(completion:)(v159, 1, v293, v294);
 
-          v188 = v343;
+          v152 = v308;
           goto LABEL_86;
         }
       }
 
-      v172 = v350;
-      v173 = v313;
-      v174 = v312;
-      v175 = v358;
-      v176 = v337;
-      v177 = v336;
+      v136 = v315;
+      v137 = v278;
+      v138 = v277;
+      v139 = v323;
+      v140 = v302;
+      v141 = v301;
       do
       {
-        v178 = v356(v173, v177, v106);
-        MEMORY[0x223DDBB90](v178);
+        v142 = v321(v137, v141, v72);
+        MEMORY[0x223DDBB90](v142);
         swift_beginAccess();
-        specialized Set._Variant.insert(_:)(v175, v174);
-        (*v45)(v175, v361);
+        specialized Set._Variant.insert(_:)(v139, v138);
+        (*v27)(v139, v326);
         swift_endAccess();
-        v349(v173, v106);
-        v177 += v355;
-        --v176;
+        v314(v137, v72);
+        v141 += v320;
+        --v140;
       }
 
-      while (v176);
-      v179 = v338;
+      while (v140);
+      v143 = v303;
 
-      v180 = Logger.logObject.getter();
-      v181 = static os_log_type_t.debug.getter();
+      v144 = Logger.logObject.getter();
+      v145 = static os_log_type_t.debug.getter();
 
-      if (os_log_type_enabled(v180, v181))
+      if (os_log_type_enabled(v144, v145))
       {
-        v182 = swift_slowAlloc();
-        v183 = swift_slowAlloc();
-        v362 = v183;
-        *v182 = 136315138;
-        v184 = MEMORY[0x223DDF850](v338, v106);
-        v186 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v184, v185, &v362);
+        v146 = swift_slowAlloc();
+        v147 = swift_slowAlloc();
+        v327 = v147;
+        *v146 = 136315138;
+        v148 = MEMORY[0x223DDF850](v303, v72);
+        v150 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v148, v149, &v327);
 
-        *(v182 + 4) = v186;
-        _os_log_impl(&dword_2232BB000, v180, v181, "Adding profile slice resolution requests: %s", v182, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1(v183);
-        MEMORY[0x223DE0F80](v183, -1, -1);
-        v187 = v182;
-        v179 = v338;
-        MEMORY[0x223DE0F80](v187, -1, -1);
+        *(v146 + 4) = v150;
+        _os_log_impl(&dword_2232BB000, v144, v145, "Adding profile slice resolution requests: %s", v146, 0xCu);
+        __swift_destroy_boxed_opaque_existential_1(v147);
+        MEMORY[0x223DE0F80](v147, -1, -1);
+        v151 = v146;
+        v143 = v303;
+        MEMORY[0x223DE0F80](v151, -1, -1);
       }
 
-      v188 = v343;
-      v189 = v341;
-      v190 = v172 + OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_pommesSearchRequest;
+      v152 = v308;
+      v153 = v306;
+      v154 = v136 + OBJC_IVAR____TtC21SiriInformationSearch28PommesSearchRequestProcessor_pommesSearchRequest;
       swift_beginAccess();
-      v191 = *(v318 + 92);
-      v192 = *&v190[v191];
-      *&v190[v191] = v179;
+      *&v154[*(v283 + 92)] = v143;
 
-      (*(*v172 + 224))(partial apply for closure #3 in PommesSearchRequestProcessor.search_sync(completion:), v331);
+      (*(*v136 + 224))(partial apply for closure #3 in PommesSearchRequestProcessor.search_sync(completion:), v296);
       goto LABEL_86;
     }
   }
 
-  v124 = v350;
-  v125 = v350[5];
-  v126 = *(*v350 + 152);
-  v127 = *v350 + 152;
-  v128 = v324;
-  (v126)(v123);
-  v357 = (*(*v125 + 168))(v128, v87);
-  v129 = outlined destroy of PommesSearchRequest(v128, type metadata accessor for PommesSearchRequest);
-  v130 = v124[2];
-  v361 = v127;
-  (v126)(v129);
-  (*(*v130 + 712))(v128);
-  v131 = outlined destroy of PommesSearchRequest(v128, type metadata accessor for PommesSearchRequest);
+  v90 = v315;
+  v91 = v315[5];
+  v92 = *(*v315 + 152);
+  v93 = *v315 + 152;
+  v94 = v289;
+  (v92)(v89);
+  v322 = (*(*v91 + 168))(v94, v53);
+  v95 = outlined destroy of PommesSearchRequest(v94, type metadata accessor for PommesSearchRequest);
+  v96 = v90[2];
+  v326 = v93;
+  (v92)(v95);
+  (*(*v96 + 712))(v94);
+  v97 = outlined destroy of PommesSearchRequest(v94, type metadata accessor for PommesSearchRequest);
   if (one-time initialization token for shared != -1)
   {
-    v131 = swift_once();
+    v97 = swift_once();
   }
 
-  v133 = static PerformanceUtil.shared;
-  MEMORY[0x28223BE20](v131, v132);
-  v307 = v367;
-  v308 = v87;
-  v309 = v105;
-  v134 = v325;
+  v98 = static PerformanceUtil.shared;
+  MEMORY[0x28223BE20](v97);
+  v272 = v332;
+  v273 = v53;
+  v274 = v71;
+  v99 = v290;
   Date.init()();
-  v135 = *(*v133 + 200);
-  v309 = v306;
-  v310 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay21SiriInformationSearch10ExperienceCGMd, &_sSay21SiriInformationSearch10ExperienceCGMR);
-  LOBYTE(v307) = 2;
-  v135(v364, 0xD00000000000002ALL, 0x80000002234DBF50, 0, v134, "SiriInformationSearch/PommesSearchRequestProcessor.swift", 56, 2, 348, "handleSuccess(_:_:_:)", 21, v307, partial apply for closure #4 in PommesSearchRequestProcessor.handleSuccess(_:_:_:));
-  (*(v326 + 8))(v134, v327);
-  v136 = *&v364[0];
-  v137 = PommesSearchRequestProcessor.clientSearch(pegasusResponse:)(v341);
-  v138 = Logger.logObject.getter();
-  v139 = static os_log_type_t.debug.getter();
-  v140 = os_log_type_enabled(v138, v139);
-  v352 = v137;
-  if (v140)
+  v100 = *(*v98 + 200);
+  v274 = v271;
+  v275 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay21SiriInformationSearch10ExperienceCGMd, &_sSay21SiriInformationSearch10ExperienceCGMR);
+  LOBYTE(v272) = 2;
+  v100(v329, 0xD00000000000002ALL, 0x80000002234DBF50, 0, v99, "SiriInformationSearch/PommesSearchRequestProcessor.swift", 56, 2, 348, "handleSuccess(_:_:_:)", 21, v272, partial apply for closure #4 in PommesSearchRequestProcessor.handleSuccess(_:_:_:));
+  (*(v291 + 8))(v99, v292);
+  v101 = *&v329[0];
+  v102 = PommesSearchRequestProcessor.clientSearch(pegasusResponse:)(v306);
+  v103 = Logger.logObject.getter();
+  v104 = static os_log_type_t.debug.getter();
+  v105 = os_log_type_enabled(v103, v104);
+  v317 = v102;
+  if (v105)
   {
-    v141 = swift_slowAlloc();
-    v142 = swift_slowAlloc();
-    *&v364[0] = v142;
-    *v141 = 136315138;
-    v143 = type metadata accessor for PommesResult();
-    v144 = MEMORY[0x223DDF870](v137, v143);
-    v146 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v144, v145, v364);
+    v106 = swift_slowAlloc();
+    v107 = swift_slowAlloc();
+    *&v329[0] = v107;
+    *v106 = 136315138;
+    v108 = type metadata accessor for PommesResult();
+    v109 = MEMORY[0x223DDF870](v102, v108);
+    v111 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v109, v110, v329);
 
-    *(v141 + 4) = v146;
-    _os_log_impl(&dword_2232BB000, v138, v139, "PommesSearchRequestProcessor#handleSuccess clientResults: %s", v141, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v142);
-    MEMORY[0x223DE0F80](v142, -1, -1);
-    MEMORY[0x223DE0F80](v141, -1, -1);
+    *(v106 + 4) = v111;
+    _os_log_impl(&dword_2232BB000, v103, v104, "PommesSearchRequestProcessor#handleSuccess clientResults: %s", v106, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v107);
+    MEMORY[0x223DE0F80](v107, -1, -1);
+    MEMORY[0x223DE0F80](v106, -1, -1);
   }
 
-  if (!(v136 >> 62))
+  if (!(v101 >> 62))
   {
-    if (*((v136 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    if (*((v101 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
       goto LABEL_18;
     }
 
 LABEL_49:
-    v150 = 0xE700000000000000;
-    v148 = 0x6E776F6E6B6E55;
-    v154 = 0;
+    v115 = 0xE700000000000000;
+    v113 = 0x6E776F6E6B6E55;
+    v119 = 0;
     goto LABEL_50;
   }
 
@@ -8115,384 +6706,388 @@ LABEL_49:
   }
 
 LABEL_18:
-  if ((v136 & 0xC000000000000001) != 0)
+  if ((v101 & 0xC000000000000001) != 0)
   {
-    v304 = MEMORY[0x223DDFF80](0, v136);
-    v148 = dispatch thunk of Experience.pluginIdentifier.getter();
-    v150 = v305;
+    v269 = MEMORY[0x223DDFF80](0, v101);
+    v113 = dispatch thunk of Experience.pluginIdentifier.getter();
+    v115 = v270;
 
-    v151 = MEMORY[0x223DDFF80](0, v136);
+    v116 = MEMORY[0x223DDFF80](0, v101);
     goto LABEL_22;
   }
 
-  if (*((v136 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  if (*((v101 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
-    v147 = *(v136 + 32);
-    v148 = dispatch thunk of Experience.pluginIdentifier.getter();
-    v150 = v149;
+    v112 = *(v101 + 32);
+    v113 = dispatch thunk of Experience.pluginIdentifier.getter();
+    v115 = v114;
 
-    if (*((v136 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    if (*((v101 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
-      v151 = *(v136 + 32);
+      v116 = *(v101 + 32);
 LABEL_22:
-      v152 = v151;
+      v117 = v116;
       dispatch thunk of Experience.queryConfidence.getter();
-      v154 = v153;
+      v119 = v118;
 
 LABEL_50:
-      v348 = v136;
+      v313 = v101;
 
-      v199 = Logger.logObject.getter();
-      v200 = static os_log_type_t.debug.getter();
+      v161 = Logger.logObject.getter();
+      v162 = static os_log_type_t.debug.getter();
 
-      if (os_log_type_enabled(v199, v200))
+      if (os_log_type_enabled(v161, v162))
       {
-        v201 = swift_slowAlloc();
-        v202 = swift_slowAlloc();
-        *&v364[0] = v202;
-        *v201 = 136315394;
-        v203 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v148, v150, v364);
+        v163 = swift_slowAlloc();
+        v164 = swift_slowAlloc();
+        *&v329[0] = v164;
+        *v163 = 136315394;
+        v165 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v113, v115, v329);
 
-        *(v201 + 4) = v203;
-        *(v201 + 12) = 2048;
-        *(v201 + 14) = v154;
-        _os_log_impl(&dword_2232BB000, v199, v200, "PommesResponse primaryPluginIdentifier %s     PommesResponse primaryQueryConfidence %f", v201, 0x16u);
-        __swift_destroy_boxed_opaque_existential_1(v202);
-        MEMORY[0x223DE0F80](v202, -1, -1);
-        MEMORY[0x223DE0F80](v201, -1, -1);
+        *(v163 + 4) = v165;
+        *(v163 + 12) = 2048;
+        *(v163 + 14) = v119;
+        _os_log_impl(&dword_2232BB000, v161, v162, "PommesResponse primaryPluginIdentifier %s     PommesResponse primaryQueryConfidence %f", v163, 0x16u);
+        __swift_destroy_boxed_opaque_existential_1(v164);
+        MEMORY[0x223DE0F80](v164, -1, -1);
+        MEMORY[0x223DE0F80](v163, -1, -1);
       }
 
       else
       {
       }
 
-      v204 = v341;
-      v205 = v320;
-      v360 = v126;
-      v206 = v319;
-      v346(v319, v341, v343);
-      v207 = Logger.logObject.getter();
-      v208 = static os_log_type_t.info.getter();
-      if (os_log_type_enabled(v207, v208))
+      v166 = v306;
+      v167 = v285;
+      v325 = v92;
+      v168 = v284;
+      v311(v284, v306, v308);
+      v169 = Logger.logObject.getter();
+      v170 = static os_log_type_t.info.getter();
+      if (os_log_type_enabled(v169, v170))
       {
-        v209 = swift_slowAlloc();
-        *v209 = 67109120;
-        v210 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.isLowConfidenceKnowledgeResult.getter() & 1;
-        v342(v206, v343);
-        *(v209 + 4) = v210;
-        _os_log_impl(&dword_2232BB000, v207, v208, "Low confidence knowledge fallback is supported, Pegasus returned value is: %{BOOL}d", v209, 8u);
-        MEMORY[0x223DE0F80](v209, -1, -1);
+        v171 = swift_slowAlloc();
+        *v171 = 67109120;
+        v172 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.isLowConfidenceKnowledgeResult.getter() & 1;
+        v307(v168, v308);
+        *(v171 + 4) = v172;
+        _os_log_impl(&dword_2232BB000, v169, v170, "Low confidence knowledge fallback is supported, Pegasus returned value is: %{BOOL}d", v171, 8u);
+        MEMORY[0x223DE0F80](v171, -1, -1);
       }
 
       else
       {
-        v342(v206, v343);
+        v307(v168, v308);
       }
 
-      v211 = v339;
-      v212 = v345;
+      v173 = v304;
+      v174 = v310;
 
-      v366 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.isLowConfidenceKnowledgeResult.getter() & 1;
-      v213 = v338;
+      v331 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.isLowConfidenceKnowledgeResult.getter() & 1;
+      v175 = v303;
       Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
-      v336 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.albusMultiturnRewrite.getter();
-      v340 = v214;
-      v215 = *(v212 + 8);
-      v215(v213, v211);
-      v346(v205, v204, v343);
-      v216 = Logger.logObject.getter();
-      v217 = static os_log_type_t.debug.getter();
-      v218 = os_log_type_enabled(v216, v217);
-      v358 = v215;
-      v345 = v212 + 8;
-      if (v218)
+      v301 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.albusMultiturnRewrite.getter();
+      v305 = v176;
+      v177 = *(v174 + 8);
+      v177(v175, v173);
+      v311(v167, v166, v308);
+      v178 = Logger.logObject.getter();
+      v179 = static os_log_type_t.debug.getter();
+      v180 = os_log_type_enabled(v178, v179);
+      v323 = v177;
+      v310 = v174 + 8;
+      if (v180)
       {
-        v219 = swift_slowAlloc();
-        v335 = v88;
-        v220 = v219;
-        v221 = swift_slowAlloc();
-        *&v364[0] = v221;
-        *v220 = 136315138;
+        v181 = swift_slowAlloc();
+        v300 = v54;
+        v182 = v181;
+        v183 = swift_slowAlloc();
+        *&v329[0] = v183;
+        *v182 = 136315138;
         Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
-        v222 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.albusMultiturnRewrite.getter();
-        v223 = v211;
-        v224 = v205;
-        v226 = v225;
-        v215(v213, v223);
-        v342(v224, v343);
-        v227 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v222, v226, v364);
+        v184 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.albusMultiturnRewrite.getter();
+        v185 = v173;
+        v186 = v167;
+        v188 = v187;
+        v177(v175, v185);
+        v307(v186, v308);
+        v189 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v184, v188, v329);
 
-        *(v220 + 4) = v227;
-        _os_log_impl(&dword_2232BB000, v216, v217, "got albusMultiturnRewrite as: %s", v220, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1(v221);
-        MEMORY[0x223DE0F80](v221, -1, -1);
-        v228 = v220;
-        v88 = v335;
-        MEMORY[0x223DE0F80](v228, -1, -1);
+        *(v182 + 4) = v189;
+        _os_log_impl(&dword_2232BB000, v178, v179, "got albusMultiturnRewrite as: %s", v182, 0xCu);
+        __swift_destroy_boxed_opaque_existential_1(v183);
+        MEMORY[0x223DE0F80](v183, -1, -1);
+        v190 = v182;
+        v54 = v300;
+        MEMORY[0x223DE0F80](v190, -1, -1);
       }
 
       else
       {
 
-        v342(v205, v343);
+        v307(v167, v308);
       }
 
-      v229 = Logger.logObject.getter();
-      v230 = static os_log_type_t.debug.getter();
+      v191 = Logger.logObject.getter();
+      v192 = static os_log_type_t.debug.getter();
 
-      v231 = os_log_type_enabled(v229, v230);
-      v232 = v337;
-      if (v231)
+      v193 = os_log_type_enabled(v191, v192);
+      v194 = v302;
+      if (v193)
       {
-        v233 = swift_slowAlloc();
-        v234 = swift_slowAlloc();
-        *&v364[0] = v234;
-        *v233 = 136315138;
-        v235 = v316;
-        v360();
-        v236 = *(v235 + *(v318 + 52));
+        v195 = swift_slowAlloc();
+        v196 = swift_slowAlloc();
+        *&v329[0] = v196;
+        *v195 = 136315138;
+        v197 = v281;
+        v325();
+        v198 = *(v197 + *(v283 + 52));
 
-        outlined destroy of PommesSearchRequest(v235, type metadata accessor for PommesSearchRequest);
-        if (v236)
+        outlined destroy of PommesSearchRequest(v197, type metadata accessor for PommesSearchRequest);
+        if (v198)
         {
-          v237 = *(v236 + OBJC_IVAR____TtC21SiriInformationSearch20PommesRequestContext_isRelatedQuestion);
+          v199 = *(v198 + OBJC_IVAR____TtC21SiriInformationSearch20PommesRequestContext_isRelatedQuestion);
         }
 
         else
         {
-          v237 = 2;
+          v199 = 2;
         }
 
-        v188 = v343;
-        LOBYTE(v362) = v237;
+        v152 = v308;
+        LOBYTE(v327) = v199;
         __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
-        v238 = String.init<A>(describing:)();
-        v240 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v238, v239, v364);
+        v200 = String.init<A>(describing:)();
+        v202 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v200, v201, v329);
 
-        *(v233 + 4) = v240;
-        _os_log_impl(&dword_2232BB000, v229, v230, "got isRelatedQuestion as: %s", v233, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1(v234);
-        MEMORY[0x223DE0F80](v234, -1, -1);
-        MEMORY[0x223DE0F80](v233, -1, -1);
+        *(v195 + 4) = v202;
+        _os_log_impl(&dword_2232BB000, v191, v192, "got isRelatedQuestion as: %s", v195, 0xCu);
+        __swift_destroy_boxed_opaque_existential_1(v196);
+        MEMORY[0x223DE0F80](v196, -1, -1);
+        MEMORY[0x223DE0F80](v195, -1, -1);
       }
 
       else
       {
 
-        v188 = v343;
+        v152 = v308;
       }
 
-      v241 = v330;
-      v189 = v341;
-      v346(v330, v341, v188);
-      v242 = Logger.logObject.getter();
-      v243 = static os_log_type_t.info.getter();
-      v244 = os_log_type_enabled(v242, v243);
-      v245 = v358;
-      if (v244)
+      v203 = v295;
+      v153 = v306;
+      v311(v295, v306, v152);
+      v204 = Logger.logObject.getter();
+      v205 = static os_log_type_t.info.getter();
+      v206 = os_log_type_enabled(v204, v205);
+      v207 = v323;
+      if (v206)
       {
-        LODWORD(v332) = v243;
-        v334 = v242;
-        v246 = swift_slowAlloc();
-        v327 = swift_slowAlloc();
-        v362 = v327;
-        isa = v246;
-        *v246 = 136315138;
-        v247 = v317;
+        LODWORD(v297) = v205;
+        v299 = v204;
+        v208 = swift_slowAlloc();
+        v292 = swift_slowAlloc();
+        v327 = v292;
+        isa = v208;
+        *v208 = 136315138;
+        v209 = v282;
         Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
-        v248 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.domainUseCaseMetadata.getter();
-        v249 = v247;
-        v250 = v248;
-        v245(v249, v339);
-        v251 = *(v250 + 16);
-        if (v251)
+        v210 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.domainUseCaseMetadata.getter();
+        v211 = v209;
+        v212 = v210;
+        v207(v211, v304);
+        v213 = *(v212 + 16);
+        if (v213)
         {
-          v335 = v88;
-          v363 = MEMORY[0x277D84F90];
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v251, 0);
-          v252 = v363;
-          v361 = *(v356 + 2);
-          v253 = (*(v356 + 80) + 32) & ~*(v356 + 80);
-          v326 = v250;
-          v254 = v250 + v253;
-          v360 = *(v356 + 9);
-          v359 = (v314 + 8);
-          v356 = (v356 + 16);
-          v255 = (v356 - 8);
+          v300 = v54;
+          v328 = MEMORY[0x277D84F90];
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v213, 0);
+          v214 = v328;
+          v326 = *(v321 + 2);
+          v215 = (*(v321 + 80) + 32) & ~*(v321 + 80);
+          v291 = v212;
+          v216 = v212 + v215;
+          v325 = *(v321 + 9);
+          v324 = (v279 + 8);
+          v321 = (v321 + 16);
+          v217 = (v321 - 8);
           do
           {
-            v256 = v349;
-            v257 = v351;
-            (v361)(v349, v254, v351);
-            *&v364[0] = 0;
-            *(&v364[0] + 1) = 0xE000000000000000;
-            v258 = v354;
+            v218 = v314;
+            v219 = v316;
+            (v326)(v314, v216, v316);
+            *&v329[0] = 0;
+            *(&v329[0] + 1) = 0xE000000000000000;
+            v220 = v319;
             Apple_Parsec_Siri_V2alpha_DomainUseCaseMetadata.useCase.getter();
-            v259 = v355;
+            v221 = v320;
             _print_unlocked<A, B>(_:_:)();
-            (*v359)(v258, v259);
-            v260 = v364[0];
-            (*v255)(v256, v257);
-            v363 = v252;
-            v262 = *(v252 + 16);
-            v261 = *(v252 + 24);
-            if (v262 >= v261 >> 1)
+            (*v324)(v220, v221);
+            v222 = v329[0];
+            (*v217)(v218, v219);
+            v328 = v214;
+            v224 = *(v214 + 16);
+            v223 = *(v214 + 24);
+            if (v224 >= v223 >> 1)
             {
-              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v261 > 1), v262 + 1, 1);
-              v252 = v363;
+              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v223 > 1), v224 + 1, 1);
+              v214 = v328;
             }
 
-            *(v252 + 16) = v262 + 1;
-            *(v252 + 16 * v262 + 32) = v260;
-            v254 += v360;
-            --v251;
+            *(v214 + 16) = v224 + 1;
+            *(v214 + 16 * v224 + 32) = v222;
+            v216 += v325;
+            --v213;
           }
 
-          while (v251);
+          while (v213);
 
-          v188 = v343;
-          v189 = v341;
-          v241 = v330;
+          v152 = v308;
+          v153 = v306;
+          v203 = v295;
         }
 
         else
         {
 
-          v252 = MEMORY[0x277D84F90];
+          v214 = MEMORY[0x277D84F90];
         }
 
-        v263 = MEMORY[0x223DDF850](v252, MEMORY[0x277D837D0]);
-        v265 = v264;
+        v225 = MEMORY[0x223DDF850](v214, MEMORY[0x277D837D0]);
+        v227 = v226;
 
-        v342(v241, v188);
-        v266 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v263, v265, &v362);
+        v307(v203, v152);
+        v228 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v225, v227, &v327);
 
-        v267 = isa;
-        *(isa + 4) = v266;
-        v268 = v334;
-        _os_log_impl(&dword_2232BB000, v334, v332, "got usecases as: %s", v267, 0xCu);
-        v269 = v327;
-        __swift_destroy_boxed_opaque_existential_1(v327);
-        MEMORY[0x223DE0F80](v269, -1, -1);
-        MEMORY[0x223DE0F80](v267, -1, -1);
+        v229 = isa;
+        *(isa + 4) = v228;
+        v230 = v299;
+        _os_log_impl(&dword_2232BB000, v299, v297, "got usecases as: %s", v229, 0xCu);
+        v231 = v292;
+        __swift_destroy_boxed_opaque_existential_1(v292);
+        MEMORY[0x223DE0F80](v231, -1, -1);
+        MEMORY[0x223DE0F80](v229, -1, -1);
 
-        v232 = v337;
+        v194 = v302;
       }
 
       else
       {
 
-        v342(v241, v188);
+        v307(v203, v152);
       }
 
-      v346(v232, v189, v188);
-      v270 = Logger.logObject.getter();
-      v271 = static os_log_type_t.info.getter();
-      if (os_log_type_enabled(v270, v271))
+      v311(v194, v153, v152);
+      v232 = Logger.logObject.getter();
+      v233 = static os_log_type_t.info.getter();
+      if (os_log_type_enabled(v232, v233))
       {
-        v272 = swift_slowAlloc();
-        v273 = swift_slowAlloc();
-        *&v364[0] = v273;
-        *v272 = 136315138;
-        v274 = v338;
+        v234 = swift_slowAlloc();
+        v235 = swift_slowAlloc();
+        *&v329[0] = v235;
+        *v234 = 136315138;
+        v236 = v303;
         Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.responseMetadata.getter();
-        v275 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.domainName.getter();
-        v277 = v276;
-        (v358)(v274, v339);
-        v342(v232, v188);
-        v278 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v275, v277, v364);
-        v189 = v341;
+        v237 = Apple_Parsec_Siri_V2alpha_SiriPegasusResponse.ResponseMetadata.domainName.getter();
+        v239 = v238;
+        (v323)(v236, v304);
+        v307(v194, v152);
+        v240 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v237, v239, v329);
+        v153 = v306;
 
-        *(v272 + 4) = v278;
-        _os_log_impl(&dword_2232BB000, v270, v271, "got domain as: %s", v272, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1(v273);
-        MEMORY[0x223DE0F80](v273, -1, -1);
-        MEMORY[0x223DE0F80](v272, -1, -1);
+        *(v234 + 4) = v240;
+        _os_log_impl(&dword_2232BB000, v232, v233, "got domain as: %s", v234, 0xCu);
+        __swift_destroy_boxed_opaque_existential_1(v235);
+        MEMORY[0x223DE0F80](v235, -1, -1);
+        MEMORY[0x223DE0F80](v234, -1, -1);
       }
 
       else
       {
 
-        v342(v232, v188);
+        v307(v194, v152);
       }
 
-      v279 = v344;
-      v280 = type metadata accessor for PommesResponse();
-      MEMORY[0x28223BE20](v280, v281);
-      v282 = v352;
-      *(&v311 - 10) = v348;
-      *(&v311 - 9) = v282;
-      v283 = v350;
-      *(&v311 - 8) = v189;
-      *(&v311 - 7) = v283;
-      v306[0] = v357;
-      v306[1] = v321;
-      v307 = &v366;
-      v308 = v336;
-      v309 = v340;
-      v284 = PommesResponse.__allocating_init(_:)();
+      v241 = v309;
+      v242 = type metadata accessor for PommesResponse();
+      MEMORY[0x28223BE20](v242);
+      v243 = v317;
+      *(&v276 - 10) = v313;
+      *(&v276 - 9) = v243;
+      v244 = v315;
+      *(&v276 - 8) = v153;
+      *(&v276 - 7) = v244;
+      v271[0] = v322;
+      v271[1] = v286;
+      v272 = &v331;
+      v273 = v301;
+      v274 = v305;
+      v245 = PommesResponse.__allocating_init(_:)();
 
-      if (v284)
+      if (v245)
       {
-        v285 = v284;
-        v286 = Logger.logObject.getter();
-        v287 = static os_log_type_t.debug.getter();
+        v246 = v245;
+        v247 = Logger.logObject.getter();
+        v248 = static os_log_type_t.debug.getter();
 
-        if (os_log_type_enabled(v286, v287))
+        v249 = os_log_type_enabled(v247, v248);
+        v250 = v294;
+        if (v249)
         {
-          v288 = swift_slowAlloc();
-          v289 = swift_slowAlloc();
-          *&v364[0] = v289;
-          *v288 = 136315138;
-          v290 = [v285 debugDescription];
-          v291 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-          v293 = v292;
+          v251 = swift_slowAlloc();
+          v252 = swift_slowAlloc();
+          *&v329[0] = v252;
+          *v251 = 136315138;
+          v253 = [v246 debugDescription];
+          v254 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+          v256 = v255;
 
-          v294 = v291;
-          v188 = v343;
-          v295 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v294, v293, v364);
+          v257 = v254;
+          v152 = v308;
+          v258 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v257, v256, v329);
 
-          *(v288 + 4) = v295;
-          _os_log_impl(&dword_2232BB000, v286, v287, "PommesSearchRequestProcessor#handleSuccess response: %s", v288, 0xCu);
-          __swift_destroy_boxed_opaque_existential_1(v289);
-          v296 = v289;
-          v189 = v341;
-          MEMORY[0x223DE0F80](v296, -1, -1);
-          v297 = v288;
-          v279 = v344;
-          MEMORY[0x223DE0F80](v297, -1, -1);
+          *(v251 + 4) = v258;
+          _os_log_impl(&dword_2232BB000, v247, v248, "PommesSearchRequestProcessor#handleSuccess response: %s", v251, 0xCu);
+          __swift_destroy_boxed_opaque_existential_1(v252);
+          v259 = v252;
+          v153 = v306;
+          MEMORY[0x223DE0F80](v259, -1, -1);
+          v260 = v251;
+          v241 = v309;
+          MEMORY[0x223DE0F80](v260, -1, -1);
         }
 
-        v365 = 0;
-        memset(v364, 0, sizeof(v364));
-        static CurareDonation.donateCurareInfo(for:with:into:)(v189, v285, v364);
-        outlined destroy of MediaUserStateCenter?(v364, &_s21SiriInformationSearch23CurareInteractionStream_pSgMd, &_s21SiriInformationSearch23CurareInteractionStream_pSgMR);
-        v298 = v285;
-        closure #3 in PommesSearchRequestProcessor.search_sync(completion:)(v284, 0, v328);
+        v330 = 0;
+        memset(v329, 0, sizeof(v329));
+        static CurareDonation.donateCurareInfo(for:with:into:)(v153, v246, v329);
+        outlined destroy of MediaUserStateCenter?(v329, &_s21SiriInformationSearch23CurareInteractionStream_pSgMd, &_s21SiriInformationSearch23CurareInteractionStream_pSgMR);
+        v261 = v246;
+        closure #3 in PommesSearchRequestProcessor.search_sync(completion:)(v245, 0, v293, v250);
       }
 
       else
       {
-        v299 = Logger.logObject.getter();
-        v300 = static os_log_type_t.error.getter();
-        if (os_log_type_enabled(v299, v300))
+        v262 = Logger.logObject.getter();
+        v263 = static os_log_type_t.error.getter();
+        v264 = os_log_type_enabled(v262, v263);
+        v265 = v294;
+        if (v264)
         {
-          v301 = swift_slowAlloc();
-          *v301 = 0;
-          _os_log_impl(&dword_2232BB000, v299, v300, "PommesSearchRequestProcessor failed to build PommesResponse with given parameters", v301, 2u);
-          MEMORY[0x223DE0F80](v301, -1, -1);
+          v266 = swift_slowAlloc();
+          *v266 = 0;
+          _os_log_impl(&dword_2232BB000, v262, v263, "PommesSearchRequestProcessor failed to build PommesResponse with given parameters", v266, 2u);
+          MEMORY[0x223DE0F80](v266, -1, -1);
         }
 
         lazy protocol witness table accessor for type PommesSearchRequestProcessorError and conformance PommesSearchRequestProcessorError();
-        v302 = swift_allocError();
-        *v303 = 0x80;
-        closure #3 in PommesSearchRequestProcessor.search_sync(completion:)(v302, 1, v328);
+        v267 = swift_allocError();
+        *v268 = 0x80;
+        closure #3 in PommesSearchRequestProcessor.search_sync(completion:)(v267, 1, v293, v265);
       }
 
-      (*(v322 + 8))(v279, v323);
+      (*(v287 + 8))(v241, v288);
 LABEL_86:
-      v342(v189, v188);
-      __swift_destroy_boxed_opaque_existential_1(v367);
+      v307(v153, v152);
+      __swift_destroy_boxed_opaque_existential_1(v332);
 
       return;
     }
@@ -8508,44 +7103,37 @@ LABEL_86:
 
 uint64_t specialized PommesSearchRequestProcessor.handleFailure(with:completion:)(unsigned __int8 a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v104 = a4;
-  v105 = a3;
-  v103 = a2;
-  v99 = type metadata accessor for PegasusSearchResponse(0);
-  v5 = *(*(v99 - 8) + 64);
-  MEMORY[0x28223BE20](v99, v6);
-  v101 = &v93 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v102 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse();
-  v8 = *(v102 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v102, v10);
-  v100 = &v93 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriMessageTypes19TCUMappedNLResponseVSgMd, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMR);
-  v13 = *(*(v12 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v12 - 8, v14);
-  v97 = &v93 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v15, v17);
-  v98 = &v93 - v18;
-  v19 = type metadata accessor for NLXResultCandidate();
-  v20 = *(*(v19 - 8) + 64);
-  MEMORY[0x28223BE20](v19 - 8, v21);
-  v23 = (&v93 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v24 = type metadata accessor for PommesSearchRequest.ParseState(0);
-  v25 = *(*(v24 - 8) + 64);
-  MEMORY[0x28223BE20](v24, v26);
-  v28 = &v93 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s21SiriInformationSearch13PommesContextVSgMd, &_s21SiriInformationSearch13PommesContextVSgMR);
-  v30 = *(*(v29 - 8) + 64);
-  MEMORY[0x28223BE20](v29 - 8, v31);
-  v33 = &v93 - v32;
-  v34 = type metadata accessor for PommesSearchRequest(0);
-  v35 = *(*(v34 - 8) + 64);
-  v37 = MEMORY[0x28223BE20](v34, v36);
-  v39 = &v93 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v41 = MEMORY[0x28223BE20](v37, v40);
-  v43 = &v93 - v42;
-  MEMORY[0x28223BE20](v41, v44);
-  v46 = &v93 - v45;
+  v84 = a4;
+  v85 = a3;
+  v83 = a2;
+  v79 = type metadata accessor for PegasusSearchResponse(0);
+  MEMORY[0x28223BE20](v79);
+  v81 = &v73 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v82 = type metadata accessor for Apple_Parsec_Siri_V2alpha_SiriPegasusResponse();
+  v6 = *(v82 - 8);
+  MEMORY[0x28223BE20](v82);
+  v80 = &v73 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriMessageTypes19TCUMappedNLResponseVSgMd, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMR);
+  v9 = MEMORY[0x28223BE20](v8 - 8);
+  v77 = &v73 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v78 = &v73 - v11;
+  v12 = type metadata accessor for NLXResultCandidate(0);
+  MEMORY[0x28223BE20](v12 - 8);
+  v14 = (&v73 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v15 = type metadata accessor for PommesSearchRequest.ParseState(0);
+  MEMORY[0x28223BE20](v15);
+  v17 = &v73 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s21SiriInformationSearch13PommesContextVSgMd, &_s21SiriInformationSearch13PommesContextVSgMR);
+  MEMORY[0x28223BE20](v18 - 8);
+  v20 = &v73 - v19;
+  v21 = type metadata accessor for PommesSearchRequest(0);
+  v22 = MEMORY[0x28223BE20](v21);
+  v24 = &v73 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = MEMORY[0x28223BE20](v22);
+  v27 = &v73 - v26;
+  MEMORY[0x28223BE20](v25);
+  v29 = &v73 - v28;
   if (a1 > 5u)
   {
     if (a1 <= 8u)
@@ -8553,8 +7141,8 @@ uint64_t specialized PommesSearchRequestProcessor.handleFailure(with:completion:
       if (a1 - 7 >= 2)
       {
         lazy protocol witness table accessor for type PommesSearchRequestProcessorError and conformance PommesSearchRequestProcessorError();
-        v48 = swift_allocError();
-        v49 = 69;
+        v31 = swift_allocError();
+        v32 = 69;
         goto LABEL_12;
       }
 
@@ -8564,167 +7152,163 @@ uint64_t specialized PommesSearchRequestProcessor.handleFailure(with:completion:
     if (a1 == 9)
     {
       lazy protocol witness table accessor for type PommesSearchRequestProcessorError and conformance PommesSearchRequestProcessorError();
-      v48 = swift_allocError();
-      v49 = 3;
+      v31 = swift_allocError();
+      v32 = 3;
       goto LABEL_12;
     }
 
     if (a1 == 10)
     {
       lazy protocol witness table accessor for type PommesSearchRequestProcessorError and conformance PommesSearchRequestProcessorError();
-      v48 = swift_allocError();
-      v49 = 4;
+      v31 = swift_allocError();
+      v32 = 4;
       goto LABEL_12;
     }
 
-    v93 = v8;
-    v52 = (*v103 + 152);
-    v53 = *v52;
-    v96 = v28;
-    v54 = v52;
+    v73 = v6;
+    v36 = (*v83 + 152);
+    v37 = *v36;
+    v76 = v17;
+    v38 = v36;
 
-    v94 = v53;
-    v95 = v54;
-    (v53)(v55);
-    v56 = v96;
-    LOBYTE(v53) = v46[*(v34 + 80)];
-    v57 = outlined destroy of PommesSearchRequest(v46, type metadata accessor for PommesSearchRequest);
-    if ((v53 & 1) == 0)
+    v74 = v37;
+    v75 = v38;
+    (v37)(v39);
+    v40 = v76;
+    LOBYTE(v37) = v29[*(v21 + 80)];
+    v41 = outlined destroy of PommesSearchRequest(v29, type metadata accessor for PommesSearchRequest);
+    if ((v37 & 1) == 0)
     {
 LABEL_36:
       lazy protocol witness table accessor for type PommesSearchRequestProcessorError and conformance PommesSearchRequestProcessorError();
-      v80 = swift_allocError();
-      *v81 = -127;
-      closure #3 in PommesSearchRequestProcessor.search_sync(completion:)(v80, 1, v105);
+      v62 = swift_allocError();
+      *v63 = -127;
+      closure #3 in PommesSearchRequestProcessor.search_sync(completion:)(v62, 1, v85, v84);
     }
 
-    v58 = v94;
-    (v94)(v57);
-    outlined init with copy of MediaUserStateCenter?(&v43[*(v34 + 40)], v33, &_s21SiriInformationSearch13PommesContextVSgMd, &_s21SiriInformationSearch13PommesContextVSgMR);
-    outlined destroy of PommesSearchRequest(v43, type metadata accessor for PommesSearchRequest);
-    v59 = type metadata accessor for PommesContext();
-    v60 = *(v59 - 8);
-    if ((*(v60 + 48))(v33, 1, v59) == 1)
+    v42 = v74;
+    (v74)(v41);
+    outlined init with copy of MediaUserStateCenter?(&v27[*(v21 + 40)], v20, &_s21SiriInformationSearch13PommesContextVSgMd, &_s21SiriInformationSearch13PommesContextVSgMR);
+    outlined destroy of PommesSearchRequest(v27, type metadata accessor for PommesSearchRequest);
+    v43 = type metadata accessor for PommesContext();
+    v44 = *(v43 - 8);
+    if ((*(v44 + 48))(v20, 1, v43) == 1)
     {
-      outlined destroy of MediaUserStateCenter?(v33, &_s21SiriInformationSearch13PommesContextVSgMd, &_s21SiriInformationSearch13PommesContextVSgMR);
+      outlined destroy of MediaUserStateCenter?(v20, &_s21SiriInformationSearch13PommesContextVSgMd, &_s21SiriInformationSearch13PommesContextVSgMR);
       goto LABEL_36;
     }
 
-    v61 = PommesContext.domain.getter();
-    v63 = v62;
-    (*(v60 + 8))(v33, v59);
-    if (!v63)
+    v45 = PommesContext.domain.getter();
+    v47 = v46;
+    (*(v44 + 8))(v20, v43);
+    if (!v47)
     {
       goto LABEL_36;
     }
 
-    v64 = v58;
-    if (v61 == 0x656E6F6870 && v63 == 0xE500000000000000)
+    v48 = v42;
+    if (v45 == 0x656E6F6870 && v47 == 0xE500000000000000)
     {
     }
 
     else
     {
-      v65 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v49 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-      if ((v65 & 1) == 0)
+      if ((v49 & 1) == 0)
       {
         goto LABEL_36;
       }
     }
 
-    v66 = v93;
+    v50 = v73;
     if (one-time initialization token for pommes != -1)
     {
       swift_once();
     }
 
-    v67 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v67, static Logger.pommes);
-    v68 = Logger.logObject.getter();
-    v69 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v68, v69))
+    v51 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v51, static Logger.pommes);
+    v52 = Logger.logObject.getter();
+    v53 = static os_log_type_t.debug.getter();
+    if (os_log_type_enabled(v52, v53))
     {
-      v70 = swift_slowAlloc();
-      *v70 = 0;
-      _os_log_impl(&dword_2232BB000, v68, v69, "Handling no results from fallback request for phone domain as successful", v70, 2u);
-      MEMORY[0x223DE0F80](v70, -1, -1);
+      v54 = swift_slowAlloc();
+      *v54 = 0;
+      _os_log_impl(&dword_2232BB000, v52, v53, "Handling no results from fallback request for phone domain as successful", v54, 2u);
+      MEMORY[0x223DE0F80](v54, -1, -1);
     }
 
-    v64();
-    outlined init with copy of PommesSearchRequest(v39, v56, type metadata accessor for PommesSearchRequest.ParseState);
-    outlined destroy of PommesSearchRequest(v39, type metadata accessor for PommesSearchRequest);
+    v48();
+    outlined init with copy of PommesSearchRequest(v24, v40, type metadata accessor for PommesSearchRequest.ParseState);
+    outlined destroy of PommesSearchRequest(v24, type metadata accessor for PommesSearchRequest);
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-    v72 = v56[1];
 
     if (EnumCaseMultiPayload)
     {
       if (EnumCaseMultiPayload == 1)
       {
-        v73 = v56[3];
 
-        v74 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS2id_SS5tcuId16SiriMessageTypes19TCUMappedNLResponseVSg8responsetMd, &_sSS2id_SS5tcuId16SiriMessageTypes19TCUMappedNLResponseVSg8responsetMR);
-        v75 = v98;
-        outlined init with take of TCUMappedNLResponse?(v56 + *(v74 + 64), v98);
-        v76 = v97;
-        outlined init with copy of MediaUserStateCenter?(v75, v97, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMd, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMR);
-        v77 = type metadata accessor for TCUMappedNLResponse();
-        v78 = *(v77 - 8);
-        if ((*(v78 + 48))(v76, 1, v77) == 1)
+        v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS2id_SS5tcuId16SiriMessageTypes19TCUMappedNLResponseVSg8responsetMd, &_sSS2id_SS5tcuId16SiriMessageTypes19TCUMappedNLResponseVSg8responsetMR);
+        v57 = v78;
+        outlined init with take of TCUMappedNLResponse?(v40 + *(v56 + 64), v78);
+        v58 = v77;
+        outlined init with copy of MediaUserStateCenter?(v57, v77, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMd, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMR);
+        v59 = type metadata accessor for TCUMappedNLResponse();
+        v60 = *(v59 - 8);
+        if ((*(v60 + 48))(v58, 1, v59) == 1)
         {
-          outlined destroy of MediaUserStateCenter?(v76, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMd, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMR);
-          v79 = MEMORY[0x277D84F90];
+          outlined destroy of MediaUserStateCenter?(v58, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMd, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMR);
+          v61 = MEMORY[0x277D84F90];
         }
 
         else
         {
-          v90 = TCUMappedNLResponse.nlResponse.getter();
-          (*(v78 + 8))(v76, v77);
-          v79 = NLParseResponse.userParses.getter();
+          v70 = TCUMappedNLResponse.nlResponse.getter();
+          (*(v60 + 8))(v58, v59);
+          v61 = NLParseResponse.userParses.getter();
         }
 
-        v87 = v101;
-        v86 = v102;
-        v88 = v99;
-        v89 = v100;
-        outlined destroy of MediaUserStateCenter?(v75, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMd, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMR);
+        v67 = v81;
+        v66 = v82;
+        v68 = v79;
+        v69 = v80;
+        outlined destroy of MediaUserStateCenter?(v57, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMd, &_s16SiriMessageTypes19TCUMappedNLResponseVSgMR);
         goto LABEL_42;
       }
 
-      v79 = v56[2];
-      v83 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS5refId_Say12SiriNLUTypes0C23_Nlu_External_UserParseVG10userParsesAB0c1_e1_f10_DelegatedG9DialogActVSg08fallbackH0SSSg21responseVariantResulttMd, &_sSS5refId_Say12SiriNLUTypes0C23_Nlu_External_UserParseVG10userParsesAB0c1_e1_f10_DelegatedG9DialogActVSg08fallbackH0SSSg21responseVariantResulttMR);
-      v84 = *(v83 + 64);
-      v85 = *(v56 + *(v83 + 80) + 8);
+      v61 = *(v40 + 16);
+      v65 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS5refId_Say12SiriNLUTypes0C23_Nlu_External_UserParseVG10userParsesAB0c1_e1_f10_DelegatedG9DialogActVSg08fallbackH0SSSg21responseVariantResulttMd, &_sSS5refId_Say12SiriNLUTypes0C23_Nlu_External_UserParseVG10userParsesAB0c1_e1_f10_DelegatedG9DialogActVSg08fallbackH0SSSg21responseVariantResulttMR) + 64);
 
-      outlined destroy of MediaUserStateCenter?(v56 + v84, &_s12SiriNLUTypes0A36_Nlu_External_DelegatedUserDialogActVSgMd, &_s12SiriNLUTypes0A36_Nlu_External_DelegatedUserDialogActVSgMR);
+      outlined destroy of MediaUserStateCenter?(v40 + v65, &_s12SiriNLUTypes0A36_Nlu_External_DelegatedUserDialogActVSgMd, &_s12SiriNLUTypes0A36_Nlu_External_DelegatedUserDialogActVSgMR);
     }
 
     else
     {
-      v82 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS2id_21SiriInformationSearch18NLXResultCandidateV09nlxResultF0tMd, &_sSS2id_21SiriInformationSearch18NLXResultCandidateV09nlxResultF0tMR);
-      _s21SiriInformationSearch15PerformanceUtilC6TicketVWObTm_0(v56 + *(v82 + 48), v23, type metadata accessor for NLXResultCandidate);
-      v79 = *v23;
+      v64 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS2id_21SiriInformationSearch18NLXResultCandidateV09nlxResultF0tMd, &_sSS2id_21SiriInformationSearch18NLXResultCandidateV09nlxResultF0tMR);
+      _s21SiriInformationSearch15PerformanceUtilC6TicketVWObTm_0(v40 + *(v64 + 48), v14, type metadata accessor for NLXResultCandidate);
+      v61 = *v14;
 
-      outlined destroy of PommesSearchRequest(v23, type metadata accessor for NLXResultCandidate);
+      outlined destroy of PommesSearchRequest(v14, type metadata accessor for NLXResultCandidate);
     }
 
-    v87 = v101;
-    v86 = v102;
-    v88 = v99;
-    v89 = v100;
+    v67 = v81;
+    v66 = v82;
+    v68 = v79;
+    v69 = v80;
 LABEL_42:
-    lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_SiriPegasusResponse and conformance Apple_Parsec_Siri_V2alpha_SiriPegasusResponse, MEMORY[0x277D38DA0]);
+    lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_SiriPegasusResponse and conformance Apple_Parsec_Siri_V2alpha_SiriPegasusResponse, MEMORY[0x277D38DA0], MEMORY[0x277D38D98]);
     static Message.with(_:)();
     Apple_Parsec_Siri_V2alpha_SiriPegasusRequest.init()();
-    (*(v66 + 16))(v87 + *(v88 + 20), v89, v86);
-    v91 = v105;
+    (*(v50 + 16))(v67 + *(v68 + 20), v69, v66);
+    v71 = v85;
 
-    v92 = v104;
+    v72 = v84;
 
-    specialized PommesSearchRequestProcessor.handleSuccess(_:_:_:)(v87, v79, v103, v91, v92);
+    specialized PommesSearchRequestProcessor.handleSuccess(_:_:_:)(v67, v61, v83, v71, v72);
 
-    outlined destroy of PommesSearchRequest(v87, type metadata accessor for PegasusSearchResponse);
-    (*(v66 + 8))(v89, v86);
+    outlined destroy of PommesSearchRequest(v67, type metadata accessor for PegasusSearchResponse);
+    (*(v50 + 8))(v69, v66);
   }
 
   if (a1 > 2u)
@@ -8732,8 +7316,8 @@ LABEL_42:
     if (a1 - 4 < 2)
     {
       lazy protocol witness table accessor for type PommesSearchRequestProcessorError and conformance PommesSearchRequestProcessorError();
-      v48 = swift_allocError();
-      v49 = 68;
+      v31 = swift_allocError();
+      v32 = 68;
       goto LABEL_12;
     }
 
@@ -8744,150 +7328,150 @@ LABEL_42:
   {
 LABEL_11:
     lazy protocol witness table accessor for type PommesSearchRequestProcessorError and conformance PommesSearchRequestProcessorError();
-    v48 = swift_allocError();
-    v49 = 67;
+    v31 = swift_allocError();
+    v32 = 67;
     goto LABEL_12;
   }
 
   lazy protocol witness table accessor for type PommesSearchRequestProcessorError and conformance PommesSearchRequestProcessorError();
-  v48 = swift_allocError();
+  v31 = swift_allocError();
   if (a1 == 1)
   {
-    v49 = 1;
+    v32 = 1;
   }
 
   else
   {
-    v49 = -126;
+    v32 = -126;
   }
 
 LABEL_12:
-  *v47 = v49;
-  v50 = v105;
+  *v30 = v32;
+  v33 = v85;
 
-  closure #3 in PommesSearchRequestProcessor.search_sync(completion:)(v48, 1, v50);
+  v34 = v84;
+
+  closure #3 in PommesSearchRequestProcessor.search_sync(completion:)(v31, 1, v33, v34);
 }
 
 uint64_t specialized PommesSearchRequestProcessor.handlePegasusResponse(_:_:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  v11 = MEMORY[0x28223BE20](v8 - 8, v10);
-  v13 = v44 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v11, v14);
-  v16 = v44 - v15;
-  v17 = type metadata accessor for PegasusSearchResponse(0);
-  v18 = *(*(v17 - 8) + 64);
-  MEMORY[0x28223BE20](v17 - 8, v19);
-  v21 = v44 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of MediaUserStateCenter?(a1, v16, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR);
-  v23 = *(*(v22 - 8) + 48);
-  if (v23(v16, 1, v22) == 1)
+  v9 = MEMORY[0x28223BE20](v8 - 8);
+  v11 = v39 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v13 = v39 - v12;
+  v14 = type metadata accessor for PegasusSearchResponse(0);
+  MEMORY[0x28223BE20](v14 - 8);
+  v16 = v39 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of MediaUserStateCenter?(a1, v13, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR);
+  v18 = *(*(v17 - 8) + 48);
+  if (v18(v13, 1, v17) == 1)
   {
     swift_retain_n();
     swift_retain_n();
-    v24 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd;
-    v25 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR;
+    v19 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd;
+    v20 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR;
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() != 1)
     {
-      _s21SiriInformationSearch15PerformanceUtilC6TicketVWObTm_0(v16, v21, type metadata accessor for PegasusSearchResponse);
-      v45 = 0;
-      memset(v44, 0, sizeof(v44));
-      memset(v46, 0, sizeof(v46));
-      v47 = 0;
+      _s21SiriInformationSearch15PerformanceUtilC6TicketVWObTm_0(v13, v16, type metadata accessor for PegasusSearchResponse);
+      v40 = 0;
+      memset(v39, 0, sizeof(v39));
+      memset(v41, 0, sizeof(v41));
+      v42 = 0;
       swift_retain_n();
       swift_retain_n();
-      outlined assign with take of MediaUserStateCenter?(v44, v46, &_s21SiriInformationSearch40SportsPersonalizationExperiencesResolverVSgMd, &_s21SiriInformationSearch40SportsPersonalizationExperiencesResolverVSgMR);
+      outlined assign with take of MediaUserStateCenter?(v39, v41, &_s21SiriInformationSearch40SportsPersonalizationExperiencesResolverVSgMd, &_s21SiriInformationSearch40SportsPersonalizationExperiencesResolverVSgMR);
 
-      specialized PommesSearchRequestProcessor.handleSuccess(_:_:_:)(v21, v46, a2, a3, a4);
+      specialized PommesSearchRequestProcessor.handleSuccess(_:_:_:)(v16, v41, a2, a3, a4);
 
-      outlined destroy of PommesSearchRequest(v21, type metadata accessor for PegasusSearchResponse);
-      outlined destroy of DefaultExperiencesResolver(v46);
+      outlined destroy of PommesSearchRequest(v16, type metadata accessor for PegasusSearchResponse);
+      outlined destroy of DefaultExperiencesResolver(v41);
 LABEL_20:
     }
 
     swift_retain_n();
     swift_retain_n();
-    v24 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd;
-    v25 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR;
+    v19 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd;
+    v20 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR;
   }
 
-  outlined destroy of MediaUserStateCenter?(v16, v24, v25);
-  outlined init with copy of MediaUserStateCenter?(a1, v13, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
-  if (v23(v13, 1, v22) == 1)
+  outlined destroy of MediaUserStateCenter?(v13, v19, v20);
+  outlined init with copy of MediaUserStateCenter?(a1, v11, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd, &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR);
+  if (v18(v11, 1, v17) == 1)
   {
-    v26 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd;
-    v27 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR;
+    v21 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMd;
+    v22 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGSgMR;
 LABEL_15:
-    outlined destroy of MediaUserStateCenter?(v13, v26, v27);
+    outlined destroy of MediaUserStateCenter?(v11, v21, v22);
     if (one-time initialization token for pommes != -1)
     {
       swift_once();
     }
 
-    v37 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v37, static Logger.pommes);
-    v38 = Logger.logObject.getter();
-    v39 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v38, v39))
+    v32 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v32, static Logger.pommes);
+    v33 = Logger.logObject.getter();
+    v34 = static os_log_type_t.debug.getter();
+    if (os_log_type_enabled(v33, v34))
     {
-      v40 = swift_slowAlloc();
-      *v40 = 0;
-      _os_log_impl(&dword_2232BB000, v38, v39, "PireneResponse failure: none", v40, 2u);
-      MEMORY[0x223DE0F80](v40, -1, -1);
+      v35 = swift_slowAlloc();
+      *v35 = 0;
+      _os_log_impl(&dword_2232BB000, v33, v34, "PireneResponse failure: none", v35, 2u);
+      MEMORY[0x223DE0F80](v35, -1, -1);
     }
 
     lazy protocol witness table accessor for type PommesSearchRequestProcessorError and conformance PommesSearchRequestProcessorError();
-    v41 = swift_allocError();
-    *v42 = 0x80;
-    closure #3 in PommesSearchRequestProcessor.search_sync(completion:)(v41, 1, a3);
+    v36 = swift_allocError();
+    *v37 = 0x80;
+    closure #3 in PommesSearchRequestProcessor.search_sync(completion:)(v36, 1, a3, a4);
 
     goto LABEL_20;
   }
 
   if (swift_getEnumCaseMultiPayload() != 1)
   {
-    v26 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd;
-    v27 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR;
+    v21 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMd;
+    v22 = &_ss6ResultOy21SiriInformationSearch07PegasusD8ResponseVAC0E5ErrorOGMR;
     goto LABEL_15;
   }
 
-  v28 = *v13;
+  v23 = *v11;
   if (one-time initialization token for pommes != -1)
   {
     swift_once();
   }
 
-  v29 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v29, static Logger.pommes);
-  v30 = Logger.logObject.getter();
-  v31 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v30, v31))
+  v24 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v24, static Logger.pommes);
+  v25 = Logger.logObject.getter();
+  v26 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v25, v26))
   {
-    v32 = swift_slowAlloc();
-    v33 = swift_slowAlloc();
-    *&v46[0] = v33;
-    *v32 = 136315138;
-    LOBYTE(v44[0]) = v28;
-    v34 = String.init<A>(describing:)();
-    v36 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v34, v35, v46);
+    v27 = swift_slowAlloc();
+    v28 = swift_slowAlloc();
+    *&v41[0] = v28;
+    *v27 = 136315138;
+    LOBYTE(v39[0]) = v23;
+    v29 = String.init<A>(describing:)();
+    v31 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v29, v30, v41);
 
-    *(v32 + 4) = v36;
-    _os_log_impl(&dword_2232BB000, v30, v31, "POMMES-CURARE: {error:%s}", v32, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v33);
-    MEMORY[0x223DE0F80](v33, -1, -1);
-    MEMORY[0x223DE0F80](v32, -1, -1);
+    *(v27 + 4) = v31;
+    _os_log_impl(&dword_2232BB000, v25, v26, "POMMES-CURARE: {error:%s}", v27, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v28);
+    MEMORY[0x223DE0F80](v28, -1, -1);
+    MEMORY[0x223DE0F80](v27, -1, -1);
   }
 
-  specialized PommesSearchRequestProcessor.handleFailure(with:completion:)(v28, a2, a3, a4);
+  specialized PommesSearchRequestProcessor.handleFailure(with:completion:)(v23, a2, a3, a4);
 }
 
-uint64_t type metadata accessor for PommesSearchRequestProcessor()
+uint64_t type metadata accessor for PommesSearchRequestProcessor(uint64_t a1)
 {
   result = type metadata singleton initialization cache for PommesSearchRequestProcessor;
   if (!type metadata singleton initialization cache for PommesSearchRequestProcessor)
@@ -8898,12 +7482,11 @@ uint64_t type metadata accessor for PommesSearchRequestProcessor()
   return result;
 }
 
-uint64_t type metadata completion function for PommesSearchRequestProcessor()
+uint64_t type metadata completion function for PommesSearchRequestProcessor(uint64_t a1)
 {
   result = type metadata accessor for PommesSearchRequest(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -8999,14 +7582,11 @@ uint64_t outlined init with take of TCUMappedNLResponse?(uint64_t a1, uint64_t a
 
 uint64_t objectdestroy_32Tm()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
-uint64_t lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -9021,27 +7601,8 @@ uint64_t lazy protocol witness table accessor for type OS_dispatch_queue.Attribu
 
 uint64_t objectdestroy_44Tm()
 {
-  v1 = v0[3];
-
-  v2 = v0[4];
-
-  v3 = v0[5];
 
   return MEMORY[0x2821FE8E8](v0, 48, 7);
-}
-
-void partial apply for closure #6 in PommesSearchRequestProcessor.handleSuccess(_:_:_:)(unint64_t a1)
-{
-  v2 = *(v1 + 72);
-  v3 = *(v1 + 80);
-  closure #6 in PommesSearchRequestProcessor.handleSuccess(_:_:_:)(a1, *(v1 + 16), *(v1 + 24), *(v1 + 32), *(v1 + 40), *(v1 + 48), *(v1 + 56), *(v1 + 64));
-}
-
-uint64_t partial apply for closure #1 in closure #1 in PommesSearchRequestProcessor.search(enabled:completion:)(uint64_t a1, char a2)
-{
-  v3 = *(v2 + 16);
-  v4 = *(v2 + 24);
-  return v3(a1, a2 & 1);
 }
 
 uint64_t static ServiceHelperManager.shared.setter(uint64_t a1)
@@ -9063,35 +7624,34 @@ uint64_t key path setter for static ServiceHelperManager.shared : ServiceHelperM
 uint64_t ServiceHelperManager.setServiceHelper(_:)(uint64_t a1)
 {
   v2 = v1;
-  v4 = *v1;
   swift_unknownObjectRelease();
   if (one-time initialization token for sage != -1)
   {
     swift_once();
   }
 
-  v5 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v5, static Logger.sage);
+  v4 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v4, static Logger.sage);
   swift_unknownObjectRetain();
-  v6 = Logger.logObject.getter();
-  v7 = static os_log_type_t.debug.getter();
+  v5 = Logger.logObject.getter();
+  v6 = static os_log_type_t.debug.getter();
   swift_unknownObjectRelease();
-  if (os_log_type_enabled(v6, v7))
+  if (os_log_type_enabled(v5, v6))
   {
+    v7 = swift_slowAlloc();
     v8 = swift_slowAlloc();
-    v9 = swift_slowAlloc();
-    v14 = v9;
-    *v8 = 136315138;
+    v13 = v8;
+    *v7 = 136315138;
     swift_unknownObjectRetain();
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo32AFRequestDispatcherServiceHelper_pMd, &_sSo32AFRequestDispatcherServiceHelper_pMR);
-    v10 = String.init<A>(describing:)();
-    v12 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v10, v11, &v14);
+    v9 = String.init<A>(describing:)();
+    v11 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v9, v10, &v13);
 
-    *(v8 + 4) = v12;
-    _os_log_impl(&dword_2232BB000, v6, v7, "ServiceHelperUtil: setting service helper (underlying: %s)", v8, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v9);
-    MEMORY[0x223DE0F80](v9, -1, -1);
+    *(v7 + 4) = v11;
+    _os_log_impl(&dword_2232BB000, v5, v6, "ServiceHelperUtil: setting service helper (underlying: %s)", v7, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v8);
     MEMORY[0x223DE0F80](v8, -1, -1);
+    MEMORY[0x223DE0F80](v7, -1, -1);
   }
 
   *v2 = a1;
@@ -9222,319 +7782,310 @@ uint64_t WholeHomeAudioPreflightClient.__allocating_init(dataProviderManager:)(u
 uint64_t WholeHomeAudioPreflightClient.currentlyPlayingMediaType()@<X0>(uint64_t a1@<X8>)
 {
   v2 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AudioQueueStateItemType();
-  v96 = *(v2 - 8);
-  v3 = *(v96 + 64);
-  MEMORY[0x28223BE20](v2, v4);
-  v87 = v85 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AudioQueueStateItem();
-  v94 = *(v6 - 8);
-  v7 = *(v94 + 64);
-  MEMORY[0x28223BE20](v6, v8);
-  v89 = v85 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v93 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AudioState();
-  v10 = *(v93 - 8);
-  v11 = v10[8];
-  v13 = MEMORY[0x28223BE20](v93, v12);
-  v91 = v85 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v13, v15);
-  v90 = v85 - v16;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10PegasusAPI45Apple_Parsec_Siri_V2alpha_AudioQueueStateInfoVSgMd, &_s10PegasusAPI45Apple_Parsec_Siri_V2alpha_AudioQueueStateInfoVSgMR);
-  v18 = *(*(v17 - 8) + 64);
-  MEMORY[0x28223BE20](v17 - 8, v19);
-  v21 = v85 - v20;
-  v22 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AudioQueueStateInfo();
-  v97 = *(v22 - 8);
-  v23 = *(v97 + 64);
-  v25 = MEMORY[0x28223BE20](v22, v24);
-  v88 = v85 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v25, v27);
-  v29 = v85 - v28;
+  v84 = *(v2 - 8);
+  MEMORY[0x28223BE20](v2);
+  v75 = v73 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AudioQueueStateItem();
+  v82 = *(v4 - 8);
+  MEMORY[0x28223BE20](v4);
+  v77 = v73 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v81 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AudioState();
+  v6 = *(v81 - 8);
+  v7 = MEMORY[0x28223BE20](v81);
+  v79 = v73 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v78 = v73 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10PegasusAPI45Apple_Parsec_Siri_V2alpha_AudioQueueStateInfoVSgMd, &_s10PegasusAPI45Apple_Parsec_Siri_V2alpha_AudioQueueStateInfoVSgMR);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = v73 - v11;
+  v13 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AudioQueueStateInfo();
+  v85 = *(v13 - 8);
+  v14 = MEMORY[0x28223BE20](v13);
+  v76 = v73 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v17 = v73 - v16;
   if (one-time initialization token for pommes != -1)
   {
     swift_once();
   }
 
-  v30 = type metadata accessor for Logger();
-  v31 = __swift_project_value_buffer(v30, static Logger.pommes);
-  v32 = Logger.logObject.getter();
-  v33 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v32, v33))
+  v18 = type metadata accessor for Logger();
+  v19 = __swift_project_value_buffer(v18, static Logger.pommes);
+  v20 = Logger.logObject.getter();
+  v21 = static os_log_type_t.debug.getter();
+  if (os_log_type_enabled(v20, v21))
   {
-    v34 = swift_slowAlloc();
-    v92 = v10;
-    v35 = v6;
-    v36 = v29;
-    v37 = v22;
-    v38 = v31;
-    v39 = v2;
-    v40 = a1;
-    v41 = v34;
-    *v34 = 0;
-    _os_log_impl(&dword_2232BB000, v32, v33, "WholeHomeAudioPreflightClient#currentlyPlayingMediaType", v34, 2u);
-    v42 = v41;
-    a1 = v40;
-    v2 = v39;
-    v31 = v38;
-    v22 = v37;
-    v29 = v36;
-    v6 = v35;
-    v10 = v92;
-    MEMORY[0x223DE0F80](v42, -1, -1);
+    v22 = swift_slowAlloc();
+    v80 = v6;
+    v23 = v4;
+    v24 = v17;
+    v25 = v13;
+    v26 = v19;
+    v27 = v2;
+    v28 = a1;
+    v29 = v22;
+    *v22 = 0;
+    _os_log_impl(&dword_2232BB000, v20, v21, "WholeHomeAudioPreflightClient#currentlyPlayingMediaType", v22, 2u);
+    v30 = v29;
+    a1 = v28;
+    v2 = v27;
+    v19 = v26;
+    v13 = v25;
+    v17 = v24;
+    v4 = v23;
+    v6 = v80;
+    MEMORY[0x223DE0F80](v30, -1, -1);
   }
 
-  (*(**(v95 + 16) + 424))();
-  v43 = v97;
-  if ((*(v97 + 48))(v21, 1, v22) == 1)
+  (*(**(v83 + 16) + 424))();
+  v31 = v85;
+  if ((*(v85 + 48))(v12, 1, v13) == 1)
   {
-    outlined destroy of MediaUserStateCenter?(v21, &_s10PegasusAPI45Apple_Parsec_Siri_V2alpha_AudioQueueStateInfoVSgMd, &_s10PegasusAPI45Apple_Parsec_Siri_V2alpha_AudioQueueStateInfoVSgMR);
-    v44 = Logger.logObject.getter();
-    v45 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v44, v45))
+    outlined destroy of MediaUserStateCenter?(v12, &_s10PegasusAPI45Apple_Parsec_Siri_V2alpha_AudioQueueStateInfoVSgMd, &_s10PegasusAPI45Apple_Parsec_Siri_V2alpha_AudioQueueStateInfoVSgMR);
+    v32 = Logger.logObject.getter();
+    v33 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v32, v33))
     {
-      v46 = swift_slowAlloc();
-      *v46 = 0;
-      _os_log_impl(&dword_2232BB000, v44, v45, "WholeHomeAudioPreflightClient#currentlyPlayingMediaType: queue state is nil", v46, 2u);
-      MEMORY[0x223DE0F80](v46, -1, -1);
+      v34 = swift_slowAlloc();
+      *v34 = 0;
+      _os_log_impl(&dword_2232BB000, v32, v33, "WholeHomeAudioPreflightClient#currentlyPlayingMediaType: queue state is nil", v34, 2u);
+      MEMORY[0x223DE0F80](v34, -1, -1);
     }
 
 LABEL_17:
-    v75 = 1;
-    return (*(v96 + 56))(a1, v75, 1, v2);
+    v63 = 1;
+    return (*(v84 + 56))(a1, v63, 1, v2);
   }
 
-  (*(v43 + 32))(v29, v21, v22);
+  (*(v31 + 32))(v17, v12, v13);
   if ((Apple_Parsec_Siri_V2alpha_AudioQueueStateInfo.hasAudioQueueStateItem.getter() & 1) == 0)
   {
-    v69 = v22;
-    v70 = Logger.logObject.getter();
-    v71 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v70, v71))
+    v57 = v13;
+    v58 = Logger.logObject.getter();
+    v59 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v58, v59))
     {
-      v72 = v29;
-      v73 = swift_slowAlloc();
-      *v73 = 0;
-      _os_log_impl(&dword_2232BB000, v70, v71, "WholeHomeAudioPreflightClient#currentlyPlayingMediaType: queue state does not have an audio item", v73, 2u);
-      v74 = v73;
-      v29 = v72;
-      MEMORY[0x223DE0F80](v74, -1, -1);
+      v60 = v17;
+      v61 = swift_slowAlloc();
+      *v61 = 0;
+      _os_log_impl(&dword_2232BB000, v58, v59, "WholeHomeAudioPreflightClient#currentlyPlayingMediaType: queue state does not have an audio item", v61, 2u);
+      v62 = v61;
+      v17 = v60;
+      MEMORY[0x223DE0F80](v62, -1, -1);
     }
 
-    (*(v43 + 8))(v29, v69);
+    (*(v31 + 8))(v17, v57);
     goto LABEL_17;
   }
 
-  v85[1] = v31;
-  v86 = v2;
-  v95 = a1;
-  v47 = v90;
+  v73[1] = v19;
+  v74 = v2;
+  v83 = a1;
+  v35 = v78;
   Apple_Parsec_Siri_V2alpha_AmpUserState.ampSubscriptionStatus.getter();
-  v48 = *MEMORY[0x277D392B0];
-  v49 = v91;
-  v50 = v93;
-  v85[0] = v10[13];
-  (v85[0])(v91, v48, v93);
-  lazy protocol witness table accessor for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState, MEMORY[0x277D392B8]);
+  v36 = *MEMORY[0x277D392B0];
+  v37 = v79;
+  v38 = v81;
+  v73[0] = *(v6 + 104);
+  (v73[0])(v79, v36, v81);
+  lazy protocol witness table accessor for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState(&lazy protocol witness table cache variable for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState, MEMORY[0x277D392B8], MEMORY[0x277D392C0]);
   dispatch thunk of RawRepresentable.rawValue.getter();
   dispatch thunk of RawRepresentable.rawValue.getter();
-  v51 = v50;
-  v54 = v10[1];
-  v53 = v10 + 1;
-  v52 = v54;
-  v54(v49, v51);
-  v54(v47, v51);
-  if (v99 == v98 || (v92 = v53, Apple_Parsec_Siri_V2alpha_AmpUserState.ampSubscriptionStatus.getter(), (v85[0])(v49, *MEMORY[0x277D39298], v51), dispatch thunk of RawRepresentable.rawValue.getter(), dispatch thunk of RawRepresentable.rawValue.getter(), v52(v49, v51), v52(v47, v51), v99 == v98))
+  v39 = v38;
+  v42 = *(v6 + 8);
+  v41 = v6 + 8;
+  v40 = v42;
+  v42(v37, v39);
+  v42(v35, v39);
+  if (v87 == v86 || (v80 = v41, Apple_Parsec_Siri_V2alpha_AmpUserState.ampSubscriptionStatus.getter(), (v73[0])(v37, *MEMORY[0x277D39298], v39), dispatch thunk of RawRepresentable.rawValue.getter(), dispatch thunk of RawRepresentable.rawValue.getter(), v40(v37, v39), v40(v35, v39), v87 == v86))
   {
-    v55 = v97;
-    v56 = *(v97 + 16);
-    v57 = v88;
-    v93 = v29;
-    v56(v88, v29, v22);
-    v58 = v22;
-    v59 = Logger.logObject.getter();
-    v60 = static os_log_type_t.info.getter();
-    if (os_log_type_enabled(v59, v60))
+    v43 = v85;
+    v44 = *(v85 + 16);
+    v45 = v76;
+    v81 = v17;
+    v44(v76, v17, v13);
+    v46 = v13;
+    v47 = Logger.logObject.getter();
+    v48 = static os_log_type_t.info.getter();
+    if (os_log_type_enabled(v47, v48))
     {
-      v61 = swift_slowAlloc();
-      v92 = v6;
-      v62 = v61;
-      *v61 = 134217984;
-      v63 = v89;
+      v49 = swift_slowAlloc();
+      v80 = v4;
+      v50 = v49;
+      *v49 = 134217984;
+      v51 = v77;
       Apple_Parsec_Siri_V2alpha_AudioQueueStateInfo.audioQueueStateItem.getter();
-      v64 = v87;
+      v52 = v75;
       Apple_Parsec_Siri_V2alpha_AmpUserState.itunesSubscriptionStatus.getter();
-      v65 = (*(v94 + 8))(v63, v92);
-      v91 = MEMORY[0x223DDBA00](v65);
-      v66 = v57;
-      v2 = v86;
-      (*(v96 + 8))(v64, v86);
-      v67 = *(v55 + 8);
-      v67(v66, v58);
-      *(v62 + 1) = v91;
-      _os_log_impl(&dword_2232BB000, v59, v60, "WholeHomeAudioPreflightClient#currentlyPlayingMediaType: %ld", v62, 0xCu);
-      v68 = v62;
-      v6 = v92;
-      MEMORY[0x223DE0F80](v68, -1, -1);
+      v53 = (*(v82 + 8))(v51, v80);
+      v79 = MEMORY[0x223DDBA00](v53);
+      v54 = v45;
+      v2 = v74;
+      (*(v84 + 8))(v52, v74);
+      v55 = *(v43 + 8);
+      v55(v54, v46);
+      *(v50 + 1) = v79;
+      _os_log_impl(&dword_2232BB000, v47, v48, "WholeHomeAudioPreflightClient#currentlyPlayingMediaType: %ld", v50, 0xCu);
+      v56 = v50;
+      v4 = v80;
+      MEMORY[0x223DE0F80](v56, -1, -1);
     }
 
     else
     {
-      v67 = *(v55 + 8);
-      v67(v57, v58);
-      v2 = v86;
-      v63 = v89;
+      v55 = *(v43 + 8);
+      v55(v45, v46);
+      v2 = v74;
+      v51 = v77;
     }
 
-    v77 = v93;
+    v65 = v81;
     Apple_Parsec_Siri_V2alpha_AudioQueueStateInfo.audioQueueStateItem.getter();
-    v78 = v95;
+    v66 = v83;
     Apple_Parsec_Siri_V2alpha_AmpUserState.itunesSubscriptionStatus.getter();
-    (*(v94 + 8))(v63, v6);
-    v67(v77, v58);
-    a1 = v78;
-    v75 = 0;
+    (*(v82 + 8))(v51, v4);
+    v55(v65, v46);
+    a1 = v66;
+    v63 = 0;
   }
 
   else
   {
-    v79 = v22;
-    v80 = Logger.logObject.getter();
-    v81 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v80, v81))
+    v67 = v13;
+    v68 = Logger.logObject.getter();
+    v69 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v68, v69))
     {
-      v82 = v29;
-      v83 = swift_slowAlloc();
-      *v83 = 0;
-      _os_log_impl(&dword_2232BB000, v80, v81, "WholeHomeAudioPreflightClient#currentlyPlayingMediaType: queue state item is not playing or interrupted", v83, 2u);
-      v84 = v83;
-      v29 = v82;
-      MEMORY[0x223DE0F80](v84, -1, -1);
+      v70 = v17;
+      v71 = swift_slowAlloc();
+      *v71 = 0;
+      _os_log_impl(&dword_2232BB000, v68, v69, "WholeHomeAudioPreflightClient#currentlyPlayingMediaType: queue state item is not playing or interrupted", v71, 2u);
+      v72 = v71;
+      v17 = v70;
+      MEMORY[0x223DE0F80](v72, -1, -1);
     }
 
-    (*(v97 + 8))(v29, v79);
-    v75 = 1;
-    a1 = v95;
-    v2 = v86;
+    (*(v85 + 8))(v17, v67);
+    v63 = 1;
+    a1 = v83;
+    v2 = v74;
   }
 
-  return (*(v96 + 56))(a1, v75, 1, v2);
+  return (*(v84 + 56))(a1, v63, 1, v2);
 }
 
 uint64_t WholeHomeAudioPreflightClient.sameMediaType(queueItemType:taskItemType:)(uint64_t a1, uint64_t a2)
 {
-  v268 = a2;
-  v267 = type metadata accessor for UsoEntity_common_MediaItemType.DefinedValues();
-  v270 = *(v267 - 8);
-  v3 = *(v270 + 64);
-  MEMORY[0x28223BE20](v267, v4);
-  v263 = &v236 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v269 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMR);
-  v6 = *(*(v269 - 8) + 64);
-  v8 = MEMORY[0x28223BE20](v269, v7);
-  v239 = &v236 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = MEMORY[0x28223BE20](v8, v10);
-  v244 = &v236 - v12;
-  v14 = MEMORY[0x28223BE20](v11, v13);
-  v250 = &v236 - v15;
-  v17 = MEMORY[0x28223BE20](v14, v16);
-  v254 = &v236 - v18;
-  v20 = MEMORY[0x28223BE20](v17, v19);
-  v253 = &v236 - v21;
-  v23 = MEMORY[0x28223BE20](v20, v22);
-  v257 = &v236 - v24;
-  v26 = MEMORY[0x28223BE20](v23, v25);
-  v262 = &v236 - v27;
-  v29 = MEMORY[0x28223BE20](v26, v28);
-  v265 = &v236 - v30;
-  MEMORY[0x28223BE20](v29, v31);
-  v33 = &v236 - v32;
-  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-  v35 = *(*(v34 - 8) + 64);
-  v37 = MEMORY[0x28223BE20](v34 - 8, v36);
-  v236 = &v236 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v40 = MEMORY[0x28223BE20](v37, v39);
-  v241 = &v236 - v41;
-  v43 = MEMORY[0x28223BE20](v40, v42);
-  v238 = &v236 - v44;
-  v46 = MEMORY[0x28223BE20](v43, v45);
-  v237 = &v236 - v47;
-  v49 = MEMORY[0x28223BE20](v46, v48);
-  v243 = &v236 - v50;
-  v52 = MEMORY[0x28223BE20](v49, v51);
-  v245 = &v236 - v53;
-  v55 = MEMORY[0x28223BE20](v52, v54);
-  v240 = &v236 - v56;
-  v58 = MEMORY[0x28223BE20](v55, v57);
-  v247 = &v236 - v59;
-  v61 = MEMORY[0x28223BE20](v58, v60);
-  v248 = &v236 - v62;
-  v64 = MEMORY[0x28223BE20](v61, v63);
-  v242 = &v236 - v65;
-  v67 = MEMORY[0x28223BE20](v64, v66);
-  v251 = &v236 - v68;
-  v70 = MEMORY[0x28223BE20](v67, v69);
-  v252 = &v236 - v71;
-  v73 = MEMORY[0x28223BE20](v70, v72);
-  v246 = &v236 - v74;
-  v76 = MEMORY[0x28223BE20](v73, v75);
-  v259 = (&v236 - v77);
-  v79 = MEMORY[0x28223BE20](v76, v78);
-  v260 = (&v236 - v80);
-  v82 = MEMORY[0x28223BE20](v79, v81);
-  v249 = &v236 - v83;
-  v85 = MEMORY[0x28223BE20](v82, v84);
-  v255 = &v236 - v86;
-  v88 = MEMORY[0x28223BE20](v85, v87);
-  v256 = &v236 - v89;
-  v91 = MEMORY[0x28223BE20](v88, v90);
-  v258 = (&v236 - v92);
-  v94 = MEMORY[0x28223BE20](v91, v93);
-  v96 = &v236 - v95;
-  v98 = MEMORY[0x28223BE20](v94, v97);
-  v100 = &v236 - v99;
-  v102 = MEMORY[0x28223BE20](v98, v101);
-  v261 = &v236 - v103;
-  v105 = MEMORY[0x28223BE20](v102, v104);
-  v266 = (&v236 - v106);
-  v108 = MEMORY[0x28223BE20](v105, v107);
-  v264 = &v236 - v109;
-  v111 = MEMORY[0x28223BE20](v108, v110);
-  v113 = &v236 - v112;
-  v115 = MEMORY[0x28223BE20](v111, v114);
-  v117 = &v236 - v116;
-  MEMORY[0x28223BE20](v115, v118);
-  v120 = &v236 - v119;
-  v121 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AudioQueueStateItemType();
-  v122 = *(v121 - 8);
-  v123 = *(v122 + 64);
-  MEMORY[0x28223BE20](v121, v124);
-  v126 = &v236 - ((v125 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v122 + 16))(v126, a1, v121);
-  v127 = (*(v122 + 88))(v126, v121);
-  v128 = 0;
-  if (v127 != *MEMORY[0x277D39B40] && v127 != *MEMORY[0x277D39B38] && v127 != *MEMORY[0x277D39B48])
+  v226 = a2;
+  v225 = type metadata accessor for UsoEntity_common_MediaItemType.DefinedValues();
+  v228 = *(v225 - 8);
+  MEMORY[0x28223BE20](v225);
+  v221 = &v194 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v227 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMR);
+  v4 = MEMORY[0x28223BE20](v227);
+  v197 = &v194 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = MEMORY[0x28223BE20](v4);
+  v202 = &v194 - v7;
+  v8 = MEMORY[0x28223BE20](v6);
+  v208 = &v194 - v9;
+  v10 = MEMORY[0x28223BE20](v8);
+  v212 = &v194 - v11;
+  v12 = MEMORY[0x28223BE20](v10);
+  v211 = &v194 - v13;
+  v14 = MEMORY[0x28223BE20](v12);
+  v215 = &v194 - v15;
+  v16 = MEMORY[0x28223BE20](v14);
+  v220 = &v194 - v17;
+  v18 = MEMORY[0x28223BE20](v16);
+  v223 = &v194 - v19;
+  MEMORY[0x28223BE20](v18);
+  v21 = &v194 - v20;
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+  v23 = MEMORY[0x28223BE20](v22 - 8);
+  v194 = &v194 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = MEMORY[0x28223BE20](v23);
+  v199 = &v194 - v26;
+  v27 = MEMORY[0x28223BE20](v25);
+  v196 = &v194 - v28;
+  v29 = MEMORY[0x28223BE20](v27);
+  v195 = &v194 - v30;
+  v31 = MEMORY[0x28223BE20](v29);
+  v201 = &v194 - v32;
+  v33 = MEMORY[0x28223BE20](v31);
+  v203 = &v194 - v34;
+  v35 = MEMORY[0x28223BE20](v33);
+  v198 = &v194 - v36;
+  v37 = MEMORY[0x28223BE20](v35);
+  v205 = &v194 - v38;
+  v39 = MEMORY[0x28223BE20](v37);
+  v206 = &v194 - v40;
+  v41 = MEMORY[0x28223BE20](v39);
+  v200 = &v194 - v42;
+  v43 = MEMORY[0x28223BE20](v41);
+  v209 = &v194 - v44;
+  v45 = MEMORY[0x28223BE20](v43);
+  v210 = &v194 - v46;
+  v47 = MEMORY[0x28223BE20](v45);
+  v204 = &v194 - v48;
+  v49 = MEMORY[0x28223BE20](v47);
+  v217 = (&v194 - v50);
+  v51 = MEMORY[0x28223BE20](v49);
+  v218 = (&v194 - v52);
+  v53 = MEMORY[0x28223BE20](v51);
+  v207 = &v194 - v54;
+  v55 = MEMORY[0x28223BE20](v53);
+  v213 = &v194 - v56;
+  v57 = MEMORY[0x28223BE20](v55);
+  v214 = &v194 - v58;
+  v59 = MEMORY[0x28223BE20](v57);
+  v216 = (&v194 - v60);
+  v61 = MEMORY[0x28223BE20](v59);
+  v63 = &v194 - v62;
+  v64 = MEMORY[0x28223BE20](v61);
+  v66 = &v194 - v65;
+  v67 = MEMORY[0x28223BE20](v64);
+  v219 = &v194 - v68;
+  v69 = MEMORY[0x28223BE20](v67);
+  v224 = (&v194 - v70);
+  v71 = MEMORY[0x28223BE20](v69);
+  v222 = &v194 - v72;
+  v73 = MEMORY[0x28223BE20](v71);
+  v75 = &v194 - v74;
+  v76 = MEMORY[0x28223BE20](v73);
+  v78 = &v194 - v77;
+  MEMORY[0x28223BE20](v76);
+  v80 = &v194 - v79;
+  v81 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AudioQueueStateItemType();
+  v82 = *(v81 - 8);
+  MEMORY[0x28223BE20](v81);
+  v84 = &v194 - ((v83 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v82 + 16))(v84, a1, v81);
+  v85 = (*(v82 + 88))(v84, v81);
+  v86 = 0;
+  if (v85 != *MEMORY[0x277D39B40] && v85 != *MEMORY[0x277D39B38] && v85 != *MEMORY[0x277D39B48])
   {
-    if (v127 == *MEMORY[0x277D39B68])
+    if (v85 == *MEMORY[0x277D39B68])
     {
       dispatch thunk of UsoEntity_common_MediaItemType.definedValue.getter();
-      v129 = *MEMORY[0x277D5ED28];
-      v130 = v270;
-      v131 = v267;
-      v260 = *(v270 + 104);
-      v260(v117, v129, v267);
-      v132 = *(v130 + 56);
-      v262 = v130 + 56;
-      v259 = v132;
-      (v132)(v117, 0, 1, v131);
-      v133 = *(v269 + 48);
-      outlined init with copy of MediaUserStateCenter?(v120, v33, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-      outlined init with copy of MediaUserStateCenter?(v117, &v33[v133], &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-      v134 = *(v130 + 48);
-      if (v134(v33, 1, v131) == 1)
+      v87 = *MEMORY[0x277D5ED28];
+      v88 = v228;
+      v89 = v225;
+      v218 = *(v228 + 104);
+      v218(v78, v87, v225);
+      v90 = *(v88 + 56);
+      v220 = v88 + 56;
+      v217 = v90;
+      (v90)(v78, 0, 1, v89);
+      v91 = *(v227 + 48);
+      outlined init with copy of MediaUserStateCenter?(v80, v21, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+      outlined init with copy of MediaUserStateCenter?(v78, &v21[v91], &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+      v92 = *(v88 + 48);
+      if (v92(v21, 1, v89) == 1)
       {
-        outlined destroy of MediaUserStateCenter?(v117, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-        outlined destroy of MediaUserStateCenter?(v120, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-        v135 = v131;
-        if (v134(&v33[v133], 1, v131) == 1)
+        outlined destroy of MediaUserStateCenter?(v78, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+        outlined destroy of MediaUserStateCenter?(v80, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+        v93 = v89;
+        if (v92(&v21[v91], 1, v89) == 1)
         {
           goto LABEL_19;
         }
@@ -9542,349 +8093,349 @@ uint64_t WholeHomeAudioPreflightClient.sameMediaType(queueItemType:taskItemType:
         goto LABEL_16;
       }
 
-      outlined init with copy of MediaUserStateCenter?(v33, v113, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-      if (v134(&v33[v133], 1, v131) == 1)
+      outlined init with copy of MediaUserStateCenter?(v21, v75, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+      if (v92(&v21[v91], 1, v89) == 1)
       {
-        outlined destroy of MediaUserStateCenter?(v117, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-        outlined destroy of MediaUserStateCenter?(v120, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-        (*(v270 + 8))(v113, v131);
-        v135 = v131;
+        outlined destroy of MediaUserStateCenter?(v78, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+        outlined destroy of MediaUserStateCenter?(v80, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+        (*(v228 + 8))(v75, v89);
+        v93 = v89;
 LABEL_16:
-        v258 = v134;
-        outlined destroy of MediaUserStateCenter?(v33, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMR);
+        v216 = v92;
+        outlined destroy of MediaUserStateCenter?(v21, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMR);
 LABEL_17:
-        v144 = v264;
+        v102 = v222;
         dispatch thunk of UsoEntity_common_MediaItemType.definedValue.getter();
-        v145 = v266;
-        v260(v266, *MEMORY[0x277D5EDE8], v135);
-        (v259)(v145, 0, 1, v135);
-        v146 = *(v269 + 48);
-        v33 = v265;
-        outlined init with copy of MediaUserStateCenter?(v144, v265, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-        outlined init with copy of MediaUserStateCenter?(v145, &v33[v146], &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-        v147 = v258;
-        if (v258(v33, 1, v135) == 1)
+        v103 = v224;
+        v218(v224, *MEMORY[0x277D5EDE8], v93);
+        (v217)(v103, 0, 1, v93);
+        v104 = *(v227 + 48);
+        v21 = v223;
+        outlined init with copy of MediaUserStateCenter?(v102, v223, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+        outlined init with copy of MediaUserStateCenter?(v103, &v21[v104], &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+        v105 = v216;
+        if (v216(v21, 1, v93) == 1)
         {
-          outlined destroy of MediaUserStateCenter?(v145, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-          outlined destroy of MediaUserStateCenter?(v144, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-          if (v147(&v33[v146], 1, v135) == 1)
+          outlined destroy of MediaUserStateCenter?(v103, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+          outlined destroy of MediaUserStateCenter?(v102, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+          if (v105(&v21[v104], 1, v93) == 1)
           {
 LABEL_19:
-            v143 = v33;
+            v101 = v21;
             goto LABEL_20;
           }
 
           goto LABEL_23;
         }
 
-        v148 = v261;
-        outlined init with copy of MediaUserStateCenter?(v33, v261, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-        if (v147(&v33[v146], 1, v135) == 1)
+        v106 = v219;
+        outlined init with copy of MediaUserStateCenter?(v21, v219, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+        if (v105(&v21[v104], 1, v93) == 1)
         {
-          outlined destroy of MediaUserStateCenter?(v266, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-          outlined destroy of MediaUserStateCenter?(v144, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-          (*(v270 + 8))(v148, v135);
+          outlined destroy of MediaUserStateCenter?(v224, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+          outlined destroy of MediaUserStateCenter?(v102, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+          (*(v228 + 8))(v106, v93);
 LABEL_23:
-          v149 = v33;
+          v107 = v21;
 LABEL_24:
-          outlined destroy of MediaUserStateCenter?(v149, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMR);
+          outlined destroy of MediaUserStateCenter?(v107, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMR);
 LABEL_41:
-          v128 = 0;
-          return v128 & 1;
+          v86 = 0;
+          return v86 & 1;
         }
 
-        v165 = v270;
-        v166 = v263;
-        (*(v270 + 32))(v263, &v33[v146], v135);
-        lazy protocol witness table accessor for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState(&lazy protocol witness table cache variable for type UsoEntity_common_MediaItemType.DefinedValues and conformance UsoEntity_common_MediaItemType.DefinedValues, MEMORY[0x277D5EE30]);
-        v128 = dispatch thunk of static Equatable.== infix(_:_:)();
-        v167 = *(v165 + 8);
-        v167(v166, v135);
-        outlined destroy of MediaUserStateCenter?(v266, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-        outlined destroy of MediaUserStateCenter?(v144, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-        v168 = v148;
-        v169 = v135;
+        v123 = v228;
+        v124 = v221;
+        (*(v228 + 32))(v221, &v21[v104], v93);
+        lazy protocol witness table accessor for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState(&lazy protocol witness table cache variable for type UsoEntity_common_MediaItemType.DefinedValues and conformance UsoEntity_common_MediaItemType.DefinedValues, MEMORY[0x277D5EE30], MEMORY[0x277D5EE40]);
+        v86 = dispatch thunk of static Equatable.== infix(_:_:)();
+        v125 = *(v123 + 8);
+        v125(v124, v93);
+        outlined destroy of MediaUserStateCenter?(v224, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+        outlined destroy of MediaUserStateCenter?(v102, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+        v126 = v106;
+        v127 = v93;
 LABEL_32:
-        v167(v168, v169);
-        v170 = v33;
+        v125(v126, v127);
+        v128 = v21;
 LABEL_33:
-        outlined destroy of MediaUserStateCenter?(v170, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-        return v128 & 1;
+        outlined destroy of MediaUserStateCenter?(v128, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+        return v86 & 1;
       }
 
-      v258 = v134;
-      v150 = v263;
-      (*(v270 + 32))(v263, &v33[v133], v131);
-      lazy protocol witness table accessor for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState(&lazy protocol witness table cache variable for type UsoEntity_common_MediaItemType.DefinedValues and conformance UsoEntity_common_MediaItemType.DefinedValues, MEMORY[0x277D5EE30]);
-      LODWORD(v257) = dispatch thunk of static Equatable.== infix(_:_:)();
-      v151 = *(v270 + 8);
-      v151(v150, v131);
-      outlined destroy of MediaUserStateCenter?(v117, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-      outlined destroy of MediaUserStateCenter?(v120, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-      v151(v113, v131);
-      outlined destroy of MediaUserStateCenter?(v33, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-      v135 = v131;
-      if ((v257 & 1) == 0)
+      v216 = v92;
+      v108 = v221;
+      (*(v228 + 32))(v221, &v21[v91], v89);
+      lazy protocol witness table accessor for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState(&lazy protocol witness table cache variable for type UsoEntity_common_MediaItemType.DefinedValues and conformance UsoEntity_common_MediaItemType.DefinedValues, MEMORY[0x277D5EE30], MEMORY[0x277D5EE40]);
+      LODWORD(v215) = dispatch thunk of static Equatable.== infix(_:_:)();
+      v109 = *(v228 + 8);
+      v109(v108, v89);
+      outlined destroy of MediaUserStateCenter?(v78, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+      outlined destroy of MediaUserStateCenter?(v80, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+      v109(v75, v89);
+      outlined destroy of MediaUserStateCenter?(v21, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+      v93 = v89;
+      if ((v215 & 1) == 0)
       {
         goto LABEL_17;
       }
 
 LABEL_26:
-      v128 = 1;
-      return v128 & 1;
+      v86 = 1;
+      return v86 & 1;
     }
 
-    v128 = 0;
-    if (v127 != *MEMORY[0x277D39B58] && v127 != *MEMORY[0x277D39B30])
+    v86 = 0;
+    if (v85 != *MEMORY[0x277D39B58] && v85 != *MEMORY[0x277D39B30])
     {
-      if (v127 == *MEMORY[0x277D39B60])
+      if (v85 == *MEMORY[0x277D39B60])
       {
         dispatch thunk of UsoEntity_common_MediaItemType.definedValue.getter();
-        v136 = *MEMORY[0x277D5EE08];
-        v137 = v270;
-        v138 = v267;
-        v265 = *(v270 + 104);
-        (v265)(v96, v136, v267);
-        v264 = *(v137 + 56);
-        (v264)(v96, 0, 1, v138);
-        v139 = *(v269 + 48);
-        v140 = v262;
-        outlined init with copy of MediaUserStateCenter?(v100, v262, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-        outlined init with copy of MediaUserStateCenter?(v96, v140 + v139, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-        v141 = *(v137 + 48);
-        v142 = v141(v140, 1, v138);
-        v266 = v141;
-        if (v142 == 1)
+        v94 = *MEMORY[0x277D5EE08];
+        v95 = v228;
+        v96 = v225;
+        v223 = *(v228 + 104);
+        (v223)(v63, v94, v225);
+        v222 = *(v95 + 56);
+        (v222)(v63, 0, 1, v96);
+        v97 = *(v227 + 48);
+        v98 = v220;
+        outlined init with copy of MediaUserStateCenter?(v66, v220, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+        outlined init with copy of MediaUserStateCenter?(v63, v98 + v97, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+        v99 = *(v95 + 48);
+        v100 = v99(v98, 1, v96);
+        v224 = v99;
+        if (v100 == 1)
         {
-          outlined destroy of MediaUserStateCenter?(v96, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-          outlined destroy of MediaUserStateCenter?(v100, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-          if (v141(v140 + v139, 1, v138) == 1)
+          outlined destroy of MediaUserStateCenter?(v63, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+          outlined destroy of MediaUserStateCenter?(v66, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+          if (v99(v98 + v97, 1, v96) == 1)
           {
-            v143 = v140;
+            v101 = v98;
 LABEL_20:
-            outlined destroy of MediaUserStateCenter?(v143, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-            v128 = 1;
-            return v128 & 1;
+            outlined destroy of MediaUserStateCenter?(v101, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+            v86 = 1;
+            return v86 & 1;
           }
         }
 
         else
         {
-          v171 = v258;
-          outlined init with copy of MediaUserStateCenter?(v140, v258, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-          if (v141(v140 + v139, 1, v138) != 1)
+          v129 = v216;
+          outlined init with copy of MediaUserStateCenter?(v98, v216, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+          if (v99(v98 + v97, 1, v96) != 1)
           {
-            v187 = v140;
-            v188 = v270;
-            v189 = v187 + v139;
-            v190 = v263;
-            (*(v270 + 32))(v263, v189, v138);
-            lazy protocol witness table accessor for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState(&lazy protocol witness table cache variable for type UsoEntity_common_MediaItemType.DefinedValues and conformance UsoEntity_common_MediaItemType.DefinedValues, MEMORY[0x277D5EE30]);
-            LODWORD(v261) = dispatch thunk of static Equatable.== infix(_:_:)();
-            v191 = *(v188 + 8);
-            v191(v190, v138);
-            outlined destroy of MediaUserStateCenter?(v96, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-            outlined destroy of MediaUserStateCenter?(v100, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-            v191(v258, v138);
-            outlined destroy of MediaUserStateCenter?(v262, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-            if (v261)
+            v145 = v98;
+            v146 = v228;
+            v147 = v145 + v97;
+            v148 = v221;
+            (*(v228 + 32))(v221, v147, v96);
+            lazy protocol witness table accessor for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState(&lazy protocol witness table cache variable for type UsoEntity_common_MediaItemType.DefinedValues and conformance UsoEntity_common_MediaItemType.DefinedValues, MEMORY[0x277D5EE30], MEMORY[0x277D5EE40]);
+            LODWORD(v219) = dispatch thunk of static Equatable.== infix(_:_:)();
+            v149 = *(v146 + 8);
+            v149(v148, v96);
+            outlined destroy of MediaUserStateCenter?(v63, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+            outlined destroy of MediaUserStateCenter?(v66, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+            v149(v216, v96);
+            outlined destroy of MediaUserStateCenter?(v220, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+            if (v219)
             {
               goto LABEL_26;
             }
 
 LABEL_37:
-            v172 = v256;
+            v130 = v214;
             dispatch thunk of UsoEntity_common_MediaItemType.definedValue.getter();
-            v173 = v255;
-            v174 = v267;
-            (v265)(v255, *MEMORY[0x277D5ED58], v267);
-            (v264)(v173, 0, 1, v174);
-            v175 = *(v269 + 48);
-            v176 = v257;
-            outlined init with copy of MediaUserStateCenter?(v172, v257, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-            outlined init with copy of MediaUserStateCenter?(v173, v176 + v175, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-            v177 = v266;
-            if (v266(v176, 1, v174) == 1)
+            v131 = v213;
+            v132 = v225;
+            (v223)(v213, *MEMORY[0x277D5ED58], v225);
+            (v222)(v131, 0, 1, v132);
+            v133 = *(v227 + 48);
+            v134 = v215;
+            outlined init with copy of MediaUserStateCenter?(v130, v215, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+            outlined init with copy of MediaUserStateCenter?(v131, v134 + v133, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+            v135 = v224;
+            if (v224(v134, 1, v132) == 1)
             {
-              outlined destroy of MediaUserStateCenter?(v173, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-              outlined destroy of MediaUserStateCenter?(v172, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-              if (v177(v176 + v175, 1, v174) == 1)
+              outlined destroy of MediaUserStateCenter?(v131, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+              outlined destroy of MediaUserStateCenter?(v130, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+              if (v135(v134 + v133, 1, v132) == 1)
               {
-                v143 = v176;
+                v101 = v134;
                 goto LABEL_20;
               }
             }
 
             else
             {
-              v179 = v249;
-              outlined init with copy of MediaUserStateCenter?(v176, v249, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-              if (v177(v176 + v175, 1, v174) != 1)
+              v137 = v207;
+              outlined init with copy of MediaUserStateCenter?(v134, v207, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+              if (v135(v134 + v133, 1, v132) != 1)
               {
-                v192 = v270;
-                v193 = v263;
-                (*(v270 + 32))(v263, v176 + v175, v174);
-                lazy protocol witness table accessor for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState(&lazy protocol witness table cache variable for type UsoEntity_common_MediaItemType.DefinedValues and conformance UsoEntity_common_MediaItemType.DefinedValues, MEMORY[0x277D5EE30]);
-                v128 = dispatch thunk of static Equatable.== infix(_:_:)();
-                v194 = *(v192 + 8);
-                v194(v193, v174);
-                outlined destroy of MediaUserStateCenter?(v173, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                outlined destroy of MediaUserStateCenter?(v172, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                v194(v179, v174);
-                v170 = v176;
+                v150 = v228;
+                v151 = v221;
+                (*(v228 + 32))(v221, v134 + v133, v132);
+                lazy protocol witness table accessor for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState(&lazy protocol witness table cache variable for type UsoEntity_common_MediaItemType.DefinedValues and conformance UsoEntity_common_MediaItemType.DefinedValues, MEMORY[0x277D5EE30], MEMORY[0x277D5EE40]);
+                v86 = dispatch thunk of static Equatable.== infix(_:_:)();
+                v152 = *(v150 + 8);
+                v152(v151, v132);
+                outlined destroy of MediaUserStateCenter?(v131, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                outlined destroy of MediaUserStateCenter?(v130, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                v152(v137, v132);
+                v128 = v134;
                 goto LABEL_33;
               }
 
-              outlined destroy of MediaUserStateCenter?(v173, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-              outlined destroy of MediaUserStateCenter?(v172, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-              (*(v270 + 8))(v179, v174);
+              outlined destroy of MediaUserStateCenter?(v131, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+              outlined destroy of MediaUserStateCenter?(v130, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+              (*(v228 + 8))(v137, v132);
             }
 
-            v149 = v176;
+            v107 = v134;
             goto LABEL_24;
           }
 
-          outlined destroy of MediaUserStateCenter?(v96, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-          outlined destroy of MediaUserStateCenter?(v100, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-          (*(v270 + 8))(v171, v138);
+          outlined destroy of MediaUserStateCenter?(v63, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+          outlined destroy of MediaUserStateCenter?(v66, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+          (*(v228 + 8))(v129, v96);
         }
 
-        outlined destroy of MediaUserStateCenter?(v140, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMR);
+        outlined destroy of MediaUserStateCenter?(v98, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMR);
         goto LABEL_37;
       }
 
-      if (v127 != *MEMORY[0x277D39B50])
+      if (v85 != *MEMORY[0x277D39B50])
       {
-        (*(v122 + 8))(v126, v121);
+        (*(v82 + 8))(v84, v81);
         goto LABEL_41;
       }
 
-      v152 = v260;
+      v110 = v218;
       dispatch thunk of UsoEntity_common_MediaItemType.definedValue.getter();
-      v153 = *MEMORY[0x277D5ED90];
-      v154 = v270;
-      v155 = v259;
-      v156 = v267;
-      v266 = *(v270 + 104);
-      v264 = (v270 + 104);
-      v266(v259, v153, v267);
-      v157 = v154 + 56;
-      v265 = *(v154 + 56);
-      (v265)(v155, 0, 1, v156);
-      v158 = *(v269 + 48);
-      v159 = v253;
-      outlined init with copy of MediaUserStateCenter?(v152, v253, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-      outlined init with copy of MediaUserStateCenter?(v155, v159 + v158, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-      v160 = *(v154 + 48);
-      v161 = v160(v159, 1, v156);
-      v262 = v154 + 48;
-      if (v161 == 1)
+      v111 = *MEMORY[0x277D5ED90];
+      v112 = v228;
+      v113 = v217;
+      v114 = v225;
+      v224 = *(v228 + 104);
+      v222 = (v228 + 104);
+      v224(v217, v111, v225);
+      v115 = v112 + 56;
+      v223 = *(v112 + 56);
+      (v223)(v113, 0, 1, v114);
+      v116 = *(v227 + 48);
+      v117 = v211;
+      outlined init with copy of MediaUserStateCenter?(v110, v211, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+      outlined init with copy of MediaUserStateCenter?(v113, v117 + v116, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+      v118 = *(v112 + 48);
+      v119 = v118(v117, 1, v114);
+      v220 = v112 + 48;
+      if (v119 == 1)
       {
-        outlined destroy of MediaUserStateCenter?(v155, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-        outlined destroy of MediaUserStateCenter?(v152, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-        v162 = v160(v159 + v158, 1, v156);
-        v163 = v159;
-        v164 = v254;
-        if (v162 == 1)
+        outlined destroy of MediaUserStateCenter?(v113, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+        outlined destroy of MediaUserStateCenter?(v110, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+        v120 = v118(v117 + v116, 1, v114);
+        v121 = v117;
+        v122 = v212;
+        if (v120 == 1)
         {
-          v143 = v159;
+          v101 = v117;
           goto LABEL_20;
         }
       }
 
       else
       {
-        v180 = v246;
-        outlined init with copy of MediaUserStateCenter?(v159, v246, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-        v163 = v159;
-        if (v160(v159 + v158, 1, v156) != 1)
+        v138 = v204;
+        outlined init with copy of MediaUserStateCenter?(v117, v204, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+        v121 = v117;
+        if (v118(v117 + v116, 1, v114) != 1)
         {
-          v201 = v180;
-          v202 = v270;
-          v203 = v159 + v158;
-          v204 = v263;
-          (*(v270 + 32))(v263, v203, v156);
-          lazy protocol witness table accessor for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState(&lazy protocol witness table cache variable for type UsoEntity_common_MediaItemType.DefinedValues and conformance UsoEntity_common_MediaItemType.DefinedValues, MEMORY[0x277D5EE30]);
-          LODWORD(v261) = dispatch thunk of static Equatable.== infix(_:_:)();
-          v205 = *(v202 + 8);
-          v205(v204, v267);
-          outlined destroy of MediaUserStateCenter?(v259, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-          outlined destroy of MediaUserStateCenter?(v260, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-          v205(v201, v267);
-          v156 = v267;
-          outlined destroy of MediaUserStateCenter?(v159, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-          v164 = v254;
-          if (v261)
+          v159 = v138;
+          v160 = v228;
+          v161 = v117 + v116;
+          v162 = v221;
+          (*(v228 + 32))(v221, v161, v114);
+          lazy protocol witness table accessor for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState(&lazy protocol witness table cache variable for type UsoEntity_common_MediaItemType.DefinedValues and conformance UsoEntity_common_MediaItemType.DefinedValues, MEMORY[0x277D5EE30], MEMORY[0x277D5EE40]);
+          LODWORD(v219) = dispatch thunk of static Equatable.== infix(_:_:)();
+          v163 = *(v160 + 8);
+          v163(v162, v225);
+          outlined destroy of MediaUserStateCenter?(v217, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+          outlined destroy of MediaUserStateCenter?(v218, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+          v163(v159, v225);
+          v114 = v225;
+          outlined destroy of MediaUserStateCenter?(v117, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+          v122 = v212;
+          if (v219)
           {
             goto LABEL_26;
           }
 
 LABEL_49:
-          v181 = v157;
-          v182 = v252;
+          v139 = v115;
+          v140 = v210;
           dispatch thunk of UsoEntity_common_MediaItemType.definedValue.getter();
-          v183 = v160;
-          v184 = v251;
-          v266(v251, *MEMORY[0x277D5EDB0], v156);
-          v261 = v181;
-          (v265)(v184, 0, 1, v156);
-          v185 = *(v269 + 48);
-          outlined init with copy of MediaUserStateCenter?(v182, v164, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-          outlined init with copy of MediaUserStateCenter?(v184, v164 + v185, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-          if (v183(v164, 1, v156) == 1)
+          v141 = v118;
+          v142 = v209;
+          v224(v209, *MEMORY[0x277D5EDB0], v114);
+          v219 = v139;
+          (v223)(v142, 0, 1, v114);
+          v143 = *(v227 + 48);
+          outlined init with copy of MediaUserStateCenter?(v140, v122, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+          outlined init with copy of MediaUserStateCenter?(v142, v122 + v143, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+          if (v141(v122, 1, v114) == 1)
           {
-            outlined destroy of MediaUserStateCenter?(v184, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-            outlined destroy of MediaUserStateCenter?(v182, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-            v186 = v183;
-            if (v183(v164 + v185, 1, v156) == 1)
+            outlined destroy of MediaUserStateCenter?(v142, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+            outlined destroy of MediaUserStateCenter?(v140, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+            v144 = v141;
+            if (v141(v122 + v143, 1, v114) == 1)
             {
-              v143 = v164;
+              v101 = v122;
               goto LABEL_20;
             }
           }
 
           else
           {
-            v195 = v242;
-            outlined init with copy of MediaUserStateCenter?(v164, v242, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-            v186 = v183;
-            if (v183(v164 + v185, 1, v156) != 1)
+            v153 = v200;
+            outlined init with copy of MediaUserStateCenter?(v122, v200, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+            v144 = v141;
+            if (v141(v122 + v143, 1, v114) != 1)
             {
-              v214 = v164;
-              v215 = v270;
-              v216 = v214 + v185;
-              v217 = v263;
-              (*(v270 + 32))(v263, v216, v156);
-              lazy protocol witness table accessor for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState(&lazy protocol witness table cache variable for type UsoEntity_common_MediaItemType.DefinedValues and conformance UsoEntity_common_MediaItemType.DefinedValues, MEMORY[0x277D5EE30]);
-              v218 = dispatch thunk of static Equatable.== infix(_:_:)();
-              v219 = *(v215 + 8);
-              v219(v217, v267);
-              outlined destroy of MediaUserStateCenter?(v251, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-              outlined destroy of MediaUserStateCenter?(v252, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-              v219(v195, v267);
-              v156 = v267;
-              outlined destroy of MediaUserStateCenter?(v214, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-              if (v218)
+              v172 = v122;
+              v173 = v228;
+              v174 = v172 + v143;
+              v175 = v221;
+              (*(v228 + 32))(v221, v174, v114);
+              lazy protocol witness table accessor for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState(&lazy protocol witness table cache variable for type UsoEntity_common_MediaItemType.DefinedValues and conformance UsoEntity_common_MediaItemType.DefinedValues, MEMORY[0x277D5EE30], MEMORY[0x277D5EE40]);
+              v176 = dispatch thunk of static Equatable.== infix(_:_:)();
+              v177 = *(v173 + 8);
+              v177(v175, v225);
+              outlined destroy of MediaUserStateCenter?(v209, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+              outlined destroy of MediaUserStateCenter?(v210, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+              v177(v153, v225);
+              v114 = v225;
+              outlined destroy of MediaUserStateCenter?(v172, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+              if (v176)
               {
                 goto LABEL_26;
               }
 
 LABEL_58:
-              v196 = v248;
+              v154 = v206;
               dispatch thunk of UsoEntity_common_MediaItemType.definedValue.getter();
-              v197 = v247;
-              v266(v247, *MEMORY[0x277D5EE18], v156);
-              (v265)(v197, 0, 1, v156);
-              v198 = *(v269 + 48);
-              v199 = v250;
-              outlined init with copy of MediaUserStateCenter?(v196, v250, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-              outlined init with copy of MediaUserStateCenter?(v197, v199 + v198, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-              if (v186(v199, 1, v156) == 1)
+              v155 = v205;
+              v224(v205, *MEMORY[0x277D5EE18], v114);
+              (v223)(v155, 0, 1, v114);
+              v156 = *(v227 + 48);
+              v157 = v208;
+              outlined init with copy of MediaUserStateCenter?(v154, v208, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+              outlined init with copy of MediaUserStateCenter?(v155, v157 + v156, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+              if (v144(v157, 1, v114) == 1)
               {
-                outlined destroy of MediaUserStateCenter?(v197, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                v200 = v250;
-                outlined destroy of MediaUserStateCenter?(v196, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                if (v186(v200 + v198, 1, v156) == 1)
+                outlined destroy of MediaUserStateCenter?(v155, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                v158 = v208;
+                outlined destroy of MediaUserStateCenter?(v154, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                if (v144(v158 + v156, 1, v114) == 1)
                 {
                   goto LABEL_68;
                 }
@@ -9892,94 +8443,94 @@ LABEL_58:
 
               else
               {
-                v206 = v240;
-                outlined init with copy of MediaUserStateCenter?(v199, v240, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                if (v186(v199 + v198, 1, v156) != 1)
+                v164 = v198;
+                outlined init with copy of MediaUserStateCenter?(v157, v198, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                if (v144(v157 + v156, 1, v114) != 1)
                 {
-                  v225 = v270;
-                  v226 = v199 + v198;
-                  v227 = v263;
-                  (*(v270 + 32))(v263, v226, v156);
-                  lazy protocol witness table accessor for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState(&lazy protocol witness table cache variable for type UsoEntity_common_MediaItemType.DefinedValues and conformance UsoEntity_common_MediaItemType.DefinedValues, MEMORY[0x277D5EE30]);
-                  LODWORD(v261) = dispatch thunk of static Equatable.== infix(_:_:)();
-                  v228 = *(v225 + 8);
-                  v228(v227, v267);
-                  outlined destroy of MediaUserStateCenter?(v247, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                  outlined destroy of MediaUserStateCenter?(v248, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                  v228(v206, v267);
-                  v156 = v267;
-                  outlined destroy of MediaUserStateCenter?(v199, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                  v207 = v266;
-                  if (v261)
+                  v183 = v228;
+                  v184 = v157 + v156;
+                  v185 = v221;
+                  (*(v228 + 32))(v221, v184, v114);
+                  lazy protocol witness table accessor for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState(&lazy protocol witness table cache variable for type UsoEntity_common_MediaItemType.DefinedValues and conformance UsoEntity_common_MediaItemType.DefinedValues, MEMORY[0x277D5EE30], MEMORY[0x277D5EE40]);
+                  LODWORD(v219) = dispatch thunk of static Equatable.== infix(_:_:)();
+                  v186 = *(v183 + 8);
+                  v186(v185, v225);
+                  outlined destroy of MediaUserStateCenter?(v205, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                  outlined destroy of MediaUserStateCenter?(v206, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                  v186(v164, v225);
+                  v114 = v225;
+                  outlined destroy of MediaUserStateCenter?(v157, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                  v165 = v224;
+                  if (v219)
                   {
                     goto LABEL_26;
                   }
 
 LABEL_66:
-                  v208 = v245;
+                  v166 = v203;
                   dispatch thunk of UsoEntity_common_MediaItemType.definedValue.getter();
-                  v209 = v243;
-                  v207(v243, *MEMORY[0x277D5ED98], v156);
-                  (v265)(v209, 0, 1, v156);
-                  v210 = *(v269 + 48);
-                  v211 = v208;
-                  v212 = v244;
-                  outlined init with copy of MediaUserStateCenter?(v211, v244, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                  v213 = v212;
-                  outlined init with copy of MediaUserStateCenter?(v209, v212 + v210, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                  if (v186(v212, 1, v156) == 1)
+                  v167 = v201;
+                  v165(v201, *MEMORY[0x277D5ED98], v114);
+                  (v223)(v167, 0, 1, v114);
+                  v168 = *(v227 + 48);
+                  v169 = v166;
+                  v170 = v202;
+                  outlined init with copy of MediaUserStateCenter?(v169, v202, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                  v171 = v170;
+                  outlined init with copy of MediaUserStateCenter?(v167, v170 + v168, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                  if (v144(v170, 1, v114) == 1)
                   {
-                    outlined destroy of MediaUserStateCenter?(v209, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                    v200 = v244;
-                    outlined destroy of MediaUserStateCenter?(v245, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                    if (v186(v200 + v210, 1, v156) == 1)
+                    outlined destroy of MediaUserStateCenter?(v167, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                    v158 = v202;
+                    outlined destroy of MediaUserStateCenter?(v203, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                    if (v144(v158 + v168, 1, v114) == 1)
                     {
 LABEL_68:
-                      v143 = v200;
+                      v101 = v158;
                       goto LABEL_20;
                     }
                   }
 
                   else
                   {
-                    v220 = v237;
-                    outlined init with copy of MediaUserStateCenter?(v212, v237, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                    if (v186(v212 + v210, 1, v156) != 1)
+                    v178 = v195;
+                    outlined init with copy of MediaUserStateCenter?(v170, v195, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                    if (v144(v170 + v168, 1, v114) != 1)
                     {
-                      v230 = v270;
-                      v231 = v213 + v210;
-                      v232 = v263;
-                      (*(v270 + 32))(v263, v231, v156);
-                      lazy protocol witness table accessor for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState(&lazy protocol witness table cache variable for type UsoEntity_common_MediaItemType.DefinedValues and conformance UsoEntity_common_MediaItemType.DefinedValues, MEMORY[0x277D5EE30]);
-                      LODWORD(v261) = dispatch thunk of static Equatable.== infix(_:_:)();
-                      v233 = *(v230 + 8);
-                      v233(v232, v267);
-                      outlined destroy of MediaUserStateCenter?(v243, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                      outlined destroy of MediaUserStateCenter?(v245, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                      v233(v220, v267);
-                      v156 = v267;
-                      outlined destroy of MediaUserStateCenter?(v213, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                      v221 = v266;
-                      if (v261)
+                      v188 = v228;
+                      v189 = v171 + v168;
+                      v190 = v221;
+                      (*(v228 + 32))(v221, v189, v114);
+                      lazy protocol witness table accessor for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState(&lazy protocol witness table cache variable for type UsoEntity_common_MediaItemType.DefinedValues and conformance UsoEntity_common_MediaItemType.DefinedValues, MEMORY[0x277D5EE30], MEMORY[0x277D5EE40]);
+                      LODWORD(v219) = dispatch thunk of static Equatable.== infix(_:_:)();
+                      v191 = *(v188 + 8);
+                      v191(v190, v225);
+                      outlined destroy of MediaUserStateCenter?(v201, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                      outlined destroy of MediaUserStateCenter?(v203, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                      v191(v178, v225);
+                      v114 = v225;
+                      outlined destroy of MediaUserStateCenter?(v171, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                      v179 = v224;
+                      if (v219)
                       {
                         goto LABEL_26;
                       }
 
 LABEL_74:
-                      v222 = v238;
+                      v180 = v196;
                       dispatch thunk of UsoEntity_common_MediaItemType.definedValue.getter();
-                      v223 = v241;
-                      v221(v241, *MEMORY[0x277D5EDC0], v156);
-                      (v265)(v223, 0, 1, v156);
-                      v224 = *(v269 + 48);
-                      v33 = v239;
-                      outlined init with copy of MediaUserStateCenter?(v222, v239, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                      outlined init with copy of MediaUserStateCenter?(v223, &v33[v224], &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                      if (v186(v33, 1, v156) == 1)
+                      v181 = v199;
+                      v179(v199, *MEMORY[0x277D5EDC0], v114);
+                      (v223)(v181, 0, 1, v114);
+                      v182 = *(v227 + 48);
+                      v21 = v197;
+                      outlined init with copy of MediaUserStateCenter?(v180, v197, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                      outlined init with copy of MediaUserStateCenter?(v181, &v21[v182], &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                      if (v144(v21, 1, v114) == 1)
                       {
-                        outlined destroy of MediaUserStateCenter?(v223, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                        outlined destroy of MediaUserStateCenter?(v222, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                        if (v186(&v33[v224], 1, v156) == 1)
+                        outlined destroy of MediaUserStateCenter?(v181, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                        outlined destroy of MediaUserStateCenter?(v180, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                        if (v144(&v21[v182], 1, v114) == 1)
                         {
                           goto LABEL_19;
                         }
@@ -9987,71 +8538,1334 @@ LABEL_74:
                         goto LABEL_23;
                       }
 
-                      v229 = v236;
-                      outlined init with copy of MediaUserStateCenter?(v33, v236, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                      if (v186(&v33[v224], 1, v156) == 1)
+                      v187 = v194;
+                      outlined init with copy of MediaUserStateCenter?(v21, v194, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                      if (v144(&v21[v182], 1, v114) == 1)
                       {
-                        outlined destroy of MediaUserStateCenter?(v241, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                        outlined destroy of MediaUserStateCenter?(v222, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                        (*(v270 + 8))(v229, v156);
+                        outlined destroy of MediaUserStateCenter?(v199, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                        outlined destroy of MediaUserStateCenter?(v180, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                        (*(v228 + 8))(v187, v114);
                         goto LABEL_23;
                       }
 
-                      v234 = v270;
-                      v235 = v263;
-                      (*(v270 + 32))(v263, &v33[v224], v156);
-                      lazy protocol witness table accessor for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState(&lazy protocol witness table cache variable for type UsoEntity_common_MediaItemType.DefinedValues and conformance UsoEntity_common_MediaItemType.DefinedValues, MEMORY[0x277D5EE30]);
-                      v128 = dispatch thunk of static Equatable.== infix(_:_:)();
-                      v167 = *(v234 + 8);
-                      v167(v235, v156);
-                      outlined destroy of MediaUserStateCenter?(v241, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                      outlined destroy of MediaUserStateCenter?(v222, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                      v168 = v229;
-                      v169 = v156;
+                      v192 = v228;
+                      v193 = v221;
+                      (*(v228 + 32))(v221, &v21[v182], v114);
+                      lazy protocol witness table accessor for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState(&lazy protocol witness table cache variable for type UsoEntity_common_MediaItemType.DefinedValues and conformance UsoEntity_common_MediaItemType.DefinedValues, MEMORY[0x277D5EE30], MEMORY[0x277D5EE40]);
+                      v86 = dispatch thunk of static Equatable.== infix(_:_:)();
+                      v125 = *(v192 + 8);
+                      v125(v193, v114);
+                      outlined destroy of MediaUserStateCenter?(v199, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                      outlined destroy of MediaUserStateCenter?(v180, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                      v126 = v187;
+                      v127 = v114;
                       goto LABEL_32;
                     }
 
-                    outlined destroy of MediaUserStateCenter?(v243, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                    v200 = v244;
-                    outlined destroy of MediaUserStateCenter?(v245, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                    (*(v270 + 8))(v220, v156);
+                    outlined destroy of MediaUserStateCenter?(v201, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                    v158 = v202;
+                    outlined destroy of MediaUserStateCenter?(v203, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                    (*(v228 + 8))(v178, v114);
                   }
 
-                  outlined destroy of MediaUserStateCenter?(v200, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMR);
-                  v221 = v266;
+                  outlined destroy of MediaUserStateCenter?(v158, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMR);
+                  v179 = v224;
                   goto LABEL_74;
                 }
 
-                outlined destroy of MediaUserStateCenter?(v247, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                v200 = v250;
-                outlined destroy of MediaUserStateCenter?(v248, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-                (*(v270 + 8))(v206, v156);
+                outlined destroy of MediaUserStateCenter?(v205, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                v158 = v208;
+                outlined destroy of MediaUserStateCenter?(v206, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+                (*(v228 + 8))(v164, v114);
               }
 
-              outlined destroy of MediaUserStateCenter?(v200, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMR);
-              v207 = v266;
+              outlined destroy of MediaUserStateCenter?(v158, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMR);
+              v165 = v224;
               goto LABEL_66;
             }
 
-            outlined destroy of MediaUserStateCenter?(v251, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-            outlined destroy of MediaUserStateCenter?(v252, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-            (*(v270 + 8))(v195, v156);
+            outlined destroy of MediaUserStateCenter?(v209, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+            outlined destroy of MediaUserStateCenter?(v210, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+            (*(v228 + 8))(v153, v114);
           }
 
-          outlined destroy of MediaUserStateCenter?(v164, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMR);
+          outlined destroy of MediaUserStateCenter?(v122, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMR);
           goto LABEL_58;
         }
 
-        outlined destroy of MediaUserStateCenter?(v259, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-        outlined destroy of MediaUserStateCenter?(v260, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
-        (*(v270 + 8))(v180, v156);
-        v164 = v254;
+        outlined destroy of MediaUserStateCenter?(v217, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+        outlined destroy of MediaUserStateCenter?(v218, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+        (*(v228 + 8))(v138, v114);
+        v122 = v212;
       }
 
-      outlined destroy of MediaUserStateCenter?(v163, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMR);
+      outlined destroy of MediaUserStateCenter?(v121, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMR);
       goto LABEL_49;
     }
   }
 
-  return v128 & 1;
+  return v86 & 1;
+}
+
+uint64_t WholeHomeAudioPreflightClient.isPlayEverywhereTask(pommesTask:)(void *a1, uint64_t a2, uint64_t a3)
+{
+  v4 = v3;
+  v68 = a3;
+  v67 = a2;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10PegasusAPI49Apple_Parsec_Siri_V2alpha_AudioQueueStateItemTypeOSgMd, &_s10PegasusAPI49Apple_Parsec_Siri_V2alpha_AudioQueueStateItemTypeOSgMR);
+  MEMORY[0x28223BE20](v6 - 8);
+  v69 = &v62 - v7;
+  v8 = type metadata accessor for Apple_Parsec_Siri_V2alpha_AudioQueueStateItemType();
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = &v62 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for UsoEntity_common_UserEntity.DefinedValues();
+  v87 = *(v12 - 8);
+  MEMORY[0x28223BE20](v12);
+  v73 = &v62 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v86 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSg_AFtMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSg_AFtMR);
+  MEMORY[0x28223BE20](v86);
+  v75 = &v62 - v14;
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMR);
+  v16 = MEMORY[0x28223BE20](v15 - 8);
+  v18 = &v62 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = MEMORY[0x28223BE20](v16);
+  v85 = &v62 - v20;
+  MEMORY[0x28223BE20](v19);
+  v88 = &v62 - v21;
+  if (one-time initialization token for pommes != -1)
+  {
+LABEL_54:
+    swift_once();
+  }
+
+  v22 = type metadata accessor for Logger();
+  v72 = __swift_project_value_buffer(v22, static Logger.pommes);
+  v23 = Logger.logObject.getter();
+  v24 = static os_log_type_t.debug.getter();
+  v25 = os_log_type_enabled(v23, v24);
+  v76 = v18;
+  v70 = v4;
+  if (v25)
+  {
+    v26 = swift_slowAlloc();
+    v27 = swift_slowAlloc();
+    v89[0] = v27;
+    *v26 = 136315138;
+    *(v26 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000021, 0x80000002234DBFC0, v89);
+    _os_log_impl(&dword_2232BB000, v23, v24, "Checking %s...", v26, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v27);
+    MEMORY[0x223DE0F80](v27, -1, -1);
+    MEMORY[0x223DE0F80](v26, -1, -1);
+  }
+
+  v18 = v85;
+  static UsoTask_CodegenConverter.convert(task:)();
+  if (!v89[3])
+  {
+LABEL_24:
+    outlined destroy of MediaUserStateCenter?(v89, &_sypSgMd, &_sypSgMR);
+    return 0;
+  }
+
+  type metadata accessor for UsoTask_play_common_MediaItem();
+  if ((swift_dynamicCast() & 1) == 0)
+  {
+    return 0;
+  }
+
+  v28 = _s12SiriOntology7UsoTaskC0A17InformationSearchE18getArgumentsAsType9arguments02asJ0SayxGSayAcDE0H0OG_xmtAA11CodeGenBaseCRbzlFA2H_AJtXEfU_AA0c18Entity_common_UserP0C_Tt3g5(MEMORY[0x277D84F90], byte_2836988C0, a1);
+  v62 = 0;
+
+  v66 = v8;
+  v65 = v9;
+  v64 = v11;
+  if (v28 >> 62)
+  {
+    v29 = __CocoaSet.count.getter();
+  }
+
+  else
+  {
+    v29 = *((v28 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  }
+
+  v63 = a1;
+  v8 = v88;
+  v30 = v75;
+  if (!v29)
+  {
+LABEL_25:
+
+    v38 = Logger.logObject.getter();
+    v39 = static os_log_type_t.debug.getter();
+    if (os_log_type_enabled(v38, v39))
+    {
+      v40 = swift_slowAlloc();
+      *v40 = 0;
+      v41 = "No everywhere user entity in the USO graph";
+      goto LABEL_27;
+    }
+
+LABEL_28:
+
+    return 0;
+  }
+
+  v9 = 0;
+  v83 = v28 & 0xFFFFFFFFFFFFFF8;
+  v84 = v28 & 0xC000000000000001;
+  v81 = *MEMORY[0x277D5E230];
+  v79 = (v87 + 56);
+  v80 = (v87 + 104);
+  v78 = (v87 + 48);
+  v71 = (v87 + 32);
+  v74 = (v87 + 8);
+  v4 = &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMd;
+  a1 = &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMR;
+  v77 = v29;
+  v82 = v28;
+  while (1)
+  {
+    if (v84)
+    {
+      MEMORY[0x223DDFF80](v9, v28);
+      v31 = v9 + 1;
+      if (__OFADD__(v9, 1))
+      {
+LABEL_23:
+        __break(1u);
+        goto LABEL_24;
+      }
+    }
+
+    else
+    {
+      if (v9 >= *(v83 + 16))
+      {
+        __break(1u);
+        goto LABEL_54;
+      }
+
+      v31 = v9 + 1;
+      if (__OFADD__(v9, 1))
+      {
+        goto LABEL_23;
+      }
+    }
+
+    v87 = v31;
+    dispatch thunk of UsoEntity_common_UserEntity.definedValue.getter();
+    (*v80)(v18, v81, v12);
+    (*v79)(v18, 0, 1, v12);
+    v32 = *(v86 + 48);
+    outlined init with copy of MediaUserStateCenter?(v8, v30, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMR);
+    outlined init with copy of MediaUserStateCenter?(v18, v30 + v32, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMR);
+    v11 = v18;
+    v33 = *v78;
+    if ((*v78)(v30, 1, v12) == 1)
+    {
+      break;
+    }
+
+    v11 = v76;
+    outlined init with copy of MediaUserStateCenter?(v30, v76, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMR);
+    if (v33(v30 + v32, 1, v12) == 1)
+    {
+
+      v18 = v85;
+      outlined destroy of MediaUserStateCenter?(v85, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMR);
+      outlined destroy of MediaUserStateCenter?(v88, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMR);
+      (*v74)(v11, v12);
+      goto LABEL_11;
+    }
+
+    v34 = v73;
+    (*v71)(v73, v30 + v32, v12);
+    lazy protocol witness table accessor for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState(&lazy protocol witness table cache variable for type UsoEntity_common_UserEntity.DefinedValues and conformance UsoEntity_common_UserEntity.DefinedValues, MEMORY[0x277D5E248], MEMORY[0x277D5E250]);
+    v35 = dispatch thunk of static Equatable.== infix(_:_:)();
+
+    v36 = v11;
+    v11 = v12;
+    v37 = *v74;
+    (*v74)(v34, v12);
+    v18 = v85;
+    outlined destroy of MediaUserStateCenter?(v85, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMR);
+    outlined destroy of MediaUserStateCenter?(v88, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMR);
+    v37(v36, v12);
+    v30 = v75;
+    outlined destroy of MediaUserStateCenter?(v75, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMR);
+    if (v35)
+    {
+      goto LABEL_31;
+    }
+
+LABEL_12:
+    ++v9;
+    v8 = v88;
+    v28 = v82;
+    if (v87 == v77)
+    {
+      goto LABEL_25;
+    }
+  }
+
+  outlined destroy of MediaUserStateCenter?(v18, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMR);
+  outlined destroy of MediaUserStateCenter?(v88, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMR);
+  if (v33(v30 + v32, 1, v12) != 1)
+  {
+LABEL_11:
+    outlined destroy of MediaUserStateCenter?(v30, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSg_AFtMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSg_AFtMR);
+    goto LABEL_12;
+  }
+
+  outlined destroy of MediaUserStateCenter?(v30, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMR);
+LABEL_31:
+
+  v44 = v70;
+  v45 = v69;
+  (*(*v70 + 96))(v43);
+  v46 = v65;
+  v47 = v66;
+  if ((*(v65 + 48))(v45, 1, v66) == 1)
+  {
+    outlined destroy of MediaUserStateCenter?(v45, &_s10PegasusAPI49Apple_Parsec_Siri_V2alpha_AudioQueueStateItemTypeOSgMd, &_s10PegasusAPI49Apple_Parsec_Siri_V2alpha_AudioQueueStateItemTypeOSgMR);
+    v38 = Logger.logObject.getter();
+    v39 = static os_log_type_t.debug.getter();
+    if (!os_log_type_enabled(v38, v39))
+    {
+      goto LABEL_28;
+    }
+
+    v40 = swift_slowAlloc();
+    *v40 = 0;
+    v41 = "No currently playing media type";
+LABEL_27:
+    _os_log_impl(&dword_2232BB000, v38, v39, v41, v40, 2u);
+    MEMORY[0x223DE0F80](v40, -1, -1);
+    goto LABEL_28;
+  }
+
+  v48 = v64;
+  (*(v46 + 32))(v64, v45, v47);
+  v49 = _s12SiriOntology7UsoTaskC0A17InformationSearchE18getArgumentsAsType9arguments02asJ0SayxGSayAcDE0H0OG_xmtAA11CodeGenBaseCRbzlFA2H_AJtXEfU_AA0C23Entity_common_MediaItemC_Tt3g5(MEMORY[0x277D84F90], byte_2836988E8, v63);
+
+  if (v49 >> 62)
+  {
+    result = __CocoaSet.count.getter();
+  }
+
+  else
+  {
+    result = *((v49 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  }
+
+  v50 = v68;
+  if (!result)
+  {
+
+    goto LABEL_46;
+  }
+
+  if ((v49 & 0xC000000000000001) != 0)
+  {
+    MEMORY[0x223DDFF80](0, v49);
+LABEL_40:
+
+    v51 = dispatch thunk of UsoEntity_common_MediaItem.mediaItemType.getter();
+
+    if (v51)
+    {
+      if ((*(*v44 + 104))(v48, v51))
+      {
+
+        v52 = Logger.logObject.getter();
+        v53 = static os_log_type_t.debug.getter();
+
+        if (os_log_type_enabled(v52, v53))
+        {
+          v54 = swift_slowAlloc();
+          v55 = swift_slowAlloc();
+          v89[0] = v55;
+          *v54 = 136315394;
+          *(v54 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000021, 0x80000002234DBFC0, v89);
+          *(v54 + 12) = 2080;
+          *(v54 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v67, v50, v89);
+          _os_log_impl(&dword_2232BB000, v52, v53, "Task passed test %s:\n%s", v54, 0x16u);
+          swift_arrayDestroy();
+          MEMORY[0x223DE0F80](v55, -1, -1);
+          MEMORY[0x223DE0F80](v54, -1, -1);
+        }
+
+        (*(v46 + 8))(v48, v47);
+        return 1;
+      }
+
+      v59 = Logger.logObject.getter();
+      v60 = static os_log_type_t.debug.getter();
+      if (os_log_type_enabled(v59, v60))
+      {
+        v61 = swift_slowAlloc();
+        *v61 = 0;
+        _os_log_impl(&dword_2232BB000, v59, v60, "Queue and USO media types do not match", v61, 2u);
+        MEMORY[0x223DE0F80](v61, -1, -1);
+      }
+
+LABEL_52:
+      (*(v46 + 8))(v48, v47);
+      return 0;
+    }
+
+LABEL_46:
+    v56 = Logger.logObject.getter();
+    v57 = static os_log_type_t.debug.getter();
+    if (os_log_type_enabled(v56, v57))
+    {
+      v58 = swift_slowAlloc();
+      *v58 = 0;
+      _os_log_impl(&dword_2232BB000, v56, v57, "Could not get a media item type from the referenced media item", v58, 2u);
+      MEMORY[0x223DE0F80](v58, -1, -1);
+    }
+
+    goto LABEL_52;
+  }
+
+  if (*((v49 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  {
+
+    goto LABEL_40;
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t WholeHomeAudioPreflightClient.isPlayMusicFromTask(pommesTask:)(uint64_t a1, unint64_t a2, unint64_t a3)
+{
+  if (one-time initialization token for pommes != -1)
+  {
+LABEL_31:
+    swift_once();
+  }
+
+  v6 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v6, static Logger.pommes);
+  v7 = Logger.logObject.getter();
+  v8 = static os_log_type_t.debug.getter();
+  if (os_log_type_enabled(v7, v8))
+  {
+    v9 = swift_slowAlloc();
+    v10 = swift_slowAlloc();
+    v25[0] = v10;
+    *v9 = 136315138;
+    *(v9 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000020, 0x80000002234DBFF0, v25);
+    _os_log_impl(&dword_2232BB000, v7, v8, "Checking %s...", v9, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v10);
+    MEMORY[0x223DE0F80](v10, -1, -1);
+    MEMORY[0x223DE0F80](v9, -1, -1);
+  }
+
+  static UsoTask_CodegenConverter.convert(task:)();
+  if (!v25[3])
+  {
+    outlined destroy of MediaUserStateCenter?(v25, &_sypSgMd, &_sypSgMR);
+    return 0;
+  }
+
+  type metadata accessor for UsoTask_play_common_MediaItem();
+  if ((swift_dynamicCast() & 1) == 0)
+  {
+    return 0;
+  }
+
+  v23 = a2;
+
+  v11 = MEMORY[0x277D84F90];
+  v12 = _s12SiriOntology7UsoTaskC0A17InformationSearchE18getArgumentsAsType9arguments02asJ0SayxGSayAcDE0H0OG_xmtAA11CodeGenBaseCRbzlFA2H_AJtXEfU_AA0c18Entity_common_UserP0C_Tt3g5(MEMORY[0x277D84F90], byte_283698938, a1);
+
+  v24 = a3;
+  a2 = v12 & 0xFFFFFFFFFFFFFF8;
+  if (v12 >> 62)
+  {
+    v13 = __CocoaSet.count.getter();
+  }
+
+  else
+  {
+    v13 = *((v12 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  }
+
+  v14 = 0;
+  a3 = v12 & 0xC000000000000001;
+  do
+  {
+    if (v13 == v14)
+    {
+
+      return 0;
+    }
+
+    if (a3)
+    {
+      MEMORY[0x223DDFF80](v14, v12);
+      if (__OFADD__(v14, 1))
+      {
+        goto LABEL_29;
+      }
+    }
+
+    else
+    {
+      if (v14 >= *((v12 & 0xFFFFFFFFFFFFFF8) + 0x10))
+      {
+        goto LABEL_30;
+      }
+
+      if (__OFADD__(v14, 1))
+      {
+LABEL_29:
+        __break(1u);
+LABEL_30:
+        __break(1u);
+        goto LABEL_31;
+      }
+    }
+
+    v15 = dispatch thunk of UsoEntity_common_UserEntity.associatedUserEntities.getter();
+    if (!v15)
+    {
+      v15 = v11;
+    }
+
+    if (v15 >> 62)
+    {
+      v16 = __CocoaSet.count.getter();
+    }
+
+    else
+    {
+      v16 = *((v15 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    }
+
+    ++v14;
+  }
+
+  while (!v16);
+
+  v18 = Logger.logObject.getter();
+  v19 = static os_log_type_t.debug.getter();
+
+  if (os_log_type_enabled(v18, v19))
+  {
+    v21 = swift_slowAlloc();
+    v22 = swift_slowAlloc();
+    v25[0] = v22;
+    *v21 = 136315394;
+    *(v21 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000020, 0x80000002234DBFF0, v25);
+    *(v21 + 12) = 2080;
+    *(v21 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v23, v24, v25);
+    _os_log_impl(&dword_2232BB000, v18, v19, "Task passed test %s:\n%s", v21, 0x16u);
+    swift_arrayDestroy();
+    MEMORY[0x223DE0F80](v22, -1, -1);
+    MEMORY[0x223DE0F80](v21, -1, -1);
+  }
+
+  return 1;
+}
+
+uint64_t WholeHomeAudioPreflightClient.isUpdateLocationTask(pommesTask:)(unint64_t a1, unint64_t a2, char *a3)
+{
+  v109 = type metadata accessor for UsoEntity_common_MediaItemType.DefinedValues();
+  v97 = *(v109 - 8);
+  MEMORY[0x28223BE20](v109);
+  v7 = &v86 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v113 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMR);
+  v8 = MEMORY[0x28223BE20](v113);
+  v110 = &v86 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8);
+  v108 = &v86 - v10;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+  v12 = MEMORY[0x28223BE20](v11 - 8);
+  v14 = &v86 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = MEMORY[0x28223BE20](v12);
+  v111 = &v86 - v16;
+  v17 = MEMORY[0x28223BE20](v15);
+  v114 = &v86 - v18;
+  v19 = MEMORY[0x28223BE20](v17);
+  v21 = &v86 - v20;
+  v22 = MEMORY[0x28223BE20](v19);
+  v107 = &v86 - v23;
+  MEMORY[0x28223BE20](v22);
+  v112 = &v86 - v24;
+  if (one-time initialization token for pommes != -1)
+  {
+    goto LABEL_88;
+  }
+
+LABEL_2:
+  v25 = type metadata accessor for Logger();
+  v26 = __swift_project_value_buffer(v25, static Logger.pommes);
+  v27 = Logger.logObject.getter();
+  v28 = static os_log_type_t.debug.getter();
+  v29 = os_log_type_enabled(v27, v28);
+  v106 = v21;
+  if (v29)
+  {
+    v30 = swift_slowAlloc();
+    v31 = swift_slowAlloc();
+    v115[0] = v31;
+    *v30 = 136315138;
+    *(v30 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000021, 0x80000002234DC020, v115);
+    _os_log_impl(&dword_2232BB000, v27, v28, "Checking %s...", v30, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v31);
+    MEMORY[0x223DE0F80](v31, -1, -1);
+    MEMORY[0x223DE0F80](v30, -1, -1);
+  }
+
+  static UsoTask_CodegenConverter.convert(task:)();
+  if (!v115[3])
+  {
+    goto LABEL_18;
+  }
+
+  type metadata accessor for UsoTask_update_common_MediaItem();
+  if ((swift_dynamicCast() & 1) == 0)
+  {
+    return 0;
+  }
+
+  v91 = v26;
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
+  inited = swift_initStackObject();
+  *(inited + 16) = xmmword_2234CF910;
+  *(inited + 32) = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  *(inited + 40) = v33;
+  *(inited + 48) = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  *(inited + 56) = v34;
+  *(inited + 64) = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  *(inited + 72) = v35;
+  v36 = UsoTask.codeGenUserEntities.getter();
+  v37 = v36;
+  v92 = a1;
+  v95 = v7;
+  v96 = v14;
+  v90 = a3;
+  v88 = a2;
+  v105 = inited + 32;
+  if (v36 >> 62)
+  {
+    v38 = __CocoaSet.count.getter();
+    if (!v38)
+    {
+LABEL_90:
+
+      swift_setDeallocating();
+      swift_arrayDestroy();
+      return 0;
+    }
+  }
+
+  else
+  {
+    v38 = *((v36 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (!v38)
+    {
+      goto LABEL_90;
+    }
+  }
+
+  v39 = 0;
+  v21 = 0;
+  v14 = (v37 & 0xC000000000000001);
+  a3 = (v37 & 0xFFFFFFFFFFFFFF8);
+  while (1)
+  {
+    if (v14)
+    {
+      a1 = MEMORY[0x223DDFF80](v39, v37);
+      a2 = v39 + 1;
+      if (__OFADD__(v39, 1))
+      {
+LABEL_17:
+        __break(1u);
+LABEL_18:
+        outlined destroy of MediaUserStateCenter?(v115, &_sypSgMd, &_sypSgMR);
+        return 0;
+      }
+    }
+
+    else
+    {
+      if (v39 >= *((v37 & 0xFFFFFFFFFFFFFF8) + 0x10))
+      {
+        __break(1u);
+LABEL_84:
+        __break(1u);
+LABEL_85:
+        __break(1u);
+LABEL_86:
+        __break(1u);
+LABEL_87:
+        __break(1u);
+LABEL_88:
+        swift_once();
+        goto LABEL_2;
+      }
+
+      a1 = *(v37 + 8 * v39 + 32);
+
+      a2 = v39 + 1;
+      if (__OFADD__(v39, 1))
+      {
+        goto LABEL_17;
+      }
+    }
+
+    v115[0] = a1;
+    v7 = closure #1 in WholeHomeAudioPreflightClient.isUpdateLocationTask(pommesTask:)(v115, inited);
+
+    if (v7)
+    {
+      break;
+    }
+
+    ++v39;
+    if (a2 == v38)
+    {
+      goto LABEL_90;
+    }
+  }
+
+  swift_setDeallocating();
+  swift_arrayDestroy();
+  a1 = _s12SiriOntology7UsoTaskC0A17InformationSearchE18getArgumentsAsType9arguments02asJ0SayxGSayAcDE0H0OG_xmtAA11CodeGenBaseCRbzlFA2H_AJtXEfU_AA0C23Entity_common_MediaItemC_Tt3g5(MEMORY[0x277D84F90], byte_283698960, v92);
+
+  v87 = 0;
+  if (a1 >> 62)
+  {
+    goto LABEL_94;
+  }
+
+  v40 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
+LABEL_21:
+  a2 = v109;
+  a3 = v111;
+  v14 = v114;
+  v41 = v107;
+  if (v40)
+  {
+    v21 = 0;
+    v105 = a1 & 0xC000000000000001;
+    v104 = a1 & 0xFFFFFFFFFFFFFF8;
+    v42 = (v97 + 56);
+    LODWORD(v102) = *MEMORY[0x277D5EE00];
+    v101 = (v97 + 104);
+    v89 = v97 + 32;
+    v94 = (v97 + 8);
+    v103 = a1;
+    v99 = v40;
+    v98 = (v97 + 56);
+    v100 = (v97 + 48);
+    v7 = &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd;
+    while (1)
+    {
+      if (v105)
+      {
+        MEMORY[0x223DDFF80](v21, a1);
+        a3 = v112;
+      }
+
+      else
+      {
+        a3 = v112;
+        if (v21 >= *(v104 + 16))
+        {
+          goto LABEL_87;
+        }
+      }
+
+      v14 = v21 + 1;
+      a1 = &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR;
+      if (__OFADD__(v21, 1))
+      {
+        goto LABEL_86;
+      }
+
+      v45 = dispatch thunk of UsoEntity_common_MediaItem.mediaItemType.getter();
+      v109 = (v21 + 1);
+      if (v45)
+      {
+        dispatch thunk of UsoEntity_common_MediaItemType.definedValue.getter();
+      }
+
+      else
+      {
+        (*v42)(a3, 1, 1, a2);
+      }
+
+      (*v101)(v41, v102, a2);
+      (*v42)(v41, 0, 1, a2);
+      v46 = *(v113 + 48);
+      v47 = v108;
+      outlined init with copy of MediaUserStateCenter?(a3, v108, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+      outlined init with copy of MediaUserStateCenter?(v41, v47 + v46, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+      v48 = a3;
+      v49 = *v100;
+      if ((*v100)(v47, 1, a2) == 1)
+      {
+        break;
+      }
+
+      v50 = v106;
+      outlined init with copy of MediaUserStateCenter?(v47, v106, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+      v51 = v49(v47 + v46, 1, a2);
+      a1 = v103;
+      if (v51 == 1)
+      {
+
+        v52 = v107;
+        outlined destroy of MediaUserStateCenter?(v107, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+        outlined destroy of MediaUserStateCenter?(v112, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+        v53 = v50;
+        v41 = v52;
+        (*v94)(v53, a2);
+        a3 = v111;
+        v44 = v47;
+LABEL_24:
+        outlined destroy of MediaUserStateCenter?(v44, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMR);
+        goto LABEL_25;
+      }
+
+      v54 = v95;
+      (*v89)(v95, v47 + v46, a2);
+      lazy protocol witness table accessor for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState(&lazy protocol witness table cache variable for type UsoEntity_common_MediaItemType.DefinedValues and conformance UsoEntity_common_MediaItemType.DefinedValues, MEMORY[0x277D5EE30], MEMORY[0x277D5EE40]);
+      LODWORD(v93) = dispatch thunk of static Equatable.== infix(_:_:)();
+
+      v55 = *v94;
+      (*v94)(v54, a2);
+      v56 = v107;
+      outlined destroy of MediaUserStateCenter?(v107, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+      outlined destroy of MediaUserStateCenter?(v112, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+      v57 = v50;
+      v41 = v56;
+      v55(v57, a2);
+      outlined destroy of MediaUserStateCenter?(v47, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+      a3 = v111;
+      if (v93)
+      {
+        goto LABEL_82;
+      }
+
+LABEL_25:
+      ++v21;
+      v14 = v114;
+      v42 = v98;
+      if (v109 == v99)
+      {
+        goto LABEL_39;
+      }
+    }
+
+    outlined destroy of MediaUserStateCenter?(v41, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+    outlined destroy of MediaUserStateCenter?(v48, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+    v43 = v49(v47 + v46, 1, a2) == 1;
+    a3 = v111;
+    v44 = v47;
+    a1 = v103;
+    if (v43)
+    {
+      outlined destroy of MediaUserStateCenter?(v47, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+LABEL_82:
+
+      return 0;
+    }
+
+    goto LABEL_24;
+  }
+
+LABEL_39:
+
+  v58 = _s12SiriOntology7UsoTaskC0A17InformationSearchE18getArgumentsAsType9arguments02asJ0SayxGSayAcDE0H0OG_xmtAA11CodeGenBaseCRbzlFA2H_AJtXEfU_AA0C23Entity_common_MediaItemC_Tt3g5(MEMORY[0x277D84F90], byte_283698988, v92);
+
+  v93 = v58;
+  if (v58 >> 62)
+  {
+    v21 = __CocoaSet.count.getter();
+  }
+
+  else
+  {
+    v21 = *((v93 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  }
+
+  if (!v21)
+  {
+LABEL_76:
+
+    v80 = v90;
+
+    v81 = Logger.logObject.getter();
+    v82 = static os_log_type_t.debug.getter();
+
+    if (os_log_type_enabled(v81, v82))
+    {
+      v83 = swift_slowAlloc();
+      v84 = swift_slowAlloc();
+      v115[0] = v84;
+      *v83 = 136315394;
+      *(v83 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000021, 0x80000002234DC020, v115);
+      *(v83 + 12) = 2080;
+      *(v83 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v88, v80, v115);
+      _os_log_impl(&dword_2232BB000, v81, v82, "Task passed test %s:\n%s", v83, 0x16u);
+      swift_arrayDestroy();
+      MEMORY[0x223DE0F80](v84, -1, -1);
+      MEMORY[0x223DE0F80](v83, -1, -1);
+    }
+
+    return 1;
+  }
+
+  v59 = 0;
+  v60 = v93 & 0xC000000000000001;
+  v98 = v93 & 0xFFFFFFFFFFFFFF8;
+  v94 = (v93 + 32);
+  v7 = (v97 + 56);
+  LODWORD(v105) = *MEMORY[0x277D5EE18];
+  v104 = (v97 + 104);
+  v103 = (v97 + 48);
+  v99 = (v97 + 32);
+  v101 = (v97 + 8);
+  v89 = v21;
+  v87 = v93 & 0xC000000000000001;
+  v102 = (v97 + 56);
+  while (1)
+  {
+    if (v60)
+    {
+      v61 = MEMORY[0x223DDFF80](v59, v93);
+      v62 = __OFADD__(v59++, 1);
+      if (v62)
+      {
+        goto LABEL_92;
+      }
+    }
+
+    else
+    {
+      if (v59 >= *(v98 + 16))
+      {
+        goto LABEL_93;
+      }
+
+      v62 = __OFADD__(v59++, 1);
+      if (v62)
+      {
+LABEL_92:
+        __break(1u);
+LABEL_93:
+        __break(1u);
+LABEL_94:
+        v40 = __CocoaSet.count.getter();
+        goto LABEL_21;
+      }
+    }
+
+    v100 = v61;
+    v63 = dispatch thunk of UsoEntity_common_MediaItem.associatedMediaItems.getter();
+    if (v63)
+    {
+      break;
+    }
+
+LABEL_44:
+
+    if (v59 == v21)
+    {
+      goto LABEL_76;
+    }
+  }
+
+  v64 = v63;
+  v65 = v63 & 0xFFFFFFFFFFFFFF8;
+  v97 = v59;
+  if (!(v63 >> 62))
+  {
+    v66 = *((v63 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v67 = a3;
+    if (v66)
+    {
+      goto LABEL_51;
+    }
+
+    goto LABEL_43;
+  }
+
+  v66 = __CocoaSet.count.getter();
+  v67 = a3;
+  if (!v66)
+  {
+LABEL_43:
+    a3 = v67;
+
+    v21 = v89;
+    v59 = v97;
+    v60 = v87;
+    goto LABEL_44;
+  }
+
+LABEL_51:
+  v68 = 0;
+  v109 = v64 & 0xC000000000000001;
+  v107 = v65;
+  v106 = v66;
+  v108 = v64;
+  while (1)
+  {
+    if (v109)
+    {
+      MEMORY[0x223DDFF80](v68, v64);
+      a3 = (v68 + 1);
+      if (__OFADD__(v68, 1))
+      {
+        goto LABEL_84;
+      }
+    }
+
+    else
+    {
+      if (v68 >= *(v65 + 16))
+      {
+        goto LABEL_85;
+      }
+
+      a3 = (v68 + 1);
+      if (__OFADD__(v68, 1))
+      {
+        goto LABEL_84;
+      }
+    }
+
+    v70 = dispatch thunk of CodeGenListEntry.entryAsExpression.getter();
+    v112 = a3;
+    if (v70 && (dispatch thunk of CodeGenExpression.operand.getter(), , v115[0]) && (v71 = dispatch thunk of UsoEntity_common_MediaItem.mediaItemType.getter(), , v71))
+    {
+      dispatch thunk of UsoEntity_common_MediaItemType.definedValue.getter();
+    }
+
+    else
+    {
+      (*v7)(v14, 1, 1, a2);
+    }
+
+    (*v104)(v67, v105, a2);
+    (*v7)(v67, 0, 1, a2);
+    v72 = *(v113 + 48);
+    v73 = v14;
+    v21 = v14;
+    v74 = v110;
+    a1 = a2;
+    outlined init with copy of MediaUserStateCenter?(v73, v110, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+    outlined init with copy of MediaUserStateCenter?(v67, v74 + v72, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+    a3 = v67;
+    v75 = *v103;
+    if ((*v103)(v74, 1, a2) == 1)
+    {
+      break;
+    }
+
+    v21 = v96;
+    a3 = &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR;
+    outlined init with copy of MediaUserStateCenter?(v74, v96, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+    if (v75(v74 + v72, 1, a2) == 1)
+    {
+
+      v67 = v111;
+      outlined destroy of MediaUserStateCenter?(v111, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+      outlined destroy of MediaUserStateCenter?(v114, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+      (*v101)(v21, a2);
+      v69 = v74;
+      v7 = v102;
+      goto LABEL_53;
+    }
+
+    v76 = v95;
+    (*v99)(v95, v74 + v72, a2);
+    lazy protocol witness table accessor for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState(&lazy protocol witness table cache variable for type UsoEntity_common_MediaItemType.DefinedValues and conformance UsoEntity_common_MediaItemType.DefinedValues, MEMORY[0x277D5EE30], MEMORY[0x277D5EE40]);
+    v77 = dispatch thunk of static Equatable.== infix(_:_:)();
+
+    v78 = v21;
+    v21 = v101;
+    v79 = *v101;
+    (*v101)(v76, a2);
+    v67 = v111;
+    outlined destroy of MediaUserStateCenter?(v111, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+    outlined destroy of MediaUserStateCenter?(v114, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+    v79(v78, a2);
+    outlined destroy of MediaUserStateCenter?(v74, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+    v7 = v102;
+    if (v77)
+    {
+      goto LABEL_80;
+    }
+
+LABEL_54:
+    ++v68;
+    v14 = v114;
+    v64 = v108;
+    v65 = v107;
+    if (v112 == v106)
+    {
+      goto LABEL_43;
+    }
+  }
+
+  outlined destroy of MediaUserStateCenter?(a3, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+  outlined destroy of MediaUserStateCenter?(v21, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+  v43 = v75(v74 + v72, 1, a2) == 1;
+  v69 = v74;
+  v7 = v102;
+  v67 = a3;
+  if (!v43)
+  {
+LABEL_53:
+    outlined destroy of MediaUserStateCenter?(v69, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSg_AFtMR);
+    goto LABEL_54;
+  }
+
+  outlined destroy of MediaUserStateCenter?(v74, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMd, &_s12SiriOntology30UsoEntity_common_MediaItemTypeC13DefinedValuesOSgMR);
+LABEL_80:
+
+  return 0;
+}
+
+uint64_t closure #1 in WholeHomeAudioPreflightClient.isUpdateLocationTask(pommesTask:)(uint64_t *a1, uint64_t a2)
+{
+  v72 = a2;
+  v4 = type metadata accessor for ListOperators();
+  v67 = *(v4 - 8);
+  v68 = v4;
+  MEMORY[0x28223BE20](v4);
+  v66 = &v59 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v65 = type metadata accessor for UsoEntity_common_UserEntity.DefinedValues();
+  v6 = *(v65 - 8);
+  MEMORY[0x28223BE20](v65);
+  v61 = &v59 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v63 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSg_AFtMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSg_AFtMR);
+  MEMORY[0x28223BE20](v63);
+  v64 = &v59 - v8;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMR);
+  v10 = MEMORY[0x28223BE20](v9 - 8);
+  v62 = &v59 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = MEMORY[0x28223BE20](v10);
+  v70 = &v59 - v13;
+  MEMORY[0x28223BE20](v12);
+  v71 = &v59 - v14;
+  v15 = type metadata accessor for UsoIdentifier();
+  v16 = *(v15 - 8);
+  MEMORY[0x28223BE20](v15);
+  v18 = &v59 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = *a1;
+  v20 = dispatch thunk of CodeGenListEntry.entryAsExpression.getter();
+  v69 = v19;
+  v78 = v2;
+  if (!v20)
+  {
+    goto LABEL_20;
+  }
+
+  dispatch thunk of CodeGenExpression.operand.getter();
+
+  if (!v77[0])
+  {
+    goto LABEL_20;
+  }
+
+  v21 = dispatch thunk of CodeGenGlobalArgs.getUsoIdentifiersFor(attributeName:)();
+
+  if (!v21)
+  {
+    goto LABEL_20;
+  }
+
+  v76 = *(v21 + 16);
+  if (!v76)
+  {
+
+LABEL_20:
+    LODWORD(v76) = 0;
+LABEL_21:
+    v35 = dispatch thunk of CodeGenListEntry.entryAsExpression.getter();
+    v37 = v64;
+    v36 = v65;
+    v38 = v70;
+    v39 = v71;
+    if (v35 && (dispatch thunk of CodeGenExpression.operand.getter(), , v77[0]))
+    {
+      dispatch thunk of UsoEntity_common_UserEntity.definedValue.getter();
+    }
+
+    else
+    {
+      (*(v6 + 56))(v39, 1, 1, v36);
+    }
+
+    (*(v6 + 104))(v38, *MEMORY[0x277D5E238], v36);
+    (*(v6 + 56))(v38, 0, 1, v36);
+    v40 = *(v63 + 48);
+    outlined init with copy of MediaUserStateCenter?(v39, v37, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMR);
+    outlined init with copy of MediaUserStateCenter?(v38, v37 + v40, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMR);
+    v41 = v6;
+    v42 = *(v6 + 48);
+    if (v42(v37, 1, v36) == 1)
+    {
+      outlined destroy of MediaUserStateCenter?(v38, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMR);
+      outlined destroy of MediaUserStateCenter?(v39, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMR);
+      if (v42(v37 + v40, 1, v36) == 1)
+      {
+        outlined destroy of MediaUserStateCenter?(v37, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMR);
+        v43 = 1;
+        goto LABEL_32;
+      }
+    }
+
+    else
+    {
+      v44 = v62;
+      outlined init with copy of MediaUserStateCenter?(v37, v62, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMR);
+      if (v42(v37 + v40, 1, v36) != 1)
+      {
+        v45 = v37 + v40;
+        v46 = v61;
+        (*(v41 + 32))(v61, v45, v36);
+        lazy protocol witness table accessor for type Apple_Parsec_Siri_V2alpha_AudioState and conformance Apple_Parsec_Siri_V2alpha_AudioState(&lazy protocol witness table cache variable for type UsoEntity_common_UserEntity.DefinedValues and conformance UsoEntity_common_UserEntity.DefinedValues, MEMORY[0x277D5E248], MEMORY[0x277D5E250]);
+        v43 = dispatch thunk of static Equatable.== infix(_:_:)();
+        v47 = *(v41 + 8);
+        v47(v46, v36);
+        outlined destroy of MediaUserStateCenter?(v70, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMR);
+        outlined destroy of MediaUserStateCenter?(v71, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMR);
+        v47(v44, v36);
+        outlined destroy of MediaUserStateCenter?(v37, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMR);
+LABEL_32:
+        if (dispatch thunk of CodeGenListEntry.entryAsExpression.getter())
+        {
+          v48 = dispatch thunk of CodeGenExpression.operatorAsString.getter();
+          v50 = v49;
+        }
+
+        else
+        {
+          v48 = 0;
+          v50 = 0;
+        }
+
+        v51 = v66;
+        v52 = v67;
+        v53 = v68;
+        (*(v67 + 104))(v66, *MEMORY[0x277D5E478], v68);
+        v54 = ListOperators.rawValue.getter();
+        v56 = v55;
+        (*(v52 + 8))(v51, v53);
+        if (v50)
+        {
+          if (v48 == v54 && v50 == v56)
+          {
+
+LABEL_41:
+            v57 = v76 | v43;
+            return v57 & 1;
+          }
+
+          v58 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+          v57 = 0;
+          if (v58)
+          {
+            goto LABEL_41;
+          }
+        }
+
+        else
+        {
+
+          v57 = 0;
+        }
+
+        return v57 & 1;
+      }
+
+      outlined destroy of MediaUserStateCenter?(v70, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMR);
+      outlined destroy of MediaUserStateCenter?(v71, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSgMR);
+      (*(v41 + 8))(v44, v36);
+    }
+
+    outlined destroy of MediaUserStateCenter?(v37, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSg_AFtMd, &_s12SiriOntology021UsoEntity_common_UserD0C13DefinedValuesOSg_AFtMR);
+    v43 = 0;
+    goto LABEL_32;
+  }
+
+  v60 = v6;
+  v23 = 0;
+  v24 = *MEMORY[0x277D5F528];
+  v74 = v21 + ((*(v16 + 80) + 32) & ~*(v16 + 80));
+  v75 = v24;
+  v73 = v16 + 16;
+  v25 = (v16 + 8);
+  while (v23 < *(v21 + 16))
+  {
+    (*(v16 + 16))(v18, v74 + *(v16 + 72) * v23, v15);
+    v26 = UsoIdentifier.namespace.getter();
+    v28 = v27;
+    v29 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    if (!v28)
+    {
+
+LABEL_7:
+      result = (*v25)(v18, v15);
+      goto LABEL_8;
+    }
+
+    if (v26 == v29 && v28 == v30)
+    {
+    }
+
+    else
+    {
+      v31 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+      if ((v31 & 1) == 0)
+      {
+        goto LABEL_7;
+      }
+    }
+
+    v77[0] = UsoIdentifier.value.getter();
+    v77[1] = v32;
+    MEMORY[0x28223BE20](v77[0]);
+    *(&v59 - 2) = v77;
+    v33 = v78;
+    v34 = specialized Sequence.contains(where:)(partial apply for specialized closure #1 in Sequence<>.contains(_:), (&v59 - 4), v72);
+    v78 = v33;
+    (*v25)(v18, v15);
+
+    if (v34)
+    {
+
+      LODWORD(v76) = 1;
+LABEL_18:
+      v6 = v60;
+      goto LABEL_21;
+    }
+
+LABEL_8:
+    if (v76 == ++v23)
+    {
+
+      LODWORD(v76) = 0;
+      goto LABEL_18;
+    }
+  }
+
+  __break(1u);
+  return result;
 }

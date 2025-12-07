@@ -30,19 +30,19 @@
 
 - (void)writeTransactionDidSucceed
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   [(CPLEngineFileStorage *)self->_fileStorage writeTransactionDidSucceed];
   if ([(NSMutableArray *)self->_filesToDelete count]|| [(NSMutableArray *)self->_filesToCommit count])
   {
     fileStorage = self->_fileStorage;
-    v11 = 0;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __66__CPLEngineRecordComputeStatePushQueue_writeTransactionDidSucceed__block_invoke;
-    v12[3] = &unk_1E8620478;
-    v12[4] = self;
-    v4 = [(CPLEngineFileStorage *)fileStorage doWrite:v12 error:&v11];
-    v5 = v11;
+    v10 = 0;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __66__CPLEngineRecordComputeStatePushQueue_writeTransactionDidSucceed__block_invoke;
+    v11[3] = &unk_1E8620478;
+    v11[4] = self;
+    v4 = [(CPLEngineFileStorage *)fileStorage doWrite:v11 error:&v10];
+    v5 = v10;
     if (!v4 && (_CPLSilentLogging & 1) == 0)
     {
       v6 = __CPLStorageOSLogDomain_20273();
@@ -51,11 +51,11 @@
         filesToCommit = self->_filesToCommit;
         filesToDelete = self->_filesToDelete;
         *buf = 138412802;
-        v14 = filesToCommit;
-        v15 = 2112;
-        v16 = filesToDelete;
-        v17 = 2112;
-        v18 = v5;
+        v13 = filesToCommit;
+        v14 = 2112;
+        v15 = filesToDelete;
+        v16 = 2112;
+        v17 = v5;
         _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_ERROR, "Unable to commit %@ or delete %@ to file storage: %@", buf, 0x20u);
       }
     }
@@ -65,10 +65,9 @@
   }
 
   [(CPLEngineFileStorage *)self->_fileStorage setTrackAllStoresAndDeletesUntilEndOfTransaction:0];
-  v10.receiver = self;
-  v10.super_class = CPLEngineRecordComputeStatePushQueue;
-  [(CPLEngineStorage *)&v10 writeTransactionDidSucceed];
-  v9 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = CPLEngineRecordComputeStatePushQueue;
+  [(CPLEngineStorage *)&v9 writeTransactionDidSucceed];
 }
 
 - (id)statusDictionary
@@ -171,14 +170,14 @@ void __46__CPLEngineRecordComputeStatePushQueue_status__block_invoke(void *a1)
 
 - (unint64_t)fileSizeForComputeStatePayloadFileURL:(id)l error:(id *)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   lCopy = l;
-  v17 = 0;
-  v6 = *MEMORY[0x1E695DB50];
   v16 = 0;
-  v7 = [lCopy getResourceValue:&v17 forKey:v6 error:&v16];
-  v8 = v17;
-  v9 = v16;
+  v6 = *MEMORY[0x1E695DB50];
+  v15 = 0;
+  v7 = [lCopy getResourceValue:&v16 forKey:v6 error:&v15];
+  v8 = v16;
+  v9 = v15;
   v10 = v9;
   if (v7)
   {
@@ -200,9 +199,9 @@ void __46__CPLEngineRecordComputeStatePushQueue_status__block_invoke(void *a1)
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v19 = lCopy;
-        v20 = 2112;
-        v21 = v10;
+        v18 = lCopy;
+        v19 = 2112;
+        v20 = v10;
         _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_DEFAULT, "Failed to determine filesize for compute state payload file at url: %@. Error: %@", buf, 0x16u);
       }
     }
@@ -210,7 +209,6 @@ void __46__CPLEngineRecordComputeStatePushQueue_status__block_invoke(void *a1)
     unsignedIntegerValue = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return unsignedIntegerValue;
 }
 
@@ -296,7 +294,7 @@ uint64_t __71__CPLEngineRecordComputeStatePushQueue_noteComputeStateDownloadRequ
 
 - (BOOL)createIncomingDownloadFolderIfNecessaryWithError:(id *)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v5 = __CPLStorageOSLogDomain_20273();
@@ -304,16 +302,16 @@ uint64_t __71__CPLEngineRecordComputeStatePushQueue_noteComputeStateDownloadRequ
     {
       path = [(NSURL *)self->_incomingDownloadFolderURL path];
       *buf = 138412290;
-      v21 = path;
+      v20 = path;
       _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEBUG, "Creating incoming download folder at %@", buf, 0xCu);
     }
   }
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   incomingDownloadFolderURL = self->_incomingDownloadFolderURL;
-  v19 = 0;
-  v9 = [defaultManager createDirectoryAtURL:incomingDownloadFolderURL withIntermediateDirectories:0 attributes:0 error:&v19];
-  v10 = v19;
+  v18 = 0;
+  v9 = [defaultManager createDirectoryAtURL:incomingDownloadFolderURL withIntermediateDirectories:0 attributes:0 error:&v18];
+  v10 = v18;
   if ((v9 & 1) != 0 || [defaultManager cplIsFileExistsError:v10])
   {
     date = [MEMORY[0x1E695DF00] date];
@@ -327,21 +325,21 @@ uint64_t __71__CPLEngineRecordComputeStatePushQueue_noteComputeStateDownloadRequ
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v16 = __CPLStorageOSLogDomain_20273();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v15 = __CPLStorageOSLogDomain_20273();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         path2 = [(NSURL *)self->_incomingDownloadFolderURL path];
         *buf = 138412546;
-        v21 = path2;
-        v22 = 2112;
-        v23 = v10;
-        _os_log_impl(&dword_1DC05A000, v16, OS_LOG_TYPE_DEFAULT, "Failed to create incoming download folder at %@: %@", buf, 0x16u);
+        v20 = path2;
+        v21 = 2112;
+        v22 = v10;
+        _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_DEFAULT, "Failed to create incoming download folder at %@: %@", buf, 0x16u);
       }
     }
 
     if (error)
     {
-      v18 = v10;
+      v17 = v10;
       v13 = 0;
       *error = v10;
     }
@@ -352,25 +350,24 @@ uint64_t __71__CPLEngineRecordComputeStatePushQueue_noteComputeStateDownloadRequ
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (id)createNewTempDownloadFolderWithError:(id *)error
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v19 = 0;
-  v5 = [(CPLEngineRecordComputeStatePushQueue *)self createIncomingDownloadFolderIfNecessaryWithError:&v19];
-  v6 = v19;
+  v23 = *MEMORY[0x1E69E9840];
+  v18 = 0;
+  v5 = [(CPLEngineRecordComputeStatePushQueue *)self createIncomingDownloadFolderIfNecessaryWithError:&v18];
+  v6 = v18;
   v7 = v6;
   if (v5)
   {
     v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%lu", self->_tempFolderIndex];
     v9 = [(NSURL *)self->_incomingDownloadFolderURL URLByAppendingPathComponent:v8 isDirectory:1];
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v18 = v7;
-    v11 = [defaultManager createDirectoryAtURL:v9 withIntermediateDirectories:0 attributes:0 error:&v18];
-    v12 = v18;
+    v17 = v7;
+    v11 = [defaultManager createDirectoryAtURL:v9 withIntermediateDirectories:0 attributes:0 error:&v17];
+    v12 = v17;
 
     ++self->_tempFolderIndex;
     if (v11)
@@ -386,9 +383,9 @@ uint64_t __71__CPLEngineRecordComputeStatePushQueue_noteComputeStateDownloadRequ
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v21 = v9;
-        v22 = 2112;
-        v23 = v12;
+        v20 = v9;
+        v21 = 2112;
+        v22 = v12;
         _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_ERROR, "Failed to create temporary download folder at %@: %@", buf, 0x16u);
       }
     }
@@ -414,14 +411,12 @@ uint64_t __71__CPLEngineRecordComputeStatePushQueue_noteComputeStateDownloadRequ
 
 LABEL_13:
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 - (BOOL)deleteIncomingDownloadFolderWithError:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -430,15 +425,15 @@ LABEL_13:
     {
       path = [(NSURL *)self->_incomingDownloadFolderURL path];
       *buf = 138412290;
-      v20 = path;
+      v19 = path;
       _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEBUG, "Deleting incoming download folder at %@", buf, 0xCu);
     }
   }
 
   incomingDownloadFolderURL = self->_incomingDownloadFolderURL;
-  v18 = 0;
-  v9 = [defaultManager removeItemAtURL:incomingDownloadFolderURL error:&v18];
-  v10 = v18;
+  v17 = 0;
+  v9 = [defaultManager removeItemAtURL:incomingDownloadFolderURL error:&v17];
+  v10 = v17;
   if ((v9 & 1) != 0 || [defaultManager cplIsFileDoesNotExistError:v10])
   {
     incomingDownloadFolderCreationDate = self->_incomingDownloadFolderCreationDate;
@@ -451,21 +446,21 @@ LABEL_13:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v15 = __CPLStorageOSLogDomain_20273();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v14 = __CPLStorageOSLogDomain_20273();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         path2 = [(NSURL *)self->_incomingDownloadFolderURL path];
         *buf = 138412546;
-        v20 = path2;
-        v21 = 2112;
-        v22 = v10;
-        _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_DEFAULT, "Failed to delete temporary folder at %@: %@", buf, 0x16u);
+        v19 = path2;
+        v20 = 2112;
+        v21 = v10;
+        _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_DEFAULT, "Failed to delete temporary folder at %@: %@", buf, 0x16u);
       }
     }
 
     if (error)
     {
-      v17 = v10;
+      v16 = v10;
       v12 = 0;
       *error = v10;
     }
@@ -476,7 +471,6 @@ LABEL_13:
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -628,7 +622,7 @@ uint64_t __63__CPLEngineRecordComputeStatePushQueue_writeTransactionDidFail__blo
 
 void __63__CPLEngineRecordComputeStatePushQueue_writeTransactionDidFail__block_invoke_2(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = *(a1[4] + 104);
   v8 = *(a1[6] + 8);
@@ -644,33 +638,31 @@ void __63__CPLEngineRecordComputeStatePushQueue_writeTransactionDidFail__block_i
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v14 = v6;
+        v13 = v6;
         _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_ERROR, "Unable to discard %@ from file storage", buf, 0xCu);
       }
     }
 
     *a4 = 1;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)releaseFileURL:(id)l forComputeState:(id)state error:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   lCopy = l;
   stateCopy = state;
   fileStorage = self->_fileStorage;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __77__CPLEngineRecordComputeStatePushQueue_releaseFileURL_forComputeState_error___block_invoke;
-  v20[3] = &unk_1E8620940;
-  v20[4] = self;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __77__CPLEngineRecordComputeStatePushQueue_releaseFileURL_forComputeState_error___block_invoke;
+  v19[3] = &unk_1E8620940;
+  v19[4] = self;
   v11 = lCopy;
-  v21 = v11;
-  v19 = 0;
-  v12 = [(CPLEngineFileStorage *)fileStorage doWrite:v20 error:&v19];
-  v13 = v19;
+  v20 = v11;
+  v18 = 0;
+  v12 = [(CPLEngineFileStorage *)fileStorage doWrite:v19 error:&v18];
+  v13 = v18;
   if (!v12)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -680,11 +672,11 @@ void __63__CPLEngineRecordComputeStatePushQueue_writeTransactionDidFail__block_i
       {
         path = [v11 path];
         *buf = 138412802;
-        v23 = stateCopy;
-        v24 = 2112;
-        v25 = path;
-        v26 = 2112;
-        v27 = v13;
+        v22 = stateCopy;
+        v23 = 2112;
+        v24 = path;
+        v25 = 2112;
+        v26 = v13;
         _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_ERROR, "Unable to release %@ / %@: %@", buf, 0x20u);
       }
     }
@@ -696,36 +688,35 @@ void __63__CPLEngineRecordComputeStatePushQueue_writeTransactionDidFail__block_i
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (id)retainFileURLForComputeState:(id)state error:(id *)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   fileStorageIdentifier = [stateCopy fileStorageIdentifier];
 
   if (fileStorageIdentifier)
   {
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x3032000000;
-    v25 = __Block_byref_object_copy__20293;
-    v26 = __Block_byref_object_dispose__20294;
-    v27 = 0;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x3032000000;
+    v24 = __Block_byref_object_copy__20293;
+    v25 = __Block_byref_object_dispose__20294;
+    v26 = 0;
     fileStorage = self->_fileStorage;
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __75__CPLEngineRecordComputeStatePushQueue_retainFileURLForComputeState_error___block_invoke;
-    v19[3] = &unk_1E8620A38;
-    v21 = &v22;
-    v19[4] = self;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __75__CPLEngineRecordComputeStatePushQueue_retainFileURLForComputeState_error___block_invoke;
+    v18[3] = &unk_1E8620A38;
+    v20 = &v21;
+    v18[4] = self;
     v9 = stateCopy;
-    v20 = v9;
-    v18 = 0;
-    LOBYTE(fileStorage) = [(CPLEngineFileStorage *)fileStorage doWrite:v19 error:&v18];
-    v10 = v18;
+    v19 = v9;
+    v17 = 0;
+    LOBYTE(fileStorage) = [(CPLEngineFileStorage *)fileStorage doWrite:v18 error:&v17];
+    v10 = v17;
     if (fileStorage)
     {
       if ((_CPLSilentLogging & 1) == 0)
@@ -733,11 +724,11 @@ void __63__CPLEngineRecordComputeStatePushQueue_writeTransactionDidFail__block_i
         v11 = __CPLStorageOSLogDomain_20273();
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
-          path = [v23[5] path];
+          path = [v22[5] path];
           *buf = 138412546;
-          v29 = v9;
-          v30 = 2112;
-          v31 = path;
+          v28 = v9;
+          v29 = 2112;
+          v30 = path;
           _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEBUG, "Retained file path for %@ is: %@", buf, 0x16u);
         }
       }
@@ -751,9 +742,9 @@ void __63__CPLEngineRecordComputeStatePushQueue_writeTransactionDidFail__block_i
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412546;
-          v29 = v9;
-          v30 = 2112;
-          v31 = v10;
+          v28 = v9;
+          v29 = 2112;
+          v30 = v10;
           _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_DEBUG, "Unable to retain URL for %@: %@", buf, 0x16u);
         }
       }
@@ -765,9 +756,9 @@ void __63__CPLEngineRecordComputeStatePushQueue_writeTransactionDidFail__block_i
       }
     }
 
-    v13 = v23[5];
+    v13 = v22[5];
 
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v21, 8);
   }
 
   else if (error)
@@ -780,8 +771,6 @@ void __63__CPLEngineRecordComputeStatePushQueue_writeTransactionDidFail__block_i
   {
     v13 = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -870,7 +859,7 @@ BOOL __75__CPLEngineRecordComputeStatePushQueue_retainFileURLForComputeState_err
 
 - (BOOL)updateFileURLForComputeState:(id)state error:(id *)error
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   fileURL = [stateCopy fileURL];
 
@@ -880,11 +869,11 @@ BOOL __75__CPLEngineRecordComputeStatePushQueue_retainFileURLForComputeState_err
     uUIDString = [uUID UUIDString];
 
     [stateCopy setFileStorageIdentifier:uUIDString];
-    v33 = 0;
-    platformObject = [(CPLEngineStorage *)self platformObject];
     v32 = 0;
-    v11 = [platformObject updateFileURLForComputeState:stateCopy discardedFileStorageIdentifier:&v32 hasUpdated:&v33 error:error];
-    v12 = v32;
+    platformObject = [(CPLEngineStorage *)self platformObject];
+    v31 = 0;
+    v11 = [platformObject updateFileURLForComputeState:stateCopy discardedFileStorageIdentifier:&v31 hasUpdated:&v32 error:error];
+    v12 = v31;
 
     if (v12)
     {
@@ -903,25 +892,25 @@ BOOL __75__CPLEngineRecordComputeStatePushQueue_retainFileURLForComputeState_err
 
     if (v11)
     {
-      if (v33 == 1)
+      if (v32 == 1)
       {
-        v28 = 0;
-        v29 = &v28;
-        v30 = 0x2020000000;
-        v31 = 0;
+        v27 = 0;
+        v28 = &v27;
+        v29 = 0x2020000000;
+        v30 = 0;
         fileStorage = self->_fileStorage;
-        v20 = MEMORY[0x1E69E9820];
-        v21 = 3221225472;
-        v22 = __75__CPLEngineRecordComputeStatePushQueue_updateFileURLForComputeState_error___block_invoke;
-        v23 = &unk_1E86206C8;
+        v19 = MEMORY[0x1E69E9820];
+        v20 = 3221225472;
+        v21 = __75__CPLEngineRecordComputeStatePushQueue_updateFileURLForComputeState_error___block_invoke;
+        v22 = &unk_1E86206C8;
         selfCopy = self;
         v15 = stateCopy;
-        v25 = v15;
+        v24 = v15;
         v16 = uUIDString;
-        v26 = v16;
-        v27 = &v28;
-        v11 = [(CPLEngineFileStorage *)fileStorage doWrite:&v20 error:error];
-        if (v11 && *(v29 + 24) == 1)
+        v25 = v16;
+        v26 = &v27;
+        v11 = [(CPLEngineFileStorage *)fileStorage doWrite:&v19 error:error];
+        if (v11 && *(v28 + 24) == 1)
         {
           if ((_CPLSilentLogging & 1) == 0)
           {
@@ -929,15 +918,15 @@ BOOL __75__CPLEngineRecordComputeStatePushQueue_retainFileURLForComputeState_err
             if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v35 = v15;
+              v34 = v15;
               _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_DEFAULT, "Storing updated file URL for %@", buf, 0xCu);
             }
           }
 
-          [(NSMutableArray *)self->_filesToCommit addObject:v16, v20, v21, v22, v23, selfCopy, v25];
+          [(NSMutableArray *)self->_filesToCommit addObject:v16, v19, v20, v21, v22, selfCopy, v24];
         }
 
-        _Block_object_dispose(&v28, 8);
+        _Block_object_dispose(&v27, 8);
       }
 
       else
@@ -958,7 +947,6 @@ BOOL __75__CPLEngineRecordComputeStatePushQueue_retainFileURLForComputeState_err
     LOBYTE(v11) = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

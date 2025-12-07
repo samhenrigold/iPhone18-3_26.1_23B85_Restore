@@ -110,9 +110,11 @@
 
 uint64_t __44__DNDRemoteServiceConnection_sharedInstance__block_invoke(uint64_t a1)
 {
-  sharedInstance_sharedInstance_0 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = sharedInstance_sharedInstance_0;
+  sharedInstance_sharedInstance_0 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (DNDRemoteServiceConnection)init
@@ -173,39 +175,39 @@ uint64_t __44__DNDRemoteServiceConnection_sharedInstance__block_invoke(uint64_t 
   {
     self->_monitorState = 1;
     os_unfair_lock_unlock(&self->_stateLock);
-    v3 = DNDRemoteMonitorServerInterface();
-    v4 = MEMORY[0x277CF3288];
-    identifier = [v3 identifier];
-    v6 = [v4 endpointForMachName:@"com.apple.donotdisturb.service.non-launching" service:identifier instance:0];
+    v4 = DNDRemoteMonitorServerInterface(v3);
+    v5 = MEMORY[0x277CF3288];
+    identifier = [v4 identifier];
+    v7 = [v5 endpointForMachName:@"com.apple.donotdisturb.service.non-launching" service:identifier instance:0];
 
-    if (v6)
+    if (v7)
     {
       objc_initWeak(&location, self);
-      v7 = [MEMORY[0x277CF3280] connectionWithEndpoint:v6];
+      v8 = [MEMORY[0x277CF3280] connectionWithEndpoint:v7];
       monitorLock_monitorService = self->_monitorLock_monitorService;
-      self->_monitorLock_monitorService = v7;
+      self->_monitorLock_monitorService = v8;
 
-      v9 = self->_monitorLock_monitorService;
-      v11 = MEMORY[0x277D85DD0];
-      v12 = 3221225472;
-      v13 = __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke;
-      v14 = &unk_27843AE60;
-      v15 = v3;
+      v10 = self->_monitorLock_monitorService;
+      v12 = MEMORY[0x277D85DD0];
+      v13 = 3221225472;
+      v14 = __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke;
+      v15 = &unk_27843AE60;
+      v16 = v4;
       selfCopy = self;
-      objc_copyWeak(&v17, &location);
-      [(BSServiceConnection *)v9 configureConnection:&v11];
-      [(BSServiceConnection *)self->_monitorLock_monitorService activate:v11];
-      objc_destroyWeak(&v17);
+      objc_copyWeak(&v18, &location);
+      [(BSServiceConnection *)v10 configureConnection:&v12];
+      [(BSServiceConnection *)self->_monitorLock_monitorService activate:v12];
+      objc_destroyWeak(&v18);
 
       objc_destroyWeak(&location);
     }
 
     else
     {
-      v10 = DNDLogRemoteConnection;
+      v11 = DNDLogRemoteConnection;
       if (os_log_type_enabled(DNDLogRemoteConnection, OS_LOG_TYPE_ERROR))
       {
-        [(DNDRemoteServiceConnection *)v10 _monitorLock_createMonitorConnection];
+        [(DNDRemoteServiceConnection *)v11 _monitorLock_createMonitorConnection];
       }
 
       os_unfair_lock_lock(&self->_stateLock);
@@ -249,281 +251,279 @@ void __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__bloc
 
 void __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke_2(uint64_t a1, void *a2)
 {
-  v100 = *MEMORY[0x277D85DE8];
+  v99 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = DNDLogRemoteConnection;
   if (os_log_type_enabled(DNDLogRemoteConnection, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v99 = v2;
+    v98 = v2;
     _os_log_impl(&dword_22002F000, v3, OS_LOG_TYPE_DEFAULT, "XPC monitor connection was activated: connection=%p", buf, 0xCu);
   }
 
-  v55 = v2;
+  v54 = v2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained _setMonitorState:2];
   os_unfair_lock_lock(WeakRetained + 8);
   v5 = [*(WeakRetained + 6) copy];
   v6 = [*(WeakRetained + 7) copy];
-  v50 = [*(WeakRetained + 8) copy];
-  v56 = [*(WeakRetained + 9) copy];
-  v52 = [*(WeakRetained + 10) copy];
-  v54 = [*(WeakRetained + 11) copy];
+  v49 = [*(WeakRetained + 8) copy];
+  v55 = [*(WeakRetained + 9) copy];
+  v51 = [*(WeakRetained + 10) copy];
+  v53 = [*(WeakRetained + 11) copy];
   os_unfair_lock_unlock(WeakRetained + 8);
-  v90 = 0u;
-  v91 = 0u;
-  v88 = 0u;
   v89 = 0u;
+  v90 = 0u;
+  v87 = 0u;
+  v88 = 0u;
   obj = v5;
-  v7 = [obj countByEnumeratingWithState:&v88 objects:v97 count:16];
+  v7 = [obj countByEnumeratingWithState:&v87 objects:v96 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v89;
+    v9 = *v88;
     do
     {
       v10 = 0;
       do
       {
-        if (*v89 != v9)
+        if (*v88 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v88 + 1) + 8 * v10);
+        v11 = *(*(&v87 + 1) + 8 * v10);
         v12 = [WeakRetained _monitorTarget];
-        v87[0] = MEMORY[0x277D85DD0];
-        v87[1] = 3221225472;
-        v87[2] = __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke_277;
-        v87[3] = &unk_27843AD70;
-        v87[4] = v11;
-        [v12 registerForAssertionUpdatesWithRequestDetails:v11 completionHandler:v87];
+        v86[0] = MEMORY[0x277D85DD0];
+        v86[1] = 3221225472;
+        v86[2] = __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke_277;
+        v86[3] = &unk_27843AD70;
+        v86[4] = v11;
+        [v12 registerForAssertionUpdatesWithRequestDetails:v11 completionHandler:v86];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [obj countByEnumeratingWithState:&v88 objects:v97 count:16];
+      v8 = [obj countByEnumeratingWithState:&v87 objects:v96 count:16];
     }
 
     while (v8);
   }
 
-  v85 = 0u;
-  v86 = 0u;
-  v83 = 0u;
   v84 = 0u;
-  v58 = v6;
-  v13 = [v58 countByEnumeratingWithState:&v83 objects:v96 count:16];
+  v85 = 0u;
+  v82 = 0u;
+  v83 = 0u;
+  v57 = v6;
+  v13 = [v57 countByEnumeratingWithState:&v82 objects:v95 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v84;
+    v15 = *v83;
     do
     {
       v16 = 0;
       do
       {
-        if (*v84 != v15)
+        if (*v83 != v15)
         {
-          objc_enumerationMutation(v58);
+          objc_enumerationMutation(v57);
         }
 
-        v17 = *(*(&v83 + 1) + 8 * v16);
+        v17 = *(*(&v82 + 1) + 8 * v16);
         v18 = [WeakRetained _monitorTarget];
-        v82[0] = MEMORY[0x277D85DD0];
-        v82[1] = 3221225472;
-        v82[2] = __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke_279;
-        v82[3] = &unk_27843AD70;
-        v82[4] = v17;
-        [v18 registerForStateUpdatesWithRequestDetails:v17 completionHandler:v82];
+        v81[0] = MEMORY[0x277D85DD0];
+        v81[1] = 3221225472;
+        v81[2] = __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke_279;
+        v81[3] = &unk_27843AD70;
+        v81[4] = v17;
+        [v18 registerForStateUpdatesWithRequestDetails:v17 completionHandler:v81];
 
         if (*(WeakRetained + 13))
         {
           v19 = [WeakRetained _remoteTarget];
-          v81[0] = MEMORY[0x277D85DD0];
-          v81[1] = 3221225472;
-          v81[2] = __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke_280;
-          v81[3] = &unk_27843AD98;
-          v81[4] = WeakRetained;
-          [v19 queryStateForUpdateWithRequestDetails:v17 completionHandler:v81];
+          v80[0] = MEMORY[0x277D85DD0];
+          v80[1] = 3221225472;
+          v80[2] = __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke_280;
+          v80[3] = &unk_27843AD98;
+          v80[4] = WeakRetained;
+          [v19 queryStateForUpdateWithRequestDetails:v17 completionHandler:v80];
         }
 
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [v58 countByEnumeratingWithState:&v83 objects:v96 count:16];
+      v14 = [v57 countByEnumeratingWithState:&v82 objects:v95 count:16];
     }
 
     while (v14);
   }
 
-  v79 = 0u;
-  v80 = 0u;
-  v77 = 0u;
   v78 = 0u;
-  v20 = v50;
-  v21 = [v20 countByEnumeratingWithState:&v77 objects:v95 count:16];
+  v79 = 0u;
+  v76 = 0u;
+  v77 = 0u;
+  v20 = v49;
+  v21 = [v20 countByEnumeratingWithState:&v76 objects:v94 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v78;
+    v23 = *v77;
     do
     {
       v24 = 0;
       do
       {
-        if (*v78 != v23)
+        if (*v77 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = *(*(&v77 + 1) + 8 * v24);
+        v25 = *(*(&v76 + 1) + 8 * v24);
         v26 = [WeakRetained _monitorTarget];
-        v76[0] = MEMORY[0x277D85DD0];
-        v76[1] = 3221225472;
-        v76[2] = __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke_2_283;
-        v76[3] = &unk_27843AD70;
-        v76[4] = v25;
-        [v26 registerForSettingsUpdatesWithRequestDetails:v25 completionHandler:v76];
+        v75[0] = MEMORY[0x277D85DD0];
+        v75[1] = 3221225472;
+        v75[2] = __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke_2_283;
+        v75[3] = &unk_27843AD70;
+        v75[4] = v25;
+        [v26 registerForSettingsUpdatesWithRequestDetails:v25 completionHandler:v75];
 
         ++v24;
       }
 
       while (v22 != v24);
-      v22 = [v20 countByEnumeratingWithState:&v77 objects:v95 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v76 objects:v94 count:16];
     }
 
     while (v22);
   }
 
-  v51 = v20;
+  v50 = v20;
 
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
   v73 = 0u;
-  v57 = v56;
-  v27 = [v57 countByEnumeratingWithState:&v72 objects:v94 count:16];
+  v74 = 0u;
+  v71 = 0u;
+  v72 = 0u;
+  v56 = v55;
+  v27 = [v56 countByEnumeratingWithState:&v71 objects:v93 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v73;
+    v29 = *v72;
     do
     {
       v30 = 0;
       do
       {
-        if (*v73 != v29)
+        if (*v72 != v29)
         {
-          objc_enumerationMutation(v57);
+          objc_enumerationMutation(v56);
         }
 
-        v31 = *(*(&v72 + 1) + 8 * v30);
+        v31 = *(*(&v71 + 1) + 8 * v30);
         v32 = [WeakRetained _monitorTarget];
-        v71[0] = MEMORY[0x277D85DD0];
-        v71[1] = 3221225472;
-        v71[2] = __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke_284;
-        v71[3] = &unk_27843ADC0;
+        v70[0] = MEMORY[0x277D85DD0];
+        v70[1] = 3221225472;
+        v70[2] = __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke_284;
+        v70[3] = &unk_27843ADC0;
         v33 = *(a1 + 32);
-        v71[4] = v31;
-        v71[5] = v33;
-        [v32 registerForModeSelectionUpdatesWithRequestDetails:v31 completionHandler:v71];
+        v70[4] = v31;
+        v70[5] = v33;
+        [v32 registerForModeSelectionUpdatesWithRequestDetails:v31 completionHandler:v70];
 
         ++v30;
       }
 
       while (v28 != v30);
-      v28 = [v57 countByEnumeratingWithState:&v72 objects:v94 count:16];
+      v28 = [v56 countByEnumeratingWithState:&v71 objects:v93 count:16];
     }
 
     while (v28);
   }
 
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
   v68 = 0u;
-  v34 = v52;
-  v35 = [v34 countByEnumeratingWithState:&v67 objects:v93 count:16];
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v34 = v51;
+  v35 = [v34 countByEnumeratingWithState:&v66 objects:v92 count:16];
   if (v35)
   {
     v36 = v35;
-    v37 = *v68;
+    v37 = *v67;
     do
     {
       v38 = 0;
       do
       {
-        if (*v68 != v37)
+        if (*v67 != v37)
         {
           objc_enumerationMutation(v34);
         }
 
-        v39 = *(*(&v67 + 1) + 8 * v38);
+        v39 = *(*(&v66 + 1) + 8 * v38);
         v40 = [WeakRetained _monitorTarget];
-        v66[0] = MEMORY[0x277D85DD0];
-        v66[1] = 3221225472;
-        v66[2] = __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke_287;
-        v66[3] = &unk_27843AD70;
-        v66[4] = v39;
-        [v40 registerForGlobalConfigurationUpdatesWithRequestDetails:v39 completionHandler:v66];
+        v65[0] = MEMORY[0x277D85DD0];
+        v65[1] = 3221225472;
+        v65[2] = __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke_287;
+        v65[3] = &unk_27843AD70;
+        v65[4] = v39;
+        [v40 registerForGlobalConfigurationUpdatesWithRequestDetails:v39 completionHandler:v65];
 
         ++v38;
       }
 
       while (v36 != v38);
-      v36 = [v34 countByEnumeratingWithState:&v67 objects:v93 count:16];
+      v36 = [v34 countByEnumeratingWithState:&v66 objects:v92 count:16];
     }
 
     while (v36);
   }
 
-  v53 = v34;
+  v52 = v34;
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
   v63 = 0u;
-  v41 = v54;
-  v42 = [v41 countByEnumeratingWithState:&v62 objects:v92 count:16];
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
+  v41 = v53;
+  v42 = [v41 countByEnumeratingWithState:&v61 objects:v91 count:16];
   if (v42)
   {
     v43 = v42;
-    v44 = *v63;
+    v44 = *v62;
     do
     {
       v45 = 0;
       do
       {
-        if (*v63 != v44)
+        if (*v62 != v44)
         {
           objc_enumerationMutation(v41);
         }
 
-        v46 = *(*(&v62 + 1) + 8 * v45);
+        v46 = *(*(&v61 + 1) + 8 * v45);
         v47 = [WeakRetained _monitorTarget];
-        v61[0] = MEMORY[0x277D85DD0];
-        v61[1] = 3221225472;
-        v61[2] = __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke_288;
-        v61[3] = &unk_27843ADE8;
+        v60[0] = MEMORY[0x277D85DD0];
+        v60[1] = 3221225472;
+        v60[2] = __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke_288;
+        v60[3] = &unk_27843ADE8;
         v48 = *(a1 + 32);
-        v61[4] = v46;
-        v61[5] = v48;
-        [v47 registerForMeDeviceStateUpdatesWithRequestDetails:v46 completionHandler:v61];
+        v60[4] = v46;
+        v60[5] = v48;
+        [v47 registerForMeDeviceStateUpdatesWithRequestDetails:v46 completionHandler:v60];
 
         ++v45;
       }
 
       while (v43 != v45);
-      v43 = [v41 countByEnumeratingWithState:&v62 objects:v92 count:16];
+      v43 = [v41 countByEnumeratingWithState:&v61 objects:v91 count:16];
     }
 
     while (v43);
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_remoteTarget
@@ -602,7 +602,7 @@ void __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__bloc
 
 void __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke_279(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (([a2 BOOLValue] & 1) == 0)
   {
@@ -610,15 +610,13 @@ void __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__bloc
     if (os_log_type_enabled(DNDLogRemoteConnection, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2114;
-      v12 = v5;
-      _os_log_impl(&dword_22002F000, v6, OS_LOG_TYPE_DEFAULT, "Remote service connection failed to register for state updates on activation: requestDetails=%{public}@, error=%{public}@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2114;
+      v11 = v5;
+      _os_log_impl(&dword_22002F000, v6, OS_LOG_TYPE_DEFAULT, "Remote service connection failed to register for state updates on activation: requestDetails=%{public}@, error=%{public}@", &v8, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __62__DNDRemoteServiceConnection__connectionLock_createConnection__block_invoke(uint64_t a1, void *a2)
@@ -637,52 +635,46 @@ void __62__DNDRemoteServiceConnection__connectionLock_createConnection__block_in
 
 void __62__DNDRemoteServiceConnection__connectionLock_createConnection__block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = DNDLogRemoteConnection;
   if (os_log_type_enabled(DNDLogRemoteConnection, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 134217984;
-    v6 = v2;
-    _os_log_impl(&dword_22002F000, v3, OS_LOG_TYPE_DEFAULT, "XPC request connection was activated: connection=%p", &v5, 0xCu);
+    v4 = 134217984;
+    v5 = v2;
+    _os_log_impl(&dword_22002F000, v3, OS_LOG_TYPE_DEFAULT, "XPC request connection was activated: connection=%p", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __62__DNDRemoteServiceConnection__connectionLock_createConnection__block_invoke_267(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = DNDLogRemoteConnection;
   if (os_log_type_enabled(DNDLogRemoteConnection, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 134217984;
-    v6 = v2;
-    _os_log_impl(&dword_22002F000, v3, OS_LOG_TYPE_DEFAULT, "XPC request connection was interrupted: connection=%p", &v5, 0xCu);
+    v4 = 134217984;
+    v5 = v2;
+    _os_log_impl(&dword_22002F000, v3, OS_LOG_TYPE_DEFAULT, "XPC request connection was interrupted: connection=%p", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __62__DNDRemoteServiceConnection__connectionLock_createConnection__block_invoke_270(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = DNDLogRemoteConnection;
   if (os_log_type_enabled(DNDLogRemoteConnection, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 134217984;
-    v6 = v2;
-    _os_log_impl(&dword_22002F000, v3, OS_LOG_TYPE_DEFAULT, "XPC request connection was invalidated, cannot recover: connection=%p", &v5, 0xCu);
+    v4 = 134217984;
+    v5 = v2;
+    _os_log_impl(&dword_22002F000, v3, OS_LOG_TYPE_DEFAULT, "XPC request connection was invalidated, cannot recover: connection=%p", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke_277(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (([a2 BOOLValue] & 1) == 0)
   {
@@ -690,39 +682,42 @@ void __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__bloc
     if (os_log_type_enabled(DNDLogRemoteConnection, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2114;
-      v12 = v5;
-      _os_log_impl(&dword_22002F000, v6, OS_LOG_TYPE_DEFAULT, "Remote service connection failed to register for assertion updates on activation: requestDetails=%{public}@, error=%{public}@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2114;
+      v11 = v5;
+      _os_log_impl(&dword_22002F000, v6, OS_LOG_TYPE_DEFAULT, "Remote service connection failed to register for assertion updates on activation: requestDetails=%{public}@, error=%{public}@", &v8, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke_280(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = a2;
+  v6 = v5;
   if (v5)
   {
     if (!a3)
     {
-      v8 = v5;
-      if (([*(*(a1 + 32) + 104) isEqual:v5] & 1) == 0)
+      v9 = v5;
+      v5 = [*(*(a1 + 32) + 104) isEqual:v5];
+      v6 = v9;
+      if ((v5 & 1) == 0)
       {
-        v6 = [[DNDStateUpdate alloc] initWithPreviousState:*(*(a1 + 32) + 104) state:v8 reason:4 source:1 options:1];
-        [*(a1 + 32) deliverStateUpdate:v6];
+        v7 = [[DNDStateUpdate alloc] initWithPreviousState:*(*(a1 + 32) + 104) state:v9 reason:4 source:1 options:1];
+        [*(a1 + 32) deliverStateUpdate:v7];
+
+        v6 = v9;
       }
     }
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v5, v6);
 }
 
 void __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke_2_283(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (([a2 BOOLValue] & 1) == 0)
   {
@@ -730,28 +725,26 @@ void __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__bloc
     if (os_log_type_enabled(DNDLogRemoteConnection, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2114;
-      v12 = v5;
-      _os_log_impl(&dword_22002F000, v6, OS_LOG_TYPE_DEFAULT, "Remote service connection failed to register for settings updates on activation: requestDetails=%{public}@, error=%{public}@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2114;
+      v11 = v5;
+      _os_log_impl(&dword_22002F000, v6, OS_LOG_TYPE_DEFAULT, "Remote service connection failed to register for settings updates on activation: requestDetails=%{public}@, error=%{public}@", &v8, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke_284(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   if ([a2 BOOLValue])
   {
     v9 = *(a1 + 40);
     v10 = [*(a1 + 32) clientIdentifier];
-    v15 = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+    v14 = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
     [v9 deliverActiveModeAssertion:v7 stateUpdate:0 clientIdentifiers:v11];
   }
 
@@ -762,19 +755,17 @@ void __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__bloc
     {
       v13 = *(a1 + 32);
       *buf = 138543618;
-      v17 = v13;
-      v18 = 2114;
-      v19 = v8;
+      v16 = v13;
+      v17 = 2114;
+      v18 = v8;
       _os_log_impl(&dword_22002F000, v12, OS_LOG_TYPE_DEFAULT, "Remote service connection failed to register for available mode identifier updates on activation: requestDetails=%{public}@, error=%{public}@", buf, 0x16u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke_287(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (([a2 BOOLValue] & 1) == 0)
   {
@@ -782,20 +773,18 @@ void __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__bloc
     if (os_log_type_enabled(DNDLogRemoteConnection, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2114;
-      v12 = v5;
-      _os_log_impl(&dword_22002F000, v6, OS_LOG_TYPE_DEFAULT, "Remote service connection failed to register for global configuration updates on activation: requestDetails=%{public}@, error=%{public}@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2114;
+      v11 = v5;
+      _os_log_impl(&dword_22002F000, v6, OS_LOG_TYPE_DEFAULT, "Remote service connection failed to register for global configuration updates on activation: requestDetails=%{public}@, error=%{public}@", &v8, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke_288(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   if ([a2 BOOLValue])
@@ -809,52 +798,47 @@ void __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__bloc
     if (os_log_type_enabled(DNDLogRemoteConnection, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(a1 + 32);
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2114;
-      v15 = v8;
-      _os_log_impl(&dword_22002F000, v9, OS_LOG_TYPE_DEFAULT, "Remote service connection failed to register for 'Me Device' state updates on activation: requestDetails=%{public}@, error=%{public}@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v10;
+      v13 = 2114;
+      v14 = v8;
+      _os_log_impl(&dword_22002F000, v9, OS_LOG_TYPE_DEFAULT, "Remote service connection failed to register for 'Me Device' state updates on activation: requestDetails=%{public}@, error=%{public}@", &v11, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke_290(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = DNDLogRemoteConnection;
   if (os_log_type_enabled(DNDLogRemoteConnection, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
-    v8 = v3;
-    _os_log_impl(&dword_22002F000, v4, OS_LOG_TYPE_DEFAULT, "XPC monitor connection was interrupted, reactivating: connection=%p", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = v3;
+    _os_log_impl(&dword_22002F000, v4, OS_LOG_TYPE_DEFAULT, "XPC monitor connection was interrupted, reactivating: connection=%p", &v6, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _setMonitorState:1];
 
   [v3 activate];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __66__DNDRemoteServiceConnection__monitorLock_createMonitorConnection__block_invoke_291(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = DNDLogRemoteConnection;
   if (os_log_type_enabled(DNDLogRemoteConnection, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
-    v8 = v3;
-    _os_log_impl(&dword_22002F000, v4, OS_LOG_TYPE_DEFAULT, "XPC monitor connection was invalidated, cannot recover: connection=%p", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = v3;
+    _os_log_impl(&dword_22002F000, v4, OS_LOG_TYPE_DEFAULT, "XPC monitor connection was invalidated, cannot recover: connection=%p", &v6, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _setMonitorState:0];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_monitorLock_invalidateMonitorConnection
@@ -1037,7 +1021,7 @@ LABEL_7:
 
 - (void)deliverActiveModeAssertionUpdate:(id)update invalidation:(id)invalidation clientIdentifiers:(id)identifiers
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   invalidationCopy = invalidation;
   identifiersCopy = identifiers;
@@ -1045,36 +1029,36 @@ LABEL_7:
   if (os_log_type_enabled(DNDLogRemoteConnection, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
-    v27 = updateCopy;
-    v28 = 2114;
-    v29 = invalidationCopy;
-    v30 = 2114;
-    v31 = identifiersCopy;
+    v26 = updateCopy;
+    v27 = 2114;
+    v28 = invalidationCopy;
+    v29 = 2114;
+    v30 = identifiersCopy;
     _os_log_impl(&dword_22002F000, v9, OS_LOG_TYPE_DEFAULT, "Remote service connection got assertion update: assertion=%{public}@, invalidation=%{public}@, clientIdentifiers=%{public}@", buf, 0x20u);
   }
 
   obj = self->_eventListeners;
   objc_sync_enter(obj);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v10 = self->_eventListeners;
-  v11 = [(NSHashTable *)v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v11 = [(NSHashTable *)v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v11)
   {
-    v12 = *v22;
+    v12 = *v21;
     do
     {
       v13 = 0;
       do
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * v13);
+        v14 = *(*(&v20 + 1) + 8 * v13);
         if (objc_opt_respondsToSelector())
         {
           clientIdentifier = [v14 clientIdentifier];
@@ -1090,14 +1074,13 @@ LABEL_7:
       }
 
       while (v11 != v13);
-      v11 = [(NSHashTable *)v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v11 = [(NSHashTable *)v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v11);
   }
 
   objc_sync_exit(obj);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queryStateWithRequestDetails:(id)details completionHandler:(id)handler
@@ -1150,7 +1133,7 @@ LABEL_7:
 
 - (void)deliverStateUpdate:(id)update
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   state = [updateCopy state];
   lastReceivedState = self->_lastReceivedState;
@@ -1158,43 +1141,42 @@ LABEL_7:
 
   v7 = self->_eventListeners;
   objc_sync_enter(v7);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v8 = self->_eventListeners;
-  v9 = [(NSHashTable *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [(NSHashTable *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
+        v12 = *(*(&v13 + 1) + 8 * v11);
         if (objc_opt_respondsToSelector())
         {
-          [v12 remoteService:self didReceiveDoNotDisturbStateUpdate:{updateCopy, v14}];
+          [v12 remoteService:self didReceiveDoNotDisturbStateUpdate:{updateCopy, v13}];
         }
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [(NSHashTable *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [(NSHashTable *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
   }
 
   objc_sync_exit(v7);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setScreenIsShared:(id)shared screenIsMirrored:(id)mirrored withRequestDetails:(id)details completionHandler:(id)handler
@@ -1408,227 +1390,222 @@ LABEL_7:
 
 - (void)deliverUpdatedBehaviorSettings:(id)settings
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   v5 = self->_eventListeners;
   objc_sync_enter(v5);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v6 = self->_eventListeners;
-  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
-          [v10 remoteService:self didReceiveUpdatedBehaviorSettings:{settingsCopy, v12}];
+          [v10 remoteService:self didReceiveUpdatedBehaviorSettings:{settingsCopy, v11}];
         }
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
   objc_sync_exit(v5);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deliverUpdatedScheduleSettings:(id)settings
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   v5 = self->_eventListeners;
   objc_sync_enter(v5);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v6 = self->_eventListeners;
-  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
-          [v10 remoteService:self didReceiveUpdatedScheduleSettings:{settingsCopy, v12}];
+          [v10 remoteService:self didReceiveUpdatedScheduleSettings:{settingsCopy, v11}];
         }
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
   objc_sync_exit(v5);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deliverUpdatedPairSyncState:(id)state
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   v5 = self->_eventListeners;
   objc_sync_enter(v5);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v6 = self->_eventListeners;
-  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
-          [v10 remoteService:self didReceiveUpdatedPairSyncState:{objc_msgSend(stateCopy, "unsignedIntegerValue", v12)}];
+          [v10 remoteService:self didReceiveUpdatedPairSyncState:{objc_msgSend(stateCopy, "unsignedIntegerValue", v11)}];
         }
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
   objc_sync_exit(v5);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deliverUpdatedPhoneCallBypassSettings:(id)settings
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   v5 = self->_eventListeners;
   objc_sync_enter(v5);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v6 = self->_eventListeners;
-  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
-          [v10 remoteService:self didReceiveUpdatedPhoneCallBypassSettings:{settingsCopy, v12}];
+          [v10 remoteService:self didReceiveUpdatedPhoneCallBypassSettings:{settingsCopy, v11}];
         }
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
   objc_sync_exit(v5);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deliverUpdatedPreventAutoReplySetting:(id)setting
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   settingCopy = setting;
   v5 = self->_eventListeners;
   objc_sync_enter(v5);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v6 = self->_eventListeners;
-  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
-          [v10 remoteService:self didReceiveUpdatedPreventAutoReplySetting:{objc_msgSend(settingCopy, "BOOLValue", v12)}];
+          [v10 remoteService:self didReceiveUpdatedPreventAutoReplySetting:{objc_msgSend(settingCopy, "BOOLValue", v11)}];
         }
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
   objc_sync_exit(v5);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setModeConfiguration:(id)configuration withRequestDetails:(id)details completionHandler:(id)handler
@@ -1869,31 +1846,31 @@ LABEL_7:
 
 - (void)deliverAllModes:(id)modes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   modesCopy = modes;
   obj = self->_eventListeners;
   objc_sync_enter(obj);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = self->_eventListeners;
   v6 = 0;
-  v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
           [v10 remoteService:self didReceiveUpdatedModes:modesCopy];
@@ -1913,43 +1890,42 @@ LABEL_7:
       }
 
       while (v7 != v9);
-      v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
 
   objc_sync_exit(obj);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deliverAvailableModes:(id)modes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   modesCopy = modes;
   obj = self->_eventListeners;
   objc_sync_enter(obj);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = self->_eventListeners;
   v6 = 0;
-  v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
           [v10 remoteService:self didReceiveUpdatedAvailableModes:modesCopy];
@@ -1969,44 +1945,43 @@ LABEL_7:
       }
 
       while (v7 != v9);
-      v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
 
   objc_sync_exit(obj);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deliverActiveModeAssertion:(id)assertion stateUpdate:(id)update clientIdentifiers:(id)identifiers
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   assertionCopy = assertion;
   updateCopy = update;
   identifiersCopy = identifiers;
   obj = self->_eventListeners;
   objc_sync_enter(obj);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v9 = self->_eventListeners;
-  v10 = [(NSHashTable *)v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [(NSHashTable *)v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       v12 = 0;
       do
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * v12);
+        v13 = *(*(&v19 + 1) + 8 * v12);
         if (objc_opt_respondsToSelector())
         {
           clientIdentifier = [v13 clientIdentifier];
@@ -2022,59 +1997,57 @@ LABEL_7:
       }
 
       while (v10 != v12);
-      v10 = [(NSHashTable *)v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [(NSHashTable *)v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
   }
 
   objc_sync_exit(obj);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)signalAppConfigurationContextUpdateForModeIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = self->_eventListeners;
   objc_sync_enter(v5);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v6 = self->_eventListeners;
-  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
-          [v10 remoteService:self didReceiveAppConfigurationContextUpdateForModeIdentifier:{identifierCopy, v12}];
+          [v10 remoteService:self didReceiveAppConfigurationContextUpdateForModeIdentifier:{identifierCopy, v11}];
         }
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
   objc_sync_exit(v5);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)activateModeWithDetails:(id)details withRequestDetails:(id)requestDetails completionHandler:(id)handler
@@ -2129,47 +2102,46 @@ LABEL_7:
 
 - (void)deliverMeDeviceState:(id)state
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   v5 = self->_eventListeners;
   objc_sync_enter(v5);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v6 = self->_eventListeners;
-  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
-          [v10 remoteService:self didReceiveUpdatedMeDeviceState:{stateCopy, v12}];
+          [v10 remoteService:self didReceiveUpdatedMeDeviceState:{stateCopy, v11}];
         }
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
   objc_sync_exit(v5);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queryMeDeviceStateWithRequestDetails:(id)details completionHandler:(id)handler
@@ -2222,7 +2194,7 @@ LABEL_7:
 
 - (void)setAppConfigurationPredicate:(id)predicate forActionIdentifier:(id)identifier forApplicationIdentifier:(id)applicationIdentifier modeIdentifier:(id)modeIdentifier withRequestDetails:(id)details completionHandler:(id)handler
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   identifierCopy = identifier;
   applicationIdentifierCopy = applicationIdentifier;
@@ -2232,41 +2204,39 @@ LABEL_7:
   if (NSClassFromString(&cfstr_Lnaction.isa))
   {
     _remoteTarget = [(DNDRemoteServiceConnection *)self _remoteTarget];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __156__DNDRemoteServiceConnection_setAppConfigurationPredicate_forActionIdentifier_forApplicationIdentifier_modeIdentifier_withRequestDetails_completionHandler___block_invoke;
-    v25[3] = &unk_27843AF00;
-    v26 = handlerCopy;
-    [_remoteTarget setAppConfigurationPredicate:predicateCopy forActionIdentifier:identifierCopy forApplicationIdentifier:applicationIdentifierCopy modeIdentifier:modeIdentifierCopy withRequestDetails:detailsCopy completionHandler:v25];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __156__DNDRemoteServiceConnection_setAppConfigurationPredicate_forActionIdentifier_forApplicationIdentifier_modeIdentifier_withRequestDetails_completionHandler___block_invoke;
+    v24[3] = &unk_27843AF00;
+    v25 = handlerCopy;
+    [_remoteTarget setAppConfigurationPredicate:predicateCopy forActionIdentifier:identifierCopy forApplicationIdentifier:applicationIdentifierCopy modeIdentifier:modeIdentifierCopy withRequestDetails:detailsCopy completionHandler:v24];
 
-    v21 = v26;
+    v21 = v25;
   }
 
   else
   {
     v22 = MEMORY[0x277CCA9B8];
-    v27 = *MEMORY[0x277CCA450];
-    v28[0] = @"DNDAppConfigurationService is only supported when linking LinkServices";
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v26 = *MEMORY[0x277CCA450];
+    v27[0] = @"DNDAppConfigurationService is only supported when linking LinkServices";
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     v23 = [v22 errorWithDomain:@"DNDErrorDomain" code:1004 userInfo:v21];
     (*(handlerCopy + 2))(handlerCopy, MEMORY[0x277CBEC28], v23);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __156__DNDRemoteServiceConnection_setAppConfigurationPredicate_forActionIdentifier_forApplicationIdentifier_modeIdentifier_withRequestDetails_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
   {
     v7 = v6;
     v8 = MEMORY[0x277CCA9B8];
-    v12 = *MEMORY[0x277CCA450];
-    v13[0] = @"Failed to set predicate.";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x277CCA450];
+    v12[0] = @"Failed to set predicate.";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v10 = [v8 errorWithDomain:@"DNDErrorDomain" code:1008 userInfo:v9];
   }
 
@@ -2276,13 +2246,11 @@ void __156__DNDRemoteServiceConnection_setAppConfigurationPredicate_forActionIde
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getAppConfigurationPredicateForActionIdentifier:(id)identifier forApplicationIdentifier:(id)applicationIdentifier modeIdentifier:(id)modeIdentifier withRequestDetails:(id)details completionHandler:(id)handler
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   applicationIdentifierCopy = applicationIdentifier;
   modeIdentifierCopy = modeIdentifier;
@@ -2291,27 +2259,25 @@ void __156__DNDRemoteServiceConnection_setAppConfigurationPredicate_forActionIde
   if (NSClassFromString(&cfstr_Lnaction.isa))
   {
     _remoteTarget = [(DNDRemoteServiceConnection *)self _remoteTarget];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __155__DNDRemoteServiceConnection_getAppConfigurationPredicateForActionIdentifier_forApplicationIdentifier_modeIdentifier_withRequestDetails_completionHandler___block_invoke;
-    v22[3] = &unk_27843B0B0;
-    v23 = handlerCopy;
-    [_remoteTarget getAppConfigurationPredicateForActionIdentifier:identifierCopy forApplicationIdentifier:applicationIdentifierCopy modeIdentifier:modeIdentifierCopy withRequestDetails:detailsCopy completionHandler:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __155__DNDRemoteServiceConnection_getAppConfigurationPredicateForActionIdentifier_forApplicationIdentifier_modeIdentifier_withRequestDetails_completionHandler___block_invoke;
+    v21[3] = &unk_27843B0B0;
+    v22 = handlerCopy;
+    [_remoteTarget getAppConfigurationPredicateForActionIdentifier:identifierCopy forApplicationIdentifier:applicationIdentifierCopy modeIdentifier:modeIdentifierCopy withRequestDetails:detailsCopy completionHandler:v21];
 
-    v18 = v23;
+    v18 = v22;
   }
 
   else
   {
     v19 = MEMORY[0x277CCA9B8];
-    v24 = *MEMORY[0x277CCA450];
-    v25[0] = @"DNDAppConfigurationService is only supported when linking LinkServices";
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v23 = *MEMORY[0x277CCA450];
+    v24[0] = @"DNDAppConfigurationService is only supported when linking LinkServices";
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     v20 = [v19 errorWithDomain:@"DNDErrorDomain" code:1004 userInfo:v18];
     (*(handlerCopy + 2))(handlerCopy, 0, v20);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAppConfigurationTargetContentIdentifierPrefix:(id)prefix forActionIdentifier:(id)identifier forApplicationIdentifier:(id)applicationIdentifier modeIdentifier:(id)modeIdentifier withRequestDetails:(id)details completionHandler:(id)handler
@@ -2334,16 +2300,16 @@ void __156__DNDRemoteServiceConnection_setAppConfigurationPredicate_forActionIde
 
 void __176__DNDRemoteServiceConnection_setAppConfigurationTargetContentIdentifierPrefix_forActionIdentifier_forApplicationIdentifier_modeIdentifier_withRequestDetails_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
   {
     v7 = v6;
     v8 = MEMORY[0x277CCA9B8];
-    v12 = *MEMORY[0x277CCA450];
-    v13[0] = @"Failed to set target content identifier prefix.";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x277CCA450];
+    v12[0] = @"Failed to set target content identifier prefix.";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v10 = [v8 errorWithDomain:@"DNDErrorDomain" code:1008 userInfo:v9];
   }
 
@@ -2353,8 +2319,6 @@ void __176__DNDRemoteServiceConnection_setAppConfigurationTargetContentIdentifie
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getAppConfigurationTargetContentIdentifierPrefixesForModeIdentifier:(id)identifier withRequestDetails:(id)details completionHandler:(id)handler
@@ -2374,7 +2338,7 @@ void __176__DNDRemoteServiceConnection_setAppConfigurationTargetContentIdentifie
 
 - (void)setAppConfigurationAction:(id)action forApplicationIdentifier:(id)identifier modeIdentifier:(id)modeIdentifier withRequestDetails:(id)details completionHandler:(id)handler
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   actionCopy = action;
   identifierCopy = identifier;
   modeIdentifierCopy = modeIdentifier;
@@ -2383,32 +2347,30 @@ void __176__DNDRemoteServiceConnection_setAppConfigurationTargetContentIdentifie
   if (NSClassFromString(&cfstr_Lnaction.isa))
   {
     _remoteTarget = [(DNDRemoteServiceConnection *)self _remoteTarget];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __133__DNDRemoteServiceConnection_setAppConfigurationAction_forApplicationIdentifier_modeIdentifier_withRequestDetails_completionHandler___block_invoke;
-    v22[3] = &unk_27843AF00;
-    v23 = handlerCopy;
-    [_remoteTarget setAppConfigurationAction:actionCopy forApplicationIdentifier:identifierCopy modeIdentifier:modeIdentifierCopy withRequestDetails:detailsCopy completionHandler:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __133__DNDRemoteServiceConnection_setAppConfigurationAction_forApplicationIdentifier_modeIdentifier_withRequestDetails_completionHandler___block_invoke;
+    v21[3] = &unk_27843AF00;
+    v22 = handlerCopy;
+    [_remoteTarget setAppConfigurationAction:actionCopy forApplicationIdentifier:identifierCopy modeIdentifier:modeIdentifierCopy withRequestDetails:detailsCopy completionHandler:v21];
 
-    v18 = v23;
+    v18 = v22;
   }
 
   else
   {
     v19 = MEMORY[0x277CCA9B8];
-    v24 = *MEMORY[0x277CCA450];
-    v25[0] = @"DNDAppConfigurationService is only supported when linking LinkServices";
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v23 = *MEMORY[0x277CCA450];
+    v24[0] = @"DNDAppConfigurationService is only supported when linking LinkServices";
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     v20 = [v19 errorWithDomain:@"DNDErrorDomain" code:1004 userInfo:v18];
     (*(handlerCopy + 2))(handlerCopy, MEMORY[0x277CBEC28], v20);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearAppConfigurationActionWithIdentifier:(id)identifier forApplicationIdentifier:(id)applicationIdentifier modeIdentifier:(id)modeIdentifier withRequestDetails:(id)details completionHandler:(id)handler
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   applicationIdentifierCopy = applicationIdentifier;
   modeIdentifierCopy = modeIdentifier;
@@ -2417,64 +2379,60 @@ void __176__DNDRemoteServiceConnection_setAppConfigurationTargetContentIdentifie
   if (NSClassFromString(&cfstr_Lnaction.isa))
   {
     _remoteTarget = [(DNDRemoteServiceConnection *)self _remoteTarget];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __149__DNDRemoteServiceConnection_clearAppConfigurationActionWithIdentifier_forApplicationIdentifier_modeIdentifier_withRequestDetails_completionHandler___block_invoke;
-    v22[3] = &unk_27843AF00;
-    v23 = handlerCopy;
-    [_remoteTarget clearAppConfigurationActionWithIdentifier:identifierCopy forApplicationIdentifier:applicationIdentifierCopy modeIdentifier:modeIdentifierCopy withRequestDetails:detailsCopy completionHandler:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __149__DNDRemoteServiceConnection_clearAppConfigurationActionWithIdentifier_forApplicationIdentifier_modeIdentifier_withRequestDetails_completionHandler___block_invoke;
+    v21[3] = &unk_27843AF00;
+    v22 = handlerCopy;
+    [_remoteTarget clearAppConfigurationActionWithIdentifier:identifierCopy forApplicationIdentifier:applicationIdentifierCopy modeIdentifier:modeIdentifierCopy withRequestDetails:detailsCopy completionHandler:v21];
 
-    v18 = v23;
+    v18 = v22;
   }
 
   else
   {
     v19 = MEMORY[0x277CCA9B8];
-    v24 = *MEMORY[0x277CCA450];
-    v25[0] = @"DNDAppConfigurationService is only supported when linking LinkServices";
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v23 = *MEMORY[0x277CCA450];
+    v24[0] = @"DNDAppConfigurationService is only supported when linking LinkServices";
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     v20 = [v19 errorWithDomain:@"DNDErrorDomain" code:1004 userInfo:v18];
     (*(handlerCopy + 2))(handlerCopy, MEMORY[0x277CBEC28], v20);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getAppConfigurationActionsForModeIdentifier:(id)identifier withRequestDetails:(id)details completionHandler:(id)handler
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   detailsCopy = details;
   handlerCopy = handler;
   if (NSClassFromString(&cfstr_Lnaction.isa))
   {
     _remoteTarget = [(DNDRemoteServiceConnection *)self _remoteTarget];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __111__DNDRemoteServiceConnection_getAppConfigurationActionsForModeIdentifier_withRequestDetails_completionHandler___block_invoke;
-    v16[3] = &unk_27843B100;
-    v17 = handlerCopy;
-    [_remoteTarget getAppConfigurationActionsForModeIdentifier:identifierCopy withRequestDetails:detailsCopy completionHandler:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __111__DNDRemoteServiceConnection_getAppConfigurationActionsForModeIdentifier_withRequestDetails_completionHandler___block_invoke;
+    v15[3] = &unk_27843B100;
+    v16 = handlerCopy;
+    [_remoteTarget getAppConfigurationActionsForModeIdentifier:identifierCopy withRequestDetails:detailsCopy completionHandler:v15];
 
-    v12 = v17;
+    v12 = v16;
   }
 
   else
   {
     v13 = MEMORY[0x277CCA9B8];
-    v18 = *MEMORY[0x277CCA450];
-    v19[0] = @"DNDAppConfigurationService is only supported when linking LinkServices";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x277CCA450];
+    v18[0] = @"DNDAppConfigurationService is only supported when linking LinkServices";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v14 = [v13 errorWithDomain:@"DNDErrorDomain" code:1004 userInfo:v12];
     (*(handlerCopy + 2))(handlerCopy, 0, v14);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAppAction:(id)action forApplicationIdentifier:(id)identifier modeIdentifier:(id)modeIdentifier withRequestDetails:(id)details completionHandler:(id)handler
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   actionCopy = action;
   identifierCopy = identifier;
   modeIdentifierCopy = modeIdentifier;
@@ -2483,41 +2441,39 @@ void __176__DNDRemoteServiceConnection_setAppConfigurationTargetContentIdentifie
   if (NSClassFromString(&cfstr_Lnaction.isa))
   {
     _remoteTarget = [(DNDRemoteServiceConnection *)self _remoteTarget];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __120__DNDRemoteServiceConnection_setAppAction_forApplicationIdentifier_modeIdentifier_withRequestDetails_completionHandler___block_invoke;
-    v22[3] = &unk_27843AF00;
-    v23 = handlerCopy;
-    [_remoteTarget setAppAction:actionCopy forApplicationIdentifier:identifierCopy modeIdentifier:modeIdentifierCopy withRequestDetails:detailsCopy completionHandler:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __120__DNDRemoteServiceConnection_setAppAction_forApplicationIdentifier_modeIdentifier_withRequestDetails_completionHandler___block_invoke;
+    v21[3] = &unk_27843AF00;
+    v22 = handlerCopy;
+    [_remoteTarget setAppAction:actionCopy forApplicationIdentifier:identifierCopy modeIdentifier:modeIdentifierCopy withRequestDetails:detailsCopy completionHandler:v21];
 
-    v18 = v23;
+    v18 = v22;
   }
 
   else
   {
     v19 = MEMORY[0x277CCA9B8];
-    v24 = *MEMORY[0x277CCA450];
-    v25[0] = @"DNDAppConfigurationService is only supported when linking LinkServices";
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v23 = *MEMORY[0x277CCA450];
+    v24[0] = @"DNDAppConfigurationService is only supported when linking LinkServices";
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     v20 = [v19 errorWithDomain:@"DNDErrorDomain" code:1004 userInfo:v18];
     (*(handlerCopy + 2))(handlerCopy, MEMORY[0x277CBEC28], v20);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __120__DNDRemoteServiceConnection_setAppAction_forApplicationIdentifier_modeIdentifier_withRequestDetails_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
   {
     v7 = v6;
     v8 = MEMORY[0x277CCA9B8];
-    v12 = *MEMORY[0x277CCA450];
-    v13[0] = @"Failed to save action.";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x277CCA450];
+    v12[0] = @"Failed to save action.";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v10 = [v8 errorWithDomain:@"DNDErrorDomain" code:1008 userInfo:v9];
   }
 
@@ -2527,45 +2483,41 @@ void __120__DNDRemoteServiceConnection_setAppAction_forApplicationIdentifier_mod
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getAppActionsForModeIdentifier:(id)identifier withRequestDetails:(id)details completionHandler:(id)handler
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   detailsCopy = details;
   handlerCopy = handler;
   if (NSClassFromString(&cfstr_Lnaction.isa))
   {
     _remoteTarget = [(DNDRemoteServiceConnection *)self _remoteTarget];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __98__DNDRemoteServiceConnection_getAppActionsForModeIdentifier_withRequestDetails_completionHandler___block_invoke;
-    v16[3] = &unk_27843B100;
-    v17 = handlerCopy;
-    [_remoteTarget getAppActionsForModeIdentifier:identifierCopy withRequestDetails:detailsCopy completionHandler:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __98__DNDRemoteServiceConnection_getAppActionsForModeIdentifier_withRequestDetails_completionHandler___block_invoke;
+    v15[3] = &unk_27843B100;
+    v16 = handlerCopy;
+    [_remoteTarget getAppActionsForModeIdentifier:identifierCopy withRequestDetails:detailsCopy completionHandler:v15];
 
-    v12 = v17;
+    v12 = v16;
   }
 
   else
   {
     v13 = MEMORY[0x277CCA9B8];
-    v18 = *MEMORY[0x277CCA450];
-    v19[0] = @"DNDAppConfigurationService is only supported when linking LinkServices";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x277CCA450];
+    v18[0] = @"DNDAppConfigurationService is only supported when linking LinkServices";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v14 = [v13 errorWithDomain:@"DNDErrorDomain" code:1004 userInfo:v12];
     (*(handlerCopy + 2))(handlerCopy, 0, v14);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearAppActionWithIdentifier:(id)identifier forApplicationIdentifier:(id)applicationIdentifier modeIdentifier:(id)modeIdentifier withRequestDetails:(id)details completionHandler:(id)handler
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   applicationIdentifierCopy = applicationIdentifier;
   modeIdentifierCopy = modeIdentifier;
@@ -2574,32 +2526,30 @@ void __120__DNDRemoteServiceConnection_setAppAction_forApplicationIdentifier_mod
   if (NSClassFromString(&cfstr_Lnaction.isa))
   {
     _remoteTarget = [(DNDRemoteServiceConnection *)self _remoteTarget];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __136__DNDRemoteServiceConnection_clearAppActionWithIdentifier_forApplicationIdentifier_modeIdentifier_withRequestDetails_completionHandler___block_invoke;
-    v22[3] = &unk_27843AF00;
-    v23 = handlerCopy;
-    [_remoteTarget clearAppActionWithIdentifier:identifierCopy forApplicationIdentifier:applicationIdentifierCopy modeIdentifier:modeIdentifierCopy withRequestDetails:detailsCopy completionHandler:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __136__DNDRemoteServiceConnection_clearAppActionWithIdentifier_forApplicationIdentifier_modeIdentifier_withRequestDetails_completionHandler___block_invoke;
+    v21[3] = &unk_27843AF00;
+    v22 = handlerCopy;
+    [_remoteTarget clearAppActionWithIdentifier:identifierCopy forApplicationIdentifier:applicationIdentifierCopy modeIdentifier:modeIdentifierCopy withRequestDetails:detailsCopy completionHandler:v21];
 
-    v18 = v23;
+    v18 = v22;
   }
 
   else
   {
     v19 = MEMORY[0x277CCA9B8];
-    v24 = *MEMORY[0x277CCA450];
-    v25[0] = @"DNDAppConfigurationService is only supported when linking LinkServices";
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v23 = *MEMORY[0x277CCA450];
+    v24[0] = @"DNDAppConfigurationService is only supported when linking LinkServices";
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     v20 = [v19 errorWithDomain:@"DNDErrorDomain" code:1004 userInfo:v18];
     (*(handlerCopy + 2))(handlerCopy, MEMORY[0x277CBEC28], v20);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSystemAction:(id)action forModeIdentifier:(id)identifier withRequestDetails:(id)details completionHandler:(id)handler
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   actionCopy = action;
   identifierCopy = identifier;
   detailsCopy = details;
@@ -2607,41 +2557,39 @@ void __120__DNDRemoteServiceConnection_setAppAction_forApplicationIdentifier_mod
   if (NSClassFromString(&cfstr_Wftogglesettin.isa))
   {
     _remoteTarget = [(DNDRemoteServiceConnection *)self _remoteTarget];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __101__DNDRemoteServiceConnection_setSystemAction_forModeIdentifier_withRequestDetails_completionHandler___block_invoke;
-    v19[3] = &unk_27843AF00;
-    v20 = handlerCopy;
-    [_remoteTarget setSystemAction:actionCopy forModeIdentifier:identifierCopy withRequestDetails:detailsCopy completionHandler:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __101__DNDRemoteServiceConnection_setSystemAction_forModeIdentifier_withRequestDetails_completionHandler___block_invoke;
+    v18[3] = &unk_27843AF00;
+    v19 = handlerCopy;
+    [_remoteTarget setSystemAction:actionCopy forModeIdentifier:identifierCopy withRequestDetails:detailsCopy completionHandler:v18];
 
-    v15 = v20;
+    v15 = v19;
   }
 
   else
   {
     v16 = MEMORY[0x277CCA9B8];
-    v21 = *MEMORY[0x277CCA450];
-    v22[0] = @"DNDAppConfigurationService is only supported when linking VoiceShortcutClient";
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x277CCA450];
+    v21[0] = @"DNDAppConfigurationService is only supported when linking VoiceShortcutClient";
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     v17 = [v16 errorWithDomain:@"DNDErrorDomain" code:1004 userInfo:v15];
     (*(handlerCopy + 2))(handlerCopy, MEMORY[0x277CBEC28], v17);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __101__DNDRemoteServiceConnection_setSystemAction_forModeIdentifier_withRequestDetails_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
   {
     v7 = v6;
     v8 = MEMORY[0x277CCA9B8];
-    v12 = *MEMORY[0x277CCA450];
-    v13[0] = @"Failed to save action.";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x277CCA450];
+    v12[0] = @"Failed to save action.";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v10 = [v8 errorWithDomain:@"DNDErrorDomain" code:1008 userInfo:v9];
   }
 
@@ -2651,13 +2599,11 @@ void __101__DNDRemoteServiceConnection_setSystemAction_forModeIdentifier_withReq
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearSystemActionWithIdentifier:(id)identifier forModeIdentifier:(id)modeIdentifier withRequestDetails:(id)details completionHandler:(id)handler
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   modeIdentifierCopy = modeIdentifier;
   detailsCopy = details;
@@ -2665,64 +2611,60 @@ void __101__DNDRemoteServiceConnection_setSystemAction_forModeIdentifier_withReq
   if (NSClassFromString(&cfstr_Wftogglesettin.isa))
   {
     _remoteTarget = [(DNDRemoteServiceConnection *)self _remoteTarget];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __117__DNDRemoteServiceConnection_clearSystemActionWithIdentifier_forModeIdentifier_withRequestDetails_completionHandler___block_invoke;
-    v19[3] = &unk_27843AF00;
-    v20 = handlerCopy;
-    [_remoteTarget clearSystemActionWithIdentifier:identifierCopy forModeIdentifier:modeIdentifierCopy withRequestDetails:detailsCopy completionHandler:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __117__DNDRemoteServiceConnection_clearSystemActionWithIdentifier_forModeIdentifier_withRequestDetails_completionHandler___block_invoke;
+    v18[3] = &unk_27843AF00;
+    v19 = handlerCopy;
+    [_remoteTarget clearSystemActionWithIdentifier:identifierCopy forModeIdentifier:modeIdentifierCopy withRequestDetails:detailsCopy completionHandler:v18];
 
-    v15 = v20;
+    v15 = v19;
   }
 
   else
   {
     v16 = MEMORY[0x277CCA9B8];
-    v21 = *MEMORY[0x277CCA450];
-    v22[0] = @"DNDAppConfigurationService is only supported when linking VoiceShortcutClient";
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x277CCA450];
+    v21[0] = @"DNDAppConfigurationService is only supported when linking VoiceShortcutClient";
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     v17 = [v16 errorWithDomain:@"DNDErrorDomain" code:1004 userInfo:v15];
     (*(handlerCopy + 2))(handlerCopy, MEMORY[0x277CBEC28], v17);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getSystemActionsForModeIdentifier:(id)identifier withRequestDetails:(id)details completionHandler:(id)handler
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   detailsCopy = details;
   handlerCopy = handler;
   if (NSClassFromString(&cfstr_Wftogglesettin.isa))
   {
     _remoteTarget = [(DNDRemoteServiceConnection *)self _remoteTarget];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __101__DNDRemoteServiceConnection_getSystemActionsForModeIdentifier_withRequestDetails_completionHandler___block_invoke;
-    v16[3] = &unk_27843B128;
-    v17 = handlerCopy;
-    [_remoteTarget getSystemActionsForModeIdentifier:identifierCopy withRequestDetails:detailsCopy completionHandler:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __101__DNDRemoteServiceConnection_getSystemActionsForModeIdentifier_withRequestDetails_completionHandler___block_invoke;
+    v15[3] = &unk_27843B128;
+    v16 = handlerCopy;
+    [_remoteTarget getSystemActionsForModeIdentifier:identifierCopy withRequestDetails:detailsCopy completionHandler:v15];
 
-    v12 = v17;
+    v12 = v16;
   }
 
   else
   {
     v13 = MEMORY[0x277CCA9B8];
-    v18 = *MEMORY[0x277CCA450];
-    v19[0] = @"DNDAppConfigurationService is only supported when linking VoiceShortcutClient";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x277CCA450];
+    v18[0] = @"DNDAppConfigurationService is only supported when linking VoiceShortcutClient";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v14 = [v13 errorWithDomain:@"DNDErrorDomain" code:1004 userInfo:v12];
     (*(handlerCopy + 2))(handlerCopy, 0, v14);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSystemConfigurationAction:(id)action modeIdentifier:(id)identifier withRequestDetails:(id)details completionHandler:(id)handler
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   actionCopy = action;
   identifierCopy = identifier;
   detailsCopy = details;
@@ -2730,32 +2672,30 @@ void __101__DNDRemoteServiceConnection_setSystemAction_forModeIdentifier_withReq
   if (NSClassFromString(&cfstr_Wftogglesettin.isa))
   {
     _remoteTarget = [(DNDRemoteServiceConnection *)self _remoteTarget];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __111__DNDRemoteServiceConnection_setSystemConfigurationAction_modeIdentifier_withRequestDetails_completionHandler___block_invoke;
-    v19[3] = &unk_27843AF00;
-    v20 = handlerCopy;
-    [_remoteTarget setSystemConfigurationAction:actionCopy modeIdentifier:identifierCopy withRequestDetails:detailsCopy completionHandler:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __111__DNDRemoteServiceConnection_setSystemConfigurationAction_modeIdentifier_withRequestDetails_completionHandler___block_invoke;
+    v18[3] = &unk_27843AF00;
+    v19 = handlerCopy;
+    [_remoteTarget setSystemConfigurationAction:actionCopy modeIdentifier:identifierCopy withRequestDetails:detailsCopy completionHandler:v18];
 
-    v15 = v20;
+    v15 = v19;
   }
 
   else
   {
     v16 = MEMORY[0x277CCA9B8];
-    v21 = *MEMORY[0x277CCA450];
-    v22[0] = @"DNDAppConfigurationService is only supported when linking VoiceShortcutClient";
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x277CCA450];
+    v21[0] = @"DNDAppConfigurationService is only supported when linking VoiceShortcutClient";
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     v17 = [v16 errorWithDomain:@"DNDErrorDomain" code:1004 userInfo:v15];
     (*(handlerCopy + 2))(handlerCopy, MEMORY[0x277CBEC28], v17);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearSystemConfigurationActionWithIdentifier:(id)identifier modeIdentifier:(id)modeIdentifier withRequestDetails:(id)details completionHandler:(id)handler
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   modeIdentifierCopy = modeIdentifier;
   detailsCopy = details;
@@ -2763,59 +2703,55 @@ void __101__DNDRemoteServiceConnection_setSystemAction_forModeIdentifier_withReq
   if (NSClassFromString(&cfstr_Wftogglesettin.isa))
   {
     _remoteTarget = [(DNDRemoteServiceConnection *)self _remoteTarget];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __127__DNDRemoteServiceConnection_clearSystemConfigurationActionWithIdentifier_modeIdentifier_withRequestDetails_completionHandler___block_invoke;
-    v19[3] = &unk_27843AF00;
-    v20 = handlerCopy;
-    [_remoteTarget clearSystemConfigurationActionWithIdentifier:identifierCopy modeIdentifier:modeIdentifierCopy withRequestDetails:detailsCopy completionHandler:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __127__DNDRemoteServiceConnection_clearSystemConfigurationActionWithIdentifier_modeIdentifier_withRequestDetails_completionHandler___block_invoke;
+    v18[3] = &unk_27843AF00;
+    v19 = handlerCopy;
+    [_remoteTarget clearSystemConfigurationActionWithIdentifier:identifierCopy modeIdentifier:modeIdentifierCopy withRequestDetails:detailsCopy completionHandler:v18];
 
-    v15 = v20;
+    v15 = v19;
   }
 
   else
   {
     v16 = MEMORY[0x277CCA9B8];
-    v21 = *MEMORY[0x277CCA450];
-    v22[0] = @"DNDAppConfigurationService is only supported when linking VoiceShortcutClient";
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x277CCA450];
+    v21[0] = @"DNDAppConfigurationService is only supported when linking VoiceShortcutClient";
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     v17 = [v16 errorWithDomain:@"DNDErrorDomain" code:1004 userInfo:v15];
     (*(handlerCopy + 2))(handlerCopy, MEMORY[0x277CBEC28], v17);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getSystemConfigurationActionsForModeIdentifier:(id)identifier withRequestDetails:(id)details completionHandler:(id)handler
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   detailsCopy = details;
   handlerCopy = handler;
   if (NSClassFromString(&cfstr_Wftogglesettin.isa))
   {
     _remoteTarget = [(DNDRemoteServiceConnection *)self _remoteTarget];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __114__DNDRemoteServiceConnection_getSystemConfigurationActionsForModeIdentifier_withRequestDetails_completionHandler___block_invoke;
-    v16[3] = &unk_27843B150;
-    v17 = handlerCopy;
-    [_remoteTarget getSystemConfigurationActionsForModeIdentifier:identifierCopy withRequestDetails:detailsCopy completionHandler:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __114__DNDRemoteServiceConnection_getSystemConfigurationActionsForModeIdentifier_withRequestDetails_completionHandler___block_invoke;
+    v15[3] = &unk_27843B150;
+    v16 = handlerCopy;
+    [_remoteTarget getSystemConfigurationActionsForModeIdentifier:identifierCopy withRequestDetails:detailsCopy completionHandler:v15];
 
-    v12 = v17;
+    v12 = v16;
   }
 
   else
   {
     v13 = MEMORY[0x277CCA9B8];
-    v18 = *MEMORY[0x277CCA450];
-    v19[0] = @"DNDAppConfigurationService is only supported when linking VoiceShortcutClient";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x277CCA450];
+    v18[0] = @"DNDAppConfigurationService is only supported when linking VoiceShortcutClient";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v14 = [v13 errorWithDomain:@"DNDErrorDomain" code:1004 userInfo:v12];
     (*(handlerCopy + 2))(handlerCopy, 0, v14);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetAppConfigurationStateWithRequestDetails:(id)details completionHandler:(id)handler

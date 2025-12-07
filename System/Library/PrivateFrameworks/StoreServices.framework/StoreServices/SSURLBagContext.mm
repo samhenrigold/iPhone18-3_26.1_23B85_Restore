@@ -313,15 +313,15 @@ LABEL_3:
     _init->_allowsBootstrapCellularData = xpc_dictionary_get_BOOL(encoding, "7");
     _init->_allowsExpiredBags = xpc_dictionary_get_BOOL(encoding, "5");
     _init->_bagType = xpc_dictionary_get_int64(encoding, "0");
-    objc_opt_class();
-    _init->_clientAuditTokenData = SSXPCDictionaryCopyCFObjectWithClass(encoding, "8");
+    v7 = objc_opt_class();
+    _init->_clientAuditTokenData = SSXPCDictionaryCopyCFObjectWithClass(encoding, "8", v7);
     _init->_ignoresCaches = xpc_dictionary_get_BOOL(encoding, "3");
-    objc_opt_class();
-    _init->_userIdentifier = SSXPCDictionaryCopyCFObjectWithClass(encoding, "2");
+    v8 = objc_opt_class();
+    _init->_userIdentifier = SSXPCDictionaryCopyCFObjectWithClass(encoding, "2", v8);
     _init->_usesCachedBagsOnly = xpc_dictionary_get_BOOL(encoding, "6");
     _init->_useBinCompatBag = xpc_dictionary_get_BOOL(encoding, "9");
-    objc_opt_class();
-    self = SSXPCDictionaryCopyCFObjectWithClass(encoding, "1");
+    v9 = objc_opt_class();
+    self = SSXPCDictionaryCopyCFObjectWithClass(encoding, "1", v9);
     _init->_httpHeaders = [(SSURLBagContext *)self mutableCopy];
   }
 

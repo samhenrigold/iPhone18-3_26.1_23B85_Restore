@@ -8,26 +8,26 @@
 
 - (id)accessibilityLabel
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   [(MailStatusBarViewAccessibility *)self safeArrayForKey:@"subviews"];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v2 = v12 = 0u;
-  accessibilityLabel = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = v11 = 0u;
+  accessibilityLabel = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (accessibilityLabel)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != accessibilityLabel; i = i + 1)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         if ([v6 _accessibilityViewIsVisible])
         {
           accessibilityLabel = [v6 accessibilityLabel];
@@ -35,7 +35,7 @@
         }
       }
 
-      accessibilityLabel = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      accessibilityLabel = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (accessibilityLabel)
       {
         continue;
@@ -46,8 +46,6 @@
   }
 
 LABEL_11:
-
-  v7 = *MEMORY[0x29EDCA608];
 
   return accessibilityLabel;
 }

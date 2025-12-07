@@ -25,60 +25,60 @@
 
 + (id)computeIncompatibleSchedulesFromSchedules:(id)schedules devices:(id)devices
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   schedulesCopy = schedules;
   devicesCopy = devices;
-  v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v20 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = schedulesCopy;
-  v6 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v6 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v29;
+    v8 = *v28;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v29 != v8)
+        if (*v28 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v28 + 1) + 8 * i);
+        v10 = *(*(&v27 + 1) + 8 * i);
         if (([v10 isUnavailable] & 1) == 0)
         {
           v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          v23 = 0u;
           v24 = 0u;
           v25 = 0u;
           v26 = 0u;
-          v27 = 0u;
           v12 = devicesCopy;
-          v13 = [v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
           if (v13)
           {
             v14 = v13;
-            v15 = *v25;
+            v15 = *v24;
             do
             {
               for (j = 0; j != v14; ++j)
               {
-                if (*v25 != v15)
+                if (*v24 != v15)
                 {
                   objc_enumerationMutation(v12);
                 }
 
-                v17 = *(*(&v24 + 1) + 8 * j);
+                v17 = *(*(&v23 + 1) + 8 * j);
                 if (([v17 isCompatibleWithSchedule:v10] & 1) == 0)
                 {
                   [v11 addObject:v17];
                 }
               }
 
-              v14 = [v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
+              v14 = [v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
             }
 
             while (v14);
@@ -87,20 +87,18 @@
           if ([v11 count])
           {
             v18 = [[HKMedicationScheduleIncompatibilityResult alloc] initWithSchedule:v10 incompatibleDevices:v11];
-            [v21 addObject:v18];
+            [v20 addObject:v18];
           }
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v7 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v7);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v20;
 }
 
 - (void)_resolveIncompatibleScheduleResultsFromSchedules:(id)schedules scheduleError:(id)error devices:(id)devices deviceError:(id)deviceError completion:(id)completion

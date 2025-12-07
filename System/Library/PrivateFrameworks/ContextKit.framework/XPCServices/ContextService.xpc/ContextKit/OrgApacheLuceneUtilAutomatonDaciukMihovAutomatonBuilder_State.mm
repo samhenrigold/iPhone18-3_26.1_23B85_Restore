@@ -16,7 +16,7 @@
 
 - (id)getStateWithInt:(int)int
 {
-  v4 = JavaUtilArrays_binarySearchWithIntArray_withInt_(self->labels_, int);
+  v4 = JavaUtilArrays_binarySearchWithIntArray_withInt_(self->labels_, *&int);
   if ((v4 & 0x80000000) != 0)
   {
     return 0;
@@ -109,7 +109,6 @@ LABEL_16:
       v11 = *(v7 + 8);
       if (v9 >= v11)
       {
-        v14 = (&states->elementType_)[v9];
         IOSArray_throwOutOfBoundsWithMsg(v11, v9);
       }
 
@@ -185,7 +184,7 @@ LABEL_10:
     goto LABEL_9;
   }
 
-  v7 = JavaUtilArrays_copyOfWithIntArray_withInt_(labels, labels->super.size_ + 1);
+  v7 = JavaUtilArrays_copyOfWithIntArray_withInt_(labels, (labels->super.size_ + 1));
   JreStrongAssign(p_labels, v7);
   states = self->states_;
   p_states = &self->states_;
@@ -195,7 +194,7 @@ LABEL_10:
     goto LABEL_9;
   }
 
-  v11 = JavaUtilArrays_copyOfWithNSObjectArray_withInt_(v8, v8->super.size_ + 1);
+  v11 = JavaUtilArrays_copyOfWithNSObjectArray_withInt_(v8, (v8->super.size_ + 1));
   JreStrongAssign(p_states, v11);
   v12 = *p_labels;
   if (!*p_labels)

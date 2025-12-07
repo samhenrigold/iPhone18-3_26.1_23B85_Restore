@@ -156,7 +156,7 @@
 
 - (BOOL)openWithMode:(unint64_t)mode error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = [[KGDatabase alloc] initWithURL:self->_url];
   database = self->_database;
   self->_database = v7;
@@ -167,30 +167,30 @@
     v10 = objc_autoreleasePoolPush();
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v23 = 0x2020000000;
-    v24 = 0;
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __51__KGDegasAllInMemoryGraphStore_openWithMode_error___block_invoke;
-    v20[3] = &unk_2797FEB30;
-    v20[4] = self;
-    v20[5] = &buf;
-    [(KGDegasAllInMemoryGraphStore *)self enumerateModelNodesWithBlock:v20];
+    v22 = 0x2020000000;
+    v23 = 0;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __51__KGDegasAllInMemoryGraphStore_openWithMode_error___block_invoke;
+    v19[3] = &unk_2797FEB30;
+    v19[4] = self;
+    v19[5] = &buf;
+    [(KGDegasAllInMemoryGraphStore *)self enumerateModelNodesWithBlock:v19];
     [(KGMemoryGraphStore *)self setNextNodeIdentifier:*(*(&buf + 1) + 24) + 1];
     _Block_object_dispose(&buf, 8);
     objc_autoreleasePoolPop(v10);
     v11 = objc_autoreleasePoolPush();
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v23 = 0x2020000000;
-    v24 = 0;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __51__KGDegasAllInMemoryGraphStore_openWithMode_error___block_invoke_2;
-    v19[3] = &unk_2797FEB58;
-    v19[4] = self;
-    v19[5] = &buf;
-    [(KGDegasAllInMemoryGraphStore *)self enumerateModelEdgesWithBlock:v19];
+    v22 = 0x2020000000;
+    v23 = 0;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __51__KGDegasAllInMemoryGraphStore_openWithMode_error___block_invoke_2;
+    v18[3] = &unk_2797FEB58;
+    v18[4] = self;
+    v18[5] = &buf;
+    [(KGDegasAllInMemoryGraphStore *)self enumerateModelEdgesWithBlock:v18];
     [(KGMemoryGraphStore *)self setNextEdgeIdentifier:*(*(&buf + 1) + 24) + 1];
     _Block_object_dispose(&buf, 8);
     objc_autoreleasePoolPop(v11);
@@ -200,9 +200,9 @@
   {
     v12 = objc_opt_class();
     url = self->_url;
-    v21 = 0;
-    v14 = [v12 destroyAtURL:url error:&v21];
-    v15 = v21;
+    v20 = 0;
+    v14 = [v12 destroyAtURL:url error:&v20];
+    v15 = v20;
     if ((v14 & 1) == 0)
     {
       v16 = KGLoggingConnection();
@@ -215,7 +215,6 @@
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

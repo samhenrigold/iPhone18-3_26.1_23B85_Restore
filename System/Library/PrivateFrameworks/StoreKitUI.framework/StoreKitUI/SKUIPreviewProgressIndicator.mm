@@ -23,9 +23,9 @@
     [SKUIPreviewProgressIndicator initWithFrame:];
   }
 
-  v33.receiver = self;
-  v33.super_class = SKUIPreviewProgressIndicator;
-  height = [(SKUIPreviewProgressIndicator *)&v33 initWithFrame:x, y, width, height];
+  v35.receiver = self;
+  v35.super_class = SKUIPreviewProgressIndicator;
+  height = [(SKUIPreviewProgressIndicator *)&v35 initWithFrame:x, y, width, height];
   v9 = height;
   if (height)
   {
@@ -54,15 +54,15 @@
     [layer setFillColor:{objc_msgSend(clearColor2, "CGColor")}];
 
     [layer setStrokeEnd:0.0];
-    [(SKUIPreviewProgressIndicator *)v9 addSubview:v9->_foregroundView];
-    v26 = MEMORY[0x277D755B8];
-    v27 = SKUIBundle();
-    v28 = [v26 imageNamed:@"DownloadProgressButtonConnecting" inBundle:v27];
-    v29 = [v28 imageWithRenderingMode:2];
+    v26 = [(SKUIPreviewProgressIndicator *)v9 addSubview:v9->_foregroundView];
+    v27 = MEMORY[0x277D755B8];
+    v29 = SKUIBundle(v26, v28);
+    v30 = [v27 imageNamed:@"DownloadProgressButtonConnecting" inBundle:v29];
+    v31 = [v30 imageWithRenderingMode:2];
 
-    v30 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v29];
+    v32 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v31];
     cancelImageView = v9->_cancelImageView;
-    v9->_cancelImageView = v30;
+    v9->_cancelImageView = v32;
 
     [(UIImageView *)v9->_cancelImageView setAutoresizingMask:18];
     [(UIImageView *)v9->_cancelImageView setContentMode:4];
@@ -133,7 +133,7 @@
     v7 = v6;
     if (v6 >= 2.22044605e-16)
     {
-      [statusCopy currentTime];
+      objc_msgSend_currentTime(statusCopy);
       v8 = v9 / v7;
       *&v8 = v8;
     }
@@ -225,7 +225,7 @@
   [MEMORY[0x277D75D18] animateKeyframesWithDuration:197228 delay:v5 options:0 animations:1.0 completion:0.0];
 }
 
-uint64_t __60__SKUIPreviewProgressIndicator__beginIndeterminateAnimation__block_invoke(uint64_t a1)
+void *__60__SKUIPreviewProgressIndicator__beginIndeterminateAnimation__block_invoke(uint64_t a1)
 {
   v2 = 0;
   v3 = MEMORY[0x277D85DD0];

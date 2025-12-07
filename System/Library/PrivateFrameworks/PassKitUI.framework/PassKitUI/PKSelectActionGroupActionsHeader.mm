@@ -146,39 +146,44 @@
   [(PKSelectActionGroupActionsHeader *)self _imageSize];
   v10 = v9;
   v12 = v11;
-  v26.origin.x = v6;
-  v26.origin.y = v7;
-  v26.size.width = width + -40.0;
-  v26.size.height = height;
-  CGRectDivide(v26, &slice, &remainder, 20.0, CGRectMinYEdge);
+  v13 = v11 + 0.0;
+  v31.origin.x = v6;
+  v31.origin.y = v7;
+  v31.size.width = width + -40.0;
+  v31.size.height = height;
+  CGRectDivide(v31, &slice, &remainder, 20.0, CGRectMinYEdge);
   CGRectDivide(remainder, &slice, &remainder, v12, CGRectMinYEdge);
   if (!self->_isTemplateLayout)
   {
-    v13 = fmin(v10, v8);
-    [(UIImageView *)self->_imageView setFrame:(width - v13) * 0.5, 20.0, v13, v12];
+    v14 = fmin(v10, v8);
+    [(UIImageView *)self->_imageView setFrame:(width - v14) * 0.5, 20.0, v14, v12];
   }
 
   [(UILabel *)self->_titleLabel sizeThatFits:remainder.size.width, 1.79769313e308];
-  v15 = v14;
+  v16 = v15;
+  v17 = v13 + v15;
   CGRectDivide(remainder, &slice, &remainder, 20.0, CGRectMinYEdge);
-  CGRectDivide(remainder, &slice, &remainder, v15, CGRectMinYEdge);
+  CGRectDivide(remainder, &slice, &remainder, v16, CGRectMinYEdge);
   if (!self->_isTemplateLayout)
   {
     [(UILabel *)self->_titleLabel setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
   }
 
   [(UILabel *)self->_subtitleLabel sizeThatFits:remainder.size.width, 1.79769313e308];
-  v17 = v16;
+  v19 = v18;
+  v20 = v17 + v18;
   CGRectDivide(remainder, &slice, &remainder, 10.0, CGRectMinYEdge);
-  CGRectDivide(remainder, &slice, &remainder, v17, CGRectMinYEdge);
+  CGRectDivide(remainder, &slice, &remainder, v19, CGRectMinYEdge);
   if (!self->_isTemplateLayout)
   {
     [(UILabel *)self->_subtitleLabel setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
   }
 
   CGRectDivide(remainder, &slice, &remainder, 10.0, CGRectMinYEdge);
-  PKFloatRoundToPixel();
-  v19 = v18;
+  v21.n128_u64[0] = 20.0;
+  v22.n128_f64[0] = v20 + 40.0 + 20.0;
+  PKFloatRoundToPixel(v22, v21);
+  v24 = v23;
   if (!self->_isTemplateLayout)
   {
     spinner = self->_spinner;
@@ -187,10 +192,10 @@
     [(UIActivityIndicatorView *)spinner setFrame:?];
   }
 
-  v21 = width;
-  v22 = v19;
-  result.height = v22;
-  result.width = v21;
+  v26 = width;
+  v27 = v24;
+  result.height = v27;
+  result.width = v26;
   return result;
 }
 

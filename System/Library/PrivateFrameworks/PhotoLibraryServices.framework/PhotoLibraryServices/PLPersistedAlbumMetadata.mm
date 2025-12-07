@@ -276,7 +276,7 @@ LABEL_89:
           v72 = kind;
           v74 = importedByBundleIdentifier;
           v68 = title;
-          v42 = [_fetchChildUUIDs count];
+          v42 = objc_msgSend_count(_fetchChildUUIDs);
           v43 = malloc_type_malloc(16 * v42, 0xCC167836uLL);
           v84 = 0u;
           v85 = 0u;
@@ -339,7 +339,7 @@ LABEL_89:
 LABEL_83:
           v74 = importedByBundleIdentifier;
           assetUUIDs = [(PLPersistedAlbumMetadata *)self assetUUIDs];
-          v42 = [assetUUIDs count];
+          v42 = objc_msgSend_count(assetUUIDs);
 
           v53 = malloc_type_malloc(16 * v42, 0x7ED28B99uLL);
           v43 = v53;
@@ -413,8 +413,8 @@ LABEL_88:
   v12 = +[PLImportSession entityName];
   v13 = [v11 entityForName:v12 inManagedObjectContext:managedObjectContext];
 
-  entity = [(PLGenericAlbum *)self->_genericAlbum entity];
-  v15 = [entity isKindOfEntity:v10];
+  v14 = objc_msgSend_entity(self->_genericAlbum);
+  v15 = [v14 isKindOfEntity:v10];
 
   if (v15)
   {
@@ -431,8 +431,8 @@ LABEL_88:
 
   else
   {
-    entity2 = [(PLGenericAlbum *)self->_genericAlbum entity];
-    v22 = [entity2 isKindOfEntity:v13];
+    v21 = objc_msgSend_entity(self->_genericAlbum);
+    v22 = [v21 isKindOfEntity:v13];
 
     if (v22)
     {
@@ -445,8 +445,8 @@ LABEL_88:
     else
     {
       objectID2 = [MEMORY[0x1E696AAA8] currentHandler];
-      entity3 = [(PLGenericAlbum *)self->_genericAlbum entity];
-      [objectID2 handleFailureInMethod:a2 object:self file:@"PLPersistedAlbumMetadata.m" lineNumber:433 description:{@"Unsupported entity type: %@", entity3}];
+      v26 = objc_msgSend_entity(self->_genericAlbum);
+      [objectID2 handleFailureInMethod:a2 object:self file:@"PLPersistedAlbumMetadata.m" lineNumber:433 description:{@"Unsupported entity type: %@", v26}];
     }
   }
 
@@ -748,7 +748,7 @@ LABEL_88:
       [(PLPersistedAlbumMetadata *)selfCopy assetUUIDs];
     }
     v26 = ;
-    v25 = [v26 count];
+    v25 = objc_msgSend_count(v26);
   }
 
   else
@@ -781,7 +781,7 @@ LABEL_88:
   {
     if (v12)
     {
-      v13 = [v9 count];
+      v13 = objc_msgSend_count(v9);
       uuid = [albumCopy uuid];
       *buf = 67109378;
       *v25 = v13;
@@ -1112,9 +1112,9 @@ LABEL_46:
 + (BOOL)isValidPath:(id)path
 {
   pathExtension = [path pathExtension];
-  v4 = [pathExtension isEqualToString:PLPersistedAlbumExtension];
+  isEqualToString = objc_msgSend_isEqualToString_(pathExtension);
 
-  return v4;
+  return isEqualToString;
 }
 
 @end

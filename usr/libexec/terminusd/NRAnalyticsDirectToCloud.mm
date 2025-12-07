@@ -6,25 +6,11 @@
 
 - (void)submit
 {
-  if (self)
-  {
-    directToCloudRequestStart = self->_directToCloudRequestStart;
-    directToCloudRequestEnd = self->_directToCloudRequestEnd;
-    NRDiffMachTimeInSeconds();
-    v6 = v5;
-    iRATManagerQueryStart = self->_iRATManagerQueryStart;
-    iRATManagerQueryEnd = self->_iRATManagerQueryEnd;
-  }
-
-  else
-  {
-    NRDiffMachTimeInSeconds();
-    v6 = v20;
-  }
-
   NRDiffMachTimeInSeconds();
-  v10 = v9;
-  v11 = [NSNumber numberWithDouble:round(v6 * 1000.0) * 0.001];
+  v4 = v3;
+  NRDiffMachTimeInSeconds();
+  v6 = v5;
+  v7 = [NSNumber numberWithDouble:round(v4 * 1000.0) * 0.001];
   if (self)
   {
     eventDictionary = self->super._eventDictionary;
@@ -35,54 +21,54 @@
     eventDictionary = 0;
   }
 
-  [(NSMutableDictionary *)eventDictionary setObject:v11 forKeyedSubscript:@"requestDurationInSec"];
+  [(NSMutableDictionary *)eventDictionary setObject:v7 forKeyedSubscript:@"requestDurationInSec"];
 
-  v13 = [NSNumber numberWithDouble:round(v10 * 1000.0) * 0.001];
+  v9 = [NSNumber numberWithDouble:round(v6 * 1000.0) * 0.001];
   if (self)
   {
-    v14 = self->super._eventDictionary;
+    v10 = self->super._eventDictionary;
   }
 
   else
   {
-    v14 = 0;
+    v10 = 0;
   }
 
-  [(NSMutableDictionary *)v14 setObject:v13 forKeyedSubscript:@"iRATQueryDurationInSec"];
+  [(NSMutableDictionary *)v10 setObject:v9 forKeyedSubscript:@"iRATQueryDurationInSec"];
 
   if (self)
   {
-    v15 = self->_timeSinceLastDirectToCloudRequest * 1000.0;
+    v11 = self->_timeSinceLastDirectToCloudRequest * 1000.0;
   }
 
   else
   {
-    v15 = 0.0;
+    v11 = 0.0;
   }
 
-  v16 = [NSNumber numberWithDouble:round(v15) * 0.001];
+  v12 = [NSNumber numberWithDouble:round(v11) * 0.001];
   if (!self)
   {
-    v19 = @"timeSinceLastRequestInSec";
-    v18 = 0;
-    goto LABEL_14;
+    v15 = @"timeSinceLastRequestInSec";
+    v14 = 0;
+    goto LABEL_12;
   }
 
-  [(NSMutableDictionary *)self->super._eventDictionary setObject:v16 forKeyedSubscript:@"timeSinceLastRequestInSec"];
+  [(NSMutableDictionary *)self->super._eventDictionary setObject:v12 forKeyedSubscript:@"timeSinceLastRequestInSec"];
 
   if (self->_iRATManagerQueryIncomplete)
   {
-    v17 = [NSNumber numberWithBool:1];
-    [(NSMutableDictionary *)self->super._eventDictionary setObject:v17 forKeyedSubscript:@"iRATManagerQueryIncomplete"];
+    v13 = [NSNumber numberWithBool:1];
+    [(NSMutableDictionary *)self->super._eventDictionary setObject:v13 forKeyedSubscript:@"iRATManagerQueryIncomplete"];
   }
 
   if (self->_fallbackAdvisoryIssued)
   {
-    v16 = [NSNumber numberWithBool:1];
-    v18 = self->super._eventDictionary;
-    v19 = @"fallbackAdvisoryIssued";
-LABEL_14:
-    [(NSMutableDictionary *)v18 setObject:v16 forKeyedSubscript:v19];
+    v12 = [NSNumber numberWithBool:1];
+    v14 = self->super._eventDictionary;
+    v15 = @"fallbackAdvisoryIssued";
+LABEL_12:
+    [(NSMutableDictionary *)v14 setObject:v12 forKeyedSubscript:v15];
   }
 
   sub_1001557BC(self, @"com.apple.networkrelay.analytics.directToCloud");

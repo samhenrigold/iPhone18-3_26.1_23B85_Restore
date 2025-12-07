@@ -89,38 +89,40 @@
 
 - (id)metalTextureWithEngineContext:(__C3DEngineContext *)context textureSampler:(__C3DTextureSampler *)sampler nextFrameTime:(double *)time status:(id *)status
 {
-  v23[1] = *MEMORY[0x277D85DE8];
-  RenderContext = C3DEngineContextGetRenderContext(context);
+  v24[1] = *MEMORY[0x277D85DE8];
+  RenderContext = C3DEngineContextGetRenderContext(context, a2);
   [(SCNAVPlayerSource *)self registerPlayerIfNeeded:self->_player];
   videoOutput = self->_data.videoOutput;
-  v20 = 0uLL;
-  v21 = 0;
+  v21 = 0uLL;
+  v22 = 0;
   SystemTime = C3DEngineContextGetSystemTime(context);
   if (videoOutput)
   {
-    [(pixelBuffer *)videoOutput itemTimeForHostTime:SystemTime];
+    objc_msgSend_itemTimeForHostTime_(videoOutput, SystemTime);
   }
 
   else
   {
-    v20 = 0uLL;
-    v21 = 0;
+    v21 = 0uLL;
+    v22 = 0;
   }
 
-  v18 = v20;
   v19 = v21;
-  if ([(pixelBuffer *)videoOutput hasNewPixelBufferForItemTime:&v18])
+  v20 = v22;
+  Height = [(pixelBuffer *)videoOutput hasNewPixelBufferForItemTime:&v19];
+  if (Height)
   {
-    v18 = v20;
     v19 = v21;
-    v12 = [(pixelBuffer *)videoOutput copyPixelBufferForItemTime:&v18 itemTimeForDisplay:0];
-    if (v12)
+    v20 = v22;
+    Height = [(pixelBuffer *)videoOutput copyPixelBufferForItemTime:&v19 itemTimeForDisplay:0];
+    if (Height)
     {
-      v13 = v12;
+      v14 = Height;
       SCNVideoTextureSourceDiscardVideoData(&self->_data);
-      self->_data.var0 = v13;
-      self->_width = CVPixelBufferGetWidth(v13);
-      self->_height = CVPixelBufferGetHeight(v13);
+      self->_data.var0 = v14;
+      self->_width = CVPixelBufferGetWidth(v14);
+      Height = CVPixelBufferGetHeight(v14);
+      self->_height = Height;
     }
   }
 
@@ -138,9 +140,9 @@
       if (!textureCache)
       {
         device = [(SCNMTLRenderContext *)RenderContext device];
-        v22 = *MEMORY[0x277CC4D50];
-        v23[0] = &unk_282E0F8E8;
-        CVMetalTextureCacheCreate(0, 0, device, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1], &self->_textureCache);
+        v23 = *MEMORY[0x277CC4D50];
+        v24[0] = &unk_282E0F8E8;
+        CVMetalTextureCacheCreate(0, 0, device, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1], &self->_textureCache);
         textureCache = self->_textureCache;
       }
 
@@ -152,8 +154,8 @@
 
   else
   {
-    v15 = scn_default_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = scn_default_log(Height, v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [SCNAVPlayerSource metalTextureWithEngineContext:textureSampler:nextFrameTime:status:];
     }

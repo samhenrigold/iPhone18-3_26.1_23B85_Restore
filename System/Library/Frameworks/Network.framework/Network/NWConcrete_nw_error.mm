@@ -25,7 +25,7 @@
       v10 = gLogObj;
       *__strerrbuf = 136446210;
       v42 = "[NWConcrete_nw_error description]";
-      v11 = _os_log_send_and_compose_impl();
+      v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s CFStringCreateWithFormat failed", __strerrbuf, 12);
 
       buf[0] = 16;
       type = OS_LOG_TYPE_DEFAULT;
@@ -128,7 +128,7 @@ LABEL_24:
       v42 = "[NWConcrete_nw_error description]";
       v43 = 1024;
       *v44 = code;
-      v11 = _os_log_send_and_compose_impl();
+      v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v15, 16, "%{public}s SecCopyErrorMessageString(%d, NULL) failed", __strerrbuf, 18);
 
       buf[0] = 16;
       type = OS_LOG_TYPE_DEFAULT;
@@ -246,7 +246,7 @@ LABEL_65:
     v4 = gLogObj;
     *buf = 136446210;
     v38 = "[NWConcrete_nw_error description]";
-    v5 = _os_log_send_and_compose_impl();
+    v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s CFStringCreateWithCString failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v35 = 0;
@@ -352,7 +352,7 @@ LABEL_67:
   v5 = __nwlog_obj();
   *buf = 136446210;
   v17 = "[NWConcrete_nw_error initWithDomain:code:]";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;

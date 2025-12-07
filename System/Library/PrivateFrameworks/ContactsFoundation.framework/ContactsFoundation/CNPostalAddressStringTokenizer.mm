@@ -20,33 +20,33 @@
 
 - (id)postalAddressFromString:(id)string error:(id *)error
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v5 = [MEMORY[0x1E6999A88] scanString:string];
   v6 = [v5 _cn_firstObjectPassingTest:&__block_literal_global_69];
   if (v6)
   {
-    v27 = v5;
+    v26 = v5;
     v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     subResults = [v6 subResults];
-    v9 = [subResults countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v9 = [subResults countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v29;
+      v11 = *v28;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v29 != v11)
+          if (*v28 != v11)
           {
             objc_enumerationMutation(subResults);
           }
 
-          v13 = *(*(&v28 + 1) + 8 * i);
+          v13 = *(*(&v27 + 1) + 8 * i);
           v14 = objc_opt_class();
           type = [v13 type];
           v16 = [v14 tokenNameForScannerResultType:type];
@@ -58,7 +58,7 @@
           }
         }
 
-        v10 = [subResults countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v10 = [subResults countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v10);
@@ -75,7 +75,7 @@
       v19 = v22;
     }
 
-    v5 = v27;
+    v5 = v26;
     uppercaseString = [v19 uppercaseString];
 
     [v7 setObject:uppercaseString forKeyedSubscript:@"ISOCountryCode"];
@@ -93,37 +93,33 @@
     v7 = 0;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 + (id)tokenNameForScannerResultType:(id)type
 {
-  v13[7] = *MEMORY[0x1E69E9840];
+  v12[7] = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E6999A38];
-  v12[0] = *MEMORY[0x1E6999A28];
-  v12[1] = v3;
-  v13[0] = @"street";
-  v13[1] = @"subLocality";
+  v11[0] = *MEMORY[0x1E6999A28];
+  v11[1] = v3;
+  v12[0] = @"street";
+  v12[1] = @"subLocality";
   v4 = *MEMORY[0x1E6999A30];
-  v12[2] = *MEMORY[0x1E6999998];
-  v12[3] = v4;
-  v13[2] = @"city";
-  v13[3] = @"subAdministrativeArea";
+  v11[2] = *MEMORY[0x1E6999998];
+  v11[3] = v4;
+  v12[2] = @"city";
+  v12[3] = @"subAdministrativeArea";
   v5 = *MEMORY[0x1E6999A68];
-  v12[4] = *MEMORY[0x1E6999A20];
-  v12[5] = v5;
-  v13[4] = @"state";
-  v13[5] = @"postalCode";
-  v12[6] = *MEMORY[0x1E69999A0];
-  v13[6] = @"country";
+  v11[4] = *MEMORY[0x1E6999A20];
+  v11[5] = v5;
+  v12[4] = @"state";
+  v12[5] = @"postalCode";
+  v11[6] = *MEMORY[0x1E69999A0];
+  v12[6] = @"country";
   v6 = MEMORY[0x1E695DF20];
   typeCopy = type;
-  v8 = [v6 dictionaryWithObjects:v13 forKeys:v12 count:7];
+  v8 = [v6 dictionaryWithObjects:v12 forKeys:v11 count:7];
   v9 = [v8 objectForKeyedSubscript:typeCopy];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -152,34 +148,34 @@
 
 + (id)countryCodeByLookingUpCountryName:(id)name
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   if (nameCopy)
   {
     v4 = +[(CNEnvironmentBase *)CNEnvironment];
     currentLocale = [v4 currentLocale];
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     iSOCountryCodes = [MEMORY[0x1E695DF58] ISOCountryCodes];
-    v7 = [iSOCountryCodes countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [iSOCountryCodes countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v18;
+      v9 = *v17;
       v10 = *MEMORY[0x1E695D978];
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(iSOCountryCodes);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           v13 = [currentLocale displayNameForKey:v10 value:v12];
           if (![nameCopy compare:v13 options:129])
           {
@@ -189,7 +185,7 @@
           }
         }
 
-        v8 = [iSOCountryCodes countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [iSOCountryCodes countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v8)
         {
           continue;
@@ -207,8 +203,6 @@ LABEL_12:
   {
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

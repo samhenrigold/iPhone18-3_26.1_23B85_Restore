@@ -11,60 +11,58 @@
 
 - (id)_generateErrorWithErrorCode:(int64_t)code andMessage:(id)message underlyingError:(id)error
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v7 = MEMORY[0x277CCA9B8];
   v8 = *MEMORY[0x277CCA7E8];
-  v16 = *MEMORY[0x277CCA450];
-  v17 = v8;
-  v18[0] = message;
+  v15 = *MEMORY[0x277CCA450];
+  v16 = v8;
+  v17[0] = message;
   v9 = MEMORY[0x277CCACA8];
   messageCopy = message;
-  v11 = [v9 stringWithFormat:@"%@", error, v16, v17, v18[0]];
-  v18[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v16 count:2];
+  v11 = [v9 stringWithFormat:@"%@", error, v15, v16, v17[0]];
+  v17[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v15 count:2];
   v13 = [v7 errorWithDomain:@"com.apple.PhotosGraph.PGFeatureExtractorFacesFromAssetAverage" code:code userInfo:v12];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (id)floatVectorWithFaces:(id)faces error:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   facesCopy = faces;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if ([facesCopy count])
   {
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
-    v27 = facesCopy;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v26 = facesCopy;
     obj = facesCopy;
-    v8 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+    v8 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
     if (v8)
     {
       v9 = v8;
       errorCopy = error;
       v10 = 0;
-      v11 = *v31;
+      v11 = *v30;
       while (2)
       {
         v12 = 0;
         v13 = v10;
         do
         {
-          if (*v31 != v11)
+          if (*v30 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v30 + 1) + 8 * v12);
+          v14 = *(*(&v29 + 1) + 8 * v12);
           faceFeatureExtractor = [(PGFeatureExtractorFacesFromAssetAverage *)self faceFeatureExtractor];
-          v29 = v13;
-          v16 = [faceFeatureExtractor floatVectorWithEntity:v14 error:&v29];
-          v10 = v29;
+          v28 = v13;
+          v16 = [faceFeatureExtractor floatVectorWithEntity:v14 error:&v28];
+          v10 = v28;
 
           if (!v16)
           {
@@ -87,7 +85,7 @@
         }
 
         while (v9 != v12);
-        v9 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v9 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
         if (v9)
         {
           continue;
@@ -104,15 +102,15 @@
 
     v20 = [MEMORY[0x277D22C40] meanVectorWithFloatVectors:v7];
 LABEL_18:
-    facesCopy = v27;
+    facesCopy = v26;
   }
 
   else
   {
     faceFeatureExtractor2 = [(PGFeatureExtractorFacesFromAssetAverage *)self faceFeatureExtractor];
-    v34 = 0;
-    v20 = [faceFeatureExtractor2 defaultFloatVectorWithError:&v34];
-    v10 = v34;
+    v33 = 0;
+    v20 = [faceFeatureExtractor2 defaultFloatVectorWithError:&v33];
+    v10 = v33;
 
     if (v20)
     {
@@ -126,22 +124,20 @@ LABEL_18:
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 - (id)floatMatrixWithEntities:(id)entities progressReporter:(id)reporter error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   entitiesCopy = entities;
   v7 = objc_alloc_init(MEMORY[0x277D22C60]);
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = entitiesCopy;
-  v8 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v8 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (!v8)
   {
     v10 = 0;
@@ -151,19 +147,19 @@ LABEL_18:
   v9 = v8;
   errorCopy = error;
   v10 = 0;
-  v11 = *v28;
+  v11 = *v27;
   while (2)
   {
     v12 = 0;
     v13 = v10;
     do
     {
-      if (*v28 != v11)
+      if (*v27 != v11)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v27 + 1) + 8 * v12);
+      v14 = *(*(&v26 + 1) + 8 * v12);
       photoLibrary = [v14 photoLibrary];
       librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
 
@@ -179,9 +175,9 @@ LABEL_14:
 
       v17 = [MEMORY[0x277CD9868] fetchFacesInAsset:v14 options:librarySpecificFetchOptions];
       fetchedObjects = [v17 fetchedObjects];
-      v26 = v13;
-      v19 = [(PGFeatureExtractorFacesFromAssetAverage *)self floatVectorWithFaces:fetchedObjects error:&v26];
-      v10 = v26;
+      v25 = v13;
+      v19 = [(PGFeatureExtractorFacesFromAssetAverage *)self floatVectorWithFaces:fetchedObjects error:&v25];
+      v10 = v25;
 
       if (!v19)
       {
@@ -196,7 +192,7 @@ LABEL_14:
     }
 
     while (v9 != v12);
-    v9 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v9 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v9)
     {
       continue;
@@ -214,8 +210,6 @@ LABEL_16:
     v20 = v10;
     *error = v10;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

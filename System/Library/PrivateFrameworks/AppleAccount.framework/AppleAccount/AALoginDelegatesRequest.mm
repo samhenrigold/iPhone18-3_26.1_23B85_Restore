@@ -57,8 +57,7 @@
   v10 = +[AADeviceInfo udid];
   [v4 setValue:v10 forHTTPHeaderField:@"Device-UDID"];
 
-  [v4 aa_setBodyWithParameters:v5];
-  v11 = _AALogSystem();
+  v11 = _AALogSystem([v4 aa_setBodyWithParameters:v5]);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = [(AARequest *)self redactedBodyStringWithPropertyList:self->_loginParameters];
@@ -72,21 +71,20 @@
   [v4 aa_addAltDSIDAndRepairStateWithAccount:self->_account];
   [v4 aa_addMultiUserDeviceHeaderIfEnabled];
   [v4 ak_addDeviceConfigurationModeHeader];
-  if ([MEMORY[0x1E6985E20] isInternalBuild])
+  isInternalBuild = [MEMORY[0x1E6985E20] isInternalBuild];
+  if (isInternalBuild)
   {
-    [v4 setValue:@"true" forHTTPHeaderField:@"x-internal"];
+    isInternalBuild = [v4 setValue:@"true" forHTTPHeaderField:@"x-internal"];
   }
 
-  v13 = _AALogSystem();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = _AALogSystem(isInternalBuild);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = [v4 description];
+    v15 = [v4 description];
     *buf = 138412290;
-    v19 = v14;
-    _os_log_impl(&dword_1B6F6A000, v13, OS_LOG_TYPE_DEFAULT, "request is: %@", buf, 0xCu);
+    v19 = v15;
+    _os_log_impl(&dword_1B6F6A000, v14, OS_LOG_TYPE_DEFAULT, "request is: %@", buf, 0xCu);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

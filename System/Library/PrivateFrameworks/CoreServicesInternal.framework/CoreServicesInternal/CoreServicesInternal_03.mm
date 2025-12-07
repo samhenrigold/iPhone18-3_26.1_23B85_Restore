@@ -1,170 +1,18 @@
-BOOL _FSURLGetCacheAutoFlushingEnabled(const __CFURL *a1, const void *a2)
-{
-  v2 = _FileCacheGetForURL(a1, a2);
-  _FileCacheLock(v2);
-  AutoFlushingEnabled = _FileCacheGetAutoFlushingEnabled(v2);
-  _FileCacheUnlock(v2);
-  return AutoFlushingEnabled;
-}
-
-uint64_t _FSURLGetObjectInformationNoIO(const __CFURL *a1, unint64_t *a2, uint64_t *a3, _DWORD *a4)
-{
-  __endptr[1] = *MEMORY[0x1E69E9840];
-  if (!a1)
-  {
-    goto LABEL_33;
-  }
-
-  v8 = __CFURLResourceInfoPtr();
-  if (!v8)
-  {
-    v11 = 0;
-    if (a4)
-    {
-      goto LABEL_34;
-    }
-
-LABEL_18:
-    if (v11)
-    {
-      goto LABEL_34;
-    }
-
-    if (CFURLIsFileReferenceURL(a1))
-    {
-      v14 = CFURLCopyPath(a1);
-      if (v14)
-      {
-        v18 = v14;
-        MEMORY[0x1EEE9AC00](v14, v15, v16, v17);
-        bzero(&v26, 0x800uLL);
-        if (!CFStringGetCString(v18, &v26, 2048, 0x8000100u))
-        {
-          goto LABEL_31;
-        }
-
-        if (v26 != 0x692F656C69662E2FLL || v27 != 15716)
-        {
-          goto LABEL_31;
-        }
-
-        __endptr[0] = 0;
-        v20 = strtoll(&v28, __endptr, 10);
-        if (*__endptr[0] != 46)
-        {
-          goto LABEL_31;
-        }
-
-        v21 = v20;
-        v22 = strtoll(__endptr[0] + 1, __endptr, 10);
-        v23 = __endptr[0];
-        if (*__endptr[0] == 47)
-        {
-          v23 = __endptr[0] + 1;
-        }
-
-        if (!*v23)
-        {
-          if (a2)
-          {
-            *a2 = v21;
-          }
-
-          if (a3)
-          {
-            *a3 = v22;
-          }
-
-          v11 = 1;
-        }
-
-        else
-        {
-LABEL_31:
-          v11 = 0;
-        }
-
-        CFRelease(v18);
-        goto LABEL_34;
-      }
-    }
-
-LABEL_33:
-    v11 = 0;
-    goto LABEL_34;
-  }
-
-  v9 = _FileCacheGetForURL(a1, v8);
-  _FileCacheLock(v9);
-  Attributes = _FileCacheGetAttributes(v9);
-  if ((*Attributes & 4) != 0)
-  {
-    if (a2)
-    {
-      v12 = *(Attributes + 112);
-      if (v12)
-      {
-        v13 = 0;
-      }
-
-      else
-      {
-        v12 = *(Attributes + 104);
-        v13 = *(Attributes + 108) << 32;
-      }
-
-      *a2 = v13 | v12;
-    }
-
-    if (a3)
-    {
-      *a3 = *(Attributes + 120);
-    }
-
-    if (a4)
-    {
-      *a4 = *(Attributes + 16);
-    }
-
-    v11 = 1;
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  _FileCacheUnlock(v9);
-  if (!a4)
-  {
-    goto LABEL_18;
-  }
-
-LABEL_34:
-  v24 = *MEMORY[0x1E69E9840];
-  return v11;
-}
-
 CFURLRef _FSCreateFileReferenceURLFromIDs(const __CFAllocator *a1, int a2, uint64_t a3)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
-  v15[0] = 0;
+  v14[1] = *MEMORY[0x1E69E9840];
+  v14[0] = 0;
   v6 = MountInfoStorageSize();
   v10 = MEMORY[0x1EEE9AC00](v6, v7, v8, v9);
-  if (MountInfoPrepare(v15, 0, a2, v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), 0, 0, 0))
+  if (!MountInfoPrepare(v14, 0, a2, v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), 0, 0, 0))
   {
-    if ((MountInfoGetCapabilities(v15[0]) & 0x8000000000000) != 0)
-    {
-      MountID = MountInfoGetMountID(v15[0]);
-      FileReferenceURLRef = createFileReferenceURLRef(a1, MountID, 0, a3, 0, 0, 0);
-    }
+    return 0;
+  }
 
-    else
-    {
-      FileReferenceURLRef = 0;
-    }
-
-    MountInfoDestroy(v15[0]);
+  if ((MountInfoGetCapabilities(v14[0]) & 0x8000000000000) != 0)
+  {
+    MountID = MountInfoGetMountID(v14[0]);
+    FileReferenceURLRef = createFileReferenceURLRef(a1, MountID, 0, a3, 0, 0, 0);
   }
 
   else
@@ -172,108 +20,100 @@ CFURLRef _FSCreateFileReferenceURLFromIDs(const __CFAllocator *a1, int a2, uint6
     FileReferenceURLRef = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
+  MountInfoDestroy();
   return FileReferenceURLRef;
 }
 
 CFURLRef createFileReferenceURLRef(const __CFAllocator *a1, uint64_t a2, uint64_t a3, uint64_t a4, CFStringRef theString, int a6, uint64_t a7)
 {
-  v34 = *MEMORY[0x1E69E9840];
-  if (a2)
+  v32 = *MEMORY[0x1E69E9840];
+  if (!a2)
   {
-    v7 = a6;
-    if (theString)
+    return 0;
+  }
+
+  v7 = a6;
+  if (!theString)
+  {
+    v24 = *MEMORY[0x1E695E480];
+    if (a7)
     {
-      if (CFStringGetCString(theString, v32, 1024, 0x8000100u))
-      {
-        v11 = strlen(v32);
-        v15 = MEMORY[0x1EEE9AC00](v11, v12, v13, v14);
-        v17 = &v32[-((v16 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
-        v18 = v17;
-        if (v15 >= 1)
-        {
-          v19 = v32;
-          v18 = v17;
-          do
-          {
-            v20 = *v19;
-            v21 = (v20 - 34) > 0x3E || ((1 << (v20 - 34)) & 0x5A0000003600000BLL) == 0;
-            if (v21 && (v20 - 123) >= 3 && (v20 - 127) > 0xFFFFFFA1)
-            {
-              *v18++ = v20;
-            }
-
-            else
-            {
-              *v18 = 37;
-              v18[1] = createFileReferenceURLRef(__CFAllocator const*,unsigned long long,unsigned long long,unsigned long long,__CFString const*,unsigned char,unsigned int)::hexchars[v20 >> 4];
-              v18[2] = createFileReferenceURLRef(__CFAllocator const*,unsigned long long,unsigned long long,unsigned long long,__CFString const*,unsigned char,unsigned int)::hexchars[v20 & 0xF];
-              v18 += 3;
-            }
-
-            ++v19;
-            --v15;
-          }
-
-          while (v15);
-        }
-
-        *v18 = 0;
-        if (snprintf(v33, 0x400uLL, "/.file/id=%lld.%lld/%s", a2, a3, v17) > 0x3FF)
-        {
-          result = 0;
-        }
-
-        else
-        {
-          v22 = strlen(v33);
-          result = CFURLCreateFromFileSystemRepresentation(a1, v33, v22, v7);
-        }
-
-        goto LABEL_28;
-      }
+      v25 = CFStringCreateWithFormat(v24, 0, @"file:///.file/id=%lld.%lld/?.resolve=%u", a2, a4, a7);
     }
 
     else
     {
-      v24 = *MEMORY[0x1E695E480];
-      if (a7)
+      v26 = "/";
+      if (!a6)
       {
-        v25 = CFStringCreateWithFormat(v24, 0, @"file:///.file/id=%lld.%lld/?.resolve=%u", a2, a4, a7);
+        v26 = "";
+      }
+
+      v25 = CFStringCreateWithFormat(v24, 0, @"file:///.file/id=%lld.%lld%s", a2, a4, v26);
+    }
+
+    v27 = v25;
+    if (v25)
+    {
+      v28 = CFURLCreateWithString(a1, v25, 0);
+      CFRelease(v27);
+      return v28;
+    }
+
+    return 0;
+  }
+
+  if (!CFStringGetCString(theString, v30, 1024, 0x8000100u))
+  {
+    return 0;
+  }
+
+  v11 = strlen(v30);
+  v15 = MEMORY[0x1EEE9AC00](v11, v12, v13, v14);
+  v17 = &v30[-((v16 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  v18 = v17;
+  if (v15 >= 1)
+  {
+    v19 = v30;
+    v18 = v17;
+    do
+    {
+      v20 = *v19;
+      v21 = (v20 - 34) > 0x3E || ((1 << (v20 - 34)) & 0x5A0000003600000BLL) == 0;
+      if (v21 && (v20 - 123) >= 3 && (v20 - 127) > 0xFFFFFFA1)
+      {
+        *v18++ = v20;
       }
 
       else
       {
-        v26 = "/";
-        if (!a6)
-        {
-          v26 = "";
-        }
-
-        v25 = CFStringCreateWithFormat(v24, 0, @"file:///.file/id=%lld.%lld%s", a2, a4, v26);
+        *v18 = 37;
+        v18[1] = createFileReferenceURLRef(__CFAllocator const*,unsigned long long,unsigned long long,unsigned long long,__CFString const*,unsigned char,unsigned int)::hexchars[v20 >> 4];
+        v18[2] = createFileReferenceURLRef(__CFAllocator const*,unsigned long long,unsigned long long,unsigned long long,__CFString const*,unsigned char,unsigned int)::hexchars[v20 & 0xF];
+        v18 += 3;
       }
 
-      v27 = v25;
-      if (v25)
-      {
-        v28 = CFURLCreateWithString(a1, v25, 0);
-        CFRelease(v27);
-        v29 = *MEMORY[0x1E69E9840];
-        return v28;
-      }
+      ++v19;
+      --v15;
     }
+
+    while (v15);
   }
 
-  result = 0;
-LABEL_28:
-  v30 = *MEMORY[0x1E69E9840];
-  return result;
+  *v18 = 0;
+  if (snprintf(v31, 0x400uLL, "/.file/id=%lld.%lld/%s", a2, a3, v17) > 0x3FF)
+  {
+    return 0;
+  }
+
+  v22 = strlen(v31);
+  return CFURLCreateFromFileSystemRepresentation(a1, v31, v22, v7);
 }
 
 CFURLRef _CFURLCreateWithVolumeURLAndResourceID(const __CFAllocator *a1, CFURLRef url, const __CFNumber *a3)
 {
   v3 = 0;
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (url && a3)
   {
     propertyValueTypeRefPtr = 0;
@@ -286,17 +126,17 @@ CFURLRef _CFURLCreateWithVolumeURLAndResourceID(const __CFAllocator *a1, CFURLRe
       {
         if (valuePtr)
         {
-          v12 = 0;
+          v11 = 0;
           v3 = 0;
-          if (CFNumberGetValue(a3, kCFNumberSInt64Type, &v12))
+          if (CFNumberGetValue(a3, kCFNumberSInt64Type, &v11))
           {
-            if (v12)
+            if (v11)
             {
-              if (getFileSystemPathForFileID(valuePtr, v12, cStr, 0x400) && !lstat(cStr, &v11) && (v9 = CFStringCreateWithCString(a1, cStr, 0x8000100u)) != 0)
+              if (getFileSystemPathForFileID(valuePtr, v11, cStr, 0x400) && !lstat(cStr, &v10) && (v8 = CFStringCreateWithCString(a1, cStr, 0x8000100u)) != 0)
               {
-                v10 = v9;
-                v3 = CFURLCreateWithFileSystemPath(a1, v9, kCFURLPOSIXPathStyle, (v11.st_mode & 0xF000) == 0x4000);
-                CFRelease(v10);
+                v9 = v8;
+                v3 = CFURLCreateWithFileSystemPath(a1, v8, kCFURLPOSIXPathStyle, (v10.st_mode & 0xF000) == 0x4000);
+                CFRelease(v9);
               }
 
               else
@@ -312,7 +152,6 @@ CFURLRef _CFURLCreateWithVolumeURLAndResourceID(const __CFAllocator *a1, CFURLRe
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -580,7 +419,7 @@ uint64_t GetBooleanPropertyValue(const __CFURL *a1, const __CFString *a2, unsign
   return result;
 }
 
-CFDataRef _FSURLNoteSecurityScopedResourceMoved(SandboxExtensionCache *a1, const __CFURL *a2)
+uint64_t _FSURLNoteSecurityScopedResourceMoved(SandboxExtensionCache *a1, const __CFURL *a2)
 {
   v4 = SandboxExtensionCache::shared(a1);
   result = SandboxExtensionCache::move(v4, a1, a2, 0, 0);
@@ -595,7 +434,7 @@ CFDataRef _FSURLNoteSecurityScopedResourceMoved(SandboxExtensionCache *a1, const
   return result;
 }
 
-CFDataRef _FSURLNoteSecurityScopedResourceMovedWithFileIdentifier(SandboxExtensionCache *a1, const __CFURL *a2, fsid a3, uint64_t a4)
+uint64_t _FSURLNoteSecurityScopedResourceMovedWithFileIdentifier(SandboxExtensionCache *a1, const __CFURL *a2, fsid a3, uint64_t a4)
 {
   v10 = a3;
   v7 = SandboxExtensionCache::shared(a1);
@@ -1150,13 +989,13 @@ BOOL _FileURLStringHasNoFollowPrefix(const __CFString *a1)
 
 uint64_t createVolumeParentURL(const __CFAllocator *a1, char a2, fsid *a3, size_t *a4)
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v22 = 0;
+  v32 = *MEMORY[0x1E69E9840];
+  v21 = 0;
   v8 = MountInfoStorageSize();
   v12 = MEMORY[0x1EEE9AC00](v8, v9, v10, v11);
-  if (MountInfoPrepare(&v22, a3[14].val[0], 0, &v23[-1] - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0), 0, 0, 0))
+  if (MountInfoPrepare(&v21, a3[14].val[0], 0, &v22[-1] - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0), 0, 0, 0))
   {
-    MountPoint = MountInfoGetMountPoint(v22);
+    MountPoint = MountInfoGetMountPoint(v21);
     if (!MountPoint)
     {
       goto LABEL_12;
@@ -1166,12 +1005,12 @@ uint64_t createVolumeParentURL(const __CFAllocator *a1, char a2, fsid *a3, size_
   else
   {
     v14 = a3[13];
-    if (GetStatfsByFSID(v14, &v32))
+    if (GetStatfsByFSID(v14, &v31))
     {
       goto LABEL_12;
     }
 
-    MountPoint = v32.f_mntonname;
+    MountPoint = v31.f_mntonname;
   }
 
   v15 = strlen(MountPoint);
@@ -1195,19 +1034,19 @@ LABEL_16:
     v18 = MountPoint[v16--];
     if (v18 == 47)
     {
-      if (v22)
+      if (v21)
       {
-        v23[0] = MountPoint;
-        v23[1] = v16 + 2;
+        v22[0] = MountPoint;
+        v22[1] = v16 + 2;
+        v23 = 0u;
         v24 = 0u;
-        v25 = 0u;
-        v26 = 1;
-        v27 = a2;
-        v28 = 0;
-        v29 = 1;
-        v30 = 0;
-        v31 = v22;
-        v15 = __FSURLCreateWithPathAndAttributes(a1, v23, 0);
+        v25 = 1;
+        v26 = a2;
+        v27 = 0;
+        v28 = 1;
+        v29 = 0;
+        v30 = v21;
+        v15 = __FSURLCreateWithPathAndAttributes(a1, v22, 0);
       }
 
       else
@@ -1222,12 +1061,11 @@ LABEL_16:
 LABEL_12:
   v19 = 0;
 LABEL_17:
-  if (v22)
+  if (v21)
   {
-    MountInfoDestroy(v22);
+    MountInfoDestroy();
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -1365,13 +1203,14 @@ uint64_t createVolumeDeviceIDValue(const void *a1, uint64_t a2, uint64_t a3, uin
   return 2;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-uint64_t _URLEnumeratorGetTypeID()
+uint64_t _URLEnumeratorGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (_MergedGlobals_0 != -1)
   {
@@ -1381,7 +1220,7 @@ uint64_t _URLEnumeratorGetTypeID()
   return qword_1ED4461F8;
 }
 
-uint64_t _URLEnumeratorGetURLsBulk(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, CFErrorRef *a5)
+uint64_t _URLEnumeratorGetURLsBulk(uint64_t a1, uint64_t a2, void *a3, void *a4, CFErrorRef *a5)
 {
   if (*(a1 + 120))
   {
@@ -1704,7 +1543,7 @@ CFErrorRef _InitalizeVolumeEnumerator(uint64_t a1)
 void _CreateVolumeURLsArray(uint64_t a1, char *a2, uint64_t a3)
 {
   v3 = a3;
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v6 = 8 * a3;
   v7 = MEMORY[0x19A8C6D00](*(a1 + 16), 8 * a3, 0x6004044C4A2DFLL, 0);
   *(a1 + 72) = v7;
@@ -1718,15 +1557,15 @@ void _CreateVolumeURLsArray(uint64_t a1, char *a2, uint64_t a3)
   *(a1 + 138) = 0;
   *(a1 + 130) = 0;
   *(a1 + 144) = 0;
-  v42 = (a1 + 64);
+  v41 = (a1 + 64);
   *(a1 + 121) = _FSURLGetAttrListForPropertyKeys(0, *(a1 + 40), a1 + 128, (a1 + 64), (a1 + 122));
   *(a1 + 132) &= ~0x8000000u;
   v8 = *(a1 + 64);
   if (v8)
   {
-    v46.length = CFArrayGetCount(*(a1 + 64));
-    v46.location = 0;
-    v9 = CFArrayContainsValue(v8, v46, *MEMORY[0x1E695EBF8]) != 0;
+    v45.length = CFArrayGetCount(*(a1 + 64));
+    v45.location = 0;
+    v9 = CFArrayContainsValue(v8, v45, *MEMORY[0x1E695EBF8]) != 0;
   }
 
   else
@@ -1738,9 +1577,9 @@ void _CreateVolumeURLsArray(uint64_t a1, char *a2, uint64_t a3)
   v10 = *(a1 + 40);
   if (v10)
   {
-    v47.length = CFArrayGetCount(*(a1 + 40));
-    v47.location = 0;
-    v11 = CFArrayContainsValue(v10, v47, *MEMORY[0x1E695EA38]) != 0;
+    v46.length = CFArrayGetCount(*(a1 + 40));
+    v46.location = 0;
+    v11 = CFArrayContainsValue(v10, v46, *MEMORY[0x1E695EA38]) != 0;
   }
 
   else
@@ -1764,7 +1603,7 @@ void _CreateVolumeURLsArray(uint64_t a1, char *a2, uint64_t a3)
   {
 LABEL_12:
     *(a1 + 112) = _FSURLCreateStandardError(*(a1 + 16), *MEMORY[0x1E695E640], 12, 0, 0, 0);
-    goto LABEL_53;
+    return;
   }
 
   v15 = v14;
@@ -1774,11 +1613,11 @@ LABEL_14:
   if (v3 >= 1)
   {
     v17 = 0;
-    v40 = *MEMORY[0x1E695EB40];
-    v41 = v3;
+    v39 = *MEMORY[0x1E695EB40];
+    v40 = v3;
     do
     {
-      v44 = 0;
+      v43 = 0;
       v18 = MountInfoStorageSize();
       MEMORY[0x1EEE9AC00](v18, v19, v20, v21);
       if (MountInfoPrepareWithMountPointString())
@@ -1791,7 +1630,7 @@ LABEL_14:
 
       else
       {
-        v44 = 0;
+        v43 = 0;
         if ((v16 & 1) == 0)
         {
 LABEL_26:
@@ -1833,7 +1672,7 @@ LABEL_28:
           }
 
           v33 = strlen(a2);
-          v34 = _FSURLCreateWithPathAndAttributes(*(a1 + 16), a2, v33, 0, 0, a1 + 128, v15, (*(a1 + 32) & 4) != 0, *(a1 + 123), HIBYTE(*(a1 + 123)), 1, v44, 0);
+          v34 = _FSURLCreateWithPathAndAttributes(*(a1 + 16), a2, v33, 0, 0, a1 + 128, v15, (*(a1 + 32) & 4) != 0, *(a1 + 123), HIBYTE(*(a1 + 123)), 1, v43, 0);
           if (!v34)
           {
             goto LABEL_28;
@@ -1843,7 +1682,7 @@ LABEL_28:
           if ((*(a1 + 32) & 2) != 0)
           {
             propertyValueTypeRefPtr = 0;
-            if (CFURLCopyResourcePropertyForKey(v34, v40, &propertyValueTypeRefPtr, 0))
+            if (CFURLCopyResourcePropertyForKey(v34, v39, &propertyValueTypeRefPtr, 0))
             {
               if (propertyValueTypeRefPtr)
               {
@@ -1859,13 +1698,13 @@ LABEL_28:
             }
           }
 
-          if (v44)
+          if (v43)
           {
-            _FSURLCacheCheapVolumeInformationForVolume(v35, v44);
+            _FSURLCacheCheapVolumeInformationForVolume(v35, v43);
           }
 
-          v36 = *v42;
-          if (*v42)
+          v36 = *v41;
+          if (*v41)
           {
             v37 = __CFURLResourceInfoPtr();
             _FSURLCacheResourcePropertiesForKeys(v35, v36, v37, 0);
@@ -1887,13 +1726,13 @@ LABEL_28:
       }
 
       v24 = v23;
-      if (v44)
+      if (v43)
       {
-        _FSURLCacheCheapVolumeInformationForVolume(v23, v44);
+        _FSURLCacheCheapVolumeInformationForVolume(v23, v43);
       }
 
-      v25 = *v42;
-      if (*v42)
+      v25 = *v41;
+      if (*v41)
       {
         v26 = __CFURLResourceInfoPtr();
         _FSURLCacheResourcePropertiesForKeys(v24, v25, v26, 0);
@@ -1904,10 +1743,10 @@ LABEL_28:
       *(a1 + 80) = v27 + 1;
       v28 = p_forkattr;
 LABEL_24:
-      v3 = v41;
+      v3 = v40;
 LABEL_31:
       ++v17;
-      MountInfoDestroy(v44);
+      MountInfoDestroy();
       a2 += 1024;
       p_forkattr = v28;
     }
@@ -1921,8 +1760,6 @@ LABEL_31:
   }
 
   *(a1 + 88) = 0;
-LABEL_53:
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t OUTLINED_FUNCTION_0_1(uint64_t a1)
@@ -1990,9 +1827,9 @@ uint64_t append(uint64_t result, CacheItem *a2)
   return result;
 }
 
-void remove(CacheItem *a1, CacheItem *a2)
+void remove(CacheItem *result, CacheItem *a2)
 {
-  if (!a1)
+  if (!result)
   {
     remove();
   }
@@ -2002,11 +1839,11 @@ void remove(CacheItem *a1, CacheItem *a2)
     remove();
   }
 
-  while (a1)
+  while (result)
   {
-    v3 = a1;
-    a1 = *(a1 + 3);
-    if (a1 == a2)
+    v3 = result;
+    result = *(result + 3);
+    if (result == a2)
     {
       *(v3 + 3) = *(a2 + 3);
       *(a2 + 3) = 0;
@@ -2032,11 +1869,11 @@ void SandboxExtensionCache::~SandboxExtensionCache(SandboxExtensionCache *this)
 CFDataRef SandboxExtensionCache::move(os_unfair_lock_s *this, const __CFURL *a2, CFURLRef url, fsid *a4, uint64_t a5)
 {
   v5 = a4;
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (url)
   {
     propertyValueTypeRefPtr = 0;
-    v13 = 0;
+    v12 = 0;
     if (a4)
     {
       v8 = a5;
@@ -2052,9 +1889,9 @@ CFDataRef SandboxExtensionCache::move(os_unfair_lock_s *this, const __CFURL *a2,
       v5 = 0;
     }
 
-    if (!CFURLCopyResourcePropertyForKey(url, *MEMORY[0x1E695EBF8], &propertyValueTypeRefPtr, &v13) && (v9 = securityScopedLog, os_log_type_enabled(securityScopedLog, OS_LOG_TYPE_ERROR)))
+    if (!CFURLCopyResourcePropertyForKey(url, *MEMORY[0x1E695EBF8], &propertyValueTypeRefPtr, &v12) && (v9 = securityScopedLog, os_log_type_enabled(securityScopedLog, OS_LOG_TYPE_ERROR)))
     {
-      SandboxExtensionCache::move(url, &v13, v9);
+      SandboxExtensionCache::move(url, &v12, v9);
       if (v8)
       {
         goto LABEL_25;
@@ -2070,13 +1907,13 @@ CFDataRef SandboxExtensionCache::move(os_unfair_lock_s *this, const __CFURL *a2,
     {
       if (CFStringGetFileSystemRepresentation(propertyValueTypeRefPtr, buffer, 1024))
       {
-        *&v21[16] = 0;
-        *v21 = xmmword_19605E7B0;
-        if (!getattrlist(buffer, v21, v16, 0x28uLL, 1u) && *&v21[4] == v17 && *&v21[20] == v18)
+        *&v20[16] = 0;
+        *v20 = xmmword_19605E7B0;
+        if (!getattrlist(buffer, v20, v15, 0x28uLL, 1u) && *&v20[4] == v16 && *&v20[20] == v17)
         {
-          v8 = v20;
-          v14 = v19;
-          v5 = &v14;
+          v8 = v19;
+          v13 = v18;
+          v5 = &v13;
           goto LABEL_25;
         }
 
@@ -2104,7 +1941,7 @@ CFDataRef SandboxExtensionCache::move(os_unfair_lock_s *this, const __CFURL *a2,
     }
 
     propertyValueTypeRefPtr = 0;
-    v13 = 0;
+    v12 = 0;
     v8 = a5;
   }
 
@@ -2131,13 +1968,12 @@ LABEL_25:
     CFRelease(propertyValueTypeRefPtr);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
-CFDataRef SandboxExtensionCache::_move(CFDictionaryRef *this, const __CFString *a2, fsid *a3, uint64_t a4)
+CFDataRef SandboxExtensionCache::_move(CFMutableDictionaryRef *this, const __CFString *a2, fsid *a3, uint64_t a4)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   updated = sandbox_extension_update_file_by_fileid();
   if (updated)
   {
@@ -2145,67 +1981,57 @@ CFDataRef SandboxExtensionCache::_move(CFDictionaryRef *this, const __CFString *
     v10 = securityScopedLog;
     if (os_log_type_enabled(securityScopedLog, OS_LOG_TYPE_ERROR))
     {
-      v23 = a3->val[0];
-      v24 = a3->val[1];
-      v25[0] = 67109888;
-      v25[1] = v23;
-      v26 = 1024;
-      v27 = v24;
-      v28 = 2048;
-      v29 = a4;
-      v30 = 1024;
-      v31 = v9;
-      _os_log_error_impl(&dword_19602C000, v10, OS_LOG_TYPE_ERROR, "sandbox_extension_update_file_by_fileid error for fsid={%#x, %#x}, id=%#llx: %{errno}d", v25, 0x1Eu);
+      v18 = a3->val[0];
+      v19 = a3->val[1];
+      v20[0] = 67109888;
+      v20[1] = v18;
+      v21 = 1024;
+      v22 = v19;
+      v23 = 2048;
+      v24 = a4;
+      v25 = 1024;
+      v26 = v9;
+      _os_log_error_impl(&dword_19602C000, v10, OS_LOG_TYPE_ERROR, "sandbox_extension_update_file_by_fileid error for fsid={%#x, %#x}, id=%#llx: %{errno}d", v20, 0x1Eu);
     }
 
-    goto LABEL_4;
+    return 0;
   }
 
-  if (a2 && CFStringGetFileSystemRepresentation(a2, v25, 1024))
+  if (a2 && CFStringGetFileSystemRepresentation(a2, v20, 1024))
   {
-    v14 = CFRetain(a2);
+    v13 = CFRetain(a2);
   }
 
   else
   {
-    if (fsgetpath(v25, 0x400uLL, a3, a4) < 1)
+    if (fsgetpath(v20, 0x400uLL, a3, a4) < 1)
     {
-LABEL_4:
-      v11 = 0;
-      goto LABEL_5;
+      return 0;
     }
 
-    v14 = CFStringCreateWithFileSystemRepresentation(*MEMORY[0x1E695E480], v25);
+    v13 = CFStringCreateWithFileSystemRepresentation(*MEMORY[0x1E695E480], v20);
   }
 
-  v15 = v14;
-  if (!v14)
+  v14 = v13;
+  if (!v13)
   {
-    goto LABEL_4;
+    return 0;
   }
 
-  v16 = access(v25, 2);
-  v17 = MEMORY[0x1E69E9BB0];
-  if (v16)
+  access(v20, 2);
+  v15 = sandbox_extension_issue_file();
+  if (v15)
   {
-    v17 = MEMORY[0x1E69E9BA8];
-  }
-
-  v18 = *v17;
-  v19 = *MEMORY[0x1E69E9BE0];
-  v20 = sandbox_extension_issue_file();
-  if (v20)
-  {
-    v21 = v20;
-    v22 = strlen(v20);
-    v11 = CFDataCreate(*MEMORY[0x1E695E480], v21, v22 + 1);
-    if (v11 && !SandboxExtensionCache::_insert(this, v15, v11))
+    v16 = v15;
+    v17 = strlen(v15);
+    v11 = CFDataCreate(*MEMORY[0x1E695E480], v16, v17 + 1);
+    if (v11 && !SandboxExtensionCache::_insert(this, v14, v11))
     {
       CFRelease(v11);
       v11 = 0;
     }
 
-    free(v21);
+    free(v16);
   }
 
   else
@@ -2213,9 +2039,7 @@ LABEL_4:
     v11 = 0;
   }
 
-  CFRelease(v15);
-LABEL_5:
-  v12 = *MEMORY[0x1E69E9840];
+  CFRelease(v14);
   return v11;
 }
 
@@ -2297,11 +2121,11 @@ void OUTLINED_FUNCTION_1_2(void *a1, uint64_t a2, os_log_t log, const char *a4, 
 uint64_t _URLReplaceObject(const __CFAllocator *a1, CFTypeRef cf, const void *a3, const __CFString *a4, const __CFString *a5, unint64_t a6, CFTypeRef *a7, CFErrorRef *a8)
 {
   v14 = cf;
-  v187 = *MEMORY[0x1E69E9840];
-  *v163 = 0;
+  v186 = *MEMORY[0x1E69E9840];
+  *v162 = 0;
   cf2 = 0;
   url = 0;
-  v160 = 0;
+  v159 = 0;
   value = CFRetain(cf);
   v16 = CFRetain(a3);
   code = 22;
@@ -2357,14 +2181,14 @@ LABEL_109:
       }
 
       allocator = a1;
-      v152 = v16;
-      v150 = a3;
+      v151 = v16;
+      v149 = a3;
       goto LABEL_63;
     }
 
 LABEL_62:
-    v152 = v16;
-    v150 = a3;
+    v151 = v16;
+    v149 = a3;
     allocator = a1;
     _URLReplaceObject_cold_1(a1, &error);
 LABEL_63:
@@ -2374,12 +2198,12 @@ LABEL_63:
 
   cf1 = a4;
   Mutable = CFURLCreateFilePathURL(a1, v14, &error);
-  v150 = a3;
-  v152 = v16;
+  v149 = a3;
+  v151 = v16;
   allocator = a1;
   if (Mutable)
   {
-    v157 = Mutable;
+    v156 = Mutable;
     cfa = CFURLCreateFilePathURL(a1, a3, &error);
     if (!cfa)
     {
@@ -2392,34 +2216,34 @@ LABEL_63:
       goto LABEL_79;
     }
 
-    v144 = v18;
-    v141 = a7;
+    v143 = v18;
+    v140 = a7;
     domain = v17;
-    v148 = v14;
-    v149 = a8;
+    v147 = v14;
+    v148 = a8;
     v20 = *MEMORY[0x1E695EB68];
     v21 = *MEMORY[0x1E695EB28];
     *&values.ad_name_offset = *MEMORY[0x1E695EB68];
     *values.ad_pad = v21;
     v22 = *MEMORY[0x1E695EB90];
     v23 = *MEMORY[0x1E695EB80];
-    v173 = *MEMORY[0x1E695EB90];
-    v174 = v23;
+    v172 = *MEMORY[0x1E695EB90];
+    v173 = v23;
     v24 = *MEMORY[0x1E695EBF0];
-    v140 = *MEMORY[0x1E695EBE8];
-    v175 = *MEMORY[0x1E695EBE8];
-    v176 = v24;
-    v142 = v24;
+    v139 = *MEMORY[0x1E695EBE8];
+    v174 = *MEMORY[0x1E695EBE8];
+    v175 = v24;
+    v141 = v24;
     v25 = *MEMORY[0x1E695ED00];
     v26 = *MEMORY[0x1E695EAB8];
-    v177 = *MEMORY[0x1E695ED00];
-    v178 = v26;
+    v176 = *MEMORY[0x1E695ED00];
+    v177 = v26;
     if ((a6 & 2) != 0)
     {
       v29 = *MEMORY[0x1E695EE10];
       v40 = *MEMORY[0x1E695EDD8];
-      v179 = *MEMORY[0x1E695EE10];
-      v180 = v40;
+      v178 = *MEMORY[0x1E695EE10];
+      v179 = v40;
       key = v40;
       v31 = MEMORY[0x1E695E9C0];
       v32 = allocator;
@@ -2429,15 +2253,15 @@ LABEL_63:
     else
     {
       v27 = *MEMORY[0x1E695E2B8];
-      v179 = *MEMORY[0x1E695EA50];
-      v180 = v27;
+      v178 = *MEMORY[0x1E695EA50];
+      v179 = v27;
       v28 = *MEMORY[0x1E695EAE8];
-      v181 = *MEMORY[0x1E695E2C0];
-      v182 = v28;
+      v180 = *MEMORY[0x1E695E2C0];
+      v181 = v28;
       v29 = *MEMORY[0x1E695EE10];
       v30 = *MEMORY[0x1E695EDD8];
-      v183 = *MEMORY[0x1E695EE10];
-      v184 = v30;
+      v182 = *MEMORY[0x1E695EE10];
+      v183 = v30;
       key = v30;
       v31 = MEMORY[0x1E695E9C0];
       v32 = allocator;
@@ -2453,7 +2277,7 @@ LABEL_63:
     }
 
     v42 = __CFURLResourceInfoPtr();
-    v43 = _FSURLCacheResourcePropertiesForKeys(v157, v41, v42, &error);
+    v43 = _FSURLCacheResourcePropertiesForKeys(v156, v41, v42, &error);
     CFRelease(v41);
     if (!v43)
     {
@@ -2464,10 +2288,10 @@ LABEL_63:
 
     *&values.ad_name_offset = v20;
     *values.ad_pad = v21;
-    v173 = v22;
-    v174 = v23;
-    v175 = v25;
-    v176 = v26;
+    v172 = v22;
+    v173 = v23;
+    v174 = v25;
+    v175 = v26;
     if ((a6 & 2) != 0)
     {
       v45 = MEMORY[0x1E695E9C0];
@@ -2478,8 +2302,8 @@ LABEL_63:
     else
     {
       v44 = *MEMORY[0x1E695EAE8];
-      v177 = *MEMORY[0x1E695E2C0];
-      v178 = v44;
+      v176 = *MEMORY[0x1E695E2C0];
+      v177 = v44;
       v45 = MEMORY[0x1E695E9C0];
       v46 = allocator;
       v47 = 8;
@@ -2509,16 +2333,16 @@ LABEL_63:
       goto LABEL_184;
     }
 
-    if (!_URLIsDirectory(v157, &v163[1], &error))
+    if (!_URLIsDirectory(v156, &v162[1], &error))
     {
       goto LABEL_58;
     }
 
-    v51 = v163[1];
-    if (!v163[1])
+    v51 = v162[1];
+    if (!v162[1])
     {
       LOBYTE(values.ad_name_offset) = 0;
-      if (_URLIsFile(v157, &values, &error))
+      if (_URLIsFile(v156, &values, &error))
       {
         if (LOBYTE(values.ad_name_offset))
         {
@@ -2526,7 +2350,7 @@ LABEL_63:
         }
 
         code = 2;
-        v37 = CFRetain(v157);
+        v37 = CFRetain(v156);
       }
 
       else
@@ -2534,8 +2358,8 @@ LABEL_63:
         v37 = 0;
       }
 
-      v14 = v148;
-      a8 = v149;
+      v14 = v147;
+      a8 = v148;
       v17 = domain;
       LODWORD(Mutable) = 0;
       v38 = 0;
@@ -2546,13 +2370,13 @@ LABEL_63:
     }
 
 LABEL_31:
-    if (!_URLIsDirectory(cfa, v163, &error))
+    if (!_URLIsDirectory(cfa, v162, &error))
     {
       goto LABEL_58;
     }
 
-    v52 = v163[0];
-    if (v163[0])
+    v52 = v162[0];
+    if (v162[0])
     {
       goto LABEL_35;
     }
@@ -2563,16 +2387,16 @@ LABEL_31:
       if (LOBYTE(values.ad_name_offset))
       {
 LABEL_35:
-        if (!_URLIsLocked(v157, &v160, &error))
+        if (!_URLIsLocked(v156, &v159, &error))
         {
           goto LABEL_58;
         }
 
-        if (v160)
+        if (v159)
         {
 LABEL_42:
           code = 13;
-          v37 = CFRetain(v157);
+          v37 = CFRetain(v156);
           LODWORD(Mutable) = 0;
           v38 = 0;
           v43 = 0;
@@ -2580,26 +2404,26 @@ LABEL_42:
 LABEL_60:
           v58 = 0;
 LABEL_61:
-          v14 = v148;
-          a8 = v149;
+          v14 = v147;
+          a8 = v148;
 LABEL_77:
           v17 = domain;
           goto LABEL_78;
         }
 
-        if (_URLIsLocked(cfa, &v160, &error))
+        if (_URLIsLocked(cfa, &v159, &error))
         {
-          if (!v160)
+          if (!v159)
           {
             propertyValueTypeRefPtr[0] = 0;
             *&values.ad_name_offset = 0x40000000010;
-            if (!CFURLGetFileSystemRepresentation(v157, 1u, &v173, 1024))
+            if (!CFURLGetFileSystemRepresentation(v156, 1u, &v172, 1024))
             {
               v54 = 2;
 LABEL_44:
-              v56 = CFGetAllocator(v157);
+              v56 = CFGetAllocator(v156);
               v17 = domain;
-              v57 = _FSURLCreateStandardError(v56, domain, v54, 1, v157, 0);
+              v57 = _FSURLCreateStandardError(v56, domain, v54, 1, v156, 0);
 LABEL_45:
               LODWORD(Mutable) = 0;
               v38 = 0;
@@ -2609,12 +2433,12 @@ LABEL_45:
               v58 = 0;
               error = v57;
 LABEL_46:
-              v14 = v148;
-              a8 = v149;
+              v14 = v147;
+              a8 = v148;
 LABEL_78:
               CFRelease(cfa);
 LABEL_79:
-              CFRelease(v157);
+              CFRelease(v156);
               goto LABEL_80;
             }
 
@@ -2642,7 +2466,7 @@ LABEL_79:
             }
 
             *&values.ad_name_offset = 0;
-            if (CFURLCopyResourcePropertyForKey(v157, v29, &values, &error))
+            if (CFURLCopyResourcePropertyForKey(v156, v29, &values, &error))
             {
               v60 = CFBooleanGetValue(*&values.ad_name_offset);
               CFRelease(*&values.ad_name_offset);
@@ -2650,28 +2474,28 @@ LABEL_79:
 LABEL_53:
               *&values.ad_name_offset = 0;
               v61 = allocator;
-              if (CFURLCopyResourcePropertyForKey(v157, key, &values, &error))
+              if (CFURLCopyResourcePropertyForKey(v156, key, &values, &error))
               {
-                v138 = CFBooleanGetValue(*&values.ad_name_offset);
+                v137 = CFBooleanGetValue(*&values.ad_name_offset);
                 CFRelease(*&values.ad_name_offset);
                 *&values.ad_name_offset = 0;
                 *propertyValueTypeRefPtr = 0;
-                v139 = v59;
-                if (CFURLCopyResourcePropertyForKey(v157, v26, &values, 0))
+                v138 = v59;
+                if (CFURLCopyResourcePropertyForKey(v156, v26, &values, 0))
                 {
                   if (CFURLCopyResourcePropertyForKey(cfa, v26, propertyValueTypeRefPtr, 0))
                   {
                     v62 = CFEqual(*&values.ad_name_offset, *propertyValueTypeRefPtr);
                     CFRelease(*propertyValueTypeRefPtr);
                     CFRelease(*&values.ad_name_offset);
-                    v14 = v148;
-                    a8 = v149;
+                    v14 = v147;
+                    a8 = v148;
                     if (v62)
                     {
                       v63 = 22;
 LABEL_75:
                       code = v63;
-                      v37 = CFRetain(v157);
+                      v37 = CFRetain(v156);
                       LODWORD(Mutable) = 0;
                       v38 = 0;
                       v43 = 0;
@@ -2684,7 +2508,7 @@ LABEL_76:
 LABEL_67:
                     *&values.ad_name_offset = 0;
                     *propertyValueTypeRefPtr = 0;
-                    if (CFURLCopyResourcePropertyForKey(v157, v25, &values, 0))
+                    if (CFURLCopyResourcePropertyForKey(v156, v25, &values, 0))
                     {
                       if (CFURLCopyResourcePropertyForKey(cfa, v25, propertyValueTypeRefPtr, 0))
                       {
@@ -2693,7 +2517,7 @@ LABEL_67:
                         CFRelease(*&values.ad_name_offset);
                         if (v64)
                         {
-                          if (!CFURLCopyResourcePropertyForKey(v157, v142, &url, &error))
+                          if (!CFURLCopyResourcePropertyForKey(v156, v141, &url, &error))
                           {
                             LODWORD(Mutable) = 0;
                             v38 = 0;
@@ -2703,7 +2527,7 @@ LABEL_67:
                             goto LABEL_76;
                           }
 
-                          v65 = v152;
+                          v65 = v151;
                           if (cf1)
                           {
                             v66 = CFURLCreateCopyAppendingPathComponent(allocator, url, cf1, v52);
@@ -2711,14 +2535,14 @@ LABEL_67:
 
                           else
                           {
-                            v66 = CFRetain(v157);
+                            v66 = CFRetain(v156);
                           }
 
                           Mutable = v66;
                           if (!v66)
                           {
                             code = 2;
-                            v37 = CFRetain(v157);
+                            v37 = CFRetain(v156);
                             v38 = 0;
                             v43 = 0;
                             v55 = 0;
@@ -2730,31 +2554,31 @@ LABEL_337:
                           }
 
                           keya = v66;
-                          if (v139)
+                          if (v138)
                           {
-                            v75 = v144;
+                            v74 = v143;
                             if (v51 | v52)
                             {
-                              v75 = 1;
+                              v74 = 1;
                             }
 
-                            if (v75)
+                            if (v74)
                             {
                               if (!theString)
                               {
-                                if (CFURLGetFileSystemRepresentation(v157, 1u, &values, 1024))
+                                if (CFURLGetFileSystemRepresentation(v156, 1u, &values, 1024))
                                 {
-                                  v76 = _amkrtemp();
-                                  if (!v76)
+                                  v75 = _amkrtemp();
+                                  if (!v75)
                                   {
-                                    v134 = *__error();
+                                    v133 = *__error();
                                     goto LABEL_362;
                                   }
 
-                                  v77 = v76;
-                                  v78 = strlen(v76);
-                                  v38 = CFURLCreateFromFileSystemRepresentation(allocator, v77, v78, v51);
-                                  free(v77);
+                                  v76 = v75;
+                                  v77 = strlen(v75);
+                                  v38 = CFURLCreateFromFileSystemRepresentation(allocator, v76, v77, v51);
+                                  free(v76);
                                   if (v38)
                                   {
                                     Mutable = keya;
@@ -2762,15 +2586,15 @@ LABEL_137:
                                     PathComponent = CFURLCopyLastPathComponent(Mutable);
                                     if (PathComponent)
                                     {
-                                      v80 = PathComponent;
-                                      v81 = CFURLCopyLastPathComponent(v38);
-                                      if (v81)
+                                      v79 = PathComponent;
+                                      v80 = CFURLCopyLastPathComponent(v38);
+                                      if (v80)
                                       {
-                                        v82 = v81;
-                                        v83 = CFEqual(v80, v81);
-                                        CFRelease(v82);
-                                        CFRelease(v80);
-                                        if (v83)
+                                        v81 = v80;
+                                        v82 = CFEqual(v79, v80);
+                                        CFRelease(v81);
+                                        CFRelease(v79);
+                                        if (v82)
                                         {
                                           code = 22;
                                           v37 = CFRetain(keya);
@@ -2781,12 +2605,12 @@ LABEL_137:
                                           goto LABEL_345;
                                         }
 
-                                        v65 = v152;
+                                        v65 = v151;
                                       }
 
                                       else
                                       {
-                                        CFRelease(v80);
+                                        CFRelease(v79);
                                       }
 
                                       v61 = allocator;
@@ -2796,8 +2620,8 @@ LABEL_137:
 LABEL_145:
                                     if ((a6 & 2) != 0)
                                     {
-                                      v143 = 0;
-                                      v88 = 0;
+                                      v142 = 0;
+                                      v87 = 0;
                                       v17 = domain;
                                       goto LABEL_276;
                                     }
@@ -2805,36 +2629,36 @@ LABEL_145:
                                     Mutable = CFDictionaryCreateMutable(v61, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
                                     if (Mutable)
                                     {
-                                      v169 = 0;
+                                      v168 = 0;
                                       fileSec = 0;
                                       mode = 0;
-                                      v166 = 0;
+                                      v165 = 0;
                                       group = 0;
                                       accessControlList = 0;
-                                      v84 = *MEMORY[0x1E695EAE8];
-                                      v137 = Mutable;
-                                      if (CFURLCopyResourcePropertyForKey(v157, *MEMORY[0x1E695EAE8], &fileSec, &error) && fileSec)
+                                      v83 = *MEMORY[0x1E695EAE8];
+                                      v136 = Mutable;
+                                      if (CFURLCopyResourcePropertyForKey(v156, *MEMORY[0x1E695EAE8], &fileSec, &error) && fileSec)
                                       {
-                                        v136 = v84;
-                                        if (CFURLCopyResourcePropertyForKey(cfa, v84, &v169, &error) && v169)
+                                        v135 = v83;
+                                        if (CFURLCopyResourcePropertyForKey(cfa, v83, &v168, &error) && v168)
                                         {
-                                          v85 = CFFileSecurityCreate(v61);
-                                          if (!v85)
+                                          v84 = CFFileSecurityCreate(v61);
+                                          if (!v84)
                                           {
-                                            v143 = 0;
-                                            v97 = 1;
+                                            v142 = 0;
+                                            v96 = 1;
 LABEL_251:
-                                            CFRelease(v169);
+                                            CFRelease(v168);
                                             CFRelease(fileSec);
-                                            v88 = v137;
-                                            if (!v97)
+                                            v87 = v136;
+                                            if (!v96)
                                             {
                                               v49 = cfa;
-                                              if (TransferExtendedAttributes(v61, v157, cfa, &error) && (*&values.ad_name_offset = 0, *propertyValueTypeRefPtr = 0, v117 = *MEMORY[0x1E695E2C0], CFURLCopyResourcePropertyForKey(v157, *MEMORY[0x1E695E2C0], &values, &error)) && *&values.ad_name_offset && CFDataGetLength(*&values.ad_name_offset) == 32)
+                                              if (TransferExtendedAttributes(v61, v156, cfa, &error) && (*&values.ad_name_offset = 0, *propertyValueTypeRefPtr = 0, v116 = *MEMORY[0x1E695E2C0], CFURLCopyResourcePropertyForKey(v156, *MEMORY[0x1E695E2C0], &values, &error)) && *&values.ad_name_offset && CFDataGetLength(*&values.ad_name_offset) == 32)
                                               {
                                                 BytePtr = CFDataGetBytePtr(*&values.ad_name_offset);
                                                 LODWORD(Mutable) = 1;
-                                                if (CFURLCopyResourcePropertyForKey(cfa, v117, propertyValueTypeRefPtr, &error))
+                                                if (CFURLCopyResourcePropertyForKey(cfa, v116, propertyValueTypeRefPtr, &error))
                                                 {
                                                   if (*propertyValueTypeRefPtr)
                                                   {
@@ -2845,23 +2669,23 @@ LABEL_251:
                                                       if (Mutable)
                                                       {
                                                         MutableBytePtr = CFDataGetMutableBytePtr(Mutable);
-                                                        v120 = *(BytePtr + 4);
-                                                        if ((v120 & 0xE) != 0 && (v121 = *(MutableBytePtr + 4), (v121 & 0xE) == 0))
+                                                        v119 = *(BytePtr + 4);
+                                                        if ((v119 & 0xE) != 0 && (v120 = *(MutableBytePtr + 4), (v120 & 0xE) == 0))
                                                         {
-                                                          v122 = 0;
-                                                          *(MutableBytePtr + 4) = v121 | *(BytePtr + 4) & 0xE;
-                                                          v120 = *(BytePtr + 4);
+                                                          v121 = 0;
+                                                          *(MutableBytePtr + 4) = v120 | *(BytePtr + 4) & 0xE;
+                                                          v119 = *(BytePtr + 4);
                                                         }
 
                                                         else
                                                         {
-                                                          v122 = 1;
+                                                          v121 = 1;
                                                         }
 
                                                         v61 = allocator;
-                                                        if ((v120 & 0x10) == 0 || (v123 = *(MutableBytePtr + 4), (v123 & 0x10) != 0))
+                                                        if ((v119 & 0x10) == 0 || (v122 = *(MutableBytePtr + 4), (v122 & 0x10) != 0))
                                                         {
-                                                          if (v122)
+                                                          if (v121)
                                                           {
                                                             goto LABEL_269;
                                                           }
@@ -2869,22 +2693,22 @@ LABEL_251:
 
                                                         else
                                                         {
-                                                          *(MutableBytePtr + 4) = v123 | 0x10;
+                                                          *(MutableBytePtr + 4) = v122 | 0x10;
                                                         }
 
-                                                        CFDictionaryAddValue(v137, v117, Mutable);
+                                                        CFDictionaryAddValue(v136, v116, Mutable);
 LABEL_269:
                                                         CFRelease(Mutable);
                                                         CFRelease(*&values.ad_name_offset);
-                                                        v124 = *MEMORY[0x1E695EA50];
-                                                        if (CFURLCopyResourcePropertyForKey(v157, *MEMORY[0x1E695EA50], &cf2, 0) && cf2)
+                                                        v123 = *MEMORY[0x1E695EA50];
+                                                        if (CFURLCopyResourcePropertyForKey(v156, *MEMORY[0x1E695EA50], &cf2, 0) && cf2)
                                                         {
-                                                          CFDictionaryAddValue(v137, v124, cf2);
+                                                          CFDictionaryAddValue(v136, v123, cf2);
                                                           CFRelease(cf2);
                                                         }
 
                                                         Mutable = keya;
-                                                        if (!CFURLSetResourcePropertiesForKeys(cfa, v137, &error))
+                                                        if (!CFURLSetResourcePropertiesForKeys(cfa, v136, &error))
                                                         {
                                                           v43 = 0;
                                                           v55 = 0;
@@ -2896,25 +2720,25 @@ LABEL_269:
                                                         }
 
                                                         v17 = domain;
-                                                        if (v143)
+                                                        if (v142)
                                                         {
-                                                          CFURLSetResourcePropertyForKey(cfa, v136, v143, 0);
+                                                          CFURLSetResourcePropertyForKey(cfa, v135, v142, 0);
                                                         }
 
                                                         else
                                                         {
-                                                          v143 = 0;
+                                                          v142 = 0;
                                                         }
 
 LABEL_276:
                                                         if (!theString || !v38 || !CFURLResourceIsReachable(v38, 0))
                                                         {
 LABEL_282:
-                                                          if (v139)
+                                                          if (v138)
                                                           {
                                                             if (v38)
                                                             {
-                                                              if ((v163[1] || v163[0] || !v138 || !_HardLinkURL(v61, v157, v38, &error)) && !_RenameURL(v61, v157, v38, &error))
+                                                              if ((v162[1] || v162[0] || !v137 || !_HardLinkURL(v61, v156, v38, &error)) && !_RenameURL(v61, v156, v38, &error))
                                                               {
                                                                 goto LABEL_365;
                                                               }
@@ -2927,12 +2751,12 @@ LABEL_282:
                                                             {
                                                               if (cf1)
                                                               {
-                                                                v125 = v38 ? v38 : v157;
-                                                                if (CFURLCopyResourcePropertyForKey(v125, v140, &cf2, 0) && cf2)
+                                                                v124 = v38 ? v38 : v156;
+                                                                if (CFURLCopyResourcePropertyForKey(v124, v139, &cf2, 0) && cf2)
                                                                 {
                                                                   if (!CFEqual(cf1, cf2))
                                                                   {
-                                                                    TransferDocumentIdentifier(v125, Mutable);
+                                                                    TransferDocumentIdentifier(v124, Mutable);
                                                                   }
 
                                                                   CFRelease(cf2);
@@ -2940,8 +2764,8 @@ LABEL_282:
                                                               }
 
                                                               CFRelease(v65);
-                                                              v126 = CFRetain(Mutable);
-                                                              if (v144)
+                                                              v125 = CFRetain(Mutable);
+                                                              if (v143)
                                                               {
                                                                 goto LABEL_304;
                                                               }
@@ -2953,17 +2777,17 @@ LABEL_282:
                                                                   CFRelease(value);
                                                                   value = 0;
 LABEL_304:
-                                                                  v127 = v141;
+                                                                  v126 = v140;
 LABEL_325:
-                                                                  v152 = v126;
-                                                                  if (v127)
+                                                                  v151 = v125;
+                                                                  if (v126)
                                                                   {
-                                                                    v133 = CFRetain(Mutable);
+                                                                    v132 = CFRetain(Mutable);
                                                                     LODWORD(Mutable) = 0;
                                                                     v43 = 0;
                                                                     v55 = 0;
                                                                     v37 = 0;
-                                                                    *v127 = v133;
+                                                                    *v126 = v132;
                                                                   }
 
                                                                   else
@@ -2976,14 +2800,14 @@ LABEL_325:
 
                                                                   v58 = 1;
 LABEL_329:
-                                                                  if (v88)
+                                                                  if (v87)
                                                                   {
-                                                                    CFRelease(v88);
+                                                                    CFRelease(v87);
                                                                   }
 
-                                                                  if (v143)
+                                                                  if (v142)
                                                                   {
-                                                                    CFRelease(v143);
+                                                                    CFRelease(v142);
                                                                   }
 
                                                                   if (v55)
@@ -2994,7 +2818,7 @@ LABEL_329:
                                                                   goto LABEL_334;
                                                                 }
 
-                                                                v152 = v126;
+                                                                v151 = v125;
 LABEL_368:
                                                                 LODWORD(Mutable) = 0;
                                                                 v43 = 0;
@@ -3004,7 +2828,7 @@ LABEL_368:
                                                                 goto LABEL_329;
                                                               }
 
-                                                              if (!cf1 || !CFURLCopyResourcePropertyForKey(v157, v140, &cf2, 0) || !cf2)
+                                                              if (!cf1 || !CFURLCopyResourcePropertyForKey(v156, v139, &cf2, 0) || !cf2)
                                                               {
                                                                 goto LABEL_304;
                                                               }
@@ -3012,22 +2836,22 @@ LABEL_368:
                                                               if (CFEqual(cf1, cf2))
                                                               {
 LABEL_321:
-                                                                v127 = v141;
+                                                                v126 = v140;
                                                                 CFRelease(cf2);
                                                                 goto LABEL_325;
                                                               }
 
-                                                              if (_RemoveObjectAtURL(v61, v157, &error))
+                                                              if (_RemoveObjectAtURL(v61, v156, &error))
                                                               {
                                                                 CFRelease(value);
                                                                 value = 0;
                                                                 goto LABEL_321;
                                                               }
 
-                                                              v152 = v126;
-                                                              v135 = v157;
+                                                              v151 = v125;
+                                                              v134 = v156;
 LABEL_367:
-                                                              v38 = CFRetain(v135);
+                                                              v38 = CFRetain(v134);
                                                               goto LABEL_368;
                                                             }
 
@@ -3044,19 +2868,19 @@ LABEL_365:
                                                           {
                                                             if (CFURLGetFileSystemRepresentation(Mutable, 1u, propertyValueTypeRefPtr, 1024))
                                                             {
-                                                              if (!renamex_np(&values, propertyValueTypeRefPtr, 2u) || (v128 = *__error(), v129 = v49, !v128))
+                                                              if (!renamex_np(&values, propertyValueTypeRefPtr, 2u) || (v127 = *__error(), v128 = v49, !v127))
                                                               {
                                                                 CFRelease(v65);
-                                                                v130 = CFRetain(Mutable);
-                                                                v131 = v49;
-                                                                v126 = v130;
+                                                                v129 = CFRetain(Mutable);
+                                                                v130 = v49;
+                                                                v125 = v129;
                                                                 CFRelease(value);
-                                                                value = CFRetain(v131);
-                                                                if (v144)
+                                                                value = CFRetain(v130);
+                                                                if (v143)
                                                                 {
-                                                                  if (!_RenameURL(v61, v131, v38, &error))
+                                                                  if (!_RenameURL(v61, v130, v38, &error))
                                                                   {
-                                                                    v152 = v126;
+                                                                    v151 = v125;
                                                                     goto LABEL_365;
                                                                   }
 
@@ -3066,10 +2890,10 @@ LABEL_365:
 
                                                                 else
                                                                 {
-                                                                  if (!_RemoveObjectAtURL(v61, v131, &error))
+                                                                  if (!_RemoveObjectAtURL(v61, v130, &error))
                                                                   {
-                                                                    v152 = v126;
-                                                                    v135 = cfa;
+                                                                    v151 = v125;
+                                                                    v134 = cfa;
                                                                     goto LABEL_367;
                                                                   }
 
@@ -3077,7 +2901,7 @@ LABEL_365:
                                                                   value = 0;
                                                                 }
 
-                                                                v127 = v141;
+                                                                v126 = v140;
                                                                 Mutable = keya;
                                                                 goto LABEL_325;
                                                               }
@@ -3085,30 +2909,30 @@ LABEL_365:
 
                                                             else
                                                             {
-                                                              v128 = 2;
-                                                              v129 = Mutable;
+                                                              v127 = 2;
+                                                              v128 = Mutable;
                                                             }
                                                           }
 
                                                           else
                                                           {
-                                                            v128 = 2;
-                                                            v129 = v49;
+                                                            v127 = 2;
+                                                            v128 = v49;
                                                           }
 
-                                                          v132 = _FSURLCreateStandardError(v61, v17, v128, 1, v129, 0);
+                                                          v131 = _FSURLCreateStandardError(v61, v17, v127, 1, v128, 0);
                                                           LODWORD(Mutable) = 0;
                                                           v43 = 0;
                                                           v55 = 0;
                                                           v37 = 0;
                                                           v58 = 0;
-                                                          error = v132;
+                                                          error = v131;
                                                           goto LABEL_329;
                                                         }
 
-                                                        if (_URLIsLocked(v38, &v160, &error))
+                                                        if (_URLIsLocked(v38, &v159, &error))
                                                         {
-                                                          if (v160)
+                                                          if (v159)
                                                           {
                                                             code = 13;
                                                             v37 = CFRetain(v38);
@@ -3147,13 +2971,13 @@ LABEL_358:
                                               {
                                                 code = 512;
                                                 v17 = *MEMORY[0x1E695E628];
-                                                v37 = CFRetain(v157);
+                                                v37 = CFRetain(v156);
 LABEL_355:
                                                 v43 = 0;
                                                 v55 = 0;
                                                 v58 = 0;
-                                                v14 = v148;
-                                                a8 = v149;
+                                                v14 = v147;
+                                                a8 = v148;
                                                 goto LABEL_356;
                                               }
 
@@ -3165,7 +2989,7 @@ LABEL_348:
                                             {
                                               code = 512;
                                               v17 = *MEMORY[0x1E695E628];
-                                              v37 = CFRetain(v157);
+                                              v37 = CFRetain(v156);
                                               LODWORD(Mutable) = 0;
                                               goto LABEL_355;
                                             }
@@ -3176,15 +3000,15 @@ LABEL_350:
                                             v55 = 0;
                                             v37 = 0;
                                             v58 = 0;
-                                            v14 = v148;
-                                            a8 = v149;
+                                            v14 = v147;
+                                            a8 = v148;
                                             v17 = domain;
 LABEL_356:
-                                            v88 = v137;
+                                            v87 = v136;
                                             goto LABEL_329;
                                           }
 
-                                          v86 = v85;
+                                          v85 = v84;
                                           if (!CFFileSecurityGetMode(fileSec, &mode))
                                           {
                                             goto LABEL_194;
@@ -3195,50 +3019,50 @@ LABEL_356:
                                             if (v51 || !v52)
                                             {
 LABEL_169:
-                                              if (CFFileSecurityGetGroup(fileSec, &group) && CFFileSecurityGetGroup(v169, &v166))
+                                              if (CFFileSecurityGetGroup(fileSec, &group) && CFFileSecurityGetGroup(v168, &v165))
                                               {
-                                                v91 = group;
-                                                if (v166 == group)
+                                                v90 = group;
+                                                if (v165 == group)
                                                 {
-                                                  v92 = 0;
-                                                  v93 = 1;
-                                                  v94 = mode;
+                                                  v91 = 0;
+                                                  v92 = 1;
+                                                  v93 = mode;
                                                   goto LABEL_200;
                                                 }
 
                                                 *&values.ad_name_offset = 0;
                                                 *values.ad_pad = 0;
-                                                v186 = 0;
+                                                v185 = 0;
                                                 *propertyValueTypeRefPtr = 0;
                                                 ismember = 0;
-                                                v95 = _CFGetEUID();
-                                                if (mbr_uid_to_uuid(v95, &values) || mbr_gid_to_uuid(v91, propertyValueTypeRefPtr) || mbr_check_membership(&values, propertyValueTypeRefPtr, &ismember))
+                                                v94 = _CFGetEUID();
+                                                if (mbr_uid_to_uuid(v94, &values) || mbr_gid_to_uuid(v90, propertyValueTypeRefPtr) || mbr_check_membership(&values, propertyValueTypeRefPtr, &ismember))
                                                 {
-                                                  v96 = mode;
+                                                  v95 = mode;
                                                 }
 
                                                 else
                                                 {
-                                                  v96 = mode;
+                                                  v95 = mode;
                                                   if (ismember)
                                                   {
-                                                    v93 = 0;
-                                                    v92 = mode;
+                                                    v92 = 0;
+                                                    v91 = mode;
 LABEL_199:
-                                                    v94 = (8 * (v96 & 7)) | v96 & 0xFFC7;
-                                                    mode = v94;
+                                                    v93 = (8 * (v95 & 7)) | v95 & 0xFFC7;
+                                                    mode = v93;
 LABEL_200:
-                                                    if (CFFileSecuritySetMode(v86, v94))
+                                                    if (CFFileSecuritySetMode(v85, v93))
                                                     {
                                                       if (!CFFileSecurityCopyAccessControlList(fileSec, &accessControlList))
                                                       {
-                                                        v97 = 1;
-                                                        if (CFFileSecuritySetAccessControlList(v86, 1))
+                                                        v96 = 1;
+                                                        if (CFFileSecuritySetAccessControlList(v85, 1))
                                                         {
                                                           goto LABEL_223;
                                                         }
 
-                                                        v143 = 0;
+                                                        v142 = 0;
 LABEL_249:
                                                         v61 = allocator;
                                                         goto LABEL_250;
@@ -3249,30 +3073,30 @@ LABEL_249:
                                                         goto LABEL_374;
                                                       }
 
-                                                      v98 = accessControlList;
-                                                      v99 = 0;
+                                                      v97 = accessControlList;
+                                                      v98 = 0;
                                                       if (v51)
                                                       {
                                                         *&values.ad_name_offset = 0;
                                                         *propertyValueTypeRefPtr = 0;
                                                         while (1)
                                                         {
-                                                          entry = acl_get_entry(v98, v99, &values);
+                                                          entry = acl_get_entry(v97, v98, &values);
                                                           if (entry)
                                                           {
                                                             break;
                                                           }
 
                                                           permset = acl_get_permset(*&values.ad_name_offset, propertyValueTypeRefPtr);
-                                                          v99 = -1;
+                                                          v98 = -1;
                                                           if (!permset)
                                                           {
-                                                            v102 = acl_delete_perm(*propertyValueTypeRefPtr, ACL_DELETE_CHILD|ACL_SEARCH);
-                                                            v99 = -1;
-                                                            if (!v102)
+                                                            v101 = acl_delete_perm(*propertyValueTypeRefPtr, ACL_DELETE_CHILD|ACL_SEARCH);
+                                                            v98 = -1;
+                                                            if (!v101)
                                                             {
                                                               acl_set_permset(*&values.ad_name_offset, *propertyValueTypeRefPtr);
-                                                              v99 = -1;
+                                                              v98 = -1;
                                                             }
                                                           }
                                                         }
@@ -3284,22 +3108,22 @@ LABEL_249:
                                                         *propertyValueTypeRefPtr = 0;
                                                         while (1)
                                                         {
-                                                          entry = acl_get_entry(v98, v99, &values);
+                                                          entry = acl_get_entry(v97, v98, &values);
                                                           if (entry)
                                                           {
                                                             break;
                                                           }
 
-                                                          v103 = acl_get_permset(*&values.ad_name_offset, propertyValueTypeRefPtr);
-                                                          v99 = -1;
-                                                          if (!v103)
+                                                          v102 = acl_get_permset(*&values.ad_name_offset, propertyValueTypeRefPtr);
+                                                          v98 = -1;
+                                                          if (!v102)
                                                           {
-                                                            v104 = acl_add_perm(*propertyValueTypeRefPtr, ACL_EXECUTE);
-                                                            v99 = -1;
-                                                            if (!v104)
+                                                            v103 = acl_add_perm(*propertyValueTypeRefPtr, ACL_EXECUTE);
+                                                            v98 = -1;
+                                                            if (!v103)
                                                             {
                                                               acl_set_permset(*&values.ad_name_offset, *propertyValueTypeRefPtr);
-                                                              v99 = -1;
+                                                              v98 = -1;
                                                             }
                                                           }
                                                         }
@@ -3321,63 +3145,63 @@ LABEL_249:
                                                       if (!entry)
                                                       {
 LABEL_374:
-                                                        v105 = CFFileSecuritySetAccessControlList(v86, accessControlList);
+                                                        v104 = CFFileSecuritySetAccessControlList(v85, accessControlList);
                                                         acl_free(accessControlList);
-                                                        if (v105)
+                                                        if (v104)
                                                         {
 LABEL_223:
-                                                          if ((v93 & 1) == 0)
+                                                          if ((v92 & 1) == 0)
                                                           {
-                                                            Copy = CFFileSecurityCreateCopy(allocator, v86);
+                                                            Copy = CFFileSecurityCreateCopy(allocator, v85);
                                                             if (Copy)
                                                             {
-                                                              v107 = Copy;
-                                                              if (CFFileSecuritySetMode(Copy, v92) && CFFileSecuritySetGroup(v107, group))
+                                                              v106 = Copy;
+                                                              if (CFFileSecuritySetMode(Copy, v91) && CFFileSecuritySetGroup(v106, group))
                                                               {
-                                                                v143 = v107;
+                                                                v142 = v106;
 LABEL_230:
-                                                                v164 = 0;
-                                                                if (CFFileSecurityGetMode(v169, &v164) && v164 == mode)
+                                                                v163 = 0;
+                                                                if (CFFileSecurityGetMode(v168, &v163) && v163 == mode)
                                                                 {
                                                                   *&values.ad_name_offset = 0;
                                                                   *propertyValueTypeRefPtr = 0;
-                                                                  v108 = CFFileSecurityCopyAccessControlList(v169, &values);
-                                                                  v109 = CFFileSecurityCopyAccessControlList(v86, propertyValueTypeRefPtr);
-                                                                  if (!(v108 | v109))
+                                                                  v107 = CFFileSecurityCopyAccessControlList(v168, &values);
+                                                                  v108 = CFFileSecurityCopyAccessControlList(v85, propertyValueTypeRefPtr);
+                                                                  if (!(v107 | v108))
                                                                   {
 LABEL_248:
-                                                                    v97 = 0;
+                                                                    v96 = 0;
                                                                     goto LABEL_249;
                                                                   }
 
-                                                                  v110 = v109;
-                                                                  if (!v108)
+                                                                  v109 = v108;
+                                                                  if (!v107)
                                                                   {
                                                                     *&values.ad_name_offset = acl_init(0);
                                                                   }
 
-                                                                  if (!v110)
+                                                                  if (!v109)
                                                                   {
                                                                     *propertyValueTypeRefPtr = acl_init(0);
                                                                   }
 
-                                                                  v111 = acl_size(*&values.ad_name_offset);
-                                                                  if (v111 >= 1)
+                                                                  v110 = acl_size(*&values.ad_name_offset);
+                                                                  if (v110 >= 1)
                                                                   {
-                                                                    v112 = v111;
-                                                                    if (v111 == acl_size(*propertyValueTypeRefPtr))
+                                                                    v111 = v110;
+                                                                    if (v110 == acl_size(*propertyValueTypeRefPtr))
                                                                     {
-                                                                      v113 = malloc_type_malloc(v112, 0xCD589C36uLL);
-                                                                      v114 = malloc_type_malloc(v112, 0x4B72B581uLL);
-                                                                      v115 = v114;
-                                                                      if (v113 && v114 && acl_copy_ext(v113, *&values.ad_name_offset, v112) >= 1 && acl_copy_ext(v115, *propertyValueTypeRefPtr, v112) >= 1)
+                                                                      v112 = malloc_type_malloc(v111, 0xCD589C36uLL);
+                                                                      v113 = malloc_type_malloc(v111, 0x4B72B581uLL);
+                                                                      v114 = v113;
+                                                                      if (v112 && v113 && acl_copy_ext(v112, *&values.ad_name_offset, v111) >= 1 && acl_copy_ext(v114, *propertyValueTypeRefPtr, v111) >= 1)
                                                                       {
-                                                                        v116 = memcmp(v113, v115, v112);
-                                                                        free(v113);
-                                                                        free(v115);
+                                                                        v115 = memcmp(v112, v114, v111);
+                                                                        free(v112);
+                                                                        free(v114);
                                                                         acl_free(*&values.ad_name_offset);
                                                                         acl_free(*propertyValueTypeRefPtr);
-                                                                        if (!v116)
+                                                                        if (!v115)
                                                                         {
                                                                           goto LABEL_248;
                                                                         }
@@ -3385,8 +3209,8 @@ LABEL_248:
                                                                         goto LABEL_247;
                                                                       }
 
-                                                                      free(v113);
-                                                                      free(v115);
+                                                                      free(v112);
+                                                                      free(v114);
                                                                     }
                                                                   }
 
@@ -3395,83 +3219,83 @@ LABEL_248:
                                                                 }
 
 LABEL_247:
-                                                                CFDictionaryAddValue(v137, v136, v86);
+                                                                CFDictionaryAddValue(v136, v135, v85);
                                                                 goto LABEL_248;
                                                               }
 
-                                                              CFRelease(v107);
+                                                              CFRelease(v106);
                                                             }
                                                           }
 
-                                                          v143 = 0;
+                                                          v142 = 0;
                                                           goto LABEL_230;
                                                         }
                                                       }
                                                     }
 
-                                                    v143 = 0;
-                                                    v97 = 1;
+                                                    v142 = 0;
+                                                    v96 = 1;
                                                     goto LABEL_249;
                                                   }
                                                 }
 
-                                                v92 = 0;
-                                                v93 = 1;
+                                                v91 = 0;
+                                                v92 = 1;
                                                 goto LABEL_199;
                                               }
 
 LABEL_194:
-                                              v143 = 0;
-                                              v97 = 1;
+                                              v142 = 0;
+                                              v96 = 1;
 LABEL_250:
-                                              CFRelease(v86);
+                                              CFRelease(v85);
                                               goto LABEL_251;
                                             }
 
                                             if ((mode & 0x180) != 0)
                                             {
-                                              v89 = mode | 0x40;
+                                              v88 = mode | 0x40;
                                             }
 
                                             else
                                             {
-                                              v89 = mode & 0xFE3F;
+                                              v88 = mode & 0xFE3F;
                                             }
 
-                                            if ((v89 & 0x30) != 0)
+                                            if ((v88 & 0x30) != 0)
                                             {
-                                              v90 = v89 | 8;
-                                            }
-
-                                            else
-                                            {
-                                              v90 = v89 & 0xFFC7;
-                                            }
-
-                                            if ((v90 & 6) != 0)
-                                            {
-                                              v87 = v90 | 1;
+                                              v89 = v88 | 8;
                                             }
 
                                             else
                                             {
-                                              v87 = v90 & 0xFFF8;
+                                              v89 = v88 & 0xFFC7;
+                                            }
+
+                                            if ((v89 & 6) != 0)
+                                            {
+                                              v86 = v89 | 1;
+                                            }
+
+                                            else
+                                            {
+                                              v86 = v89 & 0xFFF8;
                                             }
                                           }
 
                                           else
                                           {
-                                            v87 = mode & 0xFFB6;
+                                            v86 = mode & 0xFFB6;
                                           }
 
-                                          mode = v87;
+                                          mode = v86;
                                           goto LABEL_169;
                                         }
 
                                         CFRelease(fileSec);
                                       }
 
-                                      v143 = 0;
+                                      v142 = 0;
                                       goto LABEL_348;
                                     }
 
@@ -3494,17 +3318,17 @@ LABEL_334:
                                   }
                                 }
 
-                                v134 = 2;
+                                v133 = 2;
 LABEL_362:
-                                code = v134;
+                                code = v133;
                                 v37 = CFRetain(url);
                                 LODWORD(Mutable) = 0;
                                 v38 = 0;
                                 v43 = 0;
                                 v55 = 0;
                                 v58 = 0;
-                                v14 = v148;
-                                a8 = v149;
+                                v14 = v147;
+                                a8 = v148;
                                 goto LABEL_363;
                               }
 
@@ -3529,7 +3353,7 @@ LABEL_336:
                             }
                           }
 
-                          else if (v144)
+                          else if (v143)
                           {
                             goto LABEL_136;
                           }
@@ -3552,8 +3376,8 @@ LABEL_336:
                   CFRelease(*&values.ad_name_offset);
                 }
 
-                v14 = v148;
-                a8 = v149;
+                v14 = v147;
+                a8 = v148;
                 goto LABEL_67;
               }
             }
@@ -3596,8 +3420,8 @@ LABEL_184:
       v37 = 0;
     }
 
-    v14 = v148;
-    a8 = v149;
+    v14 = v147;
+    a8 = v148;
     v17 = domain;
     v38 = 0;
     v43 = 0;
@@ -3617,8 +3441,8 @@ LABEL_80:
   v36 = 0;
   if (!a8 || v58)
   {
-    a3 = v150;
-    v16 = v152;
+    a3 = v149;
+    v16 = v151;
     goto LABEL_110;
   }
 
@@ -3672,7 +3496,7 @@ LABEL_80:
       CFDictionarySetValue(v35, @"NSFileOriginalItemLocationKey", value);
     }
 
-    CFDictionarySetValue(v35, @"NSFileNewItemLocationKey", v152);
+    CFDictionarySetValue(v35, @"NSFileNewItemLocationKey", v151);
     if (v38)
     {
       v71 = v55;
@@ -3709,8 +3533,8 @@ LABEL_80:
   v39 = 0;
   v58 = 0;
   v36 = 1;
-  a3 = v150;
-  v16 = v152;
+  a3 = v149;
+  v16 = v151;
   if (v35)
   {
     goto LABEL_109;
@@ -3750,63 +3574,60 @@ LABEL_110:
     *a8 = CFErrorCreate(*MEMORY[0x1E695E480], *MEMORY[0x1E695E628], 256, 0);
   }
 
-  v73 = *MEMORY[0x1E69E9840];
   return v58;
 }
 
 uint64_t _RenameURL(const __CFAllocator *a1, CFURLRef url, const __CFURL *a3, __CFError **a4)
 {
   v6 = url;
-  v16 = *MEMORY[0x1E69E9840];
-  if (!CFURLGetFileSystemRepresentation(url, 1u, buffer, 1024))
+  v15 = *MEMORY[0x1E69E9840];
+  if (CFURLGetFileSystemRepresentation(url, 1u, buffer, 1024))
   {
-    v10 = 2;
-    goto LABEL_7;
-  }
-
-  if (!CFURLGetFileSystemRepresentation(a3, 1u, v14, 1024))
-  {
-    v10 = 2;
-    v6 = a3;
-    if (a4)
+    if (!CFURLGetFileSystemRepresentation(a3, 1u, v13, 1024))
     {
-      goto LABEL_8;
-    }
-
-    goto LABEL_10;
-  }
-
-  rename(buffer, v14, v8);
-  if (v9)
-  {
-    v10 = *__error();
-    if (v10)
-    {
-LABEL_7:
+      v10 = 2;
+      v6 = a3;
       if (a4)
       {
-LABEL_8:
-        v12 = _FSURLCreateStandardError(a1, *MEMORY[0x1E695E640], v10, 1, v6, 0);
-        result = 0;
-        *a4 = v12;
-        goto LABEL_11;
+        goto LABEL_8;
       }
 
-LABEL_10:
-      result = 0;
-      goto LABEL_11;
+      return 0;
+    }
+
+    rename(buffer, v13, v8);
+    if (!v9)
+    {
+      return 1;
+    }
+
+    v10 = *__error();
+    if (!v10)
+    {
+      return 1;
     }
   }
 
-  result = 1;
-LABEL_11:
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  else
+  {
+    v10 = 2;
+  }
+
+  if (a4)
+  {
+LABEL_8:
+    v12 = _FSURLCreateStandardError(a1, *MEMORY[0x1E695E640], v10, 1, v6, 0);
+    result = 0;
+    *a4 = v12;
+    return result;
+  }
+
+  return 0;
 }
 
 void TransferDocumentIdentifier(const __CFURL *a1, const __CFURL *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   propertyValueTypeRefPtr = 0;
   if (CFURLCopyResourcePropertyForKey(a1, *MEMORY[0x1E695EA60], &propertyValueTypeRefPtr, 0))
   {
@@ -3820,23 +3641,18 @@ void TransferDocumentIdentifier(const __CFURL *a1, const __CFURL *a2)
 
   if (!v4)
   {
-    if (CFURLGetFileSystemRepresentation(a1, 1u, buffer, 1024))
+    if (CFURLGetFileSystemRepresentation(a1, 1u, buffer, 1024) && CFURLGetFileSystemRepresentation(a2, 1u, v7, 1024))
     {
-      if (CFURLGetFileSystemRepresentation(a2, 1u, v8, 1024))
+      v5 = open(v7, 0);
+      if ((v5 & 0x80000000) == 0)
       {
-        v6 = open(v8, 0);
-        if ((v6 & 0x80000000) == 0)
-        {
-          fsctl(buffer, 0x80046820uLL, &v6, 0);
-          close(v6);
-        }
+        fsctl(buffer, 0x80046820uLL, &v5, 0);
+        close(v5);
       }
     }
 
     CFRelease(propertyValueTypeRefPtr);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t _URLIsDirectory(const __CFURL *a1, BOOL *a2, CFErrorRef *error)
@@ -3910,7 +3726,7 @@ uint64_t _URLIsLocked(const __CFURL *a1, BOOL *a2, CFErrorRef *error)
 
 uint64_t _RemoveObjectAtURL(const __CFAllocator *a1, CFURLRef url, __CFError **a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (!CFURLGetFileSystemRepresentation(url, 1u, buffer, 1024))
   {
     v7 = 2;
@@ -3919,7 +3735,7 @@ uint64_t _RemoveObjectAtURL(const __CFAllocator *a1, CFURLRef url, __CFError **a
       goto LABEL_5;
     }
 
-    goto LABEL_7;
+    return 0;
   }
 
   v6 = 1;
@@ -3933,66 +3749,61 @@ uint64_t _RemoveObjectAtURL(const __CFAllocator *a1, CFURLRef url, __CFError **a
 LABEL_5:
         v6 = 0;
         *a3 = _FSURLCreateStandardError(a1, *MEMORY[0x1E695E640], v7, 1, url, 0);
-        goto LABEL_8;
+        return v6;
       }
 
-LABEL_7:
-      v6 = 0;
+      return 0;
     }
   }
 
-LABEL_8:
-  v8 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 uint64_t _HardLinkURL(const __CFAllocator *a1, CFURLRef url, const __CFURL *a3, __CFError **a4)
 {
   v6 = url;
-  v14 = *MEMORY[0x1E69E9840];
-  if (!CFURLGetFileSystemRepresentation(url, 1u, buffer, 1024))
+  v13 = *MEMORY[0x1E69E9840];
+  if (CFURLGetFileSystemRepresentation(url, 1u, buffer, 1024))
   {
-    v8 = 2;
-    goto LABEL_7;
-  }
-
-  if (!CFURLGetFileSystemRepresentation(a3, 1u, v12, 1024))
-  {
-    v8 = 2;
-    v6 = a3;
-    if (a4)
+    if (!CFURLGetFileSystemRepresentation(a3, 1u, v11, 1024))
     {
-      goto LABEL_8;
-    }
-
-    goto LABEL_10;
-  }
-
-  if (link(buffer, v12))
-  {
-    v8 = *__error();
-    if (v8)
-    {
-LABEL_7:
+      v8 = 2;
+      v6 = a3;
       if (a4)
       {
-LABEL_8:
-        v10 = _FSURLCreateStandardError(a1, *MEMORY[0x1E695E640], v8, 1, v6, 0);
-        result = 0;
-        *a4 = v10;
-        goto LABEL_11;
+        goto LABEL_8;
       }
 
-LABEL_10:
-      result = 0;
-      goto LABEL_11;
+      return 0;
+    }
+
+    if (!link(buffer, v11))
+    {
+      return 1;
+    }
+
+    v8 = *__error();
+    if (!v8)
+    {
+      return 1;
     }
   }
 
-  result = 1;
-LABEL_11:
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  else
+  {
+    v8 = 2;
+  }
+
+  if (a4)
+  {
+LABEL_8:
+    v10 = _FSURLCreateStandardError(a1, *MEMORY[0x1E695E640], v8, 1, v6, 0);
+    result = 0;
+    *a4 = v10;
+    return result;
+  }
+
+  return 0;
 }
 
 uint64_t PosixToOSStatusTranslate(int a1)
@@ -4453,20 +4264,17 @@ CFDataRef _URLCopySecurityScopeFromFileURL(CFDataRef result)
 
 uint64_t _FSGetTypeInfoForFileDescriptor(uint64_t a1, char *a2, size_t a3, _DWORD *a4)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  memset(v9, 0, 512);
+  v9 = *MEMORY[0x1E69E9840];
+  memset(v8, 0, 512);
   if (fstatfs_ext() == -1)
   {
-    result = *__error();
+    return *__error();
   }
 
   else
   {
-    result = _FSGetTypeInfoFromStatfs(v9, a2, a3, a4);
+    return _FSGetTypeInfoFromStatfs(v8, a2, a3, a4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 uint64_t _FSGetLocationFromStatfs(uint64_t a1, char *a2, size_t a3)
@@ -4529,78 +4337,68 @@ LABEL_16:
 
 uint64_t _FSGetLocationForPath(uint64_t a1, char *a2, size_t a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  memset(v7, 0, 512);
+  v7 = *MEMORY[0x1E69E9840];
+  memset(v6, 0, 512);
   if (statfs_ext() == -1)
   {
-    result = *__error();
+    return *__error();
   }
 
   else
   {
-    result = _FSGetLocationFromStatfs(v7, a2, a3);
+    return _FSGetLocationFromStatfs(v6, a2, a3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 uint64_t _FSGetLocationForFileDescriptor(uint64_t a1, char *a2, size_t a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  memset(v7, 0, 512);
+  v7 = *MEMORY[0x1E69E9840];
+  memset(v6, 0, 512);
   if (fstatfs_ext() == -1)
   {
-    result = *__error();
+    return *__error();
   }
 
   else
   {
-    result = _FSGetLocationFromStatfs(v7, a2, a3);
+    return _FSGetLocationFromStatfs(v6, a2, a3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 void BookmarkData::BookmarkData(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136315394;
-  v4 = "BookmarkData";
-  v5 = 2080;
-  v6 = a1;
-  _os_log_error_impl(&dword_19602C000, a2, OS_LOG_TYPE_ERROR, "%s: %s", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136315394;
+  v3 = "BookmarkData";
+  v4 = 2080;
+  v5 = a1;
+  _os_log_error_impl(&dword_19602C000, a2, OS_LOG_TYPE_ERROR, "%s: %s", &v2, 0x16u);
 }
 
 void BookmarkData::copyItem(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134349056;
-  v4 = a1;
-  _os_log_error_impl(&dword_19602C000, a2, OS_LOG_TYPE_ERROR, "BookmarkData: Corrupt bookmark file; container dataItemPtr %{public}p already used", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134349056;
+  v3 = a1;
+  _os_log_error_impl(&dword_19602C000, a2, OS_LOG_TYPE_ERROR, "BookmarkData: Corrupt bookmark file; container dataItemPtr %{public}p already used", &v2, 0xCu);
 }
 
 void __CFURLCreateBookmarkData(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "__CFURLCreateBookmarkData";
-  _os_log_error_impl(&dword_19602C000, log, OS_LOG_TYPE_ERROR, "%s: NULL result with no real error", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "__CFURLCreateBookmarkData";
+  _os_log_error_impl(&dword_19602C000, log, OS_LOG_TYPE_ERROR, "%s: NULL result with no real error", &v1, 0xCu);
 }
 
 void _CFURLCreateBookmarkData_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 134218242;
-  v4 = a1;
-  v5 = 2112;
-  v6 = a1;
-  _os_log_debug_impl(&dword_19602C000, a2, OS_LOG_TYPE_DEBUG, "result=<%p %@>", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 134218242;
+  v3 = a1;
+  v4 = 2112;
+  v5 = a1;
+  _os_log_debug_impl(&dword_19602C000, a2, OS_LOG_TYPE_DEBUG, "result=<%p %@>", &v2, 0x16u);
 }
 
 void _FileCacheCopyDebugDesc()
@@ -4614,70 +4412,52 @@ void _FileCacheCopyDebugDesc()
 
 void _CFURLWriteBookmarkDataToFile_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v4 = 136315650;
-  v5 = "_CFURLWriteBookmarkDataToFile";
-  v6 = 2114;
-  v7 = a1;
-  v8 = 2114;
-  v9 = a2;
-  _os_log_error_impl(&dword_19602C000, log, OS_LOG_TYPE_ERROR, "%s: destination URL %{public}@ exists but does not point to a valid file, so exiting with an error %{public}@", &v4, 0x20u);
-  v3 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = 136315650;
+  v4 = "_CFURLWriteBookmarkDataToFile";
+  v5 = 2114;
+  v6 = a1;
+  v7 = 2114;
+  v8 = a2;
+  _os_log_error_impl(&dword_19602C000, log, OS_LOG_TYPE_ERROR, "%s: destination URL %{public}@ exists but does not point to a valid file, so exiting with an error %{public}@", &v3, 0x20u);
 }
 
 void _CFURLWriteBookmarkDataToFile_cold_2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_19602C000, log, OS_LOG_TYPE_ERROR, "FAILED creating bookmark file at %@, error=%@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void _CFURLCreateByResolvingBookmarkData_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_19602C000, log, OS_LOG_TYPE_ERROR, "FAILED creating bookmark file at %@, error=%@", &v3, 0x16u);
 }
 
 void _CFURLCreateByResolvingBookmarkData_cold_2(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "_CFURLCreateByResolvingBookmarkData";
-  _os_log_error_impl(&dword_19602C000, log, OS_LOG_TYPE_ERROR, "%s: NULL result with no real error", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "_CFURLCreateByResolvingBookmarkData";
+  _os_log_error_impl(&dword_19602C000, log, OS_LOG_TYPE_ERROR, "%s: NULL result with no real error", &v1, 0xCu);
 }
 
 void createByResolvingBookmarkDataInternal()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void createByResolvingBookmarkDataInternal(uint64_t a1, uint64_t *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = *a2;
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x2Au);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x2Au);
 }
 
 void _URLCreateByResolvingAliasFile_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "_URLCreateByResolvingAliasFile";
-  _os_log_error_impl(&dword_19602C000, log, OS_LOG_TYPE_ERROR, "%s: NULL result with no real error", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "_URLCreateByResolvingAliasFile";
+  _os_log_error_impl(&dword_19602C000, log, OS_LOG_TYPE_ERROR, "%s: NULL result with no real error", &v1, 0xCu);
 }
 
 void CFURLCreateByResolvingDataInBookmark()
@@ -4688,26 +4468,20 @@ void CFURLCreateByResolvingDataInBookmark()
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
@@ -4721,41 +4495,31 @@ void CFURLCreateByResolvingDataInBookmark()
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
@@ -4765,10 +4529,8 @@ void CFURLCreateByResolvingDataInBookmark()
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
@@ -4778,19 +4540,20 @@ void CFURLCreateByResolvingDataInBookmark()
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
@@ -4800,11 +4563,9 @@ void CFURLCreateByResolvingDataInBookmark()
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
@@ -4820,11 +4581,9 @@ void CFURLCreateByResolvingDataInBookmark()
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
@@ -4840,11 +4599,9 @@ void CFURLCreateByResolvingDataInBookmark()
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
@@ -4860,11 +4617,9 @@ void CFURLCreateByResolvingDataInBookmark()
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
@@ -4873,22 +4628,9 @@ void CFURLCreateByResolvingDataInBookmark()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void CFURLCreateByResolvingDataInBookmark(int *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void CFURLCreateByResolvingDataInBookmark(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x1Cu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
 void matchVolumeURLForBookmark()
@@ -4900,27 +4642,21 @@ void matchVolumeURLForBookmark()
 
 void matchURLToBookmark()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
@@ -4937,15 +4673,14 @@ void matchURLToBookmark()
 
 uint64_t _FSURLGetCatalogInfo(const __CFURL *a1, int a2, _WORD *a3, unsigned __int16 *a4)
 {
-  v90[26] = *MEMORY[0x1E69E9840];
+  v83[26] = *MEMORY[0x1E69E9840];
   if (!a1 || (a2 & 0xBFFFFFFF) != 0 && !a3)
   {
-    v21 = 4294967246;
-    goto LABEL_189;
+    return 4294967246;
   }
 
   OUTLINED_FUNCTION_1_0();
-  if (v85)
+  if (v79)
   {
     v10 = v8;
   }
@@ -4994,7 +4729,7 @@ LABEL_12:
 
   v12 &= ~0x2000u;
   OUTLINED_FUNCTION_1_0();
-  if (!v85)
+  if (!v79)
   {
     v19 = a3;
   }
@@ -5014,7 +4749,7 @@ LABEL_13:
 LABEL_35:
   v12 &= ~0x200u;
   OUTLINED_FUNCTION_1_0();
-  if (!v85)
+  if (!v79)
   {
     v20 = a3;
   }
@@ -5025,7 +4760,7 @@ LABEL_35:
 LABEL_14:
     v12 &= ~0x10000u;
     OUTLINED_FUNCTION_1_0();
-    if (!v85)
+    if (!v79)
     {
       v13 = a3;
     }
@@ -5051,7 +4786,7 @@ LABEL_17:
     if ((a2 & 0x40000000) != 0)
     {
       v21 = 4294956641;
-      goto LABEL_188;
+      goto LABEL_186;
     }
 
     if (qword_1ED445940 != -1)
@@ -5059,14 +4794,14 @@ LABEL_17:
       dispatch_once(&qword_1ED445940, &__block_literal_global_11);
     }
 
-    memset(v90, 0, 60);
+    memset(v83, 0, 60);
     v22 = dword_1ED445BD0;
     v23 = (qword_1ED445948 + 24);
     do
     {
       if ((v22 & v12 & 0xFFFDFFFF) != 0)
       {
-        addPropertyAndDependenciesToBitmap(*(v23 - 1), v90);
+        addPropertyAndDependenciesToBitmap(*(v23 - 1), v83);
       }
 
       v24 = *v23;
@@ -5075,8 +4810,8 @@ LABEL_17:
     }
 
     while (v24);
-    v89 = 0;
-    v25 = prepareValuesForBitmap(a1, v15, v90, &v89);
+    v82 = 0;
+    v25 = prepareValuesForBitmap(a1, v15, v83, &v82);
     _FileCacheLockTransitionFromPreparer(v15);
     if (v25)
     {
@@ -5106,7 +4841,7 @@ LABEL_50:
       if ((v12 & 4) != 0)
       {
         OUTLINED_FUNCTION_1_0();
-        if (!v85)
+        if (!v79)
         {
           v30 = a3;
         }
@@ -5117,7 +4852,7 @@ LABEL_50:
 LABEL_59:
           if ((v12 & 8) == 0)
           {
-            goto LABEL_75;
+            goto LABEL_73;
           }
 
           goto LABEL_70;
@@ -5129,171 +4864,167 @@ LABEL_59:
         goto LABEL_59;
       }
 
-      v31 = *(v17 + 16);
       OUTLINED_FUNCTION_4_0();
-      if (!v85)
+      if (!v79)
       {
-        v33 = a3;
+        v32 = a3;
       }
 
-      *(v33 + 2) = v32;
+      *(v32 + 2) = v31;
       if ((v12 & 8) == 0)
       {
-LABEL_75:
+LABEL_73:
         if ((v12 & 0x20) != 0)
         {
-          if (*(v17 + 10) == -1.0 - *MEMORY[0x1E695E460] || (OUTLINED_FUNCTION_3_0(), v37 == v38))
+          if (*(v17 + 10) == -1.0 - *MEMORY[0x1E695E460] || (OUTLINED_FUNCTION_3_0(), v35 == v36))
           {
             OUTLINED_FUNCTION_1_0();
-            if (!v85)
+            if (!v79)
             {
-              v42 = a3;
+              v40 = a3;
             }
 
-            *(v42 + 2) = 0;
+            *(v40 + 2) = 0;
             if ((v12 & 0x40) == 0)
             {
-              goto LABEL_90;
+              goto LABEL_88;
             }
 
-            goto LABEL_86;
+            goto LABEL_84;
           }
 
           OUTLINED_FUNCTION_1_0();
-          if (!v85)
+          if (!v79)
           {
-            v39 = a3;
+            v37 = a3;
           }
 
-          v41 = ConvertCFAbsoluteTimeToUTCDateTime((v39 + 8), v40);
-          if (v41)
+          v39 = ConvertCFAbsoluteTimeToUTCDateTime((v37 + 8), v38);
+          if (v39)
           {
-            goto LABEL_103;
+            goto LABEL_101;
           }
         }
 
         if ((v12 & 0x40) == 0)
         {
-          goto LABEL_90;
+          goto LABEL_88;
         }
 
-LABEL_86:
-        v43 = *(v17 + 8);
+LABEL_84:
         OUTLINED_FUNCTION_3_0();
         OUTLINED_FUNCTION_1_0();
-        if (!v85)
+        if (!v79)
+        {
+          v41 = a3;
+        }
+
+        if (v42 == v43)
+        {
+          *(v41 + 3) = 0;
+          if ((v12 & 0x80) == 0)
+          {
+            goto LABEL_96;
+          }
+
+          goto LABEL_89;
+        }
+
+        v39 = ConvertCFAbsoluteTimeToUTCDateTime((v41 + 12), v42);
+        if (v39)
+        {
+LABEL_101:
+          v21 = v39;
+          goto LABEL_186;
+        }
+
+LABEL_88:
+        if ((v12 & 0x80) == 0)
+        {
+          goto LABEL_96;
+        }
+
+LABEL_89:
+        OUTLINED_FUNCTION_3_0();
+        OUTLINED_FUNCTION_1_0();
+        if (!v79)
         {
           v44 = a3;
         }
 
         if (v45 == v46)
         {
-          *(v44 + 3) = 0;
-          if ((v12 & 0x80) == 0)
-          {
-            goto LABEL_98;
-          }
-
-          goto LABEL_91;
-        }
-
-        v41 = ConvertCFAbsoluteTimeToUTCDateTime((v44 + 12), v45);
-        if (v41)
-        {
-LABEL_103:
-          v21 = v41;
-          goto LABEL_188;
-        }
-
-LABEL_90:
-        if ((v12 & 0x80) == 0)
-        {
-          goto LABEL_98;
-        }
-
-LABEL_91:
-        v47 = *(v17 + 9);
-        OUTLINED_FUNCTION_3_0();
-        OUTLINED_FUNCTION_1_0();
-        if (!v85)
-        {
-          v48 = a3;
-        }
-
-        if (v49 == v50)
-        {
-          *(v48 + 4) = 0;
+          *(v44 + 4) = 0;
           if ((v12 & 0x100) == 0)
           {
-            goto LABEL_107;
+            goto LABEL_105;
           }
 
-          goto LABEL_99;
+          goto LABEL_97;
         }
 
-        v41 = ConvertCFAbsoluteTimeToUTCDateTime((v48 + 16), v49);
-        if (v41)
+        v39 = ConvertCFAbsoluteTimeToUTCDateTime((v44 + 16), v45);
+        if (v39)
         {
-          goto LABEL_103;
+          goto LABEL_101;
         }
 
-LABEL_98:
+LABEL_96:
         if ((v12 & 0x100) == 0)
         {
-          goto LABEL_107;
+          goto LABEL_105;
         }
 
-LABEL_99:
-        v51 = *(v17 + 7);
+LABEL_97:
         OUTLINED_FUNCTION_3_0();
         OUTLINED_FUNCTION_1_0();
-        if (!v85)
+        if (!v79)
         {
-          v52 = a3;
+          v47 = a3;
         }
 
-        if (v53 == v54)
+        if (v48 == v49)
         {
-          *(v52 + 5) = 0;
+          *(v47 + 5) = 0;
         }
 
         else
         {
-          v41 = ConvertCFAbsoluteTimeToUTCDateTime((v52 + 20), v53);
-          if (v41)
+          v39 = ConvertCFAbsoluteTimeToUTCDateTime((v47 + 20), v48);
+          if (v39)
           {
-            goto LABEL_103;
+            goto LABEL_101;
           }
         }
 
-LABEL_107:
+LABEL_105:
         if ((v12 & 0x400) != 0)
         {
           OUTLINED_FUNCTION_1_0();
-          if (!v85)
+          if (!v79)
           {
-            v55 = a3;
+            v50 = a3;
           }
 
-          *(v55 + 7) = *(v17 + 5);
-          v55[33] = v17[4];
+          *(v50 + 7) = *(v17 + 5);
+          v50[33] = v17[4];
         }
 
         if ((v12 & 0x400000) != 0)
         {
           if ((*v17 & 0x80) != 0)
           {
-            v56 = CFGetAllocator(a1);
-            CFFileSecurityCreateCopy(v56, *(v17 + 28));
+            v51 = CFGetAllocator(a1);
+            CFFileSecurityCreateCopy(v51, *(v17 + 28));
           }
 
           OUTLINED_FUNCTION_1_0();
-          if (!v85)
+          if (!v79)
           {
-            v58 = a3;
+            v53 = a3;
           }
 
-          *(v58 + 34) = v57;
+          *(v53 + 34) = v52;
         }
 
         if ((v12 & 0x41800) != 0)
@@ -5301,233 +5032,197 @@ LABEL_107:
           if ((*v17 & 0x4000010) == 0x10)
           {
             OUTLINED_FUNCTION_1_0();
-            if (!v85)
+            if (!v79)
             {
-              v59 = a3;
+              v54 = a3;
             }
 
-            *(v59 + 38) = *(v17 + 10);
-            *(v59 + 46) = *(v17 + 11);
+            *(v54 + 38) = *(v17 + 10);
+            *(v54 + 46) = *(v17 + 11);
           }
 
           else
           {
             OUTLINED_FUNCTION_1_0();
-            if (!v85)
+            if (!v79)
             {
-              v60 = a3;
+              v55 = a3;
             }
 
-            *(v60 + 42) = 0;
-            *(v60 + 38) = 0;
-            *(v60 + 50) = 0;
-            *(v60 + 46) = 0;
+            *(v55 + 42) = 0;
+            *(v55 + 38) = 0;
+            *(v55 + 50) = 0;
+            *(v55 + 46) = 0;
           }
 
           if ((v17[4] & 0xF000) == 0xA000)
           {
             OUTLINED_FUNCTION_1_0();
-            if (!v85)
+            if (!v79)
             {
-              v61 = a3;
+              v56 = a3;
             }
 
-            *(v61 + 38) = 0x72686170736C6E6BLL;
-            v61[42] = v61[42] & 0x4000 | 0x8000;
-            *(v61 + 50) = 0;
-            *(v61 + 46) = 0;
+            *(v56 + 38) = 0x72686170736C6E6BLL;
+            v56[42] = v56[42] & 0x4000 | 0x8000;
+            *(v56 + 50) = 0;
+            *(v56 + 46) = 0;
           }
         }
 
         if ((v17[4] & 0xF000) == 0x4000)
         {
           OUTLINED_FUNCTION_4_0();
-          if (!v85)
+          if (!v79)
           {
-            v63 = a3;
+            v58 = a3;
           }
 
-          *(v63 + 66) = 0;
-          *(v63 + 62) = 0;
-          *(v63 + 58) = 0;
-          v64 = 54;
-          goto LABEL_143;
+          *(v58 + 66) = 0;
+          *(v58 + 62) = 0;
+          *(v58 + 58) = 0;
+          v59 = 54;
+          goto LABEL_141;
         }
 
         if ((v12 & 0x4000) != 0)
         {
           OUTLINED_FUNCTION_1_0();
-          if (!v85)
+          if (!v79)
           {
-            v65 = a3;
+            v60 = a3;
           }
 
-          *(v65 + 54) = *(v17 + 13);
+          *(v60 + 54) = *(v17 + 13);
           if ((v12 & 0x8000) == 0)
           {
-LABEL_135:
+LABEL_133:
             if ((v12 & 0x80000) == 0)
             {
-              goto LABEL_150;
+              goto LABEL_148;
             }
 
-LABEL_144:
+LABEL_142:
             OUTLINED_FUNCTION_1_0();
-            if (!v85)
+            if (!v79)
             {
-              v69 = a3;
+              v63 = a3;
             }
 
-            *(v69 + 65) = 0;
-            v70 = (*v17 >> 23) & 1;
-            *(v69 + 65) = (*v17 & 0x800000) != 0;
-            v71 = *v17;
+            *(v63 + 65) = 0;
+            v64 = (*v17 >> 23) & 1;
+            *(v63 + 65) = (*v17 & 0x800000) != 0;
+            v65 = *v17;
             if ((*v17 & 0x1000000) != 0)
             {
-              LOBYTE(v70) = v70 | 2;
-              *(v69 + 65) = v70;
-              v71 = *v17;
+              LOBYTE(v64) = v64 | 2;
+              *(v63 + 65) = v64;
+              v65 = *v17;
             }
 
-            if ((v71 & 0x2000000) != 0)
+            if ((v65 & 0x2000000) != 0)
             {
-              *(v69 + 65) = v70 | 4;
+              *(v63 + 65) = v64 | 4;
             }
 
-LABEL_150:
+LABEL_148:
             v21 = 0;
             if (a4 && v12 < 0)
             {
-              if ((*(v17 + 1) & 0x20) != 0)
+              if ((*(v17 + 1) & 0x20) != 0 && (v83[0] = 0, v66 = MountInfoStorageSize(), v70 = MEMORY[0x1EEE9AC00](v66, v67, v68, v69), MountInfoPrepare(v83, v17[28], 0, &v81 - ((v70 + 15) & 0xFFFFFFFFFFFFFFF0), 0, 0, 0)) && ((VolumeName = MountInfoGetVolumeName(v83[0])) == 0 ? (v74 = 0) : (v72 = VolumeName, v73 = CFGetAllocator(a1), v74 = CFStringCreateWithCString(v73, v72, 0x8000100u)), MountInfoDestroy(), v74) || (v74 = *(v17 + 1)) != 0)
               {
-                v90[0] = 0;
-                v72 = MountInfoStorageSize();
-                v76 = MEMORY[0x1EEE9AC00](v72, v73, v74, v75);
-                if (MountInfoPrepare(v90, v17[28], 0, &v88 - ((v76 + 15) & 0xFFFFFFFFFFFFFFF0), 0, 0, 0))
-                {
-                  VolumeName = MountInfoGetVolumeName(v90[0]);
-                  if (VolumeName)
-                  {
-                    v78 = VolumeName;
-                    v79 = CFGetAllocator(a1);
-                    v80 = CFStringCreateWithCString(v79, v78, 0x8000100u);
-                  }
-
-                  else
-                  {
-                    v80 = 0;
-                  }
-
-                  MountInfoDestroy(v90[0]);
-                  if (v80)
-                  {
-                    goto LABEL_162;
-                  }
-                }
-              }
-
-              v80 = *(v17 + 1);
-              if (v80)
-              {
-LABEL_162:
-                Length = CFStringGetLength(v80);
+                Length = CFStringGetLength(v74);
                 if (Length < 256)
                 {
-                  v91.length = Length;
+                  v84.length = Length;
                   *a4 = Length;
-                  v82 = a4 + 1;
-                  v91.location = 0;
-                  CFStringGetCharacters(v80, v91, a4 + 1);
-                  if (v80 != *(v17 + 1))
+                  v76 = a4 + 1;
+                  v84.location = 0;
+                  CFStringGetCharacters(v74, v84, a4 + 1);
+                  if (v74 != *(v17 + 1))
                   {
-                    CFRelease(v80);
+                    CFRelease(v74);
                   }
 
-                  v83 = *a4;
+                  v77 = *a4;
                   if (*a4)
                   {
                     do
                     {
-                      if (*v82 == 58)
+                      if (*v76 == 58)
                       {
-                        *v82 = 47;
+                        *v76 = 47;
                       }
 
-                      ++v82;
-                      --v83;
+                      ++v76;
+                      --v77;
                     }
 
-                    while (v83);
+                    while (v77);
                   }
 
                   v21 = 0;
-                  goto LABEL_188;
+                  goto LABEL_186;
                 }
 
-                if (v80 != *(v17 + 1))
+                if (v74 != *(v17 + 1))
                 {
-                  CFRelease(v80);
+                  CFRelease(v74);
                 }
               }
 
               v21 = 4294967259;
             }
 
-LABEL_188:
+LABEL_186:
             _FileCacheUnlock(v15);
-            goto LABEL_189;
+            return v21;
           }
         }
 
         else if ((v12 & 0x8000) == 0)
         {
-          goto LABEL_135;
+          goto LABEL_133;
         }
 
-        v66 = *(v17 + 24);
         OUTLINED_FUNCTION_4_0();
-        if (!v85)
+        if (!v79)
         {
-          v68 = a3;
+          v62 = a3;
         }
 
-        *(v68 + 62) = v67;
-        v62 = *(v17 + 25);
-        v64 = 66;
-LABEL_143:
-        *&v10[v64] = v62;
+        *(v62 + 62) = v61;
+        v57 = *(v17 + 25);
+        v59 = 66;
+LABEL_141:
+        *&v10[v59] = v57;
         if ((v12 & 0x80000) == 0)
         {
-          goto LABEL_150;
+          goto LABEL_148;
         }
 
-        goto LABEL_144;
+        goto LABEL_142;
       }
 
 LABEL_70:
-      if (*(v17 + 16) != 2)
-      {
-        v34 = v17[34];
-      }
-
       OUTLINED_FUNCTION_4_0();
-      if (!v85)
+      if (!v79)
       {
-        v36 = a3;
+        v34 = a3;
       }
 
-      *(v36 + 1) = v35;
-      goto LABEL_75;
+      *(v34 + 1) = v33;
+      goto LABEL_73;
     }
 
-    v27 = v89;
-    if (!v89)
+    v27 = v82;
+    if (!v82)
     {
       v21 = 4294967260;
-      goto LABEL_188;
+      goto LABEL_186;
     }
 
-    Domain = CFErrorGetDomain(v89);
+    Domain = CFErrorGetDomain(v82);
     Code = CFErrorGetCode(v27);
     if (CFEqual(Domain, *MEMORY[0x1E695E638]))
     {
@@ -5541,23 +5236,23 @@ LABEL_70:
         if (CFEqual(Domain, *MEMORY[0x1E695E628]))
         {
           v21 = 4294967253;
-          if (!(!v85 & v84))
+          if (!(!v79 & v78))
           {
             switch(Code)
             {
               case 257:
-                goto LABEL_184;
+                goto LABEL_182;
               case 258:
-                goto LABEL_185;
+                goto LABEL_183;
               case 259:
               case 261:
               case 262:
-                goto LABEL_182;
+                goto LABEL_180;
               case 260:
-                goto LABEL_187;
+                goto LABEL_185;
               case 263:
                 v21 = 4294965987;
-                goto LABEL_187;
+                goto LABEL_185;
               default:
                 JUMPOUT(0);
             }
@@ -5566,21 +5261,21 @@ LABEL_70:
           switch(Code)
           {
             case 4:
-              goto LABEL_187;
+              goto LABEL_185;
             case 642:
               v21 = 4294967235;
-              goto LABEL_187;
+              goto LABEL_185;
             case 514:
-LABEL_185:
+LABEL_183:
               v21 = 4294967259;
-              goto LABEL_187;
+              goto LABEL_185;
             case 640:
               v21 = 4294967262;
-              goto LABEL_187;
+              goto LABEL_185;
             case 513:
-LABEL_184:
+LABEL_182:
               v21 = 4294962296;
-              goto LABEL_187;
+              goto LABEL_185;
           }
         }
 
@@ -5589,23 +5284,20 @@ LABEL_184:
           CFEqual(Domain, *MEMORY[0x1E695E630]);
         }
 
-LABEL_182:
+LABEL_180:
         v21 = 4294967260;
-        goto LABEL_187;
+        goto LABEL_185;
       }
 
       v21 = PosixToOSStatusTranslate(Code);
     }
 
-LABEL_187:
-    CFRelease(v89);
-    goto LABEL_188;
+LABEL_185:
+    CFRelease(v82);
+    goto LABEL_186;
   }
 
-  v21 = 0;
-LABEL_189:
-  v86 = *MEMORY[0x1E69E9840];
-  return v21;
+  return 0;
 }
 
 CFErrorRef _FSURLGetResourcePropertyFlags_cold_2(CFErrorRef result, _BYTE *a2)
@@ -5633,13 +5325,12 @@ CFErrorRef _FSURLGetResourcePropertyFlags_cold_2(CFErrorRef result, _BYTE *a2)
 
 void createFileResourceIdentifierValue(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136315394;
-  v4 = "createFileResourceIdentifierValue";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_debug_impl(&dword_19602C000, a2, OS_LOG_TYPE_DEBUG, "%s: this would have gone down the fallback path if enabled: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136315394;
+  v3 = "createFileResourceIdentifierValue";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_debug_impl(&dword_19602C000, a2, OS_LOG_TYPE_DEBUG, "%s: this would have gone down the fallback path if enabled: %@", &v2, 0x16u);
 }
 
 void *_URLEnumeratorCreateForMountedVolumes(const __CFAllocator *a1, uint64_t a2, const __CFArray *a3)
@@ -5736,12 +5427,10 @@ void append()
 
 void remove(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   CFDataGetBytePtr(*(a1 + 16));
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void remove()
@@ -5764,11 +5453,10 @@ void SandboxExtensionCache::insert()
 
 void SandboxExtensionCache::_insert(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   CFDictionaryGetCount(*(a1 + 8));
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(&dword_19602C000, a2, OS_LOG_TYPE_DEBUG, "sandbox extension cache path count: %ld", v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_19602C000, a2, OS_LOG_TYPE_DEBUG, "sandbox extension cache path count: %ld", v3, 0xCu);
 }
 
 void SandboxExtensionCache::_insert()
@@ -5782,39 +5470,32 @@ void SandboxExtensionCache::_insert()
 
 void SandboxExtensionCache::move(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = *a2;
-  v5 = 136315650;
-  v6 = "move";
-  v7 = 2114;
-  v8 = a1;
-  v9 = 2114;
-  v10 = v3;
-  _os_log_error_impl(&dword_19602C000, log, OS_LOG_TYPE_ERROR, "%s: error getting path for url=%{public}@: %{public}@", &v5, 0x20u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 136315650;
+  v5 = "move";
+  v6 = 2114;
+  v7 = a1;
+  v8 = 2114;
+  v9 = v3;
+  _os_log_error_impl(&dword_19602C000, log, OS_LOG_TYPE_ERROR, "%s: error getting path for url=%{public}@: %{public}@", &v4, 0x20u);
 }
 
 void SandboxExtensionCache::move()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v6 = *__error();
+  __error();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
@@ -5823,35 +5504,28 @@ void SandboxExtensionCache::move()
 
 void SandboxExtensionCache::consume()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_4_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(&dword_19602C000, v0, OS_LOG_TYPE_DEBUG, "<%p %@>: called <StartAccessing> on a URL that is not security-scoped", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_19602C000, v0, OS_LOG_TYPE_DEBUG, "<%p %@>: called <StartAccessing> on a URL that is not security-scoped", v1, 0x16u);
 }
 
 void SandboxExtensionCache::_consume()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_4_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v6 = *__error();
+  __error();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
@@ -5860,77 +5534,65 @@ void SandboxExtensionCache::_consume()
 
 void SandboxExtensionCache::_consume(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 134218242;
-  *&v4[4] = a2;
-  *&v4[12] = 2112;
-  *&v4[14] = a1;
-  OUTLINED_FUNCTION_1_2(&dword_19602C000, a2, a3, "handle %lld: new handle for path %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 134218242;
+  *&v3[4] = a2;
+  *&v3[12] = 2112;
+  *&v3[14] = a1;
+  OUTLINED_FUNCTION_1_2(&dword_19602C000, a2, a3, "handle %lld: new handle for path %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 void SandboxExtensionCache::release()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_4_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(&dword_19602C000, v0, OS_LOG_TYPE_DEBUG, "<%p %@>: called <StopAccessing> too many times or URL isn't security-scoped", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-{
-  v5 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4();
-  WORD2(v4) = 2080;
-  HIWORD(v4) = v0;
-  OUTLINED_FUNCTION_1_2(&dword_19602C000, v0, v1, "%p: releasing extension by path for %s", v3, v4);
   v2 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_2();
+  _os_log_debug_impl(&dword_19602C000, v0, OS_LOG_TYPE_DEBUG, "<%p %@>: called <StopAccessing> too many times or URL isn't security-scoped", v1, 0x16u);
 }
 
-void SandboxExtensionCache::_release(uint64_t *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  v8 = *__error();
+  OUTLINED_FUNCTION_4();
+  WORD2(v3) = 2080;
+  HIWORD(v3) = v0;
+  OUTLINED_FUNCTION_1_2(&dword_19602C000, v0, v1, "%p: releasing extension by path for %s", v2, v3);
+}
+
+void SandboxExtensionCache::_release()
+{
+  __error();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void SandboxExtensionCache::_release(void *a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 134218242;
-  *&v4[4] = *a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1_2(&dword_19602C000, a2, a3, "handle %lld: released extension for path %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 134218242;
+  *&v3[4] = *a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1_2(&dword_19602C000, a2, a3, "handle %lld: released extension for path %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 void SandboxExtensionCache::_release(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 134218240;
-  *(&v4 + 4) = *(a1 + 8);
-  WORD6(v4) = 2048;
-  HIWORD(v4) = a2;
-  OUTLINED_FUNCTION_1_2(&dword_19602C000, a2, a3, "handle %lld: decrementing ref count to %lld", v4, *(&v4 + 1));
-  v3 = *MEMORY[0x1E69E9840];
+  LODWORD(v3) = 134218240;
+  *(&v3 + 4) = *(a1 + 8);
+  WORD6(v3) = 2048;
+  HIWORD(v3) = a2;
+  OUTLINED_FUNCTION_1_2(&dword_19602C000, a2, a3, "handle %lld: decrementing ref count to %lld", v3, *(&v3 + 1));
 }
 
 uint64_t TransferExtendedAttributes(const __CFAllocator *a1, CFURLRef url, const __CFURL *a3, __CFError **a4)
 {
   v6 = url;
-  v32 = *MEMORY[0x1E69E9840];
-  if (CFURLGetFileSystemRepresentation(url, 1u, v31, 1024))
+  v31 = *MEMORY[0x1E69E9840];
+  if (CFURLGetFileSystemRepresentation(url, 1u, v30, 1024))
   {
-    v8 = CFURLGetFileSystemRepresentation(a3, 1u, v30, 1024);
+    v8 = CFURLGetFileSystemRepresentation(a3, 1u, v29, 1024);
     if (!v8)
     {
       v20 = 2;
@@ -5940,20 +5602,20 @@ LABEL_28:
     }
 
     MEMORY[0x1EEE9AC00](v8, v9, v10, v11);
-    v12 = v29;
-    bzero(v29, 0x200uLL);
+    v12 = v28;
+    bzero(v28, 0x200uLL);
     v13 = 1;
-    v14 = listxattr(v31, v29, 0x200uLL, 1);
+    v14 = listxattr(v30, v28, 0x200uLL, 1);
     if (!v14)
     {
-      goto LABEL_23;
+      return v13;
     }
 
     v15 = v14;
     if ((v14 & 0x8000000000000000) == 0)
     {
       v16 = 0;
-      v17 = &v29[v14];
+      v17 = &v28[v14];
       goto LABEL_6;
     }
 
@@ -5972,10 +5634,10 @@ LABEL_26:
       goto LABEL_28;
     }
 
-    v21 = listxattr(v31, 0, 0, 1);
+    v21 = listxattr(v30, 0, 0, 1);
     if (!v21)
     {
-      goto LABEL_23;
+      return v13;
     }
 
     v22 = v21;
@@ -5987,16 +5649,14 @@ LABEL_26:
       {
         v12 = v24;
         v16 = 1;
-        v25 = listxattr(v31, v24, v22 + 4096, 1);
+        v25 = listxattr(v30, v24, v22 + 4096, 1);
         if ((v25 & 0x8000000000000000) == 0)
         {
           if (!v25)
           {
 LABEL_21:
             free(v12);
-LABEL_22:
-            v13 = 1;
-            goto LABEL_23;
+            return 1;
           }
 
           v17 = &v12[v25];
@@ -6006,7 +5666,7 @@ LABEL_6:
           {
             if (xattr_preserve_for_intent(v18, 2u))
             {
-              v19 = copyExtendedAttribute(v31, v30, v18);
+              v19 = copyExtendedAttribute(v30, v29, v18);
               if (v19)
               {
                 v20 = v19;
@@ -6020,7 +5680,7 @@ LABEL_6:
           while (v18 < v17);
           if ((v15 & 0x8000000000000000) == 0)
           {
-            goto LABEL_22;
+            return 1;
           }
 
           goto LABEL_21;
@@ -6039,37 +5699,31 @@ LABEL_6:
   }
 
 LABEL_29:
-  if (a4)
+  if (!a4)
   {
-    v28 = _FSURLCreateStandardError(a1, *MEMORY[0x1E695E640], v20, 1, v6, 0);
-    v13 = 0;
-    *a4 = v28;
+    return 0;
   }
 
-  else
-  {
-    v13 = 0;
-  }
-
-LABEL_23:
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = _FSURLCreateStandardError(a1, *MEMORY[0x1E695E640], v20, 1, v6, 0);
+  v13 = 0;
+  *a4 = v27;
   return v13;
 }
 
 uint64_t copyExtendedAttribute(const char *a1, const char *a2, const char *a3)
 {
-  v45[65] = *MEMORY[0x1E69E9840];
+  v44[65] = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_3();
   v9 = getxattr(v3, v4, v5, v6, v7, v8);
   v13 = 0;
   if ((v9 & 0x8000000000000000) == 0)
   {
-    goto LABEL_11;
+    return v13;
   }
 
   MEMORY[0x1EEE9AC00](v9, v10, v11, v12);
-  v14 = v45;
-  bzero(v45, 0x200uLL);
+  v14 = v44;
+  bzero(v44, 0x200uLL);
   OUTLINED_FUNCTION_0_3();
   if (getxattr(v15, v16, v17, v18, v19, v20) < 0)
   {
@@ -6080,7 +5734,7 @@ LABEL_13:
       v13 = *__error();
       if (!v21)
       {
-        goto LABEL_11;
+        return v13;
       }
 
       goto LABEL_10;
@@ -6089,16 +5743,14 @@ LABEL_13:
     OUTLINED_FUNCTION_0_3();
     if (getxattr(v22, v23, v24, v25, v26, v27) < 0)
     {
-      v13 = *__error();
-      goto LABEL_11;
+      return *__error();
     }
 
     OUTLINED_FUNCTION_1_3();
     v30 = malloc_type_malloc(v28 + 4096, v29);
     if (!v30)
     {
-      v13 = 4294967188;
-      goto LABEL_11;
+      return 4294967188;
     }
 
     v14 = v30;
@@ -6128,8 +5780,6 @@ LABEL_10:
     free(v14);
   }
 
-LABEL_11:
-  v43 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -6386,33 +6036,30 @@ double registerExternalProviderProperties_cold_3()
 
 void _URLAttachSecurityScopeToFileURL_cold_2(uint64_t a1, CFDataRef theData, NSObject *a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v5 = 134218243;
-  v6 = a1;
-  v7 = 2081;
+  v8 = *MEMORY[0x1E69E9840];
+  v4 = 134218243;
+  v5 = a1;
+  v6 = 2081;
   BytePtr = CFDataGetBytePtr(theData);
-  _os_log_debug_impl(&dword_19602C000, a3, OS_LOG_TYPE_DEBUG, "%p: attaching sandbox extension %{private}s", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_19602C000, a3, OS_LOG_TYPE_DEBUG, "%p: attaching sandbox extension %{private}s", &v4, 0x16u);
 }
 
 void _URLAttachSecurityScopeToFileURL_cold_3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_debug_impl(&dword_19602C000, a2, OS_LOG_TYPE_DEBUG, "%p: removing sandbox extension", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_debug_impl(&dword_19602C000, a2, OS_LOG_TYPE_DEBUG, "%p: removing sandbox extension", &v2, 0xCu);
 }
 
 void _URLAttachSecurityScopeToFileURL_cold_4(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 134218242;
-  v4 = a1;
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_19602C000, a2, OS_LOG_TYPE_ERROR, "cannot attach security scope to a URL that is not a file URL: <%p %@>", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 134218242;
+  v3 = a1;
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_19602C000, a2, OS_LOG_TYPE_ERROR, "cannot attach security scope to a URL that is not a file URL: <%p %@>", &v2, 0x16u);
 }
 
 CFGregorianDate CFAbsoluteTimeGetGregorianDate(CFAbsoluteTime at, CFTimeZoneRef tz)
@@ -6684,28 +6331,28 @@ double gotLoadHelper_x8___QLSetResourcePropertyForKey(double result)
   return result;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_FileProvider(double a1)
+double dlopenHelper_FileProvider(double a1)
 {
   dlopen("/System/Library/Frameworks/FileProvider.framework/FileProvider", 0);
   atomic_store(1u, &dlopenHelperFlag_FileProvider);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_QuickLookThumbnailing(double a1)
+double dlopenHelper_QuickLookThumbnailing(double a1)
 {
   dlopen("/System/Library/Frameworks/QuickLookThumbnailing.framework/QuickLookThumbnailing", 0);
   atomic_store(1u, &dlopenHelperFlag_QuickLookThumbnailing);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_CacheDelete(double a1)
+double dlopenHelper_CacheDelete(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/CacheDelete.framework/CacheDelete", 0);
   atomic_store(1u, &dlopenHelperFlag_CacheDelete);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_DesktopServicesPriv(double a1)
+double dlopenHelper_DesktopServicesPriv(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/DesktopServicesPriv.framework/DesktopServicesPriv", 0);
   atomic_store(1u, &dlopenHelperFlag_DesktopServicesPriv);

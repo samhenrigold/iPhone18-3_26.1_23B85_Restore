@@ -1,5 +1,6 @@
 @interface EKEventGestureControllerAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
+- (id)_createTemporaryView:(id)view animated:(BOOL)animated;
 - (void)_commit;
 - (void)_longPress:(id)press;
 - (void)_speakNotificationIfNecessary:(id)necessary shouldSpeakWithoutInterruption:(BOOL)interruption shouldSpeakOnlyIfNotSpeaking:(BOOL)speaking;
@@ -169,7 +170,7 @@ double __48__EKEventGestureControllerAccessibility__update__block_invoke(uint64_
   return result;
 }
 
-uint64_t __48__EKEventGestureControllerAccessibility__update__block_invoke_2(uint64_t a1)
+void *__48__EKEventGestureControllerAccessibility__update__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) eventGestureController:*(a1 + 40) dateAtPoint:{*(*(*(a1 + 56) + 8) + 32), *(*(*(a1 + 56) + 8) + 40)}];
   *(*(*(a1 + 48) + 8) + 24) = v3;
@@ -247,6 +248,16 @@ LABEL_8:
   }
 
   [(EKEventGestureControllerAccessibility *)self _accessibilitySetRetainedValue:necessaryCopy forKey:@"lastNotificationString"];
+}
+
+- (id)_createTemporaryView:(id)view animated:(BOOL)animated
+{
+  v6.receiver = self;
+  v6.super_class = EKEventGestureControllerAccessibility;
+  v4 = [(EKEventGestureControllerAccessibility *)&v6 _createTemporaryView:view animated:animated];
+  [v4 setIsAccessibilityElement:0];
+
+  return v4;
 }
 
 @end

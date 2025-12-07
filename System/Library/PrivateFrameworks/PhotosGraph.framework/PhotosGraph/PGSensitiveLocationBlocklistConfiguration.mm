@@ -17,16 +17,15 @@
 
 - (PGSensitiveLocationBlocklistConfiguration)initWithConfigurationDictionary:(id)dictionary
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v4 = [PGSensitiveLocationBlocklistConfiguration resolveConfigurationDictionary:dictionary];
   v5 = [[PGDictionaryConfigurationSource alloc] initWithDictionary:v4];
-  v11[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
-  v10.receiver = self;
-  v10.super_class = PGSensitiveLocationBlocklistConfiguration;
-  v7 = [(PGConfiguration *)&v10 initWithSources:v6 version:1.0];
+  v10[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9.receiver = self;
+  v9.super_class = PGSensitiveLocationBlocklistConfiguration;
+  v7 = [(PGConfiguration *)&v9 initWithSources:v6 version:1.0];
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -40,31 +39,31 @@
 
 + (id)sensitiveLocationBlocklistConfigurationsLocal
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   sensitiveLocationBlocklistLocal = [self sensitiveLocationBlocklistLocal];
   if ([sensitiveLocationBlocklistLocal count])
   {
     v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v4 = sensitiveLocationBlocklistLocal;
-    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v14;
+      v7 = *v13;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = [v4 objectForKeyedSubscript:{*(*(&v13 + 1) + 8 * i), v13}];
+          v9 = [v4 objectForKeyedSubscript:{*(*(&v12 + 1) + 8 * i), v12}];
           v10 = [[PGSensitiveLocationBlocklistConfiguration alloc] initWithConfigurationDictionary:v9];
           if (v10)
           {
@@ -72,7 +71,7 @@
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v6);
@@ -84,20 +83,18 @@
     v3 = MEMORY[0x277CBEBF8];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 + (id)sensitiveLocationBlocklistLocal
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v3 = [v2 URLForResource:@"assets_394/sbl" withExtension:@"plist"];
 
-  v12 = 0;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v3 error:&v12];
-  v5 = v12;
+  v11 = 0;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v3 error:&v11];
+  v5 = v11;
   if (v5)
   {
     v6 = +[PGLogging sharedLogging];
@@ -106,7 +103,7 @@
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = v5;
+      v13 = v5;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGSenLoc] Error loading local file: %@", buf, 0xCu);
     }
   }
@@ -123,74 +120,72 @@
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 + (id)obfuscatedBlocklistFromUnobfuscatedBlocklist:(id)blocklist
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   blocklistCopy = blocklist;
-  v32 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v40 = +[PGSensitiveLocationBlocklistConfiguration dateFormatter];
+  v31 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v39 = +[PGSensitiveLocationBlocklistConfiguration dateFormatter];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   v4 = blocklistCopy;
-  v33 = [v4 countByEnumeratingWithState:&v45 objects:v50 count:16];
-  if (v33)
+  v32 = [v4 countByEnumeratingWithState:&v44 objects:v49 count:16];
+  if (v32)
   {
-    v30 = v4;
-    v31 = *v46;
+    v29 = v4;
+    v30 = *v45;
     do
     {
-      for (i = 0; i != v33; ++i)
+      for (i = 0; i != v32; ++i)
       {
-        if (*v46 != v31)
+        if (*v45 != v30)
         {
           objc_enumerationMutation(v4);
         }
 
-        v6 = *(*(&v45 + 1) + 8 * i);
+        v6 = *(*(&v44 + 1) + 8 * i);
         v7 = [v4 objectForKeyedSubscript:v6];
         v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
-        v38 = [v7 objectForKeyedSubscript:@"sensitiveDateIntervalsAsDictionaries"];
-        if (v38)
+        v37 = [v7 objectForKeyedSubscript:@"sensitiveDateIntervalsAsDictionaries"];
+        if (v37)
         {
-          v34 = v6;
-          v35 = v8;
-          v36 = v7;
-          v37 = i;
+          v33 = v6;
+          v34 = v8;
+          v35 = v7;
+          v36 = i;
           v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          v40 = 0u;
           v41 = 0u;
           v42 = 0u;
           v43 = 0u;
-          v44 = 0u;
-          obj = v38;
-          v10 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
+          obj = v37;
+          v10 = [obj countByEnumeratingWithState:&v40 objects:v48 count:16];
           if (v10)
           {
             v11 = v10;
-            v12 = *v42;
+            v12 = *v41;
             do
             {
               for (j = 0; j != v11; ++j)
               {
-                if (*v42 != v12)
+                if (*v41 != v12)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v14 = *(*(&v41 + 1) + 8 * j);
+                v14 = *(*(&v40 + 1) + 8 * j);
                 v15 = objc_alloc_init(MEMORY[0x277CBEB38]);
                 v16 = [v14 objectForKeyedSubscript:@"startDate"];
 
                 if (v16)
                 {
                   v17 = [v14 objectForKeyedSubscript:@"startDate"];
-                  v18 = [PGObfuscation obfuscatedStringFromPlaintextDate:v17 usingDateFormatter:v40];
+                  v18 = [PGObfuscation obfuscatedStringFromPlaintextDate:v17 usingDateFormatter:v39];
                   [v15 setObject:v18 forKeyedSubscript:@"d"];
                 }
 
@@ -199,26 +194,26 @@
                 if (v19)
                 {
                   v20 = [v14 objectForKeyedSubscript:@"endDate"];
-                  v21 = [PGObfuscation obfuscatedStringFromPlaintextDate:v20 usingDateFormatter:v40];
+                  v21 = [PGObfuscation obfuscatedStringFromPlaintextDate:v20 usingDateFormatter:v39];
                   [v15 setObject:v21 forKeyedSubscript:@"l"];
                 }
 
                 [v9 addObject:v15];
               }
 
-              v11 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
+              v11 = [obj countByEnumeratingWithState:&v40 objects:v48 count:16];
             }
 
             while (v11);
           }
 
-          v8 = v35;
-          [v35 setObject:v9 forKeyedSubscript:@"e"];
+          v8 = v34;
+          [v34 setObject:v9 forKeyedSubscript:@"e"];
 
-          v4 = v30;
-          v7 = v36;
-          i = v37;
-          v6 = v34;
+          v4 = v29;
+          v7 = v35;
+          i = v36;
+          v6 = v33;
         }
 
         v22 = [v7 objectForKeyedSubscript:@"latitude"];
@@ -242,83 +237,81 @@
           [v8 setObject:v27 forKeyedSubscript:@"g"];
         }
 
-        [v32 setObject:v8 forKeyedSubscript:v6];
+        [v31 setObject:v8 forKeyedSubscript:v6];
       }
 
-      v33 = [v4 countByEnumeratingWithState:&v45 objects:v50 count:16];
+      v32 = [v4 countByEnumeratingWithState:&v44 objects:v49 count:16];
     }
 
-    while (v33);
+    while (v32);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
-  return v32;
+  return v31;
 }
 
 + (id)unobfuscatedBlocklistFromObfuscatedBlocklist:(id)blocklist
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   blocklistCopy = blocklist;
-  v32 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v40 = +[PGSensitiveLocationBlocklistConfiguration dateFormatter];
+  v31 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v39 = +[PGSensitiveLocationBlocklistConfiguration dateFormatter];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   v4 = blocklistCopy;
-  v33 = [v4 countByEnumeratingWithState:&v45 objects:v50 count:16];
-  if (v33)
+  v32 = [v4 countByEnumeratingWithState:&v44 objects:v49 count:16];
+  if (v32)
   {
-    v30 = v4;
-    v31 = *v46;
+    v29 = v4;
+    v30 = *v45;
     do
     {
-      for (i = 0; i != v33; ++i)
+      for (i = 0; i != v32; ++i)
       {
-        if (*v46 != v31)
+        if (*v45 != v30)
         {
           objc_enumerationMutation(v4);
         }
 
-        v6 = *(*(&v45 + 1) + 8 * i);
+        v6 = *(*(&v44 + 1) + 8 * i);
         v7 = [v4 objectForKeyedSubscript:v6];
         v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
-        v38 = [v7 objectForKeyedSubscript:@"e"];
-        if (v38)
+        v37 = [v7 objectForKeyedSubscript:@"e"];
+        if (v37)
         {
-          v34 = v6;
-          v35 = v8;
-          v36 = v7;
-          v37 = i;
+          v33 = v6;
+          v34 = v8;
+          v35 = v7;
+          v36 = i;
           v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          v40 = 0u;
           v41 = 0u;
           v42 = 0u;
           v43 = 0u;
-          v44 = 0u;
-          obj = v38;
-          v10 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
+          obj = v37;
+          v10 = [obj countByEnumeratingWithState:&v40 objects:v48 count:16];
           if (v10)
           {
             v11 = v10;
-            v12 = *v42;
+            v12 = *v41;
             do
             {
               for (j = 0; j != v11; ++j)
               {
-                if (*v42 != v12)
+                if (*v41 != v12)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v14 = *(*(&v41 + 1) + 8 * j);
+                v14 = *(*(&v40 + 1) + 8 * j);
                 v15 = objc_alloc_init(MEMORY[0x277CBEB38]);
                 v16 = [v14 objectForKeyedSubscript:@"d"];
 
                 if (v16)
                 {
                   v17 = [v14 objectForKeyedSubscript:@"d"];
-                  v18 = [PGObfuscation plaintextDateFromObfuscatedString:v17 usingDateFormatter:v40];
+                  v18 = [PGObfuscation plaintextDateFromObfuscatedString:v17 usingDateFormatter:v39];
                   [v15 setObject:v18 forKeyedSubscript:@"startDate"];
                 }
 
@@ -327,26 +320,26 @@
                 if (v19)
                 {
                   v20 = [v14 objectForKeyedSubscript:@"l"];
-                  v21 = [PGObfuscation plaintextDateFromObfuscatedString:v20 usingDateFormatter:v40];
+                  v21 = [PGObfuscation plaintextDateFromObfuscatedString:v20 usingDateFormatter:v39];
                   [v15 setObject:v21 forKeyedSubscript:@"endDate"];
                 }
 
                 [v9 addObject:v15];
               }
 
-              v11 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
+              v11 = [obj countByEnumeratingWithState:&v40 objects:v48 count:16];
             }
 
             while (v11);
           }
 
-          v8 = v35;
-          [v35 setObject:v9 forKeyedSubscript:@"sensitiveDateIntervalsAsDictionaries"];
+          v8 = v34;
+          [v34 setObject:v9 forKeyedSubscript:@"sensitiveDateIntervalsAsDictionaries"];
 
-          v4 = v30;
-          v7 = v36;
-          i = v37;
-          v6 = v34;
+          v4 = v29;
+          v7 = v35;
+          i = v36;
+          v6 = v33;
         }
 
         v22 = [v7 objectForKeyedSubscript:@"n"];
@@ -370,18 +363,16 @@
           [v8 setObject:v27 forKeyedSubscript:@"radius"];
         }
 
-        [v32 setObject:v8 forKeyedSubscript:v6];
+        [v31 setObject:v8 forKeyedSubscript:v6];
       }
 
-      v33 = [v4 countByEnumeratingWithState:&v45 objects:v50 count:16];
+      v32 = [v4 countByEnumeratingWithState:&v44 objects:v49 count:16];
     }
 
-    while (v33);
+    while (v32);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
-  return v32;
+  return v31;
 }
 
 + (BOOL)isAssetAtSensitiveLocationAndDate:(id)date
@@ -419,34 +410,34 @@
 
 + (BOOL)dateInterval:(id)interval intersectsSensitiveDateIntervals:(id)intervals
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   intervalsCopy = intervals;
-  v7 = [intervalsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [intervalsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(intervalsCopy);
         }
 
-        if ([intervalCopy intersectsDateInterval:{*(*(&v12 + 1) + 8 * i), v12}])
+        if ([intervalCopy intersectsDateInterval:{*(*(&v11 + 1) + 8 * i), v11}])
         {
           LOBYTE(v7) = 1;
           goto LABEL_11;
         }
       }
 
-      v7 = [intervalsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [intervalsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v7)
       {
         continue;
@@ -458,39 +449,38 @@
 
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 + (BOOL)isSensitiveLocation:(id)location duringDateInterval:(id)interval
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   if (location)
   {
     [location coordinate];
-    v32 = v7;
-    v33 = v8;
+    v31 = v7;
+    v32 = v8;
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     sensitiveLocationBlocklistConfigurations = [self sensitiveLocationBlocklistConfigurations];
-    v10 = [sensitiveLocationBlocklistConfigurations countByEnumeratingWithState:&v28 objects:v34 count:16];
+    v10 = [sensitiveLocationBlocklistConfigurations countByEnumeratingWithState:&v27 objects:v33 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v29;
+      v12 = *v28;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v29 != v12)
+          if (*v28 != v12)
           {
             objc_enumerationMutation(sensitiveLocationBlocklistConfigurations);
           }
 
-          v14 = *(*(&v28 + 1) + 8 * i);
+          v14 = *(*(&v27 + 1) + 8 * i);
           [v14 latitude];
           v16 = v15;
           [v14 longitude];
@@ -513,7 +503,7 @@ LABEL_11:
           }
         }
 
-        v11 = [sensitiveLocationBlocklistConfigurations countByEnumeratingWithState:&v28 objects:v34 count:16];
+        v11 = [sensitiveLocationBlocklistConfigurations countByEnumeratingWithState:&v27 objects:v33 count:16];
         if (v11)
         {
           continue;
@@ -532,7 +522,6 @@ LABEL_21:
     v25 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
@@ -555,7 +544,7 @@ LABEL_21:
 
 void __85__PGSensitiveLocationBlocklistConfiguration_sensitiveLocationBlocklistConfigurations__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) sensitiveLocationBlocklist];
   if ([v1 count])
   {
@@ -563,27 +552,27 @@ void __85__PGSensitiveLocationBlocklistConfiguration_sensitiveLocationBlocklistC
     v3 = sensitiveLocationBlocklistConfigurations_locationBlocklistConfigurations;
     sensitiveLocationBlocklistConfigurations_locationBlocklistConfigurations = v2;
 
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v4 = v1;
-    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v13;
+      v7 = *v12;
       do
       {
         v8 = 0;
         do
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = [v4 objectForKeyedSubscript:{*(*(&v12 + 1) + 8 * v8), v12}];
+          v9 = [v4 objectForKeyedSubscript:{*(*(&v11 + 1) + 8 * v8), v11}];
           v10 = [[PGSensitiveLocationBlocklistConfiguration alloc] initWithConfigurationDictionary:v9];
           if (v10)
           {
@@ -594,14 +583,12 @@ void __85__PGSensitiveLocationBlocklistConfiguration_sensitiveLocationBlocklistC
         }
 
         while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v6);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sensitiveLocationBlocklist
@@ -629,43 +616,43 @@ void __85__PGSensitiveLocationBlocklistConfiguration_sensitiveLocationBlocklistC
 
 + (id)resolveConfigurationDictionary:(id)dictionary
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v5 = [dictionaryCopy objectForKeyedSubscript:@"e"];
-  v36 = +[PGSensitiveLocationBlocklistConfiguration dateFormatter];
+  v35 = +[PGSensitiveLocationBlocklistConfiguration dateFormatter];
   if (v5)
   {
-    v33 = v4;
-    v34 = dictionaryCopy;
-    v35 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v32 = v4;
+    v33 = dictionaryCopy;
+    v34 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    v32 = v5;
+    v31 = v5;
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v37 objects:v43 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v36 objects:v42 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v38;
+      v9 = *v37;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v38 != v9)
+          if (*v37 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v37 + 1) + 8 * i);
+          v11 = *(*(&v36 + 1) + 8 * i);
           v12 = [v11 objectForKeyedSubscript:@"d"];
 
           if (v12)
           {
             v13 = [v11 objectForKeyedSubscript:@"d"];
-            v12 = [PGObfuscation plaintextDateFromObfuscatedString:v13 usingDateFormatter:v36];
+            v12 = [PGObfuscation plaintextDateFromObfuscatedString:v13 usingDateFormatter:v35];
           }
 
           v14 = [v11 objectForKeyedSubscript:@"l"];
@@ -673,12 +660,12 @@ void __85__PGSensitiveLocationBlocklistConfiguration_sensitiveLocationBlocklistC
           if (v14)
           {
             v15 = [v11 objectForKeyedSubscript:@"l"];
-            v16 = [PGObfuscation plaintextDateFromObfuscatedString:v15 usingDateFormatter:v36];
+            v16 = [PGObfuscation plaintextDateFromObfuscatedString:v15 usingDateFormatter:v35];
 
             if (v12 && v16)
             {
               v17 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v12 endDate:v16];
-              [v35 addObject:v17];
+              [v34 addObject:v17];
             }
           }
 
@@ -688,17 +675,17 @@ void __85__PGSensitiveLocationBlocklistConfiguration_sensitiveLocationBlocklistC
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v37 objects:v43 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v36 objects:v42 count:16];
       }
 
       while (v8);
     }
 
-    v4 = v33;
-    [v33 setObject:v35 forKeyedSubscript:@"sensitiveDateIntervals"];
+    v4 = v32;
+    [v32 setObject:v34 forKeyedSubscript:@"sensitiveDateIntervals"];
 
-    dictionaryCopy = v34;
-    v5 = v32;
+    dictionaryCopy = v33;
+    v5 = v31;
   }
 
   v18 = [dictionaryCopy objectForKeyedSubscript:@"n"];
@@ -747,7 +734,7 @@ void __85__PGSensitiveLocationBlocklistConfiguration_sensitiveLocationBlocklistC
       if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v42 = dictionaryCopy;
+        v41 = dictionaryCopy;
         _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGSensitiveLocationBlocklistConfiguration] Error unobfuscating blocklist, couldn't find or unobfuscate required key longitude in entry. Entry is %@", buf, 0xCu);
       }
 
@@ -763,14 +750,12 @@ void __85__PGSensitiveLocationBlocklistConfiguration_sensitiveLocationBlocklistC
     if (os_log_type_enabled(loggingConnection2, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v42 = dictionaryCopy;
+      v41 = dictionaryCopy;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_ERROR, "[PGSensitiveLocationBlocklistConfiguration] Error unobfuscating blocklist, couldn't find or unobfuscate required key latitude in entry. Entry is %@", buf, 0xCu);
     }
 
     v27 = 0;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v27;
 }

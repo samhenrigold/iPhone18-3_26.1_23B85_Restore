@@ -196,7 +196,7 @@ uint64_t __76__WBSKeyBagLockStatusManager_addKeyBagLockStatusChangedObserverWith
   dispatch_sync(internalQueue, v7);
 }
 
-uint64_t __68__WBSKeyBagLockStatusManager_removeKeyBagLockStatusChangedObserver___block_invoke(uint64_t a1)
+void *__68__WBSKeyBagLockStatusManager_removeKeyBagLockStatusChangedObserver___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) containsObject:*(a1 + 40)];
   if (result)
@@ -229,51 +229,49 @@ void __68__WBSKeyBagLockStatusManager__startObservingKeyBagLockStatusChanges__bl
   }
 }
 
-void __68__WBSKeyBagLockStatusManager__startObservingKeyBagLockStatusChanges__block_invoke_2(uint64_t a1)
+void __68__WBSKeyBagLockStatusManager__startObservingKeyBagLockStatusChanges__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v17 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXKeychain();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = WBS_LOG_CHANNEL_PREFIXKeychain(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(a1 + 32) _descriptionOfKeyBagLockStatus:{objc_msgSend(*(a1 + 32), "keyBagLockStatus")}];
+    v4 = [*(a1 + 32) _descriptionOfKeyBagLockStatus:{objc_msgSend(*(a1 + 32), "keyBagLockStatus")}];
     *buf = 138543362;
-    v16 = v3;
-    _os_log_impl(&dword_1B8447000, v2, OS_LOG_TYPE_DEFAULT, "Lock status of the device has changed to: %{public}@", buf, 0xCu);
+    v16 = v4;
+    _os_log_impl(&dword_1B8447000, v3, OS_LOG_TYPE_DEFAULT, "Lock status of the device has changed to: %{public}@", buf, 0xCu);
   }
 
   v12 = 0u;
   v13 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v4 = *(*(a1 + 32) + 8);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v5)
+  v5 = *(*(a1 + 32) + 8);
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v6 = *v11;
+    v7 = *v11;
     do
     {
-      v7 = 0;
+      v8 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v11 != v7)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v5);
         }
 
-        v8 = [*(*(&v10 + 1) + 8 * v7) handler];
-        v8[2]();
+        v9 = [*(*(&v10 + 1) + 8 * v8) handler];
+        v9[2]();
 
-        ++v7;
+        ++v8;
       }
 
-      while (v5 != v7);
-      v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      while (v6 != v8);
+      v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v5);
+    while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_stopObservingKeyBagLockStatusChanges

@@ -47,9 +47,9 @@
 {
   invokeCopy = invoke;
   v7 = invokeCopy[2];
-  v37 = 0;
-  v8 = v7(invokeCopy, &v37);
-  v9 = v37;
+  v39 = 0;
+  v8 = v7(invokeCopy, &v39);
+  v9 = v39;
   if (v8)
   {
     v10 = 0;
@@ -57,7 +57,7 @@
 
   else
   {
-    v36 = 0;
+    v38 = 0;
     v10 = 0;
     v11 = 17;
     while (1)
@@ -78,11 +78,11 @@
 
       if (!--v11)
       {
-        v32 = TK_LOG_client();
-        v33 = v36;
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
+        v34 = TK_LOG_client(v15);
+        v35 = v38;
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
         {
-          [(TKSEPClientTokenObject *)self withError:v10 invoke:v32];
+          [(TKSEPClientTokenObject *)self withError:v10 invoke:v34];
         }
 
         if (error)
@@ -90,7 +90,7 @@
           *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"CryptoTokenKit" code:-5 userInfo:0];
 
           v8 = 0;
-          if ((v36 & 1) == 0)
+          if ((v38 & 1) == 0)
           {
             goto LABEL_38;
           }
@@ -99,20 +99,21 @@
         }
 
         v8 = 0;
-        v16 = v10;
+        v17 = v10;
         goto LABEL_35;
       }
 
       userInfo = [v9 userInfo];
-      v16 = [userInfo objectForKeyedSubscript:@"operation"];
+      v17 = [userInfo objectForKeyedSubscript:@"operation"];
 
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      isKindOfClass = objc_opt_isKindOfClass();
+      if ((isKindOfClass & 1) == 0)
       {
-        v34 = TK_LOG_client();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+        v36 = TK_LOG_client(isKindOfClass);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
         {
-          [TKSEPClientTokenObject withError:v9 invoke:v34];
+          [TKSEPClientTokenObject withError:v9 invoke:v36];
         }
 
         if (error)
@@ -121,9 +122,9 @@
 
           v8 = 0;
 LABEL_29:
-          v10 = v16;
+          v10 = v17;
 LABEL_30:
-          if ((v36 & 1) == 0)
+          if ((v38 & 1) == 0)
           {
             goto LABEL_38;
           }
@@ -135,17 +136,17 @@ LABEL_30:
         goto LABEL_34;
       }
 
-      v17 = [(TKSEPClientTokenObject *)self key];
-      authContext = [v17 authContext];
+      v19 = [(TKSEPClientTokenObject *)self key];
+      authContext = [v19 authContext];
 
       if (!authContext)
       {
-        gotLoadHelper_x8__OBJC_CLASS___LAContext(v19);
-        v21 = objc_alloc_init(*(v20 + 3664));
-        v22 = [(TKSEPClientTokenObject *)self key];
-        [v22 setAuthContext:v21];
+        gotLoadHelper_x8__OBJC_CLASS___LAContext(v21);
+        v23 = objc_alloc_init(*(v22 + 3664));
+        v24 = [(TKSEPClientTokenObject *)self key];
+        [v24 setAuthContext:v23];
 
-        v36 = 1;
+        v38 = 1;
       }
 
       session2 = [(TKClientTokenObject *)self session];
@@ -153,26 +154,26 @@ LABEL_30:
 
       if (_testing_AuthContextUsed)
       {
-        v25 = [(TKSEPClientTokenObject *)self key];
-        authContext2 = [v25 authContext];
+        v27 = [(TKSEPClientTokenObject *)self key];
+        authContext2 = [v27 authContext];
         session3 = [(TKClientTokenObject *)self session];
         [session3 set_testing_AuthContextUsed:authContext2];
       }
 
-      v28 = [(TKSEPClientTokenObject *)self key];
-      authContext3 = [v28 authContext];
+      v30 = [(TKSEPClientTokenObject *)self key];
+      authContext3 = [v30 authContext];
       accessControlRef = [(TKClientTokenObject *)self accessControlRef];
-      v8 = [authContext3 evaluateAccessControl:accessControlRef aksOperation:v16 options:MEMORY[0x1E695E0F8] error:error];
+      v8 = [authContext3 evaluateAccessControl:accessControlRef aksOperation:v17 options:MEMORY[0x1E695E0F8] error:error];
 
       if (!v8)
       {
         goto LABEL_29;
       }
 
-      v37 = 0;
-      v8 = (invokeCopy[2])(invokeCopy, &v37);
-      v9 = v37;
-      v10 = v16;
+      v39 = 0;
+      v8 = (invokeCopy[2])(invokeCopy, &v39);
+      v9 = v39;
+      v10 = v17;
       if (v8)
       {
         goto LABEL_34;
@@ -182,7 +183,7 @@ LABEL_30:
 LABEL_17:
     if (error)
     {
-      v31 = v9;
+      v33 = v9;
       *error = v9;
 
       v8 = 0;
@@ -190,13 +191,13 @@ LABEL_17:
     }
 
     v8 = 0;
-    v16 = v10;
+    v17 = v10;
 LABEL_34:
-    v33 = v36;
+    v35 = v38;
 LABEL_35:
 
-    v10 = v16;
-    if ((v33 & 1) == 0)
+    v10 = v17;
+    if ((v35 & 1) == 0)
     {
       goto LABEL_38;
     }
@@ -257,11 +258,11 @@ void *__42__TKSEPClientTokenObject_deleteWithError___block_invoke(uint64_t a1, u
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v15, &state);
-  v16 = TK_LOG_client();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v17 = TK_LOG_client(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     lastObject = [algorithmsCopy lastObject];
-    [TKSEPClientTokenObject operation:operation data:lastObject algorithms:buf parameters:v16 error:?];
+    [TKSEPClientTokenObject operation:operation data:lastObject algorithms:buf parameters:v17 error:?];
   }
 
   v25[0] = MEMORY[0x1E69E9820];
@@ -270,31 +271,30 @@ void *__42__TKSEPClientTokenObject_deleteWithError___block_invoke(uint64_t a1, u
   v25[3] = &unk_1E86B7878;
   v25[4] = self;
   operationCopy = operation;
-  v18 = algorithmsCopy;
-  v26 = v18;
-  v19 = dataCopy;
-  v27 = v19;
-  v20 = parametersCopy;
-  v28 = v20;
-  v21 = [(TKSEPClientTokenObject *)self withError:error invoke:v25];
-  if (!v21)
+  v19 = algorithmsCopy;
+  v26 = v19;
+  v20 = dataCopy;
+  v27 = v20;
+  v21 = parametersCopy;
+  v28 = v21;
+  v22 = [(TKSEPClientTokenObject *)self withError:error invoke:v25];
+  if (!v22)
   {
-    v22 = TK_LOG_client();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    v23 = TK_LOG_client(0);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
-      [TKSEPClientTokenObject operation:operation data:error algorithms:v22 parameters:? error:?];
+      [TKSEPClientTokenObject operation:operation data:error algorithms:v23 parameters:? error:?];
     }
   }
 
   os_activity_scope_leave(&state);
-  v23 = *MEMORY[0x1E69E9840];
 
-  return v21;
+  return v22;
 }
 
 id __69__TKSEPClientTokenObject_operation_data_algorithms_parameters_error___block_invoke(uint64_t a1, void *a2)
 {
-  v62[1] = *MEMORY[0x1E69E9840];
+  v61[1] = *MEMORY[0x1E69E9840];
   v4 = [*(a1 + 32) session];
   v5 = [v4 _testing_ForceAuthenticationNeeded];
 
@@ -316,21 +316,21 @@ LABEL_53:
     {
       if (v8 == 2)
       {
-        v61 = @"operation";
-        v62[0] = @"osgn";
+        v60 = @"operation";
+        v61[0] = @"osgn";
         v9 = MEMORY[0x1E695DF20];
-        v10 = v62;
-        v11 = &v61;
+        v10 = v61;
+        v11 = &v60;
         goto LABEL_51;
       }
 
       if (v8 == 3)
       {
-        v57 = @"operation";
-        v58 = @"oecd";
+        v56 = @"operation";
+        v57 = @"oecd";
         v9 = MEMORY[0x1E695DF20];
-        v10 = &v58;
-        v11 = &v57;
+        v10 = &v57;
+        v11 = &v56;
         goto LABEL_51;
       }
     }
@@ -340,25 +340,25 @@ LABEL_53:
       switch(v8)
       {
         case 4:
-          v59 = @"operation";
-          v60 = @"ock";
+          v58 = @"operation";
+          v59 = @"ock";
           v9 = MEMORY[0x1E695DF20];
-          v10 = &v60;
-          v11 = &v59;
+          v10 = &v59;
+          v11 = &v58;
           goto LABEL_51;
         case 1000:
-          v53 = @"operation";
-          v54 = @"oa";
+          v52 = @"operation";
+          v53 = @"oa";
           v9 = MEMORY[0x1E695DF20];
-          v10 = &v54;
-          v11 = &v53;
+          v10 = &v53;
+          v11 = &v52;
           goto LABEL_51;
         case 1003:
-          v55 = @"operation";
-          v56 = @"okd";
+          v54 = @"operation";
+          v55 = @"okd";
           v9 = MEMORY[0x1E695DF20];
-          v10 = &v56;
-          v11 = &v55;
+          v10 = &v55;
+          v11 = &v54;
 LABEL_51:
           v7 = [v9 dictionaryWithObjects:v10 forKeys:v11 count:1];
           break;
@@ -534,11 +534,11 @@ LABEL_70:
                   v21 = 0;
                 }
 
-                v51 = [*(a1 + 32) publicKey];
-                v29 = [TKMLDSAPrehasher prehashDataWithMessageData:v45 publicKey:v51 context:v21];
+                v50 = [*(a1 + 32) publicKey];
+                v29 = [TKMLDSAPrehasher prehashDataWithMessageData:v45 publicKey:v50 context:v21];
 
-                v52 = [*(a1 + 32) key];
-                v13 = [v52 signDigest:v29 error:a2];
+                v51 = [*(a1 + 32) key];
+                v13 = [v51 signDigest:v29 error:a2];
 
                 goto LABEL_80;
               }
@@ -628,36 +628,32 @@ LABEL_60:
 LABEL_72:
   v13 = [MEMORY[0x1E695DFB0] null];
 LABEL_73:
-  v49 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 - (void)withError:(uint64_t)a1 invoke:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1DF413000, a2, OS_LOG_TYPE_FAULT, "TKErrorCodeAuthenticationNeeded does not have operation set: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1DF413000, a2, OS_LOG_TYPE_FAULT, "TKErrorCodeAuthenticationNeeded does not have operation set: %{public}@", &v2, 0xCu);
 }
 
 - (void)withError:(NSObject *)a3 invoke:.cold.2(void *a1, uint64_t a2, NSObject *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v6 = [a1 session];
   v7 = [v6 token];
   v8 = [v7 tokenID];
   v9 = [a1 accessControl];
-  v11 = 138543874;
-  v12 = v8;
-  v13 = 2114;
-  v14 = v9;
-  v15 = 2114;
-  v16 = a2;
-  _os_log_fault_impl(&dword_1DF413000, a3, OS_LOG_TYPE_FAULT, "authentication failed repeatedly: tkid=%{public}@, ac=%{public}@, op=%{public}@", &v11, 0x20u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v10 = 138543874;
+  v11 = v8;
+  v12 = 2114;
+  v13 = v9;
+  v14 = 2114;
+  v15 = a2;
+  _os_log_fault_impl(&dword_1DF413000, a3, OS_LOG_TYPE_FAULT, "authentication failed repeatedly: tkid=%{public}@, ac=%{public}@, op=%{public}@", &v10, 0x20u);
 }
 
 - (void)operation:(uint8_t *)buf data:(os_log_t)log algorithms:parameters:error:.cold.1(int a1, void *a2, uint8_t *buf, os_log_t log)
@@ -671,7 +667,7 @@ LABEL_73:
 
 - (void)operation:(os_log_t)log data:algorithms:parameters:error:.cold.2(int a1, __CFString **a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = *a2;
@@ -682,12 +678,11 @@ LABEL_73:
     v3 = &stru_1F5A7A8A8;
   }
 
-  v5[0] = 67109378;
-  v5[1] = a1;
-  v6 = 2114;
-  v7 = v3;
-  _os_log_debug_impl(&dword_1DF413000, log, OS_LOG_TYPE_DEBUG, "operation:%d failed, error: %{public}@", v5, 0x12u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4[0] = 67109378;
+  v4[1] = a1;
+  v5 = 2114;
+  v6 = v3;
+  _os_log_debug_impl(&dword_1DF413000, log, OS_LOG_TYPE_DEBUG, "operation:%d failed, error: %{public}@", v4, 0x12u);
 }
 
 @end

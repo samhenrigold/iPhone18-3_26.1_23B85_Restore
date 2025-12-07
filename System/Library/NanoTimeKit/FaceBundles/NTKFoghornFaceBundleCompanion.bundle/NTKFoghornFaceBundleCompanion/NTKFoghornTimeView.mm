@@ -23,7 +23,7 @@
 - (void)_cleanupElementFrameStates;
 - (void)_drawInContext:(CGContext *)context needsDisplayElementMask:(unint64_t)mask;
 - (void)_ensureCTFramesForElementMask:(unint64_t)mask withFont:(id)font;
-- (void)_layoutAndUpdateForTimeFormatter:(double)formatter transitoryFontSize:(double)size transitoryFontWeight:(double)weight metricsRect:(double)rect snapToPixel:(double)pixel fromLayoutStyle:(double)style toLayoutStyle:(uint64_t)layoutStyle fromInset:(void *)self0 toInset:(unsigned int)self1 fromShowSeconds:(uint64_t)self2 toShowSeconds:(uint64_t)self3 progress:(int)self4 secondsSize:(int)self5 secondsWeight:(double)self6 secondsRenderRect:(unsigned __int8)self7 blinkAlpha:(unsigned __int8)self8 secondsAlpha:(double)self9;
+- (void)_layoutAndUpdateForTimeFormatter:(double)formatter transitoryFontSize:(double)size transitoryFontWeight:(double)weight metricsRect:(double)rect snapToPixel:(double)pixel fromLayoutStyle:(double)style toLayoutStyle:(double)layoutStyle fromInset:(uint64_t)self0 toInset:(void *)self1 fromShowSeconds:(unsigned int)self2 toShowSeconds:(uint64_t)self3 progress:(uint64_t)self4 secondsSize:(int)self5 secondsWeight:(int)self6 secondsRenderRect:(unsigned __int8)self7 blinkAlpha:(unsigned __int8)self8 secondsAlpha:(double)self9;
 - (void)_layoutAndUpdateForTimeFormatter:(id)formatter showSeconds:(BOOL)seconds layoutStyle:(unint64_t)style inset:(BOOL)inset metricsRect:(CGRect)rect blinkAlpha:(double)alpha secondsAlpha:(double)secondsAlpha;
 - (void)_setLayoutFromStyle:(unint64_t)style toStyle:(unint64_t)toStyle fromTritiumOn:(BOOL)on toTritiumOn:(BOOL)tritiumOn fromInset:(BOOL)inset toInset:(BOOL)toInset progress:(double)progress;
 - (void)_setNeedsDisplayForElementMask:(unint64_t)mask;
@@ -1269,89 +1269,89 @@ LABEL_19:
   return result;
 }
 
-- (void)_layoutAndUpdateForTimeFormatter:(double)formatter transitoryFontSize:(double)size transitoryFontWeight:(double)weight metricsRect:(double)rect snapToPixel:(double)pixel fromLayoutStyle:(double)style toLayoutStyle:(uint64_t)layoutStyle fromInset:(void *)self0 toInset:(unsigned int)self1 fromShowSeconds:(uint64_t)self2 toShowSeconds:(uint64_t)self3 progress:(int)self4 secondsSize:(int)self5 secondsWeight:(double)self6 secondsRenderRect:(unsigned __int8)self7 blinkAlpha:(unsigned __int8)self8 secondsAlpha:(double)self9
+- (void)_layoutAndUpdateForTimeFormatter:(double)formatter transitoryFontSize:(double)size transitoryFontWeight:(double)weight metricsRect:(double)rect snapToPixel:(double)pixel fromLayoutStyle:(double)style toLayoutStyle:(double)layoutStyle fromInset:(uint64_t)self0 toInset:(void *)self1 fromShowSeconds:(unsigned int)self2 toShowSeconds:(uint64_t)self3 progress:(uint64_t)self4 secondsSize:(int)self5 secondsWeight:(int)self6 secondsRenderRect:(unsigned __int8)self7 blinkAlpha:(unsigned __int8)self8 secondsAlpha:(double)self9
 {
-  v85 = *MEMORY[0x277D85DE8];
-  insetCopy = inset;
-  objc_msgSend__setNeedsDisplayForElementMask_(self, v34, -1, v35);
-  v36 = objc_opt_class();
-  v72 = 0;
+  v86 = *MEMORY[0x277D85DE8];
+  toInsetCopy = toInset;
+  objc_msgSend__setNeedsDisplayForElementMask_(self, v35, -1, v36);
+  v37 = objc_opt_class();
   v73 = 0;
-  v70 = 0;
+  v74 = 0;
   v71 = 0;
-  v64 = insetCopy;
-  objc_msgSend__stringsFromTimeFormatter_showSeconds_hoursString_blinkerString_minutesString_secondsString_(v36, v37, insetCopy, renderRect | alpha, &v73, &v72, &v71, &v70);
-  v38 = v73;
-  v39 = v72;
-  v40 = v71;
-  v41 = v70;
+  v72 = 0;
+  v65 = toInsetCopy;
+  objc_msgSend__stringsFromTimeFormatter_showSeconds_hoursString_blinkerString_minutesString_secondsString_(v37, v38, toInsetCopy, renderRect | alpha, &v74, &v73, &v72, &v71);
+  v39 = v74;
+  v40 = v73;
+  v41 = v72;
+  v42 = v71;
   CLKInterpolateBetweenFloatsClipped();
-  v43 = v42;
-  v69 = 0;
-  objc_msgSend__layoutForHoursString_blinkerString_minutesString_secondsString_showSeconds_transitoryFontSize_transitoryFontWeight_transitoryOutlineWidth_metricsRect_snapToPixel_toLayoutStyle_font_frameStates_(self, v44, v38, v39, v40, v41, renderRect | alpha, toInset, a2, formatter, size, v42, weight, rect, pixel, style, showSeconds, &v69, self + 1624);
-  v46 = v45;
-  v47 = v69;
-  v48 = v69;
-  objc_storeStrong((self + 1608), v47);
-  objc_storeStrong((self + 1616), v47);
-  v86.origin.x = a22;
-  v86.origin.y = a23;
-  v86.size.width = a24;
-  v86.size.height = a25;
-  if (CGRectIsEmpty(v86))
+  v44 = v43;
+  v70 = 0;
+  objc_msgSend__layoutForHoursString_blinkerString_minutesString_secondsString_showSeconds_transitoryFontSize_transitoryFontWeight_transitoryOutlineWidth_metricsRect_snapToPixel_toLayoutStyle_font_frameStates_(self, v45, v39, v40, v41, v42, renderRect | alpha, seconds, a2, formatter, size, v43, weight, rect, pixel, style, progress, &v70, self + 1624);
+  v47 = v46;
+  v48 = v70;
+  v49 = v70;
+  objc_storeStrong((self + 1608), v48);
+  objc_storeStrong((self + 1616), v48);
+  v87.origin.x = a22;
+  v87.origin.y = a23;
+  v87.size.width = a24;
+  v87.size.height = a25;
+  if (CGRectIsEmpty(v87))
   {
-    v63 = v48;
+    v64 = v49;
   }
 
   else
   {
-    v75 = 0;
     v76 = 0;
     v77 = 0;
     v78 = 0;
     v79 = 0;
     v80 = 0;
-    v83 = 0;
+    v81 = 0;
     v84 = 0;
-    v68 = v48;
-    objc_msgSend__layoutForHoursString_blinkerString_minutesString_secondsString_showSeconds_transitoryFontSize_transitoryFontWeight_transitoryOutlineWidth_metricsRect_snapToPixel_toLayoutStyle_font_frameStates_(self, v49, v38, v39, v40, v41, 1, toInset, secondsAlpha, a20, a21, v43, a22, a23, a24, a25, showSeconds, &v68, v74);
-    v51 = v68;
-    v63 = v68;
+    v85 = 0;
+    v69 = v49;
+    objc_msgSend__layoutForHoursString_blinkerString_minutesString_secondsString_showSeconds_transitoryFontSize_transitoryFontWeight_transitoryOutlineWidth_metricsRect_snapToPixel_toLayoutStyle_font_frameStates_(self, v50, v39, v40, v41, v42, 1, seconds, secondsAlpha, a20, a21, v44, a22, a23, a24, a25, progress, &v69, v75);
+    v52 = v69;
+    v64 = v69;
 
-    objc_storeStrong((self + 1616), v51);
-    *(self + 1840) = v81;
-    *(self + 1856) = v82;
-    v52 = 288;
+    objc_storeStrong((self + 1616), v52);
+    *(self + 1840) = v82;
+    *(self + 1856) = v83;
+    v53 = 288;
     do
     {
 
-      v52 -= 72;
+      v53 -= 72;
     }
 
-    while (v52);
+    while (v53);
   }
 
-  v54 = objc_msgSend__numberOfThinCharactersForTimeFormatter_(self, v49, v64, v50);
-  if (progress != secondsSize || seconds != showSeconds || renderRect != alpha)
+  v55 = objc_msgSend__numberOfThinCharactersForTimeFormatter_(self, v50, v65, v51);
+  if (secondsSize != secondsWeight || showSeconds != progress || renderRect != alpha)
   {
-    LOBYTE(v58) = progress;
-    objc_msgSend__getLayoutForHoursString_blinkerString_minutesString_secondsString_showSeconds_numberOfThinCharacters_layoutStyle_inset_metricsRect_(self, v53, v38, v39, v40, v41, renderRect, v54, weight, rect, pixel, style, seconds, v58);
     LOBYTE(v59) = secondsSize;
-    objc_msgSend__getLayoutForHoursString_blinkerString_minutesString_secondsString_showSeconds_numberOfThinCharacters_layoutStyle_inset_metricsRect_(self, v55, v38, v39, v40, v41, alpha, v54, weight, rect, pixel, style, showSeconds, v59);
+    objc_msgSend__getLayoutForHoursString_blinkerString_minutesString_secondsString_showSeconds_numberOfThinCharacters_layoutStyle_inset_metricsRect_(self, v54, v39, v40, v41, v42, renderRect, v55, weight, rect, pixel, style, showSeconds, v59);
+    LOBYTE(v60) = secondsWeight;
+    objc_msgSend__getLayoutForHoursString_blinkerString_minutesString_secondsString_showSeconds_numberOfThinCharacters_layoutStyle_inset_metricsRect_(self, v56, v39, v40, v41, v42, alpha, v55, weight, rect, pixel, style, progress, v60);
     CLKInterpolateBetweenFloatsClipped();
-    v46 = v56;
+    v47 = v57;
   }
 
-  if (v46 < pixel)
+  if (v47 < pixel)
   {
     UICeilToViewScale();
-    *(self + 1624) = v57 + *(self + 1624);
-    *(self + 1696) = v57 + *(self + 1696);
-    *(self + 1768) = v57 + *(self + 1768);
-    *(self + 1840) = v57 + *(self + 1840);
+    *(self + 1624) = v58 + *(self + 1624);
+    *(self + 1696) = v58 + *(self + 1696);
+    *(self + 1768) = v58 + *(self + 1768);
+    *(self + 1840) = v58 + *(self + 1840);
   }
 
-  objc_msgSend__updateFrameElementsForHoursString_blinkerString_minutesString_secondsString_blinkAlpha_secondsAlpha_(self, v53, v38, v39, v40, v41, a26, a27);
+  objc_msgSend__updateFrameElementsForHoursString_blinkerString_minutesString_secondsString_blinkAlpha_secondsAlpha_(self, v54, v39, v40, v41, v42, a26, a27);
 }
 
 - (void)_layoutAndUpdateForTimeFormatter:(id)formatter showSeconds:(BOOL)seconds layoutStyle:(unint64_t)style inset:(BOOL)inset metricsRect:(CGRect)rect blinkAlpha:(double)alpha secondsAlpha:(double)secondsAlpha
@@ -1362,30 +1362,30 @@ LABEL_19:
   x = rect.origin.x;
   insetCopy = inset;
   secondsCopy = seconds;
-  v39 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   formatterCopy = formatter;
   objc_msgSend__scaleSizeForTimeFormatter_layoutStyle_inset_shouldHideSeconds_(self, v19, formatterCopy, style, insetCopy, !secondsCopy);
   v21 = v20;
   v23 = v22;
-  objc_msgSend__scaleWeightForLayoutStyle_inset_shouldHideSeconds_(self, v24, style, insetCopy, !secondsCopy);
-  v26 = v25;
-  v27 = NTKFoghornFaceBundleLogObject();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+  shouldHideSeconds = objc_msgSend__scaleWeightForLayoutStyle_inset_shouldHideSeconds_(self, v24, style, insetCopy, !secondsCopy);
+  v27 = v26;
+  v29 = NTKFoghornFaceBundleLogObject(shouldHideSeconds, v28);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
-    v32 = "[NTKFoghornTimeView _layoutAndUpdateForTimeFormatter:showSeconds:layoutStyle:inset:metricsRect:blinkAlpha:secondsAlpha:]";
-    v33 = 2048;
-    v34 = v21;
+    v34 = "[NTKFoghornTimeView _layoutAndUpdateForTimeFormatter:showSeconds:layoutStyle:inset:metricsRect:blinkAlpha:secondsAlpha:]";
     v35 = 2048;
-    v36 = v23;
+    v36 = v21;
     v37 = 2048;
-    v38 = v26;
-    _os_log_debug_impl(&dword_23BE5B000, v27, OS_LOG_TYPE_DEBUG, "%s: size = { %f, %f }, weight = %f ", buf, 0x2Au);
+    v38 = v23;
+    v39 = 2048;
+    v40 = v27;
+    _os_log_debug_impl(&dword_23BE5B000, v29, OS_LOG_TYPE_DEBUG, "%s: size = { %f, %f }, weight = %f ", buf, 0x2Au);
   }
 
-  HIBYTE(v29) = secondsCopy;
-  LOBYTE(v29) = secondsCopy;
-  objc_msgSend__layoutAndUpdateForTimeFormatter_transitoryFontSize_transitoryFontWeight_metricsRect_snapToPixel_fromLayoutStyle_toLayoutStyle_fromInset_toInset_fromShowSeconds_toShowSeconds_progress_secondsSize_secondsWeight_secondsRenderRect_blinkAlpha_secondsAlpha_(self, v28, formatterCopy, self->_animationSnapStyle != 0, style, style, insetCopy, insetCopy, v21, v23, v26, x, y, width, height, 1.0, v29, *MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8), 0, *MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24), *&alpha, *&secondsAlpha);
+  HIBYTE(v31) = secondsCopy;
+  LOBYTE(v31) = secondsCopy;
+  objc_msgSend__layoutAndUpdateForTimeFormatter_transitoryFontSize_transitoryFontWeight_metricsRect_snapToPixel_fromLayoutStyle_toLayoutStyle_fromInset_toInset_fromShowSeconds_toShowSeconds_progress_secondsSize_secondsWeight_secondsRenderRect_blinkAlpha_secondsAlpha_(self, v30, formatterCopy, self->_animationSnapStyle != 0, style, style, insetCopy, insetCopy, v21, v23, v27, x, y, width, height, 1.0, v31, *MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8), 0, *MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24), *&alpha, *&secondsAlpha);
 }
 
 + (id)_minutesSeparatorImageWithSize:(CGSize)size scale:(double)scale frame:(CGRect)frame text:(id)text textColor:(id)color font:(id)font outlineWidth:(double)width forDevice:(id)self0
@@ -1466,34 +1466,35 @@ LABEL_19:
 - (void)_updateHoursMinutesSecondsForTimeFormatter:(id)formatter layoutStyle:(unint64_t)style tritiumOn:(BOOL)on blinkAlpha:(double)alpha
 {
   onCopy = on;
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   formatterCopy = formatter;
-  v20 = 0u;
   v21 = 0u;
-  memset(v19, 0, sizeof(v19));
-  v18 = 0;
+  v22 = 0u;
+  memset(v20, 0, sizeof(v20));
+  v19 = 0;
   inset = self->_inset;
-  if (objc_msgSend__stuffForLayoutStyle_inset_tritiumOn_renderRect_oversizedRect_showSeconds_(self, v12, style, inset, onCopy, &v20, v19, &v18))
+  v13 = objc_msgSend__stuffForLayoutStyle_inset_tritiumOn_renderRect_oversizedRect_showSeconds_(self, v12, style, inset, onCopy, &v21, v20, &v19);
+  if (v13)
   {
-    objc_msgSend__layoutAndUpdateForTimeFormatter_showSeconds_layoutStyle_inset_metricsRect_blinkAlpha_secondsAlpha_(self, v13, formatterCopy, v18, style, inset, v20, v21, alpha, self->_secondsLayoutVisibility);
+    objc_msgSend__layoutAndUpdateForTimeFormatter_showSeconds_layoutStyle_inset_metricsRect_blinkAlpha_secondsAlpha_(self, v14, formatterCopy, v19, style, inset, v21, v22, alpha, self->_secondsLayoutVisibility);
     if (self->_blinkTimerToken)
     {
-      objc_msgSend__updateMinutesSeparatorLayerForTimeFormatter_(self, v14, formatterCopy, v16);
+      objc_msgSend__updateMinutesSeparatorLayerForTimeFormatter_(self, v15, formatterCopy, v17);
     }
 
-    objc_msgSend__updateBlinking(self, v14, v15, v16);
+    objc_msgSend__updateBlinking(self, v15, v16, v17);
   }
 
   else
   {
-    v17 = NTKFoghornFaceBundleLogObject();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = NTKFoghornFaceBundleLogObject(v13, v14);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v23 = "[NTKFoghornTimeView _updateHoursMinutesSecondsForTimeFormatter:layoutStyle:tritiumOn:blinkAlpha:]";
-      v24 = 1024;
+      v24 = "[NTKFoghornTimeView _updateHoursMinutesSecondsForTimeFormatter:layoutStyle:tritiumOn:blinkAlpha:]";
+      v25 = 1024;
       styleCopy = style;
-      _os_log_impl(&dword_23BE5B000, v17, OS_LOG_TYPE_DEFAULT, "%s: encountered unexpected layoutStyle: 0x%02X", buf, 0x12u);
+      _os_log_impl(&dword_23BE5B000, v18, OS_LOG_TYPE_DEFAULT, "%s: encountered unexpected layoutStyle: 0x%02X", buf, 0x12u);
     }
   }
 }
@@ -1531,13 +1532,13 @@ LABEL_19:
   }
 
   objc_msgSend_bounds(self, a2, context, mask);
-  v8 = CGRectGetWidth(v28) - MinX;
+  v8 = CGRectGetWidth(v48) - MinX;
   objc_msgSend_bounds(self, v9, v10, v11);
-  v30.size.height = CGRectGetHeight(v29);
-  v30.origin.x = 0.0;
-  v30.origin.y = 0.0;
-  v30.size.width = v8;
-  CGContextClipToRect(context, v30);
+  v50.size.height = CGRectGetHeight(v49);
+  v50.origin.x = 0.0;
+  v50.origin.y = 0.0;
+  v50.size.width = v8;
+  CGContextClipToRect(context, v50);
   objc_msgSend_activate(MEMORY[0x277CD9FF0], v12, v13, v14);
   objc_msgSend_begin(MEMORY[0x277CD9FF0], v15, v16, v17);
   objc_msgSend_setDisableActions_(MEMORY[0x277CD9FF0], v18, 1, v19);
@@ -1548,12 +1549,12 @@ LABEL_19:
     MaxY = CGRectGetMaxY(self->_frameStates[3].frame);
     CGContextTranslateCTM(context, 0.0, MaxY);
     CGContextScaleCTM(context, 1.0, -1.0);
-    _drawCTFrameAndOutlineForFrameState(context, &self->_frameStates[3]);
+    _drawCTFrameAndOutlineForFrameState(context, &self->_frameStates[3].frame.origin.x, v22, v23, v24, v25, v26);
     CGContextRestoreGState(context);
   }
 
-  v22 = CGRectGetMaxY(self->_frameStates[0].frame);
-  CGContextTranslateCTM(context, 0.0, v22);
+  v27 = CGRectGetMaxY(self->_frameStates[0].frame);
+  CGContextTranslateCTM(context, 0.0, v27);
   CGContextScaleCTM(context, 1.0, -1.0);
   if (self->_animationSnapStyle != 2)
   {
@@ -1565,20 +1566,20 @@ LABEL_19:
 
   if ((maskCopy & 2) != 0)
   {
-    objc_msgSend__ensureCTFramesForElementMask_withFont_(self, v23, 2, self->_font);
-    _drawCTFrameAndOutlineForFrameState(context, &self->_frameStates[1]);
+    objc_msgSend__ensureCTFramesForElementMask_withFont_(self, v28, 2, self->_font);
+    _drawCTFrameAndOutlineForFrameState(context, &self->_frameStates[1].frame.origin.x, v31, v32, v33, v34, v35);
   }
 
   if ((maskCopy & 5) != 0)
   {
-    objc_msgSend__ensureCTFramesForElementMask_withFont_(self, v23, 5, self->_font);
-    _drawCTFrameAndOutlineForFrameState(context, self->_frameStates);
-    _drawCTFrameAndOutlineForFrameState(context, &self->_frameStates[2]);
+    objc_msgSend__ensureCTFramesForElementMask_withFont_(self, v28, 5, self->_font);
+    _drawCTFrameAndOutlineForFrameState(context, &self->_frameStates[0].frame.origin.x, v36, v37, v38, v39, v40);
+    _drawCTFrameAndOutlineForFrameState(context, &self->_frameStates[2].frame.origin.x, v41, v42, v43, v44, v45);
   }
 
-  v26 = MEMORY[0x277CD9FF0];
+  v46 = MEMORY[0x277CD9FF0];
 
-  objc_msgSend_commit(v26, v23, v24, v25);
+  objc_msgSend_commit(v46, v28, v29, v30);
 }
 
 - (void)drawRect:(CGRect)rect
@@ -1622,40 +1623,41 @@ LABEL_19:
 
 - (void)_updateShowSeconds
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_showSeconds(self->_timeFormatter, a2, v2, v3);
   layoutStyle = self->_layoutStyle;
-  v10 = layoutStyle | objc_msgSend_reportingLiveTime(self->_timeFormatter, v7, v8, v9) ^ 1;
-  if (v5 != (v10 & 1))
+  v10 = objc_msgSend_reportingLiveTime(self->_timeFormatter, v7, v8, v9);
+  v12 = layoutStyle | v10 ^ 1;
+  if (v5 != (v12 & 1))
   {
-    v11 = NTKFoghornFaceBundleLogObject();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = NTKFoghornFaceBundleLogObject(v10, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = @"notShowing";
+      v14 = @"notShowing";
       if (v5)
       {
-        v13 = @"showing";
+        v15 = @"showing";
       }
 
       else
       {
-        v13 = @"notShowing";
+        v15 = @"notShowing";
       }
 
-      if (v10)
+      if (v12)
       {
-        v12 = @"showing";
+        v14 = @"showing";
       }
 
-      v17 = 138412546;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v12;
-      _os_log_impl(&dword_23BE5B000, v11, OS_LOG_TYPE_DEFAULT, "_updateShowSeconds from: %@ to: %@", &v17, 0x16u);
+      v19 = 138412546;
+      v20 = v15;
+      v21 = 2112;
+      v22 = v14;
+      _os_log_impl(&dword_23BE5B000, v13, OS_LOG_TYPE_DEFAULT, "_updateShowSeconds from: %@ to: %@", &v19, 0x16u);
     }
 
-    objc_msgSend_setShowSeconds_(self->_timeFormatter, v14, v10 & 1, v15);
-    objc_msgSend_setPaused_forReason_(self->_timeFormatter, v16, 0, @"foghornTimeViewTritiumOrLayoutChange");
+    objc_msgSend_setShowSeconds_(self->_timeFormatter, v16, v12 & 1, v17);
+    objc_msgSend_setPaused_forReason_(self->_timeFormatter, v18, 0, @"foghornTimeViewTritiumOrLayoutChange");
   }
 }
 
@@ -1706,27 +1708,28 @@ LABEL_19:
 
 - (void)timeFormatterReportingLiveTimeDidChange:(id)change
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_reportingLiveTime(change, a2, change, v3);
-  v6 = NTKFoghornFaceBundleLogObject();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v6 = v5;
+  v8 = NTKFoghornFaceBundleLogObject(v5, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = @"NO";
-    if (v5)
+    v9 = @"NO";
+    if (v6)
     {
-      v7 = @"YES";
+      v9 = @"YES";
     }
 
-    v11 = 136315394;
-    v12 = "[NTKFoghornTimeView timeFormatterReportingLiveTimeDidChange:]";
-    v13 = 2112;
-    v14 = v7;
-    _os_log_impl(&dword_23BE5B000, v6, OS_LOG_TYPE_DEFAULT, "%s: reportingLiveTime = %@", &v11, 0x16u);
+    v13 = 136315394;
+    v14 = "[NTKFoghornTimeView timeFormatterReportingLiveTimeDidChange:]";
+    v15 = 2112;
+    v16 = v9;
+    _os_log_impl(&dword_23BE5B000, v8, OS_LOG_TYPE_DEFAULT, "%s: reportingLiveTime = %@", &v13, 0x16u);
   }
 
-  if (v5)
+  if (v6)
   {
-    objc_msgSend_setNeedsDisplay(self, v8, v9, v10);
+    objc_msgSend_setNeedsDisplay(self, v10, v11, v12);
   }
 }
 
@@ -1794,9 +1797,10 @@ LABEL_19:
 
 - (void)_updateBlinking
 {
+  selfCopy = self;
   v20 = *MEMORY[0x277D85DE8];
   blinkTimerToken = self->_blinkTimerToken;
-  if (self->_frozen || (objc_msgSend__tritiumOff(self, a2, v2, v3) & 1) == 0)
+  if (self->_frozen || (self = objc_msgSend__tritiumOff(self, a2, v2, v3), (self & 1) == 0))
   {
     if (!blinkTimerToken)
     {
@@ -1808,14 +1812,14 @@ LABEL_19:
 
   else
   {
-    v6 = (self->_layoutStyle & 1) == 0;
+    v6 = (selfCopy->_layoutStyle & 1) == 0;
     if ((blinkTimerToken != 0) == v6)
     {
       return;
     }
   }
 
-  v7 = NTKFoghornFaceBundleLogObject();
+  v7 = NTKFoghornFaceBundleLogObject(self, a2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = @"notBlinking";
@@ -1841,10 +1845,10 @@ LABEL_19:
     _os_log_impl(&dword_23BE5B000, v7, OS_LOG_TYPE_DEFAULT, "_updateBlinking from: %@ to: %@", &v16, 0x16u);
   }
 
-  objc_msgSend__stopBlinking(self, v10, v11, v12);
+  objc_msgSend__stopBlinking(selfCopy, v10, v11, v12);
   if (v6)
   {
-    objc_msgSend__startBlinking(self, v13, v14, v15);
+    objc_msgSend__startBlinking(selfCopy, v13, v14, v15);
   }
 }
 

@@ -214,7 +214,7 @@ LABEL_10:
 
   v6 = sub_1A888BC88(v8);
 
-  sub_1A85EF638(v8, &qword_1EB3057B0);
+  sub_1A85EF638(v8, &qword_1EB3057B0, &unk_1A88E27B0);
   return v6 & 1;
 }
 

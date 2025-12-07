@@ -712,14 +712,14 @@ LABEL_23:
     {
       if (index == 6)
       {
-        v3 = TSKBundle();
+        v3 = TSKBundle(self, a2);
         v4 = @"Orange";
         goto LABEL_18;
       }
 
       if (index == 7)
       {
-        v3 = TSKBundle();
+        v3 = TSKBundle(self, a2);
         v4 = @"Gray";
         goto LABEL_18;
       }
@@ -729,13 +729,13 @@ LABEL_23:
 
     if (index == 4)
     {
-      v3 = TSKBundle();
+      v3 = TSKBundle(self, a2);
       v4 = @"Purple";
     }
 
     else
     {
-      v3 = TSKBundle();
+      v3 = TSKBundle(self, a2);
       v4 = @"Teal";
     }
   }
@@ -746,14 +746,14 @@ LABEL_23:
     {
       if (!index)
       {
-        v3 = TSKBundle();
+        v3 = TSKBundle(self, a2);
         v4 = @"Yellow";
         goto LABEL_18;
       }
 
       if (index == 1)
       {
-        v3 = TSKBundle();
+        v3 = TSKBundle(self, a2);
         v4 = @"Green";
         goto LABEL_18;
       }
@@ -767,13 +767,13 @@ LABEL_21:
 
     if (index == 2)
     {
-      v3 = TSKBundle();
+      v3 = TSKBundle(self, a2);
       v4 = @"Blue";
     }
 
     else
     {
-      v3 = TSKBundle();
+      v3 = TSKBundle(self, a2);
       v4 = @"Pink";
     }
   }

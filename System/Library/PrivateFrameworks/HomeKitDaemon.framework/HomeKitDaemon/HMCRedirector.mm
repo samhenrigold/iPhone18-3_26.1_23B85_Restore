@@ -9,7 +9,7 @@
 
 @implementation HMCRedirector
 
-uint64_t __29__HMCRedirector_removeTuple___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__29__HMCRedirector_removeTuple___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 isEqual:*(a1 + 32)];
   if (result)
@@ -22,7 +22,7 @@ uint64_t __29__HMCRedirector_removeTuple___block_invoke(uint64_t a1, uint64_t a2
   return result;
 }
 
-uint64_t __29__HMCRedirector_removeTuple___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
+void *__29__HMCRedirector_removeTuple___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 isEqual:*(a1 + 32)];
   if (result)
@@ -35,7 +35,7 @@ uint64_t __29__HMCRedirector_removeTuple___block_invoke_2(uint64_t a1, uint64_t 
   return result;
 }
 
-uint64_t __29__HMCRedirector_removeTuple___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
+void *__29__HMCRedirector_removeTuple___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 isEqual:*(a1 + 32)];
   if (result)
@@ -416,7 +416,7 @@ LABEL_18:
 
 void __117__HMCRedirector_addTarget_selector_changeMask_forChangesOfObjectsWithModelType_forChangesOfObjectsWithModelID_error___block_invoke(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [HMCContext managedObjectClassFromProtocol:v3];
   v5 = *(a1 + 48);
@@ -441,17 +441,17 @@ void __117__HMCRedirector_addTarget_selector_changeMask_forChangesOfObjectsWithM
         v12 = HMFGetLogIdentifier();
         v13 = NSStringFromProtocol(v3);
         v14 = *(a1 + 40);
-        v23 = 138544130;
-        v24 = v12;
-        v25 = 2112;
-        v26 = v13;
-        v27 = 2112;
-        v28 = v14;
-        v29 = 2112;
-        v30 = v8;
+        v22 = 138544130;
+        v23 = v12;
+        v24 = 2112;
+        v25 = v13;
+        v26 = 2112;
+        v27 = v14;
+        v28 = 2112;
+        v29 = v8;
         v15 = "%{public}@Unable to register an insertion notification for objects of type %@ by %@ (already registered by %@)";
 LABEL_21:
-        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, v15, &v23, 0x2Au);
+        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, v15, &v22, 0x2Au);
 
         goto LABEL_22;
       }
@@ -483,14 +483,14 @@ LABEL_21:
         v12 = HMFGetLogIdentifier();
         v13 = NSStringFromProtocol(v3);
         v18 = *(a1 + 40);
-        v23 = 138544130;
-        v24 = v12;
-        v25 = 2112;
-        v26 = v13;
-        v27 = 2112;
-        v28 = v18;
-        v29 = 2112;
-        v30 = v8;
+        v22 = 138544130;
+        v23 = v12;
+        v24 = 2112;
+        v25 = v13;
+        v26 = 2112;
+        v27 = v18;
+        v28 = 2112;
+        v29 = v8;
         v15 = "%{public}@Unable to register an update notification for objects of type %@ by %@ (already registered by %@)";
         goto LABEL_21;
       }
@@ -525,14 +525,14 @@ LABEL_22:
         v12 = HMFGetLogIdentifier();
         v13 = NSStringFromProtocol(v3);
         v21 = *(a1 + 40);
-        v23 = 138544130;
-        v24 = v12;
-        v25 = 2112;
-        v26 = v13;
-        v27 = 2112;
-        v28 = v21;
-        v29 = 2112;
-        v30 = v8;
+        v22 = 138544130;
+        v23 = v12;
+        v24 = 2112;
+        v25 = v13;
+        v26 = 2112;
+        v27 = v21;
+        v28 = 2112;
+        v29 = v8;
         v15 = "%{public}@Unable to register a delete notification for objects of type %@ by %@ (already registered by %@)";
         goto LABEL_21;
       }
@@ -542,13 +542,11 @@ LABEL_22:
   }
 
 LABEL_23:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __117__HMCRedirector_addTarget_selector_changeMask_forChangesOfObjectsWithModelType_forChangesOfObjectsWithModelID_error___block_invoke_150(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 48);
   if ((v4 & 4) != 0)
@@ -571,17 +569,17 @@ void __117__HMCRedirector_addTarget_selector_changeMask_forChangesOfObjectsWithM
       {
         v11 = HMFGetLogIdentifier();
         v12 = *(a1 + 40);
-        v18 = 138544130;
-        v19 = v11;
-        v20 = 2112;
-        v21 = v3;
-        v22 = 2112;
-        v23 = v12;
-        v24 = 2112;
-        v25 = v7;
+        v17 = 138544130;
+        v18 = v11;
+        v19 = 2112;
+        v20 = v3;
+        v21 = 2112;
+        v22 = v12;
+        v23 = 2112;
+        v24 = v7;
         v13 = "%{public}@Unable to register an update notification for object with modelID %@ by %@ (already registered by %@)";
 LABEL_14:
-        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, v13, &v18, 0x2Au);
+        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, v13, &v17, 0x2Au);
 
         goto LABEL_15;
       }
@@ -612,14 +610,14 @@ LABEL_14:
       {
         v11 = HMFGetLogIdentifier();
         v16 = *(a1 + 40);
-        v18 = 138544130;
-        v19 = v11;
-        v20 = 2112;
-        v21 = v3;
-        v22 = 2112;
-        v23 = v16;
-        v24 = 2112;
-        v25 = v7;
+        v17 = 138544130;
+        v18 = v11;
+        v19 = 2112;
+        v20 = v3;
+        v21 = 2112;
+        v22 = v16;
+        v23 = 2112;
+        v24 = v7;
         v13 = "%{public}@Unable to register a delete notification for object with modelID %@ by %@ (already registered by %@)";
         goto LABEL_14;
       }
@@ -629,11 +627,9 @@ LABEL_15:
       objc_autoreleasePoolPop(v8);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-objc_class *__117__HMCRedirector_addTarget_selector_changeMask_forChangesOfObjectsWithModelType_forChangesOfObjectsWithModelID_error___block_invoke_152(void *a1, uint64_t a2)
+Class __117__HMCRedirector_addTarget_selector_changeMask_forChangesOfObjectsWithModelType_forChangesOfObjectsWithModelID_error___block_invoke_152(void *a1, uint64_t a2)
 {
   result = [HMCContext managedObjectClassFromProtocol:a2];
   v4 = result;
@@ -747,43 +743,41 @@ void __117__HMCRedirector_addTarget_selector_changeMask_forChangesOfObjectsWithM
 
 - (id)addTarget:(id)target selector:(SEL)selector changeMask:(unint64_t)mask forChangesOfObjectsWithModelType:(id)type forChangesOfObjectsWithModelID:(id)d
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   targetCopy = target;
   typeCopy = type;
   dCopy = d;
-  v25 = 0;
-  v15 = [(HMCRedirector *)self addTarget:targetCopy selector:selector changeMask:mask forChangesOfObjectsWithModelType:typeCopy forChangesOfObjectsWithModelID:dCopy error:&v25];
-  v16 = v25;
+  v24 = 0;
+  v15 = [(HMCRedirector *)self addTarget:targetCopy selector:selector changeMask:mask forChangesOfObjectsWithModelType:typeCopy forChangesOfObjectsWithModelID:dCopy error:&v24];
+  v16 = v24;
   if (!v15)
   {
-    v19 = v16;
-    v20 = objc_autoreleasePoolPush();
+    v18 = v16;
+    v19 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v22 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v21 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v23 = HMFGetLogIdentifier();
-      v24 = NSStringFromSelector(selector);
+      v22 = HMFGetLogIdentifier();
+      v23 = NSStringFromSelector(selector);
       *buf = 138544642;
-      v27 = v23;
-      v28 = 2112;
-      v29 = targetCopy;
-      v30 = 2112;
-      v31 = v24;
-      v32 = 2112;
-      v33 = typeCopy;
-      v34 = 2112;
-      v35 = dCopy;
-      v36 = 2112;
-      v37 = v19;
-      _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Unable to register %@ / %@ for changes of objects %@ and IDs %@: %@", buf, 0x3Eu);
+      v26 = v22;
+      v27 = 2112;
+      v28 = targetCopy;
+      v29 = 2112;
+      v30 = v23;
+      v31 = 2112;
+      v32 = typeCopy;
+      v33 = 2112;
+      v34 = dCopy;
+      v35 = 2112;
+      v36 = v18;
+      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Unable to register %@ / %@ for changes of objects %@ and IDs %@: %@", buf, 0x3Eu);
     }
 
-    objc_autoreleasePoolPop(v20);
+    objc_autoreleasePoolPop(v19);
     _HMFPreconditionFailure();
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -840,10 +834,9 @@ void __117__HMCRedirector_addTarget_selector_changeMask_forChangesOfObjectsWithM
 
 void __28__HMCRedirector_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v14_267517;
-  logCategory__hmf_once_v14_267517 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v14_267517;
+  logCategory__hmf_once_v14_267517 = v0;
 }
 
 @end

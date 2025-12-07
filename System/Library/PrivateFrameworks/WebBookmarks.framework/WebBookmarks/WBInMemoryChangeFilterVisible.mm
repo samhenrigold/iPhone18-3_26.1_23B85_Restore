@@ -1,5 +1,7 @@
 @interface WBInMemoryChangeFilterVisible
 - (BOOL)isBookmarkVisible:(id)visible;
+- (id)bookmarkIDsModifiedInMemoryNotPassingFilterFromChangeSet:(id)set inFolder:(int)folder;
+- (id)bookmarkIDsModifiedInMemoryPassingFilterFromChangeSet:(id)set inFolder:(int)folder;
 @end
 
 @implementation WBInMemoryChangeFilterVisible
@@ -22,6 +24,19 @@
   return v6;
 }
 
+- (id)bookmarkIDsModifiedInMemoryNotPassingFilterFromChangeSet:(id)set inFolder:(int)folder
+{
+  v5 = [set modifiedBookmarksInBookmarkFolder:*&folder];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __99__WBInMemoryChangeFilterVisible_bookmarkIDsModifiedInMemoryNotPassingFilterFromChangeSet_inFolder___block_invoke;
+  v8[3] = &unk_279E77E50;
+  v8[4] = self;
+  v6 = [v5 safari_mapAndFilterObjectsUsingBlock:v8];
+
+  return v6;
+}
+
 id __99__WBInMemoryChangeFilterVisible_bookmarkIDsModifiedInMemoryNotPassingFilterFromChangeSet_inFolder___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -36,6 +51,19 @@ id __99__WBInMemoryChangeFilterVisible_bookmarkIDsModifiedInMemoryNotPassingFilt
   }
 
   return v4;
+}
+
+- (id)bookmarkIDsModifiedInMemoryPassingFilterFromChangeSet:(id)set inFolder:(int)folder
+{
+  v5 = [set modifiedBookmarksInBookmarkFolder:*&folder];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __96__WBInMemoryChangeFilterVisible_bookmarkIDsModifiedInMemoryPassingFilterFromChangeSet_inFolder___block_invoke;
+  v8[3] = &unk_279E77E50;
+  v8[4] = self;
+  v6 = [v5 safari_mapAndFilterObjectsUsingBlock:v8];
+
+  return v6;
 }
 
 id __96__WBInMemoryChangeFilterVisible_bookmarkIDsModifiedInMemoryPassingFilterFromChangeSet_inFolder___block_invoke(uint64_t a1, void *a2)

@@ -193,26 +193,26 @@ LABEL_12:
 LABEL_13:
 }
 
-void __61__PLFigPreheatItem_startPreheatRequestWithCompletionHandler___block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+void __61__PLFigPreheatItem_startPreheatRequestWithCompletionHandler___block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (a4 != -17105 && a4 != 0)
   {
-    v7 = PLImageManagerGetLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = PLImageManagerGetLog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(*(a1 + 32) + 192);
+      v10 = *(*(a1 + 32) + 192);
       *buf = 136315650;
-      v11 = "[PLFigPreheatItem startPreheatRequestWithCompletionHandler:]_block_invoke_4";
-      v12 = 2048;
-      v13 = a4;
-      v14 = 2112;
-      v15 = v8;
-      _os_log_impl(&dword_19BF1F000, v7, OS_LOG_TYPE_ERROR, "CMPhoto decompression session create in %s returned %ld from %@", buf, 0x20u);
+      v13 = "[PLFigPreheatItem startPreheatRequestWithCompletionHandler:]_block_invoke_4";
+      v14 = 2048;
+      v15 = a4;
+      v16 = 2112;
+      v17 = v10;
+      _os_log_impl(&dword_19BF1F000, v9, OS_LOG_TYPE_ERROR, "CMPhoto decompression session create in %s returned %ld from %@", buf, 0x20u);
     }
   }
 
-  v9 = *(a1 + 40);
+  v11 = *(a1 + 40);
   pl_dispatch_sync();
 }
 

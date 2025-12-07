@@ -18,9 +18,9 @@
     +[UIFont(UserNotificationsUIKitAdditions) unui_excessiveLineHeightChars];
   }
 
-  v1 = unui_excessiveLineHeightChars___excessiveLineHeightChars;
+  v2 = unui_excessiveLineHeightChars___excessiveLineHeightChars;
 
-  return v1;
+  return v2;
 }
 
 - (uint64_t)unui_hasExuberatedLineHeightForText:()UserNotificationsUIKitAdditions
@@ -133,7 +133,7 @@
 - (double)unui_measuringHeightForText:()UserNotificationsUIKitAdditions withNumberOfLines:
 {
   v6 = a4;
-  [self unui_effectiveLineHeightForText:?];
+  [self unui_effectiveLineHeightForText:a3];
   v8 = v7;
   v9 = a4 - 1;
   if (!a4)
@@ -148,7 +148,7 @@
 
 - (double)unui_drawingHeightForText:()UserNotificationsUIKitAdditions withNumberOfLines:additionalPadding:
 {
-  v8 = [self unui_hasExuberatedLineHeightForText:?];
+  v8 = [self unui_hasExuberatedLineHeightForText:a4];
   if (v8)
   {
     v9 = objc_opt_class();

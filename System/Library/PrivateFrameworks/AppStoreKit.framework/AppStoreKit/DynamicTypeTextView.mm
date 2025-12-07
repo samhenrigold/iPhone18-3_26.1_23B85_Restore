@@ -22,7 +22,7 @@
 - (void)setTextColor:(id)color
 {
   v8.receiver = self;
-  v8.super_class = type metadata accessor for DynamicTypeTextView();
+  v8.super_class = type metadata accessor for DynamicTypeTextView(0);
   colorCopy = color;
   v5 = v8.receiver;
   [(DynamicTypeTextView *)&v8 setTextColor:colorCopy];
@@ -36,7 +36,7 @@
 - (void)setAttributedText:(id)text
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for DynamicTypeTextView();
+  v6.super_class = type metadata accessor for DynamicTypeTextView(0);
   textCopy = text;
   v5 = v6.receiver;
   [(DynamicTypeTextView *)&v6 setAttributedText:textCopy];
@@ -49,7 +49,7 @@
 - (NSString)text
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for DynamicTypeTextView();
+  v7.super_class = type metadata accessor for DynamicTypeTextView(0);
   v2 = v7.receiver;
   text = [(DynamicTypeTextView *)&v7 text];
   if (text)
@@ -85,7 +85,7 @@
   }
 
   v7.receiver = self;
-  v7.super_class = type metadata accessor for DynamicTypeTextView();
+  v7.super_class = type metadata accessor for DynamicTypeTextView(0);
   [(DynamicTypeTextView *)&v7 setText:v5];
 
   sub_1E1579EB0();
@@ -94,7 +94,7 @@
 - (int64_t)textAlignment
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for DynamicTypeTextView();
+  v3.super_class = type metadata accessor for DynamicTypeTextView(0);
   return [(DynamicTypeTextView *)&v3 textAlignment];
 }
 
@@ -105,7 +105,7 @@
   selfCopy = self;
   v4(&v7);
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for DynamicTypeTextView();
+  v6.super_class = type metadata accessor for DynamicTypeTextView(0);
   [(DynamicTypeTextView *)&v6 setTextAlignment:alignment];
 }
 

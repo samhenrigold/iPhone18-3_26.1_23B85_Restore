@@ -255,58 +255,55 @@ LABEL_20:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v12 = toCopy;
+  v7 = toCopy;
   if (self->_syncContinuationToken)
   {
     PBDataWriterWriteDataField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_zoneIdentifier)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_requestedFields)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   has = self->_has;
   if (has)
   {
-    maxChanges = self->_maxChanges;
     PBDataWriterWriteUint32Field();
-    toCopy = v12;
+    toCopy = v7;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    requestedChangeTypes = self->_requestedChangeTypes;
     PBDataWriterWriteInt32Field();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_assetsToDownload)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v12;
+    toCopy = v7;
   }
 
-  v8 = self->_has;
-  if ((v8 & 0x10) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x10) != 0)
   {
-    newestFirst = self->_newestFirst;
     PBDataWriterWriteBOOLField();
-    toCopy = v12;
-    v8 = self->_has;
-    if ((v8 & 4) == 0)
+    toCopy = v7;
+    v6 = self->_has;
+    if ((v6 & 4) == 0)
     {
 LABEL_15:
-      if ((v8 & 8) == 0)
+      if ((v6 & 8) == 0)
       {
         goto LABEL_17;
       }
@@ -320,15 +317,13 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  ignoreCallingDeviceChanges = self->_ignoreCallingDeviceChanges;
   PBDataWriterWriteBOOLField();
-  toCopy = v12;
+  toCopy = v7;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_16:
-    includeMergeableDeltas = self->_includeMergeableDeltas;
     PBDataWriterWriteBOOLField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
 LABEL_17:
@@ -575,7 +570,6 @@ LABEL_8:
       goto LABEL_43;
     }
 
-    v19 = *(equalCopy + 50);
     if (self->_newestFirst)
     {
       if ((*(equalCopy + 50) & 1) == 0)
@@ -602,7 +596,6 @@ LABEL_8:
       goto LABEL_43;
     }
 
-    v20 = *(equalCopy + 48);
     if (self->_ignoreCallingDeviceChanges)
     {
       if ((equalCopy[6] & 1) == 0)

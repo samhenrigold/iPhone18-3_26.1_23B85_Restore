@@ -1,9 +1,9 @@
 @interface NSRelationshipStoreMapping
 - (BOOL)isEqual:(id)equal;
-- (uint64_t)setDestinationEntityExternalName:(uint64_t)result;
-- (uint64_t)setForeignKeys:(uint64_t)result;
-- (uint64_t)setJoins:(uint64_t)result;
 - (void)dealloc;
+- (void)setDestinationEntityExternalName:(void *)result;
+- (void)setForeignKeys:(void *)result;
+- (void)setJoins:(void *)result;
 @end
 
 @implementation NSRelationshipStoreMapping
@@ -18,51 +18,51 @@
   [(NSPropertyStoreMapping *)&v3 dealloc];
 }
 
-- (uint64_t)setDestinationEntityExternalName:(uint64_t)result
+- (void)setDestinationEntityExternalName:(void *)result
 {
   if (result)
   {
     v3 = result;
-    v4 = *(result + 24);
+    v4 = result[3];
     if (v4 != a2)
     {
 
       result = [a2 copy];
-      *(v3 + 24) = result;
+      v3[3] = result;
     }
   }
 
   return result;
 }
 
-- (uint64_t)setForeignKeys:(uint64_t)result
+- (void)setForeignKeys:(void *)result
 {
   if (result)
   {
     v3 = result;
-    v4 = *(result + 32);
+    v4 = result[4];
     if (v4 != a2)
     {
 
       result = [a2 copy];
-      *(v3 + 32) = result;
+      v3[4] = result;
     }
   }
 
   return result;
 }
 
-- (uint64_t)setJoins:(uint64_t)result
+- (void)setJoins:(void *)result
 {
   if (result)
   {
     v3 = result;
-    v4 = *(result + 40);
+    v4 = result[5];
     if (v4 != a2)
     {
 
       result = [a2 copy];
-      *(v3 + 40) = result;
+      v3[5] = result;
     }
   }
 

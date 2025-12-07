@@ -17,7 +17,7 @@
 
   if (currentLegIndex >= v10)
   {
-    v39 = 0;
+    v38 = 0;
   }
 
   else
@@ -30,8 +30,8 @@
     v15 = v14;
     v17 = v16;
     v19 = v18;
-    v41 = 0.0;
-    v42 = -1.0;
+    v40 = 0.0;
+    v41 = -1.0;
     data4 = [(_MNLocationSimulationState *)self data];
     lastLocation = [data4 lastLocation];
     [lastLocation _navigation_geoCoordinate3D];
@@ -43,33 +43,34 @@
     [lastLocation2 altitude];
     v29 = v28;
 
-    [(_MNLocationSimulationState *)self _projectedCoordinateOffRouteFrom:&v42 toCoordinate:&v41 overTimeDelta:v23 outCourse:v25 outSpeed:v29, v15, v17, v19, time];
-    v31 = v30;
-    v33 = v32;
-    v35 = v34;
-    GEOCalculateDistance();
-    if (v36 < 0.000001)
+    time = [(_MNLocationSimulationState *)self _projectedCoordinateOffRouteFrom:&v41 toCoordinate:&v40 overTimeDelta:v23 outCourse:v25 outSpeed:v29, v15, v17, v19, time];
+    var0 = v43.var0;
+    var1 = v43.var1;
+    v34 = v33;
+    v43.var2 = v15;
+    v44.var0 = v17;
+    if (GEOCalculateDistance(time, v35, v43, v44) < 0.000001)
     {
       delegate = [(_MNLocationSimulationState *)self delegate];
-      v38 = -[_MNLocationSimulationState _followRouteStateWithStartRouteCoordinate:](self, "_followRouteStateWithStartRouteCoordinate:", [v13 startRouteCoordinate]);
-      [delegate changeState:v38];
+      v37 = -[_MNLocationSimulationState _followRouteStateWithStartRouteCoordinate:](self, "_followRouteStateWithStartRouteCoordinate:", [v13 startRouteCoordinate]);
+      [delegate changeState:v37];
     }
 
-    v39 = [(_MNLocationSimulationState *)self _locationWithCoordinate:v31 course:v33 speed:v35, v42, v41];
+    v38 = [(_MNLocationSimulationState *)self _locationWithCoordinate:var0 course:var1 speed:v34, v41, v40];
   }
 
-  return v39;
+  return v38;
 }
 
 - (void)onEnterState
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = MNGetMNNavigationSimulationLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     data = [(_MNLocationSimulationState *)self data];
-    v10 = 67109120;
-    LODWORD(v11) = [data currentLegIndex];
+    v9 = 67109120;
+    LODWORD(v10) = [data currentLegIndex];
   }
 
   data2 = [(_MNLocationSimulationState *)self data];
@@ -80,23 +81,21 @@
     v7 = MNGetMNNavigationSimulationLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v10) = 0;
+      LOWORD(v9) = 0;
     }
 
     v8 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315650;
-      v11 = "[_MNLocationSimulationState_ProceedingToStartOfLeg onEnterState]";
-      v12 = 2080;
-      v13 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Simulation/MNSimulatedLocationGenerator.m";
-      v14 = 1024;
-      v15 = 539;
-      _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v10, 0x1Cu);
+      v9 = 136315650;
+      v10 = "[_MNLocationSimulationState_ProceedingToStartOfLeg onEnterState]";
+      v11 = 2080;
+      v12 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Simulation/MNSimulatedLocationGenerator.m";
+      v13 = 1024;
+      v14 = 539;
+      _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v9, 0x1Cu);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

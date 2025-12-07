@@ -100,38 +100,38 @@ void __40__EDTransactionService_startTransaction__block_invoke(uint64_t a1)
 
 void __39__EDTransactionService_endTransaction___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695E000] standardUserDefaults];
   v3 = [*(a1 + 32) serviceName];
   v4 = [v2 objectForKey:v3];
 
   v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v4, "count")}];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
-        if (([v10 isEqualToString:{*(a1 + 40), v15}] & 1) == 0)
+        v10 = *(*(&v14 + 1) + 8 * i);
+        if (([v10 isEqualToString:{*(a1 + 40), v14}] & 1) == 0)
         {
           [v5 addObject:v10];
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -153,8 +153,6 @@ void __39__EDTransactionService_endTransaction___block_invoke(uint64_t a1)
 
   v13 = [MEMORY[0x1E695E000] standardUserDefaults];
   [v13 synchronize];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasPendingTransactions

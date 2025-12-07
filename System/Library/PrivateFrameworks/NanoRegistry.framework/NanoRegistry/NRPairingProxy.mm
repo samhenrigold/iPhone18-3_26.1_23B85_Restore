@@ -83,7 +83,7 @@
 
 void __45__NRPairingProxy_clientRemoteObjectInterface__block_invoke()
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F5B88610];
   v1 = qword_1ED6F0AC0;
   qword_1ED6F0AC0 = v0;
@@ -94,17 +94,15 @@ void __45__NRPairingProxy_clientRemoteObjectInterface__block_invoke()
 
   v4 = qword_1ED6F0AC0;
   v5 = MEMORY[0x1E695DFD8];
-  v11[0] = objc_opt_class();
-  v11[1] = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+  v10[0] = objc_opt_class();
+  v10[1] = objc_opt_class();
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
   v7 = [v5 setWithArray:v6];
   [v4 setClasses:v7 forSelector:sel_xpcClientInfo_ argumentIndex:0 ofReply:1];
 
   v8 = qword_1ED6F0AC0;
   v9 = +[NRSecureDevicePropertyStore enclosedClassTypes];
   [v8 setClasses:v9 forSelector:sel_xpcGetDiffSinceTokenValue_getSecureProperties_withBlock_ argumentIndex:1 ofReply:1];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (id)clientExportedInterface
@@ -121,9 +119,11 @@ void __45__NRPairingProxy_clientRemoteObjectInterface__block_invoke()
 
 uint64_t __41__NRPairingProxy_clientExportedInterface__block_invoke()
 {
-  qword_1ED6F0AB0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F5B8A428];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F5B8A428];
+  v1 = qword_1ED6F0AB0;
+  qword_1ED6F0AB0 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)pairingQueue
@@ -167,7 +167,7 @@ uint64_t __41__NRPairingProxy_clientExportedInterface__block_invoke()
 
 void __41__NRPairingProxy_serverExportedInterface__block_invoke()
 {
-  v21[3] = *MEMORY[0x1E69E9840];
+  v20[3] = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F5B88610];
   v1 = _MergedGlobals_7;
   _MergedGlobals_7 = v0;
@@ -178,32 +178,30 @@ void __41__NRPairingProxy_serverExportedInterface__block_invoke()
 
   v4 = _MergedGlobals_7;
   v5 = MEMORY[0x1E695DFD8];
-  v21[0] = objc_opt_class();
-  v21[1] = objc_opt_class();
-  v21[2] = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:3];
+  v20[0] = objc_opt_class();
+  v20[1] = objc_opt_class();
+  v20[2] = objc_opt_class();
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:3];
   v7 = [v5 setWithArray:v6];
   [v4 setClasses:v7 forSelector:sel_xpcUnpairWithDeviceID_withOptions_operationHasBegun_ argumentIndex:1 ofReply:0];
 
   v8 = _MergedGlobals_7;
   v9 = MEMORY[0x1E695DFD8];
-  v20[0] = objc_opt_class();
-  v20[1] = objc_opt_class();
-  v20[2] = objc_opt_class();
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:3];
+  v19[0] = objc_opt_class();
+  v19[1] = objc_opt_class();
+  v19[2] = objc_opt_class();
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:3];
   v11 = [v9 setWithArray:v10];
   [v8 setClasses:v11 forSelector:sel_xpcCompanionOOBDiscoverAndPairWithName_withOutOfBandPairingKey_withOptions_operationHasBegun_ argumentIndex:2 ofReply:0];
 
   v12 = _MergedGlobals_7;
   v13 = MEMORY[0x1E695DFD8];
+  v16 = objc_opt_class();
   v17 = objc_opt_class();
   v18 = objc_opt_class();
-  v19 = objc_opt_class();
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:3];
-  v15 = [v13 setWithArray:{v14, v17, v18}];
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:3];
+  v15 = [v13 setWithArray:{v14, v16, v17}];
   [v12 setClasses:v15 forSelector:sel_xpcCompanionPasscodePairWithDeviceID_withOptions_operationHasBegun_ argumentIndex:1 ofReply:0];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 + (id)serverRemoteObjectInterface
@@ -1119,7 +1117,7 @@ void __50__NRPairingProxy_xpcBeginMigrationWithCompletion___block_invoke_4(uint6
 
 void __50__NRPairingProxy_xpcAbortPairingReason_withBlock___block_invoke(id *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (!CFPreferencesGetAppBooleanValue(@"ignoreSharingdRequestsToAbortPairing", @"com.apple.NanoRegistry", 0) || ![a1[4] hasPrefix:@"com.apple.sharingd."])
   {
     v7 = [(NRPairingProxy *)a1[5] pairingServicesDelegate];
@@ -1143,9 +1141,9 @@ LABEL_7:
       v5 = [a1[5] appPath];
       v6 = a1[4];
       *buf = 138543618;
-      v13 = v5;
-      v14 = 2114;
-      v15 = v6;
+      v12 = v5;
+      v13 = 2114;
+      v14 = v6;
       _os_log_impl(&dword_1E0ADF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ called abort pairing with reason %{public}@; Ignoring since flag is set to ignore sharingd failures", buf, 0x16u);
     }
 
@@ -1154,19 +1152,17 @@ LABEL_7:
 
 LABEL_8:
   v8 = [a1[5] connection];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __50__NRPairingProxy_xpcAbortPairingReason_withBlock___block_invoke_206;
-  v10[3] = &unk_1E86DAE70;
-  v11 = a1[6];
-  [v8 runCompletionBlock:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __50__NRPairingProxy_xpcAbortPairingReason_withBlock___block_invoke_206;
+  v9[3] = &unk_1E86DAE70;
+  v10 = a1[6];
+  [v8 runCompletionBlock:v9];
 }
 
 - (void)xpcUnpairWithDeviceID:(id)d withOptions:(id)options operationHasBegun:(id)begun
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   dCopy = d;
   optionsCopy = options;
   begunCopy = begun;
@@ -1178,19 +1174,19 @@ LABEL_8:
   if (![(NRRegistryProxy *)self loudHasEntitlement:@"com.apple.nano.nanoregistry.pairunpairobliterate"])
   {
     connection = [(NRXPCProxy *)self connection];
-    v54[0] = MEMORY[0x1E69E9820];
-    v54[1] = 3221225472;
-    v54[2] = __70__NRPairingProxy_xpcUnpairWithDeviceID_withOptions_operationHasBegun___block_invoke_3;
-    v54[3] = &unk_1E86DAE70;
-    v55 = begunCopy;
+    v53[0] = MEMORY[0x1E69E9820];
+    v53[1] = 3221225472;
+    v53[2] = __70__NRPairingProxy_xpcUnpairWithDeviceID_withOptions_operationHasBegun___block_invoke_3;
+    v53[3] = &unk_1E86DAE70;
+    v54 = begunCopy;
     v17 = begunCopy;
-    [connection runCompletionBlock:v54];
+    [connection runCompletionBlock:v53];
 
-    v18 = v55;
+    v18 = v54;
     goto LABEL_42;
   }
 
-  v53 = begunCopy;
+  v52 = begunCopy;
   selfCopy = self;
   if ([optionsCopy count])
   {
@@ -1213,7 +1209,7 @@ LABEL_8:
     {
       if ([(NRRegistryProxy *)self loudHasEntitlement:@"com.apple.nano.nanoregistry.unpairwithbrick"])
       {
-        v50 = 1;
+        v49 = 1;
         goto LABEL_17;
       }
 
@@ -1227,17 +1223,17 @@ LABEL_8:
         {
           appPath = [(NRXPCProxy *)self appPath];
           *buf = 138543874;
-          v59 = appPath;
-          v60 = 2112;
-          v61 = @"com.apple.nano.nanoregistry.unpairwithbrick";
-          v62 = 2112;
-          v63 = @"brick";
+          v58 = appPath;
+          v59 = 2112;
+          v60 = @"com.apple.nano.nanoregistry.unpairwithbrick";
+          v61 = 2112;
+          v62 = @"brick";
           _os_log_error_impl(&dword_1E0ADF000, v26, OS_LOG_TYPE_ERROR, "%{public}@ needs entitlement %@ to enable %@", buf, 0x20u);
         }
       }
     }
 
-    v50 = 0;
+    v49 = 0;
 LABEL_17:
     v27 = [optionsCopy objectForKeyedSubscript:@"store"];
 
@@ -1251,9 +1247,9 @@ LABEL_17:
       {
         appPath2 = [(NRXPCProxy *)self appPath];
         *buf = 138543618;
-        v59 = appPath2;
-        v60 = 2112;
-        v61 = v27;
+        v58 = appPath2;
+        v59 = 2112;
+        v60 = v27;
         _os_log_error_impl(&dword_1E0ADF000, v30, OS_LOG_TYPE_ERROR, "%{public}@ valueID=%@", buf, 0x16u);
       }
     }
@@ -1291,7 +1287,7 @@ LABEL_33:
           v17 = 0;
         }
 
-        v21 = v50;
+        v21 = v49;
 
         v22 = bOOLValue;
         goto LABEL_37;
@@ -1310,11 +1306,11 @@ LABEL_33:
       {
         appPath3 = [(NRXPCProxy *)self appPath];
         *buf = 138543874;
-        v59 = appPath3;
-        v60 = 2112;
-        v61 = @"com.apple.nanoregistry.BDE85C67-0FDD-4A95-A9B9-3CB5DD0C06A2";
-        v62 = 2112;
-        v63 = @"BDE85C67-0FDD-4A95-A9B9-3CB5DD0C06A2";
+        v58 = appPath3;
+        v59 = 2112;
+        v60 = @"com.apple.nanoregistry.BDE85C67-0FDD-4A95-A9B9-3CB5DD0C06A2";
+        v61 = 2112;
+        v62 = @"BDE85C67-0FDD-4A95-A9B9-3CB5DD0C06A2";
         _os_log_error_impl(&dword_1E0ADF000, v33, OS_LOG_TYPE_ERROR, "%{public}@ needs entitlement %@ to enable %@", buf, 0x20u);
       }
     }
@@ -1347,9 +1343,9 @@ LABEL_37:
     {
       appPath4 = [(NRXPCProxy *)selfCopy appPath];
       *buf = 138543618;
-      v59 = appPath4;
-      v60 = 2112;
-      v61 = v18;
+      v58 = appPath4;
+      v59 = 2112;
+      v60 = v18;
       _os_log_error_impl(&dword_1E0ADF000, v41, OS_LOG_TYPE_ERROR, "%{public}@ options again=%@", buf, 0x16u);
     }
   }
@@ -1358,17 +1354,16 @@ LABEL_37:
   [pairingServicesDelegate proxyWillBeginUnpairing:selfCopy];
 
   pairingServicesDelegate2 = [(NRPairingProxy *)selfCopy pairingServicesDelegate];
-  v56[0] = MEMORY[0x1E69E9820];
-  v56[1] = 3221225472;
-  v56[2] = __70__NRPairingProxy_xpcUnpairWithDeviceID_withOptions_operationHasBegun___block_invoke;
-  v56[3] = &unk_1E86DAD10;
-  v56[4] = selfCopy;
-  v57 = v53;
-  v44 = v53;
-  [pairingServicesDelegate2 xpcUnpairWithDeviceID:dCopy withOptions:v18 operationHasBegun:v56];
+  v55[0] = MEMORY[0x1E69E9820];
+  v55[1] = 3221225472;
+  v55[2] = __70__NRPairingProxy_xpcUnpairWithDeviceID_withOptions_operationHasBegun___block_invoke;
+  v55[3] = &unk_1E86DAD10;
+  v55[4] = selfCopy;
+  v56 = v52;
+  v44 = v52;
+  [pairingServicesDelegate2 xpcUnpairWithDeviceID:dCopy withOptions:v18 operationHasBegun:v55];
 
 LABEL_42:
-  v45 = *MEMORY[0x1E69E9840];
 }
 
 void __70__NRPairingProxy_xpcUnpairWithDeviceID_withOptions_operationHasBegun___block_invoke(uint64_t a1, void *a2)
@@ -3531,7 +3526,7 @@ void __48__NRPairingProxy_xpcTriggerTailspinFrom_forApp___block_invoke(uint64_t 
 
 - (void)xpcGetInitialSyncCompletedForPairingID:(id)d completion:(id)completion
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
   v7 = *MEMORY[0x1E695E898];
@@ -3546,17 +3541,17 @@ void __48__NRPairingProxy_xpcTriggerTailspinFrom_forApp___block_invoke(uint64_t 
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       uUIDString = [dCopy UUIDString];
-      v23 = 136316162;
-      v24 = "[NRPairingProxy xpcGetInitialSyncCompletedForPairingID:completion:]";
-      v25 = 2114;
-      v26 = uUIDString;
-      v27 = 2114;
-      v28 = v8;
-      v29 = 2114;
-      v30 = @"com.apple.pairedsyncd";
-      v31 = 2114;
-      v32 = @"pairingIDInitialSyncSet";
-      _os_log_impl(&dword_1E0ADF000, v11, OS_LOG_TYPE_DEFAULT, "%s[%{public}@]: retrieved %{public}@ from %{public}@/%{public}@", &v23, 0x34u);
+      v22 = 136316162;
+      v23 = "[NRPairingProxy xpcGetInitialSyncCompletedForPairingID:completion:]";
+      v24 = 2114;
+      v25 = uUIDString;
+      v26 = 2114;
+      v27 = v8;
+      v28 = 2114;
+      v29 = @"com.apple.pairedsyncd";
+      v30 = 2114;
+      v31 = @"pairingIDInitialSyncSet";
+      _os_log_impl(&dword_1E0ADF000, v11, OS_LOG_TYPE_DEFAULT, "%s[%{public}@]: retrieved %{public}@ from %{public}@/%{public}@", &v22, 0x34u);
     }
   }
 
@@ -3583,24 +3578,22 @@ void __48__NRPairingProxy_xpcTriggerTailspinFrom_forApp___block_invoke(uint64_t 
       uUIDString3 = [dCopy UUIDString];
       v20 = uUIDString3;
       v21 = "NO";
-      v24 = "[NRPairingProxy xpcGetInitialSyncCompletedForPairingID:completion:]";
-      v23 = 136315650;
+      v23 = "[NRPairingProxy xpcGetInitialSyncCompletedForPairingID:completion:]";
+      v22 = 136315650;
       if (v15)
       {
         v21 = "YES";
       }
 
-      v25 = 2114;
-      v26 = uUIDString3;
-      v27 = 2080;
-      v28 = v21;
-      _os_log_impl(&dword_1E0ADF000, v18, OS_LOG_TYPE_DEFAULT, "%s[%{public}@]: returning hasCompleted=%s", &v23, 0x20u);
+      v24 = 2114;
+      v25 = uUIDString3;
+      v26 = 2080;
+      v27 = v21;
+      _os_log_impl(&dword_1E0ADF000, v18, OS_LOG_TYPE_DEFAULT, "%s[%{public}@]: returning hasCompleted=%s", &v22, 0x20u);
     }
   }
 
   completionCopy[2](completionCopy, v15, 0);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)xpcIsPhoneReadyToMigrateDevice:(id)device withCompletion:(id)completion
@@ -3698,7 +3691,7 @@ void __54__NRPairingProxy_xpcIsAssertionActive_withCompletion___block_invoke_2(u
 
 - (void)xpcUpdateWatchBuddyStage:(unsigned int)stage forPairingID:(id)d
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if ([(NRRegistryProxy *)self loudHasEntitlement:@"com.apple.nano.nanoregistry.pairunpairobliterate"])
   {
@@ -3709,7 +3702,7 @@ void __54__NRPairingProxy_xpcIsAssertionActive_withCompletion___block_invoke_2(u
     block[3] = &unk_1E86DB7D8;
     stageCopy = stage;
     block[4] = self;
-    v13 = dCopy;
+    v12 = dCopy;
     dispatch_async(pairingQueue, block);
   }
 
@@ -3724,18 +3717,16 @@ void __54__NRPairingProxy_xpcIsAssertionActive_withCompletion___block_invoke_2(u
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v16 = "[NRPairingProxy xpcUpdateWatchBuddyStage:forPairingID:]";
+        v15 = "[NRPairingProxy xpcUpdateWatchBuddyStage:forPairingID:]";
         _os_log_error_impl(&dword_1E0ADF000, v10, OS_LOG_TYPE_ERROR, "%s client missing entitlement", buf, 0xCu);
       }
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __56__NRPairingProxy_xpcUpdateWatchBuddyStage_forPairingID___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = nr_daemon_log();
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
@@ -3745,18 +3736,16 @@ void __56__NRPairingProxy_xpcUpdateWatchBuddyStage_forPairingID___block_invoke(u
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 48);
-      v8 = 136315394;
-      v9 = "[NRPairingProxy xpcUpdateWatchBuddyStage:forPairingID:]_block_invoke";
-      v10 = 1026;
-      v11 = v5;
-      _os_log_impl(&dword_1E0ADF000, v4, OS_LOG_TYPE_DEFAULT, "%s updating stage: %{public}d", &v8, 0x12u);
+      v7 = 136315394;
+      v8 = "[NRPairingProxy xpcUpdateWatchBuddyStage:forPairingID:]_block_invoke";
+      v9 = 1026;
+      v10 = v5;
+      _os_log_impl(&dword_1E0ADF000, v4, OS_LOG_TYPE_DEFAULT, "%s updating stage: %{public}d", &v7, 0x12u);
     }
   }
 
   v6 = [(NRPairingProxy *)*(a1 + 32) pairingServicesDelegate];
   [v6 xpcUpdateWatchBuddyStage:*(a1 + 48) forPairingID:*(a1 + 40)];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -1226,7 +1226,7 @@ LABEL_13:
   }
 }
 
-void __62__VUIDownloadCollectionViewCell__addDownloadButtonIfRequired___block_invoke(uint64_t a1, uint64_t a2, int a3, int a4)
+void __62__VUIDownloadCollectionViewCell__addDownloadButtonIfRequired___block_invoke(uint64_t a1, void *a2, int a3, int a4)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v10 = WeakRetained;

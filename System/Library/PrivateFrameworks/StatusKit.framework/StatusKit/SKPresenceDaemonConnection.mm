@@ -180,7 +180,7 @@ uint64_t __36__SKPresenceDaemonConnection_logger__block_invoke()
 
 void __43__SKPresenceDaemonConnection_xpcConnection__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = +[SKPresenceDaemonConnection logger];
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
@@ -189,9 +189,9 @@ void __43__SKPresenceDaemonConnection_xpcConnection__block_invoke(uint64_t a1)
     if (v4)
     {
       v5 = objc_loadWeakRetained((a1 + 40));
-      v7 = 134217984;
-      v8 = [v5 processIdentifier];
-      _os_log_impl(&dword_26BA07000, v3, OS_LOG_TYPE_DEFAULT, "XPC connection to PID %ld invalidated", &v7, 0xCu);
+      v6 = 134217984;
+      v7 = [v5 processIdentifier];
+      _os_log_impl(&dword_26BA07000, v3, OS_LOG_TYPE_DEFAULT, "XPC connection to PID %ld invalidated", &v6, 0xCu);
     }
 
     os_unfair_lock_lock(WeakRetained + 2);
@@ -203,16 +203,14 @@ void __43__SKPresenceDaemonConnection_xpcConnection__block_invoke(uint64_t a1)
 
   else if (v4)
   {
-    LOWORD(v7) = 0;
-    _os_log_impl(&dword_26BA07000, v3, OS_LOG_TYPE_DEFAULT, "_xpcConnection.invalidationHandler: The SKPresenceDaemonConnection has been deallocated, returning early...", &v7, 2u);
+    LOWORD(v6) = 0;
+    _os_log_impl(&dword_26BA07000, v3, OS_LOG_TYPE_DEFAULT, "_xpcConnection.invalidationHandler: The SKPresenceDaemonConnection has been deallocated, returning early...", &v6, 2u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __43__SKPresenceDaemonConnection_xpcConnection__block_invoke_7(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = +[SKPresenceDaemonConnection logger];
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
@@ -221,9 +219,9 @@ void __43__SKPresenceDaemonConnection_xpcConnection__block_invoke_7(uint64_t a1)
     if (v4)
     {
       v5 = objc_loadWeakRetained((a1 + 40));
-      v7 = 134217984;
-      v8 = [v5 processIdentifier];
-      _os_log_impl(&dword_26BA07000, v3, OS_LOG_TYPE_DEFAULT, "XPC connection to PID %ld interrupted", &v7, 0xCu);
+      v6 = 134217984;
+      v7 = [v5 processIdentifier];
+      _os_log_impl(&dword_26BA07000, v3, OS_LOG_TYPE_DEFAULT, "XPC connection to PID %ld interrupted", &v6, 0xCu);
     }
 
     os_unfair_lock_lock(WeakRetained + 2);
@@ -235,11 +233,9 @@ void __43__SKPresenceDaemonConnection_xpcConnection__block_invoke_7(uint64_t a1)
 
   else if (v4)
   {
-    LOWORD(v7) = 0;
-    _os_log_impl(&dword_26BA07000, v3, OS_LOG_TYPE_DEFAULT, "_xpcConnection.interruptionHandler: The SKPresenceDaemonConnection has been deallocated, returning early...", &v7, 2u);
+    LOWORD(v6) = 0;
+    _os_log_impl(&dword_26BA07000, v3, OS_LOG_TYPE_DEFAULT, "_xpcConnection.interruptionHandler: The SKPresenceDaemonConnection has been deallocated, returning early...", &v6, 2u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setXPCConnection:(id)connection
@@ -294,20 +290,18 @@ void __43__SKPresenceDaemonConnection_xpcConnection__block_invoke_7(uint64_t a1)
 
 void __71__SKPresenceDaemonConnection_asynchronousRemoteDaemonWithErrorHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_26BA07000, a2, OS_LOG_TYPE_ERROR, "XPC Error (async): %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_26BA07000, a2, OS_LOG_TYPE_ERROR, "XPC Error (async): %{public}@", &v2, 0xCu);
 }
 
 void __70__SKPresenceDaemonConnection_synchronousRemoteDaemonWithErrorHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_26BA07000, a2, OS_LOG_TYPE_ERROR, "XPC Error (synchronous): %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_26BA07000, a2, OS_LOG_TYPE_ERROR, "XPC Error (synchronous): %{public}@", &v2, 0xCu);
 }
 
 @end

@@ -6,9 +6,9 @@
 
 - (uint64_t)atx_writeToFile:()ATXScoreLogSerializable
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v5 = [self count];
-  v6 = (v10 - ((8 * v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v6 = (v9 - ((8 * v5 + 15) & 0xFFFFFFFFFFFFFFF0));
   bzero(v6, 8 * v5);
   [self getObjects:0 andKeys:v6 count:v5];
   CFQSortArray();
@@ -29,9 +29,7 @@
     ++v6;
   }
 
-  result = fputc(125, a3);
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return fputc(125, a3);
 }
 
 @end

@@ -67,19 +67,20 @@
 
 - (DEDIDSInbound)init
 {
-  v5.receiver = self;
-  v5.super_class = DEDIDSInbound;
-  v2 = [(DEDIDSInbound *)&v5 init];
+  v6.receiver = self;
+  v6.super_class = DEDIDSInbound;
+  v2 = [(DEDIDSInbound *)&v6 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = Log_2();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = Log_2(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       [DEDIDSInbound init];
     }
   }
 
-  return v2;
+  return v3;
 }
 
 - (DEDIDSInbound)initWithConnection:(id)connection controller:(id)controller
@@ -131,105 +132,105 @@ void __32__DEDIDSInbound_archivedClasses__block_invoke()
 
 - (void)local_device_query_callback:(id)local_device_query_callback service:(id)service account:(id)account fromID:(id)d context:(id)context
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   local_device_query_callbackCopy = local_device_query_callback;
   dCopy = d;
   contextCopy = context;
-  if (isKnownDevice(service, dCopy))
+  v14 = isKnownDevice(service, dCopy);
+  if (v14)
   {
-    v14 = Log_2();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v15 = Log_2(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       [DEDIDSInbound local_device_query_callback:service:account:fromID:context:];
     }
 
-    v15 = [DEDIDSConnection unpackProtobuf:local_device_query_callbackCopy];
-    if (v15)
+    v16 = [DEDIDSConnection unpackProtobuf:local_device_query_callbackCopy];
+    if (v16)
     {
-      v16 = [DEDDevice deviceWithDictionary:v15];
-      [v16 setTransport:4];
-      [v16 setRemoteTransport:4];
-      [v16 setAddress:dCopy];
-      v17 = Log_2();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v17 = [DEDDevice deviceWithDictionary:v16];
+      [v17 setTransport:4];
+      [v17 setRemoteTransport:4];
+      v18 = Log_2([v17 setAddress:dCopy]);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        identifier = [v16 identifier];
+        identifier = [v17 identifier];
         serviceIdentifier = [contextCopy serviceIdentifier];
-        v24 = 138543618;
-        v25 = identifier;
-        v26 = 2114;
-        v27 = serviceIdentifier;
-        _os_log_impl(&dword_248AD7000, v17, OS_LOG_TYPE_DEFAULT, "local_device_query_callback: IDS device ready [%{public}@] on service [%{public}@]", &v24, 0x16u);
+        v25 = 138543618;
+        v26 = identifier;
+        v27 = 2114;
+        v28 = serviceIdentifier;
+        _os_log_impl(&dword_248AD7000, v18, OS_LOG_TYPE_DEFAULT, "local_device_query_callback: IDS device ready [%{public}@] on service [%{public}@]", &v25, 0x16u);
       }
 
       connection = [(DEDIDSInbound *)self connection];
 
       if (!connection)
       {
-        v21 = Log_2();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v23 = Log_2(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           [DEDIDSInbound local_device_query_callback:service:account:fromID:context:];
         }
       }
 
       connection2 = [(DEDIDSInbound *)self connection];
-      [connection2 incomingDeviceReceived:v16];
+      [connection2 incomingDeviceReceived:v17];
     }
 
     else
     {
-      v16 = Log_2();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = Log_2(0);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [DEDIDSInbound local_device_query_callback:service:account:fromID:context:];
       }
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start_session:(id)start_session service:(id)service account:(id)account fromID:(id)d context:(id)context
 {
   start_sessionCopy = start_session;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "start_session", v19, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "start_session", v20, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:start_sessionCopy];
-    v14 = [v13 objectForKeyedSubscript:@"config"];
-    v15 = [v13 objectForKeyedSubscript:@"callingDevice"];
-    v16 = [v13 objectForKeyedSubscript:@"targetDevice"];
-    v17 = [v13 objectForKeyedSubscript:@"sessionID"];
-    [v15 setTransport:4];
-    [v15 setAddress:dCopy];
+    v14 = [DEDIDSConnection unpackProtobuf:start_sessionCopy];
+    v15 = [v14 objectForKeyedSubscript:@"config"];
+    v16 = [v14 objectForKeyedSubscript:@"callingDevice"];
+    v17 = [v14 objectForKeyedSubscript:@"targetDevice"];
+    v18 = [v14 objectForKeyedSubscript:@"sessionID"];
+    [v16 setTransport:4];
+    [v16 setAddress:dCopy];
     delegate = [(DEDIDSInbound *)self delegate];
-    [delegate idsInbound_startBugSessionWithIdentifier:v17 configuration:v14 caller:v15 target:v16];
+    [delegate idsInbound_startBugSessionWithIdentifier:v18 configuration:v15 caller:v16 target:v17];
   }
 }
 
 - (void)did_start_session:(id)did_start_session service:(id)service account:(id)account fromID:(id)d context:(id)context
 {
   did_start_sessionCopy = did_start_session;
-  if (isKnownDevice(service, d))
+  v11 = isKnownDevice(service, d);
+  if (v11)
   {
-    v11 = Log_2();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = Log_2(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_248AD7000, v11, OS_LOG_TYPE_DEFAULT, "did_start_session", v14, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "did_start_session", v15, 2u);
     }
 
-    v12 = [DEDIDSConnection unpackProtobuf:did_start_sessionCopy];
+    v13 = [DEDIDSConnection unpackProtobuf:did_start_sessionCopy];
     delegate = [(DEDIDSInbound *)self delegate];
-    [delegate idsInbound_didStartBugSessionWithInfo:v12];
+    [delegate idsInbound_didStartBugSessionWithInfo:v13];
   }
 }
 
@@ -237,23 +238,24 @@ void __32__DEDIDSInbound_archivedClasses__block_invoke()
 {
   session_pingCopy = session_ping;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v18 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "session_ping", v18, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "session_ping", v19, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:session_pingCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:session_pingCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection = [v13 objectForKeyedSubscript:@"sessionID"];
+      connection = [v14 objectForKeyedSubscript:@"sessionID"];
       delegate = [(DEDIDSInbound *)self delegate];
-      v17 = [delegate idsInbound_sessionForIdentifier:connection];
-      [v17 pingWithCallback:0];
+      v18 = [delegate idsInbound_sessionForIdentifier:connection];
+      [v18 pingWithCallback:0];
     }
 
     else
@@ -269,23 +271,24 @@ void __32__DEDIDSInbound_archivedClasses__block_invoke()
 {
   session_pongCopy = session_pong;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v18 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "session_pong", v18, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "session_pong", v19, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:session_pongCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:session_pongCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection = [v13 objectForKeyedSubscript:@"sessionID"];
+      connection = [v14 objectForKeyedSubscript:@"sessionID"];
       delegate = [(DEDIDSInbound *)self delegate];
-      v17 = [delegate idsInbound_sessionForIdentifier:connection];
-      [v17 pong];
+      v18 = [delegate idsInbound_sessionForIdentifier:connection];
+      [v18 pong];
     }
 
     else
@@ -301,20 +304,21 @@ void __32__DEDIDSInbound_archivedClasses__block_invoke()
 {
   eCopy = e;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "remote_list_DE", v19, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "remote_list_DE", v20, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:eCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:eCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection = [v13 objectForKeyedSubscript:@"sessionID"];
+      connection = [v14 objectForKeyedSubscript:@"sessionID"];
       delegate = [(DEDIDSInbound *)self delegate];
 
       if (!delegate)
@@ -325,8 +329,8 @@ LABEL_9:
       }
 
       delegate2 = [(DEDIDSInbound *)self delegate];
-      v18 = [delegate2 idsInbound_sessionForIdentifier:connection];
-      [v18 listDiagnosticExtensionsWithCompletion:0];
+      v19 = [delegate2 idsInbound_sessionForIdentifier:connection];
+      [v19 listDiagnosticExtensionsWithCompletion:0];
     }
 
     else
@@ -346,107 +350,107 @@ LABEL_10:
 {
   v34 = *MEMORY[0x277D85DE8];
   device_supports_diagnostic_extensionsCopy = device_supports_diagnostic_extensions;
-  if (isKnownDevice(service, d))
+  v11 = isKnownDevice(service, d);
+  if (v11)
   {
-    v11 = Log_2();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = Log_2(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_248AD7000, v11, OS_LOG_TYPE_DEFAULT, "device_supports_diagnostic_extensions", buf, 2u);
+      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "device_supports_diagnostic_extensions", buf, 2u);
     }
 
-    v12 = [DEDIDSConnection unpackProtobuf:device_supports_diagnostic_extensionsCopy];
-    v13 = v12;
-    if (v12)
+    v13 = [DEDIDSConnection unpackProtobuf:device_supports_diagnostic_extensionsCopy];
+    v14 = v13;
+    if (v13)
     {
-      v14 = [v12 objectForKeyedSubscript:@"getDEList"];
-      v27 = [v13 objectForKeyedSubscript:@"sessionID"];
-      v15 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v14, "count")}];
+      v15 = [v13 objectForKeyedSubscript:@"getDEList"];
+      v27 = [v14 objectForKeyedSubscript:@"sessionID"];
+      v16 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v15, "count")}];
       v28 = 0u;
       v29 = 0u;
       v30 = 0u;
       v31 = 0u;
-      v16 = v14;
-      v17 = [v16 countByEnumeratingWithState:&v28 objects:v33 count:16];
-      if (v17)
+      v17 = v15;
+      v18 = [v17 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      if (v18)
       {
-        v18 = v17;
-        v19 = *v29;
+        v19 = v18;
+        v20 = *v29;
         do
         {
-          for (i = 0; i != v18; ++i)
+          for (i = 0; i != v19; ++i)
           {
-            if (*v29 != v19)
+            if (*v29 != v20)
             {
-              objc_enumerationMutation(v16);
+              objc_enumerationMutation(v17);
             }
 
-            v21 = [DEDExtension extensionWithDictionary:*(*(&v28 + 1) + 8 * i)];
-            [v15 addObject:v21];
+            v22 = [DEDExtension extensionWithDictionary:*(*(&v28 + 1) + 8 * i)];
+            [v16 addObject:v22];
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v28 objects:v33 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v28 objects:v33 count:16];
         }
 
-        while (v18);
+        while (v19);
       }
 
-      v22 = [v15 copy];
+      v23 = [v16 copy];
       delegate = [(DEDIDSInbound *)self delegate];
 
       if (delegate)
       {
         delegate2 = [(DEDIDSInbound *)self delegate];
-        v25 = [delegate2 idsInbound_sessionForIdentifier:v27];
-        [v25 supportsDiagnostics:v22];
+        v26 = [delegate2 idsInbound_sessionForIdentifier:v27];
+        [v26 supportsDiagnostics:v23];
       }
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start_diagnostic_with_identifier:(id)start_diagnostic_with_identifier service:(id)service account:(id)account fromID:(id)d context:(id)context
 {
   start_diagnostic_with_identifierCopy = start_diagnostic_with_identifier;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "start_diagnostic_with_identifier", buf, 2u);
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "start_diagnostic_with_identifier", buf, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:start_diagnostic_with_identifierCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:start_diagnostic_with_identifierCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection = [v13 objectForKeyedSubscript:@"sessionID"];
-      data = [v14 objectForKeyedSubscript:@"triggerDE"];
-      v17 = [v14 objectForKeyedSubscript:@"triggerDEParams"];
-      v18 = [v14 objectForKeyedSubscript:@"triggerDERunDate"];
+      connection = [v14 objectForKeyedSubscript:@"sessionID"];
+      data = [v15 objectForKeyedSubscript:@"triggerDE"];
+      v18 = [v15 objectForKeyedSubscript:@"triggerDEParams"];
+      v19 = [v15 objectForKeyedSubscript:@"triggerDERunDate"];
       delegate = [(DEDIDSInbound *)self delegate];
 
       if (delegate)
       {
-        v26 = v17;
-        v20 = [[DEDExtensionIdentifier alloc] initWithString:data];
+        v27 = v18;
+        v21 = [[DEDExtensionIdentifier alloc] initWithString:data];
         delegate2 = [(DEDIDSInbound *)self delegate];
-        v22 = [delegate2 idsInbound_sessionForIdentifier:connection];
-        extensionIdentifier = [(DEDExtensionIdentifier *)v20 extensionIdentifier];
-        if (v18)
+        v23 = [delegate2 idsInbound_sessionForIdentifier:connection];
+        extensionIdentifier = [(DEDExtensionIdentifier *)v21 extensionIdentifier];
+        if (v19)
         {
-          v24 = [v22 startDiagnosticExtensionWithIdentifier:extensionIdentifier parameters:v26 deferRunUntil:v18 completion:0];
+          v25 = [v23 startDiagnosticExtensionWithIdentifier:extensionIdentifier parameters:v27 deferRunUntil:v19 completion:0];
         }
 
         else
         {
-          v25 = [v22 startDiagnosticExtensionWithIdentifier:extensionIdentifier parameters:v26 completion:0];
+          v26 = [v23 startDiagnosticExtensionWithIdentifier:extensionIdentifier parameters:v27 completion:0];
         }
 
-        v17 = v26;
+        v18 = v27;
       }
     }
 
@@ -463,31 +467,32 @@ LABEL_10:
 {
   finished_diagnostic_with_identifierCopy = finished_diagnostic_with_identifier;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v22 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "finished_diagnostic_with_identifier", v22, 2u);
+      *v23 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "finished_diagnostic_with_identifier", v23, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:finished_diagnostic_with_identifierCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:finished_diagnostic_with_identifierCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection = [v13 objectForKeyedSubscript:@"sessionID"];
-      data = [v14 objectForKeyedSubscript:@"triggerDE"];
-      v17 = [v14 objectForKeyedSubscript:@"finishedDEDGroups"];
-      v18 = [DEDAttachmentGroup groupWithDictionary:v17];
+      connection = [v14 objectForKeyedSubscript:@"sessionID"];
+      data = [v15 objectForKeyedSubscript:@"triggerDE"];
+      v18 = [v15 objectForKeyedSubscript:@"finishedDEDGroups"];
+      v19 = [DEDAttachmentGroup groupWithDictionary:v18];
 
       delegate = [(DEDIDSInbound *)self delegate];
 
       if (delegate)
       {
         delegate2 = [(DEDIDSInbound *)self delegate];
-        v21 = [delegate2 idsInbound_sessionForIdentifier:connection];
-        [v21 finishedDiagnosticWithIdentifier:data result:v18];
+        v22 = [delegate2 idsInbound_sessionForIdentifier:connection];
+        [v22 finishedDiagnosticWithIdentifier:data result:v19];
       }
     }
 
@@ -502,28 +507,29 @@ LABEL_10:
 
 - (void)remote_device_query_request:(id)remote_device_query_request service:(id)service account:(id)account fromID:(id)d context:(id)context
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v10 = isKnownDevice(service, dCopy);
+  if (v10)
   {
-    v10 = Log_2();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = Log_2(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = dCopy;
-      _os_log_impl(&dword_248AD7000, v10, OS_LOG_TYPE_DEFAULT, "remote_device_query_request from %@", buf, 0xCu);
+      v21 = dCopy;
+      _os_log_impl(&dword_248AD7000, v11, OS_LOG_TYPE_DEFAULT, "remote_device_query_request from %@", buf, 0xCu);
     }
 
-    v11 = +[DEDDevice currentDeviceWithDaemonInfo];
-    v12 = MEMORY[0x277CCAAB0];
-    serialize = [v11 serialize];
-    v18 = 0;
-    v14 = [v12 archivedDataWithRootObject:serialize requiringSecureCoding:1 error:&v18];
-    v15 = v18;
+    v12 = +[DEDDevice currentDeviceWithDaemonInfo];
+    v13 = MEMORY[0x277CCAAB0];
+    serialize = [v12 serialize];
+    v19 = 0;
+    v15 = [v13 archivedDataWithRootObject:serialize requiringSecureCoding:1 error:&v19];
+    v16 = v19;
 
-    if (v15)
+    if (v16)
     {
-      connection = Log_2();
+      connection = Log_2(v17);
       if (os_log_type_enabled(connection, OS_LOG_TYPE_ERROR))
       {
         [DEDIDSInbound remote_device_query_request:service:account:fromID:context:];
@@ -533,45 +539,44 @@ LABEL_10:
     else
     {
       connection = [(DEDIDSInbound *)self connection];
-      [connection sendMessage:1 withData:v14 forIDSDeviceID:dCopy isResponse:1];
+      [connection sendMessage:1 withData:v15 forIDSDeviceID:dCopy isResponse:1];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)terminate_diagnostic_with_identifier:(id)terminate_diagnostic_with_identifier service:(id)service account:(id)account fromID:(id)d context:(id)context
 {
   terminate_diagnostic_with_identifierCopy = terminate_diagnostic_with_identifier;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v21 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "terminate_diagnostic_with_identifier", v21, 2u);
+      *v23 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "terminate_diagnostic_with_identifier", v23, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:terminate_diagnostic_with_identifierCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:terminate_diagnostic_with_identifierCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection = [v13 objectForKeyedSubscript:@"sessionID"];
-      data = [v14 objectForKeyedSubscript:@"triggerDE"];
-      v17 = [v14 objectForKeyedSubscript:@"triggerDEParams"];
+      connection = [v14 objectForKeyedSubscript:@"sessionID"];
+      data = [v15 objectForKeyedSubscript:@"triggerDE"];
+      v18 = [v15 objectForKeyedSubscript:@"triggerDEParams"];
       delegate = [(DEDIDSInbound *)self delegate];
 
       if (delegate)
       {
         delegate2 = [(DEDIDSInbound *)self delegate];
-        v20 = [delegate2 idsInbound_sessionForIdentifier:connection];
-        [v20 terminateExtension:data withInfo:v17];
+        v22 = [delegate2 idsInbound_sessionForIdentifier:connection];
+        [v22 terminateExtension:data withInfo:v18];
       }
 
       else
       {
-        delegate2 = Log_2();
+        delegate2 = Log_2(v20);
         if (os_log_type_enabled(delegate2, OS_LOG_TYPE_ERROR))
         {
           [DEDIDSInbound terminate_diagnostic_with_identifier:service:account:fromID:context:];
@@ -592,20 +597,21 @@ LABEL_10:
 {
   get_session_stateCopy = get_session_state;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "get_session_state", v19, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "get_session_state", v20, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:get_session_stateCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:get_session_stateCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection = [v13 objectForKeyedSubscript:@"sessionID"];
+      connection = [v14 objectForKeyedSubscript:@"sessionID"];
       delegate = [(DEDIDSInbound *)self delegate];
 
       if (!delegate)
@@ -616,8 +622,8 @@ LABEL_9:
       }
 
       delegate2 = [(DEDIDSInbound *)self delegate];
-      v18 = [delegate2 idsInbound_sessionForIdentifier:connection];
-      [v18 getStateWithCompletion:0];
+      v19 = [delegate2 idsInbound_sessionForIdentifier:connection];
+      [v19 getStateWithCompletion:0];
     }
 
     else
@@ -637,31 +643,32 @@ LABEL_10:
 {
   did_get_session_stateCopy = did_get_session_state;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v22 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "did_get_session_state", v22, 2u);
+      *v23 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "did_get_session_state", v23, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:did_get_session_stateCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:did_get_session_stateCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection = [v13 objectForKeyedSubscript:@"sessionID"];
-      v16 = [v14 objectForKeyedSubscript:@"sessionState"];
-      integerValue = [v16 integerValue];
+      connection = [v14 objectForKeyedSubscript:@"sessionID"];
+      v17 = [v15 objectForKeyedSubscript:@"sessionState"];
+      integerValue = [v17 integerValue];
 
-      data = [v14 objectForKeyedSubscript:@"sessionStateInfo"];
+      data = [v15 objectForKeyedSubscript:@"sessionStateInfo"];
       delegate = [(DEDIDSInbound *)self delegate];
 
       if (delegate)
       {
         delegate2 = [(DEDIDSInbound *)self delegate];
-        v21 = [delegate2 idsInbound_sessionForIdentifier:connection];
-        [v21 didGetState:integerValue info:data];
+        v22 = [delegate2 idsInbound_sessionForIdentifier:connection];
+        [v22 didGetState:integerValue info:data];
       }
     }
 
@@ -678,29 +685,30 @@ LABEL_10:
 {
   add_session_dataCopy = add_session_data;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v21 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "add_session_data", v21, 2u);
+      *v22 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "add_session_data", v22, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:add_session_dataCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:add_session_dataCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection = [v13 objectForKeyedSubscript:@"sessionID"];
-      data = [v14 objectForKeyedSubscript:@"sessionData"];
-      v17 = [v14 objectForKeyedSubscript:@"sessionDataFilename"];
+      connection = [v14 objectForKeyedSubscript:@"sessionID"];
+      data = [v15 objectForKeyedSubscript:@"sessionData"];
+      v18 = [v15 objectForKeyedSubscript:@"sessionDataFilename"];
       delegate = [(DEDIDSInbound *)self delegate];
 
       if (delegate)
       {
         delegate2 = [(DEDIDSInbound *)self delegate];
-        v20 = [delegate2 idsInbound_sessionForIdentifier:connection];
-        [v20 addData:data withFilename:v17];
+        v21 = [delegate2 idsInbound_sessionForIdentifier:connection];
+        [v21 addData:data withFilename:v18];
       }
     }
 
@@ -717,20 +725,21 @@ LABEL_10:
 {
   get_session_statusCopy = get_session_status;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "get_session_status", v19, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "get_session_status", v20, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:get_session_statusCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:get_session_statusCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection = [v13 objectForKeyedSubscript:@"sessionID"];
+      connection = [v14 objectForKeyedSubscript:@"sessionID"];
       delegate = [(DEDIDSInbound *)self delegate];
 
       if (!delegate)
@@ -741,8 +750,8 @@ LABEL_9:
       }
 
       delegate2 = [(DEDIDSInbound *)self delegate];
-      v18 = [delegate2 idsInbound_sessionForIdentifier:connection];
-      [v18 getSessionStatusWithCompletion:0];
+      v19 = [delegate2 idsInbound_sessionForIdentifier:connection];
+      [v19 getSessionStatusWithCompletion:0];
     }
 
     else
@@ -762,20 +771,21 @@ LABEL_10:
 {
   sync_session_statusCopy = sync_session_status;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "sync_session_status", v19, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "sync_session_status", v20, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:sync_session_statusCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:sync_session_statusCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection = [v13 objectForKeyedSubscript:@"sessionID"];
+      connection = [v14 objectForKeyedSubscript:@"sessionID"];
       delegate = [(DEDIDSInbound *)self delegate];
 
       if (!delegate)
@@ -786,8 +796,8 @@ LABEL_9:
       }
 
       delegate2 = [(DEDIDSInbound *)self delegate];
-      v18 = [delegate2 idsInbound_sessionForIdentifier:connection];
-      [v18 synchronizeSessionStatusWithCompletion:0];
+      v19 = [delegate2 idsInbound_sessionForIdentifier:connection];
+      [v19 synchronizeSessionStatusWithCompletion:0];
     }
 
     else
@@ -807,33 +817,34 @@ LABEL_10:
 {
   did_get_session_statusCopy = did_get_session_status;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v23 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "did_get_session_status", v23, 2u);
+      *v24 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "did_get_session_status", v24, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:did_get_session_statusCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:did_get_session_statusCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection = [v13 objectForKeyedSubscript:@"sessionID"];
-      v16 = [v14 objectForKeyedSubscript:@"finishedDEDGroups"];
-      data = [v16 ded_mapWithBlock:&__block_literal_global_67];
+      connection = [v14 objectForKeyedSubscript:@"sessionID"];
+      v17 = [v15 objectForKeyedSubscript:@"finishedDEDGroups"];
+      data = [v17 ded_mapWithBlock:&__block_literal_global_67];
 
-      v18 = [v14 objectForKeyedSubscript:@"runningDEs"];
-      v19 = [v18 ded_mapWithBlock:&__block_literal_global_72];
+      v19 = [v15 objectForKeyedSubscript:@"runningDEs"];
+      v20 = [v19 ded_mapWithBlock:&__block_literal_global_72];
 
       delegate = [(DEDIDSInbound *)self delegate];
 
       if (delegate)
       {
         delegate2 = [(DEDIDSInbound *)self delegate];
-        v22 = [delegate2 idsInbound_sessionForIdentifier:connection];
-        [v22 hasCollected:data isCollecting:v19];
+        v23 = [delegate2 idsInbound_sessionForIdentifier:connection];
+        [v23 hasCollected:data isCollecting:v20];
       }
     }
 
@@ -850,36 +861,37 @@ LABEL_10:
 {
   did_sync_session_statusCopy = did_sync_session_status;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v25 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "did_sync_session_status", v25, 2u);
+      *v26 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "did_sync_session_status", v26, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:did_sync_session_statusCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:did_sync_session_statusCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection = [v13 objectForKeyedSubscript:@"sessionID"];
-      v16 = [v14 objectForKeyedSubscript:@"finishedDEDGroups"];
-      data = [v16 ded_mapWithBlock:&__block_literal_global_74];
+      connection = [v14 objectForKeyedSubscript:@"sessionID"];
+      v17 = [v15 objectForKeyedSubscript:@"finishedDEDGroups"];
+      data = [v17 ded_mapWithBlock:&__block_literal_global_74];
 
-      v18 = [v14 objectForKeyedSubscript:@"runningDEs"];
-      v19 = [v18 ded_mapWithBlock:&__block_literal_global_76];
+      v19 = [v15 objectForKeyedSubscript:@"runningDEs"];
+      v20 = [v19 ded_mapWithBlock:&__block_literal_global_76];
 
-      v20 = [v14 objectForKeyedSubscript:@"extensionIdentifiers"];
-      v21 = [v20 ded_mapWithBlock:&__block_literal_global_81];
+      v21 = [v15 objectForKeyedSubscript:@"extensionIdentifiers"];
+      v22 = [v21 ded_mapWithBlock:&__block_literal_global_81];
 
       delegate = [(DEDIDSInbound *)self delegate];
 
       if (delegate)
       {
         delegate2 = [(DEDIDSInbound *)self delegate];
-        v24 = [delegate2 idsInbound_sessionForIdentifier:connection];
-        [v24 hasCollected:data isCollecting:v19 identifiers:v21];
+        v25 = [delegate2 idsInbound_sessionForIdentifier:connection];
+        [v25 hasCollected:data isCollecting:v20 identifiers:v22];
       }
     }
 
@@ -904,30 +916,31 @@ DEDExtensionIdentifier *__72__DEDIDSInbound_did_sync_session_status_service_acco
 {
   adopt_filesCopy = adopt_files;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v20 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "adopt_files", v20, 2u);
+      *v21 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "adopt_files", v21, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:adopt_filesCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:adopt_filesCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection = [v13 objectForKeyedSubscript:@"sessionID"];
-      data = [v14 objectForKeyedSubscript:@"filesForAdopt"];
-      v17 = Log_2();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      connection = [v14 objectForKeyedSubscript:@"sessionID"];
+      data = [v15 objectForKeyedSubscript:@"filesForAdopt"];
+      v18 = Log_2(data);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [DEDIDSInbound adopt_files:service:account:fromID:context:];
       }
 
       delegate = [(DEDIDSInbound *)self delegate];
-      v19 = [delegate idsInbound_sessionForIdentifier:connection];
-      [v19 adoptFiles:data withCompletion:0];
+      v20 = [delegate idsInbound_sessionForIdentifier:connection];
+      [v20 adoptFiles:data withCompletion:0];
     }
 
     else
@@ -943,24 +956,25 @@ DEDExtensionIdentifier *__72__DEDIDSInbound_did_sync_session_status_service_acco
 {
   did_adopt_filesCopy = did_adopt_files;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "did_adopt_files", v19, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "did_adopt_files", v20, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:did_adopt_filesCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:did_adopt_filesCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection = [v13 objectForKeyedSubscript:@"sessionID"];
-      data = [v14 objectForKeyedSubscript:@"error"];
+      connection = [v14 objectForKeyedSubscript:@"sessionID"];
+      data = [v15 objectForKeyedSubscript:@"error"];
       delegate = [(DEDIDSInbound *)self delegate];
-      v18 = [delegate idsInbound_sessionForIdentifier:connection];
-      [v18 didAdoptFilesWithError:data];
+      v19 = [delegate idsInbound_sessionForIdentifier:connection];
+      [v19 didAdoptFilesWithError:data];
     }
 
     else
@@ -983,7 +997,7 @@ DEDExtensionIdentifier *__72__DEDIDSInbound_did_sync_session_status_service_acco
     if (v12)
     {
       v14 = [v12 objectForKeyedSubscript:@"sessionID"];
-      v15 = Log_2();
+      v15 = Log_2(v14);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         [DEDIDSInbound compression_progress:service:account:fromID:context:];
@@ -1020,7 +1034,7 @@ DEDExtensionIdentifier *__72__DEDIDSInbound_did_sync_session_status_service_acco
     if (v12)
     {
       v14 = [v12 objectForKeyedSubscript:@"sessionID"];
-      v15 = Log_2();
+      v15 = Log_2(v14);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         [DEDIDSInbound upload_progress:service:account:fromID:context:];
@@ -1057,7 +1071,7 @@ DEDExtensionIdentifier *__72__DEDIDSInbound_did_sync_session_status_service_acco
     if (v12)
     {
       v14 = [v12 objectForKeyedSubscript:@"sessionID"];
-      v15 = Log_2();
+      v15 = Log_2(v14);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         [DEDIDSInbound upload_finished:service:account:fromID:context:];
@@ -1082,20 +1096,21 @@ DEDExtensionIdentifier *__72__DEDIDSInbound_did_sync_session_status_service_acco
 {
   commit_sessionCopy = commit_session;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "commit_session", v19, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "commit_session", v20, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:commit_sessionCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:commit_sessionCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection = [v13 objectForKeyedSubscript:@"sessionID"];
+      connection = [v14 objectForKeyedSubscript:@"sessionID"];
       delegate = [(DEDIDSInbound *)self delegate];
 
       if (!delegate)
@@ -1106,8 +1121,8 @@ LABEL_9:
       }
 
       delegate2 = [(DEDIDSInbound *)self delegate];
-      v18 = [delegate2 idsInbound_sessionForIdentifier:connection];
-      [v18 commit];
+      v19 = [delegate2 idsInbound_sessionForIdentifier:connection];
+      [v19 commit];
     }
 
     else
@@ -1127,20 +1142,21 @@ LABEL_10:
 {
   did_commit_sessionCopy = did_commit_session;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "did_commit_session", v19, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "did_commit_session", v20, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:did_commit_sessionCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:did_commit_sessionCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection = [v13 objectForKeyedSubscript:@"sessionID"];
+      connection = [v14 objectForKeyedSubscript:@"sessionID"];
       delegate = [(DEDIDSInbound *)self delegate];
 
       if (!delegate)
@@ -1151,8 +1167,8 @@ LABEL_9:
       }
 
       delegate2 = [(DEDIDSInbound *)self delegate];
-      v18 = [delegate2 idsInbound_sessionForIdentifier:connection];
-      [v18 didCommit];
+      v19 = [delegate2 idsInbound_sessionForIdentifier:connection];
+      [v19 didCommit];
     }
 
     else
@@ -1172,20 +1188,21 @@ LABEL_10:
 {
   cancel_sessionCopy = cancel_session;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "cancel_session", v19, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "cancel_session", v20, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:cancel_sessionCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:cancel_sessionCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection = [v13 objectForKeyedSubscript:@"sessionID"];
+      connection = [v14 objectForKeyedSubscript:@"sessionID"];
       delegate = [(DEDIDSInbound *)self delegate];
 
       if (!delegate)
@@ -1196,8 +1213,8 @@ LABEL_9:
       }
 
       delegate2 = [(DEDIDSInbound *)self delegate];
-      v18 = [delegate2 idsInbound_sessionForIdentifier:connection];
-      [v18 cancel];
+      v19 = [delegate2 idsInbound_sessionForIdentifier:connection];
+      [v19 cancel];
     }
 
     else
@@ -1217,20 +1234,21 @@ LABEL_10:
 {
   did_cancel_sessionCopy = did_cancel_session;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v18 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "did_cancel_session", v18, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "did_cancel_session", v19, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:did_cancel_sessionCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:did_cancel_sessionCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection = [v13 objectForKeyedSubscript:@"sessionID"];
+      connection = [v14 objectForKeyedSubscript:@"sessionID"];
       delegate = [(DEDIDSInbound *)self delegate];
 
       if (!delegate)
@@ -1261,20 +1279,21 @@ LABEL_10:
 {
   schedule_notificationCopy = schedule_notification;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "schedule_notification", v19, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "schedule_notification", v20, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:schedule_notificationCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:schedule_notificationCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection = [v13 objectForKeyedSubscript:@"sessionID"];
+      connection = [v14 objectForKeyedSubscript:@"sessionID"];
       delegate = [(DEDIDSInbound *)self delegate];
 
       if (!delegate)
@@ -1285,8 +1304,8 @@ LABEL_9:
       }
 
       delegate2 = [(DEDIDSInbound *)self delegate];
-      v18 = [delegate2 idsInbound_sessionForIdentifier:connection];
-      [v18 scheduleNotification];
+      v19 = [delegate2 idsInbound_sessionForIdentifier:connection];
+      [v19 scheduleNotification];
     }
 
     else
@@ -1306,20 +1325,21 @@ LABEL_10:
 {
   unschedule_notificationCopy = unschedule_notification;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "unschedule_notification", v19, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "unschedule_notification", v20, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:unschedule_notificationCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:unschedule_notificationCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection = [v13 objectForKeyedSubscript:@"sessionID"];
+      connection = [v14 objectForKeyedSubscript:@"sessionID"];
       delegate = [(DEDIDSInbound *)self delegate];
 
       if (!delegate)
@@ -1330,8 +1350,8 @@ LABEL_9:
       }
 
       delegate2 = [(DEDIDSInbound *)self delegate];
-      v18 = [delegate2 idsInbound_sessionForIdentifier:connection];
-      [v18 clearNotification];
+      v19 = [delegate2 idsInbound_sessionForIdentifier:connection];
+      [v19 clearNotification];
     }
 
     else
@@ -1351,27 +1371,28 @@ LABEL_10:
 {
   present_notification_on_passthrough_daemonCopy = present_notification_on_passthrough_daemon;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v20 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "present_notification_on_passthrough_daemon", v20, 2u);
+      *v21 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "present_notification_on_passthrough_daemon", v21, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:present_notification_on_passthrough_daemonCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:present_notification_on_passthrough_daemonCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection2 = [v13 objectForKeyedSubscript:@"sessionID"];
+      connection2 = [v14 objectForKeyedSubscript:@"sessionID"];
       delegate = [(DEDIDSInbound *)self delegate];
-      v17 = [delegate idsInbound_sessionForIdentifier:connection2];
-      [v17 idsInbound_presentNotificationOnFilingDevice];
+      v18 = [delegate idsInbound_sessionForIdentifier:connection2];
+      [v18 idsInbound_presentNotificationOnFilingDevice];
 
       connection = [(DEDIDSInbound *)self connection];
-      v19 = [DEDIDSConnection packPayload:v14];
-      [connection sendMessage:28 withData:v19 forIDSDeviceID:dCopy isResponse:1];
+      v20 = [DEDIDSConnection packPayload:v15];
+      [connection sendMessage:28 withData:v20 forIDSDeviceID:dCopy isResponse:1];
     }
 
     else
@@ -1387,23 +1408,24 @@ LABEL_10:
 {
   did_present_notification_on_passthrough_daemonCopy = did_present_notification_on_passthrough_daemon;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v18 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "did_present_notification_on_passthrough_daemon", v18, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "did_present_notification_on_passthrough_daemon", v19, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:did_present_notification_on_passthrough_daemonCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:did_present_notification_on_passthrough_daemonCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection = [v13 objectForKeyedSubscript:@"sessionID"];
+      connection = [v14 objectForKeyedSubscript:@"sessionID"];
       delegate = [(DEDIDSInbound *)self delegate];
-      v17 = [delegate idsInbound_sessionForIdentifier:connection];
-      [v17 idsInbound_didPresentNotificationOnFilingDevice];
+      v18 = [delegate idsInbound_sessionForIdentifier:connection];
+      [v18 idsInbound_didPresentNotificationOnFilingDevice];
     }
 
     else
@@ -1419,32 +1441,33 @@ LABEL_10:
 {
   remove_notification_on_passthrough_daemonCopy = remove_notification_on_passthrough_daemon;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v21 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "remove_notification_on_passthrough_daemon", v21, 2u);
+      *v22 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "remove_notification_on_passthrough_daemon", v22, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:remove_notification_on_passthrough_daemonCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:remove_notification_on_passthrough_daemonCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection2 = [v13 objectForKeyedSubscript:@"sessionID"];
+      connection2 = [v14 objectForKeyedSubscript:@"sessionID"];
       delegate = [(DEDIDSInbound *)self delegate];
 
       if (delegate)
       {
         delegate2 = [(DEDIDSInbound *)self delegate];
-        v18 = [delegate2 idsInbound_sessionForIdentifier:connection2];
-        [v18 idsInbound_clearNotificationOnFilingDevice];
+        v19 = [delegate2 idsInbound_sessionForIdentifier:connection2];
+        [v19 idsInbound_clearNotificationOnFilingDevice];
       }
 
       connection = [(DEDIDSInbound *)self connection];
-      v20 = [DEDIDSConnection packPayload:v14];
-      [connection sendMessage:29 withData:v20 forIDSDeviceID:dCopy isResponse:1];
+      v21 = [DEDIDSConnection packPayload:v15];
+      [connection sendMessage:29 withData:v21 forIDSDeviceID:dCopy isResponse:1];
     }
 
     else
@@ -1460,20 +1483,21 @@ LABEL_10:
 {
   did_remove_notification_on_passthrough_daemonCopy = did_remove_notification_on_passthrough_daemon;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "did_remove_notification_on_passthrough_daemon", v19, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "did_remove_notification_on_passthrough_daemon", v20, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:did_remove_notification_on_passthrough_daemonCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:did_remove_notification_on_passthrough_daemonCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection = [v13 objectForKeyedSubscript:@"sessionID"];
+      connection = [v14 objectForKeyedSubscript:@"sessionID"];
       delegate = [(DEDIDSInbound *)self delegate];
 
       if (!delegate)
@@ -1484,8 +1508,8 @@ LABEL_9:
       }
 
       delegate2 = [(DEDIDSInbound *)self delegate];
-      v18 = [delegate2 idsInbound_sessionForIdentifier:connection];
-      [v18 idsInbound_didClearNotificationOnFilingDevice];
+      v19 = [delegate2 idsInbound_sessionForIdentifier:connection];
+      [v19 idsInbound_didClearNotificationOnFilingDevice];
     }
 
     else
@@ -1505,30 +1529,31 @@ LABEL_10:
 {
   load_extension_text_dataCopy = load_extension_text_data;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v22 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "load_extension_text_data", v22, 2u);
+      *v23 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "load_extension_text_data", v23, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:load_extension_text_dataCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:load_extension_text_dataCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection = [v13 objectForKeyedSubscript:@"sessionID"];
-      data = [v14 objectForKeyedSubscript:@"localization"];
-      v17 = [v14 objectForKeyedSubscript:@"extensions"];
-      v18 = [v17 ded_flatMapWithBlock:&__block_literal_global_105];
+      connection = [v14 objectForKeyedSubscript:@"sessionID"];
+      data = [v15 objectForKeyedSubscript:@"localization"];
+      v18 = [v15 objectForKeyedSubscript:@"extensions"];
+      v19 = [v18 ded_flatMapWithBlock:&__block_literal_global_105];
       delegate = [(DEDIDSInbound *)self delegate];
 
       if (delegate)
       {
         delegate2 = [(DEDIDSInbound *)self delegate];
-        v21 = [delegate2 idsInbound_sessionForIdentifier:connection];
-        [v21 loadTextDataForExtensions:v18 localization:data completion:0];
+        v22 = [delegate2 idsInbound_sessionForIdentifier:connection];
+        [v22 loadTextDataForExtensions:v19 localization:data completion:0];
       }
     }
 
@@ -1545,30 +1570,31 @@ LABEL_10:
 {
   did_load_extension_text_dataCopy = did_load_extension_text_data;
   dCopy = d;
-  if (isKnownDevice(service, dCopy))
+  v12 = isKnownDevice(service, dCopy);
+  if (v12)
   {
-    v12 = Log_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = Log_2(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v22 = 0;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "did_load_extension_text_data", v22, 2u);
+      *v23 = 0;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "did_load_extension_text_data", v23, 2u);
     }
 
-    v13 = [DEDIDSConnection unpackProtobuf:did_load_extension_text_dataCopy];
-    v14 = v13;
-    if (v13)
+    v14 = [DEDIDSConnection unpackProtobuf:did_load_extension_text_dataCopy];
+    v15 = v14;
+    if (v14)
     {
-      connection = [v13 objectForKeyedSubscript:@"sessionID"];
-      data = [v14 objectForKeyedSubscript:@"localization"];
-      v17 = [v14 objectForKeyedSubscript:@"extensions"];
-      v18 = [v17 ded_flatMapWithBlock:&__block_literal_global_107];
+      connection = [v14 objectForKeyedSubscript:@"sessionID"];
+      data = [v15 objectForKeyedSubscript:@"localization"];
+      v18 = [v15 objectForKeyedSubscript:@"extensions"];
+      v19 = [v18 ded_flatMapWithBlock:&__block_literal_global_107];
       delegate = [(DEDIDSInbound *)self delegate];
 
       if (delegate)
       {
         delegate2 = [(DEDIDSInbound *)self delegate];
-        v21 = [delegate2 idsInbound_sessionForIdentifier:connection];
-        [v21 didLoadTextDataForExtensions:v18 localization:data];
+        v22 = [delegate2 idsInbound_sessionForIdentifier:connection];
+        [v22 didLoadTextDataForExtensions:v19 localization:data];
       }
     }
 
@@ -1584,7 +1610,7 @@ LABEL_10:
 - (void)service:(id)service account:(id)account incomingMessage:(id)message fromID:(id)d context:(id)context
 {
   dCopy = d;
-  v8 = IDSDelLog();
+  v8 = IDSDelLog(dCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [DEDIDSInbound service:account:incomingMessage:fromID:context:];
@@ -1594,7 +1620,7 @@ LABEL_10:
 - (void)service:(id)service account:(id)account incomingData:(id)data fromID:(id)d context:(id)context
 {
   dCopy = d;
-  v8 = IDSDelLog();
+  v8 = IDSDelLog(dCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [DEDIDSInbound service:account:incomingData:fromID:context:];
@@ -1605,7 +1631,7 @@ LABEL_10:
 {
   protobufCopy = protobuf;
   dCopy = d;
-  v10 = IDSDelLog();
+  v10 = IDSDelLog(dCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [DEDIDSInbound service:protobufCopy account:dCopy incomingUnhandledProtobuf:v10 fromID:? context:?];
@@ -1616,7 +1642,7 @@ LABEL_10:
 {
   lCopy = l;
   dCopy = d;
-  v10 = IDSDelLog();
+  v10 = IDSDelLog(dCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [DEDIDSInbound service:account:incomingResourceAtURL:fromID:context:];
@@ -1625,29 +1651,27 @@ LABEL_10:
 
 - (void)service:(id)service account:(id)account incomingResourceAtURL:(id)l metadata:(id)metadata fromID:(id)d context:(id)context
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   lCopy = l;
   metadataCopy = metadata;
   dCopy = d;
-  v13 = IDSDelLog();
+  v13 = IDSDelLog(dCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v15 = 138412802;
-    v16 = lCopy;
-    v17 = 2112;
-    v18 = metadataCopy;
-    v19 = 2112;
-    v20 = dCopy;
-    _os_log_debug_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEBUG, "incoming resource [%@] metadata [%@] from [%@]", &v15, 0x20u);
+    v14 = 138412802;
+    v15 = lCopy;
+    v16 = 2112;
+    v17 = metadataCopy;
+    v18 = 2112;
+    v19 = dCopy;
+    _os_log_debug_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEBUG, "incoming resource [%@] metadata [%@] from [%@]", &v14, 0x20u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service activeAccountsChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = IDSDelLog();
+  v5 = IDSDelLog(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [DEDIDSInbound service:activeAccountsChanged:];
@@ -1658,7 +1682,7 @@ LABEL_10:
 {
   v13 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
-  v6 = IDSDelLog();
+  v6 = IDSDelLog(changedCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v11) = 0;
@@ -1669,23 +1693,21 @@ LABEL_10:
 
   if (delegate)
   {
-    v8 = [changedCopy ded_mapWithBlock:&__block_literal_global_110];
+    v9 = [changedCopy ded_mapWithBlock:&__block_literal_global_110];
     delegate2 = [(DEDIDSInbound *)self delegate];
-    [delegate2 idsInbound_devicesChanged:v8];
+    [delegate2 idsInbound_devicesChanged:v9];
   }
 
   else
   {
-    v8 = IDSDelLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = IDSDelLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 136315138;
       v12 = "[DEDIDSInbound service:devicesChanged:]";
-      _os_log_impl(&dword_248AD7000, v8, OS_LOG_TYPE_DEFAULT, "no delegate set for %s", &v11, 0xCu);
+      _os_log_impl(&dword_248AD7000, v9, OS_LOG_TYPE_DEFAULT, "no delegate set for %s", &v11, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 id __40__DEDIDSInbound_service_devicesChanged___block_invoke(uint64_t a1, void *a2)
@@ -1700,7 +1722,7 @@ id __40__DEDIDSInbound_service_devicesChanged___block_invoke(uint64_t a1, void *
 - (void)service:(id)service nearbyDevicesChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = IDSDelLog();
+  v5 = IDSDelLog(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [DEDIDSInbound service:nearbyDevicesChanged:];
@@ -1710,7 +1732,7 @@ id __40__DEDIDSInbound_service_devicesChanged___block_invoke(uint64_t a1, void *
 - (void)service:(id)service connectedDevicesChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = IDSDelLog();
+  v5 = IDSDelLog(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [DEDIDSInbound service:connectedDevicesChanged:];
@@ -1724,7 +1746,7 @@ id __40__DEDIDSInbound_service_devicesChanged___block_invoke(uint64_t a1, void *
   serviceCopy = service;
   identifierCopy = identifier;
   errorCopy = error;
-  v13 = DEDIDSConnectionLog();
+  v13 = DEDIDSConnectionLog(errorCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     serviceDomain = [serviceCopy serviceDomain];
@@ -1739,14 +1761,12 @@ id __40__DEDIDSInbound_service_devicesChanged___block_invoke(uint64_t a1, void *
 
   if (errorCopy)
   {
-    v15 = IDSDelLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = IDSDelLog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [DEDIDSInbound service:account:identifier:didSendWithSuccess:error:];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error context:(id)context
@@ -1756,7 +1776,7 @@ id __40__DEDIDSInbound_service_devicesChanged___block_invoke(uint64_t a1, void *
   accountCopy = account;
   identifierCopy = identifier;
   errorCopy = error;
-  v14 = DEDIDSConnectionLog();
+  v14 = DEDIDSConnectionLog(errorCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     serviceName = [accountCopy serviceName];
@@ -1771,39 +1791,35 @@ id __40__DEDIDSInbound_service_devicesChanged___block_invoke(uint64_t a1, void *
 
   if (errorCopy)
   {
-    v16 = IDSDelLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = IDSDelLog(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [DEDIDSInbound service:account:identifier:didSendWithSuccess:error:];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service account:(id)account identifier:(id)identifier sentBytes:(int64_t)bytes totalBytes:(int64_t)totalBytes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v10 = IDSDelLog();
+  v10 = IDSDelLog(identifierCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 134218498;
+    v11 = 134218498;
     bytesCopy = bytes;
-    v14 = 2048;
+    v13 = 2048;
     totalBytesCopy = totalBytes;
-    v16 = 2112;
-    v17 = identifierCopy;
-    _os_log_debug_impl(&dword_248AD7000, v10, OS_LOG_TYPE_DEBUG, "sent bytes [%li] total [%li] identifier [%@]", &v12, 0x20u);
+    v15 = 2112;
+    v16 = identifierCopy;
+    _os_log_debug_impl(&dword_248AD7000, v10, OS_LOG_TYPE_DEBUG, "sent bytes [%li] total [%li] identifier [%@]", &v11, 0x20u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service account:(id)account identifier:(id)identifier hasBeenDeliveredWithContext:(id)context
 {
   identifierCopy = identifier;
-  v7 = IDSDelLog();
+  v7 = IDSDelLog(identifierCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [DEDIDSInbound service:account:identifier:hasBeenDeliveredWithContext:];
@@ -1814,7 +1830,7 @@ id __40__DEDIDSInbound_service_devicesChanged___block_invoke(uint64_t a1, void *
 {
   identifierCopy = identifier;
   dCopy = d;
-  v10 = IDSDelLog();
+  v10 = IDSDelLog(dCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [DEDIDSInbound service:account:identifier:fromID:hasBeenDeliveredWithContext:];
@@ -1824,7 +1840,7 @@ id __40__DEDIDSInbound_service_devicesChanged___block_invoke(uint64_t a1, void *
 - (void)service:(id)service account:(id)account inviteReceivedForSession:(id)session fromID:(id)d
 {
   dCopy = d;
-  v7 = IDSDelLog();
+  v7 = IDSDelLog(dCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [DEDIDSInbound service:account:inviteReceivedForSession:fromID:];
@@ -1835,7 +1851,7 @@ id __40__DEDIDSInbound_service_devicesChanged___block_invoke(uint64_t a1, void *
 {
   dCopy = d;
   optionsCopy = options;
-  v10 = IDSDelLog();
+  v10 = IDSDelLog(optionsCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [DEDIDSInbound service:account:inviteReceivedForSession:fromID:withOptions:];
@@ -1845,7 +1861,7 @@ id __40__DEDIDSInbound_service_devicesChanged___block_invoke(uint64_t a1, void *
 - (void)service:(id)service account:(id)account inviteReceivedForSession:(id)session fromID:(id)d withContext:(id)context
 {
   dCopy = d;
-  v8 = IDSDelLog();
+  v8 = IDSDelLog(dCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [DEDIDSInbound service:account:inviteReceivedForSession:fromID:withContext:];
@@ -1854,7 +1870,7 @@ id __40__DEDIDSInbound_service_devicesChanged___block_invoke(uint64_t a1, void *
 
 - (void)service:(id)service account:(id)account receivedGroupSessionParticipantUpdate:(id)update
 {
-  v5 = IDSDelLog();
+  v5 = IDSDelLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [DEDIDSInbound service:account:receivedGroupSessionParticipantUpdate:];
@@ -1864,7 +1880,7 @@ id __40__DEDIDSInbound_service_devicesChanged___block_invoke(uint64_t a1, void *
 - (void)serviceSpaceDidBecomeAvailable:(id)available
 {
   availableCopy = available;
-  v4 = IDSDelLog();
+  v4 = IDSDelLog(availableCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [DEDIDSInbound serviceSpaceDidBecomeAvailable:];
@@ -1874,7 +1890,7 @@ id __40__DEDIDSInbound_service_devicesChanged___block_invoke(uint64_t a1, void *
 - (void)serviceAllowedTrafficClassifiersDidReset:(id)reset
 {
   resetCopy = reset;
-  v4 = IDSDelLog();
+  v4 = IDSDelLog(resetCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [DEDIDSInbound serviceAllowedTrafficClassifiersDidReset:];
@@ -1885,7 +1901,7 @@ id __40__DEDIDSInbound_service_devicesChanged___block_invoke(uint64_t a1, void *
 {
   deviceCopy = device;
   blockCopy = block;
-  v8 = IDSDelLog();
+  v8 = IDSDelLog(blockCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [DEDIDSInbound service:didSwitchActivePairedDevice:acknowledgementBlock:];
@@ -1917,20 +1933,16 @@ id __40__DEDIDSInbound_service_devicesChanged___block_invoke(uint64_t a1, void *
 
 - (void)local_device_query_callback:service:account:fromID:context:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_device_query_request:service:account:fromID:context:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)terminate_diagnostic_with_identifier:service:account:fromID:context:.cold.1()
@@ -1947,162 +1959,35 @@ id __40__DEDIDSInbound_service_devicesChanged___block_invoke(uint64_t a1, void *
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)compression_progress:service:account:fromID:context:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_1_4(&dword_248AD7000, v0, v1, "compression_progress on session [%{public}@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)upload_progress:service:account:fromID:context:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_1_4(&dword_248AD7000, v0, v1, "upload_progress on session [%{public}@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)upload_finished:service:account:fromID:context:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_1_4(&dword_248AD7000, v0, v1, "upload_finished on session [%{public}@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)service:account:incomingMessage:fromID:context:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_1_4(&dword_248AD7000, v0, v1, "incoming message from [%@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)service:account:incomingData:fromID:context:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_1_4(&dword_248AD7000, v0, v1, "incoming data from [%@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)service:(NSObject *)a3 account:incomingUnhandledProtobuf:fromID:context:.cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v6[0] = 67109378;
-  v6[1] = [a1 type];
-  v7 = 2112;
-  v8 = a2;
-  _os_log_debug_impl(&dword_248AD7000, a3, OS_LOG_TYPE_DEBUG, "Incoming unhandled protobuf of type [%hu] from [%@]", v6, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v5[0] = 67109378;
+  v5[1] = [a1 type];
+  v6 = 2112;
+  v7 = a2;
+  _os_log_debug_impl(&dword_248AD7000, a3, OS_LOG_TYPE_DEBUG, "Incoming unhandled protobuf of type [%hu] from [%@]", v5, 0x12u);
 }
 
 - (void)service:account:incomingResourceAtURL:fromID:context:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_5_1();
   OUTLINED_FUNCTION_4_0(&dword_248AD7000, v0, v1, "incoming resource [%@] from [%@]");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)service:activeAccountsChanged:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_1_4(&dword_248AD7000, v0, v1, "Active Accounts changed %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)service:nearbyDevicesChanged:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_1_4(&dword_248AD7000, v0, v1, "Nearby Devices changed %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)service:connectedDevicesChanged:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_1_4(&dword_248AD7000, v0, v1, "Connected Devices changed %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)service:account:identifier:didSendWithSuccess:error:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_7_0(&dword_248AD7000, v0, v1, "Error sending message: [%{public}@] error: [%{public}@]");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)service:account:identifier:hasBeenDeliveredWithContext:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_1_4(&dword_248AD7000, v0, v1, "identifier [%@] has been delivered", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:account:identifier:fromID:hasBeenDeliveredWithContext:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_5_1();
   OUTLINED_FUNCTION_4_0(&dword_248AD7000, v0, v1, "identifier [%@] from id [%@] has been delivered");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)service:account:inviteReceivedForSession:fromID:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_1_4(&dword_248AD7000, v0, v1, "invite received from id [%@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:account:inviteReceivedForSession:fromID:withOptions:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_5_1();
   OUTLINED_FUNCTION_4_0(&dword_248AD7000, v0, v1, "invite received from id [%@] with options [%@]");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)service:account:inviteReceivedForSession:fromID:withContext:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_1_4(&dword_248AD7000, v0, v1, "invite received from id [%{public}@] with context", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)serviceSpaceDidBecomeAvailable:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_1_4(&dword_248AD7000, v0, v1, "service space became available [%@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)serviceAllowedTrafficClassifiersDidReset:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_1_4(&dword_248AD7000, v0, v1, "service traffic did reset [%@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)service:didSwitchActivePairedDevice:acknowledgementBlock:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_1_4(&dword_248AD7000, v0, v1, "did switch active paired device [%@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -2793,7 +2793,7 @@ void HEVCReleaseVPS(uint64_t a1)
   }
 }
 
-uint64_t createPixelFormatList(uint64_t result, int a2, int a3, int a4, int *a5, int *a6, int a7, int a8, char a9, int a10, char a11, char a12)
+uint64_t createPixelFormatList(uint64_t result, unsigned int a2, int a3, int a4, int *a5, int *a6, int a7, int a8, char a9, int a10, char a11, char a12)
 {
   if (a9)
   {
@@ -3346,7 +3346,7 @@ LABEL_146:
   return result;
 }
 
-uint64_t CreateUncompressedPixelBufferAttributesDictionary(int a1, int a2, int a3, int a4, int a5, char *a6, int a7, unint64_t a8, __CFDictionary **a9)
+uint64_t CreateUncompressedPixelBufferAttributesDictionary(int a1, int a2, int a3, int a4, int a5, char *a6, unsigned int a7, unint64_t a8, __CFDictionary **a9)
 {
   v49 = *MEMORY[0x277D85DE8];
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
@@ -3940,11 +3940,12 @@ void HEVC_RLM::decodeReferencePictureSet(uint64_t a1, uint64_t a2, uint64_t a3, 
       {
         v10 = 0;
         v11 = 0;
-        v12 = (a4 + 86);
+        v12 = a4 + 86;
         v13 = a4 + 94;
         do
         {
-          v15 = *v12++;
+          v15 = *v12;
+          v12 = (v12 + 1);
           v14 = v15;
           v16 = *v13++;
           v17 = v16 + v5;
@@ -3997,11 +3998,12 @@ void HEVC_RLM::decodeReferencePictureSet(uint64_t a1, uint64_t a2, uint64_t a3, 
       if (v20)
       {
         v21 = 0;
-        v22 = (a4 + 90);
+        v22 = a4 + 90;
         v23 = a4 + 110;
         do
         {
-          v25 = *v22++;
+          v25 = *v22;
+          v22 = (v22 + 1);
           v24 = v25;
           v26 = *v23++;
           v27 = v26 + v5;
@@ -4465,7 +4467,7 @@ LABEL_116:
   }
 }
 
-uint64_t CAVDHevcDecoder::isRandomAccessSkipPicture(_DWORD *a1, uint64_t a2, int a3, int a4)
+BOOL CAVDHevcDecoder::isRandomAccessSkipPicture(_DWORD *a1, uint64_t a2, int a3, int a4)
 {
   if (!a2)
   {
@@ -4604,7 +4606,7 @@ uint64_t CAVDHevcDecoder::createRefPicList(uint64_t a1, uint64_t a2, uint64_t a3
     v5 = *(a1 + 3016);
     v6 = a3 + 2088;
     v7 = a3 + 2216;
-    v8 = (*(*a1 + 184))(a1);
+    v8 = (*(*a1 + 184))(a1, a2);
     result = HEVC_RLM::getReferencePictureList(v5, a3 + 24, (a3 + 2088), (a3 + 2216), v8);
     if (result)
     {
@@ -5439,7 +5441,7 @@ uint64_t CAVDHevcDecoder::createDPB(uint64_t a1, uint64_t a2, uint64_t a3, uint6
   return result;
 }
 
-uint64_t CAVDHevcDecoder::getSlicesTypeInFrame(CAVDHevcDecoder *this, int a2)
+uint64_t CAVDHevcDecoder::getSlicesTypeInFrame(CAVDHevcDecoder *this, unsigned int a2)
 {
   v2 = *(this + 1023);
   v3 = *(v2 + 44);
@@ -5571,7 +5573,7 @@ uint64_t HEVC_RLM::addNewEntry(uint64_t a1, _OWORD *a2)
   return 0;
 }
 
-BOOL CAVDHevcDecoder::isWPPCompliant(CAVDHevcDecoder *this, unsigned int a2, unsigned int a3)
+uint64_t CAVDHevcDecoder::isWPPCompliant(CAVDHevcDecoder *this, unsigned int a2, unsigned int a3)
 {
   if (a3 < 2)
   {
@@ -8586,7 +8588,7 @@ uint64_t CAVDHevcDecoder::VAGetIOSurfaceIDForBufferIndex(CAVDHevcDecoder *this, 
   return result;
 }
 
-BOOL CAVDHevcDecoder::GetSDataMemInfo(CAVDDecoder *a1, unsigned int a2, void *a3, uint64_t *a4)
+BOOL CAVDHevcDecoder::GetSDataMemInfo(CAVDDecoder *a1, unsigned int a2, void *a3, unint64_t *a4)
 {
   v16 = *MEMORY[0x277D85DE8];
   v4 = *(*(a1 + 293) + 6036);

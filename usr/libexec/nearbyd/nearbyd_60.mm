@@ -1,205 +1,3 @@
-uint64_t sub_100493EA4(uint64_t a1, uint64_t a2, _BYTE *a3)
-{
-  v3 = *(a1 + 8);
-  if (v3 != *(a1 + 12))
-  {
-    sub_1004D1FE0();
-  }
-
-  if (*(a2 + 24) < v3)
-  {
-    sub_1004D2038();
-  }
-
-  if (*(a2 + 28) < v3)
-  {
-    sub_1004D200C();
-  }
-
-  sub_1003A8CFC(a2, a1);
-  v6 = *(a2 + 12);
-  v7 = *(a2 + 32);
-  v15 = *(a2 + 20);
-  result = dpotrf_NEWLAPACK();
-  *a3 = 1;
-  if (v6)
-  {
-    v9 = 0;
-    v10 = *(a2 + 32);
-    v11 = v6 - 1;
-    v12 = 1;
-    do
-    {
-      ++v9;
-      v13 = v12;
-      v14 = v11;
-      if (v9 < v6)
-      {
-        do
-        {
-          *(v10 + 8 * v13++) = 0;
-          --v14;
-        }
-
-        while (v14);
-      }
-
-      --v11;
-      v12 += v6 + 1;
-    }
-
-    while (v9 != v6);
-  }
-
-  return result;
-}
-
-uint64_t sub_100494088(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  *(a1 + 24) = 0xC0000000CLL;
-  *(a1 + 8) = xmmword_10089D980;
-  *(a1 + 32) = a1 + 40;
-  *a1 = off_1009AD250;
-  *(a1 + 1192) = a2;
-  *(a1 + 1224) = 0xC00000001;
-  *(a1 + 1200) = off_1009ACEF0;
-  *(a1 + 1208) = xmmword_10089DA70;
-  *(a1 + 1232) = a1 + 1240;
-  v7 = a1 + 1288;
-  *(a1 + 1312) = 0xC00000001;
-  *(a1 + 1288) = off_1009ACEF0;
-  *(a1 + 1296) = xmmword_10089DA70;
-  *(a1 + 1320) = a1 + 1328;
-  sub_1004935F8(a1 + 1200, a3);
-  sub_1004935F8(v7, a4);
-  v8 = *(a1 + 1216);
-  if (*(a1 + 24) < v8)
-  {
-    v16 = "this->max_num_rows_ >= num_rows";
-    v17 = 422;
-    goto LABEL_12;
-  }
-
-  v9 = *(a1 + 1304);
-  if (*(a1 + 28) < v9)
-  {
-    v16 = "this->max_num_cols_ >= num_cols";
-    v17 = 423;
-LABEL_12:
-    __assert_rtn("SetMatrixSize", "cnmatrixbase.h", v17, v16);
-  }
-
-  *(a1 + 8) = v8;
-  *(a1 + 12) = v9;
-  *(a1 + 16) = v9 * v8;
-  *(a1 + 20) = v8;
-  if (v9)
-  {
-    v10 = 0;
-    for (i = 0; i != v9; ++i)
-    {
-      if (v8)
-      {
-        v12 = 0;
-        v13 = v10;
-        do
-        {
-          v14 = sub_1003A9F6C(a2, *(*(a1 + 1232) + v12), *(*(a1 + 1320) + 4 * i));
-          v12 += 4;
-          *(*(a1 + 32) + 8 * v13++) = *v14;
-        }
-
-        while (4 * v8 != v12);
-      }
-
-      v10 += v8;
-    }
-  }
-
-  return a1;
-}
-
-void sub_100494268(_Unwind_Exception *a1)
-{
-  v1[161] = off_1009A90F0;
-  v1[150] = off_1009A90F0;
-  *v1 = off_1009991A0;
-  _Unwind_Resume(a1);
-}
-
-void sub_1004942C8(void *a1)
-{
-  a1[161] = off_1009A90F0;
-  a1[150] = off_1009A90F0;
-  *a1 = off_1009991A0;
-  operator delete();
-}
-
-uint64_t sub_100494338(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  *(a1 + 24) = 0xC00000006;
-  *(a1 + 8) = xmmword_10089D970;
-  *(a1 + 32) = a1 + 40;
-  *a1 = off_1009AD298;
-  *(a1 + 616) = a2;
-  *(a1 + 648) = 0x600000001;
-  *(a1 + 624) = off_1009ACF38;
-  *(a1 + 632) = xmmword_10089D9C0;
-  *(a1 + 656) = a1 + 664;
-  v7 = a1 + 688;
-  *(a1 + 712) = 0xC00000001;
-  *(a1 + 688) = off_1009ACEF0;
-  *(a1 + 696) = xmmword_10089DA70;
-  *(a1 + 720) = a1 + 728;
-  sub_1004935F8(a1 + 624, a3);
-  sub_1004935F8(v7, a4);
-  v8 = *(a1 + 640);
-  if (*(a1 + 24) < v8)
-  {
-    v16 = "this->max_num_rows_ >= num_rows";
-    v17 = 422;
-    goto LABEL_12;
-  }
-
-  v9 = *(a1 + 704);
-  if (*(a1 + 28) < v9)
-  {
-    v16 = "this->max_num_cols_ >= num_cols";
-    v17 = 423;
-LABEL_12:
-    __assert_rtn("SetMatrixSize", "cnmatrixbase.h", v17, v16);
-  }
-
-  *(a1 + 8) = v8;
-  *(a1 + 12) = v9;
-  *(a1 + 16) = v9 * v8;
-  *(a1 + 20) = v8;
-  if (v9)
-  {
-    v10 = 0;
-    for (i = 0; i != v9; ++i)
-    {
-      if (v8)
-      {
-        v12 = 0;
-        v13 = v10;
-        do
-        {
-          v14 = sub_1003A9F6C(a2, *(*(a1 + 656) + v12), *(*(a1 + 720) + 4 * i));
-          v12 += 4;
-          *(*(a1 + 32) + 8 * v13++) = *v14;
-        }
-
-        while (4 * v8 != v12);
-      }
-
-      v10 += v8;
-    }
-  }
-
-  return a1;
-}
-
 void sub_10049452C(_Unwind_Exception *a1)
 {
   v1[86] = off_1009A90F0;
@@ -297,7 +95,7 @@ void sub_100494838(void *a1)
   operator delete();
 }
 
-_DWORD *sub_1004948A8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+_DWORD *sub_1004948A8(_DWORD *a1, _DWORD *a2, uint64_t a3, uint64_t a4)
 {
   if (a1 == a2)
   {
@@ -329,19 +127,19 @@ _DWORD *sub_1004948A8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     sub_1004D2198();
   }
 
-  v8 = *(a1 + 8);
+  v8 = a1[2];
   if (*(a4 + 24) < v8)
   {
     sub_1004D216C();
   }
 
-  v9 = *(a1 + 12);
+  v9 = a1[3];
   if (*(a4 + 28) < v9)
   {
     sub_1004D2140();
   }
 
-  v10 = *(a2 + 24);
+  v10 = a2[6];
   if (v8 >= v9)
   {
     if (v10 < v9)
@@ -366,61 +164,61 @@ _DWORD *sub_1004948A8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   }
 
   sub_1003A8CFC(a4, a1);
-  v11 = *(a4 + 32);
-  v12 = *(a2 + 32);
-  v13 = *(a3 + 32);
-  v14 = *(a3 + 28) * *(a3 + 24);
-  v28 = *(a4 + 12);
-  v29 = *(a4 + 8);
-  v27 = *(a4 + 20);
-  v15 = dgeqrf_NEWLAPACK();
-  if (v14 < **(a3 + 32) && cnprint::CNPrinter::GetLogLevel(v15) <= 1)
+  v11 = *(a4 + 8);
+  v12 = *(a3 + 28) * *(a3 + 24);
+  v26 = *(a4 + 12);
+  v27 = v11;
+  v13 = dgeqrf_NEWLAPACK();
+  v14 = **(a3 + 32);
+  if (v12 < v14 && cnprint::CNPrinter::GetLogLevel(v13) <= 1)
   {
-    cnprint::CNPrinter::Print();
+    LOWORD(v27) = 4;
+    LOBYTE(v26) = 1;
+    cnprint::CNPrinter::Print(&v27, &v26, "Warning: Qr optimal workspace size %d is greater than provided workspace size %d; performance may suffer.", v14, v12);
   }
 
-  if (*(a1 + 8) >= *(a1 + 12))
+  if (a1[2] >= a1[3])
   {
-    v16 = *(a1 + 12);
+    v15 = a1[3];
   }
 
   else
   {
-    v16 = *(a1 + 8);
+    v15 = a1[2];
   }
 
-  sub_1003A8C00(a2, v16, 1);
+  sub_1003A8C00(a2, v15, 1);
   result = sub_1003A8C00(a3, *(a3 + 24), *(a3 + 28));
-  v18 = *(a4 + 12);
-  if (v18)
+  v17 = *(a4 + 12);
+  if (v17)
   {
-    v19 = 0;
-    v20 = *(a4 + 8);
-    v21 = *(a4 + 32);
-    v22 = v20 - 1;
-    v23 = *(a4 + 20) + 1;
-    v24 = 1;
+    v18 = 0;
+    v19 = *(a4 + 8);
+    v20 = *(a4 + 32);
+    v21 = v19 - 1;
+    v22 = *(a4 + 20) + 1;
+    v23 = 1;
     do
     {
-      ++v19;
-      v25 = v24;
-      v26 = v22;
-      if (v19 < v20)
+      ++v18;
+      v24 = v23;
+      v25 = v21;
+      if (v18 < v19)
       {
         do
         {
-          *(v21 + 8 * v25++) = 0;
-          --v26;
+          *(v20 + 8 * v24++) = 0;
+          --v25;
         }
 
-        while (v26);
+        while (v25);
       }
 
-      --v22;
-      v24 += v23;
+      --v21;
+      v23 += v22;
     }
 
-    while (v19 != v18);
+    while (v18 != v17);
   }
 
   return result;
@@ -508,7 +306,7 @@ void sub_100494E98(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100494ED8(uint64_t a1, unsigned int a2)
+uint64_t sub_100494ED8(uint64_t a1, signed int a2)
 {
   v2 = *(a1 + 32);
   if (!v2)
@@ -516,7 +314,7 @@ uint64_t sub_100494ED8(uint64_t a1, unsigned int a2)
     sub_1004D1EAC();
   }
 
-  if ((a2 & 0x80000000) != 0)
+  if (a2 < 0)
   {
     sub_1004D1E80();
   }
@@ -750,7 +548,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t sub_100495654(uint64_t a1, unsigned int a2)
+uint64_t sub_100495654(uint64_t a1, signed int a2)
 {
   v2 = *(a1 + 32);
   if (!v2)
@@ -758,7 +556,7 @@ uint64_t sub_100495654(uint64_t a1, unsigned int a2)
     sub_1004C8B64();
   }
 
-  if ((a2 & 0x80000000) != 0)
+  if (a2 < 0)
   {
     sub_1004C8B38();
   }
@@ -992,7 +790,7 @@ void sub_100495E18(void *a1)
   operator delete();
 }
 
-_DWORD *sub_100495EF4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+_DWORD *sub_100495EF4(_DWORD *a1, _DWORD *a2, uint64_t a3, _DWORD *a4, uint64_t a5)
 {
   if (a1 == a2)
   {
@@ -1044,20 +842,20 @@ _DWORD *sub_100495EF4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
     sub_1004D24B0();
   }
 
-  v10 = *(a4 + 24);
-  v11 = *(a1 + 8);
+  v10 = a4[6];
+  v11 = a1[2];
   if (v10 < v11)
   {
     sub_1004D2484();
   }
 
-  v12 = *(a1 + 12);
+  v12 = a1[3];
   if (v10 < v12)
   {
     sub_1004D2458();
   }
 
-  v13 = *(a4 + 28);
+  v13 = a4[7];
   if (v13 < v11)
   {
     sub_1004D242C();
@@ -1078,7 +876,7 @@ _DWORD *sub_100495EF4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
     sub_1004D23A8();
   }
 
-  v14 = *(a2 + 24);
+  v14 = a2[6];
   if (v11 >= v12)
   {
     if (v14 < v12)
@@ -1103,76 +901,74 @@ _DWORD *sub_100495EF4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
   }
 
   sub_1003A8CFC(a5, a1);
-  v15 = *(a5 + 32);
-  v16 = *(a5 + 20);
-  v17 = *(a2 + 32);
-  v18 = *(a3 + 32);
-  v19 = *(a3 + 28) * *(a3 + 24);
-  v35 = *(a5 + 12);
-  v37 = *(a5 + 8);
-  v20 = dgeqrf_NEWLAPACK();
-  if (v19 < **(a3 + 32) && cnprint::CNPrinter::GetLogLevel(v20) <= 1)
+  v15 = *(a5 + 8);
+  v16 = *(a3 + 28) * *(a3 + 24);
+  v32 = *(a5 + 12);
+  v33 = v15;
+  v17 = dgeqrf_NEWLAPACK();
+  v18 = **(a3 + 32);
+  if (v16 < v18 && cnprint::CNPrinter::GetLogLevel(v17) <= 1)
   {
-    cnprint::CNPrinter::Print();
+    LOWORD(v33) = 4;
+    LOBYTE(v32) = 1;
+    cnprint::CNPrinter::Print(&v33, &v32, "Warning: Qr optimal workspace size %d is greater than provided workspace size %d; performance may suffer.", v18, v16);
   }
 
   sub_1003A8CFC(a4, a5);
-  if (*(a1 + 12) >= *(a1 + 8))
+  v32 = a1[2];
+  v33 = v32;
+  v19 = dorgqr_NEWLAPACK();
+  v20 = **(a3 + 32);
+  if (v16 < v20 && cnprint::CNPrinter::GetLogLevel(v19) <= 1)
   {
-    v21 = *(a1 + 8);
+    LOWORD(v33) = 4;
+    LOBYTE(v32) = 1;
+    cnprint::CNPrinter::Print(&v33, &v32, "Warning: Qr optimal workspace size %d is greater than provided workspace size %d; performance may suffer.", v20, v16);
   }
 
-  v22 = *(a4 + 32);
-  v36 = *(a1 + 8);
-  v23 = dorgqr_NEWLAPACK();
-  if (v19 < **(a3 + 32) && cnprint::CNPrinter::GetLogLevel(v23) <= 1)
+  if (a1[2] >= a1[3])
   {
-    cnprint::CNPrinter::Print();
-  }
-
-  if (*(a1 + 8) >= *(a1 + 12))
-  {
-    v24 = *(a1 + 12);
+    v21 = a1[3];
   }
 
   else
   {
-    v24 = *(a1 + 8);
+    v21 = a1[2];
   }
 
-  sub_1003A8C00(a2, v24, 1);
+  sub_1003A8C00(a2, v21, 1);
   sub_1003A8C00(a3, *(a3 + 24), *(a3 + 28));
-  result = sub_1003A8C00(a4, *(a1 + 8), *(a1 + 8));
-  v26 = *(a5 + 12);
-  if (v26)
+  result = sub_1003A8C00(a4, a1[2], a1[2]);
+  v23 = *(a5 + 12);
+  if (v23)
   {
-    v27 = 0;
-    v28 = *(a5 + 8);
-    v29 = *(a5 + 32);
-    v30 = v28 - 1;
-    v31 = *(a5 + 20) + 1;
-    v32 = 1;
+    v24 = 0;
+    v25 = *(a5 + 8);
+    v26 = *(a5 + 32);
+    v27 = v25 - 1;
+    v28 = *(a5 + 20) + 1;
+    v29 = 1;
     do
     {
-      ++v27;
-      v33 = v32;
-      v34 = v30;
-      if (v27 < v28)
+      ++v24;
+      v30 = v29;
+      v31 = v27;
+      if (v24 < v25)
       {
         do
         {
-          *(v29 + 8 * v33++) = 0;
-          --v34;
+          *(v26 + 8 * v30++) = 0;
+          --v31;
         }
 
-        while (v34);
+        while (v31);
       }
 
-      --v30;
-      v32 += v31;
+      --v27;
+      v29 += v28;
     }
 
-    while (v27 != v26);
+    while (v24 != v23);
   }
 
   return result;
@@ -1524,8 +1320,8 @@ void sub_100496ED8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t 
 
 uint64_t sub_100496EFC()
 {
-  v0 = sub_100498890(v11, &xmmword_10089DA90, &xmmword_10089DAA8, &xmmword_10089DAC0);
-  sub_100498A58(&unk_1009FA178, v11, v0);
+  sub_100498890(v10, &xmmword_10089DA90, &xmmword_10089DAA8, &xmmword_10089DAC0);
+  sub_100498A58(&unk_1009FA178, v10);
   __cxa_atexit(sub_1004855EC, &unk_1009FA178, &_mh_execute_header);
   qword_1009FA250 = 0x300000003;
   qword_1009FA238 = off_1009A8FC0;
@@ -1607,7 +1403,7 @@ uint64_t sub_100496EFC()
   qword_1009F95E0 = algn_1009F95E8;
   sub_1003A8C00(qword_1009F95C0, 1, 2);
   *sub_100492BDC(qword_1009F95C0, 0) = 6;
-  *sub_100492BDC(qword_1009F95C0, 1u) = 7;
+  *sub_100492BDC(qword_1009F95C0, 1) = 7;
   __cxa_atexit(sub_1004856AC, qword_1009F95C0, &_mh_execute_header);
   qword_1009F9608 = 0x600000001;
   qword_1009F95F0[0] = off_1009ACF38;
@@ -1626,7 +1422,7 @@ uint64_t sub_100496EFC()
   qword_1009F9650 = algn_1009F9658;
   sub_1003A8C00(qword_1009F9630, 1, 2);
   *sub_100492BDC(qword_1009F9630, 0) = 1;
-  *sub_100492BDC(qword_1009F9630, 1u) = 2;
+  *sub_100492BDC(qword_1009F9630, 1) = 2;
   __cxa_atexit(sub_1004856AC, qword_1009F9630, &_mh_execute_header);
   qword_1009F9678 = 0x300000001;
   qword_1009F9660[0] = off_1009ACEA8;
@@ -1693,17 +1489,17 @@ uint64_t sub_100496EFC()
   return __cxa_atexit(sub_1003A8924, qword_1009F97B0, &_mh_execute_header);
 }
 
-uint64_t sub_100497A14@<X0>(double *a1@<X0>, uint64_t a2@<X8>, __n128 a3@<Q0>)
+void *sub_100497A14@<X0>(double *a1@<X0>, void *a2@<X8>, __n128 a3@<Q0>)
 {
   for (i = 0; i != 3; ++i)
   {
-    *&v7[i * 8] = a1[i + 3] * -9.80665;
+    *&v7[i] = a1[i + 3] * -9.80665;
   }
 
-  return sub_100498808(a2, v7, a1 + 6, a1 + 9, a1 + 13, a1 + 16, a3, *a1);
+  return sub_100498808(a2, v7, a1 + 6, (a1 + 9), a1 + 13, a1 + 16, a3.n128_f64[0], *a1);
 }
 
-void sub_100497A80(uint64_t a1@<X0>, void *a2@<X8>, double a3@<D0>)
+void sub_100497A80(uint64_t a1@<X0>, unint64_t *a2@<X8>, double a3@<D0>)
 {
   v40[0] = a3;
   a2[1] = 0;
@@ -1729,7 +1525,7 @@ void sub_100497A80(uint64_t a1@<X0>, void *a2@<X8>, double a3@<D0>)
         __p = 0;
         v30 = 0;
         v31 = 0;
-        sub_1000069DC(&__p, a1 + 115, a1 + 123, 8);
+        sub_1000069DC(&__p, (a1 + 115), (a1 + 123), 8);
         v28 = *(a1 + 304);
         v27 = sub_1000422B8(*(v4 + 8));
         v26 = sub_1000422B8(*v4);
@@ -1771,7 +1567,7 @@ void sub_100497A80(uint64_t a1@<X0>, void *a2@<X8>, double a3@<D0>)
         __p = 0;
         v30 = 0;
         v31 = 0;
-        sub_1000069DC(&__p, a1 + 115, a1 + 123, 8);
+        sub_1000069DC(&__p, (a1 + 115), (a1 + 123), 8);
         v13 = *(a1 + 48);
         v34 = *(a1 + 304);
         v35 = v13;
@@ -1845,21 +1641,21 @@ void sub_100497DFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100497E78(uint64_t a1, uint64_t *a2, __int16 *a3, char *a4, uint64_t *a5, double *a6, double *a7, double *a8, double *a9, double *a10, double *a11, double *a12, double *a13, uint64_t *a14, uint64_t *a15, char *a16, char *a17)
+uint64_t sub_100497E78(unint64_t *a1, uint64_t *a2, unsigned __int16 *a3, char *a4, uint64_t a5, double *a6, double *a7, double *a8, double *a9, double *a10, double *a11, double *a12, double *a13, uint64_t *a14, uint64_t a15, char *a16, char *a17)
 {
-  v17 = 0x86BCA1AF286BCA1BLL * ((*(a1 + 8) - *a1) >> 3);
+  v17 = 0x86BCA1AF286BCA1BLL * ((a1[1] - *a1) >> 3);
   v18 = v17 + 1;
   if (v17 + 1 > 0x1AF286BCA1AF286)
   {
     sub_100019B38();
   }
 
-  if (0xD79435E50D79436 * ((*(a1 + 16) - *a1) >> 3) > v18)
+  if (0xD79435E50D79436 * ((a1[2] - *a1) >> 3) > v18)
   {
-    v18 = 0xD79435E50D79436 * ((*(a1 + 16) - *a1) >> 3);
+    v18 = 0xD79435E50D79436 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0x86BCA1AF286BCA1BLL * ((*(a1 + 16) - *a1) >> 3) >= 0xD79435E50D7943)
+  if (0x86BCA1AF286BCA1BLL * ((a1[2] - *a1) >> 3) >= 0xD79435E50D7943)
   {
     v21 = 0x1AF286BCA1AF286;
   }
@@ -1879,14 +1675,14 @@ uint64_t sub_100497E78(uint64_t a1, uint64_t *a2, __int16 *a3, char *a4, uint64_
   v29 = 152 * v17;
   sub_100498070(a1, 152 * v17, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17);
   v30 = 152 * v17 + 152;
-  v22 = *(a1 + 8);
+  v22 = a1[1];
   v23 = 152 * v17 + *a1 - v22;
   sub_100498238(a1, *a1, v22, v23);
   v24 = *a1;
   *a1 = v23;
-  v25 = *(a1 + 16);
+  v25 = a1[2];
   v27 = v30;
-  *(a1 + 8) = v30;
+  *(a1 + 1) = v30;
   *&v30 = v24;
   *(&v30 + 1) = v25;
   v28 = v24;
@@ -1895,7 +1691,7 @@ uint64_t sub_100497E78(uint64_t a1, uint64_t *a2, __int16 *a3, char *a4, uint64_
   return v27;
 }
 
-uint64_t sub_1004980D8(uint64_t a1, uint64_t a2, __int16 a3, char a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t *a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16, char a17, char a18)
+uint64_t sub_1004980D8(uint64_t a1, uint64_t a2, __int16 a3, char a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16, char a17, char a18)
 {
   *a1 = a2;
   *(a1 + 8) = a3;
@@ -1903,7 +1699,7 @@ uint64_t sub_1004980D8(uint64_t a1, uint64_t a2, __int16 a3, char a4, uint64_t *
   *(a1 + 10) = a4;
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
-  sub_100009A48(a1 + 16, *a5, a5[1], a5[1] - *a5);
+  sub_100009A48((a1 + 16), *a5, *(a5 + 8), *(a5 + 8) - *a5);
   *(a1 + 120) = 0;
   *(a1 + 40) = a9;
   *(a1 + 48) = a10;
@@ -1917,7 +1713,7 @@ uint64_t sub_1004980D8(uint64_t a1, uint64_t a2, __int16 a3, char a4, uint64_t *
   *(a1 + 112) = a7;
   *(a1 + 128) = 0;
   *(a1 + 136) = 0;
-  sub_100012F38(a1 + 120, *a8, a8[1], (a8[1] - *a8) >> 3);
+  sub_100012F38((a1 + 120), *a8, *(a8 + 8), (*(a8 + 8) - *a8) >> 3);
   *(a1 + 144) = a17;
   *(a1 + 145) = a18;
   return a1;
@@ -2059,7 +1855,7 @@ void sub_100498418(void *a1)
   }
 }
 
-uint64_t sub_100498460(uint64_t a1, uint64_t *a2, __int16 *a3, char *a4, uint64_t *a5, double *a6, double *a7, double *a8, double *a9, uint64_t a10, uint64_t *a11, char *a12, char *a13)
+uint64_t sub_100498460(uint64_t a1, uint64_t *a2, __int16 *a3, char *a4, uint64_t a5, double *a6, double *a7, double *a8, double *a9, uint64_t a10, uint64_t a11, char *a12, char *a13)
 {
   v13 = 0x86BCA1AF286BCA1BLL * ((*(a1 + 8) - *a1) >> 3);
   v14 = v13 + 1;
@@ -2110,37 +1906,42 @@ uint64_t sub_100498460(uint64_t a1, uint64_t *a2, __int16 *a3, char *a4, uint64_
   return v23;
 }
 
-void sub_100498634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_100498634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   sub_1004983E4(va);
   _Unwind_Resume(a1);
 }
 
-double *sub_100498648(double *a1, void *a2, void *a3, uint64_t a4, void *a5, void *a6, double a7, double a8)
+void *sub_100498648(void *a1, void *a2, void *a3, uint64_t a4, void *a5, void *a6, double a7, double a8)
 {
-  *a1 = 0.0;
-  a1[1] = 0.0;
-  sub_100172550(a1 + 2, 3uLL);
-  sub_100172550(a1 + 5, 3uLL);
-  sub_100172550(a1 + 8, 4uLL);
-  sub_100172550(a1 + 11, 3uLL);
-  sub_100172550(a1 + 14, 3uLL);
+  *a1 = 0;
+  a1[1] = 0;
+  v23 = 0;
+  sub_100172550(a1 + 2, 3uLL, &v23);
+  v23 = 0;
+  sub_100172550(a1 + 5, 3uLL, &v23);
+  v23 = 0;
+  sub_100172550(a1 + 8, 4uLL, &v23);
+  v23 = 0;
+  sub_100172550(a1 + 11, 3uLL, &v23);
+  v23 = 0;
+  sub_100172550(a1 + 14, 3uLL, &v23);
   v16 = 0;
-  a1[17] = 0.0;
-  a1[18] = 0.0;
-  a1[19] = 0.0;
+  a1[17] = 0;
+  a1[18] = 0;
+  a1[19] = 0;
   *a1 = a7;
-  a1[1] = a8;
-  v17 = *(a1 + 2);
+  *(a1 + 1) = a8;
+  v17 = a1[2];
   *v17 = *a2;
   v17[1] = a2[1];
   v17[2] = a2[2];
-  v18 = *(a1 + 5);
+  v18 = a1[5];
   *v18 = *a3;
   v18[1] = a3[1];
   v18[2] = a3[2];
-  v19 = *(a1 + 8);
+  v19 = a1[8];
   do
   {
     *(v19 + v16) = *(a4 + v16);
@@ -2148,11 +1949,11 @@ double *sub_100498648(double *a1, void *a2, void *a3, uint64_t a4, void *a5, voi
   }
 
   while (v16 != 32);
-  v20 = *(a1 + 11);
+  v20 = a1[11];
   *v20 = *a5;
   v20[1] = a5[1];
   v20[2] = a5[2];
-  v21 = *(a1 + 14);
+  v21 = a1[14];
   *v21 = *a6;
   v21[1] = a6[1];
   v21[2] = a6[2];
@@ -2280,14 +2081,14 @@ void sub_100498A00(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100498A5C(void *a1, double *a2)
+uint64_t sub_100498A5C(unint64_t *a1, double *a2)
 {
-  sub_100013A08((a1 + 6), a2);
+  sub_100013A08(a1 + 6, a2);
 
   return sub_100498AA0(a1, a2);
 }
 
-uint64_t sub_100498AA0(void *a1, uint64_t a2)
+uint64_t sub_100498AA0(unint64_t *a1, uint64_t a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -2466,19 +2267,19 @@ double sub_100498E58(uint64_t a1)
   return result;
 }
 
-void *sub_100498E88(void *a1)
+void sub_100498E88(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x19;
   v3 = v1 - 25;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -2486,25 +2287,25 @@ void *sub_100498E88(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    sub_10016F098(a1, v9);
+    v10 = a1;
+    sub_10016F098(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return sub_10016EC70(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  sub_10016EC70(a1, &v9);
 }
 
 void sub_100499010(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -2546,7 +2347,7 @@ uint64_t sub_10049905C(uint64_t a1, int a2)
   return v4 ^ 1u;
 }
 
-uint64_t sub_1004990BC@<X0>(uint64_t result@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+uint64_t sub_1004990BC@<X0>(uint64_t result@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
 {
   if (result != 1)
   {
@@ -2560,7 +2361,7 @@ uint64_t sub_1004990BC@<X0>(uint64_t result@<X0>, int a2@<W1>, uint64_t a3@<X8>)
       goto LABEL_4;
     }
 
-    if ((a2 - 100) >= 0x1B)
+    if (a2 - 100 >= 0x1B)
     {
       if (a2 > 0x1B)
       {
@@ -2632,7 +2433,7 @@ LABEL_25:
 
   if (a2 <= 199)
   {
-    if ((a2 - 100) >= 0x1B)
+    if (a2 - 100 >= 0x1B)
     {
       return result;
     }
@@ -2641,7 +2442,7 @@ LABEL_25:
   }
 
 LABEL_4:
-  if ((a2 - 200) < 3 || a2 == 997 || a2 == 999)
+  if (a2 - 200 < 3 || a2 == 997 || a2 == 999)
   {
     goto LABEL_21;
   }
@@ -2963,32 +2764,25 @@ void sub_100499ACC(int a1, NSObject *a2)
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "Accepting connection from an entitled client with pid %d", v2, 8u);
 }
 
-void sub_100499D20(uint64_t a1, uint64_t a2, uint64_t a3)
+void sub_100499DD4()
 {
-  v3 = *(a1 + 23);
-  sub_100013F40(a1, a2, a3, 3.8521e-34);
-  _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "#ses-grResponder,getSessionTicketForDevice: Create a new GR session failed for address: %llu client Id: %s", v4, 0x16u);
-}
-
-void sub_100499DD4(uint64_t *a1)
-{
-  v2 = sub_100008F38(a1);
-  if (v7 != v8)
+  sub_100008F38();
+  if (v6 != v7)
   {
-    v9 = v6;
+    v8 = v5;
   }
 
   else
   {
-    v9 = v2;
+    v8 = v1;
   }
 
-  *v3 = 136315138;
-  *(v3 + 4) = v9;
-  _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "#ses-grResponder,Failed to start ranging. Return code: %s", v5, 0xCu);
-  if (*(v1 + 23) < 0)
+  *v2 = 136315138;
+  *(v2 + 4) = v8;
+  _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "#ses-grResponder,Failed to start ranging. Return code: %s", v4, 0xCu);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
@@ -3002,86 +2796,64 @@ void sub_100499E38(unsigned __int16 a1, uint64_t *a2, uint8_t *buf, os_log_t log
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "#ses-grResponder,triggerRangingForRoseSession rotate address for ticket%hu, rotated addr: %llu", buf, 0x12u);
 }
 
-void sub_100499E98(uint64_t *a1)
+void sub_100499E98()
 {
-  v2 = sub_100008F38(a1);
-  if (v7 != v8)
+  sub_100008F38();
+  if (v6 != v7)
   {
-    v9 = v6;
+    v8 = v5;
   }
 
   else
   {
-    v9 = v2;
+    v8 = v1;
   }
 
-  *v3 = 136315138;
-  *(v3 + 4) = v9;
-  _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "#ses-grResponder,Failed to re-start ranging. Return code: %s", v5, 0xCu);
-  if (*(v1 + 23) < 0)
+  *v2 = 136315138;
+  *(v2 + 4) = v8;
+  _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "#ses-grResponder,Failed to re-start ranging. Return code: %s", v4, 0xCu);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
-void sub_100499EFC(unsigned __int16 *a1)
+void sub_100499EFC()
 {
-  sub_1000252C0(a1);
+  sub_1000252C0();
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_100499FA0(unsigned __int16 *a1)
+void sub_100499FA0()
 {
-  sub_1000252C0(a1);
+  sub_1000252C0();
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_10049A010(uint64_t *a1)
+void sub_10049A088()
 {
-  v6 = *a1;
-  sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_10049A088(unsigned __int16 *a1)
-{
-  sub_1000252C0(a1);
+  sub_1000252C0();
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_10049A1C8(float *a1)
+void sub_10049A244()
 {
-  v6 = *a1;
-  sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_10049A244(unsigned __int16 *a1)
-{
-  sub_1000252C0(a1);
+  sub_1000252C0();
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-}
-
-void sub_10049A2B4(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10049A32C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *(a1 + 23);
   sub_100013F40(a1, a2, a3, 3.8521e-34);
-  _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "#ses-grResponder,Failed to allocate a UWB session for UWBAddress: %llu. Error: %s", v5, 0x16u);
+  _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "#ses-grResponder,Failed to allocate a UWB session for UWBAddress: %llu. Error: %s", v4, 0x16u);
   if (*(a1 + 23) < 0)
   {
     operator delete(*a1);
@@ -3095,92 +2867,57 @@ void sub_10049A540()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10049A678(unsigned int *a1)
+void sub_10049A678()
 {
-  sub_100008F50(a1, __stack_chk_guard);
-  if (!(!v3 & v2))
-  {
-    v4 = off_10098AC20[v1];
-  }
-
+  sub_100008F50(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10049A704(unsigned int *a1)
+void sub_10049A704()
 {
-  sub_100008F50(a1, __stack_chk_guard);
-  if (!(!v3 & v2))
-  {
-    v4 = off_10098AC20[v1];
-  }
-
+  sub_100008F50(__stack_chk_guard);
   sub_100008D70();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10049A898(uint64_t a1, unsigned int *a2)
+void sub_10049A898()
 {
-  sub_10002A2AC(a1, a2);
-  if (!(!v10 & v9))
-  {
-    v11 = off_10098AC20[v8];
-  }
-
-  sub_10002A2C4(5.8081e-34, v3, v4, v5, v6, v7);
-  sub_10002A2DC(&_mh_execute_header, v14, v12, "#ble,addPeerToken %{private}@ failed, state is %s", v13);
+  sub_10002A2AC();
+  sub_10002A2C4(5.8081e-34, v1, v2, v3, v4, v5);
+  sub_10002A2DC(&_mh_execute_header, v8, v6, "#ble,addPeerToken %{private}@ failed, state is %s", v7);
 }
 
-void sub_10049A8FC(uint64_t a1, unsigned int *a2)
+void sub_10049A8FC()
 {
-  sub_10002A2AC(a1, a2);
-  if (!(!v10 & v9))
-  {
-    v11 = off_10098AC20[v8];
-  }
-
-  sub_10002A2C4(5.8081e-34, v3, v4, v5, v6, v7);
-  sub_10002A2DC(&_mh_execute_header, v14, v12, "#ble,removePeerToken %{private}@ failed, state is %s", v13);
+  sub_10002A2AC();
+  sub_10002A2C4(5.8081e-34, v1, v2, v3, v4, v5);
+  sub_10002A2DC(&_mh_execute_header, v8, v6, "#ble,removePeerToken %{private}@ failed, state is %s", v7);
 }
 
-void sub_10049A960(unsigned int *a1)
+void sub_10049A960()
 {
-  sub_100008F50(a1, __stack_chk_guard);
-  if (!(!v3 & v2))
-  {
-    v4 = off_10098AC20[v1];
-  }
-
+  sub_100008F50(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10049A9EC(unsigned int *a1)
+void sub_10049A9EC()
 {
-  sub_100008F50(a1, __stack_chk_guard);
-  if (!(!v3 & v2))
-  {
-    v4 = off_10098AC20[v1];
-  }
-
+  sub_100008F50(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10049AA78(unsigned int *a1)
+void sub_10049AA78()
 {
-  sub_100008F50(a1, __stack_chk_guard);
-  if (!(!v3 & v2))
-  {
-    v4 = off_10098AC20[v1];
-  }
-
+  sub_100008F50(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_10049AB04()
@@ -3197,30 +2934,20 @@ void sub_10049AB40(uint64_t a1, NSObject *a2)
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "#ble,Overriding advertising T19 payload to burst adv rate: [%@]", &v2, 0xCu);
 }
 
-void sub_10049ABB8(unsigned int *a1)
+void sub_10049ABB8()
 {
-  sub_100008F50(a1, __stack_chk_guard);
-  if (!(!v3 & v2))
-  {
-    v4 = off_10098AC20[v1];
-  }
-
+  sub_100008F50(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10049AC44(unsigned int *a1)
+void sub_10049AC44()
 {
-  sub_100008F50(a1, __stack_chk_guard);
-  if (!(!v3 & v2))
-  {
-    v4 = off_10098AC20[v1];
-  }
-
+  sub_100008F50(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_10049ACD0()
@@ -3230,44 +2957,29 @@ void sub_10049ACD0()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10049AD0C(unsigned int *a1)
+void sub_10049AD0C()
 {
-  sub_100008F50(a1, __stack_chk_guard);
-  if (!(!v3 & v2))
-  {
-    v4 = off_10098AC20[v1];
-  }
-
+  sub_100008F50(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10049AD98(unsigned int *a1)
+void sub_10049AD98()
 {
-  sub_100008F50(a1, __stack_chk_guard);
-  if (!(!v3 & v2))
-  {
-    v4 = off_10098AC20[v1];
-  }
-
+  sub_100008F50(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10049AE24(uint64_t a1, unsigned int *a2)
+void sub_10049AE24()
 {
-  sub_10002A2F4(a1, a2);
-  if (!(!v4 & v3))
-  {
-    v5 = off_10098AC20[v2];
-  }
-
+  sub_10002A2F4();
   sub_100008DB0();
-  v9 = 2080;
-  v10 = v6;
-  sub_10002A2DC(&_mh_execute_header, v7, v7, "#ble,stopScanningAndRemovePeers[%s] failed, state is %s", v8);
+  v3 = 2080;
+  v4 = v0;
+  sub_10002A2DC(&_mh_execute_header, v1, v1, "#ble,stopScanningAndRemovePeers[%s] failed, state is %s", v2);
 }
 
 void sub_10049AED0(uint8_t *buf, uint64_t a2, os_log_t log)
@@ -3286,31 +2998,21 @@ void sub_10049AF28()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10049AF64(uint64_t a1, unsigned int *a2)
+void sub_10049AF64()
 {
-  sub_10002A2F4(a1, a2);
-  if (!(!v4 & v3))
-  {
-    v5 = off_10098AC20[v2];
-  }
-
+  sub_10002A2F4();
   sub_100008DB0();
-  v9 = 2080;
-  v10 = v6;
-  sub_10002A2DC(&_mh_execute_header, v7, v7, "#ble,allowScreenOffOperation[%s] failed, state is %s", v8);
+  v3 = 2080;
+  v4 = v0;
+  sub_10002A2DC(&_mh_execute_header, v1, v1, "#ble,allowScreenOffOperation[%s] failed, state is %s", v2);
 }
 
-void sub_10049B010(unsigned int *a1)
+void sub_10049B010()
 {
-  sub_100008F50(a1, __stack_chk_guard);
-  if (!(!v3 & v2))
-  {
-    v4 = off_10098AC20[v1];
-  }
-
+  sub_100008F50(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_10049B09C()
@@ -3355,6 +3057,34 @@ void sub_10049B8E4()
   sub_10003A938(&_mh_execute_header, "#wifi-service,no map entry found when attempting to erase peer %@", v4, v5);
 }
 
+void sub_10049B990(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getManagerInterface";
+  sub_100008F94(&_mh_execute_header, a1, a3, "#wifi-service,%s: Error init attribute", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10049BA08(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getManagerInterface";
+  sub_100008F94(&_mh_execute_header, a1, a3, "#wifi-service,%s: Error setting detacheble", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10049BA80(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getManagerInterface";
+  sub_100008F94(&_mh_execute_header, a1, a3, "#wifi-service,%s: Error creating thread", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10049BAF8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getManagerInterface";
+  sub_100008F94(&_mh_execute_header, a1, a3, "#wifi-service,%s: Error destroying attribute", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_10049BBD8()
 {
   sub_10003A928();
@@ -3374,13 +3104,6 @@ void sub_10049BE2C()
   sub_10003A954();
   sub_100008D70();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-}
-
-void sub_10049BE9C(uint64_t a1, uint64_t a2)
-{
-  v7 = *(a2 + 40);
-  sub_10003A96C();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void sub_10049C0E8()
@@ -3431,6 +3154,13 @@ __n128 sub_10049C42C(uint8_t *a1, unint64_t a2, int8x8_t *a3, NSObject *a4)
   return result;
 }
 
+void sub_10049C50C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "reportErrorForOne";
+  sub_100008F94(&_mh_execute_header, a1, a3, "#wifi-service,%s: fPeer2p4GHz should not be null when trying to call error callback", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_10049C584(void *a1, uint64_t a2)
 {
   *a2 = 138412290;
@@ -3444,6 +3174,13 @@ void sub_10049C5D8()
   sub_10003A928();
   sub_10003A960(v1, v2, v3, 5.7779e-34);
   sub_10003A938(&_mh_execute_header, "#wifi-service,readiness callback is nullptr for peer ID: %@", v4, v5);
+}
+
+void sub_10049C650(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "createCFArrayOfPeers2p4GHz";
+  sub_100008F94(&_mh_execute_header, a1, a3, "#wifi-service,%s: fPeer2p4GHz should not be null when trying to create array of peers for 2.4GHz ranging", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_10049C73C(_BYTE *a1, _BYTE *a2)
@@ -3660,28 +3397,28 @@ uint64_t sub_10049EBB4(os_log_t log, _BYTE *a2)
   return *a2 & 1;
 }
 
-void sub_10049EC50(unsigned __int16 *a1, uint64_t *a2)
+void sub_10049EC50()
 {
-  sub_100008DE4(a1, a2, __stack_chk_guard);
+  sub_100008DE4(__stack_chk_guard);
   sub_100008FB0();
-  *&v6[2] = v2;
-  sub_10017C624(&_mh_execute_header, v3, v4, "#aggr,haveReceivedRoseMeasurements ticketId %hu targetMac 0x%016llx NO", v5, *v6);
+  *&v4[2] = v0;
+  sub_10017C624(&_mh_execute_header, v1, v2, "#aggr,haveReceivedRoseMeasurements ticketId %hu targetMac 0x%016llx NO", v3, *v4);
 }
 
-void sub_10049ECBC(unsigned __int16 *a1, uint64_t *a2)
+void sub_10049ECBC()
 {
-  sub_100008DE4(a1, a2, __stack_chk_guard);
+  sub_100008DE4(__stack_chk_guard);
   sub_100008FB0();
-  *&v6[2] = v2;
-  sub_10017C624(&_mh_execute_header, v3, v4, "#aggr,haveReceivedRoseMeasurements ticketId %hu targetMac 0x%016llx YES", v5, *v6);
+  *&v4[2] = v0;
+  sub_10017C624(&_mh_execute_header, v1, v2, "#aggr,haveReceivedRoseMeasurements ticketId %hu targetMac 0x%016llx YES", v3, *v4);
 }
 
-void sub_10049ED28(unsigned __int16 *a1, uint64_t *a2)
+void sub_10049ED28()
 {
-  sub_100008DE4(a1, a2, __stack_chk_guard);
+  sub_100008DE4(__stack_chk_guard);
   sub_100008FB0();
-  *&v6[2] = v2;
-  sub_10017C624(&_mh_execute_header, v3, v4, "#aggr,haveReceivedRoseMeasurements ticketId %hu targetMac 0x%016llx: no buffer slot", v5, *v6);
+  *&v4[2] = v0;
+  sub_10017C624(&_mh_execute_header, v1, v2, "#aggr,haveReceivedRoseMeasurements ticketId %hu targetMac 0x%016llx: no buffer slot", v3, *v4);
 }
 
 void sub_10049ED94()
@@ -3712,20 +3449,20 @@ void sub_10049F104()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10049F140(uint64_t *a1)
+void sub_10049F140()
 {
-  sub_100008FC4(a1, __stack_chk_guard);
+  sub_100008FC4(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10049F1B0(uint64_t *a1)
+void sub_10049F1B0()
 {
-  sub_100008FC4(a1, __stack_chk_guard);
+  sub_100008FC4(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_10049F24C()
@@ -3749,12 +3486,12 @@ void sub_10049F2C4()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10049F300(uint64_t *a1)
+void sub_10049F300()
 {
-  sub_100008FC4(a1, __stack_chk_guard);
+  sub_100008FC4(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_10049F370()
@@ -3771,41 +3508,57 @@ void sub_10049F3D8()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10049F414(uint64_t *a1)
+void sub_10049F414()
 {
-  sub_100008FC4(a1, __stack_chk_guard);
+  sub_100008FC4(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10049F484()
+void sub_10049F484(uint64_t a1)
 {
   if (sub_100182C20())
   {
-    sub_100008DF4(&_mh_execute_header, v1, v2, "txSlotSize = %lld", v3, v4, v5, v6, 0);
-    v0 = qword_1009F9820;
+    LODWORD(v15) = 134217984;
+    *(&v15 + 4) = a1;
+    sub_100008DF4(&_mh_execute_header, v3, v4, "txSlotSize = %lld", v5, v6, v7, v8, v15, DWORD2(v15));
+    v1 = qword_1009F9820;
   }
 
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    sub_100008FDC(&_mh_execute_header, v7, v8, "%s:%d: assertion failure in %s", v9, v10, v11, v12, 2u);
+    *v16 = 136315650;
+    *&v16[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/RangingServiceLib/ServiceProvider/RoseCycleIntervalPicker.cpp";
+    *&v16[12] = 1024;
+    *&v16[14] = 52;
+    *&v16[18] = 2080;
+    *&v16[20] = "SymmetricalMultipeer";
+    sub_100008FDC(&_mh_execute_header, v9, v10, "%s:%d: assertion failure in %s", v11, v12, v13, v14, *v16, *&v16[8], *&v16[16], *&v16[24]);
   }
 
   abort();
 }
 
-void sub_10049F53C()
+void sub_10049F53C(uint64_t a1)
 {
   if (sub_100182C20())
   {
-    sub_100008DF4(&_mh_execute_header, v1, v2, "txSlotSize = %lld", v3, v4, v5, v6, 0);
-    v0 = qword_1009F9820;
+    LODWORD(v15) = 134217984;
+    *(&v15 + 4) = a1;
+    sub_100008DF4(&_mh_execute_header, v3, v4, "txSlotSize = %lld", v5, v6, v7, v8, v15, DWORD2(v15));
+    v1 = qword_1009F9820;
   }
 
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    sub_100008FDC(&_mh_execute_header, v7, v8, "%s:%d: assertion failure in %s", v9, v10, v11, v12, 2u);
+    *v16 = 136315650;
+    *&v16[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/RangingServiceLib/ServiceProvider/RoseCycleIntervalPicker.cpp";
+    *&v16[12] = 1024;
+    *&v16[14] = 53;
+    *&v16[18] = 2080;
+    *&v16[20] = "SymmetricalMultipeer";
+    sub_100008FDC(&_mh_execute_header, v9, v10, "%s:%d: assertion failure in %s", v11, v12, v13, v14, *v16, *&v16[8], *&v16[16], *&v16[24]);
   }
 
   abort();
@@ -3815,20 +3568,21 @@ void sub_10049F650(int a1)
 {
   if (sub_100182C20())
   {
-    v9 = 67109120;
-    LODWORD(v10) = a1;
-    _os_log_fault_impl(&_mh_execute_header, v1, OS_LOG_TYPE_FAULT, "pxgCount = %d", &v9, 8u);
+    *v9 = 67109120;
+    *&v9[4] = a1;
+    _os_log_fault_impl(&_mh_execute_header, v1, OS_LOG_TYPE_FAULT, "pxgCount = %d", v9, 8u);
     v1 = qword_1009F9820;
   }
 
   if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    v10 = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/RangingServiceLib/ServiceProvider/RoseCycleIntervalPicker.cpp";
-    v11 = 1024;
-    v12 = 51;
-    v13 = 2080;
-    v14 = "SymmetricalMultipeer";
-    sub_100008FDC(&_mh_execute_header, v3, v4, "%s:%d: assertion failure in %s", v5, v6, v7, v8, 2u);
+    *v9 = 136315650;
+    *&v9[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/RangingServiceLib/ServiceProvider/RoseCycleIntervalPicker.cpp";
+    *&v9[12] = 1024;
+    *&v9[14] = 51;
+    *&v9[18] = 2080;
+    *&v9[20] = "SymmetricalMultipeer";
+    sub_100008FDC(&_mh_execute_header, v3, v4, "%s:%d: assertion failure in %s", v5, v6, v7, v8, *v9, *&v9[16]);
   }
 
   abort();
@@ -3836,10 +3590,10 @@ void sub_10049F650(int a1)
 
 void sub_10049F718()
 {
-  if (__cxa_guard_acquire(&qword_1009EA928))
+  if (__cxa_guard_acquire(byte_1009EA928))
   {
-    __cxa_atexit(&std::mutex::~mutex, &unk_1009EA8E8, &_mh_execute_header);
-    __cxa_guard_release(&qword_1009EA928);
+    __cxa_atexit(&std::mutex::~mutex, &stru_1009EA8E8, &_mh_execute_header);
+    __cxa_guard_release(byte_1009EA928);
   }
 }
 
@@ -3857,12 +3611,11 @@ void sub_10049F864(unsigned __int8 a1, uint8_t *buf, os_log_t log)
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "#sp,mms_rx_status = %d", buf, 8u);
 }
 
-void sub_10049F910(unsigned __int16 *a1)
+void sub_10049F910()
 {
-  v1 = *a1;
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10049F9EC(void *a1, NSObject *a2)
@@ -3884,12 +3637,19 @@ void sub_10049FBB8()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#sp,!ranging_rate_event.has_value()", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#sp,!ranging_rate_event.has_value()", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#sp,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/RangingServiceLib/SolutionProvider/RoseSolutionProvider.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 260;
+    *&v13[18] = 2080;
+    *&v13[20] = "ingestMeasurement";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#sp,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -3899,12 +3659,19 @@ void sub_10049FC84()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#sp,!session_start_notification.has_value()", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#sp,!session_start_notification.has_value()", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#sp,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/RangingServiceLib/SolutionProvider/RoseSolutionProvider.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 253;
+    *&v13[18] = 2080;
+    *&v13[20] = "ingestMeasurement";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#sp,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -3914,12 +3681,19 @@ void sub_10049FD50()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#sp,!range_result_debug_v2_event.has_value()", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#sp,!range_result_debug_v2_event.has_value()", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#sp,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/RangingServiceLib/SolutionProvider/RoseSolutionProvider.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 246;
+    *&v13[18] = 2080;
+    *&v13[20] = "ingestMeasurement";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#sp,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -3929,12 +3703,19 @@ void sub_10049FE1C()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#sp,!range_result_debug_event.has_value()", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#sp,!range_result_debug_event.has_value()", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#sp,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/RangingServiceLib/SolutionProvider/RoseSolutionProvider.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 239;
+    *&v13[18] = 2080;
+    *&v13[20] = "ingestMeasurement";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#sp,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -3944,12 +3725,19 @@ void sub_10049FEE8()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#sp,!timestamp_event.has_value()", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#sp,!timestamp_event.has_value()", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#sp,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/RangingServiceLib/SolutionProvider/RoseSolutionProvider.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 232;
+    *&v13[18] = 2080;
+    *&v13[20] = "ingestMeasurement";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#sp,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -3959,12 +3747,19 @@ void sub_10049FFB4()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#sp,!resp_sf_stats.has_value()", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#sp,!resp_sf_stats.has_value()", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#sp,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/RangingServiceLib/SolutionProvider/RoseSolutionProvider.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 225;
+    *&v13[18] = 2080;
+    *&v13[20] = "ingestMeasurement";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#sp,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -3974,12 +3769,19 @@ void sub_1004A0080()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#sp,!toa_cir_data_v2_event.has_value()", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#sp,!toa_cir_data_v2_event.has_value()", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#sp,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/RangingServiceLib/SolutionProvider/RoseSolutionProvider.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 219;
+    *&v13[18] = 2080;
+    *&v13[20] = "ingestMeasurement";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#sp,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -3989,12 +3791,19 @@ void sub_1004A014C()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#sp,!toa_cir_data_event.has_value()", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#sp,!toa_cir_data_event.has_value()", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#sp,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/RangingServiceLib/SolutionProvider/RoseSolutionProvider.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 212;
+    *&v13[18] = 2080;
+    *&v13[20] = "ingestMeasurement";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#sp,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -4004,12 +3813,19 @@ void sub_1004A0218()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#sp,!aoa_cir_data_event.has_value()", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#sp,!aoa_cir_data_event.has_value()", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#sp,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/RangingServiceLib/SolutionProvider/RoseSolutionProvider.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 205;
+    *&v13[18] = 2080;
+    *&v13[20] = "ingestMeasurement";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#sp,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -4019,12 +3835,19 @@ void sub_1004A02E4()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#sp,!cir_data.has_value()", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#sp,!cir_data.has_value()", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#sp,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/RangingServiceLib/SolutionProvider/RoseSolutionProvider.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 198;
+    *&v13[18] = 2080;
+    *&v13[20] = "ingestMeasurement";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#sp,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -4034,12 +3857,19 @@ void sub_1004A03B0()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#sp,!range_result.has_value()", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#sp,!range_result.has_value()", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#sp,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/RangingServiceLib/SolutionProvider/RoseSolutionProvider.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 191;
+    *&v13[18] = 2080;
+    *&v13[20] = "ingestMeasurement";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#sp,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -4052,59 +3882,18 @@ void sub_1004A0520()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004A0594(unsigned __int16 *a1)
+void sub_1004A0594()
 {
-  v1 = *a1;
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004A07A8(uint64_t a1)
+void sub_1004A07A8()
 {
-  v1 = *(a1 + 90);
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
-}
-
-void sub_1004A0910(unsigned __int16 *a1, uint64_t a2)
-{
-  v2 = *a1;
-  v3 = *(a2 + 104);
-  sub_10018B4B0();
-  sub_10018B4C8(&_mh_execute_header, v4, v5, "#sp,Ticket id %d has unspecified solution type preference. Peer: 0x%llx", v6, v7);
-}
-
-void sub_1004A0980(unsigned __int16 *a1, uint64_t a2)
-{
-  v2 = *a1;
-  v3 = *(a2 + 104);
-  sub_10018B4B0();
-  sub_10018B4C8(&_mh_execute_header, v4, v5, "#sp,No computation preference found for ticket ID: %d. Peer: 0x%llx", v6, v7);
-}
-
-void sub_1004A09F0(uint64_t a1)
-{
-  v6 = *(a1 + 48);
-  v7 = *(a1 + 64);
-  sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-}
-
-void sub_1004A0A78(unsigned __int16 *a1, uint64_t a2)
-{
-  v2 = *a1;
-  v3 = *(a2 + 64);
-  sub_10018B4B0();
-  sub_10018B4C8(&_mh_execute_header, v4, v5, "#sp,computeAndEmitSensorFusionSolution(rose_data): Failed to add rose data to filter. Ticket ID: %d, Peer: 0x%llx", v6, v7);
-}
-
-void sub_1004A0AE8(uint64_t a1)
-{
-  v6 = *(a1 + 64);
-  sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1004A0B60(uint64_t a1)
@@ -4205,25 +3994,25 @@ void sub_1004A0FAC(uint64_t a1)
   }
 }
 
-void sub_1004A1198(uint64_t *a1)
+void sub_1004A1198()
 {
-  v2 = sub_100008F38(a1);
-  if (v7 != v8)
+  sub_100008F38();
+  if (v6 != v7)
   {
-    v9 = v6;
+    v8 = v5;
   }
 
   else
   {
-    v9 = v2;
+    v8 = v1;
   }
 
-  *v3 = 136315138;
-  *(v3 + 4) = v9;
-  _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "[RoseServiceProvider] %s", v5, 0xCu);
-  if (*(v1 + 23) < 0)
+  *v2 = 136315138;
+  *(v2 + 4) = v8;
+  _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "[RoseServiceProvider] %s", v4, 0xCu);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
@@ -4257,44 +4046,23 @@ void sub_1004A12B0(uint64_t a1)
   }
 }
 
-void sub_1004A13D8(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_100008E30();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_1004A1490(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_100008E30();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_1004A1508(uint64_t a1)
-{
-  v6 = *(a1 + 64);
-  sub_100008E30();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-}
-
 void sub_1004A16E0()
 {
-  v0 = __cxa_guard_acquire(&qword_1009EF738);
+  v0 = __cxa_guard_acquire(byte_1009EF738);
   if (v0)
   {
-    sub_10000902C(v0, &unk_1009EA930, &_mh_execute_header);
-    __cxa_guard_release(&qword_1009EF738);
+    sub_10000902C(v0, &stru_1009EA930, &_mh_execute_header);
+    __cxa_guard_release(byte_1009EF738);
   }
 }
 
 void sub_1004A1724()
 {
-  v0 = __cxa_guard_acquire(&qword_1009F0110);
+  v0 = __cxa_guard_acquire(byte_1009F0110);
   if (v0)
   {
     sub_10000902C(v0, &stru_1009EA970, &_mh_execute_header);
-    __cxa_guard_release(&qword_1009F0110);
+    __cxa_guard_release(byte_1009F0110);
   }
 }
 
@@ -4357,12 +4125,12 @@ void sub_1004A2218(uint64_t a1)
   }
 }
 
-void sub_1004A2330(unsigned __int16 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_1004A2330(unsigned __int16 *a1, uint64_t a2)
 {
-  sub_100192CE4(a1, a2, a3, a4, a5, a6, a7, a8);
+  sub_100192CE4(a1, a2);
   sub_10000904C();
-  sub_100008E3C(&_mh_execute_header, v8, v9, "RoseScheduler - %s", v10, v11, v12, v13, v14, __p, v17, v18, 2u);
-  if (v19 < 0)
+  sub_100008E3C(&_mh_execute_header, v2, v3, "RoseScheduler - %s", v4, v5, v6, v7, v8, __p, v11, v12);
+  if (v13 < 0)
   {
     operator delete(__pa);
   }
@@ -4372,60 +4140,61 @@ void sub_1004A2434(int a1)
 {
   sub_1001A3548(a1, __p);
   sub_10000904C();
-  HIDWORD(v11) = v1;
-  sub_100008E3C(&_mh_execute_header, v2, v3, "RoseScheduler::handleServiceRequestStatusUpdate got unexpected status update %s", v4, v5, v6, v7, v8, __p[0], __p[1], v10, 2u);
+  *buf = 136315138;
+  v12 = v1;
+  sub_100008E3C(&_mh_execute_header, v2, v3, "RoseScheduler::handleServiceRequestStatusUpdate got unexpected status update %s", v4, v5, v6, v7, v8, __p[0], __p[1], v10);
   if (SHIBYTE(v10) < 0)
   {
     operator delete(__p[0]);
   }
 }
 
-void sub_1004A2510(unsigned __int16 *a1)
+void sub_1004A2510()
 {
-  sub_1000252C0(a1);
+  sub_1000252C0();
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004A2580(unsigned __int16 *a1)
+void sub_1004A2580()
 {
-  sub_1000252C0(a1);
+  sub_1000252C0();
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004A25F0(unsigned __int16 *a1)
+void sub_1004A25F0()
 {
-  sub_1000252C0(a1);
+  sub_1000252C0();
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004A2660(unsigned __int16 *a1)
+void sub_1004A2660()
 {
-  sub_1000252C0(a1);
+  sub_1000252C0();
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004A26D0(unsigned __int16 *a1)
+void sub_1004A26D0()
 {
-  sub_1000252C0(a1);
+  sub_1000252C0();
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004A2740(unsigned __int16 *a1)
+void sub_1004A2740()
 {
-  sub_1000252C0(a1);
+  sub_1000252C0();
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1004A2A48(uint64_t a1)
@@ -4438,16 +4207,37 @@ void sub_1004A2A48(uint64_t a1)
   }
 }
 
+void sub_1004A2EA8(unsigned __int16 *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = *a1;
+  sub_100009060(&_mh_execute_header, a2, a3, "Asked to delete service request, but no request found %d", a5, a6, a7, a8, v8);
+}
+
+void sub_1004A2F18(unsigned __int16 *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = *a1;
+  sub_100009060(&_mh_execute_header, a2, a3, "Asked to update service request, but no request found %d", a5, a6, a7, a8, v8);
+}
+
 void sub_1004A3E6C()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "Time bases must be different", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "Time bases must be different", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/DaemonCore/Ranging/Providers/Rose/PRRoseSupervisorPacketBuilder.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 517;
+    *&v13[18] = 2080;
+    *&v13[20] = "convertTime";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -4457,12 +4247,19 @@ void sub_1004A3F04()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "Must specify a timebase to convert to", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "Must specify a timebase to convert to", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/DaemonCore/Ranging/Providers/Rose/PRRoseSupervisorPacketBuilder.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 516;
+    *&v13[18] = 2080;
+    *&v13[20] = "convertTime";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -4472,12 +4269,19 @@ void sub_1004A3F9C()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "Must specify a timebase to convert from", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "Must specify a timebase to convert from", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/DaemonCore/Ranging/Providers/Rose/PRRoseSupervisorPacketBuilder.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 515;
+    *&v13[18] = 2080;
+    *&v13[20] = "convertTime";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -4490,21 +4294,11 @@ void sub_1004A40B0()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004A40EC(uint64_t *a1, uint64_t *a2)
+void sub_1004A40EC()
 {
-  v2 = *a1;
-  v3 = *a2;
   sub_100013F7C();
   sub_10000907C();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-}
-
-void sub_1004A4164(unsigned __int8 *a1)
-{
-  v6 = *a1;
-  v7 = *(a1 + 1);
-  sub_10000907C();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x14u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_1004A41F8(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -4528,13 +4322,11 @@ void sub_1004A4274()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004A42B0(uint64_t *a1, uint64_t *a2)
+void sub_1004A42B0()
 {
-  v2 = *a1;
-  v3 = *a2;
   sub_100013F7C();
   sub_10000907C();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_1004A4328()
@@ -4542,17 +4334,6 @@ void sub_1004A4328()
   sub_100008D98();
   sub_100008E30();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void sub_1004A44D8(char *a1, uint64_t *a2)
-{
-  if (*a1 < 0)
-  {
-    v2 = *a2;
-  }
-
-  sub_10000907C();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 void sub_1004A45CC()
@@ -4567,17 +4348,6 @@ void sub_1004A4608()
   sub_100008D98();
   sub_100008E30();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void sub_1004A4644(char *a1, uint64_t *a2)
-{
-  if (*a1 < 0)
-  {
-    v2 = *a2;
-  }
-
-  sub_10000907C();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 void sub_1004A46C4(NSObject *a1)
@@ -4732,6 +4502,13 @@ void sub_1004A4ED0(uint64_t *a1, NSObject *a2)
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "regulatory,geof,qm,default,fUwbOnDelay, %.1f", &v3, 0xCu);
 }
 
+void sub_1004A53BC(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = *a1;
+  sub_100008DC8(&_mh_execute_header, a2, a3, "#ses-devicepresence,Failed to get object from identifier: %llx", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1004A5460(uint64_t a1, NSObject *a2)
 {
   v2 = 138412290;
@@ -4767,40 +4544,61 @@ void sub_1004A5738(uint8_t *buf, uint64_t a2, os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "#ses-container,Unable to run session due to activation failure. Activation error code: %ld", buf, 0xCu);
 }
 
-void sub_1004A5780(uint64_t a1)
+void sub_1004A5780()
 {
-  sub_1001D0B4C(a1, __stack_chk_guard);
+  sub_1001D0B4C(__stack_chk_guard);
   sub_1001D0AF0();
-  sub_1001D0B1C(&_mh_execute_header, v1, v2, "#ses-container,Failed to categorize specialized session class %@. Error: %@");
+  sub_1001D0B1C(&_mh_execute_header, v0, v1, "#ses-container,Failed to categorize specialized session class %@. Error: %@");
 }
 
-void sub_1004A57EC(uint64_t a1)
+void sub_1004A57EC()
 {
-  sub_1001D0B4C(a1, __stack_chk_guard);
+  sub_1001D0B4C(__stack_chk_guard);
   sub_1001D0AF0();
-  sub_1001D0B1C(&_mh_execute_header, v1, v2, "#ses-container,Failed to create specialized session %@. Error: %@");
+  sub_1001D0B1C(&_mh_execute_header, v0, v1, "#ses-container,Failed to create specialized session %@. Error: %@");
 }
 
-void sub_1004A5858(uint64_t a1)
+void sub_1004A5858()
 {
-  sub_1001D0B4C(a1, __stack_chk_guard);
+  sub_1001D0B4C(__stack_chk_guard);
   sub_1001D0AF0();
-  sub_1001D0B1C(&_mh_execute_header, v1, v2, "#ses-container,Failed to configure specialized session %@. Error: %@");
+  sub_1001D0B1C(&_mh_execute_header, v0, v1, "#ses-container,Failed to configure specialized session %@. Error: %@");
 }
 
-void sub_1004A58C4(uint64_t a1)
+void sub_1004A58C4()
 {
-  sub_1001D0B4C(a1, __stack_chk_guard);
+  sub_1001D0B4C(__stack_chk_guard);
   sub_1001D0AF0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_1004A5938(uint64_t a1)
+void sub_1004A5938()
 {
-  sub_1001D0B4C(a1, __stack_chk_guard);
+  sub_1001D0B4C(__stack_chk_guard);
   sub_1001D0AF0();
-  sub_1001D0B1C(&_mh_execute_header, v1, v2, "#ses-container,Failed to run specialized session %@. Error: %@");
+  sub_1001D0B1C(&_mh_execute_header, v0, v1, "#ses-container,Failed to run specialized session %@. Error: %@");
+}
+
+void sub_1004A5A10(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = -10014;
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-container,processDCKMessage failed due to session interruptions (Error: %ld). See next log line for interruptions.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004A5A84(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"processBluetoothHostTimeSyncWithType called before -runWithConfiguration:";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-container,%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004A5AFC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = -19886;
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-container,Required parameter missing. Error: %ld", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1004A5B70()
@@ -4824,23 +4622,23 @@ void sub_1004A5C70()
   sub_1001D0B58(&_mh_execute_header, "#ses-container,Configuring local device not authorized. Signing identity: %@, pid: %d.", v4, v5);
 }
 
-void sub_1004A5D1C(uint64_t a1)
-{
-  v6 = *(a1 + 236);
-  sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-}
-
 void sub_1004A5D94()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-container,UWB provider is nil when requested from NIServerSessionResourceManager", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-container,UWB provider is nil when requested from NIServerSessionResourceManager", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-container,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/Session/NIServerSessionContainer.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 2177;
+    *&v13[18] = 2080;
+    *&v13[20] = "[NIServerSessionContainer uwbResource]";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-container,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -4850,12 +4648,19 @@ void sub_1004A5E2C()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-container,WiFi provider is nil when requested from NIServerSessionResourceManager", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-container,WiFi provider is nil when requested from NIServerSessionResourceManager", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-container,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/Session/NIServerSessionContainer.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 2182;
+    *&v13[18] = 2080;
+    *&v13[20] = "[NIServerSessionContainer wifiResource]";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-container,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -4893,12 +4698,19 @@ void sub_1004A62B8()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-container,received app state unknown.", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-container,received app state unknown.", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-container,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/Session/NIServerSessionContainer.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 2844;
+    *&v13[18] = 2080;
+    *&v13[20] = "[NIServerSessionContainer monitoredApp:didChangeState:]";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-container,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -4949,11 +4761,18 @@ void sub_1004A6704(void *a1, uint64_t a2, uint8_t *buf, os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "#ses-ecosystem,Bluetooth device %@. Error: %@", buf, 0x16u);
 }
 
-void sub_1004A67D4(uint64_t *a1)
+void sub_1004A6858(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v6 = *a1;
-  sub_100008E78();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  sub_100008DC8(&_mh_execute_header, a2, a3, "#bt-accessory,BackgroundAuthorization: listener is nil [%@]", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004A68C8(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  sub_100008DC8(&_mh_execute_header, a2, a3, "#bt-accessory,BackgroundAuthorization: not tracking listener [%@]", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1004A6B40()
@@ -5056,12 +4875,11 @@ void sub_1004A71C8()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_1004A7238(uint64_t a1, uint64_t *a2)
+void sub_1004A7238()
 {
-  v2 = *a2;
   sub_100008DBC();
   sub_100008E78();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_1004A73D4(os_log_t log)
@@ -5071,79 +4889,48 @@ void sub_1004A73D4(os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "PRRosePowerManager: Invalid roseDefaultPowerVoteCount, using system default %d", v1, 8u);
 }
 
-void sub_1004A7728(uint64_t a1, uint64_t *a2)
+void sub_1004A7728()
 {
-  sub_1001EA0F8(a1, a2, __stack_chk_guard);
+  sub_1001EA0F8(__stack_chk_guard);
   sub_1001EA078();
   sub_1001EA0AC();
-  _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0x26u);
+  _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x26u);
 }
 
-void sub_1004A7798(uint64_t a1, uint64_t *a2)
+void sub_1004A7798()
 {
-  v2 = sub_1001EA0F8(a1, a2, __stack_chk_guard);
-  v3 = *(v2 + 40);
-  v4 = *(v2 + 48);
-  v5 = *(v2 + 49);
-  v6 = *(v2 + 50);
+  sub_1001EA0F8(__stack_chk_guard);
   sub_1001EA078();
   sub_1001EA0AC();
-  _os_log_debug_impl(v7, v8, OS_LOG_TYPE_DEBUG, v9, v10, 0x42u);
+  _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x42u);
 }
 
-void sub_1004A7840(uint64_t a1)
+void sub_1004A7840()
 {
-  v1 = *(a1 + 12);
-  v2 = *(a1 + 14);
-  v3 = *(a1 + 22);
-  v4 = *(a1 + 30);
-  v5 = *(a1 + 38);
-  v6 = *(a1 + 46);
-  v7 = *(a1 + 54);
-  v8 = *(a1 + 55);
   sub_1001EA078();
   sub_100008E30();
-  _os_log_debug_impl(v9, v10, v11, v12, v13, 0x46u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x46u);
 }
 
-void sub_1004A78F4(uint64_t a1)
+void sub_1004A78F4()
 {
-  v1 = *(a1 + 12);
-  v2 = *(a1 + 16);
   sub_100008DA4();
   sub_100008E30();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x14u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x14u);
 }
 
-void sub_1004A7980(uint64_t *a1, unsigned __int8 a2)
+void sub_1004A7A3C()
 {
-  if (a2 <= 3u)
-  {
-    v2 = off_10099D620[a2];
-  }
-
-  v7 = *a1;
-  sub_1001EA0AC();
-  _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 0x1Cu);
-}
-
-void sub_1004A7A3C(uint64_t *a1, unsigned __int8 *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
   sub_1001EA0B8();
   sub_1001EA0AC();
-  _os_log_error_impl(v4, v5, OS_LOG_TYPE_ERROR, v6, v7, 0x12u);
+  _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x12u);
 }
 
-void sub_1004A7AB8(uint64_t a1)
+void sub_1004A7AB8()
 {
-  v1 = *(a1 + 12);
-  v2 = *(a1 + 20);
-  v3 = *(a1 + 22);
   sub_1001EA0B8();
   sub_100008E30();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x18u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 void sub_1004A7B68(int a1, NSObject *a2)
@@ -5209,12 +4996,11 @@ void sub_1004A7E2C()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004A7E68(uint64_t a1)
+void sub_1004A7E68()
 {
-  v1 = *(a1 + 12);
   sub_100008DA4();
   sub_100008E30();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1004A7EDC()
@@ -5224,12 +5010,11 @@ void sub_1004A7EDC()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004A7F18(uint64_t a1)
+void sub_1004A7F18()
 {
-  v1 = *(a1 + 12);
   sub_100008DA4();
   sub_100008E30();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1004A7F8C()
@@ -5239,12 +5024,11 @@ void sub_1004A7F8C()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004A7FC8(uint64_t a1)
+void sub_1004A7FC8()
 {
-  v1 = *(a1 + 12);
   sub_100008DA4();
   sub_100008E30();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1004A803C()
@@ -5373,12 +5157,11 @@ void sub_1004A8780()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004A87BC(uint64_t a1)
+void sub_1004A87BC()
 {
-  v1 = *(a1 + 13);
   sub_100008DA4();
   sub_100008E30();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1004A8830()
@@ -5395,146 +5178,146 @@ void sub_1004A886C()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004A8978(uint64_t *a1)
+void sub_1004A8978()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
-  sub_1000090CC(&_mh_execute_header, v8, v9, "#roseprovider,%s", v10);
-  if (*(v1 + 23) < 0)
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
+  sub_1000090CC(&_mh_execute_header, v7, v8, "#roseprovider,%s", v9);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
-void sub_1004A89CC(void *a1, void *a2)
+void sub_1004A89CC()
 {
-  sub_1001EA0E4(a1, a2, __stack_chk_guard);
+  sub_1001EA0E4(__stack_chk_guard);
   sub_1001EA0D0();
   sub_1001EA0AC();
-  _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x16u);
 }
 
-void sub_1004A8A48(uint64_t *a1)
+void sub_1004A8A48()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
-  sub_1000090CC(&_mh_execute_header, v8, v9, "#roseprovider,Rose returned error. Command type: %s", v10);
-  if (*(v1 + 23) < 0)
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
+  sub_1000090CC(&_mh_execute_header, v7, v8, "#roseprovider,Rose returned error. Command type: %s", v9);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
-void sub_1004A8BD4(uint64_t *a1)
+void sub_1004A8BD4()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
-  sub_1000090CC(&_mh_execute_header, v8, v9, "#roseprovider,#alisha Rose returned error. Command type: %s", v10);
-  if (*(v1 + 23) < 0)
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
+  sub_1000090CC(&_mh_execute_header, v7, v8, "#roseprovider,#alisha Rose returned error. Command type: %s", v9);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
-void sub_1004A8CC4(uint64_t *a1)
+void sub_1004A8CC4()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
-  sub_1000090CC(&_mh_execute_header, v8, v9, "#roseprovider,#aop-sf Rose returned error. Command type: %s", v10);
-  if (*(v1 + 23) < 0)
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
+  sub_1000090CC(&_mh_execute_header, v7, v8, "#roseprovider,#aop-sf Rose returned error. Command type: %s", v9);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
-void sub_1004A8D18(uint64_t *a1)
+void sub_1004A8D18()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
-  sub_1000090CC(&_mh_execute_header, v8, v9, "#roseprovider,#aop-sf-report Rose returned error. Command type: %s", v10);
-  if (*(v1 + 23) < 0)
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
+  sub_1000090CC(&_mh_execute_header, v7, v8, "#roseprovider,#aop-sf-report Rose returned error. Command type: %s", v9);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
-void sub_1004A8D6C(uint64_t *a1)
+void sub_1004A8D6C()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
-  sub_1000090CC(&_mh_execute_header, v8, v9, "#roseprovider,#deep-slp Rose returned error while sending command. Command type:%s", v10);
-  if (*(v1 + 23) < 0)
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
+  sub_1000090CC(&_mh_execute_header, v7, v8, "#roseprovider,#deep-slp Rose returned error while sending command. Command type:%s", v9);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
-void sub_1004A8DC0(void *a1, void *a2)
+void sub_1004A8DC0()
 {
-  sub_1001EA0E4(a1, a2, __stack_chk_guard);
+  sub_1001EA0E4(__stack_chk_guard);
   sub_1001EA0D0();
   sub_1001EA0AC();
-  _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x16u);
 }
 
 void sub_1004A8E9C(NSObject *a1, char a2)
@@ -5620,24 +5403,24 @@ void sub_1004A9210()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004A9280(uint64_t *a1)
+void sub_1004A9280()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
-  sub_1000090CC(&_mh_execute_header, v8, v9, "#roseprovider,Rose returned error while sending command. Command type:%s", v10);
-  if (*(v1 + 23) < 0)
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
+  sub_1000090CC(&_mh_execute_header, v7, v8, "#roseprovider,Rose returned error while sending command. Command type:%s", v9);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
@@ -5646,17 +5429,6 @@ void sub_1004A92D4()
   sub_100008D98();
   sub_100008E30();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void sub_1004A9470(uint64_t *a1)
-{
-  if (*(a1 + 23) < 0)
-  {
-    v1 = *a1;
-  }
-
-  sub_100008E30();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void sub_1004A94F4()
@@ -5738,6 +5510,55 @@ void sub_1004A9A70(int a1, NSObject *a2)
   _os_log_fault_impl(&_mh_execute_header, a2, OS_LOG_TYPE_FAULT, "#ni-assertion,Couldn't release power assertion. Return code %d", v2, 8u);
 }
 
+void sub_1004A9CE4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession initWithResourcesManager:configuration:error:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004A9D5C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession lastConfiguration]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004A9DD4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession invalidate]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004A9E4C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession disableAllServices]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004A9EC4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession nominalCycleRate]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004A9F3C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession requiresUWBToRun]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004A9FB4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession _validateLockAttributes]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1004AA02C()
 {
   sub_100008D98();
@@ -5752,19 +5573,61 @@ void sub_1004AA068()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
+void sub_1004AA0A4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession configure]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004AA11C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Lock identifier nil or invalid.";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-acwg,%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004AA194(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Failed to query device capabilities.";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-acwg,%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004AA238(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession run]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1004AA318()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,run() but no ACWG manager", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,run() but no ACWG manager", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/Session/NIServerAcwgSession.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 528;
+    *&v13[18] = 2080;
+    *&v13[20] = "[NIServerAcwgSession run]";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
+}
+
+void sub_1004AA3B0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession pauseWithSource:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1004AA45C()
@@ -5774,16 +5637,30 @@ void sub_1004AA45C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
+void sub_1004AA498(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession processAcwgM1Msg:withSessionTriggerReason:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1004AA510()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,ACWG session reason stack cannot be empty on M1 error", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,ACWG session reason stack cannot be empty on M1 error", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/Session/NIServerAcwgSession.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 630;
+    *&v13[18] = 2080;
+    *&v13[20] = "[NIServerAcwgSession processAcwgM1Msg:withSessionTriggerReason:]";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -5793,57 +5670,106 @@ void sub_1004AA5A8()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,processAcwgM1Msg but no ACWG manager", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,processAcwgM1Msg but no ACWG manager", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/Session/NIServerAcwgSession.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 593;
+    *&v13[18] = 2080;
+    *&v13[20] = "[NIServerAcwgSession processAcwgM1Msg:withSessionTriggerReason:]";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
+}
+
+void sub_1004AA640(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession processAcwgM3Msg:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1004AA6B8()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,processAcwgM3Msg but no ACWG manager", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,processAcwgM3Msg but no ACWG manager", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/Session/NIServerAcwgSession.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 641;
+    *&v13[18] = 2080;
+    *&v13[20] = "[NIServerAcwgSession processAcwgM3Msg:]";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
+}
+
+void sub_1004AA750(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession suspendAcwgRanging:withSuspendTriggerReason:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1004AA7FC()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,suspendAcwgRanging but no ACWG manager", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,suspendAcwgRanging but no ACWG manager", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/Session/NIServerAcwgSession.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 680;
+    *&v13[18] = 2080;
+    *&v13[20] = "[NIServerAcwgSession suspendAcwgRanging:withSuspendTriggerReason:]";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
+}
+
+void sub_1004AA894(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession processAcwgRangingSessionResumeRequestMsg:withResumeTriggerReason:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1004AA90C()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,ACWG session reason stack cannot be empty on resume error", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,ACWG session reason stack cannot be empty on resume error", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/Session/NIServerAcwgSession.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 766;
+    *&v13[18] = 2080;
+    *&v13[20] = "[NIServerAcwgSession processAcwgRangingSessionResumeRequestMsg:withResumeTriggerReason:]";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -5853,27 +5779,48 @@ void sub_1004AA9A4()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,processAcwgRangingSessionResumeRequestMsg but no ACWG manager", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,processAcwgRangingSessionResumeRequestMsg but no ACWG manager", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/Session/NIServerAcwgSession.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 738;
+    *&v13[18] = 2080;
+    *&v13[20] = "[NIServerAcwgSession processAcwgRangingSessionResumeRequestMsg:withResumeTriggerReason:]";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
+}
+
+void sub_1004AAA3C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession prefetchAcwgUrsk:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1004AAAB4()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,prefetchAcwgUrsk but no ACWG manager", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,prefetchAcwgUrsk but no ACWG manager", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/Session/NIServerAcwgSession.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 777;
+    *&v13[18] = 2080;
+    *&v13[20] = "[NIServerAcwgSession prefetchAcwgUrsk:]";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -5883,30 +5830,65 @@ void sub_1004AAB4C()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/Session/NIServerAcwgSession.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 921;
+    *&v13[18] = 2080;
+    *&v13[20] = "[NIServerAcwgSession processBluetoothHostTimeSyncWithType:btcClockTicks:eventCounter:monotonicTimeSec:response:]";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
+}
+
+void sub_1004AABE4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Invalid Bluetooth Host Time Sync Event type. See the NIBluetoothHostTimeSyncType enum for valid options.";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-acwg,%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1004AAC5C()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,processBluetoothHostTimeSyncWithType but no ACWG manager", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,processBluetoothHostTimeSyncWithType but no ACWG manager", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/Session/NIServerAcwgSession.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 887;
+    *&v13[18] = 2080;
+    *&v13[20] = "[NIServerAcwgSession processBluetoothHostTimeSyncWithType:btcClockTicks:eventCounter:monotonicTimeSec:response:]";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
+}
+
+void sub_1004AACF4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession isRangingLimitExceeded]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004AAD6C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession deleteURSKs]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1004AADE4()
@@ -5916,9 +5898,37 @@ void sub_1004AADE4()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
+void sub_1004AAE20(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession _setDebugURSK:transactionIdentifier:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004AAE98(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Nil or invalid length URSK.";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-acwg,%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004AAF10(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession _setURSKTTL:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004AAF88(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession _buildAlishaSession:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1004AB000(uint64_t a1)
 {
-  v2 = sub_1001FF2A0(a1);
+  sub_1001FF2A0();
   if (v7 != v8)
   {
     v9 = v6;
@@ -5938,9 +5948,16 @@ void sub_1004AB000(uint64_t a1)
   }
 }
 
+void sub_1004AB06C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession _alishaSessionInvalidatedWithReason:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1004AB0E4(uint64_t a1)
 {
-  v2 = sub_1001FF2A0(a1);
+  sub_1001FF2A0();
   if (v7 != v8)
   {
     v9 = v6;
@@ -5960,6 +5977,13 @@ void sub_1004AB0E4(uint64_t a1)
   }
 }
 
+void sub_1004AB150(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession _configureForOwnerDevice]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1004AB1C8(std::__shared_weak_count **a1, std::__shared_weak_count *this)
 {
   v3 = *a1;
@@ -5972,67 +5996,144 @@ void sub_1004AB1C8(std::__shared_weak_count **a1, std::__shared_weak_count *this
   operator delete(v4);
 }
 
+void sub_1004AB200(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession _aopJobConfigWithTimeouts]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004AB278(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession _ownerDeviceServiceRequestDebugParams:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1004AB2F0()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,ACWG session suspend timestamp isn't valid", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,ACWG session suspend timestamp isn't valid", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/Session/NIServerAcwgSession.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 1293;
+    *&v13[18] = 2080;
+    *&v13[20] = "[NIServerAcwgSession _sendAnalyticsOnRangingComplete:suspendReason:]";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
+}
+
+void sub_1004AB388(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession _alishaStateChangedFromState:toNewState:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1004AB400()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,ACWG session reason stack cannot be empty here", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,ACWG session reason stack cannot be empty here", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/Session/NIServerAcwgSession.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 1346;
+    *&v13[18] = 2080;
+    *&v13[20] = "[NIServerAcwgSession _alishaStateChangedFromState:toNewState:]";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
+}
+
+void sub_1004AB498(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession _handleInitiatorRangingBlockUpdate:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1004AB510()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,ACWG session reason stack cannot be empty here", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,ACWG session reason stack cannot be empty here", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/Session/NIServerAcwgSession.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 1368;
+    *&v13[18] = 2080;
+    *&v13[20] = "[NIServerAcwgSession _handleInitiatorRangingBlockUpdate:]";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
 }
 
-void sub_1004AB710(uint64_t *a1)
+void sub_1004AB5A8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = sub_1001FF2A0(a1);
-  if (v4 != v5)
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession _handleSessionStats:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004AB620(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession _handleHealthChanged:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004AB698(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession _handleTimeoutEvent:time:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004AB710()
+{
+  sub_1001FF2A0();
+  if (v3 != v4)
   {
-    v6 = v3;
+    v5 = v2;
   }
 
   else
   {
-    v6 = v1;
+    v5 = v0;
   }
 
-  v7 = 136315138;
-  v8 = v6;
-  _os_log_fault_impl(&_mh_execute_header, v2, OS_LOG_TYPE_FAULT, "#ses-acwg,timeout event %s unsupported", &v7, 0xCu);
+  v6 = 136315138;
+  v7 = v5;
+  _os_log_fault_impl(&_mh_execute_header, v1, OS_LOG_TYPE_FAULT, "#ses-acwg,timeout event %s unsupported", &v6, 0xCu);
+}
+
+void sub_1004AB790(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession didReceiveAopSensorFusionUpdate:withBtConnHandle:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1004AB808()
@@ -6042,6 +6143,13 @@ void sub_1004AB808()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
+void sub_1004AB844(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession didReceiveAopSFZoneUpdate:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1004AB8BC()
 {
   sub_100008D98();
@@ -6049,16 +6157,30 @@ void sub_1004AB8BC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
+void sub_1004AB8F8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerAcwgSession rangingServiceDidUpdateState:cause:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-acwg,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1004ABA28()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,Not supported tx_preamble in service request", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#ses-acwg,Not supported tx_preamble in service request", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/Session/NIServerAcwgSession.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 208;
+    *&v13[18] = 2080;
+    *&v13[20] = "operator()";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#ses-acwg,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -6130,69 +6252,69 @@ void sub_1004ABF48(int *a1, NSObject *a2)
   _os_log_fault_impl(&_mh_execute_header, a2, OS_LOG_TYPE_FAULT, "#peer-gr,Unexpected RoseSolutionType: %d", v3, 8u);
 }
 
-void sub_1004ABFC4(uint64_t *a1)
+void sub_1004ABFC4()
 {
-  v2 = sub_100008F38(a1);
-  if (v7 != v8)
+  sub_100008F38();
+  if (v6 != v7)
   {
-    v9 = v6;
+    v8 = v5;
   }
 
   else
   {
-    v9 = v2;
+    v8 = v1;
   }
 
-  *v3 = 136315138;
-  *(v3 + 4) = v9;
-  sub_1000090CC(&_mh_execute_header, v3, v4, "#peer-gr,Rose session invalidated unexpectedly. Reason: %s", v5);
-  if (*(v1 + 23) < 0)
+  *v2 = 136315138;
+  *(v2 + 4) = v8;
+  sub_1000090CC(&_mh_execute_header, v2, v3, "#peer-gr,Rose session invalidated unexpectedly. Reason: %s", v4);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
-void sub_1004AC01C(uint64_t *a1)
+void sub_1004AC01C()
 {
-  v2 = sub_100008F38(a1);
-  if (v7 != v8)
+  sub_100008F38();
+  if (v6 != v7)
   {
-    v9 = v6;
+    v8 = v5;
   }
 
   else
   {
-    v9 = v2;
+    v8 = v1;
   }
 
-  *v3 = 136315138;
-  *(v3 + 4) = v9;
-  sub_1000090CC(&_mh_execute_header, v3, v4, "#peer-gr,Failed to allocate a UWB session. Error: %s", v5);
-  if (*(v1 + 23) < 0)
+  *v2 = 136315138;
+  *(v2 + 4) = v8;
+  sub_1000090CC(&_mh_execute_header, v2, v3, "#peer-gr,Failed to allocate a UWB session. Error: %s", v4);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
-void sub_1004AC150(uint64_t *a1)
+void sub_1004AC150()
 {
-  v2 = sub_100008F38(a1);
-  if (v7 != v8)
+  sub_100008F38();
+  if (v6 != v7)
   {
-    v9 = v6;
+    v8 = v5;
   }
 
   else
   {
-    v9 = v2;
+    v8 = v1;
   }
 
-  *v3 = 136315138;
-  *(v3 + 4) = v9;
-  sub_1000090CC(&_mh_execute_header, v3, v4, "#peer-gr,Failed to start ranging. Return code: %s", v5);
-  if (*(v1 + 23) < 0)
+  *v2 = 136315138;
+  *(v2 + 4) = v8;
+  sub_1000090CC(&_mh_execute_header, v2, v3, "#peer-gr,Failed to start ranging. Return code: %s", v4);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
@@ -6217,13 +6339,12 @@ void sub_1004AC2D0()
   _os_log_fault_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004AC30C(uint64_t *a1)
+void sub_1004AC30C()
 {
-  sub_100013F94(a1, __stack_chk_guard);
-  v2 = *(v1 + 40);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
   sub_100008EB0();
-  _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1004AC380()
@@ -6366,13 +6487,12 @@ void sub_1004ACAA8()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004ACB18(uint64_t *a1)
+void sub_1004ACB18()
 {
-  sub_100013F94(a1, __stack_chk_guard);
-  v2 = *(v1 + 40);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1004ACB8C()
@@ -6382,22 +6502,20 @@ void sub_1004ACB8C()
   _os_log_fault_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004ACBC8(uint64_t *a1)
+void sub_1004ACBC8()
 {
-  sub_100013F94(a1, __stack_chk_guard);
-  v2 = *(*(v1 + 8) + 40);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004ACC40(uint64_t *a1)
+void sub_1004ACC40()
 {
-  sub_100013F94(a1, __stack_chk_guard);
-  v2 = *(*(v1 + 8) + 40);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1004ACCB8()
@@ -6449,12 +6567,12 @@ void sub_1004ACEA4()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004ACEE0(uint64_t *a1)
+void sub_1004ACEE0()
 {
-  sub_100013F94(a1, __stack_chk_guard);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1004ACF50()
@@ -6464,12 +6582,12 @@ void sub_1004ACF50()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004ACF8C(uint64_t *a1)
+void sub_1004ACF8C()
 {
-  sub_100013F94(a1, __stack_chk_guard);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1004ACFFC()
@@ -6584,28 +6702,25 @@ void sub_1004AD6E0()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004AD7F8(uint64_t a1)
+void sub_1004AD7F8()
 {
-  v1 = *(a1 + 436);
   sub_100008DA4();
   sub_100008E30();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xEu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
-void sub_1004AD880(unsigned int *a1)
+void sub_1004AD880()
 {
-  v1 = *a1;
   sub_100008DA4();
   sub_100008E30();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004AD8F4(unsigned int *a1)
+void sub_1004AD8F4()
 {
-  v1 = *a1;
   sub_100008DA4();
   sub_100008E30();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1004ADA1C()
@@ -6669,28 +6784,28 @@ void sub_1004ADC98(char *a1, void *a2, NSObject *a3)
   sub_1002301E8(&_mh_execute_header, a2, a3, "regulatory,geo,monitor,clearStoredRegulatoryArea:%s", &v3);
 }
 
-void sub_1004ADD54(uint64_t *a1)
+void sub_1004ADD54()
 {
-  sub_100008FC4(a1, __stack_chk_guard);
+  sub_100008FC4(__stack_chk_guard);
   sub_100008DB0();
   sub_100008E30();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004ADDC4(uint64_t *a1)
+void sub_1004ADDC4()
 {
-  sub_100008FC4(a1, __stack_chk_guard);
+  sub_100008FC4(__stack_chk_guard);
   sub_100008DB0();
   sub_100008E30();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004ADE34(uint64_t *a1)
+void sub_1004ADE34()
 {
-  sub_100008FC4(a1, __stack_chk_guard);
+  sub_100008FC4(__stack_chk_guard);
   sub_100008DB0();
   sub_100008E30();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1004ADED8()
@@ -6700,28 +6815,18 @@ void sub_1004ADED8()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004ADF14(uint64_t a1)
+void sub_1004ADF14()
 {
-  if (*(a1 + 319) < 0)
-  {
-    v1 = *(a1 + 296);
-  }
-
   sub_100008DB0();
   sub_100008E30();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004ADF94(uint64_t a1)
+void sub_1004ADF94()
 {
-  if (*(a1 + 319) < 0)
-  {
-    v1 = *(a1 + 296);
-  }
-
   sub_100008DB0();
   sub_100008E30();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1004AE014()
@@ -6731,61 +6836,61 @@ void sub_1004AE014()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004AE050(uint64_t *a1)
+void sub_1004AE050()
 {
-  sub_100008FC4(a1, __stack_chk_guard);
+  sub_100008FC4(__stack_chk_guard);
   sub_100008DB0();
   sub_100008E30();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004AE0C0(uint64_t *a1)
+void sub_1004AE0C0()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
-  sub_1002301E8(&_mh_execute_header, v8, v9, "regulatory,geo,monitor,forwardTestMcc,mccSource:%s.", v10);
-  if (*(v1 + 23) < 0)
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
+  sub_1002301E8(&_mh_execute_header, v7, v8, "regulatory,geo,monitor,forwardTestMcc,mccSource:%s.", v9);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
-void sub_1004AE114(uint64_t *a1)
+void sub_1004AE114()
 {
-  sub_100008FC4(a1, __stack_chk_guard);
+  sub_100008FC4(__stack_chk_guard);
   sub_100008DB0();
   sub_100008E30();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004AE184(uint64_t *a1)
+void sub_1004AE184()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
-  sub_1002301E8(&_mh_execute_header, v8, v9, "regulatory,geo,monitor,processIsoCountryFromPhone,isoCountrySource:%s.", v10);
-  if (*(v1 + 23) < 0)
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
+  sub_1002301E8(&_mh_execute_header, v7, v8, "regulatory,geo,monitor,processIsoCountryFromPhone,isoCountrySource:%s.", v9);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
@@ -6836,30 +6941,20 @@ void sub_1004AE3D0(uint64_t a1, void *a2, NSObject *a3)
   sub_1002301E8(&_mh_execute_header, a2, a3, "regulatory,geo,monitor,setStoredRegulatoryArea:%s", &v3);
 }
 
-void sub_1004AE44C(uint64_t a1, uint64_t *a2)
+void sub_1004AE44C()
 {
-  if (*(a1 + 463) < 0 && *(a1 + 448))
-  {
-    v2 = *(a1 + 440);
-  }
-
-  if (*(a2 + 23) < 0)
-  {
-    v3 = *a2;
-  }
-
   sub_100008DB0();
-  v7 = 2080;
-  v8 = v4;
-  _os_log_debug_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "geo,mon fCurrentWifiIso current:%s new:%s", v6, 0x16u);
+  v3 = 2080;
+  v4 = v0;
+  _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "geo,mon fCurrentWifiIso current:%s new:%s", v2, 0x16u);
 }
 
 void sub_1004AE5A0()
 {
-  if (__cxa_guard_acquire(&qword_1009F1D98))
+  if (__cxa_guard_acquire(byte_1009F1D98))
   {
     dword_1009F1D90 = 1966090;
-    __cxa_guard_release(&qword_1009F1D98);
+    __cxa_guard_release(byte_1009F1D98);
   }
 }
 
@@ -6878,13 +6973,12 @@ void sub_1004AE838()
   _os_log_fault_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004AE914(uint64_t a1, uint64_t a2)
+void sub_1004AE914()
 {
-  v2 = *(a2 + 88);
   sub_100008DBC();
-  v6 = 2112;
-  v7 = v3;
-  _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "#ses-home,Failed to add peers %@. Session identifier: %@", v5, 0x16u);
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "#ses-home,Failed to add peers %@. Session identifier: %@", v2, 0x16u);
 }
 
 void sub_1004AE9A4()
@@ -6915,12 +7009,12 @@ void sub_1004AEAC0()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004AEAFC(uint64_t *a1)
+void sub_1004AEAFC()
 {
-  sub_100013F94(a1, __stack_chk_guard);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1004AEB6C()
@@ -6965,13 +7059,6 @@ void sub_1004AED74()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004AEDB0(int *a1)
-{
-  v6 = *a1;
-  sub_100008EB0();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 8u);
-}
-
 void sub_1004AEE28()
 {
   sub_100008D98();
@@ -6986,12 +7073,12 @@ void sub_1004AEE64()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004AEED4(uint64_t *a1)
+void sub_1004AEED4()
 {
-  sub_100013F94(a1, __stack_chk_guard);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1004AEF44()
@@ -7102,25 +7189,25 @@ void sub_1004AF488()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004AF4F0(uint64_t *a1)
+void sub_1004AF4F0()
 {
-  v2 = sub_100008F38(a1);
-  if (v7 != v8)
+  sub_100008F38();
+  if (v6 != v7)
   {
-    v9 = v6;
+    v8 = v5;
   }
 
   else
   {
-    v9 = v2;
+    v8 = v1;
   }
 
-  *v3 = 136315138;
-  *(v3 + 4) = v9;
-  sub_1000090CC(&_mh_execute_header, v3, v4, "#ses-home,Failed to allocate a UWB session. Error: %s", v5);
-  if (*(v1 + 23) < 0)
+  *v2 = 136315138;
+  *(v2 + 4) = v8;
+  sub_1000090CC(&_mh_execute_header, v2, v3, "#ses-home,Failed to allocate a UWB session. Error: %s", v4);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
@@ -7131,25 +7218,25 @@ void sub_1004AF548()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004AF634(uint64_t *a1)
+void sub_1004AF634()
 {
-  v2 = sub_100008F38(a1);
-  if (v7 != v8)
+  sub_100008F38();
+  if (v6 != v7)
   {
-    v9 = v6;
+    v8 = v5;
   }
 
   else
   {
-    v9 = v2;
+    v8 = v1;
   }
 
-  *v3 = 136315138;
-  *(v3 + 4) = v9;
-  sub_1000090CC(&_mh_execute_header, v3, v4, "#ses-home,Rose session invalidated unexpectedly. Reason: %s", v5);
-  if (*(v1 + 23) < 0)
+  *v2 = 136315138;
+  *(v2 + 4) = v8;
+  sub_1000090CC(&_mh_execute_header, v2, v3, "#ses-home,Rose session invalidated unexpectedly. Reason: %s", v4);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
@@ -7216,12 +7303,12 @@ void sub_1004AF950()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004AF98C(uint64_t *a1)
+void sub_1004AF98C()
 {
-  sub_100013F94(a1, __stack_chk_guard);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1004AF9FC()
@@ -7252,23 +7339,12 @@ void sub_1004AFB18()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004AFB88(uint64_t *a1)
+void sub_1004AFB88()
 {
-  sub_100013F94(a1, __stack_chk_guard);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_1004AFBF8(char *a1, uint64_t *a2)
-{
-  if (*a1 < 0)
-  {
-    v2 = *a2;
-  }
-
-  sub_100008DB0();
-  sub_1000090CC(&_mh_execute_header, v3, v4, "#ses-home,WiFi ranging error:%{private}s", v5);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1004AFCF0(void *a1, uint64_t a2, uint8_t *buf, os_log_t log)
@@ -7464,128 +7540,128 @@ void sub_1004B08F8()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004B09F4(uint64_t a1)
+void sub_1004B09F4()
 {
-  sub_100250F8C(a1, __stack_chk_guard);
+  sub_100250F8C(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004B0A64(uint64_t a1)
+void sub_1004B0A64()
 {
-  sub_100250F8C(a1, __stack_chk_guard);
+  sub_100250F8C(__stack_chk_guard);
   sub_1000090E8();
-  sub_10018B4C8(&_mh_execute_header, v1, v2, "#crypto,[%{private}@][Encryptor] set data size failed %d");
+  sub_10018B4C8(&_mh_execute_header, v0, v1, "#crypto,[%{private}@][Encryptor] set data size failed %d");
 }
 
-void sub_1004B0ACC(uint64_t a1)
+void sub_1004B0ACC()
 {
-  sub_100250F8C(a1, __stack_chk_guard);
+  sub_100250F8C(__stack_chk_guard);
   sub_1000090E8();
-  sub_10018B4C8(&_mh_execute_header, v1, v2, "#crypto,[%{private}@][Encryptor] set MAC size failed %d");
+  sub_10018B4C8(&_mh_execute_header, v0, v1, "#crypto,[%{private}@][Encryptor] set MAC size failed %d");
 }
 
-void sub_1004B0B34(uint64_t a1)
+void sub_1004B0B34()
 {
-  sub_100250F8C(a1, __stack_chk_guard);
+  sub_100250F8C(__stack_chk_guard);
   sub_1000090E8();
-  sub_10018B4C8(&_mh_execute_header, v1, v2, "#crypto,[%{private}@][Encryptor] add nonce failed %d");
+  sub_10018B4C8(&_mh_execute_header, v0, v1, "#crypto,[%{private}@][Encryptor] add nonce failed %d");
 }
 
-void sub_1004B0B9C(uint64_t a1)
+void sub_1004B0B9C()
 {
-  sub_100250F8C(a1, __stack_chk_guard);
+  sub_100250F8C(__stack_chk_guard);
   sub_1000090E8();
-  sub_10018B4C8(&_mh_execute_header, v1, v2, "#crypto,[%{private}@][Encryptor] add auth data failed %d");
+  sub_10018B4C8(&_mh_execute_header, v0, v1, "#crypto,[%{private}@][Encryptor] add auth data failed %d");
 }
 
-void sub_1004B0C04(uint64_t a1)
+void sub_1004B0C04()
 {
-  sub_100250F8C(a1, __stack_chk_guard);
+  sub_100250F8C(__stack_chk_guard);
   sub_1000090E8();
-  sub_10018B4C8(&_mh_execute_header, v1, v2, "#crypto,[%{private}@][Encryptor] cryptor-update failed %d");
+  sub_10018B4C8(&_mh_execute_header, v0, v1, "#crypto,[%{private}@][Encryptor] cryptor-update failed %d");
 }
 
-void sub_1004B0C6C(uint64_t a1)
+void sub_1004B0C6C()
 {
-  sub_100250F8C(a1, __stack_chk_guard);
+  sub_100250F8C(__stack_chk_guard);
   sub_1000090E8();
-  sub_10018B4C8(&_mh_execute_header, v1, v2, "#crypto,[%{private}@][Encryptor] get auth tag failed %d");
+  sub_10018B4C8(&_mh_execute_header, v0, v1, "#crypto,[%{private}@][Encryptor] get auth tag failed %d");
 }
 
-void sub_1004B0CD4(uint64_t a1)
+void sub_1004B0CD4()
 {
-  sub_100250F8C(a1, __stack_chk_guard);
+  sub_100250F8C(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004B0D44(uint64_t a1)
+void sub_1004B0D44()
 {
-  sub_100250F8C(a1, __stack_chk_guard);
+  sub_100250F8C(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004B0DB4(uint64_t a1)
+void sub_1004B0DB4()
 {
-  sub_100250F8C(a1, __stack_chk_guard);
+  sub_100250F8C(__stack_chk_guard);
   sub_1000090E8();
-  sub_10018B4C8(&_mh_execute_header, v1, v2, "#crypto,[%{private}@][Decryptor] set data size failed %d");
+  sub_10018B4C8(&_mh_execute_header, v0, v1, "#crypto,[%{private}@][Decryptor] set data size failed %d");
 }
 
-void sub_1004B0E1C(uint64_t a1)
+void sub_1004B0E1C()
 {
-  sub_100250F8C(a1, __stack_chk_guard);
+  sub_100250F8C(__stack_chk_guard);
   sub_1000090E8();
-  sub_10018B4C8(&_mh_execute_header, v1, v2, "#crypto,[%{private}@][Decryptor] set MAC size failed %d");
+  sub_10018B4C8(&_mh_execute_header, v0, v1, "#crypto,[%{private}@][Decryptor] set MAC size failed %d");
 }
 
-void sub_1004B0E84(uint64_t a1)
+void sub_1004B0E84()
 {
-  sub_100250F8C(a1, __stack_chk_guard);
+  sub_100250F8C(__stack_chk_guard);
   sub_1000090E8();
-  sub_10018B4C8(&_mh_execute_header, v1, v2, "#crypto,[%{private}@][Decryptor] add nonce failed %d");
+  sub_10018B4C8(&_mh_execute_header, v0, v1, "#crypto,[%{private}@][Decryptor] add nonce failed %d");
 }
 
-void sub_1004B0EEC(uint64_t a1)
+void sub_1004B0EEC()
 {
-  sub_100250F8C(a1, __stack_chk_guard);
+  sub_100250F8C(__stack_chk_guard);
   sub_1000090E8();
-  sub_10018B4C8(&_mh_execute_header, v1, v2, "#crypto,[%{private}@][Decryptor] add auth data failed %d");
+  sub_10018B4C8(&_mh_execute_header, v0, v1, "#crypto,[%{private}@][Decryptor] add auth data failed %d");
 }
 
-void sub_1004B0F54(uint64_t a1)
+void sub_1004B0F54()
 {
-  sub_100250F8C(a1, __stack_chk_guard);
+  sub_100250F8C(__stack_chk_guard);
   sub_1000090E8();
-  sub_10018B4C8(&_mh_execute_header, v1, v2, "#crypto,[%{private}@][Decryptor] cryptor-update failed %d");
+  sub_10018B4C8(&_mh_execute_header, v0, v1, "#crypto,[%{private}@][Decryptor] cryptor-update failed %d");
 }
 
-void sub_1004B0FBC(uint64_t a1)
+void sub_1004B0FBC()
 {
-  sub_100250F8C(a1, __stack_chk_guard);
+  sub_100250F8C(__stack_chk_guard);
   sub_1000090E8();
-  sub_10018B4C8(&_mh_execute_header, v1, v2, "#crypto,[%{private}@][Decryptor] get auth tag failed %d");
+  sub_10018B4C8(&_mh_execute_header, v0, v1, "#crypto,[%{private}@][Decryptor] get auth tag failed %d");
 }
 
-void sub_1004B1024(uint64_t a1)
+void sub_1004B1024()
 {
-  sub_100250F8C(a1, __stack_chk_guard);
+  sub_100250F8C(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004B1094(uint64_t a1)
+void sub_1004B1094()
 {
-  sub_100250F8C(a1, __stack_chk_guard);
+  sub_100250F8C(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1004B1104(uint64_t a1, int a2, uint64_t a3)
@@ -7609,19 +7685,19 @@ void sub_1004B118C(uint64_t a1, int a2, uint64_t a3)
   sub_100250F98(&_mh_execute_header, "#crypto,[%{private}@][Decryptor] ciphertext too small (%d < %d)", v4, v5);
 }
 
-void sub_1004B11D0(uint64_t a1)
+void sub_1004B11D0()
 {
-  sub_100250F8C(a1, __stack_chk_guard);
+  sub_100250F8C(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004B1240(uint64_t a1)
+void sub_1004B1240()
 {
-  sub_100250F8C(a1, __stack_chk_guard);
+  sub_100250F8C(__stack_chk_guard);
   sub_1000090E8();
-  sub_10018B4C8(&_mh_execute_header, v1, v2, "#crypto,[%{private}@][KDF] derive key failed %d");
+  sub_10018B4C8(&_mh_execute_header, v0, v1, "#crypto,[%{private}@][KDF] derive key failed %d");
 }
 
 void sub_1004B12E8()
@@ -7652,26 +7728,19 @@ void sub_1004B16B4(uint64_t a1, NSObject *a2)
   _os_log_fault_impl(&_mh_execute_header, a2, OS_LOG_TYPE_FAULT, "#vision,Session failed with error: %@", &v2, 0xCu);
 }
 
-void sub_1004B1794(uint64_t *a1)
+void sub_1004B1794()
 {
-  if (*(a1 + 23) < 0)
-  {
-    v1 = *a1;
-  }
-
-  v2 = *(a1 + 29);
-  v3 = *(a1 + 28);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x18u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
-void sub_1004B1864(void *a1, void *a2)
+void sub_1004B1864()
 {
-  sub_1001EA0E4(a1, a2, __stack_chk_guard);
+  sub_1001EA0E4(__stack_chk_guard);
   sub_100008DB0();
   sub_10003A96C();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_1004B191C(unsigned int *a1)
@@ -7719,12 +7788,11 @@ void sub_1004B1E98(_BYTE *a1, _BYTE *a2)
   _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
-void sub_1004B1ECC(unsigned __int8 *a1)
+void sub_1004B1ECC()
 {
-  v1 = *a1;
   sub_100008DA4();
   sub_100008EB0();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1004B1F40(_BYTE *a1, _BYTE *a2)
@@ -7755,47 +7823,46 @@ void sub_1004B222C()
   _os_log_fault_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004B235C(uint64_t *a1)
+void sub_1004B235C()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  *v3 = 136315138;
-  *(v3 + 4) = v7;
+  *v2 = 136315138;
+  *(v2 + 4) = v6;
   sub_10003A96C();
-  _os_log_error_impl(v8, v9, v10, v11, v12, 0xCu);
-  if (*(v1 + 23) < 0)
+  _os_log_error_impl(v7, v8, v9, v10, v11, 0xCu);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
-void sub_1004B2458(char a1, unsigned __int8 *a2)
+void sub_1004B2458(char a1)
 {
   if (a1)
   {
-    v2 = *a2;
     sub_100008DA4();
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "PRRose::_handleRoseControlReport unknown type %hhu", v4, 8u);
+    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "PRRose::_handleRoseControlReport unknown type %hhu", v2, 8u);
   }
 
   __assert_rtn("_handleRoseControlReport", "PRRose.mm", 804, "false");
 }
 
-void sub_1004B25F0(void *a1, void *a2)
+void sub_1004B25F0()
 {
-  sub_1001EA0E4(a1, a2, __stack_chk_guard);
+  sub_1001EA0E4(__stack_chk_guard);
   sub_100008DB0();
   sub_10003A96C();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1004B26CC(uint64_t a1, uint64_t a2)
@@ -7806,159 +7873,142 @@ void sub_1004B26CC(uint64_t a1, uint64_t a2)
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-void sub_1004B2860(uint64_t *a1)
+void sub_1004B2860()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  *v3 = 136315138;
-  *(v3 + 4) = v7;
+  *v2 = 136315138;
+  *(v2 + 4) = v6;
   sub_10003A96C();
-  _os_log_error_impl(v8, v9, v10, v11, v12, 0xCu);
-  if (*(v1 + 23) < 0)
+  _os_log_error_impl(v7, v8, v9, v10, v11, 0xCu);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
-void sub_1004B2928(uint64_t *a1)
+void sub_1004B2928()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  *v3 = 136315138;
-  *(v3 + 4) = v7;
+  *v2 = 136315138;
+  *(v2 + 4) = v6;
   sub_10003A96C();
-  _os_log_error_impl(v8, v9, v10, v11, v12, 0xCu);
-  if (*(v1 + 23) < 0)
+  _os_log_error_impl(v7, v8, v9, v10, v11, 0xCu);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
-void sub_1004B2B70(uint64_t a1)
+void sub_1004B2B70()
 {
-  v1 = *(a1 + 1517);
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004B2BE4(uint64_t a1)
+void sub_1004B2BE4()
 {
-  v1 = *(a1 + 1518);
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004B2C58(uint64_t a1)
+void sub_1004B2C58()
 {
-  v1 = *(a1 + 1519);
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004B2CCC(uint64_t a1)
+void sub_1004B2CCC()
 {
-  v1 = *(a1 + 1520);
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004B2D40(uint64_t a1)
+void sub_1004B2D40()
 {
-  v1 = *(a1 + 1521);
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004B2DB4(uint64_t a1)
+void sub_1004B2DB4()
 {
-  v1 = *(a1 + 1522);
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004B2E28(uint64_t a1)
+void sub_1004B2E28()
 {
-  v1 = *(a1 + 1523);
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004B2E9C(uint64_t a1)
+void sub_1004B2E9C()
 {
-  v1 = *(a1 + 1524);
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004B2F10(uint64_t a1)
+void sub_1004B2F10()
 {
-  v1 = *(a1 + 1525);
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004B2F84(uint64_t a1)
+void sub_1004B2F84()
 {
-  v1 = *(a1 + 1526);
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004B2FF8(uint64_t a1)
+void sub_1004B2FF8()
 {
-  v1 = *(a1 + 1527);
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004B306C(uint64_t a1)
+void sub_1004B306C()
 {
-  v1 = *(a1 + 1528);
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004B3384(unsigned int a1)
+void sub_1004B3384()
 {
-  if (a1 <= 2)
-  {
-    v1 = off_1009A10D8[a1];
-  }
-
   sub_100008DB0();
-  v5 = 2080;
-  v6 = v2;
-  _os_log_fault_impl(&_mh_execute_header, v3, OS_LOG_TYPE_FAULT, "PRRose: Handling unrecoverable error %s. Current boot already crashed on %s, so don't crash again", v4, 0x16u);
+  v3 = 2080;
+  v4 = v0;
+  _os_log_fault_impl(&_mh_execute_header, v1, OS_LOG_TYPE_FAULT, "PRRose: Handling unrecoverable error %s. Current boot already crashed on %s, so don't crash again", v2, 0x16u);
 }
 
 void sub_1004B3448()
@@ -7999,12 +8049,12 @@ void sub_1004B36F4(unsigned int *a1)
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
-void sub_1004B37A4(void *a1, void *a2)
+void sub_1004B37A4()
 {
-  sub_1001EA0E4(a1, a2, __stack_chk_guard);
+  sub_1001EA0E4(__stack_chk_guard);
   sub_100008DB0();
   sub_10003A96C();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1004B3880(unsigned int *a1)
@@ -8023,16 +8073,11 @@ void sub_1004B3964(unsigned int *a1)
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
-void sub_1004B3B4C(int a1)
+void sub_1004B3B4C()
 {
-  if ((a1 - 2) <= 2)
-  {
-    v1 = off_1009A1160[a1 - 2];
-  }
-
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1004B3CE4()
@@ -8097,7 +8142,7 @@ void sub_1004B4604()
   sub_10026BF30();
   sub_100013FA0(v0);
   sub_100009100();
-  sub_100009118(&_mh_execute_header, v1, v2, "PRRose unexpected event while in state: %s, event: %s", v3, v4, v5, v6, v7);
+  sub_100009118(&_mh_execute_header, v1, v2, "PRRose unexpected event while in state: %s, event: %s", v3, v4, v5, v6);
 }
 
 void sub_1004B4680()
@@ -8216,28 +8261,28 @@ void sub_1004B5650()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004B56C4(unsigned __int16 *a1)
+void sub_1004B56C4()
 {
-  sub_1000252C0(a1);
+  sub_1000252C0();
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004B5734(unsigned __int16 *a1)
+void sub_1004B5734()
 {
-  sub_1000252C0(a1);
+  sub_1000252C0();
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004B57A4(unsigned __int16 *a1)
+void sub_1004B57A4()
 {
-  sub_1000252C0(a1);
+  sub_1000252C0();
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1004B5814()
@@ -8261,13 +8306,6 @@ void sub_1004B588C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004B5974(unsigned int *a1)
-{
-  v1 = *a1;
-  sub_100008DA4();
-  _os_log_fault_impl(&_mh_execute_header, v2, OS_LOG_TYPE_FAULT, "#ses-loc,Unexpected RoseSolutionType: %d", v3, 8u);
-}
-
 void sub_1004B59EC()
 {
   sub_100008D98();
@@ -8282,12 +8320,12 @@ void sub_1004B5A28()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004B5A64(unsigned __int16 *a1)
+void sub_1004B5A64()
 {
-  sub_1000252C0(a1);
+  sub_1000252C0();
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1004B5AD4()
@@ -8297,25 +8335,25 @@ void sub_1004B5AD4()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004B5B48(uint64_t *a1)
+void sub_1004B5B48()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
   sub_10003A96C();
-  _os_log_error_impl(v8, v9, v10, v11, v12, 0xCu);
-  if (*(v1 + 23) < 0)
+  _os_log_error_impl(v7, v8, v9, v10, v11, 0xCu);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
@@ -8326,47 +8364,47 @@ void sub_1004B5BA4()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004B5BE0(uint64_t *a1)
+void sub_1004B5BE0()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
   sub_10003A96C();
-  _os_log_error_impl(v8, v9, v10, v11, v12, 0xCu);
-  if (*(v1 + 23) < 0)
+  _os_log_error_impl(v7, v8, v9, v10, v11, 0xCu);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
-void sub_1004B5D3C(uint64_t *a1)
+void sub_1004B5D3C()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
   sub_10003A96C();
-  _os_log_error_impl(v8, v9, v10, v11, v12, 0xCu);
-  if (*(v1 + 23) < 0)
+  _os_log_error_impl(v7, v8, v9, v10, v11, 0xCu);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
@@ -8392,42 +8430,41 @@ void sub_1004B5E10(_BYTE *a1, _BYTE *a2)
   _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
-void sub_1004B5F60(unsigned __int8 *a1)
+void sub_1004B5F60()
 {
-  v1 = *a1;
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004B5FD4(uint64_t *a1)
+void sub_1004B5FD4()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
   sub_10003A96C();
-  _os_log_error_impl(v8, v9, v10, v11, v12, 0xCu);
-  if (*(v1 + 23) < 0)
+  _os_log_error_impl(v7, v8, v9, v10, v11, 0xCu);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
-void sub_1004B605C(unsigned __int16 *a1)
+void sub_1004B605C()
 {
-  sub_1000252C0(a1);
+  sub_1000252C0();
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1004B60CC()
@@ -8458,150 +8495,138 @@ void sub_1004B61B8()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004B621C(int *a1)
+void sub_1004B62A0()
 {
-  v6 = *a1;
-  sub_100008E78();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xEu);
-}
-
-void sub_1004B62A0(uint64_t *a1)
-{
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  *v3 = 136315138;
-  *(v3 + 4) = v7;
+  *v2 = 136315138;
+  *(v2 + 4) = v6;
   sub_10003A96C();
-  _os_log_error_impl(v8, v9, v10, v11, v12, 0xCu);
-  if (*(v1 + 23) < 0)
-  {
-    operator delete(*v1);
-  }
-}
-
-void sub_1004B6404(uint64_t a1)
-{
-  sub_100297960(a1, __stack_chk_guard);
-  sub_100008DB0();
-  sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_1004B6474(uint64_t a1, uint64_t a2)
-{
-  sub_1002979E8(a1, a2);
-  sub_1002979D0(v3, 5.8081e-34, v4, v5);
-  sub_1002979A4(&_mh_execute_header, "#find-range,#crypto Failed to encrypt (self ID %{private}@), id: %@", v6, v7);
-}
-
-void sub_1004B65BC(uint64_t a1)
-{
-  sub_100297960(a1, __stack_chk_guard);
-  sub_100008DB0();
-  sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_1004B662C(uint64_t a1)
-{
-  sub_100297960(a1, __stack_chk_guard);
-  sub_100008DB0();
-  sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_1004B669C(uint64_t a1)
-{
-  sub_100297960(a1, __stack_chk_guard);
-  sub_100008DB0();
-  sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_1004B670C(uint64_t a1)
-{
-  sub_100297960(a1, __stack_chk_guard);
-  sub_100008DB0();
-  sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_1004B677C(uint64_t a1, uint64_t a2)
-{
-  sub_1002979E8(a1, a2);
-  sub_1002979D0(v3, 5.8081e-34, v4, v5);
-  sub_1002979A4(&_mh_execute_header, "#find-range,#crypto Failed to decrypt (peer ID %{private}@). %@", v6, v7);
-}
-
-void sub_1004B67C0(_DWORD *a1, _DWORD *a2)
-{
-  sub_10029796C(a1, a2);
-  sub_100008DA4();
-  sub_100008E78();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
-}
-
-void sub_1004B6830(_DWORD *a1, _DWORD *a2)
-{
-  sub_10029796C(a1, a2);
-  sub_100008DA4();
-  sub_100008E78();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
-}
-
-void sub_1004B68A0(uint64_t a1)
-{
-  sub_100297960(a1, __stack_chk_guard);
-  sub_100008DB0();
-  sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_1004B6910(uint64_t a1)
-{
-  v1 = sub_100297960(a1, __stack_chk_guard);
-  *(v1 + 1008);
-  *(v1 + 1816);
-  sub_100008D70();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-}
-
-void sub_1004B69C0(uint64_t a1)
-{
-  v1 = sub_100297960(a1, __stack_chk_guard);
-  *v2;
-  *(v1 + 1816);
-  sub_100008E78();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-}
-
-void sub_1004B6A70()
-{
-  sub_1002979C0();
-  v2 = *(v1 + 23);
-  sub_100297980(v3, v1, v4, 5.778e-34);
-  sub_1002979A4(&_mh_execute_header, "#find-range,Failed to initialize a NBAMMS session for %@. Error: %s", v5, v6);
+  _os_log_error_impl(v7, v8, v9, v10, v11, 0xCu);
   if (*(v0 + 23) < 0)
   {
     operator delete(*v0);
   }
 }
 
-void sub_1004B6B60(uint64_t a1)
+void sub_1004B6404()
 {
-  sub_100297960(a1, __stack_chk_guard);
+  sub_100297960(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+void sub_1004B6474()
+{
+  sub_1002979E8();
+  sub_1002979D0(v1, 5.8081e-34, v2, v3);
+  sub_1002979A4(&_mh_execute_header, "#find-range,#crypto Failed to encrypt (self ID %{private}@), id: %@", v4, v5);
+}
+
+void sub_1004B65BC()
+{
+  sub_100297960(__stack_chk_guard);
+  sub_100008DB0();
+  sub_100008D70();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+void sub_1004B662C()
+{
+  sub_100297960(__stack_chk_guard);
+  sub_100008DB0();
+  sub_100008D70();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+void sub_1004B669C()
+{
+  sub_100297960(__stack_chk_guard);
+  sub_100008DB0();
+  sub_100008D70();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+void sub_1004B670C()
+{
+  sub_100297960(__stack_chk_guard);
+  sub_100008DB0();
+  sub_100008D70();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+void sub_1004B677C()
+{
+  sub_1002979E8();
+  sub_1002979D0(v1, 5.8081e-34, v2, v3);
+  sub_1002979A4(&_mh_execute_header, "#find-range,#crypto Failed to decrypt (peer ID %{private}@). %@", v4, v5);
+}
+
+void sub_1004B67C0()
+{
+  sub_10029796C();
+  sub_100008DA4();
+  sub_100008E78();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+void sub_1004B6830()
+{
+  sub_10029796C();
+  sub_100008DA4();
+  sub_100008E78();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+void sub_1004B68A0()
+{
+  sub_100297960(__stack_chk_guard);
+  sub_100008DB0();
+  sub_100008D70();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+void sub_1004B6910()
+{
+  sub_100297960(__stack_chk_guard);
+  sub_100008D70();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
+}
+
+void sub_1004B69C0()
+{
+  sub_100297960(__stack_chk_guard);
+  sub_100008E78();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
+}
+
+void sub_1004B6A70()
+{
+  sub_1002979C0();
+  sub_100297980(v1, v2, v3, 5.778e-34);
+  sub_1002979A4(&_mh_execute_header, "#find-range,Failed to initialize a NBAMMS session for %@. Error: %s", v4, v5);
+  if (*(v0 + 23) < 0)
+  {
+    operator delete(*v0);
+  }
+}
+
+void sub_1004B6B60()
+{
+  sub_100297960(__stack_chk_guard);
+  sub_100008DB0();
+  sub_100008D70();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1004B6CB4(uint64_t a1, uint8_t *buf, os_log_t log)
@@ -8611,12 +8636,12 @@ void sub_1004B6CB4(uint64_t a1, uint8_t *buf, os_log_t log)
   _os_log_fault_impl(&_mh_execute_header, log, OS_LOG_TYPE_FAULT, "#find-range,#auth Message could not be parsed for peer %s state", buf, 0xCu);
 }
 
-void sub_1004B6CFC(_DWORD *a1, _DWORD *a2)
+void sub_1004B6CFC()
 {
-  sub_10029796C(a1, a2);
+  sub_10029796C();
   sub_100008DA4();
   sub_100008E78();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1004B6D6C()
@@ -8629,20 +8654,18 @@ void sub_1004B6D6C()
   sub_1002979A4(&_mh_execute_header, "#find-range,#auth IGNORED peer [%s] mutual auth:      %@", v4, v5);
 }
 
-void sub_1004B6E28(unsigned int *a1)
+void sub_1004B6E28()
 {
-  v1 = *a1;
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1004B71B4()
 {
   sub_1002979C0();
-  v2 = *(v1 + 23);
-  sub_100297980(v3, v1, v4, 4.8151e-34);
-  sub_1002979A4(&_mh_execute_header, "#find-range,[%s] Rose session invalidated unexpectedly. Reason: %s", v5, v6);
+  sub_100297980(v1, v2, v3, 4.8151e-34);
+  sub_1002979A4(&_mh_execute_header, "#find-range,[%s] Rose session invalidated unexpectedly. Reason: %s", v4, v5);
   if (*(v0 + 23) < 0)
   {
     operator delete(*v0);
@@ -8749,11 +8772,11 @@ void sub_1004B7958()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004B7994(uint64_t *a1)
+void sub_1004B7994()
 {
-  sub_100013F94(a1, __stack_chk_guard);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
-  _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "#ses-nrby-peer,Solution mac_addr = %llu", v2, 0xCu);
+  _os_log_debug_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEBUG, "#ses-nrby-peer,Solution mac_addr = %llu", v1, 0xCu);
 }
 
 void sub_1004B7A08()
@@ -8763,12 +8786,12 @@ void sub_1004B7A08()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004B7A78(uint64_t *a1)
+void sub_1004B7A78()
 {
-  sub_100013F94(a1, __stack_chk_guard);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1004B7AE8(_DWORD *a1, _DWORD *a2, os_log_t log)
@@ -8830,12 +8853,12 @@ void sub_1004B7DEC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004B7E5C(uint64_t *a1)
+void sub_1004B7E5C()
 {
-  sub_100013F94(a1, __stack_chk_guard);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1004B7F00()
@@ -8845,12 +8868,12 @@ void sub_1004B7F00()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004B7F70(uint64_t *a1)
+void sub_1004B7F70()
 {
-  sub_100013F94(a1, __stack_chk_guard);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1004B8048()
@@ -8918,7 +8941,7 @@ void sub_1004B8408()
 
 void sub_1004B84BC()
 {
-  if (__cxa_guard_acquire(&qword_1009F3BB8))
+  if (__cxa_guard_acquire(byte_1009F3BB8))
   {
     qword_1009F3BC0 = 850045863;
     xmmword_1009F3BC8 = 0u;
@@ -8932,7 +8955,7 @@ void sub_1004B84BC()
     qword_1009F3C38 = 0;
     __cxa_atexit(sub_1002BD554, &qword_1009F3BC0, &_mh_execute_header);
 
-    __cxa_guard_release(&qword_1009F3BB8);
+    __cxa_guard_release(byte_1009F3BB8);
   }
 }
 
@@ -8950,6 +8973,62 @@ void sub_1004B8644()
   sub_100008D98();
   sub_100008D70();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+void sub_1004B8680(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Failed to query device capabilities.";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-carkey,%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004B86F8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Vehicle identifier nil or invalid.";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-carkey,%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004B8804(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Received nil or empty DCK message.";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-carkey,%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004B887C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"State error: No alisha manager when processing DCK message.";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-carkey,%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004B88F4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Invalid Bluetooth Host Time Sync Event type. See the NIBluetoothHostTimeSyncType enum for valid options.";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-carkey,%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004B896C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"State error: No alisha manager when processing Bluetooth Host Time Sync Event.";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-carkey,%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004B89E4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"State error: No alisha manager when deleting URSKs.";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-carkey,%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004B8A5C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Nil or invalid length URSK.";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-carkey,%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1004B8AD4(void *a1, uint8_t *buf, os_log_t log)
@@ -8996,48 +9075,132 @@ void sub_1004B8C64()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004B8CA0(uint64_t *a1)
+void sub_1004B8CA0()
 {
-  v2 = sub_100008F38(a1);
-  if (v7 != v8)
+  sub_100008F38();
+  if (v6 != v7)
   {
-    v9 = v6;
+    v8 = v5;
   }
 
   else
   {
-    v9 = v2;
+    v8 = v1;
   }
 
-  *v3 = 136315138;
-  *(v3 + 4) = v9;
-  _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "#ses-carkey,Failed to allocate Alisha session. Error: %s", v5, 0xCu);
-  if (*(v1 + 23) < 0)
+  *v2 = 136315138;
+  *(v2 + 4) = v8;
+  _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "#ses-carkey,Failed to allocate Alisha session. Error: %s", v4, 0xCu);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
-void sub_1004B8D04(uint64_t *a1)
+void sub_1004B8D04()
 {
-  v2 = sub_100008F38(a1);
-  if (v7 != v8)
+  sub_100008F38();
+  if (v6 != v7)
   {
-    v9 = v6;
+    v8 = v5;
   }
 
   else
   {
-    v9 = v2;
+    v8 = v1;
   }
 
-  *v3 = 136315138;
-  *(v3 + 4) = v9;
-  _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "#ses-carkey,Alisha session invalidated unexpectedly. Reason: %s", v5, 0xCu);
-  if (*(v1 + 23) < 0)
+  *v2 = 136315138;
+  *(v2 + 4) = v8;
+  _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "#ses-carkey,Alisha session invalidated unexpectedly. Reason: %s", v4, 0xCu);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
+}
+
+void sub_1004B8DC0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Passthrough session in mobile role must bypass BT timesync.";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-carkey,%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004B8E38(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Anchor simulation must provide DckTimeSyncUwbDeviceTime in debug options.";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-carkey,%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004B8EB0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Anchor simulation must provide DckTimeSyncBtEventLocalClock in debug options.";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-carkey,%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004B8F28(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Failed to create alisha standalone session.";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-carkey,%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004B8FA0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Not authorized.";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-carkey,#lab-test %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004B9018(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Current test mode undetermined.";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-carkey,#lab-test %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004B9090(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Failed to delete keys.";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-carkey,#lab-test %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004B9108(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Failed to set test mode.";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-carkey,#lab-test %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004B9180(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Failed to enable test mode.";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-carkey,#lab-test %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004B9260(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Could not get currently allowed RF channels";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-carkey,#lab-test %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004B92D8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Failed to create standalone session.";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-carkey,#lab-test %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004B9494(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"UWB Time 0 must be greater than UWB Device Time from the DCK time sync event.";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-carkey,%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1004B96E8()
@@ -9071,25 +9234,25 @@ void sub_1004B97B8()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004B9808(uint64_t *a1)
+void sub_1004B9808()
 {
-  sub_100013F94(a1, __stack_chk_guard);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
-  sub_100008DC8(&_mh_execute_header, v1, v2, "#configurator,Add client %@ but client already registered", v3, v4, v5, v6, v7);
+  sub_100008DC8(&_mh_execute_header, v0, v1, "#configurator,Add client %@ but client already registered", v2, v3, v4, v5);
 }
 
-void sub_1004B9870(uint64_t *a1)
+void sub_1004B9870()
 {
-  sub_100013F94(a1, __stack_chk_guard);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
-  sub_100008DC8(&_mh_execute_header, v1, v2, "#configurator,Remove client %@ but client not found", v3, v4, v5, v6, v7);
+  sub_100008DC8(&_mh_execute_header, v0, v1, "#configurator,Remove client %@ but client not found", v2, v3, v4, v5);
 }
 
-void sub_1004B98D8(uint64_t *a1)
+void sub_1004B98D8()
 {
-  sub_100013F94(a1, __stack_chk_guard);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
-  sub_100008DC8(&_mh_execute_header, v1, v2, "#configurator,Client %@ requested prewarm but client not found", v3, v4, v5, v6, v7);
+  sub_100008DC8(&_mh_execute_header, v0, v1, "#configurator,Client %@ requested prewarm but client not found", v2, v3, v4, v5);
 }
 
 void sub_1004B9940(unsigned __int8 a1, void *a2, uint8_t *buf, os_log_t log)
@@ -9101,18 +9264,18 @@ void sub_1004B9940(unsigned __int8 a1, void *a2, uint8_t *buf, os_log_t log)
   _os_log_fault_impl(&_mh_execute_header, log, OS_LOG_TYPE_FAULT, "#configurator,Client notified resource usage limit exceeded (%d) for unsupported configuration type %@", buf, 0x12u);
 }
 
-void sub_1004B99AC(uint64_t *a1)
+void sub_1004B99AC()
 {
-  sub_100013F94(a1, __stack_chk_guard);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
-  sub_100008DC8(&_mh_execute_header, v1, v2, "#configurator,Client %@ notified resource usage but client not found", v3, v4, v5, v6, v7);
+  sub_100008DC8(&_mh_execute_header, v0, v1, "#configurator,Client %@ notified resource usage but client not found", v2, v3, v4, v5);
 }
 
-void sub_1004B9A14(uint64_t *a1)
+void sub_1004B9A14()
 {
-  sub_100013F94(a1, __stack_chk_guard);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
-  sub_100008DC8(&_mh_execute_header, v1, v2, "#configurator,Client %@ notified passive access but client not found", v3, v4, v5, v6, v7);
+  sub_100008DC8(&_mh_execute_header, v0, v1, "#configurator,Client %@ notified passive access but client not found", v2, v3, v4, v5);
 }
 
 void sub_1004B9A7C(uint64_t a1, char *a2, uint8_t *buf, os_log_t log)
@@ -9136,6 +9299,13 @@ void sub_1004B9A7C(uint64_t a1, char *a2, uint8_t *buf, os_log_t log)
   {
     operator delete(*a2);
   }
+}
+
+void sub_1004B9B00(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_100008DC8(&_mh_execute_header, a2, a3, "#configurator,%@ UWB-SE secure channel failed with no payload", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1004B9B6C(uint64_t a1, _BYTE *a2, os_log_t log)
@@ -9189,49 +9359,42 @@ void sub_1004B9F24(os_log_t log, double a2)
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "#convertToAlgorithmFindeeData BoundedDisplacementEnterTimestamp=%lf", &v2, 0xCu);
 }
 
-void sub_1004BA03C(void *a1)
+void sub_1004BA03C()
 {
-  v1 = a1[70];
-  v7 = a1[67];
-  v8 = a1[68];
-  v9 = a1[69];
   sub_1002D18A0();
   sub_100008E30();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x34u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x34u);
 }
 
-void sub_1004BA0E0(uint64_t *a1)
+void sub_1004BA0E0()
 {
-  v1 = *a1;
   sub_100008DB0();
   sub_100008E30();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004BA154(uint64_t *a1)
+void sub_1004BA154()
 {
-  v1 = *a1;
   sub_100008DB0();
   sub_100008E30();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004BA1C8(uint64_t *a1)
+void sub_1004BA1C8()
 {
-  v1 = *a1;
   sub_100008DB0();
   sub_100008E30();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004BA2F4(uint64_t *a1)
+void sub_1004BA2F4()
 {
-  sub_100008FC4(a1, __stack_chk_guard);
-  v4[0] = 67109378;
-  v4[1] = v1;
-  v5 = 2080;
-  v6 = v2;
-  _os_log_debug_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "regulatory,geof,processIsoChange,slot:%d,iso:%s", v4, 0x12u);
+  sub_100008FC4(__stack_chk_guard);
+  v3[0] = 67109378;
+  v3[1] = v0;
+  v4 = 2080;
+  v5 = v1;
+  _os_log_debug_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "regulatory,geof,processIsoChange,slot:%d,iso:%s", v3, 0x12u);
 }
 
 void sub_1004BA540(char *a1, uint8_t *buf, os_log_t log)
@@ -9341,69 +9504,69 @@ void sub_1004BB564(int *a1, NSObject *a2)
   _os_log_fault_impl(&_mh_execute_header, a2, OS_LOG_TYPE_FAULT, "#peer-nba,Unexpected RoseSolutionType: %d", v3, 8u);
 }
 
-void sub_1004BB67C(uint64_t *a1)
+void sub_1004BB67C()
 {
-  v2 = sub_100008F38(a1);
-  if (v7 != v8)
+  sub_100008F38();
+  if (v6 != v7)
   {
-    v9 = v6;
+    v8 = v5;
   }
 
   else
   {
-    v9 = v2;
+    v8 = v1;
   }
 
-  *v3 = 136315138;
-  *(v3 + 4) = v9;
-  sub_1000090CC(&_mh_execute_header, v3, v4, "#peer-nba,Failed to start ranging. Return code: %s", v5);
-  if (*(v1 + 23) < 0)
+  *v2 = 136315138;
+  *(v2 + 4) = v8;
+  sub_1000090CC(&_mh_execute_header, v2, v3, "#peer-nba,Failed to start ranging. Return code: %s", v4);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
-void sub_1004BB708(uint64_t *a1)
+void sub_1004BB708()
 {
-  v2 = sub_100008F38(a1);
-  if (v7 != v8)
+  sub_100008F38();
+  if (v6 != v7)
   {
-    v9 = v6;
+    v8 = v5;
   }
 
   else
   {
-    v9 = v2;
+    v8 = v1;
   }
 
-  *v3 = 136315138;
-  *(v3 + 4) = v9;
-  sub_1000090CC(&_mh_execute_header, v3, v4, "#peer-nba,Rose session invalidated unexpectedly. Reason: %s", v5);
-  if (*(v1 + 23) < 0)
+  *v2 = 136315138;
+  *(v2 + 4) = v8;
+  sub_1000090CC(&_mh_execute_header, v2, v3, "#peer-nba,Rose session invalidated unexpectedly. Reason: %s", v4);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
-void sub_1004BB760(uint64_t *a1)
+void sub_1004BB760()
 {
-  v2 = sub_100008F38(a1);
-  if (v7 != v8)
+  sub_100008F38();
+  if (v6 != v7)
   {
-    v9 = v6;
+    v8 = v5;
   }
 
   else
   {
-    v9 = v2;
+    v8 = v1;
   }
 
-  *v3 = 136315138;
-  *(v3 + 4) = v9;
-  sub_1000090CC(&_mh_execute_header, v3, v4, "#peer-nba,Failed to allocate a UWB session. Error: %s", v5);
-  if (*(v1 + 23) < 0)
+  *v2 = 136315138;
+  *(v2 + 4) = v8;
+  sub_1000090CC(&_mh_execute_header, v2, v3, "#peer-nba,Failed to allocate a UWB session. Error: %s", v4);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
@@ -9428,24 +9591,24 @@ void sub_1004BBE40()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004BC0A4(uint64_t *a1)
+void sub_1004BC0A4()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
-  _os_log_fault_impl(&_mh_execute_header, v8, OS_LOG_TYPE_FAULT, "#accessory-service,Not able to convert preamble %s to FiRa preamble index", v9, 0xCu);
-  if (*(v1 + 23) < 0)
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
+  _os_log_fault_impl(&_mh_execute_header, v7, OS_LOG_TYPE_FAULT, "#accessory-service,Not able to convert preamble %s to FiRa preamble index", v8, 0xCu);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
@@ -9501,45 +9664,45 @@ void sub_1004BC2CC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004BC37C(uint64_t *a1)
+void sub_1004BC37C()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
-  sub_1000090CC(&_mh_execute_header, v8, v9, "#accessory-service,Build and run session: Failed to initalize. Error: %s", v10);
-  if (*(v1 + 23) < 0)
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
+  sub_1000090CC(&_mh_execute_header, v7, v8, "#accessory-service,Build and run session: Failed to initalize. Error: %s", v9);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
-void sub_1004BC3D0(uint64_t *a1)
+void sub_1004BC3D0()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
-  sub_1000090CC(&_mh_execute_header, v8, v9, "#accessory-service,Build and run session: Failed to start. Error: %s", v10);
-  if (*(v1 + 23) < 0)
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
+  sub_1000090CC(&_mh_execute_header, v7, v8, "#accessory-service,Build and run session: Failed to start. Error: %s", v9);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
@@ -9550,24 +9713,24 @@ void sub_1004BC424()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004BC4A0(uint64_t *a1)
+void sub_1004BC4A0()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
-  sub_1000090CC(&_mh_execute_header, v8, v9, "#accessory-service,Failed to restart ranging. Error: %s", v10);
-  if (*(v1 + 23) < 0)
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
+  sub_1000090CC(&_mh_execute_header, v7, v8, "#accessory-service,Failed to restart ranging. Error: %s", v9);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
@@ -9634,25 +9797,11 @@ void sub_1004BC924()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004BC960(uint64_t a1)
-{
-  v6 = *(a1 + 16);
-  sub_100008E30();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
 void sub_1004BC9D8()
 {
   sub_100008D98();
   sub_100008E30();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void sub_1004BCA14(uint64_t a1)
-{
-  v6 = *(a1 + 40);
-  sub_100008E30();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void sub_1004BCA8C(void *a1, uint64_t a2, uint8_t *buf, os_log_t log)
@@ -9714,94 +9863,82 @@ void sub_1004BCED8(void **a1, void **a2)
   while (a1 != a2);
 }
 
-void sub_1004BCF28(char *a1, uint64_t *a2)
+void sub_1004BCF28()
 {
-  sub_100304244(a1, a2, __stack_chk_guard);
+  sub_100304244(__stack_chk_guard);
   sub_100008DB0();
   sub_100008E78();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_1004BCFAC(char *a1, uint64_t *a2)
+void sub_1004BCFAC()
 {
-  sub_100304244(a1, a2, __stack_chk_guard);
+  sub_100304244(__stack_chk_guard);
   sub_100008DB0();
   sub_100008E78();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_1004BD0F4(unsigned __int8 *a1)
+void sub_1004BD29C()
 {
-  v6 = *a1;
-  sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-}
-
-void sub_1004BD16C(unsigned __int16 *a1)
-{
-  v6 = *a1;
-  sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-}
-
-void sub_1004BD1E4(unsigned __int8 *a1)
-{
-  v6 = *a1;
-  sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-}
-
-void sub_1004BD29C(char *a1, uint64_t *a2)
-{
-  sub_100008EEC(a1, a2, __stack_chk_guard);
+  sub_100008EEC(__stack_chk_guard);
   sub_100008DB0();
   sub_100008E78();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004BD30C(char *a1, uint64_t *a2)
+void sub_1004BD30C()
 {
-  sub_100008EEC(a1, a2, __stack_chk_guard);
+  sub_100008EEC(__stack_chk_guard);
   sub_100008DB0();
   sub_100008E78();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004BD37C(char *a1, uint64_t *a2)
+void sub_1004BD37C()
 {
-  sub_100008EEC(a1, a2, __stack_chk_guard);
+  sub_100008EEC(__stack_chk_guard);
   sub_100008DB0();
   sub_100008E78();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004BD3EC(uint64_t *a1)
+void sub_1004BD3EC()
 {
-  sub_100008FC4(a1, __stack_chk_guard);
-  if (*(v1 + 23) < 0)
-  {
-    v2 = *v1;
-  }
-
+  sub_100008FC4(__stack_chk_guard);
   sub_100008DB0();
   sub_100008E78();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_1004BD478(uint64_t *a1)
+void sub_1004BD478()
 {
-  sub_100008FC4(a1, __stack_chk_guard);
+  sub_100008FC4(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004BD4E8(uint64_t *a1)
+void sub_1004BD4E8()
 {
-  sub_100008FC4(a1, __stack_chk_guard);
+  sub_100008FC4(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+void sub_1004BD5EC(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_100008F94(&_mh_execute_header, a2, a3, "#ni-km,Write failed for %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004BD658(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_100008F94(&_mh_execute_header, a2, a3, "#ni-km,Delete failed for %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1004BD760(uint64_t a1, NSObject *a2)
@@ -9818,22 +9955,22 @@ void sub_1004BD7D8(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "#ota,failed to submit task with error: %@", &v2, 0xCu);
 }
 
-void sub_1004BD850(uint64_t *a1)
+void sub_1004BD850()
 {
-  sub_100008FC4(a1, __stack_chk_guard);
-  v4 = 136315394;
-  v5 = v1;
-  v6 = 2112;
-  v7 = v2;
-  _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "#ota,error reading file %s (%@)", &v4, 0x16u);
+  sub_100008FC4(__stack_chk_guard);
+  v3 = 136315394;
+  v4 = v0;
+  v5 = 2112;
+  v6 = v1;
+  _os_log_error_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "#ota,error reading file %s (%@)", &v3, 0x16u);
 }
 
-void sub_1004BD8D8(uint64_t *a1)
+void sub_1004BD8D8()
 {
-  sub_100008FC4(a1, __stack_chk_guard);
-  v3 = 136315138;
-  v4 = v1;
-  _os_log_fault_impl(&_mh_execute_header, v2, OS_LOG_TYPE_FAULT, "#ota,file %s did not contain a dictionary as expected", &v3, 0xCu);
+  sub_100008FC4(__stack_chk_guard);
+  v2 = 136315138;
+  v3 = v0;
+  _os_log_fault_impl(&_mh_execute_header, v1, OS_LOG_TYPE_FAULT, "#ota,file %s did not contain a dictionary as expected", &v2, 0xCu);
 }
 
 void sub_1004BD950(uint64_t a1, NSObject *a2)
@@ -9851,22 +9988,11 @@ void sub_1004BD950(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Did fail with error: %s", &v5, 0xCu);
 }
 
-void sub_1004BDAA8(uint64_t *a1)
+void sub_1004BDAA8()
 {
-  sub_100008FC4(a1, __stack_chk_guard);
+  sub_100008FC4(__stack_chk_guard);
   sub_100008DB0();
-  sub_100008DC8(&_mh_execute_header, v1, v2, "fileutil,decompress,cantOpenDstFile,%s", v3, v4, v5, v6, v7);
-}
-
-void sub_1004BDB10(char *a1, uint64_t *a2)
-{
-  if (*a1 < 0)
-  {
-    v2 = *a2;
-  }
-
-  sub_100008DB0();
-  _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "fileutil,decompress,cantOpenSrcFile,%s", v4, 0xCu);
+  sub_100008DC8(&_mh_execute_header, v0, v1, "fileutil,decompress,cantOpenDstFile,%s", v2, v3, v4, v5);
 }
 
 void sub_1004BDB98(uint64_t a1, NSObject *a2)
@@ -9877,39 +10003,34 @@ void sub_1004BDB98(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Caught Exception: %s", &v4, 0xCu);
 }
 
-void sub_1004BDC44(uint64_t *a1)
+void sub_1004BDC44()
 {
-  sub_100008FC4(a1, __stack_chk_guard);
+  sub_100008FC4(__stack_chk_guard);
   sub_100008DB0();
-  sub_100008DC8(&_mh_execute_header, v1, v2, "fileutil,decompress,cantWriteDecompressedFile,%s, fstream write error", v3, v4, v5, v6, v7);
+  sub_100008DC8(&_mh_execute_header, v0, v1, "fileutil,decompress,cantWriteDecompressedFile,%s, fstream write error", v2, v3, v4, v5);
 }
 
-void sub_1004BDCAC(uint64_t *a1)
+void sub_1004BDCAC()
 {
-  sub_100008FC4(a1, __stack_chk_guard);
+  sub_100008FC4(__stack_chk_guard);
   sub_100008DB0();
-  sub_100008DC8(&_mh_execute_header, v1, v2, "fileutil,decompress,cantWriteDecompressedFile,%s", v3, v4, v5, v6, v7);
+  sub_100008DC8(&_mh_execute_header, v0, v1, "fileutil,decompress,cantWriteDecompressedFile,%s", v2, v3, v4, v5);
 }
 
-void sub_1004BDD14(uint64_t *a1)
+void sub_1004BDD14()
 {
-  sub_100008FC4(a1, __stack_chk_guard);
+  sub_100008FC4(__stack_chk_guard);
   sub_100008DB0();
-  sub_100008DC8(&_mh_execute_header, v1, v2, "fileutil,decompress,cantReadCompressedFile,%s", v3, v4, v5, v6, v7);
+  sub_100008DC8(&_mh_execute_header, v0, v1, "fileutil,decompress,cantReadCompressedFile,%s", v2, v3, v4, v5);
 }
 
-void sub_1004BDD7C(uint64_t *a1)
+void sub_1004BDD7C()
 {
-  sub_100008FC4(a1, __stack_chk_guard);
-  if (*(v1 + 23) < 0)
-  {
-    v2 = *v1;
-  }
-
+  sub_100008FC4(__stack_chk_guard);
   sub_100008DB0();
-  v6 = 2080;
-  v7 = v3;
-  _os_log_debug_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "fileutil,decompress,src,%s,dst,%s,done", v5, 0x16u);
+  v3 = 2080;
+  v4 = v0;
+  _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "fileutil,decompress,src,%s,dst,%s,done", v2, 0x16u);
 }
 
 void sub_1004BDF50()
@@ -9932,34 +10053,6 @@ void sub_1004BE038()
   sub_100008D98();
   sub_100008E30();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void sub_1004BE0A8(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_100008E30();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_1004BE154(int *a1)
-{
-  v6 = *a1;
-  sub_100008EB0();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 8u);
-}
-
-void sub_1004BE2C8(int *a1)
-{
-  v6 = *a1;
-  sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-}
-
-void sub_1004BE340(int *a1)
-{
-  v6 = *a1;
-  sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
 }
 
 void sub_1004BE3EC(unint64_t a1, NSObject *a2)
@@ -10004,69 +10097,69 @@ void sub_1004BE660()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004BE6D0(uint64_t *a1)
+void sub_1004BE6D0()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
   sub_10003A96C();
-  _os_log_error_impl(v8, v9, v10, v11, v12, 0xCu);
-  if (*(v1 + 23) < 0)
+  _os_log_error_impl(v7, v8, v9, v10, v11, 0xCu);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
-void sub_1004BE72C(uint64_t *a1)
+void sub_1004BE72C()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
   sub_10003A96C();
-  _os_log_error_impl(v8, v9, v10, v11, v12, 0xCu);
-  if (*(v1 + 23) < 0)
+  _os_log_error_impl(v7, v8, v9, v10, v11, 0xCu);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
-void sub_1004BE788(uint64_t *a1)
+void sub_1004BE788()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
   sub_10003A96C();
-  _os_log_error_impl(v8, v9, v10, v11, v12, 0xCu);
-  if (*(v1 + 23) < 0)
+  _os_log_error_impl(v7, v8, v9, v10, v11, 0xCu);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
@@ -10161,25 +10254,25 @@ void sub_1004BF450()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004BF4F4(uint64_t *a1)
+void sub_1004BF4F4()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
   sub_10003A96C();
-  _os_log_error_impl(v8, v9, v10, v11, v12, 0xCu);
-  if (*(v1 + 23) < 0)
+  _os_log_error_impl(v7, v8, v9, v10, v11, 0xCu);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
@@ -10214,23 +10307,23 @@ void sub_1004BF6A8(int a1, NSObject *a2)
   _os_log_fault_impl(&_mh_execute_header, a2, OS_LOG_TYPE_FAULT, "[PRConfigurationManager] %d is invalid value for preferred channel in default write.", v2, 8u);
 }
 
-void sub_1004BF754(uint64_t a1)
-{
-  v6 = *(a1 + 24);
-  sub_100008E30();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-}
-
 void sub_1004BFBFC(NSObject *a1)
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_FAULT))
   {
-    sub_100008FFC(&_mh_execute_header, v1, v2, "regulatory,geo,loc,checkRegulatoryIso,assertionAlreadyAcquired", v3, v4, v5, v6, 0);
+    v13 = 0;
+    sub_100008FFC(&_mh_execute_header, v1, v2, "regulatory,geo,loc,checkRegulatoryIso,assertionAlreadyAcquired", v3, v4, v5, v6, v13);
   }
 
   if (sub_10032B2D4())
   {
-    sub_100008FDC(&_mh_execute_header, v7, v8, "%s:%d: assertion failure in %s", v9, v10, v11, v12, 2u);
+    *v14 = 136315650;
+    *&v14[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/DaemonCore/Ranging/Monitors/PRLocationMonitor.mm";
+    *&v14[12] = 1024;
+    *&v14[14] = 438;
+    *&v14[18] = 2080;
+    *&v14[20] = "_acquireAssertion";
+    sub_100008FDC(&_mh_execute_header, v7, v8, "%s:%d: assertion failure in %s", v9, v10, v11, v12, *v14, *&v14[8], *&v14[16], *&v14[24]);
   }
 
   abort();
@@ -10240,13 +10333,19 @@ void sub_1004BFC9C()
 {
   if (sub_10032B2B4())
   {
-    sub_100008FFC(&_mh_execute_header, v1, v2, "regulatory,geo,loc,checkRegulatoryIso,assertionRefCountTooLarge", v3, v4, v5, v6, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "regulatory,geo,loc,checkRegulatoryIso,assertionRefCountTooLarge", v2, v3, v4, v5, v12);
   }
 
-  v7 = *(v0 + 896);
   if (sub_10032B2D4())
   {
-    sub_100008FDC(&_mh_execute_header, v8, v9, "%s:%d: assertion failure in %s", v10, v11, v12, v13, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/DaemonCore/Ranging/Monitors/PRLocationMonitor.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 432;
+    *&v13[18] = 2080;
+    *&v13[20] = "_acquireAssertion";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -10263,12 +10362,19 @@ void sub_1004BFE1C(NSObject *a1)
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_FAULT))
   {
-    sub_100008FFC(&_mh_execute_header, v1, v2, "regulatory,geo,loc,checkRegulatoryIso,assertionAlreadyReleased", v3, v4, v5, v6, 0);
+    v13 = 0;
+    sub_100008FFC(&_mh_execute_header, v1, v2, "regulatory,geo,loc,checkRegulatoryIso,assertionAlreadyReleased", v3, v4, v5, v6, v13);
   }
 
   if (sub_10032B2D4())
   {
-    sub_100008FDC(&_mh_execute_header, v7, v8, "%s:%d: assertion failure in %s", v9, v10, v11, v12, 2u);
+    *v14 = 136315650;
+    *&v14[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/DaemonCore/Ranging/Monitors/PRLocationMonitor.mm";
+    *&v14[12] = 1024;
+    *&v14[14] = 451;
+    *&v14[18] = 2080;
+    *&v14[20] = "_releaseAssertion";
+    sub_100008FDC(&_mh_execute_header, v7, v8, "%s:%d: assertion failure in %s", v9, v10, v11, v12, *v14, *&v14[8], *&v14[16], *&v14[24]);
   }
 
   abort();
@@ -10278,100 +10384,106 @@ void sub_1004BFEBC()
 {
   if (sub_10032B2B4())
   {
-    sub_100008FFC(&_mh_execute_header, v1, v2, "regulatory,geo,loc,checkRegulatoryIso,assertionRefCountTooSmall", v3, v4, v5, v6, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "regulatory,geo,loc,checkRegulatoryIso,assertionRefCountTooSmall", v2, v3, v4, v5, v12);
   }
 
-  v7 = *(v0 + 896);
   if (sub_10032B2D4())
   {
-    sub_100008FDC(&_mh_execute_header, v8, v9, "%s:%d: assertion failure in %s", v10, v11, v12, v13, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/DaemonCore/Ranging/Monitors/PRLocationMonitor.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 445;
+    *&v13[18] = 2080;
+    *&v13[20] = "_releaseAssertion";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
 }
 
-void sub_1004C0098(uint64_t *a1, uint64_t a2)
+void sub_1004C0098()
 {
-  v3 = sub_100013FF0(a1, a2);
-  sub_100330348(4.8151e-34, v3, v4, v5);
-  _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "#rlm,Ignoring duplicate indicateRangingStarted for '%s' with sessionIdentifier %@", v6, 0x16u);
-  if (*(v2 + 23) < 0)
+  sub_100013FF0();
+  sub_100330348(4.8151e-34, v1, v2, v3);
+  _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "#rlm,Ignoring duplicate indicateRangingStarted for '%s' with sessionIdentifier %@", v4, 0x16u);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v2);
+    operator delete(*v0);
   }
 }
 
-void sub_1004C00F4(uint64_t *a1, uint64_t a2)
+void sub_1004C00F4()
 {
-  v3 = sub_100013FF0(a1, a2);
-  sub_100330348(4.8151e-34, v3, v4, v5);
-  _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "#rlm,Ignoring duplicate indicateRangingStopped for '%s' with sessionIdentifier %@", v6, 0x16u);
-  if (*(v2 + 23) < 0)
+  sub_100013FF0();
+  sub_100330348(4.8151e-34, v1, v2, v3);
+  _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "#rlm,Ignoring duplicate indicateRangingStopped for '%s' with sessionIdentifier %@", v4, 0x16u);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v2);
+    operator delete(*v0);
   }
 }
 
-void sub_1004C0150(uint64_t *a1)
+void sub_1004C0150()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
-  _os_log_debug_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "#rlm,RangingDurationTracker(%s): ranging started, subsequent one", v9, 0xCu);
-  if (*(v1 + 23) < 0)
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
+  _os_log_debug_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "#rlm,RangingDurationTracker(%s): ranging started, subsequent one", v8, 0xCu);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
-void sub_1004C01B0(uint64_t *a1)
+void sub_1004C01B0()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
-  _os_log_debug_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "#rlm,RangingDurationTracker(%s): ranging started, first one", v9, 0xCu);
-  if (*(v1 + 23) < 0)
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
+  _os_log_debug_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "#rlm,RangingDurationTracker(%s): ranging started, first one", v8, 0xCu);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
-void sub_1004C0210(uint64_t *a1)
+void sub_1004C0210()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
-  sub_100008F04(&_mh_execute_header, v8, v9, "#rlm,Attempt to stop ranging for '%s' when there is none ongoing", v10);
-  if (*(v1 + 23) < 0)
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
+  sub_100008F04(&_mh_execute_header, v7, v8, "#rlm,Attempt to stop ranging for '%s' when there is none ongoing", v9);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
@@ -10379,7 +10491,13 @@ void sub_1004C0264(void *a1)
 {
   if (sub_10032B2D4())
   {
-    sub_100008FDC(&_mh_execute_header, v1, v2, "#rlm,%s:%d: assertion failure in %s", v3, v4, v5, v6, 2u);
+    *v7 = 136315650;
+    *&v7[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/RangingLimitManager/NIServerRangingLimitManager.mm";
+    *&v7[12] = 1024;
+    *&v7[14] = 334;
+    *&v7[18] = 2080;
+    *&v7[20] = "indicateRangingStopped";
+    sub_100008FDC(&_mh_execute_header, v1, v2, "#rlm,%s:%d: assertion failure in %s", v3, v4, v5, v6, *v7, *&v7[8], *&v7[16], *&v7[24]);
   }
 
   abort();
@@ -10390,41 +10508,42 @@ void sub_1004C02F8()
   v0 = qword_1009F9820;
   if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_FAULT))
   {
-    LOWORD(v7) = 0;
-    _os_log_fault_impl(&_mh_execute_header, v0, OS_LOG_TYPE_FAULT, "#rlm,useCases empty", &v7, 2u);
+    *v7 = 0;
+    _os_log_fault_impl(&_mh_execute_header, v0, OS_LOG_TYPE_FAULT, "#rlm,useCases empty", v7, 2u);
   }
 
   if (sub_10032B2D4())
   {
-    v8 = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/RangingLimitManager/NIServerRangingLimitManager.mm";
-    v9 = 1024;
-    v10 = 396;
-    v11 = 2080;
-    v12 = "RangingBudgetTracker";
-    sub_100008FDC(&_mh_execute_header, v1, v2, "#rlm,%s:%d: assertion failure in %s", v3, v4, v5, v6, 2u);
+    *v7 = 136315650;
+    *&v7[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/RangingLimitManager/NIServerRangingLimitManager.mm";
+    *&v7[12] = 1024;
+    *&v7[14] = 396;
+    *&v7[18] = 2080;
+    *&v7[20] = "RangingBudgetTracker";
+    sub_100008FDC(&_mh_execute_header, v1, v2, "#rlm,%s:%d: assertion failure in %s", v3, v4, v5, v6, *v7, *&v7[16]);
   }
 
   abort();
 }
 
-void sub_1004C03B0(uint64_t *a1)
+void sub_1004C03B0()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
-  sub_100008F04(&_mh_execute_header, v8, v9, "#rlm,RangingBudgetTracker not setup for use case '%s'", v10);
-  if (*(v1 + 23) < 0)
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
+  sub_100008F04(&_mh_execute_header, v7, v8, "#rlm,RangingBudgetTracker not setup for use case '%s'", v9);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
@@ -10432,7 +10551,13 @@ void sub_1004C0404(void *a1)
 {
   if (sub_10032B2D4())
   {
-    sub_100008FDC(&_mh_execute_header, v1, v2, "#rlm,%s:%d: assertion failure in %s", v3, v4, v5, v6, 2u);
+    *v7 = 136315650;
+    *&v7[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/RangingLimitManager/NIServerRangingLimitManager.mm";
+    *&v7[12] = 1024;
+    *&v7[14] = 506;
+    *&v7[18] = 2080;
+    *&v7[20] = "RangingLimitManager";
+    sub_100008FDC(&_mh_execute_header, v1, v2, "#rlm,%s:%d: assertion failure in %s", v3, v4, v5, v6, *v7, *&v7[8], *&v7[16], *&v7[24]);
   }
 
   abort();
@@ -10445,24 +10570,24 @@ void sub_1004C0498(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "#rlm,failed to submit task with error: %@", &v2, 0xCu);
 }
 
-void sub_1004C0510(uint64_t *a1)
+void sub_1004C0510()
 {
-  v2 = sub_100008F38(a1);
-  if (v5 != v6)
+  sub_100008F38();
+  if (v4 != v5)
   {
-    v7 = v4;
+    v6 = v3;
   }
 
   else
   {
-    v7 = v2;
+    v6 = v1;
   }
 
-  sub_1001EA0A0(v3, v7, 4.8149e-34);
-  sub_100008F04(&_mh_execute_header, v8, v9, "#rlm,Unsupported use case '%s'", v10);
-  if (*(v1 + 23) < 0)
+  sub_1001EA0A0(v2, v6, 4.8149e-34);
+  sub_100008F04(&_mh_execute_header, v7, v8, "#rlm,Unsupported use case '%s'", v9);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
@@ -10470,7 +10595,13 @@ void sub_1004C0564(void *a1)
 {
   if (sub_10032B2D4())
   {
-    sub_100008FDC(&_mh_execute_header, v1, v2, "#rlm,%s:%d: assertion failure in %s", v3, v4, v5, v6, 2u);
+    *v7 = 136315650;
+    *&v7[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/RangingLimitManager/NIServerRangingLimitManager.mm";
+    *&v7[12] = 1024;
+    *&v7[14] = 597;
+    *&v7[18] = 2080;
+    *&v7[20] = "limitExceeded_block_invoke";
+    sub_100008FDC(&_mh_execute_header, v1, v2, "#rlm,%s:%d: assertion failure in %s", v3, v4, v5, v6, *v7, *&v7[8], *&v7[16], *&v7[24]);
   }
 
   abort();
@@ -10480,7 +10611,13 @@ void sub_1004C05F8(void *a1)
 {
   if (sub_10032B2D4())
   {
-    sub_100008FDC(&_mh_execute_header, v1, v2, "#rlm,%s:%d: assertion failure in %s", v3, v4, v5, v6, 2u);
+    *v7 = 136315650;
+    *&v7[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/RangingLimitManager/NIServerRangingLimitManager.mm";
+    *&v7[12] = 1024;
+    *&v7[14] = 706;
+    *&v7[18] = 2080;
+    *&v7[20] = "indicateRangingStarted_block_invoke";
+    sub_100008FDC(&_mh_execute_header, v1, v2, "#rlm,%s:%d: assertion failure in %s", v3, v4, v5, v6, *v7, *&v7[8], *&v7[16], *&v7[24]);
   }
 
   abort();
@@ -10490,7 +10627,13 @@ void sub_1004C068C(void *a1)
 {
   if (sub_10032B2D4())
   {
-    sub_100008FDC(&_mh_execute_header, v1, v2, "#rlm,%s:%d: assertion failure in %s", v3, v4, v5, v6, 2u);
+    *v7 = 136315650;
+    *&v7[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/RangingLimitManager/NIServerRangingLimitManager.mm";
+    *&v7[12] = 1024;
+    *&v7[14] = 717;
+    *&v7[18] = 2080;
+    *&v7[20] = "indicateRangingStopped_block_invoke";
+    sub_100008FDC(&_mh_execute_header, v1, v2, "#rlm,%s:%d: assertion failure in %s", v3, v4, v5, v6, *v7, *&v7[8], *&v7[16], *&v7[24]);
   }
 
   abort();
@@ -10500,7 +10643,13 @@ void sub_1004C0720(void *a1)
 {
   if (sub_10032B2D4())
   {
-    sub_100008FDC(&_mh_execute_header, v1, v2, "#rlm,%s:%d: assertion failure in %s", v3, v4, v5, v6, 2u);
+    *v7 = 136315650;
+    *&v7[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/RangingLimitManager/NIServerRangingLimitManager.mm";
+    *&v7[12] = 1024;
+    *&v7[14] = 721;
+    *&v7[18] = 2080;
+    *&v7[20] = "indicateRangingStopped_block_invoke";
+    sub_100008FDC(&_mh_execute_header, v1, v2, "#rlm,%s:%d: assertion failure in %s", v3, v4, v5, v6, *v7, *&v7[8], *&v7[16], *&v7[24]);
   }
 
   abort();
@@ -10532,20 +10681,6 @@ void sub_1004C089C()
   sub_100008D98();
   sub_100008D70();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void sub_1004C08D8(int *a1)
-{
-  v6 = *a1;
-  sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-}
-
-void sub_1004C0950(int *a1)
-{
-  v6 = *a1;
-  sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
 }
 
 void sub_1004C0A08()
@@ -10684,12 +10819,19 @@ void sub_1004C1234()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#rose-ses,Cannot initialize() an already initialized session object.", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#rose-ses,Cannot initialize() an already initialized session object.", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#rose-ses,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/UWB/NIServerRoseSession.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 91;
+    *&v13[18] = 2080;
+    *&v13[20] = "initialize";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#rose-ses,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -10699,12 +10841,19 @@ void sub_1004C12CC()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#rose-ses,STATE ERROR: using session after invalidation.", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#rose-ses,STATE ERROR: using session after invalidation.", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#rose-ses,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/UWB/NIServerRoseSession.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 121;
+    *&v13[18] = 2080;
+    *&v13[20] = "isInitiator";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#rose-ses,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -10714,12 +10863,19 @@ void sub_1004C13D0()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#rose-ses,logic error: mismatching tickets.", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#rose-ses,logic error: mismatching tickets.", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#rose-ses,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/UWB/NIServerRoseSession.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 273;
+    *&v13[18] = 2080;
+    *&v13[20] = "didReceiveRangingRateUpdateEvent";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#rose-ses,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -10729,12 +10885,19 @@ void sub_1004C1468(NSObject *a1)
 {
   if (sub_1003445E0(a1))
   {
-    sub_100008FFC(&_mh_execute_header, v1, v2, "#rose-ses,logic error: notify reason must be FW event.", v3, v4, v5, v6, 0);
+    v13 = 0;
+    sub_100008FFC(&_mh_execute_header, v1, v2, "#rose-ses,logic error: notify reason must be FW event.", v3, v4, v5, v6, v13);
   }
 
   if (sub_10032B2D4())
   {
-    sub_100008FDC(&_mh_execute_header, v7, v8, "#rose-ses,%s:%d: assertion failure in %s", v9, v10, v11, v12, 2u);
+    *v14 = 136315650;
+    *&v14[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/UWB/NIServerRoseSession.mm";
+    *&v14[12] = 1024;
+    *&v14[14] = 294;
+    *&v14[18] = 2080;
+    *&v14[20] = "didReceiveRangingRateUpdateEvent";
+    sub_100008FDC(&_mh_execute_header, v7, v8, "#rose-ses,%s:%d: assertion failure in %s", v9, v10, v11, v12, *v14, *&v14[8], *&v14[16], *&v14[24]);
   }
 
   abort();
@@ -10744,12 +10907,20 @@ void sub_1004C1504()
 {
   if (sub_100182C20())
   {
-    sub_100008DF4(&_mh_execute_header, v0, v1, "#rose-ses,%{private}s called from an initiator.", v2, v3, v4, v5, 3u);
+    LODWORD(v12) = 136380675;
+    *(&v12 + 4) = "currentResponderParticipationThrottleRate";
+    sub_100008DF4(&_mh_execute_header, v0, v1, "#rose-ses,%{private}s called from an initiator.", v2, v3, v4, v5, v12, DWORD2(v12));
   }
 
   if (sub_10032B2D4())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#rose-ses,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/UWB/NIServerRoseSession.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 811;
+    *&v13[18] = 2080;
+    *&v13[20] = "currentResponderParticipationThrottleRate";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#rose-ses,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -10774,12 +10945,19 @@ uint64_t sub_1004C15F0(uint64_t result, int *a2)
     {
       if (sub_10018B478())
       {
-        sub_100008FFC(&_mh_execute_header, v4, v5, "#rose-ses,Converting aop alisha health to nearbyd alisha health failed", v6, v7, v8, v9, 0);
+        v16 = 0;
+        sub_100008FFC(&_mh_execute_header, v4, v5, "#rose-ses,Converting aop alisha health to nearbyd alisha health failed", v6, v7, v8, v9, v16);
       }
 
       if (sub_10018B494())
       {
-        sub_100008FDC(&_mh_execute_header, v10, v11, "#rose-ses,%s:%d: assertion failure in %s", v12, v13, v14, v15, 2u);
+        *v17 = 136315650;
+        *&v17[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/UWB/NIServerRoseSession.mm";
+        *&v17[12] = 1024;
+        *&v17[14] = 463;
+        *&v17[18] = 2080;
+        *&v17[20] = "didReceiveAlishaUpdate_block_invoke";
+        sub_100008FDC(&_mh_execute_header, v10, v11, "#rose-ses,%s:%d: assertion failure in %s", v12, v13, v14, v15, *v17, *&v17[8], *&v17[16], *&v17[24]);
       }
 
       abort();
@@ -10832,12 +11010,19 @@ void sub_1004C17E4(NSObject *a1)
 {
   if (sub_1003445E0(a1))
   {
-    sub_100008FFC(&_mh_execute_header, v1, v2, "#rose-ses,Throttle rate must be between 0 and 1.", v3, v4, v5, v6, 0);
+    v13 = 0;
+    sub_100008FFC(&_mh_execute_header, v1, v2, "#rose-ses,Throttle rate must be between 0 and 1.", v3, v4, v5, v6, v13);
   }
 
   if (sub_10032B2D4())
   {
-    sub_100008FDC(&_mh_execute_header, v7, v8, "#rose-ses,%s:%d: assertion failure in %s", v9, v10, v11, v12, 2u);
+    *v14 = 136315650;
+    *&v14[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/UWB/NIServerRoseSession.mm";
+    *&v14[12] = 1024;
+    *&v14[14] = 865;
+    *&v14[18] = 2080;
+    *&v14[20] = "throttleSuperframeParticipationWithRate";
+    sub_100008FDC(&_mh_execute_header, v7, v8, "#rose-ses,%s:%d: assertion failure in %s", v9, v10, v11, v12, *v14, *&v14[8], *&v14[16], *&v14[24]);
   }
 
   abort();
@@ -10847,12 +11032,19 @@ void sub_1004C1880()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#rose-ses,Given negative throttle rate.", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#rose-ses,Given negative throttle rate.", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#rose-ses,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/UWB/NIServerRoseSession.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 864;
+    *&v13[18] = 2080;
+    *&v13[20] = "throttleSuperframeParticipationWithRate";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#rose-ses,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -10862,36 +11054,44 @@ void sub_1004C1918()
 {
   if (sub_100182C20())
   {
-    sub_100008DF4(&_mh_execute_header, v0, v1, "#rose-ses,%{private}s called from an initiator", v2, v3, v4, v5, 3u);
+    LODWORD(v12) = 136380675;
+    *(&v12 + 4) = "throttleSuperframeParticipationWithRate";
+    sub_100008DF4(&_mh_execute_header, v0, v1, "#rose-ses,%{private}s called from an initiator", v2, v3, v4, v5, v12, DWORD2(v12));
   }
 
   if (sub_10032B2D4())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#rose-ses,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/UWB/NIServerRoseSession.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 863;
+    *&v13[18] = 2080;
+    *&v13[20] = "throttleSuperframeParticipationWithRate";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#rose-ses,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
 }
 
-void sub_1004C19C4(uint64_t *a1)
+void sub_1004C19C4()
 {
-  v2 = sub_100008F38(a1);
-  if (v7 != v8)
+  sub_100008F38();
+  if (v6 != v7)
   {
-    v9 = v6;
+    v8 = v5;
   }
 
   else
   {
-    v9 = v2;
+    v8 = v1;
   }
 
-  *v3 = 136380675;
-  *(v3 + 4) = v9;
-  _os_log_debug_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "#rose-ses,updatePeerData: %{private}s", v5, 0xCu);
-  if (*(v1 + 23) < 0)
+  *v2 = 136380675;
+  *(v2 + 4) = v8;
+  _os_log_debug_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "#rose-ses,updatePeerData: %{private}s", v4, 0xCu);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
@@ -10899,12 +11099,19 @@ void sub_1004C1A28(NSObject *a1)
 {
   if (sub_1003445E0(a1))
   {
-    sub_100008FFC(&_mh_execute_header, v1, v2, "#rose-ses,Did not expect successful KeyResponse in AlishaSubsystem::getKey.", v3, v4, v5, v6, 0);
+    v13 = 0;
+    sub_100008FFC(&_mh_execute_header, v1, v2, "#rose-ses,Did not expect successful KeyResponse in AlishaSubsystem::getKey.", v3, v4, v5, v6, v13);
   }
 
   if (sub_10032B2D4())
   {
-    sub_100008FDC(&_mh_execute_header, v7, v8, "#rose-ses,%s:%d: assertion failure in %s", v9, v10, v11, v12, 2u);
+    *v14 = 136315650;
+    *&v14[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/UWB/NIServerRoseSession.mm";
+    *&v14[12] = 1024;
+    *&v14[14] = 980;
+    *&v14[18] = 2080;
+    *&v14[20] = "getKey";
+    sub_100008FDC(&_mh_execute_header, v7, v8, "#rose-ses,%s:%d: assertion failure in %s", v9, v10, v11, v12, *v14, *&v14[8], *&v14[16], *&v14[24]);
   }
 
   abort();
@@ -10931,12 +11138,19 @@ void sub_1004C1BA0()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#rose-ses,AlishaSubsystem: #time-convert wrong conversion result. Timebase-from not BT", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#rose-ses,AlishaSubsystem: #time-convert wrong conversion result. Timebase-from not BT", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#rose-ses,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/UWB/NIServerRoseSession.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 1038;
+    *&v13[18] = 2080;
+    *&v13[20] = "convertBtClkToUwbClk";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#rose-ses,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -10946,12 +11160,19 @@ void sub_1004C1C38()
 {
   if (sub_10018B478())
   {
-    sub_100008FFC(&_mh_execute_header, v0, v1, "#rose-ses,AlishaSubsystem: #time-convert wrong conversion result. Timebase-to not Rose", v2, v3, v4, v5, 0);
+    v12 = 0;
+    sub_100008FFC(&_mh_execute_header, v0, v1, "#rose-ses,AlishaSubsystem: #time-convert wrong conversion result. Timebase-to not Rose", v2, v3, v4, v5, v12);
   }
 
   if (sub_10018B494())
   {
-    sub_100008FDC(&_mh_execute_header, v6, v7, "#rose-ses,%s:%d: assertion failure in %s", v8, v9, v10, v11, 2u);
+    *v13 = 136315650;
+    *&v13[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/UWB/NIServerRoseSession.mm";
+    *&v13[12] = 1024;
+    *&v13[14] = 1039;
+    *&v13[18] = 2080;
+    *&v13[20] = "convertBtClkToUwbClk";
+    sub_100008FDC(&_mh_execute_header, v6, v7, "#rose-ses,%s:%d: assertion failure in %s", v8, v9, v10, v11, *v13, *&v13[8], *&v13[16], *&v13[24]);
   }
 
   abort();
@@ -10961,12 +11182,19 @@ void sub_1004C1CD0(NSObject *a1)
 {
   if (sub_1003445E0(a1))
   {
-    sub_100008FFC(&_mh_execute_header, v1, v2, "#rose-ses,AlishaSubsystem: #time-convert wrong conversion result. Original time doesn't match", v3, v4, v5, v6, 0);
+    v13 = 0;
+    sub_100008FFC(&_mh_execute_header, v1, v2, "#rose-ses,AlishaSubsystem: #time-convert wrong conversion result. Original time doesn't match", v3, v4, v5, v6, v13);
   }
 
   if (sub_10032B2D4())
   {
-    sub_100008FDC(&_mh_execute_header, v7, v8, "#rose-ses,%s:%d: assertion failure in %s", v9, v10, v11, v12, 2u);
+    *v14 = 136315650;
+    *&v14[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/UWB/NIServerRoseSession.mm";
+    *&v14[12] = 1024;
+    *&v14[14] = 1040;
+    *&v14[18] = 2080;
+    *&v14[20] = "convertBtClkToUwbClk";
+    sub_100008FDC(&_mh_execute_header, v7, v8, "#rose-ses,%s:%d: assertion failure in %s", v9, v10, v11, v12, *v14, *&v14[8], *&v14[16], *&v14[24]);
   }
 
   abort();
@@ -10976,17 +11204,30 @@ void sub_1004C1D6C(char a1)
 {
   if (sub_100182C20())
   {
-    if ((a1 - 1) <= 3u)
+    if ((a1 - 1) > 3u)
+    {
+      v8 = "GetKeyResponse";
+    }
+
+    else
     {
       v8 = (&off_1009A63A8)[(a1 - 1)];
     }
 
-    sub_100008DF4(&_mh_execute_header, v2, v3, "#rose-ses,Got %s in AlishaSubsystem::_debugSetKey.", v4, v5, v6, v7, 2u);
+    LODWORD(v15) = 136315138;
+    *(&v15 + 4) = v8;
+    sub_100008DF4(&_mh_execute_header, v2, v3, "#rose-ses,Got %s in AlishaSubsystem::_debugSetKey.", v4, v5, v6, v7, v15, DWORD2(v15));
   }
 
   if (sub_10032B2D4())
   {
-    sub_100008FDC(&_mh_execute_header, v9, v10, "#rose-ses,%s:%d: assertion failure in %s", v11, v12, v13, v14, 2u);
+    *v16 = 136315650;
+    *&v16[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Daemon/Services/NearbyInteraction/UWB/NIServerRoseSession.mm";
+    *&v16[12] = 1024;
+    *&v16[14] = 1061;
+    *&v16[18] = 2080;
+    *&v16[20] = "_debugSetKey";
+    sub_100008FDC(&_mh_execute_header, v9, v10, "#rose-ses,%s:%d: assertion failure in %s", v11, v12, v13, v14, *v16, *&v16[8], *&v16[16], *&v16[24]);
   }
 
   abort();
@@ -11002,25 +11243,25 @@ void sub_1004C1F34(uint64_t a1)
   }
 }
 
-void sub_1004C1F94(uint64_t *a1)
+void sub_1004C1F94()
 {
-  v2 = sub_100008F38(a1);
-  if (v7 != v8)
+  sub_100008F38();
+  if (v6 != v7)
   {
-    v9 = v6;
+    v8 = v5;
   }
 
   else
   {
-    v9 = v2;
+    v8 = v1;
   }
 
-  *v3 = 136315138;
-  *(v3 + 4) = v9;
-  _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "#rose-ses,triggerAlishaSessionStats failed with status code %s", v5, 0xCu);
-  if (*(v1 + 23) < 0)
+  *v2 = 136315138;
+  *(v2 + 4) = v8;
+  _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "#rose-ses,triggerAlishaSessionStats failed with status code %s", v4, 0xCu);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
@@ -11115,17 +11356,6 @@ void sub_1004C2630(uint64_t a1, NSObject *a2)
   v2 = 138412290;
   v3 = a1;
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "#regulatory,regulatory,geo,mcc,copyCellInfo,error:%@", &v2, 0xCu);
-}
-
-void sub_1004C275C(uint64_t *a1)
-{
-  if (*(a1 + 23) < 0)
-  {
-    v1 = *a1;
-  }
-
-  sub_100008D70();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void sub_1004C2820(uint8_t *buf, uint64_t a2, os_log_t log)
@@ -11233,12 +11463,12 @@ void sub_1004C2D24(char *a1, uint8_t *buf, os_log_t log)
   }
 }
 
-void sub_1004C2D98(unsigned __int16 *a1)
+void sub_1004C2D98()
 {
-  sub_1000252C0(a1);
+  sub_1000252C0();
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1004C2E08()
@@ -11248,14 +11478,14 @@ void sub_1004C2E08()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004C2E44(uint64_t a1, uint64_t a2)
+void sub_1004C2E44()
 {
-  sub_100014014(a1, a2);
-  sub_100009150(1.5047e-36, v3, v4, v5);
-  sub_100363FB4(&_mh_execute_header, "Failed to unregister for service. Ticket ID: %d. Error: %s", v6, v7);
-  if (*(v2 + 23) < 0)
+  sub_100014014();
+  sub_100009150(1.5047e-36, v1, v2, v3);
+  sub_100363FB4(&_mh_execute_header, "Failed to unregister for service. Ticket ID: %d. Error: %s", v4, v5);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v2);
+    operator delete(*v0);
   }
 }
 
@@ -11280,14 +11510,14 @@ void sub_1004C2F0C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004C2F48(uint64_t a1, uint64_t a2)
+void sub_1004C2F48()
 {
-  sub_100014014(a1, a2);
-  sub_100009150(1.5047e-36, v3, v4, v5);
-  sub_100363FB4(&_mh_execute_header, "Failed to trigger ranging. Ticket ID: %d. Error: %s", v6, v7);
-  if (*(v2 + 23) < 0)
+  sub_100014014();
+  sub_100009150(1.5047e-36, v1, v2, v3);
+  sub_100363FB4(&_mh_execute_header, "Failed to trigger ranging. Ticket ID: %d. Error: %s", v4, v5);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v2);
+    operator delete(*v0);
   }
 }
 
@@ -11312,12 +11542,12 @@ void sub_1004C3048()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004C3084(unsigned __int16 *a1)
+void sub_1004C3084()
 {
-  sub_1000252C0(a1);
+  sub_1000252C0();
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1004C30F4()
@@ -11334,14 +11564,14 @@ void sub_1004C3130()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004C316C(uint64_t a1, uint64_t a2)
+void sub_1004C316C()
 {
-  sub_100014014(a1, a2);
-  sub_100009150(1.5047e-36, v3, v4, v5);
-  sub_100363FB4(&_mh_execute_header, "Failed to stop ranging. Ticket ID: %d. Error: %s", v6, v7);
-  if (*(v2 + 23) < 0)
+  sub_100014014();
+  sub_100009150(1.5047e-36, v1, v2, v3);
+  sub_100363FB4(&_mh_execute_header, "Failed to stop ranging. Ticket ID: %d. Error: %s", v4, v5);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v2);
+    operator delete(*v0);
   }
 }
 
@@ -11387,36 +11617,36 @@ void sub_1004C334C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004C33C0(unsigned __int16 *a1)
+void sub_1004C33C0()
 {
-  sub_1000252C0(a1);
+  sub_1000252C0();
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004C3430(unsigned __int16 *a1)
+void sub_1004C3430()
 {
-  sub_1000252C0(a1);
+  sub_1000252C0();
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004C34A0(unsigned __int16 *a1)
+void sub_1004C34A0()
 {
-  sub_1000252C0(a1);
+  sub_1000252C0();
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1004C3510(unsigned __int16 *a1)
+void sub_1004C3510()
 {
-  sub_1000252C0(a1);
+  sub_1000252C0();
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1004C35D8()
@@ -11434,12 +11664,12 @@ void sub_1004C364C(uint64_t *a1, NSObject *a2)
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "Speculative Cleanup: no requests for client %p.", &v3, 0xCu);
 }
 
-void sub_1004C36C8(unsigned __int16 *a1)
+void sub_1004C36C8()
 {
-  sub_1000252C0(a1);
+  sub_1000252C0();
   sub_100008DA4();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1004C3738()
@@ -11469,6 +11699,20 @@ void sub_1004C39B8(uint64_t *a1, NSObject *a2)
   v3 = 138412290;
   v4 = v2;
   _os_log_fault_impl(&_mh_execute_header, a2, OS_LOG_TYPE_FAULT, "#ses-wifi-test,Configuration did not contain expected role: %@", &v3, 0xCu);
+}
+
+void sub_1004C3A34(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Failed to start WiFi service. session is nil";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-wifi-test,%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004C3AF0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Failed to stop WiFi service. session is nil";
+  sub_100008DC8(&_mh_execute_header, a1, a3, "#ses-wifi-test,%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1004C3BAC(char *a1, void *a2, os_log_t log)
@@ -11550,11 +11794,67 @@ void sub_1004C3F94(uint64_t *a1, char a2, os_log_t log)
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "#reg-prov,injectIsoCode,isoCountryCode:%s,success:%d", &v4, 0x12u);
 }
 
+void sub_1004C4070(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerHomePassiveSensingSession initWithResourcesManager:configuration:error:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-hps,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004C40E8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerHomePassiveSensingSession lastConfiguration]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-hps,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004C4160(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerHomePassiveSensingSession configure]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-hps,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1004C41D8()
 {
   sub_100008D98();
   sub_100008D70();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+void sub_1004C4240(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerHomePassiveSensingSession run]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-hps,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004C42B8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerHomePassiveSensingSession pauseWithSource:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-hps,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004C4330(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerHomePassiveSensingSession updateConfiguration:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-hps,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004C43A8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerHomePassiveSensingSession disableAllServices]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-hps,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004C4420(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerHomePassiveSensingSession invalidate]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-hps,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1004C4498()
@@ -11571,12 +11871,11 @@ void sub_1004C4508()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004C4544(uint64_t *a1)
+void sub_1004C4544()
 {
-  v1 = *a1;
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1004C45B8()
@@ -11601,12 +11900,11 @@ void sub_1004C46B0()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004C4720(uint64_t a1)
+void sub_1004C4720()
 {
-  v1 = *(a1 + 88);
   sub_100008DB0();
   sub_10003A96C();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_1004C47AC()
@@ -11639,12 +11937,11 @@ void sub_1004C48E4()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004C4920(uint64_t *a1)
+void sub_1004C4920()
 {
-  v1 = *a1;
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1004C4994()
@@ -11654,6 +11951,13 @@ void sub_1004C4994()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
+void sub_1004C4A04(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerHomePassiveSensingSession didReceiveRemoteData:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-hps,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1004C4A7C()
 {
   sub_100008D98();
@@ -11661,11 +11965,11 @@ void sub_1004C4A7C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004C4AB8(_DWORD *a1, _DWORD *a2)
+void sub_1004C4B4C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v7 = *a1 - *a2;
-  sub_10003A96C();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xEu);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerHomePassiveSensingSession responderServiceTicketId:didChangeRangingUpdateRate:newThrottleRate:prevThrottleRate:effectiveSinceCycleInde:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-hps,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1004C4BC4()
@@ -11682,11 +11986,32 @@ void sub_1004C4C00()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
+void sub_1004C4C3C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerHomePassiveSensingSession _disableAllServicesAndSendHangupSignal:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-hps,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004C4CB4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerHomePassiveSensingSession _peerHungUp:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-hps,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1004C4D2C()
 {
   sub_100008DBC();
   sub_100008D70();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+void sub_1004C4D9C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerHomePassiveSensingSession _roseSession:invalidatedWithReason:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-hps,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1004C4E14(char *a1, uint64_t a2)
@@ -11711,6 +12036,27 @@ void sub_1004C4E14(char *a1, uint64_t a2)
   }
 }
 
+void sub_1004C4E84(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerHomePassiveSensingSession _shouldRespondToDevice:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-hps,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004C4EFC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerHomePassiveSensingSession _notifyPeerRemoval:withReason:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-hps,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004C4F74(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NIServerHomePassiveSensingSession _removePeerObject:uwbIdentifier:withReason:]";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#ses-hps,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1004C4FEC()
 {
   sub_100008D98();
@@ -11725,12 +12071,11 @@ void sub_1004C5028()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004C5098(uint64_t *a1)
+void sub_1004C5098()
 {
-  v1 = *a1;
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1004C51FC()
@@ -11842,13 +12187,6 @@ void sub_1004C58A8()
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_1004C5A1C(int *a1)
-{
-  v6 = *a1;
-  sub_100008EB0();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 8u);
-}
-
 void sub_1004C5A94()
 {
   sub_100008D98();
@@ -11926,20 +12264,13 @@ void sub_1004C5DA0()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004C5F0C(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
 void sub_1004C5F84()
 {
-  if (__cxa_guard_acquire(&qword_1009EC1C0))
+  if (__cxa_guard_acquire(byte_1009EC1C0))
   {
     __cxa_atexit(nullsub_152, &unk_1009EC1B8, &_mh_execute_header);
 
-    __cxa_guard_release(&qword_1009EC1C0);
+    __cxa_guard_release(byte_1009EC1C0);
   }
 }
 
@@ -11999,17 +12330,6 @@ void sub_1004C6330(uint64_t *a1, uint8_t *buf, os_log_t log)
   *buf = 134217984;
   *(buf + 4) = v3;
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "#nrby-eng,no object for identifier 0x%llx", buf, 0xCu);
-}
-
-void sub_1004C637C(uint64_t a1)
-{
-  if (*(a1 + 159) < 0)
-  {
-    v1 = *(a1 + 136);
-  }
-
-  sub_100008D70();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void sub_1004C6400(uint64_t *a1, uint64_t a2, uint8_t *buf, os_log_t log)
@@ -12109,35 +12429,55 @@ void sub_1004C698C(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "No subscription for user default change: %@", &v2, 0xCu);
 }
 
-void sub_1004C6A04()
+void sub_1004C6A04(uint64_t a1, uint64_t a2)
 {
-  v0 = qword_1009F9820;
+  v4 = qword_1009F9820;
   if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_FAULT))
   {
-    sub_100009118(&_mh_execute_header, v1, v2, "#alisha-param-neg,BT event UWB clock (%llu [us]) < shared event UWB clock (%llu [us])", v3, v4, v5, v6, 0);
-    v0 = qword_1009F9820;
+    *v17 = 134218240;
+    *&v17[4] = a1;
+    *&v17[12] = 2048;
+    *&v17[14] = a2;
+    sub_100009118(&_mh_execute_header, v5, v6, "#alisha-param-neg,BT event UWB clock (%llu [us]) < shared event UWB clock (%llu [us])", v7, v8, v9, v10, *v17, *&v17[8], *&v17[16]);
+    v4 = qword_1009F9820;
   }
 
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    sub_100008FDC(&_mh_execute_header, v7, v8, "#alisha-param-neg,%s:%d: assertion failure in %s", v9, v10, v11, v12, 2u);
+    *v18 = 136315650;
+    *&v18[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/AlishaSupport/AlishaParameterNegotiation.cpp";
+    *&v18[12] = 1024;
+    *&v18[14] = 337;
+    *&v18[18] = 2080;
+    *&v18[20] = "processBluetoothEvent";
+    sub_100008FDC(&_mh_execute_header, v11, v12, "#alisha-param-neg,%s:%d: assertion failure in %s", v13, v14, v15, v16, *v18, *&v18[8], *&v18[16], *&v18[24]);
   }
 
   abort();
 }
 
-void sub_1004C6AD8()
+void sub_1004C6AD8(uint64_t a1, uint64_t a2)
 {
-  v0 = qword_1009F9820;
+  v4 = qword_1009F9820;
   if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_FAULT))
   {
-    sub_100009118(&_mh_execute_header, v1, v2, "#alisha-param-neg,Ranging start time UWB clock (%llu [us]) < shared event UWB clock (%llu [us])", v3, v4, v5, v6, 0);
-    v0 = qword_1009F9820;
+    *v17 = 134218240;
+    *&v17[4] = a1;
+    *&v17[12] = 2048;
+    *&v17[14] = a2;
+    sub_100009118(&_mh_execute_header, v5, v6, "#alisha-param-neg,Ranging start time UWB clock (%llu [us]) < shared event UWB clock (%llu [us])", v7, v8, v9, v10, *v17, *&v17[8], *&v17[16]);
+    v4 = qword_1009F9820;
   }
 
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    sub_100008FDC(&_mh_execute_header, v7, v8, "#alisha-param-neg,%s:%d: assertion failure in %s", v9, v10, v11, v12, 2u);
+    *v18 = 136315650;
+    *&v18[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/AlishaSupport/AlishaParameterNegotiation.cpp";
+    *&v18[12] = 1024;
+    *&v18[14] = 360;
+    *&v18[18] = 2080;
+    *&v18[20] = "getUwbTime0";
+    sub_100008FDC(&_mh_execute_header, v11, v12, "#alisha-param-neg,%s:%d: assertion failure in %s", v13, v14, v15, v16, *v18, *&v18[8], *&v18[16], *&v18[24]);
   }
 
   abort();
@@ -12159,7 +12499,7 @@ void sub_1004C6DA8()
   sub_1003A03C4(v0, v1);
   sub_10000904C();
   sub_10001402C();
-  sub_100008E3C(&_mh_execute_header, v2, v3, "#alisha-sm,Session RQ Get Key Failure (%s)", v4, v5, v6, v7, v8, __p, v11, v12, v14);
+  sub_100008E3C(&_mh_execute_header, v2, v3, "#alisha-sm,Session RQ Get Key Failure (%s)", v4, v5, v6, v7, v8, __p, v11, v12);
   if (v13 < 0)
   {
     operator delete(__pa);
@@ -12182,7 +12522,7 @@ void sub_1004C6E60()
   sub_1003A03C4(v0, v1);
   sub_10000904C();
   sub_10001402C();
-  sub_100008E3C(&_mh_execute_header, v2, v3, "#alisha-sm,Recovery RQ Get Key Failure (%s)", v4, v5, v6, v7, v8, __p, v11, v12, v14);
+  sub_100008E3C(&_mh_execute_header, v2, v3, "#alisha-sm,Recovery RQ Get Key Failure (%s)", v4, v5, v6, v7, v8, __p, v11, v12);
   if (v13 < 0)
   {
     operator delete(__pa);
@@ -12249,7 +12589,7 @@ void sub_1004C70CC()
   sub_1003A03C4(v0, v1);
   sub_10000904C();
   sub_10001402C();
-  sub_100008E3C(&_mh_execute_header, v2, v3, "#alisha-sm,processDCKSuspendRS error: disable ranging failed (%s)", v4, v5, v6, v7, v8, __p, v11, v12, v14);
+  sub_100008E3C(&_mh_execute_header, v2, v3, "#alisha-sm,processDCKSuspendRS error: disable ranging failed (%s)", v4, v5, v6, v7, v8, __p, v11, v12);
   if (v13 < 0)
   {
     operator delete(__pa);
@@ -12267,6 +12607,106 @@ void sub_1004C7158(NSObject *a1, void *a2)
   }
 
   *a2 = qword_1009F9820;
+}
+
+void sub_1004C7230(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "AcwgManager";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#acwg-mgr,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004C72A8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "~AcwgManager";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#acwg-mgr,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004C7320(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "invalidate";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#acwg-mgr,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004C7398(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_cleanupSessionAndReturnSessionStats";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#acwg-mgr,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004C7410(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "run";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#acwg-mgr,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004C7488(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "stopRanging";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#acwg-mgr,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004C752C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "processM1Msg";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#acwg-mgr,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004C75A4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "processM3Msg";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#acwg-mgr,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004C761C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "processResumeReq";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#acwg-mgr,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004C7694(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "processBluetoothEvent";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#acwg-mgr,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004C770C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "deleteKeysForThisLock";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#acwg-mgr,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004C77B0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "prefetchUrsk";
+  sub_100008E94(&_mh_execute_header, a1, a3, "#acwg-mgr,In method: '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1004C7E34(int a1)
+{
+  v1 = 4;
+  v2 = 5;
+  cnprint::CNPrinter::Print(&v1, &v2, "Error using Inv: input argument %d invalid in getrf.", -a1);
+  __assert_rtn("Inv", "cnmatrixbase.h", 6258, "info >= 0");
+}
+
+void sub_1004C7FC4(int a1)
+{
+  v1 = 4;
+  v2 = 5;
+  cnprint::CNPrinter::Print(&v1, &v2, "Error using Inv: input argument %d invalid in getrf.", -a1);
+  __assert_rtn("Inv", "cnmatrixbase.h", 6127, "info >= 0");
 }
 
 void sub_1004C8250()
@@ -12372,16 +12812,6 @@ void sub_1004C87EC()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004C8828(void *a1)
-{
-  v6 = a1[53];
-  v7 = a1[54];
-  v8 = a1[55];
-  v9 = a1[56];
-  sub_100008E30();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x2Au);
-}
-
 void sub_1004C88C0()
 {
   sub_100008D98();
@@ -12431,6 +12861,22 @@ void sub_1004C8A98()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
+void sub_1004C8B90(const char *a1)
+{
+  v1 = 4;
+  v2 = 5;
+  cnprint::CNPrinter::Print(&v1, &v2, "Error using Norm: invalid %s-norm.", a1);
+  __assert_rtn("Norm", "cnmatrixbase.h", 4716, "ret == 1");
+}
+
+void sub_1004C8BE8(const char *a1)
+{
+  v1 = 4;
+  v2 = 5;
+  cnprint::CNPrinter::Print(&v1, &v2, "Error using Norm: invalid %s-norm.", a1);
+  __assert_rtn("Norm", "cnmatrixbase.h", 4640, "false");
+}
+
 void sub_1004C8FDC(uint8_t *buf, int a2, os_log_t log)
 {
   *buf = 67109120;
@@ -12472,14 +12918,11 @@ void sub_1004C92EC()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004C9360(void *a1)
+void sub_1004C9360()
 {
-  v1 = a1[69];
-  v2 = a1[70];
-  v3 = a1[68];
   sub_1003B604C();
   sub_100008E30();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x2Au);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x2Au);
 }
 
 void sub_1004C93F0()
@@ -12524,23 +12967,18 @@ void sub_1004C9594()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004C97B8(uint64_t a1)
+void sub_1004C97B8()
 {
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 176);
-  *(a1 + 178);
   sub_1001EA0B8();
   sub_100008E30();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x12u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_1004C9880(uint64_t *a1)
+void sub_1004C9880()
 {
-  v1 = *a1;
-  v2 = *(a1 + 4);
   sub_1001EA0B8();
   sub_100008E30();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x12u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void sub_1004C98F8()
@@ -12606,12 +13044,11 @@ void sub_1004C9BF8()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004C9C34(uint64_t *a1)
+void sub_1004C9C34()
 {
-  v1 = *a1;
   sub_1003B604C();
   sub_100008E30();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_1004C9CAC()
@@ -12930,26 +13367,18 @@ void sub_1004CC458()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004CC494(void *a1)
+void sub_1004CC494()
 {
-  v1 = a1[15];
-  v2 = a1[16];
-  v3 = a1[17];
-  v4 = a1[18];
   sub_1003EC3C8();
   sub_100008E30();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x2Au);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x2Au);
 }
 
-void sub_1004CC50C(void *a1, uint64_t a2, _BYTE *a3)
+void sub_1004CC50C(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  v4 = a1[15];
-  v5 = a1[16];
-  v6 = a1[17];
-  v7 = a1[18];
   sub_1003EC3C8();
   sub_100008E30();
-  _os_log_debug_impl(v8, v9, v10, v11, v12, 0x2Au);
+  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x2Au);
   if ((*a3 & 1) == 0)
   {
     sub_1000195BC();
@@ -12965,11 +13394,10 @@ void sub_1004CC634()
 
 void sub_1004CC670(uint64_t a1)
 {
-  v1 = *(a1 + 784);
   sub_1003ADBF0(*(a1 + 736), *(a1 + 752), *(a1 + 768));
   sub_1003EC3F0();
-  sub_1000091B4(v2);
-  sub_1003EC408(&_mh_execute_header, v3, v4, "#sa_algo_particlefilter,particle filter current pose, source: pose , quatw: %f, quatx: %f, quaty: %f, quatz: %f", v5, v6, v7, v8, v9);
+  v2 = sub_1000091B4(v1);
+  sub_1003EC408(&_mh_execute_header, v3, v4, "#sa_algo_particlefilter,particle filter current pose, source: pose , quatw: %f, quatx: %f, quaty: %f, quatz: %f", v5, v6, v7, v8, v2);
 }
 
 void sub_1004CC6F4(uint64_t a1, _BYTE *a2)
@@ -12985,11 +13413,10 @@ void sub_1004CC6F4(uint64_t a1, _BYTE *a2)
 
 void sub_1004CC748(uint64_t a1)
 {
-  v1 = *(a1 + 784);
   sub_1003ADBF0(*(a1 + 736), *(a1 + 752), *(a1 + 768));
   sub_1003EC3F0();
-  sub_1000091B4(v2);
-  sub_1003EC408(&_mh_execute_header, v3, v4, "#sa_algo_particlefilter,particle filter current pose, source: deltav , quatw: %f, quatx: %f, quaty: %f, quatz: %f", v5, v6, v7, v8, v9);
+  v2 = sub_1000091B4(v1);
+  sub_1003EC408(&_mh_execute_header, v3, v4, "#sa_algo_particlefilter,particle filter current pose, source: deltav , quatw: %f, quatx: %f, quaty: %f, quatz: %f", v5, v6, v7, v8, v2);
 }
 
 void sub_1004CC7CC(uint64_t a1, _BYTE *a2)
@@ -13036,35 +13463,35 @@ void sub_1004CC914()
 uint64_t sub_1004CCF6C(uint64_t a1, _BYTE *a2)
 {
   sub_100008D98();
-  sub_100008E14(&_mh_execute_header, v3, v4, "#findalgs-itemfinder,provided solution, PF", v5, v6, v7, v8, v10);
+  sub_100008E14(&_mh_execute_header, v3, v4, "#findalgs-itemfinder,provided solution, PF", v5, v6, v7, v8);
   return *a2 & 1;
 }
 
 uint64_t sub_1004CCFB4(uint64_t a1, _BYTE *a2)
 {
   sub_100008D98();
-  sub_100008E14(&_mh_execute_header, v3, v4, "#findalgs-itemfinder,provided solution, SA", v5, v6, v7, v8, v10);
+  sub_100008E14(&_mh_execute_header, v3, v4, "#findalgs-itemfinder,provided solution, SA", v5, v6, v7, v8);
   return *a2 & 1;
 }
 
 uint64_t sub_1004CD098()
 {
   sub_100008D98();
-  sub_100008E14(&_mh_execute_header, v0, v1, "#findalgs-peoplefinder,provided solution, SA with findee VIO", v2, v3, v4, v5, v7);
+  sub_100008E14(&_mh_execute_header, v0, v1, "#findalgs-peoplefinder,provided solution, SA with findee VIO", v2, v3, v4, v5);
   return sub_1003FB038();
 }
 
 uint64_t sub_1004CD0E0()
 {
   sub_100008D98();
-  sub_100008E14(&_mh_execute_header, v0, v1, "#findalgs-peoplefinder,provided solution, SA", v2, v3, v4, v5, v7);
+  sub_100008E14(&_mh_execute_header, v0, v1, "#findalgs-peoplefinder,provided solution, SA", v2, v3, v4, v5);
   return sub_1003FB038();
 }
 
 uint64_t sub_1004CD128(uint64_t a1, _BYTE *a2)
 {
   sub_100008D98();
-  sub_100008E14(&_mh_execute_header, v3, v4, "#findalgs-peoplefinder,provided solution, PF", v5, v6, v7, v8, v10);
+  sub_100008E14(&_mh_execute_header, v3, v4, "#findalgs-peoplefinder,provided solution, PF", v5, v6, v7, v8);
   return *a2 & 1;
 }
 
@@ -13105,30 +13532,8 @@ void sub_1004CD660()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004CD69C(unsigned __int8 *a1)
+void sub_1004CD9B8(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  v6 = *a1;
-  sub_100008E30();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xEu);
-}
-
-void sub_1004CD720(unsigned __int8 *a1)
-{
-  v6 = *a1;
-  sub_100008E30();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xEu);
-}
-
-void sub_1004CD7A8(unsigned __int8 *a1)
-{
-  v6 = *a1;
-  sub_100008E30();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-}
-
-void sub_1004CD9B8(uint64_t *a1, uint64_t a2, _BYTE *a3)
-{
-  v9 = *a1;
   sub_100008E30();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0xCu);
   if ((*a3 & 1) == 0)
@@ -13144,14 +13549,6 @@ void sub_1004CDA7C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_1004CDAF0(uint64_t a1)
-{
-  v6 = *(a1 + 48);
-  v7 = *(a1 + 56);
-  sub_100008E30();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
-}
-
 void sub_1004CDB7C()
 {
   sub_100008D98();
@@ -13164,13 +13561,6 @@ void sub_1004CDBB8()
   sub_100009138();
   sub_100008D70();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-}
-
-void sub_1004CDC2C(uint64_t a1)
-{
-  v6 = (*(a1 + 169) & *(a1 + 168));
-  sub_100008E30();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
 }
 
 void sub_1004CDD14(uint64_t a1, uint64_t a2, os_log_t log)
@@ -13189,13 +13579,20 @@ void sub_1004CE26C()
   v0 = qword_1009F9820;
   if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_FAULT))
   {
-    sub_100008FFC(&_mh_execute_header, v1, v2, "#regionmon #spatialGesturesPredictor for intent predictor MotionBasedSpatialGestures, gestureClassifiers should have value", v3, v4, v5, v6, 0);
+    v13 = 0;
+    sub_100008FFC(&_mh_execute_header, v1, v2, "#regionmon #spatialGesturesPredictor for intent predictor MotionBasedSpatialGestures, gestureClassifiers should have value", v3, v4, v5, v6, v13);
     v0 = qword_1009F9820;
   }
 
   if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
   {
-    sub_100008FDC(&_mh_execute_header, v7, v8, "#regionmon %s:%d: assertion failure in %s", v9, v10, v11, v12, 2u);
+    *v14 = 136315650;
+    *&v14[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/NearbyAlgorithms/RegionMonitoring/NRBYDeviceMonitor.cpp";
+    *&v14[12] = 1024;
+    *&v14[14] = 373;
+    *&v14[18] = 2080;
+    *&v14[20] = "DeviceMonitor";
+    sub_100008FDC(&_mh_execute_header, v7, v8, "#regionmon %s:%d: assertion failure in %s", v9, v10, v11, v12, *v14, *&v14[8], *&v14[16], *&v14[24]);
   }
 
   abort();
@@ -13206,23 +13603,30 @@ void sub_1004CE31C()
   v0 = qword_1009F9820;
   if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_FAULT))
   {
-    sub_100008FFC(&_mh_execute_header, v1, v2, "#regionmon #spatialGesturesPredictor for intent predictor MotionBasedSpatialGestures, motionTriggeredHandoffCallback must be defined", v3, v4, v5, v6, 0);
+    v13 = 0;
+    sub_100008FFC(&_mh_execute_header, v1, v2, "#regionmon #spatialGesturesPredictor for intent predictor MotionBasedSpatialGestures, motionTriggeredHandoffCallback must be defined", v3, v4, v5, v6, v13);
     v0 = qword_1009F9820;
   }
 
   if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
   {
-    sub_100008FDC(&_mh_execute_header, v7, v8, "#regionmon %s:%d: assertion failure in %s", v9, v10, v11, v12, 2u);
+    *v14 = 136315650;
+    *&v14[4] = "/Library/Caches/com.apple.xbs/Sources/Proximity/Libraries/NearbyAlgorithms/RegionMonitoring/NRBYDeviceMonitor.cpp";
+    *&v14[12] = 1024;
+    *&v14[14] = 377;
+    *&v14[18] = 2080;
+    *&v14[20] = "DeviceMonitor";
+    sub_100008FDC(&_mh_execute_header, v7, v8, "#regionmon %s:%d: assertion failure in %s", v9, v10, v11, v12, *v14, *&v14[8], *&v14[16], *&v14[24]);
   }
 
   abort();
 }
 
-void sub_1004CE43C(uint64_t *a1)
+void sub_1004CE43C()
 {
-  sub_100013F94(a1, __stack_chk_guard);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
-  sub_100008DC8(&_mh_execute_header, v1, v2, "#regionmon unexpected remote antenna mask in SG prediction for dev 0x%llx. skipping intent prediction", v3, v4, v5, v6, v7);
+  sub_100008DC8(&_mh_execute_header, v0, v1, "#regionmon unexpected remote antenna mask in SG prediction for dev 0x%llx. skipping intent prediction", v2, v3, v4, v5);
 }
 
 void sub_1004CE4D0(uint8_t *buf, uint64_t a2, int a3, os_log_t log)
@@ -13234,11 +13638,11 @@ void sub_1004CE4D0(uint8_t *buf, uint64_t a2, int a3, os_log_t log)
   _os_log_fault_impl(&_mh_execute_header, log, OS_LOG_TYPE_FAULT, "#regionmon Error unexpected BT threshold detector early return with out of bubble estimate, RSSI: %f, numSamples: %d", buf, 0x12u);
 }
 
-void sub_1004CE528(uint64_t *a1)
+void sub_1004CE528()
 {
-  sub_100013F94(a1, __stack_chk_guard);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
-  sub_100008DC8(&_mh_execute_header, v1, v2, "#regionmon deviceMonitor:%llu does not accept bt samples so its bt threshold cannot be offset.", v3, v4, v5, v6, v7);
+  sub_100008DC8(&_mh_execute_header, v0, v1, "#regionmon deviceMonitor:%llu does not accept bt samples so its bt threshold cannot be offset.", v2, v3, v4, v5);
 }
 
 void sub_1004CE66C(unsigned __int16 *a1, NSObject *a2)
@@ -13288,13 +13692,6 @@ void sub_1004CE78C(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "#ils,not enough measurements for cluster %hu", v3, 8u);
 }
 
-void sub_1004CE834(uint64_t a1)
-{
-  v6 = *(a1 + 24);
-  sub_100008EB0();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
 void sub_1004CE8B0()
 {
   sub_100008D98();
@@ -13312,22 +13709,6 @@ void sub_1004CE9AC(char *a1, void *a2, os_log_t log)
   v3 = 136315138;
   v4 = a2;
   _os_log_fault_impl(&_mh_execute_header, log, OS_LOG_TYPE_FAULT, "#regionmon more than one region with name: %s\n", &v3, 0xCu);
-}
-
-void sub_1004CEA9C(unsigned int *a1, uint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  sub_10018B4B0();
-  _os_log_debug_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "#regionmon #region-class using class %d regions for device 0x%llx", v5, 0x12u);
-}
-
-void sub_1004CEB1C(unsigned int *a1, uint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  sub_10018B4B0();
-  _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "#regionmon #region-class region for class %d not found. will not create a device monitor for 0x%llx", v5, 0x12u);
 }
 
 void sub_1004CEBD0(_BYTE *a1, uint64_t a2)
@@ -13380,21 +13761,11 @@ void sub_1004CEF60()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_1004CEFD8(uint64_t *a1)
+void sub_1004CF0D8()
 {
-  v6 = *a1;
-  v7 = a1[1];
-  v8 = a1[2];
-  sub_100008E30();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
-}
-
-void sub_1004CF0D8(uint64_t a1)
-{
-  v1 = *(a1 + 8);
   sub_1000091E4();
   sub_100008E30();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_1004CF154()
@@ -13455,7 +13826,7 @@ void sub_1004CF3CC(char *a1, uint8_t *buf, os_log_t log)
 
 void sub_1004CF710()
 {
-  if (__cxa_guard_acquire(&qword_1009EC3A0))
+  if (__cxa_guard_acquire(byte_1009EC3A0))
   {
     qword_1009EC360 = 850045863;
     xmmword_1009EC368 = 0u;
@@ -13465,13 +13836,13 @@ void sub_1004CF710()
     qword_1009EC358 = os_log_create("com.apple.librose", "client");
     __cxa_atexit(sub_100428E50, &qword_1009EC358, &_mh_execute_header);
 
-    __cxa_guard_release(&qword_1009EC3A0);
+    __cxa_guard_release(byte_1009EC3A0);
   }
 }
 
 void sub_1004CF7BC()
 {
-  if (__cxa_guard_acquire(&qword_1009EC3E8))
+  if (__cxa_guard_acquire(byte_1009EC3E8))
   {
     qword_1009EC3A8 = 850045863;
     unk_1009EC3B0 = 0u;
@@ -13480,113 +13851,91 @@ void sub_1004CF7BC()
     qword_1009EC3E0 = 0;
     __cxa_atexit(std::mutex::~mutex, &qword_1009EC3A8, &_mh_execute_header);
 
-    __cxa_guard_release(&qword_1009EC3E8);
+    __cxa_guard_release(byte_1009EC3E8);
   }
 }
 
-uint64_t sub_1004CF884(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_1004CF884(uint64_t a1, uint64_t a2)
 {
-  sub_100428B48("invalid refcon in rose event callback", a2, a3, a4, a5, a6, a7, a8, v10);
-  v8 = abort_report_np();
-  return sub_1004CF8AC(v8);
+  sub_100428B48("invalid refcon in rose event callback", a2);
+  v2 = abort_report_np("invalid refcon in rose event callback");
+  return sub_1004CF8AC(v2, v3);
 }
 
-uint64_t sub_1004CF8AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_1004CF8AC(uint64_t a1, uint64_t a2)
 {
-  sub_100428B48("fCrashCallback not found", a2, a3, a4, a5, a6, a7, a8, v10);
-  v8 = abort_report_np();
-  return sub_1004CF8D4(v8);
+  sub_100428B48("fCrashCallback not found", a2);
+  v2 = abort_report_np("fCrashCallback not found");
+  return sub_1004CF8D4(v2, v3);
 }
 
-uint64_t sub_1004CF8D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_1004CF8D4(uint64_t a1, uint64_t a2)
 {
-  sub_100428B48("invalid refcon in crash callback", a2, a3, a4, a5, a6, a7, a8, v10);
-  v8 = abort_report_np();
-  return sub_1004CF8FC(v8);
+  sub_100428B48("invalid refcon in crash callback", a2);
+  v2 = abort_report_np("invalid refcon in crash callback");
+  return sub_1004CF8FC(v2, v3);
 }
 
-uint64_t sub_1004CF8FC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_1004CF8FC(uint64_t a1, uint64_t a2)
 {
-  sub_100428B48("fStateChangeCb not found", a2, a3, a4, a5, a6, a7, a8, v10);
-  v8 = abort_report_np();
-  return sub_1004CF924(v8);
+  sub_100428B48("fStateChangeCb not found", a2);
+  v2 = abort_report_np("fStateChangeCb not found");
+  return sub_1004CF924(v2, v3);
 }
 
-uint64_t sub_1004CF924(unsigned __int8 a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_1004CF924(unsigned __int8 a1, uint64_t a2)
 {
-  sub_100428B48("invalid refcon in FW State Change callback, state %u", a2, a3, a4, a5, a6, a7, a8, a1);
-  v8 = abort_report_np();
-  return sub_1004CF95C(v8);
+  v2 = a1;
+  sub_100428B48("invalid refcon in FW State Change callback, state %u", a2, a1);
+  v3 = abort_report_np("invalid refcon in FW State Change callback, state %u", v2);
+  return sub_1004CF95C(v3, v4);
 }
 
-uint64_t sub_1004CF95C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_1004CF95C(uint64_t a1, uint64_t a2)
 {
-  sub_100428B48("fErrorReportCb not found", a2, a3, a4, a5, a6, a7, a8, v10);
-  v8 = abort_report_np();
-  return sub_1004CF984(v8);
+  sub_100428B48("fErrorReportCb not found", a2);
+  v2 = abort_report_np("fErrorReportCb not found");
+  return sub_1004CF984(v2, v3);
 }
 
-uint64_t sub_1004CF984(unsigned __int8 a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_1004CF984(unsigned __int8 a1, uint64_t a2)
 {
-  sub_100428B48("invalid refcon in errorReportCallback, errorCode: %u", a2, a3, a4, a5, a6, a7, a8, a1);
-  v8 = abort_report_np();
-  return sub_1004CF9BC(v8);
+  v2 = a1;
+  sub_100428B48("invalid refcon in errorReportCallback, errorCode: %u", a2, a1);
+  v3 = abort_report_np("invalid refcon in errorReportCallback, errorCode: %u", v2);
+  sub_1004CF9BC(v3);
 }
 
-void sub_1004CFA00(uint64_t a1)
+void sub_1004CFA00()
 {
-  v1 = sub_10045E874(a1, __stack_chk_guard);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
-  v4 = v1[4];
+  sub_10045E874(__stack_chk_guard);
   sub_10045E850();
   sub_100008E30();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_1004CFA7C(uint64_t a1)
+void sub_1004CFA7C()
 {
-  v1 = sub_10045E884(a1, __stack_chk_guard);
-  if (v3 < 0)
-  {
-    v4 = *v1;
-  }
-
-  v5 = *v2;
+  sub_10045E884(__stack_chk_guard);
   sub_100008F20();
   sub_10000907C();
-  _os_log_debug_impl(v6, v7, v8, v9, v10, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_1004CFAF8(uint64_t a1)
+void sub_1004CFAF8()
 {
-  v1 = sub_10045E874(a1, __stack_chk_guard);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
-  v4 = v1[4];
+  sub_10045E874(__stack_chk_guard);
   sub_10045E850();
   sub_100008E30();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_1004CFB74(uint64_t a1)
+void sub_1004CFB74()
 {
-  v1 = sub_10045E884(a1, __stack_chk_guard);
-  if (v3 < 0)
-  {
-    v4 = *v1;
-  }
-
-  v5 = *v2;
+  sub_10045E884(__stack_chk_guard);
   sub_100008F20();
   sub_10000907C();
-  _os_log_debug_impl(v6, v7, v8, v9, v10, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_1004CFBF0()
@@ -13610,18 +13959,12 @@ void sub_1004CFDA0()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004CFDDC(uint64_t a1)
+void sub_1004CFDDC()
 {
-  v1 = sub_10045E874(a1, __stack_chk_guard);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
-  v4 = v1[4];
+  sub_10045E874(__stack_chk_guard);
   sub_10045E850();
   sub_100008E30();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_1004CFE58()
@@ -13631,45 +13974,27 @@ void sub_1004CFE58()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004CFF64(uint64_t a1)
+void sub_1004CFF64()
 {
-  v1 = sub_10045E884(a1, __stack_chk_guard);
-  if (v3 < 0)
-  {
-    v4 = *v1;
-  }
-
-  v5 = *v2;
+  sub_10045E884(__stack_chk_guard);
   sub_100008F20();
   sub_10000907C();
-  _os_log_debug_impl(v6, v7, v8, v9, v10, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_1004D005C(uint64_t a1, unsigned int *a2)
+void sub_1004D005C()
 {
-  sub_10045E868(a2, __stack_chk_guard);
+  sub_10045E868(__stack_chk_guard);
   sub_1000091F8();
   sub_10000907C();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_1004D00CC(uint64_t a1, uint64_t *a2)
+void sub_1004D00CC()
 {
-  v2 = *a2;
   sub_100008F20();
   sub_10000907C();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-}
-
-void sub_1004D0140(char *a1, uint64_t *a2)
-{
-  if (*a1 < 0)
-  {
-    v2 = *a2;
-  }
-
-  sub_10000907C();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_1004D01C0(char a1, NSObject *a2)
@@ -13681,17 +14006,6 @@ void sub_1004D01C0(char a1, NSObject *a2)
   }
 
   __assert_rtn("getRegulatoryCountryParams", "roseRegulatoryCompliance.mm", 652, "false");
-}
-
-void sub_1004D0218(char *a1, uint64_t *a2)
-{
-  if (*a1 < 0)
-  {
-    v2 = *a2;
-  }
-
-  sub_10000907C();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 void sub_1004D0298(char a1, NSObject *a2)
@@ -13728,17 +14042,6 @@ void sub_1004D02F0(char *a1, uint8_t *buf, int a3, os_log_t log)
   }
 }
 
-void sub_1004D0374(char *a1, uint64_t *a2)
-{
-  if (*a1 < 0)
-  {
-    v2 = *a2;
-  }
-
-  sub_10000907C();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x22u);
-}
-
 void sub_1004D041C()
 {
   sub_100008D98();
@@ -13746,62 +14049,41 @@ void sub_1004D041C()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004D0458(uint64_t *a1, uint64_t *a2)
-{
-  v7 = *a1;
-  v8 = *a2;
-  sub_10000907C();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-}
-
-void sub_1004D04E0(int *a1)
-{
-  v6 = *a1;
-  sub_100008E30();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-}
-
 void sub_1004D0558()
 {
-  if (__cxa_guard_acquire(&qword_1009F92E8))
+  if (__cxa_guard_acquire(byte_1009F92E8))
   {
     unk_1009F9300 = 0;
     xmmword_1009F92F0 = 0uLL;
     __cxa_atexit(&std::string::~string, &xmmword_1009F92F0, &_mh_execute_header);
 
-    __cxa_guard_release(&qword_1009F92E8);
+    __cxa_guard_release(byte_1009F92E8);
   }
 }
 
-void sub_1004D0648(uint64_t a1, uint64_t *a2)
+void sub_1004D0648()
 {
-  if (*(a2 + 23) < 0)
-  {
-    v2 = *a2;
-  }
-
   sub_100008DBC();
   sub_10000907C();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_1004D06E8()
 {
-  if (__cxa_guard_acquire(&qword_1009F9318))
+  if (__cxa_guard_acquire(byte_1009F9318))
   {
     unk_1009F9330 = 0;
     xmmword_1009F9320 = 0uLL;
     __cxa_atexit(&std::string::~string, &xmmword_1009F9320, &_mh_execute_header);
 
-    __cxa_guard_release(&qword_1009F9318);
+    __cxa_guard_release(byte_1009F9318);
   }
 }
 
 void sub_1004D0760(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   sub_100005D28("error getting system group container: %llu", a2, a3, a4, a5, a6, a7, a8, *a1);
-  v9 = *a1;
-  abort_report_np();
+  abort_report_np("error getting system group container: %llu", *a1);
   sub_1004D07A0();
 }
 
@@ -13834,6 +14116,14 @@ void sub_1004D0B44(uint64_t a1, void *a2, NSObject *a3)
   _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "#sf,RoseSensorFusionManager::addRoseMeasurementsToTrackingTargetSet failed: IMU buffer size is %lu, time stamps from %f to %f", &v9, 0x20u);
 }
 
+void sub_1004D0FE0(int a1)
+{
+  v1 = 4;
+  v2 = 5;
+  cnprint::CNPrinter::Print(&v1, &v2, "Error using Det: input argument %d invalid in getrf.", -a1);
+  __assert_rtn("Det", "cnmatrixbase.h", 5381, "info >= 0");
+}
+
 void sub_1004D12A0()
 {
   sub_100496EF0();
@@ -13841,25 +14131,25 @@ void sub_1004D12A0()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_1004D1320(uint64_t *a1)
+void sub_1004D1320()
 {
-  v2 = sub_100008F38(a1);
-  if (v7 != v8)
+  sub_100008F38();
+  if (v6 != v7)
   {
-    v9 = v6;
+    v8 = v5;
   }
 
   else
   {
-    v9 = v2;
+    v8 = v1;
   }
 
-  *v3 = 136315138;
-  *(v3 + 4) = v9;
-  _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "#sf,%s", v5, 0xCu);
-  if (*(v1 + 23) < 0)
+  *v2 = 136315138;
+  *(v2 + 4) = v8;
+  _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "#sf,%s", v4, 0xCu);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
@@ -13928,36 +14218,35 @@ void sub_1004D184C()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004D1888(uint64_t *a1)
+void sub_1004D1888()
 {
-  v2 = sub_100008F38(a1);
-  if (v7 != v8)
+  sub_100008F38();
+  if (v6 != v7)
   {
-    v9 = v6;
+    v8 = v5;
   }
 
   else
   {
-    v9 = v2;
+    v8 = v1;
   }
 
-  *v3 = 136315138;
-  *(v3 + 4) = v9;
-  sub_100496ED8(&_mh_execute_header, v4, v4, "#sf,RoseEKF: initial P matrix %s", v5);
-  if (*(v1 + 23) < 0)
+  *v2 = 136315138;
+  *(v2 + 4) = v8;
+  sub_100496ED8(&_mh_execute_header, v3, v3, "#sf,RoseEKF: initial P matrix %s", v4);
+  if (*(v0 + 23) < 0)
   {
-    operator delete(*v1);
+    operator delete(*v0);
   }
 }
 
-void sub_1004D18E4(uint64_t *a1)
+void sub_1004D18E4()
 {
-  sub_100013F94(a1, __stack_chk_guard);
-  v2 = *(*(*(v1 + 56) + ((*(v1 + 80) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (*(v1 + 80) & 0x1FFLL));
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
   sub_100496EF0();
-  v6 = v3;
-  _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "#sf,RoseEKF error: The measurement timestamp (%f) is older than the oldest IMU timestamp (%f) - rejecting the measurement for initialization", v5, 0x16u);
+  v3 = v0;
+  _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "#sf,RoseEKF error: The measurement timestamp (%f) is older than the oldest IMU timestamp (%f) - rejecting the measurement for initialization", v2, 0x16u);
 }
 
 void sub_1004D19B4()
@@ -13974,62 +14263,61 @@ void sub_1004D19F0()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1004D1A2C(uint64_t *a1)
+void sub_1004D1A2C()
 {
-  sub_100013F94(a1, __stack_chk_guard);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
   sub_100008E30();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004D1A9C(uint64_t *a1)
+void sub_1004D1A9C()
 {
-  sub_100013F94(a1, __stack_chk_guard);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
   sub_100008E30();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004D1B0C(uint64_t *a1)
+void sub_1004D1B0C()
 {
-  sub_100013F94(a1, __stack_chk_guard);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004D1B7C(uint64_t *a1)
+void sub_1004D1B7C()
 {
-  sub_100013F94(a1, __stack_chk_guard);
-  v2 = *v1;
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
   sub_100496EF0();
-  v6 = v3;
-  _os_log_debug_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "#sf,RoseEKF: Rewinding back to the last measurement at t = %f s from t = %f s", v5, 0x16u);
+  v3 = v0;
+  _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "#sf,RoseEKF: Rewinding back to the last measurement at t = %f s from t = %f s", v2, 0x16u);
 }
 
-void sub_1004D1C34(uint64_t *a1)
+void sub_1004D1C34()
 {
-  sub_100013F94(a1, __stack_chk_guard);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
   sub_100008E30();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004D1CA4(uint64_t *a1)
+void sub_1004D1CA4()
 {
-  sub_100013F94(a1, __stack_chk_guard);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1004D1D40(uint64_t *a1)
+void sub_1004D1D40()
 {
-  sub_100013F94(a1, __stack_chk_guard);
+  sub_100013F94(__stack_chk_guard);
   sub_100008DB0();
   sub_100008D70();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1004D1DB0()

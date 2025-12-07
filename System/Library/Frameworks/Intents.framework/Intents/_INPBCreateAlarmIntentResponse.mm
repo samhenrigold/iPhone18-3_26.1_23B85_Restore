@@ -3,6 +3,7 @@
 - (_INPBCreateAlarmIntentResponse)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)successCodeAsString:(int)string;
 - (int)StringAsSuccessCode:(id)code;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -158,7 +159,6 @@ LABEL_10:
 
   if ([(_INPBCreateAlarmIntentResponse *)self hasSuccessCode])
   {
-    successCode = self->_successCode;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -184,6 +184,21 @@ LABEL_10:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)successCodeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72881E0[string];
   }
 
   return v4;

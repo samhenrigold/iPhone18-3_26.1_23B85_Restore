@@ -518,13 +518,13 @@ LABEL_6:
 {
   v8[3] = *MEMORY[0x277D85DE8];
   v7[0] = @"model";
-  v2 = mobileGestaltStringForQuery();
+  v2 = mobileGestaltStringForQuery(@"HWModelStr");
   v8[0] = v2;
   v7[1] = @"device";
-  v3 = mobileGestaltStringForQuery();
+  v3 = mobileGestaltStringForQuery(@"DeviceName");
   v8[1] = v3;
   v7[2] = @"operatingSystem";
-  v4 = mobileGestaltStringForQuery();
+  v4 = mobileGestaltStringForQuery(@"BuildVersion");
   v8[2] = v4;
   v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 

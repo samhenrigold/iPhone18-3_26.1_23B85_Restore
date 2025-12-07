@@ -241,7 +241,7 @@ void __65__PLLibraryClusterer_highlightSplitBasedOnTimeAndLocationEnabled__block
 LABEL_26:
           if (![(PLClusterTimeInfo *)v6 utcDateBelongsInCluster:startDate, v38])
           {
-            if ([array2 count])
+            if (objc_msgSend_count(array2))
             {
               v33 = [array2 copy];
               [array addObject:v33];
@@ -274,7 +274,7 @@ LABEL_26:
     while (v35);
   }
 
-  if ([array2 count])
+  if (objc_msgSend_count(array2))
   {
     v36 = [array2 copy];
     [array addObject:v36];
@@ -298,7 +298,7 @@ LABEL_26:
   momentsCopy = moments;
   if ([objc_opt_class() highlightSplitBasedOnOriginatorsEnabled])
   {
-    if ([momentsCopy count] > 1)
+    if (objc_msgSend_count(momentsCopy) > 1)
     {
       array = [MEMORY[0x1E695DF70] array];
       array2 = [MEMORY[0x1E695DF70] array];
@@ -343,7 +343,7 @@ LABEL_26:
       }
 
       array3 = [MEMORY[0x1E695DF70] array];
-      if ([array2 count] && objc_msgSend(array, "count"))
+      if (objc_msgSend_count(array2) && objc_msgSend_count(array))
       {
         v43 = array3;
         v44 = v9;
@@ -476,7 +476,7 @@ LABEL_45:
         }
 
         array3 = v43;
-        if ([array4 count])
+        if (objc_msgSend_count(array4))
         {
           v40 = [array mutableCopy];
           [v40 addObjectsFromArray:array5];
@@ -489,7 +489,7 @@ LABEL_45:
         v9 = v44;
       }
 
-      if (![array3 count])
+      if (!objc_msgSend_count(array3))
       {
         v41 = [MEMORY[0x1E695DF70] arrayWithArray:v9];
         [array3 addObject:v41];
@@ -625,7 +625,7 @@ LABEL_16:
   momentsCopy = moments;
   if ([objc_opt_class() highlightSplitBasedOnLocationTypeEnabled])
   {
-    if ([momentsCopy count] <= 1)
+    if (objc_msgSend_count(momentsCopy) <= 1)
     {
       v54 = momentsCopy;
       v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v54 count:1];
@@ -824,7 +824,7 @@ LABEL_47:
         allValues2 = [dictionary2 allValues];
         [v5 addObjectsFromArray:allValues2];
 
-        if ([array count])
+        if (objc_msgSend_count(array))
         {
           [(PLLibraryClusterer *)self _mergeMomentsIntoClustersBasedOnTimeWithMoments:array clusters:v5];
         }
@@ -874,7 +874,7 @@ id __61__PLLibraryClusterer__momentsSplitOnLocationTypeWithMoments___block_invok
   v52 = momentsCopy;
   if ([objc_opt_class() highlightSplitBasedOnTimeAndLocationEnabled])
   {
-    if ([momentsCopy count] > 1)
+    if (objc_msgSend_count(momentsCopy) > 1)
     {
       v8 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"localStartDate" ascending:1];
       v103 = v8;
@@ -1129,7 +1129,7 @@ void __56__PLLibraryClusterer__momentsSplitWithinDayWithMoments___block_invoke_2
   v59 = *MEMORY[0x1E69E9840];
   momentsCopy = moments;
   clustersCopy = clusters;
-  if ([clustersCopy count])
+  if (objc_msgSend_count(clustersCopy))
   {
     array = [MEMORY[0x1E695DF70] array];
     v53 = 0u;
@@ -1159,7 +1159,7 @@ void __56__PLLibraryClusterer__momentsSplitWithinDayWithMoments___block_invoke_2
           v11 = objc_autoreleasePoolPush();
           startDate = [v10 startDate];
           endDate = [v10 endDate];
-          if (![clustersCopy count])
+          if (!objc_msgSend_count(clustersCopy))
           {
             goto LABEL_24;
           }
@@ -1236,7 +1236,7 @@ void __56__PLLibraryClusterer__momentsSplitWithinDayWithMoments___block_invoke_2
             clustersCopy = v44;
           }
 
-          while (v13 < [v44 count]);
+          while (v13 < objc_msgSend_count(v44));
           v8 = v38;
           array = v39;
           v11 = v42;
@@ -1268,7 +1268,7 @@ LABEL_24:
       while (v41);
     }
 
-    if ([v8 count])
+    if (objc_msgSend_count(v8))
     {
       v31 = 0;
       do
@@ -1285,7 +1285,7 @@ LABEL_24:
         ++v31;
       }
 
-      while (v31 < [v8 count]);
+      while (v31 < objc_msgSend_count(v8));
     }
 
     momentsCopy = v37;
@@ -1301,7 +1301,7 @@ LABEL_24:
 {
   assetsCopy = assets;
   dataCopy = data;
-  if ([assetsCopy count])
+  if (objc_msgSend_count(assetsCopy))
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     dataManager = [WeakRetained dataManager];
@@ -1323,7 +1323,7 @@ LABEL_24:
   splitsCopy = splits;
   v42 = *MEMORY[0x1E69E9840];
   dateCopy = date;
-  if ([dateCopy count])
+  if (objc_msgSend_count(dateCopy))
   {
     v25 = dateCopy;
     selfCopy = self;
@@ -1385,13 +1385,13 @@ LABEL_24:
             while (v16);
           }
 
-          if ([v12 count])
+          if (objc_msgSend_count(v12))
           {
             v22 = [[PLMomentCluster alloc] initWithMoments:v12];
             [array addObject:v22];
           }
 
-          if ([v13 count])
+          if (objc_msgSend_count(v13))
           {
             if (splitsCopy)
             {
@@ -1430,9 +1430,9 @@ LABEL_24:
 {
   v70[1] = *MEMORY[0x1E69E9840];
   dateCopy = date;
-  if ([dateCopy count])
+  if (objc_msgSend_count(dateCopy))
   {
-    if ([dateCopy count] == 1)
+    if (objc_msgSend_count(dateCopy) == 1)
     {
       array = [[PLMomentCluster alloc] initWithMoments:dateCopy];
       v70[0] = array;
@@ -1484,7 +1484,7 @@ LABEL_24:
         while (v10);
       }
 
-      if ([(PLMomentCluster *)array count]> 1)
+      if (objc_msgSend_count(array) > 1)
       {
         array3 = [MEMORY[0x1E695DF70] array];
         v46 = [(PLLibraryClusterer *)self _momentsSplitOnLocationTypeWithMoments:array];
@@ -1626,7 +1626,7 @@ LABEL_24:
 {
   v48 = *MEMORY[0x1E69E9840];
   assetsCopy = assets;
-  if ([assetsCopy count])
+  if (objc_msgSend_count(assetsCopy))
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     [WeakRetained logRoutineInformation];

@@ -51,7 +51,7 @@
 
 - (BOOL)isTimeInBedTrackingEnabled
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_environment);
   behavior = [WeakRetained behavior];
   features = [behavior features];
@@ -62,10 +62,10 @@
     sleepScheduleModel = HKSPLogForCategory();
     if (os_log_type_enabled(sleepScheduleModel, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138543362;
-      v20 = objc_opt_class();
-      v13 = v20;
-      _os_log_impl(&dword_269B11000, sleepScheduleModel, OS_LOG_TYPE_DEFAULT, "[%{public}@] time in bed tracking feature disabled", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = objc_opt_class();
+      v13 = v19;
+      _os_log_impl(&dword_269B11000, sleepScheduleModel, OS_LOG_TYPE_DEFAULT, "[%{public}@] time in bed tracking feature disabled", &v18, 0xCu);
     }
 
     goto LABEL_13;
@@ -80,12 +80,12 @@
     v14 = HKSPLogForCategory();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138543362;
-      v20 = objc_opt_class();
-      v15 = v20;
+      v18 = 138543362;
+      v19 = objc_opt_class();
+      v15 = v19;
       v16 = "[%{public}@] sleep schedule disabled";
 LABEL_11:
-      _os_log_impl(&dword_269B11000, v14, OS_LOG_TYPE_DEFAULT, v16, &v19, 0xCu);
+      _os_log_impl(&dword_269B11000, v14, OS_LOG_TYPE_DEFAULT, v16, &v18, 0xCu);
     }
 
 LABEL_12:
@@ -103,9 +103,9 @@ LABEL_13:
     v14 = HKSPLogForCategory();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138543362;
-      v20 = objc_opt_class();
-      v15 = v20;
+      v18 = 138543362;
+      v19 = objc_opt_class();
+      v15 = v19;
       v16 = "[%{public}@] time in bed tracking disabled";
       goto LABEL_11;
     }
@@ -116,7 +116,6 @@ LABEL_13:
   v12 = 1;
 LABEL_14:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -131,7 +130,7 @@ LABEL_14:
 
 - (void)sleepScheduleStateDidChange:(unint64_t)change previousState:(unint64_t)state reason:(unint64_t)reason
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   isTimeInBedTrackingEnabled = [(HDSPTimeInBedTracker *)self isTimeInBedTrackingEnabled];
   if (change == 1 && isTimeInBedTrackingEnabled)
   {
@@ -141,11 +140,11 @@ LABEL_14:
       v9 = objc_opt_class();
       v10 = v9;
       v11 = NSStringFromHKSPSleepScheduleStateChangeReason();
-      v14 = 138543618;
+      v13 = 138543618;
       selfCopy = v9;
-      v16 = 2114;
-      v17 = v11;
-      _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] state changed to wake up (%{public}@)", &v14, 0x16u);
+      v15 = 2114;
+      v16 = v11;
+      _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] state changed to wake up (%{public}@)", &v13, 0x16u);
     }
 
     if (HKSPSleepScheduleStateIsForBedtime() && HKSPSleepScheduleStateChangeReasonIsExpected())
@@ -153,32 +152,30 @@ LABEL_14:
       v12 = HKSPLogForCategory();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138543362;
+        v13 = 138543362;
         selfCopy = self;
-        _os_log_impl(&dword_269B11000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] ending time in bed tracking", &v14, 0xCu);
+        _os_log_impl(&dword_269B11000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] ending time in bed tracking", &v13, 0xCu);
       }
 
       [(HDSPTimeInBedTracker *)self _endSleepSessionWithReason:0];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_endSleepSessionWithReason:(unint64_t)reason
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
     v7 = v6;
     v8 = HDSPSleepSessionEndReasonDescription(reason);
-    v15 = 138543618;
-    v16 = v6;
-    v17 = 2114;
-    v18 = v8;
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] ending sleep session with reason %{public}@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v6;
+    v16 = 2114;
+    v17 = v8;
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] ending sleep session with reason %{public}@", &v14, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_environment);
@@ -188,13 +185,11 @@ LABEL_14:
   v12 = [(HDSPTimeInBedTracker *)self _createSleepSessionWithEndDate:v11 endReason:reason];
   delegate = [(HDSPTimeInBedTracker *)self delegate];
   [delegate sleepTracker:self didEndSession:v12 reason:reason];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createSleepSessionWithEndDate:(id)date endReason:(unint64_t)reason
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   v7 = [(HDSPTimeInBedTracker *)self _computeSleepSessionStartBeforeDate:dateCopy];
   if (v7)
@@ -205,12 +200,12 @@ LABEL_14:
     v11 = HKSPLogForCategory();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138543618;
-      v16 = objc_opt_class();
-      v17 = 2114;
-      v18 = v10;
-      v12 = v16;
-      _os_log_impl(&dword_269B11000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] created %{public}@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = objc_opt_class();
+      v16 = 2114;
+      v17 = v10;
+      v12 = v15;
+      _os_log_impl(&dword_269B11000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] created %{public}@", &v14, 0x16u);
     }
   }
 
@@ -219,14 +214,12 @@ LABEL_14:
     v10 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)_computeSleepSessionStartBeforeDate:(id)date
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   sleepScheduleModel = [(HDSPTimeInBedTracker *)self sleepScheduleModel];
   v6 = [sleepScheduleModel previousEventWithIdentifier:*MEMORY[0x277D621B8] dueBeforeDate:dateCopy];
@@ -242,12 +235,12 @@ LABEL_14:
     v11 = HKSPLogForCategory();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138543618;
-      v17 = objc_opt_class();
-      v18 = 2114;
-      v19 = v10;
-      v12 = v17;
-      _os_log_impl(&dword_269B11000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] using 90 minutes before bedtime %{public}@ as session start", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = objc_opt_class();
+      v17 = 2114;
+      v18 = v10;
+      v12 = v16;
+      _os_log_impl(&dword_269B11000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] using 90 minutes before bedtime %{public}@ as session start", &v15, 0x16u);
     }
   }
 
@@ -256,49 +249,45 @@ LABEL_14:
     v11 = HKSPLogForCategory();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138543618;
-      v17 = objc_opt_class();
-      v18 = 2114;
-      v19 = v7;
-      v13 = v17;
-      _os_log_impl(&dword_269B11000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] using bedtime date %{public}@ as session start", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = objc_opt_class();
+      v17 = 2114;
+      v18 = v7;
+      v13 = v16;
+      _os_log_impl(&dword_269B11000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] using bedtime date %{public}@ as session start", &v15, 0x16u);
     }
 
     v10 = v7;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (id)computeSleepIntervalsForInterval:(id)interval
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v16 = objc_opt_class();
-    v17 = 2114;
-    v18 = intervalCopy;
-    v6 = v16;
+    v15 = objc_opt_class();
+    v16 = 2114;
+    v17 = intervalCopy;
+    v6 = v15;
     _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] computing in bed intervals inside %{public}@", buf, 0x16u);
   }
 
   v7 = MEMORY[0x277D2C900];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __57__HDSPTimeInBedTracker_computeSleepIntervalsForInterval___block_invoke;
-  v13[3] = &unk_279C7B230;
-  v13[4] = self;
-  v14 = intervalCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __57__HDSPTimeInBedTracker_computeSleepIntervalsForInterval___block_invoke;
+  v12[3] = &unk_279C7B230;
+  v12[4] = self;
+  v13 = intervalCopy;
   sleepIntervalScheduler = self->_sleepIntervalScheduler;
   v9 = intervalCopy;
-  v10 = [v7 futureWithBlock:v13 scheduler:sleepIntervalScheduler];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = [v7 futureWithBlock:v12 scheduler:sleepIntervalScheduler];
 
   return v10;
 }
@@ -340,7 +329,7 @@ id __57__HDSPTimeInBedTracker_computeSleepIntervalsForInterval___block_invoke_2(
 
 void __57__HDSPTimeInBedTracker_computeSleepIntervalsForInterval___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -348,24 +337,21 @@ void __57__HDSPTimeInBedTracker_computeSleepIntervalsForInterval___block_invoke_
     v7 = HKSPLogForCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 32);
-      *v11 = 138543618;
-      *&v11[4] = objc_opt_class();
-      *&v11[12] = 2114;
-      *&v11[14] = v6;
-      v10 = *&v11[4];
-      _os_log_error_impl(&dword_269B11000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] failed to detect time-in-bed with error: %{public}@", v11, 0x16u);
+      *v9 = 138543618;
+      *&v9[4] = objc_opt_class();
+      *&v9[12] = 2114;
+      *&v9[14] = v6;
+      v8 = *&v9[4];
+      _os_log_error_impl(&dword_269B11000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] failed to detect time-in-bed with error: %{public}@", v9, 0x16u);
     }
   }
 
-  [*(a1 + 40) finishWithResult:v5 error:{v6, *v11, *&v11[16], v12}];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [*(a1 + 40) finishWithResult:v5 error:{v6, *v9, *&v9[8], v10}];
 }
 
 - (void)_logDetections:(id)detections
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   detectionsCopy = detections;
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -373,88 +359,80 @@ void __57__HDSPTimeInBedTracker_computeSleepIntervalsForInterval___block_invoke_
     v6 = objc_opt_class();
     v7 = v6;
     *buf = 138543618;
-    v11 = v6;
-    v12 = 2048;
-    v13 = [detectionsCopy count];
+    v10 = v6;
+    v11 = 2048;
+    v12 = [detectionsCopy count];
     _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] found %lu in-bed intervals", buf, 0x16u);
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __39__HDSPTimeInBedTracker__logDetections___block_invoke;
-  v9[3] = &unk_279C7B258;
-  v9[4] = self;
-  [detectionsCopy na_each:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __39__HDSPTimeInBedTracker__logDetections___block_invoke;
+  v8[3] = &unk_279C7B258;
+  v8[4] = self;
+  [detectionsCopy na_each:v8];
 }
 
 void __39__HDSPTimeInBedTracker__logDetections___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = HKSPLogForCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v3 = HKSPLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = v6;
-    v8 = [v3 startDate];
-    v9 = [v3 endDate];
-    v11 = 138543874;
-    v12 = v6;
-    v13 = 2112;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v9;
-    _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] inBed [%@ - %@]", &v11, 0x20u);
+    v4 = objc_opt_class();
+    v5 = v4;
+    v6 = [v2 startDate];
+    v7 = [v2 endDate];
+    v8 = 138543874;
+    v9 = v4;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2112;
+    v13 = v7;
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] inBed [%@ - %@]", &v8, 0x20u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_compareWithCoreDuetInBedDetectionForInterval:(id)interval
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] comparing against _CDInBedDetector...", buf, 0xCu);
   }
 
   v7 = +[HDSPCDInBedDetector inBedDetector];
   v8 = [v7 detectInBedTimesDuringInterval:intervalCopy];
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __70__HDSPTimeInBedTracker__compareWithCoreDuetInBedDetectionForInterval___block_invoke;
-  v11[3] = &unk_279C7B280;
-  v11[4] = self;
-  v9 = [v8 addCompletionBlock:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __70__HDSPTimeInBedTracker__compareWithCoreDuetInBedDetectionForInterval___block_invoke;
+  v10[3] = &unk_279C7B280;
+  v10[4] = self;
+  v9 = [v8 addCompletionBlock:v10];
 }
 
 void __70__HDSPTimeInBedTracker__compareWithCoreDuetInBedDetectionForInterval___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
   {
     v6 = HKSPLogForCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v10 = 138543618;
-      v11 = objc_opt_class();
-      v12 = 2114;
-      v13 = v5;
-      v9 = v11;
-      _os_log_error_impl(&dword_269B11000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] failed to detect time-in-bed with error: %{public}@", &v10, 0x16u);
+      v8 = 138543618;
+      v9 = objc_opt_class();
+      v10 = 2114;
+      v11 = v5;
+      v7 = v9;
+      _os_log_error_impl(&dword_269B11000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] failed to detect time-in-bed with error: %{public}@", &v8, 0x16u);
     }
   }
 
@@ -462,22 +440,20 @@ void __70__HDSPTimeInBedTracker__compareWithCoreDuetInBedDetectionForInterval___
   {
     [*(a1 + 32) _logDetections:a2];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_computeSessionMetadataForInterval:(id)interval
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v34 = objc_opt_class();
-    v35 = 2114;
-    v36 = intervalCopy;
-    v6 = v34;
+    v33 = objc_opt_class();
+    v34 = 2114;
+    v35 = intervalCopy;
+    v6 = v33;
     _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] _computeSessionMetadataForInterval: %{public}@", buf, 0x16u);
   }
 
@@ -490,9 +466,9 @@ void __70__HDSPTimeInBedTracker__compareWithCoreDuetInBedDetectionForInterval___
   {
     v11 = objc_opt_class();
     *buf = 138543618;
-    v34 = v11;
-    v35 = 2114;
-    v36 = v9;
+    v33 = v11;
+    v34 = 2114;
+    v35 = v9;
     v12 = v11;
     _os_log_impl(&dword_269B11000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] previous occurrence: %{public}@", buf, 0x16u);
   }
@@ -525,11 +501,11 @@ void __70__HDSPTimeInBedTracker__compareWithCoreDuetInBedDetectionForInterval___
   {
     v22 = objc_opt_class();
     *buf = 138543874;
-    v34 = v22;
-    v35 = 2114;
-    v36 = v15;
-    v37 = 2114;
-    v38 = v20;
+    v33 = v22;
+    v34 = 2114;
+    v35 = v15;
+    v36 = 2114;
+    v37 = v20;
     v23 = v22;
     _os_log_impl(&dword_269B11000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@] user set wake time: %{public}@ user set bed time: %{public}@", buf, 0x20u);
   }
@@ -540,16 +516,14 @@ void __70__HDSPTimeInBedTracker__compareWithCoreDuetInBedDetectionForInterval___
     systemTimeZone = [MEMORY[0x277CBEBB0] systemTimeZone];
     name = [systemTimeZone name];
     v27 = *MEMORY[0x277CCE0F8];
-    v32[0] = name;
-    v32[1] = v20;
+    v31[0] = name;
+    v31[1] = v20;
     v28 = *MEMORY[0x277CCE100];
-    v31[1] = v27;
-    v31[2] = v28;
-    v32[2] = v15;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:3];
+    v30[1] = v27;
+    v30[2] = v28;
+    v31[2] = v15;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:3];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -581,7 +555,7 @@ void __70__HDSPTimeInBedTracker__compareWithCoreDuetInBedDetectionForInterval___
 
 id __51__HDSPTimeInBedTracker_processedSessionForSession___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = a2;
   v5 = [v3 interval];
@@ -592,34 +566,30 @@ id __51__HDSPTimeInBedTracker_processedSessionForSession___block_invoke(uint64_t
   v9 = HKSPLogForCategory();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(a1 + 40);
-    v20 = 138543618;
-    v21 = objc_opt_class();
-    v22 = 2114;
-    v23 = v8;
-    v11 = v21;
-    _os_log_impl(&dword_269B11000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] finished processing session: %{public}@", &v20, 0x16u);
+    v17 = 138543618;
+    v18 = objc_opt_class();
+    v19 = 2114;
+    v20 = v8;
+    v10 = v18;
+    _os_log_impl(&dword_269B11000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] finished processing session: %{public}@", &v17, 0x16u);
   }
 
-  v12 = HKSPLogForCategory();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v11 = HKSPLogForCategory();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = *(a1 + 40);
-    v14 = objc_opt_class();
-    v15 = v14;
-    v16 = [v8 sleepIntervals];
-    v20 = 138543618;
-    v21 = v14;
-    v22 = 2112;
-    v23 = v16;
-    _os_log_impl(&dword_269B11000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] processed session has intervals: %@", &v20, 0x16u);
+    v12 = objc_opt_class();
+    v13 = v12;
+    v14 = [v8 sleepIntervals];
+    v17 = 138543618;
+    v18 = v12;
+    v19 = 2112;
+    v20 = v14;
+    _os_log_impl(&dword_269B11000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] processed session has intervals: %@", &v17, 0x16u);
   }
 
-  v17 = [MEMORY[0x277D2C900] futureWithResult:v8];
+  v15 = [MEMORY[0x277D2C900] futureWithResult:v8];
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v17;
+  return v15;
 }
 
 - (HDSPEnvironment)environment

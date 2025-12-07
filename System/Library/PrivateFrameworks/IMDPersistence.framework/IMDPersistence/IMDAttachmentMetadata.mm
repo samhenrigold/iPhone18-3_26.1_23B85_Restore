@@ -12,18 +12,16 @@
 {
   if (*(self + OBJC_IVAR___IMDAttachmentMetadata_handleID + 8))
   {
-    v2 = *(self + OBJC_IVAR___IMDAttachmentMetadata_handleID);
-    v3 = *(self + OBJC_IVAR___IMDAttachmentMetadata_handleID + 8);
 
-    v4 = sub_1B7CFEA30();
+    v2 = sub_1B7CFEA30();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)setHandleID:(id)d
@@ -40,7 +38,6 @@
   }
 
   v6 = (self + OBJC_IVAR___IMDAttachmentMetadata_handleID);
-  v7 = *(self + OBJC_IVAR___IMDAttachmentMetadata_handleID + 8);
   *v6 = v4;
   v6[1] = v5;
 }

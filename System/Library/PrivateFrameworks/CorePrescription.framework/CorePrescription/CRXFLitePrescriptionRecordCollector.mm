@@ -28,31 +28,31 @@
 
 void __78__CRXFLitePrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = a2;
-  v20 = a3;
+  v19 = a3;
   v5 = [MEMORY[0x277CBEB18] array];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = v4;
-  v6 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       v9 = 0;
       do
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * v9);
+        v10 = *(*(&v21 + 1) + 8 * v9);
         v11 = [CRXFLitePrescriptionRecord alloc];
         v12 = [v10 accPayload];
         v13 = [v10 enrollmentName];
@@ -66,14 +66,13 @@ void __78__CRXFLitePrescriptionRecordCollector_fetchPrescriptionRecordsWithCompl
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v7);
   }
 
   (*(*(a1 + 32) + 16))();
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

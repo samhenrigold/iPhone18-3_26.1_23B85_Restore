@@ -153,9 +153,7 @@ LABEL_8:
 
 - (void)setEmail:(id)email
 {
-  v4 = [email copy];
-  email = self->_email;
-  self->_email = v4;
+  self->_email = [email copy];
 
   MEMORY[0x1EEE66BB8]();
 }

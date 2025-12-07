@@ -143,7 +143,6 @@ LABEL_13:
 
   if (bluetoothIdentifier)
   {
-    bluetoothIdentifier = self->_bluetoothIdentifier;
     PBDataWriterWriteStringField();
   }
 
@@ -151,7 +150,6 @@ LABEL_13:
 
   if (iAP2Identifier)
   {
-    iAP2Identifier = self->_iAP2Identifier;
     PBDataWriterWriteStringField();
   }
 }

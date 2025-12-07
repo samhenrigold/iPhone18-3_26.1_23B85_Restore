@@ -1,5 +1,6 @@
 @interface MKMapViewInvertColorsAccessibility
 - (void)_accessibilityLoadInvertColors;
+- (void)_setPreferredConfiguration:(id)configuration onInit:(BOOL)init;
 - (void)layoutSubviews;
 - (void)traitCollectionDidChange:(id)change;
 @end
@@ -20,11 +21,11 @@
   AXPerformSafeBlock();
   v5 = *(v13 + 2);
   v4 = *(v13 + 3);
-  v23 = v13[10];
+  v21 = v13[10];
   v6 = *(v13 + 4);
-  v21 = v4;
-  v22 = v6;
-  v20 = v5;
+  v20[1] = v4;
+  v20[2] = v6;
+  v20[0] = v5;
 
   _Block_object_dispose(&v12, 8);
   v7 = _MKMapTypeForCartographicConfiguration() - 1;
@@ -44,6 +45,14 @@
   v4.super_class = MKMapViewInvertColorsAccessibility;
   [(MKMapViewInvertColorsAccessibility *)&v4 traitCollectionDidChange:change];
   [AXInvertColorsAppHelper toggleInvertColors:self];
+}
+
+- (void)_setPreferredConfiguration:(id)configuration onInit:(BOOL)init
+{
+  v5.receiver = self;
+  v5.super_class = MKMapViewInvertColorsAccessibility;
+  [(MKMapViewInvertColorsAccessibility *)&v5 _setPreferredConfiguration:configuration onInit:init];
+  [(MKMapViewInvertColorsAccessibility *)self _accessibilityLoadInvertColors];
 }
 
 - (void)layoutSubviews

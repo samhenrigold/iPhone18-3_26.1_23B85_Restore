@@ -77,10 +77,10 @@ LABEL_8:
   start = **&MEMORY[0x277CC08F0];
   v19 = *&start.value;
   v5 = *&start.epoch;
-  CMTimeRangeMake(&v24, &start, &duration);
+  CMTimeRangeMake(&v22, &start, &duration);
   overlay2 = [(CFXOverlayPickerAnimatedPreviewWriter *)self overlay];
   renderEffect = [overlay2 renderEffect];
-  duration = v24;
+  duration = v22;
   [renderEffect setEffectRange:&duration];
 
   overlay3 = [(CFXOverlayPickerAnimatedPreviewWriter *)self overlay];
@@ -107,9 +107,7 @@ LABEL_8:
   {
     overlay7 = [(CFXOverlayPickerAnimatedPreviewWriter *)self overlay];
     CGAffineTransformMakeScale(&duration, v17, v17);
-    v20 = v19;
-    v21 = v5;
-    [overlay7 addTransform:&duration withComponentTime:&v20 relativeTo:1 basisOrigin:{0.0, 0.0, v11, v13}];
+    objc_msgSend_addTransform_withComponentTime_relativeTo_basisOrigin_(overlay7, 0.0, 0.0, v11, v13);
   }
 }
 
@@ -226,7 +224,7 @@ void __65__CFXOverlayPickerAnimatedPreviewWriter_CFX_writeNextEffectFrame__block
   v8 = *(a1 + 32);
   if (v8)
   {
-    [v8 currentRenderTime];
+    objc_msgSend_currentRenderTime(v8);
   }
 
   else
@@ -310,7 +308,7 @@ void __65__CFXOverlayPickerAnimatedPreviewWriter_CFX_writeNextEffectFrame__block
               v19 = *(a1 + 32);
               if (v19)
               {
-                [v19 currentRenderTime];
+                objc_msgSend_currentRenderTime(v19);
               }
 
               else

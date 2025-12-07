@@ -47,33 +47,32 @@
   v9 = v7();
   LOBYTE(set) = [v9 settingExplicitlySetForKey:set];
 
-  v20 = &type metadata for Bool;
-  v19[0] = set;
-  sub_10003A8B8(v19, v17);
-  v10 = v18;
-  if (v18)
+  v19 = &type metadata for Bool;
+  v18[0] = set;
+  sub_10003A8B8(v18, v16);
+  v10 = v17;
+  if (v17)
   {
-    v11 = sub_10003526C(v17, v18);
+    v11 = sub_10003526C(v16, v17);
     v12 = *(v10 - 8);
-    v13 = *(v12 + 64);
     __chkstk_darwin(v11);
-    v15 = v17 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v12 + 16))(v15);
-    v16 = sub_100054414();
-    (*(v12 + 8))(v15, v10);
-    sub_1000031D0(v17);
+    v14 = v16 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v12 + 16))(v14);
+    v15 = sub_100054414();
+    (*(v12 + 8))(v14, v10);
+    sub_1000031D0(v16);
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
-  v6[2](v6, v16);
+  v6[2](v6, v15);
   _Block_release(v6);
   swift_unknownObjectRelease();
 
-  sub_10003A928(v19);
+  sub_10003A928(v18);
 }
 
 @end

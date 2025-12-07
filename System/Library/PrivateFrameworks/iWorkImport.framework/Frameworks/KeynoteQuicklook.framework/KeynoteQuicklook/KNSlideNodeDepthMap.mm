@@ -9,32 +9,32 @@
 {
   nodesCopy = nodes;
   depthsCopy = depths;
-  v30.receiver = self;
-  v30.super_class = KNSlideNodeDepthMap;
-  v10 = [(KNSlideNodeDepthMap *)&v30 init];
-  if (v10)
+  v18.receiver = self;
+  v18.super_class = KNSlideNodeDepthMap;
+  v8 = [(KNSlideNodeDepthMap *)&v18 init];
+  if (v8)
   {
-    v11 = objc_msgSend_count(nodesCopy, v8, v9);
-    if (v11 != objc_msgSend_count(depthsCopy, v12, v13))
+    v9 = [nodesCopy count];
+    if (v9 != [depthsCopy count])
     {
-      v16 = MEMORY[0x277D81150];
-      v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[KNSlideNodeDepthMap initWithSlideNodes:depths:]");
-      v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideNodeDepthMap.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v20, v17, v19, 30, 0, "Slide node depths map must have equal number slide nodes to depths.");
+      v10 = MEMORY[0x277D81150];
+      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideNodeDepthMap initWithSlideNodes:depths:]"];
+      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideNodeDepthMap.m"];
+      [v10 handleFailureInFunction:v11 file:v12 lineNumber:30 isFatal:0 description:"Slide node depths map must have equal number slide nodes to depths."];
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v21, v22);
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
 
-    v23 = objc_msgSend_copy(nodesCopy, v14, v15);
-    slideNodes = v10->_slideNodes;
-    v10->_slideNodes = v23;
+    v13 = [nodesCopy copy];
+    slideNodes = v8->_slideNodes;
+    v8->_slideNodes = v13;
 
-    v27 = objc_msgSend_copy(depthsCopy, v25, v26);
-    depthsOfSlideNodes = v10->_depthsOfSlideNodes;
-    v10->_depthsOfSlideNodes = v27;
+    v15 = [depthsCopy copy];
+    depthsOfSlideNodes = v8->_depthsOfSlideNodes;
+    v8->_depthsOfSlideNodes = v15;
   }
 
-  return v10;
+  return v8;
 }
 
 - (void)enumerateSlideNodesAndDepthsUsingBlock:(id)block
@@ -42,28 +42,27 @@
   blockCopy = block;
   if (!blockCopy)
   {
-    v6 = MEMORY[0x277D81150];
-    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[KNSlideNodeDepthMap enumerateSlideNodesAndDepthsUsingBlock:]");
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideNodeDepthMap.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v10, v7, v9, 40, 0, "invalid nil value for '%{public}s'", "block");
+    v4 = MEMORY[0x277D81150];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideNodeDepthMap enumerateSlideNodesAndDepthsUsingBlock:]"];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideNodeDepthMap.m"];
+    [v4 handleFailureInFunction:v5 file:v6 lineNumber:40 isFatal:0 description:{"invalid nil value for '%{public}s'", "block"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  if (objc_msgSend_count(self->_slideNodes, v4, v5))
+  if ([(NSArray *)self->_slideNodes count])
   {
-    v14 = 0;
+    v7 = 0;
     do
     {
-      v15 = objc_msgSend_objectAtIndexedSubscript_(self->_slideNodes, v13, v14);
-      v17 = objc_msgSend_objectAtIndexedSubscript_(self->_depthsOfSlideNodes, v16, v14);
-      v20 = objc_msgSend_unsignedIntegerValue(v17, v18, v19);
-      blockCopy[2](blockCopy, v15, v20);
+      v8 = [(NSArray *)self->_slideNodes objectAtIndexedSubscript:v7];
+      v9 = [(NSArray *)self->_depthsOfSlideNodes objectAtIndexedSubscript:v7];
+      blockCopy[2](blockCopy, v8, [v9 unsignedIntegerValue]);
 
-      ++v14;
+      ++v7;
     }
 
-    while (v14 < objc_msgSend_count(self->_slideNodes, v21, v22));
+    while (v7 < [(NSArray *)self->_slideNodes count]);
   }
 }
 

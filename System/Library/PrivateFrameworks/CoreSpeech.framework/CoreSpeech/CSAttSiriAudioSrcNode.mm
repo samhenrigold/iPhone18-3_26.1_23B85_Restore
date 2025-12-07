@@ -5,6 +5,8 @@
 - (CSAttSiriAudioSrcNode)initWithTargetQueue:(id)queue;
 - (CSAttSiriAudioSrcNodeDelegate)delegate;
 - (CSAttSiriController)attSiriController;
+- (id)_fetchAudioDecoderForTV:(unsigned int)v;
+- (void)_handleDidAudioStartWithResult:(BOOL)result error:(id)error;
 - (void)_handleDidStop;
 - (void)addReceiver:(id)receiver;
 - (void)attachToMasterStream:(id)stream name:(id)name completion:(id)completion;
@@ -31,6 +33,106 @@
   WeakRetained = objc_loadWeakRetained(&self->_attSiriController);
 
   return WeakRetained;
+}
+
+- (id)_fetchAudioDecoderForTV:(unsigned int)v
+{
+  v3 = *&v;
+  decodersForTV = self->_decodersForTV;
+  v6 = [NSNumber numberWithUnsignedInt:?];
+  v7 = [(NSMutableDictionary *)decodersForTV objectForKeyedSubscript:v6];
+
+  if (v7)
+  {
+    v8 = self->_decodersForTV;
+    v9 = [NSNumber numberWithUnsignedInt:v3];
+    v10 = [(NSMutableDictionary *)v8 objectForKeyedSubscript:v9];
+LABEL_10:
+
+    goto LABEL_11;
+  }
+
+  if (v3 == 1869641075)
+  {
+    v11 = [CSAudioDecoder alloc];
+    objc_msgSend_opusASBD(CSFAudioStreamBasicDescriptionFactory);
+    goto LABEL_7;
+  }
+
+  if (v3 == 1936745848)
+  {
+    v11 = [CSAudioDecoder alloc];
+    objc_msgSend_speexASBD(CSFAudioStreamBasicDescriptionFactory);
+LABEL_7:
+    objc_msgSend_lpcmInt16ASBD(CSFAudioStreamBasicDescriptionFactory);
+    v10 = [v11 initWithInASBD:buf outASBD:v16];
+    v12 = CSLogContextFacilityCoreSpeech;
+    if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315394;
+      v18 = "[CSAttSiriAudioSrcNode _fetchAudioDecoderForTV:]";
+      v19 = 1026;
+      v20 = v3;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s Create audioDecoder for audioFormat %{public}u", buf, 0x12u);
+    }
+
+    [v10 setDelegate:self];
+    v13 = self->_decodersForTV;
+    v9 = [NSNumber numberWithUnsignedInt:v3];
+    [(NSMutableDictionary *)v13 setObject:v10 forKey:v9];
+    goto LABEL_10;
+  }
+
+  v15 = CSLogContextFacilityCoreSpeech;
+  if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136315394;
+    v18 = "[CSAttSiriAudioSrcNode _fetchAudioDecoderForTV:]";
+    v19 = 1026;
+    v20 = v3;
+    _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%s Unexpected audioFormat for ATV : %{public}u", buf, 0x12u);
+  }
+
+  v10 = 0;
+LABEL_11:
+
+  return v10;
+}
+
+- (void)_handleDidAudioStartWithResult:(BOOL)result error:(id)error
+{
+  resultCopy = result;
+  errorCopy = error;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v7 = self->_receivers;
+  v8 = [(NSHashTable *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v13;
+    do
+    {
+      v11 = 0;
+      do
+      {
+        if (*v13 != v10)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        [*(*(&v12 + 1) + 8 * v11) attSiriAudioSrcNodeDidStartRecording:self successfully:resultCopy error:{errorCopy, v12}];
+        v11 = v11 + 1;
+      }
+
+      while (v9 != v11);
+      v9 = [(NSHashTable *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v9);
+  }
 }
 
 - (void)_handleDidStop

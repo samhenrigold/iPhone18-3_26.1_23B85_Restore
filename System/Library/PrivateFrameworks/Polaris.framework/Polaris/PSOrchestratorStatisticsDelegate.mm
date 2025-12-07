@@ -53,20 +53,24 @@
     v6 = [(PSOrchestratorStatisticsDelegate *)self log];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      numberOfOrchestrations = self->_allTimeStatistics.numberOfOrchestrations;
-      _os_log_unreliable_impl();
+      *v10 = 134218496;
+      *&v10[4] = v5 / 1000000.0;
+      *&v10[12] = 2048;
+      *&v10[14] = startTime / 1000000000.0;
+      *&v10[22] = 2048;
+      _os_log_unreliable_impl(&_mh_execute_header, v6, 0, "OrchestratorStatistics: New max duration: %.1f ms, Seconds since boot: %.1f, Orchestration number: %llu", *v10, *&v10[8], *&v10[16]);
     }
 
     startTime = self->_startTime;
   }
 
-  v7 = self->_allTimeStatistics.numberOfOrchestrations;
-  v8 = &self->_recentHistory[v7 % self->_recentHistoryBufferCapacity];
+  numberOfOrchestrations = self->_allTimeStatistics.numberOfOrchestrations;
+  v8 = &self->_recentHistory[numberOfOrchestrations % self->_recentHistoryBufferCapacity];
   v9 = self->_allTimeStatistics.total + v5;
   v8->var0 = startTime;
   v8->var1 = v5;
   self->_allTimeStatistics.total = v9;
-  self->_allTimeStatistics.numberOfOrchestrations = v7 + 1;
+  self->_allTimeStatistics.numberOfOrchestrations = numberOfOrchestrations + 1;
 }
 
 - (id)statistics

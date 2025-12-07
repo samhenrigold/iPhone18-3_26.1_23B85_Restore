@@ -139,7 +139,6 @@ LABEL_4:
     flag = flagCopy;
   }
 
-  v3 = qword_1EDBE79C8;
   if (!*(qword_1EDBE79C8 + 16))
   {
     __break(1u);
@@ -147,20 +146,16 @@ LABEL_4:
   }
 
   result = sub_1B7C40320(flag);
-  if ((v4 & 1) == 0)
+  if ((v3 & 1) == 0)
   {
 LABEL_9:
     __break(1u);
     return result;
   }
 
-  v5 = *(v3 + 56) + 48 * result;
-  v6 = *(v5 + 8);
-  v7 = *(v5 + 16);
+  v4 = sub_1B7CFEA30();
 
-  v8 = sub_1B7CFEA30();
-
-  return v8;
+  return v4;
 }
 
 + (id)stringForFlag:(unint64_t)flag reason:(int64_t)reason

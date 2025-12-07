@@ -34,65 +34,64 @@
 LABEL_6:
     v13.receiver = self;
     v13.super_class = _LSDRebuildClient;
-    v9 = [(_LSDClient *)&v13 initWithXPCConnection:connectionCopy];
+    v10 = [(_LSDClient *)&v13 initWithXPCConnection:connectionCopy];
     goto LABEL_10;
   }
 
-  v10 = _LSDefaultLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = _LSDefaultLog(v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    -[_LSDRebuildClient initWithXPCConnection:].cold.1(buf, [connectionCopy processIdentifier], v10);
+    -[_LSDRebuildClient initWithXPCConnection:].cold.1(buf, [connectionCopy processIdentifier], v11);
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_10:
 
-  v11 = *MEMORY[0x1E69E9840];
-  return v9;
+  return v10;
 }
 
 - (void)performRebuildRegistration:(id)registration personaUniqueStrings:(id)strings reply:(id)reply
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   registrationCopy = registration;
   stringsCopy = strings;
-  v26 = stringsCopy;
+  v27 = stringsCopy;
   replyCopy = reply;
   if (!stringsCopy)
   {
     goto LABEL_14;
   }
 
-  v29 = 0;
+  v30 = 0;
   v9 = registrationCopy;
-  v25 = stringsCopy;
+  v26 = stringsCopy;
   v10 = +[_LSPersonaDatabase sharedInstance];
-  v11 = [MEMORY[0x1E695DFD8] setWithArray:v25];
-  v12 = [(_LSPersonaDatabase *)v10 personasWithAttributesForPersonaUniqueStrings:v11 error:&v29];
+  v11 = [MEMORY[0x1E695DFD8] setWithArray:v26];
+  v12 = [(_LSPersonaDatabase *)v10 personasWithAttributesForPersonaUniqueStrings:v11 error:&v30];
 
   if (v12)
   {
     registrationCopy = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v9, "count")}];
-    v32 = 0u;
     v33 = 0u;
-    v30 = 0u;
+    v34 = 0u;
     v31 = 0u;
+    v32 = 0u;
     v13 = v9;
-    v14 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v14)
     {
-      v15 = *v31;
+      v15 = *v32;
       do
       {
         v16 = 0;
         do
         {
-          if (*v31 != v15)
+          if (*v32 != v15)
           {
             objc_enumerationMutation(v13);
           }
 
-          v17 = [*(*(&v30 + 1) + 8 * v16) mutableCopy];
+          v17 = [*(*(&v31 + 1) + 8 * v16) mutableCopy];
           [v17 setObject:v12 forKeyedSubscript:@"LSPersonaUniqueStrings"];
           v18 = [v17 copy];
           [registrationCopy addObject:v18];
@@ -101,7 +100,7 @@ LABEL_10:
         }
 
         while (v14 != v16);
-        v14 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
       while (v14);
@@ -113,45 +112,44 @@ LABEL_10:
     registrationCopy = 0;
   }
 
-  v19 = v29;
+  v19 = v30;
   if (registrationCopy)
   {
 
 LABEL_14:
-    v28 = 0;
-    v20 = _LSServer_PerformExternalRebuildRegistration(registrationCopy, &v28);
-    v21 = v28;
-    if (!v20)
+    v29 = 0;
+    v21 = _LSServer_PerformExternalRebuildRegistration(registrationCopy, &v29);
+    v22 = v29;
+    v23 = v22;
+    if (!v21)
     {
-      v22 = _LSInstallLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v24 = _LSInstallLog(v22);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        [_LSDRebuildClient performRebuildRegistration:v21 personaUniqueStrings:v22 reply:?];
+        [_LSDRebuildClient performRebuildRegistration:v23 personaUniqueStrings:v24 reply:?];
       }
     }
 
-    replyCopy[2](replyCopy, v21);
+    replyCopy[2](replyCopy, v23);
 
     goto LABEL_22;
   }
 
-  v23 = _LSDefaultLog();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+  v25 = _LSDefaultLog(v20);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
-    [_LSDRebuildClient performRebuildRegistration:v25 personaUniqueStrings:v19 reply:v23];
+    [_LSDRebuildClient performRebuildRegistration:v26 personaUniqueStrings:v19 reply:v25];
   }
 
   replyCopy[2](replyCopy, v19);
   registrationCopy = v19;
 LABEL_22:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)noteMigratorRunningWithReply:(id)reply
 {
   replyCopy = reply;
-  v4 = _LSDefaultLog();
+  v4 = _LSDefaultLog(replyCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -171,22 +169,20 @@ LABEL_22:
 
 - (void)performRebuildRegistration:(uint64_t)a1 personaUniqueStrings:(uint64_t)a2 reply:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "Could not look up personas given unique strings %@: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "Could not look up personas given unique strings %@: %@", &v3, 0x16u);
 }
 
 - (void)performRebuildRegistration:(uint64_t)a1 personaUniqueStrings:(NSObject *)a2 reply:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "could not perform rebuild registration: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "could not perform rebuild registration: %@", &v2, 0xCu);
 }
 
 @end

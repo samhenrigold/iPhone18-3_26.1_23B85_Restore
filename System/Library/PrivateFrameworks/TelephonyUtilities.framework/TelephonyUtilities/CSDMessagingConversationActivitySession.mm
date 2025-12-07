@@ -1,5 +1,6 @@
 @interface CSDMessagingConversationActivitySession
 + (CSDMessagingConversationActivitySession)activitySessionWithCSDConversationActivitySession:(id)session fromConversation:(id)conversation;
++ (CSDMessagingConversationActivitySession)activitySessionWithCSDConversationActivitySession:(id)session fromConversation:(id)conversation forStorage:(BOOL)storage;
 + (CSDMessagingConversationActivitySession)activitySessionWithTUConversationActivitySession:(id)session fromConversation:(id)conversation;
 + (CSDMessagingConversationActivitySession)activitySessionWithTUConversationActivitySession:(id)session fromConversation:(id)conversation forStorage:(BOOL)storage;
 - (BOOL)isEqual:(id)equal;
@@ -63,30 +64,29 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_identifierUUIDString)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_activity)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    creationDateEpochTime = self->_creationDateEpochTime;
     PBDataWriterWriteDoubleField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_locallyPersistedMetadata)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -169,7 +169,6 @@
     }
   }
 
-  v7 = *(equalCopy + 40);
   if (*&self->_has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_creationDateEpochTime != *(equalCopy + 1))
@@ -181,24 +180,24 @@
   else if (*(equalCopy + 40))
   {
 LABEL_13:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_14;
   }
 
   locallyPersistedMetadata = self->_locallyPersistedMetadata;
   if (locallyPersistedMetadata | *(equalCopy + 4))
   {
-    v9 = [(CSDMessagingConversationActivitySessionLocallyPersistedMetadata *)locallyPersistedMetadata isEqual:?];
+    v8 = [(CSDMessagingConversationActivitySessionLocallyPersistedMetadata *)locallyPersistedMetadata isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_14:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash
@@ -365,6 +364,40 @@ LABEL_17:
   return v12;
 }
 
++ (CSDMessagingConversationActivitySession)activitySessionWithCSDConversationActivitySession:(id)session fromConversation:(id)conversation forStorage:(BOOL)storage
+{
+  storageCopy = storage;
+  sessionCopy = session;
+  conversationCopy = conversation;
+  v9 = objc_alloc_init(CSDMessagingConversationActivitySession);
+  identifier = [sessionCopy identifier];
+  uUIDString = [identifier UUIDString];
+  [(CSDMessagingConversationActivitySession *)v9 setIdentifierUUIDString:uUIDString];
+
+  tuConversationActivitySession = [sessionCopy tuConversationActivitySession];
+  activity = [tuConversationActivitySession activity];
+  v14 = [CSDMessagingConversationActivity activityWithCSDConversationActivity:activity fromConversation:conversationCopy forStorage:storageCopy];
+
+  [(CSDMessagingConversationActivitySession *)v9 setActivity:v14];
+  tuConversationActivitySession2 = [sessionCopy tuConversationActivitySession];
+  timestamp = [tuConversationActivitySession2 timestamp];
+  [timestamp timeIntervalSince1970];
+  [(CSDMessagingConversationActivitySession *)v9 setCreationDateEpochTime:?];
+
+  if (storageCopy)
+  {
+    v17 = objc_alloc_init(CSDMessagingConversationActivitySessionLocallyPersistedMetadata);
+    [(CSDMessagingConversationActivitySession *)v9 setLocallyPersistedMetadata:v17];
+
+    tuConversationActivitySession3 = [sessionCopy tuConversationActivitySession];
+    isLocallyInitiated = [tuConversationActivitySession3 isLocallyInitiated];
+    locallyPersistedMetadata = [(CSDMessagingConversationActivitySession *)v9 locallyPersistedMetadata];
+    [locallyPersistedMetadata setLocallyInitiated:isLocallyInitiated];
+  }
+
+  return v9;
+}
+
 + (CSDMessagingConversationActivitySession)activitySessionWithCSDConversationActivitySession:(id)session fromConversation:(id)conversation
 {
   conversationCopy = conversation;
@@ -389,12 +422,12 @@ LABEL_17:
   {
 
 LABEL_7:
-    v15 = [TUConversationActivitySession alloc];
+    v16 = [TUConversationActivitySession alloc];
     [(CSDMessagingConversationActivitySession *)self creationDateEpochTime];
-    v16 = [NSDate dateWithTimeIntervalSince1970:?];
-    v17 = [v15 initWithActivity:tuConversationActivity uuid:v7 locallyInitiated:0 timestamp:v16 isFirstJoin:1];
+    v17 = [NSDate dateWithTimeIntervalSince1970:?];
+    v18 = [v16 initWithActivity:tuConversationActivity uuid:v7 locallyInitiated:0 timestamp:v17 isFirstJoin:1];
 
-    v14 = [conversationCopy createActivitySession:v17];
+    v15 = [conversationCopy createActivitySession:v18];
 
     goto LABEL_8;
   }
@@ -407,18 +440,18 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v13 = sub_100004778();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = sub_100004778(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138412290;
+    v20 = 138412290;
     selfCopy = self;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Not allowing creation since activitySession doesn't support aTV handoff. session: %@", &v19, 0xCu);
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Not allowing creation since activitySession doesn't support aTV handoff. session: %@", &v20, 0xCu);
   }
 
-  v14 = 0;
+  v15 = 0;
 LABEL_8:
 
-  return v14;
+  return v15;
 }
 
 @end

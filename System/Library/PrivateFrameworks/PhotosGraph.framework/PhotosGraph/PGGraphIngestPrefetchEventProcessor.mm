@@ -9,19 +9,19 @@
 
 - (void)prefetchEventsWithSortedMomentNodes:(id)nodes locationsToPrefetch:(id *)prefetch progressBlock:(id)block
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   blockCopy = block;
-  v74 = 0;
-  v75 = &v74;
-  v76 = 0x2020000000;
-  v77 = 0;
-  v70 = 0;
-  v71 = &v70;
-  v72 = 0x2020000000;
   v73 = 0;
-  v61 = _Block_copy(blockCopy);
-  if (v61 && (v7 = CFAbsoluteTimeGetCurrent(), v7 - v71[3] >= 0.01) && (v71[3] = v7, v78[0] = 0, v61[2](v61, v78, 0.0), v8 = *(v75 + 24) | v78[0], *(v75 + 24) = v8, (v8 & 1) != 0))
+  v74 = &v73;
+  v75 = 0x2020000000;
+  v76 = 0;
+  v69 = 0;
+  v70 = &v69;
+  v71 = 0x2020000000;
+  v72 = 0;
+  v60 = _Block_copy(blockCopy);
+  if (v60 && (v7 = CFAbsoluteTimeGetCurrent(), v7 - v70[3] >= 0.01) && (v70[3] = v7, v77[0] = 0, v60[2](v60, v77, 0.0), v8 = *(v74 + 24) | v77[0], *(v74 + 24) = v8, (v8 & 1) != 0))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
@@ -35,7 +35,7 @@
 
   else
   {
-    v58 = [MEMORY[0x277CBEB58] set];
+    v57 = [MEMORY[0x277CBEB58] set];
     firstObject = [nodesCopy firstObject];
     startDate = [firstObject startDate];
 
@@ -54,18 +54,18 @@
       _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "[IngestPrefetchEventProcessor] First Moment starts at %@, Last Moment ends at %@", buf, 0x16u);
     }
 
-    v56 = 0;
+    v55 = 0;
     if (!startDate || !endDate)
     {
       goto LABEL_41;
     }
 
-    v49 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-1577880000.0];
-    v48 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:31557600.0];
-    v50 = [v49 laterDate:startDate];
-    v13 = [v48 earlierDate:endDate];
-    [v50 timeIntervalSinceDate:v13];
-    v60 = v13;
+    v48 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-1577880000.0];
+    v47 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:31557600.0];
+    v49 = [v48 laterDate:startDate];
+    v13 = [v47 earlierDate:endDate];
+    [v49 timeIntervalSinceDate:v13];
+    v59 = v13;
     if (v14 >= 0.0)
     {
       v38 = +[PGLogging sharedLogging];
@@ -74,26 +74,26 @@
       if (os_log_type_enabled(loggingConnection2, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138413058;
-        *&buf[4] = v50;
+        *&buf[4] = v49;
         *&buf[12] = 2112;
-        *&buf[14] = v60;
+        *&buf[14] = v59;
         *&buf[22] = 2112;
-        v83 = startDate;
-        v84 = 2112;
-        v85 = endDate;
+        v82 = startDate;
+        v83 = 2112;
+        v84 = endDate;
         _os_log_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_DEFAULT, "[IngestPrefetchEventProcessor] prefetchStartDate [%@] is later date than prefetchEndDate [%@] because firstMomentUniversalStartDate was %@ and lastMomentUniversalEndDate was %@.", buf, 0x2Au);
       }
 
-      if (v61)
+      if (v60)
       {
         Current = CFAbsoluteTimeGetCurrent();
-        if (Current - v71[3] >= 0.01)
+        if (Current - v70[3] >= 0.01)
         {
-          v71[3] = Current;
-          v78[0] = 0;
-          v61[2](v61, v78, 1.0);
-          v41 = *(v75 + 24) | v78[0];
-          *(v75 + 24) = v41;
+          v70[3] = Current;
+          v77[0] = 0;
+          v60[2](v60, v77, 1.0);
+          v41 = *(v74 + 24) | v77[0];
+          *(v74 + 24) = v41;
           if ((v41 & 1) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
@@ -105,13 +105,13 @@
         }
       }
 
-      v56 = 0;
+      v55 = 0;
       v37 = 0;
     }
 
     else
     {
-      [v13 timeIntervalSinceDate:v50];
+      [v13 timeIntervalSinceDate:v49];
       v16 = v15;
       serviceManager = [(PGGraphBuilder *)self->_graphBuilder serviceManager];
       if (!serviceManager)
@@ -119,19 +119,19 @@
         __assert_rtn("[PGGraphIngestPrefetchEventProcessor prefetchEventsWithSortedMomentNodes:locationsToPrefetch:progressBlock:]", "PGGraphIngestPrefetchEventProcessor.m", 99, "serviceManager != nil");
       }
 
-      v17 = v50;
-      v56 = 0;
+      v17 = v49;
+      v55 = 0;
       v18 = MEMORY[0x277D86220];
-      v54 = v17;
-      while (v17 && [v17 compare:v60] == -1)
+      v53 = v17;
+      while (v17 && [v17 compare:v59] == -1)
       {
         v19 = objc_autoreleasePoolPush();
         v20 = [MEMORY[0x277D27690] dateByAddingMonths:6 toDate:v17];
-        v21 = [v20 earlierDate:v60];
+        v21 = [v20 earlierDate:v59];
 
-        [v17 timeIntervalSinceDate:v54];
+        [v17 timeIntervalSinceDate:v53];
         v23 = v22 / v16;
-        if (v61 && (v24 = CFAbsoluteTimeGetCurrent(), v24 - v71[3] >= 0.01) && (v71[3] = v24, v78[0] = 0, v61[2](v61, v78, v23), v25 = *(v75 + 24) | v78[0], *(v75 + 24) = v25, (v25 & 1) != 0))
+        if (v60 && (v24 = CFAbsoluteTimeGetCurrent(), v24 - v70[3] >= 0.01) && (v70[3] = v24, v77[0] = 0, v60[2](v60, v77, v23), v25 = *(v74 + 24) | v77[0], *(v74 + 24) = v25, (v25 & 1) != 0))
         {
           if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
           {
@@ -150,34 +150,34 @@
           *buf = 0;
           *&buf[8] = buf;
           *&buf[16] = 0x2020000000;
-          v83 = 0;
+          v82 = 0;
           v27 = [v17 dateByAddingTimeInterval:-0.001];
           v28 = [v21 dateByAddingTimeInterval:0.001];
           v29 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(startDate >= %@) AND (startDate <= %@)", v27, v28];
           v30 = [nodesCopy filteredArrayUsingPredicate:v29];
 
-          v62[0] = MEMORY[0x277D85DD0];
-          v62[1] = 3221225472;
-          v62[2] = __109__PGGraphIngestPrefetchEventProcessor_prefetchEventsWithSortedMomentNodes_locationsToPrefetch_progressBlock___block_invoke;
-          v62[3] = &unk_27887F808;
-          v63 = v58;
-          v65 = buf;
-          v64 = v61;
-          v66 = &v70;
-          v69 = v23;
-          v68 = 0x3F847AE147AE147BLL;
-          v67 = &v74;
-          [serviceManager prefetchEventsFromUniversalDate:v17 toUniversalDate:v21 forAssetCollectionsSortedByStartDate:v30 usingBlock:v62];
-          v31 = *(v75 + 24);
+          v61[0] = MEMORY[0x277D85DD0];
+          v61[1] = 3221225472;
+          v61[2] = __109__PGGraphIngestPrefetchEventProcessor_prefetchEventsWithSortedMomentNodes_locationsToPrefetch_progressBlock___block_invoke;
+          v61[3] = &unk_27887F808;
+          v62 = v57;
+          v64 = buf;
+          v63 = v60;
+          v65 = &v69;
+          v68 = v23;
+          v67 = 0x3F847AE147AE147BLL;
+          v66 = &v73;
+          [serviceManager prefetchEventsFromUniversalDate:v17 toUniversalDate:v21 forAssetCollectionsSortedByStartDate:v30 usingBlock:v61];
+          v31 = *(v74 + 24);
           if (v31 == 1)
           {
             if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
             {
-              *v78 = 67109378;
-              v79 = 134;
-              v80 = 2080;
-              v81 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestPrefetchEventProcessor.m";
-              _os_log_impl(&dword_22F0FC000, v18, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v78, 0x12u);
+              *v77 = 67109378;
+              v78 = 134;
+              v79 = 2080;
+              v80 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestPrefetchEventProcessor.m";
+              _os_log_impl(&dword_22F0FC000, v18, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v77, 0x12u);
             }
           }
 
@@ -189,15 +189,15 @@
             if (os_log_type_enabled(loggingConnection3, OS_LOG_TYPE_INFO))
             {
               v34 = *(*&buf[8] + 24);
-              *v78 = 67109120;
-              v79 = v34;
-              _os_log_impl(&dword_22F0FC000, loggingConnection3, OS_LOG_TYPE_INFO, "[IngestPrefetchEventProcessor] Prefetched %d events", v78, 8u);
+              *v77 = 67109120;
+              v78 = v34;
+              _os_log_impl(&dword_22F0FC000, loggingConnection3, OS_LOG_TYPE_INFO, "[IngestPrefetchEventProcessor] Prefetched %d events", v77, 8u);
             }
 
             v35 = *(*&buf[8] + 24);
             v36 = v21;
 
-            v56 += v35;
+            v55 += v35;
             v17 = v36;
           }
 
@@ -226,26 +226,26 @@ LABEL_41:
       if (os_log_type_enabled(loggingConnection4, OS_LOG_TYPE_INFO))
       {
         *buf = 67109120;
-        *&buf[4] = v56;
+        *&buf[4] = v55;
         _os_log_impl(&dword_22F0FC000, loggingConnection4, OS_LOG_TYPE_INFO, "[IngestPrefetchEventProcessor] Prefetched %d events in all", buf, 8u);
       }
 
       if (prefetch)
       {
-        v44 = v58;
-        *prefetch = v58;
+        v44 = v57;
+        *prefetch = v57;
       }
 
-      if (v61)
+      if (v60)
       {
         v45 = CFAbsoluteTimeGetCurrent();
-        if (v45 - v71[3] >= 0.01)
+        if (v45 - v70[3] >= 0.01)
         {
-          v71[3] = v45;
-          v78[0] = 0;
-          v61[2](v61, v78, 1.0);
-          v46 = *(v75 + 24) | v78[0];
-          *(v75 + 24) = v46;
+          v70[3] = v45;
+          v77[0] = 0;
+          v60[2](v60, v77, 1.0);
+          v46 = *(v74 + 24) | v77[0];
+          *(v74 + 24) = v46;
           if ((v46 & 1) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
@@ -259,10 +259,8 @@ LABEL_41:
     }
   }
 
-  _Block_object_dispose(&v70, 8);
-  _Block_object_dispose(&v74, 8);
-
-  v47 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v69, 8);
+  _Block_object_dispose(&v73, 8);
 }
 
 void __109__PGGraphIngestPrefetchEventProcessor_prefetchEventsWithSortedMomentNodes_locationsToPrefetch_progressBlock___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
@@ -308,7 +306,7 @@ void __109__PGGraphIngestPrefetchEventProcessor_prefetchEventsWithSortedMomentNo
 
 - (void)runWithGraphUpdate:(id)update progressBlock:(id)block
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   updateCopy = update;
   blockCopy = block;
   loggingConnection = [(PGGraphBuilder *)self->_graphBuilder loggingConnection];
@@ -323,11 +321,11 @@ void __109__PGGraphIngestPrefetchEventProcessor_prefetchEventsWithSortedMomentNo
 
   info = 0;
   mach_timebase_info(&info);
-  v28 = mach_absolute_time();
+  v27 = mach_absolute_time();
   v11 = [updateCopy momentsToProcessForMomentUpdateTypes:31 includeMomentsToIngest:1];
   v12 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"startDate" ascending:1];
-  v36[0] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
+  v35[0] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
   v14 = [v11 sortedArrayUsingDescriptors:v13];
 
   v15 = +[PGLogging sharedLogging];
@@ -337,15 +335,15 @@ void __109__PGGraphIngestPrefetchEventProcessor_prefetchEventsWithSortedMomentNo
   {
     v17 = [v11 count];
     *buf = 67109120;
-    LODWORD(v33) = v17;
+    LODWORD(v32) = v17;
     _os_log_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_DEFAULT, "[IngestPrefetchEventProcessor] About to process %d Moments", buf, 8u);
   }
 
   if ([v14 count])
   {
-    v30 = 0;
-    [(PGGraphIngestPrefetchEventProcessor *)self prefetchEventsWithSortedMomentNodes:v14 locationsToPrefetch:&v30 progressBlock:blockCopy];
-    v18 = v30;
+    v29 = 0;
+    [(PGGraphIngestPrefetchEventProcessor *)self prefetchEventsWithSortedMomentNodes:v14 locationsToPrefetch:&v29 progressBlock:blockCopy];
+    v18 = v29;
     if (v18)
     {
       v19 = +[PGLogging sharedLogging];
@@ -355,7 +353,7 @@ void __109__PGGraphIngestPrefetchEventProcessor_prefetchEventsWithSortedMomentNo
       {
         v21 = [v18 count];
         *buf = 67109120;
-        LODWORD(v33) = v21;
+        LODWORD(v32) = v21;
         _os_log_impl(&dword_22F0FC000, loggingConnection3, OS_LOG_TYPE_DEFAULT, "[IngestPrefetchEventProcessor] There are %d additional locations to prefetch", buf, 8u);
       }
 
@@ -382,13 +380,11 @@ void __109__PGGraphIngestPrefetchEventProcessor_prefetchEventsWithSortedMomentNo
   if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v33 = "PGGraphIngestPrefetchEventProcessor";
-    v34 = 2048;
-    v35 = ((((v22 - v28) * numer) / denom) / 1000000.0);
+    v32 = "PGGraphIngestPrefetchEventProcessor";
+    v33 = 2048;
+    v34 = ((((v22 - v27) * numer) / denom) / 1000000.0);
     _os_log_impl(&dword_22F0FC000, v26, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldRunWithGraphUpdate:(id)update

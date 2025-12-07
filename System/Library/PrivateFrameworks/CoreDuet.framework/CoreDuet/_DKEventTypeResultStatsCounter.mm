@@ -64,7 +64,7 @@
 
 - (void)incrementCountWithTypeValue:(int)value success:
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (self)
   {
@@ -85,17 +85,15 @@
         v12 = @"true";
       }
 
-      v16[0] = v5;
-      v16[1] = v12;
+      v15[0] = v5;
+      v15[1] = v12;
       v13 = MEMORY[0x1E695DEC8];
       v14 = Property;
-      [v13 arrayWithObjects:v16 count:2];
+      [v13 arrayWithObjects:v15 count:2];
       objc_claimAutoreleasedReturnValue();
       [OUTLINED_FUNCTION_5_11() trackEventWithPropertyValues:? value:?];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

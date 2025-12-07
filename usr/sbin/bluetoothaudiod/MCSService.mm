@@ -3,9 +3,14 @@
 - (BOOL)currentTrackInfoItemDifferentFrom:(id)from forKey:(id)key;
 - (MCSService)init;
 - (id)contentControlIdData;
+- (id)mcsPlayBackStateToString:(unsigned __int8)string;
+- (id)mediaControlOpcodeToString:(unsigned __int8)string;
 - (id)mediaControlPointOpcodesSupportedData;
+- (id)mediaControlResultToString:(unsigned __int8)string;
 - (id)mediaPlayerNameData;
 - (id)mediaStateData;
+- (id)mrPlayBackStateToString:(unsigned int)string;
+- (id)playbackStateToString:(unsigned __int8)string;
 - (id)playingOrderData;
 - (id)playingOrdersSupportedData;
 - (id)trackDurationData;
@@ -33,6 +38,7 @@
 - (void)peripheralManager:(id)manager didReceiveReadRequest:(id)request;
 - (void)peripheralManager:(id)manager didReceiveWriteRequests:(id)requests;
 - (void)playbackQueueDidChange:(void *)change;
+- (void)playbackStateDidChange:(unsigned int)change;
 - (void)supportedCommandsDidChange:(__CFArray *)change;
 @end
 
@@ -234,6 +240,79 @@
   self->_playerName = v5;
 
   [(MCSService *)self notifyMediaPlayerName];
+}
+
+- (void)playbackStateDidChange:(unsigned int)change
+{
+  v3 = *&change;
+  playerName = [(MCSService *)self playerName];
+  v6 = [playerName length];
+
+  if (v3 && !v6)
+  {
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+    {
+      sub_10005C760();
+    }
+
+    [(MCSService *)self attemptToFindNowPlayingApp];
+  }
+
+  if (v3 > 3)
+  {
+    if (v3 == 4)
+    {
+      return;
+    }
+
+    if (v3 == 5)
+    {
+      v7 = 3;
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+    if ((v3 - 2) < 2)
+    {
+      v7 = 2;
+LABEL_12:
+      self->_mediaPlaybackState = v7;
+      [(MCSService *)self notifyTrackPosition];
+      goto LABEL_16;
+    }
+
+    if (v3 == 1)
+    {
+      self->_mediaPlaybackState = 1;
+      goto LABEL_16;
+    }
+  }
+
+  self->_mediaPlaybackState = 0;
+LABEL_16:
+  prevMediaPlaybackState = [(MCSService *)self prevMediaPlaybackState];
+  if (prevMediaPlaybackState != [(MCSService *)self mediaPlaybackState])
+  {
+    v9 = qword_1000A9FE0;
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = v9;
+      v11 = [(MCSService *)self mrPlayBackStateToString:v3];
+      v12 = [(MCSService *)self mcsPlayBackStateToString:[(MCSService *)self prevMediaPlaybackState]];
+      v13 = 136315650;
+      v14 = "[MCSService playbackStateDidChange:]";
+      v15 = 2112;
+      v16 = v11;
+      v17 = 2112;
+      v18 = v12;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s : New Playback State %@, previous playback state %@", &v13, 0x20u);
+    }
+
+    [(MCSService *)self setPrevMediaPlaybackState:[(MCSService *)self mediaPlaybackState]];
+    [(MCSService *)self notifyMediaState];
+  }
 }
 
 - (void)infoDidChange:(id)change
@@ -1110,24 +1189,22 @@ LABEL_18:
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  supportedCommands = [(MCSService *)self supportedCommands];
-  v5 = [supportedCommands countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [(MCSService *)self supportedCommands:0];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
-      for (i = 0; i != v6; i = i + 1)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
-          objc_enumerationMutation(supportedCommands);
+          objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
         Command = MRMediaRemoteCommandInfoGetCommand();
         if (Command > 4)
         {
@@ -1182,7 +1259,7 @@ LABEL_18:
         }
       }
 
-      v6 = [supportedCommands countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -1393,6 +1470,128 @@ LABEL_18:
   }
 
   return result;
+}
+
+- (id)playbackStateToString:(unsigned __int8)string
+{
+  if (string >= 4u)
+  {
+    string = [NSString stringWithFormat:@"UNKNOWN MCS MEDIA PLAYBACK STATE OPCODE: %u", string];
+  }
+
+  else
+  {
+    string = *(&off_100095590 + string);
+  }
+
+  return string;
+}
+
+- (id)mediaControlOpcodeToString:(unsigned __int8)string
+{
+  if (string <= 3)
+  {
+    switch(string)
+    {
+      case 1u:
+        string = @"PLAY";
+
+        return string;
+      case 2u:
+        string = @"PAUSE";
+
+        return string;
+      case 3u:
+        string = @"FAST REWIND";
+
+        return string;
+    }
+
+LABEL_22:
+    string = [NSString stringWithFormat:@"UNKNOWN MCS MEDIA PLAYBACK STATE OPCODE: %u", string];
+
+    return string;
+  }
+
+  if (string > 47)
+  {
+    if (string == 48)
+    {
+      string = @"PREV TRACK";
+
+      return string;
+    }
+
+    if (string == 49)
+    {
+      string = @"NEXT TRACK";
+
+      return string;
+    }
+
+    goto LABEL_22;
+  }
+
+  if (string != 4)
+  {
+    if (string == 5)
+    {
+      string = @"STOP";
+
+      return string;
+    }
+
+    goto LABEL_22;
+  }
+
+  string = @"FAST FORWARD";
+
+  return string;
+}
+
+- (id)mrPlayBackStateToString:(unsigned int)string
+{
+  if (string >= 6)
+  {
+    v4 = [NSString stringWithFormat:@"UNKNOWN MR MEDIA PLAYBACK STATE: %u", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100095560 + string);
+  }
+
+  return v4;
+}
+
+- (id)mcsPlayBackStateToString:(unsigned __int8)string
+{
+  if (string >= 4u)
+  {
+    string = [NSString stringWithFormat:@"UNKNOWN MCS MEDIA PLAYBACK STATE: %u", string];
+  }
+
+  else
+  {
+    string = *(&off_100095590 + string);
+  }
+
+  return string;
+}
+
+- (id)mediaControlResultToString:(unsigned __int8)string
+{
+  if ((string - 1) >= 4u)
+  {
+    string = [NSString stringWithFormat:@"UNKNOWN MCS MEDIA CONTROL RESULT: %u", string];
+  }
+
+  else
+  {
+    string = *(&off_1000955B0 + (string - 1));
+  }
+
+  return string;
 }
 
 - (unsigned)mcsMediaControlOpcodeToMrCommand:(unsigned __int8)command

@@ -10,7 +10,6 @@
 
 + (IMDHandleRecord)allocWithZone:(_NSZone *)zone
 {
-  v3 = *MEMORY[0x1E695E480];
   IMDHandleRecordGetTypeID();
 
   return _CFRuntimeCreateInstance();
@@ -32,9 +31,9 @@
 
 - (void)_copyUpdatedRecord
 {
-  v3 = objc_msgSend_rowID(self, a2, v2);
+  v4 = objc_msgSend_rowID(self, a2, v2, v3);
 
-  return IMDHandleRecordCopyHandleRecordUnlocked(v3);
+  return IMDHandleRecordCopyHandleRecordUnlocked(v4);
 }
 
 - (NSString)canonicalizedURIString

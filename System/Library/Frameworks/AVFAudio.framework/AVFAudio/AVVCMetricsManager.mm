@@ -10,15 +10,20 @@
 - (id)retrieveProfileMetrics;
 - (int)_disposeADAM;
 - (int)adamAnalyzeBuffer:(AudioBufferList *)buffer numFrames:(unsigned int)frames timeStamp:(const AudioTimeStamp *)stamp shouldAnalyze:(BOOL)analyze;
+- (int)audioIssueDetectorAnalyzeBuffer:(AudioBufferList *)buffer numFrames:(unsigned int)frames timeStamp:(const AudioTimeStamp *)stamp shouldAnalyze:(BOOL)analyze;
 - (int)disposeADAM;
 - (int)resetAudioIssueDetector;
 - (int)setADAMFormat:(CAStreamBasicDescription *)format numFrames:(unsigned int)frames;
+- (int)setAudioIssueDetectorFormat:(CAStreamBasicDescription *)format numFrames:(unsigned int)frames;
 - (int64_t)reporterID;
 - (void)checkAndUpdateReporterID:(int64_t)d;
 - (void)dealloc;
+- (void)logABCMetric:(id)metric category:(unsigned int)category type:(unsigned __int16)type reporterID:(int64_t)d;
 - (void)logProfileMetrics:(id)metrics;
 - (void)logRecordAudioFormat:(CAStreamBasicDescription *)format reporterID:(int64_t)d;
 - (void)logRecordRoute:(id)route andPlaybackRoute:(id)playbackRoute reporterID:(int64_t)d;
+- (void)logSessionMetric:(id)metric value:(id)value category:(unsigned int)category type:(unsigned __int16)type context:(id)context reporterID:(int64_t)d;
+- (void)logSingleMetric:(id)metric value:(id)value category:(unsigned int)category type:(unsigned __int16)type reporterID:(int64_t)d;
 - (void)resetProfileMetrics;
 - (void)updateWithReporterID:(int64_t)d;
 @end
@@ -27,7 +32,7 @@
 
 + (id)sharedManager
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (isAudioStatisticsAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioStatisticsAvailable(void)::onceToken, &__block_literal_global_161);
@@ -61,11 +66,11 @@ LABEL_13:
 
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315394;
-      v9 = "AVVCMetricsManager.mm";
-      v10 = 1024;
-      v11 = 174;
-      _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d AVVCMetricsManager: sharedInstance is nil !!!!", &v8, 0x12u);
+      v7 = 136315394;
+      v8 = "AVVCMetricsManager.mm";
+      v9 = 1024;
+      v10 = 174;
+      _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d AVVCMetricsManager: sharedInstance is nil !!!!", &v7, 0x12u);
     }
 
     goto LABEL_13;
@@ -74,14 +79,13 @@ LABEL_13:
 LABEL_14:
   v4 = v2;
 LABEL_15:
-  v6 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (int)resetAudioIssueDetector
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   mAudioIssueDetector = self->mAudioIssueDetector;
   if (mAudioIssueDetector)
   {
@@ -95,7 +99,7 @@ LABEL_15:
       LODWORD(mAudioIssueDetector) = AudioIssueDetectorLibraryLoader(void)::libSym(mAudioIssueDetector);
       if (!mAudioIssueDetector)
       {
-        goto LABEL_15;
+        return mAudioIssueDetector;
       }
     }
 
@@ -109,7 +113,7 @@ LABEL_15:
       v3 = *kAVVCScope;
       if (!v3)
       {
-        goto LABEL_15;
+        return mAudioIssueDetector;
       }
     }
 
@@ -121,24 +125,22 @@ LABEL_15:
 
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315650;
-      v8 = "AVVCMetricsManager.mm";
-      v9 = 1024;
-      v10 = 545;
-      v11 = 1024;
-      v12 = mAudioIssueDetector;
-      _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d AudioIssueDetectorClientReset Failed: %d", &v7, 0x18u);
+      v6 = 136315650;
+      v7 = "AVVCMetricsManager.mm";
+      v8 = 1024;
+      v9 = 545;
+      v10 = 1024;
+      v11 = mAudioIssueDetector;
+      _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d AudioIssueDetectorClientReset Failed: %d", &v6, 0x18u);
     }
   }
 
-LABEL_15:
-  v5 = *MEMORY[0x1E69E9840];
   return mAudioIssueDetector;
 }
 
 - (id)retrieveProfileMetrics
 {
-  v119 = *MEMORY[0x1E69E9840];
+  v118 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (!selfCopy->mProfileAVVC)
@@ -372,12 +374,12 @@ LABEL_34:
 
 LABEL_38:
   avvcProfilingInfoDictionary37 = [(AVVCMetricsManager *)selfCopy avvcProfilingInfoDictionary];
-  v112[0] = MEMORY[0x1E69E9820];
-  v112[1] = 3221225472;
-  v112[2] = __44__AVVCMetricsManager_retrieveProfileMetrics__block_invoke;
-  v112[3] = &unk_1E7EF5518;
-  v112[4] = selfCopy;
-  [avvcProfilingInfoDictionary37 enumerateKeysAndObjectsUsingBlock:v112];
+  v111[0] = MEMORY[0x1E69E9820];
+  v111[1] = 3221225472;
+  v111[2] = __44__AVVCMetricsManager_retrieveProfileMetrics__block_invoke;
+  v111[3] = &unk_1E7EF5518;
+  v111[4] = selfCopy;
+  [avvcProfilingInfoDictionary37 enumerateKeysAndObjectsUsingBlock:v111];
 
   if (!kAVVCScope)
   {
@@ -393,9 +395,9 @@ LABEL_42:
     if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v114 = "AVVCMetricsManager.mm";
-      v115 = 1024;
-      v116 = 465;
+      v113 = "AVVCMetricsManager.mm";
+      v114 = 1024;
+      v115 = 465;
       _os_log_impl(&dword_1BA5AC000, v103, OS_LOG_TYPE_DEFAULT, "%25s:%-5d #### AVVoiceController PERF_INFO ####", buf, 0x12u);
     }
   }
@@ -420,19 +422,17 @@ LABEL_42:
   {
     avvcProfilingInfoDictionary38 = [(AVVCMetricsManager *)selfCopy avvcProfilingInfoDictionary];
     *buf = 136315650;
-    v114 = "AVVCMetricsManager.mm";
-    v115 = 1024;
-    v116 = 466;
-    v117 = 2112;
-    v118 = avvcProfilingInfoDictionary38;
+    v113 = "AVVCMetricsManager.mm";
+    v114 = 1024;
+    v115 = 466;
+    v116 = 2112;
+    v117 = avvcProfilingInfoDictionary38;
     _os_log_impl(&dword_1BA5AC000, v107, OS_LOG_TYPE_DEFAULT, "%25s:%-5d PROFILE %@", buf, 0x1Cu);
   }
 
 LABEL_52:
   avvcProfilingInfoDictionary39 = [(AVVCMetricsManager *)selfCopy avvcProfilingInfoDictionary];
   objc_sync_exit(selfCopy);
-
-  v110 = *MEMORY[0x1E69E9840];
 
   return avvcProfilingInfoDictionary39;
 }
@@ -460,7 +460,7 @@ LABEL_52:
 
 void __33__AVVCMetricsManager_disposeADAM__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2[4] != 561211748)
   {
@@ -484,24 +484,22 @@ void __33__AVVCMetricsManager_disposeADAM__block_invoke(uint64_t a1)
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "AVVCMetricsManager.mm";
-    v10 = 1024;
-    v11 = 638;
-    _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Releasing OS Transaction for ADAMSiriSession", &v8, 0x12u);
+    v7 = 136315394;
+    v8 = "AVVCMetricsManager.mm";
+    v9 = 1024;
+    v10 = 638;
+    _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Releasing OS Transaction for ADAMSiriSession", &v7, 0x12u);
   }
 
 LABEL_10:
   v5 = *(a1 + 32);
   v6 = *(v5 + 40);
   *(v5 + 40) = 0;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (int)_disposeADAM
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   mAudioDataAnalysisSiriSession = self->mAudioDataAnalysisSiriSession;
   if (AudioDataAnalysisManagerLibraryLoader(void)::once != -1)
   {
@@ -539,24 +537,23 @@ LABEL_10:
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v9 = 136315650;
-    v10 = "AVVCMetricsManager.mm";
-    v11 = 1024;
-    v12 = 623;
-    v13 = 1024;
-    v14 = v4;
-    _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d ADAMClientDispose Failed %d", &v9, 0x18u);
+    v8 = 136315650;
+    v9 = "AVVCMetricsManager.mm";
+    v10 = 1024;
+    v11 = 623;
+    v12 = 1024;
+    v13 = v4;
+    _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d ADAMClientDispose Failed %d", &v8, 0x18u);
   }
 
 LABEL_14:
   self->mAudioDataAnalysisSiriSession = 561211748;
-  v7 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (void)logProfileMetrics:(id)metrics
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   metricsCopy = metrics;
   if (self->mProfileAVVC)
   {
@@ -582,91 +579,313 @@ LABEL_9:
 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 136315650;
-      v11 = "AVVCMetricsManager.mm";
-      v12 = 1024;
-      v13 = 732;
-      v14 = 2112;
-      v15 = metricsCopy;
-      _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d Logging PROFILE METRIC : %@", &v10, 0x1Cu);
+      v9 = 136315650;
+      v10 = "AVVCMetricsManager.mm";
+      v11 = 1024;
+      v12 = 732;
+      v13 = 2112;
+      v14 = metricsCopy;
+      _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d Logging PROFILE METRIC : %@", &v9, 0x1Cu);
     }
 
     goto LABEL_9;
   }
 
 LABEL_10:
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logRecordRoute:(id)route andPlaybackRoute:(id)playbackRoute reporterID:(int64_t)d
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   routeCopy = route;
   playbackRouteCopy = playbackRoute;
-  v12[0] = @"avvcRecordRoute";
-  v12[1] = @"avvcPlaybackRoute";
-  v13[0] = routeCopy;
-  v13[1] = playbackRouteCopy;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v11[0] = @"avvcRecordRoute";
+  v11[1] = @"avvcPlaybackRoute";
+  v12[0] = routeCopy;
+  v12[1] = playbackRouteCopy;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
   if (self->mMetricsReporter)
   {
     [(AVVCMetricsManager *)self checkAndUpdateReporterID:d];
     [(CAReporter *)self->mMetricsReporter sendMessage:v10 category:6 type:5];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logRecordAudioFormat:(CAStreamBasicDescription *)format reporterID:(int64_t)d
 {
-  v14[4] = *MEMORY[0x1E69E9840];
-  v13[0] = @"avvcSampleRate";
+  v13[4] = *MEMORY[0x1E69E9840];
+  v12[0] = @"avvcSampleRate";
   v7 = [MEMORY[0x1E696AD98] numberWithDouble:format->var0];
-  v14[0] = v7;
-  v13[1] = @"avvcBitDepth";
+  v13[0] = v7;
+  v12[1] = @"avvcBitDepth";
   v8 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:format->var7];
-  v14[1] = v8;
-  v13[2] = @"avvcChannels";
+  v13[1] = v8;
+  v12[2] = @"avvcChannels";
   v9 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:format->var6];
-  v14[2] = v9;
-  v13[3] = @"avvcFormatID";
+  v13[2] = v9;
+  v12[3] = @"avvcFormatID";
   v10 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:format->var1];
-  v14[3] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
+  v13[3] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:4];
 
   if (self->mMetricsReporter)
   {
     [(AVVCMetricsManager *)self checkAndUpdateReporterID:d];
     [(CAReporter *)self->mMetricsReporter sendMessage:v11 category:2 type:5];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
-- (int)adamAnalyzeBuffer:(AudioBufferList *)buffer numFrames:(unsigned int)frames timeStamp:(const AudioTimeStamp *)stamp shouldAnalyze:(BOOL)analyze
+- (void)logABCMetric:(id)metric category:(unsigned int)category type:(unsigned __int16)type reporterID:(int64_t)d
 {
-  v9 = *MEMORY[0x1E69E9840];
-  if (analyze && self->mAudioDataAnalysisSiriSession != 561211748)
+  typeCopy = type;
+  v22 = *MEMORY[0x1E69E9840];
+  metricCopy = metric;
+  if (self->mMetricsReporter)
   {
-    if (AudioDataAnalysisManagerLibraryLoader(void)::once != -1)
+    if (kAVVCScope)
     {
-      dispatch_once(&AudioDataAnalysisManagerLibraryLoader(void)::once, &__block_literal_global_278);
+      v10 = *kAVVCScope;
+      if (!v10)
+      {
+LABEL_12:
+        v14[0] = @"avvcGenerateAutoBugCapture";
+        v14[1] = metricCopy;
+        v15[0] = &unk_1F385A2A0;
+        v15[1] = &unk_1F385A2A0;
+        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
+        [(AVVCMetricsManager *)self checkAndUpdateReporterID:d];
+        [(CAReporter *)self->mMetricsReporter sendMessage:v11 category:2 type:typeCopy];
+        goto LABEL_13;
+      }
     }
 
-    v6 = 560033897;
-    if (AudioDataAnalysisManagerLibraryLoader(void)::libSym)
+    else
     {
-      v6 = AudioDataAnalysisManagerLibraryLoader(void)::libSym();
+      v10 = MEMORY[0x1E69E9C10];
+      v12 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 136315650;
+      v17 = "AVVCMetricsManager.mm";
+      v18 = 1024;
+      v19 = 686;
+      v20 = 2112;
+      v21 = metricCopy;
+      _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d Logging Out-of-Session ABC Metric %@", buf, 0x1Cu);
+    }
+
+    goto LABEL_12;
+  }
+
+  if (kAVVCScope)
+  {
+    v11 = *kAVVCScope;
+    if (!v11)
+    {
+      goto LABEL_14;
     }
   }
 
   else
   {
-    v6 = 0;
+    v11 = MEMORY[0x1E69E9C10];
+    v13 = MEMORY[0x1E69E9C10];
   }
 
-  v7 = *MEMORY[0x1E69E9840];
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136315650;
+    v17 = "AVVCMetricsManager.mm";
+    v18 = 1024;
+    v19 = 695;
+    v20 = 2112;
+    v21 = metricCopy;
+    _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d Error! No CAReporter for sending %@ message", buf, 0x1Cu);
+  }
+
+LABEL_13:
+
+LABEL_14:
+}
+
+- (void)logSingleMetric:(id)metric value:(id)value category:(unsigned int)category type:(unsigned __int16)type reporterID:(int64_t)d
+{
+  typeCopy = type;
+  v27 = *MEMORY[0x1E69E9840];
+  metricCopy = metric;
+  valueCopy = value;
+  if (self->mMetricsReporter)
+  {
+    if (kAVVCScope)
+    {
+      v13 = *kAVVCScope;
+      if (!v13)
+      {
+LABEL_12:
+        v17 = metricCopy;
+        v18 = valueCopy;
+        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+        [(AVVCMetricsManager *)self checkAndUpdateReporterID:d];
+        [(CAReporter *)self->mMetricsReporter sendMessage:v14 category:2 type:typeCopy];
+        goto LABEL_13;
+      }
+    }
+
+    else
+    {
+      v13 = MEMORY[0x1E69E9C10];
+      v15 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 136315906;
+      v20 = "AVVCMetricsManager.mm";
+      v21 = 1024;
+      v22 = 674;
+      v23 = 2112;
+      v24 = metricCopy;
+      v25 = 2112;
+      v26 = valueCopy;
+      _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_DEBUG, "%25s:%-5d Logging Out-of-Session Metric %@ : %@", buf, 0x26u);
+    }
+
+    goto LABEL_12;
+  }
+
+  if (kAVVCScope)
+  {
+    v14 = *kAVVCScope;
+    if (!v14)
+    {
+      goto LABEL_14;
+    }
+  }
+
+  else
+  {
+    v14 = MEMORY[0x1E69E9C10];
+    v16 = MEMORY[0x1E69E9C10];
+  }
+
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136315650;
+    v20 = "AVVCMetricsManager.mm";
+    v21 = 1024;
+    v22 = 679;
+    v23 = 2112;
+    v24 = metricCopy;
+    _os_log_impl(&dword_1BA5AC000, v14, OS_LOG_TYPE_ERROR, "%25s:%-5d Error! No CAReporter for sending %@ message", buf, 0x1Cu);
+  }
+
+LABEL_13:
+
+LABEL_14:
+}
+
+- (void)logSessionMetric:(id)metric value:(id)value category:(unsigned int)category type:(unsigned __int16)type context:(id)context reporterID:(int64_t)d
+{
+  typeCopy = type;
+  v29 = *MEMORY[0x1E69E9840];
+  metricCopy = metric;
+  valueCopy = value;
+  contextCopy = context;
+  if (self->mMetricsReporter)
+  {
+    if (kAVVCScope)
+    {
+      v16 = *kAVVCScope;
+      if (!v16)
+      {
+LABEL_12:
+        v19 = [MEMORY[0x1E695DF90] dictionaryWithObjectsAndKeys:{valueCopy, metricCopy, 0}];
+        v17 = v19;
+        if (contextCopy)
+        {
+          [v19 setObject:contextCopy forKeyedSubscript:@"avvcLogContext"];
+        }
+
+        [(AVVCMetricsManager *)self checkAndUpdateReporterID:d];
+        [(CAReporter *)self->mMetricsReporter sendMessage:v17 category:2 type:typeCopy];
+        goto LABEL_15;
+      }
+    }
+
+    else
+    {
+      v16 = MEMORY[0x1E69E9C10];
+      v18 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 136315906;
+      v22 = "AVVCMetricsManager.mm";
+      v23 = 1024;
+      v24 = 658;
+      v25 = 2112;
+      v26 = metricCopy;
+      v27 = 2112;
+      v28 = valueCopy;
+      _os_log_impl(&dword_1BA5AC000, v16, OS_LOG_TYPE_DEBUG, "%25s:%-5d Logging In-Session Metric %@ : %@", buf, 0x26u);
+    }
+
+    goto LABEL_12;
+  }
+
+  if (kAVVCScope)
+  {
+    v17 = *kAVVCScope;
+    if (!v17)
+    {
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+    v17 = MEMORY[0x1E69E9C10];
+    v20 = MEMORY[0x1E69E9C10];
+  }
+
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136315650;
+    v22 = "AVVCMetricsManager.mm";
+    v23 = 1024;
+    v24 = 666;
+    v25 = 2112;
+    v26 = metricCopy;
+    _os_log_impl(&dword_1BA5AC000, v17, OS_LOG_TYPE_ERROR, "%25s:%-5d Error! No CAReporter for sending %@ message", buf, 0x1Cu);
+  }
+
+LABEL_15:
+
+LABEL_16:
+}
+
+- (int)adamAnalyzeBuffer:(AudioBufferList *)buffer numFrames:(unsigned int)frames timeStamp:(const AudioTimeStamp *)stamp shouldAnalyze:(BOOL)analyze
+{
+  v8 = *MEMORY[0x1E69E9840];
+  if (!analyze || self->mAudioDataAnalysisSiriSession == 561211748)
+  {
+    return 0;
+  }
+
+  if (AudioDataAnalysisManagerLibraryLoader(void)::once != -1)
+  {
+    dispatch_once(&AudioDataAnalysisManagerLibraryLoader(void)::once, &__block_literal_global_278);
+  }
+
+  v6 = 560033897;
+  if (AudioDataAnalysisManagerLibraryLoader(void)::libSym)
+  {
+    return AudioDataAnalysisManagerLibraryLoader(void)::libSym();
+  }
+
   return v6;
 }
 
@@ -730,7 +949,7 @@ LABEL_10:
 
 void __46__AVVCMetricsManager_setADAMFormat_numFrames___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (AudioDataAnalysisManagerLibraryLoader(void)::once != -1)
   {
     dispatch_once(&AudioDataAnalysisManagerLibraryLoader(void)::once, &__block_literal_global_278);
@@ -765,7 +984,7 @@ void __46__AVVCMetricsManager_setADAMFormat_numFrames___block_invoke(uint64_t a1
     }
 
     *(*(*(a1 + 40) + 8) + 24) = v7;
-    if (SHIBYTE(v27) < 0)
+    if (SHIBYTE(v26) < 0)
     {
       operator delete(*__p);
     }
@@ -792,10 +1011,10 @@ void __46__AVVCMetricsManager_setADAMFormat_numFrames___block_invoke(uint64_t a1
         v14 = *(*(*(a1 + 40) + 8) + 24);
         *__p = 136315650;
         *&__p[4] = "AVVCMetricsManager.mm";
-        v24 = 1024;
-        v25 = 574;
-        v26 = 1024;
-        v27 = v14;
+        v23 = 1024;
+        v24 = 574;
+        v25 = 1024;
+        v26 = v14;
         _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d ADAMClientCreateNodePCM returned error %d", __p, 0x18u);
       }
 
@@ -803,7 +1022,7 @@ LABEL_35:
 
 LABEL_36:
       [*(a1 + 32) _disposeADAM];
-      goto LABEL_49;
+      return;
     }
 
     v12 = *(*(a1 + 32) + 32);
@@ -840,10 +1059,10 @@ LABEL_36:
         v17 = *(*(*(a1 + 40) + 8) + 24);
         *__p = 136315650;
         *&__p[4] = "AVVCMetricsManager.mm";
-        v24 = 1024;
-        v25 = 580;
-        v26 = 1024;
-        v27 = v17;
+        v23 = 1024;
+        v24 = 580;
+        v25 = 1024;
+        v26 = v17;
         _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d ADAMClientInitialize returned error %d", __p, 0x18u);
       }
 
@@ -861,7 +1080,7 @@ LABEL_48:
         v21 = *(v20 + 40);
         *(v20 + 40) = v19;
 
-        goto LABEL_49;
+        return;
       }
     }
 
@@ -875,8 +1094,8 @@ LABEL_48:
     {
       *__p = 136315394;
       *&__p[4] = "AVVCMetricsManager.mm";
-      v24 = 1024;
-      v25 = 584;
+      v23 = 1024;
+      v24 = 584;
       _os_log_impl(&dword_1BA5AC000, v15, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Acquiring an OS Transaction for ADAMSiriSession", __p, 0x12u);
     }
 
@@ -888,7 +1107,7 @@ LABEL_48:
     v4 = *kAVVCScope;
     if (!v4)
     {
-      goto LABEL_49;
+      return;
     }
   }
 
@@ -904,22 +1123,228 @@ LABEL_48:
     v11 = *(a1 + 72);
     *__p = 136315906;
     *&__p[4] = "AVVCMetricsManager.mm";
-    v24 = 1024;
-    v25 = 569;
-    v26 = 1024;
-    v27 = v10;
-    v28 = 2048;
-    v29 = v11;
+    v23 = 1024;
+    v24 = 569;
+    v25 = 1024;
+    v26 = v10;
+    v27 = 2048;
+    v28 = v11;
     _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d Error: %d. Failed to create ADAM SiriSession with reporterID: %lld", __p, 0x22u);
   }
+}
 
-LABEL_49:
-  v22 = *MEMORY[0x1E69E9840];
+- (int)audioIssueDetectorAnalyzeBuffer:(AudioBufferList *)buffer numFrames:(unsigned int)frames timeStamp:(const AudioTimeStamp *)stamp shouldAnalyze:(BOOL)analyze
+{
+  v20 = *MEMORY[0x1E69E9840];
+  if (!analyze)
+  {
+    return 0;
+  }
+
+  mAudioIssueDetector = self->mAudioIssueDetector;
+  if (!mAudioIssueDetector)
+  {
+    return 0;
+  }
+
+  v8 = *&frames;
+  if (AudioIssueDetectorLibraryLoader(void)::once != -1)
+  {
+    dispatch_once(&AudioIssueDetectorLibraryLoader(void)::once, &__block_literal_global_256);
+  }
+
+  if (AudioIssueDetectorLibraryLoader(void)::libSym)
+  {
+    v10 = AudioIssueDetectorLibraryLoader(void)::libSym(mAudioIssueDetector, 0, 0, buffer, v8, stamp);
+    if (!v10)
+    {
+      return v10;
+    }
+  }
+
+  else
+  {
+    v10 = -1;
+  }
+
+  if (kAVVCScope)
+  {
+    v11 = *kAVVCScope;
+    if (!v11)
+    {
+      return v10;
+    }
+  }
+
+  else
+  {
+    v11 = MEMORY[0x1E69E9C10];
+    v12 = MEMORY[0x1E69E9C10];
+  }
+
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  {
+    v14 = 136315650;
+    v15 = "AVVCMetricsManager.mm";
+    v16 = 1024;
+    v17 = 531;
+    v18 = 1024;
+    v19 = v10;
+    _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d AudioIssueDetectorClientAnalyzeBuffer Failed: %d", &v14, 0x18u);
+  }
+
+  return v10;
+}
+
+- (int)setAudioIssueDetectorFormat:(CAStreamBasicDescription *)format numFrames:(unsigned int)frames
+{
+  v21 = *MEMORY[0x1E69E9840];
+  mAudioIssueDetector = self->mAudioIssueDetector;
+  if (mAudioIssueDetector)
+  {
+    v5 = *&frames;
+    std::string::basic_string[abi:ne200100]<0>(__p, "avvc-recordQueue");
+    if (AudioIssueDetectorLibraryLoader(void)::once != -1)
+    {
+      dispatch_once(&AudioIssueDetectorLibraryLoader(void)::once, &__block_literal_global_256);
+    }
+
+    if (AudioIssueDetectorLibraryLoader(void)::libSym)
+    {
+      v8 = AudioIssueDetectorLibraryLoader(void)::libSym(mAudioIssueDetector, __p, 0, format, v5);
+    }
+
+    else
+    {
+      v8 = -1;
+    }
+
+    if (SHIBYTE(v20) < 0)
+    {
+      operator delete(*__p);
+      if (v8)
+      {
+        goto LABEL_12;
+      }
+    }
+
+    else if (v8)
+    {
+LABEL_12:
+      if (kAVVCScope)
+      {
+        v9 = *kAVVCScope;
+        if (!v9)
+        {
+          return v8;
+        }
+      }
+
+      else
+      {
+        v9 = MEMORY[0x1E69E9C10];
+        v11 = MEMORY[0x1E69E9C10];
+      }
+
+      if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_36;
+      }
+
+      *__p = 136315650;
+      *&__p[4] = "AVVCMetricsManager.mm";
+      v17 = 1024;
+      v18 = 507;
+      v19 = 1024;
+      v20 = v8;
+      v12 = "%25s:%-5d AudioIssueDetectorClientSetNodeFormat returned error %d";
+LABEL_35:
+      _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_ERROR, v12, __p, 0x18u);
+LABEL_36:
+
+      return v8;
+    }
+
+    v10 = self->mAudioIssueDetector;
+    if (AudioIssueDetectorLibraryLoader(void)::once != -1)
+    {
+      dispatch_once(&AudioIssueDetectorLibraryLoader(void)::once, &__block_literal_global_256);
+    }
+
+    if (AudioIssueDetectorLibraryLoader(void)::libSym)
+    {
+      v8 = AudioIssueDetectorLibraryLoader(void)::libSym(v10);
+      if (!v8)
+      {
+        return v8;
+      }
+    }
+
+    else
+    {
+      v8 = -1;
+    }
+
+    if (kAVVCScope)
+    {
+      v9 = *kAVVCScope;
+      if (!v9)
+      {
+        return v8;
+      }
+    }
+
+    else
+    {
+      v9 = MEMORY[0x1E69E9C10];
+      v14 = MEMORY[0x1E69E9C10];
+    }
+
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_36;
+    }
+
+    *__p = 136315650;
+    *&__p[4] = "AVVCMetricsManager.mm";
+    v17 = 1024;
+    v18 = 512;
+    v19 = 1024;
+    v20 = v8;
+    v12 = "%25s:%-5d AudioIssueDetectorClientInitialize returned error %d";
+    goto LABEL_35;
+  }
+
+  if (!kAVVCScope)
+  {
+    v9 = MEMORY[0x1E69E9C10];
+    v13 = MEMORY[0x1E69E9C10];
+    goto LABEL_25;
+  }
+
+  v9 = *kAVVCScope;
+  if (v9)
+  {
+LABEL_25:
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      *__p = 136315394;
+      *&__p[4] = "AVVCMetricsManager.mm";
+      v17 = 1024;
+      v18 = 516;
+      _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d setAudioIssueDetectorFormat: Invalid AudioIssueDetector client. Not creating AudioIssueDetectorClient node.", __p, 0x12u);
+    }
+
+    v8 = 0;
+    goto LABEL_36;
+  }
+
+  return 0;
 }
 
 - (BOOL)measureElapseTimeForMetric:(id)metric block:(id)block
 {
-  v33[3] = *MEMORY[0x1E69E9840];
+  v32[3] = *MEMORY[0x1E69E9840];
   metricCopy = metric;
   blockCopy = block;
   v8 = mach_absolute_time();
@@ -938,17 +1363,17 @@ LABEL_49:
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v32[0] = @"BeginHostTime";
+  v31[0] = @"BeginHostTime";
   v14 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v8];
-  v33[0] = v14;
-  v32[1] = @"EndHostTime";
+  v32[0] = v14;
+  v31[1] = @"EndHostTime";
   v15 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v10];
   v16 = v12 / 1000000.0;
-  v33[1] = v15;
-  v32[2] = @"DurationMilliSeconds";
+  v32[1] = v15;
+  v31[2] = @"DurationMilliSeconds";
   v17 = [MEMORY[0x1E696AD98] numberWithDouble:v16];
-  v33[2] = v17;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:3];
+  v32[2] = v17;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:3];
 
   publicMetrics = [(AVVCMetricsManager *)selfCopy publicMetrics];
   [publicMetrics setObject:v18 forKey:metricCopy];
@@ -971,19 +1396,18 @@ LABEL_49:
 
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
-    v24 = 136315906;
-    v25 = "AVVCMetricsManager.mm";
-    v26 = 1024;
-    v27 = 490;
-    v28 = 2112;
-    v29 = metricCopy;
-    v30 = 2048;
-    v31 = v16;
-    _os_log_impl(&dword_1BA5AC000, v20, OS_LOG_TYPE_DEBUG, "%25s:%-5d Measuring Elapsed Time for %@ : %f ms", &v24, 0x26u);
+    v23 = 136315906;
+    v24 = "AVVCMetricsManager.mm";
+    v25 = 1024;
+    v26 = 490;
+    v27 = 2112;
+    v28 = metricCopy;
+    v29 = 2048;
+    v30 = v16;
+    _os_log_impl(&dword_1BA5AC000, v20, OS_LOG_TYPE_DEBUG, "%25s:%-5d Measuring Elapsed Time for %@ : %f ms", &v23, 0x26u);
   }
 
 LABEL_11:
-  v22 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -1028,47 +1452,43 @@ void __44__AVVCMetricsManager_retrieveProfileMetrics__block_invoke(uint64_t a1, 
 
 - (int64_t)reporterID
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   mMetricsReporter = self->mMetricsReporter;
   if (!mMetricsReporter)
   {
     if (kAVVCScope)
     {
-      v5 = *kAVVCScope;
-      if (!v5)
+      v4 = *kAVVCScope;
+      if (!v4)
       {
-LABEL_12:
-        v7 = *MEMORY[0x1E69E9840];
         return 0;
       }
     }
 
     else
     {
+      v4 = MEMORY[0x1E69E9C10];
       v5 = MEMORY[0x1E69E9C10];
-      v6 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315394;
-      v9 = "AVVCMetricsManager.mm";
-      v10 = 1024;
-      v11 = 369;
-      _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d CAReporter object is nil", &v8, 0x12u);
+      v6 = 136315394;
+      v7 = "AVVCMetricsManager.mm";
+      v8 = 1024;
+      v9 = 369;
+      _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d CAReporter object is nil", &v6, 0x12u);
     }
 
-    goto LABEL_12;
+    return 0;
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return [(CAReporter *)mMetricsReporter reporterID];
 }
 
 - (void)checkAndUpdateReporterID:(int64_t)d
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (IsMetricsOwnedByAVVC(void)::onceToken != -1)
   {
     dispatch_once(&IsMetricsOwnedByAVVC(void)::onceToken, &__block_literal_global_209);
@@ -1090,7 +1510,7 @@ LABEL_12:
           [publicMetrics setObject:v8 forKey:@"avvcReporterID"];
         }
 
-        goto LABEL_14;
+        return;
       }
     }
 
@@ -1102,23 +1522,20 @@ LABEL_12:
 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315394;
-      v11 = "AVVCMetricsManager.mm";
-      v12 = 1024;
-      v13 = 348;
-      _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d CAReporter reporterID is Invalid", &v10, 0x12u);
+      v9 = 136315394;
+      v10 = "AVVCMetricsManager.mm";
+      v11 = 1024;
+      v12 = 348;
+      _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d CAReporter reporterID is Invalid", &v9, 0x12u);
     }
 
     goto LABEL_12;
   }
-
-LABEL_14:
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateWithReporterID:(int64_t)d
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (IsMetricsOwnedByAVVC(void)::onceToken != -1)
   {
@@ -1189,13 +1606,13 @@ LABEL_14:
 
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
-          *v19 = 136315650;
-          v20 = "AVVCMetricsManager.mm";
-          v21 = 1024;
-          v22 = 329;
-          v23 = 1024;
-          v24 = v10;
-          _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d AudioIssueDetectorClientUpdateReportingSessions returned error %d", v19, 0x18u);
+          *v18 = 136315650;
+          v19 = "AVVCMetricsManager.mm";
+          v20 = 1024;
+          v21 = 329;
+          v22 = 1024;
+          v23 = v10;
+          _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d AudioIssueDetectorClientUpdateReportingSessions returned error %d", v18, 0x18u);
         }
 
 LABEL_28:
@@ -1236,7 +1653,7 @@ LABEL_42:
               operator delete(*buf);
             }
 
-            goto LABEL_44;
+            return;
           }
         }
 
@@ -1248,13 +1665,13 @@ LABEL_42:
 
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          *v19 = 136315650;
-          v20 = "AVVCMetricsManager.mm";
-          v21 = 1024;
-          v22 = 335;
-          v23 = 1024;
-          v24 = v14;
-          _os_log_impl(&dword_1BA5AC000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d ADAMClientUpdateReportingSessions returned error %d", v19, 0x18u);
+          *v18 = 136315650;
+          v19 = "AVVCMetricsManager.mm";
+          v20 = 1024;
+          v21 = 335;
+          v22 = 1024;
+          v23 = v14;
+          _os_log_impl(&dword_1BA5AC000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d ADAMClientUpdateReportingSessions returned error %d", v18, 0x18u);
         }
 
         goto LABEL_42;
@@ -1280,14 +1697,11 @@ LABEL_42:
 
     goto LABEL_13;
   }
-
-LABEL_44:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (kAVVCScope)
   {
     v3 = *kAVVCScope;
@@ -1306,9 +1720,9 @@ LABEL_44:
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v14 = "AVVCMetricsManager.mm";
-    v15 = 1024;
-    v16 = 281;
+    v13 = "AVVCMetricsManager.mm";
+    v14 = 1024;
+    v15 = 281;
     _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCMetricsManager: dealloc", buf, 0x12u);
   }
 
@@ -1365,15 +1779,14 @@ LABEL_8:
 
   [(AVVCMetricsManager *)self setPublicMetrics:0];
   [(AVVCMetricsManager *)self setAvvcProfilingInfoDictionary:0];
-  v12.receiver = self;
-  v12.super_class = AVVCMetricsManager;
-  [(AVVCMetricsManager *)&v12 dealloc];
-  v11 = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = AVVCMetricsManager;
+  [(AVVCMetricsManager *)&v11 dealloc];
 }
 
 - (AVVCMetricsManager)init
 {
-  v58[3] = *MEMORY[0x1E69E9840];
+  v57[3] = *MEMORY[0x1E69E9840];
   if (isAudioStatisticsAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioStatisticsAvailable(void)::onceToken, &__block_literal_global_161);
@@ -1381,9 +1794,9 @@ LABEL_8:
 
   if (isAudioStatisticsAvailable(void)::audioStatisticsAvailable)
   {
-    v47.receiver = self;
-    v47.super_class = AVVCMetricsManager;
-    v3 = [(AVVCMetricsManager *)&v47 init];
+    v46.receiver = self;
+    v46.super_class = AVVCMetricsManager;
+    v3 = [(AVVCMetricsManager *)&v46 init];
     if (!v3)
     {
 LABEL_68:
@@ -1396,23 +1809,23 @@ LABEL_68:
     [v3 setPublicMetrics:v4];
 
     publicMetrics = [v3 publicMetrics];
-    v57[0] = @"BeginHostTime";
-    v57[1] = @"EndHostTime";
-    v58[0] = &unk_1F385A288;
-    v58[1] = &unk_1F385A288;
-    v57[2] = @"DurationMilliSeconds";
-    v58[2] = &unk_1F385A288;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:v57 count:3];
+    v56[0] = @"BeginHostTime";
+    v56[1] = @"EndHostTime";
+    v57[0] = &unk_1F385A288;
+    v57[1] = &unk_1F385A288;
+    v56[2] = @"DurationMilliSeconds";
+    v57[2] = &unk_1F385A288;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:v56 count:3];
     [publicMetrics setObject:v6 forKey:@"SetSessionActiveTime"];
 
     publicMetrics2 = [v3 publicMetrics];
-    v55[0] = @"BeginHostTime";
-    v55[1] = @"EndHostTime";
-    v56[0] = &unk_1F385A288;
-    v56[1] = &unk_1F385A288;
-    v55[2] = @"DurationMilliSeconds";
-    v56[2] = &unk_1F385A288;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:v55 count:3];
+    v54[0] = @"BeginHostTime";
+    v54[1] = @"EndHostTime";
+    v55[0] = &unk_1F385A288;
+    v55[1] = &unk_1F385A288;
+    v54[2] = @"DurationMilliSeconds";
+    v55[2] = &unk_1F385A288;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:v54 count:3];
     [publicMetrics2 setObject:v8 forKey:@"SetSessionInactiveTime"];
 
     v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -1513,11 +1926,11 @@ LABEL_61:
 
       if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
-        *v51 = 136315394;
-        v52 = "AVVCMetricsManager.mm";
-        v53 = 1024;
-        v54 = 231;
-        _os_log_impl(&dword_1BA5AC000, v34, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create AudioIssueDetector.", v51, 0x12u);
+        *v50 = 136315394;
+        v51 = "AVVCMetricsManager.mm";
+        v52 = 1024;
+        v53 = 231;
+        _os_log_impl(&dword_1BA5AC000, v34, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create AudioIssueDetector.", v50, 0x12u);
       }
 
       goto LABEL_61;
@@ -1562,15 +1975,15 @@ LABEL_67:
 
     [v18 setServiceType:1];
     v19 = *(v3 + 2);
-    v49 = *MEMORY[0x1E69E4FE0];
+    v48 = *MEMORY[0x1E69E4FE0];
     mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
     bundleIdentifier = [mainBundle bundleIdentifier];
-    v50 = bundleIdentifier;
-    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+    v49 = bundleIdentifier;
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
     [v19 setConfiguration:v22];
 
     reporterID = [*(v3 + 2) reporterID];
-    v46 = reporterID;
+    v45 = reporterID;
     publicMetrics3 = [v3 publicMetrics];
     v25 = [MEMORY[0x1E696AD98] numberWithLongLong:reporterID];
     [publicMetrics3 setObject:v25 forKey:@"avvcReporterID"];
@@ -1608,7 +2021,7 @@ LABEL_43:
     *(v3 + 1) = v37;
 
     memset(buf, 0, 24);
-    std::vector<long long>::push_back[abi:ne200100](buf, &v46);
+    std::vector<long long>::push_back[abi:ne200100](buf, &v45);
     if (AudioIssueDetectorLibraryLoader(void)::once != -1)
     {
       dispatch_once(&AudioIssueDetectorLibraryLoader(void)::once, &__block_literal_global_256);
@@ -1648,11 +2061,11 @@ LABEL_60:
 
     if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
-      *v51 = 136315394;
-      v52 = "AVVCMetricsManager.mm";
-      v53 = 1024;
-      v54 = 263;
-      _os_log_impl(&dword_1BA5AC000, v40, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create AudioIssueDetector.", v51, 0x12u);
+      *v50 = 136315394;
+      v51 = "AVVCMetricsManager.mm";
+      v52 = 1024;
+      v53 = 263;
+      _os_log_impl(&dword_1BA5AC000, v40, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create AudioIssueDetector.", v50, 0x12u);
     }
 
     goto LABEL_60;
@@ -1685,13 +2098,12 @@ LABEL_60:
   selfCopy = 0;
 LABEL_69:
 
-  v44 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 + (void)destroySharedManager
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (isAudioStatisticsAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioStatisticsAvailable(void)::onceToken, &__block_literal_global_161);
@@ -1729,7 +2141,7 @@ LABEL_21:
           (*(*v3 + 24))(v3);
         }
 
-        goto LABEL_25;
+        return;
       }
     }
 
@@ -1741,13 +2153,13 @@ LABEL_21:
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315650;
-      v12 = "AVVCMetricsManager.mm";
-      v13 = 1024;
-      v14 = 152;
-      v15 = 2048;
-      v16 = gReferenceCount;
-      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCMetricsManager: destroySharedManager : referenceCount after decrementing = %llu", &v11, 0x1Cu);
+      v10 = 136315650;
+      v11 = "AVVCMetricsManager.mm";
+      v12 = 1024;
+      v13 = 152;
+      v14 = 2048;
+      v15 = gReferenceCount;
+      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCMetricsManager: destroySharedManager : referenceCount after decrementing = %llu", &v10, 0x1Cu);
     }
 
     goto LABEL_21;
@@ -1758,7 +2170,7 @@ LABEL_21:
     v5 = *kAVVCScope;
     if (!v5)
     {
-      goto LABEL_25;
+      return;
     }
   }
 
@@ -1770,20 +2182,17 @@ LABEL_21:
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v11 = 136315394;
-    v12 = "AVVCMetricsManager.mm";
-    v13 = 1024;
-    v14 = 138;
-    _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d AVVCMetricsManager not supported on this platform", &v11, 0x12u);
+    v10 = 136315394;
+    v11 = "AVVCMetricsManager.mm";
+    v12 = 1024;
+    v13 = 138;
+    _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d AVVCMetricsManager not supported on this platform", &v10, 0x12u);
   }
-
-LABEL_25:
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (void)createSharedManager
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (isAudioStatisticsAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioStatisticsAvailable(void)::onceToken, &__block_literal_global_161);
@@ -1822,7 +2231,7 @@ LABEL_23:
           (*(*v3 + 24))(v3);
         }
 
-        goto LABEL_25;
+        return;
       }
     }
 
@@ -1835,11 +2244,11 @@ LABEL_23:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v13 = "AVVCMetricsManager.mm";
-      v14 = 1024;
-      v15 = 131;
-      v16 = 2048;
-      v17 = gReferenceCount;
+      v12 = "AVVCMetricsManager.mm";
+      v13 = 1024;
+      v14 = 131;
+      v15 = 2048;
+      v16 = gReferenceCount;
       _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCMetricsManager: createSharedManager: referenceCount after incrementing = %llu", buf, 0x1Cu);
     }
 
@@ -1851,7 +2260,7 @@ LABEL_23:
     v5 = *kAVVCScope;
     if (!v5)
     {
-      goto LABEL_25;
+      return;
     }
   }
 
@@ -1864,14 +2273,11 @@ LABEL_23:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v13 = "AVVCMetricsManager.mm";
-    v14 = 1024;
-    v15 = 114;
+    v12 = "AVVCMetricsManager.mm";
+    v13 = 1024;
+    v14 = 114;
     _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d AVVCMetricsManager not supported on this platform", buf, 0x12u);
   }
-
-LABEL_25:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (void)getLock

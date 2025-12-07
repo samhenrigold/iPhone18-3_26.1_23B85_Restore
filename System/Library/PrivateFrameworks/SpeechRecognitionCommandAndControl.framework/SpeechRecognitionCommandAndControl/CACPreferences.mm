@@ -1419,7 +1419,7 @@ void __38__CACPreferences_builtInCommandsTable__block_invoke(uint64_t a1)
   v26 = *MEMORY[0x277D85DE8];
   v2 = [objc_opt_class() _builtinCommandsCatalogURL];
   v3 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithContentsOfURL:v2];
-  v4 = CACLogPreferences();
+  v4 = CACLogPreferences(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __38__CACPreferences_builtInCommandsTable__block_invoke_cold_1(v2, v4);
@@ -1450,7 +1450,7 @@ void __38__CACPreferences_builtInCommandsTable__block_invoke(uint64_t a1)
 
         v11 = *(*(&v19 + 1) + 8 * v9);
         v12 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithContentsOfURL:v11];
-        v13 = CACLogPreferences();
+        v13 = CACLogPreferences(v12);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           v14 = [v11 lastPathComponent];

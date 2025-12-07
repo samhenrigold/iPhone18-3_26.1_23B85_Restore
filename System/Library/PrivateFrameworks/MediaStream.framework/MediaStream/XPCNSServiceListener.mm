@@ -17,18 +17,17 @@
 - (BOOL)XPCServiceListener:(id)listener shouldAcceptNewConnection:(id)connection
 {
   connectionCopy = connection;
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
-    v7 = [(XPCNSServiceListenerDelegate *)self->_delegate XPCNSServiceListener:self shouldReceiveNewConnection:connectionCopy];
+    v6 = [(XPCNSServiceListenerDelegate *)self->_delegate XPCNSServiceListener:self shouldReceiveNewConnection:connectionCopy];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
-  return v7;
+  return v6;
 }
 
 - (XPCNSServiceListener)initWithServiceName:(id)name queue:(id)queue delegate:(id)delegate

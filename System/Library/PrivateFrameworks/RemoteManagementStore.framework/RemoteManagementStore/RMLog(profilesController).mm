@@ -11,9 +11,9 @@
     +[RMLog(profilesController) profilesController];
   }
 
-  v1 = profilesController_result;
+  v2 = profilesController_result;
 
-  return v1;
+  return v2;
 }
 
 @end

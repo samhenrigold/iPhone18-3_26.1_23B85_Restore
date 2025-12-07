@@ -35,7 +35,7 @@
 
 - (void)dealloc
 {
-  FxDebugAssert(self->_priv != 0, &cfstr_PrivNull.isa, v2, v3, v4, v5, v6, v7, v10.receiver);
+  FxDebugAssert(self->_priv != 0, &cfstr_PrivNull.isa, v2, v3, v4, v5, v6, v7);
   priv = self->_priv;
   if (priv)
   {
@@ -159,7 +159,7 @@
   }
 
   group = [var0 group];
-  FxDebugAssert(group != 0, &cfstr_PluginGroupRet.isa, v4, v5, v6, v7, v8, v9, v13);
+  FxDebugAssert(group != 0, &cfstr_PluginGroupRet.isa, v4, v5, v6, v7, v8, v9);
   if (!group)
   {
     return 0;

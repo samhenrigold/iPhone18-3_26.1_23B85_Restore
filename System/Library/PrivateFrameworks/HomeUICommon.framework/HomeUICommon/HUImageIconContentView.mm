@@ -8,6 +8,7 @@
 - (void)layoutSubviews;
 - (void)setIconContentMode:(int64_t)mode;
 - (void)setIconSize:(unint64_t)size;
+- (void)updateWithIconDescriptor:(id)descriptor displayStyle:(unint64_t)style animated:(BOOL)animated;
 @end
 
 @implementation HUImageIconContentView
@@ -52,6 +53,24 @@
   v10 = v9;
   imageView = [(HUImageIconContentView *)self imageView];
   [imageView setFrame:{v4, v6, v8, v10}];
+}
+
+- (void)updateWithIconDescriptor:(id)descriptor displayStyle:(unint64_t)style animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  descriptorCopy = descriptor;
+  iconDescriptor = [(HUIconContentView *)self iconDescriptor];
+  v10 = [descriptorCopy isEqual:iconDescriptor];
+
+  displayStyle = [(HUIconContentView *)self displayStyle];
+  v12.receiver = self;
+  v12.super_class = HUImageIconContentView;
+  [(HUIconContentView *)&v12 updateWithIconDescriptor:descriptorCopy displayStyle:style animated:animatedCopy];
+
+  if (!v10 || displayStyle != style)
+  {
+    [(HUImageIconContentView *)self _updateIconImage];
+  }
 }
 
 - (void)setIconSize:(unint64_t)size

@@ -39,15 +39,15 @@
 {
   completionCopy = completion;
   previewCopy = preview;
-  presentation = [(_UIClickPresentationAssistant *)self presentation];
-  viewController = [presentation viewController];
+  v8 = objc_msgSend_presentation(self);
+  viewController = [v8 viewController];
 
-  presentation2 = [(_UIClickPresentationAssistant *)self presentation];
-  presentationController = [presentation2 presentationController];
+  v9 = objc_msgSend_presentation(self);
+  presentationController = [v9 presentationController];
   presentingViewController = [presentationController presentingViewController];
 
-  presentation3 = [(_UIClickPresentationAssistant *)self presentation];
-  LODWORD(presentationController) = [presentation3 _presentsSelf];
+  v12 = objc_msgSend_presentation(self);
+  LODWORD(presentationController) = [v12 _presentsSelf];
 
   if (presentationController)
   {
@@ -75,8 +75,8 @@
 
   else
   {
-    presentation = [(_UIClickPresentationAssistant *)self presentation];
-    viewController = [presentation viewController];
+    v7 = objc_msgSend_presentation(self);
+    viewController = [v7 viewController];
     v9[0] = MEMORY[0x1E69E9820];
     v9[1] = 3221225472;
     v9[2] = __79___UIClickPresentationAssistant_dismissWithReason_alongsideActions_completion___block_invoke;
@@ -88,8 +88,8 @@
 
 - (void)_didTransitionToPresented
 {
-  presentation = [(_UIClickPresentationAssistant *)self presentation];
-  appearanceTransition = [presentation appearanceTransition];
+  v3 = objc_msgSend_presentation(self, a2);
+  appearanceTransition = [v3 appearanceTransition];
 
   transitionCompletion = [(_UIClickPresentationAssistant *)self transitionCompletion];
   (transitionCompletion)[2](transitionCompletion, appearanceTransition, 1);
@@ -119,16 +119,16 @@ LABEL_4:
 - (void)_didTransitionToPossibleEndingTransition:(BOOL)transition
 {
   transitionCopy = transition;
-  presentation = [(_UIClickPresentationAssistant *)self presentation];
-  v6 = presentation;
+  v5 = objc_msgSend_presentation(self, a2);
+  v6 = v5;
   if (transitionCopy)
   {
-    [presentation appearanceTransition];
+    [v5 appearanceTransition];
   }
 
   else
   {
-    [presentation disappearanceTransition];
+    [v5 disappearanceTransition];
   }
   v8 = ;
 
@@ -141,8 +141,8 @@ LABEL_4:
 
 - (void)_animatePresentation
 {
-  presentation = [(_UIClickPresentationAssistant *)self presentation];
-  appearanceTransition = [presentation appearanceTransition];
+  v3 = objc_msgSend_presentation(self, a2);
+  appearanceTransition = [v3 appearanceTransition];
 
   if (objc_opt_respondsToSelector())
   {
@@ -167,8 +167,8 @@ LABEL_4:
     [UIView performWithoutAnimation:v36];
   }
 
-  presentation2 = [(_UIClickPresentationAssistant *)self presentation];
-  customViewForTouchContinuation = [presentation2 customViewForTouchContinuation];
+  v9 = objc_msgSend_presentation(self);
+  customViewForTouchContinuation = [v9 customViewForTouchContinuation];
 
   window = [customViewForTouchContinuation window];
 
@@ -221,8 +221,8 @@ LABEL_4:
 - (void)_animateDismissalIsInterruption:(BOOL)interruption
 {
   interruptionCopy = interruption;
-  presentation = [(_UIClickPresentationAssistant *)self presentation];
-  disappearanceTransition = [presentation disappearanceTransition];
+  v5 = objc_msgSend_presentation(self, a2);
+  disappearanceTransition = [v5 disappearanceTransition];
 
   if (objc_opt_respondsToSelector())
   {
@@ -237,8 +237,8 @@ LABEL_4:
   v11 = v10;
   if (interruptionCopy)
   {
-    presentation2 = [(_UIClickPresentationAssistant *)self presentation];
-    appearanceTransition = [presentation2 appearanceTransition];
+    v12 = objc_msgSend_presentation(self);
+    appearanceTransition = [v12 appearanceTransition];
 
     if (objc_opt_respondsToSelector())
     {
@@ -337,8 +337,8 @@ LABEL_4:
 - (void)_postInteractionCleanup
 {
   [(_UIClickPresentationAssistant *)self setSourcePreview:0];
-  presentation = [(_UIClickPresentationAssistant *)self presentation];
-  viewController = [presentation viewController];
+  v3 = objc_msgSend_presentation(self);
+  viewController = [v3 viewController];
 
   [viewController _setOverrideUseCustomPresentation:0];
   [viewController _setOverrideTransitioningDelegate:0];
@@ -354,8 +354,8 @@ LABEL_4:
 
 - (void)_stashParentViewControllerIfNecessary
 {
-  presentation = [(_UIClickPresentationAssistant *)self presentation];
-  viewController = [presentation viewController];
+  v3 = objc_msgSend_presentation(self, a2);
+  viewController = [v3 viewController];
 
   parentViewController = [viewController parentViewController];
 
@@ -379,8 +379,8 @@ LABEL_4:
 
   if (stashedParentViewController)
   {
-    presentation = [(_UIClickPresentationAssistant *)self presentation];
-    viewController = [presentation viewController];
+    v4 = objc_msgSend_presentation(self);
+    viewController = [v4 viewController];
 
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
@@ -423,8 +423,8 @@ LABEL_4:
 
   else
   {
-    presentation = [(_UIClickPresentationAssistant *)self presentation];
-    -[_UIPortalView setHidesSourceView:](v6, "setHidesSourceView:", [presentation _presentsSelf] ^ 1);
+    v7 = objc_msgSend_presentation(self);
+    -[_UIPortalView setHidesSourceView:](v6, "setHidesSourceView:", [v7 _presentsSelf] ^ 1);
   }
 
   [(_UIPortalView *)v6 setAllowsBackdropGroups:1];
@@ -436,7 +436,7 @@ LABEL_4:
   v10 = target;
   if (target)
   {
-    [target transform];
+    objc_msgSend_transform(target);
   }
 
   else
@@ -461,8 +461,8 @@ LABEL_4:
   controllerCopy = controller;
   viewControllerCopy = viewController;
   sourceViewControllerCopy = sourceViewController;
-  presentation = [(_UIClickPresentationAssistant *)self presentation];
-  presentationController = [presentation presentationController];
+  v11 = objc_msgSend_presentation(self);
+  presentationController = [v11 presentationController];
 
   if (!presentationController)
   {

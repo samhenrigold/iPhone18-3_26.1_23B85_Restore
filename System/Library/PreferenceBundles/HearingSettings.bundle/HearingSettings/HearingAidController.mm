@@ -4,6 +4,7 @@
 - (id)hearingAidComplaince:(id)complaince;
 - (id)specifiers;
 - (void)_handleAvailableDevicesChanged:(id)changed;
+- (void)_updateHACSwitchSettingWithStatus:(BOOL)status;
 - (void)accessibilitySetPreference:(id)preference specifier:(id)specifier;
 - (void)beginSearching;
 - (void)callObserver:(id)observer callChanged:(id)changed;
@@ -20,6 +21,8 @@
 - (void)setHearingAidCompliance:(id)compliance specifier:(id)specifier;
 - (void)tableView:(id)view accessoryButtonTappedForRowWithIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 - (void)viewHearingAidDetailsWithSpecifier:(id)specifier;
 - (void)willBecomeActive;
@@ -109,6 +112,56 @@
 
   v14 = +[NSNotificationCenter defaultCenter];
   [v14 addObserver:self selector:"handleResignActive" name:UIApplicationWillResignActiveNotification object:0];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v14.receiver = self;
+  v14.super_class = HearingAidController;
+  [(HearingAidController *)&v14 viewDidAppear:appear];
+  v4 = HCLogHearingAids();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "HearingAidController will appear", buf, 2u);
+  }
+
+  *buf = 0;
+  v9 = buf;
+  v10 = 0x3032000000;
+  v11 = sub_2620C;
+  v12 = sub_2621C;
+  v13 = +[NSMutableArray array];
+  availableDevices = [(HearingAidController *)self availableDevices];
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_26224;
+  v7[3] = &unk_49198;
+  v7[4] = buf;
+  [availableDevices enumerateObjectsUsingBlock:v7];
+
+  availableDevices2 = [(HearingAidController *)self availableDevices];
+  [availableDevices2 removeObjectsInArray:*(v9 + 5)];
+
+  [(HearingAidController *)self reloadSpecifiers];
+  [(HearingAidController *)self beginSearching];
+  _Block_object_dispose(buf, 8);
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v7.receiver = self;
+  v7.super_class = HearingAidController;
+  [(HearingAidController *)&v7 viewDidDisappear:disappear];
+  v4 = HCLogHearingAids();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    *v6 = 0;
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "HearingAidController did disappear", v6, 2u);
+  }
+
+  v5 = +[AXHAServer sharedInstance];
+  [v5 unregisterUpdateListener:self];
 }
 
 - (void)willBecomeActive
@@ -902,6 +955,16 @@ LABEL_14:
   }
 
   -[HearingAidController _updateHACSwitchSettingWithStatus:](self, "_updateHACSwitchSettingWithStatus:", [changedCopy hasEnded]);
+}
+
+- (void)_updateHACSwitchSettingWithStatus:(BOOL)status
+{
+  statusCopy = status;
+  v6 = [(HearingAidController *)self specifierForID:@"HEARING_AID_COMPLIANCE"];
+  v5 = [NSNumber numberWithBool:statusCopy];
+  [v6 setProperty:v5 forKey:PSEnabledKey];
+
+  [(HearingAidController *)self reloadSpecifier:v6];
 }
 
 @end

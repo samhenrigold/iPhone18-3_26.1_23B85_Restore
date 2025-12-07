@@ -172,7 +172,7 @@ __GSKeyboard *__54__AXEventKeyInfoRepresentation__getUSUIKitKeyboardRef__block_i
   return +[AXEventKeyInfoRepresentation _getUIKitKeyboardRef];
 }
 
-uint64_t __54__AXEventKeyInfoRepresentation__getUSUIKitKeyboardRef__block_invoke_4(uint64_t a1)
+void *__54__AXEventKeyInfoRepresentation__getUSUIKitKeyboardRef__block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) _getUIKitKeyboardRef];
   if (result)

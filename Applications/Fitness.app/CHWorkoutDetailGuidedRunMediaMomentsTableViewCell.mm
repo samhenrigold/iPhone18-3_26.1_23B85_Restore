@@ -51,10 +51,11 @@
 
   v7 = (self + OBJC_IVAR___CHWorkoutDetailGuidedRunMediaMomentsTableViewCell_onDidTapMediaMomentItem);
   v8 = *(self + OBJC_IVAR___CHWorkoutDetailGuidedRunMediaMomentsTableViewCell_onDidTapMediaMomentItem);
+  v9 = *(self + OBJC_IVAR___CHWorkoutDetailGuidedRunMediaMomentsTableViewCell_onDidTapMediaMomentItem + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_1000245E0(v8);
+  sub_1000245E0(v8, v9);
 }
 
 - (CHWorkoutDetailGuidedRunMediaMomentsTableViewCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
@@ -120,7 +121,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_100441254();
+  sub_100441254(v9);
 
   (*(v7 + 8))(v9, v6);
 }

@@ -5,8 +5,10 @@
 + (id)filterAboveConfidence:(double)confidence;
 + (id)filterAboveConfidence:(double)confidence hasLegacyWeights:(BOOL)weights;
 + (void)setConfidence:(double)confidence onEdgeForIdentifier:(unint64_t)identifier inGraph:(id)graph;
++ (void)setPOIIsImproved:(BOOL)improved onEdgeForIdentifier:(unint64_t)identifier inGraph:(id)graph;
 - (BOOL)hasProperties:(id)properties;
 - (PGGraphPOIEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain properties:(id)properties;
+- (PGGraphPOIEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties;
 - (id)edgeDescription;
 - (id)initFromMomentNode:(id)node toPOINode:(id)iNode confidence:(double)confidence poiIsImproved:(BOOL)improved poiIsSpecial:(BOOL)special;
 - (id)propertyDictionary;
@@ -59,19 +61,17 @@
 
 - (id)propertyDictionary
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"confidence";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"confidence";
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:self->_confidence];
-  v10[0] = v3;
-  v9[1] = @"isImproved";
+  v9[0] = v3;
+  v8[1] = @"isImproved";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:*(self + 40) & 1];
-  v10[1] = v4;
-  v9[2] = @"isSpecial";
+  v9[1] = v4;
+  v8[2] = @"isSpecial";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:(*(self + 40) >> 1) & 1];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
@@ -84,36 +84,22 @@
   {
     v6 = [v5 objectForKeyedSubscript:@"confidence"];
     v7 = v6;
-    if (v6)
+    v11 = 0;
+    if (!v6 || ([v6 doubleValue], v8 == self->_confidence))
     {
-      [v6 doubleValue];
-      if (v8 != self->_confidence)
+
+      v9 = [v5 objectForKeyedSubscript:@"isImproved"];
+      v7 = v9;
+      if (!v9 || [v9 BOOLValue] == (*(self + 40) & 1))
       {
-        goto LABEL_11;
+
+        v10 = [v5 objectForKeyedSubscript:@"isSpecial"];
+        v7 = v10;
+        if (!v10 || [v10 BOOLValue] != ((*(self + 40) & 2) == 0))
+        {
+          v11 = 1;
+        }
       }
-    }
-
-    v9 = [v5 objectForKeyedSubscript:@"isImproved"];
-    v7 = v9;
-    if (v9)
-    {
-      if ([v9 BOOLValue] != (*(self + 40) & 1))
-      {
-        goto LABEL_11;
-      }
-    }
-
-    v10 = [v5 objectForKeyedSubscript:@"isSpecial"];
-    v7 = v10;
-    if (v10 && [v10 BOOLValue] == ((*(self + 40) & 2) == 0))
-    {
-LABEL_11:
-      v11 = 0;
-    }
-
-    else
-    {
-      v11 = 1;
     }
   }
 
@@ -123,6 +109,53 @@ LABEL_11:
   }
 
   return v11;
+}
+
+- (PGGraphPOIEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties
+{
+  domainCopy = domain;
+  labelCopy = label;
+  nodeCopy = node;
+  targetNodeCopy = targetNode;
+  propertiesCopy = properties;
+  v18 = [propertiesCopy objectForKeyedSubscript:@"confidence"];
+
+  if (v18)
+  {
+    v19 = propertiesCopy;
+  }
+
+  else
+  {
+    v19 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:propertiesCopy];
+    *&v20 = weight;
+    v21 = [MEMORY[0x277CCABB0] numberWithFloat:v20];
+    [v19 setObject:v21 forKeyedSubscript:@"confidence"];
+
+    v22 = [propertiesCopy objectForKeyedSubscript:@"impr"];
+
+    if (v22)
+    {
+      v23 = [propertiesCopy objectForKeyedSubscript:@"impr"];
+      [v19 setObject:v23 forKeyedSubscript:@"isImproved"];
+
+      [v19 setObject:0 forKeyedSubscript:@"impr"];
+    }
+
+    v24 = [propertiesCopy objectForKeyedSubscript:@"spcl"];
+
+    if (v24)
+    {
+      v25 = [propertiesCopy objectForKeyedSubscript:@"spcl"];
+      [v19 setObject:v25 forKeyedSubscript:@"isSpecial"];
+
+      [v19 setObject:0 forKeyedSubscript:@"spcl"];
+    }
+  }
+
+  v26 = [(PGGraphPOIEdge *)self initWithLabel:labelCopy sourceNode:nodeCopy targetNode:targetNodeCopy domain:domainCopy properties:v19];
+
+  return v26;
 }
 
 - (PGGraphPOIEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain properties:(id)properties
@@ -171,6 +204,15 @@ LABEL_11:
   return result;
 }
 
++ (void)setPOIIsImproved:(BOOL)improved onEdgeForIdentifier:(unint64_t)identifier inGraph:(id)graph
+{
+  improvedCopy = improved;
+  v7 = MEMORY[0x277CCABB0];
+  graphCopy = graph;
+  v9 = [v7 numberWithBool:improvedCopy];
+  [graphCopy persistModelProperty:v9 forKey:@"isImproved" forEdgeWithIdentifier:identifier];
+}
+
 + (void)setConfidence:(double)confidence onEdgeForIdentifier:(unint64_t)identifier inGraph:(id)graph
 {
   v7 = MEMORY[0x277CCABB0];
@@ -181,16 +223,16 @@ LABEL_11:
 
 + (id)filterAboveConfidence:(double)confidence hasLegacyWeights:(BOOL)weights
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   if (weights)
   {
     filter = [self filter];
-    v13 = @"__weight";
+    v12 = @"__weight";
     v6 = objc_alloc(MEMORY[0x277D22B98]);
     v7 = [MEMORY[0x277CCABB0] numberWithDouble:confidence];
     v8 = [v6 initWithComparator:5 value:v7];
-    v14[0] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v13[0] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     v10 = [filter filterBySettingProperties:v9];
   }
 
@@ -199,52 +241,44 @@ LABEL_11:
     v10 = [self filterAboveConfidence:confidence];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 + (id)filterAboveConfidence:(double)confidence
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   filter = [self filter];
-  v12 = @"confidence";
+  v11 = @"confidence";
   v5 = objc_alloc(MEMORY[0x277D22B98]);
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:confidence];
   v7 = [v5 initWithComparator:5 value:v6];
-  v13[0] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v12[0] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [filter filterBySettingProperties:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 + (MAEdgeFilter)filterSpecial
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   filter = [self filter];
-  v7 = @"isSpecial";
-  v8[0] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = @"isSpecial";
+  v7[0] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [filter filterBySettingProperties:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (MAEdgeFilter)filterImproved
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   filter = [self filter];
-  v7 = @"isImproved";
-  v8[0] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = @"isImproved";
+  v7[0] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [filter filterBySettingProperties:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

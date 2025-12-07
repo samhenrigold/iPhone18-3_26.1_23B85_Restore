@@ -56,34 +56,34 @@
 
 - (BOOL)conformsToTypes:(id)types
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   typesCopy = types;
-  v5 = [typesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [typesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(typesCopy);
         }
 
-        if ([(WFType *)self conformsToType:*(*(&v12 + 1) + 8 * i), v12])
+        if ([(WFType *)self conformsToType:*(*(&v11 + 1) + 8 * i), v11])
         {
           v9 = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [typesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [typesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -96,7 +96,6 @@
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

@@ -58,39 +58,44 @@
         v15 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog = [v15 shouldLog];
+      LODWORD(v16) = [v15 shouldLog];
       shouldLogToDisk = [v15 shouldLogToDisk];
       oSLogObject = [v15 OSLogObject];
+      v19 = oSLogObject;
       if (shouldLogToDisk)
       {
-        shouldLog |= 2u;
+        LODWORD(v16) = v16 | 2;
       }
 
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
       {
-        shouldLog &= 2u;
+        v16 = v16;
       }
 
-      if (shouldLog)
+      else
       {
-        v19 = objc_opt_class();
+        v16 &= 2u;
+      }
+
+      if (v16)
+      {
+        v20 = objc_opt_class();
         v37 = 138543618;
-        v38 = v19;
+        v38 = v20;
         v39 = 2114;
         v40 = v28;
-        LODWORD(v26) = 22;
-        v20 = _os_log_send_and_compose_impl();
-        if (v20)
+        v21 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, v19, 16, "%{public}@: Failed to archive track items. Error = %{public}@", &v37, 22);
+        if (v21)
         {
-          v21 = v20;
-          [NSString stringWithCString:v20 encoding:4, &v37, v26];
-          free(v21);
+          v22 = v21;
+          [NSString stringWithCString:v21 encoding:4];
+          free(v22);
           SSFileLog();
         }
       }
     }
 
-    v22 = dispatch_semaphore_create(0);
+    v23 = dispatch_semaphore_create(0);
     global_queue = dispatch_get_global_queue(-32768, 0);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
@@ -100,16 +105,16 @@
     block[5] = self;
     block[6] = pids;
     block[7] = items;
-    block[8] = v22;
+    block[8] = v23;
     block[9] = &v33;
     dispatch_async(global_queue, block);
-    dispatch_semaphore_wait(v22, 0xFFFFFFFFFFFFFFFFLL);
-    dispatch_release(v22);
+    dispatch_semaphore_wait(v23, 0xFFFFFFFFFFFFFFFFLL);
+    dispatch_release(v23);
   }
 
-  v24 = *(v34 + 24);
+  v25 = *(v34 + 24);
   _Block_object_dispose(&v33, 8);
-  return v24;
+  return v25;
 }
 
 - (id)_importPropertiesFromLibraryItem:(id)item fromAccount:(id)account usingLibrary:(id)library

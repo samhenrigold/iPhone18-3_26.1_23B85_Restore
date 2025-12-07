@@ -39,7 +39,7 @@
 
   sub_257CFCE0C();
 
-  sub_257BE4084(v6, &unk_27F8F62F0);
+  sub_257BE4084(v6, &unk_27F8F62F0, &unk_257ED9D30);
 }
 
 - (void)removeFromSuperview
@@ -135,11 +135,13 @@
 
 - (id)clickPresentationInteraction:(id)interaction previewForHighlightingAtLocation:(CGPoint)location
 {
+  y = location.y;
+  x = location.x;
   interactionCopy = interaction;
   selfCopy = self;
-  v7 = sub_257CFDEF8(interactionCopy);
+  v9 = sub_257CFDEF8(interactionCopy, x, y);
 
-  return v7;
+  return v9;
 }
 
 @end

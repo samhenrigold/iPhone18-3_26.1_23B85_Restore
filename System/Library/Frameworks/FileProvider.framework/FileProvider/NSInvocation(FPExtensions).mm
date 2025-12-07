@@ -55,12 +55,12 @@
 
 - (void)fp_zeroOutReplyBlockArgumentsWithError:()FPExtensions
 {
-  v11[1] = *MEMORY[0x1E69E9840];
-  v11[0] = a3;
+  v10[1] = *MEMORY[0x1E69E9840];
+  v10[0] = a3;
   methodSignature = [self methodSignature];
   numberOfArguments = [methodSignature numberOfArguments];
   frameLength = [methodSignature frameLength];
-  v7 = v11 - ((frameLength + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = v10 - ((frameLength + 15) & 0xFFFFFFFFFFFFFFF0);
   bzero(v7, frameLength);
   bzero(v7, [methodSignature frameLength]);
   if (numberOfArguments >= 2)
@@ -74,10 +74,8 @@
   v9 = [methodSignature fp_indexOfLastArgumentWithType:"@NSError"];
   if (v9 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    [self setArgument:v11 atIndex:v9];
+    [self setArgument:v10 atIndex:v9];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

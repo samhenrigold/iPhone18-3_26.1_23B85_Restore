@@ -116,10 +116,9 @@
 {
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  unifiedContactCount = self->_unifiedContactCount;
-  v6 = [NSString stringWithFormat:@"<%@:%p raw:%d unified:%d favorites:%d>", v4, self, self->_rawContactCount, unifiedContactCount, self->_favoritesCount];
+  v5 = [NSString stringWithFormat:@"<%@:%p raw:%d unified:%d favorites:%d>", v4, self, self->_rawContactCount, self->_unifiedContactCount, self->_favoritesCount];
 
-  return v6;
+  return v5;
 }
 
 + (void)validateAgainst:(id)against

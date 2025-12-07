@@ -352,9 +352,9 @@
   if (observerCopy)
   {
     v9 = observerCopy;
-    v5 = [(NSHashTable *)self->_observers containsObject:observerCopy];
+    v5 = objc_msgSend_containsObject_(self->_observers, observerCopy, observerCopy);
     observerCopy = v9;
-    if (!v5)
+    if ((v5 & 1) == 0)
     {
       observers = self->_observers;
       if (!observers)
@@ -1914,11 +1914,12 @@ uint64_t __63__SBTransientOverlayScenePresenter_performPresentationRequest___blo
   return [v2 _updatePreferredWhitePointAdaptivityStyle];
 }
 
-uint64_t __63__SBTransientOverlayScenePresenter_performPresentationRequest___block_invoke_3_93(uint64_t a1, int a2)
+uint64_t __63__SBTransientOverlayScenePresenter_performPresentationRequest___block_invoke_3_93(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v27 = *MEMORY[0x277D85DE8];
   BSDispatchQueueAssertMain();
-  if (*(a1 + 32) && ([*(*(a1 + 40) + 72) containsObject:?] & 1) != 0)
+  if (*(a1 + 32) && (objc_msgSend_containsObject_(*(*(a1 + 40) + 72)) & 1) != 0)
   {
     if ([*(a1 + 32) isDismissing])
     {
@@ -1992,7 +1993,7 @@ LABEL_9:
     }
   }
 
-  if (a2 && [*(a1 + 48) isDisplayLayoutElementActive])
+  if (v2 && [*(a1 + 48) isDisplayLayoutElementActive])
   {
     v12 = *(a1 + 48);
     v19[0] = MEMORY[0x277D85DD0];
@@ -3337,205 +3338,205 @@ uint64_t __71__SBTransientOverlayScenePresenter__dismissEntity_animated_completi
   return [v4 _updatePreferredWhitePointAdaptivityStyle];
 }
 
-uint64_t __71__SBTransientOverlayScenePresenter__dismissEntity_animated_completion___block_invoke_2(uint64_t a1)
+uint64_t (**__71__SBTransientOverlayScenePresenter__dismissEntity_animated_completion___block_invoke_2(void **a1, const char *a2))(void)
 {
-  v54 = *MEMORY[0x277D85DE8];
-  if (!*(a1 + 32) || ([*(*(a1 + 40) + 72) containsObject:?] & 1) == 0)
+  v55 = *MEMORY[0x277D85DE8];
+  if (!a1[4] || (objc_msgSend_containsObject_(*(a1[5] + 9), a2) & 1) == 0)
   {
-    v2 = SBLogTransientOverlay();
-    if (!os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = SBLogTransientOverlay();
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_37;
     }
 
-    v17 = *(a1 + 40);
-    v18 = *(a1 + 48);
+    v18 = a1[5];
+    v19 = a1[6];
     *buf = 138543618;
-    *&buf[4] = v17;
+    *&buf[4] = v18;
     *&buf[12] = 2114;
-    *&buf[14] = v18;
-    v19 = "%{public}@: Ignoring dismissal completion for %{public}@ since the entity is no longer valid";
+    *&buf[14] = v19;
+    v20 = "%{public}@: Ignoring dismissal completion for %{public}@ since the entity is no longer valid";
     goto LABEL_14;
   }
 
-  if (([*(a1 + 32) isDismissing] & 1) == 0)
+  if (([a1[4] isDismissing] & 1) == 0)
   {
-    v2 = SBLogTransientOverlay();
-    if (!os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = SBLogTransientOverlay();
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_37;
     }
 
-    v20 = *(a1 + 40);
-    v21 = *(a1 + 48);
+    v21 = a1[5];
+    v22 = a1[6];
     *buf = 138543618;
-    *&buf[4] = v20;
+    *&buf[4] = v21;
     *&buf[12] = 2114;
-    *&buf[14] = v21;
-    v19 = "%{public}@: Ignoring dismissal completion for %{public}@ since it is now re-presenting";
+    *&buf[14] = v22;
+    v20 = "%{public}@: Ignoring dismissal completion for %{public}@ since it is now re-presenting";
 LABEL_14:
-    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, v19, buf, 0x16u);
+    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, v20, buf, 0x16u);
     goto LABEL_37;
   }
 
-  v2 = [*(a1 + 32) window];
-  [v2 resignAsKeyWindow];
-  v46 = [*(a1 + 40) _topmostPresentedEntity];
-  [*(a1 + 40) _restoreInputViewsForEntityIfNeeded:?];
-  [v2 setHidden:1];
-  [v2 setRootViewController:0];
-  if ([*(a1 + 48) isViewLoaded])
+  v3 = [a1[4] window];
+  [v3 resignAsKeyWindow];
+  v47 = [a1[5] _topmostPresentedEntity];
+  [a1[5] _restoreInputViewsForEntityIfNeeded:?];
+  [v3 setHidden:1];
+  [v3 setRootViewController:0];
+  if ([a1[6] isViewLoaded])
   {
-    v3 = [*(a1 + 48) view];
-    [v3 removeFromSuperview];
+    v4 = [a1[6] view];
+    [v4 removeFromSuperview];
   }
 
-  v4 = [*(a1 + 32) backgroundWindow];
-  [v4 setHidden:1];
-  v45 = v4;
-  [v4 setRootViewController:0];
-  [*(a1 + 40) _invalidateAssertionsForEntity:*(a1 + 32)];
-  [*(a1 + 56) finalizeTransitionWithContextProvider:*(a1 + 64)];
-  v5 = [*(a1 + 48) transientOverlayDelegate];
-  v6 = *(a1 + 40);
+  v5 = [a1[4] backgroundWindow];
+  [v5 setHidden:1];
+  v46 = v5;
+  [v5 setRootViewController:0];
+  [a1[5] _invalidateAssertionsForEntity:a1[4]];
+  [a1[7] finalizeTransitionWithContextProvider:a1[8]];
+  v6 = [a1[6] transientOverlayDelegate];
+  v7 = a1[5];
 
-  if (v5 == v6)
+  if (v6 == v7)
   {
-    [*(a1 + 48) setTransientOverlayDelegate:0];
+    [a1[6] setTransientOverlayDelegate:0];
   }
 
-  v7 = [*(a1 + 48) idleTimerCoordinator];
-  v8 = *(a1 + 40);
+  v8 = [a1[6] idleTimerCoordinator];
+  v9 = a1[5];
 
-  if (v7 == v8)
+  if (v8 == v9)
   {
-    [*(a1 + 48) setIdleTimerCoordinator:0];
+    [a1[6] setIdleTimerCoordinator:0];
   }
 
-  [*(a1 + 48) setPresentationPrefersStatusBarHidden:0 initialStatusBarSettings:0];
-  [*(a1 + 48) setPresentationPrefersHomeGrabberHidden:0 animated:0];
-  [*(a1 + 48) setPresentationHomeGrabberAlpha:1.0];
-  [*(a1 + 48) setPresentationHomeGrabberAdditionalEdgeSpacing:0.0];
-  v9 = *(a1 + 48);
-  v10 = *(MEMORY[0x277CBF2C0] + 16);
+  [a1[6] setPresentationPrefersStatusBarHidden:0 initialStatusBarSettings:0];
+  [a1[6] setPresentationPrefersHomeGrabberHidden:0 animated:0];
+  [a1[6] setPresentationHomeGrabberAlpha:1.0];
+  [a1[6] setPresentationHomeGrabberAdditionalEdgeSpacing:0.0];
+  v10 = a1[6];
+  v11 = *(MEMORY[0x277CBF2C0] + 16);
   *buf = *MEMORY[0x277CBF2C0];
-  *&buf[16] = v10;
-  v53 = *(MEMORY[0x277CBF2C0] + 32);
-  [v9 setPresentationHomeGrabberTransform:buf];
-  [*(a1 + 48) setPresentationContentCornerRadius:0.0];
-  [*(*(a1 + 40) + 104) removeProvider:*(a1 + 48)];
-  [*(*(a1 + 40) + 72) removeObject:*(a1 + 32)];
-  v11 = [*(*(a1 + 40) + 72) count];
-  v12 = *(a1 + 40);
-  if (v11)
+  *&buf[16] = v11;
+  v54 = *(MEMORY[0x277CBF2C0] + 32);
+  [v10 setPresentationHomeGrabberTransform:buf];
+  [a1[6] setPresentationContentCornerRadius:0.0];
+  [*(a1[5] + 13) removeProvider:a1[6]];
+  [*(a1[5] + 9) removeObject:a1[4]];
+  v12 = [*(a1[5] + 9) count];
+  v13 = a1[5];
+  if (v12)
   {
-    v13 = *(v12 + 104);
-    v14 = [v12 _topmostPresentedEntity];
-    v15 = [v14 viewController];
-    v16 = [v13 proposeProvider:v15 byCoordinator:*(a1 + 40) reason:@"SBTransientOverlayPresentationManagerRequestedIdleTimer"];
+    v14 = *(v13 + 13);
+    v15 = [v13 _topmostPresentedEntity];
+    v16 = [v15 viewController];
+    v17 = [v14 proposeProvider:v16 byCoordinator:a1[5] reason:@"SBTransientOverlayPresentationManagerRequestedIdleTimer"];
   }
 
   else
   {
-    if ((*(v12 + 136) & 1) == 0)
+    if ((*(v13 + 136) & 1) == 0)
     {
-      v22 = [*(v12 + 104) targetCoordinator];
-      v23 = *(a1 + 40);
-      v24 = +[SBIdleTimerBehavior disabledBehavior];
-      v25 = [v22 idleTimerProvider:v23 didProposeBehavior:v24 forReason:@"SBTransientOverlayPresentationManagerNoneActive"];
+      v23 = [*(v13 + 13) targetCoordinator];
+      v24 = a1[5];
+      v25 = +[SBIdleTimerBehavior disabledBehavior];
+      v26 = [v23 idleTimerProvider:v24 didProposeBehavior:v25 forReason:@"SBTransientOverlayPresentationManagerNoneActive"];
 
-      v26 = *(a1 + 40);
-      if (*(v26 + 112))
+      v27 = a1[5];
+      if (v27[14])
       {
-        v27 = [*(a1 + 72) transientOverlayScenePresenter:? shouldRestoreFirstResponderForKeyWindow:?];
-        v26 = *(a1 + 40);
-        if (v27)
+        v28 = [a1[9] transientOverlayScenePresenter:? shouldRestoreFirstResponderForKeyWindow:?];
+        v27 = a1[5];
+        if (v28)
         {
-          [*(v26 + 112) becomeFirstResponder];
-          v26 = *(a1 + 40);
+          [v27[14] becomeFirstResponder];
+          v27 = a1[5];
         }
       }
 
-      v28 = *(v26 + 112);
-      *(v26 + 112) = 0;
+      v29 = v27[14];
+      v27[14] = 0;
 
-      v12 = *(a1 + 40);
+      v13 = a1[5];
     }
 
-    v14 = *(v12 + 72);
-    *(v12 + 72) = 0;
+    v15 = *(v13 + 9);
+    *(v13 + 9) = 0;
   }
 
-  [*(a1 + 40) _updateFeaturePolicies];
-  [*(a1 + 40) _updateDeactivationAssertions];
-  v29 = *(a1 + 40);
-  v30 = [v29 _currentExternalStatusBarSettings];
-  [v29 _updateStatusBarWithCurrentExternalStatusBarSettings:v30 animated:*(a1 + 88)];
+  [a1[5] _updateFeaturePolicies];
+  [a1[5] _updateDeactivationAssertions];
+  v30 = a1[5];
+  v31 = [v30 _currentExternalStatusBarSettings];
+  [v30 _updateStatusBarWithCurrentExternalStatusBarSettings:v31 animated:*(a1 + 88)];
 
   if ((SBTraitsArbiterOrientationActuationEnabledForRole(@"SBTraitsParticipantRoleTransientOverlay") & 1) == 0)
   {
-    v31 = [*(a1 + 40) _topmostPresentedEntity];
-    v32 = [v31 window];
-    v33 = [v32 _windowInterfaceOrientation];
+    v32 = [a1[5] _topmostPresentedEntity];
+    v33 = [v32 window];
+    v34 = [v33 _windowInterfaceOrientation];
 
-    [*(a1 + 72) transientOverlayScenePresenter:*(a1 + 40) willChangeTopmostViewControllerInterfaceOrientationToOrientation:v33];
-    *(*(a1 + 40) + 200) = v33;
+    [a1[9] transientOverlayScenePresenter:a1[5] willChangeTopmostViewControllerInterfaceOrientationToOrientation:v34];
+    *(a1[5] + 25) = v34;
   }
 
-  [*(a1 + 48) bs_endAppearanceTransition];
-  [*(a1 + 72) transientOverlayScenePresenter:*(a1 + 40) didDismissViewController:*(a1 + 48) wasTopmostPresentation:*(a1 + 89)];
-  v49 = 0u;
+  [a1[6] bs_endAppearanceTransition];
+  [a1[9] transientOverlayScenePresenter:a1[5] didDismissViewController:a1[6] wasTopmostPresentation:*(a1 + 89)];
   v50 = 0u;
-  v47 = 0u;
+  v51 = 0u;
   v48 = 0u;
-  v34 = [*(*(a1 + 40) + 176) copy];
-  v35 = [v34 countByEnumeratingWithState:&v47 objects:v51 count:16];
-  if (v35)
+  v49 = 0u;
+  v35 = [*(a1[5] + 22) copy];
+  v36 = [v35 countByEnumeratingWithState:&v48 objects:v52 count:16];
+  if (v36)
   {
-    v36 = v35;
-    v37 = *v48;
+    v37 = v36;
+    v38 = *v49;
     do
     {
-      for (i = 0; i != v36; ++i)
+      for (i = 0; i != v37; ++i)
       {
-        if (*v48 != v37)
+        if (*v49 != v38)
         {
-          objc_enumerationMutation(v34);
+          objc_enumerationMutation(v35);
         }
 
-        v39 = *(*(&v47 + 1) + 8 * i);
+        v40 = *(*(&v48 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
-          [v39 transientOverlayScenePresenter:*(a1 + 40) didDismissViewController:*(a1 + 48) wasTopmostPresentation:*(a1 + 89)];
+          [v40 transientOverlayScenePresenter:a1[5] didDismissViewController:a1[6] wasTopmostPresentation:*(a1 + 89)];
         }
       }
 
-      v36 = [v34 countByEnumeratingWithState:&v47 objects:v51 count:16];
+      v37 = [v35 countByEnumeratingWithState:&v48 objects:v52 count:16];
     }
 
-    while (v36);
+    while (v37);
   }
 
-  v40 = SBLogTransientOverlay();
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+  v41 = SBLogTransientOverlay();
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
   {
-    v41 = *(a1 + 40);
-    v42 = *(a1 + 48);
-    v43 = *(a1 + 88);
+    v42 = a1[5];
+    v43 = a1[6];
+    v44 = *(a1 + 88);
     *buf = 138543874;
-    *&buf[4] = v41;
+    *&buf[4] = v42;
     *&buf[12] = 2114;
-    *&buf[14] = v42;
+    *&buf[14] = v43;
     *&buf[22] = 1024;
-    *&buf[24] = v43;
-    _os_log_impl(&dword_21ED4E000, v40, OS_LOG_TYPE_DEFAULT, "%{public}@: Finished performing dismissal for %{public}@ animated: %{BOOL}u", buf, 0x1Cu);
+    *&buf[24] = v44;
+    _os_log_impl(&dword_21ED4E000, v41, OS_LOG_TYPE_DEFAULT, "%{public}@: Finished performing dismissal for %{public}@ animated: %{BOOL}u", buf, 0x1Cu);
   }
 
 LABEL_37:
-  result = *(a1 + 80);
+  result = a1[10];
   if (result)
   {
-    return (*(result + 16))();
+    return result[2]();
   }
 
   return result;

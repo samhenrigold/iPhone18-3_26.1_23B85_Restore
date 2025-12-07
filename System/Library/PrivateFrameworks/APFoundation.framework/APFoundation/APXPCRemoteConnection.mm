@@ -21,7 +21,7 @@
 
 - (NSXPCConnection)xpcConnection
 {
-  v111 = *MEMORY[0x1E69E9840];
+  v110 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_unfairLock(self, a2, v2, v3);
   objc_msgSend_lock(v5, v6, v7, v8);
   if (self->_xpcConnection)
@@ -36,10 +36,10 @@ LABEL_19:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 138478083;
-    v108 = objc_opt_class();
-    v109 = 2114;
+    v107 = objc_opt_class();
+    v108 = 2114;
     selfCopy = self;
-    v13 = v108;
+    v13 = v107;
     _os_log_impl(&dword_1BADC1000, v12, OS_LOG_TYPE_INFO, "[%{private}@] Creating a new NSXPCConnection for %{public}@", buf, 0x16u);
   }
 
@@ -66,7 +66,7 @@ LABEL_19:
       {
         v42 = objc_opt_class();
         *buf = 138477827;
-        v108 = v42;
+        v107 = v42;
         v43 = v42;
         _os_log_impl(&dword_1BADC1000, v41, OS_LOG_TYPE_INFO, "[%{private}@] Extending remote selectors to allow collection classes to pass data.", buf, 0xCu);
       }
@@ -101,7 +101,7 @@ LABEL_19:
             {
               v76 = objc_opt_class();
               *buf = 138477827;
-              v108 = v76;
+              v107 = v76;
               v77 = v76;
               _os_log_impl(&dword_1BADC1000, v75, OS_LOG_TYPE_INFO, "[%{private}@] Extending exported selectors to allow collection classes to pass data.", buf, 0xCu);
             }
@@ -117,38 +117,36 @@ LABEL_19:
     }
 
     objc_initWeak(buf, self);
-    v105[0] = MEMORY[0x1E69E9820];
-    v105[1] = 3221225472;
-    v105[2] = sub_1BAF1E49C;
-    v105[3] = &unk_1E7F1CF68;
-    objc_copyWeak(&v106, buf);
-    objc_msgSend_setInterruptionHandler_(self->_xpcConnection, v86, v105, v87);
-    v100 = MEMORY[0x1E69E9820];
-    v101 = 3221225472;
-    v102 = sub_1BADC57F4;
-    v103 = &unk_1E7F1CF68;
-    objc_copyWeak(&v104, buf);
-    objc_msgSend_setInvalidationHandler_(self->_xpcConnection, v88, &v100, v89);
-    objc_msgSend_resume(self->_xpcConnection, v90, v91, v92, v100, v101, v102, v103);
-    objc_destroyWeak(&v104);
-    objc_destroyWeak(&v106);
+    v104[0] = MEMORY[0x1E69E9820];
+    v104[1] = 3221225472;
+    v104[2] = sub_1BAF1E49C;
+    v104[3] = &unk_1E7F1CF68;
+    objc_copyWeak(&v105, buf);
+    objc_msgSend_setInterruptionHandler_(self->_xpcConnection, v86, v104, v87);
+    v99 = MEMORY[0x1E69E9820];
+    v100 = 3221225472;
+    v101 = sub_1BADC57F4;
+    v102 = &unk_1E7F1CF68;
+    objc_copyWeak(&v103, buf);
+    objc_msgSend_setInvalidationHandler_(self->_xpcConnection, v88, &v99, v89);
+    objc_msgSend_resume(self->_xpcConnection, v90, v91, v92, v99, v100, v101, v102);
+    objc_destroyWeak(&v103);
+    objc_destroyWeak(&v105);
     objc_destroyWeak(buf);
 
     goto LABEL_19;
   }
 
-  v96 = APLogForCategory(0x39uLL);
-  if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
+  v95 = APLogForCategory(0x39uLL);
+  if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BADC1000, v96, OS_LOG_TYPE_ERROR, "There are no known delegates. Returning a nil xpc connection as no one can handle the messages.", buf, 2u);
+    _os_log_impl(&dword_1BADC1000, v95, OS_LOG_TYPE_ERROR, "There are no known delegates. Returning a nil xpc connection as no one can handle the messages.", buf, 2u);
   }
 
-  objc_msgSend_unlock(v5, v97, v98, v99);
+  objc_msgSend_unlock(v5, v96, v97, v98);
   v93 = 0;
 LABEL_20:
-
-  v94 = *MEMORY[0x1E69E9840];
 
   return v93;
 }
@@ -210,34 +208,32 @@ LABEL_20:
 
 + (id)connectionFor:(id)for
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   forCopy = for;
   v4 = APLogForCategory(0x39uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v11 = 138543362;
-    v12 = forCopy;
-    _os_log_impl(&dword_1BADC1000, v4, OS_LOG_TYPE_INFO, "A new connection will be established for %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = forCopy;
+    _os_log_impl(&dword_1BADC1000, v4, OS_LOG_TYPE_INFO, "A new connection will be established for %{public}@", &v10, 0xCu);
   }
 
   v5 = [APXPCRemoteConnection alloc];
   v8 = objc_msgSend_initWithDelegate_(v5, v6, forCopy, v7);
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 + (id)sharedConnectionFor:(id)for
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   forCopy = for;
   v4 = APLogForCategory(0x39uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v25 = 138543362;
-    v26 = forCopy;
-    _os_log_impl(&dword_1BADC1000, v4, OS_LOG_TYPE_INFO, "The shared connection will be used for %{public}@", &v25, 0xCu);
+    v24 = 138543362;
+    v25 = forCopy;
+    _os_log_impl(&dword_1BADC1000, v4, OS_LOG_TYPE_INFO, "The shared connection will be used for %{public}@", &v24, 0xCu);
   }
 
   v5 = objc_opt_class();
@@ -259,8 +255,6 @@ LABEL_20:
   }
 
   v22 = v16;
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v22;
 }
@@ -309,14 +303,14 @@ LABEL_20:
 
 - (void)invalidateForDelegate:(id)delegate
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   v5 = APLogForCategory(0x39uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v31 = 138543362;
-    v32 = delegateCopy;
-    _os_log_impl(&dword_1BADC1000, v5, OS_LOG_TYPE_INFO, "Request to invalidate the connection from %{public}@", &v31, 0xCu);
+    v30 = 138543362;
+    v31 = delegateCopy;
+    _os_log_impl(&dword_1BADC1000, v5, OS_LOG_TYPE_INFO, "Request to invalidate the connection from %{public}@", &v30, 0xCu);
   }
 
   objc_msgSend_removeDelegate_(self, v6, delegateCopy, v7);
@@ -328,11 +322,11 @@ LABEL_20:
       v9 = objc_opt_class();
       v10 = NSStringFromClass(v9);
       v14 = objc_msgSend_machService(self, v11, v12, v13);
-      v31 = 138478083;
-      v32 = v10;
-      v33 = 2114;
-      v34 = v14;
-      _os_log_impl(&dword_1BADC1000, v8, OS_LOG_TYPE_INFO, "[%{private}@] No more clients exist for the xpc connection to %{public}@. Invalidating the connection.", &v31, 0x16u);
+      v30 = 138478083;
+      v31 = v10;
+      v32 = 2114;
+      v33 = v14;
+      _os_log_impl(&dword_1BADC1000, v8, OS_LOG_TYPE_INFO, "[%{private}@] No more clients exist for the xpc connection to %{public}@. Invalidating the connection.", &v30, 0x16u);
     }
 
     v18 = objc_msgSend_unfairLock(self, v15, v16, v17);
@@ -341,8 +335,6 @@ LABEL_20:
     objc_msgSend_setXpcConnection_(self, v25, 0, v26);
     objc_msgSend_unlock(v18, v27, v28, v29);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (APXPCRemoteConnection)initWithDelegate:(id)delegate

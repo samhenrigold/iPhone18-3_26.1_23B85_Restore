@@ -9,6 +9,7 @@
 - (BOOL)isEqual:(id)equal;
 - (EMMessageListItemChange)initWithCoder:(id)coder;
 - (NSString)ef_publicDescription;
+- (id)_descriptionForInternal:(BOOL)internal useDebugDescriptions:(BOOL)descriptions;
 - (id)changeDescriptionsForInternal:(BOOL)internal useDebugDescriptions:(BOOL)descriptions;
 - (unint64_t)hash;
 - (void)addChange:(id)change;
@@ -25,6 +26,15 @@
   v4 = -[EMMessageListItemChange _descriptionForInternal:useDebugDescriptions:](self, "_descriptionForInternal:useDebugDescriptions:", [currentDevice isInternal], 0);
 
   return v4;
+}
+
+- (id)_descriptionForInternal:(BOOL)internal useDebugDescriptions:(BOOL)descriptions
+{
+  v5 = [(EMMessageListItemChange *)self changeDescriptionsForInternal:internal useDebugDescriptions:descriptions];
+  v6 = [v5 componentsJoinedByString:@"\n"];
+  v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"<%@: %p> %lu changes\n%@", objc_opt_class(), self, objc_msgSend(v5, "count"), v6];
+
+  return v7;
 }
 
 - (id)changeDescriptionsForInternal:(BOOL)internal useDebugDescriptions:(BOOL)descriptions
@@ -387,9 +397,9 @@ LABEL_56:
 
         else
         {
-          v142 = MEMORY[0x1E699B858];
+          v144 = MEMORY[0x1E699B858];
           absoluteString12 = [subject2 absoluteString];
-          absoluteString11 = [v142 fullyRedactedStringForString:absoluteString12];
+          absoluteString11 = [v144 fullyRedactedStringForString:absoluteString12];
         }
 
         goto LABEL_78;
@@ -696,9 +706,9 @@ LABEL_123:
 
             else
             {
-              v144 = MEMORY[0x1E699B858];
+              v146 = MEMORY[0x1E699B858];
               absoluteString22 = [summary2 absoluteString];
-              absoluteString21 = [v144 fullyRedactedStringForString:absoluteString22];
+              absoluteString21 = [v146 fullyRedactedStringForString:absoluteString22];
             }
 
             goto LABEL_143;
@@ -722,9 +732,10 @@ LABEL_143:
   }
 
 LABEL_144:
-  if (_os_feature_enabled_impl())
+  v136 = _os_feature_enabled_impl();
+  if (v136)
   {
-    if (EMIsGreymatterSupported())
+    if (EMIsGreymatterSupported(v136, v137))
     {
       generatedSummary = [(EMMessageListItemChange *)self generatedSummary];
 
@@ -739,29 +750,29 @@ LABEL_144:
         if (descriptionsCopy)
         {
           generatedSummary2 = [(EMMessageListItemChange *)self generatedSummary];
-          v138 = [generatedSummary2 debugDescription];
+          v140 = [generatedSummary2 debugDescription];
         }
 
         else
         {
           generatedSummary3 = [(EMMessageListItemChange *)self generatedSummary];
           objc_opt_class();
-          v140 = objc_opt_isKindOfClass();
+          v142 = objc_opt_isKindOfClass();
 
-          if (v140)
+          if (v142)
           {
-            v141 = MEMORY[0x1E699B858];
+            v143 = MEMORY[0x1E699B858];
             generatedSummary2 = [(EMMessageListItemChange *)self generatedSummary];
-            v138 = [v141 partiallyRedactedStringForString:generatedSummary2];
+            v140 = [v143 partiallyRedactedStringForString:generatedSummary2];
           }
 
           else
           {
             generatedSummary4 = [(EMMessageListItemChange *)self generatedSummary];
             objc_opt_class();
-            v147 = objc_opt_isKindOfClass();
+            v149 = objc_opt_isKindOfClass();
 
-            if (v147)
+            if (v149)
             {
               generatedSummary2 = [(EMMessageListItemChange *)self generatedSummary];
               if ([EMInternalPreferences preferenceEnabled:10])
@@ -771,24 +782,24 @@ LABEL_144:
 
               else
               {
-                v368 = MEMORY[0x1E699B858];
+                v370 = MEMORY[0x1E699B858];
                 absoluteString24 = [generatedSummary2 absoluteString];
-                absoluteString23 = [v368 fullyRedactedStringForString:absoluteString24];
+                absoluteString23 = [v370 fullyRedactedStringForString:absoluteString24];
               }
 
               goto LABEL_162;
             }
 
             generatedSummary2 = [(EMMessageListItemChange *)self generatedSummary];
-            v138 = [generatedSummary2 description];
+            v140 = [generatedSummary2 description];
           }
         }
 
-        absoluteString23 = v138;
+        absoluteString23 = v140;
 LABEL_162:
 
-        v148 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"generatedSummary: %@", absoluteString23];
-        [v7 addObject:v148];
+        v150 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"generatedSummary: %@", absoluteString23];
+        [v7 addObject:v150];
       }
     }
   }
@@ -810,29 +821,29 @@ LABEL_163:
   if (descriptionsCopy)
   {
     senderList2 = [(EMMessageListItemChange *)self senderList];
-    v152 = [senderList2 debugDescription];
+    v154 = [senderList2 debugDescription];
   }
 
   else
   {
     senderList3 = [(EMMessageListItemChange *)self senderList];
     objc_opt_class();
-    v154 = objc_opt_isKindOfClass();
+    v156 = objc_opt_isKindOfClass();
 
-    if (v154)
+    if (v156)
     {
-      v155 = MEMORY[0x1E699B858];
+      v157 = MEMORY[0x1E699B858];
       senderList2 = [(EMMessageListItemChange *)self senderList];
-      v152 = [v155 partiallyRedactedStringForString:senderList2];
+      v154 = [v157 partiallyRedactedStringForString:senderList2];
     }
 
     else
     {
       senderList4 = [(EMMessageListItemChange *)self senderList];
       objc_opt_class();
-      v157 = objc_opt_isKindOfClass();
+      v159 = objc_opt_isKindOfClass();
 
-      if (v157)
+      if (v159)
       {
         senderList2 = [(EMMessageListItemChange *)self senderList];
         if ([EMInternalPreferences preferenceEnabled:10])
@@ -842,24 +853,24 @@ LABEL_163:
 
         else
         {
-          v358 = MEMORY[0x1E699B858];
+          v360 = MEMORY[0x1E699B858];
           absoluteString26 = [senderList2 absoluteString];
-          absoluteString25 = [v358 fullyRedactedStringForString:absoluteString26];
+          absoluteString25 = [v360 fullyRedactedStringForString:absoluteString26];
         }
 
         goto LABEL_175;
       }
 
       senderList2 = [(EMMessageListItemChange *)self senderList];
-      v152 = [senderList2 description];
+      v154 = [senderList2 description];
     }
   }
 
-  absoluteString25 = v152;
+  absoluteString25 = v154;
 LABEL_175:
 
-  v158 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"senderList: %@", absoluteString25];
-  [v7 addObject:v158];
+  v160 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"senderList: %@", absoluteString25];
+  [v7 addObject:v160];
 
 LABEL_176:
   toList = [(EMMessageListItemChange *)self toList];
@@ -878,29 +889,29 @@ LABEL_176:
   if (descriptionsCopy)
   {
     toList2 = [(EMMessageListItemChange *)self toList];
-    v162 = [toList2 debugDescription];
+    v164 = [toList2 debugDescription];
   }
 
   else
   {
     toList3 = [(EMMessageListItemChange *)self toList];
     objc_opt_class();
-    v164 = objc_opt_isKindOfClass();
+    v166 = objc_opt_isKindOfClass();
 
-    if (v164)
+    if (v166)
     {
-      v165 = MEMORY[0x1E699B858];
+      v167 = MEMORY[0x1E699B858];
       toList2 = [(EMMessageListItemChange *)self toList];
-      v162 = [v165 partiallyRedactedStringForString:toList2];
+      v164 = [v167 partiallyRedactedStringForString:toList2];
     }
 
     else
     {
       toList4 = [(EMMessageListItemChange *)self toList];
       objc_opt_class();
-      v167 = objc_opt_isKindOfClass();
+      v169 = objc_opt_isKindOfClass();
 
-      if (v167)
+      if (v169)
       {
         toList2 = [(EMMessageListItemChange *)self toList];
         if ([EMInternalPreferences preferenceEnabled:10])
@@ -910,24 +921,24 @@ LABEL_176:
 
         else
         {
-          v360 = MEMORY[0x1E699B858];
+          v362 = MEMORY[0x1E699B858];
           absoluteString28 = [toList2 absoluteString];
-          absoluteString27 = [v360 fullyRedactedStringForString:absoluteString28];
+          absoluteString27 = [v362 fullyRedactedStringForString:absoluteString28];
         }
 
         goto LABEL_188;
       }
 
       toList2 = [(EMMessageListItemChange *)self toList];
-      v162 = [toList2 description];
+      v164 = [toList2 description];
     }
   }
 
-  absoluteString27 = v162;
+  absoluteString27 = v164;
 LABEL_188:
 
-  v168 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"toList: %@", absoluteString27];
-  [v7 addObject:v168];
+  v170 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"toList: %@", absoluteString27];
+  [v7 addObject:v170];
 
 LABEL_189:
   ccList = [(EMMessageListItemChange *)self ccList];
@@ -946,29 +957,29 @@ LABEL_189:
   if (descriptionsCopy)
   {
     ccList2 = [(EMMessageListItemChange *)self ccList];
-    v172 = [ccList2 debugDescription];
+    v174 = [ccList2 debugDescription];
   }
 
   else
   {
     ccList3 = [(EMMessageListItemChange *)self ccList];
     objc_opt_class();
-    v174 = objc_opt_isKindOfClass();
+    v176 = objc_opt_isKindOfClass();
 
-    if (v174)
+    if (v176)
     {
-      v175 = MEMORY[0x1E699B858];
+      v177 = MEMORY[0x1E699B858];
       ccList2 = [(EMMessageListItemChange *)self ccList];
-      v172 = [v175 partiallyRedactedStringForString:ccList2];
+      v174 = [v177 partiallyRedactedStringForString:ccList2];
     }
 
     else
     {
       ccList4 = [(EMMessageListItemChange *)self ccList];
       objc_opt_class();
-      v177 = objc_opt_isKindOfClass();
+      v179 = objc_opt_isKindOfClass();
 
-      if (v177)
+      if (v179)
       {
         ccList2 = [(EMMessageListItemChange *)self ccList];
         if ([EMInternalPreferences preferenceEnabled:10])
@@ -978,24 +989,24 @@ LABEL_189:
 
         else
         {
-          v362 = MEMORY[0x1E699B858];
+          v364 = MEMORY[0x1E699B858];
           absoluteString30 = [ccList2 absoluteString];
-          absoluteString29 = [v362 fullyRedactedStringForString:absoluteString30];
+          absoluteString29 = [v364 fullyRedactedStringForString:absoluteString30];
         }
 
         goto LABEL_201;
       }
 
       ccList2 = [(EMMessageListItemChange *)self ccList];
-      v172 = [ccList2 description];
+      v174 = [ccList2 description];
     }
   }
 
-  absoluteString29 = v172;
+  absoluteString29 = v174;
 LABEL_201:
 
-  v178 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"ccList: %@", absoluteString29];
-  [v7 addObject:v178];
+  v180 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"ccList: %@", absoluteString29];
+  [v7 addObject:v180];
 
 LABEL_202:
   flags = [(EMMessageListItemChange *)self flags];
@@ -1008,29 +1019,29 @@ LABEL_202:
   if (descriptionsCopy)
   {
     flags2 = [(EMMessageListItemChange *)self flags];
-    v182 = [flags2 debugDescription];
+    v184 = [flags2 debugDescription];
   }
 
   else
   {
     flags3 = [(EMMessageListItemChange *)self flags];
     objc_opt_class();
-    v184 = objc_opt_isKindOfClass();
+    v186 = objc_opt_isKindOfClass();
 
-    if (v184)
+    if (v186)
     {
-      v185 = MEMORY[0x1E699B858];
+      v187 = MEMORY[0x1E699B858];
       flags2 = [(EMMessageListItemChange *)self flags];
-      v182 = [v185 partiallyRedactedStringForString:flags2];
+      v184 = [v187 partiallyRedactedStringForString:flags2];
     }
 
     else
     {
       flags4 = [(EMMessageListItemChange *)self flags];
       objc_opt_class();
-      v187 = objc_opt_isKindOfClass();
+      v189 = objc_opt_isKindOfClass();
 
-      if (v187)
+      if (v189)
       {
         flags2 = [(EMMessageListItemChange *)self flags];
         if ([EMInternalPreferences preferenceEnabled:10])
@@ -1040,24 +1051,24 @@ LABEL_202:
 
         else
         {
-          v309 = MEMORY[0x1E699B858];
+          v311 = MEMORY[0x1E699B858];
           absoluteString32 = [flags2 absoluteString];
-          absoluteString31 = [v309 fullyRedactedStringForString:absoluteString32];
+          absoluteString31 = [v311 fullyRedactedStringForString:absoluteString32];
         }
 
         goto LABEL_212;
       }
 
       flags2 = [(EMMessageListItemChange *)self flags];
-      v182 = [flags2 description];
+      v184 = [flags2 description];
     }
   }
 
-  absoluteString31 = v182;
+  absoluteString31 = v184;
 LABEL_212:
 
-  v188 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"flags: %@", absoluteString31];
-  [v7 addObject:v188];
+  v190 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"flags: %@", absoluteString31];
+  [v7 addObject:v190];
 
 LABEL_213:
   hasUnflagged = [(EMMessageListItemChange *)self hasUnflagged];
@@ -1070,29 +1081,29 @@ LABEL_213:
   if (descriptionsCopy)
   {
     hasUnflagged2 = [(EMMessageListItemChange *)self hasUnflagged];
-    v192 = [hasUnflagged2 debugDescription];
+    v194 = [hasUnflagged2 debugDescription];
   }
 
   else
   {
     hasUnflagged3 = [(EMMessageListItemChange *)self hasUnflagged];
     objc_opt_class();
-    v194 = objc_opt_isKindOfClass();
+    v196 = objc_opt_isKindOfClass();
 
-    if (v194)
+    if (v196)
     {
-      v195 = MEMORY[0x1E699B858];
+      v197 = MEMORY[0x1E699B858];
       hasUnflagged2 = [(EMMessageListItemChange *)self hasUnflagged];
-      v192 = [v195 partiallyRedactedStringForString:hasUnflagged2];
+      v194 = [v197 partiallyRedactedStringForString:hasUnflagged2];
     }
 
     else
     {
       hasUnflagged4 = [(EMMessageListItemChange *)self hasUnflagged];
       objc_opt_class();
-      v197 = objc_opt_isKindOfClass();
+      v199 = objc_opt_isKindOfClass();
 
-      if (v197)
+      if (v199)
       {
         hasUnflagged2 = [(EMMessageListItemChange *)self hasUnflagged];
         if ([EMInternalPreferences preferenceEnabled:10])
@@ -1102,24 +1113,24 @@ LABEL_213:
 
         else
         {
-          v311 = MEMORY[0x1E699B858];
+          v313 = MEMORY[0x1E699B858];
           absoluteString34 = [hasUnflagged2 absoluteString];
-          absoluteString33 = [v311 fullyRedactedStringForString:absoluteString34];
+          absoluteString33 = [v313 fullyRedactedStringForString:absoluteString34];
         }
 
         goto LABEL_223;
       }
 
       hasUnflagged2 = [(EMMessageListItemChange *)self hasUnflagged];
-      v192 = [hasUnflagged2 description];
+      v194 = [hasUnflagged2 description];
     }
   }
 
-  absoluteString33 = v192;
+  absoluteString33 = v194;
 LABEL_223:
 
-  v198 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"hasUnflagged: %@", absoluteString33];
-  [v7 addObject:v198];
+  v200 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"hasUnflagged: %@", absoluteString33];
+  [v7 addObject:v200];
 
 LABEL_224:
   flagColors = [(EMMessageListItemChange *)self flagColors];
@@ -1132,29 +1143,29 @@ LABEL_224:
   if (descriptionsCopy)
   {
     flagColors2 = [(EMMessageListItemChange *)self flagColors];
-    v202 = [flagColors2 debugDescription];
+    v204 = [flagColors2 debugDescription];
   }
 
   else
   {
     flagColors3 = [(EMMessageListItemChange *)self flagColors];
     objc_opt_class();
-    v204 = objc_opt_isKindOfClass();
+    v206 = objc_opt_isKindOfClass();
 
-    if (v204)
+    if (v206)
     {
-      v205 = MEMORY[0x1E699B858];
+      v207 = MEMORY[0x1E699B858];
       flagColors2 = [(EMMessageListItemChange *)self flagColors];
-      v202 = [v205 partiallyRedactedStringForString:flagColors2];
+      v204 = [v207 partiallyRedactedStringForString:flagColors2];
     }
 
     else
     {
       flagColors4 = [(EMMessageListItemChange *)self flagColors];
       objc_opt_class();
-      v207 = objc_opt_isKindOfClass();
+      v209 = objc_opt_isKindOfClass();
 
-      if (v207)
+      if (v209)
       {
         flagColors2 = [(EMMessageListItemChange *)self flagColors];
         if ([EMInternalPreferences preferenceEnabled:10])
@@ -1164,24 +1175,24 @@ LABEL_224:
 
         else
         {
-          v313 = MEMORY[0x1E699B858];
+          v315 = MEMORY[0x1E699B858];
           absoluteString36 = [flagColors2 absoluteString];
-          absoluteString35 = [v313 fullyRedactedStringForString:absoluteString36];
+          absoluteString35 = [v315 fullyRedactedStringForString:absoluteString36];
         }
 
         goto LABEL_234;
       }
 
       flagColors2 = [(EMMessageListItemChange *)self flagColors];
-      v202 = [flagColors2 description];
+      v204 = [flagColors2 description];
     }
   }
 
-  absoluteString35 = v202;
+  absoluteString35 = v204;
 LABEL_234:
 
-  v208 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"flagColors: %@", absoluteString35];
-  [v7 addObject:v208];
+  v210 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"flagColors: %@", absoluteString35];
+  [v7 addObject:v210];
 
 LABEL_235:
   isVIP = [(EMMessageListItemChange *)self isVIP];
@@ -1194,29 +1205,29 @@ LABEL_235:
   if (descriptionsCopy)
   {
     isVIP2 = [(EMMessageListItemChange *)self isVIP];
-    v212 = [isVIP2 debugDescription];
+    v214 = [isVIP2 debugDescription];
   }
 
   else
   {
     isVIP3 = [(EMMessageListItemChange *)self isVIP];
     objc_opt_class();
-    v214 = objc_opt_isKindOfClass();
+    v216 = objc_opt_isKindOfClass();
 
-    if (v214)
+    if (v216)
     {
-      v215 = MEMORY[0x1E699B858];
+      v217 = MEMORY[0x1E699B858];
       isVIP2 = [(EMMessageListItemChange *)self isVIP];
-      v212 = [v215 partiallyRedactedStringForString:isVIP2];
+      v214 = [v217 partiallyRedactedStringForString:isVIP2];
     }
 
     else
     {
       isVIP4 = [(EMMessageListItemChange *)self isVIP];
       objc_opt_class();
-      v217 = objc_opt_isKindOfClass();
+      v219 = objc_opt_isKindOfClass();
 
-      if (v217)
+      if (v219)
       {
         isVIP2 = [(EMMessageListItemChange *)self isVIP];
         if ([EMInternalPreferences preferenceEnabled:10])
@@ -1226,24 +1237,24 @@ LABEL_235:
 
         else
         {
-          v315 = MEMORY[0x1E699B858];
+          v317 = MEMORY[0x1E699B858];
           absoluteString38 = [isVIP2 absoluteString];
-          absoluteString37 = [v315 fullyRedactedStringForString:absoluteString38];
+          absoluteString37 = [v317 fullyRedactedStringForString:absoluteString38];
         }
 
         goto LABEL_245;
       }
 
       isVIP2 = [(EMMessageListItemChange *)self isVIP];
-      v212 = [isVIP2 description];
+      v214 = [isVIP2 description];
     }
   }
 
-  absoluteString37 = v212;
+  absoluteString37 = v214;
 LABEL_245:
 
-  v218 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"isVIP: %@", absoluteString37];
-  [v7 addObject:v218];
+  v220 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"isVIP: %@", absoluteString37];
+  [v7 addObject:v220];
 
 LABEL_246:
   isBlocked = [(EMMessageListItemChange *)self isBlocked];
@@ -1256,29 +1267,29 @@ LABEL_246:
   if (descriptionsCopy)
   {
     isBlocked2 = [(EMMessageListItemChange *)self isBlocked];
-    v222 = [isBlocked2 debugDescription];
+    v224 = [isBlocked2 debugDescription];
   }
 
   else
   {
     isBlocked3 = [(EMMessageListItemChange *)self isBlocked];
     objc_opt_class();
-    v224 = objc_opt_isKindOfClass();
+    v226 = objc_opt_isKindOfClass();
 
-    if (v224)
+    if (v226)
     {
-      v225 = MEMORY[0x1E699B858];
+      v227 = MEMORY[0x1E699B858];
       isBlocked2 = [(EMMessageListItemChange *)self isBlocked];
-      v222 = [v225 partiallyRedactedStringForString:isBlocked2];
+      v224 = [v227 partiallyRedactedStringForString:isBlocked2];
     }
 
     else
     {
       isBlocked4 = [(EMMessageListItemChange *)self isBlocked];
       objc_opt_class();
-      v227 = objc_opt_isKindOfClass();
+      v229 = objc_opt_isKindOfClass();
 
-      if (v227)
+      if (v229)
       {
         isBlocked2 = [(EMMessageListItemChange *)self isBlocked];
         if ([EMInternalPreferences preferenceEnabled:10])
@@ -1288,24 +1299,24 @@ LABEL_246:
 
         else
         {
-          v317 = MEMORY[0x1E699B858];
+          v319 = MEMORY[0x1E699B858];
           absoluteString40 = [isBlocked2 absoluteString];
-          absoluteString39 = [v317 fullyRedactedStringForString:absoluteString40];
+          absoluteString39 = [v319 fullyRedactedStringForString:absoluteString40];
         }
 
         goto LABEL_256;
       }
 
       isBlocked2 = [(EMMessageListItemChange *)self isBlocked];
-      v222 = [isBlocked2 description];
+      v224 = [isBlocked2 description];
     }
   }
 
-  absoluteString39 = v222;
+  absoluteString39 = v224;
 LABEL_256:
 
-  v228 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"isBlocked: %@", absoluteString39];
-  [v7 addObject:v228];
+  v230 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"isBlocked: %@", absoluteString39];
+  [v7 addObject:v230];
 
 LABEL_257:
   searchResultType = [(EMMessageListItemChange *)self searchResultType];
@@ -1318,29 +1329,29 @@ LABEL_257:
   if (descriptionsCopy)
   {
     searchResultType2 = [(EMMessageListItemChange *)self searchResultType];
-    v232 = [searchResultType2 debugDescription];
+    v234 = [searchResultType2 debugDescription];
   }
 
   else
   {
     searchResultType3 = [(EMMessageListItemChange *)self searchResultType];
     objc_opt_class();
-    v234 = objc_opt_isKindOfClass();
+    v236 = objc_opt_isKindOfClass();
 
-    if (v234)
+    if (v236)
     {
-      v235 = MEMORY[0x1E699B858];
+      v237 = MEMORY[0x1E699B858];
       searchResultType2 = [(EMMessageListItemChange *)self searchResultType];
-      v232 = [v235 partiallyRedactedStringForString:searchResultType2];
+      v234 = [v237 partiallyRedactedStringForString:searchResultType2];
     }
 
     else
     {
       searchResultType4 = [(EMMessageListItemChange *)self searchResultType];
       objc_opt_class();
-      v237 = objc_opt_isKindOfClass();
+      v239 = objc_opt_isKindOfClass();
 
-      if (v237)
+      if (v239)
       {
         searchResultType2 = [(EMMessageListItemChange *)self searchResultType];
         if ([EMInternalPreferences preferenceEnabled:10])
@@ -1350,24 +1361,24 @@ LABEL_257:
 
         else
         {
-          v319 = MEMORY[0x1E699B858];
+          v321 = MEMORY[0x1E699B858];
           absoluteString42 = [searchResultType2 absoluteString];
-          absoluteString41 = [v319 fullyRedactedStringForString:absoluteString42];
+          absoluteString41 = [v321 fullyRedactedStringForString:absoluteString42];
         }
 
         goto LABEL_267;
       }
 
       searchResultType2 = [(EMMessageListItemChange *)self searchResultType];
-      v232 = [searchResultType2 description];
+      v234 = [searchResultType2 description];
     }
   }
 
-  absoluteString41 = v232;
+  absoluteString41 = v234;
 LABEL_267:
 
-  v238 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"searchResultType: %@", absoluteString41];
-  [v7 addObject:v238];
+  v240 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"searchResultType: %@", absoluteString41];
+  [v7 addObject:v240];
 
 LABEL_268:
   searchRelevanceScore = [(EMMessageListItemChange *)self searchRelevanceScore];
@@ -1380,29 +1391,29 @@ LABEL_268:
   if (descriptionsCopy)
   {
     searchRelevanceScore2 = [(EMMessageListItemChange *)self searchRelevanceScore];
-    v242 = [searchRelevanceScore2 debugDescription];
+    v244 = [searchRelevanceScore2 debugDescription];
   }
 
   else
   {
     searchRelevanceScore3 = [(EMMessageListItemChange *)self searchRelevanceScore];
     objc_opt_class();
-    v244 = objc_opt_isKindOfClass();
+    v246 = objc_opt_isKindOfClass();
 
-    if (v244)
+    if (v246)
     {
-      v245 = MEMORY[0x1E699B858];
+      v247 = MEMORY[0x1E699B858];
       searchRelevanceScore2 = [(EMMessageListItemChange *)self searchRelevanceScore];
-      v242 = [v245 partiallyRedactedStringForString:searchRelevanceScore2];
+      v244 = [v247 partiallyRedactedStringForString:searchRelevanceScore2];
     }
 
     else
     {
       searchRelevanceScore4 = [(EMMessageListItemChange *)self searchRelevanceScore];
       objc_opt_class();
-      v247 = objc_opt_isKindOfClass();
+      v249 = objc_opt_isKindOfClass();
 
-      if (v247)
+      if (v249)
       {
         searchRelevanceScore2 = [(EMMessageListItemChange *)self searchRelevanceScore];
         if ([EMInternalPreferences preferenceEnabled:10])
@@ -1412,24 +1423,24 @@ LABEL_268:
 
         else
         {
-          v321 = MEMORY[0x1E699B858];
+          v323 = MEMORY[0x1E699B858];
           absoluteString44 = [searchRelevanceScore2 absoluteString];
-          absoluteString43 = [v321 fullyRedactedStringForString:absoluteString44];
+          absoluteString43 = [v323 fullyRedactedStringForString:absoluteString44];
         }
 
         goto LABEL_278;
       }
 
       searchRelevanceScore2 = [(EMMessageListItemChange *)self searchRelevanceScore];
-      v242 = [searchRelevanceScore2 description];
+      v244 = [searchRelevanceScore2 description];
     }
   }
 
-  absoluteString43 = v242;
+  absoluteString43 = v244;
 LABEL_278:
 
-  v248 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"searchRelevanceScore: %@", absoluteString43];
-  [v7 addObject:v248];
+  v250 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"searchRelevanceScore: %@", absoluteString43];
+  [v7 addObject:v250];
 
 LABEL_279:
   unsubscribeType = [(EMMessageListItemChange *)self unsubscribeType];
@@ -1442,29 +1453,29 @@ LABEL_279:
   if (descriptionsCopy)
   {
     unsubscribeType2 = [(EMMessageListItemChange *)self unsubscribeType];
-    v252 = [unsubscribeType2 debugDescription];
+    v254 = [unsubscribeType2 debugDescription];
   }
 
   else
   {
     unsubscribeType3 = [(EMMessageListItemChange *)self unsubscribeType];
     objc_opt_class();
-    v254 = objc_opt_isKindOfClass();
+    v256 = objc_opt_isKindOfClass();
 
-    if (v254)
+    if (v256)
     {
-      v255 = MEMORY[0x1E699B858];
+      v257 = MEMORY[0x1E699B858];
       unsubscribeType2 = [(EMMessageListItemChange *)self unsubscribeType];
-      v252 = [v255 partiallyRedactedStringForString:unsubscribeType2];
+      v254 = [v257 partiallyRedactedStringForString:unsubscribeType2];
     }
 
     else
     {
       unsubscribeType4 = [(EMMessageListItemChange *)self unsubscribeType];
       objc_opt_class();
-      v257 = objc_opt_isKindOfClass();
+      v259 = objc_opt_isKindOfClass();
 
-      if (v257)
+      if (v259)
       {
         unsubscribeType2 = [(EMMessageListItemChange *)self unsubscribeType];
         if ([EMInternalPreferences preferenceEnabled:10])
@@ -1474,24 +1485,24 @@ LABEL_279:
 
         else
         {
-          v323 = MEMORY[0x1E699B858];
+          v325 = MEMORY[0x1E699B858];
           absoluteString46 = [unsubscribeType2 absoluteString];
-          absoluteString45 = [v323 fullyRedactedStringForString:absoluteString46];
+          absoluteString45 = [v325 fullyRedactedStringForString:absoluteString46];
         }
 
         goto LABEL_289;
       }
 
       unsubscribeType2 = [(EMMessageListItemChange *)self unsubscribeType];
-      v252 = [unsubscribeType2 description];
+      v254 = [unsubscribeType2 description];
     }
   }
 
-  absoluteString45 = v252;
+  absoluteString45 = v254;
 LABEL_289:
 
-  v258 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"unsubscribeType: %@", absoluteString45];
-  [v7 addObject:v258];
+  v260 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"unsubscribeType: %@", absoluteString45];
+  [v7 addObject:v260];
 
 LABEL_290:
   hasAttachments = [(EMMessageListItemChange *)self hasAttachments];
@@ -1504,29 +1515,29 @@ LABEL_290:
   if (descriptionsCopy)
   {
     hasAttachments2 = [(EMMessageListItemChange *)self hasAttachments];
-    v262 = [hasAttachments2 debugDescription];
+    v264 = [hasAttachments2 debugDescription];
   }
 
   else
   {
     hasAttachments3 = [(EMMessageListItemChange *)self hasAttachments];
     objc_opt_class();
-    v264 = objc_opt_isKindOfClass();
+    v266 = objc_opt_isKindOfClass();
 
-    if (v264)
+    if (v266)
     {
-      v265 = MEMORY[0x1E699B858];
+      v267 = MEMORY[0x1E699B858];
       hasAttachments2 = [(EMMessageListItemChange *)self hasAttachments];
-      v262 = [v265 partiallyRedactedStringForString:hasAttachments2];
+      v264 = [v267 partiallyRedactedStringForString:hasAttachments2];
     }
 
     else
     {
       hasAttachments4 = [(EMMessageListItemChange *)self hasAttachments];
       objc_opt_class();
-      v267 = objc_opt_isKindOfClass();
+      v269 = objc_opt_isKindOfClass();
 
-      if (v267)
+      if (v269)
       {
         hasAttachments2 = [(EMMessageListItemChange *)self hasAttachments];
         if ([EMInternalPreferences preferenceEnabled:10])
@@ -1536,24 +1547,24 @@ LABEL_290:
 
         else
         {
-          v325 = MEMORY[0x1E699B858];
+          v327 = MEMORY[0x1E699B858];
           absoluteString48 = [hasAttachments2 absoluteString];
-          absoluteString47 = [v325 fullyRedactedStringForString:absoluteString48];
+          absoluteString47 = [v327 fullyRedactedStringForString:absoluteString48];
         }
 
         goto LABEL_300;
       }
 
       hasAttachments2 = [(EMMessageListItemChange *)self hasAttachments];
-      v262 = [hasAttachments2 description];
+      v264 = [hasAttachments2 description];
     }
   }
 
-  absoluteString47 = v262;
+  absoluteString47 = v264;
 LABEL_300:
 
-  v268 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"hasAttachments: %@", absoluteString47];
-  [v7 addObject:v268];
+  v270 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"hasAttachments: %@", absoluteString47];
+  [v7 addObject:v270];
 
 LABEL_301:
   conversationNotificationLevel = [(EMMessageListItemChange *)self conversationNotificationLevel];
@@ -1566,29 +1577,29 @@ LABEL_301:
   if (descriptionsCopy)
   {
     conversationNotificationLevel2 = [(EMMessageListItemChange *)self conversationNotificationLevel];
-    v272 = [conversationNotificationLevel2 debugDescription];
+    v274 = [conversationNotificationLevel2 debugDescription];
   }
 
   else
   {
     conversationNotificationLevel3 = [(EMMessageListItemChange *)self conversationNotificationLevel];
     objc_opt_class();
-    v274 = objc_opt_isKindOfClass();
+    v276 = objc_opt_isKindOfClass();
 
-    if (v274)
+    if (v276)
     {
-      v275 = MEMORY[0x1E699B858];
+      v277 = MEMORY[0x1E699B858];
       conversationNotificationLevel2 = [(EMMessageListItemChange *)self conversationNotificationLevel];
-      v272 = [v275 partiallyRedactedStringForString:conversationNotificationLevel2];
+      v274 = [v277 partiallyRedactedStringForString:conversationNotificationLevel2];
     }
 
     else
     {
       conversationNotificationLevel4 = [(EMMessageListItemChange *)self conversationNotificationLevel];
       objc_opt_class();
-      v277 = objc_opt_isKindOfClass();
+      v279 = objc_opt_isKindOfClass();
 
-      if (v277)
+      if (v279)
       {
         conversationNotificationLevel2 = [(EMMessageListItemChange *)self conversationNotificationLevel];
         if ([EMInternalPreferences preferenceEnabled:10])
@@ -1598,86 +1609,86 @@ LABEL_301:
 
         else
         {
-          v327 = MEMORY[0x1E699B858];
+          v329 = MEMORY[0x1E699B858];
           absoluteString50 = [conversationNotificationLevel2 absoluteString];
-          absoluteString49 = [v327 fullyRedactedStringForString:absoluteString50];
+          absoluteString49 = [v329 fullyRedactedStringForString:absoluteString50];
         }
 
         goto LABEL_311;
       }
 
       conversationNotificationLevel2 = [(EMMessageListItemChange *)self conversationNotificationLevel];
-      v272 = [conversationNotificationLevel2 description];
+      v274 = [conversationNotificationLevel2 description];
     }
   }
 
-  absoluteString49 = v272;
+  absoluteString49 = v274;
 LABEL_311:
 
-  v278 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"conversationNotificationLevel: %@", absoluteString49];
-  [v7 addObject:v278];
+  v280 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"conversationNotificationLevel: %@", absoluteString49];
+  [v7 addObject:v280];
 
 LABEL_312:
-  v280 = [(EMMessageListItemChange *)self count];
+  v282 = [(EMMessageListItemChange *)self count];
 
-  if (!v280)
+  if (!v282)
   {
     goto LABEL_323;
   }
 
   if (descriptionsCopy)
   {
-    v281 = [(EMMessageListItemChange *)self count];
-    v282 = [v281 debugDescription];
+    v283 = [(EMMessageListItemChange *)self count];
+    v284 = [v283 debugDescription];
   }
 
   else
   {
-    v283 = [(EMMessageListItemChange *)self count];
+    v285 = [(EMMessageListItemChange *)self count];
     objc_opt_class();
-    v284 = objc_opt_isKindOfClass();
+    v286 = objc_opt_isKindOfClass();
 
-    if (v284)
+    if (v286)
     {
-      v285 = MEMORY[0x1E699B858];
-      v281 = [(EMMessageListItemChange *)self count];
-      v282 = [v285 partiallyRedactedStringForString:v281];
+      v287 = MEMORY[0x1E699B858];
+      v283 = [(EMMessageListItemChange *)self count];
+      v284 = [v287 partiallyRedactedStringForString:v283];
     }
 
     else
     {
-      v286 = [(EMMessageListItemChange *)self count];
+      v288 = [(EMMessageListItemChange *)self count];
       objc_opt_class();
-      v287 = objc_opt_isKindOfClass();
+      v289 = objc_opt_isKindOfClass();
 
-      if (v287)
+      if (v289)
       {
-        v281 = [(EMMessageListItemChange *)self count];
+        v283 = [(EMMessageListItemChange *)self count];
         if ([EMInternalPreferences preferenceEnabled:10])
         {
-          absoluteString51 = [v281 absoluteString];
+          absoluteString51 = [v283 absoluteString];
         }
 
         else
         {
-          v329 = MEMORY[0x1E699B858];
-          absoluteString52 = [v281 absoluteString];
-          absoluteString51 = [v329 fullyRedactedStringForString:absoluteString52];
+          v331 = MEMORY[0x1E699B858];
+          absoluteString52 = [v283 absoluteString];
+          absoluteString51 = [v331 fullyRedactedStringForString:absoluteString52];
         }
 
         goto LABEL_322;
       }
 
-      v281 = [(EMMessageListItemChange *)self count];
-      v282 = [v281 description];
+      v283 = [(EMMessageListItemChange *)self count];
+      v284 = [v283 description];
     }
   }
 
-  absoluteString51 = v282;
+  absoluteString51 = v284;
 LABEL_322:
 
-  v288 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"count: %@", absoluteString51];
-  [v7 addObject:v288];
+  v290 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"count: %@", absoluteString51];
+  [v7 addObject:v290];
 
 LABEL_323:
   mailboxObjectIDs = [(EMMessageListItemChange *)self mailboxObjectIDs];
@@ -1690,29 +1701,29 @@ LABEL_323:
   if (descriptionsCopy)
   {
     mailboxObjectIDs2 = [(EMMessageListItemChange *)self mailboxObjectIDs];
-    v292 = [mailboxObjectIDs2 debugDescription];
+    v294 = [mailboxObjectIDs2 debugDescription];
   }
 
   else
   {
     mailboxObjectIDs3 = [(EMMessageListItemChange *)self mailboxObjectIDs];
     objc_opt_class();
-    v294 = objc_opt_isKindOfClass();
+    v296 = objc_opt_isKindOfClass();
 
-    if (v294)
+    if (v296)
     {
-      v295 = MEMORY[0x1E699B858];
+      v297 = MEMORY[0x1E699B858];
       mailboxObjectIDs2 = [(EMMessageListItemChange *)self mailboxObjectIDs];
-      v292 = [v295 partiallyRedactedStringForString:mailboxObjectIDs2];
+      v294 = [v297 partiallyRedactedStringForString:mailboxObjectIDs2];
     }
 
     else
     {
       mailboxObjectIDs4 = [(EMMessageListItemChange *)self mailboxObjectIDs];
       objc_opt_class();
-      v297 = objc_opt_isKindOfClass();
+      v299 = objc_opt_isKindOfClass();
 
-      if (v297)
+      if (v299)
       {
         mailboxObjectIDs2 = [(EMMessageListItemChange *)self mailboxObjectIDs];
         if ([EMInternalPreferences preferenceEnabled:10])
@@ -1722,24 +1733,24 @@ LABEL_323:
 
         else
         {
-          v331 = MEMORY[0x1E699B858];
+          v333 = MEMORY[0x1E699B858];
           absoluteString54 = [mailboxObjectIDs2 absoluteString];
-          absoluteString53 = [v331 fullyRedactedStringForString:absoluteString54];
+          absoluteString53 = [v333 fullyRedactedStringForString:absoluteString54];
         }
 
         goto LABEL_333;
       }
 
       mailboxObjectIDs2 = [(EMMessageListItemChange *)self mailboxObjectIDs];
-      v292 = [mailboxObjectIDs2 description];
+      v294 = [mailboxObjectIDs2 description];
     }
   }
 
-  absoluteString53 = v292;
+  absoluteString53 = v294;
 LABEL_333:
 
-  v298 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"mailboxObjectIDs: %@", absoluteString53];
-  [v7 addObject:v298];
+  v300 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"mailboxObjectIDs: %@", absoluteString53];
+  [v7 addObject:v300];
 
 LABEL_334:
   mailboxes = [(EMMessageListItemChange *)self mailboxes];
@@ -1758,29 +1769,29 @@ LABEL_334:
   if (descriptionsCopy)
   {
     mailboxes2 = [(EMMessageListItemChange *)self mailboxes];
-    v302 = [mailboxes2 debugDescription];
+    v304 = [mailboxes2 debugDescription];
   }
 
   else
   {
     mailboxes3 = [(EMMessageListItemChange *)self mailboxes];
     objc_opt_class();
-    v304 = objc_opt_isKindOfClass();
+    v306 = objc_opt_isKindOfClass();
 
-    if (v304)
+    if (v306)
     {
-      v305 = MEMORY[0x1E699B858];
+      v307 = MEMORY[0x1E699B858];
       mailboxes2 = [(EMMessageListItemChange *)self mailboxes];
-      v302 = [v305 partiallyRedactedStringForString:mailboxes2];
+      v304 = [v307 partiallyRedactedStringForString:mailboxes2];
     }
 
     else
     {
       mailboxes4 = [(EMMessageListItemChange *)self mailboxes];
       objc_opt_class();
-      v307 = objc_opt_isKindOfClass();
+      v309 = objc_opt_isKindOfClass();
 
-      if (v307)
+      if (v309)
       {
         mailboxes2 = [(EMMessageListItemChange *)self mailboxes];
         if ([EMInternalPreferences preferenceEnabled:10])
@@ -1790,24 +1801,24 @@ LABEL_334:
 
         else
         {
-          v364 = MEMORY[0x1E699B858];
+          v366 = MEMORY[0x1E699B858];
           absoluteString56 = [mailboxes2 absoluteString];
-          absoluteString55 = [v364 fullyRedactedStringForString:absoluteString56];
+          absoluteString55 = [v366 fullyRedactedStringForString:absoluteString56];
         }
 
         goto LABEL_370;
       }
 
       mailboxes2 = [(EMMessageListItemChange *)self mailboxes];
-      v302 = [mailboxes2 description];
+      v304 = [mailboxes2 description];
     }
   }
 
-  absoluteString55 = v302;
+  absoluteString55 = v304;
 LABEL_370:
 
-  v308 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"mailboxes: %@", absoluteString55];
-  [v7 addObject:v308];
+  v310 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"mailboxes: %@", absoluteString55];
+  [v7 addObject:v310];
 
 LABEL_371:
   displayMessageItemID = [(EMMessageListItemChange *)self displayMessageItemID];
@@ -1820,29 +1831,29 @@ LABEL_371:
   if (descriptionsCopy)
   {
     displayMessageItemID2 = [(EMMessageListItemChange *)self displayMessageItemID];
-    v336 = [displayMessageItemID2 debugDescription];
+    v338 = [displayMessageItemID2 debugDescription];
   }
 
   else
   {
     displayMessageItemID3 = [(EMMessageListItemChange *)self displayMessageItemID];
     objc_opt_class();
-    v338 = objc_opt_isKindOfClass();
+    v340 = objc_opt_isKindOfClass();
 
-    if (v338)
+    if (v340)
     {
-      v339 = MEMORY[0x1E699B858];
+      v341 = MEMORY[0x1E699B858];
       displayMessageItemID2 = [(EMMessageListItemChange *)self displayMessageItemID];
-      v336 = [v339 partiallyRedactedStringForString:displayMessageItemID2];
+      v338 = [v341 partiallyRedactedStringForString:displayMessageItemID2];
     }
 
     else
     {
       displayMessageItemID4 = [(EMMessageListItemChange *)self displayMessageItemID];
       objc_opt_class();
-      v341 = objc_opt_isKindOfClass();
+      v343 = objc_opt_isKindOfClass();
 
-      if (v341)
+      if (v343)
       {
         displayMessageItemID2 = [(EMMessageListItemChange *)self displayMessageItemID];
         if ([EMInternalPreferences preferenceEnabled:10])
@@ -1852,24 +1863,24 @@ LABEL_371:
 
         else
         {
-          v353 = MEMORY[0x1E699B858];
+          v355 = MEMORY[0x1E699B858];
           absoluteString58 = [displayMessageItemID2 absoluteString];
-          absoluteString57 = [v353 fullyRedactedStringForString:absoluteString58];
+          absoluteString57 = [v355 fullyRedactedStringForString:absoluteString58];
         }
 
         goto LABEL_381;
       }
 
       displayMessageItemID2 = [(EMMessageListItemChange *)self displayMessageItemID];
-      v336 = [displayMessageItemID2 description];
+      v338 = [displayMessageItemID2 description];
     }
   }
 
-  absoluteString57 = v336;
+  absoluteString57 = v338;
 LABEL_381:
 
-  v342 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"displayMessageItemID: %@", absoluteString57];
-  [v7 addObject:v342];
+  v344 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"displayMessageItemID: %@", absoluteString57];
+  [v7 addObject:v344];
 
 LABEL_382:
   groupedSenderMessageListItems = [(EMMessageListItemChange *)self groupedSenderMessageListItems];
@@ -1881,29 +1892,29 @@ LABEL_382:
       if (descriptionsCopy)
       {
         groupedSenderMessageListItems2 = [(EMMessageListItemChange *)self groupedSenderMessageListItems];
-        v346 = [groupedSenderMessageListItems2 debugDescription];
+        v348 = [groupedSenderMessageListItems2 debugDescription];
       }
 
       else
       {
         groupedSenderMessageListItems3 = [(EMMessageListItemChange *)self groupedSenderMessageListItems];
         objc_opt_class();
-        v348 = objc_opt_isKindOfClass();
+        v350 = objc_opt_isKindOfClass();
 
-        if (v348)
+        if (v350)
         {
-          v349 = MEMORY[0x1E699B858];
+          v351 = MEMORY[0x1E699B858];
           groupedSenderMessageListItems2 = [(EMMessageListItemChange *)self groupedSenderMessageListItems];
-          v346 = [v349 partiallyRedactedStringForString:groupedSenderMessageListItems2];
+          v348 = [v351 partiallyRedactedStringForString:groupedSenderMessageListItems2];
         }
 
         else
         {
           groupedSenderMessageListItems4 = [(EMMessageListItemChange *)self groupedSenderMessageListItems];
           objc_opt_class();
-          v351 = objc_opt_isKindOfClass();
+          v353 = objc_opt_isKindOfClass();
 
-          if (v351)
+          if (v353)
           {
             groupedSenderMessageListItems2 = [(EMMessageListItemChange *)self groupedSenderMessageListItems];
             if ([EMInternalPreferences preferenceEnabled:10])
@@ -1913,24 +1924,24 @@ LABEL_382:
 
             else
             {
-              v366 = MEMORY[0x1E699B858];
+              v368 = MEMORY[0x1E699B858];
               absoluteString60 = [groupedSenderMessageListItems2 absoluteString];
-              absoluteString59 = [v366 fullyRedactedStringForString:absoluteString60];
+              absoluteString59 = [v368 fullyRedactedStringForString:absoluteString60];
             }
 
             goto LABEL_396;
           }
 
           groupedSenderMessageListItems2 = [(EMMessageListItemChange *)self groupedSenderMessageListItems];
-          v346 = [groupedSenderMessageListItems2 description];
+          v348 = [groupedSenderMessageListItems2 description];
         }
       }
 
-      absoluteString59 = v346;
+      absoluteString59 = v348;
 LABEL_396:
 
-      v352 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"groupedSenderMessageListItems: %@", absoluteString59];
-      [v7 addObject:v352];
+      v354 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"groupedSenderMessageListItems: %@", absoluteString59];
+      [v7 addObject:v354];
 
       goto LABEL_397;
     }
@@ -1939,7 +1950,7 @@ LABEL_396:
   }
 
 LABEL_397:
-  v356 = v7;
+  v358 = v7;
 
   return v7;
 }
@@ -2997,16 +3008,14 @@ LABEL_92:
 - (void)setMailboxObjectIDs:(id)ds
 {
   dsCopy = ds;
-  mailboxObjectIDs = self->_mailboxObjectIDs;
-  v9 = dsCopy;
   if ((EFArraysAreEqual() & 1) == 0)
   {
     mailboxes = self->_mailboxes;
     self->_mailboxes = 0;
 
-    v7 = [v9 copy];
-    v8 = self->_mailboxObjectIDs;
-    self->_mailboxObjectIDs = v7;
+    v5 = [dsCopy copy];
+    mailboxObjectIDs = self->_mailboxObjectIDs;
+    self->_mailboxObjectIDs = v5;
   }
 }
 
@@ -3247,13 +3256,14 @@ LABEL_92:
     changesCopy = 1;
   }
 
-  if (_os_feature_enabled_impl() && EMIsGreymatterSupported())
+  v45 = _os_feature_enabled_impl();
+  if (v45 && EMIsGreymatterSupported(v45, v46))
   {
     generatedSummary = [toCopy generatedSummary];
     generatedSummary2 = [fromCopy generatedSummary];
-    v47 = EFObjectsAreEqual();
+    v49 = EFObjectsAreEqual();
 
-    if ((v47 & 1) == 0)
+    if ((v49 & 1) == 0)
     {
       null10 = generatedSummary;
       if (!generatedSummary)
@@ -3272,9 +3282,9 @@ LABEL_92:
 
   senderList = [toCopy senderList];
   senderList2 = [fromCopy senderList];
-  v50 = EFArraysAreEqual();
+  v52 = EFArraysAreEqual();
 
-  if ((v50 & 1) == 0)
+  if ((v52 & 1) == 0)
   {
     [withCopy setSenderList:senderList];
     changesCopy = 1;
@@ -3282,9 +3292,9 @@ LABEL_92:
 
   toList = [toCopy toList];
   toList2 = [fromCopy toList];
-  v52 = EFArraysAreEqual();
+  v54 = EFArraysAreEqual();
 
-  if ((v52 & 1) == 0)
+  if ((v54 & 1) == 0)
   {
     [withCopy setToList:toList];
     changesCopy = 1;
@@ -3292,9 +3302,9 @@ LABEL_92:
 
   ccList = [toCopy ccList];
   ccList2 = [fromCopy ccList];
-  v54 = EFArraysAreEqual();
+  v56 = EFArraysAreEqual();
 
-  if ((v54 & 1) == 0)
+  if ((v56 & 1) == 0)
   {
     [withCopy setCcList:ccList];
     changesCopy = 1;
@@ -3302,9 +3312,9 @@ LABEL_92:
 
   flags = [toCopy flags];
   flags2 = [fromCopy flags];
-  v56 = EFObjectsAreEqual();
+  v58 = EFObjectsAreEqual();
 
-  if ((v56 & 1) == 0)
+  if ((v58 & 1) == 0)
   {
     [withCopy setFlags:flags];
     changesCopy = 1;
@@ -3313,17 +3323,17 @@ LABEL_92:
   hasUnflagged = [toCopy hasUnflagged];
   if (hasUnflagged != [fromCopy hasUnflagged])
   {
-    v58 = [MEMORY[0x1E696AD98] numberWithBool:hasUnflagged];
-    [withCopy setHasUnflagged:v58];
+    v60 = [MEMORY[0x1E696AD98] numberWithBool:hasUnflagged];
+    [withCopy setHasUnflagged:v60];
 
     changesCopy = 1;
   }
 
   flagColors = [toCopy flagColors];
   flagColors2 = [fromCopy flagColors];
-  v60 = EFObjectsAreEqual();
+  v62 = EFObjectsAreEqual();
 
-  if ((v60 & 1) == 0)
+  if ((v62 & 1) == 0)
   {
     null11 = flagColors;
     if (!flagColors)
@@ -3342,8 +3352,8 @@ LABEL_92:
   isVIP = [toCopy isVIP];
   if (isVIP != [fromCopy isVIP])
   {
-    v63 = [MEMORY[0x1E696AD98] numberWithBool:isVIP];
-    [withCopy setIsVIP:v63];
+    v65 = [MEMORY[0x1E696AD98] numberWithBool:isVIP];
+    [withCopy setIsVIP:v65];
 
     changesCopy = 1;
   }
@@ -3351,8 +3361,8 @@ LABEL_92:
   isBlocked = [toCopy isBlocked];
   if (isBlocked != [fromCopy isBlocked])
   {
-    v65 = [MEMORY[0x1E696AD98] numberWithBool:isBlocked];
-    [withCopy setIsBlocked:v65];
+    v67 = [MEMORY[0x1E696AD98] numberWithBool:isBlocked];
+    [withCopy setIsBlocked:v67];
 
     changesCopy = 1;
   }
@@ -3360,17 +3370,17 @@ LABEL_92:
   searchResultType = [toCopy searchResultType];
   if (searchResultType != [fromCopy searchResultType])
   {
-    v67 = [MEMORY[0x1E696AD98] numberWithInteger:searchResultType];
-    [withCopy setSearchResultType:v67];
+    v69 = [MEMORY[0x1E696AD98] numberWithInteger:searchResultType];
+    [withCopy setSearchResultType:v69];
 
     changesCopy = 1;
   }
 
   searchRelevanceScore = [toCopy searchRelevanceScore];
   searchRelevanceScore2 = [fromCopy searchRelevanceScore];
-  v70 = EFObjectsAreEqual();
+  v72 = EFObjectsAreEqual();
 
-  if ((v70 & 1) == 0)
+  if ((v72 & 1) == 0)
   {
     [withCopy setSearchRelevanceScore:searchRelevanceScore];
     changesCopy = 1;
@@ -3379,8 +3389,8 @@ LABEL_92:
   unsubscribeType = [toCopy unsubscribeType];
   if (unsubscribeType != [fromCopy unsubscribeType])
   {
-    v72 = [MEMORY[0x1E696AD98] numberWithInteger:unsubscribeType];
-    [withCopy setUnsubscribeType:v72];
+    v74 = [MEMORY[0x1E696AD98] numberWithInteger:unsubscribeType];
+    [withCopy setUnsubscribeType:v74];
 
     changesCopy = 1;
   }
@@ -3388,8 +3398,8 @@ LABEL_92:
   hasAttachments = [toCopy hasAttachments];
   if (hasAttachments != [fromCopy hasAttachments])
   {
-    v74 = [MEMORY[0x1E696AD98] numberWithBool:hasAttachments];
-    [withCopy setHasAttachments:v74];
+    v76 = [MEMORY[0x1E696AD98] numberWithBool:hasAttachments];
+    [withCopy setHasAttachments:v76];
 
     changesCopy = 1;
   }
@@ -3397,8 +3407,8 @@ LABEL_92:
   isAuthenticated = [toCopy isAuthenticated];
   if (isAuthenticated != [fromCopy isAuthenticated])
   {
-    v76 = [MEMORY[0x1E696AD98] numberWithBool:isAuthenticated];
-    [withCopy setIsAuthenticated:v76];
+    v78 = [MEMORY[0x1E696AD98] numberWithBool:isAuthenticated];
+    [withCopy setIsAuthenticated:v78];
 
     changesCopy = 1;
   }
@@ -3406,8 +3416,8 @@ LABEL_92:
   isUrgent = [toCopy isUrgent];
   if (isUrgent != [fromCopy isUrgent])
   {
-    v78 = [MEMORY[0x1E696AD98] numberWithBool:isUrgent];
-    [withCopy setIsUrgent:v78];
+    v80 = [MEMORY[0x1E696AD98] numberWithBool:isUrgent];
+    [withCopy setIsUrgent:v80];
 
     changesCopy = 1;
   }
@@ -3415,8 +3425,8 @@ LABEL_92:
   allowAuthenticationWarning = [toCopy allowAuthenticationWarning];
   if (allowAuthenticationWarning != [fromCopy allowAuthenticationWarning])
   {
-    v80 = [MEMORY[0x1E696AD98] numberWithBool:allowAuthenticationWarning];
-    [withCopy setAllowAuthenticationWarning:v80];
+    v82 = [MEMORY[0x1E696AD98] numberWithBool:allowAuthenticationWarning];
+    [withCopy setAllowAuthenticationWarning:v82];
 
     changesCopy = 1;
   }
@@ -3424,17 +3434,17 @@ LABEL_92:
   conversationNotificationLevel = [toCopy conversationNotificationLevel];
   if (conversationNotificationLevel != [fromCopy conversationNotificationLevel])
   {
-    v82 = [MEMORY[0x1E696AD98] numberWithInteger:conversationNotificationLevel];
-    [withCopy setConversationNotificationLevel:v82];
+    v84 = [MEMORY[0x1E696AD98] numberWithInteger:conversationNotificationLevel];
+    [withCopy setConversationNotificationLevel:v84];
 
     changesCopy = 1;
   }
 
-  v83 = [toCopy count];
-  if (v83 != [fromCopy count])
+  v85 = [toCopy count];
+  if (v85 != [fromCopy count])
   {
-    v84 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v83];
-    [withCopy setCount:v84];
+    v86 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v85];
+    [withCopy setCount:v86];
 
     changesCopy = 1;
   }
@@ -3445,8 +3455,8 @@ LABEL_92:
   {
     mailboxes = [toCopy mailboxes];
     mailboxes2 = [fromCopy mailboxes];
-    v89 = [mailboxes count];
-    if (v89 == [mailboxObjectIDs count] && (v90 = objc_msgSend(mailboxes2, "count"), v90 == objc_msgSend(mailboxObjectIDs2, "count")) && (EFArraysAreEqual() & 1) == 0)
+    v91 = [mailboxes count];
+    if (v91 == [mailboxObjectIDs count] && (v92 = objc_msgSend(mailboxes2, "count"), v92 == objc_msgSend(mailboxObjectIDs2, "count")) && (EFArraysAreEqual() & 1) == 0)
     {
       [withCopy setMailboxes:mailboxes];
     }
@@ -3461,13 +3471,13 @@ LABEL_92:
 
   displayMessageItemID = [toCopy displayMessageItemID];
   displayMessageItemID2 = [fromCopy displayMessageItemID];
-  v93 = EFObjectsAreEqual();
+  v95 = EFObjectsAreEqual();
 
-  if (v93)
+  if (v95)
   {
     if (!changesCopy)
     {
-      v94 = 0;
+      v96 = 0;
       goto LABEL_119;
     }
   }
@@ -3477,44 +3487,44 @@ LABEL_92:
     [withCopy setDisplayMessageItemID:displayMessageItemID];
   }
 
-  v94 = withCopy;
+  v96 = withCopy;
 LABEL_119:
 
-  return v94;
+  return v96;
 }
 
 + (id)changeForKeyPaths:(id)paths ofItem:(id)item
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
   itemCopy = item;
-  v23 = pathsCopy;
+  v22 = pathsCopy;
   if ([pathsCopy count])
   {
-    v25 = objc_alloc_init(EMMessageListItemChange);
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
+    v24 = objc_alloc_init(EMMessageListItemChange);
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v8 = pathsCopy;
-    v9 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (!v9)
     {
       goto LABEL_39;
     }
 
-    v10 = *v27;
+    v10 = *v26;
     while (1)
     {
       v11 = 0;
       do
       {
-        if (*v27 != v10)
+        if (*v26 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v26 + 1) + 8 * v11);
+        v12 = *(*(&v25 + 1) + 8 * v11);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -3528,7 +3538,7 @@ LABEL_119:
               itemCopy2 = item;
             }
 
-            [(EMMessageListItemChange *)v25 setReadLater:itemCopy2];
+            [(EMMessageListItemChange *)v24 setReadLater:itemCopy2];
             itemCopy3 = item;
             if (!readLater)
             {
@@ -3548,7 +3558,7 @@ LABEL_119:
                 v16 = null;
               }
 
-              [(EMMessageListItemChange *)v25 setFollowUp:v16];
+              [(EMMessageListItemChange *)v24 setFollowUp:v16];
               itemCopy3 = null;
               if (readLater)
               {
@@ -3566,7 +3576,7 @@ LABEL_119:
                 v17 = null2;
               }
 
-              [(EMMessageListItemChange *)v25 setCategory:v17];
+              [(EMMessageListItemChange *)v24 setCategory:v17];
               itemCopy3 = null2;
               if (readLater)
               {
@@ -3579,21 +3589,21 @@ LABEL_119:
               if ([v12 isEqualToString:@"AuthenticationState"])
               {
                 readLater = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(itemCopy, "isAuthenticated")}];
-                [(EMMessageListItemChange *)v25 setIsAuthenticated:readLater];
+                [(EMMessageListItemChange *)v24 setIsAuthenticated:readLater];
                 goto LABEL_19;
               }
 
               if ([v12 isEqualToString:@"businessID"])
               {
                 readLater = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(itemCopy, "businessID")}];
-                [(EMMessageListItemChange *)v25 setBusinessID:readLater];
+                [(EMMessageListItemChange *)v24 setBusinessID:readLater];
                 goto LABEL_19;
               }
 
               if (![v12 isEqualToString:@"businessLogoID"])
               {
                 readLater = [itemCopy valueForKeyPath:v12];
-                [(EMMessageListItemChange *)v25 setValue:readLater forKeyPath:v12];
+                [(EMMessageListItemChange *)v24 setValue:readLater forKeyPath:v12];
                 goto LABEL_19;
               }
 
@@ -3605,7 +3615,7 @@ LABEL_119:
                 v18 = null3;
               }
 
-              [(EMMessageListItemChange *)v25 setBusinessLogoID:v18, null3];
+              [(EMMessageListItemChange *)v24 setBusinessLogoID:v18, null3];
               itemCopy3 = null3;
               if (readLater)
               {
@@ -3623,7 +3633,7 @@ LABEL_19:
       }
 
       while (v9 != v11);
-      v19 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v19 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
       v9 = v19;
       if (!v19)
       {
@@ -3634,40 +3644,38 @@ LABEL_39:
     }
   }
 
-  v25 = 0;
+  v24 = 0;
 LABEL_41:
 
-  v20 = *MEMORY[0x1E69E9840];
-
-  return v25;
+  return v24;
 }
 
 + (id)changesForKeyPaths:(id)paths ofItems:(id)items
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
   itemsCopy = items;
   v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v9 = itemsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
-        v14 = [self changeForKeyPaths:pathsCopy ofItem:{v13, v18}];
+        v13 = *(*(&v17 + 1) + 8 * i);
+        v14 = [self changeForKeyPaths:pathsCopy ofItem:{v13, v17}];
         if (v13)
         {
           objectID = [v13 objectID];
@@ -3675,13 +3683,11 @@ LABEL_41:
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -3960,26 +3966,16 @@ LABEL_41:
 {
   itemCopy = item;
   date = [(EMMessageListItemChange *)self date];
-  if (!date)
+  if (date && (-[EMMessageListItemChange date](self, "date"), v6 = objc_claimAutoreleasedReturnValue(), [itemCopy date], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v6, "isEqual:", v7), v7, v6, date, (v8 & 1) == 0))
   {
-    goto LABEL_3;
-  }
-
-  date2 = [(EMMessageListItemChange *)self date];
-  date3 = [itemCopy date];
-  v8 = [date2 isEqual:date3];
-
-  if ((v8 & 1) == 0)
-  {
-    date4 = [(EMMessageListItemChange *)self date];
-    [itemCopy setDate:date4];
+    date2 = [(EMMessageListItemChange *)self date];
+    [itemCopy setDate:date2];
 
     v9 = 1;
   }
 
   else
   {
-LABEL_3:
     v9 = 0;
   }
 

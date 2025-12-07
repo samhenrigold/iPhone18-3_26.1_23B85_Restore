@@ -65,7 +65,7 @@
 
 - (NSData)data
 {
-  WebKit::encodeSessionState(&self->_sessionState, &v6);
+  WebKit::encodeSessionState(&v6, &self->_sessionState);
   v2 = v6;
   v6 = 0;
   if (v2)

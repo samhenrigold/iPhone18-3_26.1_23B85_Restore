@@ -125,7 +125,7 @@ void __52__HAP2AccessoryServerBrowser_pairedAccessoryServers__block_invoke(uint6
 
 - (void)handleCurrentNetworkChangedNotification:(id)notification
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   if (hap2LogInitialize_onceToken != -1)
   {
@@ -137,15 +137,13 @@ void __52__HAP2AccessoryServerBrowser_pairedAccessoryServers__block_invoke(uint6
   {
     v6 = v5;
     name = [notificationCopy name];
-    v10 = 138412290;
-    v11 = name;
-    _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_DEFAULT, "notification=%@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = name;
+    _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_DEFAULT, "notification=%@", &v9, 0xCu);
   }
 
   pairedAccessoryServers = [(HAP2AccessoryServerBrowser *)self pairedAccessoryServers];
   [pairedAccessoryServers hmf_enumerateWithAutoreleasePoolUsingBlock:&__block_literal_global_244];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)coordinator:(id)coordinator didLoseAccessory:(id)accessory error:(id)error
@@ -229,10 +227,7 @@ uint64_t __65__HAP2AccessoryServerBrowser_coordinator_didLoseAccessory_error___b
   v6 = *(v5 + 40);
   *(v5 + 40) = v4;
 
-  v7 = [*(a1 + 32) _lookupPairedAccessoryServerWithDeviceID:*(a1 + 40)];
-  v8 = *(*(a1 + 56) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v7;
+  *(*(*(a1 + 56) + 8) + 40) = [*(a1 + 32) _lookupPairedAccessoryServerWithDeviceID:*(a1 + 40)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -308,7 +303,7 @@ void __73__HAP2AccessoryServerBrowser_coordinator_didCreatePairedAccessoryServer
   }
 }
 
-uint64_t __73__HAP2AccessoryServerBrowser_coordinator_didCreatePairedAccessoryServer___block_invoke_2(uint64_t a1)
+void *__73__HAP2AccessoryServerBrowser_coordinator_didCreatePairedAccessoryServer___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) isConfirming];
   if (result)
@@ -1355,23 +1350,23 @@ void __75__HAP2AccessoryServerBrowser_removePublicKeyForAccessoryWithID_completi
 
 void __74__HAP2AccessoryServerBrowser_savePublicKey_forAccessoryWithID_completion___block_invoke(uint64_t a1)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = WeakRetained;
   if (WeakRetained)
   {
     v4 = [WeakRetained storage];
     v5 = *(a1 + 40);
-    v13 = *(a1 + 32);
-    v14[0] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __74__HAP2AccessoryServerBrowser_savePublicKey_forAccessoryWithID_completion___block_invoke_2;
-    v10[3] = &unk_2786D4700;
-    v11 = *(a1 + 32);
-    v12 = *(a1 + 48);
-    [v4 saveKeysForIdentifiers:v6 completion:v10];
+    v12 = *(a1 + 32);
+    v13[0] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __74__HAP2AccessoryServerBrowser_savePublicKey_forAccessoryWithID_completion___block_invoke_2;
+    v9[3] = &unk_2786D4700;
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 48);
+    [v4 saveKeysForIdentifiers:v6 completion:v9];
   }
 
   else
@@ -1380,8 +1375,6 @@ void __74__HAP2AccessoryServerBrowser_savePublicKey_forAccessoryWithID_completio
     v8 = [MEMORY[0x277CCA9B8] hapErrorWithCode:2];
     (*(v7 + 16))(v7, v8);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __74__HAP2AccessoryServerBrowser_savePublicKey_forAccessoryWithID_completion___block_invoke_2(uint64_t a1, void *a2)
@@ -1413,7 +1406,7 @@ void __74__HAP2AccessoryServerBrowser_savePublicKey_forAccessoryWithID_completio
 
 void __81__HAP2AccessoryServerBrowser_retrieveLocalPairingIdentityForDeviceID_completion___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
@@ -1424,26 +1417,26 @@ void __81__HAP2AccessoryServerBrowser_retrieveLocalPairingIdentityForDeviceID_co
 
     if (HAPIsHH2Enabled_hh2Enabled == 1)
     {
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
       v3 = [WeakRetained pairedAccessoryServers];
-      v4 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v4)
       {
         v5 = v4;
-        v6 = *v18;
+        v6 = *v17;
 LABEL_7:
         v7 = 0;
         while (1)
         {
-          if (*v18 != v6)
+          if (*v17 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v17 + 1) + 8 * v7);
+          v8 = *(*(&v16 + 1) + 8 * v7);
           v9 = [v8 deviceID];
           v10 = [v9 isEqualToDeviceID:*(a1 + 32)];
 
@@ -1454,7 +1447,7 @@ LABEL_7:
 
           if (v5 == ++v7)
           {
-            v5 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+            v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
             if (v5)
             {
               goto LABEL_7;
@@ -1501,8 +1494,6 @@ LABEL_21:
   }
 
 LABEL_23:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accessoryWithDeviceIDIsPaired:(id)paired completion:(id)completion
@@ -1742,10 +1733,7 @@ void __54__HAP2AccessoryServerBrowser_unpairedAccessoryServers__block_invoke(uin
 
 uint64_t __38__HAP2AccessoryServerBrowser_delegate__block_invoke(uint64_t a1)
 {
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 16));
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = WeakRetained;
+  *(*(*(a1 + 40) + 8) + 40) = objc_loadWeakRetained((*(a1 + 32) + 16));
 
   return MEMORY[0x2821F96F8]();
 }

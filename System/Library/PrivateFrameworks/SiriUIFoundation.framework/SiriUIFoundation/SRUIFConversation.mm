@@ -31,6 +31,7 @@
 - (int64_t)presentationStateForItemAtIndexPath:(id)path;
 - (int64_t)typeForItemAtIndexPath:(id)path;
 - (void)_addItemsForAceObjects:(id)objects type:(int64_t)type aceCommandIdentifier:(id)identifier dialogPhase:(id)phase asChildrenOfItemWithIdentifier:(id)withIdentifier;
+- (void)_addItemsForAceViews:(id)views withDialogPhase:(id)phase fromCommandWithIdentifier:(id)identifier asChildrenOfItemWithIdentifier:(id)withIdentifier isSupplemental:(BOOL)supplemental isImmersiveExperience:(BOOL)experience;
 - (void)_addItemsForAceViews:(id)views withDialogPhase:(id)phase fromCommandWithIdentifier:(id)identifier atIndexPaths:(id)paths isSupplemental:(BOOL)supplemental isImmersiveExperience:(BOOL)experience;
 - (void)_enumerateItemsUsingBlock:(id)block;
 - (void)_processInsertions:(id)insertions inDialogPhase:(id)phase;
@@ -118,7 +119,7 @@
 
 - (void)_removeNodes:(id)nodes
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   if ([nodesCopy count])
   {
@@ -129,91 +130,89 @@
     aBlock[1] = 3221225472;
     aBlock[2] = __34__SRUIFConversation__removeNodes___block_invoke;
     aBlock[3] = &unk_279C62270;
-    v26 = array;
-    v39 = v26;
+    v25 = array;
+    v38 = v25;
     selfCopy = self;
     selfCopy2 = self;
-    v25 = array2;
-    v41 = v25;
-    v24 = array3;
-    v42 = v24;
+    v24 = array2;
+    v40 = v24;
+    v23 = array3;
+    v41 = v23;
     v8 = _Block_copy(aBlock);
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
-    v27 = nodesCopy;
+    v26 = nodesCopy;
     v9 = nodesCopy;
-    v10 = [v9 countByEnumeratingWithState:&v34 objects:v44 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v33 objects:v43 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v35;
+      v12 = *v34;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v35 != v12)
+          if (*v34 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v34 + 1) + 8 * i);
+          v14 = *(*(&v33 + 1) + 8 * i);
           v8[2](v8, v14);
-          v32[0] = MEMORY[0x277D85DD0];
-          v32[1] = 3221225472;
-          v32[2] = __34__SRUIFConversation__removeNodes___block_invoke_2;
-          v32[3] = &unk_279C62298;
+          v31[0] = MEMORY[0x277D85DD0];
+          v31[1] = 3221225472;
+          v31[2] = __34__SRUIFConversation__removeNodes___block_invoke_2;
+          v31[3] = &unk_279C62298;
           v15 = v8;
-          v32[4] = v14;
-          v33 = v15;
-          [v14 enumerateDescendentNodesUsingBlock:v32];
+          v31[4] = v14;
+          v32 = v15;
+          [v14 enumerateDescendentNodesUsingBlock:v31];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v34 objects:v44 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v33 objects:v43 count:16];
       }
 
       while (v11);
     }
 
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v16 = v9;
-    v17 = [v16 countByEnumeratingWithState:&v28 objects:v43 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v27 objects:v42 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v29;
+      v19 = *v28;
       do
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v29 != v19)
+          if (*v28 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          [*(*(&v28 + 1) + 8 * j) removeFromParentNode];
+          [*(*(&v27 + 1) + 8 * j) removeFromParentNode];
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v28 objects:v43 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v27 objects:v42 count:16];
       }
 
       while (v18);
     }
 
-    if ([v26 count])
+    if ([v25 count])
     {
       delegate = [(SRUIFConversation *)selfCopy2 delegate];
-      [delegate conversation:selfCopy2 didRemoveItemsWithIdentifiers:v26 atIndexPaths:v25 parentItemIdentifiers:v24];
+      [delegate conversation:selfCopy2 didRemoveItemsWithIdentifiers:v25 atIndexPaths:v24 parentItemIdentifiers:v23];
     }
 
-    nodesCopy = v27;
+    nodesCopy = v26;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __34__SRUIFConversation__removeNodes___block_invoke(uint64_t a1, void *a2)
@@ -361,7 +360,7 @@ LABEL_6:
 
 - (void)_processInsertions:(id)insertions inDialogPhase:(id)phase
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   insertionsCopy = insertions;
   phaseCopy = phase;
   v7 = MEMORY[0x277CEF098];
@@ -372,9 +371,9 @@ LABEL_6:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v61 = "[SRUIFConversation _processInsertions:inDialogPhase:]";
-      v62 = 2112;
-      v63 = phaseCopy;
+      v60 = "[SRUIFConversation _processInsertions:inDialogPhase:]";
+      v61 = 2112;
+      v62 = phaseCopy;
       _os_log_impl(&dword_26951F000, v8, OS_LOG_TYPE_DEFAULT, "%s No dialog phase provided for conversation insertions; defaulting to %@", buf, 0x16u);
     }
   }
@@ -389,56 +388,56 @@ LABEL_6:
     v9 = 1;
   }
 
-  v38 = v9;
+  v37 = v9;
   orderedSet = [MEMORY[0x277CBEB40] orderedSet];
   orderedSet2 = [MEMORY[0x277CBEB40] orderedSet];
   orderedSet3 = [MEMORY[0x277CBEB40] orderedSet];
   orderedSet4 = [MEMORY[0x277CBEB40] orderedSet];
   strongToStrongObjectsMapTable = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
-  v57[0] = MEMORY[0x277D85DD0];
-  v57[1] = 3221225472;
-  v57[2] = __54__SRUIFConversation__processInsertions_inDialogPhase___block_invoke;
-  v57[3] = &unk_279C62310;
+  v56[0] = MEMORY[0x277D85DD0];
+  v56[1] = 3221225472;
+  v56[2] = __54__SRUIFConversation__processInsertions_inDialogPhase___block_invoke;
+  v56[3] = &unk_279C62310;
   selfCopy = self;
-  v57[4] = self;
+  v56[4] = self;
   v13 = strongToStrongObjectsMapTable;
-  v58 = v13;
-  [insertionsCopy enumerateObjectsUsingBlock:v57];
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
+  v57 = v13;
+  [insertionsCopy enumerateObjectsUsingBlock:v56];
   v54 = 0u;
-  v39 = v13;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
+  v38 = v13;
   obj = [v13 keyEnumerator];
-  v14 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
+  v14 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v54;
+    v16 = *v53;
     do
     {
       v17 = 0;
       do
       {
-        if (*v54 != v16)
+        if (*v53 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v53 + 1) + 8 * v17);
-        v19 = [v39 objectForKey:v18];
+        v18 = *(*(&v52 + 1) + 8 * v17);
+        v19 = [v38 objectForKey:v18];
         v20 = [insertionsCopy sruif_arrayByMappingWithBlock:&__block_literal_global_2];
         if (([phaseCopy isExpository] & 1) == 0 && (objc_msgSend(phaseCopy, "isConfirmedDialogPhase") & 1) == 0 && ((objc_msgSend(v20, "containsObject:", &unk_287A18C00) & 1) != 0 || (objc_msgSend(v20, "containsObject:", &unk_287A18C18) & 1) != 0 || objc_msgSend(v20, "containsObject:", &unk_287A18C30)) && -[SRUIFConversation _nodeContainsProvisionalItems:](selfCopy, "_nodeContainsProvisionalItems:", v18))
         {
           if (([phaseCopy isConfirmationDialogPhase] & 1) != 0 || objc_msgSend(phaseCopy, "isClarificationDialogPhase"))
           {
-            v51[0] = MEMORY[0x277D85DD0];
-            v51[1] = 3221225472;
-            v51[2] = __54__SRUIFConversation__processInsertions_inDialogPhase___block_invoke_18;
-            v51[3] = &unk_279C62358;
-            v52 = orderedSet3;
-            [v18 enumerateChildNodesUsingBlock:v51];
-            v21 = &v52;
+            v50[0] = MEMORY[0x277D85DD0];
+            v50[1] = 3221225472;
+            v50[2] = __54__SRUIFConversation__processInsertions_inDialogPhase___block_invoke_18;
+            v50[3] = &unk_279C62358;
+            v51 = orderedSet3;
+            [v18 enumerateChildNodesUsingBlock:v50];
+            v21 = &v51;
           }
 
           else
@@ -448,44 +447,44 @@ LABEL_6:
               goto LABEL_23;
             }
 
-            v49[0] = MEMORY[0x277D85DD0];
-            v49[1] = 3221225472;
-            v49[2] = __54__SRUIFConversation__processInsertions_inDialogPhase___block_invoke_2_19;
-            v49[3] = &unk_279C62358;
-            v50 = orderedSet4;
-            [v18 enumerateChildNodesWithOptions:2 usingBlock:v49];
-            v21 = &v50;
+            v48[0] = MEMORY[0x277D85DD0];
+            v48[1] = 3221225472;
+            v48[2] = __54__SRUIFConversation__processInsertions_inDialogPhase___block_invoke_2_19;
+            v48[3] = &unk_279C62358;
+            v49 = orderedSet4;
+            [v18 enumerateChildNodesWithOptions:2 usingBlock:v48];
+            v21 = &v49;
           }
         }
 
 LABEL_23:
         if (([v20 containsObject:&unk_287A18C00] & 1) != 0 || objc_msgSend(v20, "containsObject:", &unk_287A18C18))
         {
-          v47[0] = MEMORY[0x277D85DD0];
-          v47[1] = 3221225472;
-          v47[2] = __54__SRUIFConversation__processInsertions_inDialogPhase___block_invoke_3;
-          v47[3] = &unk_279C62358;
-          v48 = orderedSet3;
-          [v18 enumerateChildNodesUsingBlock:v47];
+          v46[0] = MEMORY[0x277D85DD0];
+          v46[1] = 3221225472;
+          v46[2] = __54__SRUIFConversation__processInsertions_inDialogPhase___block_invoke_3;
+          v46[3] = &unk_279C62358;
+          v47 = orderedSet3;
+          [v18 enumerateChildNodesUsingBlock:v46];
         }
 
-        v42[0] = MEMORY[0x277D85DD0];
-        v42[1] = 3221225472;
-        v42[2] = __54__SRUIFConversation__processInsertions_inDialogPhase___block_invoke_4;
-        v42[3] = &unk_279C62380;
-        v42[4] = selfCopy;
-        v42[5] = v18;
-        v43 = phaseCopy;
-        v46 = v38;
-        v44 = orderedSet2;
-        v45 = orderedSet;
-        [v19 enumerateObjectsUsingBlock:v42];
+        v41[0] = MEMORY[0x277D85DD0];
+        v41[1] = 3221225472;
+        v41[2] = __54__SRUIFConversation__processInsertions_inDialogPhase___block_invoke_4;
+        v41[3] = &unk_279C62380;
+        v41[4] = selfCopy;
+        v41[5] = v18;
+        v42 = phaseCopy;
+        v45 = v37;
+        v43 = orderedSet2;
+        v44 = orderedSet;
+        [v19 enumerateObjectsUsingBlock:v41];
 
         ++v17;
       }
 
       while (v15 != v17);
-      v22 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
+      v22 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
       v15 = v22;
     }
 
@@ -539,13 +538,11 @@ LABEL_23:
     v32 = v31;
     _rootNode = [(SRUIFConversation *)v27 _rootNode];
     *buf = 136315394;
-    v61 = "[SRUIFConversation _processInsertions:inDialogPhase:]";
-    v62 = 2112;
-    v63 = _rootNode;
+    v60 = "[SRUIFConversation _processInsertions:inDialogPhase:]";
+    v61 = 2112;
+    v62 = _rootNode;
     _os_log_impl(&dword_26951F000, v32, OS_LOG_TYPE_DEFAULT, "%s rootNode=%@", buf, 0x16u);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __54__SRUIFConversation__processInsertions_inDialogPhase___block_invoke(uint64_t a1, void *a2)
@@ -630,7 +627,7 @@ void __54__SRUIFConversation__processInsertions_inDialogPhase___block_invoke_3(u
 
 void __54__SRUIFConversation__processInsertions_inDialogPhase___block_invoke_4(uint64_t a1, void *a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 indexPath];
   v5 = [v3 aceObject];
@@ -645,9 +642,9 @@ void __54__SRUIFConversation__processInsertions_inDialogPhase___block_invoke_4(u
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v34 = "[SRUIFConversation _processInsertions:inDialogPhase:]_block_invoke_4";
-    v35 = 2112;
-    v36 = v5;
+    v33 = "[SRUIFConversation _processInsertions:inDialogPhase:]_block_invoke_4";
+    v34 = 2112;
+    v35 = v5;
     _os_log_impl(&dword_26951F000, v12, OS_LOG_TYPE_INFO, "%s ACE object: %@", buf, 0x16u);
   }
 
@@ -659,13 +656,13 @@ void __54__SRUIFConversation__processInsertions_inDialogPhase___block_invoke_4(u
     {
       v15 = *(a1 + 32);
       *buf = 136315906;
-      v34 = "[SRUIFConversation _processInsertions:inDialogPhase:]_block_invoke";
-      v35 = 2112;
-      v36 = v15;
-      v37 = 2112;
-      v38 = v13;
-      v39 = 2112;
-      v40 = v4;
+      v33 = "[SRUIFConversation _processInsertions:inDialogPhase:]_block_invoke";
+      v34 = 2112;
+      v35 = v15;
+      v36 = 2112;
+      v37 = v13;
+      v38 = 2112;
+      v39 = v4;
       _os_log_impl(&dword_26951F000, v14, OS_LOG_TYPE_DEFAULT, "%s %@: updating item %@ at %@ from ACE object.", buf, 0x2Au);
     }
 
@@ -686,22 +683,22 @@ void __54__SRUIFConversation__processInsertions_inDialogPhase___block_invoke_4(u
     v16 = v5;
     v17 = v4;
     v18 = [SRUIFMutableConversationItem alloc];
-    v32 = v7;
+    v31 = v7;
     v19 = *(a1 + 48);
-    v31 = *(a1 + 72);
+    v30 = *(a1 + 72);
     v20 = objc_alloc_init(SRUIFDataStore);
     v21 = v9;
     v22 = v20;
-    v30 = v20;
-    BYTE2(v29) = v10;
-    BYTE1(v29) = v21;
-    LOBYTE(v29) = v8;
+    v29 = v20;
+    BYTE2(v28) = v10;
+    BYTE1(v28) = v21;
+    LOBYTE(v28) = v8;
     v23 = v18;
     v4 = v17;
     v5 = v16;
     v24 = v19;
-    v7 = v32;
-    v25 = [SRUIFMutableConversationItem initWithType:v23 aceObject:"initWithType:aceObject:dialogPhase:presentationState:aceCommandIdentifier:virgin:transient:supplemental:immersiveExperience:associatedDataStore:" dialogPhase:v6 presentationState:v16 aceCommandIdentifier:v24 virgin:v31 transient:v32 supplemental:1 immersiveExperience:v29 associatedDataStore:v30];
+    v7 = v31;
+    v25 = [SRUIFMutableConversationItem initWithType:v23 aceObject:"initWithType:aceObject:dialogPhase:presentationState:aceCommandIdentifier:virgin:transient:supplemental:immersiveExperience:associatedDataStore:" dialogPhase:v6 presentationState:v16 aceCommandIdentifier:v24 virgin:v30 transient:v31 supplemental:1 immersiveExperience:v28 associatedDataStore:v29];
 
     [(SRUIFTreeNode *)v13 setItem:v25];
     v26 = *MEMORY[0x277CEF098];
@@ -709,13 +706,13 @@ void __54__SRUIFConversation__processInsertions_inDialogPhase___block_invoke_4(u
     {
       v27 = *(a1 + 32);
       *buf = 136315906;
-      v34 = "[SRUIFConversation _processInsertions:inDialogPhase:]_block_invoke";
-      v35 = 2112;
-      v36 = v27;
-      v37 = 2112;
-      v38 = v25;
-      v39 = 2112;
-      v40 = v4;
+      v33 = "[SRUIFConversation _processInsertions:inDialogPhase:]_block_invoke";
+      v34 = 2112;
+      v35 = v27;
+      v36 = 2112;
+      v37 = v25;
+      v38 = 2112;
+      v39 = v4;
       _os_log_impl(&dword_26951F000, v26, OS_LOG_TYPE_DEFAULT, "%s %@: adding new item %@ at %@ for ACE object.", buf, 0x2Au);
     }
 
@@ -723,8 +720,6 @@ void __54__SRUIFConversation__processInsertions_inDialogPhase___block_invoke_4(u
 
     v11 = 0;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addItemsForAceViews:(id)views withDialogPhase:(id)phase fromCommandWithIdentifier:(id)identifier atIndexPaths:(id)paths isSupplemental:(BOOL)supplemental isImmersiveExperience:(BOOL)experience
@@ -787,6 +782,19 @@ void __134__SRUIFConversation__addItemsForAceViews_withDialogPhase_fromCommandWi
   return v7;
 }
 
+- (void)_addItemsForAceViews:(id)views withDialogPhase:(id)phase fromCommandWithIdentifier:(id)identifier asChildrenOfItemWithIdentifier:(id)withIdentifier isSupplemental:(BOOL)supplemental isImmersiveExperience:(BOOL)experience
+{
+  experienceCopy = experience;
+  supplementalCopy = supplemental;
+  withIdentifierCopy = withIdentifier;
+  identifierCopy = identifier;
+  phaseCopy = phase;
+  viewsCopy = views;
+  v18 = -[SRUIFConversation _indexPathsForAddingItemsWithCount:asChildrenOfItemWithIdentifier:](self, "_indexPathsForAddingItemsWithCount:asChildrenOfItemWithIdentifier:", [viewsCopy count], withIdentifierCopy);
+
+  [(SRUIFConversation *)self _addItemsForAceViews:viewsCopy withDialogPhase:phaseCopy fromCommandWithIdentifier:identifierCopy atIndexPaths:v18 isSupplemental:supplementalCopy isImmersiveExperience:experienceCopy];
+}
+
 - (void)addItemsForAddViewsCommand:(id)command
 {
   commandCopy = command;
@@ -835,22 +843,22 @@ SRUIFConversationInsertion *__113__SRUIFConversation__addItemsForAceObjects_type
 
 - (void)addItemForSpeechRecognizedCommand:(id)command
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   commandCopy = command;
   array = [MEMORY[0x277CBEB18] array];
   refId = [commandCopy refId];
   _rootNode = [(SRUIFConversation *)self _rootNode];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __55__SRUIFConversation_addItemForSpeechRecognizedCommand___block_invoke;
-  v15[3] = &unk_279C623F8;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __55__SRUIFConversation_addItemForSpeechRecognizedCommand___block_invoke;
+  v14[3] = &unk_279C623F8;
   v8 = refId;
-  v16 = v8;
+  v15 = v8;
   v9 = commandCopy;
-  v17 = v9;
+  v16 = v9;
   v10 = array;
-  v18 = v10;
-  [_rootNode enumerateDescendentNodesUsingBlock:v15];
+  v17 = v10;
+  [_rootNode enumerateDescendentNodesUsingBlock:v14];
 
   if ([v10 count])
   {
@@ -859,14 +867,12 @@ SRUIFConversationInsertion *__113__SRUIFConversation__addItemsForAceObjects_type
 
   else
   {
-    v19[0] = v9;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v18[0] = v9;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
     aceId = [v9 aceId];
     v13 = +[SRUIFDialogPhase userRequestDialogPhase];
     [(SRUIFConversation *)self _addItemsForAceObjects:v11 type:1 aceCommandIdentifier:aceId dialogPhase:v13 asChildrenOfItemWithIdentifier:0];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __55__SRUIFConversation_addItemForSpeechRecognizedCommand___block_invoke(void *a1, void *a2)
@@ -991,22 +997,22 @@ void __61__SRUIFConversation_addAdditionalSpeechInterpretation_refId___block_inv
 
 - (void)addItemForPartialResultCommand:(id)command
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   commandCopy = command;
   array = [MEMORY[0x277CBEB18] array];
   refId = [commandCopy refId];
   _rootNode = [(SRUIFConversation *)self _rootNode];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __52__SRUIFConversation_addItemForPartialResultCommand___block_invoke;
-  v15[3] = &unk_279C623F8;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __52__SRUIFConversation_addItemForPartialResultCommand___block_invoke;
+  v14[3] = &unk_279C623F8;
   v8 = refId;
-  v16 = v8;
+  v15 = v8;
   v9 = commandCopy;
-  v17 = v9;
+  v16 = v9;
   v10 = array;
-  v18 = v10;
-  [_rootNode enumerateDescendentNodesUsingBlock:v15];
+  v17 = v10;
+  [_rootNode enumerateDescendentNodesUsingBlock:v14];
 
   if ([v10 count])
   {
@@ -1015,14 +1021,12 @@ void __61__SRUIFConversation_addAdditionalSpeechInterpretation_refId___block_inv
 
   else
   {
-    v19[0] = v9;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v18[0] = v9;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
     aceId = [v9 aceId];
     v13 = +[SRUIFDialogPhase userRequestDialogPhase];
     [(SRUIFConversation *)self _addItemsForAceObjects:v11 type:2 aceCommandIdentifier:aceId dialogPhase:v13 asChildrenOfItemWithIdentifier:0];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __52__SRUIFConversation_addItemForPartialResultCommand___block_invoke(void *a1, void *a2)
@@ -1080,7 +1084,7 @@ void __52__SRUIFConversation_addItemForPartialResultCommand___block_invoke(void 
 
 - (void)addItemForMusicStartSessionCommand:(id)command
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   v4 = MEMORY[0x277CBEA60];
   commandCopy2 = command;
@@ -1089,12 +1093,11 @@ void __52__SRUIFConversation_addItemForPartialResultCommand___block_invoke(void 
   v8 = +[SRUIFDialogPhase reflectionDialogPhase];
 
   [(SRUIFConversation *)self _addItemsForAceObjects:v6 type:5 aceCommandIdentifier:aceId dialogPhase:v8 asChildrenOfItemWithIdentifier:0];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addSelectionResponse:(id)response
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   v4 = MEMORY[0x277CBEA60];
   responseCopy2 = response;
@@ -1102,57 +1105,55 @@ void __52__SRUIFConversation_addItemForPartialResultCommand___block_invoke(void 
   v7 = [SRUIFDialogPhase userRequestDialogPhase:responseCopy];
 
   [(SRUIFConversation *)self addItemsForAceViews:v6 withDialogPhase:v7 asChildrenOfItemWithIdentifier:0];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithUpdateViewsCommand:(id)command
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   array = [MEMORY[0x277CBEB18] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v13 = commandCopy;
+  v12 = commandCopy;
   obj = [commandCopy views];
-  v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       v9 = 0;
       do
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * v9);
+        v10 = *(*(&v16 + 1) + 8 * v9);
         _rootNode = [(SRUIFConversation *)self _rootNode];
-        v15[0] = MEMORY[0x277D85DD0];
-        v15[1] = 3221225472;
-        v15[2] = __50__SRUIFConversation_updateWithUpdateViewsCommand___block_invoke;
-        v15[3] = &unk_279C62420;
-        v15[4] = v10;
-        v16 = array;
-        [_rootNode enumerateDescendentNodesUsingBlock:v15];
+        v14[0] = MEMORY[0x277D85DD0];
+        v14[1] = 3221225472;
+        v14[2] = __50__SRUIFConversation_updateWithUpdateViewsCommand___block_invoke;
+        v14[3] = &unk_279C62420;
+        v14[4] = v10;
+        v15 = array;
+        [_rootNode enumerateDescendentNodesUsingBlock:v14];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
 
   [(SRUIFConversation *)self notifyDelegateOfUpdates:array inserts:0 presentationChanges:0];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __50__SRUIFConversation_updateWithUpdateViewsCommand___block_invoke(uint64_t a1, void *a2)
@@ -1178,86 +1179,84 @@ void __50__SRUIFConversation_updateWithUpdateViewsCommand___block_invoke(uint64_
 
 - (void)removeItemsWithIdentifiers:(id)identifiers
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(identifiersCopy, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v6 = identifiersCopy;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(SRUIFConversation *)self indexPathForItemWithIdentifier:*(*(&v13 + 1) + 8 * v10), v13];
+        v11 = [(SRUIFConversation *)self indexPathForItemWithIdentifier:*(*(&v12 + 1) + 8 * v10), v12];
         [v5 addObject:v11];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
 
   [(SRUIFConversation *)self removeItemsAtIndexPaths:v5];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeItemsAtIndexPaths:(id)paths
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(pathsCopy, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v6 = pathsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(SRUIFConversation *)self _nodeAtIndexPath:*(*(&v13 + 1) + 8 * v10), v13];
+        v11 = [(SRUIFConversation *)self _nodeAtIndexPath:*(*(&v12 + 1) + 8 * v10), v12];
         [v5 addObject:v11];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
 
   [(SRUIFConversation *)self _removeNodes:v5];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeItemsFollowingItemAtIndexPath:(id)path
@@ -1281,11 +1280,11 @@ void __50__SRUIFConversation_updateWithUpdateViewsCommand___block_invoke(uint64_
   }
 }
 
-uint64_t __57__SRUIFConversation_removeItemsFollowingItemAtIndexPath___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, _BYTE *a4)
+id *__57__SRUIFConversation_removeItemsFollowingItemAtIndexPath___block_invoke(id *result, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  if (*(result + 40) < a3)
+  if (result[5] < a3)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:{a2, a4}];
   }
 
   *a4 = 1;
@@ -1319,18 +1318,16 @@ void __41__SRUIFConversation_removeTransientItems__block_invoke(uint64_t a1, voi
 
 - (void)cancelItemWithIdentifier:(id)identifier
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v4 = [(SRUIFConversation *)self _indexPathForItemWithIdentifier:identifier ignoreNonExistent:0];
   v5 = [(SRUIFConversation *)self _itemAtIndexPath:v4];
   if ([v5 presentationState] != 3)
   {
     [v5 setPresentationState:3];
-    v8[0] = v4;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = v4;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
     [(SRUIFConversation *)self notifyDelegateOfUpdates:0 inserts:0 presentationChanges:v6];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)containsItemWithIdentifier:(id)identifier
@@ -1674,31 +1671,31 @@ void __51__SRUIFConversation__nodeContainsProvisionalItems___block_invoke(uint64
 
 - (id)_changePresentationStateForNodes:(id)nodes
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   array = [MEMORY[0x277CBEB18] array];
   if ([nodesCopy count])
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v5 = nodesCopy;
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * i);
+          v10 = *(*(&v14 + 1) + 8 * i);
           parentNode = [v10 parentNode];
 
           if (parentNode)
@@ -1708,14 +1705,12 @@ void __51__SRUIFConversation__nodeContainsProvisionalItems___block_invoke(uint64
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -1745,7 +1740,7 @@ void __51__SRUIFConversation__nodeContainsProvisionalItems___block_invoke(uint64
 
 - (SRUIFConversation)initWithPropertyListRepresentation:(id)representation
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   v5 = objc_alloc_init(SRUIFDictionarySchema);
   v6 = +[SRUIFCoercion stringToUUIDCoercion];
@@ -1763,9 +1758,9 @@ void __51__SRUIFConversation__nodeContainsProvisionalItems___block_invoke(uint64
   v10 = [[SRUIFCoercion alloc] initWithBlock:&__block_literal_global_57];
   [(SRUIFDictionarySchema *)v5 setObjectCoercion:v10 forKey:@"RootNode"];
 
-  v28 = 0;
-  v11 = [(SRUIFDictionarySchema *)v5 coerceObject:representationCopy error:&v28];
-  v12 = v28;
+  v27 = 0;
+  v11 = [(SRUIFDictionarySchema *)v5 coerceObject:representationCopy error:&v27];
+  v12 = v27;
   if (!v11)
   {
     v24 = *MEMORY[0x277CEF098];
@@ -1807,16 +1802,15 @@ LABEL_10:
     v21 = v20;
     _rootNode = [(SRUIFConversation *)self _rootNode];
     *buf = 136315394;
-    v30 = "[SRUIFConversation initWithPropertyListRepresentation:]";
-    v31 = 2112;
-    v32 = _rootNode;
+    v29 = "[SRUIFConversation initWithPropertyListRepresentation:]";
+    v30 = 2112;
+    v31 = _rootNode;
     _os_log_impl(&dword_26951F000, v21, OS_LOG_TYPE_DEFAULT, "%s rootNode=%@", buf, 0x16u);
   }
 
   selfCopy = self;
 LABEL_11:
 
-  v26 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -1901,38 +1895,34 @@ SRUIFMutableConversationItem *__56__SRUIFConversation_initWithPropertyListRepres
 
 - (void)addAdditionalSpeechInterpretation:(os_log_t)log refId:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[SRUIFConversation addAdditionalSpeechInterpretation:refId:]";
-  _os_log_error_impl(&dword_26951F000, log, OS_LOG_TYPE_ERROR, "%s Unable to add additional speech interpretation, invalid refId", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[SRUIFConversation addAdditionalSpeechInterpretation:refId:]";
+  _os_log_error_impl(&dword_26951F000, log, OS_LOG_TYPE_ERROR, "%s Unable to add additional speech interpretation, invalid refId", &v1, 0xCu);
 }
 
 - (void)initWithPropertyListRepresentation:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[SRUIFConversation initWithPropertyListRepresentation:]";
-  v5 = 2050;
-  v6 = a1;
-  _os_log_error_impl(&dword_26951F000, a2, OS_LOG_TYPE_ERROR, "%s Unable to create conversation from property list with version %{public}ld", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[SRUIFConversation initWithPropertyListRepresentation:]";
+  v4 = 2050;
+  v5 = a1;
+  _os_log_error_impl(&dword_26951F000, a2, OS_LOG_TYPE_ERROR, "%s Unable to create conversation from property list with version %{public}ld", &v2, 0x16u);
 }
 
 - (void)initWithPropertyListRepresentation:(uint64_t)a3 .cold.2(void *a1, void *a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 localizedFailureReason];
-  v8 = 136315650;
-  v9 = "[SRUIFConversation initWithPropertyListRepresentation:]";
-  v10 = 2112;
-  v11 = v6;
-  v12 = 2114;
-  v13 = a3;
-  _os_log_error_impl(&dword_26951F000, v5, OS_LOG_TYPE_ERROR, "%s passed invalid property list (%@): %{public}@", &v8, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 136315650;
+  v8 = "[SRUIFConversation initWithPropertyListRepresentation:]";
+  v9 = 2112;
+  v10 = v6;
+  v11 = 2114;
+  v12 = a3;
+  _os_log_error_impl(&dword_26951F000, v5, OS_LOG_TYPE_ERROR, "%s passed invalid property list (%@): %{public}@", &v7, 0x20u);
 }
 
 @end

@@ -41,13 +41,13 @@
 
 - (HDXPCProcess)initWithAuditToken:(id)token entitlements:(id)entitlements isExtension:(BOOL)extension containerAppBundleIdentifier:(id)identifier
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   entitlementsCopy = entitlements;
   identifierCopy = identifier;
-  v32.receiver = self;
-  v32.super_class = HDXPCProcess;
-  v13 = [(HDXPCProcess *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = HDXPCProcess;
+  v13 = [(HDXPCProcess *)&v31 init];
   if (!v13)
   {
     goto LABEL_19;
@@ -75,7 +75,7 @@
     memset(&audittoken, 0, sizeof(audittoken));
     if (v16)
     {
-      [v16 auditToken];
+      objc_msgSend_auditToken(v16);
     }
 
     v19 = proc_pidpath_audittoken(&audittoken, buffer, 0x400u);
@@ -101,7 +101,7 @@ LABEL_12:
   v22 = MEMORY[0x277CCDE78];
   if (v16)
   {
-    [v16 auditToken];
+    objc_msgSend_auditToken(v16);
   }
 
   else
@@ -131,60 +131,55 @@ LABEL_12:
   v13->_containerAppBundleIdentifier = v28;
 
 LABEL_19:
-  v30 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (BOOL)isWidgetKitExtension
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (self->_isExtension)
+  v13 = *MEMORY[0x277D85DE8];
+  if (!self->_isExtension)
   {
-    _pluginBundleForCurrentProcess = [(HDXPCProcess *)self _pluginBundleForCurrentProcess];
-    v4 = _pluginBundleForCurrentProcess;
-    if (_pluginBundleForCurrentProcess)
-    {
-      hk_extensionPointIdentifier = [_pluginBundleForCurrentProcess hk_extensionPointIdentifier];
-      v6 = hk_extensionPointIdentifier;
-      if (hk_extensionPointIdentifier)
-      {
-        v7 = [hk_extensionPointIdentifier isEqualToString:@"com.apple.widgetkit-extension"];
-      }
+    return 0;
+  }
 
-      else
-      {
-        _HKInitializeLogging();
-        v9 = *MEMORY[0x277CCC2B0];
-        v7 = 0;
-        if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEFAULT))
-        {
-          v12 = 138543362;
-          selfCopy = self;
-          _os_log_impl(&dword_25156C000, v9, OS_LOG_TYPE_DEFAULT, "Bundle extension point not found for process: %{public}@", &v12, 0xCu);
-          v7 = 0;
-        }
-      }
+  _pluginBundleForCurrentProcess = [(HDXPCProcess *)self _pluginBundleForCurrentProcess];
+  v4 = _pluginBundleForCurrentProcess;
+  if (_pluginBundleForCurrentProcess)
+  {
+    hk_extensionPointIdentifier = [_pluginBundleForCurrentProcess hk_extensionPointIdentifier];
+    v6 = hk_extensionPointIdentifier;
+    if (hk_extensionPointIdentifier)
+    {
+      v7 = [hk_extensionPointIdentifier isEqualToString:@"com.apple.widgetkit-extension"];
     }
 
     else
     {
       _HKInitializeLogging();
-      v8 = *MEMORY[0x277CCC2B0];
-      if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEBUG))
-      {
-        [(HDXPCProcess *)self isWidgetKitExtension];
-      }
-
+      v9 = *MEMORY[0x277CCC2B0];
       v7 = 0;
+      if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEFAULT))
+      {
+        v11 = 138543362;
+        selfCopy = self;
+        _os_log_impl(&dword_25156C000, v9, OS_LOG_TYPE_DEFAULT, "Bundle extension point not found for process: %{public}@", &v11, 0xCu);
+        v7 = 0;
+      }
     }
   }
 
   else
   {
+    _HKInitializeLogging();
+    v8 = *MEMORY[0x277CCC2B0];
+    if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEBUG))
+    {
+      [(HDXPCProcess *)self isWidgetKitExtension];
+    }
+
     v7 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -236,7 +231,7 @@ LABEL_19:
     v12 = objc_alloc(MEMORY[0x277CCDE78]);
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
     else
@@ -396,22 +391,20 @@ LABEL_19:
 
 - (void)isWidgetKitExtension
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_debug_impl(&dword_25156C000, a2, OS_LOG_TYPE_DEBUG, "Plugin bundle not found for process: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25156C000, a2, OS_LOG_TYPE_DEBUG, "Plugin bundle not found for process: %{public}@", &v2, 0xCu);
 }
 
 - (void)_pluginBundleForCurrentProcess
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
   selfCopy = self;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_debug_impl(&dword_25156C000, log, OS_LOG_TYPE_DEBUG, "%{public}@: Retrieved plugin bundle info (%{public}@)", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = 2114;
+  v6 = a2;
+  _os_log_debug_impl(&dword_25156C000, log, OS_LOG_TYPE_DEBUG, "%{public}@: Retrieved plugin bundle info (%{public}@)", &v3, 0x16u);
 }
 
 @end

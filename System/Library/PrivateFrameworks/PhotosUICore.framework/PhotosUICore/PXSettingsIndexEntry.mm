@@ -61,11 +61,11 @@ void __88___PXSettingsIndexEntry__revealInTopOfSettingsController_drillIn_withCo
   [v2 animateWithDuration:v3 animations:0.2];
 }
 
-uint64_t __83___PXSettingsIndexEntry__revealInSettingsController_drillIn_withCompletionHandler___block_invoke(uint64_t result, int a2)
+id *__83___PXSettingsIndexEntry__revealInSettingsController_drillIn_withCompletionHandler___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _revealInTopOfSettingsController:*(result + 40) drillIn:*(result + 56) withCompletionHandler:*(result + 48)];
+    return [result[4] _revealInTopOfSettingsController:result[5] drillIn:*(result + 56) withCompletionHandler:result[6]];
   }
 
   return result;

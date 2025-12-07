@@ -2,6 +2,9 @@
 - (CRAccNavInfo)initWithCoder:(id)coder;
 - (CRAccNavInfo)initWithComponent:(id)component accNavInfo:(id)info;
 - (id)description;
+- (id)valueForInfoType:(unsigned __int16)type;
+- (unsigned)uint16ForInfoType:(unsigned __int16)type;
+- (unsigned)uint8ForInfoType:(unsigned __int16)type;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -37,6 +40,53 @@
   }
 
   return v8;
+}
+
+- (id)valueForInfoType:(unsigned __int16)type
+{
+  typeCopy = type;
+  accNavInfo = [(CRAccNavInfo *)self accNavInfo];
+  v5 = [accNavInfo copyInfo:typeCopy];
+
+  return v5;
+}
+
+- (unsigned)uint8ForInfoType:(unsigned __int16)type
+{
+  typeCopy = type;
+  objc_opt_class();
+  v5 = [(CRAccNavInfo *)self valueForInfoType:typeCopy];
+  if (v5 && (objc_opt_isKindOfClass() & 1) != 0)
+  {
+    v6 = v5;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  unsignedCharValue = [v6 unsignedCharValue];
+  return unsignedCharValue;
+}
+
+- (unsigned)uint16ForInfoType:(unsigned __int16)type
+{
+  typeCopy = type;
+  objc_opt_class();
+  v5 = [(CRAccNavInfo *)self valueForInfoType:typeCopy];
+  if (v5 && (objc_opt_isKindOfClass() & 1) != 0)
+  {
+    v6 = v5;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  unsignedShortValue = [v6 unsignedShortValue];
+  return unsignedShortValue;
 }
 
 - (void)encodeWithCoder:(id)coder

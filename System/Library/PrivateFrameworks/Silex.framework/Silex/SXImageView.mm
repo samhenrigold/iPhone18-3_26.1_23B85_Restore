@@ -1133,7 +1133,7 @@ LABEL_14:
   dispatch_async(MEMORY[0x1E69E96A0], v4);
 }
 
-uint64_t __63__SXImageView_animatedImage_madeImageAvailableForFrameAtIndex___block_invoke(uint64_t a1)
+void *__63__SXImageView_animatedImage_madeImageAvailableForFrameAtIndex___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) intendedFrameIndex];
   if (result == *(a1 + 40))

@@ -1,3 +1,6420 @@
+uint64_t destroy for Stack3(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a2 + 16);
+  v13 = *(v3 - 8);
+  v4 = *(v13 + 48);
+  if (!v4(a1, 1, v3))
+  {
+    (*(v13 + 8))(a1, v3);
+  }
+
+  if (*(v13 + 84))
+  {
+    v5 = *(v13 + 64);
+  }
+
+  else
+  {
+    v5 = *(v13 + 64) + 1;
+  }
+
+  v6 = *(v13 + 80);
+  v7 = v5 + v6;
+  v8 = ~v6;
+  v9 = (v5 + v6 + a1) & ~v6;
+  if (!v4(v9, 1, v3))
+  {
+    (*(v13 + 8))(v9, v3);
+  }
+
+  v10 = v7 + v9;
+  result = (v4)(v10 & v8, 1, v3);
+  if (!result)
+  {
+    v12 = *(v13 + 8);
+
+    return v12(v10 & v8, v3);
+  }
+
+  return result;
+}
+
+void *initializeWithCopy for Stack3(void *a1, const void *a2, uint64_t a3)
+{
+  v5 = *(a3 + 16);
+  v6 = *(v5 - 8);
+  v7 = *(v6 + 48);
+  if (v7(a2, 1, v5))
+  {
+    v8 = *(v6 + 84);
+    v9 = *(v6 + 64);
+    if (v8)
+    {
+      v10 = *(v6 + 64);
+    }
+
+    else
+    {
+      v10 = v9 + 1;
+    }
+
+    memcpy(a1, a2, v10);
+  }
+
+  else
+  {
+    (*(v6 + 16))(a1, a2, v5);
+    (*(v6 + 56))(a1, 0, 1, v5);
+    v8 = *(v6 + 84);
+    v9 = *(v6 + 64);
+  }
+
+  if (v8)
+  {
+    v11 = v9;
+  }
+
+  else
+  {
+    v11 = v9 + 1;
+  }
+
+  v12 = *(v6 + 80);
+  v13 = v11 + v12;
+  v14 = ~v12;
+  v15 = ((a1 + v11 + v12) & ~v12);
+  v16 = ((a2 + v11 + v12) & ~v12);
+  if (v7(v16, 1, v5))
+  {
+    memcpy(v15, v16, v11);
+  }
+
+  else
+  {
+    (*(v6 + 16))(v15, v16, v5);
+    (*(v6 + 56))(v15, 0, 1, v5);
+  }
+
+  v17 = &v15[v13];
+  v18 = &v16[v13];
+  if (v7((v18 & v14), 1, v5))
+  {
+    memcpy((v17 & v14), (v18 & v14), v11);
+  }
+
+  else
+  {
+    (*(v6 + 16))(v17 & v14, v18 & v14, v5);
+    (*(v6 + 56))(v17 & v14, 0, 1, v5);
+  }
+
+  return a1;
+}
+
+void *assignWithCopy for Stack3(void *a1, void *a2, uint64_t a3)
+{
+  v5 = *(a3 + 16);
+  v6 = *(v5 - 8);
+  v7 = *(v6 + 48);
+  v8 = v7(a1, 1, v5);
+  v9 = v7(a2, 1, v5);
+  if (v8)
+  {
+    if (!v9)
+    {
+      (*(v6 + 16))(a1, a2, v5);
+      (*(v6 + 56))(a1, 0, 1, v5);
+      goto LABEL_12;
+    }
+
+    v10 = *(v6 + 84);
+    v11 = *(v6 + 64);
+  }
+
+  else
+  {
+    if (!v9)
+    {
+      (*(v6 + 24))(a1, a2, v5);
+      goto LABEL_12;
+    }
+
+    (*(v6 + 8))(a1, v5);
+    v10 = *(v6 + 84);
+    v11 = *(v6 + 64);
+  }
+
+  if (v10)
+  {
+    v12 = v11;
+  }
+
+  else
+  {
+    v12 = v11 + 1;
+  }
+
+  memcpy(a1, a2, v12);
+LABEL_12:
+  if (*(v6 + 84))
+  {
+    v13 = *(v6 + 64);
+  }
+
+  else
+  {
+    v13 = *(v6 + 64) + 1;
+  }
+
+  v14 = *(v6 + 80);
+  v15 = v13 + v14;
+  v26 = a1;
+  v16 = ~v14;
+  v17 = ((a1 + v13 + v14) & ~v14);
+  v18 = ((a2 + v13 + v14) & ~v14);
+  v19 = v7(v17, 1, v5);
+  v20 = v7(v18, 1, v5);
+  if (v19)
+  {
+    if (!v20)
+    {
+      (*(v6 + 16))(v17, v18, v5);
+      (*(v6 + 56))(v17, 0, 1, v5);
+      goto LABEL_21;
+    }
+
+    goto LABEL_20;
+  }
+
+  if (v20)
+  {
+    (*(v6 + 8))(v17, v5);
+LABEL_20:
+    memcpy(v17, v18, v13);
+    goto LABEL_21;
+  }
+
+  (*(v6 + 24))(v17, v18, v5);
+LABEL_21:
+  v21 = &v17[v15];
+  v22 = &v18[v15];
+  v23 = v7((v21 & v16), 1, v5);
+  v24 = v7((v22 & v16), 1, v5);
+  if (!v23)
+  {
+    if (!v24)
+    {
+      (*(v6 + 24))(v21 & v16, v22 & v16, v5);
+      return v26;
+    }
+
+    (*(v6 + 8))(v21 & v16, v5);
+    goto LABEL_26;
+  }
+
+  if (v24)
+  {
+LABEL_26:
+    memcpy((v21 & v16), (v22 & v16), v13);
+    return v26;
+  }
+
+  (*(v6 + 16))(v21 & v16, v22 & v16, v5);
+  (*(v6 + 56))(v21 & v16, 0, 1, v5);
+  return v26;
+}
+
+void *initializeWithTake for Stack3(void *a1, const void *a2, uint64_t a3)
+{
+  v5 = *(a3 + 16);
+  v6 = *(v5 - 8);
+  v7 = *(v6 + 48);
+  if (v7(a2, 1, v5))
+  {
+    v8 = *(v6 + 84);
+    v9 = *(v6 + 64);
+    if (v8)
+    {
+      v10 = *(v6 + 64);
+    }
+
+    else
+    {
+      v10 = v9 + 1;
+    }
+
+    memcpy(a1, a2, v10);
+  }
+
+  else
+  {
+    (*(v6 + 32))(a1, a2, v5);
+    (*(v6 + 56))(a1, 0, 1, v5);
+    v8 = *(v6 + 84);
+    v9 = *(v6 + 64);
+  }
+
+  if (v8)
+  {
+    v11 = v9;
+  }
+
+  else
+  {
+    v11 = v9 + 1;
+  }
+
+  v12 = *(v6 + 80);
+  v13 = v11 + v12;
+  v14 = ~v12;
+  v15 = ((a1 + v11 + v12) & ~v12);
+  v16 = ((a2 + v11 + v12) & ~v12);
+  if (v7(v16, 1, v5))
+  {
+    memcpy(v15, v16, v11);
+  }
+
+  else
+  {
+    (*(v6 + 32))(v15, v16, v5);
+    (*(v6 + 56))(v15, 0, 1, v5);
+  }
+
+  v17 = &v15[v13];
+  v18 = &v16[v13];
+  if (v7((v18 & v14), 1, v5))
+  {
+    memcpy((v17 & v14), (v18 & v14), v11);
+  }
+
+  else
+  {
+    (*(v6 + 32))(v17 & v14, v18 & v14, v5);
+    (*(v6 + 56))(v17 & v14, 0, 1, v5);
+  }
+
+  return a1;
+}
+
+void *assignWithTake for Stack3(void *a1, void *a2, uint64_t a3)
+{
+  v5 = *(a3 + 16);
+  v6 = *(v5 - 8);
+  v7 = *(v6 + 48);
+  v8 = v7(a1, 1, v5);
+  v9 = v7(a2, 1, v5);
+  if (v8)
+  {
+    if (!v9)
+    {
+      (*(v6 + 32))(a1, a2, v5);
+      (*(v6 + 56))(a1, 0, 1, v5);
+      goto LABEL_12;
+    }
+
+    v10 = *(v6 + 84);
+    v11 = *(v6 + 64);
+  }
+
+  else
+  {
+    if (!v9)
+    {
+      (*(v6 + 40))(a1, a2, v5);
+      goto LABEL_12;
+    }
+
+    (*(v6 + 8))(a1, v5);
+    v10 = *(v6 + 84);
+    v11 = *(v6 + 64);
+  }
+
+  if (v10)
+  {
+    v12 = v11;
+  }
+
+  else
+  {
+    v12 = v11 + 1;
+  }
+
+  memcpy(a1, a2, v12);
+LABEL_12:
+  if (*(v6 + 84))
+  {
+    v13 = *(v6 + 64);
+  }
+
+  else
+  {
+    v13 = *(v6 + 64) + 1;
+  }
+
+  v14 = *(v6 + 80);
+  v15 = v13 + v14;
+  v26 = a1;
+  v16 = ~v14;
+  v17 = ((a1 + v13 + v14) & ~v14);
+  v18 = ((a2 + v13 + v14) & ~v14);
+  v19 = v7(v17, 1, v5);
+  v20 = v7(v18, 1, v5);
+  if (v19)
+  {
+    if (!v20)
+    {
+      (*(v6 + 32))(v17, v18, v5);
+      (*(v6 + 56))(v17, 0, 1, v5);
+      goto LABEL_21;
+    }
+
+    goto LABEL_20;
+  }
+
+  if (v20)
+  {
+    (*(v6 + 8))(v17, v5);
+LABEL_20:
+    memcpy(v17, v18, v13);
+    goto LABEL_21;
+  }
+
+  (*(v6 + 40))(v17, v18, v5);
+LABEL_21:
+  v21 = &v17[v15];
+  v22 = &v18[v15];
+  v23 = v7((v21 & v16), 1, v5);
+  v24 = v7((v22 & v16), 1, v5);
+  if (!v23)
+  {
+    if (!v24)
+    {
+      (*(v6 + 40))(v21 & v16, v22 & v16, v5);
+      return v26;
+    }
+
+    (*(v6 + 8))(v21 & v16, v5);
+    goto LABEL_26;
+  }
+
+  if (v24)
+  {
+LABEL_26:
+    memcpy((v21 & v16), (v22 & v16), v13);
+    return v26;
+  }
+
+  (*(v6 + 32))(v21 & v16, v22 & v16, v5);
+  (*(v6 + 56))(v21 & v16, 0, 1, v5);
+  return v26;
+}
+
+uint64_t getEnumTagSinglePayload for Stack3(unsigned __int16 *a1, unsigned int a2, uint64_t a3)
+{
+  v4 = *(*(a3 + 16) - 8);
+  v5 = *(v4 + 84);
+  v6 = v5 - 1;
+  if (!v5)
+  {
+    v6 = 0;
+  }
+
+  v7 = *(*(*(a3 + 16) - 8) + 64);
+  if (!v5)
+  {
+    ++v7;
+  }
+
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v8 = a2 - v6;
+  if (a2 > v6)
+  {
+    v9 = ((v7 + *(v4 + 80) + ((v7 + *(v4 + 80)) & ~*(v4 + 80))) & ~*(v4 + 80)) + v7;
+    v10 = 8 * v9;
+    if (v9 > 3)
+    {
+      goto LABEL_8;
+    }
+
+    v12 = ((v8 + ~(-1 << v10)) >> v10) + 1;
+    if (HIWORD(v12))
+    {
+      v11 = *(a1 + v9);
+      if (v11)
+      {
+        goto LABEL_15;
+      }
+    }
+
+    else
+    {
+      if (v12 <= 0xFF)
+      {
+        if (v12 < 2)
+        {
+          goto LABEL_26;
+        }
+
+LABEL_8:
+        v11 = *(a1 + v9);
+        if (!*(a1 + v9))
+        {
+          goto LABEL_26;
+        }
+
+LABEL_15:
+        v13 = (v11 - 1) << v10;
+        if (v9 > 3)
+        {
+          v13 = 0;
+        }
+
+        if (v9)
+        {
+          if (v9 > 3)
+          {
+            LODWORD(v9) = 4;
+          }
+
+          if (v9 > 2)
+          {
+            if (v9 == 3)
+            {
+              LODWORD(v9) = *a1 | (*(a1 + 2) << 16);
+            }
+
+            else
+            {
+              LODWORD(v9) = *a1;
+            }
+          }
+
+          else if (v9 == 1)
+          {
+            LODWORD(v9) = *a1;
+          }
+
+          else
+          {
+            LODWORD(v9) = *a1;
+          }
+        }
+
+        return v6 + (v9 | v13) + 1;
+      }
+
+      v11 = *(a1 + v9);
+      if (*(a1 + v9))
+      {
+        goto LABEL_15;
+      }
+    }
+  }
+
+LABEL_26:
+  if (v5 < 2)
+  {
+    return 0;
+  }
+
+  v15 = (*(v4 + 48))(a1, v5);
+  if (v15 >= 2)
+  {
+    return v15 - 1;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+char *storeEnumTagSinglePayload for Stack3(char *result, unsigned int a2, unsigned int a3, uint64_t a4)
+{
+  v5 = 0;
+  v6 = *(*(a4 + 16) - 8);
+  v7 = *(v6 + 84);
+  v8 = *(v6 + 64);
+  v9 = v7 - 1;
+  if (!v7)
+  {
+    v9 = 0;
+    ++v8;
+  }
+
+  v10 = ((v8 + *(v6 + 80) + ((v8 + *(v6 + 80)) & ~*(v6 + 80))) & ~*(v6 + 80)) + v8;
+  v11 = a3 >= v9;
+  v12 = a3 - v9;
+  if (v12 == 0 || !v11)
+  {
+LABEL_15:
+    if (v9 < a2)
+    {
+      goto LABEL_16;
+    }
+
+    goto LABEL_25;
+  }
+
+  if (v10 > 3)
+  {
+    v5 = 1;
+    if (v9 < a2)
+    {
+      goto LABEL_16;
+    }
+
+    goto LABEL_25;
+  }
+
+  v13 = ((v12 + ~(-1 << (8 * v10))) >> (8 * v10)) + 1;
+  if (!HIWORD(v13))
+  {
+    if (v13 < 0x100)
+    {
+      v14 = 1;
+    }
+
+    else
+    {
+      v14 = 2;
+    }
+
+    if (v13 >= 2)
+    {
+      v5 = v14;
+    }
+
+    else
+    {
+      v5 = 0;
+    }
+
+    goto LABEL_15;
+  }
+
+  v5 = 4;
+  if (v9 < a2)
+  {
+LABEL_16:
+    v15 = ~v9 + a2;
+    if (v10 < 4)
+    {
+      v17 = (v15 >> (8 * v10)) + 1;
+      if (v10)
+      {
+        v18 = v15 & ~(-1 << (8 * v10));
+        v19 = result;
+        bzero(result, v10);
+        result = v19;
+        if (v10 != 3)
+        {
+          if (v10 == 2)
+          {
+            *v19 = v18;
+            if (v5 > 1)
+            {
+LABEL_43:
+              if (v5 == 2)
+              {
+                *&result[v10] = v17;
+              }
+
+              else
+              {
+                *&result[v10] = v17;
+              }
+
+              return result;
+            }
+          }
+
+          else
+          {
+            *v19 = v15;
+            if (v5 > 1)
+            {
+              goto LABEL_43;
+            }
+          }
+
+          goto LABEL_40;
+        }
+
+        *v19 = v18;
+        v19[2] = BYTE2(v18);
+      }
+
+      if (v5 > 1)
+      {
+        goto LABEL_43;
+      }
+    }
+
+    else
+    {
+      v16 = result;
+      bzero(result, v10);
+      result = v16;
+      *v16 = v15;
+      v17 = 1;
+      if (v5 > 1)
+      {
+        goto LABEL_43;
+      }
+    }
+
+LABEL_40:
+    if (v5)
+    {
+      result[v10] = v17;
+    }
+
+    return result;
+  }
+
+LABEL_25:
+  if (v5 > 1)
+  {
+    if (v5 != 2)
+    {
+      *&result[v10] = 0;
+      if (!a2)
+      {
+        return result;
+      }
+
+      goto LABEL_32;
+    }
+
+    *&result[v10] = 0;
+  }
+
+  else if (v5)
+  {
+    result[v10] = 0;
+    if (!a2)
+    {
+      return result;
+    }
+
+    goto LABEL_32;
+  }
+
+  if (!a2)
+  {
+    return result;
+  }
+
+LABEL_32:
+  if (v7 >= 2)
+  {
+    v20 = *(v6 + 56);
+
+    return v20();
+  }
+
+  return result;
+}
+
+void _GeometryActionModifier.value.setter(uint64_t a1, uint64_t a2)
+{
+
+  *v2 = a1;
+  v2[1] = a2;
+}
+
+void _GeometryActionModifier.action.setter(uint64_t a1, uint64_t a2)
+{
+
+  *(v2 + 16) = a1;
+  *(v2 + 24) = a2;
+}
+
+void _GeometryActionModifier.value.init(uint64_t a1, uint64_t a2)
+{
+
+  *v2 = a1;
+  v2[1] = a2;
+}
+
+uint64_t GeometryActionBinder.init(provider:position:size:transform:environment:safeAreaInsets:phase:)@<X0>(int a1@<W0>, int a2@<W1>, int a3@<W2>, uint64_t a4@<X3>, int a5@<W4>, int a6@<W5>, int a7@<W6>, uint64_t a8@<X7>, char *a9@<X8>, uint64_t a10)
+{
+  v25 = a4;
+  v14 = type metadata accessor for GeometryActionBinder(0, a8, a10, a4);
+  v15 = v14[15];
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  ValueCycleDetector.init()(AssociatedTypeWitness, AssociatedConformanceWitness, &a9[v15]);
+  if (one-time initialization token for v6 != -1)
+  {
+    swift_once();
+  }
+
+  v18 = static Semantics.v6;
+  if (one-time initialization token for forced != -1)
+  {
+    swift_once();
+  }
+
+  swift_beginAccess();
+  if (byte_1ED53C51C != 1)
+  {
+    if (static Semantics.forced >= v18)
+    {
+      goto LABEL_7;
+    }
+
+LABEL_9:
+    v21 = specialized static GraphHost.currentHost.getter();
+    swift_beginAccess();
+    v22 = *(v21 + 64);
+
+    v20 = 0;
+    v19 = *&v22 | 0xFFFFFFFF00000000;
+    goto LABEL_10;
+  }
+
+  if ((dyld_program_sdk_at_least() & 1) == 0)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_7:
+  v19 = 0;
+  v20 = 0x200000000;
+LABEL_10:
+  v23 = &a9[v14[16]];
+  *v23 = v19;
+  v23[12] = BYTE4(v20);
+  *(v23 + 2) = v20;
+  *&a9[v14[17]] = 0;
+  *&a9[v14[18]] = 0;
+  result = (*(*(AssociatedTypeWitness - 8) + 56))(&a9[v14[19]], 1, 1, AssociatedTypeWitness);
+  *a9 = a1;
+  *(a9 + 1) = a2;
+  *(a9 + 2) = a3;
+  *(a9 + 3) = v25;
+  *(a9 + 4) = a5;
+  *(a9 + 5) = a6;
+  *(a9 + 6) = a7;
+  return result;
+}
+
+uint64_t _GeometryActionModifier.value(geometry:)(uint64_t a1, uint64_t (*a2)(_OWORD *))
+{
+  v2 = *(a1 + 16);
+  v4[0] = *a1;
+  v4[1] = v2;
+  v4[2] = *(a1 + 32);
+  v5 = *(a1 + 48);
+  return a2(v4);
+}
+
+uint64_t _GeometryActionModifier2.value.getter()
+{
+  _ViewInputs.base.modify();
+  v1 = v0;
+
+  return v1;
+}
+
+double key path getter for _GeometryActionModifier2.value : <A>_GeometryActionModifier2<A>@<D0>(void *a1@<X8>)
+{
+  _ViewInputs.base.modify();
+  *a1 = v2;
+  a1[1] = v3;
+
+  return result;
+}
+
+void key path setter for _GeometryActionModifier2.value : <A>_GeometryActionModifier2<A>(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = a1[1];
+
+  _GeometryActionModifier.value.setter(v1, v2);
+}
+
+uint64_t _GeometryActionModifier2.value.init@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+{
+  *a3 = result;
+  a3[1] = a2;
+  return result;
+}
+
+double key path getter for _GeometryActionModifier.action : <A>_GeometryActionModifier<A>@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a5@<X4>, void *a6@<X8>)
+{
+  v8 = a2 + a3;
+  v10 = *(a1 + 16);
+  v9 = *(a1 + 24);
+  v11 = swift_allocObject();
+  *(v11 + 16) = *(v8 - 16);
+  *(v11 + 32) = v10;
+  *(v11 + 40) = v9;
+  *a6 = a5;
+  a6[1] = v11;
+
+  return result;
+}
+
+void key path setter for _GeometryActionModifier.action : <A>_GeometryActionModifier<A>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v8 = a3 + a4;
+  v10 = *a1;
+  v9 = a1[1];
+  v11 = swift_allocObject();
+  *(v11 + 16) = *(v8 - 16);
+  *(v11 + 32) = v10;
+  *(v11 + 40) = v9;
+
+  *(a2 + 16) = a6;
+  *(a2 + 24) = v11;
+}
+
+uint64_t static _GeometryActionModifier._makeView(modifier:inputs:body:)@<X0>(_DWORD *a1@<X0>, __int128 *a2@<X1>, uint64_t (*a3)(uint64_t, __int128 *)@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t (*a7)(uint64_t, uint64_t, uint64_t)@<X6>, const char *a8@<X7>, uint64_t a9@<X8>, uint64_t a10)
+{
+  v39 = a4;
+  v40 = a3;
+  v38 = a9;
+  v37 = a10;
+  v56 = *MEMORY[0x1E69E9840];
+  v13 = a7(255, a5, a6);
+  swift_getWitnessTable(a8, v13);
+  v15 = v14;
+  v17 = type metadata accessor for GeometryActionBinder(0, v13, v14, v16);
+  v36 = *(v17 - 8);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v34 - v18;
+  LODWORD(a1) = *a1;
+  v20 = *a2;
+  v21 = *(a2 + 2);
+  v22 = *(a2 + 6);
+  v23 = *(a2 + 44);
+  v53 = *(a2 + 28);
+  v54 = v23;
+  v55 = v20;
+  v24 = *(a2 + 15);
+  v25 = *(a2 + 18);
+  swift_beginAccess();
+  v26 = *(v21 + 16);
+  *&v27 = *(a2 + 8);
+  v35 = v27;
+  v28 = v27;
+  *&v27 = *(a2 + 76);
+  v34 = v27;
+  GeometryActionBinder.init(provider:position:size:transform:environment:safeAreaInsets:phase:)(a1, v28, v25, v24, v26, v27, v22, v13, v19, v15);
+  v42 = v17;
+  swift_getWitnessTable(protocol conformance descriptor for GeometryActionBinder<A>, v17);
+  v43 = v29;
+  type metadata accessor for Attribute<()>();
+  _ss17withUnsafePointer2to_q0_x_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(v19, v37, v41, v17, MEMORY[0x1E69E73E0], v30, MEMORY[0x1E69E7410], v31);
+  (*(v36 + 8))(v19, v17);
+  v32 = AGGraphSetFlags();
+  v44 = v55;
+  v45 = v21;
+  v46 = v22;
+  v47 = v53;
+  v48 = v54;
+  v49 = v24;
+  v50 = v35;
+  v51 = v25;
+  v52 = v34;
+  return v40(v32, &v44);
+}
+
+double _GeometryActionModifier2.value(geometry:)(uint64_t a1, void (*a2)(_OWORD *, __n128), uint64_t a3)
+{
+  v4 = *(a1 + 16);
+  v6[0] = *a1;
+  v6[1] = v4;
+  v6[2] = *(a1 + 32);
+  v7 = *(a1 + 48);
+
+  (a2)(v6);
+
+  return result;
+}
+
+uint64_t static _CoreGeometryActionModifier._makeView(modifier:inputs:body:)@<X0>(int *a1@<X0>, __int128 *a2@<X1>, uint64_t (*a3)(uint64_t, __int128 *)@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
+{
+  v35 = a4;
+  v36 = a3;
+  v34 = a7;
+  v52 = *MEMORY[0x1E69E9840];
+  v9 = type metadata accessor for _CoreGeometryActionModifier(255, a5, a6, a4);
+  swift_getWitnessTable(protocol conformance descriptor for _CoreGeometryActionModifier<A>, v9);
+  v11 = v10;
+  v13 = type metadata accessor for GeometryActionBinder(0, v9, v10, v12);
+  v33 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v15 = &v31 - v14;
+  v16 = *a1;
+  v17 = *a2;
+  v18 = *(a2 + 2);
+  v19 = *(a2 + 6);
+  v20 = *(a2 + 44);
+  v49 = *(a2 + 28);
+  v50 = v20;
+  v51 = v17;
+  v21 = *(a2 + 15);
+  v22 = *(a2 + 18);
+  swift_beginAccess();
+  v23 = *(v18 + 16);
+  *&v24 = *(a2 + 8);
+  v32 = v24;
+  v25 = v24;
+  *&v24 = *(a2 + 76);
+  v31 = v24;
+  GeometryActionBinder.init(provider:position:size:transform:environment:safeAreaInsets:phase:)(v16, v25, v22, v21, v23, v24, v19, v9, v15, v11);
+  v38 = v13;
+  swift_getWitnessTable(protocol conformance descriptor for GeometryActionBinder<A>, v13);
+  v39 = v26;
+  type metadata accessor for Attribute<()>();
+  _ss17withUnsafePointer2to_q0_x_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(v15, closure #1 in Attribute.init<A>(_:)partial apply, v37, v13, MEMORY[0x1E69E73E0], v27, MEMORY[0x1E69E7410], v28);
+  (*(v33 + 8))(v15, v13);
+  v29 = AGGraphSetFlags();
+  v40 = v51;
+  v41 = v18;
+  v42 = v19;
+  v43 = v49;
+  v44 = v50;
+  v45 = v21;
+  v46 = v32;
+  v47 = v22;
+  v48 = v31;
+  return v36(v29, &v40);
+}
+
+uint64_t _CoreGeometryActionModifier.value(geometry:)(uint64_t a1, uint64_t (*a2)(_OWORD *))
+{
+  v2 = *(a1 + 16);
+  v4[0] = *a1;
+  v4[1] = v2;
+  v4[2] = *(a1 + 32);
+  v5 = *(a1 + 48);
+  return a2(v4);
+}
+
+Swift::Void __swiftcall GeometryActionBinder.updateValue()()
+{
+  v2 = v0;
+  v199 = *MEMORY[0x1E69E9840];
+  v3 = *(v0 + 16);
+  v179 = *(v0 + 24);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v5 = type metadata accessor for Optional();
+  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+  v6 = *(TupleTypeMetadata2 - 8);
+  MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
+  v173 = &v152 - v7;
+  v181 = v5;
+  v175 = *(v5 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v162 = &v152 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v152 - v11;
+  MEMORY[0x1EEE9AC00](v13);
+  v177 = &v152 - v14;
+  MEMORY[0x1EEE9AC00](v15);
+  v185 = &v152 - v16;
+  v17 = type metadata accessor for ObservationTracking._AccessList();
+  v174 = *(v17 - 8);
+  MEMORY[0x1EEE9AC00](v17);
+  v161 = &v152 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v19);
+  v171 = &v152 - v20;
+  MEMORY[0x1EEE9AC00](v21);
+  v172 = &v152 - v22;
+  _s11Observation0A8TrackingV11_AccessListVSgMaTm_1(0, &lazy cache variable for type metadata for ObservationTracking._AccessList?, MEMORY[0x1E69E81D0], MEMORY[0x1E69E6720]);
+  v183 = v23;
+  MEMORY[0x1EEE9AC00](v23);
+  v170 = &v152 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v25);
+  v169 = &v152 - v26;
+  MEMORY[0x1EEE9AC00](v27);
+  v176 = (&v152 - v28);
+  v191 = *(AssociatedTypeWitness - 8);
+  v29 = *(v191 + 64);
+  MEMORY[0x1EEE9AC00](v30);
+  v31 = &v152 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v32);
+  v163 = &v152 - v33;
+  MEMORY[0x1EEE9AC00](v34);
+  v159 = &v152 - v35;
+  MEMORY[0x1EEE9AC00](v36);
+  v182 = &v152 - v37;
+  MEMORY[0x1EEE9AC00](v38);
+  v184 = &v152 - v39;
+  MEMORY[0x1EEE9AC00](v40);
+  v190 = &v152 - v41;
+  v188 = v3;
+  v187 = *(v3 - 8);
+  MEMORY[0x1EEE9AC00](v42);
+  v44 = &v152 - ((v43 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v156 = v43;
+  MEMORY[0x1EEE9AC00](v45);
+  v186 = &v152 - v46;
+  if (*(v1 + v2[17]) != *AGGraphGetValue() >> 1)
+  {
+    AGGraphGetValue();
+    specialized GeometryActionBinder.reset(seed:)(v2);
+  }
+
+  v47 = v2[18];
+  v48 = (*(v1 + v47) + 1);
+  *(v1 + v47) = v48;
+  CurrentAttribute = AGGraphGetCurrentAttribute();
+  v50 = *MEMORY[0x1E698D3F8];
+  if (CurrentAttribute == *MEMORY[0x1E698D3F8])
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    v164 = v17;
+    v157 = v12;
+    v160 = v44;
+    v158 = v6;
+    v154 = v29;
+    v155 = &v152 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v180 = v2;
+    v189 = AssociatedTypeWitness;
+    v192 = v1;
+    LODWORD(v168) = *(v1 + 20) == v50;
+    v51 = v50;
+    v52 = AGCreateWeakAttribute();
+    v53 = v52;
+    v167 = HIDWORD(v52);
+    v54 = AGCreateWeakAttribute();
+    v55 = v54;
+    v166 = HIDWORD(v54);
+    v56 = AGCreateWeakAttribute();
+    v57 = v56;
+    v165 = HIDWORD(v56);
+    v58 = AGCreateWeakAttribute();
+    v59 = v58;
+    v60 = HIDWORD(v58);
+    v61 = AGCreateWeakAttribute();
+    v62 = v61;
+    v63 = HIDWORD(v61);
+    LODWORD(v168) = v51;
+    v64 = AGCreateWeakAttribute();
+    v193[0] = v53;
+    v193[1] = v167;
+    v193[2] = v55;
+    v193[3] = v166;
+    v193[4] = v57;
+    v193[5] = v165;
+    v193[6] = v59;
+    v193[7] = v60;
+    v193[8] = v62;
+    v193[9] = v63;
+    v194 = v64;
+    v195 = v48;
+    v65 = v188;
+    Value = AGGraphGetValue();
+    v31 = (v187 + 16);
+    v44 = *(v187 + 16);
+    v67 = v186;
+    v68 = (v44)(v186, Value, v65);
+    v6 = &v152;
+    MEMORY[0x1EEE9AC00](v68);
+    v29 = &v152 - 6;
+    v69 = v179;
+    *(&v152 - 4) = v65;
+    *(&v152 - 3) = v69;
+    *(&v152 - 2) = v67;
+    *(&v152 - 1) = v193;
+    if (one-time initialization token for _current == -1)
+    {
+      goto LABEL_5;
+    }
+  }
+
+  swift_once();
+LABEL_5:
+  v70 = static ObservationCenter._current;
+  swift_beginAccess();
+  v71 = pthread_getspecific(v70[2]);
+  v72 = v189;
+  v73 = v174;
+  if (!v71)
+  {
+    v74 = swift_slowAlloc();
+    pthread_setspecific(v70[2], v74);
+    v198 = type metadata accessor for ObservationCenter();
+    v70 = v70[3];
+    *&v197 = v70;
+    outlined init with take of Any(&v197, v74);
+
+    v71 = v74;
+  }
+
+  outlined init with copy of Any(v71, &v197);
+  type metadata accessor for ObservationCenter();
+  swift_dynamicCast();
+  v75 = v196;
+  v76 = AGGraphGetCurrentAttribute();
+  if (v76 == v168)
+  {
+    __break(1u);
+LABEL_38:
+    v70 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v70[2] + 1, 1, v70);
+    *(v75 + 24) = v70;
+    goto LABEL_11;
+  }
+
+  LODWORD(v166) = v76;
+  v168 = v6;
+  v153 = v44;
+  swift_beginAccess();
+  v167 = *(v75 + 24);
+  *(v75 + 24) = MEMORY[0x1E69E7CC0];
+  v77 = v169;
+  v48 = v164;
+  v78 = (*(v73 + 56))(v169, 1, 1, v164);
+  MEMORY[0x1EEE9AC00](v78);
+  *(&v152 - 4) = v72;
+  *(&v152 - 3) = partial apply for closure #1 in GeometryActionBinder.updateValue();
+  *(&v152 - 2) = v29;
+  v79 = type metadata accessor for Error();
+  v80 = v182;
+  _ss24withUnsafeMutablePointer2to_q0_xz_q0_SpyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(v77, partial apply for closure #1 in ObservationCenter._withObservation<A>(do:), (&v152 - 6), v183, v79, v72, MEMORY[0x1E69E7288], &v196);
+  v81 = *(v191 + 32);
+  v183 = v191 + 32;
+  v182 = v81;
+  (v81)(v184, v80, v72);
+  v82 = MEMORY[0x1E69E81D0];
+  v83 = MEMORY[0x1E69E6720];
+  v84 = v176;
+  outlined init with take of ObservationTracking._AccessList?(v77, v176, &lazy cache variable for type metadata for ObservationTracking._AccessList?, MEMORY[0x1E69E81D0], MEMORY[0x1E69E6720]);
+  v85 = v83;
+  v86 = v170;
+  _s11Observation0A8TrackingV11_AccessListVSgWOcTm_0(v84, v170, &lazy cache variable for type metadata for ObservationTracking._AccessList?, v82, v85);
+  v87 = (*(v73 + 48))(v86, 1, v48);
+  v165 = v31;
+  if (v87 == 1)
+  {
+    _s11Observation0A8TrackingV11_AccessListVSgWOhTm_0(v84, &lazy cache variable for type metadata for ObservationTracking._AccessList?, MEMORY[0x1E69E81D0], MEMORY[0x1E69E6720]);
+    v88 = v86;
+    v6 = v185;
+    goto LABEL_14;
+  }
+
+  v29 = *(v73 + 32);
+  v89 = v172;
+  (v29)(v172, v86, v48);
+  (*(v73 + 16))(v171, v89, v48);
+  v70 = *(v75 + 24);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  *(v75 + 24) = v70;
+  v6 = v185;
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    goto LABEL_38;
+  }
+
+LABEL_11:
+  v92 = v70[2];
+  v91 = v70[3];
+  if (v92 >= v91 >> 1)
+  {
+    v70 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v91 > 1), v92 + 1, 1, v70);
+  }
+
+  v70[2] = v92 + 1;
+  (v29)(v70 + ((*(v73 + 80) + 32) & ~*(v73 + 80)) + *(v73 + 72) * v92, v171, v48);
+  *(v75 + 24) = v70;
+  (*(v73 + 8))(v172, v48);
+  v72 = v189;
+  v88 = v176;
+LABEL_14:
+  _s11Observation0A8TrackingV11_AccessListVSgWOhTm_0(v88, &lazy cache variable for type metadata for ObservationTracking._AccessList?, MEMORY[0x1E69E81D0], MEMORY[0x1E69E6720]);
+  v93 = v190;
+  (v182)(v190, v184, v72);
+  v94 = *(v75 + 24);
+  v95 = *(v94 + 16);
+  if (v95)
+  {
+    v98 = *(v73 + 16);
+    v97 = v73 + 16;
+    v96 = v98;
+    v99 = v94 + ((*(v97 + 64) + 32) & ~*(v97 + 64));
+    v100 = *(v97 + 56);
+    v101 = v161;
+    v102 = (v97 - 8);
+    v184 = *(v75 + 24);
+
+    v103 = v166;
+    do
+    {
+      v96(v101, v99, v48);
+      specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(v103, v101, &unk_1F006FA80, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006FAA8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+      (*v102)(v101, v48);
+      v99 += v100;
+      --v95;
+    }
+
+    while (v95);
+
+    v72 = v189;
+    v93 = v190;
+    v6 = v185;
+  }
+
+  *(v75 + 24) = v167;
+
+  v104 = v191;
+  v105 = *(v191 + 16);
+  v172 = (v191 + 16);
+  v171 = v105;
+  (v105)(v6, v93, v72);
+  (*(v104 + 56))(v6, 0, 1, v72);
+  v106 = v175;
+  v107 = v72;
+  v108 = v175 + 16;
+  v109 = *(v175 + 16);
+  v170 = v180[19];
+  v110 = v177;
+  v111 = v181;
+  v109(v177, v192 + v170, v181);
+  v112 = *(TupleTypeMetadata2 + 48);
+  v113 = v173;
+  v109(v173, v6, v111);
+  v184 = v112;
+  v109(&v112[v113], v110, v111);
+  v114 = *(v104 + 48);
+  v115 = v114(v113, 1, v107);
+  v176 = v109;
+  v174 = v108;
+  if (v115 == 1)
+  {
+    v116 = *(v106 + 8);
+    v116(v110, v111);
+    v117 = v6;
+    v118 = v116;
+    v116(v117, v111);
+    v119 = v114(&v184[v113], 1, v107) == 1;
+    v120 = v113;
+    v121 = v107;
+    if (v119)
+    {
+      v118(v113, v111);
+      (*(v191 + 8))(v190, v107);
+      goto LABEL_34;
+    }
+  }
+
+  else
+  {
+    v122 = v157;
+    v109(v157, v113, v111);
+    v123 = v122;
+    v121 = v107;
+    if (v114(&v184[v113], 1, v107) != 1)
+    {
+      v145 = v159;
+      (v182)(v159, &v184[v113], v107);
+      swift_getAssociatedConformanceWitness();
+      v146 = v111;
+      LODWORD(v184) = dispatch thunk of static Equatable.== infix(_:_:)();
+      v147 = v123;
+      v148 = *(v191 + 8);
+      v148(v145, v121);
+      v149 = *(v175 + 8);
+      v149(v177, v146);
+      v149(v185, v146);
+      v148(v147, v189);
+      v150 = v113;
+      v151 = v146;
+      v118 = v149;
+      v124 = v190;
+      v149(v150, v151);
+      v121 = v189;
+      v125 = v176;
+      if (v184)
+      {
+        v148(v124, v189);
+        goto LABEL_34;
+      }
+
+      goto LABEL_25;
+    }
+
+    v118 = *(v106 + 8);
+    v118(v177, v111);
+    v118(v185, v111);
+    (*(v191 + 8))(v123, v107);
+    v120 = v113;
+  }
+
+  v124 = v190;
+  (v158[1])(v120, TupleTypeMetadata2);
+  v125 = v176;
+LABEL_25:
+  v126 = v162;
+  v125(v162, v192 + v170, v181);
+  if (v114(v126, 1, v121) == 1)
+  {
+    v127 = v163;
+    (v171)(v163, v124, v121);
+    if (v114(v126, 1, v121) != 1)
+    {
+      v118(v126, v181);
+    }
+  }
+
+  else
+  {
+    v127 = v163;
+    (v182)(v163, v126, v121);
+  }
+
+  if (GeometryActionBinder.dispatch(value:)(v124, v180))
+  {
+    LOBYTE(v196) = 17;
+    v128 = v121;
+    v129 = v188;
+    v153(v160, v186, v188);
+    v130 = v159;
+    v131 = v171;
+    (v171)(v159, v127, v128);
+    v132 = v155;
+    (v131)(v155, v124, v128);
+    v133 = v187;
+    v134 = (*(v187 + 80) + 32) & ~*(v187 + 80);
+    v135 = v191;
+    v136 = *(v191 + 80);
+    v137 = (v156 + v136 + v134) & ~v136;
+    v138 = (v154 + v136 + v137) & ~v136;
+    v139 = swift_allocObject();
+    v140 = v179;
+    *(v139 + 16) = v129;
+    *(v139 + 24) = v140;
+    (*(v133 + 32))(v139 + v134, v160, v129);
+    v141 = v139 + v137;
+    v142 = v182;
+    (v182)(v141, v130, v128);
+    v142(v139 + v138, v132, v128);
+    static Update.enqueueAction(reason:_:)(&v196, partial apply for closure #2 in GeometryActionBinder.updateValue(), v139);
+
+    v143 = *(v135 + 8);
+    v143(v163, v128);
+    v143(v190, v128);
+  }
+
+  else
+  {
+    v144 = *(v191 + 8);
+    v144(v127, v121);
+    v144(v124, v121);
+  }
+
+LABEL_34:
+  (*(v187 + 8))(v186, v188);
+}
+
+BOOL GeometryActionBinder.dispatch(value:)(uint64_t a1, uint64_t a2)
+{
+  v3 = v2;
+  v6 = v3 + *(a2 + 64);
+  if (*(v6 + 12) << 32 == 0x200000000)
+  {
+    v8 = *(a2 + 16);
+    v7 = *(a2 + 24);
+    AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+    AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+    v12 = type metadata accessor for ValueCycleDetector(0, AssociatedTypeWitness, AssociatedConformanceWitness, v11);
+    v13 = ValueCycleDetector.dispatch(value:label:isDebug:)(a1, implicit closure #2 in GeometryActionBinder.dispatch(value:), 0, 0, v12);
+    $defer #1 <A>() in GeometryActionBinder.dispatch(value:)(v3, a1, v8, v7);
+    return v13;
+  }
+
+  else
+  {
+    AGGraphClearUpdate();
+    v15 = *AGGraphGetValue();
+    AGGraphSetUpdate();
+    if (*(v6 + 4) == v15)
+    {
+      v16 = *(v6 + 8);
+      if (v16 && (v17 = v16 - 1, (*(v6 + 8) = v17) != 0))
+      {
+        v18 = 1;
+      }
+
+      else if (*(v6 + 12) == 1)
+      {
+        v18 = 0;
+      }
+
+      else
+      {
+        specialized static Log.externalWarning(_:)(0xD000000000000039, 0x800000018DD7AB60);
+        v18 = 0;
+        *(v6 + 12) = 1;
+      }
+    }
+
+    else
+    {
+      *(v6 + 4) = v15;
+      *(v6 + 8) = 2;
+      v18 = 1;
+    }
+
+    $defer #1 <A>() in GeometryActionBinder.dispatch(value:)(v3, a1, *(a2 + 16), *(a2 + 24));
+    return v18;
+  }
+}
+
+uint64_t $defer #1 <A>() in GeometryActionBinder.dispatch(value:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v6 = *(type metadata accessor for GeometryActionBinder(0, a3, a4, a4) + 76);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v8 = type metadata accessor for Optional();
+  (*(*(v8 - 8) + 8))(a1 + v6, v8);
+  v11 = *(AssociatedTypeWitness - 8);
+  (*(v11 + 16))(a1 + v6, a2, AssociatedTypeWitness);
+  v9 = *(v11 + 56);
+
+  return v9(a1 + v6, 0, 1, AssociatedTypeWitness);
+}
+
+uint64_t protocol witness for static _AttributeBody.flags.getter in conformance GeometryActionBinder<A>(uint64_t a1)
+{
+  swift_getWitnessTable(protocol conformance descriptor for GeometryActionBinder<A>, a1);
+
+  return static AsyncAttribute.flags.getter();
+}
+
+id specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(uint64_t a1, void (*a2)(void, void, void))
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006E8B0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006E8D8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006E860, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006E888, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006EAE0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006EB08, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006FA30, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006FA58, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006ECC0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006ECE8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006E950, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006E978, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006FBC0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006FBE8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006ED10, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006ED38, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006FC10, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006FC38, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006FC60, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006FC88, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006FCB0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006FCD8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006FD00, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006FD28, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006FD50, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006FD78, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006FDA0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006FDC8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006E9A0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006E9C8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006E9F0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006EA18, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006FE90, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006FEB8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006EB80, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006EBA8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006FAD0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006FAF8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006FDF0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006FE18, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006EBD0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006EBF8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006FF30, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006FF58, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006FEE0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006FF08, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006E900, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006E928, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006FE40, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006FE68, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006EA40, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006EA68, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F670, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F698, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F9E0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006FA08, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006FA80, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006FAA8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006FB70, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006FB98, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006EA90, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006EAB8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006EC70, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006EC98, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006EC20, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006EC48, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006E810, partial apply for closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:), &unk_1F006E838, partial apply for closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:));
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006FB20, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006FB48, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006EB30, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006EB58, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006ED60, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006ED88, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F800, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F828, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F760, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F788, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006EE50, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006EE78, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F850, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F878, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F6C0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F6E8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006EEA0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006EEC8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F490, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F4B8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F2B0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F2D8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006EEF0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006EF18, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F530, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F558, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F350, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F378, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F170, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F198, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F3A0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F3C8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F1C0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F1E8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F300, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F328, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F120, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F148, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F4E0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F508, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006EF90, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006EFB8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F7B0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F7D8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F3F0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F418, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F210, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F238, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006EFE0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F008, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F080, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F0A8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F030, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F058, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F580, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F5A8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F620, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F648, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F5D0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F5F8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F0D0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F0F8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F8F0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F918, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F440, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F468, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F260, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F288, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F8A0, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F8C8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F940, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F968, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F990, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F9B8, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006EF40, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006EF68, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+{
+  return specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(a1, a2, &unk_1F006F710, closure #1 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply, &unk_1F006F738, closure #2 in ObservationCenter.invalidate<A>(_:onChangeIn:)partial apply);
+}
+
+id specialized ObservationCenter.invalidate<A>(_:onChangeIn:)(uint64_t a1, void (*a2)(void, void, void), uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v68 = a5;
+  *&v67 = a4;
+  v65 = a3;
+  v72 = a2;
+  v7 = MEMORY[0x1E69E6720];
+  _s11Observation0A8TrackingV11_AccessListVSgMaTm_1(0, &lazy cache variable for type metadata for ObservationTracking._AccessList?, MEMORY[0x1E69E81D0], MEMORY[0x1E69E6720]);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v64 = &v57 - v9;
+  v10 = type metadata accessor for ObservationTracking();
+  v69 = *(v10 - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v75 = &v57 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  _s11Observation0A8TrackingV11_AccessListVSgMaTm_1(0, &lazy cache variable for type metadata for (mutation: ObservationGraphMutation, accessList: ObservationTracking._AccessList)?, type metadata accessor for (mutation: ObservationGraphMutation, accessList: ObservationTracking._AccessList), v7);
+  MEMORY[0x1EEE9AC00](v12 - 8);
+  v66 = (&v57 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v14);
+  v16 = &v57 - v15;
+  type metadata accessor for (mutation: ObservationGraphMutation, accessList: ObservationTracking._AccessList)(0);
+  v18 = v17;
+  v19 = *(v17 - 8);
+  MEMORY[0x1EEE9AC00](v17);
+  v21 = &v57 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = type metadata accessor for ObservationTracking._AccessList();
+  v23 = *(v22 - 8);
+  MEMORY[0x1EEE9AC00](v22);
+  v25 = (&v57 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0));
+  result = AGGraphGetAttributeSubgraph2();
+  if (result)
+  {
+    v59 = result;
+    v73 = v10;
+    v62 = a6;
+    specialized static GraphHost.currentHost.getter();
+    swift_weakInit();
+    swift_weakAssign();
+
+    v27 = AGCreateWeakAttribute();
+    v28 = v23 + 16;
+    v29 = v72;
+    v72 = *(v23 + 16);
+    v72(v25, v29, v22);
+    swift_beginAccess();
+    specialized Dictionary.removeValue(forKey:)(v16, v27);
+    swift_endAccess();
+    v60 = v19;
+    v30 = (*(v19 + 48))(v16, 1, v18);
+    v63 = v23;
+    v61 = v18;
+    if (v30 == 1)
+    {
+      v31 = v23;
+      v32 = v74;
+      _s11Observation0A8TrackingV11_AccessListVSgWOhTm_0(v16, &lazy cache variable for type metadata for (mutation: ObservationGraphMutation, accessList: ObservationTracking._AccessList)?, type metadata accessor for (mutation: ObservationGraphMutation, accessList: ObservationTracking._AccessList), MEMORY[0x1E69E6720]);
+    }
+
+    else
+    {
+      v32 = v74;
+      outlined init with take of (mutation: ObservationGraphMutation, accessList: ObservationTracking._AccessList)(v16, v21);
+      v33 = *&v21[*(v18 + 48)];
+
+      isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+      v76[0] = *v25;
+      *v25 = 0x8000000000000000;
+      specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(v33, specialized thunk for @escaping @callee_guaranteed (@in_guaranteed A, @in_guaranteed B) -> (@out A, @out B), 0, isUniquelyReferenced_nonNull_native, v76);
+
+      *v25 = v76[0];
+
+      specialized ObservationGraphMutation.cancel()(*(v21 + 2), *(v21 + 3), v35);
+      outlined destroy of (mutation: ObservationGraphMutation, accessList: ObservationTracking._AccessList)(v21);
+      v31 = v63;
+    }
+
+    v70 = v25;
+    v71 = v22;
+    v36 = v64;
+    v72(v64, v25, v22);
+    (*(v31 + 56))(v36, 0, 1, v22);
+    v37 = v75;
+    ObservationTracking.init(_:)();
+    v38 = swift_allocObject();
+    v74 = v28;
+    v39 = v38;
+    swift_weakInit();
+    v40 = swift_allocObject();
+    *(v40 + 16) = v39;
+    *(v40 + 24) = v27;
+    v58 = HIDWORD(v27);
+
+    v41 = v59;
+    v42 = AGSubgraphAddObserver();
+
+    v43 = MEMORY[0x1E69E6F90];
+    _s11Observation0A8TrackingV11_AccessListVSgMaTm_1(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<ObservationTracking>, MEMORY[0x1E69E81D8], MEMORY[0x1E69E6F90]);
+    v44 = v69;
+    v45 = (*(v69 + 80) + 32) & ~*(v69 + 80);
+    v46 = swift_allocObject();
+    v67 = xmmword_18DDA6EB0;
+    *(v46 + 16) = xmmword_18DDA6EB0;
+    (*(v44 + 16))(v46 + v45, v37, v73);
+    _s11Observation0A8TrackingV11_AccessListVSgMaTm_1(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<(AGSubgraphRef, Int)>, type metadata accessor for (AGSubgraphRef, Int), v43);
+    v47 = swift_allocObject();
+    *(v47 + 16) = v67;
+    *(v47 + 32) = v41;
+    *(v47 + 40) = v42;
+    v48 = v61;
+    v49 = *(v61 + 48);
+    v50 = v66;
+    *v66 = v32;
+    v50[1] = v27;
+    v50[2] = v46;
+    v50[3] = v47;
+    v72(v50 + v49, v70, v71);
+    (*(v60 + 56))(v50, 0, 1, v48);
+    swift_beginAccess();
+    swift_retain_n();
+    swift_bridgeObjectRetain_n();
+    swift_bridgeObjectRetain_n();
+    v51 = v41;
+    specialized Dictionary.subscript.setter(v50, v27);
+    swift_endAccess();
+    _s11Observation0A8TrackingV11_AccessListVSgWOcTm_0(v77, v76, &lazy cache variable for type metadata for WeakUncheckedSendable<GraphHost>, type metadata accessor for GraphHost, type metadata accessor for WeakUncheckedSendable);
+    v52 = swift_allocObject();
+    *(v52 + 16) = v51;
+    *(v52 + 24) = v32;
+    v53 = v58;
+    *(v52 + 32) = v27;
+    *(v52 + 36) = v53;
+    *(v52 + 40) = v46;
+    *(v52 + 48) = v47;
+    *(v52 + 56) = v27;
+    *(v52 + 60) = v53;
+    outlined init with take of ObservationTracking._AccessList?(v76, v52 + 64, &lazy cache variable for type metadata for WeakUncheckedSendable<GraphHost>, type metadata accessor for GraphHost, type metadata accessor for WeakUncheckedSendable);
+    v54 = v51;
+
+    v55 = v54;
+    v56 = v75;
+    MEMORY[0x193ABDEB0](v75, v62, v52, 0, 0);
+
+    swift_bridgeObjectRelease_n();
+    swift_bridgeObjectRelease_n();
+
+    (*(v44 + 8))(v56, v73);
+    _s11Observation0A8TrackingV11_AccessListVSgWOhTm_0(v77, &lazy cache variable for type metadata for WeakUncheckedSendable<GraphHost>, type metadata accessor for GraphHost, type metadata accessor for WeakUncheckedSendable);
+    return (*(v63 + 8))(v70, v71);
+  }
+
+  return result;
+}
+
+uint64_t specialized GeometryActionBinder.reset(seed:)(int *a1)
+{
+  v2 = v1;
+  *(v1 + a1[17]) = *AGGraphGetValue() >> 1;
+  v4 = v1 + a1[16];
+  if (*(v4 + 12) << 32 != 0x200000000)
+  {
+    *(v4 + 4) = 0xFFFFFFFFLL;
+    *(v4 + 12) = 0;
+  }
+
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  type metadata accessor for ValueCycleDetector(0, AssociatedTypeWitness, AssociatedConformanceWitness, v7);
+  ValueCycleDetector.reset()();
+  v8 = a1[19];
+  v9 = type metadata accessor for Optional();
+  (*(*(v9 - 8) + 8))(v2 + v8, v9);
+  v10 = *(*(AssociatedTypeWitness - 8) + 56);
+
+  return v10(v2 + v8, 1, 1, AssociatedTypeWitness);
+}
+
+uint64_t partial apply for closure #1 in GeometryActionBinder.updateValue()()
+{
+  v1 = v0[2];
+  v2 = v0[3];
+  v3 = v0[5];
+  v4 = *(v3 + 16);
+  v6[0] = *v3;
+  v6[1] = v4;
+  v6[2] = *(v3 + 32);
+  v7 = *(v3 + 48);
+  return (*(v2 + 24))(v6, v1);
+}
+
+uint64_t partial apply for closure #2 in GeometryActionBinder.updateValue()()
+{
+  v1 = *(v0 + 16);
+  v2 = *(v0 + 24);
+  v3 = (*(*(v1 - 8) + 80) + 32) & ~*(*(v1 - 8) + 80);
+  v4 = *(*(v1 - 8) + 64);
+  v5 = *(swift_getAssociatedTypeWitness() - 8);
+  v6 = *(v5 + 80);
+  return (*(v2 + 32))(v0 + ((v3 + v4 + v6) & ~v6), v0 + ((*(v5 + 64) + v6 + ((v3 + v4 + v6) & ~v6)) & ~v6), v1, v2);
+}
+
+uint64_t type metadata completion function for GeometryActionBinder(uint64_t a1)
+{
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  result = type metadata accessor for ValueCycleDetector(319, AssociatedTypeWitness, AssociatedConformanceWitness, v3);
+  if (v5 <= 0x3F)
+  {
+    result = type metadata accessor for Optional();
+    if (v6 <= 0x3F)
+    {
+      swift_initStructMetadata();
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+_DWORD *initializeBufferWithCopyOfBuffer for GeometryActionBinder(_DWORD *a1, _DWORD *a2, uint64_t a3)
+{
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v6 = *(AssociatedTypeWitness - 8);
+  v7 = *(v6 + 80);
+  v8 = v7;
+  v9 = v7 | 3;
+  v10 = ~v9;
+  if (*(v6 + 84))
+  {
+    v11 = *(v6 + 64);
+  }
+
+  else
+  {
+    v11 = *(v6 + 64) + 1;
+  }
+
+  v12 = v7 <= 7u && (v7 & 0x100000) == 0;
+  if (v12 && (v13 = v11 + v7, ((-5 - v7 - ((((((v7 + 28) & ~v9) + ((v7 + 9) & ~v7) + v11 + ((v13 + (v13 & ~v7)) & ~v7) + 19) & 0xFFFFFFFFFFFFFFFCLL) + 7) & 0xFFFFFFFFFFFFFFFCLL)) | v7) - v11 >= 0xFFFFFFFFFFFFFFE7))
+  {
+    v14 = AssociatedTypeWitness;
+    v51 = ((v7 + 9) & ~v7) + v11 + ((v11 + v7 + ((v11 + v7) & ~v7)) & ~v7);
+    v52 = a1;
+    v15 = ~v7;
+    *a1 = *a2;
+    v16 = ((a1 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+    v17 = ((a2 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+    *v16 = *v17;
+    v18 = ((v16 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+    v19 = ((v17 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+    *v18 = *v19;
+    v20 = ((v18 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+    v21 = ((v19 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+    *v20 = *v21;
+    v22 = ((v20 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+    v23 = ((v21 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+    *v22 = *v23;
+    v24 = ((v22 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+    v25 = ((v23 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+    *v24 = *v25;
+    v26 = ((v24 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+    v27 = ((v25 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+    *v26 = *v27;
+    v50 = ((v27 + v9 + 4) & v10);
+    v49 = ((v26 + v9 + 4) & v10);
+    *v49 = *v50;
+    v28 = (v49 + 7) & 0xFFFFFFFFFFFFFFFCLL;
+    v29 = (v50 + 7) & 0xFFFFFFFFFFFFFFFCLL;
+    *v28 = *v29;
+    *(v28 + 4) = *(v29 + 4);
+    v30 = ((v8 + 5 + v28) & ~v8);
+    v31 = ((v8 + 5 + v29) & ~v8);
+    v32 = *(v6 + 48);
+    if (v32(v31, 1, AssociatedTypeWitness))
+    {
+      memcpy(v30, v31, v11);
+    }
+
+    else
+    {
+      (*(v6 + 16))(v30, v31, v14);
+      (*(v6 + 56))(v30, 0, 1, v14);
+    }
+
+    v35 = ((v30 + v13) & v15);
+    v36 = ((v31 + v13) & v15);
+    if (v32(v36, 1, v14))
+    {
+      memcpy(v35, v36, v11);
+    }
+
+    else
+    {
+      (*(v6 + 16))(v35, v36, v14);
+      (*(v6 + 56))(v35, 0, 1, v14);
+    }
+
+    v37 = &v35[v13];
+    v38 = &v36[v13];
+    if (v32((v38 & v15), 1, v14))
+    {
+      memcpy((v37 & v15), (v38 & v15), v11);
+    }
+
+    else
+    {
+      (*(v6 + 16))(v37 & v15, v38 & v15, v14);
+      (*(v6 + 56))(v37 & v15, 0, 1, v14);
+    }
+
+    v39 = ((v49 + v51 + 3) & 0xFFFFFFFFFFFFFFFCLL);
+    v40 = ((v50 + v51 + 3) & 0xFFFFFFFFFFFFFFFCLL);
+    v41 = *v40;
+    *(v39 + 5) = *(v40 + 5);
+    *v39 = v41;
+    v42 = ((v49 + v51 + 19) & 0xFFFFFFFFFFFFFFFCLL);
+    v43 = ((v50 + v51 + 19) & 0xFFFFFFFFFFFFFFFCLL);
+    *v42 = *v43;
+    v44 = ((v42 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+    v45 = ((v43 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+    *v44 = *v45;
+    v46 = v44 + v8 + 4;
+    v47 = v45 + v8 + 4;
+    if (v32((v47 & v15), 1, v14))
+    {
+      memcpy((v46 & v15), (v47 & v15), v11);
+    }
+
+    else
+    {
+      (*(v6 + 16))(v46 & v15, v47 & v15, v14);
+      (*(v6 + 56))(v46 & v15, 0, 1, v14);
+    }
+
+    return v52;
+  }
+
+  else
+  {
+    v33 = *a2;
+    *a1 = *a2;
+    v34 = v33 + ((v7 + 16) & v10);
+  }
+
+  return v34;
+}
+
+uint64_t destroy for GeometryActionBinder(uint64_t a1, uint64_t a2)
+{
+  v2 = (((((((((((a1 + 7) & 0xFFFFFFFFFFFFFFFCLL) + 7) & 0xFFFFFFFFFFFFFFFCLL) + 7) & 0xFFFFFFFFFFFFFFFCLL) + 7) & 0xFFFFFFFFFFFFFFFCLL) + 7) & 0xFFFFFFFFFFFFFFFCLL) + 7) & 0xFFFFFFFFFFFFFFFCLL;
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v4 = *(AssociatedTypeWitness - 8);
+  v5 = *(v4 + 80);
+  v6 = (v2 + (v5 | 3) + 4) & ~(v5 | 3);
+  v7 = ~v5;
+  v8 = (v5 + ((v6 + 7) & 0xFFFFFFFFFFFFFFFCLL) + 5) & ~v5;
+  v16 = v4;
+  v9 = *(v4 + 48);
+  if (!v9(v8, 1, AssociatedTypeWitness))
+  {
+    (*(v16 + 8))(v8, AssociatedTypeWitness);
+  }
+
+  if (*(v16 + 84))
+  {
+    v10 = *(v16 + 64);
+  }
+
+  else
+  {
+    v10 = *(v16 + 64) + 1;
+  }
+
+  v11 = (v8 + v5 + v10) & v7;
+  if (!v9(v11, 1, AssociatedTypeWitness))
+  {
+    (*(v16 + 8))(v11, AssociatedTypeWitness);
+  }
+
+  v12 = v10 + v5 + v11;
+  if (!v9(v12 & v7, 1, AssociatedTypeWitness))
+  {
+    (*(v16 + 8))(v12 & v7, AssociatedTypeWitness);
+  }
+
+  v13 = v5 + ((((((v5 + 9) & v7) + v10 + v6 + ((v10 + v5 + ((v10 + v5) & v7)) & v7) + 19) & 0xFFFFFFFFFFFFFFFCLL) + 7) & 0xFFFFFFFFFFFFFFFCLL) + 4;
+  result = (v9)(v13 & v7, 1, AssociatedTypeWitness);
+  if (!result)
+  {
+    v15 = *(v16 + 8);
+
+    return v15(v13 & v7, AssociatedTypeWitness);
+  }
+
+  return result;
+}
+
+_DWORD *initializeWithCopy for GeometryActionBinder(_DWORD *a1, _DWORD *a2, uint64_t a3)
+{
+  *a1 = *a2;
+  v3 = ((a1 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v4 = ((a2 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v3 = *v4;
+  v5 = ((v3 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v6 = ((v4 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v5 = *v6;
+  v7 = ((v5 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v8 = ((v6 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v7 = *v8;
+  v9 = ((v7 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v10 = ((v8 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v9 = *v10;
+  v11 = ((v9 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v12 = ((v10 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v11 = *v12;
+  v13 = ((v11 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v14 = ((v12 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v13 = *v14;
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v16 = *(AssociatedTypeWitness - 8);
+  v17 = *(v16 + 80);
+  v18 = *(v16 + 80) & 0xFC ^ 0xFFFFFFFFFFFFFFFCLL;
+  v47 = ((v13 + v17 + 4) & v18);
+  v48 = v17 + 4;
+  v46 = ((v14 + v17 + 4) & v18);
+  *v47 = *v46;
+  v19 = (v47 + 7) & 0xFFFFFFFFFFFFFFFCLL;
+  v20 = (v46 + 7) & 0xFFFFFFFFFFFFFFFCLL;
+  *v19 = *v20;
+  *(v19 + 4) = *(v20 + 4);
+  v21 = ~v17;
+  v22 = ((v17 + 5 + v19) & ~v17);
+  v23 = ((v17 + 5 + v20) & ~v17);
+  v24 = *(v16 + 48);
+  if (v24(v23, 1, AssociatedTypeWitness))
+  {
+    v25 = *(v16 + 84);
+    v26 = *(v16 + 64);
+    if (v25)
+    {
+      v27 = *(v16 + 64);
+    }
+
+    else
+    {
+      v27 = v26 + 1;
+    }
+
+    memcpy(v22, v23, v27);
+  }
+
+  else
+  {
+    (*(v16 + 16))(v22, v23, AssociatedTypeWitness);
+    (*(v16 + 56))(v22, 0, 1, AssociatedTypeWitness);
+    v25 = *(v16 + 84);
+    v26 = *(v16 + 64);
+  }
+
+  if (v25)
+  {
+    v28 = v26;
+  }
+
+  else
+  {
+    v28 = v26 + 1;
+  }
+
+  v29 = ((v22 + v17 + v28) & v21);
+  v30 = ((v23 + v17 + v28) & v21);
+  if (v24(v30, 1, AssociatedTypeWitness))
+  {
+    memcpy(v29, v30, v28);
+  }
+
+  else
+  {
+    (*(v16 + 16))(v29, v30, AssociatedTypeWitness);
+    (*(v16 + 56))(v29, 0, 1, AssociatedTypeWitness);
+  }
+
+  v31 = &v29[v28 + v17];
+  v32 = &v30[v28 + v17];
+  if (v24((v32 & v21), 1, AssociatedTypeWitness))
+  {
+    memcpy((v31 & v21), (v32 & v21), v28);
+  }
+
+  else
+  {
+    (*(v16 + 16))(v31 & v21, v32 & v21, AssociatedTypeWitness);
+    (*(v16 + 56))(v31 & v21, 0, 1, AssociatedTypeWitness);
+  }
+
+  v33 = v28 + ((v17 + 9) & v21) + ((v28 + v17 + ((v28 + v17) & v21)) & v21);
+  v34 = v47 + v33;
+  v35 = v46 + v33;
+  v36 = ((v34 + 3) & 0xFFFFFFFFFFFFFFFCLL);
+  v37 = ((v35 + 3) & 0xFFFFFFFFFFFFFFFCLL);
+  v38 = *v37;
+  *(v36 + 5) = *(v37 + 5);
+  *v36 = v38;
+  v39 = ((v34 + 19) & 0xFFFFFFFFFFFFFFFCLL);
+  v40 = ((v35 + 19) & 0xFFFFFFFFFFFFFFFCLL);
+  *v39 = *v40;
+  v41 = ((v39 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v42 = ((v40 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v41 = *v42;
+  v43 = v41 + v48;
+  v44 = v42 + v48;
+  if (v24(((v42 + v48) & v21), 1, AssociatedTypeWitness))
+  {
+    memcpy((v43 & v21), (v44 & v21), v28);
+  }
+
+  else
+  {
+    (*(v16 + 16))(v43 & v21, v44 & v21, AssociatedTypeWitness);
+    (*(v16 + 56))(v43 & v21, 0, 1, AssociatedTypeWitness);
+  }
+
+  return a1;
+}
+
+_DWORD *assignWithCopy for GeometryActionBinder(_DWORD *a1, _DWORD *a2, uint64_t a3)
+{
+  *a1 = *a2;
+  v3 = ((a1 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v4 = ((a2 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v3 = *v4;
+  v5 = ((v3 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v6 = ((v4 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v5 = *v6;
+  v7 = ((v5 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v8 = ((v6 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v7 = *v8;
+  v9 = ((v7 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v10 = ((v8 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v9 = *v10;
+  v11 = ((v9 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v12 = ((v10 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v11 = *v12;
+  v13 = ((v11 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v14 = ((v12 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v13 = *v14;
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v16 = *(AssociatedTypeWitness - 8);
+  v17 = *(v16 + 80);
+  v18 = *(v16 + 80) & 0xFC ^ 0xFFFFFFFFFFFFFFFCLL;
+  v54 = ((v13 + v17 + 4) & v18);
+  v55 = v17 + 4;
+  v53 = ((v14 + v17 + 4) & v18);
+  *v54 = *v53;
+  v19 = (v54 + 7) & 0xFFFFFFFFFFFFFFFCLL;
+  v20 = (v53 + 7) & 0xFFFFFFFFFFFFFFFCLL;
+  *v19 = *v20;
+  *(v19 + 4) = *(v20 + 4);
+  v21 = ~v17;
+  v22 = ((v17 + 5 + v19) & ~v17);
+  v23 = ((v17 + 5 + v20) & ~v17);
+  v24 = *(v16 + 48);
+  LODWORD(v14) = v24(v22, 1, AssociatedTypeWitness);
+  v25 = v24(v23, 1, AssociatedTypeWitness);
+  if (v14)
+  {
+    if (!v25)
+    {
+      (*(v16 + 16))(v22, v23, AssociatedTypeWitness);
+      (*(v16 + 56))(v22, 0, 1, AssociatedTypeWitness);
+      goto LABEL_12;
+    }
+
+    v26 = *(v16 + 84);
+    v27 = *(v16 + 64);
+  }
+
+  else
+  {
+    if (!v25)
+    {
+      (*(v16 + 24))(v22, v23, AssociatedTypeWitness);
+      goto LABEL_12;
+    }
+
+    (*(v16 + 8))(v22, AssociatedTypeWitness);
+    v26 = *(v16 + 84);
+    v27 = *(v16 + 64);
+  }
+
+  if (v26)
+  {
+    v28 = v27;
+  }
+
+  else
+  {
+    v28 = v27 + 1;
+  }
+
+  memcpy(v22, v23, v28);
+LABEL_12:
+  if (*(v16 + 84))
+  {
+    v29 = *(v16 + 64);
+  }
+
+  else
+  {
+    v29 = *(v16 + 64) + 1;
+  }
+
+  v30 = ((v22 + v17 + v29) & v21);
+  v31 = ((v23 + v17 + v29) & v21);
+  v32 = v24(v30, 1, AssociatedTypeWitness);
+  v33 = v24(v31, 1, AssociatedTypeWitness);
+  v57 = v16;
+  if (v32)
+  {
+    if (!v33)
+    {
+      (*(v16 + 16))(v30, v31, AssociatedTypeWitness);
+      (*(v16 + 56))(v30, 0, 1, AssociatedTypeWitness);
+      goto LABEL_21;
+    }
+
+    goto LABEL_20;
+  }
+
+  if (v33)
+  {
+    (*(v16 + 8))(v30, AssociatedTypeWitness);
+LABEL_20:
+    memcpy(v30, v31, v29);
+    goto LABEL_21;
+  }
+
+  (*(v16 + 24))(v30, v31, AssociatedTypeWitness);
+LABEL_21:
+  v34 = &v30[v29 + v17];
+  v35 = &v31[v29 + v17];
+  v36 = v24((v34 & v21), 1, AssociatedTypeWitness);
+  v37 = v24((v35 & v21), 1, AssociatedTypeWitness);
+  if (v36)
+  {
+    if (!v37)
+    {
+      (*(v57 + 16))(v34 & v21, v35 & v21, AssociatedTypeWitness);
+      (*(v57 + 56))(v34 & v21, 0, 1, AssociatedTypeWitness);
+      goto LABEL_27;
+    }
+
+    goto LABEL_26;
+  }
+
+  if (v37)
+  {
+    (*(v57 + 8))(v34 & v21, AssociatedTypeWitness);
+LABEL_26:
+    memcpy((v34 & v21), (v35 & v21), v29);
+    goto LABEL_27;
+  }
+
+  (*(v57 + 24))(v34 & v21, v35 & v21, AssociatedTypeWitness);
+LABEL_27:
+  v38 = v29 + ((v17 + 9) & v21) + ((v29 + v17 + ((v29 + v17) & v21)) & v21);
+  v39 = v54 + v38;
+  v40 = v53 + v38;
+  v41 = ((v39 + 3) & 0xFFFFFFFFFFFFFFFCLL);
+  v42 = ((v40 + 3) & 0xFFFFFFFFFFFFFFFCLL);
+  v43 = *v42;
+  *(v41 + 5) = *(v42 + 5);
+  *v41 = v43;
+  v44 = ((v39 + 19) & 0xFFFFFFFFFFFFFFFCLL);
+  v45 = ((v40 + 19) & 0xFFFFFFFFFFFFFFFCLL);
+  *v44 = *v45;
+  v46 = ((v44 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v47 = ((v45 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v46 = *v47;
+  v48 = v46 + v55;
+  v49 = v47 + v55;
+  v50 = v24(((v46 + v55) & v21), 1, AssociatedTypeWitness);
+  v51 = v24((v49 & v21), 1, AssociatedTypeWitness);
+  if (!v50)
+  {
+    if (!v51)
+    {
+      (*(v57 + 24))(v48 & v21, v49 & v21, AssociatedTypeWitness);
+      return a1;
+    }
+
+    (*(v57 + 8))(v48 & v21, AssociatedTypeWitness);
+    goto LABEL_32;
+  }
+
+  if (v51)
+  {
+LABEL_32:
+    memcpy((v48 & v21), (v49 & v21), v29);
+    return a1;
+  }
+
+  (*(v57 + 16))(v48 & v21, v49 & v21, AssociatedTypeWitness);
+  (*(v57 + 56))(v48 & v21, 0, 1, AssociatedTypeWitness);
+  return a1;
+}
+
+_DWORD *initializeWithTake for GeometryActionBinder(_DWORD *a1, _DWORD *a2, uint64_t a3)
+{
+  *a1 = *a2;
+  v3 = ((a1 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v4 = ((a2 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v3 = *v4;
+  v5 = ((v3 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v6 = ((v4 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v5 = *v6;
+  v7 = ((v5 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v8 = ((v6 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v7 = *v8;
+  v9 = ((v7 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v10 = ((v8 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v9 = *v10;
+  v11 = ((v9 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v12 = ((v10 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v11 = *v12;
+  v13 = ((v11 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v14 = ((v12 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v13 = *v14;
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v16 = *(AssociatedTypeWitness - 8);
+  v17 = *(v16 + 80);
+  v18 = *(v16 + 80) & 0xFC ^ 0xFFFFFFFFFFFFFFFCLL;
+  v47 = ((v13 + v17 + 4) & v18);
+  v48 = v17 + 4;
+  v46 = ((v14 + v17 + 4) & v18);
+  *v47 = *v46;
+  v19 = (v47 + 7) & 0xFFFFFFFFFFFFFFFCLL;
+  v20 = (v46 + 7) & 0xFFFFFFFFFFFFFFFCLL;
+  *v19 = *v20;
+  *(v19 + 4) = *(v20 + 4);
+  v21 = ~v17;
+  v22 = ((v17 + 5 + v19) & ~v17);
+  v23 = ((v17 + 5 + v20) & ~v17);
+  v24 = *(v16 + 48);
+  if (v24(v23, 1, AssociatedTypeWitness))
+  {
+    v25 = *(v16 + 84);
+    v26 = *(v16 + 64);
+    if (v25)
+    {
+      v27 = *(v16 + 64);
+    }
+
+    else
+    {
+      v27 = v26 + 1;
+    }
+
+    memcpy(v22, v23, v27);
+  }
+
+  else
+  {
+    (*(v16 + 32))(v22, v23, AssociatedTypeWitness);
+    (*(v16 + 56))(v22, 0, 1, AssociatedTypeWitness);
+    v25 = *(v16 + 84);
+    v26 = *(v16 + 64);
+  }
+
+  if (v25)
+  {
+    v28 = v26;
+  }
+
+  else
+  {
+    v28 = v26 + 1;
+  }
+
+  v29 = ((v22 + v17 + v28) & v21);
+  v30 = ((v23 + v17 + v28) & v21);
+  if (v24(v30, 1, AssociatedTypeWitness))
+  {
+    memcpy(v29, v30, v28);
+  }
+
+  else
+  {
+    (*(v16 + 32))(v29, v30, AssociatedTypeWitness);
+    (*(v16 + 56))(v29, 0, 1, AssociatedTypeWitness);
+  }
+
+  v31 = &v29[v28 + v17];
+  v32 = &v30[v28 + v17];
+  if (v24((v32 & v21), 1, AssociatedTypeWitness))
+  {
+    memcpy((v31 & v21), (v32 & v21), v28);
+  }
+
+  else
+  {
+    (*(v16 + 32))(v31 & v21, v32 & v21, AssociatedTypeWitness);
+    (*(v16 + 56))(v31 & v21, 0, 1, AssociatedTypeWitness);
+  }
+
+  v33 = v28 + ((v17 + 9) & v21) + ((v28 + v17 + ((v28 + v17) & v21)) & v21);
+  v34 = v47 + v33;
+  v35 = v46 + v33;
+  v36 = ((v34 + 3) & 0xFFFFFFFFFFFFFFFCLL);
+  v37 = ((v35 + 3) & 0xFFFFFFFFFFFFFFFCLL);
+  v38 = *v37;
+  *(v36 + 5) = *(v37 + 5);
+  *v36 = v38;
+  v39 = ((v34 + 19) & 0xFFFFFFFFFFFFFFFCLL);
+  v40 = ((v35 + 19) & 0xFFFFFFFFFFFFFFFCLL);
+  *v39 = *v40;
+  v41 = ((v39 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v42 = ((v40 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v41 = *v42;
+  v43 = v41 + v48;
+  v44 = v42 + v48;
+  if (v24(((v42 + v48) & v21), 1, AssociatedTypeWitness))
+  {
+    memcpy((v43 & v21), (v44 & v21), v28);
+  }
+
+  else
+  {
+    (*(v16 + 32))(v43 & v21, v44 & v21, AssociatedTypeWitness);
+    (*(v16 + 56))(v43 & v21, 0, 1, AssociatedTypeWitness);
+  }
+
+  return a1;
+}
+
+_DWORD *assignWithTake for GeometryActionBinder(_DWORD *a1, _DWORD *a2, uint64_t a3)
+{
+  *a1 = *a2;
+  v3 = ((a1 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v4 = ((a2 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v3 = *v4;
+  v5 = ((v3 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v6 = ((v4 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v5 = *v6;
+  v7 = ((v5 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v8 = ((v6 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v7 = *v8;
+  v9 = ((v7 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v10 = ((v8 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v9 = *v10;
+  v11 = ((v9 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v12 = ((v10 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v11 = *v12;
+  v13 = ((v11 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v14 = ((v12 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v13 = *v14;
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v16 = *(AssociatedTypeWitness - 8);
+  v17 = *(v16 + 80);
+  v18 = *(v16 + 80) & 0xFC ^ 0xFFFFFFFFFFFFFFFCLL;
+  v54 = ((v13 + v17 + 4) & v18);
+  v55 = v17 + 4;
+  v53 = ((v14 + v17 + 4) & v18);
+  *v54 = *v53;
+  v19 = (v54 + 7) & 0xFFFFFFFFFFFFFFFCLL;
+  v20 = (v53 + 7) & 0xFFFFFFFFFFFFFFFCLL;
+  *v19 = *v20;
+  *(v19 + 4) = *(v20 + 4);
+  v21 = ~v17;
+  v22 = ((v17 + 5 + v19) & ~v17);
+  v23 = ((v17 + 5 + v20) & ~v17);
+  v24 = *(v16 + 48);
+  LODWORD(v14) = v24(v22, 1, AssociatedTypeWitness);
+  v25 = v24(v23, 1, AssociatedTypeWitness);
+  if (v14)
+  {
+    if (!v25)
+    {
+      (*(v16 + 32))(v22, v23, AssociatedTypeWitness);
+      (*(v16 + 56))(v22, 0, 1, AssociatedTypeWitness);
+      goto LABEL_12;
+    }
+
+    v26 = *(v16 + 84);
+    v27 = *(v16 + 64);
+  }
+
+  else
+  {
+    if (!v25)
+    {
+      (*(v16 + 40))(v22, v23, AssociatedTypeWitness);
+      goto LABEL_12;
+    }
+
+    (*(v16 + 8))(v22, AssociatedTypeWitness);
+    v26 = *(v16 + 84);
+    v27 = *(v16 + 64);
+  }
+
+  if (v26)
+  {
+    v28 = v27;
+  }
+
+  else
+  {
+    v28 = v27 + 1;
+  }
+
+  memcpy(v22, v23, v28);
+LABEL_12:
+  if (*(v16 + 84))
+  {
+    v29 = *(v16 + 64);
+  }
+
+  else
+  {
+    v29 = *(v16 + 64) + 1;
+  }
+
+  v30 = ((v22 + v17 + v29) & v21);
+  v31 = ((v23 + v17 + v29) & v21);
+  v32 = v24(v30, 1, AssociatedTypeWitness);
+  v33 = v24(v31, 1, AssociatedTypeWitness);
+  v57 = v16;
+  if (v32)
+  {
+    if (!v33)
+    {
+      (*(v16 + 32))(v30, v31, AssociatedTypeWitness);
+      (*(v16 + 56))(v30, 0, 1, AssociatedTypeWitness);
+      goto LABEL_21;
+    }
+
+    goto LABEL_20;
+  }
+
+  if (v33)
+  {
+    (*(v16 + 8))(v30, AssociatedTypeWitness);
+LABEL_20:
+    memcpy(v30, v31, v29);
+    goto LABEL_21;
+  }
+
+  (*(v16 + 40))(v30, v31, AssociatedTypeWitness);
+LABEL_21:
+  v34 = &v30[v29 + v17];
+  v35 = &v31[v29 + v17];
+  v36 = v24((v34 & v21), 1, AssociatedTypeWitness);
+  v37 = v24((v35 & v21), 1, AssociatedTypeWitness);
+  if (v36)
+  {
+    if (!v37)
+    {
+      (*(v57 + 32))(v34 & v21, v35 & v21, AssociatedTypeWitness);
+      (*(v57 + 56))(v34 & v21, 0, 1, AssociatedTypeWitness);
+      goto LABEL_27;
+    }
+
+    goto LABEL_26;
+  }
+
+  if (v37)
+  {
+    (*(v57 + 8))(v34 & v21, AssociatedTypeWitness);
+LABEL_26:
+    memcpy((v34 & v21), (v35 & v21), v29);
+    goto LABEL_27;
+  }
+
+  (*(v57 + 40))(v34 & v21, v35 & v21, AssociatedTypeWitness);
+LABEL_27:
+  v38 = v29 + ((v17 + 9) & v21) + ((v29 + v17 + ((v29 + v17) & v21)) & v21);
+  v39 = v54 + v38;
+  v40 = v53 + v38;
+  v41 = ((v39 + 3) & 0xFFFFFFFFFFFFFFFCLL);
+  v42 = ((v40 + 3) & 0xFFFFFFFFFFFFFFFCLL);
+  v43 = *v42;
+  *(v41 + 5) = *(v42 + 5);
+  *v41 = v43;
+  v44 = ((v39 + 19) & 0xFFFFFFFFFFFFFFFCLL);
+  v45 = ((v40 + 19) & 0xFFFFFFFFFFFFFFFCLL);
+  *v44 = *v45;
+  v46 = ((v44 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v47 = ((v45 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v46 = *v47;
+  v48 = v46 + v55;
+  v49 = v47 + v55;
+  v50 = v24(((v46 + v55) & v21), 1, AssociatedTypeWitness);
+  v51 = v24((v49 & v21), 1, AssociatedTypeWitness);
+  if (!v50)
+  {
+    if (!v51)
+    {
+      (*(v57 + 40))(v48 & v21, v49 & v21, AssociatedTypeWitness);
+      return a1;
+    }
+
+    (*(v57 + 8))(v48 & v21, AssociatedTypeWitness);
+    goto LABEL_32;
+  }
+
+  if (v51)
+  {
+LABEL_32:
+    memcpy((v48 & v21), (v49 & v21), v29);
+    return a1;
+  }
+
+  (*(v57 + 32))(v48 & v21, v49 & v21, AssociatedTypeWitness);
+  (*(v57 + 56))(v48 & v21, 0, 1, AssociatedTypeWitness);
+  return a1;
+}
+
+uint64_t getEnumTagSinglePayload for GeometryActionBinder(unsigned __int16 *a1, unsigned int a2, uint64_t a3)
+{
+  v5 = *(swift_getAssociatedTypeWitness() - 8);
+  v6 = v5;
+  v7 = *(v5 + 84);
+  if (v7)
+  {
+    v8 = v7 - 1;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  if (v8 <= 0xFE)
+  {
+    v9 = 254;
+  }
+
+  else
+  {
+    v9 = v8;
+  }
+
+  v10 = *(v5 + 80);
+  v11 = *(v5 + 64);
+  if (v7)
+  {
+    v12 = v11;
+  }
+
+  else
+  {
+    v12 = v11 + 1;
+  }
+
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v13 = v10 | 3;
+  if (a2 > v9)
+  {
+    v14 = ((v10 + ((((v12 - (((-10 - v10) | v10) + ((-29 - v10) | v13)) + ((v12 + v10 + ((v12 + v10) & ~v10)) & ~v10) + 17) & 0xFFFFFFFFFFFFFFFCLL) + 7) & 0xFFFFFFFFFFFFFFFCLL) + 4) & ~v10) + v12;
+    v15 = 8 * v14;
+    if (v14 > 3)
+    {
+      goto LABEL_13;
+    }
+
+    v17 = ((a2 - v9 + ~(-1 << v15)) >> v15) + 1;
+    if (HIWORD(v17))
+    {
+      v16 = *(a1 + v14);
+      if (!v16)
+      {
+        goto LABEL_33;
+      }
+
+      goto LABEL_20;
+    }
+
+    if (v17 > 0xFF)
+    {
+      v16 = *(a1 + v14);
+      if (!*(a1 + v14))
+      {
+        goto LABEL_33;
+      }
+
+      goto LABEL_20;
+    }
+
+    if (v17 >= 2)
+    {
+LABEL_13:
+      v16 = *(a1 + v14);
+      if (!*(a1 + v14))
+      {
+        goto LABEL_33;
+      }
+
+LABEL_20:
+      v18 = (v16 - 1) << v15;
+      if (v14 > 3)
+      {
+        v18 = 0;
+      }
+
+      if (v14)
+      {
+        if (v14 <= 3)
+        {
+          v19 = v14;
+        }
+
+        else
+        {
+          v19 = 4;
+        }
+
+        if (v19 > 2)
+        {
+          if (v19 == 3)
+          {
+            v20 = *a1 | (*(a1 + 2) << 16);
+          }
+
+          else
+          {
+            v20 = *a1;
+          }
+        }
+
+        else if (v19 == 1)
+        {
+          v20 = *a1;
+        }
+
+        else
+        {
+          v20 = *a1;
+        }
+      }
+
+      else
+      {
+        v20 = 0;
+      }
+
+      v25 = v9 + (v20 | v18);
+      return (v25 + 1);
+    }
+  }
+
+LABEL_33:
+  v21 = (((((((((((((((a1 + 7) & 0xFFFFFFFFFFFFFFFCLL) + 7) & 0xFFFFFFFFFFFFFFFCLL) + 7) & 0xFFFFFFFFFFFFFFFCLL) + 7) & 0xFFFFFFFFFFFFFFFCLL) + 7) & 0xFFFFFFFFFFFFFFFCLL) + 7) & 0xFFFFFFFFFFFFFFFCLL) + v13 + 4) & ~v13) + 7) & 0xFFFFFFFFFFFFFFFCLL;
+  if (v8 <= 0xFE)
+  {
+    v22 = *(v21 + 4);
+    if (v22 < 2)
+    {
+      return 0;
+    }
+
+    v25 = (v22 + 2147483646) & 0x7FFFFFFF;
+    return (v25 + 1);
+  }
+
+  v24 = (*(v6 + 48))((v10 + v21 + 5) & ~v10);
+  if (v24 >= 2)
+  {
+    return v24 - 1;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void storeEnumTagSinglePayload for GeometryActionBinder(_BYTE *a1, unsigned int a2, unsigned int a3, uint64_t a4)
+{
+  v7 = 0;
+  v8 = *(swift_getAssociatedTypeWitness() - 8);
+  v9 = *(v8 + 84);
+  v10 = v9 - 1;
+  if (!v9)
+  {
+    v10 = 0;
+  }
+
+  v11 = *(v8 + 80);
+  v12 = *(v8 + 64);
+  if (v10 <= 0xFE)
+  {
+    v13 = 254;
+  }
+
+  else
+  {
+    v13 = v10;
+  }
+
+  v14 = v11 | 3;
+  if (!v9)
+  {
+    ++v12;
+  }
+
+  v15 = ((v12 + v11 + ((v12 + v11) & ~v11)) & ~v11) + v12;
+  v16 = ((v11 + ((((v15 - (((-10 - v11) | v11) + ((-29 - v11) | v14)) + 17) & 0xFFFFFFFFFFFFFFFCLL) + 7) & 0xFFFFFFFFFFFFFFFCLL) + 4) & ~v11) + v12;
+  if (a3 <= v13)
+  {
+    goto LABEL_19;
+  }
+
+  if (v16 <= 3)
+  {
+    v17 = ((a3 - v13 + ~(-1 << (8 * v16))) >> (8 * v16)) + 1;
+    if (HIWORD(v17))
+    {
+      v7 = 4;
+      if (v13 >= a2)
+      {
+        goto LABEL_29;
+      }
+
+      goto LABEL_20;
+    }
+
+    if (v17 < 0x100)
+    {
+      v18 = 1;
+    }
+
+    else
+    {
+      v18 = 2;
+    }
+
+    if (v17 >= 2)
+    {
+      v7 = v18;
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+
+LABEL_19:
+    if (v13 >= a2)
+    {
+      goto LABEL_29;
+    }
+
+    goto LABEL_20;
+  }
+
+  v7 = 1;
+  if (v13 >= a2)
+  {
+LABEL_29:
+    if (v7 > 1)
+    {
+      if (v7 != 2)
+      {
+        *&a1[v16] = 0;
+        if (!a2)
+        {
+          return;
+        }
+
+        goto LABEL_36;
+      }
+
+      *&a1[v16] = 0;
+    }
+
+    else if (v7)
+    {
+      a1[v16] = 0;
+      if (!a2)
+      {
+        return;
+      }
+
+LABEL_36:
+      v22 = (((((((((((((((a1 + 7) & 0xFFFFFFFFFFFFFFFCLL) + 7) & 0xFFFFFFFFFFFFFFFCLL) + 7) & 0xFFFFFFFFFFFFFFFCLL) + 7) & 0xFFFFFFFFFFFFFFFCLL) + 7) & 0xFFFFFFFFFFFFFFFCLL) + 7) & 0xFFFFFFFFFFFFFFFCLL) + v14 + 4) & ~v14) + 7) & 0xFFFFFFFFFFFFFFFCLL;
+      if (v10 > 0xFE)
+      {
+        v23 = ((v11 + v22 + 5) & ~v11);
+        if (v10 >= a2)
+        {
+          v27 = *(v8 + 56);
+
+          v27((v11 + v22 + 5) & ~v11, a2 + 1);
+        }
+
+        else
+        {
+          if (v15 <= 3)
+          {
+            v24 = ~(-1 << (8 * v15));
+          }
+
+          else
+          {
+            v24 = -1;
+          }
+
+          if (v15)
+          {
+            v25 = v24 & (~v10 + a2);
+            if (v15 <= 3)
+            {
+              v26 = v15;
+            }
+
+            else
+            {
+              v26 = 4;
+            }
+
+            bzero(v23, v15);
+            if (v26 > 2)
+            {
+              if (v26 == 3)
+              {
+                *v23 = v25;
+                v23[2] = BYTE2(v25);
+              }
+
+              else
+              {
+                *v23 = v25;
+              }
+            }
+
+            else if (v26 == 1)
+            {
+              *v23 = v25;
+            }
+
+            else
+            {
+              *v23 = v25;
+            }
+          }
+        }
+      }
+
+      else
+      {
+        *(v22 + 4) = a2 + 1;
+      }
+
+      return;
+    }
+
+    if (!a2)
+    {
+      return;
+    }
+
+    goto LABEL_36;
+  }
+
+LABEL_20:
+  v19 = ~v13 + a2;
+  if (v16 >= 4)
+  {
+    bzero(a1, v16);
+    *a1 = v19;
+    v20 = 1;
+    if (v7 > 1)
+    {
+      goto LABEL_59;
+    }
+
+    goto LABEL_56;
+  }
+
+  v20 = (v19 >> (8 * v16)) + 1;
+  if (!v16)
+  {
+LABEL_55:
+    if (v7 > 1)
+    {
+      goto LABEL_59;
+    }
+
+    goto LABEL_56;
+  }
+
+  v21 = v19 & ~(-1 << (8 * v16));
+  bzero(a1, v16);
+  if (v16 == 3)
+  {
+    *a1 = v21;
+    a1[2] = BYTE2(v21);
+    goto LABEL_55;
+  }
+
+  if (v16 == 2)
+  {
+    *a1 = v21;
+    if (v7 > 1)
+    {
+LABEL_59:
+      if (v7 == 2)
+      {
+        *&a1[v16] = v20;
+      }
+
+      else
+      {
+        *&a1[v16] = v20;
+      }
+
+      return;
+    }
+  }
+
+  else
+  {
+    *a1 = v19;
+    if (v7 > 1)
+    {
+      goto LABEL_59;
+    }
+  }
+
+LABEL_56:
+  if (v7)
+  {
+    a1[v16] = v20;
+  }
+}
+
+double get_witness_table_7SwiftUI4ViewRzSQRd__s8SendableRd__r__lAA15ModifiedContentVyxAA23_GeometryActionModifierVyqd__GGAaBHPxAaBHD1__AhA0cI0HPyHCHCTm(uint64_t *a1, uint64_t (*a2)(uint64_t, uint64_t, uint64_t), uint64_t a3)
+{
+  v4 = *a1;
+  v5 = a1[2];
+  v6 = a2(255, a1[1], a1[3]);
+  v8 = type metadata accessor for ModifiedContent(255, v4, v6, v7);
+  v10[0] = v5;
+  v10[1] = a3;
+  return swift_getWitnessTable(protocol conformance descriptor for <> ModifiedContent<A, B>, v8, v10);
+}
+
+void *assignWithCopy for _GeometryActionModifier(void *a1, void *a2)
+{
+  v4 = a2[1];
+  *a1 = *a2;
+  a1[1] = v4;
+
+  v5 = a2[3];
+  a1[2] = a2[2];
+  a1[3] = v5;
+
+  return a1;
+}
+
+_OWORD *assignWithTake for _GeometryActionModifier(_OWORD *a1, _OWORD *a2)
+{
+  *a1 = *a2;
+
+  a1[1] = a2[1];
+
+  return a1;
+}
+
+uint64_t objectdestroy_32Tm()
+{
+
+  swift_weakDestroy();
+
+  return swift_deallocObject();
+}
+
+uint64_t _GraphInputs.redactionReasons.getter()
+{
+  if (one-time initialization token for redactionReasons != -1)
+  {
+    swift_once();
+  }
+
+  v0 = static CachedEnvironment.ID.redactionReasons;
+  swift_beginAccess();
+  v1 = specialized CachedEnvironment.attribute<A>(id:_:)(v0, specialized implicit closure #1 in _GraphInputs.redactionReasons.getter, 0);
+  swift_endAccess();
+  return v1;
+}
+
+void *EnvironmentValues.unredactSymbolImage.getter()
+{
+  v1 = *v0;
+  if (*(v0 + 8))
+  {
+
+    v2 = _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA19UnredactSymbolImageVG_Tt1g5(v1);
+
+    return (v2 & 1);
+  }
+
+  else
+  {
+    result = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA19UnredactSymbolImageVG_Tt0g5(v1);
+    if (result)
+    {
+      return *(result + 72);
+    }
+  }
+
+  return result;
+}
+
+void key path getter for EnvironmentValues.unredactSymbolImage : EnvironmentValues(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+{
+  v3 = *a1;
+  if (a1[1])
+  {
+
+    v4 = _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA19UnredactSymbolImageVG_Tt1g5(v3);
+  }
+
+  else
+  {
+    v5 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA19UnredactSymbolImageVG_Tt0g5(*a1);
+    if (v5)
+    {
+      v4 = *(v5 + 72);
+    }
+
+    else
+    {
+      v4 = 0;
+    }
+  }
+
+  *a2 = v4 & 1;
+}
+
+double key path setter for EnvironmentValues.unredactSymbolImage : EnvironmentValues(char *a1, uint64_t *a2)
+{
+  v3 = *a1;
+  v4 = *a2;
+  swift_retain_n();
+  _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluisyyXEfU_AA011EnvironmentcF0VyAA19UnredactSymbolImageVG_Tt2g5(a2, v3);
+
+  if (a2[1])
+  {
+    _s7SwiftUI12PropertyListV7TrackerC15invalidateValue3for4from2toyxm_A2CtAA0C3KeyRzlFAA011EnvironmentcK0VyAA19UnredactSymbolImageVG_Ttg5(v4, *a2);
+  }
+
+  return result;
+}
+
+double EnvironmentValues.unredactSymbolImage.setter(char a1)
+{
+  v2 = v1;
+  v4 = *v2;
+  swift_retain_n();
+  _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluisyyXEfU_AA011EnvironmentcF0VyAA19UnredactSymbolImageVG_Tt2g5(v2, a1);
+
+  if (v2[1])
+  {
+    _s7SwiftUI12PropertyListV7TrackerC15invalidateValue3for4from2toyxm_A2CtAA0C3KeyRzlFAA011EnvironmentcK0VyAA19UnredactSymbolImageVG_Ttg5(v4, *v2);
+  }
+
+  return result;
+}
+
+void (*EnvironmentValues.unredactSymbolImage.modify(void *a1))(uint64_t *a1)
+{
+  if (MEMORY[0x1E69E7D08])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x30uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  v3[2] = v1;
+  v5 = *v1;
+  v3[3] = *v1;
+  v6 = *(v1 + 8);
+  v3[4] = v6;
+  if (v6)
+  {
+
+    v7 = _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA19UnredactSymbolImageVG_Tt1g5(v5);
+  }
+
+  else
+  {
+    v8 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA19UnredactSymbolImageVG_Tt0g5(v5);
+    if (v8)
+    {
+      v7 = *(v8 + 72);
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+  }
+
+  *(v4 + 40) = v7 & 1;
+  return EnvironmentValues.unredactSymbolImage.modify;
+}
+
+void EnvironmentValues.unredactSymbolImage.modify(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = *(*a1 + 40);
+  swift_retain_n();
+  v3 = *(v1 + 32);
+  _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluisyyXEfU_AA011EnvironmentcF0VyAA19UnredactSymbolImageVG_Tt2g5(*(v1 + 16), v2);
+
+  if (v3)
+  {
+    _s7SwiftUI12PropertyListV7TrackerC15invalidateValue3for4from2toyxm_A2CtAA0C3KeyRzlFAA011EnvironmentcK0VyAA19UnredactSymbolImageVG_Ttg5(*(v1 + 24), **(v1 + 16));
+  }
+
+  free(v1);
+}
+
+uint64_t EnvironmentValues.shouldRedactSymbolImages.getter()
+{
+  v1 = *v0;
+  if (*(v0 + 8))
+  {
+
+    ShouldRedactSymbolImagesJ0VG_Tt1g5 = _s7SwiftUI12PropertyListV7TrackerC12derivedValue_3for0G0QzAC_xmtAA07DerivedC3KeyRzlFAA0i11EnvironmentcJ033_0CBA6217BE011883F496E97230B6CF8FLLVyAA024ShouldRedactSymbolImagesJ0VG_Tt1g5(v1);
+
+    return ShouldRedactSymbolImagesJ0VG_Tt1g5 & 1;
+  }
+
+  else
+  {
+    v4 = *v0;
+
+    return _s7SwiftUI29DerivedEnvironmentPropertyKey33_0CBA6217BE011883F496E97230B6CF8FLLV5value2in5ValueQzAA0E4ListV_tFZAA024ShouldRedactSymbolImagesF0V_Tt1g5(v4);
+  }
+}
+
+uint64_t one-time initialization function for redactionReasons(uint64_t a1)
+{
+  result = AGMakeUniqueID();
+  static CachedEnvironment.ID.redactionReasons = result;
+  return result;
+}
+
+void GraphicsImage.redact(in:)(uint64_t *a1)
+{
+  v2 = *a1;
+  v3 = a1[1];
+  v4 = swift_allocObject();
+  if (one-time initialization token for foreground != -1)
+  {
+    swift_once();
+  }
+
+  v8[0] = v2;
+  v8[1] = v3;
+  (*(*static Color.foreground + 120))(&v9, v8);
+  v5 = v12;
+  v6 = v10;
+  v7 = v11 * 0.16;
+  *(v4 + 16) = v9;
+  *(v4 + 24) = v6;
+  *(v4 + 28) = v7;
+  *(v4 + 32) = v5;
+  outlined consume of GraphicsImage.Contents?(*v1, *(v1 + 8));
+  *v1 = v4;
+  *(v1 + 8) = 4;
+}
+
+uint64_t one-time initialization function for redacted()
+{
+  type metadata accessor for ImageProviderBox<Image.RedactedImageProvider>(0);
+  result = swift_allocObject();
+  static Image.redacted = result;
+  return result;
+}
+
+double static Image.redacted.getter()
+{
+  if (one-time initialization token for redacted != -1)
+  {
+    swift_once();
+  }
+
+  return result;
+}
+
+__n128 Image.RedactedImageProvider.resolve(in:)@<Q0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = *a1;
+  v4 = a1[1];
+  v5 = swift_allocObject();
+  if (one-time initialization token for foreground != -1)
+  {
+    swift_once();
+  }
+
+  *&v43[0] = v3;
+  *(&v43[0] + 1) = v4;
+  (*(*static Color.foreground + 120))(&v39, v43);
+  v6 = v42;
+  v7 = v40;
+  v8 = v41 * 0.16;
+  *(v5 + 16) = v39;
+  *(v5 + 24) = v7;
+  *(v5 + 28) = v8;
+  *(v5 + 32) = v6;
+  if (one-time initialization token for resizable != -1)
+  {
+    swift_once();
+  }
+
+  v9 = byte_1EAB12468;
+  v27 = unk_1EAB12458;
+  v28 = static Image.ResizingInfo.resizable;
+  outlined consume of GraphicsImage.Contents?(0, 0xFFu);
+  LOBYTE(v30) = 1;
+  *&v43[0] = v5;
+  BYTE8(v43[0]) = 4;
+  __asm { FMOV            V0.2D, #1.0 }
+
+  v43[1] = _Q0;
+  *v44 = 0x3FF0000000000000;
+  v44[8] = 0;
+  v45 = 0;
+  *&v44[12] = 0;
+  v46 = 0;
+  v47[0] = 1;
+  *&v47[24] = v27;
+  *&v47[8] = v28;
+  v47[40] = v9;
+  *&v47[41] = 257;
+  v47[43] = 0;
+  v34 = _Q0;
+  v35 = *v44;
+  v33 = v43[0];
+  *(v38 + 12) = *&v47[28];
+  v37 = *v47;
+  v38[0] = *&v47[16];
+  v36 = 0u;
+  outlined init with copy of GraphicsImage(v43, &v30);
+  outlined consume of AccessibilityImageLabel?(0, 0, 0x1FFFFFFFELL, 0);
+  if (BYTE8(v43[0]) == 2)
+  {
+    v17 = *(*&v43[0] + 32);
+    v18 = *(*&v43[0] + 48);
+    v19 = *(*&v43[0] + 16);
+    outlined copy of Image.Location(v17);
+    v20 = v18;
+    outlined copy of Image.Location(v17);
+    v29 = v17;
+    _ShapeStyle_ResolverMode.init(rbSymbolStyleMask:location:)([v19 styleMask], &v29, &v30);
+
+    outlined consume of Image.Location(v17);
+    outlined destroy of GraphicsImage(v43);
+    v21 = v30;
+    v16 = v31;
+    v15 = v32 & 0xFD;
+  }
+
+  else
+  {
+    if (BYTE8(v43[0]) == 255)
+    {
+      outlined destroy of GraphicsImage(v43);
+      v15 = 0;
+      v16 = 0;
+    }
+
+    else
+    {
+      v16 = (v47[0] & 1) == 0;
+      outlined destroy of GraphicsImage(v43);
+      v15 = 0;
+    }
+
+    v21 = 0;
+  }
+
+  result = v36;
+  v23 = v38[0];
+  v24 = v38[1];
+  *(a2 + 64) = v37;
+  *(a2 + 80) = v23;
+  *(a2 + 96) = v24;
+  v25 = v34;
+  v26 = v35;
+  *a2 = v33;
+  *(a2 + 16) = v25;
+  *(a2 + 32) = v26;
+  *(a2 + 48) = result;
+  *(a2 + 112) = 0;
+  *(a2 + 120) = 0;
+  *(a2 + 128) = 0x1FFFFFFFELL;
+  *(a2 + 136) = 0;
+  *(a2 + 144) = 0;
+  *(a2 + 152) = 0;
+  *(a2 + 160) = 769;
+  *(a2 + 164) = 0;
+  *(a2 + 168) = 1;
+  *(a2 + 176) = v21;
+  *(a2 + 184) = v16;
+  *(a2 + 186) = v15;
+  return result;
+}
+
+void type metadata accessor for ImageProviderBox<Image.RedactedImageProvider>(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for ImageProviderBox<Image.RedactedImageProvider>)
+  {
+    lazy protocol witness table accessor for type Image.RedactedImageProvider and conformance Image.RedactedImageProvider();
+    v4 = type metadata accessor for ImageProviderBox(a1, &unk_1F00700D0, v2, v3);
+    if (!v5)
+    {
+      atomic_store(v4, &lazy cache variable for type metadata for ImageProviderBox<Image.RedactedImageProvider>);
+    }
+  }
+}
+
+void lazy protocol witness table accessor for type Image.RedactedImageProvider and conformance Image.RedactedImageProvider()
+{
+  if (!lazy protocol witness table cache variable for type Image.RedactedImageProvider and conformance Image.RedactedImageProvider)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for Image.RedactedImageProvider, &unk_1F00700D0, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type Image.RedactedImageProvider and conformance Image.RedactedImageProvider);
+  }
+}
+
+{
+  if (!lazy protocol witness table cache variable for type Image.RedactedImageProvider and conformance Image.RedactedImageProvider)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for Image.RedactedImageProvider, &unk_1F00700D0, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type Image.RedactedImageProvider and conformance Image.RedactedImageProvider);
+  }
+}
+
+uint64_t static SemanticFeature.prior.getter(uint64_t a1, uint64_t a2)
+{
+  v2 = (*(a2 + 16))(a1);
+  v3 = v2 != 0;
+  result = (v2 - 1);
+  if (!v3)
+  {
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t one-time initialization function for introduced(uint64_t a1, void *a2, _DWORD *a3, _DWORD *a4, uint64_t a5)
+{
+  if (*a2 != -1)
+  {
+    v5 = a4;
+    v6 = a3;
+    result = swift_once();
+    a3 = v6;
+    a4 = v5;
+  }
+
+  *a4 = *a3;
+  return result;
+}
+
+void instantiation function for generic protocol witness table for _SemanticFeature<A>(uint64_t a1)
+{
+  swift_getWitnessTable(protocol conformance descriptor for _SemanticFeature<A>);
+  *(a1 + 8) = v2;
+}
+
+{
+  swift_getWitnessTable(protocol conformance descriptor for _SemanticFeature<A>);
+  *(a1 + 8) = v2;
+}
+
+{
+  swift_getWitnessTable(protocol conformance descriptor for _SemanticFeature<A>);
+  *(a1 + 16) = v2;
+}
+
+uint64_t protocol witness for static SemanticFeature.introduced.getter in conformance Semantics.DismissPopsInNavigationSplitViewRoots(uint64_t a1, uint64_t a2, void *a3, unsigned int *a4, uint64_t a5)
+{
+  if (*a3 == -1)
+  {
+    return *a4;
+  }
+
+  swift_once();
+  return *a4;
+}
+
+uint64_t static WindowDragGestureIsActiveKey.reduce(value:nextValue:)(_BYTE *a1, uint64_t (*a2)(void))
+{
+  if (*a1)
+  {
+    result = 1;
+  }
+
+  else
+  {
+    result = a2();
+  }
+
+  *a1 = result & 1;
+  return result;
+}
+
+uint64_t specialized Comparable.clamp(min:max:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _BYTE *a4@<X8>)
+{
+  LODWORD(v4) = a3;
+  result = specialized Collection<>.firstIndex(of:)(a3, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v9)
+  {
+    __break(1u);
+    goto LABEL_13;
+  }
+
+  v10 = result;
+  result = specialized Collection<>.firstIndex(of:)(a1, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v11)
+  {
+LABEL_13:
+    __break(1u);
+LABEL_14:
+    __break(1u);
+    goto LABEL_15;
+  }
+
+  if (v10 >= result)
+  {
+    v4 = v4;
+  }
+
+  else
+  {
+    v4 = a1;
+  }
+
+  result = specialized Collection<>.firstIndex(of:)(a2, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v12)
+  {
+    goto LABEL_14;
+  }
+
+  v13 = result;
+  result = specialized Collection<>.firstIndex(of:)(v4, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v14)
+  {
+LABEL_15:
+    __break(1u);
+    return result;
+  }
+
+  if (v13 >= result)
+  {
+    v15 = v4;
+  }
+
+  else
+  {
+    v15 = a2;
+  }
+
+  *a4 = v15;
+  return result;
+}
+
+int *specialized Collection<>.subscript.getter@<X0>(int *result@<X0>, uint64_t a2@<X8>)
+{
+  v3 = *(v2 + 12);
+  if (v3 < 0)
+  {
+    __break(1u);
+    goto LABEL_6;
+  }
+
+  v4 = *result;
+  if (*result < 0)
+  {
+LABEL_6:
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  v5 = result[2];
+  if (v3 >= v5)
+  {
+    v6 = *(v2 + 8);
+    *(a2 + 16) = *v2;
+    *(a2 + 24) = v6;
+    *(a2 + 28) = v3;
+    v7 = result[1];
+    v8 = result[3];
+    *a2 = v4;
+    *(a2 + 4) = v7;
+    *(a2 + 8) = v5;
+    *(a2 + 12) = v8;
+    return result;
+  }
+
+LABEL_7:
+  __break(1u);
+  return result;
+}
+
+void specialized Collection<>.subscript.getter(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+{
+  v6 = *v3;
+  v7 = _HashTable.startBucket.getter();
+  v8 = 1 << *(v6 + 32);
+  if (v8 < v7)
+  {
+    __break(1u);
+LABEL_12:
+    __break(1u);
+    goto LABEL_13;
+  }
+
+  v9 = *(a1 + 16);
+  if (v9)
+  {
+LABEL_16:
+    __break(1u);
+    goto LABEL_17;
+  }
+
+  v10 = *(v6 + 36);
+  if (*(a1 + 2) != v10)
+  {
+    goto LABEL_12;
+  }
+
+  v11 = *a1;
+  if (*a1 < v7)
+  {
+LABEL_13:
+    __break(1u);
+LABEL_14:
+    __break(1u);
+    goto LABEL_15;
+  }
+
+  v12 = *(a1 + 40);
+  if (v12)
+  {
+LABEL_17:
+    __break(1u);
+    return;
+  }
+
+  if (v10 != *(a1 + 8))
+  {
+    goto LABEL_14;
+  }
+
+  v13 = a1[3];
+  if (v8 < v13)
+  {
+LABEL_15:
+    __break(1u);
+    goto LABEL_16;
+  }
+
+  v14 = *(a1 + 3);
+  v15 = *(a1 + 9);
+  *(a2 + 48) = v6;
+  *a2 = v11;
+  *(a2 + 8) = v10;
+  *(a2 + 12) = v14;
+  *(a2 + 16) = v9;
+  *(a2 + 24) = v13;
+  *(a2 + 32) = v10;
+  *(a2 + 36) = v15;
+  *(a2 + 40) = v12;
+}
+
+uint64_t specialized Collection<>.subscript.getter@<X0>(uint64_t result@<X0>, _WORD *a2@<X8>)
+{
+  if (result > 0xBFFu)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    *a2 = result;
+  }
+
+  return result;
+}
+
+uint64_t specialized Collection<>.subscript.getter@<X0>(uint64_t a1@<X0>, _WORD *a2@<X8>)
+{
+  result = specialized Collection<>.firstIndex(of:)(4, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v5)
+  {
+    goto LABEL_14;
+  }
+
+  v6 = result;
+  result = specialized Collection<>.firstIndex(of:)(0, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v7)
+  {
+LABEL_15:
+    __break(1u);
+    goto LABEL_16;
+  }
+
+  if (v6 < result)
+  {
+    __break(1u);
+LABEL_12:
+    __break(1u);
+LABEL_13:
+    __break(1u);
+LABEL_14:
+    __break(1u);
+    goto LABEL_15;
+  }
+
+  result = specialized Collection<>.firstIndex(of:)(a1, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v8)
+  {
+LABEL_16:
+    __break(1u);
+    goto LABEL_17;
+  }
+
+  v9 = result;
+  result = specialized Collection<>.firstIndex(of:)(0, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v10)
+  {
+LABEL_17:
+    __break(1u);
+    goto LABEL_18;
+  }
+
+  if (v9 < result)
+  {
+    goto LABEL_12;
+  }
+
+  result = specialized Collection<>.firstIndex(of:)(4, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v11)
+  {
+LABEL_18:
+    __break(1u);
+    goto LABEL_19;
+  }
+
+  v12 = result;
+  result = specialized Collection<>.firstIndex(of:)(BYTE1(a1), &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if ((v13 & 1) == 0)
+  {
+    if (v12 >= result)
+    {
+      *a2 = a1;
+      return result;
+    }
+
+    goto LABEL_13;
+  }
+
+LABEL_19:
+  __break(1u);
+  return result;
+}
+
+void specialized Collection<>.subscript.getter(uint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X2>, char a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+{
+  if ((a2 & 1) == 0 && a1 < 0)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    *(a6 + 32) = a5;
+    *a6 = a1;
+    *(a6 + 8) = a2 & 1;
+    *(a6 + 16) = a3;
+    *(a6 + 24) = a4 & 1;
+  }
+}
+
+uint64_t specialized Collection.index(_:offsetBy:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+{
+  if (a2 < 0)
+  {
+    __break(1u);
+LABEL_33:
+    __break(1u);
+  }
+
+  else
+  {
+    v3 = result;
+    if (a2)
+    {
+      result = asc_1F0043DA7[2];
+      do
+      {
+        if (byte_1F0043DA0 == v3)
+        {
+          v4 = 0;
+        }
+
+        else if (byte_1F0043DA1 == v3)
+        {
+          v4 = 1;
+        }
+
+        else if (byte_1F0043DA2 == v3)
+        {
+          v4 = 2;
+        }
+
+        else if (byte_1F0043DA3 == v3)
+        {
+          v4 = 3;
+        }
+
+        else if (byte_1F0043DA4 == v3)
+        {
+          v4 = 4;
+        }
+
+        else if (byte_1F0043DA5 == v3)
+        {
+          v4 = 5;
+        }
+
+        else if (byte_1F0043DA6 == v3)
+        {
+          v4 = 6;
+        }
+
+        else if (asc_1F0043DA7[0] == v3)
+        {
+          v4 = 7;
+        }
+
+        else if (asc_1F0043DA7[1] == v3)
+        {
+          v4 = 8;
+        }
+
+        else if (asc_1F0043DA7[2] == v3)
+        {
+          v4 = 9;
+        }
+
+        else if (asc_1F0043DA7[3] == v3)
+        {
+          v4 = 10;
+        }
+
+        else
+        {
+          if (asc_1F0043DA7[4] != v3)
+          {
+            goto LABEL_33;
+          }
+
+          v4 = 11;
+        }
+
+        if (v4 >= 0xA)
+        {
+          v4 = 10;
+        }
+
+        v3 = *(&outlined read-only object #0 of static DynamicTypeSize.allCases.getter + v4 + 33);
+        --a2;
+      }
+
+      while (a2);
+    }
+
+    *a3 = v3;
+  }
+
+  return result;
+}
+
+{
+  if (a2 < 0)
+  {
+    __break(1u);
+    return result;
+  }
+
+  v3 = result;
+  if (!a2)
+  {
+    goto LABEL_14;
+  }
+
+  while (byte_1F0043E20 == v3)
+  {
+    v4 = 1u;
+LABEL_5:
+    v3 = *(&outlined read-only object #1 of specialized Collection.index(_:offsetBy:) + v4 + 32);
+    if (!--a2)
+    {
+      goto LABEL_14;
+    }
+  }
+
+  if (byte_1F0043E21 == v3)
+  {
+    v4 = 2u;
+    goto LABEL_5;
+  }
+
+  if (byte_1F0043E22 == v3)
+  {
+    v4 = 3u;
+    goto LABEL_5;
+  }
+
+  v4 = 4u;
+  if (byte_1F0043E23 == v3 || byte_1F0043E24 == v3)
+  {
+    goto LABEL_5;
+  }
+
+  __break(1u);
+LABEL_14:
+  *a3 = v3;
+  return result;
+}
+
+unint64_t specialized Collection.index(_:offsetBy:)@<X0>(unint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X8>)
+{
+  if (a2 < 0)
+  {
+    __break(1u);
+LABEL_13:
+    __break(1u);
+    return result;
+  }
+
+  v5 = HIDWORD(result);
+  if (!a2)
+  {
+    *a5 = result;
+    return result;
+  }
+
+  if (!a3)
+  {
+    goto LABEL_13;
+  }
+
+  v6 = HIDWORD(a4);
+  for (i = 1; !(result - HIDWORD(a4) + i); ++i)
+  {
+    LODWORD(v5) = 0;
+    if (i >= a2)
+    {
+      goto LABEL_10;
+    }
+
+LABEL_6:
+    ;
+  }
+
+  LODWORD(v5) = *(a3 + 8 + v5) + v5;
+  if (i < a2)
+  {
+    goto LABEL_6;
+  }
+
+  LODWORD(v6) = result + i;
+LABEL_10:
+  *a5 = v6;
+  *(a5 + 4) = v5;
+  return result;
+}
+
+uint64_t specialized Collection.index(_:offsetBy:limitedBy:)(uint64_t result, uint64_t a2, char a3, uint64_t a4, uint64_t a5, unsigned int a6, char a7)
+{
+  if (a4 < 0)
+  {
+LABEL_26:
+    __break(1u);
+  }
+
+  else
+  {
+    v13 = result;
+    outlined copy of [A : B].Index._Variant<A, B>(result, a2, a3 & 1);
+    if (!a4)
+    {
+      return v13;
+    }
+
+    v15 = 0;
+    v16 = a3 | a7;
+    result = v13;
+    v17 = a2;
+    while ((v16 & 1) == 0)
+    {
+      if (v17 != a6)
+      {
+        __break(1u);
+LABEL_23:
+        __break(1u);
+LABEL_24:
+        __break(1u);
+LABEL_25:
+        __break(1u);
+        goto LABEL_26;
+      }
+
+      if (result == a5)
+      {
+        return 0;
+      }
+
+      if (result < 0)
+      {
+        goto LABEL_23;
+      }
+
+      v19 = *v7;
+      v20 = 1 << *(*v7 + 32);
+      if (result >= v20)
+      {
+        goto LABEL_23;
+      }
+
+      v21 = result >> 6;
+      v22 = *(v19 + 64 + 8 * (result >> 6));
+      if (((v22 >> result) & 1) == 0)
+      {
+        goto LABEL_24;
+      }
+
+      if (*(v19 + 36) != a6)
+      {
+        goto LABEL_25;
+      }
+
+      v23 = v22 & (-2 << (result & 0x3F));
+      if (v23)
+      {
+        result = __clz(__rbit64(v23)) | result & 0x7FFFFFFFFFFFFFC0;
+      }
+
+      else
+      {
+        v24 = v21 << 6;
+        v25 = v21 + 1;
+        v26 = (v19 + 8 * v21 + 72);
+        while (v25 < (v20 + 63) >> 6)
+        {
+          v28 = *v26++;
+          v27 = v28;
+          v24 += 64;
+          ++v25;
+          if (v28)
+          {
+            outlined consume of [String : AccessibilityCustomAttributes.Value].Index._Variant(result, v17, 0);
+            result = __clz(__rbit64(v27)) + v24;
+            goto LABEL_5;
+          }
+        }
+
+        outlined consume of [String : AccessibilityCustomAttributes.Value].Index._Variant(result, v17, 0);
+        result = v20;
+      }
+
+LABEL_5:
+      v17 = a6;
+      v16 = a7;
+      if (v15++ == a4 - 1)
+      {
+        return result;
+      }
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+unsigned int *specialized Collection.index(_:offsetBy:limitedBy:)@<X0>(unsigned int *result@<X0>, uint64_t a2@<X1>, _DWORD *a3@<X2>, uint64_t a4@<X8>)
+{
+  if ((a2 & 0x8000000000000000) == 0)
+  {
+    v6 = *result;
+    v5 = result[1];
+    if (a2)
+    {
+      v7 = a3[1];
+      if (v6 != *a3 || v5 != v7)
+      {
+        if (*v4)
+        {
+          v9 = *(v4 + 12);
+          v10 = 1;
+          while (1)
+          {
+            if (v6 - v9 + v10)
+            {
+              v5 = (*(*v4 + 8 + v5) + v5);
+              if (v10 >= a2)
+              {
+                v9 = v6 + v10;
+                goto LABEL_17;
+              }
+            }
+
+            else
+            {
+              v5 = 0;
+              if (v10 >= a2)
+              {
+                goto LABEL_17;
+              }
+            }
+
+            v11 = v6 - *a3 + v10++;
+            if (!v11 && v5 == v7)
+            {
+              goto LABEL_15;
+            }
+          }
+        }
+
+        goto LABEL_20;
+      }
+
+LABEL_15:
+      v12 = 0;
+      v13 = 1;
+    }
+
+    else
+    {
+      v9 = *result;
+LABEL_17:
+      v13 = 0;
+      v12 = v9 | (v5 << 32);
+    }
+
+    *a4 = v12;
+    *(a4 + 8) = v13;
+    return result;
+  }
+
+  __break(1u);
+LABEL_20:
+  __break(1u);
+  return result;
+}
+
+uint64_t specialized Collection.index(_:offsetBy:limitedBy:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, unsigned __int8 a3@<W2>, _BYTE *a4@<X8>)
+{
+  if (a2 < 0)
+  {
+    __break(1u);
+LABEL_35:
+    __break(1u);
+  }
+
+  else
+  {
+    v4 = result;
+    if (a2)
+    {
+      result = asc_1F0043DA7[1];
+      while (v4 != a3)
+      {
+        if (byte_1F0043DA0 == v4)
+        {
+          v5 = 0;
+        }
+
+        else if (byte_1F0043DA1 == v4)
+        {
+          v5 = 1;
+        }
+
+        else if (byte_1F0043DA2 == v4)
+        {
+          v5 = 2;
+        }
+
+        else if (byte_1F0043DA3 == v4)
+        {
+          v5 = 3;
+        }
+
+        else if (byte_1F0043DA4 == v4)
+        {
+          v5 = 4;
+        }
+
+        else if (byte_1F0043DA5 == v4)
+        {
+          v5 = 5;
+        }
+
+        else if (byte_1F0043DA6 == v4)
+        {
+          v5 = 6;
+        }
+
+        else if (asc_1F0043DA7[0] == v4)
+        {
+          v5 = 7;
+        }
+
+        else if (asc_1F0043DA7[1] == v4)
+        {
+          v5 = 8;
+        }
+
+        else if (asc_1F0043DA7[2] == v4)
+        {
+          v5 = 9;
+        }
+
+        else if (asc_1F0043DA7[3] == v4)
+        {
+          v5 = 10;
+        }
+
+        else
+        {
+          if (asc_1F0043DA7[4] != v4)
+          {
+            goto LABEL_35;
+          }
+
+          v5 = 11;
+        }
+
+        if (v5 >= 0xA)
+        {
+          v5 = 10;
+        }
+
+        v4 = *(&outlined read-only object #0 of static DynamicTypeSize.allCases.getter + v5 + 33);
+        if (!--a2)
+        {
+          goto LABEL_32;
+        }
+      }
+
+      *a4 = 12;
+    }
+
+    else
+    {
+LABEL_32:
+      *a4 = v4;
+    }
+  }
+
+  return result;
+}
+
+{
+  if (a2 < 0)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    v4 = result;
+    if (a2)
+    {
+      while (v4 != a3)
+      {
+        if (byte_1F0043E70 == v4)
+        {
+          v5 = 1u;
+        }
+
+        else if (byte_1F0043E71 == v4)
+        {
+          v5 = 2u;
+        }
+
+        else if (byte_1F0043E72 == v4)
+        {
+          v5 = 3u;
+        }
+
+        else
+        {
+          v5 = 4u;
+          if (byte_1F0043E73 != v4 && byte_1F0043E74 != v4)
+          {
+            __break(1u);
+            goto LABEL_15;
+          }
+        }
+
+        v4 = *(&outlined read-only object #1 of specialized Collection.index(_:offsetBy:limitedBy:) + v5 + 32);
+        if (!--a2)
+        {
+          goto LABEL_15;
+        }
+      }
+
+      *a4 = 5;
+    }
+
+    else
+    {
+LABEL_15:
+      *a4 = v4;
+    }
+  }
+
+  return result;
+}
+
+uint64_t *specialized Collection.index(_:offsetBy:limitedBy:)@<X0>(uint64_t *result@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
+{
+  if (a2 < 0)
+  {
+LABEL_14:
+    __break(1u);
+    return result;
+  }
+
+  v4 = *result;
+  if (a2)
+  {
+    v5 = *a3;
+    v6 = v4 + a2;
+    while (!__OFSUB__(v5, v4))
+    {
+      v7 = v5 == v4;
+      if (v5 == v4)
+      {
+        v4 = 0;
+        goto LABEL_11;
+      }
+
+      if (v4 == 0x7FFFFFFFFFFFFFFFLL)
+      {
+        goto LABEL_13;
+      }
+
+      ++v4;
+      if (!--a2)
+      {
+        v4 = v6;
+        goto LABEL_11;
+      }
+    }
+
+    __break(1u);
+LABEL_13:
+    __break(1u);
+    goto LABEL_14;
+  }
+
+  v7 = 0;
+LABEL_11:
+  *a4 = v4;
+  *(a4 + 8) = v7;
+  return result;
+}
+
+unint64_t specialized Collection.index(_:offsetBy:limitedBy:)@<X0>(unint64_t result@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X3>, unint64_t a5@<X4>, uint64_t a6@<X8>)
+{
+  if (a2 < 0)
+  {
+    __break(1u);
+LABEL_18:
+    __break(1u);
+    return result;
+  }
+
+  v6 = HIDWORD(result);
+  if (!a2)
+  {
+    goto LABEL_15;
+  }
+
+  if (result == a3 && v6 == HIDWORD(a3))
+  {
+LABEL_13:
+    v9 = 0;
+    v10 = 1;
+    goto LABEL_16;
+  }
+
+  if (!a4)
+  {
+    goto LABEL_18;
+  }
+
+  v7 = 1;
+  while (result - HIDWORD(a5) + v7)
+  {
+    v6 = (*(a4 + 8 + v6) + v6);
+    if (v7 >= a2)
+    {
+      result = (result + v7);
+      goto LABEL_15;
+    }
+
+LABEL_11:
+    v8 = result - a3 + v7++;
+    if (!v8 && v6 == HIDWORD(a3))
+    {
+      goto LABEL_13;
+    }
+  }
+
+  v6 = 0;
+  if (v7 < a2)
+  {
+    goto LABEL_11;
+  }
+
+  result = HIDWORD(a5);
+LABEL_15:
+  v10 = 0;
+  v9 = result | (v6 << 32);
+LABEL_16:
+  *a6 = v9;
+  *(a6 + 8) = v10;
+  return result;
+}
+
+int64_t specialized Collection.distance(from:to:)(int64_t result, uint64_t a2, char a3, int64_t a4, unsigned int a5, char a6)
+{
+  if (a6 & 1) != 0 || (a3)
+  {
+    goto LABEL_32;
+  }
+
+  if (a4 < result)
+  {
+    goto LABEL_30;
+  }
+
+  v9 = a2;
+  if (a5 != a2)
+  {
+LABEL_31:
+    __break(1u);
+LABEL_32:
+    __break(1u);
+    return result;
+  }
+
+  if (result != a4)
+  {
+    v11 = *v6;
+    v10 = 1;
+    while ((result & 0x8000000000000000) == 0)
+    {
+      v12 = 1 << *(v11 + 32);
+      if (result >= v12)
+      {
+        break;
+      }
+
+      v13 = result >> 6;
+      v14 = *(v11 + 64 + 8 * (result >> 6));
+      if (((v14 >> result) & 1) == 0)
+      {
+        goto LABEL_27;
+      }
+
+      if (*(v11 + 36) != v9)
+      {
+        goto LABEL_28;
+      }
+
+      v15 = v14 & (-2 << (result & 0x3F));
+      if (v15)
+      {
+        result = __clz(__rbit64(v15)) | result & 0x7FFFFFFFFFFFFFC0;
+        if (v9 != a5)
+        {
+          goto LABEL_29;
+        }
+      }
+
+      else
+      {
+        v16 = v13 << 6;
+        v17 = v13 + 1;
+        v18 = (v11 + 72 + 8 * v13);
+        while (v17 < (v12 + 63) >> 6)
+        {
+          v20 = *v18++;
+          v19 = v20;
+          v16 += 64;
+          ++v17;
+          if (v20)
+          {
+            outlined consume of [String : AccessibilityCustomAttributes.Value].Index._Variant(result, v9, 0);
+            result = __clz(__rbit64(v19)) + v16;
+            goto LABEL_21;
+          }
+        }
+
+        outlined consume of [String : AccessibilityCustomAttributes.Value].Index._Variant(result, v9, 0);
+        result = v12;
+LABEL_21:
+        if (v9 != a5)
+        {
+          goto LABEL_29;
+        }
+      }
+
+      if (result == a4)
+      {
+        return v10;
+      }
+
+      v9 = a5;
+      if (__OFADD__(v10++, 1))
+      {
+        __break(1u);
+        break;
+      }
+    }
+
+    __break(1u);
+LABEL_27:
+    __break(1u);
+LABEL_28:
+    __break(1u);
+LABEL_29:
+    __break(1u);
+LABEL_30:
+    __break(1u);
+    goto LABEL_31;
+  }
+
+  return 0;
+}
+
+unint64_t specialized Collection.distance(from:to:)(unint64_t result, unint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (a2 < result)
+  {
+LABEL_21:
+    __break(1u);
+    goto LABEL_22;
+  }
+
+  v4 = HIDWORD(a2);
+  v5 = HIDWORD(result);
+  v6 = a2 - result;
+  if (a2 == result && v5 == v4)
+  {
+    return 0;
+  }
+
+  if (a3)
+  {
+    if (v4)
+    {
+      v7 = 0;
+    }
+
+    else
+    {
+      v7 = HIDWORD(a4) == a2;
+    }
+
+    v8 = v7;
+    v9 = HIDWORD(a4) - result;
+    result = 1;
+    do
+    {
+      if (v9 == result)
+      {
+        if (v8)
+        {
+          return result;
+        }
+
+        LODWORD(v5) = 0;
+      }
+
+      else
+      {
+        LODWORD(v5) = *(a3 + 8 + v5) + v5;
+        if (v6 == result && v5 == HIDWORD(a2))
+        {
+          return result;
+        }
+      }
+    }
+
+    while (!__OFADD__(result++, 1));
+    __break(1u);
+    goto LABEL_21;
+  }
+
+LABEL_22:
+  __break(1u);
+  return result;
+}
+
+Swift::Int ControlSize.hashValue.getter()
+{
+  v1 = *v0;
+  Hasher.init(_seed:)();
+  MEMORY[0x193AC11A0](v1);
+  return Hasher._finalize()();
+}
+
+uint64_t static ControlSize.< infix(_:_:)(unsigned __int8 *a1, unsigned __int8 *a2)
+{
+  v2 = *a2;
+  result = specialized Collection<>.firstIndex(of:)(*a1, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v4)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    v5 = result;
+    result = specialized Collection<>.firstIndex(of:)(v2, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+    if ((v6 & 1) == 0)
+    {
+      return v5 < result;
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t protocol witness for static Comparable.< infix(_:_:) in conformance ControlSize(unsigned __int8 *a1, unsigned __int8 *a2)
+{
+  v2 = *a2;
+  result = specialized Collection<>.firstIndex(of:)(*a1, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v4)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    v5 = result;
+    result = specialized Collection<>.firstIndex(of:)(v2, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+    if ((v6 & 1) == 0)
+    {
+      return v5 < result;
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t protocol witness for static Comparable.<= infix(_:_:) in conformance ControlSize(unsigned __int8 *a1, unsigned __int8 *a2)
+{
+  v2 = *a1;
+  result = specialized Collection<>.firstIndex(of:)(*a2, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v4)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    v5 = result;
+    result = specialized Collection<>.firstIndex(of:)(v2, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+    if ((v6 & 1) == 0)
+    {
+      return v5 >= result;
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t protocol witness for static Comparable.>= infix(_:_:) in conformance ControlSize(unsigned __int8 *a1, unsigned __int8 *a2)
+{
+  v2 = *a2;
+  result = specialized Collection<>.firstIndex(of:)(*a1, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v4)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    v5 = result;
+    result = specialized Collection<>.firstIndex(of:)(v2, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+    if ((v6 & 1) == 0)
+    {
+      return v5 >= result;
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t protocol witness for static Comparable.> infix(_:_:) in conformance ControlSize(unsigned __int8 *a1, unsigned __int8 *a2)
+{
+  v2 = *a1;
+  result = specialized Collection<>.firstIndex(of:)(*a2, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v4)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    v5 = result;
+    result = specialized Collection<>.firstIndex(of:)(v2, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+    if ((v6 & 1) == 0)
+    {
+      return v5 < result;
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t (*EnvironmentValues.controlSize.modify(void *a1))()
+{
+  if (MEMORY[0x1E69E7D08])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x30uLL);
+  }
+
+  v7 = v3;
+  *a1 = v3;
+  v3[2] = v1;
+  v8 = *v1;
+  v3[3] = *v1;
+  v9 = *(v1 + 8);
+  v3[4] = v9;
+  if (v9)
+  {
+
+    v10 = &v16;
+    _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA011ControlSizeI033_B084178BA9D46D059A1FB75185D1E85CLLVG_Tt1g5(v8, &v16);
+  }
+
+  else
+  {
+    type metadata accessor for EnvironmentPropertyKey<ControlSizeKey>(0, v4, v5, v6);
+    BloomFilter.init(hashValue:)(v11);
+    v12 = _s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA011EnvironmentrV0VyAA011ControlSizeV033_B084178BA9D46D059A1FB75185D1E85CLLVG_Tt0B5(v8, v15);
+    if (!v12)
+    {
+LABEL_9:
+      v13 = 2;
+      goto LABEL_10;
+    }
+
+    v10 = (v12 + 9);
+  }
+
+  v13 = *v10;
+  if (*v10 == 5)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_10:
+  *(v7 + 40) = v13;
+  return EnvironmentValues.controlSize.modify;
+}
+
+void EnvironmentValues.explicitControlSize.getter(char *a1@<X8>)
+{
+  v2 = *v1;
+  if (*(v1 + 8))
+  {
+
+    _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA011ControlSizeI033_B084178BA9D46D059A1FB75185D1E85CLLVG_Tt1g5(v2, a1);
+  }
+
+  else
+  {
+    _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluigAEyXEfU_AA011EnvironmentcF0VyAA011ControlSizeF033_B084178BA9D46D059A1FB75185D1E85CLLVG_Tt2g5(v2, a1);
+  }
+}
+
+void key path getter for EnvironmentValues.explicitControlSize : EnvironmentValues(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+{
+  v3 = *a1;
+  if (a1[1])
+  {
+
+    _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA011ControlSizeI033_B084178BA9D46D059A1FB75185D1E85CLLVG_Tt1g5(v3, &v4);
+  }
+
+  else
+  {
+    _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluigAEyXEfU_AA011EnvironmentcF0VyAA011ControlSizeF033_B084178BA9D46D059A1FB75185D1E85CLLVG_Tt2g5(*a1, &v4);
+  }
+
+  *a2 = v4;
+}
+
+double EnvironmentValues.controlSize.setter(unsigned __int8 *a1)
+{
+  v2 = v1;
+  v3 = *v1;
+  v4 = *a1;
+  swift_retain_n();
+  _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluisyyXEfU_AA011EnvironmentcF0VyAA011ControlSizeF033_B084178BA9D46D059A1FB75185D1E85CLLVG_Tt2B5(v2, v4);
+
+  if (v2[1])
+  {
+    _s7SwiftUI12PropertyListV7TrackerC15invalidateValue3for4from2toyxm_A2CtAA0C3KeyRzlFAA011EnvironmentcK0VyAA011ControlSizeK033_B084178BA9D46D059A1FB75185D1E85CLLVG_Ttg5(v3, *v2);
+  }
+
+  return result;
+}
+
+uint64_t (*EnvironmentValues.explicitControlSize.modify(char **a1))()
+{
+  if (MEMORY[0x1E69E7D08])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x30uLL);
+  }
+
+  v7 = v3;
+  *a1 = v3;
+  *(v3 + 16) = v1;
+  v8 = *v1;
+  *(v3 + 24) = *v1;
+  v9 = *(v1 + 8);
+  *(v3 + 32) = v9;
+  if (v9)
+  {
+
+    _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA011ControlSizeI033_B084178BA9D46D059A1FB75185D1E85CLLVG_Tt1g5(v8, (v7 + 40));
+  }
+
+  else
+  {
+    type metadata accessor for EnvironmentPropertyKey<ControlSizeKey>(0, v4, v5, v6);
+    BloomFilter.init(hashValue:)(v10);
+    v11 = _s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA011EnvironmentrV0VyAA011ControlSizeV033_B084178BA9D46D059A1FB75185D1E85CLLVG_Tt0B5(v8, v14);
+    if (v11)
+    {
+      v12 = *(v11 + 72);
+    }
+
+    else
+    {
+      v12 = 5;
+    }
+
+    *(v7 + 40) = v12;
+  }
+
+  return EnvironmentValues.explicitControlSize.modify;
+}
+
+void EnvironmentValues.controlSize.modify(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = *(*a1 + 40);
+  swift_retain_n();
+  v3 = *(v1 + 32);
+  _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluisyyXEfU_AA011EnvironmentcF0VyAA011ControlSizeF033_B084178BA9D46D059A1FB75185D1E85CLLVG_Tt2B5(*(v1 + 16), v2);
+
+  if (v3)
+  {
+    _s7SwiftUI12PropertyListV7TrackerC15invalidateValue3for4from2toyxm_A2CtAA0C3KeyRzlFAA011EnvironmentcK0VyAA011ControlSizeK033_B084178BA9D46D059A1FB75185D1E85CLLVG_Ttg5(*(v1 + 24), **(v1 + 16));
+  }
+
+  free(v1);
+}
+
+uint64_t one-time initialization function for controlSize(uint64_t a1)
+{
+  result = AGMakeUniqueID();
+  static CachedEnvironment.ID.controlSize = result;
+  return result;
+}
+
+uint64_t _GraphInputs.controlSize.getter()
+{
+  if (one-time initialization token for controlSize != -1)
+  {
+    swift_once();
+  }
+
+  v0 = static CachedEnvironment.ID.controlSize;
+  swift_beginAccess();
+  v1 = specialized CachedEnvironment.attribute<A>(id:_:)(v0, key path getter for EnvironmentValues.controlSize : EnvironmentValues, 0);
+  swift_endAccess();
+  return v1;
+}
+
+double View.controlSize(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  KeyPath = swift_getKeyPath();
+  View.environment<A>(_:_:)(KeyPath, a1, a2, a3);
+
+  return result;
+}
+
+double View.controlSize<A>(_:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+{
+  v17 = a6;
+  v11 = *(a3 - 8);
+  v12 = *(v11 + 64);
+  MEMORY[0x1EEE9AC00](a1);
+  KeyPath = swift_getKeyPath();
+  (*(v11 + 16))(&v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0), a1, a3);
+  v14 = (*(v11 + 80) + 48) & ~*(v11 + 80);
+  v15 = swift_allocObject();
+  *(v15 + 2) = a2;
+  *(v15 + 3) = a3;
+  *(v15 + 4) = a4;
+  *(v15 + 5) = a5;
+  (*(v11 + 32))(&v15[v14], &v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0), a3);
+  View.transformEnvironment<A>(_:transform:)(KeyPath, partial apply for closure #1 in View.controlSize<A>(_:), v15, a2);
+
+  return result;
+}
+
+uint64_t ControlSize.clamped<A>(to:)@<X0>(_BYTE *a3@<X8>)
+{
+  v5 = *v3;
+  lazy protocol witness table accessor for type ControlSizeCollection and conformance ControlSizeCollection();
+  dispatch thunk of RangeExpression.relative<A>(to:)();
+  v6 = v11;
+  if (dispatch thunk of RangeExpression.contains(_:)())
+  {
+    return specialized Comparable.clamp(min:max:)(v10, v6, v5, a3);
+  }
+
+  result = specialized Collection<>.firstIndex(of:)(v11, &outlined read-only object #0 of ControlSize.clamped<A>(to:));
+  if ((v8 & 1) == 0)
+  {
+    v9 = result - 1;
+    if (__OFSUB__(result, 1))
+    {
+      __break(1u);
+    }
+
+    else if (v9 <= 4)
+    {
+      v6 = outlined read-only object #1 of ControlSize.clamped<A>(to:)[(v9 & ~(v9 >> 63)) + 32];
+      return specialized Comparable.clamp(min:max:)(v10, v6, v5, a3);
+    }
+
+    __break(1u);
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t ControlSizeCollection.index(after:)@<X0>(unsigned __int8 *a1@<X0>, _BYTE *a2@<X8>)
+{
+  result = specialized Collection<>.firstIndex(of:)(*a1, &outlined read-only object #0 of ControlSizeCollection.index(after:));
+  if (v4)
+  {
+    goto LABEL_9;
+  }
+
+  v5 = result + 1;
+  if (__OFADD__(result, 1))
+  {
+    __break(1u);
+    goto LABEL_8;
+  }
+
+  if ((v5 & 0x8000000000000000) != 0)
+  {
+LABEL_8:
+    __break(1u);
+LABEL_9:
+    __break(1u);
+    return result;
+  }
+
+  if (v5 >= 4)
+  {
+    v5 = 4;
+  }
+
+  *a2 = outlined read-only object #1 of ControlSizeCollection.index(after:)[v5 + 32];
+  return result;
+}
+
+uint64_t protocol witness for Collection._failEarlyRangeCheck(_:bounds:) in conformance ControlSizeCollection(unsigned __int8 *a1, unsigned __int8 *a2)
+{
+  v2 = *a1;
+  v3 = *a2;
+  v4 = a2[1];
+  result = specialized Collection<>.firstIndex(of:)(v2, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v6)
+  {
+    goto LABEL_10;
+  }
+
+  v7 = result;
+  result = specialized Collection<>.firstIndex(of:)(v3, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v8)
+  {
+LABEL_11:
+    __break(1u);
+    goto LABEL_12;
+  }
+
+  if (v7 < result)
+  {
+    __break(1u);
+LABEL_9:
+    __break(1u);
+LABEL_10:
+    __break(1u);
+    goto LABEL_11;
+  }
+
+  result = specialized Collection<>.firstIndex(of:)(v4, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v9)
+  {
+LABEL_12:
+    __break(1u);
+    goto LABEL_13;
+  }
+
+  v10 = result;
+  result = specialized Collection<>.firstIndex(of:)(v2, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v11)
+  {
+LABEL_13:
+    __break(1u);
+    return result;
+  }
+
+  if (v10 < result)
+  {
+    goto LABEL_9;
+  }
+
+  return result;
+}
+
+{
+  v2 = a1[1];
+  v3 = *a2;
+  v4 = a2[1];
+  result = specialized Collection<>.firstIndex(of:)(*a1, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v6)
+  {
+    goto LABEL_10;
+  }
+
+  v7 = result;
+  result = specialized Collection<>.firstIndex(of:)(v3, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v8)
+  {
+LABEL_11:
+    __break(1u);
+    goto LABEL_12;
+  }
+
+  if (v7 < result)
+  {
+    __break(1u);
+LABEL_9:
+    __break(1u);
+LABEL_10:
+    __break(1u);
+    goto LABEL_11;
+  }
+
+  result = specialized Collection<>.firstIndex(of:)(v4, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v9)
+  {
+LABEL_12:
+    __break(1u);
+    goto LABEL_13;
+  }
+
+  v10 = result;
+  result = specialized Collection<>.firstIndex(of:)(v2, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v11)
+  {
+LABEL_13:
+    __break(1u);
+    return result;
+  }
+
+  if (v10 < result)
+  {
+    goto LABEL_9;
+  }
+
+  return result;
+}
+
+void *protocol witness for Sequence._copyToContiguousArray() in conformance ControlSizeCollection()
+{
+  v0 = specialized Collection.distance(from:to:)(0, 4);
+  if (!v0)
+  {
+    return MEMORY[0x1E69E7CC0];
+  }
+
+  v1 = v0;
+  v2 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI11ControlSizeO_Tt1g5(v0, 0);
+  if (specialized Sequence._copySequenceContents(initializing:)(&v4, (v2 + 4), v1) != v1)
+  {
+    __break(1u);
+    return MEMORY[0x1E69E7CC0];
+  }
+
+  return v2;
+}
+
+uint64_t partial apply for closure #1 in View.controlSize<A>(_:)(_BYTE *a1)
+{
+  result = ControlSize.clamped<A>(to:)(&v3);
+  *a1 = v3;
+  return result;
+}
+
+void lazy protocol witness table accessor for type ControlSizeCollection and conformance ControlSizeCollection()
+{
+  if (!lazy protocol witness table cache variable for type ControlSizeCollection and conformance ControlSizeCollection)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for ControlSizeCollection, &unk_1F00706C0, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type ControlSizeCollection and conformance ControlSizeCollection);
+  }
+}
+
+{
+  if (!lazy protocol witness table cache variable for type ControlSizeCollection and conformance ControlSizeCollection)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for ControlSizeCollection, &unk_1F00706C0, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type ControlSizeCollection and conformance ControlSizeCollection);
+  }
+}
+
+void lazy protocol witness table accessor for type ControlSize and conformance ControlSize()
+{
+  if (!lazy protocol witness table cache variable for type ControlSize and conformance ControlSize)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for ControlSize, &type metadata for ControlSize, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type ControlSize and conformance ControlSize);
+  }
+}
+
+{
+  if (!lazy protocol witness table cache variable for type ControlSize and conformance ControlSize)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for ControlSize, &type metadata for ControlSize, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type ControlSize and conformance ControlSize);
+  }
+}
+
+void lazy protocol witness table accessor for type [ControlSize] and conformance [A]()
+{
+  if (!lazy protocol witness table cache variable for type [ControlSize] and conformance [A])
+  {
+    type metadata accessor for [ControlSize](255, &lazy cache variable for type metadata for [ControlSize], MEMORY[0x1E69E62F8]);
+    swift_getWitnessTable(MEMORY[0x1E69E6340], v2, v0, v1);
+    atomic_store(v3, &lazy protocol witness table cache variable for type [ControlSize] and conformance [A]);
+  }
+}
+
+void type metadata accessor for [ControlSize](uint64_t a1, unint64_t *a2, uint64_t (*a3)(void, ValueMetadata *))
+{
+  if (!*a2)
+  {
+    v4 = a3(0, &type metadata for ControlSize);
+    if (!v5)
+    {
+      atomic_store(v4, a2);
+    }
+  }
+}
+
+void lazy protocol witness table accessor for type IndexingIterator<ControlSizeCollection> and conformance IndexingIterator<A>(unint64_t *a1, unint64_t *a2, uint64_t (*a3)(uint64_t, void *, uint64_t), const char *a4)
+{
+  if (!*a1)
+  {
+    type metadata accessor for IndexingIterator<ControlSizeCollection>(255, a2, a3);
+    swift_getWitnessTable(a4, v6);
+    atomic_store(v7, a1);
+  }
+}
+
+void type metadata accessor for IndexingIterator<ControlSizeCollection>(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t, void *, uint64_t))
+{
+  if (!*a2)
+  {
+    lazy protocol witness table accessor for type ControlSizeCollection and conformance ControlSizeCollection();
+    v7 = a3(a1, &unk_1F00706C0, v6);
+    if (!v8)
+    {
+      atomic_store(v7, a2);
+    }
+  }
+}
+
+uint64_t specialized Collection._failEarlyRangeCheck(_:bounds:)(uint64_t a1, uint64_t a2)
+{
+  result = specialized Collection<>.firstIndex(of:)(a1, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v5)
+  {
+    goto LABEL_10;
+  }
+
+  v6 = result;
+  result = specialized Collection<>.firstIndex(of:)(a2, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v7)
+  {
+LABEL_11:
+    __break(1u);
+    goto LABEL_12;
+  }
+
+  if (v6 < result)
+  {
+    __break(1u);
+LABEL_9:
+    __break(1u);
+LABEL_10:
+    __break(1u);
+    goto LABEL_11;
+  }
+
+  result = specialized Collection<>.firstIndex(of:)(a1, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v8)
+  {
+LABEL_12:
+    __break(1u);
+    goto LABEL_13;
+  }
+
+  v9 = result;
+  result = specialized Collection<>.firstIndex(of:)(BYTE1(a2), &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if (v10)
+  {
+LABEL_13:
+    __break(1u);
+    return result;
+  }
+
+  if (v9 >= result)
+  {
+    goto LABEL_9;
+  }
+
+  return result;
+}
+
+uint64_t specialized Collection.distance(from:to:)(uint64_t a1, uint64_t a2)
+{
+  v2 = a2;
+  result = specialized Collection<>.firstIndex(of:)(a2, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+  if ((v5 & 1) == 0)
+  {
+    v6 = result;
+    result = specialized Collection<>.firstIndex(of:)(a1, &outlined read-only object #0 of static ControlSize.< infix(_:_:));
+    if (v7)
+    {
+      goto LABEL_25;
+    }
+
+    if (v6 >= result)
+    {
+      if (a1 == v2)
+      {
+        return 0;
+      }
+
+      for (i = 0; ; ++i)
+      {
+        result = i + 1;
+        if (__OFADD__(i, 1))
+        {
+          break;
+        }
+
+        if (byte_1F0043D50 == a1)
+        {
+          v9 = 0;
+        }
+
+        else if (byte_1F0043D51 == a1)
+        {
+          v9 = 1;
+        }
+
+        else if (byte_1F0043D52 == a1)
+        {
+          v9 = 2;
+        }
+
+        else if (byte_1F0043D53 == a1)
+        {
+          v9 = 3;
+        }
+
+        else
+        {
+          if (byte_1F0043D54 != a1)
+          {
+            goto LABEL_26;
+          }
+
+          v9 = 4;
+        }
+
+        if (v9 >= 3)
+        {
+          v9 = 3;
+        }
+
+        LODWORD(a1) = outlined read-only object #1 of specialized Collection.distance(from:to:)[v9 + 33];
+        if (a1 == v2)
+        {
+          return result;
+        }
+      }
+
+      __break(1u);
+    }
+
+    __break(1u);
+  }
+
+  __break(1u);
+LABEL_25:
+  __break(1u);
+LABEL_26:
+  __break(1u);
+  return result;
+}
+
+uint64_t specialized Collection.distance(from:to:)(uint64_t result, unsigned __int8 a2)
+{
+  v2 = result;
+  if (a2 >= result)
+  {
+    if (result == a2)
+    {
+      return 0;
+    }
+
+    for (i = 0; ; ++i)
+    {
+      result = i + 1;
+      if (__OFADD__(i, 1))
+      {
+        break;
+      }
+
+      if (byte_1F0043DA0 == v2)
+      {
+        v4 = 0;
+      }
+
+      else if (byte_1F0043DA1 == v2)
+      {
+        v4 = 1;
+      }
+
+      else if (byte_1F0043DA2 == v2)
+      {
+        v4 = 2;
+      }
+
+      else if (byte_1F0043DA3 == v2)
+      {
+        v4 = 3;
+      }
+
+      else if (byte_1F0043DA4 == v2)
+      {
+        v4 = 4;
+      }
+
+      else if (byte_1F0043DA5 == v2)
+      {
+        v4 = 5;
+      }
+
+      else if (byte_1F0043DA6 == v2)
+      {
+        v4 = 6;
+      }
+
+      else if (asc_1F0043DA7[0] == v2)
+      {
+        v4 = 7;
+      }
+
+      else if (asc_1F0043DA7[1] == v2)
+      {
+        v4 = 8;
+      }
+
+      else if (asc_1F0043DA7[2] == v2)
+      {
+        v4 = 9;
+      }
+
+      else if (asc_1F0043DA7[3] == v2)
+      {
+        v4 = 10;
+      }
+
+      else
+      {
+        if (asc_1F0043DA7[4] != v2)
+        {
+          goto LABEL_36;
+        }
+
+        v4 = 11;
+      }
+
+      if (v4 >= 0xA)
+      {
+        v4 = 10;
+      }
+
+      v2 = *(&outlined read-only object #0 of static DynamicTypeSize.allCases.getter + v4 + 33);
+      if (v2 == a2)
+      {
+        return result;
+      }
+    }
+
+    __break(1u);
+  }
+
+  __break(1u);
+LABEL_36:
+  __break(1u);
+  return result;
+}
+
+void specialized MutableCollection<>.sort(by:)(void *a1)
+{
+  v2 = *(type metadata accessor for Date.ComponentsFormatStyle.Field() - 8);
+  v3 = *a1;
+  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+  {
+    v3 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(v3);
+  }
+
+  v4 = v3[2];
+  v5[0] = v3 + ((*(v2 + 80) + 32) & ~*(v2 + 80));
+  v5[1] = v4;
+  specialized UnsafeMutableBufferPointer._stableSortImpl(by:)(v5);
+  *a1 = v3;
+}
+
+{
+  v2 = *a1;
+  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+  {
+    v2 = specialized _ArrayBuffer._consumeAndCreateNew()(v2);
+  }
+
+  v3 = v2[2];
+  v18[0] = (v2 + 4);
+  v18[1] = v3;
+  v4 = _minimumMergeRunLength(_:)(v3);
+  if (v4 >= v3)
+  {
+    if (v3 >= 2)
+    {
+      v8 = v2 + 7;
+      v9 = -1;
+      for (i = 1; i != v3; ++i)
+      {
+        v11 = v2[3 * i + 6];
+        v12 = v9;
+        v13 = v8;
+        do
+        {
+          if (v11 >= *(v13 - 1))
+          {
+            break;
+          }
+
+          v14 = *v13;
+          *v13 = *(v13 - 3);
+          v13[2] = *(v13 - 1);
+          *(v13 - 1) = v11;
+          *(v13 - 3) = v14;
+          v13 -= 3;
+        }
+
+        while (!__CFADD__(v12++, 1));
+        v8 += 3;
+        --v9;
+      }
+    }
+  }
+
+  else
+  {
+    v5 = v4;
+    v6 = (v3 >> 1);
+    if (v3 >= 2)
+    {
+      type metadata accessor for (ScrapeableContent, Int)();
+      v7 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+      *(v7 + 16) = v6;
+    }
+
+    else
+    {
+      v7 = MEMORY[0x1E69E7CC0];
+    }
+
+    v16[0] = (v7 + 32);
+    v16[1] = v6;
+    specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(v16, v17, v18, v5);
+    *(v7 + 16) = 0;
+  }
+
+  *a1 = v2;
+}
+
+uint64_t static FormatStyle<>.offset(to:allowedFields:maxFieldCount:sign:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+{
+  v25 = a4;
+  v26 = a2;
+  v27 = a3;
+  v7 = type metadata accessor for NumberFormatStyleConfiguration.SignDisplayStrategy();
+  v8 = *(v7 - 8);
+  v23 = v7;
+  v24 = v8;
+  MEMORY[0x1EEE9AC00](v7);
+  v10 = &v22 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = type metadata accessor for Date();
+  v12 = *(v11 - 8);
+  v13 = MEMORY[0x1EEE9AC00](v11);
+  v15 = &v22 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = *(v12 + 16);
+  v16(v15, a1, v11, v13);
+  v17 = *(v8 + 16);
+  v17(v10, v25, v7);
+  v18 = type metadata accessor for SystemFormatStyle.DateOffset(0);
+  *(a5 + v18[8]) = 0;
+  static Calendar.autoupdatingCurrent.getter();
+  *(a5 + v18[11]) = 0;
+  *(a5 + v18[12]) = 0;
+  *(a5 + v18[13]) = 0;
+  (v16)(a5, v15, v11);
+  v19 = v27;
+  *(a5 + v18[5]) = v26;
+  *(a5 + v18[6]) = v19;
+  v20 = v23;
+  v17((a5 + v18[7]), v10, v23);
+
+  static Locale.autoupdatingCurrent.getter();
+  (*(v24 + 8))(v10, v20);
+  return (*(v12 + 8))(v15, v11);
+}
+
+uint64_t SystemFormatStyle.DateOffset.init(to:allowedFields:maxFieldCount:sign:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+{
+  v10 = type metadata accessor for SystemFormatStyle.DateOffset(0);
+  *(a5 + v10[8]) = 0;
+  static Calendar.autoupdatingCurrent.getter();
+  *(a5 + v10[11]) = 0;
+  *(a5 + v10[12]) = 0;
+  *(a5 + v10[13]) = 0;
+  v11 = type metadata accessor for Date();
+  v17 = *(v11 - 8);
+  (*(v17 + 16))(a5, a1, v11);
+  *(a5 + v10[5]) = a2;
+  *(a5 + v10[6]) = a3;
+  v12 = v10[7];
+  v13 = type metadata accessor for NumberFormatStyleConfiguration.SignDisplayStrategy();
+  v14 = *(v13 - 8);
+  (*(v14 + 16))(a5 + v12, a4, v13);
+  static Locale.autoupdatingCurrent.getter();
+  (*(v14 + 8))(a4, v13);
+  v15 = *(v17 + 8);
+
+  return v15(a1, v11);
+}
+
+uint64_t type metadata accessor for SystemFormatStyle.DateOffset(uint64_t a1)
+{
+  result = type metadata singleton initialization cache for SystemFormatStyle.DateOffset;
+  if (!type metadata singleton initialization cache for SystemFormatStyle.DateOffset)
+  {
+    return swift_getSingletonMetadata();
+  }
+
+  return result;
+}
+
+uint64_t SystemFormatStyle.DateOffset.calendar(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  outlined init with copy of SystemFormatStyle.DateOffset(v2, a2, type metadata accessor for SystemFormatStyle.DateOffset);
+  v5 = *(type metadata accessor for SystemFormatStyle.DateOffset(0) + 40);
+  v6 = type metadata accessor for Calendar();
+  v7 = *(*(v6 - 8) + 24);
+
+  return v7(a2 + v5, a1, v6);
+}
+
+uint64_t SystemFormatStyle.DateOffset.locale(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  outlined init with copy of SystemFormatStyle.DateOffset(v2, a2, type metadata accessor for SystemFormatStyle.DateOffset);
+  v5 = *(type metadata accessor for SystemFormatStyle.DateOffset(0) + 36);
+  v6 = type metadata accessor for Locale();
+  v7 = *(*(v6 - 8) + 24);
+
+  return v7(a2 + v5, a1, v6);
+}
+
+uint64_t SystemFormatStyle.DateOffset.CodingKeys.stringValue.getter(unsigned __int8 a1)
+{
+  if (a1 > 4u)
+  {
+    v5 = 0x7246657461647075;
+    v6 = 0x6964496863746177;
+    if (a1 != 8)
+    {
+      v6 = 0xD000000000000012;
+    }
+
+    if (a1 != 7)
+    {
+      v5 = v6;
+    }
+
+    v7 = 0x656C61636F6CLL;
+    if (a1 != 5)
+    {
+      v7 = 0x7261646E656C6163;
+    }
+
+    if (a1 <= 6u)
+    {
+      return v7;
+    }
+
+    else
+    {
+      return v5;
+    }
+  }
+
+  else
+  {
+    v1 = 0x726F68636E61;
+    v2 = 0x646C65694678616DLL;
+    v3 = 1852270963;
+    if (a1 != 3)
+    {
+      v3 = 0x69726156657A6973;
+    }
+
+    if (a1 != 2)
+    {
+      v2 = v3;
+    }
+
+    if (a1)
+    {
+      v1 = 0x466465776F6C6C61;
+    }
+
+    if (a1 <= 1u)
+    {
+      return v1;
+    }
+
+    else
+    {
+      return v2;
+    }
+  }
+}
+
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance SystemFormatStyle.DateOffset.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
+{
+  result = specialized SystemFormatStyle.DateOffset.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
+  return result;
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance SystemFormatStyle.DateOffset.CodingKeys(uint64_t a1)
+{
+  lazy protocol witness table accessor for type SystemFormatStyle.DateOffset.CodingKeys and conformance SystemFormatStyle.DateOffset.CodingKeys();
+
+  return MEMORY[0x1EEE6BB70](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance SystemFormatStyle.DateOffset.CodingKeys(uint64_t a1)
+{
+  lazy protocol witness table accessor for type SystemFormatStyle.DateOffset.CodingKeys and conformance SystemFormatStyle.DateOffset.CodingKeys();
+
+  return MEMORY[0x1EEE6BB78](a1, v2);
+}
+
+uint64_t SystemFormatStyle.DateOffset.format(_:)@<X0>(void (**a1)(uint64_t, uint64_t, uint64_t, void *)@<X0>, uint64_t a2@<X8>)
+{
+  v3 = v2;
+  v209 = a1;
+  v210 = a2;
+  type metadata accessor for Locale?(0);
+  MEMORY[0x1EEE9AC00](v4 - 8);
+  v207 = &v170 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v204 = type metadata accessor for Locale();
+  v172 = *(v204 - 8);
+  MEMORY[0x1EEE9AC00](v204);
+  v206 = &v170 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v205 = &v170 - v8;
+  v9 = type metadata accessor for Locale.Key(0);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v203 = &v170 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for Range<AttributedString.Index>?(0);
+  v12 = MEMORY[0x1EEE9AC00](v11 - 8);
+  v202 = &v170 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for Range<AttributedString.Index>(0, v12);
+  v201 = v14;
+  v171 = *(v14 - 8);
+  MEMORY[0x1EEE9AC00](v14);
+  v200 = &v170 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v175 = type metadata accessor for DateComponents();
+  v174 = *(v175 - 8);
+  MEMORY[0x1EEE9AC00](v175);
+  v173 = &v170 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v185 = type metadata accessor for Calendar.Component();
+  v184 = *(v185 - 8);
+  MEMORY[0x1EEE9AC00](v185);
+  v183 = &v170 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = type metadata accessor for AttributeContainer();
+  MEMORY[0x1EEE9AC00](v18 - 8);
+  v182 = &v170 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for Range<Date>(0);
+  v21 = MEMORY[0x1EEE9AC00](v20 - 8);
+  v181 = &v170 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = MEMORY[0x1E69694D0];
+  type metadata accessor for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(0, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E69694D0], v21);
+  MEMORY[0x1EEE9AC00](v24 - 8);
+  v192 = (&v170 - v25);
+  type metadata accessor for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field), v23);
+  v176 = v26;
+  MEMORY[0x1EEE9AC00](v26);
+  v177 = &v170 - v27;
+  v28 = type metadata accessor for Date.ComponentsFormatStyle();
+  v193 = *(v28 - 8);
+  v194 = v28;
+  MEMORY[0x1EEE9AC00](v28);
+  v187 = &v170 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for WhitespaceRemovingFormatStyle<Duration.UnitsFormatStyle.Attributed, AttributeScopes.FoundationAttributes.MeasurementAttribute>(0);
+  v179 = v30;
+  MEMORY[0x1EEE9AC00](v30);
+  v180 = &v170 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v32 = type metadata accessor for Duration.UnitsFormatStyle.UnitWidth();
+  v191 = *(v32 - 8);
+  MEMORY[0x1EEE9AC00](v32);
+  v190 = &v170 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v35 = MEMORY[0x1EEE9AC00](v34);
+  v189 = &v170 - v36;
+  v37 = MEMORY[0x1E696A1A8];
+  type metadata accessor for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(0, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8], v35);
+  MEMORY[0x1EEE9AC00](v38 - 8);
+  v40 = &v170 - v39;
+  type metadata accessor for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), v37);
+  v198 = v41;
+  v42 = *(v41 - 8);
+  MEMORY[0x1EEE9AC00](v41);
+  v178 = &v170 - ((v43 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v44);
+  v195 = &v170 - v45;
+  v46 = type metadata accessor for Date.ComponentsFormatStyle.Field();
+  v47 = *(v46 - 8);
+  v196 = v46;
+  v197 = v47;
+  MEMORY[0x1EEE9AC00](v46);
+  v186 = &v170 - ((v48 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v49);
+  v188 = &v170 - v50;
+  v51 = type metadata accessor for SystemFormatStyle.DateOffset(0);
+  MEMORY[0x1EEE9AC00](v51);
+  v53 = &v170 - ((v52 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)?(0);
+  MEMORY[0x1EEE9AC00](v54 - 8);
+  v56 = &v170 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)(0);
+  v58 = v57;
+  v59 = *(v57 - 8);
+  MEMORY[0x1EEE9AC00](v57);
+  v61 = &v170 - ((v60 + 15) & 0xFFFFFFFFFFFFFFF0);
+  LOBYTE(v60) = *(v3 + v51[13]);
+  v199 = v51;
+  if (((v60 & 1) != 0 || *(v3 + v51[12]) == 1) && *(v3 + v51[11]) > 1u)
+  {
+LABEL_6:
+    SystemFormatStyle.DateOffset.unitsStyle(for:)(v209, v40);
+    v62 = v198;
+    v63 = (*(v42 + 48))(v40, 1, v198);
+    v208 = v3;
+    v65 = v210;
+    if (v63 == 1)
+    {
+      outlined destroy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(v40, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8], v64);
+      v66 = v192;
+      SystemFormatStyle.DateOffset.componentsStyle(for:)(v209, v192);
+      type metadata accessor for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E69694D0]);
+      v68 = v67;
+      if ((*(*(v67 - 8) + 48))(v66, 1, v67) == 1)
+      {
+        outlined destroy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(v66, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E69694D0], v69);
+        v70 = v188;
+        static Date.ComponentsFormatStyle.Field.minute.getter();
+        v71 = SystemFormatStyle.DateOffset.needsSign(for:smallestFieldShown:)(v209, v70);
+        (*(v197 + 8))(v70, v196);
+        v72 = static Date.< infix(_:_:)();
+        result = SystemFormatStyle.DateOffset.smallerOneMinuteString.getter(v65);
+        if (v71)
+        {
+          if (v72)
+          {
+            v74 = "A negative time value (argument provides the value as localized by\nICU, either in a form like 1 day, 2 hours, or 1:23:45)";
+            v75 = v65;
+            v76 = 3;
+            v77 = 9603298;
+            v78 = 0xA300000000000000;
+          }
+
+          else
+          {
+            v74 = "A positive time value (argument provides the value as localized by\nICU, either in a form like 1 day, 2 hours, or 1:23:45)";
+            v75 = v65;
+            v76 = 1;
+            v77 = 43;
+            v78 = 0xE100000000000000;
+          }
+
+          return SystemFormatStyle.DateOffset.addMinusSign(to:)(v75, v76, v77, v78, v74);
+        }
+
+        return result;
+      }
+
+      v96 = *(v68 + 48);
+      v195 = *(v68 + 64);
+      v97 = v176;
+      v98 = *(v176 + 48);
+      v191 = *(v176 + 64);
+      v99 = v194;
+      v198 = *(v193 + 32);
+      v100 = v177;
+      (v198)(v177, v66, v194);
+      v101 = v197;
+      v102 = *(v197 + 32);
+      v103 = &v100[v98];
+      v104 = v196;
+      v102(v103, v66 + v96, v196);
+      v102(&v100[v191], v66 + v195, v104);
+      v195 = *(v97 + 48);
+      v105 = *(v97 + 64);
+      v106 = v209;
+      v107 = v187;
+      (v198)(v187, v100, v99);
+      v108 = &v100[v105];
+      v109 = v186;
+      v102(v186, v108, v104);
+      v110 = v107;
+      v111 = v109;
+      v112 = *(v101 + 8);
+      v197 = v101 + 8;
+      v112(&v100[v195], v104);
+      v113 = SystemFormatStyle.DateOffset.needsSign(for:smallestFieldShown:)(v106, v109);
+      if (Date.ComponentsFormatStyle.isPositive.getter())
+      {
+        v114 = v181;
+        SystemFormatStyle.DateOffset.dateRange(for:)(v106, v181);
+        Date.ComponentsFormatStyle.format(_:)();
+        outlined destroy of SystemFormatStyle.DateOffset(v114, type metadata accessor for Range<Date>);
+        AttributeContainer.init()();
+        v115 = v210;
+        AttributedString.init(_:attributes:)();
+        if (v113)
+        {
+          SystemFormatStyle.DateOffset.addMinusSign(to:)(v115, 1, 43, 0xE100000000000000, "A positive time value (argument provides the value as localized by\nICU, either in a form like 1 day, 2 hours, or 1:23:45)");
+        }
+
+LABEL_57:
+        v112(v111, v196);
+        return (*(v193 + 8))(v110, v194);
+      }
+
+      LODWORD(v195) = v113;
+      v117 = v183;
+      SystemFormatStyle.DateOffset.component(for:)(v109, v183);
+      type metadata accessor for Locale?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Calendar.Component>, MEMORY[0x1E6969AD0], MEMORY[0x1E69E6F90]);
+      v118 = v184;
+      v119 = (*(v184 + 80) + 32) & ~*(v184 + 80);
+      v120 = swift_allocObject();
+      *(v120 + 16) = xmmword_18DDA6EB0;
+      v121 = (*(v118 + 16))(v120 + v119, v117, v185);
+      _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10Foundation8CalendarV9ComponentO_Tt0g5(v120, v121);
+      v122 = v173;
+      Calendar.dateComponents(_:from:to:)();
+
+      v123 = DateComponents.value(for:)();
+      v125 = v124;
+      (*(v174 + 8))(v122, v175);
+      if (v125)
+      {
+        v126 = v181;
+        SystemFormatStyle.DateOffset.dateRange(for:)(v106, v181);
+        Date.ComponentsFormatStyle.format(_:)();
+        outlined destroy of SystemFormatStyle.DateOffset(v126, type metadata accessor for Range<Date>);
+        AttributeContainer.init()();
+        AttributedString.init(_:attributes:)();
+      }
+
+      else
+      {
+        v153 = v181;
+        SystemFormatStyle.DateOffset.dateRange(for:)(v106, v181);
+        Date.ComponentsFormatStyle.format(_:)();
+        outlined destroy of SystemFormatStyle.DateOffset(v153, type metadata accessor for Range<Date>);
+        AttributeContainer.init()();
+        AttributedString.init(_:attributes:)();
+        if (!v123)
+        {
+LABEL_54:
+          if (v195)
+          {
+            SystemFormatStyle.DateOffset.addMinusSign(to:)(v210, 3, 9603298, 0xA300000000000000, "A negative time value (argument provides the value as localized by\nICU, either in a form like 1 day, 2 hours, or 1:23:45)");
+          }
+
+          (*(v184 + 8))(v183, v185);
+          goto LABEL_57;
+        }
+      }
+
+      v192 = v112;
+      v209 = v199[9];
+      v154 = (v172 + 16);
+      v198 = v172 + 56;
+      v199 = (v172 + 8);
+      v155 = (v171 + 48);
+      v156 = v209;
+      v157 = v204;
+      while (1)
+      {
+        if (one-time initialization token for minusSignCache != -1)
+        {
+          swift_once();
+        }
+
+        v158 = *v154;
+        v159 = v208;
+        v160 = v205;
+        (*v154)(v205, v208 + v156, v157);
+        v158(v206, v160, v157);
+        v161 = v203;
+        Locale.Components.init(locale:)();
+        (*v199)(v160, v157);
+        specialized ObjectCache.subscript.getter(v161);
+        v163 = v162;
+        v165 = v164;
+        outlined destroy of SystemFormatStyle.DateOffset(v161, type metadata accessor for Locale.Key);
+        v211 = v163;
+        v212 = v165;
+        v166 = v159 + v156;
+        v167 = v207;
+        v158(v207, v166, v157);
+        (*v198)(v167, 0, 1, v157);
+        type metadata accessor for AttributedString();
+        lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type AttributedString and conformance AttributedString, MEMORY[0x1E6968848], MEMORY[0x1E6968820]);
+        lazy protocol witness table accessor for type String and conformance String();
+        v168 = v202;
+        AttributedStringProtocol.range<A>(of:options:locale:)();
+        outlined destroy of SystemFormatStyle.DateOffset(v167, type metadata accessor for Locale?);
+
+        if ((*v155)(v168, 1, v201) == 1)
+        {
+          break;
+        }
+
+        v169 = v200;
+        _sSny10Foundation16AttributedStringV5IndexVGWObTm_0(v168, v200, type metadata accessor for Range<AttributedString.Index>);
+        lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Range<AttributedString.Index> and conformance Range<A>, type metadata accessor for Range<AttributedString.Index>, MEMORY[0x1E69E66D8]);
+        AttributedString.removeSubrange<A>(_:)();
+        outlined destroy of SystemFormatStyle.DateOffset(v169, type metadata accessor for Range<AttributedString.Index>);
+      }
+
+      outlined destroy of SystemFormatStyle.DateOffset(v168, type metadata accessor for Range<AttributedString.Index>?);
+      v110 = v187;
+      v111 = v186;
+      v112 = v192;
+      goto LABEL_54;
+    }
+
+    v79 = v195;
+    outlined init with take of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(v40, v195);
+    v80 = SystemFormatStyle.DateOffset.needsSign(for:smallestFieldShown:)(v209, v79 + *(v62 + 64));
+    LODWORD(v207) = static Date.< infix(_:_:)();
+    Date.timeIntervalSince(_:)();
+    v81 = static Duration.seconds(_:)();
+    v83 = v82;
+    static Duration.zero.getter();
+    if (static Duration.< infix(_:_:)())
+    {
+      static Duration.zero.getter();
+      v81 = static Duration.- infix(_:_:)();
+      v83 = v84;
+    }
+
+    v85 = v191;
+    v86 = v190;
+    v87 = v189;
+    v88 = *(v3 + v199[8]);
+    v209 = v83;
+    if (v88 > 1)
+    {
+      v116 = v32;
+      static Duration.UnitsFormatStyle.UnitWidth.narrow.getter();
+    }
+
+    else if (v88 == 1)
+    {
+      v116 = v32;
+      if (*(v3 + v199[12]))
+      {
+        static Duration.UnitsFormatStyle.UnitWidth.condensedAbbreviated.getter();
+      }
+
+      else
+      {
+        static Duration.UnitsFormatStyle.UnitWidth.abbreviated.getter();
+      }
+    }
+
+    else
+    {
+      v116 = v32;
+      static Duration.UnitsFormatStyle.UnitWidth.wide.getter();
+    }
+
+    static Duration.UnitsFormatStyle.UnitWidth.condensedAbbreviated.getter();
+    v131 = static Duration.UnitsFormatStyle.UnitWidth.== infix(_:_:)();
+    v132 = *(v85 + 8);
+    v132(v86, v116);
+    v132(v87, v116);
+    if (v131)
+    {
+      v133 = v178;
+      outlined init with copy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(v79, v178);
+      v134 = *(v198 + 48);
+      v204 = *(v198 + 64);
+      v205 = v134;
+      v135 = v179;
+      LODWORD(v206) = v80;
+      v136 = *(v179 + 76);
+      v137 = *MEMORY[0x1E69683F8];
+      v138 = type metadata accessor for AttributeScopes.FoundationAttributes.MeasurementAttribute.Component();
+      v139 = *(v138 - 8);
+      v140 = *(v139 + 104);
+      v141 = v180;
+      v140(&v180[v136], v137, v138);
+      v142 = *(v139 + 56);
+      v142(v141 + v136, 0, 1, v138);
+      v143 = *(v135 + 80);
+      v140((v141 + v143), *MEMORY[0x1E69683F0], v138);
+      v144 = v210;
+      v142(v141 + v143, 0, 1, v138);
+      v145 = type metadata accessor for Duration.UnitsFormatStyle.Attributed();
+      (*(*(v145 - 8) + 32))(v141, v133, v145);
+      v146 = v196;
+      v147 = *(v197 + 8);
+      v147(v133 + v204, v196);
+      v147(&v205[v133], v146);
+      LOBYTE(v143) = v206;
+      v79 = v195;
+      v211 = v81;
+      v212 = v209;
+      lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Duration.UnitsFormatStyle.Attributed and conformance Duration.UnitsFormatStyle.Attributed, MEMORY[0x1E696A1A8], MEMORY[0x1E696A1A0]);
+      dispatch thunk of FormatStyle.format(_:)();
+      outlined destroy of SystemFormatStyle.DateOffset(v141, type metadata accessor for WhitespaceRemovingFormatStyle<Duration.UnitsFormatStyle.Attributed, AttributeScopes.FoundationAttributes.MeasurementAttribute>);
+      if ((v143 & 1) == 0)
+      {
+        return outlined destroy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(v79);
+      }
+    }
+
+    else
+    {
+      v144 = v210;
+      Duration.UnitsFormatStyle.Attributed.format(_:)();
+      if ((v80 & 1) == 0)
+      {
+        return outlined destroy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(v79);
+      }
+    }
+
+    if (v207)
+    {
+      v148 = "A negative time value (argument provides the value as localized by\nICU, either in a form like 1 day, 2 hours, or 1:23:45)";
+      v149 = v144;
+      v150 = 3;
+      v151 = 9603298;
+      v152 = 0xA300000000000000;
+    }
+
+    else
+    {
+      v148 = "A positive time value (argument provides the value as localized by\nICU, either in a form like 1 day, 2 hours, or 1:23:45)";
+      v149 = v144;
+      v150 = 1;
+      v151 = 43;
+      v152 = 0xE100000000000000;
+    }
+
+    SystemFormatStyle.DateOffset.addMinusSign(to:)(v149, v150, v151, v152, v148);
+    return outlined destroy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(v79);
+  }
+
+  outlined init with copy of SystemFormatStyle.DateOffset(v3, v53, type metadata accessor for SystemFormatStyle.DateOffset);
+  v53[v51[11]] = 0;
+  SystemFormatStyle.DateOffset.timeStyle(for:)(v209, v56);
+  outlined destroy of SystemFormatStyle.DateOffset(v53, type metadata accessor for SystemFormatStyle.DateOffset);
+  if ((*(v59 + 48))(v56, 1, v58) == 1)
+  {
+    outlined destroy of SystemFormatStyle.DateOffset(v56, type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)?);
+    goto LABEL_6;
+  }
+
+  _sSny10Foundation16AttributedStringV5IndexVGWObTm_0(v56, v61, type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field));
+  v89 = SystemFormatStyle.DateOffset.needsSign(for:smallestFieldShown:)(v209, &v61[*(v58 + 48)]);
+  v90 = static Date.< infix(_:_:)();
+  Date.timeIntervalSince(_:)();
+  static Duration.seconds(_:)();
+  static Duration.zero.getter();
+  if (static Duration.< infix(_:_:)())
+  {
+    static Duration.zero.getter();
+    static Duration.- infix(_:_:)();
+  }
+
+  Duration.TimeFormatStyle.Attributed.format(_:)();
+  if (v89)
+  {
+    if (v90)
+    {
+      v91 = "A negative time value (argument provides the value as localized by\nICU, either in a form like 1 day, 2 hours, or 1:23:45)";
+      v92 = v210;
+      v93 = 3;
+      v94 = 9603298;
+      v95 = 0xA300000000000000;
+    }
+
+    else
+    {
+      v91 = "A positive time value (argument provides the value as localized by\nICU, either in a form like 1 day, 2 hours, or 1:23:45)";
+      v92 = v210;
+      v93 = 1;
+      v94 = 43;
+      v95 = 0xE100000000000000;
+    }
+
+    SystemFormatStyle.DateOffset.addMinusSign(to:)(v92, v93, v94, v95, v91);
+  }
+
+  v127 = v199[11];
+  if (*(v3 + v127) >= 2u)
+  {
+    v128 = *(v3 + v199[5]);
+    v129 = v188;
+    static Date.ComponentsFormatStyle.Field.second.getter();
+    LOBYTE(v128) = specialized Set.contains(_:)(v129, v128);
+    (*(v197 + 8))(v129, v196);
+    if (v128)
+    {
+      LOBYTE(v211) = *(v3 + v127);
+      AttributedString.redact(for:locale:)(&v211, v3 + v199[9], v130);
+    }
+  }
+
+  return outlined destroy of SystemFormatStyle.DateOffset(v61, type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field));
+}
+
 void type metadata accessor for Locale?(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t (*a4)(uint64_t, uint64_t))
 {
   if (!*a2)
@@ -11,54 +6428,62 @@ void type metadata accessor for Locale?(uint64_t a1, unint64_t *a2, uint64_t (*a
   }
 }
 
-uint64_t lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(unint64_t *a1, void (*a2)(uint64_t))
+void lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(unint64_t *a1, uint64_t (*a2)(uint64_t), const char *a3)
 {
-  result = *a1;
-  if (!result)
+  if (!*a1)
   {
-    a2(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
+    v5 = a2(255);
+    swift_getWitnessTable(a3, v5);
+    atomic_store(v6, a1);
   }
-
-  return result;
 }
 
-void type metadata accessor for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(uint64_t a1, unint64_t *a2, unint64_t *a3, void (*a4)(uint64_t))
+void type metadata accessor for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(uint64_t a1, unint64_t *a2, unint64_t *a3, uint64_t (*a4)(uint64_t), double a5)
 {
   if (!*a2)
   {
     type metadata accessor for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(255, a3, a4);
-    v5 = type metadata accessor for Optional();
-    if (!v6)
+    v6 = type metadata accessor for Optional();
+    if (!v7)
     {
-      atomic_store(v5, a2);
+      atomic_store(v6, a2);
     }
   }
 }
 
-void type metadata accessor for WhitespaceRemovingFormatStyle<Duration.UnitsFormatStyle.Attributed, AttributeScopes.FoundationAttributes.MeasurementAttribute>()
+void type metadata accessor for WhitespaceRemovingFormatStyle<Duration.UnitsFormatStyle.Attributed, AttributeScopes.FoundationAttributes.MeasurementAttribute>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for WhitespaceRemovingFormatStyle<Duration.UnitsFormatStyle.Attributed, AttributeScopes.FoundationAttributes.MeasurementAttribute>)
   {
-    type metadata accessor for Duration.UnitsFormatStyle.Attributed();
-    type metadata accessor for AttributeScopes.FoundationAttributes.MeasurementAttribute();
-    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Duration.UnitsFormatStyle.Attributed and conformance Duration.UnitsFormatStyle.Attributed, MEMORY[0x1E696A1A8]);
-    v0 = MEMORY[0x1E6968438];
-    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type AttributeScopes.FoundationAttributes.MeasurementAttribute and conformance AttributeScopes.FoundationAttributes.MeasurementAttribute, MEMORY[0x1E6968438]);
-    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type AttributeScopes.FoundationAttributes.MeasurementAttribute and conformance AttributeScopes.FoundationAttributes.MeasurementAttribute, v0);
-    v1 = MEMORY[0x1E6968400];
-    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type AttributeScopes.FoundationAttributes.MeasurementAttribute.Component and conformance AttributeScopes.FoundationAttributes.MeasurementAttribute.Component, MEMORY[0x1E6968400]);
-    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type AttributeScopes.FoundationAttributes.MeasurementAttribute.Component and conformance AttributeScopes.FoundationAttributes.MeasurementAttribute.Component, v1);
-    v2 = type metadata accessor for WhitespaceRemovingFormatStyle();
-    if (!v3)
+    v2 = type metadata accessor for Duration.UnitsFormatStyle.Attributed();
+    v3 = type metadata accessor for AttributeScopes.FoundationAttributes.MeasurementAttribute();
+    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Duration.UnitsFormatStyle.Attributed and conformance Duration.UnitsFormatStyle.Attributed, MEMORY[0x1E696A1A8], MEMORY[0x1E696A1A0]);
+    v5 = v4;
+    v6 = MEMORY[0x1E6968438];
+    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type AttributeScopes.FoundationAttributes.MeasurementAttribute and conformance AttributeScopes.FoundationAttributes.MeasurementAttribute, MEMORY[0x1E6968438], MEMORY[0x1E6968428]);
+    v8 = v7;
+    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type AttributeScopes.FoundationAttributes.MeasurementAttribute and conformance AttributeScopes.FoundationAttributes.MeasurementAttribute, v6, MEMORY[0x1E6968430]);
+    v10 = v9;
+    v11 = MEMORY[0x1E6968400];
+    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type AttributeScopes.FoundationAttributes.MeasurementAttribute.Component and conformance AttributeScopes.FoundationAttributes.MeasurementAttribute.Component, MEMORY[0x1E6968400], MEMORY[0x1E6968418]);
+    v13 = v12;
+    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type AttributeScopes.FoundationAttributes.MeasurementAttribute.Component and conformance AttributeScopes.FoundationAttributes.MeasurementAttribute.Component, v11, MEMORY[0x1E6968408]);
+    v17[0] = v2;
+    v17[1] = v3;
+    v17[2] = v5;
+    v17[3] = v8;
+    v17[4] = v10;
+    v17[5] = v13;
+    v17[6] = v14;
+    v15 = type metadata accessor for WhitespaceRemovingFormatStyle(a1, v17);
+    if (!v16)
     {
-      atomic_store(v2, &lazy cache variable for type metadata for WhitespaceRemovingFormatStyle<Duration.UnitsFormatStyle.Attributed, AttributeScopes.FoundationAttributes.MeasurementAttribute>);
+      atomic_store(v15, &lazy cache variable for type metadata for WhitespaceRemovingFormatStyle<Duration.UnitsFormatStyle.Attributed, AttributeScopes.FoundationAttributes.MeasurementAttribute>);
     }
   }
 }
 
-void type metadata accessor for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void type metadata accessor for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -72,14 +6497,14 @@ void type metadata accessor for (style: Date.ComponentsFormatStyle, largestField
   }
 }
 
-void type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)()
+void type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field))
   {
     type metadata accessor for Duration.TimeFormatStyle.Attributed();
     type metadata accessor for Date.ComponentsFormatStyle.Field();
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &lazy cache variable for type metadata for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field));
     }
@@ -90,70 +6515,71 @@ uint64_t SystemFormatStyle.DateOffset.updateFrequency(_:)@<X0>(char *a1@<X0>, ui
 {
   v4 = *a1;
   outlined init with copy of SystemFormatStyle.DateOffset(v2, a2, type metadata accessor for SystemFormatStyle.DateOffset);
-  result = type metadata accessor for SystemFormatStyle.DateOffset();
+  result = type metadata accessor for SystemFormatStyle.DateOffset(0);
   *(a2 + *(result + 44)) = v4;
   return result;
 }
 
 uint64_t SystemFormatStyle.DateOffset.timeStyle(for:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v49 = a1;
-  v58 = a2;
+  v50 = a1;
+  v59 = a2;
   v3 = type metadata accessor for NumberFormatStyleConfiguration.Grouping();
-  v56 = *(v3 - 8);
-  v57 = v3;
+  v57 = *(v3 - 8);
+  v58 = v3;
   MEMORY[0x1EEE9AC00](v3);
-  v55 = v47 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v56 = v48 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v5 = type metadata accessor for Date.ComponentsFormatStyle.Field();
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
-  v8 = v47 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = v48 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = type metadata accessor for Locale();
   MEMORY[0x1EEE9AC00](v9 - 8);
-  v54 = v47 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v55 = v48 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = type metadata accessor for FloatingPointRoundingRule();
-  v52 = *(v11 - 8);
-  v53 = v11;
+  v53 = *(v11 - 8);
+  v54 = v11;
   MEMORY[0x1EEE9AC00](v11);
-  v13 = v47 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = v48 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   v14 = type metadata accessor for Duration.TimeFormatStyle.Pattern();
   MEMORY[0x1EEE9AC00](v14 - 8);
-  v50 = v47 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v51 = v48 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   v16 = type metadata accessor for Duration.TimeFormatStyle();
   v17 = *(v16 - 8);
   MEMORY[0x1EEE9AC00](v16);
-  v19 = v47 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = v48 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v20);
-  v51 = v47 - v21;
+  v52 = v48 - v21;
   MEMORY[0x1EEE9AC00](v22);
-  v24 = v47 - v23;
+  v24 = v48 - v23;
   MEMORY[0x1EEE9AC00](v25);
-  v27 = v47 - v26;
-  if (SystemFormatStyle.DateOffset.unitsConfigurationAllowsTimeStyle.getter())
+  v27 = v48 - v26;
+  SystemFormatStyle.DateOffset.unitsConfigurationAllowsTimeStyle.getter();
+  if (v28)
   {
-    v48 = v19;
-    v28 = type metadata accessor for SystemFormatStyle.DateOffset();
-    v29 = *(v2 + *(v28 + 44));
-    v47[2] = v28;
-    if (v29 >= 2)
+    v49 = v19;
+    v29 = type metadata accessor for SystemFormatStyle.DateOffset(0);
+    v30 = *(v2 + *(v29 + 44));
+    v48[2] = v29;
+    if (v30 >= 2)
     {
-      v34 = v52;
-      v33 = v53;
-      (*(v52 + 104))(v13, *MEMORY[0x1E69E7020], v53);
+      v35 = v53;
+      v34 = v54;
+      (*(v53 + 104))(v13, *MEMORY[0x1E69E7020], v54);
       static Duration.TimeFormatStyle.Pattern.hourMinute(padHourToLength:roundSeconds:)();
-      v32 = v58;
+      v33 = v59;
     }
 
     else
     {
-      v30 = *(v28 + 20);
-      v47[1] = v2;
-      v31 = *(v2 + v30);
+      v31 = *(v29 + 20);
+      v48[1] = v2;
+      v32 = *(v2 + v31);
       static Date.ComponentsFormatStyle.Style.spellOut.getter();
-      LOBYTE(v31) = specialized Set.contains(_:)(v8, v31);
+      LOBYTE(v32) = specialized Set.contains(_:)(v8, v32);
       (*(v6 + 8))(v8, v5);
-      v32 = v58;
-      if ((v31 & 1) == 0)
+      v33 = v59;
+      if ((v32 & 1) == 0)
       {
         goto LABEL_7;
       }
@@ -169,52 +6595,52 @@ uint64_t SystemFormatStyle.DateOffset.timeStyle(for:)@<X0>(uint64_t a1@<X0>, uin
 
       if ((static Duration.< infix(_:_:)() & 1) == 0)
       {
-        v34 = v52;
-        v33 = v53;
-        (*(v52 + 104))(v13, *MEMORY[0x1E69E7020], v53);
+        v35 = v53;
+        v34 = v54;
+        (*(v53 + 104))(v13, *MEMORY[0x1E69E7020], v54);
         static Duration.TimeFormatStyle.Pattern.hourMinuteSecond(padHourToLength:fractionalSecondsLength:roundFractionalSeconds:)();
       }
 
       else
       {
 LABEL_7:
-        v34 = v52;
-        v33 = v53;
-        (*(v52 + 104))(v13, *MEMORY[0x1E69E7020], v53);
+        v35 = v53;
+        v34 = v54;
+        (*(v53 + 104))(v13, *MEMORY[0x1E69E7020], v54);
         static Duration.TimeFormatStyle.Pattern.minuteSecond(padMinuteToLength:fractionalSecondsLength:roundFractionalSeconds:)();
       }
     }
 
-    (*(v34 + 8))(v13, v33);
+    (*(v35 + 8))(v13, v34);
     static Locale.autoupdatingCurrent.getter();
     Duration.TimeFormatStyle.init(pattern:locale:)();
     (*(v17 + 32))(v27, v24, v16);
-    type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)();
-    v41 = v40;
-    v42 = v48;
-    v43 = Duration.TimeFormatStyle.locale(_:)();
-    v44 = v55;
-    MEMORY[0x193ABCCC0](v43);
-    v45 = v51;
+    type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)(0);
+    v42 = v41;
+    v43 = v49;
+    v44 = Duration.TimeFormatStyle.locale(_:)();
+    v45 = v56;
+    MEMORY[0x193ABCCC0](v44);
+    v46 = v52;
     Duration.TimeFormatStyle.grouping(_:)();
-    (*(v56 + 8))(v44, v57);
-    v46 = *(v17 + 8);
-    v46(v42, v16);
+    (*(v57 + 8))(v45, v58);
+    v47 = *(v17 + 8);
+    v47(v43, v16);
     Duration.TimeFormatStyle.attributed.getter();
-    v46(v45, v16);
+    v47(v46, v16);
     static Date.ComponentsFormatStyle.Field.second.getter();
-    v46(v27, v16);
-    return (*(*(v41 - 8) + 56))(v32, 0, 1, v41);
+    v47(v27, v16);
+    return (*(*(v42 - 8) + 56))(v33, 0, 1, v42);
   }
 
   else
   {
-    type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)();
-    v36 = *(*(v35 - 8) + 56);
-    v37 = v35;
-    v38 = v58;
+    type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)(0);
+    v37 = *(*(v36 - 8) + 56);
+    v38 = v36;
+    v39 = v59;
 
-    return v36(v38, 1, 1, v37);
+    return v37(v39, 1, 1, v38);
   }
 }
 
@@ -228,27 +6654,27 @@ uint64_t outlined destroy of SystemFormatStyle.DateOffset(uint64_t a1, uint64_t 
 uint64_t SystemFormatStyle.DateOffset.needsSign(for:smallestFieldShown:)(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
-  v32 = a2;
-  v38 = a1;
+  v33 = a2;
+  v39 = a1;
   v4 = type metadata accessor for DateComponents();
-  v36 = *(v4 - 8);
-  v37 = v4;
+  v37 = *(v4 - 8);
+  v38 = v4;
   MEMORY[0x1EEE9AC00](v4);
-  v34 = &v31 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v35 = type metadata accessor for Calendar.Component();
-  v33 = *(v35 - 8);
-  MEMORY[0x1EEE9AC00](v35);
-  v7 = &v31 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v35 = &v32 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v36 = type metadata accessor for Calendar.Component();
+  v34 = *(v36 - 8);
+  MEMORY[0x1EEE9AC00](v36);
+  v7 = &v32 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = type metadata accessor for NumberFormatStyleConfiguration.SignDisplayStrategy();
   v9 = *(v8 - 8);
   MEMORY[0x1EEE9AC00](v8);
-  v11 = &v31 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v32 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v12);
-  v14 = &v31 - v13;
-  v15 = type metadata accessor for SystemFormatStyle.DateOffset();
+  v14 = &v32 - v13;
+  v15 = type metadata accessor for SystemFormatStyle.DateOffset(0);
   (*(v9 + 16))(v14, v3 + *(v15 + 28), v8);
   static NumberFormatStyleConfiguration.SignDisplayStrategy.never.getter();
-  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type NumberFormatStyleConfiguration.SignDisplayStrategy and conformance NumberFormatStyleConfiguration.SignDisplayStrategy, MEMORY[0x1E6968EF8]);
+  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type NumberFormatStyleConfiguration.SignDisplayStrategy and conformance NumberFormatStyleConfiguration.SignDisplayStrategy, MEMORY[0x1E6968EF8], MEMORY[0x1E6968F10]);
   v16 = dispatch thunk of static Equatable.== infix(_:_:)();
   v17 = *(v9 + 8);
   v17(v11, v8);
@@ -289,24 +6715,24 @@ uint64_t SystemFormatStyle.DateOffset.needsSign(for:smallestFieldShown:)(uint64_
         v18 = 0;
         if (v21)
         {
-          SystemFormatStyle.DateOffset.component(for:)(v32, v7);
+          SystemFormatStyle.DateOffset.component(for:)(v33, v7);
           type metadata accessor for Locale?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Calendar.Component>, MEMORY[0x1E6969AD0], MEMORY[0x1E69E6F90]);
-          v22 = v33;
-          v23 = (*(v33 + 80) + 32) & ~*(v33 + 80);
+          v22 = v34;
+          v23 = (*(v34 + 80) + 32) & ~*(v34 + 80);
           v24 = swift_allocObject();
           *(v24 + 16) = xmmword_18DDA6EB0;
           v25 = v24 + v23;
-          v26 = v35;
-          (*(v22 + 16))(v25, v7, v35);
-          _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10Foundation8CalendarV9ComponentO_Tt0g5(v24);
-          v27 = v34;
+          v26 = v36;
+          v27 = (*(v22 + 16))(v25, v7, v36);
+          _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10Foundation8CalendarV9ComponentO_Tt0g5(v24, v27);
+          v28 = v35;
           Calendar.dateComponents(_:from:to:)();
 
-          v28 = DateComponents.value(for:)();
-          LOBYTE(v24) = v29;
-          (*(v36 + 8))(v27, v37);
+          v29 = DateComponents.value(for:)();
+          LOBYTE(v24) = v30;
+          (*(v37 + 8))(v28, v38);
           (*(v22 + 8))(v7, v26);
-          v18 = (v24 & 1) != 0 || v28 != 0;
+          v18 = (v24 & 1) != 0 || v29 != 0;
         }
       }
     }
@@ -350,9 +6776,9 @@ uint64_t SystemFormatStyle.DateOffset.addMinusSign(to:)(uint64_t a1, uint64_t a2
   v20._object = a4;
   String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v20);
   v47 = MEMORY[0x1E69E7CC0];
-  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type AttributedString.InterpolationOptions and conformance AttributedString.InterpolationOptions, MEMORY[0x1E69686F0]);
+  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type AttributedString.InterpolationOptions and conformance AttributedString.InterpolationOptions, MEMORY[0x1E69686F0], MEMORY[0x1E69686F8]);
   type metadata accessor for [AttributedString.InterpolationOptions](0);
-  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type [AttributedString.InterpolationOptions] and conformance [A], type metadata accessor for [AttributedString.InterpolationOptions]);
+  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type [AttributedString.InterpolationOptions] and conformance [A], type metadata accessor for [AttributedString.InterpolationOptions], MEMORY[0x1E69E6328]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   v21 = v46;
   String.LocalizationValue.StringInterpolation.appendInterpolation(_:options:)();
@@ -367,7 +6793,7 @@ uint64_t SystemFormatStyle.DateOffset.addMinusSign(to:)(uint64_t a1, uint64_t a2
   v27._object = 0xE000000000000000;
   String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v27);
   String.LocalizationValue.init(stringInterpolation:)();
-  v28 = type metadata accessor for SystemFormatStyle.DateOffset();
+  v28 = type metadata accessor for SystemFormatStyle.DateOffset(0);
   (*(v11 + 16))(v24, v26 + *(v28 + 36), v38);
   if (one-time initialization token for systemFormatStyle != -1)
   {
@@ -381,7 +6807,7 @@ uint64_t SystemFormatStyle.DateOffset.addMinusSign(to:)(uint64_t a1, uint64_t a2
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   swift_getKeyPath();
   type metadata accessor for AttributeScopes.AccessibilityAttributes();
-  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type AttributeScopes.AccessibilityAttributes and conformance AttributeScopes.AccessibilityAttributes, MEMORY[0x1E6959510]);
+  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type AttributeScopes.AccessibilityAttributes and conformance AttributeScopes.AccessibilityAttributes, MEMORY[0x1E6959510], MEMORY[0x1E6959508]);
   AttributedString.init<A>(localized:including:)();
   v30 = v43;
   Locale.language.getter();
@@ -393,201 +6819,202 @@ uint64_t SystemFormatStyle.DateOffset.addMinusSign(to:)(uint64_t a1, uint64_t a2
   return AttributedString.subscript.setter();
 }
 
-uint64_t SystemFormatStyle.DateOffset.unitsStyle(for:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t SystemFormatStyle.DateOffset.unitsStyle(for:)@<X0>(void (**a1)(uint64_t, uint64_t, uint64_t, void *)@<X0>, uint64_t a2@<X8>)
 {
-  v130 = a2;
+  v132 = a2;
   type metadata accessor for Date.ComponentsFormatStyle.Field?(0);
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v114 = &v105[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v116 = &v107[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x1EEE9AC00](v6);
-  v115 = &v105[-v7];
-  v124 = type metadata accessor for FloatingPointRoundingRule();
-  v123 = *(v124 - 8);
-  MEMORY[0x1EEE9AC00](v124);
-  v122 = &v105[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v117 = &v107[-v7];
+  v126 = type metadata accessor for FloatingPointRoundingRule();
+  v125 = *(v126 - 8);
+  MEMORY[0x1EEE9AC00](v126);
+  v124 = &v107[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v9 = type metadata accessor for Duration.UnitsFormatStyle.FractionalPartDisplayStrategy();
   MEMORY[0x1EEE9AC00](v9 - 8);
-  v121 = &v105[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v123 = &v107[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v11 = type metadata accessor for Duration.UnitsFormatStyle.ZeroValueUnitsDisplayStrategy();
   MEMORY[0x1EEE9AC00](v11 - 8);
-  v120 = &v105[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v122 = &v107[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
   type metadata accessor for Duration.UnitsFormatStyle.Unit?(0);
   MEMORY[0x1EEE9AC00](v13 - 8);
-  v133 = &v105[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v144 = type metadata accessor for Duration.UnitsFormatStyle.Unit();
-  v132 = *(v144 - 1);
-  MEMORY[0x1EEE9AC00](v144);
-  v140 = &v105[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v135 = &v107[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v146 = type metadata accessor for Duration.UnitsFormatStyle.Unit();
+  v134 = *(v146 - 1);
+  MEMORY[0x1EEE9AC00](v146);
+  v142 = &v107[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v16 = type metadata accessor for Duration.UnitsFormatStyle.UnitWidth();
   MEMORY[0x1EEE9AC00](v16 - 8);
-  v125 = &v105[-((v17 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v119 = type metadata accessor for Duration.UnitsFormatStyle();
-  v118 = *(v119 - 8);
-  MEMORY[0x1EEE9AC00](v119);
-  v116 = &v105[-((v18 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v127 = &v107[-((v17 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v121 = type metadata accessor for Duration.UnitsFormatStyle();
+  v120 = *(v121 - 8);
+  MEMORY[0x1EEE9AC00](v121);
+  v118 = &v107[-((v18 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x1EEE9AC00](v19);
-  v117 = &v105[-v20];
-  v128 = type metadata accessor for Duration.UnitsFormatStyle.Attributed();
-  v127 = *(v128 - 8);
-  MEMORY[0x1EEE9AC00](v128);
-  v126 = &v105[-((v21 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v119 = &v107[-v20];
+  v130 = type metadata accessor for Duration.UnitsFormatStyle.Attributed();
+  v129 = *(v130 - 8);
+  MEMORY[0x1EEE9AC00](v130);
+  v128 = &v107[-((v21 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v22 = type metadata accessor for Calendar.Component();
-  v134 = *(v22 - 8);
-  v135 = v22;
+  v136 = *(v22 - 8);
+  v137 = v22;
   MEMORY[0x1EEE9AC00](v22);
-  v111 = &v105[-((v23 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v112 = type metadata accessor for DateComponents();
-  v110 = *(v112 - 8);
-  MEMORY[0x1EEE9AC00](v112);
-  v137 = &v105[-((v24 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v113 = &v107[-((v23 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v114 = type metadata accessor for DateComponents();
+  v112 = *(v114 - 8);
+  MEMORY[0x1EEE9AC00](v114);
+  v139 = &v107[-((v24 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v25 = type metadata accessor for Date.ComponentsFormatStyle.Field();
   v26 = *(v25 - 8);
   MEMORY[0x1EEE9AC00](v25);
-  v141 = &v105[-((v27 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v143 = &v107[-((v27 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x1EEE9AC00](v28);
-  v145 = &v105[-v29];
+  v147 = &v107[-v29];
   MEMORY[0x1EEE9AC00](v30);
-  v32 = &v105[-v31];
-  v136 = a1;
-  v131 = v2;
+  v32 = &v107[-v31];
+  v138 = a1;
+  v133 = v2;
   v33 = SystemFormatStyle.DateOffset.fieldsToDisplay(for:)(a1);
   v35 = v34;
   v37 = v36;
   v39 = v38;
   type metadata accessor for Locale?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Date.ComponentsFormatStyle.Field>, MEMORY[0x1E6969498], MEMORY[0x1E69E6F90]);
   v40 = *(v26 + 72);
-  v129 = v26;
+  v131 = v26;
   v41 = v37;
   v42 = swift_allocObject();
   *(v42 + 16) = xmmword_18DDAF080;
   static Date.ComponentsFormatStyle.Style.spellOut.getter();
-  v142 = v40;
+  v144 = v40;
   static Date.ComponentsFormatStyle.Field.minute.getter();
   static Date.ComponentsFormatStyle.Field.second.getter();
-  v149 = v39;
-  v150 = v42;
-  v146 = v33;
-  v147 = v35;
-  v113 = v35;
-  v148 = v37;
-  v138 = v39;
+  v151 = v39;
+  v152 = v42;
+  v148 = v33;
+  v149 = v35;
+  v115 = v35;
+  v150 = v37;
+  v140 = v39;
   type metadata accessor for [Date.ComponentsFormatStyle.Field](0);
   type metadata accessor for ArraySlice<Date.ComponentsFormatStyle.Field>(0);
-  v143 = v43;
-  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type [Date.ComponentsFormatStyle.Field] and conformance [A], type metadata accessor for [Date.ComponentsFormatStyle.Field]);
-  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type ArraySlice<Date.ComponentsFormatStyle.Field> and conformance ArraySlice<A>, type metadata accessor for ArraySlice<Date.ComponentsFormatStyle.Field>);
-  v44 = lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date.ComponentsFormatStyle.Field and conformance Date.ComponentsFormatStyle.Field, MEMORY[0x1E6969498]);
+  v145 = v43;
+  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type [Date.ComponentsFormatStyle.Field] and conformance [A], type metadata accessor for [Date.ComponentsFormatStyle.Field], MEMORY[0x1E69E6340]);
+  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type ArraySlice<Date.ComponentsFormatStyle.Field> and conformance ArraySlice<A>, type metadata accessor for ArraySlice<Date.ComponentsFormatStyle.Field>, MEMORY[0x1E69E6978]);
+  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date.ComponentsFormatStyle.Field and conformance Date.ComponentsFormatStyle.Field, MEMORY[0x1E6969498], MEMORY[0x1E69694B0]);
+  v45 = v44;
   LOBYTE(v37) = Collection<>.contains<A>(_:)();
 
   if ((v37 & 1) == 0)
   {
     type metadata accessor for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8]);
-    (*(*(v59 - 8) + 56))(v130, 1, 1, v59);
+    (*(*(v61 - 8) + 56))(v132, 1, 1, v61);
     return swift_unknownObjectRelease();
   }
 
-  v139 = v44;
-  result = type metadata accessor for SystemFormatStyle.DateOffset();
-  v46 = *(v131 + *(result + 44)) >= 2u;
-  v109 = v33;
-  v108 = result;
-  if (v46)
+  v141 = v45;
+  result = type metadata accessor for SystemFormatStyle.DateOffset(0);
+  v47 = *(v133 + *(result + 44)) >= 2u;
+  v111 = v33;
+  v110 = result;
+  if (v47)
   {
-    v47 = result;
-    v48 = *(v131 + *(result + 20));
+    v48 = result;
+    v49 = *(v133 + *(result + 20));
     static Date.ComponentsFormatStyle.Field.second.getter();
-    LOBYTE(v48) = specialized Set.contains(_:)(v32, v48);
-    result = (*(v129 + 8))(v32, v25);
-    if (v48)
+    LOBYTE(v49) = specialized Set.contains(_:)(v32, v49);
+    result = (*(v131 + 8))(v32, v25);
+    if (v49)
     {
-      v143 = *(v47 + 40);
+      v145 = *(v48 + 40);
       type metadata accessor for Locale?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Calendar.Component>, MEMORY[0x1E6969AD0], MEMORY[0x1E69E6F90]);
-      v49 = v134;
-      v50 = v41;
-      v51 = (*(v134 + 80) + 32) & ~*(v134 + 80);
-      v52 = swift_allocObject();
-      *(v52 + 16) = xmmword_18DDA6EB0;
-      v106 = *MEMORY[0x1E6969A88];
-      v53 = *(v49 + 104);
-      v54 = v52 + v51;
-      v41 = v50;
-      v55 = v135;
-      v53(v54);
-      _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10Foundation8CalendarV9ComponentO_Tt0g5(v52);
+      v50 = v136;
+      v51 = v41;
+      v52 = (*(v136 + 80) + 32) & ~*(v136 + 80);
+      v53 = swift_allocObject();
+      *(v53 + 16) = xmmword_18DDA6EB0;
+      v108 = *MEMORY[0x1E6969A88];
+      v54 = *(v50 + 104);
+      v55 = v53 + v52;
+      v41 = v51;
+      v56 = v137;
+      v57 = v54(v55);
+      _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10Foundation8CalendarV9ComponentO_Tt0g5(v53, v57);
       Calendar.dateComponents(_:from:to:)();
 
-      v56 = v111;
-      (v53)(v111, v106, v55);
-      v143 = DateComponents.value(for:)();
-      LOBYTE(v52) = v57;
-      (*(v49 + 8))(v56, v55);
-      result = (*(v110 + 8))(v137, v112);
-      if ((v52 & 1) == 0 && !v143)
+      v58 = v113;
+      (v54)(v113, v108, v56);
+      v145 = DateComponents.value(for:)();
+      LOBYTE(v53) = v59;
+      (*(v50 + 8))(v58, v56);
+      result = (*(v112 + 8))(v139, v114);
+      if ((v53 & 1) == 0 && !v145)
       {
         swift_unknownObjectRelease();
         type metadata accessor for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8]);
-        return (*(*(v58 - 8) + 56))(v130, 1, 1, v58);
+        return (*(*(v60 - 8) + 56))(v132, 1, 1, v60);
       }
     }
   }
 
-  v112 = v138 >> 1;
-  v60 = (v138 >> 1) - v41;
-  v107 = v41;
-  if (v138 >> 1 != v41)
+  v114 = v140 >> 1;
+  v62 = (v140 >> 1) - v41;
+  v109 = v41;
+  if (v140 >> 1 != v41)
   {
-    if ((v138 >> 1) <= v41)
+    if ((v140 >> 1) <= v41)
     {
       __break(1u);
       goto LABEL_45;
     }
 
-    v137 = *(v129 + 16);
-    v138 = v129 + 16;
-    v63 = (v129 + 8);
-    v135 = (v132 + 48);
-    v136 = (v132 + 56);
-    v134 = v132 + 32;
-    v64 = v141;
-    v65 = v113 + v41 * v142;
-    v143 = MEMORY[0x1E69E7CC0];
-    v66 = v133;
+    v139 = *(v131 + 16);
+    v140 = v131 + 16;
+    v65 = (v131 + 8);
+    v137 = (v134 + 48);
+    v138 = (v134 + 56);
+    v136 = v134 + 32;
+    v66 = v143;
+    v67 = v115 + v41 * v144;
+    v145 = MEMORY[0x1E69E7CC0];
+    v68 = v135;
     while (1)
     {
-      v67 = v145;
-      v68 = v137;
-      (v137)(v145, v65, v25);
-      v68(v64, v67, v25);
+      v69 = v147;
+      v70 = v139;
+      (v139)(v147, v67, v25);
+      v70(v66, v69, v25);
       static Date.ComponentsFormatStyle.Style.spellOut.getter();
-      LOBYTE(v67) = dispatch thunk of static Equatable.== infix(_:_:)();
-      v69 = *v63;
-      (*v63)(v32, v25);
-      if (v67)
+      LOBYTE(v69) = dispatch thunk of static Equatable.== infix(_:_:)();
+      v71 = *v65;
+      (*v65)(v32, v25);
+      if (v69)
       {
-        v69(v64, v25);
+        v71(v66, v25);
         static Duration.UnitsFormatStyle.Unit.hours.getter();
       }
 
       else
       {
         static Date.ComponentsFormatStyle.Field.minute.getter();
-        v70 = dispatch thunk of static Equatable.== infix(_:_:)();
-        v69(v32, v25);
-        if (v70)
+        v72 = dispatch thunk of static Equatable.== infix(_:_:)();
+        v71(v32, v25);
+        if (v72)
         {
-          v69(v64, v25);
+          v71(v66, v25);
           static Duration.UnitsFormatStyle.Unit.minutes.getter();
         }
 
         else
         {
           static Date.ComponentsFormatStyle.Field.second.getter();
-          v71 = dispatch thunk of static Equatable.== infix(_:_:)();
-          v69(v32, v25);
-          v69(v64, v25);
-          if ((v71 & 1) == 0)
+          v73 = dispatch thunk of static Equatable.== infix(_:_:)();
+          v71(v32, v25);
+          v71(v66, v25);
+          if ((v73 & 1) == 0)
           {
-            v72 = 1;
+            v74 = 1;
             goto LABEL_27;
           }
 
@@ -595,66 +7022,66 @@ uint64_t SystemFormatStyle.DateOffset.unitsStyle(for:)@<X0>(uint64_t a1@<X0>, ui
         }
       }
 
-      v72 = 0;
+      v74 = 0;
 LABEL_27:
-      v69(v145, v25);
-      v73 = v72;
-      v74 = v144;
-      (*v136)(v66, v73, 1, v144);
-      if ((*v135)(v66, 1, v74) == 1)
+      v71(v147, v25);
+      v75 = v74;
+      v76 = v146;
+      (*v138)(v68, v75, 1, v146);
+      if ((*v137)(v68, 1, v76) == 1)
       {
-        outlined destroy of SystemFormatStyle.DateOffset(v66, type metadata accessor for Duration.UnitsFormatStyle.Unit?);
+        outlined destroy of SystemFormatStyle.DateOffset(v68, type metadata accessor for Duration.UnitsFormatStyle.Unit?);
       }
 
       else
       {
-        v75 = *v134;
-        (*v134)(v140, v66, v74);
+        v77 = *v136;
+        (*v136)(v142, v68, v76);
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v143 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v143 + 16) + 1, 1, v143);
+          v145 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v145 + 16) + 1, 1, v145);
         }
 
-        v77 = *(v143 + 16);
-        v76 = *(v143 + 24);
-        if (v77 >= v76 >> 1)
+        v79 = *(v145 + 16);
+        v78 = *(v145 + 24);
+        if (v79 >= v78 >> 1)
         {
-          v143 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v76 > 1, v77 + 1, 1, v143);
+          v145 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v78 > 1), v79 + 1, 1, v145);
         }
 
-        v79 = v143;
-        v78 = v144;
-        *(v143 + 16) = v77 + 1;
-        v75((v79 + ((*(v132 + 80) + 32) & ~*(v132 + 80)) + *(v132 + 72) * v77), v140, v78);
-        v66 = v133;
+        v81 = v145;
+        v80 = v146;
+        *(v145 + 16) = v79 + 1;
+        v77((v81 + ((*(v134 + 80) + 32) & ~*(v134 + 80)) + *(v134 + 72) * v79), v142, v80);
+        v68 = v135;
       }
 
-      v64 = v141;
-      v65 += v142;
-      if (!--v60)
+      v66 = v143;
+      v67 += v144;
+      if (!--v62)
       {
         goto LABEL_11;
       }
     }
   }
 
-  v143 = MEMORY[0x1E69E7CC0];
+  v145 = MEMORY[0x1E69E7CC0];
 LABEL_11:
-  _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCs8DurationV10FoundationE16UnitsFormatStyleV4UnitV_SayAJGTt0g5Tf4g_n(v143);
+  _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCs8DurationV10FoundationE16UnitsFormatStyleV4UnitV_SayAJGTt0g5Tf4g_n(v145);
 
-  v61 = *(v131 + *(v108 + 32));
-  if (v61 >= 2)
+  v63 = *(v133 + *(v110 + 32));
+  if (v63 >= 2)
   {
     static Duration.UnitsFormatStyle.UnitWidth.narrow.getter();
-    v62 = v130;
+    v64 = v132;
   }
 
   else
   {
-    v62 = v130;
-    if (v61 == 1)
+    v64 = v132;
+    if (v63 == 1)
     {
-      if (*(v131 + *(v108 + 48)))
+      if (*(v133 + *(v110 + 48)))
       {
         static Duration.UnitsFormatStyle.UnitWidth.condensedAbbreviated.getter();
       }
@@ -672,75 +7099,75 @@ LABEL_11:
   }
 
   static Duration.UnitsFormatStyle.ZeroValueUnitsDisplayStrategy.show(length:)();
-  v80 = v123;
-  v81 = v122;
-  v82 = v124;
-  (*(v123 + 104))(v122, *MEMORY[0x1E69E7020], v124);
+  v82 = v125;
+  v83 = v124;
+  v84 = v126;
+  (*(v125 + 104))(v124, *MEMORY[0x1E69E7020], v126);
   static Duration.UnitsFormatStyle.FractionalPartDisplayStrategy.hide(rounded:)();
-  (*(v80 + 8))(v81, v82);
-  v83 = v116;
+  (*(v82 + 8))(v83, v84);
+  v85 = v118;
   Duration.UnitsFormatStyle.init(allowedUnits:width:maximumUnitCount:zeroValueUnits:valueLength:fractionalPart:)();
-  v84 = v117;
-  Duration.UnitsFormatStyle.locale(_:)();
-  v85 = *(v118 + 8);
   v86 = v119;
-  v85(v83, v119);
-  v87 = v126;
+  Duration.UnitsFormatStyle.locale(_:)();
+  v87 = *(v120 + 8);
+  v88 = v121;
+  v87(v85, v121);
+  v89 = v128;
   Duration.UnitsFormatStyle.attributed.getter();
-  v85(v84, v86);
+  v87(v86, v88);
   type metadata accessor for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8]);
-  v145 = v88;
-  v89 = *(v88 + 48);
-  result = (*(v127 + 16))(v62, v87, v128);
-  if (v112 == v107)
+  v147 = v90;
+  v91 = *(v90 + 48);
+  result = (*(v129 + 16))(v64, v89, v130);
+  if (v114 == v109)
   {
-    v90 = v129;
-    v91 = *(v129 + 56);
-    v92 = v115;
-    v91(v115, 1, 1, v25);
+    v92 = v131;
+    v93 = *(v131 + 56);
+    v94 = v117;
+    v93(v117, 1, 1, v25);
     static Date.ComponentsFormatStyle.Field.second.getter();
-    v93 = *(v90 + 48);
-    if (v93(v92, 1, v25) != 1)
-    {
-      outlined destroy of SystemFormatStyle.DateOffset(v92, type metadata accessor for Date.ComponentsFormatStyle.Field?);
-    }
-
-    v94 = v114;
-    v91(v114, 1, 1, v25);
-    static Date.ComponentsFormatStyle.Field.second.getter();
-    swift_unknownObjectRelease();
-    (*(v127 + 8))(v126, v128);
-    if (v93(v94, 1, v25) != 1)
+    v95 = *(v92 + 48);
+    if (v95(v94, 1, v25) != 1)
     {
       outlined destroy of SystemFormatStyle.DateOffset(v94, type metadata accessor for Date.ComponentsFormatStyle.Field?);
     }
 
-    return (*(*(v145 - 1) + 56))(v62, 0, 1, v145);
+    v96 = v116;
+    v93(v116, 1, 1, v25);
+    static Date.ComponentsFormatStyle.Field.second.getter();
+    swift_unknownObjectRelease();
+    (*(v129 + 8))(v128, v130);
+    if (v95(v96, 1, v25) != 1)
+    {
+      outlined destroy of SystemFormatStyle.DateOffset(v96, type metadata accessor for Date.ComponentsFormatStyle.Field?);
+    }
+
+    return (*(*(v147 - 1) + 56))(v64, 0, 1, v147);
   }
 
-  if (v112 > v107)
+  if (v114 > v109)
   {
-    v95 = v142;
-    v96 = v129;
-    v97 = *(v129 + 16);
-    v98 = v113;
-    v99 = v115;
-    v97(v115, v113 + v142 * v107, v25);
-    v144 = *(v96 + 56);
-    (v144)(v99, 0, 1, v25);
-    v100 = v99;
-    v101 = *(v96 + 32);
-    v62 = v130;
-    v101(v130 + v89, v100, v25);
-    v102 = *(v145 + 16);
-    v103 = v98 + (v112 - 1) * v95;
-    v104 = v114;
-    v97(v114, v103, v25);
+    v97 = v144;
+    v98 = v131;
+    v99 = *(v131 + 16);
+    v100 = v115;
+    v101 = v117;
+    v99(v117, v115 + v144 * v109, v25);
+    v146 = *(v98 + 56);
+    (v146)(v101, 0, 1, v25);
+    v102 = v101;
+    v103 = *(v98 + 32);
+    v64 = v132;
+    v103(v132 + v91, v102, v25);
+    v104 = *(v147 + 16);
+    v105 = v100 + (v114 - 1) * v97;
+    v106 = v116;
+    v99(v116, v105, v25);
     swift_unknownObjectRelease();
-    (v144)(v104, 0, 1, v25);
-    (*(v127 + 8))(v126, v128);
-    v101(v62 + v102, v104, v25);
-    return (*(*(v145 - 1) + 56))(v62, 0, 1, v145);
+    (v146)(v106, 0, 1, v25);
+    (*(v129 + 8))(v128, v130);
+    v103(v64 + v104, v106, v25);
+    return (*(*(v147 - 1) + 56))(v64, 0, 1, v147);
   }
 
 LABEL_45:
@@ -751,90 +7178,90 @@ LABEL_45:
 uint64_t SystemFormatStyle.DateOffset.componentsStyle(for:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = v2;
-  v74 = a1;
-  v76 = a2;
+  v75 = a1;
+  v77 = a2;
   type metadata accessor for Date.ComponentsFormatStyle.Field?(0);
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v71 = &v55 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v72 = &v56 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v6);
-  v70 = &v55 - v7;
+  v71 = &v56 - v7;
   v8 = type metadata accessor for Calendar();
-  v66 = *(v8 - 8);
-  v67 = v8;
+  v67 = *(v8 - 8);
+  v68 = v8;
   MEMORY[0x1EEE9AC00](v8);
-  v68 = &v55 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v69 = &v56 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = type metadata accessor for Locale();
-  v63 = *(v10 - 8);
-  v64 = v10;
+  v64 = *(v10 - 8);
+  v65 = v10;
   MEMORY[0x1EEE9AC00](v10);
-  v65 = &v55 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v66 = &v56 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = type metadata accessor for Date.ComponentsFormatStyle.Style();
   MEMORY[0x1EEE9AC00](v12 - 8);
-  v62 = &v55 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v63 = &v56 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   v14 = type metadata accessor for Date.ComponentsFormatStyle();
-  v69 = *(v14 - 8);
+  v70 = *(v14 - 8);
   MEMORY[0x1EEE9AC00](v14);
-  v75 = &v55 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v76 = &v56 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   v16 = type metadata accessor for Calendar.Component();
   v17 = *(v16 - 8);
   MEMORY[0x1EEE9AC00](v16);
-  v19 = &v55 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v61 = type metadata accessor for DateComponents();
-  v60 = *(v61 - 8);
-  MEMORY[0x1EEE9AC00](v61);
-  v21 = &v55 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v73 = type metadata accessor for Date.ComponentsFormatStyle.Field();
-  v22 = *(v73 - 8);
-  MEMORY[0x1EEE9AC00](v73);
-  v24 = &v55 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25 = type metadata accessor for SystemFormatStyle.DateOffset();
+  v19 = &v56 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v62 = type metadata accessor for DateComponents();
+  v61 = *(v62 - 8);
+  MEMORY[0x1EEE9AC00](v62);
+  v21 = &v56 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v74 = type metadata accessor for Date.ComponentsFormatStyle.Field();
+  v22 = *(v74 - 8);
+  MEMORY[0x1EEE9AC00](v74);
+  v24 = &v56 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = type metadata accessor for SystemFormatStyle.DateOffset(0);
   v26 = v25;
-  v77 = 0u;
   v78 = 0u;
+  v79 = 0u;
   v27 = *(v3 + *(v25 + 44));
-  v72 = v14;
+  v73 = v14;
   if (v27 >= 2)
   {
     v28 = *(v3 + *(v25 + 20));
     static Date.ComponentsFormatStyle.Field.second.getter();
     LOBYTE(v28) = specialized Set.contains(_:)(v24, v28);
-    (*(v22 + 8))(v24, v73);
+    (*(v22 + 8))(v24, v74);
     if (v28)
     {
-      v58 = v26[10];
+      v59 = v26[10];
       type metadata accessor for Locale?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Calendar.Component>, MEMORY[0x1E6969AD0], MEMORY[0x1E69E6F90]);
       v29 = (*(v17 + 80) + 32) & ~*(v17 + 80);
       v30 = swift_allocObject();
       *(v30 + 16) = xmmword_18DDA6EB0;
-      v59 = v22;
-      v57 = *MEMORY[0x1E6969A88];
-      v56 = *(v17 + 104);
-      v56(v30 + v29);
-      _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10Foundation8CalendarV9ComponentO_Tt0g5(v30);
+      v60 = v22;
+      v58 = *MEMORY[0x1E6969A88];
+      v57 = *(v17 + 104);
+      v31 = v57(v30 + v29);
+      _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10Foundation8CalendarV9ComponentO_Tt0g5(v30, v31);
       Calendar.dateComponents(_:from:to:)();
 
-      v22 = v59;
-      (v56)(v19, v57, v16);
-      v14 = v72;
-      v31 = DateComponents.value(for:)();
-      LOBYTE(v30) = v32;
+      v22 = v60;
+      (v57)(v19, v58, v16);
+      v14 = v73;
+      v32 = DateComponents.value(for:)();
+      LOBYTE(v30) = v33;
       (*(v17 + 8))(v19, v16);
-      (*(v60 + 8))(v21, v61);
-      if ((v30 & 1) == 0 && !v31)
+      (*(v61 + 8))(v21, v62);
+      if ((v30 & 1) == 0 && !v32)
       {
         type metadata accessor for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E69694D0]);
-        return (*(*(v33 - 8) + 56))(v76, 1, 1, v33);
+        return (*(*(v34 - 8) + 56))(v77, 1, 1, v34);
       }
     }
   }
 
-  v35 = *(v3 + v26[8]);
-  if (v35 > 1)
+  v36 = *(v3 + v26[8]);
+  if (v36 > 1)
   {
     static Date.ComponentsFormatStyle.Style.narrow.getter();
   }
 
-  else if (v35 == 1)
+  else if (v36 == 1)
   {
     if (*(v3 + v26[12]))
     {
@@ -852,10 +7279,10 @@ uint64_t SystemFormatStyle.DateOffset.componentsStyle(for:)@<X0>(uint64_t a1@<X0
     static Date.ComponentsFormatStyle.Style.wide.getter();
   }
 
-  (*(v63 + 16))(v65, v3 + v26[9], v64);
-  (*(v66 + 16))(v68, v3 + v26[10], v67);
-  specialized getter of fieldsToDisplay #1 in SystemFormatStyle.DateOffset.componentsStyle(for:)(&v77, v3, v74);
-  _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC10Foundation4DateV21ComponentsFormatStyleV5FieldV_s10ArraySliceVyAJGTt0g5Tf4gX_n(v36, v37, v38);
+  (*(v64 + 16))(v66, v3 + v26[9], v65);
+  (*(v67 + 16))(v69, v3 + v26[10], v68);
+  specialized getter of fieldsToDisplay #1 in SystemFormatStyle.DateOffset.componentsStyle(for:)(&v78, v3, v75);
+  _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC10Foundation4DateV21ComponentsFormatStyleV5FieldV_s10ArraySliceVyAJGTt0g5Tf4gX_n(v37, v38, v39);
   swift_unknownObjectRelease();
   Date.ComponentsFormatStyle.init(style:locale:calendar:fields:)();
   if (static Date.< infix(_:_:)())
@@ -864,84 +7291,84 @@ uint64_t SystemFormatStyle.DateOffset.componentsStyle(for:)@<X0>(uint64_t a1@<X0
   }
 
   type metadata accessor for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E69694D0]);
-  v40 = v39;
-  v68 = *(v39 + 48);
-  v41 = v69;
-  result = (*(v69 + 16))(v76, v75, v14);
-  v74 = v77;
-  v42 = *(&v78 + 1) >> 1;
-  if (v78 == *(&v78 + 1) >> 1)
+  v41 = v40;
+  v69 = *(v40 + 48);
+  v42 = v70;
+  result = (*(v70 + 16))(v77, v76, v14);
+  v75 = v78;
+  v43 = *(&v79 + 1) >> 1;
+  if (v79 == *(&v79 + 1) >> 1)
   {
-    v43 = v41;
-    v44 = *(v22 + 56);
-    v45 = v70;
-    v46 = v73;
-    v44(v70, 1, 1, v73);
+    v44 = v42;
+    v45 = *(v22 + 56);
+    v46 = v71;
+    v47 = v74;
+    v45(v71, 1, 1, v74);
     swift_unknownObjectRetain();
     static Date.ComponentsFormatStyle.Field.second.getter();
-    v47 = *(v22 + 48);
-    if (v47(v45, 1, v46) != 1)
+    v48 = *(v22 + 48);
+    if (v48(v46, 1, v47) != 1)
     {
-      outlined destroy of SystemFormatStyle.DateOffset(v45, type metadata accessor for Date.ComponentsFormatStyle.Field?);
+      outlined destroy of SystemFormatStyle.DateOffset(v46, type metadata accessor for Date.ComponentsFormatStyle.Field?);
     }
 
     swift_unknownObjectRelease();
-    v48 = v71;
-    v49 = v73;
-    v44(v71, 1, 1, v73);
+    v49 = v72;
+    v50 = v74;
+    v45(v72, 1, 1, v74);
     static Date.ComponentsFormatStyle.Field.second.getter();
-    (*(v43 + 8))(v75, v72);
-    if (v47(v48, 1, v49) != 1)
+    (*(v44 + 8))(v76, v73);
+    if (v48(v49, 1, v50) != 1)
     {
-      outlined destroy of SystemFormatStyle.DateOffset(v71, type metadata accessor for Date.ComponentsFormatStyle.Field?);
+      outlined destroy of SystemFormatStyle.DateOffset(v72, type metadata accessor for Date.ComponentsFormatStyle.Field?);
     }
   }
 
   else
   {
-    v50 = v70;
-    if (v78 >= v42)
+    v51 = v71;
+    if (v79 >= v43)
     {
       __break(1u);
       return result;
     }
 
-    v51 = *(&v77 + 1);
-    v52 = *(v22 + 72);
-    v64 = *(v22 + 16);
-    v53 = v73;
-    v64(v70, *(&v77 + 1) + v52 * v78, v73);
-    v67 = v40;
-    v65 = *(v22 + 56);
-    (v65)(v50, 0, 1, v53);
-    v66 = *(v22 + 32);
-    (v66)(&v68[v76], v50, v53);
-    v70 = *(v67 + 64);
+    v52 = *(&v78 + 1);
+    v53 = *(v22 + 72);
+    v65 = *(v22 + 16);
+    v54 = v74;
+    v65(v71, *(&v78 + 1) + v53 * v79, v74);
+    v68 = v41;
+    v66 = *(v22 + 56);
+    (v66)(v51, 0, 1, v54);
+    v67 = *(v22 + 32);
+    (v67)(&v69[v77], v51, v54);
+    v71 = *(v68 + 64);
     swift_unknownObjectRetain();
-    v54 = v71;
-    v64(v71, v51 + v52 * (v42 - 1), v53);
+    v55 = v72;
+    v65(v72, v52 + v53 * (v43 - 1), v54);
     swift_unknownObjectRelease();
-    (v65)(v54, 0, 1, v53);
-    v40 = v67;
-    (*(v41 + 8))(v75, v72);
-    (v66)(v76 + v70, v54, v53);
+    (v66)(v55, 0, 1, v54);
+    v41 = v68;
+    (*(v42 + 8))(v76, v73);
+    (v67)(v77 + v71, v55, v54);
   }
 
-  (*(*(v40 - 8) + 56))(v76, 0, 1, v40);
+  (*(*(v41 - 8) + 56))(v77, 0, 1, v41);
   return swift_unknownObjectRelease();
 }
 
-uint64_t outlined destroy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(uint64_t a1, unint64_t *a2, unint64_t *a3, void (*a4)(uint64_t))
+uint64_t outlined destroy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(uint64_t a1, unint64_t *a2, unint64_t *a3, uint64_t (*a4)(uint64_t), double a5)
 {
-  type metadata accessor for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(0, a2, a3, a4);
-  (*(*(v5 - 8) + 8))(a1, v5);
+  type metadata accessor for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(0, a2, a3, a4, a5);
+  (*(*(v6 - 8) + 8))(a1, v6);
   return a1;
 }
 
 uint64_t SystemFormatStyle.DateOffset.dateRange(for:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = v2;
-  type metadata accessor for (lower: Date, upper: Date)();
+  type metadata accessor for (lower: Date, upper: Date)(0);
   v7 = v6;
   MEMORY[0x1EEE9AC00](v6);
   v9 = &v25 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -949,7 +7376,7 @@ uint64_t SystemFormatStyle.DateOffset.dateRange(for:)@<X0>(uint64_t a1@<X0>, uin
   v12 = &v25 - v11;
   v13 = static Date.< infix(_:_:)();
   v14 = type metadata accessor for Date();
-  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x1E6969530]);
+  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x1E6969530], MEMORY[0x1E6969548]);
   if (v13)
   {
     v15 = dispatch thunk of static Comparable.<= infix(_:_:)();
@@ -969,7 +7396,7 @@ LABEL_5:
       v22(&v9[v20], v14);
       _sSny10Foundation16AttributedStringV5IndexVGWObTm_0(v12, v9, type metadata accessor for (lower: Date, upper: Date));
       v23 = *(v7 + 48);
-      type metadata accessor for Range<Date>();
+      type metadata accessor for Range<Date>(0);
       v21(a2 + *(v24 + 36), &v9[v23], v14);
       return (v22)(v9, v14);
     }
@@ -999,7 +7426,7 @@ uint64_t SystemFormatStyle.DateOffset.component(for:)@<X0>(uint64_t a1@<X0>, uin
   v11 = v24 - v10;
   (*(v5 + 16))(v24 - v10, a1, v4, v9);
   static Date.ComponentsFormatStyle.Style.wide.getter();
-  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date.ComponentsFormatStyle.Field and conformance Date.ComponentsFormatStyle.Field, MEMORY[0x1E6969498]);
+  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date.ComponentsFormatStyle.Field and conformance Date.ComponentsFormatStyle.Field, MEMORY[0x1E6969498], MEMORY[0x1E69694B0]);
   v12 = dispatch thunk of static Equatable.== infix(_:_:)();
   v13 = *(v5 + 8);
   v13(v7, v4);
@@ -1071,7 +7498,7 @@ LABEL_15:
   v24[1] = 0xE000000000000000;
   _StringGuts.grow(_:)(43);
   MEMORY[0x193ABEDD0](0xD000000000000029, 0x800000018DD7AC40);
-  type metadata accessor for SystemFormatStyle.DateOffset();
+  type metadata accessor for SystemFormatStyle.DateOffset(0);
   _print_unlocked<A, B>(_:_:)();
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
@@ -1081,7 +7508,7 @@ LABEL_15:
 uint64_t SystemFormatStyle.DateOffset.smallerOneMinuteString.getter@<X0>(uint64_t a1@<X8>)
 {
   v69 = a1;
-  type metadata accessor for WhitespaceRemovingFormatStyle<Duration.UnitsFormatStyle.Attributed, AttributeScopes.FoundationAttributes.MeasurementAttribute>();
+  type metadata accessor for WhitespaceRemovingFormatStyle<Duration.UnitsFormatStyle.Attributed, AttributeScopes.FoundationAttributes.MeasurementAttribute>(0);
   v56 = v2;
   MEMORY[0x1EEE9AC00](v2);
   v57 = &v55 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -1125,7 +7552,7 @@ uint64_t SystemFormatStyle.DateOffset.smallerOneMinuteString.getter@<X0>(uint64_
   *(v25 + 16) = xmmword_18DDA6EB0;
   static Duration.UnitsFormatStyle.Unit.minutes.getter();
   _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCs8DurationV10FoundationE16UnitsFormatStyleV4UnitV_Tt0g5(v25);
-  v72 = type metadata accessor for SystemFormatStyle.DateOffset();
+  v72 = type metadata accessor for SystemFormatStyle.DateOffset(0);
   v73 = v1;
   v26 = *(v1 + v72[8]);
   v74 = v26;
@@ -1235,7 +7662,7 @@ uint64_t SystemFormatStyle.DateOffset.smallerOneMinuteString.getter@<X0>(uint64_
     v50(v43 + v51, 0, 1, v47);
     v29 = v73;
     v77 = xmmword_18DDCF140;
-    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Duration.UnitsFormatStyle.Attributed and conformance Duration.UnitsFormatStyle.Attributed, MEMORY[0x1E696A1A8]);
+    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Duration.UnitsFormatStyle.Attributed and conformance Duration.UnitsFormatStyle.Attributed, MEMORY[0x1E696A1A8], MEMORY[0x1E696A1A0]);
     v52 = v66;
     dispatch thunk of FormatStyle.format(_:)();
     outlined destroy of SystemFormatStyle.DateOffset(v43, type metadata accessor for WhitespaceRemovingFormatStyle<Duration.UnitsFormatStyle.Attributed, AttributeScopes.FoundationAttributes.MeasurementAttribute>);
@@ -1491,7 +7918,7 @@ LABEL_13:
         v25 = *(v5 + 16);
         v25(v13, v24 + v41 * (v21 | (v14 << 6)), v4, v12);
         (*(v5 + 32))(v44, v13, v4);
-        lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date.ComponentsFormatStyle.Field and conformance Date.ComponentsFormatStyle.Field, MEMORY[0x1E6969498]);
+        lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date.ComponentsFormatStyle.Field and conformance Date.ComponentsFormatStyle.Field, MEMORY[0x1E6969498], MEMORY[0x1E69694A8]);
         v26 = dispatch thunk of Hashable._rawHashValue(seed:)();
         v27 = -1 << *(a2 + 32);
         v28 = v26 & ~v27;
@@ -1506,7 +7933,7 @@ LABEL_13:
         while (1)
         {
           (v25)(v7, *(v29 + 48) + v28 * v41, v4);
-          lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date.ComponentsFormatStyle.Field and conformance Date.ComponentsFormatStyle.Field, MEMORY[0x1E6969498]);
+          lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date.ComponentsFormatStyle.Field and conformance Date.ComponentsFormatStyle.Field, MEMORY[0x1E6969498], MEMORY[0x1E69694B0]);
           v31 = dispatch thunk of static Equatable.== infix(_:_:)();
           v32 = *v20;
           (*v20)(v7, v4);
@@ -1667,21 +8094,21 @@ uint64_t SystemFormatStyle.DateOffset.encode(to:)(void *a1)
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   LOBYTE(v13) = 0;
   type metadata accessor for Date();
-  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x1E6969530]);
+  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x1E6969530], MEMORY[0x1E6969538]);
   KeyedEncodingContainer.encode<A>(_:forKey:)();
   if (!v2)
   {
-    v10 = type metadata accessor for SystemFormatStyle.DateOffset();
+    v10 = type metadata accessor for SystemFormatStyle.DateOffset(0);
     v13 = *(v3 + v10[5]);
     HIBYTE(v12) = 1;
-    type metadata accessor for Set<Date.ComponentsFormatStyle.Field>();
-    lazy protocol witness table accessor for type Set<Date.ComponentsFormatStyle.Field> and conformance <> Set<A>(&lazy protocol witness table cache variable for type Set<Date.ComponentsFormatStyle.Field> and conformance <> Set<A>, lazy protocol witness table accessor for type Date.ComponentsFormatStyle.Field and conformance Date.ComponentsFormatStyle.Field);
+    type metadata accessor for Set<Date.ComponentsFormatStyle.Field>(0);
+    lazy protocol witness table accessor for type Set<Date.ComponentsFormatStyle.Field> and conformance <> Set<A>(&lazy protocol witness table cache variable for type Set<Date.ComponentsFormatStyle.Field> and conformance <> Set<A>, lazy protocol witness table accessor for type Date.ComponentsFormatStyle.Field and conformance Date.ComponentsFormatStyle.Field, MEMORY[0x1E69E64F0]);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     LOBYTE(v13) = 2;
     KeyedEncodingContainer.encode(_:forKey:)();
     LOBYTE(v13) = 3;
     type metadata accessor for NumberFormatStyleConfiguration.SignDisplayStrategy();
-    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type NumberFormatStyleConfiguration.SignDisplayStrategy and conformance NumberFormatStyleConfiguration.SignDisplayStrategy, MEMORY[0x1E6968EF8]);
+    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type NumberFormatStyleConfiguration.SignDisplayStrategy and conformance NumberFormatStyleConfiguration.SignDisplayStrategy, MEMORY[0x1E6968EF8], MEMORY[0x1E6968F00]);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     v13 = *(v3 + v10[8]);
     HIBYTE(v12) = 4;
@@ -1689,11 +8116,11 @@ uint64_t SystemFormatStyle.DateOffset.encode(to:)(void *a1)
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     LOBYTE(v13) = 5;
     type metadata accessor for Locale();
-    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Locale and conformance Locale, MEMORY[0x1E6969770]);
+    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Locale and conformance Locale, MEMORY[0x1E6969770], MEMORY[0x1E6969778]);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     LOBYTE(v13) = 6;
     type metadata accessor for Calendar();
-    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Calendar and conformance Calendar, MEMORY[0x1E6969AE8]);
+    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Calendar and conformance Calendar, MEMORY[0x1E6969AE8], MEMORY[0x1E6969AF0]);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     LOBYTE(v13) = *(v3 + v10[11]);
     HIBYTE(v12) = 7;
@@ -1711,20 +8138,20 @@ uint64_t SystemFormatStyle.DateOffset.encode(to:)(void *a1)
 void SystemFormatStyle.DateOffset.hash(into:)(__int128 *a1)
 {
   type metadata accessor for Date();
-  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x1E6969530]);
+  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x1E6969530], MEMORY[0x1E6969540]);
   dispatch thunk of Hashable.hash(into:)();
-  v3 = type metadata accessor for SystemFormatStyle.DateOffset();
+  v3 = type metadata accessor for SystemFormatStyle.DateOffset(0);
   specialized Set.hash(into:)(a1, *(v1 + v3[5]));
   MEMORY[0x193AC11A0](*(v1 + v3[6]));
   type metadata accessor for NumberFormatStyleConfiguration.SignDisplayStrategy();
-  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type NumberFormatStyleConfiguration.SignDisplayStrategy and conformance NumberFormatStyleConfiguration.SignDisplayStrategy, MEMORY[0x1E6968EF8]);
+  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type NumberFormatStyleConfiguration.SignDisplayStrategy and conformance NumberFormatStyleConfiguration.SignDisplayStrategy, MEMORY[0x1E6968EF8], MEMORY[0x1E6968F08]);
   dispatch thunk of Hashable.hash(into:)();
   MEMORY[0x193AC11A0](*(v1 + v3[8]));
   type metadata accessor for Locale();
-  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Locale and conformance Locale, MEMORY[0x1E6969770]);
+  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Locale and conformance Locale, MEMORY[0x1E6969770], MEMORY[0x1E6969780]);
   dispatch thunk of Hashable.hash(into:)();
   type metadata accessor for Calendar();
-  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Calendar and conformance Calendar, MEMORY[0x1E6969AE8]);
+  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Calendar and conformance Calendar, MEMORY[0x1E6969AE8], MEMORY[0x1E6969AF8]);
   dispatch thunk of Hashable.hash(into:)();
   MEMORY[0x193AC11A0](*(v1 + v3[11]));
   Hasher._combine(_:)(*(v1 + v3[12]));
@@ -1766,7 +8193,7 @@ uint64_t SystemFormatStyle.DateOffset.init(from:)@<X0>(void *a1@<X0>, uint64_t a
   v56 = *(v13 - 8);
   MEMORY[0x1EEE9AC00](v13);
   v15 = &v43 - v14;
-  v16 = type metadata accessor for SystemFormatStyle.DateOffset();
+  v16 = type metadata accessor for SystemFormatStyle.DateOffset(0);
   MEMORY[0x1EEE9AC00](v16);
   v18 = &v43 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   v20 = *(v19 + 32);
@@ -1800,7 +8227,7 @@ uint64_t SystemFormatStyle.DateOffset.init(from:)@<X0>(void *a1@<X0>, uint64_t a
     v44 = v21;
     v59 = v16;
     LOBYTE(v66) = 0;
-    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x1E6969530]);
+    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x1E6969530], MEMORY[0x1E6969558]);
     v26 = v55;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v27 = v62;
@@ -1809,9 +8236,9 @@ uint64_t SystemFormatStyle.DateOffset.init(from:)@<X0>(void *a1@<X0>, uint64_t a
     v33 = v64;
     v55 = v11;
     v32(v64, v26, v11);
-    type metadata accessor for Set<Date.ComponentsFormatStyle.Field>();
+    type metadata accessor for Set<Date.ComponentsFormatStyle.Field>(0);
     v65 = 1;
-    lazy protocol witness table accessor for type Set<Date.ComponentsFormatStyle.Field> and conformance <> Set<A>(&lazy protocol witness table cache variable for type Set<Date.ComponentsFormatStyle.Field> and conformance <> Set<A>, lazy protocol witness table accessor for type Date.ComponentsFormatStyle.Field and conformance Date.ComponentsFormatStyle.Field);
+    lazy protocol witness table accessor for type Set<Date.ComponentsFormatStyle.Field> and conformance <> Set<A>(&lazy protocol witness table cache variable for type Set<Date.ComponentsFormatStyle.Field> and conformance <> Set<A>, lazy protocol witness table accessor for type Date.ComponentsFormatStyle.Field and conformance Date.ComponentsFormatStyle.Field, MEMORY[0x1E69E6510]);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v34 = v61;
     v35 = v59;
@@ -1820,7 +8247,7 @@ uint64_t SystemFormatStyle.DateOffset.init(from:)@<X0>(void *a1@<X0>, uint64_t a
     v43 = 0;
     *&v33[v35[6]] = KeyedDecodingContainer.decode(_:forKey:)();
     LOBYTE(v66) = 3;
-    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type NumberFormatStyleConfiguration.SignDisplayStrategy and conformance NumberFormatStyleConfiguration.SignDisplayStrategy, MEMORY[0x1E6968EF8]);
+    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type NumberFormatStyleConfiguration.SignDisplayStrategy and conformance NumberFormatStyleConfiguration.SignDisplayStrategy, MEMORY[0x1E6968EF8], MEMORY[0x1E6968F18]);
     v36 = v46;
     v37 = v52;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
@@ -1830,12 +8257,12 @@ uint64_t SystemFormatStyle.DateOffset.init(from:)@<X0>(void *a1@<X0>, uint64_t a
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     *&v33[v45] = v66;
     LOBYTE(v66) = 5;
-    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Locale and conformance Locale, MEMORY[0x1E6969770]);
+    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Locale and conformance Locale, MEMORY[0x1E6969770], MEMORY[0x1E6969790]);
     v38 = v51;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v50 + 32))(&v33[v59[9]], v49, v38);
     LOBYTE(v66) = 6;
-    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Calendar and conformance Calendar, MEMORY[0x1E6969AE8]);
+    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Calendar and conformance Calendar, MEMORY[0x1E6969AE8], MEMORY[0x1E6969B08]);
     v39 = v48;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v27 + 40))(&v33[v34], v39, v28);
@@ -1875,800 +8302,800 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance SystemF
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SystemFormatStyle.DateOffset()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SystemFormatStyle.DateOffset(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  SystemFormatStyle.DateOffset.hash(into:)(v1);
+  SystemFormatStyle.DateOffset.hash(into:)(v2);
   return Hasher._finalize()();
 }
 
-uint64_t SystemFormatStyle.DateOffset.discreteInput(before:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t SystemFormatStyle.DateOffset.discreteInput(before:)@<X0>(void (**a1)(uint64_t, uint64_t, uint64_t, void *)@<X0>, uint64_t a2@<X8>)
 {
-  v192 = a1;
-  v187 = a2;
-  v161 = type metadata accessor for Calendar.Component();
-  v160 = *(v161 - 8);
-  MEMORY[0x1EEE9AC00](v161);
-  v159 = &v155 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v197 = a1;
+  v192 = a2;
+  v166 = type metadata accessor for Calendar.Component();
+  v165 = *(v166 - 8);
+  MEMORY[0x1EEE9AC00](v166);
+  v164 = &v160 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for Date.ComponentsFormatStyle.Field?(0);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v163 = &v155 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for SystemFormatStyle.DateOffset();
-  MEMORY[0x1EEE9AC00](v6);
-  v173 = &v155 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for Range<Date>();
-  v171 = v8;
-  v169 = *(v8 - 8);
-  MEMORY[0x1EEE9AC00](v8);
-  v162 = &v155 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10);
-  v167 = &v155 - v11;
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v168 = &v160 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for SystemFormatStyle.DateOffset(0);
+  MEMORY[0x1EEE9AC00](v7);
+  v178 = &v160 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for Range<Date>(0);
+  v176 = v9;
+  v174 = *(v9 - 8);
+  MEMORY[0x1EEE9AC00](v9);
+  v167 = &v160 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11);
+  v172 = &v160 - v12;
   type metadata accessor for Range<Date>?(0);
-  MEMORY[0x1EEE9AC00](v12 - 8);
-  v168 = &v155 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v170 = &v155 - v15;
-  v16 = MEMORY[0x1E69694D0];
-  type metadata accessor for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(0, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E69694D0]);
-  MEMORY[0x1EEE9AC00](v17 - 8);
-  v179 = (&v155 - v18);
-  type metadata accessor for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field), v16);
-  v165 = v19;
-  MEMORY[0x1EEE9AC00](v19);
-  v166 = &v155 - v20;
-  v186 = type metadata accessor for Date.ComponentsFormatStyle.Field();
-  v188 = *(v186 - 8);
+  MEMORY[0x1EEE9AC00](v13 - 8);
+  v173 = &v160 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = MEMORY[0x1EEE9AC00](v15);
+  v175 = &v160 - v17;
+  v18 = MEMORY[0x1E69694D0];
+  type metadata accessor for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(0, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E69694D0], v16);
+  MEMORY[0x1EEE9AC00](v19 - 8);
+  v184 = (&v160 - v20);
+  type metadata accessor for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field), v18);
+  v170 = v21;
+  MEMORY[0x1EEE9AC00](v21);
+  v171 = &v160 - v22;
+  v191 = type metadata accessor for Date.ComponentsFormatStyle.Field();
+  v193 = *(v191 - 8);
+  MEMORY[0x1EEE9AC00](v191);
+  v163 = &v160 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v24);
+  v187 = &v160 - v25;
+  v186 = type metadata accessor for Date.ComponentsFormatStyle();
+  v26 = *(v186 - 8);
   MEMORY[0x1EEE9AC00](v186);
-  v158 = &v155 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v22);
-  v182 = &v155 - v23;
-  v181 = type metadata accessor for Date.ComponentsFormatStyle();
-  v24 = *(v181 - 8);
-  MEMORY[0x1EEE9AC00](v181);
-  v180 = &v155 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v189 = type metadata accessor for Date();
-  v191 = *(v189 - 8);
-  MEMORY[0x1EEE9AC00](v189);
-  v156 = &v155 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v27);
-  v175 = &v155 - v28;
+  v185 = &v160 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v194 = type metadata accessor for Date();
+  v196 = *(v194 - 8);
+  MEMORY[0x1EEE9AC00](v194);
+  v161 = &v160 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v29);
+  v180 = &v160 - v30;
   type metadata accessor for Date?(0);
-  MEMORY[0x1EEE9AC00](v29 - 8);
-  v164 = &v155 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v31);
-  v157 = &v155 - v32;
+  MEMORY[0x1EEE9AC00](v31 - 8);
+  v169 = &v160 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v33);
-  v172 = &v155 - v34;
+  v162 = &v160 - v34;
   MEMORY[0x1EEE9AC00](v35);
-  v183 = &v155 - v36;
-  v37 = MEMORY[0x1E696A1A8];
-  type metadata accessor for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(0, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8]);
-  MEMORY[0x1EEE9AC00](v38 - 8);
-  v40 = &v155 - v39;
-  type metadata accessor for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (Duration.UnitsFormatStyle.Attributed, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field), v37);
-  v176 = v41;
-  MEMORY[0x1EEE9AC00](v41);
-  v177 = &v155 - v42;
-  v43 = type metadata accessor for Duration.UnitsFormatStyle.Attributed();
-  v184 = *(v43 - 8);
-  v185 = v43;
-  MEMORY[0x1EEE9AC00](v43);
-  v178 = &v155 - ((v44 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v177 = &v160 - v36;
+  v38 = MEMORY[0x1EEE9AC00](v37);
+  v188 = &v160 - v39;
+  v40 = MEMORY[0x1E696A1A8];
+  type metadata accessor for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(0, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8], v38);
+  MEMORY[0x1EEE9AC00](v41 - 8);
+  v43 = &v160 - v42;
+  type metadata accessor for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (Duration.UnitsFormatStyle.Attributed, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field), v40);
+  v181 = v44;
+  MEMORY[0x1EEE9AC00](v44);
+  v182 = &v160 - v45;
+  v46 = type metadata accessor for Duration.UnitsFormatStyle.Attributed();
+  v189 = *(v46 - 8);
+  v190 = v46;
+  MEMORY[0x1EEE9AC00](v46);
+  v183 = &v160 - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)?(0);
-  MEMORY[0x1EEE9AC00](v45 - 8);
-  v47 = &v155 - ((v46 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for (Duration.TimeFormatStyle.Attributed, Date.ComponentsFormatStyle.Field)();
-  v49 = v48;
-  MEMORY[0x1EEE9AC00](v48);
-  v51 = &v155 - ((v50 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v52 = type metadata accessor for Duration.TimeFormatStyle.Attributed();
-  v53 = *(v52 - 8);
-  MEMORY[0x1EEE9AC00](v52);
-  v55 = &v155 - ((v54 + 15) & 0xFFFFFFFFFFFFFFF0);
-  LOBYTE(v54) = *(v2 + v6[13]);
-  v190 = v2;
-  if ((v54 & 1) == 0 && *(v2 + v6[12]) != 1 || *(v2 + v6[11]) <= 1u)
+  MEMORY[0x1EEE9AC00](v48 - 8);
+  v50 = &v160 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for (Duration.TimeFormatStyle.Attributed, Date.ComponentsFormatStyle.Field)(0);
+  v52 = v51;
+  MEMORY[0x1EEE9AC00](v51);
+  v54 = &v160 - ((v53 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v55 = type metadata accessor for Duration.TimeFormatStyle.Attributed();
+  v56 = *(v55 - 8);
+  MEMORY[0x1EEE9AC00](v55);
+  v58 = &v160 - ((v57 + 15) & 0xFFFFFFFFFFFFFFF0);
+  LOBYTE(v57) = *(v3 + v7[13]);
+  v195 = v3;
+  if ((v57 & 1) == 0 && *(v3 + v7[12]) != 1 || *(v3 + v7[11]) <= 1u)
   {
-    v174 = v24;
-    SystemFormatStyle.DateOffset.timeStyle(for:)(v192, v47);
-    type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)();
-    v57 = v56;
-    if ((*(*(v56 - 8) + 48))(v47, 1, v56) != 1)
+    v179 = v26;
+    SystemFormatStyle.DateOffset.timeStyle(for:)(v197, v50);
+    type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)(0);
+    v60 = v59;
+    if ((*(*(v59 - 8) + 48))(v50, 1, v59) != 1)
     {
-      v185 = *(v57 + 48);
-      v87 = *(v49 + 48);
-      v88 = *(v53 + 32);
-      v88(v51, v47, v52);
-      v89 = v188;
-      v90 = &v51[v87];
-      v91 = v186;
-      (*(v188 + 32))(v90, &v47[v185], v186);
-      v92 = *(v49 + 48);
-      v88(v55, v51, v52);
-      (*(v89 + 8))(&v51[v92], v91);
-      v84 = v190;
+      v190 = *(v60 + 48);
+      v92 = *(v52 + 48);
+      v93 = *(v56 + 32);
+      v93(v54, v50, v55);
+      v94 = v193;
+      v95 = &v54[v92];
+      v96 = v191;
+      (*(v193 + 32))(v95, &v50[v190], v191);
+      v97 = *(v52 + 48);
+      v93(v58, v54, v55);
+      (*(v94 + 8))(&v54[v97], v96);
+      v89 = v195;
       Date.timeIntervalSince(_:)();
       static Duration.seconds(_:)();
       Duration.TimeFormatStyle.Attributed.discreteInput(before:)();
-      v86 = v93;
-      (*(v53 + 8))(v55, v52);
+      v91 = v98;
+      (*(v56 + 8))(v58, v55);
       goto LABEL_12;
     }
 
-    outlined destroy of SystemFormatStyle.DateOffset(v47, type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)?);
-    v24 = v174;
+    outlined destroy of SystemFormatStyle.DateOffset(v50, type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)?);
+    v26 = v179;
   }
 
-  v58 = v192;
-  SystemFormatStyle.DateOffset.unitsStyle(for:)(v192, v40);
+  v61 = v197;
+  SystemFormatStyle.DateOffset.unitsStyle(for:)(v197, v43);
   type metadata accessor for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8]);
-  v60 = v59;
-  if ((*(*(v59 - 8) + 48))(v40, 1, v59) != 1)
+  v63 = v62;
+  if ((*(*(v62 - 8) + 48))(v43, 1, v62) != 1)
   {
-    v69 = *(v60 + 48);
-    v182 = *(v60 + 64);
-    v70 = v176;
-    v71 = v177;
-    v72 = *(v176 + 48);
-    v73 = *(v176 + 64);
-    v180 = v69;
-    v181 = v73;
-    v74 = v185;
-    v75 = *(v184 + 32);
-    v75(v177, v40, v185);
-    v76 = v188;
-    v77 = *(v188 + 32);
-    v78 = &v71[v72];
-    v79 = v186;
-    v77(v78, &v180[v40], v186);
-    v77(&v71[v181], &v182[v40], v79);
-    v80 = *(v70 + 48);
-    v81 = *(v70 + 64);
-    v82 = v178;
-    v75(v178, v71, v74);
-    v83 = *(v76 + 8);
-    v83(&v71[v81], v79);
-    v83(&v71[v80], v79);
-    v84 = v190;
+    v74 = *(v63 + 48);
+    v187 = *(v63 + 64);
+    v75 = v181;
+    v76 = v182;
+    v77 = *(v181 + 48);
+    v78 = *(v181 + 64);
+    v185 = v74;
+    v186 = v78;
+    v79 = v190;
+    v80 = *(v189 + 32);
+    v80(v182, v43, v190);
+    v81 = v193;
+    v82 = *(v193 + 32);
+    v83 = &v76[v77];
+    v84 = v191;
+    v82(v83, &v185[v43], v191);
+    v82(&v76[v186], &v187[v43], v84);
+    v85 = *(v75 + 48);
+    v86 = *(v75 + 64);
+    v87 = v183;
+    v80(v183, v76, v79);
+    v88 = *(v81 + 8);
+    v88(&v76[v86], v84);
+    v88(&v76[v85], v84);
+    v89 = v195;
     Date.timeIntervalSince(_:)();
     static Duration.seconds(_:)();
     Duration.UnitsFormatStyle.Attributed.discreteInput(before:)();
-    v86 = v85;
-    (*(v184 + 8))(v82, v185);
+    v91 = v90;
+    (*(v189 + 8))(v87, v190);
 LABEL_12:
-    v94 = static Date.> infix(_:_:)();
-    v95 = v189;
-    v96 = v191;
-    v97 = v183;
-    if (v94)
+    v99 = static Date.> infix(_:_:)();
+    v100 = v194;
+    v101 = v196;
+    v102 = v188;
+    if (v99)
     {
-      (*(v191 + 16))(v183, v84, v189);
-      v98 = 0;
+      (*(v196 + 16))(v188, v89, v194);
+      v103 = 0;
     }
 
     else
     {
-      v98 = 1;
+      v103 = 1;
     }
 
-    v99 = v187;
-    v100 = *(v96 + 56);
-    v100(v97, v98, 1, v95);
-    if ((v86 & 1) == 0)
+    v104 = v192;
+    v105 = *(v101 + 56);
+    v105(v102, v103, 1, v100);
+    if ((v91 & 1) == 0)
     {
-      v103 = v175;
-      SystemFormatStyle.DateOffset.nextInputRoundingHigher(for:)(v175);
-      specialized max<A>(_:ifPresent:)(v103, v97, v99);
-      (*(v96 + 8))(v103, v95);
-      outlined destroy of SystemFormatStyle.DateOffset(v97, type metadata accessor for Date?);
-      return (v100)(v99, 0, 1, v95);
+      v108 = v180;
+      SystemFormatStyle.DateOffset.nextInputRoundingHigher(for:)(v180);
+      specialized max<A>(_:ifPresent:)(v108, v102, v104);
+      (*(v101 + 8))(v108, v100);
+      outlined destroy of SystemFormatStyle.DateOffset(v102, type metadata accessor for Date?);
+      return (v105)(v104, 0, 1, v100);
     }
 
-    v101 = v97;
-    v102 = v99;
-    return _sSny10Foundation16AttributedStringV5IndexVGWObTm_0(v101, v102, type metadata accessor for Date?);
+    v106 = v102;
+    v107 = v104;
+    return _sSny10Foundation16AttributedStringV5IndexVGWObTm_0(v106, v107, type metadata accessor for Date?);
   }
 
-  v185 = v6;
-  outlined destroy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(v40, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8]);
-  v61 = v179;
-  SystemFormatStyle.DateOffset.componentsStyle(for:)(v58, v179);
+  v190 = v7;
+  outlined destroy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(v43, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8], v64);
+  v65 = v184;
+  SystemFormatStyle.DateOffset.componentsStyle(for:)(v61, v184);
   type metadata accessor for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E69694D0]);
-  v63 = v62;
-  v64 = (*(*(v62 - 8) + 48))(v61, 1, v62);
-  v65 = v191;
-  if (v64 == 1)
+  v67 = v66;
+  v68 = (*(*(v66 - 8) + 48))(v65, 1, v66);
+  v70 = v196;
+  if (v68 == 1)
   {
-    outlined destroy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(v61, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E69694D0]);
-    v66 = static Date.< infix(_:_:)();
-    v67 = v189;
-    if (v66)
+    outlined destroy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(v65, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E69694D0], v69);
+    v71 = static Date.< infix(_:_:)();
+    v72 = v194;
+    if (v71)
     {
-      v68 = v164;
-      SystemFormatStyle.DateOffset.nextInputRoundingLower(for:)(v164);
+      v73 = v169;
+      SystemFormatStyle.DateOffset.nextInputRoundingLower(for:)(v169);
     }
 
     else
     {
       Date.timeIntervalSinceReferenceDate.getter();
-      v68 = v164;
+      v73 = v169;
       Date.init(timeIntervalSinceReferenceDate:)();
     }
 
-    (*(v65 + 56))(v68, 0, 1, v67);
-    v101 = v68;
-    v102 = v187;
-    return _sSny10Foundation16AttributedStringV5IndexVGWObTm_0(v101, v102, type metadata accessor for Date?);
+    (*(v70 + 56))(v73, 0, 1, v72);
+    v106 = v73;
+    v107 = v192;
+    return _sSny10Foundation16AttributedStringV5IndexVGWObTm_0(v106, v107, type metadata accessor for Date?);
   }
 
-  v105 = *(v63 + 64);
-  v183 = *(v63 + 48);
-  v184 = v105;
-  v106 = v165;
-  v107 = *(v165 + 48);
-  v108 = *(v165 + 64);
-  v174 = v24;
-  v109 = *(v24 + 32);
-  v110 = v166;
-  v111 = v181;
-  v109(v166, v61, v181);
-  v113 = (v188 + 32);
-  v112 = *(v188 + 32);
-  v114 = &v110[v107];
-  v115 = v186;
-  v112(v114, v61 + v183, v186);
-  v112(&v110[v108], v61 + v184, v115);
-  v116 = *(v106 + 48);
-  v117 = *(v106 + 64);
-  v109(v180, v110, v111);
-  v118 = v191;
-  v183 = v113;
-  v179 = v112;
-  v112(v182, &v110[v116], v115);
-  v119 = &v110[v117];
-  v120 = v188 + 8;
-  v184 = *(v188 + 8);
-  (v184)(v119, v115);
-  v121 = v167;
-  v122 = v190;
-  SystemFormatStyle.DateOffset.dateRange(for:)(v192, v167);
-  v123 = v170;
+  v110 = *(v67 + 64);
+  v188 = *(v67 + 48);
+  v189 = v110;
+  v111 = v170;
+  v112 = *(v170 + 48);
+  v113 = *(v170 + 64);
+  v179 = v26;
+  v114 = *(v26 + 32);
+  v115 = v171;
+  v116 = v186;
+  v114(v171, v65, v186);
+  v118 = (v193 + 32);
+  v117 = *(v193 + 32);
+  v119 = &v115[v112];
+  v120 = v191;
+  v117(v119, v65 + v188, v191);
+  v117(&v115[v113], v65 + v189, v120);
+  v121 = *(v111 + 48);
+  v122 = *(v111 + 64);
+  v114(v185, v115, v116);
+  v123 = v196;
+  v188 = v118;
+  v184 = v117;
+  v117(v187, &v115[v121], v120);
+  v124 = &v115[v122];
+  v125 = (v193 + 8);
+  v189 = *(v193 + 8);
+  (v189)(v124, v120);
+  v126 = v172;
+  v127 = v195;
+  SystemFormatStyle.DateOffset.dateRange(for:)(v197, v172);
+  v128 = v175;
   Date.ComponentsFormatStyle.discreteInput(before:)();
-  outlined destroy of SystemFormatStyle.DateOffset(v121, type metadata accessor for Range<Date>);
-  v124 = v122;
-  v125 = v122;
-  v126 = v173;
-  outlined init with copy of SystemFormatStyle.DateOffset(v124, v173, type metadata accessor for SystemFormatStyle.DateOffset);
-  v127 = v168;
-  outlined init with copy of SystemFormatStyle.DateOffset(v123, v168, type metadata accessor for Range<Date>?);
-  v128 = 1;
-  v129 = v171;
-  v130 = (*(v169 + 48))(v127, 1, v171);
-  v131 = v172;
-  if (v130 != 1)
+  outlined destroy of SystemFormatStyle.DateOffset(v126, type metadata accessor for Range<Date>);
+  v129 = v127;
+  v130 = v127;
+  v131 = v178;
+  outlined init with copy of SystemFormatStyle.DateOffset(v129, v178, type metadata accessor for SystemFormatStyle.DateOffset);
+  v132 = v173;
+  outlined init with copy of SystemFormatStyle.DateOffset(v128, v173, type metadata accessor for Range<Date>?);
+  v133 = 1;
+  v134 = v176;
+  v135 = (*(v174 + 48))(v132, 1, v176);
+  v136 = v177;
+  if (v135 != 1)
   {
-    v132 = v162;
-    _sSny10Foundation16AttributedStringV5IndexVGWObTm_0(v127, v162, type metadata accessor for Range<Date>);
-    v133 = static Date.== infix(_:_:)();
-    v134 = v132;
-    if (v133)
+    v137 = v167;
+    _sSny10Foundation16AttributedStringV5IndexVGWObTm_0(v132, v167, type metadata accessor for Range<Date>);
+    v138 = static Date.== infix(_:_:)();
+    v139 = v137;
+    if (v138)
     {
-      v134 = v132 + *(v129 + 36);
+      v139 = v137 + *(v134 + 36);
     }
 
-    (*(v118 + 16))(v131, v134, v189);
-    outlined destroy of SystemFormatStyle.DateOffset(v132, type metadata accessor for Range<Date>);
-    v128 = 0;
+    (*(v123 + 16))(v136, v139, v194);
+    outlined destroy of SystemFormatStyle.DateOffset(v137, type metadata accessor for Range<Date>);
+    v133 = 0;
   }
 
-  outlined destroy of SystemFormatStyle.DateOffset(v123, type metadata accessor for Range<Date>?);
-  v135 = *(v118 + 56);
-  v136 = v128;
-  v137 = v189;
-  v135(v131, v136, 1, v189);
-  outlined destroy of SystemFormatStyle.DateOffset(v126, type metadata accessor for SystemFormatStyle.DateOffset);
-  v138 = static Date.> infix(_:_:)();
-  if (v138)
+  outlined destroy of SystemFormatStyle.DateOffset(v128, type metadata accessor for Range<Date>?);
+  v140 = *(v123 + 56);
+  v141 = v133;
+  v142 = v194;
+  v140(v136, v141, 1, v194);
+  outlined destroy of SystemFormatStyle.DateOffset(v131, type metadata accessor for SystemFormatStyle.DateOffset);
+  v143 = static Date.> infix(_:_:)();
+  if (v143)
   {
-    v139 = v187;
-    specialized max<A>(_:ifPresent:)(v125, v131, v187);
-    outlined destroy of SystemFormatStyle.DateOffset(v131, type metadata accessor for Date?);
-    (*(v174 + 8))(v180, v181);
-    v135(v139, 0, 1, v137);
-    return (v184)(v182, v186);
+    v144 = v192;
+    specialized max<A>(_:ifPresent:)(v130, v136, v192);
+    outlined destroy of SystemFormatStyle.DateOffset(v136, type metadata accessor for Date?);
+    (*(v179 + 8))(v185, v186);
+    v140(v144, 0, 1, v142);
+    return (v189)(v187, v191);
   }
 
-  v140 = v186;
+  v145 = v191;
   if (one-time initialization token for orderedFields != -1)
   {
-    v138 = swift_once();
+    v143 = swift_once();
   }
 
-  MEMORY[0x1EEE9AC00](v138);
-  v141 = v182;
-  *(&v155 - 2) = v125;
-  *(&v155 - 1) = v141;
-  v142 = v163;
-  specialized BidirectionalCollection.last(where:)(partial apply for closure #1 in SystemFormatStyle.DateOffset.discreteInput(before:), v143, v163);
-  if ((*(v188 + 48))(v142, 1, v140) == 1)
+  MEMORY[0x1EEE9AC00](v143);
+  v146 = v187;
+  *(&v160 - 2) = v130;
+  *(&v160 - 1) = v146;
+  v147 = v168;
+  specialized BidirectionalCollection.last(where:)(partial apply for closure #1 in SystemFormatStyle.DateOffset.discreteInput(before:), v148, v168);
+  if ((*(v193 + 48))(v147, 1, v145) == 1)
   {
-    (*(v174 + 8))(v180, v181);
-    outlined destroy of SystemFormatStyle.DateOffset(v142, type metadata accessor for Date.ComponentsFormatStyle.Field?);
-    v144 = v187;
-    v145 = v184;
+    (*(v179 + 8))(v185, v186);
+    outlined destroy of SystemFormatStyle.DateOffset(v147, type metadata accessor for Date.ComponentsFormatStyle.Field?);
+    v149 = v192;
+    v150 = v189;
 LABEL_33:
-    _sSny10Foundation16AttributedStringV5IndexVGWObTm_0(v131, v144, type metadata accessor for Date?);
-    return v145(v182, v140);
+    _sSny10Foundation16AttributedStringV5IndexVGWObTm_0(v136, v149, type metadata accessor for Date?);
+    return v150(v187, v145);
   }
 
-  v192 = v120;
-  v146 = v158;
-  v179(v158, v142, v140);
-  v147 = v159;
-  SystemFormatStyle.DateOffset.component(for:)(v146, v159);
-  v148 = v157;
+  v197 = v125;
+  v151 = v163;
+  v184(v163, v147, v145);
+  v152 = v164;
+  SystemFormatStyle.DateOffset.component(for:)(v151, v164);
+  v153 = v162;
   Calendar.date(byAdding:value:to:wrappingComponents:)();
-  (*(v160 + 8))(v147, v161);
-  v149 = v191;
-  v150 = v189;
-  if ((*(v191 + 48))(v148, 1, v189) == 1)
+  (*(v165 + 8))(v152, v166);
+  v154 = v196;
+  v155 = v194;
+  if ((*(v196 + 48))(v153, 1, v194) == 1)
   {
-    v145 = v184;
-    (v184)(v146, v140);
-    (*(v174 + 8))(v180, v181);
-    outlined destroy of SystemFormatStyle.DateOffset(v148, type metadata accessor for Date?);
-    v144 = v187;
+    v150 = v189;
+    (v189)(v151, v145);
+    (*(v179 + 8))(v185, v186);
+    outlined destroy of SystemFormatStyle.DateOffset(v153, type metadata accessor for Date?);
+    v149 = v192;
     goto LABEL_33;
   }
 
-  v151 = v156;
-  (*(v149 + 32))(v156, v148, v150);
-  v152 = v187;
-  specialized max<A>(_:ifPresent:)(v151, v131, v187);
-  (*(v149 + 8))(v151, v150);
-  v153 = v146;
-  v154 = v184;
-  (v184)(v153, v140);
-  outlined destroy of SystemFormatStyle.DateOffset(v131, type metadata accessor for Date?);
-  (*(v174 + 8))(v180, v181);
-  v135(v152, 0, 1, v150);
-  return v154(v182, v140);
+  v156 = v161;
+  (*(v154 + 32))(v161, v153, v155);
+  v157 = v192;
+  specialized max<A>(_:ifPresent:)(v156, v136, v192);
+  (*(v154 + 8))(v156, v155);
+  v158 = v151;
+  v159 = v189;
+  (v189)(v158, v145);
+  outlined destroy of SystemFormatStyle.DateOffset(v136, type metadata accessor for Date?);
+  (*(v179 + 8))(v185, v186);
+  v140(v157, 0, 1, v155);
+  return v159(v187, v145);
 }
 
-uint64_t SystemFormatStyle.DateOffset.nextInputRoundingHigher(for:)@<X0>(uint64_t a1@<X8>)
+uint64_t SystemFormatStyle.DateOffset.nextInputRoundingHigher(for:)@<X0>(uint64_t a3@<X8>)
 {
-  v2 = type metadata accessor for Date();
-  v3 = *(v2 - 8);
-  MEMORY[0x1EEE9AC00](v2);
-  v5 = &v16 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v6);
-  v8 = &v16 - v7;
-  MEMORY[0x1EEE9AC00](v9);
-  v11 = &v16 - v10;
-  Duration.components.getter();
-  Date.addingTimeInterval(_:)();
-  Date.timeIntervalSince(_:)();
-  static Duration.seconds(_:)();
-  if ((static Duration.< infix(_:_:)() & 1) == 0)
-  {
-    return (*(v3 + 32))(a1, v11, v2);
-  }
-
-  Date.timeIntervalSinceReferenceDate.getter();
-  Date.init(timeIntervalSinceReferenceDate:)();
-  Date.timeIntervalSince(_:)();
-  static Date.+ infix(_:_:)();
-  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x1E6969530]);
-  v12 = dispatch thunk of static Comparable.>= infix(_:_:)();
-  v13 = *(v3 + 8);
-  v13(v11, v2);
-  v14 = (v3 + 32);
-  if (v12)
-  {
-    v13(v8, v2);
-    return (*v14)(a1, v5, v2);
-  }
-
-  else
-  {
-    v13(v5, v2);
-    return (*v14)(a1, v8, v2);
-  }
-}
-
-uint64_t SystemFormatStyle.DateOffset.nextInputRoundingLower(for:)@<X0>(uint64_t a1@<X8>)
-{
-  v2 = type metadata accessor for Date();
-  v3 = *(v2 - 8);
-  MEMORY[0x1EEE9AC00](v2);
-  v5 = &v16 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v6);
-  v8 = &v16 - v7;
-  MEMORY[0x1EEE9AC00](v9);
-  v11 = &v16 - v10;
-  Duration.components.getter();
-  Date.addingTimeInterval(_:)();
-  Date.timeIntervalSince(_:)();
-  static Duration.seconds(_:)();
-  if ((static Duration.< infix(_:_:)() & 1) == 0)
-  {
-    return (*(v3 + 32))(a1, v11, v2);
-  }
-
-  Date.timeIntervalSinceReferenceDate.getter();
-  Date.init(timeIntervalSinceReferenceDate:)();
-  Date.timeIntervalSince(_:)();
-  static Date.+ infix(_:_:)();
-  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x1E6969530]);
-  v12 = dispatch thunk of static Comparable.< infix(_:_:)();
-  v13 = *(v3 + 8);
-  v13(v11, v2);
-  v14 = (v3 + 32);
-  if (v12)
-  {
-    v13(v8, v2);
-    return (*v14)(a1, v5, v2);
-  }
-
-  else
-  {
-    v13(v5, v2);
-    return (*v14)(a1, v8, v2);
-  }
-}
-
-uint64_t SystemFormatStyle.DateOffset.discreteInput(after:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v188 = a1;
-  v183 = a2;
-  v157 = type metadata accessor for Calendar.Component();
-  v156 = *(v157 - 8);
-  MEMORY[0x1EEE9AC00](v157);
-  v155 = &v151 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for Date.ComponentsFormatStyle.Field?(0);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v159 = &v151 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for SystemFormatStyle.DateOffset();
-  MEMORY[0x1EEE9AC00](v6);
-  v168 = &v151 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for Range<Date>();
-  v167 = v8;
-  v165 = *(v8 - 8);
+  v4 = type metadata accessor for Date();
+  v5 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v7 = &v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v158 = &v151 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10);
-  v163 = &v151 - v11;
-  type metadata accessor for Range<Date>?(0);
-  MEMORY[0x1EEE9AC00](v12 - 8);
-  v164 = &v151 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v166 = &v151 - v15;
-  v16 = MEMORY[0x1E69694D0];
-  type metadata accessor for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(0, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E69694D0]);
-  MEMORY[0x1EEE9AC00](v17 - 8);
-  v175 = &v151 - v18;
-  type metadata accessor for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field), v16);
-  v161 = v19;
-  MEMORY[0x1EEE9AC00](v19);
-  v162 = &v151 - v20;
-  v182 = type metadata accessor for Date.ComponentsFormatStyle.Field();
-  v185 = *(v182 - 8);
-  MEMORY[0x1EEE9AC00](v182);
-  v154 = &v151 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v22);
-  v178 = &v151 - v23;
-  v177 = type metadata accessor for Date.ComponentsFormatStyle();
-  v24 = *(v177 - 8);
-  MEMORY[0x1EEE9AC00](v177);
-  v176 = &v151 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v186 = type metadata accessor for Date();
-  v184 = *(v186 - 8);
-  MEMORY[0x1EEE9AC00](v186);
-  v152 = &v151 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v27);
-  v171 = &v151 - v28;
-  type metadata accessor for Date?(0);
-  MEMORY[0x1EEE9AC00](v29 - 8);
-  v160 = &v151 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v31);
-  v153 = &v151 - v32;
-  MEMORY[0x1EEE9AC00](v33);
-  v169 = &v151 - v34;
-  MEMORY[0x1EEE9AC00](v35);
-  v179 = (&v151 - v36);
-  v37 = MEMORY[0x1E696A1A8];
-  type metadata accessor for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(0, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8]);
-  MEMORY[0x1EEE9AC00](v38 - 8);
-  v40 = &v151 - v39;
-  type metadata accessor for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (Duration.UnitsFormatStyle.Attributed, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field), v37);
-  v172 = v41;
-  MEMORY[0x1EEE9AC00](v41);
-  v173 = &v151 - v42;
-  v43 = type metadata accessor for Duration.UnitsFormatStyle.Attributed();
-  v180 = *(v43 - 8);
-  v181 = v43;
-  MEMORY[0x1EEE9AC00](v43);
-  v174 = &v151 - ((v44 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)?(0);
-  MEMORY[0x1EEE9AC00](v45 - 8);
-  v47 = &v151 - ((v46 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for (Duration.TimeFormatStyle.Attributed, Date.ComponentsFormatStyle.Field)();
-  v49 = v48;
-  MEMORY[0x1EEE9AC00](v48);
-  v51 = &v151 - ((v50 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v52 = type metadata accessor for Duration.TimeFormatStyle.Attributed();
-  v53 = *(v52 - 8);
-  MEMORY[0x1EEE9AC00](v52);
-  v55 = &v151 - ((v54 + 15) & 0xFFFFFFFFFFFFFFF0);
-  LOBYTE(v54) = *(v2 + v6[13]);
-  v187 = v2;
-  if ((v54 & 1) == 0 && *(v2 + v6[12]) != 1 || *(v2 + v6[11]) <= 1u)
+  v10 = &v18 - v9;
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v18 - v12;
+  Duration.components.getter();
+  Date.addingTimeInterval(_:)();
+  Date.timeIntervalSince(_:)();
+  static Duration.seconds(_:)();
+  if ((static Duration.< infix(_:_:)() & 1) == 0)
   {
-    v170 = v24;
-    SystemFormatStyle.DateOffset.timeStyle(for:)(v188, v47);
-    type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)();
-    v57 = v56;
-    if ((*(*(v56 - 8) + 48))(v47, 1, v56) != 1)
+    return (*(v5 + 32))(a3, v13, v4);
+  }
+
+  Date.timeIntervalSinceReferenceDate.getter();
+  Date.init(timeIntervalSinceReferenceDate:)();
+  Date.timeIntervalSince(_:)();
+  static Date.+ infix(_:_:)();
+  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x1E6969530], MEMORY[0x1E6969548]);
+  v14 = dispatch thunk of static Comparable.>= infix(_:_:)();
+  v15 = *(v5 + 8);
+  v15(v13, v4);
+  v16 = (v5 + 32);
+  if (v14)
+  {
+    v15(v10, v4);
+    return (*v16)(a3, v7, v4);
+  }
+
+  else
+  {
+    v15(v7, v4);
+    return (*v16)(a3, v10, v4);
+  }
+}
+
+uint64_t SystemFormatStyle.DateOffset.nextInputRoundingLower(for:)@<X0>(uint64_t a3@<X8>)
+{
+  v4 = type metadata accessor for Date();
+  v5 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v7 = &v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = &v18 - v9;
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v18 - v12;
+  Duration.components.getter();
+  Date.addingTimeInterval(_:)();
+  Date.timeIntervalSince(_:)();
+  static Duration.seconds(_:)();
+  if ((static Duration.< infix(_:_:)() & 1) == 0)
+  {
+    return (*(v5 + 32))(a3, v13, v4);
+  }
+
+  Date.timeIntervalSinceReferenceDate.getter();
+  Date.init(timeIntervalSinceReferenceDate:)();
+  Date.timeIntervalSince(_:)();
+  static Date.+ infix(_:_:)();
+  lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x1E6969530], MEMORY[0x1E6969548]);
+  v14 = dispatch thunk of static Comparable.< infix(_:_:)();
+  v15 = *(v5 + 8);
+  v15(v13, v4);
+  v16 = (v5 + 32);
+  if (v14)
+  {
+    v15(v10, v4);
+    return (*v16)(a3, v7, v4);
+  }
+
+  else
+  {
+    v15(v7, v4);
+    return (*v16)(a3, v10, v4);
+  }
+}
+
+uint64_t SystemFormatStyle.DateOffset.discreteInput(after:)@<X0>(void (**a1)(uint64_t, uint64_t, uint64_t, void *)@<X0>, uint64_t a2@<X8>)
+{
+  v193 = a1;
+  v188 = a2;
+  v162 = type metadata accessor for Calendar.Component();
+  v161 = *(v162 - 8);
+  MEMORY[0x1EEE9AC00](v162);
+  v160 = &v156 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for Date.ComponentsFormatStyle.Field?(0);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v164 = &v156 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for SystemFormatStyle.DateOffset(0);
+  MEMORY[0x1EEE9AC00](v7);
+  v173 = &v156 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for Range<Date>(0);
+  v172 = v9;
+  v170 = *(v9 - 8);
+  MEMORY[0x1EEE9AC00](v9);
+  v163 = &v156 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11);
+  v168 = &v156 - v12;
+  type metadata accessor for Range<Date>?(0);
+  MEMORY[0x1EEE9AC00](v13 - 8);
+  v169 = &v156 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = MEMORY[0x1EEE9AC00](v15);
+  v171 = &v156 - v17;
+  v18 = MEMORY[0x1E69694D0];
+  type metadata accessor for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(0, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E69694D0], v16);
+  MEMORY[0x1EEE9AC00](v19 - 8);
+  v180 = &v156 - v20;
+  type metadata accessor for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field), v18);
+  v166 = v21;
+  MEMORY[0x1EEE9AC00](v21);
+  v167 = &v156 - v22;
+  v187 = type metadata accessor for Date.ComponentsFormatStyle.Field();
+  v190 = *(v187 - 8);
+  MEMORY[0x1EEE9AC00](v187);
+  v159 = &v156 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v24);
+  v183 = &v156 - v25;
+  v182 = type metadata accessor for Date.ComponentsFormatStyle();
+  v26 = *(v182 - 8);
+  MEMORY[0x1EEE9AC00](v182);
+  v181 = &v156 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v191 = type metadata accessor for Date();
+  v189 = *(v191 - 8);
+  MEMORY[0x1EEE9AC00](v191);
+  v157 = &v156 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v29);
+  v176 = &v156 - v30;
+  type metadata accessor for Date?(0);
+  MEMORY[0x1EEE9AC00](v31 - 8);
+  v165 = &v156 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v33);
+  v158 = &v156 - v34;
+  MEMORY[0x1EEE9AC00](v35);
+  v174 = &v156 - v36;
+  v38 = MEMORY[0x1EEE9AC00](v37);
+  v184 = (&v156 - v39);
+  v40 = MEMORY[0x1E696A1A8];
+  type metadata accessor for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(0, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8], v38);
+  MEMORY[0x1EEE9AC00](v41 - 8);
+  v43 = &v156 - v42;
+  type metadata accessor for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (Duration.UnitsFormatStyle.Attributed, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field), v40);
+  v177 = v44;
+  MEMORY[0x1EEE9AC00](v44);
+  v178 = &v156 - v45;
+  v46 = type metadata accessor for Duration.UnitsFormatStyle.Attributed();
+  v185 = *(v46 - 8);
+  v186 = v46;
+  MEMORY[0x1EEE9AC00](v46);
+  v179 = &v156 - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)?(0);
+  MEMORY[0x1EEE9AC00](v48 - 8);
+  v50 = &v156 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for (Duration.TimeFormatStyle.Attributed, Date.ComponentsFormatStyle.Field)(0);
+  v52 = v51;
+  MEMORY[0x1EEE9AC00](v51);
+  v54 = &v156 - ((v53 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v55 = type metadata accessor for Duration.TimeFormatStyle.Attributed();
+  v56 = *(v55 - 8);
+  MEMORY[0x1EEE9AC00](v55);
+  v58 = &v156 - ((v57 + 15) & 0xFFFFFFFFFFFFFFF0);
+  LOBYTE(v57) = *(v3 + v7[13]);
+  v192 = v3;
+  if ((v57 & 1) == 0 && *(v3 + v7[12]) != 1 || *(v3 + v7[11]) <= 1u)
+  {
+    v175 = v26;
+    SystemFormatStyle.DateOffset.timeStyle(for:)(v193, v50);
+    type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)(0);
+    v60 = v59;
+    if ((*(*(v59 - 8) + 48))(v50, 1, v59) != 1)
     {
-      v181 = *(v57 + 48);
-      v86 = *(v49 + 48);
-      v87 = v53;
-      v88 = *(v53 + 32);
-      v88(v51, v47, v52);
-      v89 = v185;
-      v90 = &v51[v86];
-      v91 = v182;
-      (*(v185 + 32))(v90, &v47[v181], v182);
-      v92 = *(v49 + 48);
-      v88(v55, v51, v52);
-      (*(v89 + 8))(&v51[v92], v91);
-      v79 = v187;
+      v186 = *(v60 + 48);
+      v91 = *(v52 + 48);
+      v92 = v56;
+      v93 = *(v56 + 32);
+      v93(v54, v50, v55);
+      v94 = v190;
+      v95 = &v54[v91];
+      v96 = v187;
+      (*(v190 + 32))(v95, &v50[v186], v187);
+      v97 = *(v52 + 48);
+      v93(v58, v54, v55);
+      (*(v94 + 8))(&v54[v97], v96);
+      v84 = v192;
       Date.timeIntervalSince(_:)();
       static Duration.seconds(_:)();
       Duration.TimeFormatStyle.Attributed.discreteInput(after:)();
-      v185 = v93;
-      v85 = v94;
-      (*(v87 + 8))(v55, v52);
+      v190 = v98;
+      v90 = v99;
+      (*(v92 + 8))(v58, v55);
       goto LABEL_12;
     }
 
-    outlined destroy of SystemFormatStyle.DateOffset(v47, type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)?);
-    v2 = v187;
-    v24 = v170;
+    outlined destroy of SystemFormatStyle.DateOffset(v50, type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)?);
+    v3 = v192;
+    v26 = v175;
   }
 
-  v58 = v188;
-  SystemFormatStyle.DateOffset.unitsStyle(for:)(v188, v40);
+  v61 = v193;
+  SystemFormatStyle.DateOffset.unitsStyle(for:)(v193, v43);
   type metadata accessor for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8]);
-  v60 = v59;
-  if ((*(*(v59 - 8) + 48))(v40, 1, v59) != 1)
+  v63 = v62;
+  if ((*(*(v62 - 8) + 48))(v43, 1, v62) != 1)
   {
-    v68 = *(v60 + 48);
-    v178 = *(v60 + 64);
-    v69 = v172;
-    v70 = v173;
-    v71 = *(v172 + 48);
-    v72 = *(v172 + 64);
-    v176 = v68;
-    v177 = v72;
-    v73 = v181;
-    v74 = *(v180 + 32);
-    v74(v173, v40, v181);
-    v75 = v185;
-    v76 = *(v185 + 32);
-    v77 = (v70 + v71);
-    v78 = v182;
-    v76(v77, &v176[v40], v182);
-    v76((v70 + v177), &v178[v40], v78);
-    v79 = v187;
-    v178 = *(v69 + 48);
-    v80 = *(v69 + 64);
-    v81 = v174;
-    v74(v174, v70, v73);
-    v82 = *(v75 + 8);
-    v82((v70 + v80), v78);
-    v82(&v178[v70], v78);
+    v73 = *(v63 + 48);
+    v183 = *(v63 + 64);
+    v74 = v177;
+    v75 = v178;
+    v76 = *(v177 + 48);
+    v77 = *(v177 + 64);
+    v181 = v73;
+    v182 = v77;
+    v78 = v186;
+    v79 = *(v185 + 32);
+    v79(v178, v43, v186);
+    v80 = v190;
+    v81 = *(v190 + 32);
+    v82 = (v75 + v76);
+    v83 = v187;
+    v81(v82, &v181[v43], v187);
+    v81((v75 + v182), &v183[v43], v83);
+    v84 = v192;
+    v183 = *(v74 + 48);
+    v85 = *(v74 + 64);
+    v86 = v179;
+    v79(v179, v75, v78);
+    v87 = *(v80 + 8);
+    v87((v75 + v85), v83);
+    v87(&v183[v75], v83);
     Date.timeIntervalSince(_:)();
     static Duration.seconds(_:)();
     Duration.UnitsFormatStyle.Attributed.discreteInput(after:)();
-    v185 = v83;
-    v85 = v84;
-    (*(v180 + 8))(v81, v181);
+    v190 = v88;
+    v90 = v89;
+    (*(v185 + 8))(v86, v186);
 LABEL_12:
-    v95 = static Date.< infix(_:_:)();
-    v96 = v186;
-    v97 = v184;
-    if (v95)
+    v100 = static Date.< infix(_:_:)();
+    v101 = v191;
+    v102 = v189;
+    if (v100)
     {
-      v98 = v179;
-      (*(v184 + 16))(v179, v79, v186);
-      v99 = 0;
+      v103 = v184;
+      (*(v189 + 16))(v184, v84, v191);
+      v104 = 0;
     }
 
     else
     {
-      v99 = 1;
-      v98 = v179;
+      v104 = 1;
+      v103 = v184;
     }
 
-    v100 = *(v97 + 56);
-    v100(v98, v99, 1, v96);
-    if ((v85 & 1) == 0)
+    v105 = *(v102 + 56);
+    v105(v103, v104, 1, v101);
+    if ((v90 & 1) == 0)
     {
-      v102 = v171;
-      SystemFormatStyle.DateOffset.nextInputRoundingHigher(for:)(v171);
-      v103 = v183;
-      specialized min<A>(_:ifPresent:)(v102, v98, v183);
-      (*(v97 + 8))(v102, v96);
-      outlined destroy of SystemFormatStyle.DateOffset(v98, type metadata accessor for Date?);
-      return (v100)(v103, 0, 1, v96);
+      v107 = v176;
+      SystemFormatStyle.DateOffset.nextInputRoundingHigher(for:)(v176);
+      v108 = v188;
+      specialized min<A>(_:ifPresent:)(v107, v103, v188);
+      (*(v102 + 8))(v107, v101);
+      outlined destroy of SystemFormatStyle.DateOffset(v103, type metadata accessor for Date?);
+      return (v105)(v108, 0, 1, v101);
     }
 
-    v101 = v98;
-    return _sSny10Foundation16AttributedStringV5IndexVGWObTm_0(v101, v183, type metadata accessor for Date?);
+    v106 = v103;
+    return _sSny10Foundation16AttributedStringV5IndexVGWObTm_0(v106, v188, type metadata accessor for Date?);
   }
 
-  outlined destroy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(v40, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8]);
-  v61 = v175;
-  SystemFormatStyle.DateOffset.componentsStyle(for:)(v58, v175);
+  outlined destroy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(v43, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8], v64);
+  v65 = v180;
+  SystemFormatStyle.DateOffset.componentsStyle(for:)(v61, v180);
   type metadata accessor for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E69694D0]);
-  v63 = v62;
-  if ((*(*(v62 - 8) + 48))(v61, 1, v62) == 1)
+  v67 = v66;
+  if ((*(*(v66 - 8) + 48))(v65, 1, v66) == 1)
   {
-    outlined destroy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(v61, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E69694D0]);
-    v64 = static Date.< infix(_:_:)();
-    v65 = v184;
-    v66 = v160;
-    if (v64)
+    outlined destroy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(v65, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E69694D0], v68);
+    v69 = static Date.< infix(_:_:)();
+    v70 = v189;
+    v71 = v165;
+    if (v69)
     {
-      v67 = v186;
-      (*(v184 + 16))(v160, v2, v186);
+      v72 = v191;
+      (*(v189 + 16))(v165, v3, v191);
     }
 
     else
     {
-      SystemFormatStyle.DateOffset.nextInputRoundingHigher(for:)(v160);
-      v67 = v186;
+      SystemFormatStyle.DateOffset.nextInputRoundingHigher(for:)(v165);
+      v72 = v191;
     }
 
-    (*(v65 + 56))(v66, 0, 1, v67);
-    v101 = v66;
-    return _sSny10Foundation16AttributedStringV5IndexVGWObTm_0(v101, v183, type metadata accessor for Date?);
+    (*(v70 + 56))(v71, 0, 1, v72);
+    v106 = v71;
+    return _sSny10Foundation16AttributedStringV5IndexVGWObTm_0(v106, v188, type metadata accessor for Date?);
   }
 
-  v179 = v6;
-  v105 = *(v63 + 48);
-  v181 = *(v63 + 64);
-  v106 = v161;
-  v107 = *(v161 + 48);
-  v180 = *(v161 + 64);
-  v170 = v24;
-  v108 = *(v24 + 32);
-  v109 = v162;
-  v110 = v177;
-  v108(v162, v61, v177);
-  v112 = v185 + 32;
-  v111 = *(v185 + 32);
-  v113 = &v61[v105];
-  v114 = v182;
-  v111(&v109[v107], v113, v182);
-  v111(&v109[v180], &v61[v181], v114);
-  v115 = *(v106 + 48);
-  v116 = *(v106 + 64);
-  v108(v176, v109, v110);
-  v180 = v112;
-  v175 = v111;
-  v111(v178, &v109[v115], v114);
-  v181 = *(v185 + 8);
-  (v181)(&v109[v116], v114);
-  v117 = v163;
-  v118 = v187;
-  SystemFormatStyle.DateOffset.dateRange(for:)(v188, v163);
-  v119 = v166;
+  v184 = v7;
+  v110 = *(v67 + 48);
+  v186 = *(v67 + 64);
+  v111 = v166;
+  v112 = *(v166 + 48);
+  v185 = *(v166 + 64);
+  v175 = v26;
+  v113 = *(v26 + 32);
+  v114 = v167;
+  v115 = v182;
+  v113(v167, v65, v182);
+  v117 = v190 + 32;
+  v116 = *(v190 + 32);
+  v118 = &v65[v110];
+  v119 = v187;
+  v116(&v114[v112], v118, v187);
+  v116(&v114[v185], &v65[v186], v119);
+  v120 = *(v111 + 48);
+  v121 = *(v111 + 64);
+  v113(v181, v114, v115);
+  v185 = v117;
+  v180 = v116;
+  v116(v183, &v114[v120], v119);
+  v186 = *(v190 + 8);
+  (v186)(&v114[v121], v119);
+  v122 = v168;
+  v123 = v192;
+  SystemFormatStyle.DateOffset.dateRange(for:)(v193, v168);
+  v124 = v171;
   Date.ComponentsFormatStyle.discreteInput(after:)();
-  outlined destroy of SystemFormatStyle.DateOffset(v117, type metadata accessor for Range<Date>);
-  v120 = v118;
-  v121 = v168;
-  outlined init with copy of SystemFormatStyle.DateOffset(v118, v168, type metadata accessor for SystemFormatStyle.DateOffset);
-  v122 = v164;
-  outlined init with copy of SystemFormatStyle.DateOffset(v119, v164, type metadata accessor for Range<Date>?);
-  v123 = 1;
-  v124 = v167;
-  v125 = (*(v165 + 48))(v122, 1, v167);
-  v126 = v184;
+  outlined destroy of SystemFormatStyle.DateOffset(v122, type metadata accessor for Range<Date>);
+  v125 = v123;
+  v126 = v173;
+  outlined init with copy of SystemFormatStyle.DateOffset(v123, v173, type metadata accessor for SystemFormatStyle.DateOffset);
   v127 = v169;
-  if (v125 != 1)
+  outlined init with copy of SystemFormatStyle.DateOffset(v124, v169, type metadata accessor for Range<Date>?);
+  v128 = 1;
+  v129 = v172;
+  v130 = (*(v170 + 48))(v127, 1, v172);
+  v131 = v189;
+  v132 = v174;
+  if (v130 != 1)
   {
-    v128 = v158;
-    _sSny10Foundation16AttributedStringV5IndexVGWObTm_0(v122, v158, type metadata accessor for Range<Date>);
-    v129 = static Date.== infix(_:_:)();
-    v130 = v128;
-    if (v129)
+    v133 = v163;
+    _sSny10Foundation16AttributedStringV5IndexVGWObTm_0(v127, v163, type metadata accessor for Range<Date>);
+    v134 = static Date.== infix(_:_:)();
+    v135 = v133;
+    if (v134)
     {
-      v130 = v128 + *(v124 + 36);
+      v135 = v133 + *(v129 + 36);
     }
 
-    (*(v126 + 16))(v127, v130, v186);
-    outlined destroy of SystemFormatStyle.DateOffset(v128, type metadata accessor for Range<Date>);
-    v123 = 0;
+    (*(v131 + 16))(v132, v135, v191);
+    outlined destroy of SystemFormatStyle.DateOffset(v133, type metadata accessor for Range<Date>);
+    v128 = 0;
   }
 
-  outlined destroy of SystemFormatStyle.DateOffset(v119, type metadata accessor for Range<Date>?);
-  v131 = *(v126 + 56);
-  v132 = v123;
-  v133 = v186;
-  v131(v127, v132, 1, v186);
-  outlined destroy of SystemFormatStyle.DateOffset(v121, type metadata accessor for SystemFormatStyle.DateOffset);
-  v134 = static Date.< infix(_:_:)();
-  if (v134)
+  outlined destroy of SystemFormatStyle.DateOffset(v124, type metadata accessor for Range<Date>?);
+  v136 = *(v131 + 56);
+  v137 = v128;
+  v138 = v191;
+  v136(v132, v137, 1, v191);
+  outlined destroy of SystemFormatStyle.DateOffset(v126, type metadata accessor for SystemFormatStyle.DateOffset);
+  v139 = static Date.< infix(_:_:)();
+  if (v139)
   {
-    v135 = v183;
-    specialized min<A>(_:ifPresent:)(v120, v127, v183);
-    outlined destroy of SystemFormatStyle.DateOffset(v127, type metadata accessor for Date?);
-    (*(v170 + 8))(v176, v177);
-    v131(v135, 0, 1, v133);
-    return (v181)(v178, v114);
+    v140 = v188;
+    specialized min<A>(_:ifPresent:)(v125, v132, v188);
+    outlined destroy of SystemFormatStyle.DateOffset(v132, type metadata accessor for Date?);
+    (*(v175 + 8))(v181, v182);
+    v136(v140, 0, 1, v138);
+    return (v186)(v183, v119);
   }
 
   if (one-time initialization token for orderedFields != -1)
   {
-    v134 = swift_once();
+    v139 = swift_once();
   }
 
-  MEMORY[0x1EEE9AC00](v134);
-  v136 = v178;
-  *(&v151 - 2) = v120;
-  *(&v151 - 1) = v136;
-  v137 = v159;
-  specialized BidirectionalCollection.last(where:)(partial apply for closure #1 in SystemFormatStyle.DateOffset.discreteInput(after:), v138, v159);
-  v139 = v182;
-  if ((*(v185 + 48))(v137, 1, v182) == 1)
+  MEMORY[0x1EEE9AC00](v139);
+  v141 = v183;
+  *(&v156 - 2) = v125;
+  *(&v156 - 1) = v141;
+  v142 = v164;
+  specialized BidirectionalCollection.last(where:)(partial apply for closure #1 in SystemFormatStyle.DateOffset.discreteInput(after:), v143, v164);
+  v144 = v187;
+  if ((*(v190 + 48))(v142, 1, v187) == 1)
   {
-    (*(v170 + 8))(v176, v177);
-    outlined destroy of SystemFormatStyle.DateOffset(v137, type metadata accessor for Date.ComponentsFormatStyle.Field?);
-    v140 = v181;
+    (*(v175 + 8))(v181, v182);
+    outlined destroy of SystemFormatStyle.DateOffset(v142, type metadata accessor for Date.ComponentsFormatStyle.Field?);
+    v145 = v186;
 LABEL_33:
-    _sSny10Foundation16AttributedStringV5IndexVGWObTm_0(v127, v183, type metadata accessor for Date?);
-    return v140(v178, v139);
+    _sSny10Foundation16AttributedStringV5IndexVGWObTm_0(v132, v188, type metadata accessor for Date?);
+    return v145(v183, v144);
   }
 
-  v141 = v154;
-  (v175)(v154, v137, v139);
-  v142 = v155;
-  v143 = v139;
-  SystemFormatStyle.DateOffset.component(for:)(v141, v155);
-  v144 = v153;
+  v146 = v159;
+  (v180)(v159, v142, v144);
+  v147 = v160;
+  v148 = v144;
+  SystemFormatStyle.DateOffset.component(for:)(v146, v160);
+  v149 = v158;
   Calendar.date(byAdding:value:to:wrappingComponents:)();
-  (*(v156 + 8))(v142, v157);
-  v145 = v184;
-  v146 = v186;
-  if ((*(v184 + 48))(v144, 1, v186) == 1)
+  (*(v161 + 8))(v147, v162);
+  v150 = v189;
+  v151 = v191;
+  if ((*(v189 + 48))(v149, 1, v191) == 1)
   {
-    v140 = v181;
-    (v181)(v141, v139);
-    (*(v170 + 8))(v176, v177);
-    outlined destroy of SystemFormatStyle.DateOffset(v144, type metadata accessor for Date?);
-    v127 = v169;
+    v145 = v186;
+    (v186)(v146, v144);
+    (*(v175 + 8))(v181, v182);
+    outlined destroy of SystemFormatStyle.DateOffset(v149, type metadata accessor for Date?);
+    v132 = v174;
     goto LABEL_33;
   }
 
-  v147 = v152;
-  (*(v145 + 32))(v152, v144, v146);
-  v148 = v183;
-  v149 = v169;
-  specialized min<A>(_:ifPresent:)(v147, v169, v183);
-  (*(v145 + 8))(v147, v146);
-  v150 = v181;
-  (v181)(v141, v143);
-  outlined destroy of SystemFormatStyle.DateOffset(v149, type metadata accessor for Date?);
-  (*(v170 + 8))(v176, v177);
-  v131(v148, 0, 1, v146);
-  return v150(v178, v143);
+  v152 = v157;
+  (*(v150 + 32))(v157, v149, v151);
+  v153 = v188;
+  v154 = v174;
+  specialized min<A>(_:ifPresent:)(v152, v174, v188);
+  (*(v150 + 8))(v152, v151);
+  v155 = v186;
+  (v186)(v146, v148);
+  outlined destroy of SystemFormatStyle.DateOffset(v154, type metadata accessor for Date?);
+  (*(v175 + 8))(v181, v182);
+  v136(v153, 0, 1, v151);
+  return v155(v183, v148);
 }
 
 BOOL closure #1 in SystemFormatStyle.DateOffset.discreteInput(before:)(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for SystemFormatStyle.DateOffset();
+  v4 = type metadata accessor for SystemFormatStyle.DateOffset(0);
   if ((specialized Set.contains(_:)(a1, *(a2 + *(v4 + 20))) & 1) == 0)
   {
     return 0;
@@ -2680,84 +9107,84 @@ BOOL closure #1 in SystemFormatStyle.DateOffset.discreteInput(before:)(uint64_t 
   return v7 < v5;
 }
 
-uint64_t SystemFormatStyle.DateOffset.input(before:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t SystemFormatStyle.DateOffset.input(before:)@<X0>(void (**a1)(uint64_t, uint64_t, uint64_t, void *)@<X0>, uint64_t a2@<X8>)
 {
-  v118 = a2;
+  v123 = a2;
   type metadata accessor for Range<Date>?(0);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v111 = &v102 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for Range<Date>();
-  v112 = v6;
-  v110 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v109 = &v102 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v103 = &v102 - v9;
-  v10 = MEMORY[0x1E69694D0];
-  type metadata accessor for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(0, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E69694D0]);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v115 = &v102 - v12;
-  type metadata accessor for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field), v10);
-  v104 = v13;
-  MEMORY[0x1EEE9AC00](v13);
-  v105 = &v102 - v14;
-  v108 = type metadata accessor for Date.ComponentsFormatStyle();
-  v106 = *(v108 - 8);
-  MEMORY[0x1EEE9AC00](v108);
-  v107 = &v102 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = MEMORY[0x1E696A1A8];
-  type metadata accessor for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(0, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8]);
-  MEMORY[0x1EEE9AC00](v17 - 8);
-  v19 = &v102 - v18;
-  type metadata accessor for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (Duration.UnitsFormatStyle.Attributed, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field), v16);
-  v113 = v20;
-  MEMORY[0x1EEE9AC00](v20);
-  v22 = &v102 - v21;
-  v23 = type metadata accessor for Duration.UnitsFormatStyle.Attributed();
-  v116 = *(v23 - 8);
-  v117 = v23;
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v116 = &v107 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for Range<Date>(0);
+  v117 = v7;
+  v115 = *(v7 - 8);
+  MEMORY[0x1EEE9AC00](v7);
+  v114 = &v107 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = MEMORY[0x1EEE9AC00](v9);
+  v108 = &v107 - v11;
+  v12 = MEMORY[0x1E69694D0];
+  type metadata accessor for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(0, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E69694D0], v10);
+  MEMORY[0x1EEE9AC00](v13 - 8);
+  v120 = &v107 - v14;
+  type metadata accessor for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field), v12);
+  v109 = v15;
+  MEMORY[0x1EEE9AC00](v15);
+  v110 = &v107 - v16;
+  v113 = type metadata accessor for Date.ComponentsFormatStyle();
+  v111 = *(v113 - 8);
+  v17 = MEMORY[0x1EEE9AC00](v113);
+  v112 = &v107 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = MEMORY[0x1E696A1A8];
+  type metadata accessor for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(0, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8], v17);
+  MEMORY[0x1EEE9AC00](v20 - 8);
+  v22 = &v107 - v21;
+  type metadata accessor for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (Duration.UnitsFormatStyle.Attributed, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field), v19);
+  v118 = v23;
   MEMORY[0x1EEE9AC00](v23);
-  v114 = &v102 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = &v107 - v24;
+  v26 = type metadata accessor for Duration.UnitsFormatStyle.Attributed();
+  v121 = *(v26 - 8);
+  v122 = v26;
+  MEMORY[0x1EEE9AC00](v26);
+  v119 = &v107 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)?(0);
-  MEMORY[0x1EEE9AC00](v25 - 8);
-  v27 = &v102 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for (Duration.TimeFormatStyle.Attributed, Date.ComponentsFormatStyle.Field)();
-  v29 = v28;
-  MEMORY[0x1EEE9AC00](v28);
-  v31 = &v102 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v32 = type metadata accessor for Duration.TimeFormatStyle.Attributed();
-  v33 = *(v32 - 8);
-  MEMORY[0x1EEE9AC00](v32);
-  v35 = &v102 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v36 = type metadata accessor for SystemFormatStyle.DateOffset();
-  v37 = *(v2 + v36[13]);
-  v119 = a1;
-  if ((v37 & 1) == 0 && *(v2 + v36[12]) != 1 || *(v2 + v36[11]) <= 1u)
+  MEMORY[0x1EEE9AC00](v28 - 8);
+  v30 = &v107 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for (Duration.TimeFormatStyle.Attributed, Date.ComponentsFormatStyle.Field)(0);
+  v32 = v31;
+  MEMORY[0x1EEE9AC00](v31);
+  v34 = &v107 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v35 = type metadata accessor for Duration.TimeFormatStyle.Attributed();
+  v36 = *(v35 - 8);
+  MEMORY[0x1EEE9AC00](v35);
+  v38 = &v107 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v39 = type metadata accessor for SystemFormatStyle.DateOffset(0);
+  v40 = *(v3 + v39[13]);
+  v124 = a1;
+  if ((v40 & 1) == 0 && *(v3 + v39[12]) != 1 || *(v3 + v39[11]) <= 1u)
   {
-    SystemFormatStyle.DateOffset.timeStyle(for:)(a1, v27);
-    type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)();
-    v39 = v38;
-    if ((*(*(v38 - 8) + 48))(v27, 1, v38) != 1)
+    SystemFormatStyle.DateOffset.timeStyle(for:)(a1, v30);
+    type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)(0);
+    v42 = v41;
+    if ((*(*(v41 - 8) + 48))(v30, 1, v41) != 1)
     {
-      v63 = *(v39 + 48);
-      v116 = *(v29 + 48);
-      v117 = v63;
-      v102 = v33;
-      v64 = *(v33 + 32);
-      v64(v31, v27, v32);
-      v65 = type metadata accessor for Date.ComponentsFormatStyle.Field();
-      v66 = *(v65 - 8);
-      (*(v66 + 32))(&v31[v116], &v27[v117], v65);
-      v67 = *(v29 + 48);
-      v64(v35, v31, v32);
-      (*(v66 + 8))(&v31[v67], v65);
+      v68 = *(v42 + 48);
+      v121 = *(v32 + 48);
+      v122 = v68;
+      v107 = v36;
+      v69 = *(v36 + 32);
+      v69(v34, v30, v35);
+      v70 = type metadata accessor for Date.ComponentsFormatStyle.Field();
+      v71 = *(v70 - 8);
+      (*(v71 + 32))(&v34[v121], &v30[v122], v70);
+      v72 = *(v32 + 48);
+      v69(v38, v34, v35);
+      (*(v71 + 8))(&v34[v72], v70);
       Date.timeIntervalSince(_:)();
       static Duration.seconds(_:)();
-      lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Duration.TimeFormatStyle.Attributed and conformance Duration.TimeFormatStyle.Attributed, MEMORY[0x1E696A160]);
+      lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Duration.TimeFormatStyle.Attributed and conformance Duration.TimeFormatStyle.Attributed, MEMORY[0x1E696A160], MEMORY[0x1E696A158]);
       DiscreteFormatStyle<>.input(before:)();
-      v69 = v68;
-      (*(v102 + 8))(v35, v32);
-      if (v69)
+      v74 = v73;
+      (*(v107 + 8))(v38, v35);
+      if (v74)
       {
         goto LABEL_10;
       }
@@ -2765,230 +9192,230 @@ uint64_t SystemFormatStyle.DateOffset.input(before:)@<X0>(uint64_t a1@<X0>, uint
       goto LABEL_12;
     }
 
-    outlined destroy of SystemFormatStyle.DateOffset(v27, type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)?);
-    a1 = v119;
+    outlined destroy of SystemFormatStyle.DateOffset(v30, type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)?);
+    a1 = v124;
   }
 
-  SystemFormatStyle.DateOffset.unitsStyle(for:)(a1, v19);
+  SystemFormatStyle.DateOffset.unitsStyle(for:)(a1, v22);
   type metadata accessor for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8]);
-  v41 = v40;
-  if ((*(*(v40 - 8) + 48))(v19, 1, v40) != 1)
+  v44 = v43;
+  if ((*(*(v43 - 8) + 48))(v22, 1, v43) != 1)
   {
-    v49 = *(v41 + 48);
-    v115 = *(v41 + 64);
-    v50 = v113;
-    v110 = *(v113 + 48);
-    v111 = v49;
-    v112 = *(v113 + 64);
-    v106 = v2;
-    v51 = *(v116 + 32);
-    v51(v22, v19, v117);
-    v52 = type metadata accessor for Date.ComponentsFormatStyle.Field();
-    v53 = *(v52 - 8);
-    v54 = *(v53 + 32);
-    v54(&v22[v110], &v111[v19], v52);
-    v54(&v22[v112], (v19 + v115), v52);
-    v55 = *(v50 + 48);
-    v56 = *(v50 + 64);
-    v57 = v114;
-    v58 = v117;
-    v51(v114, v22, v117);
-    v59 = *(v53 + 8);
-    v59(&v22[v56], v52);
-    v59(&v22[v55], v52);
+    v54 = *(v44 + 48);
+    v120 = *(v44 + 64);
+    v55 = v118;
+    v115 = *(v118 + 48);
+    v116 = v54;
+    v117 = *(v118 + 64);
+    v111 = v3;
+    v56 = *(v121 + 32);
+    v56(v25, v22, v122);
+    v57 = type metadata accessor for Date.ComponentsFormatStyle.Field();
+    v58 = *(v57 - 8);
+    v59 = *(v58 + 32);
+    v59(&v25[v115], &v116[v22], v57);
+    v59(&v25[v117], (v22 + v120), v57);
+    v60 = *(v55 + 48);
+    v61 = *(v55 + 64);
+    v62 = v119;
+    v63 = v122;
+    v56(v119, v25, v122);
+    v64 = *(v58 + 8);
+    v64(&v25[v61], v57);
+    v64(&v25[v60], v57);
     Date.timeIntervalSince(_:)();
     static Duration.seconds(_:)();
-    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Duration.UnitsFormatStyle.Attributed and conformance Duration.UnitsFormatStyle.Attributed, MEMORY[0x1E696A1A8]);
+    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Duration.UnitsFormatStyle.Attributed and conformance Duration.UnitsFormatStyle.Attributed, MEMORY[0x1E696A1A8], MEMORY[0x1E696A198]);
     DiscreteFormatStyle<>.input(before:)();
-    LOBYTE(v56) = v60;
-    (*(v116 + 8))(v57, v58);
-    if (v56)
+    LOBYTE(v61) = v65;
+    (*(v121 + 8))(v62, v63);
+    if (v61)
     {
 LABEL_10:
-      v61 = type metadata accessor for Date();
-      return (*(*(v61 - 8) + 56))(v118, 1, 1, v61);
+      v66 = type metadata accessor for Date();
+      return (*(*(v66 - 8) + 56))(v123, 1, 1, v66);
     }
 
 LABEL_12:
-    v70 = v118;
-    SystemFormatStyle.DateOffset.nextInputRoundingLower(for:)(v118);
-    v46 = type metadata accessor for Date();
-    v47 = *(*(v46 - 8) + 56);
-    v48 = v70;
-    return v47(v48, 0, 1, v46);
+    v75 = v123;
+    SystemFormatStyle.DateOffset.nextInputRoundingLower(for:)(v123);
+    v51 = type metadata accessor for Date();
+    v52 = *(*(v51 - 8) + 56);
+    v53 = v75;
+    return v52(v53, 0, 1, v51);
   }
 
-  outlined destroy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(v19, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8]);
-  v42 = v115;
-  SystemFormatStyle.DateOffset.componentsStyle(for:)(a1, v115);
+  outlined destroy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(v22, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8], v45);
+  v46 = v120;
+  SystemFormatStyle.DateOffset.componentsStyle(for:)(a1, v120);
   type metadata accessor for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E69694D0]);
-  v44 = v43;
-  if ((*(*(v43 - 8) + 48))(v42, 1, v43) == 1)
+  v48 = v47;
+  if ((*(*(v47 - 8) + 48))(v46, 1, v47) == 1)
   {
-    outlined destroy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(v42, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E69694D0]);
+    outlined destroy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(v46, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E69694D0], v49);
     Date.timeIntervalSinceReferenceDate.getter();
-    v45 = v118;
+    v50 = v123;
     Date.init(timeIntervalSinceReferenceDate:)();
-    v46 = type metadata accessor for Date();
-    v47 = *(*(v46 - 8) + 56);
-    v48 = v45;
-    return v47(v48, 0, 1, v46);
+    v51 = type metadata accessor for Date();
+    v52 = *(*(v51 - 8) + 56);
+    v53 = v50;
+    return v52(v53, 0, 1, v51);
   }
 
-  v71 = *(v44 + 48);
-  v72 = *(v44 + 64);
-  v73 = v104;
-  v74 = v105;
-  v113 = *(v104 + 48);
-  v114 = v71;
-  v116 = *(v104 + 64);
-  v117 = v72;
-  v76 = v106 + 32;
-  v75 = *(v106 + 32);
-  v77 = v108;
-  v75(v105, v42, v108);
-  v78 = type metadata accessor for Date.ComponentsFormatStyle.Field();
-  v79 = *(v78 - 8);
-  v106 = v2;
-  v80 = v79;
-  v81 = *(v79 + 32);
-  v81(&v74[v113], &v114[v42], v78);
-  v81(&v74[v116], (v42 + v117), v78);
-  v82 = *(v73 + 48);
-  v83 = *(v73 + 64);
-  v84 = v107;
-  v75(v107, v74, v77);
-  v85 = *(v80 + 8);
-  v85(&v74[v83], v78);
-  v85(&v74[v82], v78);
-  v86 = v109;
-  SystemFormatStyle.DateOffset.dateRange(for:)(v119, v109);
-  v87 = v111;
+  v76 = *(v48 + 48);
+  v77 = *(v48 + 64);
+  v78 = v109;
+  v79 = v110;
+  v118 = *(v109 + 48);
+  v119 = v76;
+  v121 = *(v109 + 64);
+  v122 = v77;
+  v81 = v111 + 32;
+  v80 = *(v111 + 32);
+  v82 = v113;
+  v80(v110, v46, v113);
+  v83 = type metadata accessor for Date.ComponentsFormatStyle.Field();
+  v84 = *(v83 - 8);
+  v111 = v3;
+  v85 = v84;
+  v86 = *(v84 + 32);
+  v86(&v79[v118], &v119[v46], v83);
+  v86(&v79[v121], (v46 + v122), v83);
+  v87 = *(v78 + 48);
+  v88 = *(v78 + 64);
+  v89 = v112;
+  v80(v112, v79, v82);
+  v90 = *(v85 + 8);
+  v90(&v79[v88], v83);
+  v90(&v79[v87], v83);
+  v91 = v114;
+  SystemFormatStyle.DateOffset.dateRange(for:)(v124, v114);
+  v92 = v116;
   Date.ComponentsFormatStyle.input(before:)();
-  outlined destroy of SystemFormatStyle.DateOffset(v86, type metadata accessor for Range<Date>);
-  v88 = v112;
-  v89 = (v76 - 24);
-  if ((*(v110 + 48))(v87, 1, v112) == 1)
+  outlined destroy of SystemFormatStyle.DateOffset(v91, type metadata accessor for Range<Date>);
+  v93 = v117;
+  v94 = (v81 - 24);
+  if ((*(v115 + 48))(v92, 1, v117) == 1)
   {
-    outlined destroy of SystemFormatStyle.DateOffset(v87, type metadata accessor for Range<Date>?);
-    v90 = static Date.< infix(_:_:)();
-    (*v89)(v84, v77);
-    v91 = type metadata accessor for Date();
-    v92 = *(v91 - 8);
-    v93 = v92;
-    if (v90)
+    outlined destroy of SystemFormatStyle.DateOffset(v92, type metadata accessor for Range<Date>?);
+    v95 = static Date.< infix(_:_:)();
+    (*v94)(v89, v82);
+    v96 = type metadata accessor for Date();
+    v97 = *(v96 - 8);
+    v98 = v97;
+    if (v95)
     {
-      v94 = v118;
-      (*(v92 + 16))();
-      return (*(v93 + 56))(v94, 0, 1, v91);
+      v99 = v123;
+      (*(v97 + 16))();
+      return (*(v98 + 56))(v99, 0, 1, v96);
     }
 
     else
     {
-      return (*(v92 + 56))(v118, 1, 1, v91);
+      return (*(v97 + 56))(v123, 1, 1, v96);
     }
   }
 
   else
   {
-    v95 = v87;
-    v96 = v103;
-    _sSny10Foundation16AttributedStringV5IndexVGWObTm_0(v95, v103, type metadata accessor for Range<Date>);
-    v97 = static Date.== infix(_:_:)();
-    (*v89)(v84, v77);
-    v98 = v96;
-    v99 = v118;
-    if (v97)
+    v100 = v92;
+    v101 = v108;
+    _sSny10Foundation16AttributedStringV5IndexVGWObTm_0(v100, v108, type metadata accessor for Range<Date>);
+    v102 = static Date.== infix(_:_:)();
+    (*v94)(v89, v82);
+    v103 = v101;
+    v104 = v123;
+    if (v102)
     {
-      v98 = v96 + *(v88 + 36);
+      v103 = v101 + *(v93 + 36);
     }
 
-    v100 = type metadata accessor for Date();
-    v101 = *(v100 - 8);
-    (*(v101 + 16))(v99, v98, v100);
-    outlined destroy of SystemFormatStyle.DateOffset(v96, type metadata accessor for Range<Date>);
-    return (*(v101 + 56))(v99, 0, 1, v100);
+    v105 = type metadata accessor for Date();
+    v106 = *(v105 - 8);
+    (*(v106 + 16))(v104, v103, v105);
+    outlined destroy of SystemFormatStyle.DateOffset(v101, type metadata accessor for Range<Date>);
+    return (*(v106 + 56))(v104, 0, 1, v105);
   }
 }
 
-uint64_t SystemFormatStyle.DateOffset.input(after:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t SystemFormatStyle.DateOffset.input(after:)@<X0>(void (**a1)(uint64_t, uint64_t, uint64_t, void *)@<X0>, uint64_t a2@<X8>)
 {
-  v118 = a2;
+  v123 = a2;
   type metadata accessor for Range<Date>?(0);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v111 = &v102 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for Range<Date>();
-  v112 = v6;
-  v110 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v109 = &v102 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v103 = &v102 - v9;
-  v10 = MEMORY[0x1E69694D0];
-  type metadata accessor for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(0, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E69694D0]);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v115 = &v102 - v12;
-  type metadata accessor for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field), v10);
-  v104 = v13;
-  MEMORY[0x1EEE9AC00](v13);
-  v105 = &v102 - v14;
-  v108 = type metadata accessor for Date.ComponentsFormatStyle();
-  v106 = *(v108 - 8);
-  MEMORY[0x1EEE9AC00](v108);
-  v107 = &v102 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = MEMORY[0x1E696A1A8];
-  type metadata accessor for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(0, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8]);
-  MEMORY[0x1EEE9AC00](v17 - 8);
-  v19 = &v102 - v18;
-  type metadata accessor for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (Duration.UnitsFormatStyle.Attributed, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field), v16);
-  v113 = v20;
-  MEMORY[0x1EEE9AC00](v20);
-  v22 = &v102 - v21;
-  v23 = type metadata accessor for Duration.UnitsFormatStyle.Attributed();
-  v116 = *(v23 - 8);
-  v117 = v23;
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v116 = &v107 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for Range<Date>(0);
+  v117 = v7;
+  v115 = *(v7 - 8);
+  MEMORY[0x1EEE9AC00](v7);
+  v114 = &v107 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = MEMORY[0x1EEE9AC00](v9);
+  v108 = &v107 - v11;
+  v12 = MEMORY[0x1E69694D0];
+  type metadata accessor for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(0, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E69694D0], v10);
+  MEMORY[0x1EEE9AC00](v13 - 8);
+  v120 = &v107 - v14;
+  type metadata accessor for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field), v12);
+  v109 = v15;
+  MEMORY[0x1EEE9AC00](v15);
+  v110 = &v107 - v16;
+  v113 = type metadata accessor for Date.ComponentsFormatStyle();
+  v111 = *(v113 - 8);
+  v17 = MEMORY[0x1EEE9AC00](v113);
+  v112 = &v107 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = MEMORY[0x1E696A1A8];
+  type metadata accessor for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(0, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8], v17);
+  MEMORY[0x1EEE9AC00](v20 - 8);
+  v22 = &v107 - v21;
+  type metadata accessor for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (Duration.UnitsFormatStyle.Attributed, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field), v19);
+  v118 = v23;
   MEMORY[0x1EEE9AC00](v23);
-  v114 = &v102 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = &v107 - v24;
+  v26 = type metadata accessor for Duration.UnitsFormatStyle.Attributed();
+  v121 = *(v26 - 8);
+  v122 = v26;
+  MEMORY[0x1EEE9AC00](v26);
+  v119 = &v107 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)?(0);
-  MEMORY[0x1EEE9AC00](v25 - 8);
-  v27 = &v102 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for (Duration.TimeFormatStyle.Attributed, Date.ComponentsFormatStyle.Field)();
-  v29 = v28;
-  MEMORY[0x1EEE9AC00](v28);
-  v31 = &v102 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v32 = type metadata accessor for Duration.TimeFormatStyle.Attributed();
-  v33 = *(v32 - 8);
-  MEMORY[0x1EEE9AC00](v32);
-  v35 = &v102 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v36 = type metadata accessor for SystemFormatStyle.DateOffset();
-  v37 = *(v2 + v36[13]);
-  v119 = a1;
-  if ((v37 & 1) == 0 && *(v2 + v36[12]) != 1 || *(v2 + v36[11]) <= 1u)
+  MEMORY[0x1EEE9AC00](v28 - 8);
+  v30 = &v107 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for (Duration.TimeFormatStyle.Attributed, Date.ComponentsFormatStyle.Field)(0);
+  v32 = v31;
+  MEMORY[0x1EEE9AC00](v31);
+  v34 = &v107 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v35 = type metadata accessor for Duration.TimeFormatStyle.Attributed();
+  v36 = *(v35 - 8);
+  MEMORY[0x1EEE9AC00](v35);
+  v38 = &v107 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v39 = type metadata accessor for SystemFormatStyle.DateOffset(0);
+  v40 = *(v3 + v39[13]);
+  v124 = a1;
+  if ((v40 & 1) == 0 && *(v3 + v39[12]) != 1 || *(v3 + v39[11]) <= 1u)
   {
-    SystemFormatStyle.DateOffset.timeStyle(for:)(a1, v27);
-    type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)();
-    v39 = v38;
-    if ((*(*(v38 - 8) + 48))(v27, 1, v38) != 1)
+    SystemFormatStyle.DateOffset.timeStyle(for:)(a1, v30);
+    type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)(0);
+    v42 = v41;
+    if ((*(*(v41 - 8) + 48))(v30, 1, v41) != 1)
     {
-      v63 = *(v39 + 48);
-      v116 = *(v29 + 48);
-      v117 = v63;
-      v102 = v33;
-      v64 = *(v33 + 32);
-      v64(v31, v27, v32);
-      v65 = type metadata accessor for Date.ComponentsFormatStyle.Field();
-      v66 = *(v65 - 8);
-      (*(v66 + 32))(&v31[v116], &v27[v117], v65);
-      v67 = *(v29 + 48);
-      v64(v35, v31, v32);
-      (*(v66 + 8))(&v31[v67], v65);
+      v68 = *(v42 + 48);
+      v121 = *(v32 + 48);
+      v122 = v68;
+      v107 = v36;
+      v69 = *(v36 + 32);
+      v69(v34, v30, v35);
+      v70 = type metadata accessor for Date.ComponentsFormatStyle.Field();
+      v71 = *(v70 - 8);
+      (*(v71 + 32))(&v34[v121], &v30[v122], v70);
+      v72 = *(v32 + 48);
+      v69(v38, v34, v35);
+      (*(v71 + 8))(&v34[v72], v70);
       Date.timeIntervalSince(_:)();
       static Duration.seconds(_:)();
-      lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Duration.TimeFormatStyle.Attributed and conformance Duration.TimeFormatStyle.Attributed, MEMORY[0x1E696A160]);
+      lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Duration.TimeFormatStyle.Attributed and conformance Duration.TimeFormatStyle.Attributed, MEMORY[0x1E696A160], MEMORY[0x1E696A158]);
       DiscreteFormatStyle<>.input(after:)();
-      v69 = v68;
-      (*(v102 + 8))(v35, v32);
-      if (v69)
+      v74 = v73;
+      (*(v107 + 8))(v38, v35);
+      if (v74)
       {
         goto LABEL_10;
       }
@@ -2996,259 +9423,236 @@ uint64_t SystemFormatStyle.DateOffset.input(after:)@<X0>(uint64_t a1@<X0>, uint6
       goto LABEL_12;
     }
 
-    outlined destroy of SystemFormatStyle.DateOffset(v27, type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)?);
-    a1 = v119;
+    outlined destroy of SystemFormatStyle.DateOffset(v30, type metadata accessor for (style: Duration.TimeFormatStyle.Attributed, smallestField: Date.ComponentsFormatStyle.Field)?);
+    a1 = v124;
   }
 
-  SystemFormatStyle.DateOffset.unitsStyle(for:)(a1, v19);
+  SystemFormatStyle.DateOffset.unitsStyle(for:)(a1, v22);
   type metadata accessor for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8]);
-  v41 = v40;
-  if ((*(*(v40 - 8) + 48))(v19, 1, v40) != 1)
+  v44 = v43;
+  if ((*(*(v43 - 8) + 48))(v22, 1, v43) != 1)
   {
-    v49 = *(v41 + 48);
-    v115 = *(v41 + 64);
-    v50 = v113;
-    v110 = *(v113 + 48);
-    v111 = v49;
-    v112 = *(v113 + 64);
-    v106 = v2;
-    v51 = *(v116 + 32);
-    v51(v22, v19, v117);
-    v52 = type metadata accessor for Date.ComponentsFormatStyle.Field();
-    v53 = *(v52 - 8);
-    v54 = *(v53 + 32);
-    v54(&v22[v110], &v111[v19], v52);
-    v54(&v22[v112], (v19 + v115), v52);
-    v55 = *(v50 + 48);
-    v56 = *(v50 + 64);
-    v57 = v114;
-    v58 = v117;
-    v51(v114, v22, v117);
-    v59 = *(v53 + 8);
-    v59(&v22[v56], v52);
-    v59(&v22[v55], v52);
+    v54 = *(v44 + 48);
+    v120 = *(v44 + 64);
+    v55 = v118;
+    v115 = *(v118 + 48);
+    v116 = v54;
+    v117 = *(v118 + 64);
+    v111 = v3;
+    v56 = *(v121 + 32);
+    v56(v25, v22, v122);
+    v57 = type metadata accessor for Date.ComponentsFormatStyle.Field();
+    v58 = *(v57 - 8);
+    v59 = *(v58 + 32);
+    v59(&v25[v115], &v116[v22], v57);
+    v59(&v25[v117], (v22 + v120), v57);
+    v60 = *(v55 + 48);
+    v61 = *(v55 + 64);
+    v62 = v119;
+    v63 = v122;
+    v56(v119, v25, v122);
+    v64 = *(v58 + 8);
+    v64(&v25[v61], v57);
+    v64(&v25[v60], v57);
     Date.timeIntervalSince(_:)();
     static Duration.seconds(_:)();
-    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Duration.UnitsFormatStyle.Attributed and conformance Duration.UnitsFormatStyle.Attributed, MEMORY[0x1E696A1A8]);
+    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Duration.UnitsFormatStyle.Attributed and conformance Duration.UnitsFormatStyle.Attributed, MEMORY[0x1E696A1A8], MEMORY[0x1E696A198]);
     DiscreteFormatStyle<>.input(after:)();
-    LOBYTE(v56) = v60;
-    (*(v116 + 8))(v57, v58);
-    if (v56)
+    LOBYTE(v61) = v65;
+    (*(v121 + 8))(v62, v63);
+    if (v61)
     {
 LABEL_10:
-      v61 = type metadata accessor for Date();
-      return (*(*(v61 - 8) + 56))(v118, 1, 1, v61);
+      v66 = type metadata accessor for Date();
+      return (*(*(v66 - 8) + 56))(v123, 1, 1, v66);
     }
 
 LABEL_12:
-    v70 = v118;
-    SystemFormatStyle.DateOffset.nextInputRoundingHigher(for:)(v118);
-    v46 = type metadata accessor for Date();
-    v47 = *(*(v46 - 8) + 56);
-    v48 = v70;
-    return v47(v48, 0, 1, v46);
+    v75 = v123;
+    SystemFormatStyle.DateOffset.nextInputRoundingHigher(for:)(v123);
+    v51 = type metadata accessor for Date();
+    v52 = *(*(v51 - 8) + 56);
+    v53 = v75;
+    return v52(v53, 0, 1, v51);
   }
 
-  outlined destroy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(v19, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8]);
-  v42 = v115;
-  SystemFormatStyle.DateOffset.componentsStyle(for:)(a1, v115);
+  outlined destroy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(v22, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8], v45);
+  v46 = v120;
+  SystemFormatStyle.DateOffset.componentsStyle(for:)(a1, v120);
   type metadata accessor for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E69694D0]);
-  v44 = v43;
-  if ((*(*(v43 - 8) + 48))(v42, 1, v43) == 1)
+  v48 = v47;
+  if ((*(*(v47 - 8) + 48))(v46, 1, v47) == 1)
   {
-    outlined destroy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(v42, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E69694D0]);
+    outlined destroy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?(v46, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)?, &lazy cache variable for type metadata for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E69694D0], v49);
     Date.timeIntervalSinceReferenceDate.getter();
-    v45 = v118;
+    v50 = v123;
     Date.init(timeIntervalSinceReferenceDate:)();
-    v46 = type metadata accessor for Date();
-    v47 = *(*(v46 - 8) + 56);
-    v48 = v45;
-    return v47(v48, 0, 1, v46);
+    v51 = type metadata accessor for Date();
+    v52 = *(*(v51 - 8) + 56);
+    v53 = v50;
+    return v52(v53, 0, 1, v51);
   }
 
-  v71 = *(v44 + 48);
-  v72 = *(v44 + 64);
-  v73 = v104;
-  v74 = v105;
-  v113 = *(v104 + 48);
-  v114 = v71;
-  v116 = *(v104 + 64);
-  v117 = v72;
-  v76 = v106 + 32;
-  v75 = *(v106 + 32);
-  v77 = v108;
-  v75(v105, v42, v108);
-  v78 = type metadata accessor for Date.ComponentsFormatStyle.Field();
-  v79 = *(v78 - 8);
-  v106 = v2;
-  v80 = v79;
-  v81 = *(v79 + 32);
-  v81(&v74[v113], &v114[v42], v78);
-  v81(&v74[v116], (v42 + v117), v78);
-  v82 = *(v73 + 48);
-  v83 = *(v73 + 64);
-  v84 = v107;
-  v75(v107, v74, v77);
-  v85 = *(v80 + 8);
-  v85(&v74[v83], v78);
-  v85(&v74[v82], v78);
-  v86 = v109;
-  SystemFormatStyle.DateOffset.dateRange(for:)(v119, v109);
-  v87 = v111;
+  v76 = *(v48 + 48);
+  v77 = *(v48 + 64);
+  v78 = v109;
+  v79 = v110;
+  v118 = *(v109 + 48);
+  v119 = v76;
+  v121 = *(v109 + 64);
+  v122 = v77;
+  v81 = v111 + 32;
+  v80 = *(v111 + 32);
+  v82 = v113;
+  v80(v110, v46, v113);
+  v83 = type metadata accessor for Date.ComponentsFormatStyle.Field();
+  v84 = *(v83 - 8);
+  v111 = v3;
+  v85 = v84;
+  v86 = *(v84 + 32);
+  v86(&v79[v118], &v119[v46], v83);
+  v86(&v79[v121], (v46 + v122), v83);
+  v87 = *(v78 + 48);
+  v88 = *(v78 + 64);
+  v89 = v112;
+  v80(v112, v79, v82);
+  v90 = *(v85 + 8);
+  v90(&v79[v88], v83);
+  v90(&v79[v87], v83);
+  v91 = v114;
+  SystemFormatStyle.DateOffset.dateRange(for:)(v124, v114);
+  v92 = v116;
   Date.ComponentsFormatStyle.input(after:)();
-  outlined destroy of SystemFormatStyle.DateOffset(v86, type metadata accessor for Range<Date>);
-  v88 = v112;
-  v89 = (v76 - 24);
-  if ((*(v110 + 48))(v87, 1, v112) == 1)
+  outlined destroy of SystemFormatStyle.DateOffset(v91, type metadata accessor for Range<Date>);
+  v93 = v117;
+  v94 = (v81 - 24);
+  if ((*(v115 + 48))(v92, 1, v117) == 1)
   {
-    outlined destroy of SystemFormatStyle.DateOffset(v87, type metadata accessor for Range<Date>?);
-    v90 = static Date.< infix(_:_:)();
-    (*v89)(v84, v77);
-    v91 = type metadata accessor for Date();
-    v92 = *(v91 - 8);
-    v93 = v92;
-    if (v90)
+    outlined destroy of SystemFormatStyle.DateOffset(v92, type metadata accessor for Range<Date>?);
+    v95 = static Date.< infix(_:_:)();
+    (*v94)(v89, v82);
+    v96 = type metadata accessor for Date();
+    v97 = *(v96 - 8);
+    v98 = v97;
+    if (v95)
     {
-      v94 = v118;
-      (*(v92 + 16))();
-      return (*(v93 + 56))(v94, 0, 1, v91);
+      v99 = v123;
+      (*(v97 + 16))();
+      return (*(v98 + 56))(v99, 0, 1, v96);
     }
 
     else
     {
-      return (*(v92 + 56))(v118, 1, 1, v91);
+      return (*(v97 + 56))(v123, 1, 1, v96);
     }
   }
 
   else
   {
-    v95 = v87;
-    v96 = v103;
-    _sSny10Foundation16AttributedStringV5IndexVGWObTm_0(v95, v103, type metadata accessor for Range<Date>);
-    v97 = static Date.== infix(_:_:)();
-    (*v89)(v84, v77);
-    v98 = v96;
-    v99 = v118;
-    if (v97)
+    v100 = v92;
+    v101 = v108;
+    _sSny10Foundation16AttributedStringV5IndexVGWObTm_0(v100, v108, type metadata accessor for Range<Date>);
+    v102 = static Date.== infix(_:_:)();
+    (*v94)(v89, v82);
+    v103 = v101;
+    v104 = v123;
+    if (v102)
     {
-      v98 = v96 + *(v88 + 36);
+      v103 = v101 + *(v93 + 36);
     }
 
-    v100 = type metadata accessor for Date();
-    v101 = *(v100 - 8);
-    (*(v101 + 16))(v99, v98, v100);
-    outlined destroy of SystemFormatStyle.DateOffset(v96, type metadata accessor for Range<Date>);
-    return (*(v101 + 56))(v99, 0, 1, v100);
+    v105 = type metadata accessor for Date();
+    v106 = *(v105 - 8);
+    (*(v106 + 16))(v104, v103, v105);
+    outlined destroy of SystemFormatStyle.DateOffset(v101, type metadata accessor for Range<Date>);
+    return (*(v106 + 56))(v104, 0, 1, v105);
   }
 }
 
-uint64_t SystemFormatStyle.DateOffset.unitsConfigurationAllowsTimeStyle.getter()
+void SystemFormatStyle.DateOffset.unitsConfigurationAllowsTimeStyle.getter()
 {
-  result = type metadata accessor for SystemFormatStyle.DateOffset();
-  v2 = result;
-  v3 = *(v0 + *(result + 32));
-  v4 = *(v0 + *(result + 24));
+  v1 = type metadata accessor for SystemFormatStyle.DateOffset(0);
+  v2 = v1;
+  v3 = *(v0 + v1[8]);
+  v4 = *(v0 + v1[6]);
   v5 = v4;
-  if (v3 >= 3)
-  {
-    v6 = v4 + 2;
-    v7 = __OFADD__(v4, 2);
-    if (__OFADD__(v4, 2))
-    {
-      __break(1u);
-    }
-
-    else
-    {
-      v5 = v6 - v3;
-      if (!__OFSUB__(v6, v3))
-      {
-        if (v5 < 1)
-        {
-          goto LABEL_15;
-        }
-
-        goto LABEL_8;
-      }
-    }
-
-    __break(1u);
-    goto LABEL_23;
-  }
-
-LABEL_8:
-  if (v5 == 2)
-  {
-    v8 = *(v0 + *(result + 20));
-    type metadata accessor for Locale?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Date.ComponentsFormatStyle.Field>, MEMORY[0x1E6969498], MEMORY[0x1E69E6F90]);
-    type metadata accessor for Date.ComponentsFormatStyle.Field();
-    v9 = swift_allocObject();
-    *(v9 + 16) = xmmword_18DDAB4C0;
-    static Date.ComponentsFormatStyle.Field.minute.getter();
-    static Date.ComponentsFormatStyle.Field.second.getter();
-    v10 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10Foundation4DateV21ComponentsFormatStyleV5FieldV_Tt0gq5Tf4g_n(v9);
-    swift_setDeallocating();
-    swift_arrayDestroy();
-    swift_deallocClassInstance();
-    _sSh2eeoiySbShyxG_ABtFZ10Foundation4DateV21ComponentsFormatStyleV5FieldV_Tt1g5(v8, v10);
-    LOBYTE(v8) = v11;
-
-    if (v8)
-    {
-      return 1;
-    }
-  }
-
   if (v3 < 3)
   {
-    goto LABEL_18;
+    goto LABEL_8;
   }
 
   v6 = v4 + 2;
   v7 = __OFADD__(v4, 2);
-LABEL_15:
-  if (v7)
+  if (__OFADD__(v4, 2))
   {
-LABEL_23:
     __break(1u);
-    goto LABEL_24;
+    goto LABEL_21;
   }
 
-  v4 = v6 - v3;
-  if (!__OFSUB__(v6, v3))
+  v5 = v6 - v3;
+  if (__OFSUB__(v6, v3))
   {
-    if (v4 < 1)
-    {
-      return 0;
-    }
-
-LABEL_18:
-    if (v4 == 3)
-    {
-      v12 = *(v0 + v2[5]);
-      type metadata accessor for Locale?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Date.ComponentsFormatStyle.Field>, MEMORY[0x1E6969498], MEMORY[0x1E69E6F90]);
-      type metadata accessor for Date.ComponentsFormatStyle.Field();
-      v13 = swift_allocObject();
-      *(v13 + 16) = xmmword_18DDAF080;
-      static Date.ComponentsFormatStyle.Style.spellOut.getter();
-      static Date.ComponentsFormatStyle.Field.minute.getter();
-      static Date.ComponentsFormatStyle.Field.second.getter();
-      v14 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10Foundation4DateV21ComponentsFormatStyleV5FieldV_Tt0gq5Tf4g_n(v13);
-      swift_setDeallocating();
-      swift_arrayDestroy();
-      swift_deallocClassInstance();
-      _sSh2eeoiySbShyxG_ABtFZ10Foundation4DateV21ComponentsFormatStyleV5FieldV_Tt1g5(v12, v14);
-      LOBYTE(v12) = v15;
-
-      return v12 & 1;
-    }
-
-    return 0;
+LABEL_21:
+    __break(1u);
+    goto LABEL_22;
   }
 
-LABEL_24:
-  __break(1u);
-  return result;
+  if (v5 < 1)
+  {
+    goto LABEL_14;
+  }
+
+LABEL_8:
+  if (v5 != 2 || (v8 = *(v0 + v1[5]), type metadata accessor for Locale?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Date.ComponentsFormatStyle.Field>, MEMORY[0x1E6969498], MEMORY[0x1E69E6F90]), type metadata accessor for Date.ComponentsFormatStyle.Field(), v9 = swift_allocObject(), *(v9 + 16) = xmmword_18DDAB4C0, static Date.ComponentsFormatStyle.Field.minute.getter(), static Date.ComponentsFormatStyle.Field.second.getter(), v10 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10Foundation4DateV21ComponentsFormatStyleV5FieldV_Tt0gq5Tf4g_n(v9), swift_setDeallocating(), swift_arrayDestroy(), swift_deallocClassInstance(), _sSh2eeoiySbShyxG_ABtFZ10Foundation4DateV21ComponentsFormatStyleV5FieldV_Tt1g5(v8, v10), LOBYTE(v8) = v11, , (v8 & 1) == 0))
+  {
+    if (v3 < 3)
+    {
+LABEL_17:
+      if (v4 == 3)
+      {
+        v12 = *(v0 + v2[5]);
+        type metadata accessor for Locale?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Date.ComponentsFormatStyle.Field>, MEMORY[0x1E6969498], MEMORY[0x1E69E6F90]);
+        type metadata accessor for Date.ComponentsFormatStyle.Field();
+        v13 = swift_allocObject();
+        *(v13 + 16) = xmmword_18DDAF080;
+        static Date.ComponentsFormatStyle.Style.spellOut.getter();
+        static Date.ComponentsFormatStyle.Field.minute.getter();
+        static Date.ComponentsFormatStyle.Field.second.getter();
+        v14 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10Foundation4DateV21ComponentsFormatStyleV5FieldV_Tt0gq5Tf4g_n(v13);
+        swift_setDeallocating();
+        swift_arrayDestroy();
+        swift_deallocClassInstance();
+        _sSh2eeoiySbShyxG_ABtFZ10Foundation4DateV21ComponentsFormatStyleV5FieldV_Tt1g5(v12, v14);
+      }
+
+      return;
+    }
+
+    v6 = v4 + 2;
+    v7 = __OFADD__(v4, 2);
+LABEL_14:
+    if (!v7)
+    {
+      v4 = v6 - v3;
+      if (!__OFSUB__(v6, v3))
+      {
+        if (v4 < 1)
+        {
+          return;
+        }
+
+        goto LABEL_17;
+      }
+
+LABEL_23:
+      __break(1u);
+      return;
+    }
+
+LABEL_22:
+    __break(1u);
+    goto LABEL_23;
+  }
 }
 
 uint64_t SystemFormatStyle.DateOffset.fieldsToDisplay(for:)(uint64_t a1)
@@ -3256,8 +9660,9 @@ uint64_t SystemFormatStyle.DateOffset.fieldsToDisplay(for:)(uint64_t a1)
   v3 = type metadata accessor for Date.ComponentsFormatStyle.Field();
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
-  v6 = &v24 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = SystemFormatStyle.DateOffset.applicableFields(for:)(a1);
+  v6 = &v25 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  SystemFormatStyle.DateOffset.applicableFields(for:)(a1);
+  v11 = v10;
   if (v8 == v9 >> 1)
   {
     if (one-time initialization token for orderedFields != -1)
@@ -3267,25 +9672,25 @@ uint64_t SystemFormatStyle.DateOffset.fieldsToDisplay(for:)(uint64_t a1)
 
     while (1)
     {
-      v11 = static Date.ComponentsFormatStyle.Field.orderedFields;
-      v12 = *(static Date.ComponentsFormatStyle.Field.orderedFields + 16);
-      if (!v12)
+      v12 = static Date.ComponentsFormatStyle.Field.orderedFields;
+      v13 = *(static Date.ComponentsFormatStyle.Field.orderedFields + 16);
+      if (!v13)
       {
         break;
       }
 
-      v24 = v10;
-      v13 = v1[*(type metadata accessor for SystemFormatStyle.DateOffset() + 44)];
-      v14 = v11 + ((*(v4 + 80) + 32) & ~*(v4 + 80));
-      v10 = v4 + 8;
-      while (v12 <= *(v11 + 16))
+      v25 = v11;
+      v14 = v1[*(type metadata accessor for SystemFormatStyle.DateOffset(0) + 44)];
+      v15 = v12 + ((*(v4 + 80) + 32) & ~*(v4 + 80));
+      v11 = v4 + 8;
+      while (v13 <= *(v12 + 16))
       {
-        --v12;
-        (*(v4 + 16))(v6, v14 + *(v4 + 72) * v12, v3);
+        --v13;
+        (*(v4 + 16))(v6, v15 + *(v4 + 72) * v13, v3);
         v1 = v6;
-        Date.ComponentsFormatStyle.Field.magnitude.getter(&v25);
+        Date.ComponentsFormatStyle.Field.magnitude.getter(&v26);
         (*(v4 + 8))(v6, v3);
-        if (v25 >= 1.0 / dbl_18DDCF488[v13] || !v12)
+        if (v26 >= 1.0 / dbl_18DDCF488[v14] || !v13)
         {
           goto LABEL_16;
         }
@@ -3298,28 +9703,28 @@ LABEL_20:
 
 LABEL_16:
     result = swift_unknownObjectRelease();
-    if (*(v11 + 16) > v12)
+    if (*(v12 + 16) > v13)
     {
 
-      return v11;
+      return v12;
     }
 
     __break(1u);
     goto LABEL_22;
   }
 
-  v15 = v7;
-  v16 = v8;
-  v17 = v9;
-  v18 = type metadata accessor for SystemFormatStyle.DateOffset();
-  v19 = *&v1[*(v18 + 32)];
-  result = *&v1[*(v18 + 24)];
-  if (v19 < 3)
+  v16 = v7;
+  v17 = v8;
+  v18 = v9;
+  v19 = type metadata accessor for SystemFormatStyle.DateOffset(0);
+  v20 = *&v1[*(v19 + 32)];
+  result = *&v1[*(v19 + 24)];
+  if (v20 < 3)
   {
-    return specialized Collection.prefix(_:)(result, v10, v15, v16, v17);
+    return specialized Collection.prefix(_:)(result, v11, v16, v17, v18);
   }
 
-  v21 = result + 2;
+  v22 = result + 2;
   if (__OFADD__(result, 2))
   {
 LABEL_22:
@@ -3327,21 +9732,21 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  v22 = __OFSUB__(v21, v19);
-  v23 = v21 - v19;
-  if (!v22)
+  v23 = __OFSUB__(v22, v20);
+  v24 = v22 - v20;
+  if (!v23)
   {
-    if (v23 <= 1)
+    if (v24 <= 1)
     {
       result = 1;
     }
 
     else
     {
-      result = v23;
+      result = v24;
     }
 
-    return specialized Collection.prefix(_:)(result, v10, v15, v16, v17);
+    return specialized Collection.prefix(_:)(result, v11, v16, v17, v18);
   }
 
 LABEL_23:
@@ -3376,13 +9781,13 @@ uint64_t specialized getter of fieldsToDisplay #1 in SystemFormatStyle.DateOffse
   return v5;
 }
 
-uint64_t SystemFormatStyle.DateOffset.applicableFields(for:)(uint64_t a1)
+void SystemFormatStyle.DateOffset.applicableFields(for:)(uint64_t a1)
 {
-  v3 = *(v1 + *(type metadata accessor for SystemFormatStyle.DateOffset() + 20));
+  v3 = *(v1 + *(type metadata accessor for SystemFormatStyle.DateOffset(0) + 20));
   v16 = v1;
 
   v4 = specialized _NativeSet.filter(_:)(partial apply for closure #1 in SystemFormatStyle.DateOffset.applicableFields(for:), v15, v3);
-  v5 = *(v4 + 16);
+  v5 = v4[2];
   if (!v5)
   {
     v6 = MEMORY[0x1E69E7CC0];
@@ -3395,8 +9800,9 @@ uint64_t SystemFormatStyle.DateOffset.applicableFields(for:)(uint64_t a1)
   v7 = *(type metadata accessor for Date.ComponentsFormatStyle.Field() - 8);
   specialized Sequence._copySequenceContents(initializing:)(&v17, &v6[(*(v7 + 80) + 32) & ~*(v7 + 80)], v5, v4);
   v9 = v8;
+  v10 = v17;
 
-  outlined consume of Set<EventID>.Iterator._Variant();
+  outlined consume of Set<EventID>.Iterator._Variant(v10);
   if (v9 == v5)
   {
     a1 = v14;
@@ -3404,6690 +9810,56 @@ LABEL_5:
     v17 = v6;
     specialized MutableCollection<>.sort(by:)(&v17);
 
-    v11 = v17;
-    MEMORY[0x1EEE9AC00](v10);
+    v12 = v17;
+    MEMORY[0x1EEE9AC00](v11);
     v13[2] = v1;
     v13[3] = a1;
-    specialized Collection.firstIndex(where:)(partial apply for closure #3 in SystemFormatStyle.DateOffset.applicableFields(for:), v13, v11);
+    specialized Collection.firstIndex(where:)(partial apply for closure #3 in SystemFormatStyle.DateOffset.applicableFields(for:), v13, v12);
     type metadata accessor for Date.ComponentsFormatStyle.Field();
-    return v11;
+    return;
   }
 
   __break(1u);
 
   __break(1u);
-  return result;
 }
 
 BOOL closure #1 in SystemFormatStyle.DateOffset.applicableFields(for:)(uint64_t a1, uint64_t a2)
 {
   Date.ComponentsFormatStyle.Field.magnitude.getter(&v5);
   v3 = v5;
-  return v3 >= 1.0 / dbl_18DDCF488[*(a2 + *(type metadata accessor for SystemFormatStyle.DateOffset() + 44))];
+  return v3 >= 1.0 / dbl_18DDCF488[*(a2 + *(type metadata accessor for SystemFormatStyle.DateOffset(0) + 44))];
 }
 
 uint64_t closure #3 in SystemFormatStyle.DateOffset.applicableFields(for:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v18[1] = a3;
+  v19[1] = a3;
   v4 = type metadata accessor for DateComponents();
-  v19 = *(v4 - 8);
-  v20 = v4;
+  v20 = *(v4 - 8);
+  v21 = v4;
   MEMORY[0x1EEE9AC00](v4);
-  v6 = v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = type metadata accessor for Calendar.Component();
   v8 = *(v7 - 8);
   MEMORY[0x1EEE9AC00](v7);
-  v10 = v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   SystemFormatStyle.DateOffset.component(for:)(a1, v10);
-  v18[0] = *(type metadata accessor for SystemFormatStyle.DateOffset() + 40);
+  v19[0] = *(type metadata accessor for SystemFormatStyle.DateOffset(0) + 40);
   type metadata accessor for Locale?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Calendar.Component>, MEMORY[0x1E6969AD0], MEMORY[0x1E69E6F90]);
   v11 = (*(v8 + 80) + 32) & ~*(v8 + 80);
   v12 = swift_allocObject();
   *(v12 + 16) = xmmword_18DDA6EB0;
-  (*(v8 + 16))(v12 + v11, v10, v7);
-  _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10Foundation8CalendarV9ComponentO_Tt0g5Tf4g_n(v12);
+  v13 = (*(v8 + 16))(v12 + v11, v10, v7);
+  _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10Foundation8CalendarV9ComponentO_Tt0g5Tf4g_n(v12, v13);
   swift_setDeallocating();
-  v13 = *(v8 + 8);
-  v13(v12 + v11, v7);
+  v14 = *(v8 + 8);
+  v14(v12 + v11, v7);
   swift_deallocClassInstance();
   Calendar.dateComponents(_:from:to:)();
 
-  v14 = DateComponents.value(for:)();
-  v16 = v15;
-  (*(v19 + 8))(v6, v20);
-  v13(v10, v7);
-  return (v14 != 0) & ~v16;
-}
-
-uint64_t protocol witness for UpdateFrequencyDependentFormatStyle.updateFrequency(_:) in conformance SystemFormatStyle.DateOffset@<X0>(char *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v6 = *a1;
-  result = outlined init with copy of SystemFormatStyle.DateOffset(v3, a3, type metadata accessor for SystemFormatStyle.DateOffset);
-  *(a3 + *(a2 + 44)) = v6;
-  return result;
-}
-
-uint64_t static SystemFormatStyle.DateOffset.representation<A>(of:for:)@<X0>(char *a1@<X0>, char *a2@<X1>, uint64_t a3@<X2>, int *a4@<X3>, uint64_t *a5@<X8>)
-{
-  v183 = a3;
-  v184 = a4;
-  v188 = a1;
-  v186 = a5;
-  v187 = type metadata accessor for Date();
-  v182 = *(v187 - 8);
-  MEMORY[0x1EEE9AC00](v187);
-  v170 = &v166 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7);
-  v169 = &v166 - v8;
-  MEMORY[0x1EEE9AC00](v9);
-  v11 = &v166 - v10;
-  v174 = type metadata accessor for NumberFormatStyleConfiguration.SignDisplayStrategy();
-  v173 = *(v174 - 8);
-  MEMORY[0x1EEE9AC00](v174);
-  v172 = &v166 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v181 = type metadata accessor for Duration.UnitsFormatStyle.UnitWidth();
-  v180 = *(v181 - 8);
-  MEMORY[0x1EEE9AC00](v181);
-  v178 = &v166 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v179 = &v166 - v15;
-  v16 = type metadata accessor for Calendar();
-  v177 = *(v16 - 8);
-  MEMORY[0x1EEE9AC00](v16);
-  v175 = &v166 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v176 = &v166 - v19;
-  MEMORY[0x1EEE9AC00](v20);
-  v185 = &v166 - v21;
-  v22 = type metadata accessor for Locale();
-  v23 = *(v22 - 8);
-  MEMORY[0x1EEE9AC00](v22);
-  v25 = &v166 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v26);
-  v28 = &v166 - v27;
-  MEMORY[0x1EEE9AC00](v29);
-  v31 = &v166 - v30;
-  v32 = type metadata accessor for SystemFormatStyle.DateOffset();
-  MEMORY[0x1EEE9AC00](v32);
-  v34 = &v166 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
-  LODWORD(a2) = *a2;
-  v35 = lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type SystemFormatStyle.DateOffset and conformance SystemFormatStyle.DateOffset, type metadata accessor for SystemFormatStyle.DateOffset);
-  if (a2 > 1)
-  {
-    v189 = v183;
-    v190 = v32;
-    v191 = v184;
-    v192 = v35;
-    v193 = &protocol witness table for AttributedString;
-    v79 = type metadata accessor for TimeDataFormatting.Resolvable();
-    v80 = v186;
-    v186[3] = v79;
-    v80[4] = &protocol witness table for TimeDataFormatting.Resolvable<A, B>;
-    boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v80);
-    return (*(*(v79 - 8) + 16))(boxed_opaque_existential_1, v188, v79);
-  }
-
-  v171 = v11;
-  v189 = v183;
-  v190 = v32;
-  v191 = v184;
-  v192 = v35;
-  v193 = &protocol witness table for AttributedString;
-  v36 = type metadata accessor for TimeDataFormatting.Resolvable();
-  outlined init with copy of SystemFormatStyle.DateOffset(&v188[*(v36 + 60)], v34, type metadata accessor for SystemFormatStyle.DateOffset);
-  EnvironmentValues.init()(&v189);
-  v184 = v32;
-  v37 = *(v32 + 36);
-  v38 = *(v23 + 16);
-  v188 = v34;
-  v38(v31, &v34[v37], v22);
-  v38(v28, v31, v22);
-  v39 = v189;
-  v168 = v23 + 16;
-  v167 = v38;
-  v38(v25, v28, v22);
-  swift_retain_n();
-  _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluisyyXEfU_AA011EnvironmentcF0VyAA06LocaleF033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt2g5(&v189, v25);
-
-  v40 = *(v23 + 8);
-  v183 = v22;
-  v40(v25, v22);
-  v41 = v190;
-  if (v190)
-  {
-    _s7SwiftUI12PropertyListV7TrackerC15invalidateValue3for4from2toyxm_A2CtAA0C3KeyRzlFAA011EnvironmentcK0VyAA06LocaleK033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Ttg5(v39, v189);
-  }
-
-  v42 = v183;
-  v40(v28, v183);
-  v40(v31, v42);
-  v43 = v185;
-  v44 = v177;
-  v45 = *(v177 + 16);
-  v46 = v188;
-  v45(v185, &v188[v184[10]], v16);
-  v47 = v176;
-  v45(v176, v43, v16);
-  v48 = v189;
-  v49 = v175;
-  v45(v175, v47, v16);
-  swift_retain_n();
-  _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluisyyXEfU_AA011EnvironmentcF0VyAA08CalendarF033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt2g5(&v189, v49);
-  v166 = 0;
-
-  v50 = *(v44 + 8);
-  v50(v49, v16);
-  v51 = v178;
-  if (v41)
-  {
-    _s7SwiftUI12PropertyListV7TrackerC15invalidateValue3for4from2toyxm_A2CtAA0C3KeyRzlFAA011EnvironmentcK0VyAA08CalendarK033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Ttg5(v48, v189);
-  }
-
-  v50(v47, v16);
-  v50(v185, v16);
-  v52 = v184;
-  v53 = v46[v184[13]];
-  v54 = v182;
-  if ((v53 & 1) == 0 && (v46[v184[12]] & 1) == 0)
-  {
-    SystemFormatStyle.DateOffset.unitsConfigurationAllowsTimeStyle.getter();
-    v55 = v181;
-    v56 = v180;
-    v57 = v179;
-    goto LABEL_17;
-  }
-
-  v55 = v181;
-  v56 = v180;
-  v57 = v179;
-  if (v46[v184[11]] > 1u || (v53 & SystemFormatStyle.DateOffset.unitsConfigurationAllowsTimeStyle.getter() & 1) == 0)
-  {
-LABEL_17:
-    v83 = *&v46[v52[8]];
-    if (v83 > 1)
-    {
-      static Duration.UnitsFormatStyle.UnitWidth.narrow.getter();
-    }
-
-    else if (v83 == 1)
-    {
-      if (v46[v52[12]])
-      {
-        static Duration.UnitsFormatStyle.UnitWidth.condensedAbbreviated.getter();
-      }
-
-      else
-      {
-        static Duration.UnitsFormatStyle.UnitWidth.abbreviated.getter();
-      }
-    }
-
-    else
-    {
-      static Duration.UnitsFormatStyle.UnitWidth.wide.getter();
-    }
-
-    static Duration.UnitsFormatStyle.UnitWidth.narrow.getter();
-    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Duration.UnitsFormatStyle.UnitWidth and conformance Duration.UnitsFormatStyle.UnitWidth, MEMORY[0x1E696A1E8]);
-    v84 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v85 = *(v56 + 8);
-    v85(v51, v55);
-    if (v84)
-    {
-      v85(v57, v55);
-      LODWORD(v185) = 0;
-    }
-
-    else
-    {
-      static Duration.UnitsFormatStyle.UnitWidth.abbreviated.getter();
-      v86 = dispatch thunk of static Equatable.== infix(_:_:)();
-      v85(v51, v55);
-      if (v86)
-      {
-        v85(v57, v55);
-        v87 = 1;
-      }
-
-      else
-      {
-        static Duration.UnitsFormatStyle.UnitWidth.condensedAbbreviated.getter();
-        v88 = dispatch thunk of static Equatable.== infix(_:_:)();
-        v85(v51, v55);
-        v85(v57, v55);
-        if (v88)
-        {
-          v87 = 1;
-        }
-
-        else
-        {
-          v87 = 2;
-        }
-      }
-
-      LODWORD(v185) = v87;
-    }
-
-    v89 = *&v46[v52[5]];
-    type metadata accessor for Locale?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Date.ComponentsFormatStyle.Field>, MEMORY[0x1E6969498], MEMORY[0x1E69E6F90]);
-    type metadata accessor for Date.ComponentsFormatStyle.Field();
-    v90 = swift_allocObject();
-    *(v90 + 16) = xmmword_18DDAC2E0;
-    static Date.ComponentsFormatStyle.Style.wide.getter();
-    static Date.ComponentsFormatStyle.Style.narrow.getter();
-    static Date.ComponentsFormatStyle.Style.condensedAbbreviated.getter();
-    static Date.ComponentsFormatStyle.Style.spellOut.getter();
-    static Date.ComponentsFormatStyle.Field.minute.getter();
-    static Date.ComponentsFormatStyle.Field.second.getter();
-    v91 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10Foundation4DateV21ComponentsFormatStyleV5FieldV_Tt0gq5Tf4g_n(v90);
-    swift_setDeallocating();
-    swift_arrayDestroy();
-    swift_deallocClassInstance();
-    _sSh2eeoiySbShyxG_ABtFZ10Foundation4DateV21ComponentsFormatStyleV5FieldV_Tt1g5(v89, v91);
-    v93 = v92;
-
-    v94 = 0;
-    if ((v93 & 1) == 0)
-    {
-
-      v94 = specialized NSCalendarUnit.init(_:)(v95);
-    }
-
-    v96 = v52[7];
-    v97 = v172;
-    static NumberFormatStyleConfiguration.SignDisplayStrategy.always(includingZero:)();
-    v98 = v188;
-    v99 = MEMORY[0x193ABCC70](&v188[v96], v97);
-    v100 = *(v173 + 8);
-    v101 = v174;
-    v100(v97, v174);
-    if (v99 & 1) != 0 || (static NumberFormatStyleConfiguration.SignDisplayStrategy.always(includingZero:)(), v102 = MEMORY[0x193ABCC70](&v98[v96], v97), v100(v97, v101), (v102))
-    {
-      if (one-time initialization token for offset != -1)
-      {
-        swift_once();
-      }
-
-      v103 = &static Text.DateStyle.offset;
-    }
-
-    else
-    {
-      if (one-time initialization token for relative != -1)
-      {
-        swift_once();
-      }
-
-      v103 = &static Text.DateStyle.relative;
-    }
-
-    v105 = v186;
-    v104 = v187;
-    v106 = v103[16];
-    v107 = *(v103 + 1);
-    LODWORD(v186) = *v103;
-    if (v93)
-    {
-      v108 = v107;
-    }
-
-    else
-    {
-      v108 = v94;
-    }
-
-    if (v93)
-    {
-      v109 = v106;
-    }
-
-    else
-    {
-      v109 = v185;
-    }
-
-    v110 = *(v54 + 16);
-    v111 = v171;
-    v110(v171, v188, v187);
-    v113 = v189;
-    v112 = v190;
-    v114 = type metadata accessor for ResolvableAbsoluteDate();
-    v105[3] = v114;
-    v105[4] = &protocol witness table for ResolvableAbsoluteDate;
-    v115 = __swift_allocate_boxed_opaque_existential_1(v105);
-    v110(v115, v111, v104);
-    v116 = v115 + v114[5];
-    *v116 = v186;
-    *(v116 + 1) = v108;
-    v116[16] = v109;
-    v117 = v114[6];
-    if (v112)
-    {
-
-      swift_retain_n();
-      _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA08CalendarI033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt1g5(v113, v115 + v117);
-
-      v118 = v114[7];
-
-      _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA06LocaleI033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt1g5(v113, v115 + v118);
-
-      v119 = v114[8];
-
-      _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA08TimeZoneI033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt1g5(v113, v115 + v119);
-
-      (*(v182 + 8))(v171, v187);
-      v120 = v188;
-    }
-
-    else
-    {
-
-      _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluigAEyXEfU_AA011EnvironmentcF0VyAA08CalendarF033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt2g5(v121, v115 + v117);
-      v122 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA06LocaleS033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt0g5(v113);
-      v123 = v187;
-      v120 = v188;
-      v124 = v182;
-      v125 = v171;
-      if (v122)
-      {
-        v126 = *(*v122 + 248);
-        v127 = v122;
-        v128 = v115 + v114[7];
-        v129 = v127 + v126;
-        v130 = v183;
-      }
-
-      else
-      {
-        if (one-time initialization token for defaultValue != -1)
-        {
-          swift_once();
-        }
-
-        v131 = v183;
-        v129 = __swift_project_value_buffer(v183, static LocaleKey.defaultValue);
-        v128 = v115 + v114[7];
-        v130 = v131;
-      }
-
-      v167(v128, v129, v130);
-      _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluigAEyXEfU_AA011EnvironmentcF0VyAA08TimeZoneF033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt2g5(v113, v115 + v114[8]);
-      (*(v124 + 8))(v125, v123);
-    }
-
-    v132 = v120;
-    return outlined destroy of SystemFormatStyle.DateOffset(v132, type metadata accessor for SystemFormatStyle.DateOffset);
-  }
-
-  v58 = *&v46[v52[5]];
-  type metadata accessor for Locale?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Date.ComponentsFormatStyle.Field>, MEMORY[0x1E6969498], MEMORY[0x1E69E6F90]);
-  type metadata accessor for Date.ComponentsFormatStyle.Field();
-  v59 = swift_allocObject();
-  *(v59 + 16) = xmmword_18DDAF080;
-  static Date.ComponentsFormatStyle.Style.spellOut.getter();
-  static Date.ComponentsFormatStyle.Field.minute.getter();
-  static Date.ComponentsFormatStyle.Field.second.getter();
-  v60 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10Foundation4DateV21ComponentsFormatStyleV5FieldV_Tt0gq5Tf4g_n(v59);
-  swift_setDeallocating();
-  swift_arrayDestroy();
-  swift_deallocClassInstance();
-  _sSh2eeoiySbShyxG_ABtFZ10Foundation4DateV21ComponentsFormatStyleV5FieldV_Tt1g5(v58, v60);
-  LOBYTE(v59) = v61;
-
-  v62 = v46;
-  v63 = *(v54 + 16);
-  if (v59)
-  {
-    v64 = v169;
-    v63(v169, v62, v187);
-    v65 = v186;
-    if (one-time initialization token for timer != -1)
-    {
-      swift_once();
-    }
-
-    v66 = static Text.DateStyle.timer;
-    v67 = qword_1EAB1F268;
-    v68 = byte_1EAB1F270;
-    v69 = v189;
-    v70 = v190;
-    v71 = type metadata accessor for ResolvableAbsoluteDate();
-    v65[3] = v71;
-    v65[4] = &protocol witness table for ResolvableAbsoluteDate;
-    v72 = __swift_allocate_boxed_opaque_existential_1(v65);
-    v63(v72, v64, v187);
-    v73 = v72 + v71[5];
-    *v73 = v66;
-    *(v73 + 1) = v67;
-    v73[16] = v68;
-    v74 = v71[6];
-    if (v70)
-    {
-      v75 = v64;
-
-      swift_retain_n();
-      _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA08CalendarI033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt1g5(v69, v72 + v74);
-
-      v76 = v71[7];
-
-      _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA06LocaleI033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt1g5(v69, v72 + v76);
-
-      v77 = v71[8];
-
-      _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA08TimeZoneI033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt1g5(v69, v72 + v77);
-
-      (*(v182 + 8))(v75, v187);
-      v78 = v188;
-    }
-
-    else
-    {
-
-      _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluigAEyXEfU_AA011EnvironmentcF0VyAA08CalendarF033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt2g5(v147, v72 + v74);
-      v148 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA06LocaleS033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt0g5(v69);
-      v149 = v187;
-      v150 = v182;
-      if (v148)
-      {
-        v151 = *(*v148 + 248);
-        v152 = v148;
-        v153 = v72 + v71[7];
-        v154 = v152 + v151;
-        v155 = v183;
-      }
-
-      else
-      {
-        if (one-time initialization token for defaultValue != -1)
-        {
-          swift_once();
-        }
-
-        v164 = v183;
-        v154 = __swift_project_value_buffer(v183, static LocaleKey.defaultValue);
-        v153 = v72 + v71[7];
-        v155 = v164;
-      }
-
-      v167(v153, v154, v155);
-      v78 = v188;
-      _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluigAEyXEfU_AA011EnvironmentcF0VyAA08TimeZoneF033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt2g5(v69, v72 + v71[8]);
-      (*(v150 + 8))(v169, v149);
-    }
-
-    v132 = v78;
-  }
-
-  else
-  {
-    v133 = v170;
-    v134 = v187;
-    v63(v170, v62, v187);
-
-    v136 = specialized NSCalendarUnit.init(_:)(v135);
-    v137 = v189;
-    v138 = v190;
-    v139 = type metadata accessor for ResolvableAbsoluteDate();
-    v140 = v186;
-    v186[3] = v139;
-    v140[4] = &protocol witness table for ResolvableAbsoluteDate;
-    v141 = __swift_allocate_boxed_opaque_existential_1(v140);
-    v63(v141, v133, v134);
-    v142 = v141 + v139[5];
-    *v142 = 4;
-    *(v142 + 1) = v136;
-    v142[16] = 2;
-    v143 = v139[6];
-    if (v138)
-    {
-
-      swift_retain_n();
-      _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA08CalendarI033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt1g5(v137, v141 + v143);
-
-      v144 = v139[7];
-
-      _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA06LocaleI033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt1g5(v137, v141 + v144);
-
-      v145 = v139[8];
-
-      _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA08TimeZoneI033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt1g5(v137, v141 + v145);
-
-      (*(v54 + 8))(v170, v134);
-      v146 = v188;
-    }
-
-    else
-    {
-
-      _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluigAEyXEfU_AA011EnvironmentcF0VyAA08CalendarF033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt2g5(v156, v141 + v143);
-      v157 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA06LocaleS033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt0g5(v137);
-      v146 = v188;
-      v158 = v170;
-      if (v157)
-      {
-        v159 = *(*v157 + 248);
-        v160 = v157;
-        v161 = v141 + v139[7];
-        v162 = v160 + v159;
-        v163 = v183;
-      }
-
-      else
-      {
-        v165 = v183;
-        if (one-time initialization token for defaultValue != -1)
-        {
-          swift_once();
-        }
-
-        v162 = __swift_project_value_buffer(v165, static LocaleKey.defaultValue);
-        v161 = v141 + v139[7];
-        v163 = v165;
-      }
-
-      v167(v161, v162, v163);
-      _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluigAEyXEfU_AA011EnvironmentcF0VyAA08TimeZoneF033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt2g5(v137, v141 + v139[8]);
-      (*(v54 + 8))(v158, v134);
-    }
-
-    v132 = v146;
-  }
-
-  return outlined destroy of SystemFormatStyle.DateOffset(v132, type metadata accessor for SystemFormatStyle.DateOffset);
-}
-
-uint64_t one-time initialization function for orderedFields()
-{
-  type metadata accessor for Locale?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Date.ComponentsFormatStyle.Field>, MEMORY[0x1E6969498], MEMORY[0x1E69E6F90]);
-  type metadata accessor for Date.ComponentsFormatStyle.Field();
-  v0 = swift_allocObject();
-  *(v0 + 16) = xmmword_18DDACAA0;
-  static Date.ComponentsFormatStyle.Style.wide.getter();
-  static Date.ComponentsFormatStyle.Style.narrow.getter();
-  static Date.ComponentsFormatStyle.Style.abbreviated.getter();
-  static Date.ComponentsFormatStyle.Style.condensedAbbreviated.getter();
-  static Date.ComponentsFormatStyle.Style.spellOut.getter();
-  static Date.ComponentsFormatStyle.Field.minute.getter();
-  result = static Date.ComponentsFormatStyle.Field.second.getter();
-  static Date.ComponentsFormatStyle.Field.orderedFields = v0;
-  return result;
-}
-
-uint64_t SystemFormatStyle.DateOffset.interfaceIdiom(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v4 = *(a1 + 8);
-  outlined init with copy of SystemFormatStyle.DateOffset(v2, a2, type metadata accessor for SystemFormatStyle.DateOffset);
-  type metadata accessor for InterfaceIdiomBox<ComplicationInterfaceIdiom>(0, &lazy cache variable for type metadata for InterfaceIdiomBox<ComplicationInterfaceIdiom>);
-  v5 = *(v4 + 16);
-  if (v5())
-  {
-    v6 = 1;
-  }
-
-  else
-  {
-    type metadata accessor for InterfaceIdiomBox<ComplicationInterfaceIdiom>(0, &lazy cache variable for type metadata for InterfaceIdiomBox<WatchInterfaceIdiom>);
-    v6 = v5() & 1;
-  }
-
-  result = type metadata accessor for SystemFormatStyle.DateOffset();
-  *(a2 + *(result + 48)) = v6;
-  return result;
-}
-
-uint64_t protocol witness for InterfaceIdiomDependentFormatStyle.interfaceIdiom(_:) in conformance SystemFormatStyle.DateOffset@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v6 = *(a1 + 8);
-  outlined init with copy of SystemFormatStyle.DateOffset(v3, a3, type metadata accessor for SystemFormatStyle.DateOffset);
-  type metadata accessor for InterfaceIdiomBox<ComplicationInterfaceIdiom>(0, &lazy cache variable for type metadata for InterfaceIdiomBox<ComplicationInterfaceIdiom>);
-  v7 = *(v6 + 16);
-  result = v7();
-  v9 = 1;
-  if ((result & 1) == 0)
-  {
-    type metadata accessor for InterfaceIdiomBox<ComplicationInterfaceIdiom>(0, &lazy cache variable for type metadata for InterfaceIdiomBox<WatchInterfaceIdiom>);
-    result = v7();
-    if ((result & 1) == 0)
-    {
-      v9 = 0;
-    }
-  }
-
-  *(a3 + *(a2 + 48)) = v9;
-  return result;
-}
-
-uint64_t outlined init with take of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(uint64_t a1, uint64_t a2)
-{
-  type metadata accessor for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8]);
-  (*(*(v4 - 8) + 32))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t outlined destroy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(uint64_t a1)
-{
-  type metadata accessor for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8]);
-  (*(*(v2 - 8) + 8))(a1, v2);
-  return a1;
-}
-
-uint64_t outlined init with copy of (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(uint64_t a1, uint64_t a2)
-{
-  type metadata accessor for (style: Date.ComponentsFormatStyle, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field)(0, &lazy cache variable for type metadata for (style: Duration.UnitsFormatStyle.Attributed, largestField: Date.ComponentsFormatStyle.Field, smallestField: Date.ComponentsFormatStyle.Field), MEMORY[0x1E696A1A8]);
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-void specialized UnsafeMutableBufferPointer._stableSortImpl(by:)(uint64_t *a1)
-{
-  v2 = a1[1];
-  v3 = _minimumMergeRunLength(_:)(v2);
-  if (v3 < v2)
-  {
-    if (v2 >= -1)
-    {
-      v4 = v3;
-      v5 = v2 / 2;
-      if (v2 <= 1)
-      {
-        v6 = MEMORY[0x1E69E7CC0];
-      }
-
-      else
-      {
-        type metadata accessor for Date.ComponentsFormatStyle.Field();
-        v6 = static Array._allocateBufferUninitialized(minimumCapacity:)();
-        *(v6 + 16) = v5;
-      }
-
-      v7 = *(type metadata accessor for Date.ComponentsFormatStyle.Field() - 8);
-      v8[0] = v6 + ((*(v7 + 80) + 32) & ~*(v7 + 80));
-      v8[1] = v5;
-      specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(v8, v9, a1, v4);
-      *(v6 + 16) = 0;
-
-      return;
-    }
-
-    __break(1u);
-LABEL_12:
-    __break(1u);
-    return;
-  }
-
-  if (v2 < 0)
-  {
-    goto LABEL_12;
-  }
-
-  if (v2)
-  {
-    specialized MutableCollection<>._insertionSort(within:sortedEnd:by:)(0, v2, 1, a1);
-  }
-}
-
-void specialized MutableCollection<>._insertionSort(within:sortedEnd:by:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
-{
-  v73 = type metadata accessor for Date.ComponentsFormatStyle.Field();
-  MEMORY[0x1EEE9AC00](v73);
-  v71 = &v61 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
-  v11 = &v61 - v10;
-  MEMORY[0x1EEE9AC00](v12);
-  v14 = &v61 - v13;
-  MEMORY[0x1EEE9AC00](v15);
-  v17 = &v61 - v16;
-  MEMORY[0x1EEE9AC00](v18);
-  v80 = &v61 - v19;
-  v22.n128_f64[0] = MEMORY[0x1EEE9AC00](v20);
-  v77 = &v61 - v23;
-  v63 = a2;
-  if (a3 != a2)
-  {
-    v24 = *a4;
-    v75 = *(v21 + 16);
-    v76 = v21 + 16;
-    v25 = *(v21 + 72);
-    v81 = (v21 + 8);
-    v26 = (v24 + v25 * (a3 - 1));
-    v68 = -v25;
-    v69 = (v21 + 32);
-    v27 = a1 - a3;
-    v70 = v24;
-    v62 = v25;
-    v28 = v24 + v25 * a3;
-    v74 = v17;
-    v72 = v11;
-LABEL_5:
-    v66 = v26;
-    v67 = a3;
-    v64 = v28;
-    v65 = v27;
-    v78 = v26;
-    v79 = v28;
-    v29 = v27;
-    v30 = v73;
-    while (1)
-    {
-      v31 = v77;
-      v32 = v75;
-      (v75)(v77, v79, v30, v22);
-      v32(v80, v78, v30);
-      v32(v17, v31, v30);
-      v33 = v81;
-      static Date.ComponentsFormatStyle.Style.wide.getter();
-      lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date.ComponentsFormatStyle.Field and conformance Date.ComponentsFormatStyle.Field, MEMORY[0x1E6969498]);
-      v34 = dispatch thunk of static Equatable.== infix(_:_:)();
-      v35 = *v33;
-      (*v33)(v14, v30);
-      if (v34)
-      {
-        v35(v17, v30);
-        v36 = 0x417E133800000000;
-      }
-
-      else
-      {
-        static Date.ComponentsFormatStyle.Style.narrow.getter();
-        v37 = dispatch thunk of static Equatable.== infix(_:_:)();
-        v35(v14, v30);
-        if (v37)
-        {
-          v35(v17, v30);
-          v36 = 0x4143C68000000000;
-        }
-
-        else
-        {
-          static Date.ComponentsFormatStyle.Style.abbreviated.getter();
-          v38 = dispatch thunk of static Equatable.== infix(_:_:)();
-          v35(v14, v30);
-          if (v38)
-          {
-            v35(v17, v30);
-            v36 = 0x4122750000000000;
-          }
-
-          else
-          {
-            static Date.ComponentsFormatStyle.Style.condensedAbbreviated.getter();
-            v39 = dispatch thunk of static Equatable.== infix(_:_:)();
-            v35(v14, v30);
-            if (v39)
-            {
-              v35(v17, v30);
-              v36 = 0x40F5180000000000;
-            }
-
-            else
-            {
-              static Date.ComponentsFormatStyle.Style.spellOut.getter();
-              v40 = dispatch thunk of static Equatable.== infix(_:_:)();
-              v35(v14, v30);
-              if (v40)
-              {
-                v35(v17, v30);
-                v36 = 0x40AC200000000000;
-              }
-
-              else
-              {
-                static Date.ComponentsFormatStyle.Field.minute.getter();
-                v41 = dispatch thunk of static Equatable.== infix(_:_:)();
-                v35(v14, v30);
-                if ((v41 & 1) == 0)
-                {
-                  static Date.ComponentsFormatStyle.Field.second.getter();
-                  v51 = dispatch thunk of static Equatable.== infix(_:_:)();
-                  v35(v14, v30);
-                  v35(v17, v73);
-                  v30 = v73;
-                  if (v51)
-                  {
-                    v42 = 1.0;
-                  }
-
-                  else
-                  {
-                    v42 = INFINITY;
-                  }
-
-                  goto LABEL_19;
-                }
-
-                v35(v17, v30);
-                v36 = 0x404E000000000000;
-              }
-            }
-          }
-        }
-      }
-
-      v42 = *&v36;
-LABEL_19:
-      v43 = v72;
-      v75(v72, v80, v30);
-      static Date.ComponentsFormatStyle.Style.wide.getter();
-      v44 = dispatch thunk of static Equatable.== infix(_:_:)();
-      v35(v14, v30);
-      if (v44)
-      {
-        v35(v43, v30);
-        v45 = 31536000.0;
-      }
-
-      else
-      {
-        static Date.ComponentsFormatStyle.Style.narrow.getter();
-        v46 = dispatch thunk of static Equatable.== infix(_:_:)();
-        v35(v14, v30);
-        if (v46)
-        {
-          v35(v43, v30);
-          v45 = 2592000.0;
-        }
-
-        else
-        {
-          static Date.ComponentsFormatStyle.Style.abbreviated.getter();
-          v47 = dispatch thunk of static Equatable.== infix(_:_:)();
-          v35(v14, v30);
-          if (v47)
-          {
-            v35(v43, v30);
-            v45 = 604800.0;
-          }
-
-          else
-          {
-            static Date.ComponentsFormatStyle.Style.condensedAbbreviated.getter();
-            v48 = dispatch thunk of static Equatable.== infix(_:_:)();
-            v35(v14, v30);
-            if (v48)
-            {
-              v35(v43, v30);
-              v45 = 86400.0;
-            }
-
-            else
-            {
-              static Date.ComponentsFormatStyle.Style.spellOut.getter();
-              v49 = dispatch thunk of static Equatable.== infix(_:_:)();
-              v35(v14, v30);
-              if (v49)
-              {
-                v35(v43, v30);
-                v45 = 3600.0;
-              }
-
-              else
-              {
-                static Date.ComponentsFormatStyle.Field.minute.getter();
-                v50 = dispatch thunk of static Equatable.== infix(_:_:)();
-                v35(v14, v30);
-                if (v50)
-                {
-                  v35(v43, v30);
-                  v45 = 60.0;
-                }
-
-                else
-                {
-                  static Date.ComponentsFormatStyle.Field.second.getter();
-                  v52 = dispatch thunk of static Equatable.== infix(_:_:)();
-                  v35(v14, v30);
-                  v35(v43, v73);
-                  v30 = v73;
-                  if (v52)
-                  {
-                    v45 = 1.0;
-                  }
-
-                  else
-                  {
-                    v45 = INFINITY;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-
-      v35(v80, v30);
-      v35(v77, v30);
-      v17 = v74;
-      if (v45 >= v42)
-      {
-LABEL_4:
-        a3 = v67 + 1;
-        v26 = &v66[v62];
-        v27 = v65 - 1;
-        v28 = v64 + v62;
-        if (v67 + 1 == v63)
-        {
-          return;
-        }
-
-        goto LABEL_5;
-      }
-
-      if (!v70)
-      {
-        __break(1u);
-        return;
-      }
-
-      v53 = *v69;
-      v54 = v71;
-      v55 = v14;
-      v56 = v29;
-      v57 = v79;
-      v30 = v73;
-      (*v69)(v71, v79, v73);
-      v58 = v78;
-      swift_arrayInitWithTakeFrontToBack();
-      v53(v58, v54, v30);
-      v78 = &v58[v68];
-      v79 = v57 + v68;
-      v59 = v56;
-      v14 = v55;
-      v17 = v74;
-      v60 = __CFADD__(v59, 1);
-      v29 = v59 + 1;
-      if (v60)
-      {
-        goto LABEL_4;
-      }
-    }
-  }
-}
-
-void specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(unint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4)
-{
-  v5 = v4;
-  v162 = a1;
-  v8 = type metadata accessor for Date.ComponentsFormatStyle.Field();
-  MEMORY[0x1EEE9AC00](a3);
-  v164 = &v158 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10);
-  v179 = &v158 - v11;
-  MEMORY[0x1EEE9AC00](v12);
-  MEMORY[0x1EEE9AC00](v13);
-  v15 = &v158 - v14;
-  MEMORY[0x1EEE9AC00](v16);
-  v189 = &v158 - v17;
-  MEMORY[0x1EEE9AC00](v18);
-  v187 = &v158 - v19;
-  MEMORY[0x1EEE9AC00](v20);
-  MEMORY[0x1EEE9AC00](v21);
-  v23 = &v158 - v22;
-  MEMORY[0x1EEE9AC00](v24);
-  v176 = &v158 - v25;
-  MEMORY[0x1EEE9AC00](v26);
-  v174 = &v158 - v27;
-  MEMORY[0x1EEE9AC00](v28);
-  v158 = &v158 - v29;
-  v36.n128_f64[0] = MEMORY[0x1EEE9AC00](v30);
-  v37 = &v158 - v32;
-  v38 = v31[1];
-  v172 = v33;
-  if (v38 < 1)
-  {
-    v40 = MEMORY[0x1E69E7CC0];
-LABEL_161:
-    v37 = *v162;
-    if (!*v162)
-    {
-      goto LABEL_200;
-    }
-
-    v8 = v31;
-    a4 = v40;
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v39 = v172;
-    if (isUniquelyReferenced_nonNull_native)
-    {
-      v153 = a4;
-LABEL_164:
-      v192 = v153;
-      a4 = *(v153 + 2);
-      if (a4 >= 2)
-      {
-        while (*v8)
-        {
-          v154 = *&v153[16 * a4];
-          v155 = v153;
-          v156 = *&v153[16 * a4 + 24];
-          specialized _merge<A>(low:mid:high:buffer:by:)(*v8 + *(v39 + 72) * v154, *v8 + *(v39 + 72) * *&v153[16 * a4 + 16], *v8 + *(v39 + 72) * v156, v37);
-          if (v5)
-          {
-            goto LABEL_172;
-          }
-
-          if (v156 < v154)
-          {
-            goto LABEL_187;
-          }
-
-          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-          {
-            v155 = specialized _ArrayBuffer._consumeAndCreateNew()(v155);
-          }
-
-          if (a4 - 2 >= *(v155 + 2))
-          {
-            goto LABEL_188;
-          }
-
-          v157 = &v155[16 * a4];
-          *v157 = v154;
-          *(v157 + 1) = v156;
-          v192 = v155;
-          specialized Array.remove(at:)(a4 - 1);
-          v153 = v192;
-          a4 = *(v192 + 2);
-          if (a4 <= 1)
-          {
-            goto LABEL_172;
-          }
-        }
-
-        goto LABEL_198;
-      }
-
-LABEL_172:
-
-      return;
-    }
-
-LABEL_194:
-    v153 = specialized _ArrayBuffer._consumeAndCreateNew()(a4);
-    goto LABEL_164;
-  }
-
-  v170 = v23;
-  v39 = 0;
-  v188 = v33 + 16;
-  v181 = (v33 + 8);
-  v182 = (v33 + 32);
-  v40 = MEMORY[0x1E69E7CC0];
-  v173 = v31;
-  v161 = a4;
-  v180 = v34;
-  v183 = v15;
-  v171 = v35;
-  v186 = &v158 - v32;
-LABEL_4:
-  v165 = v40;
-  if (v39 + 1 >= v38)
-  {
-    v51 = v39 + 1;
-    goto LABEL_56;
-  }
-
-  v160 = v5;
-  v175 = v38;
-  v41 = *v31;
-  v42 = v172;
-  v43 = *(v172 + 72);
-  v44 = *(v172 + 16);
-  v185 = (*v31 + v43 * (v39 + 1));
-  v44(v37, v36);
-  v45 = v158;
-  v184 = v44;
-  (v44)(v158, v41 + v43 * v39, v8);
-  Date.ComponentsFormatStyle.Field.magnitude.getter(&v191);
-  v46 = v191;
-  Date.ComponentsFormatStyle.Field.magnitude.getter(&v190);
-  v47 = v190;
-  v48 = *(v42 + 8);
-  v48(v45, v8);
-  v48(v37, v8);
-  v159 = v39;
-  v49 = v39 + 2;
-  v177 = v43;
-  v50 = v41 + v43 * (v39 + 2);
-  v51 = v175;
-  while (v51 != v49)
-  {
-    v52 = v174;
-    v178 = v50;
-    v53 = v184;
-    (v184)(v174);
-    (v53)(v176, v185, v8);
-    v54 = v170;
-    (v53)(v170, v52, v8);
-    static Date.ComponentsFormatStyle.Style.wide.getter();
-    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date.ComponentsFormatStyle.Field and conformance Date.ComponentsFormatStyle.Field, MEMORY[0x1E6969498]);
-    LOBYTE(v52) = dispatch thunk of static Equatable.== infix(_:_:)();
-    v48(v37, v8);
-    if (v52)
-    {
-      v48(v54, v8);
-      *&v55 = 31536000.0;
-LABEL_19:
-      v61 = *&v55;
-      goto LABEL_20;
-    }
-
-    static Date.ComponentsFormatStyle.Style.narrow.getter();
-    v56 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v48(v37, v8);
-    if (v56)
-    {
-      v48(v54, v8);
-      *&v55 = 2592000.0;
-      goto LABEL_19;
-    }
-
-    static Date.ComponentsFormatStyle.Style.abbreviated.getter();
-    v57 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v48(v37, v8);
-    if (v57)
-    {
-      v48(v54, v8);
-      *&v55 = 604800.0;
-      goto LABEL_19;
-    }
-
-    static Date.ComponentsFormatStyle.Style.condensedAbbreviated.getter();
-    v58 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v48(v37, v8);
-    if (v58)
-    {
-      v48(v54, v8);
-      *&v55 = 86400.0;
-      goto LABEL_19;
-    }
-
-    static Date.ComponentsFormatStyle.Style.spellOut.getter();
-    v59 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v48(v37, v8);
-    if (v59)
-    {
-      v48(v54, v8);
-      *&v55 = 3600.0;
-      goto LABEL_19;
-    }
-
-    static Date.ComponentsFormatStyle.Field.minute.getter();
-    v60 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v48(v37, v8);
-    if (v60)
-    {
-      v48(v54, v8);
-      *&v55 = 60.0;
-      goto LABEL_19;
-    }
-
-    static Date.ComponentsFormatStyle.Field.second.getter();
-    v71 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v48(v37, v8);
-    v48(v54, v8);
-    if (v71)
-    {
-      v61 = 1.0;
-    }
-
-    else
-    {
-      v61 = INFINITY;
-    }
-
-LABEL_20:
-    v62 = v171;
-    (v184)(v171, v176, v8);
-    static Date.ComponentsFormatStyle.Style.wide.getter();
-    v63 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v48(v37, v8);
-    if (v63)
-    {
-      v48(v62, v8);
-      *&v64 = 31536000.0;
-    }
-
-    else
-    {
-      static Date.ComponentsFormatStyle.Style.narrow.getter();
-      v65 = dispatch thunk of static Equatable.== infix(_:_:)();
-      v48(v37, v8);
-      if (v65)
-      {
-        v48(v62, v8);
-        *&v64 = 2592000.0;
-      }
-
-      else
-      {
-        static Date.ComponentsFormatStyle.Style.abbreviated.getter();
-        v66 = dispatch thunk of static Equatable.== infix(_:_:)();
-        v48(v37, v8);
-        if (v66)
-        {
-          v48(v62, v8);
-          *&v64 = 604800.0;
-        }
-
-        else
-        {
-          static Date.ComponentsFormatStyle.Style.condensedAbbreviated.getter();
-          v67 = dispatch thunk of static Equatable.== infix(_:_:)();
-          v48(v37, v8);
-          if (v67)
-          {
-            v48(v62, v8);
-            *&v64 = 86400.0;
-          }
-
-          else
-          {
-            static Date.ComponentsFormatStyle.Style.spellOut.getter();
-            v68 = dispatch thunk of static Equatable.== infix(_:_:)();
-            v48(v37, v8);
-            if (v68)
-            {
-              v48(v62, v8);
-              *&v64 = 3600.0;
-            }
-
-            else
-            {
-              static Date.ComponentsFormatStyle.Field.minute.getter();
-              v69 = dispatch thunk of static Equatable.== infix(_:_:)();
-              v48(v37, v8);
-              if ((v69 & 1) == 0)
-              {
-                static Date.ComponentsFormatStyle.Field.second.getter();
-                v72 = dispatch thunk of static Equatable.== infix(_:_:)();
-                v48(v37, v8);
-                v48(v62, v8);
-                if (v72)
-                {
-                  v70 = 1.0;
-                }
-
-                else
-                {
-                  v70 = INFINITY;
-                }
-
-                goto LABEL_33;
-              }
-
-              v48(v62, v8);
-              *&v64 = 60.0;
-            }
-          }
-        }
-      }
-    }
-
-    v70 = *&v64;
-LABEL_33:
-    v48(v176, v8);
-    v48(v174, v8);
-    ++v49;
-    v50 = v178 + v177;
-    v185 += v177;
-    v51 = v175;
-    if (v47 < v46 == v70 >= v61)
-    {
-      v51 = v49 - 1;
-      break;
-    }
-  }
-
-  v5 = v160;
-  v31 = v173;
-  a4 = v161;
-  v73 = v165;
-  v15 = v183;
-  v39 = v159;
-  if (v47 < v46)
-  {
-    if (v51 < v159)
-    {
-      goto LABEL_191;
-    }
-
-    if (v159 < v51)
-    {
-      v74 = v177 * (v51 - 1);
-      v75 = v51 * v177;
-      v175 = v51;
-      v76 = v159 * v177;
-      do
-      {
-        if (v39 != --v51)
-        {
-          v77 = *v31;
-          if (!*v31)
-          {
-            goto LABEL_197;
-          }
-
-          v185 = *v182;
-          (v185)(v164, v77 + v76, v8, v73);
-          if (v76 < v74 || v77 + v76 >= (v77 + v75))
-          {
-            swift_arrayInitWithTakeFrontToBack();
-          }
-
-          else if (v76 != v74)
-          {
-            swift_arrayInitWithTakeBackToFront();
-          }
-
-          (v185)(v77 + v74, v164, v8);
-          v31 = v173;
-          v73 = v165;
-          v15 = v183;
-        }
-
-        ++v39;
-        v74 -= v177;
-        v75 -= v177;
-        v76 += v177;
-      }
-
-      while (v39 < v51);
-      v5 = v160;
-      a4 = v161;
-      v39 = v159;
-      v51 = v175;
-    }
-  }
-
-LABEL_56:
-  v78 = v31[1];
-  if (v51 >= v78)
-  {
-    goto LABEL_65;
-  }
-
-  if (__OFSUB__(v51, v39))
-  {
-    goto LABEL_190;
-  }
-
-  if (v51 - v39 >= a4)
-  {
-LABEL_65:
-    v80 = v51;
-    if (v51 < v39)
-    {
-      goto LABEL_189;
-    }
-
-    goto LABEL_66;
-  }
-
-  if (__OFADD__(v39, a4))
-  {
-    goto LABEL_192;
-  }
-
-  if ((v39 + a4) >= v78)
-  {
-    v79 = v31[1];
-  }
-
-  else
-  {
-    v79 = v39 + a4;
-  }
-
-  if (v79 < v39)
-  {
-LABEL_193:
-    __break(1u);
-    goto LABEL_194;
-  }
-
-  if (v51 == v79)
-  {
-    goto LABEL_65;
-  }
-
-  v160 = v5;
-  v127 = *v31;
-  v128 = *(v172 + 72);
-  v185 = *(v172 + 16);
-  v129 = v127 + v128 * (v51 - 1);
-  v177 = -v128;
-  v159 = v39;
-  v130 = (v39 - v51);
-  v178 = v127;
-  v163 = v128;
-  v131 = v127 + v51 * v128;
-  v166 = v79;
-  while (2)
-  {
-    v175 = v51;
-    v167 = v131;
-    v168 = v130;
-    v132 = v130;
-    v169 = v129;
-    v133 = v129;
-LABEL_120:
-    v184 = v132;
-    v134 = v187;
-    v135 = v185;
-    (v185)(v187, v131, v8, v36);
-    v135(v189, v133, v8);
-    v135(v15, v134, v8);
-    static Date.ComponentsFormatStyle.Style.wide.getter();
-    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date.ComponentsFormatStyle.Field and conformance Date.ComponentsFormatStyle.Field, MEMORY[0x1E6969498]);
-    LOBYTE(v134) = dispatch thunk of static Equatable.== infix(_:_:)();
-    v136 = *v181;
-    (*v181)(v37, v8);
-    if (v134)
-    {
-      v136(v15, v8);
-      *&v137 = 31536000.0;
-      goto LABEL_132;
-    }
-
-    static Date.ComponentsFormatStyle.Style.narrow.getter();
-    v138 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v136(v37, v8);
-    if (v138)
-    {
-      v136(v15, v8);
-      *&v137 = 2592000.0;
-      goto LABEL_132;
-    }
-
-    static Date.ComponentsFormatStyle.Style.abbreviated.getter();
-    v139 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v136(v37, v8);
-    if (v139)
-    {
-      v136(v15, v8);
-      *&v137 = 604800.0;
-      goto LABEL_132;
-    }
-
-    static Date.ComponentsFormatStyle.Style.condensedAbbreviated.getter();
-    v140 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v136(v37, v8);
-    if (v140)
-    {
-      v136(v15, v8);
-      *&v137 = 86400.0;
-      goto LABEL_132;
-    }
-
-    static Date.ComponentsFormatStyle.Style.spellOut.getter();
-    v141 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v136(v37, v8);
-    if (v141)
-    {
-      v136(v15, v8);
-      *&v137 = 3600.0;
-      goto LABEL_132;
-    }
-
-    static Date.ComponentsFormatStyle.Field.minute.getter();
-    v142 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v136(v37, v8);
-    if (v142)
-    {
-      v136(v15, v8);
-      *&v137 = 60.0;
-LABEL_132:
-      v143 = *&v137;
-    }
-
-    else
-    {
-      static Date.ComponentsFormatStyle.Field.second.getter();
-      v151 = dispatch thunk of static Equatable.== infix(_:_:)();
-      v136(v37, v8);
-      v136(v15, v8);
-      if (v151)
-      {
-        v143 = 1.0;
-      }
-
-      else
-      {
-        v143 = INFINITY;
-      }
-    }
-
-    v144 = v180;
-    (v185)(v180, v189, v8);
-    v145 = v186;
-    static Date.ComponentsFormatStyle.Style.wide.getter();
-    a4 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v136(v145, v8);
-    if (a4)
-    {
-      v136(v144, v8);
-      *&v146 = 31536000.0;
-      goto LABEL_145;
-    }
-
-    static Date.ComponentsFormatStyle.Style.narrow.getter();
-    a4 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v136(v145, v8);
-    if (a4)
-    {
-      v136(v144, v8);
-      *&v146 = 2592000.0;
-      goto LABEL_145;
-    }
-
-    static Date.ComponentsFormatStyle.Style.abbreviated.getter();
-    a4 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v136(v145, v8);
-    if (a4)
-    {
-      v136(v144, v8);
-      *&v146 = 604800.0;
-      goto LABEL_145;
-    }
-
-    static Date.ComponentsFormatStyle.Style.condensedAbbreviated.getter();
-    a4 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v136(v145, v8);
-    if (a4)
-    {
-      v136(v144, v8);
-      *&v146 = 86400.0;
-      goto LABEL_145;
-    }
-
-    static Date.ComponentsFormatStyle.Style.spellOut.getter();
-    a4 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v136(v145, v8);
-    if (a4)
-    {
-      v136(v144, v8);
-      *&v146 = 3600.0;
-      goto LABEL_145;
-    }
-
-    static Date.ComponentsFormatStyle.Field.minute.getter();
-    a4 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v136(v145, v8);
-    if (a4)
-    {
-      v136(v144, v8);
-      *&v146 = 60.0;
-LABEL_145:
-      v147 = *&v146;
-    }
-
-    else
-    {
-      static Date.ComponentsFormatStyle.Field.second.getter();
-      a4 = dispatch thunk of static Equatable.== infix(_:_:)();
-      v136(v145, v8);
-      v136(v144, v8);
-      if (a4)
-      {
-        v147 = 1.0;
-      }
-
-      else
-      {
-        v147 = INFINITY;
-      }
-    }
-
-    v136(v189, v8);
-    v136(v187, v8);
-    v15 = v183;
-    if (v147 >= v143)
-    {
-      v37 = v186;
-LABEL_118:
-      v51 = v175 + 1;
-      v129 = v169 + v163;
-      v130 = (v168 - 1);
-      v131 = v167 + v163;
-      v80 = v166;
-      if (v175 + 1 != v166)
-      {
-        continue;
-      }
-
-      v5 = v160;
-      v39 = v159;
-      if (v166 < v159)
-      {
-        goto LABEL_189;
-      }
-
-LABEL_66:
-      if (swift_isUniquelyReferenced_nonNull_native())
-      {
-        v40 = v165;
-      }
-
-      else
-      {
-        v40 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v165 + 2) + 1, 1, v165);
-      }
-
-      v82 = *(v40 + 2);
-      v81 = *(v40 + 3);
-      a4 = v82 + 1;
-      v31 = v173;
-      if (v82 >= v81 >> 1)
-      {
-        v40 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v81 > 1), v82 + 1, 1, v40);
-        v31 = v173;
-      }
-
-      *(v40 + 2) = a4;
-      v83 = &v40[16 * v82];
-      *(v83 + 4) = v39;
-      *(v83 + 5) = v80;
-      v166 = v80;
-      v84 = *v162;
-      if (!*v162)
-      {
-        goto LABEL_199;
-      }
-
-      if (v82)
-      {
-        while (2)
-        {
-          v39 = a4 - 1;
-          if (a4 >= 4)
-          {
-            v89 = &v40[16 * a4 + 32];
-            v90 = *(v89 - 64);
-            v91 = *(v89 - 56);
-            v95 = __OFSUB__(v91, v90);
-            v92 = v91 - v90;
-            if (v95)
-            {
-              goto LABEL_176;
-            }
-
-            v94 = *(v89 - 48);
-            v93 = *(v89 - 40);
-            v95 = __OFSUB__(v93, v94);
-            v87 = v93 - v94;
-            v88 = v95;
-            if (v95)
-            {
-              goto LABEL_177;
-            }
-
-            v96 = &v40[16 * a4];
-            v98 = *v96;
-            v97 = *(v96 + 1);
-            v95 = __OFSUB__(v97, v98);
-            v99 = v97 - v98;
-            if (v95)
-            {
-              goto LABEL_179;
-            }
-
-            v95 = __OFADD__(v87, v99);
-            v100 = v87 + v99;
-            if (v95)
-            {
-              goto LABEL_182;
-            }
-
-            if (v100 >= v92)
-            {
-              v118 = &v40[16 * v39 + 32];
-              v120 = *v118;
-              v119 = *(v118 + 1);
-              v95 = __OFSUB__(v119, v120);
-              v121 = v119 - v120;
-              if (v95)
-              {
-                goto LABEL_186;
-              }
-
-              if (v87 < v121)
-              {
-                v39 = a4 - 2;
-              }
-            }
-
-            else
-            {
-LABEL_85:
-              if (v88)
-              {
-                goto LABEL_178;
-              }
-
-              v101 = &v40[16 * a4];
-              v103 = *v101;
-              v102 = *(v101 + 1);
-              v104 = __OFSUB__(v102, v103);
-              v105 = v102 - v103;
-              v106 = v104;
-              if (v104)
-              {
-                goto LABEL_181;
-              }
-
-              v107 = &v40[16 * v39 + 32];
-              v109 = *v107;
-              v108 = *(v107 + 1);
-              v95 = __OFSUB__(v108, v109);
-              v110 = v108 - v109;
-              if (v95)
-              {
-                goto LABEL_184;
-              }
-
-              if (__OFADD__(v105, v110))
-              {
-                goto LABEL_185;
-              }
-
-              if (v105 + v110 < v87)
-              {
-                goto LABEL_99;
-              }
-
-              if (v87 < v110)
-              {
-                v39 = a4 - 2;
-              }
-            }
-          }
-
-          else
-          {
-            if (a4 == 3)
-            {
-              v85 = *(v40 + 4);
-              v86 = *(v40 + 5);
-              v95 = __OFSUB__(v86, v85);
-              v87 = v86 - v85;
-              v88 = v95;
-              goto LABEL_85;
-            }
-
-            v111 = &v40[16 * a4];
-            v113 = *v111;
-            v112 = *(v111 + 1);
-            v95 = __OFSUB__(v112, v113);
-            v105 = v112 - v113;
-            v106 = v95;
-LABEL_99:
-            if (v106)
-            {
-              goto LABEL_180;
-            }
-
-            v114 = &v40[16 * v39];
-            v116 = *(v114 + 4);
-            v115 = *(v114 + 5);
-            v95 = __OFSUB__(v115, v116);
-            v117 = v115 - v116;
-            if (v95)
-            {
-              goto LABEL_183;
-            }
-
-            if (v117 < v105)
-            {
-              break;
-            }
-          }
-
-          v122 = v39 - 1;
-          if (v39 - 1 >= a4)
-          {
-            __break(1u);
-LABEL_174:
-            __break(1u);
-LABEL_175:
-            __break(1u);
-LABEL_176:
-            __break(1u);
-LABEL_177:
-            __break(1u);
-LABEL_178:
-            __break(1u);
-LABEL_179:
-            __break(1u);
-LABEL_180:
-            __break(1u);
-LABEL_181:
-            __break(1u);
-LABEL_182:
-            __break(1u);
-LABEL_183:
-            __break(1u);
-LABEL_184:
-            __break(1u);
-LABEL_185:
-            __break(1u);
-LABEL_186:
-            __break(1u);
-LABEL_187:
-            __break(1u);
-LABEL_188:
-            __break(1u);
-LABEL_189:
-            __break(1u);
-LABEL_190:
-            __break(1u);
-LABEL_191:
-            __break(1u);
-LABEL_192:
-            __break(1u);
-            goto LABEL_193;
-          }
-
-          if (!*v31)
-          {
-            goto LABEL_196;
-          }
-
-          v123 = v40;
-          a4 = *&v40[16 * v122 + 32];
-          v124 = *&v40[16 * v39 + 40];
-          specialized _merge<A>(low:mid:high:buffer:by:)(*v31 + *(v172 + 72) * a4, *v31 + *(v172 + 72) * *&v40[16 * v39 + 32], *v31 + *(v172 + 72) * v124, v84);
-          if (v5)
-          {
-            goto LABEL_172;
-          }
-
-          if (v124 < a4)
-          {
-            goto LABEL_174;
-          }
-
-          if (swift_isUniquelyReferenced_nonNull_native())
-          {
-            v125 = v123;
-          }
-
-          else
-          {
-            v125 = specialized _ArrayBuffer._consumeAndCreateNew()(v123);
-          }
-
-          v15 = v183;
-          if (v122 >= *(v125 + 2))
-          {
-            goto LABEL_175;
-          }
-
-          v126 = &v125[16 * v122];
-          *(v126 + 4) = a4;
-          *(v126 + 5) = v124;
-          v192 = v125;
-          specialized Array.remove(at:)(v39);
-          v40 = v192;
-          a4 = *(v192 + 2);
-          v31 = v173;
-          if (a4 <= 1)
-          {
-            break;
-          }
-
-          continue;
-        }
-      }
-
-      v38 = v31[1];
-      v39 = v166;
-      a4 = v161;
-      if (v166 >= v38)
-      {
-        goto LABEL_161;
-      }
-
-      goto LABEL_4;
-    }
-
-    break;
-  }
-
-  v37 = v186;
-  v148 = v184;
-  if (v178)
-  {
-    a4 = *v182;
-    v149 = v179;
-    (*v182)(v179, v131, v8);
-    swift_arrayInitWithTakeFrontToBack();
-    (a4)(v133, v149, v8);
-    v133 += v177;
-    v131 += v177;
-    v150 = __CFADD__(v148, 1);
-    v132 = (v148 + 1);
-    if (v150)
-    {
-      goto LABEL_118;
-    }
-
-    goto LABEL_120;
-  }
-
-  __break(1u);
-LABEL_196:
-  __break(1u);
-LABEL_197:
-  __break(1u);
-LABEL_198:
-  __break(1u);
-LABEL_199:
-  __break(1u);
-LABEL_200:
-  __break(1u);
-}
-
-void specialized _merge<A>(low:mid:high:buffer:by:)(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
-{
-  v60 = type metadata accessor for Date.ComponentsFormatStyle.Field();
-  v8 = *(v60 - 8);
-  MEMORY[0x1EEE9AC00](v60);
-  v59 = &v48 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10);
-  v58 = &v48 - v11;
-  v13 = *(v12 + 72);
-  if (!v13)
-  {
-    __break(1u);
-LABEL_60:
-    __break(1u);
-LABEL_61:
-    __break(1u);
-    return;
-  }
-
-  if (a2 - a1 == 0x8000000000000000 && v13 == -1)
-  {
-    goto LABEL_60;
-  }
-
-  v14 = a3 - a2;
-  if (a3 - a2 == 0x8000000000000000 && v13 == -1)
-  {
-    goto LABEL_61;
-  }
-
-  v15 = (a2 - a1) / v13;
-  v65 = a1;
-  v64 = a4;
-  if (v15 >= v14 / v13)
-  {
-    v17 = v14 / v13 * v13;
-    if (a4 < a2 || a2 + v17 <= a4)
-    {
-      swift_arrayInitWithTakeFrontToBack();
-    }
-
-    else if (a4 != a2)
-    {
-      swift_arrayInitWithTakeBackToFront();
-    }
-
-    v31 = a4 + v17;
-    if (v17 >= 1)
-    {
-      v32 = -v13;
-      v52 = a4;
-      v53 = (v8 + 16);
-      v50 = (v8 + 8);
-      v51 = a1;
-      v33 = v31;
-      v54 = -v13;
-      do
-      {
-        v49 = v31;
-        v34 = a2;
-        v35 = a2 + v32;
-        v56 = v34;
-        v57 = v35;
-        while (1)
-        {
-          if (v34 <= a1)
-          {
-            v65 = v34;
-            v63 = v49;
-            goto LABEL_58;
-          }
-
-          v37 = a3;
-          v55 = v31;
-          v38 = a3 + v32;
-          v39 = v33 + v32;
-          v40 = *v53;
-          v41 = v58;
-          v42 = v60;
-          (*v53)(v58, v39, v60);
-          v43 = v35;
-          v44 = v59;
-          (v40)(v59, v43, v42);
-          Date.ComponentsFormatStyle.Field.magnitude.getter(&v63);
-          v45 = *&v63;
-          Date.ComponentsFormatStyle.Field.magnitude.getter(&v62);
-          v46 = v62;
-          v47 = *v50;
-          (*v50)(v44, v42);
-          v47(v41, v42);
-          if (v46 < v45)
-          {
-            break;
-          }
-
-          v31 = v39;
-          a3 = v38;
-          if (v37 < v33 || v38 >= v33)
-          {
-            swift_arrayInitWithTakeFrontToBack();
-            v35 = v57;
-            a1 = v51;
-          }
-
-          else
-          {
-            v35 = v57;
-            a1 = v51;
-            if (v37 != v33)
-            {
-              swift_arrayInitWithTakeBackToFront();
-            }
-          }
-
-          v33 = v39;
-          v36 = v39 > v52;
-          v32 = v54;
-          v34 = v56;
-          if (!v36)
-          {
-            a2 = v56;
-            goto LABEL_57;
-          }
-        }
-
-        a3 = v38;
-        if (v37 < v56 || v38 >= v56)
-        {
-          a2 = v57;
-          swift_arrayInitWithTakeFrontToBack();
-          a1 = v51;
-          v32 = v54;
-          v31 = v55;
-        }
-
-        else
-        {
-          a2 = v57;
-          a1 = v51;
-          v32 = v54;
-          v31 = v55;
-          if (v37 != v56)
-          {
-            swift_arrayInitWithTakeBackToFront();
-          }
-        }
-      }
-
-      while (v33 > v52);
-    }
-
-LABEL_57:
-    v65 = a2;
-    v63 = v31;
-  }
-
-  else
-  {
-    v16 = v15 * v13;
-    if (a4 < a1 || a1 + v16 <= a4)
-    {
-      swift_arrayInitWithTakeFrontToBack();
-    }
-
-    else if (a4 != a1)
-    {
-      swift_arrayInitWithTakeBackToFront();
-    }
-
-    v57 = a4 + v16;
-    v63 = a4 + v16;
-    if (v16 >= 1 && a2 < a3)
-    {
-      v19 = *(v8 + 16);
-      v55 = a3;
-      v56 = v8 + 16;
-      v53 = (v8 + 8);
-      v54 = v19;
-      v20 = v59;
-      do
-      {
-        v21 = a1;
-        v22 = v58;
-        v23 = a2;
-        v24 = v60;
-        v25 = a2;
-        v26 = v54;
-        (v54)(v58, v23, v60);
-        v26(v20, a4, v24);
-        Date.ComponentsFormatStyle.Field.magnitude.getter(&v62);
-        v27 = v62;
-        Date.ComponentsFormatStyle.Field.magnitude.getter(&v61);
-        v28 = v61;
-        v29 = *v53;
-        (*v53)(v20, v24);
-        v29(v22, v24);
-        if (v28 >= v27)
-        {
-          v30 = v21;
-          if (v21 < a4 || v21 >= a4 + v13)
-          {
-            swift_arrayInitWithTakeFrontToBack();
-            a2 = v25;
-          }
-
-          else
-          {
-            a2 = v25;
-            if (v21 != a4)
-            {
-              swift_arrayInitWithTakeBackToFront();
-            }
-          }
-
-          v64 = a4 + v13;
-          a4 += v13;
-        }
-
-        else
-        {
-          a2 = v25 + v13;
-          v30 = v21;
-          if (v21 < v25 || v21 >= a2)
-          {
-            swift_arrayInitWithTakeFrontToBack();
-          }
-
-          else if (v21 != v25)
-          {
-            swift_arrayInitWithTakeBackToFront();
-          }
-        }
-
-        a1 = v30 + v13;
-        v65 = a1;
-      }
-
-      while (a4 < v57 && a2 < v55);
-    }
-  }
-
-LABEL_58:
-  specialized $defer #1 <A>() in _merge<A>(low:mid:high:buffer:by:)(&v65, &v64, &v63);
-}
-
-uint64_t specialized $defer #1 <A>() in _merge<A>(low:mid:high:buffer:by:)(unint64_t *a1, unint64_t *a2, uint64_t *a3)
-{
-  v3 = *a1;
-  v4 = *a2;
-  v5 = *a3;
-  result = type metadata accessor for Date.ComponentsFormatStyle.Field();
-  v7 = *(*(result - 8) + 72);
-  if (!v7)
-  {
-    __break(1u);
-LABEL_17:
-    __break(1u);
-    return result;
-  }
-
-  if (v5 - v4 == 0x8000000000000000 && v7 == -1)
-  {
-    goto LABEL_17;
-  }
-
-  if (v3 < v4 || v3 >= v4 + (v5 - v4) / v7 * v7)
-  {
-
-    return swift_arrayInitWithTakeFrontToBack();
-  }
-
-  else if (v3 != v4)
-  {
-
-    return swift_arrayInitWithTakeBackToFront();
-  }
-
-  return result;
-}
-
-void specialized Set.hash(into:)(uint64_t a1, uint64_t a2)
-{
-  Hasher._finalize()();
-  v3 = 1 << *(a2 + 32);
-  v4 = -1;
-  if (v3 < 64)
-  {
-    v4 = ~(-1 << v3);
-  }
-
-  v5 = v4 & *(a2 + 56);
-  v6 = (v3 + 63) >> 6;
-
-  v7 = 0;
-  v8 = 0;
-  while (v5)
-  {
-LABEL_11:
-    v12 = *(a2 + 48) + ((v8 << 10) | (16 * __clz(__rbit64(v5))));
-    v13 = *v12;
-    v14 = *(v12 + 8);
-    Hasher.init(_seed:)();
-    if (v14 < 0)
-    {
-      static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v9 = v13;
-    }
-
-    else
-    {
-      dispatch thunk of static AttributedStringKey.name.getter();
-    }
-
-    v5 &= v5 - 1;
-    String.hash(into:)();
-
-    v10 = Hasher._finalize()();
-    outlined consume of AttributedString.AnyAttribute(v13, v14);
-    v7 ^= v10;
-  }
-
-  while (1)
-  {
-    v11 = v8 + 1;
-    if (__OFADD__(v8, 1))
-    {
-      break;
-    }
-
-    if (v11 >= v6)
-    {
-
-      MEMORY[0x193AC11A0](v7);
-      return;
-    }
-
-    v5 = *(a2 + 56 + 8 * v11);
-    ++v8;
-    if (v5)
-    {
-      v8 = v11;
-      goto LABEL_11;
-    }
-  }
-
-  __break(1u);
-}
-
-uint64_t specialized Set.hash(into:)(__int128 *a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Date.ComponentsFormatStyle.Field();
-  v5 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = v22 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = a1[3];
-  v25 = a1[2];
-  v26 = v8;
-  v27 = *(a1 + 8);
-  v10 = *a1;
-  v9 = a1[1];
-  v22[0] = a1;
-  v23 = v10;
-  v24 = v9;
-  v11 = Hasher._finalize()();
-  v12 = 1 << *(a2 + 32);
-  v13 = -1;
-  if (v12 < 64)
-  {
-    v13 = ~(-1 << v12);
-  }
-
-  v14 = v13 & *(a2 + 56);
-  v15 = (v12 + 63) >> 6;
-  v22[2] = v5 + 16;
-  v22[3] = v11;
-  v22[1] = v5 + 8;
-
-  v17 = 0;
-  for (i = 0; v14; v17 ^= v21)
-  {
-    v19 = i;
-LABEL_9:
-    v20 = __clz(__rbit64(v14));
-    v14 &= v14 - 1;
-    (*(v5 + 16))(v7, *(a2 + 48) + *(v5 + 72) * (v20 | (v19 << 6)), v4);
-    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date.ComponentsFormatStyle.Field and conformance Date.ComponentsFormatStyle.Field, MEMORY[0x1E6969498]);
-    v21 = dispatch thunk of Hashable._rawHashValue(seed:)();
-    result = (*(v5 + 8))(v7, v4);
-  }
-
-  while (1)
-  {
-    v19 = i + 1;
-    if (__OFADD__(i, 1))
-    {
-      break;
-    }
-
-    if (v19 >= v15)
-    {
-
-      return MEMORY[0x193AC11A0](v17);
-    }
-
-    v14 = *(a2 + 56 + 8 * v19);
-    ++i;
-    if (v14)
-    {
-      i = v19;
-      goto LABEL_9;
-    }
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t specialized static SystemFormatStyle.DateOffset.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  if (static Date.== infix(_:_:)() & 1) != 0 && (v4 = type metadata accessor for SystemFormatStyle.DateOffset(), _sSh2eeoiySbShyxG_ABtFZ10Foundation4DateV21ComponentsFormatStyleV5FieldV_Tt1g5(*(a1 + v4[5]), *(a2 + v4[5])), (v5) && *(a1 + v4[6]) == *(a2 + v4[6]) && (MEMORY[0x193ABCC70](a1 + v4[7], a2 + v4[7]) & 1) != 0 && *(a1 + v4[8]) == *(a2 + v4[8]) && (MEMORY[0x193ABDB20](a1 + v4[9], a2 + v4[9]) & 1) != 0 && (MEMORY[0x193ABDC80](a1 + v4[10], a2 + v4[10]) & 1) != 0 && *(a1 + v4[11]) == *(a2 + v4[11]) && *(a1 + v4[12]) == *(a2 + v4[12]))
-  {
-    v6 = *(a1 + v4[13]) ^ *(a2 + v4[13]) ^ 1;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  return v6 & 1;
-}
-
-unint64_t lazy protocol witness table accessor for type SystemFormatStyle.DateOffset.CodingKeys and conformance SystemFormatStyle.DateOffset.CodingKeys()
-{
-  result = lazy protocol witness table cache variable for type SystemFormatStyle.DateOffset.CodingKeys and conformance SystemFormatStyle.DateOffset.CodingKeys;
-  if (!lazy protocol witness table cache variable for type SystemFormatStyle.DateOffset.CodingKeys and conformance SystemFormatStyle.DateOffset.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type SystemFormatStyle.DateOffset.CodingKeys and conformance SystemFormatStyle.DateOffset.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type SystemFormatStyle.DateOffset.CodingKeys and conformance SystemFormatStyle.DateOffset.CodingKeys;
-  if (!lazy protocol witness table cache variable for type SystemFormatStyle.DateOffset.CodingKeys and conformance SystemFormatStyle.DateOffset.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type SystemFormatStyle.DateOffset.CodingKeys and conformance SystemFormatStyle.DateOffset.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type SystemFormatStyle.DateOffset.CodingKeys and conformance SystemFormatStyle.DateOffset.CodingKeys;
-  if (!lazy protocol witness table cache variable for type SystemFormatStyle.DateOffset.CodingKeys and conformance SystemFormatStyle.DateOffset.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type SystemFormatStyle.DateOffset.CodingKeys and conformance SystemFormatStyle.DateOffset.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type SystemFormatStyle.DateOffset.CodingKeys and conformance SystemFormatStyle.DateOffset.CodingKeys;
-  if (!lazy protocol witness table cache variable for type SystemFormatStyle.DateOffset.CodingKeys and conformance SystemFormatStyle.DateOffset.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type SystemFormatStyle.DateOffset.CodingKeys and conformance SystemFormatStyle.DateOffset.CodingKeys);
-  }
-
-  return result;
-}
-
-void type metadata accessor for Set<Date.ComponentsFormatStyle.Field>()
-{
-  if (!lazy cache variable for type metadata for Set<Date.ComponentsFormatStyle.Field>)
-  {
-    type metadata accessor for Date.ComponentsFormatStyle.Field();
-    lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date.ComponentsFormatStyle.Field and conformance Date.ComponentsFormatStyle.Field, MEMORY[0x1E6969498]);
-    v0 = type metadata accessor for Set();
-    if (!v1)
-    {
-      atomic_store(v0, &lazy cache variable for type metadata for Set<Date.ComponentsFormatStyle.Field>);
-    }
-  }
-}
-
-uint64_t lazy protocol witness table accessor for type Date.ComponentsFormatStyle.Field and conformance Date.ComponentsFormatStyle.Field()
-{
-  return lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date.ComponentsFormatStyle.Field and conformance Date.ComponentsFormatStyle.Field, MEMORY[0x1E6969498]);
-}
-
-{
-  return lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type Date.ComponentsFormatStyle.Field and conformance Date.ComponentsFormatStyle.Field, MEMORY[0x1E6969498]);
-}
-
-unint64_t lazy protocol witness table accessor for type TimeDataFormatting.UpdateFrequency and conformance TimeDataFormatting.UpdateFrequency()
-{
-  result = lazy protocol witness table cache variable for type TimeDataFormatting.UpdateFrequency and conformance TimeDataFormatting.UpdateFrequency;
-  if (!lazy protocol witness table cache variable for type TimeDataFormatting.UpdateFrequency and conformance TimeDataFormatting.UpdateFrequency)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type TimeDataFormatting.UpdateFrequency and conformance TimeDataFormatting.UpdateFrequency);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type TimeDataFormatting.UpdateFrequency and conformance TimeDataFormatting.UpdateFrequency;
-  if (!lazy protocol witness table cache variable for type TimeDataFormatting.UpdateFrequency and conformance TimeDataFormatting.UpdateFrequency)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type TimeDataFormatting.UpdateFrequency and conformance TimeDataFormatting.UpdateFrequency);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type TimeDataFormatting.UpdateFrequency and conformance TimeDataFormatting.UpdateFrequency;
-  if (!lazy protocol witness table cache variable for type TimeDataFormatting.UpdateFrequency and conformance TimeDataFormatting.UpdateFrequency)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type TimeDataFormatting.UpdateFrequency and conformance TimeDataFormatting.UpdateFrequency);
-  }
-
-  return result;
-}
-
-void type metadata accessor for KeyedEncodingContainer<SystemFormatStyle.DateOffset.CodingKeys>(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t, void *, unint64_t))
-{
-  if (!*a2)
-  {
-    v6 = lazy protocol witness table accessor for type SystemFormatStyle.DateOffset.CodingKeys and conformance SystemFormatStyle.DateOffset.CodingKeys();
-    v7 = a3(a1, &unk_1F00707A0, v6);
-    if (!v8)
-    {
-      atomic_store(v7, a2);
-    }
-  }
-}
-
-uint64_t lazy protocol witness table accessor for type Set<Date.ComponentsFormatStyle.Field> and conformance <> Set<A>(unint64_t *a1, void (*a2)(void))
-{
-  result = *a1;
-  if (!result)
-  {
-    type metadata accessor for Set<Date.ComponentsFormatStyle.Field>();
-    a2();
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-void type metadata accessor for (Date.ComponentsFormatStyle, Date.ComponentsFormatStyle.Field, Date.ComponentsFormatStyle.Field)(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
-{
-  if (!*a2)
-  {
-    a3(255);
-    type metadata accessor for Date.ComponentsFormatStyle.Field();
-    TupleTypeMetadata3 = swift_getTupleTypeMetadata3();
-    if (!v5)
-    {
-      atomic_store(TupleTypeMetadata3, a2);
-    }
-  }
-}
-
-void type metadata accessor for (Duration.TimeFormatStyle.Attributed, Date.ComponentsFormatStyle.Field)()
-{
-  if (!lazy cache variable for type metadata for (Duration.TimeFormatStyle.Attributed, Date.ComponentsFormatStyle.Field))
-  {
-    type metadata accessor for Duration.TimeFormatStyle.Attributed();
-    type metadata accessor for Date.ComponentsFormatStyle.Field();
-    TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
-    {
-      atomic_store(TupleTypeMetadata2, &lazy cache variable for type metadata for (Duration.TimeFormatStyle.Attributed, Date.ComponentsFormatStyle.Field));
-    }
-  }
-}
-
-uint64_t instantiation function for generic protocol witness table for SystemFormatStyle.DateOffset(uint64_t a1)
-{
-  result = lazy protocol witness table accessor for type AttributedString.Index and conformance AttributedString.Index(&lazy protocol witness table cache variable for type SystemFormatStyle.DateOffset and conformance SystemFormatStyle.DateOffset, type metadata accessor for SystemFormatStyle.DateOffset);
-  *(a1 + 8) = result;
-  return result;
-}
-
-{
-  result = lazy protocol witness table accessor for type Date.FormatStyle and conformance Date.FormatStyle(&lazy protocol witness table cache variable for type SystemFormatStyle.DateOffset and conformance SystemFormatStyle.DateOffset, type metadata accessor for SystemFormatStyle.DateOffset);
-  *(a1 + 8) = result;
-  return result;
-}
-
-{
-  result = _s10Foundation4DateV11FormatStyleVAeadAWlTm_0(&lazy protocol witness table cache variable for type SystemFormatStyle.DateOffset and conformance SystemFormatStyle.DateOffset, type metadata accessor for SystemFormatStyle.DateOffset);
-  *(a1 + 8) = result;
-  return result;
-}
-
-char *initializeBufferWithCopyOfBuffer for SystemFormatStyle.DateOffset(char *a1, char *a2, int *a3)
-{
-  v5 = *(*(a3 - 1) + 80);
-  if ((v5 & 0x20000) != 0)
-  {
-    v17 = *a2;
-    *a1 = *a2;
-    a1 = (v17 + ((v5 + 16) & ~v5));
-  }
-
-  else
-  {
-    v7 = type metadata accessor for Date();
-    (*(*(v7 - 8) + 16))(a1, a2, v7);
-    v8 = a3[6];
-    *&a1[a3[5]] = *&a2[a3[5]];
-    *&a1[v8] = *&a2[v8];
-    v9 = a3[7];
-    v10 = type metadata accessor for NumberFormatStyleConfiguration.SignDisplayStrategy();
-    v11 = *(*(v10 - 8) + 16);
-
-    v11(&a1[v9], &a2[v9], v10);
-    v12 = a3[9];
-    *&a1[a3[8]] = *&a2[a3[8]];
-    v13 = type metadata accessor for Locale();
-    (*(*(v13 - 8) + 16))(&a1[v12], &a2[v12], v13);
-    v14 = a3[10];
-    v15 = type metadata accessor for Calendar();
-    (*(*(v15 - 8) + 16))(&a1[v14], &a2[v14], v15);
-    v16 = a3[12];
-    a1[a3[11]] = a2[a3[11]];
-    a1[v16] = a2[v16];
-    a1[a3[13]] = a2[a3[13]];
-  }
-
-  return a1;
-}
-
-uint64_t destroy for SystemFormatStyle.DateOffset(uint64_t a1, int *a2)
-{
-  v4 = type metadata accessor for Date();
-  (*(*(v4 - 8) + 8))(a1, v4);
-
-  v5 = a2[7];
-  v6 = type metadata accessor for NumberFormatStyleConfiguration.SignDisplayStrategy();
-  (*(*(v6 - 8) + 8))(a1 + v5, v6);
-  v7 = a2[9];
-  v8 = type metadata accessor for Locale();
-  (*(*(v8 - 8) + 8))(a1 + v7, v8);
-  v9 = a2[10];
-  v10 = type metadata accessor for Calendar();
-  v11 = *(*(v10 - 8) + 8);
-
-  return v11(a1 + v9, v10);
-}
-
-uint64_t initializeWithCopy for SystemFormatStyle.DateOffset(uint64_t a1, uint64_t a2, int *a3)
-{
-  v6 = type metadata accessor for Date();
-  (*(*(v6 - 8) + 16))(a1, a2, v6);
-  v7 = a3[6];
-  *(a1 + a3[5]) = *(a2 + a3[5]);
-  *(a1 + v7) = *(a2 + v7);
-  v8 = a3[7];
-  v9 = type metadata accessor for NumberFormatStyleConfiguration.SignDisplayStrategy();
-  v10 = *(*(v9 - 8) + 16);
-
-  v10(a1 + v8, a2 + v8, v9);
-  v11 = a3[9];
-  *(a1 + a3[8]) = *(a2 + a3[8]);
-  v12 = type metadata accessor for Locale();
-  (*(*(v12 - 8) + 16))(a1 + v11, a2 + v11, v12);
-  v13 = a3[10];
-  v14 = type metadata accessor for Calendar();
-  (*(*(v14 - 8) + 16))(a1 + v13, a2 + v13, v14);
-  v15 = a3[12];
-  *(a1 + a3[11]) = *(a2 + a3[11]);
-  *(a1 + v15) = *(a2 + v15);
-  *(a1 + a3[13]) = *(a2 + a3[13]);
-  return a1;
-}
-
-uint64_t assignWithCopy for SystemFormatStyle.DateOffset(uint64_t a1, uint64_t a2, int *a3)
-{
-  v6 = type metadata accessor for Date();
-  (*(*(v6 - 8) + 24))(a1, a2, v6);
-  *(a1 + a3[5]) = *(a2 + a3[5]);
-
-  *(a1 + a3[6]) = *(a2 + a3[6]);
-  v7 = a3[7];
-  v8 = type metadata accessor for NumberFormatStyleConfiguration.SignDisplayStrategy();
-  (*(*(v8 - 8) + 24))(a1 + v7, a2 + v7, v8);
-  *(a1 + a3[8]) = *(a2 + a3[8]);
-  v9 = a3[9];
-  v10 = type metadata accessor for Locale();
-  (*(*(v10 - 8) + 24))(a1 + v9, a2 + v9, v10);
-  v11 = a3[10];
-  v12 = type metadata accessor for Calendar();
-  (*(*(v12 - 8) + 24))(a1 + v11, a2 + v11, v12);
-  *(a1 + a3[11]) = *(a2 + a3[11]);
-  *(a1 + a3[12]) = *(a2 + a3[12]);
-  *(a1 + a3[13]) = *(a2 + a3[13]);
-  return a1;
-}
-
-uint64_t initializeWithTake for SystemFormatStyle.DateOffset(uint64_t a1, uint64_t a2, int *a3)
-{
-  v6 = type metadata accessor for Date();
-  (*(*(v6 - 8) + 32))(a1, a2, v6);
-  v7 = a3[6];
-  *(a1 + a3[5]) = *(a2 + a3[5]);
-  *(a1 + v7) = *(a2 + v7);
-  v8 = a3[7];
-  v9 = type metadata accessor for NumberFormatStyleConfiguration.SignDisplayStrategy();
-  (*(*(v9 - 8) + 32))(a1 + v8, a2 + v8, v9);
-  v10 = a3[9];
-  *(a1 + a3[8]) = *(a2 + a3[8]);
-  v11 = type metadata accessor for Locale();
-  (*(*(v11 - 8) + 32))(a1 + v10, a2 + v10, v11);
-  v12 = a3[10];
-  v13 = type metadata accessor for Calendar();
-  (*(*(v13 - 8) + 32))(a1 + v12, a2 + v12, v13);
-  v14 = a3[12];
-  *(a1 + a3[11]) = *(a2 + a3[11]);
-  *(a1 + v14) = *(a2 + v14);
-  *(a1 + a3[13]) = *(a2 + a3[13]);
-  return a1;
-}
-
-uint64_t assignWithTake for SystemFormatStyle.DateOffset(uint64_t a1, uint64_t a2, int *a3)
-{
-  v6 = type metadata accessor for Date();
-  (*(*(v6 - 8) + 40))(a1, a2, v6);
-  *(a1 + a3[5]) = *(a2 + a3[5]);
-
-  v7 = a3[7];
-  *(a1 + a3[6]) = *(a2 + a3[6]);
-  v8 = type metadata accessor for NumberFormatStyleConfiguration.SignDisplayStrategy();
-  (*(*(v8 - 8) + 40))(a1 + v7, a2 + v7, v8);
-  v9 = a3[9];
-  *(a1 + a3[8]) = *(a2 + a3[8]);
-  v10 = type metadata accessor for Locale();
-  (*(*(v10 - 8) + 40))(a1 + v9, a2 + v9, v10);
-  v11 = a3[10];
-  v12 = type metadata accessor for Calendar();
-  (*(*(v12 - 8) + 40))(a1 + v11, a2 + v11, v12);
-  v13 = a3[12];
-  *(a1 + a3[11]) = *(a2 + a3[11]);
-  *(a1 + v13) = *(a2 + v13);
-  *(a1 + a3[13]) = *(a2 + a3[13]);
-  return a1;
-}
-
-uint64_t type metadata completion function for SystemFormatStyle.DateOffset()
-{
-  result = type metadata accessor for Date();
-  if (v1 <= 0x3F)
-  {
-    result = type metadata accessor for NumberFormatStyleConfiguration.SignDisplayStrategy();
-    if (v2 <= 0x3F)
-    {
-      result = type metadata accessor for Locale();
-      if (v3 <= 0x3F)
-      {
-        result = type metadata accessor for Calendar();
-        if (v4 <= 0x3F)
-        {
-          swift_initStructMetadata();
-          return 0;
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t specialized SystemFormatStyle.DateOffset.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
-{
-  v4 = a1 == 0x726F68636E61 && a2 == 0xE600000000000000;
-  if (v4 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 0;
-  }
-
-  else if (a1 == 0x466465776F6C6C61 && a2 == 0xED000073646C6569 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 1;
-  }
-
-  else if (a1 == 0x646C65694678616DLL && a2 == 0xED0000746E756F43 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 2;
-  }
-
-  else if (a1 == 1852270963 && a2 == 0xE400000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 3;
-  }
-
-  else if (a1 == 0x69726156657A6973 && a2 == 0xEB00000000746E61 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 4;
-  }
-
-  else if (a1 == 0x656C61636F6CLL && a2 == 0xE600000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 5;
-  }
-
-  else if (a1 == 0x7261646E656C6163 && a2 == 0xE800000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 6;
-  }
-
-  else if (a1 == 0x7246657461647075 && a2 == 0xEF79636E65757165 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 7;
-  }
-
-  else if (a1 == 0x6964496863746177 && a2 == 0xEA00000000006D6FLL || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 8;
-  }
-
-  else if (a1 == 0xD000000000000012 && 0x800000018DD7ABF0 == a2)
-  {
-
-    return 9;
-  }
-
-  else
-  {
-    v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if (v6)
-    {
-      return 9;
-    }
-
-    else
-    {
-      return 10;
-    }
-  }
-}
-
-uint64_t outlined init with copy of SystemFormatStyle.DateOffset(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
-{
-  v5 = a3(0);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
-  return a2;
-}
-
-uint64_t _sSny10Foundation16AttributedStringV5IndexVGWObTm_0(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
-{
-  v5 = a3(0);
-  (*(*(v5 - 8) + 32))(a2, a1, v5);
-  return a2;
-}
-
-Swift::Int specialized LazyStack<>.sizeThatFits(proposedSize:subviews:context:cache:)(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
-{
-  v12 = HIDWORD(a7);
-  v16 = type metadata accessor for IndexSet();
-  v49 = *(v16 - 8);
-  MEMORY[0x1EEE9AC00](v16);
-  v18 = &v45 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for _LazyStack_Cache<LazyVStackLayout>(0, &lazy cache variable for type metadata for _LazyStack_Cache<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout);
-  v20 = v19;
-  MEMORY[0x1EEE9AC00](v19);
-  v22 = (&v45 - v21);
-  v50 = a4;
-  if (a4)
-  {
-    HasDeadlinePassed = AGGraphHasDeadlinePassed();
-    if (HasDeadlinePassed)
-    {
-      AGGraphCancelUpdate();
-      v24 = 0.0;
-    }
-
-    else
-    {
-      v53 = 0;
-      v54 = 0.0;
-      MEMORY[0x1EEE9AC00](HasDeadlinePassed);
-      *(&v45 - 2) = &v54;
-      *&v52 = 2;
-      _LazyLayout_Subviews.apply(from:style:to:)(&v53, &v52, partial apply for specialized closure #1 in LazyHVStack<>.flexibleMinorSize(subviews:), (&v45 - 4));
-      v24 = v54;
-    }
-
-    v25 = v24;
-  }
-
-  else
-  {
-    v24 = *&a3;
-    v25 = *&a3;
-  }
-
-  v54 = v25;
-  if (v24 <= 0.0)
-  {
-    return _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12HStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e103VyxG0E0RtzrlE12sizeThatFits12proposedSize8subviews7context5cacheSo6CGSizeVAA012ProposedViewJ0V_AA01_C15M53_SubviewsVAA01_cq1_J17AndSpacingContextVAFtFSSyXEfu0_12CoreGraphics7CGFloatVTf1c_n();
-  }
-
-  v47 = a9;
-  v48 = a10;
-  outlined init with copy of _LazyLayout_Subview?(a8, v22, &lazy cache variable for type metadata for _LazyStack_Cache<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout, type metadata accessor for _LazyStack_Cache<LazyVStackLayout>);
-  if (*MEMORY[0x1E698D3F8] != v12)
-  {
-    Value = AGGraphGetValue();
-    v40 = v22[13];
-    if (v40 > 0.0 && *Value > 0.0 && vabdd_f64(v40, *Value) >= 0.01)
-    {
-      v46 = v22 + *(v20 + 60);
-      v41 = v46;
-      v42 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-
-      *v41 = v42;
-      v43 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-
-      v41[1] = v43;
-      v53 = MEMORY[0x1E69E7CC0];
-      v45 = lazy protocol witness table accessor for type [[_LazyLayout_Subview]] and conformance [A](&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, MEMORY[0x1E6969B50]);
-      type metadata accessor for [_LazyLayout_Subview](0, &lazy cache variable for type metadata for [Int], MEMORY[0x1E69E6530], MEMORY[0x1E69E62F8]);
-      lazy protocol witness table accessor for type [_LazyLayout_Subview] and conformance [A](&lazy protocol witness table cache variable for type [Int] and conformance [A], &lazy cache variable for type metadata for [Int], MEMORY[0x1E69E6530]);
-      dispatch thunk of SetAlgebra.init<A>(_:)();
-      v44 = type metadata accessor for EstimationCache();
-      (*(v49 + 40))(&v46[*(v44 + 24)], v18, v16);
-    }
-  }
-
-  v52 = 0.0;
-  v53 = 0;
-  LOBYTE(v51) = a11 & 1;
-  specialized LazyStack<>.measureEstimates(updatingPosition:index:minor:subviews:cache:)(&v52, &v53, 1, a5, v22, v47, v48, a11 & 0xFFFFFFFF00000001, v24, v24);
-  *&v26 = COERCE_DOUBLE(EstimationCache.average.getter());
-  v28 = v27;
-  v29 = *&v26;
-  v31 = v30;
-  v51 = 2;
-  result = _ViewList_Node.estimatedCount(style:)(&v51);
-  v33 = result - v53;
-  if (__OFSUB__(result, v53))
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    if (v31)
-    {
-      v34 = 0.0;
-    }
-
-    else
-    {
-      v34 = v29;
-    }
-
-    v35 = (v28 + v34) * (v33 & ~(v33 >> 63)) + v52;
-    if (v53)
-    {
-      v36 = 1;
-    }
-
-    else
-    {
-      v36 = v33 < 1;
-    }
-
-    v37 = v36;
-    if ((v37 | v31))
-    {
-      v38 = v35;
-    }
-
-    else
-    {
-      v38 = v35 - v29;
-    }
-
-    v52 = v38;
-    _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12HStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e103VyxG0E0RtzrlE12sizeThatFits12proposedSize8subviews7context5cacheSo6CGSizeVAA012ProposedViewJ0V_AA01_C15M53_SubviewsVAA01_cq1_J17AndSpacingContextVAFtFSSyXEfu2_12CoreGraphics7CGFloatVAPTf1c_n();
-    return outlined destroy of _LazyLayout_Subview?(v22, &lazy cache variable for type metadata for _LazyStack_Cache<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout, type metadata accessor for _LazyStack_Cache<LazyVStackLayout>);
-  }
-
-  return result;
-}
-
-Swift::Int specialized LazyStack<>.sizeThatFits(proposedSize:subviews:context:cache:)(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
-{
-  v12 = HIDWORD(a7);
-  v16 = type metadata accessor for IndexSet();
-  v50 = *(v16 - 8);
-  MEMORY[0x1EEE9AC00](v16);
-  v18 = &v46 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for _LazyStack_Cache<LazyVStackLayout>(0, &lazy cache variable for type metadata for _LazyStack_Cache<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout);
-  v20 = v19;
-  MEMORY[0x1EEE9AC00](v19);
-  v22 = (&v46 - v21);
-  v51 = a2;
-  if (a2)
-  {
-    HasDeadlinePassed = AGGraphHasDeadlinePassed();
-    if (HasDeadlinePassed)
-    {
-      AGGraphCancelUpdate();
-      v24 = 0.0;
-    }
-
-    else
-    {
-      v54 = 0;
-      v55 = 0.0;
-      MEMORY[0x1EEE9AC00](HasDeadlinePassed);
-      *(&v46 - 2) = &v55;
-      *&v53 = 2;
-      _LazyLayout_Subviews.apply(from:style:to:)(&v54, &v53, partial apply for specialized closure #1 in LazyHVStack<>.flexibleMinorSize(subviews:), (&v46 - 4));
-      v24 = v55;
-    }
-
-    v25 = v24;
-  }
-
-  else
-  {
-    v24 = *&a1;
-    v25 = *&a1;
-  }
-
-  v55 = v25;
-  if (v24 <= 0.0)
-  {
-    return _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12VStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e103VyxG0E0RtzrlE12sizeThatFits12proposedSize8subviews7context5cacheSo6CGSizeVAA012ProposedViewJ0V_AA01_C15M53_SubviewsVAA01_cq1_J17AndSpacingContextVAFtFSSyXEfu0_12CoreGraphics7CGFloatVTf1c_n();
-  }
-
-  v48 = a9;
-  v49 = a10;
-  outlined init with copy of _LazyLayout_Subview?(a8, v22, &lazy cache variable for type metadata for _LazyStack_Cache<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout, type metadata accessor for _LazyStack_Cache<LazyVStackLayout>);
-  if (*MEMORY[0x1E698D3F8] != v12)
-  {
-    Value = AGGraphGetValue();
-    v40 = v22[13];
-    if (v40 > 0.0)
-    {
-      v41 = *(Value + 8);
-      if (v41 > 0.0 && vabdd_f64(v40, v41) >= 0.01)
-      {
-        v47 = v22 + *(v20 + 60);
-        v42 = v47;
-        v43 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-
-        *v42 = v43;
-        v44 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC12CoreGraphics7CGFloatV_SiTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-
-        v42[1] = v44;
-        v54 = MEMORY[0x1E69E7CC0];
-        v46 = lazy protocol witness table accessor for type [[_LazyLayout_Subview]] and conformance [A](&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, MEMORY[0x1E6969B50]);
-        type metadata accessor for [_LazyLayout_Subview](0, &lazy cache variable for type metadata for [Int], MEMORY[0x1E69E6530], MEMORY[0x1E69E62F8]);
-        lazy protocol witness table accessor for type [_LazyLayout_Subview] and conformance [A](&lazy protocol witness table cache variable for type [Int] and conformance [A], &lazy cache variable for type metadata for [Int], MEMORY[0x1E69E6530]);
-        dispatch thunk of SetAlgebra.init<A>(_:)();
-        v45 = type metadata accessor for EstimationCache();
-        (*(v50 + 40))(&v47[*(v45 + 24)], v18, v16);
-      }
-    }
-  }
-
-  v53 = 0.0;
-  v54 = 0;
-  LOBYTE(v52) = a11 & 1;
-  specialized LazyStack<>.measureEstimates(updatingPosition:index:minor:subviews:cache:)(&v53, &v54, 1, a5, v22, v48, v49, a11 & 0xFFFFFFFF00000001, v24, v24);
-  *&v26 = COERCE_DOUBLE(EstimationCache.average.getter());
-  v28 = v27;
-  v29 = *&v26;
-  v31 = v30;
-  v52 = 2;
-  result = _ViewList_Node.estimatedCount(style:)(&v52);
-  v33 = result - v54;
-  if (__OFSUB__(result, v54))
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    if (v31)
-    {
-      v34 = 0.0;
-    }
-
-    else
-    {
-      v34 = v29;
-    }
-
-    v35 = (v28 + v34) * (v33 & ~(v33 >> 63)) + v53;
-    if (v54)
-    {
-      v36 = 1;
-    }
-
-    else
-    {
-      v36 = v33 < 1;
-    }
-
-    v37 = v36;
-    if ((v37 | v31))
-    {
-      v38 = v35;
-    }
-
-    else
-    {
-      v38 = v35 - v29;
-    }
-
-    v53 = v38;
-    _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12VStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e103VyxG0E0RtzrlE12sizeThatFits12proposedSize8subviews7context5cacheSo6CGSizeVAA012ProposedViewJ0V_AA01_C15M53_SubviewsVAA01_cq1_J17AndSpacingContextVAFtFSSyXEfu2_12CoreGraphics7CGFloatVAPTf1c_n();
-    return outlined destroy of _LazyLayout_Subview?(v22, &lazy cache variable for type metadata for _LazyStack_Cache<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout, type metadata accessor for _LazyStack_Cache<LazyVStackLayout>);
-  }
-
-  return result;
-}
-
-uint64_t LazyStack<>.proposeSizes(at:subviews:context:cache:in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7)
-{
-  v31 = a1;
-  v32 = a5;
-  v30[1] = a2;
-  v11 = type metadata accessor for MinorProperties();
-  v12 = type metadata accessor for Optional();
-  v13 = *(v12 - 8);
-  MEMORY[0x1EEE9AC00](v12);
-  v15 = v30 - v14;
-  v16 = *(v11 - 8);
-  v18 = MEMORY[0x1EEE9AC00](v17);
-  v20 = (v30 - v19);
-  (*(v13 + 16))(v15, a4, v12, v18);
-  if ((*(v16 + 48))(v15, 1, v11) == 1)
-  {
-    return (*(v13 + 8))(v15, v12);
-  }
-
-  (*(v16 + 32))(v20, v15, v11);
-  v22 = *v20;
-  if (*v20 < 1)
-  {
-    return (*(v16 + 8))(v20, v11);
-  }
-
-  v30[0] = v7;
-
-  v36 = MEMORY[0x1E69E7CC0];
-  result = (*(a7 + 32))(a6, a7);
-  v23 = v31 / v22 * v22;
-  if ((v31 / v22 * v22) >> 64 == v23 >> 63)
-  {
-    v24 = result;
-    v25 = Array.init()();
-    v34 = v23;
-    v35 = v25;
-    v33 = 2 * v22;
-    MEMORY[0x1EEE9AC00](v25);
-    v30[-6] = a6;
-    v30[-5] = a7;
-    v30[-4] = &v35;
-    v30[-3] = v20;
-    LOBYTE(v30[-2]) = v24 & 1;
-    v30[-1] = &v36;
-    _LazyLayout_Subviews.apply(from:style:to:)(&v34, &v33, partial apply for closure #1 in LazyStack<>.proposeSizes(at:subviews:context:cache:in:), &v30[-8]);
-    v26 = v35;
-    v33 = v35;
-    type metadata accessor for [_LazyLayout_Subview](0, &lazy cache variable for type metadata for [_LazyLayout_Subview], &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E62F8]);
-    lazy protocol witness table accessor for type [_LazyLayout_Subview] and conformance [A](&lazy protocol witness table cache variable for type [_LazyLayout_Subview] and conformance [A], &lazy cache variable for type metadata for [_LazyLayout_Subview], &type metadata for _LazyLayout_Subview);
-    v27 = Collection.isEmpty.getter();
-    if ((v27 & 1) == 0)
-    {
-      v28 = MEMORY[0x1EEE9AC00](v27);
-      v30[-2] = &v36;
-      (*(a7 + 88))(v26, 0, 1, v20 + v29, partial apply for closure #2 in LazyStack<>.proposeSizes(at:subviews:context:cache:in:), v28);
-    }
-
-    *v32 = v36;
-    return (*(v16 + 8))(v20, v11);
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t protocol witness for LazyLayout.initialPlacement(newIndex:newPlacedSubviews:oldPlacedSubviews:wasInsertedToSubviews:context:subviews:cache:) in conformance LazyHStackLayout(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, int a8, uint64_t a9)
-{
-  *&v10 = &unk_1F0070998;
-  *(&v10 + 1) = partial apply for specialized implicit closure #2 in implicit closure #1 in LazyStack<>.initialPlacement(newIndex:newPlacedSubviews:oldPlacedSubviews:wasInsertedToSubviews:context:subviews:cache:);
-  return protocol witness for LazyLayout.initialPlacement(newIndex:newPlacedSubviews:oldPlacedSubviews:wasInsertedToSubviews:context:subviews:cache:) in conformance LazyHStackLayout(a1, a2, a3, a4, a5, a6, a7, a8, a9, v10, closure #1 in LazyStack<>.placementOfNearbySubview(_:subviews:context:cache:)partial apply, specialized LazyStack<>.initialPlacement(newIndex:newPlacedSubviews:oldPlacedSubviews:wasInsertedToSubviews:context:subviews:cache:));
-}
-
-uint64_t protocol witness for LazyLayout.finalPlacement(oldIndex:oldPlacedSubviews:newPlacedSubviews:wasRemovedFromSubviews:context:subviews:cache:) in conformance LazyHStackLayout(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, int a8, uint64_t a9)
-{
-  *&v10 = &unk_1F0070970;
-  *(&v10 + 1) = partial apply for specialized implicit closure #2 in implicit closure #1 in LazyStack<>.finalPlacement(oldIndex:oldPlacedSubviews:newPlacedSubviews:wasRemovedFromSubviews:context:subviews:cache:);
-  return protocol witness for LazyLayout.initialPlacement(newIndex:newPlacedSubviews:oldPlacedSubviews:wasInsertedToSubviews:context:subviews:cache:) in conformance LazyHStackLayout(a1, a2, a3, a4, a5, a6, a7, a8, a9, v10, closure #1 in LazyStack<>.placementOfNearbySubview(_:subviews:context:cache:)partial apply, specialized LazyStack<>.initialPlacement(newIndex:newPlacedSubviews:oldPlacedSubviews:wasInsertedToSubviews:context:subviews:cache:));
-}
-
-unint64_t specialized LazyStack<>.initialPlacement(newIndex:newPlacedSubviews:oldPlacedSubviews:wasInsertedToSubviews:context:subviews:cache:)@<X0>(unint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, uint64_t a11, uint64_t a12, double (*a13)(uint64_t, double, double, double, double, double, double, double, double), uint64_t a14)
-{
-  v15 = result;
-  if (a4)
-  {
-    if ((result & 0x8000000000000000) != 0)
-    {
-      __break(1u);
-    }
-
-    else if (*(a2 + 16) > result)
-    {
-      v17 = a2 + 80 * result;
-      v18 = *(v17 + 56);
-      *a9 = *(v17 + 40);
-      *(a9 + 16) = v18;
-      v19 = *(v17 + 88);
-      *(a9 + 32) = *(v17 + 72);
-      *(a9 + 48) = v19;
-      return result;
-    }
-
-    __break(1u);
-    goto LABEL_84;
-  }
-
-  v20 = a8;
-  v91 = a6;
-  v92 = a7;
-  v93 = a11;
-  v94 = a10;
-  v22 = *(a5 + 280);
-  v23 = *(a5 + 288);
-  v24 = *(a5 + 296);
-  v25 = *(a5 + 104);
-  v26 = *(a5 + 136);
-  v108 = *(a5 + 120);
-  v109 = v26;
-  v110 = *(a5 + 152);
-  v27 = *(a5 + 72);
-  v105 = *(a5 + 56);
-  v106 = v27;
-  v90 = a5;
-  v107[0] = *(a5 + 88);
-  v107[1] = v25;
-  if (v24)
-  {
-    ScrollGeometry.outsetForAX(limit:)(__PAIR128__(v23, v22));
-    v20 = a8;
-  }
-
-  v29 = v109;
-  v30 = v110;
-  LOBYTE(v105) = v93 & 1;
-  v31 = swift_allocObject();
-  v32 = v94;
-  *(v31 + 16) = v20;
-  *(v31 + 24) = v32;
-  *(v31 + 32) = v105;
-  *(v31 + 36) = HIDWORD(a11);
-  *&result = COERCE_DOUBLE(Array<A>.motionVectors(closestTo:in:avoiding:distance:)(v15, a3, a13, a2, v111, v29.x, v29.y, v30.width, v30.height));
-  if (v112)
-  {
-    *&result = COERCE_DOUBLE();
-    if ((v15 & 0x8000000000000000) != 0)
-    {
-LABEL_84:
-      __break(1u);
-      goto LABEL_85;
-    }
-
-    if (*(a2 + 16) <= v15)
-    {
-LABEL_86:
-      __break(1u);
-      goto LABEL_87;
-    }
-
-    v89 = v20;
-    v33 = a2 + 80 * v15;
-    v34 = *(v33 + 80);
-    v107[0] = *(v33 + 64);
-    v107[1] = v34;
-    v108 = *(v33 + 96);
-    v35 = *(v33 + 48);
-    v105 = *(v33 + 32);
-    v106 = v35;
-    v36 = *(v92 + 96);
-    type metadata accessor for _LazyStack_Cache<LazyVStackLayout>(0, &lazy cache variable for type metadata for _LazyStack_Cache<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout);
-    v38 = *(v92 + *(v37 + 60));
-    if (*(v38 + 16))
-    {
-      outlined init with copy of _LazyLayout_PlacedSubview(&v105, v103);
-      *&result = COERCE_DOUBLE(EstimationCache.average.getter());
-      v40 = *&result;
-      if (v41)
-      {
-        v40 = 0.0;
-      }
-
-      v42 = v39 + v40;
-      if (*(v92 + 24))
-      {
-        goto LABEL_57;
-      }
-    }
-
-    else
-    {
-      *&result = COERCE_DOUBLE(outlined init with copy of _LazyLayout_PlacedSubview(&v105, v103));
-      v42 = 32.0;
-      if (*(v92 + 24))
-      {
-LABEL_57:
-        v66 = *(v33 + 40);
-        v67 = *(v33 + 48);
-        v102[0] = *(v33 + 49);
-        *(v102 + 7) = *(v33 + 56);
-        v68 = *(v33 + 64);
-        v101[0] = *(v33 + 65);
-        *(v101 + 3) = *(v33 + 68);
-        v70 = *(v33 + 72);
-        v69 = *(v33 + 80);
-        v71 = *(v33 + 88);
-        v93 = *(v33 + 96);
-        v94 = v69;
-        v113.origin = v29;
-        v113.size = v30;
-        v72 = 0.0;
-        v73 = 0.0;
-        if (!CGRectIsNull(v113))
-        {
-          v74 = v29.x + v30.width >= v29.x ? v29.x : v29.x + v30.width;
-          v73 = v29.x > v29.x + v30.width ? v29.x : v29.x + v30.width;
-          if (v74 > v73)
-          {
-            v73 = 0.0;
-          }
-        }
-
-        v114.origin = v29;
-        v114.size = v30;
-        IsNull = CGRectIsNull(v114);
-        *&result = COERCE_DOUBLE(outlined destroy of _LazyLayout_PlacedSubview(&v105));
-        if (!IsNull)
-        {
-          v76 = v29.x + v30.width;
-          if (v29.x + v30.width >= v29.x)
-          {
-            x = v29.x;
-          }
-
-          else
-          {
-            x = v29.x + v30.width;
-          }
-
-          if (v29.x > v76)
-          {
-            v76 = v29.x;
-          }
-
-          if (x > v76)
-          {
-            v72 = 0.0;
-          }
-
-          else
-          {
-            v72 = v76 - x;
-          }
-        }
-
-        v78 = v66;
-        if (v67)
-        {
-          v78 = 10.0;
-        }
-
-        v79 = v73 + v72 + v70 * v78;
-        *a9 = v66;
-        v80 = v71 + v78;
-        *(a9 + 8) = v67;
-        *(a9 + 9) = v102[0];
-        if (v79 > v80)
-        {
-          v81 = v79;
-        }
-
-        else
-        {
-          v81 = v80;
-        }
-
-        *(a9 + 16) = *(v102 + 7);
-        *(a9 + 24) = v68;
-        *(a9 + 25) = v101[0];
-        *(a9 + 28) = *(v101 + 3);
-        v82 = v94;
-        *(a9 + 32) = v70;
-        *(a9 + 40) = v82;
-        v83 = v93;
-        *(a9 + 48) = v81;
-        *(a9 + 56) = v83;
-        return result;
-      }
-    }
-
-    if (*(v38 + 16))
-    {
-      v56 = (*&v36 & 0x7FFFFFFFFFFFFFFFuLL) - 1 < 0xFFFFFFFFFFFFFLL;
-      v57 = ((*&v36 & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 < 0x3FF;
-      if (v36 >= 0.0)
-      {
-        v57 = 0;
-        v56 = 0;
-      }
-
-      if ((*&v36 & 0x7FFFFFFFFFFFFFFFLL) == 0)
-      {
-        v56 = 1;
-      }
-
-      if ((*&v36 & 0x7FFFFFFFFFFFFFFFLL) == 0x7FF0000000000000)
-      {
-        v56 = 1;
-      }
-
-      if ((*&v36 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FF0000000000000)
-      {
-        v56 = 1;
-      }
-
-      v58 = (*&v36 & 0xFFFFFFFFFFFFFLL) != 0 && (~*&v36 & 0x7FF0000000000000) == 0;
-      if (!v58 && !v56 && !v57)
-      {
-        v59 = (*&v42 & 0x7FFFFFFFFFFFFFFFuLL) - 1 < 0xFFFFFFFFFFFFFLL;
-        v60 = ((*&v42 & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 < 0x3FF;
-        if (v42 >= 0.0)
-        {
-          v60 = 0;
-          v59 = 0;
-        }
-
-        if ((*&v42 & 0x7FFFFFFFFFFFFFFFLL) == 0)
-        {
-          v59 = 1;
-        }
-
-        if ((*&v42 & 0x7FFFFFFFFFFFFFFFLL) == 0x7FF0000000000000)
-        {
-          v59 = 1;
-        }
-
-        if ((*&v42 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FF0000000000000)
-        {
-          v59 = 1;
-        }
-
-        v61 = (*&v42 & 0xFFFFFFFFFFFFFLL) != 0 && (~*&v42 & 0x7FF0000000000000) == 0;
-        if (!v61 && !v59 && !v60)
-        {
-          v62 = v36 / v42;
-          if ((*&v62 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
-          {
-LABEL_88:
-            __break(1u);
-            goto LABEL_89;
-          }
-
-          if (v62 <= -9.22337204e18)
-          {
-LABEL_89:
-            __break(1u);
-            goto LABEL_90;
-          }
-
-          if (v62 >= 9.22337204e18)
-          {
-LABEL_90:
-            __break(1u);
-            goto LABEL_91;
-          }
-
-          v63 = *(v92 + 56);
-          if (__OFADD__(v63, v62))
-          {
-LABEL_91:
-            __break(1u);
-            return result;
-          }
-
-          v64 = *(v105 + 152);
-          v99 = *(v92 + 56);
-          v100 = v63;
-          v97 = 0;
-          v98 = 1;
-          *&v103[0].f64[0] = 2;
-          v88[2] = &v100;
-          v88[3] = MEMORY[0x1EEE9AC00](result);
-          v88[4] = v64;
-          v88[5] = &v97;
-          v88[6] = v65;
-
-          _LazyLayout_Subviews.apply(from:style:to:)(&v99, v103, a14, v88);
-
-          if ((v98 & 1) == 0)
-          {
-            LOBYTE(v103[0].f64[0]) = v93 & 1;
-            specialized LazyStack<>.boundingRect(at:subviews:context:cache:)(v97, v91, v90, v92, v89, v94, v93 & 0xFFFFFFFF00000001, v103);
-            if ((v104 & 1) == 0)
-            {
-              *&result = COERCE_DOUBLE(outlined destroy of _LazyLayout_PlacedSubview(&v105));
-              v84 = v106;
-              v85 = *(&v106 + 1);
-              v96 = v106;
-              v95 = v107[0];
-              v86 = v107[0];
-              *a9 = *(&v105 + 1);
-              *(a9 + 8) = v84;
-              *(a9 + 16) = v85;
-              *(a9 + 24) = v86;
-              v87 = vaddq_f64(v103[0], vmulq_f64(v103[1], *(v107 + 8)));
-              *(a9 + 32) = *(v107 + 8);
-              *(a9 + 48) = v87;
-              return result;
-            }
-          }
-        }
-      }
-    }
-
-    goto LABEL_57;
-  }
-
-  if ((v15 & 0x8000000000000000) != 0)
-  {
-LABEL_85:
-    __break(1u);
-    goto LABEL_86;
-  }
-
-  if (*(a2 + 16) <= v15)
-  {
-LABEL_87:
-    __break(1u);
-    goto LABEL_88;
-  }
-
-  v43 = v111[2];
-  v44 = v111[3];
-  v45 = a2 + 80 * v15;
-  LODWORD(v97) = *(v45 + 49);
-  *(&v97 + 3) = *(v45 + 52);
-  v103[0] = *(v45 + 65);
-  *(&v103[0].f64[1] + 7) = *(v45 + 80);
-  v46 = v111[0] + *(v45 + 88);
-  v47 = v111[1] + *(v45 + 96);
-  v48 = *(v45 + 80);
-  v107[0] = *(v45 + 64);
-  v107[1] = v48;
-  v108 = *(v45 + 96);
-  v49 = *(v45 + 48);
-  v105 = *(v45 + 32);
-  v106 = v49;
-  _LazyLayout_PlacedSubview.size.getter();
-  v51 = v50;
-  v53 = v52;
-  *&result = COERCE_DOUBLE();
-  v54 = v43 * v51;
-  if (v51 == 0.0)
-  {
-    v54 = 0.0;
-  }
-
-  LOBYTE(v100) = 0;
-  LOBYTE(v99) = 0;
-  *a9 = v54;
-  *(a9 + 8) = 0;
-  if (v53 == 0.0)
-  {
-    v55 = 0.0;
-  }
-
-  else
-  {
-    v55 = v44 * v53;
-  }
-
-  *(a9 + 9) = v97;
-  *(a9 + 12) = *(&v97 + 3);
-  *(a9 + 16) = v55;
-  *(a9 + 24) = 0;
-  *(a9 + 25) = v103[0];
-  *(a9 + 40) = *(&v103[0].f64[1] + 7);
-  *(a9 + 48) = v46;
-  *(a9 + 56) = v47;
-  return result;
-}
-
-unint64_t specialized LazyStack<>.initialPlacement(newIndex:newPlacedSubviews:oldPlacedSubviews:wasInsertedToSubviews:context:subviews:cache:)@<X0>(unint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, unint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
-{
-  v15 = result;
-  if (a4)
-  {
-    if ((result & 0x8000000000000000) != 0)
-    {
-      __break(1u);
-    }
-
-    else if (*(a2 + 16) > result)
-    {
-      v17 = a2 + 80 * result;
-      v18 = *(v17 + 56);
-      *a9 = *(v17 + 40);
-      *(a9 + 16) = v18;
-      v19 = *(v17 + 88);
-      *(a9 + 32) = *(v17 + 72);
-      *(a9 + 48) = v19;
-      return result;
-    }
-
-    __break(1u);
-    goto LABEL_83;
-  }
-
-  v20 = a8;
-  v21 = a7;
-  v22 = a3;
-  v91 = a6;
-  v93 = a13;
-  v23 = a11;
-  v24 = a10;
-  v92 = HIDWORD(a11);
-  v25 = *(a5 + 280);
-  v26 = *(a5 + 288);
-  v27 = *(a5 + 296);
-  v28 = *(a5 + 104);
-  v29 = *(a5 + 136);
-  v107 = *(a5 + 120);
-  v108 = v29;
-  v109 = *(a5 + 152);
-  v30 = *(a5 + 72);
-  v104 = *(a5 + 56);
-  v105 = v30;
-  v90 = a5;
-  v106[0] = *(a5 + 88);
-  v106[1] = v28;
-  if (v27)
-  {
-    v89[9] = a9;
-    ScrollGeometry.outsetForAX(limit:)(__PAIR128__(v26, v25));
-    v22 = a3;
-    v20 = a8;
-    v21 = a7;
-    v24 = a10;
-    v23 = a11;
-  }
-
-  v34 = v108;
-  v35 = v109;
-  LOBYTE(v104) = v23 & 1;
-  v36 = swift_allocObject();
-  *(v36 + 16) = v20;
-  *(v36 + 24) = v24;
-  *(v36 + 32) = v104;
-  v37 = v93;
-  *(v36 + 36) = v92;
-  *&result = COERCE_DOUBLE(Array<A>.motionVectors(closestTo:in:avoiding:distance:)(v15, v22, v37, a2, v110, v34.x, v34.y, v35.width, v35.height));
-  if (v111)
-  {
-    *&result = COERCE_DOUBLE();
-    if ((v15 & 0x8000000000000000) != 0)
-    {
-LABEL_83:
-      __break(1u);
-      goto LABEL_84;
-    }
-
-    if (*(a2 + 16) <= v15)
-    {
-LABEL_85:
-      __break(1u);
-      goto LABEL_86;
-    }
-
-    v92 = v23;
-    v93 = v20;
-    v38 = a2 + 80 * v15;
-    v39 = *(v38 + 80);
-    v106[0] = *(v38 + 64);
-    v106[1] = v39;
-    v107 = *(v38 + 96);
-    v40 = *(v38 + 48);
-    v104 = *(v38 + 32);
-    v105 = v40;
-    v41 = *(v21 + 96);
-    type metadata accessor for _LazyStack_Cache<LazyVStackLayout>(0, &lazy cache variable for type metadata for _LazyStack_Cache<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout);
-    v43 = *(v21 + *(v42 + 60));
-    if (*(v43 + 16))
-    {
-      outlined init with copy of _LazyLayout_PlacedSubview(&v104, v102);
-      *&result = COERCE_DOUBLE(EstimationCache.average.getter());
-      v45 = *&result;
-      if (v46)
-      {
-        v45 = 0.0;
-      }
-
-      v47 = v44 + v45;
-      if (*(v21 + 24))
-      {
-        goto LABEL_57;
-      }
-    }
-
-    else
-    {
-      *&result = COERCE_DOUBLE(outlined init with copy of _LazyLayout_PlacedSubview(&v104, v102));
-      v47 = 32.0;
-      if (*(v21 + 24))
-      {
-LABEL_57:
-        v101 = *(v38 + 40);
-        v71 = *(v38 + 56);
-        v72 = *(v38 + 64);
-        v100[0] = *(v38 + 65);
-        *(v100 + 7) = *(v38 + 72);
-        v73 = *(v38 + 80);
-        v93 = *(v38 + 88);
-        v74 = *(v38 + 96);
-        v112.origin = v34;
-        v112.size = v35;
-        v75 = 0.0;
-        v76 = 0.0;
-        if (!CGRectIsNull(v112))
-        {
-          v77 = v34.y + v35.height >= v34.y ? v34.y : v34.y + v35.height;
-          v76 = v34.y > v34.y + v35.height ? v34.y : v34.y + v35.height;
-          if (v77 > v76)
-          {
-            v76 = 0.0;
-          }
-        }
-
-        v113.origin = v34;
-        v113.size = v35;
-        IsNull = CGRectIsNull(v113);
-        *&result = COERCE_DOUBLE(outlined destroy of _LazyLayout_PlacedSubview(&v104));
-        if (!IsNull)
-        {
-          v79 = v34.y + v35.height;
-          if (v34.y + v35.height >= v34.y)
-          {
-            y = v34.y;
-          }
-
-          else
-          {
-            y = v34.y + v35.height;
-          }
-
-          if (v34.y > v79)
-          {
-            v79 = v34.y;
-          }
-
-          if (y > v79)
-          {
-            v75 = 0.0;
-          }
-
-          else
-          {
-            v75 = v79 - y;
-          }
-        }
-
-        v81 = v71;
-        if (v72)
-        {
-          v81 = 10.0;
-        }
-
-        v82 = v73 * v81 + v76 + v75;
-        v83 = v74 + v81;
-        if (v82 <= v83)
-        {
-          v82 = v83;
-        }
-
-        *a9 = v101;
-        *(a9 + 16) = v71;
-        *(a9 + 24) = v72;
-        *(a9 + 25) = v100[0];
-        *(a9 + 32) = *(v100 + 7);
-        v84 = v93;
-        *(a9 + 40) = v73;
-        *(a9 + 48) = v84;
-        *(a9 + 56) = v82;
-        return result;
-      }
-    }
-
-    if (*(v43 + 16))
-    {
-      v61 = (*&v41 & 0x7FFFFFFFFFFFFFFFuLL) - 1 < 0xFFFFFFFFFFFFFLL;
-      v62 = ((*&v41 & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 < 0x3FF;
-      if (v41 >= 0.0)
-      {
-        v62 = 0;
-        v61 = 0;
-      }
-
-      if ((*&v41 & 0x7FFFFFFFFFFFFFFFLL) == 0)
-      {
-        v61 = 1;
-      }
-
-      if ((*&v41 & 0x7FFFFFFFFFFFFFFFLL) == 0x7FF0000000000000)
-      {
-        v61 = 1;
-      }
-
-      if ((*&v41 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FF0000000000000)
-      {
-        v61 = 1;
-      }
-
-      v63 = (*&v41 & 0xFFFFFFFFFFFFFLL) != 0 && (~*&v41 & 0x7FF0000000000000) == 0;
-      if (!v63 && !v61 && !v62)
-      {
-        v64 = (*&v47 & 0x7FFFFFFFFFFFFFFFuLL) - 1 < 0xFFFFFFFFFFFFFLL;
-        v65 = ((*&v47 & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 < 0x3FF;
-        if (v47 >= 0.0)
-        {
-          v65 = 0;
-          v64 = 0;
-        }
-
-        if ((*&v47 & 0x7FFFFFFFFFFFFFFFLL) == 0)
-        {
-          v64 = 1;
-        }
-
-        if ((*&v47 & 0x7FFFFFFFFFFFFFFFLL) == 0x7FF0000000000000)
-        {
-          v64 = 1;
-        }
-
-        if ((*&v47 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FF0000000000000)
-        {
-          v64 = 1;
-        }
-
-        v66 = (*&v47 & 0xFFFFFFFFFFFFFLL) != 0 && (~*&v47 & 0x7FF0000000000000) == 0;
-        if (!v66 && !v64 && !v65)
-        {
-          v67 = v41 / v47;
-          if ((*&v67 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
-          {
-LABEL_87:
-            __break(1u);
-            goto LABEL_88;
-          }
-
-          if (v67 <= -9.22337204e18)
-          {
-LABEL_88:
-            __break(1u);
-            goto LABEL_89;
-          }
-
-          if (v67 >= 9.22337204e18)
-          {
-LABEL_89:
-            __break(1u);
-            goto LABEL_90;
-          }
-
-          v68 = *(v21 + 56);
-          if (__OFADD__(v68, v67))
-          {
-LABEL_90:
-            __break(1u);
-            return result;
-          }
-
-          v69 = *(v104 + 152);
-          v98 = *(v21 + 56);
-          v99 = v68;
-          v96 = 0;
-          v97 = 1;
-          *&v102[0].f64[0] = 2;
-          v89[2] = &v99;
-          v89[3] = MEMORY[0x1EEE9AC00](result);
-          v89[4] = v69;
-          v89[5] = &v96;
-          v89[6] = v70;
-
-          _LazyLayout_Subviews.apply(from:style:to:)(&v98, v102, a14, v89);
-
-          if ((v97 & 1) == 0)
-          {
-            LOBYTE(v102[0].f64[0]) = v92 & 1;
-            specialized LazyStack<>.boundingRect(at:subviews:context:cache:)(v96, v91, v90, v21, v93, v24, v92 & 0xFFFFFFFF00000001, v102);
-            if ((v103 & 1) == 0)
-            {
-              *&result = COERCE_DOUBLE(outlined destroy of _LazyLayout_PlacedSubview(&v104));
-              v85 = v105;
-              v86 = *(&v105 + 1);
-              v95 = v105;
-              v94 = v106[0];
-              v87 = v106[0];
-              *a9 = *(&v104 + 1);
-              *(a9 + 8) = v85;
-              *(a9 + 16) = v86;
-              *(a9 + 24) = v87;
-              v88 = vaddq_f64(v102[0], vmulq_f64(v102[1], *(v106 + 8)));
-              *(a9 + 32) = *(v106 + 8);
-              *(a9 + 48) = v88;
-              return result;
-            }
-          }
-        }
-      }
-    }
-
-    goto LABEL_57;
-  }
-
-  if ((v15 & 0x8000000000000000) != 0)
-  {
-LABEL_84:
-    __break(1u);
-    goto LABEL_85;
-  }
-
-  if (*(a2 + 16) <= v15)
-  {
-LABEL_86:
-    __break(1u);
-    goto LABEL_87;
-  }
-
-  v48 = v110[2];
-  v49 = v110[3];
-  v50 = a2 + 80 * v15;
-  LODWORD(v96) = *(v50 + 49);
-  *(&v96 + 3) = *(v50 + 52);
-  v102[0] = *(v50 + 65);
-  *(&v102[0].f64[1] + 7) = *(v50 + 80);
-  v51 = v110[0] + *(v50 + 88);
-  v52 = v110[1] + *(v50 + 96);
-  v53 = *(v50 + 80);
-  v106[0] = *(v50 + 64);
-  v106[1] = v53;
-  v107 = *(v50 + 96);
-  v54 = *(v50 + 48);
-  v104 = *(v50 + 32);
-  v105 = v54;
-  _LazyLayout_PlacedSubview.size.getter();
-  v56 = v55;
-  v58 = v57;
-  *&result = COERCE_DOUBLE();
-  v59 = v48 * v56;
-  if (v56 == 0.0)
-  {
-    v59 = 0.0;
-  }
-
-  LOBYTE(v99) = 0;
-  LOBYTE(v98) = 0;
-  *a9 = v59;
-  *(a9 + 8) = 0;
-  if (v58 == 0.0)
-  {
-    v60 = 0.0;
-  }
-
-  else
-  {
-    v60 = v49 * v58;
-  }
-
-  *(a9 + 9) = v96;
-  *(a9 + 12) = *(&v96 + 3);
-  *(a9 + 16) = v60;
-  *(a9 + 24) = 0;
-  *(a9 + 25) = v102[0];
-  *(a9 + 40) = *(&v102[0].f64[1] + 7);
-  *(a9 + 48) = v51;
-  *(a9 + 56) = v52;
-  return result;
-}
-
-uint64_t LazyStack<>.firstIndex<A>(of:subviews:context:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v23 = a7;
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v13 = *(AssociatedTypeWitness - 8);
-  v14 = MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v16 = &v22 - v15;
-  v17 = *(a3 + 32);
-  v18 = *(a3 + 40);
-  if ((*(a6 + 32))(a4, a6, v14))
-  {
-    v19 = v17;
-  }
-
-  else
-  {
-    v19 = v18;
-  }
-
-  v25 = v19;
-  v20 = (*(a6 + 72))(v16, &v25, a4, a6);
-  (*(v13 + 8))(v16, AssociatedTypeWitness);
-  result = 0;
-  if (v20 >= 1 && v25 > 0.0)
-  {
-    v24 = 2 * v20;
-    return _LazyLayout_Subviews.firstIndex<A>(id:style:)(a1, &v24, a5, v23);
-  }
-
-  return result;
-}
-
-double LazyStack.headerAnchor.getter()
-{
-  return 0.5;
-}
-
-{
-  return 0.5;
-}
-
-uint64_t implicit closure #2 in LazyStack<>.sizeThatFits(proposedSize:subviews:context:cache:)()
-{
-  _StringGuts.grow(_:)(24);
-
-  strcpy(v2, "sizeThatFits(");
-  v0 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v0);
-
-  MEMORY[0x193ABEDD0](0x72657A203E2D2029, 0xE90000000000006FLL);
-  return v2[0];
-}
-
-uint64_t _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12HStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e76VyxG0E0RtzrlE12boundingRect2at8subviews7context5cacheSo6CGRectVSgSi_AA01_C15M50_SubviewsVAA01_cM17_PlacementContextVAFtFSSyXEfu0_SiSo0Z0VTf1c_n(uint64_t a1, double a2, double a3, double a4, double a5)
-{
-  type metadata accessor for Logger?();
-  v11 = v10;
-  MEMORY[0x1EEE9AC00](v10);
-  v13 = &v28 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Logger();
-  v15 = *(v14 - 8);
-  MEMORY[0x1EEE9AC00](v14);
-  v17 = &v28 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for lazyStack != -1)
-  {
-    swift_once();
-  }
-
-  v18 = __swift_project_value_buffer(v11, static Log.lazyStack);
-  outlined init with copy of EstimationCache(v18, v13, type metadata accessor for Logger?);
-  if ((*(v15 + 48))(v13, 1, v14) == 1)
-  {
-    return outlined destroy of EstimationCache(v13, type metadata accessor for Logger?);
-  }
-
-  (*(v15 + 32))(v17, v13, v14);
-  v28 = 0.0;
-  v29 = -2.68156159e154;
-  _StringGuts.grow(_:)(25);
-  v32 = v28;
-  v33 = v29;
-  MEMORY[0x193ABEDD0](0xD000000000000011, 0x800000018DD7AD70);
-  v28 = *&a1;
-  v20 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x193ABEDD0](v20);
-
-  MEMORY[0x193ABEDD0](544434464, 0xE400000000000000);
-  v28 = a2;
-  v29 = a3;
-  v30 = a4;
-  v31 = a5;
-  type metadata accessor for CGRect(0);
-  _print_unlocked<A, B>(_:_:)();
-  v22 = *&v32;
-  v21 = *&v33;
-  v23 = Logger.logObject.getter();
-  v24 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v23, v24))
-  {
-    v25 = swift_slowAlloc();
-    *&v26 = COERCE_DOUBLE(swift_slowAlloc());
-    v28 = *&v26;
-    *v25 = 136315394;
-    *(v25 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x800000018DD75AB0, &v28);
-    *(v25 + 12) = 2080;
-    v27 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v21, &v28);
-
-    *(v25 + 14) = v27;
-    _os_log_impl(&dword_18D018000, v23, v24, "%s: %s", v25, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x193AC4820](v26, -1, -1);
-    MEMORY[0x193AC4820](v25, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  return (*(v15 + 8))(v17, v14);
-}
-
-uint64_t _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12HStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e26VyxG0E0RtzrlE6placer33_973ghijk57LL8subviews7context5cacheAA0D9PlacementAJLLVyxGSgAA01_C15M43_SubviewsV_AA01_cp1_O7ContextVAFztFSSyXEfu_SNy12CoreGraphics7CGFloatVGTf1c_n(double a1, double a2)
-{
-  type metadata accessor for Logger?();
-  v5 = v4;
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = &v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for Logger();
-  v9 = *(v8 - 8);
-  MEMORY[0x1EEE9AC00](v8);
-  v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for lazyStack != -1)
-  {
-    swift_once();
-  }
-
-  v12 = __swift_project_value_buffer(v5, static Log.lazyStack);
-  outlined init with copy of EstimationCache(v12, v7, type metadata accessor for Logger?);
-  if ((*(v9 + 48))(v7, 1, v8) == 1)
-  {
-    return outlined destroy of EstimationCache(v7, type metadata accessor for Logger?);
-  }
-
-  (*(v9 + 32))(v11, v7, v8);
-  v25 = 0;
-  v26 = 0xE000000000000000;
-  _StringGuts.grow(_:)(29);
-
-  v25 = 0xD00000000000001BLL;
-  v26 = 0x800000018DD7ADB0;
-  v23 = a2;
-  v24 = a1;
-  v21 = 0;
-  v22 = 0xE000000000000000;
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](3026478, 0xE300000000000000);
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](v21, v22);
-
-  v15 = v25;
-  v14 = v26;
-  v16 = Logger.logObject.getter();
-  v17 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v16, v17))
-  {
-    v18 = swift_slowAlloc();
-    v19 = swift_slowAlloc();
-    v25 = v19;
-    *v18 = 136315394;
-    *(v18 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x800000018DD75AB0, &v25);
-    *(v18 + 12) = 2080;
-    v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v14, &v25);
-
-    *(v18 + 14) = v20;
-    _os_log_impl(&dword_18D018000, v16, v17, "%s: %s", v18, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x193AC4820](v19, -1, -1);
-    MEMORY[0x193AC4820](v18, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  return (*(v9 + 8))(v11, v8);
-}
-
-uint64_t _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12HStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e26VyxG0E0RtzrlE6placer33_973ghijk57LL8subviews7context5cacheAA0D9PlacementAJLLVyxGSgAA01_C15M44_SubviewsV_AA01_cp1_O7ContextVAFztFSSyXEfu0_SNy12CoreGraphics7CGFloatVGTf1c_n(double a1, double a2)
-{
-  type metadata accessor for Logger?();
-  v5 = v4;
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = &v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for Logger();
-  v9 = *(v8 - 8);
-  MEMORY[0x1EEE9AC00](v8);
-  v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for lazyStack != -1)
-  {
-    swift_once();
-  }
-
-  v12 = __swift_project_value_buffer(v5, static Log.lazyStack);
-  outlined init with copy of EstimationCache(v12, v7, type metadata accessor for Logger?);
-  if ((*(v9 + 48))(v7, 1, v8) == 1)
-  {
-    return outlined destroy of EstimationCache(v7, type metadata accessor for Logger?);
-  }
-
-  (*(v9 + 32))(v11, v7, v8);
-  v25 = 0;
-  v26 = 0xE000000000000000;
-  _StringGuts.grow(_:)(16);
-
-  v25 = 0x28646563616C70;
-  v26 = 0xE700000000000000;
-  v23 = a2;
-  v24 = a1;
-  v21 = 0;
-  v22 = 0xE000000000000000;
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](3026478, 0xE300000000000000);
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](v21, v22);
-
-  MEMORY[0x193ABEDD0](0x5D5B203E2D2029, 0xE700000000000000);
-  v15 = v25;
-  v14 = v26;
-  v16 = Logger.logObject.getter();
-  v17 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v16, v17))
-  {
-    v18 = swift_slowAlloc();
-    v19 = swift_slowAlloc();
-    v25 = v19;
-    *v18 = 136315394;
-    *(v18 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x800000018DD75AB0, &v25);
-    *(v18 + 12) = 2080;
-    v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v14, &v25);
-
-    *(v18 + 14) = v20;
-    _os_log_impl(&dword_18D018000, v16, v17, "%s: %s", v18, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x193AC4820](v19, -1, -1);
-    MEMORY[0x193AC4820](v18, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  return (*(v9 + 8))(v11, v8);
-}
-
-uint64_t _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12HStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e45VyxG0E0RtzrlE24resolvedPlacerProperties33_973ghijk73LL8subviews7context5cacheAA0D9PlacementAJLLVyxG_AA0qH0AJLLVyxGtSgAA01_C15m49_SubviewsV_AA01_cr1_Q7ContextVAFztFSSyXEfu0_AA0c6L7R0V_Tg5AEyALGTf1c_n(uint64_t a1)
-{
-  type metadata accessor for _LazyStack_Cache<LazyVStackLayout>(0, &lazy cache variable for type metadata for _LazyStack_Cache<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout);
-  v3 = v2;
-  MEMORY[0x1EEE9AC00](v2);
-  v5 = &v24 - v4;
-  type metadata accessor for Logger?();
-  v7 = v6;
-  MEMORY[0x1EEE9AC00](v6);
-  v9 = &v24 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for Logger();
-  v11 = *(v10 - 8);
-  MEMORY[0x1EEE9AC00](v10);
-  v13 = &v24 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for lazyStack != -1)
-  {
-    swift_once();
-  }
-
-  v14 = __swift_project_value_buffer(v7, static Log.lazyStack);
-  outlined init with copy of EstimationCache(v14, v9, type metadata accessor for Logger?);
-  if ((*(v11 + 48))(v9, 1, v10) == 1)
-  {
-    return outlined destroy of EstimationCache(v9, type metadata accessor for Logger?);
-  }
-
-  (*(v11 + 32))(v13, v9, v10);
-  v24 = 0;
-  v25 = 0xE000000000000000;
-  _StringGuts.grow(_:)(24);
-
-  v24 = 0xD000000000000016;
-  v25 = 0x800000018DD7AD90;
-  outlined init with copy of _LazyLayout_Subview?(a1, v5, &lazy cache variable for type metadata for _LazyStack_Cache<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout, type metadata accessor for _LazyStack_Cache<LazyVStackLayout>);
-  if (*(*&v5[*(v3 + 60)] + 16))
-  {
-    EstimationCache.average.getter();
-  }
-
-  outlined destroy of _LazyLayout_Subview?(v5, &lazy cache variable for type metadata for _LazyStack_Cache<LazyHStackLayout>, lazy protocol witness table accessor for type LazyHStackLayout and conformance LazyHStackLayout, &type metadata for LazyHStackLayout, type metadata accessor for _LazyStack_Cache<LazyVStackLayout>);
-  v16 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v16);
-
-  v18 = v24;
-  v17 = v25;
-  v19 = Logger.logObject.getter();
-  v20 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v19, v20))
-  {
-    v21 = swift_slowAlloc();
-    v22 = swift_slowAlloc();
-    v24 = v22;
-    *v21 = 136315394;
-    *(v21 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x800000018DD75AB0, &v24);
-    *(v21 + 12) = 2080;
-    v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v17, &v24);
-
-    *(v21 + 14) = v23;
-    _os_log_impl(&dword_18D018000, v19, v20, "%s: %s", v21, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x193AC4820](v22, -1, -1);
-    MEMORY[0x193AC4820](v21, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  return (*(v11 + 8))(v13, v10);
-}
-
-uint64_t _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12HStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e103VyxG0E0RtzrlE12sizeThatFits12proposedSize8subviews7context5cacheSo6CGSizeVAA012ProposedViewJ0V_AA01_C15M53_SubviewsVAA01_cq1_J17AndSpacingContextVAFtFSSyXEfu0_12CoreGraphics7CGFloatVTf1c_n()
-{
-  type metadata accessor for Logger?();
-  v1 = v0;
-  MEMORY[0x1EEE9AC00](v0);
-  v3 = v18 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for Logger();
-  v5 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for lazyStack != -1)
-  {
-    swift_once();
-  }
-
-  v8 = __swift_project_value_buffer(v1, static Log.lazyStack);
-  outlined init with copy of EstimationCache(v8, v3, type metadata accessor for Logger?);
-  if ((*(v5 + 48))(v3, 1, v4) == 1)
-  {
-    return outlined destroy of EstimationCache(v3, type metadata accessor for Logger?);
-  }
-
-  (*(v5 + 32))(v7, v3, v4);
-  v18[0] = 0;
-  v18[1] = 0xE000000000000000;
-  _StringGuts.grow(_:)(24);
-
-  strcpy(v18, "sizeThatFits(");
-  HIWORD(v18[1]) = -4864;
-  v10 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v10);
-
-  MEMORY[0x193ABEDD0](0x72657A203E2D2029, 0xE90000000000006FLL);
-  v12 = v18[0];
-  v11 = v18[1];
-  v13 = Logger.logObject.getter();
-  v14 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v13, v14))
-  {
-    v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
-    v18[0] = v16;
-    *v15 = 136315394;
-    *(v15 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x800000018DD75AB0, v18);
-    *(v15 + 12) = 2080;
-    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v11, v18);
-
-    *(v15 + 14) = v17;
-    _os_log_impl(&dword_18D018000, v13, v14, "%s: %s", v15, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x193AC4820](v16, -1, -1);
-    MEMORY[0x193AC4820](v15, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  return (*(v5 + 8))(v7, v4);
-}
-
-uint64_t _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12HStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e103VyxG0E0RtzrlE12sizeThatFits12proposedSize8subviews7context5cacheSo6CGSizeVAA012ProposedViewJ0V_AA01_C15M53_SubviewsVAA01_cq1_J17AndSpacingContextVAFtFSSyXEfu2_12CoreGraphics7CGFloatVAPTf1c_n()
-{
-  type metadata accessor for Logger?();
-  v1 = v0;
-  MEMORY[0x1EEE9AC00](v0);
-  v3 = v19 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for Logger();
-  v5 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for lazyStack != -1)
-  {
-    swift_once();
-  }
-
-  v8 = __swift_project_value_buffer(v1, static Log.lazyStack);
-  outlined init with copy of EstimationCache(v8, v3, type metadata accessor for Logger?);
-  if ((*(v5 + 48))(v3, 1, v4) == 1)
-  {
-    return outlined destroy of EstimationCache(v3, type metadata accessor for Logger?);
-  }
-
-  (*(v5 + 32))(v7, v3, v4);
-  v19[0] = 0;
-  v19[1] = 0xE000000000000000;
-  _StringGuts.grow(_:)(22);
-
-  strcpy(v19, "sizeThatFits(");
-  HIWORD(v19[1]) = -4864;
-  v10 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v10);
-
-  MEMORY[0x193ABEDD0](0x203E2D2029, 0xE500000000000000);
-  v11 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v11);
-
-  v13 = v19[0];
-  v12 = v19[1];
-  v14 = Logger.logObject.getter();
-  v15 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v14, v15))
-  {
-    v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v19[0] = v17;
-    *v16 = 136315394;
-    *(v16 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x800000018DD75AB0, v19);
-    *(v16 + 12) = 2080;
-    v18 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v12, v19);
-
-    *(v16 + 14) = v18;
-    _os_log_impl(&dword_18D018000, v14, v15, "%s: %s", v16, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x193AC4820](v17, -1, -1);
-    MEMORY[0x193AC4820](v16, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  return (*(v5 + 8))(v7, v4);
-}
-
-uint64_t _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12HStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e54VyxG0E0RtzrlE5place8subviews7context5cache2inyAA01_C15m11_SubviewsV_x26_cK17_PlacementContextVAFzX29_cK11_PlacementsVztFSSyXEfu1_12CoreGraphics7CGFloatVTf1c_n()
-{
-  type metadata accessor for Logger?();
-  v1 = v0;
-  MEMORY[0x1EEE9AC00](v0);
-  v3 = v18 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for Logger();
-  v5 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for lazyStack != -1)
-  {
-    swift_once();
-  }
-
-  v8 = __swift_project_value_buffer(v1, static Log.lazyStack);
-  outlined init with copy of EstimationCache(v8, v3, type metadata accessor for Logger?);
-  if ((*(v5 + 48))(v3, 1, v4) == 1)
-  {
-    return outlined destroy of EstimationCache(v3, type metadata accessor for Logger?);
-  }
-
-  (*(v5 + 32))(v7, v3, v4);
-  strcpy(v18, "translate by ");
-  HIWORD(v18[1]) = -4864;
-  v10 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v10);
-
-  v12 = v18[0];
-  v11 = v18[1];
-  v13 = Logger.logObject.getter();
-  v14 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v13, v14))
-  {
-    v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
-    v18[0] = v16;
-    *v15 = 136315394;
-    *(v15 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x800000018DD75AB0, v18);
-    *(v15 + 12) = 2080;
-    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v11, v18);
-
-    *(v15 + 14) = v17;
-    _os_log_impl(&dword_18D018000, v13, v14, "%s: %s", v15, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x193AC4820](v16, -1, -1);
-    MEMORY[0x193AC4820](v15, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  return (*(v5 + 8))(v7, v4);
-}
-
-uint64_t _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12HStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e54VyxG0E0RtzrlE5place8subviews7context5cache2inyAA01_C15m11_SubviewsV_x26_cK17_PlacementContextVAFzx34_cK11_PlacementsVztFSSyXEfu6_AA0c6L7K0V_Tg5SNy12CoreGraphics7CGFloatVGAEyALGAA01_cM11_PlacementsVTf1c_n(double *a1, uint64_t a2, double a3, double a4)
-{
-  type metadata accessor for Logger?();
-  v9 = v8;
-  MEMORY[0x1EEE9AC00](v8);
-  v11 = &v29 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for Logger();
-  v13 = *(v12 - 8);
-  MEMORY[0x1EEE9AC00](v12);
-  v15 = &v29 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for lazyStack != -1)
-  {
-    swift_once();
-  }
-
-  v16 = __swift_project_value_buffer(v9, static Log.lazyStack);
-  outlined init with copy of EstimationCache(v16, v11, type metadata accessor for Logger?);
-  if ((*(v13 + 48))(v11, 1, v12) == 1)
-  {
-    return outlined destroy of EstimationCache(v11, type metadata accessor for Logger?);
-  }
-
-  (*(v13 + 32))(v15, v11, v12);
-  v30 = a2;
-  v35 = 0;
-  v36 = 0xE000000000000000;
-  _StringGuts.grow(_:)(33);
-
-  v35 = 0x28646563616C70;
-  v36 = 0xE700000000000000;
-  v33 = a4;
-  v34 = a3;
-  v31 = 0;
-  v32 = 0xE000000000000000;
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](3026478, 0xE300000000000000);
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](v31, v32);
-
-  MEMORY[0x193ABEDD0](0x203E2D2029, 0xE500000000000000);
-  v18 = a1[6];
-  v33 = a1[7];
-  v34 = v18;
-  v31 = 0;
-  v32 = 0xE000000000000000;
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](3943982, 0xE300000000000000);
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](v31, v32);
-
-  MEMORY[0x193ABEDD0](8236, 0xE200000000000000);
-  v19 = a1[8];
-  v33 = a1[9];
-  v34 = v19;
-  v31 = 0;
-  v32 = 0xE000000000000000;
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](3026478, 0xE300000000000000);
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](v31, v32);
-
-  MEMORY[0x193ABEDD0](0x696C61766E69202CLL, 0xEB00000000203A64);
-  if (*(v30 + 40))
-  {
-    v20 = 1702195828;
-  }
-
-  else
-  {
-    v20 = 0x65736C6166;
-  }
-
-  if (*(v30 + 40))
-  {
-    v21 = 0xE400000000000000;
-  }
-
-  else
-  {
-    v21 = 0xE500000000000000;
-  }
-
-  MEMORY[0x193ABEDD0](v20, v21);
-
-  v23 = v35;
-  v22 = v36;
-  v24 = Logger.logObject.getter();
-  v25 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v24, v25))
-  {
-    v26 = swift_slowAlloc();
-    v27 = swift_slowAlloc();
-    v35 = v27;
-    *v26 = 136315394;
-    *(v26 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x800000018DD75AB0, &v35);
-    *(v26 + 12) = 2080;
-    v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v23, v22, &v35);
-
-    *(v26 + 14) = v28;
-    _os_log_impl(&dword_18D018000, v24, v25, "%s: %s", v26, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x193AC4820](v27, -1, -1);
-    MEMORY[0x193AC4820](v26, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  return (*(v13 + 8))(v15, v12);
-}
-
-uint64_t _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12HStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e54VyxG0E0RtzrlE5place8subviews7context5cache2inyAA01_C15m11_SubviewsV_x26_cK17_PlacementContextVAFzX29_cK11_PlacementsVztFSSyXEfu2_12CoreGraphics7CGFloatVAA01_cM17_PlacementContextVAA4AxisOTf1c_nTm(uint64_t a1, uint64_t a2, unint64_t a3)
-{
-  type metadata accessor for Logger?();
-  v5 = v4;
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = &v23 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for Logger();
-  v9 = *(v8 - 8);
-  MEMORY[0x1EEE9AC00](v8);
-  v11 = &v23 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for lazyStack != -1)
-  {
-    swift_once();
-  }
-
-  v12 = __swift_project_value_buffer(v5, static Log.lazyStack);
-  outlined init with copy of EstimationCache(v12, v7, type metadata accessor for Logger?);
-  if ((*(v9 + 48))(v7, 1, v8) == 1)
-  {
-    return outlined destroy of EstimationCache(v7, type metadata accessor for Logger?);
-  }
-
-  (*(v9 + 32))(v11, v7, v8);
-  v23 = 0;
-  v24 = 0xE000000000000000;
-  _StringGuts.grow(_:)(20);
-
-  v23 = 0x2064696C61766E69;
-  v24 = a3;
-  v14 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v14);
-
-  MEMORY[0x193ABEDD0](544437792, 0xE400000000000000);
-  v15 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v15);
-
-  v17 = v23;
-  v16 = v24;
-  v18 = Logger.logObject.getter();
-  v19 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v18, v19))
-  {
-    v20 = swift_slowAlloc();
-    v21 = swift_slowAlloc();
-    v23 = v21;
-    *v20 = 136315394;
-    *(v20 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x800000018DD75AB0, &v23);
-    *(v20 + 12) = 2080;
-    v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v16, &v23);
-
-    *(v20 + 14) = v22;
-    _os_log_impl(&dword_18D018000, v18, v19, "%s: %s", v20, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x193AC4820](v21, -1, -1);
-    MEMORY[0x193AC4820](v20, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  return (*(v9 + 8))(v11, v8);
-}
-
-uint64_t _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12HStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e54VyxG0E0RtzrlE5place8subviews7context5cache2inyAA01_C15m11_SubviewsV_x26_cK17_PlacementContextVAFzX29_cK11_PlacementsVztFSSyXEfu5_12CoreGraphics7CGFloatVAPTf1c_n()
-{
-  type metadata accessor for Logger?();
-  v1 = v0;
-  MEMORY[0x1EEE9AC00](v0);
-  v3 = v19 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for Logger();
-  v5 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for lazyStack != -1)
-  {
-    swift_once();
-  }
-
-  v8 = __swift_project_value_buffer(v1, static Log.lazyStack);
-  outlined init with copy of EstimationCache(v8, v3, type metadata accessor for Logger?);
-  if ((*(v5 + 48))(v3, 1, v4) == 1)
-  {
-    return outlined destroy of EstimationCache(v3, type metadata accessor for Logger?);
-  }
-
-  (*(v5 + 32))(v7, v3, v4);
-  v19[0] = 0;
-  v19[1] = 0xE000000000000000;
-  _StringGuts.grow(_:)(20);
-
-  strcpy(v19, "invalid #3; ");
-  BYTE5(v19[1]) = 0;
-  HIWORD(v19[1]) = -5120;
-  v10 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v10);
-
-  MEMORY[0x193ABEDD0](544437792, 0xE400000000000000);
-  v11 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v11);
-
-  v13 = v19[0];
-  v12 = v19[1];
-  v14 = Logger.logObject.getter();
-  v15 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v14, v15))
-  {
-    v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v19[0] = v17;
-    *v16 = 136315394;
-    *(v16 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x800000018DD75AB0, v19);
-    *(v16 + 12) = 2080;
-    v18 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v12, v19);
-
-    *(v16 + 14) = v18;
-    _os_log_impl(&dword_18D018000, v14, v15, "%s: %s", v16, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x193AC4820](v17, -1, -1);
-    MEMORY[0x193AC4820](v16, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  return (*(v5 + 8))(v7, v4);
-}
-
-uint64_t _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12VStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e76VyxG0E0RtzrlE12boundingRect2at8subviews7context5cacheSo6CGRectVSgSi_AA01_C15M50_SubviewsVAA01_cM17_PlacementContextVAFtFSSyXEfu0_SiSo0Z0VTf1c_n(uint64_t a1, double a2, double a3, double a4, double a5)
-{
-  type metadata accessor for Logger?();
-  v11 = v10;
-  MEMORY[0x1EEE9AC00](v10);
-  v13 = &v28 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Logger();
-  v15 = *(v14 - 8);
-  MEMORY[0x1EEE9AC00](v14);
-  v17 = &v28 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for lazyStack != -1)
-  {
-    swift_once();
-  }
-
-  v18 = __swift_project_value_buffer(v11, static Log.lazyStack);
-  outlined init with copy of EstimationCache(v18, v13, type metadata accessor for Logger?);
-  if ((*(v15 + 48))(v13, 1, v14) == 1)
-  {
-    return outlined destroy of EstimationCache(v13, type metadata accessor for Logger?);
-  }
-
-  (*(v15 + 32))(v17, v13, v14);
-  v28 = 0.0;
-  v29 = -2.68156159e154;
-  _StringGuts.grow(_:)(25);
-  v32 = v28;
-  v33 = v29;
-  MEMORY[0x193ABEDD0](0xD000000000000011, 0x800000018DD7AD70);
-  v28 = *&a1;
-  v20 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x193ABEDD0](v20);
-
-  MEMORY[0x193ABEDD0](544434464, 0xE400000000000000);
-  v28 = a2;
-  v29 = a3;
-  v30 = a4;
-  v31 = a5;
-  type metadata accessor for CGRect(0);
-  _print_unlocked<A, B>(_:_:)();
-  v22 = *&v32;
-  v21 = *&v33;
-  v23 = Logger.logObject.getter();
-  v24 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v23, v24))
-  {
-    v25 = swift_slowAlloc();
-    *&v26 = COERCE_DOUBLE(swift_slowAlloc());
-    v28 = *&v26;
-    *v25 = 136315394;
-    *(v25 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x800000018DD758E0, &v28);
-    *(v25 + 12) = 2080;
-    v27 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v21, &v28);
-
-    *(v25 + 14) = v27;
-    _os_log_impl(&dword_18D018000, v23, v24, "%s: %s", v25, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x193AC4820](v26, -1, -1);
-    MEMORY[0x193AC4820](v25, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  return (*(v15 + 8))(v17, v14);
-}
-
-uint64_t _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12VStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e26VyxG0E0RtzrlE6placer33_973ghijk57LL8subviews7context5cacheAA0D9PlacementAJLLVyxGSgAA01_C15M43_SubviewsV_AA01_cp1_O7ContextVAFztFSSyXEfu_SNy12CoreGraphics7CGFloatVGTf1c_n(double a1, double a2)
-{
-  type metadata accessor for Logger?();
-  v5 = v4;
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = &v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for Logger();
-  v9 = *(v8 - 8);
-  MEMORY[0x1EEE9AC00](v8);
-  v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for lazyStack != -1)
-  {
-    swift_once();
-  }
-
-  v12 = __swift_project_value_buffer(v5, static Log.lazyStack);
-  outlined init with copy of EstimationCache(v12, v7, type metadata accessor for Logger?);
-  if ((*(v9 + 48))(v7, 1, v8) == 1)
-  {
-    return outlined destroy of EstimationCache(v7, type metadata accessor for Logger?);
-  }
-
-  (*(v9 + 32))(v11, v7, v8);
-  v25 = 0;
-  v26 = 0xE000000000000000;
-  _StringGuts.grow(_:)(29);
-
-  v25 = 0xD00000000000001BLL;
-  v26 = 0x800000018DD7ADB0;
-  v23 = a2;
-  v24 = a1;
-  v21 = 0;
-  v22 = 0xE000000000000000;
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](3026478, 0xE300000000000000);
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](v21, v22);
-
-  v15 = v25;
-  v14 = v26;
-  v16 = Logger.logObject.getter();
-  v17 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v16, v17))
-  {
-    v18 = swift_slowAlloc();
-    v19 = swift_slowAlloc();
-    v25 = v19;
-    *v18 = 136315394;
-    *(v18 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x800000018DD758E0, &v25);
-    *(v18 + 12) = 2080;
-    v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v14, &v25);
-
-    *(v18 + 14) = v20;
-    _os_log_impl(&dword_18D018000, v16, v17, "%s: %s", v18, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x193AC4820](v19, -1, -1);
-    MEMORY[0x193AC4820](v18, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  return (*(v9 + 8))(v11, v8);
-}
-
-uint64_t _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12VStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e26VyxG0E0RtzrlE6placer33_973ghijk57LL8subviews7context5cacheAA0D9PlacementAJLLVyxGSgAA01_C15M44_SubviewsV_AA01_cp1_O7ContextVAFztFSSyXEfu0_SNy12CoreGraphics7CGFloatVGTf1c_n(double a1, double a2)
-{
-  type metadata accessor for Logger?();
-  v5 = v4;
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = &v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for Logger();
-  v9 = *(v8 - 8);
-  MEMORY[0x1EEE9AC00](v8);
-  v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for lazyStack != -1)
-  {
-    swift_once();
-  }
-
-  v12 = __swift_project_value_buffer(v5, static Log.lazyStack);
-  outlined init with copy of EstimationCache(v12, v7, type metadata accessor for Logger?);
-  if ((*(v9 + 48))(v7, 1, v8) == 1)
-  {
-    return outlined destroy of EstimationCache(v7, type metadata accessor for Logger?);
-  }
-
-  (*(v9 + 32))(v11, v7, v8);
-  v25 = 0;
-  v26 = 0xE000000000000000;
-  _StringGuts.grow(_:)(16);
-
-  v25 = 0x28646563616C70;
-  v26 = 0xE700000000000000;
-  v23 = a2;
-  v24 = a1;
-  v21 = 0;
-  v22 = 0xE000000000000000;
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](3026478, 0xE300000000000000);
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](v21, v22);
-
-  MEMORY[0x193ABEDD0](0x5D5B203E2D2029, 0xE700000000000000);
-  v15 = v25;
-  v14 = v26;
-  v16 = Logger.logObject.getter();
-  v17 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v16, v17))
-  {
-    v18 = swift_slowAlloc();
-    v19 = swift_slowAlloc();
-    v25 = v19;
-    *v18 = 136315394;
-    *(v18 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x800000018DD758E0, &v25);
-    *(v18 + 12) = 2080;
-    v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v14, &v25);
-
-    *(v18 + 14) = v20;
-    _os_log_impl(&dword_18D018000, v16, v17, "%s: %s", v18, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x193AC4820](v19, -1, -1);
-    MEMORY[0x193AC4820](v18, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  return (*(v9 + 8))(v11, v8);
-}
-
-uint64_t _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12VStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e45VyxG0E0RtzrlE24resolvedPlacerProperties33_973ghijk73LL8subviews7context5cacheAA0D9PlacementAJLLVyxG_AA0qH0AJLLVyxGtSgAA01_C15m49_SubviewsV_AA01_cr1_Q7ContextVAFztFSSyXEfu0_AA0c6L7R0V_Tg5AEyALGTf1c_n(uint64_t a1)
-{
-  type metadata accessor for _LazyStack_Cache<LazyVStackLayout>(0, &lazy cache variable for type metadata for _LazyStack_Cache<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout);
-  v3 = v2;
-  MEMORY[0x1EEE9AC00](v2);
-  v5 = &v24 - v4;
-  type metadata accessor for Logger?();
-  v7 = v6;
-  MEMORY[0x1EEE9AC00](v6);
-  v9 = &v24 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for Logger();
-  v11 = *(v10 - 8);
-  MEMORY[0x1EEE9AC00](v10);
-  v13 = &v24 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for lazyStack != -1)
-  {
-    swift_once();
-  }
-
-  v14 = __swift_project_value_buffer(v7, static Log.lazyStack);
-  outlined init with copy of EstimationCache(v14, v9, type metadata accessor for Logger?);
-  if ((*(v11 + 48))(v9, 1, v10) == 1)
-  {
-    return outlined destroy of EstimationCache(v9, type metadata accessor for Logger?);
-  }
-
-  (*(v11 + 32))(v13, v9, v10);
-  v24 = 0;
-  v25 = 0xE000000000000000;
-  _StringGuts.grow(_:)(24);
-
-  v24 = 0xD000000000000016;
-  v25 = 0x800000018DD7AD90;
-  outlined init with copy of _LazyLayout_Subview?(a1, v5, &lazy cache variable for type metadata for _LazyStack_Cache<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout, type metadata accessor for _LazyStack_Cache<LazyVStackLayout>);
-  if (*(*&v5[*(v3 + 60)] + 16))
-  {
-    EstimationCache.average.getter();
-  }
-
-  outlined destroy of _LazyLayout_Subview?(v5, &lazy cache variable for type metadata for _LazyStack_Cache<LazyVStackLayout>, lazy protocol witness table accessor for type LazyVStackLayout and conformance LazyVStackLayout, &type metadata for LazyVStackLayout, type metadata accessor for _LazyStack_Cache<LazyVStackLayout>);
-  v16 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v16);
-
-  v18 = v24;
-  v17 = v25;
-  v19 = Logger.logObject.getter();
-  v20 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v19, v20))
-  {
-    v21 = swift_slowAlloc();
-    v22 = swift_slowAlloc();
-    v24 = v22;
-    *v21 = 136315394;
-    *(v21 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x800000018DD758E0, &v24);
-    *(v21 + 12) = 2080;
-    v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v17, &v24);
-
-    *(v21 + 14) = v23;
-    _os_log_impl(&dword_18D018000, v19, v20, "%s: %s", v21, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x193AC4820](v22, -1, -1);
-    MEMORY[0x193AC4820](v21, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  return (*(v11 + 8))(v13, v10);
-}
-
-uint64_t _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12VStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e103VyxG0E0RtzrlE12sizeThatFits12proposedSize8subviews7context5cacheSo6CGSizeVAA012ProposedViewJ0V_AA01_C15M53_SubviewsVAA01_cq1_J17AndSpacingContextVAFtFSSyXEfu0_12CoreGraphics7CGFloatVTf1c_n()
-{
-  type metadata accessor for Logger?();
-  v1 = v0;
-  MEMORY[0x1EEE9AC00](v0);
-  v3 = v18 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for Logger();
-  v5 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for lazyStack != -1)
-  {
-    swift_once();
-  }
-
-  v8 = __swift_project_value_buffer(v1, static Log.lazyStack);
-  outlined init with copy of EstimationCache(v8, v3, type metadata accessor for Logger?);
-  if ((*(v5 + 48))(v3, 1, v4) == 1)
-  {
-    return outlined destroy of EstimationCache(v3, type metadata accessor for Logger?);
-  }
-
-  (*(v5 + 32))(v7, v3, v4);
-  v18[0] = 0;
-  v18[1] = 0xE000000000000000;
-  _StringGuts.grow(_:)(24);
-
-  strcpy(v18, "sizeThatFits(");
-  HIWORD(v18[1]) = -4864;
-  v10 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v10);
-
-  MEMORY[0x193ABEDD0](0x72657A203E2D2029, 0xE90000000000006FLL);
-  v12 = v18[0];
-  v11 = v18[1];
-  v13 = Logger.logObject.getter();
-  v14 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v13, v14))
-  {
-    v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
-    v18[0] = v16;
-    *v15 = 136315394;
-    *(v15 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x800000018DD758E0, v18);
-    *(v15 + 12) = 2080;
-    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v11, v18);
-
-    *(v15 + 14) = v17;
-    _os_log_impl(&dword_18D018000, v13, v14, "%s: %s", v15, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x193AC4820](v16, -1, -1);
-    MEMORY[0x193AC4820](v15, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  return (*(v5 + 8))(v7, v4);
-}
-
-uint64_t _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12VStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e103VyxG0E0RtzrlE12sizeThatFits12proposedSize8subviews7context5cacheSo6CGSizeVAA012ProposedViewJ0V_AA01_C15M53_SubviewsVAA01_cq1_J17AndSpacingContextVAFtFSSyXEfu2_12CoreGraphics7CGFloatVAPTf1c_n()
-{
-  type metadata accessor for Logger?();
-  v1 = v0;
-  MEMORY[0x1EEE9AC00](v0);
-  v3 = v19 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for Logger();
-  v5 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for lazyStack != -1)
-  {
-    swift_once();
-  }
-
-  v8 = __swift_project_value_buffer(v1, static Log.lazyStack);
-  outlined init with copy of EstimationCache(v8, v3, type metadata accessor for Logger?);
-  if ((*(v5 + 48))(v3, 1, v4) == 1)
-  {
-    return outlined destroy of EstimationCache(v3, type metadata accessor for Logger?);
-  }
-
-  (*(v5 + 32))(v7, v3, v4);
-  v19[0] = 0;
-  v19[1] = 0xE000000000000000;
-  _StringGuts.grow(_:)(22);
-
-  strcpy(v19, "sizeThatFits(");
-  HIWORD(v19[1]) = -4864;
-  v10 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v10);
-
-  MEMORY[0x193ABEDD0](0x203E2D2029, 0xE500000000000000);
-  v11 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v11);
-
-  v13 = v19[0];
-  v12 = v19[1];
-  v14 = Logger.logObject.getter();
-  v15 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v14, v15))
-  {
-    v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v19[0] = v17;
-    *v16 = 136315394;
-    *(v16 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x800000018DD758E0, v19);
-    *(v16 + 12) = 2080;
-    v18 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v12, v19);
-
-    *(v16 + 14) = v18;
-    _os_log_impl(&dword_18D018000, v14, v15, "%s: %s", v16, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x193AC4820](v17, -1, -1);
-    MEMORY[0x193AC4820](v16, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  return (*(v5 + 8))(v7, v4);
-}
-
-uint64_t _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12VStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e54VyxG0E0RtzrlE5place8subviews7context5cache2inyAA01_C15m11_SubviewsV_x26_cK17_PlacementContextVAFzX29_cK11_PlacementsVztFSSyXEfu1_12CoreGraphics7CGFloatVTf1c_n()
-{
-  type metadata accessor for Logger?();
-  v1 = v0;
-  MEMORY[0x1EEE9AC00](v0);
-  v3 = v18 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for Logger();
-  v5 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for lazyStack != -1)
-  {
-    swift_once();
-  }
-
-  v8 = __swift_project_value_buffer(v1, static Log.lazyStack);
-  outlined init with copy of EstimationCache(v8, v3, type metadata accessor for Logger?);
-  if ((*(v5 + 48))(v3, 1, v4) == 1)
-  {
-    return outlined destroy of EstimationCache(v3, type metadata accessor for Logger?);
-  }
-
-  (*(v5 + 32))(v7, v3, v4);
-  strcpy(v18, "translate by ");
-  HIWORD(v18[1]) = -4864;
-  v10 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v10);
-
-  v12 = v18[0];
-  v11 = v18[1];
-  v13 = Logger.logObject.getter();
-  v14 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v13, v14))
-  {
-    v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
-    v18[0] = v16;
-    *v15 = 136315394;
-    *(v15 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x800000018DD758E0, v18);
-    *(v15 + 12) = 2080;
-    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v11, v18);
-
-    *(v15 + 14) = v17;
-    _os_log_impl(&dword_18D018000, v13, v14, "%s: %s", v15, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x193AC4820](v16, -1, -1);
-    MEMORY[0x193AC4820](v15, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  return (*(v5 + 8))(v7, v4);
-}
-
-uint64_t _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12VStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e54VyxG0E0RtzrlE5place8subviews7context5cache2inyAA01_C15m11_SubviewsV_x26_cK17_PlacementContextVAFzx34_cK11_PlacementsVztFSSyXEfu6_AA0c6L7K0V_Tg5SNy12CoreGraphics7CGFloatVGAEyALGAA01_cM11_PlacementsVTf1c_n(double *a1, uint64_t a2, double a3, double a4)
-{
-  type metadata accessor for Logger?();
-  v9 = v8;
-  MEMORY[0x1EEE9AC00](v8);
-  v11 = &v29 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for Logger();
-  v13 = *(v12 - 8);
-  MEMORY[0x1EEE9AC00](v12);
-  v15 = &v29 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for lazyStack != -1)
-  {
-    swift_once();
-  }
-
-  v16 = __swift_project_value_buffer(v9, static Log.lazyStack);
-  outlined init with copy of EstimationCache(v16, v11, type metadata accessor for Logger?);
-  if ((*(v13 + 48))(v11, 1, v12) == 1)
-  {
-    return outlined destroy of EstimationCache(v11, type metadata accessor for Logger?);
-  }
-
-  (*(v13 + 32))(v15, v11, v12);
-  v30 = a2;
-  v35 = 0;
-  v36 = 0xE000000000000000;
-  _StringGuts.grow(_:)(33);
-
-  v35 = 0x28646563616C70;
-  v36 = 0xE700000000000000;
-  v33 = a4;
-  v34 = a3;
-  v31 = 0;
-  v32 = 0xE000000000000000;
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](3026478, 0xE300000000000000);
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](v31, v32);
-
-  MEMORY[0x193ABEDD0](0x203E2D2029, 0xE500000000000000);
-  v18 = a1[6];
-  v33 = a1[7];
-  v34 = v18;
-  v31 = 0;
-  v32 = 0xE000000000000000;
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](3943982, 0xE300000000000000);
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](v31, v32);
-
-  MEMORY[0x193ABEDD0](8236, 0xE200000000000000);
-  v19 = a1[8];
-  v33 = a1[9];
-  v34 = v19;
-  v31 = 0;
-  v32 = 0xE000000000000000;
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](3026478, 0xE300000000000000);
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](v31, v32);
-
-  MEMORY[0x193ABEDD0](0x696C61766E69202CLL, 0xEB00000000203A64);
-  if (*(v30 + 40))
-  {
-    v20 = 1702195828;
-  }
-
-  else
-  {
-    v20 = 0x65736C6166;
-  }
-
-  if (*(v30 + 40))
-  {
-    v21 = 0xE400000000000000;
-  }
-
-  else
-  {
-    v21 = 0xE500000000000000;
-  }
-
-  MEMORY[0x193ABEDD0](v20, v21);
-
-  v23 = v35;
-  v22 = v36;
-  v24 = Logger.logObject.getter();
-  v25 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v24, v25))
-  {
-    v26 = swift_slowAlloc();
-    v27 = swift_slowAlloc();
-    v35 = v27;
-    *v26 = 136315394;
-    *(v26 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x800000018DD758E0, &v35);
-    *(v26 + 12) = 2080;
-    v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v23, v22, &v35);
-
-    *(v26 + 14) = v28;
-    _os_log_impl(&dword_18D018000, v24, v25, "%s: %s", v26, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x193AC4820](v27, -1, -1);
-    MEMORY[0x193AC4820](v26, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  return (*(v13 + 8))(v15, v12);
-}
-
-uint64_t _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12VStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e54VyxG0E0RtzrlE5place8subviews7context5cache2inyAA01_C15m11_SubviewsV_x26_cK17_PlacementContextVAFzX29_cK11_PlacementsVztFSSyXEfu2_12CoreGraphics7CGFloatVAA01_cM17_PlacementContextVAA4AxisOTf1c_nTm(uint64_t a1, uint64_t a2, unint64_t a3)
-{
-  type metadata accessor for Logger?();
-  v5 = v4;
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = &v23 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for Logger();
-  v9 = *(v8 - 8);
-  MEMORY[0x1EEE9AC00](v8);
-  v11 = &v23 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for lazyStack != -1)
-  {
-    swift_once();
-  }
-
-  v12 = __swift_project_value_buffer(v5, static Log.lazyStack);
-  outlined init with copy of EstimationCache(v12, v7, type metadata accessor for Logger?);
-  if ((*(v9 + 48))(v7, 1, v8) == 1)
-  {
-    return outlined destroy of EstimationCache(v7, type metadata accessor for Logger?);
-  }
-
-  (*(v9 + 32))(v11, v7, v8);
-  v23 = 0;
-  v24 = 0xE000000000000000;
-  _StringGuts.grow(_:)(20);
-
-  v23 = 0x2064696C61766E69;
-  v24 = a3;
-  v14 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v14);
-
-  MEMORY[0x193ABEDD0](544437792, 0xE400000000000000);
-  v15 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v15);
-
-  v17 = v23;
-  v16 = v24;
-  v18 = Logger.logObject.getter();
-  v19 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v18, v19))
-  {
-    v20 = swift_slowAlloc();
-    v21 = swift_slowAlloc();
-    v23 = v21;
-    *v20 = 136315394;
-    *(v20 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x800000018DD758E0, &v23);
-    *(v20 + 12) = 2080;
-    v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v16, &v23);
-
-    *(v20 + 14) = v22;
-    _os_log_impl(&dword_18D018000, v18, v19, "%s: %s", v20, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x193AC4820](v21, -1, -1);
-    MEMORY[0x193AC4820](v20, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  return (*(v9 + 8))(v11, v8);
-}
-
-uint64_t _s7SwiftUI9LazyStackPA2A01_cD6_CacheVyxG0E0RtzrlE3log33_973C9973BC16DEAF0CF3109FFDE31321LLyySSyXKFAA0C12VStackLayoutV_Tt0g503_s7a3UI9cd11PA2A01_cD6_e54VyxG0E0RtzrlE5place8subviews7context5cache2inyAA01_C15m11_SubviewsV_x26_cK17_PlacementContextVAFzX29_cK11_PlacementsVztFSSyXEfu5_12CoreGraphics7CGFloatVAPTf1c_n()
-{
-  type metadata accessor for Logger?();
-  v1 = v0;
-  MEMORY[0x1EEE9AC00](v0);
-  v3 = v19 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for Logger();
-  v5 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for lazyStack != -1)
-  {
-    swift_once();
-  }
-
-  v8 = __swift_project_value_buffer(v1, static Log.lazyStack);
-  outlined init with copy of EstimationCache(v8, v3, type metadata accessor for Logger?);
-  if ((*(v5 + 48))(v3, 1, v4) == 1)
-  {
-    return outlined destroy of EstimationCache(v3, type metadata accessor for Logger?);
-  }
-
-  (*(v5 + 32))(v7, v3, v4);
-  v19[0] = 0;
-  v19[1] = 0xE000000000000000;
-  _StringGuts.grow(_:)(20);
-
-  strcpy(v19, "invalid #3; ");
-  BYTE5(v19[1]) = 0;
-  HIWORD(v19[1]) = -5120;
-  v10 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v10);
-
-  MEMORY[0x193ABEDD0](544437792, 0xE400000000000000);
-  v11 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v11);
-
-  v13 = v19[0];
-  v12 = v19[1];
-  v14 = Logger.logObject.getter();
-  v15 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v14, v15))
-  {
-    v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v19[0] = v17;
-    *v16 = 136315394;
-    *(v16 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x800000018DD758E0, v19);
-    *(v16 + 12) = 2080;
-    v18 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v12, v19);
-
-    *(v16 + 14) = v18;
-    _os_log_impl(&dword_18D018000, v14, v15, "%s: %s", v16, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x193AC4820](v17, -1, -1);
-    MEMORY[0x193AC4820](v16, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  return (*(v5 + 8))(v7, v4);
-}
-
-uint64_t implicit closure #4 in LazyStack<>.sizeThatFits(proposedSize:subviews:context:cache:)()
-{
-  _StringGuts.grow(_:)(22);
-
-  strcpy(v3, "sizeThatFits(");
-  v0 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v0);
-
-  MEMORY[0x193ABEDD0](0x203E2D2029, 0xE500000000000000);
-  v1 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v1);
-
-  return v3[0];
-}
-
-uint64_t implicit closure #3 in LazyStack<>.place(subviews:context:cache:in:)()
-{
-  strcpy(v2, "translate by ");
-  v0 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v0);
-
-  return v2[0];
-}
-
-uint64_t implicit closure #4 in LazyStack<>.place(subviews:context:cache:in:)()
-{
-  _StringGuts.grow(_:)(20);
-
-  v0 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v0);
-
-  MEMORY[0x193ABEDD0](544437792, 0xE400000000000000);
-  v1 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v1);
-
-  return 0x2064696C61766E69;
-}
-
-uint64_t implicit closure #7 in LazyStack<>.place(subviews:context:cache:in:)()
-{
-  _StringGuts.grow(_:)(20);
-
-  strcpy(v3, "invalid #3; ");
-  v0 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v0);
-
-  MEMORY[0x193ABEDD0](544437792, 0xE400000000000000);
-  v1 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v1);
-
-  return v3[0];
-}
-
-uint64_t implicit closure #8 in LazyStack<>.place(subviews:context:cache:in:)(uint64_t a1, uint64_t a2)
-{
-  _StringGuts.grow(_:)(33);
-
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](3026478, 0xE300000000000000);
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](0, 0xE000000000000000);
-
-  MEMORY[0x193ABEDD0](0x203E2D2029, 0xE500000000000000);
-  type metadata accessor for _LazyStack_Cache();
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](3943982, 0xE300000000000000);
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](0, 0xE000000000000000);
-
-  MEMORY[0x193ABEDD0](8236, 0xE200000000000000);
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](3026478, 0xE300000000000000);
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](0, 0xE000000000000000);
-
-  MEMORY[0x193ABEDD0](0x696C61766E69202CLL, 0xEB00000000203A64);
-  if (*(a2 + 40))
-  {
-    v2 = 1702195828;
-  }
-
-  else
-  {
-    v2 = 0x65736C6166;
-  }
-
-  if (*(a2 + 40))
-  {
-    v3 = 0xE400000000000000;
-  }
-
-  else
-  {
-    v3 = 0xE500000000000000;
-  }
-
-  MEMORY[0x193ABEDD0](v2, v3);
-
-  return 0x28646563616C70;
-}
-
-unint64_t implicit closure #1 in LazyStack<>.placer(subviews:context:cache:)()
-{
-  _StringGuts.grow(_:)(29);
-
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](3026478, 0xE300000000000000);
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](0, 0xE000000000000000);
-
-  return 0xD00000000000001BLL;
-}
-
-uint64_t implicit closure #2 in LazyStack<>.placer(subviews:context:cache:)()
-{
-  _StringGuts.grow(_:)(16);
-
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](3026478, 0xE300000000000000);
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](0, 0xE000000000000000);
-
-  MEMORY[0x193ABEDD0](0x5D5B203E2D2029, 0xE700000000000000);
-  return 0x28646563616C70;
-}
-
-unint64_t implicit closure #2 in LazyStack<>.resolvedPlacerProperties(subviews:context:cache:)(uint64_t a1)
-{
-  v2 = type metadata accessor for _LazyStack_Cache();
-  v3 = *(v2 - 8);
-  MEMORY[0x1EEE9AC00](v2);
-  v5 = &v8 - v4;
-  v8 = 0;
-  v9 = 0xE000000000000000;
-  _StringGuts.grow(_:)(24);
-
-  v8 = 0xD000000000000016;
-  v9 = 0x800000018DD7AD90;
-  (*(v3 + 16))(v5, a1, v2);
-  if (*(*&v5[*(v2 + 60)] + 16))
-  {
-    EstimationCache.average.getter();
-  }
-
-  (*(v3 + 8))(v5, v2);
-  v6 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v6);
-
-  return v8;
-}
-
-uint64_t StackPlacement.measureBackwards(subviews:lastIndex:lastPosition:atStart:atEnd:allowBeforeFirst:)(uint64_t a1, uint64_t a2, char a3, char a4, char a5, uint64_t a6, double a7)
-{
-  v8 = v7;
-  v44[0] = a1;
-  type metadata accessor for [[_LazyLayout_Subview]]();
-  v15 = v14;
-  lazy protocol witness table accessor for type [[_LazyLayout_Subview]] and conformance [A](&lazy protocol witness table cache variable for type [[_LazyLayout_Subview]] and conformance [A], type metadata accessor for [[_LazyLayout_Subview]]);
-  result = Collection.isEmpty.getter();
-  if (result)
-  {
-    return result;
-  }
-
-  StackPlacement.reset(index:position:stoppingCondition:skipFirst:)(a2, 0, 1, 1, a6, a7);
-  v42 = swift_allocObject();
-  *(v42 + 16) = 0;
-  v41 = swift_allocObject();
-  *(v41 + 16) = 0;
-  result = swift_allocObject();
-  *(result + 16) = 0;
-  v40 = result;
-  if (a4)
-  {
-    v17 = *(v7 + *(a6 + 40));
-    v18 = *(a6 + 56);
-    v19 = *(v7 + v18);
-    v20 = __OFSUB__(v19, v17);
-    v21 = v19 - v17;
-    if (v20)
-    {
-      goto LABEL_31;
-    }
-
-    *(v7 + v18) = v21;
-    *(result + 16) = 1;
-  }
-
-  v39 = a3;
-  v22 = lazy protocol witness table accessor for type [[_LazyLayout_Subview]] and conformance [A](&lazy protocol witness table cache variable for type [[_LazyLayout_Subview]] and conformance [A], type metadata accessor for [[_LazyLayout_Subview]]);
-
-  MEMORY[0x193ABE9C0](v44, v15, v22);
-  v23 = v44[0];
-  v24 = *(v44[0] + 16);
-  if (!v24)
-  {
-LABEL_27:
-
-    swift_beginAccess();
-    *(v41 + 16) = 1;
-    swift_beginAccess();
-    *(v40 + 16) = 1;
-    flushBackwards #1 <A>(includeEmpty:) in StackPlacement.measureBackwards(subviews:lastIndex:lastPosition:atStart:atEnd:allowBeforeFirst:)(v39 & 1, v8, v40, a5 & 1, v42, v41, *(a6 + 16), *(a6 + 24));
-  }
-
-  v25 = *(a6 + 72);
-  swift_beginAccess();
-  swift_beginAccess();
-  result = swift_beginAccess();
-  v26 = 0;
-  v27 = MEMORY[0x1E69E7CC0];
-  while (v24 <= *(v23 + 16))
-  {
-    v28 = v27;
-    v29 = *(v23 + 8 * v24 + 24);
-
-    *(v8 + v25) = v29;
-    if (v26 == 1)
-    {
-      *(v41 + 16) = 1;
-      result = flushBackwards #1 <A>(includeEmpty:) in StackPlacement.measureBackwards(subviews:lastIndex:lastPosition:atStart:atEnd:allowBeforeFirst:)(0, v8, v40, a5 & 1, v42, v41, *(a6 + 16), *(a6 + 24));
-    }
-
-    else
-    {
-      if (v26)
-      {
-        *(v40 + 16) = 1;
-        result = flushBackwards #1 <A>(includeEmpty:) in StackPlacement.measureBackwards(subviews:lastIndex:lastPosition:atStart:atEnd:allowBeforeFirst:)(0, v8, v40, a5 & 1, v42, v41, *(a6 + 16), *(a6 + 24));
-        goto LABEL_25;
-      }
-
-      v30 = *(a6 + 76);
-      v31 = *(v8 + v30);
-      *(v8 + v30) = v29;
-      if (v31)
-      {
-        v32 = v31;
-      }
-
-      else
-      {
-        v32 = v27;
-      }
-
-      *(v8 + v25) = v32;
-      isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      v34 = *(v8 + v25);
-      if (isUniquelyReferenced_nonNull_native)
-      {
-        v35 = *(v34 + 2);
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v34 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v35, 1, v34);
-        }
-
-        result = swift_arrayDestroy();
-        if (v35)
-        {
-          v36 = &v34[112 * v35];
-          v37 = *(v34 + 2) - v35;
-          result = memmove(v34 + 32, v36 + 32, 112 * v37);
-          *(v34 + 2) = v37;
-        }
-
-        *(v8 + v25) = v34;
-      }
-
-      else
-      {
-        if (*(v34 + 3) >= 2uLL)
-        {
-          type metadata accessor for [_LazyLayout_Subview](0, &lazy cache variable for type metadata for _ContiguousArrayStorage<_LazyLayout_Subview>, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6F90]);
-          v27 = swift_allocObject();
-          v38 = _swift_stdlib_malloc_size(v27);
-          v27[2] = 0;
-          v27[3] = 2 * ((v38 - 32) / 112);
-        }
-
-        *(v8 + v25) = v27;
-      }
-    }
-
-    v27 = v28;
-LABEL_25:
-    if (*(v42 + 16) == 1)
-    {
-    }
-
-    ++v26;
-    if (!--v24)
-    {
-      goto LABEL_27;
-    }
-  }
-
-  __break(1u);
-LABEL_31:
-  __break(1u);
-  return result;
-}
-
-uint64_t closure #1 in LazyStack<>.proposeSizes(at:subviews:context:cache:in:)(uint64_t a1, _BYTE *a2, uint64_t a3, void *a4, char a5)
-{
-  if (*(a1 + 101) & 1) != 0 || (*(a1 + 102))
-  {
-    if (a5)
-    {
-      v6 = a4[1];
-    }
-
-    else
-    {
-      v6 = 0;
-    }
-
-    if (a5)
-    {
-      v7 = 0;
-    }
-
-    else
-    {
-      v7 = a4[1];
-    }
-
-    LOBYTE(v12) = (a5 & 1) == 0;
-    _LazyLayout_Subview.proposeSize(_:)(v6, v12, v7, a5 & 1, &v12);
-    type metadata accessor for [_LazyLayout_Subview](0, &lazy cache variable for type metadata for [_LazyLayout_ProposedSubview], &type metadata for _LazyLayout_ProposedSubview, MEMORY[0x1E69E62F8]);
-    result = Array.append(_:)();
-    goto LABEL_10;
-  }
-
-  outlined init with copy of _LazyLayout_Subview(a1, &v12);
-  type metadata accessor for [_LazyLayout_Subview](0, &lazy cache variable for type metadata for [_LazyLayout_Subview], &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E62F8]);
-  Array.append(_:)();
-
-  v11 = MEMORY[0x193ABF270](v10, &type metadata for _LazyLayout_Subview);
-
-  if (v11 == *a4)
-  {
-LABEL_10:
-    *a2 = 1;
-  }
-
-  return result;
-}
-
-uint64_t closure #2 in LazyStack<>.proposeSizes(at:subviews:context:cache:in:)(uint64_t a1, uint64_t a2)
-{
-  v2 = *a2;
-  v3 = *(a2 + 16);
-  v4 = *(a2 + 24);
-  LOBYTE(v6) = *(a2 + 8);
-  _LazyLayout_Subview.proposeSize(_:)(v2, v6, v3, v4, &v6);
-  type metadata accessor for [_LazyLayout_Subview](0, &lazy cache variable for type metadata for [_LazyLayout_ProposedSubview], &type metadata for _LazyLayout_ProposedSubview, MEMORY[0x1E69E62F8]);
-  return Array.append(_:)();
-}
-
-uint64_t closure #1 in LazyStack<>.collectBackwards(from:to:subviews:style:atEnd:)(uint64_t result, BOOL *a2, uint64_t a3, unsigned __int8 *a4, unint64_t a5, uint64_t *a6, uint64_t *a7, uint64_t a8, uint64_t a9)
-{
-  v11 = a7;
-  v14 = a4;
-  if (*(result + 101))
-  {
-    v16 = 1;
-  }
-
-  else if (*(result + 102))
-  {
-    v16 = 2;
-  }
-
-  else
-  {
-    v16 = 0;
-  }
-
-  v17 = *(result + 96);
-  v18 = *(result + 100);
-  if ((*(a3 + 4) & 1) == 0)
-  {
-    if ((*(result + 100) & 1) == 0)
-    {
-      v20 = *a3 == v17;
-      if (v16)
-      {
-LABEL_14:
-        v19 = a5 >> 1;
-        if (a5 >> 1 == 1)
-        {
-          goto LABEL_20;
-        }
-
-LABEL_15:
-        if (!v19)
-        {
-          __break(1u);
-          goto LABEL_46;
-        }
-
-        v21 = *a6;
-        v22 = *a6 % v19;
-        if (v22)
-        {
-          v23 = __OFSUB__(v19, v22);
-          v24 = v19 - v22;
-          if (v23)
-          {
-            goto LABEL_47;
-          }
-
-          v23 = __OFADD__(v21, v24);
-          v25 = v21 + v24;
-          if (v23)
-          {
-            goto LABEL_48;
-          }
-
-          *a6 = v25;
-        }
-
-LABEL_20:
-        v26 = *a7 < *a6;
-        *a2 = v26;
-        if (v26)
-        {
-          goto LABEL_44;
-        }
-
-        goto LABEL_24;
-      }
-
-      if (*a3 == v17)
-      {
-        goto LABEL_23;
-      }
-    }
-
-LABEL_12:
-    v20 = 0;
-    goto LABEL_14;
-  }
-
-  if ((*(result + 100) & 1) == 0)
-  {
-    goto LABEL_12;
-  }
-
-  if (v16)
-  {
-    v19 = a5 >> 1;
-    v20 = 1;
-    if (a5 >> 1 == 1)
-    {
-      goto LABEL_20;
-    }
-
-    goto LABEL_15;
-  }
-
-LABEL_23:
-  v20 = 1;
-LABEL_24:
-  v47 = v17;
-  v48 = a2;
-  v46 = a9;
-  v27 = *a4;
-  if (v27 == 3)
-  {
-    goto LABEL_31;
-  }
-
-  if (v27 == v16 && v20)
-  {
-    goto LABEL_31;
-  }
-
-  v45 = result;
-  swift_beginAccess();
-  result = v45;
-  v9 = *(a8 + 16);
-  if (!*(v9 + 16))
-  {
-    goto LABEL_31;
-  }
-
-  v42 = v11;
-  swift_beginAccess();
-  v11 = *(a9 + 16);
-
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  *(a9 + 16) = v11;
-  v43 = v14;
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    goto LABEL_50;
-  }
-
-  while (1)
-  {
-    v30 = v11[2];
-    v29 = v11[3];
-    v31 = v30 + 1;
-    if (v30 >= v29 >> 1)
-    {
-      v41 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v29 > 1), v30 + 1, 1, v11);
-      v31 = v30 + 1;
-      v11 = v41;
-    }
-
-    v11[2] = v31;
-    v11[v30 + 4] = v9;
-    *(v46 + 16) = v11;
-    swift_endAccess();
-    swift_beginAccess();
-    *(a8 + 16) = MEMORY[0x1E69E7CC0];
-
-    v14 = v43;
-    result = v45;
-    v11 = v42;
-LABEL_31:
-    outlined init with copy of _LazyLayout_Subview(result, v49);
-    swift_beginAccess();
-    type metadata accessor for [_LazyLayout_Subview](0, &lazy cache variable for type metadata for [_LazyLayout_Subview], &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E62F8]);
-    v9 = a8 + 16;
-    Array.append(_:)();
-    result = swift_endAccess();
-    if (!v16)
-    {
-      break;
-    }
-
-    if (!__OFADD__(*a6, a5 >> 1))
-    {
-      *a6 += a5 >> 1;
-      goto LABEL_43;
-    }
-
-LABEL_46:
-    __break(1u);
-LABEL_47:
-    __break(1u);
-LABEL_48:
-    __break(1u);
-LABEL_49:
-    __break(1u);
-LABEL_50:
-    v11 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v11[2] + 1, 1, v11);
-    *(v46 + 16) = v11;
-  }
-
-  if (__OFADD__(*a6, 1))
-  {
-    goto LABEL_49;
-  }
-
-  v32 = v11;
-  ++*a6;
-  swift_beginAccess();
-
-  v34 = MEMORY[0x193ABF270](v33, &type metadata for _LazyLayout_Subview);
-
-  v35 = v34 == a5 >> 1;
-  v11 = v32;
-  if (v35)
-  {
-    result = swift_beginAccess();
-    v36 = *(a8 + 16);
-    if (*(v36 + 16))
-    {
-      swift_beginAccess();
-      v37 = *(v46 + 16);
-
-      v38 = swift_isUniquelyReferenced_nonNull_native();
-      *(v46 + 16) = v37;
-      v44 = v14;
-      if ((v38 & 1) == 0)
-      {
-        v37 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v37[2] + 1, 1, v37);
-        *(v46 + 16) = v37;
-      }
-
-      v40 = v37[2];
-      v39 = v37[3];
-      if (v40 >= v39 >> 1)
-      {
-        v37 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v39 > 1), v40 + 1, 1, v37);
-      }
-
-      v37[2] = v40 + 1;
-      v37[v40 + 4] = v36;
-      *(v46 + 16) = v37;
-      swift_endAccess();
-      swift_beginAccess();
-      *(a8 + 16) = MEMORY[0x1E69E7CC0];
-
-      v14 = v44;
-      v11 = v32;
-    }
-  }
-
-LABEL_43:
-  *v48 = *v11 < *a6;
-  v17 = v47;
-LABEL_44:
-  *a3 = v17;
-  *(a3 + 4) = v18;
-  *v14 = v16;
-  return result;
-}
-
-double (*implicit closure #1 in LazyStack<>.finalPlacement(oldIndex:oldPlacedSubviews:newPlacedSubviews:wasRemovedFromSubviews:context:subviews:cache:)(uint64_t a1, uint64_t a2, uint64_t a3))(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8)
-{
-  v5 = *(a2 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x1EEE9AC00](a1);
-  v8 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v5 + 16))(v8, v7);
-  v9 = (*(v5 + 80) + 32) & ~*(v5 + 80);
-  v10 = swift_allocObject();
-  *(v10 + 16) = a2;
-  *(v10 + 24) = a3;
-  (*(v5 + 32))(v10 + v9, v8, a2);
-  return partial apply for implicit closure #2 in implicit closure #1 in LazyStack<>.finalPlacement(oldIndex:oldPlacedSubviews:newPlacedSubviews:wasRemovedFromSubviews:context:subviews:cache:);
-}
-
-uint64_t implicit closure #2 in LazyStack<>.boundingRect(at:subviews:context:cache:)()
-{
-  _StringGuts.grow(_:)(25);
-  MEMORY[0x193ABEDD0](0xD000000000000011, 0x800000018DD7AD70);
-  v0 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x193ABEDD0](v0);
-
-  MEMORY[0x193ABEDD0](544434464, 0xE400000000000000);
-  type metadata accessor for CGRect(0);
-  _print_unlocked<A, B>(_:_:)();
-  return 0;
-}
-
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance EstimationCache(unint64_t *a1, uint64_t *a2)
-{
-  if (_sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZ12CoreGraphics7CGFloatV_SiTt1g5(*a1, *a2) & 1) != 0 && (_sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZ12CoreGraphics7CGFloatV_SiTt1g5(a1[1], a2[1]))
-  {
-
-    JUMPOUT(0x193ABDD70);
-  }
-
-  return 0;
-}
-
-uint64_t implicit closure #3 in StackPlacement.place(subviews:from:position:stopping:style:)()
-{
-  _StringGuts.grow(_:)(26);
-
-  strcpy(v3, "placing from #");
-  v0 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x193ABEDD0](v0);
-
-  MEMORY[0x193ABEDD0](8236, 0xE200000000000000);
-  v1 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v1);
-
-  MEMORY[0x193ABEDD0](544106784, 0xE400000000000000);
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](3026478, 0xE300000000000000);
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](0, 0xE000000000000000);
-
-  return v3[0];
-}
-
-uint64_t specialized StackPlacement.log(_:)(double a1, double a2, double a3, uint64_t a4, uint64_t a5)
-{
-  type metadata accessor for Logger?();
-  v9 = v8;
-  MEMORY[0x1EEE9AC00](v8);
-  v11 = &v27 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for Logger();
-  v13 = *(v12 - 8);
-  MEMORY[0x1EEE9AC00](v12);
-  v15 = &v27 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for lazyStack != -1)
-  {
-    swift_once();
-  }
-
-  v16 = __swift_project_value_buffer(v9, static Log.lazyStack);
-  outlined init with copy of EstimationCache(v16, v11, type metadata accessor for Logger?);
-  if ((*(v13 + 48))(v11, 1, v12) == 1)
-  {
-    return outlined destroy of EstimationCache(v11, type metadata accessor for Logger?);
-  }
-
-  (*(v13 + 32))(v15, v11, v12);
-  v31[0] = 0;
-  v31[1] = 0xE000000000000000;
-  _StringGuts.grow(_:)(26);
-
-  strcpy(v31, "placing from #");
-  HIBYTE(v31[1]) = -18;
-  v27 = a5;
-  v18 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x193ABEDD0](v18);
-
-  MEMORY[0x193ABEDD0](8236, 0xE200000000000000);
-  v19 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v19);
-
-  MEMORY[0x193ABEDD0](544106784, 0xE400000000000000);
-  v29 = a3;
-  v30 = a2;
-  v27 = 0;
-  v28 = 0xE000000000000000;
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](3026478, 0xE300000000000000);
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](v27, v28);
-
-  v21 = v31[0];
-  v20 = v31[1];
-  v22 = Logger.logObject.getter();
-  v23 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v22, v23))
-  {
-    v24 = swift_slowAlloc();
-    v25 = swift_slowAlloc();
-    v31[0] = v25;
-    *v24 = 136315394;
-    *(v24 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000047, 0x800000018DD75AD0, v31);
-    *(v24 + 12) = 2080;
-    v26 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v20, v31);
-
-    *(v24 + 14) = v26;
-    _os_log_impl(&dword_18D018000, v22, v23, "%s: %s", v24, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x193AC4820](v25, -1, -1);
-    MEMORY[0x193AC4820](v24, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  return (*(v13 + 8))(v15, v12);
-}
-
-{
-  type metadata accessor for Logger?();
-  v9 = v8;
-  MEMORY[0x1EEE9AC00](v8);
-  v11 = &v27 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for Logger();
-  v13 = *(v12 - 8);
-  MEMORY[0x1EEE9AC00](v12);
-  v15 = &v27 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for lazyStack != -1)
-  {
-    swift_once();
-  }
-
-  v16 = __swift_project_value_buffer(v9, static Log.lazyStack);
-  outlined init with copy of EstimationCache(v16, v11, type metadata accessor for Logger?);
-  if ((*(v13 + 48))(v11, 1, v12) == 1)
-  {
-    return outlined destroy of EstimationCache(v11, type metadata accessor for Logger?);
-  }
-
-  (*(v13 + 32))(v15, v11, v12);
-  v31[0] = 0;
-  v31[1] = 0xE000000000000000;
-  _StringGuts.grow(_:)(26);
-
-  strcpy(v31, "placing from #");
-  HIBYTE(v31[1]) = -18;
-  v27 = a5;
-  v18 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x193ABEDD0](v18);
-
-  MEMORY[0x193ABEDD0](8236, 0xE200000000000000);
-  v19 = Double.description.getter();
-  MEMORY[0x193ABEDD0](v19);
-
-  MEMORY[0x193ABEDD0](544106784, 0xE400000000000000);
-  v29 = a3;
-  v30 = a2;
-  v27 = 0;
-  v28 = 0xE000000000000000;
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](3026478, 0xE300000000000000);
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x193ABEDD0](v27, v28);
-
-  v21 = v31[0];
-  v20 = v31[1];
-  v22 = Logger.logObject.getter();
-  v23 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v22, v23))
-  {
-    v24 = swift_slowAlloc();
-    v25 = swift_slowAlloc();
-    v31[0] = v25;
-    *v24 = 136315394;
-    *(v24 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000047, 0x800000018DD75980, v31);
-    *(v24 + 12) = 2080;
-    v26 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v20, v31);
-
-    *(v24 + 14) = v26;
-    _os_log_impl(&dword_18D018000, v22, v23, "%s: %s", v24, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x193AC4820](v25, -1, -1);
-    MEMORY[0x193AC4820](v24, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  return (*(v13 + 8))(v15, v12);
-}
-
-uint64_t StackPlacement.placeSection(_:from:)(__int128 *a1, uint64_t *a2, uint64_t a3)
-{
-  v4 = v3;
-  v8 = (v3 + *(a3 + 80));
-  outlined destroy of _LazyLayout_Subview?(v8, &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6720], type metadata accessor for [_LazyLayout_Subview]);
-  *v8 = 0u;
-  v8[1] = 0u;
-  v8[2] = 0u;
-  v8[3] = 0u;
-  v8[4] = 0u;
-  v8[5] = 0u;
-  v8[6] = 0u;
-  StackPlacement.flushMinorGroup()(a3);
-  result = StackPlacement.shouldStop()(a3);
-  if (result)
-  {
-    return result;
-  }
-
-  v10 = a1[3];
-  v36 = a1[2];
-  v37 = v10;
-  v38 = *(a1 + 8);
-  v39 = 0;
-  v11 = a1[1];
-  v34 = *a1;
-  v35 = v11;
-  v12 = _LazyLayout_Section.header.getter(v33);
-  MEMORY[0x1EEE9AC00](v12);
-  v13 = *(a3 + 16);
-  v14 = *(a3 + 24);
-  v27 = v13;
-  v28 = v14;
-  v29 = v4;
-  v30 = a2;
-  v32 = 2;
-  _LazyLayout_Subviews.apply(from:style:to:)(&v39, &v32, partial apply for closure #1 in StackPlacement.placeSection(_:from:), v26);
-  outlined destroy of _LazyLayout_Subviews(v33);
-  result = StackPlacement.shouldStop()(a3);
-  if (result)
-  {
-    return result;
-  }
-
-  v15 = a1[3];
-  v36 = a1[2];
-  v37 = v15;
-  v38 = *(a1 + 8);
-  v16 = a1[1];
-  v34 = *a1;
-  v35 = v16;
-  _LazyLayout_Section.content.getter(v33);
-  MEMORY[0x1EEE9AC00](v17);
-  v27 = v13;
-  v28 = v14;
-  v29 = v4;
-  v32 = 2;
-  _LazyLayout_Subviews.apply(from:style:to:)(a2, &v32, partial apply for closure #2 in StackPlacement.placeSection(_:from:), v26);
-  result = outlined destroy of _LazyLayout_Subviews(v33);
-  v18 = *a2;
-  if (*a2)
-  {
-    v19 = *(v4 + *(a3 + 40)) & 0x7FFFFFFFFFFFFFFFLL;
-    if (v19 != 1)
-    {
-      if (v19)
-      {
-        v20 = v18 % v19;
-        v21 = __OFSUB__(v18, v20);
-        v22 = v18 - v20;
-        if (!v21)
-        {
-          *a2 = v22;
-          goto LABEL_8;
-        }
-      }
-
-      else
-      {
-        __break(1u);
-      }
-
-      __break(1u);
-      return result;
-    }
-  }
-
-LABEL_8:
-  StackPlacement.flushMinorGroup()(a3);
-  result = StackPlacement.shouldStop()(a3);
-  if ((result & 1) == 0 || *(v4 + *(a3 + 44)) < *(v4 + *(a3 + 64)) && (*(v4 + *(a3 + 48)) & 2) != 0)
-  {
-    v32 = 0;
-    v23 = a1[3];
-    v36 = a1[2];
-    v37 = v23;
-    v38 = *(a1 + 8);
-    v24 = a1[1];
-    v34 = *a1;
-    v35 = v24;
-    _LazyLayout_Section.footer.getter(v33);
-    MEMORY[0x1EEE9AC00](v25);
-    v27 = v13;
-    v28 = v14;
-    v29 = v4;
-    v30 = a2;
-    v31 = 2;
-    _LazyLayout_Subviews.apply(from:style:to:)(&v32, &v31, partial apply for closure #3 in StackPlacement.placeSection(_:from:), v26);
-    return outlined destroy of _LazyLayout_Subviews(v33);
-  }
-
-  return result;
-}
-
-void StackPlacement.placeHeaderOrFooter(start:subview:kind:)(uint64_t *a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4)
-{
-  v5 = v4;
-  v8 = *a3;
-  v9 = *a1;
-  if (*a1)
-  {
-    v10 = *(v4 + *(a4 + 40));
-    v11 = __OFSUB__(v9, v10);
-    v12 = v9 - v10;
-    if (!v11)
-    {
-      *a1 = v12;
-      if (v8 == 1)
-      {
-        v13 = *(a4 + 80);
-        v14 = MEMORY[0x1E69E6720];
-        outlined init with copy of _LazyLayout_Subview?(v4 + v13, &v77, &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6720], type metadata accessor for [_LazyLayout_Subview]);
-        v15 = v77;
-        outlined destroy of _LazyLayout_Subview?(&v77, &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, v14, type metadata accessor for [_LazyLayout_Subview]);
-        if (!v15)
-        {
-          outlined destroy of _LazyLayout_Subview?(v4 + v13, &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6720], type metadata accessor for [_LazyLayout_Subview]);
-          outlined init with copy of _LazyLayout_Subview(a2, v4 + v13);
-        }
-      }
-
-      return;
-    }
-
-    __break(1u);
-    goto LABEL_65;
-  }
-
-  v16 = *(a4 + 60);
-  if ((*(v4 + v16) & 1) == 0)
-  {
-    v18 = *(a4 + 36);
-    v19 = *(v4 + v18);
-    v20 = v4 + *(a4 + 40);
-    if (v19)
-    {
-      v21 = *(v20 + 8);
-    }
-
-    else
-    {
-      v21 = 0;
-    }
-
-    if (*(v4 + v18))
-    {
-      v22 = 0;
-    }
-
-    else
-    {
-      v22 = *(v20 + 8);
-    }
-
-    v23 = *(v4 + *(a4 + 76));
-    v66 = v4 + *(a4 + 40);
-    v65 = *(a4 + 36);
-    v69 = v23;
-    v68 = v22;
-    v67 = v21;
-    if (v23)
-    {
-      if (!*(v23 + 16))
-      {
-LABEL_67:
-        __break(1u);
-        return;
-      }
-
-      outlined init with copy of _LazyLayout_Subview(v23 + 32, &v77);
-    }
-
-    else
-    {
-      v82 = 0u;
-      v83 = 0u;
-      v80 = 0u;
-      v81 = 0u;
-      v78 = 0u;
-      v79 = 0u;
-      v77 = 0u;
-    }
-
-    v63 = *(a4 + 16);
-    v64 = *(a4 + 24);
-    (*(v64 + 40))();
-    v24 = *(a2 + 8);
-    v25 = *(LazyLayoutViewCache.item(data:)((a2 + 16)) + 44);
-
-    v26 = *MEMORY[0x1E698D3F8];
-    v74 = v24;
-    v75 = v25;
-    v76 = v26;
-    v70 = v67;
-    v71 = v19 ^ 1;
-    v72 = v68;
-    v73 = v19;
-    v27 = LayoutProxy.lengthThatFits(_:in:)(&v70, v19);
-    v29 = v28;
-    MEMORY[0x1EEE9AC00](v27);
-    v30 = COERCE_DOUBLE(_sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF7SwiftUI19_LazyLayout_SubviewV_s5NeverO12CoreGraphics7CGFloatVTg5(closure #1 in _LazyLayout_Subview.lengthAndSpacing(size:axis:predecessor:uniformSpacing:)partial apply));
-    v32 = v31;
-    outlined destroy of _LazyLayout_Subview?(&v77, &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6720], type metadata accessor for [_LazyLayout_Subview]);
-    if (v32)
-    {
-      v33 = 0.0;
-    }
-
-    else
-    {
-      v33 = v30;
-    }
-
-    if (v69)
-    {
-      v34 = *&v33;
-    }
-
-    else
-    {
-      v34 = 0;
-    }
-
-    StackPlacement.addMeasurements(length:spacing:)(v34, v69 == 0, a4, v29);
-    v35 = *(a4 + 64);
-    v36 = v33 + *(v5 + v35);
-    *(v5 + v35) = v36;
-    if (StackPlacement.isVisible(length:)(a4, v29))
-    {
-      StackPlacement.addVisibleSubview(length:spacing:)(a4, v29, v33);
-    }
-
-    else
-    {
-      if ((*(v5 + *(a4 + 48)) & 2) == 0 || v8 != 2)
-      {
-        if (v8 == 1)
-        {
-          v46 = *(a4 + 80);
-          v47 = MEMORY[0x1E69E6720];
-          outlined init with copy of _LazyLayout_Subview?(v5 + v46, &v77, &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6720], type metadata accessor for [_LazyLayout_Subview]);
-          v48 = v77;
-          outlined destroy of _LazyLayout_Subview?(&v77, &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, v47, type metadata accessor for [_LazyLayout_Subview]);
-          if (!v48)
-          {
-            outlined destroy of _LazyLayout_Subview?(v5 + v46, &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6720], type metadata accessor for [_LazyLayout_Subview]);
-            outlined init with copy of _LazyLayout_Subview(a2, v5 + v46);
-          }
-        }
-
-        goto LABEL_51;
-      }
-
-      if (*(v5 + *(a4 + 88) + 8) < *(v5 + *(a4 + 88)))
-      {
-LABEL_51:
-        *(v5 + v35) = v29 + v36;
-        goto LABEL_52;
-      }
-    }
-
-    StackPlacement.flushPendingHeader()(a4);
-    v36 = *(v5 + v35);
-    v37 = *(v5 + v65) == 0;
-    if (*(v5 + v65))
-    {
-      v38 = 0.0;
-    }
-
-    else
-    {
-      v38 = *(v5 + v35);
-    }
-
-    if (*(v5 + v65))
-    {
-      v39 = *(v5 + v35);
-    }
-
-    else
-    {
-      v39 = 0.0;
-    }
-
-    v40 = *(v66 + 8);
-    if (*(v5 + v65))
-    {
-      v41 = *(v66 + 8);
-    }
-
-    else
-    {
-      v41 = v29;
-    }
-
-    *&v77 = v41;
-    if (!v37)
-    {
-      v40 = v29;
-    }
-
-    BYTE8(v77) = 0;
-    *&v78 = v40;
-    BYTE8(v78) = 0;
-    if (v8 == 2)
-    {
-      v44 = (*(v64 + 56))(v63);
-    }
-
-    else
-    {
-      v42 = 0.5;
-      v43 = 0.5;
-      if (v8 != 1)
-      {
-LABEL_50:
-        StackPlacement.emit(_:at:size:anchor:)(v38, v39, v42, v43, a2, &v77, a4);
-        goto LABEL_51;
-      }
-
-      (*(v64 + 48))(v63);
-    }
-
-    v42 = v44;
-    v43 = v45;
-    goto LABEL_50;
-  }
-
-  *(v4 + v16) = 0;
-  if (v8 == 1)
-  {
-    v17 = *(a4 + 80);
-    outlined destroy of _LazyLayout_Subview?(v5 + v17, &lazy cache variable for type metadata for _LazyLayout_Subview?, &type metadata for _LazyLayout_Subview, MEMORY[0x1E69E6720], type metadata accessor for [_LazyLayout_Subview]);
-    outlined init with copy of _LazyLayout_Subview(a2, v5 + v17);
-  }
-
-LABEL_52:
-  v49 = *(v5 + *(a4 + 40));
-  v50 = *(a4 + 56);
-  v51 = *(v5 + v50);
-  v11 = __OFADD__(v51, v49);
-  v52 = v51 + v49;
-  if (v11)
-  {
-LABEL_65:
-    __break(1u);
-    goto LABEL_66;
-  }
-
-  *(v5 + v50) = v52;
-  if (v49 < 0)
-  {
-LABEL_66:
-    __break(1u);
-    goto LABEL_67;
-  }
-
-  if (v49)
-  {
-    v53 = *(a4 + 72);
-    v54 = *(v5 + v53);
-    do
-    {
-      outlined init with copy of _LazyLayout_Subview(a2, &v77);
-      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-      {
-        v54 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v54 + 2) + 1, 1, v54);
-      }
-
-      v56 = *(v54 + 2);
-      v55 = *(v54 + 3);
-      if (v56 >= v55 >> 1)
-      {
-        v54 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v55 > 1), v56 + 1, 1, v54);
-      }
-
-      *(v54 + 2) = v56 + 1;
-      v57 = &v54[112 * v56];
-      v58 = v77;
-      v59 = v79;
-      *(v57 + 3) = v78;
-      *(v57 + 4) = v59;
-      *(v57 + 2) = v58;
-      v60 = v80;
-      v61 = v81;
-      v62 = v83;
-      *(v57 + 7) = v82;
-      *(v57 + 8) = v62;
-      *(v57 + 5) = v60;
-      *(v57 + 6) = v61;
-      --v49;
-    }
-
-    while (v49);
-    *(v5 + v53) = v54;
-  }
-
-  swapSubviews(_:_:)((v5 + *(a4 + 76)), (v5 + *(a4 + 72)));
+  v15 = DateComponents.value(for:)();
+  v17 = v16;
+  (*(v20 + 8))(v6, v21);
+  v14(v10, v7);
+  return (v15 != 0) & ~v17;
 }

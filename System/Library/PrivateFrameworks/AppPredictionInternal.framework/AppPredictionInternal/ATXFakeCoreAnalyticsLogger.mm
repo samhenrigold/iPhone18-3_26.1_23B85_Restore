@@ -61,30 +61,30 @@ void __44__ATXFakeCoreAnalyticsLogger_sharedInstance__block_invoke()
 
 - (BOOL)partialDictionaryMatches:(id)matches eventDictionary:(id)dictionary
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   matchesCopy = matches;
   dictionaryCopy = dictionary;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v7 = matchesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
-        v13 = [v7 objectForKeyedSubscript:{v12, v20}];
+        v12 = *(*(&v19 + 1) + 8 * i);
+        v13 = [v7 objectForKeyedSubscript:{v12, v19}];
         v14 = [dictionaryCopy objectForKeyedSubscript:v12];
         v15 = v14;
         if (v13)
@@ -105,7 +105,7 @@ void __44__ATXFakeCoreAnalyticsLogger_sharedInstance__block_invoke()
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
       v17 = 1;
       if (v9)
       {
@@ -123,35 +123,34 @@ void __44__ATXFakeCoreAnalyticsLogger_sharedInstance__block_invoke()
 
 LABEL_16:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (BOOL)hasReceivedEventWithMetricName:(id)name partialDictionary:(id)dictionary
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   dictionaryCopy = dictionary;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v8 = self->_loggedEvents;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         first = [v13 first];
         if ([nameCopy isEqualToString:first])
         {
@@ -170,7 +169,7 @@ LABEL_16:
         }
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
@@ -179,7 +178,6 @@ LABEL_16:
   v17 = 0;
 LABEL_13:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

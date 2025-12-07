@@ -406,7 +406,6 @@
 
   objc_storeStrong(&v93, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)statefulUIManager:(id)manager didFailToScanForUpdatesWithError:(id)error
@@ -479,7 +478,6 @@
   MEMORY[0x277D82BD8](navigationController);
   objc_storeStrong(&v35, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)statefulUIManager:(id)manager didStartDownloadForDescriptor:(id)descriptor withDownload:(id)download
@@ -555,7 +553,6 @@
   objc_storeStrong(&v37, 0);
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)statefulUIManager:(id)manager descriptor:(id)descriptor didTransitionFromDescriptorState:(unint64_t)state toState:(unint64_t)toState

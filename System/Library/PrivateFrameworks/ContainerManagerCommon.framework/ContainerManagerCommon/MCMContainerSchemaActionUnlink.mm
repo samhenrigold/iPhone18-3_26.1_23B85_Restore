@@ -9,11 +9,11 @@
 
 - (BOOL)performWithError:(id *)error
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   url = self->_url;
-  v13[0] = 0;
-  v5 = [(MCMContainerSchemaActionBase *)self fixAndRetryIfPermissionsErrorWithURL:url error:v13 duringBlock:&__block_literal_global_2650];
-  v6 = v13[0];
+  v12[0] = 0;
+  v5 = [(MCMContainerSchemaActionBase *)self fixAndRetryIfPermissionsErrorWithURL:url error:v12 duringBlock:&__block_literal_global_2650];
+  v6 = v12[0];
   domain = [v6 domain];
   if ([domain isEqualToString:*MEMORY[0x1E696A798]])
   {
@@ -51,40 +51,34 @@
 
 LABEL_10:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 uint64_t __51__MCMContainerSchemaActionUnlink_performWithError___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = +[MCMFileManager defaultManager];
   v6 = [v5 removeItemAtURL:v4 error:a3];
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (NSString)description
 {
-  v8 = *MEMORY[0x1E69E9840];
   actionIdentifier = [objc_opt_class() actionIdentifier];
   path = [(NSURL *)self->_url path];
   v5 = [actionIdentifier stringByAppendingFormat:@" [%@]", path];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (MCMContainerSchemaActionUnlink)initWithPathArgument:(id)argument context:(id)context
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   argumentCopy = argument;
-  v12.receiver = self;
-  v12.super_class = MCMContainerSchemaActionUnlink;
-  v7 = [(MCMContainerSchemaActionBase *)&v12 initWithContext:context];
+  v11.receiver = self;
+  v11.super_class = MCMContainerSchemaActionUnlink;
+  v7 = [(MCMContainerSchemaActionBase *)&v11 initWithContext:context];
   if (v7)
   {
     fileURL = [argumentCopy fileURL];
@@ -98,14 +92,11 @@ uint64_t __51__MCMContainerSchemaActionUnlink_performWithError___block_invoke(ui
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 + (id)actionIdentifier
 {
-  v2 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
 
   return @"unlink";
 }

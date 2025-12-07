@@ -177,11 +177,11 @@
   }
 }
 
-uint64_t __74__MKUserLocationHeadingArrowLayer_updateHeadingAccuracy_previousAccuracy___block_invoke(uint64_t result, int a2)
+id *__74__MKUserLocationHeadingArrowLayer_updateHeadingAccuracy_previousAccuracy___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) setHidden:(*(result + 40) & 1) == 0];
+    return [result[4] setHidden:(result[5] & 1) == 0];
   }
 
   return result;

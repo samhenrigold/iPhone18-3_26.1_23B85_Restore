@@ -172,52 +172,51 @@ void __86__UserTransparencyViewController_requestUserTransparencyDetailsWithComp
 
 void __86__UserTransparencyViewController_requestUserTransparencyDetailsWithCompletionHandler___block_invoke_3(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v28 = a2;
+  v27 = a2;
   v7 = a3;
   v8 = a4;
   if (v8)
   {
-    v9 = *(a1 + 32);
-    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: The requestUserTransparencyDetailsWithCompletionHandler failed with error %ld.", objc_opt_class(), objc_msgSend(v8, "code")];
+    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: The requestUserTransparencyDetailsWithCompletionHandler failed with error %ld.", objc_opt_class(), objc_msgSend(v8, "code")];
     _ADLog();
   }
 
   else
   {
-    v11 = [objc_alloc(MEMORY[0x277CE96E0]) initWithData:v28];
-    [*(a1 + 32) setUserTransparencyResponseData:v11];
+    v10 = [objc_alloc(MEMORY[0x277CE96E0]) initWithData:v27];
+    [*(a1 + 32) setUserTransparencyResponseData:v10];
 
-    v12 = MEMORY[0x277CCACA8];
-    v13 = [*(a1 + 32) userTransparencyResponseData];
-    v14 = [v13 AD_jsonString];
-    v15 = [v12 stringWithFormat:@"Received response for ADUserTransparencyRequest: %@", v14];
+    v11 = MEMORY[0x277CCACA8];
+    v12 = [*(a1 + 32) userTransparencyResponseData];
+    v13 = [v12 AD_jsonString];
+    v14 = [v11 stringWithFormat:@"Received response for ADUserTransparencyRequest: %@", v13];
     _ADLog();
 
-    v16 = [*(a1 + 32) userTransparencyResponseData];
-    v17 = [v16 transparencyDetails];
-    v18 = [v17 transparencyRendererPayload];
-    [*(a1 + 32) setUserTransparencyRendererPayload:v18];
+    v15 = [*(a1 + 32) userTransparencyResponseData];
+    v16 = [v15 transparencyDetails];
+    v17 = [v16 transparencyRendererPayload];
+    [*(a1 + 32) setUserTransparencyRendererPayload:v17];
 
-    v19 = [*(a1 + 32) userTransparencyResponseData];
-    v20 = [v19 transparencyDetails];
-    v21 = [v20 transparencyRendererURL];
-    [*(a1 + 32) setUserTransparencyRendererURL:v21];
+    v18 = [*(a1 + 32) userTransparencyResponseData];
+    v19 = [v18 transparencyDetails];
+    v20 = [v19 transparencyRendererURL];
+    [*(a1 + 32) setUserTransparencyRendererURL:v20];
 
-    v22 = [*(a1 + 32) userTransparencyResponseData];
-    v23 = [v22 transparencyDetails];
-    v24 = [v23 transparencyDetailsUnavailableMessage];
-    [*(a1 + 32) setUserTransparencyDetailsUnavailableMessage:v24];
+    v21 = [*(a1 + 32) userTransparencyResponseData];
+    v22 = [v21 transparencyDetails];
+    v23 = [v22 transparencyDetailsUnavailableMessage];
+    [*(a1 + 32) setUserTransparencyDetailsUnavailableMessage:v23];
 
-    v25 = MEMORY[0x277CCACA8];
-    v10 = [*(a1 + 32) userTransparencyRendererPayload];
-    v26 = [v25 stringWithFormat:@"The privacy data key being used is: %@.", v10];
+    v24 = MEMORY[0x277CCACA8];
+    v9 = [*(a1 + 32) userTransparencyRendererPayload];
+    v25 = [v24 stringWithFormat:@"The privacy data key being used is: %@.", v9];
     _ADLog();
   }
 
-  v27 = *(a1 + 40);
-  if (v27)
+  v26 = *(a1 + 40);
+  if (v26)
   {
-    (*(v27 + 16))(v27, v8);
+    (*(v26 + 16))(v26, v8);
   }
 }
 
@@ -370,7 +369,7 @@ void __55__UserTransparencyViewController__closeViewController___block_invoke(ui
 
 - (void)immediatelyLoadViewControllerBeforeNetworkRequest
 {
-  v104[3] = *MEMORY[0x277D85DE8];
+  v103[3] = *MEMORY[0x277D85DE8];
   if ([(UserTransparencyViewController *)self isiPad])
   {
     v3 = 2;
@@ -388,7 +387,7 @@ void __55__UserTransparencyViewController__closeViewController___block_invoke(ui
   [view setBackgroundColor:systemBackgroundColor];
 
   [(UserTransparencyViewController *)self setEdgesForExtendedLayout:0];
-  v99 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v98 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v6 = objc_alloc_init(MEMORY[0x277D75780]);
   [(UserTransparencyViewController *)self setTransparencyNavBar:v6];
 
@@ -408,40 +407,40 @@ void __55__UserTransparencyViewController__closeViewController___block_invoke(ui
   transparencyNavBar5 = [(UserTransparencyViewController *)self transparencyNavBar];
   [view2 addSubview:transparencyNavBar5];
 
-  v85 = MEMORY[0x277CCAAD0];
+  v84 = MEMORY[0x277CCAAD0];
   transparencyNavBar6 = [(UserTransparencyViewController *)self transparencyNavBar];
   topAnchor = [transparencyNavBar6 topAnchor];
   view3 = [(UserTransparencyViewController *)self view];
   topAnchor2 = [view3 topAnchor];
-  v89 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:20.0];
-  v104[0] = v89;
+  v88 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:20.0];
+  v103[0] = v88;
   transparencyNavBar7 = [(UserTransparencyViewController *)self transparencyNavBar];
   rightAnchor = [transparencyNavBar7 rightAnchor];
   view4 = [(UserTransparencyViewController *)self view];
   rightAnchor2 = [view4 rightAnchor];
   v15 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-  v104[1] = v15;
+  v103[1] = v15;
   transparencyNavBar8 = [(UserTransparencyViewController *)self transparencyNavBar];
   leftAnchor = [transparencyNavBar8 leftAnchor];
   view5 = [(UserTransparencyViewController *)self view];
   leftAnchor2 = [view5 leftAnchor];
   v20 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-  v104[2] = v20;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v104 count:3];
-  [v85 activateConstraints:v21];
+  v103[2] = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v103 count:3];
+  [v84 activateConstraints:v21];
 
   v22 = objc_alloc(MEMORY[0x277D757A8]);
-  v23 = [v99 localizedStringForKey:@"Ad Targeting Information" value:&stru_287F8CB38 table:0];
+  v23 = [v98 localizedStringForKey:@"Ad Targeting Information" value:&stru_287F8CB38 table:0];
   v24 = [v22 initWithTitle:v23];
 
   [v24 setStyle:0];
   v25 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:1 target:self action:sel__closeViewController_];
   [v25 setAccessibilityLabel:@"Close"];
-  v96 = v25;
+  v95 = v25;
   [v24 setLeftBarButtonItem:v25];
-  v98 = v24;
-  v103 = v24;
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v103 count:1];
+  v97 = v24;
+  v102 = v24;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v102 count:1];
   transparencyNavBar9 = [(UserTransparencyViewController *)self transparencyNavBar];
   [transparencyNavBar9 setItems:v26];
 
@@ -455,10 +454,10 @@ void __55__UserTransparencyViewController__closeViewController___block_invoke(ui
     systemBackgroundColor2 = [MEMORY[0x277D75348] systemBackgroundColor];
     [v30 setBackgroundColor:systemBackgroundColor2];
 
-    v101 = *MEMORY[0x277D740C0];
+    v100 = *MEMORY[0x277D740C0];
     whiteColor = [MEMORY[0x277D75348] whiteColor];
-    v102 = whiteColor;
-    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v102 forKeys:&v101 count:1];
+    v101 = whiteColor;
+    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v101 forKeys:&v100 count:1];
     [v30 setTitleTextAttributes:v33];
 
     transparencyNavBar10 = [(UserTransparencyViewController *)self transparencyNavBar];
@@ -474,15 +473,15 @@ void __55__UserTransparencyViewController__closeViewController___block_invoke(ui
   v37 = objc_alloc_init(MEMORY[0x277CE3830]);
   v38 = MEMORY[0x277CCACA8];
   v39 = [MEMORY[0x277CCABB0] numberWithBool:{-[UserTransparencyViewController renderingStatusForPAPermission](self, "renderingStatusForPAPermission")}];
-  v94 = [v38 stringWithFormat:@"        window.transparency = {            isLocationPermissionGranted: () => { return 0 }, isPAEnabled: () => { return %@ }         }    ", v39];
+  v93 = [v38 stringWithFormat:@"        window.transparency = {            isLocationPermissionGranted: () => { return 0 }, isPAEnabled: () => { return %@ }         }    ", v39];
 
-  v90 = v37;
-  v92 = [objc_alloc(MEMORY[0x277CE3838]) initWithSource:v94 injectionTime:0 forMainFrameOnly:1];
-  [v37 addUserScript:v92];
-  v88 = objc_alloc_init(MEMORY[0x277CE3858]);
-  [v88 setUserContentController:v37];
+  v89 = v37;
+  v91 = [objc_alloc(MEMORY[0x277CE3838]) initWithSource:v93 injectionTime:0 forMainFrameOnly:1];
+  [v37 addUserScript:v91];
+  v87 = objc_alloc_init(MEMORY[0x277CE3858]);
+  [v87 setUserContentController:v37];
   v40 = objc_alloc(MEMORY[0x277CE3850]);
-  v41 = [v40 initWithFrame:v88 configuration:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
+  v41 = [v40 initWithFrame:v87 configuration:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
   [(UserTransparencyViewController *)self setMyUserPrivacyWebView:v41];
 
   myUserPrivacyWebView = [(UserTransparencyViewController *)self myUserPrivacyWebView];
@@ -527,35 +526,33 @@ void __55__UserTransparencyViewController__closeViewController___block_invoke(ui
   myUserPrivacyWebView10 = [(UserTransparencyViewController *)self myUserPrivacyWebView];
   [view6 addSubview:myUserPrivacyWebView10];
 
-  v75 = MEMORY[0x277CCAAD0];
+  v74 = MEMORY[0x277CCAAD0];
   myUserPrivacyWebView11 = [(UserTransparencyViewController *)self myUserPrivacyWebView];
   topAnchor3 = [myUserPrivacyWebView11 topAnchor];
   transparencyNavBar14 = [(UserTransparencyViewController *)self transparencyNavBar];
   bottomAnchor = [transparencyNavBar14 bottomAnchor];
-  v80 = [topAnchor3 constraintEqualToAnchor:bottomAnchor];
-  v100[0] = v80;
+  v79 = [topAnchor3 constraintEqualToAnchor:bottomAnchor];
+  v99[0] = v79;
   myUserPrivacyWebView12 = [(UserTransparencyViewController *)self myUserPrivacyWebView];
   bottomAnchor2 = [myUserPrivacyWebView12 bottomAnchor];
   view7 = [(UserTransparencyViewController *)self view];
   bottomAnchor3 = [view7 bottomAnchor];
-  v74 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3];
-  v100[1] = v74;
+  v73 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3];
+  v99[1] = v73;
   myUserPrivacyWebView13 = [(UserTransparencyViewController *)self myUserPrivacyWebView];
   rightAnchor3 = [myUserPrivacyWebView13 rightAnchor];
   view8 = [(UserTransparencyViewController *)self view];
   rightAnchor4 = [view8 rightAnchor];
   v65 = [rightAnchor3 constraintEqualToAnchor:rightAnchor4];
-  v100[2] = v65;
+  v99[2] = v65;
   myUserPrivacyWebView14 = [(UserTransparencyViewController *)self myUserPrivacyWebView];
   leftAnchor3 = [myUserPrivacyWebView14 leftAnchor];
   view9 = [(UserTransparencyViewController *)self view];
   leftAnchor4 = [view9 leftAnchor];
   v70 = [leftAnchor3 constraintEqualToAnchor:leftAnchor4];
-  v100[3] = v70;
-  v71 = [MEMORY[0x277CBEA60] arrayWithObjects:v100 count:4];
-  [v75 activateConstraints:v71];
-
-  v72 = *MEMORY[0x277D85DE8];
+  v99[3] = v70;
+  v71 = [MEMORY[0x277CBEA60] arrayWithObjects:v99 count:4];
+  [v74 activateConstraints:v71];
 }
 
 - (void)loadWebView

@@ -143,7 +143,6 @@ LABEL_13:
 
   if (environment)
   {
-    environment = self->_environment;
     PBDataWriterWriteStringField();
   }
 
@@ -151,7 +150,6 @@ LABEL_13:
 
   if (focus)
   {
-    focus = self->_focus;
     PBDataWriterWriteStringField();
   }
 }

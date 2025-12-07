@@ -42,7 +42,7 @@
   [(HMDHH2MigrationStateLogger *)v15 resetStoredMigrationState];
 
   objc_autoreleasePoolPop(v14);
-  v16 = [v3 copy];
+  v16 = objc_msgSend_copy(v3);
 
   return v16;
 }

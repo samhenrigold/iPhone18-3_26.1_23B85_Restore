@@ -68,12 +68,13 @@
     crlaxTarget = [(CRLPathSourceAccessibility *)self crlaxTarget];
     _crlaxStoredLabel = [crlaxTarget inferredAccessibilityDescription];
 
-    if (CRLAccessibilityShouldPerformValidationChecks())
+    ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(v5, v6);
+    if (ShouldPerformValidationChecks)
     {
       if (!_crlaxStoredLabel)
       {
-        ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-        if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"_crlaxInferredLabel did not return an inferred label for object: %@", v6, v7, v8, v9, v10, self))
+        ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+        if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"_crlaxInferredLabel did not return an inferred label for object: %@", v9, v10, v11, v12, v13, self))
         {
           abort();
         }
@@ -118,14 +119,15 @@
 
 - (id)_crlaxInferredLabel
 {
-  if (CRLAccessibilityShouldPerformValidationChecks())
+  ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(self, a2);
+  if (ShouldPerformValidationChecks)
   {
-    ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-    v3 = objc_opt_class();
-    v4 = NSStringFromClass(v3);
-    v10 = __CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Class should override _crlaxInferredLabel: %@", v5, v6, v7, v8, v9, v4);
+    ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+    v4 = objc_opt_class();
+    v5 = NSStringFromClass(v4);
+    v11 = __CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Class should override _crlaxInferredLabel: %@", v6, v7, v8, v9, v10, v5);
 
-    if (v10)
+    if (v11)
     {
       abort();
     }

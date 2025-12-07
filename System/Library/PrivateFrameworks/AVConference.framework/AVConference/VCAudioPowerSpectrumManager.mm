@@ -179,7 +179,7 @@ LABEL_11:
   }
 
   v13 = (a1 + 40);
-  if ([*(*(a1 + 32) + 16) objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInteger:", objc_msgSend(*(a1 + 40), "streamToken", *v20, *&v20[16], v21, v22, v23))}])
+  if ([*(*(a1 + 32) + 16) objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInteger:", objc_msgSend(*(a1 + 40), "streamToken", *v20, *&v20[8], v21, v22, v23))}])
   {
     if (objc_opt_class() == *(a1 + 32))
     {
@@ -394,7 +394,7 @@ LABEL_26:
 
   _os_log_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_DEFAULT, v13, v22, v15);
 LABEL_13:
-  [(NSMutableArray *)self->_meters addObject:v8, *v22, *&v22[16], v23, selfCopy2, v25];
+  [(NSMutableArray *)self->_meters addObject:v8, *v22, *&v22[8], v23, selfCopy2, v25];
   return v8;
 }
 

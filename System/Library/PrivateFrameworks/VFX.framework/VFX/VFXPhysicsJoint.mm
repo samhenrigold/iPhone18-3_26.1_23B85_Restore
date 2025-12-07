@@ -49,7 +49,7 @@
 
 - (btTypedConstraint)_createConstraint
 {
-  v3 = sub_1AF0D5194();
+  v3 = sub_1AF0D5194(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_1AFDFA7E4(self, v3);
@@ -62,26 +62,26 @@
 {
   if (self->_constraint)
   {
-    v3 = sub_1AF0D5194();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = sub_1AF0D5194(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_1AFDFA85C(v3, v4, v5, v6, v7, v8, v9, v10);
+      sub_1AFDFA85C(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  v11.receiver = self;
-  v11.super_class = VFXPhysicsJoint;
-  [(VFXPhysicsJoint *)&v11 dealloc];
+  v13.receiver = self;
+  v13.super_class = VFXPhysicsJoint;
+  [(VFXPhysicsJoint *)&v13 dealloc];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc_init(objc_opt_class());
-  v8 = objc_msgSend_bodyA(self, v5, v6, v7);
-  objc_msgSend_setBodyA_(v4, v9, v8, v10);
-  v14 = objc_msgSend_bodyB(self, v11, v12, v13);
-  objc_msgSend_setBodyB_(v4, v15, v14, v16);
-  objc_msgSend_copyFrom_(v4, v17, self, v18);
+  v7 = objc_msgSend_bodyA(self, v5, v6);
+  objc_msgSend_setBodyA_(v4, v8, v7);
+  v11 = objc_msgSend_bodyB(self, v9, v10);
+  objc_msgSend_setBodyB_(v4, v12, v11);
+  objc_msgSend_copyFrom_(v4, v13, self);
   return v4;
 }
 
@@ -90,20 +90,20 @@
   bodyA = self->_bodyA;
   if (bodyA != a)
   {
-    v14[7] = v3;
-    v14[8] = v4;
+    v13[7] = v3;
+    v13[8] = v4;
 
     self->_bodyA = a;
     physicsWorld = self->_physicsWorld;
     if (physicsWorld)
     {
-      v12 = objc_msgSend_world(physicsWorld, v8, v9, v10);
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = sub_1AF35CA8C;
-      v14[3] = &unk_1E7A7E1D0;
-      v14[4] = self;
-      objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v13, v12, v14);
+      v11 = objc_msgSend_world(physicsWorld, v8, v9);
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = sub_1AF35CA8C;
+      v13[3] = &unk_1E7A7E1D0;
+      v13[4] = self;
+      objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v12, v11, v13);
     }
   }
 }
@@ -113,50 +113,51 @@
   bodyB = self->_bodyB;
   if (bodyB != b)
   {
-    v14[7] = v3;
-    v14[8] = v4;
+    v13[7] = v3;
+    v13[8] = v4;
 
     self->_bodyB = b;
     physicsWorld = self->_physicsWorld;
     if (physicsWorld)
     {
-      v12 = objc_msgSend_world(physicsWorld, v8, v9, v10);
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = sub_1AF35CB4C;
-      v14[3] = &unk_1E7A7E1D0;
-      v14[4] = self;
-      objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v13, v12, v14);
+      v11 = objc_msgSend_world(physicsWorld, v8, v9);
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = sub_1AF35CB4C;
+      v13[3] = &unk_1E7A7E1D0;
+      v13[4] = self;
+      objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v12, v11, v13);
     }
   }
 }
 
 - (void)_addToPhysicsWorld:(id)world
 {
+  selfCopy = self;
   if (self->_physicsWorld)
   {
-    v6 = sub_1AF0D5194();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = sub_1AF0D5194(self, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_1AFDFA894(v6, v7, v8, v9, v10, v11, v12, v13);
+      sub_1AFDFA894(v5, v6, v7, v8, v9, v10, v11, v12);
     }
 
-    objc_msgSend__removeConstraint(self, v7, v8, v9);
+    self = objc_msgSend__removeConstraint(selfCopy, v6, v7);
   }
 
-  if (self->_constraint)
+  if (selfCopy->_constraint)
   {
-    v14 = sub_1AF0D5194();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v13 = sub_1AF0D5194(self, a2);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_1AFDFA8CC(v14, v15, v16, v17, v18, v19, v20, v21);
+      sub_1AFDFA8CC(v13, v14, v15, v16, v17, v18, v19, v20);
     }
   }
 
   else
   {
-    self->_physicsWorld = world;
-    objc_msgSend__updateContraintAndAddToWorld_(self, a2, world, v3);
+    selfCopy->_physicsWorld = world;
+    objc_msgSend__updateContraintAndAddToWorld_(selfCopy, a2, world);
   }
 }
 
@@ -164,14 +165,14 @@
 {
   if (self->_physicsWorld)
   {
-    objc_msgSend__removeConstraint(self, a2, world, v3);
-    Constraint = objc_msgSend__createConstraint(self, v6, v7, v8);
+    objc_msgSend__removeConstraint(self, a2, world);
+    Constraint = objc_msgSend__createConstraint(self, v5, v6);
     self->_constraint = Constraint;
     if (Constraint)
     {
-      v13 = *(*objc_msgSend__handle(world, v10, v11, v12) + 112);
+      v10 = *(*objc_msgSend__handle(world, v8, v9) + 112);
 
-      v13();
+      v10();
     }
   }
 }
@@ -180,10 +181,10 @@
 {
   if (self->_constraint)
   {
-    v5 = objc_msgSend__handle(self->_physicsWorld, a2, v2, v3);
-    if (v5)
+    v4 = objc_msgSend__handle(self->_physicsWorld, a2, v2);
+    if (v4)
     {
-      (*(*v5 + 120))(v5, self->_constraint);
+      (*(*v4 + 120))(v4, self->_constraint);
     }
 
     constraint = self->_constraint;
@@ -214,21 +215,21 @@
 
 - (VFXPhysicsJoint)initWithCoder:(id)coder
 {
-  v18.receiver = self;
-  v18.super_class = VFXPhysicsJoint;
-  v7 = [(VFXPhysicsJoint *)&v18 init];
-  if (v7)
+  v15.receiver = self;
+  v15.super_class = VFXPhysicsJoint;
+  v6 = [(VFXPhysicsJoint *)&v15 init];
+  if (v6)
   {
-    v8 = objc_msgSend_immediateMode(VFXTransaction, v4, v5, v6);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v9, 1, v10);
+    v7 = objc_msgSend_immediateMode(VFXTransaction, v4, v5);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v8, 1);
+    v9 = objc_opt_class();
+    v6->_bodyA = objc_msgSend_decodeObjectOfClass_forKey_(coder, v10, v9, @"bodyA");
     v11 = objc_opt_class();
-    v7->_bodyA = objc_msgSend_decodeObjectOfClass_forKey_(coder, v12, v11, @"bodyA");
-    v13 = objc_opt_class();
-    v7->_bodyB = objc_msgSend_decodeObjectOfClass_forKey_(coder, v14, v13, @"bodyB");
-    objc_msgSend_setImmediateMode_(VFXTransaction, v15, v8, v16);
+    v6->_bodyB = objc_msgSend_decodeObjectOfClass_forKey_(coder, v12, v11, @"bodyB");
+    objc_msgSend_setImmediateMode_(VFXTransaction, v13, v7);
   }
 
-  return v7;
+  return v6;
 }
 
 @end

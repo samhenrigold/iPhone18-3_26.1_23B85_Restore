@@ -580,13 +580,13 @@ LABEL_16:
   }
 }
 
-uint64_t __68__UIStepperHorizontalVisualElement__updateHighlight_button_onRight___block_invoke_2(uint64_t result, uint64_t a2)
+void *__68__UIStepperHorizontalVisualElement__updateHighlight_button_onRight___block_invoke_2(void *result, uint64_t a2)
 {
   if (!a2)
   {
     v3 = result;
     v4 = *(result + 48);
-    v5 = *(result + 32);
+    v5 = result[4];
     if (v4 == 1)
     {
       [v5 _rightHighlightFrame];
@@ -598,7 +598,7 @@ uint64_t __68__UIStepperHorizontalVisualElement__updateHighlight_button_onRight_
     }
 
     v11 = CGRectInset(*&v6, 4.0, 4.0);
-    v10 = *(v3 + 40);
+    v10 = v3[5];
 
     return [v10 setFrame:{v11.origin.x, v11.origin.y, v11.size.width, v11.size.height}];
   }
@@ -1182,9 +1182,9 @@ LABEL_19:
 
   v9 = *(&self->super.super.super.isa + OBJC_IVAR___UIStepperHorizontalVisualElement__minimumValue[v8]);
   identifier = [region identifier];
-  v11 = [identifier isEqual:@"UIStepperLeftPointerRegion"];
+  isEqual = objc_msgSend_isEqual_(identifier);
 
-  if (v11)
+  if (isEqual)
   {
     v12 = v7;
   }

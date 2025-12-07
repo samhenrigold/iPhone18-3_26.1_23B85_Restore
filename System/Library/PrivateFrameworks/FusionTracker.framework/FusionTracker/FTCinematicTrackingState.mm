@@ -277,7 +277,7 @@ LABEL_23:
 LABEL_48:
     time2.value = *(v20 + 16);
     time1.value = &time2;
-    time1 = *(std::__hash_table<std::__hash_value_type<long long,CMTime>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,CMTime>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,CMTime>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,CMTime>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long &&>,std::tuple<>>(v19 + 5, &time2) + 1);
+    time1 = *(std::__hash_table<std::__hash_value_type<long long,CMTime>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,CMTime>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,CMTime>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,CMTime>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long &&>,std::tuple<>>(v19 + 5, &time2, &std::piecewise_construct, &time1) + 1);
     [v17 setLastTappedTime:&time1];
     v20 = *v13;
     if ((*(*v13 + 232) & 1) == 0)
@@ -392,7 +392,7 @@ LABEL_58:
           v56 = *(*(&v65 + 1) + 8 * i);
           if (v56)
           {
-            [*(*(&v65 + 1) + 8 * i) lastTappedTime];
+            objc_msgSend_lastTappedTime(*(*(&v65 + 1) + 8 * i));
           }
 
           else

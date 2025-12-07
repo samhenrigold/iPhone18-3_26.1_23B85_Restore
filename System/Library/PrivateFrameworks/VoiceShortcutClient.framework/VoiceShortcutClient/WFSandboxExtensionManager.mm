@@ -43,7 +43,7 @@
 
 id __116__WFSandboxExtensionManager_requestSandboxExtensionForResources_destinationProcessAuditToken_unauthorizedResources___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) extensionClassesPerResource];
   v5 = [v4 objectForKeyedSubscript:v3];
@@ -98,7 +98,6 @@ LABEL_10:
   v9[2](v9);
 
 LABEL_11:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

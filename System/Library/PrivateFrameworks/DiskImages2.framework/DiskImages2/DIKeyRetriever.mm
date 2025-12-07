@@ -88,14 +88,14 @@
 
 + (id)newSessionWithError:(id *)error
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = [self newDawTokenWithError:error];
   if (v3)
   {
     ephemeralSessionConfiguration = [MEMORY[0x277CBABC8] ephemeralSessionConfiguration];
     v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"Bearer %@", v3, @"Authorization"];
-    v11[0] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v10[0] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     [ephemeralSessionConfiguration setHTTPAdditionalHeaders:v6];
 
     v7 = [MEMORY[0x277CBABB8] sessionWithConfiguration:ephemeralSessionConfiguration];
@@ -106,7 +106,6 @@
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -166,44 +165,55 @@
 
 void __66__DIKeyRetriever_requestSynchronousDataWithRequest_session_error___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   if (v9)
   {
     v10 = *__error();
-    if (DIForwardLogs())
+    v11 = DIForwardLogs();
+    if (v11)
     {
-      v11 = getDIOSLog();
-      os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
-      *buf = 68158210;
-      v27 = 79;
-      v28 = 2080;
-      v29 = "+[DIKeyRetriever requestSynchronousDataWithRequest:session:error:]_block_invoke";
-      v30 = 2112;
-      v31 = v9;
-      v12 = _os_log_send_and_compose_impl();
-
-      if (v12)
+      v28 = 0;
+      v13 = getDIOSLog(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        fprintf(*MEMORY[0x277D85DF8], "%s\n", v12);
-        free(v12);
+        v14 = 3;
+      }
+
+      else
+      {
+        v14 = 2;
+      }
+
+      *buf = 68158210;
+      v30 = 79;
+      v31 = 2080;
+      v32 = "+[DIKeyRetriever requestSynchronousDataWithRequest:session:error:]_block_invoke";
+      v33 = 2112;
+      v34 = v9;
+      v15 = _os_log_send_and_compose_impl(v14, &v28, 0, 0, &dword_248DE0000, v13, 16, "%.*s: %@", buf, 28);
+
+      if (v15)
+      {
+        fprintf(*MEMORY[0x277D85DF8], "%s\n", v15);
+        free(v15);
       }
     }
 
     else
     {
-      v18 = getDIOSLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v21 = getDIOSLog(v11, v12);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         *buf = 68158210;
-        v27 = 79;
-        v28 = 2080;
-        v29 = "+[DIKeyRetriever requestSynchronousDataWithRequest:session:error:]_block_invoke";
-        v30 = 2112;
-        v31 = v9;
-        _os_log_impl(&dword_248DE0000, v18, OS_LOG_TYPE_ERROR, "%.*s: %@", buf, 0x1Cu);
+        v30 = 79;
+        v31 = 2080;
+        v32 = "+[DIKeyRetriever requestSynchronousDataWithRequest:session:error:]_block_invoke";
+        v33 = 2112;
+        v34 = v9;
+        _os_log_impl(&dword_248DE0000, v21, OS_LOG_TYPE_ERROR, "%.*s: %@", buf, 0x1Cu);
       }
     }
 
@@ -216,39 +226,37 @@ void __66__DIKeyRetriever_requestSynchronousDataWithRequest_session_error___bloc
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v13 = v8;
-      v14 = [v13 statusCode];
-      if (v14 == 200)
+      v16 = v8;
+      v17 = [v16 statusCode];
+      if (v17 == 200)
       {
-        v15 = *(*(a1 + 48) + 8);
-        v16 = v7;
-        v17 = *(v15 + 40);
-        *(v15 + 40) = v16;
+        v18 = *(*(a1 + 48) + 8);
+        v19 = v7;
+        v20 = *(v18 + 40);
+        *(v18 + 40) = v19;
       }
 
       else
       {
-        v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"HTTP request failed with status code: %ld", v14];
-        v22 = [DIError errorWithEnumValue:150 verboseInfo:v17];
-        v23 = *(*(a1 + 40) + 8);
-        v24 = *(v23 + 40);
-        *(v23 + 40) = v22;
+        v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"HTTP request failed with status code: %ld", v17];
+        v25 = [DIError errorWithEnumValue:150 verboseInfo:v20];
+        v26 = *(*(a1 + 40) + 8);
+        v27 = *(v26 + 40);
+        *(v26 + 40) = v25;
       }
     }
 
     else
     {
-      v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unexpected response type: %@", v8];
-      v19 = [DIError errorWithEnumValue:150 verboseInfo:v13];
-      v20 = *(*(a1 + 40) + 8);
-      v21 = *(v20 + 40);
-      *(v20 + 40) = v19;
+      v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unexpected response type: %@", v8];
+      v22 = [DIError errorWithEnumValue:150 verboseInfo:v16];
+      v23 = *(*(a1 + 40) + 8);
+      v24 = *(v23 + 40);
+      *(v23 + 40) = v22;
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 + (id)jsonResponseWithRequest:(id)request session:(id)session error:(id *)error

@@ -8,6 +8,7 @@
 - (id)dictionaryRepresentation;
 - (id)featureValueForName:(id)name;
 - (id)features;
+- (id)highlightTypeAsString:(int)string;
 - (id)json;
 - (int)StringAsHighlightType:(id)type;
 - (int)highlightType;
@@ -49,7 +50,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 20))
   {
@@ -75,29 +76,29 @@
     [(PPRankableSocialHighlight *)self setSourceBundleId:?];
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v6 = *(fromCopy + 7);
-  v7 = [v6 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v26;
+    v9 = *v25;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v26 != v9)
+        if (*v25 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(PPRankableSocialHighlight *)self addApplicationIdentifiers:*(*(&v25 + 1) + 8 * i)];
+        [(PPRankableSocialHighlight *)self addApplicationIdentifiers:*(*(&v24 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v8);
@@ -133,29 +134,29 @@
     [(PPRankableSocialHighlight *)self setBatchIdentifier:?];
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v13 = *(fromCopy + 10);
-  v14 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v22;
+    v16 = *v21;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v22 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [(PPRankableSocialHighlight *)self addCalculatedFeatures:*(*(&v21 + 1) + 8 * j), v21];
+        [(PPRankableSocialHighlight *)self addCalculatedFeatures:*(*(&v20 + 1) + 8 * j), v20];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v15);
@@ -335,8 +336,6 @@ LABEL_63:
     self->_fromMeEntitlementOverrideIsPresent = *(fromCopy + 248);
     *&self->_has |= 0x100u;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)hash
@@ -804,7 +803,6 @@ LABEL_53:
       goto LABEL_123;
     }
 
-    v22 = *(equalCopy + 251);
     if (self->_isPrimary)
     {
       if ((*(equalCopy + 251) & 1) == 0)
@@ -869,7 +867,6 @@ LABEL_53:
       goto LABEL_123;
     }
 
-    v24 = *(equalCopy + 250);
     if (self->_isConversationAutoDonating)
     {
       if ((*(equalCopy + 250) & 1) == 0)
@@ -929,16 +926,15 @@ LABEL_53:
     }
   }
 
-  v27 = self->_has;
-  v28 = *(equalCopy + 128);
-  if ((v27 & 0x1000) != 0)
+  v25 = self->_has;
+  v26 = *(equalCopy + 128);
+  if ((v25 & 0x1000) != 0)
   {
     if ((*(equalCopy + 128) & 0x1000) == 0)
     {
       goto LABEL_123;
     }
 
-    v29 = *(equalCopy + 252);
     if (self->_isTopKResult)
     {
       if ((*(equalCopy + 252) & 1) == 0)
@@ -958,28 +954,28 @@ LABEL_53:
     goto LABEL_123;
   }
 
-  if ((v27 & 0x20) != 0)
+  if ((v25 & 0x20) != 0)
   {
-    if ((v28 & 0x20) == 0 || self->_topKScore != *(equalCopy + 6))
+    if ((v26 & 0x20) == 0 || self->_topKScore != *(equalCopy + 6))
     {
       goto LABEL_123;
     }
   }
 
-  else if ((v28 & 0x20) != 0)
+  else if ((v26 & 0x20) != 0)
   {
     goto LABEL_123;
   }
 
-  if ((v27 & 2) != 0)
+  if ((v25 & 2) != 0)
   {
-    if ((v28 & 2) == 0 || self->_firstPassScore != *(equalCopy + 2))
+    if ((v26 & 2) == 0 || self->_firstPassScore != *(equalCopy + 2))
     {
       goto LABEL_123;
     }
   }
 
-  else if ((v28 & 2) != 0)
+  else if ((v26 & 2) != 0)
   {
     goto LABEL_123;
   }
@@ -991,7 +987,6 @@ LABEL_53:
       goto LABEL_123;
     }
 
-    v30 = *(equalCopy + 249);
     if (self->_isCollaboration)
     {
       if ((*(equalCopy + 249) & 1) == 0)
@@ -1088,24 +1083,24 @@ LABEL_53:
         goto LABEL_123;
       }
 
-      v38 = 1;
+      v34 = 1;
       goto LABEL_124;
     }
 
 LABEL_123:
-    v38 = 0;
+    v34 = 0;
     goto LABEL_124;
   }
 
-  v38 = (*(equalCopy + 128) & 0x100) == 0;
+  v34 = (*(equalCopy + 128) & 0x100) == 0;
 LABEL_124:
 
-  return v38;
+  return v34;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_highlightIdentifier copyWithZone:zone];
   v7 = *(v5 + 160);
@@ -1129,30 +1124,30 @@ LABEL_124:
   v10 = *(v5 + 232);
   *(v5 + 232) = v9;
 
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
   v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   v11 = self->_applicationIdentifiers;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v67 objects:v72 count:16];
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v66 objects:v71 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v68;
+    v14 = *v67;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v68 != v14)
+        if (*v67 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = [*(*(&v67 + 1) + 8 * i) copyWithZone:zone];
+        v16 = [*(*(&v66 + 1) + 8 * i) copyWithZone:zone];
         [v5 addApplicationIdentifiers:v16];
       }
 
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v67 objects:v72 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v66 objects:v71 count:16];
     }
 
     while (v13);
@@ -1174,30 +1169,30 @@ LABEL_124:
   v24 = *(v5 + 72);
   *(v5 + 72) = v23;
 
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
   v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
   v25 = self->_calculatedFeatures;
-  v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v63 objects:v71 count:16];
+  v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v62 objects:v70 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v64;
+    v28 = *v63;
     do
     {
       for (j = 0; j != v27; ++j)
       {
-        if (*v64 != v28)
+        if (*v63 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        v30 = [*(*(&v63 + 1) + 8 * j) copyWithZone:{zone, v63}];
+        v30 = [*(*(&v62 + 1) + 8 * j) copyWithZone:{zone, v62}];
         [v5 addCalculatedFeatures:v30];
       }
 
-      v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v63 objects:v71 count:16];
+      v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v62 objects:v70 count:16];
     }
 
     while (v27);
@@ -1213,7 +1208,7 @@ LABEL_124:
     *(v5 + 256) |= 1u;
   }
 
-  v33 = [(NSString *)self->_groupPhotoPathDigest copyWithZone:zone, v63];
+  v33 = [(NSString *)self->_groupPhotoPathDigest copyWithZone:zone, v62];
   v34 = *(v5 + 144);
   *(v5 + 144) = v33;
 
@@ -1364,7 +1359,6 @@ LABEL_34:
     *(v5 + 256) |= 0x100u;
   }
 
-  v61 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1639,7 +1633,7 @@ LABEL_54:
 
 - (void)writeTo:(id)to
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_highlightIdentifier)
   {
@@ -1649,14 +1643,12 @@ LABEL_54:
   has = self->_has;
   if ((has & 0x40) != 0)
   {
-    highlightType = self->_highlightType;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 0x10) != 0)
   {
-    syndicationSecondsSinceReferenceDate = self->_syndicationSecondsSinceReferenceDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -1665,33 +1657,32 @@ LABEL_54:
     PBDataWriterWriteStringField();
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v8 = self->_applicationIdentifiers;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v38 objects:v43 count:16];
-  if (v9)
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v6 = self->_applicationIdentifiers;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v39;
+    v8 = v7;
+    v9 = *v23;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v39 != v11)
+        if (*v23 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v38 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 
   if (self->_resourceUrl)
@@ -1714,33 +1705,32 @@ LABEL_54:
     PBDataWriterWriteStringField();
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v14 = self->_calculatedFeatures;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v34 objects:v42 count:16];
-  if (v15)
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v11 = self->_calculatedFeatures;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  if (v12)
   {
-    v16 = v15;
-    v17 = *v35;
+    v13 = v12;
+    v14 = *v19;
     do
     {
-      for (j = 0; j != v16; ++j)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v35 != v17)
+        if (*v19 != v14)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v11);
         }
 
-        v19 = *(*(&v34 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
-    while (v16);
+    while (v13);
   }
 
   if (self->_clientIdentifier)
@@ -1750,7 +1740,6 @@ LABEL_54:
 
   if (*&self->_has)
   {
-    contentCreationSecondsSinceReferenceDate = self->_contentCreationSecondsSinceReferenceDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -1766,7 +1755,6 @@ LABEL_54:
 
   if ((*&self->_has & 0x800) != 0)
   {
-    isPrimary = self->_isPrimary;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1775,16 +1763,15 @@ LABEL_54:
     PBDataWriterWriteStringField();
   }
 
-  v22 = self->_has;
-  if ((v22 & 0x80) != 0)
+  v16 = self->_has;
+  if ((v16 & 0x80) != 0)
   {
-    rank = self->_rank;
     PBDataWriterWriteUint32Field();
-    v22 = self->_has;
-    if ((v22 & 8) == 0)
+    v16 = self->_has;
+    if ((v16 & 8) == 0)
     {
 LABEL_45:
-      if ((v22 & 0x400) == 0)
+      if ((v16 & 0x400) == 0)
       {
         goto LABEL_47;
       }
@@ -1793,17 +1780,15 @@ LABEL_45:
     }
   }
 
-  else if ((v22 & 8) == 0)
+  else if ((v16 & 8) == 0)
   {
     goto LABEL_45;
   }
 
-  score = self->_score;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 0x400) != 0)
   {
 LABEL_46:
-    isConversationAutoDonating = self->_isConversationAutoDonating;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1815,7 +1800,6 @@ LABEL_47:
 
   if ((*&self->_has & 4) != 0)
   {
-    rankingSecondsSinceReferenceDate = self->_rankingSecondsSinceReferenceDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -1829,16 +1813,15 @@ LABEL_47:
     PBDataWriterWriteStringField();
   }
 
-  v25 = self->_has;
-  if ((v25 & 0x1000) != 0)
+  v17 = self->_has;
+  if ((v17 & 0x1000) != 0)
   {
-    isTopKResult = self->_isTopKResult;
     PBDataWriterWriteBOOLField();
-    v25 = self->_has;
-    if ((v25 & 0x20) == 0)
+    v17 = self->_has;
+    if ((v17 & 0x20) == 0)
     {
 LABEL_57:
-      if ((v25 & 2) == 0)
+      if ((v17 & 2) == 0)
       {
         goto LABEL_58;
       }
@@ -1847,18 +1830,17 @@ LABEL_57:
     }
   }
 
-  else if ((v25 & 0x20) == 0)
+  else if ((v17 & 0x20) == 0)
   {
     goto LABEL_57;
   }
 
-  topKScore = self->_topKScore;
   PBDataWriterWriteDoubleField();
-  v25 = self->_has;
-  if ((v25 & 2) == 0)
+  v17 = self->_has;
+  if ((v17 & 2) == 0)
   {
 LABEL_58:
-    if ((v25 & 0x200) == 0)
+    if ((v17 & 0x200) == 0)
     {
       goto LABEL_60;
     }
@@ -1867,12 +1849,10 @@ LABEL_58:
   }
 
 LABEL_82:
-  firstPassScore = self->_firstPassScore;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 0x200) != 0)
   {
 LABEL_59:
-    isCollaboration = self->_isCollaboration;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1914,16 +1894,13 @@ LABEL_60:
 
   if ((*&self->_has & 0x100) != 0)
   {
-    fromMeEntitlementOverrideIsPresent = self->_fromMeEntitlementOverrideIsPresent;
     PBDataWriterWriteBOOLField();
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dictionaryRepresentation
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = dictionary;
   highlightIdentifier = self->_highlightIdentifier;
@@ -1997,30 +1974,30 @@ LABEL_60:
   if ([(NSMutableArray *)self->_calculatedFeatures count])
   {
     v17 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_calculatedFeatures, "count")}];
+    v53 = 0u;
     v54 = 0u;
     v55 = 0u;
     v56 = 0u;
-    v57 = 0u;
     v18 = self->_calculatedFeatures;
-    v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v54 objects:v58 count:16];
+    v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v53 objects:v57 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v55;
+      v21 = *v54;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v55 != v21)
+          if (*v54 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          dictionaryRepresentation2 = [*(*(&v54 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v53 + 1) + 8 * i) dictionaryRepresentation];
           [v17 addObject:dictionaryRepresentation2];
         }
 
-        v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v54 objects:v58 count:16];
+        v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v53 objects:v57 count:16];
       }
 
       while (v20);
@@ -2068,8 +2045,8 @@ LABEL_60:
   v30 = self->_has;
   if ((v30 & 0x80) != 0)
   {
-    v49 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_rank];
-    [v4 setObject:v49 forKey:@"rank"];
+    v48 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_rank];
+    [v4 setObject:v48 forKey:@"rank"];
 
     v30 = self->_has;
     if ((v30 & 8) == 0)
@@ -2089,8 +2066,8 @@ LABEL_45:
     goto LABEL_45;
   }
 
-  v50 = [MEMORY[0x277CCABB0] numberWithDouble:self->_score];
-  [v4 setObject:v50 forKey:@"score"];
+  v49 = [MEMORY[0x277CCABB0] numberWithDouble:self->_score];
+  [v4 setObject:v49 forKey:@"score"];
 
   if ((*&self->_has & 0x400) != 0)
   {
@@ -2127,8 +2104,8 @@ LABEL_47:
   v36 = self->_has;
   if ((v36 & 0x1000) != 0)
   {
-    v51 = [MEMORY[0x277CCABB0] numberWithBool:self->_isTopKResult];
-    [v4 setObject:v51 forKey:@"isTopKResult"];
+    v50 = [MEMORY[0x277CCABB0] numberWithBool:self->_isTopKResult];
+    [v4 setObject:v50 forKey:@"isTopKResult"];
 
     v36 = self->_has;
     if ((v36 & 0x20) == 0)
@@ -2148,8 +2125,8 @@ LABEL_57:
     goto LABEL_57;
   }
 
-  v52 = [MEMORY[0x277CCABB0] numberWithDouble:self->_topKScore];
-  [v4 setObject:v52 forKey:@"topKScore"];
+  v51 = [MEMORY[0x277CCABB0] numberWithDouble:self->_topKScore];
+  [v4 setObject:v51 forKey:@"topKScore"];
 
   v36 = self->_has;
   if ((v36 & 2) == 0)
@@ -2164,8 +2141,8 @@ LABEL_58:
   }
 
 LABEL_82:
-  v53 = [MEMORY[0x277CCABB0] numberWithDouble:self->_firstPassScore];
-  [v4 setObject:v53 forKey:@"firstPassScore"];
+  v52 = [MEMORY[0x277CCABB0] numberWithDouble:self->_firstPassScore];
+  [v4 setObject:v52 forKey:@"firstPassScore"];
 
   if ((*&self->_has & 0x200) != 0)
   {
@@ -2225,7 +2202,6 @@ LABEL_60:
 
   v46 = v4;
 
-  v47 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -2473,6 +2449,21 @@ LABEL_60:
   return v4;
 }
 
+- (id)highlightTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278971D20[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasHighlightType:(BOOL)type
 {
   if (type)
@@ -2490,30 +2481,30 @@ LABEL_60:
 
 - (id)features
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (self->_calculatedFeatures)
   {
     v3 = objc_opt_new();
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v4 = self->_calculatedFeatures;
-    v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v19;
+      v7 = *v18;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v19 != v7)
+          if (*v18 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v18 + 1) + 8 * i);
+          v9 = *(*(&v17 + 1) + 8 * i);
           if ([v9 hasName])
           {
             name = [v9 name];
@@ -2534,7 +2525,7 @@ LABEL_60:
           }
         }
 
-        v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v6);
@@ -2546,14 +2537,12 @@ LABEL_60:
     v3 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (id)featureValueForName:(id)name
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v6 = [(PPRankableSocialHighlight *)self calculatedFeatureValueForKey:nameCopy];
   if (!v6)
@@ -2562,7 +2551,7 @@ LABEL_60:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v16 = nameCopy;
+      v15 = nameCopy;
       _os_log_fault_impl(&dword_23224A000, v7, OS_LOG_TYPE_FAULT, "Social Highlight Scorer fetched feature %@, which was not precomputed.", buf, 0xCu);
     }
 
@@ -2571,8 +2560,8 @@ LABEL_60:
 
   v8 = objc_alloc(MEMORY[0x277CBFF48]);
   objc_autoreleasePoolPop(objc_autoreleasePoolPush());
-  v14 = 0;
-  v9 = [v8 initWithShape:&unk_284785310 dataType:65600 error:&v14];
+  v13 = 0;
+  v9 = [v8 initWithShape:&unk_284785310 dataType:65600 error:&v13];
   if (!v9)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
@@ -2582,35 +2571,33 @@ LABEL_60:
   [v9 setObject:v6 atIndexedSubscript:0];
   v10 = [MEMORY[0x277CBFEF8] featureValueWithMultiArray:v9];
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (NSSet)featureNames
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = self->_calculatedFeatures;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         if ([v9 hasName])
         {
           name = [v9 name];
@@ -2623,43 +2610,41 @@ LABEL_60:
         }
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (void)setCalculatedFeaturesFromDictionary:(id)dictionary
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   allKeys = [dictionaryCopy allKeys];
-  v7 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       v10 = 0;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * v10);
+        v11 = *(*(&v15 + 1) + 8 * v10);
         v12 = objc_opt_new();
         [v12 setName:v11];
         v13 = [dictionaryCopy objectForKeyedSubscript:v11];
@@ -2671,7 +2656,7 @@ LABEL_60:
       }
 
       while (v8 != v10);
-      v8 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -2679,33 +2664,31 @@ LABEL_60:
 
   calculatedFeatures = self->_calculatedFeatures;
   self->_calculatedFeatures = v5;
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)calculatedFeatureValueForKey:(id)key
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   keyCopy = key;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = self->_calculatedFeatures;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         name = [v9 name];
         v11 = [name isEqualToString:keyCopy];
 
@@ -2718,7 +2701,7 @@ LABEL_60:
         }
       }
 
-      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -2730,14 +2713,12 @@ LABEL_60:
 
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)json
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCAAA0];
   dictionaryRepresentation = [(PPRankableSocialHighlight *)self dictionaryRepresentation];
   v4 = [v2 dataWithJSONObject:dictionaryRepresentation options:8 error:0];
@@ -2747,13 +2728,11 @@ LABEL_11:
     v5 = pp_social_highlights_log_handle();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138412290;
-      v9 = 0;
-      _os_log_error_impl(&dword_23224A000, v5, OS_LOG_TYPE_ERROR, "Unable to serialize feedback to json: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = 0;
+      _os_log_error_impl(&dword_23224A000, v5, OS_LOG_TYPE_ERROR, "Unable to serialize feedback to json: %@", &v7, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

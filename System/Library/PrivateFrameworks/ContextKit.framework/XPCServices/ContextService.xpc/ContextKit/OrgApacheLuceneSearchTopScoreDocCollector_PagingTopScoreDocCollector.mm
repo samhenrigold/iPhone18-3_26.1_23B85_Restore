@@ -1,4 +1,5 @@
 @interface OrgApacheLuceneSearchTopScoreDocCollector_PagingTopScoreDocCollector
+- (OrgApacheLuceneSearchTopScoreDocCollector_PagingTopScoreDocCollector)initWithInt:(int)int withOrgApacheLuceneSearchScoreDoc:(id)doc;
 - (id)getLeafCollectorWithOrgApacheLuceneIndexLeafReaderContext:(id)context;
 - (id)newTopDocsWithOrgApacheLuceneSearchScoreDocArray:(id)array withInt:(int)int;
 - (int)topDocsSize;
@@ -6,6 +7,14 @@
 @end
 
 @implementation OrgApacheLuceneSearchTopScoreDocCollector_PagingTopScoreDocCollector
+
+- (OrgApacheLuceneSearchTopScoreDocCollector_PagingTopScoreDocCollector)initWithInt:(int)int withOrgApacheLuceneSearchScoreDoc:(id)doc
+{
+  OrgApacheLuceneSearchTopScoreDocCollector_initWithInt_(self, *&int);
+  JreStrongAssign(&self->after_, doc);
+  self->collectedHits_ = 0;
+  return self;
+}
 
 - (int)topDocsSize
 {
@@ -36,7 +45,7 @@
 
   else
   {
-    v6 = [IOSObjectArray arrayWithLength:0 type:OrgApacheLuceneSearchScoreDoc_class_()];
+    v6 = [IOSObjectArray arrayWithLength:0 type:OrgApacheLuceneSearchScoreDoc_class_(self, a2)];
     v5 = new_OrgApacheLuceneSearchTopDocs_initWithInt_withOrgApacheLuceneSearchScoreDocArray_withFloat_(totalHits, v6, NAN);
   }
 

@@ -1,15 +1,15 @@
 @interface NSString(MimeHeaderEncoding)
+- (MFBufferedDataConsumer)mf_encodedHeaderDataWithEncodingHint:()MimeHeaderEncoding;
 - (__CFString)mf_decodeMimeHeaderValueWithEncodingHint:()MimeHeaderEncoding;
 - (id)mf_decodeMimeHeaderValueWithCharsetHint:()MimeHeaderEncoding;
-- (id)mf_encodedHeaderDataWithEncodingHint:()MimeHeaderEncoding;
 @end
 
 @implementation NSString(MimeHeaderEncoding)
 
-- (id)mf_encodedHeaderDataWithEncodingHint:()MimeHeaderEncoding
+- (MFBufferedDataConsumer)mf_encodedHeaderDataWithEncodingHint:()MimeHeaderEncoding
 {
   cfStringEncoding = a3;
-  v88 = *MEMORY[0x1E69E9840];
+  v87 = *MEMORY[0x1E69E9840];
   if (a3 == -1)
   {
     mf_bestMimeCharset = [(__CFString *)self mf_bestMimeCharset];
@@ -37,21 +37,21 @@ LABEL_7:
 
   mf_bestMimeCharset2 = [(__CFString *)self mf_bestMimeCharset];
 LABEL_9:
-  v73 = mf_bestMimeCharset2;
+  v72 = mf_bestMimeCharset2;
   if ([mf_bestMimeCharset2 cfStringEncoding] != 1536 || -[__CFString length](self, "length") >= 2 && (-[__CFString hasPrefix:](self, "hasPrefix:", @"=?") & 1) != 0 || (-[__CFString rangeOfString:](self, "rangeOfString:", @" =?"), v6) || (-[__CFString rangeOfString:](self, "rangeOfString:", @"\t=?"), v7))
   {
-    if ([v73 useBase64InHeaders])
+    if ([v72 useBase64InHeaders])
     {
-      v74 = 0;
+      v73 = 0;
       v8 = 1;
     }
 
     else
     {
-      v9 = MFCreateDataWithString(self, [v73 cfStringEncoding], 0);
+      v9 = MFCreateDataWithString(self, [v72 cfStringEncoding], 0);
       v10 = [v9 length];
       bytes = [v9 bytes];
-      v74 = v9;
+      v73 = v9;
       if (v10 < 1)
       {
         v18 = 0;
@@ -92,7 +92,7 @@ LABEL_9:
     }
 
     v19 = [@"=?" mutableCopyWithZone:0];
-    charsetName = [v73 charsetName];
+    charsetName = [v72 charsetName];
     [v19 appendString:charsetName];
 
     [v19 appendString:@"?"];
@@ -108,20 +108,20 @@ LABEL_9:
 
     [v19 appendString:v21];
     [v19 appendString:@"?"];
-    v68 = v19;
-    v69 = MFCreateDataWithString(v19, 0x600u, 0);
+    v67 = v19;
+    v68 = MFCreateDataWithString(v19, 0x600u, 0);
     if (v8)
     {
-      cfStringEncoding2 = [v73 cfStringEncoding];
-      v23 = [v69 length];
-      v75 = v74;
-      v77 = v69;
+      cfStringEncoding2 = [v72 cfStringEncoding];
+      v23 = [v68 length];
+      v74 = v73;
+      v76 = v68;
       v24 = [objc_allocWithZone(MEMORY[0x1E695DF88]) init];
       v25 = 3 * ((64 - v23) >> 2);
-      if (v75 && [v75 length] <= v25)
+      if (v74 && [v74 length] <= v25)
       {
-        [(MFBufferedDataConsumer *)v24 appendData:v77];
-        mf_encodeBase64HeaderData = [v75 mf_encodeBase64HeaderData];
+        [(MFBufferedDataConsumer *)v24 appendData:v76];
+        mf_encodeBase64HeaderData = [v74 mf_encodeBase64HeaderData];
         [(MFBufferedDataConsumer *)v24 appendData:mf_encodeBase64HeaderData];
 
         [(MFBufferedDataConsumer *)v24 mf_appendCString:"?="];
@@ -139,9 +139,9 @@ LABEL_9:
           {
             CFDataSetLength(Mutable, v25);
             MutableBytePtr = CFDataGetMutableBytePtr(Mutable);
-            v90.location = v28;
-            v90.length = v27;
-            Bytes = MFStringGetBytes(self, v90, cfStringEncoding2, 0, 0, MutableBytePtr, v25, &length);
+            v89.location = v28;
+            v89.length = v27;
+            Bytes = MFStringGetBytes(self, v89, cfStringEncoding2, 0, 0, MutableBytePtr, v25, &length);
             v31 = Bytes;
             if (Bytes < v27)
             {
@@ -153,9 +153,9 @@ LABEL_9:
                 if (location > v28)
                 {
                   v35 = CFDataGetMutableBytePtr(Mutable);
-                  v91.location = v28;
-                  v91.length = v34;
-                  MFStringGetBytes(self, v91, cfStringEncoding2, 0, 0, v35, v25, &length);
+                  v90.location = v28;
+                  v90.length = v34;
+                  MFStringGetBytes(self, v90, cfStringEncoding2, 0, 0, v35, v25, &length);
                   v31 = v34;
                 }
               }
@@ -172,7 +172,7 @@ LABEL_9:
               [(MFBufferedDataConsumer *)v24 mf_appendCString:"\n "];
             }
 
-            [(MFBufferedDataConsumer *)v24 appendData:v77];
+            [(MFBufferedDataConsumer *)v24 appendData:v76];
             mf_encodeBase64HeaderData2 = [(__CFData *)Mutable mf_encodeBase64HeaderData];
             [(MFBufferedDataConsumer *)v24 appendData:mf_encodeBase64HeaderData2];
 
@@ -203,26 +203,26 @@ LABEL_9:
 
           ExternalRepresentation = CFStringCreateExternalRepresentation(*MEMORY[0x1E695E480], self, cfStringEncoding2, 0x3Fu);
           ef_hexString = [(__CFData *)ExternalRepresentation ef_hexString];
-          v64 = MFLogGeneral();
-          if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+          v63 = MFLogGeneral();
+          if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
           {
             *extraLength = 134218754;
             *&extraLength[4] = length;
-            v82 = 2048;
-            v83 = v25;
-            v84 = 1024;
-            v85 = cfStringEncoding2;
-            v86 = 2112;
-            v87 = ef_hexString;
-            _os_log_error_impl(&dword_1D36B2000, v64, OS_LOG_TYPE_ERROR, "Error during base64 encoding: chunkLength=%ld maxInputBytesPerChunk=%lu encoding=%d str=%@", extraLength, 0x26u);
+            v81 = 2048;
+            v82 = v25;
+            v83 = 1024;
+            v84 = cfStringEncoding2;
+            v85 = 2112;
+            v86 = ef_hexString;
+            _os_log_error_impl(&dword_1D36B2000, v63, OS_LOG_TYPE_ERROR, "Error during base64 encoding: chunkLength=%ld maxInputBytesPerChunk=%lu encoding=%d str=%@", extraLength, 0x26u);
           }
 
           CFRelease(ExternalRepresentation);
           CFRelease(Mutable);
-          v65 = MFLogGeneral();
-          if (os_log_type_enabled(v65, OS_LOG_TYPE_FAULT))
+          v64 = MFLogGeneral();
+          if (os_log_type_enabled(v64, OS_LOG_TYPE_FAULT))
           {
-            [NSString(MimeHeaderEncoding) mf_encodedHeaderDataWithEncodingHint:v65];
+            [NSString(MimeHeaderEncoding) mf_encodedHeaderDataWithEncodingHint:v64];
           }
 
           data = 0;
@@ -243,28 +243,28 @@ LABEL_47:
 
     else
     {
-      cfStringEncoding3 = [v73 cfStringEncoding];
-      v39 = [v69 length];
-      v66 = v74;
-      v70 = v69;
-      v78 = objc_alloc_init(MFBufferedDataConsumer);
-      v71 = [[MFData alloc] initWithBytesNoCopy:"?=" length:2 freeWhenDone:0];
-      v72 = 64 - v39;
-      if (v66 && +[MFQuotedPrintableEncoder requiredSizeToEncodeHeaderBytes:length:](MFQuotedPrintableEncoder, "requiredSizeToEncodeHeaderBytes:length:", [v66 bytes], objc_msgSend(v66, "length")) <= v72)
+      cfStringEncoding3 = [v72 cfStringEncoding];
+      v39 = [v68 length];
+      v65 = v73;
+      v69 = v68;
+      v77 = objc_alloc_init(MFBufferedDataConsumer);
+      v70 = [[MFData alloc] initWithBytesNoCopy:"?=" length:2 freeWhenDone:0];
+      v71 = 64 - v39;
+      if (v65 && +[MFQuotedPrintableEncoder requiredSizeToEncodeHeaderBytes:length:](MFQuotedPrintableEncoder, "requiredSizeToEncodeHeaderBytes:length:", [v65 bytes], objc_msgSend(v65, "length")) <= v71)
       {
-        [(MFBufferedDataConsumer *)v78 appendData:v70];
-        v58 = [(MFBaseFilterDataConsumer *)[MFQuotedPrintableEncoder alloc] initWithConsumer:v78];
+        [(MFBufferedDataConsumer *)v77 appendData:v69];
+        v58 = [(MFBaseFilterDataConsumer *)[MFQuotedPrintableEncoder alloc] initWithConsumer:v77];
         [(MFQuotedPrintableEncoder *)v58 setForHeader:1];
-        [(MFQuotedPrintableEncoder *)v58 appendData:v66];
+        [(MFQuotedPrintableEncoder *)v58 appendData:v65];
         [(MFQuotedPrintableEncoder *)v58 done];
-        [(MFBufferedDataConsumer *)v78 appendData:v71];
+        [(MFBufferedDataConsumer *)v77 appendData:v70];
       }
 
       else
       {
         v40 = CFStringGetLength(self);
         v41 = CFDataCreateMutable(0, 0);
-        v67 = [[MFData alloc] initWithBytesNoCopy:"\n " length:2 freeWhenDone:0];
+        v66 = [[MFData alloc] initWithBytesNoCopy:"\n " length:2 freeWhenDone:0];
         if (v40 >= 1)
         {
           v42 = 0;
@@ -281,7 +281,7 @@ LABEL_47:
             MFStringGetBytes(self, RangeOfComposedCharactersAtIndex, cfStringEncoding3, 0, 0, &v47[v43], *extraLength, 0);
             v48 = [MFQuotedPrintableEncoder requiredSizeToEncodeHeaderBytes:&v47[v43] length:*extraLength];
             v45 += v48;
-            if (v45 <= v72)
+            if (v45 <= v71)
             {
               v43 = CFDataGetLength(v41);
             }
@@ -290,16 +290,16 @@ LABEL_47:
             {
               if (v44)
               {
-                [(MFBufferedDataConsumer *)v78 appendData:v67];
+                [(MFBufferedDataConsumer *)v77 appendData:v66];
               }
 
-              [(MFBufferedDataConsumer *)v78 appendData:v70];
-              v49 = [(MFBaseFilterDataConsumer *)[MFQuotedPrintableEncoder alloc] initWithConsumer:v78];
+              [(MFBufferedDataConsumer *)v77 appendData:v69];
+              v49 = [(MFBaseFilterDataConsumer *)[MFQuotedPrintableEncoder alloc] initWithConsumer:v77];
               [(MFQuotedPrintableEncoder *)v49 setForHeader:1];
               v50 = [[MFData alloc] initWithBytesNoCopy:CFDataGetBytePtr(v41) length:v43 freeWhenDone:0];
               [(MFQuotedPrintableEncoder *)v49 appendData:v50];
               [(MFQuotedPrintableEncoder *)v49 done];
-              [(MFBufferedDataConsumer *)v78 appendData:v71];
+              [(MFBufferedDataConsumer *)v77 appendData:v70];
               v51 = CFDataGetMutableBytePtr(v41);
               memmove(v51, &v47[v43], *extraLength);
               CFDataSetLength(v41, *extraLength);
@@ -319,16 +319,16 @@ LABEL_47:
           {
             if (v44)
             {
-              [(MFBufferedDataConsumer *)v78 appendData:v67];
+              [(MFBufferedDataConsumer *)v77 appendData:v66];
             }
 
-            [(MFBufferedDataConsumer *)v78 appendData:v70];
-            v53 = [(MFBaseFilterDataConsumer *)[MFQuotedPrintableEncoder alloc] initWithConsumer:v78];
+            [(MFBufferedDataConsumer *)v77 appendData:v69];
+            v53 = [(MFBaseFilterDataConsumer *)[MFQuotedPrintableEncoder alloc] initWithConsumer:v77];
             [(MFQuotedPrintableEncoder *)v53 setForHeader:1];
             v54 = [[MFData alloc] initWithBytesNoCopy:CFDataGetBytePtr(v41) length:v43 freeWhenDone:0];
             [(MFQuotedPrintableEncoder *)v53 appendData:v54];
             [(MFQuotedPrintableEncoder *)v53 done];
-            [(MFBufferedDataConsumer *)v78 appendData:v71];
+            [(MFBufferedDataConsumer *)v77 appendData:v70];
           }
         }
 
@@ -338,10 +338,10 @@ LABEL_47:
         }
       }
 
-      [(MFBufferedDataConsumer *)v78 done];
-      data = [(MFBufferedDataConsumer *)v78 data];
+      [(MFBufferedDataConsumer *)v77 done];
+      data = [(MFBufferedDataConsumer *)v77 data];
 
-      v56 = v78;
+      v56 = v77;
     }
 
 LABEL_70:
@@ -350,23 +350,21 @@ LABEL_70:
     goto LABEL_71;
   }
 
-  v59 = MFCreateDataWithString(self, [v73 cfStringEncoding], 0);
+  v59 = MFCreateDataWithString(self, [v72 cfStringEncoding], 0);
 LABEL_71:
-
-  v60 = *MEMORY[0x1E69E9840];
 
   return v59;
 }
 
 - (__CFString)mf_decodeMimeHeaderValueWithEncodingHint:()MimeHeaderEncoding
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   SystemEncoding = CFStringGetSystemEncoding();
   [(__CFString *)self rangeOfString:@"=?"];
   v5 = v4 == 0;
   if (v4 || [(__CFString *)self hasPrefix:@"?"]&& ([(__CFString *)self hasSuffix:@"?="]& 1) != 0)
   {
-    v36 = objc_alloc_init(MEMORY[0x1E696AD60]);
+    v35 = objc_alloc_init(MEMORY[0x1E696AD60]);
     if (!mf_decodeMimeHeaderValueWithEncodingHint__quSet)
     {
       mf_decodeMimeHeaderValueWithEncodingHint__quSet = CFCharacterSetCreateWithCharactersInString(0, @"?_");
@@ -389,24 +387,24 @@ LABEL_71:
         v9 = @"=?";
       }
 
-      v40 = v8;
-      v10 = [v6 scanUpToString:v9 intoString:&v40];
-      v11 = v40;
+      v39 = v8;
+      v10 = [v6 scanUpToString:v9 intoString:&v39];
+      v11 = v39;
 
       v8 = v11;
       if (v10)
       {
         if ((v7 & 1) == 0 || ([MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet], v12 = objc_claimAutoreleasedReturnValue(), -[__CFString stringByTrimmingCharactersInSet:](v11, "stringByTrimmingCharactersInSet:", v12), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "length") == 0, v13, v12, !v14))
         {
-          [v36 appendString:v8];
+          [v35 appendString:v8];
         }
       }
 
       if ([v6 mf_scanUpAndOverString:v9])
       {
-        v39 = 0;
-        v15 = [v6 scanUpToString:@"?" intoString:&v39];
-        v16 = v39;
+        v38 = 0;
+        v15 = [v6 scanUpToString:@"?" intoString:&v38];
+        v16 = v38;
         if (v15 && [v6 mf_scanUpAndOverString:@"?"])
         {
           v17 = MFEncodingForCharsetWithFallback(v16, a3);
@@ -420,25 +418,25 @@ LABEL_71:
             v18 = v17;
           }
 
-          v38 = 0;
-          v7 = [v6 scanUpToString:@"?" intoString:&v38];
-          v34 = v38;
+          v37 = 0;
+          v7 = [v6 scanUpToString:@"?" intoString:&v37];
+          v33 = v37;
           if (v7)
           {
             [v6 mf_scanUpAndOverString:@"?"];
-            v19 = [(__CFString *)v34 compare:@"Q" options:1];
+            v19 = [(__CFString *)v33 compare:@"Q" options:1];
             if (!v19)
             {
               goto LABEL_25;
             }
 
-            if ([(__CFString *)v34 compare:@"B" options:1])
+            if ([(__CFString *)v33 compare:@"B" options:1])
             {
               v20 = MFLogGeneral();
               if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v42 = v34;
+                v41 = v33;
                 _os_log_impl(&dword_1D36B2000, v20, OS_LOG_TYPE_DEFAULT, "#Warning Never heard of a %@ type encoding--treating as unencoded", buf, 0xCu);
               }
 
@@ -495,7 +493,7 @@ LABEL_34:
                 v28 = MFCreateStringWithData(mf_decodeBase64, v18, 0);
                 if (v28 || v18 != a3 && (v28 = MFCreateStringWithData(v27, a3, 0)) != 0)
                 {
-                  [v36 appendString:v28];
+                  [v35 appendString:v28];
                 }
 
                 else
@@ -504,7 +502,7 @@ LABEL_34:
                   if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412290;
-                    v42 = v27;
+                    v41 = v27;
                     _os_log_impl(&dword_1D36B2000, v29, OS_LOG_TYPE_DEFAULT, "#Warning was unable to convert decoded data to a string: %@", buf, 0xCu);
                   }
 
@@ -522,7 +520,7 @@ LABEL_34:
             if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v42 = selfCopy;
+              v41 = selfCopy;
               _os_log_impl(&dword_1D36B2000, v22, OS_LOG_TYPE_DEFAULT, "#Warning Missing encoding char (Q or B) in MIME header: %@", buf, 0xCu);
             }
 
@@ -546,15 +544,13 @@ LABEL_34:
       }
     }
 
-    selfCopy2 = v36;
+    selfCopy2 = v35;
   }
 
   else
   {
     selfCopy2 = self;
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return selfCopy2;
 }

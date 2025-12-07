@@ -19,7 +19,7 @@
   result = swift_unownedRetainStrong();
   if (v4)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA937AA0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA937AA0, &qword_18A653940);
     selfCopy = self;
     v7 = *AGGraphGetValue();
 

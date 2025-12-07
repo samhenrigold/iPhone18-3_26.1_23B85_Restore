@@ -127,19 +127,8 @@ void __97__OBViewUtilities_updateAlphaForNavigationItem_andHeaderView_usingNavig
 
       if (v7 == 0.0)
       {
-        if (*(a1 + 56) != 1)
+        if (*(a1 + 56) != 1 || ([*(a1 + 32) titleView], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "layer"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "animationKeys"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "count"), v10, v9, v8, !v11) || (*(a1 + 56) & 1) == 0)
         {
-          goto LABEL_7;
-        }
-
-        v8 = [*(a1 + 32) titleView];
-        v9 = [v8 layer];
-        v10 = [v9 animationKeys];
-        v11 = [v10 count];
-
-        if (!v11 || (*(a1 + 56) & 1) == 0)
-        {
-LABEL_7:
           [*(a1 + 32) setTitleView:0];
         }
 
@@ -358,19 +347,8 @@ LABEL_6:
   }
 
   backButtonTitle = [itemCopy backButtonTitle];
-  if (!backButtonTitle)
+  if (!backButtonTitle || (v11 = backButtonTitle, [itemCopy backButtonTitle], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "title"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v12, "isEqualToString:", v13), v13, v12, v11, v14))
   {
-    goto LABEL_6;
-  }
-
-  v11 = backButtonTitle;
-  backButtonTitle2 = [itemCopy backButtonTitle];
-  title2 = [v8 title];
-  v14 = [backButtonTitle2 isEqualToString:title2];
-
-  if (v14)
-  {
-LABEL_6:
     [itemCopy setBackButtonTitle:title];
   }
 
@@ -403,29 +381,8 @@ LABEL_6:
         if (!titleView || (v17 = titleView, [customizationCopy titleView], v18 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v19 = objc_opt_isKindOfClass(), v18, v17, (v19 & 1) != 0))
         {
           titleView2 = [customizationCopy titleView];
-          if (!titleView2)
+          if (!titleView2 || (v21 = titleView2, [customizationCopy titleView], v22 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v22, v21, (isKindOfClass & 1) == 0) || (objc_msgSend(customizationCopy, "titleView"), v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v24, "text"), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(viewCopy, "headerLabel"), v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v26, "text"), v27 = objc_claimAutoreleasedReturnValue(), v27, v26, v25, v24, v25 == v27))
           {
-            goto LABEL_11;
-          }
-
-          v21 = titleView2;
-          titleView3 = [customizationCopy titleView];
-          objc_opt_class();
-          isKindOfClass = objc_opt_isKindOfClass();
-
-          if ((isKindOfClass & 1) == 0)
-          {
-            goto LABEL_11;
-          }
-
-          titleView4 = [customizationCopy titleView];
-          text3 = [titleView4 text];
-          headerLabel3 = [viewCopy headerLabel];
-          text4 = [headerLabel3 text];
-
-          if (text3 == text4)
-          {
-LABEL_11:
             v8 = 1;
             goto LABEL_3;
           }

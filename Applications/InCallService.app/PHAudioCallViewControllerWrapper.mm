@@ -17,7 +17,7 @@
   managerCopy = manager;
   centerCopy = center;
   swift_unknownObjectRetain();
-  return sub_1001B0EE0();
+  return sub_1001B0EE0(managerCopy, centerCopy, controller);
 }
 
 @end

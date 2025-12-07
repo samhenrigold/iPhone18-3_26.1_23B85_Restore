@@ -1,8 +1,22 @@
 @interface CADGenerationStampedObjectID
 - (BOOL)isEqual:(id)equal;
+- (CADGenerationStampedObjectID)initWithEntityType:(int)type entityID:(int)d databaseID:(int)iD generation:(int)generation;
 @end
 
 @implementation CADGenerationStampedObjectID
+
+- (CADGenerationStampedObjectID)initWithEntityType:(int)type entityID:(int)d databaseID:(int)iD generation:(int)generation
+{
+  v8.receiver = self;
+  v8.super_class = CADGenerationStampedObjectID;
+  result = [(CADGenerationStampedObjectID *)&v8 initWithEntityType:*&type entityID:*&d databaseID:*&iD];
+  if (result)
+  {
+    result->_restoreGeneration = generation;
+  }
+
+  return result;
+}
 
 - (BOOL)isEqual:(id)equal
 {

@@ -23,9 +23,11 @@
 
 uint64_t __42__PXZoomablePhotosSettings_sharedInstance__block_invoke()
 {
-  sharedInstance__sharedInstance_5077 = objc_alloc_init(PXZoomablePhotosSettings);
+  v0 = objc_alloc_init(PXZoomablePhotosSettings);
+  v1 = sharedInstance__sharedInstance_5077;
+  sharedInstance__sharedInstance_5077 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (PXZoomablePhotosSettings)init

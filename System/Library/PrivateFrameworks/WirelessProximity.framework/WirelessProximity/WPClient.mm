@@ -24,6 +24,7 @@
 - (void)establishConnection;
 - (void)getAllTrackedZones;
 - (void)getPowerLogStats:(id)stats;
+- (void)handleStartScanningError:(id)error ofType:(unsigned __int8)type;
 - (void)isRangingEnabledReply:(id)reply;
 - (void)listenToBandwidthNotifications;
 - (void)notifyNotApprovedUseCase:(id)case;
@@ -127,7 +128,7 @@
 
 void __31__WPClient_establishConnection__block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setRegistering:1];
   v2 = [*(a1 + 32) clientAsString];
   v3 = [MEMORY[0x277CCAC38] processInfo];
@@ -142,50 +143,47 @@ void __31__WPClient_establishConnection__block_invoke(uint64_t a1)
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v18 = 134218498;
-    v19 = v6;
+    v16 = 134218498;
+    v17 = v6;
+    v18 = 2112;
+    v19 = v2;
     v20 = 2112;
-    v21 = v2;
-    v22 = 2112;
-    v23 = v4;
-    _os_log_impl(&dword_274327000, v5, OS_LOG_TYPE_DEFAULT, "WPClient (%p - %@) establishing new XPC Connection for process %@", &v18, 0x20u);
+    v21 = v4;
+    _os_log_impl(&dword_274327000, v5, OS_LOG_TYPE_DEFAULT, "WPClient (%p - %@) establishing new XPC Connection for process %@", &v16, 0x20u);
   }
 
-  v7 = *(a1 + 32);
-  v8 = [objc_opt_class() holdVouchers];
-  v9 = [*(a1 + 32) connection];
-  v10 = [v9 remoteObjectProxy];
-  v11 = [*(a1 + 32) machName];
-  [v10 registerWithDaemon:v2 forProcess:v4 machName:v11 holdVouchers:v8];
+  v7 = [objc_opt_class() holdVouchers];
+  v8 = [*(a1 + 32) connection];
+  v9 = [v8 remoteObjectProxy];
+  v10 = [*(a1 + 32) machName];
+  [v9 registerWithDaemon:v2 forProcess:v4 machName:v10 holdVouchers:v7];
 
-  v12 = [*(a1 + 32) daemonRegisteredSemaphore];
-  v13 = dispatch_time(0, 5000000000);
-  v14 = dispatch_semaphore_wait(v12, v13);
+  v11 = [*(a1 + 32) daemonRegisteredSemaphore];
+  v12 = dispatch_time(0, 5000000000);
+  v13 = dispatch_semaphore_wait(v11, v12);
 
-  if (v14)
+  if (v13)
   {
     if (WPLogInitOnce != -1)
     {
       __31__WPClient_establishConnection__block_invoke_cold_2();
     }
 
-    v15 = WiProxLog;
+    v14 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
     {
-      v17 = *(a1 + 32);
-      v18 = 134218498;
-      v19 = v17;
+      v15 = *(a1 + 32);
+      v16 = 134218498;
+      v17 = v15;
+      v18 = 2112;
+      v19 = v2;
       v20 = 2112;
-      v21 = v2;
-      v22 = 2112;
-      v23 = v4;
-      _os_log_error_impl(&dword_274327000, v15, OS_LOG_TYPE_ERROR, "WPClient (%p - %@) registering with daemon timed out for client %@", &v18, 0x20u);
+      v21 = v4;
+      _os_log_error_impl(&dword_274327000, v14, OS_LOG_TYPE_ERROR, "WPClient (%p - %@) registering with daemon timed out for client %@", &v16, 0x20u);
     }
 
     [*(a1 + 32) setRegistering:0];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)supportsRanging
@@ -207,30 +205,29 @@ uint64_t __27__WPClient_supportsRanging__block_invoke()
 
 + (void)initialize
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2[0] = 67109376;
-  v2[1] = _MergedGlobals;
-  v3 = 1024;
-  v4 = byte_280BD37A1;
-  _os_log_debug_impl(&dword_274327000, log, OS_LOG_TYPE_DEBUG, "WPClient _isHomePod: %d _isAppleTV: %d", v2, 0xEu);
-  v1 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v1[0] = 67109376;
+  v1[1] = _MergedGlobals;
+  v2 = 1024;
+  v3 = byte_280BD37A1;
+  _os_log_debug_impl(&dword_274327000, log, OS_LOG_TYPE_DEBUG, "WPClient _isHomePod: %d _isAppleTV: %d", v1, 0xEu);
 }
 
 - (WPClient)initWithQueue:(id)queue machName:(id)name
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   nameCopy = name;
-  v41.receiver = self;
-  v41.super_class = WPClient;
-  v9 = [(WPClient *)&v41 init];
+  v40.receiver = self;
+  v40.super_class = WPClient;
+  v9 = [(WPClient *)&v40 init];
   v10 = v9;
   if (!v9)
   {
     goto LABEL_20;
   }
 
-  v40 = queueCopy;
+  v39 = queueCopy;
   v9->_state = 0;
   v9->_advertiserState = 0;
   v9->_scannerState = 0;
@@ -257,15 +254,15 @@ uint64_t __27__WPClient_supportsRanging__block_invoke()
       clientAsString = [(WPClient *)v10 clientAsString];
       v20 = qos2string(qos_class);
       *buf = 134219010;
-      v44 = v10;
-      v45 = 2112;
-      v46 = clientAsString;
-      v47 = 2112;
-      v48 = v11;
-      v49 = 2080;
-      v50 = v20;
-      v51 = 1024;
-      v52 = qos_class;
+      v43 = v10;
+      v44 = 2112;
+      v45 = clientAsString;
+      v46 = 2112;
+      v47 = v11;
+      v48 = 2080;
+      v49 = v20;
+      v50 = 1024;
+      v51 = qos_class;
       _os_log_impl(&dword_274327000, v18, OS_LOG_TYPE_DEFAULT, "WPClient (%p - %@) created queue %@ with client QOS class %s (%d)", buf, 0x30u);
     }
   }
@@ -292,11 +289,11 @@ uint64_t __27__WPClient_supportsRanging__block_invoke()
     v14 = v25;
     clientAsString2 = [(WPClient *)v10 clientAsString];
     *buf = 134218498;
-    v44 = v10;
-    v45 = 2112;
-    v46 = clientAsString2;
-    v47 = 2112;
-    v48 = v11;
+    v43 = v10;
+    v44 = 2112;
+    v45 = clientAsString2;
+    v46 = 2112;
+    v47 = v11;
     _os_log_impl(&dword_274327000, v14, OS_LOG_TYPE_DEFAULT, "WPClient (%p - %@) created queue %@ (default)", buf, 0x20u);
   }
 
@@ -323,17 +320,17 @@ LABEL_13:
     v36 = [v31 description];
     v37 = qos2string(v32);
     *buf = 134219266;
-    v44 = v30;
-    v45 = 2112;
-    v46 = clientAsString3;
-    v47 = 2112;
-    v48 = v36;
-    v49 = 2080;
-    v50 = v37;
-    v51 = 1024;
-    v52 = v32;
-    v53 = 1024;
-    v54 = relative_priority_ptr;
+    v43 = v30;
+    v44 = 2112;
+    v45 = clientAsString3;
+    v46 = 2112;
+    v47 = v36;
+    v48 = 2080;
+    v49 = v37;
+    v50 = 1024;
+    v51 = v32;
+    v52 = 1024;
+    v53 = relative_priority_ptr;
     _os_log_impl(&dword_274327000, v34, OS_LOG_TYPE_DEFAULT, "WPClient (%p - %@) queue %@ with QOS class %s (%d) rel priority %d", buf, 0x36u);
   }
 
@@ -350,16 +347,15 @@ LABEL_13:
   v30->_connectionUseCase = 0;
   v30->_maxAllowedConnectionDelayMs = 0;
 
-  queueCopy = v40;
+  queueCopy = v39;
 LABEL_20:
 
-  v38 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)dealloc
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (WPLogInitOnce != -1)
   {
     [WPClient dealloc];
@@ -372,8 +368,8 @@ LABEL_20:
     clientAsString = [(WPClient *)self clientAsString];
     *buf = 134218242;
     selfCopy = self;
-    v14 = 2114;
-    v15 = clientAsString;
+    v13 = 2114;
+    v14 = clientAsString;
     _os_log_impl(&dword_274327000, v4, OS_LOG_TYPE_DEFAULT, "WPClient deallocing (%p - %{public}@)", buf, 0x16u);
   }
 
@@ -398,15 +394,14 @@ LABEL_20:
     [(WPClient *)self setXpcListener:0];
   }
 
-  v11.receiver = self;
-  v11.super_class = WPClient;
-  [(WPClient *)&v11 dealloc];
-  v10 = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = WPClient;
+  [(WPClient *)&v10 dealloc];
 }
 
 - (void)setupMachXPCService
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   machName = [(WPClient *)self machName];
   v4 = [objc_alloc(MEMORY[0x277CCAE98]) initWithMachServiceName:machName];
   [(WPClient *)self setXpcListener:v4];
@@ -427,21 +422,19 @@ LABEL_20:
   {
     v8 = v7;
     clientAsString = [(WPClient *)self clientAsString];
-    v11 = 138412802;
-    v12 = machName;
-    v13 = 2048;
+    v10 = 138412802;
+    v11 = machName;
+    v12 = 2048;
     selfCopy = self;
-    v15 = 2112;
-    v16 = clientAsString;
-    _os_log_impl(&dword_274327000, v8, OS_LOG_TYPE_INFO, "WPClient started listening for mach service %@ for client (%p - %@)", &v11, 0x20u);
+    v14 = 2112;
+    v15 = clientAsString;
+    _os_log_impl(&dword_274327000, v8, OS_LOG_TYPE_INFO, "WPClient started listening for mach service %@ for client (%p - %@)", &v10, 0x20u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   if (WPLogInitOnce != -1)
@@ -456,19 +449,18 @@ LABEL_20:
     v9 = v7;
     processInfo = [v8 processInfo];
     processName = [processInfo processName];
-    v14 = 138412290;
-    v15 = processName;
-    _os_log_impl(&dword_274327000, v9, OS_LOG_TYPE_INFO, "WPClient Process %@ was woken up from mach port tickle", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = processName;
+    _os_log_impl(&dword_274327000, v9, OS_LOG_TYPE_INFO, "WPClient Process %@ was woken up from mach port tickle", &v13, 0xCu);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-uint64_t __22__WPClient_connection__block_invoke(uint64_t result)
+void *__22__WPClient_connection__block_invoke(void *result)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  if (*(*(*(result + 40) + 8) + 40))
+  v10 = *MEMORY[0x277D85DE8];
+  if (*(*(result[5] + 8) + 40))
   {
     v1 = result;
     if (WPLogInitOnce != -1)
@@ -479,27 +471,26 @@ uint64_t __22__WPClient_connection__block_invoke(uint64_t result)
     v2 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(v1 + 32);
+      v3 = v1[4];
       v4 = v2;
       v5 = [v3 clientAsString];
-      v7 = 134218242;
-      v8 = v3;
-      v9 = 2114;
-      v10 = v5;
-      _os_log_impl(&dword_274327000, v4, OS_LOG_TYPE_DEFAULT, "WPClient (%p - %{public}@) XPC Connection interrupted", &v7, 0x16u);
+      v6 = 134218242;
+      v7 = v3;
+      v8 = 2114;
+      v9 = v5;
+      _os_log_impl(&dword_274327000, v4, OS_LOG_TYPE_DEFAULT, "WPClient (%p - %{public}@) XPC Connection interrupted", &v6, 0x16u);
     }
 
-    [*(*(*(v1 + 40) + 8) + 40) stateDidChange:1];
-    result = [*(*(*(v1 + 40) + 8) + 40) establishConnection];
+    [*(*(v1[5] + 8) + 40) stateDidChange:1];
+    return [*(*(v1[5] + 8) + 40) establishConnection];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void __22__WPClient_connection__block_invoke_178(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (*(*(*(a1 + 40) + 8) + 40))
   {
     if (WPLogInitOnce != -1)
@@ -514,9 +505,9 @@ void __22__WPClient_connection__block_invoke_178(uint64_t a1)
       v4 = v2;
       v5 = [v3 clientAsString];
       *buf = 134218242;
-      v10 = v3;
-      v11 = 2114;
-      v12 = v5;
+      v9 = v3;
+      v10 = 2114;
+      v11 = v5;
       _os_log_impl(&dword_274327000, v4, OS_LOG_TYPE_DEFAULT, "WPClient (%p - %{public}@) XPC Connection invalidated", buf, 0x16u);
     }
 
@@ -529,8 +520,6 @@ void __22__WPClient_connection__block_invoke_178(uint64_t a1)
     block[4] = *(a1 + 40);
     dispatch_async(v6, block);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __22__WPClient_connection__block_invoke_182(uint64_t a1)
@@ -543,76 +532,76 @@ uint64_t __22__WPClient_connection__block_invoke_182(uint64_t a1)
 
 - (void)allowlistConnectionMethods:(id)methods
 {
-  v36[5] = *MEMORY[0x277D85DE8];
+  v35[5] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAE90];
   methodsCopy = methods;
   v4 = [v3 interfaceWithProtocol:&unk_28835E1E0];
   v5 = MEMORY[0x277CBEB98];
-  v36[0] = objc_opt_class();
-  v36[1] = objc_opt_class();
-  v36[2] = objc_opt_class();
-  v36[3] = objc_opt_class();
-  v36[4] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:5];
-  v27 = [v5 setWithArray:v6];
-
-  [v4 setClasses:v27 forSelector:sel_deviceDiscovered_ argumentIndex:0 ofReply:0];
-  v7 = MEMORY[0x277CBEB98];
   v35[0] = objc_opt_class();
   v35[1] = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
-  v26 = [v7 setWithArray:v8];
+  v35[2] = objc_opt_class();
+  v35[3] = objc_opt_class();
+  v35[4] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:5];
+  v26 = [v5 setWithArray:v6];
 
-  [v4 setClasses:v26 forSelector:sel_failedToRegisterZones_withError_ argumentIndex:0 ofReply:0];
-  v9 = MEMORY[0x277CBEB98];
+  [v4 setClasses:v26 forSelector:sel_deviceDiscovered_ argumentIndex:0 ofReply:0];
+  v7 = MEMORY[0x277CBEB98];
   v34[0] = objc_opt_class();
   v34[1] = objc_opt_class();
-  v34[2] = objc_opt_class();
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:3];
-  v25 = [v9 setWithArray:v10];
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
+  v25 = [v7 setWithArray:v8];
 
-  [v4 setClasses:v25 forSelector:sel_discoveredCharacteristicsAndServices_forPeripheral_ argumentIndex:0 ofReply:0];
-  v11 = MEMORY[0x277CBEB98];
+  [v4 setClasses:v25 forSelector:sel_failedToRegisterZones_withError_ argumentIndex:0 ofReply:0];
+  v9 = MEMORY[0x277CBEB98];
   v33[0] = objc_opt_class();
   v33[1] = objc_opt_class();
   v33[2] = objc_opt_class();
-  v33[3] = objc_opt_class();
-  v33[4] = objc_opt_class();
-  v33[5] = objc_opt_class();
-  v33[6] = objc_opt_class();
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:7];
-  v24 = [v11 setWithArray:v12];
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:3];
+  v24 = [v9 setWithArray:v10];
 
-  [v4 setClasses:v24 forSelector:sel_fetchedCurrentlyTrackedZones_ argumentIndex:0 ofReply:0];
-  v13 = MEMORY[0x277CBEB98];
+  [v4 setClasses:v24 forSelector:sel_discoveredCharacteristicsAndServices_forPeripheral_ argumentIndex:0 ofReply:0];
+  v11 = MEMORY[0x277CBEB98];
   v32[0] = objc_opt_class();
   v32[1] = objc_opt_class();
   v32[2] = objc_opt_class();
   v32[3] = objc_opt_class();
   v32[4] = objc_opt_class();
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:5];
-  v15 = [v13 setWithArray:v14];
+  v32[5] = objc_opt_class();
+  v32[6] = objc_opt_class();
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:7];
+  v23 = [v11 setWithArray:v12];
 
-  [v4 setClasses:v15 forSelector:sel_anyDiscoveredDevice_ argumentIndex:0 ofReply:0];
-  v16 = MEMORY[0x277CBEB98];
+  [v4 setClasses:v23 forSelector:sel_fetchedCurrentlyTrackedZones_ argumentIndex:0 ofReply:0];
+  v13 = MEMORY[0x277CBEB98];
   v31[0] = objc_opt_class();
   v31[1] = objc_opt_class();
   v31[2] = objc_opt_class();
   v31[3] = objc_opt_class();
   v31[4] = objc_opt_class();
-  v31[5] = objc_opt_class();
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:6];
-  v18 = [v16 setWithArray:v17];
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:5];
+  v15 = [v13 setWithArray:v14];
 
-  [v4 setClasses:v18 forSelector:sel_devicesDiscovered_ argumentIndex:0 ofReply:0];
-  v19 = MEMORY[0x277CBEB98];
+  [v4 setClasses:v15 forSelector:sel_anyDiscoveredDevice_ argumentIndex:0 ofReply:0];
+  v16 = MEMORY[0x277CBEB98];
   v30[0] = objc_opt_class();
   v30[1] = objc_opt_class();
   v30[2] = objc_opt_class();
   v30[3] = objc_opt_class();
   v30[4] = objc_opt_class();
   v30[5] = objc_opt_class();
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:6];
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:6];
+  v18 = [v16 setWithArray:v17];
+
+  [v4 setClasses:v18 forSelector:sel_devicesDiscovered_ argumentIndex:0 ofReply:0];
+  v19 = MEMORY[0x277CBEB98];
+  v29[0] = objc_opt_class();
+  v29[1] = objc_opt_class();
+  v29[2] = objc_opt_class();
+  v29[3] = objc_opt_class();
+  v29[4] = objc_opt_class();
+  v29[5] = objc_opt_class();
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:6];
   v21 = [v19 setWithArray:v20];
 
   [v4 setClasses:v21 forSelector:sel_receivedTestResponse_ argumentIndex:0 ofReply:0];
@@ -620,8 +609,6 @@ uint64_t __22__WPClient_connection__block_invoke_182(uint64_t a1)
   [methodsCopy setExportedInterface:v4];
   [methodsCopy setExportedObject:self];
   [methodsCopy setRemoteObjectInterface:v22];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)destroyConnection
@@ -632,7 +619,7 @@ uint64_t __22__WPClient_connection__block_invoke_182(uint64_t a1)
 
 - (void)registeredWithDaemonAndContinuingSession:(BOOL)session
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (session)
   {
     [(WPClient *)self setServicesAdded:1];
@@ -650,17 +637,15 @@ uint64_t __22__WPClient_connection__block_invoke_182(uint64_t a1)
   {
     v5 = v4;
     clientAsString = [(WPClient *)self clientAsString];
-    v9 = 134218242;
+    v8 = 134218242;
     selfCopy = self;
-    v11 = 2112;
-    v12 = clientAsString;
-    _os_log_impl(&dword_274327000, v5, OS_LOG_TYPE_INFO, "WPClient (%p - %@) registered with daemon, continuing any messages", &v9, 0x16u);
+    v10 = 2112;
+    v11 = clientAsString;
+    _os_log_impl(&dword_274327000, v5, OS_LOG_TYPE_INFO, "WPClient (%p - %@) registered with daemon, continuing any messages", &v8, 0x16u);
   }
 
   daemonRegisteredSemaphore = [(WPClient *)self daemonRegisteredSemaphore];
   dispatch_semaphore_signal(daemonRegisteredSemaphore);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)description
@@ -699,7 +684,7 @@ uint64_t __22__WPClient_connection__block_invoke_182(uint64_t a1)
 
 void __23__WPClient_addServices__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -717,7 +702,7 @@ void __23__WPClient_addServices__block_invoke(uint64_t a1, void *a2, void *a3)
       v10 = v8;
       v11 = [v9 clientAsString];
       *buf = 138543362;
-      v19 = v11;
+      v18 = v11;
       _os_log_impl(&dword_274327000, v10, OS_LOG_TYPE_DEFAULT, "Adding services for %{public}@", buf, 0xCu);
     }
 
@@ -727,17 +712,15 @@ void __23__WPClient_addServices__block_invoke(uint64_t a1, void *a2, void *a3)
     block[1] = 3221225472;
     block[2] = __23__WPClient_addServices__block_invoke_407;
     block[3] = &unk_279ED7720;
-    objc_copyWeak(&v17, buf);
-    v15 = v5;
-    v16 = v7;
+    objc_copyWeak(&v16, buf);
+    v14 = v5;
+    v15 = v7;
     dispatch_async(v12, block);
 
     [*(a1 + 32) setServicesAdded:1];
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(buf);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __23__WPClient_addServices__block_invoke_407(uint64_t a1)
@@ -807,7 +790,7 @@ void __34__WPClient_dispatchAdvertisement___block_invoke(uint64_t a1)
 
 void __34__WPClient_dispatchAdvertisement___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
   v4 = [a2 localizedDescription];
   v5 = [v3 stringWithFormat:@"WPClient can't reach bluetoothd to start advertising. ERROR: %@", v4];
@@ -823,18 +806,17 @@ void __34__WPClient_dispatchAdvertisement___block_invoke_2(uint64_t a1, void *a2
   }
 
   v6 = MEMORY[0x277CCA9B8];
-  v10 = *MEMORY[0x277CCA450];
-  v11[0] = v5;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = *MEMORY[0x277CCA450];
+  v10[0] = v5;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v8 = [v6 errorWithDomain:@"WPErrorDomain" code:5 userInfo:v7];
 
   [*(a1 + 32) advertisingFailedToStart:v8 ofType:{objc_msgSend(*(a1 + 40), "clientType")}];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startAdvertising:(id)advertising
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   advertisingCopy = advertising;
   if (![advertisingCopy clientType] || objc_msgSend(advertisingCopy, "clientType") >= 0x1C)
   {
@@ -860,11 +842,11 @@ void __34__WPClient_dispatchAdvertisement___block_invoke_2(uint64_t a1, void *a2
     }
 
     v11 = MEMORY[0x277CCA9B8];
-    v23 = *MEMORY[0x277CCA450];
-    v24[0] = v10;
+    v22 = *MEMORY[0x277CCA450];
+    v23[0] = v10;
     v12 = MEMORY[0x277CBEAC0];
-    v13 = v24;
-    v14 = &v23;
+    v13 = v23;
+    v14 = &v22;
     goto LABEL_23;
   }
 
@@ -881,23 +863,23 @@ void __34__WPClient_dispatchAdvertisement___block_invoke_2(uint64_t a1, void *a2
     {
       if (+[WPClient isHomePodOrIOS])
       {
-        v18 = [advertisingCopy advertisingRate] == 160;
+        v17 = [advertisingCopy advertisingRate] == 160;
       }
 
       else
       {
-        v18 = 0;
+        v17 = 0;
       }
 
-      if (v6 || v18)
+      if (v6 || v17)
       {
         goto LABEL_17;
       }
 
 LABEL_35:
-      v19 = MEMORY[0x277CCACA8];
+      v18 = MEMORY[0x277CCACA8];
       clientAsString2 = [(WPClient *)self clientAsString];
-      v10 = [v19 stringWithFormat:@"WPClient %@ advertising rate 0x%lx is not valid", clientAsString2, objc_msgSend(advertisingCopy, "advertisingRate")];
+      v10 = [v18 stringWithFormat:@"WPClient %@ advertising rate 0x%lx is not valid", clientAsString2, objc_msgSend(advertisingCopy, "advertisingRate")];
 
       if (WPLogInitOnce != -1)
       {
@@ -910,11 +892,11 @@ LABEL_35:
       }
 
       v11 = MEMORY[0x277CCA9B8];
-      v21 = *MEMORY[0x277CCA450];
-      v22 = v10;
+      v20 = *MEMORY[0x277CCA450];
+      v21 = v10;
       v12 = MEMORY[0x277CBEAC0];
-      v13 = &v22;
-      v14 = &v21;
+      v13 = &v21;
+      v14 = &v20;
 LABEL_23:
       v15 = [v12 dictionaryWithObjects:v13 forKeys:v14 count:1];
       v16 = [v11 errorWithDomain:@"WPErrorDomain" code:13 userInfo:v15];
@@ -945,8 +927,6 @@ LABEL_31:
 LABEL_17:
   [(WPClient *)self dispatchAdvertisement:advertisingCopy];
 LABEL_24:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopAdvertising:(id)advertising
@@ -1081,6 +1061,33 @@ void __38__WPClient_registerForAnyScanResults___block_invoke_2(uint64_t a1, void
   }
 }
 
+- (void)handleStartScanningError:(id)error ofType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v13[1] = *MEMORY[0x277D85DE8];
+  v6 = MEMORY[0x277CCACA8];
+  localizedDescription = [error localizedDescription];
+  v8 = [v6 stringWithFormat:@"WPClient can't reach bluetoothd to start scanning. ERROR: %@", localizedDescription];
+
+  if (WPLogInitOnce != -1)
+  {
+    [WPClient handleStartScanningError:ofType:];
+  }
+
+  if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
+  {
+    [WPTest startAdvertisingOfType:data:priority:mode:options:];
+  }
+
+  v9 = MEMORY[0x277CCA9B8];
+  v12 = *MEMORY[0x277CCA450];
+  v13[0] = v8;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = [v9 errorWithDomain:@"WPErrorDomain" code:5 userInfo:v10];
+
+  [(WPClient *)self scanningFailedToStart:v11 ofType:typeCopy];
+}
+
 - (void)startScanning:(id)scanning
 {
   scanningCopy = scanning;
@@ -1211,7 +1218,7 @@ void __25__WPClient_stopScanning___block_invoke(uint64_t a1)
 
 void __25__WPClient_stopScanning___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
   v4 = [a2 localizedDescription];
   v5 = [v3 stringWithFormat:@"WPClient can't reach bluetoothd to stop scanning. ERROR: %@", v4];
@@ -1227,13 +1234,12 @@ void __25__WPClient_stopScanning___block_invoke_2(uint64_t a1, void *a2)
   }
 
   v6 = MEMORY[0x277CCA9B8];
-  v10 = *MEMORY[0x277CCA450];
-  v11[0] = v5;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = *MEMORY[0x277CCA450];
+  v10[0] = v5;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v8 = [v6 errorWithDomain:@"WPErrorDomain" code:5 userInfo:v7];
 
   [*(a1 + 32) scanningFailedToStart:v8 ofType:{objc_msgSend(*(a1 + 40), "clientType")}];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearDuplicateFilterCache:(id)cache
@@ -1485,17 +1491,16 @@ void __37__WPClient_sendDatatoLePipe_forPeer___block_invoke_2(uint64_t a1, void 
 
 - (void)startTrackingPeerWithRequest:(id)request
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCA9B8];
-  v10 = *MEMORY[0x277CCA450];
-  v11[0] = @"Peer tracking is unsupported as the platform is not OS X";
+  v9 = *MEMORY[0x277CCA450];
+  v10[0] = @"Peer tracking is unsupported as the platform is not OS X";
   v5 = MEMORY[0x277CBEAC0];
   requestCopy = request;
-  v7 = [v5 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v7 = [v5 dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v8 = [v4 errorWithDomain:@"WPErrorDomain" code:5 userInfo:v7];
 
   [(WPClient *)self failedToStartTrackingPeer:requestCopy error:v8];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopTrackingPeerWithRequest:(id)request
@@ -1509,7 +1514,7 @@ void __37__WPClient_sendDatatoLePipe_forPeer___block_invoke_2(uint64_t a1, void 
 
 - (void)connectToPeer:(id)peer withOptions:(id)options
 {
-  v39[2] = *MEMORY[0x277D85DE8];
+  v38[2] = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   optionsCopy = options;
   v8 = optionsCopy;
@@ -1547,12 +1552,12 @@ void __37__WPClient_sendDatatoLePipe_forPeer___block_invoke_2(uint64_t a1, void 
     block[1] = 3221225472;
     block[2] = __38__WPClient_connectToPeer_withOptions___block_invoke_511;
     block[3] = &unk_279ED7798;
-    objc_copyWeak(&v36, &location);
-    v35 = peerCopy;
-    v29 = peerCopy;
+    objc_copyWeak(&v35, &location);
+    v34 = peerCopy;
+    v28 = peerCopy;
     dispatch_async(daemonDeliveryQueue, block);
 
-    objc_destroyWeak(&v36);
+    objc_destroyWeak(&v35);
     objc_destroyWeak(&location);
   }
 
@@ -1561,13 +1566,13 @@ void __37__WPClient_sendDatatoLePipe_forPeer___block_invoke_2(uint64_t a1, void 
 LABEL_9:
     v13 = objc_autoreleasePoolPush();
     v14 = *MEMORY[0x277CBDE98];
-    v38[0] = *MEMORY[0x277CBDE98];
+    v37[0] = *MEMORY[0x277CBDE98];
     v15 = [MEMORY[0x277CCABB0] numberWithInteger:{-[WPClient connectionUseCase](self, "connectionUseCase")}];
-    v39[0] = v15;
-    v38[1] = *MEMORY[0x277CBDEB0];
+    v38[0] = v15;
+    v37[1] = *MEMORY[0x277CBDEB0];
     v16 = [MEMORY[0x277CCABB0] numberWithInteger:{-[WPClient maxAllowedConnectionDelayMs](self, "maxAllowedConnectionDelayMs")}];
-    v39[1] = v16;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
+    v38[1] = v16;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
 
     if (v8)
     {
@@ -1598,27 +1603,25 @@ LABEL_9:
     objc_autoreleasePoolPop(v13);
     objc_initWeak(&location, self);
     daemonDeliveryQueue2 = [(WPClient *)self daemonDeliveryQueue];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __38__WPClient_connectToPeer_withOptions___block_invoke_522;
-    v30[3] = &unk_279ED7720;
-    objc_copyWeak(&v33, &location);
-    v31 = peerCopy;
-    v32 = v17;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __38__WPClient_connectToPeer_withOptions___block_invoke_522;
+    v29[3] = &unk_279ED7720;
+    objc_copyWeak(&v32, &location);
+    v30 = peerCopy;
+    v31 = v17;
     v25 = peerCopy;
     v26 = v17;
-    dispatch_async(daemonDeliveryQueue2, v30);
+    dispatch_async(daemonDeliveryQueue2, v29);
 
-    objc_destroyWeak(&v33);
+    objc_destroyWeak(&v32);
     objc_destroyWeak(&location);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __38__WPClient_connectToPeer_withOptions___block_invoke_511(uint64_t a1)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -1634,15 +1637,13 @@ void __38__WPClient_connectToPeer_withOptions___block_invoke_511(uint64_t a1)
     }
 
     v11 = MEMORY[0x277CCA9B8];
-    v15 = *MEMORY[0x277CCA450];
-    v16[0] = @"Connection option not allowed.";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = *MEMORY[0x277CCA450];
+    v15[0] = @"Connection option not allowed.";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     v13 = [v11 errorWithDomain:@"WPErrorDomain" code:29 userInfo:v12];
 
     [WeakRetained connectedDevice:*(a1 + 32) withError:v13 shouldDiscover:0];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __38__WPClient_connectToPeer_withOptions___block_invoke_522(uint64_t a1)
@@ -1839,7 +1840,7 @@ void __64__WPClient_shouldSubscribe_toPeer_withCharacteristic_inService___block_
 
 - (void)sendDataToCharacteristic:(id)characteristic inService:(id)service forPeer:(id)peer
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   serviceCopy = service;
   peerCopy = peer;
@@ -1852,28 +1853,27 @@ void __64__WPClient_shouldSubscribe_toPeer_withCharacteristic_inService___block_
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v23 = characteristicCopy;
+    v22 = characteristicCopy;
     _os_log_impl(&dword_274327000, v11, OS_LOG_TYPE_INFO, "Sending data to %@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   daemonDeliveryQueue = [(WPClient *)self daemonDeliveryQueue];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __55__WPClient_sendDataToCharacteristic_inService_forPeer___block_invoke_534;
-  v17[3] = &unk_279ED7888;
-  objc_copyWeak(&v21, buf);
-  v18 = peerCopy;
-  v19 = characteristicCopy;
-  v20 = serviceCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __55__WPClient_sendDataToCharacteristic_inService_forPeer___block_invoke_534;
+  v16[3] = &unk_279ED7888;
+  objc_copyWeak(&v20, buf);
+  v17 = peerCopy;
+  v18 = characteristicCopy;
+  v19 = serviceCopy;
   v13 = serviceCopy;
   v14 = characteristicCopy;
   v15 = peerCopy;
-  dispatch_async(daemonDeliveryQueue, v17);
+  dispatch_async(daemonDeliveryQueue, v16);
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(buf);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __55__WPClient_sendDataToCharacteristic_inService_forPeer___block_invoke_534(uint64_t a1)
@@ -2276,7 +2276,7 @@ void __42__WPClient_listenToBandwidthNotifications__block_invoke_582(uint64_t a1
 
 - (void)stateDidChange:(int64_t)change
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (WPLogInitOnce != -1)
   {
     [WPClient stateDidChange:];
@@ -2286,11 +2286,11 @@ void __42__WPClient_listenToBandwidthNotifications__block_invoke_582(uint64_t a1
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
     v6 = v5;
-    v16 = 134218240;
+    v15 = 134218240;
     changeCopy3 = change;
-    v18 = 2048;
+    v17 = 2048;
     state = [(WPClient *)self state];
-    _os_log_impl(&dword_274327000, v6, OS_LOG_TYPE_DEFAULT, "State changed to %ld from %ld", &v16, 0x16u);
+    _os_log_impl(&dword_274327000, v6, OS_LOG_TYPE_DEFAULT, "State changed to %ld from %ld", &v15, 0x16u);
   }
 
   if ([(WPClient *)self state]!= change)
@@ -2306,11 +2306,11 @@ void __42__WPClient_listenToBandwidthNotifications__block_invoke_582(uint64_t a1
     {
       v8 = v7;
       advertiserState = [(WPClient *)self advertiserState];
-      v16 = 134218240;
+      v15 = 134218240;
       changeCopy3 = change;
-      v18 = 2048;
+      v17 = 2048;
       state = advertiserState;
-      _os_log_impl(&dword_274327000, v8, OS_LOG_TYPE_DEFAULT, "Advertiser state changed to %ld from %ld", &v16, 0x16u);
+      _os_log_impl(&dword_274327000, v8, OS_LOG_TYPE_DEFAULT, "Advertiser state changed to %ld from %ld", &v15, 0x16u);
     }
 
     if ([(WPClient *)self advertiserState]!= change)
@@ -2326,8 +2326,8 @@ void __42__WPClient_listenToBandwidthNotifications__block_invoke_582(uint64_t a1
         v10 = WiProxLog;
         if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v16) = 0;
-          _os_log_impl(&dword_274327000, v10, OS_LOG_TYPE_DEFAULT, "State is resetting, need to re-add services when asked to re-advertise", &v16, 2u);
+          LOWORD(v15) = 0;
+          _os_log_impl(&dword_274327000, v10, OS_LOG_TYPE_DEFAULT, "State is resetting, need to re-add services when asked to re-advertise", &v15, 2u);
         }
 
         [(WPClient *)self setServicesAdded:0];
@@ -2343,8 +2343,8 @@ void __42__WPClient_listenToBandwidthNotifications__block_invoke_582(uint64_t a1
         v11 = WiProxLog;
         if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v16) = 0;
-          _os_log_impl(&dword_274327000, v11, OS_LOG_TYPE_DEFAULT, "State is on, adding services if necessary", &v16, 2u);
+          LOWORD(v15) = 0;
+          _os_log_impl(&dword_274327000, v11, OS_LOG_TYPE_DEFAULT, "State is on, adding services if necessary", &v15, 2u);
         }
 
         if (![(WPClient *)self servicesAdded])
@@ -2364,17 +2364,15 @@ void __42__WPClient_listenToBandwidthNotifications__block_invoke_582(uint64_t a1
     {
       v13 = v12;
       scannerState = [(WPClient *)self scannerState];
-      v16 = 134218240;
+      v15 = 134218240;
       changeCopy3 = change;
-      v18 = 2048;
+      v17 = 2048;
       state = scannerState;
-      _os_log_impl(&dword_274327000, v13, OS_LOG_TYPE_DEFAULT, "Scanner state changed to %ld from %ld", &v16, 0x16u);
+      _os_log_impl(&dword_274327000, v13, OS_LOG_TYPE_DEFAULT, "Scanner state changed to %ld from %ld", &v15, 0x16u);
     }
 
     [(WPClient *)self setScannerState:change];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivedTestResponse:(id)response
@@ -2576,7 +2574,7 @@ void __32__WPClient_enableBubbleTestMode__block_invoke_624(uint64_t a1, void *a2
 
 void __32__WPClient_overrideScanTimeout___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -2591,17 +2589,15 @@ void __32__WPClient_overrideScanTimeout___block_invoke(uint64_t a1)
       v4 = v3;
       v5 = objc_opt_class();
       v6 = NSStringFromClass(v5);
-      v10 = 138412290;
-      v11 = v6;
-      _os_log_impl(&dword_274327000, v4, OS_LOG_TYPE_DEFAULT, "Setting scan timeout for class %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v6;
+      _os_log_impl(&dword_274327000, v4, OS_LOG_TYPE_DEFAULT, "Setting scan timeout for class %@", &v9, 0xCu);
     }
 
     v7 = [WeakRetained connection];
     v8 = [v7 remoteObjectProxyWithErrorHandler:&__block_literal_global_634];
     [v8 overrideScanTimeout:*(a1 + 40)];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __32__WPClient_overrideScanTimeout___block_invoke_632(uint64_t a1, void *a2)
@@ -2637,7 +2633,7 @@ void __32__WPClient_overrideScanTimeout___block_invoke_632(uint64_t a1, void *a2
 
 void __31__WPClient_overrideAdvTimeout___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -2652,17 +2648,15 @@ void __31__WPClient_overrideAdvTimeout___block_invoke(uint64_t a1)
       v4 = v3;
       v5 = objc_opt_class();
       v6 = NSStringFromClass(v5);
-      v10 = 138412290;
-      v11 = v6;
-      _os_log_impl(&dword_274327000, v4, OS_LOG_TYPE_DEFAULT, "Setting adv timeout for class %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v6;
+      _os_log_impl(&dword_274327000, v4, OS_LOG_TYPE_DEFAULT, "Setting adv timeout for class %@", &v9, 0xCu);
     }
 
     v7 = [WeakRetained connection];
     v8 = [v7 remoteObjectProxyWithErrorHandler:&__block_literal_global_642];
     [v8 overrideAdvTimeout:*(a1 + 40)];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __31__WPClient_overrideAdvTimeout___block_invoke_640(uint64_t a1, void *a2)
@@ -2916,131 +2910,104 @@ void __28__WPClient_sendTestRequest___block_invoke_674(uint64_t a1, void *a2)
 
 void __23__WPClient_addServices__block_invoke_2_408_cold_2(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to add services. ERROR: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to add services. ERROR: %@", v6, v7, v8, v9);
 }
 
 void __28__WPClient_stopAdvertising___block_invoke_2_cold_2(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to stop advertising. ERROR: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to stop advertising. ERROR: %@", v6, v7, v8, v9);
 }
 
 - (void)updateAdvertisingRequest:(void *)a1 withUpdate:.cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
-  [OUTLINED_FUNCTION_6_0() clientType];
-  OUTLINED_FUNCTION_0_3(&dword_274327000, v3, v4, "Client type (%ld) calling [super updateAdvertisingRequest:withUpdate:]", v5, v6, v7, v8, 0);
-
-  v9 = *MEMORY[0x277D85DE8];
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = [OUTLINED_FUNCTION_6_0() clientType];
+  OUTLINED_FUNCTION_0_3(&dword_274327000, v3, v4, "Client type (%ld) calling [super updateAdvertisingRequest:withUpdate:]", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 - (void)updateScanningRequest:(void *)a1 withUpdate:.cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
-  [OUTLINED_FUNCTION_6_0() clientType];
-  OUTLINED_FUNCTION_0_3(&dword_274327000, v3, v4, "Client type (%ld) calling [super updateScanningRequest:withUpdate:]", v5, v6, v7, v8, 0);
-
-  v9 = *MEMORY[0x277D85DE8];
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = [OUTLINED_FUNCTION_6_0() clientType];
+  OUTLINED_FUNCTION_0_3(&dword_274327000, v3, v4, "Client type (%ld) calling [super updateScanningRequest:withUpdate:]", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 void __37__WPClient_sendDatatoLePipe_forPeer___block_invoke_2_cold_2(uint64_t a1, void *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9(a1, a2);
   [OUTLINED_FUNCTION_7() UUIDString];
   objc_claimAutoreleasedReturnValue();
-  v5 = [OUTLINED_FUNCTION_6_0() localizedDescription];
+  v4 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_5_1(&dword_274327000, v6, v7, "WPClient can't reach bluetoothd to send data to peer %@. ERROR: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5_1(&dword_274327000, v5, v6, "WPClient can't reach bluetoothd to send data to peer %@. ERROR: %@", v7, v8, v9, v10);
 }
 
 - (void)connectToPeer:withOptions:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v4 = 1024;
-  v5 = v0;
-  _os_log_debug_impl(&dword_274327000, v1, OS_LOG_TYPE_DEBUG, "Client connecting to peer %@ with option CBConnectPeripheralOptionDoNotDisconnectOnEncryptionFailure:%d", v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 1024;
+  v4 = v0;
+  _os_log_debug_impl(&dword_274327000, v1, OS_LOG_TYPE_DEBUG, "Client connecting to peer %@ with option CBConnectPeripheralOptionDoNotDisconnectOnEncryptionFailure:%d", v2, 0x12u);
 }
 
 void __38__WPClient_connectToPeer_withOptions___block_invoke_511_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_274327000, a1, a3, "%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Connection option not allowed.";
+  OUTLINED_FUNCTION_0_0(&dword_274327000, a1, a3, "%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __38__WPClient_connectToPeer_withOptions___block_invoke_2_523_cold_2(uint64_t a1, void *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9(a1, a2);
   [OUTLINED_FUNCTION_7() UUIDString];
   objc_claimAutoreleasedReturnValue();
-  v5 = [OUTLINED_FUNCTION_6_0() localizedDescription];
+  v4 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_5_1(&dword_274327000, v6, v7, "WPClient can't reach bluetoothd to connect peer with options %@. ERROR: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5_1(&dword_274327000, v5, v6, "WPClient can't reach bluetoothd to connect peer with options %@. ERROR: %@", v7, v8, v9, v10);
 }
 
 void __31__WPClient_disconnectFromPeer___block_invoke_2_cold_2(uint64_t a1, void *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9(a1, a2);
   [OUTLINED_FUNCTION_7() UUIDString];
   objc_claimAutoreleasedReturnValue();
-  v5 = [OUTLINED_FUNCTION_6_0() localizedDescription];
+  v4 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_5_1(&dword_274327000, v6, v7, "WPClient can't reach bluetoothd to disconnect peer %@. ERROR: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5_1(&dword_274327000, v5, v6, "WPClient can't reach bluetoothd to disconnect peer %@. ERROR: %@", v7, v8, v9, v10);
 }
 
 void __61__WPClient_discoverCharacteristicsAndServices_forPeripheral___block_invoke_2_cold_2(uint64_t a1, void *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9(a1, a2);
   [OUTLINED_FUNCTION_7() UUIDString];
   objc_claimAutoreleasedReturnValue();
-  v5 = [OUTLINED_FUNCTION_6_0() localizedDescription];
+  v4 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_5_1(&dword_274327000, v6, v7, "WPClient can't reach bluetoothd to discover services and characteristics for peer %@. ERROR: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5_1(&dword_274327000, v5, v6, "WPClient can't reach bluetoothd to discover services and characteristics for peer %@. ERROR: %@", v7, v8, v9, v10);
 }
 
 void __64__WPClient_shouldSubscribe_toPeer_withCharacteristic_inService___block_invoke_2_cold_2(uint64_t a1, void *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9(a1, a2);
   [OUTLINED_FUNCTION_7() UUIDString];
   objc_claimAutoreleasedReturnValue();
-  v5 = [OUTLINED_FUNCTION_6_0() localizedDescription];
+  v4 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_5_1(&dword_274327000, v6, v7, "WPClient can't reach bluetoothd to subscribe characteristic for peer %@. ERROR: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5_1(&dword_274327000, v5, v6, "WPClient can't reach bluetoothd to subscribe characteristic for peer %@. ERROR: %@", v7, v8, v9, v10);
 }
 
 void __30__WPClient_startTrackingZone___block_invoke_cold_2(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = a1;
   OUTLINED_FUNCTION_6_0();
   v3 = objc_opt_class();
@@ -3048,50 +3015,37 @@ void __30__WPClient_startTrackingZone___block_invoke_cold_2(void *a1)
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __30__WPClient_startTrackingZone___block_invoke_542_cold_2(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to start tracking zone. ERROR: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to start tracking zone. ERROR: %@", v6, v7, v8, v9);
 }
 
 void __30__WPClient_stopTrackingZones___block_invoke_cold_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = a2;
+  v3 = a2;
   OUTLINED_FUNCTION_6_0();
-  v5 = objc_opt_class();
-  v6 = NSStringFromClass(v5);
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v7, v8, v9, v10, v11, 0x16u);
-
-  v12 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
 void __30__WPClient_stopTrackingZones___block_invoke_550_cold_2(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to stop tracking zone. ERROR: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to stop tracking zone. ERROR: %@", v6, v7, v8, v9);
 }
 
 void __32__WPClient_stopTrackingAllZones__block_invoke_cold_2(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = a1;
   OUTLINED_FUNCTION_6_0();
   v3 = objc_opt_class();
@@ -3099,24 +3053,18 @@ void __32__WPClient_stopTrackingAllZones__block_invoke_cold_2(void *a1)
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __32__WPClient_stopTrackingAllZones__block_invoke_558_cold_2(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to stop tracking all zones. ERROR: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to stop tracking all zones. ERROR: %@", v6, v7, v8, v9);
 }
 
 void __30__WPClient_getAllTrackedZones__block_invoke_cold_2(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = a1;
   OUTLINED_FUNCTION_6_0();
   v3 = objc_opt_class();
@@ -3124,46 +3072,34 @@ void __30__WPClient_getAllTrackedZones__block_invoke_cold_2(void *a1)
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __30__WPClient_getAllTrackedZones__block_invoke_566_cold_2(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to get all tracked zones. ERROR: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to get all tracked zones. ERROR: %@", v6, v7, v8, v9);
 }
 
 void __32__WPClient_enableRanging_reply___block_invoke_2_cold_2(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to enable/disable ranging. ERROR: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to enable/disable ranging. ERROR: %@", v6, v7, v8, v9);
 }
 
 void __34__WPClient_isRangingEnabledReply___block_invoke_2_cold_2(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to get ranging status. ERROR: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to get ranging status. ERROR: %@", v6, v7, v8, v9);
 }
 
 void __42__WPClient_listenToBandwidthNotifications__block_invoke_cold_2(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = a1;
   OUTLINED_FUNCTION_6_0();
   v3 = objc_opt_class();
@@ -3171,34 +3107,27 @@ void __42__WPClient_listenToBandwidthNotifications__block_invoke_cold_2(void *a1
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __42__WPClient_listenToBandwidthNotifications__block_invoke_582_cold_2(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to listen to bandwidth notifications. ERROR: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to listen to bandwidth notifications. ERROR: %@", v6, v7, v8, v9);
 }
 
 - (void)receivedTestResponse:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_274327000, v1, OS_LOG_TYPE_DEBUG, "FIXME: Client %@ received testResponse %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_274327000, v1, OS_LOG_TYPE_DEBUG, "FIXME: Client %@ received testResponse %@", v2, 0x16u);
 }
 
 void __33__WPClient_checkAllowDuplicates___block_invoke_cold_2(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = a1;
   OUTLINED_FUNCTION_6_0();
   v3 = objc_opt_class();
@@ -3206,24 +3135,18 @@ void __33__WPClient_checkAllowDuplicates___block_invoke_cold_2(void *a1)
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __33__WPClient_checkAllowDuplicates___block_invoke_606_cold_2(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to check duplicate support. ERROR: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to check duplicate support. ERROR: %@", v6, v7, v8, v9);
 }
 
 void __26__WPClient_enableTestMode__block_invoke_cold_2(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = a1;
   OUTLINED_FUNCTION_6_0();
   v3 = objc_opt_class();
@@ -3231,24 +3154,18 @@ void __26__WPClient_enableTestMode__block_invoke_cold_2(void *a1)
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __26__WPClient_enableTestMode__block_invoke_616_cold_2(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to enable test mode. ERROR: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to enable test mode. ERROR: %@", v6, v7, v8, v9);
 }
 
 void __32__WPClient_enableBubbleTestMode__block_invoke_cold_2(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = a1;
   OUTLINED_FUNCTION_6_0();
   v3 = objc_opt_class();
@@ -3256,46 +3173,34 @@ void __32__WPClient_enableBubbleTestMode__block_invoke_cold_2(void *a1)
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __32__WPClient_enableBubbleTestMode__block_invoke_624_cold_2(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to enable bubble test mode. ERROR: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to enable bubble test mode. ERROR: %@", v6, v7, v8, v9);
 }
 
 void __32__WPClient_overrideScanTimeout___block_invoke_632_cold_2(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to set scan timeout. ERROR: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to set scan timeout. ERROR: %@", v6, v7, v8, v9);
 }
 
 void __31__WPClient_overrideAdvTimeout___block_invoke_640_cold_2(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to set advertising timeout. ERROR: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to set advertising timeout. ERROR: %@", v6, v7, v8, v9);
 }
 
 void __29__WPClient_getPowerLogStats___block_invoke_cold_2(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = a1;
   OUTLINED_FUNCTION_6_0();
   v3 = objc_opt_class();
@@ -3303,24 +3208,18 @@ void __29__WPClient_getPowerLogStats___block_invoke_cold_2(void *a1)
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __29__WPClient_getPowerLogStats___block_invoke_648_cold_2(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to get power stats. ERROR: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to get power stats. ERROR: %@", v6, v7, v8, v9);
 }
 
 void __27__WPClient_dumpDaemonState__block_invoke_cold_2(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = a1;
   OUTLINED_FUNCTION_6_0();
   v3 = objc_opt_class();
@@ -3328,24 +3227,18 @@ void __27__WPClient_dumpDaemonState__block_invoke_cold_2(void *a1)
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __27__WPClient_dumpDaemonState__block_invoke_658_cold_2(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to dump WirelessProximity state. ERROR: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to dump WirelessProximity state. ERROR: %@", v6, v7, v8, v9);
 }
 
 void __27__WPClient_disableScanning__block_invoke_cold_2(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = a1;
   OUTLINED_FUNCTION_6_0();
   v3 = objc_opt_class();
@@ -3353,53 +3246,40 @@ void __27__WPClient_disableScanning__block_invoke_cold_2(void *a1)
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __27__WPClient_disableScanning__block_invoke_666_cold_2(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to disable scanning. ERROR: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to disable scanning. ERROR: %@", v6, v7, v8, v9);
 }
 
 void __28__WPClient_sendTestRequest___block_invoke_cold_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = a2;
+  v3 = a2;
   OUTLINED_FUNCTION_6_0();
-  v5 = objc_opt_class();
-  v6 = NSStringFromClass(v5);
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v7, v8, v9, v10, v11, 0x16u);
-
-  v12 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
 void __28__WPClient_sendTestRequest___block_invoke_674_cold_2(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to send test request. ERROR: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "WPClient can't reach bluetoothd to send test request. ERROR: %@", v6, v7, v8, v9);
 }
 
 - (void)notifyNotApprovedUseCase:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_274327000, v0, OS_LOG_TYPE_FAULT, "Not approved use case: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_274327000, v0, OS_LOG_TYPE_FAULT, "Not approved use case: %@", v1, 0xCu);
 }
 
 @end

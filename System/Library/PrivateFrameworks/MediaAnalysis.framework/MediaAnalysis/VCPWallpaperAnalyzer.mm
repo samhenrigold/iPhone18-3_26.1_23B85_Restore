@@ -98,7 +98,7 @@ VCPCNNModelEspresso *__39__VCPWallpaperAnalyzer_sharedModelPool__block_invoke_2(
     if (v10)
     {
       object2 = [(VCPLoaned *)self->_modelEspresso object];
-      [object2 outputBlob];
+      objc_msgSend_outputBlob(object2);
       v14 = *(*buf + 4);
 
       if (results)

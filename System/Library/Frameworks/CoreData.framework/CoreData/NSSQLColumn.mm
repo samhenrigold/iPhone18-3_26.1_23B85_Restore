@@ -3,8 +3,8 @@
 - (NSSQLColumn)initWithEntity:(id)entity propertyDescription:(id)description;
 - (id)description;
 - (id)initForReadOnlyFetching;
-- (uint64_t)_setColumnName:(uint64_t)result;
 - (uint64_t)roughSizeEstimate;
+- (void)_setColumnName:(void *)result;
 - (void)copyValuesForReadOnlyFetch:(id)fetch;
 - (void)dealloc;
 @end
@@ -98,17 +98,17 @@
   return v7;
 }
 
-- (uint64_t)_setColumnName:(uint64_t)result
+- (void)_setColumnName:(void *)result
 {
   if (result)
   {
     v3 = result;
-    v4 = *(result + 40);
+    v4 = result[5];
     if (v4 != a2)
     {
 
       result = [a2 copy];
-      *(v3 + 40) = result;
+      v3[5] = result;
     }
   }
 
@@ -118,10 +118,12 @@
 - (id)description
 {
   v3 = objc_autoreleasePoolPush();
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: columnName = %@, type = %d, slot = %d, fetchIndex = %d propertyType = %d", objc_opt_class(), self->_columnName, self->super._sqlType, self->super._slot, self->super._fetchIndex, -[NSSQLProperty propertyType](self, "propertyType")];
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = objc_opt_class();
+  v6 = objc_msgSend_stringWithFormat_(v4, v5, self->_columnName, self->super._sqlType, self->super._slot, self->super._fetchIndex, [(NSSQLProperty *)self propertyType]);
   objc_autoreleasePoolPop(v3);
 
-  return v4;
+  return v6;
 }
 
 - (void)copyValuesForReadOnlyFetch:(id)fetch

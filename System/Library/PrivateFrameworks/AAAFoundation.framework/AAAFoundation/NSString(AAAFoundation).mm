@@ -18,9 +18,9 @@
     +[NSString(AAAFoundation) URLQueryValueAllowedCharacterSet];
   }
 
-  v1 = URLQueryValueAllowedCharacterSet__URLQueryValueAllowedCharacterSet;
+  v2 = URLQueryValueAllowedCharacterSet__URLQueryValueAllowedCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 - (id)aaf_urlEncoded
@@ -81,12 +81,11 @@ LABEL_7:
 
 - (id)aaf_toSHA256Data
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   uTF8String = [self UTF8String];
   v2 = strlen(uTF8String);
   CC_SHA256(uTF8String, v2, md);
   v3 = [MEMORY[0x1E695DEF0] dataWithBytes:md length:32];
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

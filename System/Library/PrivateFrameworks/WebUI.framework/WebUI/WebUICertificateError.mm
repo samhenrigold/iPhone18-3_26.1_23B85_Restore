@@ -6,7 +6,7 @@
 
 + (BOOL)userAllowsCertificateTrust:(__SecTrust *)trust host:(id)host
 {
-  v29[2] = *MEMORY[0x277D85DE8];
+  v28[2] = *MEMORY[0x277D85DE8];
   hostCopy = host;
   defaultTrustManager = [MEMORY[0x277CF9710] defaultTrustManager];
   v7 = *MEMORY[0x277CF9718];
@@ -29,11 +29,11 @@
       if ([off_279EB0F30 certificateWarningCannotBeBypassedForTrust:trust])
       {
         v12 = *MEMORY[0x277CF9738];
-        v28[0] = *MEMORY[0x277CF9740];
-        v28[1] = v12;
-        v29[0] = MEMORY[0x277CBEC28];
-        v29[1] = MEMORY[0x277CBEC28];
-        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+        v27[0] = *MEMORY[0x277CF9740];
+        v27[1] = v12;
+        v28[0] = MEMORY[0x277CBEC28];
+        v28[1] = MEMORY[0x277CBEC28];
+        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
       }
 
       else
@@ -41,26 +41,26 @@
         v13 = 0;
       }
 
-      v24 = 0;
-      v25 = &v24;
-      v26 = 0x2020000000;
-      v27 = 0;
+      v23 = 0;
+      v24 = &v23;
+      v25 = 0x2020000000;
+      v26 = 0;
       v14 = dispatch_semaphore_create(0);
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __57__WebUICertificateError_userAllowsCertificateTrust_host___block_invoke;
-      v18[3] = &unk_279EB14C0;
-      v19 = defaultTrustManager;
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __57__WebUICertificateError_userAllowsCertificateTrust_host___block_invoke;
+      v17[3] = &unk_279EB14C0;
+      v18 = defaultTrustManager;
       trustCopy = trust;
-      v20 = hostCopy;
-      v22 = &v24;
+      v19 = hostCopy;
+      v21 = &v23;
       v15 = v14;
-      v21 = v15;
-      [v10 showPromptWithOptions:v13 responseBlock:v18];
+      v20 = v15;
+      [v10 showPromptWithOptions:v13 responseBlock:v17];
       dispatch_semaphore_wait(v15, 0xFFFFFFFFFFFFFFFFLL);
-      v9 = *(v25 + 24);
+      v9 = *(v24 + 24);
 
-      _Block_object_dispose(&v24, 8);
+      _Block_object_dispose(&v23, 8);
     }
   }
 
@@ -69,7 +69,6 @@
     v9 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v9 & 1;
 }
 

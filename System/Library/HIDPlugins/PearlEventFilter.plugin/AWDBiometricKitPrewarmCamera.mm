@@ -101,12 +101,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -125,15 +124,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  prewarmCameraEventSource = self->_prewarmCameraEventSource;
   PBDataWriterWriteInt64Field();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_4:
-    machTimestampInMillisecond = self->_machTimestampInMillisecond;
     PBDataWriterWriteUint64Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:

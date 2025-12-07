@@ -9,57 +9,57 @@
 
 - (BOOL)report
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = [(TIDPRecorder *)self characterExplodedRecords];
-  v3 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v3 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v3)
   {
     v4 = v3;
-    v19 = *v25;
+    v18 = *v24;
     do
     {
       v5 = 0;
       do
       {
-        if (*v25 != v19)
+        if (*v24 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v24 + 1) + 8 * v5);
+        v6 = *(*(&v23 + 1) + 8 * v5);
         v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v6, "count")}];
+        v19 = 0u;
         v20 = 0u;
         v21 = 0u;
         v22 = 0u;
-        v23 = 0u;
         records = [(TIDPNamedEntityTokenRecorder *)self records];
-        v9 = [records countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v9 = [records countByEnumeratingWithState:&v19 objects:v27 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v21;
+          v11 = *v20;
           do
           {
             v12 = 0;
             do
             {
-              if (*v21 != v11)
+              if (*v20 != v11)
               {
                 objc_enumerationMutation(records);
               }
 
-              toDPWordRecord = [*(*(&v20 + 1) + 8 * v12) toDPWordRecord];
+              toDPWordRecord = [*(*(&v19 + 1) + 8 * v12) toDPWordRecord];
               [v7 addObject:toDPWordRecord];
 
               ++v12;
             }
 
             while (v10 != v12);
-            v10 = [records countByEnumeratingWithState:&v20 objects:v28 count:16];
+            v10 = [records countByEnumeratingWithState:&v19 objects:v27 count:16];
           }
 
           while (v10);
@@ -76,13 +76,12 @@
       }
 
       while (v5 != v4);
-      v4 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v4 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v4);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

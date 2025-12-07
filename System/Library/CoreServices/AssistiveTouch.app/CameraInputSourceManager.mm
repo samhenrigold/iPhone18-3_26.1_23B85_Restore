@@ -8,7 +8,7 @@
 
 - (void)captureOutput:(id)output didOutputMetadataObjects:(id)objects fromConnection:(id)connection
 {
-  sub_1000FB560(0, &qword_100217F10);
+  sub_1000FB560(0, &qword_100217F10, AVMetadataObject_ptr);
   v8 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   outputCopy = output;
   connectionCopy = connection;

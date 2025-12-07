@@ -24,7 +24,7 @@
   return v4;
 }
 
-uint64_t __31__VCPCNNPetsDetector_detector___block_invoke()
+uint64_t __31__VCPCNNPetsDetector_detector___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = objc_opt_class();
   +[VCPCNNPetsDetector detector:]::analyzerClass = result;

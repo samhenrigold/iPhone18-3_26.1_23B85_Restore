@@ -1,12 +1,21 @@
 @interface MUPlaceActionRowSectionController
 - (BOOL)hasContent;
 - (MUPlaceActionRowSectionController)initWithMapItem:(id)item actionManager:(id)manager menuProvider:(id)provider;
+- (id)analyticsModuleForAction:(int)action presentationOptions:(id)options;
 - (id)menuElementForActionItem:(id)item;
 - (id)menuForActionItem:(id)item;
 - (void)_setupButtons;
 @end
 
 @implementation MUPlaceActionRowSectionController
+
+- (id)analyticsModuleForAction:(int)action presentationOptions:(id)options
+{
+  v4 = MEMORY[0x1E69A1B10];
+  v5 = [(MUPlaceActionRowSectionController *)self analyticsModuleTypeForAction:*&action presentationOptions:options];
+
+  return [v4 moduleFromModuleType:v5];
+}
 
 - (BOOL)hasContent
 {

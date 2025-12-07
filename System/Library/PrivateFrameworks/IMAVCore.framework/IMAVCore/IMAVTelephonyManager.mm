@@ -67,20 +67,21 @@ LABEL_4:
     if ((objc_msgSend__isProxy(v27, v28, v29, v30, v31) & 1) == 0)
     {
       v36 = objc_msgSend_state(v27, v32, v33, v34, v35);
-      v37 = sub_254761764();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v37 = v36;
+      v38 = sub_254761764(v36);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
-        v38 = _NSStringDescriptionForIMAVChatState(v36);
+        v39 = _NSStringDescriptionForIMAVChatState(v37);
         v51 = 138412546;
-        v52 = v38;
+        v52 = v39;
         v53 = 2112;
         v54 = v27;
-        _os_log_impl(&dword_254743000, v37, OS_LOG_TYPE_DEFAULT, "Observed chat state change to: %@ for: %@", &v51, 0x16u);
+        _os_log_impl(&dword_254743000, v38, OS_LOG_TYPE_DEFAULT, "Observed chat state change to: %@ for: %@", &v51, 0x16u);
       }
 
-      if (v36 > 2)
+      if (v37 > 2)
       {
-        if (v36 != 3)
+        if (v37 != 3)
         {
           goto LABEL_14;
         }
@@ -88,30 +89,28 @@ LABEL_4:
         goto LABEL_13;
       }
 
-      if (v36 == 1)
+      if (v37 == 1)
       {
         goto LABEL_13;
       }
 
-      if (v36 != 2)
+      if (v37 != 2)
       {
 LABEL_14:
-        v43 = objc_msgSend_sharedInstance(MEMORY[0x277D19270], v39, v40, v41, v42);
-        objc_msgSend_removeFastDormancyDisableToken_(v43, v47, @"kIMAVTelephonyManagerDormancyClient", v48, v49);
+        v44 = objc_msgSend_sharedInstance(MEMORY[0x277D19270], v40, v41, v42, v43);
+        objc_msgSend_removeFastDormancyDisableToken_(v44, v48, @"kIMAVTelephonyManagerDormancyClient", v49, v50);
         goto LABEL_15;
       }
 
-      if (objc_msgSend_isCaller(v27, v39, v40, v41, v42))
+      if (objc_msgSend_isCaller(v27, v40, v41, v42, v43))
       {
 LABEL_13:
-        v43 = objc_msgSend_sharedInstance(MEMORY[0x277D19270], v39, v40, v41, v42);
-        objc_msgSend_addFastDormancyDisableToken_(v43, v44, @"kIMAVTelephonyManagerDormancyClient", v45, v46);
+        v44 = objc_msgSend_sharedInstance(MEMORY[0x277D19270], v40, v41, v42, v43);
+        objc_msgSend_addFastDormancyDisableToken_(v44, v45, @"kIMAVTelephonyManagerDormancyClient", v46, v47);
 LABEL_15:
       }
     }
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 @end

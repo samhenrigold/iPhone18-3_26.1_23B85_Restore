@@ -26,7 +26,7 @@
     goto LABEL_9;
   }
 
-  v4 = [IOSObjectArray arrayWithLength:subs->super.size_ type:JavaUtilIterator_class_()];
+  v4 = [IOSObjectArray arrayWithLength:subs->super.size_ type:JavaUtilIterator_class_(self, a2)];
   v5 = self->subs_;
   if (v5->super.size_ >= 1)
   {

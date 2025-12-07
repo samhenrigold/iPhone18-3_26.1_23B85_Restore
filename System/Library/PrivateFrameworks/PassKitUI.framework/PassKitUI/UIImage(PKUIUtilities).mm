@@ -273,42 +273,42 @@ LABEL_10:
 - (float64x2_t)pkui_alignmentSizeThatFills:()PKUIUtilities maximumScale:
 {
   [self alignmentRectInsets];
-  v20 = v7;
-  v21 = v6;
   v22 = v9;
   v23 = v8;
+  v24 = v11;
+  v25 = v10;
   [self size];
-  v11 = v10 - (v20 + v22);
-  v13 = v12 - (v21 + v23);
+  v13 = v12 - (v22 + v24);
+  v15 = v14 - (v23 + v25);
   PKSizeAspectFill();
-  v16 = fmin(v14 / v11, v15 / v13);
-  if (v16 > a3)
+  v18 = fmin(v16 / v13, v17 / v15);
+  if (v18 > a5)
   {
-    v16 = 1.0;
-    v14 = v11 * a3;
-    v15 = v13 * a3;
-    if (a3 == 1.0)
+    v18 = 1.0;
+    v16 = v13 * a5;
+    v17 = v15 * a5;
+    if (a5 == 1.0)
     {
-      v14 = v11;
-      v15 = v13;
+      v16 = v13;
+      v17 = v15;
     }
 
     else
     {
-      v16 = a3;
+      v18 = a5;
     }
   }
 
-  a2->f64[0] = v14;
-  a2->f64[1] = v15;
-  v17.f64[0] = v21;
-  v17.f64[1] = v20;
-  v18.f64[0] = v23;
-  v18.f64[1] = v22;
-  result = vmulq_n_f64(vnegq_f64(v17), v16);
+  a2->f64[0] = v16;
+  a2->f64[1] = v17;
+  v19.f64[0] = v23;
+  v19.f64[1] = v22;
+  v20.f64[0] = v25;
+  v20.f64[1] = v24;
+  result = vmulq_n_f64(vnegq_f64(v19), v18);
   a2[1] = result;
-  a2[2] = vmulq_n_f64(vnegq_f64(v18), v16);
-  a2[3].f64[0] = v16;
+  a2[2] = vmulq_n_f64(vnegq_f64(v20), v18);
+  a2[3].f64[0] = v18;
   return result;
 }
 

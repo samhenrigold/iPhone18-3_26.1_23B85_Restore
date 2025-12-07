@@ -11,7 +11,7 @@
   sub_1D2878568();
   v5[2] = self;
   selfCopy = self;
-  sub_1D239DDE8(sub_1D25A24BC, v5);
+  sub_1D239DDE8(sub_1D25A24BC, v5, "ImagePlaygroundInternal/ImageDescriptionView.swift", 50, 2u, 170);
 }
 
 - (void)imageDescriptionViewControllerDidSave:(id)save
@@ -21,7 +21,7 @@
   v7[3] = self;
   saveCopy = save;
   selfCopy = self;
-  sub_1D239DDE8(sub_1D25A23E0, v7);
+  sub_1D239DDE8(sub_1D25A23E0, v7, "ImagePlaygroundInternal/ImageDescriptionView.swift", 50, 2u, 177);
 }
 
 - (_TtCV23ImagePlaygroundInternal33ImageDescriptionViewRepresentable11Coordinator)init

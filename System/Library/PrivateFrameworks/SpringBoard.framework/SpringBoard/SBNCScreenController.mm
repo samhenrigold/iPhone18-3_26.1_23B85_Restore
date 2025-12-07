@@ -50,7 +50,7 @@
 
 - (BOOL)canTurnOnScreenForNotificationRequest:(id)request
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   options = [requestCopy options];
   canTurnOnDisplay = [options canTurnOnDisplay];
@@ -59,29 +59,26 @@
   lockScreenManager = [(SBNCScreenController *)self lockScreenManager];
   v8 = canTurnOnDisplay & ((options | [lockScreenManager isInLostMode]) ^ 1);
 
-  _isDeviceUILocked = [(SBNCScreenController *)self _isDeviceUILocked];
-  v10 = MEMORY[0x277D77FC8];
-  v11 = MEMORY[0x277D77FE0];
-  if (_isDeviceUILocked)
+  if ([(SBNCScreenController *)self _isDeviceUILocked])
   {
     options2 = [requestCopy options];
     alertsWhenLocked = [options2 alertsWhenLocked];
 
     requestDestinations = [requestCopy requestDestinations];
-    v15 = alertsWhenLocked & [requestDestinations containsObject:*v11];
+    v12 = alertsWhenLocked & objc_msgSend_containsObject_(requestDestinations);
   }
 
   else
   {
     requestDestinations = [requestCopy requestDestinations];
-    v15 = [requestDestinations containsObject:*v10];
+    v12 = objc_msgSend_containsObject_(requestDestinations);
   }
 
-  v16 = v8 & v15;
-  v17 = *MEMORY[0x277D77DB0];
+  v13 = v8 & v12;
+  v14 = *MEMORY[0x277D77DB0];
   if (os_log_type_enabled(*MEMORY[0x277D77DB0], OS_LOG_TYPE_DEFAULT))
   {
-    log = v17;
+    log = v14;
     notificationIdentifier = [requestCopy notificationIdentifier];
     un_logDigest = [notificationIdentifier un_logDigest];
     options3 = [requestCopy options];
@@ -89,37 +86,36 @@
     caseIsEnabledAndLatched = [SBApp caseIsEnabledAndLatched];
     lockScreenManager2 = [(SBNCScreenController *)self lockScreenManager];
     isInLostMode = [lockScreenManager2 isInLostMode];
-    _isDeviceUILocked2 = [(SBNCScreenController *)self _isDeviceUILocked];
+    _isDeviceUILocked = [(SBNCScreenController *)self _isDeviceUILocked];
     options4 = [requestCopy options];
     alertsWhenLocked2 = [options4 alertsWhenLocked];
     requestDestinations2 = [requestCopy requestDestinations];
-    v24 = [requestDestinations2 containsObject:*v11];
+    v21 = objc_msgSend_containsObject_(requestDestinations2);
     requestDestinations3 = [requestCopy requestDestinations];
-    v26 = [requestDestinations3 containsObject:*MEMORY[0x277D77FC8]];
     *buf = 138545666;
-    v35 = un_logDigest;
+    v31 = un_logDigest;
+    v32 = 1024;
+    v33 = v13;
+    v34 = 1024;
+    v35 = requestCopy != 0;
     v36 = 1024;
-    v37 = v16;
+    v37 = canTurnOnDisplay2;
     v38 = 1024;
-    v39 = requestCopy != 0;
+    v39 = caseIsEnabledAndLatched;
     v40 = 1024;
-    v41 = canTurnOnDisplay2;
+    v41 = isInLostMode;
     v42 = 1024;
-    v43 = caseIsEnabledAndLatched;
+    v43 = _isDeviceUILocked;
     v44 = 1024;
-    v45 = isInLostMode;
+    v45 = alertsWhenLocked2;
     v46 = 1024;
-    v47 = _isDeviceUILocked2;
+    v47 = v21;
     v48 = 1024;
-    v49 = alertsWhenLocked2;
-    v50 = 1024;
-    v51 = v24;
-    v52 = 1024;
-    v53 = v26;
+    v49 = objc_msgSend_containsObject_(requestDestinations3);
     _os_log_impl(&dword_21ED4E000, log, OS_LOG_TYPE_DEFAULT, "Screen can be turned on for notification %{public}@: %d [ hasRequest: %d canTurnOnDisplay: %d caseIsEnabledAndLatched: %d isInLostMode: %d isDeviceUILocked: %d alertsWhenLocked: %d sentToLockScreenDestination: %d sentToBannerDestination: %d ]", buf, 0x42u);
   }
 
-  return v16;
+  return v13;
 }
 
 - (void)turnOnScreenForNotificationRequest:(id)request

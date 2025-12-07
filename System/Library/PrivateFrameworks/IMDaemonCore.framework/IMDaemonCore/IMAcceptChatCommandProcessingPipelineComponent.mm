@@ -22,7 +22,7 @@
 
 - (id)runIndividuallyWithInput:(id)input
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   gUID = [inputCopy GUID];
   v6 = IMOSLoggingEnabled();
@@ -47,7 +47,7 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v30 = gUID;
+      v29 = gUID;
       _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "<IMAcceptChatCommandProcessingPipelineComponent> Started processing accept chat command for message GUID: %@", buf, 0xCu);
     }
   }
@@ -60,7 +60,7 @@
       if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v30 = gUID;
+        v29 = gUID;
         _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Ignoring accept chat command not from me for message: %@", buf, 0xCu);
       }
     }
@@ -80,7 +80,7 @@ LABEL_38:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v30 = gUID;
+      v29 = gUID;
       _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Found chats for message guid: %@", buf, 0xCu);
     }
   }
@@ -91,30 +91,30 @@ LABEL_38:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v30 = v10;
+      v29 = v10;
       _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Found chats: %@", buf, 0xCu);
     }
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v13 = v10;
-  v14 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v14)
   {
-    v15 = *v25;
+    v15 = *v24;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v25 != v15)
+        if (*v24 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        v17 = *(*(&v24 + 1) + 8 * i);
+        v17 = *(*(&v23 + 1) + 8 * i);
         if ([v17 isFiltered])
         {
           [v17 updateIsFiltered:0];
@@ -131,7 +131,7 @@ LABEL_38:
         }
       }
 
-      v14 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v14);
@@ -139,8 +139,6 @@ LABEL_38:
 
   v19 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
 LABEL_39:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

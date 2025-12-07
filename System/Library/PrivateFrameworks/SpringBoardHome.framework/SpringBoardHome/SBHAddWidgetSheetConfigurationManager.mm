@@ -124,7 +124,7 @@ void __121__SBHAddWidgetSheetConfigurationManager_fetchGalleryContentForHomeScre
   v6 = a3;
   [*(a1 + 32) widgetFamilyMask];
   v7 = CHSWidgetFamilyMaskDescription();
-  v8 = SBLogWidgets();
+  v8 = SBLogWidgets(v7);
   v9 = v8;
   if (v6)
   {
@@ -237,7 +237,7 @@ void __99__SBHAddWidgetSheetConfigurationManager__fetchGalleryContentForGridSize
   v5 = a2;
   v6 = a3;
   v7 = CHSWidgetFamilyMaskDescription();
-  v8 = SBLogWidgets();
+  v8 = SBLogWidgets(v7);
   v9 = v8;
   if (v6)
   {
@@ -959,7 +959,7 @@ uint64_t __75__SBHAddWidgetSheetConfigurationManager__sortApplicationWidgetColle
       v9 = [[SBHSpecialWidgetDescriptor alloc] initWithType:2];
       v14[1] = v9;
       v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
-      v11 = SBHBundle();
+      v11 = SBHBundle(v10);
       v12 = [v11 localizedStringForKey:@"APPLE_WIDGET_COLLECTION_NAME" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
       v13 = [(SBHApplicationWidgetCollection *)v7 initWithIcon:v6 galleryItems:v10 vendorName:v12];
 
@@ -970,7 +970,7 @@ uint64_t __75__SBHAddWidgetSheetConfigurationManager__sortApplicationWidgetColle
 
 - (void)_addSiriSuggestionsSpecialAvocadosToApplicationWidgetCollections:(id)collections
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   collectionsCopy = collections;
   if ([(SBHAddWidgetSheetConfigurationManager *)self _shouldAddSpecialAvocadoOfType:1])
   {
@@ -978,16 +978,16 @@ uint64_t __75__SBHAddWidgetSheetConfigurationManager__sortApplicationWidgetColle
     v6 = [[SBHSpecialWidgetDescriptor alloc] initWithType:4];
     v7 = [(SBHAddWidgetSheetConfigurationManager *)self _widgetIconForDescriptor:v5 sizeClass:2];
     v8 = [SBHApplicationWidgetCollection alloc];
-    v15[0] = v6;
-    v15[1] = v5;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
-    v10 = SBHBundle();
+    v16[0] = v6;
+    v16[1] = v5;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+    v10 = SBHBundle(v9);
     v11 = [v10 localizedStringForKey:@"APPLE_WIDGET_COLLECTION_NAME" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
     v12 = [(SBHApplicationWidgetCollection *)v8 initWithIcon:v7 galleryItems:v9 vendorName:v11];
 
-    v13 = SBHBundle();
-    v14 = [v13 localizedStringForKey:@"PROACTIVE_SUGGESTIONS_WIDGET_COLLECTION_NAME" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-    [(SBHApplicationWidgetCollection *)v12 setContainerName:v14];
+    v14 = SBHBundle(v13);
+    v15 = [v14 localizedStringForKey:@"PROACTIVE_SUGGESTIONS_WIDGET_COLLECTION_NAME" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+    [(SBHApplicationWidgetCollection *)v12 setContainerName:v15];
 
     [collectionsCopy addObject:v12];
   }
@@ -995,7 +995,7 @@ uint64_t __75__SBHAddWidgetSheetConfigurationManager__sortApplicationWidgetColle
 
 - (void)_addFilesSpecialAvocadosToApplicationWidgetCollections:(id)collections
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   collectionsCopy = collections;
   if ([(SBHAddWidgetSheetConfigurationManager *)self _shouldAddSpecialAvocadoOfType:3]&& [(SBHAddWidgetSheetConfigurationManager *)self _isContainerBundleIdentifierUnprotected:@"com.apple.DocumentsApp"])
   {
@@ -1004,23 +1004,23 @@ uint64_t __75__SBHAddWidgetSheetConfigurationManager__sortApplicationWidgetColle
 
     if (v6)
     {
-      v7 = [SBHApplicationWidgetCollection alloc];
-      v8 = [[SBHSpecialWidgetDescriptor alloc] initWithType:3];
-      v13[0] = v8;
-      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
-      v10 = SBHBundle();
-      v11 = [v10 localizedStringForKey:@"APPLE_WIDGET_COLLECTION_NAME" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-      v12 = [(SBHApplicationWidgetCollection *)v7 initWithIcon:v6 galleryItems:v9 vendorName:v11];
+      v8 = [SBHApplicationWidgetCollection alloc];
+      v9 = [[SBHSpecialWidgetDescriptor alloc] initWithType:3];
+      v14[0] = v9;
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+      v11 = SBHBundle(v10);
+      v12 = [v11 localizedStringForKey:@"APPLE_WIDGET_COLLECTION_NAME" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+      v13 = [(SBHApplicationWidgetCollection *)v8 initWithIcon:v6 galleryItems:v10 vendorName:v12];
 
-      [collectionsCopy addObject:v12];
+      [collectionsCopy addObject:v13];
     }
 
     else
     {
-      v12 = SBLogWidgets();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = SBLogWidgets(v7);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        [SBHAddWidgetSheetConfigurationManager _addFilesSpecialAvocadosToApplicationWidgetCollections:v12];
+        [SBHAddWidgetSheetConfigurationManager _addFilesSpecialAvocadosToApplicationWidgetCollections:v13];
       }
     }
   }
@@ -1038,7 +1038,7 @@ uint64_t __75__SBHAddWidgetSheetConfigurationManager__sortApplicationWidgetColle
     v7 = [(SBHAddWidgetSheetConfigurationManager *)self _widgetIconForDescriptors:v6 sizeClass:2];
 
     v8 = [SBHApplicationWidgetCollection alloc];
-    v9 = SBHBundle();
+    v9 = SBHBundle(v8);
     v10 = [v9 localizedStringForKey:@"APPLE_WIDGET_COLLECTION_NAME" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
     v11 = [(SBHApplicationWidgetCollection *)v8 initWithIcon:v7 galleryItems:MEMORY[0x1E695E0F0] vendorName:v10];
 
@@ -1058,41 +1058,42 @@ uint64_t __75__SBHAddWidgetSheetConfigurationManager__sortApplicationWidgetColle
 
 void __112__SBHAddWidgetSheetConfigurationManager__insertSmartStackSpecialAvocadosAtTheTopOfApplicationWidgetCollections___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = SBLogWidgets();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = SBLogWidgets(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __112__SBHAddWidgetSheetConfigurationManager__insertSmartStackSpecialAvocadosAtTheTopOfApplicationWidgetCollections___block_invoke_cold_1(v5);
+      __112__SBHAddWidgetSheetConfigurationManager__insertSmartStackSpecialAvocadosAtTheTopOfApplicationWidgetCollections___block_invoke_cold_1(v6);
     }
   }
 
   else
   {
-    v7 = [a2 firstObject];
-    v8 = SBLogWidgets();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v8 = [a2 firstObject];
+    v9 = SBLogWidgets(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v18 = v7;
-      _os_log_impl(&dword_1BEB18000, v8, OS_LOG_TYPE_DEFAULT, "Found suggested default widget stack: %@", buf, 0xCu);
+      v19 = v8;
+      _os_log_impl(&dword_1BEB18000, v9, OS_LOG_TYPE_DEFAULT, "Found suggested default widget stack: %@", buf, 0xCu);
     }
 
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __112__SBHAddWidgetSheetConfigurationManager__insertSmartStackSpecialAvocadosAtTheTopOfApplicationWidgetCollections___block_invoke_73;
-    v12[3] = &unk_1E8089E68;
-    v13 = v7;
-    v9 = *(a1 + 32);
-    v10 = *(a1 + 40);
-    v11 = *(a1 + 48);
-    v14 = v9;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __112__SBHAddWidgetSheetConfigurationManager__insertSmartStackSpecialAvocadosAtTheTopOfApplicationWidgetCollections___block_invoke_73;
+    v13[3] = &unk_1E8089E68;
+    v14 = v8;
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    v12 = *(a1 + 48);
     v15 = v10;
     v16 = v11;
-    v6 = v7;
-    dispatch_async(MEMORY[0x1E69E96A0], v12);
+    v17 = v12;
+    v7 = v8;
+    dispatch_async(MEMORY[0x1E69E96A0], v13);
   }
 }
 

@@ -46,15 +46,15 @@ WFSystemContentWhitelist *__50__WFSystemContentWhitelist_defaultSystemWhitelist_
 
 - (WFSystemContentWhitelist)initWithWhitelistURL:(id)l
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v25.receiver = self;
-  v25.super_class = WFSystemContentWhitelist;
-  v4 = [(WFSystemContentWhitelist *)&v25 init];
+  v26 = *MEMORY[0x277D85DE8];
+  v24.receiver = self;
+  v24.super_class = WFSystemContentWhitelist;
+  v4 = [(WFSystemContentWhitelist *)&v24 init];
   if (v4)
   {
-    v24 = 0;
-    v5 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:l options:0 error:&v24];
-    if (v5 && (v6 = [MEMORY[0x277CCAC58] propertyListWithData:v5 options:0 format:0 error:&v24]) != 0)
+    v23 = 0;
+    v5 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:l options:0 error:&v23];
+    if (v5 && (v6 = [MEMORY[0x277CCAC58] propertyListWithData:v5 options:0 format:0 error:&v23]) != 0)
     {
       v7 = v6;
       v8 = objc_opt_new();
@@ -65,27 +65,27 @@ WFSystemContentWhitelist *__50__WFSystemContentWhitelist_defaultSystemWhitelist_
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v22 = 0u;
-          v23 = 0u;
-          v20 = 0u;
           v21 = 0u;
+          v22 = 0u;
+          v19 = 0u;
+          v20 = 0u;
           v9 = [v7 valueForKey:{@"WFSystemContentWhitelistItems", 0}];
-          v10 = [v9 countByEnumeratingWithState:&v20 objects:v26 count:16];
+          v10 = [v9 countByEnumeratingWithState:&v19 objects:v25 count:16];
           if (v10)
           {
             v11 = v10;
-            v12 = *v21;
+            v12 = *v20;
             do
             {
               v13 = 0;
               do
               {
-                if (*v21 != v12)
+                if (*v20 != v12)
                 {
                   objc_enumerationMutation(v9);
                 }
 
-                v14 = *(*(&v20 + 1) + 8 * v13);
+                v14 = *(*(&v19 + 1) + 8 * v13);
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
@@ -101,7 +101,7 @@ WFSystemContentWhitelist *__50__WFSystemContentWhitelist_defaultSystemWhitelist_
               }
 
               while (v11 != v13);
-              v11 = [v9 countByEnumeratingWithState:&v20 objects:v26 count:16];
+              v11 = [v9 countByEnumeratingWithState:&v19 objects:v25 count:16];
             }
 
             while (v11);
@@ -120,11 +120,10 @@ WFSystemContentWhitelist *__50__WFSystemContentWhitelist_defaultSystemWhitelist_
         [(WFSystemContentWhitelist *)l initWithWhitelistURL:v17];
       }
 
-      v4 = 0;
+      return 0;
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -137,38 +136,38 @@ WFSystemContentWhitelist *__50__WFSystemContentWhitelist_defaultSystemWhitelist_
 
 - (BOOL)isURLWhitelisted:(id)whitelisted
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   whitelistItems = self->_whitelistItems;
-  v5 = [(NSArray *)whitelistItems countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [(NSArray *)whitelistItems countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     while (2)
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(whitelistItems);
         }
 
-        if ([*(*(&v11 + 1) + 8 * v8) matchesURL:whitelisted])
+        if ([*(*(&v10 + 1) + 8 * v8) matchesURL:whitelisted])
         {
           LOBYTE(v5) = 1;
-          goto LABEL_11;
+          return v5;
         }
 
         ++v8;
       }
 
       while (v6 != v8);
-      v5 = [(NSArray *)whitelistItems countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [(NSArray *)whitelistItems countByEnumeratingWithState:&v10 objects:v14 count:16];
       v6 = v5;
       if (v5)
       {
@@ -179,21 +178,18 @@ WFSystemContentWhitelist *__50__WFSystemContentWhitelist_defaultSystemWhitelist_
     }
   }
 
-LABEL_11:
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)initWithWhitelistURL:(os_log_t)log .cold.1(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a2;
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_272D73000, log, OS_LOG_TYPE_ERROR, "Couldn't read plist from url %@: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_272D73000, log, OS_LOG_TYPE_ERROR, "Couldn't read plist from url %@: %@", &v4, 0x16u);
 }
 
 @end

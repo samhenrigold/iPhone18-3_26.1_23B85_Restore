@@ -26,7 +26,9 @@
 - (void)_requestInitialStateWithCompletionHandler:(id)handler;
 - (void)activateConversationNoticeWithActionURL:(id)l bundleIdentifier:(id)identifier;
 - (void)activateLink:(id)link completionHandler:(id)handler;
+- (void)activeParticipant:(id)participant addedHighlightToConversation:(id)conversation highlightIdentifier:(id)identifier oldHighlightIdentifier:(id)highlightIdentifier isFirstAdd:(BOOL)add;
 - (void)activeParticipant:(id)participant removedHighlightFromConversation:(id)conversation highlightIdentifier:(id)identifier;
+- (void)addCollaborationDictionary:(id)dictionary forConversationWithUUID:(id)d fromMe:(BOOL)me;
 - (void)addCollaborationIdentifier:(id)identifier collaborationURL:(id)l cloudKitAppBundleIDs:(id)ds forConversationUUID:(id)d;
 - (void)addDisclosedCollaborationInitiator:(id)initiator toConversationUUID:(id)d;
 - (void)addInvitedMemberHandles:(id)handles toConversationLink:(id)link completionHandler:(id)handler;
@@ -57,6 +59,7 @@
 - (void)fetchUpcomingNoticeWithCompletionHandler:(id)handler;
 - (void)generateLinkForConversation:(id)conversation completionHandler:(id)handler;
 - (void)generateLinkWithInvitedMemberHandles:(id)handles linkLifetimeScope:(int64_t)scope completionHandler:(id)handler;
+- (void)getActiveLinksWithCreatedOnly:(BOOL)only completionHandler:(id)handler;
 - (void)getInactiveLinkWithCompletionHandler:(id)handler;
 - (void)getLatestRemoteScreenShareAttributesWithCompletionHandler:(id)handler;
 - (void)getMessagesGroupDetailsForConversationUUID:(id)d completionHandler:(id)handler;
@@ -67,8 +70,10 @@
 - (void)invalidateLink:(id)link deleteReason:(int64_t)reason completionHandler:(id)handler;
 - (void)joinConversationWithRequest:(id)request;
 - (void)kickMember:(id)member conversation:(id)conversation;
+- (void)launchApplicationForActivitySessionUUID:(id)d authorizedExternally:(BOOL)externally forceBackground:(BOOL)background completionHandler:(id)handler;
 - (void)leaveActivitySession:(id)session onConversation:(id)conversation;
 - (void)leaveConversationWithUUID:(id)d;
+- (void)linkSyncStateIncludeLinks:(BOOL)links WithCompletion:(id)completion;
 - (void)markCollaborationWithIdentifierOpened:(id)opened forConversationUUID:(id)d;
 - (void)mediaPrioritiesChangedForConversation:(id)conversation;
 - (void)prepareConversationWithUUID:(id)d withHandoffContext:(id)context;
@@ -84,11 +89,21 @@
 - (void)removeConversationNoticeWithUUID:(id)d;
 - (void)renewLink:(id)link expirationDate:(id)date reason:(unint64_t)reason completionHandler:(id)handler;
 - (void)requestParticipantToShareScreen:(id)screen forConversation:(id)conversation;
+- (void)scheduleConversationLinkCheckInInitial:(BOOL)initial;
 - (void)screenSharingAvailableChanged:(BOOL)changed;
+- (void)setActivityAuthorization:(BOOL)authorization forBundleIdentifier:(id)identifier;
+- (void)setAutoSharePlayEnabled:(BOOL)enabled;
+- (void)setDownlinkMuted:(BOOL)muted forParticipants:(id)participants inConversation:(id)conversation completionHandler:(id)handler;
+- (void)setDownlinkMuted:(BOOL)muted forRemoteParticipantsInConversation:(id)conversation;
 - (void)setGridDisplayMode:(unint64_t)mode conversation:(id)conversation;
+- (void)setIgnoreLetMeInRequests:(BOOL)requests forConversation:(id)conversation;
 - (void)setLinkName:(id)name forConversationLink:(id)link completionHandler:(id)handler;
 - (void)setLocalParticipantAudioVideoMode:(unint64_t)mode forConversationUUID:(id)d;
 - (void)setLocalParticipantCluster:(id)cluster forConversation:(id)conversation;
+- (void)setScreenEnabled:(BOOL)enabled withScreenShareAttributes:(id)attributes forConversationWithUUID:(id)d;
+- (void)setSharePlayHandedOff:(BOOL)off onConversationWithUUID:(id)d;
+- (void)setSupportsMessagesGroupProviding:(BOOL)providing;
+- (void)setUsingAirplay:(BOOL)airplay onActivitySession:(id)session onConversationWithUUID:(id)d;
 - (void)setXpcConnection:(id)connection;
 - (void)sharePlayAvailableChanged:(BOOL)changed;
 - (void)startTrackingCollaborationWithIdentifier:(id)identifier collaborationURL:(id)l cloudKitAppBundleIDs:(id)ds forConversationUUID:(id)d completionHandler:(id)handler;
@@ -200,13 +215,13 @@ void __58__TUConversationManagerXPCClient_conversationsByGroupUUID__block_invoke
 
 - (BOOL)shouldConnectToHost
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   queue = [(TUConversationManagerXPCClient *)self queue];
   dispatch_assert_queue_V2(queue);
 
   if (self->_shouldConnectToHost)
   {
-    shouldConnectToHost = 1;
+    return 1;
   }
 
   else
@@ -216,26 +231,25 @@ void __58__TUConversationManagerXPCClient_conversationsByGroupUUID__block_invoke
     if (state)
     {
       v6 = state;
-      v7 = TUDefaultLog();
+      v7 = TUDefaultLog(state);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v12 = v6;
+        v11 = v6;
         _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "[WARN] Bad state received when trying to get host conversation status: %lu", buf, 0xCu);
       }
 
-      shouldConnectToHost = self->_shouldConnectToHost;
+      return self->_shouldConnectToHost;
     }
 
     else
     {
-      shouldConnectToHost = state64 != 0;
+      v4 = state64 != 0;
       self->_shouldConnectToHost = state64 != 0;
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-  return shouldConnectToHost;
+  return v4;
 }
 
 - (NSXPCConnection)xpcConnection
@@ -618,25 +632,23 @@ void __38__TUConversationManagerXPCClient_init__block_invoke(uint64_t a1)
 
 void __38__TUConversationManagerXPCClient_init__block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v8 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v8 = "CSDConversationManagerClientsShouldConnectNotification";
+    v7 = "CSDConversationManagerClientsShouldConnectNotification";
     _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Handling %s by setting up XPC connection", buf, 0xCu);
   }
 
   *(*(a1 + 32) + 11) = 1;
   v3 = *(a1 + 32);
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __38__TUConversationManagerXPCClient_init__block_invoke_2;
-  v5[3] = &unk_1E7424950;
-  v6 = v3;
-  [v6 _requestInitialStateWithCompletionHandler:v5];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __38__TUConversationManagerXPCClient_init__block_invoke_2;
+  v4[3] = &unk_1E7424950;
+  v5 = v3;
+  [v5 _requestInitialStateWithCompletionHandler:v4];
 }
 
 void __38__TUConversationManagerXPCClient_init__block_invoke_2_3(uint64_t a1)
@@ -665,28 +677,27 @@ void __38__TUConversationManagerXPCClient_init__block_invoke_3(uint64_t a1)
 void __38__TUConversationManagerXPCClient_init__block_invoke_4(uint64_t a1)
 {
   v9 = *MEMORY[0x1E69E9840];
-  if (([*(a1 + 32) hasInitialState] & 1) == 0)
+  v2 = [*(a1 + 32) hasInitialState];
+  if ((v2 & 1) == 0)
   {
-    v2 = TUDefaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = TUDefaultLog(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       v8 = "com.apple.telephonyutilities.callservicesdaemon.connectionrequest";
-      _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Handling %s by setting up XPC connection if necessary", buf, 0xCu);
+      _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Handling %s by setting up XPC connection if necessary", buf, 0xCu);
     }
 
     [*(a1 + 32) setXpcConnection:0];
     *(*(a1 + 32) + 11) = 0;
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     v5[0] = MEMORY[0x1E69E9820];
     v5[1] = 3221225472;
     v5[2] = __38__TUConversationManagerXPCClient_init__block_invoke_7;
     v5[3] = &unk_1E7424950;
-    v6 = v3;
+    v6 = v4;
     [v6 _requestInitialStateWithCompletionHandler:v5];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __38__TUConversationManagerXPCClient_init__block_invoke_7(uint64_t a1)
@@ -759,7 +770,7 @@ void __56__TUConversationManagerXPCClient_advertisementsOnSystem__block_invoke(u
 void __56__TUConversationManagerXPCClient_advertisementsOnSystem__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __56__TUConversationManagerXPCClient_advertisementsOnSystem__block_invoke_2_cold_1();
@@ -802,7 +813,7 @@ void __56__TUConversationManagerXPCClient_advertisementsOnSystem__block_invoke_2
 void __73__TUConversationManagerXPCClient_incomingPendingConversationsByGroupUUID__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __73__TUConversationManagerXPCClient_incomingPendingConversationsByGroupUUID__block_invoke_cold_1();
@@ -843,7 +854,7 @@ void __73__TUConversationManagerXPCClient_incomingPendingConversationsByGroupUUI
 void __54__TUConversationManagerXPCClient_pseudonymsByCallUUID__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__TUConversationManagerXPCClient_pseudonymsByCallUUID__block_invoke_cold_1();
@@ -884,7 +895,7 @@ void __54__TUConversationManagerXPCClient_pseudonymsByCallUUID__block_invoke(uin
 void __60__TUConversationManagerXPCClient_activatedConversationLinks__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __60__TUConversationManagerXPCClient_activatedConversationLinks__block_invoke_cold_1();
@@ -949,7 +960,7 @@ void __69__TUConversationManagerXPCClient_activityAuthorizedBundleIdentifiers__b
   return selfCopy;
 }
 
-uint64_t __54__TUConversationManagerXPCClient_autoSharePlayEnabled__block_invoke(uint64_t a1)
+void *__54__TUConversationManagerXPCClient_autoSharePlayEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _requestInitialStateIfNecessary];
   *(*(*(a1 + 40) + 8) + 24) = *(*(a1 + 32) + 8);
@@ -959,7 +970,7 @@ uint64_t __54__TUConversationManagerXPCClient_autoSharePlayEnabled__block_invoke
 void __54__TUConversationManagerXPCClient_isSharePlayAvailable__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__TUConversationManagerXPCClient_isSharePlayAvailable__block_invoke_2_cold_1();
@@ -1042,7 +1053,7 @@ void __58__TUConversationManagerXPCClient_isScreenSharingAvailable__block_invoke
 void __58__TUConversationManagerXPCClient_isScreenSharingAvailable__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __58__TUConversationManagerXPCClient_isScreenSharingAvailable__block_invoke_2_cold_1();
@@ -1072,7 +1083,7 @@ void __58__TUConversationManagerXPCClient_isScreenSharingAvailable__block_invoke
 void __108__TUConversationManagerXPCClient_addRemoteMembers_otherInvitedHandles_invitationPreferences_toConversation___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __108__TUConversationManagerXPCClient_addRemoteMembers_otherInvitedHandles_invitationPreferences_toConversation___block_invoke_cold_1();
@@ -1090,19 +1101,34 @@ void __108__TUConversationManagerXPCClient_addRemoteMembers_otherInvitedHandles_
 void __81__TUConversationManagerXPCClient_prepareConversationWithUUID_withHandoffContext___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __81__TUConversationManagerXPCClient_prepareConversationWithUUID_withHandoffContext___block_invoke_cold_1();
   }
 }
 
+- (void)setSharePlayHandedOff:(BOOL)off onConversationWithUUID:(id)d
+{
+  offCopy = off;
+  dCopy = d;
+  v9 = MEMORY[0x1E69E9820];
+  v10 = 3221225472;
+  v11 = __79__TUConversationManagerXPCClient_setSharePlayHandedOff_onConversationWithUUID___block_invoke;
+  v12 = &unk_1E7427DA8;
+  v14 = offCopy;
+  v13 = dCopy;
+  v7 = dCopy;
+  v8 = [(TUConversationManagerXPCClient *)self asynchronousServerWithErrorHandler:&v9];
+  [v8 setSharePlayHandedOff:offCopy onConversationWithUUID:{v7, v9, v10, v11, v12}];
+}
+
 void __79__TUConversationManagerXPCClient_setSharePlayHandedOff_onConversationWithUUID___block_invoke(uint64_t a1)
 {
-  v2 = TUDefaultLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v1 = TUDefaultLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __79__TUConversationManagerXPCClient_setSharePlayHandedOff_onConversationWithUUID___block_invoke_cold_1(a1);
+    __79__TUConversationManagerXPCClient_setSharePlayHandedOff_onConversationWithUUID___block_invoke_cold_1();
   }
 }
 
@@ -1119,7 +1145,7 @@ void __79__TUConversationManagerXPCClient_setSharePlayHandedOff_onConversationWi
 void __73__TUConversationManagerXPCClient_updateMessagesGroupName_onConversation___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __73__TUConversationManagerXPCClient_updateMessagesGroupName_onConversation___block_invoke_cold_1();
@@ -1138,7 +1164,7 @@ void __73__TUConversationManagerXPCClient_updateMessagesGroupName_onConversation
 void __66__TUConversationManagerXPCClient_setGridDisplayMode_conversation___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __66__TUConversationManagerXPCClient_setGridDisplayMode_conversation___block_invoke_cold_1();
@@ -1157,7 +1183,7 @@ void __66__TUConversationManagerXPCClient_setGridDisplayMode_conversation___bloc
 void __71__TUConversationManagerXPCClient_conversationUpdateMessagesGroupPhoto___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __71__TUConversationManagerXPCClient_conversationUpdateMessagesGroupPhoto___block_invoke_cold_1();
@@ -1177,7 +1203,7 @@ void __71__TUConversationManagerXPCClient_conversationUpdateMessagesGroupPhoto__
 void __79__TUConversationManagerXPCClient_createActivitySession_onConversation_options___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __79__TUConversationManagerXPCClient_createActivitySession_onConversation_options___block_invoke_cold_1();
@@ -1197,7 +1223,7 @@ void __79__TUConversationManagerXPCClient_createActivitySession_onConversation_o
 void __70__TUConversationManagerXPCClient_leaveActivitySession_onConversation___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __70__TUConversationManagerXPCClient_leaveActivitySession_onConversation___block_invoke_cold_1();
@@ -1217,17 +1243,26 @@ void __70__TUConversationManagerXPCClient_leaveActivitySession_onConversation___
 void __68__TUConversationManagerXPCClient_endActivitySession_onConversation___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __68__TUConversationManagerXPCClient_endActivitySession_onConversation___block_invoke_cold_1();
   }
 }
 
+- (void)setUsingAirplay:(BOOL)airplay onActivitySession:(id)session onConversationWithUUID:(id)d
+{
+  airplayCopy = airplay;
+  dCopy = d;
+  sessionCopy = session;
+  v10 = [(TUConversationManagerXPCClient *)self asynchronousServerWithErrorHandler:&__block_literal_global_37_0];
+  [v10 setUsingAirplay:airplayCopy onActivitySession:sessionCopy onConversationWithUUID:dCopy];
+}
+
 void __91__TUConversationManagerXPCClient_setUsingAirplay_onActivitySession_onConversationWithUUID___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __91__TUConversationManagerXPCClient_setUsingAirplay_onActivitySession_onConversationWithUUID___block_invoke_cold_1();
@@ -1254,27 +1289,49 @@ void __91__TUConversationManagerXPCClient_setUsingAirplay_onActivitySession_onCo
 
 void __89__TUConversationManagerXPCClient_presentDismissalAlertForActivitySession_onConversation___block_invoke(uint64_t a1)
 {
-  v2 = TUDefaultLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v1 = TUDefaultLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __89__TUConversationManagerXPCClient_presentDismissalAlertForActivitySession_onConversation___block_invoke_cold_1(a1);
+    __89__TUConversationManagerXPCClient_presentDismissalAlertForActivitySession_onConversation___block_invoke_cold_1();
   }
+}
+
+- (void)setActivityAuthorization:(BOOL)authorization forBundleIdentifier:(id)identifier
+{
+  authorizationCopy = authorization;
+  identifierCopy = identifier;
+  v9 = MEMORY[0x1E69E9820];
+  v10 = 3221225472;
+  v11 = __79__TUConversationManagerXPCClient_setActivityAuthorization_forBundleIdentifier___block_invoke;
+  v12 = &unk_1E7427DA8;
+  v14 = authorizationCopy;
+  v13 = identifierCopy;
+  v7 = identifierCopy;
+  v8 = [(TUConversationManagerXPCClient *)self asynchronousServerWithErrorHandler:&v9];
+  [v8 setActivityAuthorization:authorizationCopy forBundleIdentifier:{v7, v9, v10, v11, v12}];
 }
 
 void __79__TUConversationManagerXPCClient_setActivityAuthorization_forBundleIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = TUDefaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = TUDefaultLog(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __79__TUConversationManagerXPCClient_setActivityAuthorization_forBundleIdentifier___block_invoke_cold_1(a1);
+    __79__TUConversationManagerXPCClient_setActivityAuthorization_forBundleIdentifier___block_invoke_cold_1();
   }
+}
+
+- (void)setAutoSharePlayEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v4 = [(TUConversationManagerXPCClient *)self asynchronousServerWithErrorHandler:&__block_literal_global_39_0];
+  [v4 setAutoSharePlayEnabled:enabledCopy];
 }
 
 void __58__TUConversationManagerXPCClient_setAutoSharePlayEnabled___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __58__TUConversationManagerXPCClient_setAutoSharePlayEnabled___block_invoke_cold_1();
@@ -1291,7 +1348,7 @@ void __58__TUConversationManagerXPCClient_setAutoSharePlayEnabled___block_invoke
 void __62__TUConversationManagerXPCClient_joinConversationWithRequest___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __62__TUConversationManagerXPCClient_joinConversationWithRequest___block_invoke_cold_1();
@@ -1308,20 +1365,44 @@ void __62__TUConversationManagerXPCClient_joinConversationWithRequest___block_in
 void __60__TUConversationManagerXPCClient_leaveConversationWithUUID___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __60__TUConversationManagerXPCClient_leaveConversationWithUUID___block_invoke_cold_1();
   }
 }
 
+- (void)launchApplicationForActivitySessionUUID:(id)d authorizedExternally:(BOOL)externally forceBackground:(BOOL)background completionHandler:(id)handler
+{
+  backgroundCopy = background;
+  externallyCopy = externally;
+  dCopy = d;
+  handlerCopy = handler;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __129__TUConversationManagerXPCClient_launchApplicationForActivitySessionUUID_authorizedExternally_forceBackground_completionHandler___block_invoke;
+  v18[3] = &unk_1E74264D0;
+  v19 = dCopy;
+  v12 = handlerCopy;
+  v20 = v12;
+  v13 = dCopy;
+  v14 = [(TUConversationManagerXPCClient *)self asynchronousServerWithErrorHandler:v18];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __129__TUConversationManagerXPCClient_launchApplicationForActivitySessionUUID_authorizedExternally_forceBackground_completionHandler___block_invoke_44;
+  v16[3] = &unk_1E7424A10;
+  v17 = v12;
+  v15 = v12;
+  [v14 launchApplicationForActivitySessionUUID:v13 authorizedExternally:externallyCopy forceBackground:backgroundCopy completionHandler:v16];
+}
+
 void __129__TUConversationManagerXPCClient_launchApplicationForActivitySessionUUID_authorizedExternally_forceBackground_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __129__TUConversationManagerXPCClient_launchApplicationForActivitySessionUUID_authorizedExternally_forceBackground_completionHandler___block_invoke_cold_1(a1);
+    __129__TUConversationManagerXPCClient_launchApplicationForActivitySessionUUID_authorizedExternally_forceBackground_completionHandler___block_invoke_cold_1();
   }
 
   v5 = *(a1 + 40);
@@ -1333,14 +1414,14 @@ void __129__TUConversationManagerXPCClient_launchApplicationForActivitySessionUU
 
 void __129__TUConversationManagerXPCClient_launchApplicationForActivitySessionUUID_authorizedExternally_forceBackground_completionHandler___block_invoke_44(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "LaunchApplication error: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "LaunchApplication error: %@", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -1348,8 +1429,6 @@ void __129__TUConversationManagerXPCClient_launchApplicationForActivitySessionUU
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)buzzMember:(id)member destinationID:(id)d invitationContext:(id)context conversation:(id)conversation
@@ -1366,17 +1445,15 @@ void __129__TUConversationManagerXPCClient_launchApplicationForActivitySessionUU
 
 void __90__TUConversationManagerXPCClient_buzzMember_destinationID_invitationContext_conversation___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error buzzing member: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error buzzing member: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)kickMember:(id)member conversation:(id)conversation
@@ -1391,59 +1468,93 @@ void __90__TUConversationManagerXPCClient_buzzMember_destinationID_invitationCon
 
 void __58__TUConversationManagerXPCClient_kickMember_conversation___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error kicking member: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error kicking member: %@", &v4, 0xCu);
   }
+}
 
-  v4 = *MEMORY[0x1E69E9840];
+- (void)setDownlinkMuted:(BOOL)muted forRemoteParticipantsInConversation:(id)conversation
+{
+  mutedCopy = muted;
+  conversationCopy = conversation;
+  v10 = MEMORY[0x1E69E9820];
+  v11 = 3221225472;
+  v12 = __87__TUConversationManagerXPCClient_setDownlinkMuted_forRemoteParticipantsInConversation___block_invoke;
+  v13 = &unk_1E7427DA8;
+  v15 = mutedCopy;
+  v14 = conversationCopy;
+  v7 = conversationCopy;
+  v8 = [(TUConversationManagerXPCClient *)self asynchronousServerWithErrorHandler:&v10];
+  uUID = [v7 UUID];
+  [v8 setDownlinkMuted:mutedCopy forRemoteParticipantsInConversationWithUUID:uUID];
 }
 
 void __87__TUConversationManagerXPCClient_setDownlinkMuted_forRemoteParticipantsInConversation___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 40);
     v6 = *(a1 + 32);
-    v8[0] = 67109634;
-    v8[1] = v5;
-    v9 = 2112;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error setting downlink muted: (%d) for remote participants in conversation: %@ with error: %@", v8, 0x1Cu);
+    v7[0] = 67109634;
+    v7[1] = v5;
+    v8 = 2112;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error setting downlink muted: (%d) for remote participants in conversation: %@ with error: %@", v7, 0x1Cu);
   }
+}
 
-  v7 = *MEMORY[0x1E69E9840];
+- (void)setDownlinkMuted:(BOOL)muted forParticipants:(id)participants inConversation:(id)conversation completionHandler:(id)handler
+{
+  mutedCopy = muted;
+  participantsCopy = participants;
+  conversationCopy = conversation;
+  handlerCopy = handler;
+  v18 = MEMORY[0x1E69E9820];
+  v19 = 3221225472;
+  v20 = __100__TUConversationManagerXPCClient_setDownlinkMuted_forParticipants_inConversation_completionHandler___block_invoke;
+  v21 = &unk_1E7427DF8;
+  v25 = mutedCopy;
+  v22 = participantsCopy;
+  v23 = conversationCopy;
+  v24 = handlerCopy;
+  v13 = handlerCopy;
+  v14 = conversationCopy;
+  v15 = participantsCopy;
+  v16 = [(TUConversationManagerXPCClient *)self asynchronousServerWithErrorHandler:&v18];
+  uUID = [v14 UUID];
+  [v16 setDownlinkMuted:mutedCopy forParticipants:v15 inConversationWithUUID:uUID completionHandler:v13];
 }
 
 void __100__TUConversationManagerXPCClient_setDownlinkMuted_forParticipants_inConversation_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 56);
     v6 = *(a1 + 32);
     v7 = [*(a1 + 40) UUID];
-    v10[0] = 67109890;
-    v10[1] = v5;
-    v11 = 2112;
-    v12 = v6;
-    v13 = 2112;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error setting downlink audio muted to (%d) remote participants=%@ for conversationUUID=%@ with error: %@", v10, 0x26u);
+    v9[0] = 67109890;
+    v9[1] = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2112;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error setting downlink audio muted to (%d) remote participants=%@ for conversationUUID=%@ with error: %@", v9, 0x26u);
   }
 
   v8 = *(a1 + 48);
@@ -1451,8 +1562,6 @@ void __100__TUConversationManagerXPCClient_setDownlinkMuted_forParticipants_inCo
   {
     (*(v8 + 16))(v8, v3);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addScreenSharingType:(unint64_t)type forConversation:(id)conversation
@@ -1472,11 +1581,11 @@ void __100__TUConversationManagerXPCClient_setDownlinkMuted_forParticipants_inCo
 
 void __71__TUConversationManagerXPCClient_addScreenSharingType_forConversation___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = TUDefaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = TUDefaultLog(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __71__TUConversationManagerXPCClient_addScreenSharingType_forConversation___block_invoke_cold_1(a1);
+    __71__TUConversationManagerXPCClient_addScreenSharingType_forConversation___block_invoke_cold_1();
   }
 }
 
@@ -1495,18 +1604,17 @@ void __71__TUConversationManagerXPCClient_addScreenSharingType_forConversation__
 
 void __92__TUConversationManagerXPCClient_getLatestRemoteScreenShareAttributesWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Failed to get latest remote screen share attributes with error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Failed to get latest remote screen share attributes with error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerWithCompletionHandler:(id)handler
@@ -1544,23 +1652,37 @@ uint64_t __64__TUConversationManagerXPCClient_registerWithCompletionHandler___bl
 void __60__TUConversationManagerXPCClient_refreshActiveConversations__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __60__TUConversationManagerXPCClient_refreshActiveConversations__block_invoke_cold_1();
   }
 }
 
+- (void)getActiveLinksWithCreatedOnly:(BOOL)only completionHandler:(id)handler
+{
+  onlyCopy = only;
+  handlerCopy = handler;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __82__TUConversationManagerXPCClient_getActiveLinksWithCreatedOnly_completionHandler___block_invoke;
+  v9[3] = &unk_1E7424A10;
+  v10 = handlerCopy;
+  v7 = handlerCopy;
+  v8 = [(TUConversationManagerXPCClient *)self asynchronousServerWithErrorHandler:v9];
+  [v8 getActiveLinksWithCreatedOnly:onlyCopy completionHandler:v7];
+}
+
 void __82__TUConversationManagerXPCClient_getActiveLinksWithCreatedOnly_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error in retrieving active links: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error in retrieving active links: %@", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -1568,8 +1690,6 @@ void __82__TUConversationManagerXPCClient_getActiveLinksWithCreatedOnly_completi
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)generateLinkForConversation:(id)conversation completionHandler:(id)handler
@@ -1590,14 +1710,14 @@ void __82__TUConversationManagerXPCClient_getActiveLinksWithCreatedOnly_completi
 
 void __80__TUConversationManagerXPCClient_generateLinkForConversation_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error in generating link (for conversation): %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error in generating link (for conversation): %@", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -1605,8 +1725,6 @@ void __80__TUConversationManagerXPCClient_generateLinkForConversation_completion
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)generateLinkWithInvitedMemberHandles:(id)handles linkLifetimeScope:(int64_t)scope completionHandler:(id)handler
@@ -1625,14 +1743,14 @@ void __80__TUConversationManagerXPCClient_generateLinkForConversation_completion
 
 void __107__TUConversationManagerXPCClient_generateLinkWithInvitedMemberHandles_linkLifetimeScope_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error in generating link (with invited member handles): %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error in generating link (with invited member handles): %@", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -1640,8 +1758,6 @@ void __107__TUConversationManagerXPCClient_generateLinkWithInvitedMemberHandles_
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addInvitedMemberHandles:(id)handles toConversationLink:(id)link completionHandler:(id)handler
@@ -1661,14 +1777,14 @@ void __107__TUConversationManagerXPCClient_generateLinkWithInvitedMemberHandles_
 
 void __95__TUConversationManagerXPCClient_addInvitedMemberHandles_toConversationLink_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error in adding invited members to link: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error in adding invited members to link: %@", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -1676,8 +1792,6 @@ void __95__TUConversationManagerXPCClient_addInvitedMemberHandles_toConversation
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidateLink:(id)link deleteReason:(int64_t)reason completionHandler:(id)handler
@@ -1696,14 +1810,14 @@ void __95__TUConversationManagerXPCClient_addInvitedMemberHandles_toConversation
 
 void __80__TUConversationManagerXPCClient_invalidateLink_deleteReason_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error in invalidating link: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error in invalidating link: %@", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -1711,8 +1825,6 @@ void __80__TUConversationManagerXPCClient_invalidateLink_deleteReason_completion
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)renewLink:(id)link expirationDate:(id)date reason:(unint64_t)reason completionHandler:(id)handler
@@ -1732,14 +1844,14 @@ void __80__TUConversationManagerXPCClient_invalidateLink_deleteReason_completion
 
 void __84__TUConversationManagerXPCClient_renewLink_expirationDate_reason_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error in renewing link to new expiration date: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error in renewing link to new expiration date: %@", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -1747,8 +1859,6 @@ void __84__TUConversationManagerXPCClient_renewLink_expirationDate_reason_comple
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkLinkValidity:(id)validity completionHandler:(id)handler
@@ -1767,14 +1877,14 @@ void __84__TUConversationManagerXPCClient_renewLink_expirationDate_reason_comple
 
 void __70__TUConversationManagerXPCClient_checkLinkValidity_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error in checking the validity of the link: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error in checking the validity of the link: %@", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -1782,8 +1892,6 @@ void __70__TUConversationManagerXPCClient_checkLinkValidity_completionHandler___
   {
     (*(v5 + 16))(v5, 0, 0, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getInactiveLinkWithCompletionHandler:(id)handler
@@ -1801,14 +1909,14 @@ void __70__TUConversationManagerXPCClient_checkLinkValidity_completionHandler___
 
 void __71__TUConversationManagerXPCClient_getInactiveLinkWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error in obtaining an inactive pre-prepared link: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error in obtaining an inactive pre-prepared link: %@", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -1816,8 +1924,6 @@ void __71__TUConversationManagerXPCClient_getInactiveLinkWithCompletionHandler__
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activateLink:(id)link completionHandler:(id)handler
@@ -1836,14 +1942,14 @@ void __71__TUConversationManagerXPCClient_getInactiveLinkWithCompletionHandler__
 
 void __65__TUConversationManagerXPCClient_activateLink_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error in activating a pre-prepared link: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error in activating a pre-prepared link: %@", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -1851,8 +1957,6 @@ void __65__TUConversationManagerXPCClient_activateLink_completionHandler___block
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setLinkName:(id)name forConversationLink:(id)link completionHandler:(id)handler
@@ -1872,14 +1976,14 @@ void __65__TUConversationManagerXPCClient_activateLink_completionHandler___block
 
 void __84__TUConversationManagerXPCClient_setLinkName_forConversationLink_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error in setting link name: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error in setting link name: %@", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -1887,8 +1991,6 @@ void __84__TUConversationManagerXPCClient_setLinkName_forConversationLink_comple
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateExternalParticipants:(id)participants
@@ -1900,47 +2002,56 @@ void __84__TUConversationManagerXPCClient_setLinkName_forConversationLink_comple
 
 void __61__TUConversationManagerXPCClient_updateExternalParticipants___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error in updating external participants: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error in updating external participants: %@", &v4, 0xCu);
   }
+}
 
-  v4 = *MEMORY[0x1E69E9840];
+- (void)scheduleConversationLinkCheckInInitial:(BOOL)initial
+{
+  initialCopy = initial;
+  v4 = [(TUConversationManagerXPCClient *)self asynchronousServerWithErrorHandler:&__block_literal_global_54_1];
+  [v4 scheduleConversationLinkCheckInInitial:initialCopy];
 }
 
 void __73__TUConversationManagerXPCClient_scheduleConversationLinkCheckInInitial___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error in scheduling a sync for activated conversation links: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error in scheduling a sync for activated conversation links: %@", &v4, 0xCu);
   }
+}
 
-  v4 = *MEMORY[0x1E69E9840];
+- (void)linkSyncStateIncludeLinks:(BOOL)links WithCompletion:(id)completion
+{
+  linksCopy = links;
+  completionCopy = completion;
+  v7 = [(TUConversationManagerXPCClient *)self synchronousServerWithErrorHandler:&__block_literal_global_56_1];
+  [v7 linkSyncStateIncludeLinks:linksCopy WithCompletion:completionCopy];
 }
 
 void __75__TUConversationManagerXPCClient_linkSyncStateIncludeLinks_WithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error in getting link sync state: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error in getting link sync state: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)approvePendingMember:(id)member forConversation:(id)conversation
@@ -1955,17 +2066,15 @@ void __75__TUConversationManagerXPCClient_linkSyncStateIncludeLinks_WithCompleti
 
 void __71__TUConversationManagerXPCClient_approvePendingMember_forConversation___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error in approving pending member waiting to be let-in: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error in approving pending member waiting to be let-in: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestParticipantToShareScreen:(id)screen forConversation:(id)conversation
@@ -1980,17 +2089,15 @@ void __71__TUConversationManagerXPCClient_approvePendingMember_forConversation__
 
 void __82__TUConversationManagerXPCClient_requestParticipantToShareScreen_forConversation___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error in generating screen share request with requested Participant: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error in generating screen share request with requested Participant: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelOrDenyScreenShareRequest:(id)request forConversation:(id)conversation
@@ -2005,35 +2112,46 @@ void __82__TUConversationManagerXPCClient_requestParticipantToShareScreen_forCon
 
 void __81__TUConversationManagerXPCClient_cancelOrDenyScreenShareRequest_forConversation___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "cancelling screen share request failed with error %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "cancelling screen share request failed with error %@", &v4, 0xCu);
   }
+}
 
-  v4 = *MEMORY[0x1E69E9840];
+- (void)setScreenEnabled:(BOOL)enabled withScreenShareAttributes:(id)attributes forConversationWithUUID:(id)d
+{
+  enabledCopy = enabled;
+  dCopy = d;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __101__TUConversationManagerXPCClient_setScreenEnabled_withScreenShareAttributes_forConversationWithUUID___block_invoke;
+  v12[3] = &unk_1E7425828;
+  v13 = dCopy;
+  v9 = dCopy;
+  attributesCopy = attributes;
+  v11 = [(TUConversationManagerXPCClient *)self asynchronousServerWithErrorHandler:v12];
+  [v11 setScreenEnabled:enabledCopy withScreenShareAttributes:attributesCopy forConversationWithUUID:v9];
 }
 
 void __101__TUConversationManagerXPCClient_setScreenEnabled_withScreenShareAttributes_forConversationWithUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error: %@ in setting screen enabled for conversationWithUUID: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error: %@ in setting screen enabled for conversationWithUUID: %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)rejectPendingMember:(id)member forConversation:(id)conversation
@@ -2048,32 +2166,38 @@ void __101__TUConversationManagerXPCClient_setScreenEnabled_withScreenShareAttri
 
 void __70__TUConversationManagerXPCClient_rejectPendingMember_forConversation___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error in rejecting pending member waiting to be let-in: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error in rejecting pending member waiting to be let-in: %@", &v4, 0xCu);
   }
+}
 
-  v4 = *MEMORY[0x1E69E9840];
+- (void)setIgnoreLetMeInRequests:(BOOL)requests forConversation:(id)conversation
+{
+  requestsCopy = requests;
+  conversationCopy = conversation;
+  v8 = [(TUConversationManagerXPCClient *)self asynchronousServerWithErrorHandler:&__block_literal_global_66_0];
+  uUID = [conversationCopy UUID];
+
+  [v8 setIgnoreLetMeInRequests:requestsCopy forConversationUUID:uUID];
 }
 
 void __75__TUConversationManagerXPCClient_setIgnoreLetMeInRequests_forConversation___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error in setting ignore let me in requests: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error in setting ignore let me in requests: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setLocalParticipantCluster:(id)cluster forConversation:(id)conversation
@@ -2088,17 +2212,15 @@ void __75__TUConversationManagerXPCClient_setIgnoreLetMeInRequests_forConversati
 
 void __77__TUConversationManagerXPCClient_setLocalParticipantCluster_forConversation___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error in setting local participant cluster: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error in setting local participant cluster: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchUpcomingNoticeWithCompletionHandler:(id)handler
@@ -2117,7 +2239,7 @@ void __77__TUConversationManagerXPCClient_setLocalParticipantCluster_forConversa
 void __75__TUConversationManagerXPCClient_fetchUpcomingNoticeWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __75__TUConversationManagerXPCClient_fetchUpcomingNoticeWithCompletionHandler___block_invoke_cold_1();
@@ -2148,10 +2270,10 @@ void __75__TUConversationManagerXPCClient_fetchUpcomingNoticeWithCompletionHandl
 
 void __91__TUConversationManagerXPCClient_activateConversationNoticeWithActionURL_bundleIdentifier___block_invoke(uint64_t a1)
 {
-  v2 = TUDefaultLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v1 = TUDefaultLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __91__TUConversationManagerXPCClient_activateConversationNoticeWithActionURL_bundleIdentifier___block_invoke_cold_1(a1);
+    __91__TUConversationManagerXPCClient_activateConversationNoticeWithActionURL_bundleIdentifier___block_invoke_cold_1();
   }
 }
 
@@ -2170,7 +2292,7 @@ void __91__TUConversationManagerXPCClient_activateConversationNoticeWithActionUR
 
 void __67__TUConversationManagerXPCClient_removeConversationNoticeWithUUID___block_invoke(uint64_t a1)
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __67__TUConversationManagerXPCClient_removeConversationNoticeWithUUID___block_invoke_cold_1(a1, v2, v3, v4, v5, v6, v7, v8);
@@ -2201,17 +2323,24 @@ void __67__TUConversationManagerXPCClient_removeConversationNoticeWithUUID___blo
 void __93__TUConversationManagerXPCClient_updateConversationWithUUID_participantPresentationContexts___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __93__TUConversationManagerXPCClient_updateConversationWithUUID_participantPresentationContexts___block_invoke_cold_1();
   }
 }
 
+- (void)setSupportsMessagesGroupProviding:(BOOL)providing
+{
+  providingCopy = providing;
+  v4 = [(TUConversationManagerXPCClient *)self asynchronousServerWithErrorHandler:&__block_literal_global_72_1];
+  [v4 setSupportsMessagesGroupProviding:providingCopy];
+}
+
 void __68__TUConversationManagerXPCClient_setSupportsMessagesGroupProviding___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __68__TUConversationManagerXPCClient_setSupportsMessagesGroupProviding___block_invoke_cold_1();
@@ -2229,7 +2358,7 @@ void __68__TUConversationManagerXPCClient_setSupportsMessagesGroupProviding___bl
 void __95__TUConversationManagerXPCClient_getMessagesGroupDetailsForConversationUUID_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __95__TUConversationManagerXPCClient_getMessagesGroupDetailsForConversationUUID_completionHandler___block_invoke_cold_1();
@@ -2248,7 +2377,7 @@ void __95__TUConversationManagerXPCClient_getMessagesGroupDetailsForConversation
 void __75__TUConversationManagerXPCClient_updateRemoteControlStatus_onConversation___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __75__TUConversationManagerXPCClient_updateRemoteControlStatus_onConversation___block_invoke_cold_1();
@@ -2263,86 +2392,87 @@ void __75__TUConversationManagerXPCClient_updateRemoteControlStatus_onConversati
 
   [(TUConversationManagerXPCClient *)self setHasRequestedInitialState:1];
   shouldConnectToHost = [(TUConversationManagerXPCClient *)self shouldConnectToHost];
-  v7 = TUDefaultLog();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-  if (!shouldConnectToHost)
+  v7 = shouldConnectToHost;
+  v8 = TUDefaultLog(shouldConnectToHost);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  if (!v7)
   {
-    if (v8)
+    if (v9)
     {
       *buf = 0;
-      _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "Host has no conversations", buf, 2u);
+      _os_log_impl(&dword_1956FD000, v8, OS_LOG_TYPE_DEFAULT, "Host has no conversations", buf, 2u);
     }
 
     goto LABEL_10;
   }
 
-  if (v8)
+  if (v9)
   {
     *buf = 0;
-    _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "Requesting initial conversation manager state", buf, 2u);
+    _os_log_impl(&dword_1956FD000, v8, OS_LOG_TYPE_DEFAULT, "Requesting initial conversation manager state", buf, 2u);
   }
 
   [(TUConversationManagerXPCClient *)self setHasInitialState:1];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHandler___block_invoke;
+  v22[3] = &unk_1E7425828;
+  v22[4] = self;
+  v10 = [(TUConversationManagerXPCClient *)self synchronousServerWithErrorHandler:v22];
   v21[0] = MEMORY[0x1E69E9820];
   v21[1] = 3221225472;
-  v21[2] = __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHandler___block_invoke;
-  v21[3] = &unk_1E7425828;
+  v21[2] = __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHandler___block_invoke_77;
+  v21[3] = &unk_1E74248C0;
   v21[4] = self;
-  v9 = [(TUConversationManagerXPCClient *)self synchronousServerWithErrorHandler:v21];
+  [v10 conversationsByGroupUUID:v21];
+
   v20[0] = MEMORY[0x1E69E9820];
   v20[1] = 3221225472;
-  v20[2] = __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHandler___block_invoke_77;
-  v20[3] = &unk_1E74248C0;
+  v20[2] = __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHandler___block_invoke_2;
+  v20[3] = &unk_1E7425828;
   v20[4] = self;
-  [v9 conversationsByGroupUUID:v20];
-
+  v11 = [(TUConversationManagerXPCClient *)self synchronousServerWithErrorHandler:v20];
   v19[0] = MEMORY[0x1E69E9820];
   v19[1] = 3221225472;
-  v19[2] = __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHandler___block_invoke_2;
-  v19[3] = &unk_1E7425828;
+  v19[2] = __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHandler___block_invoke_78;
+  v19[3] = &unk_1E74248C0;
   v19[4] = self;
-  v10 = [(TUConversationManagerXPCClient *)self synchronousServerWithErrorHandler:v19];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHandler___block_invoke_78;
-  v18[3] = &unk_1E74248C0;
-  v18[4] = self;
-  [v10 activityAuthorizedBundleIdentifierState:v18];
+  [v11 activityAuthorizedBundleIdentifierState:v19];
 
   sharePlayAvailable = [(TUConversationManagerXPCClient *)self sharePlayAvailable];
 
   if (sharePlayAvailable)
   {
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHandler___block_invoke_2_83;
+    v18[3] = &unk_1E7425828;
+    v18[4] = self;
+    v13 = [(TUConversationManagerXPCClient *)self synchronousServerWithErrorHandler:v18];
     v17[0] = MEMORY[0x1E69E9820];
     v17[1] = 3221225472;
-    v17[2] = __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHandler___block_invoke_2_83;
-    v17[3] = &unk_1E7425828;
+    v17[2] = __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHandler___block_invoke_84;
+    v17[3] = &unk_1E7427B58;
     v17[4] = self;
-    v12 = [(TUConversationManagerXPCClient *)self synchronousServerWithErrorHandler:v17];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHandler___block_invoke_84;
-    v16[3] = &unk_1E7427B58;
-    v16[4] = self;
-    [v12 getSharePlayAvailableWithCompletionHandler:v16];
+    [v13 getSharePlayAvailableWithCompletionHandler:v17];
   }
 
   screenSharingAvailable = [(TUConversationManagerXPCClient *)self screenSharingAvailable];
 
   if (screenSharingAvailable)
   {
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHandler___block_invoke_3;
+    v16[3] = &unk_1E7425828;
+    v16[4] = self;
+    v8 = [(TUConversationManagerXPCClient *)self synchronousServerWithErrorHandler:v16];
     v15[0] = MEMORY[0x1E69E9820];
     v15[1] = 3221225472;
-    v15[2] = __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHandler___block_invoke_3;
-    v15[3] = &unk_1E7425828;
+    v15[2] = __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHandler___block_invoke_86;
+    v15[3] = &unk_1E7427B58;
     v15[4] = self;
-    v7 = [(TUConversationManagerXPCClient *)self synchronousServerWithErrorHandler:v15];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHandler___block_invoke_86;
-    v14[3] = &unk_1E7427B58;
-    v14[4] = self;
-    [v7 getScreenSharingAvailableWithCompletionHandler:v14];
+    [v8 getScreenSharingAvailableWithCompletionHandler:v15];
 LABEL_10:
   }
 
@@ -2352,7 +2482,7 @@ LABEL_10:
 void __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHandler___block_invoke_cold_1();
@@ -2368,7 +2498,7 @@ void __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHand
 void __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHandler___block_invoke_2_cold_1();
@@ -2397,7 +2527,7 @@ void __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHand
 void __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHandler___block_invoke_2_83(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__TUConversationManagerXPCClient_isSharePlayAvailable__block_invoke_2_cold_1();
@@ -2431,7 +2561,7 @@ void __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHand
 void __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __58__TUConversationManagerXPCClient_isScreenSharingAvailable__block_invoke_2_cold_1();
@@ -2476,20 +2606,20 @@ void __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHand
   queue = [(TUConversationManagerXPCClient *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = TUDefaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = TUDefaultLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v12 = 0;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Server did disconnect", v12, 2u);
+    *v13 = 0;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Server did disconnect", v13, 2u);
   }
 
   conversationsByGroupUUID = self->_conversationsByGroupUUID;
-  v6 = MEMORY[0x1E695E0F8];
+  v7 = MEMORY[0x1E695E0F8];
   self->_conversationsByGroupUUID = MEMORY[0x1E695E0F8];
-  v7 = conversationsByGroupUUID;
+  v8 = conversationsByGroupUUID;
 
   advertisementsOnSystem = self->_advertisementsOnSystem;
-  self->_advertisementsOnSystem = v6;
+  self->_advertisementsOnSystem = v7;
 
   self->_hasInitialState = 0;
   sharePlayAvailable = self->_sharePlayAvailable;
@@ -2499,51 +2629,53 @@ void __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHand
   self->_screenSharingAvailable = 0;
 
   delegate = [(TUConversationManagerXPCClient *)self delegate];
-  [delegate serverDisconnectedForDataSource:self oldConversationsByGroupUUID:v7];
+  [delegate serverDisconnectedForDataSource:self oldConversationsByGroupUUID:v8];
 }
 
 void __47__TUConversationManagerXPCClient_xpcConnection__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = TUDefaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = TUDefaultLog(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "XPC connection invalidated.", buf, 2u);
+      _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "XPC connection invalidated.", buf, 2u);
     }
 
-    [WeakRetained setXpcConnection:0];
-    v3 = [WeakRetained queue];
+    [v2 setXpcConnection:0];
+    v4 = [v2 queue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __47__TUConversationManagerXPCClient_xpcConnection__block_invoke_92;
     block[3] = &unk_1E7424950;
-    block[4] = WeakRetained;
-    dispatch_async(v3, block);
+    block[4] = v2;
+    dispatch_async(v4, block);
   }
 }
 
 void __47__TUConversationManagerXPCClient_xpcConnection__block_invoke_2(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = TUDefaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = TUDefaultLog(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "XPC connection interrupted.", buf, 2u);
+      _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "XPC connection interrupted.", buf, 2u);
     }
 
-    v3 = [WeakRetained queue];
+    v4 = [v2 queue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __47__TUConversationManagerXPCClient_xpcConnection__block_invoke_93;
     block[3] = &unk_1E7424950;
-    block[4] = WeakRetained;
-    dispatch_async(v3, block);
+    block[4] = v2;
+    dispatch_async(v4, block);
   }
 }
 
@@ -2613,14 +2745,14 @@ void __47__TUConversationManagerXPCClient_xpcConnection__block_invoke_2(uint64_t
 
 void __65__TUConversationManagerXPCClient_updateConversationsByGroupUUID___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v12 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) allKeys];
-    v11 = 138412290;
-    v12 = v3;
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "conversationsByGroupUUID keys: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v3;
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "conversationsByGroupUUID keys: %@", &v10, 0xCu);
   }
 
   v4 = *(a1 + 40);
@@ -2632,8 +2764,6 @@ void __65__TUConversationManagerXPCClient_updateConversationsByGroupUUID___block
 
   v9 = [*(a1 + 40) delegate];
   [v9 conversationsChangedForDataSource:*(a1 + 40) conversationsByGroupUUID:*(a1 + 32) oldConversationsByGroupUUID:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateIncomingPendingConversationsByGroupUUID:(id)d
@@ -2641,6 +2771,17 @@ void __65__TUConversationManagerXPCClient_updateConversationsByGroupUUID___block
   dCopy = d;
   delegate = [(TUConversationManagerXPCClient *)self delegate];
   [delegate conversationsChangedForDataSource:self updatedIncomingPendingConversationsByGroupUUID:dCopy];
+}
+
+- (void)activeParticipant:(id)participant addedHighlightToConversation:(id)conversation highlightIdentifier:(id)identifier oldHighlightIdentifier:(id)highlightIdentifier isFirstAdd:(BOOL)add
+{
+  addCopy = add;
+  highlightIdentifierCopy = highlightIdentifier;
+  identifierCopy = identifier;
+  conversationCopy = conversation;
+  participantCopy = participant;
+  delegate = [(TUConversationManagerXPCClient *)self delegate];
+  [delegate activeParticipant:participantCopy addedHighlightToConversation:conversationCopy highlightIdentifier:identifierCopy oldHighlightIdentifier:highlightIdentifierCopy isFirstAdd:addCopy];
 }
 
 - (void)activeParticipant:(id)participant removedHighlightFromConversation:(id)conversation highlightIdentifier:(id)identifier
@@ -2684,20 +2825,18 @@ void __65__TUConversationManagerXPCClient_updateConversationsByGroupUUID___block
 
 void __72__TUConversationManagerXPCClient_conversationUpdatedMessagesGroupPhoto___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) UUID];
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "conversationUpdatedMessagesGroupPhoto: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "conversationUpdatedMessagesGroupPhoto: %@", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 40) delegate];
   [v4 conversationUpdatedMessagesGroupPhoto:*(a1 + 32)];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateActivatedConversationLinks:(id)links
@@ -2716,20 +2855,18 @@ void __72__TUConversationManagerXPCClient_conversationUpdatedMessagesGroupPhoto_
 
 void __67__TUConversationManagerXPCClient_updateActivatedConversationLinks___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "updateActivatedConversationLinks: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "updateActivatedConversationLinks: %@", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 40) delegate];
   [v4 conversationManagerDataSource:*(a1 + 40) didChangeActivatedConversationLinks:*(a1 + 32)];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)receivedTrackedPendingMember:(id)member forConversationLink:(id)link
@@ -2751,23 +2888,21 @@ void __67__TUConversationManagerXPCClient_updateActivatedConversationLinks___blo
 
 void __83__TUConversationManagerXPCClient_receivedTrackedPendingMember_forConversationLink___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "receivedTrackedPendingMember: %@ forConversationLink: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "receivedTrackedPendingMember: %@ forConversationLink: %@", &v6, 0x16u);
   }
 
   v5 = [*(a1 + 48) delegate];
   [v5 receivedTrackedPendingMember:*(a1 + 32) forConversationLink:*(a1 + 40)];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)conversation:(id)conversation screenSharingChangedForParticipant:(id)participant
@@ -2789,20 +2924,18 @@ void __83__TUConversationManagerXPCClient_receivedTrackedPendingMember_forConver
 
 void __82__TUConversationManagerXPCClient_conversation_screenSharingChangedForParticipant___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) identifier];
-    v6 = 134217984;
-    v7 = v3;
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "screenSharingChangedForParticipant: %llu", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = v3;
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "screenSharingChangedForParticipant: %llu", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 40) delegate];
   [v4 conversation:*(a1 + 48) screenSharingChangedForParticipant:*(a1 + 32)];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)remoteScreenShareAttributesChanged:(id)changed isLocallySharing:(BOOL)sharing
@@ -2822,8 +2955,8 @@ void __82__TUConversationManagerXPCClient_conversation_screenSharingChangedForPa
 
 void __86__TUConversationManagerXPCClient_remoteScreenShareAttributesChanged_isLocallySharing___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -2833,17 +2966,15 @@ void __86__TUConversationManagerXPCClient_remoteScreenShareAttributesChanged_isL
       v4 = @"YES";
     }
 
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "remoteScreenShareAttributesChanged: %@ isLocallySharing: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "remoteScreenShareAttributesChanged: %@ isLocallySharing: %@", &v6, 0x16u);
   }
 
   v5 = [*(a1 + 40) delegate];
   [v5 remoteScreenShareAttributesChanged:*(a1 + 32) isLocallySharing:*(a1 + 48)];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)remoteScreenShareEndedWithReason:(id)reason
@@ -2862,20 +2993,18 @@ void __86__TUConversationManagerXPCClient_remoteScreenShareAttributesChanged_isL
 
 void __67__TUConversationManagerXPCClient_remoteScreenShareEndedWithReason___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "remoteScreenShareEndedWithReason: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "remoteScreenShareEndedWithReason: %@", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 40) delegate];
   [v4 remoteScreenShareEndedWithReason:*(a1 + 32)];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sharePlayAvailableChanged:(BOOL)changed
@@ -2892,17 +3021,17 @@ void __67__TUConversationManagerXPCClient_remoteScreenShareEndedWithReason___blo
 
 void __60__TUConversationManagerXPCClient_sharePlayAvailableChanged___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) sharePlayAvailable];
   if (!v2 || (v3 = v2, [*(a1 + 32) sharePlayAvailable], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "BOOLValue"), v6 = *(a1 + 40), v4, v3, v6 != v5))
   {
-    v7 = TUDefaultLog();
+    v7 = TUDefaultLog(v2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 40);
-      v13[0] = 67109120;
-      v13[1] = v8;
-      _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "sharePlayAvailable changed to: %d", v13, 8u);
+      v12[0] = 67109120;
+      v12[1] = v8;
+      _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "sharePlayAvailable changed to: %d", v12, 8u);
     }
 
     v9 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 40)];
@@ -2912,8 +3041,6 @@ void __60__TUConversationManagerXPCClient_sharePlayAvailableChanged___block_invo
     v11 = [*(a1 + 32) sharePlayAvailable];
     [v10 sharePlayAvailableChanged:{objc_msgSend(v11, "BOOLValue")}];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)screenSharingAvailableChanged:(BOOL)changed
@@ -2930,17 +3057,17 @@ void __60__TUConversationManagerXPCClient_sharePlayAvailableChanged___block_invo
 
 void __64__TUConversationManagerXPCClient_screenSharingAvailableChanged___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) screenSharingAvailable];
   if (!v2 || (v3 = v2, [*(a1 + 32) screenSharingAvailable], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "BOOLValue"), v6 = *(a1 + 40), v4, v3, v6 != v5))
   {
-    v7 = TUDefaultLog();
+    v7 = TUDefaultLog(v2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 40);
-      v13[0] = 67109120;
-      v13[1] = v8;
-      _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "screenSharingAvailable changed to: %d", v13, 8u);
+      v12[0] = 67109120;
+      v12[1] = v8;
+      _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "screenSharingAvailable changed to: %d", v12, 8u);
     }
 
     v9 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 40)];
@@ -2950,8 +3077,6 @@ void __64__TUConversationManagerXPCClient_screenSharingAvailableChanged___block_
     v11 = [*(a1 + 32) screenSharingAvailable];
     [v10 screenSharingAvailableChanged:{objc_msgSend(v11, "BOOLValue")}];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)mediaPrioritiesChangedForConversation:(id)conversation
@@ -3126,20 +3251,18 @@ void __80__TUConversationManagerXPCClient_conversation_didChangeStateForActivity
 
 void __69__TUConversationManagerXPCClient_didChangeConversationAdvertisement___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Conversation Advertisements changed to: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Conversation Advertisements changed to: %@", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 40) delegate];
   [v4 didChangeConversationAdvertisement:*(a1 + 32)];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)conversation:(id)conversation didChangeSceneAssociationForActivitySession:(id)session
@@ -3230,20 +3353,18 @@ void __96__TUConversationManagerXPCClient_getMessagesGroupDetailsForMessagesGrou
 
 void __67__TUConversationManagerXPCClient_conversation_addedMembersLocally___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "addedMembersLocally: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "addedMembersLocally: %@", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 40) delegate];
   [v4 conversation:*(a1 + 48) addedMembersLocally:*(a1 + 32)];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)conversation:(id)conversation buzzedMember:(id)member
@@ -3265,52 +3386,48 @@ void __67__TUConversationManagerXPCClient_conversation_addedMembersLocally___blo
 
 void __60__TUConversationManagerXPCClient_conversation_buzzedMember___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "buzzedMember: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "buzzedMember: %@", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 40) delegate];
   [v4 conversation:*(a1 + 48) buzzedMember:*(a1 + 32)];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)conversation:(id)conversation appLaunchState:(unint64_t)state forActivitySession:(id)session
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   conversationCopy = conversation;
   sessionCopy = session;
-  v10 = TUDefaultLog();
+  v10 = TUDefaultLog(sessionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:state];
     *buf = 138412546;
-    v21 = v11;
-    v22 = 2112;
-    v23 = sessionCopy;
+    v20 = v11;
+    v21 = 2112;
+    v22 = sessionCopy;
     _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "App launch state %@ for %@", buf, 0x16u);
   }
 
   queue = [(TUConversationManagerXPCClient *)self queue];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __81__TUConversationManagerXPCClient_conversation_appLaunchState_forActivitySession___block_invoke;
-  v16[3] = &unk_1E7424D50;
-  v16[4] = self;
-  v17 = conversationCopy;
-  v18 = sessionCopy;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __81__TUConversationManagerXPCClient_conversation_appLaunchState_forActivitySession___block_invoke;
+  v15[3] = &unk_1E7424D50;
+  v15[4] = self;
+  v16 = conversationCopy;
+  v17 = sessionCopy;
   stateCopy = state;
   v13 = sessionCopy;
   v14 = conversationCopy;
-  dispatch_async(queue, v16);
-
-  v15 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v15);
 }
 
 void __81__TUConversationManagerXPCClient_conversation_appLaunchState_forActivitySession___block_invoke(uint64_t a1)
@@ -3335,14 +3452,14 @@ void __81__TUConversationManagerXPCClient_conversation_appLaunchState_forActivit
 
 void __80__TUConversationManagerXPCClient_updateActivityAuthorizedBundleIdentifierState___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v13 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v12 = 138412290;
-    v13 = v3;
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "updateActivityAuthorizedBundleIdentifiers: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v3;
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "updateActivityAuthorizedBundleIdentifiers: %@", &v11, 0xCu);
   }
 
   v4 = *(a1 + 32);
@@ -3357,8 +3474,6 @@ void __80__TUConversationManagerXPCClient_updateActivityAuthorizedBundleIdentifi
 
   v10 = [*(a1 + 40) delegate];
   [v10 activityAuthorizationsChangedForDataSource:*(a1 + 40) oldActivityAuthorizedBundleIdentifiers:v5];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateLocalParticipantToAVLessWithPresentationMode:(unint64_t)mode forConversationUUID:(id)d
@@ -3375,20 +3490,18 @@ void __80__TUConversationManagerXPCClient_updateActivityAuthorizedBundleIdentifi
 
 void __105__TUConversationManagerXPCClient_updateLocalParticipantToAVLessWithPresentationMode_forConversationUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 134218242;
-    v8 = v5;
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Downgrading local participant for presentationMode: %zu failed with error %@", &v7, 0x16u);
+    v6 = 134218242;
+    v7 = v5;
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Downgrading local participant for presentationMode: %zu failed with error %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setLocalParticipantAudioVideoMode:(unint64_t)mode forConversationUUID:(id)d
@@ -3400,17 +3513,15 @@ void __105__TUConversationManagerXPCClient_updateLocalParticipantToAVLessWithPre
 
 void __88__TUConversationManagerXPCClient_setLocalParticipantAudioVideoMode_forConversationUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Setting audio/video mode failed with error %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Setting audio/video mode failed with error %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerMessagesGroupUUIDForConversationUUID:(id)d
@@ -3422,17 +3533,15 @@ void __88__TUConversationManagerXPCClient_setLocalParticipantAudioVideoMode_forC
 
 void __79__TUConversationManagerXPCClient_registerMessagesGroupUUIDForConversationUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Registering messagesGroupUUID failed with error %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Registering messagesGroupUUID failed with error %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addCollaborationIdentifier:(id)identifier collaborationURL:(id)l cloudKitAppBundleIDs:(id)ds forConversationUUID:(id)d
@@ -3447,17 +3556,15 @@ void __79__TUConversationManagerXPCClient_registerMessagesGroupUUIDForConversati
 
 void __119__TUConversationManagerXPCClient_addCollaborationIdentifier_collaborationURL_cloudKitAppBundleIDs_forConversationUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Setting collaboration identifier failed with error %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Setting collaboration identifier failed with error %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startTrackingCollaborationWithIdentifier:(id)identifier collaborationURL:(id)l cloudKitAppBundleIDs:(id)ds forConversationUUID:(id)d completionHandler:(id)handler
@@ -3473,17 +3580,15 @@ void __119__TUConversationManagerXPCClient_addCollaborationIdentifier_collaborat
 
 void __151__TUConversationManagerXPCClient_startTrackingCollaborationWithIdentifier_collaborationURL_cloudKitAppBundleIDs_forConversationUUID_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Tracking collaboration identifier failed with error %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Tracking collaboration identifier failed with error %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeCollaborationIdentifier:(id)identifier forConversationUUID:(id)d
@@ -3496,17 +3601,15 @@ void __151__TUConversationManagerXPCClient_startTrackingCollaborationWithIdentif
 
 void __84__TUConversationManagerXPCClient_removeCollaborationIdentifier_forConversationUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "removing collaboration identifier failed with error %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "removing collaboration identifier failed with error %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)markCollaborationWithIdentifierOpened:(id)opened forConversationUUID:(id)d
@@ -3519,32 +3622,37 @@ void __84__TUConversationManagerXPCClient_removeCollaborationIdentifier_forConve
 
 void __92__TUConversationManagerXPCClient_markCollaborationWithIdentifierOpened_forConversationUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Sending opened collaboration identifier failed with error %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Sending opened collaboration identifier failed with error %@", &v4, 0xCu);
   }
+}
 
-  v4 = *MEMORY[0x1E69E9840];
+- (void)addCollaborationDictionary:(id)dictionary forConversationWithUUID:(id)d fromMe:(BOOL)me
+{
+  meCopy = me;
+  dCopy = d;
+  dictionaryCopy = dictionary;
+  v10 = [(TUConversationManagerXPCClient *)self asynchronousServerWithErrorHandler:&__block_literal_global_113_0];
+  [v10 addCollaborationDictionary:dictionaryCopy forConversationWithUUID:dCopy fromMe:meCopy];
 }
 
 void __92__TUConversationManagerXPCClient_addCollaborationDictionary_forConversationWithUUID_fromMe___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Adding collaboration dictionary failed with error %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Adding collaboration dictionary failed with error %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getNeedsDisclosureOfCollaborationInitiator:(id)initiator forConversationUUID:(id)d completionHandler:(id)handler
@@ -3564,18 +3672,17 @@ void __92__TUConversationManagerXPCClient_addCollaborationDictionary_forConversa
 
 void __115__TUConversationManagerXPCClient_getNeedsDisclosureOfCollaborationInitiator_forConversationUUID_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Checking disclosure of collaboration initiator failed with error %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Checking disclosure of collaboration initiator failed with error %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addDisclosedCollaborationInitiator:(id)initiator toConversationUUID:(id)d
@@ -3588,17 +3695,15 @@ void __115__TUConversationManagerXPCClient_getNeedsDisclosureOfCollaborationInit
 
 void __88__TUConversationManagerXPCClient_addDisclosedCollaborationInitiator_toConversationUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Adding disclosed collaboration initiator failed with error %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Adding disclosed collaboration initiator failed with error %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (TUConversationManagerDataSourceDelegate)delegate
@@ -3622,284 +3727,55 @@ void __88__TUConversationManagerXPCClient_addDisclosedCollaborationInitiator_toC
   return WeakRetained;
 }
 
-void __56__TUConversationManagerXPCClient_advertisementsOnSystem__block_invoke_2_cold_1()
+void __79__TUConversationManagerXPCClient_setSharePlayHandedOff_onConversationWithUUID___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error requesting advertisements on system: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __73__TUConversationManagerXPCClient_incomingPendingConversationsByGroupUUID__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Retrieving incoming pending conversations failed with error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __54__TUConversationManagerXPCClient_pseudonymsByCallUUID__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Retrieving pseudonyms failed with error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __60__TUConversationManagerXPCClient_activatedConversationLinks__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Retrieving activated conversation links failed with error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __54__TUConversationManagerXPCClient_isSharePlayAvailable__block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Failed to fetch sharePlayAvailable error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __58__TUConversationManagerXPCClient_isScreenSharingAvailable__block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Failed to fetch screenSharingAvailable error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __108__TUConversationManagerXPCClient_addRemoteMembers_otherInvitedHandles_invitationPreferences_toConversation___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error updating remote members: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __81__TUConversationManagerXPCClient_prepareConversationWithUUID_withHandoffContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error while preparing conversation with handoff: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __79__TUConversationManagerXPCClient_setSharePlayHandedOff_onConversationWithUUID___block_invoke_cold_1(uint64_t a1)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
-  v2 = *(a1 + 32);
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
-  _os_log_error_impl(&dword_1956FD000, v3, OS_LOG_TYPE_ERROR, "Error while setting handedoff: %d on conversation with UUID: %@", v5, 0x12u);
+  _os_log_error_impl(&dword_1956FD000, v0, OS_LOG_TYPE_ERROR, "Error while setting handedoff: %d on conversation with UUID: %@", v1, 0x12u);
+}
+
+void __89__TUConversationManagerXPCClient_presentDismissalAlertForActivitySession_onConversation___block_invoke_cold_1()
+{
   v4 = *MEMORY[0x1E69E9840];
-}
-
-void __73__TUConversationManagerXPCClient_updateMessagesGroupName_onConversation___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error updating messages group name: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __66__TUConversationManagerXPCClient_setGridDisplayMode_conversation___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error setting grid display mode: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __71__TUConversationManagerXPCClient_conversationUpdateMessagesGroupPhoto___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error updating messages group photo: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __79__TUConversationManagerXPCClient_createActivitySession_onConversation_options___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error updating activity: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __70__TUConversationManagerXPCClient_leaveActivitySession_onConversation___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error leaving activity: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __68__TUConversationManagerXPCClient_endActivitySession_onConversation___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error ending activity: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __91__TUConversationManagerXPCClient_setUsingAirplay_onActivitySession_onConversationWithUUID___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error letting CSD know airplay state for activity session: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __89__TUConversationManagerXPCClient_presentDismissalAlertForActivitySession_onConversation___block_invoke_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_0_8();
-  v7 = v3;
-  _os_log_error_impl(&dword_1956FD000, v4, OS_LOG_TYPE_ERROR, "Error presenting dismissal alert for activitySession: %@ on conversation: %@", v6, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  v3 = v0;
+  _os_log_error_impl(&dword_1956FD000, v1, OS_LOG_TYPE_ERROR, "Error presenting dismissal alert for activitySession: %@ on conversation: %@", v2, 0x16u);
 }
 
-void __79__TUConversationManagerXPCClient_setActivityAuthorization_forBundleIdentifier___block_invoke_cold_1(uint64_t a1)
+void __79__TUConversationManagerXPCClient_setActivityAuthorization_forBundleIdentifier___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
-  v2 = *(a1 + 32);
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_1_6();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x1Cu);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void __58__TUConversationManagerXPCClient_setAutoSharePlayEnabled___block_invoke_cold_1()
+void __129__TUConversationManagerXPCClient_launchApplicationForActivitySessionUUID_authorizedExternally_forceBackground_completionHandler___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error setting auto expanse enabled with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __62__TUConversationManagerXPCClient_joinConversationWithRequest___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "joinConversationWithRequest error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __60__TUConversationManagerXPCClient_leaveConversationWithUUID___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "leaveConversationWithUUID error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __129__TUConversationManagerXPCClient_launchApplicationForActivitySessionUUID_authorizedExternally_forceBackground_completionHandler___block_invoke_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_1_6();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __71__TUConversationManagerXPCClient_addScreenSharingType_forConversation___block_invoke_cold_1(uint64_t a1)
+void __71__TUConversationManagerXPCClient_addScreenSharingType_forConversation___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_1_6();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __60__TUConversationManagerXPCClient_refreshActiveConversations__block_invoke_cold_1()
+void __91__TUConversationManagerXPCClient_activateConversationNoticeWithActionURL_bundleIdentifier___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error requesting refreshActiveConversations: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __75__TUConversationManagerXPCClient_fetchUpcomingNoticeWithCompletionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error fetching upcoming notice: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __91__TUConversationManagerXPCClient_activateConversationNoticeWithActionURL_bundleIdentifier___block_invoke_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
+  v4 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_8();
-  v7 = v3;
-  _os_log_error_impl(&dword_1956FD000, v4, OS_LOG_TYPE_ERROR, "Error in activating notice with actionURL %@ bundleIdentifier %@", v6, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  v3 = v0;
+  _os_log_error_impl(&dword_1956FD000, v1, OS_LOG_TYPE_ERROR, "Error in activating notice with actionURL %@ bundleIdentifier %@", v2, 0x16u);
 }
 
 void __67__TUConversationManagerXPCClient_removeConversationNoticeWithUUID___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_0(&dword_1956FD000, a2, a3, "Error in dismissing notice with UUID %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __93__TUConversationManagerXPCClient_updateConversationWithUUID_participantPresentationContexts___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error setting presentation context: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __68__TUConversationManagerXPCClient_setSupportsMessagesGroupProviding___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error setting messages group providing support: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __95__TUConversationManagerXPCClient_getMessagesGroupDetailsForConversationUUID_completionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error getting messages group details: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __75__TUConversationManagerXPCClient_updateRemoteControlStatus_onConversation___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error updating remote control status: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error requesting initial state: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __76__TUConversationManagerXPCClient__requestInitialStateWithCompletionHandler___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error requesting initial activityAuthorizedBundleIdentifiers: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0(&dword_1956FD000, a2, a3, "Error in dismissing notice with UUID %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

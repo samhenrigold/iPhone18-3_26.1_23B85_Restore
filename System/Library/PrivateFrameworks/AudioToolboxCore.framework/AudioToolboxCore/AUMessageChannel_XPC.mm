@@ -8,60 +8,58 @@
 
 - (void)dealloc
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   xpcConnection = self->_xpcConnection;
-  v10[0] = &unk_1F032C4F0;
-  v10[1] = &__block_literal_global_117;
-  v10[3] = v10;
+  v9[0] = &unk_1F032C4F0;
+  v9[1] = &__block_literal_global_117;
+  v9[3] = v9;
   v4 = xpcConnection;
-  v11 = v4;
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v12, v10);
+  v10 = v4;
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v11, v9);
 
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v10);
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v15, v12);
-  v5 = v11;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3321888768;
-  v13[2] = ___ZN5caulk3xpc7messageIU8__strongPU44objcproto33AUAudioUnitMessageChannelProtocol11objc_objectJEE11async_proxyEv_block_invoke;
-  v13[3] = &__block_descriptor_64_ea8_32c50_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJEEEEEE_e17_v16__0__NSError_8l;
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v14, v15);
-  v6 = [(NSXPCConnection *)v5 remoteObjectProxyWithErrorHandler:v13];
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v9);
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v14, v11);
+  v5 = v10;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3321888768;
+  v12[2] = ___ZN5caulk3xpc7messageIU8__strongPU44objcproto33AUAudioUnitMessageChannelProtocol11objc_objectJEE11async_proxyEv_block_invoke;
+  v12[3] = &__block_descriptor_64_ea8_32c50_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJEEEEEE_e17_v16__0__NSError_8l;
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v13, v14);
+  v6 = [(NSXPCConnection *)v5 remoteObjectProxyWithErrorHandler:v12];
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v13);
   _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v14);
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v15);
   [v6 releaseChannel];
 
   v7 = self->_xpcConnection;
   self->_xpcConnection = 0;
 
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v12);
-  v9.receiver = self;
-  v9.super_class = AUMessageChannel_XPC;
-  [(AUMessageChannel_XPC *)&v9 dealloc];
-  v8 = *MEMORY[0x1E69E9840];
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v11);
+  v8.receiver = self;
+  v8.super_class = AUMessageChannel_XPC;
+  [(AUMessageChannel_XPC *)&v8 dealloc];
 }
 
 - (id)callAudioUnit:(id)unit
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   unitCopy = unit;
-  caulk::xpc::sync_message<objc_object  {objcproto33AUAudioUnitMessageChannelProtocol}* {__strong},NSDictionary * {__strong}>::sync_message(&v11, self->_xpcConnection);
-  v5 = caulk::xpc::message<objc_object  {objcproto33AUAudioUnitMessageChannelProtocol}* {__strong},NSDictionary * {__strong}>::sync_proxy(&v11);
-  v6 = caulk::xpc::message<objc_object  {objcproto33AUAudioUnitMessageChannelProtocol}* {__strong},NSDictionary * {__strong}>::reply(&v11);
+  caulk::xpc::sync_message<objc_object  {objcproto33AUAudioUnitMessageChannelProtocol}* {__strong},NSDictionary * {__strong}>::sync_message(&v10, self->_xpcConnection);
+  v5 = caulk::xpc::message<objc_object  {objcproto33AUAudioUnitMessageChannelProtocol}* {__strong},NSDictionary * {__strong}>::sync_proxy(&v10);
+  v6 = caulk::xpc::message<objc_object  {objcproto33AUAudioUnitMessageChannelProtocol}* {__strong},NSDictionary * {__strong}>::reply(&v10);
   [v5 onCallRemoteAU:unitCopy reply:v6];
 
-  v7 = v14;
-  if (v13)
+  v7 = v13;
+  if (v12)
   {
     v8 = 0;
   }
 
   else
   {
-    v8 = v14;
+    v8 = v13;
   }
 
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](&v12);
-  v9 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](&v11);
 
   return v8;
 }

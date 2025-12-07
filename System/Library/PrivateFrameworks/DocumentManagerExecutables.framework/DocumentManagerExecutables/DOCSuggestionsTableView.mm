@@ -20,7 +20,7 @@
   v17.receiver = self;
   v17.super_class = type metadata accessor for DOCSuggestionsTableView();
   height = [(DOCTableView *)&v17 initWithFrame:style style:x, y, width, height];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy5UIKit17UITraitDefinition_pXpGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy5UIKit17UITraitDefinition_pXpGMd, &_ss23_ContiguousArrayStorageCy5UIKit17UITraitDefinition_pXpGMR);
   v12 = swift_allocObject();
   *(v12 + 16) = xmmword_249B9A480;
   v13 = type metadata accessor for UITraitPreferredContentSizeCategory();

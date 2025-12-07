@@ -14,7 +14,7 @@
   __IS_imageHeader = [dataCopy __IS_imageHeader];
   if (!__IS_imageHeader)
   {
-    v12 = IFDefaultLog();
+    v12 = IFDefaultLog(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [IFCacheImage initWithData:uuid:validationToken:];
@@ -24,7 +24,7 @@
   v13 = [IFImage createCGImageWithIFImageData:dataCopy];
   if (!v13)
   {
-    v22 = IFDefaultLog();
+    v22 = IFDefaultLog(0);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [IFCacheImage initWithData:uuid:validationToken:];
@@ -69,7 +69,7 @@ LABEL_7:
     v23 = (__IS_imageHeader + 8);
     if (v24)
     {
-      v25 = IFDefaultLog();
+      v25 = IFDefaultLog(0);
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         [IFCacheImage initWithData:v23 uuid:v25 validationToken:?];

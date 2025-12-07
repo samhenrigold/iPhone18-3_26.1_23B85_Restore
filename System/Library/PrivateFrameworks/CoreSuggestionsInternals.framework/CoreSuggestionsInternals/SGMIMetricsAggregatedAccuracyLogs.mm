@@ -146,18 +146,28 @@ LABEL_33:
   v17 = v5[5];
   if (backgroundAggregatedAccuracyLogSinceModelInitialization)
   {
-    if (v17)
+    if (!v17)
     {
-      [(SGMIMetricsAggregatedAccuracyLog *)backgroundAggregatedAccuracyLogSinceModelInitialization mergeFrom:?];
+      goto LABEL_39;
     }
+
+    backgroundAggregatedAccuracyLogSinceModelInitialization = [(SGMIMetricsAggregatedAccuracyLog *)backgroundAggregatedAccuracyLogSinceModelInitialization mergeFrom:?];
   }
 
-  else if (v17)
+  else
   {
-    [(SGMIMetricsAggregatedAccuracyLogs *)self setBackgroundAggregatedAccuracyLogSinceModelInitialization:?];
+    if (!v17)
+    {
+      goto LABEL_39;
+    }
+
+    backgroundAggregatedAccuracyLogSinceModelInitialization = [(SGMIMetricsAggregatedAccuracyLogs *)self setBackgroundAggregatedAccuracyLogSinceModelInitialization:?];
   }
 
-  MEMORY[0x2821F96F8]();
+  v5 = v18;
+LABEL_39:
+
+  MEMORY[0x2821F96F8](backgroundAggregatedAccuracyLogSinceModelInitialization, v5);
 }
 
 - (unint64_t)hash
@@ -188,7 +198,6 @@ LABEL_33:
     goto LABEL_19;
   }
 
-  v5 = *(equalCopy + 60);
   if (*&self->_has)
   {
     if ((*(equalCopy + 60) & 1) == 0 || self->_hoursSinceReference != *(equalCopy + 14))
@@ -200,7 +209,7 @@ LABEL_33:
   else if (*(equalCopy + 60))
   {
 LABEL_19:
-    v12 = 0;
+    v11 = 0;
     goto LABEL_20;
   }
 
@@ -249,17 +258,17 @@ LABEL_19:
   backgroundAggregatedAccuracyLogSinceModelInitialization = self->_backgroundAggregatedAccuracyLogSinceModelInitialization;
   if (backgroundAggregatedAccuracyLogSinceModelInitialization | *(equalCopy + 5))
   {
-    v12 = [(SGMIMetricsAggregatedAccuracyLog *)backgroundAggregatedAccuracyLogSinceModelInitialization isEqual:?];
+    v11 = [(SGMIMetricsAggregatedAccuracyLog *)backgroundAggregatedAccuracyLogSinceModelInitialization isEqual:?];
   }
 
   else
   {
-    v12 = 1;
+    v11 = 1;
   }
 
 LABEL_20:
 
-  return v12;
+  return v11;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -349,48 +358,47 @@ LABEL_20:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    hoursSinceReference = self->_hoursSinceReference;
     PBDataWriterWriteUint32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_activeTrialMetadata)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_activeAggregatedAccuracyLogForThePastFourWeeks)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_activeAggregatedAccuracyLogSinceModelInitialization)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_backgroundTrialMetadata)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_backgroundAggregatedAccuracyLogForThePastFourWeeks)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_backgroundAggregatedAccuracyLogSinceModelInitialization)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 

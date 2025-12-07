@@ -115,6 +115,7 @@
 + (id)getBestSupportedSiriLanguageWithFallback:(id)fallback;
 + (id)getSerialQueue:(id)queue qualityOfService:(unsigned int)service;
 + (id)getSerialQueue:(id)queue withQualityOfService:(unsigned int)service andTargetQueue:(id)targetQueue;
++ (id)getSerialQueueWithQOS:(unsigned int)s name:(id)name fixedPriority:(unsigned __int8)priority;
 + (id)getSiriLanguageWithEndpointId:(id)id fallbackLanguage:(id)language;
 + (id)getSiriLanguageWithFallback:(id)fallback;
 + (id)loggingFilePathWithDirectory:(id)directory requestId:(id)id token:(id)token postfix:(id)postfix;
@@ -260,7 +261,7 @@
 
 void __39__CSUtils_isIOSDeviceSupportingBargeIn__block_invoke()
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (CSIsHorseman_onceToken != -1)
   {
     dispatch_once(&CSIsHorseman_onceToken, &__block_literal_global_9);
@@ -286,14 +287,12 @@ void __39__CSUtils_isIOSDeviceSupportingBargeIn__block_invoke()
       v2 = @"YES";
     }
 
-    v4 = 136315394;
-    v5 = "+[CSUtils isIOSDeviceSupportingBargeIn]_block_invoke";
-    v6 = 2114;
-    v7 = v2;
-    _os_log_impl(&dword_1DDA4B000, v1, OS_LOG_TYPE_DEFAULT, "%s Device supporting barge-in ? %{public}@", &v4, 0x16u);
+    v3 = 136315394;
+    v4 = "+[CSUtils isIOSDeviceSupportingBargeIn]_block_invoke";
+    v5 = 2114;
+    v6 = v2;
+    _os_log_impl(&dword_1DDA4B000, v1, OS_LOG_TYPE_DEFAULT, "%s Device supporting barge-in ? %{public}@", &v3, 0x16u);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)supportsUnifiedAssetFramework
@@ -411,7 +410,7 @@ uint64_t __40__CSUtils_supportsUnderstandingOnDevice__block_invoke()
 
 + ($115C4C562B26FF47E01F9F4EA65B5887)getTokenFromDictionary:(SEL)dictionary withTokenKey:(id)key
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v8 = a5;
   v9 = v8;
@@ -420,9 +419,9 @@ uint64_t __40__CSUtils_supportsUnderstandingOnDevice__block_invoke()
   if (keyCopy && v8)
   {
     Value = CFDictionaryGetValue(keyCopy, v8);
-    v21.location = 0;
-    v21.length = 32;
-    CFDataGetBytes(Value, v21, retstr);
+    v20.location = 0;
+    v20.length = 32;
+    CFDataGetBytes(Value, v20, retstr);
   }
 
   else
@@ -430,23 +429,22 @@ uint64_t __40__CSUtils_supportsUnderstandingOnDevice__block_invoke()
     v11 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136315650;
-      v15 = "+[CSUtils(Security) getTokenFromDictionary:withTokenKey:]";
-      v16 = 2112;
-      v17 = keyCopy;
-      v18 = 2112;
-      v19 = v9;
-      _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEFAULT, "%s Token dict: %@ and tokenString: %@ both must be non nil", &v14, 0x20u);
+      v13 = 136315650;
+      v14 = "+[CSUtils(Security) getTokenFromDictionary:withTokenKey:]";
+      v15 = 2112;
+      v16 = keyCopy;
+      v17 = 2112;
+      v18 = v9;
+      _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEFAULT, "%s Token dict: %@ and tokenString: %@ both must be non nil", &v13, 0x20u);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 + (BOOL)checkCurrentProcessHasEntitlement:(id)entitlement
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   entitlementCopy = entitlement;
   if (!entitlementCopy)
   {
@@ -454,7 +452,7 @@ uint64_t __40__CSUtils_supportsUnderstandingOnDevice__block_invoke()
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v17 = "+[CSUtils(Security) checkCurrentProcessHasEntitlement:]";
+      v16 = "+[CSUtils(Security) checkCurrentProcessHasEntitlement:]";
       _os_log_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_DEFAULT, "%s Entitlement was nil. We will assume process is not entitled.", buf, 0xCu);
     }
 
@@ -468,7 +466,7 @@ uint64_t __40__CSUtils_supportsUnderstandingOnDevice__block_invoke()
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v17 = "+[CSUtils(Security) checkCurrentProcessHasEntitlement:]";
+      v16 = "+[CSUtils(Security) checkCurrentProcessHasEntitlement:]";
       _os_log_error_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_ERROR, "%s Failed to create SecTask for current process", buf, 0xCu);
     }
 
@@ -486,9 +484,9 @@ uint64_t __40__CSUtils_supportsUnderstandingOnDevice__block_invoke()
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v17 = "+[CSUtils(Security) checkCurrentProcessHasEntitlement:]";
-      v18 = 2112;
-      v19 = v7;
+      v16 = "+[CSUtils(Security) checkCurrentProcessHasEntitlement:]";
+      v17 = 2112;
+      v18 = v7;
       _os_log_error_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_ERROR, "%s SecTaskCopyValueForEntitlement failed for getting entitlement with error: %@", buf, 0x16u);
       v7 = error;
     }
@@ -504,18 +502,17 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v14 = CFGetTypeID(v6);
-  v11 = v14 == CFBooleanGetTypeID() && CFBooleanGetValue(v6) != 0;
+  v13 = CFGetTypeID(v6);
+  v11 = v13 == CFBooleanGetTypeID() && CFBooleanGetValue(v6) != 0;
   CFRelease(v6);
 LABEL_12:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 + (BOOL)checkEntitlementForToken:(id *)token withEntitlement:(id)entitlement
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   entitlementCopy = entitlement;
   if (entitlementCopy)
   {
@@ -620,7 +617,6 @@ LABEL_20:
 
 LABEL_23:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -738,28 +734,22 @@ LABEL_23:
 
 + (unint64_t)getFileSizeWithFd:(int)fd
 {
-  v9 = *MEMORY[0x1E69E9840];
-  memset(&v6, 0, sizeof(v6));
-  if (fstat(fd, &v6))
+  v8 = *MEMORY[0x1E69E9840];
+  memset(&v5, 0, sizeof(v5));
+  if (!fstat(fd, &v5))
   {
-    v3 = CSLogContextFacilityCoreSpeech;
-    if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315138;
-      v8 = "+[CSUtils getFileSizeWithFd:]";
-      _os_log_error_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_ERROR, "%s failed to get file stats", buf, 0xCu);
-    }
-
-    result = 0;
+    return v5.st_size;
   }
 
-  else
+  v3 = CSLogContextFacilityCoreSpeech;
+  if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
   {
-    result = v6.st_size;
+    *buf = 136315138;
+    v7 = "+[CSUtils getFileSizeWithFd:]";
+    _os_log_error_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_ERROR, "%s failed to get file stats", buf, 0xCu);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 + (BOOL)supportsLogger
@@ -772,25 +762,23 @@ LABEL_23:
 
 void __49__CSUtils_supportsHearstSmartRoutingImprovements__block_invoke()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v0 = _os_feature_enabled_impl();
   supportsHearstSmartRoutingImprovements_isEnabled = v0;
   v1 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = 136315394;
-    v4 = "+[CSUtils supportsHearstSmartRoutingImprovements]_block_invoke";
-    v5 = 1024;
-    v6 = v0;
-    _os_log_impl(&dword_1DDA4B000, v1, OS_LOG_TYPE_DEFAULT, "%s Hearst smart routing improvements - supported: 1, enabled: %d", &v3, 0x12u);
+    v2 = 136315394;
+    v3 = "+[CSUtils supportsHearstSmartRoutingImprovements]_block_invoke";
+    v4 = 1024;
+    v5 = v0;
+    _os_log_impl(&dword_1DDA4B000, v1, OS_LOG_TYPE_DEFAULT, "%s Hearst smart routing improvements - supported: 1, enabled: %d", &v2, 0x12u);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __28__CSUtils_isExclaveHardware__block_invoke()
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v0 = MGGetBoolAnswer();
   v1 = MGCopyAnswer();
   v2 = MGCopyAnswer();
@@ -822,7 +810,7 @@ LABEL_12:
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     v5 = @"NO";
-    v9 = "+[CSUtils isExclaveHardware]_block_invoke";
+    v8 = "+[CSUtils isExclaveHardware]_block_invoke";
     if (v0)
     {
       v6 = @"YES";
@@ -833,25 +821,23 @@ LABEL_12:
       v6 = @"NO";
     }
 
-    v8 = 136315650;
-    v10 = 2114;
-    v11 = v6;
+    v7 = 136315650;
+    v9 = 2114;
+    v10 = v6;
     if (v3)
     {
       v5 = @"YES";
     }
 
-    v12 = 2114;
-    v13 = v5;
-    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s isExclaveCapable: %{public}@, isExclaveFeatureDisabledForPlatform: %{public}@", &v8, 0x20u);
+    v11 = 2114;
+    v12 = v5;
+    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s isExclaveCapable: %{public}@, isExclaveFeatureDisabledForPlatform: %{public}@", &v7, 0x20u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)faultPagesWithVaddr:(void *)vaddr mmapedSize:(unint64_t)size filePath:(id)path
 {
-  *&v26[13] = *MEMORY[0x1E69E9840];
+  *&v25[13] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v8 = pathCopy;
   v9 = 0;
@@ -864,9 +850,9 @@ LABEL_12:
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v24 = "+[CSUtils faultPagesWithVaddr:mmapedSize:filePath:]";
-        v25 = 2112;
-        *v26 = v8;
+        v23 = "+[CSUtils faultPagesWithVaddr:mmapedSize:filePath:]";
+        v24 = 2112;
+        *v25 = v8;
         _os_log_error_impl(&dword_1DDA4B000, v15, OS_LOG_TYPE_ERROR, "%s failed to open file of: %@", buf, 0x16u);
       }
 
@@ -876,25 +862,25 @@ LABEL_12:
     else
     {
       v11 = v10;
-      v22[0] = 0;
-      v22[1] = size;
-      v12 = fcntl(v10, 44, v22);
+      v21[0] = 0;
+      v21[1] = size;
+      v12 = fcntl(v10, 44, v21);
       v9 = v12 != -1;
       if (v12 == -1)
       {
         v16 = CSLogContextFacilityCoreSpeech;
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
         {
-          v19 = v16;
-          v20 = __error();
-          v21 = strerror(*v20);
+          v18 = v16;
+          v19 = __error();
+          v20 = strerror(*v19);
           *buf = 136315650;
-          v24 = "+[CSUtils faultPagesWithVaddr:mmapedSize:filePath:]";
-          v25 = 1024;
-          *v26 = v11;
-          v26[2] = 2080;
-          *&v26[3] = v21;
-          _os_log_error_impl(&dword_1DDA4B000, v19, OS_LOG_TYPE_ERROR, "%s failed to fcntl fd: %d with error: %s", buf, 0x1Cu);
+          v23 = "+[CSUtils faultPagesWithVaddr:mmapedSize:filePath:]";
+          v24 = 1024;
+          *v25 = v11;
+          v25[2] = 2080;
+          *&v25[3] = v20;
+          _os_log_error_impl(&dword_1DDA4B000, v18, OS_LOG_TYPE_ERROR, "%s failed to fcntl fd: %d with error: %s", buf, 0x1Cu);
         }
       }
 
@@ -916,7 +902,6 @@ LABEL_12:
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -930,7 +915,7 @@ LABEL_12:
 + (BOOL)readOptimizationMadviseWithVaddr:(void *)vaddr mmapedSize:(unint64_t)size preLoadChunkSize:(unint64_t)chunkSize
 {
   result = 0;
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (vaddr)
   {
     sizeCopy = size;
@@ -954,15 +939,14 @@ LABEL_12:
             v11 = CSLogContextFacilityCoreSpeech;
             if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
             {
-              v18 = 136315394;
-              v19 = "+[CSUtils readOptimizationMadviseWithVaddr:mmapedSize:preLoadChunkSize:]";
-              v20 = 2048;
-              v21 = v9;
-              _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEFAULT, "%s read optimization processed size: %lu", &v18, 0x16u);
+              v17 = 136315394;
+              v18 = "+[CSUtils readOptimizationMadviseWithVaddr:mmapedSize:preLoadChunkSize:]";
+              v19 = 2048;
+              v20 = v9;
+              _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEFAULT, "%s read optimization processed size: %lu", &v17, 0x16u);
             }
 
-            result = 1;
-            goto LABEL_15;
+            return 1;
           }
         }
 
@@ -974,26 +958,24 @@ LABEL_12:
           v14 = v12;
           v15 = __error();
           v16 = strerror(*v15);
-          v18 = 136315394;
-          v19 = "+[CSUtils readOptimizationMadviseWithVaddr:mmapedSize:preLoadChunkSize:]";
-          v20 = 2080;
-          v21 = v16;
-          _os_log_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_DEFAULT, "%s Failed to madvise() because error: %s", &v18, 0x16u);
+          v17 = 136315394;
+          v18 = "+[CSUtils readOptimizationMadviseWithVaddr:mmapedSize:preLoadChunkSize:]";
+          v19 = 2080;
+          v20 = v16;
+          _os_log_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_DEFAULT, "%s Failed to madvise() because error: %s", &v17, 0x16u);
 
-          result = 0;
+          return 0;
         }
       }
     }
   }
 
-LABEL_15:
-  v17 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 + (void)mmapWithFile:(id)file mappedSizeOut:(id *)out
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   fileCopy = file;
   v6 = [CSUtils getFileDescriptor:fileCopy];
   if ((v6 & 0x80000000) != 0)
@@ -1001,11 +983,11 @@ LABEL_15:
     v13 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v17 = 136315394;
-      v18 = "+[CSUtils mmapWithFile:mappedSizeOut:]";
-      v19 = 2112;
-      v20 = fileCopy;
-      _os_log_error_impl(&dword_1DDA4B000, v13, OS_LOG_TYPE_ERROR, "%s failed to open file of: %@", &v17, 0x16u);
+      v16 = 136315394;
+      v17 = "+[CSUtils mmapWithFile:mappedSizeOut:]";
+      v18 = 2112;
+      v19 = fileCopy;
+      _os_log_error_impl(&dword_1DDA4B000, v13, OS_LOG_TYPE_ERROR, "%s failed to open file of: %@", &v16, 0x16u);
     }
 
     goto LABEL_15;
@@ -1025,13 +1007,13 @@ LABEL_15:
   v10 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 136315650;
-    v18 = "+[CSUtils mmapWithFile:mappedSizeOut:]";
-    v19 = 2112;
-    v20 = fileCopy;
-    v21 = 2048;
-    v22 = v9;
-    _os_log_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_DEFAULT, "%s readed file: %@ with mmaped size: %lu", &v17, 0x20u);
+    v16 = 136315650;
+    v17 = "+[CSUtils mmapWithFile:mappedSizeOut:]";
+    v18 = 2112;
+    v19 = fileCopy;
+    v20 = 2048;
+    v21 = v9;
+    _os_log_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_DEFAULT, "%s readed file: %@ with mmaped size: %lu", &v16, 0x20u);
   }
 
   v11 = mmap(0, v9, 1, 1, v7, 0);
@@ -1041,11 +1023,11 @@ LABEL_15:
     v14 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 136315394;
-      v18 = "+[CSUtils mmapWithFile:mappedSizeOut:]";
-      v19 = 2112;
-      v20 = fileCopy;
-      _os_log_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_DEFAULT, "%s Cannot mmap the graph: %@", &v17, 0x16u);
+      v16 = 136315394;
+      v17 = "+[CSUtils mmapWithFile:mappedSizeOut:]";
+      v18 = 2112;
+      v19 = fileCopy;
+      _os_log_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_DEFAULT, "%s Cannot mmap the graph: %@", &v16, 0x16u);
     }
 
     goto LABEL_15;
@@ -1059,18 +1041,17 @@ LABEL_15:
   v12 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 136315650;
-    v18 = "+[CSUtils mmapWithFile:mappedSizeOut:]";
-    v19 = 2112;
-    v20 = fileCopy;
-    v21 = 2048;
-    v22 = v9;
-    _os_log_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_DEFAULT, "%s mmaped file: %@ with mapped size: %lu is successful", &v17, 0x20u);
+    v16 = 136315650;
+    v17 = "+[CSUtils mmapWithFile:mappedSizeOut:]";
+    v18 = 2112;
+    v19 = fileCopy;
+    v20 = 2048;
+    v21 = v9;
+    _os_log_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_DEFAULT, "%s mmaped file: %@ with mapped size: %lu is successful", &v16, 0x20u);
   }
 
 LABEL_16:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -1084,7 +1065,7 @@ LABEL_16:
   return isASRViaSpeechAPIEnabled_isAvailable;
 }
 
-uint64_t __35__CSUtils_isASRViaSpeechAPIEnabled__block_invoke()
+void *__35__CSUtils_isASRViaSpeechAPIEnabled__block_invoke()
 {
   result = [MEMORY[0x1E698D150] isASRViaSpeechAPIEnabled];
   isASRViaSpeechAPIEnabled_isAvailable = result;
@@ -1093,7 +1074,7 @@ uint64_t __35__CSUtils_isASRViaSpeechAPIEnabled__block_invoke()
 
 + (void)withElapsedTimeLogging:(id)logging execute:(id)execute
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   loggingCopy = logging;
   v6 = MEMORY[0x1E695DF00];
   executeCopy = execute;
@@ -1106,16 +1087,14 @@ uint64_t __35__CSUtils_isASRViaSpeechAPIEnabled__block_invoke()
   {
     v11 = v10;
     [date2 timeIntervalSinceDate:date];
-    v14 = 136315650;
-    v15 = "+[CSUtils withElapsedTimeLogging:execute:]";
-    v16 = 2114;
-    v17 = loggingCopy;
-    v18 = 2050;
-    v19 = v12;
-    _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEFAULT, "%s %{public}@ elapsed time = %{public}lf", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "+[CSUtils withElapsedTimeLogging:execute:]";
+    v15 = 2114;
+    v16 = loggingCopy;
+    v17 = 2050;
+    v18 = v12;
+    _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEFAULT, "%s %{public}@ elapsed time = %{public}lf", &v13, 0x20u);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)supportVoiceID
@@ -1159,14 +1138,16 @@ uint64_t __35__CSUtils_isASRViaSpeechAPIEnabled__block_invoke()
 
 uint64_t __40__CSUtils_supportsMagusForLanguageCode___block_invoke()
 {
-  supportsMagusForLanguageCode__magusSupportedLocales = [MEMORY[0x1E695DFD8] setWithObjects:{@"en-US", @"en-GB", @"en-CA", @"en-AU", @"de-DE", @"fr-FR", 0}];
+  v0 = [MEMORY[0x1E695DFD8] setWithObjects:{@"en-US", @"en-GB", @"en-CA", @"en-AU", @"de-DE", @"fr-FR", 0}];
+  v1 = supportsMagusForLanguageCode__magusSupportedLocales;
+  supportsMagusForLanguageCode__magusSupportedLocales = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (BOOL)supportsMphForLanguageCode:(id)code forDeviceType:(unint64_t)type
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   codeCopy = code;
   v6 = 0;
   if (type <= 9)
@@ -1203,11 +1184,11 @@ uint64_t __40__CSUtils_supportsMagusForLanguageCode___block_invoke()
     v10 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 136315394;
-      v16 = "+[CSUtils supportsMphForLanguageCode:forDeviceType:]";
-      v17 = 2112;
-      v18 = whiteListedMultiPhraseLocales;
-      _os_log_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_DEFAULT, "%s whiteListLocales: %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "+[CSUtils supportsMphForLanguageCode:forDeviceType:]";
+      v16 = 2112;
+      v17 = whiteListedMultiPhraseLocales;
+      _os_log_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_DEFAULT, "%s whiteListLocales: %@", &v14, 0x16u);
     }
 
     if (whiteListedMultiPhraseLocales && [whiteListedMultiPhraseLocales count])
@@ -1219,11 +1200,11 @@ uint64_t __40__CSUtils_supportsMagusForLanguageCode___block_invoke()
   v11 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315394;
-    v16 = "+[CSUtils supportsMphForLanguageCode:forDeviceType:]";
-    v17 = 2112;
-    v18 = v6;
-    _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEFAULT, "%s supportsMph language list: %@", &v15, 0x16u);
+    v14 = 136315394;
+    v15 = "+[CSUtils supportsMphForLanguageCode:forDeviceType:]";
+    v16 = 2112;
+    v17 = v6;
+    _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEFAULT, "%s supportsMph language list: %@", &v14, 0x16u);
   }
 
   if (codeCopy && +[CSUtils supportMph])
@@ -1238,7 +1219,6 @@ uint64_t __40__CSUtils_supportsMagusForLanguageCode___block_invoke()
 
 LABEL_20:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -1317,14 +1297,17 @@ LABEL_20:
 uint64_t __21__CSUtils_isM9Device__block_invoke()
 {
   v0 = MGCopyAnswer();
+  v1 = v0;
   if (v0)
   {
-    LOBYTE(v0) = [v0 isEqualToString:@"t8006"];
+    v3 = v0;
+    v0 = [v0 isEqualToString:@"t8006"];
+    v1 = v3;
   }
 
   isM9Device_isM9Device = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (BOOL)supportMph
@@ -1499,9 +1482,11 @@ LABEL_4:
 
 uint64_t __51__CSUtils_isMagusRestrictedWithSAEForLanguageCode___block_invoke()
 {
-  isMagusRestrictedWithSAEForLanguageCode__magusRestrictedSupportedLocales = [MEMORY[0x1E695DFD8] set];
+  v0 = [MEMORY[0x1E695DFD8] set];
+  v1 = isMagusRestrictedWithSAEForLanguageCode__magusRestrictedSupportedLocales;
+  isMagusRestrictedWithSAEForLanguageCode__magusRestrictedSupportedLocales = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (BOOL)isMagusDisabledForLanguageCode:(id)code
@@ -1536,7 +1521,7 @@ uint64_t __51__CSUtils_isMagusRestrictedWithSAEForLanguageCode___block_invoke()
   return supportsDictationOnDevice_result;
 }
 
-uint64_t __36__CSUtils_supportsDictationOnDevice__block_invoke()
+void *__36__CSUtils_supportsDictationOnDevice__block_invoke()
 {
   result = AFOfflineDictationCapable();
   if (result)
@@ -1643,7 +1628,7 @@ uint64_t __27__CSUtils_supportHandsFree__block_invoke()
 
 + (id)deviceHwRevision
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E696CD60];
   v3 = IOServiceMatching("IOPlatformExpertDevice");
   MatchingService = IOServiceGetMatchingService(v2, v3);
@@ -1673,9 +1658,9 @@ uint64_t __27__CSUtils_supportHandsFree__block_invoke()
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v20 = "+[CSUtils deviceHwRevision]";
-        v21 = 2114;
-        v22 = v12;
+        v19 = "+[CSUtils deviceHwRevision]";
+        v20 = 2114;
+        v21 = v12;
         _os_log_impl(&dword_1DDA4B000, v16, OS_LOG_TYPE_INFO, "%s Fetched hardware revision : %{public}@", buf, 0x16u);
       }
     }
@@ -1686,7 +1671,7 @@ uint64_t __27__CSUtils_supportHandsFree__block_invoke()
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v20 = "+[CSUtils deviceHwRevision]";
+        v19 = "+[CSUtils deviceHwRevision]";
         _os_log_error_impl(&dword_1DDA4B000, v15, OS_LOG_TYPE_ERROR, "%s Failed to find property config-number", buf, 0xCu);
       }
 
@@ -1703,14 +1688,12 @@ uint64_t __27__CSUtils_supportHandsFree__block_invoke()
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v20 = "+[CSUtils deviceHwRevision]";
+      v19 = "+[CSUtils deviceHwRevision]";
       _os_log_error_impl(&dword_1DDA4B000, v13, OS_LOG_TYPE_ERROR, "%s Failed to find matching service to IOPlatformExpertDevice", buf, 0xCu);
     }
 
     v14 = @"???";
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -1762,12 +1745,11 @@ uint64_t __27__CSUtils_supportHandsFree__block_invoke()
 
 uint64_t __23__CSUtils_systemUpTime__block_invoke()
 {
-  v4 = *MEMORY[0x1E69E9840];
-  *v3 = 0x1500000001;
-  v2 = 16;
-  result = sysctl(v3, 2u, &systemUpTime_bootTime, &v2, 0, 0);
+  v3 = *MEMORY[0x1E69E9840];
+  *v2 = 0x1500000001;
+  v1 = 16;
+  result = sysctl(v2, 2u, &systemUpTime_bootTime, &v1, 0, 0);
   systemUpTime_result = result;
-  v1 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1882,6 +1864,28 @@ void __28__CSUtils_deviceProductType__block_invoke()
   return v6;
 }
 
++ (id)getSerialQueueWithQOS:(unsigned int)s name:(id)name fixedPriority:(unsigned __int8)priority
+{
+  priorityCopy = priority;
+  v6 = *&s;
+  nameCopy = name;
+  if (+[CSUtils supportsDispatchWorkloop])
+  {
+    [CSUtils dispatchWorkloopWithWithQOS:v6 name:nameCopy fixedPriority:priorityCopy];
+  }
+
+  else
+  {
+    [CSUtils rootQueueWithFixedPriority:priorityCopy];
+  }
+  v8 = ;
+  nameCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-serialq", nameCopy];
+
+  v10 = dispatch_queue_create_with_target_V2([nameCopy UTF8String], 0, v8);
+
+  return v10;
+}
+
 + (id)dispatchWorkloopWithWithQOS:(unsigned int)s name:(id)name fixedPriority:(int)priority
 {
   inactive = dispatch_workloop_create_inactive([name cStringUsingEncoding:4]);
@@ -1895,18 +1899,17 @@ void __28__CSUtils_deviceProductType__block_invoke()
 
 + (id)rootQueueWithFixedPriority:(int)priority
 {
-  v9 = *MEMORY[0x1E69E9840];
-  memset(&v8, 0, sizeof(v8));
-  pthread_attr_init(&v8);
-  v7 = 0;
-  pthread_attr_getschedparam(&v8, &v7);
-  v7.sched_priority = priority;
-  pthread_attr_setschedparam(&v8, &v7);
-  pthread_attr_setschedpolicy(&v8, 2);
-  pthread_attr_setinheritsched(&v8, 2);
+  v8 = *MEMORY[0x1E69E9840];
+  memset(&v7, 0, sizeof(v7));
+  pthread_attr_init(&v7);
+  v6 = 0;
+  pthread_attr_getschedparam(&v7, &v6);
+  v6.sched_priority = priority;
+  pthread_attr_setschedparam(&v7, &v6);
+  pthread_attr_setschedpolicy(&v7, 2);
+  pthread_attr_setinheritsched(&v7, 2);
   v4 = dispatch_pthread_root_queue_create();
-  pthread_attr_destroy(&v8);
-  v5 = *MEMORY[0x1E69E9840];
+  pthread_attr_destroy(&v7);
 
   return v4;
 }
@@ -2285,20 +2288,20 @@ uint64_t __21__CSUtils_supportTTS__block_invoke()
 
 + (unsigned)getAudioDeviceForHalUID:(id)d
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v4 = dCopy;
-  v20 = dCopy;
+  v19 = dCopy;
   if (dCopy && [dCopy length])
   {
-    v18 = 0;
+    v17 = 0;
     ioPropertyDataSize = 32;
-    outPropertyData[0] = &v20;
+    outPropertyData[0] = &v19;
     outPropertyData[1] = 8;
-    outPropertyData[2] = &v18;
+    outPropertyData[2] = &v17;
     outPropertyData[3] = 4;
     Property = AudioHardwareGetProperty(0x64756964u, &ioPropertyDataSize, outPropertyData);
-    v16 = Property;
+    v15 = Property;
     if (Property)
     {
       v6 = Property;
@@ -2309,46 +2312,46 @@ uint64_t __21__CSUtils_supportTTS__block_invoke()
       }
 
       *buf = 136316162;
-      v22 = "+[CSUtils(AudioDevice) getAudioDeviceForHalUID:]";
-      v23 = 2112;
-      v24 = v20;
-      v25 = 1024;
-      v26 = v6;
-      v27 = 1040;
-      v28 = 4;
-      v29 = 2080;
-      v30 = &v16;
-      v13 = "%s Error getting device from UID '%@': %d (%.4s).";
-      v14 = v7;
-      v15 = 44;
+      v21 = "+[CSUtils(AudioDevice) getAudioDeviceForHalUID:]";
+      v22 = 2112;
+      v23 = v19;
+      v24 = 1024;
+      v25 = v6;
+      v26 = 1040;
+      v27 = 4;
+      v28 = 2080;
+      v29 = &v15;
+      v12 = "%s Error getting device from UID '%@': %d (%.4s).";
+      v13 = v7;
+      v14 = 44;
     }
 
     else
     {
-      v8 = v18;
-      if (v18)
+      v8 = v17;
+      if (v17)
       {
         goto LABEL_10;
       }
 
-      v12 = CSLogCategoryAudio;
+      v11 = CSLogCategoryAudio;
       if (!os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
       {
 LABEL_5:
         v8 = 0;
 LABEL_10:
-        v4 = v20;
+        v4 = v19;
         goto LABEL_11;
       }
 
       *buf = 136315138;
-      v22 = "+[CSUtils(AudioDevice) getAudioDeviceForHalUID:]";
-      v13 = "%s Retrieved AudioDeviceID is unknown.";
-      v14 = v12;
-      v15 = 12;
+      v21 = "+[CSUtils(AudioDevice) getAudioDeviceForHalUID:]";
+      v12 = "%s Retrieved AudioDeviceID is unknown.";
+      v13 = v11;
+      v14 = 12;
     }
 
-    _os_log_error_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_ERROR, v13, buf, v15);
+    _os_log_error_impl(&dword_1DDA4B000, v13, OS_LOG_TYPE_ERROR, v12, buf, v14);
     goto LABEL_5;
   }
 
@@ -2356,20 +2359,19 @@ LABEL_10:
   if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v22 = "+[CSUtils(AudioDevice) getAudioDeviceForHalUID:]";
+    v21 = "+[CSUtils(AudioDevice) getAudioDeviceForHalUID:]";
     _os_log_error_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_ERROR, "%s UID is nil or empty. Returning AudioDeviceID as unknown", buf, 0xCu);
   }
 
   v8 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 + (BOOL)isOutputDevice:(unsigned int)device relatedToInputDevice:(unsigned int)inputDevice
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   *&inAddress.mSelector = *"nikabolg";
   inAddress.mElement = 0;
   outDataSize = 0;
@@ -2380,140 +2382,131 @@ LABEL_11:
     v8 = CSLogCategoryAudio;
     if (!os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
     {
-LABEL_3:
-      v9 = 0;
-      goto LABEL_4;
+      return 0;
     }
 
     *buf = 136315394;
-    v27 = "+[CSUtils(AudioDevice) isOutputDevice:relatedToInputDevice:]";
-    v28 = 1024;
-    v29 = v7;
-    v19 = "%s Error getting related devices data size: %d";
-    v20 = v8;
-    v21 = 18;
+    v26 = "+[CSUtils(AudioDevice) isOutputDevice:relatedToInputDevice:]";
+    v27 = 1024;
+    v28 = v7;
+    v18 = "%s Error getting related devices data size: %d";
+    v19 = v8;
+    v20 = 18;
 LABEL_17:
-    _os_log_error_impl(&dword_1DDA4B000, v20, OS_LOG_TYPE_ERROR, v19, buf, v21);
-    goto LABEL_3;
+    _os_log_error_impl(&dword_1DDA4B000, v19, OS_LOG_TYPE_ERROR, v18, buf, v20);
+    return 0;
   }
 
-  v12 = outDataSize;
-  v13 = malloc_type_malloc(outDataSize, 0x100004052888210uLL);
-  if (!v13)
+  v11 = outDataSize;
+  v12 = malloc_type_malloc(outDataSize, 0x100004052888210uLL);
+  if (!v12)
   {
-    v18 = CSLogCategoryAudio;
+    v17 = CSLogCategoryAudio;
     if (!os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_3;
+      return 0;
     }
 
     *buf = 136315138;
-    v27 = "+[CSUtils(AudioDevice) isOutputDevice:relatedToInputDevice:]";
-    v19 = "%s Error allocating memory";
-    v20 = v18;
-    v21 = 12;
+    v26 = "+[CSUtils(AudioDevice) isOutputDevice:relatedToInputDevice:]";
+    v18 = "%s Error allocating memory";
+    v19 = v17;
+    v20 = 12;
     goto LABEL_17;
   }
 
-  v14 = v13;
-  PropertyData = AudioObjectGetPropertyData(inputDevice, &inAddress, 0, 0, &outDataSize, v13);
+  v13 = v12;
+  PropertyData = AudioObjectGetPropertyData(inputDevice, &inAddress, 0, 0, &outDataSize, v12);
   if (PropertyData)
   {
-    v16 = PropertyData;
-    v17 = CSLogCategoryAudio;
+    v15 = PropertyData;
+    v16 = CSLogCategoryAudio;
     if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v27 = "+[CSUtils(AudioDevice) isOutputDevice:relatedToInputDevice:]";
-      v28 = 1024;
-      v29 = v16;
-      _os_log_error_impl(&dword_1DDA4B000, v17, OS_LOG_TYPE_ERROR, "%s Error getting related devices: %d", buf, 0x12u);
+      v26 = "+[CSUtils(AudioDevice) isOutputDevice:relatedToInputDevice:]";
+      v27 = 1024;
+      v28 = v15;
+      _os_log_error_impl(&dword_1DDA4B000, v16, OS_LOG_TYPE_ERROR, "%s Error getting related devices: %d", buf, 0x12u);
     }
 
-    free(v14);
-    goto LABEL_3;
+    free(v13);
+    return 0;
   }
 
-  if (v12 < 4)
+  if (v11 < 4)
   {
     v9 = 0;
   }
 
-  else if (*v14 == device)
+  else if (*v13 == device)
   {
     v9 = 1;
   }
 
   else
   {
-    v22 = 0;
-    while ((v12 >> 2) - 1 != v22)
+    v21 = 0;
+    while ((v11 >> 2) - 1 != v21)
     {
-      v23 = v14[++v22];
-      if (v23 == device)
+      v22 = v13[++v21];
+      if (v22 == device)
       {
         goto LABEL_23;
       }
     }
 
-    v22 = v12 >> 2;
+    v21 = v11 >> 2;
 LABEL_23:
-    v9 = v22 < v12 >> 2;
+    v9 = v21 < v11 >> 2;
   }
 
-  free(v14);
-LABEL_4:
-  v10 = *MEMORY[0x1E69E9840];
+  free(v13);
   return v9;
 }
 
 + (unsigned)getDefaultOutputAudioDevice
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   inAddress = *"tuOdbolg";
-  inAddress_8 = 0;
   ioDataSize = 4;
-  PropertyData = AudioObjectGetPropertyData(1u, &inAddress, 0, 0, &ioDataSize, &inAddress_8 + 4);
-  if (PropertyData)
+  PropertyData = AudioObjectGetPropertyData(1u, &inAddress, 0, 0, &ioDataSize, &inAddress + 12);
+  if (!PropertyData)
   {
-    v3 = PropertyData;
-    v4 = CSLogCategoryAudio;
-    result = os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR);
-    if (result)
-    {
-      *buf = 136315394;
-      v11 = "+[CSUtils(AudioDevice) getDefaultOutputAudioDevice]";
-      v12 = 1024;
-      v13 = v3;
-      _os_log_error_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_ERROR, "%s Error getting default output device ID: %d", buf, 0x12u);
-      result = 0;
-    }
+    return HIDWORD(inAddress);
   }
 
-  else
+  v3 = PropertyData;
+  v4 = CSLogCategoryAudio;
+  result = os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR);
+  if (result)
   {
-    result = HIDWORD(inAddress_8);
+    *buf = 136315394;
+    v9 = "+[CSUtils(AudioDevice) getDefaultOutputAudioDevice]";
+    v10 = 1024;
+    v11 = v3;
+    _os_log_error_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_ERROR, "%s Error getting default output device ID: %d", buf, 0x12u);
+    return 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 + (BOOL)isHypotheticalAudioRouteBluetoothAndNotBTSpeakerFromAudioSessinoId:(unsigned int)id
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = [self getAudioSessionFromAudioSessionId:?];
   v6 = [self fetchHypotheticalRouteFromAudioSession:v5];
   v7 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_INFO))
   {
-    v16 = 136315650;
-    v17 = "+[CSUtils(AudioDevice) isHypotheticalAudioRouteBluetoothAndNotBTSpeakerFromAudioSessinoId:]";
-    v18 = 2114;
-    v19 = v6;
-    v20 = 2048;
+    v15 = 136315650;
+    v16 = "+[CSUtils(AudioDevice) isHypotheticalAudioRouteBluetoothAndNotBTSpeakerFromAudioSessinoId:]";
+    v17 = 2114;
+    v18 = v6;
+    v19 = 2048;
     idCopy = id;
-    _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_INFO, "%s hypothetical route = %{public}@ from audioSessionId %lu", &v16, 0x20u);
+    _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_INFO, "%s hypothetical route = %{public}@ from audioSessionId %lu", &v15, 0x20u);
   }
 
   if (v6)
@@ -2537,25 +2530,24 @@ LABEL_4:
     LOBYTE(v9) = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 + (id)fetchHypotheticalBluetoothRouteProductIdFromAudioSessionId:(unsigned int)id
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = [self getAudioSessionFromAudioSessionId:?];
   v6 = [self fetchHypotheticalRouteFromAudioSession:v5];
   v7 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_INFO))
   {
-    v16 = 136315650;
-    v17 = "+[CSUtils(AudioDevice) fetchHypotheticalBluetoothRouteProductIdFromAudioSessionId:]";
-    v18 = 2114;
-    v19 = v6;
-    v20 = 2048;
+    v15 = 136315650;
+    v16 = "+[CSUtils(AudioDevice) fetchHypotheticalBluetoothRouteProductIdFromAudioSessionId:]";
+    v17 = 2114;
+    v18 = v6;
+    v19 = 2048;
     idCopy = id;
-    _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_INFO, "%s hypothetical route = %{public}@ from audioSessionId %lu", &v16, 0x20u);
+    _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_INFO, "%s hypothetical route = %{public}@ from audioSessionId %lu", &v15, 0x20u);
   }
 
   if (v6 && ([v6 objectForKey:*MEMORY[0x1E69AEC30]], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "BOOLValue"), v8, v9))
@@ -2579,8 +2571,6 @@ LABEL_4:
     v13 = 0;
     v11 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -2628,7 +2618,7 @@ LABEL_4:
 
 + (unint64_t)fetchHypotheticalRouteTypeFromAudioSessionId:(unsigned int)id
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = [self getAudioSessionFromAudioSessionId:?];
   v6 = [self fetchHypotheticalRouteFromAudioSession:v5];
   v7 = v6;
@@ -2687,18 +2677,17 @@ LABEL_4:
   v15 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_INFO))
   {
-    v18 = 136315906;
-    v19 = "+[CSUtils(AudioDevice) fetchHypotheticalRouteTypeFromAudioSessionId:]";
-    v20 = 2114;
-    v21 = v7;
-    v22 = 2048;
+    v17 = 136315906;
+    v18 = "+[CSUtils(AudioDevice) fetchHypotheticalRouteTypeFromAudioSessionId:]";
+    v19 = 2114;
+    v20 = v7;
+    v21 = 2048;
     idCopy = id;
-    v24 = 2048;
-    v25 = v9;
-    _os_log_impl(&dword_1DDA4B000, v15, OS_LOG_TYPE_INFO, "%s hypothetical route = %{public}@ from audioSessionId %lu, routeType = %lu", &v18, 0x2Au);
+    v23 = 2048;
+    v24 = v9;
+    _os_log_impl(&dword_1DDA4B000, v15, OS_LOG_TYPE_INFO, "%s hypothetical route = %{public}@ from audioSessionId %lu, routeType = %lu", &v17, 0x2Au);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -2816,7 +2805,7 @@ LABEL_12:
 
 + (BOOL)isBluetoothVehicleOutput
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   date = [MEMORY[0x1E695DF00] date];
   mEMORY[0x1E6958468] = [MEMORY[0x1E6958468] sharedInstance];
   currentRoute = [mEMORY[0x1E6958468] currentRoute];
@@ -2829,40 +2818,40 @@ LABEL_12:
     v8 = v7;
     [date2 timeIntervalSinceDate:date];
     *buf = 136315394;
-    v26 = "+[CSUtils(AudioDevice) isBluetoothVehicleOutput]";
-    v27 = 2050;
-    v28 = v9;
+    v25 = "+[CSUtils(AudioDevice) isBluetoothVehicleOutput]";
+    v26 = 2050;
+    v27 = v9;
     _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s fetch output port descriptions elapsed time = %{public}lf", buf, 0x16u);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v10 = outputs;
-  v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v11)
   {
-    v18 = date2;
-    v19 = date;
-    v12 = *v21;
+    v17 = date2;
+    v18 = date;
+    v12 = *v20;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        endpointType = [*(*(&v20 + 1) + 8 * i) endpointType];
+        endpointType = [*(*(&v19 + 1) + 8 * i) endpointType];
         v15 = CSLogContextFacilityCoreSpeech;
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v26 = "+[CSUtils(AudioDevice) isBluetoothVehicleOutput]";
-          v27 = 2050;
-          v28 = endpointType;
+          v25 = "+[CSUtils(AudioDevice) isBluetoothVehicleOutput]";
+          v26 = 2050;
+          v27 = endpointType;
           _os_log_impl(&dword_1DDA4B000, v15, OS_LOG_TYPE_DEFAULT, "%s Device endpointType = %{public}lu", buf, 0x16u);
         }
 
@@ -2873,7 +2862,7 @@ LABEL_12:
         }
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v11)
       {
         continue;
@@ -2883,28 +2872,27 @@ LABEL_12:
     }
 
 LABEL_15:
-    date2 = v18;
-    date = v19;
+    date2 = v17;
+    date = v18;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 + (BOOL)isBluetoothAudioDeviceConnected
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E6958468] = [MEMORY[0x1E6958468] sharedInstance];
   v4 = [self fetchHypotheticalRouteFromAudioSession:mEMORY[0x1E6958468]];
 
   v5 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315394;
-    v13 = "+[CSUtils(AudioDevice) isBluetoothAudioDeviceConnected]";
-    v14 = 2114;
-    v15 = v4;
-    _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s hypotheticalRoute = %{public}@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "+[CSUtils(AudioDevice) isBluetoothAudioDeviceConnected]";
+    v13 = 2114;
+    v14 = v4;
+    _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s hypotheticalRoute = %{public}@", &v11, 0x16u);
   }
 
   if (!v4)
@@ -2931,32 +2919,31 @@ LABEL_9:
   v9 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315138;
-    v13 = "+[CSUtils(AudioDevice) isBluetoothAudioDeviceConnected]";
-    _os_log_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_DEFAULT, "%s Audio route changing to HFP is expected", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "+[CSUtils(AudioDevice) isBluetoothAudioDeviceConnected]";
+    _os_log_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_DEFAULT, "%s Audio route changing to HFP is expected", &v11, 0xCu);
   }
 
   LOBYTE(v6) = 1;
 LABEL_10:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 + (BOOL)isHeadphoneDeviceWithRecordRoute:(id)route playbackRoute:(id)playbackRoute
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   routeCopy = route;
   playbackRouteCopy = playbackRoute;
   v7 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v29 = "+[CSUtils(AudioDevice) isHeadphoneDeviceWithRecordRoute:playbackRoute:]";
-    v30 = 2114;
-    v31 = routeCopy;
-    v32 = 2114;
-    v33 = playbackRouteCopy;
+    v28 = "+[CSUtils(AudioDevice) isHeadphoneDeviceWithRecordRoute:playbackRoute:]";
+    v29 = 2114;
+    v30 = routeCopy;
+    v31 = 2114;
+    v32 = playbackRouteCopy;
     _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_INFO, "%s Record route = %{public}@, playback route = %{public}@", buf, 0x20u);
   }
 
@@ -2971,35 +2958,35 @@ LABEL_10:
     currentRoute = [mEMORY[0x1E6958468] currentRoute];
     outputs = [currentRoute outputs];
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v12 = outputs;
-    v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v13)
     {
       v14 = v13;
-      v21 = playbackRouteCopy;
-      v22 = routeCopy;
-      v15 = *v24;
+      v20 = playbackRouteCopy;
+      v21 = routeCopy;
+      v15 = *v23;
       while (2)
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v24 != v15)
+          if (*v23 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          endpointType = [*(*(&v23 + 1) + 8 * i) endpointType];
+          endpointType = [*(*(&v22 + 1) + 8 * i) endpointType];
           v18 = CSLogContextFacilityCoreSpeech;
           if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315394;
-            v29 = "+[CSUtils(AudioDevice) isHeadphoneDeviceWithRecordRoute:playbackRoute:]";
-            v30 = 2050;
-            v31 = endpointType;
+            v28 = "+[CSUtils(AudioDevice) isHeadphoneDeviceWithRecordRoute:playbackRoute:]";
+            v29 = 2050;
+            v30 = endpointType;
             _os_log_impl(&dword_1DDA4B000, v18, OS_LOG_TYPE_DEFAULT, "%s Device endpointType = %{public}lu", buf, 0x16u);
           }
 
@@ -3010,7 +2997,7 @@ LABEL_10:
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v14)
         {
           continue;
@@ -3021,8 +3008,8 @@ LABEL_10:
 
       v8 = 1;
 LABEL_20:
-      playbackRouteCopy = v21;
-      routeCopy = v22;
+      playbackRouteCopy = v20;
+      routeCopy = v21;
     }
 
     else
@@ -3036,41 +3023,40 @@ LABEL_20:
     v8 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 + (id)_readValuesInNestedDictionary:(id)dictionary keyword:(id)keyword depth:(int64_t)depth limitedDepth:(int64_t)limitedDepth
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   keywordCopy = keyword;
   v11 = 0;
   if (dictionaryCopy && depth < limitedDepth)
   {
     [MEMORY[0x1E695DF70] array];
-    v23 = v22 = dictionaryCopy;
+    v22 = v21 = dictionaryCopy;
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     v12 = dictionaryCopy;
-    v13 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v26;
+      v15 = *v25;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v26 != v15)
+          if (*v25 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v25 + 1) + 8 * i);
-          v18 = [v12 objectForKeyedSubscript:{v17, v22}];
+          v17 = *(*(&v24 + 1) + 8 * i);
+          v18 = [v12 objectForKeyedSubscript:{v17, v21}];
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) != 0 && [v17 isEqualToString:keywordCopy])
           {
@@ -3079,7 +3065,7 @@ LABEL_20:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                [v23 addObject:v18];
+                [v22 addObject:v18];
               }
             }
           }
@@ -3092,30 +3078,28 @@ LABEL_20:
               v19 = [self _readValuesInNestedDictionary:v18 keyword:keywordCopy depth:depth + 1 limitedDepth:limitedDepth];
               if (v19)
               {
-                [v23 addObjectsFromArray:v19];
+                [v22 addObjectsFromArray:v19];
               }
             }
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v14);
     }
 
-    v11 = [v23 copy];
-    dictionaryCopy = v22;
+    v11 = [v22 copy];
+    dictionaryCopy = v21;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)readValuesFromJsonFile:(id)file keyword:(id)keyword
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   fileCopy = file;
   keywordCopy = keyword;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -3133,9 +3117,9 @@ LABEL_7:
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v19 = "+[CSUtils(Json) readValuesFromJsonFile:keyword:]";
-      v20 = 2112;
-      v21 = fileCopy;
+      v18 = "+[CSUtils(Json) readValuesFromJsonFile:keyword:]";
+      v19 = 2112;
+      v20 = fileCopy;
       _os_log_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_DEFAULT, "%s Invalid json file is being read: %@", buf, 0x16u);
     }
 
@@ -3143,9 +3127,9 @@ LABEL_7:
   }
 
   v10 = v9;
-  v17 = 0;
-  v11 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v9 options:0 error:&v17];
-  v12 = v17;
+  v16 = 0;
+  v11 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v9 options:0 error:&v16];
+  v12 = v16;
 
   if (!v12)
   {
@@ -3157,14 +3141,12 @@ LABEL_8:
   v13 = 0;
 LABEL_9:
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 + (BOOL)machXPCConnection:(id)connection hasEntitlement:(id)entitlement
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   entitlementCopy = entitlement;
   v7 = [machXPCEntitlementPrefix stringByAppendingString:entitlementCopy];
@@ -3182,18 +3164,17 @@ LABEL_9:
     v11 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v14 = 136315394;
-      v15 = "+[CSUtils(machXPC) machXPCConnection:hasEntitlement:]";
-      v16 = 2050;
-      v17 = connectionCopy;
-      _os_log_error_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_ERROR, "%s Connection %{public}p rejected due to missing entitlement", &v14, 0x16u);
+      v13 = 136315394;
+      v14 = "+[CSUtils(machXPC) machXPCConnection:hasEntitlement:]";
+      v15 = 2050;
+      v16 = connectionCopy;
+      _os_log_error_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_ERROR, "%s Connection %{public}p rejected due to missing entitlement", &v13, 0x16u);
     }
 
     xpc_connection_cancel(connectionCopy);
     v10 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -3395,7 +3376,7 @@ LABEL_9:
 
 + (id)getSiriLanguageWithEndpointId:(id)id fallbackLanguage:(id)language
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   idCopy = id;
   languageCopy = language;
   v7 = CSLogContextFacilityCoreSpeech;
@@ -3403,31 +3384,29 @@ LABEL_9:
   {
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315394;
-      v12 = "+[CSUtils(LanguageCode) getSiriLanguageWithEndpointId:fallbackLanguage:]";
-      v13 = 2112;
-      v14 = idCopy;
-      _os_log_error_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_ERROR, "%s Failed to query language code with endpointId %@, trying legacy query", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "+[CSUtils(LanguageCode) getSiriLanguageWithEndpointId:fallbackLanguage:]";
+      v12 = 2112;
+      v13 = idCopy;
+      _os_log_error_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_ERROR, "%s Failed to query language code with endpointId %@, trying legacy query", &v10, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_INFO))
   {
-    v11 = 136315138;
-    v12 = "+[CSUtils(LanguageCode) getSiriLanguageWithEndpointId:fallbackLanguage:]";
-    _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_INFO, "%s endpointUUID not provided, fallback to legacy query", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "+[CSUtils(LanguageCode) getSiriLanguageWithEndpointId:fallbackLanguage:]";
+    _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_INFO, "%s endpointUUID not provided, fallback to legacy query", &v10, 0xCu);
   }
 
   v8 = [CSUtils getSiriLanguageWithFallback:languageCopy];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 + (id)getBestSupportedSiriLanguageWithFallback:(id)fallback
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   fallbackCopy = fallback;
   if (+[CSUtils isDarwinOS])
   {
@@ -3450,25 +3429,23 @@ LABEL_9:
     v6 = fallbackCopy;
     if (v8)
     {
-      v12 = 136315394;
-      v13 = "+[CSUtils(LanguageCode) getBestSupportedSiriLanguageWithFallback:]";
-      v14 = 2112;
-      v15 = fallbackCopy;
-      _os_log_error_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_ERROR, "%s Siri language is nil, falling back to %@", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "+[CSUtils(LanguageCode) getBestSupportedSiriLanguageWithFallback:]";
+      v13 = 2112;
+      v14 = fallbackCopy;
+      _os_log_error_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_ERROR, "%s Siri language is nil, falling back to %@", &v11, 0x16u);
       v6 = fallbackCopy;
     }
   }
 
   v9 = v6;
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 + (id)getSiriLanguageWithFallback:(id)fallback
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   fallbackCopy = fallback;
   if (+[CSUtils isDarwinOS])
   {
@@ -3489,32 +3466,30 @@ LABEL_9:
     v6 = fallbackCopy;
     if (v8)
     {
-      v12 = 136315394;
-      v13 = "+[CSUtils(LanguageCode) getSiriLanguageWithFallback:]";
-      v14 = 2112;
-      v15 = fallbackCopy;
-      _os_log_error_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_ERROR, "%s Siri language is nil, falling back to %@", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "+[CSUtils(LanguageCode) getSiriLanguageWithFallback:]";
+      v13 = 2112;
+      v14 = fallbackCopy;
+      _os_log_error_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_ERROR, "%s Siri language is nil, falling back to %@", &v11, 0x16u);
       v6 = fallbackCopy;
     }
   }
 
   v9 = v6;
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 + (BOOL)isRemoteDarwinWithDeviceId:(id)id
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   idCopy = id;
   if (idCopy)
   {
-    v14[0] = 0;
-    v14[1] = 0;
+    v13[0] = 0;
+    v13[1] = 0;
     v4 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:idCopy];
-    [v4 getUUIDBytes:v14];
+    [v4 getUUIDBytes:v13];
     v5 = remote_device_copy_device_with_uuid();
     if (v5)
     {
@@ -3526,11 +3501,11 @@ LABEL_9:
       v7 = CSLogContextFacilityCoreSpeech;
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
       {
-        v10 = 136315394;
-        v11 = "+[CSUtils(AudioHardware) isRemoteDarwinWithDeviceId:]";
-        v12 = 2114;
-        v13 = idCopy;
-        _os_log_error_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_ERROR, "%s Invalid device with deviceId %{public}@", &v10, 0x16u);
+        v9 = 136315394;
+        v10 = "+[CSUtils(AudioHardware) isRemoteDarwinWithDeviceId:]";
+        v11 = 2114;
+        v12 = idCopy;
+        _os_log_error_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_ERROR, "%s Invalid device with deviceId %{public}@", &v9, 0x16u);
       }
 
       v6 = 0;
@@ -3542,60 +3517,59 @@ LABEL_9:
     v6 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 + (void)purgeFilesWithExtensionInDirectory:(id)directory extension:(id)extension withFileToKep:(id)kep
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   directoryCopy = directory;
   extensionCopy = extension;
   kepCopy = kep;
   [MEMORY[0x1E696AC08] defaultManager];
-  v33 = v42 = 0;
-  v36 = directoryCopy;
-  v9 = [v33 contentsOfDirectoryAtPath:directoryCopy error:&v42];
-  v10 = v42;
+  v32 = v41 = 0;
+  v35 = directoryCopy;
+  v9 = [v32 contentsOfDirectoryAtPath:directoryCopy error:&v41];
+  v10 = v41;
   if (v10)
   {
     v11 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v45 = "+[CSUtils(Directory) purgeFilesWithExtensionInDirectory:extension:withFileToKep:]";
-      v46 = 2112;
-      v47 = v10;
+      v44 = "+[CSUtils(Directory) purgeFilesWithExtensionInDirectory:extension:withFileToKep:]";
+      v45 = 2112;
+      v46 = v10;
       _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEFAULT, "%s Error reading contents of directory: %@", buf, 0x16u);
     }
   }
 
   else
   {
-    v31 = 0;
-    v32 = v9;
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
+    v30 = 0;
+    v31 = v9;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     obj = v9;
-    v12 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+    v12 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
     if (v12)
     {
       v13 = v12;
       v14 = 0;
-      v15 = *v39;
+      v15 = *v38;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v39 != v15)
+          if (*v38 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v38 + 1) + 8 * i);
-          v18 = [v36 stringByAppendingPathComponent:{v17, v31, v32}];
+          v17 = *(*(&v37 + 1) + 8 * i);
+          v18 = [v35 stringByAppendingPathComponent:{v17, v30, v31}];
           v19 = v18;
           if (!kepCopy || ([v18 stringByStandardizingPath], v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(kepCopy, "stringByStandardizingPath"), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v20, "isEqualToString:", v21), v21, v20, (v22 & 1) == 0))
           {
@@ -3604,9 +3578,9 @@ LABEL_9:
 
             if (v24)
             {
-              v37 = v14;
-              [v33 removeItemAtPath:v19 error:&v37];
-              v25 = v37;
+              v36 = v14;
+              [v32 removeItemAtPath:v19 error:&v36];
+              v25 = v36;
 
               v26 = CSLogContextFacilityCoreSpeech;
               v27 = os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT);
@@ -3615,9 +3589,9 @@ LABEL_9:
                 if (v27)
                 {
                   *buf = 136315394;
-                  v45 = "+[CSUtils(Directory) purgeFilesWithExtensionInDirectory:extension:withFileToKep:]";
-                  v46 = 2112;
-                  v47 = v25;
+                  v44 = "+[CSUtils(Directory) purgeFilesWithExtensionInDirectory:extension:withFileToKep:]";
+                  v45 = 2112;
+                  v46 = v25;
                   _os_log_impl(&dword_1DDA4B000, v26, OS_LOG_TYPE_DEFAULT, "%s Error purging file: %@", buf, 0x16u);
                 }
 
@@ -3629,11 +3603,11 @@ LABEL_9:
                 if (v27)
                 {
                   v28 = v26;
-                  v29 = [v36 stringByAppendingPathComponent:v19];
+                  v29 = [v35 stringByAppendingPathComponent:v19];
                   *buf = 136315394;
-                  v45 = "+[CSUtils(Directory) purgeFilesWithExtensionInDirectory:extension:withFileToKep:]";
-                  v46 = 2112;
-                  v47 = v29;
+                  v44 = "+[CSUtils(Directory) purgeFilesWithExtensionInDirectory:extension:withFileToKep:]";
+                  v45 = 2112;
+                  v46 = v29;
                   _os_log_impl(&dword_1DDA4B000, v28, OS_LOG_TYPE_DEFAULT, "%s file is purged: %@", buf, 0x16u);
                 }
 
@@ -3643,7 +3617,7 @@ LABEL_9:
           }
         }
 
-        v13 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+        v13 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
       }
 
       while (v13);
@@ -3654,16 +3628,14 @@ LABEL_9:
       v14 = 0;
     }
 
-    v10 = v31;
-    v9 = v32;
+    v10 = v30;
+    v9 = v31;
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_contentsOfDirectoryAtURL:(id)l matchingPattern:(id)pattern includingPropertiesForKeys:(id)keys error:(id *)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   lCopy = l;
   keysCopy = keys;
   v11 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:pattern options:17 error:error];
@@ -3675,12 +3647,12 @@ LABEL_9:
     if (v14)
     {
       v15 = MEMORY[0x1E696AE18];
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __97__CSUtils_Directory___contentsOfDirectoryAtURL_matchingPattern_includingPropertiesForKeys_error___block_invoke;
-      v22[3] = &unk_1E865B620;
-      v23 = v12;
-      v16 = [v15 predicateWithBlock:v22];
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = __97__CSUtils_Directory___contentsOfDirectoryAtURL_matchingPattern_includingPropertiesForKeys_error___block_invoke;
+      v21[3] = &unk_1E865B620;
+      v22 = v12;
+      v16 = [v15 predicateWithBlock:v21];
       v17 = [v14 filteredArrayUsingPredicate:v16];
     }
 
@@ -3706,7 +3678,7 @@ LABEL_9:
     }
 
     *buf = 136315138;
-    v25 = "+[CSUtils(Directory) _contentsOfDirectoryAtURL:matchingPattern:includingPropertiesForKeys:error:]";
+    v24 = "+[CSUtils(Directory) _contentsOfDirectoryAtURL:matchingPattern:includingPropertiesForKeys:error:]";
     v19 = "%s Directory URL is nil!";
     goto LABEL_17;
   }
@@ -3715,7 +3687,7 @@ LABEL_9:
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v25 = "+[CSUtils(Directory) _contentsOfDirectoryAtURL:matchingPattern:includingPropertiesForKeys:error:]";
+    v24 = "+[CSUtils(Directory) _contentsOfDirectoryAtURL:matchingPattern:includingPropertiesForKeys:error:]";
     v19 = "%s Regular expression is nil!";
 LABEL_17:
     _os_log_error_impl(&dword_1DDA4B000, v18, OS_LOG_TYPE_ERROR, v19, buf, 0xCu);
@@ -3724,8 +3696,6 @@ LABEL_17:
 LABEL_10:
   v17 = 0;
 LABEL_13:
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -3740,35 +3710,35 @@ BOOL __97__CSUtils_Directory___contentsOfDirectoryAtURL_matchingPattern_includin
 
 + (void)_sortedURLsInDirectory:(id)directory matchingPattern:(id)pattern completion:(id)completion
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   directoryCopy = directory;
   patternCopy = pattern;
   completionCopy = completion;
   if (completionCopy)
   {
     v11 = *MEMORY[0x1E695DAA8];
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x3032000000;
-    v27 = __Block_byref_object_copy__9405;
-    v28 = __Block_byref_object_dispose__9406;
-    v29 = 0;
-    v30[0] = v11;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
-    v13 = v25 + 5;
-    obj = v25[5];
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x3032000000;
+    v26 = __Block_byref_object_copy__9405;
+    v27 = __Block_byref_object_dispose__9406;
+    v28 = 0;
+    v29[0] = v11;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
+    v13 = v24 + 5;
+    obj = v24[5];
     v14 = [self _contentsOfDirectoryAtURL:directoryCopy matchingPattern:patternCopy includingPropertiesForKeys:v12 error:&obj];
     objc_storeStrong(v13, obj);
 
     if (v14)
     {
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __72__CSUtils_Directory___sortedURLsInDirectory_matchingPattern_completion___block_invoke;
-      v20[3] = &unk_1E865B5F8;
-      v21 = v11;
-      v22 = &v24;
-      v15 = [v14 sortedArrayUsingComparator:v20];
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __72__CSUtils_Directory___sortedURLsInDirectory_matchingPattern_completion___block_invoke;
+      v19[3] = &unk_1E865B5F8;
+      v20 = v11;
+      v21 = &v23;
+      v15 = [v14 sortedArrayUsingComparator:v19];
     }
 
     else
@@ -3776,24 +3746,22 @@ BOOL __97__CSUtils_Directory___contentsOfDirectoryAtURL_matchingPattern_includin
       v15 = 0;
     }
 
-    v16 = v25;
-    v17 = v25[5];
+    v16 = v24;
+    v17 = v24[5];
     if (v17)
     {
 
       v15 = 0;
-      v16 = v25;
-      v17 = v25[5];
+      v16 = v24;
+      v17 = v24[5];
     }
 
-    v19 = v17;
-    completionCopy[2](completionCopy, v15, &v19);
-    objc_storeStrong(v16 + 5, v19);
+    v18 = v17;
+    completionCopy[2](completionCopy, v15, &v18);
+    objc_storeStrong(v16 + 5, v18);
 
-    _Block_object_dispose(&v24, 8);
+    _Block_object_dispose(&v23, 8);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __72__CSUtils_Directory___sortedURLsInDirectory_matchingPattern_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -3857,7 +3825,7 @@ uint64_t __72__CSUtils_Directory___sortedURLsInDirectory_matchingPattern_complet
 
 + (BOOL)_createLoggingDirectoryIfNeeded:(id)needed
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   neededCopy = needed;
   if (neededCopy)
   {
@@ -3869,23 +3837,23 @@ uint64_t __72__CSUtils_Directory___sortedURLsInDirectory_matchingPattern_complet
 
     else
     {
-      v13 = 0;
-      v7 = [defaultManager createDirectoryAtPath:neededCopy withIntermediateDirectories:1 attributes:0 error:&v13];
-      v5 = v13;
+      v12 = 0;
+      v7 = [defaultManager createDirectoryAtPath:neededCopy withIntermediateDirectories:1 attributes:0 error:&v12];
+      v5 = v12;
       if ((v7 & 1) == 0)
       {
         v8 = CSLogContextFacilityCoreSpeech;
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
         {
-          v11 = v8;
+          v10 = v8;
           localizedDescription = [v5 localizedDescription];
           *buf = 136315650;
-          v15 = "+[CSUtils(Directory) _createLoggingDirectoryIfNeeded:]";
-          v16 = 2114;
-          v17 = neededCopy;
-          v18 = 2114;
-          v19 = localizedDescription;
-          _os_log_error_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_ERROR, "%s Couldn't create logging directory at path %{public}@ %{public}@", buf, 0x20u);
+          v14 = "+[CSUtils(Directory) _createLoggingDirectoryIfNeeded:]";
+          v15 = 2114;
+          v16 = neededCopy;
+          v17 = 2114;
+          v18 = localizedDescription;
+          _os_log_error_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_ERROR, "%s Couldn't create logging directory at path %{public}@ %{public}@", buf, 0x20u);
         }
       }
     }
@@ -3897,44 +3865,41 @@ uint64_t __72__CSUtils_Directory___sortedURLsInDirectory_matchingPattern_complet
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v15 = "+[CSUtils(Directory) _createLoggingDirectoryIfNeeded:]";
+      v14 = "+[CSUtils(Directory) _createLoggingDirectoryIfNeeded:]";
       _os_log_error_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_ERROR, "%s Invalid log directory", buf, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return neededCopy != 0;
 }
 
 + (void)removeDirectory:(id)directory
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AC08];
   directoryCopy = directory;
   defaultManager = [v3 defaultManager];
-  v10 = 0;
-  v6 = [defaultManager removeItemAtPath:directoryCopy error:&v10];
+  v9 = 0;
+  v6 = [defaultManager removeItemAtPath:directoryCopy error:&v9];
 
-  v7 = v10;
+  v7 = v9;
   if ((v6 & 1) == 0)
   {
     v8 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v12 = "+[CSUtils(Directory) removeDirectory:]";
-      v13 = 2112;
-      v14 = v7;
+      v11 = "+[CSUtils(Directory) removeDirectory:]";
+      v12 = 2112;
+      v13 = v7;
       _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s Error purging directory: %@", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (id)loggingFilePathWithDirectory:(id)directory requestId:(id)id token:(id)token postfix:(id)postfix
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   directoryCopy = directory;
   idCopy = id;
   tokenCopy = token;
@@ -3957,7 +3922,7 @@ uint64_t __72__CSUtils_Directory___sortedURLsInDirectory_matchingPattern_complet
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v20 = "+[CSUtils(Directory) loggingFilePathWithDirectory:requestId:token:postfix:]";
+      v19 = "+[CSUtils(Directory) loggingFilePathWithDirectory:requestId:token:postfix:]";
       _os_log_error_impl(&dword_1DDA4B000, v16, OS_LOG_TYPE_ERROR, "%s Invalid token or postfix", buf, 0xCu);
     }
   }
@@ -3965,14 +3930,12 @@ uint64_t __72__CSUtils_Directory___sortedURLsInDirectory_matchingPattern_complet
   v15 = 0;
 LABEL_8:
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 + (id)loggingFilePathWithDirectory:(id)directory token:(id)token postfix:(id)postfix
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   directoryCopy = directory;
   tokenCopy = token;
   postfixCopy = postfix;
@@ -3997,15 +3960,13 @@ LABEL_8:
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v19 = "+[CSUtils(Directory) loggingFilePathWithDirectory:token:postfix:]";
+      v18 = "+[CSUtils(Directory) loggingFilePathWithDirectory:token:postfix:]";
       _os_log_error_impl(&dword_1DDA4B000, v15, OS_LOG_TYPE_ERROR, "%s Invalid token or postfix", buf, 0xCu);
     }
   }
 
   v14 = 0;
 LABEL_8:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -4045,7 +4006,7 @@ void __76__CSUtils_Directory__clearLogFilesInDirectory_matchingPattern_exceedNum
 
 void __76__CSUtils_Directory__clearLogFilesInDirectory_matchingPattern_exceedNumber___block_invoke_2(void *a1, void *a2)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 count];
   v5 = a1[6];
@@ -4060,15 +4021,15 @@ void __76__CSUtils_Directory__clearLogFilesInDirectory_matchingPattern_exceedNum
       v10 = a1[5];
       v11 = a1[6];
       *buf = 136316162;
-      v25 = "+[CSUtils(Directory) clearLogFilesInDirectory:matchingPattern:exceedNumber:]_block_invoke_2";
-      v26 = 2050;
-      v27 = v8;
-      v28 = 2114;
-      v29 = v9;
-      v30 = 2114;
-      v31 = v10;
-      v32 = 2050;
-      v33 = v11;
+      v24 = "+[CSUtils(Directory) clearLogFilesInDirectory:matchingPattern:exceedNumber:]_block_invoke_2";
+      v25 = 2050;
+      v26 = v8;
+      v27 = 2114;
+      v28 = v9;
+      v29 = 2114;
+      v30 = v10;
+      v31 = 2050;
+      v32 = v11;
       _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s CS logging files number %{public}lu with pattern %{public}@ under %{public}@ exceeding limit, only keep the latest %{public}lu ones", buf, 0x34u);
 
       v5 = a1[6];
@@ -4078,15 +4039,15 @@ void __76__CSUtils_Directory__clearLogFilesInDirectory_matchingPattern_exceedNum
     {
       v13 = 0;
       *&v12 = 136315650;
-      v22 = v12;
+      v21 = v12;
       do
       {
         v14 = v13;
         v15 = objc_alloc_init(MEMORY[0x1E696AC08]);
         v16 = [v3 objectAtIndex:v5];
-        v23 = v13;
-        [v15 removeItemAtURL:v16 error:&v23];
-        v13 = v23;
+        v22 = v13;
+        [v15 removeItemAtURL:v16 error:&v22];
+        v13 = v22;
 
         if (v13)
         {
@@ -4096,12 +4057,12 @@ void __76__CSUtils_Directory__clearLogFilesInDirectory_matchingPattern_exceedNum
             v18 = v17;
             v19 = [v3 objectAtIndex:v5];
             v20 = [v13 localizedDescription];
-            *buf = v22;
-            v25 = "+[CSUtils(Directory) clearLogFilesInDirectory:matchingPattern:exceedNumber:]_block_invoke";
-            v26 = 2114;
-            v27 = v19;
-            v28 = 2114;
-            v29 = v20;
+            *buf = v21;
+            v24 = "+[CSUtils(Directory) clearLogFilesInDirectory:matchingPattern:exceedNumber:]_block_invoke";
+            v25 = 2114;
+            v26 = v19;
+            v27 = 2114;
+            v28 = v20;
             _os_log_error_impl(&dword_1DDA4B000, v18, OS_LOG_TYPE_ERROR, "%s Could not remove %{public}@: %{public}@", buf, 0x20u);
           }
         }
@@ -4112,8 +4073,6 @@ void __76__CSUtils_Directory__clearLogFilesInDirectory_matchingPattern_exceedNum
       while (v5 < [v3 count]);
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 + (void)removeLogFilesInDirectory:(id)directory matchingPattern:(id)pattern beforeDays:(float)days
@@ -4136,18 +4095,18 @@ void __76__CSUtils_Directory__clearLogFilesInDirectory_matchingPattern_exceedNum
 
 void __75__CSUtils_Directory__removeLogFilesInDirectory_matchingPattern_beforeDays___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:*(a1 + 56) * -3600.0 * 24.0];
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
     *buf = 136315650;
-    v14 = "+[CSUtils(Directory) removeLogFilesInDirectory:matchingPattern:beforeDays:]_block_invoke";
-    v15 = 2114;
-    v16 = v4;
-    v17 = 2114;
-    v18 = v2;
+    v13 = "+[CSUtils(Directory) removeLogFilesInDirectory:matchingPattern:beforeDays:]_block_invoke";
+    v14 = 2114;
+    v15 = v4;
+    v16 = 2114;
+    v17 = v2;
     _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s CS logging files under %{public}@ created before %{public}@ will be removed.", buf, 0x20u);
   }
 
@@ -4155,51 +4114,49 @@ void __75__CSUtils_Directory__removeLogFilesInDirectory_matchingPattern_beforeDa
   v8 = a1 + 40;
   v6 = *(a1 + 40);
   v7 = *(v8 + 8);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __75__CSUtils_Directory__removeLogFilesInDirectory_matchingPattern_beforeDays___block_invoke_3;
-  v11[3] = &unk_1E865B580;
-  v12 = v2;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __75__CSUtils_Directory__removeLogFilesInDirectory_matchingPattern_beforeDays___block_invoke_3;
+  v10[3] = &unk_1E865B580;
+  v11 = v2;
   v9 = v2;
-  [v7 URLsInDirectory:v5 matchingPattern:v6 completion:v11];
-
-  v10 = *MEMORY[0x1E69E9840];
+  [v7 URLsInDirectory:v5 matchingPattern:v6 completion:v10];
 }
 
 void __75__CSUtils_Directory__removeLogFilesInDirectory_matchingPattern_beforeDays___block_invoke_3(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v2 = a2;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v27 objects:v37 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v26 objects:v36 count:16];
   if (v3)
   {
     v5 = v3;
     v6 = 0;
-    v7 = *v28;
+    v7 = *v27;
     v8 = *MEMORY[0x1E695DAA8];
     *&v4 = 136315650;
-    v21 = v4;
+    v20 = v4;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v28 != v7)
+        if (*v27 != v7)
         {
           objc_enumerationMutation(v2);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * i);
+        v10 = *(*(&v26 + 1) + 8 * i);
         v11 = [MEMORY[0x1E695DF00] distantFuture];
+        v24 = 0;
         v25 = 0;
-        v26 = 0;
-        [v10 getResourceValue:&v26 forKey:v8 error:&v25];
-        v12 = v26;
+        [v10 getResourceValue:&v25 forKey:v8 error:&v24];
+        v12 = v25;
 
-        v13 = v25;
+        v13 = v24;
         if (v13)
         {
           v14 = CSLogContextFacilityCoreSpeech;
@@ -4208,9 +4165,9 @@ void __75__CSUtils_Directory__removeLogFilesInDirectory_matchingPattern_beforeDa
             v17 = v14;
             v18 = [v13 localizedDescription];
             *buf = 136315394;
-            v32 = "+[CSUtils(Directory) removeLogFilesInDirectory:matchingPattern:beforeDays:]_block_invoke";
-            v33 = 2114;
-            v34 = v18;
+            v31 = "+[CSUtils(Directory) removeLogFilesInDirectory:matchingPattern:beforeDays:]_block_invoke";
+            v32 = 2114;
+            v33 = v18;
             _os_log_error_impl(&dword_1DDA4B000, v17, OS_LOG_TYPE_ERROR, "%s Couldn't get creation date: %{public}@", buf, 0x16u);
           }
 
@@ -4220,9 +4177,9 @@ void __75__CSUtils_Directory__removeLogFilesInDirectory_matchingPattern_beforeDa
         else if ([v12 compare:*(a1 + 32)] == -1)
         {
           v15 = objc_alloc_init(MEMORY[0x1E696AC08]);
-          v24 = 0;
-          [v15 removeItemAtURL:v10 error:&v24];
-          v6 = v24;
+          v23 = 0;
+          [v15 removeItemAtURL:v10 error:&v23];
+          v6 = v23;
 
           if (v6)
           {
@@ -4231,12 +4188,12 @@ void __75__CSUtils_Directory__removeLogFilesInDirectory_matchingPattern_beforeDa
             {
               log = v16;
               v19 = [v6 localizedDescription];
-              *buf = v21;
-              v32 = "+[CSUtils(Directory) removeLogFilesInDirectory:matchingPattern:beforeDays:]_block_invoke";
-              v33 = 2114;
-              v34 = v10;
-              v35 = 2114;
-              v36 = v19;
+              *buf = v20;
+              v31 = "+[CSUtils(Directory) removeLogFilesInDirectory:matchingPattern:beforeDays:]_block_invoke";
+              v32 = 2114;
+              v33 = v10;
+              v34 = 2114;
+              v35 = v19;
               _os_log_error_impl(&dword_1DDA4B000, log, OS_LOG_TYPE_ERROR, "%s Could not remove %{public}@: %{public}@", buf, 0x20u);
             }
           }
@@ -4248,13 +4205,11 @@ void __75__CSUtils_Directory__removeLogFilesInDirectory_matchingPattern_beforeDa
         }
       }
 
-      v5 = [v2 countByEnumeratingWithState:&v27 objects:v37 count:16];
+      v5 = [v2 countByEnumeratingWithState:&v26 objects:v36 count:16];
     }
 
     while (v5);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_sharedDisposeLoggingQueue
@@ -4308,7 +4263,7 @@ void __48__CSUtils_Directory___sharedDisposeLoggingQueue__block_invoke()
 
 + (BOOL)xpcConnection:(id)connection hasEntitlement:(id)entitlement withStringValue:(id)value
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   entitlementCopy = entitlement;
   connectionCopy = connection;
@@ -4319,11 +4274,11 @@ void __48__CSUtils_Directory___sharedDisposeLoggingQueue__block_invoke()
   v12 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136315394;
-    v17 = "+[CSUtils(NSXPC) xpcConnection:hasEntitlement:withStringValue:]";
-    v18 = 2112;
-    v19 = v11;
-    _os_log_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_DEFAULT, "%s entitlement value: %@", &v16, 0x16u);
+    v15 = 136315394;
+    v16 = "+[CSUtils(NSXPC) xpcConnection:hasEntitlement:withStringValue:]";
+    v17 = 2112;
+    v18 = v11;
+    _os_log_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_DEFAULT, "%s entitlement value: %@", &v15, 0x16u);
   }
 
   v13 = 0;
@@ -4336,7 +4291,6 @@ void __48__CSUtils_Directory___sharedDisposeLoggingQueue__block_invoke()
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

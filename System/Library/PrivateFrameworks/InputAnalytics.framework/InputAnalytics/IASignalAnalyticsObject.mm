@@ -154,11 +154,11 @@ LABEL_14:
 
 - (IASignalAnalyticsObject)initWithCoder:(id)coder
 {
-  v29[5] = *MEMORY[0x1E69E9840];
+  v28[5] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v28.receiver = self;
-  v28.super_class = IASignalAnalyticsObject;
-  v5 = [(IAXPCObject *)&v28 initWithCoder:coderCopy];
+  v27.receiver = self;
+  v27.super_class = IASignalAnalyticsObject;
+  v5 = [(IAXPCObject *)&v27 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = objc_opt_class();
@@ -177,19 +177,18 @@ LABEL_14:
     v5->_analyticsSessionIdString = v16;
 
     v18 = objc_alloc(MEMORY[0x1E695DFD8]);
-    v29[0] = objc_opt_class();
-    v29[1] = objc_opt_class();
-    v29[2] = objc_opt_class();
-    v29[3] = objc_opt_class();
-    v29[4] = objc_opt_class();
-    v20 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v19, v29, 5);
+    v28[0] = objc_opt_class();
+    v28[1] = objc_opt_class();
+    v28[2] = objc_opt_class();
+    v28[3] = objc_opt_class();
+    v28[4] = objc_opt_class();
+    v20 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v19, v28, 5);
     v22 = objc_msgSend_initWithArray_(v18, v21, v20);
     v24 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v23, v22, @"payload");
     payload = v5->_payload;
     v5->_payload = v24;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

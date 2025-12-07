@@ -9,7 +9,7 @@
 
 - (id)_fetchSecureAssetForNonCommunalDevice:(id)device withAsset:(id)asset
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   assetCopy = asset;
   if ([MEMORY[0x277D018F8] isExclaveHardware])
@@ -38,11 +38,11 @@
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315651;
-        v36 = "[SSRSecureAssetProvider _fetchSecureAssetForNonCommunalDevice:withAsset:]";
-        v37 = 2112;
-        v38 = v12;
-        v39 = 2113;
-        v40 = v11;
+        v35 = "[SSRSecureAssetProvider _fetchSecureAssetForNonCommunalDevice:withAsset:]";
+        v36 = 2112;
+        v37 = v12;
+        v38 = 2113;
+        v39 = v11;
         _os_log_error_impl(&dword_225E12000, v14, OS_LOG_TYPE_ERROR, "%s Skipping operation to fetch SpeakerRecognition asset (Preinstalled) with config file name:%@ at path: %{private}@", buf, 0x20u);
       }
 
@@ -54,11 +54,11 @@
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315651;
-        v36 = "[SSRSecureAssetProvider _fetchSecureAssetForNonCommunalDevice:withAsset:]";
-        v37 = 2112;
-        v38 = v12;
-        v39 = 2113;
-        v40 = v11;
+        v35 = "[SSRSecureAssetProvider _fetchSecureAssetForNonCommunalDevice:withAsset:]";
+        v36 = 2112;
+        v37 = v12;
+        v38 = 2113;
+        v39 = v11;
         _os_log_impl(&dword_225E12000, v14, OS_LOG_TYPE_DEFAULT, "%s Fetching preinstalled SpeakerRecognition asset (Preinstalled) with config file name:%@ at path: %{private}@", buf, 0x20u);
       }
 
@@ -86,11 +86,11 @@
             if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315651;
-              v36 = "[SSRSecureAssetProvider _fetchSecureAssetForNonCommunalDevice:withAsset:]";
-              v37 = 2112;
-              v38 = v12;
-              v39 = 2113;
-              v40 = v24;
+              v35 = "[SSRSecureAssetProvider _fetchSecureAssetForNonCommunalDevice:withAsset:]";
+              v36 = 2112;
+              v37 = v12;
+              v38 = 2113;
+              v39 = v24;
               _os_log_impl(&dword_225E12000, v25, OS_LOG_TYPE_DEFAULT, "%s Fetching SpeakerRecognition asset (OTA) with config file name:%@ at path: %{private}@", buf, 0x20u);
             }
 
@@ -98,10 +98,10 @@
             resourcePath3 = [assetCopy resourcePath];
             v29 = [v27 URLWithString:resourcePath3];
             [assetCopy configVersion];
-            v30 = v34 = v24;
+            v30 = v33 = v24;
             v31 = [(SSRSecureAssetProvider *)self _secureAssetWithAssetResourcePathURL:v29 assetFileName:v12 assetVersion:v30];
 
-            v11 = v34;
+            v11 = v33;
             v17 = v31;
           }
 
@@ -110,11 +110,11 @@
             if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315651;
-              v36 = "[SSRSecureAssetProvider _fetchSecureAssetForNonCommunalDevice:withAsset:]";
-              v37 = 2112;
-              v38 = v12;
-              v39 = 2113;
-              v40 = 0;
+              v35 = "[SSRSecureAssetProvider _fetchSecureAssetForNonCommunalDevice:withAsset:]";
+              v36 = 2112;
+              v37 = v12;
+              v38 = 2113;
+              v39 = 0;
               _os_log_error_impl(&dword_225E12000, v25, OS_LOG_TYPE_ERROR, "%s Skipping operation to fetch SpeakerRecognition asset (OTA) with config file name:%@ at path: %{private}@", buf, 0x20u);
             }
 
@@ -134,14 +134,12 @@
     v17 = 0;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (id)_fetchSecureAssetForCommunalDevice:(id)device
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   if ([MEMORY[0x277D018F8] supportsSecureAssetForSpeakerRecognition])
   {
@@ -168,13 +166,13 @@
     {
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v18 = 136315651;
-        v19 = "[SSRSecureAssetProvider _fetchSecureAssetForCommunalDevice:]";
-        v20 = 2112;
-        v21 = v9;
-        v22 = 2113;
-        v23 = v8;
-        _os_log_error_impl(&dword_225E12000, v11, OS_LOG_TYPE_ERROR, "%s Skipping operation to fetch SpeakerRecognition asset with config file name:%@ at path: %{private}@", &v18, 0x20u);
+        v17 = 136315651;
+        v18 = "[SSRSecureAssetProvider _fetchSecureAssetForCommunalDevice:]";
+        v19 = 2112;
+        v20 = v9;
+        v21 = 2113;
+        v22 = v8;
+        _os_log_error_impl(&dword_225E12000, v11, OS_LOG_TYPE_ERROR, "%s Skipping operation to fetch SpeakerRecognition asset with config file name:%@ at path: %{private}@", &v17, 0x20u);
       }
 
       v14 = 0;
@@ -184,13 +182,13 @@
     {
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 136315651;
-        v19 = "[SSRSecureAssetProvider _fetchSecureAssetForCommunalDevice:]";
-        v20 = 2112;
-        v21 = v9;
-        v22 = 2113;
-        v23 = v8;
-        _os_log_impl(&dword_225E12000, v11, OS_LOG_TYPE_DEFAULT, "%s Fetching SpeakerRecognition asset with config file name:%@ at path: %{private}@", &v18, 0x20u);
+        v17 = 136315651;
+        v18 = "[SSRSecureAssetProvider _fetchSecureAssetForCommunalDevice:]";
+        v19 = 2112;
+        v20 = v9;
+        v21 = 2113;
+        v22 = v8;
+        _os_log_impl(&dword_225E12000, v11, OS_LOG_TYPE_DEFAULT, "%s Fetching SpeakerRecognition asset with config file name:%@ at path: %{private}@", &v17, 0x20u);
       }
 
       v14 = [(SSRSecureAssetProvider *)self _secureAssetWithAssetResourcePathURL:v8 assetFileName:v9 assetVersion:v10];
@@ -201,8 +199,6 @@
   {
     v14 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

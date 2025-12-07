@@ -3,6 +3,7 @@
 - (HMDResidentSelectionManualMode)initWithContext:(id)context;
 - (id)logIdentifier;
 - (id)shortDescription;
+- (void)performSelectionWithPreferredPrimaryResident:(id)resident requireAutoUpdate:(BOOL)update reason:(unint64_t)reason completion:(id)completion;
 @end
 
 @implementation HMDResidentSelectionManualMode
@@ -28,6 +29,41 @@
   return uUIDString;
 }
 
+- (void)performSelectionWithPreferredPrimaryResident:(id)resident requireAutoUpdate:(BOOL)update reason:(unint64_t)reason completion:(id)completion
+{
+  updateCopy = update;
+  v20 = *MEMORY[0x277D85DE8];
+  residentCopy = resident;
+  completionCopy = completion;
+  if (residentCopy)
+  {
+    v11 = [MEMORY[0x277CBEA60] arrayWithObject:residentCopy];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __115__HMDResidentSelectionManualMode_performSelectionWithPreferredPrimaryResident_requireAutoUpdate_reason_completion___block_invoke;
+    v16[3] = &unk_278689A90;
+    v16[4] = self;
+    v17 = completionCopy;
+    [(HMDResidentSelectionMode *)self selectPrimaryResidentFromResidents:v11 requireAutoUpdate:updateCopy completion:v16];
+  }
+
+  else
+  {
+    v12 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v14 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      v15 = HMFGetLogIdentifier();
+      *buf = 138543362;
+      v19 = v15;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Cannot perform selection with no preferred primary info.", buf, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v12);
+  }
+}
+
 void __115__HMDResidentSelectionManualMode_performSelectionWithPreferredPrimaryResident_requireAutoUpdate_reason_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -50,7 +86,7 @@ void __115__HMDResidentSelectionManualMode_performSelectionWithPreferredPrimaryR
 
 uint64_t __115__HMDResidentSelectionManualMode_performSelectionWithPreferredPrimaryResident_requireAutoUpdate_reason_completion___block_invoke_2(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 40);
@@ -62,11 +98,11 @@ uint64_t __115__HMDResidentSelectionManualMode_performSelectionWithPreferredPrim
     {
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 32);
-      v15 = 138543618;
-      v16 = v7;
-      v17 = 2112;
-      v18 = v8;
-      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Manual mode selection failed with error: %@.", &v15, 0x16u);
+      v12 = 138543618;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v8;
+      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Manual mode selection failed with error: %@.", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -79,19 +115,15 @@ uint64_t __115__HMDResidentSelectionManualMode_performSelectionWithPreferredPrim
     if (v6)
     {
       v10 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v10;
-      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Manual mode selection completed.", &v15, 0xCu);
+      v12 = 138543362;
+      v13 = v10;
+      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Manual mode selection completed.", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
   }
 
-  v11 = *(a1 + 48);
-  v12 = *(a1 + 32);
-  result = (*(*(a1 + 56) + 16))();
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 56) + 16))();
 }
 
 - (HMDResidentSelectionManualMode)initWithContext:(id)context
@@ -115,10 +147,9 @@ uint64_t __115__HMDResidentSelectionManualMode_performSelectionWithPreferredPrim
 
 void __45__HMDResidentSelectionManualMode_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_110937;
-  logCategory__hmf_once_v4_110937 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_110937;
+  logCategory__hmf_once_v4_110937 = v0;
 }
 
 @end

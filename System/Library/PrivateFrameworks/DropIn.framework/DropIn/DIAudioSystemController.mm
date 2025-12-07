@@ -7,6 +7,8 @@
 - (void)dealloc;
 - (void)didUpdateDownlinkMuteStatus:(BOOL)status;
 - (void)didUpdateUplinkMuteStatus:(BOOL)status;
+- (void)setDownlinkMuted:(BOOL)muted;
+- (void)setUplinkMuted:(BOOL)muted;
 @end
 
 @implementation DIAudioSystemController
@@ -34,19 +36,18 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = DILogHandleAudioSystemController();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = DILogHandleAudioSystemController(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v7 = &stru_285D02BA8;
+    v6 = &stru_285D02BA8;
     _os_log_impl(&dword_249DA7000, v3, OS_LOG_TYPE_DEFAULT, "%@Tearing down Audio System Controller", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = DIAudioSystemController;
-  [(DIAudioSystemController *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = DIAudioSystemController;
+  [(DIAudioSystemController *)&v4 dealloc];
 }
 
 - (BOOL)isUplinkMuted
@@ -109,20 +110,18 @@ void __40__DIAudioSystemController_isUplinkMuted__block_invoke(uint64_t a1)
 
 void __40__DIAudioSystemController_isUplinkMuted__block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   *(*(*(a1 + 32) + 8) + 24) = 0;
-  v4 = DILogHandleAudioSystemController();
+  v4 = DILogHandleAudioSystemController(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412546;
-    v7 = &stru_285D02BA8;
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_249DA7000, v4, OS_LOG_TYPE_ERROR, "%@Failed to get uplink muted %@", &v6, 0x16u);
+    v5 = 138412546;
+    v6 = &stru_285D02BA8;
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_249DA7000, v4, OS_LOG_TYPE_ERROR, "%@Failed to get uplink muted %@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __40__DIAudioSystemController_isUplinkMuted__block_invoke_4(uint64_t a1, char a2)
@@ -132,59 +131,70 @@ void __40__DIAudioSystemController_isUplinkMuted__block_invoke_4(uint64_t a1, ch
   [WeakRetained setNeedsInitialUplinkMuteStatus:0];
 }
 
+- (void)setUplinkMuted:(BOOL)muted
+{
+  mutedCopy = muted;
+  connectionManager = [(DIAudioSystemController *)self connectionManager];
+  manager = [connectionManager manager];
+  connection = [manager connection];
+  v7 = [connection remoteObjectProxyWithErrorHandler:&__block_literal_global_6];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __42__DIAudioSystemController_setUplinkMuted___block_invoke_7;
+  v8[3] = &__block_descriptor_33_e17_v16__0__NSError_8l;
+  v9 = mutedCopy;
+  [v7 setUplinkMuted:mutedCopy completionHandler:v8];
+}
+
 void __42__DIAudioSystemController_setUplinkMuted___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = DILogHandleAudioSystemController();
+  v3 = DILogHandleAudioSystemController(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412546;
-    v6 = &stru_285D02BA8;
-    v7 = 2112;
-    v8 = v2;
-    _os_log_impl(&dword_249DA7000, v3, OS_LOG_TYPE_ERROR, "%@Failed to set uplink muted %@", &v5, 0x16u);
+    v4 = 138412546;
+    v5 = &stru_285D02BA8;
+    v6 = 2112;
+    v7 = v2;
+    _os_log_impl(&dword_249DA7000, v3, OS_LOG_TYPE_ERROR, "%@Failed to set uplink muted %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __42__DIAudioSystemController_setUplinkMuted___block_invoke_7(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v4 = DILogHandleAudioSystemController();
+  v15 = *MEMORY[0x277D85DE8];
+  v4 = DILogHandleAudioSystemController(a1);
   v5 = v4;
   if (a2)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v6 = *(a1 + 32);
-      v12 = 138412546;
-      v13 = &stru_285D02BA8;
-      v14 = 1024;
-      v15 = v6;
+      v11 = 138412546;
+      v12 = &stru_285D02BA8;
+      v13 = 1024;
+      v14 = v6;
       v7 = "%@Failed to set uplink muted to %d";
       v8 = v5;
       v9 = OS_LOG_TYPE_ERROR;
 LABEL_6:
-      _os_log_impl(&dword_249DA7000, v8, v9, v7, &v12, 0x12u);
+      _os_log_impl(&dword_249DA7000, v8, v9, v7, &v11, 0x12u);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v10 = *(a1 + 32);
-    v12 = 138412546;
-    v13 = &stru_285D02BA8;
-    v14 = 1024;
-    v15 = v10;
+    v11 = 138412546;
+    v12 = &stru_285D02BA8;
+    v13 = 1024;
+    v14 = v10;
     v7 = "%@Uplink muted set to %d";
     v8 = v5;
     v9 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_6;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isDownlinkMuted
@@ -247,20 +257,18 @@ void __42__DIAudioSystemController_isDownlinkMuted__block_invoke(uint64_t a1)
 
 void __42__DIAudioSystemController_isDownlinkMuted__block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   *(*(*(a1 + 32) + 8) + 24) = 0;
-  v4 = DILogHandleAudioSystemController();
+  v4 = DILogHandleAudioSystemController(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412546;
-    v7 = &stru_285D02BA8;
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_249DA7000, v4, OS_LOG_TYPE_ERROR, "%@Failed to get downlink muted %@", &v6, 0x16u);
+    v5 = 138412546;
+    v6 = &stru_285D02BA8;
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_249DA7000, v4, OS_LOG_TYPE_ERROR, "%@Failed to get downlink muted %@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __42__DIAudioSystemController_isDownlinkMuted__block_invoke_8(uint64_t a1, char a2)
@@ -270,59 +278,70 @@ void __42__DIAudioSystemController_isDownlinkMuted__block_invoke_8(uint64_t a1, 
   [WeakRetained setNeedsInitialDownlinkMuteStatus:0];
 }
 
+- (void)setDownlinkMuted:(BOOL)muted
+{
+  mutedCopy = muted;
+  connectionManager = [(DIAudioSystemController *)self connectionManager];
+  manager = [connectionManager manager];
+  connection = [manager connection];
+  v7 = [connection remoteObjectProxyWithErrorHandler:&__block_literal_global_10_0];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __44__DIAudioSystemController_setDownlinkMuted___block_invoke_11;
+  v8[3] = &__block_descriptor_33_e17_v16__0__NSError_8l;
+  v9 = mutedCopy;
+  [v7 setDownlinkMuted:mutedCopy completionHandler:v8];
+}
+
 void __44__DIAudioSystemController_setDownlinkMuted___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = DILogHandleAudioSystemController();
+  v3 = DILogHandleAudioSystemController(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412546;
-    v6 = &stru_285D02BA8;
-    v7 = 2112;
-    v8 = v2;
-    _os_log_impl(&dword_249DA7000, v3, OS_LOG_TYPE_ERROR, "%@Failed to set downlink muted %@", &v5, 0x16u);
+    v4 = 138412546;
+    v5 = &stru_285D02BA8;
+    v6 = 2112;
+    v7 = v2;
+    _os_log_impl(&dword_249DA7000, v3, OS_LOG_TYPE_ERROR, "%@Failed to set downlink muted %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __44__DIAudioSystemController_setDownlinkMuted___block_invoke_11(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v4 = DILogHandleAudioSystemController();
+  v15 = *MEMORY[0x277D85DE8];
+  v4 = DILogHandleAudioSystemController(a1);
   v5 = v4;
   if (a2)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v6 = *(a1 + 32);
-      v12 = 138412546;
-      v13 = &stru_285D02BA8;
-      v14 = 1024;
-      v15 = v6;
+      v11 = 138412546;
+      v12 = &stru_285D02BA8;
+      v13 = 1024;
+      v14 = v6;
       v7 = "%@Failed to set downlink muted to %d";
       v8 = v5;
       v9 = OS_LOG_TYPE_ERROR;
 LABEL_6:
-      _os_log_impl(&dword_249DA7000, v8, v9, v7, &v12, 0x12u);
+      _os_log_impl(&dword_249DA7000, v8, v9, v7, &v11, 0x12u);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v10 = *(a1 + 32);
-    v12 = 138412546;
-    v13 = &stru_285D02BA8;
-    v14 = 1024;
-    v15 = v10;
+    v11 = 138412546;
+    v12 = &stru_285D02BA8;
+    v13 = 1024;
+    v14 = v10;
     v7 = "%@Uplink muted set to %d";
     v8 = v5;
     v9 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_6;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didUpdateDownlinkMuteStatus:(BOOL)status

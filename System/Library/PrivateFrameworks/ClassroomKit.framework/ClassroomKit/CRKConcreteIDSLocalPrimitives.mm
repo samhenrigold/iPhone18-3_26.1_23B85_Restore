@@ -78,7 +78,7 @@
 {
   v14 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v5 = _CRKLogASM_5();
+  v5 = _CRKLogASM_5(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -100,7 +100,7 @@
 {
   v14 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v5 = _CRKLogASM_5();
+  v5 = _CRKLogASM_5(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -125,7 +125,7 @@
   addressCopy = address;
   optionsCopy = options;
   v17 = MEMORY[0x245D3A120](d);
-  v18 = _CRKLogASM_5();
+  v18 = _CRKLogASM_5(v17);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     v19 = objc_opt_class();
@@ -250,7 +250,7 @@ void __80__CRKConcreteIDSLocalPrimitives_forceRefreshIDStatusForDestinations_com
   v38 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   errorCopy = error;
-  v12 = _CRKLogASM_5();
+  v12 = _CRKLogASM_5(errorCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = objc_opt_class();
@@ -308,7 +308,7 @@ void __80__CRKConcreteIDSLocalPrimitives_forceRefreshIDStatusForDestinations_com
   v34 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   dCopy = d;
-  v11 = _CRKLogASM_5();
+  v11 = _CRKLogASM_5(dCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = objc_opt_class();

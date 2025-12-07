@@ -38,22 +38,22 @@
   v29 = v28;
 
   v32 = *(MEMORY[0x277CBF398] + 16);
-  v170.origin = *MEMORY[0x277CBF398];
-  v170.size = v32;
+  v169.origin = *MEMORY[0x277CBF398];
+  v169.size = v32;
   v33 = *MEMORY[0x277CBF3A8];
   v34 = 0.0;
-  v169 = *MEMORY[0x277CBF3A8];
-  memset(&v168, 0, sizeof(v168));
+  v168 = *MEMORY[0x277CBF3A8];
+  memset(&v167, 0, sizeof(v167));
   if (v12)
   {
-    objc_msgSend_transformForRenderingOutElementSize_outClipRect_(v12, v30, 0.0, *&v33, v31, &v169, &v170);
+    objc_msgSend_transformForRenderingOutElementSize_outClipRect_(v12, 0.0, *&v33, v31);
   }
 
   v35 = objc_msgSend_titleText(v12, v30, v34, *&v33, v31);
-  if (!CGRectIsNull(v170) && objc_msgSend_length(v35, v36, v37, v38, v39))
+  if (!CGRectIsNull(v169) && objc_msgSend_length(v35, v36, v37, v38, v39))
   {
     CGContextSaveGState(title);
-    transform = v168;
+    transform = v167;
     CGContextConcatCTM(title, &transform);
     v44 = objc_msgSend_titleSelectionPath(v12, v40, v41, v42, v43);
     v49 = objc_msgSend_textDrawingFlagForSelectionPath_(self, v45, v46, v47, v48, v44);
@@ -67,14 +67,14 @@
         CGContextSetFillColorWithColor(title, v59);
 
         TSURectWithSize();
-        v172 = CGRectInset(v171, -3.0, -1.0);
-        CGContextFillRect(title, v172);
+        v171 = CGRectInset(v170, -3.0, -1.0);
+        CGContextFillRect(title, v171);
       }
 
       v60 = TSDCGContextGetPdfTagger();
       v61 = TSUProtocolCast();
 
-      v164 = v61;
+      v163 = v61;
       objc_msgSend_beginChartTitle(v61, v62, v63, v64, v65, &unk_2885C1490);
       CGContextClipToRectSafe();
       v70 = objc_msgSend_chartInfo(self, v66, v67, v68, v69);
@@ -89,10 +89,10 @@
       {
         objc_msgSend_sharedText(TSCHText, v85, v86, v87, v88);
       }
-      v166 = ;
-      v165 = objc_msgSend_textLayoutPropertiesWithWrapWidth_(self, v89, v27, v90, v91);
+      v165 = ;
+      v164 = objc_msgSend_textLayoutPropertiesWithWrapWidth_(self, v89, v27, v90, v91);
       memset(&transform, 0, sizeof(transform));
-      objc_msgSend_initializeTextLayoutResults(TSCHText, v92, 0.0, v93, v94);
+      objc_msgSend_initializeTextLayoutResults(TSCHText, 0.0, v92, v93);
       if (ptr)
       {
         location = ptr->location;
@@ -101,14 +101,14 @@
 
       else
       {
-        length = objc_msgSend_length(v35, v95, v96, v97, v98);
+        length = objc_msgSend_length(v35, v94, v95, v96, v97);
         location = 0;
       }
 
-      objc_msgSend_viewScale(self, v95, v96, v97, v98);
-      v102 = v101;
-      v106 = objc_msgSend_textStyleProvidingSource(v12, v103, v101, v104, v105);
-      objc_msgSend_drawText_paragraphStyle_intoContext_wrapWidth_atPosition_range_viewScale_layoutProperties_styleProvidingSource_outTextLayoutResults_(v166, v107, v27, *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8), v35, v80, title, location, length, v165, v102, v106, &transform);
+      objc_msgSend_viewScale(self, v94, v95, v96, v97);
+      v101 = v100;
+      v105 = objc_msgSend_textStyleProvidingSource(v12, v102, v100, v103, v104);
+      objc_msgSend_drawText_paragraphStyle_intoContext_wrapWidth_atPosition_range_viewScale_layoutProperties_styleProvidingSource_outTextLayoutResults_(v165, v106, v27, *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8), v35, v80, title, location, length, v164, v101, v105, &transform);
 
       if (LOBYTE(transform.ty) == 1)
       {
@@ -116,54 +116,54 @@
         b = transform.b;
         c = transform.c;
         d = transform.d;
-        v116 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v108, v109, v110, v111, @"%C", 8230);
-        v121 = objc_msgSend_chartInfo(self, v117, v118, v119, v120);
-        v123 = objc_msgSend_defaultParagraphStyleForCenteredTitleEllipsisWithChartInfo_originalParagraphStyle_scaleTextPercent_titleRootedLayoutRect_(TSCHChartTitleRenderer, v122, transform.tx, v23, v25, v121, v80, v27, v29);
+        v115 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v107, v108, v109, v110, @"%C", 8230);
+        v120 = objc_msgSend_chartInfo(self, v116, v117, v118, v119);
+        v122 = objc_msgSend_defaultParagraphStyleForCenteredTitleEllipsisWithChartInfo_originalParagraphStyle_scaleTextPercent_titleRootedLayoutRect_(TSCHChartTitleRenderer, v121, transform.tx, v23, v25, v120, v80, v27, v29);
 
-        v128 = objc_msgSend_sharedText(TSCHText, v124, v125, v126, v127);
-        objc_msgSend_textStyleProvidingSource(v12, v129, v130, v131, v132);
-        v133 = v163 = v70;
-        objc_msgSend_measureText_paragraphStyle_wrapWidth_checkNumberTemplates_layoutProperties_styleProvidingSource_outErasableFrame_outTextLayoutResults_(v128, v134, v27, v135, v136, v116, v123, 1, 0, v133, 0, 0);
-        v138 = v137;
+        v127 = objc_msgSend_sharedText(TSCHText, v123, v124, v125, v126);
+        objc_msgSend_textStyleProvidingSource(v12, v128, v129, v130, v131);
+        v132 = v162 = v70;
+        objc_msgSend_measureText_paragraphStyle_wrapWidth_checkNumberTemplates_layoutProperties_styleProvidingSource_outErasableFrame_outTextLayoutResults_(v127, v133, v27, v134, v135, v115, v122, 1, 0, v132, 0, 0);
+        v137 = v136;
 
         TSURoundedMaxY();
-        if (v139 >= v29 - v138)
+        if (v138 >= v29 - v137)
         {
-          v140 = v29 - v138;
+          v139 = v29 - v137;
         }
 
         else
         {
-          v140 = v139;
+          v139 = v138;
         }
 
-        v173.origin.x = a;
-        v173.origin.y = b;
-        v173.size.width = c;
-        v173.size.height = d;
-        IsNull = CGRectIsNull(v173);
-        v144 = v29 * 0.5;
+        v172.origin.x = a;
+        v172.origin.y = b;
+        v172.size.width = c;
+        v172.size.height = d;
+        IsNull = CGRectIsNull(v172);
+        v143 = v29 * 0.5;
         if (IsNull)
         {
-          v145 = v29 * 0.5 - v138 * 0.5;
+          v144 = v29 * 0.5 - v137 * 0.5;
         }
 
         else
         {
-          v145 = v140;
+          v144 = v139;
         }
 
-        v146 = objc_msgSend_defaultPropertiesForWrapWidth_(TSCHTextLayoutProperties, v142, v27, v144, v143);
-        v151 = objc_msgSend_length(v116, v147, v148, v149, v150);
-        objc_msgSend_viewScale(self, v152, v153, v154, v155);
-        v157 = v156;
-        v161 = objc_msgSend_textStyleProvidingSource(v12, v158, v156, v159, v160);
-        objc_msgSend_drawText_paragraphStyle_intoContext_wrapWidth_atPosition_range_viewScale_layoutProperties_styleProvidingSource_outTextLayoutResults_(v128, v162, v27, 0.0, v145, v116, v123, title, 0, v151, v146, v157, v161, 0);
+        v145 = objc_msgSend_defaultPropertiesForWrapWidth_(TSCHTextLayoutProperties, v141, v27, v143, v142);
+        v150 = objc_msgSend_length(v115, v146, v147, v148, v149);
+        objc_msgSend_viewScale(self, v151, v152, v153, v154);
+        v156 = v155;
+        v160 = objc_msgSend_textStyleProvidingSource(v12, v157, v155, v158, v159);
+        objc_msgSend_drawText_paragraphStyle_intoContext_wrapWidth_atPosition_range_viewScale_layoutProperties_styleProvidingSource_outTextLayoutResults_(v127, v161, v27, 0.0, v144, v115, v122, title, 0, v150, v145, v156, v160, 0);
 
-        v70 = v163;
+        v70 = v162;
       }
 
-      objc_msgSend_endChartTitle(v164, v108, v109, v110, v111);
+      objc_msgSend_endChartTitle(v163, v107, v108, v109, v110);
     }
 
     CGContextRestoreGState(title);
@@ -256,7 +256,7 @@
     v26 = objc_msgSend_range(selectionCopy, v24, 0.0, *&v32, v25, 0, 0, 0, 0, 0, 0);
     if (v21)
     {
-      objc_msgSend_searchSelectionTransformForRenderingRange_outElementSize_outClipRect_(v21, v27, v28, v29, v30, v26, v27, &v32, &v33);
+      objc_msgSend_searchSelectionTransformForRenderingRange_outElementSize_outClipRect_(v21, v28, v29, v30, v27, v26, v27, &v32, &v33);
     }
 
     if (!CGRectIsNull(v33) && (*v23 != *&v32 || v23[1] != *(&v32 + 1)))
@@ -279,52 +279,52 @@
 
   if (isEqual)
   {
-    v23 = *(MEMORY[0x277CBF398] + 16);
-    v40.origin = *MEMORY[0x277CBF398];
-    v40.size = v23;
-    v24 = *MEMORY[0x277CBF3A8];
-    v39 = *MEMORY[0x277CBF3A8];
-    memset(&v38[1], 0, 48);
+    v22 = *(MEMORY[0x277CBF398] + 16);
+    v39.origin = *MEMORY[0x277CBF398];
+    v39.size = v22;
+    v23 = *MEMORY[0x277CBF3A8];
+    v38 = *MEMORY[0x277CBF3A8];
+    memset(&v37[1], 0, 48);
     if (v10)
     {
-      objc_msgSend_transformForRenderingOutElementSize_outClipRect_(v10, v21, 0.0, *&v24, v22, &v39, &v40);
+      objc_msgSend_transformForRenderingOutElementSize_outClipRect_(v10, 0.0, *&v23, v21);
     }
 
-    if (CGRectIsNull(v40))
+    if (CGRectIsNull(v39))
     {
-      v38[0].receiver = self;
-      v38[0].super_class = TSCHChartTitleRenderer;
-      [(objc_super *)v38 frameForEditingTextForSelectionPath:pathCopy];
+      v37[0].receiver = self;
+      v37[0].super_class = TSCHChartTitleRenderer;
+      [(objc_super *)v37 frameForEditingTextForSelectionPath:pathCopy];
     }
 
     else
     {
       TSURectWithSize();
-      v37 = *&v38[1].receiver;
-      *&v25 = CGRectApplyAffineTransform(v42, &v37);
+      v36 = *&v37[1].receiver;
+      *&v24 = CGRectApplyAffineTransform(v41, &v36);
     }
   }
 
   else
   {
-    v41.receiver = self;
-    v41.super_class = TSCHChartTitleRenderer;
-    [(TSCHRenderer *)&v41 frameForEditingTextForSelectionPath:pathCopy];
+    v40.receiver = self;
+    v40.super_class = TSCHChartTitleRenderer;
+    [(TSCHRenderer *)&v40 frameForEditingTextForSelectionPath:pathCopy];
   }
 
+  v28 = v24;
   v29 = v25;
   v30 = v26;
   v31 = v27;
-  v32 = v28;
 
+  v32 = v28;
   v33 = v29;
   v34 = v30;
   v35 = v31;
-  v36 = v32;
-  result.size.height = v36;
-  result.size.width = v35;
-  result.origin.y = v34;
-  result.origin.x = v33;
+  result.size.height = v35;
+  result.size.width = v34;
+  result.origin.y = v33;
+  result.origin.x = v32;
   return result;
 }
 

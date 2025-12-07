@@ -193,7 +193,6 @@
   objc_storeStrong(&v37, 0);
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __67__AKSignInWithAppleController_fetchAccountsWithContext_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -259,7 +258,6 @@ void __67__AKSignInWithAppleController_fetchAccountsWithContext_completion___blo
 
   objc_storeStrong(&v18, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __67__AKSignInWithAppleController_fetchAccountsWithContext_completion___block_invoke_101(void *a1, void *a2)
@@ -339,7 +337,6 @@ void __67__AKSignInWithAppleController_fetchAccountsWithContext_completion___blo
   objc_storeStrong(&v37, 0);
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __68__AKSignInWithAppleController_revokeAcccountWithContext_completion___block_invoke(void *a1, char a2, id obj)
@@ -403,7 +400,6 @@ void __68__AKSignInWithAppleController_revokeAcccountWithContext_completion___bl
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __68__AKSignInWithAppleController_revokeAcccountWithContext_completion___block_invoke_104(void *a1, void *a2)
@@ -484,7 +480,6 @@ void __68__AKSignInWithAppleController_revokeAcccountWithContext_completion___bl
   objc_storeStrong(&v37, 0);
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __63__AKSignInWithAppleController_fetchEULAForClientID_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -550,7 +545,6 @@ void __63__AKSignInWithAppleController_fetchEULAForClientID_completion___block_i
 
   objc_storeStrong(&v18, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __63__AKSignInWithAppleController_fetchEULAForClientID_completion___block_invoke_106(void *a1, void *a2)
@@ -631,7 +625,6 @@ void __63__AKSignInWithAppleController_fetchEULAForClientID_completion___block_i
   objc_storeStrong(&v38, 0);
   objc_storeStrong(&v39, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __75__AKSignInWithAppleController_fetchAppIconForClientID_iconSize_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -699,7 +692,6 @@ void __75__AKSignInWithAppleController_fetchAppIconForClientID_iconSize_completi
 
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __75__AKSignInWithAppleController_fetchAppIconForClientID_iconSize_completion___block_invoke_108(void *a1, void *a2)
@@ -779,7 +771,6 @@ void __75__AKSignInWithAppleController_fetchAppIconForClientID_iconSize_completi
   objc_storeStrong(&v37, 0);
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __74__AKSignInWithAppleController_cancelAppIconRequestForClientID_completion___block_invoke(void *a1, char a2, id obj)
@@ -843,7 +834,6 @@ void __74__AKSignInWithAppleController_cancelAppIconRequestForClientID_completio
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __74__AKSignInWithAppleController_cancelAppIconRequestForClientID_completion___block_invoke_109(void *a1, void *a2)
@@ -927,7 +917,6 @@ void __74__AKSignInWithAppleController_cancelAppIconRequestForClientID_completio
   objc_storeStrong(&v40, 0);
   objc_storeStrong(&v41, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __76__AKSignInWithAppleController_shareAccountWithContext_withGroup_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -993,7 +982,6 @@ void __76__AKSignInWithAppleController_shareAccountWithContext_withGroup_complet
 
   objc_storeStrong(&v18, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __76__AKSignInWithAppleController_shareAccountWithContext_withGroup_completion___block_invoke_111(void *a1, void *a2)
@@ -1073,7 +1061,6 @@ void __76__AKSignInWithAppleController_shareAccountWithContext_withGroup_complet
   objc_storeStrong(&v37, 0);
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __68__AKSignInWithAppleController_unshareAccountWithContext_completion___block_invoke(void *a1, char a2, id obj)
@@ -1137,7 +1124,6 @@ void __68__AKSignInWithAppleController_unshareAccountWithContext_completion___bl
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __68__AKSignInWithAppleController_unshareAccountWithContext_completion___block_invoke_112(void *a1, void *a2)
@@ -1217,7 +1203,6 @@ void __68__AKSignInWithAppleController_unshareAccountWithContext_completion___bl
   objc_storeStrong(&v37, 0);
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __64__AKSignInWithAppleController_leaveGroupWithContext_completion___block_invoke(void *a1, char a2, id obj)
@@ -1281,7 +1266,6 @@ void __64__AKSignInWithAppleController_leaveGroupWithContext_completion___block_
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __64__AKSignInWithAppleController_leaveGroupWithContext_completion___block_invoke_113(void *a1, void *a2)
@@ -1361,7 +1345,6 @@ void __64__AKSignInWithAppleController_leaveGroupWithContext_completion___block_
   objc_storeStrong(&v37, 0);
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __85__AKSignInWithAppleController_deleteAllItemsFromDepartedGroupWithContext_completion___block_invoke(void *a1, char a2, id obj)
@@ -1425,7 +1408,6 @@ void __85__AKSignInWithAppleController_deleteAllItemsFromDepartedGroupWithContex
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __85__AKSignInWithAppleController_deleteAllItemsFromDepartedGroupWithContext_completion___block_invoke_114(void *a1, void *a2)
@@ -1508,7 +1490,6 @@ void __85__AKSignInWithAppleController_deleteAllItemsFromDepartedGroupWithContex
   objc_storeStrong(&v40, 0);
   objc_storeStrong(&v41, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __86__AKSignInWithAppleController_participantRemovedWithContext_participantID_completion___block_invoke(void *a1, char a2, id obj)
@@ -1572,7 +1553,6 @@ void __86__AKSignInWithAppleController_participantRemovedWithContext_participant
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __86__AKSignInWithAppleController_participantRemovedWithContext_participantID_completion___block_invoke_115(void *a1, void *a2)
@@ -1652,7 +1632,6 @@ void __86__AKSignInWithAppleController_participantRemovedWithContext_participant
   objc_storeStrong(&v37, 0);
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __71__AKSignInWithAppleController_fetchSharedGroupsWithContext_completion___block_invoke(void *a1, char a2, id obj)
@@ -1716,7 +1695,6 @@ void __71__AKSignInWithAppleController_fetchSharedGroupsWithContext_completion__
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __71__AKSignInWithAppleController_fetchSharedGroupsWithContext_completion___block_invoke_116(void *a1, void *a2)
@@ -1796,7 +1774,6 @@ void __71__AKSignInWithAppleController_fetchSharedGroupsWithContext_completion__
   objc_storeStrong(&v37, 0);
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __74__AKSignInWithAppleController_performTokenRotationWithContext_completion___block_invoke(void *a1, char a2, id obj)
@@ -1860,7 +1837,6 @@ void __74__AKSignInWithAppleController_performTokenRotationWithContext_completio
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __74__AKSignInWithAppleController_performTokenRotationWithContext_completion___block_invoke_117(void *a1, void *a2)
@@ -1940,7 +1916,6 @@ void __74__AKSignInWithAppleController_performTokenRotationWithContext_completio
   objc_storeStrong(&v37, 0);
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __72__AKSignInWithAppleController_performHealthCheckWithContext_completion___block_invoke(void *a1, char a2, id obj)
@@ -2004,7 +1979,6 @@ void __72__AKSignInWithAppleController_performHealthCheckWithContext_completion_
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __72__AKSignInWithAppleController_performHealthCheckWithContext_completion___block_invoke_118(void *a1, void *a2)
@@ -2081,7 +2055,6 @@ void __72__AKSignInWithAppleController_performHealthCheckWithContext_completion_
   os_activity_scope_leave(&state);
   objc_storeStrong(&v35, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __83__AKSignInWithAppleController_fetchSignInWithApplePrivateEmailCountWithCompletion___block_invoke(void *a1, void *a2, void *a3)
@@ -2147,7 +2120,6 @@ void __83__AKSignInWithAppleController_fetchSignInWithApplePrivateEmailCountWith
 
   objc_storeStrong(&v18, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __83__AKSignInWithAppleController_fetchSignInWithApplePrivateEmailCountWithCompletion___block_invoke_120(void *a1, void *a2)

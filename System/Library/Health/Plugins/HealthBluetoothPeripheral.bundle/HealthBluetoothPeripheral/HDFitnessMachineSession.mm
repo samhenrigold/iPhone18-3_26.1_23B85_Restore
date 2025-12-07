@@ -68,11 +68,9 @@
   device = [(_HKFitnessMachine *)self->_fitnessMachine device];
   name = [device name];
   brand = [(_HKFitnessMachine *)self->_fitnessMachine brand];
-  activityType = [(_HKFitnessMachine *)self->_fitnessMachine activityType];
-  machinePreferredUntilDate = self->_machinePreferredUntilDate;
-  v12 = [(HDFitnessMachineSessionRecoveryConfiguration *)v3 initWithSessionUUID:fitnessMachineSessionUUID machineUUID:identifier machineType:type machineName:name machineBrand:brand activityType:activityType machineStartDate:self->_machineStartDate machinePreferredUntilDate:machinePreferredUntilDate nfcSessionIDData:self->_nfcSessionIDData];
+  v10 = [(HDFitnessMachineSessionRecoveryConfiguration *)v3 initWithSessionUUID:fitnessMachineSessionUUID machineUUID:identifier machineType:type machineName:name machineBrand:brand activityType:[(_HKFitnessMachine *)self->_fitnessMachine activityType] machineStartDate:self->_machineStartDate machinePreferredUntilDate:self->_machinePreferredUntilDate nfcSessionIDData:self->_nfcSessionIDData];
 
-  return v12;
+  return v10;
 }
 
 - (void)setFitnessMachineName:(id)name type:(unint64_t)type identifier:(id)identifier

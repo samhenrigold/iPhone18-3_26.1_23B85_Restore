@@ -25,9 +25,9 @@
 
 - (id)initBuffersWithSize:(unint64_t)size bufferCount:(unint64_t)count
 {
-  v25.receiver = self;
-  v25.super_class = W5BufferPool;
-  v6 = [(W5BufferPool *)&v25 init];
+  v26.receiver = self;
+  v26.super_class = W5BufferPool;
+  v6 = [(W5BufferPool *)&v26 init];
   v7 = v6;
   if (v6)
   {
@@ -77,13 +77,14 @@
     v24 = sub_100098A04();
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = 136315650;
-      v27 = "[W5BufferPool initBuffersWithSize:bufferCount:]";
-      v28 = 2080;
-      v29 = "W5BufferPool.m";
-      v30 = 1024;
-      v31 = 76;
-      _os_log_send_and_compose_impl();
+      v27 = 136315650;
+      v28 = "[W5BufferPool initBuffersWithSize:bufferCount:]";
+      v29 = 2080;
+      v30 = "W5BufferPool.m";
+      v31 = 1024;
+      v32 = 76;
+      LODWORD(v25) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v24, 0, "[wifivelocity] %s (%s:%u) init error!", &v27, v25, LODWORD(v26.receiver));
     }
   }
 
@@ -96,27 +97,27 @@
   selfCopy = self;
   obj = [(W5BufferPool *)self lockBufferPool];
   objc_sync_enter(obj);
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v28 = self->_bufferPool;
-  v5 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v31 objects:v43 count:16];
+  v27 = self->_bufferPool;
+  v5 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v30 objects:v42 count:16];
   if (v5)
   {
-    v30 = *v32;
+    v29 = *v31;
     v6 = 0x7FFFFFFFLL;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v32 != v30)
+        if (*v31 != v29)
         {
-          objc_enumerationMutation(v28);
+          objc_enumerationMutation(v27);
         }
 
-        v8 = *(*(&v31 + 1) + 8 * i);
-        v9 = [v8 objectForKeyedSubscript:{@"timer", v25, v26}];
+        v8 = *(*(&v30 + 1) + 8 * i);
+        v9 = [v8 objectForKeyedSubscript:@"timer"];
         v10 = v9 == timerCopy;
 
         if (v10)
@@ -136,18 +137,17 @@
             v18 = [v8 objectForKeyedSubscript:@"lastDateBorrowed"];
             v19 = [v8 objectForKeyedSubscript:@"lastDateReturned"];
             *buf = 67110146;
-            *v36 = bOOLValue;
-            *&v36[4] = 2048;
-            *&v36[6] = v6;
-            v37 = 2112;
-            v38 = v17;
-            v39 = 2112;
-            v40 = v18;
-            v41 = 2112;
-            v42 = v19;
-            LODWORD(v26) = 48;
-            v25 = buf;
-            _os_log_send_and_compose_impl();
+            *v35 = bOOLValue;
+            *&v35[4] = 2048;
+            *&v35[6] = v6;
+            v36 = 2112;
+            v37 = v17;
+            v38 = 2112;
+            v39 = v18;
+            v40 = 2112;
+            v41 = v19;
+            LODWORD(v25) = 48;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v16, 0, "[wifivelocity] W5BufferPool Idle Timer: inUse %d index %lu allocDate %@ lastDateBorrowed %@ lastDateReturned %@", buf, v25);
           }
 
           if (v15 >= -10.0)
@@ -166,10 +166,8 @@
             if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 134217984;
-              *v36 = v6;
-              LODWORD(v26) = 12;
-              v25 = buf;
-              _os_log_send_and_compose_impl();
+              *v35 = v6;
+              _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v21, 0, "[wifivelocity] W5BufferPool Idle Timer: Freeing index %lu", buf);
             }
 
             [v8 setObject:selfCopy->_dateOfInvalidPoolBuffer forKeyedSubscript:@"allocDate"];
@@ -184,7 +182,7 @@
         }
       }
 
-      v5 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v31 objects:v43 count:16];
+      v5 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v30 objects:v42 count:16];
     }
 
     while (v5);
@@ -199,7 +197,7 @@
   if (os_signpost_enabled(v24))
   {
     *buf = 134217984;
-    *v36 = v6;
+    *v35 = v6;
     _os_signpost_emit_with_name_impl(&_mh_execute_header, v24, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "W5BufferPool Buffer", "Allocated idx %lu", buf, 0xCu);
   }
 
@@ -210,26 +208,26 @@
 {
   obj = [(W5BufferPool *)self lockBufferPool];
   objc_sync_enter(obj);
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
-  v37 = self->_bufferPool;
-  v2 = [(NSMutableArray *)v37 countByEnumeratingWithState:&v45 objects:v54 count:16];
+  v36 = self->_bufferPool;
+  v2 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v44 objects:v53 count:16];
   if (v2)
   {
-    v3 = *v46;
+    v3 = *v45;
     v4 = 0x7FFFFFFFLL;
     do
     {
       for (i = 0; i != v2; i = i + 1)
       {
-        if (*v46 != v3)
+        if (*v45 != v3)
         {
-          objc_enumerationMutation(v37);
+          objc_enumerationMutation(v36);
         }
 
-        v6 = *(*(&v45 + 1) + 8 * i);
+        v6 = *(*(&v44 + 1) + 8 * i);
         v7 = [v6 objectForKeyedSubscript:@"inUse"];
         if ([v7 BOOLValue])
         {
@@ -266,7 +264,7 @@
         }
       }
 
-      v2 = [(NSMutableArray *)v37 countByEnumeratingWithState:&v45 objects:v54 count:16];
+      v2 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v44 objects:v53 count:16];
     }
 
     while (v2);
@@ -277,26 +275,26 @@
     v4 = 0x7FFFFFFFLL;
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
-  v37 = self->_bufferPool;
-  v15 = [(NSMutableArray *)v37 countByEnumeratingWithState:&v40 objects:v53 count:16];
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v36 = self->_bufferPool;
+  v15 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v39 objects:v52 count:16];
   if (v15)
   {
-    v16 = *v41;
+    v16 = *v40;
     do
     {
       for (j = 0; j != v15; j = j + 1)
       {
-        if (*v41 != v16)
+        if (*v40 != v16)
         {
-          objc_enumerationMutation(v37);
+          objc_enumerationMutation(v36);
         }
 
-        v18 = *(*(&v40 + 1) + 8 * j);
-        v19 = [v18 objectForKeyedSubscript:{@"inUse", v34, v35}];
+        v18 = *(*(&v39 + 1) + 8 * j);
+        v19 = [v18 objectForKeyedSubscript:@"inUse"];
         if ([v19 BOOLValue])
         {
         }
@@ -315,7 +313,7 @@
             if (os_signpost_enabled(v24))
             {
               *buf = 134217984;
-              v50 = v4;
+              v49 = v4;
               _os_signpost_emit_with_name_impl(&_mh_execute_header, v24, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "W5BufferPool Buffer", "Allocated idx %lu", buf, 0xCu);
             }
 
@@ -324,12 +322,11 @@
             {
               bufferSize = self->_bufferSize;
               *buf = 134218240;
-              v50 = bufferSize;
-              v51 = 2048;
-              v52 = v4;
-              LODWORD(v35) = 22;
-              v34 = buf;
-              _os_log_send_and_compose_impl();
+              v49 = bufferSize;
+              v50 = 2048;
+              v51 = v4;
+              LODWORD(v34) = 22;
+              _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v25, 0, "[wifivelocity] W5BufferPool Alloc: Allocating a NSMutableData of size %lu bytes in index %lu", buf, v34);
             }
 
             v27 = +[NSDate date];
@@ -343,12 +340,12 @@
             [v18 setObject:v29 forKeyedSubscript:@"inUse"];
 
             v30 = self->_queue;
-            v39[0] = _NSConcreteStackBlock;
-            v39[1] = 3221225472;
-            v39[2] = sub_10002778C;
-            v39[3] = &unk_1000E1270;
-            v39[4] = v18;
-            dispatch_sync(v30, v39);
+            v38[0] = _NSConcreteStackBlock;
+            v38[1] = 3221225472;
+            v38[2] = sub_10002778C;
+            v38[3] = &unk_1000E1270;
+            v38[4] = v18;
+            dispatch_sync(v30, v38);
             v14 = [v18 objectForKeyedSubscript:@"allocdBuffer"];
 
             if (v14)
@@ -359,7 +356,7 @@
         }
       }
 
-      v15 = [(NSMutableArray *)v37 countByEnumeratingWithState:&v40 objects:v53 count:16];
+      v15 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v39 objects:v52 count:16];
     }
 
     while (v15);
@@ -372,7 +369,7 @@ LABEL_30:
   if (os_signpost_enabled(v31))
   {
     *buf = 134217984;
-    v50 = v4;
+    v49 = v4;
     _os_signpost_emit_with_name_impl(&_mh_execute_header, v31, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "W5BufferPool Buffer", "Borrowed idx %lu", buf, 0xCu);
   }
 
@@ -380,8 +377,8 @@ LABEL_30:
   if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v50 = v4;
-    _os_log_send_and_compose_impl();
+    v49 = v4;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v32, 0, "[wifivelocity] W5BufferPool Borrowed index %lu", buf);
   }
 
   objc_sync_exit(obj);
@@ -487,7 +484,7 @@ LABEL_30:
     v30 = v8;
     v31 = 2048;
     v32 = v5;
-    _os_log_send_and_compose_impl();
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v20, 0, "[wifivelocity] W5BufferPool Returned index %lu, totalAvail %lu ", buf, 22);
   }
 
   if (v5 == 2)

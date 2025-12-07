@@ -3,6 +3,7 @@
 - (_INPBRideCompletionStatus)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)feedbackTypesAsString:(int)string;
 - (int)StringAsFeedbackTypes:(id)types;
 - (unint64_t)hash;
 - (void)addDefaultTippingOptions:(id)options;
@@ -21,7 +22,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(_INPBRideCompletionStatus *)self hasCanceled])
   {
@@ -48,30 +49,30 @@
   if ([(NSArray *)self->_defaultTippingOptions count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v10 = self->_defaultTippingOptions;
-    v11 = [(NSArray *)v10 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v11 = [(NSArray *)v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v27;
+      v13 = *v26;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v27 != v13)
+          if (*v26 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          dictionaryRepresentation2 = [*(*(&v26 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v25 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation2];
         }
 
-        v12 = [(NSArray *)v10 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v12 = [(NSArray *)v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v12);
@@ -130,8 +131,6 @@
   paymentAmount = [(_INPBRideCompletionStatus *)self paymentAmount];
   dictionaryRepresentation3 = [paymentAmount dictionaryRepresentation];
   [dictionary setObject:dictionaryRepresentation3 forKeyedSubscript:@"paymentAmount"];
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -458,23 +457,20 @@ LABEL_39:
 
 - (void)writeTo:(id)to
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ([(_INPBRideCompletionStatus *)self hasCanceled])
   {
-    canceled = self->_canceled;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBRideCompletionStatus *)self hasCanceledByService])
   {
-    canceledByService = self->_canceledByService;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBRideCompletionStatus *)self hasCompleted])
   {
-    completed = self->_completed;
     PBDataWriterWriteBOOLField();
   }
 
@@ -486,57 +482,56 @@ LABEL_39:
     PBDataWriterWriteSubmessage();
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v10 = self->_defaultTippingOptions;
-  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
-  if (v11)
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v7 = self->_defaultTippingOptions;
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v8)
   {
-    v12 = v11;
-    v13 = *v24;
+    v9 = v8;
+    v10 = *v16;
     do
     {
-      for (i = 0; i != v12; ++i)
+      v11 = 0;
+      do
       {
-        if (*v24 != v13)
+        if (*v16 != v10)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v7);
         }
 
-        v15 = *(*(&v23 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
+        ++v11;
       }
 
-      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      while (v9 != v11);
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
-    while (v12);
+    while (v9);
   }
 
   if (self->_feedbackTypes.count)
   {
-    v16 = 0;
+    v12 = 0;
     do
     {
-      v17 = self->_feedbackTypes.list[v16];
       PBDataWriterWriteInt32Field();
-      ++v16;
+      ++v12;
     }
 
-    while (v16 < self->_feedbackTypes.count);
+    while (v12 < self->_feedbackTypes.count);
   }
 
   if ([(_INPBRideCompletionStatus *)self hasMissedPickup])
   {
-    missedPickup = self->_missedPickup;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBRideCompletionStatus *)self hasOutstanding])
   {
-    outstanding = self->_outstanding;
     PBDataWriterWriteBOOLField();
   }
 
@@ -547,8 +542,6 @@ LABEL_39:
     paymentAmount2 = [(_INPBRideCompletionStatus *)self paymentAmount];
     PBDataWriterWriteSubmessage();
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setHasOutstanding:(BOOL)outstanding
@@ -596,6 +589,26 @@ LABEL_39:
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)feedbackTypesAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"RATE";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"TIP";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;

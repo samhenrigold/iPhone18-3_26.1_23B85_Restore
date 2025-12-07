@@ -439,7 +439,7 @@ LABEL_22:
 {
   textCopy = text;
   v81 = 0;
-  v4 = [[NSRegularExpression alloc] initWithPattern:@"unfilledReasonCode:\\ (\\w+)\\"" options:0 error:&v81];
+  v4 = [[NSRegularExpression alloc] initWithPattern:@"unfilledReasonCode:\\ (\\w+)\" options:0 error:&v81];
   v5 = v81;
   v6 = [v4 firstMatchInString:textCopy options:0 range:{0, objc_msgSend(textCopy, "length")}];
   v7 = v6;
@@ -600,7 +600,7 @@ LABEL_22:
   }
 
   v75 = v18;
-  v35 = [[NSRegularExpression alloc] initWithPattern:@"action:\\ \\(\\w+)\\"" options:0 error:&v75];
+  v35 = [[NSRegularExpression alloc] initWithPattern:@"action:\\ \\(\\w+)\" options:0 error:&v75];
   v36 = v75;
 
   v37 = [v35 firstMatchInString:textCopy options:0 range:{0, objc_msgSend(textCopy, "length")}];
@@ -663,7 +663,7 @@ LABEL_22:
   }
 
   v74 = v36;
-  v46 = [[NSRegularExpression alloc] initWithPattern:@"transitionType:\\ \\(\\w+)\\"" options:0 error:&v74];
+  v46 = [[NSRegularExpression alloc] initWithPattern:@"transitionType:\\ \\(\\w+)\" options:0 error:&v74];
   v47 = v74;
 
   v48 = [v46 firstMatchInString:textCopy options:0 range:{0, objc_msgSend(textCopy, "length")}];
@@ -695,7 +695,7 @@ LABEL_22:
   }
 
   v73 = v47;
-  v57 = [[NSRegularExpression alloc] initWithPattern:@"adPrivacyMarkPosition:\\ \\(\\w+)\\"" options:0 error:&v73];
+  v57 = [[NSRegularExpression alloc] initWithPattern:@"adPrivacyMarkPosition:\\ \\(\\w+)\" options:0 error:&v73];
   v58 = v73;
 
   v59 = [v57 firstMatchInString:textCopy options:0 range:{0, objc_msgSend(textCopy, "length")}];

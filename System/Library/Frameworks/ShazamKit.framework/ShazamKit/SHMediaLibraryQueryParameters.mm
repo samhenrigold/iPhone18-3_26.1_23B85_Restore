@@ -3,6 +3,12 @@
 - (SHMediaLibraryQueryParameters)initWithCoder:(id)coder;
 - (SHMediaLibraryQueryParameters)initWithResultsLimit:(int64_t)limit;
 - (SHMediaLibraryQueryParameters)initWithResultsLimit:(int64_t)limit filterOptions:(unint64_t)options;
+- (SHMediaLibraryQueryParameters)initWithResultsLimit:(int64_t)limit filterOptions:(unint64_t)options ascending:(BOOL)ascending;
+- (SHMediaLibraryQueryParameters)initWithResultsLimit:(int64_t)limit filterOptions:(unint64_t)options ascending:(BOOL)ascending providerIdentifier:(id)identifier;
+- (SHMediaLibraryQueryParameters)initWithResultsLimit:(int64_t)limit filterOptions:(unint64_t)options ascending:(BOOL)ascending shouldUpdate:(BOOL)update;
+- (SHMediaLibraryQueryParameters)initWithResultsLimit:(int64_t)limit filterOptions:(unint64_t)options ascending:(BOOL)ascending shouldUpdate:(BOOL)update excludeCloudMetadata:(BOOL)metadata;
+- (SHMediaLibraryQueryParameters)initWithResultsLimit:(int64_t)limit filterOptions:(unint64_t)options ascending:(BOOL)ascending shouldUpdate:(BOOL)update providerIdentifier:(id)identifier;
+- (SHMediaLibraryQueryParameters)initWithResultsLimit:(int64_t)limit filterOptions:(unint64_t)options ascending:(BOOL)ascending shouldUpdate:(BOOL)update providerIdentifier:(id)identifier excludeCloudMetadata:(BOOL)metadata;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)commonInitWithResultsLimit:(int64_t)limit filterOptions:(unint64_t)options ascending:(BOOL)ascending shouldUpdate:(BOOL)update providerIdentifier:(id)identifier excludeCloudMetadata:(BOOL)metadata;
 - (void)encodeWithCoder:(id)coder;
@@ -43,6 +49,89 @@
   }
 
   return v7;
+}
+
+- (SHMediaLibraryQueryParameters)initWithResultsLimit:(int64_t)limit filterOptions:(unint64_t)options ascending:(BOOL)ascending
+{
+  ascendingCopy = ascending;
+  v11.receiver = self;
+  v11.super_class = SHMediaLibraryQueryParameters;
+  v8 = [(SHMediaLibraryQueryParameters *)&v11 init];
+  v9 = v8;
+  if (v8)
+  {
+    [(SHMediaLibraryQueryParameters *)v8 commonInitWithResultsLimit:limit filterOptions:options ascending:ascendingCopy shouldUpdate:0 providerIdentifier:0 excludeCloudMetadata:0];
+  }
+
+  return v9;
+}
+
+- (SHMediaLibraryQueryParameters)initWithResultsLimit:(int64_t)limit filterOptions:(unint64_t)options ascending:(BOOL)ascending shouldUpdate:(BOOL)update
+{
+  updateCopy = update;
+  ascendingCopy = ascending;
+  v13.receiver = self;
+  v13.super_class = SHMediaLibraryQueryParameters;
+  v10 = [(SHMediaLibraryQueryParameters *)&v13 init];
+  v11 = v10;
+  if (v10)
+  {
+    [(SHMediaLibraryQueryParameters *)v10 commonInitWithResultsLimit:limit filterOptions:options ascending:ascendingCopy shouldUpdate:updateCopy providerIdentifier:0 excludeCloudMetadata:0];
+  }
+
+  return v11;
+}
+
+- (SHMediaLibraryQueryParameters)initWithResultsLimit:(int64_t)limit filterOptions:(unint64_t)options ascending:(BOOL)ascending shouldUpdate:(BOOL)update providerIdentifier:(id)identifier
+{
+  updateCopy = update;
+  ascendingCopy = ascending;
+  identifierCopy = identifier;
+  v16.receiver = self;
+  v16.super_class = SHMediaLibraryQueryParameters;
+  v13 = [(SHMediaLibraryQueryParameters *)&v16 init];
+  v14 = v13;
+  if (v13)
+  {
+    [(SHMediaLibraryQueryParameters *)v13 commonInitWithResultsLimit:limit filterOptions:options ascending:ascendingCopy shouldUpdate:updateCopy providerIdentifier:identifierCopy excludeCloudMetadata:0];
+  }
+
+  return v14;
+}
+
+- (SHMediaLibraryQueryParameters)initWithResultsLimit:(int64_t)limit filterOptions:(unint64_t)options ascending:(BOOL)ascending shouldUpdate:(BOOL)update excludeCloudMetadata:(BOOL)metadata
+{
+  metadataCopy = metadata;
+  updateCopy = update;
+  ascendingCopy = ascending;
+  v15.receiver = self;
+  v15.super_class = SHMediaLibraryQueryParameters;
+  v12 = [(SHMediaLibraryQueryParameters *)&v15 init];
+  v13 = v12;
+  if (v12)
+  {
+    [(SHMediaLibraryQueryParameters *)v12 commonInitWithResultsLimit:limit filterOptions:options ascending:ascendingCopy shouldUpdate:updateCopy providerIdentifier:0 excludeCloudMetadata:metadataCopy];
+  }
+
+  return v13;
+}
+
+- (SHMediaLibraryQueryParameters)initWithResultsLimit:(int64_t)limit filterOptions:(unint64_t)options ascending:(BOOL)ascending shouldUpdate:(BOOL)update providerIdentifier:(id)identifier excludeCloudMetadata:(BOOL)metadata
+{
+  metadataCopy = metadata;
+  updateCopy = update;
+  ascendingCopy = ascending;
+  identifierCopy = identifier;
+  v18.receiver = self;
+  v18.super_class = SHMediaLibraryQueryParameters;
+  v15 = [(SHMediaLibraryQueryParameters *)&v18 init];
+  v16 = v15;
+  if (v15)
+  {
+    [(SHMediaLibraryQueryParameters *)v15 commonInitWithResultsLimit:limit filterOptions:options ascending:ascendingCopy shouldUpdate:updateCopy providerIdentifier:identifierCopy excludeCloudMetadata:metadataCopy];
+  }
+
+  return v16;
 }
 
 - (void)commonInitWithResultsLimit:(int64_t)limit filterOptions:(unint64_t)options ascending:(BOOL)ascending shouldUpdate:(BOOL)update providerIdentifier:(id)identifier excludeCloudMetadata:(BOOL)metadata
@@ -102,6 +191,22 @@
   providerIdentifier = [(SHMediaLibraryQueryParameters *)self providerIdentifier];
   v11 = [providerIdentifier copyWithZone:zone];
   v12 = [(SHMediaLibraryQueryParameters *)v5 initWithResultsLimit:resultsLimit filterOptions:filterOptions ascending:ascending shouldUpdate:shouldUpdate providerIdentifier:v11 excludeCloudMetadata:[(SHMediaLibraryQueryParameters *)self excludeCloudMetadata]];
+
+  return v12;
+}
+
+- (SHMediaLibraryQueryParameters)initWithResultsLimit:(int64_t)limit filterOptions:(unint64_t)options ascending:(BOOL)ascending providerIdentifier:(id)identifier
+{
+  ascendingCopy = ascending;
+  identifierCopy = identifier;
+  v14.receiver = self;
+  v14.super_class = SHMediaLibraryQueryParameters;
+  v11 = [(SHMediaLibraryQueryParameters *)&v14 init];
+  v12 = v11;
+  if (v11)
+  {
+    [(SHMediaLibraryQueryParameters *)v11 commonInitWithResultsLimit:limit filterOptions:options ascending:ascendingCopy shouldUpdate:0 providerIdentifier:identifierCopy excludeCloudMetadata:0];
+  }
 
   return v12;
 }

@@ -112,21 +112,20 @@ uint64_t sub_100001438()
 {
   v0 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin();
-  v4 = v8 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = *(*(type metadata accessor for OS_dispatch_queue.Attributes() - 8) + 64);
+  v3 = v5 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for OS_dispatch_queue.Attributes();
   __chkstk_darwin();
-  v6 = *(*(type metadata accessor for DispatchQoS() - 8) + 64);
+  type metadata accessor for DispatchQoS();
   __chkstk_darwin();
   sub_100001638();
   static DispatchQoS.unspecified.getter();
-  v8[1] = &_swiftEmptyArrayStorage;
+  v5[1] = &_swiftEmptyArrayStorage;
   sub_100001684();
   sub_1000016DC(&qword_100008118, &qword_100002FB8);
   sub_100001724();
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  (*(v1 + 104))(v4, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v0);
+  (*(v1 + 104))(v3, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v0);
   return OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
 }
 
@@ -161,7 +160,6 @@ uint64_t sub_1000016DC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -187,7 +185,6 @@ uint64_t sub_100001788(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -202,47 +199,46 @@ uint64_t sub_1000017D8()
   return v0;
 }
 
-void *sub_100001810()
+void **sub_100001810()
 {
   v1 = v0;
-  v21 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
-  v2 = *(v21 - 8);
-  v3 = *(v2 + 64);
+  v18 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
+  v2 = *(v18 - 8);
   __chkstk_darwin();
-  v5 = &v20 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = *(*(type metadata accessor for OS_dispatch_queue.Attributes() - 8) + 64);
+  v4 = &v17 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for OS_dispatch_queue.Attributes();
   __chkstk_darwin();
-  v7 = *(*(type metadata accessor for DispatchQoS() - 8) + 64);
+  type metadata accessor for DispatchQoS();
   __chkstk_darwin();
   sub_100001638();
   v0[2] = 0;
-  v20 = (v0 + 2);
+  v17 = (v0 + 2);
   v0[3] = 0;
   static DispatchQoS.unspecified.getter();
-  v22 = &_swiftEmptyArrayStorage;
+  v19 = &_swiftEmptyArrayStorage;
   sub_100001684();
   sub_1000016DC(&qword_100008118, &qword_100002FB8);
   sub_100001724();
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  (*(v2 + 104))(v5, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v21);
+  (*(v2 + 104))(v4, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v18);
   v0[4] = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
   if ((*(*v0 + 160))())
   {
     type metadata accessor for FIDaemon();
-    v8 = FIDaemon.__allocating_init()();
+    v5 = FIDaemon.__allocating_init()();
     swift_beginAccess();
-    v9 = v1[3];
-    v1[3] = v8;
-    v10 = v8;
+    v6 = v1[3];
+    v1[3] = v5;
+    v7 = v5;
 
-    if (v10)
+    if (v7)
     {
-      v11 = objc_allocWithZone(type metadata accessor for FIService());
-      v12 = FIService.init(daemon:)();
-      v13 = v20;
+      v8 = objc_allocWithZone(type metadata accessor for FIService());
+      v9 = FIService.init(daemon:)();
+      v10 = v17;
       swift_beginAccess();
-      v14 = *v13;
-      *v13 = v12;
+      v11 = *v10;
+      *v10 = v9;
     }
   }
 
@@ -253,15 +249,15 @@ void *sub_100001810()
       swift_once();
     }
 
-    v15 = type metadata accessor for Logger();
-    sub_100001188(v15, qword_100008220);
-    v16 = Logger.logObject.getter();
-    v17 = static os_log_type_t.info.getter();
-    if (os_log_type_enabled(v16, v17))
+    v12 = type metadata accessor for Logger();
+    sub_100001188(v12, qword_100008220);
+    v13 = Logger.logObject.getter();
+    v14 = static os_log_type_t.info.getter();
+    if (os_log_type_enabled(v13, v14))
     {
-      v18 = swift_slowAlloc();
-      *v18 = 0;
-      _os_log_impl(&_mh_execute_header, v16, v17, "failed to meet conditions for initializing the daemon, waiting...", v18, 2u);
+      v15 = swift_slowAlloc();
+      *v15 = 0;
+      _os_log_impl(&_mh_execute_header, v13, v14, "failed to meet conditions for initializing the daemon, waiting...", v15, 2u);
     }
 
     (*(*v1 + 168))();
@@ -442,19 +438,17 @@ LABEL_16:
 
 uint64_t sub_100002288(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v4(a2);
+  v3(a2);
 }
 
 uint64_t sub_1000022DC(uint64_t a1, uint64_t a2, const char *a3)
 {
   v5 = type metadata accessor for DispatchPredicate();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin();
-  v9 = &v24[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v8 = &v23[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
   swift_beginAccess();
   result = swift_weakLoadStrong();
   if (!result)
@@ -462,14 +456,14 @@ uint64_t sub_1000022DC(uint64_t a1, uint64_t a2, const char *a3)
     return result;
   }
 
-  v11 = result;
-  v12 = *(result + 32);
-  *v9 = v12;
-  (*(v6 + 104))(v9, enum case for DispatchPredicate.onQueue(_:), v5);
-  v13 = v12;
-  LOBYTE(v12) = _dispatchPreconditionTest(_:)();
-  (*(v6 + 8))(v9, v5);
-  if ((v12 & 1) == 0)
+  v10 = result;
+  v11 = *(result + 32);
+  *v8 = v11;
+  (*(v6 + 104))(v8, enum case for DispatchPredicate.onQueue(_:), v5);
+  v12 = v11;
+  LOBYTE(v11) = _dispatchPreconditionTest(_:)();
+  (*(v6 + 8))(v8, v5);
+  if ((v11 & 1) == 0)
   {
     __break(1u);
     goto LABEL_18;
@@ -481,46 +475,46 @@ LABEL_18:
     swift_once();
   }
 
-  v14 = type metadata accessor for Logger();
-  sub_100001188(v14, qword_100008220);
-  v15 = Logger.logObject.getter();
-  v16 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v15, v16))
+  v13 = type metadata accessor for Logger();
+  sub_100001188(v13, qword_100008220);
+  v14 = Logger.logObject.getter();
+  v15 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v14, v15))
   {
-    v17 = swift_slowAlloc();
-    *v17 = 0;
-    _os_log_impl(&_mh_execute_header, v15, v16, a3, v17, 2u);
+    v16 = swift_slowAlloc();
+    *v16 = 0;
+    _os_log_impl(&_mh_execute_header, v14, v15, a3, v16, 2u);
   }
 
-  v18 = (*(*v11 + 128))();
-  if (v18)
+  v17 = (*(*v10 + 128))();
+  if (v17)
   {
   }
 
-  else if ((*(*v11 + 160))())
+  else if ((*(*v10 + 160))())
   {
     type metadata accessor for FIDaemon();
-    v19 = FIDaemon.__allocating_init()();
-    (*(*v11 + 136))(v19);
+    v18 = FIDaemon.__allocating_init()();
+    (*(*v10 + 136))(v18);
   }
 
   else
   {
-    v20 = Logger.logObject.getter();
-    v21 = static os_log_type_t.info.getter();
-    if (os_log_type_enabled(v20, v21))
+    v19 = Logger.logObject.getter();
+    v20 = static os_log_type_t.info.getter();
+    if (os_log_type_enabled(v19, v20))
     {
-      v22 = swift_slowAlloc();
-      *v22 = 0;
-      _os_log_impl(&_mh_execute_header, v20, v21, "failed to meet conditions for initializing the daemon, waiting...", v22, 2u);
+      v21 = swift_slowAlloc();
+      *v21 = 0;
+      _os_log_impl(&_mh_execute_header, v19, v20, "failed to meet conditions for initializing the daemon, waiting...", v21, 2u);
     }
   }
 
   swift_beginAccess();
-  v23 = *(a2 + 16);
-  if (v23 != -1)
+  v22 = *(a2 + 16);
+  if (v22 != -1)
   {
-    notify_cancel(v23);
+    notify_cancel(v22);
   }
 }
 
@@ -546,9 +540,6 @@ uint64_t sub_10000274C(uint64_t a1, uint64_t a2)
 
 uint64_t sub_100002768()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
@@ -613,14 +604,11 @@ void sub_1000027CC()
 
 uint64_t *sub_100002A20(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;

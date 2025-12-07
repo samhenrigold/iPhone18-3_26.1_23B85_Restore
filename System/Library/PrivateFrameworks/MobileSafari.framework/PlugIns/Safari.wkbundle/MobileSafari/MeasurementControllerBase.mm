@@ -52,10 +52,10 @@
 {
   selfCopy = self;
   self->_currentPageLoadFinished = 0;
-  objc_msgSend_removeAllObjects(self->_loadingFrames, a2, v2, v3);
-  v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  [(NSMutableSet *)self->_loadingFrames removeAllObjects];
+  v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   loadData = selfCopy->_loadData;
-  selfCopy->_loadData = v5;
+  selfCopy->_loadData = v3;
 
   left = selfCopy->_loadingSubresources.__tree_.__end_node_.__left_;
   selfCopy = (selfCopy + 40);
@@ -65,7 +65,7 @@
   *&selfCopy[-1]._allSubresourcesFinishedLoadingDelay = selfCopy;
   contextController = selfCopy[-1]._contextController;
 
-  MEMORY[0x2821F9670](contextController, sel_invalidate, v8, v9);
+  MEMORY[0x2821F9670](contextController, sel_invalidate);
 }
 
 - (BOOL)_shouldConsiderPageLoadEnded
@@ -74,7 +74,7 @@
   {
     if (self->_currentPageLoadFinished && !self->_loadingSubresources.__tree_.__size_)
     {
-      return objc_msgSend_count(self->_loadingFrames, a2, v2, v3) == 0;
+      return [(NSMutableSet *)self->_loadingFrames count]== 0;
     }
 
     return 0;
@@ -85,60 +85,60 @@
     return 0;
   }
 
-  v8 = objc_msgSend_objectForKeyedSubscript_(self->_loadData, a2, @"PageLoadDOMContentLoadedTime", v3);
-  if (v8)
+  v4 = [(NSMutableDictionary *)self->_loadData objectForKeyedSubscript:@"PageLoadDOMContentLoadedTime"];
+  if (v4)
   {
-    v9 = objc_msgSend_objectForKeyedSubscript_(self->_loadData, v6, @"PageLoadFirstMeaningfulPaintTime", v7);
-    v5 = v9 != 0;
+    v5 = [(NSMutableDictionary *)self->_loadData objectForKeyedSubscript:@"PageLoadFirstMeaningfulPaintTime"];
+    v3 = v5 != 0;
   }
 
   else
   {
-    v5 = 0;
+    v3 = 0;
   }
 
-  return v5;
+  return v3;
 }
 
 - (void)_waitforLoadEndTimerFired:(id)fired
 {
-  if (objc_msgSend__shouldConsiderPageLoadEnded(self, a2, fired, v3))
+  if ([(MeasurementControllerBase *)self _shouldConsiderPageLoadEnded])
   {
 
-    MEMORY[0x2821F9670](self, sel__postPageLoadEnd, v5, v6);
+    MEMORY[0x2821F9670](self, sel__postPageLoadEnd);
   }
 }
 
 - (void)_postPageLoadEnd
 {
-  objc_msgSend__sendPageLoadFinishedEvent(self, a2, v2, v3);
+  [(MeasurementControllerBase *)self _sendPageLoadFinishedEvent];
 
-  objc_msgSend__clearPageLoadState(self, v5, v6, v7);
+  [(MeasurementControllerBase *)self _clearPageLoadState];
 }
 
 - (void)_maybeEndPageLoadSoon
 {
-  if (objc_msgSend__shouldConsiderPageLoadEnded(self, a2, v2, v3))
+  if ([(MeasurementControllerBase *)self _shouldConsiderPageLoadEnded])
   {
-    objc_msgSend__doAfterPageLoad(self, v5, v6, v7);
-    if (objc_msgSend_isValid(self->_waitForLoadToReallyEnd, v8, v9, v10))
+    [(MeasurementControllerBase *)self _doAfterPageLoad];
+    if ([(NSTimer *)self->_waitForLoadToReallyEnd isValid])
     {
       waitForLoadToReallyEnd = self->_waitForLoadToReallyEnd;
-      v28 = objc_msgSend_dateWithTimeIntervalSinceNow_(MEMORY[0x277CBEAA8], v11, v12, v13, self->_allSubresourcesFinishedLoadingDelay);
-      objc_msgSend_setFireDate_(waitForLoadToReallyEnd, v15, v28, v16);
+      v7 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:self->_allSubresourcesFinishedLoadingDelay];
+      [(NSTimer *)waitForLoadToReallyEnd setFireDate:?];
     }
 
     else
     {
-      v17 = objc_alloc(MEMORY[0x277CBEBB8]);
-      v28 = objc_msgSend_dateWithTimeIntervalSinceNow_(MEMORY[0x277CBEAA8], v18, v19, v20, self->_allSubresourcesFinishedLoadingDelay);
-      v22 = objc_msgSend_initWithFireDate_interval_target_selector_userInfo_repeats_(v17, v21, v28, self, sel__waitforLoadEndTimerFired_, 0, 0, 0.0);
-      v23 = self->_waitForLoadToReallyEnd;
-      self->_waitForLoadToReallyEnd = v22;
+      v4 = objc_alloc(MEMORY[0x277CBEBB8]);
+      v7 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:self->_allSubresourcesFinishedLoadingDelay];
+      v5 = [v4 initWithFireDate:0.0 interval:? target:? selector:? userInfo:? repeats:?];
+      v6 = self->_waitForLoadToReallyEnd;
+      self->_waitForLoadToReallyEnd = v5;
     }
 
-    v29 = objc_msgSend_currentRunLoop(MEMORY[0x277CBEB88], v24, v25, v26);
-    objc_msgSend_addTimer_forMode_(v29, v27, self->_waitForLoadToReallyEnd, *MEMORY[0x277CBE640]);
+    currentRunLoop = [MEMORY[0x277CBEB88] currentRunLoop];
+    [currentRunLoop addTimer:self->_waitForLoadToReallyEnd forMode:*MEMORY[0x277CBE640]];
   }
 }
 
@@ -149,19 +149,17 @@
   if (!pageLoadTestEventsProxy)
   {
     WeakRetained = objc_loadWeakRetained(&self->_contextController);
-    v9 = objc_msgSend__remoteObjectRegistry(WeakRetained, v6, v7, v8);
+    _remoteObjectRegistry = [WeakRetained _remoteObjectRegistry];
 
-    v12 = objc_msgSend_remoteObjectInterfaceWithProtocol_(MEMORY[0x277CE3898], v10, &unk_286ADABD8, v11);
-    v15 = objc_msgSend_remoteObjectProxyWithInterface_(v9, v13, v12, v14);
-    v16 = self->_pageLoadTestEventsProxy;
-    self->_pageLoadTestEventsProxy = v15;
+    v6 = [MEMORY[0x277CE3898] remoteObjectInterfaceWithProtocol:&unk_286ADABD8];
+    v7 = [_remoteObjectRegistry remoteObjectProxyWithInterface:v6];
+    v8 = self->_pageLoadTestEventsProxy;
+    self->_pageLoadTestEventsProxy = v7;
 
     pageLoadTestEventsProxy = self->_pageLoadTestEventsProxy;
   }
 
-  loadData = self->_loadData;
-
-  MEMORY[0x2821F9670](pageLoadTestEventsProxy, sel_didFinishPageLoadWithLoadData_, loadData, v3);
+  MEMORY[0x2821F9670](pageLoadTestEventsProxy, sel_didFinishPageLoadWithLoadData_);
 }
 
 - (void)_resourceLoadCompleted:(unint64_t)completed
@@ -192,15 +190,15 @@
       operator delete(v7);
       if (!self->_loadingSubresources.__tree_.__size_)
       {
-        v14 = MEMORY[0x277CCABB0];
-        v15 = objc_msgSend_date(MEMORY[0x277CBEAA8], v11, v12, v13);
-        objc_msgSend_timeIntervalSinceReferenceDate(v15, v16, v17, v18);
-        v22 = objc_msgSend_numberWithDouble_(v14, v19, v20, v21);
+        v11 = MEMORY[0x277CCABB0];
+        date = [MEMORY[0x277CBEAA8] date];
+        [date timeIntervalSinceReferenceDate];
+        v13 = [v11 numberWithDouble:?];
 
-        objc_msgSend_setValue_forKey_(self->_loadData, v23, v22, @"PageLoadAllSubresourcesLoadedTime");
+        [(NSMutableDictionary *)self->_loadData setValue:v13 forKey:@"PageLoadAllSubresourcesLoadedTime"];
       }
 
-      objc_msgSend__maybeEndPageLoadSoon(self, v11, v12, v13);
+      [(MeasurementControllerBase *)self _maybeEndPageLoadSoon];
     }
   }
 }
@@ -209,12 +207,12 @@
 {
   controllerCopy = controller;
   frameCopy = frame;
-  v10 = objc_msgSend_mainFrame(controllerCopy, v7, v8, v9);
+  mainFrame = [controllerCopy mainFrame];
 
-  if (v10 == frameCopy)
+  if (mainFrame == frameCopy)
   {
-    objc_msgSend__clearPageLoadState(self, v11, v12, v13);
-    objc_msgSend__doBeforePageLoad(self, v14, v15, v16);
+    [(MeasurementControllerBase *)self _clearPageLoadState];
+    [(MeasurementControllerBase *)self _doBeforePageLoad];
   }
 }
 
@@ -222,27 +220,27 @@
 {
   controllerCopy = controller;
   frameCopy = frame;
-  v10 = objc_msgSend_mainFrame(controllerCopy, v7, v8, v9);
+  mainFrame = [controllerCopy mainFrame];
 
-  if (v10 == frameCopy)
+  if (mainFrame == frameCopy)
   {
     self->_currentPageLoadFinished = 1;
-    objc_msgSend__maybeEndPageLoadSoon(self, v11, v12, v13);
+    [(MeasurementControllerBase *)self _maybeEndPageLoadSoon];
   }
 }
 
 - (void)webProcessPlugInBrowserContextController:(id)controller didHandleOnloadEventsForFrame:(id)frame
 {
   frameCopy = frame;
-  objc_msgSend_removeObject_(self->_loadingFrames, v5, frameCopy, v6);
-  objc_msgSend__maybeEndPageLoadSoon(self, v7, v8, v9);
+  [(NSMutableSet *)self->_loadingFrames removeObject:?];
+  [(MeasurementControllerBase *)self _maybeEndPageLoadSoon];
 }
 
 - (void)webProcessPlugInBrowserContextController:(id)controller didFailLoadWithErrorForFrame:(id)frame error:(id)error
 {
   frameCopy = frame;
-  objc_msgSend_removeObject_(self->_loadingFrames, v6, frameCopy, v7);
-  objc_msgSend__maybeEndPageLoadSoon(self, v8, v9, v10);
+  [(NSMutableSet *)self->_loadingFrames removeObject:?];
+  [(MeasurementControllerBase *)self _maybeEndPageLoadSoon];
 }
 
 - (void)webProcessPlugInBrowserContextController:(id)controller frame:(id)frame didInitiateLoadForResource:(unint64_t)resource request:(id)request
@@ -251,30 +249,30 @@
   frameCopy = frame;
   resourceCopy = resource;
   requestCopy = request;
-  v16 = requestCopy;
+  v13 = requestCopy;
   if (!resource)
   {
     WTFLogAlways();
     goto LABEL_8;
   }
 
-  objc_msgSend__CFURLRequest(requestCopy, v13, v14, v15);
-  v17 = _CFURLRequestCopyProtocolPropertyForKey();
-  v18 = v17;
-  if (!v17)
+  [requestCopy _CFURLRequest];
+  v14 = _CFURLRequestCopyProtocolPropertyForKey();
+  v15 = v14;
+  if (!v14)
   {
 LABEL_7:
-    sub_259B4B5CC(&self->_loadingSubresources, &resourceCopy);
+    sub_259B4B5CC(&self->_loadingSubresources, &resourceCopy, &resourceCopy);
     goto LABEL_8;
   }
 
-  if (!CFBooleanGetValue(v17))
+  if (!CFBooleanGetValue(v14))
   {
-    CFRelease(v18);
+    CFRelease(v15);
     goto LABEL_7;
   }
 
-  CFRelease(v18);
+  CFRelease(v15);
 LABEL_8:
 }
 
@@ -282,7 +280,7 @@ LABEL_8:
 {
   if (resource)
   {
-    MEMORY[0x2821F9670](self, sel__resourceLoadCompleted_, resource, frame);
+    MEMORY[0x2821F9670](self, sel__resourceLoadCompleted_);
   }
 
   else
@@ -295,7 +293,7 @@ LABEL_8:
 {
   if (resource)
   {
-    MEMORY[0x2821F9670](self, sel__resourceLoadCompleted_, resource, frame);
+    MEMORY[0x2821F9670](self, sel__resourceLoadCompleted_);
   }
 
   else
@@ -307,11 +305,11 @@ LABEL_8:
 - (void)webProcessPlugInBrowserContextController:(id)controller didFirstVisuallyNonEmptyLayoutForFrame:(id)frame
 {
   v5 = MEMORY[0x277CCABB0];
-  v6 = objc_msgSend_date(MEMORY[0x277CBEAA8], a2, controller, frame);
-  objc_msgSend_timeIntervalSinceReferenceDate(v6, v7, v8, v9);
-  v14 = objc_msgSend_numberWithDouble_(v5, v10, v11, v12);
+  date = [MEMORY[0x277CBEAA8] date];
+  [date timeIntervalSinceReferenceDate];
+  v7 = [v5 numberWithDouble:?];
 
-  objc_msgSend_setValue_forKey_(self->_loadData, v13, v14, @"PageLoadFirstVisuallyNonEmptyLayoutTime");
+  [(NSMutableDictionary *)self->_loadData setValue:v7 forKey:@"PageLoadFirstVisuallyNonEmptyLayoutTime"];
 }
 
 - (void)webProcessPlugInBrowserContextController:(id)controller renderingProgressDidChange:(unint64_t)change
@@ -320,21 +318,21 @@ LABEL_8:
   controllerCopy = controller;
   if ((changeCopy & 0x100) != 0 && self->_version >= 5)
   {
-    v26 = controllerCopy;
-    v9 = objc_msgSend_objectForKeyedSubscript_(self->_loadData, v7, @"PageLoadFirstMeaningfulPaintTime", v8);
+    v11 = controllerCopy;
+    v7 = [(NSMutableDictionary *)self->_loadData objectForKeyedSubscript:@"PageLoadFirstMeaningfulPaintTime"];
 
-    controllerCopy = v26;
-    if (!v9)
+    controllerCopy = v11;
+    if (!v7)
     {
-      v13 = MEMORY[0x277CCABB0];
-      v14 = objc_msgSend_date(MEMORY[0x277CBEAA8], v10, v11, v12);
-      objc_msgSend_timeIntervalSinceReferenceDate(v14, v15, v16, v17);
-      v21 = objc_msgSend_numberWithDouble_(v13, v18, v19, v20);
+      v8 = MEMORY[0x277CCABB0];
+      date = [MEMORY[0x277CBEAA8] date];
+      [date timeIntervalSinceReferenceDate];
+      v10 = [v8 numberWithDouble:?];
 
-      objc_msgSend_setValue_forKey_(self->_loadData, v22, v21, @"PageLoadFirstMeaningfulPaintTime");
-      objc_msgSend__maybeEndPageLoadSoon(self, v23, v24, v25);
+      [(NSMutableDictionary *)self->_loadData setValue:v10 forKey:@"PageLoadFirstMeaningfulPaintTime"];
+      [(MeasurementControllerBase *)self _maybeEndPageLoadSoon];
 
-      controllerCopy = v26;
+      controllerCopy = v11;
     }
   }
 }
@@ -345,17 +343,17 @@ LABEL_8:
   frameCopy = frame;
   if (self->_version >= 5)
   {
-    v10 = objc_msgSend_mainFrame(controllerCopy, v6, v7, v8);
+    mainFrame = [controllerCopy mainFrame];
 
-    if (v10 == frameCopy)
+    if (mainFrame == frameCopy)
     {
-      v14 = MEMORY[0x277CCABB0];
-      v15 = objc_msgSend_date(MEMORY[0x277CBEAA8], v11, v12, v13);
-      objc_msgSend_timeIntervalSinceReferenceDate(v15, v16, v17, v18);
-      v22 = objc_msgSend_numberWithDouble_(v14, v19, v20, v21);
+      v8 = MEMORY[0x277CCABB0];
+      date = [MEMORY[0x277CBEAA8] date];
+      [date timeIntervalSinceReferenceDate];
+      v10 = [v8 numberWithDouble:?];
 
-      objc_msgSend_setValue_forKey_(self->_loadData, v23, v22, @"PageLoadDOMContentLoadedTime");
-      objc_msgSend__maybeEndPageLoadSoon(self, v24, v25, v26);
+      [(NSMutableDictionary *)self->_loadData setValue:v10 forKey:@"PageLoadDOMContentLoadedTime"];
+      [(MeasurementControllerBase *)self _maybeEndPageLoadSoon];
     }
   }
 }

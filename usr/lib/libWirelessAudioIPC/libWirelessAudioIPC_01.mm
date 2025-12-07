@@ -326,15 +326,15 @@ LABEL_52:
   }
 }
 
-void sub_298317EA8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_298317EA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::dispatch::v1::group_session::~group_session(va);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   _Unwind_Resume(a1);
 }
 
-void ___ZN5waipc8timesync15BasebandService13setupProviderEv_block_invoke_2(uint64_t a1, const void *a2)
+void ___ZN5waipc8timesync15BasebandService13setupProviderEv_block_invoke_2(uint64_t a1, uint64_t *a2)
 {
   v4 = *(a1 + 40);
   Logger = waipc::logging::getLogger(1u);
@@ -356,7 +356,7 @@ void ___ZN5waipc8timesync15BasebandService13setupProviderEv_block_invoke_2(uint6
       {
         os_unfair_lock_lock((v4 + 32));
         *(v4 + 272) = 0;
-        applesauce::CF::StringRef::from_get(a2, &v37);
+        applesauce::CF::StringRef::from_get(&v37, a2);
         v10 = *(v4 + 280);
         *(v4 + 280) = v37;
         v37 = v10;
@@ -601,18 +601,18 @@ LABEL_53:
 
 void ___ZN5waipc8timesync15BasebandService13setupProviderEv_block_invoke_10(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v54 = *MEMORY[0x29EDCA608];
+  v53 = *MEMORY[0x29EDCA608];
   v3 = *(*(a1 + 32) + 8);
   if (!*(v3 + 48))
   {
-    goto LABEL_29;
+    return;
   }
 
   v6 = *(a1 + 40);
   v7 = std::__shared_weak_count::lock(*(v3 + 48));
   if (!v7)
   {
-    goto LABEL_29;
+    return;
   }
 
   v8 = v7;
@@ -627,23 +627,23 @@ void ___ZN5waipc8timesync15BasebandService13setupProviderEv_block_invoke_10(uint
     __assert_rtn("setupProvider_block_invoke", "BasebandService.cpp", 251, "count > 0");
   }
 
-  v39 = v8;
+  v38 = v8;
   v9 = 0;
-  v38 = a2;
+  v37 = a2;
   v10 = a3;
   do
   {
-    memset(v40, 0, sizeof(v40));
-    waipc::timesync::BasebandService::timesyncMeasurementAdapter::measurementFrom((v6 + 112), a2, v40);
+    memset(v39, 0, sizeof(v39));
+    waipc::timesync::BasebandService::timesyncMeasurementAdapter::measurementFrom((v6 + 112), a2, v39);
     if (*(v6 + 288))
     {
       goto LABEL_17;
     }
 
     *buf = *(v6 + 192);
-    v11 = *&v40[16];
+    v11 = *&v39[16];
     *&__y = 0;
-    v12 = modf(*&v40[24], &__y);
+    v12 = modf(*&v39[24], &__y);
     v13 = *&__y;
     waipc::timesync::Estimator::timestamp::normalize(buf);
     if (v12 >= 0.0)
@@ -673,7 +673,7 @@ void ___ZN5waipc8timesync15BasebandService13setupProviderEv_block_invoke_10(uint
         *buf = 134218240;
         *&buf[4] = v21;
         *&buf[12] = 2048;
-        *&buf[14] = *&v40[16] + vcvtmd_s64_f64(*&v40[24]);
+        *&buf[14] = *&v39[16] + vcvtmd_s64_f64(*&v39[24]);
         _os_log_impl(&dword_298307000, Logger, OS_LOG_TYPE_DEFAULT, "out-of-order time sync measurement prev=%llu new=%llu", buf, 0x16u);
       }
 
@@ -685,15 +685,15 @@ LABEL_17:
       v25 = *(v6 + 40) * v23;
       *&__y = v22 / *(v6 + 136);
       *(&__y + 1) = v25;
-      v47 = v23 * v24 / (1.0 / v22 * 1000000000.0);
-      waipc::timesync::KalmanEstimator::KalmanEstimator(buf, &__y, v40);
-      *(v6 + 216) = v50;
-      *(v6 + 232) = v51;
-      *(v6 + 248) = v52;
-      *(v6 + 264) = v53;
+      v46 = v23 * v24 / (1.0 / v22 * 1000000000.0);
+      waipc::timesync::KalmanEstimator::KalmanEstimator(buf, &__y, v39);
+      *(v6 + 216) = v49;
+      *(v6 + 232) = v50;
+      *(v6 + 248) = v51;
+      *(v6 + 264) = v52;
       *(v6 + 168) = *&buf[8];
-      *(v6 + 184) = *v49;
-      *(v6 + 200) = *&v49[16];
+      *(v6 + 184) = *v48;
+      *(v6 + 200) = *&v48[16];
       waipc::timesync::BasebandService::logEstimator(v6, (v6 + 160));
       *(v6 + 288) = 0;
       v9 = 1;
@@ -705,26 +705,26 @@ LABEL_17:
       goto LABEL_17;
     }
 
-    waipc::timesync::KalmanEstimator::deviceToHost(v6 + 160, *&v40[16], *&v40[24]);
+    waipc::timesync::KalmanEstimator::deviceToHost(v6 + 160, *&v39[16], *&v39[24]);
     v27 = v26;
     v29 = v28;
-    v30 = *v40;
-    v31 = waipc::timesync::KalmanEstimator::deviceToHostVariance(v6 + 160, *&v40[16], *&v40[24]);
+    v30 = *v39;
+    v31 = waipc::timesync::KalmanEstimator::deviceToHostVariance(v6 + 160, *&v39[16], *&v39[24]);
     v32 = v29;
-    v33 = sqrt(v31 + *&v40[32]) * 3.0;
+    v33 = sqrt(v31 + *&v39[32]) * 3.0;
     if (fabs(v29 - *(&v30 + 1) + (v27 - v30)) >= v33)
     {
       v34 = waipc::logging::getLogger(1u);
       if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218752;
-        *&buf[4] = *&v40[16] + vcvtmd_s64_f64(*&v40[24]);
+        *&buf[4] = *&v39[16] + vcvtmd_s64_f64(*&v39[24]);
         *&buf[12] = 2048;
-        *&buf[14] = *v40 + vcvtmd_s64_f64(*&v40[8]);
+        *&buf[14] = *v39 + vcvtmd_s64_f64(*&v39[8]);
         *&buf[22] = 2048;
-        *v49 = v27 + vcvtmd_s64_f64(v32);
-        *&v49[8] = 2048;
-        *&v49[10] = v33;
+        *v48 = v27 + vcvtmd_s64_f64(v32);
+        *&v48[8] = 2048;
+        *&v48[10] = v33;
         _os_log_impl(&dword_298307000, v34, OS_LOG_TYPE_DEFAULT, "rejected outlier time sync measurement device=%llu host=%llu expectedHost=%llu limit=%lf", buf, 0x2Au);
       }
 
@@ -733,7 +733,7 @@ LABEL_17:
 
     else
     {
-      waipc::timesync::KalmanEstimator::update(v6 + 160, v40);
+      waipc::timesync::KalmanEstimator::update(v6 + 160, v39);
       waipc::timesync::BasebandService::logEstimator(v6, (v6 + 160));
     }
 
@@ -751,27 +751,27 @@ LABEL_18:
   *&__y = *(v6 + 432);
   v35 = __y;
   *(v6 + 432) = 0;
-  *v40 = &unk_2A1EB7358;
-  v42 = *(v6 + 216);
-  v43 = *(v6 + 232);
-  v44 = *(v6 + 248);
-  v45 = *(v6 + 264);
-  *&v40[8] = *(v6 + 168);
-  *&v40[24] = *(v6 + 184);
-  v41 = *(v6 + 200);
+  *v39 = &unk_2A1EB7358;
+  v41 = *(v6 + 216);
+  v42 = *(v6 + 232);
+  v43 = *(v6 + 248);
+  v44 = *(v6 + 264);
+  *&v39[8] = *(v6 + 168);
+  *&v39[24] = *(v6 + 184);
+  v40 = *(v6 + 200);
   os_unfair_lock_unlock((v6 + 32));
-  waipc::util::Broadcaster<void ()(waipc::timesync::BasebandProvider::timesyncMeasurement const*,unsigned long)>::context::broadcast<waipc::timesync::BasebandProvider::timesyncMeasurement*,unsigned long>(*(v6 + 296), v38, a3);
+  waipc::util::Broadcaster<void ()(waipc::timesync::BasebandProvider::timesyncMeasurement const*,unsigned long)>::context::broadcast<waipc::timesync::BasebandProvider::timesyncMeasurement*,unsigned long>(*(v6 + 296), v37, a3);
   v36 = *(v6 + 328);
+  v49 = v41;
   v50 = v42;
   v51 = v43;
-  v52 = v44;
   *buf = &unk_2A1EB7358;
-  v53 = v45;
-  *&buf[8] = *&v40[8];
-  *v49 = *&v40[24];
-  *&v49[16] = v41;
+  v52 = v44;
+  *&buf[8] = *&v39[8];
+  *v48 = *&v39[24];
+  *&v48[16] = v40;
   waipc::util::Broadcaster<void ()(waipc::timesync::KalmanEstimator const&,BOOL)>::context::broadcast<waipc::timesync::KalmanEstimator,BOOL>(v36, buf, v9 & 1);
-  v8 = v39;
+  v8 = v38;
   if (v35)
   {
     dispatch_group_leave(v35);
@@ -780,8 +780,6 @@ LABEL_18:
 
 LABEL_28:
   std::__shared_weak_count::__release_shared[abi:ne200100](v8);
-LABEL_29:
-  v37 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2983187DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, dispatch_object_t a46)
@@ -791,7 +789,7 @@ void sub_2983187DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-long double waipc::timesync::BasebandService::timesyncMeasurementAdapter::measurementFrom@<D0>(double *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+double waipc::timesync::BasebandService::timesyncMeasurementAdapter::measurementFrom@<D0>(double *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v6 = *(a2 + 8);
   v7 = *(a2 + 16);
@@ -838,13 +836,13 @@ long double waipc::timesync::BasebandService::timesyncMeasurementAdapter::measur
   return result;
 }
 
-void waipc::timesync::BasebandService::logEstimator(waipc::timesync::BasebandService *this, const waipc::timesync::KalmanEstimator *a2)
+void waipc::timesync::BasebandService::logEstimator(const os_unfair_lock *this, const waipc::timesync::KalmanEstimator *a2)
 {
   os_unfair_lock_assert_owner(this + 8);
-  if (*(this + 104) == 1)
+  if (LOBYTE(this[26]._os_unfair_lock_opaque) == 1)
   {
-    v4 = *(this + 49);
-    v5 = *(this + 50);
+    v4 = *&this[98]._os_unfair_lock_opaque;
+    v5 = *&this[100]._os_unfair_lock_opaque;
     if (0xEEEEEEEEEEEEEEEFLL * ((v5 - v4) >> 3) - 20 <= 0xFFFFFFFFFFFFFFEALL && v5 - 2280 != v4)
     {
       if (v5 - 2280 != v5)
@@ -872,15 +870,15 @@ void waipc::timesync::BasebandService::logEstimator(waipc::timesync::BasebandSer
         while (v7 + 120 != v5);
       }
 
-      *(this + 50) = v4;
+      *&this[100]._os_unfair_lock_opaque = v4;
     }
 
     v13 = mach_absolute_time();
     v21 = v13;
-    v14 = *(this + 50);
-    if (v14 >= *(this + 51))
+    v14 = *&this[100]._os_unfair_lock_opaque;
+    if (v14 >= *&this[102]._os_unfair_lock_opaque)
     {
-      v20 = std::vector<std::pair<unsigned long long,waipc::timesync::KalmanEstimator>>::__emplace_back_slow_path<unsigned long long,waipc::timesync::KalmanEstimator const&>(this + 49, &v21, a2);
+      v20 = std::vector<std::pair<unsigned long long,waipc::timesync::KalmanEstimator>>::__emplace_back_slow_path<unsigned long long,waipc::timesync::KalmanEstimator const&>(&this[98], &v21, a2);
     }
 
     else
@@ -902,7 +900,7 @@ void waipc::timesync::BasebandService::logEstimator(waipc::timesync::BasebandSer
       v20 = v14 + 120;
     }
 
-    *(this + 50) = v20;
+    *&this[100]._os_unfair_lock_opaque = v20;
   }
 }
 
@@ -982,12 +980,12 @@ LABEL_18:
   }
 }
 
-void sub_298318C78(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_298318C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::dispatch::v1::group_session::~group_session(va);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v4);
   std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   _Unwind_Resume(a1);
 }
 
@@ -1089,65 +1087,65 @@ void ___ZN5waipc8timesync15BasebandService13setupProviderEv_block_invoke_4(void 
     {
       if (*(v2 + 40))
       {
-        v7 = *(v4 + 16);
-        v15[0] = v7;
+        v6 = *(v4 + 16);
+        v14[0] = v6;
+        if (v6)
+        {
+          dispatch_retain(v6);
+        }
+
+        v7 = *(v4 + 24);
+        v14[1] = v7;
         if (v7)
         {
           dispatch_retain(v7);
         }
 
-        v8 = *(v4 + 24);
-        v15[1] = v8;
+        v8 = a1[4];
         if (v8)
         {
-          dispatch_retain(v8);
+          v8 = _Block_copy(v8);
         }
 
-        v9 = a1[4];
+        v14[2] = v8;
+        v9 = a1[5];
         if (v9)
         {
           v9 = _Block_copy(v9);
         }
 
-        v15[2] = v9;
-        v10 = a1[5];
+        v14[3] = v9;
+        v10 = a1[6];
         if (v10)
         {
           v10 = _Block_copy(v10);
         }
 
-        v15[3] = v10;
-        v11 = a1[6];
+        v14[4] = v10;
+        v11 = a1[7];
         if (v11)
         {
           v11 = _Block_copy(v11);
         }
 
-        v15[4] = v11;
-        v12 = a1[7];
+        v14[5] = v11;
+        v12 = a1[8];
         if (v12)
         {
           v12 = _Block_copy(v12);
         }
 
-        v15[5] = v12;
-        v13 = a1[8];
-        if (v13)
-        {
-          v13 = _Block_copy(v13);
-        }
-
-        v15[6] = v13;
-        v16 = *(v4 + 88);
-        v14 = 20;
+        v14[6] = v12;
+        v15 = *(v4 + 88);
+        v13 = 20;
         if (!*(v4 + 104))
         {
-          v14 = 0;
+          v13 = 0;
         }
 
-        v17 = v14;
-        v18 = v14;
-        waipc::timesync::BasebandProvider::create(v15, v6);
+        v16 = v13;
+        v17 = v13;
+        waipc::timesync::BasebandProvider::create(v14);
       }
 
       std::__shared_weak_count::__release_shared[abi:ne200100](v5);
@@ -1215,18 +1213,18 @@ void waipc::timesync::BasebandService::addConnectionObserver(uint64_t a1@<X0>, u
   os_unfair_lock_unlock((a1 + 32));
 }
 
-void sub_2983191C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_2983191C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 120), 8);
-  v19 = *(v17 - 72);
-  if (v19)
+  _Block_object_dispose((v24 - 120), 8);
+  v26 = *(v24 - 72);
+  if (v26)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
   }
 
-  os_unfair_lock_unlock(v16 + 8);
+  os_unfair_lock_unlock(v23 + 8);
   _Unwind_Resume(a1);
 }
 
@@ -1256,9 +1254,8 @@ void ___ZN5waipc8timesync15BasebandService21addConnectionObserverEU13block_point
 {
   v2 = a1[7];
   os_unfair_lock_lock((v2 + 32));
-  v3 = *(v2 + 272);
-  v4 = *(v2 + 280);
-  if (v4)
+  v3 = *(v2 + 280);
+  if (v3)
   {
     CFRetain(*(v2 + 280));
   }
@@ -1266,15 +1263,15 @@ void ___ZN5waipc8timesync15BasebandService21addConnectionObserverEU13block_point
   os_unfair_lock_unlock((v2 + 32));
   *(*(a1[6] + 8) + 24) = 1;
   (*(a1[4] + 16))();
-  if (v4)
+  if (v3)
   {
-    CFRelease(v4);
+    CFRelease(v3);
   }
 }
 
-void sub_2983192C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2983192C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::StringRef::~StringRef(va);
   _Unwind_Resume(a1);
 }
@@ -1329,18 +1326,18 @@ void waipc::timesync::BasebandService::addTimesyncObserver(uint64_t a1@<X0>, uin
   os_unfair_lock_unlock((a1 + 32));
 }
 
-void sub_298319488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_298319488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 120), 8);
-  v19 = *(v17 - 72);
-  if (v19)
+  _Block_object_dispose((v24 - 120), 8);
+  v26 = *(v24 - 72);
+  if (v26)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
   }
 
-  os_unfair_lock_unlock(v16 + 8);
+  os_unfair_lock_unlock(v23 + 8);
   _Unwind_Resume(a1);
 }
 
@@ -1391,8 +1388,9 @@ uint64_t ___ZN5waipc8timesync15BasebandService19addTimesyncObserverEU13block_poi
   return result;
 }
 
-void waipc::timesync::BasebandService::addTimestampObserver(uint64_t a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X2>, void **a4@<X8>)
+void waipc::timesync::BasebandService::addTimestampObserver(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void **a4@<X8>)
 {
+  v5 = a2;
   os_unfair_lock_lock((a1 + 32));
   v21[0] = 0;
   v21[1] = v21;
@@ -1405,7 +1403,7 @@ void waipc::timesync::BasebandService::addTimestampObserver(uint64_t a1@<X0>, un
   v16 = 0x3802000000;
   v17 = __Block_byref_object_copy__32;
   v18 = __Block_byref_object_dispose__33;
-  waipc::timesync::BasebandService::getTimestampSubscription(a1, a2, &v19);
+  waipc::timesync::BasebandService::getTimestampSubscription(a1, v5, &v19);
   v12[0] = 0;
   v12[1] = v12;
   v12[2] = 0x2000000000;
@@ -1446,7 +1444,7 @@ void waipc::timesync::BasebandService::addTimestampObserver(uint64_t a1@<X0>, un
   os_unfair_lock_unlock((a1 + 32));
 }
 
-void sub_2983197E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, std::__shared_weak_count *a35)
+void sub_2983197E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, std::__shared_weak_count *a35)
 {
   _Block_object_dispose(&a25, 8);
   _Block_object_dispose(&a29, 8);
@@ -1488,7 +1486,7 @@ void __Block_byref_object_dispose__33(uint64_t a1)
   }
 }
 
-std::__shared_weak_count *waipc::timesync::BasebandService::getTimestampSubscription@<X0>(uint64_t a1@<X0>, unsigned int a2@<W1>, void *a3@<X8>)
+void waipc::timesync::BasebandService::getTimestampSubscription(uint64_t a1@<X0>, unsigned int a2@<W1>, void *a3@<X8>)
 {
   v25 = a2;
   os_unfair_lock_assert_owner((a1 + 32));
@@ -1513,7 +1511,7 @@ std::__shared_weak_count *waipc::timesync::BasebandService::getTimestampSubscrip
   }
 
   while (v6);
-  if (v7 == a1 + 352 || *(v7 + 32) > a2 || (*a3 = 0, a3[1] = 0, (v11 = *(v7 + 48)) == 0) || (result = std::__shared_weak_count::lock(v11), (a3[1] = result) == 0))
+  if (v7 == a1 + 352 || *(v7 + 32) > a2 || (*a3 = 0, a3[1] = 0, (v11 = *(v7 + 48)) == 0) || (v12 = std::__shared_weak_count::lock(v11), (a3[1] = v12) == 0))
   {
 LABEL_13:
     v23[0] = 0;
@@ -1547,11 +1545,9 @@ LABEL_13:
   *a3 = v13;
   if (!v13)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](result);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
     goto LABEL_13;
   }
-
-  return result;
 }
 
 void sub_298319B60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -1573,17 +1569,15 @@ void ___ZN5waipc8timesync15BasebandService20addTimestampObserverENS0_16BasebandP
   os_unfair_lock_lock(v2 + 8);
   v3 = *(*(a1[6] + 8) + 40);
   v4 = *v3;
-  v5 = v3[1];
-  v6 = v3[2];
-  v7 = v3[3];
+  v5 = *(v3 + 2);
   os_unfair_lock_unlock(v2 + 8);
   *(*(a1[7] + 8) + 24) = 1;
   if (v4 == 1)
   {
-    v9 = *(a1[4] + 16);
-    v8.n128_u64[0] = v6;
+    v7 = *(a1[4] + 16);
+    v6.n128_u64[0] = v5;
 
-    v9(v8);
+    v7(v6);
   }
 }
 
@@ -1831,26 +1825,38 @@ void waipc::timesync::BasebandService::triggerReset(waipc::timesync::BasebandSer
   os_unfair_lock_unlock(this + 8);
 }
 
-void waipc::timesync::BasebandService::mapBuffer(uint64_t a1, unsigned __int8 a2, uint64_t *a3)
+void waipc::timesync::BasebandService::mapBuffer(uint64_t a1, unsigned __int8 a2, NSObject **a3, NSObject *a4)
 {
-  v8 = a2;
+  v20 = a2;
   os_unfair_lock_lock((a1 + 32));
-  std::__tree<std::__value_type<waipc::timesync::BasebandProvider::bufferId,waipc::timesync::BasebandService::bufferInfo>,std::__map_value_compare<waipc::timesync::BasebandProvider::bufferId,std::__value_type<waipc::timesync::BasebandProvider::bufferId,waipc::timesync::BasebandService::bufferInfo>,std::less<waipc::timesync::BasebandProvider::bufferId>,true>,std::allocator<std::__value_type<waipc::timesync::BasebandProvider::bufferId,waipc::timesync::BasebandService::bufferInfo>>>::__equal_range_multi<waipc::timesync::BasebandProvider::bufferId>(a1 + 368, &v8);
-  v6 = *a3;
-  v5 = a3[1];
-  if (v5)
+  std::__tree<std::__value_type<waipc::timesync::BasebandProvider::bufferId,waipc::timesync::BasebandService::bufferInfo>,std::__map_value_compare<waipc::timesync::BasebandProvider::bufferId,std::__value_type<waipc::timesync::BasebandProvider::bufferId,waipc::timesync::BasebandService::bufferInfo>,std::less<waipc::timesync::BasebandProvider::bufferId>,true>,std::allocator<std::__value_type<waipc::timesync::BasebandProvider::bufferId,waipc::timesync::BasebandService::bufferInfo>>>::__equal_range_multi<waipc::timesync::BasebandProvider::bufferId>(a1 + 368, &v20);
+  v9 = v8;
+  v11 = *a3;
+  v10 = a3[1];
+  if (v10)
   {
-    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v10 + 1, 1uLL, memory_order_relaxed);
   }
 
-  v7 = *(a1 + 416);
-  if (v7)
+  v17 = a4;
+  v12 = *(a1 + 416);
+  if (v12)
   {
     dispatch_retain(*(a1 + 416));
-    dispatch_group_enter(v7);
+    dispatch_group_enter(v12);
   }
 
-  std::__tree<std::__value_type<waipc::timesync::BasebandProvider::bufferId,waipc::timesync::BasebandService::bufferInfo>,std::__map_value_compare<waipc::timesync::BasebandProvider::bufferId,std::__value_type<waipc::timesync::BasebandProvider::bufferId,waipc::timesync::BasebandService::bufferInfo>,std::less<waipc::timesync::BasebandProvider::bufferId>,true>,std::allocator<std::__value_type<waipc::timesync::BasebandProvider::bufferId,waipc::timesync::BasebandService::bufferInfo>>>::__emplace_hint_multi<std::pair<waipc::timesync::BasebandProvider::bufferId,waipc::timesync::BasebandService::bufferInfo>>();
+  v19 = 0;
+  LOBYTE(v13[0]) = v20;
+  v13[1] = v11;
+  v13[2] = v10;
+  v15 = 0;
+  v16 = 0;
+  v13[3] = a4;
+  v13[4] = v12;
+  v18 = 0;
+  LOBYTE(v14) = 0;
+  std::__tree<std::__value_type<waipc::timesync::BasebandProvider::bufferId,waipc::timesync::BasebandService::bufferInfo>,std::__map_value_compare<waipc::timesync::BasebandProvider::bufferId,std::__value_type<waipc::timesync::BasebandProvider::bufferId,waipc::timesync::BasebandService::bufferInfo>,std::less<waipc::timesync::BasebandProvider::bufferId>,true>,std::allocator<std::__value_type<waipc::timesync::BasebandProvider::bufferId,waipc::timesync::BasebandService::bufferInfo>>>::__emplace_hint_multi<std::pair<waipc::timesync::BasebandProvider::bufferId,waipc::timesync::BasebandService::bufferInfo>>((a1 + 368), v9, v13);
 }
 
 uint64_t std::pair<waipc::timesync::BasebandProvider::bufferId,waipc::timesync::BasebandService::bufferInfo>::~pair(uint64_t a1)
@@ -1967,25 +1973,25 @@ void sub_29831A558(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t waipc::timesync::BasebandService::dumpState(waipc::timesync::BasebandService *this)
+uint64_t **waipc::timesync::BasebandService::dumpState(waipc::timesync::BasebandService *this)
 {
-  v38[2] = *MEMORY[0x29EDCA608];
+  v37[2] = *MEMORY[0x29EDCA608];
   os_unfair_lock_lock(this + 8);
-  memset(v25, 0, sizeof(v25));
-  std::vector<applesauce::CF::DictionaryRef>::reserve(v25, *(this + 45));
-  std::transform[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<waipc::timesync::BasebandProvider::timestampId,std::weak_ptr<waipc::timesync::BasebandService::timestampSubscription>>,std::__tree_node<std::__value_type<waipc::timesync::BasebandProvider::timestampId,std::weak_ptr<waipc::timesync::BasebandService::timestampSubscription>>,void *> *,long>>,std::back_insert_iterator<std::vector<applesauce::CF::DictionaryRef>>,applesauce::CF::DictionaryRef({block_pointer})(std::pair<waipc::timesync::BasebandProvider::timestampId,std::weak_ptr<waipc::timesync::BasebandService::timestampSubscription>> const&)>(*(this + 43), this + 44, v25, &__block_literal_global_1);
   memset(v24, 0, sizeof(v24));
-  std::vector<applesauce::CF::DictionaryRef>::reserve(v24, *(this + 48));
-  std::transform[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<waipc::timesync::BasebandProvider::bufferId,waipc::timesync::BasebandService::bufferInfo>,std::__tree_node<std::__value_type<waipc::timesync::BasebandProvider::bufferId,waipc::timesync::BasebandService::bufferInfo>,void *> *,long>>,std::back_insert_iterator<std::vector<applesauce::CF::DictionaryRef>>,applesauce::CF::DictionaryRef({block_pointer})(std::pair<waipc::timesync::BasebandProvider::bufferId,waipc::timesync::BasebandService::bufferInfo> const&)>(*(this + 46), this + 47, v24, &__block_literal_global_66);
+  std::vector<applesauce::CF::DictionaryRef>::reserve(v24, *(this + 45));
+  std::transform[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<waipc::timesync::BasebandProvider::timestampId,std::weak_ptr<waipc::timesync::BasebandService::timestampSubscription>>,std::__tree_node<std::__value_type<waipc::timesync::BasebandProvider::timestampId,std::weak_ptr<waipc::timesync::BasebandService::timestampSubscription>>,void *> *,long>>,std::back_insert_iterator<std::vector<applesauce::CF::DictionaryRef>>,applesauce::CF::DictionaryRef({block_pointer})(std::pair<waipc::timesync::BasebandProvider::timestampId,std::weak_ptr<waipc::timesync::BasebandService::timestampSubscription>> const&)>(*(this + 43), this + 44, v24, &__block_literal_global_1);
   memset(v23, 0, sizeof(v23));
-  std::vector<applesauce::CF::DictionaryRef>::reserve(v23, 0xEEEEEEEEEEEEEEEFLL * ((*(this + 50) - *(this + 49)) >> 3));
+  std::vector<applesauce::CF::DictionaryRef>::reserve(v23, *(this + 48));
+  std::transform[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<waipc::timesync::BasebandProvider::bufferId,waipc::timesync::BasebandService::bufferInfo>,std::__tree_node<std::__value_type<waipc::timesync::BasebandProvider::bufferId,waipc::timesync::BasebandService::bufferInfo>,void *> *,long>>,std::back_insert_iterator<std::vector<applesauce::CF::DictionaryRef>>,applesauce::CF::DictionaryRef({block_pointer})(std::pair<waipc::timesync::BasebandProvider::bufferId,waipc::timesync::BasebandService::bufferInfo> const&)>(*(this + 46), this + 47, v23, &__block_literal_global_66);
+  memset(v22, 0, sizeof(v22));
+  std::vector<applesauce::CF::DictionaryRef>::reserve(v22, 0xEEEEEEEEEEEEEEEFLL * ((*(this + 50) - *(this + 49)) >> 3));
   v2 = *(this + 49);
   v3 = *(this + 50);
-  v27 = v23;
+  v26 = v22;
   while (v2 != v3)
   {
     ___ZNK5waipc8timesync15BasebandService9dumpStateEv_block_invoke_3(v2, &cf);
-    std::back_insert_iterator<std::vector<applesauce::CF::DictionaryRef>>::operator=[abi:ne200100](&v27, &cf);
+    std::back_insert_iterator<std::vector<applesauce::CF::DictionaryRef>>::operator=[abi:ne200100](&v26, &cf);
     if (cf)
     {
       CFRelease(cf);
@@ -1994,29 +2000,29 @@ uint64_t waipc::timesync::BasebandService::dumpState(waipc::timesync::BasebandSe
     v2 += 15;
   }
 
-  waipc::util::_kv::_kv<double const&,void>(v28, @"Rate Variance", this + 5);
-  waipc::util::_kv::_kv<double const&,void>(&v29, @"Process Variance", this + 6);
-  waipc::util::_kv::_kv<double const&,void>(&v30, @"Extra Sync Variance", this + 7);
-  waipc::util::_kv::_kv<double const&,void>(&v31, @"Host Variance Weight", this + 8);
+  waipc::util::_kv::_kv<double const&,void>(v27, @"Rate Variance", this + 5);
+  waipc::util::_kv::_kv<double const&,void>(&v28, @"Process Variance", this + 6);
+  waipc::util::_kv::_kv<double const&,void>(&v29, @"Extra Sync Variance", this + 7);
+  waipc::util::_kv::_kv<double const&,void>(&v30, @"Host Variance Weight", this + 8);
   cf = *(this + 9);
-  waipc::util::_kv::_kv<double,void>(&v32, @"Nominal Device Tick", &cf);
-  v22 = *(this + 10);
-  waipc::util::_kv::_kv<double,void>(&v33, @"Nominal Host Tick", &v22);
-  waipc::util::_kv::_kv<unsigned int const&,void>(&v34, @"Open Timeout", this + 22);
-  waipc::util::_kv::_kv<unsigned int const&,void>(&v35, @"Open Retry", this + 23);
-  waipc::util::_kv::_kv<unsigned int const&,void>(&v36, @"Measurement Burst", this + 24);
-  waipc::util::_kv::_kv<unsigned int const&,void>(v37, @"Measurement Min Interval", this + 25);
+  waipc::util::_kv::_kv<double,void>(&v31, @"Nominal Device Tick", &cf);
+  v21 = *(this + 10);
+  waipc::util::_kv::_kv<double,void>(&v32, @"Nominal Host Tick", &v21);
+  waipc::util::_kv::_kv<unsigned int const&,void>(&v33, @"Open Timeout", this + 22);
+  waipc::util::_kv::_kv<unsigned int const&,void>(&v34, @"Open Retry", this + 23);
+  waipc::util::_kv::_kv<unsigned int const&,void>(&v35, @"Measurement Burst", this + 24);
+  waipc::util::_kv::_kv<unsigned int const&,void>(v36, @"Measurement Min Interval", this + 25);
   v4 = *(this + 18);
   if (v4)
   {
     v4 = waipc::timesync::BasebandProvider::dumpState(v4);
   }
 
-  v37[2] = @"Provider";
-  v37[3] = v4;
+  v36[2] = @"Provider";
+  v36[3] = v4;
   v5 = waipc::timesync::KalmanEstimator::dumpState((this + 160));
-  v37[4] = @"Estimator";
-  v37[5] = v5;
+  v36[4] = @"Estimator";
+  v36[5] = v5;
   v6 = *MEMORY[0x29EDB8F00];
   v7 = *MEMORY[0x29EDB8EF8];
   if (*(this + 272))
@@ -2029,17 +2035,17 @@ uint64_t waipc::timesync::BasebandService::dumpState(waipc::timesync::BasebandSe
     v8 = *MEMORY[0x29EDB8EF8];
   }
 
-  v37[6] = @"Connected";
-  v37[7] = v8;
-  v37[8] = @"Disconnect Reason";
+  v36[6] = @"Connected";
+  v36[7] = v8;
+  v36[8] = @"Disconnect Reason";
   v9 = *(this + 35);
   if (v9)
   {
     CFRetain(*(this + 35));
   }
 
-  v37[9] = v9;
-  v37[10] = @"Reset";
+  v36[9] = v9;
+  v36[10] = @"Reset";
   if (*(this + 288))
   {
     v10 = v6;
@@ -2050,7 +2056,7 @@ uint64_t waipc::timesync::BasebandService::dumpState(waipc::timesync::BasebandSe
     v10 = v7;
   }
 
-  v37[11] = v10;
+  v36[11] = v10;
   if (waipc::util::Broadcaster<void ()(waipc::timesync::KalmanEstimator const&,BOOL)>::context::hasObservers(*(this + 37)))
   {
     v11 = v6;
@@ -2061,8 +2067,8 @@ uint64_t waipc::timesync::BasebandService::dumpState(waipc::timesync::BasebandSe
     v11 = v7;
   }
 
-  v37[12] = @"Measurement Observers Present";
-  v37[13] = v11;
+  v36[12] = @"Measurement Observers Present";
+  v36[13] = v11;
   if (waipc::util::Broadcaster<void ()(waipc::timesync::KalmanEstimator const&,BOOL)>::context::hasObservers(*(this + 39)))
   {
     v12 = v6;
@@ -2073,8 +2079,8 @@ uint64_t waipc::timesync::BasebandService::dumpState(waipc::timesync::BasebandSe
     v12 = v7;
   }
 
-  v37[14] = @"Connection Observers Present";
-  v37[15] = v12;
+  v36[14] = @"Connection Observers Present";
+  v36[15] = v12;
   if (waipc::util::Broadcaster<void ()(waipc::timesync::KalmanEstimator const&,BOOL)>::context::hasObservers(*(this + 41)))
   {
     v13 = v6;
@@ -2085,15 +2091,15 @@ uint64_t waipc::timesync::BasebandService::dumpState(waipc::timesync::BasebandSe
     v13 = v7;
   }
 
-  v37[16] = @"Timesync Observers Present";
-  v37[17] = v13;
-  v37[18] = @"Timestamp Contexts";
-  v37[19] = applesauce::CF::details::make_CFArrayRef<applesauce::CF::DictionaryRef>(v25);
-  v37[20] = @"Mapped Buffers";
-  v37[21] = applesauce::CF::details::make_CFArrayRef<applesauce::CF::DictionaryRef>(v24);
-  v37[22] = @"Estimator Log";
-  v37[23] = applesauce::CF::details::make_CFArrayRef<applesauce::CF::DictionaryRef>(v23);
-  v37[24] = @"Connection Ready";
+  v36[16] = @"Timesync Observers Present";
+  v36[17] = v13;
+  v36[18] = @"Timestamp Contexts";
+  v36[19] = applesauce::CF::details::make_CFArrayRef<applesauce::CF::DictionaryRef>(v24);
+  v36[20] = @"Mapped Buffers";
+  v36[21] = applesauce::CF::details::make_CFArrayRef<applesauce::CF::DictionaryRef>(v23);
+  v36[22] = @"Estimator Log";
+  v36[23] = applesauce::CF::details::make_CFArrayRef<applesauce::CF::DictionaryRef>(v22);
+  v36[24] = @"Connection Ready";
   v14 = *(this + 54);
   if (*(this + 53))
   {
@@ -2105,8 +2111,8 @@ uint64_t waipc::timesync::BasebandService::dumpState(waipc::timesync::BasebandSe
     v15 = v6;
   }
 
-  v37[25] = v15;
-  v37[26] = @"Estimator Ready";
+  v36[25] = v15;
+  v36[26] = @"Estimator Ready";
   if (v14)
   {
     v16 = v7;
@@ -2117,27 +2123,26 @@ uint64_t waipc::timesync::BasebandService::dumpState(waipc::timesync::BasebandSe
     v16 = v6;
   }
 
-  v37[27] = v16;
-  waipc::util::_kv::_kv<unsigned int const&,void>(v38, @"Timesync Outlier Count", this + 110);
-  waipc::util::createCFDictDropNull<24l>(v28, &v27);
+  v36[27] = v16;
+  waipc::util::_kv::_kv<unsigned int const&,void>(v37, @"Timesync Outlier Count", this + 110);
+  waipc::util::createCFDictDropNull<24l>(v27, &v26);
   for (i = 47; i != -1; i -= 2)
   {
-    v18 = v28[i];
+    v18 = v27[i];
     if (v18)
     {
       CFRelease(v18);
     }
   }
 
-  v19 = v27;
-  v28[0] = v23;
-  std::vector<applesauce::CF::DictionaryRef>::__destroy_vector::operator()[abi:ne200100](v28);
-  v28[0] = v24;
-  std::vector<applesauce::CF::DictionaryRef>::__destroy_vector::operator()[abi:ne200100](v28);
-  v28[0] = v25;
-  std::vector<applesauce::CF::DictionaryRef>::__destroy_vector::operator()[abi:ne200100](v28);
+  v19 = v26;
+  v27[0] = v22;
+  std::vector<applesauce::CF::DictionaryRef>::__destroy_vector::operator()[abi:ne200100](v27);
+  v27[0] = v23;
+  std::vector<applesauce::CF::DictionaryRef>::__destroy_vector::operator()[abi:ne200100](v27);
+  v27[0] = v24;
+  std::vector<applesauce::CF::DictionaryRef>::__destroy_vector::operator()[abi:ne200100](v27);
   os_unfair_lock_unlock(this + 8);
-  v20 = *MEMORY[0x29EDCA608];
   return v19;
 }
 
@@ -2226,173 +2231,172 @@ void sub_29831ABCC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZNK5waipc8timesync15BasebandService9dumpStateEv_block_invoke(unsigned __int8 *a1@<X1>, void *a2@<X8>)
 {
-  v45 = *MEMORY[0x29EDCA608];
+  v43 = *MEMORY[0x29EDCA608];
   v4 = *(a1 + 2);
   if (v4)
   {
     v5 = std::__shared_weak_count::lock(v4);
-    v6 = *(a1 + 1);
     if (v5)
     {
-      v7 = *(a1 + 1);
+      v6 = *(a1 + 1);
     }
 
     else
     {
-      v7 = 0;
+      v6 = 0;
     }
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
     v5 = 0;
   }
 
   TimestampName = waipc::timesync::BasebandProvider::getTimestampName(*a1);
-  v9 = TimestampName;
-  v32[0] = @"Name";
+  v8 = TimestampName;
+  v30[0] = @"Name";
   if (TimestampName)
   {
     CFRetain(TimestampName);
   }
 
-  v32[1] = v9;
-  if (v7)
+  v30[1] = v8;
+  if (v6)
   {
-    hasObservers = waipc::util::Broadcaster<void ()(waipc::timesync::KalmanEstimator const&,BOOL)>::context::hasObservers(*(v7 + 32));
-    v11 = *MEMORY[0x29EDB8F00];
-    v12 = *MEMORY[0x29EDB8EF8];
+    hasObservers = waipc::util::Broadcaster<void ()(waipc::timesync::KalmanEstimator const&,BOOL)>::context::hasObservers(*(v6 + 32));
+    v10 = *MEMORY[0x29EDB8F00];
+    v11 = *MEMORY[0x29EDB8EF8];
     if (hasObservers)
     {
-      v13 = *MEMORY[0x29EDB8F00];
+      v12 = *MEMORY[0x29EDB8F00];
     }
 
     else
     {
-      v13 = *MEMORY[0x29EDB8EF8];
+      v12 = *MEMORY[0x29EDB8EF8];
     }
 
-    v33 = @"Observers Present";
+    v31 = @"Observers Present";
+    if (v12)
+    {
+      CFRetain(v12);
+    }
+
+    v32 = v12;
+    if (*v6)
+    {
+      v13 = v10;
+    }
+
+    else
+    {
+      v13 = v11;
+    }
+
+    v33 = @"Latest Valid";
     if (v13)
     {
       CFRetain(v13);
     }
 
     v34 = v13;
-    if (*v7)
-    {
-      v14 = v11;
-    }
-
-    else
-    {
-      v14 = v12;
-    }
-
-    v35 = @"Latest Valid";
-    if (v14)
-    {
-      CFRetain(v14);
-    }
-
-    v36 = v14;
-    valuePtr = *(v7 + 8);
-    v15 = CFNumberCreate(0, kCFNumberLongLongType, &valuePtr);
-    v16 = v15;
-    v30 = v15;
-    if (!v15)
+    valuePtr = *(v6 + 8);
+    v14 = CFNumberCreate(0, kCFNumberLongLongType, &valuePtr);
+    v15 = v14;
+    v28 = v14;
+    if (!v14)
     {
       exception = __cxa_allocate_exception(0x10uLL);
       MEMORY[0x29C288110](exception, "Could not construct");
       __cxa_throw(exception, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
     }
 
-    v37 = @"Latest Timestamp";
-    CFRetain(v15);
-    v38 = v16;
-    valuePtr = *(v7 + 16);
-    v17 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
-    v18 = v17;
-    v29 = v17;
-    if (!v17)
+    v35 = @"Latest Timestamp";
+    CFRetain(v14);
+    v36 = v15;
+    valuePtr = *(v6 + 16);
+    v16 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
+    v17 = v16;
+    v27 = v16;
+    if (!v16)
     {
-      v26 = __cxa_allocate_exception(0x10uLL);
-      MEMORY[0x29C288110](v26, "Could not construct");
-      __cxa_throw(v26, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
+      v24 = __cxa_allocate_exception(0x10uLL);
+      MEMORY[0x29C288110](v24, "Could not construct");
+      __cxa_throw(v24, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
     }
 
-    v39 = @"Latest Timestamp Granularity";
-    CFRetain(v17);
-    v40 = v18;
-    valuePtr = *(v7 + 24);
-    v19 = CFNumberCreate(0, kCFNumberLongLongType, &valuePtr);
-    v20 = v19;
-    cf = v19;
-    if (!v19)
+    v37 = @"Latest Timestamp Granularity";
+    CFRetain(v16);
+    v38 = v17;
+    valuePtr = *(v6 + 24);
+    v18 = CFNumberCreate(0, kCFNumberLongLongType, &valuePtr);
+    v19 = v18;
+    cf = v18;
+    if (!v18)
     {
-      v27 = __cxa_allocate_exception(0x10uLL);
-      MEMORY[0x29C288110](v27, "Could not construct");
-      __cxa_throw(v27, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
+      v25 = __cxa_allocate_exception(0x10uLL);
+      MEMORY[0x29C288110](v25, "Could not construct");
+      __cxa_throw(v25, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
     }
 
-    v41 = @"Latest Interval";
-    CFRetain(v19);
-    v42 = v20;
-    if (*(v7 + 56))
+    v39 = @"Latest Interval";
+    CFRetain(v18);
+    v40 = v19;
+    if (*(v6 + 56))
     {
-      v21 = v12;
+      v20 = v11;
     }
 
     else
     {
-      v21 = v11;
+      v20 = v10;
     }
 
-    valuePtr = v21;
-    v43 = @"Ready";
-    if (v21)
+    valuePtr = v20;
+    v41 = @"Ready";
+    if (v20)
     {
-      CFRetain(v21);
+      CFRetain(v20);
     }
   }
 
   else
   {
+    v12 = 0;
     v13 = 0;
-    v14 = 0;
-    v21 = 0;
-    v33 = @"Observers Present";
+    v20 = 0;
+    v31 = @"Observers Present";
+    v32 = 0;
+    v33 = @"Latest Valid";
     v34 = 0;
-    v35 = @"Latest Valid";
+    v27 = 0;
+    v28 = 0;
+    v35 = @"Latest Timestamp";
     v36 = 0;
-    v29 = 0;
-    v30 = 0;
-    v37 = @"Latest Timestamp";
+    v37 = @"Latest Timestamp Granularity";
     v38 = 0;
-    v39 = @"Latest Timestamp Granularity";
-    v40 = 0;
     cf = 0;
-    v42 = 0;
-    v43 = @"Ready";
-    v41 = @"Latest Interval";
+    v40 = 0;
+    v41 = @"Ready";
+    v39 = @"Latest Interval";
     valuePtr = 0;
   }
 
-  v44 = v21;
-  waipc::util::createCFDictDropNull<7l>(v32, a2);
+  v42 = v20;
+  waipc::util::createCFDictDropNull<7l>(v30, a2);
   for (i = 13; i != -1; i -= 2)
   {
-    v23 = v32[i];
-    if (v23)
+    v22 = v30[i];
+    if (v22)
     {
-      CFRelease(v23);
+      CFRelease(v22);
     }
   }
 
-  if (v21)
+  if (v20)
   {
-    CFRelease(v21);
+    CFRelease(v20);
   }
 
   if (cf)
@@ -2400,19 +2404,14 @@ void ___ZNK5waipc8timesync15BasebandService9dumpStateEv_block_invoke(unsigned __
     CFRelease(cf);
   }
 
-  if (v29)
+  if (v27)
   {
-    CFRelease(v29);
+    CFRelease(v27);
   }
 
-  if (v30)
+  if (v28)
   {
-    CFRelease(v30);
-  }
-
-  if (v14)
-  {
-    CFRelease(v14);
+    CFRelease(v28);
   }
 
   if (v13)
@@ -2420,22 +2419,25 @@ void ___ZNK5waipc8timesync15BasebandService9dumpStateEv_block_invoke(unsigned __
     CFRelease(v13);
   }
 
+  if (v12)
+  {
+    CFRelease(v12);
+  }
+
   if (v5)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
-
-  v24 = *MEMORY[0x29EDCA608];
 }
 
-void sub_29831AFDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, const void *a10, const void *a11, const void *a12, const void *a13, const void *a14, uint64_t a15, char a16)
+void sub_29831AFDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, const void *a10, const void *a11, const void *a12, const void *a13, const void *a15, uint64_t a16, char a17)
 {
   applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(&a10);
   applesauce::CF::NumberRef::~NumberRef(&a11);
   applesauce::CF::NumberRef::~NumberRef(&a12);
   applesauce::CF::BooleanRef::~BooleanRef(&a13);
-  applesauce::CF::BooleanRef::~BooleanRef(&a14);
-  while (v17 != &a16)
+  applesauce::CF::BooleanRef::~BooleanRef(&a15);
+  while (v17 != &a17)
   {
     v17 = (v17 - 16);
     waipc::util::_kv::~_kv(v17);
@@ -2545,19 +2547,19 @@ uint64_t std::transform[abi:ne200100]<std::__map_const_iterator<std::__tree_cons
 
 void ___ZNK5waipc8timesync15BasebandService9dumpStateEv_block_invoke_2(unsigned __int8 *a1@<X1>, void *a2@<X8>)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   BufferName = waipc::timesync::BasebandProvider::getBufferName(*a1);
   v5 = BufferName;
-  v15[0] = @"Name";
+  v14[0] = @"Name";
   if (BufferName)
   {
     CFRetain(BufferName);
   }
 
-  v15[1] = v5;
-  v15[2] = @"Length";
-  v14 = *(a1 + 3);
-  if (!CFNumberCreate(0, kCFNumberLongType, &v14))
+  v14[1] = v5;
+  v14[2] = @"Length";
+  v13 = *(a1 + 3);
+  if (!CFNumberCreate(0, kCFNumberLongType, &v13))
   {
     exception = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x29C288110](exception, "Could not construct");
@@ -2576,8 +2578,8 @@ void ___ZNK5waipc8timesync15BasebandService9dumpStateEv_block_invoke_2(unsigned 
     v8 = *MEMORY[0x29EDB8F00];
   }
 
-  v17 = @"Ready";
-  v18 = v8;
+  v16 = @"Ready";
+  v17 = v8;
   if (a1[40])
   {
     v9 = v6;
@@ -2588,37 +2590,35 @@ void ___ZNK5waipc8timesync15BasebandService9dumpStateEv_block_invoke_2(unsigned 
     v9 = v7;
   }
 
-  v19 = @"Awaiting Removal";
-  v20 = v9;
-  waipc::util::createCFDictDropNull<4l>(v15, a2);
+  v18 = @"Awaiting Removal";
+  v19 = v9;
+  waipc::util::createCFDictDropNull<4l>(v14, a2);
   for (i = 7; i != -1; i -= 2)
   {
-    v11 = v15[i];
+    v11 = v14[i];
     if (v11)
     {
       CFRelease(v11);
     }
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 }
 
-void sub_29831B42C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29831B42C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   applesauce::CF::ObjectRef<void const*>::~ObjectRef(va1);
   waipc::util::_kv::~_kv(va);
   _Unwind_Resume(a1);
 }
 
-void ___ZNK5waipc8timesync15BasebandService9dumpStateEv_block_invoke_3(uint64_t *a1@<X1>, void *a2@<X8>)
+void ___ZNK5waipc8timesync15BasebandService9dumpStateEv_block_invoke_3(uint64_t *a2@<X1>, void *x8_0@<X8>)
 {
   v14 = *MEMORY[0x29EDCA608];
-  v9 = *a1;
+  v9 = *a2;
   v10 = @"Mach Time";
   if (!CFNumberCreate(0, kCFNumberLongLongType, &v9))
   {
@@ -2627,26 +2627,24 @@ void ___ZNK5waipc8timesync15BasebandService9dumpStateEv_block_invoke_3(uint64_t 
     __cxa_throw(exception, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
   }
 
-  v4 = waipc::timesync::KalmanEstimator::dumpState((a1 + 1));
+  v5 = waipc::timesync::KalmanEstimator::dumpState((a2 + 1));
   v12 = @"Estimator";
-  v13 = v4;
+  v13 = v5;
   v9 = 0;
-  waipc::util::createCFDictDropNull<2l>(&v10, a2);
+  waipc::util::createCFDictDropNull<2l>(&v10, x8_0);
   for (i = 24; i != -8; i -= 16)
   {
-    v6 = *(&v10 + i);
-    if (v6)
+    v7 = *(&v10 + i);
+    if (v7)
     {
-      CFRelease(v6);
+      CFRelease(v7);
     }
   }
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
-void sub_29831B5A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29831B5A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   applesauce::CF::ObjectRef<void const*>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
@@ -2693,7 +2691,6 @@ const void *waipc::util::createCFDictDropNull<2l>@<X0>(uint64_t a1@<X0>, void *a
     }
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -2707,22 +2704,22 @@ void sub_29831B73C(_Unwind_Exception *a1)
 const void *waipc::util::createCFDictDropNull<24l>@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   v3 = 0;
-  v25 = *MEMORY[0x29EDCA608];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
+  v24 = *MEMORY[0x29EDCA608];
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  *keys = 0u;
+  v17 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  *keys = 0u;
+  v13 = 0u;
   v4 = (a1 + 8);
   v5 = 384;
-  memset(v12, 0, sizeof(v12));
+  memset(v11, 0, sizeof(v11));
   do
   {
     v6 = *(v4 - 1);
@@ -2732,7 +2729,7 @@ const void *waipc::util::createCFDictDropNull<24l>@<X0>(uint64_t a1@<X0>, void *
       if (*v4)
       {
         keys[v3] = v6;
-        *(v12 + v3++) = v7;
+        *(v11 + v3++) = v7;
       }
     }
 
@@ -2741,7 +2738,7 @@ const void *waipc::util::createCFDictDropNull<24l>@<X0>(uint64_t a1@<X0>, void *
   }
 
   while (v5);
-  result = CFDictionaryCreate(*MEMORY[0x29EDB8ED8], keys, v12, v3, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
+  result = CFDictionaryCreate(*MEMORY[0x29EDB8ED8], keys, v11, v3, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   *a2 = result;
   if (result)
   {
@@ -2755,7 +2752,6 @@ const void *waipc::util::createCFDictDropNull<24l>@<X0>(uint64_t a1@<X0>, void *
     }
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -2791,7 +2787,7 @@ void errIfInexact(long double a1)
   }
 }
 
-void waipc::util::GuardBlock::~GuardBlock(const void **this)
+void waipc::util::GuardBlock::~GuardBlock(void (***this)(void))
 {
   v2 = *this;
   if (v2)
@@ -2978,16 +2974,16 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned lo
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::shared_ptr<waipc::timesync::BasebandService>::shared_ptr[abi:ne200100]<waipc::timesync::BasebandService,0>(void *a1, uint64_t a2)
+void std::shared_ptr<waipc::timesync::BasebandService>::shared_ptr[abi:ne200100]<waipc::timesync::BasebandService,0>(void *a1, void *a2)
 {
   *a1 = a2;
   v2 = a2;
   operator new();
 }
 
-void sub_29831BEB8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29831BEB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<waipc::timesync::BasebandService>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3110,7 +3106,7 @@ void std::__destroy_at[abi:ne200100]<std::pair<BOOL,applesauce::dispatch::v1::bl
   }
 }
 
-void std::vector<applesauce::dispatch::v1::block<void ()(BOOL,__CFString const*)>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<applesauce::dispatch::v1::block<void ()(BOOL,__CFString const*)>>::__destroy_vector::operator()[abi:ne200100](const void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -3200,7 +3196,7 @@ void std::__destroy_at[abi:ne200100]<std::pair<BOOL,applesauce::dispatch::v1::bl
   }
 }
 
-void std::vector<applesauce::dispatch::v1::block<void ()(waipc::timesync::BasebandProvider::timesyncMeasurement const*,unsigned long)>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<applesauce::dispatch::v1::block<void ()(waipc::timesync::BasebandProvider::timesyncMeasurement const*,unsigned long)>>::__destroy_vector::operator()[abi:ne200100](const void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -3290,7 +3286,7 @@ void std::__destroy_at[abi:ne200100]<std::pair<BOOL,applesauce::dispatch::v1::bl
   }
 }
 
-void std::vector<applesauce::dispatch::v1::block<void ()(waipc::timesync::KalmanEstimator const&,BOOL)>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<applesauce::dispatch::v1::block<void ()(waipc::timesync::KalmanEstimator const&,BOOL)>>::__destroy_vector::operator()[abi:ne200100](const void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -3550,9 +3546,9 @@ uint64_t std::vector<applesauce::dispatch::v1::block<void ()(BOOL,__CFString con
   return result;
 }
 
-void sub_29831CC68(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29831CC68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<applesauce::dispatch::v1::block<void ()(BOOL,__CFString const*)>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3799,31 +3795,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -3832,173 +3827,173 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
@@ -4188,9 +4183,9 @@ uint64_t std::vector<applesauce::dispatch::v1::block<void ()(waipc::timesync::Ba
   return result;
 }
 
-void sub_29831D630(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29831D630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<applesauce::dispatch::v1::block<void ()(waipc::timesync::BasebandProvider::timesyncMeasurement const*,unsigned long)>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4444,9 +4439,9 @@ uint64_t std::vector<applesauce::dispatch::v1::block<void ()(waipc::timesync::Ka
   return result;
 }
 
-void sub_29831DAA8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29831DAA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<applesauce::dispatch::v1::block<void ()(waipc::timesync::KalmanEstimator const&,BOOL)>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4645,13 +4640,13 @@ void waipc::util::Broadcaster<void ()(unsigned long long,double,unsigned long lo
   *(a1 + 56) = v3;
 }
 
-uint64_t std::vector<applesauce::dispatch::v1::block<void ()(unsigned long long,double,unsigned long long)>>::push_back[abi:ne200100](void *a1, void **a2)
+uint64_t std::vector<applesauce::dispatch::v1::block<void ()(unsigned long long,double,unsigned long long)>>::push_back[abi:ne200100](const void ***a1, void **a2)
 {
   v5 = a1[1];
   v4 = a1[2];
   if (v5 >= v4)
   {
-    v8 = (v5 - *a1) >> 3;
+    v8 = v5 - *a1;
     if ((v8 + 1) >> 61)
     {
       std::vector<std::pair<unsigned long long,waipc::timesync::BasebandProvider::deviceTimestamp>>::__throw_length_error[abi:ne200100]();
@@ -4693,16 +4688,16 @@ uint64_t std::vector<applesauce::dispatch::v1::block<void ()(unsigned long long,
   else
   {
     result = std::construct_at[abi:ne200100]<applesauce::dispatch::v1::block<void ()(unsigned long long,double,unsigned long long)>,applesauce::dispatch::v1::block<void ()(unsigned long long,double,unsigned long long)> const&,applesauce::dispatch::v1::block<void ()(unsigned long long,double,unsigned long long)>*>(a1[1], a2);
-    v7 = v5 + 8;
+    v7 = v5 + 1;
   }
 
   a1[1] = v7;
   return result;
 }
 
-void sub_29831DF30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29831DF30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<applesauce::dispatch::v1::block<void ()(unsigned long long,double,unsigned long long)>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4719,15 +4714,15 @@ void *std::construct_at[abi:ne200100]<applesauce::dispatch::v1::block<void ()(un
   return a1;
 }
 
-void std::vector<applesauce::dispatch::v1::block<void ()(unsigned long long,double,unsigned long long)>>::__swap_out_circular_buffer(uint64_t a1, void *a2)
+void std::vector<applesauce::dispatch::v1::block<void ()(unsigned long long,double,unsigned long long)>>::__swap_out_circular_buffer(const void ***result, void *a2)
 {
-  v4 = *a1;
-  v5 = *(a1 + 8);
-  v6 = a2[1] + *a1 - v5;
-  if (v5 != *a1)
+  v4 = *result;
+  v5 = result[1];
+  v6 = (a2[1] + *result - v5);
+  if (v5 != *result)
   {
-    v7 = *a1;
-    v8 = (a2[1] + *a1 - v5);
+    v7 = *result;
+    v8 = (a2[1] + *result - v5);
     do
     {
       *v8++ = *v7;
@@ -4741,18 +4736,18 @@ void std::vector<applesauce::dispatch::v1::block<void ()(unsigned long long,doub
     }
 
     while (v4 != v5);
-    v4 = *a1;
+    v4 = *result;
   }
 
   a2[1] = v6;
-  *a1 = v6;
-  *(a1 + 8) = v4;
+  *result = v6;
+  result[1] = v4;
   a2[1] = v4;
-  v9 = *(a1 + 8);
-  *(a1 + 8) = a2[2];
+  v9 = result[1];
+  result[1] = a2[2];
   a2[2] = v9;
-  v10 = *(a1 + 16);
-  *(a1 + 16) = a2[3];
+  v10 = result[2];
+  result[2] = a2[3];
   a2[3] = v10;
   *a2 = a2[1];
 }
@@ -4821,7 +4816,7 @@ void std::__destroy_at[abi:ne200100]<std::pair<BOOL,applesauce::dispatch::v1::bl
 
 uint64_t *std::__tree<std::__value_type<waipc::timesync::BasebandProvider::bufferId,waipc::timesync::BasebandService::bufferInfo>,std::__map_value_compare<waipc::timesync::BasebandProvider::bufferId,std::__value_type<waipc::timesync::BasebandProvider::bufferId,waipc::timesync::BasebandService::bufferInfo>,std::less<waipc::timesync::BasebandProvider::bufferId>,true>,std::allocator<std::__value_type<waipc::timesync::BasebandProvider::bufferId,waipc::timesync::BasebandService::bufferInfo>>>::__equal_range_multi<waipc::timesync::BasebandProvider::bufferId>(uint64_t a1, unsigned __int8 *a2)
 {
-  v2 = (a1 + 8);
+  v2 = a1 + 8;
   v3 = *(a1 + 8);
   if (!v3)
   {
@@ -4848,7 +4843,7 @@ LABEL_7:
 
   if (v5 < v4)
   {
-    ++v3;
+    v3 += 8;
     goto LABEL_7;
   }
 
@@ -4867,15 +4862,13 @@ LABEL_7:
         result = v7;
       }
 
-      v7 = v7[v10];
+      v7 = *(v7 + 8 * v10);
     }
 
     while (v7);
   }
 
-  for (i = v3[1]; i; i = *(i + 8 * (v4 >= *(i + 32))))
-  {
-    *(i + 32);
+    ;
   }
 
   return result;
@@ -4945,7 +4938,7 @@ void waipc::util::Broadcaster<void ()(waipc::timesync::BasebandProvider::timesyn
   }
 }
 
-void sub_29831E390(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *aBlock)
+void sub_29831E390(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *aBlock)
 {
   os_unfair_lock_unlock(v23 + 4);
   _Block_object_dispose(&a18, 8);
@@ -5062,9 +5055,9 @@ uint64_t std::vector<std::pair<BOOL,applesauce::dispatch::v1::block<void ()(waip
   return v7 - 16;
 }
 
-void sub_29831E568(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29831E568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::pair<BOOL,applesauce::dispatch::v1::block<void ()(waipc::timesync::BasebandProvider::timesyncMeasurement const*,unsigned long)>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5252,7 +5245,7 @@ void waipc::util::Broadcaster<void ()(BOOL,__CFString const*)>::context::addObse
   }
 }
 
-void sub_29831E9A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *aBlock)
+void sub_29831E9A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *aBlock)
 {
   os_unfair_lock_unlock(v23 + 4);
   _Block_object_dispose(&a18, 8);
@@ -5369,9 +5362,9 @@ uint64_t std::vector<std::pair<BOOL,applesauce::dispatch::v1::block<void ()(BOOL
   return v7 - 16;
 }
 
-void sub_29831EB80(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29831EB80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::pair<BOOL,applesauce::dispatch::v1::block<void ()(BOOL,__CFString const*)>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5549,7 +5542,7 @@ void waipc::util::Broadcaster<void ()(waipc::timesync::KalmanEstimator const&,BO
   }
 }
 
-void sub_29831EF78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *aBlock)
+void sub_29831EF78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *aBlock)
 {
   os_unfair_lock_unlock(v23 + 4);
   _Block_object_dispose(&a18, 8);
@@ -5666,9 +5659,9 @@ uint64_t std::vector<std::pair<BOOL,applesauce::dispatch::v1::block<void ()(waip
   return v7 - 16;
 }
 
-void sub_29831F150(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29831F150(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::pair<BOOL,applesauce::dispatch::v1::block<void ()(waipc::timesync::KalmanEstimator const&,BOOL)>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5846,7 +5839,7 @@ void waipc::util::Broadcaster<void ()(unsigned long long,double,unsigned long lo
   }
 }
 
-void sub_29831F548(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *aBlock)
+void sub_29831F548(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *aBlock)
 {
   os_unfair_lock_unlock(v23 + 4);
   _Block_object_dispose(&a18, 8);
@@ -5963,9 +5956,9 @@ uint64_t std::vector<std::pair<BOOL,applesauce::dispatch::v1::block<void ()(unsi
   return v7 - 16;
 }
 
-void sub_29831F720(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29831F720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::pair<BOOL,applesauce::dispatch::v1::block<void ()(unsigned long long,double,unsigned long long)>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6139,7 +6132,7 @@ void std::vector<std::pair<BOOL,applesauce::dispatch::v1::block<void ()(unsigned
   }
 }
 
-void std::vector<applesauce::dispatch::v1::block<void ()(unsigned long long,double,unsigned long long)>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<applesauce::dispatch::v1::block<void ()(unsigned long long,double,unsigned long long)>>::__destroy_vector::operator()[abi:ne200100](const void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -6194,48 +6187,48 @@ void std::__shared_ptr_emplace<waipc::timesync::BasebandService::timestampSubscr
   }
 }
 
-uint64_t *std::__tree<std::__value_type<waipc::timesync::BasebandProvider::timestampId,std::weak_ptr<waipc::timesync::BasebandService::timestampSubscription>>,std::__map_value_compare<waipc::timesync::BasebandProvider::timestampId,std::__value_type<waipc::timesync::BasebandProvider::timestampId,std::weak_ptr<waipc::timesync::BasebandService::timestampSubscription>>,std::less<waipc::timesync::BasebandProvider::timestampId>,true>,std::allocator<std::__value_type<waipc::timesync::BasebandProvider::timestampId,std::weak_ptr<waipc::timesync::BasebandService::timestampSubscription>>>>::__emplace_unique_key_args<waipc::timesync::BasebandProvider::timestampId,std::piecewise_construct_t const&,std::tuple<waipc::timesync::BasebandProvider::timestampId const&>,std::tuple<>>(uint64_t a1, unsigned __int8 *a2)
+uint64_t *std::__tree<std::__value_type<waipc::timesync::BasebandProvider::timestampId,std::weak_ptr<waipc::timesync::BasebandService::timestampSubscription>>,std::__map_value_compare<waipc::timesync::BasebandProvider::timestampId,std::__value_type<waipc::timesync::BasebandProvider::timestampId,std::weak_ptr<waipc::timesync::BasebandService::timestampSubscription>>,std::less<waipc::timesync::BasebandProvider::timestampId>,true>,std::allocator<std::__value_type<waipc::timesync::BasebandProvider::timestampId,std::weak_ptr<waipc::timesync::BasebandService::timestampSubscription>>>>::__emplace_unique_key_args<waipc::timesync::BasebandProvider::timestampId,std::piecewise_construct_t const&,std::tuple<waipc::timesync::BasebandProvider::timestampId const&>,std::tuple<>>(uint64_t a1, unsigned __int8 *a2, uint64_t a3, _BYTE **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<std::__value_type<waipc::timesync::BasebandProvider::timestampId,std::weak_ptr<waipc::timesync::BasebandService::timestampSubscription>>,std::__map_value_compare<waipc::timesync::BasebandProvider::timestampId,std::__value_type<waipc::timesync::BasebandProvider::timestampId,std::weak_ptr<waipc::timesync::BasebandService::timestampSubscription>>,std::less<waipc::timesync::BasebandProvider::timestampId>,true>,std::allocator<std::__value_type<waipc::timesync::BasebandProvider::timestampId,std::weak_ptr<waipc::timesync::BasebandService::timestampSubscription>>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<waipc::timesync::BasebandProvider::timestampId,std::weak_ptr<waipc::timesync::BasebandService::timestampSubscription>>,std::__map_value_compare<waipc::timesync::BasebandProvider::timestampId,std::__value_type<waipc::timesync::BasebandProvider::timestampId,std::weak_ptr<waipc::timesync::BasebandService::timestampSubscription>>,std::less<waipc::timesync::BasebandProvider::timestampId>,true>,std::allocator<std::__value_type<waipc::timesync::BasebandProvider::timestampId,std::weak_ptr<waipc::timesync::BasebandService::timestampSubscription>>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -6261,12 +6254,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -6280,22 +6273,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -6329,13 +6322,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -6511,53 +6504,45 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_ty
 
 mach_vm_address_t *waipc::MappableBuffer::MappableBuffer(mach_vm_address_t *this, uint64_t a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = ~*MEMORY[0x29EDCA6C8] & (*MEMORY[0x29EDCA6C8] + a2);
-  v5[0] = 0;
-  v5[1] = v2;
-  v6 = 0;
-  result = waipc::MappableBuffer::MappableBuffer(this, a2, v5, 1);
-  v4 = *MEMORY[0x29EDCA608];
-  return result;
+  v4[0] = 0;
+  v4[1] = v2;
+  v5 = 0;
+  return waipc::MappableBuffer::MappableBuffer(this, a2, v4, 1);
 }
 
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = ~*MEMORY[0x29EDCA6C8] & (*MEMORY[0x29EDCA6C8] + a2);
-  v5[0] = 0;
-  v5[1] = v2;
-  v6 = 0;
-  result = waipc::MappableBuffer::MappableBuffer(this, a2, v5, 1);
-  v4 = *MEMORY[0x29EDCA608];
-  return result;
+  v4[0] = 0;
+  v4[1] = v2;
+  v5 = 0;
+  return waipc::MappableBuffer::MappableBuffer(this, a2, v4, 1);
 }
 
 mach_vm_address_t *waipc::MappableBuffer::MappableBuffer(mach_vm_address_t *this, uint64_t a2, int a3)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   v3 = ~*MEMORY[0x29EDCA6C8] & (*MEMORY[0x29EDCA6C8] + a2);
-  v6[0] = 0;
-  v6[1] = v3;
-  v7 = a3;
-  result = waipc::MappableBuffer::MappableBuffer(this, a2, v6, 1);
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
+  v5[0] = 0;
+  v5[1] = v3;
+  v6 = a3;
+  return waipc::MappableBuffer::MappableBuffer(this, a2, v5, 1);
 }
 
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   v3 = ~*MEMORY[0x29EDCA6C8] & (*MEMORY[0x29EDCA6C8] + a2);
-  v6[0] = 0;
-  v6[1] = v3;
-  v7 = a3;
-  result = waipc::MappableBuffer::MappableBuffer(this, a2, v6, 1);
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
+  v5[0] = 0;
+  v5[1] = v3;
+  v6 = a3;
+  return waipc::MappableBuffer::MappableBuffer(this, a2, v5, 1);
 }
 
 mach_vm_address_t *waipc::MappableBuffer::MappableBuffer(mach_vm_address_t *address, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   *address = 0;
   address[1] = 0;
   address[2] = 0;
@@ -6571,13 +6556,13 @@ mach_vm_address_t *waipc::MappableBuffer::MappableBuffer(mach_vm_address_t *addr
     Logger = waipc::logging::getLogger(3u);
     if (os_log_type_enabled(Logger, OS_LOG_TYPE_INFO))
     {
-      v26 = 67109120;
-      v27 = v11;
+      v25 = 67109120;
+      v26 = v11;
       v13 = "failed to allocate shared memory region 0x%08x";
       goto LABEL_22;
     }
 
-    goto LABEL_23;
+    return address;
   }
 
   v14 = *address;
@@ -6625,14 +6610,14 @@ mach_vm_address_t *waipc::MappableBuffer::MappableBuffer(mach_vm_address_t *addr
           Logger = waipc::logging::getLogger(3u);
           if (os_log_type_enabled(Logger, OS_LOG_TYPE_INFO))
           {
-            v26 = 67109120;
-            v27 = v23;
+            v25 = 67109120;
+            v26 = v23;
             v13 = "failed to set protection attributes for shared memory region 0x%08x";
 LABEL_22:
-            _os_log_impl(&dword_298307000, Logger, OS_LOG_TYPE_INFO, v13, &v26, 8u);
+            _os_log_impl(&dword_298307000, Logger, OS_LOG_TYPE_INFO, v13, &v25, 8u);
           }
 
-          goto LABEL_23;
+          return address;
         }
 
         v15 = *v7;
@@ -6654,8 +6639,8 @@ LABEL_22:
     Logger = waipc::logging::getLogger(3u);
     if (os_log_type_enabled(Logger, OS_LOG_TYPE_INFO))
     {
-      v26 = 67109120;
-      v27 = v22;
+      v25 = 67109120;
+      v26 = v22;
       v13 = "failed to set inheritance attributes for shared memory region 0x%08x";
       goto LABEL_22;
     }
@@ -6666,14 +6651,12 @@ LABEL_22:
     address[2] = *address;
   }
 
-LABEL_23:
-  v24 = *MEMORY[0x29EDCA608];
   return address;
 }
 
 void waipc::MappableBuffer::~MappableBuffer(mach_vm_address_t *this)
 {
-  v5 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
   if (*this)
   {
     v1 = mach_vm_deallocate(*MEMORY[0x29EDCA6B0], *this, this[1]);
@@ -6682,14 +6665,12 @@ void waipc::MappableBuffer::~MappableBuffer(mach_vm_address_t *this)
       Logger = waipc::logging::getLogger(3u);
       if (os_log_type_enabled(Logger, OS_LOG_TYPE_INFO))
       {
-        v4[0] = 67109120;
-        v4[1] = v1;
-        _os_log_impl(&dword_298307000, Logger, OS_LOG_TYPE_INFO, "failed to deallocate shared memory region 0x%08x", v4, 8u);
+        v3[0] = 67109120;
+        v3[1] = v1;
+        _os_log_impl(&dword_298307000, Logger, OS_LOG_TYPE_INFO, "failed to deallocate shared memory region 0x%08x", v3, 8u);
       }
     }
   }
-
-  v3 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2983206C0(_Unwind_Exception *a1, int a2)
@@ -6705,20 +6686,20 @@ void sub_2983206C0(_Unwind_Exception *a1, int a2)
 void BasebandVoice_setTimesyncOverride(uint64_t *a1)
 {
   os_unfair_lock_lock(&sTimesyncOverrideLock);
-  v2 = timesyncOverrideStorage();
-  v4 = *a1;
-  v3 = a1[1];
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v5 = v2[1];
-  *v2 = v4;
-  v2[1] = v3;
+  v4 = timesyncOverrideStorage(v2, v3);
+  v6 = *a1;
+  v5 = a1[1];
   if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v7 = v4[1];
+  *v4 = v6;
+  v4[1] = v5;
+  if (v7)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
   os_unfair_lock_unlock(&sTimesyncOverrideLock);
@@ -6727,13 +6708,13 @@ void BasebandVoice_setTimesyncOverride(uint64_t *a1)
 void BasebandVoice_getTimesyncOverride(uint64_t *a1@<X8>)
 {
   os_unfair_lock_lock(&sTimesyncOverrideLock);
-  v2 = timesyncOverrideStorage();
-  v3 = v2[1];
-  *a1 = *v2;
-  a1[1] = v3;
-  if (v3)
+  v4 = timesyncOverrideStorage(v2, v3);
+  v5 = v4[1];
+  *a1 = *v4;
+  a1[1] = v5;
+  if (v5)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
   }
 
   os_unfair_lock_unlock(&sTimesyncOverrideLock);
@@ -6762,10 +6743,8 @@ void waipc::timesync::BasebandProvider::clearTransport()
 
 void waipc::timesync::BasebandProvider::transportReadCompletion()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 {
@@ -6786,58 +6765,32 @@ void ___ZN5waipc8timesync16BasebandProvider20checkPendingTimesyncEv_block_invoke
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void ___ZN5waipc8timesync22ModernBasebandProvider9mapBufferENS0_16BasebandProvider8bufferIdEPvm_block_invoke_cold_1(uint64_t a1)
+void ___ZN5waipc8timesync22ModernBasebandProvider9mapBufferENS0_16BasebandProvider8bufferIdEPvm_block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 48);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xBu);
-  v7 = *MEMORY[0x29EDCA608];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xBu);
 }
 
-void ___ZN5waipc8timesync22ModernBasebandProvider11unmapBufferENS0_16BasebandProvider8bufferIdE_block_invoke_cold_1(uint64_t a1)
+void ___ZN5waipc8timesync22ModernBasebandProvider11unmapBufferENS0_16BasebandProvider8bufferIdE_block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 48);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xBu);
-  v7 = *MEMORY[0x29EDCA608];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xBu);
 }
 
-void waipc::timesync::ModernBasebandProvider::handleTimeEvent(unsigned __int8 *a1, unsigned __int8 *a2)
+void waipc::timesync::LegacyBasebandProvider::handleDeviceTimesyncMeasurement()
 {
-  v12 = *MEMORY[0x29EDCA608];
-  v8 = *a1;
-  v9 = *(a1 + 1);
-  v10 = *(a1 + 1);
-  v11 = *a2;
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x1Eu);
-  v7 = *MEMORY[0x29EDCA608];
-}
-
-void waipc::timesync::LegacyBasebandProvider::handleDeviceTimesyncMeasurement(unsigned int *a1, uint64_t *a2)
-{
-  v10 = *MEMORY[0x29EDCA608];
-  v2 = *a1;
-  v3 = *a2;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x12u);
-  v9 = *MEMORY[0x29EDCA608];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void waipc::timesync::LegacyBasebandProvider::handleUplinkScheduleUpdate(uint64_t a1)
+void waipc::timesync::LegacyBasebandProvider::handleUplinkScheduleUpdate()
 {
-  v9 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 4);
-  v2 = *(a1 + 8);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x12u);
-  v8 = *MEMORY[0x29EDCA608];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void waipc::timesync::BasebandProvider::timesyncMeasurement::complete()
@@ -6978,22 +6931,22 @@ void waipc::BlockRing::subWrapped()
 
 void timesyncOverrideStorage()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals))
+  if (__cxa_guard_acquire(_MergedGlobals))
   {
     qword_2A13A9D50 = 0;
     unk_2A13A9D58 = 0;
 
-    __cxa_guard_release(&_MergedGlobals);
+    __cxa_guard_release(_MergedGlobals);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_0))
+  if (__cxa_guard_acquire(_MergedGlobals_0))
   {
     qword_2A13A9D70 = 0;
     unk_2A13A9D78 = 0;
 
-    __cxa_guard_release(&_MergedGlobals_0);
+    __cxa_guard_release(_MergedGlobals_0);
   }
 }
 

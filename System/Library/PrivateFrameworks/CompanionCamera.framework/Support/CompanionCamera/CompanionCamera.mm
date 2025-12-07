@@ -18,7 +18,7 @@ void sub_100001948(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_100001974(uint64_t a1)
 {
-  v2 = sub_100014634();
+  v2 = sub_100014634(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     sub_10002481C();
@@ -34,7 +34,7 @@ void sub_100001974(uint64_t a1)
 void sub_100001F40(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1000145AC();
+  v4 = sub_1000145AC(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_10002485C();
@@ -68,7 +68,7 @@ void sub_10000200C(uint64_t a1)
 void sub_1000020B4(uint64_t a1)
 {
   v2 = [*(a1 + 32) _fetchCurrentCameraStateIncludingSupportedCaptureModes:1];
-  v3 = sub_1000145AC();
+  v3 = sub_1000145AC(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -88,7 +88,7 @@ void sub_1000020B4(uint64_t a1)
   [v7 send];
 
   v8 = [*(*(a1 + 32) + 8) connectedDevice];
-  if (!v8 || (v9 = v8, [v8 operatingSystemVersion], v9, v10 <= 2))
+  if (!v8 || (v9 = v8, objc_msgSend_operatingSystemVersion(v8), v9, v10 <= 2))
   {
     [*(a1 + 32) _sendCurrentCameraState];
   }
@@ -124,17 +124,17 @@ void sub_100002204(uint64_t a1, uint64_t a2, void *a3)
   dispatch_async(v8, block);
 }
 
-void sub_1000022F0(uint64_t a1)
+void sub_1000022F0(uint64_t a1, uint64_t a2)
 {
-  v2 = (a1 + 32);
-  v3 = *(a1 + 32);
-  v4 = sub_1000145AC();
-  v5 = v4;
-  if (v3)
+  v3 = (a1 + 32);
+  v4 = *(a1 + 32);
+  v5 = sub_1000145AC(a1);
+  v6 = v5;
+  if (v4)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_1000248C4(v2, v5, v6, v7, v8, v9, v10, v11);
+      sub_1000248C4(v3, v6, v7, v8, v9, v10, v11, v12);
     }
 
     [*(a1 + 40) _sendOpenStateChange:2 withInternalState:0];
@@ -142,12 +142,12 @@ void sub_1000022F0(uint64_t a1)
 
   else
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = CFAbsoluteTimeGetCurrent() - *(a1 + 48);
-      v13 = 134217984;
-      v14 = v12;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Success opening com.apple.camera (in %.2fs)", &v13, 0xCu);
+      v13 = CFAbsoluteTimeGetCurrent() - *(a1 + 48);
+      v14 = 134217984;
+      v15 = v13;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Success opening com.apple.camera (in %.2fs)", &v14, 0xCu);
     }
   }
 }
@@ -155,7 +155,7 @@ void sub_1000022F0(uint64_t a1)
 void sub_1000025B4(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000145AC();
+  v3 = sub_1000145AC(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10002485C();
@@ -165,7 +165,7 @@ void sub_1000025B4(id a1, NSError *a2)
 void sub_100002608(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000145AC();
+  v3 = sub_1000145AC(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10002485C();
@@ -189,7 +189,7 @@ void sub_10000281C(uint64_t a1, uint64_t a2)
 void sub_1000028C4(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000145AC();
+  v3 = sub_1000145AC(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10002485C();
@@ -213,7 +213,7 @@ void sub_100002B4C(uint64_t a1, uint64_t a2)
 void sub_100002BF4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1000145AC();
+  v4 = sub_1000145AC(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_10002485C();
@@ -240,7 +240,7 @@ void sub_100002EB8(uint64_t a1, uint64_t a2)
 void sub_100002F6C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1000145AC();
+  v4 = sub_1000145AC(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_10002485C();
@@ -252,7 +252,7 @@ void sub_100002F6C(uint64_t a1, void *a2)
 void sub_1000030E0(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000145AC();
+  v3 = sub_1000145AC(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10002485C();
@@ -279,7 +279,7 @@ void sub_1000033AC(uint64_t a1, uint64_t a2)
   [v8 send];
 
   v9 = [*(*(a1 + 32) + 8) connectedDevice];
-  if (!v9 || (v10 = v9, [v9 operatingSystemVersion], v10, v11 <= 3))
+  if (!v9 || (v10 = v9, objc_msgSend_operatingSystemVersion(v9), v10, v11 <= 3))
   {
     [*(a1 + 32) _sendCurrentCameraState];
   }
@@ -288,7 +288,7 @@ void sub_1000033AC(uint64_t a1, uint64_t a2)
 void sub_1000034B8(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1000145AC();
+  v4 = sub_1000145AC(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_10002485C();
@@ -311,7 +311,7 @@ void sub_1000037B4(uint64_t a1, uint64_t a2)
   if (v6)
   {
     v7 = v6;
-    [v6 operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(v6);
 
     if (v17 > 3)
     {
@@ -348,7 +348,7 @@ LABEL_10:
   if (v12)
   {
     v13 = v12;
-    [v12 operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(v12);
 
     if (v14 > 3)
     {
@@ -370,7 +370,7 @@ LABEL_15:
 void sub_10000393C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1000145AC();
+  v4 = sub_1000145AC(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_10002485C();
@@ -396,7 +396,7 @@ void sub_100003C2C(uint64_t a1, uint64_t a2)
 void sub_100003CD4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1000145AC();
+  v4 = sub_1000145AC(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_10002485C();
@@ -422,7 +422,7 @@ void sub_100003F8C(uint64_t a1, uint64_t a2)
 void sub_100004034(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1000145AC();
+  v4 = sub_1000145AC(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_10002485C();
@@ -448,7 +448,7 @@ void sub_1000042EC(uint64_t a1, uint64_t a2)
 void sub_100004394(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1000145AC();
+  v4 = sub_1000145AC(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_10002485C();
@@ -474,7 +474,7 @@ void sub_10000464C(uint64_t a1, uint64_t a2)
 void sub_1000046F4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1000145AC();
+  v4 = sub_1000145AC(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_10002485C();
@@ -486,7 +486,7 @@ void sub_1000046F4(uint64_t a1, void *a2)
 void sub_1000048F8(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000145AC();
+  v3 = sub_1000145AC(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10002485C();
@@ -514,7 +514,7 @@ void sub_100004BB0(uint64_t a1, int a2, float a3)
 void sub_100004C6C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1000145AC();
+  v4 = sub_1000145AC(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_10002485C();
@@ -544,7 +544,7 @@ void sub_100004F5C(uint64_t a1, int a2, float a3)
 void sub_100005018(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1000145AC();
+  v4 = sub_1000145AC(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_10002485C();
@@ -573,7 +573,7 @@ void sub_100005270(uint64_t a1, int a2, uint64_t a3)
 void sub_100005324(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000145AC();
+  v3 = sub_1000145AC(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10002485C();
@@ -600,7 +600,7 @@ void sub_100005544(uint64_t a1, int a2, uint64_t a3)
 void sub_1000055F8(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000145AC();
+  v3 = sub_1000145AC(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10002485C();
@@ -627,7 +627,7 @@ void sub_100005818(uint64_t a1, int a2, uint64_t a3)
 void sub_1000058CC(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000145AC();
+  v3 = sub_1000145AC(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10002485C();
@@ -654,7 +654,7 @@ void sub_100005AEC(uint64_t a1, int a2, uint64_t a3)
 void sub_100005BA0(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000145AC();
+  v3 = sub_1000145AC(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10002485C();
@@ -664,109 +664,109 @@ void sub_100005BA0(id a1, NSError *a2)
 void sub_100005D6C(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000145AC();
+  v3 = sub_1000145AC(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10002485C();
   }
 }
 
-id sub_1000072E8(uint64_t a1)
+id sub_1000072E8(uint64_t a1, uint64_t a2)
 {
-  v2 = sub_1000145AC();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sub_1000145AC(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315650;
-    v5 = "[NCCompanionCamera xpc_captureDeviceDidChange]_block_invoke";
-    v6 = 2080;
-    v7 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/companioncamerad/NCCompanionCamera.m";
-    v8 = 1024;
-    v9 = 1004;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v4, 0x1Cu);
+    v5 = 136315650;
+    v6 = "[NCCompanionCamera xpc_captureDeviceDidChange]_block_invoke";
+    v7 = 2080;
+    v8 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/companioncamerad/NCCompanionCamera.m";
+    v9 = 1024;
+    v10 = 1004;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v5, 0x1Cu);
   }
 
   return [*(a1 + 32) _sendCurrentCameraState];
 }
 
-void sub_1000077A8(uint64_t a1)
+void sub_1000077A8(uint64_t a1, uint64_t a2)
 {
-  v2 = sub_1000145AC();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sub_1000145AC(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@", &v6, 0xCu);
+    v4 = *(a1 + 32);
+    v7 = 138412290;
+    v8 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@", &v7, 0xCu);
   }
 
-  v4 = *(a1 + 40);
-  if (v4[8] == 1)
+  v5 = *(a1 + 40);
+  if (v5[8] == 1)
   {
-    v5 = [v4 makeRequest:10];
-    [v5 setPbRequest:*(a1 + 32)];
-    [*(*(a1 + 40) + 8) sendRequest:v5];
+    v6 = [v5 makeRequest:10];
+    [v6 setPbRequest:*(a1 + 32)];
+    [*(*(a1 + 40) + 8) sendRequest:v6];
   }
 
   else
   {
-    v5 = sub_1000145AC();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = sub_1000145AC(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       sub_100024998();
     }
   }
 }
 
-void sub_100007B0C(uint64_t a1)
+void sub_100007B0C(uint64_t a1, uint64_t a2)
 {
-  v3 = *(a1 + 32);
-  if (!*(v3 + 64))
+  v4 = *(a1 + 32);
+  if (!*(v4 + 64))
   {
-    v8 = v1;
     v9 = v2;
-    *(v3 + 64) = 1;
-    v5 = sub_1000145AC();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v10 = v3;
+    *(v4 + 64) = 1;
+    v6 = sub_1000145AC(a1);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Remote side is active. Poking Camera.", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Remote side is active. Poking Camera.", v8, 2u);
     }
 
-    v6 = [*(*(a1 + 32) + 40) remoteObjectProxyWithErrorHandler:&stru_1000348B8];
-    [v6 xpc_setPreviewEndpoint:@"proxy"];
+    v7 = [*(*(a1 + 32) + 40) remoteObjectProxyWithErrorHandler:&stru_1000348B8];
+    [v7 xpc_setPreviewEndpoint:@"proxy"];
   }
 }
 
 void sub_100007BC0(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000145AC();
+  v3 = sub_1000145AC(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10002485C();
   }
 }
 
-void sub_100007C14(uint64_t a1)
+void sub_100007C14(uint64_t a1, uint64_t a2)
 {
-  v3 = *(a1 + 32);
-  if (!*(v3 + 64))
+  v4 = *(a1 + 32);
+  if (!*(v4 + 64))
   {
-    v6 = v1;
     v7 = v2;
-    *(v3 + 64) = 2;
-    v4 = sub_1000145AC();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v8 = v3;
+    *(v4 + 64) = 2;
+    v5 = sub_1000145AC(a1);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Remote side is inactive.", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Remote side is inactive.", v6, 2u);
     }
   }
 }
 
-void sub_100007DB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100007DB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -781,21 +781,21 @@ uint64_t sub_100007DCC(uint64_t result, uint64_t a2)
 void sub_100007DE4(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000145AC();
+  v3 = sub_1000145AC(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10002485C();
   }
 }
 
-void sub_100007E38(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a5, unsigned int a6, void *a7, unsigned int a8, float a9, float a10, float a11, float a12, void *a13, uint64_t a14, unsigned __int8 a15, unsigned __int8 a16, unsigned __int8 a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, unsigned __int8 a27, unsigned __int8 a28, uint64_t a29, uint64_t a30, char a31)
+void sub_100007E38(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a5, unsigned int a6, void *a7, unsigned int a8, float a9, float a10, float a11, float a12, void *a13, uint64_t a14, unsigned __int8 a15, unsigned __int8 a16, unsigned __int8 a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, unsigned __int8 a27, unsigned __int8 a28, uint64_t a29, uint64_t a30, uint64_t a31)
 {
   v39 = a2;
   v123 = a4;
   v128 = a7;
   v129 = a13;
   v127 = a18;
-  v40 = sub_1000145AC();
+  v40 = sub_1000145AC(v127);
   if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
   {
     v41 = sub_100024740(a3);
@@ -1221,7 +1221,7 @@ void sub_100007E38(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a5, un
   {
     [*(*(*(a1 + 40) + 8) + 40) setIrisMode:sub_1000247A0(a24)];
     v100 = [*(*(a1 + 32) + 8) connectedDevice];
-    if (!v100 || (v101 = v100, [v100 operatingSystemVersion], v101, v132 <= 4))
+    if (!v100 || (v101 = v100, objc_msgSend_operatingSystemVersion(v100), v101, v132 <= 4))
     {
       if ([*(*(*(a1 + 40) + 8) + 40) irisMode] == 2)
       {
@@ -1246,7 +1246,7 @@ void sub_100007E38(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a5, un
   [*(*(*(a1 + 40) + 8) + 40) setShallowDepthOfFieldStatus:sub_1000247E0(a30)];
   [*(*(*(a1 + 40) + 8) + 40) setStereoCaptureStatus:sub_1000247F0(a31)];
   v102 = [*(*(a1 + 32) + 8) connectedDevice];
-  if (!v102 || (v103 = v102, [v102 operatingSystemVersion], v103, v131 <= 11))
+  if (!v102 || (v103 = v102, objc_msgSend_operatingSystemVersion(v102), v103, v131 <= 11))
   {
     if ([*(*(*(a1 + 40) + 8) + 40) captureMode] == 11)
     {
@@ -1282,7 +1282,7 @@ void sub_100007E38(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a5, un
   }
 
   v104 = [*(*(a1 + 32) + 8) connectedDevice];
-  if (!v104 || (v105 = v104, [v104 operatingSystemVersion], v105, v130 <= 3))
+  if (!v104 || (v105 = v104, objc_msgSend_operatingSystemVersion(v104), v105, v130 <= 3))
   {
     v106 = [*(*(*(a1 + 40) + 8) + 40) viewfinderSessionActive];
     v107 = *(*(*(a1 + 40) + 8) + 40);
@@ -1338,8 +1338,7 @@ void sub_10000943C(id *a1)
   [*(a1[5] + 5) setExportedInterface:v8];
 
   [*(a1[5] + 5) setExportedObject:?];
-  [*(a1[5] + 5) setRemoteObjectInterface:v3];
-  v9 = sub_1000145AC();
+  v9 = sub_1000145AC([*(a1[5] + 5) setRemoteObjectInterface:v3]);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -1353,59 +1352,60 @@ void sub_10000943C(id *a1)
 
   objc_initWeak(buf, a1[5]);
   objc_initWeak(&location, a1[6]);
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = sub_100009940;
-  v28[3] = &unk_100034950;
-  objc_copyWeak(&v29, buf);
-  objc_copyWeak(&v30, &location);
-  [*(a1[5] + 5) setInvalidationHandler:v28];
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = sub_100009940;
+  v29[3] = &unk_100034950;
+  objc_copyWeak(&v30, buf);
+  objc_copyWeak(&v31, &location);
+  [*(a1[5] + 5) setInvalidationHandler:v29];
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v26[2] = sub_1000099C4;
+  v26[3] = &unk_100034950;
+  objc_copyWeak(&v27, buf);
+  objc_copyWeak(&v28, &location);
+  [*(a1[5] + 5) setInterruptionHandler:v26];
+  [*(a1[5] + 5) resume];
   v25[0] = _NSConcreteStackBlock;
   v25[1] = 3221225472;
-  v25[2] = sub_1000099C4;
-  v25[3] = &unk_100034950;
-  objc_copyWeak(&v26, buf);
-  objc_copyWeak(&v27, &location);
-  [*(a1[5] + 5) setInterruptionHandler:v25];
-  [*(a1[5] + 5) resume];
-  v24[0] = _NSConcreteStackBlock;
-  v24[1] = 3221225472;
-  v24[2] = sub_100009A48;
-  v24[3] = &unk_100034898;
-  v24[4] = a1[5];
-  v13 = objc_retainBlock(v24);
-  v14 = a1[5];
-  v15 = *(v14 + 8);
-  if (v15)
+  v25[2] = sub_100009A48;
+  v25[3] = &unk_100034898;
+  v25[4] = a1[5];
+  v13 = objc_retainBlock(v25);
+  v14 = v13;
+  v15 = a1[5];
+  v16 = *(v15 + 8);
+  if (v16)
   {
-    if (v15 == 1)
+    if (v16 == 1)
     {
-      v16 = [*(v14 + 5) remoteObjectProxyWithErrorHandler:&stru_100034970];
-      [v16 xpc_setPreviewEndpoint:@"proxy"];
-      v17 = a1[5];
-      if (*(v17 + 24) == 1)
+      v17 = [*(v15 + 5) remoteObjectProxyWithErrorHandler:&stru_100034970];
+      [v17 xpc_setPreviewEndpoint:@"proxy"];
+      v18 = a1[5];
+      if (*(v18 + 24) == 1)
       {
-        v18 = v17[2];
-        v22[0] = _NSConcreteStackBlock;
-        v22[1] = 3221225472;
-        v22[2] = sub_100009B30;
-        v22[3] = &unk_100034998;
-        v22[4] = v17;
-        v23 = v13;
-        [v16 xpc_ensureSwitchedToOneOfSupportedCaptureModes:v18 reply:v22];
+        v19 = v18[2];
+        v23[0] = _NSConcreteStackBlock;
+        v23[1] = 3221225472;
+        v23[2] = sub_100009B30;
+        v23[3] = &unk_100034998;
+        v23[4] = v18;
+        v24 = v14;
+        [v17 xpc_ensureSwitchedToOneOfSupportedCaptureModes:v19 reply:v23];
         *(a1[5] + 24) = 0;
       }
 
       else
       {
-        (v13[2])(v13);
+        v14[2](v14);
       }
     }
 
     else
     {
-      v20 = sub_1000145AC();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v21 = sub_1000145AC(v13);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         sub_100024998();
       }
@@ -1416,20 +1416,20 @@ void sub_10000943C(id *a1)
 
   else
   {
-    v19 = sub_1000145AC();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_1000145AC(v13);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      *v21 = 0;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Remote camera state is unknown.", v21, 2u);
+      *v22 = 0;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Remote camera state is unknown.", v22, 2u);
     }
 
-    (v13[2])(v13);
+    v14[2](v14);
   }
 
+  objc_destroyWeak(&v28);
   objc_destroyWeak(&v27);
-  objc_destroyWeak(&v26);
+  objc_destroyWeak(&v31);
   objc_destroyWeak(&v30);
-  objc_destroyWeak(&v29);
   objc_destroyWeak(&location);
   objc_destroyWeak(buf);
 }
@@ -1465,23 +1465,23 @@ void sub_1000099C4(uint64_t a1)
   [WeakRetained connectionDidTearDown:v3];
 }
 
-void sub_100009A48(uint64_t a1)
+void sub_100009A48(uint64_t a1, uint64_t a2)
 {
-  v2 = sub_1000145AC();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sub_1000145AC(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Sending open state change.", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Sending open state change.", v5, 2u);
   }
 
-  v3 = [*(a1 + 32) _fetchCurrentCameraStateIncludingSupportedCaptureModes:1];
-  [*(a1 + 32) _sendOpenStateChange:0 withInternalState:v3];
+  v4 = [*(a1 + 32) _fetchCurrentCameraStateIncludingSupportedCaptureModes:1];
+  [*(a1 + 32) _sendOpenStateChange:0 withInternalState:v4];
 }
 
 void sub_100009ADC(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000145AC();
+  v3 = sub_1000145AC(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10002485C();
@@ -1506,22 +1506,22 @@ void *sub_100009CE4(void *result)
     {
       *(v3 + 40) = 0;
 
-      v5 = sub_1000145AC();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = sub_1000145AC(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Releasing connection transation", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Releasing connection transation", buf, 2u);
       }
 
-      v6 = v2[5];
-      v7 = *(v6 + 80);
-      *(v6 + 80) = 0;
+      v7 = v2[5];
+      v8 = *(v7 + 80);
+      *(v7 + 80) = 0;
 
-      v8 = sub_1000145AC();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_1000145AC(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        *v9 = 0;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "(connectionDidTearDown) Companion camera closed, sending open state change", v9, 2u);
+        *v11 = 0;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "(connectionDidTearDown) Companion camera closed, sending open state change", v11, 2u);
       }
 
       return [v2[5] _sendOpenStateChange:2 withInternalState:0];
@@ -1556,7 +1556,7 @@ void *sub_100009E4C(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -1573,22 +1573,23 @@ LABEL_5:
 
 uint64_t sub_100009F8C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10003F2D0 = result;
   return result;
 }
 
-void sub_10000A000(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000A000(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_10000A028(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000A028(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 uint64_t sub_10000A100(uint64_t a1, void *a2)
@@ -3844,16 +3845,16 @@ LABEL_36:
   return [a2 hasError] ^ 1;
 }
 
-id sub_100014524()
+id sub_100014524(uint64_t a1)
 {
   if (qword_10003F2E0 != -1)
   {
     sub_1000249CC();
   }
 
-  v1 = qword_10003F2D8;
+  v2 = qword_10003F2D8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100014568(id a1)
@@ -3863,16 +3864,16 @@ void sub_100014568(id a1)
   _objc_release_x1();
 }
 
-id sub_1000145AC()
+id sub_1000145AC(uint64_t a1)
 {
   if (qword_10003F2F0 != -1)
   {
     sub_1000249E0();
   }
 
-  v1 = qword_10003F2E8;
+  v2 = qword_10003F2E8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000145F0(id a1)
@@ -3882,16 +3883,16 @@ void sub_1000145F0(id a1)
   _objc_release_x1();
 }
 
-id sub_100014634()
+id sub_100014634(uint64_t a1)
 {
   if (qword_10003F300 != -1)
   {
     sub_1000249F4();
   }
 
-  v1 = qword_10003F2F8;
+  v2 = qword_10003F2F8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100014678(id a1)
@@ -3993,8 +3994,7 @@ void sub_10001541C(uint64_t a1)
   v20 = v27;
 
   [*(a1 + 32) setMessageCenter:*(a1 + 40)];
-  [*(a1 + 32) setIdsIdentifier:v19];
-  v21 = sub_1000145AC();
+  v21 = sub_1000145AC([*(a1 + 32) setIdsIdentifier:v19]);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     v22 = [*(a1 + 32) messageID];
@@ -4099,8 +4099,7 @@ void sub_100015A98(id *a1)
   v19 = v27;
   v20 = v26;
 
-  [a1[4] setIdsIdentifier:v19];
-  v21 = sub_1000145AC();
+  v21 = sub_1000145AC([a1[4] setIdsIdentifier:v19]);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     v22 = [a1[4] request];
@@ -4259,23 +4258,17 @@ void sub_100017CF0(id a1)
   *&qword_10003F310 = v1 / v2 * 0.000000001;
 }
 
-void sub_100017D3C(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void sub_100017D3C(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_fault_impl(a1, v11, OS_LOG_TYPE_FAULT, a4, &buf, 0xCu);
+  _os_log_fault_impl(a1, v10, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 void sub_100017D5C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint8_t *a5)
 {
 
   _os_log_fault_impl(a1, v5, OS_LOG_TYPE_FAULT, a4, a5, 0xCu);
-}
-
-uint64_t sub_100017F18(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  return AnalyticsSendEventLazy();
 }
 
 id sub_100017F98(uint64_t a1)
@@ -4337,10 +4330,11 @@ void sub_100018864(uint64_t a1)
   [WeakRetained _print];
 }
 
-void sub_100018D50(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100018D50(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 uint64_t sub_100019048(uint64_t a1, void *a2)
@@ -7335,11 +7329,18 @@ uint64_t sub_1000247F8(uint64_t a1)
   }
 }
 
-uint64_t sub_100024934()
+void sub_1000248C4(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  dlerror();
-  v0 = abort_report_np();
-  return sub_100024958(v0);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  sub_10000A000(&_mh_execute_header, a2, a3, "Error opening com.apple.camera: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100024934()
+{
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  sub_100024958();
 }
 
 void sub_100024A08(const char *a1)
@@ -7349,7 +7350,7 @@ void sub_100024A08(const char *a1)
   sub_100017D84();
   v2 = [NSString stringWithFormat:@"Cannot use %@ after using -resume"];
   sub_100017D78();
-  sub_100017D3C(&_mh_execute_header, v3, v4, "NMSMisuseException: %@", v5, v6, v7, v8, v9, v10, v11);
+  sub_100017D3C(&_mh_execute_header, v3, v4, "NMSMisuseException: %@", v5, v6, v7, v8, v9, v10);
 }
 
 void sub_100024AB8(const char *a1)
@@ -7359,7 +7360,7 @@ void sub_100024AB8(const char *a1)
   sub_100017D84();
   v2 = [NSString stringWithFormat:@"Target must respond to selector %@"];
   sub_100017D78();
-  sub_100017D3C(&_mh_execute_header, v3, v4, "NMSMisuseException: %@", v5, v6, v7, v8, v9, v10, v11);
+  sub_100017D3C(&_mh_execute_header, v3, v4, "NMSMisuseException: %@", v5, v6, v7, v8, v9, v10);
 }
 
 void sub_100024B68(const char *a1)
@@ -7369,7 +7370,7 @@ void sub_100024B68(const char *a1)
   sub_100017D84();
   v2 = [NSString stringWithFormat:@"Cannot use %@ after until -resume is used"];
   sub_100017D78();
-  sub_100017D3C(&_mh_execute_header, v3, v4, "NMSMisuseException: %@", v5, v6, v7, v8, v9, v10, v11);
+  sub_100017D3C(&_mh_execute_header, v3, v4, "NMSMisuseException: %@", v5, v6, v7, v8, v9, v10);
 }
 
 void sub_100024C18()
@@ -7402,10 +7403,9 @@ void sub_100024DF4()
 
 void sub_100024E8C(unsigned __int16 *a1)
 {
-  v8 = *a1;
-  v1 = [NSString stringWithFormat:@"Can't access -pbRequest without a mapping for messageID: %hu"];
+  v1 = [NSString stringWithFormat:@"Can't access -pbRequest without a mapping for messageID: %hu", *a1];
   sub_100017D78();
-  sub_100017D3C(&_mh_execute_header, v2, v3, "NMSMisuseException: %@", v4, v5, v6, v7, v8, v9, v10);
+  sub_100017D3C(&_mh_execute_header, v2, v3, "NMSMisuseException: %@", v4, v5, v6, v7, v8, v9);
 }
 
 void sub_100024F2C(void *a1)
@@ -7415,15 +7415,14 @@ void sub_100024F2C(void *a1)
   sub_100017D84();
   v2 = [NSString stringWithFormat:@"pbResponse needs to be of type %@"];
   sub_100017D78();
-  sub_100017D3C(&_mh_execute_header, v3, v4, "NMSMisuseException: %@", v5, v6, v7, v8, v9, v10, v11);
+  sub_100017D3C(&_mh_execute_header, v3, v4, "NMSMisuseException: %@", v5, v6, v7, v8, v9, v10);
 }
 
 void sub_100024FE0(unsigned __int16 *a1)
 {
-  v8 = *a1;
-  v1 = [NSString stringWithFormat:@"Can't access -pbResponse without a mapping for messageID: %hu"];
+  v1 = [NSString stringWithFormat:@"Can't access -pbResponse without a mapping for messageID: %hu", *a1];
   sub_100017D78();
-  sub_100017D3C(&_mh_execute_header, v2, v3, "NMSMisuseException: %@", v4, v5, v6, v7, v8, v9, v10);
+  sub_100017D3C(&_mh_execute_header, v2, v3, "NMSMisuseException: %@", v4, v5, v6, v7, v8, v9);
 }
 
 void sub_100025094(void *a1, void *a2)
@@ -7439,12 +7438,16 @@ void sub_10002513C(void *a1, uint64_t a2)
 {
   v3 = a1;
   v4 = sub_100018644(a2);
-  sub_100018D50(&_mh_execute_header, v5, v6, "Unexpected event: %@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  sub_100018D50(&_mh_execute_header, v5, v6, "Unexpected event: %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void sub_1000251D4(void *a1, uint64_t a2)
 {
   v3 = a1;
   v4 = sub_100018644(a2);
-  sub_100018D50(&_mh_execute_header, v5, v6, "Repeated event: %@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  sub_100018D50(&_mh_execute_header, v5, v6, "Repeated event: %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }

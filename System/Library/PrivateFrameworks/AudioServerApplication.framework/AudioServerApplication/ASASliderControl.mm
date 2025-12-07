@@ -1,5 +1,6 @@
 @interface ASASliderControl
 - (_ASASliderRange)range;
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree;
 - (unsigned)value;
 - (void)setValue:(unsigned int)value;
 @end
@@ -40,6 +41,20 @@
   }
 
   return v5;
+}
+
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree
+{
+  treeCopy = tree;
+  v10.receiver = self;
+  v10.super_class = ASASliderControl;
+  indentCopy = indent;
+  v7 = [(ASAControl *)&v10 diagnosticDescriptionWithIndent:indentCopy walkTree:treeCopy];
+  range = [(ASASliderControl *)self range];
+  [v7 appendFormat:@"%@|    Value: %u\n", indentCopy, -[ASASliderControl value](self, "value")];
+  [v7 appendFormat:@"%@|    Range: Min %u Max %u\n", indentCopy, range, HIDWORD(*&range)];
+
+  return v7;
 }
 
 @end

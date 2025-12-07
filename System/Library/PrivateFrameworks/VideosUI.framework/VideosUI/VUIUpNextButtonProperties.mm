@@ -78,7 +78,7 @@
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __47__VUIUpNextButtonProperties__toggleUpNextState__block_invoke(uint64_t a1)
+void *__47__VUIUpNextButtonProperties__toggleUpNextState__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dismissOnSelect];
   if ((result & 1) == 0)
@@ -152,7 +152,7 @@ void __56__VUIUpNextButtonProperties_callAPIAndToggleUpNextState__block_invoke(u
 
   else
   {
-    v8 = VUIDefaultLogObject();
+    v8 = VUIDefaultLogObject(WeakRetained);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = 138412290;

@@ -65,7 +65,7 @@
 
 - (BOOL)openWithConnection:(id)connection
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -73,29 +73,29 @@
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v24 = "[PLBasebandLogChannel openWithConnection:]";
+    v23 = "[PLBasebandLogChannel openWithConnection:]";
     _os_log_impl(&dword_21A4C6000, v6, OS_LOG_TYPE_INFO, "%s: Entered BB logging channel", buf, 0xCu);
   }
 
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v7 = objc_opt_class();
-    v17 = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __43__PLBasebandLogChannel_openWithConnection___block_invoke;
-    v20 = &unk_27825A310;
-    v21 = @"Critical";
-    v22 = v7;
+    v16 = MEMORY[0x277D85DD0];
+    v17 = 3221225472;
+    v18 = __43__PLBasebandLogChannel_openWithConnection___block_invoke;
+    v19 = &unk_27825A310;
+    v20 = @"Critical";
+    v21 = v7;
     if (qword_2811F7838 != -1)
     {
-      dispatch_once(&qword_2811F7838, &v17);
+      dispatch_once(&qword_2811F7838, &v16);
     }
 
     v8 = _MergedGlobals_89;
 
     if (v8)
     {
-      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Opening BB logging channel", v17, v18, v19, v20];
+      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Opening BB logging channel", v16, v17, v18, v19];
       v10 = MEMORY[0x277D3F178];
       v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Compositions/Baseband/PLBasebandLogChannel.m"];
       lastPathComponent = [v11 lastPathComponent];
@@ -106,7 +106,7 @@
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v24 = v9;
+        v23 = v9;
         _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -114,11 +114,10 @@
 
   objc_sync_exit(selfCopy);
 
-  v15 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-uint64_t __43__PLBasebandLogChannel_openWithConnection___block_invoke(uint64_t a1)
+void *__43__PLBasebandLogChannel_openWithConnection___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   _MergedGlobals_89 = result;
@@ -127,28 +126,28 @@ uint64_t __43__PLBasebandLogChannel_openWithConnection___block_invoke(uint64_t a
 
 - (void)close
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
-    v14 = MEMORY[0x277D85DD0];
-    v15 = 3221225472;
-    v16 = __29__PLBasebandLogChannel_close__block_invoke;
-    v17 = &unk_27825A310;
-    v18 = @"Critical";
-    v19 = v3;
+    v13 = MEMORY[0x277D85DD0];
+    v14 = 3221225472;
+    v15 = __29__PLBasebandLogChannel_close__block_invoke;
+    v16 = &unk_27825A310;
+    v17 = @"Critical";
+    v18 = v3;
     if (qword_2811F7840 != -1)
     {
-      dispatch_once(&qword_2811F7840, &v14);
+      dispatch_once(&qword_2811F7840, &v13);
     }
 
     v4 = byte_2811F7831;
 
     if (v4)
     {
-      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"Closing BB logging channel", v14, v15, v16, v17];
+      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"Closing BB logging channel", v13, v14, v15, v16];
       v6 = MEMORY[0x277D3F178];
       v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Compositions/Baseband/PLBasebandLogChannel.m"];
       lastPathComponent = [v7 lastPathComponent];
@@ -159,7 +158,7 @@ uint64_t __43__PLBasebandLogChannel_openWithConnection___block_invoke(uint64_t a
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v21 = v5;
+        v20 = v5;
         _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -171,7 +170,7 @@ uint64_t __43__PLBasebandLogChannel_openWithConnection___block_invoke(uint64_t a
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v21 = "[PLBasebandLogChannel close]";
+      v20 = "[PLBasebandLogChannel close]";
       _os_log_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_INFO, "%s: Entered Port close, local port ", buf, 0xCu);
     }
 
@@ -187,7 +186,7 @@ uint64_t __43__PLBasebandLogChannel_openWithConnection___block_invoke(uint64_t a
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v21 = "[PLBasebandLogChannel close]";
+      v20 = "[PLBasebandLogChannel close]";
       _os_log_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_INFO, "%s: Entered Port remote port", buf, 0xCu);
     }
 
@@ -198,11 +197,9 @@ uint64_t __43__PLBasebandLogChannel_openWithConnection___block_invoke(uint64_t a
   }
 
   objc_sync_exit(selfCopy);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __29__PLBasebandLogChannel_close__block_invoke(uint64_t a1)
+void *__29__PLBasebandLogChannel_close__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   byte_2811F7831 = result;
@@ -211,27 +208,27 @@ uint64_t __29__PLBasebandLogChannel_close__block_invoke(uint64_t a1)
 
 - (void)invalidate
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   [(PLBasebandLogChannel *)self close];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
-    v13 = MEMORY[0x277D85DD0];
-    v14 = 3221225472;
-    v15 = __34__PLBasebandLogChannel_invalidate__block_invoke;
-    v16 = &unk_27825A310;
-    v17 = @"Critical";
-    v18 = v3;
+    v12 = MEMORY[0x277D85DD0];
+    v13 = 3221225472;
+    v14 = __34__PLBasebandLogChannel_invalidate__block_invoke;
+    v15 = &unk_27825A310;
+    v16 = @"Critical";
+    v17 = v3;
     if (qword_2811F7848 != -1)
     {
-      dispatch_once(&qword_2811F7848, &v13);
+      dispatch_once(&qword_2811F7848, &v12);
     }
 
     v4 = byte_2811F7832;
 
     if (v4 == 1)
     {
-      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"BB logging channel became Invalid", v13, v14, v15, v16];
+      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"BB logging channel became Invalid", v12, v13, v14, v15];
       v6 = MEMORY[0x277D3F178];
       v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Compositions/Baseband/PLBasebandLogChannel.m"];
       lastPathComponent = [v7 lastPathComponent];
@@ -242,19 +239,17 @@ uint64_t __29__PLBasebandLogChannel_close__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v20 = v5;
+        v19 = v5;
         _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
-  v11 = [(PLBasebandLogChannel *)self delegate:v13];
+  v11 = [(PLBasebandLogChannel *)self delegate:v12];
   [v11 channelDidBecomeInvalid:self];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __34__PLBasebandLogChannel_invalidate__block_invoke(uint64_t a1)
+void *__34__PLBasebandLogChannel_invalidate__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   byte_2811F7832 = result;
@@ -263,24 +258,20 @@ uint64_t __34__PLBasebandLogChannel_invalidate__block_invoke(uint64_t a1)
 
 - (void)flush
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = *MEMORY[0x277CC3A90];
-  v6[0] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277CC3A90];
+  v5[0] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
   [(PLBasebandLogChannel *)self sendObjectOverRemotePort:v3];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)commitHardwareLogs
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = *MEMORY[0x277CC3A78];
-  v6[0] = &unk_282C103C8;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277CC3A78];
+  v5[0] = &unk_282C103C8;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
   [(PLBasebandLogChannel *)self sendObjectOverRemotePort:v3];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableLogCodes:(id)codes andEvents:(id)events andExtraCode:(id)code
@@ -308,7 +299,7 @@ uint64_t __34__PLBasebandLogChannel_invalidate__block_invoke(uint64_t a1)
 
 - (void)sendObjectOverRemotePort:(id)port
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   portCopy = port;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -325,10 +316,10 @@ uint64_t __34__PLBasebandLogChannel_invalidate__block_invoke(uint64_t a1)
         {
           v8 = objc_opt_class();
           block = MEMORY[0x277D85DD0];
-          v17 = 3221225472;
-          v18 = __49__PLBasebandLogChannel_sendObjectOverRemotePort___block_invoke;
-          v19 = &__block_descriptor_40_e5_v8__0lu32l8;
-          v20 = v8;
+          v16 = 3221225472;
+          v17 = __49__PLBasebandLogChannel_sendObjectOverRemotePort___block_invoke;
+          v18 = &__block_descriptor_40_e5_v8__0lu32l8;
+          v19 = v8;
           if (qword_2811F7850 != -1)
           {
             dispatch_once(&qword_2811F7850, &block);
@@ -336,7 +327,7 @@ uint64_t __34__PLBasebandLogChannel_invalidate__block_invoke(uint64_t a1)
 
           if (byte_2811F7833 == 1)
           {
-            v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"unable to send object over port (%d)", v7, block, v17, v18, v19, v20];
+            v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"unable to send object over port (%d)", v7, block, v16, v17, v18, v19];
             v10 = MEMORY[0x277D3F178];
             v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Compositions/Baseband/PLBasebandLogChannel.m"];
             lastPathComponent = [v11 lastPathComponent];
@@ -347,7 +338,7 @@ uint64_t __34__PLBasebandLogChannel_invalidate__block_invoke(uint64_t a1)
             if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v22 = v9;
+              v21 = v9;
               _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
           }
@@ -359,11 +350,9 @@ uint64_t __34__PLBasebandLogChannel_invalidate__block_invoke(uint64_t a1)
   }
 
   objc_sync_exit(selfCopy);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __49__PLBasebandLogChannel_sendObjectOverRemotePort___block_invoke(uint64_t a1)
+void *__49__PLBasebandLogChannel_sendObjectOverRemotePort___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7833 = result;
@@ -391,17 +380,15 @@ uint64_t __49__PLBasebandLogChannel_sendObjectOverRemotePort___block_invoke(uint
 
 - (void)setChannelTimeout:(double)timeout
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v9[0] = *MEMORY[0x277CC3AD8];
+  v8[2] = *MEMORY[0x277D85DE8];
+  v8[0] = *MEMORY[0x277CC3AD8];
   v4 = *MEMORY[0x277CC3AC0];
-  v8[0] = *MEMORY[0x277CC3AC8];
-  v8[1] = v4;
+  v7[0] = *MEMORY[0x277CC3AC8];
+  v7[1] = v4;
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:timeout];
-  v9[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
+  v8[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
   [(PLBasebandLogChannel *)self sendObjectOverRemotePort:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectionInvalidated:(id)invalidated

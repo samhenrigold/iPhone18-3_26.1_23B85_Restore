@@ -55,7 +55,7 @@
     standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
     qword_1ED4DF2D8 = objc_opt_class();
     __NSRaiseWithRecursiveLayoutRequest = [standardUserDefaults BOOLForKey:@"_NSRaiseWithRecursiveLayoutRequest"];
-    _MergedGlobals_1 = [standardUserDefaults BOOLForKey:@"_NSAllowsScreenFontKerning"];
+    _MergedGlobals_1[0] = [standardUserDefaults BOOLForKey:@"_NSAllowsScreenFontKerning"];
     __NSATSTypesetterSharedInstance = [objc_allocWithZone(NSATSTypesetter) init];
   }
 
@@ -2007,7 +2007,7 @@ LABEL_222:
   return result;
 }
 
-- (uint64_t)_layoutLineFragmentStartingWithGlyphAtIndex:(uint64_t)a3 characterIndex:atPoint:renderingContext:.cold.3(id *a1, double *a2, uint64_t a3)
+- (void)_layoutLineFragmentStartingWithGlyphAtIndex:(uint64_t)a3 characterIndex:atPoint:renderingContext:.cold.3(id *a1, double *a2, uint64_t a3)
 {
   result = [*a1 _setBaselineDelta:*a2];
   if (*a3)

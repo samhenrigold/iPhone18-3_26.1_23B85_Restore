@@ -19,18 +19,17 @@
 {
   v11 = sub_258AFFBC4();
   v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
   MEMORY[0x28223BE20](v11);
-  v15 = &v20 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = _Block_copy(completion);
+  v14 = &v19 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = _Block_copy(completion);
   sub_258AFFB94();
-  v17 = swift_allocObject();
-  *(v17 + 16) = v16;
+  v16 = swift_allocObject();
+  *(v16 + 16) = v15;
   controllerCopy = controller;
   selfCopy = self;
-  sub_258A308BC(v15, scope, sub_258A30F84, v17);
+  sub_258A308BC(v14, scope, sub_258A30F84, v16);
 
-  (*(v12 + 8))(v15, v11);
+  (*(v12 + 8))(v14, v11);
 }
 
 - (id)contextItemForLastUpdate

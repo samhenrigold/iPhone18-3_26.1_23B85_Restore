@@ -2117,7 +2117,7 @@ LABEL_75:
   [v67 postEvent:v6];
 }
 
-uint64_t __60__VUIOfflineKeyRenewalManager__registerStateMachineHandlers__block_invoke_116(uint64_t a1)
+void *__60__VUIOfflineKeyRenewalManager__registerStateMachineHandlers__block_invoke_116(uint64_t a1)
 {
   v1 = (a1 + 32);
   result = [*(a1 + 32) backgroundTaskIdentifier];

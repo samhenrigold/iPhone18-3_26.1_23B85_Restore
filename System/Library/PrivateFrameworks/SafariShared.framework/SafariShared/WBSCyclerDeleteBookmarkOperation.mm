@@ -6,7 +6,7 @@
 
 - (void)executeWithContext:(id)context completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   handlerCopy = handler;
   randomValidStrictDescendantOfTopLevelItem = [contextCopy randomValidStrictDescendantOfTopLevelItem];
@@ -14,28 +14,28 @@
   if (randomValidStrictDescendantOfTopLevelItem)
   {
     uniqueIdentifier = [randomValidStrictDescendantOfTopLevelItem uniqueIdentifier];
-    v10 = WBS_LOG_CHANNEL_PREFIXCycler();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = WBS_LOG_CHANNEL_PREFIXCycler(uniqueIdentifier, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v11 = v10;
+      v12 = v11;
       title = [v8 title];
       *buf = 138543618;
-      v20 = title;
-      v21 = 2114;
-      v22 = uniqueIdentifier;
-      _os_log_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_INFO, "Deleting bookmark (title: %{public}@, identifier: %{public}@)", buf, 0x16u);
+      v21 = title;
+      v22 = 2114;
+      v23 = uniqueIdentifier;
+      _os_log_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_INFO, "Deleting bookmark (title: %{public}@, identifier: %{public}@)", buf, 0x16u);
     }
 
     testTarget = [contextCopy testTarget];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __73__WBSCyclerDeleteBookmarkOperation_executeWithContext_completionHandler___block_invoke;
-    v15[3] = &unk_1E7FC5170;
-    v18 = handlerCopy;
-    v16 = contextCopy;
-    v17 = uniqueIdentifier;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __73__WBSCyclerDeleteBookmarkOperation_executeWithContext_completionHandler___block_invoke;
+    v16[3] = &unk_1E7FC5170;
+    v19 = handlerCopy;
+    v17 = contextCopy;
+    v18 = uniqueIdentifier;
     topLevelItem = uniqueIdentifier;
-    [testTarget deleteBookmarkWithIdentifier:topLevelItem reply:v15];
+    [testTarget deleteBookmarkWithIdentifier:topLevelItem reply:v16];
   }
 
   else

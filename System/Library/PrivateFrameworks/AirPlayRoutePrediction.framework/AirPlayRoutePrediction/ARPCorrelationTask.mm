@@ -4,7 +4,6 @@
 - (id)queryForMicroLocationsFromStartTime:(id)time endTime:(id)endTime maxEvents:(unint64_t)events overlappingNowPlayingEvents:(id)playingEvents;
 - (void)execute;
 - (void)execute:(id)execute microLocationEvents:(id)events;
-- (void)longFormVideoAppBundleIDs;
 @end
 
 @implementation ARPCorrelationTask
@@ -30,11 +29,11 @@
 
 - (id)queryForMicroLocationsFromStartTime:(id)time endTime:(id)endTime maxEvents:(unint64_t)events overlappingNowPlayingEvents:(id)playingEvents
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   timeCopy = time;
   endTimeCopy = endTime;
   playingEventsCopy = playingEvents;
-  v11 = ARPLog();
+  v11 = ARPLog(playingEventsCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 134218240;
@@ -81,64 +80,62 @@
     }
 
     v20 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v42[0] = 0;
-    v42[1] = v42;
-    v42[2] = 0x2020000000;
-    v42[3] = 0;
+    v41[0] = 0;
+    v41[1] = v41;
+    v41[2] = 0x2020000000;
+    v41[3] = 0;
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v46 = __Block_byref_object_copy__0;
-    v47 = __Block_byref_object_dispose__0;
-    v48 = [playingEventsCopy objectAtIndexedSubscript:0];
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x2020000000;
-    v41 = 0;
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __104__ARPCorrelationTask_queryForMicroLocationsFromStartTime_endTime_maxEvents_overlappingNowPlayingEvents___block_invoke_2;
-    v30[3] = &unk_278C646C8;
-    v36 = v19;
-    v33 = buf;
-    v34 = v42;
-    v31 = playingEventsCopy;
+    v45 = __Block_byref_object_copy__0;
+    v46 = __Block_byref_object_dispose__0;
+    v47 = [playingEventsCopy objectAtIndexedSubscript:0];
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x2020000000;
+    v40 = 0;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __104__ARPCorrelationTask_queryForMicroLocationsFromStartTime_endTime_maxEvents_overlappingNowPlayingEvents___block_invoke_2;
+    v29[3] = &unk_278C646C8;
+    v35 = v19;
+    v32 = buf;
+    v33 = v41;
+    v30 = playingEventsCopy;
     v21 = v20;
-    v32 = v21;
-    v35 = &v38;
+    v31 = v21;
+    v34 = &v37;
     eventsCopy = events;
-    v22 = [v17 sinkWithCompletion:&__block_literal_global_81 shouldContinue:v30];
+    v22 = [v17 sinkWithCompletion:&__block_literal_global_81 shouldContinue:v29];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v23 = v39[3];
-      *v43 = 134217984;
-      v44 = v23;
-      _os_log_impl(&dword_23EB15000, v11, OS_LOG_TYPE_INFO, "queryForMicroLocationsFromStartTime: found %lu microLocationEvents", v43, 0xCu);
+      v23 = v38[3];
+      *v42 = 134217984;
+      v43 = v23;
+      _os_log_impl(&dword_23EB15000, v11, OS_LOG_TYPE_INFO, "queryForMicroLocationsFromStartTime: found %lu microLocationEvents", v42, 0xCu);
     }
 
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v24 = [v21 count];
-      *v43 = 134217984;
-      v44 = v24;
-      _os_log_impl(&dword_23EB15000, v11, OS_LOG_TYPE_INFO, "queryForMicroLocationsFromStartTime: results.count: %lu", v43, 0xCu);
+      *v42 = 134217984;
+      v43 = v24;
+      _os_log_impl(&dword_23EB15000, v11, OS_LOG_TYPE_INFO, "queryForMicroLocationsFromStartTime: results.count: %lu", v42, 0xCu);
     }
 
-    v25 = v32;
+    v25 = v31;
     v26 = v21;
 
-    _Block_object_dispose(&v38, 8);
+    _Block_object_dispose(&v37, 8);
     _Block_object_dispose(buf, 8);
 
-    _Block_object_dispose(v42, 8);
+    _Block_object_dispose(v41, 8);
   }
 
   else
   {
     v26 = MEMORY[0x277CBEBF8];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -214,7 +211,7 @@ LABEL_9:
 
 - (void)execute:(id)execute microLocationEvents:(id)events
 {
-  v58[3] = *MEMORY[0x277D85DE8];
+  v59[3] = *MEMORY[0x277D85DE8];
   executeCopy = execute;
   eventsCopy = events;
   v8 = [MEMORY[0x277CFE260] startDateSortDescriptorAscending:0];
@@ -222,126 +219,127 @@ LABEL_9:
   if (executeCopy)
   {
     v10 = executeCopy;
+    v11 = v10;
   }
 
   else
   {
-    v14 = MEMORY[0x277CFE260];
+    v15 = MEMORY[0x277CFE260];
     playing = [MEMORY[0x277CFE248] playing];
-    v13 = [v14 predicateForObjectsWithMetadataKey:playing andIntegerValue:1];
+    v14 = [v15 predicateForObjectsWithMetadataKey:playing andIntegerValue:1];
 
     longFormVideoAppBundleIDs = [(ARPCorrelationTask *)self longFormVideoAppBundleIDs];
     [MEMORY[0x277CFE260] predicateForEventsWithStringValueInValues:longFormVideoAppBundleIDs];
-    file = v47 = self;
+    file = v48 = self;
     +[ARPRoutingSession minimumRoutingEventDuration];
-    v11 = [MEMORY[0x277CFE260] predicateForEventsWithMinimumDuration:?];
-    v18 = MEMORY[0x277CCA920];
-    v58[0] = file;
-    v58[1] = v13;
-    v58[2] = v11;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:3];
-    v20 = [v18 andPredicateWithSubpredicates:v19];
+    v12 = [MEMORY[0x277CFE260] predicateForEventsWithMinimumDuration:?];
+    v19 = MEMORY[0x277CCA920];
+    v59[0] = file;
+    v59[1] = v14;
+    v59[2] = v12;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:3];
+    v21 = [v19 andPredicateWithSubpredicates:v20];
 
-    v21 = MEMORY[0x277CFE1E0];
+    v22 = MEMORY[0x277CFE1E0];
     nowPlayingStream = [MEMORY[0x277CFE298] nowPlayingStream];
-    v57 = nowPlayingStream;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
-    v46 = v8;
-    v56 = v8;
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
-    v25 = [v21 eventQueryWithPredicate:v20 eventStreams:v23 offset:0 limit:512 sortDescriptors:v24];
+    v58 = nowPlayingStream;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
+    v47 = v8;
+    v57 = v8;
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
+    v26 = [v22 eventQueryWithPredicate:v21 eventStreams:v24 offset:0 limit:512 sortDescriptors:v25];
 
-    v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ARPCorrelationTask.m"];
-    v27 = [v26 stringByAppendingFormat:@":%d", 283];
-    [v25 setClientName:v27];
+    v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ARPCorrelationTask.m"];
+    v28 = [v27 stringByAppendingFormat:@":%d", 283];
+    [v26 setClientName:v28];
 
-    [v25 setTracker:&__block_literal_global_95];
-    knowledgeStore = [(ARPCorrelationTask *)v47 knowledgeStore];
-    v49 = 0;
-    v10 = [knowledgeStore executeQuery:v25 error:&v49];
-    v29 = v49;
+    [v26 setTracker:&__block_literal_global_95];
+    knowledgeStore = [(ARPCorrelationTask *)v48 knowledgeStore];
+    v50 = 0;
+    v11 = [knowledgeStore executeQuery:v26 error:&v50];
+    v30 = v50;
 
-    if (v29)
+    if (v30)
     {
-      v30 = ARPLog();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v32 = ARPLog(v31);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         [ARPCorrelationTask execute:microLocationEvents:];
       }
 
-      v8 = v46;
+      v8 = v47;
       executeCopy = 0;
       goto LABEL_28;
     }
 
-    v8 = v46;
+    v8 = v47;
     executeCopy = 0;
-    self = v47;
+    self = v48;
     v9 = 0x278C64000;
   }
 
-  v11 = ARPLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = ARPLog(v10);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v12 = [v10 count];
+    v13 = [v11 count];
     *buf = 134217984;
-    v51 = v12;
-    _os_log_impl(&dword_23EB15000, v11, OS_LOG_TYPE_INFO, "[ARPCorrelationTask execute:microLocationEvents:] nowPlayingEvents.count:%lu", buf, 0xCu);
+    v52 = v13;
+    _os_log_impl(&dword_23EB15000, v12, OS_LOG_TYPE_INFO, "[ARPCorrelationTask execute:microLocationEvents:] nowPlayingEvents.count:%lu", buf, 0xCu);
   }
 
   if (eventsCopy)
   {
-    v13 = eventsCopy;
+    v14 = eventsCopy;
   }
 
-  else if ([v10 count])
+  else if ([v11 count])
   {
-    v31 = v8;
+    v33 = v8;
     [*(v9 + 784) microLocationCorrelationGracePeriod];
-    v33 = v32;
-    lastObject = [v10 lastObject];
+    v35 = v34;
+    lastObject = [v11 lastObject];
     startDate = [lastObject startDate];
-    v36 = [startDate dateByAddingTimeInterval:-v33];
+    v38 = [startDate dateByAddingTimeInterval:-v35];
 
-    firstObject = [v10 firstObject];
+    firstObject = [v11 firstObject];
     startDate2 = [firstObject startDate];
-    v39 = [startDate2 dateByAddingTimeInterval:v33];
+    v41 = [startDate2 dateByAddingTimeInterval:v35];
 
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_23EB15000, v11, OS_LOG_TYPE_INFO, "Calling queryForMicroLocationsFromStartTime v1.0a:", buf, 2u);
+      _os_log_impl(&dword_23EB15000, v12, OS_LOG_TYPE_INFO, "Calling queryForMicroLocationsFromStartTime v1.0a:", buf, 2u);
     }
 
-    v13 = -[ARPCorrelationTask queryForMicroLocationsFromStartTime:endTime:maxEvents:overlappingNowPlayingEvents:](self, "queryForMicroLocationsFromStartTime:endTime:maxEvents:overlappingNowPlayingEvents:", v39, v36, 2 * [v10 count], v10);
+    v14 = -[ARPCorrelationTask queryForMicroLocationsFromStartTime:endTime:maxEvents:overlappingNowPlayingEvents:](self, "queryForMicroLocationsFromStartTime:endTime:maxEvents:overlappingNowPlayingEvents:", v41, v38, 2 * [v11 count], v11);
 
-    v8 = v31;
+    v8 = v33;
     v9 = 0x278C64000;
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
   [*(v9 + 784) routingSessionTimeout];
-  v41 = v40;
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v43 = v42;
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v42 = [v10 count];
-    v43 = [v13 count];
+    v44 = [v11 count];
+    v45 = [v14 count];
     *buf = 134218496;
-    v51 = v42;
-    v52 = 2048;
-    v53 = v43;
-    v54 = 2048;
-    v55 = v41;
-    _os_log_impl(&dword_23EB15000, v11, OS_LOG_TYPE_INFO, "nowPlayingEventsArg microLocationEvents: nowPlayingEvents.count: %lu microLocationEvents.count: %lu, routingSessionTimeout: %f", buf, 0x20u);
+    v52 = v44;
+    v53 = 2048;
+    v54 = v45;
+    v55 = 2048;
+    v56 = v43;
+    _os_log_impl(&dword_23EB15000, v12, OS_LOG_TYPE_INFO, "nowPlayingEventsArg microLocationEvents: nowPlayingEvents.count: %lu microLocationEvents.count: %lu, routingSessionTimeout: %f", buf, 0x20u);
   }
 
-  if ([v10 count] && objc_msgSend(v13, "count"))
+  if ([v11 count] && objc_msgSend(v14, "count"))
   {
-    longFormVideoAppBundleIDs = [*(v9 + 784) routingSessionsFromNowPlayingEvents:v10 microLocationEvents:v13 routingSessionTimeout:v41];
+    longFormVideoAppBundleIDs = [*(v9 + 784) routingSessionsFromNowPlayingEvents:v11 microLocationEvents:v14 routingSessionTimeout:v43];
   }
 
   else
@@ -350,26 +348,24 @@ LABEL_9:
   }
 
   file = [(ARPCorrelationTask *)self file];
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    [(ARPCorrelationTask *)longFormVideoAppBundleIDs execute:file microLocationEvents:v11];
+    [(ARPCorrelationTask *)longFormVideoAppBundleIDs execute:file microLocationEvents:v12];
   }
 
-  v44 = *(v9 + 784);
-  v48 = 0;
-  [v44 writeSessions:longFormVideoAppBundleIDs routingSessionTimeout:file file:&v48 error:v41];
-  v29 = v48;
-  if (v29)
+  v46 = *(v9 + 784);
+  v49 = 0;
+  [v46 writeSessions:longFormVideoAppBundleIDs routingSessionTimeout:file file:&v49 error:v43];
+  v30 = v49;
+  if (v30)
   {
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ARPCorrelationTask execute:microLocationEvents:];
     }
 
 LABEL_28:
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (id)longFormVideoAppBundleIDs
@@ -393,9 +389,10 @@ LABEL_28:
   v10 = v27;
 
   v11 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v12 = v11;
   if (v10)
   {
-    sharedAVSystemController = ARPLog();
+    sharedAVSystemController = ARPLog(v11);
     if (os_log_type_enabled(sharedAVSystemController, OS_LOG_TYPE_ERROR))
     {
       [ARPCorrelationTask longFormVideoAppBundleIDs];
@@ -410,78 +407,50 @@ LABEL_28:
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v13 = [v9 valueForKey:@"valueString"];
-    v14 = [v13 countByEnumeratingWithState:&v23 objects:v28 count:16];
-    if (v14)
+    v14 = [v9 valueForKey:@"valueString"];
+    v15 = [v14 countByEnumeratingWithState:&v23 objects:v28 count:16];
+    if (v15)
     {
-      v15 = v14;
-      v16 = *v24;
+      v16 = v15;
+      v17 = *v24;
       do
       {
-        for (i = 0; i != v15; ++i)
+        for (i = 0; i != v16; ++i)
         {
-          if (*v24 != v16)
+          if (*v24 != v17)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v14);
           }
 
-          v18 = *(*(&v23 + 1) + 8 * i);
-          if ([sharedAVSystemController hasRouteSharingPolicyLongFormVideo:v18])
+          v19 = *(*(&v23 + 1) + 8 * i);
+          if ([sharedAVSystemController hasRouteSharingPolicyLongFormVideo:v19])
           {
-            [v11 addObject:v18];
+            [v12 addObject:v19];
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
-      while (v15);
+      while (v16);
     }
 
     v4 = v22;
   }
 
-  allObjects = [v11 allObjects];
-
-  v20 = *MEMORY[0x277D85DE8];
+  allObjects = [v12 allObjects];
 
   return allObjects;
 }
 
-- (void)execute:microLocationEvents:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23EB15000, v0, v1, "Error fetching now playing for correlation task: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)execute:(NSObject *)a3 microLocationEvents:.cold.2(void *a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(a1, "count")}];
   OUTLINED_FUNCTION_1();
-  v8 = 2112;
-  v9 = a2;
-  _os_log_debug_impl(&dword_23EB15000, a3, OS_LOG_TYPE_DEBUG, "Archiving %@ sessions to %@ for correlation task.", v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)execute:microLocationEvents:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23EB15000, v0, v1, "Error archiving sessions to file: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)longFormVideoAppBundleIDs
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23EB15000, v0, v1, "Error fetching long form video bundle IDs from knowledge store: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = 2112;
+  v8 = a2;
+  _os_log_debug_impl(&dword_23EB15000, a3, OS_LOG_TYPE_DEBUG, "Archiving %@ sessions to %@ for correlation task.", v6, 0x16u);
 }
 
 @end

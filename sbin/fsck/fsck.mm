@@ -225,32 +225,32 @@ uint64_t sub_100000C7C()
 
   if (v0)
   {
-    v16 = 0;
-    v6 = sub_100000738(&v16);
-    if ((v16 & 0xFFFFFFFD) != 1)
+    v15 = 0;
+    v5 = sub_100000738(&v15);
+    if ((v15 & 0xFFFFFFFD) != 1)
     {
       fwrite("fsck: not booting main or diagnostic OS. Skipping fsck on OS container\n", 0x47uLL, 1uLL, __stdoutp);
       return 0;
     }
 
-    if (v6)
+    if (v5)
     {
-      v7 = strdup(v6);
-      if (v7)
+      v6 = strdup(v5);
+      if (v6)
       {
-        v8 = v7;
-        v9 = sub_10000148C(v7);
-        if (v9)
+        v7 = v6;
+        v8 = sub_10000148C(v6);
+        if (v8)
         {
-          v15[0] = 0;
-          v15[1] = 0;
-          v15[2] = v14;
-          v15[3] = 0;
           v14[0] = 0;
-          v14[1] = v9;
-          v14[2] = 0;
-          v14[3] = "apfs";
-          v1 = sub_10000177C(v15, 0);
+          v14[1] = 0;
+          v14[2] = v13;
+          v14[3] = 0;
+          v13[0] = 0;
+          v13[1] = v8;
+          v13[2] = 0;
+          v13[3] = "apfs";
+          v1 = sub_10000177C(v14, 0);
         }
 
         else
@@ -258,23 +258,23 @@ uint64_t sub_100000C7C()
           v1 = 0;
         }
 
-        free(v8);
+        free(v7);
         return v1;
       }
 
-      v10 = __stderrp;
-      v11 = "fsck: failed to copy boot container\n";
-      v12 = 36;
+      v9 = __stderrp;
+      v10 = "fsck: failed to copy boot container\n";
+      v11 = 36;
     }
 
     else
     {
-      v10 = __stderrp;
-      v11 = "fsck: failed to get boot container\n";
-      v12 = 35;
+      v9 = __stderrp;
+      v10 = "fsck: failed to get boot container\n";
+      v11 = 35;
     }
 
-    fwrite(v11, v12, 1uLL, v10);
+    fwrite(v10, v11, 1uLL, v9);
     return 8;
   }
 
@@ -290,18 +290,17 @@ uint64_t sub_100000C7C()
         fprintf(__stderrp, "THE FOLLOWING FILE SYSTEM%s HAD AN %s\n\t", v2, "UNEXPECTED INCONSISTENCY:");
         for (i = qword_100008068; i; i = *i)
         {
-          v4 = *(i + 16);
           if (*i)
           {
-            v5 = ", ";
+            v4 = ", ";
           }
 
           else
           {
-            v5 = "\n";
+            v4 = "\n";
           }
 
-          fprintf(__stderrp, "%s (%s)%s", *(i + 8), *(i + 16), v5);
+          fprintf(__stderrp, "%s (%s)%s", *(i + 8), *(i + 16), v4);
         }
       }
     }
@@ -406,7 +405,6 @@ LABEL_18:
         v7 = sub_10000148C(v5->fs_spec);
         if (!v7)
         {
-          fs_spec = v5->fs_spec;
           fprintf(__stderrp, "BAD DISK NAME %s\n");
           return 8;
         }
@@ -419,16 +417,16 @@ LABEL_18:
 
         else
         {
-          v16[2] = 0;
+          v15[2] = 0;
           fs_vfstype = 0;
-          v18[0] = 0;
-          v18[1] = 0;
-          v18[2] = v16;
-          v18[3] = 0;
-          v16[0] = 0;
-          v16[1] = v8;
+          v17[0] = 0;
+          v17[1] = 0;
+          v17[2] = v15;
+          v17[3] = 0;
+          v15[0] = 0;
+          v15[1] = v8;
           fs_vfstype = v5->fs_vfstype;
-          v9 = sub_10000177C(v18, 0);
+          v9 = sub_10000177C(v17, 0);
           if (v9)
           {
             return v9;
@@ -464,10 +462,10 @@ LABEL_32:
     }
   }
 
-  v13 = __stderrp;
-  v14 = __error();
-  strerror(*v14);
-  fprintf(v13, "Can't get filesystem checklist: %s\n");
+  v12 = __stderrp;
+  v13 = __error();
+  strerror(*v13);
+  fprintf(v12, "Can't get filesystem checklist: %s\n");
   return 8;
 }
 
@@ -1025,17 +1023,8 @@ char *sub_100001AE8(char *a1, const char *a2, const char *a3)
 
   v9 = malloc_type_malloc(0x20uLL, 0x30040E3C0B0CCuLL);
   *v6 = v9;
-  if (!v9)
+  if (!v9 || (v10 = v9, v11 = strdup(a1), (*(v10 + 1) = v11) == 0) || (v12 = strdup(a2), (*(v10 + 2) = v12) == 0) || (*v10 = 0, result = strdup(a3), (*(v10 + 3) = result) == 0))
   {
-    goto LABEL_9;
-  }
-
-  v10 = v9;
-  v11 = strdup(a1);
-  *(v10 + 1) = v11;
-  if (!v11 || (v12 = strdup(a2), (*(v10 + 2) = v12) == 0) || (*v10 = 0, result = strdup(a3), (*(v10 + 3) = result) == 0))
-  {
-LABEL_9:
     fwrite("out of memory", 0xDuLL, 1uLL, __stderrp);
     exit(8);
   }

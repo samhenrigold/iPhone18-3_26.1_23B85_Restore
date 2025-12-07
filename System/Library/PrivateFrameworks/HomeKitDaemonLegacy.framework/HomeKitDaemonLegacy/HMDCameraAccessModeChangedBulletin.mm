@@ -9,42 +9,40 @@
 
 - (id)attributeDescriptions
 {
-  v24[6] = *MEMORY[0x277D85DE8];
+  v23[6] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   title = [(HMDCameraAccessModeChangedBulletin *)self title];
-  v22 = [v3 initWithName:@"Title" value:title];
-  v24[0] = v22;
+  v21 = [v3 initWithName:@"Title" value:title];
+  v23[0] = v21;
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   body = [(HMDCameraAccessModeChangedBulletin *)self body];
   v5 = [v4 initWithName:@"Body" value:body];
-  v24[1] = v5;
+  v23[1] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   threadIdentifier = [(HMDCameraAccessModeChangedBulletin *)self threadIdentifier];
   v8 = [v6 initWithName:@"Thread ID" value:threadIdentifier];
-  v24[2] = v8;
+  v23[2] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   dateOfOccurrence = [(HMDCameraAccessModeChangedBulletin *)self dateOfOccurrence];
   v11 = [v9 initWithName:@"Date" value:dateOfOccurrence];
-  v24[3] = v11;
+  v23[3] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   userInfo = [(HMDCameraAccessModeChangedBulletin *)self userInfo];
   v14 = [v12 initWithName:@"User Info" value:userInfo];
-  v24[4] = v14;
+  v23[4] = v14;
   v15 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDCameraAccessModeChangedBulletin *)self isTimeSensitive];
   v16 = HMFBooleanToString();
   v17 = [v15 initWithName:@"Time Sensitive" value:v16];
-  v24[5] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:6];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v23[5] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:6];
 
   return v18;
 }
 
 - (HMDCameraAccessModeChangedBulletin)initWithAccessMode:(unint64_t)mode camera:(id)camera home:(id)home changeReason:(int64_t)reason changeDate:(id)date
 {
-  v34[4] = *MEMORY[0x277D85DE8];
+  v33[4] = *MEMORY[0x277D85DE8];
   cameraCopy = camera;
   homeCopy = home;
   dateCopy = date;
@@ -71,30 +69,30 @@ LABEL_10:
   v16 = [objc_opt_class() localizedMessageForCameraAccessModeChange:mode changeReason:reason camera:cameraCopy];
   if (v16)
   {
-    v33[0] = *MEMORY[0x277CCF308];
+    v32[0] = *MEMORY[0x277CCF308];
     contextSPIUniqueIdentifier = [cameraCopy contextSPIUniqueIdentifier];
     uUIDString = [contextSPIUniqueIdentifier UUIDString];
-    v34[0] = uUIDString;
-    v33[1] = *MEMORY[0x277CCF328];
+    v33[0] = uUIDString;
+    v32[1] = *MEMORY[0x277CCF328];
     contextSPIUniqueIdentifier2 = [homeCopy contextSPIUniqueIdentifier];
     [contextSPIUniqueIdentifier2 UUIDString];
-    v18 = v32 = mode;
-    v34[1] = v18;
-    v33[2] = @"home";
+    v18 = v31 = mode;
+    v33[1] = v18;
+    v32[2] = @"home";
     contextID = [homeCopy contextID];
-    v34[2] = contextID;
-    v33[3] = @"accessory";
+    v33[2] = contextID;
+    v32[3] = @"accessory";
     accessory = [cameraCopy accessory];
     [accessory contextID];
     v22 = v21 = v15;
-    v34[3] = v22;
-    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:4];
+    v33[3] = v22;
+    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:4];
 
     v15 = v21;
     name = [homeCopy name];
     uuid = [homeCopy uuid];
     uUIDString2 = [uuid UUIDString];
-    self = [(HMDCameraAccessModeChangedBulletin *)self initWithTitle:name body:v16 threadIdentifier:uUIDString2 dateOfOccurrence:v21 userInfo:v29 isTimeSensitive:v32 == 2];
+    self = [(HMDCameraAccessModeChangedBulletin *)self initWithTitle:name body:v16 threadIdentifier:uUIDString2 dateOfOccurrence:v21 userInfo:v28 isTimeSensitive:v31 == 2];
 
     selfCopy = self;
   }
@@ -104,7 +102,6 @@ LABEL_10:
     selfCopy = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -170,7 +167,7 @@ LABEL_13:
 
 + (id)localizedMessageForCameraAccessModeChange:(unint64_t)change changeReason:(int64_t)reason camera:(id)camera
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   cameraCopy = camera;
   hapAccessory = [(__CFString *)cameraCopy hapAccessory];
   if (!hapAccessory)
@@ -182,8 +179,8 @@ LABEL_13:
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v45 = v19;
-      v46 = 2112;
+      v44 = v19;
+      v45 = 2112;
       changeCopy = cameraCopy;
       _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Accessory reference was nil on camera: %@", buf, 0x16u);
     }
@@ -200,8 +197,8 @@ LABEL_13:
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v45 = v16;
-      v46 = 2048;
+      v44 = v16;
+      v45 = 2048;
       changeCopy = change;
       _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Unknown accessMode %lu, not posting notification", buf, 0x16u);
     }
@@ -223,89 +220,87 @@ LABEL_13:
     if (reason != 2)
     {
 LABEL_24:
-      v34 = MEMORY[0x277CCACA8];
-      v35 = HMDLocalizedStringForKey(@"CAMERA_ACCESS_MODE_CHANGED_NOTIFICATION");
-      v42 = 0;
+      v33 = MEMORY[0x277CCACA8];
+      v34 = HMDLocalizedStringForKey(@"CAMERA_ACCESS_MODE_CHANGED_NOTIFICATION");
+      v41 = 0;
       name = [hapAccessory name];
-      v29 = [v34 localizedStringWithValidatedFormat:v35 validFormatSpecifiers:@"%@ %@" error:&v42, name, v11];
-      v24 = v42;
+      v28 = [v33 localizedStringWithValidatedFormat:v34 validFormatSpecifiers:@"%@ %@" error:&v41, name, v11];
+      v23 = v41;
 
-      v37 = v29;
-      if (!v29)
+      v36 = v28;
+      if (!v28)
       {
-        v38 = objc_autoreleasePoolPush();
-        v39 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+        v37 = objc_autoreleasePoolPush();
+        v38 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
-          v40 = HMFGetLogIdentifier();
+          v39 = HMFGetLogIdentifier();
           *buf = 138544130;
-          v45 = v40;
-          v46 = 2112;
+          v44 = v39;
+          v45 = 2112;
           changeCopy = @"CAMERA_ACCESS_MODE_CHANGED_NOTIFICATION";
-          v48 = 2112;
-          v49 = @"%@ %@";
-          v50 = 2112;
-          v51 = v24;
-          _os_log_impl(&dword_2531F8000, v39, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
+          v47 = 2112;
+          v48 = @"%@ %@";
+          v49 = 2112;
+          v50 = v23;
+          _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
         }
 
-        objc_autoreleasePoolPop(v38);
-        v37 = @"CAMERA_ACCESS_MODE_CHANGED_NOTIFICATION";
+        objc_autoreleasePoolPop(v37);
+        v36 = @"CAMERA_ACCESS_MODE_CHANGED_NOTIFICATION";
       }
 
-      v20 = v37;
+      v20 = v36;
       goto LABEL_29;
     }
 
     v12 = @"CAMERA_ACCESS_MODE_CHANGE_REASON_UNOCCUPIED";
   }
 
-  v23 = HMDLocalizedStringForKey(v12);
-  if (!v23)
+  v22 = HMDLocalizedStringForKey(v12);
+  if (!v22)
   {
     goto LABEL_24;
   }
 
-  v24 = v23;
-  v25 = MEMORY[0x277CCACA8];
-  v26 = HMDLocalizedStringForKey(@"CAMERA_ACCESS_MODE_CHANGED_NOTIFICATION_WITH_REASON");
-  v43 = 0;
+  v23 = v22;
+  v24 = MEMORY[0x277CCACA8];
+  v25 = HMDLocalizedStringForKey(@"CAMERA_ACCESS_MODE_CHANGED_NOTIFICATION_WITH_REASON");
+  v42 = 0;
   name2 = [hapAccessory name];
-  v28 = [v25 localizedStringWithValidatedFormat:v26 validFormatSpecifiers:@"%@ %@ %@" error:&v43, name2, v11, v24];
-  v29 = v43;
+  v27 = [v24 localizedStringWithValidatedFormat:v25 validFormatSpecifiers:@"%@ %@ %@" error:&v42, name2, v11, v23];
+  v28 = v42;
 
-  v30 = v28;
-  if (!v28)
+  v29 = v27;
+  if (!v27)
   {
-    v31 = objc_autoreleasePoolPush();
-    v32 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v30 = objc_autoreleasePoolPush();
+    v31 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v33 = v41 = v31;
+      v32 = v40 = v30;
       *buf = 138544130;
-      v45 = v33;
-      v46 = 2112;
+      v44 = v32;
+      v45 = 2112;
       changeCopy = @"CAMERA_ACCESS_MODE_CHANGED_NOTIFICATION_WITH_REASON";
-      v48 = 2112;
-      v49 = @"%@ %@ %@";
-      v50 = 2112;
-      v51 = v29;
-      _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
+      v47 = 2112;
+      v48 = @"%@ %@ %@";
+      v49 = 2112;
+      v50 = v28;
+      _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
 
-      v31 = v41;
+      v30 = v40;
     }
 
-    objc_autoreleasePoolPop(v31);
-    v30 = @"CAMERA_ACCESS_MODE_CHANGED_NOTIFICATION_WITH_REASON";
+    objc_autoreleasePoolPop(v30);
+    v29 = @"CAMERA_ACCESS_MODE_CHANGED_NOTIFICATION_WITH_REASON";
   }
 
-  v20 = v30;
+  v20 = v29;
 
 LABEL_29:
 LABEL_14:
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

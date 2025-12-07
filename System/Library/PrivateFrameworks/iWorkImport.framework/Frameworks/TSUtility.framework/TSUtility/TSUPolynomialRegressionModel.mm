@@ -209,7 +209,7 @@
                       if (v57)
                       {
                         v58 = v57;
-                        v62->super.mErrorType = sub_2770952E8(v36, v67);
+                        v62->super.mErrorType = sub_2770952E8(v36, v67, mappingsCopy, v57);
                         free(v58);
                       }
 

@@ -214,7 +214,7 @@
 
 - (id)structuredMetadata
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   structuredMetadata = self->_structuredMetadata;
   if (structuredMetadata)
   {
@@ -227,27 +227,27 @@
     v6 = objc_autoreleasePoolPush();
     metadata = [(_DKEvent *)self->_dkEvent metadata];
     v8 = +[_DKMetadataPersistenceLookupTable keyToAttribute];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v9 = metadata;
-    v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v22;
+      v12 = *v21;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v22 != v12)
+          if (*v21 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v21 + 1) + 8 * i);
-          v15 = [v8 objectForKeyedSubscript:{v14, v21}];
+          v14 = *(*(&v20 + 1) + 8 * i);
+          v15 = [v8 objectForKeyedSubscript:{v14, v20}];
           if (v15)
           {
             v16 = [v9 objectForKeyedSubscript:v14];
@@ -255,7 +255,7 @@
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v11);
@@ -269,14 +269,12 @@
     v3 = v17;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 - (id)customMetadata
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   customMetadata = self->_customMetadata;
   if (customMetadata)
   {
@@ -289,12 +287,12 @@
   selfCopy = self;
   metadata = [(_DKEvent *)self->_dkEvent metadata];
   v7 = +[_DKMetadataPersistenceLookupTable keyToAttribute];
+  v44 = 0u;
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
-  v49 = 0u;
   v8 = metadata;
-  v9 = [v8 countByEnumeratingWithState:&v46 objects:v54 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v44 objects:v52 count:16];
   if (!v9)
   {
     goto LABEL_35;
@@ -302,89 +300,88 @@
 
   v10 = v9;
   v11 = 0x1E696A000uLL;
-  v12 = *v47;
-  v43 = v5;
-  v44 = v7;
-  v45 = *v47;
+  v12 = *v45;
+  v41 = v5;
+  v42 = v7;
+  v43 = *v45;
   do
   {
     v13 = 0;
     do
     {
-      if (*v47 != v12)
+      if (*v45 != v12)
       {
         objc_enumerationMutation(v8);
       }
 
-      v14 = *(*(&v46 + 1) + 8 * v13);
+      v14 = *(*(&v44 + 1) + 8 * v13);
       v15 = [v8 objectForKeyedSubscript:v14];
       v16 = [v7 objectForKeyedSubscript:v14];
       if (!v16)
       {
-        v17 = *(v11 + 3776);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v18 = *(v11 + 3776);
-          v19 = v15;
-          v20 = [_CDHashUtilities md5ForString:v19];
-          [v18 stringWithFormat:@"%@S", v20];
+          v17 = *(v11 + 3776);
+          v18 = v15;
+          v19 = [_CDHashUtilities md5ForString:v18];
+          [v17 stringWithFormat:@"%@S", v19];
           goto LABEL_11;
         }
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v20 = v15;
-          IsFloatType = CFNumberIsFloatType(v20);
-          v23 = *(v11 + 3776);
+          v19 = v15;
+          IsFloatType = CFNumberIsFloatType(v19);
+          v22 = *(v11 + 3776);
           if (IsFloatType)
           {
-            v24 = [v23 stringWithFormat:@"%@D", v20];
-            v21 = v24;
-            if (v20)
+            v23 = [v22 stringWithFormat:@"%@D", v19];
+            v20 = v23;
+            if (v19)
             {
-              v52[0] = @"name";
-              v52[1] = @"doubleValue";
-              v53[0] = v14;
-              v53[1] = v20;
-              v52[2] = @"valueHash";
-              v25 = &stru_1F05B9908;
-              if (v24)
+              v50[0] = @"name";
+              v50[1] = @"doubleValue";
+              v51[0] = v14;
+              v51[1] = v19;
+              v50[2] = @"valueHash";
+              v24 = &stru_1F05B9908;
+              if (v23)
               {
-                v25 = v24;
+                v24 = v23;
               }
 
-              v53[2] = v25;
-              v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:v52 count:3];
-              [v43 addObject:v26];
+              v51[2] = v24;
+              v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:v50 count:3];
+              [v41 addObject:v25];
 
-              v5 = v43;
+              v5 = v41;
               goto LABEL_28;
             }
 
 LABEL_25:
-            v50[0] = @"name";
-            v50[1] = @"valueHash";
-            v33 = &stru_1F05B9908;
-            if (v21)
+            v48[0] = @"name";
+            v48[1] = @"valueHash";
+            v32 = &stru_1F05B9908;
+            if (v20)
             {
-              v33 = v21;
+              v32 = v20;
             }
 
-            v51[0] = v14;
-            v51[1] = v33;
-            v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:v50 count:2];
-            [v5 addObject:v20];
+            v49[0] = v14;
+            v49[1] = v32;
+            v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:2];
+            [v5 addObject:v19];
 LABEL_28:
 
             v11 = 0x1E696A000;
-            v12 = v45;
+            v12 = v43;
             goto LABEL_29;
           }
 
-          [v23 stringWithFormat:@"%@I", v20];
-          v21 = LABEL_23:;
+          [v22 stringWithFormat:@"%@I", v19];
+          v20 = LABEL_23:;
         }
 
         else
@@ -392,45 +389,45 @@ LABEL_28:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v27 = *(v11 + 3776);
-            v20 = v15;
-            [(__CFNumber *)v20 timeIntervalSinceReferenceDate];
-            v28 = v27;
-            v7 = v44;
-            [v28 stringWithFormat:@"%fT", v29];
+            v26 = *(v11 + 3776);
+            v19 = v15;
+            [(__CFNumber *)v19 timeIntervalSinceReferenceDate];
+            v27 = v26;
+            v7 = v42;
+            [v27 stringWithFormat:@"%fT", v28];
             goto LABEL_23;
           }
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v30 = *(v11 + 3776);
-            v31 = v15;
-            v20 = [_CDHashUtilities md5ForData:v31];
-            v32 = v30;
-            v7 = v44;
-            v21 = [v32 stringWithFormat:@"%@B", v20];
+            v29 = *(v11 + 3776);
+            v30 = v15;
+            v19 = [_CDHashUtilities md5ForData:v30];
+            v31 = v29;
+            v7 = v42;
+            v20 = [v31 stringWithFormat:@"%@B", v19];
 
-            v5 = v43;
+            v5 = v41;
           }
 
           else
           {
             if (![v15 conformsToProtocol:&unk_1F05F0800])
             {
-              v21 = 0;
+              v20 = 0;
               goto LABEL_25;
             }
 
-            v20 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v15];
-            v34 = *(v11 + 3776);
-            v19 = [_CDHashUtilities md5ForData:v20];
-            v35 = v34;
-            v5 = v43;
-            [v35 stringWithFormat:@"%@O", v19];
-            v21 = LABEL_11:;
+            v19 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v15];
+            v33 = *(v11 + 3776);
+            v18 = [_CDHashUtilities md5ForData:v19];
+            v34 = v33;
+            v5 = v41;
+            [v34 stringWithFormat:@"%@O", v18];
+            v20 = LABEL_11:;
 
-            v7 = v44;
+            v7 = v42;
           }
         }
 
@@ -443,21 +440,20 @@ LABEL_29:
     }
 
     while (v10 != v13);
-    v36 = [v8 countByEnumeratingWithState:&v46 objects:v54 count:16];
-    v10 = v36;
+    v35 = [v8 countByEnumeratingWithState:&v44 objects:v52 count:16];
+    v10 = v35;
   }
 
-  while (v36);
+  while (v35);
 LABEL_35:
 
   objc_autoreleasePoolPop(context);
-  v37 = [v5 copy];
-  v38 = selfCopy->_customMetadata;
-  selfCopy->_customMetadata = v37;
+  v36 = [v5 copy];
+  v37 = selfCopy->_customMetadata;
+  selfCopy->_customMetadata = v36;
 
-  v3 = v37;
+  v3 = v36;
 LABEL_36:
-  v39 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -473,18 +469,17 @@ LABEL_36:
 
 - (id)forwardingTargetForSelector:(SEL)selector
 {
-  dkEvent = self->_dkEvent;
   if (objc_opt_respondsToSelector())
   {
-    v5 = self->_dkEvent;
+    v4 = self->_dkEvent;
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  return v5;
+  return v4;
 }
 
 @end

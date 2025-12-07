@@ -157,15 +157,14 @@ LABEL_9:
 {
   v4 = sub_3AE4();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin();
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   controllerCopy = controller;
   traitCollection = [controllerCopy traitCollection];
   sub_3B04();
 
   LOBYTE(traitCollection) = sub_3AC4();
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
   return traitCollection & 1;
 }
 
@@ -173,16 +172,14 @@ LABEL_9:
 {
   v5 = sub_3AE4();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin();
-  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = *(*(sub_3B24() - 8) + 64);
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_3B24();
   __chkstk_darwin();
-  v11 = sub_3AB4();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
+  v9 = sub_3AB4();
+  v10 = *(v9 - 8);
   __chkstk_darwin();
-  v15 = &v18 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   controllerCopy = controller;
   sub_3B14();
   sub_3AA4();
@@ -192,8 +189,8 @@ LABEL_9:
   sub_3498();
   sub_3AD4();
 
-  (*(v6 + 8))(v9, v5);
-  (*(v12 + 8))(v15, v11);
+  (*(v6 + 8))(v8, v5);
+  (*(v10 + 8))(v12, v9);
 }
 
 @end

@@ -134,28 +134,28 @@
 
 uint64_t __74__ACHAwardsKeyValueServer_remote_removeValuesForKeysInDomains_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = [*(a1 + 32) allKeys];
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     LOBYTE(v9) = 1;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         v12 = [*(a1 + 32) objectForKeyedSubscript:v11];
         v13 = [*(a1 + 40) _domainForName:v11];
         if (v9)
@@ -170,7 +170,7 @@ uint64_t __74__ACHAwardsKeyValueServer_remote_removeValuesForKeysInDomains_compl
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
@@ -181,7 +181,6 @@ uint64_t __74__ACHAwardsKeyValueServer_remote_removeValuesForKeysInDomains_compl
     v9 = 1;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -275,28 +274,28 @@ uint64_t __75__ACHAwardsKeyValueServer_remote_setLegacyValuesWithDictionary_comp
 
 uint64_t __75__ACHAwardsKeyValueServer_remote_setValuesWithDomainDictionary_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = [*(a1 + 32) allKeys];
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     LOBYTE(v9) = 1;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         v12 = [*(a1 + 32) objectForKeyedSubscript:v11];
         v13 = [*(a1 + 40) _domainForName:v11];
         v14 = v13;
@@ -311,7 +310,7 @@ uint64_t __75__ACHAwardsKeyValueServer_remote_setValuesWithDomainDictionary_comp
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
@@ -322,7 +321,6 @@ uint64_t __75__ACHAwardsKeyValueServer_remote_setValuesWithDomainDictionary_comp
     v9 = 1;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -416,36 +414,36 @@ BOOL __64__ACHAwardsKeyValueServer_remote_valueForKey_domain_completion___block_
 
 uint64_t __66__ACHAwardsKeyValueServer_remote_valuesForKeys_domain_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v6 = *(a1 + 32);
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
-        v12 = [*(a1 + 40) numberForKey:v11 error:{a3, v18}];
+        v11 = *(*(&v17 + 1) + 8 * i);
+        v12 = [*(a1 + 40) numberForKey:v11 error:{a3, v17}];
         if (v12)
         {
           [v5 setObject:v12 forKeyedSubscript:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
@@ -456,7 +454,6 @@ uint64_t __66__ACHAwardsKeyValueServer_remote_valuesForKeys_domain_completion___
   v15 = *(v14 + 40);
   *(v14 + 40) = v13;
 
-  v16 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

@@ -11,15 +11,15 @@
 
 - (BLBookletMigrationStore)init
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v10.receiver = self;
-  v10.super_class = BLBookletMigrationStore;
-  v2 = [(BLBookletMigrationStore *)&v10 init];
+  v12 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = BLBookletMigrationStore;
+  v2 = [(BLBookletMigrationStore *)&v9 init];
   if (v2)
   {
-    v9 = 0;
-    v3 = [[BLServiceProxy alloc] initWithError:&v9];
-    v4 = v9;
+    v8 = 0;
+    v3 = [[BLServiceProxy alloc] initWithError:&v8];
+    v4 = v8;
     serviceProxy = v2->_serviceProxy;
     v2->_serviceProxy = v3;
 
@@ -29,7 +29,7 @@
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v12 = v4;
+        v11 = v4;
         _os_log_impl(&dword_241D1F000, v6, OS_LOG_TYPE_ERROR, "Unable to create service proxy: %@", buf, 0xCu);
       }
 
@@ -37,7 +37,6 @@
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

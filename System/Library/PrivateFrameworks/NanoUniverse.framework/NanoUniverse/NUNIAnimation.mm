@@ -1,5 +1,6 @@
 @interface NUNIAnimation
 + (void)generateSlerpKeys:(id)keys times:(SEL)times count:from:to:;
+- (BOOL)update:(float)update;
 - (NUNIAnimatable)animatable;
 - (NUNIAnimation)initWithAnimatable:(id)animatable from:(unint64_t)from to:ctrl1:ctrl2:key:;
 - (NUNIAnimation)initWithAnimatable:(id)animatable value:(unint64_t)value key:;
@@ -76,6 +77,45 @@
   v7 = [NUNIAnimation initWithAnimatable:"initWithAnimatable:from:to:ctrl1:ctrl2:key:" from:animatableCopy to:value ctrl1:? ctrl2:? key:?];
 
   return v7;
+}
+
+- (BOOL)update:(float)update
+{
+  self->_prevTime = update;
+  startTime = self->_startTime;
+  if (startTime < 0.0)
+  {
+    startTime = self->_delay + update;
+    self->_startTime = startTime;
+  }
+
+  v10 = v3;
+  if (self->_paused)
+  {
+    return 1;
+  }
+
+  update = fmaxf(update - startTime, 0.0) / self->_duration;
+  if (update <= 1.0)
+  {
+    v8 = 1;
+  }
+
+  else if (self->_repeat)
+  {
+    self->_startTime = -1.0;
+    v8 = 1;
+    *&update = 0;
+  }
+
+  else
+  {
+    v8 = 0;
+    update = 1.0;
+  }
+
+  [(NUNIAnimation *)self apply:*&update, v4, v10, v5, v6];
+  return v8;
 }
 
 - (void)apply:(float)apply

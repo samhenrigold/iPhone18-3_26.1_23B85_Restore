@@ -9081,7 +9081,8 @@ LABEL_36:
 {
   animatedCopy = animated;
   visibleCopy = visible;
-  if ((SiriUIDeviceIsPad() & 1) == 0 && +[AFSystemAssistantExperienceStatusManager saeAvailable])
+  SiriUIDeviceIsPad(self, a2);
+  if ((v8 & 1) == 0 && +[AFSystemAssistantExperienceStatusManager saeAvailable])
   {
     view = [(SRSiriViewController *)self view];
     layer = [view layer];

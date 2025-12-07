@@ -38,7 +38,7 @@ uint64_t IPC::ArgumentCoder<WebCore::TimingFunction,void>::encode(IPC::Encoder *
   return result;
 }
 
-uint64_t IPC::ArgumentCoder<WebCore::TimingFunction,void>::decode(uint64_t result, IPC::Decoder *a2)
+WTF *IPC::ArgumentCoder<WebCore::TimingFunction,void>::decode(WTF *result, IPC::Decoder *a2)
 {
   v3 = result;
   v4 = *(a2 + 2);
@@ -66,7 +66,7 @@ uint64_t IPC::ArgumentCoder<WebCore::TimingFunction,void>::decode(uint64_t resul
   {
 LABEL_21:
     *v3 = 0;
-    v3[8] = 0;
+    *(v3 + 8) = 0;
     return result;
   }
 
@@ -80,12 +80,12 @@ LABEL_21:
       {
         *a2 = 0;
         *(a2 + 1) = 0;
-        v68 = *(a2 + 3);
-        if (v68)
+        v69 = *(a2 + 3);
+        if (v69)
         {
           if (v13)
           {
-            (*(*v68 + 16))(v68);
+            (*(*v69 + 16))(v69);
             v5 = *a2;
             v13 = *(a2 + 1);
             goto LABEL_125;
@@ -101,57 +101,57 @@ LABEL_21:
 LABEL_125:
         *a2 = 0;
         *(a2 + 1) = 0;
-        v69 = *(a2 + 3);
-        if (v69 && v13)
+        v70 = *(a2 + 3);
+        if (v70 && v13)
         {
-          (*(*v69 + 16))(v69, v5);
+          (*(*v70 + 16))(v70, v5);
         }
 
         goto LABEL_126;
       }
 
-      *(a2 + 2) = v14 + 8;
+      *(a2 + 2) = v14 + 1;
       if (!v14)
       {
         goto LABEL_125;
       }
 
       v16 = *v14;
-      v94 = 0;
       v95 = 0;
+      v96 = 0;
       if (v16 >= 0x10000)
       {
         v60 = 0;
         LODWORD(v18) = 0;
         do
         {
-          result = IPC::Decoder::decode<WebCore::LinearTimingFunction::Point>(&v92, a2);
-          if ((v93 & 1) == 0)
+          result = IPC::Decoder::decode<WebCore::LinearTimingFunction::Point>(&v93, a2);
+          if ((v94 & 1) == 0)
           {
             goto LABEL_87;
           }
 
-          if (v18 == v95)
+          if (v18 == v96)
           {
-            result = WTF::Vector<WebCore::TextTab,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v94, v18 + 1, &v92);
-            v61 = HIDWORD(v95);
-            v60 = v94;
-            *(v94 + HIDWORD(v95)) = *result;
+            result = WTF::Vector<WebCore::TextTab,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v95, v18 + 1, &v93);
+            v61 = HIDWORD(v96);
+            v60 = v95;
+            *(v95 + HIDWORD(v96)) = *result;
           }
 
           else
           {
-            *(v60 + v18) = v92;
-            v61 = HIDWORD(v95);
+            *(v60 + v18) = v93;
+            v61 = HIDWORD(v96);
           }
 
           v18 = (v61 + 1);
-          HIDWORD(v95) = v61 + 1;
+          HIDWORD(v96) = v61 + 1;
           --v16;
         }
 
         while (v16);
-        if (v95 <= v18)
+        if (v96 <= v18)
         {
           goto LABEL_49;
         }
@@ -159,36 +159,37 @@ LABEL_125:
         if (v61 == -1)
         {
 LABEL_116:
-          v94 = 0;
-          LODWORD(v95) = 0;
+          v95 = 0;
+          LODWORD(v96) = 0;
 LABEL_117:
           WTF::fastFree(v60, v5);
-          LODWORD(v18) = HIDWORD(v95);
+          LODWORD(v18) = HIDWORD(v96);
           goto LABEL_49;
         }
 
-        if (v18 >> 28)
+        v62 = (v18 >> 28);
+        if (v62)
         {
           __break(0xC471u);
           return result;
         }
 
-        v62 = WTF::fastMalloc((16 * v18));
-        LODWORD(v95) = v18;
-        v94 = v62;
-        if (v62 == v60)
+        v63 = WTF::fastMalloc(v62, (16 * v18));
+        LODWORD(v96) = v18;
+        v95 = v63;
+        if (v63 == v60)
         {
           goto LABEL_116;
         }
 
-        v63 = 0;
+        v64 = 0;
         do
         {
-          *(v62 + v63) = *(v60 + v63);
-          v63 += 16;
+          *&v63[v64] = *(v60 + v64 * 8);
+          v64 += 2;
         }
 
-        while (16 * v18 != v63);
+        while (2 * v18 != v64);
         if (v60)
         {
           goto LABEL_117;
@@ -199,34 +200,34 @@ LABEL_117:
       {
         if (v16)
         {
-          v17 = WTF::fastMalloc((16 * v16));
+          v17 = WTF::fastMalloc(v14, (16 * v16));
           LODWORD(v18) = 0;
-          LODWORD(v95) = v16;
-          v94 = v17;
+          LODWORD(v96) = v16;
+          v95 = v17;
           while (1)
           {
-            IPC::Decoder::decode<WebCore::LinearTimingFunction::Point>(&v92, a2);
-            if ((v93 & 1) == 0)
+            IPC::Decoder::decode<WebCore::LinearTimingFunction::Point>(&v93, a2);
+            if ((v94 & 1) == 0)
             {
               break;
             }
 
-            if (v18 == v95)
+            if (v18 == v96)
             {
-              v19 = WTF::Vector<WebCore::TextTab,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v94, v18 + 1, &v92);
-              v20 = HIDWORD(v95);
-              v17 = v94;
-              *(v94 + HIDWORD(v95)) = *v19;
+              v19 = WTF::Vector<WebCore::TextTab,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v95, v18 + 1, &v93);
+              v20 = HIDWORD(v96);
+              v17 = v95;
+              *(v95 + HIDWORD(v96)) = *v19;
             }
 
             else
             {
-              *(v17 + v18) = v92;
-              v20 = HIDWORD(v95);
+              *(v17 + v18) = v93;
+              v20 = HIDWORD(v96);
             }
 
             LODWORD(v18) = v20 + 1;
-            HIDWORD(v95) = v20 + 1;
+            HIDWORD(v96) = v20 + 1;
             if (!--v16)
             {
               goto LABEL_49;
@@ -235,38 +236,38 @@ LABEL_117:
 
 LABEL_87:
           v38 = 0;
-          LOBYTE(v88) = 0;
-          v91 = 0;
+          LOBYTE(v89) = 0;
+          v92 = 0;
 LABEL_88:
-          if (v94)
+          if (v95)
           {
-            WTF::fastFree(v94, v5);
+            WTF::fastFree(v95, v5);
           }
 
           if (v38)
           {
             if (*a2)
             {
-              result = WebCore::LinearTimingFunction::create(&v88, &v92);
-              v65 = v92;
-              if (v91)
+              result = WebCore::LinearTimingFunction::create(&v89, &v93);
+              v66 = v93;
+              if (v92)
               {
-                result = v88;
-                if (v88)
+                result = v89;
+                if (v89)
                 {
-                  v88 = 0;
                   v89 = 0;
-                  result = WTF::fastFree(result, v64);
+                  v90 = 0;
+                  result = WTF::fastFree(result, v65);
                 }
               }
 
-              v66 = 1;
+              v67 = 1;
               goto LABEL_96;
             }
 
-            if (v88)
+            if (v89)
             {
-              WTF::fastFree(v88, 0);
+              WTF::fastFree(v89, 0);
             }
 
 LABEL_127:
@@ -279,37 +280,37 @@ LABEL_127:
               result = (*(*result + 16))(result);
             }
 
-            v65 = 0;
             v66 = 0;
+            v67 = 0;
 LABEL_96:
             if (!*a2)
             {
               *v3 = 0;
-              v3[8] = 0;
-              if (!v65)
+              *(v3 + 8) = 0;
+              if (!v66)
               {
-                v66 = 0;
+                v67 = 0;
               }
 
-              if (v66 == 1)
+              if (v67 == 1)
               {
-                if (v65[2] == 1)
+                if (v66[2] == 1)
                 {
-                  return (*(*v65 + 16))(v65);
+                  return (*(*v66 + 16))(v66);
                 }
 
                 else
                 {
-                  --v65[2];
+                  --v66[2];
                 }
               }
 
               return result;
             }
 
-            if (v66)
+            if (v67)
             {
-              *v3 = v65;
+              *v3 = v66;
               goto LABEL_99;
             }
 
@@ -317,16 +318,16 @@ LABEL_96:
           }
 
 LABEL_126:
-          v70 = *a2;
-          v71 = *(a2 + 1);
+          v71 = *a2;
+          v72 = *(a2 + 1);
           *a2 = 0;
           *(a2 + 1) = 0;
-          v72 = *(a2 + 3);
-          if (v72)
+          v73 = *(a2 + 3);
+          if (v73)
           {
-            if (v71)
+            if (v72)
             {
-              (*(*v72 + 16))(v72, v70);
+              (*(*v73 + 16))(v73, v71);
               if (*a2)
               {
                 goto LABEL_133;
@@ -341,13 +342,13 @@ LABEL_126:
       }
 
 LABEL_49:
-      v37 = v94;
-      v94 = 0;
-      v88 = v37;
-      v89 = v95;
-      v90 = v18;
+      v37 = v95;
+      v95 = 0;
+      v89 = v37;
+      v90 = v96;
+      v91 = v18;
       v38 = 1;
-      v91 = 1;
+      v92 = 1;
       goto LABEL_88;
     }
 
@@ -362,32 +363,32 @@ LABEL_49:
     {
       *a2 = 0;
       *(a2 + 1) = 0;
-      v75 = *(a2 + 3);
-      if (v75)
+      v76 = *(a2 + 3);
+      if (v76)
       {
         if (v21)
         {
-          (*(*v75 + 16))(v75);
+          (*(*v76 + 16))(v76);
           v5 = *a2;
           v21 = *(a2 + 1);
 LABEL_147:
           *a2 = 0;
           *(a2 + 1) = 0;
-          v76 = *(a2 + 3);
-          if (v76)
+          v77 = *(a2 + 3);
+          if (v77)
           {
             if (v21)
             {
-              (*(*v76 + 16))(v76, v5);
+              (*(*v77 + 16))(v77, v5);
               v5 = *a2;
               v21 = *(a2 + 1);
 LABEL_150:
               *a2 = 0;
               *(a2 + 1) = 0;
-              v77 = *(a2 + 3);
-              if (v77 && v21)
+              v78 = *(a2 + 3);
+              if (v78 && v21)
               {
-                (*(*v77 + 16))(v77, v5);
+                (*(*v78 + 16))(v78, v5);
               }
 
               v24 = 0;
@@ -443,13 +444,13 @@ LABEL_41:
     if (v24 > 0xFF && (v27 & 1) != 0 && (v30 & 1) != 0 && (v33 & 1) != 0 && (v35 & 1) != 0)
     {
       v36 = v34;
-      result = WTF::fastMalloc(0x38);
-      *(result + 8) = 1;
+      result = WTF::fastMalloc(*a2, 0x38);
+      *(result + 2) = 1;
       *result = &unk_1F10E7DD8;
-      *(result + 16) = v25;
-      *(result + 24) = v28;
-      *(result + 32) = v31;
-      *(result + 40) = v36;
+      *(result + 2) = v25;
+      *(result + 3) = v28;
+      *(result + 4) = v31;
+      *(result + 5) = v36;
       *(result + 48) = v24;
       goto LABEL_67;
     }
@@ -459,8 +460,8 @@ LABEL_133:
 LABEL_134:
     *a2 = 0;
     *(a2 + 1) = 0;
-    v73 = *(a2 + 3);
-    if (!v73)
+    v74 = *(a2 + 3);
+    if (!v74)
     {
       v6 = 0;
 LABEL_136:
@@ -473,14 +474,14 @@ LABEL_136:
       goto LABEL_136;
     }
 
-    (*(*v73 + 16))(v73);
+    (*(*v74 + 16))(v74);
     v5 = *a2;
     v6 = *(a2 + 1);
 LABEL_137:
     *a2 = 0;
     *(a2 + 1) = 0;
-    v74 = *(a2 + 3);
-    if (!v74)
+    v75 = *(a2 + 3);
+    if (!v75)
     {
       v6 = 0;
 LABEL_139:
@@ -493,7 +494,7 @@ LABEL_139:
       goto LABEL_139;
     }
 
-    (*(*v74 + 16))(v74, v5);
+    (*(*v75 + 16))(v75, v5);
     v5 = *a2;
     v6 = *(a2 + 1);
 LABEL_140:
@@ -527,12 +528,12 @@ LABEL_140:
     {
       *a2 = 0;
       *(a2 + 1) = 0;
-      v78 = *(a2 + 3);
-      if (v78)
+      v79 = *(a2 + 3);
+      if (v79)
       {
         if (v6)
         {
-          (*(*v78 + 16))(v78);
+          (*(*v79 + 16))(v79);
           v6 = *(a2 + 1);
         }
       }
@@ -554,7 +555,7 @@ LABEL_140:
           if (!*v40)
           {
             v45 = 0;
-            LOWORD(v43) = 0;
+            v43 = 0;
             v44 = 0x10000;
             if (!v41)
             {
@@ -566,16 +567,16 @@ LABEL_140:
 
           if (v6 <= v42 - v41)
           {
-            v81 = 0;
             v82 = 0;
+            v83 = 0;
             *a2 = 0;
             *(a2 + 1) = 0;
-            v83 = *(a2 + 3);
-            if (v83)
+            v84 = *(a2 + 3);
+            if (v84)
             {
-              (*(*v83 + 16))(v83);
-              v82 = *a2;
-              v81 = *(a2 + 1);
+              (*(*v84 + 16))(v84);
+              v83 = *a2;
+              v82 = *(a2 + 1);
             }
           }
 
@@ -598,11 +599,11 @@ LABEL_58:
                 if ((v39 & 0x100000000) != 0 && (v44 | v45) >> 16)
                 {
                   v46 = v43 | v45;
-                  result = WTF::fastMalloc(0x18);
-                  *(result + 8) = 1;
-                  *(result + 12) = v39;
+                  result = WTF::fastMalloc(v43, 0x18);
+                  *(result + 2) = 1;
+                  *(result + 3) = v39;
                   *result = &unk_1F10E7E10;
-                  *(result + 16) = v46;
+                  *(result + 8) = v46;
                   goto LABEL_67;
                 }
 
@@ -612,16 +613,16 @@ LABEL_58:
               goto LABEL_165;
             }
 
-            v81 = v6;
-            v82 = v41;
+            v82 = v6;
+            v83 = v41;
           }
 
           *a2 = 0;
           *(a2 + 1) = 0;
-          v84 = *(a2 + 3);
-          if (v84 && v81)
+          v85 = *(a2 + 3);
+          if (v85 && v82)
           {
-            (*(*v84 + 16))(v84, v82, v81);
+            (*(*v85 + 16))(v85, v83, v82);
             v41 = *a2;
             v6 = *(a2 + 1);
           }
@@ -635,10 +636,10 @@ LABEL_58:
 LABEL_165:
           *a2 = 0;
           *(a2 + 1) = 0;
-          v85 = *(a2 + 3);
-          if (v85 && v6)
+          v86 = *(a2 + 3);
+          if (v86 && v6)
           {
-            (*(*v85 + 16))(v85, v41);
+            (*(*v86 + 16))(v86, v41);
           }
 
           v45 = 256;
@@ -648,26 +649,26 @@ LABEL_165:
 LABEL_159:
         *a2 = 0;
         *(a2 + 1) = 0;
-        v80 = *(a2 + 3);
-        if (v80 && v6)
+        v81 = *(a2 + 3);
+        if (v81 && v6)
         {
-          (*(*v80 + 16))(v80, v41);
+          (*(*v81 + 16))(v81, v41);
         }
 
         v45 = 0;
 LABEL_167:
-        v86 = *a2;
-        v87 = *(a2 + 1);
+        v87 = *a2;
+        v88 = *(a2 + 1);
         *a2 = 0;
         *(a2 + 1) = 0;
         result = *(a2 + 3);
-        if (!result || !v87)
+        if (!result || !v88)
         {
           goto LABEL_21;
         }
 
-        (*(*result + 16))(result, v86);
-        LOWORD(v43) = 0;
+        (*(*result + 16))(result, v87);
+        v43 = 0;
         v44 = 0;
         if (!*a2)
         {
@@ -702,12 +703,12 @@ LABEL_112:
 
     *a2 = 0;
     *(a2 + 1) = 0;
-    v79 = *(a2 + 3);
-    if (v79)
+    v80 = *(a2 + 3);
+    if (v80)
     {
       if (v6)
       {
-        (*(*v79 + 16))(v79);
+        (*(*v80 + 16))(v80);
         v41 = *a2;
         v6 = *(a2 + 1);
         goto LABEL_159;
@@ -763,34 +764,34 @@ LABEL_111:
   }
 
   v58 = v56;
-  result = WTF::fastMalloc(0x30);
-  *(result + 8) = 1;
+  result = WTF::fastMalloc(*a2, 0x30);
+  *(result + 2) = 1;
   *result = &unk_1F10E7E48;
-  *(result + 16) = v47;
-  *(result + 24) = v50;
-  *(result + 32) = v53;
-  *(result + 40) = v58;
+  *(result + 2) = v47;
+  *(result + 3) = v50;
+  *(result + 4) = v53;
+  *(result + 5) = v58;
 LABEL_67:
   if (*a2)
   {
     *v3 = result;
 LABEL_99:
-    v3[8] = 1;
+    *(v3 + 8) = 1;
     return result;
   }
 
   *v3 = 0;
-  v3[8] = 0;
-  if (*(result + 8) == 1)
+  *(v3 + 8) = 0;
+  if (*(result + 2) == 1)
   {
-    v67 = *(*result + 16);
+    v68 = *(*result + 16);
 
-    return v67();
+    return v68();
   }
 
   else
   {
-    --*(result + 8);
+    --*(result + 2);
   }
 
   return result;
@@ -1034,24 +1035,24 @@ LABEL_8:
   return result;
 }
 
-uint64_t IPC::ArgumentCoder<WebCore::TransformOperation,void>::decode(uint64_t result, const WebCore::TransformationMatrix **a2)
+uint64_t IPC::ArgumentCoder<WebCore::TransformOperation,void>::decode(uint64_t result, IPC::Decoder *a2)
 {
   v4 = result;
-  v5 = a2[2];
+  v5 = *(a2 + 2);
   v6 = *a2;
-  v7 = a2[1];
+  v7 = *(a2 + 1);
   if (v7 <= v5 - v6)
   {
     *a2 = 0;
-    a2[1] = 0;
-    v46 = a2[3];
+    *(a2 + 1) = 0;
+    v46 = *(a2 + 3);
     if (v46)
     {
       if (v7)
       {
         (*(*v46 + 16))(v46);
         v6 = *a2;
-        v7 = a2[1];
+        v7 = *(a2 + 1);
         goto LABEL_126;
       }
     }
@@ -1064,15 +1065,15 @@ uint64_t IPC::ArgumentCoder<WebCore::TransformOperation,void>::decode(uint64_t r
     v6 = 0;
 LABEL_126:
     *a2 = 0;
-    a2[1] = 0;
-    v47 = a2[3];
+    *(a2 + 1) = 0;
+    v47 = *(a2 + 3);
     if (v47)
     {
       if (v7)
       {
         (*(*v47 + 16))(v47, v6);
         v6 = *a2;
-        v7 = a2[1];
+        v7 = *(a2 + 1);
         goto LABEL_129;
       }
     }
@@ -1085,8 +1086,8 @@ LABEL_126:
     v6 = 0;
 LABEL_129:
     *a2 = 0;
-    a2[1] = 0;
-    result = a2[3];
+    *(a2 + 1) = 0;
+    result = *(a2 + 3);
     if (result)
     {
       if (v7)
@@ -1107,7 +1108,7 @@ LABEL_130:
     return result;
   }
 
-  a2[2] = (v5 + 1);
+  *(a2 + 2) = v5 + 1;
   if (!v5)
   {
     goto LABEL_126;
@@ -1234,14 +1235,14 @@ LABEL_48:
     }
 
     v6 = *a2;
-    v42 = a2[1];
+    v42 = *(a2 + 1);
     *a2 = 0;
-    a2[1] = 0;
-    v43 = a2[3];
+    *(a2 + 1) = 0;
+    v43 = *(a2 + 3);
     if (v43 && v42)
     {
       v45 = result;
-      (*(*v43 + 16))(a2[3], v6);
+      (*(*v43 + 16))(*(a2 + 3), v6);
       result = v45;
     }
 
@@ -1378,13 +1379,13 @@ LABEL_88:
                 goto LABEL_108;
               }
 
-              v37 = a2[1];
-              v9 = a2[2];
+              v37 = *(a2 + 1);
+              v9 = *(a2 + 2);
               if (v37 <= v9 - v6)
               {
                 *a2 = 0;
-                a2[1] = 0;
-                v48 = a2[3];
+                *(a2 + 1) = 0;
+                v48 = *(a2 + 3);
                 if (!v48)
                 {
                   v37 = 0;
@@ -1395,7 +1396,7 @@ LABEL_88:
                 {
                   (*(*v48 + 16))(v48);
                   v6 = *a2;
-                  v37 = a2[1];
+                  v37 = *(a2 + 1);
                 }
 
                 else
@@ -1406,8 +1407,8 @@ LABEL_136:
 
 LABEL_137:
                 *a2 = 0;
-                a2[1] = 0;
-                v49 = a2[3];
+                *(a2 + 1) = 0;
+                v49 = *(a2 + 3);
                 if (!v49)
                 {
                   v37 = 0;
@@ -1418,7 +1419,7 @@ LABEL_137:
                 {
                   (*(*v49 + 16))(v49, v6);
                   v6 = *a2;
-                  v37 = a2[1];
+                  v37 = *(a2 + 1);
                 }
 
                 else
@@ -1429,8 +1430,8 @@ LABEL_139:
 
 LABEL_140:
                 *a2 = 0;
-                a2[1] = 0;
-                v50 = a2[3];
+                *(a2 + 1) = 0;
+                v50 = *(a2 + 3);
                 if (v50 && v37)
                 {
                   (*(*v50 + 16))(v50, v6);
@@ -1440,10 +1441,10 @@ LABEL_141:
                 LOBYTE(v58) = 0;
                 v60 = 0;
                 v6 = *a2;
-                v51 = a2[1];
+                v51 = *(a2 + 1);
                 *a2 = 0;
-                a2[1] = 0;
-                result = a2[3];
+                *(a2 + 1) = 0;
+                result = *(a2 + 3);
                 if (result && v51)
                 {
                   result = (*(*result + 16))(result, v6);
@@ -1453,7 +1454,7 @@ LABEL_141:
                 goto LABEL_143;
               }
 
-              a2[2] = (v9 + 1);
+              *(a2 + 2) = v9 + 1;
               if (!v9)
               {
                 goto LABEL_137;
@@ -1504,10 +1505,10 @@ LABEL_143:
                   v6 = *a2;
                 }
 
-                v54 = a2[1];
+                v54 = *(a2 + 1);
                 *a2 = 0;
-                a2[1] = 0;
-                result = a2[3];
+                *(a2 + 1) = 0;
+                result = *(a2 + 3);
                 if (result && v54)
                 {
                   result = (*(*result + 16))(result, v6);
@@ -1614,10 +1615,10 @@ LABEL_105:
       }
 
 LABEL_85:
-      v36 = a2[1];
+      v36 = *(a2 + 1);
       *a2 = 0;
-      a2[1] = 0;
-      result = a2[3];
+      *(a2 + 1) = 0;
+      result = *(a2 + 3);
       if (result && v36)
       {
         result = (*(*result + 16))(result);
@@ -1996,7 +1997,7 @@ void sub_19D7322A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t _ZN3IPC7Decoder6decodeIN7WebCore5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEENSt3__18optionalIT_EEv(uint64_t a1, uint64_t *a2)
+uint64_t _ZN3IPC7Decoder6decodeIN7WebCore5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEENSt3__18optionalIT_EEv(uint64_t *a1, uint64_t *a2)
 {
   v4 = a2[2];
   v5 = *a2;
@@ -2243,10 +2244,10 @@ LABEL_6:
 
 void _ZN3IPC7Decoder6decodeIN7WebCore19SpaceSeparatedPointINS2_5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEEEENSt3__18optionalIT_EEv(_BYTE *a1, uint64_t *a2)
 {
-  _ZN3IPC7Decoder6decodeIN7WebCore19SpaceSeparatedArrayINS2_5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEELm2EEEEENSt3__18optionalIT_EEv(v25, a2);
+  _ZN3IPC7Decoder6decodeIN7WebCore19SpaceSeparatedArrayINS2_5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEELm2EEEEENSt3__18optionalIT_EEv(v24, a2);
   if (*a2)
   {
-    if (v27 != 1)
+    if (v26 != 1)
     {
       __break(1u);
 LABEL_32:
@@ -2267,7 +2268,7 @@ LABEL_32:
     }
 
     v4 = 0;
-    v5 = v25;
+    v5 = v24;
     v6 = v23;
     do
     {
@@ -2280,14 +2281,14 @@ LABEL_32:
 
       else
       {
-        v28 = v6;
-        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v8), v8, &v28);
+        v27 = v6;
+        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v8), v8, &v27);
       }
 
       *v5 = -1;
       v4 = 1;
-      v6 = &v24;
-      v5 = &v26;
+      v6 = &v23[1];
+      v5 = &v25;
     }
 
     while ((v7 & 1) == 0);
@@ -2305,13 +2306,13 @@ LABEL_32:
 
       else
       {
-        v28 = &a1[8 * v10];
-        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v13), v13, &v28);
+        v27 = &a1[8 * v10];
+        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v13), v13, &v27);
       }
 
       *v11 = -1;
       v9 = 1;
-      v11 = &v24;
+      v11 = &v23[1];
       v10 = 1;
     }
 
@@ -2322,8 +2323,8 @@ LABEL_32:
       v15 = v23[i];
       if (v15 != -1 && (v15 & 0xFE000000000000) != 0)
       {
-        v29 = v15 & 0xFF00FFFFFFFFFFFFLL;
-        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v29);
+        v28 = v15 & 0xFF00FFFFFFFFFFFFLL;
+        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v28);
       }
     }
   }
@@ -2334,11 +2335,11 @@ LABEL_32:
     a1[16] = 0;
   }
 
-  if (v27 == 1)
+  if (v26 == 1)
   {
     for (j = 8; j != -8; j -= 8)
     {
-      v18 = *&v25[j];
+      v18 = *&v24[j];
       if (v18 != -1 && (v18 & 0xFE000000000000) != 0)
       {
         v23[0] = v18 & 0xFF00FFFFFFFFFFFFLL;
@@ -2977,10 +2978,10 @@ LABEL_24:
 
 void IPC::Decoder::decode<WebCore::Style::Position>(_BYTE *a1, uint64_t *a2)
 {
-  _ZN3IPC7Decoder6decodeIN7WebCore19SpaceSeparatedPointINS2_5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEEEENSt3__18optionalIT_EEv(v20, a2);
+  _ZN3IPC7Decoder6decodeIN7WebCore19SpaceSeparatedPointINS2_5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEEEENSt3__18optionalIT_EEv(v19, a2);
   if (*a2)
   {
-    if (v22 != 1)
+    if (v21 != 1)
     {
       __break(1u);
 LABEL_27:
@@ -3001,7 +3002,7 @@ LABEL_27:
     }
 
     v4 = 0;
-    v5 = v20;
+    v5 = v19;
     v6 = v18;
     do
     {
@@ -3014,14 +3015,14 @@ LABEL_27:
 
       else
       {
-        v23 = v6;
-        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v8), v8, &v23);
+        v22 = v6;
+        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v8), v8, &v22);
       }
 
       *v5 = -1;
       v4 = 1;
-      v6 = &v19;
-      v5 = &v21;
+      v6 = &v18[1];
+      v5 = &v20;
     }
 
     while ((v7 & 1) == 0);
@@ -3031,8 +3032,8 @@ LABEL_27:
       v10 = v18[i];
       if (v10 != -1 && (v10 & 0xFE000000000000) != 0)
       {
-        v24 = v10 & 0xFF00FFFFFFFFFFFFLL;
-        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v24);
+        v23 = v10 & 0xFF00FFFFFFFFFFFFLL;
+        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v23);
       }
     }
   }
@@ -3043,11 +3044,11 @@ LABEL_27:
     a1[16] = 0;
   }
 
-  if (v22 == 1)
+  if (v21 == 1)
   {
     for (j = 8; j != -8; j -= 8)
     {
-      v13 = *&v20[j];
+      v13 = *&v19[j];
       if (v13 != -1 && (v13 & 0xFE000000000000) != 0)
       {
         v18[0] = v13 & 0xFF00FFFFFFFFFFFFLL;
@@ -3509,10 +3510,10 @@ LABEL_4:
 
   if (!v7)
   {
-    IPC::Decoder::decode<WebCore::Style::Position>(v72, a2);
+    IPC::Decoder::decode<WebCore::Style::Position>(v71, a2);
     if (*a2)
     {
-      if (v74 != 1)
+      if (v72 != 1)
       {
 LABEL_94:
         __break(1u);
@@ -3520,8 +3521,8 @@ LABEL_94:
       }
 
       v32 = 0;
-      v33 = v72;
-      v34 = &v70;
+      v33 = v71;
+      v34 = v70;
       do
       {
         v35 = v32;
@@ -3533,20 +3534,20 @@ LABEL_94:
 
         else
         {
-          v75 = v34;
-          _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v36), v36, &v75);
+          v73 = v34;
+          _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v36), v36, &v73);
         }
 
         *v33 = -1;
         v32 = 1;
-        v34 = &v71;
-        v33 = &v73;
+        v34 = &v70[1];
+        v33 = &v71[1];
       }
 
       while ((v35 & 1) == 0);
       v37 = 0;
       v38 = v67;
-      v39 = &v70;
+      v39 = v70;
       do
       {
         v40 = v37;
@@ -3558,13 +3559,13 @@ LABEL_94:
 
         else
         {
-          v75 = v38;
-          _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v41), v41, &v75);
+          v73 = v38;
+          _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v41), v41, &v73);
         }
 
         *v39 = -1;
         v37 = 1;
-        v39 = &v71;
+        v39 = &v70[1];
         v38 = &v68;
       }
 
@@ -3572,11 +3573,11 @@ LABEL_94:
       v69 = 1;
       for (i = 1; i != -1; --i)
       {
-        v43 = (&v70)[i];
+        v43 = v70[i];
         if (v43 != -1 && (v43 & 0xFE000000000000) != 0)
         {
-          v76 = v43 & 0xFF00FFFFFFFFFFFFLL;
-          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v76);
+          v74 = v43 & 0xFF00FFFFFFFFFFFFLL;
+          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v74);
         }
       }
     }
@@ -3587,15 +3588,15 @@ LABEL_94:
       v69 = 0;
     }
 
-    if (v74 == 1)
+    if (v72 == 1)
     {
       for (j = 1; j != -1; --j)
       {
-        v46 = v72[j];
+        v46 = v71[j];
         if (v46 != -1 && (v46 & 0xFE000000000000) != 0)
         {
-          v70 = (v46 & 0xFF00FFFFFFFFFFFFLL);
-          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v70);
+          v70[0] = (v46 & 0xFF00FFFFFFFFFFFFLL);
+          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v70);
         }
       }
     }
@@ -3638,8 +3639,8 @@ LABEL_94:
 
       else
       {
-        v70 = &a1[8 * v49];
-        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v52), v52, &v70);
+        v70[0] = &a1[8 * v49];
+        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v52), v52, v70);
       }
 
       *v50 = -1;
@@ -3658,8 +3659,8 @@ LABEL_94:
         v54 = *&v67[k];
         if (v54 != -1 && (v54 & 0xFE000000000000) != 0)
         {
-          v72[0] = v54 & 0xFF00FFFFFFFFFFFFLL;
-          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v72);
+          v71[0] = v54 & 0xFF00FFFFFFFFFFFFLL;
+          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v71);
         }
       }
     }
@@ -3667,14 +3668,14 @@ LABEL_94:
     goto LABEL_89;
   }
 
-  _ZN3IPC7Decoder6decodeIN7WebCore19SpaceSeparatedPointINS2_5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEEEENSt3__18optionalIT_EEv(v72, a2);
+  _ZN3IPC7Decoder6decodeIN7WebCore19SpaceSeparatedPointINS2_5Style16LengthPercentageIXtlNS2_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEEEEEENSt3__18optionalIT_EEv(v71, a2);
   if (*a2)
   {
-    if (v74 == 1)
+    if (v72 == 1)
     {
       v8 = 0;
-      v9 = v72;
-      v10 = &v70;
+      v9 = v71;
+      v10 = v70;
       do
       {
         v11 = v8;
@@ -3686,20 +3687,20 @@ LABEL_94:
 
         else
         {
-          v75 = v10;
-          _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v12), v12, &v75);
+          v73 = v10;
+          _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v12), v12, &v73);
         }
 
         *v9 = -1;
         v8 = 1;
-        v10 = &v71;
-        v9 = &v73;
+        v10 = &v70[1];
+        v9 = &v71[1];
       }
 
       while ((v11 & 1) == 0);
       v13 = 0;
       v14 = v67;
-      v15 = &v70;
+      v15 = v70;
       do
       {
         v16 = v13;
@@ -3711,13 +3712,13 @@ LABEL_94:
 
         else
         {
-          v75 = v14;
-          _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v17), v17, &v75);
+          v73 = v14;
+          _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v17), v17, &v73);
         }
 
         *v15 = -1;
         v13 = 1;
-        v15 = &v71;
+        v15 = &v70[1];
         v14 = &v68;
       }
 
@@ -3725,11 +3726,11 @@ LABEL_94:
       v69 = 1;
       for (m = 1; m != -1; --m)
       {
-        v19 = (&v70)[m];
+        v19 = v70[m];
         if (v19 != -1 && (v19 & 0xFE000000000000) != 0)
         {
-          v76 = v19 & 0xFF00FFFFFFFFFFFFLL;
-          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v76);
+          v74 = v19 & 0xFF00FFFFFFFFFFFFLL;
+          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v74);
         }
       }
 
@@ -3743,15 +3744,15 @@ LABEL_95:
   v67[0] = 0;
   v69 = 0;
 LABEL_25:
-  if (v74 == 1)
+  if (v72 == 1)
   {
     for (n = 1; n != -1; --n)
     {
-      v22 = v72[n];
+      v22 = v71[n];
       if (v22 != -1 && (v22 & 0xFE000000000000) != 0)
       {
-        v70 = (v22 & 0xFF00FFFFFFFFFFFFLL);
-        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v70);
+        v70[0] = (v22 & 0xFF00FFFFFFFFFFFFLL);
+        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v70);
       }
     }
   }
@@ -3794,8 +3795,8 @@ LABEL_25:
 
     else
     {
-      v70 = &a1[8 * v25];
-      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v28), v28, &v70);
+      v70[0] = &a1[8 * v25];
+      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELdfff0000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ldfff0000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v28), v28, v70);
     }
 
     *v26 = -1;
@@ -3814,8 +3815,8 @@ LABEL_25:
       v30 = *&v67[ii];
       if (v30 != -1 && (v30 & 0xFE000000000000) != 0)
       {
-        v72[0] = v30 & 0xFF00FFFFFFFFFFFFLL;
-        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v72);
+        v71[0] = v30 & 0xFF00FFFFFFFFFFFFLL;
+        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(v71);
       }
     }
   }
@@ -4423,29 +4424,29 @@ uint64_t _ZN3IPC7Decoder6decodeIN7WebCore5Style5AngleIXtlNS2_3CSS5RangeELdfff000
 
 void _ZN3IPC7Decoder6decodeIN7WebCore38MinimallySerializingSpaceSeparatedSizeINS2_5Style16LengthPercentageIXtlNS2_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEEEEEENSt3__18optionalIT_EEv(_BYTE *a1, uint64_t *a2)
 {
-  _ZN3IPC7Decoder6decodeIN7WebCore5Style16LengthPercentageIXtlNS2_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEEEENSt3__18optionalIT_EEv(&v59, a2);
-  j = &v57;
-  if (v60 != 1)
+  _ZN3IPC7Decoder6decodeIN7WebCore5Style16LengthPercentageIXtlNS2_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEEEENSt3__18optionalIT_EEv(&v58, a2);
+  j = &v56[1];
+  if (v59 != 1)
   {
     LOBYTE(v56[0]) = 0;
-    v58 = 0;
+    v57 = 0;
     goto LABEL_35;
   }
 
-  _ZN3IPC7Decoder6decodeIN7WebCore5Style16LengthPercentageIXtlNS2_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEEEENSt3__18optionalIT_EEv(&v61, a2);
-  if (v62 != 1)
+  _ZN3IPC7Decoder6decodeIN7WebCore5Style16LengthPercentageIXtlNS2_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEEEENSt3__18optionalIT_EEv(&v60, a2);
+  if (v61 != 1)
   {
     LOBYTE(v56[0]) = 0;
-    v58 = 0;
+    v57 = 0;
 LABEL_31:
-    if ((v60 & 1) != 0 && v59 != -1 && (v59 & 0xFE000000000000) != 0)
+    if ((v59 & 1) != 0 && v58 != -1 && (v58 & 0xFE000000000000) != 0)
     {
-      v63 = v59 & 0xFF00FFFFFFFFFFFFLL;
-      WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v63);
+      v62 = v58 & 0xFF00FFFFFFFFFFFFLL;
+      WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v62);
     }
 
 LABEL_35:
-    if ((v58 & 1) == 0)
+    if ((v57 & 1) == 0)
     {
       goto LABEL_94;
     }
@@ -4453,38 +4454,38 @@ LABEL_35:
     goto LABEL_36;
   }
 
-  if ((v60 & 1) == 0)
+  if ((v59 & 1) == 0)
   {
     goto LABEL_93;
   }
 
-  if (v59 == -1)
+  if (v58 == -1)
   {
-    v63 = -1;
+    v62 = -1;
     goto LABEL_10;
   }
 
-  v66 = &v63;
-  _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v59), v59, &v66);
-  v59 = -1;
-  if (v62)
+  v65 = &v62;
+  _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v58), v58, &v65);
+  v58 = -1;
+  if (v61)
   {
 LABEL_10:
-    if (v61 == -1)
+    if (v60 == -1)
     {
-      v64 = -1;
+      v63 = -1;
     }
 
     else
     {
-      v65 = &v64;
-      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v61), v61, &v65);
+      v64 = &v63;
+      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v60), v60, &v64);
     }
 
     v5 = 0;
-    v61 = -1;
+    v60 = -1;
     v6 = v56;
-    v7 = &v63;
+    v7 = &v62;
     do
     {
       v8 = v5;
@@ -4496,32 +4497,32 @@ LABEL_10:
 
       else
       {
-        v65 = v6;
-        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v9), v9, &v65);
+        v64 = v6;
+        _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v9), v9, &v64);
       }
 
       *v7 = -1;
       v5 = 1;
-      v7 = &v64;
-      v6 = &v57;
+      v7 = &v63;
+      v6 = &v56[1];
     }
 
     while ((v8 & 1) == 0);
-    v58 = 1;
+    v57 = 1;
     for (i = 8; i != -8; i -= 8)
     {
-      v11 = *(&v63 + i);
+      v11 = *(&v62 + i);
       if (v11 != -1 && (v11 & 0xFE000000000000) != 0)
       {
-        v66 = (v11 & 0xFF00FFFFFFFFFFFFLL);
-        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v66);
+        v65 = (v11 & 0xFF00FFFFFFFFFFFFLL);
+        WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v65);
       }
     }
 
-    if ((v62 & 1) != 0 && v61 != -1 && (v61 & 0xFE000000000000) != 0)
+    if ((v61 & 1) != 0 && v60 != -1 && (v60 & 0xFE000000000000) != 0)
     {
-      v63 = v61 & 0xFF00FFFFFFFFFFFFLL;
-      WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v63);
+      v62 = v60 & 0xFF00FFFFFFFFFFFFLL;
+      WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v62);
     }
 
     goto LABEL_31;
@@ -4550,11 +4551,11 @@ LABEL_36:
       goto LABEL_55;
     }
 
-    if (v58 == 1)
+    if (v57 == 1)
     {
       v14 = 0;
       v15 = v56;
-      v16 = &v63;
+      v16 = &v62;
       do
       {
         v17 = v14;
@@ -4566,20 +4567,20 @@ LABEL_36:
 
         else
         {
-          v59 = v16;
-          _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v18), v18, &v59);
+          v58 = v16;
+          _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v18), v18, &v58);
         }
 
         *v15 = -1;
         v14 = 1;
-        v16 = &v64;
+        v16 = &v63;
         v15 = j;
       }
 
       while ((v17 & 1) == 0);
       v19 = 0;
       v20 = v53;
-      v21 = &v63;
+      v21 = &v62;
       do
       {
         v22 = v19;
@@ -4591,13 +4592,13 @@ LABEL_36:
 
         else
         {
-          v59 = v20;
-          _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v23), v23, &v59);
+          v58 = v20;
+          _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v23), v23, &v58);
         }
 
         *v21 = -1;
         v19 = 1;
-        v21 = &v64;
+        v21 = &v63;
         v20 = &v54;
       }
 
@@ -4605,24 +4606,24 @@ LABEL_36:
       v55 = 1;
       for (j = 8; j != -8; j -= 8)
       {
-        v24 = *(&v63 + j);
+        v24 = *(&v62 + j);
         if (v24 != -1 && (v24 & 0xFE000000000000) != 0)
         {
-          v61 = v24 & 0xFF00FFFFFFFFFFFFLL;
-          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v61);
+          v60 = v24 & 0xFF00FFFFFFFFFFFFLL;
+          WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v60);
         }
       }
 
 LABEL_55:
-      if (v58 == 1)
+      if (v57 == 1)
       {
         for (j = 8; j != -8; j -= 8)
         {
           v26 = *(v56 + j);
           if (v26 != -1 && (v26 & 0xFE000000000000) != 0)
           {
-            v63 = v26 & 0xFF00FFFFFFFFFFFFLL;
-            WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v63);
+            v62 = v26 & 0xFF00FFFFFFFFFFFFLL;
+            WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v62);
           }
         }
       }
@@ -4671,13 +4672,13 @@ LABEL_55:
 
     else
     {
-      v61 = v30;
-      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v32), v32, &v61);
+      v60 = v30;
+      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v32), v32, &v60);
     }
 
     *v29 = -1;
     v28 = 1;
-    v30 = &v57;
+    v30 = &v56[1];
     v29 = &v54;
   }
 
@@ -4696,13 +4697,13 @@ LABEL_55:
 
     else
     {
-      v61 = &a1[8 * v34];
-      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v37), v37, &v61);
+      v60 = &a1[8 * v34];
+      _ZN3WTF12typeForIndexIN5mpark7variantIJN7WebCore5Style6LengthIXtlNS3_3CSS5RangeELd0000000000000000ELd7ff0000000000000EEEfEENS4_10PercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEENS4_22UnevaluatedCalculationINS6_16LengthPercentageIXtlS7_Ld0000000000000000ELd7ff0000000000000EEEfEEEEEEEZNS_24CompactVariantOperationsIJS8_SA_SE_EE14payloadForDataIJZNSH_4moveERyyEUlTyRT_E_EEEDcyDpOT_EUlTyvE_EESN_mOT0_(BYTE6(v37), v37, &v60);
     }
 
     *v35 = -1;
     v33 = 1;
-    v35 = &v57;
+    v35 = &v56[1];
     v34 = 1;
   }
 
@@ -4713,8 +4714,8 @@ LABEL_55:
     v39 = v56[k];
     if (v39 != -1 && (v39 & 0xFE000000000000) != 0)
     {
-      v63 = v39 & 0xFF00FFFFFFFFFFFFLL;
-      WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v63);
+      v62 = v39 & 0xFF00FFFFFFFFFFFFLL;
+      WebCore::Style::UnevaluatedCalculationBase::~UnevaluatedCalculationBase(&v62);
     }
   }
 
@@ -4767,17 +4768,17 @@ void sub_19D735AF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t IPC::ArgumentCoder<WebCore::TransformOperationData,void>::encode(IPC::Encoder *a1, uint64_t a2)
+atomic_uint *IPC::ArgumentCoder<WebCore::TransformOperationData,void>::encode(IPC::Encoder *a1, uint64_t a2)
 {
   IPC::ArgumentCoder<WebCore::FloatRect,void>::encode(a1, a2);
   if (*(a2 + 80))
   {
-    v6 = 1;
-    IPC::Encoder::operator<<<BOOL>(a1, &v6);
+    v7 = 1;
+    IPC::Encoder::operator<<<BOOL>(a1, &v7);
     if ((*(a2 + 80) & 1) == 0)
     {
       v5 = std::__throw_bad_optional_access[abi:sn200100]();
-      return IPC::Decoder::decode<std::optional<WebCore::Path>>(v5);
+      return IPC::Decoder::decode<std::optional<WebCore::Path>>(v5, v6);
     }
 
     IPC::ArgumentCoder<WebCore::FloatRoundedRect,void>::encode(a1, (a2 + 16));
@@ -4789,8 +4790,8 @@ uint64_t IPC::ArgumentCoder<WebCore::TransformOperationData,void>::encode(IPC::E
 
   else
   {
-    v7 = 0;
-    IPC::Encoder::operator<<<BOOL>(a1, &v7);
+    v8 = 0;
+    IPC::Encoder::operator<<<BOOL>(a1, &v8);
   }
 
   return IPC::Encoder::operator<<<BOOL>(a1, (a2 + 84));
@@ -4888,7 +4889,7 @@ LABEL_32:
 
   if (v7)
   {
-    result = IPC::ArgumentCoder<WebCore::Path,void>::decode(a2, v5, v16);
+    result = IPC::ArgumentCoder<WebCore::Path,void>::decode(a2, v16, v5);
     if (v19)
     {
       *a1 = 0;
@@ -5044,7 +5045,7 @@ LABEL_12:
   return result;
 }
 
-mpark *IPC::ArgumentCoder<WebCore::PathOperation,void>::encode(mpark *result, uint64_t a2)
+unsigned int *IPC::ArgumentCoder<WebCore::PathOperation,void>::encode(unsigned int *result, uint64_t a2)
 {
   v3 = result;
   v33 = *MEMORY[0x1E69E9840];
@@ -5588,12 +5589,12 @@ LABEL_126:
   return IPC::ArgumentCoder<BOOL,void>::encode<IPC::Encoder>(v3, v12);
 }
 
-void sub_19D736CFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, unsigned int *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, unsigned __int8 a18, int a19, __int16 a20, char a21, char a22)
+void sub_19D736CFC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, unsigned int *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, int a19, __int16 a20, char a21, char a22)
 {
   if (a20 == 1 && a18 >= 2u && a18 != 255 && a11 && atomic_fetch_add(a11 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, a11 + 2);
-    (*(*a11 + 8))(a11);
+    (*(*a11 + 8))(a11, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -5733,7 +5734,7 @@ LABEL_15:
       goto LABEL_29;
     }
 
-    v16 = WTF::fastMalloc(v15);
+    v16 = WTF::fastMalloc(v9, v15);
     v17 = 0;
     LODWORD(v37) = v15;
     v36 = v16;
@@ -5911,7 +5912,7 @@ LABEL_40:
   return result;
 }
 
-void sub_19D737244(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, char a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, char a27)
+void sub_19D737244(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, char a27)
 {
   if (a21 == 1)
   {
@@ -5944,27 +5945,27 @@ void sub_19D737244(_Unwind_Exception *exception_object, void *a2, int a3, int a4
   _Unwind_Resume(exception_object);
 }
 
-WTF *IPC::Decoder::decode<WTF::Vector<WebCore::CDMMediaCapability,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>(uint64_t a1, WTF::StringImpl **a2)
+WTF *IPC::Decoder::decode<WTF::Vector<WebCore::CDMMediaCapability,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>(uint64_t a1, IPC::Decoder *a2)
 {
-  v4 = ((a2[2] + 7) & 0xFFFFFFFFFFFFFFF8);
+  v4 = ((*(a2 + 2) + 7) & 0xFFFFFFFFFFFFFFF8);
   v5 = *a2;
-  v6 = a2[1];
+  v6 = *(a2 + 1);
   if (v6 < v4 - v5 || v6 - (v4 - v5) <= 7)
   {
     *a2 = 0;
-    a2[1] = 0;
-    v26 = a2[3];
+    *(a2 + 1) = 0;
+    v26 = *(a2 + 3);
     if (v26)
     {
       if (v6)
       {
         (*(*v26 + 16))(v26);
         v5 = *a2;
-        v6 = a2[1];
+        v6 = *(a2 + 1);
 LABEL_55:
         *a2 = 0;
-        a2[1] = 0;
-        v27 = a2[3];
+        *(a2 + 1) = 0;
+        v27 = *(a2 + 3);
         if (v27 && v6)
         {
           (*(*v27 + 16))(v27, v5);
@@ -5974,10 +5975,10 @@ LABEL_55:
         *(a1 + 16) = 0;
 LABEL_57:
         v28 = *a2;
-        v29 = a2[1];
+        v29 = *(a2 + 1);
         *a2 = 0;
-        a2[1] = 0;
-        result = a2[3];
+        *(a2 + 1) = 0;
+        result = *(a2 + 3);
         if (result)
         {
           if (v29)
@@ -5999,7 +6000,7 @@ LABEL_57:
     goto LABEL_55;
   }
 
-  a2[2] = (v4 + 8);
+  *(a2 + 2) = v4 + 8;
   if (!v4)
   {
     goto LABEL_55;
@@ -6023,14 +6024,14 @@ LABEL_57:
 
         else
         {
-          v16 = v35 + 24 * HIDWORD(v36);
+          v16 = &v35[3 * HIDWORD(v36)];
           v17 = v31;
           v31 = 0;
           *v16 = v17;
           v18 = v32;
           v32 = 0;
-          *(v16 + 8) = v18;
-          *(v16 + 16) = v33;
+          v16[1] = v18;
+          *(v16 + 8) = v33;
           ++HIDWORD(v36);
         }
       }
@@ -6082,7 +6083,7 @@ LABEL_57:
           }
 
           v23 = 24 * HIDWORD(v36);
-          v24 = WTF::fastMalloc((24 * HIDWORD(v36)));
+          v24 = WTF::fastMalloc((3 * HIDWORD(v36)), (24 * HIDWORD(v36)));
           result = v30;
           LODWORD(v36) = v23 / 0x18;
           v35 = v24;
@@ -6114,7 +6115,7 @@ LABEL_57:
     if (v8)
     {
       LODWORD(v36) = 24 * v8 / 0x18u;
-      v35 = WTF::fastMalloc((24 * v8));
+      v35 = WTF::fastMalloc((3 * v8), (24 * v8));
       do
       {
         IPC::Decoder::decode<WebCore::CDMMediaCapability>(&v31, a2);
@@ -6128,14 +6129,14 @@ LABEL_57:
 
           else
           {
-            v10 = v35 + 24 * HIDWORD(v36);
+            v10 = &v35[3 * HIDWORD(v36)];
             v11 = v31;
             v31 = 0;
             *v10 = v11;
             v12 = v32;
             v32 = 0;
-            *(v10 + 8) = v12;
-            *(v10 + 16) = v33;
+            v10[1] = v12;
+            *(v10 + 8) = v33;
             ++HIDWORD(v36);
           }
         }
@@ -6219,7 +6220,7 @@ uint64_t IPC::Decoder::decode<std::optional<WebCore::VideoConfiguration>>(uint64
   v4 = *(a2 + 2);
   v5 = *a2;
   v6 = *(a2 + 1);
-  if (v6 <= v4 - v5)
+  if (v6 <= &v4[-v5])
   {
     *a2 = 0;
     *(a2 + 1) = 0;
@@ -7373,7 +7374,7 @@ uint64_t IPC::ArgumentCoder<WebCore::MediaEncodingConfiguration,void>::encode(IP
   return IPC::Encoder::operator<<<BOOL>(a1, &v5);
 }
 
-WTF::StringImpl *IPC::ArgumentCoder<WebCore::MediaEncodingConfiguration,void>::decode@<X0>(IPC::Decoder *a1@<X0>, _BYTE *a2@<X8>)
+WTF::StringImpl *IPC::ArgumentCoder<WebCore::MediaEncodingConfiguration,void>::decode@<X0>(WTF::StringImpl **a1@<X0>, _BYTE *a2@<X8>)
 {
   v2 = a1;
   IPC::Decoder::decode<std::optional<WebCore::VideoConfiguration>>(&v44, a1);
@@ -7784,7 +7785,7 @@ uint64_t IPC::ArgumentCoder<WebCore::MediaDecodingConfiguration,void>::encode(IP
   return IPC::Encoder::operator<<<BOOL>(a1, (a2 + 153));
 }
 
-WTF::StringImpl *IPC::ArgumentCoder<WebCore::MediaDecodingConfiguration,void>::decode@<X0>(IPC::Decoder *a1@<X0>, uint64_t a2@<X8>)
+WTF::StringImpl *IPC::ArgumentCoder<WebCore::MediaDecodingConfiguration,void>::decode@<X0>(WTF::StringImpl **a1@<X0>, uint64_t a2@<X8>)
 {
   v2 = a1;
   IPC::Decoder::decode<std::optional<WebCore::VideoConfiguration>>(&v49, a1);
@@ -8253,7 +8254,7 @@ LABEL_4:
   }
 }
 
-void sub_19D739B18(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_19D739B18(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
 {
   WebCore::ResourceResponse::~ResourceResponse(&a41, a2);
   WebCore::ResourceResponseBase::~ResourceResponseBase(&a10, v42);
@@ -8534,7 +8535,7 @@ LABEL_33:
     }
 
     LODWORD(v38) = v11;
-    v37 = WTF::fastMalloc((8 * v11));
+    v37 = WTF::fastMalloc(v5, (8 * v11));
     while (1)
     {
       IPC::Decoder::decode<WTF::Ref<WebCore::ArchiveResource,WTF::RawPtrTraits<WebCore::ArchiveResource>,WTF::DefaultRefDerefTraits<WebCore::ArchiveResource>>>(&v44, a1);
@@ -8728,13 +8729,13 @@ LABEL_47:
   return result;
 }
 
-void sub_19D73A52C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF *a9, int a10, int a11, char a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, char a18, _DWORD *a19, char a20)
+void sub_19D73A52C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF *a9, int a10, int a11, char a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, char a18, _DWORD *a19, char a20)
 {
   if (a20 == 1 && a19)
   {
     if (a19[2] == 1)
     {
-      (*(*a19 + 8))(a19);
+      (*(*a19 + 8))(a19, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -8881,7 +8882,7 @@ LABEL_10:
   }
 }
 
-void sub_19D73A904(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11, char a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, void *a47, uint64_t a48, char a49)
+void sub_19D73A904(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11, char a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
 {
   if (a12 == 1 && a11 && atomic_fetch_add_explicit(a11, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
@@ -9056,13 +9057,13 @@ LABEL_9:
   }
 
   IPC::Decoder::decode<WTF::String>(a1, &v23);
-  IPC::ArgumentCoder<WTF::Markable<WTF::UUID,WTF::MarkableTraits<WTF::UUID>>,void>::decode<IPC::Decoder>(a1, v27);
+  IPC::ArgumentCoder<WTF::Markable<WTF::UUID,WTF::MarkableTraits<WTF::UUID>>,void>::decode<IPC::Decoder>(v27, a1);
   if ((v28 & 1) == 0)
   {
     IPC::Decoder::markInvalid(a1);
   }
 
-  result = IPC::ArgumentCoder<WTF::Markable<WTF::UUID,WTF::MarkableTraits<WTF::UUID>>,void>::decode<IPC::Decoder>(a1, v25);
+  result = IPC::ArgumentCoder<WTF::Markable<WTF::UUID,WTF::MarkableTraits<WTF::UUID>>,void>::decode<IPC::Decoder>(v25, a1);
   if ((v26 & 1) == 0)
   {
     result = IPC::Decoder::markInvalid(a1);
@@ -9241,18 +9242,18 @@ uint64_t IPC::ArgumentCoder<WebCore::ControlStyle,void>::encode(IPC::Encoder *a1
   return IPC::ArgumentCoder<WebCore::PathQuadCurveTo,void>::encode(a1, (a2 + 32));
 }
 
-uint64_t IPC::ArgumentCoder<WebCore::ControlStyle,void>::encode(uint64_t *a1, int *a2)
+uint64_t IPC::ArgumentCoder<WebCore::ControlStyle,void>::encode(mpark *a1, unsigned int *a2)
 {
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::StreamConnectionEncoder>(a1, *a2);
   v4 = -*a1;
   v5 = v4 & 3 | 4;
-  if (a1[1] < v5)
+  if (*(a1 + 1) < v5)
   {
     goto LABEL_11;
   }
 
   *(*a1 + (v4 & 3)) = a2[1];
-  v6 = a1[1];
+  v6 = *(a1 + 1);
   v7 = v6 - v5;
   if (v6 < v5)
   {
@@ -9261,18 +9262,18 @@ uint64_t IPC::ArgumentCoder<WebCore::ControlStyle,void>::encode(uint64_t *a1, in
 
   v8 = *a1 + v5;
   *a1 = v8;
-  a1[1] = v7;
+  *(a1 + 1) = v7;
   v9 = -v8 & 3 | 4;
   if (v7 >= v9)
   {
     *(v8 + (-v8 & 3)) = a2[2];
-    v10 = a1[1];
+    v10 = *(a1 + 1);
     v11 = v10 >= v9;
     v12 = v10 - v9;
     if (v11)
     {
       *a1 += v9;
-      a1[1] = v12;
+      *(a1 + 1) = v12;
       goto LABEL_7;
     }
 
@@ -9282,7 +9283,7 @@ LABEL_10:
 
 LABEL_11:
   *a1 = 0;
-  a1[1] = 0;
+  *(a1 + 1) = 0;
 LABEL_7:
   IPC::ArgumentCoder<WebCore::Color,void>::encode(a1, (a2 + 4));
   IPC::ArgumentCoder<WebCore::Color,void>::encode(a1, (a2 + 6));
@@ -9384,7 +9385,7 @@ LABEL_9:
   v15 = ((*(a1 + 2) + 3) & 0xFFFFFFFFFFFFFFFCLL);
   if (v4 >= v15 - v6 && v4 - (v15 - v6) > 3)
   {
-    *(a1 + 2) = v15 + 4;
+    *(a1 + 2) = v15 + 1;
     if (v15)
     {
       v17 = *v15 | 0x100000000;
@@ -9471,7 +9472,7 @@ LABEL_16:
     goto LABEL_61;
   }
 
-  *(a1 + 2) = v19 + 4;
+  *(a1 + 2) = v19 + 1;
   if (v19)
   {
     v20 = *v19 | 0x100000000;

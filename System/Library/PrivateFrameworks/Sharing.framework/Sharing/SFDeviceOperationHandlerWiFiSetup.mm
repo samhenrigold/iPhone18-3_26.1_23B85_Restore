@@ -10,7 +10,10 @@
 - (void)_handleWiFiSetupRequest:(id)request responseHandler:(id)handler;
 - (void)_run;
 - (void)_runIP4AvailableStart;
+- (void)_runJoinStart:(int)start;
 - (void)_runReachabilityStart;
+- (void)_runScanResults:(id)results error:(id)error channel:(int)channel;
+- (void)_runScanStart:(int)start;
 - (void)activate;
 - (void)addRetryMetric:(id)metric;
 - (void)invalidate;
@@ -20,22 +23,21 @@
 
 - (SFDeviceOperationHandlerWiFiSetup)init
 {
-  v9.receiver = self;
-  v9.super_class = SFDeviceOperationHandlerWiFiSetup;
-  v2 = [(SFDeviceOperationHandlerWiFiSetup *)&v9 init];
-  v3 = v2;
+  v8.receiver = self;
+  v8.super_class = SFDeviceOperationHandlerWiFiSetup;
+  v2 = [(SFDeviceOperationHandlerWiFiSetup *)&v8 init];
   if (v2)
   {
-    v4 = SFMainQueue(v2);
-    dispatchQueue = v3->_dispatchQueue;
-    v3->_dispatchQueue = v4;
+    v3 = SFMainQueue();
+    dispatchQueue = v2->_dispatchQueue;
+    v2->_dispatchQueue = v3;
 
-    v6 = objc_opt_new();
-    wiFiRetryMetrics = v3->_wiFiRetryMetrics;
-    v3->_wiFiRetryMetrics = v6;
+    v5 = objc_opt_new();
+    wiFiRetryMetrics = v2->_wiFiRetryMetrics;
+    v2->_wiFiRetryMetrics = v5;
   }
 
-  return v3;
+  return v2;
 }
 
 - (void)activate
@@ -49,16 +51,20 @@
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __45__SFDeviceOperationHandlerWiFiSetup_activate__block_invoke(uint64_t a1)
+uint64_t __45__SFDeviceOperationHandlerWiFiSetup_activate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFDeviceOperationWiFiSetup <= 30 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFDeviceOperationWiFiSetup <= 30)
   {
-    __45__SFDeviceOperationHandlerWiFiSetup_activate__block_invoke_cold_1();
+    if (gLogCategory_SFDeviceOperationWiFiSetup != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __45__SFDeviceOperationHandlerWiFiSetup_activate__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  v2 = *(a1 + 32);
+  v4 = *(v3 + 32);
 
-  return [v2 _activate];
+  return [v4 _activate];
 }
 
 - (void)_activate
@@ -66,7 +72,7 @@ uint64_t __45__SFDeviceOperationHandlerWiFiSetup_activate__block_invoke(uint64_t
   if (gLogCategory_SFDeviceOperationWiFiSetup <= 60 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
   {
 
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFDeviceOperationWiFiSetup, "[SFDeviceOperationHandlerWiFiSetup _activate]", 60, "### No SFSession\n");
   }
 }
 
@@ -81,156 +87,170 @@ uint64_t __45__SFDeviceOperationHandlerWiFiSetup_activate__block_invoke(uint64_t
   dispatch_async(dispatchQueue, block);
 }
 
-void __47__SFDeviceOperationHandlerWiFiSetup_invalidate__block_invoke(uint64_t a1)
+void __47__SFDeviceOperationHandlerWiFiSetup_invalidate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFDeviceOperationWiFiSetup <= 30 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFDeviceOperationWiFiSetup <= 30)
   {
-    __47__SFDeviceOperationHandlerWiFiSetup_invalidate__block_invoke_cold_1();
+    if (gLogCategory_SFDeviceOperationWiFiSetup != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __47__SFDeviceOperationHandlerWiFiSetup_invalidate__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  *(*(a1 + 32) + 16) = 1;
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 56);
-  if (v3)
+  *(*(v3 + 32) + 16) = 1;
+  v4 = *(v3 + 32);
+  v5 = *(v4 + 56);
+  if (v5)
   {
-    v4 = NSErrorWithOSStatusF();
-    (*(v3 + 16))(v3, v4, 0, 0);
+    v6 = NSErrorWithOSStatusF(4294960573, "Invalidated");
+    (*(v5 + 16))(v5, v6, 0, 0);
 
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 56);
-    *(v5 + 56) = 0;
+    v7 = *(v3 + 32);
+    v8 = *(v7 + 56);
+    *(v7 + 56) = 0;
 
-    v2 = *(a1 + 32);
+    v4 = *(v3 + 32);
   }
 
-  [*(v2 + 8) invalidate];
-  v7 = *(a1 + 32);
-  v8 = *(v7 + 8);
-  *(v7 + 8) = 0;
+  [*(v4 + 8) invalidate];
+  v9 = *(v3 + 32);
+  v10 = *(v9 + 8);
+  *(v9 + 8) = 0;
 
-  v9 = *(*(a1 + 32) + 32);
-  if (v9)
+  v11 = *(*(v3 + 32) + 32);
+  if (v11)
   {
-    v10 = v9;
-    dispatch_source_cancel(v10);
-    v11 = *(a1 + 32);
-    v12 = *(v11 + 32);
-    *(v11 + 32) = 0;
+    v12 = v11;
+    dispatch_source_cancel(v12);
+    v13 = *(v3 + 32);
+    v14 = *(v13 + 32);
+    *(v13 + 32) = 0;
   }
 
-  [*(*(a1 + 32) + 24) invalidate];
-  v13 = *(a1 + 32);
-  v14 = *(v13 + 24);
-  *(v13 + 24) = 0;
+  [*(*(v3 + 32) + 24) invalidate];
+  v15 = *(v3 + 32);
+  v16 = *(v15 + 24);
+  *(v15 + 24) = 0;
 
-  [*(*(a1 + 32) + 48) invalidate];
-  v15 = *(a1 + 32);
-  v16 = *(v15 + 48);
-  *(v15 + 48) = 0;
+  [*(*(v3 + 32) + 48) invalidate];
+  v17 = *(v3 + 32);
+  v18 = *(v17 + 48);
+  *(v17 + 48) = 0;
 
-  [*(*(a1 + 32) + 280) deregisterRequestID:@"_ws"];
-  v17 = *(a1 + 32);
-  v18 = *(v17 + 280);
-  *(v17 + 280) = 0;
+  [*(*(v3 + 32) + 280) deregisterRequestID:@"_ws"];
+  v19 = *(v3 + 32);
+  v20 = *(v19 + 280);
+  *(v19 + 280) = 0;
 }
 
 - (void)_completeError:(id)error
 {
   errorCopy = error;
+  v20 = errorCopy;
   if (errorCopy)
   {
     if (gLogCategory_SFDeviceOperationWiFiSetup <= 60 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
     {
-      [SFDeviceOperationHandlerWiFiSetup _completeError:?];
+      [(SFDeviceOperationHandlerWiFiSetup *)self _completeError:v20];
     }
 
     WiFiDisassociateAndForget();
   }
 
-  else if (gLogCategory_SFDeviceOperationWiFiSetup <= 30 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
+  else if (gLogCategory_SFDeviceOperationWiFiSetup <= 30)
   {
-    [SFDeviceOperationHandlerWiFiSetup _completeError:];
+    if (gLogCategory_SFDeviceOperationWiFiSetup != -1 || (errorCopy = _LogCategory_Initialize(), errorCopy))
+    {
+      [(SFDeviceOperationHandlerWiFiSetup *)errorCopy _completeError:v5, v6];
+    }
   }
 
   self->_operationType = 0;
   self->_state = 0;
-  v4 = objc_opt_new();
-  [v4 setObject:self->_wiFiRetryMetrics forKeyedSubscript:@"wifiRM"];
-  if ([errorCopy code])
+  v7 = objc_opt_new();
+  [v7 setObject:self->_wiFiRetryMetrics forKeyedSubscript:@"wifiRM"];
+  if ([v20 code])
   {
-    v5 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(errorCopy, "code")}];
-    [v4 setObject:v5 forKeyedSubscript:@"wifiEC"];
+    v8 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v20, "code")}];
+    [v7 setObject:v8 forKeyedSubscript:@"wifiEC"];
   }
 
   else
   {
-    [v4 setObject:0 forKeyedSubscript:@"wifiEC"];
+    [v7 setObject:0 forKeyedSubscript:@"wifiEC"];
   }
 
-  domain = [errorCopy domain];
+  domain = [v20 domain];
   if (domain)
   {
-    domain2 = [errorCopy domain];
-    [v4 setObject:domain2 forKeyedSubscript:@"wifiED"];
+    domain2 = [v20 domain];
+    [v7 setObject:domain2 forKeyedSubscript:@"wifiED"];
   }
 
   else
   {
-    [v4 setObject:@"Unknown" forKeyedSubscript:@"wifiED"];
+    [v7 setObject:@"Unknown" forKeyedSubscript:@"wifiED"];
   }
 
-  v8 = [errorCopy description];
-  if (v8)
+  v11 = [v20 description];
+  if (v11)
   {
-    v9 = [errorCopy description];
-    [v4 setObject:v9 forKeyedSubscript:@"wifiEL"];
+    v12 = [v20 description];
+    [v7 setObject:v12 forKeyedSubscript:@"wifiEL"];
   }
 
   else
   {
-    [v4 setObject:@"Unknown" forKeyedSubscript:@"wifiEL"];
+    [v7 setObject:@"Unknown" forKeyedSubscript:@"wifiEL"];
   }
 
   if (gLogCategory_SFDeviceOperationWiFiSetup <= 30)
   {
     if (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize())
     {
-      [SFDeviceOperationHandlerWiFiSetup _completeError:];
+      [SFDeviceOperationHandlerWiFiSetup _completeError:v7];
     }
 
     if (gLogCategory_SFDeviceOperationWiFiSetup <= 30 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
     {
-      [SFDeviceOperationHandlerWiFiSetup _completeError:];
+      [SFDeviceOperationHandlerWiFiSetup _completeError:v20];
     }
   }
 
-  v10 = objc_opt_new();
+  v13 = objc_opt_new();
   wiFiRetryMetrics = self->_wiFiRetryMetrics;
-  self->_wiFiRetryMetrics = v10;
+  self->_wiFiRetryMetrics = v13;
 
   if (self->_responseHandler)
   {
     if (self->_isRetrySetup)
     {
-      if (gLogCategory_SFDeviceOperationWiFiSetup <= 30 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceOperationWiFiSetup <= 30)
       {
-        [SFDeviceOperationHandlerWiFiSetup _completeError:];
+        if (gLogCategory_SFDeviceOperationWiFiSetup != -1 || (v15 = _LogCategory_Initialize(), v15))
+        {
+          [(SFDeviceOperationHandlerWiFiSetup *)v15 _completeError:v16, v17];
+        }
       }
 
-      v12 = *(self->_responseHandler + 2);
+      v18 = *(self->_responseHandler + 2);
     }
 
     else
     {
-      if (gLogCategory_SFDeviceOperationWiFiSetup <= 30 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceOperationWiFiSetup <= 30)
       {
-        [SFDeviceOperationHandlerWiFiSetup _completeError:];
+        if (gLogCategory_SFDeviceOperationWiFiSetup != -1 || (v15 = _LogCategory_Initialize(), v15))
+        {
+          [(SFDeviceOperationHandlerWiFiSetup *)v15 _completeError:v16, v17];
+        }
       }
 
-      v12 = *(self->_responseHandler + 2);
+      v18 = *(self->_responseHandler + 2);
     }
 
-    v12();
+    v18();
     responseHandler = self->_responseHandler;
     self->_responseHandler = 0;
   }
@@ -238,12 +258,12 @@ void __47__SFDeviceOperationHandlerWiFiSetup_invalidate__block_invoke(uint64_t a
 
 - (void)_handleRequestBonjourTestStart:(id)start responseHandler:(id)handler
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   startCopy = start;
   handlerCopy = handler;
   if (gLogCategory_SFDeviceOperationWiFiSetup <= 30 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
   {
-    [SFDeviceOperationHandlerWiFiSetup _handleRequestBonjourTestStart:responseHandler:];
+    [SFDeviceOperationHandlerWiFiSetup _handleRequestBonjourTestStart:startCopy responseHandler:?];
   }
 
   CFStringGetTypeID();
@@ -261,9 +281,9 @@ void __47__SFDeviceOperationHandlerWiFiSetup_invalidate__block_invoke(uint64_t a
     [(CUBonjourAdvertiser *)self->_bonjourAdvertiser setName:v8];
     [(CUBonjourAdvertiser *)self->_bonjourAdvertiser setPort:9];
     [(CUBonjourAdvertiser *)self->_bonjourAdvertiser setServiceType:@"_bonjourtest._tcp"];
-    v14 = @"rpBA";
-    v15[0] = v8;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = @"rpBA";
+    v14[0] = v8;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     [(CUBonjourAdvertiser *)self->_bonjourAdvertiser setTxtDictionary:v11];
 
     [(CUBonjourAdvertiser *)self->_bonjourAdvertiser activate];
@@ -272,16 +292,14 @@ void __47__SFDeviceOperationHandlerWiFiSetup_invalidate__block_invoke(uint64_t a
 
   else
   {
-    v12 = NSErrorWithOSStatusF();
+    v12 = NSErrorWithOSStatusF(4294960591, "No test ID");
     if (gLogCategory_SFDeviceOperationWiFiSetup <= 90 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
     {
-      [SFDeviceOperationHandlerWiFiSetup _handleRequestBonjourTestStart:responseHandler:];
+      [SFDeviceOperationHandlerWiFiSetup _handleRequestBonjourTestStart:v12 responseHandler:?];
     }
 
     (*(handlerCopy + 2))(handlerCopy, v12, 0, 0);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleRequestBonjourTestDone:(id)done responseHandler:(id)handler
@@ -290,7 +308,7 @@ void __47__SFDeviceOperationHandlerWiFiSetup_invalidate__block_invoke(uint64_t a
   handlerCopy = handler;
   if (gLogCategory_SFDeviceOperationWiFiSetup <= 30 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
   {
-    [SFDeviceOperationHandlerWiFiSetup _handleRequestBonjourTestDone:responseHandler:];
+    [SFDeviceOperationHandlerWiFiSetup _handleRequestBonjourTestDone:doneCopy responseHandler:?];
   }
 
   [(CUBonjourAdvertiser *)self->_bonjourAdvertiser invalidate];
@@ -308,7 +326,7 @@ void __47__SFDeviceOperationHandlerWiFiSetup_invalidate__block_invoke(uint64_t a
   if (self->_state)
   {
     [(SFDeviceOperationHandlerWiFiSetup *)&v29 _handleWiFiSetupRequest:v30 responseHandler:&v28];
-    v21 = v28;
+    v27 = v28;
   }
 
   else
@@ -345,7 +363,8 @@ void __47__SFDeviceOperationHandlerWiFiSetup_invalidate__block_invoke(uint64_t a
     if (self->_wifiSSID)
     {
       self->_wiFiJoinLimit = CFDictionaryGetInt64Ranged();
-      self->_wiFiScanLimit = CFDictionaryGetInt64Ranged();
+      Int64Ranged = CFDictionaryGetInt64Ranged();
+      self->_wiFiScanLimit = Int64Ranged;
       if (gLogCategory_SFDeviceOperationWiFiSetup > 30)
       {
         goto LABEL_7;
@@ -356,86 +375,116 @@ void __47__SFDeviceOperationHandlerWiFiSetup_invalidate__block_invoke(uint64_t a
         if (!_LogCategory_Initialize())
         {
 LABEL_7:
-          self->_isRetrySetup = CFDictionaryGetInt64() != 0;
+          isRetrySetup = CFDictionaryGetInt64() != 0;
+          self->_isRetrySetup = isRetrySetup;
           if (gLogCategory_SFDeviceOperationWiFiSetup > 30)
           {
-            goto LABEL_11;
+            goto LABEL_14;
           }
 
           if (gLogCategory_SFDeviceOperationWiFiSetup == -1)
           {
             if (!_LogCategory_Initialize())
             {
-LABEL_11:
-              self->_operationType = CFDictionaryGetInt64Ranged();
-              if (gLogCategory_SFDeviceOperationWiFiSetup > 30)
-              {
-LABEL_19:
-                v19 = _Block_copy(handlerCopy);
-                responseHandler = self->_responseHandler;
-                self->_responseHandler = v19;
-
-                [(SFDeviceOperationHandlerWiFiSetup *)self _run];
-                v21 = 0;
-                goto LABEL_20;
-              }
-
-              if (gLogCategory_SFDeviceOperationWiFiSetup == -1)
-              {
-                if (!_LogCategory_Initialize())
-                {
-                  goto LABEL_15;
-                }
-
-                operationType = self->_operationType;
-              }
-
-              LogPrintF();
-LABEL_15:
-              if (gLogCategory_SFDeviceOperationWiFiSetup <= 30 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
-              {
-                v18 = self->_wifiSSID;
-                self->_wifiPassword;
-                self->_wifiPSK;
-                self->_wifiHomeNetwork;
-                wifiChannel = self->_wifiChannel;
-                LogPrintF();
-              }
-
-              goto LABEL_19;
+              goto LABEL_14;
             }
 
             isRetrySetup = self->_isRetrySetup;
           }
 
-          LogPrintF();
-          goto LABEL_11;
+          if (isRetrySetup)
+          {
+            v20 = "yes";
+          }
+
+          else
+          {
+            v20 = "no";
+          }
+
+          LogPrintF(&gLogCategory_SFDeviceOperationWiFiSetup, "[SFDeviceOperationHandlerWiFiSetup _handleWiFiSetupRequest:responseHandler:]", 30, "isRetrySetup: %s\n", v20);
+LABEL_14:
+          operationType = CFDictionaryGetInt64Ranged();
+          self->_operationType = operationType;
+          if (gLogCategory_SFDeviceOperationWiFiSetup > 30)
+          {
+LABEL_30:
+            v25 = _Block_copy(handlerCopy);
+            responseHandler = self->_responseHandler;
+            self->_responseHandler = v25;
+
+            [(SFDeviceOperationHandlerWiFiSetup *)self _run];
+            v27 = 0;
+            goto LABEL_31;
+          }
+
+          if (gLogCategory_SFDeviceOperationWiFiSetup == -1)
+          {
+            if (!_LogCategory_Initialize())
+            {
+              goto LABEL_18;
+            }
+
+            operationType = self->_operationType;
+          }
+
+          LogPrintF(&gLogCategory_SFDeviceOperationWiFiSetup, "[SFDeviceOperationHandlerWiFiSetup _handleWiFiSetupRequest:responseHandler:]", 30, "operationType: %d\n", operationType);
+LABEL_18:
+          if (gLogCategory_SFDeviceOperationWiFiSetup <= 30 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
+          {
+            v22 = "yes";
+            if (self->_wifiPassword)
+            {
+              v23 = "yes";
+            }
+
+            else
+            {
+              v23 = "no";
+            }
+
+            if (self->_wifiPSK)
+            {
+              v24 = "yes";
+            }
+
+            else
+            {
+              v24 = "no";
+            }
+
+            if (!self->_wifiHomeNetwork)
+            {
+              v22 = "no";
+            }
+
+            LogPrintF(&gLogCategory_SFDeviceOperationWiFiSetup, "[SFDeviceOperationHandlerWiFiSetup _handleWiFiSetupRequest:responseHandler:]", 30, "WiFiSetupRequest: SSID '%.3@...', Channel %d, PW %s, PSK %s, Home %s\n", self->_wifiSSID, self->_wifiChannel, v23, v24, v22);
+          }
+
+          goto LABEL_30;
         }
 
-        wiFiScanLimit = self->_wiFiScanLimit;
+        Int64Ranged = self->_wiFiScanLimit;
       }
 
-      wiFiJoinLimit = self->_wiFiJoinLimit;
-      LogPrintF();
+      LogPrintF(&gLogCategory_SFDeviceOperationWiFiSetup, "[SFDeviceOperationHandlerWiFiSetup _handleWiFiSetupRequest:responseHandler:]", 30, "WiFiJoinLimit: %u | WiFiJoinScan: %u\n", self->_wiFiJoinLimit, Int64Ranged);
       goto LABEL_7;
     }
 
-    v21 = NSErrorWithOSStatusF();
+    v27 = NSErrorWithOSStatusF(0, "No WiFI SSID");
   }
 
-  if (handlerCopy && v21)
+  if (handlerCopy && v27)
   {
     if (gLogCategory_SFDeviceOperationWiFiSetup <= 60 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
     {
-      [SFDeviceOperationHandlerWiFiSetup _handleWiFiSetupRequest:responseHandler:];
+      [SFDeviceOperationHandlerWiFiSetup _handleWiFiSetupRequest:v27 responseHandler:?];
     }
 
-    (*(handlerCopy + 2))(handlerCopy, v21, 0, 0);
+    (*(handlerCopy + 2))(handlerCopy, v27, 0, 0);
   }
 
-LABEL_20:
-
-  v22 = *MEMORY[0x1E69E9840];
+LABEL_31:
 }
 
 - (void)_run
@@ -461,9 +510,9 @@ LABEL_20:
         stepError = self->_stepError;
         if (!stepError)
         {
-          v12 = NSErrorWithOSStatusF();
-          v13 = self->_stepError;
-          self->_stepError = v12;
+          v13 = NSErrorWithOSStatusF(4294960534, "FailureNoError");
+          v14 = self->_stepError;
+          self->_stepError = v13;
 
           stepError = self->_stepError;
         }
@@ -474,7 +523,7 @@ LABEL_20:
         selfCopy2 = self;
         stepError = 0;
 LABEL_23:
-        [(SFDeviceOperationHandlerWiFiSetup *)selfCopy2 _completeError:stepError, v18, v19];
+        [(SFDeviceOperationHandlerWiFiSetup *)selfCopy2 _completeError:stepError];
         goto LABEL_61;
       case 11:
         v8 = dispatch_time(0, 2000000000);
@@ -513,7 +562,7 @@ LABEL_5:
 
         if (gLogCategory_SFDeviceOperationWiFiSetup != -1)
         {
-          v15 = 12;
+          v16 = 12;
           goto LABEL_71;
         }
 
@@ -538,7 +587,7 @@ LABEL_5:
 
           if (gLogCategory_SFDeviceOperationWiFiSetup != -1)
           {
-            v15 = 14;
+            v16 = 14;
             goto LABEL_71;
           }
 
@@ -597,7 +646,7 @@ LABEL_58:
 
         if (gLogCategory_SFDeviceOperationWiFiSetup != -1)
         {
-          v15 = 16;
+          v16 = 16;
           goto LABEL_71;
         }
 
@@ -646,7 +695,7 @@ LABEL_51:
 
         if (gLogCategory_SFDeviceOperationWiFiSetup != -1)
         {
-          v15 = 18;
+          v16 = 18;
           goto LABEL_71;
         }
 
@@ -674,7 +723,7 @@ LABEL_51:
 
         if (gLogCategory_SFDeviceOperationWiFiSetup != -1)
         {
-          v15 = 20;
+          v16 = 20;
           goto LABEL_71;
         }
 
@@ -710,17 +759,17 @@ LABEL_60:
 
           if (gLogCategory_SFDeviceOperationWiFiSetup != -1)
           {
-            v15 = 22;
+            v16 = 22;
 LABEL_71:
-            v18 = WiFiSetupStateToString(v15);
-            LogPrintF();
+            v19 = WiFiSetupStateToString(v16);
+            LogPrintF(&gLogCategory_SFDeviceOperationWiFiSetup, "[SFDeviceOperationHandlerWiFiSetup _run]", 30, "%s\n", v19);
             goto LABEL_61;
           }
 
 LABEL_72:
           if (_LogCategory_Initialize())
           {
-            v15 = self->_state;
+            v16 = self->_state;
             goto LABEL_71;
           }
         }
@@ -748,9 +797,8 @@ LABEL_61:
         {
           v11 = self->_state;
 LABEL_19:
-          v18 = v11;
-          v19 = WiFiSetupStateToString(v11);
-          LogPrintF();
+          v12 = WiFiSetupStateToString(v11);
+          LogPrintF(&gLogCategory_SFDeviceOperationWiFiSetup, "[SFDeviceOperationHandlerWiFiSetup _run]", 90, "### Unexpected state %d (%s)\n", v11, v12);
         }
 
         goto LABEL_61;
@@ -758,63 +806,271 @@ LABEL_19:
   }
 }
 
-void __51__SFDeviceOperationHandlerWiFiSetup__runScanStart___block_invoke(uint64_t a1, int a2, uint64_t a3)
+- (void)_runScanStart:(int)start
 {
-  v20[1] = *MEMORY[0x1E69E9840];
-  dispatch_assert_queue_V2(*(*(a1 + 32) + 272));
-  v6 = *(a1 + 32);
-  if (v6[16])
+  v3 = *&start;
+  if (gLogCategory_SFDeviceOperationWiFiSetup <= 30 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
   {
-LABEL_6:
-    v15 = *MEMORY[0x1E69E9840];
-    return;
+    [SFDeviceOperationHandlerWiFiSetup _runScanStart:v3];
   }
 
-  if (a2)
+  self->_stepDone = 0;
+  stepError = self->_stepError;
+  self->_stepError = 0;
+
+  scanResult = self->_scanResult;
+  self->_scanResult = 0;
+
+  v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  if (v3 >= 1)
   {
-    v7 = MEMORY[0x1E696ABC0];
-    v8 = *MEMORY[0x1E696A768];
-    v9 = a2;
-    v19 = *MEMORY[0x1E696A578];
-    v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
-    v11 = v10;
-    v12 = @"?";
-    if (v10)
+    v8 = [MEMORY[0x1E696AD98] numberWithInt:v3];
+    [v7 setObject:v8 forKeyedSubscript:@"channel"];
+  }
+
+  wifiSSID = self->_wifiSSID;
+  if (wifiSSID)
+  {
+    [v7 setObject:wifiSSID forKeyedSubscript:@"ssid"];
+    [v7 setObject:&unk_1F1D7CE50 forKeyedSubscript:@"scanDwellTime"];
+    self->_scanStartTicks = mach_absolute_time();
+    v15 = MEMORY[0x1E69E9820];
+    v16 = 3221225472;
+    v17 = __51__SFDeviceOperationHandlerWiFiSetup__runScanStart___block_invoke;
+    v18 = &unk_1E788F5F8;
+    selfCopy = self;
+    v20 = v3;
+    v10 = WiFiScan_b();
+    if (!v10)
     {
-      v12 = v10;
+      goto LABEL_8;
     }
 
-    v20[0] = v12;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
-    v14 = [v7 errorWithDomain:v8 code:v9 userInfo:v13];
-    [v6 _runScanResults:a3 error:v14 channel:*(a1 + 40)];
-
-    goto LABEL_6;
+    NSErrorWithOSStatusF(v10, "WiFiScan");
   }
 
-  v16 = *(a1 + 40);
-  v17 = *MEMORY[0x1E69E9840];
-  v18 = *(a1 + 32);
+  else
+  {
+    NSErrorWithOSStatusF(4294960534, "ScanNoSSID");
+  }
+  v11 = ;
+  if (v11)
+  {
+    if (gLogCategory_SFDeviceOperationWiFiSetup <= 60 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_SFDeviceOperationWiFiSetup, "[SFDeviceOperationHandlerWiFiSetup _runScanStart:]", 60, "### Scan channel %d start failed: %{error}\n", v3, v11, v15, v16, v17, v18, selfCopy, v20);
+    }
 
-  [v18 _runScanResults:a3 error:0 channel:v16];
+    self->_stepDone = 1;
+    v12 = self->_stepError;
+    self->_stepError = v11;
+    v13 = v11;
+
+    mach_absolute_time();
+    UpTicksToSecondsF();
+    v14 = [(SFDeviceOperationHandlerWiFiSetup *)self createWiFiRetryMetricEvent:v13 duration:v3 channel:1 isScan:?];
+    [(SFDeviceOperationHandlerWiFiSetup *)self addRetryMetric:v14];
+
+    [(SFDeviceOperationHandlerWiFiSetup *)self _run];
+  }
+
+LABEL_8:
 }
 
-uint64_t __51__SFDeviceOperationHandlerWiFiSetup__runJoinStart___block_invoke(uint64_t a1, uint64_t a2)
+void __51__SFDeviceOperationHandlerWiFiSetup__runScanStart___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = a2;
+  v18[1] = *MEMORY[0x1E69E9840];
+  dispatch_assert_queue_V2(*(*(a1 + 32) + 272));
+  v6 = *(a1 + 32);
+  if ((v6[16] & 1) == 0)
+  {
+    if (v4)
+    {
+      v7 = MEMORY[0x1E696ABC0];
+      v8 = *MEMORY[0x1E696A768];
+      v9 = v4;
+      v17 = *MEMORY[0x1E696A578];
+      v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
+      v11 = v10;
+      v12 = @"?";
+      if (v10)
+      {
+        v12 = v10;
+      }
+
+      v18[0] = v12;
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+      v14 = [v7 errorWithDomain:v8 code:v9 userInfo:v13];
+      [v6 _runScanResults:a3 error:v14 channel:*(a1 + 40)];
+    }
+
+    else
+    {
+      v15 = *(a1 + 40);
+      v16 = *(a1 + 32);
+
+      [v16 _runScanResults:a3 error:0 channel:v15];
+    }
+  }
+}
+
+- (void)_runScanResults:(id)results error:(id)error channel:(int)channel
+{
+  v5 = *&channel;
+  resultsCopy = results;
+  errorCopy = error;
+  mach_absolute_time();
+  UpTicksToSecondsF();
+  v10 = v9;
+  firstObject = [resultsCopy firstObject];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (errorCopy || (isKindOfClass & 1) == 0)
+  {
+    if (!errorCopy)
+    {
+      errorCopy = NSErrorWithOSStatusF(4294960596, "ScanNoErrorNoResults");
+    }
+
+    if (gLogCategory_SFDeviceOperationWiFiSetup <= 60 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_SFDeviceOperationWiFiSetup, "[SFDeviceOperationHandlerWiFiSetup _runScanResults:error:channel:]", 60, "### Scan channel %d failed: %{error}\n", v5, errorCopy);
+    }
+
+    scanResult = [(SFDeviceOperationHandlerWiFiSetup *)self createWiFiRetryMetricEvent:errorCopy duration:v5 channel:1 isScan:v10];
+    [(SFDeviceOperationHandlerWiFiSetup *)self addRetryMetric:scanResult];
+  }
+
+  else
+  {
+    v13 = [(SFDeviceOperationHandlerWiFiSetup *)self createWiFiRetryMetricEvent:0 duration:v5 channel:1 isScan:v10];
+    [(SFDeviceOperationHandlerWiFiSetup *)self addRetryMetric:v13];
+
+    if (gLogCategory_SFDeviceOperationWiFiSetup <= 30 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
+    {
+      [SFDeviceOperationHandlerWiFiSetup _runScanResults:resultsCopy error:v5 channel:?];
+    }
+
+    v14 = firstObject;
+    errorCopy = 0;
+    scanResult = self->_scanResult;
+    self->_scanResult = v14;
+  }
+
+  self->_stepDone = 1;
+  stepError = self->_stepError;
+  self->_stepError = errorCopy;
+
+  [(SFDeviceOperationHandlerWiFiSetup *)self _run];
+}
+
+- (void)_runJoinStart:(int)start
+{
+  v3 = *&start;
+  if (gLogCategory_SFDeviceOperationWiFiSetup <= 30 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
+  {
+    [(SFDeviceOperationHandlerWiFiSetup *)self _runJoinStart:v3];
+  }
+
+  stepError = self->_stepError;
+  self->_stepDone = 0;
+  self->_stepError = 0;
+
+  if (self->_scanResult)
+  {
+    v6 = [objc_alloc(MEMORY[0x1E695DF90]) initWithDictionary:self->_scanResult];
+    v7 = v6;
+    if (self->_wifiDirected)
+    {
+      [v6 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"directed"];
+    }
+
+    wifiEAPConfig = self->_wifiEAPConfig;
+    if (wifiEAPConfig)
+    {
+      [v7 setObject:wifiEAPConfig forKeyedSubscript:@"eapConfig"];
+    }
+
+    wifiEAPTrustExceptions = self->_wifiEAPTrustExceptions;
+    if (wifiEAPTrustExceptions)
+    {
+      [v7 setObject:wifiEAPTrustExceptions forKeyedSubscript:@"eapTrustExceptions"];
+    }
+
+    if (self->_repairFlags)
+    {
+      [v7 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"forceFix"];
+    }
+
+    if (self->_wifiHomeNetwork)
+    {
+      [v7 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"homeNetwork"];
+    }
+
+    if (self->_wifiPassword || self->_wifiPSK)
+    {
+      [v7 setObject:? forKeyedSubscript:?];
+    }
+
+    if (_os_feature_enabled_impl() && self->_operationType == 3)
+    {
+      [v7 setObject:&unk_1F1D7CE68 forKeyedSubscript:@"networkEventType"];
+    }
+
+    [v7 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"persistent"];
+    [v7 setObject:&unk_1F1D7CE50 forKeyedSubscript:@"scanDwellTime"];
+    self->_joinStartTicks = mach_absolute_time();
+    v13 = MEMORY[0x1E69E9820];
+    v10 = WiFiJoinNetwork_b();
+    if (v10)
+    {
+      v11 = NSErrorWithOSStatusF(v10, "WiFiJoinStart");
+      if (v11)
+      {
+        if (gLogCategory_SFDeviceOperationWiFiSetup <= 60 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF(&gLogCategory_SFDeviceOperationWiFiSetup, "[SFDeviceOperationHandlerWiFiSetup _runJoinStart:]", 60, "### Join channel %d start failed: %{error}\n", v3, v11, v13, 3221225472, __51__SFDeviceOperationHandlerWiFiSetup__runJoinStart___block_invoke, &unk_1E788F620, self, v3);
+        }
+
+        self->_stepDone = 1;
+        objc_storeStrong(&self->_stepError, v11);
+        mach_absolute_time();
+        UpTicksToSecondsF();
+        v12 = [(SFDeviceOperationHandlerWiFiSetup *)self createWiFiRetryMetricEvent:v11 duration:v3 channel:1 isScan:?];
+        [(SFDeviceOperationHandlerWiFiSetup *)self addRetryMetric:v12];
+
+        [(SFDeviceOperationHandlerWiFiSetup *)self _run];
+      }
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+  }
+
+  else
+  {
+    [SFDeviceOperationHandlerWiFiSetup _runJoinStart:];
+    v11 = 0;
+    v7 = 0;
+  }
+}
+
+void __51__SFDeviceOperationHandlerWiFiSetup__runJoinStart___block_invoke(uint64_t a1, uint64_t a2)
 {
   dispatch_assert_queue_V2(*(*(a1 + 32) + 272));
   mach_absolute_time();
-  v4 = *(*(a1 + 32) + 224);
-  result = UpTicksToSecondsF();
+  UpTicksToSecondsF();
   if ((*(*(a1 + 32) + 16) & 1) == 0)
   {
-    v7 = v6;
+    v5 = v4;
     if (a2)
     {
       if (gLogCategory_SFDeviceOperationWiFiSetup <= 60 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
       {
-        v14 = *(a1 + 40);
-        v15 = a2;
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceOperationWiFiSetup, "[SFDeviceOperationHandlerWiFiSetup _runJoinStart:]_block_invoke", 60, "### Join channel %d failed: %#m\n", *(a1 + 40));
       }
     }
 
@@ -824,26 +1080,28 @@ uint64_t __51__SFDeviceOperationHandlerWiFiSetup__runJoinStart___block_invoke(ui
     }
 
     *(*(a1 + 32) + 76) = 1;
-    v8 = NSErrorWithOSStatusF();
+    v6 = NSErrorWithOSStatusF(a2, "WiFiJoinCallback");
+    v7 = *(a1 + 32);
+    v8 = *(v7 + 80);
+    *(v7 + 80) = v6;
+
     v9 = *(a1 + 32);
-    v10 = *(v9 + 80);
-    *(v9 + 80) = v8;
+    v10 = [v9 createWiFiRetryMetricEvent:v9[10] duration:*(a1 + 40) channel:0 isScan:v5];
+    [v9 addRetryMetric:v10];
 
-    v11 = *(a1 + 32);
-    v12 = [v11 createWiFiRetryMetricEvent:v11[10] duration:*(a1 + 40) channel:0 isScan:v7];
-    [v11 addRetryMetric:v12];
-
-    if (!a2 && (!_os_feature_enabled_impl() || SFDeviceClassCodeGet() != 4))
+    if (!a2)
     {
-      [*(a1 + 32) _cleanupOldWiFiNetworks];
+      v11 = _os_feature_enabled_impl();
+      if (!v11 || SFDeviceClassCodeGet(v11, v12) != 4)
+      {
+        [*(a1 + 32) _cleanupOldWiFiNetworks];
+      }
     }
 
     v13 = *(a1 + 32);
 
-    return [v13 _run];
+    [v13 _run];
   }
-
-  return result;
 }
 
 - (void)_runIP4AvailableStart
@@ -865,12 +1123,12 @@ uint64_t __51__SFDeviceOperationHandlerWiFiSetup__runJoinStart___block_invoke(ui
   self->_ipAssigned = 0;
   self->_ipAssignSecs = 0.0;
   self->_ipAssignStartTicks = mach_absolute_time();
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__11;
-  v29 = __Block_byref_object_dispose__11;
-  v30 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__11;
+  v28 = __Block_byref_object_dispose__11;
+  v29 = 0;
   if (self->_ensureIP4Configured)
   {
     aBlock[0] = MEMORY[0x1E69E9820];
@@ -878,7 +1136,7 @@ uint64_t __51__SFDeviceOperationHandlerWiFiSetup__runJoinStart___block_invoke(ui
     aBlock[2] = __58__SFDeviceOperationHandlerWiFiSetup__runIP4AvailableStart__block_invoke;
     aBlock[3] = &unk_1E788DA50;
     aBlock[4] = self;
-    aBlock[5] = &v25;
+    aBlock[5] = &v24;
     v5 = _Block_copy(aBlock);
     v6 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
     ip4Timeout = self->_ip4Timeout;
@@ -891,19 +1149,19 @@ uint64_t __51__SFDeviceOperationHandlerWiFiSetup__runJoinStart___block_invoke(ui
     {
       if (gLogCategory_SFDeviceOperationWiFiSetup <= 30 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceOperationWiFiSetup, "[SFDeviceOperationHandlerWiFiSetup _runIP4AvailableStart]", 30, "Waiting for IP assignment (timeout: %i seconds)\n", v3);
       }
 
       v8 = nw_path_monitor_create_with_type(nw_interface_type_wifi);
-      v9 = v26[5];
-      v26[5] = v8;
+      v9 = v25[5];
+      v25[5] = v8;
 
-      v10 = v26[5];
+      v10 = v25[5];
       if (!v10)
       {
         if (gLogCategory_SFDeviceOperationWiFiSetup <= 90 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_SFDeviceOperationWiFiSetup, "[SFDeviceOperationHandlerWiFiSetup _runIP4AvailableStart]", 90, "Path Monitor init failed\n");
         }
 
         self->_ipAssigned = 0;
@@ -912,29 +1170,28 @@ uint64_t __51__SFDeviceOperationHandlerWiFiSetup__runJoinStart___block_invoke(ui
       }
 
       nw_path_monitor_set_queue(v10, self->_dispatchQueue);
-      v11 = v26[5];
+      v11 = v25[5];
       update_handler[0] = MEMORY[0x1E69E9820];
       update_handler[1] = 3221225472;
       update_handler[2] = __58__SFDeviceOperationHandlerWiFiSetup__runIP4AvailableStart__block_invoke_2;
       update_handler[3] = &unk_1E788F648;
       update_handler[4] = self;
-      v23 = v5;
+      v22 = v5;
       nw_path_monitor_set_update_handler(v11, update_handler);
       if (gLogCategory_SFDeviceOperationWiFiSetup <= 30 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceOperationWiFiSetup, "[SFDeviceOperationHandlerWiFiSetup _runIP4AvailableStart]", 30, "Starting Path Monitor");
       }
 
-      nw_path_monitor_start(v26[5]);
-      v16 = &v23;
+      nw_path_monitor_start(v25[5]);
+      v16 = &v22;
     }
 
     else
     {
       if (gLogCategory_SFDeviceOperationWiFiSetup <= 30 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
       {
-        v17 = v3;
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFDeviceOperationWiFiSetup, "[SFDeviceOperationHandlerWiFiSetup _runIP4AvailableStart]", 30, "Waiting for IPv4 (timeout: %i seconds)\n", v3);
       }
 
       [(CUNetInterfaceMonitor *)self->_interfaceMonitor invalidate];
@@ -943,23 +1200,23 @@ uint64_t __51__SFDeviceOperationHandlerWiFiSetup__runJoinStart___block_invoke(ui
       self->_interfaceMonitor = v12;
 
       [(CUNetInterfaceMonitor *)self->_interfaceMonitor setDispatchQueue:self->_dispatchQueue];
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __58__SFDeviceOperationHandlerWiFiSetup__runIP4AvailableStart__block_invoke_3;
-      v20[3] = &unk_1E788B210;
-      v20[4] = self;
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __58__SFDeviceOperationHandlerWiFiSetup__runIP4AvailableStart__block_invoke_3;
+      v19[3] = &unk_1E788B210;
+      v19[4] = self;
       v14 = v5;
-      v21 = v14;
-      [(CUNetInterfaceMonitor *)self->_interfaceMonitor setPrimaryIPChangedHandler:v20];
+      v20 = v14;
+      [(CUNetInterfaceMonitor *)self->_interfaceMonitor setPrimaryIPChangedHandler:v19];
       v15 = self->_interfaceMonitor;
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __58__SFDeviceOperationHandlerWiFiSetup__runIP4AvailableStart__block_invoke_4;
-      v18[3] = &unk_1E788B210;
-      v18[4] = self;
-      v19 = v14;
-      [(CUNetInterfaceMonitor *)v15 activateWithCompletion:v18];
-      v16 = &v21;
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __58__SFDeviceOperationHandlerWiFiSetup__runIP4AvailableStart__block_invoke_4;
+      v17[3] = &unk_1E788B210;
+      v17[4] = self;
+      v18 = v14;
+      [(CUNetInterfaceMonitor *)v15 activateWithCompletion:v17];
+      v16 = &v20;
     }
 
 LABEL_30:
@@ -968,74 +1225,77 @@ LABEL_30:
 
   if (gLogCategory_SFDeviceOperationWiFiSetup <= 30 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFDeviceOperationWiFiSetup, "[SFDeviceOperationHandlerWiFiSetup _runIP4AvailableStart]", 30, "Not waiting for IPv4 interface per defaults\n");
   }
 
   self->_stepDone = 1;
 LABEL_31:
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v24, 8);
 }
 
-void __58__SFDeviceOperationHandlerWiFiSetup__runIP4AvailableStart__block_invoke(uint64_t a1)
+void __58__SFDeviceOperationHandlerWiFiSetup__runIP4AvailableStart__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFDeviceOperationWiFiSetup <= 30 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFDeviceOperationWiFiSetup <= 30)
   {
-    __58__SFDeviceOperationHandlerWiFiSetup__runIP4AvailableStart__block_invoke_cold_1();
+    if (gLogCategory_SFDeviceOperationWiFiSetup != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __58__SFDeviceOperationHandlerWiFiSetup__runIP4AvailableStart__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  v2 = *(*(a1 + 32) + 32);
-  if (v2)
+  v4 = *(*(v3 + 32) + 32);
+  if (v4)
   {
-    v3 = v2;
-    dispatch_source_cancel(v3);
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 32);
-    *(v4 + 32) = 0;
+    v5 = v4;
+    dispatch_source_cancel(v5);
+    v6 = *(v3 + 32);
+    v7 = *(v6 + 32);
+    *(v6 + 32) = 0;
   }
 
   mach_absolute_time();
-  v6 = *(*(a1 + 32) + 248);
   UpTicksToSecondsF();
-  *(*(a1 + 32) + 256) = v7;
+  *(*(v3 + 32) + 256) = v8;
   if (_os_feature_enabled_impl())
   {
-    v8 = *(*(*(a1 + 40) + 8) + 40);
-    if (v8)
+    v9 = *(*(*(v3 + 40) + 8) + 40);
+    if (v9)
     {
-      nw_path_monitor_cancel(v8);
-      v9 = *(*(a1 + 40) + 8);
-      v10 = *(v9 + 40);
-      *(v9 + 40) = 0;
+      nw_path_monitor_cancel(v9);
+      v10 = *(*(v3 + 40) + 8);
+      v11 = *(v10 + 40);
+      *(v10 + 40) = 0;
     }
   }
 
-  if (*(*(a1 + 32) + 88))
+  if (*(*(v3 + 32) + 88))
   {
     if (_os_feature_enabled_impl())
     {
-      v11 = *(a1 + 32);
-      v12 = [v11 createWiFiRetryMetricEventForIPAssign:0 duration:v11[32]];
-      [v11 addRetryMetric:v12];
+      v12 = *(v3 + 32);
+      v13 = [v12 createWiFiRetryMetricEventForIPAssign:0 duration:v12[32]];
+      [v12 addRetryMetric:v13];
     }
 
-    *(*(a1 + 32) + 40) = 1;
-    *(*(a1 + 32) + 76) = 1;
-    v13 = *(a1 + 32);
+    *(*(v3 + 32) + 40) = 1;
+    *(*(v3 + 32) + 76) = 1;
+    v14 = *(v3 + 32);
 
-    [v13 _run];
+    [v14 _run];
   }
 
   else
   {
-    v16 = NSErrorWithOSStatusF();
+    v17 = NSErrorWithOSStatusF(4294896159, "IPAssignTimedOut");
     if (_os_feature_enabled_impl())
     {
-      v14 = *(a1 + 32);
-      v15 = [v14 createWiFiRetryMetricEventForIPAssign:v16 duration:v14[32]];
-      [v14 addRetryMetric:v15];
+      v15 = *(v3 + 32);
+      v16 = [v15 createWiFiRetryMetricEventForIPAssign:v17 duration:v15[32]];
+      [v15 addRetryMetric:v16];
     }
 
-    [*(a1 + 32) _completeError:v16];
+    [*(v3 + 32) _completeError:v17];
   }
 }
 
@@ -1053,57 +1313,61 @@ uint64_t __58__SFDeviceOperationHandlerWiFiSetup__runIP4AvailableStart__block_in
   return result;
 }
 
-void *__58__SFDeviceOperationHandlerWiFiSetup__runIP4AvailableStart__block_invoke_3(void *result)
+void *__58__SFDeviceOperationHandlerWiFiSetup__runIP4AvailableStart__block_invoke_3(void *result, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v1 = result[4];
-  if ((*(v1 + 16) & 1) == 0 && (*(v1 + 40) & 1) == 0)
+  v4 = result[4];
+  if ((*(v4 + 16) & 1) == 0 && (*(v4 + 40) & 1) == 0)
   {
-    v2 = result;
-    LODWORD(v4) = 0;
-    v3 = 0;
-    result = *(v1 + 24);
+    v5 = result;
+    LODWORD(v9) = 0;
+    v6 = 0;
+    v7 = 0;
+    v8 = 0;
+    result = *(v4 + 24);
     if (result)
     {
-      result = [result primaryIPv4Addr];
+      result = objc_msgSend_primaryIPv4Addr(result, a2, a3, a4, v6, v7, v8, v9);
     }
 
     if (gLogCategory_SFDeviceOperationWiFiSetup <= 30)
     {
       if (gLogCategory_SFDeviceOperationWiFiSetup != -1 || (result = _LogCategory_Initialize(), result))
       {
-        result = __58__SFDeviceOperationHandlerWiFiSetup__runIP4AvailableStart__block_invoke_3_cold_1();
+        result = __58__SFDeviceOperationHandlerWiFiSetup__runIP4AvailableStart__block_invoke_3_cold_1(&v6);
       }
     }
 
-    if (v3 == 2)
+    if (BYTE1(v6) == 2)
     {
-      *(v2[4] + 88) = 1;
-      return (*(v2[5] + 16))();
+      *(v5[4] + 88) = 1;
+      return (*(v5[5] + 16))();
     }
   }
 
   return result;
 }
 
-void *__58__SFDeviceOperationHandlerWiFiSetup__runIP4AvailableStart__block_invoke_4(uint64_t a1)
+void *__58__SFDeviceOperationHandlerWiFiSetup__runIP4AvailableStart__block_invoke_4(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  LODWORD(v4) = 0;
-  v3 = 0;
+  LODWORD(v9) = 0;
+  v6 = 0;
+  v7 = 0;
+  v8 = 0;
   result = *(*(a1 + 32) + 24);
   if (result)
   {
-    result = [result primaryIPv4Addr];
+    result = objc_msgSend_primaryIPv4Addr(result, a2, a3, a4, v6, v7, v8, v9);
   }
 
   if (gLogCategory_SFDeviceOperationWiFiSetup <= 30)
   {
     if (gLogCategory_SFDeviceOperationWiFiSetup != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = __58__SFDeviceOperationHandlerWiFiSetup__runIP4AvailableStart__block_invoke_4_cold_1();
+      result = __58__SFDeviceOperationHandlerWiFiSetup__runIP4AvailableStart__block_invoke_4_cold_1(&v6);
     }
   }
 
-  if (v3 == 2)
+  if (BYTE1(v6) == 2)
   {
     *(*(a1 + 32) + 88) = 1;
     return (*(*(a1 + 40) + 16))();
@@ -1114,34 +1378,37 @@ void *__58__SFDeviceOperationHandlerWiFiSetup__runIP4AvailableStart__block_invok
 
 - (void)_runReachabilityStart
 {
-  wifiSkipReachbility = self->_wifiSkipReachbility;
+  selfCopy = self;
   if (self->_reachabilityEnabled)
   {
     if (!self->_wifiSkipReachbility)
     {
-      if (gLogCategory_SFDeviceOperationWiFiSetup <= 30 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFDeviceOperationWiFiSetup <= 30)
       {
-        [SFDeviceOperationHandlerWiFiSetup _runReachabilityStart];
+        if (gLogCategory_SFDeviceOperationWiFiSetup != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          [(SFDeviceOperationHandlerWiFiSetup *)self _runReachabilityStart];
+        }
       }
 
-      self->_stepDone = 0;
-      stepError = self->_stepError;
-      self->_stepError = 0;
+      selfCopy->_stepDone = 0;
+      stepError = selfCopy->_stepError;
+      selfCopy->_stepError = 0;
 
-      [(CUReachabilityMonitor *)self->_reachabilityMonitor invalidate];
+      [(CUReachabilityMonitor *)selfCopy->_reachabilityMonitor invalidate];
       v5 = objc_alloc_init(MEMORY[0x1E6999510]);
-      reachabilityMonitor = self->_reachabilityMonitor;
-      self->_reachabilityMonitor = v5;
+      reachabilityMonitor = selfCopy->_reachabilityMonitor;
+      selfCopy->_reachabilityMonitor = v5;
 
-      [(CUReachabilityMonitor *)self->_reachabilityMonitor setDispatchQueue:self->_dispatchQueue];
-      [(CUReachabilityMonitor *)self->_reachabilityMonitor setTimeout:100.0];
+      [(CUReachabilityMonitor *)selfCopy->_reachabilityMonitor setDispatchQueue:selfCopy->_dispatchQueue];
+      [(CUReachabilityMonitor *)selfCopy->_reachabilityMonitor setTimeout:100.0];
       v8[0] = MEMORY[0x1E69E9820];
       v8[1] = 3221225472;
       v8[2] = __58__SFDeviceOperationHandlerWiFiSetup__runReachabilityStart__block_invoke;
       v8[3] = &unk_1E788B238;
-      v8[4] = self;
-      [(CUReachabilityMonitor *)self->_reachabilityMonitor setCompletionHandler:v8];
-      [(CUReachabilityMonitor *)self->_reachabilityMonitor activate];
+      v8[4] = selfCopy;
+      [(CUReachabilityMonitor *)selfCopy->_reachabilityMonitor setCompletionHandler:v8];
+      [(CUReachabilityMonitor *)selfCopy->_reachabilityMonitor activate];
       return;
     }
 
@@ -1151,72 +1418,85 @@ void *__58__SFDeviceOperationHandlerWiFiSetup__runIP4AvailableStart__block_invok
   if (self->_wifiSkipReachbility)
   {
 LABEL_8:
-    if (gLogCategory_SFDeviceOperationWiFiSetup <= 30 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFDeviceOperationWiFiSetup <= 30)
     {
-      [SFDeviceOperationHandlerWiFiSetup _runReachabilityStart];
+      if (gLogCategory_SFDeviceOperationWiFiSetup != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        self = [(SFDeviceOperationHandlerWiFiSetup *)self _runReachabilityStart];
+      }
     }
   }
 
-  if (!self->_reachabilityEnabled && gLogCategory_SFDeviceOperationWiFiSetup <= 30 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
+  if (!selfCopy->_reachabilityEnabled && gLogCategory_SFDeviceOperationWiFiSetup <= 30)
   {
-    [SFDeviceOperationHandlerWiFiSetup _runReachabilityStart];
+    if (gLogCategory_SFDeviceOperationWiFiSetup != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(SFDeviceOperationHandlerWiFiSetup *)self _runReachabilityStart];
+    }
   }
 
-  self->_stepDone = 1;
-  v7 = self->_stepError;
-  self->_stepError = 0;
+  selfCopy->_stepDone = 1;
+  v7 = selfCopy->_stepError;
+  selfCopy->_stepError = 0;
 }
 
 void __58__SFDeviceOperationHandlerWiFiSetup__runReachabilityStart__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = a2;
+  v11 = a2;
   dispatch_assert_queue_V2(*(*(a1 + 32) + 272));
-  v3 = v9;
+  v5 = v11;
   if ((*(*(a1 + 32) + 16) & 1) == 0)
   {
-    if (v9)
+    if (v11)
     {
       if (gLogCategory_SFDeviceOperationWiFiSetup <= 60 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
       {
-        __58__SFDeviceOperationHandlerWiFiSetup__runReachabilityStart__block_invoke_cold_1();
+        __58__SFDeviceOperationHandlerWiFiSetup__runReachabilityStart__block_invoke_cold_1(v11);
       }
     }
 
-    else if (gLogCategory_SFDeviceOperationWiFiSetup <= 30 && (gLogCategory_SFDeviceOperationWiFiSetup != -1 || _LogCategory_Initialize()))
+    else if (gLogCategory_SFDeviceOperationWiFiSetup <= 30)
     {
-      __58__SFDeviceOperationHandlerWiFiSetup__runReachabilityStart__block_invoke_cold_2();
+      if (gLogCategory_SFDeviceOperationWiFiSetup != -1 || (v5 = _LogCategory_Initialize(), v5))
+      {
+        __58__SFDeviceOperationHandlerWiFiSetup__runReachabilityStart__block_invoke_cold_2(v5, v3, v4);
+      }
     }
 
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 48);
-    *(v4 + 48) = 0;
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 48);
+    *(v6 + 48) = 0;
 
     *(*(a1 + 32) + 76) = 1;
-    v6 = v9;
-    if (v9)
+    v8 = v11;
+    if (v11)
     {
-      if ([v9 code] == -6748)
+      if ([v11 code] == -6748 && objc_msgSend(*(*(a1 + 32) + 280), "sharingSourceVersion") >= 0xA03CB5)
       {
-        [*(*(a1 + 32) + 280) sharingSourceVersion];
+        NSErrorWithOSStatusF(4294896139, "Reachability mismatch: %@", v11);
       }
 
-      v6 = NSErrorWithOSStatusF();
+      else
+      {
+        NSErrorWithOSStatusF(4294896138, "Reachability after WiFi join failed: %@", v11);
+      }
+      v8 = ;
     }
 
-    v7 = *(a1 + 32);
-    v8 = *(v7 + 80);
-    *(v7 + 80) = v6;
+    v9 = *(a1 + 32);
+    v10 = *(v9 + 80);
+    *(v9 + 80) = v8;
 
     [*(a1 + 32) _run];
-    v3 = v9;
+    v5 = v11;
   }
 }
 
 - (void)_cleanupOldWiFiNetworks
 {
   networkName = [self networkName];
-  v2 = CUPrintNSError();
-  LogPrintF();
+  v3 = CUPrintNSError();
+  LogPrintF(&gLogCategory_SFDeviceOperationWiFiSetup, "[SFDeviceOperationHandlerWiFiSetup _cleanupOldWiFiNetworks]", 90, "### Remove old WiFi network failed: name='%.3@...', error=%@", networkName, v3);
 }
 
 - (id)createWiFiRetryMetricEvent:(id)event duration:(double)duration channel:(int)channel isScan:(BOOL)scan
@@ -1407,16 +1687,55 @@ void __58__SFDeviceOperationHandlerWiFiSetup__runReachabilityStart__block_invoke
   *a3 = [v6 errorWithDomain:v7 code:-6721 userInfo:v11];
 }
 
-- (uint64_t)_runJoinStart:(uint64_t)a1 .cold.1(uint64_t a1)
+- (uint64_t)_runJoinStart:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  *(a1 + 112);
-  *(a1 + 120);
-  *(a1 + 136);
-  *(a1 + 144);
-  *(a1 + 128);
-  v3 = *(a1 + 92);
-  v2 = *(a1 + 152);
-  return LogPrintF();
+  v2 = "yes";
+  if (*(a1 + 112))
+  {
+    v3 = "yes";
+  }
+
+  else
+  {
+    v3 = "no";
+  }
+
+  if (*(a1 + 120))
+  {
+    v4 = "yes";
+  }
+
+  else
+  {
+    v4 = "no";
+  }
+
+  if (*(a1 + 136))
+  {
+    v5 = "yes";
+  }
+
+  else
+  {
+    v5 = "no";
+  }
+
+  if (*(a1 + 144))
+  {
+    v6 = "yes";
+  }
+
+  else
+  {
+    v6 = "no";
+  }
+
+  if (!*(a1 + 128))
+  {
+    v2 = "no";
+  }
+
+  return LogPrintF(&gLogCategory_SFDeviceOperationWiFiSetup, "[SFDeviceOperationHandlerWiFiSetup _runJoinStart:]", 30, "Join SSID '%.3@...', channel %d, EAP %s/%s, PW %s, PSK %s, Home %s, RF %#{flags}\n", *(a1 + 152), a2, v3, v4, v5, v6, v2, *(a1 + 92), &unk_1A998F7B0);
 }
 
 @end

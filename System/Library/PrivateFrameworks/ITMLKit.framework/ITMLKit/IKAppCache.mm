@@ -1,5 +1,6 @@
 @interface IKAppCache
 + (id)_appContextDelegateSelectors;
+- (BOOL)appContext:(id)context shouldStartWithScript:(id)script scriptURL:(id)l loadedFromFallback:(BOOL)fallback;
 - (BOOL)appContext:(id)context validateDOMDocument:(id)document inContext:(id)inContext error:(id *)error;
 - (BOOL)respondsToSelector:(SEL)selector;
 - (IKAppCache)initWithApplication:(id)application;
@@ -33,7 +34,7 @@
 
 - (IKAppCache)initWithApplication:(id)application
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   applicationCopy = application;
   if (objc_opt_respondsToSelector())
   {
@@ -60,18 +61,18 @@
     selfCopy = [appJSCachePath path];
     if (selfCopy)
     {
-      v36 = 0;
+      v35 = 0;
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v9 = [defaultManager fileExistsAtPath:selfCopy isDirectory:&v36];
+      v9 = [defaultManager fileExistsAtPath:selfCopy isDirectory:&v35];
 
       if ((v9 & 1) == 0)
       {
         defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-        v35 = 0;
-        v11 = [defaultManager2 createDirectoryAtPath:selfCopy withIntermediateDirectories:1 attributes:0 error:&v35];
-        v12 = v35;
+        v34 = 0;
+        v11 = [defaultManager2 createDirectoryAtPath:selfCopy withIntermediateDirectories:1 attributes:0 error:&v34];
+        v12 = v34;
 
-        v36 = v11;
+        v35 = v11;
         if (!v11)
         {
           v28 = ITMLKitGetLogObject(2);
@@ -84,14 +85,14 @@
         }
       }
 
-      if (v36 != 1)
+      if (v35 != 1)
       {
         goto LABEL_26;
       }
 
-      v34.receiver = self;
-      v34.super_class = IKAppCache;
-      v13 = [(IKAppCache *)&v34 init];
+      v33.receiver = self;
+      v33.super_class = IKAppCache;
+      v13 = [(IKAppCache *)&v33 init];
       self = v13;
       if (!v13)
       {
@@ -137,7 +138,7 @@
         if (os_log_type_enabled(p_super, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v38 = appLocalJSURL;
+          v37 = appLocalJSURL;
           _os_log_impl(&dword_2549A4000, p_super, OS_LOG_TYPE_INFO, "Bundle JS does not exist at %@", buf, 0xCu);
         }
       }
@@ -146,18 +147,18 @@
       if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v38 = selfCopy;
+        v37 = selfCopy;
         _os_log_impl(&dword_2549A4000, v29, OS_LOG_TYPE_INFO, "Cache created with cache path: %@", buf, 0xCu);
       }
 
       objc_initWeak(buf, self);
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __34__IKAppCache_initWithApplication___block_invoke;
-      v32[3] = &unk_279799438;
-      objc_copyWeak(&v33, buf);
-      [(IKAppCache *)self _performAsync:v32];
-      objc_destroyWeak(&v33);
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __34__IKAppCache_initWithApplication___block_invoke;
+      v31[3] = &unk_279799438;
+      objc_copyWeak(&v32, buf);
+      [(IKAppCache *)self _performAsync:v31];
+      objc_destroyWeak(&v32);
       objc_destroyWeak(buf);
 LABEL_25:
 
@@ -173,7 +174,6 @@ LABEL_26:
     selfCopy = 0;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -228,7 +228,7 @@ void __37__IKAppCache_appJSURLWithCompletion___block_invoke(uint64_t a1)
 
 - (void)_storeManifest
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if ([(IKAppCache *)self status]>= 2)
   {
     v3 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:3];
@@ -256,15 +256,15 @@ void __37__IKAppCache_appJSURLWithCompletion___block_invoke(uint64_t a1)
       [v3 setObject:appJSChecksumHistory2 forKey:@"IKAppCacheManifestChecksumHistoryKey"];
     }
 
-    v10 = _IKMobileGestaltForKey();
+    v10 = _IKMobileGestaltForKey(@"BuildVersion");
     if (v10)
     {
       [v3 setObject:v10 forKey:@"IKAppCacheManifestBuildVersionKey"];
     }
 
-    v19 = 0;
-    v11 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v3 options:0 error:&v19];
-    v12 = v19;
+    v18 = 0;
+    v11 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v3 options:0 error:&v18];
+    v12 = v18;
     if (v11)
     {
       appJSFileURL = [(IKAppCache *)self appJSFileURL];
@@ -275,9 +275,9 @@ void __37__IKAppCache_appJSURLWithCompletion___block_invoke(uint64_t a1)
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v21 = v3;
-        v22 = 2112;
-        v23 = v15;
+        v20 = v3;
+        v21 = 2112;
+        v22 = v15;
         _os_log_impl(&dword_2549A4000, v16, OS_LOG_TYPE_INFO, "Storing manifest %@ to %@", buf, 0x16u);
       }
 
@@ -300,13 +300,11 @@ void __37__IKAppCache_appJSURLWithCompletion___block_invoke(uint64_t a1)
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadManifest
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (![(IKAppCache *)self status])
   {
     appJSFileURL = [(IKAppCache *)self appJSFileURL];
@@ -317,7 +315,7 @@ void __37__IKAppCache_appJSURLWithCompletion___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v32 = v5;
+      v31 = v5;
       _os_log_impl(&dword_2549A4000, v6, OS_LOG_TYPE_INFO, "Loading manifest from %@", buf, 0xCu);
     }
 
@@ -326,14 +324,14 @@ void __37__IKAppCache_appJSURLWithCompletion___block_invoke(uint64_t a1)
 
     if (v8)
     {
-      v30 = 0;
-      v9 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v5 options:0 error:&v30];
-      v10 = v30;
+      v29 = 0;
+      v9 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v5 options:0 error:&v29];
+      v10 = v29;
       if (v9)
       {
-        v29 = 0;
-        v11 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v9 options:0 error:&v29];
-        v12 = v29;
+        v28 = 0;
+        v11 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v9 options:0 error:&v28];
+        v12 = v28;
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
         v14 = ITMLKitGetLogObject(2);
@@ -343,7 +341,7 @@ void __37__IKAppCache_appJSURLWithCompletion___block_invoke(uint64_t a1)
           if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v32 = v11;
+            v31 = v11;
             _os_log_impl(&dword_2549A4000, v15, OS_LOG_TYPE_INFO, "Successfully parsed manifest: %@", buf, 0xCu);
           }
 
@@ -371,7 +369,7 @@ void __37__IKAppCache_appJSURLWithCompletion___block_invoke(uint64_t a1)
           appJSChecksum = self->_appJSChecksum;
           self->_appJSChecksum = v23;
 
-          v15 = _IKMobileGestaltForKey();
+          v15 = _IKMobileGestaltForKey(@"BuildVersion");
           v25 = [v11 objectForKey:@"IKAppCacheManifestBuildVersionKey"];
           if (([v15 isEqualToString:v25]& 1) == 0 && self->_appJSChecksum)
           {
@@ -379,9 +377,9 @@ void __37__IKAppCache_appJSURLWithCompletion___block_invoke(uint64_t a1)
             if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
             {
               *buf = 138412546;
-              v32 = v15;
-              v33 = 2112;
-              v34 = v25;
+              v31 = v15;
+              v32 = 2112;
+              v33 = v25;
               _os_log_impl(&dword_2549A4000, v26, OS_LOG_TYPE_INFO, "Build version mismatched (%@ != %@). Clearing cached appJS.", buf, 0x16u);
             }
 
@@ -411,15 +409,14 @@ void __37__IKAppCache_appJSURLWithCompletion___block_invoke(uint64_t a1)
   }
 
   [(IKAppCache *)self _checkManifest];
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkManifest
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   if ([(IKAppCache *)self status]!= 1)
   {
-    goto LABEL_42;
+    return;
   }
 
   v3 = ITMLKitGetLogObject(2);
@@ -448,9 +445,9 @@ void __37__IKAppCache_appJSURLWithCompletion___block_invoke(uint64_t a1)
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v48 = 0;
-  v13 = [defaultManager attributesOfItemAtPath:path error:&v48];
-  v14 = v48;
+  v47 = 0;
+  v13 = [defaultManager attributesOfItemAtPath:path error:&v47];
+  v14 = v47;
 
   if (!v13)
   {
@@ -461,13 +458,13 @@ void __37__IKAppCache_appJSURLWithCompletion___block_invoke(uint64_t a1)
     }
   }
 
-  v44 = v14;
+  v43 = v14;
   v16 = *MEMORY[0x277CCA108];
   v17 = [v13 objectForKey:*MEMORY[0x277CCA108]];
   defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-  v47 = 0;
-  v19 = [defaultManager2 attributesOfItemAtPath:v11 error:&v47];
-  v20 = v47;
+  v46 = 0;
+  v19 = [defaultManager2 attributesOfItemAtPath:v11 error:&v46];
+  v20 = v46;
 
   if (!v19)
   {
@@ -480,8 +477,8 @@ void __37__IKAppCache_appJSURLWithCompletion___block_invoke(uint64_t a1)
 
   v22 = [v19 objectForKey:{v16, v20}];
   v23 = v22;
-  v45 = v13;
-  v46 = v11;
+  v44 = v13;
+  v45 = v11;
   if (!v17 || !v22)
   {
     if (!v17 || v22)
@@ -508,7 +505,7 @@ void __37__IKAppCache_appJSURLWithCompletion___block_invoke(uint64_t a1)
       }
 
       *buf = 138412290;
-      v50 = v33;
+      v49 = v33;
       v28 = "appLocal does not exists and appJS (%@) exists, using appLocal JS.";
     }
 
@@ -523,7 +520,7 @@ void __37__IKAppCache_appJSURLWithCompletion___block_invoke(uint64_t a1)
       }
 
       *buf = 138412290;
-      v50 = path;
+      v49 = path;
       v28 = "appLocal (%@) exists and appJS does not exists, using appLocal JS.";
     }
 
@@ -549,15 +546,15 @@ void __37__IKAppCache_appJSURLWithCompletion___block_invoke(uint64_t a1)
         v30 = @"unchanged";
       }
 
-      v50 = v30;
-      v51 = 2112;
-      v52 = path;
-      v53 = 2112;
-      v54 = v17;
-      v55 = 2112;
-      v56 = v29;
-      v57 = 2112;
-      v58 = v23;
+      v49 = v30;
+      v50 = 2112;
+      v51 = path;
+      v52 = 2112;
+      v53 = v17;
+      v54 = 2112;
+      v55 = v29;
+      v56 = 2112;
+      v57 = v23;
       v28 = "appLocal %@ (%@ : %@) and app (%@ : %@) JS exists, using app JS since its newer.";
       goto LABEL_29;
     }
@@ -571,15 +568,15 @@ void __37__IKAppCache_appJSURLWithCompletion___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
     {
       *buf = 138413314;
-      v50 = @"changed";
-      v51 = 2112;
-      v52 = path;
-      v53 = 2112;
-      v54 = v17;
-      v55 = 2112;
-      v56 = v46;
-      v57 = 2112;
-      v58 = v23;
+      v49 = @"changed";
+      v50 = 2112;
+      v51 = path;
+      v52 = 2112;
+      v53 = v17;
+      v54 = 2112;
+      v55 = v45;
+      v56 = 2112;
+      v57 = v23;
       v28 = "appLocal is %@ (%@ : %@) and app (%@ : %@) JS exists, using bundle since its checksum has changed and it has a newer than appJS.";
 LABEL_29:
       v31 = v27;
@@ -599,7 +596,7 @@ LABEL_39:
   if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v50 = v26;
+    v49 = v26;
     _os_log_impl(&dword_2549A4000, v37, OS_LOG_TYPE_INFO, "Current application JS URL: %@", buf, 0xCu);
   }
 
@@ -613,9 +610,6 @@ LABEL_39:
 
   self->_status = 2;
   [(IKAppCache *)self _storeManifest];
-
-LABEL_42:
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)refreshWithCompletion:(id)completion
@@ -637,7 +631,7 @@ LABEL_42:
 
 void __36__IKAppCache_refreshWithCompletion___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -692,7 +686,7 @@ void __36__IKAppCache_refreshWithCompletion___block_invoke(uint64_t a1)
         }
         v13 = ;
         *buf = 138412290;
-        v20 = v13;
+        v19 = v13;
         _os_log_impl(&dword_2549A4000, v12, OS_LOG_TYPE_INFO, "Using %@ for cache refresh validation context...", buf, 0xCu);
       }
 
@@ -703,13 +697,11 @@ void __36__IKAppCache_refreshWithCompletion___block_invoke(uint64_t a1)
       block[1] = 3221225472;
       block[2] = __36__IKAppCache_refreshWithCompletion___block_invoke_51;
       block[3] = &unk_279799488;
-      v18 = v14;
+      v17 = v14;
       v15 = v14;
       dispatch_async(MEMORY[0x277D85CD0], block);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cleanBlobStorageWithCompletion:(id)completion
@@ -732,7 +724,7 @@ void __36__IKAppCache_refreshWithCompletion___block_invoke(uint64_t a1)
 
 void __45__IKAppCache_cleanBlobStorageWithCompletion___block_invoke(uint64_t a1)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = [WeakRetained appJSChecksumHistory];
   v4 = [v3 copy];
@@ -741,7 +733,7 @@ void __45__IKAppCache_cleanBlobStorageWithCompletion___block_invoke(uint64_t a1)
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v42 = [v4 count];
+    v41 = [v4 count];
     _os_log_impl(&dword_2549A4000, v5, OS_LOG_TYPE_INFO, "Blob Storage clean of %lu entries requested...", buf, 0xCu);
   }
 
@@ -753,29 +745,29 @@ void __45__IKAppCache_cleanBlobStorageWithCompletion___block_invoke(uint64_t a1)
 
     if (!v8)
     {
-      v33 = [MEMORY[0x277CBEB18] arrayWithCapacity:0];
+      v32 = [MEMORY[0x277CBEB18] arrayWithCapacity:0];
+      v34 = 0u;
       v35 = 0u;
       v36 = 0u;
       v37 = 0u;
-      v38 = 0u;
-      v32 = v4;
+      v31 = v4;
       v12 = v4;
-      v13 = [v12 countByEnumeratingWithState:&v35 objects:v45 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v34 objects:v44 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v36;
+        v15 = *v35;
         do
         {
           v16 = 0;
           do
           {
-            if (*v36 != v15)
+            if (*v35 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v17 = *(*(&v35 + 1) + 8 * v16);
+            v17 = *(*(&v34 + 1) + 8 * v16);
             v18 = [*(a1 + 32) appJSFileURL];
             v19 = [v18 URLByAppendingPathComponent:v17];
             v20 = [v19 path];
@@ -786,20 +778,20 @@ void __45__IKAppCache_cleanBlobStorageWithCompletion___block_invoke(uint64_t a1)
             if (v18)
             {
               v22 = [MEMORY[0x277CCAA00] defaultManager];
-              v34 = 0;
-              v23 = [v22 removeItemAtPath:v20 error:&v34];
-              v24 = v34;
+              v33 = 0;
+              v23 = [v22 removeItemAtPath:v20 error:&v33];
+              v24 = v33;
 
               if ((v23 & 1) == 0)
               {
-                [v33 addObject:v24];
+                [v32 addObject:v24];
                 v25 = ITMLKitGetLogObject(2);
                 if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412546;
-                  v42 = v20;
-                  v43 = 2112;
-                  v44 = v24;
+                  v41 = v20;
+                  v42 = 2112;
+                  v43 = v24;
                   _os_log_error_impl(&dword_2549A4000, v25, OS_LOG_TYPE_ERROR, "Failed to remove %@ when cleaning blob storage: %@", buf, 0x16u);
                 }
               }
@@ -809,7 +801,7 @@ void __45__IKAppCache_cleanBlobStorageWithCompletion___block_invoke(uint64_t a1)
           }
 
           while (v14 != v16);
-          v14 = [v12 countByEnumeratingWithState:&v35 objects:v45 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v34 objects:v44 count:16];
         }
 
         while (v14);
@@ -825,16 +817,16 @@ void __45__IKAppCache_cleanBlobStorageWithCompletion___block_invoke(uint64_t a1)
         _os_log_impl(&dword_2549A4000, v27, OS_LOG_TYPE_INFO, "Blob Storage clean completed...", buf, 2u);
       }
 
-      v4 = v32;
-      v11 = v33;
+      v4 = v31;
+      v11 = v32;
       if (*(a1 + 40))
       {
-        if ([v33 count])
+        if ([v32 count])
         {
           v28 = MEMORY[0x277CCA9B8];
-          v39 = @"IKAppCacheUnderlyingErrorsKey";
-          v40 = v33;
-          v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+          v38 = @"IKAppCacheUnderlyingErrorsKey";
+          v39 = v32;
+          v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
           v30 = [v28 errorWithDomain:@"IKAppCacheErrorDomain" code:0 userInfo:v29];
         }
 
@@ -864,8 +856,6 @@ void __45__IKAppCache_cleanBlobStorageWithCompletion___block_invoke(uint64_t a1)
 LABEL_29:
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)respondsToSelector:(SEL)selector
@@ -890,9 +880,29 @@ LABEL_29:
   return v9 & 1;
 }
 
+- (BOOL)appContext:(id)context shouldStartWithScript:(id)script scriptURL:(id)l loadedFromFallback:(BOOL)fallback
+{
+  v13 = *MEMORY[0x277D85DE8];
+  v10 = 0;
+  fallback = [(IKAppCache *)self _validatedChecksumForScript:script error:&v10, l, fallback];
+  v7 = v10;
+  if (!fallback)
+  {
+    v8 = ITMLKitGetLogObject(2);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      v12 = v7;
+      _os_log_impl(&dword_2549A4000, v8, OS_LOG_TYPE_INFO, "Refused start of evaluation for validation context: %@", buf, 0xCu);
+    }
+  }
+
+  return fallback != 0;
+}
+
 - (void)appContext:(id)context didStartWithOptions:(id)options validatedJSString:(id)string
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   optionsCopy = options;
   stringCopy = string;
@@ -901,26 +911,25 @@ LABEL_29:
   {
     resolvedBootURL = [contextCopy resolvedBootURL];
     *buf = 138412290;
-    v20 = resolvedBootURL;
+    v19 = resolvedBootURL;
     _os_log_impl(&dword_2549A4000, v11, OS_LOG_TYPE_INFO, "Validation context succeeded for %@...", buf, 0xCu);
   }
 
   validationCompletionHandler = [(IKAppCache *)self validationCompletionHandler];
   [contextCopy stop];
   objc_initWeak(buf, self);
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __63__IKAppCache_appContext_didStartWithOptions_validatedJSString___block_invoke;
-  v16[3] = &unk_2797994D8;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __63__IKAppCache_appContext_didStartWithOptions_validatedJSString___block_invoke;
+  v15[3] = &unk_2797994D8;
   v14 = validationCompletionHandler;
-  v17 = v14;
-  objc_copyWeak(&v18, buf);
-  v16[4] = self;
-  [(IKAppCache *)self updateCacheWithValidatedJS:stringCopy completion:v16];
-  objc_destroyWeak(&v18);
+  v16 = v14;
+  objc_copyWeak(&v17, buf);
+  v15[4] = self;
+  [(IKAppCache *)self updateCacheWithValidatedJS:stringCopy completion:v15];
+  objc_destroyWeak(&v17);
 
   objc_destroyWeak(buf);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __63__IKAppCache_appContext_didStartWithOptions_validatedJSString___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1175,7 +1184,7 @@ void __63__IKAppCache_appContext_didStartWithOptions_validatedJSString___block_i
 
 - (id)_validatedChecksumForScript:(id)script error:(id *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = _IKStringHash(script);
   appLocalJSChecksum = [(IKAppCache *)self appLocalJSChecksum];
   v8 = [appLocalJSChecksum isEqualToString:v6];
@@ -1188,8 +1197,8 @@ void __63__IKAppCache_appContext_didStartWithOptions_validatedJSString___block_i
       goto LABEL_8;
     }
 
-    v15 = 138412290;
-    v16 = v6;
+    v14 = 138412290;
+    v15 = v6;
     v10 = "New AppJS checksum matched current appLocalJS checksum: %@";
     goto LABEL_7;
   }
@@ -1205,11 +1214,11 @@ void __63__IKAppCache_appContext_didStartWithOptions_validatedJSString___block_i
   v9 = ITMLKitGetLogObject(2);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v15 = 138412290;
-    v16 = v6;
+    v14 = 138412290;
+    v15 = v6;
     v10 = "New AppJS checksum matched currently cached AppJS checksum: %@";
 LABEL_7:
-    _os_log_impl(&dword_2549A4000, v9, OS_LOG_TYPE_INFO, v10, &v15, 0xCu);
+    _os_log_impl(&dword_2549A4000, v9, OS_LOG_TYPE_INFO, v10, &v14, 0xCu);
   }
 
 LABEL_8:
@@ -1226,7 +1235,6 @@ LABEL_8:
   }
 
 LABEL_11:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1279,7 +1287,7 @@ void __52__IKAppCache_updateCacheWithValidatedJS_completion___block_invoke(uint6
 
 - (id)_cacheFileURLForAppJS:(id)s checksum:(id)checksum error:(id *)error
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   sCopy = s;
   checksumCopy = checksum;
   if ([sCopy length])
@@ -1295,7 +1303,7 @@ void __52__IKAppCache_updateCacheWithValidatedJS_completion___block_invoke(uint6
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v42 = v14;
+      v41 = v14;
       _os_log_impl(&dword_2549A4000, v16, OS_LOG_TYPE_INFO, "Writing validated Javascript to %@", buf, 0xCu);
     }
 
@@ -1304,7 +1312,7 @@ void __52__IKAppCache_updateCacheWithValidatedJS_completion___block_invoke(uint6
 
     if (v18)
     {
-      v34 = v15;
+      v33 = v15;
       obj = v14;
       appJSChecksum = [(IKAppCache *)self appJSChecksum];
 
@@ -1316,33 +1324,33 @@ void __52__IKAppCache_updateCacheWithValidatedJS_completion___block_invoke(uint6
       }
 
       v22 = [MEMORY[0x277CBEB18] arrayWithCapacity:0];
+      v35 = 0u;
       v36 = 0u;
       v37 = 0u;
       v38 = 0u;
-      v39 = 0u;
       appJSChecksumHistory2 = [(IKAppCache *)self appJSChecksumHistory];
-      v24 = [appJSChecksumHistory2 countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v24 = [appJSChecksumHistory2 countByEnumeratingWithState:&v35 objects:v39 count:16];
       if (v24)
       {
         v25 = v24;
-        v26 = *v37;
+        v26 = *v36;
         do
         {
           for (i = 0; i != v25; ++i)
           {
-            if (*v37 != v26)
+            if (*v36 != v26)
             {
               objc_enumerationMutation(appJSChecksumHistory2);
             }
 
-            v28 = *(*(&v36 + 1) + 8 * i);
+            v28 = *(*(&v35 + 1) + 8 * i);
             if ([v28 isEqualToString:checksumCopy])
             {
               [v22 addObject:v28];
             }
           }
 
-          v25 = [appJSChecksumHistory2 countByEnumeratingWithState:&v36 objects:v40 count:16];
+          v25 = [appJSChecksumHistory2 countByEnumeratingWithState:&v35 objects:v39 count:16];
         }
 
         while (v25);
@@ -1358,7 +1366,7 @@ void __52__IKAppCache_updateCacheWithValidatedJS_completion___block_invoke(uint6
       [(IKAppCache *)self _storeManifest];
       v30 = obj;
 
-      v15 = v34;
+      v15 = v33;
     }
 
     else
@@ -1392,8 +1400,6 @@ void __52__IKAppCache_updateCacheWithValidatedJS_completion___block_invoke(uint6
   {
     v30 = 0;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v30;
 }

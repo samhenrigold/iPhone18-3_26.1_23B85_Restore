@@ -15,6 +15,7 @@
 + (void)readAttributeGeneratedCommandListWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void *)completion;
 + (void)readAttributeSetupURLWithAttributeCache:(MTRAttributeCacheContainer *)attributeCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completionHandler:(void *)completionHandler;
 + (void)readAttributeSetupURLWithClusterStateCache:(MTRClusterStateCacheContainer *)clusterStateCacheContainer endpoint:(NSNumber *)endpoint queue:(dispatch_queue_t)queue completion:(void *)completion;
+- (MTRBaseClusterActions)initWithDevice:(MTRBaseDevice *)device endpoint:(uint16_t)endpoint queue:(dispatch_queue_t)queue;
 - (void)disableActionWithDurationWithParams:(MTRActionsClusterDisableActionWithDurationParams *)params completion:(MTRStatusCompletion)completion;
 - (void)disableActionWithParams:(MTRActionsClusterDisableActionParams *)params completion:(MTRStatusCompletion)completion;
 - (void)enableActionWithDurationWithParams:(MTRActionsClusterEnableActionWithDurationParams *)params completion:(MTRStatusCompletion)completion;
@@ -1021,6 +1022,17 @@
   v14 = v12;
   v16 = v14;
   [self readAttributeClusterRevisionWithClusterStateCache:realContainer endpoint:v10 queue:v11 completion:v15];
+}
+
+- (MTRBaseClusterActions)initWithDevice:(MTRBaseDevice *)device endpoint:(uint16_t)endpoint queue:(dispatch_queue_t)queue
+{
+  v6 = endpoint;
+  v8 = device;
+  v9 = queue;
+  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v6];
+  v11 = [(MTRGenericBaseCluster *)self initWithDevice:v8 endpointID:v10 queue:v9];
+
+  return v11;
 }
 
 @end

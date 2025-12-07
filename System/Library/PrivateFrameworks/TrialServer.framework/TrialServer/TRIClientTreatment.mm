@@ -3,16 +3,16 @@
 
 @implementation TRIClientTreatment
 
-void __67__TRIClientTreatment_CloudKit__assetURLsFromCKRecord_assetIndexes___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void __67__TRIClientTreatment_CloudKit__assetURLsFromCKRecord_assetIndexes___block_invoke(uint64_t a1, uint64_t a2, char *a3, _BYTE *a4)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
   v8 = [MEMORY[0x277CBC5A0] keyForListField:*MEMORY[0x277D739B8] withIndexRange:{a2, a3}];
   v9 = TRILogCategory_Server();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v44 = v8;
+    v43 = v8;
     _os_log_debug_impl(&dword_26F567000, v9, OS_LOG_TYPE_DEBUG, "asset key: %@", buf, 0xCu);
   }
 
@@ -22,7 +22,7 @@ void __67__TRIClientTreatment_CloudKit__assetURLsFromCKRecord_assetIndexes___blo
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v44 = v10;
+    v43 = v10;
     _os_log_debug_impl(&dword_26F567000, v11, OS_LOG_TYPE_DEBUG, "assetRange: %@", buf, 0xCu);
   }
 
@@ -31,7 +31,7 @@ void __67__TRIClientTreatment_CloudKit__assetURLsFromCKRecord_assetIndexes___blo
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v44 = v12;
+    v43 = v12;
     _os_log_debug_impl(&dword_26F567000, v13, OS_LOG_TYPE_DEBUG, "sig key: %@", buf, 0xCu);
   }
 
@@ -41,17 +41,17 @@ void __67__TRIClientTreatment_CloudKit__assetURLsFromCKRecord_assetIndexes___blo
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v44 = v14;
+    v43 = v14;
     _os_log_debug_impl(&dword_26F567000, v15, OS_LOG_TYPE_DEBUG, "sigRange: %@", buf, 0xCu);
   }
 
   if ([v10 count] == a3 && objc_msgSend(v14, "count") == a3)
   {
-    v40 = a4;
+    v39 = a4;
     if (a3)
     {
       v16 = 0;
-      v42 = v10;
+      v41 = v10;
       while (1)
       {
         v17 = objc_autoreleasePoolPush();
@@ -71,8 +71,8 @@ void __67__TRIClientTreatment_CloudKit__assetURLsFromCKRecord_assetIndexes___blo
         v24 = [v19 path];
         if (!v24)
         {
-          v39 = [MEMORY[0x277CCA890] currentHandler];
-          [v39 handleFailureInMethod:*(v20 + 64) object:*(v20 + 72) file:@"TRIClientTreatment+CloudKit.m" lineNumber:118 description:{@"Expression was unexpectedly nil/false: %@", @"assetURL.path"}];
+          v38 = [MEMORY[0x277CCA890] currentHandler];
+          [v38 handleFailureInMethod:*(v20 + 64) object:*(v20 + 72) file:@"TRIClientTreatment+CloudKit.m" lineNumber:118 description:{@"Expression was unexpectedly nil/false: %@", @"assetURL.path"}];
         }
 
         v25 = [v21 validateBase64Signature:v23 forFile:v24];
@@ -90,7 +90,7 @@ void __67__TRIClientTreatment_CloudKit__assetURLsFromCKRecord_assetIndexes___blo
         ++v16;
         ++a2;
         --a3;
-        v10 = v42;
+        v10 = v41;
         v14 = v22;
         a1 = v20;
         if (!a3)
@@ -99,22 +99,22 @@ void __67__TRIClientTreatment_CloudKit__assetURLsFromCKRecord_assetIndexes___blo
         }
       }
 
-      v33 = TRILogCategory_Server();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v32 = TRILogCategory_Server();
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        v38 = [*(v20 + 48) recordID];
+        v37 = [*(v20 + 48) recordID];
         *buf = 138412290;
-        v44 = v38;
-        _os_log_error_impl(&dword_26F567000, v33, OS_LOG_TYPE_ERROR, "Bad assetSignature in Treatment record with CKRecordID %@", buf, 0xCu);
+        v43 = v37;
+        _os_log_error_impl(&dword_26F567000, v32, OS_LOG_TYPE_ERROR, "Bad assetSignature in Treatment record with CKRecordID %@", buf, 0xCu);
       }
 
-      v34 = *(*(v20 + 56) + 8);
-      v35 = *(v34 + 40);
-      *(v34 + 40) = 0;
+      v33 = *(*(v20 + 56) + 8);
+      v34 = *(v33 + 40);
+      *(v33 + 40) = 0;
 
-      *v40 = 1;
+      *v39 = 1;
       objc_autoreleasePoolPop(v17);
-      v10 = v42;
+      v10 = v41;
       v14 = v22;
     }
   }
@@ -124,14 +124,14 @@ void __67__TRIClientTreatment_CloudKit__assetURLsFromCKRecord_assetIndexes___blo
     v29 = TRILogCategory_Server();
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      v36 = [v10 count];
-      v37 = [v14 count];
+      v35 = [v10 count];
+      v36 = [v14 count];
       *buf = 134218496;
-      v44 = v36;
-      v45 = 2048;
-      v46 = v37;
-      v47 = 2048;
-      v48 = a3;
+      v43 = v35;
+      v44 = 2048;
+      v45 = v36;
+      v46 = 2048;
+      v47 = a3;
       _os_log_error_impl(&dword_26F567000, v29, OS_LOG_TYPE_ERROR, "assetRange and sigRange have unexpected counts (%tu, %tu; expected %tu)", buf, 0x20u);
     }
 
@@ -145,7 +145,6 @@ void __67__TRIClientTreatment_CloudKit__assetURLsFromCKRecord_assetIndexes___blo
 LABEL_23:
 
   objc_autoreleasePoolPop(context);
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __120__TRIClientTreatment_TRIUtil___triRequiredCKAssetsForInstallationWithAssetStore_subscriptionSettings_aliasToUnaliasMap___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -195,7 +194,7 @@ LABEL_9:
 
 void __131__TRIClientTreatment_TRIUtil___triRequiredMAAssetsForInstallationWithAssetStore_subscriptionSettings_maProvider_aliasToUnaliasMap___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4, _BYTE *a5)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = [a2 name];
   if ([v8 hasAssetType] && objc_msgSend(v8, "hasAssetSpecifier") && (objc_msgSend(v8, "hasAssetVersion") & 1) != 0)
@@ -214,12 +213,12 @@ void __131__TRIClientTreatment_TRIUtil___triRequiredMAAssetsForInstallationWithA
     v15 = TRILogCategory_Server();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v19 = [*(a1 + 32) treatmentId];
-      v20 = 138543618;
-      v21 = v19;
-      v22 = 2114;
-      v23 = v9;
-      _os_log_error_impl(&dword_26F567000, v15, OS_LOG_TYPE_ERROR, "Treatment %{public}@ has MA reference with missing information for factor %{public}@.", &v20, 0x16u);
+      v18 = [*(a1 + 32) treatmentId];
+      v19 = 138543618;
+      v20 = v18;
+      v21 = 2114;
+      v22 = v9;
+      _os_log_error_impl(&dword_26F567000, v15, OS_LOG_TYPE_ERROR, "Treatment %{public}@ has MA reference with missing information for factor %{public}@.", &v19, 0x16u);
     }
 
     v16 = *(*(a1 + 40) + 8);
@@ -228,8 +227,6 @@ void __131__TRIClientTreatment_TRIUtil___triRequiredMAAssetsForInstallationWithA
 
     *a5 = 1;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __131__TRIClientTreatment_TRIUtil___triRequiredMAAssetsForInstallationWithAssetStore_subscriptionSettings_maProvider_aliasToUnaliasMap___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)

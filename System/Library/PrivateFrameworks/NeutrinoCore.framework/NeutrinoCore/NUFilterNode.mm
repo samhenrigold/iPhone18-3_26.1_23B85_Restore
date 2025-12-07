@@ -248,7 +248,7 @@ LABEL_20:
   v6 = v5;
   if (v5)
   {
-    [v5 extent];
+    objc_msgSend_extent(v5);
     if (*&v27.size.width)
     {
       v7 = *&v27.size.height == 0;
@@ -267,7 +267,7 @@ LABEL_20:
       v12 = v11;
       if (v11)
       {
-        [v11 extent];
+        objc_msgSend_extent(v11);
         x = v29.origin.x;
         y = v29.origin.y;
         width = v29.size.width;

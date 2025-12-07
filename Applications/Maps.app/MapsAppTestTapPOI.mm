@@ -287,8 +287,8 @@ LABEL_13:
 {
   [(MapsAppTest *)self startedTest];
   [(MapsAppTest *)self startedSubTest:@"loadingScene"];
-  options = [(MapsAppTest *)self options];
-  _mapstest_mapType = [options _mapstest_mapType];
+  v3 = objc_msgSend_options(self);
+  _mapstest_mapType = [v3 _mapstest_mapType];
 
   [(MapsAppTest *)self switchToMapType:_mapstest_mapType];
   region = self->_region;

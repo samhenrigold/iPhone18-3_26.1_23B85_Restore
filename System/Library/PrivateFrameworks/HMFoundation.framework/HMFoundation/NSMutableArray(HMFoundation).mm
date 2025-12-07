@@ -1,10 +1,10 @@
 @interface NSMutableArray(HMFoundation)
-- (uint64_t)hmf_removeFirstObject;
+- (void)hmf_removeFirstObject;
 @end
 
 @implementation NSMutableArray(HMFoundation)
 
-- (uint64_t)hmf_removeFirstObject
+- (void)hmf_removeFirstObject
 {
   result = [self count];
   if (result)

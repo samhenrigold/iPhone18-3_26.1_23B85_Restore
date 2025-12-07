@@ -16,8 +16,7 @@
 {
   v4 = type metadata accessor for Date();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
+  MEMORY[0x28223BE20](v4, v6);
   v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;

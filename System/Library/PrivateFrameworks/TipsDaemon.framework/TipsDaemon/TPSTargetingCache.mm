@@ -119,15 +119,14 @@ void __26__TPSTargetingCache_reset__block_invoke(uint64_t a1)
 
 void __50__TPSTargetingCache_addCacheResult_forIdentifier___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 48);
-  v5 = 138412546;
-  v6 = v2;
-  v7 = 2048;
-  v8 = v3;
-  _os_log_debug_impl(&dword_232D6F000, a2, OS_LOG_TYPE_DEBUG, "Adding targeting result to cache for precondition (%@): %ld", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v2;
+  v6 = 2048;
+  v7 = v3;
+  _os_log_debug_impl(&dword_232D6F000, a2, OS_LOG_TYPE_DEBUG, "Adding targeting result to cache for precondition (%@): %ld", &v4, 0x16u);
 }
 
 @end

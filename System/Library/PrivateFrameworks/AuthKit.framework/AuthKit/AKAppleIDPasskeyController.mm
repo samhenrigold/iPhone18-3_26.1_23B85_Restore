@@ -156,7 +156,6 @@
   objc_storeStrong(&v37, 0);
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __72__AKAppleIDPasskeyController_setupAppleIDPasskeyWithContext_completion___block_invoke(void *a1, char a2, id obj)
@@ -220,7 +219,6 @@ void __72__AKAppleIDPasskeyController_setupAppleIDPasskeyWithContext_completion_
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __72__AKAppleIDPasskeyController_setupAppleIDPasskeyWithContext_completion___block_invoke_69(void *a1, void *a2)
@@ -301,7 +299,6 @@ void __72__AKAppleIDPasskeyController_setupAppleIDPasskeyWithContext_completion_
   objc_storeStrong(&v37, 0);
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAppleIDPasskeyController_verifyAppleIDPasskeyWithContext_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -367,7 +364,6 @@ void __73__AKAppleIDPasskeyController_verifyAppleIDPasskeyWithContext_completion
 
   objc_storeStrong(&v18, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAppleIDPasskeyController_verifyAppleIDPasskeyWithContext_completion___block_invoke_72(void *a1, void *a2)
@@ -448,7 +444,6 @@ void __73__AKAppleIDPasskeyController_verifyAppleIDPasskeyWithContext_completion
   objc_storeStrong(&v37, 0);
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __75__AKAppleIDPasskeyController_unenrollAppleIDPasskeyWithContext_completion___block_invoke(void *a1, char a2, id obj)
@@ -512,7 +507,6 @@ void __75__AKAppleIDPasskeyController_unenrollAppleIDPasskeyWithContext_completi
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __75__AKAppleIDPasskeyController_unenrollAppleIDPasskeyWithContext_completion___block_invoke_73(void *a1, void *a2)
@@ -593,7 +587,6 @@ void __75__AKAppleIDPasskeyController_unenrollAppleIDPasskeyWithContext_completi
   objc_storeStrong(&v37, 0);
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAppleIDPasskeyController_appleIDPasskeyStatusWithContext_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -659,7 +652,6 @@ void __73__AKAppleIDPasskeyController_appleIDPasskeyStatusWithContext_completion
 
   objc_storeStrong(&v18, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAppleIDPasskeyController_appleIDPasskeyStatusWithContext_completion___block_invoke_74(void *a1, void *a2)

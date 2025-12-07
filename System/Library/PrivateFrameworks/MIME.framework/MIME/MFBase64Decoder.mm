@@ -101,13 +101,13 @@ LABEL_18:
 
 - (int64_t)appendData:(id)data
 {
-  v38 = MEMORY[0x1EEE9AC00](self, a2, data);
-  v44 = *MEMORY[0x1E69E9840];
-  v36 = v3;
-  v4 = [v36 length];
-  bytes = [v36 bytes];
+  v37 = MEMORY[0x1EEE9AC00](self, a2, data);
+  v43 = *MEMORY[0x1E69E9840];
+  v35 = v3;
+  v4 = [v35 length];
+  bytes = [v35 bytes];
   memset(__b, 170, sizeof(__b));
-  convertCommas = [v38 convertCommas];
+  convertCommas = [v37 convertCommas];
   if (!v4)
   {
     goto LABEL_64;
@@ -115,11 +115,11 @@ LABEL_18:
 
   v7 = 0;
   v8 = 0;
-  v37 = convertCommas;
+  v36 = convertCommas;
   do
   {
-    v9 = *(v38 + 40);
-    if (v9 && *(v38 + 48) == 4 - v9)
+    v9 = *(v37 + 40);
+    if (v9 && *(v37 + 48) == 4 - v9)
     {
       v10 = 0;
       v11 = v4 - v7;
@@ -207,13 +207,13 @@ LABEL_31:
 LABEL_32:
       if (v11)
       {
-        if (*(v38 + 24))
+        if (*(v37 + 24))
         {
-          v42.receiver = v38;
-          v42.super_class = MFBase64Decoder;
-          [(MFBaseFilterDataConsumer *)&v42 appendData:?];
-          v19 = *(v38 + 24);
-          *(v38 + 24) = 0;
+          v41.receiver = v37;
+          v41.super_class = MFBase64Decoder;
+          [(MFBaseFilterDataConsumer *)&v41 appendData:?];
+          v19 = *(v37 + 24);
+          *(v37 + 24) = 0;
         }
 
         for (i = 0; i < v11; i += v22)
@@ -240,9 +240,9 @@ LABEL_32:
           if (v8 >= 0x4000)
           {
             v24 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:__b length:0x4000];
-            v41.receiver = v38;
-            v41.super_class = MFBase64Decoder;
-            [(MFBaseFilterDataConsumer *)&v41 appendData:v24];
+            v40.receiver = v37;
+            v40.super_class = MFBase64Decoder;
+            [(MFBaseFilterDataConsumer *)&v40 appendData:v24];
 
             v8 = v23;
           }
@@ -257,7 +257,7 @@ LABEL_32:
       v10 = 0;
     }
 
-    v25 = *(v38 + 24);
+    v25 = *(v37 + 24);
     if (!v10)
     {
       if ([v25 length] + v4 - v7 <= 0x4000)
@@ -265,26 +265,26 @@ LABEL_32:
         goto LABEL_58;
       }
 
-      v27 = *(v38 + 24);
+      v27 = *(v37 + 24);
       if (v27)
       {
-        v8 = [v38 _decodeBytes:objc_msgSend(v27 end:"bytes") into:objc_msgSend(*(v38 + 24) length:"bytes") + objc_msgSend(*(v38 + 24) startingAt:"length") outEncodedOffset:{__b, 0x4000, v8, 0}];
-        v28 = *(v38 + 24);
-        *(v38 + 24) = 0;
+        v8 = [v37 _decodeBytes:objc_msgSend(v27 end:"bytes") into:objc_msgSend(*(v37 + 24) length:"bytes") + objc_msgSend(*(v37 + 24) startingAt:"length") outEncodedOffset:{__b, 0x4000, v8, 0}];
+        v28 = *(v37 + 24);
+        *(v37 + 24) = 0;
       }
 
       if (v4 - v7 <= 0x4000)
       {
 LABEL_58:
-        v29 = v38;
+        v29 = v37;
       }
 
       else
       {
-        v40 = 0;
-        v29 = v38;
-        v8 = [v38 _decodeBytes:bytes + v7 end:bytes + v4 - 0x4000 into:__b length:0x4000 startingAt:v8 outEncodedOffset:&v40];
-        v7 += v40;
+        v39 = 0;
+        v29 = v37;
+        v8 = [v37 _decodeBytes:bytes + v7 end:bytes + v4 - 0x4000 into:__b length:0x4000 startingAt:v8 outEncodedOffset:&v39];
+        v7 += v39;
       }
 
       v30 = *(v29 + 24);
@@ -296,8 +296,8 @@ LABEL_58:
       else
       {
         v31 = [objc_alloc(MEMORY[0x1E695DF88]) initWithBytes:bytes + v7 length:v4 - v7];
-        v32 = *(v38 + 24);
-        *(v38 + 24) = v31;
+        v32 = *(v37 + 24);
+        *(v37 + 24) = v31;
       }
 
       break;
@@ -305,35 +305,34 @@ LABEL_58:
 
     if (v25)
     {
-      v8 = [v38 _decodeBytes:objc_msgSend(v25 end:"bytes") into:objc_msgSend(*(v38 + 24) length:"bytes") + objc_msgSend(*(v38 + 24) startingAt:"length") outEncodedOffset:{__b, 0x4000, v8, 0}];
-      v26 = *(v38 + 24);
-      *(v38 + 24) = 0;
+      v8 = [v37 _decodeBytes:objc_msgSend(v25 end:"bytes") into:objc_msgSend(*(v37 + 24) length:"bytes") + objc_msgSend(*(v37 + 24) startingAt:"length") outEncodedOffset:{__b, 0x4000, v8, 0}];
+      v26 = *(v37 + 24);
+      *(v37 + 24) = 0;
     }
 
-    v8 = [v38 _decodeBytes:bytes + v7 end:bytes + v7 + v11 into:__b length:0x4000 startingAt:v8 outEncodedOffset:0];
+    v8 = [v37 _decodeBytes:bytes + v7 end:bytes + v7 + v11 into:__b length:0x4000 startingAt:v8 outEncodedOffset:0];
 LABEL_51:
     v7 += v11;
-    convertCommas = v37;
+    convertCommas = v36;
   }
 
   while (v7 < v4);
   if (v8)
   {
     v33 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:__b length:v8];
-    v39.receiver = v38;
-    v39.super_class = MFBase64Decoder;
-    [(MFBaseFilterDataConsumer *)&v39 appendData:v33];
+    v38.receiver = v37;
+    v38.super_class = MFBase64Decoder;
+    [(MFBaseFilterDataConsumer *)&v38 appendData:v33];
   }
 
 LABEL_64:
 
-  v34 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (void)done
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   memset(__b, 170, sizeof(__b));
   leftovers = self->_leftovers;
   if (leftovers)
@@ -391,12 +390,10 @@ LABEL_13:
   if (v4)
   {
     v11 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:__b length:v4];
-    v13.receiver = self;
-    v13.super_class = MFBase64Decoder;
-    [(MFBaseFilterDataConsumer *)&v13 appendData:v11];
+    v12.receiver = self;
+    v12.super_class = MFBase64Decoder;
+    [(MFBaseFilterDataConsumer *)&v12 appendData:v11];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setConvertCommas:(BOOL)commas
@@ -404,7 +401,7 @@ LABEL_13:
   v3 = &Decode64Table;
   if (commas)
   {
-    v3 = &Decode64AltTable;
+    v3 = Decode64AltTable;
   }
 
   self->_table = v3;

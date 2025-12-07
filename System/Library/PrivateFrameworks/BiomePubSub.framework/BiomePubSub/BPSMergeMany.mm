@@ -119,7 +119,7 @@ LABEL_8:
 
 - (id)validateBookmark:(id)bookmark
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   bookmarkCopy = bookmark;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -133,13 +133,11 @@ LABEL_8:
     v6 = objc_opt_class();
     bookmarkCopy = [v5 initWithFormat:@"%@ expected bookmark of class %@, but received %@", v6, objc_opt_class(), bookmarkCopy];
     v8 = MEMORY[0x1E696ABC0];
-    v12 = *MEMORY[0x1E696A578];
-    v13[0] = bookmarkCopy;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x1E696A578];
+    v12[0] = bookmarkCopy;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v4 = [v8 errorWithDomain:@"BiomePubSubError" code:2 userInfo:v9];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

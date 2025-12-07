@@ -2,6 +2,7 @@
 - (float)score;
 - (id)asTwoPhaseIterator;
 - (id)getChildren;
+- (int)advanceWithInt:(int)int;
 - (int)docID;
 - (int)freq;
 - (int)nextDoc;
@@ -20,6 +21,17 @@
   }
 
   return [(OrgApacheLuceneSearchConjunctionDISI *)disi asTwoPhaseIterator];
+}
+
+- (int)advanceWithInt:(int)int
+{
+  disi = self->disi_;
+  if (!disi)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [(OrgApacheLuceneSearchConjunctionDISI *)disi advanceWithInt:*&int];
 }
 
 - (int)docID

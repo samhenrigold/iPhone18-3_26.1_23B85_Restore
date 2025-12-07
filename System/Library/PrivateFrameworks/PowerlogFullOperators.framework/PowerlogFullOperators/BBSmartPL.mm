@@ -32,11 +32,11 @@
   [(BBSmartPL *)self setBbHwOtherCallback:v9];
 }
 
-uint64_t __31__BBSmartPL_startWithOperator___block_invoke(uint64_t result, uint64_t a2)
+id *__31__BBSmartPL_startWithOperator___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) handleMavBBHwOtherCallback:a2];
+    return [result[4] handleMavBBHwOtherCallback:a2];
   }
 
   return result;
@@ -154,7 +154,7 @@ uint64_t __31__BBSmartPL_startWithOperator___block_invoke(uint64_t result, uint6
   }
 }
 
-uint64_t __40__BBSmartPL_handleMavBBHwOtherCallback___block_invoke(uint64_t a1)
+void *__40__BBSmartPL_handleMavBBHwOtherCallback___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleMavBBHwOtherCallback__classDebugEnabled = result;

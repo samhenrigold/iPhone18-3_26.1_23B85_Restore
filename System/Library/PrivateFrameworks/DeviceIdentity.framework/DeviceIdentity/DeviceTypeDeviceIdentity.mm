@@ -4,6 +4,7 @@
 - (DeviceTypeDeviceIdentity)init;
 - (id)copyBootArgs;
 - (id)copyBootSessionUUID;
+- (id)copyDeviceTreeInt:(id)int key:(id)key defaultValue:(int)value;
 - (id)copyDeviceTreeProperty:(id)property key:(id)key;
 - (id)copyDeviceTreeString:(id)string key:(id)key defaultValue:(id)value;
 @end
@@ -282,18 +283,69 @@ uint64_t __42__DeviceTypeDeviceIdentity_sharedInstance__block_invoke()
 
 - (id)copyBootArgs
 {
-  v7 = *MEMORY[0x277D85DE8];
-  bzero(v6, 0x400uLL);
-  v5 = 1024;
-  v2 = sysctlbyname("kern.bootargs", v6, &v5, 0, 0);
+  v6 = *MEMORY[0x277D85DE8];
+  bzero(v5, 0x400uLL);
+  v4 = 1024;
+  v2 = sysctlbyname("kern.bootargs", v5, &v4, 0, 0);
   result = 0;
   if (!v2)
   {
-    result = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v6];
+    return [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v5];
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
+}
+
+- (id)copyDeviceTreeInt:(id)int key:(id)key defaultValue:(int)value
+{
+  v5 = *&value;
+  intCopy = int;
+  keyCopy = key;
+  v10 = [MEMORY[0x277CCABB0] numberWithInt:v5];
+  v11 = 0;
+  v17 = v5;
+  if (intCopy && keyCopy)
+  {
+    v11 = [(DeviceTypeDeviceIdentity *)self copyDeviceTreeProperty:intCopy key:keyCopy];
+    v12 = isNSData(v11);
+    if (v12)
+    {
+    }
+
+    else
+    {
+      v13 = isNSNumber(v11);
+
+      if (!v13)
+      {
+        goto LABEL_10;
+      }
+    }
+
+    v14 = isNSData(v11);
+
+    if (v14)
+    {
+      if ([v11 length] == 4)
+      {
+        [v11 getBytes:&v17 length:4];
+        v15 = [MEMORY[0x277CCABB0] numberWithInt:v17];
+
+        v10 = v15;
+      }
+    }
+
+    else
+    {
+      v11 = v11;
+
+      v10 = v11;
+    }
+  }
+
+LABEL_10:
+
+  return v10;
 }
 
 - (id)copyDeviceTreeString:(id)string key:(id)key defaultValue:(id)value

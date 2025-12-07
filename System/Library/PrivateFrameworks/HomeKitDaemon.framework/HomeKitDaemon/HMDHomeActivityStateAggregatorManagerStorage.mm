@@ -18,21 +18,21 @@
 
 - (void)writeEnabledContributors:(id)contributors
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   contributorsCopy = contributors;
   dataSource = [(HMDHomeActivityStateAggregatorManagerStorage *)self dataSource];
   workingStoreContext = [dataSource workingStoreContext];
 
   if (workingStoreContext)
   {
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __73__HMDHomeActivityStateAggregatorManagerStorage_writeEnabledContributors___block_invoke;
-    v12[3] = &unk_27868A010;
-    v12[4] = self;
-    v13 = contributorsCopy;
-    v14 = workingStoreContext;
-    [v14 performBlock:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __73__HMDHomeActivityStateAggregatorManagerStorage_writeEnabledContributors___block_invoke;
+    v11[3] = &unk_27868A010;
+    v11[4] = self;
+    v12 = contributorsCopy;
+    v13 = workingStoreContext;
+    [v13 performBlock:v11];
   }
 
   else
@@ -44,20 +44,18 @@
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v16 = v10;
+      v15 = v10;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@dataSource.workingStoreContext is unexpectedly nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __73__HMDHomeActivityStateAggregatorManagerStorage_writeEnabledContributors___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) homeUUID];
   v3 = [HMCContext findHomeWithModelID:v2];
 
@@ -70,7 +68,7 @@ void __73__HMDHomeActivityStateAggregatorManagerStorage_writeEnabledContributors
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v49 = v19;
+      v48 = v19;
       v20 = "%{public}@Failed to save to activityStateEnabledContributors because we could not find a backing store model";
       v21 = v18;
       v22 = OS_LOG_TYPE_ERROR;
@@ -84,29 +82,29 @@ LABEL_28:
     goto LABEL_33;
   }
 
-  v41 = v3;
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
+  v40 = v3;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v4 = *(v1 + 40);
-  v5 = [v4 countByEnumeratingWithState:&v44 objects:v54 count:16];
-  v42 = v1;
+  v5 = [v4 countByEnumeratingWithState:&v43 objects:v53 count:16];
+  v41 = v1;
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v45;
+    v8 = *v44;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v45 != v8)
+        if (*v44 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v44 + 1) + 8 * i);
+        v10 = *(*(&v43 + 1) + 8 * i);
         v11 = [v10 unsignedIntegerValue];
         if (v11 < 0x3F)
         {
@@ -122,19 +120,19 @@ LABEL_28:
           {
             v15 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v49 = v15;
-            v50 = 2112;
-            v51 = v10;
+            v48 = v15;
+            v49 = 2112;
+            v50 = v10;
             _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Specified contributor bit position is too large for signed 64-bit: %@, skipping", buf, 0x16u);
 
-            v1 = v42;
+            v1 = v41;
           }
 
           objc_autoreleasePoolPop(v12);
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v44 objects:v54 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v43 objects:v53 count:16];
     }
 
     while (v6);
@@ -151,34 +149,34 @@ LABEL_28:
   if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
     v26 = HMFGetLogIdentifier();
-    v27 = [v41 activityStateEnabledContributors];
+    v27 = [v40 activityStateEnabledContributors];
     *buf = 138543874;
-    v49 = v26;
-    v50 = 2112;
-    v51 = v27;
-    v52 = 2048;
-    v53 = v7;
+    v48 = v26;
+    v49 = 2112;
+    v50 = v27;
+    v51 = 2048;
+    v52 = v7;
     _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@activityStateEnabledContributors: %@ -> %llu", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v23);
   v28 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v7];
-  v3 = v41;
-  [v41 setActivityStateEnabledContributors:v28];
+  v3 = v40;
+  [v40 setActivityStateEnabledContributors:v28];
 
-  v29 = [*(v42 + 48) managedObjectContext];
+  v29 = [*(v41 + 48) managedObjectContext];
   v30 = [v29 hasChanges];
 
   if ((v30 & 1) == 0)
   {
     v16 = objc_autoreleasePoolPush();
-    v17 = *(v42 + 32);
+    v17 = *(v41 + 32);
     v18 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v49 = v19;
+      v48 = v19;
       v20 = "%{public}@Skipping saving activityStateEnabledContributors because no changes were made";
       v21 = v18;
       v22 = OS_LOG_TYPE_INFO;
@@ -188,12 +186,12 @@ LABEL_28:
     goto LABEL_28;
   }
 
-  v31 = *(v42 + 48);
-  v43 = 0;
-  v32 = [v31 save:&v43];
-  v33 = v43;
+  v31 = *(v41 + 48);
+  v42 = 0;
+  v32 = [v31 save:&v42];
+  v33 = v42;
   v34 = objc_autoreleasePoolPush();
-  v35 = *(v42 + 32);
+  v35 = *(v41 + 32);
   v36 = HMFGetOSLogHandle();
   v37 = v36;
   if (v32)
@@ -202,7 +200,7 @@ LABEL_28:
     {
       v38 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v49 = v38;
+      v48 = v38;
       _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_DEBUG, "%{public}@Successfully saved activityStateEnabledContributors", buf, 0xCu);
     }
 
@@ -215,23 +213,22 @@ LABEL_28:
     {
       v39 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v49 = v39;
-      v50 = 2112;
-      v51 = v33;
+      v48 = v39;
+      v49 = 2112;
+      v50 = v33;
       _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_ERROR, "%{public}@Failed to save activityStateEnabledContributors with error: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v34);
-    [*(v42 + 48) rollback];
+    [*(v41 + 48) rollback];
   }
 
 LABEL_33:
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeHomeActivityState:(unint64_t)state withHoldInfo:(id)info transitionalStateEndDate:(id)date reason:(int64_t)reason
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   dateCopy = date;
   dataSource = [(HMDHomeActivityStateAggregatorManagerStorage *)self dataSource];
@@ -239,17 +236,17 @@ LABEL_33:
 
   if (workingStoreContext)
   {
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __116__HMDHomeActivityStateAggregatorManagerStorage_writeHomeActivityState_withHoldInfo_transitionalStateEndDate_reason___block_invoke;
-    v19[3] = &unk_27867A828;
-    v19[4] = self;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __116__HMDHomeActivityStateAggregatorManagerStorage_writeHomeActivityState_withHoldInfo_transitionalStateEndDate_reason___block_invoke;
+    v18[3] = &unk_27867A828;
+    v18[4] = self;
     stateCopy = state;
-    v20 = infoCopy;
-    v21 = workingStoreContext;
+    v19 = infoCopy;
+    v20 = workingStoreContext;
     reasonCopy = reason;
-    v22 = dateCopy;
-    [v21 performBlock:v19];
+    v21 = dateCopy;
+    [v20 performBlock:v18];
   }
 
   else
@@ -261,19 +258,17 @@ LABEL_33:
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v26 = v17;
+      v25 = v17;
       _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@dataSource.workingStoreContext is unexpectedly nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v14);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __116__HMDHomeActivityStateAggregatorManagerStorage_writeHomeActivityState_withHoldInfo_transitionalStateEndDate_reason___block_invoke(uint64_t a1)
 {
-  v131 = *MEMORY[0x277D85DE8];
+  v129 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) homeUUID];
   v3 = [HMCContext findHomeWithModelID:v2];
 
@@ -286,7 +281,7 @@ void __116__HMDHomeActivityStateAggregatorManagerStorage_writeHomeActivityState_
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v110 = v15;
+      v108 = v15;
       v16 = "%{public}@Failed to save details of activity state change because we could not find backing store model";
 LABEL_15:
       _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, v16, buf, 0xCu);
@@ -307,7 +302,7 @@ LABEL_16:
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v110 = v15;
+      v108 = v15;
       v16 = "%{public}@Skipping storage of activity state change because unknown state was provided";
       goto LABEL_15;
     }
@@ -334,7 +329,7 @@ LABEL_16:
     v17 = [v3 activityState];
     v18 = [v17 unsignedIntegerValue];
 
-    v107 = v6;
+    v105 = v6;
     if (v18)
     {
       v19 = objc_autoreleasePoolPush();
@@ -379,16 +374,16 @@ LABEL_16:
 
         v30 = v29;
         *buf = 138544130;
-        v110 = v22;
+        v108 = v22;
+        v109 = 2112;
+        v110 = v24;
         v111 = 2112;
-        v112 = v24;
+        v112 = v27;
         v113 = 2112;
-        v114 = v27;
-        v115 = 2112;
-        *v116 = v30;
+        *v114 = v30;
         _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_DEBUG, "%{public}@Recording HMDHomeActivityStateTransitionLogEvent with: %@ - %@ for reason %@", buf, 0x2Au);
 
-        v6 = v107;
+        v6 = v105;
       }
 
       objc_autoreleasePoolPop(v19);
@@ -407,9 +402,9 @@ LABEL_16:
       {
         v39 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v110 = v39;
-        v111 = 2112;
-        v112 = v33;
+        v108 = v39;
+        v109 = 2112;
+        v110 = v33;
         _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_DEBUG, "%{public}@Submitted HMDHomeActivityStateTransitionLogEvent: %@", buf, 0x16u);
       }
 
@@ -424,7 +419,7 @@ LABEL_16:
 
       if (v40)
       {
-        v105 = v40;
+        v103 = v40;
         [v42 timeIntervalSinceDate:v40];
         v44 = v43 / 60.0;
         v45 = [HMDHomeActivityStateDurationLogEvent alloc];
@@ -447,15 +442,15 @@ LABEL_16:
           v57 = HMFGetLogIdentifier();
           v58 = [(HMDHomeActivityStateDurationLogEvent *)v51 coreAnalyticsEventDictionary];
           *buf = 138543618;
-          v110 = v57;
-          v111 = 2112;
-          v112 = v58;
+          v108 = v57;
+          v109 = 2112;
+          v110 = v58;
           _os_log_impl(&dword_229538000, v56, OS_LOG_TYPE_INFO, "%{public}@Submitted HMDHomeActivityStateDurationLogEvent: %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v54);
-        v40 = v105;
-        v6 = v107;
+        v40 = v103;
+        v6 = v105;
       }
 
       else
@@ -467,9 +462,9 @@ LABEL_16:
         {
           v62 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v110 = v62;
-          v111 = 2112;
-          v112 = 0;
+          v108 = v62;
+          v109 = 2112;
+          v110 = 0;
           _os_log_impl(&dword_229538000, v61, OS_LOG_TYPE_ERROR, "%{public}@Not submitting HMDHomeActivityStateDurationLogEvent. Invalid MKFHome.activityStateChangedTimestamp: %@", buf, 0x16u);
         }
 
@@ -485,137 +480,136 @@ LABEL_16:
     if (os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
     {
       log = v65;
-      v104 = HMFGetLogIdentifier();
-      v103 = HMHomeActivityStateToString();
-      v66 = *(a1 + 64);
-      v102 = HMHomeActivityStateToString();
-      v100 = [v3 isActivityStateHoldActive];
-      v67 = [v100 BOOLValue];
-      v98 = [v3 activityStateHoldEndDate];
-      v101 = [v98 hmf_localTimeDescription];
-      v95 = [v6 endDate];
-      v99 = [v95 hmf_localTimeDescription];
-      v93 = [v3 activityStateTransitionalStateEndDate];
+      v102 = HMFGetLogIdentifier();
+      v101 = HMHomeActivityStateToString();
+      v100 = HMHomeActivityStateToString();
+      v98 = [v3 isActivityStateHoldActive];
+      v66 = [v98 BOOLValue];
+      v96 = [v3 activityStateHoldEndDate];
+      v99 = [v96 hmf_localTimeDescription];
+      v93 = [v6 endDate];
       v97 = [v93 hmf_localTimeDescription];
-      v94 = [*(a1 + 56) hmf_localTimeDescription];
-      v68 = *(a1 + 72) - 1;
-      v96 = v64;
-      if (v68 > 3)
+      v91 = [v3 activityStateTransitionalStateEndDate];
+      v95 = [v91 hmf_localTimeDescription];
+      v92 = [*(a1 + 56) hmf_localTimeDescription];
+      v67 = *(a1 + 72) - 1;
+      v94 = v64;
+      if (v67 > 3)
       {
-        v69 = @"Other";
+        v68 = @"Other";
       }
 
       else
       {
-        v69 = off_278671F98[v68];
+        v68 = off_278671F98[v67];
       }
 
-      v91 = v69;
-      v70 = [v40 hmf_localTimeDescription];
-      v71 = [v3 activityStateChangedTimestamp];
-      [v71 hmf_localTimeDescription];
-      v72 = v106 = v40;
+      v89 = v68;
+      v69 = [v40 hmf_localTimeDescription];
+      v70 = [v3 activityStateChangedTimestamp];
+      [v70 hmf_localTimeDescription];
+      v71 = v104 = v40;
       *buf = 138546178;
-      v110 = v104;
+      v108 = v102;
+      v109 = 2112;
+      v110 = v101;
       v111 = 2112;
-      v112 = v103;
-      v113 = 2112;
-      v114 = v102;
-      v115 = 1024;
-      *v116 = v67;
-      *&v116[4] = 1024;
-      *&v116[6] = v6 != 0;
+      v112 = v100;
+      v113 = 1024;
+      *v114 = v66;
+      *&v114[4] = 1024;
+      *&v114[6] = v6 != 0;
+      v115 = 2112;
+      v116 = v99;
       v117 = 2112;
-      v118 = v101;
+      v118 = v97;
       v119 = 2112;
-      v120 = v99;
+      v120 = v95;
       v121 = 2112;
-      v122 = v97;
+      v122 = v92;
       v123 = 2112;
-      v124 = v94;
+      v124 = v89;
       v125 = 2112;
-      v126 = v91;
+      v126 = v69;
+      v72 = v69;
       v127 = 2112;
-      v128 = v70;
-      v73 = v70;
-      v129 = 2112;
-      v130 = v72;
+      v128 = v71;
       v65 = log;
       _os_log_impl(&dword_229538000, log, OS_LOG_TYPE_INFO, "%{public}@activityState: %@ -> %@, isActivityStateHoldActive: %{BOOL}d -> %{BOOL}d, activityStateHoldEndDate: %@ -> %@, activityStateTransitionalStateEndDate: %@ -> %@, reason: %@, activityStateChangedTimestamp: %@ -> %@", buf, 0x72u);
 
-      v40 = v106;
-      v6 = v107;
-      v64 = v96;
+      v40 = v104;
+      v6 = v105;
+      v64 = v94;
     }
 
     objc_autoreleasePoolPop(v63);
-    v74 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 64)];
-    [v3 setActivityState:v74];
+    v73 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 64)];
+    [v3 setActivityState:v73];
 
-    v75 = [MEMORY[0x277CCABB0] numberWithBool:v6 != 0];
-    [v3 setIsActivityStateHoldActive:v75];
+    v74 = [MEMORY[0x277CCABB0] numberWithBool:v6 != 0];
+    [v3 setIsActivityStateHoldActive:v74];
 
-    v76 = [v6 endDate];
-    [v3 setActivityStateHoldEndDate:v76];
+    v75 = [v6 endDate];
+    [v3 setActivityStateHoldEndDate:v75];
 
     [v3 setActivityStateTransitionalStateEndDate:*(a1 + 56)];
-    v77 = [*(a1 + 48) managedObjectContext];
-    LOBYTE(v74) = [v77 hasChanges];
+    v76 = [*(a1 + 48) managedObjectContext];
+    LOBYTE(v73) = [v76 hasChanges];
 
-    if (v74)
+    if (v73)
     {
-      v78 = *(a1 + 48);
-      v108 = 0;
-      [v78 save:&v108];
-      v79 = v108;
-      v80 = objc_autoreleasePoolPush();
-      v81 = *(a1 + 32);
-      v82 = HMFGetOSLogHandle();
-      v83 = v82;
-      if (v79)
+      v77 = *(a1 + 48);
+      v106 = 0;
+      [v77 save:&v106];
+      v78 = v106;
+      v79 = objc_autoreleasePoolPush();
+      v80 = *(a1 + 32);
+      v81 = HMFGetOSLogHandle();
+      v82 = v81;
+      if (v78)
       {
-        if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
         {
-          v84 = HMFGetLogIdentifier();
+          v83 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v110 = v84;
-          v111 = 2112;
-          v112 = v79;
-          _os_log_impl(&dword_229538000, v83, OS_LOG_TYPE_ERROR, "%{public}@Failed to save with error: %@", buf, 0x16u);
+          v108 = v83;
+          v109 = 2112;
+          v110 = v78;
+          _os_log_impl(&dword_229538000, v82, OS_LOG_TYPE_ERROR, "%{public}@Failed to save with error: %@", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v80);
+        objc_autoreleasePoolPop(v79);
         [*(a1 + 48) rollback];
       }
 
       else
       {
-        if (os_log_type_enabled(v82, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v81, OS_LOG_TYPE_DEBUG))
         {
-          v89 = HMFGetLogIdentifier();
+          v88 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v110 = v89;
-          _os_log_impl(&dword_229538000, v83, OS_LOG_TYPE_DEBUG, "%{public}@Successfully saved", buf, 0xCu);
+          v108 = v88;
+          _os_log_impl(&dword_229538000, v82, OS_LOG_TYPE_DEBUG, "%{public}@Successfully saved", buf, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v80);
+        objc_autoreleasePoolPop(v79);
       }
     }
 
     else
     {
-      v85 = objc_autoreleasePoolPush();
-      v86 = *(a1 + 32);
-      v87 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v87, OS_LOG_TYPE_INFO))
+      v84 = objc_autoreleasePoolPush();
+      v85 = *(a1 + 32);
+      v86 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v86, OS_LOG_TYPE_INFO))
       {
-        v88 = HMFGetLogIdentifier();
+        v87 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v110 = v88;
-        _os_log_impl(&dword_229538000, v87, OS_LOG_TYPE_INFO, "%{public}@Skipping context save because no changes were made", buf, 0xCu);
+        v108 = v87;
+        _os_log_impl(&dword_229538000, v86, OS_LOG_TYPE_INFO, "%{public}@Skipping context save because no changes were made", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v85);
+      objc_autoreleasePoolPop(v84);
     }
   }
 
@@ -629,9 +623,9 @@ LABEL_16:
       v10 = HMFGetLogIdentifier();
       v11 = *(a1 + 40);
       *buf = 138543618;
-      v110 = v10;
-      v111 = 2112;
-      v112 = v11;
+      v108 = v10;
+      v109 = 2112;
+      v110 = v11;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Skipping storage of activity state change because the provided holdInfo is not a timed hold: %@", buf, 0x16u);
     }
 
@@ -640,7 +634,6 @@ LABEL_16:
   }
 
 LABEL_60:
-  v90 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDHomeActivityStateAggregatorManagerStorage)initWithDataSource:(id)source
@@ -676,10 +669,9 @@ LABEL_60:
 
 void __59__HMDHomeActivityStateAggregatorManagerStorage_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v21_138160;
-  logCategory__hmf_once_v21_138160 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v21_138160;
+  logCategory__hmf_once_v21_138160 = v0;
 }
 
 @end

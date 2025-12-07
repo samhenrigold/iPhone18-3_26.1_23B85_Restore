@@ -94,96 +94,96 @@
 {
   buttonConstraints = [(TVRUIHintsUserIntentButtonView *)self buttonConstraints];
 
-  v8 = 0x277CCA000uLL;
+  v9 = 0x277CCA000uLL;
   if (buttonConstraints)
   {
-    v9 = MEMORY[0x277CCAAD0];
+    v10 = MEMORY[0x277CCAAD0];
     buttonConstraints2 = [(TVRUIHintsUserIntentButtonView *)self buttonConstraints];
-    [v9 deactivateConstraints:buttonConstraints2];
+    [v10 deactivateConstraints:buttonConstraints2];
 
-    [(TVRUIHintsUserIntentButtonView *)self setButtonConstraints:0];
+    v8 = [(TVRUIHintsUserIntentButtonView *)self setButtonConstraints:0];
   }
 
   if (edge == 2)
   {
-    v52 = MEMORY[0x277CBEA60];
+    v53 = MEMORY[0x277CBEA60];
     buttonOutline = [(TVRUIHintsUserIntentButtonView *)self buttonOutline];
     widthAnchor = [buttonOutline widthAnchor];
     width = [widthAnchor constraintEqualToConstant:width + width];
     buttonOutline2 = [(TVRUIHintsUserIntentButtonView *)self buttonOutline];
     rightAnchor = [buttonOutline2 rightAnchor];
     rightAnchor2 = [(TVRUIHintsUserIntentButtonView *)self rightAnchor];
-    v70 = [rightAnchor constraintEqualToAnchor:rightAnchor2 constant:width];
+    v71 = [rightAnchor constraintEqualToAnchor:rightAnchor2 constant:width];
     buttonOutline3 = [(TVRUIHintsUserIntentButtonView *)self buttonOutline];
     topAnchor = [buttonOutline3 topAnchor];
     topAnchor2 = [(TVRUIHintsUserIntentButtonView *)self topAnchor];
-    v38 = [topAnchor constraintEqualToAnchor:topAnchor2];
+    v39 = [topAnchor constraintEqualToAnchor:topAnchor2];
     buttonOutline4 = [(TVRUIHintsUserIntentButtonView *)self buttonOutline];
     bottomAnchor = [buttonOutline4 bottomAnchor];
     bottomAnchor2 = [(TVRUIHintsUserIntentButtonView *)self bottomAnchor];
-    v22 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+    v23 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
     glyphView = [(TVRUIHintsUserIntentButtonView *)self glyphView];
     centerYAnchor = [glyphView centerYAnchor];
     centerYAnchor2 = [(TVRUIHintsUserIntentButtonView *)self centerYAnchor];
-    v24 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+    v25 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
     glyphView2 = [(TVRUIHintsUserIntentButtonView *)self glyphView];
     rightAnchor3 = [glyphView2 rightAnchor];
     buttonOutline5 = [(TVRUIHintsUserIntentButtonView *)self buttonOutline];
     leftAnchor = [buttonOutline5 leftAnchor];
     [(TVRUIHintsStyleProvider *)self->_styleProvider imageMargin];
-    v30 = [rightAnchor3 constraintEqualToAnchor:leftAnchor constant:-v29];
-    v31 = [v52 arrayWithObjects:{width, v70, v38, v22, v24, v30, 0}];
+    v31 = [rightAnchor3 constraintEqualToAnchor:leftAnchor constant:-v30];
+    v32 = [v53 arrayWithObjects:{width, v71, v39, v23, v25, v31, 0}];
     buttonConstraints = self->_buttonConstraints;
-    self->_buttonConstraints = v31;
+    self->_buttonConstraints = v32;
 
-    v8 = 0x277CCA000;
-    v21 = buttonOutline;
+    v9 = 0x277CCA000;
+    v22 = buttonOutline;
     goto LABEL_7;
   }
 
   if (edge == 1)
   {
-    v49 = MEMORY[0x277CBEA60];
+    v50 = MEMORY[0x277CBEA60];
     buttonOutline6 = [(TVRUIHintsUserIntentButtonView *)self buttonOutline];
     heightAnchor = [buttonOutline6 heightAnchor];
     width2 = [heightAnchor constraintEqualToConstant:width + width];
     buttonOutline7 = [(TVRUIHintsUserIntentButtonView *)self buttonOutline];
     leftAnchor2 = [buttonOutline7 leftAnchor];
     leftAnchor3 = [(TVRUIHintsUserIntentButtonView *)self leftAnchor];
-    v67 = [leftAnchor2 constraintEqualToAnchor:leftAnchor3];
+    v68 = [leftAnchor2 constraintEqualToAnchor:leftAnchor3];
     buttonOutline8 = [(TVRUIHintsUserIntentButtonView *)self buttonOutline];
     rightAnchor4 = [buttonOutline8 rightAnchor];
     rightAnchor5 = [(TVRUIHintsUserIntentButtonView *)self rightAnchor];
-    v37 = [rightAnchor4 constraintEqualToAnchor:rightAnchor5];
+    v38 = [rightAnchor4 constraintEqualToAnchor:rightAnchor5];
     buttonOutline9 = [(TVRUIHintsUserIntentButtonView *)self buttonOutline];
     bottomAnchor3 = [buttonOutline9 bottomAnchor];
     bottomAnchor4 = [(TVRUIHintsUserIntentButtonView *)self bottomAnchor];
-    v11 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4 constant:width];
+    v12 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4 constant:width];
     glyphView3 = [(TVRUIHintsUserIntentButtonView *)self glyphView];
     centerXAnchor = [glyphView3 centerXAnchor];
     centerXAnchor2 = [(TVRUIHintsUserIntentButtonView *)self centerXAnchor];
-    v13 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+    v14 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
     glyphView4 = [(TVRUIHintsUserIntentButtonView *)self glyphView];
     topAnchor3 = [glyphView4 topAnchor];
     buttonOutline10 = [(TVRUIHintsUserIntentButtonView *)self buttonOutline];
     bottomAnchor5 = [buttonOutline10 bottomAnchor];
     [(TVRUIHintsStyleProvider *)self->_styleProvider imageMargin];
-    v18 = [topAnchor3 constraintEqualToAnchor:bottomAnchor5 constant:?];
-    v19 = [v49 arrayWithObjects:{width2, v67, v37, v11, v13, v18, 0}];
-    v20 = self->_buttonConstraints;
-    self->_buttonConstraints = v19;
+    v19 = [topAnchor3 constraintEqualToAnchor:bottomAnchor5 constant:?];
+    v20 = [v50 arrayWithObjects:{width2, v68, v38, v12, v14, v19, 0}];
+    v21 = self->_buttonConstraints;
+    self->_buttonConstraints = v20;
 
-    v8 = 0x277CCA000;
-    v21 = buttonOutline6;
+    v9 = 0x277CCA000;
+    v22 = buttonOutline6;
 LABEL_7:
 
     goto LABEL_11;
   }
 
-  v33 = _TVRUIHintsLog();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
+  v34 = _TVRUIHintsLog(v8);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
   {
-    [TVRUIHintsUserIntentButtonView _setupConstraintsForButtonEdge:v33 buttonWidth:?];
+    [TVRUIHintsUserIntentButtonView _setupConstraintsForButtonEdge:v34 buttonWidth:?];
   }
 
 LABEL_11:
@@ -191,9 +191,9 @@ LABEL_11:
 
   if (buttonConstraints3)
   {
-    v35 = *(v8 + 2768);
+    v36 = *(v9 + 2768);
     buttonConstraints4 = [(TVRUIHintsUserIntentButtonView *)self buttonConstraints];
-    [v35 activateConstraints:buttonConstraints4];
+    [v36 activateConstraints:buttonConstraints4];
   }
 }
 

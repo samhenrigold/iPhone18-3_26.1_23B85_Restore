@@ -11,7 +11,6 @@
 + (void)authenticateWithUsername:(id)username password:(id)password completionHandler:(id)handler;
 + (void)authenticatedLocalPlayersDidChange:(id)change complete:(id)complete;
 + (void)loadHighlightsDataWithCompletionHandler:(id)handler;
-+ (void)localPlayers;
 + (void)performAsync:(id)async;
 + (void)performSync:(id)sync;
 - (BOOL)isDefaultContactsIntegrationConsent;
@@ -50,7 +49,6 @@
 - (void)fetchItemsForIdentityVerificationSignature:(void *)completionHandler;
 - (void)fetchSavedGamesWithCompletionHandler:(void *)handler;
 - (void)fetchTurnBasedEvent;
-- (void)friends;
 - (void)generateIdentityVerificationSignatureWithCompletionHandler:(void *)completionHandler;
 - (void)getPlayerIDFromFriendCode:(id)code handler:(id)handler;
 - (void)handleChallengableFriendsResults:(id)results error:(id)error completion:(id)completion;
@@ -81,7 +79,10 @@
 - (void)resolveConflictingSavedGames:(NSArray *)conflictingSavedGames withData:(NSData *)data completionHandler:(void *)handler;
 - (void)saveGameData:(NSData *)data withName:(NSString *)name completionHandler:(void *)handler;
 - (void)setAuthenticateHandler:(void *)authenticateHandler;
+- (void)setDefaultContactsIntegrationConsent:(BOOL)consent;
 - (void)setDefaultLeaderboardIdentifier:(NSString *)leaderboardIdentifier completionHandler:(void *)completionHandler;
+- (void)setDefaultNickname:(BOOL)nickname;
+- (void)setDefaultPrivacyVisibility:(BOOL)visibility;
 - (void)setFriendListAuthorizationStatus:(int64_t)status forBundleID:(id)d handler:(id)handler;
 - (void)setLastContactsIntegrationConsentVersion:(id)version;
 - (void)setLastFriendSuggestionsVersion:(id)version;
@@ -90,7 +91,10 @@
 - (void)setLastProfilePrivacyVersion:(id)version;
 - (void)setLastWelcomeWhatsNewCopyVersion:(unint64_t)version;
 - (void)setOnboarding:(id)onboarding;
+- (void)setShouldPreserveOnboardingUI:(BOOL)i;
+- (void)setShowingInGameUI:(BOOL)i;
 - (void)setStatus:(id)status withCompletionHandler:(id)handler;
+- (void)signOutAndOptOut:(BOOL)out completionHandler:(id)handler;
 - (void)unregisterAllListeners;
 - (void)unregisterListener:(id)listener;
 - (void)updateFromLocalPlayer:(id)player;
@@ -101,7 +105,7 @@
 
 uint64_t __22__GKLocalPlayer_local__block_invoke(uint64_t a1)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v1 = objc_alloc_init(*(a1 + 32));
   v2 = local_sLocalPlayer;
   local_sLocalPlayer = v1;
@@ -122,9 +126,9 @@ uint64_t __22__GKLocalPlayer_local__block_invoke(uint64_t a1)
     [v6 addObserver:v7 selector:sel_applicationDidEnterBackground_ name:v8 object:0];
   }
 
-  v15[0] = &unk_283B6AF30;
-  v15[1] = &unk_283B63218;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[0] = &unk_283B6AF30;
+  v14[1] = &unk_283B63218;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   v10 = [GKEventEmitter eventEmitterForProtocols:v9];
   [local_sLocalPlayer setEventEmitter:v10];
 
@@ -136,9 +140,7 @@ uint64_t __22__GKLocalPlayer_local__block_invoke(uint64_t a1)
   }
 
   getpid();
-  result = proc_disable_wakemon();
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return proc_disable_wakemon();
 }
 
 + (GKLocalPlayer)local
@@ -176,6 +178,13 @@ uint64_t __22__GKLocalPlayer_local__block_invoke(uint64_t a1)
   return isDefaultPrivacyVisibility;
 }
 
+- (void)setDefaultPrivacyVisibility:(BOOL)visibility
+{
+  visibilityCopy = visibility;
+  internal = [(GKPlayer *)self internal];
+  [internal setDefaultPrivacyVisibility:visibilityCopy];
+}
+
 - (BOOL)isDefaultNickname
 {
   internal = [(GKPlayer *)self internal];
@@ -184,12 +193,26 @@ uint64_t __22__GKLocalPlayer_local__block_invoke(uint64_t a1)
   return isDefaultNickname;
 }
 
+- (void)setDefaultNickname:(BOOL)nickname
+{
+  nicknameCopy = nickname;
+  internal = [(GKPlayer *)self internal];
+  [internal setDefaultNickname:nicknameCopy];
+}
+
 - (BOOL)isDefaultContactsIntegrationConsent
 {
   internal = [(GKPlayer *)self internal];
   isDefaultContactsIntegrationConsent = [internal isDefaultContactsIntegrationConsent];
 
   return isDefaultContactsIntegrationConsent;
+}
+
+- (void)setDefaultContactsIntegrationConsent:(BOOL)consent
+{
+  consentCopy = consent;
+  internal = [(GKPlayer *)self internal];
+  [internal setDefaultContactsIntegrationConsent:consentCopy];
 }
 
 - (GKPlayerInternalOnboarding)onboarding
@@ -339,6 +362,23 @@ void __29__GKLocalPlayer_localPlayers__block_invoke(uint64_t a1)
   return showingInGameUI;
 }
 
+- (void)setShowingInGameUI:(BOOL)i
+{
+  iCopy = i;
+  v5 = +[GKLocalPlayer local];
+  if (v5 == self)
+  {
+    self->_showingInGameUI = iCopy;
+  }
+
+  else
+  {
+    v6 = v5;
+    [(GKLocalPlayer *)v5 setShowingInGameUI:iCopy];
+    v5 = v6;
+  }
+}
+
 - (void)setStatus:(id)status withCompletionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -403,6 +443,23 @@ void __49__GKLocalPlayer_setStatus_withCompletionHandler___block_invoke(uint64_t
   return shouldPreserveOnboardingUI;
 }
 
+- (void)setShouldPreserveOnboardingUI:(BOOL)i
+{
+  iCopy = i;
+  v5 = +[GKLocalPlayer local];
+  if (v5 == self)
+  {
+    self->_shouldPreserveOnboardingUI = iCopy;
+  }
+
+  else
+  {
+    v6 = v5;
+    [(GKLocalPlayer *)v5 setShouldPreserveOnboardingUI:iCopy];
+    v5 = v6;
+  }
+}
+
 - (id)displayNameWithOptions:(unsigned __int8)options
 {
   v5.receiver = self;
@@ -430,7 +487,7 @@ void __49__GKLocalPlayer_setStatus_withCompletionHandler___block_invoke(uint64_t
 
 - (void)promotePlayerInternalToLocalPlayerInternal:(id)internal
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   internalCopy = internal;
   if (!os_log_GKGeneral)
   {
@@ -442,9 +499,9 @@ void __49__GKLocalPlayer_setStatus_withCompletionHandler___block_invoke(uint64_t
   {
     v7 = v6;
     v8 = GKStackTraceWithFrameLimit(12);
-    v34 = 138412290;
-    v35 = v8;
-    _os_log_impl(&dword_227904000, v7, OS_LOG_TYPE_INFO, "A GKLocalPlayer contains a GKPlayerInternal object. This is wrong and should be a GKLocalPlayerInternal object. Promoting to correct the issue. Stack trace:%@", &v34, 0xCu);
+    v33 = 138412290;
+    v34 = v8;
+    _os_log_impl(&dword_227904000, v7, OS_LOG_TYPE_INFO, "A GKLocalPlayer contains a GKPlayerInternal object. This is wrong and should be a GKLocalPlayerInternal object. Promoting to correct the issue. Stack trace:%@", &v33, 0xCu);
   }
 
   v9 = objc_alloc_init(GKLocalPlayerInternal);
@@ -504,7 +561,6 @@ void __49__GKLocalPlayer_setStatus_withCompletionHandler___block_invoke(uint64_t
   [(GKFamiliarPlayerInternal *)v9 setCompositeName:compositeName];
 
   [(GKPlayer *)self setInternal:v9];
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateFromLocalPlayer:(id)player
@@ -531,7 +587,7 @@ void __49__GKLocalPlayer_setStatus_withCompletionHandler___block_invoke(uint64_t
 
 - (NSArray)friends
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   if (GKApplicationLinkedOnOrAfter(917504, 659456))
   {
     if (!os_log_GKGeneral)
@@ -544,18 +600,16 @@ void __49__GKLocalPlayer_setStatus_withCompletionHandler___block_invoke(uint64_t
       [GKLocalPlayer friends];
     }
 
-    v8[0] = @"playerID is no longer available";
-    friends = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = @"playerID is no longer available";
+    friends = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   }
 
   else
   {
-    v7.receiver = self;
-    v7.super_class = GKLocalPlayer;
-    friends = [(GKPlayer *)&v7 friends];
+    v6.receiver = self;
+    v6.super_class = GKLocalPlayer;
+    friends = [(GKPlayer *)&v6 friends];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return friends;
 }
@@ -857,9 +911,110 @@ void __50__GKLocalPlayer_loadFriendsWithCompletionHandler___block_invoke(uint64_
   }
 }
 
+- (void)signOutAndOptOut:(BOOL)out completionHandler:(id)handler
+{
+  outCopy = out;
+  v38[1] = *MEMORY[0x277D85DE8];
+  handlerCopy = handler;
+  v8 = os_log_GKGeneral;
+  if (!os_log_GKGeneral)
+  {
+    v9 = GKOSLoggers();
+    v8 = os_log_GKGeneral;
+  }
+
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  {
+    v10 = v8;
+    alias = [(GKPlayer *)self alias];
+    *buf = 138412546;
+    *&buf[4] = alias;
+    *&buf[12] = 1024;
+    *&buf[14] = outCopy;
+    _os_log_impl(&dword_227904000, v10, OS_LOG_TYPE_INFO, "GKLocalPlayer: signOutAndOptOut: %@, %d", buf, 0x12u);
+  }
+
+  if (!os_log_GKGeneral)
+  {
+    v12 = GKOSLoggers();
+  }
+
+  v13 = os_log_GKTrace;
+  if (os_log_type_enabled(os_log_GKTrace, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_227904000, v13, OS_LOG_TYPE_INFO, "GKLocalPlayer: signOutAndOptOut:", buf, 2u);
+  }
+
+  v14 = +[GKLocalPlayer authenticatedLocalPlayers];
+  firstObject = [v14 firstObject];
+
+  if (!firstObject || ([firstObject internal], v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "playerID"), v17 = objc_claimAutoreleasedReturnValue(), v18 = v17 == 0, v17, v16, v18))
+  {
+    if (!os_log_GKGeneral)
+    {
+      v27 = GKOSLoggers();
+    }
+
+    v28 = os_log_GKAccount;
+    if (os_log_type_enabled(os_log_GKAccount, OS_LOG_TYPE_ERROR))
+    {
+      [GKLocalPlayer signOutAndOptOut:v28 completionHandler:a2];
+    }
+
+    v29 = MEMORY[0x277CCA9B8];
+    v37 = *MEMORY[0x277CCA470];
+    v38[0] = @"No Game Center player to sign out.";
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+    v31 = [v29 userErrorForCode:8 userInfo:v30];
+
+    handlerCopy[2](handlerCopy, v31);
+  }
+
+  else
+  {
+    *buf = 0;
+    *&buf[8] = buf;
+    *&buf[16] = 0x2020000000;
+    v36 = 1;
+    internal = [firstObject internal];
+    playerID = [internal playerID];
+    internal2 = [(GKPlayer *)self internal];
+    playerID2 = [internal2 playerID];
+    v23 = [playerID isEqualToString:playerID2];
+
+    if ((v23 & 1) == 0)
+    {
+      *(*&buf[8] + 24) = 0;
+      if (!os_log_GKGeneral)
+      {
+        v24 = GKOSLoggers();
+      }
+
+      if (os_log_type_enabled(os_log_GKAccount, OS_LOG_TYPE_ERROR))
+      {
+        [GKLocalPlayer signOutAndOptOut:completionHandler:];
+      }
+    }
+
+    v25 = [GKDaemonProxy proxyForPlayer:firstObject];
+    [GKDaemonProxy removeProxyForPlayer:firstObject];
+    accountService = [v25 accountService];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __52__GKLocalPlayer_signOutAndOptOut_completionHandler___block_invoke;
+    v32[3] = &unk_2785DEA20;
+    v34 = buf;
+    v33 = handlerCopy;
+    [accountService signOutPlayerWithOptOut:outCopy handler:v32];
+
+    _Block_object_dispose(buf, 8);
+  }
+}
+
 void __52__GKLocalPlayer_signOutAndOptOut_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!os_log_GKGeneral)
   {
@@ -870,7 +1025,7 @@ void __52__GKLocalPlayer_signOutAndOptOut_completionHandler___block_invoke(uint6
   if (os_log_type_enabled(os_log_GKTrace, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v14 = v3;
+    v13 = v3;
     _os_log_impl(&dword_227904000, v5, OS_LOG_TYPE_INFO, "GKLocalPlayer: signOut error:%@", buf, 0xCu);
   }
 
@@ -888,9 +1043,9 @@ void __52__GKLocalPlayer_signOutAndOptOut_completionHandler___block_invoke(uint6
   if (!v3 || [v3 gkIsNotConnectedToInternetError])
   {
     v7 = MEMORY[0x277CCA9B8];
-    v11 = *MEMORY[0x277CCA470];
-    v12 = @"The player that was asked to be signed out was not the current local player. The current local player has been signed out.";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA470];
+    v11 = @"The player that was asked to be signed out was not the current local player. The current local player has been signed out.";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
     v6 = [v7 userErrorForCode:8 userInfo:v8];
 
     v3 = v8;
@@ -905,8 +1060,6 @@ LABEL_12:
   {
     (*(v9 + 16))(v9, v3);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (id)authenticatedLocalPlayersFiltered:(int64_t)filtered
@@ -936,7 +1089,7 @@ LABEL_12:
 
 - (void)updateLoginStatus:(unint64_t)status completionHandler:(id)handler
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v7 = os_log_GKGeneral;
   if (!os_log_GKGeneral)
@@ -977,15 +1130,13 @@ LABEL_12:
 
   daemonProxy = [(GKLocalPlayer *)self daemonProxy];
   accountServicePrivate = [daemonProxy accountServicePrivate];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __53__GKLocalPlayer_updateLoginStatus_completionHandler___block_invoke;
-  v20[3] = &unk_2785DE008;
-  v21 = handlerCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __53__GKLocalPlayer_updateLoginStatus_completionHandler___block_invoke;
+  v19[3] = &unk_2785DE008;
+  v20 = handlerCopy;
   v18 = handlerCopy;
-  [accountServicePrivate setLoginStatus:status handler:v20];
-
-  v19 = *MEMORY[0x277D85DE8];
+  [accountServicePrivate setLoginStatus:status handler:v19];
 }
 
 void __53__GKLocalPlayer_updateLoginStatus_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1130,7 +1281,7 @@ id __58__GKLocalPlayer__localPlayersFromInternals_authenticated___block_invoke(u
 
 + (void)authenticatedLocalPlayersDidChange:(id)change complete:(id)complete
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   completeCopy = complete;
   v9 = +[GKLocalPlayer localPlayer];
@@ -1198,17 +1349,17 @@ id __58__GKLocalPlayer__localPlayersFromInternals_authenticated___block_invoke(u
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v61 = __Block_byref_object_copy__5;
-    v62 = __Block_byref_object_dispose__5;
-    v63 = 0;
-    v57[0] = MEMORY[0x277D85DD0];
-    v57[1] = 3221225472;
-    v57[2] = __61__GKLocalPlayer_authenticatedLocalPlayersDidChange_complete___block_invoke;
-    v57[3] = &unk_2785DEA90;
-    v59 = buf;
+    v60 = __Block_byref_object_copy__5;
+    v61 = __Block_byref_object_dispose__5;
+    v62 = 0;
+    v56[0] = MEMORY[0x277D85DD0];
+    v56[1] = 3221225472;
+    v56[2] = __61__GKLocalPlayer_authenticatedLocalPlayersDidChange_complete___block_invoke;
+    v56[3] = &unk_2785DEA90;
+    v58 = buf;
     v23 = changeCopy;
-    v58 = v23;
-    [self performSync:v57];
+    v57 = v23;
+    [self performSync:v56];
     local = [self local];
     internal = [local internal];
 
@@ -1228,39 +1379,39 @@ id __58__GKLocalPlayer__localPlayersFromInternals_authenticated___block_invoke(u
 
     array = [MEMORY[0x277CBEB18] array];
     v29 = *(*&buf[8] + 40);
-    v54[0] = MEMORY[0x277D85DD0];
-    v54[1] = 3221225472;
-    v54[2] = __61__GKLocalPlayer_authenticatedLocalPlayersDidChange_complete___block_invoke_2;
-    v54[3] = &unk_2785DEAB8;
+    v53[0] = MEMORY[0x277D85DD0];
+    v53[1] = 3221225472;
+    v53[2] = __61__GKLocalPlayer_authenticatedLocalPlayersDidChange_complete___block_invoke_2;
+    v53[3] = &unk_2785DEAB8;
     v30 = v22;
-    v55 = v30;
+    v54 = v30;
     v31 = array;
-    v56 = v31;
-    [v29 enumerateObjectsUsingBlock:v54];
+    v55 = v31;
+    [v29 enumerateObjectsUsingBlock:v53];
     array2 = [MEMORY[0x277CBEB18] array];
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __61__GKLocalPlayer_authenticatedLocalPlayersDidChange_complete___block_invoke_3;
-    v51[3] = &unk_2785DEAE0;
-    v53 = buf;
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __61__GKLocalPlayer_authenticatedLocalPlayersDidChange_complete___block_invoke_3;
+    v50[3] = &unk_2785DEAE0;
+    v52 = buf;
     v33 = array2;
-    v52 = v33;
-    [v30 enumerateObjectsUsingBlock:v51];
-    v45 = 0;
-    v46 = &v45;
-    v47 = 0x3032000000;
-    v48 = __Block_byref_object_copy__5;
-    v49 = __Block_byref_object_dispose__5;
-    v50 = 0;
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __61__GKLocalPlayer_authenticatedLocalPlayersDidChange_complete___block_invoke_4;
-    v44[3] = &unk_2785DEB08;
-    v44[4] = &v45;
-    [v23 enumerateObjectsUsingBlock:v44];
-    if ([v33 count] || objc_msgSend(v31, "count") || internal2 != v46[5] && (objc_msgSend(internal2, "isEqual:") & 1) == 0)
+    v51 = v33;
+    [v30 enumerateObjectsUsingBlock:v50];
+    v44 = 0;
+    v45 = &v44;
+    v46 = 0x3032000000;
+    v47 = __Block_byref_object_copy__5;
+    v48 = __Block_byref_object_dispose__5;
+    v49 = 0;
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __61__GKLocalPlayer_authenticatedLocalPlayersDidChange_complete___block_invoke_4;
+    v43[3] = &unk_2785DEB08;
+    v43[4] = &v44;
+    [v23 enumerateObjectsUsingBlock:v43];
+    if ([v33 count] || objc_msgSend(v31, "count") || internal2 != v45[5] && (objc_msgSend(internal2, "isEqual:") & 1) == 0)
     {
-      v34 = [self _userInfoForAuthAPINotificationForLoggedInPlayerInternals:v33 loggedOutPlayerInternals:v31 oldPrimary:internal2 newPrimary:v46[5]];
+      v34 = [self _userInfoForAuthAPINotificationForLoggedInPlayerInternals:v33 loggedOutPlayerInternals:v31 oldPrimary:internal2 newPrimary:v45[5]];
       v35 = 1;
     }
 
@@ -1270,27 +1421,25 @@ id __58__GKLocalPlayer__localPlayersFromInternals_authenticated___block_invoke(u
       v34 = 0;
     }
 
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __61__GKLocalPlayer_authenticatedLocalPlayersDidChange_complete___block_invoke_5;
-    v38[3] = &unk_2785DEB58;
-    v41 = &v45;
-    v39 = v9;
-    v43 = v35;
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __61__GKLocalPlayer_authenticatedLocalPlayersDidChange_complete___block_invoke_5;
+    v37[3] = &unk_2785DEB58;
+    v40 = &v44;
+    v38 = v9;
+    v42 = v35;
     v36 = v34;
-    v40 = v36;
+    v39 = v36;
     selfCopy = self;
-    dispatch_async(MEMORY[0x277D85CD0], v38);
+    dispatch_async(MEMORY[0x277D85CD0], v37);
     if (completeCopy)
     {
       completeCopy[2](completeCopy);
     }
 
-    _Block_object_dispose(&v45, 8);
+    _Block_object_dispose(&v44, 8);
     _Block_object_dispose(buf, 8);
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 void __61__GKLocalPlayer_authenticatedLocalPlayersDidChange_complete___block_invoke(uint64_t a1)
@@ -1411,7 +1560,7 @@ void __61__GKLocalPlayer_authenticatedLocalPlayersDidChange_complete___block_inv
 
 void __61__GKLocalPlayer_authenticatedLocalPlayersDidChange_complete___block_invoke_7(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = os_log_GKGeneral;
   if (!os_log_GKGeneral)
   {
@@ -1422,9 +1571,9 @@ void __61__GKLocalPlayer_authenticatedLocalPlayersDidChange_complete___block_inv
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v4 = *(a1 + 32);
-    v10 = 138412290;
-    v11 = v4;
-    _os_log_impl(&dword_227904000, v2, OS_LOG_TYPE_INFO, "sending auth did change %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v4;
+    _os_log_impl(&dword_227904000, v2, OS_LOG_TYPE_INFO, "sending auth did change %@", &v9, 0xCu);
   }
 
   v5 = [MEMORY[0x277CCAB98] defaultCenter];
@@ -1441,8 +1590,6 @@ void __61__GKLocalPlayer_authenticatedLocalPlayersDidChange_complete___block_inv
   }
 
   [v5 postNotificationName:v6 object:v7 userInfo:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __61__GKLocalPlayer_authenticatedLocalPlayersDidChange_complete___block_invoke_187(uint64_t a1)
@@ -1479,7 +1626,7 @@ uint64_t __61__GKLocalPlayer_authenticatedLocalPlayersDidChange_complete___block
 
 + (void)authenticateWithUsername:(id)username password:(id)password completionHandler:(id)handler
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   usernameCopy = username;
   passwordCopy = password;
   handlerCopy = handler;
@@ -1504,27 +1651,25 @@ uint64_t __61__GKLocalPlayer_authenticatedLocalPlayersDidChange_complete___block
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v25 = usernameCopy;
+    v24 = usernameCopy;
     _os_log_impl(&dword_227904000, v15, OS_LOG_TYPE_INFO, "authenticateWithUsername:%@", buf, 0xCu);
   }
 
   v17 = +[GKLocalPlayer accountServicePrivate];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __69__GKLocalPlayer_authenticateWithUsername_password_completionHandler___block_invoke;
-  v21[3] = &unk_2785DEB80;
-  v22 = usernameCopy;
-  v23 = handlerCopy;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __69__GKLocalPlayer_authenticateWithUsername_password_completionHandler___block_invoke;
+  v20[3] = &unk_2785DEB80;
+  v21 = usernameCopy;
+  v22 = handlerCopy;
   v18 = handlerCopy;
   v19 = usernameCopy;
-  [v17 authenticatePlayerWithUsername:v19 password:passwordCopy altDSID:0 usingFastPath:1 handler:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  [v17 authenticatePlayerWithUsername:v19 password:passwordCopy altDSID:0 usingFastPath:1 handler:v20];
 }
 
 void __69__GKLocalPlayer_authenticateWithUsername_password_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = os_log_GKGeneral;
@@ -1537,13 +1682,13 @@ void __69__GKLocalPlayer_authenticateWithUsername_password_completionHandler___b
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v9 = *(a1 + 32);
-    v12 = 138412802;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v5;
-    v16 = 2112;
-    v17 = v6;
-    _os_log_impl(&dword_227904000, v7, OS_LOG_TYPE_INFO, "authenticateWithUsername:%@ response:%@ error:%@", &v12, 0x20u);
+    v11 = 138412802;
+    v12 = v9;
+    v13 = 2112;
+    v14 = v5;
+    v15 = 2112;
+    v16 = v6;
+    _os_log_impl(&dword_227904000, v7, OS_LOG_TYPE_INFO, "authenticateWithUsername:%@ response:%@ error:%@", &v11, 0x20u);
   }
 
   if (v6)
@@ -1557,8 +1702,6 @@ void __69__GKLocalPlayer_authenticateWithUsername_password_completionHandler___b
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)refreshInternalWithCompletion:(id)completion
@@ -1645,7 +1788,7 @@ void __47__GKLocalPlayer_refreshInternalWithCompletion___block_invoke_3(uint64_t
 
 - (void)callAuthHandlerWithError:(id)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = os_log_GKGeneral;
   if (!os_log_GKGeneral)
@@ -1657,7 +1800,7 @@ void __47__GKLocalPlayer_refreshInternalWithCompletion___block_invoke_3(uint64_t
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v22 = errorCopy;
+    v21 = errorCopy;
     _os_log_impl(&dword_227904000, v5, OS_LOG_TYPE_DEFAULT, "Calling AuthenticateHandlerWithError: %@", buf, 0xCu);
   }
 
@@ -1701,16 +1844,14 @@ void __47__GKLocalPlayer_refreshInternalWithCompletion___block_invoke_3(uint64_t
   [v15 setAuthenticationState:v14];
 
   v16 = +[GKLocalPlayer local];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __42__GKLocalPlayer_callAuthHandlerWithError___block_invoke;
-  v19[3] = &unk_2785DEBA8;
-  v19[4] = self;
-  v20 = errorCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __42__GKLocalPlayer_callAuthHandlerWithError___block_invoke;
+  v18[3] = &unk_2785DEBA8;
+  v18[4] = self;
+  v19 = errorCopy;
   v17 = errorCopy;
-  [v16 updateScopedIDs:v19];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [v16 updateScopedIDs:v18];
 }
 
 void __42__GKLocalPlayer_callAuthHandlerWithError___block_invoke(uint64_t a1)
@@ -1797,19 +1938,18 @@ uint64_t __40__GKLocalPlayer_setAuthenticateHandler___block_invoke(uint64_t a1)
 
 uint64_t __40__GKLocalPlayer_setAuthenticateHandler___block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_respondsToSelector();
-  v4 = *(a1 + 32);
-  if (v3)
+  v2 = objc_opt_respondsToSelector();
+  v3 = *(a1 + 32);
+  if (v2)
   {
 
-    return [v4 startAuthenticationForExistingPrimaryPlayer];
+    return [v3 startAuthenticationForExistingPrimaryPlayer];
   }
 
   else
   {
 
-    return [v4 _startAuthenticationForExistingPrimaryPlayer];
+    return [v3 _startAuthenticationForExistingPrimaryPlayer];
   }
 }
 
@@ -1833,20 +1973,28 @@ uint64_t __40__GKLocalPlayer_setAuthenticateHandler___block_invoke_2(uint64_t a1
 
 uint64_t __36__GKLocalPlayer_removeFriend_block___block_invoke(uint64_t a1, void *a2)
 {
-  v5 = a2;
-  if (!v5 && [*(a1 + 32) numberOfFriends])
+  v3 = a2;
+  v7 = v3;
+  if (!v3)
   {
-    [*(a1 + 32) setNumberOfFriends:{objc_msgSend(*(a1 + 32), "numberOfFriends") - 1}];
-    [*(a1 + 32) postChangeNotification];
+    v4 = [*(a1 + 32) numberOfFriends];
+    v3 = 0;
+    if (v4)
+    {
+      [*(a1 + 32) setNumberOfFriends:{objc_msgSend(*(a1 + 32), "numberOfFriends") - 1}];
+      [*(a1 + 32) postChangeNotification];
+      v3 = 0;
+    }
   }
 
-  v3 = *(a1 + 40);
-  if (v3)
+  v5 = *(a1 + 40);
+  if (v5)
   {
-    (*(v3 + 16))(v3, v5);
+    v5 = (*(v5 + 16))(v5, v7);
+    v3 = v7;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v5, v3);
 }
 
 - (void)removeAllFriendsWithBlock:(id)block
@@ -1878,20 +2026,28 @@ uint64_t __36__GKLocalPlayer_removeFriend_block___block_invoke(uint64_t a1, void
 
 uint64_t __43__GKLocalPlayer_removeAllFriendsWithBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v5 = a2;
-  if (!v5 && [*(a1 + 32) numberOfFriends])
+  v3 = a2;
+  v7 = v3;
+  if (!v3)
   {
-    [*(a1 + 32) setNumberOfFriends:0];
-    [*(a1 + 32) postChangeNotification];
+    v4 = [*(a1 + 32) numberOfFriends];
+    v3 = 0;
+    if (v4)
+    {
+      [*(a1 + 32) setNumberOfFriends:0];
+      [*(a1 + 32) postChangeNotification];
+      v3 = 0;
+    }
   }
 
-  v3 = *(a1 + 40);
-  if (v3)
+  v5 = *(a1 + 40);
+  if (v5)
   {
-    (*(v3 + 16))(v3, v5);
+    v5 = (*(v5 + 16))(v5, v7);
+    v3 = v7;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v5, v3);
 }
 
 - (void)_startAuthenticationForExistingPrimaryPlayer
@@ -1910,7 +2066,7 @@ uint64_t __43__GKLocalPlayer_removeAllFriendsWithBlock___block_invoke(uint64_t a
 
 void __61__GKLocalPlayer__startAuthenticationForExistingPrimaryPlayer__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1938,35 +2094,35 @@ void __61__GKLocalPlayer__startAuthenticationForExistingPrimaryPlayer__block_inv
     v33 = *(a1 + 40);
     v34 = v8;
     v35 = NSStringFromSelector(v33);
-    *v55 = 138412802;
-    *&v55[4] = v35;
-    *&v55[12] = 2112;
-    *&v55[14] = v5;
-    *&v55[22] = 2112;
-    v56 = v6;
-    _os_log_debug_impl(&dword_227904000, v34, OS_LOG_TYPE_DEBUG, "%@ auth response:%@ error:%@", v55, 0x20u);
+    *v54 = 138412802;
+    *&v54[4] = v35;
+    *&v54[12] = 2112;
+    *&v54[14] = v5;
+    *&v54[22] = 2112;
+    v55 = v6;
+    _os_log_debug_impl(&dword_227904000, v34, OS_LOG_TYPE_DEBUG, "%@ auth response:%@ error:%@", v54, 0x20u);
   }
 
-  *v55 = 0;
-  *&v55[8] = v55;
-  *&v55[16] = 0x3032000000;
-  v56 = __Block_byref_object_copy__5;
-  v57 = __Block_byref_object_dispose__5;
-  v58 = 0;
+  *v54 = 0;
+  *&v54[8] = v54;
+  *&v54[16] = 0x3032000000;
+  v55 = __Block_byref_object_copy__5;
+  v56 = __Block_byref_object_dispose__5;
+  v57 = 0;
   v10 = [v5 playerID];
   v11 = [GKLocalPlayer authenticatedLocalPlayersWithStatus:1];
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = __61__GKLocalPlayer__startAuthenticationForExistingPrimaryPlayer__block_invoke_199;
-  v49[3] = &unk_2785DEBD0;
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = __61__GKLocalPlayer__startAuthenticationForExistingPrimaryPlayer__block_invoke_199;
+  v48[3] = &unk_2785DEBD0;
   v12 = v10;
   v13 = *(a1 + 32);
-  v50 = v12;
-  v51 = v13;
-  v52 = v55;
-  [v11 enumerateObjectsUsingBlock:v49];
+  v49 = v12;
+  v50 = v13;
+  v51 = v54;
+  [v11 enumerateObjectsUsingBlock:v48];
 
-  v14 = [*(*&v55[8] + 40) internal];
+  v14 = [*(*&v54[8] + 40) internal];
   [*(a1 + 32) setInternal:v14];
 
   if (v6 || ([v5 loginDisabled] & 1) != 0)
@@ -2088,7 +2244,7 @@ LABEL_62:
               {
                 v45 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v24, "code")}];
                 *buf = 138412290;
-                v54 = v45;
+                v53 = v45;
                 _os_log_impl(&dword_227904000, v44, OS_LOG_TYPE_INFO, "_handleAuthResponse:Underlying Error: %@", buf, 0xCu);
               }
             }
@@ -2120,11 +2276,11 @@ LABEL_62:
         goto LABEL_18;
       }
 
-      if (!*(*&v55[8] + 40))
+      if (!*(*&v54[8] + 40))
       {
         v36 = +[GKLocalPlayer localPlayer];
-        v37 = *(*&v55[8] + 40);
-        *(*&v55[8] + 40) = v36;
+        v37 = *(*&v54[8] + 40);
+        *(*&v54[8] + 40) = v36;
       }
     }
   }
@@ -2156,8 +2312,7 @@ LABEL_63:
     (v47)[2](v47, 0, v6);
   }
 
-  _Block_object_dispose(v55, 8);
-  v48 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v54, 8);
 }
 
 void __61__GKLocalPlayer__startAuthenticationForExistingPrimaryPlayer__block_invoke_199(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -2333,7 +2488,7 @@ void __34__GKLocalPlayer_cancelGameInvite___block_invoke(uint64_t a1, void *a2)
     goto LABEL_5;
   }
 
-  [v10 gameInfo];
+  objc_msgSend_gameInfo(v10);
   if (*(&v18 + 1) >= 2uLL)
   {
     v15[0] = MEMORY[0x277D85DD0];
@@ -2555,22 +2710,20 @@ void __60__GKLocalPlayer_fetchItemsForIdentityVerificationSignature___block_invo
 
 void __51__GKLocalPlayer_getPlayerIDFromFriendCode_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[GKDaemonProxy proxyForLocalPlayer];
   v5 = [v4 friendServicePrivate];
-  v12[0] = *(a1 + 32);
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __51__GKLocalPlayer_getPlayerIDFromFriendCode_handler___block_invoke_2;
-  v9[3] = &unk_2785DDC38;
-  v10 = *(a1 + 40);
-  v11 = v3;
+  v11[0] = *(a1 + 32);
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __51__GKLocalPlayer_getPlayerIDFromFriendCode_handler___block_invoke_2;
+  v8[3] = &unk_2785DDC38;
+  v9 = *(a1 + 40);
+  v10 = v3;
   v7 = v3;
-  [v5 getFriendCodeDetailWithIdentifiers:v6 handler:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [v5 getFriendCodeDetailWithIdentifiers:v6 handler:v8];
 }
 
 void __51__GKLocalPlayer_getPlayerIDFromFriendCode_handler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
@@ -2935,7 +3088,7 @@ void __59__GKLocalPlayer_rejectFriendRequestWithIdentifier_handler___block_invok
 
 - (BOOL)isWelcomeBannerTooLate
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = +[GKLocalPlayer localPlayer];
   [v3 authStartTimeStamp];
   v5 = v4;
@@ -3002,13 +3155,12 @@ void __59__GKLocalPlayer_rejectFriendRequestWithIdentifier_handler___block_invok
 
     if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
-      v28 = 134217984;
-      v29 = v11;
-      _os_log_impl(&dword_227904000, v24, OS_LOG_TYPE_INFO, "shouldDisplayWelcomeBannerForPlayer: Welcome banner displayed in %g seconds", &v28, 0xCu);
+      v27 = 134217984;
+      v28 = v11;
+      _os_log_impl(&dword_227904000, v24, OS_LOG_TYPE_INFO, "shouldDisplayWelcomeBannerForPlayer: Welcome banner displayed in %g seconds", &v27, 0xCu);
     }
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -3465,7 +3617,7 @@ LABEL_12:
 
 void __75__GKLocalPlayer_FriendsList__loadFriendsWithIdentifiers_completionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (a3)
   {
@@ -3475,27 +3627,27 @@ void __75__GKLocalPlayer_FriendsList__loadFriendsWithIdentifiers_completionHandl
   else
   {
     v6 = [MEMORY[0x277CBEB38] dictionary];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
-    v26 = v5;
+    v25 = v5;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v32;
+      v10 = *v31;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v32 != v10)
+          if (*v31 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v31 + 1) + 8 * i);
+          v12 = *(*(&v30 + 1) + 8 * i);
           if ([v12 scopedIDsArePersistent])
           {
             v13 = [v12 gamePlayerID];
@@ -3506,33 +3658,33 @@ void __75__GKLocalPlayer_FriendsList__loadFriendsWithIdentifiers_completionHandl
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v9);
     }
 
     v15 = [MEMORY[0x277CBEB18] array];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     v16 = *(a1 + 32);
-    v17 = [v16 countByEnumeratingWithState:&v27 objects:v35 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v28;
+      v19 = *v27;
       do
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v28 != v19)
+          if (*v27 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v27 + 1) + 8 * j);
+          v21 = *(*(&v26 + 1) + 8 * j);
           v22 = [MEMORY[0x277CCA900] whitespaceCharacterSet];
           v23 = [v21 stringByTrimmingCharactersInSet:v22];
 
@@ -3543,17 +3695,15 @@ void __75__GKLocalPlayer_FriendsList__loadFriendsWithIdentifiers_completionHandl
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
       }
 
       while (v18);
     }
 
     (*(*(a1 + 40) + 16))();
-    v5 = v26;
+    v5 = v25;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadFriendsListGlobalAccessOptInFlow:(id)flow
@@ -3722,7 +3872,7 @@ void __71__GKLocalPlayer_FriendsList___loadFriendsListPerGameNotDeterminedFlow__
 
 void __68__GKLocalPlayer_FriendsList___loadFriendsListPerGameAuthorizedFlow___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (a3)
   {
@@ -3735,36 +3885,36 @@ void __68__GKLocalPlayer_FriendsList___loadFriendsListPerGameAuthorizedFlow___bl
     [v6 reportEvent:@"com.apple.GameKit.PlayerProfileDashboard" type:@"FriendsAPILoadFriendsListCount" count:{objc_msgSend(v5, "count")}];
 
     v7 = objc_opt_new();
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         v12 = 0;
         do
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * v12);
+          v13 = *(*(&v16 + 1) + 8 * v12);
           v14 = [GKPlayer alloc];
-          v15 = [(GKPlayer *)v14 initWithInternalRepresentation:v13, v17];
+          v15 = [(GKPlayer *)v14 initWithInternalRepresentation:v13, v16];
           [v7 addObject:v15];
 
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
@@ -3772,13 +3922,11 @@ void __68__GKLocalPlayer_FriendsList___loadFriendsListPerGameAuthorizedFlow___bl
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updatePerGameSettings:(int64_t)settings withCompletionHandler:(id)handler
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (settings == 3)
   {
@@ -3793,32 +3941,30 @@ LABEL_5:
     v7 = +[GKLocalPlayer local];
     v8 = +[GKGame currentGame];
     bundleIdentifier = [v8 bundleIdentifier];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __75__GKLocalPlayer_FriendsList___updatePerGameSettings_withCompletionHandler___block_invoke;
-    v13[3] = &unk_2785DE008;
-    v14 = handlerCopy;
-    [v7 setFriendListAuthorizationStatus:v6 forBundleID:bundleIdentifier handler:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __75__GKLocalPlayer_FriendsList___updatePerGameSettings_withCompletionHandler___block_invoke;
+    v12[3] = &unk_2785DE008;
+    v13 = handlerCopy;
+    [v7 setFriendListAuthorizationStatus:v6 forBundleID:bundleIdentifier handler:v12];
 
     goto LABEL_6;
   }
 
   if (!os_log_GKGeneral)
   {
-    v11 = GKOSLoggers();
+    v10 = GKOSLoggers();
   }
 
-  v12 = os_log_GKDaemon;
+  v11 = os_log_GKDaemon;
   if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v16 = "[GKLocalPlayer(FriendsList) _updatePerGameSettings:withCompletionHandler:]";
-    _os_log_impl(&dword_227904000, v12, OS_LOG_TYPE_INFO, "%s is trying to set an invalid game settings", buf, 0xCu);
+    v15 = "[GKLocalPlayer(FriendsList) _updatePerGameSettings:withCompletionHandler:]";
+    _os_log_impl(&dword_227904000, v11, OS_LOG_TYPE_INFO, "%s is trying to set an invalid game settings", buf, 0xCu);
   }
 
 LABEL_6:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_gkFriendListUsageDescription
@@ -4139,56 +4285,14 @@ void __86__GKLocalPlayer_GKSavedGame__resolveConflictingSavedGames_withData_comp
   [v2 resolveConflictingSavedGames:a1[4] withData:a1[5] completionHandler:a1[6]];
 }
 
-+ (void)localPlayers
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)friends
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)loadFriendsWithCompletionHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)signOutAndOptOut:(void *)a1 completionHandler:(const char *)a2 .cold.2(void *a1, const char *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = NSStringFromSelector(a2);
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_227904000, v3, OS_LOG_TYPE_ERROR, "%@:Game Center signout was invoked with no player logged in. Notifying the caller.", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __53__GKLocalPlayer_updateLoginStatus_completionHandler___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __61__GKLocalPlayer__startAuthenticationForExistingPrimaryPlayer__block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_227904000, v3, OS_LOG_TYPE_ERROR, "%@:Game Center signout was invoked with no player logged in. Notifying the caller.", &v5, 0xCu);
 }
 
 @end

@@ -14,6 +14,7 @@
 - (unint64_t)_indexOfOption:(id)option forCustomEditMode:(int64_t)mode slot:(id)slot;
 - (unint64_t)_numberOfOptionsForCustomEditMode:(int64_t)mode slot:(id)slot;
 - (void)companionEditorWithAssets:(id)assets completion:(id)completion;
+- (void)upgradeContext;
 @end
 
 @implementation NTKPhotosFace
@@ -372,6 +373,13 @@ LABEL_9:
   }
 
   completionCopy[2](completionCopy, v14);
+}
+
+- (void)upgradeContext
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_4();
+  OUTLINED_FUNCTION_1_0(&dword_22D9C5000, v0, v1, "%s: bad color edit option: %@", v2, v3, v4, v5, v6);
 }
 
 @end

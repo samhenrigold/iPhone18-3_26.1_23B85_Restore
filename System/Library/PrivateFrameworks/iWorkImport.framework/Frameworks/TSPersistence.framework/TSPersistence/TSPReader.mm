@@ -11,6 +11,7 @@
 - (TSPReaderDelegate)delegate;
 - (id).cxx_construct;
 - (id)dataForIdentifier:(int64_t)identifier referencedByObjectIdentifier:(int64_t)objectIdentifier objectClass:(Class)class;
+- (id)newObjectUUIDForObject:(id)object uuidNamespace:(unsigned __int8)namespace offset:(unint64_t)offset ignoringBaseUUIDForObjectUUID:(BOOL)d requireDeterministicUUID:(BOOL)iD;
 - (int64_t)newObjectIdentifier;
 - (int64_t)objectIdentifierForUUID:(id)d;
 - (unint64_t)readVersion;
@@ -402,99 +403,99 @@
     v21 = *(v17 + 16);
     v22 = *(v17 + 24);
     v23 = *(v17 + 32);
-    v87 = _Block_copy(v20);
-    v88 = v21;
-    v89 = v22;
-    v90 = v23;
-    sub_276AD7CD0(v19, &v87);
+    v91 = _Block_copy(v20);
+    v92 = v21;
+    v93 = v22;
+    v94 = v23;
+    sub_276AD7CD0(v19, &v91, v24, v25, v26, v27);
 
     v17 += 40;
   }
 
-  v25 = objc_msgSend_repeatedReferences(unarchiverCopy, v14, v15);
-  v26 = *v25;
-  v27 = v25[1];
-  while (v26 != v27)
+  v29 = objc_msgSend_repeatedReferences(unarchiverCopy, v14, v15);
+  v30 = *v29;
+  v31 = v29[1];
+  while (v30 != v31)
   {
-    sub_276AD7D30(&self->_repeatedReferences, v26);
-    v26 += 56;
+    sub_276AD7D30(&self->_repeatedReferences, v30);
+    v30 += 56;
   }
 
-  objc_msgSend_didUnarchiveObject_withUnarchiver_(self, v24, objectCopy, unarchiverCopy);
-  v30 = objc_msgSend_finalizeHandlers(unarchiverCopy, v28, v29);
+  objc_msgSend_didUnarchiveObject_withUnarchiver_(self, v28, objectCopy, unarchiverCopy);
+  v34 = objc_msgSend_finalizeHandlers(unarchiverCopy, v32, v33);
   finalizeHandlerQueue = self->_finalizeHandlerQueue;
-  v34 = objc_msgSend_strongReferences(unarchiverCopy, v32, v33);
-  objc_msgSend_addFinalizeHandlers_strongReferences_forIdentifier_(finalizeHandlerQueue, v35, v30, v34, v11);
+  v38 = objc_msgSend_strongReferences(unarchiverCopy, v36, v37);
+  objc_msgSend_addFinalizeHandlers_strongReferences_forIdentifier_(finalizeHandlerQueue, v39, v34, v38, v11);
   sub_2769BB224(v16, *v16);
-  sub_2769BB2D4(v25, *v25);
-  v38 = *v30;
-  for (i = v30[1]; i != v38; i -= 8)
+  sub_2769BB2D4(v29, *v29);
+  v42 = *v34;
+  for (i = v34[1]; i != v42; i -= 8)
   {
-    v40 = *(i - 8);
+    v44 = *(i - 8);
   }
 
-  v30[1] = v38;
-  if ((*&self->_flags & 0x100) == 0 && objc_msgSend_sourceType(self, v36, v37) == 1)
+  v34[1] = v42;
+  if ((*&self->_flags & 0x100) == 0 && objc_msgSend_sourceType(self, v40, v41) == 1)
   {
-    v41 = objc_msgSend_fileFormatVersion(self, v36, v37);
-    if (v41 == UnsafePointer())
+    v45 = objc_msgSend_fileFormatVersion(self, v40, v41);
+    if (v45 == UnsafePointer())
     {
       aBlock[0] = MEMORY[0x277D85DD0];
       aBlock[1] = 3221225472;
       aBlock[2] = sub_276AD7D70;
       aBlock[3] = &unk_27A6E6E40;
-      v42 = unarchiverCopy;
-      v83 = v42;
+      v46 = unarchiverCopy;
+      v87 = v46;
       selfCopy = self;
-      v85 = objectCopy;
-      v86 = v11;
-      v43 = _Block_copy(aBlock);
-      v46 = objc_msgSend_dataReferences(v42, v44, v45);
-      v49 = objc_msgSend_persistedComponentDataReferenceMap(self->_component, v47, v48);
-      v52 = objc_msgSend_objectToDataReferenceMap(v49, v50, v51);
-      v54 = objc_msgSend_allReferencesFromIdentifier_(v52, v53, v11);
+      v89 = objectCopy;
+      v90 = v11;
+      v47 = _Block_copy(aBlock);
+      v50 = objc_msgSend_dataReferences(v46, v48, v49);
+      v53 = objc_msgSend_persistedComponentDataReferenceMap(self->_component, v51, v52);
+      v56 = objc_msgSend_objectToDataReferenceMap(v53, v54, v55);
+      v58 = objc_msgSend_allReferencesFromIdentifier_(v56, v57, v11);
 
-      v80[0] = MEMORY[0x277D85DD0];
-      v80[1] = 3221225472;
-      v80[2] = sub_276AD8018;
-      v80[3] = &unk_27A6E6E68;
-      v80[4] = v54;
-      v55 = v43;
-      v81 = v55;
-      objc_msgSend_enumerateIdentifiersUsingBlock_(v46, v56, v80);
-      v78[0] = MEMORY[0x277D85DD0];
-      v78[1] = 3221225472;
-      v78[2] = sub_276AD8078;
-      v78[3] = &unk_27A6E6E68;
-      v78[4] = v46;
-      v57 = v55;
-      v79 = v57;
-      objc_msgSend_enumerateIdentifiersUsingBlock_(v54, v58, v78);
+      v84[0] = MEMORY[0x277D85DD0];
+      v84[1] = 3221225472;
+      v84[2] = sub_276AD8018;
+      v84[3] = &unk_27A6E6E68;
+      v84[4] = v58;
+      v59 = v47;
+      v85 = v59;
+      objc_msgSend_enumerateIdentifiersUsingBlock_(v50, v60, v84);
+      v82[0] = MEMORY[0x277D85DD0];
+      v82[1] = 3221225472;
+      v82[2] = sub_276AD8078;
+      v82[3] = &unk_27A6E6E68;
+      v82[4] = v50;
+      v61 = v59;
+      v83 = v61;
+      objc_msgSend_enumerateIdentifiersUsingBlock_(v58, v62, v82);
     }
   }
 
   if ((*&self->_flags & 0x400) != 0)
   {
-    v59 = objc_msgSend_objectUUID(objectCopy, v36, v37);
-    v61 = objc_msgSend_objectUUIDForIdentifier_(self->_componentObjectUUIDMap, v60, v11);
-    v63 = v61;
-    if (v59 != v61 && (objc_msgSend_isEqual_(v61, v62, v59) & 1) == 0)
+    v63 = objc_msgSend_objectUUID(objectCopy, v40, v41);
+    v65 = objc_msgSend_objectUUIDForIdentifier_(self->_componentObjectUUIDMap, v64, v11);
+    v67 = v65;
+    if (v63 != v65 && (objc_msgSend_isEqual_(v65, v66, v63) & 1) == 0)
     {
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
-      objc_msgSend_reader_didResetObjectUUID_forObjectIdentifier_originalObjectUUID_(WeakRetained, v65, self, v59, v11, v63);
+      objc_msgSend_reader_didResetObjectUUID_forObjectIdentifier_originalObjectUUID_(WeakRetained, v69, self, v63, v11, v67);
     }
   }
 
-  if ((objc_msgSend_validateObjectIdentifierForObject_(self, v36, objectCopy) & 1) == 0)
+  if ((objc_msgSend_validateObjectIdentifierForObject_(self, v40, objectCopy) & 1) == 0)
   {
-    objc_msgSend_setTsp_identifier_(objectCopy, v66, 0);
+    objc_msgSend_setTsp_identifier_(objectCopy, v70, 0);
     if ((*&self->_flags & 0x200) != 0)
     {
-      v69 = objc_loadWeakRetained(&self->_delegate);
-      objc_msgSend_reader_didResetObjectIdentifierForObject_originalObjectIdentifier_(v69, v70, self, objectCopy, v11);
+      v73 = objc_loadWeakRetained(&self->_delegate);
+      objc_msgSend_reader_didResetObjectIdentifierForObject_originalObjectIdentifier_(v73, v74, self, objectCopy, v11);
     }
 
-    v71 = objc_msgSend_tsp_identifier(objectCopy, v67, v68);
+    v75 = objc_msgSend_tsp_identifier(objectCopy, v71, v72);
     unarchiveQueue = self->_unarchiveQueue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
@@ -502,14 +503,14 @@
     block[3] = &unk_27A6E6E90;
     block[4] = self;
     block[5] = v11;
-    block[6] = v71;
+    block[6] = v75;
     dispatch_async(unarchiveQueue, block);
   }
 
   if ((*&self->_flags & 0x800) != 0)
   {
-    v73 = objc_loadWeakRetained(&self->_delegate);
-    objc_msgSend_reader_didUnarchiveObject_(v73, v74, self, objectCopy);
+    v77 = objc_loadWeakRetained(&self->_delegate);
+    objc_msgSend_reader_didUnarchiveObject_(v77, v78, self, objectCopy);
   }
 }
 
@@ -1437,6 +1438,31 @@ LABEL_6:
   return v13;
 }
 
+- (id)newObjectUUIDForObject:(id)object uuidNamespace:(unsigned __int8)namespace offset:(unint64_t)offset ignoringBaseUUIDForObjectUUID:(BOOL)d requireDeterministicUUID:(BOOL)iD
+{
+  iDCopy = iD;
+  dCopy = d;
+  namespaceCopy = namespace;
+  objectCopy = object;
+  if (dCopy || (namespaceCopy ? (v15 = namespaceCopy) : (v15 = 4), WeakRetained = objc_loadWeakRetained(&self->_delegate), objc_msgSend_baseObjectUUID(WeakRetained, v17, v18), v19 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend_tsp_identifier(objectCopy, v20, v21), v23 = sub_2769DD85C(v19, v15, v22, offset), v19, WeakRetained, !v23))
+  {
+    v25 = objc_msgSend_context(self, v12, v13);
+    if (!v25)
+    {
+      v26 = MEMORY[0x277D81150];
+      v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "[TSPReader newObjectUUIDForObject:uuidNamespace:offset:ignoringBaseUUIDForObjectUUID:requireDeterministicUUID:]");
+      v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPReader.mm");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v26, v30, v27, v29, 966, 0, "Attempting to make an object UUID from the reader without a context.");
+
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v31, v32);
+    }
+
+    v23 = objc_msgSend_newObjectUUIDForObject_uuidNamespace_offset_ignoringBaseUUIDForObjectUUID_requireDeterministicUUID_(v25, v24, objectCopy, namespaceCopy, offset, dCopy, iDCopy);
+  }
+
+  return v23;
+}
+
 - (BOOL)isObjectInDocument:(id)document
 {
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -1519,16 +1545,14 @@ LABEL_6:
 - (void)objectInfoForIdentifier:(int64_t)identifier
 {
   identifierCopy = identifier;
-  v3 = sub_2769ABC64(&self->_objectInfoMap.__table_.__bucket_list_.__ptr_, &identifierCopy);
-  if (!v3)
+  v4 = sub_2769ABC64(&self->_objectInfoMap.__table_.__bucket_list_.__ptr_, &identifierCopy);
+  if (!v4)
   {
-    v5 = 0;
-    v6 = 0;
-    v7 = 0;
-    sub_276ADB6B4();
+    memset(v6, 0, sizeof(v6));
+    sub_276ADB6B4(&self->_objectInfoMap, &identifierCopy, v6);
   }
 
-  return v3 + 3;
+  return v4 + 3;
 }
 
 - (TSPReaderDelegate)delegate

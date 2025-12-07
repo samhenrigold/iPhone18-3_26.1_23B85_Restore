@@ -10,9 +10,8 @@
 {
   v5 = sub_22838F440();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (swift_unknownObjectWeakLoadStrong())
   {
     changedCopy = changed;
@@ -20,9 +19,9 @@
     date = [changedCopy date];
     sub_22838F3E0();
 
-    sub_2282C4A24(v9);
+    sub_2282C4A24(v8);
     swift_unknownObjectRelease();
-    (*(v6 + 8))(v9, v5);
+    (*(v6 + 8))(v8, v5);
   }
 }
 

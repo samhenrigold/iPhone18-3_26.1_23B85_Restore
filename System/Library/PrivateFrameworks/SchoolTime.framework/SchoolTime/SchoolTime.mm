@@ -589,9 +589,9 @@ LABEL_48:
   return [a2 hasError] ^ 1;
 }
 
-void sub_264831CC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_264831CC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -603,44 +603,44 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2648333FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2648333FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 SCLMutableScheduleSettings *SCLScheduleSettingsFromSCLPBScheduleSettings(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = objc_alloc_init(SCLMutableScheduleSettings);
   -[SCLMutableScheduleSettings setEnabled:](v2, "setEnabled:", [v1 isEnabled]);
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = [v1 recurrences];
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = SCLScheduleRecurrenceForSCLPBScheduleRecurrence(*(*(&v13 + 1) + 8 * i));
+        v9 = SCLScheduleRecurrenceForSCLPBScheduleRecurrence(*(*(&v12 + 1) + 8 * i));
         [v3 addObject:v9];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -648,8 +648,6 @@ SCLMutableScheduleSettings *SCLScheduleSettingsFromSCLPBScheduleSettings(void *a
 
   v10 = [[SCLRecurrenceSchedule alloc] initWithRecurrences:v3];
   [(SCLMutableScheduleSettings *)v2 setSchedule:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -675,44 +673,43 @@ SCLScheduleRecurrence *SCLScheduleRecurrenceForSCLPBScheduleRecurrence(void *a1)
 
 SCLPBScheduleSettings *SCLPBScheduleSettingsFromSCLScheduleSettings(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = objc_alloc_init(SCLPBScheduleSettings);
   -[SCLPBScheduleSettings setIsEnabled:](v2, "setIsEnabled:", [v1 isEnabled]);
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = [v1 schedule];
   v5 = [v4 recurrences];
 
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = SCLPBScheduleRecurrenceForSCLScheduleRecurrence(*(*(&v13 + 1) + 8 * i));
+        v10 = SCLPBScheduleRecurrenceForSCLScheduleRecurrence(*(*(&v12 + 1) + 8 * i));
         [v3 addObject:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
 
   [(SCLPBScheduleSettings *)v2 setRecurrences:v3];
-  v11 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -872,10 +869,11 @@ void sub_2648355F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_264835DF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, os_activity_scope_state_s state, char a26)
+void sub_264835DF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, os_activity_scope_state_s state, ...)
 {
+  va_start(va, state);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a26, 8);
+  _Block_object_dispose(va, 8);
   os_activity_scope_leave(&state);
   _Unwind_Resume(a1);
 }
@@ -887,16 +885,16 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-id scl_persistence_log()
+id scl_persistence_log(uint64_t a1)
 {
   if (scl_persistence_log_onceToken != -1)
   {
     scl_persistence_log_cold_1();
   }
 
-  v1 = scl_persistence_log___logger;
+  v2 = scl_persistence_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __scl_persistence_log_block_invoke()
@@ -906,16 +904,16 @@ uint64_t __scl_persistence_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id scl_pairing_log()
+id scl_pairing_log(uint64_t a1)
 {
   if (scl_pairing_log_onceToken != -1)
   {
     scl_pairing_log_cold_1();
   }
 
-  v1 = scl_pairing_log___logger;
+  v2 = scl_pairing_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __scl_pairing_log_block_invoke()
@@ -925,16 +923,16 @@ uint64_t __scl_pairing_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id scl_transport_log()
+id scl_transport_log(uint64_t a1)
 {
   if (scl_transport_log_onceToken != -1)
   {
     scl_transport_log_cold_1();
   }
 
-  v1 = scl_transport_log___logger;
+  v2 = scl_transport_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __scl_transport_log_block_invoke()
@@ -944,16 +942,16 @@ uint64_t __scl_transport_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id scl_framework_log()
+id scl_framework_log(uint64_t a1)
 {
   if (scl_framework_log_onceToken != -1)
   {
     scl_framework_log_cold_1();
   }
 
-  v1 = scl_framework_log___logger;
+  v2 = scl_framework_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __scl_framework_log_block_invoke()
@@ -963,16 +961,16 @@ uint64_t __scl_framework_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id scl_interrupt_log()
+id scl_interrupt_log(uint64_t a1)
 {
   if (scl_interrupt_log_onceToken != -1)
   {
     scl_interrupt_log_cold_1();
   }
 
-  v1 = scl_interrupt_log___logger;
+  v2 = scl_interrupt_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __scl_interrupt_log_block_invoke()
@@ -1021,10 +1019,11 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_26483A4D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_26483A4D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1036,17 +1035,18 @@ void sub_26483A82C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_26483B700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26483B700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t SCLIsStateTransitionStartOfUnlockPeriod(void *a1, void *a2)
@@ -1389,10 +1389,11 @@ void sub_26483FE2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 uint64_t SCLPBTimeIntervalReadFrom(uint64_t a1, void *a2)
@@ -1503,10 +1504,11 @@ id SCLSuppressSchoolModeAssertionXPCServerInterface()
   return v0;
 }
 
-void sub_264843F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_264843F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  _Block_object_dispose(&a32, 8);
-  _Block_object_dispose((v32 - 200), 8);
+  va_start(va, a31);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v31 - 200), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1517,14 +1519,14 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2648444B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2648444B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1536,9 +1538,9 @@ void SCLWatchServerRun()
   [v0 run];
 }
 
-void sub_264845944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_264845944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1642,23 +1644,23 @@ void __NSStringForSCLDay_block_invoke()
   [v2 setLocale:v3];
 }
 
-void sub_264846BA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_264846BA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_264846EB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_264846EB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_264847608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_264847608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1710,55 +1712,54 @@ uint64_t SCLIsNRDeviceEligibleForSchoolTime(void *a1, char a2)
 
   if (!v6)
   {
-    v9 = scl_pairing_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = scl_pairing_log(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      SCLIsNRDeviceEligibleForSchoolTime_cold_2(v3, v9);
+      SCLIsNRDeviceEligibleForSchoolTime_cold_2(v3, v11);
     }
 
     goto LABEL_10;
   }
 
-  v7 = [v3 valueForProperty:*MEMORY[0x277D2BB60]];
+  v8 = [v3 valueForProperty:*MEMORY[0x277D2BB60]];
 
-  if (!v7)
+  if (!v8)
   {
-    v9 = scl_pairing_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = scl_pairing_log(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      SCLIsNRDeviceEligibleForSchoolTime_cold_1(v3, v9);
+      SCLIsNRDeviceEligibleForSchoolTime_cold_1(v3, v11);
     }
 
 LABEL_10:
 
 LABEL_11:
-    v8 = 0;
+    v10 = 0;
     goto LABEL_12;
   }
 
   if (a2)
   {
-    v8 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v11 = [v3 valueForProperty:*MEMORY[0x277D2BB28]];
-    v8 = [v11 BOOLValue];
+    v13 = [v3 valueForProperty:*MEMORY[0x277D2BB28]];
+    v10 = [v13 BOOLValue];
   }
 
 LABEL_12:
 
-  return v8;
+  return v10;
 }
 
 id SCLAutoUpdatingPairingID()
 {
-  v3[2] = *MEMORY[0x277D85DE8];
-  v3[0] = 0;
-  v3[1] = 0;
-  v0 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v3];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[2] = *MEMORY[0x277D85DE8];
+  v2[0] = 0;
+  v2[1] = 0;
+  v0 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v2];
 
   return v0;
 }
@@ -1783,10 +1784,11 @@ void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, 
   _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, a5, 0xCu);
 }
 
-void sub_26484A66C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_26484A66C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
+  va_start(va, a36);
   _Block_object_dispose(&a33, 8);
-  _Block_object_dispose(&a37, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1963,30 +1965,26 @@ LABEL_45:
 
 id SCLEntitlementError(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"Cannot set schedule because client is missing the %@ entitlement", a1];
   v2 = MEMORY[0x277CCA9B8];
-  v7 = *MEMORY[0x277CCA450];
-  v8[0] = v1;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = *MEMORY[0x277CCA450];
+  v7[0] = v1;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [v2 errorWithDomain:@"com.apple.schooltime" code:1 userInfo:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 id SCLPairingUnavailableError(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"No pairing for pairingID %@", a1];
   v2 = MEMORY[0x277CCA9B8];
-  v7 = *MEMORY[0x277CCA450];
-  v8[0] = v1;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = *MEMORY[0x277CCA450];
+  v7[0] = v1;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [v2 errorWithDomain:@"com.apple.schooltime" code:2 userInfo:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -2097,22 +2095,19 @@ id SCLSchoolModeServerXPCInterface()
 
 void SCLIsNRDeviceEligibleForSchoolTime_cold_1(void *a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = [a1 pairingID];
-  v6 = 138412546;
-  v7 = v4;
-  v8 = 2112;
-  v9 = a1;
-  _os_log_error_impl(&dword_264829000, a2, OS_LOG_TYPE_ERROR, "Have pairing id %@ but nil pairing store path. Perhaps device hasn't completed pairing yet? %@", &v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
+  v6 = v4;
+  v7 = 2112;
+  v8 = a1;
+  _os_log_error_impl(&dword_264829000, a2, OS_LOG_TYPE_ERROR, "Have pairing id %@ but nil pairing store path. Perhaps device hasn't completed pairing yet? %@", &v5, 0x16u);
 }
 
 void SCLIsNRDeviceEligibleForSchoolTime_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_264829000, a2, OS_LOG_TYPE_ERROR, "Device %@ is missing pairingID", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_264829000, a2, OS_LOG_TYPE_ERROR, "Device %@ is missing pairingID", &v2, 0xCu);
 }

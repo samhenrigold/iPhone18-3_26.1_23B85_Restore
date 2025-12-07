@@ -118,7 +118,6 @@ void __83__AKWalrusController_PCSAuthContextForWebSessionIdentifier_serviceName_
   objc_storeStrong(v4, 0);
   (*(a1[4] + 16))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)PCSAuthContextForWebSessionUUID:(id)d serviceName:(id)name completion:(id)completion
@@ -215,7 +214,6 @@ void __63__AKWalrusController_removeAllPCSAuthCredentialWithCompletion___block_i
   objc_storeStrong(v4, 0);
   (*(a1[4] + 16))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)verifyEnableWalrusAllowedWithContext:(id)context completion:(id)completion
@@ -305,7 +303,6 @@ void __63__AKWalrusController_removeAllPCSAuthCredentialWithCompletion___block_i
   objc_storeStrong(&v51, 0);
   objc_storeStrong(&v52, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __70__AKWalrusController_verifyEnableWalrusAllowedWithContext_completion___block_invoke(void *a1, void *a2)
@@ -344,7 +341,6 @@ void __70__AKWalrusController_verifyEnableWalrusAllowedWithContext_completion___
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __70__AKWalrusController_verifyEnableWalrusAllowedWithContext_completion___block_invoke_78(void *a1, void *a2)
@@ -366,7 +362,6 @@ void __70__AKWalrusController_verifyEnableWalrusAllowedWithContext_completion___
   objc_storeStrong(v4, 0);
   (*(a1[4] + 16))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __70__AKWalrusController_verifyEnableWalrusAllowedWithContext_completion___block_invoke_79(void *a1, void *a2)
@@ -406,7 +401,6 @@ void __70__AKWalrusController_verifyEnableWalrusAllowedWithContext_completion___
 
   (*(a1[4] + 16))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)postWalrusStateUpdateToServerWithContext:(id)context urlBagKey:(id)key username:(id)username password:(id)password completion:(id)completion
@@ -508,7 +502,6 @@ void __70__AKWalrusController_verifyEnableWalrusAllowedWithContext_completion___
   objc_storeStrong(&v63, 0);
   objc_storeStrong(&v64, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __102__AKWalrusController_postWalrusStateUpdateToServerWithContext_urlBagKey_username_password_completion___block_invoke(void *a1, void *a2)
@@ -547,7 +540,6 @@ void __102__AKWalrusController_postWalrusStateUpdateToServerWithContext_urlBagKe
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __102__AKWalrusController_postWalrusStateUpdateToServerWithContext_urlBagKey_username_password_completion___block_invoke_80(void *a1, void *a2)
@@ -569,7 +561,6 @@ void __102__AKWalrusController_postWalrusStateUpdateToServerWithContext_urlBagKe
   objc_storeStrong(v4, 0);
   (*(a1[4] + 16))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __102__AKWalrusController_postWalrusStateUpdateToServerWithContext_urlBagKey_username_password_completion___block_invoke_81(void *a1, void *a2)
@@ -609,7 +600,6 @@ void __102__AKWalrusController_postWalrusStateUpdateToServerWithContext_urlBagKe
 
   (*(a1[4] + 16))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 @end

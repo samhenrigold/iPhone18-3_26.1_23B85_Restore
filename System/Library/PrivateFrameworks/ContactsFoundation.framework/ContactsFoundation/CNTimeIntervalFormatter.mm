@@ -53,9 +53,11 @@ id __54__CNTimeIntervalFormatter_numberFormatterWith3SigFigs__block_invoke(uint6
 
 uint64_t __42__CNTimeIntervalFormatter_sharedFormatter__block_invoke()
 {
-  sharedFormatter_cn_once_object_1 = objc_alloc_init(CNTimeIntervalFormatter);
+  v0 = objc_alloc_init(CNTimeIntervalFormatter);
+  v1 = sharedFormatter_cn_once_object_1;
+  sharedFormatter_cn_once_object_1 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (NSNumberFormatter)numberFormatterWith4SigFigs

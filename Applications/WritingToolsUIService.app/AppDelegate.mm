@@ -11,7 +11,7 @@
   role = [sessionCopy role];
   v7 = [objc_allocWithZone(UISceneConfiguration) initWithName:0 sessionRole:role];
 
-  type metadata accessor for SceneDelegate();
+  type metadata accessor for SceneDelegate(0);
   [v7 setDelegateClass:swift_getObjCClassFromMetadata()];
 
   return v7;

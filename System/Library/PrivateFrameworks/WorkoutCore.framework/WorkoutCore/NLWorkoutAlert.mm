@@ -88,40 +88,40 @@
 
 + (id)splitStringOnNewlines:(id)newlines
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   location[2] = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, newlines);
-  v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v15 = [location[0] componentsSeparatedByString:@"\n"];
+  v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v17 = [location[0] componentsSeparatedByString:@"\n"];
   memset(__b, 0, sizeof(__b));
-  obj = MEMORY[0x277D82BE0](v15);
-  v12 = [obj countByEnumeratingWithState:__b objects:v18 count:16];
-  if (v12)
+  obj = MEMORY[0x277D82BE0](v17);
+  v14 = [obj countByEnumeratingWithState:__b objects:v20 count:16];
+  if (v14)
   {
-    v8 = *__b[2];
-    v9 = 0;
-    v10 = v12;
+    v10 = *__b[2];
+    v11 = 0;
+    v12 = v14;
     while (1)
     {
-      v7 = v9;
-      if (*__b[2] != v8)
+      v9 = v11;
+      if (*__b[2] != v10)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(__b[1] + 8 * v9);
-      v5 = v16;
-      v6 = [NLWorkoutAlertUnitAnnotatedString stringWithValueString:v14 unitString:0];
-      [v5 addObject:?];
-      MEMORY[0x277D82BD8](v6);
-      ++v9;
-      if (v7 + 1 >= v10)
+      v16 = *(__b[1] + 8 * v11);
+      v7 = v18;
+      v8 = [NLWorkoutAlertUnitAnnotatedString stringWithValueString:v16 unitString:0];
+      [v7 addObject:?];
+      *&v3 = MEMORY[0x277D82BD8](v8).n128_u64[0];
+      ++v11;
+      if (v9 + 1 >= v12)
       {
-        v9 = 0;
-        v10 = [obj countByEnumeratingWithState:__b objects:v18 count:16];
-        if (!v10)
+        v11 = 0;
+        v12 = [obj countByEnumeratingWithState:__b objects:v20 count:{16, v3}];
+        if (!v12)
         {
           break;
         }
@@ -129,54 +129,53 @@
     }
   }
 
-  MEMORY[0x277D82BD8](obj);
-  v4 = [v16 copy];
-  objc_storeStrong(&v15, 0);
-  objc_storeStrong(&v16, 0);
+  *&v4 = MEMORY[0x277D82BD8](obj).n128_u64[0];
+  v6 = [v18 copy];
+  objc_storeStrong(&v17, 0);
+  objc_storeStrong(&v18, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
-  return v4;
+  return v6;
 }
 
 + (id)spokenDescriptionForUnitAnnotatedStrings:(id)strings
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   location[2] = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, strings);
-  v19 = MEMORY[0x277D82BE0](&stru_28225A4E8);
+  v21 = MEMORY[0x277D82BE0](&stru_28225A4E8);
   memset(__b, 0, sizeof(__b));
   obj = MEMORY[0x277D82BE0](location[0]);
-  v16 = [obj countByEnumeratingWithState:__b objects:v21 count:16];
-  if (v16)
+  v18 = [obj countByEnumeratingWithState:__b objects:v23 count:16];
+  if (v18)
   {
-    v12 = *__b[2];
-    v13 = 0;
-    v14 = v16;
+    v14 = *__b[2];
+    v15 = 0;
+    v16 = v18;
     while (1)
     {
-      v11 = v13;
-      if (*__b[2] != v12)
+      v13 = v15;
+      if (*__b[2] != v14)
       {
         objc_enumerationMutation(obj);
       }
 
-      v18 = *(__b[1] + 8 * v13);
-      v9 = v19;
-      spokenString = [v18 spokenString];
-      v3 = [v9 stringByAppendingFormat:@"%@ ", spokenString];
-      v4 = v19;
-      v19 = v3;
+      v20 = *(__b[1] + 8 * v15);
+      v11 = v21;
+      spokenString = [v20 spokenString];
+      v3 = [v11 stringByAppendingFormat:@"%@ ", spokenString];
+      v4 = v21;
+      v21 = v3;
       MEMORY[0x277D82BD8](v4);
-      MEMORY[0x277D82BD8](spokenString);
-      ++v13;
-      if (v11 + 1 >= v14)
+      *&v5 = MEMORY[0x277D82BD8](spokenString).n128_u64[0];
+      ++v15;
+      if (v13 + 1 >= v16)
       {
-        v13 = 0;
-        v14 = [obj countByEnumeratingWithState:__b objects:v21 count:16];
-        if (!v14)
+        v15 = 0;
+        v16 = [obj countByEnumeratingWithState:__b objects:v23 count:{16, v5}];
+        if (!v16)
         {
           break;
         }
@@ -184,16 +183,15 @@
     }
   }
 
-  MEMORY[0x277D82BD8](obj);
-  v6 = v19;
+  *&v6 = MEMORY[0x277D82BD8](obj).n128_u64[0];
+  v8 = v21;
   whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
-  v8 = [v6 stringByTrimmingCharactersInSet:?];
+  v10 = [v8 stringByTrimmingCharactersInSet:?];
   MEMORY[0x277D82BD8](whitespaceAndNewlineCharacterSet);
-  objc_storeStrong(&v19, 0);
+  objc_storeStrong(&v21, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
-  return v8;
+  return v10;
 }
 
 - (id)localizedProgressDescriptionWithUnitStyle:(unint64_t)style formattingManager:(id)manager

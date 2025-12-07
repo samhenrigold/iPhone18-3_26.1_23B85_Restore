@@ -1,4 +1,5 @@
 @interface TIEventDescriptor
++ (id)eventDescriptorWithEventName:(id)name eventDescription:(id)description fieldDescriptors:(id)descriptors includeTestingParameters:(BOOL)parameters;
 - (TIEventDescriptor)initWithEventName:(id)name eventDescription:(id)description fieldDescriptors:(id)descriptors includeTestingParameters:(BOOL)parameters;
 @end
 
@@ -22,6 +23,17 @@
   }
 
   return v15;
+}
+
++ (id)eventDescriptorWithEventName:(id)name eventDescription:(id)description fieldDescriptors:(id)descriptors includeTestingParameters:(BOOL)parameters
+{
+  parametersCopy = parameters;
+  descriptorsCopy = descriptors;
+  descriptionCopy = description;
+  nameCopy = name;
+  v12 = [[TIEventDescriptor alloc] initWithEventName:nameCopy eventDescription:descriptionCopy fieldDescriptors:descriptorsCopy includeTestingParameters:parametersCopy];
+
+  return v12;
 }
 
 @end

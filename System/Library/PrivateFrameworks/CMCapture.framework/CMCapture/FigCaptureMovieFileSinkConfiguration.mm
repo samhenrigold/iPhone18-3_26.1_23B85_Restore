@@ -80,28 +80,28 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v10.receiver = self;
-  v10.super_class = FigCaptureMovieFileSinkConfiguration;
-  v5 = [(FigCaptureSinkConfiguration *)&v10 isEqual:?];
-  if (v5)
+  v11.receiver = self;
+  v11.super_class = FigCaptureMovieFileSinkConfiguration;
+  isEqualToString = [(FigCaptureSinkConfiguration *)&v11 isEqual:?];
+  if (isEqualToString)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) != 0 && (v6 = -[FigCaptureMovieFileSinkConfiguration trueVideoCaptureEnabled](self, "trueVideoCaptureEnabled"), v6 == [equal trueVideoCaptureEnabled]) && (v7 = -[FigCaptureMovieFileSinkConfiguration multiCamClientCompositingEnabled](self, "multiCamClientCompositingEnabled"), v7 == objc_msgSend(equal, "multiCamClientCompositingEnabled")))
     {
       multiCamClientCompositingPrimaryConnectionID = [(FigCaptureMovieFileSinkConfiguration *)self multiCamClientCompositingPrimaryConnectionID];
-      if (multiCamClientCompositingPrimaryConnectionID == [equal multiCamClientCompositingPrimaryConnectionID] || (v5 = -[NSString isEqualToString:](-[FigCaptureMovieFileSinkConfiguration multiCamClientCompositingPrimaryConnectionID](self, "multiCamClientCompositingPrimaryConnectionID"), "isEqualToString:", objc_msgSend(equal, "multiCamClientCompositingPrimaryConnectionID"))))
+      if (multiCamClientCompositingPrimaryConnectionID == [equal multiCamClientCompositingPrimaryConnectionID] || (v9 = -[FigCaptureMovieFileSinkConfiguration multiCamClientCompositingPrimaryConnectionID](self, "multiCamClientCompositingPrimaryConnectionID"), objc_msgSend(equal, "multiCamClientCompositingPrimaryConnectionID"), (isEqualToString = objc_msgSend_isEqualToString_(v9)) != 0))
       {
-        LOBYTE(v5) = 1;
+        LOBYTE(isEqualToString) = 1;
       }
     }
 
     else
     {
-      LOBYTE(v5) = 0;
+      LOBYTE(isEqualToString) = 0;
     }
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 @end

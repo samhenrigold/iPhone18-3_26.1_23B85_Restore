@@ -9,6 +9,8 @@
 + (id)auAudioUnitForAudioUnit:(OpaqueAudioComponentInstance *)unit;
 + (void)__sanitizePresetNumber:(id)number;
 + (void)_loadUserPresets:(id)presets error:(id *)error;
++ (void)instantiateWithComponentDescription:(AudioComponentDescription *)componentDescription options:(AudioComponentInstantiationOptions)options completionHandler:(void *)completionHandler;
++ (void)instantiateWithComponentDescription:(AudioComponentDescription *)description options:(unsigned int)options connectionProvider:(function<NSXPCConnection *(NSUUID *) completionHandler:;
 + (void)registerSubclass:(Class)cls asComponentDescription:(AudioComponentDescription *)componentDescription name:(NSString *)name version:(UInt32)version;
 - ($115C4C562B26FF47E01F9F4EA65B5887)remoteProcessAuditToken;
 - (AUAudioUnit)init;
@@ -27,6 +29,7 @@
 - (BOOL)isMusicDeviceOrEffect;
 - (BOOL)isSpeechSynthesisProvider;
 - (BOOL)saveUserPreset:(AUAudioUnitPreset *)userPreset error:(NSError *)outError;
+- (MIDICIProfileState)profileStateForCable:(uint8_t)cable channel:(MIDIChannelNumber)channel;
 - (NSArray)userPresets;
 - (NSDictionary)fullState;
 - (NSDictionary)presetStateFor:(AUAudioUnitPreset *)userPreset error:(NSError *)outError;
@@ -35,6 +38,7 @@
 - (NSString)audioUnitName;
 - (NSString)componentName;
 - (NSString)manufacturerName;
+- (float)getV2Parameter:(unint64_t)parameter sequenceNumber:(unsigned int)number;
 - (id).cxx_construct;
 - (id)_valueForProperty:(id)property error:(id *)error;
 - (uint32_t)componentVersion;
@@ -63,7 +67,7 @@
 
 + (id)_monitorUserPresets:(id)presets callback:(id)callback
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   presetsCopy = presets;
   callbackCopy = callback;
   if (!presetsCopy)
@@ -80,7 +84,7 @@
     aBlock[1] = 3221225472;
     aBlock[2] = __60__AUAudioUnit_PresetHandling___monitorUserPresets_callback___block_invoke;
     aBlock[3] = &__block_descriptor_36_e5_v8__0l;
-    v18 = v8;
+    v17 = v8;
     v10 = _Block_copy(aBlock);
     v11 = dispatch_source_create(MEMORY[0x1E69E9728], v9, 2uLL, presetsCopy);
     if (v11)
@@ -112,11 +116,11 @@ LABEL_18:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v20 = "AUAudioUnitPresetHandling.mm";
-      v21 = 1024;
-      v22 = 191;
-      v23 = 2112;
-      v24 = v7;
+      v19 = "AUAudioUnitPresetHandling.mm";
+      v20 = 1024;
+      v21 = 191;
+      v22 = 2112;
+      v23 = v7;
       _os_log_impl(&dword_18F5DF000, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d Error: Could not create dispatch source to monitor folder: %@", buf, 0x1Cu);
     }
 
@@ -142,11 +146,11 @@ LABEL_18:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315650;
-    v20 = "AUAudioUnitPresetHandling.mm";
-    v21 = 1024;
-    v22 = 181;
-    v23 = 2112;
-    v24 = v7;
+    v19 = "AUAudioUnitPresetHandling.mm";
+    v20 = 1024;
+    v21 = 181;
+    v22 = 2112;
+    v23 = v7;
     _os_log_impl(&dword_18F5DF000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d Error: Could not open preset folder: %@", buf, 0x1Cu);
   }
 
@@ -154,7 +158,6 @@ LABEL_18:
 LABEL_20:
 
 LABEL_21:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -275,7 +278,7 @@ void __54__AUAudioUnit_PresetHandling___loadUserPresets_error___block_invoke_2(u
 
 + (BOOL)_deleteUserPreset:(id)preset error:(id *)error
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   presetCopy = preset;
   if (error)
   {
@@ -289,22 +292,21 @@ void __54__AUAudioUnit_PresetHandling___loadUserPresets_error___block_invoke_2(u
     else
     {
       v8 = MEMORY[0x1E696ABC0];
-      v12 = *MEMORY[0x1E696A578];
-      v13[0] = @"Illegal file name for user preset!";
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+      v11 = *MEMORY[0x1E696A578];
+      v12[0] = @"Illegal file name for user preset!";
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
       *error = [v8 errorWithDomain:*MEMORY[0x1E696A768] code:-66742 userInfo:v9];
 
       LOBYTE(error) = 0;
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return error;
 }
 
 + (BOOL)_saveUserPreset:(id)preset state:(id)state error:(id *)error
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   presetCopy = preset;
   stateCopy = state;
   v9 = stateCopy;
@@ -336,9 +338,9 @@ void __54__AUAudioUnit_PresetHandling___loadUserPresets_error___block_invoke_2(u
       else
       {
         v21 = MEMORY[0x1E696ABC0];
-        v25 = *MEMORY[0x1E696A578];
-        v26 = @"Illegal file name for user preset!";
-        v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+        v24 = *MEMORY[0x1E696A578];
+        v25 = @"Illegal file name for user preset!";
+        v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
         *error = [v21 errorWithDomain:*MEMORY[0x1E696A768] code:-66742 userInfo:v22];
 
         v15 = 0;
@@ -349,9 +351,9 @@ void __54__AUAudioUnit_PresetHandling___loadUserPresets_error___block_invoke_2(u
     else
     {
       v20 = MEMORY[0x1E696ABC0];
-      v27 = *MEMORY[0x1E696A578];
-      v28[0] = @"Missing key in preset state map!";
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+      v26 = *MEMORY[0x1E696A578];
+      v27[0] = @"Missing key in preset state map!";
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
       [v20 errorWithDomain:*MEMORY[0x1E696A768] code:-66741 userInfo:v15];
       *error = v19 = 0;
     }
@@ -362,7 +364,6 @@ void __54__AUAudioUnit_PresetHandling___loadUserPresets_error___block_invoke_2(u
     v19 = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -453,7 +454,7 @@ LABEL_6:
     newlineCharacterSet = [MEMORY[0x1E696AB08] newlineCharacterSet];
     v6 = [newlineCharacterSet mutableCopy];
 
-    v7 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"/\\""];
+    v7 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"/\"];
     [v6 formUnionWithCharacterSet:v7];
 
     illegalCharacterSet = [MEMORY[0x1E696AB08] illegalCharacterSet];
@@ -522,31 +523,30 @@ LABEL_6:
 
 float __32__AUAudioUnit_XPC_parameterTree__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},float>::sync_message(&v11, WeakRetained);
+  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},float>::sync_message(&v10, WeakRetained);
 
-  v5 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},float>::sync_proxy(&v11);
+  v5 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},float>::sync_proxy(&v10);
   v6 = [v3 address];
-  v7 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},float>::reply(&v11);
+  v7 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},float>::reply(&v10);
   [v5 getParameter:v6 sequenceNumber:0 reply:v7];
 
-  v8 = v13;
-  std::__function::__value_func<void ()(NSError *,std::tuple<float> &&)>::~__value_func[abi:ne200100](v12);
+  v8 = v12;
+  std::__function::__value_func<void ()(NSError *,std::tuple<float> &&)>::~__value_func[abi:ne200100](v11);
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 id __32__AUAudioUnit_XPC_parameterTree__block_invoke_2(uint64_t a1, void *a2, int *a3)
 {
-  v16[6] = *MEMORY[0x1E69E9840];
+  v15[6] = *MEMORY[0x1E69E9840];
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSString * {__strong}>::sync_message(&v15, WeakRetained);
+  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSString * {__strong}>::sync_message(&v14, WeakRetained);
 
-  v7 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSString * {__strong}>::sync_proxy(&v15);
+  v7 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSString * {__strong}>::sync_proxy(&v14);
   if (a3)
   {
     v8 = *a3;
@@ -558,59 +558,54 @@ id __32__AUAudioUnit_XPC_parameterTree__block_invoke_2(uint64_t a1, void *a2, in
   }
 
   v9 = [v5 address];
-  v10 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSString * {__strong}>::reply(&v15);
+  v10 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSString * {__strong}>::reply(&v14);
   LODWORD(v11) = v8;
   [v7 parameterStringFromValue:a3 == 0 currentValue:v9 address:v10 reply:v11];
 
-  v12 = v16[5];
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSString * {__strong}> &&)>::~__value_func[abi:ne200100](v16);
-
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = v15[5];
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSString * {__strong}> &&)>::~__value_func[abi:ne200100](v15);
 
   return v12;
 }
 
 float __32__AUAudioUnit_XPC_parameterTree__block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},float>::sync_message(&v14, WeakRetained);
+  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},float>::sync_message(&v13, WeakRetained);
 
-  v8 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},float>::sync_proxy(&v14);
+  v8 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},float>::sync_proxy(&v13);
   v9 = [v5 address];
-  v10 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},float>::reply(&v14);
+  v10 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},float>::reply(&v13);
   [v8 parameterValueFromString:v6 address:v9 reply:v10];
 
-  v11 = v16;
-  std::__function::__value_func<void ()(NSError *,std::tuple<float> &&)>::~__value_func[abi:ne200100](v15);
+  v11 = v15;
+  std::__function::__value_func<void ()(NSError *,std::tuple<float> &&)>::~__value_func[abi:ne200100](v14);
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 id __32__AUAudioUnit_XPC_parameterTree__block_invoke_4(uint64_t a1, void *a2, uint64_t a3)
 {
-  v14[6] = *MEMORY[0x1E69E9840];
+  v13[6] = *MEMORY[0x1E69E9840];
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSString * {__strong}>::sync_message(&v13, WeakRetained);
+  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSString * {__strong}>::sync_message(&v12, WeakRetained);
 
-  v7 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSString * {__strong}>::sync_proxy(&v13);
+  v7 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSString * {__strong}>::sync_proxy(&v12);
   v8 = [v5 keyPath];
-  v9 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSString * {__strong}>::reply(&v13);
+  v9 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},NSString * {__strong}>::reply(&v12);
   [v7 parameterNode:v8 displayNameWithLength:a3 reply:v9];
 
-  v10 = v14[5];
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSString * {__strong}> &&)>::~__value_func[abi:ne200100](v14);
-
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = v13[5];
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSString * {__strong}> &&)>::~__value_func[abi:ne200100](v13);
 
   return v10;
 }
 
-uint64_t __38__AUAudioUnit_XPC_internalRenderBlock__block_invoke(uint64_t a1, int *a2, const AudioTimeStamp *a3, uint64_t a4, unsigned int a5, AudioBufferList *a6, AURenderEventAllocator *a7, uint64_t a8)
+uint64_t __38__AUAudioUnit_XPC_internalRenderBlock__block_invoke(uint64_t a1, int *a2, const AudioTimeStamp *a3, uint64_t a4, unsigned int a5, AudioBufferList *a6, const AURenderEvent *a7, uint64_t a8)
 {
   v8 = *(a1 + 32);
   if (*(v8 + 72) != 1)
@@ -620,16 +615,16 @@ uint64_t __38__AUAudioUnit_XPC_internalRenderBlock__block_invoke(uint64_t a1, in
 
   v15 = *(a1 + 40);
   v16 = audioipc::current_render_context(a1);
-  v97 = v16;
-  v96 = *v8;
-  v17 = auoop::PipeSubPool::acquirePipeSlot(*v8, &v97, 1);
+  v98 = v16;
+  v97 = *v8;
+  v17 = auoop::PipeSubPool::acquirePipeSlot(*v8, &v98, 1);
   v18 = v17;
   if (v19)
   {
     if (!v17)
     {
       v90 = CAAssertRtn();
-      caulk::pooled_semaphore_mutex::_unlock((v93 + 160));
+      caulk::pooled_semaphore_mutex::_unlock((v94 + 160));
       __clang_call_terminate(v90);
     }
 
@@ -639,7 +634,7 @@ uint64_t __38__AUAudioUnit_XPC_internalRenderBlock__block_invoke(uint64_t a1, in
       v23 = 4294956429;
 LABEL_15:
       atomic_store(0, v18);
-      caulk::semaphore::signal((v96 + 100));
+      caulk::semaphore::signal((v97 + 100));
       return v23;
     }
 
@@ -708,23 +703,23 @@ LABEL_15:
       goto LABEL_15;
     }
 
-    v92 = v27;
+    v93 = v27;
     if (*(v20 + 224) < a4)
     {
       v23 = 4294956422;
       goto LABEL_15;
     }
 
-    v94 = v20;
+    v95 = v20;
     if (a3->mSampleTime == *(v20 + 232) && v28 == *(v20 + 240))
     {
       v34 = 0;
 LABEL_30:
-      AUOOPRenderingClient::copySharedOutput(v94, a5, a6, a4, v34 & 1);
-      AUOOPRenderingClient::readMidiOut(*(v94 + 11), (v8 + 8));
-      AUOOPRenderingClient::readMidiEventListOut(*(v94 + 12), (v8 + 8));
+      AUOOPRenderingClient::copySharedOutput(v95, a5, a6, a4, v34 & 1);
+      AUOOPRenderingClient::readMidiOut(*(v95 + 11), (v8 + 8));
+      AUOOPRenderingClient::readMidiEventListOut(*(v95 + 12), (v8 + 8));
       v23 = 0;
-      *a2 = *(v92 + 4 * (*(v94 + 54) + a5) + 4316);
+      *a2 = *(v93 + 4 * (*(v95 + 54) + a5) + 4316);
       goto LABEL_15;
     }
 
@@ -760,7 +755,7 @@ LABEL_30:
       v35 = -1;
     }
 
-    *(v92 + 4 * (*(v36 + 216) + a5) + 4316) = v29;
+    *(v93 + 4 * (*(v36 + 216) + a5) + 4316) = v29;
     caulk::pooled_semaphore_mutex::_lock((v36 + 160));
     if (*v36 != 1)
     {
@@ -769,14 +764,14 @@ LABEL_30:
     }
 
     v40 = v36;
-    v91 = v35;
+    v92 = v35;
     v23 = 4294900551;
     v41 = *(v40 + 80);
     if (*(v41 + 4304))
     {
       v23 = 4294900549;
 LABEL_42:
-      caulk::pooled_semaphore_mutex::_unlock((v94 + 160));
+      caulk::pooled_semaphore_mutex::_unlock((v95 + 160));
       goto LABEL_15;
     }
 
@@ -784,29 +779,29 @@ LABEL_42:
     v42 = *(v8 + 24);
     if (v42)
     {
-      v98.mSampleTime = 4.0;
-      v101[0] = 0;
-      v100 = 0;
-      if (!(*(v42 + 16))(v42, v41 + 4240, &v98, v101, v41 + 4232, &v100, v41 + 4264))
+      v99.mSampleTime = 4.0;
+      v102[0] = 0;
+      v101 = 0;
+      if (!(*(v42 + 16))(v42, v41 + 4240, &v99, v102, v41 + 4232, &v101, v41 + 4264))
       {
         goto LABEL_53;
       }
 
-      mSampleTime = v98.mSampleTime;
+      mSampleTime = v99.mSampleTime;
       *(v41 + 4256) = mSampleTime;
-      *(v41 + 4260) = v101[0];
-      *(v41 + 4252) = v100;
+      *(v41 + 4260) = v102[0];
+      *(v41 + 4252) = v101;
       v44 = *(v41 + 4248) | 0x300;
     }
 
     else
     {
-      v45 = v94;
-      v46 = *(v94 + 22);
+      v45 = v95;
+      v46 = *(v95 + 22);
       if (v46)
       {
-        v47 = v46(*(v94 + 21), v41 + 4232, v41 + 4240);
-        v45 = v94;
+        v47 = v46(*(v95 + 21), v41 + 4232, v41 + 4240);
+        v45 = v95;
         if (!v47)
         {
           *(v41 + 4248) |= 0x100u;
@@ -814,40 +809,40 @@ LABEL_42:
       }
 
       v48 = *(v45 + 23);
-      if (!v48 || v48(*(v94 + 21), v41 + 4252, v41 + 4256, v41 + 4260, v41 + 4264))
+      if (!v48 || v48(*(v95 + 21), v41 + 4252, v41 + 4256, v41 + 4260, v41 + 4264))
       {
 LABEL_53:
         v49 = *(v8 + 32);
         if (v49)
         {
-          v98.mSampleTime = 0.0;
-          if (!(*(v49 + 16))(v49, &v98, v41 + 4272, v41 + 4280, v41 + 4288))
+          v99.mSampleTime = 0.0;
+          if (!(*(v49 + 16))(v49, &v99, v41 + 4272, v41 + 4280, v41 + 4288))
           {
             goto LABEL_73;
           }
 
-          v50 = *(v41 + 4248) | LOBYTE(v98.mSampleTime) & 0xF | 0x400;
+          v50 = *(v41 + 4248) | LOBYTE(v99.mSampleTime) & 0xF | 0x400;
           goto LABEL_72;
         }
 
-        LOBYTE(v98.mSampleTime) = 0;
-        LOBYTE(v101[0]) = 0;
-        LOBYTE(v100) = 0;
-        v99 = 0;
-        v51 = v94;
-        v52 = *(v94 + 25);
-        if (v52 && (v53 = v52(*(v94 + 21), &v98, v101, &v100, v41 + 4272, &v99, v41 + 4280, v41 + 4288), v51 = v94, !v53))
+        LOBYTE(v99.mSampleTime) = 0;
+        LOBYTE(v102[0]) = 0;
+        LOBYTE(v101) = 0;
+        v100 = 0;
+        v51 = v95;
+        v52 = *(v95 + 25);
+        if (v52 && (v53 = v52(*(v95 + 21), &v99, v102, &v101, v41 + 4272, &v100, v41 + 4280, v41 + 4288), v51 = v95, !v53))
         {
           v57 = *(v41 + 4248);
           v56 = v57 | 0x400;
           *(v41 + 4248) = v57 | 0x400;
-          if (LOBYTE(v98.mSampleTime))
+          if (LOBYTE(v99.mSampleTime))
           {
             v56 = v57 | 0x402;
             *(v41 + 4248) = v57 | 0x402;
           }
 
-          if (LOBYTE(v101[0]))
+          if (LOBYTE(v102[0]))
           {
             v56 |= 4u;
             goto LABEL_67;
@@ -857,7 +852,7 @@ LABEL_53:
         else
         {
           v54 = *(v51 + 24);
-          if (!v54 || v54(*(v94 + 21), &v98, &v100, v41 + 4272, &v99, v41 + 4280, v41 + 4288))
+          if (!v54 || v54(*(v95 + 21), &v99, &v101, v41 + 4272, &v100, v41 + 4280, v41 + 4288))
           {
             goto LABEL_73;
           }
@@ -865,7 +860,7 @@ LABEL_53:
           v55 = *(v41 + 4248);
           v56 = v55 | 0x400;
           *(v41 + 4248) = v55 | 0x400;
-          if (LOBYTE(v98.mSampleTime))
+          if (LOBYTE(v99.mSampleTime))
           {
             v56 = v55 | 0x402;
 LABEL_67:
@@ -873,13 +868,13 @@ LABEL_67:
           }
         }
 
-        if (v100)
+        if (v101)
         {
           v56 |= 1u;
           *(v41 + 4248) = v56;
         }
 
-        if (v99)
+        if (v100)
         {
           v50 = v56 | 8;
 LABEL_72:
@@ -902,7 +897,7 @@ LABEL_73:
           v61 = 3.0;
         }
 
-        if (*(v94 + 1))
+        if (*(v95 + 1))
         {
           v62 = 0.0;
         }
@@ -912,25 +907,25 @@ LABEL_73:
           v62 = v61;
         }
 
-        AUOOPRenderingClient::copyEventsToSharedMemory(v94, a7, v62, 0);
-        if ((v91 & 0x80000000) == 0)
+        AUOOPRenderingClient::copyEventsToSharedMemory(v95, a7, v62, 0);
+        if ((v92 & 0x80000000) == 0)
         {
           kdebug_trace();
-          v63 = *(v94 + 10);
-          can_send = audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::can_send(v94 + 8, v64);
+          v63 = *(v95 + 10);
+          can_send = audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::can_send(v95 + 8, v64);
           v66 = HIDWORD(can_send);
           if (can_send & 0x100000000) != 0 && (can_send)
           {
             *(v63 + 4104) = 2;
-            *(v63 + 4120) = v91;
+            *(v63 + 4120) = v92;
             if (v62 <= 0.0)
             {
-              can_send = audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::signal_wait(v94 + 8);
+              can_send = audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::signal_wait(v95 + 8);
             }
 
             else
             {
-              can_send = audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::signal_wait_with_timeout(v94 + 8, v62);
+              can_send = audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::signal_wait_with_timeout(v95 + 8, v62);
             }
 
             v66 = HIDWORD(can_send);
@@ -953,7 +948,7 @@ LABEL_73:
             if (message)
             {
               v79 = message;
-              v80 = _os_log_pack_fill();
+              v80 = _os_log_pack_fill(message + 40, v77, 0, &dword_18F5DF000, "error 0x%x from Render", v91);
               *v80 = 67109120;
               v80[1] = -66745;
               caulk::concurrent::messenger::enqueue(*(gCADefaultDeferredLog + 16), v79);
@@ -972,27 +967,27 @@ LABEL_73:
               break;
             }
 
-            *&v98.mFlags = 0;
-            memset(&v98.mWordClockTime, 0, 32);
-            v98.mSampleTime = *(v71 + 32);
-            v98.mHostTime = *(v71 + 40);
-            v98.mRateScalar = *(v71 + 48);
-            v98.mFlags = *(v71 + 56);
-            AUOOPRenderingClient::pullOneInput(v94, *(v71 + 24), &v98, *(v71 + 28));
-            v73 = *(v94 + 10);
-            v75 = audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::can_send(v94 + 8, v74);
+            *&v99.mFlags = 0;
+            memset(&v99.mWordClockTime, 0, 32);
+            v99.mSampleTime = *(v71 + 32);
+            v99.mHostTime = *(v71 + 40);
+            v99.mRateScalar = *(v71 + 48);
+            v99.mFlags = *(v71 + 56);
+            AUOOPRenderingClient::pullOneInput(v95, *(v71 + 24), &v99, *(v71 + 28));
+            v73 = *(v95 + 10);
+            v75 = audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::can_send(v95 + 8, v74);
             v76 = HIDWORD(v75);
             if (v75 & 0x100000000) != 0 && (v75)
             {
               *(v73 + 4104) = 3;
               if (v62 <= 0.0)
               {
-                v75 = audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::signal_wait(v94 + 8);
+                v75 = audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::signal_wait(v95 + 8);
               }
 
               else
               {
-                v75 = audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::signal_wait_with_timeout(v94 + 8, v62);
+                v75 = audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::signal_wait_with_timeout(v95 + 8, v62);
               }
 
               v76 = HIDWORD(v75);
@@ -1011,7 +1006,7 @@ LABEL_73:
             if (v88)
             {
               v89 = v88;
-              *_os_log_pack_fill() = 0;
+              *_os_log_pack_fill(v88 + 40, v87, 0, &dword_18F5DF000, "state machine error") = 0;
               caulk::concurrent::messenger::enqueue(*(gCADefaultDeferredLog + 16), v89);
             }
 
@@ -1029,8 +1024,8 @@ LABEL_121:
           }
 
 LABEL_126:
-          *(*(v94 + 10) + 4) = 0;
-          caulk::pooled_semaphore_mutex::_unlock((v94 + 160));
+          *(*(v95 + 10) + 4) = 0;
+          caulk::pooled_semaphore_mutex::_unlock((v95 + 160));
           v23 = v81;
           if (v81)
           {
@@ -1041,20 +1036,20 @@ LABEL_126:
         }
 
         kdebug_trace();
-        v67 = *(v94 + 10);
-        v69 = audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::can_send(v94 + 8, v68);
+        v67 = *(v95 + 10);
+        v69 = audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::can_send(v95 + 8, v68);
         v70 = HIDWORD(v69);
         if (v69 & 0x100000000) != 0 && (v69)
         {
           *(v67 + 4104) = 1;
           if (v62 <= 0.0)
           {
-            v69 = audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::signal_wait(v94 + 8);
+            v69 = audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::signal_wait(v95 + 8);
           }
 
           else
           {
-            v69 = audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::signal_wait_with_timeout(v94 + 8, v62);
+            v69 = audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::signal_wait_with_timeout(v95 + 8, v62);
           }
 
           v70 = HIDWORD(v69);
@@ -1085,7 +1080,7 @@ LABEL_120:
         if (v84)
         {
           v85 = v84;
-          v86 = _os_log_pack_fill();
+          v86 = _os_log_pack_fill(v84 + 40, v83, 0, &dword_18F5DF000, "error 0x%x from Process", v91);
           *v86 = 67109120;
           v86[1] = v81;
           caulk::concurrent::messenger::enqueue(*(gCADefaultDeferredLog + 16), v85);
@@ -1234,7 +1229,7 @@ void __45__AUAudioUnit_XPC__invalidatePipePoolAndUser__block_invoke(uint64_t a1)
 
 - (void)startUserPresetFolderMonitoring
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (!self->_presetFolderWatcher)
   {
     if (self->_presetMonitoringQueue)
@@ -1242,18 +1237,18 @@ void __45__AUAudioUnit_XPC__invalidatePipePoolAndUser__block_invoke(uint64_t a1)
 LABEL_5:
       objc_initWeak(location, self);
       presetMonitoringQueue = self->_presetMonitoringQueue;
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __46__AUAudioUnit_startUserPresetFolderMonitoring__block_invoke;
-      v12[3] = &unk_1E72C2DF8;
-      objc_copyWeak(&v13, location);
-      v7 = [AUAudioUnit _monitorUserPresets:presetMonitoringQueue callback:v12];
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = __46__AUAudioUnit_startUserPresetFolderMonitoring__block_invoke;
+      v11[3] = &unk_1E72C2DF8;
+      objc_copyWeak(&v12, location);
+      v7 = [AUAudioUnit _monitorUserPresets:presetMonitoringQueue callback:v11];
       presetFolderWatcher = self->_presetFolderWatcher;
       self->_presetFolderWatcher = v7;
 
-      objc_destroyWeak(&v13);
+      objc_destroyWeak(&v12);
       objc_destroyWeak(location);
-      goto LABEL_6;
+      return;
     }
 
     v3 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_BACKGROUND, 0);
@@ -1269,35 +1264,32 @@ LABEL_5:
 
     if (kAUExtensionScope)
     {
-      v10 = *kAUExtensionScope;
-      if (!v10)
+      v9 = *kAUExtensionScope;
+      if (!v9)
       {
 LABEL_14:
 
-        goto LABEL_6;
+        return;
       }
     }
 
     else
     {
+      v9 = MEMORY[0x1E69E9C10];
       v10 = MEMORY[0x1E69E9C10];
-      v11 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *location = 136315394;
       *&location[4] = "AUAudioUnit.mm";
-      v15 = 1024;
-      v16 = 1676;
-      _os_log_impl(&dword_18F5DF000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create AUExtension.PresetMonitoring queue!", location, 0x12u);
+      v14 = 1024;
+      v15 = 1676;
+      _os_log_impl(&dword_18F5DF000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create AUExtension.PresetMonitoring queue!", location, 0x12u);
     }
 
     goto LABEL_14;
   }
-
-LABEL_6:
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __46__AUAudioUnit_startUserPresetFolderMonitoring__block_invoke(uint64_t a1)
@@ -1425,6 +1417,19 @@ LABEL_9:
   return 0;
 }
 
+- (MIDICIProfileState)profileStateForCable:(uint8_t)cable channel:(MIDIChannelNumber)channel
+{
+  v4 = channel;
+  v5 = objc_opt_self();
+  if (v5)
+  {
+    v6 = [v5 alloc];
+    v5 = [v6 initWithChannel:v4 enabledProfiles:MEMORY[0x1E695E0F0] disabledProfiles:MEMORY[0x1E695E0F0]];
+  }
+
+  return v5;
+}
+
 - (NSIndexSet)supportedViewConfigurations:(NSArray *)availableViewConfigurations
 {
   indexSet = [MEMORY[0x1E696AC90] indexSet];
@@ -1441,41 +1446,36 @@ LABEL_9:
 
 - (void)setMaximumFramesToRender:(AUAudioFrameCount)maximumFramesToRender
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if (self->_renderResourcesAllocated)
+  v9 = *MEMORY[0x1E69E9840];
+  if (!self->_renderResourcesAllocated)
   {
-    if (kAUExtensionScope)
-    {
-      v3 = *kAUExtensionScope;
-      if (!v3)
-      {
-        goto LABEL_10;
-      }
-    }
+    self->_maximumFramesToRender = maximumFramesToRender;
+    return;
+  }
 
-    else
+  if (kAUExtensionScope)
+  {
+    v3 = *kAUExtensionScope;
+    if (!v3)
     {
-      v3 = MEMORY[0x1E69E9C10];
-      v4 = MEMORY[0x1E69E9C10];
-    }
-
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      v6 = 136315394;
-      v7 = "AUAudioUnit.mm";
-      v8 = 1024;
-      v9 = 1425;
-      _os_log_impl(&dword_18F5DF000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d Cannot set maximumFramesToRender while render resources allocated.", &v6, 0x12u);
+      return;
     }
   }
 
   else
   {
-    self->_maximumFramesToRender = maximumFramesToRender;
+    v3 = MEMORY[0x1E69E9C10];
+    v4 = MEMORY[0x1E69E9C10];
   }
 
-LABEL_10:
-  v5 = *MEMORY[0x1E69E9840];
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  {
+    v5 = 136315394;
+    v6 = "AUAudioUnit.mm";
+    v7 = 1024;
+    v8 = 1425;
+    _os_log_impl(&dword_18F5DF000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d Cannot set maximumFramesToRender while render resources allocated.", &v5, 0x12u);
+  }
 }
 
 - (AUMIDIEventListBlock)MIDIOutputEventListBlock
@@ -1708,67 +1708,61 @@ LABEL_24:
 
 uint64_t __34__AUAudioUnit_setupMIDIConversion__block_invoke_2(uint64_t a1, void *a2, char a3, unsigned int a4, uint64_t a5)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v12 = 0;
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0;
   v8 = a4;
   v9 = _Block_copy(*(a1 + 32));
-  v13 = _ZN5caulk16inplace_functionIFvPKN4MIDI9EventListEELm48ELm8ENS_23inplace_function_detail9rt_vtableEE16k_wrapper_vtableIZZ34__AUAudioUnit_setupMIDIConversion_EUb3_E3__5EE;
-  v14[0] = _Block_copy(v9);
-  v14[1] = a2;
-  v15 = a3;
-  v16 = &v12;
-  MIDI::LegacyMIDIConverter<MIDI::IdentityTranslator>::convertLegacyDataToEventList(a5, v8, 0, &v13);
-  (v13[3])(v14);
+  v12 = _ZN5caulk16inplace_functionIFvPKN4MIDI9EventListEELm48ELm8ENS_23inplace_function_detail9rt_vtableEE16k_wrapper_vtableIZZ34__AUAudioUnit_setupMIDIConversion_EUb3_E3__5EE;
+  v13[0] = _Block_copy(v9);
+  v13[1] = a2;
+  v14 = a3;
+  v15 = &v11;
+  MIDI::LegacyMIDIConverter<MIDI::IdentityTranslator>::convertLegacyDataToEventList(a5, v8, 0, &v12);
+  (v12[3])(v13);
 
-  result = v12;
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return v11;
 }
 
 uint64_t __34__AUAudioUnit_setupMIDIConversion__block_invoke_70(uint64_t a1, void *a2, char a3, unsigned int a4, uint64_t a5)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v13 = 0;
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0;
   v8 = a4;
   v9 = *(a1 + 40);
   v10 = _Block_copy(*(a1 + 32));
-  v14 = _ZN5caulk16inplace_functionIFvPKN4MIDI9EventListEELm48ELm8ENS_23inplace_function_detail9rt_vtableEE16k_wrapper_vtableIZZ34__AUAudioUnit_setupMIDIConversion_EUb4_E3__6EE;
-  v15[0] = _Block_copy(v10);
-  v15[1] = a2;
-  v16 = a3;
-  v17 = &v13;
-  MIDI::LegacyMIDIConverter<MIDI::MIDI_1_to_2_Translator>::convertLegacyDataToEventList(v9, a5, v8, 0, &v14);
-  (v14[3])(v15);
+  v13 = _ZN5caulk16inplace_functionIFvPKN4MIDI9EventListEELm48ELm8ENS_23inplace_function_detail9rt_vtableEE16k_wrapper_vtableIZZ34__AUAudioUnit_setupMIDIConversion_EUb4_E3__6EE;
+  v14[0] = _Block_copy(v10);
+  v14[1] = a2;
+  v15 = a3;
+  v16 = &v12;
+  MIDI::LegacyMIDIConverter<MIDI::MIDI_1_to_2_Translator>::convertLegacyDataToEventList(v9, a5, v8, 0, &v13);
+  (v13[3])(v14);
 
-  result = v13;
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return v12;
 }
 
 uint64_t __34__AUAudioUnit_setupMIDIConversion__block_invoke_2_74(uint64_t a1, uint64_t a2, char a3, _DWORD *a4)
 {
-  v20[102] = *MEMORY[0x1E69E9840];
-  v10 = 0;
+  v19[102] = *MEMORY[0x1E69E9840];
+  v9 = 0;
   v7 = _Block_copy(*(a1 + 32));
-  v11 = _ZN5caulk16inplace_functionIFvPKN4MIDI16LegacyPacketListEELm48ELm8ENS_23inplace_function_detail9rt_vtableEE16k_wrapper_vtableIZZ34__AUAudioUnit_setupMIDIConversion_EUb5_E3__7EE;
-  *&v12 = &v10;
-  BYTE8(v12) = a3;
-  v13 = a2;
-  v14 = _Block_copy(v7);
-  v15 = _ZN5caulk16inplace_functionIFvPKN4MIDI16LegacyPacketListEELm48ELm8ENS_23inplace_function_detail9rt_vtableEE16k_wrapper_vtableIZZ34__AUAudioUnit_setupMIDIConversion_EUb5_E3__7EE;
+  v10 = _ZN5caulk16inplace_functionIFvPKN4MIDI16LegacyPacketListEELm48ELm8ENS_23inplace_function_detail9rt_vtableEE16k_wrapper_vtableIZZ34__AUAudioUnit_setupMIDIConversion_EUb5_E3__7EE;
+  *&v11 = &v9;
+  BYTE8(v11) = a3;
+  v12 = a2;
+  v13 = _Block_copy(v7);
+  v14 = _ZN5caulk16inplace_functionIFvPKN4MIDI16LegacyPacketListEELm48ELm8ENS_23inplace_function_detail9rt_vtableEE16k_wrapper_vtableIZZ34__AUAudioUnit_setupMIDIConversion_EUb5_E3__7EE;
+  v15 = v11;
   v16 = v12;
-  v17 = v13;
-  v18 = _Block_copy(v14);
-  MIDI::MIDIPacketList_Deliverer::MIDIPacketList_Deliverer(v19, &v15);
-  (v15[3])(&v16);
-  MIDI::MIDIPacketList_Deliverer::operator()(v19, a4);
-  v19[0] = &unk_1F033BC30;
-  (*(v19[1] + 24))(v20);
-  (v11[3])(&v12);
+  v17 = _Block_copy(v13);
+  MIDI::MIDIPacketList_Deliverer::MIDIPacketList_Deliverer(v18, &v14);
+  (v14[3])(&v15);
+  MIDI::MIDIPacketList_Deliverer::operator()(v18, a4);
+  v18[0] = &unk_1F033BC30;
+  (*(v18[1] + 24))(v19);
+  (v10[3])(&v11);
 
-  result = v10;
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return v9;
 }
 
 uint64_t __34__AUAudioUnit_setupMIDIConversion__block_invoke_3(uint64_t a1, uint64_t a2, unsigned int a3, int *a4)
@@ -2751,7 +2745,7 @@ LABEL_260:
 
 - (void)setFullState:(NSDictionary *)fullState
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = fullState;
   v5 = [(NSDictionary *)v4 objectForKeyedSubscript:@"type"];
   if ([v5 unsignedIntValue] != self->_componentDescription.componentType)
@@ -2791,11 +2785,11 @@ LABEL_9:
 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v15 = 136315394;
-      v16 = "AUAudioUnit.mm";
-      v17 = 1024;
-      v18 = 1168;
-      _os_log_impl(&dword_18F5DF000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d setFullState: preset type/subtype/manufacturer does not match", &v15, 0x12u);
+      v14 = 136315394;
+      v15 = "AUAudioUnit.mm";
+      v16 = 1024;
+      v17 = 1168;
+      _os_log_impl(&dword_18F5DF000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d setFullState: preset type/subtype/manufacturer does not match", &v14, 0x12u);
     }
 
     goto LABEL_15;
@@ -2806,10 +2800,10 @@ LABEL_9:
   {
     parameterTree = [(AUAudioUnit *)self parameterTree];
     [(AUAudioUnit *)self willChangeValueForKey:@"allParameterValues"];
-    MEMORY[0x193ADE3C0](&v15, v10);
-    [parameterTree _deserialize:&v15 fromSetFullState:1];
+    MEMORY[0x193ADE3C0](&v14, v10);
+    [parameterTree _deserialize:&v14 fromSetFullState:1];
     [(AUAudioUnit *)self didChangeValueForKey:@"allParameterValues"];
-    MEMORY[0x193ADE3E0](&v15);
+    MEMORY[0x193ADE3E0](&v14);
   }
 
   else
@@ -2827,23 +2821,21 @@ LABEL_9:
     else
     {
       parameterTree = MEMORY[0x1E69E9C10];
-      v14 = MEMORY[0x1E69E9C10];
+      v13 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(parameterTree, OS_LOG_TYPE_ERROR))
     {
-      v15 = 136315394;
-      v16 = "AUAudioUnit.mm";
-      v17 = 1024;
-      v18 = 1173;
-      _os_log_impl(&dword_18F5DF000, parameterTree, OS_LOG_TYPE_ERROR, "%25s:%-5d setFullState: no data", &v15, 0x12u);
+      v14 = 136315394;
+      v15 = "AUAudioUnit.mm";
+      v16 = 1024;
+      v17 = 1173;
+      _os_log_impl(&dword_18F5DF000, parameterTree, OS_LOG_TYPE_ERROR, "%25s:%-5d setFullState: no data", &v14, 0x12u);
     }
   }
 
 LABEL_15:
 LABEL_16:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (NSDictionary)fullState
@@ -3190,34 +3182,28 @@ LABEL_5:
 
 uint64_t __41__AUAudioUnit_scheduleMIDIEventListBlock__block_invoke(uint64_t a1, uint64_t a2, char a3, _DWORD *a4)
 {
-  v13[102] = *MEMORY[0x1E69E9840];
-  if (a4)
+  v12[102] = *MEMORY[0x1E69E9840];
+  if (!a4)
   {
-    *&v7 = *(a1 + 32);
-    *(&v7 + 1) = a2;
-    LOBYTE(v8) = a3;
-    v9 = _ZN5caulk16inplace_functionIFvPKN4MIDI16LegacyPacketListEELm48ELm8ENS_23inplace_function_detail9rt_vtableEE16k_wrapper_vtableIZZ41__AUAudioUnit_scheduleMIDIEventListBlock_EUb1_E3__3EE;
-    v10 = v7;
-    v11 = v8;
-    MIDI::MIDIPacketList_Deliverer::MIDIPacketList_Deliverer(v12, &v9);
-    (v9[3])(&v10);
-    MIDI::MIDIPacketList_Deliverer::operator()(v12, a4);
-    v12[0] = &unk_1F033BC30;
-    (*(v12[1] + 24))(v13);
-    (off_1F032F130)(&v7);
-    result = 0;
+    return 4294967246;
   }
 
-  else
-  {
-    result = 4294967246;
-  }
-
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  *&v6 = *(a1 + 32);
+  *(&v6 + 1) = a2;
+  LOBYTE(v7) = a3;
+  v8 = _ZN5caulk16inplace_functionIFvPKN4MIDI16LegacyPacketListEELm48ELm8ENS_23inplace_function_detail9rt_vtableEE16k_wrapper_vtableIZZ41__AUAudioUnit_scheduleMIDIEventListBlock_EUb1_E3__3EE;
+  v9 = v6;
+  v10 = v7;
+  MIDI::MIDIPacketList_Deliverer::MIDIPacketList_Deliverer(v11, &v8);
+  v8[3]();
+  MIDI::MIDIPacketList_Deliverer::operator()(v11, a4);
+  v11[0] = &unk_1F033BC30;
+  (*(v11[1] + 24))(v12);
+  (off_1F032F130)(&v6);
+  return 0;
 }
 
-uint64_t __41__AUAudioUnit_scheduleMIDIEventListBlock__block_invoke_2(uint64_t a1, uint64_t a2, char a3, int *a4)
+uint64_t __41__AUAudioUnit_scheduleMIDIEventListBlock__block_invoke_2(uint64_t a1, uint64_t a2, unsigned __int8 a3, int *a4)
 {
   if (!a4)
   {
@@ -3836,7 +3822,7 @@ LABEL_188:
   if (v12 && a4[1])
   {
     v13 = 0;
-    v14 = (a4 + 2);
+    v14 = a4 + 2;
     v98 = v117 + 2084;
     do
     {
@@ -4098,31 +4084,27 @@ LABEL_52:
 
 uint64_t __37__AUAudioUnit_scheduleMIDIEventBlock__block_invoke_2(uint64_t a1, uint64_t a2, char a3, unsigned int a4, uint64_t a5)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 48);
-  v8 = _ZN5caulk16inplace_functionIFvPKN4MIDI9EventListEELm48ELm8ENS_23inplace_function_detail9rt_vtableEE16k_wrapper_vtableIZZ37__AUAudioUnit_scheduleMIDIEventBlock_EUb_E3__1EE;
-  v9[0] = v5;
-  v9[1] = a2;
-  v10 = a3;
-  MIDI::LegacyMIDIConverter<MIDI::IdentityTranslator>::convertLegacyDataToEventList(a5, a4, 0, &v8);
-  result = (v8[3])(v9);
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  v7 = _ZN5caulk16inplace_functionIFvPKN4MIDI9EventListEELm48ELm8ENS_23inplace_function_detail9rt_vtableEE16k_wrapper_vtableIZZ37__AUAudioUnit_scheduleMIDIEventBlock_EUb_E3__1EE;
+  v8[0] = v5;
+  v8[1] = a2;
+  v9 = a3;
+  MIDI::LegacyMIDIConverter<MIDI::IdentityTranslator>::convertLegacyDataToEventList(a5, a4, 0, &v7);
+  return (v7[3])(v8);
 }
 
 uint64_t __37__AUAudioUnit_scheduleMIDIEventBlock__block_invoke_29(uint64_t a1, uint64_t a2, char a3, unsigned int a4, uint64_t a5)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 32);
   v6 = *(a1 + 48);
-  v9 = _ZN5caulk16inplace_functionIFvPKN4MIDI9EventListEELm48ELm8ENS_23inplace_function_detail9rt_vtableEE16k_wrapper_vtableIZZ37__AUAudioUnit_scheduleMIDIEventBlock_EUb0_E3__2EE;
-  v10[0] = v6;
-  v10[1] = a2;
-  v11 = a3;
-  MIDI::LegacyMIDIConverter<MIDI::MIDI_1_to_2_Translator>::convertLegacyDataToEventList(v5, a5, a4, 0, &v9);
-  result = (v9[3])(v10);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  v8 = _ZN5caulk16inplace_functionIFvPKN4MIDI9EventListEELm48ELm8ENS_23inplace_function_detail9rt_vtableEE16k_wrapper_vtableIZZ37__AUAudioUnit_scheduleMIDIEventBlock_EUb0_E3__2EE;
+  v9[0] = v6;
+  v9[1] = a2;
+  v10 = a3;
+  MIDI::LegacyMIDIConverter<MIDI::MIDI_1_to_2_Translator>::convertLegacyDataToEventList(v5, a5, a4, 0, &v8);
+  return (v8[3])(v9);
 }
 
 - (BOOL)isMusicDeviceOrEffect
@@ -4135,6 +4117,66 @@ uint64_t __37__AUAudioUnit_scheduleMIDIEventBlock__block_invoke_29(uint64_t a1, 
   }
 
   return result;
+}
+
+- (float)getV2Parameter:(unint64_t)parameter sequenceNumber:(unsigned int)number
+{
+  if (number)
+  {
+    explicit = *&self->_anon_f8[24];
+    if (HIDWORD(explicit))
+    {
+LABEL_14:
+      std::terminate();
+    }
+
+    v7 = *&number;
+    if ((explicit - number) < 0)
+    {
+      v8 = 0;
+      do
+      {
+        v9 = explicit | (v7 << 32);
+        v10 = v8 & 0xFFFFFFFF00000000 | explicit;
+        explicit = v10;
+        atomic_compare_exchange_strong(&self->_anon_f8[24], &explicit, v9);
+        if (explicit == v10)
+        {
+          caulk::semaphore::timed_wait(&self->_anon_f8[32], -1.0);
+          explicit = atomic_load_explicit(&self->_anon_f8[24], memory_order_acquire);
+          v8 = HIDWORD(explicit);
+          if (HIDWORD(explicit))
+          {
+            goto LABEL_14;
+          }
+        }
+
+        else
+        {
+          v8 = explicit;
+        }
+      }
+
+      while (explicit - v7 < 0);
+    }
+  }
+
+  parameterTree = [(AUAudioUnit *)self parameterTree];
+  v12 = [parameterTree parameterWithAddress:parameter];
+
+  if (v12)
+  {
+    [v12 setLocalValueStale:1];
+    [v12 value];
+    v14 = v13;
+  }
+
+  else
+  {
+    v14 = 0.0;
+  }
+
+  return v14;
 }
 
 - (void)setV2Parameter:(unint64_t)parameter value:(float)value bufferOffset:(unsigned int)offset sequenceNumber:(unsigned int)number
@@ -4568,7 +4610,7 @@ uint64_t __26__AUAudioUnit_renderBlock__block_invoke(uint64_t a1, unsigned int *
 
 - (AUAudioUnit)initWithComponentDescription:(AudioComponentDescription *)componentDescription options:(AudioComponentInstantiationOptions)options error:(NSError *)outError
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   CADeprecated::TSingleton<AUAudioUnitProperties>::instance();
   if ([(AUAudioUnit *)self isMemberOfClass:objc_opt_class()])
   {
@@ -4576,33 +4618,33 @@ uint64_t __26__AUAudioUnit_renderBlock__block_invoke(uint64_t a1, unsigned int *
     Next = AudioComponentFindNext(0, componentDescription);
     if (Next)
     {
-      memset(&v41, 0, sizeof(v41));
-      Impl_AudioGetComponentInfo(Next, &v41, 0);
-      componentFlags = v41.componentFlags;
-      if ((v41.componentFlags & 8) == 0 || AllowUnsafeMainThreadServicing("[AUAudioUnit initWithComponentDescription:options:error:]"))
+      memset(&v40, 0, sizeof(v40));
+      Impl_AudioGetComponentInfo(Next, &v40, 0);
+      componentFlags = v40.componentFlags;
+      if ((v40.componentFlags & 8) == 0 || AllowUnsafeMainThreadServicing("[AUAudioUnit initWithComponentDescription:options:error:]"))
       {
-        v35 = 0;
-        v36 = &v35;
-        v37 = 0x3032000000;
-        v38 = __Block_byref_object_copy__6886;
-        v39 = __Block_byref_object_dispose__6887;
-        v40 = 0;
-        v29 = 0;
-        v30 = &v29;
-        v31 = 0x3032000000;
-        v32 = __Block_byref_object_copy__6886;
-        v33 = __Block_byref_object_dispose__6887;
         v34 = 0;
+        v35 = &v34;
+        v36 = 0x3032000000;
+        v37 = __Block_byref_object_copy__6886;
+        v38 = __Block_byref_object_dispose__6887;
+        v39 = 0;
+        v28 = 0;
+        v29 = &v28;
+        v30 = 0x3032000000;
+        v31 = __Block_byref_object_copy__6886;
+        v32 = __Block_byref_object_dispose__6887;
+        v33 = 0;
         aBlock[0] = MEMORY[0x1E69E9820];
         aBlock[1] = 3221225472;
         aBlock[2] = __58__AUAudioUnit_initWithComponentDescription_options_error___block_invoke;
         aBlock[3] = &unk_1E72C1170;
         componentFlagsMask = componentDescription->componentFlagsMask;
-        v26 = *&componentDescription->componentType;
-        v27 = componentFlagsMask;
-        v28 = options;
-        aBlock[4] = &v35;
-        aBlock[5] = &v29;
+        v25 = *&componentDescription->componentType;
+        v26 = componentFlagsMask;
+        v27 = options;
+        aBlock[4] = &v34;
+        aBlock[5] = &v28;
         v12 = _Block_copy(aBlock);
         v13 = v12;
         if ((componentFlags & 8) != 0)
@@ -4626,24 +4668,24 @@ uint64_t __26__AUAudioUnit_renderBlock__block_invoke(uint64_t a1, unsigned int *
           if (os_log_type_enabled(*gAudioComponentLogCategory, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315394;
-            v43 = "AUAudioUnit.mm";
-            v44 = 1024;
-            v45 = 555;
+            v42 = "AUAudioUnit.mm";
+            v43 = 1024;
+            v44 = 555;
             _os_log_impl(&dword_18F5DF000, v20, OS_LOG_TYPE_ERROR, "%25s:%-5d Timeout running task synchronously", buf, 0x12u);
           }
         }
 
         if (outError)
         {
-          *outError = v30[5];
+          *outError = v29[5];
         }
 
-        v16 = v36[5];
+        v16 = v35[5];
 
-        _Block_object_dispose(&v29, 8);
-        _Block_object_dispose(&v35, 8);
+        _Block_object_dispose(&v28, 8);
+        _Block_object_dispose(&v34, 8);
 
-        goto LABEL_25;
+        return v16;
       }
 
       if (outError)
@@ -4659,16 +4701,15 @@ uint64_t __26__AUAudioUnit_renderBlock__block_invoke(uint64_t a1, unsigned int *
 LABEL_17:
       v16 = 0;
       *outError = v19;
-      goto LABEL_25;
+      return v16;
     }
 
-    v16 = 0;
-    goto LABEL_25;
+    return 0;
   }
 
-  v24.receiver = self;
-  v24.super_class = AUAudioUnit;
-  v15 = [(AUAudioUnit *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = AUAudioUnit;
+  v15 = [(AUAudioUnit *)&v23 init];
   v16 = v15;
   if (v15)
   {
@@ -4686,8 +4727,6 @@ LABEL_17:
     v16->_shouldUseMIDI2 = 1;
   }
 
-LABEL_25:
-  v22 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -4767,11 +4806,152 @@ void __58__AUAudioUnit_initWithComponentDescription_options_error___block_invoke
   return v6;
 }
 
++ (void)instantiateWithComponentDescription:(AudioComponentDescription *)componentDescription options:(AudioComponentInstantiationOptions)options completionHandler:(void *)completionHandler
+{
+  v8 = *MEMORY[0x1E69E9840];
+  v5 = *componentDescription;
+  v7 = 0;
+  [AUAudioUnit instantiateWithComponentDescription:&v5 options:*&options connectionProvider:v6 completionHandler:completionHandler];
+  std::__function::__value_func<NSXPCConnection * ()(NSUUID *)>::~__value_func[abi:ne200100](v6);
+}
+
++ (void)instantiateWithComponentDescription:(AudioComponentDescription *)description options:(unsigned int)options connectionProvider:(function<NSXPCConnection *(NSUUID *) completionHandler:
+{
+  v7 = *&options;
+  v35 = *MEMORY[0x1E69E9840];
+  v9 = a6;
+  CADeprecated::TSingleton<AUAudioUnitProperties>::instance();
+  Next = AudioComponentFindNext(0, description);
+  v11 = Next;
+  if (Next)
+  {
+    v12 = (**Next)(Next);
+    v13 = (**v11)(v11);
+    if (v13)
+    {
+      v14 = (*(*v13 + 32))(v13);
+      if (v14)
+      {
+        v33 = *description;
+        [AUAudioUnit_XH instantiateWithExtension:v14 componentDescription:&v33 instance:0 options:0 completionHandler:v9];
+        v15 = 0;
+        v16 = 0;
+LABEL_25:
+        atomic_fetch_add(v12 + 34, 1u);
+        atomic_fetch_or(v12 + 35, v7 | 0x20000000);
+        v19 = v15;
+        v20 = v16;
+        goto LABEL_26;
+      }
+    }
+
+    Impl_AudioGetComponentInfo(v11, &v33, 0);
+    if ((v33.componentFlags & 4) != 0 && (v17 = (**v11)(v11)) != 0)
+    {
+      AUOutputUnitClass = (*(*v17 + 40))(v17);
+      if (AUOutputUnitClass)
+      {
+        v19 = 0;
+        v20 = 0;
+LABEL_24:
+        v27 = [AUOutputUnitClass alloc];
+        v33 = *description;
+        v28 = v20;
+        v15 = [v27 initWithComponentDescription:&v33 options:v7 error:&v28];
+        v16 = v28;
+
+        v9[2](v9, v15, v16);
+        v14 = 0;
+        goto LABEL_25;
+      }
+    }
+
+    else
+    {
+      v22 = 0;
+    }
+
+    if (description->componentType == 1635086197)
+    {
+      v19 = 0;
+      AUOutputUnitClass = getAUOutputUnitClass(description->componentSubType);
+      v20 = 0;
+    }
+
+    else
+    {
+      (*(*v12 + 104))(&cf, v12);
+      V2OutOfProcess = shouldLoadV2OutOfProcess(description, v7, &cf);
+      v24 = V2OutOfProcess;
+      if (V2OutOfProcess)
+      {
+        v33 = *description;
+        v25 = cf;
+        std::__function::__value_func<NSXPCConnection * ()(NSUUID *)>::__value_func[abi:ne200100](v34, a5);
+        AUHostingServiceClient::create(&v31, &v33, v25, v34, 0);
+
+        std::__function::__value_func<NSXPCConnection * ()(NSUUID *)>::~__value_func[abi:ne200100](v34);
+        if (v31 && (v33 = *description, AUHostingServiceClient::loadRemotely(v31, &v33)))
+        {
+          v26 = [AUAudioUnit_RemoteV2 alloc];
+          v30 = v31;
+          v31 = 0;
+          v33 = *description;
+          v29 = 0;
+          v19 = [(AUAudioUnit_RemoteV2 *)v26 initWithXPCService:&v30 componentDescription:&v33 instance:0 instanceUUID:0 error:&v29];
+          v20 = v29;
+          std::unique_ptr<AUHostingServiceClient>::~unique_ptr[abi:ne200100](&v30);
+          atomic_fetch_add(v12 + 34, 1u);
+          atomic_fetch_or(v12 + 35, v7);
+        }
+
+        else
+        {
+          v19 = 0;
+          v20 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:-10875 userInfo:0];
+        }
+
+        v9[2](v9, v19, v20);
+        std::unique_ptr<AUHostingServiceClient>::~unique_ptr[abi:ne200100](&v31);
+        AUOutputUnitClass = 0;
+      }
+
+      else
+      {
+        AUOutputUnitClass = objc_opt_self();
+
+        v19 = 0;
+        v20 = 0;
+      }
+
+      if (cf)
+      {
+        CFRelease(cf);
+      }
+
+      if (v24)
+      {
+        v14 = 0;
+LABEL_26:
+
+        goto LABEL_27;
+      }
+    }
+
+    goto LABEL_24;
+  }
+
+  v21 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:-3000 userInfo:0];
+  v9[2](v9, 0, v21);
+
+LABEL_27:
+}
+
 + (void)registerSubclass:(Class)cls asComponentDescription:(AudioComponentDescription *)componentDescription name:(NSString *)name version:(UInt32)version
 {
-  v14[6] = *MEMORY[0x1E69E9840];
+  v13[6] = *MEMORY[0x1E69E9840];
   v7 = name;
-  GlobalComponentPluginMgr(v14);
+  GlobalComponentPluginMgr(v13);
   if (EmbeddedComponentManager::isComponentDescriptionVisible(componentDescription->componentFlags, v8))
   {
     v9 = v7;
@@ -4790,12 +4970,10 @@ void __58__AUAudioUnit_initWithComponentDescription_options_error___block_invoke
     operator new();
   }
 
-  if (v14[0])
+  if (v13[0])
   {
-    std::recursive_mutex::unlock(v14[0]);
+    std::recursive_mutex::unlock(v13[0]);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __86__AUAudioUnit_XH__internalInitWithExtension_componentDescription_instance_completion___block_invoke(uint64_t a1, void *a2)

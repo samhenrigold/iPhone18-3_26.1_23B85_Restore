@@ -235,7 +235,7 @@
   v105 = 0u;
   v102 = 0u;
   v103 = 0u;
-  [(HKGraphSeries *)self selectedPathRange];
+  objc_msgSend_selectedPathRange(self);
   if ([coordinatesCopy numCoordinates] >= 1)
   {
     CGContextSaveGState(context);

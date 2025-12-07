@@ -178,113 +178,113 @@ void __45__SearchSuggestion_relativeDateTimeFormatter__block_invoke()
 
 - (void)configureCompletionTableViewCell:(id)cell forCompletionList:(id)list
 {
-  v42[1] = *MEMORY[0x277D85DE8];
+  v43[1] = *MEMORY[0x277D85DE8];
   cellCopy = cell;
   listCopy = list;
-  v8 = listCopy;
+  v9 = listCopy;
   if (self->_string)
   {
     browserController = [listCopy browserController];
     rootViewController = [browserController rootViewController];
     isUsingBottomCapsule = [rootViewController isUsingBottomCapsule];
 
-    v12 = cellCopy;
+    v13 = cellCopy;
     goesToURL = self->_goesToURL;
-    v41 = @"destination";
+    v42 = @"destination";
     if (goesToURL)
     {
-      v14 = @"URL";
+      v15 = @"URL";
     }
 
     else
     {
-      v14 = @"Search";
+      v15 = @"Search";
     }
 
-    v42[0] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
-    v16 = WBSMakeAccessibilityIdentifier();
-    [v12 setAccessibilityIdentifier:v16];
+    v43[0] = v15;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:&v42 count:1];
+    v17 = WBSMakeAccessibilityIdentifier();
+    [v13 setAccessibilityIdentifier:v17];
 
     if (self->_goesToURL)
     {
-      v17 = MEMORY[0x277D755B8];
-      v18 = systemImageNameForCompletionIcon(5);
-      v19 = [v17 systemImageNamed:v18];
-      imageView = [v12 imageView];
-      [imageView setImage:v19];
+      v18 = MEMORY[0x277D755B8];
+      v19 = systemImageNameForCompletionIcon(5);
+      v20 = [v18 systemImageNamed:v19];
+      imageView = [v13 imageView];
+      [imageView setImage:v20];
 
-      [(UITableViewCell *)v12 safari_setLinkedPageTitle:&stru_2827BF158 description:?];
-      [v12 setHidesCompletionArrowView:1];
-      textLabel = [v12 textLabel];
-      v22 = MEMORY[0x277D75348];
+      [(UITableViewCell *)v13 safari_setLinkedPageTitle:&stru_2827BF158 description:?];
+      [v13 setHidesCompletionArrowView:1];
+      textLabel = [v13 textLabel];
+      v23 = MEMORY[0x277D75348];
       safari_browserDefaults = [MEMORY[0x277CBEBD0] safari_browserDefaults];
-      v24 = [(NSString *)safari_browserDefaults safari_numberForKey:*MEMORY[0x277D29060]];
-      v25 = [v22 safari_labelColorFromNumber:v24];
-      [textLabel setTextColor:v25];
+      v25 = [(NSString *)safari_browserDefaults safari_numberForKey:*MEMORY[0x277D29060]];
+      v26 = [v23 safari_labelColorFromNumber:v25];
+      [textLabel setTextColor:v26];
     }
 
     else
     {
-      [v12 setHidesImage:0];
-      textLabel = [v12 textLabel];
-      traitCollection = [v12 traitCollection];
+      [v13 setHidesImage:0];
+      textLabel = [v13 textLabel];
+      traitCollection = [v13 traitCollection];
       safari_browserDefaults = [traitCollection preferredContentSizeCategory];
 
       if (UIContentSizeCategoryIsAccessibilityCategory(safari_browserDefaults))
       {
-        v28 = 0;
+        v29 = 0;
       }
 
       else
       {
-        v28 = 2;
+        v29 = 2;
       }
 
-      [textLabel setNumberOfLines:v28];
-      v29 = [(NSString *)self->_postFixString length];
+      [textLabel setNumberOfLines:v29];
+      v30 = [(NSString *)self->_postFixString length];
       userQuery = self->_userQuery;
-      if (v29)
+      if (v30)
       {
-        [v12 setSearchSuggestion:self->_postFixString withQuery:userQuery];
-        v31 = [(SearchSuggestion *)self _iconForPostFixSearchEngineSuggestion:v12 usingBottomCapsule:isUsingBottomCapsule];
-        v32 = MEMORY[0x277D755B8];
-        v33 = systemImageNameForCompletionIcon(v31);
-        v34 = [v32 systemImageNamed:v33];
-        imageView2 = [v12 imageView];
-        [imageView2 setImage:v34];
+        [v13 setSearchSuggestion:self->_postFixString withQuery:userQuery];
+        v32 = [(SearchSuggestion *)self _iconForPostFixSearchEngineSuggestion:v13 usingBottomCapsule:isUsingBottomCapsule];
+        v33 = MEMORY[0x277D755B8];
+        v34 = systemImageNameForCompletionIcon(v32);
+        v35 = [v33 systemImageNamed:v34];
+        imageView2 = [v13 imageView];
+        [imageView2 setImage:v35];
       }
 
       else
       {
-        [v12 setSearchSuggestion:self->_string withQuery:userQuery];
+        [v13 setSearchSuggestion:self->_string withQuery:userQuery];
       }
 
       if ([(SearchSuggestion *)self _isLabelPreviousSearchesInCompletionListEnabled])
       {
-        [(SearchSuggestion *)self _configureHistoryLastAccessedLabelForTableViewCellIfNeeded:v12];
+        [(SearchSuggestion *)self _configureHistoryLastAccessedLabelForTableViewCellIfNeeded:v13];
       }
 
       queryString = [(WBSCompletionQuery *)self->_userQuery queryString];
-      v37 = [queryString isEqualToString:self->_string];
+      v38 = [queryString isEqualToString:self->_string];
 
-      if (v37)
+      if (v38)
       {
-        [v12 setHidesCompletionArrowView:1];
+        [v13 setHidesCompletionArrowView:1];
       }
 
       else
       {
-        [v12 setUsesDownBackwardCompletionArrow:isUsingBottomCapsule];
-        [v12 setHidesCompletionArrowView:{-[NSString length](self->_postFixString, "length") != 0}];
+        [v13 setUsesDownBackwardCompletionArrow:isUsingBottomCapsule];
+        [v13 setHidesCompletionArrowView:{-[NSString length](self->_postFixString, "length") != 0}];
         objc_initWeak(&location, self);
-        v38[0] = MEMORY[0x277D85DD0];
-        v38[1] = 3221225472;
-        v38[2] = __71__SearchSuggestion_configureCompletionTableViewCell_forCompletionList___block_invoke;
-        v38[3] = &unk_2781D5598;
-        objc_copyWeak(&v39, &location);
-        [v12 setAccessoryActionHandler:v38];
-        objc_destroyWeak(&v39);
+        v39[0] = MEMORY[0x277D85DD0];
+        v39[1] = 3221225472;
+        v39[2] = __71__SearchSuggestion_configureCompletionTableViewCell_forCompletionList___block_invoke;
+        v39[3] = &unk_2781D5598;
+        objc_copyWeak(&v40, &location);
+        [v13 setAccessoryActionHandler:v39];
+        objc_destroyWeak(&v40);
         objc_destroyWeak(&location);
       }
     }
@@ -292,10 +292,10 @@ void __45__SearchSuggestion_relativeDateTimeFormatter__block_invoke()
 
   else
   {
-    v26 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v27 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(listCopy, v8);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      [SearchSuggestion configureCompletionTableViewCell:v26 forCompletionList:?];
+      [SearchSuggestion configureCompletionTableViewCell:v27 forCompletionList:?];
     }
   }
 }

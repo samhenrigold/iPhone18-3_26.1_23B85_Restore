@@ -1212,7 +1212,7 @@ void __68__PUIPosterSnapshotBundlePredicate_SQLiteAdditions__SQLitePredicate__bl
 
 + (void)predicateMatchingRequest:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"request"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1220,7 +1220,7 @@ void __68__PUIPosterSnapshotBundlePredicate_SQLiteAdditions__SQLitePredicate__bl
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"request", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1230,7 +1230,7 @@ void __68__PUIPosterSnapshotBundlePredicate_SQLiteAdditions__SQLitePredicate__bl
 
 + (void)predicateMatchingContext:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"context"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1238,7 +1238,7 @@ void __68__PUIPosterSnapshotBundlePredicate_SQLiteAdditions__SQLitePredicate__bl
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"context", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1248,7 +1248,7 @@ void __68__PUIPosterSnapshotBundlePredicate_SQLiteAdditions__SQLitePredicate__bl
 
 + (void)predicateMatchingBundlesSimilarTo:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"context"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1256,7 +1256,7 @@ void __68__PUIPosterSnapshotBundlePredicate_SQLiteAdditions__SQLitePredicate__bl
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"context", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1264,7 +1264,7 @@ void __68__PUIPosterSnapshotBundlePredicate_SQLiteAdditions__SQLitePredicate__bl
   __break(0);
 }
 
-void __68__PUIPosterSnapshotBundlePredicate_SQLiteAdditions__SQLitePredicate__block_invoke_cold_1(uint64_t a1, uint64_t a2, uint64_t a3)
+void __68__PUIPosterSnapshotBundlePredicate_SQLiteAdditions__SQLitePredicate__block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
   v14 = *MEMORY[0x1E69E9840];
   v4 = NSStringFromSelector(*(a1 + 48));
@@ -1279,7 +1279,7 @@ void __68__PUIPosterSnapshotBundlePredicate_SQLiteAdditions__SQLitePredicate__bl
   _os_log_error_impl(&dword_1A8C85000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, 0x3Au);
 }
 
-void __68__PUIPosterSnapshotBundlePredicate_SQLiteAdditions__SQLitePredicate__block_invoke_cold_2(uint64_t a1, uint64_t a2, uint64_t a3)
+void __68__PUIPosterSnapshotBundlePredicate_SQLiteAdditions__SQLitePredicate__block_invoke_cold_2(uint64_t a1, void *a2, uint64_t a3)
 {
   v14 = *MEMORY[0x1E69E9840];
   v4 = NSStringFromSelector(*(a1 + 48));

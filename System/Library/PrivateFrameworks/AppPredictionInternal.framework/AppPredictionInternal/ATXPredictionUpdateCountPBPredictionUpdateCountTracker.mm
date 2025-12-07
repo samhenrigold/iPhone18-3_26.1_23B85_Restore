@@ -1,8 +1,10 @@
 @interface ATXPredictionUpdateCountPBPredictionUpdateCountTracker
 - (BOOL)isEqual:(id)equal;
+- (id)clientTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)triggerTypeAsString:(int)string;
 - (int)StringAsClientType:(id)type;
 - (int)StringAsTriggerType:(id)type;
 - (int)clientType;
@@ -42,6 +44,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)triggerTypeAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2785A0678[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsTriggerType:(id)type
@@ -106,6 +123,29 @@
   {
     return 0;
   }
+}
+
+- (id)clientTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"CLIENT_ACTION_PREDICTIONS";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"CLIENT_APP_PREDICTIONS";
+  }
+
+  return v4;
 }
 
 - (int)StringAsClientType:(id)type
@@ -195,26 +235,24 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    triggerType = self->_triggerType;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    clientType = self->_clientType;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_abGroup)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -276,7 +314,6 @@
     goto LABEL_14;
   }
 
-  v5 = *(equalCopy + 24);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 24) & 2) == 0 || self->_triggerType != *(equalCopy + 5))
@@ -288,7 +325,7 @@
   else if ((*(equalCopy + 24) & 2) != 0)
   {
 LABEL_14:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_15;
   }
 
@@ -308,17 +345,17 @@ LABEL_14:
   abGroup = self->_abGroup;
   if (abGroup | *(equalCopy + 1))
   {
-    v7 = [(NSString *)abGroup isEqual:?];
+    v6 = [(NSString *)abGroup isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_15:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

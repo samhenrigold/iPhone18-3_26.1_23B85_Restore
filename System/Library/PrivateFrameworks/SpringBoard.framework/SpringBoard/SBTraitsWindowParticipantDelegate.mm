@@ -233,8 +233,8 @@ LABEL_3:
 LABEL_3:
   v9 = [(NSMutableDictionary *)self->_tempLastPreferredZOrder objectForKey:participantCopy];
   v10 = [(NSMutableDictionary *)self->_tempLastSupportedOrientations objectForKey:participantCopy];
-  v11 = [(NSMutableArray *)self->_tempOwningWindowVisible containsObject:participantCopy];
-  v12 = [(NSMutableArray *)self->_tempOwningWindowHidden containsObject:participantCopy];
+  v11 = objc_msgSend_containsObject_(self->_tempOwningWindowVisible);
+  v12 = objc_msgSend_containsObject_(self->_tempOwningWindowHidden);
   v13 = v12;
   v14 = (v11 | v12) & 1;
   if (v9)
@@ -290,7 +290,7 @@ void __77__SBTraitsWindowParticipantDelegate_updatePreferencesForParticipant_upd
   {
     v5 = [objc_opt_class() _activeOrientationDeterminingParticipantRoles];
     v6 = [*(a1 + 48) role];
-    v7 = [v5 containsObject:v6];
+    v7 = objc_msgSend_containsObject_(v5);
 
     if (v7 && *(a1 + 57) == 1)
     {
@@ -343,7 +343,7 @@ uint64_t __78__SBTraitsWindowParticipantDelegate_validateSettingsForParticipant_
 {
   v22 = *MEMORY[0x277D85DE8];
   v5 = [*(*(a1 + 32) + 16) objectForKey:*(a1 + 40)];
-  if (([*(*(a1 + 32) + 8) containsObject:v5] & 1) != 0 || (objc_msgSend(*(a1 + 40), "role"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "isEqualToString:", @"SBTraitsParticipantRoleBanner"), v6, v7))
+  if ((objc_msgSend_containsObject_(*(*(a1 + 32) + 8)) & 1) != 0 || ([*(a1 + 40) role], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "isEqualToString:", @"SBTraitsParticipantRoleBanner"), v6, v7))
   {
     *a3 = 0;
     v8 = 1;
@@ -697,7 +697,7 @@ void __97__SBTraitsWindowParticipantDelegate_appendDescriptionForParticipant_wit
 
 - (id)_validationFailureReasonForWindow:(id)window
 {
-  if ([(NSHashTable *)self->_visibleWindows containsObject:window])
+  if (objc_msgSend_containsObject_(self->_visibleWindows, a2, window))
   {
     return 0;
   }

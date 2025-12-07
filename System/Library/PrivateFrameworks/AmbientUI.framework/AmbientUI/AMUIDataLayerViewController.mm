@@ -121,11 +121,10 @@ void __88__AMUIDataLayerViewController_setChromeVisibility_withAnimationSettings
 
 - (int64_t)currentDataLayout
 {
+  v2 = objc_opt_class();
   v3 = objc_opt_class();
-  concreteDataLayerViewController = self->_concreteDataLayerViewController;
-  v5 = objc_opt_class();
 
-  return [v3 _dataLayoutForDataLayerClass:v5];
+  return [v2 _dataLayoutForDataLayerClass:v3];
 }
 
 + (int64_t)dataLayoutForConfiguration:(id)configuration
@@ -154,19 +153,17 @@ void __88__AMUIDataLayerViewController_setChromeVisibility_withAnimationSettings
 
 uint64_t __54__AMUIDataLayerViewController_setDateTimeLayerHidden___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = 1.0;
+  v1 = 1.0;
   if (*(a1 + 40))
   {
-    v2 = 0.0;
+    v1 = 0.0;
   }
 
-  return [*(a1 + 32) setAlpha:v2];
+  return [*(a1 + 32) setAlpha:v1];
 }
 
 - (UIView)viewForOpacityAdjustment
 {
-  concreteDataLayerViewController = self->_concreteDataLayerViewController;
   if (objc_opt_respondsToSelector())
   {
     [(AMUIAmbientViewControlling *)self->_concreteDataLayerViewController viewForOpacityAdjustment];
@@ -176,9 +173,9 @@ uint64_t __54__AMUIDataLayerViewController_setDateTimeLayerHidden___block_invoke
   {
     [(AMUIDataLayerViewController *)self view];
   }
-  v4 = ;
+  v3 = ;
 
-  return v4;
+  return v3;
 }
 
 - (BOOL)updatePosterConfiguration:(id)configuration withAnimationSettings:(id)settings
@@ -339,7 +336,6 @@ void __79__AMUIDataLayerViewController_updatePosterConfiguration_withAnimationSe
 
 - (id)cancelTouchesForCurrentEventInHostedContent
 {
-  concreteDataLayerViewController = self->_concreteDataLayerViewController;
   if (objc_opt_respondsToSelector())
   {
     cancelTouchesForCurrentEventInHostedContent = [(AMUIAmbientViewControlling *)self->_concreteDataLayerViewController cancelTouchesForCurrentEventInHostedContent];
@@ -454,56 +450,47 @@ void __79__AMUIDataLayerViewController_updatePosterConfiguration_withAnimationSe
 + (Class)_dataLayerClassForConfiguration:(id)configuration
 {
   configurationCopy = configuration;
-  v16 = 0;
-  v4 = [configurationCopy pr_loadAmbientConfigurationWithError:&v16];
-  v5 = v16;
+  v15 = 0;
+  v4 = [configurationCopy pr_loadAmbientConfigurationWithError:&v15];
+  v5 = v15;
   if (v4)
   {
     supportedDataLayout = [v4 supportedDataLayout];
-    if (supportedDataLayout == 1)
+    if (supportedDataLayout == 1 || supportedDataLayout == 2)
     {
-      v7 = off_278C755C0;
+      v11 = objc_opt_class();
     }
 
     else
     {
-      if (supportedDataLayout != 2)
-      {
-        v12 = 0;
-        goto LABEL_10;
-      }
-
-      v7 = off_278C75600;
+      v11 = 0;
     }
 
-    v11 = *v7;
-    v12 = objc_opt_class();
-LABEL_10:
-    v10 = v12;
-    goto LABEL_11;
+    v10 = v11;
+    goto LABEL_10;
   }
 
   providerBundleIdentifier = [configurationCopy providerBundleIdentifier];
-  v9 = [providerBundleIdentifier isEqualToString:@"com.apple.ambient.AmbientUI.InfographPoster"];
+  v8 = [providerBundleIdentifier isEqualToString:@"com.apple.ambient.AmbientUI.InfographPoster"];
 
-  if (v9)
+  if (v8)
   {
     v10 = objc_opt_class();
-LABEL_11:
-    v13 = v10;
-    goto LABEL_12;
+LABEL_10:
+    v12 = v10;
+    goto LABEL_11;
   }
 
-  v15 = AMUILogDataLayer();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v14 = AMUILogDataLayer(v9);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
-    [(AMUIDataLayerViewController *)configurationCopy _dataLayerClassForConfiguration:v5, v15];
+    [(AMUIDataLayerViewController *)configurationCopy _dataLayerClassForConfiguration:v5, v14];
   }
 
-  v13 = 0;
-LABEL_12:
+  v12 = 0;
+LABEL_11:
 
-  return v13;
+  return v12;
 }
 
 + (int64_t)_dataLayoutForDataLayerClass:(Class)class
@@ -523,18 +510,16 @@ LABEL_12:
 
 - (void)_registerForAmbientPresentationTraitChanges
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_self();
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   v5 = [(AMUIDataLayerViewController *)self registerForTraitChanges:v4 withHandler:&__block_literal_global_6];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateRedModeFiltersForTraitEnvironment:(id)environment previousTraitCollection:(id)collection animated:(BOOL)animated
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   collectionCopy = collection;
   environmentCopy = environment;
   view = [(AMUIDataLayerViewController *)self view];
@@ -550,33 +535,32 @@ LABEL_12:
   v14 = AMUIAmbientDisplayStyleIsRedMode();
   if (collectionCopy && IsRedMode == v14)
   {
-    v23 = AMUILogDataLayer();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v22 = AMUILogDataLayer(v15);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = 134218240;
+      v23 = 134218240;
       selfCopy3 = self;
-      v27 = 1024;
-      LODWORD(v28) = IsRedMode;
-      _os_log_impl(&dword_23F38B000, v23, OS_LOG_TYPE_DEFAULT, "0x%p: Not changing red mode filters because red mode trait did not change(isRedModeEnabled=%{BOOL}u)", &v25, 0x12u);
+      v25 = 1024;
+      LODWORD(v26) = IsRedMode;
+      _os_log_impl(&dword_23F38B000, v22, OS_LOG_TYPE_DEFAULT, "0x%p: Not changing red mode filters because red mode trait did not change(isRedModeEnabled=%{BOOL}u)", &v23, 0x12u);
     }
   }
 
   else
   {
-    v15 = AMUILogDataLayer();
-    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+    v16 = AMUILogDataLayer(v15);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
     if (IsRedMode)
     {
-      if (v16)
+      if (v17)
       {
-        concreteDataLayerViewController = self->_concreteDataLayerViewController;
         v18 = objc_opt_class();
         v19 = NSStringFromClass(v18);
-        v25 = 134218242;
+        v23 = 134218242;
         selfCopy3 = self;
-        v27 = 2112;
-        v28 = v19;
-        _os_log_impl(&dword_23F38B000, v15, OS_LOG_TYPE_DEFAULT, "0x%p: Applying red mode filter on the concreteDataLayerViewController of type:%@", &v25, 0x16u);
+        v25 = 2112;
+        v26 = v19;
+        _os_log_impl(&dword_23F38B000, v16, OS_LOG_TYPE_DEFAULT, "0x%p: Applying red mode filter on the concreteDataLayerViewController of type:%@", &v23, 0x16u);
       }
 
       [view amui_applyRedModeFilterAnimated:1 withCompletion:0];
@@ -584,23 +568,20 @@ LABEL_12:
 
     else
     {
-      if (v16)
+      if (v17)
       {
-        v20 = self->_concreteDataLayerViewController;
-        v21 = objc_opt_class();
-        v22 = NSStringFromClass(v21);
-        v25 = 134218242;
+        v20 = objc_opt_class();
+        v21 = NSStringFromClass(v20);
+        v23 = 134218242;
         selfCopy3 = self;
-        v27 = 2112;
-        v28 = v22;
-        _os_log_impl(&dword_23F38B000, v15, OS_LOG_TYPE_DEFAULT, "0x%p: Clearing red mode filter on the concreteDataLayerViewController of type:%@", &v25, 0x16u);
+        v25 = 2112;
+        v26 = v21;
+        _os_log_impl(&dword_23F38B000, v16, OS_LOG_TYPE_DEFAULT, "0x%p: Clearing red mode filter on the concreteDataLayerViewController of type:%@", &v23, 0x16u);
       }
 
       [view amui_clearRedModeFilterAnimated:1 withCompletion:0];
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (AMUIDataLayerViewControllerDelegate)delegate
@@ -612,13 +593,12 @@ LABEL_12:
 
 + (void)_dataLayerClassForConfiguration:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_23F38B000, log, OS_LOG_TYPE_ERROR, "Failed to load ambient configuration from configuration %@ with error %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_23F38B000, log, OS_LOG_TYPE_ERROR, "Failed to load ambient configuration from configuration %@ with error %@", &v3, 0x16u);
 }
 
 @end

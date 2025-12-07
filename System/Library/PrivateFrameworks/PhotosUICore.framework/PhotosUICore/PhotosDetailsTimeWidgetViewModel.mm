@@ -9,7 +9,7 @@
 {
   notificationCopy = notification;
   selfCopy = self;
-  sub_1A3E94958(notificationCopy);
+  sub_1A3E94958(notificationCopy, selfCopy);
 }
 
 - (void)photoLibraryDidChange:(id)change

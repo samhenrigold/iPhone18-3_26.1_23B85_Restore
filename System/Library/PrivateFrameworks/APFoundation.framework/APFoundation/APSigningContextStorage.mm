@@ -19,6 +19,7 @@
 - (void)assign;
 - (void)save;
 - (void)setPoolName:(id)name;
+- (void)setUsed:(BOOL)used;
 - (void)stashed:(BOOL)stashed;
 @end
 
@@ -46,7 +47,7 @@
 
 + (NSMutableDictionary)contextDictionaries
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_lock(APSigningContextStorage, a2, v2, v3);
   objc_msgSend_lock(v4, v5, v6, v7);
 
@@ -65,11 +66,11 @@
       v23 = APLogForCategory(0x30uLL);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
       {
-        v41 = 134218242;
+        v40 = 134218242;
         ClassName = objc_msgSend_count(v22, v24, v25, v26);
-        v43 = 2112;
-        v44 = v22;
-        _os_log_impl(&dword_1BADC1000, v23, OS_LOG_TYPE_INFO, "Found %lu stored pools: %@", &v41, 0x16u);
+        v42 = 2112;
+        v43 = v22;
+        _os_log_impl(&dword_1BADC1000, v23, OS_LOG_TYPE_INFO, "Found %lu stored pools: %@", &v40, 0x16u);
       }
     }
 
@@ -78,9 +79,9 @@
       v34 = APLogForCategory(0x30uLL);
       if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
-        v41 = 136315138;
+        v40 = 136315138;
         ClassName = object_getClassName(v21);
-        _os_log_impl(&dword_1BADC1000, v34, OS_LOG_TYPE_ERROR, "Storage file object of wrong type: %s", &v41, 0xCu);
+        _os_log_impl(&dword_1BADC1000, v34, OS_LOG_TYPE_ERROR, "Storage file object of wrong type: %s", &v40, 0xCu);
       }
 
       v22 = 0;
@@ -92,8 +93,8 @@
     v30 = APLogForCategory(0x30uLL);
     if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v41) = 0;
-      _os_log_impl(&dword_1BADC1000, v30, OS_LOG_TYPE_INFO, "No stored pools found.", &v41, 2u);
+      LOWORD(v40) = 0;
+      _os_log_impl(&dword_1BADC1000, v30, OS_LOG_TYPE_INFO, "No stored pools found.", &v40, 2u);
     }
 
     v22 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v31, v32, v33);
@@ -102,14 +103,12 @@
   v35 = objc_msgSend_lock(APSigningContextStorage, v27, v28, v29);
   objc_msgSend_unlock(v35, v36, v37, v38);
 
-  v39 = *MEMORY[0x1E69E9840];
-
   return v22;
 }
 
 + (void)setContextDictionaries:(id)dictionaries
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   dictionariesCopy = dictionaries;
   v7 = objc_msgSend_lock(APSigningContextStorage, v4, v5, v6);
   objc_msgSend_lock(v7, v8, v9, v10);
@@ -119,9 +118,9 @@
   v19 = objc_msgSend_bundleIdentifier(APSigningContextStorage, v15, v16, v17);
   if (dictionariesCopy)
   {
-    v35 = 0;
-    v20 = objc_msgSend_fileForWritingAtKeyPath_error_(v14, v18, v19, &v35);
-    v21 = v35;
+    v34 = 0;
+    v20 = objc_msgSend_fileForWritingAtKeyPath_error_(v14, v18, v19, &v34);
+    v21 = v34;
 
     v22 = APLogForCategory(0x30uLL);
     v23 = v22;
@@ -130,7 +129,7 @@
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v37 = v21;
+        v36 = v21;
         _os_log_impl(&dword_1BADC1000, v23, OS_LOG_TYPE_ERROR, "Error retrieving storage file: %@", buf, 0xCu);
       }
     }
@@ -140,13 +139,13 @@
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v37 = dictionariesCopy;
+        v36 = dictionariesCopy;
         _os_log_impl(&dword_1BADC1000, v23, OS_LOG_TYPE_INFO, "Writing pools %@", buf, 0xCu);
       }
 
-      v34 = 0;
-      objc_msgSend_addObject_error_(v20, v27, dictionariesCopy, &v34);
-      v21 = v34;
+      v33 = 0;
+      objc_msgSend_addObject_error_(v20, v27, dictionariesCopy, &v33);
+      v21 = v33;
     }
 
 LABEL_12:
@@ -154,9 +153,9 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v33 = 0;
-  objc_msgSend_removeObjectAtPath_error_(v14, v18, v19, &v33);
-  v21 = v33;
+  v32 = 0;
+  objc_msgSend_removeObjectAtPath_error_(v14, v18, v19, &v32);
+  v21 = v32;
 
   if (v21)
   {
@@ -164,7 +163,7 @@ LABEL_12:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v37 = v21;
+      v36 = v21;
       _os_log_impl(&dword_1BADC1000, v20, OS_LOG_TYPE_ERROR, "Error deleting storage file: %@", buf, 0xCu);
     }
 
@@ -174,13 +173,11 @@ LABEL_12:
 LABEL_13:
   v28 = objc_msgSend_lock(APSigningContextStorage, v24, v25, v26);
   objc_msgSend_unlock(v28, v29, v30, v31);
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_contextsForPool:(id)pool
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   poolCopy = pool;
   v7 = objc_msgSend_contextDictionaries(APSigningContextStorage, v4, v5, v6);
   v10 = objc_msgSend_objectForKeyedSubscript_(v7, v8, poolCopy, v9);
@@ -190,13 +187,11 @@ LABEL_13:
     v11 = APLogForCategory(0x30uLL);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v14 = 138412290;
-      v15 = poolCopy;
-      _os_log_impl(&dword_1BADC1000, v11, OS_LOG_TYPE_INFO, "No context dictionary for pool %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = poolCopy;
+      _os_log_impl(&dword_1BADC1000, v11, OS_LOG_TYPE_INFO, "No context dictionary for pool %@", &v13, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -218,7 +213,7 @@ LABEL_13:
 
 + (void)removeContextForPool:(id)pool contextIdentifier:(void *)identifier
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   poolCopy = pool;
   identifierCopy = identifier;
   v11 = objc_msgSend__contextsForPool_(APSigningContextStorage, v6, poolCopy, v7);
@@ -232,8 +227,8 @@ LABEL_13:
     {
       *buf = 134218242;
       identifierCopy2 = identifier;
-      v37 = 2112;
-      v38 = poolCopy;
+      v36 = 2112;
+      v37 = poolCopy;
       _os_log_impl(&dword_1BADC1000, v16, OS_LOG_TYPE_INFO, "Removing context %p from pool %@", buf, 0x16u);
     }
 
@@ -266,8 +261,6 @@ LABEL_13:
       _os_log_impl(&dword_1BADC1000, v29, OS_LOG_TYPE_ERROR, "Unable to find context dictionary for pool %@", buf, 0xCu);
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_retrieveStashedContextsForPool:(id)pool includeAssigned:(BOOL)assigned
@@ -441,11 +434,11 @@ LABEL_13:
 
 - (APSigningContextStorage)initWithContextRef:(void *)ref poolName:(id)name stashed:(BOOL)stashed
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  v30.receiver = self;
-  v30.super_class = APSigningContextStorage;
-  v10 = [(APSigningContextStorage *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = APSigningContextStorage;
+  v10 = [(APSigningContextStorage *)&v29 init];
   v14 = v10;
   if (v10)
   {
@@ -464,12 +457,11 @@ LABEL_13:
     {
       v27 = objc_msgSend_contextRef(v14, v24, v25, v26);
       *buf = 134217984;
-      v32 = v27;
+      v31 = v27;
       _os_log_impl(&dword_1BADC1000, v23, OS_LOG_TYPE_INFO, "Created signing context with reference %p", buf, 0xCu);
     }
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -502,7 +494,7 @@ LABEL_13:
 - (void)stashed:(BOOL)stashed
 {
   stashedCopy = stashed;
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = APLogForCategory(0x30uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
@@ -519,48 +511,71 @@ LABEL_13:
       v15 = @"no";
     }
 
-    v20 = 134218498;
-    v21 = v9;
-    v22 = 2112;
-    v23 = v15;
+    v19 = 134218498;
+    v20 = v9;
+    v21 = 2112;
+    v22 = v15;
     if (stashedCopy)
     {
       v14 = @"yes";
     }
 
-    v24 = 2112;
-    v25 = v14;
-    _os_log_impl(&dword_1BADC1000, v5, OS_LOG_TYPE_INFO, "Change stashed state of context ref %p from %@ to %@", &v20, 0x20u);
+    v23 = 2112;
+    v24 = v14;
+    _os_log_impl(&dword_1BADC1000, v5, OS_LOG_TYPE_INFO, "Change stashed state of context ref %p from %@ to %@", &v19, 0x20u);
   }
 
   self->_stashed = stashedCopy;
   objc_msgSend_save(self, v16, v17, v18);
-  v19 = *MEMORY[0x1E69E9840];
+}
+
+- (void)setUsed:(BOOL)used
+{
+  usedCopy = used;
+  v30 = *MEMORY[0x1E69E9840];
+  v5 = APLogForCategory(0x30uLL);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    v9 = objc_msgSend_contextRef(self, v6, v7, v8);
+    v10 = MEMORY[0x1E696AD98];
+    v14 = objc_msgSend_used(self, v11, v12, v13);
+    v17 = objc_msgSend_numberWithBool_(v10, v15, v14, v16);
+    v20 = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v18, usedCopy, v19);
+    v24 = 134218498;
+    v25 = v9;
+    v26 = 2112;
+    v27 = v17;
+    v28 = 2112;
+    v29 = v20;
+    _os_log_impl(&dword_1BADC1000, v5, OS_LOG_TYPE_INFO, "Change used state of context ref %p from %@ to %@", &v24, 0x20u);
+  }
+
+  self->_used = usedCopy;
+  objc_msgSend_save(self, v21, v22, v23);
 }
 
 - (void)setPoolName:(id)name
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v5 = APLogForCategory(0x30uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v9 = objc_msgSend_contextRef(self, v6, v7, v8);
     v13 = objc_msgSend_poolName(self, v10, v11, v12);
-    v19 = 134218498;
-    v20 = v9;
-    v21 = 2112;
-    v22 = v13;
-    v23 = 2112;
-    v24 = nameCopy;
-    _os_log_impl(&dword_1BADC1000, v5, OS_LOG_TYPE_INFO, "Change poolName of context ref %p from %@ to %@", &v19, 0x20u);
+    v18 = 134218498;
+    v19 = v9;
+    v20 = 2112;
+    v21 = v13;
+    v22 = 2112;
+    v23 = nameCopy;
+    _os_log_impl(&dword_1BADC1000, v5, OS_LOG_TYPE_INFO, "Change poolName of context ref %p from %@ to %@", &v18, 0x20u);
   }
 
   poolName = self->_poolName;
   self->_poolName = nameCopy;
 
   objc_msgSend_save(self, v15, v16, v17);
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)assign

@@ -8,19 +8,21 @@ void __56___ASAgentPeriodicMaintenanceActivity__registerActivity__block_invoke(u
   v3 = a2;
   if (xpc_activity_get_state(v3))
   {
-    if (xpc_activity_should_defer(v3))
+    should_defer = xpc_activity_should_defer(v3);
+    if (should_defer)
     {
-      v4 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v6 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(should_defer, v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        *v6 = 0;
-        _os_log_impl(&dword_1B1C8D000, v4, OS_LOG_TYPE_INFO, "Periodic maintenance activity transitioned to state Run, but criteria are no longer satisfied. Deferring.", v6, 2u);
+        *v10 = 0;
+        _os_log_impl(&dword_1B1C8D000, v6, OS_LOG_TYPE_INFO, "Periodic maintenance activity transitioned to state Run, but criteria are no longer satisfied. Deferring.", v10, 2u);
       }
 
-      if (!xpc_activity_set_state(v3, 3))
+      v7 = xpc_activity_set_state(v3, 3);
+      if (!v7)
       {
-        v5 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+        v9 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(v7, v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           __56___ASAgentPeriodicMaintenanceActivity__registerActivity__block_invoke_cold_1();
         }
@@ -34,53 +36,57 @@ void __56___ASAgentPeriodicMaintenanceActivity__registerActivity__block_invoke(u
   }
 }
 
-void __72___ASAgentPeriodicMaintenanceActivity__activityDidTransitionToRunState___block_invoke(uint64_t a1, char a2)
+void __72___ASAgentPeriodicMaintenanceActivity__activityDidTransitionToRunState___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    if (!xpc_activity_set_state(*(a1 + 32), 5))
+    v3 = xpc_activity_set_state(*(a1 + 32), 5);
+    if (!v3)
     {
-      v3 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v5 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(v3, v4);
+      v3 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+      if (v3)
       {
         __72___ASAgentPeriodicMaintenanceActivity__activityDidTransitionToRunState___block_invoke_cold_3();
       }
     }
 
-    v4 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v6 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v9 = 0;
-      v5 = "Periodic maintenance activity transitioned to state Done.";
-      v6 = &v9;
+      v13 = 0;
+      v7 = "Periodic maintenance activity transitioned to state Done.";
+      v8 = &v13;
 LABEL_14:
-      _os_log_impl(&dword_1B1C8D000, v4, OS_LOG_TYPE_INFO, v5, v6, 2u);
+      _os_log_impl(&dword_1B1C8D000, v6, OS_LOG_TYPE_INFO, v7, v8, 2u);
     }
   }
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(a1, a2);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __72___ASAgentPeriodicMaintenanceActivity__activityDidTransitionToRunState___block_invoke_cold_1();
     }
 
-    if (!xpc_activity_set_state(*(a1 + 32), 3))
+    v10 = xpc_activity_set_state(*(a1 + 32), 3);
+    if (!v10)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v12 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(v10, v11);
+      v10 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+      if (v10)
       {
         __56___ASAgentPeriodicMaintenanceActivity__registerActivity__block_invoke_cold_1();
       }
     }
 
-    v4 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v6 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(v10, v11);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      v5 = "Periodic maintenance activity transitioned to state Defer.";
-      v6 = buf;
+      v7 = "Periodic maintenance activity transitioned to state Defer.";
+      v8 = buf;
       goto LABEL_14;
     }
   }
@@ -93,55 +99,55 @@ void __73___ASAgentPeriodicMaintenanceActivity__runActivityWithCompletionHandler
 
   v3 = dispatch_group_create();
   v4 = objc_alloc_init(ASCredentialSharingGroupsNotificationManager);
-  v22[0] = 0;
-  v22[1] = v22;
-  v22[2] = 0x2020000000;
-  v23 = 0;
+  v24[0] = 0;
+  v24[1] = v24;
+  v24[2] = 0x2020000000;
+  v25 = 0;
   dispatch_group_enter(v3);
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __73___ASAgentPeriodicMaintenanceActivity__runActivityWithCompletionHandler___block_invoke_2;
-  v19[3] = &unk_1E7AF7DD8;
-  v21 = v22;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __73___ASAgentPeriodicMaintenanceActivity__runActivityWithCompletionHandler___block_invoke_2;
+  v21[3] = &unk_1E7AF7DD8;
+  v23 = v24;
   v5 = v3;
-  v20 = v5;
-  [(ASCredentialSharingGroupsNotificationManager *)v4 notifyUserAboutSharedSavedAccountsInRecentlyDeleted:v19];
-  v6 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v22 = v5;
+  v6 = [(ASCredentialSharingGroupsNotificationManager *)v4 notifyUserAboutSharedSavedAccountsInRecentlyDeleted:v21];
+  v8 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     __73___ASAgentPeriodicMaintenanceActivity__runActivityWithCompletionHandler___block_invoke_cold_1();
   }
 
-  v7 = [MEMORY[0x1E69C8A38] sharedStore];
-  [v7 _verifyGroupsInSync];
+  v9 = [MEMORY[0x1E69C8A38] sharedStore];
+  [v9 _verifyGroupsInSync];
 
-  v8 = [MEMORY[0x1E695E000] pm_defaults];
-  v9 = [v8 safari_BOOLForKey:@"ShouldAttemptPasskeyAvailabilityManagerFetchingInAuthenticationServicesAgent" defaultValue:0];
+  v10 = [MEMORY[0x1E695E000] pm_defaults];
+  v11 = [v10 safari_BOOLForKey:@"ShouldAttemptPasskeyAvailabilityManagerFetchingInAuthenticationServicesAgent" defaultValue:0];
 
-  if (v9)
+  if (v11)
   {
     dispatch_group_enter(v5);
-    v10 = *(a1 + 32);
-    v11 = [MEMORY[0x1E69C8A38] sharedStore];
-    v12 = [v11 savedAccounts];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __73___ASAgentPeriodicMaintenanceActivity__runActivityWithCompletionHandler___block_invoke_7;
-    v17[3] = &unk_1E7AF7608;
-    v18 = v5;
-    [v10 performPasskeyAvailabilityCheckForDomainsInSavedAccounts:v12 completionHandler:v17];
+    v12 = *(a1 + 32);
+    v13 = [MEMORY[0x1E69C8A38] sharedStore];
+    v14 = [v13 savedAccounts];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __73___ASAgentPeriodicMaintenanceActivity__runActivityWithCompletionHandler___block_invoke_7;
+    v19[3] = &unk_1E7AF7608;
+    v20 = v5;
+    [v12 performPasskeyAvailabilityCheckForDomainsInSavedAccounts:v14 completionHandler:v19];
   }
 
-  v13 = dispatch_get_global_queue(9, 0);
+  v15 = dispatch_get_global_queue(9, 0);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __73___ASAgentPeriodicMaintenanceActivity__runActivityWithCompletionHandler___block_invoke_2_9;
   block[3] = &unk_1E7AF7E00;
-  v15 = *(a1 + 40);
-  v16 = v22;
-  dispatch_group_notify(v5, v13, block);
+  v17 = *(a1 + 40);
+  v18 = v24;
+  dispatch_group_notify(v5, v15, block);
 
-  _Block_object_dispose(v22, 8);
+  _Block_object_dispose(v24, 8);
 }
 
 @end

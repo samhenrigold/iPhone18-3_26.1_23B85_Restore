@@ -16,18 +16,18 @@
   if (labelSmoothing < 0.0 || labelSmoothing > 1.0)
   {
     selfCopy = self;
-    v10 = labelSmoothing;
-    v11 = MTLReportFailureTypeEnabled();
-    labelSmoothing = v10;
-    v12 = v11;
+    v14 = labelSmoothing;
+    v15 = MTLReportFailureTypeEnabled();
+    labelSmoothing = v14;
+    v16 = v15;
     self = selfCopy;
-    if (v12)
+    if (v16)
     {
-      v13 = objc_opt_class();
-      NSStringFromClass(v13);
-      MTLReportFailure();
+      v17 = objc_opt_class();
+      NSStringFromClass(v17);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNLoss.mm", 0xFD, @"[%@ setLabelSmoothing...] labelSmoothing must be in the range [0.0f, 1.0f]", v18, v19, v20, v21);
       self = selfCopy;
-      labelSmoothing = v10;
+      labelSmoothing = v14;
     }
   }
 
@@ -35,7 +35,7 @@
   {
     v8 = objc_opt_class();
     NSStringFromClass(v8);
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNLoss.mm", 0xFE, @"[%@ setLabelSmoothing...] labelSmoothing parameter is valid only for the following loss type(s): MPSCNNLossTypeSoftMaxCrossEntropy, MPSCNNLossTypeSigmoidCrossEntropy", v9, v10, v11, v12);
     v4->_labelSmoothing = v5;
   }
 
@@ -58,23 +58,23 @@
     {
       v6 = objc_opt_class();
       NSStringFromClass(v6);
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNLoss.mm", 0x105, @"[%@ setNumberOfClasses...] number of classes must be greater than 0", v7, v8, v9, v10);
       self = selfCopy;
       numberOfClasses = 0;
     }
   }
 
-  if (self->_lossType == 2 || (v7 = self, v8 = numberOfClasses, v9 = MTLReportFailureTypeEnabled(), numberOfClasses = v8, v10 = v9, self = v7, !v10))
+  if (self->_lossType == 2 || (v11 = self, v12 = numberOfClasses, v13 = MTLReportFailureTypeEnabled(), numberOfClasses = v12, v14 = v13, self = v11, !v14))
   {
     self->_numberOfClasses = numberOfClasses;
   }
 
   else
   {
-    v11 = objc_opt_class();
-    NSStringFromClass(v11);
-    MTLReportFailure();
-    v7->_numberOfClasses = v8;
+    v15 = objc_opt_class();
+    NSStringFromClass(v15);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNLoss.mm", 0x106, @"[%@ setNumberOfClasses...] number of classes parameter is valid only for the following loss type(s): MPSCNNLossTypeSoftMaxCrossEntropy", v16, v17, v18, v19);
+    v11->_numberOfClasses = v12;
   }
 }
 
@@ -95,7 +95,7 @@
     {
       v9 = objc_opt_class();
       NSStringFromClass(v9);
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNLoss.mm", 0x10D, @"[%@ setEpsion...] epsilon parameter is valid only for the following loss type(s): MPSCNNLossTypeLog", v10, v11, v12, v13);
       selfCopy2 = self;
       v6 = epsilon;
     }
@@ -121,7 +121,7 @@
     {
       v9 = objc_opt_class();
       NSStringFromClass(v9);
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNLoss.mm", 0x114, @"[%@ setDelta...] delta parameter is valid only for the following loss type(s): MPSCNNLossTypeHuber", v10, v11, v12, v13);
       selfCopy2 = self;
       v6 = delta;
     }
@@ -138,7 +138,7 @@
     {
       v8 = objc_opt_class();
       NSStringFromClass(v8);
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNLoss.mm", 0x11E, @"[%@ cnnLossDescriptorWithType:reductionType:...] invalid loss type (%lu)", v9, v10, v11, v12);
     }
 
     return 0;
@@ -148,9 +148,9 @@
   {
     if (MTLReportFailureTypeEnabled())
     {
-      v10 = objc_opt_class();
-      NSStringFromClass(v10);
-      MTLReportFailure();
+      v14 = objc_opt_class();
+      NSStringFromClass(v14);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNLoss.mm", 0x120, @"[%@ cnnLossDescriptorWithType:reductionType:...] invalid reduction type (%lu)", v15, v16, v17, v18);
     }
 
     return 0;

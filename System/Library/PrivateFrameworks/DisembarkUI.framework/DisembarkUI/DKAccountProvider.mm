@@ -151,18 +151,17 @@ void __77__DKAccountProvider_preparationRequiredForPrimaryAppleAccountWithComple
     v4 = [v3 contextForPrimaryAccount];
 
     v5 = [objc_alloc(MEMORY[0x277CFD548]) initWithContext:v4];
-    v9 = 0;
-    [v5 isManateeAvailable:&v9];
-    v6 = v9;
+    v8 = 0;
+    [v5 isManateeAvailable:&v8];
+    v6 = v8;
     (*(*(a1 + 32) + 16))();
   }
 
   else
   {
-    v7 = *(a1 + 32);
-    v8 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
 
-    v8();
+    v7();
   }
 }
 
@@ -227,7 +226,7 @@ LABEL_9:
 
 void __97__DKAccountProvider_preparePrimaryAppleAccountForSignOutWithPresentingViewController_completion___block_invoke_2(id *a1)
 {
-  v2 = _DKLogSystem();
+  v2 = _DKLogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __97__DKAccountProvider_preparePrimaryAppleAccountForSignOutWithPresentingViewController_completion___block_invoke_2_cold_1(a1, v2, v3, v4, v5, v6, v7, v8);
@@ -246,23 +245,21 @@ void __97__DKAccountProvider_preparePrimaryAppleAccountForSignOutWithPresentingV
 
 - (void)signOutPrimaryAppleAccountWithPresentingViewController:(id)controller completion:(id)completion
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CED1D8];
   completionCopy = completion;
   controllerCopy = controller;
   v9 = objc_alloc_init(v6);
   [v9 setViewController:controllerCopy];
-  v14 = *MEMORY[0x277CED1A0];
-  v10 = v14;
-  v15[0] = self;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v13 = *MEMORY[0x277CED1A0];
+  v10 = v13;
+  v14[0] = self;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   [v9 setSignOutContexts:v11];
 
   [(DKAccountProvider *)self setPresentingViewController:controllerCopy];
   serviceOwnersManager = [(DKAccountProvider *)self serviceOwnersManager];
   [serviceOwnersManager signOutService:v10 withContext:v9 completion:completionCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)signOutFlowController:(id)controller performWalrusValidationForAccount:(id)account completion:(id)completion
@@ -354,24 +351,22 @@ void __88__DKAccountProvider_signOutFlowController_performWalrusValidationForAcc
 
 - (id)accountsForAccountManager:(id)manager
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   serviceOwnersManager = [(DKAccountProvider *)self serviceOwnersManager];
   v4 = *MEMORY[0x277CED1A0];
   v5 = [serviceOwnersManager accountForService:*MEMORY[0x277CED1A0]];
 
   if (v5)
   {
-    v9 = v4;
-    v10[0] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = v4;
+    v9[0] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   }
 
   else
   {
     v6 = MEMORY[0x277CBEC10];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -496,18 +491,19 @@ void __60__DKAccountProvider__fetchAccountDataForAccount_completion___block_invo
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _DKLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _DKLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __60__DKAccountProvider__fetchAccountDataForAccount_completion___block_invoke_cold_1(v6, v7);
+      __60__DKAccountProvider__fetchAccountDataForAccount_completion___block_invoke_cold_1(v7, v8);
     }
   }
 
-  v8 = [*(a1 + 32) aa_formattedUsername];
-  v9 = [*(a1 + 32) aa_fullName];
-  v10 = [[DKNotableUserDataAccount alloc] initWithProfilePicture:v5 name:v8 username:v9];
+  v9 = [*(a1 + 32) aa_formattedUsername];
+  v10 = [*(a1 + 32) aa_fullName];
+  v11 = [[DKNotableUserDataAccount alloc] initWithProfilePicture:v5 name:v9 username:v10];
   (*(*(a1 + 40) + 16))();
 }
 
@@ -577,22 +573,27 @@ void __60__DKAccountProvider__fetchAccountDataForAccount_completion___block_invo
 void __49__DKAccountProvider__walrusStatusWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = _DKLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _DKLogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __49__DKAccountProvider__walrusStatusWithCompletion___block_invoke_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+      __49__DKAccountProvider__walrusStatusWithCompletion___block_invoke_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
     }
   }
 
-  if (!a2 && [v5 cdp_isCDPErrorWithCode:-5102])
+  if (!a2)
   {
-    v13 = _DKLogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = [v6 cdp_isCDPErrorWithCode:-5102];
+    if (v14)
     {
-      *v14 = 0;
-      _os_log_impl(&dword_248D68000, v13, OS_LOG_TYPE_DEFAULT, "Received unknown walrus status due to no primary Apple account, treating as disabled.", v14, 2u);
+      v15 = _DKLogSystem(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      {
+        *v16 = 0;
+        _os_log_impl(&dword_248D68000, v15, OS_LOG_TYPE_DEFAULT, "Received unknown walrus status due to no primary Apple account, treating as disabled.", v16, 2u);
+      }
     }
   }
 
@@ -652,40 +653,41 @@ void __57__DKAccountProvider__determineEligibilityWithCompletion___block_invoke(
 {
   v5 = a2;
   v6 = a3;
-  if ([v5 count] == 1 && (objc_msgSend(v5, "firstObject"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isCurrentDevice"), v7, v8))
+  v7 = [v5 count];
+  if (v7 == 1 && ([v5 firstObject], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "isCurrentDevice"), v8, v9))
   {
-    v9 = _DKLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _DKLogSystem(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_248D68000, v9, OS_LOG_TYPE_DEFAULT, "Current device is determined to be the last escrow device for primary account.", buf, 2u);
+      _os_log_impl(&dword_248D68000, v10, OS_LOG_TYPE_DEFAULT, "Current device is determined to be the last escrow device for primary account.", buf, 2u);
     }
 
-    v10 = *(*(a1 + 32) + 16);
+    v11 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    v11 = _DKLogSystem();
-    v12 = v11;
+    v12 = _DKLogSystem(v7);
+    v13 = v12;
     if (v6)
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        __57__DKAccountProvider__determineEligibilityWithCompletion___block_invoke_cold_1(v6, v12, v13, v14, v15, v16, v17, v18);
+        __57__DKAccountProvider__determineEligibilityWithCompletion___block_invoke_cold_1(v6, v13, v14, v15, v16, v17, v18, v19);
       }
     }
 
-    else if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_248D68000, v12, OS_LOG_TYPE_DEFAULT, "Determined that the current device is not the last escrow device for the primary account.", v19, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_248D68000, v13, OS_LOG_TYPE_DEFAULT, "Determined that the current device is not the last escrow device for the primary account.", v20, 2u);
     }
 
-    v10 = *(*(a1 + 32) + 16);
+    v11 = *(*(a1 + 32) + 16);
   }
 
-  v10();
+  v11();
 }
 
 - (void)_presentLastDeviceAlertWithCompletion:(id)completion
@@ -733,7 +735,7 @@ void __59__DKAccountProvider__presentLastDeviceAlertWithCompletion___block_invok
 {
   factorsCopy = factors;
   completionCopy = completion;
-  v7 = _DKLogSystem();
+  v7 = _DKLogSystem(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [DKAccountProvider _presentLastDeviceAlertWithRecoveryFactors:v7 withCompletion:?];
@@ -850,7 +852,7 @@ void __79__DKAccountProvider__presentLastDeviceAlertWithRecoveryFactors_withComp
     v4 = *(v3 + 16);
     v5 = *(a1 + 32);
 
-    v4(v5);
+    v4(v5, a2);
   }
 }
 
@@ -877,15 +879,14 @@ void __79__DKAccountProvider__presentLastDeviceAlertWithRecoveryFactors_withComp
 
 void __97__DKAccountProvider_preparePrimaryAppleAccountForSignOutWithPresentingViewController_completion___block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_0(&dword_248D68000, a2, a3, "Failed to determine walrus status: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0(&dword_248D68000, a2, a3, "Failed to determine walrus status: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __60__DKAccountProvider__fetchAccountDataForAccount_completion___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = _DKIsInternalInstall();
   if ((v5 & 1) == 0)
   {
@@ -895,27 +896,25 @@ void __60__DKAccountProvider__fetchAccountDataForAccount_completion___block_invo
   }
 
   *buf = 138543362;
-  v9 = a1;
+  v8 = a1;
   _os_log_error_impl(&dword_248D68000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch profile image: %{public}@", buf, 0xCu);
   if (!v5)
   {
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __49__DKAccountProvider__walrusStatusWithCompletion___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_248D68000, a2, a3, "Encountered error while fetching walrus status: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_248D68000, a2, a3, "Encountered error while fetching walrus status: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __57__DKAccountProvider__determineEligibilityWithCompletion___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_248D68000, a2, a3, "Failed to fetch escrow record devices for primary account: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_248D68000, a2, a3, "Failed to fetch escrow record devices for primary account: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

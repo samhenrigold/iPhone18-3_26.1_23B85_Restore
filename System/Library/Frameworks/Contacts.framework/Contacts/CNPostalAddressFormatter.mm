@@ -196,10 +196,10 @@ id __97__CNPostalAddressFormatter_attributedStringFromPostalAddress_name_organiz
 + (id)postalAddressPropertyKeyForFormatPropertyKey:(id)key
 {
   keyCopy = key;
-  v4 = +[CNPostalAddressFormatter _postalToFormatMap];
-  v5 = [v4 objectForKeyedSubscript:keyCopy];
+  v5 = +[(CNPostalAddressFormatter *)self];
+  v6 = [v5 objectForKeyedSubscript:keyCopy];
 
-  return v5;
+  return v6;
 }
 
 + (id)_postalToFormatMap
@@ -210,9 +210,9 @@ id __97__CNPostalAddressFormatter_attributedStringFromPostalAddress_name_organiz
     +[CNPostalAddressFormatter _postalToFormatMap];
   }
 
-  v0 = _postalToFormatMap_cn_once_object_1;
+  v1 = _postalToFormatMap_cn_once_object_1;
 
-  return v0;
+  return v1;
 }
 
 + (id)formatPropertyKeyForPostalAddressPropertyKey:(id)key
@@ -234,17 +234,17 @@ id __97__CNPostalAddressFormatter_attributedStringFromPostalAddress_name_organiz
   return v5;
 }
 
-void __73__CNPostalAddressFormatter_formatPropertyKeyForPostalAddressPropertyKey___block_invoke()
+void __73__CNPostalAddressFormatter_formatPropertyKeyForPostalAddressPropertyKey___block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x1E695DF20];
-  v7 = +[CNPostalAddressFormatter _postalToFormatMap];
-  v1 = [v7 allKeys];
-  v2 = +[CNPostalAddressFormatter _postalToFormatMap];
-  v3 = [v2 allValues];
-  v4 = [v0 dictionaryWithObjects:v1 forKeys:v3];
-  v5 = [v4 copy];
-  v6 = formatPropertyKeyForPostalAddressPropertyKey__cn_once_object_0;
-  formatPropertyKeyForPostalAddressPropertyKey__cn_once_object_0 = v5;
+  v2 = MEMORY[0x1E695DF20];
+  v9 = +[(CNPostalAddressFormatter *)*(a1];
+  v3 = [v9 allKeys];
+  v4 = +[(CNPostalAddressFormatter *)*(a1];
+  v5 = [v4 allValues];
+  v6 = [v2 dictionaryWithObjects:v3 forKeys:v5];
+  v7 = [v6 copy];
+  v8 = formatPropertyKeyForPostalAddressPropertyKey__cn_once_object_0;
+  formatPropertyKeyForPostalAddressPropertyKey__cn_once_object_0 = v7;
 }
 
 + (id)addressValueForFormatKey:(void *)key postalAddress:

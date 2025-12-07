@@ -99,7 +99,6 @@ LABEL_4:
     }
 
 LABEL_6:
-    numScans = self->_numScans;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 1) == 0)
     {
@@ -109,7 +108,6 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  scanType = self->_scanType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) != 0)
@@ -124,7 +122,6 @@ LABEL_3:
   }
 
 LABEL_7:
-  durScans = self->_durScans;
 
   PBDataWriterWriteUint32Field();
 }

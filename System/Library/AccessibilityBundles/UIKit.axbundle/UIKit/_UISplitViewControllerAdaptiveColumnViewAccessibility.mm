@@ -57,24 +57,24 @@
 - (BOOL)_axShowsSidebar
 {
   selfCopy = self;
-  v11 = a2;
-  v9 = 0;
-  v8 = __UIAccessibilitySafeClass();
-  v7 = MEMORY[0x29EDC9748](v8);
-  objc_storeStrong(&v8, 0);
-  traitCollection = [v7 traitCollection];
-  v4 = [traitCollection horizontalSizeClass] == 1;
+  v12 = a2;
+  v10 = 0;
+  v9 = __UIAccessibilitySafeClass();
+  v8 = MEMORY[0x29EDC9748](v9);
+  objc_storeStrong(&v9, 0);
+  traitCollection = [v8 traitCollection];
+  v5 = [traitCollection horizontalSizeClass] == 1;
   MEMORY[0x29EDC9740](traitCollection);
-  MEMORY[0x29EDC9740](v7);
-  v10 = v4;
-  v6 = [(_UISplitViewControllerAdaptiveColumnViewAccessibility *)selfCopy safeIntForKey:@"splitViewControllerColumn"]== 0;
-  v5 = 0;
-  if (!v10)
+  *&v2 = MEMORY[0x29EDC9740](v8).n128_u64[0];
+  v11 = v5;
+  v7 = [(_UISplitViewControllerAdaptiveColumnViewAccessibility *)selfCopy safeIntForKey:@"splitViewControllerColumn", v2]== 0;
+  v6 = 0;
+  if (!v11)
   {
-    return v6;
+    return v7;
   }
 
-  return v5;
+  return v6;
 }
 
 @end

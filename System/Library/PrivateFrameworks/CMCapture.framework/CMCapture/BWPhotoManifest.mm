@@ -89,38 +89,38 @@
 
 - (id)descriptorForIdentifier:(id)identifier
 {
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   photoDescriptors = self->_photoDescriptors;
-  v5 = [(NSArray *)photoDescriptors countByEnumeratingWithState:&v12 objects:v11 count:16];
-  if (!v5)
+  v4 = [(NSArray *)photoDescriptors countByEnumeratingWithState:&v11 objects:v10 count:16];
+  if (!v4)
   {
     return 0;
   }
 
-  v6 = v5;
-  v7 = *v13;
+  v5 = v4;
+  v6 = *v12;
 LABEL_3:
-  v8 = 0;
+  v7 = 0;
   while (1)
   {
-    if (*v13 != v7)
+    if (*v12 != v6)
     {
       objc_enumerationMutation(photoDescriptors);
     }
 
-    v9 = *(*(&v12 + 1) + 8 * v8);
-    if ([objc_msgSend(v9 "photoIdentifier")])
+    v8 = *(*(&v11 + 1) + 8 * v7);
+    if (objc_msgSend_isEqualToString_([v8 photoIdentifier]))
     {
-      return v9;
+      return v8;
     }
 
-    if (v6 == ++v8)
+    if (v5 == ++v7)
     {
-      v6 = [(NSArray *)photoDescriptors countByEnumeratingWithState:&v12 objects:v11 count:16];
-      if (v6)
+      v5 = [(NSArray *)photoDescriptors countByEnumeratingWithState:&v11 objects:v10 count:16];
+      if (v5)
       {
         goto LABEL_3;
       }
@@ -283,11 +283,11 @@ LABEL_25:
 
           v9 = [BWPhotoDescriptor alloc];
           photoIdentifier = [v7 photoIdentifier];
-          time = [v7 time];
+          v11 = objc_msgSend_time(v7);
           timeZone = [v7 timeZone];
           if (v7)
           {
-            [v7 presentationTimeStamp];
+            objc_msgSend_presentationTimeStamp(v7);
           }
 
           else
@@ -295,7 +295,7 @@ LABEL_25:
             memset(v16, 0, sizeof(v16));
           }
 
-          v13 = [(BWPhotoDescriptor *)v9 initWithPhotoIdentifier:photoIdentifier processingFlags:v8 time:time timeZone:timeZone presentationTimeStamp:v16];
+          v13 = [(BWPhotoDescriptor *)v9 initWithPhotoIdentifier:photoIdentifier processingFlags:v8 time:v11 timeZone:timeZone presentationTimeStamp:v16];
           [v15 addObject:v13];
         }
       }

@@ -161,25 +161,23 @@ LABEL_16:
   toCopy = to;
   if ([(_INPBRangeValue *)self hasLength])
   {
-    length = self->_length;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_INPBRangeValue *)self hasLocation])
   {
-    location = self->_location;
     PBDataWriterWriteUint64Field();
   }
 
   valueMetadata = [(_INPBRangeValue *)self valueMetadata];
 
-  v7 = toCopy;
+  v5 = toCopy;
   if (valueMetadata)
   {
     valueMetadata2 = [(_INPBRangeValue *)self valueMetadata];
     PBDataWriterWriteSubmessage();
 
-    v7 = toCopy;
+    v5 = toCopy;
   }
 }
 

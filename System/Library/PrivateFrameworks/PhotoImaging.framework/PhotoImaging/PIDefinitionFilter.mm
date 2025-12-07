@@ -37,7 +37,7 @@ uint64_t __38__PIDefinitionFilter_definitionKernel__block_invoke()
   v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:3];
 
   definitionKernel = [objc_opt_class() definitionKernel];
-  [(CIImage *)self->_inputImage extent];
+  objc_msgSend_extent(self->_inputImage);
   v8 = [definitionKernel applyWithExtent:v6 arguments:?];
 
   imageByPremultiplyingAlpha = [v8 imageByPremultiplyingAlpha];

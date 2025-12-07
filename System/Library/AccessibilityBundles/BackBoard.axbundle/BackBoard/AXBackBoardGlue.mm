@@ -8,11 +8,20 @@
 + (void)kickoffAggregateStatistics;
 + (void)sendUserEventOccurred;
 + (void)setLockScreenDimTimerEnabled:(BOOL)enabled;
+- (CGPoint)convertPoint:(CGPoint)point fromContextId:(unsigned int)id displayId:(unsigned int)displayId;
+- (CGPoint)convertPoint:(CGPoint)point toContextId:(unsigned int)id displayId:(unsigned int)displayId;
+- (CGRect)convertFrame:(CGRect)frame fromContextId:(unsigned int)id displayId:(unsigned int)displayId;
+- (CGRect)convertFrame:(CGRect)frame toContextId:(unsigned int)id displayId:(unsigned int)displayId;
 - (unsigned)contextIdForDisplayPoint:(CGPoint)point;
+- (unsigned)contextIdHosterForContextId:(unsigned int)id;
+- (void)postEvent:(id)event systemEvent:(BOOL)systemEvent afterNamedTap:(id)tap namedTaps:(id)taps;
+- (void)registerEventListener:(BOOL)listener;
 - (void)setAccessibilityUIServerPid:(int)pid;
 - (void)setAssistiveTouchPid:(int)pid;
+- (void)setDisableSystemGestureRecognitionInEvents:(BOOL)events;
 - (void)setFullKeyboardAccessDaemonPID:(int)d;
 - (void)setIsSpeakScreenHighlightVisible:(BOOL)visible;
+- (void)setLockScreenDimTimerEnabled:(BOOL)enabled;
 - (void)userEventOccurred;
 - (void)zoomListenerRegistered;
 @end
@@ -262,7 +271,7 @@ void __29__AXBackBoardGlue_initialize__block_invoke_5_359(uint64_t a1, void *a2)
 
 void __45__AXBackBoardGlue__repeatAggregateStatistics__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   [MEMORY[0x29EDBD5F0] updateStatistics];
   [*(a1 + 32) _repeatAggregateStatistics];
   v2 = [MEMORY[0x29EDBD6A8] sharedInstance];
@@ -280,19 +289,17 @@ void __45__AXBackBoardGlue__repeatAggregateStatistics__block_invoke(uint64_t a1)
       v8 = _AXStringForArgs();
       if (os_log_type_enabled(v5, v6))
       {
-        v10 = 138543362;
-        v11 = v8;
-        _os_log_impl(&dword_29BBBD000, v5, v6, "%{public}@", &v10, 0xCu);
+        v9 = 138543362;
+        v10 = v8;
+        _os_log_impl(&dword_29BBBD000, v5, v6, "%{public}@", &v9, 0xCu);
       }
     }
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 + (void)kickoffAggregateStatistics
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   mEMORY[0x29EDBD6A8] = [MEMORY[0x29EDBD6A8] sharedInstance];
   ignoreLogging = [mEMORY[0x29EDBD6A8] ignoreLogging];
 
@@ -308,16 +315,15 @@ void __45__AXBackBoardGlue__repeatAggregateStatistics__block_invoke(uint64_t a1)
       v9 = _AXStringForArgs();
       if (os_log_type_enabled(v6, v7))
       {
-        v11 = 138543362;
-        v12 = v9;
-        _os_log_impl(&dword_29BBBD000, v6, v7, "%{public}@", &v11, 0xCu);
+        v10 = 138543362;
+        v11 = v9;
+        _os_log_impl(&dword_29BBBD000, v6, v7, "%{public}@", &v10, 0xCu);
       }
     }
   }
 
   [MEMORY[0x29EDBD5F0] updateStatistics];
   [self _repeatAggregateStatistics];
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 + (void)sendUserEventOccurred
@@ -377,7 +383,7 @@ Class __40__AXBackBoardGlue_sendUserEventOccurred__block_invoke()
   return result;
 }
 
-uint64_t __67__AXBackBoardGlue_displayConvertFromCAScreen_withDisplayIntegerId___block_invoke(uint64_t a1)
+void *__67__AXBackBoardGlue_displayConvertFromCAScreen_withDisplayIntegerId___block_invoke(uint64_t a1)
 {
   if (objc_opt_respondsToSelector())
   {
@@ -422,7 +428,7 @@ uint64_t __67__AXBackBoardGlue_displayConvertFromCAScreen_withDisplayIntegerId__
   return result;
 }
 
-uint64_t __65__AXBackBoardGlue_displayConvertToCAScreen_withDisplayIntegerId___block_invoke(uint64_t a1)
+void *__65__AXBackBoardGlue_displayConvertToCAScreen_withDisplayIntegerId___block_invoke(uint64_t a1)
 {
   if (objc_opt_respondsToSelector())
   {
@@ -460,17 +466,16 @@ uint64_t __65__AXBackBoardGlue_displayConvertToCAScreen_withDisplayIntegerId___b
 
 - (void)setFullKeyboardAccessDaemonPID:(int)d
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v4 = FKALogCommon();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6[0] = 67109120;
-    v6[1] = d;
-    _os_log_impl(&dword_29BBBD000, v4, OS_LOG_TYPE_INFO, "FKA pid: %d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = d;
+    _os_log_impl(&dword_29BBBD000, v4, OS_LOG_TYPE_INFO, "FKA pid: %d", v5, 8u);
   }
 
   FullKeyboardAccessDaemonPID = d;
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 - (void)setAccessibilityUIServerPid:(int)pid
@@ -480,6 +485,14 @@ uint64_t __65__AXBackBoardGlue_displayConvertToCAScreen_withDisplayIntegerId___b
   [v3 resetAccessibilityUIHitPort];
 
   +[AXBSpeakThisManager didUpdateAccessibilityUIServerPID];
+}
+
+- (void)setLockScreenDimTimerEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v4 = objc_opt_class();
+
+  [v4 setLockScreenDimTimerEnabled:enabledCopy];
 }
 
 + (void)setLockScreenDimTimerEnabled:(BOOL)enabled
@@ -498,10 +511,115 @@ uint64_t __65__AXBackBoardGlue_displayConvertToCAScreen_withDisplayIntegerId___b
   return v4;
 }
 
+- (void)registerEventListener:(BOOL)listener
+{
+  listenerCopy = listener;
+  v4 = +[AXBEventManager sharedManager];
+  [v4 registerEventListener:listenerCopy];
+}
+
 - (void)zoomListenerRegistered
 {
   defaultCenter = [MEMORY[0x29EDBA068] defaultCenter];
   [defaultCenter postNotificationName:@"ZoomListenerRegistered" object:0];
+}
+
+- (CGRect)convertFrame:(CGRect)frame fromContextId:(unsigned int)id displayId:(unsigned int)displayId
+{
+  v5 = *&displayId;
+  v6 = *&id;
+  height = frame.size.height;
+  width = frame.size.width;
+  y = frame.origin.y;
+  x = frame.origin.x;
+  v11 = +[AXBAccessibilityManager sharedManager];
+  [v11 accessibilityConvertHostedViewFrame:v6 fromContextId:v5 displayId:{x, y, width, height}];
+  v13 = v12;
+  v15 = v14;
+  v17 = v16;
+  v19 = v18;
+
+  v20 = v13;
+  v21 = v15;
+  v22 = v17;
+  v23 = v19;
+  result.size.height = v23;
+  result.size.width = v22;
+  result.origin.y = v21;
+  result.origin.x = v20;
+  return result;
+}
+
+- (CGRect)convertFrame:(CGRect)frame toContextId:(unsigned int)id displayId:(unsigned int)displayId
+{
+  v5 = *&displayId;
+  v6 = *&id;
+  height = frame.size.height;
+  width = frame.size.width;
+  y = frame.origin.y;
+  x = frame.origin.x;
+  v11 = +[AXBAccessibilityManager sharedManager];
+  [v11 accessibilityConvertHostedViewFrame:v6 toContextId:v5 displayId:{x, y, width, height}];
+  v13 = v12;
+  v15 = v14;
+  v17 = v16;
+  v19 = v18;
+
+  v20 = v13;
+  v21 = v15;
+  v22 = v17;
+  v23 = v19;
+  result.size.height = v23;
+  result.size.width = v22;
+  result.origin.y = v21;
+  result.origin.x = v20;
+  return result;
+}
+
+- (CGPoint)convertPoint:(CGPoint)point fromContextId:(unsigned int)id displayId:(unsigned int)displayId
+{
+  v5 = *&displayId;
+  v6 = *&id;
+  y = point.y;
+  x = point.x;
+  v9 = +[AXBAccessibilityManager sharedManager];
+  [v9 accessibilityConvertHostedViewPoint:v6 fromContextId:v5 displayId:{x, y}];
+  v11 = v10;
+  v13 = v12;
+
+  v14 = v11;
+  v15 = v13;
+  result.y = v15;
+  result.x = v14;
+  return result;
+}
+
+- (CGPoint)convertPoint:(CGPoint)point toContextId:(unsigned int)id displayId:(unsigned int)displayId
+{
+  v5 = *&displayId;
+  v6 = *&id;
+  y = point.y;
+  x = point.x;
+  v9 = +[AXBAccessibilityManager sharedManager];
+  [v9 accessibilityConvertHostedViewPoint:v6 toContextId:v5 displayId:{x, y}];
+  v11 = v10;
+  v13 = v12;
+
+  v14 = v11;
+  v15 = v13;
+  result.y = v15;
+  result.x = v14;
+  return result;
+}
+
+- (void)postEvent:(id)event systemEvent:(BOOL)systemEvent afterNamedTap:(id)tap namedTaps:(id)taps
+{
+  systemEventCopy = systemEvent;
+  tapsCopy = taps;
+  tapCopy = tap;
+  eventCopy = event;
+  v12 = +[AXBEventManager sharedManager];
+  [v12 postEvent:eventCopy systemEvent:systemEventCopy afterNamedTap:tapCopy namedTaps:tapsCopy];
 }
 
 - (unsigned)contextIdForDisplayPoint:(CGPoint)point
@@ -514,6 +632,15 @@ uint64_t __65__AXBackBoardGlue_displayConvertToCAScreen_withDisplayIntegerId___b
   return v6;
 }
 
+- (unsigned)contextIdHosterForContextId:(unsigned int)id
+{
+  v3 = *&id;
+  v4 = +[AXBEventManager sharedManager];
+  LODWORD(v3) = [v4 contextIdHosterForContextId:v3];
+
+  return v3;
+}
+
 - (void)userEventOccurred
 {
   v2 = objc_opt_class();
@@ -521,10 +648,17 @@ uint64_t __65__AXBackBoardGlue_displayConvertToCAScreen_withDisplayIntegerId___b
   [v2 sendUserEventOccurred];
 }
 
+- (void)setDisableSystemGestureRecognitionInEvents:(BOOL)events
+{
+  eventsCopy = events;
+  v4 = +[AXBEventManager sharedManager];
+  [v4 setDisableSystemGestureRecognitionInEvents:eventsCopy];
+}
+
 - (void)setIsSpeakScreenHighlightVisible:(BOOL)visible
 {
   visibleCopy = visible;
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   accessibilityUIServerPid = [(AXBackBoardGlue *)self accessibilityUIServerPid];
   v5 = AXLogSpeakScreen();
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
@@ -532,21 +666,20 @@ uint64_t __65__AXBackBoardGlue_displayConvertToCAScreen_withDisplayIntegerId___b
   {
     if (v6)
     {
-      v8 = 67109120;
-      v9 = visibleCopy;
-      _os_log_impl(&dword_29BBBD000, v5, OS_LOG_TYPE_DEFAULT, "Setting highlight state to visible: %i.", &v8, 8u);
+      v7 = 67109120;
+      v8 = visibleCopy;
+      _os_log_impl(&dword_29BBBD000, v5, OS_LOG_TYPE_DEFAULT, "Setting highlight state to visible: %i.", &v7, 8u);
     }
   }
 
   else if (v6)
   {
-    v8 = 67109120;
-    v9 = visibleCopy;
-    _os_log_impl(&dword_29BBBD000, v5, OS_LOG_TYPE_DEFAULT, "Asked to set highlight state to visible %i, but AXUIServer PID wasn't registered. Clearing highlight state.", &v8, 8u);
+    v7 = 67109120;
+    v8 = visibleCopy;
+    _os_log_impl(&dword_29BBBD000, v5, OS_LOG_TYPE_DEFAULT, "Asked to set highlight state to visible %i, but AXUIServer PID wasn't registered. Clearing highlight state.", &v7, 8u);
   }
 
   _AXSSpeakThisSetHighlightVisible();
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 @end

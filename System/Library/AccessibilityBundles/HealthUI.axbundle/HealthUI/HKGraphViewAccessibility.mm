@@ -39,13 +39,13 @@
 
 - (id)accessibilityChartDescriptor
 {
-  v13[1] = *MEMORY[0x29EDCA608];
+  v12[1] = *MEMORY[0x29EDCA608];
   v3 = [(HKGraphViewAccessibility *)self _accessibilityValueForKey:@"kAXGraphViewGraphElementsSeriesDescription"];
   if (!v3)
   {
     _accessibilityDataSeries = [(HKGraphViewAccessibility *)self _accessibilityDataSeries];
-    v13[0] = _accessibilityDataSeries;
-    v3 = [MEMORY[0x29EDB8D80] arrayWithObjects:v13 count:1];
+    v12[0] = _accessibilityDataSeries;
+    v3 = [MEMORY[0x29EDB8D80] arrayWithObjects:v12 count:1];
   }
 
   v5 = objc_alloc(MEMORY[0x29EDB8050]);
@@ -54,8 +54,6 @@
   _accessibilityXAxis = [(HKGraphViewAccessibility *)self _accessibilityXAxis];
   _accessibilityYAxis = [(HKGraphViewAccessibility *)self _accessibilityYAxis];
   v10 = [v5 initWithTitle:_accessibilitySeriesTitle summary:_accessibilityChartSummary xAxisDescriptor:_accessibilityXAxis yAxisDescriptor:_accessibilityYAxis series:v3];
-
-  v11 = *MEMORY[0x29EDCA608];
 
   return v10;
 }

@@ -416,35 +416,35 @@ LABEL_15:
   return v2;
 }
 
-void __34__MPAVRouteConnection_description__block_invoke(uint64_t a1)
+void __34__MPAVRouteConnection_description__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x1E696AEC0];
-  v3 = objc_opt_class();
-  v4 = *(a1 + 32);
-  if (*(v4 + 24))
-  {
-    v5 = @"NO";
-  }
-
-  else
-  {
-    v5 = @"YES";
-  }
-
-  if ([*(a1 + 32) isConnected])
-  {
-    v6 = @"YES";
-  }
-
-  else
+  v3 = MEMORY[0x1E696AEC0];
+  v4 = objc_opt_class();
+  v5 = *(a1 + 32);
+  if (*(v5 + 24))
   {
     v6 = @"NO";
   }
 
-  v7 = [v2 stringWithFormat:@"<%@: %p valid: %@, connected: %@ %@>", v3, v4, v5, v6, *(*(a1 + 32) + 32)];
-  v8 = *(*(a1 + 40) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v7;
+  else
+  {
+    v6 = @"YES";
+  }
+
+  if ([*(a1 + 32) isConnected])
+  {
+    v7 = @"YES";
+  }
+
+  else
+  {
+    v7 = @"NO";
+  }
+
+  v8 = [v3 stringWithFormat:@"<%@: %p valid: %@, connected: %@ %@>", v4, v5, v6, v7, *(*(a1 + 32) + 32)];
+  v9 = *(*(a1 + 40) + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v8;
 }
 
 - (void)dealloc

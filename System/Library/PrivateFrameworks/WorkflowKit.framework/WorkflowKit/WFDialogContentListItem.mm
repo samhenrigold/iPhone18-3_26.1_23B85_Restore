@@ -3,7 +3,9 @@
 - (BOOL)loadImageWithSize:(CGSize)size completion:(id)completion;
 - (BOOL)loadSubtitleWithCompletion:(id)completion;
 - (WFDialogContentListItem)initWithCoder:(id)coder;
+- (WFDialogContentListItem)initWithContentItem:(id)item encodedTypedValue:(id)value selected:(BOOL)selected hideSubtitle:(BOOL)subtitle;
 - (WFDialogContentListItem)initWithContentItem:(id)item encodedTypedValue:(id)value selected:(BOOL)selected serializedPossibleState:(id)state;
+- (WFDialogContentListItem)initWithTitle:(id)title subtitle:(id)subtitle image:(id)image selected:(BOOL)selected contentItem:(id)item encodedTypedValue:(id)value hideSubtitle:(BOOL)hideSubtitle serializedPossibleState:(id)self0;
 - (void)_loadContentItemWithCompletion:(id)completion;
 - (void)encodeWithCoder:(id)coder;
 - (void)prepareForDisplayWithCompletionHandler:(id)handler;
@@ -15,7 +17,7 @@
 {
   height = size.height;
   width = size.width;
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (!completionCopy)
   {
@@ -28,9 +30,9 @@
     image = [(WFDialogContentListItem *)self image];
     v10 = [image resizedImageWithSizeInPoints:{width, height}];
 
-    v20 = *MEMORY[0x1E69E0FE8];
-    v21[0] = &unk_1F4A9AC60;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x1E69E0FE8];
+    v20[0] = &unk_1F4A9AC60;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     completionCopy[2](completionCopy, v10, v11);
     v12 = v10 != 0;
   }
@@ -50,7 +52,7 @@
       if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v19 = "[WFDialogContentListItem loadImageWithSize:completion:]";
+        v18 = "[WFDialogContentListItem loadImageWithSize:completion:]";
         _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_FAULT, "%s Attempting to load image without loading the content item first. Please call [WFDialogListItem prepareForDisplayWithCompletionHandler:] first.", buf, 0xCu);
       }
 
@@ -59,13 +61,12 @@
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (BOOL)loadAltTextWithCompletion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (!completionCopy)
   {
@@ -83,13 +84,13 @@
     contentItem = [(WFDialogContentListItem *)self contentItem];
     if (contentItem)
     {
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __53__WFDialogContentListItem_loadAltTextWithCompletion___block_invoke;
-      v12[3] = &unk_1E837B0F0;
-      v13 = completionCopy;
-      v6 = [contentItem getListAltText:v12];
-      v8 = v13;
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = __53__WFDialogContentListItem_loadAltTextWithCompletion___block_invoke;
+      v11[3] = &unk_1E837B0F0;
+      v12 = completionCopy;
+      v6 = [contentItem getListAltText:v11];
+      v8 = v12;
     }
 
     else
@@ -98,7 +99,7 @@
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v15 = "[WFDialogContentListItem loadAltTextWithCompletion:]";
+        v14 = "[WFDialogContentListItem loadAltTextWithCompletion:]";
         _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_FAULT, "%s Attempting to load alt text without loading the content item first. Please call [WFDialogListItem prepareForDisplayWithCompletionHandler:] first.", buf, 0xCu);
       }
 
@@ -106,13 +107,12 @@
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (BOOL)loadSubtitleWithCompletion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (!completionCopy)
   {
@@ -137,15 +137,15 @@ LABEL_13:
     subtitle2 = [(WFDialogContentListItem *)self contentItem];
     if (subtitle2)
     {
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __54__WFDialogContentListItem_loadSubtitleWithCompletion___block_invoke;
-      v13[3] = &unk_1E837B0C8;
-      v15 = completionCopy;
-      v14 = subtitle2;
-      v8 = [v14 getListSubtitle:v13];
+      v12[0] = MEMORY[0x1E69E9820];
+      v12[1] = 3221225472;
+      v12[2] = __54__WFDialogContentListItem_loadSubtitleWithCompletion___block_invoke;
+      v12[3] = &unk_1E837B0C8;
+      v14 = completionCopy;
+      v13 = subtitle2;
+      v8 = [v13 getListSubtitle:v12];
 
-      v9 = v15;
+      v9 = v14;
     }
 
     else
@@ -154,7 +154,7 @@ LABEL_13:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v17 = "[WFDialogContentListItem loadSubtitleWithCompletion:]";
+        v16 = "[WFDialogContentListItem loadSubtitleWithCompletion:]";
         _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_FAULT, "%s Attempting to load subtitles without loading the content item first. Please call [WFDialogListItem prepareForDisplayWithCompletionHandler:] first.", buf, 0xCu);
       }
 
@@ -167,7 +167,6 @@ LABEL_13:
   v8 = 0;
 LABEL_14:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -184,9 +183,8 @@ void __54__WFDialogContentListItem_loadSubtitleWithCompletion___block_invoke(uin
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = [objc_opt_class() localizedTypeDescription];
-    (*(v2 + 16))(v2, v6);
+    v5 = [objc_opt_class() localizedTypeDescription];
+    (*(v2 + 16))(v2, v5);
   }
 }
 
@@ -307,6 +305,18 @@ void __58__WFDialogContentListItem__loadContentItemWithCompletion___block_invoke
   return v16;
 }
 
+- (WFDialogContentListItem)initWithContentItem:(id)item encodedTypedValue:(id)value selected:(BOOL)selected hideSubtitle:(BOOL)subtitle
+{
+  selectedCopy = selected;
+  valueCopy = value;
+  itemCopy = item;
+  richListTitle = [itemCopy richListTitle];
+  LOBYTE(v15) = subtitle;
+  v13 = [(WFDialogContentListItem *)self initWithTitle:richListTitle subtitle:0 image:0 selected:selectedCopy contentItem:itemCopy encodedTypedValue:valueCopy hideSubtitle:v15 serializedPossibleState:0];
+
+  return v13;
+}
+
 - (WFDialogContentListItem)initWithContentItem:(id)item encodedTypedValue:(id)value selected:(BOOL)selected serializedPossibleState:(id)state
 {
   selectedCopy = selected;
@@ -323,6 +333,31 @@ void __58__WFDialogContentListItem__loadContentItemWithCompletion___block_invoke
   v18 = [(WFDialogContentListItem *)self initWithTitle:title subtitle:subtitle image:image selected:selectedCopy contentItem:itemCopy encodedTypedValue:valueCopy hideSubtitle:v20 serializedPossibleState:stateCopy];
 
   return v18;
+}
+
+- (WFDialogContentListItem)initWithTitle:(id)title subtitle:(id)subtitle image:(id)image selected:(BOOL)selected contentItem:(id)item encodedTypedValue:(id)value hideSubtitle:(BOOL)hideSubtitle serializedPossibleState:(id)self0
+{
+  selectedCopy = selected;
+  itemCopy = item;
+  v16 = MEMORY[0x1E696AFB0];
+  stateCopy = state;
+  valueCopy = value;
+  imageCopy = image;
+  subtitleCopy = subtitle;
+  titleCopy = title;
+  uUID = [v16 UUID];
+  uUIDString = [uUID UUIDString];
+  v29.receiver = self;
+  v29.super_class = WFDialogContentListItem;
+  v24 = [(WFDialogListItem *)&v29 initWithTitle:titleCopy subtitle:subtitleCopy identifier:uUIDString image:imageCopy selected:selectedCopy hideSubtitle:hideSubtitle encodedTypedValue:valueCopy serializedPossibleState:stateCopy];
+
+  if (v24)
+  {
+    objc_storeStrong(&v24->_contentItem, item);
+    v25 = v24;
+  }
+
+  return v24;
 }
 
 @end

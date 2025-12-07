@@ -1,6 +1,7 @@
 @interface EKRecurrenceIdentifier
 + (BOOL)_splitIdentifier:(id)identifier intoLocalUID:(id *)d recurrenceDate:(id *)date;
 + (const)_dateFormatStripTime:(BOOL)time stripTimeZone:(BOOL)zone;
++ (id)_recurrenceIdentifierWithRecurrenceDate:(id)date localUID:(id)d stripTime:(BOOL)time stripTimeZone:(BOOL)zone;
 + (id)localUIDForIdentifierString:(id)string;
 + (id)recurrenceIdentifierWithLocalUID:(id)d recurrenceDate:(id)date;
 + (id)recurrenceIdentifierWithString:(id)string;
@@ -122,7 +123,7 @@
 
 + (BOOL)_splitIdentifier:(id)identifier intoLocalUID:(id *)d recurrenceDate:(id *)date
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v9 = identifierCopy;
   if (!(d | date))
@@ -180,14 +181,14 @@ LABEL_15:
   }
 
 LABEL_18:
-  strlcpy(&v20 - ((v12 + 16) & 0xFFFFFFFFFFFFFFF0), uTF8String, v12 + 1);
-  if (strcmp(&v20 - ((v12 + 16) & 0xFFFFFFFFFFFFFFF0), "(null)"))
+  strlcpy(&v19 - ((v12 + 16) & 0xFFFFFFFFFFFFFFF0), uTF8String, v12 + 1);
+  if (strcmp(&v19 - ((v12 + 16) & 0xFFFFFFFFFFFFFFF0), "(null)"))
   {
-    strptime_l(&v20 - ((v12 + 16) & 0xFFFFFFFFFFFFFFF0), [self _dateFormatStripTime:0 stripTimeZone:{0, 0, 0, 0, 0, 0, 0, 0, v21}], &v20, 0);
-    *date = [MEMORY[0x1E695DF00] dateWithTimeIntervalSince1970:timegm(&v20)];
+    strptime_l(&v19 - ((v12 + 16) & 0xFFFFFFFFFFFFFFF0), [self _dateFormatStripTime:0 stripTimeZone:{0, 0, 0, 0, 0, 0, 0, 0, v20}], &v19, 0);
+    *date = [MEMORY[0x1E695DF00] dateWithTimeIntervalSince1970:timegm(&v19)];
   }
 
-  if (!d || (v19 = *d, v15 = *d != 0, v19))
+  if (!d || (v18 = *d, v15 = *d != 0, v18))
   {
     v14 = *date == 0;
 LABEL_24:
@@ -196,8 +197,51 @@ LABEL_24:
 
 LABEL_16:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v15;
+}
+
++ (id)_recurrenceIdentifierWithRecurrenceDate:(id)date localUID:(id)d stripTime:(BOOL)time stripTimeZone:(BOOL)zone
+{
+  zoneCopy = zone;
+  timeCopy = time;
+  v24 = *MEMORY[0x1E69E9840];
+  dateCopy = date;
+  dCopy = d;
+  v12 = dCopy;
+  if (dCopy && [dCopy length] <= 0x32)
+  {
+    v13 = v12;
+    v14 = v13;
+    if (dateCopy)
+    {
+      uTF8String = [v13 UTF8String];
+      v16 = strlen(uTF8String);
+      [dateCopy timeIntervalSince1970];
+      v23 = v17;
+      memset(&v22, 0, sizeof(v22));
+      gmtime_r(&v23, &v22);
+      strftime_l(v21, 0x20uLL, [self _dateFormatStripTime:timeCopy stripTimeZone:zoneCopy], &v22, 0);
+      v18 = &v21[-((v16 + 49) & 0xFFFFFFFFFFFFFFF0)];
+      strcpy(v18, v21);
+      if ([v14 length])
+      {
+        *&v18[strlen(v18)] = 47;
+        strcat(v18, uTF8String);
+      }
+
+      v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v18];
+
+      v14 = v19;
+    }
+  }
+
+  else
+  {
+    NSLog(&cfstr_UidIsOfUnexpec.isa, v12);
+    v14 = 0;
+  }
+
+  return v14;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

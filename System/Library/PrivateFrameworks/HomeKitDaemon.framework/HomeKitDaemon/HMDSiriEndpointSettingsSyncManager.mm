@@ -39,14 +39,14 @@
 
 - (int64_t)siriEndpointCertificationReasonForAccessoryUUID:(id)d homeUUID:(id)iD error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
+  v19 = 0;
   v20 = 0;
-  v21 = 0;
-  [(HMDSiriEndpointSettingsSyncManager *)self _matchingHomeforUUID:iDCopy accessoryUUID:dCopy home:&v21 accessory:&v20];
-  v10 = v21;
-  v11 = v20;
+  [(HMDSiriEndpointSettingsSyncManager *)self _matchingHomeforUUID:iDCopy accessoryUUID:dCopy home:&v20 accessory:&v19];
+  v10 = v20;
+  v11 = v19;
   v12 = v11;
   if (v11)
   {
@@ -62,11 +62,11 @@
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v23 = v17;
-      v24 = 2112;
-      v25 = v10;
-      v26 = 2112;
-      v27 = dCopy;
+      v22 = v17;
+      v23 = 2112;
+      v24 = v10;
+      v25 = 2112;
+      v26 = dCopy;
       _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unable to find matching accessory with UUID: %@ in home (%@) to sync settings", buf, 0x20u);
     }
 
@@ -83,13 +83,12 @@
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return computeSiriEndpointCertification;
 }
 
 - (id)readValueValueForAccessoryUUID:(id)d homeUUID:(id)iD forKeyPath:(id)path
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   pathCopy = path;
@@ -100,22 +99,22 @@
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138544130;
-    v33 = v14;
-    v34 = 2112;
-    v35 = dCopy;
-    v36 = 2112;
-    v37 = iDCopy;
-    v38 = 2112;
-    v39 = pathCopy;
+    v32 = v14;
+    v33 = 2112;
+    v34 = dCopy;
+    v35 = 2112;
+    v36 = iDCopy;
+    v37 = 2112;
+    v38 = pathCopy;
     _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Writing endpoint settings for accessoryUUID: %@, homeUUID: %@, keyPath: %@", buf, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v11);
+  v29 = 0;
   v30 = 0;
-  v31 = 0;
-  [(HMDSiriEndpointSettingsSyncManager *)selfCopy _matchingHomeforUUID:iDCopy accessoryUUID:dCopy home:&v31 accessory:&v30];
-  v15 = v31;
-  v16 = v30;
+  [(HMDSiriEndpointSettingsSyncManager *)selfCopy _matchingHomeforUUID:iDCopy accessoryUUID:dCopy home:&v30 accessory:&v29];
+  v15 = v30;
+  v16 = v29;
   if (!v16)
   {
     v19 = objc_autoreleasePoolPush();
@@ -128,11 +127,11 @@
 
     v22 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v33 = v22;
-    v34 = 2112;
-    v35 = v15;
-    v36 = 2112;
-    v37 = dCopy;
+    v32 = v22;
+    v33 = 2112;
+    v34 = v15;
+    v35 = 2112;
+    v36 = dCopy;
     v23 = "%{public}@Unable to find matching accessory with UUID: %@ in home (%@) to sync settings";
     v24 = v21;
     v25 = 32;
@@ -177,9 +176,9 @@ LABEL_12:
 
     v22 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v33 = v22;
-    v34 = 2112;
-    v35 = pathCopy;
+    v32 = v22;
+    v33 = 2112;
+    v34 = pathCopy;
     v23 = "%{public}@Invalid or unrecongnized keyPath: %@";
     v24 = v21;
     v25 = 22;
@@ -202,13 +201,13 @@ LABEL_12:
 LABEL_16:
     v22 = HMFGetLogIdentifier();
     *buf = 138544130;
-    v33 = v22;
-    v34 = 2112;
-    v35 = iDCopy;
-    v36 = 2112;
-    v37 = dCopy;
-    v38 = 2112;
-    v39 = pathCopy;
+    v32 = v22;
+    v33 = 2112;
+    v34 = iDCopy;
+    v35 = 2112;
+    v36 = dCopy;
+    v37 = 2112;
+    v38 = pathCopy;
     v23 = "%{public}@Unknown value for home:%@, accessory:%@, keyPath:%@";
     v24 = v21;
     v25 = 42;
@@ -221,14 +220,12 @@ LABEL_18:
   v27 = 0;
 LABEL_19:
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return v27;
 }
 
 - (void)_matchingHomeforUUID:(id)d accessoryUUID:(id)iD home:(id *)home accessory:(id *)accessory
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   dataSource = [(HMDSiriEndpointSettingsSyncManager *)self dataSource];
@@ -236,24 +233,24 @@ LABEL_19:
   if (home)
   {
     v14 = [dataSource homesForSiriEndpointSettingsSyncManager:self];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __88__HMDSiriEndpointSettingsSyncManager__matchingHomeforUUID_accessoryUUID_home_accessory___block_invoke;
-    v29[3] = &unk_278685BA0;
-    v30 = dCopy;
-    v15 = [v14 na_firstObjectPassingTest:v29];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __88__HMDSiriEndpointSettingsSyncManager__matchingHomeforUUID_accessoryUUID_home_accessory___block_invoke;
+    v28[3] = &unk_278685BA0;
+    v29 = dCopy;
+    v15 = [v14 na_firstObjectPassingTest:v28];
 
     if (accessory)
     {
       v16 = v15;
       *home = v15;
       hapAccessories = [v16 hapAccessories];
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __88__HMDSiriEndpointSettingsSyncManager__matchingHomeforUUID_accessoryUUID_home_accessory___block_invoke_76;
-      v27[3] = &unk_2786830C8;
-      v28 = iDCopy;
-      *accessory = [hapAccessories na_firstObjectPassingTest:v27];
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __88__HMDSiriEndpointSettingsSyncManager__matchingHomeforUUID_accessoryUUID_home_accessory___block_invoke_76;
+      v26[3] = &unk_2786830C8;
+      v27 = iDCopy;
+      *accessory = [hapAccessories na_firstObjectPassingTest:v26];
     }
 
     else
@@ -265,7 +262,7 @@ LABEL_19:
       {
         v25 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v32 = v25;
+        v31 = v25;
         _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Nil out hap accessory passed", buf, 0xCu);
       }
 
@@ -282,14 +279,12 @@ LABEL_19:
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v32 = v21;
+      v31 = v21;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Nil out parameter home passed", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v18);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __88__HMDSiriEndpointSettingsSyncManager__matchingHomeforUUID_accessoryUUID_home_accessory___block_invoke(uint64_t a1, void *a2)
@@ -310,7 +305,7 @@ uint64_t __88__HMDSiriEndpointSettingsSyncManager__matchingHomeforUUID_accessory
 
 - (void)writeSettingValue:(id)value accessoryUUID:(id)d homeUUID:(id)iD forKeyPath:(id)path completionHandler:(id)handler
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   dCopy = d;
   iDCopy = iD;
@@ -323,24 +318,24 @@ uint64_t __88__HMDSiriEndpointSettingsSyncManager__matchingHomeforUUID_accessory
   {
     v20 = HMFGetLogIdentifier();
     *buf = 138544386;
-    v39 = v20;
-    v40 = 2112;
-    v41 = dCopy;
-    v42 = 2112;
-    v43 = iDCopy;
-    v44 = 2112;
-    v45 = valueCopy;
-    v46 = 2112;
-    v47 = pathCopy;
+    v38 = v20;
+    v39 = 2112;
+    v40 = dCopy;
+    v41 = 2112;
+    v42 = iDCopy;
+    v43 = 2112;
+    v44 = valueCopy;
+    v45 = 2112;
+    v46 = pathCopy;
     _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Writing endpoint settings for accessoryUUID: %@, homeUUID: %@, settingValue: %@, keyPath: %@", buf, 0x34u);
   }
 
   objc_autoreleasePoolPop(v17);
+  v35 = 0;
   v36 = 0;
-  v37 = 0;
-  [(HMDSiriEndpointSettingsSyncManager *)selfCopy _matchingHomeforUUID:iDCopy accessoryUUID:dCopy home:&v37 accessory:&v36];
-  v21 = v37;
-  v22 = v36;
+  [(HMDSiriEndpointSettingsSyncManager *)selfCopy _matchingHomeforUUID:iDCopy accessoryUUID:dCopy home:&v36 accessory:&v35];
+  v21 = v36;
+  v22 = v35;
   if (v22)
   {
     workQueue = [(HMDSiriEndpointSettingsSyncManager *)selfCopy workQueue];
@@ -349,10 +344,10 @@ uint64_t __88__HMDSiriEndpointSettingsSyncManager__matchingHomeforUUID_accessory
     block[2] = __108__HMDSiriEndpointSettingsSyncManager_writeSettingValue_accessoryUUID_homeUUID_forKeyPath_completionHandler___block_invoke;
     block[3] = &unk_278688978;
     block[4] = selfCopy;
-    v32 = valueCopy;
-    v33 = v22;
-    v34 = pathCopy;
-    v35 = handlerCopy;
+    v31 = valueCopy;
+    v32 = v22;
+    v33 = pathCopy;
+    v34 = handlerCopy;
     dispatch_async(workQueue, block);
   }
 
@@ -364,16 +359,16 @@ uint64_t __88__HMDSiriEndpointSettingsSyncManager__matchingHomeforUUID_accessory
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v27 = v30 = v24;
+      v27 = v29 = v24;
       *buf = 138543874;
-      v39 = v27;
-      v40 = 2112;
-      v41 = v21;
-      v42 = 2112;
-      v43 = dCopy;
+      v38 = v27;
+      v39 = 2112;
+      v40 = v21;
+      v41 = 2112;
+      v42 = dCopy;
       _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Unable to find matching accessory with UUID: %@ in home (%@) to sync settings", buf, 0x20u);
 
-      v24 = v30;
+      v24 = v29;
     }
 
     objc_autoreleasePoolPop(v24);
@@ -383,13 +378,11 @@ uint64_t __88__HMDSiriEndpointSettingsSyncManager__matchingHomeforUUID_accessory
       (*(handlerCopy + 2))(handlerCopy, v28);
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeSettingValue:(id)value toAccessory:(id)accessory forKeyPath:(id)path completionHandler:(id)handler
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   accessoryCopy = accessory;
   pathCopy = path;
@@ -404,13 +397,13 @@ uint64_t __88__HMDSiriEndpointSettingsSyncManager__matchingHomeforUUID_accessory
   {
     v18 = HMFGetLogIdentifier();
     *buf = 138544130;
-    v89 = v18;
-    v90 = 2112;
-    v91 = valueCopy;
-    v92 = 2112;
-    v93 = accessoryCopy;
-    v94 = 2112;
-    v95 = pathCopy;
+    v88 = v18;
+    v89 = 2112;
+    v90 = valueCopy;
+    v91 = 2112;
+    v92 = accessoryCopy;
+    v93 = 2112;
+    v94 = pathCopy;
     _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Writing setting value: %@ to siri endpoint accessory: %@ for keypath: %@", buf, 0x2Au);
   }
 
@@ -435,17 +428,17 @@ uint64_t __88__HMDSiriEndpointSettingsSyncManager__matchingHomeforUUID_accessory
     {
       bOOLValue = [v21 BOOLValue];
       siriEndpointProfile = [accessoryCopy siriEndpointProfile];
-      v84[0] = MEMORY[0x277D85DD0];
-      v84[1] = 3221225472;
-      v84[2] = __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_forKeyPath_completionHandler___block_invoke;
-      v84[3] = &unk_27868A528;
-      v84[4] = selfCopy;
-      v85 = accessoryCopy;
-      v86 = v21;
-      v87 = handlerCopy;
-      [siriEndpointProfile setListening:bOOLValue completionHandler:v84];
+      v83[0] = MEMORY[0x277D85DD0];
+      v83[1] = 3221225472;
+      v83[2] = __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_forKeyPath_completionHandler___block_invoke;
+      v83[3] = &unk_27868A528;
+      v83[4] = selfCopy;
+      v84 = accessoryCopy;
+      v85 = v21;
+      v86 = handlerCopy;
+      [siriEndpointProfile setListening:bOOLValue completionHandler:v83];
 
-      v24 = v85;
+      v24 = v84;
 LABEL_29:
 
       goto LABEL_55;
@@ -458,13 +451,13 @@ LABEL_29:
     {
       v36 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v89 = v36;
-      v90 = 2112;
-      v91 = v19;
-      v92 = 2112;
-      v93 = pathCopy;
-      v94 = 2112;
-      v95 = accessoryCopy;
+      v88 = v36;
+      v89 = 2112;
+      v90 = v19;
+      v91 = 2112;
+      v92 = pathCopy;
+      v93 = 2112;
+      v94 = accessoryCopy;
       v37 = "%{public}@heySiriSettingValue (%@) for keypath %@, accessory: %@, is not of BOOL setting type";
 LABEL_52:
       _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_ERROR, v37, buf, 0x2Au);
@@ -495,17 +488,17 @@ LABEL_52:
     {
       bOOLValue2 = [v21 BOOLValue];
       siriEndpointProfile2 = [accessoryCopy siriEndpointProfile];
-      v80[0] = MEMORY[0x277D85DD0];
-      v80[1] = 3221225472;
-      v80[2] = __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_forKeyPath_completionHandler___block_invoke_70;
-      v80[3] = &unk_27868A528;
-      v80[4] = selfCopy;
-      v81 = accessoryCopy;
-      v82 = v21;
-      v83 = handlerCopy;
-      [siriEndpointProfile2 setTouchToUse:bOOLValue2 completionHandler:v80];
+      v79[0] = MEMORY[0x277D85DD0];
+      v79[1] = 3221225472;
+      v79[2] = __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_forKeyPath_completionHandler___block_invoke_70;
+      v79[3] = &unk_27868A528;
+      v79[4] = selfCopy;
+      v80 = accessoryCopy;
+      v81 = v21;
+      v82 = handlerCopy;
+      [siriEndpointProfile2 setTouchToUse:bOOLValue2 completionHandler:v79];
 
-      v24 = v81;
+      v24 = v80;
       goto LABEL_29;
     }
 
@@ -516,13 +509,13 @@ LABEL_52:
     {
       v36 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v89 = v36;
-      v90 = 2112;
-      v91 = v25;
-      v92 = 2112;
-      v93 = pathCopy;
-      v94 = 2112;
-      v95 = accessoryCopy;
+      v88 = v36;
+      v89 = 2112;
+      v90 = v25;
+      v91 = 2112;
+      v92 = pathCopy;
+      v93 = 2112;
+      v94 = accessoryCopy;
       v37 = "%{public}@tapToAccessSettingValue (%@) for keypath %@, accessory: %@, is not of BOOL setting type";
       goto LABEL_52;
     }
@@ -559,17 +552,17 @@ LABEL_53:
     {
       bOOLValue3 = [v21 BOOLValue];
       siriEndpointProfile3 = [accessoryCopy siriEndpointProfile];
-      v76[0] = MEMORY[0x277D85DD0];
-      v76[1] = 3221225472;
-      v76[2] = __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_forKeyPath_completionHandler___block_invoke_71;
-      v76[3] = &unk_27868A528;
-      v76[4] = selfCopy;
-      v77 = accessoryCopy;
-      v78 = v21;
-      v79 = handlerCopy;
-      [siriEndpointProfile3 setLightOnUse:bOOLValue3 completionHandler:v76];
+      v75[0] = MEMORY[0x277D85DD0];
+      v75[1] = 3221225472;
+      v75[2] = __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_forKeyPath_completionHandler___block_invoke_71;
+      v75[3] = &unk_27868A528;
+      v75[4] = selfCopy;
+      v76 = accessoryCopy;
+      v77 = v21;
+      v78 = handlerCopy;
+      [siriEndpointProfile3 setLightOnUse:bOOLValue3 completionHandler:v75];
 
-      v24 = v77;
+      v24 = v76;
       goto LABEL_29;
     }
 
@@ -580,13 +573,13 @@ LABEL_53:
     {
       v36 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v89 = v36;
-      v90 = 2112;
-      v91 = v29;
-      v92 = 2112;
-      v93 = pathCopy;
-      v94 = 2112;
-      v95 = accessoryCopy;
+      v88 = v36;
+      v89 = 2112;
+      v90 = v29;
+      v91 = 2112;
+      v92 = pathCopy;
+      v93 = 2112;
+      v94 = accessoryCopy;
       v37 = "%{public}@lightWhenUsingSiriSettingValue (%@) for keypath %@, accessory: %@, is not of BOOL setting type";
       goto LABEL_52;
     }
@@ -614,17 +607,17 @@ LABEL_53:
     {
       bOOLValue4 = [v21 BOOLValue];
       siriEndpointProfile4 = [accessoryCopy siriEndpointProfile];
-      v72[0] = MEMORY[0x277D85DD0];
-      v72[1] = 3221225472;
-      v72[2] = __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_forKeyPath_completionHandler___block_invoke_72;
-      v72[3] = &unk_27868A528;
-      v72[4] = selfCopy;
-      v73 = accessoryCopy;
-      v74 = v21;
-      v75 = handlerCopy;
-      [siriEndpointProfile4 setSoundOnUse:bOOLValue4 completionHandler:v72];
+      v71[0] = MEMORY[0x277D85DD0];
+      v71[1] = 3221225472;
+      v71[2] = __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_forKeyPath_completionHandler___block_invoke_72;
+      v71[3] = &unk_27868A528;
+      v71[4] = selfCopy;
+      v72 = accessoryCopy;
+      v73 = v21;
+      v74 = handlerCopy;
+      [siriEndpointProfile4 setSoundOnUse:bOOLValue4 completionHandler:v71];
 
-      v24 = v73;
+      v24 = v72;
       goto LABEL_29;
     }
 
@@ -635,13 +628,13 @@ LABEL_53:
     {
       v36 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v89 = v36;
-      v90 = 2112;
-      v91 = v38;
-      v92 = 2112;
-      v93 = pathCopy;
-      v94 = 2112;
-      v95 = accessoryCopy;
+      v88 = v36;
+      v89 = 2112;
+      v90 = v38;
+      v91 = 2112;
+      v92 = pathCopy;
+      v93 = 2112;
+      v94 = accessoryCopy;
       v37 = "%{public}@soundWhenUsingSiriSettingValue (%@) for keypath %@, accessory: %@, is not of BOOL setting type";
       goto LABEL_52;
     }
@@ -684,60 +677,60 @@ LABEL_53:
       if (v46)
       {
         bOOLValue5 = [v21 BOOLValue];
-        v68[0] = MEMORY[0x277D85DD0];
-        v68[1] = 3221225472;
-        v68[2] = __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_forKeyPath_completionHandler___block_invoke_74;
-        v68[3] = &unk_27868A528;
-        v68[4] = selfCopy;
-        v69 = accessoryCopy;
-        v70 = v21;
-        v71 = handlerCopy;
-        [v46 setEnable:bOOLValue5 completionHandler:v68];
+        v67[0] = MEMORY[0x277D85DD0];
+        v67[1] = 3221225472;
+        v67[2] = __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_forKeyPath_completionHandler___block_invoke_74;
+        v67[3] = &unk_27868A528;
+        v67[4] = selfCopy;
+        v68 = accessoryCopy;
+        v69 = v21;
+        v70 = handlerCopy;
+        [v46 setEnable:bOOLValue5 completionHandler:v67];
       }
 
       else
       {
-        v59 = objc_autoreleasePoolPush();
-        v60 = selfCopy;
-        v61 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+        v58 = objc_autoreleasePoolPush();
+        v59 = selfCopy;
+        v60 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v62 = v63 = v59;
+          v61 = v62 = v58;
           *buf = 138544130;
-          v89 = v62;
-          v90 = 2112;
-          v91 = v42;
-          v92 = 2112;
-          v93 = pathCopy;
-          v94 = 2112;
-          v95 = accessoryCopy;
-          _os_log_impl(&dword_229538000, v61, OS_LOG_TYPE_ERROR, "%{public}@Unable to synchronize airplayEnabledSettingValue (%@) for keypath %@, accessory: %@, as accessory does not have a hapMediaProfile", buf, 0x2Au);
+          v88 = v61;
+          v89 = 2112;
+          v90 = v42;
+          v91 = 2112;
+          v92 = pathCopy;
+          v93 = 2112;
+          v94 = accessoryCopy;
+          _os_log_impl(&dword_229538000, v60, OS_LOG_TYPE_ERROR, "%{public}@Unable to synchronize airplayEnabledSettingValue (%@) for keypath %@, accessory: %@, as accessory does not have a hapMediaProfile", buf, 0x2Au);
 
-          v59 = v63;
+          v58 = v62;
         }
 
-        objc_autoreleasePoolPop(v59);
+        objc_autoreleasePoolPop(v58);
       }
 
       goto LABEL_55;
     }
 
-    v54 = objc_autoreleasePoolPush();
-    v55 = selfCopy;
-    v56 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+    v53 = objc_autoreleasePoolPush();
+    v54 = selfCopy;
+    v55 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
     {
-      v58 = HMFGetLogIdentifier();
+      v57 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v89 = v58;
-      v90 = 2112;
-      v91 = v42;
-      v92 = 2112;
-      v93 = pathCopy;
-      v94 = 2112;
-      v95 = accessoryCopy;
-      _os_log_impl(&dword_229538000, v56, OS_LOG_TYPE_ERROR, "%{public}@airplayEnabledSettingValue (%@) for keypath %@, accessory: %@, is not of BOOL setting type", buf, 0x2Au);
+      v88 = v57;
+      v89 = 2112;
+      v90 = v42;
+      v91 = 2112;
+      v92 = pathCopy;
+      v93 = 2112;
+      v94 = accessoryCopy;
+      _os_log_impl(&dword_229538000, v55, OS_LOG_TYPE_ERROR, "%{public}@airplayEnabledSettingValue (%@) for keypath %@, accessory: %@, is not of BOOL setting type", buf, 0x2Au);
     }
   }
 
@@ -763,17 +756,17 @@ LABEL_53:
       {
         bOOLValue6 = [v21 BOOLValue];
         siriEndpointProfile5 = [accessoryCopy siriEndpointProfile];
-        v64[0] = MEMORY[0x277D85DD0];
-        v64[1] = 3221225472;
-        v64[2] = __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_forKeyPath_completionHandler___block_invoke_75;
-        v64[3] = &unk_27868A528;
-        v64[4] = selfCopy;
-        v65 = accessoryCopy;
-        v66 = v21;
-        v67 = handlerCopy;
-        [siriEndpointProfile5 setEnable:bOOLValue6 completionHandler:v64];
+        v63[0] = MEMORY[0x277D85DD0];
+        v63[1] = 3221225472;
+        v63[2] = __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_forKeyPath_completionHandler___block_invoke_75;
+        v63[3] = &unk_27868A528;
+        v63[4] = selfCopy;
+        v64 = accessoryCopy;
+        v65 = v21;
+        v66 = handlerCopy;
+        [siriEndpointProfile5 setEnable:bOOLValue6 completionHandler:v63];
 
-        v24 = v65;
+        v24 = v64;
         goto LABEL_29;
       }
 
@@ -784,13 +777,13 @@ LABEL_53:
       {
         v36 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v89 = v36;
-        v90 = 2112;
-        v91 = v48;
-        v92 = 2112;
-        v93 = pathCopy;
-        v94 = 2112;
-        v95 = accessoryCopy;
+        v88 = v36;
+        v89 = 2112;
+        v90 = v48;
+        v91 = 2112;
+        v92 = pathCopy;
+        v93 = 2112;
+        v94 = accessoryCopy;
         v37 = "%{public}@siriEnabledSettingValue (%@) for keypath %@, accessory: %@, is not of BOOL setting type";
         goto LABEL_52;
       }
@@ -798,25 +791,25 @@ LABEL_53:
       goto LABEL_53;
     }
 
-    v54 = objc_autoreleasePoolPush();
-    v55 = selfCopy;
-    v56 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+    v53 = objc_autoreleasePoolPush();
+    v54 = selfCopy;
+    v55 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
     {
-      v57 = HMFGetLogIdentifier();
+      v56 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v89 = v57;
-      v90 = 2112;
-      v91 = pathCopy;
-      v92 = 2112;
-      v93 = valueCopy;
-      v94 = 2112;
-      v95 = accessoryCopy;
-      _os_log_impl(&dword_229538000, v56, OS_LOG_TYPE_ERROR, "%{public}@Unknown keypath (%@) for homekit backed siri endpoint setting value (%@) accessory: %@", buf, 0x2Au);
+      v88 = v56;
+      v89 = 2112;
+      v90 = pathCopy;
+      v91 = 2112;
+      v92 = valueCopy;
+      v93 = 2112;
+      v94 = accessoryCopy;
+      _os_log_impl(&dword_229538000, v55, OS_LOG_TYPE_ERROR, "%{public}@Unknown keypath (%@) for homekit backed siri endpoint setting value (%@) accessory: %@", buf, 0x2Au);
     }
   }
 
-  objc_autoreleasePoolPop(v54);
+  objc_autoreleasePoolPop(v53);
   if (!handlerCopy)
   {
     goto LABEL_56;
@@ -827,12 +820,11 @@ LABEL_53:
 LABEL_55:
 
 LABEL_56:
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 void __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_forKeyPath_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -844,17 +836,17 @@ void __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_for
     [*(a1 + 48) BOOLValue];
     v9 = HMFBooleanToString();
     v10 = HMFBooleanToString();
-    v13 = 138544386;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v8;
-    v17 = 2112;
-    v18 = v9;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Synchronized hey siri enabled on %@ to %@ with success: %@ (%@)", &v13, 0x34u);
+    v12 = 138544386;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v8;
+    v16 = 2112;
+    v17 = v9;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Synchronized hey siri enabled on %@ to %@ with success: %@ (%@)", &v12, 0x34u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -863,13 +855,11 @@ void __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_for
   {
     (*(v11 + 16))(v11, v3);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_forKeyPath_completionHandler___block_invoke_70(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -881,17 +871,17 @@ void __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_for
     [*(a1 + 48) BOOLValue];
     v9 = HMFBooleanToString();
     v10 = HMFBooleanToString();
-    v13 = 138544386;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v8;
-    v17 = 2112;
-    v18 = v9;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Synchronized tap to access on %@ to %@ with success: %@ (%@)", &v13, 0x34u);
+    v12 = 138544386;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v8;
+    v16 = 2112;
+    v17 = v9;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Synchronized tap to access on %@ to %@ with success: %@ (%@)", &v12, 0x34u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -900,13 +890,11 @@ void __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_for
   {
     (*(v11 + 16))(v11, v3);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_forKeyPath_completionHandler___block_invoke_71(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -918,17 +906,17 @@ void __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_for
     [*(a1 + 48) BOOLValue];
     v9 = HMFBooleanToString();
     v10 = HMFBooleanToString();
-    v13 = 138544386;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v8;
-    v17 = 2112;
-    v18 = v9;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Synchronized light on use on %@ to %@ with success: %@ (%@)", &v13, 0x34u);
+    v12 = 138544386;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v8;
+    v16 = 2112;
+    v17 = v9;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Synchronized light on use on %@ to %@ with success: %@ (%@)", &v12, 0x34u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -937,13 +925,11 @@ void __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_for
   {
     (*(v11 + 16))(v11, v3);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_forKeyPath_completionHandler___block_invoke_72(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -955,17 +941,17 @@ void __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_for
     [*(a1 + 48) BOOLValue];
     v9 = HMFBooleanToString();
     v10 = HMFBooleanToString();
-    v13 = 138544386;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v8;
-    v17 = 2112;
-    v18 = v9;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Synchronized sound on use on %@ to %@ with success: %@ (%@)", &v13, 0x34u);
+    v12 = 138544386;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v8;
+    v16 = 2112;
+    v17 = v9;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Synchronized sound on use on %@ to %@ with success: %@ (%@)", &v12, 0x34u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -974,13 +960,11 @@ void __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_for
   {
     (*(v11 + 16))(v11, v3);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_forKeyPath_completionHandler___block_invoke_74(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -992,17 +976,17 @@ void __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_for
     [*(a1 + 48) BOOLValue];
     v9 = HMFBooleanToString();
     v10 = HMFBooleanToString();
-    v13 = 138544386;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v8;
-    v17 = 2112;
-    v18 = v9;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Synchronized airplayEnabled on %@ to %@ with success: %@ (%@)", &v13, 0x34u);
+    v12 = 138544386;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v8;
+    v16 = 2112;
+    v17 = v9;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Synchronized airplayEnabled on %@ to %@ with success: %@ (%@)", &v12, 0x34u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -1011,13 +995,11 @@ void __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_for
   {
     (*(v11 + 16))(v11, v3);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_forKeyPath_completionHandler___block_invoke_75(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1029,17 +1011,17 @@ void __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_for
     [*(a1 + 48) BOOLValue];
     v9 = HMFBooleanToString();
     v10 = HMFBooleanToString();
-    v13 = 138544386;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v8;
-    v17 = 2112;
-    v18 = v9;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Synchronized siriEnabled on %@ to %@ with success: %@ (%@)", &v13, 0x34u);
+    v12 = 138544386;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v8;
+    v16 = 2112;
+    v17 = v9;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Synchronized siriEnabled on %@ to %@ with success: %@ (%@)", &v12, 0x34u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -1048,13 +1030,11 @@ void __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_for
   {
     (*(v11 + 16))(v11, v3);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeSetting:(id)setting toAccessory:(id)accessory forKeyPath:(id)path
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   settingCopy = setting;
   accessoryCopy = accessory;
   pathCopy = path;
@@ -1086,20 +1066,18 @@ void __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_for
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = HMFGetLogIdentifier();
-      v20 = 138543362;
-      v21 = v18;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Unexpected setting type received.", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v18;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Unexpected setting type received.", &v19, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_synchronizeSettingsForAccessoryUUID:(id)d homeUUID:(id)iD
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   workQueue = [(HMDSiriEndpointSettingsSyncManager *)self workQueue];
@@ -1112,33 +1090,33 @@ void __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_for
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v38 = v12;
-    v39 = 2112;
-    v40 = dCopy;
-    v41 = 2112;
-    v42 = iDCopy;
+    v37 = v12;
+    v38 = 2112;
+    v39 = dCopy;
+    v40 = 2112;
+    v41 = iDCopy;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Synchronizing homekit backed siri endpoint settings for accessoryUUID: %@, homeUUID: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v9);
   dataSource = [(HMDSiriEndpointSettingsSyncManager *)selfCopy dataSource];
   v14 = [dataSource homesForSiriEndpointSettingsSyncManager:selfCopy];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __84__HMDSiriEndpointSettingsSyncManager__synchronizeSettingsForAccessoryUUID_homeUUID___block_invoke;
-  v35[3] = &unk_278685BA0;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __84__HMDSiriEndpointSettingsSyncManager__synchronizeSettingsForAccessoryUUID_homeUUID___block_invoke;
+  v34[3] = &unk_278685BA0;
   v15 = iDCopy;
-  v36 = v15;
-  v16 = [v14 na_firstObjectPassingTest:v35];
+  v35 = v15;
+  v16 = [v14 na_firstObjectPassingTest:v34];
 
   hapAccessories = [v16 hapAccessories];
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __84__HMDSiriEndpointSettingsSyncManager__synchronizeSettingsForAccessoryUUID_homeUUID___block_invoke_2;
-  v33[3] = &unk_2786830C8;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __84__HMDSiriEndpointSettingsSyncManager__synchronizeSettingsForAccessoryUUID_homeUUID___block_invoke_2;
+  v32[3] = &unk_2786830C8;
   v18 = dCopy;
-  v34 = v18;
-  v19 = [hapAccessories na_firstObjectPassingTest:v33];
+  v33 = v18;
+  v19 = [hapAccessories na_firstObjectPassingTest:v32];
 
   if (v19)
   {
@@ -1146,13 +1124,13 @@ void __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_for
     if (v20)
     {
       v21 = +[HMDSiriEndpointSettingsSyncManager siriEndPointHomeKitBackedKeyPaths];
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = __84__HMDSiriEndpointSettingsSyncManager__synchronizeSettingsForAccessoryUUID_homeUUID___block_invoke_65;
-      v31[3] = &unk_27867C870;
-      v31[4] = selfCopy;
-      v32 = v19;
-      [v20 localFetchSettingsForUUID:v18 homeUUID:v15 withKeyPaths:v21 completion:v31];
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __84__HMDSiriEndpointSettingsSyncManager__synchronizeSettingsForAccessoryUUID_homeUUID___block_invoke_65;
+      v30[3] = &unk_27867C870;
+      v30[4] = selfCopy;
+      v31 = v19;
+      [v20 localFetchSettingsForUUID:v18 homeUUID:v15 withKeyPaths:v21 completion:v30];
     }
 
     else
@@ -1164,11 +1142,11 @@ void __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_for
       {
         v29 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v38 = v29;
-        v39 = 2112;
-        v40 = v16;
-        v41 = 2112;
-        v42 = v18;
+        v37 = v29;
+        v38 = 2112;
+        v39 = v16;
+        v40 = 2112;
+        v41 = v18;
         _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Unable to data source settings manager to sync settings for home: %@, accessory: %@", buf, 0x20u);
       }
 
@@ -1185,18 +1163,16 @@ void __98__HMDSiriEndpointSettingsSyncManager__writeSettingValue_toAccessory_for
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v38 = v25;
-      v39 = 2112;
-      v40 = v16;
-      v41 = 2112;
-      v42 = v18;
+      v37 = v25;
+      v38 = 2112;
+      v39 = v16;
+      v40 = 2112;
+      v41 = v18;
       _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Unable to find matching accessory with UUID: %@ in home (%@) to sync settings", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v22);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __84__HMDSiriEndpointSettingsSyncManager__synchronizeSettingsForAccessoryUUID_homeUUID___block_invoke(uint64_t a1, void *a2)
@@ -1217,32 +1193,32 @@ uint64_t __84__HMDSiriEndpointSettingsSyncManager__synchronizeSettingsForAccesso
 
 void __84__HMDSiriEndpointSettingsSyncManager__synchronizeSettingsForAccessoryUUID_homeUUID___block_invoke_65(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   v7 = a2;
-  v55 = a3;
-  v54 = a4;
+  v54 = a3;
+  v53 = a4;
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v57 objects:v71 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v56 objects:v70 count:16];
   if (v9)
   {
     v10 = v9;
-    v56 = *v58;
-    v53 = v8;
+    v55 = *v57;
+    v52 = v8;
     do
     {
       v11 = 0;
       do
       {
-        if (*v58 != v56)
+        if (*v57 != v55)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v57 + 1) + 8 * v11);
+        v12 = *(*(&v56 + 1) + 8 * v11);
         v13 = +[HMDSiriEndpointSettingsSyncManager siriEndPointHomeKitBackedKeyPaths];
         v14 = [v12 keyPath];
         v15 = [v13 containsObject:v14];
@@ -1257,13 +1233,13 @@ void __84__HMDSiriEndpointSettingsSyncManager__synchronizeSettingsForAccessoryUU
             v20 = HMFGetLogIdentifier();
             v21 = [v12 keyPath];
             *buf = 138544130;
-            v62 = v20;
-            v63 = 2112;
-            v64 = v21;
-            v65 = 2112;
-            v66 = v55;
-            v67 = 2112;
-            v68 = v54;
+            v61 = v20;
+            v62 = 2112;
+            v63 = v21;
+            v64 = 2112;
+            v65 = v54;
+            v66 = 2112;
+            v67 = v53;
             v23 = v19;
             v24 = OS_LOG_TYPE_INFO;
             v25 = "%{public}@Did fetch settings value event for an unexpected keypath %@, uuid: %@, homeUUID: %@";
@@ -1293,18 +1269,18 @@ LABEL_14:
           v21 = [v12 keyPath];
           v22 = [v12 error];
           *buf = 138544386;
-          v62 = v20;
-          v63 = 2112;
-          v64 = v21;
-          v65 = 2112;
-          v66 = v55;
-          v67 = 2112;
-          v68 = v54;
-          v69 = 2112;
-          v70 = v22;
+          v61 = v20;
+          v62 = 2112;
+          v63 = v21;
+          v64 = 2112;
+          v65 = v54;
+          v66 = 2112;
+          v67 = v53;
+          v68 = 2112;
+          v69 = v22;
           _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Error fetching settings value event for keypath %@, uuid: %@, homeUUID: %@ error: %@", buf, 0x34u);
 
-          v8 = v53;
+          v8 = v52;
 LABEL_13:
 
           goto LABEL_14;
@@ -1325,15 +1301,15 @@ LABEL_13:
           v20 = HMFGetLogIdentifier();
           v21 = [v12 keyPath];
           *buf = 138544386;
-          v62 = v20;
-          v63 = 2112;
-          v64 = v21;
-          v65 = 2112;
-          v66 = v55;
-          v67 = 2112;
-          v68 = v54;
-          v69 = 2112;
-          v70 = v12;
+          v61 = v20;
+          v62 = 2112;
+          v63 = v21;
+          v64 = 2112;
+          v65 = v54;
+          v66 = 2112;
+          v67 = v53;
+          v68 = 2112;
+          v69 = v12;
           v23 = v19;
           v24 = OS_LOG_TYPE_ERROR;
           v25 = "%{public}@Error fetching settings value event for keypath %@, uuid: %@, homeUUID: %@ no setting returned in result: %@";
@@ -1425,12 +1401,12 @@ LABEL_12:
 
               if (v40)
               {
-                v50 = objc_alloc(MEMORY[0x277CD1DC0]);
-                v52 = [v40 inputLanguageCode];
-                v51 = [v40 outputVoiceLanguageCode];
-                v49 = [v40 outputVoiceGenderCode];
-                v48 = [v40 voiceName];
-                v31 = [v50 initWithInputLanguageCode:v52 outputVoiceLanguageCode:v51 outputVoiceGenderCode:v49 voiceName:v48];
+                v49 = objc_alloc(MEMORY[0x277CD1DC0]);
+                v51 = [v40 inputLanguageCode];
+                v50 = [v40 outputVoiceLanguageCode];
+                v48 = [v40 outputVoiceGenderCode];
+                v47 = [v40 voiceName];
+                v31 = [v49 initWithInputLanguageCode:v51 outputVoiceLanguageCode:v50 outputVoiceGenderCode:v48 voiceName:v47];
               }
 
               else
@@ -1440,7 +1416,7 @@ LABEL_12:
             }
           }
 
-          v8 = v53;
+          v8 = v52;
         }
 
         v43 = *(a1 + 32);
@@ -1453,19 +1429,17 @@ LABEL_15:
       }
 
       while (v10 != v11);
-      v46 = [v8 countByEnumeratingWithState:&v57 objects:v71 count:16];
+      v46 = [v8 countByEnumeratingWithState:&v56 objects:v70 count:16];
       v10 = v46;
     }
 
     while (v46);
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAccessoryIsReachableNotification:(id)notification
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   object = [notificationCopy object];
   objc_opt_class();
@@ -1500,8 +1474,8 @@ LABEL_15:
         block[2] = __77__HMDSiriEndpointSettingsSyncManager_handleAccessoryIsReachableNotification___block_invoke;
         block[3] = &unk_27868A010;
         block[4] = self;
-        v27 = v7;
-        v28 = home;
+        v26 = v7;
+        v27 = home;
         dispatch_async(workQueue, block);
       }
 
@@ -1514,11 +1488,11 @@ LABEL_15:
         {
           v24 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v30 = v24;
-          v31 = 2112;
-          v32 = home;
-          v33 = 2112;
-          v34 = v7;
+          v29 = v24;
+          v30 = 2112;
+          v31 = home;
+          v32 = 2112;
+          v33 = v7;
           _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Received accessory reachability notification for unmanaged home %@ accessory %@", buf, 0x20u);
         }
 
@@ -1536,11 +1510,11 @@ LABEL_15:
       {
         v20 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v30 = v20;
-        v31 = 2112;
-        v32 = v7;
-        v33 = 2112;
-        v34 = notificationCopy;
+        v29 = v20;
+        v30 = 2112;
+        v31 = v7;
+        v32 = 2112;
+        v33 = notificationCopy;
         _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Unable to synchronize settings after receiving endpoint reachable notification with no home for HAP accessory: %@. %@", buf, 0x20u);
       }
 
@@ -1557,16 +1531,14 @@ LABEL_15:
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v30 = v16;
-      v31 = 2112;
-      v32 = notificationCopy;
+      v29 = v16;
+      v30 = 2112;
+      v31 = notificationCopy;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Unable to synchronize settings after receiving endpoint reachable notification with no HAP accessory. %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __77__HMDSiriEndpointSettingsSyncManager_handleAccessoryIsReachableNotification___block_invoke(uint64_t a1)
@@ -1579,7 +1551,7 @@ void __77__HMDSiriEndpointSettingsSyncManager_handleAccessoryIsReachableNotifica
 
 - (void)handleHAPMediaProfileAddedNotification:(id)notification
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   object = [notificationCopy object];
   objc_opt_class();
@@ -1614,8 +1586,8 @@ void __77__HMDSiriEndpointSettingsSyncManager_handleAccessoryIsReachableNotifica
         block[2] = __77__HMDSiriEndpointSettingsSyncManager_handleHAPMediaProfileAddedNotification___block_invoke;
         block[3] = &unk_27868A010;
         block[4] = self;
-        v27 = v7;
-        v28 = home;
+        v26 = v7;
+        v27 = home;
         dispatch_async(workQueue, block);
       }
 
@@ -1628,11 +1600,11 @@ void __77__HMDSiriEndpointSettingsSyncManager_handleAccessoryIsReachableNotifica
         {
           v24 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v30 = v24;
-          v31 = 2112;
-          v32 = home;
-          v33 = 2112;
-          v34 = v7;
+          v29 = v24;
+          v30 = 2112;
+          v31 = home;
+          v32 = 2112;
+          v33 = v7;
           _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Received HAPMediaProfileAdded notification for unmanaged home %@ accessory %@", buf, 0x20u);
         }
 
@@ -1650,11 +1622,11 @@ void __77__HMDSiriEndpointSettingsSyncManager_handleAccessoryIsReachableNotifica
       {
         v20 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v30 = v20;
-        v31 = 2112;
-        v32 = v7;
-        v33 = 2112;
-        v34 = notificationCopy;
+        v29 = v20;
+        v30 = 2112;
+        v31 = v7;
+        v32 = 2112;
+        v33 = notificationCopy;
         _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Unable to synchronize settings after receiving HAPMediaProfile notification with no home for HAP accessory: %@. %@", buf, 0x20u);
       }
 
@@ -1671,16 +1643,14 @@ void __77__HMDSiriEndpointSettingsSyncManager_handleAccessoryIsReachableNotifica
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v30 = v16;
-      v31 = 2112;
-      v32 = notificationCopy;
+      v29 = v16;
+      v30 = 2112;
+      v31 = notificationCopy;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Unable to synchronize settings after receiving HAPMediaProfile added notification with no HAP accessory. %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __77__HMDSiriEndpointSettingsSyncManager_handleHAPMediaProfileAddedNotification___block_invoke(uint64_t a1)
@@ -1693,7 +1663,7 @@ void __77__HMDSiriEndpointSettingsSyncManager_handleHAPMediaProfileAddedNotifica
 
 - (void)handleCompositeSettingsControllerDidConfigureNotification:(id)notification
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1702,7 +1672,7 @@ void __77__HMDSiriEndpointSettingsSyncManager_handleHAPMediaProfileAddedNotifica
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v31 = v8;
+    v30 = v8;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Did handle CompositeSettingsControllerDidConfigure notification", buf, 0xCu);
   }
 
@@ -1740,8 +1710,8 @@ void __77__HMDSiriEndpointSettingsSyncManager_handleHAPMediaProfileAddedNotifica
       block[2] = __96__HMDSiriEndpointSettingsSyncManager_handleCompositeSettingsControllerDidConfigureNotification___block_invoke;
       block[3] = &unk_27868A010;
       block[4] = selfCopy;
-      v28 = v14;
-      v29 = v13;
+      v27 = v14;
+      v28 = v13;
       dispatch_async(workQueue, block);
     }
 
@@ -1754,9 +1724,9 @@ void __77__HMDSiriEndpointSettingsSyncManager_handleHAPMediaProfileAddedNotifica
       {
         v25 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v31 = v25;
-        v32 = 2112;
-        v33 = v13;
+        v30 = v25;
+        v31 = 2112;
+        v32 = v13;
         _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Home:%@ not managed", buf, 0x16u);
       }
 
@@ -1774,23 +1744,21 @@ void __77__HMDSiriEndpointSettingsSyncManager_handleHAPMediaProfileAddedNotifica
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v31 = v21;
-      v32 = 2112;
-      v33 = v14;
-      v34 = 2112;
-      v35 = v13;
+      v30 = v21;
+      v31 = 2112;
+      v32 = v14;
+      v33 = 2112;
+      v34 = v13;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Nil hapAccessoryUUID:%@ or homeUUID:%@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v18);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleSiriEndPointAddedNotification:(id)notification
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   object = [notificationCopy object];
   objc_opt_class();
@@ -1825,8 +1793,8 @@ void __77__HMDSiriEndpointSettingsSyncManager_handleHAPMediaProfileAddedNotifica
         block[2] = __74__HMDSiriEndpointSettingsSyncManager_handleSiriEndPointAddedNotification___block_invoke;
         block[3] = &unk_27868A010;
         block[4] = self;
-        v23 = v7;
-        v24 = home;
+        v22 = v7;
+        v23 = home;
         dispatch_async(workQueue, block);
       }
     }
@@ -1840,11 +1808,11 @@ void __77__HMDSiriEndpointSettingsSyncManager_handleHAPMediaProfileAddedNotifica
       {
         v20 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v26 = v20;
-        v27 = 2112;
-        v28 = v7;
-        v29 = 2112;
-        v30 = notificationCopy;
+        v25 = v20;
+        v26 = 2112;
+        v27 = v7;
+        v28 = 2112;
+        v29 = notificationCopy;
         _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Unable to synchronize settings after receiving endpoint added notification with no home for HAP accessory: %@. %@", buf, 0x20u);
       }
 
@@ -1861,21 +1829,19 @@ void __77__HMDSiriEndpointSettingsSyncManager_handleHAPMediaProfileAddedNotifica
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v26 = v16;
-      v27 = 2112;
-      v28 = notificationCopy;
+      v25 = v16;
+      v26 = 2112;
+      v27 = notificationCopy;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Unable to synchronize settings after receiving endpoint added notification with no HAP accessory. %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleHomeAddedNotification:(id)notification
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1884,9 +1850,9 @@ void __77__HMDSiriEndpointSettingsSyncManager_handleHAPMediaProfileAddedNotifica
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v13 = v8;
-    v14 = 2112;
-    v15 = notificationCopy;
+    v12 = v8;
+    v13 = 2112;
+    v14 = notificationCopy;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Settings sync manager received home added notification: %@", buf, 0x16u);
   }
 
@@ -1898,13 +1864,11 @@ void __77__HMDSiriEndpointSettingsSyncManager_handleHAPMediaProfileAddedNotifica
   block[3] = &unk_27868A728;
   block[4] = selfCopy;
   dispatch_async(workQueue, block);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleHomeRemovedNotification:(id)notification
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1913,9 +1877,9 @@ void __77__HMDSiriEndpointSettingsSyncManager_handleHAPMediaProfileAddedNotifica
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v27 = v8;
-    v28 = 2112;
-    v29 = notificationCopy;
+    v26 = v8;
+    v27 = 2112;
+    v28 = notificationCopy;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Settings sync manager received home removed notification: %@", buf, 0x16u);
   }
 
@@ -1951,13 +1915,13 @@ void __77__HMDSiriEndpointSettingsSyncManager_handleHAPMediaProfileAddedNotifica
 
       os_unfair_lock_unlock(&selfCopy->_lock);
       workQueue = [(HMDSiriEndpointSettingsSyncManager *)selfCopy workQueue];
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __68__HMDSiriEndpointSettingsSyncManager_handleHomeRemovedNotification___block_invoke;
-      v24[3] = &unk_27868A750;
-      v24[4] = selfCopy;
-      v25 = v12;
-      dispatch_async(workQueue, v24);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __68__HMDSiriEndpointSettingsSyncManager_handleHomeRemovedNotification___block_invoke;
+      v23[3] = &unk_27868A750;
+      v23[4] = selfCopy;
+      v24 = v12;
+      dispatch_async(workQueue, v23);
     }
 
     else
@@ -1975,21 +1939,19 @@ void __77__HMDSiriEndpointSettingsSyncManager_handleHAPMediaProfileAddedNotifica
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v22;
-      v28 = 2112;
-      v29 = notificationCopy;
+      v26 = v22;
+      v27 = 2112;
+      v28 = notificationCopy;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@No home found for home removed notification: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v19);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handlePrimaryResidentUpdateNotification:(id)notification
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1999,9 +1961,9 @@ void __77__HMDSiriEndpointSettingsSyncManager_handleHAPMediaProfileAddedNotifica
     v8 = HMFGetLogIdentifier();
     name = [notificationCopy name];
     *buf = 138543618;
-    v14 = v8;
-    v15 = 2112;
-    v16 = name;
+    v13 = v8;
+    v14 = 2112;
+    v15 = name;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling %@ notification", buf, 0x16u);
   }
 
@@ -2013,13 +1975,11 @@ void __77__HMDSiriEndpointSettingsSyncManager_handleHAPMediaProfileAddedNotifica
   block[3] = &unk_27868A728;
   block[4] = selfCopy;
   dispatch_async(workQueue, block);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveEvent:(id)event topic:(id)topic
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   topicCopy = topic;
   v8 = [MEMORY[0x277CD19F0] decodeTopic:topicCopy];
@@ -2041,11 +2001,11 @@ void __77__HMDSiriEndpointSettingsSyncManager_handleHAPMediaProfileAddedNotifica
     {
       v32 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v62 = v32;
-      v63 = 2112;
-      v64 = eventCopy;
-      v65 = 2112;
-      v66 = topicCopy;
+      v61 = v32;
+      v62 = 2112;
+      v63 = eventCopy;
+      v64 = 2112;
+      v65 = topicCopy;
       _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_ERROR, "%{public}@Nil Keypath for settings update event: %@ topic: %@", buf, 0x20u);
     }
 
@@ -2063,11 +2023,11 @@ void __77__HMDSiriEndpointSettingsSyncManager_handleHAPMediaProfileAddedNotifica
     {
       v33 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v62 = v33;
-      v63 = 2112;
-      v64 = eventCopy;
-      v65 = 2112;
-      v66 = topicCopy;
+      v61 = v33;
+      v62 = 2112;
+      v63 = eventCopy;
+      v64 = 2112;
+      v65 = topicCopy;
       _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_ERROR, "%{public}@Nil homeUUID for settings update event: %@ topic: %@", buf, 0x20u);
     }
 
@@ -2085,11 +2045,11 @@ void __77__HMDSiriEndpointSettingsSyncManager_handleHAPMediaProfileAddedNotifica
     {
       v34 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v62 = v34;
-      v63 = 2112;
-      v64 = eventCopy;
-      v65 = 2112;
-      v66 = topicCopy;
+      v61 = v34;
+      v62 = 2112;
+      v63 = eventCopy;
+      v64 = 2112;
+      v65 = topicCopy;
       _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_ERROR, "%{public}@Nil accessoryUUID for settings update event: %@ topic: %@", buf, 0x20u);
     }
 
@@ -2099,9 +2059,9 @@ LABEL_19:
     goto LABEL_33;
   }
 
-  v60 = 0;
-  v13 = [MEMORY[0x277CD1AD8] decodeSettingFromEvent:eventCopy error:&v60];
-  v51 = v60;
+  v59 = 0;
+  v13 = [MEMORY[0x277CD1AD8] decodeSettingFromEvent:eventCopy error:&v59];
+  v50 = v59;
   if (!v13)
   {
     v35 = objc_autoreleasePoolPush();
@@ -2111,11 +2071,11 @@ LABEL_19:
     {
       v38 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v62 = v38;
-      v63 = 2112;
-      v64 = eventCopy;
-      v65 = 2112;
-      v66 = topicCopy;
+      v61 = v38;
+      v62 = 2112;
+      v63 = eventCopy;
+      v64 = 2112;
+      v65 = topicCopy;
       _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_ERROR, "%{public}@Nil settings value for settings update event: %@ topic: %@", buf, 0x20u);
     }
 
@@ -2135,11 +2095,11 @@ LABEL_19:
     {
       v40 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v62 = v40;
-      v63 = 2112;
-      v64 = eventCopy;
-      v65 = 2112;
-      v66 = topicCopy;
+      v61 = v40;
+      v62 = 2112;
+      v63 = eventCopy;
+      v64 = 2112;
+      v65 = topicCopy;
       _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_DEBUG, "%{public}@Did receive settings value event for an unwatched keypath. Event: %@ Topic: %@", buf, 0x20u);
     }
 
@@ -2151,30 +2111,30 @@ LABEL_24:
 
   dataSource = [(HMDSiriEndpointSettingsSyncManager *)self dataSource];
   v18 = [dataSource homesForSiriEndpointSettingsSyncManager:self];
-  v58[0] = MEMORY[0x277D85DD0];
-  v58[1] = 3221225472;
-  v58[2] = __60__HMDSiriEndpointSettingsSyncManager_didReceiveEvent_topic___block_invoke;
-  v58[3] = &unk_278685BA0;
+  v57[0] = MEMORY[0x277D85DD0];
+  v57[1] = 3221225472;
+  v57[2] = __60__HMDSiriEndpointSettingsSyncManager_didReceiveEvent_topic___block_invoke;
+  v57[3] = &unk_278685BA0;
   v19 = asAccessorySettingTopic;
-  v59 = v19;
-  v50 = [v18 na_firstObjectPassingTest:v58];
+  v58 = v19;
+  v49 = [v18 na_firstObjectPassingTest:v57];
 
   os_unfair_lock_lock_with_options();
   homeUUIDsManagedByCurrentDevice = [(HMDSiriEndpointSettingsSyncManager *)self homeUUIDsManagedByCurrentDevice];
-  uuid = [v50 uuid];
+  uuid = [v49 uuid];
   v22 = [homeUUIDsManagedByCurrentDevice containsObject:uuid];
 
   if (v22)
   {
     os_unfair_lock_unlock(&self->_lock);
-    hapAccessories = [v50 hapAccessories];
-    v56[0] = MEMORY[0x277D85DD0];
-    v56[1] = 3221225472;
-    v56[2] = __60__HMDSiriEndpointSettingsSyncManager_didReceiveEvent_topic___block_invoke_59;
-    v56[3] = &unk_2786830C8;
+    hapAccessories = [v49 hapAccessories];
+    v55[0] = MEMORY[0x277D85DD0];
+    v55[1] = 3221225472;
+    v55[2] = __60__HMDSiriEndpointSettingsSyncManager_didReceiveEvent_topic___block_invoke_59;
+    v55[3] = &unk_2786830C8;
     v24 = v19;
-    v57 = v24;
-    v25 = [hapAccessories na_firstObjectPassingTest:v56];
+    v56 = v24;
+    v25 = [hapAccessories na_firstObjectPassingTest:v55];
 
     if (!v25 || ([v25 siriEndpointProfile], v26 = objc_claimAutoreleasedReturnValue(), v27 = v26 == 0, v26, v27))
     {
@@ -2185,13 +2145,13 @@ LABEL_24:
       {
         v48 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v62 = v48;
-        v63 = 2112;
-        v64 = v50;
-        v65 = 2112;
-        v66 = eventCopy;
-        v67 = 2112;
-        v68 = topicCopy;
+        v61 = v48;
+        v62 = 2112;
+        v63 = v49;
+        v64 = 2112;
+        v65 = eventCopy;
+        v66 = 2112;
+        v67 = topicCopy;
         _os_log_impl(&dword_229538000, v47, OS_LOG_TYPE_ERROR, "%{public}@Unable to find matching siri endpoint enabled accessory in home (%@) for settings update event: %@ topic: %@", buf, 0x2Au);
       }
 
@@ -2206,9 +2166,9 @@ LABEL_24:
       block[2] = __60__HMDSiriEndpointSettingsSyncManager_didReceiveEvent_topic___block_invoke_61;
       block[3] = &unk_2786891E0;
       block[4] = self;
-      v53 = v13;
-      v54 = v25;
-      v55 = v24;
+      v52 = v13;
+      v53 = v25;
+      v54 = v24;
       dispatch_async(workQueue, block);
     }
   }
@@ -2222,11 +2182,11 @@ LABEL_24:
     {
       v44 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v62 = v44;
-      v63 = 2112;
-      v64 = eventCopy;
-      v65 = 2112;
-      v66 = topicCopy;
+      v61 = v44;
+      v62 = 2112;
+      v63 = eventCopy;
+      v64 = 2112;
+      v65 = topicCopy;
       _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_INFO, "%{public}@Received settings update event: %@ topic: %@ for unmanaged home", buf, 0x20u);
     }
 
@@ -2235,7 +2195,6 @@ LABEL_24:
   }
 
 LABEL_33:
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __60__HMDSiriEndpointSettingsSyncManager_didReceiveEvent_topic___block_invoke(uint64_t a1, void *a2)
@@ -2267,7 +2226,7 @@ void __60__HMDSiriEndpointSettingsSyncManager_didReceiveEvent_topic___block_invo
 
 - (void)_updateManagedHomes
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDSiriEndpointSettingsSyncManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -2278,7 +2237,7 @@ void __60__HMDSiriEndpointSettingsSyncManager_didReceiveEvent_topic___block_invo
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v60 = v7;
+    v59 = v7;
     _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Updating homes for siri endpoint settings sync", buf, 0xCu);
   }
 
@@ -2287,32 +2246,32 @@ void __60__HMDSiriEndpointSettingsSyncManager_didReceiveEvent_topic___block_invo
   dataSource = [(HMDSiriEndpointSettingsSyncManager *)selfCopy dataSource];
   v10 = [dataSource homesForSiriEndpointSettingsSyncManager:selfCopy];
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v55 objects:v69 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v54 objects:v68 count:16];
   if (v12)
   {
-    v13 = *v56;
+    v13 = *v55;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v56 != v13)
+        if (*v55 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v55 + 1) + 8 * i);
+        v15 = *(*(&v54 + 1) + 8 * i);
         if ([v15 isCurrentDeviceConfirmedPrimaryResident])
         {
           [v8 addObject:v15];
         }
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v55 objects:v69 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v54 objects:v68 count:16];
     }
 
     while (v12);
@@ -2320,27 +2279,27 @@ void __60__HMDSiriEndpointSettingsSyncManager_didReceiveEvent_topic___block_invo
 
   os_unfair_lock_lock_with_options();
   homeUUIDsManagedByCurrentDevice = [(HMDSiriEndpointSettingsSyncManager *)selfCopy homeUUIDsManagedByCurrentDevice];
-  v17 = [homeUUIDsManagedByCurrentDevice copy];
+  v17 = objc_msgSend_copy(homeUUIDsManagedByCurrentDevice);
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = __57__HMDSiriEndpointSettingsSyncManager__updateManagedHomes__block_invoke;
-  v53[3] = &unk_278685BA0;
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = __57__HMDSiriEndpointSettingsSyncManager__updateManagedHomes__block_invoke;
+  v52[3] = &unk_278685BA0;
   v18 = v17;
-  v54 = v18;
-  v19 = [v8 na_filter:v53];
+  v53 = v18;
+  v19 = [v8 na_filter:v52];
   v20 = [v19 na_map:&__block_literal_global_53_167334];
   v21 = MEMORY[0x277CBEB98];
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __57__HMDSiriEndpointSettingsSyncManager__updateManagedHomes__block_invoke_3;
-  v50[3] = &unk_278685B48;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __57__HMDSiriEndpointSettingsSyncManager__updateManagedHomes__block_invoke_3;
+  v49[3] = &unk_278685B48;
   v22 = v18;
-  v51 = v22;
-  v41 = v8;
-  v52 = v41;
-  v23 = [v11 na_filter:v50];
+  v50 = v22;
+  v40 = v8;
+  v51 = v40;
+  v23 = [v11 na_filter:v49];
   v24 = [v21 setWithArray:v23];
 
   v25 = [v24 na_map:&__block_literal_global_56_167336];
@@ -2352,55 +2311,55 @@ void __60__HMDSiriEndpointSettingsSyncManager_didReceiveEvent_topic___block_invo
   [homeUUIDsManagedByCurrentDevice3 minusSet:v25];
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   v28 = v19;
-  v29 = [v28 countByEnumeratingWithState:&v46 objects:v68 count:16];
+  v29 = [v28 countByEnumeratingWithState:&v45 objects:v67 count:16];
   if (v29)
   {
-    v30 = *v47;
+    v30 = *v46;
     do
     {
       for (j = 0; j != v29; ++j)
       {
-        if (*v47 != v30)
+        if (*v46 != v30)
         {
           objc_enumerationMutation(v28);
         }
 
-        [(HMDSiriEndpointSettingsSyncManager *)selfCopy _beginManagingHome:*(*(&v46 + 1) + 8 * j)];
+        [(HMDSiriEndpointSettingsSyncManager *)selfCopy _beginManagingHome:*(*(&v45 + 1) + 8 * j)];
       }
 
-      v29 = [v28 countByEnumeratingWithState:&v46 objects:v68 count:16];
+      v29 = [v28 countByEnumeratingWithState:&v45 objects:v67 count:16];
     }
 
     while (v29);
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v32 = v24;
-  v33 = [v32 countByEnumeratingWithState:&v42 objects:v67 count:16];
+  v33 = [v32 countByEnumeratingWithState:&v41 objects:v66 count:16];
   if (v33)
   {
-    v34 = *v43;
+    v34 = *v42;
     do
     {
       for (k = 0; k != v33; ++k)
       {
-        if (*v43 != v34)
+        if (*v42 != v34)
         {
           objc_enumerationMutation(v32);
         }
 
-        [(HMDSiriEndpointSettingsSyncManager *)selfCopy _stopManagingHome:*(*(&v42 + 1) + 8 * k)];
+        [(HMDSiriEndpointSettingsSyncManager *)selfCopy _stopManagingHome:*(*(&v41 + 1) + 8 * k)];
       }
 
-      v33 = [v32 countByEnumeratingWithState:&v42 objects:v67 count:16];
+      v33 = [v32 countByEnumeratingWithState:&v41 objects:v66 count:16];
     }
 
     while (v33);
@@ -2413,18 +2372,17 @@ void __60__HMDSiriEndpointSettingsSyncManager_didReceiveEvent_topic___block_invo
   {
     v39 = HMFGetLogIdentifier();
     *buf = 138544130;
-    v60 = v39;
-    v61 = 2112;
-    v62 = v32;
-    v63 = 2112;
-    v64 = v28;
-    v65 = 2112;
-    v66 = v22;
+    v59 = v39;
+    v60 = 2112;
+    v61 = v32;
+    v62 = 2112;
+    v63 = v28;
+    v64 = 2112;
+    v65 = v22;
     _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_INFO, "%{public}@Updated homes for siri endpoint setting sync by removing: %@ and adding: %@ to existing homes: %@", buf, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v36);
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __57__HMDSiriEndpointSettingsSyncManager__updateManagedHomes__block_invoke(uint64_t a1, void *a2)
@@ -2516,7 +2474,7 @@ id __69__HMDSiriEndpointSettingsSyncManager__stopManagingAccessory_forHome___blo
 
 void __69__HMDSiriEndpointSettingsSyncManager__stopManagingAccessory_forHome___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -2524,15 +2482,14 @@ void __69__HMDSiriEndpointSettingsSyncManager__stopManagingAccessory_forHome___b
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Unsubscribed endpoint setting sync manager with result: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Unsubscribed endpoint setting sync manager with result: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_beginManagingAccessory:(id)accessory forHome:(id)home
@@ -2583,7 +2540,7 @@ id __70__HMDSiriEndpointSettingsSyncManager__beginManagingAccessory_forHome___bl
 
 void __70__HMDSiriEndpointSettingsSyncManager__beginManagingAccessory_forHome___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -2594,15 +2551,15 @@ void __70__HMDSiriEndpointSettingsSyncManager__beginManagingAccessory_forHome___
     v10 = HMFGetLogIdentifier();
     v11 = *(a1 + 40);
     v12 = HMFBooleanToString();
-    v17 = 138544130;
-    v18 = v10;
-    v19 = 2112;
-    v20 = v11;
-    v21 = 2112;
-    v22 = v12;
-    v23 = 2112;
-    v24 = v6;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Subscribed endpoint setting sync manager for changed topics (%@) with result: %@ (%@)", &v17, 0x2Au);
+    v16 = 138544130;
+    v17 = v10;
+    v18 = 2112;
+    v19 = v11;
+    v20 = 2112;
+    v21 = v12;
+    v22 = 2112;
+    v23 = v6;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Subscribed endpoint setting sync manager for changed topics (%@) with result: %@ (%@)", &v16, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -2610,37 +2567,35 @@ void __70__HMDSiriEndpointSettingsSyncManager__beginManagingAccessory_forHome___
   v14 = [*(a1 + 48) uuid];
   v15 = [*(a1 + 56) uuid];
   [v13 _synchronizeSettingsForAccessoryUUID:v14 homeUUID:v15];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopManagingHome:(id)home
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   workQueue = [(HMDSiriEndpointSettingsSyncManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   hapAccessories = [homeCopy hapAccessories];
-  v7 = [hapAccessories countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [hapAccessories countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(hapAccessories);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
+        v11 = *(*(&v13 + 1) + 8 * i);
         siriEndpointProfile = [v11 siriEndpointProfile];
 
         if (siriEndpointProfile)
@@ -2649,42 +2604,40 @@ void __70__HMDSiriEndpointSettingsSyncManager__beginManagingAccessory_forHome___
         }
       }
 
-      v8 = [hapAccessories countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [hapAccessories countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_beginManagingHome:(id)home
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   workQueue = [(HMDSiriEndpointSettingsSyncManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   hapAccessories = [homeCopy hapAccessories];
-  v7 = [hapAccessories countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [hapAccessories countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(hapAccessories);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
+        v11 = *(*(&v13 + 1) + 8 * i);
         siriEndpointProfile = [v11 siriEndpointProfile];
 
         if (siriEndpointProfile)
@@ -2693,13 +2646,11 @@ void __70__HMDSiriEndpointSettingsSyncManager__beginManagingAccessory_forHome___
         }
       }
 
-      v8 = [hapAccessories countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [hapAccessories countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configure
@@ -2780,10 +2731,9 @@ void __70__HMDSiriEndpointSettingsSyncManager__beginManagingAccessory_forHome___
 
 void __49__HMDSiriEndpointSettingsSyncManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_167362;
-  logCategory__hmf_once_v1_167362 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_167362;
+  logCategory__hmf_once_v1_167362 = v0;
 }
 
 + (NSArray)siriEndPointHomeKitBackedKeyPaths
@@ -2800,16 +2750,14 @@ void __49__HMDSiriEndpointSettingsSyncManager_logCategory__block_invoke()
 
 void __71__HMDSiriEndpointSettingsSyncManager_siriEndPointHomeKitBackedKeyPaths__block_invoke()
 {
-  v3[4] = *MEMORY[0x277D85DE8];
-  v3[0] = @"root.siri.lightWhenUsingSiri";
-  v3[1] = @"root.siri.soundAlert";
-  v3[2] = @"root.airPlay.airPlayEnabled";
-  v3[3] = @"root.siri.siriEnabled";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:4];
+  v2[4] = *MEMORY[0x277D85DE8];
+  v2[0] = @"root.siri.lightWhenUsingSiri";
+  v2[1] = @"root.siri.soundAlert";
+  v2[2] = @"root.airPlay.airPlayEnabled";
+  v2[3] = @"root.siri.siriEnabled";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:4];
   v1 = siriEndPointHomeKitBackedKeyPaths_siriEndPointHomeKitBackedKeyPaths;
   siriEndPointHomeKitBackedKeyPaths_siriEndPointHomeKitBackedKeyPaths = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -36,7 +36,7 @@
 
 - (void)start
 {
-  v3 = [(USBAnalytics *)self log];
+  v3 = objc_msgSend_log(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -61,7 +61,7 @@ void __21__USBAnalytics_start__block_invoke(uint64_t a1)
   v3 = *(a1 + 32);
   if (v2)
   {
-    v4 = [v3 log];
+    v4 = objc_msgSend_log(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __23__AUVDMAnalytics_start__block_invoke_cold_1(v4, v5, v6);
@@ -79,7 +79,7 @@ void __21__USBAnalytics_start__block_invoke(uint64_t a1)
 
 - (void)stop
 {
-  v3 = [(USBAnalytics *)self log];
+  v3 = objc_msgSend_log(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -112,7 +112,7 @@ void __20__USBAnalytics_stop__block_invoke(uint64_t a1)
 
   else
   {
-    v5 = [v3 log];
+    v5 = objc_msgSend_log(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __22__AUVDMAnalytics_stop__block_invoke_cold_1(v5, v6, v7);
@@ -130,14 +130,14 @@ void __20__USBAnalytics_stop__block_invoke(uint64_t a1)
 
   else
   {
-    v3 = [(USBAnalytics *)self log];
+    v3 = objc_msgSend_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Starting matching notifications...", buf, 2u);
     }
 
-    v4 = [(USBAnalytics *)self log];
+    v4 = objc_msgSend_log(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v12 = 0;
@@ -172,7 +172,7 @@ void __20__USBAnalytics_stop__block_invoke(uint64_t a1)
 {
   if ([(USBAnalytics *)self monitoring])
   {
-    v3 = [(USBAnalytics *)self log];
+    v3 = objc_msgSend_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -199,27 +199,27 @@ void __20__USBAnalytics_stop__block_invoke(uint64_t a1)
   {
     memset(name, 0, 128);
     IORegistryEntryGetName(matched, name);
-    v5 = [(USBAnalytics *)self log];
+    v5 = objc_msgSend_log(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v145 = name;
+      v152 = name;
       _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "Service matched! (serviceName: %s)", buf, 0xCu);
     }
 
     if ([(USBAnalytics *)self analyticsEventsEnabled])
     {
-      HIDWORD(v139) = 0;
-      if (!IORegistryEntryGetParentEntry(matched, "IOPort", &v139 + 1) && HIDWORD(v139))
+      HIDWORD(v146) = 0;
+      if (!IORegistryEntryGetParentEntry(matched, "IOPort", &v146 + 1) && HIDWORD(v146))
       {
-        if (!IOObjectConformsTo(HIDWORD(v139), "IOPortTransportStateUSB"))
+        if (!IOObjectConformsTo(HIDWORD(v146), "IOPortTransportStateUSB"))
         {
-          v15 = [(USBAnalytics *)self log];
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          v16 = objc_msgSend_log(self);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315138;
-            v145 = "IOPort";
-            _os_log_error_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, "Could not find USB transport in %s plane!", buf, 0xCu);
+            v152 = "IOPort";
+            _os_log_error_impl(&dword_0, v16, OS_LOG_TYPE_ERROR, "Could not find USB transport in %s plane!", buf, 0xCu);
           }
 
           goto LABEL_101;
@@ -228,98 +228,98 @@ void __20__USBAnalytics_stop__block_invoke(uint64_t a1)
         v6 = objc_alloc_init(NSMutableDictionary);
         OUTLINED_FUNCTION_2_1();
         CFProperty = IORegistryEntryCreateCFProperty(v7, v8, v9, v10);
-        objc_opt_class();
-        v12 = castNSObjectToType(CFProperty);
+        v12 = objc_opt_class();
+        v13 = castNSObjectToType(CFProperty, v12);
 
-        if (v12)
+        if (v13)
         {
           OUTLINED_FUNCTION_3_2();
         }
 
         else
         {
-          v16 = [(USBAnalytics *)self log];
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          v17 = objc_msgSend_log(self);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            OUTLINED_FUNCTION_4(&dword_0, v16, v17, "Could not find parent port type!", buf);
+            OUTLINED_FUNCTION_4(&dword_0, v17, v18, "Could not find parent port type!", buf);
           }
         }
 
         OUTLINED_FUNCTION_2_1();
-        v22 = IORegistryEntryCreateCFProperty(v18, v19, v20, v21);
-        objc_opt_class();
-        v23 = castNSObjectToType(v22);
+        v23 = IORegistryEntryCreateCFProperty(v19, v20, v21, v22);
+        v24 = objc_opt_class();
+        v25 = castNSObjectToType(v23, v24);
 
-        v131 = v12;
-        if (v23)
+        if (v25)
         {
-          [v6 setObject:v23 forKey:@"PortNumber"];
-          if (v12)
+          [v6 setObject:v25 forKey:{@"PortNumber", v13}];
+          if (v13)
           {
-            v24 = IOServiceMatching("IOPort");
-            v140 = @"PortType";
-            v141 = @"PortNumber";
-            v142 = v12;
-            v143 = v23;
-            v25 = [NSDictionary dictionaryWithObjects:&v142 forKeys:&v140 count:2];
-            [(__CFDictionary *)v24 setObject:v25 forKey:@"IOPropertyMatch"];
+            v26 = IOServiceMatching("IOPort");
+            v147 = @"PortType";
+            v148 = @"PortNumber";
+            v149 = v13;
+            v150 = v25;
+            v27 = [NSDictionary dictionaryWithObjects:&v149 forKeys:&v147 count:2];
+            [(__CFDictionary *)v26 setObject:v27 forKey:@"IOPropertyMatch"];
 
-            v26 = v24;
-            MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v26);
+            v28 = v26;
+            MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v28);
             if (MatchingService)
             {
-              v28 = MatchingService;
+              v30 = MatchingService;
               OUTLINED_FUNCTION_2_1();
-              v33 = IORegistryEntryCreateCFProperty(v29, v30, v31, v32);
-              objc_opt_class();
-              v34 = castNSObjectToType(v33);
+              v35 = IORegistryEntryCreateCFProperty(v31, v32, v33, v34);
+              v36 = objc_opt_class();
+              v37 = castNSObjectToType(v35, v36);
 
-              if (v34)
+              if (v37)
               {
-                [v6 setObject:v34 forKey:{@"PortBuiltIn", v131}];
+                [v6 setObject:v37 forKey:@"PortBuiltIn"];
               }
 
               else
               {
-                v53 = [(USBAnalytics *)self log];
-                if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+                v56 = objc_msgSend_log(self);
+                if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 0;
                   OUTLINED_FUNCTION_5_2();
-                  OUTLINED_FUNCTION_4(v126, v127, v128, v129, v130);
+                  OUTLINED_FUNCTION_4(v134, v135, v136, v137, v138);
                 }
               }
 
               OUTLINED_FUNCTION_2_1();
-              v58 = IORegistryEntryCreateCFProperty(v54, v55, v56, v57);
-              objc_opt_class();
-              v59 = castNSObjectToType(v58);
+              v61 = IORegistryEntryCreateCFProperty(v57, v58, v59, v60);
+              v62 = objc_opt_class();
+              v63 = castNSObjectToType(v61, v62);
 
-              if (v59)
+              if (v63)
               {
                 OUTLINED_FUNCTION_3_2();
               }
 
               else
               {
-                v60 = [(USBAnalytics *)self log];
-                if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+                v64 = objc_msgSend_log(self);
+                if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 0;
-                  OUTLINED_FUNCTION_4(&dword_0, v60, v61, "Could not find parent port connection UUID!", buf);
+                  OUTLINED_FUNCTION_4(&dword_0, v64, v65, "Could not find parent port connection UUID!", buf);
                 }
               }
 
-              IOObjectRelease(v28);
+              IOObjectRelease(v30);
             }
 
             else
             {
-              v34 = [(USBAnalytics *)self log];
-              if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+              v37 = objc_msgSend_log(self);
+              if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
               {
-                OUTLINED_FUNCTION_1_3(&dword_0, v47, v48, "Could not find parent port!", v49, v50, v51, v52, v12, v133, v134, v135, v136, v137, cf, v139, v140, v141, v142, v143, 0);
+                *buf = 0;
+                OUTLINED_FUNCTION_1_3(&dword_0, v50, v51, "Could not find parent port!", v52, v53, v54, v55, v139, v140, v141, v142, v143, v144, cf, v146, v147, v148, v149, v150);
               }
             }
 
@@ -329,261 +329,263 @@ void __20__USBAnalytics_stop__block_invoke(uint64_t a1)
 
         else
         {
-          v35 = [(USBAnalytics *)self log];
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+          v38 = objc_msgSend_log(self, v13);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
           {
-            OUTLINED_FUNCTION_1_3(&dword_0, v36, v37, "Could not find parent port number!", v38, v39, v40, v41, v12, v133, v134, v135, v136, v137, cf, v139, v140, v141, v142, v143, 0);
+            *buf = 0;
+            OUTLINED_FUNCTION_1_3(&dword_0, v39, v40, "Could not find parent port number!", v41, v42, v43, v44, v139, v140, v141, v142, v143, v144, cf, v146, v147, v148, v149, v150);
           }
         }
 
         cf = 0;
         OUTLINED_FUNCTION_2_1();
-        IORegistryEntryCreateCFProperties(v42, v43, v44, v45);
-        v46 = [(USBAnalytics *)self log];
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+        IORegistryEntryCreateCFProperties(v45, v46, v47, v48);
+        v49 = objc_msgSend_log(self);
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412290;
-          v145 = 0;
-          _os_log_fault_impl(&dword_0, v46, OS_LOG_TYPE_FAULT, "Could not find parent port type and number! (serviceProperties: %@)", buf, 0xCu);
+          v152 = 0;
+          _os_log_fault_impl(&dword_0, v49, OS_LOG_TYPE_FAULT, "Could not find parent port type and number! (serviceProperties: %@)", buf, 0xCu);
         }
 
 LABEL_44:
         OUTLINED_FUNCTION_2_1();
-        v66 = IORegistryEntryCreateCFProperty(v62, v63, v64, v65);
-        objc_opt_class();
-        v67 = castNSObjectToType(v66);
+        v70 = IORegistryEntryCreateCFProperty(v66, v67, v68, v69);
+        v71 = objc_opt_class();
+        v72 = castNSObjectToType(v70, v71);
 
-        if (v67)
+        if (v72)
         {
-          [v6 setObject:v67 forKey:@"TransportTunneled"];
+          [v6 setObject:v72 forKey:@"TransportTunneled"];
         }
 
         else
         {
-          v68 = [(USBAnalytics *)self log];
-          if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+          v73 = objc_msgSend_log(self);
+          if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
           {
-            OUTLINED_FUNCTION_1_3(&dword_0, v69, v70, "Could not find if transport is tunneled!", v71, v72, v73, v74, v131, v133, v134, v135, v136, v137, cf, v139, v140, v141, v142, v143, 0);
+            *buf = 0;
+            OUTLINED_FUNCTION_1_3(&dword_0, v74, v75, "Could not find if transport is tunneled!", v76, v77, v78, v79, v139, v140, v141, v142, v143, v144, cf, v146, v147, v148, v149, v150);
           }
         }
 
         OUTLINED_FUNCTION_2_1();
-        v79 = IORegistryEntryCreateCFProperty(v75, v76, v77, v78);
-        objc_opt_class();
-        v80 = castNSObjectToType(v79);
+        v84 = IORegistryEntryCreateCFProperty(v80, v81, v82, v83);
+        v85 = objc_opt_class();
+        v86 = castNSObjectToType(v84, v85);
 
-        if (v80)
+        if (v86)
         {
-          [v6 setObject:v80 forKey:@"DataRole"];
+          [v6 setObject:v86 forKey:@"DataRole"];
         }
 
         else
         {
-          v81 = [(USBAnalytics *)self log];
-          if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
+          v87 = objc_msgSend_log(self);
+          if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            OUTLINED_FUNCTION_4(&dword_0, v81, v82, "USB data role not found!", buf);
+            OUTLINED_FUNCTION_4(&dword_0, v87, v88, "USB data role not found!", buf);
           }
         }
 
-        if (IOObjectConformsTo(HIDWORD(v139), "IOPortTransportStateUSB2"))
+        if (IOObjectConformsTo(HIDWORD(v146), "IOPortTransportStateUSB2"))
         {
-          v83 = 1;
+          v89 = 1;
         }
 
         else
         {
-          if (!IOObjectConformsTo(HIDWORD(v139), "IOPortTransportStateUSB3"))
+          if (!IOObjectConformsTo(HIDWORD(v146), "IOPortTransportStateUSB3"))
           {
-            v83 = 0;
             v89 = 0;
+            v96 = 0;
             goto LABEL_59;
           }
 
-          v83 = 2;
+          v89 = 2;
         }
 
         OUTLINED_FUNCTION_2_1();
-        v88 = IORegistryEntryCreateCFProperty(v84, v85, v86, v87);
-        objc_opt_class();
-        v89 = castNSObjectToType(v88);
+        v94 = IORegistryEntryCreateCFProperty(v90, v91, v92, v93);
+        v95 = objc_opt_class();
+        v96 = castNSObjectToType(v94, v95);
 
 LABEL_59:
-        v131 = [NSNumber numberWithUnsignedInt:v83, v131];
+        v97 = [NSNumber numberWithUnsignedInt:v89];
         OUTLINED_FUNCTION_4_1();
 
-        if (v89)
+        if (v96)
         {
-          intValue = [v89 intValue];
+          intValue = [v96 intValue];
           if (intValue - 1 >= 3)
           {
-            v92 = 0;
+            v99 = 0;
           }
 
           else
           {
-            v92 = intValue + 3;
+            v99 = intValue + 3;
           }
 
           if (intValue - 1 >= 3)
           {
-            v93 = 0;
+            v100 = 0;
           }
 
           else
           {
-            v93 = intValue;
+            v100 = intValue;
           }
 
-          if (v83 != 1)
+          if (v89 != 1)
           {
-            v93 = 0;
+            v100 = 0;
           }
 
-          if (v83 == 2)
+          if (v89 == 2)
           {
-            v94 = v92;
+            v101 = v99;
           }
 
           else
           {
-            v94 = v93;
+            v101 = v100;
           }
 
-          v95 = [NSNumber numberWithUnsignedInt:v94];
+          v102 = [NSNumber numberWithUnsignedInt:v101];
           OUTLINED_FUNCTION_3_2();
         }
 
         else
         {
-          v95 = [(USBAnalytics *)self log];
-          if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
+          v102 = objc_msgSend_log(self);
+          if (os_log_type_enabled(v102, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
             OUTLINED_FUNCTION_5_2();
-            OUTLINED_FUNCTION_4(v121, v122, v123, v124, v125);
+            OUTLINED_FUNCTION_4(v129, v130, v131, v132, v133);
           }
         }
 
         OUTLINED_FUNCTION_2_1();
-        v100 = IORegistryEntryCreateCFProperty(v96, v97, v98, v99);
-        objc_opt_class();
-        v101 = castNSObjectToType(v100);
+        v107 = IORegistryEntryCreateCFProperty(v103, v104, v105, v106);
+        v108 = objc_opt_class();
+        v109 = castNSObjectToType(v107, v108);
 
-        if (v101)
+        if (v109)
         {
-          v102 = [v101 objectForKeyedSubscript:@"Vendor ID"];
-          if (v102)
+          v110 = [v109 objectForKeyedSubscript:@"Vendor ID"];
+          if (v110)
           {
             OUTLINED_FUNCTION_4_1();
           }
 
-          v103 = [v101 objectForKeyedSubscript:@"Product ID"];
+          v111 = [v109 objectForKeyedSubscript:@"Product ID"];
 
-          if (v103)
+          if (v111)
           {
             OUTLINED_FUNCTION_3_2();
           }
 
-          v104 = [v101 objectForKeyedSubscript:@"Manufacturer"];
+          v112 = [v109 objectForKeyedSubscript:@"Manufacturer"];
 
-          if (v104)
+          if (v112)
           {
             OUTLINED_FUNCTION_4_1();
           }
 
-          v105 = [v101 objectForKeyedSubscript:@"Product"];
+          v113 = [v109 objectForKeyedSubscript:@"Product"];
 
-          if (v105)
+          if (v113)
           {
             OUTLINED_FUNCTION_3_2();
           }
 
-          v106 = [v101 objectForKeyedSubscript:@"Device Class"];
+          v114 = [v109 objectForKeyedSubscript:@"Device Class"];
 
-          if (v106)
+          if (v114)
           {
             OUTLINED_FUNCTION_4_1();
           }
 
-          v107 = [v101 objectForKeyedSubscript:@"Device Subclass"];
+          v115 = [v109 objectForKeyedSubscript:@"Device Subclass"];
 
-          if (v107)
+          if (v115)
           {
             OUTLINED_FUNCTION_3_2();
           }
 
-          v108 = [v101 objectForKeyedSubscript:@"Device Protocol"];
+          v116 = [v109 objectForKeyedSubscript:@"Device Protocol"];
 
-          if (v108)
+          if (v116)
           {
             OUTLINED_FUNCTION_4_1();
           }
 
-          v109 = [v101 objectForKeyedSubscript:@"Device Function"];
+          v117 = [v109 objectForKeyedSubscript:@"Device Function"];
 
-          if (v109)
+          if (v117)
           {
             OUTLINED_FUNCTION_3_2();
           }
         }
 
-        v110 = [(USBAnalytics *)self log];
-        if (os_log_type_enabled(v110, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 138412290;
-          v145 = @"com.apple.ioport.transport.USB.published";
-          OUTLINED_FUNCTION_5_2();
-          _os_log_impl(v111, v112, OS_LOG_TYPE_DEFAULT, v113, v114, 0xCu);
-        }
-
-        v115 = [(USBAnalytics *)self log];
-        if (os_log_type_enabled(v115, OS_LOG_TYPE_DEBUG))
+        v118 = objc_msgSend_log(self);
+        if (os_log_type_enabled(v118, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v145 = v6;
+          v152 = @"com.apple.ioport.transport.USB.published";
           OUTLINED_FUNCTION_5_2();
-          _os_log_debug_impl(v117, v118, OS_LOG_TYPE_DEBUG, v119, v120, 0xCu);
+          _os_log_impl(v119, v120, OS_LOG_TYPE_DEFAULT, v121, v122, 0xCu);
         }
 
-        v15 = v6;
+        v123 = objc_msgSend_log(self);
+        if (os_log_type_enabled(v123, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 138412290;
+          v152 = v6;
+          OUTLINED_FUNCTION_5_2();
+          _os_log_debug_impl(v125, v126, OS_LOG_TYPE_DEBUG, v127, v128, 0xCu);
+        }
+
+        v16 = v6;
         if ((AnalyticsSendEventLazy() & 1) == 0)
         {
-          v116 = [(USBAnalytics *)self log];
-          if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
+          v124 = objc_msgSend_log(self);
+          if (os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v145 = @"com.apple.ioport.transport.USB.published";
-            _os_log_error_impl(&dword_0, v116, OS_LOG_TYPE_ERROR, "Failed to send analytics event! (eventName: %@)", buf, 0xCu);
+            v152 = @"com.apple.ioport.transport.USB.published";
+            _os_log_error_impl(&dword_0, v124, OS_LOG_TYPE_ERROR, "Failed to send analytics event! (eventName: %@)", buf, 0xCu);
           }
         }
 
 LABEL_101:
-        IOObjectRelease(HIDWORD(v139));
+        IOObjectRelease(HIDWORD(v146));
         return;
       }
 
-      v13 = [(USBAnalytics *)self log];
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v14 = objc_msgSend_log(self);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v145 = "IOPort";
-        v14 = "Could not find parent entry in %s plane!";
+        v152 = "IOPort";
+        v15 = "Could not find parent entry in %s plane!";
         goto LABEL_14;
       }
     }
 
     else
     {
-      v13 = [(USBAnalytics *)self log];
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v14 = objc_msgSend_log(self);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v145 = @"com.apple.ioport.transport.USB.published";
-        v14 = "Analytics disabled for this event - ignoring... (eventName: %@)";
+        v152 = @"com.apple.ioport.transport.USB.published";
+        v15 = "Analytics disabled for this event - ignoring... (eventName: %@)";
 LABEL_14:
-        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, v14, buf, 0xCu);
+        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, v15, buf, 0xCu);
       }
     }
   }

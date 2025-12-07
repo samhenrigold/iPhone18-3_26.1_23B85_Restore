@@ -9,24 +9,22 @@
 
 - (id)encode:(id)encode
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   encodeCopy = encode;
   _encodingKey = [(LACUserInterfaceRequestCoder *)self _encodingKey];
   v6 = [(LACUserInterfaceRequestCoder *)self _serialize:encodeCopy];
 
   if (v6)
   {
-    v10 = _encodingKey;
-    v11[0] = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = _encodingKey;
+    v10[0] = v6;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   }
 
   else
   {
     v7 = MEMORY[0x1E695E0F8];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

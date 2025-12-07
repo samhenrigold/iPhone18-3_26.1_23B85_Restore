@@ -308,12 +308,12 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v58[98] = *MEMORY[0x1E69E9840];
+  v57[98] = *MEMORY[0x1E69E9840];
   v5 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   [@"\n" stringByPaddingToLength:description + 8 withString:@" " startingAtIndex:0];
   v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:128];
-  v58[0] = v5;
-  v58[1] = @"label =";
+  v57[0] = v5;
+  v57[1] = @"label =";
   selfCopy = self;
   p_private = &self->_private;
   label = self->_private.label;
@@ -323,45 +323,45 @@
     label = @"<none>";
   }
 
-  v58[2] = label;
-  v58[3] = v5;
+  v57[2] = label;
+  v57[3] = v5;
   if (self->_private.name)
   {
     name = self->_private.name;
   }
 
-  v58[4] = @"name =";
-  v58[5] = name;
-  v58[6] = v5;
-  v58[7] = @"Alpha to Coverage =";
-  v58[8] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_private.var2.miscHash[0] & 3];
-  v58[9] = v5;
-  v58[10] = @"Alpha to One =";
-  v58[11] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:(self->_private.var2.miscHash[0] >> 2) & 3];
-  v58[12] = v5;
-  v58[13] = @"Rasterization Enabled =";
-  v58[14] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:(self->_private.var2.miscHash[0] >> 4) & 1];
-  v58[15] = v5;
-  v58[16] = @"Sample Coverage =";
+  v57[4] = @"name =";
+  v57[5] = name;
+  v57[6] = v5;
+  v57[7] = @"Alpha to Coverage =";
+  v57[8] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_private.var2.miscHash[0] & 3];
+  v57[9] = v5;
+  v57[10] = @"Alpha to One =";
+  v57[11] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:(self->_private.var2.miscHash[0] >> 2) & 3];
+  v57[12] = v5;
+  v57[13] = @"Rasterization Enabled =";
+  v57[14] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:(self->_private.var2.miscHash[0] >> 4) & 1];
+  v57[15] = v5;
+  v57[16] = @"Sample Coverage =";
   LODWORD(v10) = self->_private.var1.sampleCoverageHash;
-  v58[17] = [MEMORY[0x1E696AD98] numberWithFloat:v10];
-  v58[18] = v5;
-  v58[19] = @"Sample Mask =";
-  v58[20] = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%lx", self->_private.sampleMask];
-  v58[21] = v5;
-  v58[22] = @"Raster Sample Count =";
-  v58[23] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.var0.sampleCount];
-  v58[24] = v5;
-  v58[25] = @"Input Primitive Topology =";
-  v58[26] = inputPrimitiveTopologyName(((*&self->_private.var2 >> 5) & 3));
-  v58[27] = v5;
-  v58[28] = @"Depth Attachment Format =";
-  v58[29] = [MEMORY[0x1E696AEC0] stringWithUTF8String:MTLPixelFormatGetName(self->_private.depthAttachmentPixelFormat)];
-  v58[30] = v5;
-  v58[31] = @"Stencil Attachment Format =";
-  v58[32] = [MEMORY[0x1E696AEC0] stringWithUTF8String:MTLPixelFormatGetName(self->_private.stencilAttachmentPixelFormat)];
-  v58[33] = v5;
-  v58[34] = @"tessellationPartitionMode =";
+  v57[17] = [MEMORY[0x1E696AD98] numberWithFloat:v10];
+  v57[18] = v5;
+  v57[19] = @"Sample Mask =";
+  v57[20] = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%lx", self->_private.sampleMask];
+  v57[21] = v5;
+  v57[22] = @"Raster Sample Count =";
+  v57[23] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.var0.sampleCount];
+  v57[24] = v5;
+  v57[25] = @"Input Primitive Topology =";
+  v57[26] = inputPrimitiveTopologyName(((*&self->_private.var2 >> 5) & 3));
+  v57[27] = v5;
+  v57[28] = @"Depth Attachment Format =";
+  v57[29] = [MEMORY[0x1E696AEC0] stringWithUTF8String:MTLPixelFormatGetName(self->_private.depthAttachmentPixelFormat)];
+  v57[30] = v5;
+  v57[31] = @"Stencil Attachment Format =";
+  v57[32] = [MEMORY[0x1E696AEC0] stringWithUTF8String:MTLPixelFormatGetName(self->_private.stencilAttachmentPixelFormat)];
+  v57[33] = v5;
+  v57[34] = @"tessellationPartitionMode =";
   tessellationPartitionMode = self->_private.tessellationPartitionMode;
   v12 = @"Unknown";
   v13 = @"Unknown";
@@ -370,16 +370,16 @@
     v13 = off_1E6EECF48[tessellationPartitionMode];
   }
 
-  v58[35] = v13;
-  v58[36] = v5;
-  v58[37] = @"maxTessellationFactor =";
-  v58[38] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:p_private->maxTessellationFactor];
-  v58[39] = v5;
-  v58[40] = @"tessellationFactorScaleEnabled =";
+  v57[35] = v13;
+  v57[36] = v5;
+  v57[37] = @"maxTessellationFactor =";
+  v57[38] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:p_private->maxTessellationFactor];
+  v57[39] = v5;
+  v57[40] = @"tessellationFactorScaleEnabled =";
   v14 = [MEMORY[0x1E696AD98] numberWithBool:p_private->tessellationFactorScaleEnabled];
   v15 = @"MTLTessellationFactorFormatFloat_SPI";
-  v58[41] = v14;
-  v58[42] = v5;
+  v57[41] = v14;
+  v57[42] = v5;
   tessellationFactorFormat = p_private->tessellationFactorFormat;
   tessellationControlPointIndexType = p_private->tessellationControlPointIndexType;
   if (tessellationFactorFormat != 1)
@@ -392,18 +392,18 @@
     v15 = @"MTLTessellationFactorFormatHalf";
   }
 
-  v58[43] = @"tessellationFactorFormat =";
-  v58[44] = v15;
-  v58[45] = v5;
-  v58[46] = @"tessellationControlPointIndexType =";
+  v57[43] = @"tessellationFactorFormat =";
+  v57[44] = v15;
+  v57[45] = v5;
+  v57[46] = @"tessellationControlPointIndexType =";
   if (tessellationControlPointIndexType <= 2)
   {
     v12 = off_1E6EECF68[tessellationControlPointIndexType];
   }
 
-  v58[47] = v12;
-  v58[48] = v5;
-  v58[49] = @"tessellationFactorStepFunction =";
+  v57[47] = v12;
+  v57[48] = v5;
+  v57[49] = @"tessellationFactorStepFunction =";
   tessellationFactorStepFunction = p_private->tessellationFactorStepFunction;
   v19 = @"Unknown";
   v20 = @"Unknown";
@@ -418,17 +418,17 @@
     v19 = @"MTLWindingCounterClockwise";
   }
 
-  v58[50] = v20;
-  v58[51] = v5;
+  v57[50] = v20;
+  v57[51] = v5;
   if (!tessellationOutputWindingOrder)
   {
     v19 = @"MTLWindingClockwise";
   }
 
-  v58[52] = @"tessellationOutputWindingOrder =";
-  v58[53] = v19;
-  v58[54] = v5;
-  v58[55] = @"Vertex Function =";
+  v57[52] = @"tessellationOutputWindingOrder =";
+  v57[53] = v19;
+  v57[54] = v5;
+  v57[55] = @"Vertex Function =";
   vertexFunction = p_private->vertexFunction;
   if (vertexFunction)
   {
@@ -440,9 +440,9 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v58[56] = null;
-  v58[57] = v5;
-  v58[58] = @"Fragment Function =";
+  v57[56] = null;
+  v57[57] = v5;
+  v57[58] = @"Fragment Function =";
   fragmentFunction = p_private->fragmentFunction;
   if (fragmentFunction)
   {
@@ -454,74 +454,74 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v58[59] = null2;
-  v58[60] = v5;
-  v58[61] = @"Vertex Array:";
-  null3 = MTLVertexDescriptorDescription(p_private->vertexDescriptor, description + 8);
+  v57[59] = null2;
+  v57[60] = v5;
+  v57[61] = @"Vertex Array:";
+  null3 = MTLVertexDescriptorDescription(&p_private->vertexDescriptor->super.super.isa, description + 8);
   if (!null3)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v58[62] = null3;
-  v58[63] = v5;
-  v58[64] = @"Vertex Amplification Mode =";
+  v57[62] = null3;
+  v57[63] = v5;
+  v57[64] = @"Vertex Amplification Mode =";
   v27 = @"MTLVertexAmplificationModeMask";
   if ((*&p_private->var2 & 0x1000) == 0)
   {
     v27 = @"MTLVertexAmplificationModeCount";
   }
 
-  v58[65] = v27;
-  v58[66] = v5;
-  v58[67] = @"Max Vertex Amplification Count =";
-  v58[68] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:p_private->maxVertexAmplificationCount];
-  v58[69] = v5;
-  v58[70] = @"supportIndirectCommandBuffers =";
-  v58[71] = [MEMORY[0x1E696AD98] numberWithBool:p_private->supportIndirectCommandBuffers];
-  v58[72] = v5;
-  v58[73] = @"shaderValidation =";
-  v58[74] = [MEMORY[0x1E696AD98] numberWithInteger:p_private->shaderValidation];
-  v58[75] = v5;
-  v58[76] = @"shaderValidationState =";
-  v58[77] = [MEMORY[0x1E696AD98] numberWithInteger:p_private->shaderValidationState];
-  v58[78] = v5;
-  v58[79] = @"textureWriteRoundingMode =";
-  v58[80] = MTLRoundingModeString(p_private->textureWriteRoundingMode);
-  v58[81] = v5;
-  v58[82] = @"forceResourceIndex =";
-  v58[83] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:(*&p_private->var2 >> 37) & 1];
-  v58[84] = v5;
-  v58[85] = @"resourceIndex =";
-  v58[86] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:p_private->resourceIndex];
-  v58[87] = v5;
-  v58[88] = @"Vertex   Depth Compare Clamp Mask =";
-  v58[89] = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%x", p_private->vertexDepthCompareClampMask];
-  v58[90] = v5;
-  v58[91] = @"Fragment Depth Compare Clamp Mask =";
-  v58[92] = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%x", p_private->fragmentDepthCompareClampMask];
-  v58[93] = v5;
-  v58[94] = @"Needs custom border color samplers = ";
-  v58[95] = [MEMORY[0x1E696AD98] numberWithBool:p_private->needsCustomBorderColorSamplers];
-  v58[96] = v5;
-  v58[97] = @"Color Attachments:";
-  [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v58, 98)}];
+  v57[65] = v27;
+  v57[66] = v5;
+  v57[67] = @"Max Vertex Amplification Count =";
+  v57[68] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:p_private->maxVertexAmplificationCount];
+  v57[69] = v5;
+  v57[70] = @"supportIndirectCommandBuffers =";
+  v57[71] = [MEMORY[0x1E696AD98] numberWithBool:p_private->supportIndirectCommandBuffers];
+  v57[72] = v5;
+  v57[73] = @"shaderValidation =";
+  v57[74] = [MEMORY[0x1E696AD98] numberWithInteger:p_private->shaderValidation];
+  v57[75] = v5;
+  v57[76] = @"shaderValidationState =";
+  v57[77] = [MEMORY[0x1E696AD98] numberWithInteger:p_private->shaderValidationState];
+  v57[78] = v5;
+  v57[79] = @"textureWriteRoundingMode =";
+  v57[80] = MTLRoundingModeString(p_private->textureWriteRoundingMode);
+  v57[81] = v5;
+  v57[82] = @"forceResourceIndex =";
+  v57[83] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:(*&p_private->var2 >> 37) & 1];
+  v57[84] = v5;
+  v57[85] = @"resourceIndex =";
+  v57[86] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:p_private->resourceIndex];
+  v57[87] = v5;
+  v57[88] = @"Vertex   Depth Compare Clamp Mask =";
+  v57[89] = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%x", p_private->vertexDepthCompareClampMask];
+  v57[90] = v5;
+  v57[91] = @"Fragment Depth Compare Clamp Mask =";
+  v57[92] = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%x", p_private->fragmentDepthCompareClampMask];
+  v57[93] = v5;
+  v57[94] = @"Needs custom border color samplers = ";
+  v57[95] = [MEMORY[0x1E696AD98] numberWithBool:p_private->needsCustomBorderColorSamplers];
+  v57[96] = v5;
+  v57[97] = @"Color Attachments:";
+  [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v57, 98)}];
   for (i = 0; i != 8; ++i)
   {
     if (p_private->attachments->_descriptors[i])
     {
-      v57[0] = v5;
-      v57[1] = [MEMORY[0x1E696AEC0] stringWithFormat:@"Color Attachment %u:", i];
-      v57[2] = pipelineColorAttachmentFormattedDescription(description + 8, p_private->attachments->_descriptors[i]);
-      v29 = v57;
+      v56[0] = v5;
+      v56[1] = [MEMORY[0x1E696AEC0] stringWithFormat:@"Color Attachment %u:", i];
+      v56[2] = pipelineColorAttachmentFormattedDescription(description + 8, p_private->attachments->_descriptors[i]);
+      v29 = v56;
     }
 
     else
     {
-      v56[0] = v5;
-      v56[1] = [MEMORY[0x1E696AEC0] stringWithFormat:@"Color Attachment %u:", i];
-      v56[2] = pipelineColorAttachmentDefaultFormattedDescription(description + 8);
-      v29 = v56;
+      v55[0] = v5;
+      v55[1] = [MEMORY[0x1E696AEC0] stringWithFormat:@"Color Attachment %u:", i];
+      v55[2] = pipelineColorAttachmentDefaultFormattedDescription(description + 8);
+      v29 = v55;
     }
 
     [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v29, 3)}];
@@ -530,10 +530,10 @@
   pipelineLibrary = p_private->pipelineLibrary;
   if (pipelineLibrary)
   {
-    v55[0] = v5;
-    v55[1] = @"Pipeline Library:";
-    v55[2] = [MEMORY[0x1E696AEC0] stringWithFormat:@"%p", pipelineLibrary];
-    [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v55, 3)}];
+    v54[0] = v5;
+    v54[1] = @"Pipeline Library:";
+    v54[2] = [MEMORY[0x1E696AEC0] stringWithFormat:@"%p", pipelineLibrary];
+    [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v54, 3)}];
   }
 
   for (j = 0; j != 31; ++j)
@@ -572,8 +572,8 @@
     [v6 addObject:v36];
   }
 
-  v54[0] = v5;
-  v54[1] = @"vertexLinkedFunctions =";
+  v53[0] = v5;
+  v53[1] = @"vertexLinkedFunctions =";
   vertexLinkedFunctions = p_private->vertexLinkedFunctions;
   if (vertexLinkedFunctions)
   {
@@ -585,10 +585,10 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v54[2] = null4;
-  [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v54, 3)}];
-  v53[0] = v5;
-  v53[1] = @"fragmentLinkedFunctions =";
+  v53[2] = null4;
+  [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v53, 3)}];
+  v52[0] = v5;
+  v52[1] = @"fragmentLinkedFunctions =";
   fragmentLinkedFunctions = p_private->fragmentLinkedFunctions;
   if (fragmentLinkedFunctions)
   {
@@ -600,10 +600,10 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v53[2] = null5;
-  [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v53, 3)}];
-  v52[0] = v5;
-  v52[1] = @"supportAddingVertexBinaryFunctions =";
+  v52[2] = null5;
+  [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v52, 3)}];
+  v51[0] = v5;
+  v51[1] = @"supportAddingVertexBinaryFunctions =";
   if (p_private->supportAddingVertexBinaryFunctions)
   {
     v41 = @"YES";
@@ -614,14 +614,14 @@
     v41 = @"NO";
   }
 
-  v52[2] = v41;
-  [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v52, 3)}];
-  v51[0] = v5;
-  v51[1] = @"maxVertexCallStackDepth =";
-  v51[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:p_private->maxVertexStackCallDepth];
+  v51[2] = v41;
   [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v51, 3)}];
   v50[0] = v5;
-  v50[1] = @"supportAddingFragmentBinaryFunctions =";
+  v50[1] = @"maxVertexCallStackDepth =";
+  v50[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:p_private->maxVertexStackCallDepth];
+  [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v50, 3)}];
+  v49[0] = v5;
+  v49[1] = @"supportAddingFragmentBinaryFunctions =";
   if (p_private->supportAddingFragmentBinaryFunctions)
   {
     v42 = @"YES";
@@ -632,25 +632,23 @@
     v42 = @"NO";
   }
 
-  v50[2] = v42;
-  [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v50, 3)}];
-  v49[0] = v5;
-  v49[1] = @"maxFragmentCallStackDepth =";
-  v49[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:p_private->maxFragmentStackCallDepth];
+  v49[2] = v42;
   [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v49, 3)}];
   v48[0] = v5;
-  v48[1] = @"explicitVisibilityGroupID =";
-  v48[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:p_private->explicitVisibilityGroupID];
+  v48[1] = @"maxFragmentCallStackDepth =";
+  v48[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:p_private->maxFragmentStackCallDepth];
   [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v48, 3)}];
   v47[0] = v5;
-  v47[1] = @"maxAccelerationStructureTraversalDepth =";
-  v47[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:p_private->maxAccelerationStructureTraversalDepth];
+  v47[1] = @"explicitVisibilityGroupID =";
+  v47[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:p_private->explicitVisibilityGroupID];
   [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v47, 3)}];
-  v46.receiver = selfCopy;
-  v46.super_class = MTLRenderPipelineDescriptorInternal;
-  result = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", -[MTLRenderPipelineDescriptorInternal description](&v46, sel_description), objc_msgSend(v6, "componentsJoinedByString:", @" "];
-  v44 = *MEMORY[0x1E69E9840];
-  return result;
+  v46[0] = v5;
+  v46[1] = @"maxAccelerationStructureTraversalDepth =";
+  v46[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:p_private->maxAccelerationStructureTraversalDepth];
+  [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v46, 3)}];
+  v45.receiver = selfCopy;
+  v45.super_class = MTLRenderPipelineDescriptorInternal;
+  return [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", -[MTLRenderPipelineDescriptorInternal description](&v45, sel_description), objc_msgSend(v6, "componentsJoinedByString:", @" "];
 }
 
 - (void)setForceSoftwareVertexFetch:(BOOL)fetch
@@ -1989,8 +1987,8 @@ LABEL_3:
   size_ptr = 0;
   buffer_ptr = 0;
   __src = 0;
-  v40 = 0;
-  v41 = 0;
+  v38 = 0;
+  v39 = 0;
   p_private = &self->_private;
   v7 = (options >> 14) & 0x400 | (((self->_private.var2.miscHash[0] >> 9) & 1) << 19) | (self->_private.var2.miscHash[0] >> 4) & 1;
   v8 = [(MTLFunction *)self->_private.vertexFunction patchType]== 0;
@@ -2029,57 +2027,55 @@ LABEL_3:
     v13 = v15;
   }
 
-  v16 = v13 & 0xFFF8049F | var2.miscHash[0] & 0x60 | ((p_private->tessellationControlPointIndexType & 3) << 8);
-  postVertexDumpBufferIndex_low = LODWORD(p_private->postVertexDumpBufferIndex);
-  v18 = v16 & 0xFFF807FF | (LODWORD(p_private->postVertexDumpBufferIndex) << 11);
-  LODWORD(v40) = v18;
+  v16 = v13 & 0xFFF8049F | var2.miscHash[0] & 0x60 | ((p_private->tessellationControlPointIndexType & 3) << 8) & 0x7FF | (LODWORD(p_private->postVertexDumpBufferIndex) << 11);
+  LODWORD(v38) = v16;
   vertexLinkedFunctions = p_private->vertexLinkedFunctions;
   if (vertexLinkedFunctions && ([(MTLLinkedFunctions *)vertexLinkedFunctions functions]&& [(NSArray *)[(MTLLinkedFunctions *)p_private->vertexLinkedFunctions functions] count]|| [(MTLLinkedFunctions *)p_private->vertexLinkedFunctions privateFunctions]&& [(NSArray *)[(MTLLinkedFunctions *)p_private->vertexLinkedFunctions privateFunctions] count]))
   {
-    v18 |= 0x100000u;
-    LODWORD(v40) = v18;
+    v16 |= 0x100000u;
+    LODWORD(v38) = v16;
   }
 
-  if ((v18 & 0x100000) != 0)
+  if ((v16 & 0x100000) != 0)
   {
-    v20 = 20;
+    v18 = 20;
   }
 
   else
   {
-    v20 = 12;
+    v18 = 12;
   }
 
-  if ((v18 & 4) != 0 && (vertexDescriptor = p_private->vertexDescriptor) != 0 && (v22 = [(MTLVertexDescriptorInternal *)vertexDescriptor newSerializedDescriptor]) != 0)
+  if ((v16 & 4) != 0 && (vertexDescriptor = p_private->vertexDescriptor) != 0 && (v20 = [(MTLVertexDescriptorInternal *)vertexDescriptor newSerializedDescriptor]) != 0)
   {
-    v23 = v22;
-    v18 |= 2u;
-    LODWORD(v40) = v18;
-    v24 = dispatch_data_create_map(v22, &buffer_ptr, &size_ptr);
-    v25 = size_ptr + v20;
-    dispatch_release(v23);
+    v21 = v20;
+    v16 |= 2u;
+    LODWORD(v38) = v16;
+    v22 = dispatch_data_create_map(v20, &buffer_ptr, &size_ptr);
+    v23 = size_ptr + v18;
+    dispatch_release(v21);
   }
 
   else
   {
-    v24 = 0;
-    v25 = v20;
+    v22 = 0;
+    v23 = v18;
   }
 
-  v37 = 0;
-  v38 = 0;
+  v35 = 0;
+  v36 = 0;
   fragmentFunction = p_private->fragmentFunction;
-  if (fragmentFunction && (v27 = [(MTLFunction *)fragmentFunction functionInputs]) != 0)
+  if (fragmentFunction && (v25 = [(MTLFunction *)fragmentFunction functionInputs]) != 0)
   {
-    v28 = dispatch_data_create_map(v27, &v38, &v37);
-    v25 += v37;
-    v18 |= 0x80u;
-    LODWORD(v40) = v18;
+    v26 = dispatch_data_create_map(v25, &v36, &v35);
+    v23 += v35;
+    v16 |= 0x80u;
+    LODWORD(v38) = v16;
   }
 
   else
   {
-    v28 = 0;
+    v26 = 0;
   }
 
   device = [(MTLFunction *)p_private->vertexFunction device];
@@ -2088,67 +2084,67 @@ LABEL_3:
     device = [(MTLFunction *)p_private->meshFunction device];
   }
 
-  v30 = MTLSerializePluginDataDictionary([device pluginData], 0);
+  v28 = MTLSerializePluginDataDictionary([device pluginData], 0);
+  v29 = v28;
+  if (v28)
+  {
+    LODWORD(__src) = v23;
+    v23 += v28;
+  }
+
+  v30 = MTLSerializePluginDataDictionary(p_private->pluginData, 0);
   v31 = v30;
   if (v30)
   {
-    LODWORD(__src) = v25;
-    v25 += v30;
+    HIDWORD(__src) = v23;
+    v23 += v30;
   }
 
-  v32 = MTLSerializePluginDataDictionary(p_private->pluginData, 0);
-  v33 = v32;
-  if (v32)
-  {
-    HIDWORD(__src) = v25;
-    v25 += v32;
-  }
-
-  if ((v18 & 0x100000) != 0)
+  if ((v16 & 0x100000) != 0)
   {
     _MTLPopulateLinkedFunctionExtraData(p_private->vertexLinkedFunctions);
   }
 
-  v34 = malloc_type_malloc(v25, 0x100004077774924uLL);
-  memcpy(v34, &__src, v20);
-  v35 = &v34[v20];
-  if (v24)
+  v32 = malloc_type_malloc(v23, 0x100004077774924uLL);
+  memcpy(v32, &__src, v18);
+  v33 = &v32[v18];
+  if (v22)
   {
-    memcpy(v35, buffer_ptr, size_ptr);
-    v35 += size_ptr;
-    dispatch_release(v24);
+    memcpy(v33, buffer_ptr, size_ptr);
+    v33 += size_ptr;
+    dispatch_release(v22);
   }
 
-  if (v28)
+  if (v26)
   {
-    memcpy(v35, v38, v37);
-    v35 += v37;
-    dispatch_release(v28);
+    memcpy(v33, v36, v35);
+    v33 += v35;
+    dispatch_release(v26);
+  }
+
+  if (v29)
+  {
+    v33 += MTLSerializePluginDataDictionary([device pluginData], v33);
   }
 
   if (v31)
   {
-    v35 += MTLSerializePluginDataDictionary([device pluginData], v35);
+    MTLSerializePluginDataDictionary(p_private->pluginData, v33);
   }
 
-  if (v33)
+  if ((v38 & 0x100000) != 0)
   {
-    MTLSerializePluginDataDictionary(p_private->pluginData, v35);
-  }
-
-  if ((v40 & 0x100000) != 0)
-  {
-    memcpy(&v34[HIDWORD(v40)], MEMORY[0], v41);
+    memcpy(&v32[HIDWORD(v38)], MEMORY[0], v39);
     free(MEMORY[0]);
     MEMORY[0x1865FF210](0, 0x1010C40113C0ABBLL);
   }
 
-  return dispatch_data_create(v34, v25, 0, *MEMORY[0x1E69E9648]);
+  return dispatch_data_create(v32, v23, 0, *MEMORY[0x1E69E9648]);
 }
 
 - (id)newSerializedObjectDataWithFlags:(unint64_t)flags options:(unint64_t)options error:(id *)error
 {
-  result = newMeshSerializedObjectOrMeshData(0, flags, options, &self->_private);
+  result = newMeshSerializedObjectOrMeshData();
   if (error)
   {
     *error = 0;
@@ -2159,7 +2155,7 @@ LABEL_3:
 
 - (id)newSerializedMeshDataWithFlags:(unint64_t)flags options:(unint64_t)options error:(id *)error
 {
-  result = newMeshSerializedObjectOrMeshData(0, flags, options, &self->_private);
+  result = newMeshSerializedObjectOrMeshData();
   if (error)
   {
     *error = 0;
@@ -2232,37 +2228,37 @@ LABEL_3:
 
 - (void)setVertexFunction:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  if (([a1 conformsToProtocol:&unk_1EF4F4B58] & 1) == 0)
+  if (([a1 conformsToProtocol:{&unk_1EF4F4B58, a4, a5, a6, a7, a8}] & 1) == 0)
   {
 
-    MTLReportFailure(1, "[MTLRenderPipelineDescriptorInternal setVertexFunction:]", 3816, @"vertexFunction is not a MTLFunction.", v9, v10, v11, v12, a9);
+    MTLReportFailure(1uLL, "[MTLRenderPipelineDescriptorInternal setVertexFunction:]", 3816, @"vertexFunction is not a MTLFunction.", v9, v10, v11, v12, a9);
   }
 }
 
 - (void)setFragmentFunction:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  if (([a1 conformsToProtocol:&unk_1EF4F4B58] & 1) == 0)
+  if (([a1 conformsToProtocol:{&unk_1EF4F4B58, a4, a5, a6, a7, a8}] & 1) == 0)
   {
 
-    MTLReportFailure(1, "[MTLRenderPipelineDescriptorInternal setFragmentFunction:]", 3833, @"fragmentFunction is not a MTLFunction.", v9, v10, v11, v12, a9);
+    MTLReportFailure(1uLL, "[MTLRenderPipelineDescriptorInternal setFragmentFunction:]", 3833, @"fragmentFunction is not a MTLFunction.", v9, v10, v11, v12, a9);
   }
 }
 
 - (void)setObjectFunction:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  if (([a1 conformsToProtocol:&unk_1EF4F4B58] & 1) == 0)
+  if (([a1 conformsToProtocol:{&unk_1EF4F4B58, a4, a5, a6, a7, a8}] & 1) == 0)
   {
 
-    MTLReportFailure(1, "[MTLRenderPipelineDescriptorInternal setObjectFunction:]", 3851, @"objectFunction is not a MTLFunction.", v9, v10, v11, v12, a9);
+    MTLReportFailure(1uLL, "[MTLRenderPipelineDescriptorInternal setObjectFunction:]", 3851, @"objectFunction is not a MTLFunction.", v9, v10, v11, v12, a9);
   }
 }
 
 - (void)setMeshFunction:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  if (([a1 conformsToProtocol:&unk_1EF4F4B58] & 1) == 0)
+  if (([a1 conformsToProtocol:{&unk_1EF4F4B58, a4, a5, a6, a7, a8}] & 1) == 0)
   {
 
-    MTLReportFailure(1, "[MTLRenderPipelineDescriptorInternal setMeshFunction:]", 3868, @"meshFunction is not a MTLFunction.", v9, v10, v11, v12, a9);
+    MTLReportFailure(1uLL, "[MTLRenderPipelineDescriptorInternal setMeshFunction:]", 3868, @"meshFunction is not a MTLFunction.", v9, v10, v11, v12, a9);
   }
 }
 

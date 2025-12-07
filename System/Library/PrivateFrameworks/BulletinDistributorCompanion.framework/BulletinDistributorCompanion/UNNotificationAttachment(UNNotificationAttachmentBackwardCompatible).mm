@@ -29,7 +29,7 @@
   {
     if ([self family] == 2)
     {
-      v6 = blt_ids_log();
+      v6 = blt_ids_log(2);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -51,7 +51,7 @@
     {
       if ([self family] == 3)
       {
-        v10 = blt_ids_log();
+        v10 = blt_ids_log(3);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *v14 = 0;
@@ -70,7 +70,7 @@ LABEL_17:
           goto LABEL_18;
         }
 
-        v12 = blt_ids_log();
+        v12 = blt_ids_log(1);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           *v13 = 0;

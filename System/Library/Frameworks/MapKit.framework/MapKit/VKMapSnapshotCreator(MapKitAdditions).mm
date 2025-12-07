@@ -244,7 +244,7 @@
   memset(v103, 0, sizeof(v103));
   if (v7)
   {
-    [v7 _resolvedCartographicConfigurationWithAuditToken:v8];
+    objc_msgSend__resolvedCartographicConfigurationWithAuditToken_(v7);
   }
 
   v99 = v8;
@@ -370,7 +370,7 @@ LABEL_44:
 
     if (v7)
     {
-      [v19 _cartographicConfiguration];
+      objc_msgSend__cartographicConfiguration(v19);
       v41 = *(&v105 + 1) == 4;
     }
 
@@ -468,7 +468,7 @@ LABEL_57:
     v102 = v32;
     if (v7)
     {
-      [v33 _cartographicConfiguration];
+      objc_msgSend__cartographicConfiguration(v33);
       v55 = *(&v105 + 1) == 4;
     }
 
@@ -560,7 +560,7 @@ LABEL_78:
 
     if (v7)
     {
-      [v67 _cartographicConfiguration];
+      objc_msgSend__cartographicConfiguration(v67);
       v97 = *(&v105 + 1) == 4;
     }
 

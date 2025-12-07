@@ -83,7 +83,7 @@
 
 - (NINearbyPeerConfiguration)initWithCoder:(id)coder
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   selfCopy = self;
   obj = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"peerDiscoveryToken"];
@@ -91,31 +91,31 @@
   v6 = [coderCopy decodeBoolForKey:@"cameraAssistanceEnabled"];
   v7 = [coderCopy decodeIntegerForKey:@"backgroundMode"];
   v8 = MEMORY[0x1E695DFD8];
-  v30[0] = objc_opt_class();
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
-  v25 = v6;
+  v29[0] = objc_opt_class();
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
+  v24 = v6;
   v10 = v5;
   v11 = [v8 setWithArray:v9];
 
   v12 = MEMORY[0x1E695DFD8];
-  v29[0] = objc_opt_class();
-  v29[1] = objc_opt_class();
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
+  v28[0] = objc_opt_class();
+  v28[1] = objc_opt_class();
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
   v14 = [v12 setWithArray:v13];
 
   v15 = [coderCopy decodeDictionaryWithKeysOfClasses:v11 objectsOfClasses:v14 forKey:@"debugParameters"];
   v16 = [coderCopy decodeBoolForKey:@"extendedDistanceMeasurementEnabled"];
   v17 = [coderCopy decodeIntegerForKey:@"useCase"];
   v18 = [coderCopy decodeBoolForKey:@"useCaseCameraAssistanceInClientProcess"];
-  v28.receiver = selfCopy;
-  v28.super_class = NINearbyPeerConfiguration;
-  v19 = [(NIConfiguration *)&v28 initWithCoder:coderCopy];
+  v27.receiver = selfCopy;
+  v27.super_class = NINearbyPeerConfiguration;
+  v19 = [(NIConfiguration *)&v27 initWithCoder:coderCopy];
   v20 = v19;
   if (v19)
   {
     objc_storeStrong(&v19->_peerDiscoveryToken, obj);
     v20->_longRangeEnabled = v10;
-    v20->_cameraAssistanceEnabled = v25;
+    v20->_cameraAssistanceEnabled = v24;
     objc_storeStrong(&v20->_debugParameters, v15);
     if (v7 >= 3)
     {
@@ -143,7 +143,6 @@
     v20->_useCaseCameraAssistanceInClientProcess = v18;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v20;
 }
 

@@ -9,12 +9,11 @@
 
 + (id)requiredEntitlements
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CCC3F0];
-  v6[0] = *MEMORY[0x277CCC1B8];
-  v6[1] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = *MEMORY[0x277CCC1B8];
+  v5[1] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
 
   return v3;
 }
@@ -144,7 +143,7 @@ LABEL_12:
 
 - (void)remote_deleteDoseEventWithPersistentUUID:(id)d completion:(id)completion
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
   client = [(HDStandardTaskServer *)self client];
@@ -156,9 +155,9 @@ LABEL_12:
     client2 = [(HDStandardTaskServer *)self client];
     authorizationOracle2 = [client2 authorizationOracle];
     v14 = [MEMORY[0x277CCDB68] userTrackedConceptTypeForIdentifier:*MEMORY[0x277CCCE88]];
-    v33 = 0;
-    v15 = [authorizationOracle2 authorizationStatusRecordForType:v14 error:&v33];
-    v11 = v33;
+    v32 = 0;
+    v15 = [authorizationOracle2 authorizationStatusRecordForType:v14 error:&v32];
+    v11 = v32;
 
     if (v15)
     {
@@ -198,23 +197,21 @@ LABEL_6:
   v15 = objc_alloc_init(MEMORY[0x277D10688]);
   profile = [(HDStandardTaskServer *)self profile];
   dataManager = [profile dataManager];
-  v34[0] = dCopy;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
-  v32 = v11;
-  v19 = [dataManager deleteObjectsWithUUIDCollection:v18 configuration:v15 error:&v32];
-  v20 = v32;
+  v33[0] = dCopy;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+  v31 = v11;
+  v19 = [dataManager deleteObjectsWithUUIDCollection:v18 configuration:v15 error:&v31];
+  v20 = v31;
 
   completionCopy[2](completionCopy, v19, v20);
 LABEL_12:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_doseEventsForDateInterval:(uint64_t)a3 medicationIdentifier:(uint64_t)a4 completion:(uint64_t)a5 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_25181C000, a2, a3, "Failed to retrieve authorization status for activity summary type: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2(&dword_25181C000, a2, a3, "Failed to retrieve authorization status for activity summary type: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

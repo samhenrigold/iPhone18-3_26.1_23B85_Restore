@@ -70,15 +70,21 @@ uint64_t __62__SUScriptExecutionContext_callWebScriptMethod_withArguments___bloc
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
@@ -89,23 +95,21 @@ uint64_t __62__SUScriptExecutionContext_callWebScriptMethod_withArguments___bloc
     v15 = objc_opt_class();
     v16 = 2112;
     lCopy = l;
-    LODWORD(v13) = 22;
-    v12 = &v14;
-    v8 = _os_log_send_and_compose_impl();
-    if (v8)
+    v9 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Loading script at URL: %@", &v14, 22);
+    if (v9)
     {
-      v9 = v8;
-      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v14, v13}];
-      free(v9);
-      v12 = v10;
+      v10 = v9;
+      v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+      free(v10);
+      v13 = v11;
       SSFileLog();
     }
   }
 
   [(SUScriptExecutionContext *)self _cancelLoadOperation];
   self->_loadOperation = [(SUScriptExecutionContext *)self _newLoadOperation];
-  v11 = [objc_alloc(MEMORY[0x1E69D4A08]) initWithURL:l];
-  [(ISStoreURLOperation *)self->_loadOperation setRequestProperties:v11];
+  v12 = [objc_alloc(MEMORY[0x1E69D4A08]) initWithURL:l];
+  [(ISStoreURLOperation *)self->_loadOperation setRequestProperties:v12];
 
   [objc_msgSend(MEMORY[0x1E69E4798] "mainQueue")];
 }
@@ -117,15 +121,21 @@ uint64_t __62__SUScriptExecutionContext_callWebScriptMethod_withArguments___bloc
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
@@ -136,24 +146,22 @@ uint64_t __62__SUScriptExecutionContext_callWebScriptMethod_withArguments___bloc
     v15 = objc_opt_class();
     v16 = 2112;
     keyCopy = key;
-    LODWORD(v13) = 22;
-    v12 = &v14;
-    v8 = _os_log_send_and_compose_impl();
-    if (v8)
+    v9 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Loading script at bag key: %@", &v14, 22);
+    if (v9)
     {
-      v9 = v8;
-      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v14, v13}];
-      free(v9);
-      v12 = v10;
+      v10 = v9;
+      v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+      free(v10);
+      v13 = v11;
       SSFileLog();
     }
   }
 
   [(SUScriptExecutionContext *)self _cancelLoadOperation];
   self->_loadOperation = [(SUScriptExecutionContext *)self _newLoadOperation];
-  v11 = objc_alloc_init(MEMORY[0x1E69D4970]);
-  [v11 setURLBagKey:key];
-  [(ISStoreURLOperation *)self->_loadOperation setRequestProperties:v11];
+  v12 = objc_alloc_init(MEMORY[0x1E69D4970]);
+  [v12 setURLBagKey:key];
+  [(ISStoreURLOperation *)self->_loadOperation setRequestProperties:v12];
 
   [objc_msgSend(MEMORY[0x1E69E4798] "mainQueue")];
 }
@@ -172,15 +180,21 @@ uint64_t __62__SUScriptExecutionContext_callWebScriptMethod_withArguments___bloc
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
@@ -189,15 +203,13 @@ uint64_t __62__SUScriptExecutionContext_callWebScriptMethod_withArguments___bloc
   {
     v13 = 138412290;
     v14 = objc_opt_class();
-    LODWORD(v12) = 12;
-    v11 = &v13;
-    v8 = _os_log_send_and_compose_impl();
-    if (v8)
+    v9 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: Could not load URL", &v13, 12);
+    if (v9)
     {
-      v9 = v8;
-      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v13, v12}];
-      free(v9);
-      v11 = v10;
+      v10 = v9;
+      v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+      free(v10);
+      v12 = v11;
       SSFileLog();
     }
   }
@@ -226,15 +238,21 @@ uint64_t __62__SUScriptExecutionContext_callWebScriptMethod_withArguments___bloc
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
@@ -243,15 +261,13 @@ uint64_t __62__SUScriptExecutionContext_callWebScriptMethod_withArguments___bloc
     {
       v17 = 138412290;
       v18 = objc_opt_class();
-      LODWORD(v16) = 12;
-      v15 = &v17;
-      v12 = _os_log_send_and_compose_impl();
-      if (v12)
+      v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: Received empty or invalid script", &v17, 12);
+      if (v13)
       {
-        v13 = v12;
-        v14 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v17, v16}];
-        free(v13);
-        v15 = v14;
+        v14 = v13;
+        v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
+        free(v14);
+        v16 = v15;
         SSFileLog();
       }
     }

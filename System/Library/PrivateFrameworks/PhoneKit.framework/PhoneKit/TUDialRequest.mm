@@ -5,7 +5,7 @@
 
 id __83__TUDialRequest_PhoneKit__dialRequestByResolvingDialTypeUsingSenderIdentityClient___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v5 handle];
@@ -29,11 +29,11 @@ id __83__TUDialRequest_PhoneKit__dialRequestByResolvingDialTypeUsingSenderIdenti
     v12 = PHDefaultLog();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412546;
-      v18 = v5;
-      v19 = 2112;
-      v20 = v11;
-      _os_log_impl(&dword_25E4EC000, v12, OS_LOG_TYPE_DEFAULT, "Updating emergency dial request %@ to use sender identity %@", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = v5;
+      v18 = 2112;
+      v19 = v11;
+      _os_log_impl(&dword_25E4EC000, v12, OS_LOG_TYPE_DEFAULT, "Updating emergency dial request %@ to use sender identity %@", &v16, 0x16u);
     }
 
     v13 = [v11 UUID];
@@ -47,8 +47,6 @@ id __83__TUDialRequest_PhoneKit__dialRequestByResolvingDialTypeUsingSenderIdenti
   {
     v11 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

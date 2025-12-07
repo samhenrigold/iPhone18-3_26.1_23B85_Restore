@@ -18,50 +18,47 @@
 
 + (id)indices
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCACA8];
   v3 = [(HDSQLiteSchemaEntity *)HDSummarySharingEntryEntity disambiguatedSQLForProperty:@"status"];
   v4 = [v2 stringWithFormat:@"%@ IN (%ld, %ld)", v3, 0, 1];
 
   v5 = objc_alloc(MEMORY[0x277D10B40]);
   v6 = objc_opt_class();
-  v12[0] = @"cloudkit_identifier";
-  v12[1] = @"type";
-  v12[2] = @"direction";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
+  v11[0] = @"cloudkit_identifier";
+  v11[1] = @"type";
+  v11[2] = @"direction";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3];
   v8 = [v5 initWithEntity:v6 name:@"active" columns:v7 unique:1 predicateString:v4];
-  v13[0] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[0] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
 
   return v9;
 }
 
 + (id)_propertiesForEntity
 {
-  v5[19] = *MEMORY[0x277D85DE8];
-  v5[0] = @"uuid";
-  v5[1] = @"invitation_uuid";
-  v5[2] = @"CNContact_identifier";
-  v5[3] = @"cloudkit_identifier";
-  v5[4] = @"primary_contact_identifier";
-  v5[5] = @"all_contact_identifiers";
-  v5[6] = @"first_name";
-  v5[7] = @"last_name";
-  v5[8] = @"user_wheelchair_mode";
-  v5[9] = @"type";
-  v5[10] = @"status";
-  v5[11] = @"date_modified";
-  v5[12] = @"date_invited";
-  v5[13] = @"date_accepted";
-  v5[14] = @"setup_metadata";
-  v5[15] = @"owner_participant";
-  v5[16] = @"direction";
-  v5[17] = @"notification_status";
-  v5[18] = @"sync_provenance";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:19];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[19] = *MEMORY[0x277D85DE8];
+  v4[0] = @"uuid";
+  v4[1] = @"invitation_uuid";
+  v4[2] = @"CNContact_identifier";
+  v4[3] = @"cloudkit_identifier";
+  v4[4] = @"primary_contact_identifier";
+  v4[5] = @"all_contact_identifiers";
+  v4[6] = @"first_name";
+  v4[7] = @"last_name";
+  v4[8] = @"user_wheelchair_mode";
+  v4[9] = @"type";
+  v4[10] = @"status";
+  v4[11] = @"date_modified";
+  v4[12] = @"date_invited";
+  v4[13] = @"date_accepted";
+  v4[14] = @"setup_metadata";
+  v4[15] = @"owner_participant";
+  v4[16] = @"direction";
+  v4[17] = @"notification_status";
+  v4[18] = @"sync_provenance";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:19];
 
   return v2;
 }
@@ -239,7 +236,6 @@ void __125__HDSummarySharingEntryEntity__insertOrReplaceCodableEntry_CNContactId
 
   MEMORY[0x22AAC6B90](a2, @"direction", [*(a1 + 40) direction]);
   MEMORY[0x22AAC6B90](a2, @"notification_status", [*(a1 + 40) notificationStatus]);
-  v16 = *(a1 + 56);
 
   JUMPOUT(0x22AAC6B90);
 }
@@ -269,32 +265,31 @@ void __125__HDSummarySharingEntryEntity__insertOrReplaceCodableEntry_CNContactId
 
 uint64_t __94__HDSummarySharingEntryEntity_updateStatus_dateModified_dateAccepted_predicate_profile_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v22[3] = *MEMORY[0x277D85DE8];
+  v21[3] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CBEB18];
   v6 = a2;
   v7 = [v5 alloc];
-  v22[0] = @"date_modified";
-  v22[1] = @"date_accepted";
-  v22[2] = @"status";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:3];
+  v21[0] = @"date_modified";
+  v21[1] = @"date_accepted";
+  v21[2] = @"status";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
   v9 = [v7 initWithArray:v8];
 
   v10 = *(a1 + 56);
   v11 = *(a1 + 32);
   v12 = [v6 protectedDatabase];
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __94__HDSummarySharingEntryEntity_updateStatus_dateModified_dateAccepted_predicate_profile_error___block_invoke_2;
-  v18[3] = &unk_278613AE8;
-  v19 = *(a1 + 40);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __94__HDSummarySharingEntryEntity_updateStatus_dateModified_dateAccepted_predicate_profile_error___block_invoke_2;
+  v17[3] = &unk_278613AE8;
+  v18 = *(a1 + 40);
   v13 = *(a1 + 48);
   v14 = *(a1 + 64);
-  v20 = v13;
-  v21 = v14;
-  v15 = [v10 updateProperties:v9 predicate:v11 database:v12 error:a3 bindingHandler:v18];
+  v19 = v13;
+  v20 = v14;
+  v15 = [v10 updateProperties:v9 predicate:v11 database:v12 error:a3 bindingHandler:v17];
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -313,8 +308,6 @@ void __94__HDSummarySharingEntryEntity_updateStatus_dateModified_dateAccepted_pr
   {
     MEMORY[0x22AAC6BA0](a2, @"date_accepted");
   }
-
-  v5 = *(a1 + 48);
 
   JUMPOUT(0x22AAC6B90);
 }
@@ -343,25 +336,24 @@ void __94__HDSummarySharingEntryEntity_updateStatus_dateModified_dateAccepted_pr
 
 uint64_t __97__HDSummarySharingEntryEntity_updateOwnerParticipant_cloudKitIdentifier_predicate_profile_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 56);
-  v17[0] = @"owner_participant";
-  v17[1] = @"cloudkit_identifier";
+  v16[0] = @"owner_participant";
+  v16[1] = @"cloudkit_identifier";
   v6 = MEMORY[0x277CBEA60];
   v7 = a2;
-  v8 = [v6 arrayWithObjects:v17 count:2];
+  v8 = [v6 arrayWithObjects:v16 count:2];
   v9 = *(a1 + 32);
   v10 = [v7 protectedDatabase];
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __97__HDSummarySharingEntryEntity_updateOwnerParticipant_cloudKitIdentifier_predicate_profile_error___block_invoke_2;
-  v14[3] = &unk_278613DE8;
-  v15 = *(a1 + 40);
-  v16 = *(a1 + 48);
-  v11 = [v5 updateProperties:v8 predicate:v9 database:v10 error:a3 bindingHandler:v14];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __97__HDSummarySharingEntryEntity_updateOwnerParticipant_cloudKitIdentifier_predicate_profile_error___block_invoke_2;
+  v13[3] = &unk_278613DE8;
+  v14 = *(a1 + 40);
+  v15 = *(a1 + 48);
+  v11 = [v5 updateProperties:v8 predicate:v9 database:v10 error:a3 bindingHandler:v13];
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -408,26 +400,25 @@ void __97__HDSummarySharingEntryEntity_updateOwnerParticipant_cloudKitIdentifier
 
 uint64_t __127__HDSummarySharingEntryEntity_updateNotificationStatusForInvitiationWithUUID_newNotificationStatus_dateModified_profile_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 32);
   v6 = MEMORY[0x277D10B18];
   v7 = a2;
   v8 = [v6 predicateWithProperty:@"invitation_uuid" equalToValue:v5];
   v9 = *(a1 + 48);
-  v18[0] = @"notification_status";
-  v18[1] = @"date_modified";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+  v17[0] = @"notification_status";
+  v17[1] = @"date_modified";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
   v11 = [v7 protectedDatabase];
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __127__HDSummarySharingEntryEntity_updateNotificationStatusForInvitiationWithUUID_newNotificationStatus_dateModified_profile_error___block_invoke_2;
-  v15[3] = &unk_278616B10;
-  v17 = *(a1 + 56);
-  v16 = *(a1 + 40);
-  v12 = [v9 updateProperties:v10 predicate:v8 database:v11 error:a3 bindingHandler:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __127__HDSummarySharingEntryEntity_updateNotificationStatusForInvitiationWithUUID_newNotificationStatus_dateModified_profile_error___block_invoke_2;
+  v14[3] = &unk_278616B10;
+  v16 = *(a1 + 56);
+  v15 = *(a1 + 40);
+  v12 = [v9 updateProperties:v10 predicate:v8 database:v11 error:a3 bindingHandler:v14];
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

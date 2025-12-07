@@ -452,11 +452,11 @@ LABEL_79:
 
 - (LPLinkMetadata)initWithCoder:(id)coder
 {
-  v116[1] = *MEMORY[0x1E69E9840];
+  v120[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v104.receiver = self;
-  v104.super_class = LPLinkMetadata;
-  v5 = [(LPLinkMetadata *)&v104 init];
+  v108.receiver = self;
+  v108.super_class = LPLinkMetadata;
+  v5 = [(LPLinkMetadata *)&v108 init];
   if (!v5)
   {
     goto LABEL_29;
@@ -465,15 +465,15 @@ LABEL_79:
   v5->_version = [coderCopy decodeInt32ForKey:@"version"];
   if ([coderCopy decodeBoolForKey:@"isEncodedForLocalUse"] && objc_msgSend(coderCopy, "_lp_coderType") != 1)
   {
-    v98 = MEMORY[0x1E696ABC0];
-    v115 = *MEMORY[0x1E696A278];
-    v116[0] = @"Attemping to decode LPLinkMetadata intended for local only use.";
-    v99 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v116 forKeys:&v115 count:1];
-    v100 = [v98 errorWithDomain:*MEMORY[0x1E696A250] code:4864 userInfo:v99];
-    [coderCopy failWithError:v100];
+    v102 = MEMORY[0x1E696ABC0];
+    v119 = *MEMORY[0x1E696A278];
+    v120[0] = @"Attemping to decode LPLinkMetadata intended for local only use.";
+    v103 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v120 forKeys:&v119 count:1];
+    v104 = [v102 errorWithDomain:*MEMORY[0x1E696A250] code:4864 userInfo:v103];
+    [coderCopy failWithError:v104];
 
 LABEL_29:
-    v97 = 0;
+    v101 = 0;
     goto LABEL_30;
   }
 
@@ -646,24 +646,24 @@ LABEL_29:
 
   if ([coderCopy containsValueForKey:@"conversationActivity"])
   {
-    v106 = 0;
-    v107 = &v106;
-    v108 = 0x2050000000;
+    v110 = 0;
+    v111 = &v110;
+    v112 = 0x2050000000;
     v79 = getTUConversationActivityClass_softClass;
-    v109 = getTUConversationActivityClass_softClass;
+    v113 = getTUConversationActivityClass_softClass;
     if (!getTUConversationActivityClass_softClass)
     {
-      v105[0] = MEMORY[0x1E69E9820];
-      v105[1] = 3221225472;
-      v105[2] = __getTUConversationActivityClass_block_invoke;
-      v105[3] = &unk_1E7A35518;
-      v105[4] = &v106;
-      __getTUConversationActivityClass_block_invoke(v105);
-      v79 = *(v107 + 24);
+      v109[0] = MEMORY[0x1E69E9820];
+      v109[1] = 3221225472;
+      v109[2] = __getTUConversationActivityClass_block_invoke;
+      v109[3] = &unk_1E7A35518;
+      v109[4] = &v110;
+      __getTUConversationActivityClass_block_invoke(v109);
+      v79 = *(v111 + 24);
     }
 
     v80 = v79;
-    _Block_object_dispose(&v106, 8);
+    _Block_object_dispose(&v110, 8);
     v81 = [coderCopy _lp_strictlyDecodeObjectOfClass:v79 forKey:@"conversationActivity"];
     conversationActivity = v5->_conversationActivity;
     v5->_conversationActivity = v81;
@@ -671,24 +671,24 @@ LABEL_29:
 
   if ([coderCopy containsValueForKey:@"collaborationMetadata"])
   {
-    v111 = 0;
-    v112 = &v111;
-    v113 = 0x2050000000;
+    v115 = 0;
+    v116 = &v115;
+    v117 = 0x2050000000;
     v83 = get_SWCollaborationMetadataClass_softClass;
-    v114 = get_SWCollaborationMetadataClass_softClass;
+    v118 = get_SWCollaborationMetadataClass_softClass;
     if (!get_SWCollaborationMetadataClass_softClass)
     {
-      v106 = MEMORY[0x1E69E9820];
-      v107 = 3221225472;
-      v108 = __get_SWCollaborationMetadataClass_block_invoke;
-      v109 = &unk_1E7A35518;
-      v110 = &v111;
-      __get_SWCollaborationMetadataClass_block_invoke(&v106);
-      v83 = v112[3];
+      v110 = MEMORY[0x1E69E9820];
+      v111 = 3221225472;
+      v112 = __get_SWCollaborationMetadataClass_block_invoke;
+      v113 = &unk_1E7A35518;
+      v114 = &v115;
+      __get_SWCollaborationMetadataClass_block_invoke(&v110);
+      v83 = v116[3];
     }
 
     v84 = v83;
-    _Block_object_dispose(&v111, 8);
+    _Block_object_dispose(&v115, 8);
     v85 = [coderCopy _lp_strictlyDecodeObjectOfClass:v83 forKey:@"collaborationMetadata"];
     collaborationMetadata = v5->_collaborationMetadata;
     v5->_collaborationMetadata = v85;
@@ -697,16 +697,16 @@ LABEL_29:
   if ([coderCopy containsValueForKey:@"specialization2"])
   {
     v87 = decodableSpecializationClasses([coderCopy _lp_coderType]);
-    v103 = 0;
-    v88 = [coderCopy _lp_strictlyDecodeTopLevelObjectOfClasses:v87 forKey:@"specialization2" error:&v103];
-    v89 = v103;
+    v107 = 0;
+    v88 = [coderCopy _lp_strictlyDecodeTopLevelObjectOfClasses:v87 forKey:@"specialization2" error:&v107];
+    v89 = v107;
     specialization = v5->_specialization;
     v5->_specialization = v88;
 
     if (v89)
     {
-      v91 = LPLogChannelSerialization();
-      if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
+      v93 = LPLogChannelSerialization(v91, v92);
+      if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
       {
         [LPLinkMetadata initWithCoder:];
       }
@@ -715,27 +715,27 @@ LABEL_29:
 
   if (!v5->_specialization && [coderCopy containsValueForKey:@"specialization"])
   {
-    v92 = decodableSpecializationClasses([coderCopy _lp_coderType]);
-    v102 = 0;
-    v93 = [coderCopy _lp_strictlyDecodeTopLevelObjectOfClasses:v92 forKey:@"specialization" error:&v102];
-    v94 = v102;
-    v95 = v5->_specialization;
-    v5->_specialization = v93;
+    v94 = decodableSpecializationClasses([coderCopy _lp_coderType]);
+    v106 = 0;
+    v95 = [coderCopy _lp_strictlyDecodeTopLevelObjectOfClasses:v94 forKey:@"specialization" error:&v106];
+    v96 = v106;
+    v97 = v5->_specialization;
+    v5->_specialization = v95;
 
-    if (v94)
+    if (v96)
     {
-      v96 = LPLogChannelSerialization();
-      if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
+      v100 = LPLogChannelSerialization(v98, v99);
+      if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
       {
         [LPLinkMetadata initWithCoder:];
       }
     }
   }
 
-  v97 = v5;
+  v101 = v5;
 LABEL_30:
 
-  return v97;
+  return v101;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -1259,31 +1259,31 @@ LABEL_30:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   [coderCopy encodeInt32:self->_version forKey:@"version"];
   [coderCopy encodeBool:objc_msgSend(coderCopy forKey:{"_lp_coderType") == 1, @"isEncodedForLocalUse"}];
   _isCurrentlyLoadingOrIncomplete = [(LPLinkMetadata *)self _isCurrentlyLoadingOrIncomplete];
-  [coderCopy encodeBool:_isCurrentlyLoadingOrIncomplete forKey:@"isIncomplete"];
+  v6 = [coderCopy encodeBool:_isCurrentlyLoadingOrIncomplete forKey:@"isIncomplete"];
   if (_isCurrentlyLoadingOrIncomplete)
   {
-    v6 = LPLogChannelSerialization();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = LPLogChannelSerialization(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       _isCurrentlyLoading = [(LPLinkMetadata *)self _isCurrentlyLoading];
       _isIncomplete = [(LPLinkMetadata *)self _isIncomplete];
       _wasCopiedFromIncompleteMetadata = [(LPLinkMetadata *)self _wasCopiedFromIncompleteMetadata];
       objc_opt_class();
       *buf = 67109888;
-      v28 = _isCurrentlyLoading;
-      v29 = 1024;
-      v30 = _isIncomplete;
+      v30 = _isCurrentlyLoading;
       v31 = 1024;
-      v32 = _wasCopiedFromIncompleteMetadata;
+      v32 = _isIncomplete;
       v33 = 1024;
-      LOBYTE(v34) = objc_opt_isKindOfClass() & 1;
-      v34 = v34;
-      _os_log_impl(&dword_1AE886000, v6, OS_LOG_TYPE_DEFAULT, "LPLinkMetadata being encoded while incomplete (loading: %d, incomplete: %d, copiedFromIncomplete: %d, isPlaceholder: %d)!", buf, 0x1Au);
+      v34 = _wasCopiedFromIncompleteMetadata;
+      v35 = 1024;
+      LOBYTE(v36) = objc_opt_isKindOfClass() & 1;
+      v36 = v36;
+      _os_log_impl(&dword_1AE886000, v8, OS_LOG_TYPE_DEFAULT, "LPLinkMetadata being encoded while incomplete (loading: %d, incomplete: %d, copiedFromIncomplete: %d, isPlaceholder: %d)!", buf, 0x1Au);
     }
   }
 
@@ -1330,31 +1330,31 @@ LABEL_30:
   [coderCopy encodeInteger:self->_collaborationType forKey:@"collaborationType"];
   [coderCopy _lp_encodeObjectIfNotNil:self->_collaborationMetadata forKey:@"collaborationMetadata"];
   _lp_coderType = [coderCopy _lp_coderType];
-  v11 = self->_specialization;
-  v12 = v11;
+  v13 = self->_specialization;
+  v14 = v13;
   if (_lp_coderType == 1)
   {
   }
 
   else
   {
+    v39 = 0u;
+    v40 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    v13 = specializationClassesForLocalUseOnly();
-    v14 = [v13 countByEnumeratingWithState:&v35 objects:buf count:16];
-    if (v14)
+    v15 = specializationClassesForLocalUseOnly(v13);
+    v16 = [v15 countByEnumeratingWithState:&v37 objects:buf count:16];
+    if (v16)
     {
-      v15 = *v36;
+      v17 = *v38;
       while (2)
       {
-        v16 = 0;
+        v18 = 0;
         do
         {
-          if (*v36 != v15)
+          if (*v38 != v17)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v15);
           }
 
           if (objc_opt_isKindOfClass())
@@ -1363,12 +1363,12 @@ LABEL_30:
             goto LABEL_28;
           }
 
-          ++v16;
+          ++v18;
         }
 
-        while (v14 != v16);
-        v14 = [v13 countByEnumeratingWithState:&v35 objects:buf count:16];
-        if (v14)
+        while (v16 != v18);
+        v16 = [v15 countByEnumeratingWithState:&v37 objects:buf count:16];
+        if (v16)
         {
           continue;
         }
@@ -1378,50 +1378,50 @@ LABEL_30:
     }
   }
 
-  v17 = self->_specialization;
-  *&v35 = objc_opt_class();
-  *(&v35 + 1) = objc_opt_class();
-  *&v36 = objc_opt_class();
-  *(&v36 + 1) = objc_opt_class();
+  v19 = self->_specialization;
   *&v37 = objc_opt_class();
   *(&v37 + 1) = objc_opt_class();
   *&v38 = objc_opt_class();
   *(&v38 + 1) = objc_opt_class();
-  v39 = objc_opt_class();
-  v40 = objc_opt_class();
+  *&v39 = objc_opt_class();
+  *(&v39 + 1) = objc_opt_class();
+  *&v40 = objc_opt_class();
+  *(&v40 + 1) = objc_opt_class();
   v41 = objc_opt_class();
-  [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:11];
+  v42 = objc_opt_class();
+  v43 = objc_opt_class();
+  [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:11];
+  v27 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v18 = v24 = 0u;
-  v19 = [v18 countByEnumeratingWithState:&v23 objects:buf count:16];
-  if (v19)
+  v20 = v26 = 0u;
+  v21 = [v20 countByEnumeratingWithState:&v25 objects:buf count:16];
+  if (v21)
   {
-    v20 = *v24;
+    v22 = *v26;
     while (2)
     {
-      v21 = 0;
+      v23 = 0;
       do
       {
-        if (*v24 != v20)
+        if (*v26 != v22)
         {
-          objc_enumerationMutation(v18);
+          objc_enumerationMutation(v20);
         }
 
         if (objc_opt_isKindOfClass())
         {
 
-          v22 = @"specialization";
+          v24 = @"specialization";
           goto LABEL_26;
         }
 
-        ++v21;
+        ++v23;
       }
 
-      while (v19 != v21);
-      v19 = [v18 countByEnumeratingWithState:&v23 objects:buf count:16];
-      if (v19)
+      while (v21 != v23);
+      v21 = [v20 countByEnumeratingWithState:&v25 objects:buf count:16];
+      if (v21)
       {
         continue;
       }
@@ -1430,9 +1430,9 @@ LABEL_30:
     }
   }
 
-  v22 = @"specialization2";
+  v24 = @"specialization2";
 LABEL_26:
-  [coderCopy _lp_encodeObjectIfNotNil:self->_specialization forKey:{v22, v23}];
+  [coderCopy _lp_encodeObjectIfNotNil:self->_specialization forKey:{v24, v25}];
 LABEL_28:
 }
 
@@ -1489,53 +1489,53 @@ LABEL_28:
 
 + (LPLinkMetadata)metadataWithDataRepresentation:(id)representation decodingType:(unint64_t)type
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v6 = representationCopy;
-  if (type == 1 || [representationCopy length] <= 0xA00000)
+  if (type == 1 || (v7 = [representationCopy length], v7 <= 0xA00000))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v6 error:0];
-    [v9 _enableStrictSecureDecodingMode];
-    [v9 setDecodingFailurePolicy:1];
-    [v9 _lp_setCoderType:type];
-    v10 = MEMORY[0x1E695DFD8];
-    v11 = objc_opt_class();
-    v12 = [v10 setWithObjects:{v11, objc_opt_class(), 0}];
-    v13 = *MEMORY[0x1E696A508];
-    v18 = 0;
-    v14 = [v9 _lp_strictlyDecodeTopLevelObjectOfClasses:v12 forKey:v13 error:&v18];
-    v15 = v18;
+    v11 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v6 error:0];
+    [v11 _enableStrictSecureDecodingMode];
+    [v11 setDecodingFailurePolicy:1];
+    [v11 _lp_setCoderType:type];
+    v12 = MEMORY[0x1E695DFD8];
+    v13 = objc_opt_class();
+    v14 = [v12 setWithObjects:{v13, objc_opt_class(), 0}];
+    v15 = *MEMORY[0x1E696A508];
+    v22 = 0;
+    v16 = [v11 _lp_strictlyDecodeTopLevelObjectOfClasses:v14 forKey:v15 error:&v22];
+    v17 = v22;
 
-    [v9 finishDecoding];
-    if (v15)
+    finishDecoding = [v11 finishDecoding];
+    if (v17)
     {
-      v16 = LPLogChannelSerialization();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v20 = LPLogChannelSerialization(finishDecoding, v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         +[LPLinkMetadata metadataWithDataRepresentation:decodingType:];
       }
 
-      v8 = 0;
+      v10 = 0;
     }
 
     else
     {
-      v8 = v14;
+      v10 = v16;
     }
   }
 
   else
   {
-    v7 = LPLogChannelSerialization();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = LPLogChannelSerialization(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      +[LPLinkMetadata metadataWithDataRepresentation:decodingType:].cold.1(buf, [v6 length], v7);
+      +[LPLinkMetadata metadataWithDataRepresentation:decodingType:].cold.1(buf, [v6 length], v9);
     }
 
-    v8 = 0;
+    v10 = 0;
   }
 
-  return v8;
+  return v10;
 }
 
 - (id)dataRepresentationWithEncodingType:(unint64_t)type options:(unint64_t)options
@@ -2574,7 +2574,7 @@ LABEL_9:
   selfCopy = self;
   sub_1AE968844();
 
-  sub_1AE969B54(0, &qword_1ED5F3F20);
+  sub_1AE969B54(0, &qword_1ED5F3F20, off_1E7A34718);
   v3 = sub_1AE988784();
 
   return v3;

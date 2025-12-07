@@ -34,7 +34,7 @@
 
 BOOL __55__PCLocationsWindow_initWithRawHistory_maxUncertainty___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 location];
   v5 = [v4 hasLocationHorizontalUncertaintyMeters];
@@ -53,17 +53,16 @@ BOOL __55__PCLocationsWindow_initWithRawHistory_maxUncertainty___block_invoke(ui
     {
       v10 = NSStringFromSelector(*(a1 + 32));
       [v3 timeCFAbsolute];
-      v14 = 138412546;
-      v15 = v10;
-      v16 = 2048;
-      v17 = v11;
-      _os_log_impl(&dword_1CEE74000, v9, OS_LOG_TYPE_ERROR, "[%@] location fix at time, %.2f doesn't have uncertainty, will be filtered", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = v10;
+      v15 = 2048;
+      v16 = v11;
+      _os_log_impl(&dword_1CEE74000, v9, OS_LOG_TYPE_ERROR, "[%@] location fix at time, %.2f doesn't have uncertainty, will be filtered", &v13, 0x16u);
     }
 
     v8 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -127,26 +126,26 @@ LABEL_4:
 
 - (id)fixAtOrAfter:(double)after
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   sorted = [(PCLocationsWindow *)self sorted];
-  v5 = [sorted countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [sorted countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(sorted);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         [v8 timeCFAbsolute];
         if (v9 >= after)
         {
@@ -155,7 +154,7 @@ LABEL_4:
         }
       }
 
-      v5 = [sorted countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [sorted countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -166,8 +165,6 @@ LABEL_4:
   }
 
 LABEL_11:
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

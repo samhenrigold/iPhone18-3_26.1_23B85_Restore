@@ -38,34 +38,33 @@
 - (void)migrateNotificationSettingsV1toV2IfNecessary
 {
   selfCopy = self;
-  sub_22B7437F0();
+  sub_22B7437F0(v2);
 }
 
 - (id)settingValueForKey:(int64_t)key
 {
   selfCopy = self;
-  sub_22B744130(key, v13);
+  sub_22B744130(key, v12);
 
-  v5 = v14;
-  if (v14)
+  v5 = v13;
+  if (v13)
   {
-    v6 = sub_22B4D2BCC(v13, v14);
+    v6 = sub_22B4D2BCC(v12, v13);
     v7 = *(v5 - 8);
-    v8 = *(v7 + 64);
     MEMORY[0x28223BE20](v6);
-    v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v7 + 16))(v10);
-    v11 = sub_22B7DC508();
-    (*(v7 + 8))(v10, v5);
-    sub_22B4CFB78(v13);
+    v9 = v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v7 + 16))(v9);
+    v10 = sub_22B7DC508();
+    (*(v7 + 8))(v9, v5);
+    sub_22B4CFB78(v12);
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  return v11;
+  return v10;
 }
 
 - (BOOL)settingExplicitlySetForKey:(int64_t)key
@@ -89,114 +88,121 @@
 
 - (unint64_t)npsDefaultsChanged
 {
-  v0 = sub_22B7DBE38();
-  v1 = *(v0 + 16);
-  if (v1)
+  v7 = sub_22B7DBE38();
+  v8 = *v7->messageStore;
+  if (v8)
   {
-    v31 = objc_opt_self();
+    v60 = 0x800000022B80FB60;
+    v63 = objc_opt_self();
     sub_22B6F0AD4(&unk_27D8CDBE0, &qword_22B7FD3E0);
-    v2 = 32;
-    v3 = MEMORY[0x277D837D0];
+    v9 = 32;
+    v10 = MEMORY[0x277D837D0];
     while (1)
     {
-      v4 = *(v0 + v2);
-      defaultCenter = [v31 defaultCenter];
-      v6 = sub_22B7DBE28();
-      *&v32[0] = 0x6E6F73616572;
-      *(&v32[0] + 1) = 0xE600000000000000;
+      defaultCenter = [v63 defaultCenter];
+      v12 = sub_22B7DBE28();
+      *&v64[0] = 0x6E6F73616572;
+      *(&v64[0] + 1) = 0xE600000000000000;
       sub_22B7DC248();
-      v35[8] = v3;
-      v35[5] = 0xD000000000000012;
-      v35[6] = 0x800000022B80FB60;
-      v7 = sub_22B7DC488();
-      sub_22B7476D8(v35, v32);
-      result = sub_22B4D7EC0(v32);
-      if (v9)
+      v67[8] = v10;
+      v67[5] = 0xD000000000000012;
+      v67[6] = 0x800000022B80FB60;
+      v13 = sub_22B7DC488();
+      sub_22B7476D8(v67, v64);
+      result = sub_22B4D7EC0(v64);
+      if (v15)
       {
         break;
       }
 
-      v7[(result >> 6) + 8] |= 1 << result;
-      v10 = v7[6] + 40 * result;
-      v11 = v32[0];
-      v12 = v32[1];
-      *(v10 + 32) = v33;
-      *v10 = v11;
-      *(v10 + 16) = v12;
-      result = sub_22B4D7F04(&v34, (v7[7] + 32 * result));
-      v13 = v7[2];
-      v14 = __OFADD__(v13, 1);
-      v15 = v13 + 1;
-      if (v14)
+      v13[(result >> 6) + 8] |= 1 << result;
+      v16 = v13[6] + 40 * result;
+      v17 = v64[0];
+      v18 = v64[1];
+      *(v16 + 32) = v65;
+      *v16 = v17;
+      *(v16 + 16) = v18;
+      result = sub_22B4D7F04(&v66, (v13[7] + 32 * result));
+      v19 = v13[2];
+      v20 = __OFADD__(v19, 1);
+      v21 = v19 + 1;
+      if (v20)
       {
-        goto LABEL_15;
+        goto LABEL_17;
       }
 
-      v7[2] = v15;
-      sub_22B4D0D64(v35, &unk_27D8CD7D0, &qword_22B7FA3F0);
-      v16 = sub_22B7DB568();
+      v13[2] = v21;
+      sub_22B4D0D64(v67, &unk_27D8CD7D0, &qword_22B7FA3F0);
+      v22 = sub_22B7DB568();
 
-      [defaultCenter postNotificationName:v6 object:0 userInfo:v16];
+      [defaultCenter postNotificationName:v12 object:0 userInfo:v22];
 
-      v2 += 8;
-      if (!--v1)
+      v9 += 8;
+      if (!--v8)
       {
         goto LABEL_6;
       }
     }
 
     __break(1u);
-LABEL_15:
+LABEL_17:
     __break(1u);
   }
 
   else
   {
 LABEL_6:
-
+    v7, v0, v1, v2, v3, v4, v5, v6, v57, v60;
     result = [objc_opt_self() sharedProvider];
     if (result)
     {
       broadcasterForSyncedSettingsListeners = [result broadcasterForSyncedSettingsListeners];
       swift_unknownObjectRelease();
-      v18 = sub_22B7DBE38();
-      v19 = *(v18 + 16);
-      if (v19)
+      v24 = sub_22B7DBE38();
+      v32 = v24;
+      v33 = *v24->messageStore;
+      if (v33)
       {
-        *&v32[0] = MEMORY[0x277D84F90];
-        sub_22B7AB6B4(0, v19, 0);
-        v20 = 32;
-        v21 = *&v32[0];
+        *&v64[0] = MEMORY[0x277D84F90];
+        sub_22B7AB6B4(0, v33, 0);
+        v34 = 32;
+        v35 = *&v64[0];
         do
         {
-          v22 = *(v18 + v20);
-          v23 = sub_22B7DBDF8();
-          *&v32[0] = v21;
-          v26 = *(v21 + 16);
-          v25 = *(v21 + 24);
-          if (v26 >= v25 >> 1)
+          v36 = sub_22B7DBDF8();
+          *&v64[0] = v35;
+          v45 = *v35->messageStore;
+          v44 = *v35->chatRegistry;
+          if (v45 >= v44 >> 1)
           {
-            v28 = v23;
-            v29 = v24;
-            sub_22B7AB6B4((v25 > 1), v26 + 1, 1);
-            v24 = v29;
-            v23 = v28;
-            v21 = *&v32[0];
+            v47 = v36;
+            v48 = v37;
+            sub_22B7AB6B4((v44 > 1), v45 + 1, 1);
+            v37 = v48;
+            v36 = v47;
+            v35 = *&v64[0];
           }
 
-          *(v21 + 16) = v26 + 1;
-          v27 = v21 + 16 * v26;
-          *(v27 + 32) = v23;
-          *(v27 + 40) = v24;
-          v20 += 8;
-          --v19;
+          *v35->messageStore = v45 + 1;
+          v46 = v35 + 16 * v45;
+          *(v46 + 4) = v36;
+          *(v46 + 5) = v37;
+          v34 += 8;
+          --v33;
         }
 
-        while (v19);
+        while (v33);
+        v32, v37, v38, v39, v40, v41, v42, v43, v58, v61;
       }
 
-      v30 = sub_22B7DB8F8();
+      else
+      {
+        v24, v25, v26, v27, v28, v29, v30, v31, v58, v61;
+        v35 = MEMORY[0x277D84F90];
+      }
 
+      v49 = sub_22B7DB8F8();
+      v35, v50, v51, v52, v53, v54, v55, v56, v59, v62;
       [broadcasterForSyncedSettingsListeners didUpdateSettingsKeys_];
 
       return swift_unknownObjectRelease();

@@ -5,7 +5,9 @@
 - (id)CKPropertiesDescription;
 - (id)openFileWithOpenInfo:(id)info error:(id *)error;
 - (id)readBytesOfInMemoryAssetContentWithUUID:(id)d offset:(unint64_t)offset length:(unint64_t)length error:(id *)error;
+- (void)_getLogicalDeviceScopedClientProxyCreatorSynchronous:(BOOL)synchronous completionHandler:(id)handler;
 - (void)addThrottle:(id)throttle;
+- (void)getLogicalDeviceScopedClientProxySynchronous:(BOOL)synchronous errorHandler:(id)handler clientProxyHandler:(id)proxyHandler;
 - (void)resetThrottles;
 @end
 
@@ -53,6 +55,52 @@
   v3 = objc_msgSend_pid(self, a2, v2);
 
   return MEMORY[0x28210E2B8](v3);
+}
+
+- (void)getLogicalDeviceScopedClientProxySynchronous:(BOOL)synchronous errorHandler:(id)handler clientProxyHandler:(id)proxyHandler
+{
+  synchronousCopy = synchronous;
+  handlerCopy = handler;
+  proxyHandlerCopy = proxyHandler;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = sub_22518C42C;
+  v13[3] = &unk_278547FF0;
+  v16 = synchronousCopy;
+  v14 = proxyHandlerCopy;
+  v15 = handlerCopy;
+  v10 = handlerCopy;
+  v11 = proxyHandlerCopy;
+  objc_msgSend__getLogicalDeviceScopedClientProxyCreatorSynchronous_completionHandler_(self, v12, synchronousCopy, v13);
+}
+
+- (void)_getLogicalDeviceScopedClientProxyCreatorSynchronous:(BOOL)synchronous completionHandler:(id)handler
+{
+  synchronousCopy = synchronous;
+  handlerCopy = handler;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v10 = objc_msgSend_logicalDeviceScopedClientProxyCreator(selfCopy, v8, v9);
+  objc_sync_exit(selfCopy);
+
+  if (v10)
+  {
+    handlerCopy[2](handlerCopy, v10, 0);
+  }
+
+  else
+  {
+    v13 = objc_msgSend_clientConnection(selfCopy, v11, v12);
+    v16 = objc_msgSend_deviceContext(selfCopy, v14, v15);
+    v19 = objc_msgSend_testDeviceReference(v16, v17, v18);
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = sub_22518C63C;
+    v21[3] = &unk_278548018;
+    v21[4] = selfCopy;
+    v22 = handlerCopy;
+    objc_msgSend_getLogicalDeviceScopedClientProxyCreatorForTestDeviceReference_synchronous_completionHandler_(v13, v20, v19, synchronousCopy, v21);
+  }
 }
 
 - (id)openFileWithOpenInfo:(id)info error:(id *)error
@@ -224,7 +272,7 @@ LABEL_10:
 
 - (void)resetThrottles
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC880] != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -233,13 +281,12 @@ LABEL_10:
   v3 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
+    v5 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_22506F000, v3, OS_LOG_TYPE_INFO, "Resetting throttles in %@", &v6, 0xCu);
+    _os_log_impl(&dword_22506F000, v3, OS_LOG_TYPE_INFO, "Resetting throttles in %@", &v5, 0xCu);
   }
 
   objc_msgSend_getLogicalDeviceScopedClientProxySynchronous_errorHandler_clientProxyHandler_(self, v4, 1, &unk_28385CD80, &unk_28385CDA0);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addThrottle:(id)throttle

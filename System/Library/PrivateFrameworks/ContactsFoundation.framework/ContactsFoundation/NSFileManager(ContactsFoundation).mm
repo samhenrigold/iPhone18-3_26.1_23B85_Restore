@@ -67,19 +67,19 @@ LABEL_5:
 
 - (id)_cn_valueForExtendedAttribute:()ContactsFoundation path:error:
 {
-  v17[1] = *MEMORY[0x1E69E9840];
-  v15 = 0;
-  v6 = [self _cn_getValue:&v15 forExtendendAttribute:a3 path:a4 error:a5];
-  v7 = v15;
+  v16[1] = *MEMORY[0x1E69E9840];
+  v14 = 0;
+  v6 = [self _cn_getValue:&v14 forExtendendAttribute:a3 path:a4 error:a5];
+  v7 = v14;
   v8 = v7;
   if (v6)
   {
     if (!v7)
     {
       v9 = [CNFoundationError errorWithErrno:93];
-      v16 = *MEMORY[0x1E696AA08];
-      v17[0] = v9;
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+      v15 = *MEMORY[0x1E696AA08];
+      v16[0] = v9;
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
       v11 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CNContactsFoundationErrorDomain" code:1302 userInfo:v10];
       if (a5)
       {
@@ -96,14 +96,12 @@ LABEL_5:
     v12 = v7;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 - (uint64_t)_cn_getValue:()ContactsFoundation forExtendendAttribute:path:error:
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v10 = a4;
   v11 = a5;
   if (off_1EF440708(&__block_literal_global_120, v10))
@@ -138,15 +136,15 @@ LABEL_14:
   {
     if (v15 != -1 || *__error() != 93)
     {
-      v21 = +[CNFoundationError errorWithErrno];
-      v24 = *MEMORY[0x1E696AA08];
-      v25 = v21;
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-      v23 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CNContactsFoundationErrorDomain" code:1302 userInfo:v22];
+      v20 = +[CNFoundationError errorWithErrno];
+      v23 = *MEMORY[0x1E696AA08];
+      v24 = v20;
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+      v22 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CNContactsFoundationErrorDomain" code:1302 userInfo:v21];
       if (a6)
       {
-        v23 = v23;
-        *a6 = v23;
+        v22 = v22;
+        *a6 = v22;
       }
 
       goto LABEL_14;
@@ -179,7 +177,6 @@ LABEL_14:
   v17 = 1;
 LABEL_15:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v17;
 }
 

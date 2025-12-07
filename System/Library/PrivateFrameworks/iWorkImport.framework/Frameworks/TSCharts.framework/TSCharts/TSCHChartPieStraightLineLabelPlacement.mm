@@ -1089,38 +1089,38 @@ LABEL_11:
   v36 = objc_msgSend_bezierPathWithStart_end_(MEMORY[0x277D81160], v35, v26, v28, v32, v34);
   v37 = lineEndCopy;
   v38 = endCopy;
-  v56 = 0;
-  v54 = 0u;
-  v55 = 0u;
-  objc_msgSend_lineEndPositioningOnPath_atHead_headPoint_tailPoint_headLineEnd_tailLineEnd_stroke_(MEMORY[0x277D81160], v39, v32, v34, v26, v36, 1, v37, v38, strokeCopy, v28);
-  v53 = 0;
-  v51 = 0u;
+  v54 = 0;
   v52 = 0u;
-  objc_msgSend_lineEndPositioningOnPath_atHead_headPoint_tailPoint_headLineEnd_tailLineEnd_stroke_(MEMORY[0x277D81160], v40, v32, v34, v26, v36, 0, v37, v38, strokeCopy, v28);
-  v49[0] = v54;
-  v49[1] = v55;
-  v50 = v56;
-  v47[0] = v51;
-  v47[1] = v52;
-  v48 = v53;
-  v44 = objc_msgSend_createClippedPath_headPositioning_tailPositioning_stroke_(MEMORY[0x277D81160], v41, *&v51, *&v52, v42, v36, v49, v47, strokeCopy);
+  v53 = 0u;
+  objc_msgSend_lineEndPositioningOnPath_atHead_headPoint_tailPoint_headLineEnd_tailLineEnd_stroke_(MEMORY[0x277D81160], v32, v34, v26, v28);
+  v51 = 0;
+  v49 = 0u;
+  v50 = 0u;
+  objc_msgSend_lineEndPositioningOnPath_atHead_headPoint_tailPoint_headLineEnd_tailLineEnd_stroke_(MEMORY[0x277D81160], v32, v34, v26, v28);
+  v47[0] = v52;
+  v47[1] = v53;
+  v48 = v54;
+  v45[0] = v49;
+  v45[1] = v50;
+  v46 = v51;
+  v42 = objc_msgSend_createClippedPath_headPositioning_tailPositioning_stroke_(MEMORY[0x277D81160], v39, *&v49, *&v50, v40, v36, v47, v45, strokeCopy);
   if (path)
   {
-    *path = objc_msgSend_newPathForLineEnd_startPoint_angle_stroke_(self, v43, *(&v51 + 1), *&v52, *&v51, v38, strokeCopy);
+    *path = objc_msgSend_newPathForLineEnd_startPoint_angle_stroke_(self, v41, *(&v49 + 1), *&v50, *&v49, v38, strokeCopy);
   }
 
   if (endPath)
   {
-    *endPath = objc_msgSend_newPathForLineEnd_startPoint_angle_stroke_(self, v43, *(&v54 + 1), *&v55, *&v54, v37, strokeCopy);
+    *endPath = objc_msgSend_newPathForLineEnd_startPoint_angle_stroke_(self, v41, *(&v52 + 1), *&v53, *&v52, v37, strokeCopy);
   }
 
   if (*outStroke)
   {
-    v45 = strokeCopy;
+    v43 = strokeCopy;
     *outStroke = strokeCopy;
   }
 
-  return v44;
+  return v42;
 }
 
 - (CGPoint)calloutLineStartpointForWedgeLayoutInfo:(id)info

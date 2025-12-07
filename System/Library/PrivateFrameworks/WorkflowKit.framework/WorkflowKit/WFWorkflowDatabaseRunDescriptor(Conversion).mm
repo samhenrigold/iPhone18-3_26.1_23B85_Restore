@@ -33,7 +33,7 @@
 
   else
   {
-    (*(v7 + 2))(v7);
+    v7[2](v7);
   }
 }
 
@@ -77,7 +77,7 @@
 
 - (id)workflowReferenceWithDatabase:()Conversion error:
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v6 = a3;
   identifier = [self identifier];
 
@@ -106,8 +106,8 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v25 = "[WFWorkflowDatabaseRunDescriptor(Conversion) workflowReferenceWithDatabase:error:]";
-      v26 = 2112;
+      v24 = "[WFWorkflowDatabaseRunDescriptor(Conversion) workflowReferenceWithDatabase:error:]";
+      v25 = 2112;
       selfCopy = self;
       _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_ERROR, "%s Couldn't find shortcut with descriptor: %@", buf, 0x16u);
     }
@@ -130,14 +130,12 @@
       }
 
       v18 = MEMORY[0x1E696ABC0];
-      v22 = *MEMORY[0x1E696A578];
-      v23 = v17;
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+      v21 = *MEMORY[0x1E696A578];
+      v22 = v17;
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
       *a4 = [v18 errorWithDomain:@"WFDatabaseErrorDomain" code:3 userInfo:v19];
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return identifier;
 }

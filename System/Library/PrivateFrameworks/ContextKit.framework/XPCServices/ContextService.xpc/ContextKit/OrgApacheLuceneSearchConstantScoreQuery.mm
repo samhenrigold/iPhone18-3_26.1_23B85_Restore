@@ -74,7 +74,7 @@ LABEL_11:
   if (booleanCopy)
   {
     v8 = [OrgApacheLuceneSearchConstantScoreQuery__1 alloc];
-    sub_10009F2A0(v8, self, v7, self);
+    sub_10009F2A0(&v8->super.super.super.isa, self, v7, self);
 
     return v8;
   }
@@ -86,12 +86,12 @@ LABEL_11:
 {
   v5 = objc_autorelease(new_JavaLangStringBuilder_initWithNSString_(@"ConstantScore("));
   v6 = *(&self->super.boost_ + 1);
-  if (!v6 || (v7 = -[JavaLangStringBuilder appendWithNSString:](v5, "appendWithNSString:", [v6 toStringWithNSString:string])) == 0 || (v8 = objc_msgSend(v7, "appendWithChar:", 41)) == 0 || (v9 = v8, -[OrgApacheLuceneSearchQuery getBoost](self, "getBoost"), (v11 = objc_msgSend(v9, "appendWithNSString:", OrgApacheLuceneUtilToStringUtils_boostWithFloat_(v10))) == 0))
+  if (!v6 || (v7 = -[JavaLangStringBuilder appendWithNSString:](v5, "appendWithNSString:", [v6 toStringWithNSString:string])) == 0 || (v8 = objc_msgSend(v7, "appendWithChar:", 41)) == 0 || (v9 = v8, v10 = -[OrgApacheLuceneSearchQuery getBoost](self, "getBoost"), (v13 = objc_msgSend(v9, "appendWithNSString:", OrgApacheLuceneUtilToStringUtils_boostWithFloat_(v12, v10, v11))) == 0))
   {
     JreThrowNullPointerException();
   }
 
-  return [v11 description];
+  return [v13 description];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -99,44 +99,46 @@ LABEL_11:
   if (self == equal)
   {
     LOBYTE(v5) = 1;
-    return v5;
   }
 
-  v9.receiver = self;
-  v9.super_class = OrgApacheLuceneSearchConstantScoreQuery;
-  v5 = [(OrgApacheLuceneSearchQuery *)&v9 isEqual:?];
-  if (!v5)
+  else
   {
-    return v5;
+    v8.receiver = self;
+    v8.super_class = OrgApacheLuceneSearchConstantScoreQuery;
+    v5 = [(OrgApacheLuceneSearchQuery *)&v8 isEqual:?];
+    if (v5)
+    {
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        objc_opt_class();
+        if (!equal)
+        {
+          goto LABEL_12;
+        }
+
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+          JreThrowClassCastException();
+        }
+
+        v6 = *(&self->super.boost_ + 1);
+        if (!v6)
+        {
+LABEL_12:
+          JreThrowNullPointerException();
+        }
+
+        LOBYTE(v5) = [v6 isEqual:*(equal + 12)];
+      }
+
+      else
+      {
+        LOBYTE(v5) = 0;
+      }
+    }
   }
 
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    LOBYTE(v5) = 0;
-    return v5;
-  }
-
-  objc_opt_class();
-  if (!equal)
-  {
-    v7 = *(&self->super.boost_ + 1);
-    goto LABEL_13;
-  }
-
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    JreThrowClassCastException();
-  }
-
-  v6 = *(&self->super.boost_ + 1);
-  if (!v6)
-  {
-LABEL_13:
-    JreThrowNullPointerException();
-  }
-
-  LOBYTE(v5) = [v6 isEqual:*(equal + 12)];
   return v5;
 }
 

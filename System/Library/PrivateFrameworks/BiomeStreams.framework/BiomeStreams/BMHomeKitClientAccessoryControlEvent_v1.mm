@@ -129,7 +129,7 @@ LABEL_15:
     v20 = __biome_log_for_category();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
-      [BMHomeKitClientAccessoryControlEvent initWithProto:];
+      [BMHomeKitClientAccessoryControlEvent initWithProto:?];
     }
   }
 

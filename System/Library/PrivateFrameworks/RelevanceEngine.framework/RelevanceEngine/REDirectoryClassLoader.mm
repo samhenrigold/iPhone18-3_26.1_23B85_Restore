@@ -32,56 +32,56 @@
 
 - (void)_enumerateBundles:(id)bundles
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   bundlesCopy = bundles;
   urls = self->_urls;
   if (urls)
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     obj = urls;
-    v21 = [(NSArray *)obj countByEnumeratingWithState:&v27 objects:v32 count:16];
-    if (v21)
+    v20 = [(NSArray *)obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+    if (v20)
     {
-      v20 = *v28;
+      v19 = *v27;
       do
       {
         v6 = 0;
         do
         {
-          if (*v28 != v20)
+          if (*v27 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
           v7 = MEMORY[0x277CCA8D8];
-          path = [*(*(&v27 + 1) + 8 * v6) path];
+          path = [*(*(&v26 + 1) + 8 * v6) path];
           v9 = [v7 bundleWithPath:path];
 
-          v22 = v9;
+          v21 = v9;
           v10 = [v9 pathsForResourcesOfType:@"bundle" inDirectory:@"."];
+          v22 = 0u;
           v23 = 0u;
           v24 = 0u;
           v25 = 0u;
-          v26 = 0u;
-          v11 = [v10 countByEnumeratingWithState:&v23 objects:v31 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v24;
+            v13 = *v23;
             do
             {
               v14 = 0;
               do
               {
-                if (*v24 != v13)
+                if (*v23 != v13)
                 {
                   objc_enumerationMutation(v10);
                 }
 
-                v15 = *(*(&v23 + 1) + 8 * v14);
+                v15 = *(*(&v22 + 1) + 8 * v14);
                 v16 = +[REBundleCache sharedInstance];
                 v17 = [v16 bundleAtPath:v15];
 
@@ -94,7 +94,7 @@
               }
 
               while (v12 != v14);
-              v12 = [v10 countByEnumeratingWithState:&v23 objects:v31 count:16];
+              v12 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
             }
 
             while (v12);
@@ -103,15 +103,13 @@
           ++v6;
         }
 
-        while (v6 != v21);
-        v21 = [(NSArray *)obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+        while (v6 != v20);
+        v20 = [(NSArray *)obj countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
-      while (v21);
+      while (v20);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enumerateClassesWithBlock:(id)block
@@ -141,7 +139,6 @@ void __53__REDirectoryClassLoader__enumerateClassesWithBlock___block_invoke(uint
     v5 = v4;
     if ([v4 isSubclassOfClass:*(a1 + 56)])
     {
-      v6 = *(a1 + 32);
       if ((objc_opt_respondsToSelector() & 1) == 0 || [*(a1 + 32) shouldLoadBundleClass:v5 forKey:*(*(a1 + 40) + 48)])
       {
         (*(*(a1 + 48) + 16))();
@@ -150,13 +147,13 @@ void __53__REDirectoryClassLoader__enumerateClassesWithBlock___block_invoke(uint
 
     else
     {
-      v8 = REBundleConfiguraitonFromBundle(v3);
-      if (v8)
+      v7 = REBundleConfiguraitonFromBundle(v3);
+      if (v7)
       {
-        v9 = [*(a1 + 40) configuration];
-        v10 = [v9 desiredClassFromBundle:v8 forKey:*(*(a1 + 40) + 48)];
+        v8 = [*(a1 + 40) configuration];
+        v9 = [v8 desiredClassFromBundle:v7 forKey:*(*(a1 + 40) + 48)];
 
-        if (v10)
+        if (v9)
         {
           (*(*(a1 + 48) + 16))();
         }
@@ -166,10 +163,10 @@ void __53__REDirectoryClassLoader__enumerateClassesWithBlock___block_invoke(uint
 
   else
   {
-    v7 = RELogForDomain(0);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = RELogForDomain(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __53__REDirectoryClassLoader__enumerateClassesWithBlock___block_invoke_cold_1(v3, v7);
+      __53__REDirectoryClassLoader__enumerateClassesWithBlock___block_invoke_cold_1(v3, v6);
     }
   }
 }
@@ -272,11 +269,10 @@ LABEL_14:
 
 void __53__REDirectoryClassLoader__enumerateClassesWithBlock___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "No principal class provided for bundle: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "No principal class provided for bundle: %@", &v2, 0xCu);
 }
 
 @end

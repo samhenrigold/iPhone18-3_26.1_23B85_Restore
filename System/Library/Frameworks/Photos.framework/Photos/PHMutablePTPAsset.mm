@@ -143,100 +143,128 @@
 
 - (void)setBurstUUID:(id)d
 {
-  self->super._burstUUID = [d copy];
+  v4 = [d copy];
+  burstUUID = self->super._burstUUID;
+  self->super._burstUUID = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, burstUUID);
 }
 
 - (void)setGroupUUID:(id)d
 {
-  self->super._groupUUID = [d copy];
+  v4 = [d copy];
+  groupUUID = self->super._groupUUID;
+  self->super._groupUUID = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, groupUUID);
 }
 
 - (void)setLocationString:(id)string
 {
-  self->super._locationString = [string copy];
+  v4 = [string copy];
+  locationString = self->super._locationString;
+  self->super._locationString = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, locationString);
 }
 
 - (void)setDurationString:(id)string
 {
-  self->super._durationString = [string copy];
+  v4 = [string copy];
+  durationString = self->super._durationString;
+  self->super._durationString = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, durationString);
 }
 
 - (void)setCaptureDateString:(id)string
 {
-  self->super._captureDateString = [string copy];
+  v4 = [string copy];
+  captureDateString = self->super._captureDateString;
+  self->super._captureDateString = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, captureDateString);
 }
 
 - (void)setModificationDateString:(id)string
 {
-  self->super._modificationDateString = [string copy];
+  v4 = [string copy];
+  modificationDateString = self->super._modificationDateString;
+  self->super._modificationDateString = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, modificationDateString);
 }
 
 - (void)setThumbCompressedSize:(id)size
 {
-  self->super._thumbCompressedSize = [size copy];
+  v4 = [size copy];
+  thumbCompressedSize = self->super._thumbCompressedSize;
+  self->super._thumbCompressedSize = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, thumbCompressedSize);
 }
 
 - (void)setThumbOffset:(id)offset
 {
-  self->super._thumbOffset = [offset copy];
+  v4 = [offset copy];
+  thumbOffset = self->super._thumbOffset;
+  self->super._thumbOffset = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, thumbOffset);
 }
 
 - (void)setOriginatingAssetID:(id)d
 {
-  self->super._originatingAssetID = [d copy];
+  v4 = [d copy];
+  originatingAssetID = self->super._originatingAssetID;
+  self->super._originatingAssetID = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, originatingAssetID);
 }
 
 - (void)setFingerprint:(id)fingerprint
 {
-  self->super._fingerprint = [fingerprint copy];
+  v4 = [fingerprint copy];
+  fingerprint = self->super._fingerprint;
+  self->super._fingerprint = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, fingerprint);
 }
 
 - (void)setObjectCompressedSize:(id)size
 {
-  self->super._objectCompressedSize = [size copy];
+  v4 = [size copy];
+  objectCompressedSize = self->super._objectCompressedSize;
+  self->super._objectCompressedSize = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, objectCompressedSize);
 }
 
 - (void)setFileSystemFilename:(id)filename
 {
-  self->super._fileSystemFilename = [filename copy];
+  v4 = [filename copy];
+  fileSystemFilename = self->super._fileSystemFilename;
+  self->super._fileSystemFilename = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, fileSystemFilename);
 }
 
 - (void)setCapturedFilename:(id)filename
 {
-  self->super._capturedFilename = [filename copy];
+  v4 = [filename copy];
+  capturedFilename = self->super._capturedFilename;
+  self->super._capturedFilename = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, capturedFilename);
 }
 
 - (void)setDcfFilename:(id)filename
 {
-  self->super._dcfFilename = [filename copy];
+  v4 = [filename copy];
+  dcfFilename = self->super._dcfFilename;
+  self->super._dcfFilename = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, dcfFilename);
 }
 
 @end

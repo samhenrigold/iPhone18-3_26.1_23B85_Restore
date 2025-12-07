@@ -94,11 +94,11 @@ uint64_t __57__SUCoreEventReporter__sharedReporter_withAccessControl___block_inv
 
 - (id)initStoringToPath:(id)path withAccessControl:(int64_t)control
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   pathCopy = path;
-  v53.receiver = self;
-  v53.super_class = SUCoreEventReporter;
-  v7 = [(SUCoreEventReporter *)&v53 init];
+  v52.receiver = self;
+  v52.super_class = SUCoreEventReporter;
+  v7 = [(SUCoreEventReporter *)&v52 init];
   v8 = v7;
   if (!v7)
   {
@@ -141,9 +141,9 @@ uint64_t __57__SUCoreEventReporter__sharedReporter_withAccessControl___block_inv
     v21 = +[SUCore sharedCore];
     commonDomain3 = [v21 commonDomain];
     *buf = 138543618;
-    v55 = commonDomain3;
-    v56 = 2114;
-    v57 = @"core.splunk.state";
+    v54 = commonDomain3;
+    v55 = 2114;
+    v56 = @"core.splunk.state";
     _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] DISPATCH | created dispatch queue domain(%{public}@.%{public}@)", buf, 0x16u);
 
 LABEL_6:
@@ -214,14 +214,13 @@ LABEL_6:
     v49 = v8->_storeToPath;
     v50 = [SUCoreEventReporter accessControlSummary:v8->_accessControl];
     *buf = 138543618;
-    v55 = v49;
-    v56 = 2114;
-    v57 = v50;
+    v54 = v49;
+    v55 = 2114;
+    v56 = v50;
     _os_log_impl(&dword_1E0F71000, oslog2, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] INIT(v1.0) | storing to path: %{public}@, access control: %{public}@", buf, 0x16u);
   }
 
 LABEL_13:
-  v51 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -538,7 +537,7 @@ void __63__SUCoreEventReporter_sendEventReturningAugmented_toServerURL___block_i
 
 void __41__SUCoreEventReporter_dropOnSendFailure___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (*(a1 + 40) != [*(a1 + 32) dropEventsOnSendFailure])
   {
     [*(a1 + 32) setDropEventsOnSendFailure:?];
@@ -554,13 +553,11 @@ void __41__SUCoreEventReporter_dropOnSendFailure___block_invoke(uint64_t a1)
         v5 = @"YES";
       }
 
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1E0F71000, v3, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] CONFIG | dropEventsOnSendFailure=%{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1E0F71000, v3, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] CONFIG | dropEventsOnSendFailure=%{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)flushEvent
@@ -634,7 +631,7 @@ uint64_t __33__SUCoreEventReporter_flushEvent__block_invoke(uint64_t a1)
   return v5;
 }
 
-uint64_t __43__SUCoreEventReporter_currentAccessControl__block_invoke(uint64_t a1)
+void *__43__SUCoreEventReporter_currentAccessControl__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) accessControl];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -685,7 +682,7 @@ uint64_t __40__SUCoreEventReporter_indicateOnceIdle___block_invoke(uint64_t a1)
 
 - (void)_splunkAccessSetup
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   splunkStateQueue = [(SUCoreEventReporter *)self splunkStateQueue];
   dispatch_assert_queue_V2(splunkStateQueue);
 
@@ -721,14 +718,14 @@ uint64_t __40__SUCoreEventReporter_indicateOnceIdle___block_invoke(uint64_t a1)
     {
       splunkURL = [(SUCoreEventReporter *)self splunkURL];
       *buf = 138543362;
-      v39 = splunkURL;
+      v38 = splunkURL;
       _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SETUP | default Splunk URL: %{public}@", buf, 0xCu);
     }
 
     storeToPath = [(SUCoreEventReporter *)self storeToPath];
-    v37 = 0;
-    v19 = [defaultManager createDirectoryAtPath:storeToPath withIntermediateDirectories:1 attributes:0 error:&v37];
-    v20 = v37;
+    v36 = 0;
+    v19 = [defaultManager createDirectoryAtPath:storeToPath withIntermediateDirectories:1 attributes:0 error:&v36];
+    v20 = v36;
 
     if ((v19 & 1) == 0 && (!v20 || [v20 code] != 17))
     {
@@ -740,9 +737,9 @@ uint64_t __40__SUCoreEventReporter_indicateOnceIdle___block_invoke(uint64_t a1)
     }
 
     persistedStatePath = [(SUCoreEventReporter *)self persistedStatePath];
-    v36 = 0;
-    v26 = [defaultManager createDirectoryAtPath:persistedStatePath withIntermediateDirectories:1 attributes:0 error:&v36];
-    v27 = v36;
+    v35 = 0;
+    v26 = [defaultManager createDirectoryAtPath:persistedStatePath withIntermediateDirectories:1 attributes:0 error:&v35];
+    v27 = v35;
 
     if ((v26 & 1) == 0 && (!v27 || [v27 code] != 17))
     {
@@ -762,8 +759,6 @@ uint64_t __40__SUCoreEventReporter_indicateOnceIdle___block_invoke(uint64_t a1)
     [(SUCoreEventReporter *)self _synchronizeWithNSURLSessionExpecting:v34];
     [(SUCoreEventReporter *)self setSplunkAccessCreated:1];
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_determineEventExtensions
@@ -813,7 +808,7 @@ LABEL_4:
 
 - (id)_buildContextFromNVRAMBootArgs
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   splunkStateQueue = [(SUCoreEventReporter *)self splunkStateQueue];
   dispatch_assert_queue_V2(splunkStateQueue);
 
@@ -845,29 +840,29 @@ LABEL_4:
     }
 
 LABEL_9:
-    v23 = v6;
-    v24 = CFProperty;
+    v22 = v6;
+    v23 = CFProperty;
     v9 = [v6 componentsSeparatedByString:@" "];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v10)
     {
       v11 = v10;
       v8 = 0;
-      v12 = *v26;
+      v12 = *v25;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v26 != v12)
+          if (*v25 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = [*(*(&v25 + 1) + 8 * i) componentsSeparatedByString:@"="];
+          v14 = [*(*(&v24 + 1) + 8 * i) componentsSeparatedByString:@"="];
           v15 = v14;
           if (!v8)
           {
@@ -885,7 +880,7 @@ LABEL_9:
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v11);
@@ -896,7 +891,7 @@ LABEL_9:
       v8 = 0;
     }
 
-    CFProperty = v24;
+    CFProperty = v23;
     goto LABEL_26;
   }
 
@@ -915,7 +910,6 @@ LABEL_23:
 LABEL_26:
 
 LABEL_27:
-  v21 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -1112,7 +1106,7 @@ LABEL_9:
 
 - (void)_sendSplunkEvents:(id)events forEventUUID:(id)d toServerURL:(id)l
 {
-  v35[2] = *MEMORY[0x1E69E9840];
+  v34[2] = *MEMORY[0x1E69E9840];
   dCopy = d;
   lCopy = l;
   eventsCopy = events;
@@ -1136,18 +1130,18 @@ LABEL_9:
 
   if (lCopy && v12 && uUIDString && uUIDString2 && ([(SUCoreEventReporter *)self inProcessSession], v17 = objc_claimAutoreleasedReturnValue(), v17, v17))
   {
-    v34[0] = @"clientId";
-    v34[1] = @"events";
-    v35[0] = uUIDString;
-    v35[1] = v12;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:2];
+    v33[0] = @"clientId";
+    v33[1] = @"events";
+    v34[0] = uUIDString;
+    v34[1] = v12;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:2];
     v19 = [(SUCoreEventReporter *)self _getJSONDataFromPayload:v18 withFileUUID:uUIDString2 forEventUUID:uUIDString];
     if (v19)
     {
       v20 = [(SUCoreEventReporter *)self _storeJSONData:v19 withFileUUID:uUIDString2 forEventUUID:uUIDString];
       if (v20)
       {
-        v27 = v20;
+        v26 = v20;
         dataRepresentation = [lCopy dataRepresentation];
         [(SUCoreEventReporter *)self _storeServerURLMetadata:dataRepresentation toFileUUID:uUIDString2];
 
@@ -1157,15 +1151,15 @@ LABEL_9:
         if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543874;
-          v29 = uUIDString;
-          v30 = 2114;
-          v31 = uUIDString2;
-          v32 = 2114;
-          v33 = v18;
+          v28 = uUIDString;
+          v29 = 2114;
+          v30 = uUIDString2;
+          v31 = 2114;
+          v32 = v18;
           _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] UPLOADING | sending [UUID: %{public}@] file: %{public}@ payload: %{public}@", buf, 0x20u);
         }
 
-        [(SUCoreEventReporter *)self _uploadFromFile:v27 withFileUUID:uUIDString2 forEventUUID:uUIDString toServerURL:lCopy];
+        [(SUCoreEventReporter *)self _uploadFromFile:v26 withFileUUID:uUIDString2 forEventUUID:uUIDString toServerURL:lCopy];
         [SUCoreSplunkHistory logEventUUID:uUIDString];
       }
     }
@@ -1180,13 +1174,11 @@ LABEL_9:
     v18 = 0;
     v19 = 0;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_uploadFromFile:(id)file withFileUUID:(id)d forEventUUID:(id)iD toServerURL:(id)l
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   fileCopy = file;
   dCopy = d;
   iDCopy = iD;
@@ -1209,9 +1201,9 @@ LABEL_9:
       {
         summary = [(SUCoreEventReporterActive *)v17 summary];
         *buf = 138543618;
-        v36 = dCopy;
-        v37 = 2114;
-        v38 = summary;
+        v35 = dCopy;
+        v36 = 2114;
+        v37 = summary;
         _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] UPLOADING | dropping event with fileUUID:%{public}@ - too many send attempts | active:%{public}@", buf, 0x16u);
       }
 
@@ -1227,7 +1219,7 @@ LABEL_9:
   }
 
   [(SUCoreEventReporter *)self _updateActiveEvent:v17 forFileUUID:dCopy];
-  v34 = v15;
+  v33 = v15;
   if (v15)
   {
     v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v15 encoding:4];
@@ -1252,7 +1244,7 @@ LABEL_13:
   if (v23)
   {
     v24 = v23;
-    v33 = lCopy;
+    v32 = lCopy;
     v25 = iDCopy;
     inProcessSession = [(SUCoreEventReporter *)self inProcessSession];
     v27 = [inProcessSession uploadTaskWithRequest:v24 fromFile:fileCopy];
@@ -1276,7 +1268,7 @@ LABEL_13:
       [(SUCoreEventReporter *)self _awaitRetryingFileUUID:dCopy];
     }
 
-    lCopy = v33;
+    lCopy = v32;
   }
 
   else
@@ -1288,42 +1280,40 @@ LABEL_13:
     [(SUCoreEventReporter *)self _awaitRetryingFileUUID:dCopy];
   }
 
-  v15 = v34;
+  v15 = v33;
 LABEL_20:
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendInterruptedFromStorage:(id)storage
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   storageCopy = storage;
   splunkStateQueue = [(SUCoreEventReporter *)self splunkStateQueue];
   dispatch_assert_queue_V2(splunkStateQueue);
 
   if (storageCopy)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
-    v21 = storageCopy;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v20 = storageCopy;
     obj = storageCopy;
-    v6 = [obj countByEnumeratingWithState:&v23 objects:v31 count:16];
+    v6 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v24;
+      v8 = *v23;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v24 != v8)
+          if (*v23 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v23 + 1) + 8 * i);
+          v10 = *(*(&v22 + 1) + 8 * i);
           v11 = MEMORY[0x1E695DFF8];
           storeToPath = [(SUCoreEventReporter *)self storeToPath];
           v13 = [storeToPath stringByAppendingPathComponent:v10];
@@ -1337,9 +1327,9 @@ LABEL_20:
           {
             summary = [v15 summary];
             *buf = 138543618;
-            v28 = v10;
-            v29 = 2114;
-            v30 = summary;
+            v27 = v10;
+            v28 = 2114;
+            v29 = summary;
             _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | retrying (recovered from storage), re-sending fileUUID:%{public}@ | active:%{public}@", buf, 0x16u);
           }
 
@@ -1347,16 +1337,14 @@ LABEL_20:
           [(SUCoreEventReporter *)self _uploadFromFile:v14 withFileUUID:v10 forEventUUID:0 toServerURL:splunkURL];
         }
 
-        v7 = [obj countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v7 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
       }
 
       while (v7);
     }
 
-    storageCopy = v21;
+    storageCopy = v20;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendAllAwaitingRetry
@@ -1370,7 +1358,7 @@ LABEL_20:
 
 - (BOOL)_sendFirstAwaitingRetry
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   splunkStateQueue = [(SUCoreEventReporter *)self splunkStateQueue];
   dispatch_assert_queue_V2(splunkStateQueue);
 
@@ -1392,11 +1380,11 @@ LABEL_20:
     {
       activeSendTaskCount = [(SUCoreEventReporter *)self activeSendTaskCount];
       awaitingRetry4 = [(SUCoreEventReporter *)self awaitingRetry];
-      v24 = 67109376;
-      *v25 = activeSendTaskCount;
-      *&v25[4] = 2048;
-      *&v25[6] = [awaitingRetry4 count];
-      _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] IDLE_TRACK | sending first awaiting retry - activeSendTaskCount:%d, awaitingRetry:%lu", &v24, 0x12u);
+      v23 = 67109376;
+      *v24 = activeSendTaskCount;
+      *&v24[4] = 2048;
+      *&v24[6] = [awaitingRetry4 count];
+      _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] IDLE_TRACK | sending first awaiting retry - activeSendTaskCount:%d, awaitingRetry:%lu", &v23, 0x12u);
     }
 
     if (v7)
@@ -1413,11 +1401,11 @@ LABEL_20:
       if (os_log_type_enabled(oslog2, OS_LOG_TYPE_DEFAULT))
       {
         summary = [v17 summary];
-        v24 = 138543618;
-        *v25 = v7;
-        *&v25[8] = 2114;
-        *&v25[10] = summary;
-        _os_log_impl(&dword_1E0F71000, oslog2, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] UPLOADING | retrying, re-sending fileUUID:%{public}@ | active:%{public}@", &v24, 0x16u);
+        v23 = 138543618;
+        *v24 = v7;
+        *&v24[8] = 2114;
+        *&v24[10] = summary;
+        _os_log_impl(&dword_1E0F71000, oslog2, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] UPLOADING | retrying, re-sending fileUUID:%{public}@ | active:%{public}@", &v23, 0x16u);
       }
 
       splunkURL = [(SUCoreEventReporter *)self splunkURL];
@@ -1431,14 +1419,12 @@ LABEL_20:
     }
   }
 
-  result = v5 != 0;
-  v23 = *MEMORY[0x1E69E9840];
-  return result;
+  return v5 != 0;
 }
 
 - (void)_awaitRetryingFileUUID:(id)d
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dCopy = d;
   splunkStateQueue = [(SUCoreEventReporter *)self splunkStateQueue];
   dispatch_assert_queue_V2(splunkStateQueue);
@@ -1491,13 +1477,11 @@ LABEL_20:
     activeSendTaskCount = [(SUCoreEventReporter *)self activeSendTaskCount];
     awaitingRetry7 = [(SUCoreEventReporter *)self awaitingRetry];
     *buf = 67109376;
-    v24 = activeSendTaskCount;
-    v25 = 2048;
-    v26 = [awaitingRetry7 count];
+    v23 = activeSendTaskCount;
+    v24 = 2048;
+    v25 = [awaitingRetry7 count];
     _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] IDLE_TRACK | awaiting retrying - activeSendTaskCount:%d, awaitingRetry:%lu", buf, 0x12u);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_newExistingFileUUIDs
@@ -1573,7 +1557,7 @@ void __61__SUCoreEventReporter__synchronizeWithNSURLSessionExpecting___block_inv
 
 void __61__SUCoreEventReporter__synchronizeWithNSURLSessionExpecting___block_invoke_2(id *a1)
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v2 = [a1[4] copy];
   v3 = a1[5];
   v4 = 0x1E86FB000uLL;
@@ -1593,36 +1577,36 @@ void __61__SUCoreEventReporter__synchronizeWithNSURLSessionExpecting___block_inv
       }
 
       *buf = 134218242;
-      v50 = v7;
-      v51 = 2112;
-      v52 = v9;
+      v49 = v7;
+      v50 = 2112;
+      v51 = v9;
       _os_log_impl(&dword_1E0F71000, v6, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | ...getAllTasksWithCompletionHandler | %lu in-flight event%@", buf, 0x16u);
     }
 
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     v10 = a1[5];
-    v11 = [v10 countByEnumeratingWithState:&v45 objects:v55 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v44 objects:v54 count:16];
     if (v11)
     {
       v13 = v11;
-      v42 = v2;
-      v14 = *v46;
+      v41 = v2;
+      v14 = *v45;
       *&v12 = 138543618;
-      v40 = v12;
-      v41 = v10;
+      v39 = v12;
+      v40 = v10;
       while (1)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v46 != v14)
+          if (*v45 != v14)
           {
             objc_enumerationMutation(v10);
           }
 
-          v16 = *(*(&v45 + 1) + 8 * i);
+          v16 = *(*(&v44 + 1) + 8 * i);
           v17 = [v16 taskDescription];
           if (v17)
           {
@@ -1639,8 +1623,8 @@ void __61__SUCoreEventReporter__synchronizeWithNSURLSessionExpecting___block_inv
                   if (v19 == 2)
                   {
                     v32 = v16;
-                    v22 = v42;
-                    v23 = [v20 _synchonizeDiscoveredCanceling:v32 forActiveEvent:v18 withFileUUIDsToRetry:v42];
+                    v22 = v41;
+                    v23 = [v20 _synchonizeDiscoveredCanceling:v32 forActiveEvent:v18 withFileUUIDsToRetry:v41];
                   }
 
                   else
@@ -1651,8 +1635,8 @@ void __61__SUCoreEventReporter__synchronizeWithNSURLSessionExpecting___block_inv
                     }
 
                     v29 = v16;
-                    v22 = v42;
-                    v23 = [v20 _synchonizeDiscoveredCompleted:v29 forActiveEvent:v18 withFileUUIDsToRetry:v42];
+                    v22 = v41;
+                    v23 = [v20 _synchonizeDiscoveredCompleted:v29 forActiveEvent:v18 withFileUUIDsToRetry:v41];
                   }
                 }
 
@@ -1661,26 +1645,26 @@ void __61__SUCoreEventReporter__synchronizeWithNSURLSessionExpecting___block_inv
                   if (v19 == 1)
                   {
                     v21 = v16;
-                    v22 = v42;
-                    v23 = [v20 _synchonizeDiscoveredSuspended:v21 forActiveEvent:v18 withFileUUIDsToRetry:v42];
+                    v22 = v41;
+                    v23 = [v20 _synchonizeDiscoveredSuspended:v21 forActiveEvent:v18 withFileUUIDsToRetry:v41];
                     goto LABEL_35;
                   }
 
 LABEL_32:
                   v30 = v16;
-                  v22 = v42;
-                  v23 = [v20 _synchonizeDiscoveredUnknown:v30 forActiveEvent:v18 withFileUUIDsToRetry:v42];
+                  v22 = v41;
+                  v23 = [v20 _synchonizeDiscoveredUnknown:v30 forActiveEvent:v18 withFileUUIDsToRetry:v41];
                 }
 
                 else
                 {
                   v31 = v16;
-                  v22 = v42;
-                  v23 = [v20 _synchonizeDiscoveredRunning:v31 forActiveEvent:v18 withFileUUIDsToRetry:v42];
+                  v22 = v41;
+                  v23 = [v20 _synchonizeDiscoveredRunning:v31 forActiveEvent:v18 withFileUUIDsToRetry:v41];
                 }
 
 LABEL_35:
-                v42 = v23;
+                v41 = v23;
               }
 
               else
@@ -1697,11 +1681,11 @@ LABEL_35:
                   {
                     v33 = [v18 summary];
                     *buf = 138543874;
-                    v50 = v17;
-                    v51 = 2114;
-                    v52 = v22;
-                    v53 = 2114;
-                    v54 = v33;
+                    v49 = v17;
+                    v50 = 2114;
+                    v51 = v22;
+                    v52 = 2114;
+                    v53 = v33;
                     _os_log_error_impl(&dword_1E0F71000, v27, OS_LOG_TYPE_ERROR, "[EVENT_REPORTER] SYNCHRONIZING | ignoring NSURLSession task for fileUUID:%{public}@, state:%{public}@ - no longer on the filesystem | active:%{public}@", buf, 0x20u);
                   }
 
@@ -1712,16 +1696,16 @@ LABEL_35:
                 {
                   if (v28)
                   {
-                    *buf = v40;
-                    v50 = v17;
-                    v51 = 2114;
-                    v52 = v22;
+                    *buf = v39;
+                    v49 = v17;
+                    v50 = 2114;
+                    v51 = v22;
                     _os_log_error_impl(&dword_1E0F71000, v27, OS_LOG_TYPE_ERROR, "[EVENT_REPORTER] SYNCHRONIZING | ignoring NSURLSession task for fileUUID:%{public}@, state:%{public}@ - no longer on the filesystem", buf, 0x16u);
                   }
                 }
 
                 v4 = v25;
-                v10 = v41;
+                v10 = v40;
               }
 
               goto LABEL_37;
@@ -1733,16 +1717,16 @@ LABEL_35:
 
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
-            __61__SUCoreEventReporter__synchronizeWithNSURLSessionExpecting___block_invoke_2_cold_1(&v43, v44, v18);
+            __61__SUCoreEventReporter__synchronizeWithNSURLSessionExpecting___block_invoke_2_cold_1(&v42, v43, v18);
           }
 
 LABEL_37:
         }
 
-        v13 = [v10 countByEnumeratingWithState:&v45 objects:v55 count:16];
+        v13 = [v10 countByEnumeratingWithState:&v44 objects:v54 count:16];
         if (!v13)
         {
-          v2 = v42;
+          v2 = v41;
           break;
         }
       }
@@ -1786,13 +1770,11 @@ LABEL_37:
       _os_log_impl(&dword_1E0F71000, v38, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | no events to retry", buf, 2u);
     }
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_synchonizeDiscoveredRunning:(id)running forActiveEvent:(id)event withFileUUIDsToRetry:(id)retry
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   retryCopy = retry;
   runningCopy = running;
@@ -1812,13 +1794,13 @@ LABEL_37:
     if (v17)
     {
       summary = [eventCopy summary];
-      v22 = 138543874;
-      v23 = taskDescription;
-      v24 = 2114;
-      v25 = v14;
-      v26 = 2114;
-      v27 = summary;
-      _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | tracked NSURLSession task for fileUUID:%{public}@, state:%{public}@ - continuing | active:%{public}@", &v22, 0x20u);
+      v21 = 138543874;
+      v22 = taskDescription;
+      v23 = 2114;
+      v24 = v14;
+      v25 = 2114;
+      v26 = summary;
+      _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | tracked NSURLSession task for fileUUID:%{public}@, state:%{public}@ - continuing | active:%{public}@", &v21, 0x20u);
     }
 
     [eventCopy setDiscoveredRunningCount:{objc_msgSend(eventCopy, "discoveredRunningCount") + 1}];
@@ -1829,11 +1811,11 @@ LABEL_37:
   {
     if (v17)
     {
-      v22 = 138543618;
-      v23 = taskDescription;
-      v24 = 2114;
-      v25 = v14;
-      _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | untracked NSURLSession task for fileUUID:%{public}@, state:%{public}@ - ignored", &v22, 0x16u);
+      v21 = 138543618;
+      v22 = taskDescription;
+      v23 = 2114;
+      v24 = v14;
+      _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | untracked NSURLSession task for fileUUID:%{public}@, state:%{public}@ - ignored", &v21, 0x16u);
     }
 
     v19 = [(SUCoreEventReporter *)self _removeFileUUID:taskDescription fromFilesToRetry:retryCopy];
@@ -1841,14 +1823,12 @@ LABEL_37:
     retryCopy = v19;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return retryCopy;
 }
 
 - (id)_synchonizeDiscoveredSuspended:(id)suspended forActiveEvent:(id)event withFileUUIDsToRetry:(id)retry
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   suspendedCopy = suspended;
   eventCopy = event;
   retryCopy = retry;
@@ -1866,13 +1846,13 @@ LABEL_37:
     if (v16)
     {
       summary = [eventCopy summary];
-      v21 = 138543874;
-      v22 = taskDescription;
-      v23 = 2114;
-      v24 = v13;
-      v25 = 2114;
-      v26 = summary;
-      _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | tracked NSURLSession task for fileUUID:%{public}@, state:%{public}@ - resuming | active:%{public}@", &v21, 0x20u);
+      v20 = 138543874;
+      v21 = taskDescription;
+      v22 = 2114;
+      v23 = v13;
+      v24 = 2114;
+      v25 = summary;
+      _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | tracked NSURLSession task for fileUUID:%{public}@, state:%{public}@ - resuming | active:%{public}@", &v20, 0x20u);
     }
 
     [eventCopy setDiscoveredSuspendedCount:{objc_msgSend(eventCopy, "discoveredSuspendedCount") + 1}];
@@ -1884,11 +1864,11 @@ LABEL_37:
   {
     if (v16)
     {
-      v21 = 138543618;
-      v22 = taskDescription;
-      v23 = 2114;
-      v24 = v13;
-      _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | untracked NSURLSession task for fileUUID:%{public}@, state:%{public}@ - ignored", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = taskDescription;
+      v22 = 2114;
+      v23 = v13;
+      _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | untracked NSURLSession task for fileUUID:%{public}@, state:%{public}@ - ignored", &v20, 0x16u);
     }
 
     v18 = [(SUCoreEventReporter *)self _removeFileUUID:taskDescription fromFilesToRetry:retryCopy];
@@ -1896,14 +1876,12 @@ LABEL_37:
     retryCopy = v18;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return retryCopy;
 }
 
 - (id)_synchonizeDiscoveredCanceling:(id)canceling forActiveEvent:(id)event withFileUUIDsToRetry:(id)retry
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   retryCopy = retry;
   cancelingCopy = canceling;
@@ -1923,13 +1901,13 @@ LABEL_37:
     if (v17)
     {
       summary = [eventCopy summary];
-      v22 = 138543874;
-      v23 = taskDescription;
-      v24 = 2114;
-      v25 = v14;
-      v26 = 2114;
-      v27 = summary;
-      _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | tracked NSURLSession task for fileUUID:%{public}@, state:%{public}@ - awaiting didCompleteWithError | active:%{public}@", &v22, 0x20u);
+      v21 = 138543874;
+      v22 = taskDescription;
+      v23 = 2114;
+      v24 = v14;
+      v25 = 2114;
+      v26 = summary;
+      _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | tracked NSURLSession task for fileUUID:%{public}@, state:%{public}@ - awaiting didCompleteWithError | active:%{public}@", &v21, 0x20u);
     }
 
     [eventCopy setDiscoveredCancelingCount:{objc_msgSend(eventCopy, "discoveredCancelingCount") + 1}];
@@ -1940,11 +1918,11 @@ LABEL_37:
   {
     if (v17)
     {
-      v22 = 138543618;
-      v23 = taskDescription;
-      v24 = 2114;
-      v25 = v14;
-      _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | untracked NSURLSession task for fileUUID:%{public}@, state:%{public}@ - ignored", &v22, 0x16u);
+      v21 = 138543618;
+      v22 = taskDescription;
+      v23 = 2114;
+      v24 = v14;
+      _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | untracked NSURLSession task for fileUUID:%{public}@, state:%{public}@ - ignored", &v21, 0x16u);
     }
 
     v19 = [(SUCoreEventReporter *)self _removeFileUUID:taskDescription fromFilesToRetry:retryCopy];
@@ -1952,14 +1930,12 @@ LABEL_37:
     retryCopy = v19;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return retryCopy;
 }
 
 - (id)_synchonizeDiscoveredCompleted:(id)completed forActiveEvent:(id)event withFileUUIDsToRetry:(id)retry
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   completedCopy = completed;
   eventCopy = event;
   retryCopy = retry;
@@ -1984,13 +1960,13 @@ LABEL_37:
         if (v18)
         {
           summary = [eventCopy summary];
-          v30 = 138543874;
-          v31 = taskDescription;
-          v32 = 2114;
-          v33 = v13;
-          v34 = 2114;
-          v35 = summary;
-          _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | tracked NSURLSession task for fileUUID:%{public}@, state:%{public}@ [ERROR] - will retry | active:%{public}@", &v30, 0x20u);
+          v29 = 138543874;
+          v30 = taskDescription;
+          v31 = 2114;
+          v32 = v13;
+          v33 = 2114;
+          v34 = summary;
+          _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | tracked NSURLSession task for fileUUID:%{public}@, state:%{public}@ [ERROR] - will retry | active:%{public}@", &v29, 0x20u);
         }
 
         [(SUCoreEventReporter *)self _updateActiveEvent:eventCopy forFileUUID:taskDescription];
@@ -2000,13 +1976,13 @@ LABEL_37:
       if (v18)
       {
         summary2 = [eventCopy summary];
-        v30 = 138543874;
-        v31 = taskDescription;
-        v32 = 2114;
-        v33 = v13;
-        v34 = 2114;
-        v35 = summary2;
-        _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | tracked NSURLSession task for fileUUID:%{public}@, state:%{public}@ [ERROR] - dropping | active:%{public}@", &v30, 0x20u);
+        v29 = 138543874;
+        v30 = taskDescription;
+        v31 = 2114;
+        v32 = v13;
+        v33 = 2114;
+        v34 = summary2;
+        _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | tracked NSURLSession task for fileUUID:%{public}@, state:%{public}@ [ERROR] - dropping | active:%{public}@", &v29, 0x20u);
       }
 
       [(SUCoreEventReporter *)self _removeActiveEventForFileUUID:taskDescription];
@@ -2020,13 +1996,13 @@ LABEL_37:
       if (os_log_type_enabled(oslog2, OS_LOG_TYPE_DEFAULT))
       {
         summary3 = [eventCopy summary];
-        v30 = 138543874;
-        v31 = taskDescription;
-        v32 = 2114;
-        v33 = v13;
-        v34 = 2114;
-        v35 = summary3;
-        _os_log_impl(&dword_1E0F71000, oslog2, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | tracked NSURLSession task for fileUUID:%{public}@, state:%{public}@ [SUCCESS] - considering done | active:%{public}@", &v30, 0x20u);
+        v29 = 138543874;
+        v30 = taskDescription;
+        v31 = 2114;
+        v32 = v13;
+        v33 = 2114;
+        v34 = summary3;
+        _os_log_impl(&dword_1E0F71000, oslog2, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | tracked NSURLSession task for fileUUID:%{public}@, state:%{public}@ [SUCCESS] - considering done | active:%{public}@", &v29, 0x20u);
       }
     }
 
@@ -2043,11 +2019,11 @@ LABEL_17:
 
   if (os_log_type_enabled(oslog3, OS_LOG_TYPE_DEFAULT))
   {
-    v30 = 138543618;
-    v31 = taskDescription;
-    v32 = 2114;
-    v33 = v13;
-    _os_log_impl(&dword_1E0F71000, oslog3, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | untracked NSURLSession task for fileUUID:%{public}@, state:%{public}@ - ignored", &v30, 0x16u);
+    v29 = 138543618;
+    v30 = taskDescription;
+    v31 = 2114;
+    v32 = v13;
+    _os_log_impl(&dword_1E0F71000, oslog3, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | untracked NSURLSession task for fileUUID:%{public}@, state:%{public}@ - ignored", &v29, 0x16u);
   }
 
   v22 = [(SUCoreEventReporter *)self _removeFileUUID:taskDescription fromFilesToRetry:retryCopy];
@@ -2056,14 +2032,12 @@ LABEL_17:
   retryCopy = v22;
 LABEL_18:
 
-  v28 = *MEMORY[0x1E69E9840];
-
   return retryCopy;
 }
 
 - (id)_synchonizeDiscoveredUnknown:(id)unknown forActiveEvent:(id)event withFileUUIDsToRetry:(id)retry
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   retryCopy = retry;
   unknownCopy = unknown;
@@ -2083,13 +2057,13 @@ LABEL_18:
     if (v17)
     {
       summary = [eventCopy summary];
-      v22 = 138543874;
-      v23 = taskDescription;
-      v24 = 2114;
-      v25 = v14;
-      v26 = 2114;
-      v27 = summary;
-      _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | tracked NSURLSession task for fileUUID:%{public}@, state:%{public}@ - dropping | active:%{public}@", &v22, 0x20u);
+      v21 = 138543874;
+      v22 = taskDescription;
+      v23 = 2114;
+      v24 = v14;
+      v25 = 2114;
+      v26 = summary;
+      _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | tracked NSURLSession task for fileUUID:%{public}@, state:%{public}@ - dropping | active:%{public}@", &v21, 0x20u);
     }
 
     [(SUCoreEventReporter *)self _removeActiveEventForFileUUID:taskDescription];
@@ -2099,17 +2073,15 @@ LABEL_18:
   {
     if (v17)
     {
-      v22 = 138543618;
-      v23 = taskDescription;
-      v24 = 2114;
-      v25 = v14;
-      _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | untracked NSURLSession task for fileUUID:%{public}@, state:%{public}@ - ignored", &v22, 0x16u);
+      v21 = 138543618;
+      v22 = taskDescription;
+      v23 = 2114;
+      v24 = v14;
+      _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | untracked NSURLSession task for fileUUID:%{public}@, state:%{public}@ - ignored", &v21, 0x16u);
     }
   }
 
   v19 = [(SUCoreEventReporter *)self _removeFileUUID:taskDescription fromFilesToRetry:retryCopy];
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -2145,7 +2117,7 @@ LABEL_18:
 
 void __65__SUCoreEventReporter__alignPersistedStateWithExistingFileUUIDs___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
@@ -2163,11 +2135,11 @@ void __65__SUCoreEventReporter__alignPersistedStateWithExistingFileUUIDs___block
       if (v12)
       {
         v13 = [v8 summary];
-        v17 = 138543618;
-        v18 = v7;
-        v19 = 2114;
-        v20 = v13;
-        _os_log_impl(&dword_1E0F71000, v11, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | aligning fileUUID:%{public}@ - on filesystem and persisted | active:%{public}@", &v17, 0x16u);
+        v16 = 138543618;
+        v17 = v7;
+        v18 = 2114;
+        v19 = v13;
+        _os_log_impl(&dword_1E0F71000, v11, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | aligning fileUUID:%{public}@ - on filesystem and persisted | active:%{public}@", &v16, 0x16u);
       }
 
       [*(a1 + 40) setSafeObject:v6 forKey:v7];
@@ -2178,11 +2150,11 @@ void __65__SUCoreEventReporter__alignPersistedStateWithExistingFileUUIDs___block
       if (v12)
       {
         v15 = [v8 summary];
-        v17 = 138543618;
-        v18 = v7;
-        v19 = 2114;
-        v20 = v15;
-        _os_log_impl(&dword_1E0F71000, v11, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | aligning fileUUID:%{public}@ - no longer on filesystem, dropping | active:%{public}@", &v17, 0x16u);
+        v16 = 138543618;
+        v17 = v7;
+        v18 = 2114;
+        v19 = v15;
+        _os_log_impl(&dword_1E0F71000, v11, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SYNCHRONIZING | aligning fileUUID:%{public}@ - no longer on filesystem, dropping | active:%{public}@", &v16, 0x16u);
       }
     }
   }
@@ -2197,8 +2169,6 @@ void __65__SUCoreEventReporter__alignPersistedStateWithExistingFileUUIDs___block
       __65__SUCoreEventReporter__alignPersistedStateWithExistingFileUUIDs___block_invoke_cold_1(v7);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_removeFileUUID:(id)d fromFilesToRetry:(id)retry
@@ -2237,7 +2207,7 @@ LABEL_9:
 
 - (id)_activeEventForFileUUID:(id)d
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dCopy = d;
   splunkStateQueue = [(SUCoreEventReporter *)self splunkStateQueue];
   dispatch_assert_queue_V2(splunkStateQueue);
@@ -2258,11 +2228,11 @@ LABEL_9:
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
       {
         summary = [v10 summary];
-        v16 = 138543618;
-        v17 = dCopy;
-        v18 = 2114;
-        v19 = summary;
-        _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] ACTIVE | found active event for fileUUID:%{public}@ | activeEvent:%{public}@", &v16, 0x16u);
+        v15 = 138543618;
+        v16 = dCopy;
+        v17 = 2114;
+        v18 = summary;
+        _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] ACTIVE | found active event for fileUUID:%{public}@ | activeEvent:%{public}@", &v15, 0x16u);
       }
     }
   }
@@ -2272,14 +2242,12 @@ LABEL_9:
     v10 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (void)_updateActiveEvent:(id)event forFileUUID:(id)d
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   dCopy = d;
   splunkStateQueue = [(SUCoreEventReporter *)self splunkStateQueue];
@@ -2306,14 +2274,12 @@ LABEL_9:
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
     summary = [eventCopy summary];
-    v18 = 138543618;
-    v19 = dCopy;
-    v20 = 2114;
-    v21 = summary;
-    _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] ACTIVE | updated active event for fileUUID:%{public}@ | activeEvent:%{public}@", &v18, 0x16u);
+    v17 = 138543618;
+    v18 = dCopy;
+    v19 = 2114;
+    v20 = summary;
+    _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] ACTIVE | updated active event for fileUUID:%{public}@ | activeEvent:%{public}@", &v17, 0x16u);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeActiveEventForFileUUID:(id)d
@@ -2400,7 +2366,7 @@ void __42__SUCoreEventReporter__newScrubbedEvents___block_invoke(uint64_t a1, ui
 {
   v3 = MEMORY[0x1E696AD48];
   dataCopy = data;
-  v5 = [v3 characterSetWithCharactersInString:@"%\\""];
+  v5 = [v3 characterSetWithCharactersInString:@"%\"];
   controlCharacterSet = [MEMORY[0x1E696AB08] controlCharacterSet];
   [v5 formUnionWithCharacterSet:controlCharacterSet];
 
@@ -2657,7 +2623,7 @@ LABEL_5:
 
 - (void)_incrementActiveSendCount:(id)count
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   countCopy = count;
   splunkStateQueue = [(SUCoreEventReporter *)self splunkStateQueue];
   dispatch_assert_queue_V2(splunkStateQueue);
@@ -2672,22 +2638,20 @@ LABEL_5:
     {
       activeSendTaskCount = [(SUCoreEventReporter *)self activeSendTaskCount];
       awaitingRetry = [(SUCoreEventReporter *)self awaitingRetry];
-      v11 = 138543874;
-      v12 = countCopy;
-      v13 = 1024;
-      v14 = activeSendTaskCount;
-      v15 = 2048;
-      v16 = [awaitingRetry count];
-      _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] IDLE_TRACK | %{public}@ - activeSendTaskCount:%d, awaitingRetry:%lu", &v11, 0x1Cu);
+      v10 = 138543874;
+      v11 = countCopy;
+      v12 = 1024;
+      v13 = activeSendTaskCount;
+      v14 = 2048;
+      v15 = [awaitingRetry count];
+      _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] IDLE_TRACK | %{public}@ - activeSendTaskCount:%d, awaitingRetry:%lu", &v10, 0x1Cu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_decrementActiveSendCount
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   splunkStateQueue = [(SUCoreEventReporter *)self splunkStateQueue];
   dispatch_assert_queue_V2(splunkStateQueue);
 
@@ -2701,20 +2665,18 @@ LABEL_5:
     {
       activeSendTaskCount = [(SUCoreEventReporter *)self activeSendTaskCount];
       awaitingRetry = [(SUCoreEventReporter *)self awaitingRetry];
-      v9[0] = 67109376;
-      v9[1] = activeSendTaskCount;
-      v10 = 2048;
-      v11 = [awaitingRetry count];
-      _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] IDLE_TRACK | decrement active - activeSendTaskCount:%d, awaitingRetry:%lu", v9, 0x12u);
+      v8[0] = 67109376;
+      v8[1] = activeSendTaskCount;
+      v9 = 2048;
+      v10 = [awaitingRetry count];
+      _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] IDLE_TRACK | decrement active - activeSendTaskCount:%d, awaitingRetry:%lu", v8, 0x12u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_checkWhetherIdle:(id)idle
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   idleCopy = idle;
   splunkStateQueue = [(SUCoreEventReporter *)self splunkStateQueue];
   dispatch_assert_queue_V2(splunkStateQueue);
@@ -2740,11 +2702,11 @@ LABEL_5:
           activeSendTaskCount = [(SUCoreEventReporter *)self activeSendTaskCount];
           awaitingRetry2 = [(SUCoreEventReporter *)self awaitingRetry];
           *buf = 138543874;
-          v24 = idleCopy;
-          v25 = 1024;
-          v26 = activeSendTaskCount;
-          v27 = 2048;
-          v28 = [awaitingRetry2 count];
+          v23 = idleCopy;
+          v24 = 1024;
+          v25 = activeSendTaskCount;
+          v26 = 2048;
+          v27 = [awaitingRetry2 count];
           _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] IDLE_TRACK | now idle (%{public}@) - activeSendTaskCount:%d, awaitingRetry:%lu", buf, 0x1Cu);
         }
 
@@ -2756,7 +2718,7 @@ LABEL_5:
         block[1] = 3221225472;
         block[2] = __41__SUCoreEventReporter__checkWhetherIdle___block_invoke;
         block[3] = &unk_1E86FC528;
-        v22 = onceIdleCompletion2;
+        v21 = onceIdleCompletion2;
         oslog2 = onceIdleCompletion2;
         dispatch_async(completionQueue, block);
 
@@ -2777,18 +2739,16 @@ LABEL_5:
       activeSendTaskCount2 = [(SUCoreEventReporter *)self activeSendTaskCount];
       awaitingRetry3 = [(SUCoreEventReporter *)self awaitingRetry];
       *buf = 138543874;
-      v24 = idleCopy;
-      v25 = 1024;
-      v26 = activeSendTaskCount2;
-      v27 = 2048;
-      v28 = [awaitingRetry3 count];
+      v23 = idleCopy;
+      v24 = 1024;
+      v25 = activeSendTaskCount2;
+      v26 = 2048;
+      v27 = [awaitingRetry3 count];
       _os_log_impl(&dword_1E0F71000, oslog2, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] IDLE_TRACK | not idle (%{public}@) - activeSendTaskCount:%d, awaitingRetry:%lu", buf, 0x1Cu);
     }
 
 LABEL_11:
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleSendFinishedWithFileUUID:(id)d sendSucceeded:(BOOL)succeeded withStatusCode:(int64_t)code withError:(id)error
@@ -2812,7 +2772,7 @@ LABEL_11:
 
 uint64_t __93__SUCoreEventReporter_handleSendFinishedWithFileUUID_sendSucceeded_withStatusCode_withError___block_invoke(uint64_t a1)
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _decrementActiveSendCount];
   if (!*(a1 + 40))
   {
@@ -2847,68 +2807,66 @@ uint64_t __93__SUCoreEventReporter_handleSendFinishedWithFileUUID_sendSucceeded_
   if (*(a1 + 64) != 1)
   {
     v14 = +[SUCoreDiag sharedDiag];
-    v15 = objc_alloc(MEMORY[0x1E696AEC0]);
-    v16 = *(a1 + 56);
-    v17 = [v15 initWithFormat:@"failed to send event (status=%ld) validated file: %@", v16, *(a1 + 40)];
+    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"failed to send event (status=%ld) validated file: %@", *(a1 + 56), *(a1 + 40)];
     if (v2)
     {
-      v18 = [*(a1 + 48) code];
-      v19 = *(a1 + 48);
-      v20 = v14;
-      v21 = v17;
+      v16 = [*(a1 + 48) code];
+      v17 = *(a1 + 48);
+      v18 = v14;
+      v19 = v15;
     }
 
     else
     {
-      v20 = v14;
-      v21 = v17;
-      v18 = 8202;
-      v19 = 0;
+      v18 = v14;
+      v19 = v15;
+      v16 = 8202;
+      v17 = 0;
     }
 
-    [v20 trackError:@"[EVENT_REPORTER] SEND_FINISHED" forReason:v21 withResult:v18 withError:v19];
+    [v18 trackError:@"[EVENT_REPORTER] SEND_FINISHED" forReason:v19 withResult:v16 withError:v17];
 
     v7 = [*(a1 + 32) _activeEventForFileUUID:*(a1 + 40)];
     if ([*(a1 + 32) dropEventsOnSendFailure])
     {
-      v22 = +[SUCoreLog sharedLogger];
-      v23 = [v22 oslog];
+      v20 = +[SUCoreLog sharedLogger];
+      v21 = [v20 oslog];
 
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = *(a1 + 40);
-        v25 = [v7 summary];
+        v22 = *(a1 + 40);
+        v23 = [v7 summary];
         *buf = 138543618;
-        v48 = v24;
-        v49 = 2114;
-        v50 = v25;
-        _os_log_impl(&dword_1E0F71000, v23, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SEND_FINISHED | FAILURE | event for fileUUID:%{public}@ failed to be sent (dropped) | active:%{public}@", buf, 0x16u);
+        v45 = v22;
+        v46 = 2114;
+        v47 = v23;
+        _os_log_impl(&dword_1E0F71000, v21, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SEND_FINISHED | FAILURE | event for fileUUID:%{public}@ failed to be sent (dropped) | active:%{public}@", buf, 0x16u);
       }
 
-      v26 = *(a1 + 32);
-      v27 = *(a1 + 40);
-      v28 = @"dropping on failed send";
+      v24 = *(a1 + 32);
+      v25 = *(a1 + 40);
+      v26 = @"dropping on failed send";
     }
 
     else
     {
       [v7 setFailedSendCount:{objc_msgSend(v7, "failedSendCount") + 1}];
-      v29 = [v7 failedSendCount];
-      v30 = +[SUCoreLog sharedLogger];
-      v31 = [v30 oslog];
+      v27 = [v7 failedSendCount];
+      v28 = +[SUCoreLog sharedLogger];
+      v29 = [v28 oslog];
 
-      v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
-      if (v29 <= 7)
+      v30 = os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
+      if (v27 <= 7)
       {
-        if (v32)
+        if (v30)
         {
-          v33 = *(a1 + 40);
-          v34 = [v7 summary];
+          v31 = *(a1 + 40);
+          v32 = [v7 summary];
           *buf = 138543618;
-          v48 = v33;
-          v49 = 2114;
-          v50 = v34;
-          _os_log_impl(&dword_1E0F71000, v31, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SEND_FINISHED | FAILURE | event for fileUUID:%{public}@ failed to be sent (will retry) | active:%{public}@", buf, 0x16u);
+          v45 = v31;
+          v46 = 2114;
+          v47 = v32;
+          _os_log_impl(&dword_1E0F71000, v29, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SEND_FINISHED | FAILURE | event for fileUUID:%{public}@ failed to be sent (will retry) | active:%{public}@", buf, 0x16u);
         }
 
         [*(a1 + 32) _updateActiveEvent:v7 forFileUUID:*(a1 + 40)];
@@ -2916,94 +2874,69 @@ uint64_t __93__SUCoreEventReporter_handleSendFinishedWithFileUUID_sendSucceeded_
         goto LABEL_35;
       }
 
-      if (v32)
+      if (v30)
       {
-        v43 = *(a1 + 40);
-        v44 = [v7 summary];
+        v41 = *(a1 + 40);
+        v42 = [v7 summary];
         *buf = 138543618;
-        v48 = v43;
-        v49 = 2114;
-        v50 = v44;
-        _os_log_impl(&dword_1E0F71000, v31, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SEND_FINISHED | FAILURE | event for fileUUID:%{public}@ failed to be sent (max retries) | active:%{public}@", buf, 0x16u);
+        v45 = v41;
+        v46 = 2114;
+        v47 = v42;
+        _os_log_impl(&dword_1E0F71000, v29, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SEND_FINISHED | FAILURE | event for fileUUID:%{public}@ failed to be sent (max retries) | active:%{public}@", buf, 0x16u);
       }
 
-      v26 = *(a1 + 32);
-      v27 = *(a1 + 40);
-      v28 = @"dropping on failed send (max retries)";
+      v24 = *(a1 + 32);
+      v25 = *(a1 + 40);
+      v26 = @"dropping on failed send (max retries)";
     }
 
-    [v26 _removeFileUUID:v27 loggingError:1 forReason:v28];
+    [v24 _removeFileUUID:v25 loggingError:1 forReason:v26];
     [*(a1 + 32) _sendFirstAwaitingRetry];
 LABEL_35:
 
-    goto LABEL_36;
+    return [*(a1 + 32) _checkWhetherIdle:@"send finished"];
   }
 
-  if (!v2 && *(a1 + 56) == 200)
+  if ((v2 || *(a1 + 56) != 200) && ((+[SUCoreDiag sharedDiag](SUCoreDiag, "sharedDiag"), v3 = objc_claimAutoreleasedReturnValue(), (v4 = *(a1 + 48)) == 0) ? (v6 = 0, v5 = *(a1 + 56)) : (v5 = [v4 code], v6 = *(a1 + 48)), objc_msgSend(v3, "trackAnomaly:forReason:withResult:withError:", @"[EVENT_REPORTER] SEND_FINISHED", @"callback where send considered successful yet may not have been [completely sent]", v5, v6), v3, *(a1 + 48)))
   {
-    goto LABEL_28;
-  }
+    v33 = +[SUCoreLog sharedLogger];
+    v34 = [v33 oslog];
 
-  v3 = +[SUCoreDiag sharedDiag];
-  v4 = *(a1 + 48);
-  if (v4)
-  {
-    v5 = [v4 code];
-    v6 = *(a1 + 48);
-  }
-
-  else
-  {
-    v6 = 0;
-    v5 = *(a1 + 56);
-  }
-
-  [v3 trackAnomaly:@"[EVENT_REPORTER] SEND_FINISHED" forReason:@"callback where send considered successful yet may not have been [completely sent]" withResult:v5 withError:v6];
-
-  if (*(a1 + 48))
-  {
-    v35 = +[SUCoreLog sharedLogger];
-    v36 = [v35 oslog];
-
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      v37 = *(a1 + 56);
-      v38 = *(a1 + 40);
-      v39 = [*(a1 + 48) checkedDescription];
+      v35 = *(a1 + 56);
+      v36 = *(a1 + 40);
+      v37 = [*(a1 + 48) checkedDescription];
       *buf = 134218498;
-      v48 = v37;
-      v49 = 2114;
-      v50 = v38;
-      v51 = 2114;
-      v52 = v39;
-      _os_log_impl(&dword_1E0F71000, v36, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SEND_FINISHED | SUCCESS (with error) | sent event (status=%ld) validated file: %{public}@, error: %{public}@", buf, 0x20u);
+      v45 = v35;
+      v46 = 2114;
+      v47 = v36;
+      v48 = 2114;
+      v49 = v37;
+      _os_log_impl(&dword_1E0F71000, v34, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SEND_FINISHED | SUCCESS (with error) | sent event (status=%ld) validated file: %{public}@, error: %{public}@", buf, 0x20u);
     }
   }
 
   else
   {
-LABEL_28:
-    v40 = +[SUCoreLog sharedLogger];
-    v36 = [v40 oslog];
+    v38 = +[SUCoreLog sharedLogger];
+    v34 = [v38 oslog];
 
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      v41 = *(a1 + 56);
-      v42 = *(a1 + 40);
+      v39 = *(a1 + 56);
+      v40 = *(a1 + 40);
       *buf = 134218242;
-      v48 = v41;
-      v49 = 2114;
-      v50 = v42;
-      _os_log_impl(&dword_1E0F71000, v36, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SEND_FINISHED | SUCCESS | sent event (status=%ld) validated file: %{public}@", buf, 0x16u);
+      v45 = v39;
+      v46 = 2114;
+      v47 = v40;
+      _os_log_impl(&dword_1E0F71000, v34, OS_LOG_TYPE_DEFAULT, "[EVENT_REPORTER] SEND_FINISHED | SUCCESS | sent event (status=%ld) validated file: %{public}@", buf, 0x16u);
     }
   }
 
   [*(a1 + 32) _removeFileUUID:*(a1 + 40) loggingError:1 forReason:@"send finished"];
   [*(a1 + 32) _sendAllAwaitingRetry];
-LABEL_36:
-  result = [*(a1 + 32) _checkWhetherIdle:@"send finished"];
-  v46 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _checkWhetherIdle:@"send finished"];
 }
 
 - (void)handleSendFinishedInvalidFileUUID:(id)d withError:(id)error

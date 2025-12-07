@@ -48,7 +48,7 @@
 
   selfCopy = self;
   DBDashboardStartupFadeInAnimator.performAnimation(completion:)(v7, v6);
-  sub_248167864(v7);
+  sub_248167864(v7, v6);
 }
 
 - (_TtC9DashBoard32DBDashboardStartupFadeInAnimator)init

@@ -15,6 +15,10 @@
 - (void)_enumerateUsingBlock:(id)block;
 - (void)enumerateDoublePropertyValuesForKey:(id)key withBlock:(id)block;
 - (void)enumerateIntegerPropertyValuesForKey:(id)key withBlock:(id)block;
+- (void)enumerateNodesAsCollectionsSortedByDoublePropertyForName:(id)name ascending:(BOOL)ascending usingBlock:(id)block;
+- (void)enumerateNodesAsCollectionsSortedByIntegerPropertyForName:(id)name ascending:(BOOL)ascending usingBlock:(id)block;
+- (void)enumerateNodesAsCollectionsSortedByStringPropertyForName:(id)name ascending:(BOOL)ascending usingBlock:(id)block;
+- (void)enumerateNodesAsCollectionsSortedByUnsignedIntegerPropertyForName:(id)name ascending:(BOOL)ascending usingBlock:(id)block;
 - (void)enumerateNodesSortedByFloatPropertyForName:(id)name usingBlock:(id)block;
 - (void)enumerateNodesSortedByIntegerPropertyForName:(id)name usingBlock:(id)block;
 - (void)enumerateNodesSortedByStringPropertyForName:(id)name usingBlock:(id)block;
@@ -108,46 +112,114 @@
   return v7;
 }
 
+- (void)enumerateNodesAsCollectionsSortedByUnsignedIntegerPropertyForName:(id)name ascending:(BOOL)ascending usingBlock:(id)block
+{
+  ascendingCopy = ascending;
+  blockCopy = block;
+  nameCopy = name;
+  graphReference = [(MAElementCollection *)self graphReference];
+  concreteGraph = [graphReference concreteGraph];
+  elementIdentifiers = [(MAElementCollection *)self elementIdentifiers];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __107__MANodeCollection_enumerateNodesAsCollectionsSortedByUnsignedIntegerPropertyForName_ascending_usingBlock___block_invoke;
+  v14[3] = &unk_2797FE5C8;
+  v14[4] = self;
+  v15 = blockCopy;
+  v13 = blockCopy;
+  [concreteGraph enumerateNodeIdentifiers:elementIdentifiers sortedByUnsignedIntegerPropertyForName:nameCopy ascending:ascendingCopy usingBlock:v14];
+}
+
 void __107__MANodeCollection_enumerateNodesAsCollectionsSortedByUnsignedIntegerPropertyForName_ascending_usingBlock___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v7 = [[KGElementIdentifierSet alloc] initWithElementIdentifier:a2];
-  v3 = *(a1 + 32);
-  v4 = objc_alloc(objc_opt_class());
-  v5 = [*(a1 + 32) graphReference];
-  v6 = [v4 initWithGraphReference:v5 elementIdentifiers:v7];
+  v6 = [[KGElementIdentifierSet alloc] initWithElementIdentifier:a2];
+  v3 = objc_alloc(objc_opt_class());
+  v4 = [*(a1 + 32) graphReference];
+  v5 = [v3 initWithGraphReference:v4 elementIdentifiers:v6];
 
   (*(*(a1 + 40) + 16))();
+}
+
+- (void)enumerateNodesAsCollectionsSortedByDoublePropertyForName:(id)name ascending:(BOOL)ascending usingBlock:(id)block
+{
+  ascendingCopy = ascending;
+  blockCopy = block;
+  nameCopy = name;
+  graphReference = [(MAElementCollection *)self graphReference];
+  concreteGraph = [graphReference concreteGraph];
+  elementIdentifiers = [(MAElementCollection *)self elementIdentifiers];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __98__MANodeCollection_enumerateNodesAsCollectionsSortedByDoublePropertyForName_ascending_usingBlock___block_invoke;
+  v14[3] = &unk_2797FE5C8;
+  v14[4] = self;
+  v15 = blockCopy;
+  v13 = blockCopy;
+  [concreteGraph enumerateNodeIdentifiers:elementIdentifiers sortedByDoublePropertyForName:nameCopy ascending:ascendingCopy usingBlock:v14];
 }
 
 void __98__MANodeCollection_enumerateNodesAsCollectionsSortedByDoublePropertyForName_ascending_usingBlock___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v7 = [[KGElementIdentifierSet alloc] initWithElementIdentifier:a2];
-  v3 = *(a1 + 32);
-  v4 = objc_alloc(objc_opt_class());
-  v5 = [*(a1 + 32) graphReference];
-  v6 = [v4 initWithGraphReference:v5 elementIdentifiers:v7];
+  v6 = [[KGElementIdentifierSet alloc] initWithElementIdentifier:a2];
+  v3 = objc_alloc(objc_opt_class());
+  v4 = [*(a1 + 32) graphReference];
+  v5 = [v3 initWithGraphReference:v4 elementIdentifiers:v6];
 
   (*(*(a1 + 40) + 16))();
+}
+
+- (void)enumerateNodesAsCollectionsSortedByIntegerPropertyForName:(id)name ascending:(BOOL)ascending usingBlock:(id)block
+{
+  ascendingCopy = ascending;
+  blockCopy = block;
+  nameCopy = name;
+  graphReference = [(MAElementCollection *)self graphReference];
+  concreteGraph = [graphReference concreteGraph];
+  elementIdentifiers = [(MAElementCollection *)self elementIdentifiers];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __99__MANodeCollection_enumerateNodesAsCollectionsSortedByIntegerPropertyForName_ascending_usingBlock___block_invoke;
+  v14[3] = &unk_2797FE5C8;
+  v14[4] = self;
+  v15 = blockCopy;
+  v13 = blockCopy;
+  [concreteGraph enumerateNodeIdentifiers:elementIdentifiers sortedByIntegerPropertyForName:nameCopy ascending:ascendingCopy usingBlock:v14];
 }
 
 void __99__MANodeCollection_enumerateNodesAsCollectionsSortedByIntegerPropertyForName_ascending_usingBlock___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v7 = [[KGElementIdentifierSet alloc] initWithElementIdentifier:a2];
-  v3 = *(a1 + 32);
-  v4 = objc_alloc(objc_opt_class());
-  v5 = [*(a1 + 32) graphReference];
-  v6 = [v4 initWithGraphReference:v5 elementIdentifiers:v7];
+  v6 = [[KGElementIdentifierSet alloc] initWithElementIdentifier:a2];
+  v3 = objc_alloc(objc_opt_class());
+  v4 = [*(a1 + 32) graphReference];
+  v5 = [v3 initWithGraphReference:v4 elementIdentifiers:v6];
 
   (*(*(a1 + 40) + 16))();
 }
 
+- (void)enumerateNodesAsCollectionsSortedByStringPropertyForName:(id)name ascending:(BOOL)ascending usingBlock:(id)block
+{
+  ascendingCopy = ascending;
+  blockCopy = block;
+  nameCopy = name;
+  graphReference = [(MAElementCollection *)self graphReference];
+  concreteGraph = [graphReference concreteGraph];
+  elementIdentifiers = [(MAElementCollection *)self elementIdentifiers];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __98__MANodeCollection_enumerateNodesAsCollectionsSortedByStringPropertyForName_ascending_usingBlock___block_invoke;
+  v14[3] = &unk_2797FE5C8;
+  v14[4] = self;
+  v15 = blockCopy;
+  v13 = blockCopy;
+  [concreteGraph enumerateNodeIdentifiers:elementIdentifiers sortedByStringPropertyForName:nameCopy ascending:ascendingCopy usingBlock:v14];
+}
+
 void __98__MANodeCollection_enumerateNodesAsCollectionsSortedByStringPropertyForName_ascending_usingBlock___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v7 = [[KGElementIdentifierSet alloc] initWithElementIdentifier:a2];
-  v3 = *(a1 + 32);
-  v4 = objc_alloc(objc_opt_class());
-  v5 = [*(a1 + 32) graphReference];
-  v6 = [v4 initWithGraphReference:v5 elementIdentifiers:v7];
+  v6 = [[KGElementIdentifierSet alloc] initWithElementIdentifier:a2];
+  v3 = objc_alloc(objc_opt_class());
+  v4 = [*(a1 + 32) graphReference];
+  v5 = [v3 initWithGraphReference:v4 elementIdentifiers:v6];
 
   (*(*(a1 + 40) + 16))();
 }

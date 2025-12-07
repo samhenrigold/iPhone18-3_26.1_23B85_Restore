@@ -335,21 +335,29 @@ LABEL_28:
 
 - (void)layoutSubviews
 {
-  v75.receiver = self;
-  v75.super_class = PKSpendingSummaryChartView;
-  [(PKSpendingSummaryChartView *)&v75 layoutSubviews];
+  v97.receiver = self;
+  v97.super_class = PKSpendingSummaryChartView;
+  [(PKSpendingSummaryChartView *)&v97 layoutSubviews];
   [(PKSpendingSummaryChartView *)self bounds];
-  v4 = v3;
   v6 = v5;
+  v8 = v7;
   memset(&slice, 0, sizeof(slice));
-  remainder.origin.x = v7;
-  remainder.origin.y = v8;
-  remainder.size.width = v3;
-  remainder.size.height = v5;
+  *&remainder.origin.x = v3.n128_u64[0];
+  *&remainder.origin.y = v4.n128_u64[0];
+  remainder.size.width = v5;
+  remainder.size.height = v7;
   v9 = MEMORY[0x1E695F058];
   if (self->_showLegendGraph)
   {
-    PKFloatRoundToPixel();
+    v3.n128_u64[0] = 0x3FB999999999999ALL;
+    v4.n128_u64[0] = 0x3FC3333333333333;
+    if (self->_isCompactUI)
+    {
+      v3.n128_f64[0] = 0.15;
+    }
+
+    v3.n128_f64[0] = v5 * v3.n128_f64[0];
+    PKFloatRoundToPixel(v3, v4);
     CGRectDivide(remainder, &slice, &remainder, v10, CGRectMaxXEdge);
     height = remainder.size.height;
     x = slice.origin.x;
@@ -383,158 +391,199 @@ LABEL_28:
   if (self->_showLegendLabels)
   {
     firstObject = [(NSMutableArray *)self->_legendLabels firstObject];
-    [firstObject sizeThatFits:{v4, v6}];
+    [firstObject sizeThatFits:{v6, v8}];
     v18 = v17;
 
     CGRectDivide(remainder, &slice, &remainder, v18, CGRectMaxYEdge);
-    v61 = slice.size.height;
-    v62 = slice.size.width;
+    v83 = slice.size.height;
+    v84 = slice.size.width;
     CGRectDivide(remainder, &slice, &remainder, 7.0, CGRectMaxYEdge);
   }
 
   else
   {
-    v61 = *(v9 + 24);
-    v62 = *(v9 + 16);
+    v83 = *(v9 + 24);
+    v84 = *(v9 + 16);
   }
 
   v19 = remainder.size.height;
-  v63 = remainder.size.width;
-  v64 = remainder.origin.x;
-  v56 = remainder.origin.y;
+  v85 = remainder.size.width;
+  v86 = remainder.origin.x;
+  v78 = remainder.origin.y;
   CGRectGetMaxY(remainder);
   summaryType = [(PKSpendingSummary *)self->_summary summaryType];
-  spendingsPerCalendarUnit = [(PKSpendingSummary *)self->_summary spendingsPerCalendarUnit];
-  v20 = [spendingsPerCalendarUnit count];
-  if (self->_prioritizeLegendPlacement && self->_showLegendLabels)
+  v81 = summaryType;
+  v21 = 20.0;
+  if (summaryType == 2)
   {
-    firstObject2 = [(NSMutableArray *)self->_legendLabels firstObject];
-    [firstObject2 sizeThatFits:{v62, v61}];
+    v21 = 12.0;
+  }
 
-    lastObject = [(NSMutableArray *)self->_legendLabels lastObject];
-    [lastObject sizeThatFits:{v62, v61}];
+  v22 = 10.0;
+  if (summaryType == 2)
+  {
+    v22 = 6.0;
   }
 
   if (self->_showLegendGraph)
   {
-    v23 = 5.0;
+    v23 = v21;
   }
 
   else
   {
-    v23 = 0.0;
+    v23 = v22;
   }
 
-  PKFloatRoundToPixel();
-  v25 = v24;
-  PKFloatRoundToPixel();
-  v27 = v26;
-  v72[0] = 0;
-  v72[1] = v72;
-  v72[2] = 0x2020000000;
-  v72[3] = 0;
+  v24 = v23 * 0.5;
+  spendingsPerCalendarUnit = [(PKSpendingSummary *)self->_summary spendingsPerCalendarUnit];
+  v25 = [spendingsPerCalendarUnit count];
+  v27.n128_u64[0] = 0;
+  v28 = 0.0;
+  if (self->_prioritizeLegendPlacement && self->_showLegendLabels)
+  {
+    firstObject2 = [(NSMutableArray *)self->_legendLabels firstObject];
+    [firstObject2 sizeThatFits:{v84, v83}];
+    v31 = v30 * 0.5;
+
+    v28 = fmax(v31 - v24, 0.0);
+    lastObject = [(NSMutableArray *)self->_legendLabels lastObject];
+    [lastObject sizeThatFits:{v84, v83}];
+    v34 = v33 * 0.5;
+
+    v27.n128_f64[0] = fmax(v34 - v24, 0.0);
+  }
+
+  if (self->_showLegendGraph)
+  {
+    v35 = 5.0;
+  }
+
+  else
+  {
+    v35 = 0.0;
+  }
+
+  v26.n128_u64[0] = -2.0;
+  v27.n128_f64[0] = v85 - (v27.n128_f64[0] + v28) - v23 + v35 * -2.0;
+  PKFloatRoundToPixel(v27, v26);
+  v37 = v36;
+  v38.n128_f64[0] = v86 + v24 + v28;
+  PKFloatRoundToPixel(v38, v39);
+  v41 = v40;
+  v94[0] = 0;
+  v94[1] = v94;
+  v94[2] = 0x2020000000;
+  v94[3] = 0;
   objc_initWeak(&location, self);
   presentationStyle = self->_presentationStyle;
-  v66 = presentationStyle < 4;
+  v88 = presentationStyle < 4;
   summaryType2 = [(PKSpendingSummary *)self->_summary summaryType];
-  if (v20)
+  if (v25)
   {
-    v29 = 0;
-    v30 = v25 / (v20 - 1);
-    v31 = v27 + v23;
-    v65 = 0xCu >> (presentationStyle & 0xF);
-    v32 = v66 & (2u >> (presentationStyle & 0xF));
+    v45 = 0;
+    v46 = v37 / (v25 - 1);
+    v47 = v41 + v35;
+    v87 = 0xCu >> (presentationStyle & 0xF);
+    v48 = v88 & (2u >> (presentationStyle & 0xF));
     do
     {
       if (self->_showLegendLabels)
       {
-        v33 = [(NSMutableArray *)self->_legendLabels objectAtIndex:v29];
-        [v33 sizeThatFits:{v62, v61}];
-        PKFloatRoundToPixel();
-        [v33 setFrame:?];
-        v34 = v29 & 1;
-        if ((v29 & 1) != 0 && summaryType != 2)
+        v49 = [(NSMutableArray *)self->_legendLabels objectAtIndex:v45];
+        [v49 sizeThatFits:{v84, v83}];
+        v51.n128_f64[0] = v47 + v50 * -0.5;
+        PKFloatRoundToPixel(v51, v52);
+        [v49 setFrame:?];
+        v53 = v45 & 1;
+        if ((v45 & 1) != 0 && v81 != 2)
         {
-          v34 = summaryType2 == 1 && self->_prioritizeLegendPlacement;
+          v53 = summaryType2 == 1 && self->_prioritizeLegendPlacement;
         }
 
-        [v33 setHidden:v34];
+        [v49 setHidden:v53];
       }
 
-      v35 = [spendingsPerCalendarUnit objectAtIndex:v29];
-      v36 = [[PKSpendingSummaryChartBarConfiguration alloc] initWithSummary:v35];
-      v37 = [(NSMutableArray *)self->_bars objectAtIndex:v29];
-      v38 = 0.0;
+      v54 = [spendingsPerCalendarUnit objectAtIndex:v45];
+      v55 = [[PKSpendingSummaryChartBarConfiguration alloc] initWithSummary:v54];
+      v56 = [(NSMutableArray *)self->_bars objectAtIndex:v45];
+      v59 = 0.0;
       if (self->_chartMaxAmount > 0.0)
       {
-        [(PKSpendingSummaryChartBarConfiguration *)v36 totalValue];
-        if (v39 > 0.0)
+        [(PKSpendingSummaryChartBarConfiguration *)v55 totalValue];
+        if (v60.n128_f64[0] > 0.0)
         {
-          PKFloatRoundToPixel();
-          v38 = v40;
+          v61.n128_u64[0] = *&self->_chartMaxAmount;
+          v60.n128_f64[0] = v19 * (v60.n128_f64[0] / v61.n128_f64[0]);
+          PKFloatRoundToPixel(v60, v61);
+          v59 = v62;
         }
 
-        [v37 minimumLength];
-        v38 = fmax(fmin(v38, v19), v41);
+        [v56 minimumLength];
+        v58.n128_f64[0] = fmin(v59, v19);
+        v59 = fmax(v58.n128_f64[0], v57.n128_f64[0]);
       }
 
-      PKFloatRoundToPixel();
-      [v37 setFrame:?];
-      layer = [v37 layer];
+      v57.n128_f64[0] = v47 - v24;
+      PKFloatRoundToPixel(v57, v58);
+      [v56 setFrame:?];
+      layer = [v56 layer];
       [layer setOpacity:0.0];
 
-      v68[0] = MEMORY[0x1E69E9820];
-      v68[1] = 3221225472;
-      v68[2] = __44__PKSpendingSummaryChartView_layoutSubviews__block_invoke;
-      v68[3] = &unk_1E8021300;
-      objc_copyWeak(v69, &location);
-      v69[1] = v20;
-      v70 = v32;
-      v68[4] = self;
-      v68[5] = v72;
-      [v37 configureWithBarConfiguration:v36 axis:1 maximumLength:v66 & v65 barLength:v68 synchronous:v19 completion:v38];
-      [(PKSpendingSummaryChartView *)self bringSubviewToFront:v37];
-      v31 = v30 + v31;
-      objc_destroyWeak(v69);
+      v90[0] = MEMORY[0x1E69E9820];
+      v90[1] = 3221225472;
+      v90[2] = __44__PKSpendingSummaryChartView_layoutSubviews__block_invoke;
+      v90[3] = &unk_1E8021300;
+      objc_copyWeak(v91, &location);
+      v91[1] = v25;
+      v92 = v48;
+      v90[4] = self;
+      v90[5] = v94;
+      [v56 configureWithBarConfiguration:v55 axis:1 maximumLength:v88 & v87 barLength:v90 synchronous:v19 completion:v59];
+      [(PKSpendingSummaryChartView *)self bringSubviewToFront:v56];
+      v47 = v46 + v47;
+      objc_destroyWeak(v91);
 
-      ++v29;
+      ++v45;
     }
 
-    while (v20 != v29);
+    while (v25 != v45);
   }
 
-  PKFloatRoundToPixel();
-  v44 = v43;
-  v45 = PKUIPixelLength();
+  v43.n128_f64[0] = v19 / (self->_axisCount - 1);
+  PKFloatRoundToPixel(v43, v44);
+  v65 = v64;
+  v66 = PKUIPixelLength();
   if (self->_showLegendGraph && self->_axisCount)
   {
-    v46 = v45;
-    v47 = 0;
-    v48 = v56 + v19;
+    v67 = v66;
+    v68 = 0;
+    v69 = v78 + v19;
     do
     {
-      v49 = [(NSMutableArray *)self->_horizontalAxis objectAtIndex:v47];
-      [v49 setFrame:{v64, v48 - v46, v63, v46}];
-      if ((v47 & 1) == 0 && self->_chartMaxAmount > 0.0)
+      v70 = [(NSMutableArray *)self->_horizontalAxis objectAtIndex:v68];
+      [v70 setFrame:{v86, v69 - v67, v85, v67}];
+      if ((v68 & 1) == 0 && self->_chartMaxAmount > 0.0)
       {
-        v50 = [(NSMutableArray *)self->_valueLabels objectAtIndex:v47 >> 1];
-        [v50 sizeThatFits:{width, 1.79769313e308}];
-        v52 = v51;
-        v54 = v53;
-        PKFloatRoundToPixel();
-        [v50 setFrame:{x + 2.0, v55, fmin(width, v52), v54}];
+        v71 = [(NSMutableArray *)self->_valueLabels objectAtIndex:v68 >> 1];
+        [v71 sizeThatFits:{width, 1.79769313e308}];
+        v73 = v72;
+        v75 = v74.n128_f64[0];
+        v76.n128_f64[0] = v69 + v74.n128_f64[0] * -0.5;
+        PKFloatRoundToPixel(v76, v74);
+        [v71 setFrame:{x + 2.0, v77, fmin(width, v73), v75}];
       }
 
-      v48 = v48 - v44;
+      v69 = v69 - v65;
 
-      ++v47;
+      ++v68;
     }
 
-    while (v47 < self->_axisCount);
+    while (v68 < self->_axisCount);
   }
 
   objc_destroyWeak(&location);
-  _Block_object_dispose(v72, 8);
+  _Block_object_dispose(v94, 8);
 }
 
 void __44__PKSpendingSummaryChartView_layoutSubviews__block_invoke(uint64_t a1)
@@ -593,7 +642,15 @@ void __44__PKSpendingSummaryChartView_layoutSubviews__block_invoke(uint64_t a1)
 - (CGSize)sizeThatFits:(CGSize)fits
 {
   width = fits.width;
-  PKFloatRoundToPixel();
+  fits.width = 0.26;
+  fits.height = 0.55;
+  if (self->_showLegendGraph)
+  {
+    fits.width = 0.55;
+  }
+
+  fits.width = width * fits.width;
+  PKFloatRoundToPixel(fits, *&fits.height);
   v5 = v4;
   v6 = width;
   result.height = v5;

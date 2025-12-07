@@ -14,6 +14,7 @@
 - (BOOL)setNamedEntityFilterLastRecordDate:(id)date error:(id *)error;
 - (BOOL)setNamedEntityFilterLastRunDate:(id)date error:(id *)error;
 - (PPNamedEntityStorage)initWithDatabase:(id)database;
+- (PPNamedEntityStorage)initWithDatabase:(id)database maxRecords:(unsigned int)records dkStorage:(id)storage loadEmptyDatabaseFromDK:(BOOL)k trialWrapper:(id)wrapper;
 - (id)_createRecordWithStatement:(void *)statement txnWitness:;
 - (id)_deletionQueue;
 - (id)namedEntityFilterLastRecordDate;
@@ -185,7 +186,7 @@ void __65__PPNamedEntityStorage_setNamedEntityFilterLastRecordDate_error___block
 
 void __55__PPNamedEntityStorage_namedEntityFilterLastRecordDate__block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [PPSQLKVStore loadBlobForKey:@"namedEntityLastRecordFilteredTime" transaction:v3];
   if (!v4)
@@ -219,14 +220,12 @@ void __55__PPNamedEntityStorage_namedEntityFilterLastRecordDate__block_invoke(ui
     {
       v13 = *(*(*(a1 + 40) + 8) + 40);
       *buf = 138412290;
-      v17 = v13;
+      v16 = v13;
       _os_log_error_impl(&dword_23224A000, v12, OS_LOG_TYPE_ERROR, "PPNamedEntityStorage: error unarchiving filter date %@", buf, 0xCu);
     }
 
 LABEL_7:
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)namedEntityFilterLastRunDateWithError:(id *)error
@@ -422,9 +421,9 @@ void __59__PPNamedEntityStorage_sourceStats_withExcludedAlgorithms___block_invok
   if (self)
   {
     statementCopy = statement;
-    v28 = [v5 nonnullNSStringForColumnName:"name" table:"ne_records"];
+    v27 = [v5 nonnullNSStringForColumnName:"name" table:"ne_records"];
     v7 = [v5 getInt64ForColumnName:"category" table:"ne_records"];
-    v27 = [v5 getNSStringForColumnName:"dynamic_category" table:"ne_records"];
+    v26 = [v5 getNSStringForColumnName:"dynamic_category" table:"ne_records"];
     v8 = [v5 nonnullNSStringForColumnName:"language" table:"ne_records"];
     v9 = [v5 getInt64ForColumnName:"algorithm" table:"ne_records"];
     [v5 getDoubleForColumnName:"initial_score" table:"ne_records"];
@@ -439,23 +438,22 @@ void __59__PPNamedEntityStorage_sourceStats_withExcludedAlgorithms___block_invok
     }
 
     [v5 getDoubleForColumnName:"decay_rate" table:"ne_records"];
-    v13 = *MEMORY[0x277D3A758];
     if ((*&v12 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
     {
-      v14 = *MEMORY[0x277D3A758];
+      v13 = *MEMORY[0x277D3A758];
     }
 
     else
     {
-      v14 = v12;
+      v13 = v12;
     }
 
-    v15 = [v5 getNSStringForColumnName:"extraction_os_build" table:"ne_records"];
-    v16 = [v5 getInt64AsNSNumberForColumnName:"extraction_asset_version" table:"ne_records"];
-    v17 = v16;
-    if (v16)
+    v14 = [v5 getNSStringForColumnName:"extraction_os_build" table:"ne_records"];
+    v15 = [v5 getInt64AsNSNumberForColumnName:"extraction_asset_version" table:"ne_records"];
+    v16 = v15;
+    if (v15)
     {
-      unsignedLongValue = [v16 unsignedLongValue];
+      unsignedLongValue = [v15 unsignedLongValue];
     }
 
     else
@@ -464,49 +462,49 @@ void __59__PPNamedEntityStorage_sourceStats_withExcludedAlgorithms___block_invok
     }
 
     [v5 getDoubleForColumnName:"sentiment_score" table:"ne_records"];
-    v20 = v19;
-    v21 = [objc_alloc(MEMORY[0x277D3A420]) initWithName:v28 category:v7 dynamicCategory:v27 language:v8];
-    v22 = [*(self + 40) createSourceWithStatement:v5 txnWitness:statementCopy];
+    v19 = v18;
+    v20 = [objc_alloc(MEMORY[0x277D3A420]) initWithName:v27 category:v7 dynamicCategory:v26 language:v8];
+    v21 = [*(self + 40) createSourceWithStatement:v5 txnWitness:statementCopy];
 
-    if (v22)
+    if (v21)
     {
-      if ((*&v20 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
+      if ((*&v19 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
       {
-        v20 = 0.0;
+        v19 = 0.0;
       }
 
-      v23 = objc_opt_new();
-      [v23 setEntity:v21];
-      [v23 setSource:v22];
-      [v23 setAlgorithm:v9];
-      [v23 setInitialScore:v11];
-      [v23 setDecayRate:v14];
-      [v23 setExtractionOsBuild:v15];
-      [v23 setExtractionAssetVersion:unsignedLongValue];
-      [v23 setSentimentScore:v20];
-      v24 = [objc_alloc(MEMORY[0x277D3A428]) initWithImpressionCount:objc_msgSend(v5 occurrencesInSource:{"getInt64ForColumnName:table:", "impression_count", "ne_records"), objc_msgSend(v5, "getInt64ForColumnName:table:", "occurrences_in_source", "ne_records")}];
-      [v23 setMetadata:v24];
+      v22 = objc_opt_new();
+      [v22 setEntity:v20];
+      [v22 setSource:v21];
+      [v22 setAlgorithm:v9];
+      [v22 setInitialScore:v11];
+      [v22 setDecayRate:v13];
+      [v22 setExtractionOsBuild:v14];
+      [v22 setExtractionAssetVersion:unsignedLongValue];
+      [v22 setSentimentScore:v19];
+      v23 = [objc_alloc(MEMORY[0x277D3A428]) initWithImpressionCount:objc_msgSend(v5 occurrencesInSource:{"getInt64ForColumnName:table:", "impression_count", "ne_records"), objc_msgSend(v5, "getInt64ForColumnName:table:", "occurrences_in_source", "ne_records")}];
+      [v22 setMetadata:v23];
     }
 
     else
     {
-      v25 = pp_entities_log_handle();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v24 = pp_entities_log_handle();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_23224A000, v25, OS_LOG_TYPE_ERROR, "Suppressing construction of named entity record due to source with bogus date.", buf, 2u);
+        _os_log_error_impl(&dword_23224A000, v24, OS_LOG_TYPE_ERROR, "Suppressing construction of named entity record due to source with bogus date.", buf, 2u);
       }
 
-      v23 = 0;
+      v22 = 0;
     }
   }
 
   else
   {
-    v23 = 0;
+    v22 = 0;
   }
 
-  return v23;
+  return v22;
 }
 
 - (void)exportRecordsToDKWithShouldContinueBlock:(id)block
@@ -710,19 +708,17 @@ uint64_t __65__PPNamedEntityStorage_exportRecordsToDKWithShouldContinueBlock___b
 
 void __61__PPNamedEntityStorage__populateEvents_statement_txnWitness___block_invoke(uint64_t a1, void *a2)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v8[0] = 0;
-  v8[1] = 0;
+  v7[2] = *MEMORY[0x277D85DE8];
+  v7[0] = 0;
+  v7[1] = 0;
   v3 = *(a1 + 32);
   v4 = a2;
   v5 = [v3 UUID];
-  [v5 getUUIDBytes:v8];
+  [v5 getUUIDBytes:v7];
 
-  v6 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v8 length:16];
+  v6 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v7 length:16];
   [v4 bindNamedParam:":uuidBlob" toNSData:v6];
   [v4 bindNamedParam:":rowid" toInt64:*(a1 + 40)];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __70__PPNamedEntityStorage__generateExportRowIdsWithBatchSize_isComplete___block_invoke_2(void *a1)
@@ -863,7 +859,7 @@ uint64_t __70__PPNamedEntityStorage__generateExportRowIdsWithBatchSize_isComplet
 
 void __111__PPNamedEntityStorage__importDKEventsWithShouldContinueBlock_remoteEventsOnly_isComplete_shouldContinueBlock___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   v7 = *(a1 + 32);
   v6 = *(a1 + 40);
   v8 = a4;
@@ -876,8 +872,8 @@ void __111__PPNamedEntityStorage__importDKEventsWithShouldContinueBlock_remoteEv
     v13 = v12;
     if (v12)
     {
-      v31[0] = v12;
-      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
+      v30[0] = v12;
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
       v15 = [v11 filterNamedEntityRecords:v14];
       v16 = [v15 firstObject];
 
@@ -892,8 +888,8 @@ void __111__PPNamedEntityStorage__importDKEventsWithShouldContinueBlock_remoteEv
           v20 = pp_entities_log_handle();
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            LOWORD(v26[0]) = 0;
-            _os_log_error_impl(&dword_23224A000, v20, OS_LOG_TYPE_ERROR, "Suppressing named entity DKEvent import due to source with bogus date.", v26, 2u);
+            LOWORD(v25[0]) = 0;
+            _os_log_error_impl(&dword_23224A000, v20, OS_LOG_TYPE_ERROR, "Suppressing named entity DKEvent import due to source with bogus date.", v25, 2u);
           }
         }
 
@@ -907,29 +903,27 @@ void __111__PPNamedEntityStorage__importDKEventsWithShouldContinueBlock_remoteEv
             v23 = pp_default_log_handle();
             if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
             {
-              LOWORD(v26[0]) = 0;
-              _os_log_fault_impl(&dword_23224A000, v23, OS_LOG_TYPE_FAULT, "Named entity record unexpectedly had nil cluster identifier during DKEvent import.", v26, 2u);
+              LOWORD(v25[0]) = 0;
+              _os_log_fault_impl(&dword_23224A000, v23, OS_LOG_TYPE_FAULT, "Named entity record unexpectedly had nil cluster identifier during DKEvent import.", v25, 2u);
             }
           }
 
           v24 = [v10 db];
-          v26[0] = MEMORY[0x277D85DD0];
-          v26[1] = 3221225472;
-          v26[2] = __90__PPNamedEntityStorage__dkEventImportToDatabaseWithEvent_eventUUIDBlob_txnWitness_filter___block_invoke;
-          v26[3] = &unk_278977B70;
-          v27 = v13;
-          v30 = v19;
-          v28 = v8;
-          v29 = v9;
-          [v24 prepAndRunQuery:@"INSERT INTO ne_records (name onPrep:lc_name onRow:category onError:{dynamic_category, language, algorithm, initial_score, decay_rate, extraction_os_build, extraction_asset_version, source_id, is_remote, is_sync_eligible, sentiment_score, dk_event_id) VALUES (:name, :lcName, :category, :dynamicCategory, :language, :algorithm, :initialScore, :decayRate, :osBuild, :assetVersion, :sourceRowId, :isRemote, 0, :sentimentScore, :uuidBlob)", v26, 0, 0}];
+          v25[0] = MEMORY[0x277D85DD0];
+          v25[1] = 3221225472;
+          v25[2] = __90__PPNamedEntityStorage__dkEventImportToDatabaseWithEvent_eventUUIDBlob_txnWitness_filter___block_invoke;
+          v25[3] = &unk_278977B70;
+          v26 = v13;
+          v29 = v19;
+          v27 = v8;
+          v28 = v9;
+          [v24 prepAndRunQuery:@"INSERT INTO ne_records (name onPrep:lc_name onRow:category onError:{dynamic_category, language, algorithm, initial_score, decay_rate, extraction_os_build, extraction_asset_version, source_id, is_remote, is_sync_eligible, sentiment_score, dk_event_id) VALUES (:name, :lcName, :category, :dynamicCategory, :language, :algorithm, :initialScore, :decayRate, :osBuild, :assetVersion, :sourceRowId, :isRemote, 0, :sentimentScore, :uuidBlob)", v25, 0, 0}];
 
-          v20 = v27;
+          v20 = v26;
         }
       }
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __90__PPNamedEntityStorage__dkEventImportToDatabaseWithEvent_eventUUIDBlob_txnWitness_filter___block_invoke(uint64_t a1, void *a2)
@@ -1062,7 +1056,7 @@ void __38__PPNamedEntityStorage__deletionQueue__block_invoke()
   return v7;
 }
 
-uint64_t __112__PPNamedEntityStorage_pruneOrphanedNamedEntityFeedbackCountRecordsWithLimit_rowOffset_deletedCount_isComplete___block_invoke(void *a1, uint64_t a2)
+void *__112__PPNamedEntityStorage_pruneOrphanedNamedEntityFeedbackCountRecordsWithLimit_rowOffset_deletedCount_isComplete___block_invoke(void *a1, uint64_t a2)
 {
   result = [*(a1[4] + 32) pruneOrphanedFeedbackCountRecordsWithLimit:a1[6] rowOffset:a1[7] deletedCount:a1[8] txnWitness:a2 isComplete:a1[9]];
   *(*(a1[5] + 8) + 24) = result;
@@ -1092,7 +1086,7 @@ uint64_t __112__PPNamedEntityStorage_pruneOrphanedNamedEntityFeedbackCountRecord
   return db;
 }
 
-uint64_t __78__PPNamedEntityStorage_deleteAllNamedEntityFeedbackCountRecordsOlderThanDate___block_invoke(void *a1, uint64_t a2)
+void *__78__PPNamedEntityStorage_deleteAllNamedEntityFeedbackCountRecordsOlderThanDate___block_invoke(void *a1, uint64_t a2)
 {
   result = [*(a1[4] + 32) deleteFeedbackCountRecordsOlderThanDate:a1[5] txnWitness:a2];
   *(*(a1[6] + 8) + 24) = result;
@@ -1397,108 +1391,107 @@ void __108__PPNamedEntityStorage_deleteAllNamedEntitiesOlderThanDate_atLeastOneN
 
 - (BOOL)donateNamedEntities:(id)entities source:(id)source algorithm:(unint64_t)algorithm cloudSync:(BOOL)sync decayRate:(double)rate sentimentScore:(double)score error:(id *)error
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   entitiesCopy = entities;
   sourceCopy = source;
   v18 = 1;
   if ([entitiesCopy count])
   {
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x2020000000;
-    v35 = 1;
+    v31 = 0;
+    v32 = &v31;
+    v33 = 0x2020000000;
+    v34 = 1;
     db = self->_db;
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __102__PPNamedEntityStorage_donateNamedEntities_source_algorithm_cloudSync_decayRate_sentimentScore_error___block_invoke;
-    v24[3] = &unk_278972368;
-    v27 = &v32;
-    v24[4] = self;
-    v25 = entitiesCopy;
-    v26 = sourceCopy;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __102__PPNamedEntityStorage_donateNamedEntities_source_algorithm_cloudSync_decayRate_sentimentScore_error___block_invoke;
+    v23[3] = &unk_278972368;
+    v26 = &v31;
+    v23[4] = self;
+    v24 = entitiesCopy;
+    v25 = sourceCopy;
     algorithmCopy = algorithm;
     syncCopy = sync;
     rateCopy = rate;
     scoreCopy = score;
-    [(PPSQLDatabase *)db writeTransactionWithClient:1 block:v24];
-    v18 = *(v33 + 24);
-    if (error && (v33[3] & 1) == 0)
+    [(PPSQLDatabase *)db writeTransactionWithClient:1 block:v23];
+    v18 = *(v32 + 24);
+    if (error && (v32[3] & 1) == 0)
     {
       v20 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v36 = *MEMORY[0x277CCA450];
-      v37[0] = @"The donated data is invalid.";
-      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+      v35 = *MEMORY[0x277CCA450];
+      v36[0] = @"The donated data is invalid.";
+      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
       *error = [v20 initWithDomain:*MEMORY[0x277D3A580] code:9 userInfo:v21];
 
-      v18 = *(v33 + 24);
+      v18 = *(v32 + 24);
     }
 
-    _Block_object_dispose(&v32, 8);
+    _Block_object_dispose(&v31, 8);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v18 & 1;
 }
 
 void __102__PPNamedEntityStorage_donateNamedEntities_source_algorithm_cloudSync_decayRate_sentimentScore_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a1;
-  v122 = *MEMORY[0x277D85DE8];
+  v121 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = *(a1 + 48);
-  v90 = *(a1 + 64);
-  v89 = *(a1 + 88);
+  v89 = *(a1 + 64);
+  v88 = *(a1 + 88);
   v6 = *(a1 + 72);
   v7 = *(a1 + 80);
   v8 = *(a1 + 40);
   v9 = v5;
   v10 = a2;
-  v91 = v4;
+  v90 = v4;
   if (v4)
   {
     v11 = objc_opt_new();
+    v92 = 0u;
     v93 = 0u;
     v94 = 0u;
     v95 = 0u;
-    v96 = 0u;
     v12 = v8;
-    v13 = [v12 countByEnumeratingWithState:&v93 objects:v118 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v92 objects:v117 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v94;
+      v15 = *v93;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v94 != v15)
+          if (*v93 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = [*(*(&v93 + 1) + 8 * i) scoredNamedEntity];
+          v17 = [*(*(&v92 + 1) + 8 * i) scoredNamedEntity];
           [v11 addObject:v17];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v93 objects:v118 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v92 objects:v117 count:16];
       }
 
       while (v14);
     }
 
-    v83 = v8;
-    v84 = v3;
+    v82 = v8;
+    v83 = v3;
     obj = v12;
 
     v18 = v11;
-    v82 = v9;
+    v81 = v9;
     v19 = v9;
-    v85 = v10;
+    v84 = v10;
     v20 = v10;
     if (![v18 count])
     {
-      v73 = [MEMORY[0x277CCA890] currentHandler];
-      [v73 handleFailureInMethod:sel__updatePreexistingEntitiesMatchingEntities_source_algorithm_txnWitness_ object:v91 file:@"PPNamedEntityStorage.m" lineNumber:474 description:{@"Invalid parameter not satisfying: %@", @"entities.count > 0"}];
+      v72 = [MEMORY[0x277CCA890] currentHandler];
+      [v72 handleFailureInMethod:sel__updatePreexistingEntitiesMatchingEntities_source_algorithm_txnWitness_ object:v90 file:@"PPNamedEntityStorage.m" lineNumber:474 description:{@"Invalid parameter not satisfying: %@", @"entities.count > 0"}];
     }
 
     v21 = +[PPSettings sharedInstance];
@@ -1507,26 +1500,26 @@ void __102__PPNamedEntityStorage_donateNamedEntities_source_algorithm_cloudSync_
 
     v24 = objc_opt_new();
     v25 = objc_opt_new();
+    v113 = 0u;
     v114 = 0u;
     v115 = 0u;
     v116 = 0u;
-    v117 = 0u;
     v26 = v18;
-    v27 = [v26 countByEnumeratingWithState:&v114 objects:buf count:16];
+    v27 = [v26 countByEnumeratingWithState:&v113 objects:buf count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v115;
+      v29 = *v114;
       do
       {
         for (j = 0; j != v28; ++j)
         {
-          if (*v115 != v29)
+          if (*v114 != v29)
           {
             objc_enumerationMutation(v26);
           }
 
-          v31 = *(*(&v114 + 1) + 8 * j);
+          v31 = *(*(&v113 + 1) + 8 * j);
           v32 = [v31 item];
           [v24 setObject:v31 forKeyedSubscript:v32];
 
@@ -1535,18 +1528,18 @@ void __102__PPNamedEntityStorage_donateNamedEntities_source_algorithm_cloudSync_
           [v25 addObject:v34];
         }
 
-        v28 = [v26 countByEnumeratingWithState:&v114 objects:buf count:16];
+        v28 = [v26 countByEnumeratingWithState:&v113 objects:buf count:16];
       }
 
       while (v28);
     }
 
-    v86 = v26;
+    v85 = v26;
     v35 = [v26 count];
     if (v35 != [v24 count])
     {
-      v74 = [MEMORY[0x277CCA890] currentHandler];
-      [v74 handleFailureInMethod:sel__updatePreexistingEntitiesMatchingEntities_source_algorithm_txnWitness_ object:v91 file:@"PPNamedEntityStorage.m" lineNumber:483 description:@"scored entities array contains duplicate entities"];
+      v73 = [MEMORY[0x277CCA890] currentHandler];
+      [v73 handleFailureInMethod:sel__updatePreexistingEntitiesMatchingEntities_source_algorithm_txnWitness_ object:v90 file:@"PPNamedEntityStorage.m" lineNumber:483 description:@"scored entities array contains duplicate entities"];
     }
 
     v36 = objc_opt_new();
@@ -1560,94 +1553,94 @@ void __102__PPNamedEntityStorage_donateNamedEntities_source_algorithm_cloudSync_
 
     v40 = [v37 initWithFormat:@"SELECT ne.id, ne.name, ne.category, ne.dynamic_category, ne.language, ne.initial_score, ne.decay_rate, src.seconds_from_1970 FROM ne_records AS ne INNER JOIN sources AS src ON ne.source_id = src.id WHERE src.bundle_id = :bundleId AND src.group_id %@ AND src.doc_id = :docId AND ne.is_remote = 0 AND ne.algorithm = :algorithm AND ne.name IN _pas_nsset(:uniqueEntityNames)", v39];
 
-    v92 = v20;
+    v91 = v20;
     v41 = [v20 db];
-    v110[0] = MEMORY[0x277D85DD0];
-    v110[1] = 3221225472;
-    v110[2] = __95__PPNamedEntityStorage__updatePreexistingEntitiesMatchingEntities_source_algorithm_txnWitness___block_invoke;
-    v110[3] = &unk_278977918;
+    v109[0] = MEMORY[0x277D85DD0];
+    v109[1] = 3221225472;
+    v109[2] = __95__PPNamedEntityStorage__updatePreexistingEntitiesMatchingEntities_source_algorithm_txnWitness___block_invoke;
+    v109[3] = &unk_278977918;
     v42 = v19;
-    v111 = v42;
-    v113 = v90;
-    v77 = v25;
-    v112 = v77;
-    *&v105 = MEMORY[0x277D85DD0];
-    *(&v105 + 1) = 3221225472;
-    *&v106 = __95__PPNamedEntityStorage__updatePreexistingEntitiesMatchingEntities_source_algorithm_txnWitness___block_invoke_2;
-    *(&v106 + 1) = &unk_278977940;
-    *&v107 = v91;
+    v110 = v42;
+    v112 = v89;
+    v76 = v25;
+    v111 = v76;
+    *&v104 = MEMORY[0x277D85DD0];
+    *(&v104 + 1) = 3221225472;
+    *&v105 = __95__PPNamedEntityStorage__updatePreexistingEntitiesMatchingEntities_source_algorithm_txnWitness___block_invoke_2;
+    *(&v105 + 1) = &unk_278977940;
+    *&v106 = v90;
     v43 = v36;
-    *(&v107 + 1) = v43;
-    v80 = v42;
-    *&v108 = v80;
-    v109 = v23;
-    v75 = v24;
-    *(&v108 + 1) = v75;
-    v78 = v40;
-    [v41 prepAndRunQuery:v40 onPrep:v110 onRow:&v105 onError:0];
+    *(&v106 + 1) = v43;
+    v79 = v42;
+    *&v107 = v79;
+    v108 = v23;
+    v74 = v24;
+    *(&v107 + 1) = v74;
+    v77 = v40;
+    [v41 prepAndRunQuery:v40 onPrep:v109 onRow:&v104 onError:0];
 
-    v103 = 0u;
-    v104 = 0u;
-    v101 = 0u;
     v102 = 0u;
+    v103 = 0u;
+    v100 = 0u;
+    v101 = 0u;
     v44 = v43;
-    v45 = [v44 countByEnumeratingWithState:&v101 objects:v119 count:16];
+    v45 = [v44 countByEnumeratingWithState:&v100 objects:v118 count:16];
     if (v45)
     {
       v46 = v45;
-      v47 = *v102;
+      v47 = *v101;
       do
       {
         for (k = 0; k != v46; ++k)
         {
-          if (*v102 != v47)
+          if (*v101 != v47)
           {
             objc_enumerationMutation(v44);
           }
 
-          v49 = *(*(&v101 + 1) + 8 * k);
-          v50 = [v92 db];
-          v100[0] = MEMORY[0x277D85DD0];
-          v100[1] = 3221225472;
-          v100[2] = __95__PPNamedEntityStorage__updatePreexistingEntitiesMatchingEntities_source_algorithm_txnWitness___block_invoke_3;
-          v100[3] = &unk_278978CF8;
-          v100[4] = v49;
-          [v50 prepAndRunQuery:@"UPDATE ne_records SET initial_score = :initialScore onPrep:impression_count = impression_count + 1 WHERE id = :rowId" onRow:v100 onError:{0, 0}];
+          v49 = *(*(&v100 + 1) + 8 * k);
+          v50 = [v91 db];
+          v99[0] = MEMORY[0x277D85DD0];
+          v99[1] = 3221225472;
+          v99[2] = __95__PPNamedEntityStorage__updatePreexistingEntitiesMatchingEntities_source_algorithm_txnWitness___block_invoke_3;
+          v99[3] = &unk_278978CF8;
+          v99[4] = v49;
+          [v50 prepAndRunQuery:@"UPDATE ne_records SET initial_score = :initialScore onPrep:impression_count = impression_count + 1 WHERE id = :rowId" onRow:v99 onError:{0, 0}];
         }
 
-        v46 = [v44 countByEnumeratingWithState:&v101 objects:v119 count:16];
+        v46 = [v44 countByEnumeratingWithState:&v100 objects:v118 count:16];
       }
 
       while (v46);
     }
 
     v51 = objc_opt_new();
-    v97[0] = MEMORY[0x277D85DD0];
-    v97[1] = 3221225472;
-    v97[2] = __95__PPNamedEntityStorage__updatePreexistingEntitiesMatchingEntities_source_algorithm_txnWitness___block_invoke_4;
-    v97[3] = &unk_278977968;
-    v98 = v75;
+    v96[0] = MEMORY[0x277D85DD0];
+    v96[1] = 3221225472;
+    v96[2] = __95__PPNamedEntityStorage__updatePreexistingEntitiesMatchingEntities_source_algorithm_txnWitness___block_invoke_4;
+    v96[3] = &unk_278977968;
+    v97 = v74;
     v52 = v51;
-    v99 = v52;
-    v53 = v75;
-    [v86 enumerateObjectsUsingBlock:v97];
-    v54 = v99;
+    v98 = v52;
+    v53 = v74;
+    [v85 enumerateObjectsUsingBlock:v96];
+    v54 = v98;
     v55 = v52;
 
     v56 = MEMORY[0x277CCAC30];
-    *&v114 = MEMORY[0x277D85DD0];
-    *(&v114 + 1) = 3221225472;
-    *&v115 = __108__PPNamedEntityStorage__donateNamedEntities_source_algorithm_cloudSync_decayRate_sentimentScore_txnWitness___block_invoke;
-    *(&v115 + 1) = &unk_278972390;
+    *&v113 = MEMORY[0x277D85DD0];
+    *(&v113 + 1) = 3221225472;
+    *&v114 = __108__PPNamedEntityStorage__donateNamedEntities_source_algorithm_cloudSync_decayRate_sentimentScore_txnWitness___block_invoke;
+    *(&v114 + 1) = &unk_278972390;
     v57 = v55;
-    *&v116 = v57;
-    v58 = [v56 predicateWithBlock:&v114];
+    *&v115 = v57;
+    v58 = [v56 predicateWithBlock:&v113];
     v59 = [obj filteredArrayUsingPredicate:v58];
-    v10 = v85;
+    v10 = v84;
     if ([v59 count])
     {
-      [*(v91 + 32) truncateRecordsByDroppingOldestMakingRoomForCount:objc_msgSend(v59 txnWitness:{"count"), v92}];
-      v60 = [*(v91 + 40) updateOrCreateRowForSource:v80 addingRefCount:objc_msgSend(v59 txnWitness:{"count"), v92}];
+      [*(v90 + 32) truncateRecordsByDroppingOldestMakingRoomForCount:objc_msgSend(v59 txnWitness:{"count"), v91}];
+      v60 = [*(v90 + 40) updateOrCreateRowForSource:v79 addingRefCount:objc_msgSend(v59 txnWitness:{"count"), v91}];
       v61 = v59;
       LOBYTE(v4) = v60 != 0x7FFFFFFFFFFFFFFFLL;
       if (v60 == 0x7FFFFFFFFFFFFFFFLL)
@@ -1659,9 +1652,9 @@ void __102__PPNamedEntityStorage_donateNamedEntities_source_algorithm_cloudSync_
           _os_log_error_impl(&dword_23224A000, obja, OS_LOG_TYPE_ERROR, "Suppressing named entity donation due to source with bogus date.", buf, 2u);
         }
 
-        v8 = v83;
-        v3 = v84;
-        v9 = v82;
+        v8 = v82;
+        v3 = v83;
+        v9 = v81;
       }
 
       else
@@ -1671,65 +1664,65 @@ void __102__PPNamedEntityStorage_donateNamedEntities_source_algorithm_cloudSync_
         [v63 weightMultiplier];
         v65 = v64;
 
-        v107 = 0u;
-        v108 = 0u;
-        v105 = 0u;
         v106 = 0u;
-        v81 = v61;
+        v107 = 0u;
+        v104 = 0u;
+        v105 = 0u;
+        v80 = v61;
         obja = v61;
-        v66 = [obja countByEnumeratingWithState:&v105 objects:buf count:16];
+        v66 = [obja countByEnumeratingWithState:&v104 objects:buf count:16];
         if (v66)
         {
           v67 = v66;
-          v76 = v4;
-          v79 = v57;
-          v68 = *v106;
+          v75 = v4;
+          v78 = v57;
+          v68 = *v105;
           do
           {
             for (m = 0; m != v67; ++m)
             {
-              if (*v106 != v68)
+              if (*v105 != v68)
               {
                 objc_enumerationMutation(obja);
               }
 
-              v70 = *(*(&v105 + 1) + 8 * m);
-              v71 = [v92 db];
-              v119[0] = MEMORY[0x277D85DD0];
-              v119[1] = 3221225472;
-              v119[2] = __108__PPNamedEntityStorage__donateNamedEntities_source_algorithm_cloudSync_decayRate_sentimentScore_txnWitness___block_invoke_307;
-              v119[3] = &unk_2789723B8;
-              v119[4] = v91;
-              v119[5] = v70;
-              v119[6] = v90;
-              v120 = v89;
-              v119[7] = v6;
-              v119[8] = v7;
-              v119[9] = v65;
-              v119[10] = v62;
-              [v71 prepAndRunQuery:@"INSERT INTO ne_records (name onPrep:lc_name onRow:category onError:{dynamic_category, language, algorithm, initial_score, decay_rate, extraction_os_build, extraction_asset_version, source_id, is_remote, is_sync_eligible, sentiment_score, occurrences_in_source) VALUES (:name, :lcName, :category, :dynamicCategory, :language, :algorithm, :initialScore, :decayRate, :osBuild, :assetVersion, :sourceRowId, 0, :shouldSync, :sentimentScore, :occurrencesInSource)", v119, 0, 0}];
+              v70 = *(*(&v104 + 1) + 8 * m);
+              v71 = [v91 db];
+              v118[0] = MEMORY[0x277D85DD0];
+              v118[1] = 3221225472;
+              v118[2] = __108__PPNamedEntityStorage__donateNamedEntities_source_algorithm_cloudSync_decayRate_sentimentScore_txnWitness___block_invoke_307;
+              v118[3] = &unk_2789723B8;
+              v118[4] = v90;
+              v118[5] = v70;
+              v118[6] = v89;
+              v119 = v88;
+              v118[7] = v6;
+              v118[8] = v7;
+              v118[9] = v65;
+              v118[10] = v62;
+              [v71 prepAndRunQuery:@"INSERT INTO ne_records (name onPrep:lc_name onRow:category onError:{dynamic_category, language, algorithm, initial_score, decay_rate, extraction_os_build, extraction_asset_version, source_id, is_remote, is_sync_eligible, sentiment_score, occurrences_in_source) VALUES (:name, :lcName, :category, :dynamicCategory, :language, :algorithm, :initialScore, :decayRate, :osBuild, :assetVersion, :sourceRowId, 0, :shouldSync, :sentimentScore, :occurrencesInSource)", v118, 0, 0}];
             }
 
-            v67 = [obja countByEnumeratingWithState:&v105 objects:buf count:16];
+            v67 = [obja countByEnumeratingWithState:&v104 objects:buf count:16];
           }
 
           while (v67);
-          v8 = v83;
-          v3 = v84;
-          v59 = v81;
-          v9 = v82;
-          v10 = v85;
-          v57 = v79;
-          LOBYTE(v4) = v76;
+          v8 = v82;
+          v3 = v83;
+          v59 = v80;
+          v9 = v81;
+          v10 = v84;
+          v57 = v78;
+          LOBYTE(v4) = v75;
         }
 
         else
         {
-          v8 = v83;
-          v3 = v84;
+          v8 = v82;
+          v3 = v83;
           v59 = v61;
-          v9 = v82;
-          v10 = v85;
+          v9 = v81;
+          v10 = v84;
         }
       }
     }
@@ -1737,14 +1730,13 @@ void __102__PPNamedEntityStorage_donateNamedEntities_source_algorithm_cloudSync_
     else
     {
       LOBYTE(v4) = 1;
-      v8 = v83;
-      v3 = v84;
-      v9 = v82;
+      v8 = v82;
+      v3 = v83;
+      v9 = v81;
     }
   }
 
   *(*(*(v3 + 56) + 8) + 24) = v4;
-  v72 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __108__PPNamedEntityStorage__donateNamedEntities_source_algorithm_cloudSync_decayRate_sentimentScore_txnWitness___block_invoke(uint64_t a1, void *a2)
@@ -1870,14 +1862,14 @@ void __95__PPNamedEntityStorage__updatePreexistingEntitiesMatchingEntities_sourc
 
 uint64_t __95__PPNamedEntityStorage__updatePreexistingEntitiesMatchingEntities_source_algorithm_txnWitness___block_invoke_2(uint64_t a1, void *a2)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = *(a1 + 64);
   v5 = *(a1 + 48);
   v6 = *(a1 + 56);
-  v45 = *(a1 + 40);
+  v43 = *(a1 + 40);
   v7 = a2;
-  v46 = v5;
+  v44 = v5;
   v8 = v6;
   if (v3)
   {
@@ -1900,94 +1892,92 @@ uint64_t __95__PPNamedEntityStorage__updatePreexistingEntitiesMatchingEntities_s
     }
 
     [v7 getDoubleForColumnName:"decay_rate" table:"ne_records"];
-    v19 = *MEMORY[0x277D3A758];
     if ((*&v18 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
     {
-      v20 = *MEMORY[0x277D3A758];
+      v19 = *MEMORY[0x277D3A758];
     }
 
     else
     {
-      v20 = v18;
+      v19 = v18;
     }
 
     [v7 getDoubleForColumnName:"seconds_from_1970" table:"sources"];
-    if ((*&v21 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
+    if ((*&v20 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
     {
-      v16 = v21;
+      v16 = v20;
     }
 
-    v22 = [objc_alloc(MEMORY[0x277D3A420]) initWithName:v11 category:v12 dynamicCategory:v13 language:v14];
-    v23 = [v8 objectForKeyedSubscript:v22];
-    if (v23)
+    v21 = [objc_alloc(MEMORY[0x277D3A420]) initWithName:v11 category:v12 dynamicCategory:v13 language:v14];
+    v22 = [v8 objectForKeyedSubscript:v21];
+    if (v22)
     {
-      [v8 setObject:0 forKeyedSubscript:v22];
-      v24 = [v46 bundleId];
-      v44 = v10;
+      [v8 setObject:0 forKeyedSubscript:v21];
+      v23 = [v44 bundleId];
+      v42 = v10;
       if (_shouldSuppressRepeatedImpressions___pasOnceToken12 != -1)
       {
         dispatch_once(&_shouldSuppressRepeatedImpressions___pasOnceToken12, &__block_literal_global_263);
       }
 
-      v25 = [_shouldSuppressRepeatedImpressions___pasExprOnceResult containsObject:v24];
+      v24 = [_shouldSuppressRepeatedImpressions___pasExprOnceResult containsObject:v23];
 
-      if (v25)
+      if (v24)
       {
-        v26 = pp_entities_log_handle();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+        v25 = pp_entities_log_handle();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
-          v42 = [v46 bundleId];
+          v40 = [v44 bundleId];
           *buf = 138412290;
-          v48 = v42;
-          _os_log_debug_impl(&dword_23224A000, v26, OS_LOG_TYPE_DEBUG, "Suppressing repeated impressions sourced from %@.", buf, 0xCu);
+          v46 = v40;
+          _os_log_debug_impl(&dword_23224A000, v25, OS_LOG_TYPE_DEBUG, "Suppressing repeated impressions sourced from %@.", buf, 0xCu);
         }
       }
 
       else
       {
-        v43 = v9;
-        v27 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSince1970:v16];
-        v28 = [v46 date];
-        v29 = v27;
+        v41 = v9;
+        v26 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSince1970:v16];
+        v27 = [v44 date];
+        v28 = v26;
         objc_opt_self();
-        [v28 timeIntervalSinceDate:v29];
-        v31 = v30;
+        [v27 timeIntervalSinceDate:v28];
+        v30 = v29;
 
-        if (v31 >= 0.0)
+        if (v30 >= 0.0)
         {
-          v32 = -v20;
-          if (v20 < 0.0)
+          v31 = -v19;
+          if (v19 < 0.0)
           {
-            v32 = -0.0;
+            v31 = -0.0;
           }
 
-          v17 = exp(v32 * v31) * v17;
+          v17 = exp(v31 * v30) * v17;
         }
 
-        [v23 score];
-        v34 = v17 + v33 * v4;
-        v35 = MEMORY[0x277D42648];
-        v36 = [MEMORY[0x277CCABB0] numberWithLongLong:v44];
-        v37 = [MEMORY[0x277CCABB0] numberWithDouble:v34];
-        v38 = [v35 tupleWithFirst:v36 second:v37];
-        [v45 addObject:v38];
+        [v22 score];
+        v33 = v17 + v32 * v4;
+        v34 = MEMORY[0x277D42648];
+        v35 = [MEMORY[0x277CCABB0] numberWithLongLong:v42];
+        v36 = [MEMORY[0x277CCABB0] numberWithDouble:v33];
+        v37 = [v34 tupleWithFirst:v35 second:v36];
+        [v43 addObject:v37];
 
-        v9 = v43;
+        v9 = v41;
       }
     }
 
-    v39 = *MEMORY[0x277D42690];
+    v38 = *MEMORY[0x277D42690];
 
     objc_autoreleasePoolPop(v9);
   }
 
   else
   {
-    v39 = 0;
+    v38 = 0;
   }
 
-  v40 = *MEMORY[0x277D85DE8];
-  return v39;
+  return v38;
 }
 
 void __95__PPNamedEntityStorage__updatePreexistingEntitiesMatchingEntities_source_algorithm_txnWitness___block_invoke_3(uint64_t a1, void *a2)
@@ -2047,17 +2037,17 @@ void __59__PPNamedEntityStorage__shouldSuppressRepeatedImpressions___block_invok
 
 - (BOOL)iterNamedEntityRecordsAndIdsWithQuery:(id)query error:(id *)error block:(id)block
 {
-  v142 = *MEMORY[0x277D85DE8];
+  v141 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   blockCopy = block;
-  v92 = objc_autoreleasePoolPush();
+  v91 = objc_autoreleasePoolPush();
   limit = [queryCopy limit];
   if (limit)
   {
     if ([queryCopy orderByName] & 1) != 0 || (objc_msgSend(queryCopy, "removeNearDuplicates"))
     {
       v7 = @"INNER JOIN";
-      v90 = @"ORDER BY lc_name ASC, src.seconds_from_1970 DESC";
+      v89 = @"ORDER BY lc_name ASC, src.seconds_from_1970 DESC";
     }
 
     else
@@ -2069,7 +2059,7 @@ void __59__PPNamedEntityStorage__shouldSuppressRepeatedImpressions___block_invok
         v10 = @"ORDER BY src.seconds_from_1970 ASC";
       }
 
-      v90 = v10;
+      v89 = v10;
       v7 = @"CROSS JOIN";
     }
 
@@ -2096,7 +2086,7 @@ void __59__PPNamedEntityStorage__shouldSuppressRepeatedImpressions___block_invok
       aBlock[1] = 3221225472;
       aBlock[2] = __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke;
       aBlock[3] = &unk_278978CF8;
-      v139 = queryCopy;
+      v138 = queryCopy;
       v17 = _Block_copy(aBlock);
       [v12 addObject:v17];
 
@@ -2121,12 +2111,12 @@ void __59__PPNamedEntityStorage__shouldSuppressRepeatedImpressions___block_invok
 
       v21 = [v11 stringByAppendingString:v20];
 
-      v136[0] = MEMORY[0x277D85DD0];
-      v136[1] = 3221225472;
-      v136[2] = __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_2;
-      v136[3] = &unk_278978CF8;
-      v137 = queryCopy;
-      v22 = _Block_copy(v136);
+      v135[0] = MEMORY[0x277D85DD0];
+      v135[1] = 3221225472;
+      v135[2] = __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_2;
+      v135[3] = &unk_278978CF8;
+      v136 = queryCopy;
+      v22 = _Block_copy(v135);
       [v12 addObject:v22];
 
       objc_autoreleasePoolPop(v19);
@@ -2158,12 +2148,12 @@ void __59__PPNamedEntityStorage__shouldSuppressRepeatedImpressions___block_invok
     {
       v30 = [v11 stringByAppendingString:@"AND src.bundle_id IN _pas_nsset(:matchingSourceBundleIds) "];
 
-      v134[0] = MEMORY[0x277D85DD0];
-      v134[1] = 3221225472;
-      v134[2] = __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_3;
-      v134[3] = &unk_278978CF8;
-      v135 = matchingSourceBundleIds;
-      v31 = _Block_copy(v134);
+      v133[0] = MEMORY[0x277D85DD0];
+      v133[1] = 3221225472;
+      v133[2] = __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_3;
+      v133[3] = &unk_278978CF8;
+      v134 = matchingSourceBundleIds;
+      v31 = _Block_copy(v133);
       [v12 addObject:v31];
 
       v11 = v30;
@@ -2176,12 +2166,12 @@ void __59__PPNamedEntityStorage__shouldSuppressRepeatedImpressions___block_invok
     {
       v34 = [v11 stringByAppendingString:@"AND src.bundle_id NOT IN _pas_nsset(:excludingSourceBundleIds) "];
 
-      v132[0] = MEMORY[0x277D85DD0];
-      v132[1] = 3221225472;
-      v132[2] = __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_4;
-      v132[3] = &unk_278978CF8;
-      v133 = excludingSourceBundleIds;
-      v35 = _Block_copy(v132);
+      v131[0] = MEMORY[0x277D85DD0];
+      v131[1] = 3221225472;
+      v131[2] = __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_4;
+      v131[3] = &unk_278978CF8;
+      v132 = excludingSourceBundleIds;
+      v35 = _Block_copy(v131);
       [v12 addObject:v35];
 
       v11 = v34;
@@ -2211,12 +2201,12 @@ void __59__PPNamedEntityStorage__shouldSuppressRepeatedImpressions___block_invok
     {
       v46 = [v11 stringByAppendingString:@"AND src.group_id IN _pas_nsset(:matchingGroupIds) "];
 
-      v130[0] = MEMORY[0x277D85DD0];
-      v130[1] = 3221225472;
-      v130[2] = __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_6;
-      v130[3] = &unk_278978CF8;
-      v131 = matchingSourceGroupIds;
-      v47 = _Block_copy(v130);
+      v129[0] = MEMORY[0x277D85DD0];
+      v129[1] = 3221225472;
+      v129[2] = __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_6;
+      v129[3] = &unk_278978CF8;
+      v130 = matchingSourceGroupIds;
+      v47 = _Block_copy(v129);
       [v12 addObject:v47];
 
       v11 = v46;
@@ -2229,12 +2219,12 @@ void __59__PPNamedEntityStorage__shouldSuppressRepeatedImpressions___block_invok
     {
       v50 = [v11 stringByAppendingString:@"AND ne.category IN _pas_nsset(:matchingCategories) "];
 
-      v128[0] = MEMORY[0x277D85DD0];
-      v128[1] = 3221225472;
-      v128[2] = __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_7;
-      v128[3] = &unk_278978CF8;
-      v129 = matchingCategories;
-      v51 = _Block_copy(v128);
+      v127[0] = MEMORY[0x277D85DD0];
+      v127[1] = 3221225472;
+      v127[2] = __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_7;
+      v127[3] = &unk_278978CF8;
+      v128 = matchingCategories;
+      v51 = _Block_copy(v127);
       [v12 addObject:v51];
 
       v11 = v50;
@@ -2247,12 +2237,12 @@ void __59__PPNamedEntityStorage__shouldSuppressRepeatedImpressions___block_invok
     {
       v54 = [v11 stringByAppendingString:@"AND ne.algorithm NOT IN _pas_nsset(:excludingAlgorithms) "];
 
-      v126[0] = MEMORY[0x277D85DD0];
-      v126[1] = 3221225472;
-      v126[2] = __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_8;
-      v126[3] = &unk_278978CF8;
-      v127 = excludingAlgorithms;
-      v55 = _Block_copy(v126);
+      v125[0] = MEMORY[0x277D85DD0];
+      v125[1] = 3221225472;
+      v125[2] = __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_8;
+      v125[3] = &unk_278978CF8;
+      v126 = excludingAlgorithms;
+      v55 = _Block_copy(v125);
       [v12 addObject:v55];
 
       v11 = v54;
@@ -2265,12 +2255,12 @@ void __59__PPNamedEntityStorage__shouldSuppressRepeatedImpressions___block_invok
     {
       v58 = [v11 stringByAppendingString:@"AND src.doc_id IN _pas_nsset(:matchingSourceDocumentIds) "];
 
-      v124[0] = MEMORY[0x277D85DD0];
-      v124[1] = 3221225472;
-      v124[2] = __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_9;
-      v124[3] = &unk_278978CF8;
-      v125 = matchingSourceDocumentIds;
-      v59 = _Block_copy(v124);
+      v123[0] = MEMORY[0x277D85DD0];
+      v123[1] = 3221225472;
+      v123[2] = __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_9;
+      v123[3] = &unk_278978CF8;
+      v124 = matchingSourceDocumentIds;
+      v59 = _Block_copy(v123);
       [v12 addObject:v59];
 
       v11 = v58;
@@ -2307,13 +2297,13 @@ void __59__PPNamedEntityStorage__shouldSuppressRepeatedImpressions___block_invok
 
       v68 = [v11 stringByAppendingString:@"AND ne.lc_name IN _pas_nsset(:lowercaseMatchingNames) "];
 
-      v122[0] = MEMORY[0x277D85DD0];
-      v122[1] = 3221225472;
-      v122[2] = __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_11;
-      v122[3] = &unk_278978CF8;
-      v123 = v67;
+      v121[0] = MEMORY[0x277D85DD0];
+      v121[1] = 3221225472;
+      v121[2] = __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_11;
+      v121[3] = &unk_278978CF8;
+      v122 = v67;
       v69 = v67;
-      v70 = _Block_copy(v122);
+      v70 = _Block_copy(v121);
       [v12 addObject:v70];
 
       v11 = v68;
@@ -2334,8 +2324,8 @@ void __59__PPNamedEntityStorage__shouldSuppressRepeatedImpressions___block_invok
         v86 = pp_default_log_handle();
         if (os_log_type_enabled(v86, OS_LOG_TYPE_FAULT))
         {
-          *v114 = 0;
-          _os_log_fault_impl(&dword_23224A000, v86, OS_LOG_TYPE_FAULT, "Failed to load entity trie, stops this query.", v114, 2u);
+          *v113 = 0;
+          _os_log_fault_impl(&dword_23224A000, v86, OS_LOG_TYPE_FAULT, "Failed to load entity trie, stops this query.", v113, 2u);
         }
 
         objc_autoreleasePoolPop(v71);
@@ -2345,13 +2335,13 @@ void __59__PPNamedEntityStorage__shouldSuppressRepeatedImpressions___block_invok
 
       v76 = [v11 stringByAppendingString:{@"AND _pas_block(:matchingEntityTrieBlock, ne.name) "}];
 
-      v120[0] = MEMORY[0x277D85DD0];
-      v120[1] = 3221225472;
-      v120[2] = __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_218;
-      v120[3] = &unk_278978CF8;
-      v121 = v75;
+      v119[0] = MEMORY[0x277D85DD0];
+      v119[1] = 3221225472;
+      v119[2] = __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_218;
+      v119[3] = &unk_278978CF8;
+      v120 = v75;
       v77 = v75;
-      v78 = _Block_copy(v120);
+      v78 = _Block_copy(v119);
       [v12 addObject:v78];
 
       v11 = v76;
@@ -2359,73 +2349,73 @@ void __59__PPNamedEntityStorage__shouldSuppressRepeatedImpressions___block_invok
 
     objc_autoreleasePoolPop(v71);
     v79 = objc_autoreleasePoolPush();
-    v80 = [v11 stringByAppendingString:v90];
+    v80 = [v11 stringByAppendingString:v89];
 
     objc_autoreleasePoolPop(v79);
-    *v114 = 0;
-    v115 = v114;
-    v116 = 0x3032000000;
-    v117 = __Block_byref_object_copy__3014;
-    v118 = __Block_byref_object_dispose__3015;
-    v119 = 0;
-    v113[0] = MEMORY[0x277D85DD0];
-    v113[1] = 3221225472;
-    v113[2] = __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_223;
-    v113[3] = &unk_278972318;
-    v113[4] = v114;
-    v81 = _Block_copy(v113);
-    v112[0] = 0;
-    v112[1] = v112;
-    v112[2] = 0x2020000000;
-    v112[3] = 0;
-    v106 = 0;
-    v107 = &v106;
-    v108 = 0x3032000000;
-    v109 = __Block_byref_object_copy__3014;
-    v110 = __Block_byref_object_dispose__3015;
-    v111 = 0;
+    *v113 = 0;
+    v114 = v113;
+    v115 = 0x3032000000;
+    v116 = __Block_byref_object_copy__3014;
+    v117 = __Block_byref_object_dispose__3015;
+    v118 = 0;
+    v112[0] = MEMORY[0x277D85DD0];
+    v112[1] = 3221225472;
+    v112[2] = __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_223;
+    v112[3] = &unk_278972318;
+    v112[4] = v113;
+    v81 = _Block_copy(v112);
+    v111[0] = 0;
+    v111[1] = v111;
+    v111[2] = 0x2020000000;
+    v111[3] = 0;
+    v105 = 0;
+    v106 = &v105;
+    v107 = 0x3032000000;
+    v108 = __Block_byref_object_copy__3014;
+    v109 = __Block_byref_object_dispose__3015;
+    v110 = 0;
     db = self->_db;
-    v96[0] = MEMORY[0x277D85DD0];
-    v96[1] = 3221225472;
-    v96[2] = __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_2_225;
-    v96[3] = &unk_2789778C8;
+    v95[0] = MEMORY[0x277D85DD0];
+    v95[1] = 3221225472;
+    v95[2] = __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_2_225;
+    v95[3] = &unk_2789778C8;
     v11 = v80;
-    v97 = v11;
-    v98 = v12;
-    v103 = v112;
-    v99 = queryCopy;
+    v96 = v11;
+    v97 = v12;
+    v102 = v111;
+    v98 = queryCopy;
     selfCopy = self;
-    v104 = &v106;
+    v103 = &v105;
     v83 = v81;
-    v101 = v83;
-    v105 = v114;
-    v102 = blockCopy;
-    [(PPSQLDatabase *)db readTransactionWithClient:1 block:v96];
-    if (v107[5])
+    v100 = v83;
+    v104 = v113;
+    v101 = blockCopy;
+    [(PPSQLDatabase *)db readTransactionWithClient:1 block:v95];
+    if (v106[5])
     {
       v84 = pp_default_log_handle();
       if (os_log_type_enabled(v84, OS_LOG_TYPE_FAULT))
       {
-        v89 = [v107[5] count];
+        v88 = [v106[5] count];
         *buf = 134217984;
-        v141 = v89;
+        v140 = v88;
         _os_log_fault_impl(&dword_23224A000, v84, OS_LOG_TYPE_FAULT, "iterNamedEntityRecordsWithQuery encountered %tu sources which did not validate; deleting associated named entity records now.", buf, 0xCu);
       }
 
       v85 = self->_db;
-      v95[0] = MEMORY[0x277D85DD0];
-      v95[1] = 3221225472;
-      v95[2] = __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_233;
-      v95[3] = &unk_278978DE0;
-      v95[4] = self;
-      v95[5] = &v106;
-      [(PPSQLDatabase *)v85 writeTransactionWithClient:1 block:v95];
+      v94[0] = MEMORY[0x277D85DD0];
+      v94[1] = 3221225472;
+      v94[2] = __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_233;
+      v94[3] = &unk_278978DE0;
+      v94[4] = self;
+      v94[5] = &v105;
+      [(PPSQLDatabase *)v85 writeTransactionWithClient:1 block:v94];
     }
 
-    _Block_object_dispose(&v106, 8);
-    _Block_object_dispose(v112, 8);
+    _Block_object_dispose(&v105, 8);
+    _Block_object_dispose(v111, 8);
 
-    _Block_object_dispose(v114, 8);
+    _Block_object_dispose(v113, 8);
     v8 = 1;
 LABEL_58:
 
@@ -2434,9 +2424,8 @@ LABEL_58:
 
   v8 = 0;
 LABEL_59:
-  objc_autoreleasePoolPop(v92);
+  objc_autoreleasePoolPop(v91);
 
-  v87 = *MEMORY[0x277D85DE8];
   return (limit == 0) | v8;
 }
 
@@ -2478,27 +2467,7 @@ BOOL __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_bloc
     if (v5)
     {
       v6 = [v5 algorithm];
-      if (v6 != [v3 algorithm])
-      {
-        goto LABEL_7;
-      }
-
-      v7 = [*(*(*(a1 + 32) + 8) + 40) entity];
-      v8 = [v3 entity];
-      v9 = [v7 isEqualToNamedEntity:v8];
-
-      if (!v9)
-      {
-        goto LABEL_7;
-      }
-
-      v10 = [*(*(*(a1 + 32) + 8) + 40) source];
-      v11 = [v10 bundleId];
-      v12 = [v3 source];
-      v13 = [v12 bundleId];
-      v14 = [v11 isEqualToString:v13];
-
-      if (v14)
+      if (v6 == [v3 algorithm] && (objc_msgSend(*(*(*(a1 + 32) + 8) + 40), "entity"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "entity"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "isEqualToNamedEntity:", v8), v8, v7, v9) && (objc_msgSend(*(*(*(a1 + 32) + 8) + 40), "source"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "bundleId"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "source"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "bundleId"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v11, "isEqualToString:", v13), v13, v12, v11, v10, v14))
       {
         v15 = [v3 source];
         v16 = [v15 date];
@@ -2510,7 +2479,6 @@ BOOL __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_bloc
 
       else
       {
-LABEL_7:
         v4 = 0;
       }
     }
@@ -2577,40 +2545,38 @@ void __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_bloc
 
 void __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_3_226(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(*(*(&v10 + 1) + 8 * v8) + 16))(*(*(&v10 + 1) + 8 * v8));
+        (*(*(*(&v9 + 1) + 8 * v8) + 16))(*(*(&v9 + 1) + 8 * v8));
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block___block_invoke_4_227(uint64_t a1, void *a2)
@@ -2752,6 +2718,81 @@ id __74__PPNamedEntityStorage_iterNamedEntityRecordsAndIdsWithQuery_error_block_
   return v10;
 }
 
+- (PPNamedEntityStorage)initWithDatabase:(id)database maxRecords:(unsigned int)records dkStorage:(id)storage loadEmptyDatabaseFromDK:(BOOL)k trialWrapper:(id)wrapper
+{
+  kCopy = k;
+  v10 = *&records;
+  databaseCopy = database;
+  storageCopy = storage;
+  wrapperCopy = wrapper;
+  if (!databaseCopy)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"PPNamedEntityStorage.m" lineNumber:69 description:{@"Invalid parameter not satisfying: %@", @"database"}];
+  }
+
+  v38.receiver = self;
+  v38.super_class = PPNamedEntityStorage;
+  v16 = [(PPNamedEntityStorage *)&v38 init];
+  v17 = v16;
+  if (v16)
+  {
+    objc_storeStrong(&v16->_db, database);
+    objc_storeStrong(&v17->_dkStorage, storage);
+    v18 = [[PPSourceStorage alloc] initWithDatabase:v17->_db];
+    sourceStorage = v17->_sourceStorage;
+    v17->_sourceStorage = v18;
+
+    v20 = [PPRecordStorageHelper alloc];
+    v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ne_records"];
+    dkStorage = v17->_dkStorage;
+    entityStream = [(PPDKStorage *)dkStorage entityStream];
+    v24 = [(PPRecordStorageHelper *)v20 initWithName:@"NamedEntity" table:v21 clusterIdentifierColumn:@"lc_name" maxRecords:v10 duetStorage:dkStorage duetStream:entityStream sourceStorage:v17->_sourceStorage];
+    storageHelper = v17->_storageHelper;
+    v17->_storageHelper = v24;
+
+    objc_storeStrong(&v17->_trialWrapper, wrapper);
+    v26 = [MEMORY[0x277D425A0] autoreleasingSerialQueueWithLabel:"com.apple.PersonalizationPortrait.NamedEntity.PopulateDatabaseQueue" qosClass:9];
+    populateDatabaseQueue = v17->_populateDatabaseQueue;
+    v17->_populateDatabaseQueue = v26;
+
+    v28 = v17->_dkStorage;
+    if (kCopy && v28)
+    {
+      v29 = v17->_populateDatabaseQueue;
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = __69__PPNamedEntityStorage__asyncPopulateDatabaseFromDKEventsIfNecessary__block_invoke;
+      block[3] = &unk_278977B20;
+      block[4] = v17;
+      block[5] = sel__asyncPopulateDatabaseFromDKEventsIfNecessary;
+      dispatch_async(v29, block);
+      v28 = v17->_dkStorage;
+    }
+
+    if (v28)
+    {
+      objc_initWeak(block, v17);
+      v30 = v17->_dkStorage;
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 3221225472;
+      v36[2] = __99__PPNamedEntityStorage_initWithDatabase_maxRecords_dkStorage_loadEmptyDatabaseFromDK_trialWrapper___block_invoke;
+      v36[3] = &unk_278977828;
+      objc_copyWeak(&v37, block);
+      v31 = [(PPDKStorage *)v30 registerForNamedEntitiesRemoteDeletionWithBlock:v36];
+      deletionObserver = v17->_deletionObserver;
+      v17->_deletionObserver = v31;
+
+      objc_destroyWeak(&v37);
+      objc_destroyWeak(block);
+    }
+
+    [(PPNamedEntityStorage *)v17 _asyncProcessNewDKEventDeletions];
+  }
+
+  return v17;
+}
+
 void __99__PPNamedEntityStorage_initWithDatabase_maxRecords_dkStorage_loadEmptyDatabaseFromDK_trialWrapper___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -2760,15 +2801,15 @@ void __99__PPNamedEntityStorage_initWithDatabase_maxRecords_dkStorage_loadEmptyD
 
 void __69__PPNamedEntityStorage__asyncPopulateDatabaseFromDKEventsIfNecessary__block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 8) handleWithClient:1];
   v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ne_records"];
   v4 = [v2 numberOfRowsInTable:v3];
 
   if (v4 < 0)
   {
-    v17 = [MEMORY[0x277CCA890] currentHandler];
-    [v17 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"PPNamedEntityStorage.m" lineNumber:925 description:@"negative record count in ne_records"];
+    v16 = [MEMORY[0x277CCA890] currentHandler];
+    [v16 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"PPNamedEntityStorage.m" lineNumber:925 description:@"negative record count in ne_records"];
 
 LABEL_3:
     v5 = pp_entities_log_handle();
@@ -2796,7 +2837,7 @@ LABEL_3:
   v7 = [*(a1 + 32) duetReadBatchSize] + 99999;
   v8 = [*(a1 + 32) duetReadBatchSize];
   v9 = 0;
-  v19 = 0;
+  v18 = 0;
   v10 = v7 / v8;
   do
   {
@@ -2804,20 +2845,20 @@ LABEL_3:
     v12 = [v11 duetReadBatchSize];
     if (v11)
     {
-      [(PPNamedEntityStorage *)v11 _importDKEventsWithShouldContinueBlock:v12 remoteEventsOnly:0 isComplete:&v19 shouldContinueBlock:&__block_literal_global_333];
+      [(PPNamedEntityStorage *)v11 _importDKEventsWithShouldContinueBlock:v12 remoteEventsOnly:0 isComplete:&v18 shouldContinueBlock:&__block_literal_global_333];
     }
 
     ++v9;
   }
 
-  while ((v19 & 1) == 0 && v9 < v10);
-  if ((v19 & 1) == 0)
+  while ((v18 & 1) == 0 && v9 < v10);
+  if ((v18 & 1) == 0)
   {
     v13 = pp_default_log_handle();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       *buf = 134217984;
-      v21 = v9;
+      v20 = v9;
       _os_log_fault_impl(&dword_23224A000, v13, OS_LOG_TYPE_FAULT, "PPNamedEntityStorage:_asyncPopulateDatabaseFromDKEventsIfNecessary terminated due to excessive loop count %tu", buf, 0xCu);
     }
   }
@@ -2827,21 +2868,19 @@ LABEL_3:
 
   if (v15 < 0)
   {
-    v18 = [MEMORY[0x277CCA890] currentHandler];
-    [v18 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"PPNamedEntityStorage.m" lineNumber:946 description:@"negative record count in ne_records"];
+    v17 = [MEMORY[0x277CCA890] currentHandler];
+    [v17 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"PPNamedEntityStorage.m" lineNumber:946 description:@"negative record count in ne_records"];
   }
 
   v5 = pp_entities_log_handle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v21 = v15;
+    v20 = v15;
     _os_log_impl(&dword_23224A000, v5, OS_LOG_TYPE_DEFAULT, "Completed initial _DKEvent named entity import. Database now contains %lld named entity records.", buf, 0xCu);
   }
 
 LABEL_20:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

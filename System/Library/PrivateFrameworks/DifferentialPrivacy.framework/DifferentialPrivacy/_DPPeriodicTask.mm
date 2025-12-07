@@ -1,5 +1,6 @@
 @interface _DPPeriodicTask
 + (id)taskWithName:(id)name period:(unint64_t)period handler:(id)handler;
++ (id)taskWithName:(id)name period:(unint64_t)period handler:(id)handler networkingRequired:(BOOL)required;
 - (_DPPeriodicTask)initWithName:(id)name period:(unint64_t)period handler:(id)handler networkingRequired:(BOOL)required;
 @end
 
@@ -14,9 +15,9 @@
   selfCopy = 0;
   if (nameCopy && handlerCopy)
   {
-    v33.receiver = self;
-    v33.super_class = _DPPeriodicTask;
-    v14 = [(_DPPeriodicTask *)&v33 init];
+    v32.receiver = self;
+    v32.super_class = _DPPeriodicTask;
+    v14 = [(_DPPeriodicTask *)&v32 init];
     if (v14)
     {
       v15 = [nameCopy copy];
@@ -75,7 +76,6 @@
     selfCopy = self;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -86,6 +86,16 @@
   v9 = [objc_opt_class() taskWithName:nameCopy period:period handler:handlerCopy networkingRequired:0];
 
   return v9;
+}
+
++ (id)taskWithName:(id)name period:(unint64_t)period handler:(id)handler networkingRequired:(BOOL)required
+{
+  requiredCopy = required;
+  handlerCopy = handler;
+  nameCopy = name;
+  v12 = [[self alloc] initWithName:nameCopy period:period handler:handlerCopy networkingRequired:requiredCopy];
+
+  return v12;
 }
 
 @end

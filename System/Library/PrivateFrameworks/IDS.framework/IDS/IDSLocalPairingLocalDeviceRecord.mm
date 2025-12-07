@@ -1,5 +1,6 @@
 @interface IDSLocalPairingLocalDeviceRecord
 - (IDSLocalPairingLocalDeviceRecord)initWithWithFullIdentityDataClassA:(id)a classC:(id)c classD:(id)d;
+- (id)_fullIdenityForDataProtectionClass:(unsigned int)class error:(id *)error;
 - (id)description;
 @end
 
@@ -29,6 +30,29 @@
   v12 = [v9 stringWithFormat:@"<%@: %p classA: %@, errorClassA: %@, classC: %@, errorClassC: %@, classD: %@, errorClassD: %@>", v11, self, v3, v4, v5, v6, v7, v8];
 
   return v12;
+}
+
+- (id)_fullIdenityForDataProtectionClass:(unsigned int)class error:(id *)error
+{
+  v5 = *&class;
+  v6 = [IDSLocalPairingRecord identityDataForDataProtectionClass:"identityDataForDataProtectionClass:error:" error:?];
+  if (v6)
+  {
+    v7 = [MEMORY[0x1E69A5310] identityWithData:v6 error:error];
+  }
+
+  else
+  {
+    nRPairing = [MEMORY[0x1E69A6138] NRPairing];
+    if (os_log_type_enabled(nRPairing, OS_LOG_TYPE_ERROR))
+    {
+      sub_195B33084(v5);
+    }
+
+    v7 = 0;
+  }
+
+  return v7;
 }
 
 @end

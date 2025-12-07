@@ -45,14 +45,13 @@
 
 - (GKDecisionTree)initWithCoder:(id)coder
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   if ([(GKDecisionTree *)self init])
   {
     operator new();
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -93,7 +92,7 @@
 
 - (GKDecisionTree)initWithExamples:(id)examples actions:(id)actions attributes:(id)attributes maxDepth:(unint64_t)depth minSamplesSplit:(unint64_t)split
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   examplesCopy = examples;
   actionsCopy = actions;
   attributesCopy = attributes;
@@ -127,28 +126,28 @@
         }
 
         v18 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(examplesCopy, "count")}];
-        v42 = 0u;
-        v43 = 0u;
-        v40 = 0u;
         v41 = 0u;
+        v42 = 0u;
+        v39 = 0u;
+        v40 = 0u;
         v19 = actionsCopy;
-        v20 = [v19 countByEnumeratingWithState:&v40 objects:v44 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v39 objects:v43 count:16];
         if (v20)
         {
           LODWORD(v21) = 0;
-          v22 = *v41;
+          v22 = *v40;
           do
           {
             v23 = 0;
             v21 = v21;
             do
             {
-              if (*v41 != v22)
+              if (*v40 != v22)
               {
                 objc_enumerationMutation(v19);
               }
 
-              v24 = *(*(&v40 + 1) + 8 * v23);
+              v24 = *(*(&v39 + 1) + 8 * v23);
               v25 = [examplesCopy objectAtIndexedSubscript:v21];
               v26 = [v25 arrayByAddingObject:v24];
               [(NSArray *)v18 addObject:v26];
@@ -158,7 +157,7 @@
             }
 
             while (v20 != v23);
-            v20 = [v19 countByEnumeratingWithState:&v40 objects:v44 count:16];
+            v20 = [v19 countByEnumeratingWithState:&v39 objects:v43 count:16];
           }
 
           while (v20);
@@ -189,7 +188,6 @@
     }
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -268,78 +266,78 @@
 
 - (id)findAccuracyWithExamples:(id)examples actions:(id)actions attributes:(id)attributes
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   examplesCopy = examples;
   actionsCopy = actions;
   attributesCopy = attributes;
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   obj = examplesCopy;
-  v8 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v8 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v8)
   {
-    v33 = 0;
+    v32 = 0;
     v9 = 0;
-    v28 = *v39;
+    v27 = *v38;
     do
     {
       v10 = 0;
-      v31 = v8;
+      v30 = v8;
       do
       {
-        if (*v39 != v28)
+        if (*v38 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v38 + 1) + 8 * v10);
+        v11 = *(*(&v37 + 1) + 8 * v10);
         v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
-        v32 = v9;
-        v36 = 0u;
-        v37 = 0u;
-        v34 = 0u;
+        v31 = v9;
         v35 = 0u;
+        v36 = 0u;
+        v33 = 0u;
+        v34 = 0u;
         v13 = attributesCopy;
-        v14 = [v13 countByEnumeratingWithState:&v34 objects:v42 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v33 objects:v41 count:16];
         if (v14)
         {
           v15 = 0;
-          v16 = *v35;
+          v16 = *v34;
           do
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v35 != v16)
+              if (*v34 != v16)
               {
                 objc_enumerationMutation(v13);
               }
 
-              v18 = *(*(&v34 + 1) + 8 * i);
+              v18 = *(*(&v33 + 1) + 8 * i);
               v19 = [v11 objectAtIndexedSubscript:v15];
               [v12 setObject:v19 forKey:v18];
 
               ++v15;
             }
 
-            v14 = [v13 countByEnumeratingWithState:&v34 objects:v42 count:16];
+            v14 = [v13 countByEnumeratingWithState:&v33 objects:v41 count:16];
           }
 
           while (v14);
         }
 
         v20 = [(GKDecisionTree *)self findActionForAnswers:v12];
-        v21 = [actionsCopy objectAtIndexedSubscript:v33];
+        v21 = [actionsCopy objectAtIndexedSubscript:v32];
         v22 = [v21 isEqual:v20];
 
-        v9 = v32 + v22;
-        ++v33;
+        v9 = v31 + v22;
+        ++v32;
         ++v10;
       }
 
-      while (v10 != v31);
-      v8 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+      while (v10 != v30);
+      v8 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
     while (v8);
@@ -351,8 +349,6 @@
   }
 
   v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{v9 / objc_msgSend(obj, "count")}];
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }

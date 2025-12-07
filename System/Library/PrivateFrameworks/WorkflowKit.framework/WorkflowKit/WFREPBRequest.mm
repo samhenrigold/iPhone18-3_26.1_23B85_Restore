@@ -94,7 +94,6 @@
   }
 
   PBDataWriterWriteStringField();
-  version = self->_version;
   PBDataWriterWriteInt32Field();
   if (!self->_message)
   {

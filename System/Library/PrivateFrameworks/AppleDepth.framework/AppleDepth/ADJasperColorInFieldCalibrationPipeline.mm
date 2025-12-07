@@ -221,9 +221,9 @@
   CVPixelBufferLockBaseAddress(image, 0);
   memset(&v63, 0, sizeof(v63));
   v10 = MEMORY[0x277CBF3A0];
-  PixelBufferUtils::asVImageBuffer(image, *MEMORY[0x277CBF3A0], &v63);
+  PixelBufferUtils::asVImageBuffer(&v63, image, *MEMORY[0x277CBF3A0]);
   memset(&v62, 0, sizeof(v62));
-  PixelBufferUtils::asVImageBuffer(undistortedImage, *v10, &v62);
+  PixelBufferUtils::asVImageBuffer(&v62, undistortedImage, *v10);
   height = v62.height;
   if (v62.height)
   {

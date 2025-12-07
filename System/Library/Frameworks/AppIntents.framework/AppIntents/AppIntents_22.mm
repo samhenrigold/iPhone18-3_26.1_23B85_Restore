@@ -1,143 +1,9 @@
-uint64_t sub_18F2EF744()
-{
-  if ([v0 localizedStringResource])
-  {
-    sub_18F118258();
-    return sub_18F520A9C();
-  }
-
-  else
-  {
-    result = OUTLINED_FUNCTION_0_79();
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t _AssistantUniqueEntityExample.init<A>(get:phrases:)@<X0>(uint64_t (*a1)(void)@<X1>, void *a2@<X8>)
-{
-  *a2 = a1();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0400);
-  result = sub_18F5216CC();
-  a2[1] = result;
-  return result;
-}
-
-uint64_t _AssistantUniqueEntityExample.Phrase.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
-{
-  a3[1] = a1;
-  a3[2] = a2;
-  sub_18F52288C();
-  result = sub_18F521D2C();
-  *a3 = result;
-  return result;
-}
-
-double _AssistantUniqueEntityExample.Phrase.init(stringLiteral:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  _AssistantUniqueEntityExample.Phrase.init(_:)(a1, a2, &v6);
-  result = *&v6;
-  v5 = v7;
-  *a3 = v6;
-  *(a3 + 16) = v5;
-  return result;
-}
-
-__n128 _AssistantUniqueEntityExample.Phrase.init(stringInterpolation:)@<Q0>(__n128 *a1@<X0>, __n128 *a2@<X8>)
-{
-  result = *a1;
-  v3 = a1[1].n128_u64[0];
-  *a2 = *a1;
-  a2[1].n128_u64[0] = v3;
-  return result;
-}
-
-uint64_t _AssistantUniqueEntityExample.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
-{
-  sub_18F52288C();
-  result = sub_18F521D2C();
-  *a3 = result;
-  a3[1] = 0;
-  a3[2] = 0xE000000000000000;
-  if (a2 + 0x4000000000000000 < 0)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    result = a1 + 2 * a2;
-    if (!__OFADD__(a1, 2 * a2))
-    {
-      MEMORY[0x193ADAF90](result);
-      sub_18F521DBC();
-      return sub_18F521CFC();
-    }
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t _AssistantUniqueEntityExample.Phrase.StringInterpolation.appendInterpolation(_:)()
-{
-  return MEMORY[0x193ADB000](0xD000000000000012, 0x800000018F5267E0);
-}
-
-{
-  OUTLINED_FUNCTION_0_80();
-  sub_18F521D7C();
-  v1 = sub_18F522C9C();
-  MEMORY[0x193ADB000](v1);
-
-  MEMORY[0x193ADB000](125, 0xE100000000000000);
-  MEMORY[0x193ADB000]();
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0050);
-  swift_allocObject();
-  v2 = sub_18F521CDC();
-  *v3 = v0;
-  sub_18F129FD4(v2);
-
-  sub_18F521D5C();
-}
-
-uint64_t _AssistantUniqueEntityExample.Phrase.StringInterpolation.appendInterpolation<A, B>(_:)()
-{
-  OUTLINED_FUNCTION_0_80();
-  sub_18F521D7C();
-  v1 = sub_18F522C9C();
-  MEMORY[0x193ADB000](v1);
-
-  MEMORY[0x193ADB000](125, 0xE100000000000000);
-  MEMORY[0x193ADB000]();
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0050);
-  swift_allocObject();
-  v2 = sub_18F521CDC();
-  *v3 = v0;
-  sub_18F129FD4(v2);
-
-  sub_18F521D5C();
-}
-
-uint64_t _AssistantUniqueEntityExample.Value.init<A>(for:builder:)@<X0>(uint64_t (*a1)(void)@<X1>, uint64_t *a2@<X8>)
-{
-  *a2 = sub_18F2328C8();
-  a2[1] = v4;
-  v5 = a1();
-
-  a2[2] = v5;
-  return result;
-}
-
 uint64_t static _AssistantUniqueEntityExample.ParameterValueBuilder.buildExpression(_:)(uint64_t *a1)
 {
   v2 = *a1;
   v1 = a1[1];
   v3 = a1[2];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD00C8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD00C8, &qword_18F5549C0);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_18F53F800;
   *(v4 + 32) = v2;
@@ -262,7 +128,7 @@ LABEL_17:
 
 uint64_t static _AssistantUniqueEntityExample.StringValueBuilder.buildExpression(_:)(uint64_t a1, uint64_t a2)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0038);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0038, &qword_18F54C1C0);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_18F53F800;
   *(v4 + 32) = a1;
@@ -378,27 +244,27 @@ LABEL_17:
   }
 }
 
-uint64_t static _AssistantUniqueEntityExample.PhraseBuilder.buildExpression(_:)(uint64_t *a1)
+uint64_t static _AssistantUniqueEntityExample.PhraseBuilder.buildExpression(_:)(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = *a1;
-  v2 = a1[1];
-  v3 = a1[2];
-  type metadata accessor for _AssistantUniqueEntityExample.Phrase();
+  v4 = *a1;
+  v5 = a1[1];
+  v6 = a1[2];
+  v7 = type metadata accessor for _AssistantUniqueEntityExample.Phrase(255, a2, a3, a4);
   sub_18F522CAC();
   swift_allocObject();
-  v4 = sub_18F521CDC();
-  *v5 = v1;
-  v5[1] = v2;
-  v5[2] = v3;
-  v6 = sub_18F129FD4(v4);
+  v8 = sub_18F521CDC();
+  *v9 = v4;
+  v9[1] = v5;
+  v9[2] = v6;
+  v10 = sub_18F129FD4(v8, v7);
   _s10AppIntents22IntentParameterSummaryV0D15KeyPathsBuilderO10buildBlockySays07PartialF4PathCyxGGAId_tFZ_0();
   _s10AppIntents22IntentParameterSummaryV0D15KeyPathsBuilderO10buildBlockySays07PartialF4PathCyxGGAId_tFZ_0();
-  return v6;
+  return v10;
 }
 
-uint64_t static _AssistantUniqueEntityExample.PhraseBuilder.buildBlock(_:)()
+uint64_t static _AssistantUniqueEntityExample.PhraseBuilder.buildBlock(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  type metadata accessor for _AssistantUniqueEntityExample.Phrase();
+  type metadata accessor for _AssistantUniqueEntityExample.Phrase(255, a2, a3, a4);
   sub_18F521DBC();
   OUTLINED_FUNCTION_0_57();
   swift_getWitnessTable();
@@ -407,7 +273,7 @@ uint64_t static _AssistantUniqueEntityExample.PhraseBuilder.buildBlock(_:)()
 }
 
 {
-  type metadata accessor for _AssistantUniqueEntityExample.Phrase();
+  type metadata accessor for _AssistantUniqueEntityExample.Phrase(255, a2, a3, a4);
   sub_18F521DBC();
   sub_18F521DBC();
   OUTLINED_FUNCTION_0_57();
@@ -417,9 +283,9 @@ uint64_t static _AssistantUniqueEntityExample.PhraseBuilder.buildBlock(_:)()
   return sub_18F521BEC();
 }
 
-uint64_t static _AssistantUniqueEntityExample.PhraseBuilder.buildBlock()()
+uint64_t static _AssistantUniqueEntityExample.PhraseBuilder.buildBlock()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  type metadata accessor for _AssistantUniqueEntityExample.Phrase();
+  type metadata accessor for _AssistantUniqueEntityExample.Phrase(0, a1, a2, a4);
 
   return sub_18F521D2C();
 }
@@ -428,7 +294,7 @@ uint64_t static _AssistantUniqueEntityExample.Builder.buildExpression(_:)(uint64
 {
   v1 = *a1;
   v2 = a1[1];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD00C0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD00C0, &unk_18F53FE80);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_18F53F800;
   *(v3 + 32) = v1;
@@ -588,33 +454,33 @@ LABEL_19:
   return result;
 }
 
-uint64_t sub_18F2F067C@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
+uint64_t sub_18F2F067C@<X0>(uint64_t *a1@<X8>, uint64_t a2@<X0>, uint64_t *a3@<X1>, uint64_t *a4@<X2>)
 {
-  sub_18F2F9C00(a1, a2);
-  v5 = [objc_opt_self() foregroundContinuableProtocol];
-  OUTLINED_FUNCTION_3_50(v5, v6, v7, v8, v9, v10, v11, v12, v17, v18, v19, v20, v21, v22);
-  v14 = v13;
+  sub_18F2F9C00(a2, a3, a4);
+  v6 = [objc_opt_self() foregroundContinuableProtocol];
+  OUTLINED_FUNCTION_3_50(v6, v7, v8, v9, v10, v11, v12, v13, v21, v22, v23, v24, v25, v26);
+  v15 = v14;
 
-  if (v14)
+  if (v15)
   {
-    v16 = 8;
+    v18 = 8;
   }
 
   else
   {
-    result = OUTLINED_FUNCTION_4_41();
-    if (result && ((result = OUTLINED_FUNCTION_4_41()) != 0 || (result = OUTLINED_FUNCTION_4_41()) != 0))
+    result = OUTLINED_FUNCTION_4_41(result, v17, &protocol descriptor for OpenIntent);
+    if (result && ((result = OUTLINED_FUNCTION_4_41(result, v19, &protocol descriptor for URLRepresentableIntent)) != 0 || (result = OUTLINED_FUNCTION_4_41(0, v20, &protocol descriptor for _URLRepresentableIntent)) != 0))
     {
-      v16 = 1;
+      v18 = 1;
     }
 
     else
     {
-      v16 = 2;
+      v18 = 2;
     }
   }
 
-  *a3 = v16;
+  *a1 = v18;
   return result;
 }
 
@@ -622,89 +488,89 @@ uint64_t sub_18F2F0740@<X0>(void (*a1)(void)@<X0>, uint64_t *a2@<X8>)
 {
   a1();
   v4 = [objc_opt_self() foregroundContinuableProtocol];
-  OUTLINED_FUNCTION_3_50(v4, v5, v6, v7, v8, v9, v10, v11, v16, v17, v18, v19, v20, v21);
+  OUTLINED_FUNCTION_3_50(v4, v5, v6, v7, v8, v9, v10, v11, v19, v20, v21, v22, v23, v24);
   v13 = v12;
 
   if (v13)
   {
-    v15 = 8;
-  }
-
-  else
-  {
-    result = OUTLINED_FUNCTION_4_41();
-    if (result)
-    {
-      result = OUTLINED_FUNCTION_4_41();
-      if (!result)
-      {
-        result = OUTLINED_FUNCTION_4_41();
-      }
-    }
-
-    v15 = 1;
-  }
-
-  *a2 = v15;
-  return result;
-}
-
-uint64_t sub_18F2F07FC@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
-{
-  sub_18F2F9C00(a1, a2);
-  v5 = [objc_opt_self() foregroundContinuableProtocol];
-  OUTLINED_FUNCTION_3_50(v5, v6, v7, v8, v9, v10, v11, v12, v17, v18, v19, v20, v21, v22);
-  v14 = v13;
-
-  if (v14)
-  {
     v16 = 8;
   }
 
   else
   {
-    result = OUTLINED_FUNCTION_4_41();
-    v16 = 1;
-  }
-
-  *a3 = v16;
-  return result;
-}
-
-uint64_t sub_18F2F0894@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
-{
-  sub_18F2F9C00(a1, a2);
-  v5 = [objc_opt_self() foregroundContinuableProtocol];
-  OUTLINED_FUNCTION_3_50(v5, v6, v7, v8, v9, v10, v11, v12, v17, v18, v19, v20, v21, v22);
-  v14 = v13;
-
-  if (v14)
-  {
-    v16 = 8;
-  }
-
-  else
-  {
-    result = OUTLINED_FUNCTION_4_41();
+    result = OUTLINED_FUNCTION_4_41(result, v15, &protocol descriptor for OpenIntent);
     if (result)
     {
-      result = OUTLINED_FUNCTION_4_41();
+      result = OUTLINED_FUNCTION_4_41(result, v17, &protocol descriptor for URLRepresentableIntent);
       if (!result)
       {
-        result = OUTLINED_FUNCTION_4_41();
+        result = OUTLINED_FUNCTION_4_41(0, v18, &protocol descriptor for _URLRepresentableIntent);
       }
     }
 
     v16 = 1;
   }
 
-  *a3 = v16;
+  *a2 = v16;
+  return result;
+}
+
+uint64_t sub_18F2F07FC@<X0>(uint64_t *a1@<X8>, uint64_t a2@<X0>, uint64_t *a3@<X1>, uint64_t *a4@<X2>)
+{
+  sub_18F2F9C00(a2, a3, a4);
+  v6 = [objc_opt_self() foregroundContinuableProtocol];
+  OUTLINED_FUNCTION_3_50(v6, v7, v8, v9, v10, v11, v12, v13, v19, v20, v21, v22, v23, v24);
+  v15 = v14;
+
+  if (v15)
+  {
+    v18 = 8;
+  }
+
+  else
+  {
+    result = OUTLINED_FUNCTION_4_41(result, v17, &protocol descriptor for OpenIntent);
+    v18 = 1;
+  }
+
+  *a1 = v18;
+  return result;
+}
+
+uint64_t sub_18F2F0894@<X0>(uint64_t *a1@<X8>, uint64_t a2@<X0>, uint64_t *a3@<X1>, uint64_t *a4@<X2>)
+{
+  sub_18F2F9C00(a2, a3, a4);
+  v6 = [objc_opt_self() foregroundContinuableProtocol];
+  OUTLINED_FUNCTION_3_50(v6, v7, v8, v9, v10, v11, v12, v13, v21, v22, v23, v24, v25, v26);
+  v15 = v14;
+
+  if (v15)
+  {
+    v18 = 8;
+  }
+
+  else
+  {
+    result = OUTLINED_FUNCTION_4_41(result, v17, &protocol descriptor for OpenIntent);
+    if (result)
+    {
+      result = OUTLINED_FUNCTION_4_41(result, v19, &protocol descriptor for URLRepresentableIntent);
+      if (!result)
+      {
+        result = OUTLINED_FUNCTION_4_41(0, v20, &protocol descriptor for _URLRepresentableIntent);
+      }
+    }
+
+    v18 = 1;
+  }
+
+  *a1 = v18;
   return result;
 }
 
 uint64_t IntentSystemContext.currentMode.getter@<X0>(_BYTE *a1@<X8>)
 {
-  type metadata accessor for IntentContext();
+  type metadata accessor for IntentContext(0);
   OUTLINED_FUNCTION_20_26();
   MEMORY[0x1EEE9AC00](v3);
   OUTLINED_FUNCTION_4_50();
@@ -717,10 +583,10 @@ uint64_t IntentSystemContext.currentMode.getter@<X0>(_BYTE *a1@<X8>)
 
 BOOL IntentModes.Current.canContinueInForeground.getter()
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(qword_1EACD2898);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(qword_1EACD2898, &qword_18F5492F0);
   MEMORY[0x1EEE9AC00](v2 - 8);
   v4 = &v9 - v3;
-  type metadata accessor for IntentContext();
+  type metadata accessor for IntentContext(0);
   OUTLINED_FUNCTION_20_26();
   MEMORY[0x1EEE9AC00](v5);
   OUTLINED_FUNCTION_4_50();
@@ -752,7 +618,7 @@ BOOL IntentModes.Current.canContinueInForeground.getter()
   return result;
 }
 
-BOOL sub_18F2F0BBC(uint64_t (*a1)(uint64_t), uint64_t a2, uint64_t a3)
+BOOL sub_18F2F0BBC(uint64_t (*a1)(uint64_t, uint64_t), uint64_t a2, uint64_t a3)
 {
   v5 = a3 + 32;
   v6 = *(a3 + 16) + 1;
@@ -763,7 +629,7 @@ BOOL sub_18F2F0BBC(uint64_t (*a1)(uint64_t), uint64_t a2, uint64_t a3)
       break;
     }
 
-    v7 = a1(v5);
+    v7 = a1(v5, a2);
     if (v3)
     {
       break;
@@ -870,7 +736,7 @@ uint64_t IntentModes.Current.hashValue.getter()
 uint64_t sub_18F2F1004()
 {
   v46 = MEMORY[0x1E69E7CC0];
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for AssistantIntent))
   {
     v0 = [objc_opt_self() assistantIntentProtocol];
     MEMORY[0x193ADB260]();
@@ -882,7 +748,7 @@ uint64_t sub_18F2F1004()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for _AssistantAppIntent))
   {
     v1 = [objc_opt_self() assistantIntentProtocol];
     MEMORY[0x193ADB260]();
@@ -894,7 +760,7 @@ uint64_t sub_18F2F1004()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for _AssistantInvocableIntent))
   {
     v2 = [objc_opt_self() assistantInvocableIntentProtocol];
     MEMORY[0x193ADB260]();
@@ -906,7 +772,7 @@ uint64_t sub_18F2F1004()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for CancelIntent))
   {
     v3 = [objc_opt_self() cancelProtocol];
     MEMORY[0x193ADB260]();
@@ -918,7 +784,7 @@ uint64_t sub_18F2F1004()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for ChangeBinarySettingIntent))
   {
     v4 = [objc_opt_self() changeBinarySettingSystemProtocol];
     MEMORY[0x193ADB260]();
@@ -930,7 +796,7 @@ uint64_t sub_18F2F1004()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for CloseIntent))
   {
     v5 = [objc_opt_self() closeEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -952,7 +818,7 @@ uint64_t sub_18F2F1004()
 
   sub_18F521D6C();
   v7 = v46;
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for CreateIntent))
   {
     v8 = [v6 createEntitySystemProtocol];
     MEMORY[0x193ADB260]();
@@ -965,7 +831,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for _CreateIntent))
   {
     v9 = [v6 createEntitySystemProtocol];
     MEMORY[0x193ADB260]();
@@ -978,7 +844,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for DeleteIntent))
   {
     v10 = [v6 deleteEntitySystemProtocol];
     MEMORY[0x193ADB260]();
@@ -992,8 +858,8 @@ uint64_t sub_18F2F1004()
   }
 
   v45 = &type metadata for _CopyIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(qword_1EACD5CB0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C20);
+  __swift_instantiateConcreteTypeFromMangledNameV2(qword_1EACD5CB0, &qword_18F555140);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C20, &unk_18F55B340);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v44);
@@ -1008,7 +874,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for FavoriteIntent))
   {
     v12 = [v6 favoriteEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -1022,7 +888,7 @@ uint64_t sub_18F2F1004()
   }
 
   v45 = &type metadata for _CopyIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C28);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C28, &qword_18F5550C8);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v44);
@@ -1038,7 +904,7 @@ uint64_t sub_18F2F1004()
   }
 
   v45 = &type metadata for _CopyIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C30);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C30, &unk_18F55B350);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v44);
@@ -1054,7 +920,7 @@ uint64_t sub_18F2F1004()
   }
 
   v45 = &type metadata for _CopyIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD45A8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD45A8, &qword_18F54F5F8);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v44);
@@ -1069,7 +935,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for _PreviewIntent))
   {
     v16 = [v6 previewEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -1082,7 +948,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for _EnterMarkupIntent))
   {
     v17 = [v6 enterMarkupProtocol];
     MEMORY[0x193ADB260]();
@@ -1095,7 +961,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for PutInContainerIntent))
   {
     v18 = [v6 putEntityInContainerProtocol];
     MEMORY[0x193ADB260]();
@@ -1108,7 +974,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for ResizeIntent))
   {
     v19 = [v6 resizeProtocol];
     MEMORY[0x193ADB260]();
@@ -1122,7 +988,7 @@ uint64_t sub_18F2F1004()
   }
 
   v45 = &type metadata for _CopyIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C38);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C38, &unk_18F55B360);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v44);
@@ -1137,7 +1003,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for ScrollIntent))
   {
     v21 = [v6 scrollProtocol];
     MEMORY[0x193ADB260]();
@@ -1151,7 +1017,7 @@ uint64_t sub_18F2F1004()
   }
 
   v45 = &type metadata for _CopyIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C40);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C40, &qword_18F5550D0);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v44);
@@ -1166,7 +1032,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for ZoomIntent))
   {
     v23 = [v6 zoomProtocol];
     MEMORY[0x193ADB260]();
@@ -1179,7 +1045,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for WidgetConfigurationIntent))
   {
     v24 = [v6 widgetConfigurationProtocol];
     MEMORY[0x193ADB260]();
@@ -1192,7 +1058,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for SetFocusFilterIntent))
   {
     v25 = [v6 focusConfigurationProtocol];
     MEMORY[0x193ADB260]();
@@ -1205,7 +1071,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for __CopyIntent))
   {
     [v6 copyEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -1218,7 +1084,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for CutIntent))
   {
     v26 = [v6 cutEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -1231,7 +1097,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for StartWorkoutIntent))
   {
     v27 = [v6 startWorkoutProtocol];
     MEMORY[0x193ADB260]();
@@ -1244,7 +1110,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for PauseWorkoutIntent))
   {
     v28 = [v6 pauseWorkoutProtocol];
     MEMORY[0x193ADB260]();
@@ -1257,7 +1123,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for ResumeWorkoutIntent))
   {
     v29 = [v6 resumeWorkoutProtocol];
     MEMORY[0x193ADB260]();
@@ -1270,7 +1136,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for ProgressReportingIntent))
   {
     v30 = [v6 progressReportingProtocol];
     MEMORY[0x193ADB260]();
@@ -1283,7 +1149,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent) || dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for LiveActivityStartingIntent) || dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for LiveActivityIntent))
   {
     v31 = [v6 sessionStartingProtocol];
     MEMORY[0x193ADB260]();
@@ -1296,7 +1162,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for SnippetIntent))
   {
     v32 = [v6 snippetProtocol];
     MEMORY[0x193ADB260]();
@@ -1309,7 +1175,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent) || dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for AudioStartingIntent) || dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for AudioPlaybackIntent))
   {
     v33 = [v6 audioStartingProtocol];
     MEMORY[0x193ADB260]();
@@ -1322,7 +1188,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for AudioRecordingIntent))
   {
     v34 = [v6 audioRecordingProtocol];
     MEMORY[0x193ADB260]();
@@ -1335,7 +1201,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for ManagedDestinationIntent))
   {
     v35 = [v6 requiresMDMChecksProtocol];
     MEMORY[0x193ADB260]();
@@ -1348,7 +1214,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for CameraCaptureIntent))
   {
     v36 = [v6 cameraCaptureProtocol];
     MEMORY[0x193ADB260]();
@@ -1361,7 +1227,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for StaccatoLongPressIntent))
   {
     v37 = [v6 staccatoLongPressProtocol];
     MEMORY[0x193ADB260]();
@@ -1374,7 +1240,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for ToggleIntent))
   {
     v38 = [v6 toggleProtocol];
     MEMORY[0x193ADB260]();
@@ -1387,7 +1253,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for PushToTalkTransmissionIntent))
   {
     v39 = [v6 pushToTalkTransmissionProtocol];
     MEMORY[0x193ADB260]();
@@ -1400,7 +1266,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for UndoableIntent))
   {
     v40 = [v6 undoableProtocol];
     MEMORY[0x193ADB260]();
@@ -1413,7 +1279,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for _UndoableIntent))
   {
     v41 = [v6 undoableProtocol];
     MEMORY[0x193ADB260]();
@@ -1426,7 +1292,7 @@ uint64_t sub_18F2F1004()
     v7 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CopyIntent, &type metadata for _CopyIntent, &protocol descriptor for ForegroundContinuableIntent))
   {
     v42 = [v6 foregroundContinuableProtocol];
     MEMORY[0x193ADB260]();
@@ -1445,7 +1311,7 @@ uint64_t sub_18F2F1004()
 uint64_t sub_18F2F2768()
 {
   v47 = MEMORY[0x1E69E7CC0];
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for AssistantIntent))
   {
     v0 = [objc_opt_self() assistantIntentProtocol];
     MEMORY[0x193ADB260]();
@@ -1457,7 +1323,7 @@ uint64_t sub_18F2F2768()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for _AssistantAppIntent))
   {
     v1 = [objc_opt_self() assistantIntentProtocol];
     MEMORY[0x193ADB260]();
@@ -1469,7 +1335,7 @@ uint64_t sub_18F2F2768()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for _AssistantInvocableIntent))
   {
     v2 = [objc_opt_self() assistantInvocableIntentProtocol];
     MEMORY[0x193ADB260]();
@@ -1481,7 +1347,7 @@ uint64_t sub_18F2F2768()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for CancelIntent))
   {
     v3 = [objc_opt_self() cancelProtocol];
     MEMORY[0x193ADB260]();
@@ -1493,7 +1359,7 @@ uint64_t sub_18F2F2768()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for ChangeBinarySettingIntent))
   {
     v4 = [objc_opt_self() changeBinarySettingSystemProtocol];
     MEMORY[0x193ADB260]();
@@ -1505,7 +1371,7 @@ uint64_t sub_18F2F2768()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for CloseIntent))
   {
     v5 = [objc_opt_self() closeEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -1517,7 +1383,7 @@ uint64_t sub_18F2F2768()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for CreateIntent))
   {
     v6 = [objc_opt_self() createEntitySystemProtocol];
     MEMORY[0x193ADB260]();
@@ -1529,7 +1395,7 @@ uint64_t sub_18F2F2768()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for _CreateIntent))
   {
     v7 = [objc_opt_self() createEntitySystemProtocol];
     MEMORY[0x193ADB260]();
@@ -1551,7 +1417,7 @@ uint64_t sub_18F2F2768()
 
   sub_18F521D6C();
   v10 = v47;
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for DeleteIntent))
   {
     v11 = [v8 deleteEntitySystemProtocol];
     MEMORY[0x193ADB260]();
@@ -1565,8 +1431,8 @@ uint64_t sub_18F2F2768()
   }
 
   v46 = &type metadata for _CutIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C90);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C20);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C90, &qword_18F555120);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C20, &unk_18F55B340);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v45);
@@ -1581,7 +1447,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for FavoriteIntent))
   {
     v13 = [v8 favoriteEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -1595,7 +1461,7 @@ uint64_t sub_18F2F2768()
   }
 
   v46 = &type metadata for _CutIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C28);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C28, &qword_18F5550C8);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v45);
@@ -1611,7 +1477,7 @@ uint64_t sub_18F2F2768()
   }
 
   v46 = &type metadata for _CutIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C30);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C30, &unk_18F55B350);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v45);
@@ -1627,7 +1493,7 @@ uint64_t sub_18F2F2768()
   }
 
   v46 = &type metadata for _CutIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD45A8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD45A8, &qword_18F54F5F8);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v45);
@@ -1642,7 +1508,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for _PreviewIntent))
   {
     v17 = [v8 previewEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -1655,7 +1521,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for _EnterMarkupIntent))
   {
     v18 = [v8 enterMarkupProtocol];
     MEMORY[0x193ADB260]();
@@ -1668,7 +1534,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for PutInContainerIntent))
   {
     v19 = [v8 putEntityInContainerProtocol];
     MEMORY[0x193ADB260]();
@@ -1681,7 +1547,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for ResizeIntent))
   {
     v20 = [v8 resizeProtocol];
     MEMORY[0x193ADB260]();
@@ -1695,7 +1561,7 @@ uint64_t sub_18F2F2768()
   }
 
   v46 = &type metadata for _CutIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C38);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C38, &unk_18F55B360);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v45);
@@ -1710,7 +1576,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for ScrollIntent))
   {
     v22 = [v8 scrollProtocol];
     MEMORY[0x193ADB260]();
@@ -1724,7 +1590,7 @@ uint64_t sub_18F2F2768()
   }
 
   v46 = &type metadata for _CutIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C40);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C40, &qword_18F5550D0);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v45);
@@ -1739,7 +1605,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for ZoomIntent))
   {
     v24 = [v8 zoomProtocol];
     MEMORY[0x193ADB260]();
@@ -1752,7 +1618,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for WidgetConfigurationIntent))
   {
     v25 = [v8 widgetConfigurationProtocol];
     MEMORY[0x193ADB260]();
@@ -1765,7 +1631,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for SetFocusFilterIntent))
   {
     v26 = [v8 focusConfigurationProtocol];
     MEMORY[0x193ADB260]();
@@ -1778,7 +1644,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for __CopyIntent))
   {
     [v8 copyEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -1791,7 +1657,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for CutIntent))
   {
     v27 = [v8 cutEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -1804,7 +1670,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for StartWorkoutIntent))
   {
     v28 = [v8 startWorkoutProtocol];
     MEMORY[0x193ADB260]();
@@ -1817,7 +1683,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for PauseWorkoutIntent))
   {
     v29 = [v8 pauseWorkoutProtocol];
     MEMORY[0x193ADB260]();
@@ -1830,7 +1696,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for ResumeWorkoutIntent))
   {
     v30 = [v8 resumeWorkoutProtocol];
     MEMORY[0x193ADB260]();
@@ -1843,7 +1709,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for ProgressReportingIntent))
   {
     v31 = [v8 progressReportingProtocol];
     MEMORY[0x193ADB260]();
@@ -1856,7 +1722,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent) || dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for LiveActivityStartingIntent) || dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for LiveActivityIntent))
   {
     v32 = [v8 sessionStartingProtocol];
     MEMORY[0x193ADB260]();
@@ -1869,7 +1735,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for SnippetIntent))
   {
     v33 = [v8 snippetProtocol];
     MEMORY[0x193ADB260]();
@@ -1882,7 +1748,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent) || dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for AudioStartingIntent) || dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for AudioPlaybackIntent))
   {
     v34 = [v8 audioStartingProtocol];
     MEMORY[0x193ADB260]();
@@ -1895,7 +1761,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for AudioRecordingIntent))
   {
     v35 = [v8 audioRecordingProtocol];
     MEMORY[0x193ADB260]();
@@ -1908,7 +1774,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for ManagedDestinationIntent))
   {
     v36 = [v8 requiresMDMChecksProtocol];
     MEMORY[0x193ADB260]();
@@ -1921,7 +1787,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for CameraCaptureIntent))
   {
     v37 = [v8 cameraCaptureProtocol];
     MEMORY[0x193ADB260]();
@@ -1934,7 +1800,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for StaccatoLongPressIntent))
   {
     v38 = [v8 staccatoLongPressProtocol];
     MEMORY[0x193ADB260]();
@@ -1947,7 +1813,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for ToggleIntent))
   {
     v39 = [v8 toggleProtocol];
     MEMORY[0x193ADB260]();
@@ -1960,7 +1826,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for PushToTalkTransmissionIntent))
   {
     v40 = [v8 pushToTalkTransmissionProtocol];
     MEMORY[0x193ADB260]();
@@ -1973,7 +1839,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for UndoableIntent))
   {
     v41 = [v8 undoableProtocol];
     MEMORY[0x193ADB260]();
@@ -1986,7 +1852,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for _UndoableIntent))
   {
     v42 = [v8 undoableProtocol];
     MEMORY[0x193ADB260]();
@@ -1999,7 +1865,7 @@ uint64_t sub_18F2F2768()
     v10 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _CutIntent, &type metadata for _CutIntent, &protocol descriptor for ForegroundContinuableIntent))
   {
     v43 = [v8 foregroundContinuableProtocol];
     MEMORY[0x193ADB260]();
@@ -2018,7 +1884,7 @@ uint64_t sub_18F2F2768()
 uint64_t sub_18F2F3ED4()
 {
   v47 = MEMORY[0x1E69E7CC0];
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for AssistantIntent))
   {
     v0 = [objc_opt_self() assistantIntentProtocol];
     MEMORY[0x193ADB260]();
@@ -2030,7 +1896,7 @@ uint64_t sub_18F2F3ED4()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for _AssistantAppIntent))
   {
     v1 = [objc_opt_self() assistantIntentProtocol];
     MEMORY[0x193ADB260]();
@@ -2042,7 +1908,7 @@ uint64_t sub_18F2F3ED4()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for _AssistantInvocableIntent))
   {
     v2 = [objc_opt_self() assistantInvocableIntentProtocol];
     MEMORY[0x193ADB260]();
@@ -2054,7 +1920,7 @@ uint64_t sub_18F2F3ED4()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for CancelIntent))
   {
     v3 = [objc_opt_self() cancelProtocol];
     MEMORY[0x193ADB260]();
@@ -2066,7 +1932,7 @@ uint64_t sub_18F2F3ED4()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for ChangeBinarySettingIntent))
   {
     v4 = [objc_opt_self() changeBinarySettingSystemProtocol];
     MEMORY[0x193ADB260]();
@@ -2078,7 +1944,7 @@ uint64_t sub_18F2F3ED4()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for CloseIntent))
   {
     v5 = [objc_opt_self() closeEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -2090,7 +1956,7 @@ uint64_t sub_18F2F3ED4()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for CreateIntent))
   {
     v6 = [objc_opt_self() createEntitySystemProtocol];
     MEMORY[0x193ADB260]();
@@ -2102,7 +1968,7 @@ uint64_t sub_18F2F3ED4()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for _CreateIntent))
   {
     v7 = [objc_opt_self() createEntitySystemProtocol];
     MEMORY[0x193ADB260]();
@@ -2114,7 +1980,7 @@ uint64_t sub_18F2F3ED4()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for DeleteIntent))
   {
     v8 = [objc_opt_self() deleteEntitySystemProtocol];
     MEMORY[0x193ADB260]();
@@ -2127,8 +1993,8 @@ uint64_t sub_18F2F3ED4()
   }
 
   v46 = &type metadata for _UndoIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5CA8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C20);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5CA8, &qword_18F555138);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C20, &unk_18F55B340);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v45);
@@ -2142,7 +2008,7 @@ uint64_t sub_18F2F3ED4()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for FavoriteIntent))
   {
     v10 = [objc_opt_self() favoriteEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -2155,7 +2021,7 @@ uint64_t sub_18F2F3ED4()
   }
 
   v46 = &type metadata for _UndoIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C28);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C28, &qword_18F5550C8);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v45);
@@ -2170,7 +2036,7 @@ uint64_t sub_18F2F3ED4()
   }
 
   v46 = &type metadata for _UndoIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C30);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C30, &unk_18F55B350);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v45);
@@ -2185,7 +2051,7 @@ uint64_t sub_18F2F3ED4()
   }
 
   v46 = &type metadata for _UndoIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD45A8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD45A8, &qword_18F54F5F8);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v45);
@@ -2199,7 +2065,7 @@ uint64_t sub_18F2F3ED4()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for _PreviewIntent))
   {
     v14 = [objc_opt_self() previewEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -2211,7 +2077,7 @@ uint64_t sub_18F2F3ED4()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for _EnterMarkupIntent))
   {
     v15 = [objc_opt_self() enterMarkupProtocol];
     MEMORY[0x193ADB260]();
@@ -2223,7 +2089,7 @@ uint64_t sub_18F2F3ED4()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for PutInContainerIntent))
   {
     v16 = [objc_opt_self() putEntityInContainerProtocol];
     MEMORY[0x193ADB260]();
@@ -2235,7 +2101,7 @@ uint64_t sub_18F2F3ED4()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for ResizeIntent))
   {
     v17 = [objc_opt_self() resizeProtocol];
     MEMORY[0x193ADB260]();
@@ -2248,7 +2114,7 @@ uint64_t sub_18F2F3ED4()
   }
 
   v46 = &type metadata for _UndoIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C38);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C38, &unk_18F55B360);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v45);
@@ -2262,7 +2128,7 @@ uint64_t sub_18F2F3ED4()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for ScrollIntent))
   {
     v19 = [objc_opt_self() scrollProtocol];
     MEMORY[0x193ADB260]();
@@ -2275,7 +2141,7 @@ uint64_t sub_18F2F3ED4()
   }
 
   v46 = &type metadata for _UndoIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C40);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C40, &qword_18F5550D0);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v45);
@@ -2299,7 +2165,7 @@ uint64_t sub_18F2F3ED4()
 
   sub_18F521D6C();
   v23 = v47;
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for ZoomIntent))
   {
     v24 = [v21 zoomProtocol];
     MEMORY[0x193ADB260]();
@@ -2312,7 +2178,7 @@ uint64_t sub_18F2F3ED4()
     v23 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for WidgetConfigurationIntent))
   {
     v25 = [v21 widgetConfigurationProtocol];
     MEMORY[0x193ADB260]();
@@ -2325,7 +2191,7 @@ uint64_t sub_18F2F3ED4()
     v23 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for SetFocusFilterIntent))
   {
     v26 = [v21 focusConfigurationProtocol];
     MEMORY[0x193ADB260]();
@@ -2338,7 +2204,7 @@ uint64_t sub_18F2F3ED4()
     v23 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for __CopyIntent))
   {
     [v21 copyEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -2351,7 +2217,7 @@ uint64_t sub_18F2F3ED4()
     v23 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for CutIntent))
   {
     v27 = [v21 cutEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -2364,7 +2230,7 @@ uint64_t sub_18F2F3ED4()
     v23 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for StartWorkoutIntent))
   {
     v28 = [v21 startWorkoutProtocol];
     MEMORY[0x193ADB260]();
@@ -2377,7 +2243,7 @@ uint64_t sub_18F2F3ED4()
     v23 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for PauseWorkoutIntent))
   {
     v29 = [v21 pauseWorkoutProtocol];
     MEMORY[0x193ADB260]();
@@ -2390,7 +2256,7 @@ uint64_t sub_18F2F3ED4()
     v23 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for ResumeWorkoutIntent))
   {
     v30 = [v21 resumeWorkoutProtocol];
     MEMORY[0x193ADB260]();
@@ -2403,7 +2269,7 @@ uint64_t sub_18F2F3ED4()
     v23 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for ProgressReportingIntent))
   {
     v31 = [v21 progressReportingProtocol];
     MEMORY[0x193ADB260]();
@@ -2416,7 +2282,7 @@ uint64_t sub_18F2F3ED4()
     v23 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent) || dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for LiveActivityStartingIntent) || dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for LiveActivityIntent))
   {
     v32 = [v21 sessionStartingProtocol];
     MEMORY[0x193ADB260]();
@@ -2429,7 +2295,7 @@ uint64_t sub_18F2F3ED4()
     v23 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for SnippetIntent))
   {
     v33 = [v21 snippetProtocol];
     MEMORY[0x193ADB260]();
@@ -2442,7 +2308,7 @@ uint64_t sub_18F2F3ED4()
     v23 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent) || dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for AudioStartingIntent) || dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for AudioPlaybackIntent))
   {
     v34 = [v21 audioStartingProtocol];
     MEMORY[0x193ADB260]();
@@ -2455,7 +2321,7 @@ uint64_t sub_18F2F3ED4()
     v23 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for AudioRecordingIntent))
   {
     v35 = [v21 audioRecordingProtocol];
     MEMORY[0x193ADB260]();
@@ -2468,7 +2334,7 @@ uint64_t sub_18F2F3ED4()
     v23 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for ManagedDestinationIntent))
   {
     v36 = [v21 requiresMDMChecksProtocol];
     MEMORY[0x193ADB260]();
@@ -2481,7 +2347,7 @@ uint64_t sub_18F2F3ED4()
     v23 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for CameraCaptureIntent))
   {
     v37 = [v21 cameraCaptureProtocol];
     MEMORY[0x193ADB260]();
@@ -2494,7 +2360,7 @@ uint64_t sub_18F2F3ED4()
     v23 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for StaccatoLongPressIntent))
   {
     v38 = [v21 staccatoLongPressProtocol];
     MEMORY[0x193ADB260]();
@@ -2507,7 +2373,7 @@ uint64_t sub_18F2F3ED4()
     v23 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for ToggleIntent))
   {
     v39 = [v21 toggleProtocol];
     MEMORY[0x193ADB260]();
@@ -2520,7 +2386,7 @@ uint64_t sub_18F2F3ED4()
     v23 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for PushToTalkTransmissionIntent))
   {
     v40 = [v21 pushToTalkTransmissionProtocol];
     MEMORY[0x193ADB260]();
@@ -2533,7 +2399,7 @@ uint64_t sub_18F2F3ED4()
     v23 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for UndoableIntent))
   {
     v41 = [v21 undoableProtocol];
     MEMORY[0x193ADB260]();
@@ -2546,7 +2412,7 @@ uint64_t sub_18F2F3ED4()
     v23 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for _UndoableIntent))
   {
     v42 = [v21 undoableProtocol];
     MEMORY[0x193ADB260]();
@@ -2559,7 +2425,7 @@ uint64_t sub_18F2F3ED4()
     v23 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _UndoIntent, &type metadata for _UndoIntent, &protocol descriptor for ForegroundContinuableIntent))
   {
     v43 = [v21 foregroundContinuableProtocol];
     MEMORY[0x193ADB260]();
@@ -2578,7 +2444,7 @@ uint64_t sub_18F2F3ED4()
 uint64_t sub_18F2F5640()
 {
   v47 = MEMORY[0x1E69E7CC0];
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for AssistantIntent))
   {
     v0 = [objc_opt_self() assistantIntentProtocol];
     MEMORY[0x193ADB260]();
@@ -2590,7 +2456,7 @@ uint64_t sub_18F2F5640()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for _AssistantAppIntent))
   {
     v1 = [objc_opt_self() assistantIntentProtocol];
     MEMORY[0x193ADB260]();
@@ -2602,7 +2468,7 @@ uint64_t sub_18F2F5640()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for _AssistantInvocableIntent))
   {
     v2 = [objc_opt_self() assistantInvocableIntentProtocol];
     MEMORY[0x193ADB260]();
@@ -2614,7 +2480,7 @@ uint64_t sub_18F2F5640()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for CancelIntent))
   {
     v3 = [objc_opt_self() cancelProtocol];
     MEMORY[0x193ADB260]();
@@ -2626,7 +2492,7 @@ uint64_t sub_18F2F5640()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for ChangeBinarySettingIntent))
   {
     v4 = [objc_opt_self() changeBinarySettingSystemProtocol];
     MEMORY[0x193ADB260]();
@@ -2638,7 +2504,7 @@ uint64_t sub_18F2F5640()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for CloseIntent))
   {
     v5 = [objc_opt_self() closeEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -2650,7 +2516,7 @@ uint64_t sub_18F2F5640()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for CreateIntent))
   {
     v6 = [objc_opt_self() createEntitySystemProtocol];
     MEMORY[0x193ADB260]();
@@ -2662,7 +2528,7 @@ uint64_t sub_18F2F5640()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for _CreateIntent))
   {
     v7 = [objc_opt_self() createEntitySystemProtocol];
     MEMORY[0x193ADB260]();
@@ -2674,7 +2540,7 @@ uint64_t sub_18F2F5640()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for DeleteIntent))
   {
     v8 = [objc_opt_self() deleteEntitySystemProtocol];
     MEMORY[0x193ADB260]();
@@ -2687,8 +2553,8 @@ uint64_t sub_18F2F5640()
   }
 
   v46 = &type metadata for _PasteIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C78);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C20);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C78, &qword_18F555108);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C20, &unk_18F55B340);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v45);
@@ -2702,7 +2568,7 @@ uint64_t sub_18F2F5640()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for FavoriteIntent))
   {
     v10 = [objc_opt_self() favoriteEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -2715,7 +2581,7 @@ uint64_t sub_18F2F5640()
   }
 
   v46 = &type metadata for _PasteIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C28);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C28, &qword_18F5550C8);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v45);
@@ -2730,7 +2596,7 @@ uint64_t sub_18F2F5640()
   }
 
   v46 = &type metadata for _PasteIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C30);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C30, &unk_18F55B350);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v45);
@@ -2745,7 +2611,7 @@ uint64_t sub_18F2F5640()
   }
 
   v46 = &type metadata for _PasteIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD45A8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD45A8, &qword_18F54F5F8);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v45);
@@ -2769,7 +2635,7 @@ uint64_t sub_18F2F5640()
 
   sub_18F521D6C();
   v16 = v47;
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for _PreviewIntent))
   {
     v17 = [v14 previewEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -2782,7 +2648,7 @@ uint64_t sub_18F2F5640()
     v16 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for _EnterMarkupIntent))
   {
     v18 = [v14 enterMarkupProtocol];
     MEMORY[0x193ADB260]();
@@ -2795,7 +2661,7 @@ uint64_t sub_18F2F5640()
     v16 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for PutInContainerIntent))
   {
     v19 = [v14 putEntityInContainerProtocol];
     MEMORY[0x193ADB260]();
@@ -2808,7 +2674,7 @@ uint64_t sub_18F2F5640()
     v16 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for ResizeIntent))
   {
     v20 = [v14 resizeProtocol];
     MEMORY[0x193ADB260]();
@@ -2822,7 +2688,7 @@ uint64_t sub_18F2F5640()
   }
 
   v46 = &type metadata for _PasteIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C38);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C38, &unk_18F55B360);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v45);
@@ -2837,7 +2703,7 @@ uint64_t sub_18F2F5640()
     v16 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for ScrollIntent))
   {
     v22 = [v14 scrollProtocol];
     MEMORY[0x193ADB260]();
@@ -2851,7 +2717,7 @@ uint64_t sub_18F2F5640()
   }
 
   v46 = &type metadata for _PasteIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C40);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C40, &qword_18F5550D0);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v45);
@@ -2866,7 +2732,7 @@ uint64_t sub_18F2F5640()
     v16 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for ZoomIntent))
   {
     v24 = [v14 zoomProtocol];
     MEMORY[0x193ADB260]();
@@ -2879,7 +2745,7 @@ uint64_t sub_18F2F5640()
     v16 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for WidgetConfigurationIntent))
   {
     v25 = [v14 widgetConfigurationProtocol];
     MEMORY[0x193ADB260]();
@@ -2892,7 +2758,7 @@ uint64_t sub_18F2F5640()
     v16 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for SetFocusFilterIntent))
   {
     v26 = [v14 focusConfigurationProtocol];
     MEMORY[0x193ADB260]();
@@ -2905,7 +2771,7 @@ uint64_t sub_18F2F5640()
     v16 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for __CopyIntent))
   {
     [v14 copyEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -2918,7 +2784,7 @@ uint64_t sub_18F2F5640()
     v16 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for CutIntent))
   {
     v27 = [v14 cutEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -2931,7 +2797,7 @@ uint64_t sub_18F2F5640()
     v16 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for StartWorkoutIntent))
   {
     v28 = [v14 startWorkoutProtocol];
     MEMORY[0x193ADB260]();
@@ -2944,7 +2810,7 @@ uint64_t sub_18F2F5640()
     v16 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for PauseWorkoutIntent))
   {
     v29 = [v14 pauseWorkoutProtocol];
     MEMORY[0x193ADB260]();
@@ -2957,7 +2823,7 @@ uint64_t sub_18F2F5640()
     v16 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for ResumeWorkoutIntent))
   {
     v30 = [v14 resumeWorkoutProtocol];
     MEMORY[0x193ADB260]();
@@ -2970,7 +2836,7 @@ uint64_t sub_18F2F5640()
     v16 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for ProgressReportingIntent))
   {
     v31 = [v14 progressReportingProtocol];
     MEMORY[0x193ADB260]();
@@ -2983,7 +2849,7 @@ uint64_t sub_18F2F5640()
     v16 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent) || dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for LiveActivityStartingIntent) || dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for LiveActivityIntent))
   {
     v32 = [v14 sessionStartingProtocol];
     MEMORY[0x193ADB260]();
@@ -2996,7 +2862,7 @@ uint64_t sub_18F2F5640()
     v16 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for SnippetIntent))
   {
     v33 = [v14 snippetProtocol];
     MEMORY[0x193ADB260]();
@@ -3009,7 +2875,7 @@ uint64_t sub_18F2F5640()
     v16 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent) || dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for AudioStartingIntent) || dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for AudioPlaybackIntent))
   {
     v34 = [v14 audioStartingProtocol];
     MEMORY[0x193ADB260]();
@@ -3022,7 +2888,7 @@ uint64_t sub_18F2F5640()
     v16 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for AudioRecordingIntent))
   {
     v35 = [v14 audioRecordingProtocol];
     MEMORY[0x193ADB260]();
@@ -3035,7 +2901,7 @@ uint64_t sub_18F2F5640()
     v16 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for ManagedDestinationIntent))
   {
     v36 = [v14 requiresMDMChecksProtocol];
     MEMORY[0x193ADB260]();
@@ -3048,7 +2914,7 @@ uint64_t sub_18F2F5640()
     v16 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for CameraCaptureIntent))
   {
     v37 = [v14 cameraCaptureProtocol];
     MEMORY[0x193ADB260]();
@@ -3061,7 +2927,7 @@ uint64_t sub_18F2F5640()
     v16 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for StaccatoLongPressIntent))
   {
     v38 = [v14 staccatoLongPressProtocol];
     MEMORY[0x193ADB260]();
@@ -3074,7 +2940,7 @@ uint64_t sub_18F2F5640()
     v16 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for ToggleIntent))
   {
     v39 = [v14 toggleProtocol];
     MEMORY[0x193ADB260]();
@@ -3087,7 +2953,7 @@ uint64_t sub_18F2F5640()
     v16 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for PushToTalkTransmissionIntent))
   {
     v40 = [v14 pushToTalkTransmissionProtocol];
     MEMORY[0x193ADB260]();
@@ -3100,7 +2966,7 @@ uint64_t sub_18F2F5640()
     v16 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for UndoableIntent))
   {
     v41 = [v14 undoableProtocol];
     MEMORY[0x193ADB260]();
@@ -3113,7 +2979,7 @@ uint64_t sub_18F2F5640()
     v16 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for _UndoableIntent))
   {
     v42 = [v14 undoableProtocol];
     MEMORY[0x193ADB260]();
@@ -3126,7 +2992,7 @@ uint64_t sub_18F2F5640()
     v16 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _PasteIntent, &type metadata for _PasteIntent, &protocol descriptor for ForegroundContinuableIntent))
   {
     v43 = [v14 foregroundContinuableProtocol];
     MEMORY[0x193ADB260]();
@@ -3145,7 +3011,7 @@ uint64_t sub_18F2F5640()
 uint64_t sub_18F2F6DAC()
 {
   v47 = MEMORY[0x1E69E7CC0];
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for AssistantIntent))
   {
     v0 = [objc_opt_self() assistantIntentProtocol];
     MEMORY[0x193ADB260]();
@@ -3157,7 +3023,7 @@ uint64_t sub_18F2F6DAC()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for _AssistantAppIntent))
   {
     v1 = [objc_opt_self() assistantIntentProtocol];
     MEMORY[0x193ADB260]();
@@ -3169,7 +3035,7 @@ uint64_t sub_18F2F6DAC()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for _AssistantInvocableIntent))
   {
     v2 = [objc_opt_self() assistantInvocableIntentProtocol];
     MEMORY[0x193ADB260]();
@@ -3181,7 +3047,7 @@ uint64_t sub_18F2F6DAC()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for CancelIntent))
   {
     v3 = [objc_opt_self() cancelProtocol];
     MEMORY[0x193ADB260]();
@@ -3193,7 +3059,7 @@ uint64_t sub_18F2F6DAC()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for ChangeBinarySettingIntent))
   {
     v4 = [objc_opt_self() changeBinarySettingSystemProtocol];
     MEMORY[0x193ADB260]();
@@ -3205,7 +3071,7 @@ uint64_t sub_18F2F6DAC()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for CloseIntent))
   {
     v5 = [objc_opt_self() closeEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -3217,7 +3083,7 @@ uint64_t sub_18F2F6DAC()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for CreateIntent))
   {
     v6 = [objc_opt_self() createEntitySystemProtocol];
     MEMORY[0x193ADB260]();
@@ -3229,7 +3095,7 @@ uint64_t sub_18F2F6DAC()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for _CreateIntent))
   {
     v7 = [objc_opt_self() createEntitySystemProtocol];
     MEMORY[0x193ADB260]();
@@ -3241,7 +3107,7 @@ uint64_t sub_18F2F6DAC()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for DeleteIntent))
   {
     v8 = [objc_opt_self() deleteEntitySystemProtocol];
     MEMORY[0x193ADB260]();
@@ -3254,8 +3120,8 @@ uint64_t sub_18F2F6DAC()
   }
 
   v46 = &type metadata for _ExitMarkupIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C88);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C20);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C88, &qword_18F555118);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C20, &unk_18F55B340);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v45);
@@ -3269,7 +3135,7 @@ uint64_t sub_18F2F6DAC()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for FavoriteIntent))
   {
     v10 = [objc_opt_self() favoriteEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -3282,7 +3148,7 @@ uint64_t sub_18F2F6DAC()
   }
 
   v46 = &type metadata for _ExitMarkupIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C28);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C28, &qword_18F5550C8);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v45);
@@ -3297,7 +3163,7 @@ uint64_t sub_18F2F6DAC()
   }
 
   v46 = &type metadata for _ExitMarkupIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C30);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C30, &unk_18F55B350);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v45);
@@ -3312,7 +3178,7 @@ uint64_t sub_18F2F6DAC()
   }
 
   v46 = &type metadata for _ExitMarkupIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD45A8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD45A8, &qword_18F54F5F8);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v45);
@@ -3326,7 +3192,7 @@ uint64_t sub_18F2F6DAC()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for _PreviewIntent))
   {
     v14 = [objc_opt_self() previewEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -3338,7 +3204,7 @@ uint64_t sub_18F2F6DAC()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for _EnterMarkupIntent))
   {
     v15 = [objc_opt_self() enterMarkupProtocol];
     MEMORY[0x193ADB260]();
@@ -3360,7 +3226,7 @@ uint64_t sub_18F2F6DAC()
 
   sub_18F521D6C();
   v18 = v47;
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for PutInContainerIntent))
   {
     v19 = [v16 putEntityInContainerProtocol];
     MEMORY[0x193ADB260]();
@@ -3373,7 +3239,7 @@ uint64_t sub_18F2F6DAC()
     v18 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for ResizeIntent))
   {
     v20 = [v16 resizeProtocol];
     MEMORY[0x193ADB260]();
@@ -3387,7 +3253,7 @@ uint64_t sub_18F2F6DAC()
   }
 
   v46 = &type metadata for _ExitMarkupIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C38);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C38, &unk_18F55B360);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v45);
@@ -3402,7 +3268,7 @@ uint64_t sub_18F2F6DAC()
     v18 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for ScrollIntent))
   {
     v22 = [v16 scrollProtocol];
     MEMORY[0x193ADB260]();
@@ -3416,7 +3282,7 @@ uint64_t sub_18F2F6DAC()
   }
 
   v46 = &type metadata for _ExitMarkupIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C40);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C40, &qword_18F5550D0);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v45);
@@ -3431,7 +3297,7 @@ uint64_t sub_18F2F6DAC()
     v18 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for ZoomIntent))
   {
     v24 = [v16 zoomProtocol];
     MEMORY[0x193ADB260]();
@@ -3444,7 +3310,7 @@ uint64_t sub_18F2F6DAC()
     v18 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for WidgetConfigurationIntent))
   {
     v25 = [v16 widgetConfigurationProtocol];
     MEMORY[0x193ADB260]();
@@ -3457,7 +3323,7 @@ uint64_t sub_18F2F6DAC()
     v18 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for SetFocusFilterIntent))
   {
     v26 = [v16 focusConfigurationProtocol];
     MEMORY[0x193ADB260]();
@@ -3470,7 +3336,7 @@ uint64_t sub_18F2F6DAC()
     v18 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for __CopyIntent))
   {
     [v16 copyEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -3483,7 +3349,7 @@ uint64_t sub_18F2F6DAC()
     v18 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for CutIntent))
   {
     v27 = [v16 cutEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -3496,7 +3362,7 @@ uint64_t sub_18F2F6DAC()
     v18 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for StartWorkoutIntent))
   {
     v28 = [v16 startWorkoutProtocol];
     MEMORY[0x193ADB260]();
@@ -3509,7 +3375,7 @@ uint64_t sub_18F2F6DAC()
     v18 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for PauseWorkoutIntent))
   {
     v29 = [v16 pauseWorkoutProtocol];
     MEMORY[0x193ADB260]();
@@ -3522,7 +3388,7 @@ uint64_t sub_18F2F6DAC()
     v18 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for ResumeWorkoutIntent))
   {
     v30 = [v16 resumeWorkoutProtocol];
     MEMORY[0x193ADB260]();
@@ -3535,7 +3401,7 @@ uint64_t sub_18F2F6DAC()
     v18 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for ProgressReportingIntent))
   {
     v31 = [v16 progressReportingProtocol];
     MEMORY[0x193ADB260]();
@@ -3548,7 +3414,7 @@ uint64_t sub_18F2F6DAC()
     v18 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent) || dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for LiveActivityStartingIntent) || dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for LiveActivityIntent))
   {
     v32 = [v16 sessionStartingProtocol];
     MEMORY[0x193ADB260]();
@@ -3561,7 +3427,7 @@ uint64_t sub_18F2F6DAC()
     v18 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for SnippetIntent))
   {
     v33 = [v16 snippetProtocol];
     MEMORY[0x193ADB260]();
@@ -3574,7 +3440,7 @@ uint64_t sub_18F2F6DAC()
     v18 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent) || dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for AudioStartingIntent) || dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for AudioPlaybackIntent))
   {
     v34 = [v16 audioStartingProtocol];
     MEMORY[0x193ADB260]();
@@ -3587,7 +3453,7 @@ uint64_t sub_18F2F6DAC()
     v18 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for AudioRecordingIntent))
   {
     v35 = [v16 audioRecordingProtocol];
     MEMORY[0x193ADB260]();
@@ -3600,7 +3466,7 @@ uint64_t sub_18F2F6DAC()
     v18 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for ManagedDestinationIntent))
   {
     v36 = [v16 requiresMDMChecksProtocol];
     MEMORY[0x193ADB260]();
@@ -3613,7 +3479,7 @@ uint64_t sub_18F2F6DAC()
     v18 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for CameraCaptureIntent))
   {
     v37 = [v16 cameraCaptureProtocol];
     MEMORY[0x193ADB260]();
@@ -3626,7 +3492,7 @@ uint64_t sub_18F2F6DAC()
     v18 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for StaccatoLongPressIntent))
   {
     v38 = [v16 staccatoLongPressProtocol];
     MEMORY[0x193ADB260]();
@@ -3639,7 +3505,7 @@ uint64_t sub_18F2F6DAC()
     v18 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for ToggleIntent))
   {
     v39 = [v16 toggleProtocol];
     MEMORY[0x193ADB260]();
@@ -3652,7 +3518,7 @@ uint64_t sub_18F2F6DAC()
     v18 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for PushToTalkTransmissionIntent))
   {
     v40 = [v16 pushToTalkTransmissionProtocol];
     MEMORY[0x193ADB260]();
@@ -3665,7 +3531,7 @@ uint64_t sub_18F2F6DAC()
     v18 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for UndoableIntent))
   {
     v41 = [v16 undoableProtocol];
     MEMORY[0x193ADB260]();
@@ -3678,7 +3544,7 @@ uint64_t sub_18F2F6DAC()
     v18 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for _UndoableIntent))
   {
     v42 = [v16 undoableProtocol];
     MEMORY[0x193ADB260]();
@@ -3691,7 +3557,7 @@ uint64_t sub_18F2F6DAC()
     v18 = v47;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for _ExitMarkupIntent, &type metadata for _ExitMarkupIntent, &protocol descriptor for ForegroundContinuableIntent))
   {
     v43 = [v16 foregroundContinuableProtocol];
     MEMORY[0x193ADB260]();
@@ -3710,7 +3576,7 @@ uint64_t sub_18F2F6DAC()
 uint64_t sub_18F2F8518()
 {
   v46 = MEMORY[0x1E69E7CC0];
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for AssistantIntent))
   {
     v0 = [objc_opt_self() assistantIntentProtocol];
     MEMORY[0x193ADB260]();
@@ -3722,7 +3588,7 @@ uint64_t sub_18F2F8518()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for _AssistantAppIntent))
   {
     v1 = [objc_opt_self() assistantIntentProtocol];
     MEMORY[0x193ADB260]();
@@ -3734,7 +3600,7 @@ uint64_t sub_18F2F8518()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for _AssistantInvocableIntent))
   {
     v2 = [objc_opt_self() assistantInvocableIntentProtocol];
     MEMORY[0x193ADB260]();
@@ -3746,7 +3612,7 @@ uint64_t sub_18F2F8518()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for CancelIntent))
   {
     v3 = [objc_opt_self() cancelProtocol];
     MEMORY[0x193ADB260]();
@@ -3758,7 +3624,7 @@ uint64_t sub_18F2F8518()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for ChangeBinarySettingIntent))
   {
     v4 = [objc_opt_self() changeBinarySettingSystemProtocol];
     MEMORY[0x193ADB260]();
@@ -3770,7 +3636,7 @@ uint64_t sub_18F2F8518()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for CloseIntent))
   {
     v5 = [objc_opt_self() closeEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -3782,7 +3648,7 @@ uint64_t sub_18F2F8518()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for CreateIntent))
   {
     v6 = [objc_opt_self() createEntitySystemProtocol];
     MEMORY[0x193ADB260]();
@@ -3794,7 +3660,7 @@ uint64_t sub_18F2F8518()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for _CreateIntent))
   {
     v7 = [objc_opt_self() createEntitySystemProtocol];
     MEMORY[0x193ADB260]();
@@ -3806,7 +3672,7 @@ uint64_t sub_18F2F8518()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for DeleteIntent))
   {
     v8 = [objc_opt_self() deleteEntitySystemProtocol];
     MEMORY[0x193ADB260]();
@@ -3819,8 +3685,8 @@ uint64_t sub_18F2F8518()
   }
 
   v45 = &type metadata for EmptySnippetIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C80);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C20);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C80, &qword_18F555110);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C20, &unk_18F55B340);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v44);
@@ -3834,7 +3700,7 @@ uint64_t sub_18F2F8518()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for FavoriteIntent))
   {
     v10 = [objc_opt_self() favoriteEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -3847,7 +3713,7 @@ uint64_t sub_18F2F8518()
   }
 
   v45 = &type metadata for EmptySnippetIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C28);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C28, &qword_18F5550C8);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v44);
@@ -3862,7 +3728,7 @@ uint64_t sub_18F2F8518()
   }
 
   v45 = &type metadata for EmptySnippetIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C30);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C30, &unk_18F55B350);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v44);
@@ -3877,7 +3743,7 @@ uint64_t sub_18F2F8518()
   }
 
   v45 = &type metadata for EmptySnippetIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD45A8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD45A8, &qword_18F54F5F8);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v44);
@@ -3891,7 +3757,7 @@ uint64_t sub_18F2F8518()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for _PreviewIntent))
   {
     v14 = [objc_opt_self() previewEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -3903,7 +3769,7 @@ uint64_t sub_18F2F8518()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for _EnterMarkupIntent))
   {
     v15 = [objc_opt_self() enterMarkupProtocol];
     MEMORY[0x193ADB260]();
@@ -3915,7 +3781,7 @@ uint64_t sub_18F2F8518()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for PutInContainerIntent))
   {
     v16 = [objc_opt_self() putEntityInContainerProtocol];
     MEMORY[0x193ADB260]();
@@ -3927,7 +3793,7 @@ uint64_t sub_18F2F8518()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for ResizeIntent))
   {
     v17 = [objc_opt_self() resizeProtocol];
     MEMORY[0x193ADB260]();
@@ -3940,7 +3806,7 @@ uint64_t sub_18F2F8518()
   }
 
   v45 = &type metadata for EmptySnippetIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C38);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C38, &unk_18F55B360);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v44);
@@ -3954,7 +3820,7 @@ uint64_t sub_18F2F8518()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for ScrollIntent))
   {
     v19 = [objc_opt_self() scrollProtocol];
     MEMORY[0x193ADB260]();
@@ -3967,7 +3833,7 @@ uint64_t sub_18F2F8518()
   }
 
   v45 = &type metadata for EmptySnippetIntent;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C40);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C40, &qword_18F5550D0);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v44);
@@ -3981,7 +3847,7 @@ uint64_t sub_18F2F8518()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for ZoomIntent))
   {
     v21 = [objc_opt_self() zoomProtocol];
     MEMORY[0x193ADB260]();
@@ -3993,7 +3859,7 @@ uint64_t sub_18F2F8518()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for WidgetConfigurationIntent))
   {
     v22 = [objc_opt_self() widgetConfigurationProtocol];
     MEMORY[0x193ADB260]();
@@ -4005,7 +3871,7 @@ uint64_t sub_18F2F8518()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for SetFocusFilterIntent))
   {
     v23 = [objc_opt_self() focusConfigurationProtocol];
     MEMORY[0x193ADB260]();
@@ -4017,7 +3883,7 @@ uint64_t sub_18F2F8518()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for __CopyIntent))
   {
     [objc_opt_self() copyEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -4029,7 +3895,7 @@ uint64_t sub_18F2F8518()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for CutIntent))
   {
     v24 = [objc_opt_self() cutEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -4041,7 +3907,7 @@ uint64_t sub_18F2F8518()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for StartWorkoutIntent))
   {
     v25 = [objc_opt_self() startWorkoutProtocol];
     MEMORY[0x193ADB260]();
@@ -4053,7 +3919,7 @@ uint64_t sub_18F2F8518()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for PauseWorkoutIntent))
   {
     v26 = [objc_opt_self() pauseWorkoutProtocol];
     MEMORY[0x193ADB260]();
@@ -4065,7 +3931,7 @@ uint64_t sub_18F2F8518()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for ResumeWorkoutIntent))
   {
     v27 = [objc_opt_self() resumeWorkoutProtocol];
     MEMORY[0x193ADB260]();
@@ -4077,7 +3943,7 @@ uint64_t sub_18F2F8518()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for ProgressReportingIntent))
   {
     v28 = [objc_opt_self() progressReportingProtocol];
     MEMORY[0x193ADB260]();
@@ -4089,7 +3955,7 @@ uint64_t sub_18F2F8518()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent) || dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for LiveActivityStartingIntent) || dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for LiveActivityIntent))
   {
     v29 = [objc_opt_self() sessionStartingProtocol];
     MEMORY[0x193ADB260]();
@@ -4111,7 +3977,7 @@ uint64_t sub_18F2F8518()
 
   sub_18F521D6C();
   v32 = v46;
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent) || dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for AudioStartingIntent) || dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for AudioPlaybackIntent))
   {
     v33 = [v30 audioStartingProtocol];
     MEMORY[0x193ADB260]();
@@ -4124,7 +3990,7 @@ uint64_t sub_18F2F8518()
     v32 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for AudioRecordingIntent))
   {
     v34 = [v30 audioRecordingProtocol];
     MEMORY[0x193ADB260]();
@@ -4137,7 +4003,7 @@ uint64_t sub_18F2F8518()
     v32 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for ManagedDestinationIntent))
   {
     v35 = [v30 requiresMDMChecksProtocol];
     MEMORY[0x193ADB260]();
@@ -4150,7 +4016,7 @@ uint64_t sub_18F2F8518()
     v32 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for CameraCaptureIntent))
   {
     v36 = [v30 cameraCaptureProtocol];
     MEMORY[0x193ADB260]();
@@ -4163,7 +4029,7 @@ uint64_t sub_18F2F8518()
     v32 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for StaccatoLongPressIntent))
   {
     v37 = [v30 staccatoLongPressProtocol];
     MEMORY[0x193ADB260]();
@@ -4176,7 +4042,7 @@ uint64_t sub_18F2F8518()
     v32 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for ToggleIntent))
   {
     v38 = [v30 toggleProtocol];
     MEMORY[0x193ADB260]();
@@ -4189,7 +4055,7 @@ uint64_t sub_18F2F8518()
     v32 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for PushToTalkTransmissionIntent))
   {
     v39 = [v30 pushToTalkTransmissionProtocol];
     MEMORY[0x193ADB260]();
@@ -4202,7 +4068,7 @@ uint64_t sub_18F2F8518()
     v32 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for UndoableIntent))
   {
     v40 = [v30 undoableProtocol];
     MEMORY[0x193ADB260]();
@@ -4215,7 +4081,7 @@ uint64_t sub_18F2F8518()
     v32 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for _UndoableIntent))
   {
     v41 = [v30 undoableProtocol];
     MEMORY[0x193ADB260]();
@@ -4228,7 +4094,7 @@ uint64_t sub_18F2F8518()
     v32 = v46;
   }
 
-  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent))
+  if (dynamic_cast_existential_1_conditional(&type metadata for EmptySnippetIntent, &type metadata for EmptySnippetIntent, &protocol descriptor for ForegroundContinuableIntent))
   {
     v42 = [v30 foregroundContinuableProtocol];
     MEMORY[0x193ADB260]();
@@ -4244,617 +4110,650 @@ uint64_t sub_18F2F8518()
   return v32;
 }
 
-uint64_t sub_18F2F9C00(uint64_t a1, uint64_t *a2)
+uint64_t sub_18F2F9C00(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v4 = MEMORY[0x1E69E7CC0];
-  v50 = MEMORY[0x1E69E7CC0];
-  if (dynamic_cast_existential_1_conditional(a1))
+  v6 = MEMORY[0x1E69E7CC0];
+  v177 = MEMORY[0x1E69E7CC0];
+  v7 = dynamic_cast_existential_1_conditional(a1, a1, &protocol descriptor for AssistantIntent);
+  if (v7)
   {
-    v5 = [objc_opt_self() assistantIntentProtocol];
+    v9 = [objc_opt_self() assistantIntentProtocol];
     OUTLINED_FUNCTION_16_34();
     OUTLINED_FUNCTION_2_68();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_9_38();
+      OUTLINED_FUNCTION_9_38(v10 > 1);
+    }
+
+    v7 = OUTLINED_FUNCTION_10_37();
+    v6 = v177;
+  }
+
+  v12 = OUTLINED_FUNCTION_11_34(v7, v8, &protocol descriptor for _AssistantAppIntent);
+  if (v12)
+  {
+    v14 = [objc_opt_self() assistantIntentProtocol];
+    OUTLINED_FUNCTION_16_34();
+    OUTLINED_FUNCTION_2_68();
+    if (v11)
+    {
+      OUTLINED_FUNCTION_9_38(v15 > 1);
+    }
+
+    v12 = OUTLINED_FUNCTION_10_37();
+    v6 = v177;
+  }
+
+  v16 = OUTLINED_FUNCTION_11_34(v12, v13, &protocol descriptor for _AssistantInvocableIntent);
+  if (v16)
+  {
+    v18 = [objc_opt_self() assistantInvocableIntentProtocol];
+    OUTLINED_FUNCTION_16_34();
+    OUTLINED_FUNCTION_2_68();
+    if (v11)
+    {
+      OUTLINED_FUNCTION_9_38(v19 > 1);
+    }
+
+    v16 = OUTLINED_FUNCTION_10_37();
+    v6 = v177;
+  }
+
+  v20 = OUTLINED_FUNCTION_11_34(v16, v17, &protocol descriptor for CancelIntent);
+  if (v20)
+  {
+    v22 = [objc_opt_self() cancelProtocol];
+    OUTLINED_FUNCTION_16_34();
+    OUTLINED_FUNCTION_2_68();
+    if (v11)
+    {
+      OUTLINED_FUNCTION_9_38(v23 > 1);
+    }
+
+    v20 = OUTLINED_FUNCTION_10_37();
+    v6 = v177;
+  }
+
+  v24 = OUTLINED_FUNCTION_11_34(v20, v21, &protocol descriptor for ChangeBinarySettingIntent);
+  if (v24)
+  {
+    v26 = [objc_opt_self() changeBinarySettingSystemProtocol];
+    OUTLINED_FUNCTION_16_34();
+    OUTLINED_FUNCTION_2_68();
+    if (v11)
+    {
+      OUTLINED_FUNCTION_9_38(v27 > 1);
+    }
+
+    v24 = OUTLINED_FUNCTION_10_37();
+    v6 = v177;
+  }
+
+  v28 = OUTLINED_FUNCTION_11_34(v24, v25, &protocol descriptor for CloseIntent);
+  if (v28)
+  {
+    v30 = [objc_opt_self() closeEntityProtocol];
+    OUTLINED_FUNCTION_16_34();
+    OUTLINED_FUNCTION_2_68();
+    if (v11)
+    {
+      OUTLINED_FUNCTION_9_38(v31 > 1);
+    }
+
+    v28 = OUTLINED_FUNCTION_10_37();
+    v6 = v177;
+  }
+
+  v32 = OUTLINED_FUNCTION_11_34(v28, v29, &protocol descriptor for CreateIntent);
+  if (v32)
+  {
+    v34 = [objc_opt_self() createEntitySystemProtocol];
+    OUTLINED_FUNCTION_16_34();
+    OUTLINED_FUNCTION_2_68();
+    if (v11)
+    {
+      OUTLINED_FUNCTION_9_38(v35 > 1);
+    }
+
+    v32 = OUTLINED_FUNCTION_10_37();
+    v6 = v177;
+  }
+
+  v36 = OUTLINED_FUNCTION_11_34(v32, v33, &protocol descriptor for _CreateIntent);
+  if (v36)
+  {
+    v38 = [objc_opt_self() createEntitySystemProtocol];
+    OUTLINED_FUNCTION_16_34();
+    OUTLINED_FUNCTION_2_68();
+    if (v11)
+    {
+      OUTLINED_FUNCTION_9_38(v39 > 1);
+    }
+
+    v36 = OUTLINED_FUNCTION_10_37();
+    v6 = v177;
+  }
+
+  if (OUTLINED_FUNCTION_11_34(v36, v37, &protocol descriptor for DeleteIntent))
+  {
+    v40 = [objc_opt_self() deleteEntitySystemProtocol];
+    OUTLINED_FUNCTION_16_34();
+    OUTLINED_FUNCTION_2_68();
+    if (v11)
+    {
+      OUTLINED_FUNCTION_9_38(v41 > 1);
     }
 
     OUTLINED_FUNCTION_10_37();
-    v4 = v50;
+    v6 = v177;
   }
 
-  if (OUTLINED_FUNCTION_11_34())
+  v176 = a1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C20, &unk_18F55B340);
+  v44 = OUTLINED_FUNCTION_4_52(v42, v43);
+  if (v44)
   {
-    v7 = [objc_opt_self() assistantIntentProtocol];
-    OUTLINED_FUNCTION_16_34();
-    OUTLINED_FUNCTION_2_68();
-    if (v6)
-    {
-      OUTLINED_FUNCTION_9_38();
-    }
-
-    OUTLINED_FUNCTION_10_37();
-    v4 = v50;
-  }
-
-  if (OUTLINED_FUNCTION_11_34())
-  {
-    v8 = [objc_opt_self() assistantInvocableIntentProtocol];
-    OUTLINED_FUNCTION_16_34();
-    OUTLINED_FUNCTION_2_68();
-    if (v6)
-    {
-      OUTLINED_FUNCTION_9_38();
-    }
-
-    OUTLINED_FUNCTION_10_37();
-    v4 = v50;
-  }
-
-  if (OUTLINED_FUNCTION_11_34())
-  {
-    v9 = [objc_opt_self() cancelProtocol];
-    OUTLINED_FUNCTION_16_34();
-    OUTLINED_FUNCTION_2_68();
-    if (v6)
-    {
-      OUTLINED_FUNCTION_9_38();
-    }
-
-    OUTLINED_FUNCTION_10_37();
-    v4 = v50;
-  }
-
-  if (OUTLINED_FUNCTION_11_34())
-  {
-    v10 = [objc_opt_self() changeBinarySettingSystemProtocol];
-    OUTLINED_FUNCTION_16_34();
-    OUTLINED_FUNCTION_2_68();
-    if (v6)
-    {
-      OUTLINED_FUNCTION_9_38();
-    }
-
-    OUTLINED_FUNCTION_10_37();
-    v4 = v50;
-  }
-
-  if (OUTLINED_FUNCTION_11_34())
-  {
-    v11 = [objc_opt_self() closeEntityProtocol];
-    OUTLINED_FUNCTION_16_34();
-    OUTLINED_FUNCTION_2_68();
-    if (v6)
-    {
-      OUTLINED_FUNCTION_9_38();
-    }
-
-    OUTLINED_FUNCTION_10_37();
-    v4 = v50;
-  }
-
-  if (OUTLINED_FUNCTION_11_34())
-  {
-    v12 = [objc_opt_self() createEntitySystemProtocol];
-    OUTLINED_FUNCTION_16_34();
-    OUTLINED_FUNCTION_2_68();
-    if (v6)
-    {
-      OUTLINED_FUNCTION_9_38();
-    }
-
-    OUTLINED_FUNCTION_10_37();
-    v4 = v50;
-  }
-
-  if (OUTLINED_FUNCTION_11_34())
-  {
-    v13 = [objc_opt_self() createEntitySystemProtocol];
-    OUTLINED_FUNCTION_16_34();
-    OUTLINED_FUNCTION_2_68();
-    if (v6)
-    {
-      OUTLINED_FUNCTION_9_38();
-    }
-
-    OUTLINED_FUNCTION_10_37();
-    v4 = v50;
-  }
-
-  if (OUTLINED_FUNCTION_11_34())
-  {
-    v14 = [objc_opt_self() deleteEntitySystemProtocol];
-    OUTLINED_FUNCTION_16_34();
-    OUTLINED_FUNCTION_2_68();
-    if (v6)
-    {
-      OUTLINED_FUNCTION_9_38();
-    }
-
-    OUTLINED_FUNCTION_10_37();
-    v4 = v50;
-  }
-
-  v49 = a1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C20);
-  if (OUTLINED_FUNCTION_4_52())
-  {
-    v15 = [OUTLINED_FUNCTION_21_27(v48) duplicateEntitySystemProtocol];
+    v46 = [OUTLINED_FUNCTION_21_27(v175) duplicateEntitySystemProtocol];
     OUTLINED_FUNCTION_15_33();
     OUTLINED_FUNCTION_1_66();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_7_42();
+      OUTLINED_FUNCTION_7_42(v47 > 1);
+    }
+
+    v44 = OUTLINED_FUNCTION_8_39();
+    v6 = v177;
+  }
+
+  if (OUTLINED_FUNCTION_11_34(v44, v45, &protocol descriptor for FavoriteIntent))
+  {
+    v48 = [objc_opt_self() favoriteEntityProtocol];
+    OUTLINED_FUNCTION_15_33();
+    OUTLINED_FUNCTION_1_66();
+    if (v11)
+    {
+      OUTLINED_FUNCTION_7_42(v49 > 1);
     }
 
     OUTLINED_FUNCTION_8_39();
-    v4 = v50;
+    v6 = v177;
   }
 
-  if (OUTLINED_FUNCTION_11_34())
+  v176 = a1;
+  v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C28, &qword_18F5550C8);
+  if (OUTLINED_FUNCTION_4_52(v50, v51))
   {
-    v16 = [objc_opt_self() favoriteEntityProtocol];
+    v52 = [OUTLINED_FUNCTION_21_27(v175) moveSpatialProtocol];
     OUTLINED_FUNCTION_15_33();
     OUTLINED_FUNCTION_1_66();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_7_42();
+      OUTLINED_FUNCTION_7_42(v53 > 1);
     }
 
     OUTLINED_FUNCTION_8_39();
-    v4 = v50;
+    v6 = v177;
   }
 
-  v49 = a1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C28);
-  if (OUTLINED_FUNCTION_4_52())
+  v176 = a1;
+  v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C30, &unk_18F55B350);
+  if (OUTLINED_FUNCTION_4_52(v54, v55))
   {
-    v17 = [OUTLINED_FUNCTION_21_27(v48) moveSpatialProtocol];
+    v56 = [OUTLINED_FUNCTION_21_27(v175) navigateSequentiallyProtocol];
     OUTLINED_FUNCTION_15_33();
     OUTLINED_FUNCTION_1_66();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_7_42();
+      OUTLINED_FUNCTION_7_42(v57 > 1);
     }
 
     OUTLINED_FUNCTION_8_39();
-    v4 = v50;
+    v6 = v177;
   }
 
-  v49 = a1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C30);
-  if (OUTLINED_FUNCTION_4_52())
+  v176 = a1;
+  v58 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD45A8, &qword_18F54F5F8);
+  v60 = OUTLINED_FUNCTION_4_52(v58, v59);
+  if (v60)
   {
-    v18 = [OUTLINED_FUNCTION_21_27(v48) navigateSequentiallyProtocol];
+    v62 = [OUTLINED_FUNCTION_21_27(v175) openEntitySystemProtocol];
     OUTLINED_FUNCTION_15_33();
     OUTLINED_FUNCTION_1_66();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_7_42();
+      OUTLINED_FUNCTION_7_42(v63 > 1);
+    }
+
+    v60 = OUTLINED_FUNCTION_8_39();
+    v6 = v177;
+  }
+
+  v64 = OUTLINED_FUNCTION_11_34(v60, v61, &protocol descriptor for _PreviewIntent);
+  if (v64)
+  {
+    v66 = [objc_opt_self() previewEntityProtocol];
+    OUTLINED_FUNCTION_15_33();
+    OUTLINED_FUNCTION_1_66();
+    if (v11)
+    {
+      OUTLINED_FUNCTION_7_42(v67 > 1);
+    }
+
+    v64 = OUTLINED_FUNCTION_8_39();
+    v6 = v177;
+  }
+
+  v68 = OUTLINED_FUNCTION_11_34(v64, v65, &protocol descriptor for _EnterMarkupIntent);
+  if (v68)
+  {
+    v70 = [objc_opt_self() enterMarkupProtocol];
+    OUTLINED_FUNCTION_15_33();
+    OUTLINED_FUNCTION_1_66();
+    if (v11)
+    {
+      OUTLINED_FUNCTION_7_42(v71 > 1);
+    }
+
+    v68 = OUTLINED_FUNCTION_8_39();
+    v6 = v177;
+  }
+
+  v72 = OUTLINED_FUNCTION_11_34(v68, v69, &protocol descriptor for PutInContainerIntent);
+  if (v72)
+  {
+    v74 = [objc_opt_self() putEntityInContainerProtocol];
+    OUTLINED_FUNCTION_15_33();
+    OUTLINED_FUNCTION_1_66();
+    if (v11)
+    {
+      OUTLINED_FUNCTION_7_42(v75 > 1);
+    }
+
+    v72 = OUTLINED_FUNCTION_8_39();
+    v6 = v177;
+  }
+
+  if (OUTLINED_FUNCTION_11_34(v72, v73, &protocol descriptor for ResizeIntent))
+  {
+    v76 = [objc_opt_self() resizeProtocol];
+    OUTLINED_FUNCTION_15_33();
+    OUTLINED_FUNCTION_1_66();
+    if (v11)
+    {
+      OUTLINED_FUNCTION_7_42(v77 > 1);
     }
 
     OUTLINED_FUNCTION_8_39();
-    v4 = v50;
+    v6 = v177;
   }
 
-  v49 = a1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD45A8);
-  if (OUTLINED_FUNCTION_4_52())
+  v176 = a1;
+  v78 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C38, &unk_18F55B360);
+  v80 = OUTLINED_FUNCTION_4_52(v78, v79);
+  if (v80)
   {
-    v19 = [OUTLINED_FUNCTION_21_27(v48) openEntitySystemProtocol];
+    v82 = [OUTLINED_FUNCTION_21_27(v175) saveEntitySystemProtocol];
     OUTLINED_FUNCTION_15_33();
     OUTLINED_FUNCTION_1_66();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_7_42();
+      OUTLINED_FUNCTION_7_42(v83 > 1);
+    }
+
+    v80 = OUTLINED_FUNCTION_8_39();
+    v6 = v177;
+  }
+
+  if (OUTLINED_FUNCTION_11_34(v80, v81, &protocol descriptor for ScrollIntent))
+  {
+    v84 = [objc_opt_self() scrollProtocol];
+    OUTLINED_FUNCTION_15_33();
+    OUTLINED_FUNCTION_1_66();
+    if (v11)
+    {
+      OUTLINED_FUNCTION_7_42(v85 > 1);
     }
 
     OUTLINED_FUNCTION_8_39();
-    v4 = v50;
+    v6 = v177;
   }
 
-  if (OUTLINED_FUNCTION_11_34())
+  v176 = a1;
+  v86 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C40, &qword_18F5550D0);
+  v88 = OUTLINED_FUNCTION_4_52(v86, v87);
+  if (v88)
   {
-    v20 = [objc_opt_self() previewEntityProtocol];
-    OUTLINED_FUNCTION_15_33();
-    OUTLINED_FUNCTION_1_66();
-    if (v6)
-    {
-      OUTLINED_FUNCTION_7_42();
-    }
-
-    OUTLINED_FUNCTION_8_39();
-    v4 = v50;
-  }
-
-  if (OUTLINED_FUNCTION_11_34())
-  {
-    v21 = [objc_opt_self() enterMarkupProtocol];
-    OUTLINED_FUNCTION_15_33();
-    OUTLINED_FUNCTION_1_66();
-    if (v6)
-    {
-      OUTLINED_FUNCTION_7_42();
-    }
-
-    OUTLINED_FUNCTION_8_39();
-    v4 = v50;
-  }
-
-  if (OUTLINED_FUNCTION_11_34())
-  {
-    v22 = [objc_opt_self() putEntityInContainerProtocol];
-    OUTLINED_FUNCTION_15_33();
-    OUTLINED_FUNCTION_1_66();
-    if (v6)
-    {
-      OUTLINED_FUNCTION_7_42();
-    }
-
-    OUTLINED_FUNCTION_8_39();
-    v4 = v50;
-  }
-
-  if (OUTLINED_FUNCTION_11_34())
-  {
-    v23 = [objc_opt_self() resizeProtocol];
-    OUTLINED_FUNCTION_15_33();
-    OUTLINED_FUNCTION_1_66();
-    if (v6)
-    {
-      OUTLINED_FUNCTION_7_42();
-    }
-
-    OUTLINED_FUNCTION_8_39();
-    v4 = v50;
-  }
-
-  v49 = a1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C38);
-  if (OUTLINED_FUNCTION_4_52())
-  {
-    v24 = [OUTLINED_FUNCTION_21_27(v48) saveEntitySystemProtocol];
-    OUTLINED_FUNCTION_15_33();
-    OUTLINED_FUNCTION_1_66();
-    if (v6)
-    {
-      OUTLINED_FUNCTION_7_42();
-    }
-
-    OUTLINED_FUNCTION_8_39();
-    v4 = v50;
-  }
-
-  if (OUTLINED_FUNCTION_11_34())
-  {
-    v25 = [objc_opt_self() scrollProtocol];
-    OUTLINED_FUNCTION_15_33();
-    OUTLINED_FUNCTION_1_66();
-    if (v6)
-    {
-      OUTLINED_FUNCTION_7_42();
-    }
-
-    OUTLINED_FUNCTION_8_39();
-    v4 = v50;
-  }
-
-  v49 = a1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C40);
-  if (OUTLINED_FUNCTION_4_52())
-  {
-    v26 = [OUTLINED_FUNCTION_21_27(v48) searchSystemProtocol];
+    v90 = [OUTLINED_FUNCTION_21_27(v175) searchSystemProtocol];
     OUTLINED_FUNCTION_12_40();
     OUTLINED_FUNCTION_0_81();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_5_46();
+      OUTLINED_FUNCTION_5_46(v91 > 1);
     }
 
-    OUTLINED_FUNCTION_6_45();
-    v4 = v50;
+    v88 = OUTLINED_FUNCTION_6_45();
+    v6 = v177;
   }
 
-  if (OUTLINED_FUNCTION_11_34())
+  v92 = OUTLINED_FUNCTION_11_34(v88, v89, &protocol descriptor for ZoomIntent);
+  if (v92)
   {
-    v27 = [objc_opt_self() zoomProtocol];
+    v94 = [objc_opt_self() zoomProtocol];
     OUTLINED_FUNCTION_12_40();
     OUTLINED_FUNCTION_0_81();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_5_46();
+      OUTLINED_FUNCTION_5_46(v95 > 1);
     }
 
-    OUTLINED_FUNCTION_6_45();
-    v4 = v50;
+    v92 = OUTLINED_FUNCTION_6_45();
+    v6 = v177;
   }
 
-  if (OUTLINED_FUNCTION_11_34())
+  v96 = OUTLINED_FUNCTION_11_34(v92, v93, &protocol descriptor for WidgetConfigurationIntent);
+  if (v96)
   {
-    v28 = [objc_opt_self() widgetConfigurationProtocol];
+    v98 = [objc_opt_self() widgetConfigurationProtocol];
     OUTLINED_FUNCTION_12_40();
     OUTLINED_FUNCTION_0_81();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_5_46();
+      OUTLINED_FUNCTION_5_46(v99 > 1);
     }
 
-    OUTLINED_FUNCTION_6_45();
-    v4 = v50;
+    v96 = OUTLINED_FUNCTION_6_45();
+    v6 = v177;
   }
 
-  if (OUTLINED_FUNCTION_11_34())
+  v100 = OUTLINED_FUNCTION_11_34(v96, v97, &protocol descriptor for SetFocusFilterIntent);
+  if (v100)
   {
-    v29 = [objc_opt_self() focusConfigurationProtocol];
+    v102 = [objc_opt_self() focusConfigurationProtocol];
     OUTLINED_FUNCTION_12_40();
     OUTLINED_FUNCTION_0_81();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_5_46();
+      OUTLINED_FUNCTION_5_46(v103 > 1);
     }
 
-    OUTLINED_FUNCTION_6_45();
-    v4 = v50;
+    v100 = OUTLINED_FUNCTION_6_45();
+    v6 = v177;
   }
 
-  if (OUTLINED_FUNCTION_11_34())
+  v104 = OUTLINED_FUNCTION_11_34(v100, v101, &protocol descriptor for __CopyIntent);
+  if (v104)
   {
     [objc_opt_self() copyEntityProtocol];
     OUTLINED_FUNCTION_12_40();
     OUTLINED_FUNCTION_0_81();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_5_46();
+      OUTLINED_FUNCTION_5_46(v106 > 1);
     }
 
-    OUTLINED_FUNCTION_6_45();
-    v4 = v50;
+    v104 = OUTLINED_FUNCTION_6_45();
+    v6 = v177;
   }
 
-  if (OUTLINED_FUNCTION_11_34())
+  v107 = OUTLINED_FUNCTION_11_34(v104, v105, &protocol descriptor for CutIntent);
+  if (v107)
   {
-    v30 = [objc_opt_self() cutEntityProtocol];
+    v109 = [objc_opt_self() cutEntityProtocol];
     OUTLINED_FUNCTION_12_40();
     OUTLINED_FUNCTION_0_81();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_5_46();
+      OUTLINED_FUNCTION_5_46(v110 > 1);
     }
 
-    OUTLINED_FUNCTION_6_45();
-    v4 = v50;
+    v107 = OUTLINED_FUNCTION_6_45();
+    v6 = v177;
   }
 
-  if (OUTLINED_FUNCTION_11_34())
+  v111 = OUTLINED_FUNCTION_11_34(v107, v108, &protocol descriptor for StartWorkoutIntent);
+  if (v111)
   {
-    v31 = [objc_opt_self() startWorkoutProtocol];
+    v113 = [objc_opt_self() startWorkoutProtocol];
     OUTLINED_FUNCTION_12_40();
     OUTLINED_FUNCTION_0_81();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_5_46();
+      OUTLINED_FUNCTION_5_46(v114 > 1);
     }
 
-    OUTLINED_FUNCTION_6_45();
-    v4 = v50;
+    v111 = OUTLINED_FUNCTION_6_45();
+    v6 = v177;
   }
 
-  if (OUTLINED_FUNCTION_11_34())
+  v115 = OUTLINED_FUNCTION_11_34(v111, v112, &protocol descriptor for PauseWorkoutIntent);
+  if (v115)
   {
-    v32 = [objc_opt_self() pauseWorkoutProtocol];
+    v117 = [objc_opt_self() pauseWorkoutProtocol];
     OUTLINED_FUNCTION_12_40();
     OUTLINED_FUNCTION_0_81();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_5_46();
+      OUTLINED_FUNCTION_5_46(v118 > 1);
     }
 
-    OUTLINED_FUNCTION_6_45();
-    v4 = v50;
+    v115 = OUTLINED_FUNCTION_6_45();
+    v6 = v177;
   }
 
-  if (OUTLINED_FUNCTION_11_34())
+  v119 = OUTLINED_FUNCTION_11_34(v115, v116, &protocol descriptor for ResumeWorkoutIntent);
+  if (v119)
   {
-    v33 = [objc_opt_self() resumeWorkoutProtocol];
+    v121 = [objc_opt_self() resumeWorkoutProtocol];
     OUTLINED_FUNCTION_12_40();
     OUTLINED_FUNCTION_0_81();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_5_46();
+      OUTLINED_FUNCTION_5_46(v122 > 1);
     }
 
-    OUTLINED_FUNCTION_6_45();
-    v4 = v50;
+    v119 = OUTLINED_FUNCTION_6_45();
+    v6 = v177;
   }
 
-  if (OUTLINED_FUNCTION_11_34())
+  v123 = OUTLINED_FUNCTION_11_34(v119, v120, &protocol descriptor for ProgressReportingIntent);
+  if (v123)
   {
-    v34 = [objc_opt_self() progressReportingProtocol];
+    v125 = [objc_opt_self() progressReportingProtocol];
     OUTLINED_FUNCTION_12_40();
     OUTLINED_FUNCTION_0_81();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_5_46();
+      OUTLINED_FUNCTION_5_46(v126 > 1);
     }
 
-    OUTLINED_FUNCTION_6_45();
-    v4 = v50;
+    v123 = OUTLINED_FUNCTION_6_45();
+    v6 = v177;
   }
 
-  if (OUTLINED_FUNCTION_11_34() || OUTLINED_FUNCTION_11_34())
+  if (OUTLINED_FUNCTION_11_34(v123, v124, &protocol descriptor for LiveActivityStartingIntent) || (v128 = OUTLINED_FUNCTION_11_34(0, v127, &protocol descriptor for LiveActivityIntent)) != 0)
   {
-    v35 = [objc_opt_self() sessionStartingProtocol];
+    v130 = [objc_opt_self() sessionStartingProtocol];
     OUTLINED_FUNCTION_12_40();
     OUTLINED_FUNCTION_0_81();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_5_46();
+      OUTLINED_FUNCTION_5_46(v131 > 1);
     }
 
-    OUTLINED_FUNCTION_6_45();
-    v4 = v50;
+    v128 = OUTLINED_FUNCTION_6_45();
+    v6 = v177;
   }
 
-  if (OUTLINED_FUNCTION_11_34())
+  v132 = OUTLINED_FUNCTION_11_34(v128, v129, &protocol descriptor for SnippetIntent);
+  if (v132)
   {
-    v36 = [objc_opt_self() snippetProtocol];
+    v134 = [objc_opt_self() snippetProtocol];
     OUTLINED_FUNCTION_12_40();
     OUTLINED_FUNCTION_0_81();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_5_46();
+      OUTLINED_FUNCTION_5_46(v135 > 1);
     }
 
-    OUTLINED_FUNCTION_6_45();
-    v4 = v50;
+    v132 = OUTLINED_FUNCTION_6_45();
+    v6 = v177;
   }
 
-  if (OUTLINED_FUNCTION_11_34() || OUTLINED_FUNCTION_11_34())
+  if (OUTLINED_FUNCTION_11_34(v132, v133, &protocol descriptor for AudioStartingIntent) || (v137 = OUTLINED_FUNCTION_11_34(0, v136, &protocol descriptor for AudioPlaybackIntent)) != 0)
   {
-    v37 = [objc_opt_self() audioStartingProtocol];
+    v139 = [objc_opt_self() audioStartingProtocol];
     OUTLINED_FUNCTION_12_40();
     OUTLINED_FUNCTION_0_81();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_5_46();
+      OUTLINED_FUNCTION_5_46(v140 > 1);
     }
 
-    OUTLINED_FUNCTION_6_45();
-    v4 = v50;
+    v137 = OUTLINED_FUNCTION_6_45();
+    v6 = v177;
   }
 
-  if (OUTLINED_FUNCTION_11_34())
+  v141 = OUTLINED_FUNCTION_11_34(v137, v138, &protocol descriptor for AudioRecordingIntent);
+  if (v141)
   {
-    v38 = [objc_opt_self() audioRecordingProtocol];
+    v143 = [objc_opt_self() audioRecordingProtocol];
     OUTLINED_FUNCTION_12_40();
     OUTLINED_FUNCTION_0_81();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_5_46();
+      OUTLINED_FUNCTION_5_46(v144 > 1);
     }
 
-    OUTLINED_FUNCTION_6_45();
-    v4 = v50;
+    v141 = OUTLINED_FUNCTION_6_45();
+    v6 = v177;
   }
 
-  if (OUTLINED_FUNCTION_11_34())
+  v145 = OUTLINED_FUNCTION_11_34(v141, v142, &protocol descriptor for ManagedDestinationIntent);
+  if (v145)
   {
-    v39 = [objc_opt_self() requiresMDMChecksProtocol];
+    v147 = [objc_opt_self() requiresMDMChecksProtocol];
     OUTLINED_FUNCTION_12_40();
     OUTLINED_FUNCTION_0_81();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_5_46();
+      OUTLINED_FUNCTION_5_46(v148 > 1);
     }
 
-    OUTLINED_FUNCTION_6_45();
-    v4 = v50;
+    v145 = OUTLINED_FUNCTION_6_45();
+    v6 = v177;
   }
 
-  if (OUTLINED_FUNCTION_11_34())
+  v149 = OUTLINED_FUNCTION_11_34(v145, v146, &protocol descriptor for CameraCaptureIntent);
+  if (v149)
   {
-    v40 = [objc_opt_self() cameraCaptureProtocol];
+    v151 = [objc_opt_self() cameraCaptureProtocol];
     OUTLINED_FUNCTION_12_40();
     OUTLINED_FUNCTION_0_81();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_5_46();
+      OUTLINED_FUNCTION_5_46(v152 > 1);
     }
 
-    OUTLINED_FUNCTION_6_45();
-    v4 = v50;
+    v149 = OUTLINED_FUNCTION_6_45();
+    v6 = v177;
   }
 
-  if (OUTLINED_FUNCTION_11_34())
+  v153 = OUTLINED_FUNCTION_11_34(v149, v150, &protocol descriptor for StaccatoLongPressIntent);
+  if (v153)
   {
-    v41 = [objc_opt_self() staccatoLongPressProtocol];
+    v155 = [objc_opt_self() staccatoLongPressProtocol];
     OUTLINED_FUNCTION_12_40();
     OUTLINED_FUNCTION_0_81();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_5_46();
+      OUTLINED_FUNCTION_5_46(v156 > 1);
     }
 
-    OUTLINED_FUNCTION_6_45();
-    v4 = v50;
+    v153 = OUTLINED_FUNCTION_6_45();
+    v6 = v177;
   }
 
-  if (OUTLINED_FUNCTION_11_34())
+  v157 = OUTLINED_FUNCTION_11_34(v153, v154, &protocol descriptor for ToggleIntent);
+  if (v157)
   {
-    v42 = [objc_opt_self() toggleProtocol];
+    v159 = [objc_opt_self() toggleProtocol];
     OUTLINED_FUNCTION_12_40();
     OUTLINED_FUNCTION_0_81();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_5_46();
+      OUTLINED_FUNCTION_5_46(v160 > 1);
     }
 
-    OUTLINED_FUNCTION_6_45();
-    v4 = v50;
+    v157 = OUTLINED_FUNCTION_6_45();
+    v6 = v177;
   }
 
-  if (OUTLINED_FUNCTION_11_34())
+  v161 = OUTLINED_FUNCTION_11_34(v157, v158, &protocol descriptor for PushToTalkTransmissionIntent);
+  if (v161)
   {
-    v43 = [objc_opt_self() pushToTalkTransmissionProtocol];
+    v163 = [objc_opt_self() pushToTalkTransmissionProtocol];
     OUTLINED_FUNCTION_12_40();
     OUTLINED_FUNCTION_0_81();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_5_46();
+      OUTLINED_FUNCTION_5_46(v164 > 1);
     }
 
-    OUTLINED_FUNCTION_6_45();
-    v4 = v50;
+    v161 = OUTLINED_FUNCTION_6_45();
+    v6 = v177;
   }
 
-  if (OUTLINED_FUNCTION_11_34())
+  v165 = OUTLINED_FUNCTION_11_34(v161, v162, &protocol descriptor for UndoableIntent);
+  if (v165)
   {
-    v44 = [objc_opt_self() undoableProtocol];
+    v167 = [objc_opt_self() undoableProtocol];
     OUTLINED_FUNCTION_12_40();
     OUTLINED_FUNCTION_0_81();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_5_46();
+      OUTLINED_FUNCTION_5_46(v168 > 1);
     }
 
-    OUTLINED_FUNCTION_6_45();
-    v4 = v50;
+    v165 = OUTLINED_FUNCTION_6_45();
+    v6 = v177;
   }
 
-  if (OUTLINED_FUNCTION_11_34())
+  v169 = OUTLINED_FUNCTION_11_34(v165, v166, &protocol descriptor for _UndoableIntent);
+  if (v169)
   {
-    v45 = [objc_opt_self() undoableProtocol];
+    v171 = [objc_opt_self() undoableProtocol];
     OUTLINED_FUNCTION_12_40();
     OUTLINED_FUNCTION_0_81();
-    if (v6)
+    if (v11)
     {
-      OUTLINED_FUNCTION_5_46();
+      OUTLINED_FUNCTION_5_46(v172 > 1);
     }
 
-    OUTLINED_FUNCTION_6_45();
-    v4 = v50;
+    v169 = OUTLINED_FUNCTION_6_45();
+    v6 = v177;
   }
 
-  if (OUTLINED_FUNCTION_11_34())
+  if (OUTLINED_FUNCTION_11_34(v169, v170, &protocol descriptor for ForegroundContinuableIntent))
   {
-    v46 = [objc_opt_self() foregroundContinuableProtocol];
+    v173 = [objc_opt_self() foregroundContinuableProtocol];
     MEMORY[0x193ADB260]();
-    if (*((v50 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v50 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+    if (*((v177 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v177 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
     {
       sub_18F521D0C();
     }
 
     sub_18F521D6C();
-    return v50;
+    return v177;
   }
 
-  return v4;
+  return v6;
 }
 
 uint64_t sub_18F2FAA28()
 {
   v52 = MEMORY[0x1E69E7CC0];
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for AssistantIntent))
   {
     v0 = [objc_opt_self() assistantIntentProtocol];
     MEMORY[0x193ADB260]();
@@ -4866,7 +4765,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for _AssistantAppIntent))
   {
     v1 = [objc_opt_self() assistantIntentProtocol];
     MEMORY[0x193ADB260]();
@@ -4878,7 +4777,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for _AssistantInvocableIntent))
   {
     v2 = [objc_opt_self() assistantInvocableIntentProtocol];
     MEMORY[0x193ADB260]();
@@ -4890,7 +4789,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for CancelIntent))
   {
     v3 = [objc_opt_self() cancelProtocol];
     MEMORY[0x193ADB260]();
@@ -4902,7 +4801,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for ChangeBinarySettingIntent))
   {
     v4 = [objc_opt_self() changeBinarySettingSystemProtocol];
     MEMORY[0x193ADB260]();
@@ -4914,7 +4813,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for CloseIntent))
   {
     v5 = [objc_opt_self() closeEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -4938,7 +4837,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for CreateIntent))
   {
     v6 = [objc_opt_self() createEntitySystemProtocol];
     MEMORY[0x193ADB260]();
@@ -4950,7 +4849,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for _CreateIntent))
   {
     v7 = [objc_opt_self() createEntitySystemProtocol];
     MEMORY[0x193ADB260]();
@@ -4975,7 +4874,7 @@ uint64_t sub_18F2FAA28()
   }
 
   v9 = MEMORY[0x1E69E73E0];
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for DeleteIntent))
   {
     v10 = [objc_opt_self() deleteEntitySystemProtocol];
     MEMORY[0x193ADB260]();
@@ -4988,8 +4887,8 @@ uint64_t sub_18F2FAA28()
   }
 
   v51 = v9;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C98);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C20);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C98, &qword_18F555128);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C20, &unk_18F55B340);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v50);
@@ -5004,7 +4903,7 @@ uint64_t sub_18F2FAA28()
   }
 
   v12 = MEMORY[0x1E69E73E0];
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for FavoriteIntent))
   {
     v13 = [objc_opt_self() favoriteEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -5017,7 +4916,7 @@ uint64_t sub_18F2FAA28()
   }
 
   v51 = v12;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C28);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C28, &qword_18F5550C8);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v50);
@@ -5032,7 +4931,7 @@ uint64_t sub_18F2FAA28()
   }
 
   v51 = v12;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C30);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C30, &unk_18F55B350);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v50);
@@ -5047,7 +4946,7 @@ uint64_t sub_18F2FAA28()
   }
 
   v51 = v12;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD45A8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD45A8, &qword_18F54F5F8);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v50);
@@ -5073,7 +4972,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for _PreviewIntent))
   {
     v18 = [objc_opt_self() previewEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -5085,7 +4984,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for _EnterMarkupIntent))
   {
     v19 = [objc_opt_self() enterMarkupProtocol];
     MEMORY[0x193ADB260]();
@@ -5109,7 +5008,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for PutInContainerIntent))
   {
     v21 = [objc_opt_self() putEntityInContainerProtocol];
     MEMORY[0x193ADB260]();
@@ -5122,7 +5021,7 @@ uint64_t sub_18F2FAA28()
   }
 
   v22 = MEMORY[0x1E69E73E0];
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for ResizeIntent))
   {
     v23 = [objc_opt_self() resizeProtocol];
     MEMORY[0x193ADB260]();
@@ -5135,7 +5034,7 @@ uint64_t sub_18F2FAA28()
   }
 
   v51 = v22;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C38);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C38, &unk_18F55B360);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v50);
@@ -5150,7 +5049,7 @@ uint64_t sub_18F2FAA28()
   }
 
   v25 = MEMORY[0x1E69E73E0];
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for ScrollIntent))
   {
     v26 = [objc_opt_self() scrollProtocol];
     MEMORY[0x193ADB260]();
@@ -5163,7 +5062,7 @@ uint64_t sub_18F2FAA28()
   }
 
   v51 = v25;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C40);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5C40, &qword_18F5550D0);
   if (swift_dynamicCast())
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v50);
@@ -5189,7 +5088,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for ZoomIntent))
   {
     v29 = [objc_opt_self() zoomProtocol];
     MEMORY[0x193ADB260]();
@@ -5201,7 +5100,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for WidgetConfigurationIntent))
   {
     v30 = [objc_opt_self() widgetConfigurationProtocol];
     MEMORY[0x193ADB260]();
@@ -5213,7 +5112,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for SetFocusFilterIntent))
   {
     v31 = [objc_opt_self() focusConfigurationProtocol];
     MEMORY[0x193ADB260]();
@@ -5225,7 +5124,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for __CopyIntent))
   {
     [objc_opt_self() copyEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -5237,7 +5136,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for CutIntent))
   {
     v32 = [objc_opt_self() cutEntityProtocol];
     MEMORY[0x193ADB260]();
@@ -5249,7 +5148,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for StartWorkoutIntent))
   {
     v33 = [objc_opt_self() startWorkoutProtocol];
     MEMORY[0x193ADB260]();
@@ -5261,7 +5160,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for PauseWorkoutIntent))
   {
     v34 = [objc_opt_self() pauseWorkoutProtocol];
     MEMORY[0x193ADB260]();
@@ -5273,7 +5172,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for ResumeWorkoutIntent))
   {
     v35 = [objc_opt_self() resumeWorkoutProtocol];
     MEMORY[0x193ADB260]();
@@ -5285,7 +5184,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for ProgressReportingIntent))
   {
     v36 = [objc_opt_self() progressReportingProtocol];
     MEMORY[0x193ADB260]();
@@ -5297,7 +5196,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]) || dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for LiveActivityStartingIntent) || dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for LiveActivityIntent))
   {
     v37 = [objc_opt_self() sessionStartingProtocol];
     MEMORY[0x193ADB260]();
@@ -5309,7 +5208,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for SnippetIntent))
   {
     v38 = [objc_opt_self() snippetProtocol];
     MEMORY[0x193ADB260]();
@@ -5321,7 +5220,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]) || dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for AudioStartingIntent) || dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for AudioPlaybackIntent))
   {
     v39 = [objc_opt_self() audioStartingProtocol];
     MEMORY[0x193ADB260]();
@@ -5333,7 +5232,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for AudioRecordingIntent))
   {
     v40 = [objc_opt_self() audioRecordingProtocol];
     MEMORY[0x193ADB260]();
@@ -5345,7 +5244,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for ManagedDestinationIntent))
   {
     v41 = [objc_opt_self() requiresMDMChecksProtocol];
     MEMORY[0x193ADB260]();
@@ -5357,7 +5256,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for CameraCaptureIntent))
   {
     v42 = [objc_opt_self() cameraCaptureProtocol];
     MEMORY[0x193ADB260]();
@@ -5369,7 +5268,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for StaccatoLongPressIntent))
   {
     v43 = [objc_opt_self() staccatoLongPressProtocol];
     MEMORY[0x193ADB260]();
@@ -5381,7 +5280,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for ToggleIntent))
   {
     v44 = [objc_opt_self() toggleProtocol];
     MEMORY[0x193ADB260]();
@@ -5393,7 +5292,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for PushToTalkTransmissionIntent))
   {
     v45 = [objc_opt_self() pushToTalkTransmissionProtocol];
     MEMORY[0x193ADB260]();
@@ -5405,7 +5304,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for UndoableIntent))
   {
     v46 = [objc_opt_self() undoableProtocol];
     MEMORY[0x193ADB260]();
@@ -5417,7 +5316,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for _UndoableIntent))
   {
     v47 = [objc_opt_self() undoableProtocol];
     MEMORY[0x193ADB260]();
@@ -5429,7 +5328,7 @@ uint64_t sub_18F2FAA28()
     sub_18F521D6C();
   }
 
-  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0]))
+  if (dynamic_cast_existential_1_conditional(MEMORY[0x1E69E73E0], MEMORY[0x1E69E73E0], &protocol descriptor for ForegroundContinuableIntent))
   {
     v48 = [objc_opt_self() foregroundContinuableProtocol];
     MEMORY[0x193ADB260]();
@@ -5732,74 +5631,75 @@ unint64_t sub_18F2FCAC8()
   return result;
 }
 
-uint64_t sub_18F2FCB4C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_18F2FCB4C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>, uint64_t a4@<X3>)
 {
-  if (*(v2 + 24))
+  if (*(v4 + 24))
   {
-    v5 = type metadata accessor for _EnumURLRepresentation.EnumSingleURLRepresentation();
+    v7 = type metadata accessor for _EnumURLRepresentation.EnumSingleURLRepresentation(0, *(a2 + 16), *(a2 + 24), a4);
     sub_18F52175C();
-    if (v9)
+    if (v11)
     {
-      sub_18F2FCE8C(a1, v5, a2);
+      sub_18F2FCE8C(a1, v7, a3);
     }
 
     else
     {
-      v8 = sub_18F520C8C();
-      return __swift_storeEnumTagSinglePayload(a2, 1, 1, v8);
+      v10 = sub_18F520C8C();
+      return __swift_storeEnumTagSinglePayload(a3, 1, 1, v10);
     }
   }
 
   else
   {
-    v7 = type metadata accessor for _EnumURLRepresentation.EnumSingleURLRepresentation();
-    return sub_18F2FCE8C(a1, v7, a2);
+    v9 = type metadata accessor for _EnumURLRepresentation.EnumSingleURLRepresentation(0, *(a2 + 16), *(a2 + 24), a4);
+    return sub_18F2FCE8C(a1, v9, a3);
   }
 }
 
-uint64_t _URLRepresentableEnum.urlRepresentation.getter@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+uint64_t _URLRepresentableEnum.urlRepresentation.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  (*(a1 + 24))(v9);
-  v4 = v9[0];
-  v5 = v9[1];
-  v6 = v9[2];
-  v7 = v10;
-  type metadata accessor for _EnumURLRepresentation();
-  sub_18F2FCB4C(v2, a2);
+  v4 = v3;
+  (*(a2 + 24))(v16);
+  v8 = v16[0];
+  v9 = v16[1];
+  v10 = v16[2];
+  v11 = v17;
+  v13 = type metadata accessor for _EnumURLRepresentation(0, a1, *(a2 + 8), v12);
+  sub_18F2FCB4C(v4, v13, a3, v14);
 
-  return sub_18F19CDA4(v4, v5, v6, v7);
+  return sub_18F19CDA4(v8, v9, v10, v11);
 }
 
-double _EnumURLRepresentation.init(_:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+double _EnumURLRepresentation.init(_:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  _EnumURLRepresentation.EnumSingleURLRepresentation.init(stringLiteral:)(a1, a2, &v6);
-  result = *&v6;
-  v5 = v7;
-  *a3 = v6;
-  *(a3 + 16) = v5;
-  *(a3 + 24) = 0;
+  _EnumURLRepresentation.EnumSingleURLRepresentation.init(stringLiteral:)(a1, a2, a3, a4, &v8);
+  result = *&v8;
+  v7 = v9;
+  *a5 = v8;
+  *(a5 + 16) = v7;
+  *(a5 + 24) = 0;
   return result;
 }
 
-uint64_t _EnumURLRepresentation.EnumSingleURLRepresentation.init(stringLiteral:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+uint64_t _EnumURLRepresentation.EnumSingleURLRepresentation.init(stringLiteral:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
-  a3[1] = a1;
-  a3[2] = a2;
-  type metadata accessor for _EnumURLRepresentation.StringInterpolation.ValueStorage();
+  a5[1] = a1;
+  a5[2] = a2;
+  type metadata accessor for _EnumURLRepresentation.StringInterpolation.ValueStorage(0, a3, a4, a4);
   result = sub_18F521D2C();
-  *a3 = result;
+  *a5 = result;
   return result;
 }
 
-double _EnumURLRepresentation.init(stringLiteral:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+double _EnumURLRepresentation.init(stringLiteral:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  _EnumURLRepresentation.init(_:)(a1, a2, &v7);
-  v4 = v8;
-  v5 = v9;
-  result = *&v7;
-  *a3 = v7;
-  *(a3 + 16) = v4;
-  *(a3 + 24) = v5;
+  _EnumURLRepresentation.init(_:)(a1, a2, a3, a4, &v9);
+  v6 = v10;
+  v7 = v11;
+  result = *&v9;
+  *a5 = v9;
+  *(a5 + 16) = v6;
+  *(a5 + 24) = v7;
   return result;
 }
 
@@ -5833,128 +5733,128 @@ uint64_t _EnumURLRepresentation.init(_:)@<X0>(uint64_t result@<X0>, uint64_t a2@
 
 uint64_t sub_18F2FCE8C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v41 = a1;
-  v37 = a3;
+  v42 = a1;
+  v38 = a3;
   v5 = *(a2 + 16);
   v4 = *(a2 + 24);
-  v47 = *(v4 + 24);
+  v48 = *(v4 + 24);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v42 = *(AssociatedTypeWitness - 8);
+  v43 = *(AssociatedTypeWitness - 8);
   v6 = MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v45 = &v37 - v7;
-  v38 = *(v5 - 8);
+  v46 = &v38 - v7;
+  v39 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v6);
-  v40 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v48 = v4;
-  v9 = type metadata accessor for _EnumURLRepresentation.StringInterpolation.ValueStorage();
-  v43 = *(v9 - 8);
-  MEMORY[0x1EEE9AC00](v9);
-  v11 = &v37 - v10;
+  v41 = &v38 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v49 = v4;
+  v10 = type metadata accessor for _EnumURLRepresentation.StringInterpolation.ValueStorage(0, v5, v4, v9);
+  v44 = *(v10 - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v38 - v11;
   TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v52 = sub_18F52254C();
-  v49 = *(v52 - 8);
-  v13 = MEMORY[0x1EEE9AC00](v52);
-  v51 = &v37 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v16 = &v37 - v15;
-  v17 = v3[1];
-  v18 = v3[2];
-  v59 = *v3;
-  v19 = sub_18F521DBC();
+  v53 = sub_18F52254C();
+  v50 = *(v53 - 8);
+  v14 = MEMORY[0x1EEE9AC00](v53);
+  v52 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v17 = &v38 - v16;
+  v18 = v3[1];
+  v19 = v3[2];
+  v60[0] = *v3;
+  v20 = sub_18F521DBC();
   _s10AppIntents22IntentParameterSummaryV0D15KeyPathsBuilderO10buildBlockySays07PartialF4PathCyxGGAId_tFZ_0();
   WitnessTable = swift_getWitnessTable();
-  MEMORY[0x193ADB130](&v57, v19, WitnessTable);
-  v55 = v57;
+  MEMORY[0x193ADB130](&v58, v20, WitnessTable);
+  v56 = v58;
   sub_18F522A8C();
   sub_18F522A5C();
-  v21 = sub_18F522A7C();
-  v49 += 4;
-  v50 = v21;
-  v43 += 4;
-  v39 = (v38 + 4);
-  ++v42;
-  ++v38;
+  v22 = sub_18F522A7C();
+  v50 += 4;
+  v51 = v22;
+  v44 += 4;
+  v40 = (v39 + 4);
+  ++v43;
+  ++v39;
   for (i = TupleTypeMetadata2; ; TupleTypeMetadata2 = i)
   {
-    v22 = v51;
+    v23 = v52;
     sub_18F522A6C();
-    (*v49)(v16, v22, v52);
-    if (__swift_getEnumTagSinglePayload(v16, 1, TupleTypeMetadata2) == 1)
+    (*v50)(v17, v23, v53);
+    if (__swift_getEnumTagSinglePayload(v17, 1, TupleTypeMetadata2) == 1)
     {
       break;
     }
 
-    v23 = *v16;
-    (*v43)(v11, &v16[*(TupleTypeMetadata2 + 48)], v9);
-    if (__swift_getEnumTagSinglePayload(v11, 1, v5) == 1)
+    v24 = *v17;
+    (*v44)(v12, &v17[*(TupleTypeMetadata2 + 48)], v10);
+    if (__swift_getEnumTagSinglePayload(v12, 1, v5) == 1)
     {
-      v57 = v17;
       v58 = v18;
-      v55 = 0x657361637B24;
-      v56 = 0xE600000000000000;
-      v53 = v23;
-      v24 = sub_18F522C9C();
-      MEMORY[0x193ADB000](v24);
+      v59 = v19;
+      v56 = 0x657361637B24;
+      v57 = 0xE600000000000000;
+      v54 = v24;
+      v25 = sub_18F522C9C();
+      MEMORY[0x193ADB000](v25);
 
       MEMORY[0x193ADB000](125, 0xE100000000000000);
-      v53 = 0;
-      v54 = 0xE000000000000000;
-      v25 = v45;
+      v54 = 0;
+      v55 = 0xE000000000000000;
+      v26 = v46;
       sub_18F521C0C();
-      v26 = AssociatedTypeWitness;
+      v27 = AssociatedTypeWitness;
       swift_getAssociatedConformanceWitness();
       sub_18F522D2C();
-      (*v42)(v25, v26);
+      (*v43)(v26, v27);
       sub_18F12A000();
-      v17 = sub_18F5225CC();
-      v28 = v27;
+      v18 = sub_18F5225CC();
+      v29 = v28;
     }
 
     else
     {
-      v29 = v9;
-      v30 = v40;
-      (*v39)(v40, v11, v5);
-      v57 = v17;
+      v30 = v10;
+      v31 = v41;
+      (*v40)(v41, v12, v5);
       v58 = v18;
-      v55 = 0x657361637B24;
-      v56 = 0xE600000000000000;
-      v53 = v23;
-      v31 = sub_18F522C9C();
-      MEMORY[0x193ADB000](v31);
+      v59 = v19;
+      v56 = 0x657361637B24;
+      v57 = 0xE600000000000000;
+      v54 = v24;
+      v32 = sub_18F522C9C();
+      MEMORY[0x193ADB000](v32);
 
       MEMORY[0x193ADB000](125, 0xE100000000000000);
-      v53 = 0;
-      v54 = 0xE000000000000000;
-      v32 = v45;
+      v54 = 0;
+      v55 = 0xE000000000000000;
+      v33 = v46;
       sub_18F521C0C();
-      v33 = AssociatedTypeWitness;
+      v34 = AssociatedTypeWitness;
       swift_getAssociatedConformanceWitness();
       sub_18F522D2C();
-      (*v42)(v32, v33);
+      (*v43)(v33, v34);
       sub_18F12A000();
-      v17 = sub_18F5225CC();
-      v28 = v34;
+      v18 = sub_18F5225CC();
+      v29 = v35;
 
-      v35 = v30;
-      v9 = v29;
-      (*v38)(v35, v5);
+      v36 = v31;
+      v10 = v30;
+      (*v39)(v36, v5);
     }
 
-    v18 = v28;
+    v19 = v29;
   }
 
   sub_18F520C6C();
 }
 
-uint64_t _EnumURLRepresentation.StringInterpolation.init(literalCapacity:interpolationCount:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+uint64_t _EnumURLRepresentation.StringInterpolation.init(literalCapacity:interpolationCount:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
-  type metadata accessor for _EnumURLRepresentation.StringInterpolation.ValueStorage();
+  type metadata accessor for _EnumURLRepresentation.StringInterpolation.ValueStorage(0, a3, a4, a4);
   OUTLINED_FUNCTION_4_9();
   result = sub_18F521D2C();
-  *a3 = result;
-  a3[1] = 0;
-  a3[2] = 0xE000000000000000;
+  *a5 = result;
+  a5[1] = 0;
+  a5[2] = 0xE000000000000000;
   if (a2 + 0x4000000000000000 < 0)
   {
     __break(1u);
@@ -5990,7 +5890,7 @@ uint64_t _EnumURLRepresentation.StringInterpolation.Token.hashValue.getter()
   return sub_18F522F4C();
 }
 
-uint64_t sub_18F2FD77C()
+uint64_t sub_18F2FD77C(uint64_t a1)
 {
   sub_18F522EFC();
   _EnumURLRepresentation.StringInterpolation.Token.hash(into:)();
@@ -6001,12 +5901,12 @@ uint64_t _EnumURLRepresentation.StringInterpolation.appendInterpolation(_:)(uint
 {
   OUTLINED_FUNCTION_0_15();
   v3 = *(v2 + 16);
-  OUTLINED_FUNCTION_4_9();
-  type metadata accessor for _EnumURLRepresentation.StringInterpolation.ValueStorage();
+  v4 = OUTLINED_FUNCTION_4_9();
+  type metadata accessor for _EnumURLRepresentation.StringInterpolation.ValueStorage(v4, v5, v6, v7);
   OUTLINED_FUNCTION_45();
   sub_18F521D7C();
-  v4 = sub_18F522C9C();
-  MEMORY[0x193ADB000](v4);
+  v8 = sub_18F522C9C();
+  MEMORY[0x193ADB000](v8);
 
   MEMORY[0x193ADB000](125, 0xE100000000000000);
   MEMORY[0x193ADB000]();
@@ -6015,24 +5915,24 @@ uint64_t _EnumURLRepresentation.StringInterpolation.appendInterpolation(_:)(uint
   OUTLINED_FUNCTION_2_22();
   OUTLINED_FUNCTION_1_17();
   sub_18F521CDC();
-  v6 = v5;
-  (*(*(v3 - 8) + 16))(v5, a1, v3);
-  __swift_storeEnumTagSinglePayload(v6, 0, 1, v3);
-  v7 = OUTLINED_FUNCTION_45();
-  sub_18F129FD4(v7);
-  OUTLINED_FUNCTION_5_15();
+  v10 = v9;
+  (*(*(v3 - 8) + 16))(v9, a1, v3);
+  __swift_storeEnumTagSinglePayload(v10, 0, 1, v3);
+  v11 = OUTLINED_FUNCTION_45();
+  v13 = sub_18F129FD4(v11, v12);
+  OUTLINED_FUNCTION_5_15(v13);
 }
 
 uint64_t _EnumURLRepresentation.StringInterpolation.appendInterpolation(_:)()
 {
   OUTLINED_FUNCTION_0_15();
   v1 = *(v0 + 16);
-  OUTLINED_FUNCTION_4_9();
-  type metadata accessor for _EnumURLRepresentation.StringInterpolation.ValueStorage();
+  v2 = OUTLINED_FUNCTION_4_9();
+  type metadata accessor for _EnumURLRepresentation.StringInterpolation.ValueStorage(v2, v3, v4, v5);
   OUTLINED_FUNCTION_45();
   sub_18F521D7C();
-  v2 = sub_18F522C9C();
-  MEMORY[0x193ADB000](v2);
+  v6 = sub_18F522C9C();
+  MEMORY[0x193ADB000](v6);
 
   MEMORY[0x193ADB000](125, 0xE100000000000000);
   MEMORY[0x193ADB000]();
@@ -6041,13 +5941,13 @@ uint64_t _EnumURLRepresentation.StringInterpolation.appendInterpolation(_:)()
   OUTLINED_FUNCTION_2_22();
   OUTLINED_FUNCTION_1_17();
   sub_18F521CDC();
-  __swift_storeEnumTagSinglePayload(v3, 1, 1, v1);
-  v4 = OUTLINED_FUNCTION_45();
-  sub_18F129FD4(v4);
-  OUTLINED_FUNCTION_5_15();
+  __swift_storeEnumTagSinglePayload(v7, 1, 1, v1);
+  v8 = OUTLINED_FUNCTION_45();
+  v10 = sub_18F129FD4(v8, v9);
+  OUTLINED_FUNCTION_5_15(v10);
 }
 
-uint64_t sub_18F2FDB68()
+uint64_t sub_18F2FDB68(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -6131,7 +6031,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t sub_18F2FDC94()
+uint64_t sub_18F2FDC94(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -6426,7 +6326,7 @@ uint64_t NSUserActivity.widgetConfigurationIntent<A>(of:)@<X0>(uint64_t a1@<X1>,
   swift_beginAccess();
   sub_18F2FE140(v2, &unk_1EACD5E38, v7);
   swift_endAccess();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0D70);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0D70, &qword_18F555640);
   v5 = swift_dynamicCast();
   return __swift_storeEnumTagSinglePayload(a2, v5 ^ 1u, 1, a1);
 }
@@ -6460,7 +6360,7 @@ double sub_18F2FE140@<D0>(void *a1@<X0>, const void *a2@<X1>, uint64_t a3@<X8>)
 
   else
   {
-    sub_18F0EF148(v8, &qword_1EACD0430);
+    sub_18F0EF148(v8, &qword_1EACD0430, &qword_18F540CE0);
   }
 
   *(a3 + 32) = 0;
@@ -6489,7 +6389,7 @@ uint64_t sub_18F2FE234()
     *(v0 + 88) = 0;
     *(v0 + 72) = 0u;
     *(v0 + 56) = 0u;
-    sub_18F0EF148(v0 + 56, &qword_1EACD0D70);
+    sub_18F0EF148(v0 + 56, &qword_1EACD0D70, &qword_18F555640);
     OUTLINED_FUNCTION_71();
 
     return v6();
@@ -6530,7 +6430,7 @@ uint64_t sub_18F2FE464()
   objc_setAssociatedObject(v1, &unk_1EACD5E38, v2, 1);
   swift_endAccess();
 
-  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 16);
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 16));
   OUTLINED_FUNCTION_71();
 
   return v3();
@@ -6568,7 +6468,7 @@ uint64_t sub_18F2FE54C()
     *(v8 + 14) = v12;
     *v9 = v12;
     _os_log_impl(&dword_18F0E9000, v4, v5, "%{public}s - Error converting INIntent to App Intent: %@", v8, 0x16u);
-    sub_18F0EF148(v9, &qword_1EACD0578);
+    sub_18F0EF148(v9, &qword_1EACD0578, &unk_18F541870);
     MEMORY[0x193ADD350](v9, -1, -1);
     __swift_destroy_boxed_opaque_existential_1Tm(v10);
     MEMORY[0x193ADD350](v10, -1, -1);
@@ -6636,9 +6536,9 @@ id UserActivityHelper.__deallocating_deinit()
 
 uint64_t sub_18F2FEA70()
 {
-  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 16);
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 16));
 
-  return MEMORY[0x1EEE6BDC0](v0, 56, 7);
+  return MEMORY[0x1EEE6BDC0](v0);
 }
 
 uint64_t sub_18F2FEAF0()
@@ -6655,55 +6555,55 @@ uint64_t sub_18F2FEAF0()
 
 uint64_t EntityProperty<>.init(title:_get:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v22 = a1;
-  v23 = a2;
+  v23 = a1;
+  v24 = a2;
   v8 = sub_18F520B3C();
   OUTLINED_FUNCTION_11_0();
   v10 = v9;
   MEMORY[0x1EEE9AC00](v11);
-  (*(v10 + 16))(&v21 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0), a1, v8);
+  (*(v10 + 16))(&v22 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0), a1, v8);
   v13 = *(v4 + 80);
   v14 = *(a4 + 8);
   OUTLINED_FUNCTION_7_43();
   OUTLINED_FUNCTION_13_0();
-  v18 = sub_18F31D80C(v15, v16, v17);
-  v19 = *(a4 + 56);
-  v24[3] = v13;
-  v24[4] = v14;
-  __swift_allocate_boxed_opaque_existential_1(v24);
+  v19 = sub_18F31D80C(v15, v16, v17, v18);
+  v20 = *(a4 + 56);
+  v25[3] = v13;
+  v25[4] = v14;
+  __swift_allocate_boxed_opaque_existential_1(v25);
 
-  v19(v23, a3, v13, a4);
-  sub_18F31D30C(v24);
+  v20(v24, a3, v13, a4);
+  sub_18F31D30C(v25);
 
-  (*(v10 + 8))(v22, v8);
-  return v18;
+  (*(v10 + 8))(v23, v8);
+  return v19;
 }
 
 uint64_t EntityProperty<>.init(title:_get:_set:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v26 = a2;
-  v27 = a4;
-  v25 = a1;
-  v24 = sub_18F520B3C();
+  v27 = a2;
+  v28 = a4;
+  v26 = a1;
+  v25 = sub_18F520B3C();
   OUTLINED_FUNCTION_11_0();
   v12 = v11;
   MEMORY[0x1EEE9AC00](v13);
-  (*(v12 + 16))(&v23 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0), a1);
+  (*(v12 + 16))(&v24 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0), a1);
   v15 = *(v6 + 80);
   v16 = *(a6 + 8);
   OUTLINED_FUNCTION_7_43();
   OUTLINED_FUNCTION_13_0();
-  v20 = sub_18F31D80C(v17, v18, v19);
-  v21 = *(a6 + 48);
-  v28[3] = v15;
-  v28[4] = v16;
-  __swift_allocate_boxed_opaque_existential_1(v28);
+  v21 = sub_18F31D80C(v17, v18, v19, v20);
+  v22 = *(a6 + 48);
+  v29[3] = v15;
+  v29[4] = v16;
+  __swift_allocate_boxed_opaque_existential_1(v29);
 
-  v21(v26, a3, v27, a5, v15, a6);
-  sub_18F31D30C(v28);
+  v22(v27, a3, v28, a5, v15, a6);
+  sub_18F31D30C(v29);
 
-  (*(v12 + 8))(v25, v24);
-  return v20;
+  (*(v12 + 8))(v26, v25);
+  return v21;
 }
 
 uint64_t sub_18F2FEF00(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -6727,7 +6627,7 @@ uint64_t sub_18F2FEF00(uint64_t a1, uint64_t a2, uint64_t a3)
 uint64_t sub_18F2FF030()
 {
   sub_18F11E02C((v0 + 2));
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0620);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0620, &unk_18F541850);
   v1 = swift_dynamicCast();
   v2 = v0[11];
   if (v1)
@@ -6799,7 +6699,7 @@ uint64_t sub_18F2FF370(uint64_t a1, uint64_t a2, uint64_t a3)
 uint64_t sub_18F2FF4A0()
 {
   sub_18F11E02C((v0 + 2));
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0620);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0620, &unk_18F541850);
   v1 = swift_dynamicCast();
   v2 = v0[11];
   if (!v1)
@@ -6950,10 +6850,10 @@ uint64_t AppIntent.requestConfirmation(conditions:actionName:dialog:)()
   v1[39] = v0;
   v1[36] = v7;
   v1[37] = v8;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
   OUTLINED_FUNCTION_10(v9);
   v1[40] = OUTLINED_FUNCTION_34_0();
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0E30);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0E30, &qword_18F5557A0);
   v1[41] = v10;
   OUTLINED_FUNCTION_10(v10);
   v11 = OUTLINED_FUNCTION_34_0();
@@ -7020,15 +6920,15 @@ uint64_t sub_18F2FFFA8()
   *(v14 + 64) = xmmword_18F543360;
   *(v14 + 80) = 0;
   OUTLINED_FUNCTION_53_8(v15);
-  sub_18F0FF5DC(v0 + 192, v16, &qword_1EACD0D70);
+  sub_18F0FF5DC(v0 + 192, v16, &qword_1EACD0D70, &qword_18F555640);
   *(v1 + v11) = 2;
-  sub_18F0FF5DC(v0 + 104, v12, &qword_1EACD0550);
-  sub_18F0FF5DC(v0 + 232, v13, &qword_1EACD0D78);
+  sub_18F0FF5DC(v0 + 104, v12, &qword_1EACD0550, &qword_18F547EB0);
+  sub_18F0FF5DC(v0 + 232, v13, &qword_1EACD0D78, &unk_18F555790);
   OUTLINED_FUNCTION_106_6();
   OUTLINED_FUNCTION_63_6();
-  sub_18F0FF5DC(v0 + 16, v14, &qword_1EACD0D80);
-  sub_18F0FF5DC(v22, v1 + v20, &qword_1EACCF7A0);
-  sub_18F0FF5DC(v0 + 152, v7, &qword_1EACD0D70);
+  sub_18F0FF5DC(v0 + 16, v14, &qword_1EACD0D80, &qword_18F54A340);
+  sub_18F0FF5DC(v22, v1 + v20, &qword_1EACCF7A0, &unk_18F53E6F0);
+  sub_18F0FF5DC(v0 + 152, v7, &qword_1EACD0D70, &qword_18F555640);
   *(v1 + v19) = 0;
   *v21 = 0;
   v21[1] = 0;
@@ -7058,7 +6958,7 @@ uint64_t sub_18F30029C()
   *v8 = v7;
   *(v3 + 368) = v0;
 
-  sub_18F0EF1A8(v6, &qword_1EACD0E30);
+  sub_18F0EF1A8(v6, &qword_1EACD0E30, &qword_18F5557A0);
   if (v0)
   {
     OUTLINED_FUNCTION_13_0();
@@ -7084,16 +6984,16 @@ uint64_t sub_18F3003FC()
   return v0();
 }
 
-unint64_t sub_18F300464@<X0>(uint64_t a1@<X8>)
+uint64_t sub_18F300464@<X0>(uint64_t a1@<X8>)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5E68);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5E68, &qword_18F555768);
   result = swift_dynamicCast();
-  if (v4[0] == 1)
+  if (LOBYTE(v4[0]) == 1)
   {
     goto LABEL_4;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD1A40);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD1A40, &qword_18F54F490);
   v3 = MEMORY[0x1E69E73E0];
   if (swift_dynamicCast())
   {
@@ -7122,7 +7022,7 @@ uint64_t AppIntent.requestConfirmation<A>(result:confirmationActionName:showProm
   *(v1 + 57) = v7;
   *(v1 + 112) = v8;
   *(v1 + 120) = v9;
-  v10 = type metadata accessor for IntentContext();
+  v10 = type metadata accessor for IntentContext(0);
   OUTLINED_FUNCTION_10(v10);
   v11 = OUTLINED_FUNCTION_34_0();
   v12 = *v3;
@@ -7241,7 +7141,7 @@ uint64_t sub_18F300AA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v6[5] = a4;
   v6[2] = a1;
   v6[3] = a2;
-  v6[8] = type metadata accessor for IntentContext();
+  v6[8] = type metadata accessor for IntentContext(0);
   v6[9] = swift_task_alloc();
 
   return MEMORY[0x1EEE6DFA0](sub_18F300B44, 0, 0);
@@ -7359,7 +7259,7 @@ uint64_t AppIntent.requestConfirmation<A>(result:confirmationActionName:showProm
   *(v1 + 57) = v9;
   *(v1 + 112) = v10;
   *(v1 + 120) = v11;
-  v12 = type metadata accessor for IntentContext();
+  v12 = type metadata accessor for IntentContext(0);
   OUTLINED_FUNCTION_10(v12);
   v13 = OUTLINED_FUNCTION_34_0();
   v14 = *v5;
@@ -7505,7 +7405,7 @@ uint64_t AppIntent.requestConfirmation<A>(conditions:actionName:dialog:showDialo
   *(v18 + 40) = v33;
   *(v18 + 48) = AssociatedConformanceWitness;
   *(v18 + 56) = v32;
-  v34 = type metadata accessor for IntentResultContainer();
+  v34 = type metadata accessor for IntentResultContainer(0, v18 + 16);
   *(v18 + 360) = v34;
   OUTLINED_FUNCTION_51(v34);
   *(v18 + 368) = v35;
@@ -7523,17 +7423,17 @@ uint64_t AppIntent.requestConfirmation<A>(conditions:actionName:dialog:showDialo
   *(v18 + 88) = v37;
   *(v18 + 96) = AssociatedConformanceWitness;
   *(v18 + 104) = v32;
-  v38 = type metadata accessor for IntentResultContainer();
+  v38 = type metadata accessor for IntentResultContainer(0, v18 + 64);
   *(v18 + 416) = v38;
   OUTLINED_FUNCTION_51(v38);
   *(v18 + 424) = v39;
   *(v18 + 432) = OUTLINED_FUNCTION_34_0();
-  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0);
+  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
   OUTLINED_FUNCTION_10(v40);
   *(v18 + 440) = swift_task_alloc();
   *(v18 + 448) = swift_task_alloc();
   *(v18 + 456) = OUTLINED_FUNCTION_34_0();
-  v41 = type metadata accessor for IntentContext();
+  v41 = type metadata accessor for IntentContext(0);
   OUTLINED_FUNCTION_10(v41);
   v42 = OUTLINED_FUNCTION_34_0();
   v43 = *v24;
@@ -7548,118 +7448,123 @@ uint64_t AppIntent.requestConfirmation<A>(conditions:actionName:dialog:showDialo
 
 uint64_t sub_18F3018B0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11)
 {
-  v104 = v11;
+  v143 = v11;
   static IntentContext.current.getter(*(v11 + 464));
   v12 = *(v11 + 448);
   v13 = *(v11 + 408);
-  sub_18F0F9F88(*(v11 + 264), v12, &qword_1EACCF7A0);
+  sub_18F0F9F88(*(v11 + 264), v12, &qword_1EACCF7A0, &unk_18F53E6F0);
   EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v12, 1, v13);
-  v100 = *(v11 + 472);
-  v101 = *(v11 + 464);
-  v102 = *(v11 + 480);
+  v139 = *(v11 + 472);
+  v140 = *(v11 + 464);
+  v141 = *(v11 + 480);
   if (EnumTagSinglePayload == 1)
   {
     v15 = *(v11 + 408);
     v16 = *(v11 + 392);
-    v96 = *(v11 + 376);
-    v98 = *(v11 + 360);
+    v131 = *(v11 + 376);
+    v135 = *(v11 + 360);
     v17 = *(v11 + 336);
-    v92 = *(v11 + 344);
-    v94 = *(v11 + 352);
+    v123 = *(v11 + 344);
+    v127 = *(v11 + 352);
     v18 = *(v11 + 304);
     v19 = *(v11 + 288);
     v20 = *(v11 + 272);
-    sub_18F0EF1A8(*(v11 + 448), &qword_1EACCF7A0);
+    sub_18F0EF1A8(*(v11 + 448), &qword_1EACCF7A0, &unk_18F53E6F0);
     OUTLINED_FUNCTION_11();
     __swift_storeEnumTagSinglePayload(v21, v22, v23, v17);
     v24 = OUTLINED_FUNCTION_87_6();
     v25(v16, v20, v19, v24);
-    _SnippetIntentContainer.init<A>(_:)(v16, v19, v18, v103);
+    _SnippetIntentContainer.init<A>(_:)(v16, v19, v18, v142);
     OUTLINED_FUNCTION_11();
     v29 = __swift_storeEnumTagSinglePayload(v26, v27, v28, v15);
-    OUTLINED_FUNCTION_79_4(v29, v30, v31, v32, v33, v34, v35, v36, v82, v83, v84, v85, v86, v87, v88, v89, v90, v92, v94, v96, v98, v100);
+    OUTLINED_FUNCTION_79_4(v29, v30, v31, v32, v33, v34, v35, v36, v99, v102, v105, v106, v109, v110, v113, v116, v119, v123, v127, v131, v135, v139);
+    v111 = MEMORY[0x1E69E73E0];
+    v107 = MEMORY[0x1E69E73E0];
     OUTLINED_FUNCTION_78_4();
     IntentResultContainer.init(value:opensIntent:opensIntentHint:snippetIntent:dialog:nextIntent:suggestedFollowUpIntents:activityIdentifier:confirmationConditions:)();
-    v37 = [*(v101 + 8) localeIdentifier];
+    v37 = [*(v140 + 8) localeIdentifier];
     v38 = sub_18F5218DC();
     v40 = v39;
 
     *(v11 + 504) = v40;
-    v41 = *(v101 + 48);
-    *(v11 + 156) = *(v101 + 32);
+    v41 = *(v140 + 48);
+    *(v11 + 156) = *(v140 + 32);
     *(v11 + 172) = v41;
     *(v11 + 188) = 0;
-    *(v11 + 224) = v102;
-    v42 = OUTLINED_FUNCTION_58_6();
+    *(v11 + 224) = v141;
+    v50 = OUTLINED_FUNCTION_58_6(v42, v43, v44, v45, v46, v47, v48, v49, v100, v103, v17, v107, &type metadata for _SnippetIntentContainer, v111, v114, v117, v120, v124, v128, v132, v136);
     *(v11 + 232) = 0;
-    v43 = v11 + 232;
-    v44 = v102;
-    v45 = swift_task_alloc();
-    *(v11 + 512) = v45;
-    *v45 = v11;
-    v45[1] = sub_18F301F08;
-    v106 = *(v11 + 360);
-    v107 = v42;
-    v46 = OUTLINED_FUNCTION_33_22();
-    v48 = v38;
-    v49 = v40;
-    v50 = v11 + 224;
-    v51 = 0;
+    v51 = v11 + 232;
+    v52 = v141;
+    v53 = swift_task_alloc();
+    *(v11 + 512) = v53;
+    *v53 = v11;
+    v53[1] = sub_18F301F08;
+    v145 = *(v11 + 360);
+    v146 = v50;
+    v54 = OUTLINED_FUNCTION_33_22();
+    v56 = v38;
+    v57 = v40;
+    v58 = v11 + 224;
+    v59 = 0;
   }
 
   else
   {
-    v52 = *(v11 + 456);
-    v53 = *(v11 + 440);
-    v97 = *(v11 + 432);
-    v99 = *(v11 + 416);
-    v54 = *(v11 + 392);
-    v95 = *(v11 + 352);
-    v91 = *(v11 + 408);
-    v93 = *(v11 + 344);
-    v55 = *(v11 + 336);
-    v56 = *(v11 + 304);
-    v57 = *(v11 + 288);
-    v58 = *(v11 + 272);
-    sub_18F18F540(*(v11 + 448), v52);
+    v60 = *(v11 + 456);
+    v61 = *(v11 + 440);
+    v133 = *(v11 + 432);
+    v137 = *(v11 + 416);
+    v62 = *(v11 + 392);
+    v129 = *(v11 + 352);
+    v121 = *(v11 + 408);
+    v125 = *(v11 + 344);
+    v63 = *(v11 + 336);
+    v64 = *(v11 + 304);
+    v65 = *(v11 + 288);
+    v66 = *(v11 + 272);
+    sub_18F18F540(*(v11 + 448), v60);
     OUTLINED_FUNCTION_11();
-    __swift_storeEnumTagSinglePayload(v59, v60, v61, v55);
-    v62 = OUTLINED_FUNCTION_87_6();
-    v63(v54, v58, v57, v62);
-    _SnippetIntentContainer.init<A>(_:)(v54, v57, v56, v103);
+    __swift_storeEnumTagSinglePayload(v67, v68, v69, v63);
+    v70 = OUTLINED_FUNCTION_87_6();
+    v71(v62, v66, v65, v70);
+    _SnippetIntentContainer.init<A>(_:)(v62, v65, v64, v142);
     OUTLINED_FUNCTION_19_32();
-    sub_18F306F94(v52, v53, v64);
-    v65 = __swift_storeEnumTagSinglePayload(v53, 0, 1, v91);
-    OUTLINED_FUNCTION_79_4(v65, v66, v67, v68, v69, v70, v71, v72, v82, v83, v84, v85, v86, v87, v88, v89, v91, v93, v95, v97, v99, v100);
+    sub_18F306F94(v60, v61, v72);
+    v73 = v121;
+    v74 = __swift_storeEnumTagSinglePayload(v61, 0, 1, v121);
+    OUTLINED_FUNCTION_79_4(v74, v75, v76, v77, v78, v79, v80, v81, v99, v102, v105, v106, v109, v110, v113, v116, v121, v125, v129, v133, v137, v139);
+    v112 = v73;
+    v108 = MEMORY[0x1E69E73E0];
     OUTLINED_FUNCTION_78_4();
     IntentResultContainer.init(value:opensIntent:opensIntentHint:snippetIntent:dialog:nextIntent:suggestedFollowUpIntents:activityIdentifier:confirmationConditions:)();
-    v73 = [*(v101 + 8) localeIdentifier];
-    v74 = sub_18F5218DC();
-    v76 = v75;
+    v82 = [*(v140 + 8) localeIdentifier];
+    v83 = sub_18F5218DC();
+    v85 = v84;
 
-    *(v11 + 488) = v76;
-    v77 = *(v101 + 48);
-    *(v11 + 560) = *(v101 + 32);
-    *(v11 + 576) = v77;
+    *(v11 + 488) = v85;
+    v86 = *(v140 + 48);
+    *(v11 + 560) = *(v140 + 32);
+    *(v11 + 576) = v86;
     *(v11 + 592) = 0;
-    *(v11 + 240) = v102;
-    v78 = OUTLINED_FUNCTION_58_6();
+    *(v11 + 240) = v141;
+    v95 = OUTLINED_FUNCTION_58_6(v87, v88, v89, v90, v91, v92, v93, v94, v101, v104, v63, v108, &type metadata for _SnippetIntentContainer, v112, v115, v118, v122, v126, v130, v134, v138);
     *(v11 + 248) = 0;
-    v43 = v11 + 248;
-    v79 = v102;
-    v80 = swift_task_alloc();
-    *(v11 + 496) = v80;
-    *v80 = v11;
-    v80[1] = sub_18F301D3C;
-    v106 = *(v11 + 416);
-    v107 = v78;
-    v46 = OUTLINED_FUNCTION_33_22();
-    v48 = v74;
-    v49 = v76;
-    v50 = v11 + 240;
+    v51 = v11 + 248;
+    v96 = v141;
+    v97 = swift_task_alloc();
+    *(v11 + 496) = v97;
+    *v97 = v11;
+    v97[1] = sub_18F301D3C;
+    v145 = *(v11 + 416);
+    v146 = v95;
+    v54 = OUTLINED_FUNCTION_33_22();
+    v56 = v83;
+    v57 = v85;
+    v58 = v11 + 240;
   }
 
-  return sub_18F3079A8(v46, v48, v49, v47, v50, v51, v43, 0, a9, a10, a11);
+  return sub_18F3079A8(v54, v56, v57, v55, v58, v59, v51, 0, a9, a10, a11);
 }
 
 uint64_t sub_18F301D3C()
@@ -7852,17 +7757,17 @@ uint64_t AppIntent.requestConfirmation<A>(conditions:actionName:dialog:showDialo
   *(v10 + 808) = v19;
   *(v10 + 97) = v20;
   *(v10 + 800) = v21;
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5E48);
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5E48, &qword_18F555730);
   *(v10 + 856) = v22;
   OUTLINED_FUNCTION_10(v22);
   *(v10 + 864) = OUTLINED_FUNCTION_34_0();
   *(v10 + 872) = *(v12 - 8);
   *(v10 + 880) = OUTLINED_FUNCTION_34_0();
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5E50);
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5E50, &qword_18F5557C0);
   *(v10 + 888) = v23;
   OUTLINED_FUNCTION_10(v23);
   *(v10 + 896) = OUTLINED_FUNCTION_34_0();
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0);
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
   OUTLINED_FUNCTION_10(v24);
   *(v10 + 904) = swift_task_alloc();
   *(v10 + 912) = swift_task_alloc();
@@ -7870,7 +7775,7 @@ uint64_t AppIntent.requestConfirmation<A>(conditions:actionName:dialog:showDialo
   *(v10 + 920) = v25;
   OUTLINED_FUNCTION_10(v25);
   *(v10 + 928) = OUTLINED_FUNCTION_34_0();
-  v26 = type metadata accessor for IntentContext();
+  v26 = type metadata accessor for IntentContext(0);
   OUTLINED_FUNCTION_10(v26);
   *(v10 + 936) = OUTLINED_FUNCTION_34_0();
   *(v10 + 944) = *v16;
@@ -7879,210 +7784,210 @@ uint64_t AppIntent.requestConfirmation<A>(conditions:actionName:dialog:showDialo
   return OUTLINED_FUNCTION_119_3(v27, v28, v29);
 }
 
-void sub_18F30275C()
+void sub_18F30275C(uint64_t a1)
 {
-  static IntentContext.current.getter(*(v0 + 936));
-  v1 = *(v0 + 920);
-  v2 = *(v0 + 912);
-  v3 = *(v0 + 872);
-  sub_18F0F9F88(*(v0 + 800), v2, &qword_1EACCF7A0);
-  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v2, 1, v1);
-  v5 = (v3 + 16);
-  v70 = *(v0 + 944);
-  v71 = *(v0 + 936);
+  static IntentContext.current.getter(*(v1 + 936));
+  v2 = *(v1 + 920);
+  v3 = *(v1 + 912);
+  v4 = *(v1 + 872);
+  sub_18F0F9F88(*(v1 + 800), v3, &qword_1EACCF7A0, &unk_18F53E6F0);
+  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v3, 1, v2);
+  v6 = (v4 + 16);
+  v71 = *(v1 + 944);
+  v72 = *(v1 + 936);
   if (EnumTagSinglePayload == 1)
   {
-    v67 = *(v0 + 920);
-    v69 = *(v0 + 904);
-    v6 = *(v0 + 880);
-    v7 = *(v0 + 864);
-    v8 = *(v0 + 856);
-    v9 = *(v0 + 840);
-    v10 = *(v0 + 824);
-    v11 = *(v0 + 808);
-    sub_18F0EF1A8(*(v0 + 912), &qword_1EACCF7A0);
-    *(v0 + 448) = 0u;
-    *(v0 + 464) = 0u;
-    *(v0 + 480) = 0;
-    (*v5)(v6, v11, v10);
-    _SnippetIntentContainer.init<A>(_:)(v6, v10, v9, (v0 + 488));
+    v68 = *(v1 + 920);
+    v70 = *(v1 + 904);
+    v7 = *(v1 + 880);
+    v8 = *(v1 + 864);
+    v9 = *(v1 + 856);
+    v10 = *(v1 + 840);
+    v11 = *(v1 + 824);
+    v12 = *(v1 + 808);
+    sub_18F0EF1A8(*(v1 + 912), &qword_1EACCF7A0, &unk_18F53E6F0);
+    *(v1 + 448) = 0u;
+    *(v1 + 464) = 0u;
+    *(v1 + 480) = 0;
+    (*v6)(v7, v12, v11);
+    _SnippetIntentContainer.init<A>(_:)(v7, v11, v10, (v1 + 488));
     OUTLINED_FUNCTION_11();
-    __swift_storeEnumTagSinglePayload(v12, v13, v14, v67);
-    *(v0 + 560) = 0;
-    *(v0 + 528) = 0u;
-    *(v0 + 544) = 0u;
-    *(v0 + 256) = 0u;
-    *(v0 + 272) = 0u;
-    *(v0 + 281) = 0u;
-    *(v0 + 32) = 0u;
-    *(v0 + 48) = 0u;
-    *(v0 + 16) = 0u;
-    *(v0 + 64) = 0u;
-    *(v0 + 80) = xmmword_18F543360;
-    *(v0 + 96) = 0;
-    v64 = v8[17];
+    __swift_storeEnumTagSinglePayload(v13, v14, v15, v68);
+    *(v1 + 560) = 0;
+    *(v1 + 528) = 0u;
+    *(v1 + 544) = 0u;
+    *(v1 + 256) = 0u;
+    *(v1 + 272) = 0u;
+    *(v1 + 281) = 0u;
+    *(v1 + 32) = 0u;
+    *(v1 + 48) = 0u;
+    *(v1 + 16) = 0u;
+    *(v1 + 64) = 0u;
+    *(v1 + 80) = xmmword_18F543360;
+    *(v1 + 96) = 0;
+    v65 = v9[17];
     OUTLINED_FUNCTION_11();
-    __swift_storeEnumTagSinglePayload(v15, v16, v17, v67);
-    v7[v8[18]] = 1;
-    v18 = v8[20];
-    v68 = &v7[v8[19]];
-    v7[v18] = 2;
-    v19 = &v7[v8[21]];
-    *(v19 + 25) = 0u;
-    *v19 = 0u;
-    v19[1] = 0u;
-    v20 = &v7[v8[22]];
-    *(v20 + 32) = 0;
+    __swift_storeEnumTagSinglePayload(v16, v17, v18, v68);
+    v8[v9[18]] = 1;
+    v19 = v9[20];
+    v69 = &v8[v9[19]];
+    v8[v19] = 2;
+    v20 = &v8[v9[21]];
+    *(v20 + 25) = 0u;
     *v20 = 0u;
-    *(v20 + 16) = 0u;
-    OUTLINED_FUNCTION_45_12(v8[23]);
-    v21 = &v7[v8[24]];
-    *(v21 + 32) = v22;
-    *(v21 + 48) = v22;
-    *v21 = v22;
-    *(v21 + 16) = v22;
-    *(v21 + 64) = xmmword_18F543360;
-    *(v21 + 80) = 0;
-    v23 = &v7[v8[25]];
-    *(v23 + 32) = 0;
-    *v23 = v22;
-    *(v23 + 16) = v22;
-    v61 = v8[26];
-    v62 = v8[27];
-    *&v7[v62] = 0;
-    v24 = &v7[v8[29]];
+    v20[1] = 0u;
+    v21 = &v8[v9[22]];
+    *(v21 + 32) = 0;
+    *v21 = 0u;
+    *(v21 + 16) = 0u;
+    OUTLINED_FUNCTION_45_12(v9[23]);
+    v22 = &v8[v9[24]];
+    *(v22 + 32) = v23;
+    *(v22 + 48) = v23;
+    *v22 = v23;
+    *(v22 + 16) = v23;
+    *(v22 + 64) = xmmword_18F543360;
+    *(v22 + 80) = 0;
+    v24 = &v8[v9[25]];
     *(v24 + 32) = 0;
-    *v24 = v22;
-    *(v24 + 16) = v22;
-    *v7 = v25;
-    sub_18F0FF5DC(v0 + 448, v24, &qword_1EACD0D70);
-    v7[v18] = 2;
-    sub_18F0FF5DC(v0 + 256, v19, &qword_1EACD0550);
-    sub_18F0FF5DC(v0 + 488, v20, &qword_1EACD0D78);
+    *v24 = v23;
+    *(v24 + 16) = v23;
+    v62 = v9[26];
+    v63 = v9[27];
+    *&v8[v63] = 0;
+    v25 = &v8[v9[29]];
+    *(v25 + 32) = 0;
+    *v25 = v23;
+    *(v25 + 16) = v23;
+    *v8 = v26;
+    sub_18F0FF5DC(v1 + 448, v25, &qword_1EACD0D70, &qword_18F555640);
+    v8[v19] = 2;
+    sub_18F0FF5DC(v1 + 256, v20, &qword_1EACD0550, &qword_18F547EB0);
+    sub_18F0FF5DC(v1 + 488, v21, &qword_1EACD0D78, &unk_18F555790);
     OUTLINED_FUNCTION_106_6();
     OUTLINED_FUNCTION_63_6();
-    sub_18F0FF5DC(v0 + 16, v21, &qword_1EACD0D80);
-    sub_18F0FF5DC(v69, &v7[v64], &qword_1EACCF7A0);
-    sub_18F0FF5DC(v0 + 528, v23, &qword_1EACD0D70);
-    *&v7[v61] = 0;
-    *v68 = 0;
-    v68[1] = 0;
-    *&v7[v62] = v70;
-    *&v7[v8[28]] = 0;
-    v26 = [*(v71 + 8) localeIdentifier];
+    sub_18F0FF5DC(v1 + 16, v22, &qword_1EACD0D80, &qword_18F54A340);
+    sub_18F0FF5DC(v70, &v8[v65], &qword_1EACCF7A0, &unk_18F53E6F0);
+    sub_18F0FF5DC(v1 + 528, v24, &qword_1EACD0D70, &qword_18F555640);
+    *&v8[v62] = 0;
+    *v69 = 0;
+    v69[1] = 0;
+    *&v8[v63] = v71;
+    *&v8[v9[28]] = 0;
+    v27 = [*(v72 + 8) localeIdentifier];
     sub_18F5218DC();
-    v28 = v27;
+    v29 = v28;
 
-    *(v0 + 976) = v28;
-    v29 = *(v71 + 48);
-    *(v0 + 100) = *(v71 + 32);
-    *(v0 + 116) = v29;
-    *(v0 + 132) = 0;
-    *(v0 + 592) = v8;
-    *(v0 + 600) = &off_1F0306DD8;
-    boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v0 + 568));
-    sub_18F0F9F88(v7, boxed_opaque_existential_1, &qword_1EACD5E48);
-    __swift_project_boxed_opaque_existential_1Tm((v0 + 568), *(v0 + 592));
+    *(v1 + 976) = v29;
+    v30 = *(v72 + 48);
+    *(v1 + 100) = *(v72 + 32);
+    *(v1 + 116) = v30;
+    *(v1 + 132) = 0;
+    *(v1 + 592) = v9;
+    *(v1 + 600) = &off_1F0306DD8;
+    boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v1 + 568));
+    sub_18F0F9F88(v8, boxed_opaque_existential_1, &qword_1EACD5E48, &qword_18F555730);
+    __swift_project_boxed_opaque_existential_1Tm((v1 + 568), *(v1 + 592));
     OUTLINED_FUNCTION_6_1(&unk_18F555738);
-    v72 = v31;
+    v73 = v32;
     swift_task_alloc();
     OUTLINED_FUNCTION_25();
-    *(v0 + 984) = v32;
-    *v32 = v33;
-    v32[1] = sub_18F3030D8;
+    *(v1 + 984) = v33;
+    *v33 = v34;
+    v33[1] = sub_18F3030D8;
   }
 
   else
   {
-    v34 = *(v0 + 928);
-    v65 = *(v0 + 920);
-    v35 = *(v0 + 904);
-    v36 = *(v0 + 896);
-    v37 = *(v0 + 888);
-    v38 = *(v0 + 880);
-    v39 = *(v0 + 840);
-    v40 = *(v0 + 824);
-    v41 = *(v0 + 808);
-    sub_18F18F540(*(v0 + 912), v34);
-    *(v0 + 608) = 0u;
-    *(v0 + 624) = 0u;
-    *(v0 + 640) = 0;
-    (*v5)(v38, v41, v40);
-    _SnippetIntentContainer.init<A>(_:)(v38, v40, v39, (v0 + 648));
+    v35 = *(v1 + 928);
+    v66 = *(v1 + 920);
+    v36 = *(v1 + 904);
+    v37 = *(v1 + 896);
+    v38 = *(v1 + 888);
+    v39 = *(v1 + 880);
+    v40 = *(v1 + 840);
+    v41 = *(v1 + 824);
+    v42 = *(v1 + 808);
+    sub_18F18F540(*(v1 + 912), v35);
+    *(v1 + 608) = 0u;
+    *(v1 + 624) = 0u;
+    *(v1 + 640) = 0;
+    (*v6)(v39, v42, v41);
+    _SnippetIntentContainer.init<A>(_:)(v39, v41, v40, (v1 + 648));
     OUTLINED_FUNCTION_19_32();
-    sub_18F306F94(v34, v35, v42);
-    __swift_storeEnumTagSinglePayload(v35, 0, 1, v65);
-    *(v0 + 720) = 0;
-    *(v0 + 688) = 0u;
-    *(v0 + 704) = 0u;
-    *(v0 + 400) = 0u;
-    *(v0 + 416) = 0u;
-    *(v0 + 425) = 0u;
-    *(v0 + 152) = 0u;
-    *(v0 + 168) = 0u;
-    *(v0 + 136) = 0u;
-    *(v0 + 184) = 0u;
-    *(v0 + 200) = xmmword_18F543360;
-    *(v0 + 216) = 0;
-    v63 = v37[17];
+    sub_18F306F94(v35, v36, v43);
+    __swift_storeEnumTagSinglePayload(v36, 0, 1, v66);
+    *(v1 + 720) = 0;
+    *(v1 + 688) = 0u;
+    *(v1 + 704) = 0u;
+    *(v1 + 400) = 0u;
+    *(v1 + 416) = 0u;
+    *(v1 + 425) = 0u;
+    *(v1 + 152) = 0u;
+    *(v1 + 168) = 0u;
+    *(v1 + 136) = 0u;
+    *(v1 + 184) = 0u;
+    *(v1 + 200) = xmmword_18F543360;
+    *(v1 + 216) = 0;
+    v64 = v38[17];
     OUTLINED_FUNCTION_11();
-    __swift_storeEnumTagSinglePayload(v43, v44, v45, v65);
-    *(v36 + v37[18]) = 1;
-    v46 = v37[20];
-    v66 = (v36 + v37[19]);
-    *(v36 + v46) = 2;
-    v47 = (v36 + v37[21]);
-    *(v47 + 25) = 0u;
-    *v47 = 0u;
-    v47[1] = 0u;
-    v48 = v36 + v37[22];
-    *(v48 + 32) = 0;
+    __swift_storeEnumTagSinglePayload(v44, v45, v46, v66);
+    *(v37 + v38[18]) = 1;
+    v47 = v38[20];
+    v67 = (v37 + v38[19]);
+    *(v37 + v47) = 2;
+    v48 = (v37 + v38[21]);
+    *(v48 + 25) = 0u;
     *v48 = 0u;
-    *(v48 + 16) = 0u;
-    OUTLINED_FUNCTION_45_12(v37[23]);
-    v49 = v36 + v37[24];
-    *(v49 + 32) = v50;
-    *(v49 + 48) = v50;
-    *v49 = v50;
-    *(v49 + 16) = v50;
-    *(v49 + 64) = xmmword_18F543360;
-    *(v49 + 80) = 0;
-    OUTLINED_FUNCTION_53_8(v50);
-    sub_18F0FF5DC(v0 + 608, v51, &qword_1EACD0D70);
-    *(v36 + v46) = 2;
-    sub_18F0FF5DC(v0 + 400, v47, &qword_1EACD0550);
-    sub_18F0FF5DC(v0 + 648, v48, &qword_1EACD0D78);
+    v48[1] = 0u;
+    v49 = v37 + v38[22];
+    *(v49 + 32) = 0;
+    *v49 = 0u;
+    *(v49 + 16) = 0u;
+    OUTLINED_FUNCTION_45_12(v38[23]);
+    v50 = v37 + v38[24];
+    *(v50 + 32) = v51;
+    *(v50 + 48) = v51;
+    *v50 = v51;
+    *(v50 + 16) = v51;
+    *(v50 + 64) = xmmword_18F543360;
+    *(v50 + 80) = 0;
+    OUTLINED_FUNCTION_53_8(v51);
+    sub_18F0FF5DC(v1 + 608, v52, &qword_1EACD0D70, &qword_18F555640);
+    *(v37 + v47) = 2;
+    sub_18F0FF5DC(v1 + 400, v48, &qword_1EACD0550, &qword_18F547EB0);
+    sub_18F0FF5DC(v1 + 648, v49, &qword_1EACD0D78, &unk_18F555790);
     OUTLINED_FUNCTION_106_6();
     OUTLINED_FUNCTION_63_6();
-    sub_18F0FF5DC(v0 + 136, v49, &qword_1EACD0D80);
-    sub_18F0FF5DC(v35, v36 + v63, &qword_1EACCF7A0);
-    sub_18F0FF5DC(v0 + 688, v35, &qword_1EACD0D70);
-    *(v36 + v60) = 0;
-    *v66 = 0;
-    v66[1] = 0;
-    *(v36 + 1) = v70;
-    *(v36 + v37[28]) = 0;
-    v52 = [*(v71 + 8) localeIdentifier];
+    sub_18F0FF5DC(v1 + 136, v50, &qword_1EACD0D80, &qword_18F54A340);
+    sub_18F0FF5DC(v36, v37 + v64, &qword_1EACCF7A0, &unk_18F53E6F0);
+    sub_18F0FF5DC(v1 + 688, v36, &qword_1EACD0D70, &qword_18F555640);
+    *(v37 + v61) = 0;
+    *v67 = 0;
+    v67[1] = 0;
+    *(v37 + 1) = v71;
+    *(v37 + v38[28]) = 0;
+    v53 = [*(v72 + 8) localeIdentifier];
     sub_18F5218DC();
-    v54 = v53;
+    v55 = v54;
 
-    *(v0 + 960) = v54;
-    v55 = *(v71 + 48);
-    *(v0 + 220) = *(v71 + 32);
-    *(v0 + 236) = v55;
-    *(v0 + 252) = 0;
-    *(v0 + 752) = v37;
-    *(v0 + 760) = &off_1F0306DD8;
-    v56 = __swift_allocate_boxed_opaque_existential_1((v0 + 728));
-    sub_18F0F9F88(v36, v56, &qword_1EACD5E50);
-    __swift_project_boxed_opaque_existential_1Tm((v0 + 728), *(v0 + 752));
+    *(v1 + 960) = v55;
+    v56 = *(v72 + 48);
+    *(v1 + 220) = *(v72 + 32);
+    *(v1 + 236) = v56;
+    *(v1 + 252) = 0;
+    *(v1 + 752) = v38;
+    *(v1 + 760) = &off_1F0306DD8;
+    v57 = __swift_allocate_boxed_opaque_existential_1((v1 + 728));
+    sub_18F0F9F88(v37, v57, &qword_1EACD5E50, &qword_18F5557C0);
+    __swift_project_boxed_opaque_existential_1Tm((v1 + 728), *(v1 + 752));
     OUTLINED_FUNCTION_6_1(&unk_18F555740);
-    v72 = v57;
+    v73 = v58;
     swift_task_alloc();
     OUTLINED_FUNCTION_25();
-    *(v0 + 968) = v58;
-    *v58 = v59;
-    v58[1] = sub_18F302F20;
+    *(v1 + 968) = v59;
+    *v59 = v60;
+    v59[1] = sub_18F302F20;
   }
 
   OUTLINED_FUNCTION_85_5();
@@ -8112,10 +8017,10 @@ uint64_t sub_18F303020()
   OUTLINED_FUNCTION_21();
   v1 = v0[116];
   v2 = v0[112];
-  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 91));
+  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 91);
   OUTLINED_FUNCTION_2_69();
   sub_18F306FF0(v1, v3);
-  sub_18F0EF1A8(v2, &qword_1EACD5E50);
+  sub_18F0EF1A8(v2, &qword_1EACD5E50, &qword_18F5557C0);
   v4 = v0[97];
   v0[124] = v4;
   v5 = v4;
@@ -8149,8 +8054,8 @@ uint64_t sub_18F3031D8()
 {
   OUTLINED_FUNCTION_21();
   v1 = v0[108];
-  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 71));
-  sub_18F0EF1A8(v1, &qword_1EACD5E48);
+  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 71);
+  sub_18F0EF1A8(v1, &qword_1EACD5E48, &qword_18F555730);
   v2 = v0[99];
   v0[124] = v2;
   v3 = v2;
@@ -8307,7 +8212,7 @@ uint64_t sub_18F3038D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v20 = sub_18F520E6C();
   OUTLINED_FUNCTION_10(v20);
   *(v11 + 744) = OUTLINED_FUNCTION_34_0();
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0360);
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0360, &qword_18F5407D0);
   OUTLINED_FUNCTION_10(v21);
   *(v11 + 752) = OUTLINED_FUNCTION_34_0();
   v22 = sub_18F520C8C();
@@ -8315,7 +8220,7 @@ uint64_t sub_18F3038D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   OUTLINED_FUNCTION_51(v22);
   *(v11 + 768) = v23;
   *(v11 + 776) = OUTLINED_FUNCTION_34_0();
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0);
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
   OUTLINED_FUNCTION_10(v24);
   *(v11 + 784) = swift_task_alloc();
   *(v11 + 792) = swift_task_alloc();
@@ -8395,13 +8300,13 @@ uint64_t sub_18F304D98(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t 
   *(v9 + 680) = a1;
   sub_18F520E6C();
   *(v9 + 744) = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0360);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0360, &qword_18F5407D0);
   *(v9 + 752) = swift_task_alloc();
   v10 = sub_18F520C8C();
   *(v9 + 760) = v10;
   *(v9 + 768) = *(v10 - 8);
   *(v9 + 776) = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
   *(v9 + 784) = swift_task_alloc();
   *(v9 + 792) = swift_task_alloc();
   *(v9 + 800) = type metadata accessor for IntentDialog.Storage(0);
@@ -8478,13 +8383,13 @@ uint64_t sub_18F305D48(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t 
   *(v9 + 680) = a1;
   sub_18F520E6C();
   *(v9 + 744) = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0360);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0360, &qword_18F5407D0);
   *(v9 + 752) = swift_task_alloc();
   v10 = sub_18F520C8C();
   *(v9 + 760) = v10;
   *(v9 + 768) = *(v10 - 8);
   *(v9 + 776) = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
   *(v9 + 784) = swift_task_alloc();
   *(v9 + 792) = swift_task_alloc();
   *(v9 + 800) = type metadata accessor for IntentDialog.Storage(0);
@@ -8514,9 +8419,9 @@ uint64_t sub_18F3066C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   OUTLINED_FUNCTION_38();
   OUTLINED_FUNCTION_29();
   v11 = v10[17];
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0E30);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0E30, &qword_18F5557A0);
   v10[18] = v12;
-  sub_18F0F9F88(v11 + *(v12 + 84), (v10 + 8), &qword_1EACD0550);
+  sub_18F0F9F88(v11 + *(v12 + 84), (v10 + 8), &qword_1EACD0550, &qword_18F547EB0);
   if (v10[11])
   {
     OUTLINED_FUNCTION_68_8();
@@ -8531,12 +8436,12 @@ uint64_t sub_18F3066C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
   else
   {
-    sub_18F0EF1A8((v10 + 8), &qword_1EACD0550);
+    sub_18F0EF1A8((v10 + 8), &qword_1EACD0550, &qword_18F547EB0);
     OUTLINED_FUNCTION_26_30();
     if (!v16)
     {
       OUTLINED_FUNCTION_66_7();
-      sub_18F0F21A8(0, &qword_1EACD0558);
+      sub_18F0F21A8(0, &qword_1EACD0558, 0x1E69AD0A0);
       objc_allocWithZone(MEMORY[0x1E69AD0A8]);
       v17 = OUTLINED_FUNCTION_8_40();
       sub_18F307048(v17, v18, v19, v20);
@@ -8585,7 +8490,7 @@ uint64_t sub_18F30693C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     if (!v11)
     {
       OUTLINED_FUNCTION_66_7();
-      sub_18F0F21A8(0, &qword_1EACD0558);
+      sub_18F0F21A8(0, &qword_1EACD0558, 0x1E69AD0A0);
       objc_allocWithZone(MEMORY[0x1E69AD0A8]);
       v15 = OUTLINED_FUNCTION_8_40();
       sub_18F307048(v15, v16, v17, v18);
@@ -8602,7 +8507,7 @@ uint64_t sub_18F30693C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
   else
   {
-    sub_18F0F21A8(0, &qword_1EACD0558);
+    sub_18F0F21A8(0, &qword_1EACD0558, 0x1E69AD0A0);
     [objc_allocWithZone(MEMORY[0x1E69AD0A8]) initWithCanReplacePrintableText_];
     v12 = OUTLINED_FUNCTION_56();
     sub_18F1F0B68(v12, v13, v14);
@@ -8620,9 +8525,9 @@ uint64_t sub_18F306AA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   OUTLINED_FUNCTION_38();
   OUTLINED_FUNCTION_29();
   v11 = v10[17];
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5E48);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5E48, &qword_18F555730);
   v10[18] = v12;
-  sub_18F0F9F88(v11 + *(v12 + 84), (v10 + 8), &qword_1EACD0550);
+  sub_18F0F9F88(v11 + *(v12 + 84), (v10 + 8), &qword_1EACD0550, &qword_18F547EB0);
   if (v10[11])
   {
     OUTLINED_FUNCTION_68_8();
@@ -8637,12 +8542,12 @@ uint64_t sub_18F306AA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
   else
   {
-    sub_18F0EF1A8((v10 + 8), &qword_1EACD0550);
+    sub_18F0EF1A8((v10 + 8), &qword_1EACD0550, &qword_18F547EB0);
     OUTLINED_FUNCTION_26_30();
     if (!v16)
     {
       OUTLINED_FUNCTION_66_7();
-      sub_18F0F21A8(0, &qword_1EACD0558);
+      sub_18F0F21A8(0, &qword_1EACD0558, 0x1E69AD0A0);
       objc_allocWithZone(MEMORY[0x1E69AD0A8]);
       v17 = OUTLINED_FUNCTION_8_40();
       sub_18F307048(v17, v18, v19, v20);
@@ -8685,9 +8590,9 @@ uint64_t sub_18F306D40(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   OUTLINED_FUNCTION_38();
   OUTLINED_FUNCTION_29();
   v11 = v10[17];
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5E50);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5E50, &qword_18F5557C0);
   v10[18] = v12;
-  sub_18F0F9F88(v11 + *(v12 + 84), (v10 + 8), &qword_1EACD0550);
+  sub_18F0F9F88(v11 + *(v12 + 84), (v10 + 8), &qword_1EACD0550, &qword_18F547EB0);
   if (v10[11])
   {
     OUTLINED_FUNCTION_68_8();
@@ -8702,12 +8607,12 @@ uint64_t sub_18F306D40(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
   else
   {
-    sub_18F0EF1A8((v10 + 8), &qword_1EACD0550);
+    sub_18F0EF1A8((v10 + 8), &qword_1EACD0550, &qword_18F547EB0);
     OUTLINED_FUNCTION_26_30();
     if (!v16)
     {
       OUTLINED_FUNCTION_66_7();
-      sub_18F0F21A8(0, &qword_1EACD0558);
+      sub_18F0F21A8(0, &qword_1EACD0558, 0x1E69AD0A0);
       objc_allocWithZone(MEMORY[0x1E69AD0A8]);
       v17 = OUTLINED_FUNCTION_8_40();
       sub_18F307048(v17, v18, v19, v20);
@@ -8733,7 +8638,7 @@ unint64_t sub_18F306EDC()
   result = qword_1EACD5E40;
   if (!qword_1EACD5E40)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EACD0E30);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EACD0E30, &qword_18F5557A0);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EACD5E40);
   }
@@ -8773,7 +8678,7 @@ uint64_t sub_18F307048(uint64_t result, unint64_t a2, uint64_t a3, uint64_t a4)
 uint64_t OUTLINED_FUNCTION_82_3@<X0>(uint64_t a1@<X8>)
 {
 
-  return sub_18F0F9F88(v2 + a1, v3 + 104, v1);
+  return sub_18F0F9F88(v3 + a1, v4 + 104, v2, v1);
 }
 
 id OUTLINED_FUNCTION_95_6(uint64_t a1)
@@ -8809,7 +8714,7 @@ void IntentResultContainer.init(value:opensIntent:snippetView:dialog:nextIntent:
   v69 = a26;
   v68 = a25;
   v67 = a24;
-  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0);
+  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
   OUTLINED_FUNCTION_10(v39);
   OUTLINED_FUNCTION_12();
   MEMORY[0x1EEE9AC00](v40);
@@ -8856,16 +8761,16 @@ void IntentResultContainer.init(value:opensIntent:snippetView:dialog:nextIntent:
 
   OUTLINED_FUNCTION_170_1();
   v58 = v77;
-  sub_18F0F9F88(v77, &v82, &qword_1EACD0550);
+  sub_18F0F9F88(v77, &v82, &qword_1EACD0550, &qword_18F547EB0);
   v59 = v76;
-  sub_18F0F9F88(v76, v66, &qword_1EACCF7A0);
-  sub_18F0F9F88(v75, &v81, &qword_1EACD0D70);
+  sub_18F0F9F88(v76, v66, &qword_1EACCF7A0, &unk_18F53E6F0);
+  sub_18F0F9F88(v75, &v81, &qword_1EACD0D70, &qword_18F555640);
   v80 = v64;
   IntentResultContainer.init(value:opensIntent:opensIntentHint:snippetView:dialog:nextIntent:suggestedFollowUpIntents:activityIdentifier:confirmationConditions:)();
   v60 = OUTLINED_FUNCTION_287();
-  sub_18F0EF1A8(v60, v61);
-  sub_18F0EF1A8(v59, &qword_1EACCF7A0);
-  sub_18F0EF1A8(v58, &qword_1EACD0550);
+  sub_18F0EF1A8(v60, v61, &qword_18F555640);
+  sub_18F0EF1A8(v59, &qword_1EACCF7A0, &unk_18F53E6F0);
+  sub_18F0EF1A8(v58, &qword_1EACD0550, &qword_18F547EB0);
   (*(v44 + 8))(v78, v63);
   (*(v47 + 8))(v79, v65);
   OUTLINED_FUNCTION_16();
@@ -8887,47 +8792,47 @@ uint64_t sub_18F307524()
   return MEMORY[0x1EEE6DFA0](v7, v8, v9);
 }
 
-uint64_t sub_18F3075CC()
+uint64_t sub_18F3075CC(uint64_t a1)
 {
-  v1 = OUTLINED_FUNCTION_204();
-  v2(v1);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5EC0);
+  v2 = OUTLINED_FUNCTION_204();
+  v3(v2);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5EC0, &qword_18F555CE0);
   OUTLINED_FUNCTION_68_0();
   if (swift_dynamicCast())
   {
-    sub_18F0FD0B4((v0 + 56), v0 + 16);
-    v3 = *(v0 + 40);
-    v4 = *(v0 + 48);
-    __swift_project_boxed_opaque_existential_1Tm((v0 + 16), v3);
+    sub_18F0FD0B4((v1 + 56), v1 + 16);
+    v4 = *(v1 + 40);
+    v5 = *(v1 + 48);
+    __swift_project_boxed_opaque_existential_1Tm((v1 + 16), v4);
     OUTLINED_FUNCTION_155_0();
-    v15 = (v5 + *v5);
+    v16 = (v6 + *v6);
     swift_task_alloc();
     OUTLINED_FUNCTION_25();
-    *(v0 + 160) = v6;
-    *v6 = v7;
-    v6[1] = sub_18F3077B8;
-    v8 = *(v0 + 120);
-    v9 = *(v0 + 128);
-    v10 = *(v0 + 96);
-    v11 = *(v0 + 104);
+    *(v1 + 160) = v7;
+    *v7 = v8;
+    v7[1] = sub_18F3077B8;
+    v9 = *(v1 + 120);
+    v10 = *(v1 + 128);
+    v11 = *(v1 + 96);
+    v12 = *(v1 + 104);
 
-    return v15(v10, v11, v8, v9, v3, v4);
+    return v16(v11, v12, v9, v10, v4, v5);
   }
 
   else
   {
-    v13 = *(v0 + 96);
-    *(v0 + 56) = 0u;
-    *(v0 + 72) = 0u;
-    *(v0 + 88) = 0;
-    sub_18F0EF1A8(v0 + 56, &qword_1EACD5EC8);
-    *v13 = 0u;
-    *(v13 + 16) = 0u;
-    *(v13 + 32) = 0;
+    v14 = *(v1 + 96);
+    *(v1 + 56) = 0u;
+    *(v1 + 72) = 0u;
+    *(v1 + 88) = 0;
+    sub_18F0EF1A8(v1 + 56, &qword_1EACD5EC8, &qword_18F555CE8);
+    *v14 = 0u;
+    *(v14 + 16) = 0u;
+    *(v14 + 32) = 0;
 
     OUTLINED_FUNCTION_71();
 
-    return v14();
+    return v15();
   }
 }
 
@@ -8947,7 +8852,7 @@ uint64_t sub_18F3077B8()
 uint64_t sub_18F30789C()
 {
   OUTLINED_FUNCTION_69();
-  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 16);
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 16));
 
   OUTLINED_FUNCTION_71();
 
@@ -8998,7 +8903,7 @@ uint64_t sub_18F307A74()
   OUTLINED_FUNCTION_24_4();
   v1 = OUTLINED_FUNCTION_204();
   v2(v1);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5EB0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5EB0, &qword_18F555CC8);
   OUTLINED_FUNCTION_68_0();
   if (swift_dynamicCast())
   {
@@ -9022,7 +8927,7 @@ uint64_t sub_18F307A74()
   *(v0 + 88) = 0;
   *(v0 + 72) = 0u;
   *(v0 + 56) = 0u;
-  sub_18F0EF1A8(v0 + 56, &qword_1EACD5EB8);
+  sub_18F0EF1A8(v0 + 56, &qword_1EACD5EB8, &qword_18F555CD0);
   return sub_18F522A3C();
 }
 
@@ -9043,10 +8948,10 @@ uint64_t sub_18F307CBC()
 uint64_t sub_18F307DA8()
 {
   OUTLINED_FUNCTION_69();
-  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 16);
+  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 2);
 
-  v1 = *(v0 + 8);
-  v2 = *(v0 + 208);
+  v1 = v0[1];
+  v2 = v0[26];
 
   return v1(v2);
 }
@@ -9055,7 +8960,7 @@ void static IntentResult.result<>(dialog:)()
 {
   OUTLINED_FUNCTION_18();
   OUTLINED_FUNCTION_284();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
   OUTLINED_FUNCTION_10(v3);
   OUTLINED_FUNCTION_12();
   MEMORY[0x1EEE9AC00](v4);
@@ -9073,7 +8978,7 @@ void static IntentResult.result<>(dialog:)()
   v27[4] = 0;
   OUTLINED_FUNCTION_7_45(v12);
   OUTLINED_FUNCTION_37_21(xmmword_18F543360);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0E30);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0E30, &qword_18F5557A0);
   OUTLINED_FUNCTION_3_52(v13);
   v14 = v1[20];
   OUTLINED_FUNCTION_61_9(v1[19]);
@@ -9083,16 +8988,16 @@ void static IntentResult.result<>(dialog:)()
   OUTLINED_FUNCTION_1_68(v16);
   *(v0 + v1[27]) = 0;
   OUTLINED_FUNCTION_5_48(v17);
-  sub_18F0FF5DC(v27, v18, &qword_1EACD0D70);
+  sub_18F0FF5DC(v27, v18, &qword_1EACD0D70, &qword_18F555640);
   OUTLINED_FUNCTION_142_2();
-  v21 = OUTLINED_FUNCTION_315(v19, v20, &qword_1EACD0550);
-  OUTLINED_FUNCTION_209(v21, v22, &qword_1EACD0D78);
+  v21 = OUTLINED_FUNCTION_315(v19, v20, &qword_1EACD0550, &qword_18F547EB0);
+  OUTLINED_FUNCTION_209(v21, v22, &qword_1EACD0D78, &unk_18F555790);
   OUTLINED_FUNCTION_138_1();
   OUTLINED_FUNCTION_36_22();
-  OUTLINED_FUNCTION_208(v23, v24, &qword_1EACD0D80);
+  OUTLINED_FUNCTION_208(v23, v24, &qword_1EACD0D80, &qword_18F54A340);
   v25 = OUTLINED_FUNCTION_59_6();
-  sub_18F0FF5DC(v25, v26, &qword_1EACCF7A0);
-  sub_18F0FF5DC(v28, v2, &qword_1EACD0D70);
+  sub_18F0FF5DC(v25, v26, &qword_1EACCF7A0, &unk_18F53E6F0);
+  sub_18F0FF5DC(v28, v2, &qword_1EACD0D70, &qword_18F555640);
   OUTLINED_FUNCTION_12_42();
   OUTLINED_FUNCTION_16();
 }
@@ -9101,7 +9006,7 @@ void IntentResultContainer.init(value:opensIntent:opensIntentHint:snippetIntent:
 {
   OUTLINED_FUNCTION_18();
   OUTLINED_FUNCTION_114_5(v2, v3, v4, v5, v6, v7, v8, v9);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
   OUTLINED_FUNCTION_10(v10);
   OUTLINED_FUNCTION_12();
   MEMORY[0x1EEE9AC00](v11);
@@ -9111,29 +9016,29 @@ void IntentResultContainer.init(value:opensIntent:opensIntentHint:snippetIntent:
   v14 = v13;
   OUTLINED_FUNCTION_12();
   MEMORY[0x1EEE9AC00](v15);
-  v17 = OUTLINED_FUNCTION_146_1(v16, v35);
+  v17 = OUTLINED_FUNCTION_146_1(v16, v37);
   v18(v17);
-  sub_18F0F9F88(v1, &v64, &qword_1EACD0D70);
-  v63 = v0;
+  sub_18F0F9F88(v1, &v65, &qword_1EACD0D70, &qword_18F555640);
+  v64 = v0;
   OUTLINED_FUNCTION_127_2();
-  v19 = v36;
-  sub_18F0F9F88(v36, v62, &qword_1EACD0D78);
-  memset(v59, 0, sizeof(v59));
-  v60 = 1;
-  v61 = 0;
+  v19 = v38;
+  sub_18F0F9F88(v38, v63, &qword_1EACD0D78, &unk_18F555790);
+  memset(v60, 0, sizeof(v60));
+  v61 = 1;
+  v62 = 0;
   v20 = OUTLINED_FUNCTION_245(xmmword_18F543360);
-  sub_18F0F9F88(v20, v21, &qword_1EACCF7A0);
+  sub_18F0F9F88(v20, v21, &qword_1EACCF7A0, &unk_18F53E6F0);
   v22 = OUTLINED_FUNCTION_298();
-  sub_18F0F9F88(v22, v23, v24);
+  sub_18F0F9F88(v22, v23, v24, &qword_18F555640);
   OUTLINED_FUNCTION_109_3();
-  OUTLINED_FUNCTION_309(v25, v26, v27, v28, v29, v62, v59, v30, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, 0);
+  OUTLINED_FUNCTION_309(v25, v26, v27, v28, v29, v63, v60, v30, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, 0, 0);
   OUTLINED_FUNCTION_241();
-  sub_18F0EF1A8(v31, v32);
-  sub_18F0EF1A8(v0, &qword_1EACCF7A0);
-  sub_18F0EF1A8(v19, &qword_1EACD0D78);
+  sub_18F0EF1A8(v31, v32, v33);
+  sub_18F0EF1A8(v0, &qword_1EACCF7A0, &unk_18F53E6F0);
+  sub_18F0EF1A8(v19, &qword_1EACD0D78, &unk_18F555790);
   OUTLINED_FUNCTION_241();
-  sub_18F0EF1A8(v33, v34);
-  (*(v14 + 8))(v46, v12);
+  sub_18F0EF1A8(v34, v35, v36);
+  (*(v14 + 8))(v48, v12);
   OUTLINED_FUNCTION_16();
 }
 
@@ -9145,22 +9050,22 @@ uint64_t OpensIntentHint.hashValue.getter()
   return sub_18F522F4C();
 }
 
-uint64_t IntentResultContainer.value.getter()
+uint64_t IntentResultContainer.value.getter(uint64_t a1)
 {
   sub_18F52254C();
   OUTLINED_FUNCTION_10_0();
-  v0 = OUTLINED_FUNCTION_56();
+  v1 = OUTLINED_FUNCTION_56();
 
-  return v1(v0);
+  return v2(v1);
 }
 
-uint64_t IntentResultContainer.value.setter()
+uint64_t IntentResultContainer.value.setter(uint64_t a1, uint64_t a2)
 {
   sub_18F52254C();
   OUTLINED_FUNCTION_10_0();
-  v0 = OUTLINED_FUNCTION_22();
+  v2 = OUTLINED_FUNCTION_22();
 
-  return v1(v0);
+  return v3(v2);
 }
 
 uint64_t IntentResultContainer.opensIntent.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -9192,7 +9097,7 @@ uint64_t IntentResultContainer.activityIdentifier.setter(uint64_t a1, uint64_t a
   return result;
 }
 
-void sub_18F308568(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31)
+void sub_18F308568(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t *a26, uint64_t a27, uint64_t a28, __int128 a29, uint64_t a30, uint64_t a31)
 {
   OUTLINED_FUNCTION_18();
   v84 = v31;
@@ -9218,7 +9123,12 @@ void sub_18F308568(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v82 = *a26;
   OUTLINED_FUNCTION_11();
   __swift_storeEnumTagSinglePayload(v47, v48, v49, a27);
-  v50 = type metadata accessor for IntentResultContainer();
+  v88[0] = a27;
+  v88[1] = a28;
+  v89 = a29;
+  v90 = a30;
+  v91 = a31;
+  v50 = type metadata accessor for IntentResultContainer(0, v88);
   v51 = v50[17];
   type metadata accessor for IntentDialog(0);
   v76 = v51;
@@ -9272,17 +9182,17 @@ void sub_18F308568(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v70 = (v42 + v50[19]);
   v75 = v50[26];
   (*(v44 + 40))(v42, v86, v87);
-  sub_18F0FF5DC(v80, v64, &qword_1EACD0D70);
+  sub_18F0FF5DC(v80, v64, &qword_1EACD0D70, &qword_18F555640);
   *(v42 + v71) = v73;
-  sub_18F0FF5DC(v81, v59, &qword_1EACD0550);
-  sub_18F0FF5DC(v83, a31, &qword_1EACD0D78);
+  sub_18F0FF5DC(v81, v59, &qword_1EACD0550, &qword_18F547EB0);
+  sub_18F0FF5DC(v83, a30, &qword_1EACD0D78, &unk_18F555790);
   sub_18F138888(*v60, *(v60 + 8), *(v60 + 16), *(v60 + 24));
   *v60 = v79;
   *(v60 + 16) = v78;
   *(v60 + 32) = v77;
-  sub_18F0FF5DC(v84, v61, &qword_1EACD0D80);
-  sub_18F0FF5DC(a21, v42 + v76, &qword_1EACCF7A0);
-  sub_18F0FF5DC(a22, v63, &qword_1EACD0D70);
+  sub_18F0FF5DC(v84, v61, &qword_1EACD0D80, &qword_18F54A340);
+  sub_18F0FF5DC(a21, v42 + v76, &qword_1EACCF7A0, &unk_18F53E6F0);
+  sub_18F0FF5DC(a22, v63, &qword_1EACD0D70, &qword_18F555640);
   *(v42 + v75) = a23;
   *v70 = a24;
   v70[1] = a25;
@@ -9295,7 +9205,7 @@ void IntentResultContainer.init(value:opensIntent:opensIntentHint:snippetView:di
 {
   OUTLINED_FUNCTION_18();
   OUTLINED_FUNCTION_114_5(v2, v3, v4, v5, v6, v7, v8, v9);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
   OUTLINED_FUNCTION_10(v10);
   OUTLINED_FUNCTION_12();
   MEMORY[0x1EEE9AC00](v11);
@@ -9305,37 +9215,37 @@ void IntentResultContainer.init(value:opensIntent:opensIntentHint:snippetView:di
   v14 = v13;
   OUTLINED_FUNCTION_12();
   MEMORY[0x1EEE9AC00](v15);
-  v17 = OUTLINED_FUNCTION_146_1(v16, v35);
+  v17 = OUTLINED_FUNCTION_146_1(v16, v37);
   v18(v17);
-  sub_18F0F9F88(v1, &v66, &qword_1EACD0D70);
-  v65 = v0;
-  v19 = v36;
-  sub_18F0F9F88(v36, &v64, &qword_1EACD0550);
-  v63 = 0;
-  memset(v62, 0, sizeof(v62));
-  memset(v59, 0, sizeof(v59));
-  v60 = 1;
-  v61 = 0;
+  sub_18F0F9F88(v1, &v67, &qword_1EACD0D70, &qword_18F555640);
+  v66 = v0;
+  v19 = v38;
+  sub_18F0F9F88(v38, &v65, &qword_1EACD0550, &qword_18F547EB0);
+  v64 = 0;
+  memset(v63, 0, sizeof(v63));
+  memset(v60, 0, sizeof(v60));
+  v61 = 1;
+  v62 = 0;
   v20 = OUTLINED_FUNCTION_245(xmmword_18F543360);
-  sub_18F0F9F88(v20, v21, &qword_1EACCF7A0);
+  sub_18F0F9F88(v20, v21, &qword_1EACCF7A0, &unk_18F53E6F0);
   v22 = OUTLINED_FUNCTION_298();
-  sub_18F0F9F88(v22, v23, v24);
+  sub_18F0F9F88(v22, v23, v24, &qword_18F555640);
   OUTLINED_FUNCTION_109_3();
-  OUTLINED_FUNCTION_309(v25, v26, v27, v28, v29, v62, v59, v30, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, 0);
+  OUTLINED_FUNCTION_309(v25, v26, v27, v28, v29, v63, v60, v30, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, 0, 0);
   OUTLINED_FUNCTION_241();
-  sub_18F0EF1A8(v31, v32);
-  sub_18F0EF1A8(v0, &qword_1EACCF7A0);
-  sub_18F0EF1A8(v19, &qword_1EACD0550);
+  sub_18F0EF1A8(v31, v32, v33);
+  sub_18F0EF1A8(v0, &qword_1EACCF7A0, &unk_18F53E6F0);
+  sub_18F0EF1A8(v19, &qword_1EACD0550, &qword_18F547EB0);
   OUTLINED_FUNCTION_241();
-  sub_18F0EF1A8(v33, v34);
-  (*(v14 + 8))(v46, v12);
+  sub_18F0EF1A8(v34, v35, v36);
+  (*(v14 + 8))(v48, v12);
   OUTLINED_FUNCTION_16();
 }
 
 void static IntentResult.result<A>(value:)()
 {
   OUTLINED_FUNCTION_279();
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
   OUTLINED_FUNCTION_10(v2);
   OUTLINED_FUNCTION_12();
   MEMORY[0x1EEE9AC00](v3);
@@ -9371,7 +9281,7 @@ void static IntentResult.result<A>(value:)()
 void static IntentResult.result<A>(opensIntent:)()
 {
   OUTLINED_FUNCTION_279();
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
   OUTLINED_FUNCTION_10(v2);
   OUTLINED_FUNCTION_12();
   MEMORY[0x1EEE9AC00](v3);
@@ -9408,7 +9318,7 @@ void static IntentResult.result<A>(opensIntent:)()
   v4 = v3;
   v6 = v5;
   OUTLINED_FUNCTION_296();
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
   OUTLINED_FUNCTION_10(v7);
   OUTLINED_FUNCTION_12();
   MEMORY[0x1EEE9AC00](v8);
@@ -9425,7 +9335,7 @@ void static IntentResult.result<A>(opensIntent:)()
   __swift_storeEnumTagSinglePayload(v11, v12, v13, v10);
   OUTLINED_FUNCTION_7_45(0);
   OUTLINED_FUNCTION_37_21(xmmword_18F543360);
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0158);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0158, &unk_18F54A330);
   OUTLINED_FUNCTION_3_52(v14);
   v15 = v6[20];
   OUTLINED_FUNCTION_61_9(v6[19]);
@@ -9435,24 +9345,24 @@ void static IntentResult.result<A>(opensIntent:)()
   OUTLINED_FUNCTION_1_68(v17);
   *(v0 + v6[27]) = 0;
   OUTLINED_FUNCTION_5_48(v18);
-  sub_18F0FF5DC(v2 - 128, v19, &qword_1EACD0D70);
+  sub_18F0FF5DC(v2 - 128, v19, &qword_1EACD0D70, &qword_18F555640);
   OUTLINED_FUNCTION_136_1();
-  v20 = sub_18F0FF5DC(v2 - 176, v1, &qword_1EACD0550);
-  OUTLINED_FUNCTION_209(v20, v21, &qword_1EACD0D78);
+  v20 = sub_18F0FF5DC(v2 - 176, v1, &qword_1EACD0550, &qword_18F547EB0);
+  OUTLINED_FUNCTION_209(v20, v21, &qword_1EACD0D78, &unk_18F555790);
   OUTLINED_FUNCTION_132_4();
   OUTLINED_FUNCTION_56_0();
-  OUTLINED_FUNCTION_208(v22, v23, &qword_1EACD0D80);
+  OUTLINED_FUNCTION_208(v22, v23, &qword_1EACD0D80, &qword_18F54A340);
   v24 = OUTLINED_FUNCTION_59_6();
-  sub_18F0FF5DC(v24, v25, &qword_1EACCF7A0);
+  sub_18F0FF5DC(v24, v25, &qword_1EACCF7A0, &unk_18F53E6F0);
   v26 = OUTLINED_FUNCTION_183_0();
-  sub_18F0FF5DC(v26, v27, &qword_1EACD0D70);
+  sub_18F0FF5DC(v26, v27, &qword_1EACD0D70, &qword_18F555640);
   OUTLINED_FUNCTION_11_35();
   OUTLINED_FUNCTION_16();
 }
 
 void static IntentResult.result<A>(opensIntent:hint:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
   OUTLINED_FUNCTION_10(v6);
   OUTLINED_FUNCTION_12();
   MEMORY[0x1EEE9AC00](v7);
@@ -9480,7 +9390,7 @@ void static IntentResult.result<A>(opensIntent:hint:)(uint64_t a1, uint64_t a2, 
   v17 = v16;
   OUTLINED_FUNCTION_97_5();
   v19 = v18;
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0);
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
   OUTLINED_FUNCTION_10(v20);
   OUTLINED_FUNCTION_12();
   MEMORY[0x1EEE9AC00](v21);
@@ -9498,7 +9408,7 @@ void static IntentResult.result<A>(opensIntent:hint:)(uint64_t a1, uint64_t a2, 
   __swift_storeEnumTagSinglePayload(v24, v25, v26, v23);
   OUTLINED_FUNCTION_7_45(0);
   OUTLINED_FUNCTION_37_21(xmmword_18F543360);
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0158);
+  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0158, &unk_18F54A330);
   OUTLINED_FUNCTION_281(v27);
   v29 = OUTLINED_FUNCTION_28_37(v28);
   __swift_storeEnumTagSinglePayload(v29, v30, v31, v23);
@@ -9512,16 +9422,16 @@ void static IntentResult.result<A>(opensIntent:hint:)(uint64_t a1, uint64_t a2, 
   v43 = v27[26];
   *(v19 + v34) = 0;
   OUTLINED_FUNCTION_5_48(v35);
-  sub_18F0FF5DC(v15 - 128, v36, &qword_1EACD0D70);
+  sub_18F0FF5DC(v15 - 128, v36, &qword_1EACD0D70, &qword_18F555640);
   *(v19 + v14) = v45;
-  v37 = sub_18F0FF5DC(v15 - 176, v11, &qword_1EACD0550);
-  OUTLINED_FUNCTION_209(v37, v38, &qword_1EACD0D78);
+  v37 = sub_18F0FF5DC(v15 - 176, v11, &qword_1EACD0550, &qword_18F547EB0);
+  OUTLINED_FUNCTION_209(v37, v38, &qword_1EACD0D78, &unk_18F555790);
   OUTLINED_FUNCTION_132_4();
   OUTLINED_FUNCTION_56_0();
-  OUTLINED_FUNCTION_208(v39, v40, &qword_1EACD0D80);
-  sub_18F0FF5DC(v11, v19 + a11, &qword_1EACCF7A0);
+  OUTLINED_FUNCTION_208(v39, v40, &qword_1EACD0D80, &qword_18F54A340);
+  sub_18F0FF5DC(v11, v19 + a11, &qword_1EACCF7A0, &unk_18F53E6F0);
   v41 = OUTLINED_FUNCTION_183_0();
-  sub_18F0FF5DC(v41, v42, &qword_1EACD0D70);
+  sub_18F0FF5DC(v41, v42, &qword_1EACD0D70, &qword_18F555640);
   *(v19 + v43) = 0;
   *v44 = 0;
   v44[1] = 0;
@@ -9539,7 +9449,7 @@ void static IntentResult.result<A, B>(value:opensIntent:)()
   v9 = v8;
   v11 = v10;
   v13 = v12;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
   OUTLINED_FUNCTION_10(v14);
   OUTLINED_FUNCTION_12();
   MEMORY[0x1EEE9AC00](v15);
@@ -9584,7 +9494,7 @@ void static IntentResult.result<A, B>(value:opensIntent:)()
   v6 = v5;
   v8 = v7;
   OUTLINED_FUNCTION_210();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
   OUTLINED_FUNCTION_10(v9);
   OUTLINED_FUNCTION_12();
   MEMORY[0x1EEE9AC00](v10);
@@ -9632,7 +9542,7 @@ void static IntentResult.result<A, B>(value:opensIntent:hint:)()
   OUTLINED_FUNCTION_226();
   v4 = v3;
   OUTLINED_FUNCTION_267();
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
   OUTLINED_FUNCTION_10(v5);
   OUTLINED_FUNCTION_12();
   MEMORY[0x1EEE9AC00](v6);
@@ -9668,7 +9578,7 @@ void static IntentResult.result<A, B>(value:opensIntent:hint:)()
   v2 = v1;
   v4 = v3;
   OUTLINED_FUNCTION_228();
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
   OUTLINED_FUNCTION_10(v5);
   OUTLINED_FUNCTION_12();
   MEMORY[0x1EEE9AC00](v6);
@@ -9707,7 +9617,7 @@ void static IntentResult.result<A>(value:dialog:)()
 {
   OUTLINED_FUNCTION_18();
   OUTLINED_FUNCTION_229();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
   OUTLINED_FUNCTION_10(v6);
   OUTLINED_FUNCTION_12();
   MEMORY[0x1EEE9AC00](v7);
@@ -9751,7 +9661,7 @@ void static IntentResult.result<A, B>(value:opensIntent:dialog:)()
   v11 = v10;
   v13 = v12;
   v48 = v14;
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
   OUTLINED_FUNCTION_10(v15);
   OUTLINED_FUNCTION_12();
   MEMORY[0x1EEE9AC00](v16);
@@ -9800,7 +9710,7 @@ void static IntentResult.result<A, B>(value:opensIntent:dialog:)()
   v6 = v5;
   v8 = v7;
   OUTLINED_FUNCTION_267();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
   OUTLINED_FUNCTION_10(v9);
   OUTLINED_FUNCTION_12();
   MEMORY[0x1EEE9AC00](v10);
@@ -9842,7 +9752,7 @@ void static IntentResult.result<A>(opensIntent:dialog:)()
 {
   OUTLINED_FUNCTION_18();
   OUTLINED_FUNCTION_229();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
   OUTLINED_FUNCTION_10(v6);
   OUTLINED_FUNCTION_12();
   MEMORY[0x1EEE9AC00](v7);
@@ -9880,7 +9790,7 @@ void static IntentResult.result<A>(opensIntent:dialog:)()
   v5 = v4;
   OUTLINED_FUNCTION_97_5();
   v7 = v6;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
   OUTLINED_FUNCTION_10(v8);
   OUTLINED_FUNCTION_12();
   MEMORY[0x1EEE9AC00](v9);
@@ -9899,7 +9809,7 @@ void static IntentResult.result<A>(opensIntent:dialog:)()
   __swift_storeEnumTagSinglePayload(v13, v14, v15, v12);
   OUTLINED_FUNCTION_7_45(0);
   OUTLINED_FUNCTION_37_21(xmmword_18F543360);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0E30);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD0E30, &qword_18F5557A0);
   OUTLINED_FUNCTION_3_52(v16);
   v17 = v1[20];
   OUTLINED_FUNCTION_61_9(v1[19]);
@@ -9909,17 +9819,117 @@ void static IntentResult.result<A>(opensIntent:dialog:)()
   OUTLINED_FUNCTION_1_68(v19);
   *(v7 + v1[27]) = 0;
   OUTLINED_FUNCTION_5_48(v20);
-  sub_18F0FF5DC(v3 - 128, v21, &qword_1EACD0D70);
+  sub_18F0FF5DC(v3 - 128, v21, &qword_1EACD0D70, &qword_18F555640);
   OUTLINED_FUNCTION_142_2();
-  v22 = sub_18F0FF5DC(v3 - 176, v0, &qword_1EACD0550);
-  OUTLINED_FUNCTION_209(v22, v23, &qword_1EACD0D78);
+  v22 = sub_18F0FF5DC(v3 - 176, v0, &qword_1EACD0550, &qword_18F547EB0);
+  OUTLINED_FUNCTION_209(v22, v23, &qword_1EACD0D78, &unk_18F555790);
   OUTLINED_FUNCTION_138_1();
   OUTLINED_FUNCTION_36_22();
-  OUTLINED_FUNCTION_208(v24, v25, &qword_1EACD0D80);
+  OUTLINED_FUNCTION_208(v24, v25, &qword_1EACD0D80, &qword_18F54A340);
   v26 = OUTLINED_FUNCTION_59_6();
-  sub_18F0FF5DC(v26, v27, &qword_1EACCF7A0);
+  sub_18F0FF5DC(v26, v27, &qword_1EACCF7A0, &unk_18F53E6F0);
   v28 = OUTLINED_FUNCTION_183_0();
-  sub_18F0FF5DC(v28, v29, &qword_1EACD0D70);
+  sub_18F0FF5DC(v28, v29, &qword_1EACD0D70, &qword_18F555640);
   OUTLINED_FUNCTION_12_42();
+  OUTLINED_FUNCTION_16();
+}
+
+void static IntentResult.result<>(snippetModel:)()
+{
+  OUTLINED_FUNCTION_18();
+  OUTLINED_FUNCTION_263(v6, v7);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
+  OUTLINED_FUNCTION_10(v8);
+  OUTLINED_FUNCTION_12();
+  MEMORY[0x1EEE9AC00](v9);
+  OUTLINED_FUNCTION_13_6();
+  v10.n128_f64[0] = OUTLINED_FUNCTION_16_36();
+  OUTLINED_FUNCTION_262(v10);
+  v23[4] = xmmword_18F543360;
+  v24 = 0;
+  v11 = type metadata accessor for IntentDialog(0);
+  v12 = OUTLINED_FUNCTION_66_8();
+  __swift_storeEnumTagSinglePayload(v12, v13, v14, v11);
+  v22 = 0;
+  memset(v21, 0, sizeof(v21));
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5E70, &qword_18F5557A8);
+  OUTLINED_FUNCTION_257();
+  v20 = v15;
+  v16 = OUTLINED_FUNCTION_28_37(v15);
+  __swift_storeEnumTagSinglePayload(v16, v17, v18, v11);
+  OUTLINED_FUNCTION_94_7();
+  sub_18F0FF5DC(&v27, v11, &qword_1EACD0D70, &qword_18F555640);
+  *(v0 + v19) = 2;
+  sub_18F0FF5DC(&v26, v2, &qword_1EACD0550, &qword_18F547EB0);
+  sub_18F0FF5DC(&v25, v1, &qword_1EACD0D78, &unk_18F555790);
+  sub_18F138888(*v3, *(v3 + 8), *(v3 + 16), *(v3 + 24));
+  OUTLINED_FUNCTION_259();
+  sub_18F0FF5DC(v23, v5, &qword_1EACD0D80, &qword_18F54A340);
+  sub_18F0FF5DC(v1, v0 + v20, &qword_1EACCF7A0, &unk_18F53E6F0);
+  sub_18F0FF5DC(v21, v4, &qword_1EACD0D70, &qword_18F555640);
+  OUTLINED_FUNCTION_156_1();
+  OUTLINED_FUNCTION_16();
+}
+
+void static IntentResult.result<>(pluginContainer:)()
+{
+  OUTLINED_FUNCTION_18();
+  OUTLINED_FUNCTION_284();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACCF7A0, &unk_18F53E6F0);
+  OUTLINED_FUNCTION_10(v4);
+  OUTLINED_FUNCTION_12();
+  MEMORY[0x1EEE9AC00](v5);
+  OUTLINED_FUNCTION_23();
+  v6 = *v1;
+  v28 = *(v1 + 16);
+  v29 = *(v1 + 24);
+  v30 = *(v1 + 8);
+  v27 = *(v1 + 32);
+  OUTLINED_FUNCTION_9_40();
+  OUTLINED_FUNCTION_68_9(xmmword_18F543360);
+  v7 = type metadata accessor for IntentDialog(0);
+  v8 = OUTLINED_FUNCTION_33_23();
+  __swift_storeEnumTagSinglePayload(v8, v9, v10, v7);
+  OUTLINED_FUNCTION_87_7();
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACD5E70, &qword_18F5557A8);
+  v12 = OUTLINED_FUNCTION_28_37(v11[17]);
+  __swift_storeEnumTagSinglePayload(v12, v13, v14, v7);
+  OUTLINED_FUNCTION_139_1();
+  v16 = &v0[v15];
+  *(v16 + 25) = 0u;
+  *v16 = 0u;
+  v16[1] = 0u;
+  v17 = &v0[v11[22]];
+  *(v17 + 32) = 0;
+  *v17 = 0u;
+  *(v17 + 16) = 0u;
+  v18 = &v0[v11[23]];
+  *v18 = 0;
+  *(v18 + 1) = 0;
+  *(v18 + 2) = 0;
+  *(v18 + 3) = v19;
+  v18[32] = 0;
+  OUTLINED_FUNCTION_14_37(0);
+  *&v0[v11[27]] = 0;
+  OUTLINED_FUNCTION_32_30(v11[29], v20);
+  *v0 = v21;
+  sub_18F16AAE0(v6, v30);
+  _s10AppIntents22IntentParameterSummaryV0D15KeyPathsBuilderO10buildBlockySays07PartialF4PathCyxGGAId_tFZ_0();
+  sub_18F0FF5DC(&v34, v2, &qword_1EACD0D70, &qword_18F555640);
+  OUTLINED_FUNCTION_161_1();
+  sub_18F0FF5DC(&v33, v16, &qword_1EACD0550, &qword_18F547EB0);
+  sub_18F0FF5DC(&v32, v17, &qword_1EACD0D78, &unk_18F555790);
+  v22 = sub_18F138888(*v18, *(v18 + 1), *(v18 + 2), *(v18 + 3));
+  *v18 = v6;
+  *(v18 + 1) = v30;
+  *(v18 + 2) = v28;
+  *(v18 + 3) = v29;
+  v18[32] = v27;
+  OUTLINED_FUNCTION_209(v22, v23, &qword_1EACD0D80, &qword_18F54A340);
+  v24 = OUTLINED_FUNCTION_280();
+  sub_18F0FF5DC(v24, v25, &qword_1EACCF7A0, &unk_18F53E6F0);
+  sub_18F0FF5DC(&v31, v3, &qword_1EACD0D70, &qword_18F555640);
+  OUTLINED_FUNCTION_258();
+  OUTLINED_FUNCTION_57_11(v26);
   OUTLINED_FUNCTION_16();
 }

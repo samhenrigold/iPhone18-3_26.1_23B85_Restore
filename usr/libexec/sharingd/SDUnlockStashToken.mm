@@ -69,26 +69,24 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    sessionID = self->_sessionID;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_stashToken)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -150,7 +148,6 @@
     goto LABEL_14;
   }
 
-  v5 = *(equalCopy + 28);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 28) & 2) == 0 || self->_version != *(equalCopy + 6))
@@ -162,7 +159,7 @@
   else if ((*(equalCopy + 28) & 2) != 0)
   {
 LABEL_14:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_15;
   }
 
@@ -182,17 +179,17 @@ LABEL_14:
   stashToken = self->_stashToken;
   if (stashToken | *(equalCopy + 2))
   {
-    v7 = [(NSData *)stashToken isEqual:?];
+    v6 = [(NSData *)stashToken isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_15:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

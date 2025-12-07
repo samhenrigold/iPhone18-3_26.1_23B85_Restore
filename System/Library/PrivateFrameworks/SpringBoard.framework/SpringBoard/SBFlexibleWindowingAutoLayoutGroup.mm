@@ -31,12 +31,12 @@
 
     firstObject = [itemsCopy firstObject];
     lastObject = [itemsCopy lastObject];
-    [firstObject frame];
+    objc_msgSend_frame(firstObject);
     v12 = v11;
     v14 = v13;
     v16 = v15;
     v18 = v17;
-    [lastObject frame];
+    objc_msgSend_frame(lastObject);
     v21 = v14 + v18;
     v22 = v19 + v20;
     v24 = v12 + v16 + (v23 - (v12 + v16)) * 0.5;

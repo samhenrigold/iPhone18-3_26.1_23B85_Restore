@@ -15,22 +15,21 @@
 {
   v10 = sub_2293C00A0();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   MEMORY[0x28223BE20](v10);
-  v14 = &v21 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = &v20 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_2293C0090();
   configurationCopy = configuration;
   clientCopy = client;
   swift_unknownObjectRetain();
-  v17 = sub_2293C0080();
-  v18 = type metadata accessor for PinnedContentTaskServer();
-  v21.receiver = self;
-  v21.super_class = v18;
-  v19 = [(HDStandardTaskServer *)&v21 initWithUUID:v17 configuration:configurationCopy client:clientCopy delegate:delegate];
+  v16 = sub_2293C0080();
+  v17 = type metadata accessor for PinnedContentTaskServer();
+  v20.receiver = self;
+  v20.super_class = v17;
+  v18 = [(HDStandardTaskServer *)&v20 initWithUUID:v16 configuration:configurationCopy client:clientCopy delegate:delegate];
 
   swift_unknownObjectRelease();
-  (*(v11 + 8))(v14, v10);
-  return v19;
+  (*(v11 + 8))(v13, v10);
+  return v18;
 }
 
 + (NSString)taskIdentifier

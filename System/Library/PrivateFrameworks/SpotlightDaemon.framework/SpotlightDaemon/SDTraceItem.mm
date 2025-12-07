@@ -55,7 +55,7 @@ uint64_t __39__SDTraceItem_stringFromReferenceDate___block_invoke()
 
 + (void)appendDescription:(id)description prefix:(id)prefix toString:(id)string
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   descriptionCopy = description;
   prefixCopy = prefix;
   stringCopy = string;
@@ -72,31 +72,31 @@ uint64_t __39__SDTraceItem_stringFromReferenceDate___block_invoke()
 
     v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@   ", v12];
 
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v14 = v11;
-    v15 = [v14 countByEnumeratingWithState:&v37 objects:v42 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v36 objects:v41 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v38;
+      v17 = *v37;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v38 != v17)
+          if (*v37 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v37 + 1) + 8 * i);
+          v19 = *(*(&v36 + 1) + 8 * i);
           [stringCopy appendFormat:@"\n"];
           [SDTraceItem appendDescription:v19 prefix:v13 toString:stringCopy];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v37 objects:v42 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v36 objects:v41 count:16];
       }
 
       while (v16);
@@ -110,17 +110,17 @@ uint64_t __39__SDTraceItem_stringFromReferenceDate___block_invoke()
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v32 = descriptionCopy;
+      v31 = descriptionCopy;
       v20 = descriptionCopy;
+      v32 = 0u;
       v33 = 0u;
       v34 = 0u;
       v35 = 0u;
-      v36 = 0u;
-      v21 = [v20 countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v32 objects:v40 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v34;
+        v23 = *v33;
         if (prefixCopy)
         {
           v24 = prefixCopy;
@@ -135,12 +135,12 @@ uint64_t __39__SDTraceItem_stringFromReferenceDate___block_invoke()
         {
           for (j = 0; j != v22; ++j)
           {
-            if (*v34 != v23)
+            if (*v33 != v23)
             {
               objc_enumerationMutation(v20);
             }
 
-            v26 = *(*(&v33 + 1) + 8 * j);
+            v26 = *(*(&v32 + 1) + 8 * j);
             v27 = [v20 objectForKeyedSubscript:v26];
             [stringCopy appendFormat:@"\n%@%@ - ", prefixCopy, v26];
             objc_opt_class();
@@ -157,14 +157,14 @@ uint64_t __39__SDTraceItem_stringFromReferenceDate___block_invoke()
             }
           }
 
-          v22 = [v20 countByEnumeratingWithState:&v33 objects:v41 count:16];
+          v22 = [v20 countByEnumeratingWithState:&v32 objects:v40 count:16];
         }
 
         while (v22);
       }
 
       v13 = prefixCopy;
-      descriptionCopy = v32;
+      descriptionCopy = v31;
     }
 
     else
@@ -185,8 +185,6 @@ uint64_t __39__SDTraceItem_stringFromReferenceDate___block_invoke()
       v13 = prefixCopy;
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description

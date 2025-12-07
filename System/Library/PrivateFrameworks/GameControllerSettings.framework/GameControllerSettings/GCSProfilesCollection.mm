@@ -12,20 +12,20 @@
 
 - (GCSProfilesCollection)initWithSettingsStore:(id)store userDefaults:(id)defaults
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   storeCopy = store;
   defaultsCopy = defaults;
-  v18.receiver = self;
-  v18.super_class = GCSProfilesCollection;
-  v8 = [(GCSProfilesCollection *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = GCSProfilesCollection;
+  v8 = [(GCSProfilesCollection *)&v17 init];
   v9 = v8;
   if (v8)
   {
     objc_storeWeak(&v8->_settingsStore, storeCopy);
     objc_storeStrong(&v9->_userDefaults, defaults);
     v10 = +[GCSProfile defaultProfile];
-    v19[0] = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v18[0] = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
     values = v9->_values;
     v9->_values = v11;
 
@@ -41,7 +41,6 @@
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -55,28 +54,28 @@
 
 - (id)profileForIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = self->_values;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         uuid = [v10 uuid];
         v12 = [uuid isEqual:identifierCopy];
 
@@ -88,7 +87,7 @@
         }
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v7)
       {
         continue;
@@ -100,8 +99,6 @@
 
   v13 = +[GCSProfile defaultProfile];
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -152,8 +149,7 @@ LABEL_11:
         while (v8);
       }
 
-      [(GCSProfilesCollection *)self setValues:v6];
-      v14 = getGCSLogger();
+      v14 = getGCSLogger([(GCSProfilesCollection *)self setValues:v6]);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         values = [(GCSProfilesCollection *)self values];
@@ -171,7 +167,7 @@ LABEL_11:
     v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
     [(GCSProfilesCollection *)self setValues:v17];
 
-    v5 = getGCSLogger();
+    v5 = getGCSLogger(v18);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       values2 = [(GCSProfilesCollection *)self values];
@@ -180,8 +176,6 @@ LABEL_11:
       _os_log_impl(&dword_24E4FA000, v5, OS_LOG_TYPE_INFO, "GCSProfilesCollection.values = %@", buf, 0xCu);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context

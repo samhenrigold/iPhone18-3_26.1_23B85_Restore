@@ -20,6 +20,7 @@
 - (void)validateTextureAccess:(id)access region:(id *)region mipLevel:(unint64_t)level slice:(unint64_t)slice context:(_MTLMessageContext *)context;
 - (void)waitForDrawable:(id)drawable;
 - (void)waitForEvent:(id)event value:(unint64_t)value;
+- (void)waitForEvent:(id)event value:(unint64_t)value timeout:(unsigned __int16)timeout;
 @end
 
 @implementation MTL4DebugCommandQueue
@@ -40,24 +41,22 @@
 
 - (void)commit:(const void *)commit count:(unint64_t)count
 {
-  v10 = 0;
-  memset(v9, 0, sizeof(v9));
-  device = self->super.super._device;
+  v9 = 0;
+  memset(v8, 0, sizeof(v8));
   _MTLMessageContextBegin_();
-  [(MTL4DebugCommandQueue *)self validateCommitCommon:v9 commandBuffers:commit count:count];
+  [(MTL4DebugCommandQueue *)self validateCommitCommon:v8 commandBuffers:commit count:count];
   _MTLMessageContextEnd();
-  v8.receiver = self;
-  v8.super_class = MTL4DebugCommandQueue;
-  [(MTL4ToolsCommandQueue *)&v8 commit:commit count:count];
+  v7.receiver = self;
+  v7.super_class = MTL4DebugCommandQueue;
+  [(MTL4ToolsCommandQueue *)&v7 commit:commit count:count];
 }
 
 - (void)commit:(const void *)commit count:(unint64_t)count options:(id)options
 {
-  v12 = 0;
-  memset(v11, 0, sizeof(v11));
-  device = self->super.super._device;
+  v11 = 0;
+  memset(v10, 0, sizeof(v10));
   _MTLMessageContextBegin_();
-  [(MTL4DebugCommandQueue *)self validateCommitCommon:v11 commandBuffers:commit count:count];
+  [(MTL4DebugCommandQueue *)self validateCommitCommon:v10 commandBuffers:commit count:count];
   if (options)
   {
     objc_opt_class();
@@ -68,16 +67,15 @@
   }
 
   _MTLMessageContextEnd();
-  v10.receiver = self;
-  v10.super_class = MTL4DebugCommandQueue;
-  [(MTL4ToolsCommandQueue *)&v10 commit:commit count:count options:options];
+  v9.receiver = self;
+  v9.super_class = MTL4DebugCommandQueue;
+  [(MTL4ToolsCommandQueue *)&v9 commit:commit count:count options:options];
 }
 
 - (void)signalEvent:(id)event value:(unint64_t)value
 {
-  v9 = 0;
-  memset(&v8[1], 0, 48);
-  device = self->super.super._device;
+  v8 = 0;
+  memset(&v7[1], 0, 48);
   _MTLMessageContextBegin_();
   if (!event || ([event conformsToProtocol:&unk_2842371A8] & 1) == 0)
   {
@@ -85,16 +83,15 @@
   }
 
   _MTLMessageContextEnd();
-  v8[0].receiver = self;
-  v8[0].super_class = MTL4DebugCommandQueue;
-  [(objc_super *)v8 signalEvent:event value:value];
+  v7[0].receiver = self;
+  v7[0].super_class = MTL4DebugCommandQueue;
+  [(objc_super *)v7 signalEvent:event value:value];
 }
 
 - (void)waitForEvent:(id)event value:(unint64_t)value
 {
-  v9 = 0;
-  memset(&v8[1], 0, 48);
-  device = self->super.super._device;
+  v8 = 0;
+  memset(&v7[1], 0, 48);
   _MTLMessageContextBegin_();
   if (!event || ([event conformsToProtocol:&unk_2842371A8] & 1) == 0)
   {
@@ -102,14 +99,13 @@
   }
 
   _MTLMessageContextEnd();
-  v8[0].receiver = self;
-  v8[0].super_class = MTL4DebugCommandQueue;
-  [(objc_super *)v8 waitForEvent:event value:value];
+  v7[0].receiver = self;
+  v7[0].super_class = MTL4DebugCommandQueue;
+  [(objc_super *)v7 waitForEvent:event value:value];
 }
 
 - (void)signalDrawable:(id)drawable
 {
-  device = self->super.super._device;
   _MTLMessageContextBegin_();
   if (!drawable || ![drawable conformsToProtocol:{&unk_284249EC0, 0, 0, 0, 0, 0, 0, 0}] || (objc_opt_respondsToSelector() & 1) == 0)
   {
@@ -122,7 +118,6 @@
 
 - (void)waitForDrawable:(id)drawable
 {
-  device = self->super.super._device;
   _MTLMessageContextBegin_();
   if (!drawable || ![drawable conformsToProtocol:{&unk_284249EC0, 0, 0, 0, 0, 0, 0, 0}] || (objc_opt_respondsToSelector() & 1) == 0)
   {
@@ -135,9 +130,8 @@
 
 - (void)addResidencySet:(id)set
 {
-  v7 = 0;
-  memset(&v6[1], 0, 48);
-  device = self->super.super._device;
+  v6 = 0;
+  memset(&v5[1], 0, 48);
   _MTLMessageContextBegin_();
   if (!set)
   {
@@ -151,28 +145,26 @@
   }
 
   _MTLMessageContextEnd();
-  v6[0].receiver = self;
-  v6[0].super_class = MTL4DebugCommandQueue;
-  [(objc_super *)v6 addResidencySet:set];
+  v5[0].receiver = self;
+  v5[0].super_class = MTL4DebugCommandQueue;
+  [(objc_super *)v5 addResidencySet:set];
 }
 
 - (void)addResidencySets:(const void *)sets count:(unint64_t)count
 {
-  v14 = 0;
-  v12 = 0u;
-  v13 = 0u;
+  v12 = 0;
+  v10 = 0u;
   v11 = 0u;
-  device = self->super.super._device;
+  v9 = 0u;
   _MTLMessageContextBegin_();
   if (count)
   {
-    v8 = 0;
+    v7 = 0;
     do
     {
-      if (!sets[v8])
+      if (!sets[v7])
       {
         _MTLMessageContextPush_();
-        v9 = sets[v8];
       }
 
       objc_opt_class();
@@ -181,23 +173,22 @@
         _MTLMessageContextPush_();
       }
 
-      ++v8;
+      ++v7;
     }
 
-    while (count != v8);
+    while (count != v7);
   }
 
   _MTLMessageContextEnd();
-  v10.receiver = self;
-  v10.super_class = MTL4DebugCommandQueue;
-  [(MTL4ToolsCommandQueue *)&v10 addResidencySets:sets count:count];
+  v8.receiver = self;
+  v8.super_class = MTL4DebugCommandQueue;
+  [(MTL4ToolsCommandQueue *)&v8 addResidencySets:sets count:count];
 }
 
 - (void)removeResidencySet:(id)set
 {
-  v7 = 0;
-  memset(&v6[1], 0, 48);
-  device = self->super.super._device;
+  v6 = 0;
+  memset(&v5[1], 0, 48);
   _MTLMessageContextBegin_();
   if (!set)
   {
@@ -211,28 +202,26 @@
   }
 
   _MTLMessageContextEnd();
-  v6[0].receiver = self;
-  v6[0].super_class = MTL4DebugCommandQueue;
-  [(objc_super *)v6 removeResidencySet:set];
+  v5[0].receiver = self;
+  v5[0].super_class = MTL4DebugCommandQueue;
+  [(objc_super *)v5 removeResidencySet:set];
 }
 
 - (void)removeResidencySets:(const void *)sets count:(unint64_t)count
 {
-  v14 = 0;
-  v12 = 0u;
-  v13 = 0u;
+  v12 = 0;
+  v10 = 0u;
   v11 = 0u;
-  device = self->super.super._device;
+  v9 = 0u;
   _MTLMessageContextBegin_();
   if (count)
   {
-    v8 = 0;
+    v7 = 0;
     do
     {
-      if (!sets[v8])
+      if (!sets[v7])
       {
         _MTLMessageContextPush_();
-        v9 = sets[v8];
       }
 
       objc_opt_class();
@@ -241,23 +230,22 @@
         _MTLMessageContextPush_();
       }
 
-      ++v8;
+      ++v7;
     }
 
-    while (count != v8);
+    while (count != v7);
   }
 
   _MTLMessageContextEnd();
-  v10.receiver = self;
-  v10.super_class = MTL4DebugCommandQueue;
-  [(MTL4ToolsCommandQueue *)&v10 removeResidencySets:sets count:count];
+  v8.receiver = self;
+  v8.super_class = MTL4DebugCommandQueue;
+  [(MTL4ToolsCommandQueue *)&v8 removeResidencySets:sets count:count];
 }
 
 - (void)updateTextureMappings:(id)mappings heap:(id)heap operations:(id *)operations count:(unint64_t)count
 {
-  v28 = 0;
-  memset(v27, 0, sizeof(v27));
-  device = self->super.super._device;
+  v27 = 0;
+  memset(v26, 0, sizeof(v26));
   _MTLMessageContextBegin_();
   if (![mappings placementSparsePageSize])
   {
@@ -297,7 +285,7 @@ LABEL_5:
 
   if (count)
   {
-    v18 = 0;
+    v17 = 0;
     operationsCopy = operations;
     do
     {
@@ -305,14 +293,14 @@ LABEL_5:
       ++operationsCopy;
       if (var0 != 1)
       {
-        v21 = v18;
+        v20 = v17;
         _MTLMessageContextPush_();
       }
 
-      ++v18;
+      ++v17;
     }
 
-    while (count != v18);
+    while (count != v17);
   }
 
 LABEL_11:
@@ -333,45 +321,45 @@ LABEL_11:
     }
   }
 
-  v13 = 0;
+  v12 = 0;
   p_var4 = &operations->var4;
   do
   {
-    v15 = *(p_var4 - 3);
-    v24 = *(p_var4 - 4);
-    v25 = v15;
-    v26 = *(p_var4 - 2);
-    [(MTL4DebugCommandQueue *)self validateTextureAccess:mappings region:&v24 mipLevel:*(p_var4 - 2) slice:*(p_var4 - 1) context:v27, v22];
+    v14 = *(p_var4 - 3);
+    v23 = *(p_var4 - 4);
+    v24 = v14;
+    v25 = *(p_var4 - 2);
+    [(MTL4DebugCommandQueue *)self validateTextureAccess:mappings region:&v23 mipLevel:*(p_var4 - 2) slice:*(p_var4 - 1) context:v26, v21];
     if (!*(p_var4 - 9))
     {
       if (heap)
       {
-        v16 = *p_var4;
-        v17 = *(p_var4 - 3);
-        v24 = *(p_var4 - 4);
-        v25 = v17;
-        v26 = *(p_var4 - 2);
-        -[MTL4DebugCommandQueue validateHeapAccess:rangeOffset:tileRegions:resourceSparsePageSize:context:](self, "validateHeapAccess:rangeOffset:tileRegions:resourceSparsePageSize:context:", heap, v16, &v24, [mappings placementSparsePageSize], v27);
+        v15 = *p_var4;
+        v16 = *(p_var4 - 3);
+        v23 = *(p_var4 - 4);
+        v24 = v16;
+        v25 = *(p_var4 - 2);
+        -[MTL4DebugCommandQueue validateHeapAccess:rangeOffset:tileRegions:resourceSparsePageSize:context:](self, "validateHeapAccess:rangeOffset:tileRegions:resourceSparsePageSize:context:", heap, v15, &v23, [mappings placementSparsePageSize], v26);
       }
 
       else
       {
-        v22 = v13;
+        v21 = v12;
         _MTLMessageContextPush_();
       }
     }
 
-    ++v13;
+    ++v12;
     p_var4 += 10;
   }
 
-  while (count != v13);
+  while (count != v12);
 LABEL_19:
-  if (!*&v27[0])
+  if (!*&v26[0])
   {
-    v23.receiver = self;
-    v23.super_class = MTL4DebugCommandQueue;
-    [(MTL4ToolsCommandQueue *)&v23 updateTextureMappings:mappings heap:heap operations:operations count:count];
+    v22.receiver = self;
+    v22.super_class = MTL4DebugCommandQueue;
+    [(MTL4ToolsCommandQueue *)&v22 updateTextureMappings:mappings heap:heap operations:operations count:count];
   }
 
   _MTLMessageContextEnd();
@@ -379,9 +367,8 @@ LABEL_19:
 
 - (void)copyTextureMappingsFromTexture:(id)texture toTexture:(id)toTexture operations:(id *)operations count:(unint64_t)count
 {
-  v22 = 0;
-  memset(v21, 0, sizeof(v21));
-  device = self->super.super._device;
+  v21 = 0;
+  memset(v20, 0, sizeof(v20));
   _MTLMessageContextBegin_();
   if (![texture placementSparsePageSize])
   {
@@ -416,32 +403,32 @@ LABEL_19:
   countCopy = count;
   do
   {
-    v14 = *(p_var1 - 2);
-    v19 = *(p_var1 - 3);
-    *v20 = v14;
-    *&v20[16] = *(p_var1 - 1);
-    [(MTL4DebugCommandQueue *)self validateTextureAccess:texture region:&v19 mipLevel:*p_var1 slice:p_var1[1] context:v21];
-    v15 = *(p_var1 + 1);
-    v16 = p_var1[5];
-    *v20 = p_var1[4];
-    *&v20[24] = *(p_var1 - 1);
-    *&v20[8] = *(p_var1 - 3);
-    v18[0] = v15;
-    v18[1] = *v20;
-    v18[2] = *&v20[16];
-    v19 = v15;
-    [(MTL4DebugCommandQueue *)self validateTextureAccess:toTexture region:v18 mipLevel:v16 slice:p_var1[6] context:v21];
+    v13 = *(p_var1 - 2);
+    v18 = *(p_var1 - 3);
+    *v19 = v13;
+    *&v19[16] = *(p_var1 - 1);
+    [(MTL4DebugCommandQueue *)self validateTextureAccess:texture region:&v18 mipLevel:*p_var1 slice:p_var1[1] context:v20];
+    v14 = *(p_var1 + 1);
+    v15 = p_var1[5];
+    *v19 = p_var1[4];
+    *&v19[24] = *(p_var1 - 1);
+    *&v19[8] = *(p_var1 - 3);
+    v17[0] = v14;
+    v17[1] = *v19;
+    v17[2] = *&v19[16];
+    v18 = v14;
+    [(MTL4DebugCommandQueue *)self validateTextureAccess:toTexture region:v17 mipLevel:v15 slice:p_var1[6] context:v20];
     p_var1 += 13;
     --countCopy;
   }
 
   while (countCopy);
 LABEL_11:
-  if (!*&v21[0])
+  if (!*&v20[0])
   {
-    v17.receiver = self;
-    v17.super_class = MTL4DebugCommandQueue;
-    [(MTL4ToolsCommandQueue *)&v17 copyTextureMappingsFromTexture:texture toTexture:toTexture operations:operations count:count];
+    v16.receiver = self;
+    v16.super_class = MTL4DebugCommandQueue;
+    [(MTL4ToolsCommandQueue *)&v16 copyTextureMappingsFromTexture:texture toTexture:toTexture operations:operations count:count];
   }
 
   _MTLMessageContextEnd();
@@ -449,9 +436,8 @@ LABEL_11:
 
 - (void)updateBufferMappings:(id)mappings heap:(id)heap operations:(id *)operations count:(unint64_t)count
 {
-  v28 = 0;
-  memset(v27, 0, sizeof(v27));
-  device = self->super.super._device;
+  v27 = 0;
+  memset(v26, 0, sizeof(v26));
   _MTLMessageContextBegin_();
   if ([mappings placementSparsePageSize])
   {
@@ -489,7 +475,7 @@ LABEL_3:
 
   if (count)
   {
-    v19 = 0;
+    v18 = 0;
     operationsCopy = operations;
     do
     {
@@ -497,14 +483,14 @@ LABEL_3:
       ++operationsCopy;
       if (var0 != 1)
       {
-        v22 = v19;
+        v21 = v18;
         _MTLMessageContextPush_();
       }
 
-      ++v19;
+      ++v18;
     }
 
-    while (count != v19);
+    while (count != v18);
   }
 
 LABEL_9:
@@ -525,44 +511,44 @@ LABEL_9:
     }
   }
 
-  v13 = 0;
-  v14 = 1;
+  v12 = 0;
+  v13 = 1;
   do
   {
-    v15 = &operations[v13];
-    -[MTL4DebugCommandQueue validateBufferAccess:range:resourceSparsePageSize:context:](self, "validateBufferAccess:range:resourceSparsePageSize:context:", mappings, v15->var1.location, v15->var1.length, [mappings placementSparsePageSize], v27);
-    if (!v15->var0)
+    v14 = &operations[v12];
+    -[MTL4DebugCommandQueue validateBufferAccess:range:resourceSparsePageSize:context:](self, "validateBufferAccess:range:resourceSparsePageSize:context:", mappings, v14->var1.location, v14->var1.length, [mappings placementSparsePageSize], v26);
+    if (!v14->var0)
     {
       if (heap)
       {
-        location = v15->var1.location;
-        length = v15->var1.length;
-        var2 = v15->var2;
-        v25[1] = 0;
-        v25[2] = 0;
-        v25[0] = location;
-        v25[3] = length;
-        v26 = vdupq_n_s64(1uLL);
-        -[MTL4DebugCommandQueue validateHeapAccess:rangeOffset:tileRegions:resourceSparsePageSize:context:](self, "validateHeapAccess:rangeOffset:tileRegions:resourceSparsePageSize:context:", heap, var2, v25, [mappings placementSparsePageSize], v27);
+        location = v14->var1.location;
+        length = v14->var1.length;
+        var2 = v14->var2;
+        v24[1] = 0;
+        v24[2] = 0;
+        v24[0] = location;
+        v24[3] = length;
+        v25 = vdupq_n_s64(1uLL);
+        -[MTL4DebugCommandQueue validateHeapAccess:rangeOffset:tileRegions:resourceSparsePageSize:context:](self, "validateHeapAccess:rangeOffset:tileRegions:resourceSparsePageSize:context:", heap, var2, v24, [mappings placementSparsePageSize], v26);
       }
 
       else
       {
-        v23 = v13;
+        v22 = v12;
         _MTLMessageContextPush_();
       }
     }
 
-    v13 = v14++;
+    v12 = v13++;
   }
 
-  while (v13 < count);
+  while (v12 < count);
 LABEL_17:
-  if (!*&v27[0])
+  if (!*&v26[0])
   {
-    v24.receiver = self;
-    v24.super_class = MTL4DebugCommandQueue;
-    [(MTL4ToolsCommandQueue *)&v24 updateBufferMappings:mappings heap:heap operations:operations count:count];
+    v23.receiver = self;
+    v23.super_class = MTL4DebugCommandQueue;
+    [(MTL4ToolsCommandQueue *)&v23 updateBufferMappings:mappings heap:heap operations:operations count:count];
   }
 
   _MTLMessageContextEnd();
@@ -570,9 +556,8 @@ LABEL_17:
 
 - (void)copyBufferMappingsFromBuffer:(id)buffer toBuffer:(id)toBuffer operations:(id *)operations count:(unint64_t)count
 {
-  v17 = 0;
-  memset(v16, 0, sizeof(v16));
-  device = self->super.super._device;
+  v16 = 0;
+  memset(v15, 0, sizeof(v15));
   _MTLMessageContextBegin_();
   if (![buffer placementSparsePageSize])
   {
@@ -596,26 +581,43 @@ LABEL_17:
     }
   }
 
-  v12 = 0;
-  v13 = 1;
+  v11 = 0;
+  v12 = 1;
   do
   {
-    v14 = &operations[v12];
-    -[MTL4DebugCommandQueue validateBufferAccess:range:resourceSparsePageSize:context:](self, "validateBufferAccess:range:resourceSparsePageSize:context:", buffer, v14->var0.location, v14->var0.length, [buffer placementSparsePageSize], v16);
-    -[MTL4DebugCommandQueue validateBufferAccess:range:resourceSparsePageSize:context:](self, "validateBufferAccess:range:resourceSparsePageSize:context:", toBuffer, v14->var1, v14->var0.length, [toBuffer placementSparsePageSize], v16);
-    v12 = v13++;
+    v13 = &operations[v11];
+    -[MTL4DebugCommandQueue validateBufferAccess:range:resourceSparsePageSize:context:](self, "validateBufferAccess:range:resourceSparsePageSize:context:", buffer, v13->var0.location, v13->var0.length, [buffer placementSparsePageSize], v15);
+    -[MTL4DebugCommandQueue validateBufferAccess:range:resourceSparsePageSize:context:](self, "validateBufferAccess:range:resourceSparsePageSize:context:", toBuffer, v13->var1, v13->var0.length, [toBuffer placementSparsePageSize], v15);
+    v11 = v12++;
   }
 
-  while (v12 < count);
+  while (v11 < count);
 LABEL_7:
-  if (!*&v16[0])
+  if (!*&v15[0])
   {
-    v15.receiver = self;
-    v15.super_class = MTL4DebugCommandQueue;
-    [(MTL4ToolsCommandQueue *)&v15 copyBufferMappingsFromBuffer:buffer toBuffer:toBuffer operations:operations count:count];
+    v14.receiver = self;
+    v14.super_class = MTL4DebugCommandQueue;
+    [(MTL4ToolsCommandQueue *)&v14 copyBufferMappingsFromBuffer:buffer toBuffer:toBuffer operations:operations count:count];
   }
 
   _MTLMessageContextEnd();
+}
+
+- (void)waitForEvent:(id)event value:(unint64_t)value timeout:(unsigned __int16)timeout
+{
+  timeoutCopy = timeout;
+  v10 = 0;
+  memset(&v9[1], 0, 48);
+  _MTLMessageContextBegin_();
+  if (!event || ([event conformsToProtocol:&unk_2842371A8] & 1) == 0)
+  {
+    _MTLMessageContextPush_();
+  }
+
+  _MTLMessageContextEnd();
+  v9[0].receiver = self;
+  v9[0].super_class = MTL4DebugCommandQueue;
+  [(objc_super *)v9 waitForEvent:event value:value timeout:timeoutCopy];
 }
 
 - (void)validateTextureAccess:(id)access region:(id *)region mipLevel:(unint64_t)level slice:(unint64_t)slice context:(_MTLMessageContext *)context
@@ -624,7 +626,7 @@ LABEL_7:
   {
     [MTL4DebugCommandQueue validateTextureAccess:region:mipLevel:slice:context:];
 LABEL_32:
-    v23 = sliceCopy;
+    v18 = sliceCopy;
     arrayLength = [accessCopy arrayLength];
     _MTLMessageContextPush_();
     goto LABEL_8;
@@ -634,11 +636,10 @@ LABEL_32:
   levelCopy = level;
   accessCopy = access;
   regionCopy = region;
-  v32 = 0;
-  v31 = 0u;
+  v23 = 0;
+  v22 = 0u;
   v7 = 24;
   selfCopy = self;
-  device = self->super.super._device;
   [access pixelFormat];
   [accessCopy width];
   [accessCopy height];
@@ -647,28 +648,28 @@ LABEL_32:
   MTLGetTextureLevelInfoForDeviceWithOptions();
   if ([accessCopy textureType] == 5)
   {
-    v14 = 6;
+    v13 = 6;
   }
 
   else if ([accessCopy textureType] == 6)
   {
-    v14 = 6;
+    v13 = 6;
   }
 
   else
   {
-    v14 = 1;
+    v13 = 1;
   }
 
   contextCopy = context;
-  if ([accessCopy arrayLength] * v14 <= sliceCopy)
+  if ([accessCopy arrayLength] * v13 <= sliceCopy)
   {
     goto LABEL_32;
   }
 
 LABEL_8:
-  v15 = [accessCopy mipmapLevelCount] - 1;
-  if (v15 >= [accessCopy firstMipmapInTail])
+  v14 = [accessCopy mipmapLevelCount] - 1;
+  if (v14 >= [accessCopy firstMipmapInTail])
   {
     firstMipmapInTail = [accessCopy firstMipmapInTail];
   }
@@ -686,19 +687,19 @@ LABEL_8:
   if (contextCopy->var0 <= 0)
   {
     device = [accessCopy device];
-    textureType = [accessCopy textureType];
-    pixelFormat = [accessCopy pixelFormat];
-    sampleCount = [accessCopy sampleCount];
-    placementSparsePageSize = [accessCopy placementSparsePageSize];
+    [accessCopy textureType];
+    [accessCopy pixelFormat];
+    [accessCopy sampleCount];
+    [accessCopy placementSparsePageSize];
     if (device)
     {
-      [device sparseTileSizeWithTextureType:textureType pixelFormat:pixelFormat sampleCount:sampleCount sparsePageSize:placementSparsePageSize];
+      objc_msgSend_sparseTileSizeWithTextureType_pixelFormat_sampleCount_sparsePageSize_(device);
     }
 
     if ([accessCopy firstMipmapInTail] == levelCopy)
     {
-      v22 = [*(&selfCopy->super.super.super.isa + v7) sparseTileSizeInBytesForSparsePageSize:{objc_msgSend(accessCopy, "placementSparsePageSize")}];
-      if (regionCopy->var1.var0 + regionCopy->var0.var0 > (v22 + [accessCopy tailSizeInBytes] - 1) / v22)
+      v17 = [*(&selfCopy->super.super.super.isa + v7) sparseTileSizeInBytesForSparsePageSize:{objc_msgSend(accessCopy, "placementSparsePageSize")}];
+      if (regionCopy->var1.var0 + regionCopy->var0.var0 > (v17 + [accessCopy tailSizeInBytes] - 1) / v17)
       {
         [accessCopy firstMipmapInTail];
         _MTLMessageContextPush_();
@@ -716,32 +717,28 @@ LABEL_8:
         _MTLMessageContextPush_();
       }
 
-      if (regionCopy->var1.var2 + regionCopy->var0.var2 > (v32 - 1) / 0uLL)
+      if (regionCopy->var1.var2 + regionCopy->var0.var2 > (v23 - 1) / 0uLL)
       {
-        v24 = regionCopy->var1.var2 + regionCopy->var0.var2;
-LABEL_34:
+LABEL_33:
         _MTLMessageContextPush_();
       }
     }
 
     else
     {
-      if (regionCopy->var1.var0 + regionCopy->var0.var0 > (v31 - 1) / 0uLL)
+      if (regionCopy->var1.var0 + regionCopy->var0.var0 > (v22 - 1) / 0uLL)
       {
-        v25 = regionCopy->var1.var0 + regionCopy->var0.var0;
         _MTLMessageContextPush_();
       }
 
-      if (regionCopy->var1.var1 + regionCopy->var0.var1 > (*(&v31 + 1) - 1) / 0uLL)
+      if (regionCopy->var1.var1 + regionCopy->var0.var1 > (*(&v22 + 1) - 1) / 0uLL)
       {
-        v26 = regionCopy->var1.var1 + regionCopy->var0.var1;
         _MTLMessageContextPush_();
       }
 
-      if (regionCopy->var1.var2 + regionCopy->var0.var2 > (v32 - 1) / 0uLL)
+      if (regionCopy->var1.var2 + regionCopy->var0.var2 > (v23 - 1) / 0uLL)
       {
-        v27 = regionCopy->var1.var2 + regionCopy->var0.var2;
-        goto LABEL_34;
+        goto LABEL_33;
       }
     }
   }
@@ -752,7 +749,6 @@ LABEL_34:
   v8 = [(MTLToolsDevice *)self->super.super._device sparseTileSizeInBytesForSparsePageSize:size];
   if (region->var1.var0 + region->var0.var0 > (v8 + [access length] - 1) / v8)
   {
-    v9 = region->var1.var0 + region->var0.var0;
     _MTLMessageContextPush_();
   }
 }
@@ -780,114 +776,100 @@ LABEL_34:
 
 - (void)validateCommitCommon:(_MTLMessageContext *)common commandBuffers:(const void *)buffers count:(unint64_t)count
 {
-  v54 = *MEMORY[0x277D85DE8];
-  v51.receiver = self;
-  v51.super_class = MTL4DebugCommandQueue;
-  addedResidencySets = [(MTL4ToolsCommandQueue *)&v51 addedResidencySets];
+  v51 = *MEMORY[0x277D85DE8];
+  v48.receiver = self;
+  v48.super_class = MTL4DebugCommandQueue;
+  addedResidencySets = [(MTL4ToolsCommandQueue *)&v48 addedResidencySets];
   if (!count)
   {
     goto LABEL_52;
   }
 
-  if (common->var0 <= 0)
+  if (common->var0 > 0)
   {
-    v9 = addedResidencySets;
-    v10 = 0;
-    v39 = 0;
-    v11 = 0;
-    v12 = 0x2787B2000uLL;
-    while (1)
+    return;
+  }
+
+  v9 = addedResidencySets;
+  v10 = 0;
+  v36 = 0;
+  v11 = 0;
+  do
+  {
+    v12 = buffers[v11];
+    if (!v12)
     {
-      v13 = buffers[v11];
-      if (!v13)
-      {
-        v34 = v11;
-        _MTLMessageContextPush_();
-      }
-
-      v14 = v11 + 1;
-      v15 = v11 + 1;
-      if (v11 + 1 < count)
-      {
-        do
-        {
-          if (v13 == buffers[v15])
-          {
-            v34 = v11;
-            v38 = v15;
-            _MTLMessageContextPush_();
-          }
-
-          ++v15;
-        }
-
-        while (count != v15);
-      }
-
-      v16 = *(v12 + 3208);
-      objc_opt_class();
-      if (objc_opt_isKindOfClass())
-      {
-        break;
-      }
-
-      v34 = v11;
-      _MTLMessageContextPush_();
-LABEL_47:
-      v11 = v14;
-      if (v14 == count)
-      {
-        if (!v10)
-        {
-          goto LABEL_51;
-        }
-
-LABEL_52:
-        _MTLMessageContextPush_();
-        goto LABEL_51;
-      }
-    }
-
-    v40 = v10;
-    v41 = v11 + 1;
-    if (([v13 isAllocatorGenerationValid] & 1) == 0)
-    {
-      v34 = v11;
+      v31 = v11;
       _MTLMessageContextPush_();
     }
 
-    v42 = v11;
-    usedResidencySets = [v13 usedResidencySets];
-    for (i = *([v13 attachmentSet] + 16); i; i = *i)
+    v13 = v11 + 1;
+    v14 = v11 + 1;
+    if (v11 + 1 < count)
     {
-      v19 = i[2];
-      v49 = 0u;
-      v50 = 0u;
+      do
+      {
+        if (v12 == buffers[v14])
+        {
+          v31 = v11;
+          v35 = v14;
+          _MTLMessageContextPush_();
+        }
+
+        ++v14;
+      }
+
+      while (count != v14);
+    }
+
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) == 0)
+    {
+      v31 = v11;
+      _MTLMessageContextPush_();
+      goto LABEL_47;
+    }
+
+    v37 = v10;
+    v38 = v11 + 1;
+    if (([v12 isAllocatorGenerationValid] & 1) == 0)
+    {
+      v31 = v11;
+      _MTLMessageContextPush_();
+    }
+
+    v39 = v11;
+    usedResidencySets = [v12 usedResidencySets];
+    for (i = *([v12 attachmentSet] + 16); i; i = *i)
+    {
+      v17 = i[2];
+      v46 = 0u;
       v47 = 0u;
-      v48 = 0u;
-      v20 = [usedResidencySets countByEnumeratingWithState:&v47 objects:v53 count:{16, v35}];
-      if (v20)
+      v44 = 0u;
+      v45 = 0u;
+      v18 = [usedResidencySets countByEnumeratingWithState:&v44 objects:v50 count:{16, v32}];
+      if (v18)
       {
-        v21 = v20;
-        v22 = *v48;
+        v19 = v18;
+        v20 = *v45;
 LABEL_16:
-        v23 = 0;
+        v21 = 0;
         while (1)
         {
-          if (*v48 != v22)
+          if (*v45 != v20)
           {
             objc_enumerationMutation(usedResidencySets);
           }
 
-          if ([*(*(&v47 + 1) + 8 * v23) containsAllocation:v19])
+          if ([*(*(&v44 + 1) + 8 * v21) containsAllocation:v17])
           {
             break;
           }
 
-          if (v21 == ++v23)
+          if (v19 == ++v21)
           {
-            v21 = [usedResidencySets countByEnumeratingWithState:&v47 objects:v53 count:16];
-            if (v21)
+            v19 = [usedResidencySets countByEnumeratingWithState:&v44 objects:v50 count:16];
+            if (v19)
             {
               goto LABEL_16;
             }
@@ -900,33 +882,33 @@ LABEL_16:
       else
       {
 LABEL_22:
-        v45 = 0u;
-        v46 = 0u;
+        v42 = 0u;
         v43 = 0u;
-        v44 = 0u;
-        v24 = [v9 countByEnumeratingWithState:&v43 objects:v52 count:16];
-        if (v24)
+        v40 = 0u;
+        v41 = 0u;
+        v22 = [v9 countByEnumeratingWithState:&v40 objects:v49 count:16];
+        if (v22)
         {
-          v25 = v24;
-          v26 = *v44;
+          v23 = v22;
+          v24 = *v41;
 LABEL_24:
-          v27 = 0;
+          v25 = 0;
           while (1)
           {
-            if (*v44 != v26)
+            if (*v41 != v24)
             {
               objc_enumerationMutation(v9);
             }
 
-            if ([*(*(&v43 + 1) + 8 * v27) containsAllocation:v19])
+            if ([*(*(&v40 + 1) + 8 * v25) containsAllocation:v17])
             {
               break;
             }
 
-            if (v25 == ++v27)
+            if (v23 == ++v25)
             {
-              v25 = [v9 countByEnumeratingWithState:&v43 objects:v52 count:16];
-              if (v25)
+              v23 = [v9 countByEnumeratingWithState:&v40 objects:v49 count:16];
+              if (v23)
               {
                 goto LABEL_24;
               }
@@ -939,86 +921,91 @@ LABEL_24:
         else
         {
 LABEL_30:
-          v35 = [objc_msgSend(v19 "label")];
-          v38 = v42;
+          v32 = [objc_msgSend(v17 "label")];
+          v35 = v39;
           _MTLMessageContextPush_();
         }
       }
     }
 
-    aggregatedEncoderMask = [v13 aggregatedEncoderMask];
-    v29 = aggregatedEncoderMask;
-    if (v40)
+    aggregatedEncoderMask = [v12 aggregatedEncoderMask];
+    v27 = aggregatedEncoderMask;
+    if (v37)
     {
-      v30 = v42;
-      v14 = v41;
+      v28 = v39;
+      v13 = v38;
       if ((aggregatedEncoderMask & 8) != 0)
       {
-        if (([objc_msgSend(v13 "suspendResumeRenderPassInfo")] & 1) == 0)
+        if ([objc_msgSend(v12 "suspendResumeRenderPassInfo")])
         {
-          v36 = v39;
-          v38 = v42;
-          goto LABEL_42;
+          goto LABEL_38;
         }
 
-LABEL_38:
-        if ((v29 & 0x10) != 0)
-        {
-LABEL_43:
-          [v13 suspendResumeRenderPassInfo];
-          v10 = v31;
-          v39 = v30;
-          goto LABEL_44;
-        }
-
-LABEL_39:
-        v39 = 0;
-        v10 = 0;
-LABEL_44:
-        currentState = [v13 currentState];
-        v12 = 0x2787B2000;
-        if (currentState == 1 || currentState == 3)
-        {
-          _MTLMessageContextPush_();
-          [v13 setCurrentState:{3, v30}];
-        }
-
-        else
-        {
-          [v13 setCurrentState:{3, v37}];
-        }
-
-        goto LABEL_47;
+        v33 = v36;
+        v35 = v39;
       }
 
-      v36 = v42;
-      v38 = v39;
+      else
+      {
+        v33 = v39;
+        v35 = v36;
+      }
     }
 
     else
     {
-      v30 = v42;
-      v14 = v41;
+      v28 = v39;
+      v13 = v38;
       if ((aggregatedEncoderMask & 8) == 0)
       {
-        goto LABEL_38;
+LABEL_38:
+        if ((v27 & 0x10) != 0)
+        {
+          goto LABEL_43;
+        }
+
+        goto LABEL_39;
       }
 
-      v36 = v42;
+      v33 = v39;
     }
 
-LABEL_42:
     _MTLMessageContextPush_();
-    if ((v29 & 0x10) != 0)
+    if ((v27 & 0x10) != 0)
     {
-      goto LABEL_43;
+LABEL_43:
+      [v12 suspendResumeRenderPassInfo];
+      v10 = v29;
+      v36 = v28;
+      goto LABEL_44;
     }
 
-    goto LABEL_39;
+LABEL_39:
+    v36 = 0;
+    v10 = 0;
+LABEL_44:
+    currentState = [v12 currentState];
+    if (currentState == 1 || currentState == 3)
+    {
+      _MTLMessageContextPush_();
+      [v12 setCurrentState:{3, v28}];
+    }
+
+    else
+    {
+      [v12 setCurrentState:{3, v34}];
+    }
+
+LABEL_47:
+    v11 = v13;
   }
 
-LABEL_51:
-  v33 = *MEMORY[0x277D85DE8];
+  while (v13 != count);
+  if (v10)
+  {
+LABEL_52:
+    _MTLMessageContextPush_();
+  }
 }
 
 - (uint64_t)updateTextureMappings:(void *)a1 heap:(void *)a2 operations:count:.cold.2(void *a1, void *a2)
@@ -1026,8 +1013,8 @@ LABEL_51:
   [a1 maxCompatiblePlacementSparsePageSize];
   [MTLSparsePageSizeString() UTF8String];
   [a2 placementSparsePageSize];
-  [MTLSparsePageSizeString() UTF8String];
-  return OUTLINED_FUNCTION_7();
+  v5 = [MTLSparsePageSizeString() UTF8String];
+  return OUTLINED_FUNCTION_7(v5, v3, @"maxCompatiblePlacementSparsePageSize of the heap (%s) must be at least as large as the placementSparsePageSize of the texture (%s)");
 }
 
 - (uint64_t)updateBufferMappings:(void *)a1 heap:(void *)a2 operations:count:.cold.2(void *a1, void *a2)
@@ -1035,8 +1022,8 @@ LABEL_51:
   [a1 maxCompatiblePlacementSparsePageSize];
   [MTLSparsePageSizeString() UTF8String];
   [a2 placementSparsePageSize];
-  [MTLSparsePageSizeString() UTF8String];
-  return OUTLINED_FUNCTION_7();
+  v5 = [MTLSparsePageSizeString() UTF8String];
+  return OUTLINED_FUNCTION_7(v5, v3, @"maxCompatiblePlacementSparsePageSize of the heap (%s) must be at least as large as the placementSparsePageSize of the buffer (%s)");
 }
 
 @end

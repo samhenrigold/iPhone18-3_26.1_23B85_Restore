@@ -183,19 +183,21 @@ void __104__PKAccountBillPaymentAmountDescriptionView_initWithSuggestedAmountLis
 
 - (void)layoutSubviews
 {
-  v38.receiver = self;
-  v38.super_class = PKAccountBillPaymentAmountDescriptionView;
-  [(PKAccountBillPaymentAmountDescriptionView *)&v38 layoutSubviews];
+  v82.receiver = self;
+  v82.super_class = PKAccountBillPaymentAmountDescriptionView;
+  [(PKAccountBillPaymentAmountDescriptionView *)&v82 layoutSubviews];
   [(PKAccountBillPaymentAmountDescriptionView *)self bounds];
   v4 = v3;
   v6 = v5;
-  [(PKAccountBillPaymentAmountContainerView *)self->_amountContainerView frame];
-  [(PKAccountBillPaymentAmountContainerView *)self->_amountContainerView sizeThatFits:v6];
-  PKRectCenteredXInRect();
   v8 = v7;
-  v9 = v4;
-  rect = v11;
-  v36 = v10;
+  v10 = v9;
+  [(PKAccountBillPaymentAmountContainerView *)self->_amountContainerView frame];
+  [(PKAccountBillPaymentAmountContainerView *)self->_amountContainerView sizeThatFits:v8];
+  PKRectCenteredXInRect();
+  v12 = v11;
+  v13 = *&v6;
+  rect = v15;
+  v77 = v14;
   [(PKAccountBillPaymentAmountContainerView *)self->_amountContainerView setFrame:?];
   if ((PKIsVision() & 1) == 0)
   {
@@ -203,51 +205,79 @@ void __104__PKAccountBillPaymentAmountDescriptionView_initWithSuggestedAmountLis
   }
 
   [(UILabel *)self->_suggestedAmountTitleLabel frame];
-  [(UILabel *)self->_suggestedAmountTitleLabel sizeThatFits:v6, 1.79769313e308];
-  PKContentAlignmentMake();
-  v12 = v6;
-  PKSizeAlignedInRect();
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
-  v19 = v9;
-  if ([(PKAccountBillPaymentAmountDescriptionView *)self showAmount])
-  {
-    v39.origin.x = v8;
-    v39.origin.y = v9;
-    v39.size.height = rect;
-    v39.size.width = v36;
-    v19 = CGRectGetMaxY(v39) + 17.0;
-  }
-
-  [(UILabel *)self->_suggestedAmountTitleLabel setFrame:v14, v19, v16, v18];
-  [(UITextView *)self->_suggestedAmountDescriptionView frame];
-  recta = v18;
-  v20 = v16;
-  [(UITextView *)self->_suggestedAmountDescriptionView sizeThatFits:v12, 1.79769313e308];
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v22 = v21;
-  v24 = v23;
-  v26 = v25;
-  v37 = v25;
-  v40.origin.x = v14;
-  v40.origin.y = v19;
-  v40.size.width = v20;
-  v40.size.height = recta;
-  v27 = CGRectGetMaxY(v40) + 6.0;
-  [(UITextView *)self->_suggestedAmountDescriptionView setFrame:v22, v27, v24, v26];
-  [(UIButton *)self->_learnMoreButton sizeThatFits:v12, 1.79769313e308];
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v29 = v28;
+  [(UILabel *)self->_suggestedAmountTitleLabel sizeThatFits:v8, 1.79769313e308];
+  v17 = v16;
+  v19 = v18;
+  v20 = PKContentAlignmentMake();
+  v21.n128_u64[0] = v17;
+  v22.n128_u64[0] = v19;
+  v80 = v4;
+  v81 = v10;
+  v23.n128_u64[0] = v4;
+  v24 = v6;
+  v25.n128_u64[0] = v6;
+  v26 = *&v8;
+  v27.n128_f64[0] = v8;
+  v28.n128_u64[0] = v10;
+  PKSizeAlignedInRect(v20, v21, v22, v23, v25, v27, v28, v29);
   v31 = v30;
   v33 = v32;
-  v41.origin.x = v22;
-  v41.origin.y = v27;
-  v41.size.width = v24;
-  v41.size.height = v37;
-  [(UIButton *)self->_learnMoreButton setFrame:v29, CGRectGetMaxY(v41) + 10.0, v31, v33];
+  v35 = v34;
+  v36 = v13;
+  if ([(PKAccountBillPaymentAmountDescriptionView *)self showAmount])
+  {
+    v83.origin.x = v12;
+    v83.origin.y = v13;
+    v83.size.height = rect;
+    v83.size.width = v77;
+    v36 = CGRectGetMaxY(v83) + 17.0;
+  }
+
+  [(UILabel *)self->_suggestedAmountTitleLabel setFrame:v31, v36, v33, v35];
+  [(UITextView *)self->_suggestedAmountDescriptionView frame];
+  recta = v35;
+  v37 = v33;
+  [(UITextView *)self->_suggestedAmountDescriptionView sizeThatFits:*&v26, 1.79769313e308];
+  v39 = v38;
+  v79 = *&v13;
+  v41 = v40;
+  v42 = PKContentAlignmentMake();
+  v43.n128_u64[0] = v39;
+  v44.n128_u64[0] = v41;
+  v45.n128_u64[0] = v81;
+  v46.n128_u64[0] = v80;
+  v47.n128_u64[0] = v24;
+  v48.n128_u64[0] = v26;
+  PKSizeAlignedInRect(v42, v43, v44, v46, v47, v48, v45, v49);
+  v51 = v50;
+  v53 = v52;
+  v55 = v54;
+  v78 = v54;
+  v84.origin.x = v31;
+  v84.origin.y = v36;
+  v84.size.width = v37;
+  v84.size.height = recta;
+  v56 = CGRectGetMaxY(v84) + 6.0;
+  [(UITextView *)self->_suggestedAmountDescriptionView setFrame:v51, v56, v53, v55];
+  [(UIButton *)self->_learnMoreButton sizeThatFits:*&v26, 1.79769313e308];
+  v58 = v57;
+  v60 = v59;
+  v61 = PKContentAlignmentMake();
+  v62.n128_u64[0] = v58;
+  v63.n128_u64[0] = v60;
+  v64.n128_u64[0] = v80;
+  v65.n128_u64[0] = v79;
+  v66.n128_u64[0] = v26;
+  v67.n128_u64[0] = v81;
+  PKSizeAlignedInRect(v61, v62, v63, v64, v65, v66, v67, v68);
+  v70 = v69;
+  v72 = v71;
+  v74 = v73;
+  v85.origin.x = v51;
+  v85.origin.y = v56;
+  v85.size.width = v53;
+  v85.size.height = v78;
+  [(UIButton *)self->_learnMoreButton setFrame:v70, CGRectGetMaxY(v85) + 10.0, v72, v74];
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits

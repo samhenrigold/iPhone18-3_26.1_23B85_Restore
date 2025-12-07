@@ -110,15 +110,15 @@ void __23__MRClient_localClient__block_invoke(uint64_t a1)
 - (BOOL)hasPlaceholder
 {
   bundleIdentifier = [(MRClient *)self bundleIdentifier];
-  v4 = [bundleIdentifier isEqualToString:@"(System Media Application)"];
+  isEqualToString = objc_msgSend_isEqualToString_(bundleIdentifier);
 
-  if (v4)
+  if (isEqualToString)
   {
     return 1;
   }
 
   bundleIdentifier2 = [(MRClient *)self bundleIdentifier];
-  v6 = [bundleIdentifier2 isEqualToString:@"(System Podcast Application)"];
+  v6 = objc_msgSend_isEqualToString_(bundleIdentifier2);
 
   if (v6)
   {
@@ -126,7 +126,7 @@ void __23__MRClient_localClient__block_invoke(uint64_t a1)
   }
 
   bundleIdentifier3 = [(MRClient *)self bundleIdentifier];
-  v8 = [bundleIdentifier3 isEqualToString:@"(System Books Application)"];
+  v8 = objc_msgSend_isEqualToString_(bundleIdentifier3);
 
   if (v8)
   {
@@ -134,7 +134,7 @@ void __23__MRClient_localClient__block_invoke(uint64_t a1)
   }
 
   bundleIdentifier4 = [(MRClient *)self bundleIdentifier];
-  v11 = [bundleIdentifier4 isEqualToString:@"(System Classical Room Application)"];
+  v11 = objc_msgSend_isEqualToString_(bundleIdentifier4);
 
   return v11;
 }
@@ -219,16 +219,15 @@ void __23__MRClient_localClient__block_invoke(uint64_t a1)
 
 - (unint64_t)hash
 {
-  v67 = *MEMORY[0x1E69E9840];
   v3 = MSVHasherSharedSeed();
   v4 = v3 ^ 0x736F6D6570736575;
-  v62 = v3 ^ 0x736F6D6570736575;
+  v61 = v3 ^ 0x736F6D6570736575;
   v6 = v5 ^ 0x646F72616E646F6DLL;
   v7 = v3 ^ 0x6C7967656E657261;
-  v63 = v5 ^ 0x646F72616E646F6DLL;
-  v64 = v3 ^ 0x6C7967656E657261;
+  v62 = v5 ^ 0x646F72616E646F6DLL;
+  v63 = v3 ^ 0x6C7967656E657261;
   v8 = v5 ^ 0x7465646279746573;
-  v65 = v5 ^ 0x7465646279746573;
+  v64 = v5 ^ 0x7465646279746573;
   v9 = self->_bundleIdentifier;
   uTF8String = [(NSString *)v9 UTF8String];
   v11 = [(NSString *)v9 length];
@@ -269,11 +268,11 @@ LABEL_5:
       v8 = v17 ^ __ROR8__(v15 ^ v16, 43);
       v6 = (v15 + v14) ^ __ROR8__(v14, 47);
       v7 = __ROR8__(v15 + v14, 32);
-      v64 = v7;
-      v65 = v8;
+      v63 = v7;
+      v64 = v8;
       v4 = v17 ^ v13;
-      v62 = v17 ^ v13;
-      v63 = v6;
+      v61 = v17 ^ v13;
+      v62 = v6;
       v11 -= 8;
     }
 
@@ -286,34 +285,34 @@ LABEL_5:
 
   v22 = v12 << 56;
 LABEL_10:
-  v66 = v22;
+  v65 = v22;
 
   processIdentifier = self->_processIdentifier;
-  if ((v66 & 0x400000000000000) != 0)
+  if ((v65 & 0x400000000000000) != 0)
   {
-    v25 = v66 & 0xFFFFFFFFFFFFFFLL | (processIdentifier << 32);
-    v26 = (v62 + v63) ^ __ROR8__(v63, 51);
-    v27 = v64 + (v65 ^ v25);
-    v28 = __ROR8__(v65 ^ v25, 48);
-    v29 = (v27 ^ v28) + __ROR8__(v62 + v63, 32);
+    v25 = v65 & 0xFFFFFFFFFFFFFFLL | (processIdentifier << 32);
+    v26 = (v61 + v62) ^ __ROR8__(v62, 51);
+    v27 = v63 + (v64 ^ v25);
+    v28 = __ROR8__(v64 ^ v25, 48);
+    v29 = (v27 ^ v28) + __ROR8__(v61 + v62, 32);
     v30 = v29 ^ __ROR8__(v27 ^ v28, 43);
     v31 = v27 + v26;
-    v64 = __ROR8__(v31, 32);
-    v65 = v30;
-    v62 = v29 ^ v25;
-    v63 = v31 ^ __ROR8__(v26, 47);
-    v24 = (v66 & 0xFF00000000000000) + 0x400000000000000;
+    v63 = __ROR8__(v31, 32);
+    v64 = v30;
+    v61 = v29 ^ v25;
+    v62 = v31 ^ __ROR8__(v26, 47);
+    v24 = (v65 & 0xFF00000000000000) + 0x400000000000000;
   }
 
   else
   {
-    v24 = v66 | processIdentifier | 0x400000000000000;
+    v24 = v65 | processIdentifier | 0x400000000000000;
   }
 
-  v32 = (v62 + v63) ^ __ROR8__(v63, 51);
-  v33 = v64 + (v65 ^ v24);
-  v34 = __ROR8__(v65 ^ v24, 48);
-  v35 = (v33 ^ v34) + __ROR8__(v62 + v63, 32);
+  v32 = (v61 + v62) ^ __ROR8__(v62, 51);
+  v33 = v63 + (v64 ^ v24);
+  v34 = __ROR8__(v64 ^ v24, 48);
+  v35 = (v33 ^ v34) + __ROR8__(v61 + v62, 32);
   v36 = v35 ^ __ROR8__(v33 ^ v34, 43);
   v37 = v33 + v32;
   v38 = v37 ^ __ROR8__(v32, 47);
@@ -338,7 +337,6 @@ LABEL_10:
   v57 = __ROR8__(v53, 32) + v52;
   v58 = __ROR8__(v52, 48);
   v59 = __ROR8__(v55, 32) + (v57 ^ v58);
-  v60 = *MEMORY[0x1E69E9840];
   return (v56 + v57) ^ __ROR8__(v56, 47) ^ v59 ^ __ROR8__(v56 + v57, 32) ^ v59 ^ __ROR8__(v57 ^ v58, 43);
 }
 
@@ -425,9 +423,9 @@ LABEL_10:
 - (BOOL)isWebKit
 {
   bundleIdentifier = [(MRClient *)self bundleIdentifier];
-  v3 = [bundleIdentifier isEqualToString:@"com.apple.WebKit.GPU"];
+  isEqualToString = objc_msgSend_isEqualToString_(bundleIdentifier);
 
-  return v3;
+  return isEqualToString;
 }
 
 - (NSData)data
@@ -684,7 +682,7 @@ LABEL_6:
 
       bundleIdentifier = [(MRClient *)v5 bundleIdentifier];
       bundleIdentifier2 = [(MRClient *)self bundleIdentifier];
-      v12 = [bundleIdentifier isEqualToString:bundleIdentifier2];
+      isEqualToString = objc_msgSend_isEqualToString_(bundleIdentifier);
 
       bundleIdentifierHierarchy = [(MRClient *)v5 bundleIdentifierHierarchy];
       bundleIdentifier3 = [(MRClient *)self bundleIdentifier];
@@ -701,7 +699,7 @@ LABEL_6:
 
       else
       {
-        v9 = v7 & v12 & v15 & v18;
+        v9 = v7 & isEqualToString & v15 & v18;
       }
     }
 
@@ -825,10 +823,10 @@ LABEL_6:
 
 - (void)resolvePlaceholdersForDeviceInfo:(id)info
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   bundleIdentifier = [(MRClient *)self bundleIdentifier];
-  if ([bundleIdentifier isEqualToString:@"(System Media Application)"])
+  if (objc_msgSend_isEqualToString_(bundleIdentifier))
   {
     systemMediaApplication = [infoCopy systemMediaApplication];
     if (!systemMediaApplication)
@@ -837,10 +835,10 @@ LABEL_6:
       v8 = _MRLogForCategory(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v10 = 138543362;
-        *&v10[4] = v7;
+        *v9 = 138543362;
+        *&v9[4] = v7;
 LABEL_14:
-        _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "Falling back to %{public}@ for system app since none specified in deviceInfo", v10, 0xCu);
+        _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "Falling back to %{public}@ for system app since none specified in deviceInfo", v9, 0xCu);
         goto LABEL_15;
       }
 
@@ -850,7 +848,7 @@ LABEL_14:
     goto LABEL_11;
   }
 
-  if ([bundleIdentifier isEqualToString:@"(System Podcast Application)"])
+  if (objc_msgSend_isEqualToString_(bundleIdentifier))
   {
     systemMediaApplication = [infoCopy systemPodcastApplication];
     if (!systemMediaApplication)
@@ -859,8 +857,8 @@ LABEL_14:
       v8 = _MRLogForCategory(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v10 = 138543362;
-        *&v10[4] = v7;
+        *v9 = 138543362;
+        *&v9[4] = v7;
         goto LABEL_14;
       }
 
@@ -872,12 +870,12 @@ LABEL_15:
 LABEL_11:
     v7 = systemMediaApplication;
 LABEL_16:
-    [(MRClient *)self setBundleIdentifier:v7, *v10];
+    [(MRClient *)self setBundleIdentifier:v7, *v9, *&v9[8]];
 
     goto LABEL_17;
   }
 
-  if ([bundleIdentifier isEqualToString:@"(System Books Application)"])
+  if (objc_msgSend_isEqualToString_(bundleIdentifier))
   {
     systemMediaApplication = [infoCopy systemBooksApplication];
     if (!systemMediaApplication)
@@ -886,8 +884,8 @@ LABEL_16:
       v8 = _MRLogForCategory(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v10 = 138543362;
-        *&v10[4] = v7;
+        *v9 = 138543362;
+        *&v9[4] = v7;
         goto LABEL_14;
       }
 
@@ -898,8 +896,6 @@ LABEL_16:
   }
 
 LABEL_17:
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

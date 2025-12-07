@@ -40,7 +40,7 @@
   {
     if (contextCopy)
     {
-      [contextCopy auditToken];
+      objc_msgSend_auditToken(contextCopy);
     }
 
     v7 = PLClientApplicationIdentifierFromAuditToken();
@@ -70,9 +70,9 @@ size_t __90__PLXPCPhotoLibraryStoreServerRequestHandlingPolicy_setCrashLogMessag
 
   entityName = [requestCopy entityName];
   v11 = +[PLPhotosHighlight entityName];
-  v12 = [entityName isEqualToString:v11];
+  isEqualToString = objc_msgSend_isEqualToString_(entityName);
 
-  if (!v12)
+  if (!isEqualToString)
   {
     goto LABEL_6;
   }
@@ -137,9 +137,9 @@ LABEL_13:
   nameCopy = name;
   contextCopy = context;
   v8 = +[PLAssetResourceUploadJobConfiguration entityName];
-  v9 = [nameCopy isEqualToString:v8];
+  isEqualToString = objc_msgSend_isEqualToString_(nameCopy);
 
-  if (v9)
+  if (isEqualToString)
   {
     backgroundUploadExtensionSupport = [(PLXPCPhotoLibraryStoreServerRequestHandlingPolicy *)self backgroundUploadExtensionSupport];
     v11 = [backgroundUploadExtensionSupport backgroundUploadJobConfigurationPredicateWithClientAuthorization:self->_connectionAuthorization];
@@ -149,7 +149,7 @@ LABEL_5:
   }
 
   v12 = +[PLAssetResourceUploadJob entityName];
-  v13 = [nameCopy isEqualToString:v12];
+  v13 = objc_msgSend_isEqualToString_(nameCopy);
 
   if (v13)
   {
@@ -405,7 +405,7 @@ void __115__PLXPCPhotoLibraryStoreServerRequestHandlingPolicy__limitedLibraryFil
     v5 = *(a1 + 40);
     if (v5)
     {
-      [v5 auditToken];
+      objc_msgSend_auditToken(v5);
     }
 
     else
@@ -516,16 +516,16 @@ LABEL_21:
   {
     v29 = *(a1 + 48);
     v30 = +[PLCloudMaster entityName];
-    v31 = [v29 isEqualToString:v30];
-    if ((v31 & 1) == 0)
+    isEqualToString = objc_msgSend_isEqualToString_(v29);
+    if ((isEqualToString & 1) == 0)
     {
       v32 = *(a1 + 48);
       v33 = +[PLCloudMasterMediaMetadata entityName];
-      LOBYTE(v32) = [v32 isEqualToString:v33];
+      LOBYTE(v32) = objc_msgSend_isEqualToString_(v32);
 
       if (v32)
       {
-        v31 = 1;
+        isEqualToString = 1;
         goto LABEL_26;
       }
 
@@ -540,7 +540,7 @@ LABEL_21:
     }
 
 LABEL_26:
-    v34 = [MEMORY[0x1E696AE18] predicateWithValue:v31];
+    v34 = [MEMORY[0x1E696AE18] predicateWithValue:isEqualToString];
     v35 = *(*(a1 + 56) + 8);
     v36 = *(v35 + 40);
     *(v35 + 40) = v34;
@@ -570,9 +570,9 @@ LABEL_27:
   nameCopy = name;
   contextCopy = context;
   v8 = +[PLManagedAsset entityName];
-  v9 = [nameCopy isEqualToString:v8];
+  isEqualToString = objc_msgSend_isEqualToString_(nameCopy);
 
-  if (v9)
+  if (isEqualToString)
   {
     _internalResourceFilterPredicate = [(PLXPCPhotoLibraryStoreServerRequestHandlingPolicy *)self _assetFilterPredicateWithClientContext:contextCopy];
 LABEL_5:
@@ -581,7 +581,7 @@ LABEL_5:
   }
 
   v11 = +[PLInternalResource entityName];
-  v12 = [nameCopy isEqualToString:v11];
+  v12 = objc_msgSend_isEqualToString_(nameCopy);
 
   if (v12)
   {
@@ -685,7 +685,7 @@ LABEL_7:
   return v3;
 }
 
-uint64_t __101__PLXPCPhotoLibraryStoreServerRequestHandlingPolicy__restrictedLockedContentAccessAllowedForContext___block_invoke(uint64_t a1)
+void *__101__PLXPCPhotoLibraryStoreServerRequestHandlingPolicy__restrictedLockedContentAccessAllowedForContext___block_invoke(uint64_t a1)
 {
   v16 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 2112);
@@ -871,14 +871,14 @@ void __101__PLXPCPhotoLibraryStoreServerRequestHandlingPolicy__entityNamesAllowe
   nameCopy = name;
   dCopy = d;
   contextCopy = context;
-  entity = [dCopy entity];
-  relationshipsByName = [entity relationshipsByName];
+  v12 = objc_msgSend_entity(dCopy);
+  relationshipsByName = [v12 relationshipsByName];
   v14 = [relationshipsByName objectForKeyedSubscript:nameCopy];
 
   destinationEntity = [v14 destinationEntity];
-  name = [entity name];
+  name = [v12 name];
   v17 = +[PLPhotosHighlight entityName];
-  if ([name isEqualToString:v17])
+  if (objc_msgSend_isEqualToString_(name))
   {
   }
 
@@ -892,7 +892,7 @@ void __101__PLXPCPhotoLibraryStoreServerRequestHandlingPolicy__entityNamesAllowe
     v20 = nameCopy;
     v22 = v21 = error;
     v23 = +[PLPhotosHighlight entityName];
-    v24 = [v22 isEqualToString:v23];
+    isEqualToString = objc_msgSend_isEqualToString_(v22);
 
     error = v21;
     nameCopy = v20;
@@ -900,7 +900,7 @@ void __101__PLXPCPhotoLibraryStoreServerRequestHandlingPolicy__entityNamesAllowe
     destinationEntity = v18;
     v14 = v30;
 
-    if (!v24)
+    if (!isEqualToString)
     {
       v32.receiver = selfCopy;
       v32.super_class = PLXPCPhotoLibraryStoreServerRequestHandlingPolicy;
@@ -928,12 +928,12 @@ LABEL_7:
 {
   dCopy = d;
   contextCopy = context;
-  entity = [dCopy entity];
-  name = [entity name];
+  v10 = objc_msgSend_entity(dCopy);
+  name = [v10 name];
   v12 = +[PLPhotosHighlight entityName];
-  v13 = [name isEqualToString:v12];
+  isEqualToString = objc_msgSend_isEqualToString_(name);
 
-  if (v13)
+  if (isEqualToString)
   {
     if (error)
     {

@@ -12,7 +12,7 @@
 - (_TtC22SubscribePageExtension12AppEventView)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC22SubscribePageExtension12AppEventView_clickAction;
-  v5 = sub_10000C518(&unk_100933080);
+  v5 = sub_10000C518(&unk_100933080, &unk_1007B1AB0);
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   v6 = self + OBJC_IVAR____TtC22SubscribePageExtension12AppEventView_initialLongPressLocation;
   *v6 = 0;
@@ -42,29 +42,31 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  v4 = type metadata accessor for AppEventCardLayout(0);
-  __chkstk_darwin(v4 - 8);
-  v6 = &v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = qword_100920180;
+  height = fits.height;
+  width = fits.width;
+  v6 = type metadata accessor for AppEventCardLayout(0);
+  __chkstk_darwin(v6 - 8);
+  v8 = (&v20 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v9 = qword_100920180;
   selfCopy = self;
-  if (v7 != -1)
+  if (v9 != -1)
   {
     swift_once();
   }
 
-  sub_1006D3574(&unk_10097D3C0, selfCopy);
-  v10 = v9;
-  v11 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtension12AppEventView_appEventCardView);
-  sub_10018DF10(v6);
-  sub_1006D38E4(v11, v6);
-  v13 = v12;
+  sub_1006D3574(&unk_10097D3C0, selfCopy, width, height);
+  v12 = v11;
+  v13 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtension12AppEventView_appEventCardView);
+  sub_10018DF10(v8);
+  sub_1006D38E4(v13, v8, width, height);
   v15 = v14;
-  sub_10001BB14(v6);
+  v17 = v16;
+  sub_10001BB14(v8);
 
-  v16 = v10 + v15;
-  v17 = v13;
-  result.height = v16;
-  result.width = v17;
+  v18 = v12 + v17;
+  v19 = v15;
+  result.height = v18;
+  result.width = v19;
   return result;
 }
 
@@ -82,7 +84,7 @@
   selfCopy = self;
   v9 = sub_1006D2C78(recognizerCopy, touchCopy);
 
-  return v9 & 1;
+  return v9;
 }
 
 @end

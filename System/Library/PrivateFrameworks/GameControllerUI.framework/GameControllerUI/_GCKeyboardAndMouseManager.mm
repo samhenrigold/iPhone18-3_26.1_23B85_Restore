@@ -55,9 +55,7 @@
 
 - (void)awakeWithSession:(id)session environment:(id)environment
 {
-  hidEventSource = [session hidEventSource];
-  hidEventSource = self->_hidEventSource;
-  self->_hidEventSource = hidEventSource;
+  self->_hidEventSource = [session hidEventSource];
 
   MEMORY[0x2821F96F8]();
 }
@@ -77,7 +75,7 @@
 
 - (void)_onqueue_HIDServiceAdded:(uint64_t)added
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (added)
   {
@@ -88,8 +86,8 @@
 
     if (v6)
     {
-      v7 = _gc_log_keyboard_and_mouse();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v8 = _gc_log_keyboard_and_mouse(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         [_GCKeyboardAndMouseManager _onqueue_HIDServiceAdded:];
       }
@@ -98,37 +96,35 @@
     else
     {
       [v3 service];
-      v8 = isDeviceKeyboard();
+      v9 = isDeviceKeyboard();
       [v3 service];
-      v9 = isDeviceMouse();
-      v10 = v9;
-      if ((v8 & 1) != 0 || v9)
+      v10 = isDeviceMouse();
+      v11 = v10;
+      if ((v9 & 1) != 0 || v10)
       {
         registryID2 = [v3 registryID];
-        v12 = objc_opt_new();
-        v13 = *(added + 48);
-        objc_sync_enter(v13);
-        [*(added + 48) setObject:v12 forKey:registryID2];
-        objc_sync_exit(v13);
+        v13 = objc_opt_new();
+        v14 = *(added + 48);
+        objc_sync_enter(v14);
+        [*(added + 48) setObject:v13 forKey:registryID2];
+        objc_sync_exit(v14);
 
-        v14 = _gc_log_keyboard_and_mouse();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+        v16 = _gc_log_keyboard_and_mouse(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
-          v16 = 138412802;
-          v17 = v3;
-          v18 = 1024;
-          v19 = v8;
-          v20 = 1024;
-          v21 = v10;
-          _os_log_impl(&dword_20E408000, v14, OS_LOG_TYPE_INFO, "Now tracking %@. Is Keyboard(%{BOOL}d), Mouse(%{BOOL}d)", &v16, 0x18u);
+          v17 = 138412802;
+          v18 = v3;
+          v19 = 1024;
+          v20 = v9;
+          v21 = 1024;
+          v22 = v11;
+          _os_log_impl(&dword_20E408000, v16, OS_LOG_TYPE_INFO, "Now tracking %@. Is Keyboard(%{BOOL}d), Mouse(%{BOOL}d)", &v17, 0x18u);
         }
       }
 
-      [(_GCKeyboardAndMouseManager *)v8 _onqueue_HIDServiceAdded:v10, v3, added];
+      [(_GCKeyboardAndMouseManager *)v9 _onqueue_HIDServiceAdded:v11, v3, added];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)invalidateWithSession:(id)session environment:(id)environment
@@ -177,7 +173,7 @@
 
 - (void)_onqueue_refreshKeyboards
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_sessionQueue);
   v5 = objc_getProperty(self, v4, 72, 1);
   if (![v5 count])
@@ -186,36 +182,36 @@
   }
 
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       v11 = 0;
       do
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * v11);
+        v12 = *(*(&v20 + 1) + 8 * v11);
         v13 = objc_alloc(MEMORY[0x277CCB0D0]);
-        v14 = [v13 initWithSource:self->_hidEventSource service:{v12, v21}];
+        v14 = [v13 initWithSource:self->_hidEventSource service:{v12, v20}];
         [v6 addObject:v14];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v9);
@@ -268,8 +264,6 @@ LABEL_17:
 LABEL_19:
   keyboardInput = [(GCKeyboard *)self->_coalescedKeyboard keyboardInput];
   [keyboardInput setKeyboardEventSource:v16];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)mice
@@ -295,7 +289,7 @@ LABEL_19:
 
     if (v4)
     {
-      registryID = _gc_log_keyboard_and_mouse();
+      registryID = _gc_log_keyboard_and_mouse(v5);
       if (os_log_type_enabled(registryID, OS_LOG_TYPE_DEBUG))
       {
         [_GCKeyboardAndMouseManager _onqueue_addMouse:];
@@ -305,59 +299,60 @@ LABEL_19:
     else
     {
       registryID = [v3 registryID];
-      v6 = *(mouse + 48);
-      objc_sync_enter(v6);
-      v7 = [*(mouse + 48) objectForKey:registryID];
-      objc_sync_exit(v6);
+      v7 = *(mouse + 48);
+      objc_sync_enter(v7);
+      v8 = [*(mouse + 48) objectForKey:registryID];
+      objc_sync_exit(v7);
 
-      if (v7)
+      if (v8)
       {
         [v3 service];
-        if ((serviceMatchesUsageAndUsagePage() & 1) != 0 || serviceMatchesUsageAndUsagePage())
+        v10 = serviceMatchesUsageAndUsagePage();
+        if ((v10 & 1) != 0 || (v10 = serviceMatchesUsageAndUsagePage(), v10))
         {
-          v8 = _gc_log_keyboard_and_mouse();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+          v11 = _gc_log_keyboard_and_mouse(v10);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
           {
             [_GCKeyboardAndMouseManager _onqueue_addMouse:];
           }
 
-          v9 = 1;
+          v12 = 1;
         }
 
         else
         {
-          v8 = _gc_log_keyboard_and_mouse();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+          v11 = _gc_log_keyboard_and_mouse(v10);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
           {
             [_GCKeyboardAndMouseManager _onqueue_addMouse:];
           }
 
-          v9 = 5;
+          v12 = 5;
         }
 
-        v10 = [v3 stringPropertyForKey:@"Product"];
-        v11 = [objc_alloc(MEMORY[0x277CCB088]) initWithName:v10 additionalButtons:v9];
-        mouseInput = [v11 mouseInput];
-        [mouseInput setButtonEventSource:v7];
-        [mouseInput setScrollEventSource:v7];
-        [mouseInput setDigitizerEventSource:v7];
-        [mouseInput setPointerEventSource:v7];
-        v13 = [MEMORY[0x277CBEB98] setWithObject:v11];
-        [mouse willChangeValueForKey:@"devices" withSetMutation:1 usingObjects:v13];
-        [mouse willChangeValueForKey:@"mice" withSetMutation:1 usingObjects:v13];
-        v14 = *(mouse + 64);
-        objc_sync_enter(v14);
-        [*(mouse + 64) setObject:v11 forKey:v3];
-        objc_sync_exit(v14);
+        v13 = [v3 stringPropertyForKey:@"Product"];
+        v14 = [objc_alloc(MEMORY[0x277CCB088]) initWithName:v13 additionalButtons:v12];
+        mouseInput = [v14 mouseInput];
+        [mouseInput setButtonEventSource:v8];
+        [mouseInput setScrollEventSource:v8];
+        [mouseInput setDigitizerEventSource:v8];
+        [mouseInput setPointerEventSource:v8];
+        v16 = [MEMORY[0x277CBEB98] setWithObject:v14];
+        [mouse willChangeValueForKey:@"devices" withSetMutation:1 usingObjects:v16];
+        [mouse willChangeValueForKey:@"mice" withSetMutation:1 usingObjects:v16];
+        v17 = *(mouse + 64);
+        objc_sync_enter(v17);
+        [*(mouse + 64) setObject:v14 forKey:v3];
+        objc_sync_exit(v17);
 
-        [mouse didChangeValueForKey:@"mice" withSetMutation:1 usingObjects:v13];
-        [mouse didChangeValueForKey:@"devices" withSetMutation:1 usingObjects:v13];
+        [mouse didChangeValueForKey:@"mice" withSetMutation:1 usingObjects:v16];
+        [mouse didChangeValueForKey:@"devices" withSetMutation:1 usingObjects:v16];
       }
 
       else
       {
-        v10 = _gc_log_keyboard_and_mouse();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        v13 = _gc_log_keyboard_and_mouse(v9);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           [_GCKeyboardAndMouseManager _onqueue_addMouse:];
         }
@@ -391,55 +386,52 @@ LABEL_19:
 
 - (id)matchingHIDServiceAttributes
 {
-  v19[2] = *MEMORY[0x277D85DE8];
-  v18[0] = @"DeviceUsagePage";
-  v18[1] = @"DeviceUsage";
-  v19[0] = &unk_282544768;
-  v19[1] = &unk_282544780;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v17[2] = *MEMORY[0x277D85DE8];
   v16[0] = @"DeviceUsagePage";
   v16[1] = @"DeviceUsage";
   v17[0] = &unk_282544768;
-  v17[1] = &unk_282544798;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v17[1] = &unk_282544780;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v14[0] = @"DeviceUsagePage";
+  v14[1] = @"DeviceUsage";
+  v15[0] = &unk_282544768;
+  v15[1] = &unk_282544798;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
   v5 = v4;
-  monitorMice = self->_monitorMice;
   if (self->_monitorKeyboards)
   {
     if (self->_monitorMice)
     {
-      v15[0] = v3;
-      v15[1] = v4;
-      v7 = MEMORY[0x277CBEA60];
-      v8 = v15;
-      v9 = 2;
+      v13[0] = v3;
+      v13[1] = v4;
+      v6 = MEMORY[0x277CBEA60];
+      v7 = v13;
+      v8 = 2;
 LABEL_8:
-      v10 = [v7 arrayWithObjects:v8 count:v9];
+      v9 = [v6 arrayWithObjects:v7 count:v8];
       goto LABEL_10;
     }
 
-    v14 = v3;
-    v7 = MEMORY[0x277CBEA60];
-    v8 = &v14;
+    v12 = v3;
+    v6 = MEMORY[0x277CBEA60];
+    v7 = &v12;
 LABEL_7:
-    v9 = 1;
+    v8 = 1;
     goto LABEL_8;
   }
 
   if (self->_monitorMice)
   {
-    v13 = v4;
-    v7 = MEMORY[0x277CBEA60];
-    v8 = &v13;
+    v11 = v4;
+    v6 = MEMORY[0x277CBEA60];
+    v7 = &v11;
     goto LABEL_7;
   }
 
-  v10 = MEMORY[0x277CBEBF8];
+  v9 = MEMORY[0x277CBEBF8];
 LABEL_10:
 
-  v11 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v9;
 }
 
 - (void)_onqueue_HIDServiceRemoved:(uint64_t)removed
@@ -467,24 +459,24 @@ LABEL_10:
 
 - (void)servicesDidChange:(id)change withAddedServices:(id)services removedServices:(id)removedServices
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   servicesCopy = services;
   removedServicesCopy = removedServices;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v9 = [removedServicesCopy countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v9 = [removedServicesCopy countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v24;
+    v11 = *v23;
     do
     {
       v12 = 0;
       do
       {
-        if (*v24 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(removedServicesCopy);
         }
@@ -493,28 +485,28 @@ LABEL_10:
       }
 
       while (v10 != v12);
-      v10 = [removedServicesCopy countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v10 = [removedServicesCopy countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v10);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v13 = servicesCopy;
-  v14 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v20;
+    v16 = *v19;
     do
     {
       v17 = 0;
       do
       {
-        if (*v20 != v16)
+        if (*v19 != v16)
         {
           objc_enumerationMutation(v13);
         }
@@ -523,13 +515,11 @@ LABEL_10:
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v15);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleHIDEvent:(__IOHIDEvent *)event
@@ -577,7 +567,7 @@ LABEL_10:
 
 - (uint64_t)handleHIDEvent:(uint64_t)event atTimestamp:(void *)timestamp forSubject:
 {
-  v90 = *MEMORY[0x277D85DE8];
+  v105 = *MEMORY[0x277D85DE8];
   timestampCopy = timestamp;
   if (self)
   {
@@ -606,252 +596,251 @@ LABEL_10:
     Type = IOHIDEventGetType();
     switch(Type)
     {
-      case 17:
-        v63 = _gc_log_keyboard_and_mouse();
-        v64 = os_signpost_id_generate(v63);
+      case 0x11:
+        v75 = _gc_log_keyboard_and_mouse(Type);
+        v76 = os_signpost_id_generate(v75);
 
-        if (os_variant_has_internal_diagnostics())
+        has_internal_diagnostics = os_variant_has_internal_diagnostics();
+        if (has_internal_diagnostics)
         {
-          v65 = _gc_log_keyboard_and_mouse();
-          v66 = _gc_log_signpost();
-          v67 = OUTLINED_FUNCTION_5_0(v66);
+          v78 = _gc_log_keyboard_and_mouse(has_internal_diagnostics);
+          v79 = _gc_log_signpost();
+          v80 = OUTLINED_FUNCTION_5_0(v79);
 
-          if (v67)
+          if (v80)
           {
-            v68 = _gc_log_keyboard_and_mouse();
+            v82 = _gc_log_keyboard_and_mouse(v81);
             OUTLINED_FUNCTION_3_0();
-            if (!(!v22 & v21) && os_signpost_enabled(v68))
+            if (!(!v24 & v23) && os_signpost_enabled(v82))
             {
               IOHIDEventGetSenderID();
               OUTLINED_FUNCTION_7();
               OUTLINED_FUNCTION_8();
               OUTLINED_FUNCTION_0_1();
-              OUTLINED_FUNCTION_1_0(&dword_20E408000, v69, v70, v71, "HIDEvent.Pointer", "{sender: %#llx, eventType: %u, eventTimestamp: %llu}", v72, v73, v81, v82, v83, v84, v85, v86, v87, eventCopy, buf[0]);
+              OUTLINED_FUNCTION_1_0(&dword_20E408000, v83, v84, v85, "HIDEvent.Pointer", "{sender: %#llx, eventType: %u, eventTimestamp: %llu}", v86, v87, v96, v97, v98, v99, v100, v101, v102, eventCopy);
             }
           }
         }
 
-        v28 = objc_opt_new();
-        [v28 setTimestamp:event];
-        v74 = BKSHIDEventGetPointerAttributes();
-        v32 = v74;
-        if (v74)
+        v30 = objc_opt_new();
+        [v30 setTimestamp:event];
+        v88 = BKSHIDEventGetPointerAttributes();
+        v36 = v88;
+        if (v88)
         {
-          [v74 unacceleratedRelativePositionX];
+          [v88 unacceleratedRelativePositionX];
           [OUTLINED_FUNCTION_6() setX:?];
-          [v32 unacceleratedRelativePositionY];
+          [v36 unacceleratedRelativePositionY];
           [OUTLINED_FUNCTION_6() setY:?];
         }
 
-        [(_GCKeyboardAndMouseEventSubject *)timestampCopy publishPointerEvent:v28];
-        if (os_variant_has_internal_diagnostics())
+        [(_GCKeyboardAndMouseEventSubject *)timestampCopy publishPointerEvent:v30];
+        v89 = os_variant_has_internal_diagnostics();
+        if (v89)
         {
-          v75 = _gc_log_keyboard_and_mouse();
-          v76 = _gc_log_signpost();
-          v77 = OUTLINED_FUNCTION_5_0(v76);
+          v90 = _gc_log_keyboard_and_mouse(v89);
+          v91 = _gc_log_signpost();
+          v92 = OUTLINED_FUNCTION_5_0(v91);
 
-          if (v77)
+          if (v92)
           {
-            v78 = _gc_log_keyboard_and_mouse();
+            v94 = _gc_log_keyboard_and_mouse(v93);
             OUTLINED_FUNCTION_3_0();
-            if (!(!v22 & v21) && os_signpost_enabled(v78))
+            if (!(!v24 & v23) && os_signpost_enabled(v94))
             {
               *buf = 0;
-              _os_signpost_emit_with_name_impl(&dword_20E408000, v78, OS_SIGNPOST_INTERVAL_END, v64, "HIDEvent.Pointer", "{}", buf, 2u);
+              _os_signpost_emit_with_name_impl(&dword_20E408000, v94, OS_SIGNPOST_INTERVAL_END, v76, "HIDEvent.Pointer", "{}", buf, 2u);
             }
           }
         }
 
         goto LABEL_62;
       case 6:
-        v35 = _gc_log_keyboard_and_mouse();
-        v36 = os_signpost_id_generate(v35);
+        v39 = _gc_log_keyboard_and_mouse(Type);
+        v40 = os_signpost_id_generate(v39);
 
-        if (os_variant_has_internal_diagnostics())
+        v41 = os_variant_has_internal_diagnostics();
+        if (v41)
         {
-          v37 = _gc_log_keyboard_and_mouse();
-          v38 = _gc_log_signpost();
-          v39 = OUTLINED_FUNCTION_5_0(v38);
+          v42 = _gc_log_keyboard_and_mouse(v41);
+          v43 = _gc_log_signpost();
+          v44 = OUTLINED_FUNCTION_5_0(v43);
 
-          if (v39)
+          if (v44)
           {
-            v40 = _gc_log_keyboard_and_mouse();
-            v41 = v40;
-            if (v36 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v40))
+            v46 = _gc_log_keyboard_and_mouse(v45);
+            v47 = v46;
+            if (v40 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v46))
             {
               IOHIDEventGetSenderID();
               OUTLINED_FUNCTION_7();
               OUTLINED_FUNCTION_8();
               OUTLINED_FUNCTION_0_1();
-              _os_signpost_emit_with_name_impl(&dword_20E408000, v41, OS_SIGNPOST_INTERVAL_BEGIN, v36, "HIDEvent.Scroll", "{sender: %#llx, eventType: %u, eventTimestamp: %llu}", buf, 0x1Cu);
+              _os_signpost_emit_with_name_impl(&dword_20E408000, v47, OS_SIGNPOST_INTERVAL_BEGIN, v40, "HIDEvent.Scroll", "{sender: %#llx, eventType: %u, eventTimestamp: %llu}", buf, 0x1Cu);
             }
           }
         }
 
         IOHIDEventGetFloatValue();
-        v43 = v42;
+        v49 = v48;
         IOHIDEventGetFloatValue();
-        v81 = MEMORY[0x277D85DD0];
-        v82 = 3221225472;
-        v83 = __68___GCKeyboardAndMouseManager_handleHIDEvent_atTimestamp_forSubject___block_invoke;
-        v84 = &unk_277E1DDD0;
-        v86 = v43;
-        v87 = v44;
+        v96 = MEMORY[0x277D85DD0];
+        v97 = 3221225472;
+        v98 = __68___GCKeyboardAndMouseManager_handleHIDEvent_atTimestamp_forSubject___block_invoke;
+        v99 = &unk_277E1DDD0;
+        v101 = v49;
+        v102 = v50;
         eventCopy = event;
-        v85 = timestampCopy;
-        dispatch_async(MEMORY[0x277D85CD0], &v81);
-        if (os_variant_has_internal_diagnostics())
+        v100 = timestampCopy;
+        dispatch_async(MEMORY[0x277D85CD0], &v96);
+        v51 = os_variant_has_internal_diagnostics();
+        if (v51)
         {
-          v45 = _gc_log_keyboard_and_mouse();
-          v46 = _gc_log_signpost();
-          v47 = os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG);
+          v52 = _gc_log_keyboard_and_mouse(v51);
+          v53 = _gc_log_signpost();
+          v54 = os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG);
 
-          if (v47)
+          if (v54)
           {
-            v48 = _gc_log_keyboard_and_mouse();
-            v49 = v48;
-            if (v36 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v48))
+            v56 = _gc_log_keyboard_and_mouse(v55);
+            v57 = v56;
+            if (v40 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v56))
             {
               *buf = 0;
-              _os_signpost_emit_with_name_impl(&dword_20E408000, v49, OS_SIGNPOST_INTERVAL_END, v36, "HIDEvent.Scroll", "{}", buf, 2u);
+              _os_signpost_emit_with_name_impl(&dword_20E408000, v57, OS_SIGNPOST_INTERVAL_END, v40, "HIDEvent.Scroll", "{}", buf, 2u);
             }
           }
         }
 
-        v28 = v85;
+        v30 = v100;
         goto LABEL_63;
-      case 11:
-        v50 = _gc_log_keyboard_and_mouse();
-        v16 = os_signpost_id_generate(v50);
+      case 0xB:
+        v58 = _gc_log_keyboard_and_mouse(Type);
+        v16 = os_signpost_id_generate(v58);
 
-        if (os_variant_has_internal_diagnostics())
+        v59 = os_variant_has_internal_diagnostics();
+        if (v59)
         {
-          v51 = _gc_log_keyboard_and_mouse();
-          v52 = _gc_log_signpost();
-          v53 = OUTLINED_FUNCTION_5_0(v52);
+          v60 = _gc_log_keyboard_and_mouse(v59);
+          v61 = _gc_log_signpost();
+          v62 = OUTLINED_FUNCTION_5_0(v61);
 
-          if (v53)
+          if (v62)
           {
-            v54 = _gc_log_keyboard_and_mouse();
+            v64 = _gc_log_keyboard_and_mouse(v63);
             OUTLINED_FUNCTION_3_0();
-            if (!(!v22 & v21) && os_signpost_enabled(v54))
+            if (!(!v24 & v23) && os_signpost_enabled(v64))
             {
               IOHIDEventGetSenderID();
               OUTLINED_FUNCTION_7();
               OUTLINED_FUNCTION_8();
               OUTLINED_FUNCTION_0_1();
-              OUTLINED_FUNCTION_1_0(&dword_20E408000, v55, v56, v57, "HIDEvent.Digitizer", "{sender: %#llx, eventType: %u, eventTimestamp: %llu}", v58, v59, v81, v82, v83, v84, v85, v86, v87, eventCopy, buf[0]);
+              OUTLINED_FUNCTION_1_0(&dword_20E408000, v65, v66, v67, "HIDEvent.Digitizer", "{sender: %#llx, eventType: %u, eventTimestamp: %llu}", v68, v69, v96, v97, v98, v99, v100, v101, v102, eventCopy);
             }
           }
         }
 
-        v28 = objc_opt_new();
-        [v28 setTimestamp:event];
+        v30 = objc_opt_new();
+        [v30 setTimestamp:event];
         IOHIDEventGetFloatValue();
         [OUTLINED_FUNCTION_6() setX:?];
         IOHIDEventGetFloatValue();
         [OUTLINED_FUNCTION_6() setY:?];
-        [(_GCKeyboardAndMouseEventSubject *)timestampCopy publishDigitizerEvent:v28];
-        if (!os_variant_has_internal_diagnostics())
+        [(_GCKeyboardAndMouseEventSubject *)timestampCopy publishDigitizerEvent:v30];
+        v70 = os_variant_has_internal_diagnostics();
+        if (!v70)
         {
           goto LABEL_63;
         }
 
-        v60 = _gc_log_keyboard_and_mouse();
-        v61 = _gc_log_signpost();
-        v62 = os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG);
+        v71 = _gc_log_keyboard_and_mouse(v70);
+        v72 = _gc_log_signpost();
+        v73 = os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG);
 
-        if (!v62)
+        if (!v73)
         {
           goto LABEL_63;
         }
 
-        v32 = _gc_log_keyboard_and_mouse();
+        v36 = _gc_log_keyboard_and_mouse(v74);
         OUTLINED_FUNCTION_3_0();
-        if (!v22 & v21 || !os_signpost_enabled(v32))
+        if (!v24 & v23 || !os_signpost_enabled(v36))
         {
           goto LABEL_62;
         }
 
         *buf = 0;
-        v33 = "HIDEvent.Digitizer";
+        v37 = "HIDEvent.Digitizer";
         goto LABEL_47;
       case 2:
-        v15 = _gc_log_keyboard_and_mouse();
+        v15 = _gc_log_keyboard_and_mouse(Type);
         v16 = os_signpost_id_generate(v15);
 
-        if (os_variant_has_internal_diagnostics())
+        v17 = os_variant_has_internal_diagnostics();
+        if (v17)
         {
-          v17 = _gc_log_keyboard_and_mouse();
-          v18 = _gc_log_signpost();
-          v19 = OUTLINED_FUNCTION_5_0(v18);
+          v18 = _gc_log_keyboard_and_mouse(v17);
+          v19 = _gc_log_signpost();
+          v20 = OUTLINED_FUNCTION_5_0(v19);
 
-          if (v19)
+          if (v20)
           {
-            v20 = _gc_log_keyboard_and_mouse();
+            v22 = _gc_log_keyboard_and_mouse(v21);
             OUTLINED_FUNCTION_3_0();
-            if (!(!v22 & v21) && os_signpost_enabled(v20))
+            if (!(!v24 & v23) && os_signpost_enabled(v22))
             {
               IOHIDEventGetSenderID();
               OUTLINED_FUNCTION_7();
               OUTLINED_FUNCTION_8();
               OUTLINED_FUNCTION_0_1();
-              OUTLINED_FUNCTION_1_0(&dword_20E408000, v23, v24, v25, "HIDEvent.Button", "{sender: %#llx, eventType: %u, eventTimestamp: %llu}", v26, v27, v81, v82, v83, v84, v85, v86, v87, eventCopy, buf[0]);
+              OUTLINED_FUNCTION_1_0(&dword_20E408000, v25, v26, v27, "HIDEvent.Button", "{sender: %#llx, eventType: %u, eventTimestamp: %llu}", v28, v29, v96, v97, v98, v99, v100, v101, v102, eventCopy);
             }
           }
         }
 
-        v28 = objc_opt_new();
-        [v28 setTimestamp:event];
-        [v28 setMask:IOHIDEventGetIntegerValue()];
-        [(_GCKeyboardAndMouseEventSubject *)timestampCopy publishButtonEvent:v28];
-        if (!os_variant_has_internal_diagnostics())
-        {
-          goto LABEL_63;
-        }
-
-        v29 = _gc_log_keyboard_and_mouse();
-        v30 = _gc_log_signpost();
-        v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG);
-
+        v30 = objc_opt_new();
+        [v30 setTimestamp:event];
+        [v30 setMask:IOHIDEventGetIntegerValue()];
+        [(_GCKeyboardAndMouseEventSubject *)timestampCopy publishButtonEvent:v30];
+        v31 = os_variant_has_internal_diagnostics();
         if (!v31)
         {
           goto LABEL_63;
         }
 
-        v32 = _gc_log_keyboard_and_mouse();
+        v32 = _gc_log_keyboard_and_mouse(v31);
+        v33 = _gc_log_signpost();
+        v34 = os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG);
+
+        if (!v34)
+        {
+          goto LABEL_63;
+        }
+
+        v36 = _gc_log_keyboard_and_mouse(v35);
         OUTLINED_FUNCTION_3_0();
-        if (!v22 & v21 || !os_signpost_enabled(v32))
+        if (!v24 & v23 || !os_signpost_enabled(v36))
         {
 LABEL_62:
 
 LABEL_63:
 LABEL_64:
-          v34 = 1;
+          v38 = 1;
           goto LABEL_65;
         }
 
         *buf = 0;
-        v33 = "HIDEvent.Button";
+        v37 = "HIDEvent.Button";
 LABEL_47:
-        _os_signpost_emit_with_name_impl(&dword_20E408000, v32, OS_SIGNPOST_INTERVAL_END, v16, v33, "{}", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_20E408000, v36, OS_SIGNPOST_INTERVAL_END, v16, v37, "{}", buf, 2u);
         goto LABEL_62;
     }
   }
 
-  v34 = 0;
+  v38 = 0;
 LABEL_65:
 
-  v79 = *MEMORY[0x277D85DE8];
-  return v34;
-}
-
-- (void)_onqueue_HIDServiceAdded:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_2_0(&dword_20E408000, v0, v1, "#NOTE Already tracking HID service: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  return v38;
 }
 
 - (void)_onqueue_HIDServiceAdded:(void *)a3 .cold.2(char a1, const char *a2, void *a3, id self)
@@ -875,38 +864,6 @@ LABEL_65:
   }
 }
 
-- (void)_onqueue_addMouse:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_2_0(&dword_20E408000, v0, v1, "#NOTE Added HID service %@ is already tracked as a mouse.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_onqueue_addMouse:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_2_0(&dword_20E408000, v0, v1, "%@ is normal mouse device!", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_onqueue_addMouse:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_2_0(&dword_20E408000, v0, v1, "%@ is Magic mouse or Magic trackpad!", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_onqueue_addMouse:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_2_0(&dword_20E408000, v0, v1, "#NOTE Not currently tracking added mouse HID service %@.  It may have already disconnected.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_onqueue_removeMouse:(void *)a3 .cold.1(void *a1, void *a2, void *a3)
 {
   objc_sync_exit(a1);
@@ -920,15 +877,13 @@ LABEL_65:
   v10 = *MEMORY[0x277D85DE8];
   objc_sync_exit(a1);
 
-  v6 = _gc_log_keyboard_and_mouse();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = _gc_log_keyboard_and_mouse(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = 138412290;
     v9 = a3;
-    _os_log_impl(&dword_20E408000, v6, OS_LOG_TYPE_INFO, "No longer tracking %@", &v8, 0xCu);
+    _os_log_impl(&dword_20E408000, v7, OS_LOG_TYPE_INFO, "No longer tracking %@", &v8, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onqueue_HIDServiceRemoved:(void *)a1 .cold.2(void *a1, char *a2)

@@ -557,7 +557,7 @@
 - (void)processValueAddedServiceTransaction:(id)transaction
 {
   transactionCopy = transaction;
-  v5 = PDDefaultQueue();
+  v5 = PDDefaultQueue(transactionCopy);
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_100039C00;
@@ -914,8 +914,7 @@ LABEL_16:
 {
   assetsCopy = assets;
   completionCopy = completion;
-  [assetsCopy reloadDisplayProfileOfType:0];
-  v9 = PDDefaultQueue();
+  v9 = PDDefaultQueue([assetsCopy reloadDisplayProfileOfType:0]);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10003C834;
@@ -1059,12 +1058,12 @@ LABEL_16:
     block[2] = sub_10003D524;
     block[3] = &unk_10083E128;
     block[4] = self;
-    v15 = regionsCopy;
+    v16 = regionsCopy;
     forceCopy = force;
-    v16 = completionCopy;
+    v17 = completionCopy;
     dispatch_async(sharedWebServiceQueue, block);
 
-    v11 = v15;
+    v11 = v16;
 LABEL_8:
 
     goto LABEL_9;
@@ -1079,15 +1078,15 @@ LABEL_8:
 
   if (completionCopy)
   {
-    v13 = PDDefaultQueue();
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_10003D510;
-    v18[3] = &unk_10083D648;
-    v19 = completionCopy;
-    dispatch_async(v13, v18);
+    v14 = PDDefaultQueue(v13);
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_10003D510;
+    v19[3] = &unk_10083D648;
+    v20 = completionCopy;
+    dispatch_async(v14, v19);
 
-    v11 = v19;
+    v11 = v20;
     goto LABEL_8;
   }
 
@@ -1130,7 +1129,7 @@ LABEL_9:
       }
 
       *buf = 138543362;
-      v33 = regionCopy;
+      v34 = regionCopy;
       v18 = "PDPaymentWebServiceCoordinator: cannot register for region %{public}@ - not supported.";
       goto LABEL_18;
     }
@@ -1154,45 +1153,45 @@ LABEL_24:
         }
 
         *buf = 138543362;
-        v33 = regionCopy;
+        v34 = regionCopy;
       }
 
       else
       {
-        v22 = PKRegistrationSupportedInCurrentRegionForWebService();
+        v23 = PKRegistrationSupportedInCurrentRegionForWebService();
         v16 = PKLogFacilityTypeGetObject();
-        v23 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
-        if (v22)
+        v24 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+        if (v23)
         {
-          if (v23)
+          if (v24)
           {
             *buf = 138543362;
-            v33 = regionCopy;
+            v34 = regionCopy;
             _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "PDPaymentWebServiceCoordinator: initially registering for device region as precondition for registration to region %{public}@.", buf, 0xCu);
           }
 
-          v26[0] = _NSConcreteStackBlock;
-          v26[1] = 3221225472;
-          v26[2] = sub_10003E098;
-          v26[3] = &unk_10083E150;
-          v27 = regionCopy;
+          v27[0] = _NSConcreteStackBlock;
+          v27[1] = 3221225472;
+          v27[2] = sub_10003E098;
+          v27[3] = &unk_10083E150;
+          v28 = regionCopy;
           selfCopy = self;
-          v29 = v13;
-          v31 = forceCopy;
-          v30 = completionCopy;
+          v30 = v13;
+          v32 = forceCopy;
+          v31 = completionCopy;
           v13 = v13;
-          [(PDPaymentWebServiceCoordinator *)self _queue_performRegistrationForBrokerURL:0 force:0 completion:v26];
+          [(PDPaymentWebServiceCoordinator *)self _queue_performRegistrationForBrokerURL:0 force:0 completion:v27];
 
           goto LABEL_24;
         }
 
-        if (!v23)
+        if (!v24)
         {
           goto LABEL_13;
         }
 
         *buf = 138543362;
-        v33 = regionCopy;
+        v34 = regionCopy;
       }
 
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "PDPaymentWebServiceCoordinator: registering for region %{public}@.", buf, 0xCu);
@@ -1203,7 +1202,7 @@ LABEL_24:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v33 = regionCopy;
+      v34 = regionCopy;
       v18 = "PDPaymentWebServiceCoordinator: cannot register for region %{public}@ - could not resolve broker URL.";
 LABEL_18:
       v19 = v17;
@@ -1244,15 +1243,15 @@ LABEL_22:
 
   if (completionCopy)
   {
-    v21 = PDDefaultQueue();
-    v24[0] = _NSConcreteStackBlock;
-    v24[1] = 3221225472;
-    v24[2] = sub_10003E238;
-    v24[3] = &unk_10083D648;
-    v25 = completionCopy;
-    dispatch_async(v21, v24);
+    v22 = PDDefaultQueue(v21);
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = sub_10003E238;
+    v25[3] = &unk_10083D648;
+    v26 = completionCopy;
+    dispatch_async(v22, v25);
 
-    v13 = v25;
+    v13 = v26;
     goto LABEL_24;
   }
 
@@ -1294,7 +1293,7 @@ LABEL_25:
       }
 
       *buf = 138412290;
-      v26 = lCopy;
+      v28 = lCopy;
       v13 = "PDPaymentWebServiceCoordinator: skipping registration at %@ - already registered.";
       goto LABEL_11;
     }
@@ -1308,11 +1307,11 @@ LABEL_25:
   {
     if (!primaryBrokerURL)
     {
-      v17 = PKLogFacilityTypeGetObject();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = PKLogFacilityTypeGetObject();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "PDPaymentWebServiceCoordinator: cannot register with primary region - broker URL not found.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "PDPaymentWebServiceCoordinator: cannot register with primary region - broker URL not found.", buf, 2u);
       }
 
       if (!completionCopy)
@@ -1321,14 +1320,14 @@ LABEL_25:
         goto LABEL_17;
       }
 
-      v18 = PDDefaultQueue();
-      v19[0] = _NSConcreteStackBlock;
-      v19[1] = 3221225472;
-      v19[2] = sub_10003E668;
-      v19[3] = &unk_10083D648;
-      v16 = &v20;
-      v20 = completionCopy;
-      dispatch_async(v18, v19);
+      v20 = PDDefaultQueue(v19);
+      v21[0] = _NSConcreteStackBlock;
+      v21[1] = 3221225472;
+      v21[2] = sub_10003E668;
+      v21[3] = &unk_10083D648;
+      v17 = &v22;
+      v22 = completionCopy;
+      dispatch_async(v20, v21);
 
       lCopy = 0;
       goto LABEL_16;
@@ -1340,13 +1339,13 @@ LABEL_25:
   if ([v11 needsRegistration])
   {
 LABEL_15:
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_10003E63C;
-    v23[3] = &unk_10083C7F8;
-    v16 = &v24;
-    v24 = completionCopy;
-    [(PDPaymentWebServiceCoordinator *)self _queue_registerDeviceAtBrokerURL:lCopy completion:v23];
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = sub_10003E63C;
+    v25[3] = &unk_10083C7F8;
+    v17 = &v26;
+    v26 = completionCopy;
+    [(PDPaymentWebServiceCoordinator *)self _queue_registerDeviceAtBrokerURL:lCopy completion:v25];
     goto LABEL_16;
   }
 
@@ -1357,7 +1356,7 @@ LABEL_15:
   }
 
   *buf = 138412290;
-  v26 = lCopy;
+  v28 = lCopy;
   v13 = "PDPaymentWebServiceCoordinator: skipping primary region registration at %@ - already registered.";
 LABEL_11:
   _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v13, buf, 0xCu);
@@ -1365,14 +1364,14 @@ LABEL_12:
 
   if (completionCopy)
   {
-    v15 = PDDefaultQueue();
+    v16 = PDDefaultQueue(v15);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10003E654;
     block[3] = &unk_10083D648;
-    v16 = &v22;
-    v22 = completionCopy;
-    dispatch_async(v15, block);
+    v17 = &v24;
+    v24 = completionCopy;
+    dispatch_async(v16, block);
 
 LABEL_16:
   }
@@ -1562,7 +1561,7 @@ LABEL_10:
 
 - (void)unscheduleDeviceCheckIn
 {
-  v3 = PDDefaultQueue();
+  v3 = PDDefaultQueue(self);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10003F5BC;
@@ -1717,10 +1716,10 @@ LABEL_10:
   block[2] = sub_100040840;
   block[3] = &unk_10083E328;
   v11 = taskCopy;
-  v24 = v11;
+  v25 = v11;
   successCopy = success;
   v12 = errorCopy;
-  v25 = v12;
+  v26 = v12;
   dispatch_async(replyQueue, block);
   firstObject = [(NSMutableArray *)self->_deviceCheckInTasks firstObject];
   v14 = firstObject;
@@ -1752,23 +1751,23 @@ LABEL_10:
       success = 0;
     }
 
-    v16 = 0;
+    v17 = 0;
     if (!success)
     {
-      [(PDPaymentWebServiceCoordinator *)self _queue_deviceCheckInRepeatInterval];
-      v16 = v17;
+      _queue_deviceCheckInRepeatInterval = [(PDPaymentWebServiceCoordinator *)self _queue_deviceCheckInRepeatInterval];
+      v17 = v18;
     }
 
-    v18 = !success;
-    v19 = PDDefaultQueue();
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_100040944;
-    v20[3] = &unk_10083C3A8;
-    v20[4] = self;
-    v21 = v18;
-    v20[5] = v16;
-    dispatch_async(v19, v20);
+    v19 = !success;
+    v20 = PDDefaultQueue(_queue_deviceCheckInRepeatInterval);
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_100040944;
+    v21[3] = &unk_10083C3A8;
+    v21[4] = self;
+    v22 = v19;
+    v21[5] = v17;
+    dispatch_async(v20, v21);
   }
 }
 
@@ -2128,7 +2127,7 @@ LABEL_22:
 - (void)didDownloadPaymentPass:(id)pass
 {
   passCopy = pass;
-  v5 = PDDefaultQueue();
+  v5 = PDDefaultQueue(passCopy);
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_1000429C4;
@@ -2251,7 +2250,7 @@ LABEL_22:
 {
   checkCopy = check;
   levelCopy = level;
-  v10 = PDDefaultQueue();
+  v10 = PDDefaultQueue(levelCopy);
   v13[0] = _NSConcreteStackBlock;
   v13[1] = 3221225472;
   v13[2] = sub_100043114;
@@ -2868,7 +2867,7 @@ LABEL_12:
 {
   eligibilityCopy = eligibility;
   completionCopy = completion;
-  v8 = PDDefaultQueue();
+  v8 = PDDefaultQueue(completionCopy);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10004600C;
@@ -2895,7 +2894,7 @@ LABEL_12:
 
 - (void)_scheduleDeviceUpgradeTaskActivityWithRandomizeStartDate:(BOOL)date
 {
-  v5 = PDDefaultQueue();
+  v5 = PDDefaultQueue(self);
   v6[0] = _NSConcreteStackBlock;
   v6[1] = 3221225472;
   v6[2] = sub_1000463C8;
@@ -2907,7 +2906,7 @@ LABEL_12:
 
 - (void)unscheduleDeviceUpgradeTaskActivity
 {
-  v3 = PDDefaultQueue();
+  v3 = PDDefaultQueue(self);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10004666C;

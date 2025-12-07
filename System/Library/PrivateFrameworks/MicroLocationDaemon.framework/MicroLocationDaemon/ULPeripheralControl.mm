@@ -19,10 +19,9 @@
 
 - (_TtP19MicroLocationDaemon25ULConclaveManagerProtocol_)conclaveManager
 {
-  v2 = *(self + OBJC_IVAR____TtC19MicroLocationDaemon19ULPeripheralControl_conclaveManager);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (_TtP19MicroLocationDaemon20RelativePoseHandling_)relativePoseHandler
@@ -55,18 +54,17 @@
 {
   v4 = sub_259212580();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x28223BE20](v4);
-  v9 = (&v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v10 = *(self + OBJC_IVAR____TtC19MicroLocationDaemon19ULPeripheralControl_queue);
-  *v9 = v10;
-  (*(v5 + 104))(v9, *MEMORY[0x277D85200], v4, v7);
+  v6 = MEMORY[0x28223BE20](v4);
+  v8 = (&v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v9 = *(self + OBJC_IVAR____TtC19MicroLocationDaemon19ULPeripheralControl_queue);
+  *v8 = v9;
+  (*(v5 + 104))(v8, *MEMORY[0x277D85200], v4, v6);
   swift_unknownObjectRetain();
   selfCopy = self;
-  v12 = v10;
-  LOBYTE(v10) = sub_259212590();
-  (*(v5 + 8))(v9, v4);
-  if (v10)
+  v11 = v9;
+  LOBYTE(v9) = sub_259212590();
+  (*(v5 + 8))(v8, v4);
+  if (v9)
   {
     swift_unknownObjectWeakAssign();
     swift_unknownObjectRelease();
@@ -81,27 +79,26 @@
 - (void)setupPolarisGraphsWithCompletionHandler:(id)handler
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F99B9F8, &qword_2592261D0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v15 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_259212920();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_259212920();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_2592261E0;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_2592261E0;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_259225EB0;
-  v13[5] = v12;
+  v12[4] = &unk_259225EB0;
+  v12[5] = v11;
   selfCopy = self;
-  sub_2591F2F9C(0, 0, v8, &unk_259226200, v13);
+  sub_2591F2F9C(0, 0, v7, &unk_259226200, v12);
 }
 
 - (BOOL)teardownPolarisGraphsAndReturnError:(id *)error
@@ -159,23 +156,21 @@
 {
   v4 = sub_259212580();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = (&v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v9 = sub_2592121D0();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = (&v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = sub_2592121D0();
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_259212190();
-  v14 = *(self + OBJC_IVAR____TtC19MicroLocationDaemon19ULPeripheralControl_queue);
-  *v8 = v14;
-  (*(v5 + 104))(v8, *MEMORY[0x277D85200], v4);
-  v15 = v14;
-  LOBYTE(v14) = sub_259212590();
-  (*(v5 + 8))(v8, v4);
-  (*(v10 + 8))(v13, v9);
-  if ((v14 & 1) == 0)
+  v12 = *(self + OBJC_IVAR____TtC19MicroLocationDaemon19ULPeripheralControl_queue);
+  *v7 = v12;
+  (*(v5 + 104))(v7, *MEMORY[0x277D85200], v4);
+  v13 = v12;
+  LOBYTE(v12) = sub_259212590();
+  (*(v5 + 8))(v7, v4);
+  (*(v9 + 8))(v11, v8);
+  if ((v12 & 1) == 0)
   {
     __break(1u);
   }
@@ -185,16 +180,15 @@
 {
   v3 = sub_259212580();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = MEMORY[0x28223BE20](v3);
-  v8 = (&v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v9 = *(self + OBJC_IVAR____TtC19MicroLocationDaemon19ULPeripheralControl_queue);
-  *v8 = v9;
-  (*(v4 + 104))(v8, *MEMORY[0x277D85200], v3, v6);
-  v10 = v9;
-  LOBYTE(v9) = sub_259212590();
-  (*(v4 + 8))(v8, v3);
-  if ((v9 & 1) == 0)
+  v5 = MEMORY[0x28223BE20](v3);
+  v7 = (&v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = *(self + OBJC_IVAR____TtC19MicroLocationDaemon19ULPeripheralControl_queue);
+  *v7 = v8;
+  (*(v4 + 104))(v7, *MEMORY[0x277D85200], v3, v5);
+  v9 = v8;
+  LOBYTE(v8) = sub_259212590();
+  (*(v4 + 8))(v7, v3);
+  if ((v8 & 1) == 0)
   {
     __break(1u);
   }
@@ -204,16 +198,15 @@
 {
   v4 = sub_259212580();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x28223BE20](v4);
-  v9 = (&v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v10 = *(self + OBJC_IVAR____TtC19MicroLocationDaemon19ULPeripheralControl_queue);
-  *v9 = v10;
-  (*(v5 + 104))(v9, *MEMORY[0x277D85200], v4, v7);
-  v11 = v10;
-  LOBYTE(v10) = sub_259212590();
-  (*(v5 + 8))(v9, v4);
-  if ((v10 & 1) == 0)
+  v6 = MEMORY[0x28223BE20](v4);
+  v8 = (&v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v9 = *(self + OBJC_IVAR____TtC19MicroLocationDaemon19ULPeripheralControl_queue);
+  *v8 = v9;
+  (*(v5 + 104))(v8, *MEMORY[0x277D85200], v4, v6);
+  v10 = v9;
+  LOBYTE(v9) = sub_259212590();
+  (*(v5 + 8))(v8, v4);
+  if ((v9 & 1) == 0)
   {
     __break(1u);
   }

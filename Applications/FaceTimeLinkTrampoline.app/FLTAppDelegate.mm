@@ -38,20 +38,21 @@
 {
   activityCopy = activity;
   v4 = [LSApplicationRecord alloc];
-  v10 = 0;
-  v5 = [v4 initWithBundleIdentifier:TUBundleIdentifierInCallServiceApplication allowPlaceholder:0 error:&v10];
-  v6 = v10;
+  v11 = 0;
+  v5 = [v4 initWithBundleIdentifier:TUBundleIdentifierInCallServiceApplication allowPlaceholder:0 error:&v11];
+  v6 = v11;
+  v7 = v6;
   if (v5)
   {
-    v7 = objc_opt_new();
-    v8 = +[LSApplicationWorkspace defaultWorkspace];
-    [v8 openUserActivity:activityCopy usingApplicationRecord:v5 configuration:v7 completionHandler:&stru_100004180];
+    v8 = objc_opt_new();
+    v9 = +[LSApplicationWorkspace defaultWorkspace];
+    [v9 openUserActivity:activityCopy usingApplicationRecord:v5 configuration:v8 completionHandler:&stru_100004180];
   }
 
   else
   {
-    v7 = sub_100001738();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100001738(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_100001834();
     }
@@ -63,7 +64,7 @@
 - (BOOL)application:(id)application didFinishLaunchingWithOptions:(id)options
 {
   optionsCopy = options;
-  v5 = sub_100001738();
+  v5 = sub_100001738(optionsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -79,13 +80,13 @@
   applicationCopy = application;
   lCopy = l;
   optionsCopy = options;
-  v11 = sub_100001738();
+  v11 = sub_100001738(optionsCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v28 = lCopy;
-    v29 = 2112;
-    v30 = optionsCopy;
+    v30 = lCopy;
+    v31 = 2112;
+    v32 = optionsCopy;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "open url %@ with options %@", buf, 0x16u);
   }
 
@@ -96,11 +97,11 @@
 
     if ((isFaceTimeApplicationInstalled & 1) == 0)
     {
-      v14 = sub_100001738();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_100001738(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "FaceTime application is not installed - just opening url", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "FaceTime application is not installed - just opening url", buf, 2u);
       }
 
       [applicationCopy openURL:lCopy options:&__NSDictionary0__struct completionHandler:0];
@@ -113,59 +114,58 @@
   }
 
   scheme = [lCopy scheme];
-  v16 = [scheme isEqualToString:@"facetime-open-link"];
+  v17 = [scheme isEqualToString:@"facetime-open-link"];
 
-  if (!v16)
+  if (!v17)
   {
 LABEL_17:
-    v24 = 0;
+    v26 = 0;
     goto LABEL_18;
   }
 
-  v17 = [[NSURLComponents alloc] initWithURL:lCopy resolvingAgainstBaseURL:0];
-  [v17 setScheme:@"incallservice-open-link"];
-  v18 = sub_100001738();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v18 = [[NSURLComponents alloc] initWithURL:lCopy resolvingAgainstBaseURL:0];
+  v19 = sub_100001738([v18 setScheme:@"incallservice-open-link"]);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = [v17 URL];
+    v20 = [v18 URL];
     *buf = 138412546;
-    v28 = lCopy;
-    v29 = 2112;
-    v30 = v19;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "rewrote the original url: %@ to %@", buf, 0x16u);
+    v30 = lCopy;
+    v31 = 2112;
+    v32 = v20;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "rewrote the original url: %@ to %@", buf, 0x16u);
   }
 
-  v20 = +[LSApplicationWorkspace defaultWorkspace];
-  v21 = [v17 URL];
-  v26 = 0;
-  [v20 openSensitiveURL:v21 withOptions:0 error:&v26];
-  v22 = v26;
+  v21 = +[LSApplicationWorkspace defaultWorkspace];
+  v22 = [v18 URL];
+  v28 = 0;
+  [v21 openSensitiveURL:v22 withOptions:0 error:&v28];
+  v23 = v28;
 
-  if (v22)
+  if (v23)
   {
-    v23 = sub_100001738();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v25 = sub_100001738(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       sub_100001904();
     }
   }
 
-  v24 = 1;
+  v26 = 1;
 LABEL_18:
 
-  return v24;
+  return v26;
 }
 
 - (BOOL)application:(id)application continueUserActivity:(id)activity restorationHandler:(id)handler
 {
   applicationCopy = application;
   activityCopy = activity;
-  v9 = sub_100001738();
+  v9 = sub_100001738(activityCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = 138412290;
-    v28 = activityCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Continue user activity %@", &v27, 0xCu);
+    v29 = 138412290;
+    v30 = activityCopy;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Continue user activity %@", &v29, 0xCu);
   }
 
   activityType = [(__CFString *)activityCopy activityType];
@@ -191,15 +191,15 @@ LABEL_18:
       {
       }
 
-      v19 = [TUConversationLink conversationLinkForURL:webpageURL2];
-      if (v19)
+      v21 = [TUConversationLink conversationLinkForURL:webpageURL2];
+      if (v21)
       {
-        v20 = v19;
-        v21 = [(FLTAppDelegate *)self transferUserActivity:activityCopy];
+        v22 = v21;
+        v23 = [(FLTAppDelegate *)self transferUserActivity:activityCopy];
 
-        if (v21)
+        if (v23)
         {
-          v18 = 1;
+          v20 = 1;
 LABEL_24:
 
           goto LABEL_25;
@@ -208,24 +208,24 @@ LABEL_24:
 
       else
       {
-        v22 = sub_100001738();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v24 = sub_100001738(0);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           sub_10000196C();
         }
       }
 
 LABEL_21:
-      v23 = sub_100001738();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v25 = sub_100001738(v15);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = 138412290;
-        v28 = webpageURL2;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Received user activity with URL %@, but URL was not recognized, diiverting user back to browser", &v27, 0xCu);
+        v29 = 138412290;
+        v30 = webpageURL2;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Received user activity with URL %@, but URL was not recognized, diiverting user back to browser", &v29, 0xCu);
       }
 
       [applicationCopy openURL:webpageURL2 options:&__NSDictionary0__struct completionHandler:0];
-      v18 = 0;
+      v20 = 0;
       goto LABEL_24;
     }
   }
@@ -238,11 +238,12 @@ LABEL_21:
   if ([featureFlags2 conversationHandoffEnabled])
   {
     activityType2 = [(__CFString *)activityCopy activityType];
-    v17 = [activityType2 isEqualToString:TUUserActivityTypeConversationHandoff];
+    v18 = [activityType2 isEqualToString:TUUserActivityTypeConversationHandoff];
 
-    if (v17)
+    if (v18)
     {
-      v18 = [(FLTAppDelegate *)self transferUserActivity:activityCopy];
+      v19 = [(FLTAppDelegate *)self transferUserActivity:activityCopy];
+      v20 = v19;
       goto LABEL_25;
     }
   }
@@ -251,29 +252,29 @@ LABEL_21:
   {
   }
 
-  v18 = 0;
+  v20 = 0;
 LABEL_25:
-  v24 = sub_100001738();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v26 = sub_100001738(v19);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = @"NO";
-    if (v18)
+    v27 = @"NO";
+    if (v20)
     {
-      v25 = @"YES";
+      v27 = @"YES";
     }
 
-    v27 = 138412290;
-    v28 = v25;
-    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Link trampoline did continue user activity: %@", &v27, 0xCu);
+    v29 = 138412290;
+    v30 = v27;
+    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Link trampoline did continue user activity: %@", &v29, 0xCu);
   }
 
-  return v18;
+  return v20;
 }
 
 - (BOOL)application:(id)application willContinueUserActivityWithType:(id)type
 {
   typeCopy = type;
-  v5 = sub_100001738();
+  v5 = sub_100001738(typeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;

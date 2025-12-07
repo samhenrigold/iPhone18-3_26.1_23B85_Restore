@@ -16,7 +16,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_274820120();
+  sub_274820120(selfCopy);
 }
 
 - (void)textFieldDidEndEditing:(id)editing

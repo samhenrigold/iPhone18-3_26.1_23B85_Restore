@@ -30,8 +30,8 @@
 
 - (id)toDict
 {
-  v23[5] = *MEMORY[0x277D85DE8];
-  v22[0] = @"userID";
+  v22[5] = *MEMORY[0x277D85DE8];
+  v21[0] = @"userID";
   userID = [(ICASUserData *)self userID];
   if (userID)
   {
@@ -44,8 +44,8 @@
   }
 
   v4 = userID2;
-  v23[0] = userID2;
-  v22[1] = @"userStorefrontID";
+  v22[0] = userID2;
+  v21[1] = @"userStorefrontID";
   userStorefrontID = [(ICASUserData *)self userStorefrontID];
   if (userStorefrontID)
   {
@@ -58,8 +58,8 @@
   }
 
   v7 = userStorefrontID2;
-  v23[1] = userStorefrontID2;
-  v22[2] = @"saltVersion";
+  v22[1] = userStorefrontID2;
+  v21[2] = @"saltVersion";
   saltVersion = [(ICASUserData *)self saltVersion];
   if (saltVersion)
   {
@@ -72,8 +72,8 @@
   }
 
   v10 = saltVersion2;
-  v23[2] = saltVersion2;
-  v22[3] = @"userStartMonth";
+  v22[2] = saltVersion2;
+  v21[3] = @"userStartMonth";
   userStartMonth = [(ICASUserData *)self userStartMonth];
   if (userStartMonth)
   {
@@ -86,8 +86,8 @@
   }
 
   v13 = userStartMonth2;
-  v23[3] = userStartMonth2;
-  v22[4] = @"userStartYear";
+  v22[3] = userStartMonth2;
+  v21[4] = @"userStartYear";
   userStartYear = [(ICASUserData *)self userStartYear];
   if (userStartYear)
   {
@@ -100,10 +100,8 @@
   }
 
   v16 = userStartYear2;
-  v23[4] = userStartYear2;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:5];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v22[4] = userStartYear2;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:5];
 
   return v17;
 }

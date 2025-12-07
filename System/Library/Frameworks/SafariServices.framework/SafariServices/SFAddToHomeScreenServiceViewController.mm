@@ -61,7 +61,7 @@
 - (void)prepareForDisplayWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  [(SFAddToHomeScreenServiceViewController *)self _hostAuditToken];
+  objc_msgSend__hostAuditToken(self);
   if (WBSAuditTokenHasEntitlement())
   {
     [(SFWebAppDataProvider *)self->_provider setContentReadyForDisplay:0];
@@ -79,7 +79,7 @@
 - (void)didFetchManifestData:(id)data
 {
   dataCopy = data;
-  [(SFAddToHomeScreenServiceViewController *)self _hostAuditToken];
+  objc_msgSend__hostAuditToken(self);
   if (WBSAuditTokenHasEntitlement())
   {
     [(SFWebAppDataProvider *)self->_provider prepareWithManifestData:dataCopy, 0, 0, 0, 0];
@@ -95,7 +95,7 @@
 - (void)didFetchWebClipMetadata:(id)metadata
 {
   metadataCopy = metadata;
-  [(SFAddToHomeScreenServiceViewController *)self _hostAuditToken];
+  objc_msgSend__hostAuditToken(self);
   if (WBSAuditTokenHasEntitlement())
   {
     [(SFWebAppDataProvider *)self->_provider updateWithWebClipMetadata:metadataCopy, 0, 0, 0, 0];
@@ -112,7 +112,7 @@
 {
   lCopy = l;
   tokenCopy = token;
-  [(SFAddToHomeScreenServiceViewController *)self _hostAuditToken];
+  objc_msgSend__hostAuditToken(self);
   if (WBSAuditTokenHasEntitlement())
   {
     [(SFWebAppDataProvider *)self->_provider updateWithStagedCookiesDirectoryURL:lCopy sandboxExtensionToken:tokenCopy, 0, 0, 0, 0];

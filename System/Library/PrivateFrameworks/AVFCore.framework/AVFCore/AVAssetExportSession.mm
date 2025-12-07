@@ -875,7 +875,7 @@ LABEL_7:
   v32 = 0u;
   if (v17)
   {
-    [v17 frameDuration];
+    objc_msgSend_frameDuration(v17);
   }
 
   else

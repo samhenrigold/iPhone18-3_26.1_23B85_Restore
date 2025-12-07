@@ -1,1119 +1,3 @@
-BOOL CMMsl::WorkoutRecorderAccel::operator==(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 8);
-  v3 = *(a2 + 8);
-  result = v3 == 0;
-  if (v2)
-  {
-    return v3 && CMMsl::Accel::operator==(v2, v3);
-  }
-
-  return result;
-}
-
-BOOL CMMsl::WorkoutRecorderBodyMetrics::operator==(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 8);
-  v3 = *(a2 + 8);
-  result = v3 == 0;
-  if (v2)
-  {
-    return v3 && CMMsl::BodyMetrics::operator==(v2, v3);
-  }
-
-  return result;
-}
-
-BOOL CMMsl::WorkoutRecorderElevation::operator==(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 8);
-  v3 = *(a2 + 8);
-  result = v3 == 0;
-  if (v2)
-  {
-    return v3 && CMMsl::ElevationChange::operator==(v2, v3);
-  }
-
-  return result;
-}
-
-BOOL CMMsl::WorkoutRecorderHeartRate::operator==(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 8);
-  v3 = *(a2 + 8);
-  result = v3 == 0;
-  if (v2)
-  {
-    return v3 && CMMsl::OnsetHeartRateData::operator==(v2, v3);
-  }
-
-  return result;
-}
-
-BOOL CMMsl::WorkoutRecorderRotationRate::operator==(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 8);
-  v3 = *(a2 + 8);
-  result = v3 == 0;
-  if (v2)
-  {
-    return v3 && CMMsl::RotationRate::operator==(v2, v3);
-  }
-
-  return result;
-}
-
-BOOL CMMsl::WorkoutRecorderOdometer::operator==(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 8);
-  v3 = *(a2 + 8);
-  result = v3 == 0;
-  if (v2)
-  {
-    return v3 && CMMsl::OdometerWithAltitude::operator==(v2, v3);
-  }
-
-  return result;
-}
-
-BOOL CMMsl::WorkoutRecorderWorkoutEvent::operator==(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 8);
-  v3 = *(a2 + 8);
-  result = v3 == 0;
-  if (v2)
-  {
-    return v3 && CMMsl::WorkoutEvent::operator==(v2, v3);
-  }
-
-  return result;
-}
-
-BOOL CMMsl::VO2MaxInput::operator==(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 88);
-  v3 = *(a2 + 88);
-  if ((v2 & 0x80) != 0)
-  {
-    if ((v3 & 0x80) == 0 || *(a1 + 64) != *(a2 + 64))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x80) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x20) != 0)
-  {
-    if ((v3 & 0x20) == 0 || *(a1 + 48) != *(a2 + 48))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x20) != 0)
-  {
-    return 0;
-  }
-
-  if ((*(a1 + 88) & 0x200) != 0)
-  {
-    if ((*(a2 + 88) & 0x200) == 0 || *(a1 + 76) != *(a2 + 76))
-    {
-      return 0;
-    }
-  }
-
-  else if ((*(a2 + 88) & 0x200) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 4) != 0)
-  {
-    if ((v3 & 4) == 0 || *(a1 + 24) != *(a2 + 24))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 4) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 8) != 0)
-  {
-    if ((v3 & 8) == 0 || *(a1 + 32) != *(a2 + 32))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 8) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 2) != 0)
-  {
-    if ((v3 & 2) == 0 || *(a1 + 16) != *(a2 + 16))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 2) != 0)
-  {
-    return 0;
-  }
-
-  if ((*(a1 + 88) & 0x100) != 0)
-  {
-    if ((*(a2 + 88) & 0x100) == 0 || *(a1 + 72) != *(a2 + 72))
-    {
-      return 0;
-    }
-  }
-
-  else if ((*(a2 + 88) & 0x100) != 0)
-  {
-    return 0;
-  }
-
-  if (v2)
-  {
-    if ((v3 & 1) == 0 || *(a1 + 8) != *(a2 + 8))
-    {
-      return 0;
-    }
-  }
-
-  else if (v3)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x40) != 0)
-  {
-    if ((v3 & 0x40) == 0 || *(a1 + 56) != *(a2 + 56))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x40) != 0)
-  {
-    return 0;
-  }
-
-  if ((*(a1 + 88) & 0x800) != 0)
-  {
-    if ((*(a2 + 88) & 0x800) == 0 || *(a1 + 84) != *(a2 + 84))
-    {
-      return 0;
-    }
-  }
-
-  else if ((*(a2 + 88) & 0x800) != 0)
-  {
-    return 0;
-  }
-
-  if ((*(a1 + 88) & 0x1000) != 0)
-  {
-    if ((*(a2 + 88) & 0x1000) == 0 || *(a1 + 85) != *(a2 + 85))
-    {
-      return 0;
-    }
-  }
-
-  else if ((*(a2 + 88) & 0x1000) != 0)
-  {
-    return 0;
-  }
-
-  if ((*(a1 + 88) & 0x400) != 0)
-  {
-    if ((*(a2 + 88) & 0x400) == 0 || *(a1 + 80) != *(a2 + 80))
-    {
-      return 0;
-    }
-  }
-
-  else if ((*(a2 + 88) & 0x400) != 0)
-  {
-    return 0;
-  }
-
-  if ((*(a1 + 88) & 0x2000) != 0)
-  {
-    if ((*(a2 + 88) & 0x2000) == 0 || *(a1 + 86) != *(a2 + 86))
-    {
-      return 0;
-    }
-  }
-
-  else if ((*(a2 + 88) & 0x2000) != 0)
-  {
-    return 0;
-  }
-
-  v4 = (v3 & 0x10) == 0;
-  if ((v2 & 0x10) != 0)
-  {
-    return (v3 & 0x10) != 0 && *(a1 + 40) == *(a2 + 40);
-  }
-
-  return v4;
-}
-
-BOOL CMMsl::WorkoutRecorderHealthKitInfo::operator==(uint64_t a1, uint64_t a2)
-{
-  if ((*(a1 + 28) & 4) != 0)
-  {
-    if ((*(a2 + 28) & 4) == 0 || *(a1 + 24) != *(a2 + 24))
-    {
-      return 0;
-    }
-  }
-
-  else if ((*(a2 + 28) & 4) != 0)
-  {
-    return 0;
-  }
-
-  if (*(a1 + 28))
-  {
-    if ((*(a2 + 28) & 1) == 0 || *(a1 + 8) != *(a2 + 8))
-    {
-      return 0;
-    }
-  }
-
-  else if (*(a2 + 28))
-  {
-    return 0;
-  }
-
-  v2 = (*(a2 + 28) & 2) == 0;
-  if ((*(a1 + 28) & 2) != 0)
-  {
-    return (*(a2 + 28) & 2) != 0 && *(a1 + 16) == *(a2 + 16);
-  }
-
-  return v2;
-}
-
-BOOL CMMsl::PearlAttitude::operator==(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 124);
-  v3 = *(a2 + 124);
-  if (v2)
-  {
-    if ((v3 & 1) == 0 || *(a1 + 80) != *(a2 + 80))
-    {
-      return 0;
-    }
-  }
-
-  else if (v3)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x40) != 0)
-  {
-    if ((v3 & 0x40) == 0 || *(a1 + 108) != *(a2 + 108))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x40) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x20) != 0)
-  {
-    if ((v3 & 0x20) == 0 || *(a1 + 104) != *(a2 + 104))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x20) != 0)
-  {
-    return 0;
-  }
-
-  if ((*(a1 + 124) & 0x200) != 0)
-  {
-    if ((*(a2 + 124) & 0x200) == 0 || *(a1 + 120) != *(a2 + 120))
-    {
-      return 0;
-    }
-  }
-
-  else if ((*(a2 + 124) & 0x200) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 2) != 0)
-  {
-    if ((v3 & 2) == 0 || *(a1 + 88) != *(a2 + 88))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 2) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x80) != 0)
-  {
-    if ((v3 & 0x80) == 0 || *(a1 + 112) != *(a2 + 112))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x80) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x10) != 0)
-  {
-    if ((v3 & 0x10) == 0 || *(a1 + 100) != *(a2 + 100))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x10) != 0)
-  {
-    return 0;
-  }
-
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
-  v6 = *(a2 + 8);
-  if (v4 - v5 != *(a2 + 16) - v6)
-  {
-    return 0;
-  }
-
-  while (v5 != v4)
-  {
-    if (*v5 != *v6)
-    {
-      return 0;
-    }
-
-    ++v5;
-    ++v6;
-  }
-
-  if ((v2 & 8) != 0)
-  {
-    if ((v3 & 8) == 0 || *(a1 + 96) != *(a2 + 96))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 8) != 0)
-  {
-    return 0;
-  }
-
-  if ((*(a1 + 124) & 0x100) != 0)
-  {
-    if ((*(a2 + 124) & 0x100) == 0 || *(a1 + 116) != *(a2 + 116))
-    {
-      return 0;
-    }
-  }
-
-  else if ((*(a2 + 124) & 0x100) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 4) != 0)
-  {
-    if ((v3 & 4) == 0 || *(a1 + 92) != *(a2 + 92))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 4) != 0)
-  {
-    return 0;
-  }
-
-  v8 = *(a1 + 32);
-  v7 = *(a1 + 40);
-  v9 = *(a2 + 32);
-  if (v7 - v8 != *(a2 + 40) - v9)
-  {
-    return 0;
-  }
-
-  while (v8 != v7)
-  {
-    if (*v8 != *v9)
-    {
-      return 0;
-    }
-
-    ++v8;
-    ++v9;
-  }
-
-  v11 = *(a1 + 56);
-  v10 = *(a1 + 64);
-  v12 = *(a2 + 56);
-  if (v10 - v11 != *(a2 + 64) - v12)
-  {
-    return 0;
-  }
-
-  if (v11 == v10)
-  {
-    return 1;
-  }
-
-  v13 = v11 + 4;
-  do
-  {
-    v14 = *v12++;
-    result = *(v13 - 4) == v14;
-    v16 = *(v13 - 4) != v14 || v13 == v10;
-    v13 += 4;
-  }
-
-  while (!v16);
-  return result;
-}
-
-BOOL CMMsl::RotationRate::operator==(uint64_t a1, uint64_t a2)
-{
-  if (*(a1 + 28))
-  {
-    if ((*(a2 + 28) & 1) == 0 || *(a1 + 8) != *(a2 + 8))
-    {
-      return 0;
-    }
-  }
-
-  else if (*(a2 + 28))
-  {
-    return 0;
-  }
-
-  if ((*(a1 + 28) & 2) != 0)
-  {
-    if ((*(a2 + 28) & 2) == 0 || *(a1 + 16) != *(a2 + 16))
-    {
-      return 0;
-    }
-  }
-
-  else if ((*(a2 + 28) & 2) != 0)
-  {
-    return 0;
-  }
-
-  if ((*(a1 + 28) & 4) != 0)
-  {
-    if ((*(a2 + 28) & 4) == 0 || *(a1 + 20) != *(a2 + 20))
-    {
-      return 0;
-    }
-  }
-
-  else if ((*(a2 + 28) & 4) != 0)
-  {
-    return 0;
-  }
-
-  v2 = (*(a2 + 28) & 8) == 0;
-  if ((*(a1 + 28) & 8) != 0)
-  {
-    return (*(a2 + 28) & 8) != 0 && *(a1 + 24) == *(a2 + 24);
-  }
-
-  return v2;
-}
-
-BOOL CMMsl::WorkoutRecorderWatchOrientationSettings::operator==(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 8);
-  v3 = *(a2 + 8);
-  result = v3 == 0;
-  if (v2)
-  {
-    return v3 && CMMsl::WatchOrientationSettings::operator==(v2, v3);
-  }
-
-  return result;
-}
-
-BOOL CMMsl::WifiScanResults::operator==(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 8);
-  v3 = *(a1 + 16);
-  v4 = *(a2 + 8);
-  if (v3 - v2 != *(a2 + 16) - v4)
-  {
-    return 0;
-  }
-
-  if (v2 == v3)
-  {
-    return 1;
-  }
-
-  v5 = v2 + 8;
-  do
-  {
-    v6 = *v4++;
-    result = CMMsl::WifiScanEntry::operator==(*(v5 - 8), v6);
-    v8 = !result || v5 == v3;
-    v5 += 8;
-  }
-
-  while (!v8);
-  return result;
-}
-
-BOOL CMMsl::WorkoutRecorderWifiScanResults::operator==(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 8);
-  v3 = *(a2 + 8);
-  result = (v2 | v3) == 0;
-  if (v2)
-  {
-    v5 = v3 == 0;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  if (!v5)
-  {
-    v6 = *(v2 + 8);
-    v7 = *(v2 + 16);
-    v8 = *(v3 + 8);
-    if (v7 - v6 == *(v3 + 16) - v8)
-    {
-      if (v6 == v7)
-      {
-        return 1;
-      }
-
-      else
-      {
-        v9 = v6 + 8;
-        do
-        {
-          v10 = *v8++;
-          result = CMMsl::WifiScanEntry::operator==(*(v9 - 8), v10);
-          v11 = !result || v9 == v7;
-          v9 += 8;
-        }
-
-        while (!v11);
-      }
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-BOOL CMMsl::WorkoutRecorderPressure::operator==(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 8);
-  v3 = *(a2 + 8);
-  result = v3 == 0;
-  if (v2)
-  {
-    return v3 && CMMsl::Pressure::operator==(v2, v3);
-  }
-
-  return result;
-}
-
-BOOL CMMsl::VisionCompassBias::operator==(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 76);
-  v3 = *(a2 + 76);
-  if (v2)
-  {
-    if ((v3 & 1) == 0 || *(a1 + 32) != *(a2 + 32))
-    {
-      return 0;
-    }
-  }
-
-  else if (v3)
-  {
-    return 0;
-  }
-
-  if ((v2 & 2) != 0)
-  {
-    if ((v3 & 2) == 0 || *(a1 + 40) != *(a2 + 40))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 2) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 4) != 0)
-  {
-    if ((v3 & 4) == 0 || *(a1 + 48) != *(a2 + 48))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 4) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x10) != 0)
-  {
-    if ((v3 & 0x10) == 0 || *(a1 + 56) != *(a2 + 56))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x10) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 8) != 0)
-  {
-    if ((v3 & 8) == 0 || *(a1 + 52) != *(a2 + 52))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 8) != 0)
-  {
-    return 0;
-  }
-
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
-  v6 = *(a2 + 8);
-  if (v4 - v5 != *(a2 + 16) - v6)
-  {
-    return 0;
-  }
-
-  while (v5 != v4)
-  {
-    if (*v5 != *v6)
-    {
-      return 0;
-    }
-
-    ++v5;
-    ++v6;
-  }
-
-  if ((v2 & 0x40) != 0)
-  {
-    if ((v3 & 0x40) == 0 || *(a1 + 64) != *(a2 + 64))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x40) != 0)
-  {
-    return 0;
-  }
-
-  if ((v2 & 0x80) != 0)
-  {
-    if ((v3 & 0x80) == 0 || *(a1 + 68) != *(a2 + 68))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v3 & 0x80) != 0)
-  {
-    return 0;
-  }
-
-  if ((*(a1 + 76) & 0x100) != 0)
-  {
-    if ((*(a2 + 76) & 0x100) == 0 || *(a1 + 72) != *(a2 + 72))
-    {
-      return 0;
-    }
-  }
-
-  else if ((*(a2 + 76) & 0x100) != 0)
-  {
-    return 0;
-  }
-
-  v7 = (v3 & 0x20) == 0;
-  if ((v2 & 0x20) != 0)
-  {
-    return (v3 & 0x20) != 0 && *(a1 + 60) == *(a2 + 60);
-  }
-
-  return v7;
-}
-
-BOOL CMMsl::VIOEstimation::operator==(uint64_t a1, uint64_t a2)
-{
-  if ((*(a1 + 340) & 0x40) != 0)
-  {
-    if ((*(a2 + 340) & 0x40) == 0 || *(a1 + 336) != *(a2 + 336))
-    {
-      return 0;
-    }
-  }
-
-  else if ((*(a2 + 340) & 0x40) != 0)
-  {
-    return 0;
-  }
-
-  if ((*(a1 + 340) & 4) != 0)
-  {
-    if ((*(a2 + 340) & 4) == 0 || *(a1 + 312) != *(a2 + 312))
-    {
-      return 0;
-    }
-  }
-
-  else if ((*(a2 + 340) & 4) != 0)
-  {
-    return 0;
-  }
-
-  if (*(a1 + 340))
-  {
-    if ((*(a2 + 340) & 1) == 0 || *(a1 + 296) != *(a2 + 296))
-    {
-      return 0;
-    }
-  }
-
-  else if (*(a2 + 340))
-  {
-    return 0;
-  }
-
-  if ((*(a1 + 340) & 8) != 0)
-  {
-    if ((*(a2 + 340) & 8) == 0 || *(a1 + 320) != *(a2 + 320))
-    {
-      return 0;
-    }
-  }
-
-  else if ((*(a2 + 340) & 8) != 0)
-  {
-    return 0;
-  }
-
-  if ((*(a1 + 340) & 2) != 0)
-  {
-    if ((*(a2 + 340) & 2) == 0 || *(a1 + 304) != *(a2 + 304))
-    {
-      return 0;
-    }
-  }
-
-  else if ((*(a2 + 340) & 2) != 0)
-  {
-    return 0;
-  }
-
-  v3 = *(a1 + 176);
-  v2 = *(a1 + 184);
-  v4 = *(a2 + 176);
-  if (v2 - v3 != *(a2 + 184) - v4)
-  {
-    return 0;
-  }
-
-  while (v3 != v2)
-  {
-    if (*v3 != *v4)
-    {
-      return 0;
-    }
-
-    ++v3;
-    ++v4;
-  }
-
-  v6 = *(a1 + 104);
-  v5 = *(a1 + 112);
-  v7 = *(a2 + 104);
-  if (v5 - v6 != *(a2 + 112) - v7)
-  {
-    return 0;
-  }
-
-  while (v6 != v5)
-  {
-    if (*v6 != *v7)
-    {
-      return 0;
-    }
-
-    ++v6;
-    ++v7;
-  }
-
-  v9 = *(a1 + 272);
-  v8 = *(a1 + 280);
-  v10 = *(a2 + 272);
-  if (v8 - v9 != *(a2 + 280) - v10)
-  {
-    return 0;
-  }
-
-  while (v9 != v8)
-  {
-    if (*v9 != *v10)
-    {
-      return 0;
-    }
-
-    ++v9;
-    ++v10;
-  }
-
-  v12 = *(a1 + 8);
-  v11 = *(a1 + 16);
-  v13 = *(a2 + 8);
-  if (v11 - v12 != *(a2 + 16) - v13)
-  {
-    return 0;
-  }
-
-  while (v12 != v11)
-  {
-    if (*v12 != *v13)
-    {
-      return 0;
-    }
-
-    ++v12;
-    ++v13;
-  }
-
-  v15 = *(a1 + 224);
-  v14 = *(a1 + 232);
-  v16 = *(a2 + 224);
-  if (v14 - v15 != *(a2 + 232) - v16)
-  {
-    return 0;
-  }
-
-  while (v15 != v14)
-  {
-    if (*v15 != *v16)
-    {
-      return 0;
-    }
-
-    ++v15;
-    ++v16;
-  }
-
-  v18 = *(a1 + 152);
-  v17 = *(a1 + 160);
-  v19 = *(a2 + 152);
-  if (v17 - v18 != *(a2 + 160) - v19)
-  {
-    return 0;
-  }
-
-  while (v18 != v17)
-  {
-    if (*v18 != *v19)
-    {
-      return 0;
-    }
-
-    ++v18;
-    ++v19;
-  }
-
-  v21 = *(a1 + 128);
-  v20 = *(a1 + 136);
-  v22 = *(a2 + 128);
-  if (v20 - v21 != *(a2 + 136) - v22)
-  {
-    return 0;
-  }
-
-  while (v21 != v20)
-  {
-    if (*v21 != *v22)
-    {
-      return 0;
-    }
-
-    ++v21;
-    ++v22;
-  }
-
-  v24 = *(a1 + 248);
-  v23 = *(a1 + 256);
-  v25 = *(a2 + 248);
-  if (v23 - v24 != *(a2 + 256) - v25)
-  {
-    return 0;
-  }
-
-  while (v24 != v23)
-  {
-    if (*v24 != *v25)
-    {
-      return 0;
-    }
-
-    ++v24;
-    ++v25;
-  }
-
-  v27 = *(a1 + 32);
-  v26 = *(a1 + 40);
-  v28 = *(a2 + 32);
-  if (v26 - v27 != *(a2 + 40) - v28)
-  {
-    return 0;
-  }
-
-  while (v27 != v26)
-  {
-    if (*v27 != *v28)
-    {
-      return 0;
-    }
-
-    ++v27;
-    ++v28;
-  }
-
-  v30 = *(a1 + 200);
-  v29 = *(a1 + 208);
-  v31 = *(a2 + 200);
-  if (v29 - v30 != *(a2 + 208) - v31)
-  {
-    return 0;
-  }
-
-  while (v30 != v29)
-  {
-    if (*v30 != *v31)
-    {
-      return 0;
-    }
-
-    ++v30;
-    ++v31;
-  }
-
-  v33 = *(a1 + 80);
-  v32 = *(a1 + 88);
-  v34 = *(a2 + 80);
-  if (v32 - v33 != *(a2 + 88) - v34)
-  {
-    return 0;
-  }
-
-  while (v33 != v32)
-  {
-    if (*v33 != *v34)
-    {
-      return 0;
-    }
-
-    ++v33;
-    ++v34;
-  }
-
-  v36 = *(a1 + 56);
-  v35 = *(a1 + 64);
-  v37 = *(a2 + 56);
-  if (v35 - v36 != *(a2 + 64) - v37)
-  {
-    return 0;
-  }
-
-  while (v36 != v35)
-  {
-    if (*v36 != *v37)
-    {
-      return 0;
-    }
-
-    ++v36;
-    ++v37;
-  }
-
-  if ((*(a1 + 340) & 0x20) != 0)
-  {
-    if ((*(a2 + 340) & 0x20) == 0 || *(a1 + 332) != *(a2 + 332))
-    {
-      return 0;
-    }
-  }
-
-  else if ((*(a2 + 340) & 0x20) != 0)
-  {
-    return 0;
-  }
-
-  v38 = (*(a2 + 340) & 0x10) == 0;
-  if ((*(a1 + 340) & 0x10) != 0)
-  {
-    return (*(a2 + 340) & 0x10) != 0 && *(a1 + 328) == *(a2 + 328);
-  }
-
-  return v38;
-}
-
 BOOL CMMsl::LSLHeadingEstimation::operator==(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 192);
@@ -1512,7 +396,7 @@ BOOL CMMsl::StepCountEntry::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v12 = *(a1 + 152);
+  v11 = *(a1 + 152);
   if (v2)
   {
     if ((v3 & 1) == 0 || *(a1 + 16) != *(a2 + 16))
@@ -1526,7 +410,7 @@ BOOL CMMsl::StepCountEntry::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  if ((v12 & 0x80000) != 0)
+  if ((v11 & 0x80000) != 0)
   {
     if ((v3 & 0x80000) == 0 || *(a1 + 140) != *(a2 + 140))
     {
@@ -1554,7 +438,7 @@ BOOL CMMsl::StepCountEntry::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  if ((v12 & 0x200000) != 0)
+  if ((v11 & 0x200000) != 0)
   {
     if ((v3 & 0x200000) == 0 || *(a1 + 148) != *(a2 + 148))
     {
@@ -1567,7 +451,7 @@ BOOL CMMsl::StepCountEntry::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  if ((v12 & 0x400000) != 0)
+  if ((v11 & 0x400000) != 0)
   {
     if ((v3 & 0x400000) == 0 || *(a1 + 149) != *(a2 + 149))
     {
@@ -1595,7 +479,7 @@ BOOL CMMsl::StepCountEntry::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  if ((v12 & 0x40000) != 0)
+  if ((v11 & 0x40000) != 0)
   {
     if ((v3 & 0x40000) == 0 || *(a1 + 136) != *(a2 + 136))
     {
@@ -1608,7 +492,7 @@ BOOL CMMsl::StepCountEntry::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  if ((v12 & 0x100000) != 0)
+  if ((v11 & 0x100000) != 0)
   {
     if ((v3 & 0x100000) == 0 || *(a1 + 144) != *(a2 + 144))
     {
@@ -1621,7 +505,7 @@ BOOL CMMsl::StepCountEntry::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  if ((v12 & 0x20000) != 0)
+  if ((v11 & 0x20000) != 0)
   {
     if ((v3 & 0x20000) == 0 || *(a1 + 132) != *(a2 + 132))
     {
@@ -1634,7 +518,7 @@ BOOL CMMsl::StepCountEntry::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  if ((v12 & 0x400) != 0)
+  if ((v11 & 0x400) != 0)
   {
     if ((v3 & 0x400) == 0 || *(a1 + 104) != *(a2 + 104))
     {
@@ -1647,7 +531,7 @@ BOOL CMMsl::StepCountEntry::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  if ((v12 & 0x800) != 0)
+  if ((v11 & 0x800) != 0)
   {
     if ((v3 & 0x800) == 0 || *(a1 + 108) != *(a2 + 108))
     {
@@ -1660,7 +544,7 @@ BOOL CMMsl::StepCountEntry::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  if ((v12 & 0x2000) != 0)
+  if ((v11 & 0x2000) != 0)
   {
     if ((v3 & 0x2000) == 0 || *(a1 + 116) != *(a2 + 116))
     {
@@ -1673,7 +557,7 @@ BOOL CMMsl::StepCountEntry::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  if ((v12 & 0x200) != 0)
+  if ((v11 & 0x200) != 0)
   {
     if ((v3 & 0x200) == 0 || *(a1 + 100) != *(a2 + 100))
     {
@@ -1686,7 +570,7 @@ BOOL CMMsl::StepCountEntry::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  if ((v12 & 0x1000) != 0)
+  if ((v11 & 0x1000) != 0)
   {
     if ((v3 & 0x1000) == 0 || *(a1 + 112) != *(a2 + 112))
     {
@@ -1708,7 +592,6 @@ BOOL CMMsl::StepCountEntry::operator==(uint64_t a1, uint64_t a2)
       return 0;
     }
 
-    v10 = *(v9 + 12);
     if (*(v8 + 12))
     {
       if ((*(v9 + 12) & 1) == 0 || *(v8 + 8) != *(v9 + 8))
@@ -1729,7 +612,7 @@ BOOL CMMsl::StepCountEntry::operator==(uint64_t a1, uint64_t a2)
   }
 
   result = (v3 & 0x10000) == 0;
-  if ((v12 & 0x10000) == 0)
+  if ((v11 & 0x10000) == 0)
   {
     return result;
   }
@@ -2485,7 +1368,6 @@ BOOL CMMsl::SignalEnvironment::operator==(uint64_t a1, uint64_t a2)
 
 BOOL CMMsl::VIOReplayPose::operator==(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a2 + 64);
   if (*(a1 + 64))
   {
     if ((*(a2 + 64) & 1) == 0 || *(a1 + 56) != *(a2 + 56))
@@ -2499,48 +1381,48 @@ BOOL CMMsl::VIOReplayPose::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v4 = *(a1 + 8);
-  v3 = *(a1 + 16);
-  v5 = *(a2 + 8);
-  if (v3 - v4 != *(a2 + 16) - v5)
+  v3 = *(a1 + 8);
+  v2 = *(a1 + 16);
+  v4 = *(a2 + 8);
+  if (v2 - v3 != *(a2 + 16) - v4)
   {
     return 0;
   }
 
-  while (v4 != v3)
+  while (v3 != v2)
   {
-    if (*v4 != *v5)
+    if (*v3 != *v4)
     {
       return 0;
     }
 
+    ++v3;
     ++v4;
-    ++v5;
   }
 
-  v7 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v8 = *(a2 + 32);
-  if (v6 - v7 != *(a2 + 40) - v8)
+  v6 = *(a1 + 32);
+  v5 = *(a1 + 40);
+  v7 = *(a2 + 32);
+  if (v5 - v6 != *(a2 + 40) - v7)
   {
     return 0;
   }
 
-  if (v7 == v6)
+  if (v6 == v5)
   {
     return 1;
   }
 
-  v9 = v7 + 8;
+  v8 = v6 + 8;
   do
   {
-    v10 = *v8++;
-    result = *(v9 - 8) == v10;
-    v12 = *(v9 - 8) != v10 || v9 == v6;
-    v9 += 8;
+    v9 = *v7++;
+    result = *(v8 - 8) == v9;
+    v11 = *(v8 - 8) != v9 || v8 == v5;
+    v8 += 8;
   }
 
-  while (!v12);
+  while (!v11);
   return result;
 }
 
@@ -3247,7 +2129,6 @@ BOOL CMMsl::KappaRoads::operator==(uint64_t a1, uint64_t a2)
 
 BOOL CMMsl::UserStudyEvent::operator==(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a2 + 24);
   if (*(a1 + 24))
   {
     if ((*(a2 + 24) & 1) == 0 || *(a1 + 16) != *(a2 + 16))
@@ -3261,45 +2142,45 @@ BOOL CMMsl::UserStudyEvent::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v3 = *(a1 + 8);
-  v4 = *(a2 + 8);
-  result = v4 == 0;
-  if (!v3)
+  v2 = *(a1 + 8);
+  v3 = *(a2 + 8);
+  result = v3 == 0;
+  if (!v2)
   {
     return result;
   }
 
-  if (!v4)
+  if (!v3)
   {
     return 0;
   }
 
-  v6 = *(v3 + 23);
-  if (v6 >= 0)
+  v5 = *(v2 + 23);
+  if (v5 >= 0)
   {
-    v7 = *(v3 + 23);
+    v6 = *(v2 + 23);
   }
 
   else
   {
+    v6 = *(v2 + 8);
+  }
+
+  v7 = *(v3 + 23);
+  v8 = v7;
+  if ((v7 & 0x80u) != 0)
+  {
     v7 = *(v3 + 8);
   }
 
-  v8 = *(v4 + 23);
-  v9 = v8;
-  if ((v8 & 0x80u) != 0)
-  {
-    v8 = *(v4 + 8);
-  }
-
-  if (v7 != v8)
+  if (v6 != v7)
   {
     return 0;
   }
 
-  v10 = v6 >= 0 ? v3 : *v3;
-  v11 = v9 >= 0 ? *(a2 + 8) : *v4;
-  return !memcmp(v10, v11, v7);
+  v9 = v5 >= 0 ? v2 : *v2;
+  v10 = v8 >= 0 ? *(a2 + 8) : *v3;
+  return !memcmp(v9, v10, v6);
 }
 
 BOOL CMMsl::TempestPoCAuxiliaryDeviceMotion::operator==(uint64_t a1, uint64_t a2)
@@ -3685,7 +2566,6 @@ BOOL CMMsl::WorkoutRecorderALSData::operator==(uint64_t a1, uint64_t a2)
   {
     if (v3)
     {
-      v5 = *(v3 + 12);
       if (*(v2 + 12))
       {
         if ((*(v3 + 12) & 1) == 0 || *(v2 + 8) != *(v3 + 8))
@@ -5705,7 +4585,6 @@ BOOL CMMsl::RawAudio::operator==(uint64_t a1, uint64_t a2)
 
 BOOL CMMsl::ODTPose::operator==(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a2 + 40);
   if (*(a1 + 40))
   {
     if ((*(a2 + 40) & 1) == 0 || *(a1 + 32) != *(a2 + 32))
@@ -5719,29 +4598,29 @@ BOOL CMMsl::ODTPose::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v4 = *(a1 + 8);
-  v3 = *(a1 + 16);
-  v5 = *(a2 + 8);
-  if (v3 - v4 != *(a2 + 16) - v5)
+  v3 = *(a1 + 8);
+  v2 = *(a1 + 16);
+  v4 = *(a2 + 8);
+  if (v2 - v3 != *(a2 + 16) - v4)
   {
     return 0;
   }
 
-  if (v4 == v3)
+  if (v3 == v2)
   {
     return 1;
   }
 
-  v6 = v4 + 8;
+  v5 = v3 + 8;
   do
   {
-    v7 = *v5++;
-    result = *(v6 - 8) == v7;
-    v9 = *(v6 - 8) != v7 || v6 == v3;
-    v6 += 8;
+    v6 = *v4++;
+    result = *(v5 - 8) == v6;
+    v8 = *(v5 - 8) != v6 || v5 == v2;
+    v5 += 8;
   }
 
-  while (!v9);
+  while (!v8);
   return result;
 }
 
@@ -9559,6 +8438,1182 @@ BOOL CMMsl::RunningPower::operator==(uint64_t a1, uint64_t a2)
   if ((v2 & 0x4000) != 0)
   {
     return (v3 & 0x4000) != 0 && *(a1 + 112) == *(a2 + 112);
+  }
+
+  return v4;
+}
+
+BOOL CMMsl::MotionContextActivity::operator==(uint64_t a1, uint64_t a2)
+{
+  if ((*(a1 + 28) & 2) != 0)
+  {
+    if ((*(a2 + 28) & 2) == 0 || *(a1 + 24) != *(a2 + 24))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 28) & 2) != 0)
+  {
+    return 0;
+  }
+
+  if (*(a1 + 28))
+  {
+    if ((*(a2 + 28) & 1) == 0 || *(a1 + 16) != *(a2 + 16))
+    {
+      return 0;
+    }
+  }
+
+  else if (*(a2 + 28))
+  {
+    return 0;
+  }
+
+  v2 = *(a1 + 8);
+  v3 = *(a2 + 8);
+  result = v3 == 0;
+  if (v2)
+  {
+    return v3 && CMMsl::PDRImpulse::operator==(v2, v3);
+  }
+
+  return result;
+}
+
+BOOL CMMsl::PDRAlgType::operator==(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a1 + 12);
+  result = (*(a2 + 12) & 1) == 0;
+  if (v3)
+  {
+    return (*(a2 + 12) & 1) != 0 && *(a1 + 8) == *(a2 + 8);
+  }
+
+  return result;
+}
+
+BOOL CMMsl::PdrMLModelOutput::operator==(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 40))
+  {
+    if ((*(a2 + 40) & 1) == 0 || *(a1 + 32) != *(a2 + 32))
+    {
+      return 0;
+    }
+  }
+
+  else if (*(a2 + 40))
+  {
+    return 0;
+  }
+
+  v3 = *(a1 + 8);
+  v2 = *(a1 + 16);
+  v4 = *(a2 + 8);
+  if (v2 - v3 != *(a2 + 16) - v4)
+  {
+    return 0;
+  }
+
+  if (v3 == v2)
+  {
+    return 1;
+  }
+
+  v5 = v3 + 8;
+  do
+  {
+    v6 = *v4++;
+    result = *(v5 - 8) == v6;
+    v8 = *(v5 - 8) != v6 || v5 == v2;
+    v5 += 8;
+  }
+
+  while (!v8);
+  return result;
+}
+
+BOOL CMMsl::WorkoutRecorderAveragedALSData::operator==(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  v3 = *(a2 + 8);
+  result = v3 == 0;
+  if (v2)
+  {
+    return v3 && CMMsl::AveragedALSData::operator==(v2, v3);
+  }
+
+  return result;
+}
+
+BOOL CMMsl::StrideCalEntry::operator==(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 92);
+  v3 = *(a2 + 92);
+  if ((v2 & 0x100) != 0)
+  {
+    if ((*(a2 + 92) & 0x100) == 0 || *(a1 + 72) != *(a2 + 72))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 92) & 0x100) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 2) != 0)
+  {
+    if ((v3 & 2) == 0 || *(a1 + 16) != *(a2 + 16))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 2) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 8) != 0)
+  {
+    if ((v3 & 8) == 0 || *(a1 + 32) != *(a2 + 32))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 8) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x10) != 0)
+  {
+    if ((v3 & 0x10) == 0 || *(a1 + 40) != *(a2 + 40))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x10) != 0)
+  {
+    return 0;
+  }
+
+  if (v2)
+  {
+    if ((v3 & 1) == 0 || *(a1 + 8) != *(a2 + 8))
+    {
+      return 0;
+    }
+  }
+
+  else if (v3)
+  {
+    return 0;
+  }
+
+  if ((*(a1 + 92) & 0x800) != 0)
+  {
+    if ((*(a2 + 92) & 0x800) == 0 || *(a1 + 88) != *(a2 + 88))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 92) & 0x800) != 0)
+  {
+    return 0;
+  }
+
+  if ((*(a1 + 92) & 0x400) != 0)
+  {
+    if ((*(a2 + 92) & 0x400) == 0 || *(a1 + 84) != *(a2 + 84))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 92) & 0x400) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x80) != 0)
+  {
+    if ((v3 & 0x80) == 0 || *(a1 + 64) != *(a2 + 64))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x80) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x20) != 0)
+  {
+    if ((v3 & 0x20) == 0 || *(a1 + 48) != *(a2 + 48))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x20) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 4) != 0)
+  {
+    if ((v3 & 4) == 0 || *(a1 + 24) != *(a2 + 24))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 4) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x40) != 0)
+  {
+    if ((v3 & 0x40) == 0 || *(a1 + 56) != *(a2 + 56))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x40) != 0)
+  {
+    return 0;
+  }
+
+  v4 = (v3 & 0x200) == 0;
+  if ((*(a1 + 92) & 0x200) != 0)
+  {
+    return (*(a2 + 92) & 0x200) != 0 && *(a1 + 80) == *(a2 + 80);
+  }
+
+  return v4;
+}
+
+BOOL CMMsl::RunningSpeedKFResult::operator==(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 188);
+  v3 = *(a2 + 188);
+  if ((v2 & 0x80000) != 0)
+  {
+    if ((v3 & 0x80000) == 0 || *(a1 + 160) != *(a2 + 160))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x80000) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x80) != 0)
+  {
+    if ((v3 & 0x80) == 0 || *(a1 + 64) != *(a2 + 64))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x80) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x40000) != 0)
+  {
+    if ((v3 & 0x40000) == 0 || *(a1 + 152) != *(a2 + 152))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x40000) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x8000000) != 0)
+  {
+    if ((v3 & 0x8000000) == 0 || *(a1 + 184) != *(a2 + 184))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x8000000) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x20000) != 0)
+  {
+    if ((v3 & 0x20000) == 0 || *(a1 + 144) != *(a2 + 144))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x20000) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x10000) != 0)
+  {
+    if ((v3 & 0x10000) == 0 || *(a1 + 136) != *(a2 + 136))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x10000) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x2000000) != 0)
+  {
+    if ((v3 & 0x2000000) == 0 || *(a1 + 182) != *(a2 + 182))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x2000000) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x4000000) != 0)
+  {
+    if ((v3 & 0x4000000) == 0 || *(a1 + 183) != *(a2 + 183))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x4000000) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x40) != 0)
+  {
+    if ((v3 & 0x40) == 0 || *(a1 + 56) != *(a2 + 56))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x40) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 8) != 0)
+  {
+    if ((v3 & 8) == 0 || *(a1 + 32) != *(a2 + 32))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 8) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x20) != 0)
+  {
+    if ((v3 & 0x20) == 0 || *(a1 + 48) != *(a2 + 48))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x20) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x10) != 0)
+  {
+    if ((v3 & 0x10) == 0 || *(a1 + 40) != *(a2 + 40))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x10) != 0)
+  {
+    return 0;
+  }
+
+  if (v2)
+  {
+    if ((v3 & 1) == 0 || *(a1 + 8) != *(a2 + 8))
+    {
+      return 0;
+    }
+  }
+
+  else if (v3)
+  {
+    return 0;
+  }
+
+  if ((v2 & 2) != 0)
+  {
+    if ((v3 & 2) == 0 || *(a1 + 16) != *(a2 + 16))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 2) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x8000) != 0)
+  {
+    if ((v3 & 0x8000) == 0 || *(a1 + 128) != *(a2 + 128))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x8000) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x4000) != 0)
+  {
+    if ((v3 & 0x4000) == 0 || *(a1 + 120) != *(a2 + 120))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x4000) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x100) != 0)
+  {
+    if ((v3 & 0x100) == 0 || *(a1 + 72) != *(a2 + 72))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x100) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x200) != 0)
+  {
+    if ((v3 & 0x200) == 0 || *(a1 + 80) != *(a2 + 80))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x200) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 4) != 0)
+  {
+    if ((v3 & 4) == 0 || *(a1 + 24) != *(a2 + 24))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 4) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x400000) != 0)
+  {
+    if ((v3 & 0x400000) == 0 || *(a1 + 176) != *(a2 + 176))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x400000) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x100000) != 0)
+  {
+    if ((v3 & 0x100000) == 0 || *(a1 + 168) != *(a2 + 168))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x100000) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x200000) != 0)
+  {
+    if ((v3 & 0x200000) == 0 || *(a1 + 172) != *(a2 + 172))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x200000) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x800000) != 0)
+  {
+    if ((v3 & 0x800000) == 0 || *(a1 + 180) != *(a2 + 180))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x800000) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x1000) != 0)
+  {
+    if ((v3 & 0x1000) == 0 || *(a1 + 104) != *(a2 + 104))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x1000) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x2000) != 0)
+  {
+    if ((v3 & 0x2000) == 0 || *(a1 + 112) != *(a2 + 112))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x2000) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x400) != 0)
+  {
+    if ((v3 & 0x400) == 0 || *(a1 + 88) != *(a2 + 88))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x400) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x800) != 0)
+  {
+    if ((v3 & 0x800) == 0 || *(a1 + 96) != *(a2 + 96))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x800) != 0)
+  {
+    return 0;
+  }
+
+  v4 = (v3 & 0x1000000) == 0;
+  if ((v2 & 0x1000000) != 0)
+  {
+    return (v3 & 0x1000000) != 0 && *(a1 + 181) == *(a2 + 181);
+  }
+
+  return v4;
+}
+
+BOOL CMMsl::ProxPDP::operator==(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 48);
+  v3 = *(a2 + 48);
+  if (v2)
+  {
+    if ((v3 & 1) == 0 || *(a1 + 8) != *(a2 + 8))
+    {
+      return 0;
+    }
+  }
+
+  else if (v3)
+  {
+    return 0;
+  }
+
+  if ((v2 & 8) != 0)
+  {
+    if ((v3 & 8) == 0 || *(a1 + 24) != *(a2 + 24))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 8) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x20) != 0)
+  {
+    if ((v3 & 0x20) == 0 || *(a1 + 32) != *(a2 + 32))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x20) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x10) != 0)
+  {
+    if ((v3 & 0x10) == 0 || *(a1 + 28) != *(a2 + 28))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x10) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 2) != 0)
+  {
+    if ((v3 & 2) == 0 || *(a1 + 16) != *(a2 + 16))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 2) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x40) != 0)
+  {
+    if ((v3 & 0x40) == 0 || *(a1 + 36) != *(a2 + 36))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x40) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 4) != 0)
+  {
+    if ((v3 & 4) == 0 || *(a1 + 20) != *(a2 + 20))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 4) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x80) != 0)
+  {
+    if ((v3 & 0x80) == 0 || *(a1 + 40) != *(a2 + 40))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x80) != 0)
+  {
+    return 0;
+  }
+
+  if ((*(a1 + 48) & 0x200) != 0)
+  {
+    if ((*(a2 + 48) & 0x200) == 0 || *(a1 + 45) != *(a2 + 45))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 48) & 0x200) != 0)
+  {
+    return 0;
+  }
+
+  v4 = (v3 & 0x100) == 0;
+  if ((*(a1 + 48) & 0x100) != 0)
+  {
+    return (*(a2 + 48) & 0x100) != 0 && *(a1 + 44) == *(a2 + 44);
+  }
+
+  return v4;
+}
+
+BOOL CMMsl::KeyboardMotionFeatures::operator==(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 28))
+  {
+    if ((*(a2 + 28) & 1) == 0 || *(a1 + 8) != *(a2 + 8))
+    {
+      return 0;
+    }
+  }
+
+  else if (*(a2 + 28))
+  {
+    return 0;
+  }
+
+  if ((*(a1 + 28) & 2) != 0)
+  {
+    if ((*(a2 + 28) & 2) == 0 || *(a1 + 16) != *(a2 + 16))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 28) & 2) != 0)
+  {
+    return 0;
+  }
+
+  if ((*(a1 + 28) & 4) != 0)
+  {
+    if ((*(a2 + 28) & 4) == 0 || *(a1 + 20) != *(a2 + 20))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 28) & 4) != 0)
+  {
+    return 0;
+  }
+
+  v2 = (*(a2 + 28) & 8) == 0;
+  if ((*(a1 + 28) & 8) != 0)
+  {
+    return (*(a2 + 28) & 8) != 0 && *(a1 + 24) == *(a2 + 24);
+  }
+
+  return v2;
+}
+
+BOOL CMMsl::KeyboardMotionState::operator==(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 20))
+  {
+    if ((*(a2 + 20) & 1) == 0 || *(a1 + 8) != *(a2 + 8))
+    {
+      return 0;
+    }
+  }
+
+  else if (*(a2 + 20))
+  {
+    return 0;
+  }
+
+  v2 = (*(a2 + 20) & 2) == 0;
+  if ((*(a1 + 20) & 2) != 0)
+  {
+    return (*(a2 + 20) & 2) != 0 && *(a1 + 16) == *(a2 + 16);
+  }
+
+  return v2;
+}
+
+BOOL CMMsl::KeyboardKeyPress::operator==(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 20))
+  {
+    if ((*(a2 + 20) & 1) == 0 || *(a1 + 8) != *(a2 + 8))
+    {
+      return 0;
+    }
+  }
+
+  else if (*(a2 + 20))
+  {
+    return 0;
+  }
+
+  v2 = (*(a2 + 20) & 2) == 0;
+  if ((*(a1 + 20) & 2) != 0)
+  {
+    return (*(a2 + 20) & 2) != 0 && *(a1 + 16) == *(a2 + 16);
+  }
+
+  return v2;
+}
+
+BOOL CMMsl::WakeGestureNotification::operator==(uint64_t a1, uint64_t a2)
+{
+  if ((*(a1 + 44) & 2) != 0)
+  {
+    if ((*(a2 + 44) & 2) == 0 || *(a1 + 16) != *(a2 + 16))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 44) & 2) != 0)
+  {
+    return 0;
+  }
+
+  if ((*(a1 + 44) & 4) != 0)
+  {
+    if ((*(a2 + 44) & 4) == 0 || *(a1 + 24) != *(a2 + 24))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 44) & 4) != 0)
+  {
+    return 0;
+  }
+
+  if ((*(a1 + 44) & 0x10) != 0)
+  {
+    if ((*(a2 + 44) & 0x10) == 0 || *(a1 + 36) != *(a2 + 36))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 44) & 0x10) != 0)
+  {
+    return 0;
+  }
+
+  if ((*(a1 + 44) & 8) != 0)
+  {
+    if ((*(a2 + 44) & 8) == 0 || *(a1 + 32) != *(a2 + 32))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 44) & 8) != 0)
+  {
+    return 0;
+  }
+
+  if ((*(a1 + 44) & 0x20) != 0)
+  {
+    if ((*(a2 + 44) & 0x20) == 0 || *(a1 + 40) != *(a2 + 40))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 44) & 0x20) != 0)
+  {
+    return 0;
+  }
+
+  v2 = (*(a2 + 44) & 1) == 0;
+  if (*(a1 + 44))
+  {
+    return (*(a2 + 44) & 1) != 0 && *(a1 + 8) == *(a2 + 8);
+  }
+
+  return v2;
+}
+
+BOOL CMMsl::ProxBaselineEstimatorState::operator==(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 88);
+  v3 = *(a2 + 88);
+  if (v2)
+  {
+    if ((v3 & 1) == 0 || *(a1 + 8) != *(a2 + 8))
+    {
+      return 0;
+    }
+  }
+
+  else if (v3)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x100) != 0)
+  {
+    if ((v3 & 0x100) == 0 || *(a1 + 44) != *(a2 + 44))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x100) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x400) != 0)
+  {
+    if ((v3 & 0x400) == 0 || *(a1 + 52) != *(a2 + 52))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x400) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x1000) != 0)
+  {
+    if ((v3 & 0x1000) == 0 || *(a1 + 60) != *(a2 + 60))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x1000) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x800) != 0)
+  {
+    if ((v3 & 0x800) == 0 || *(a1 + 56) != *(a2 + 56))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x800) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x10000) != 0)
+  {
+    if ((v3 & 0x10000) == 0 || *(a1 + 76) != *(a2 + 76))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x10000) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x20000) != 0)
+  {
+    if ((v3 & 0x20000) == 0 || *(a1 + 80) != *(a2 + 80))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x20000) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x40000) != 0)
+  {
+    if ((v3 & 0x40000) == 0 || *(a1 + 84) != *(a2 + 84))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x40000) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x4000) != 0)
+  {
+    if ((v3 & 0x4000) == 0 || *(a1 + 68) != *(a2 + 68))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x4000) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x2000) != 0)
+  {
+    if ((v3 & 0x2000) == 0 || *(a1 + 64) != *(a2 + 64))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x2000) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 2) != 0)
+  {
+    if ((v3 & 2) == 0 || *(a1 + 16) != *(a2 + 16))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 2) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x20) != 0)
+  {
+    if ((v3 & 0x20) == 0 || *(a1 + 32) != *(a2 + 32))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x20) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x40) != 0)
+  {
+    if ((v3 & 0x40) == 0 || *(a1 + 36) != *(a2 + 36))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x40) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x80) != 0)
+  {
+    if ((v3 & 0x80) == 0 || *(a1 + 40) != *(a2 + 40))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x80) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 4) != 0)
+  {
+    if ((v3 & 4) == 0 || *(a1 + 20) != *(a2 + 20))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 4) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 8) != 0)
+  {
+    if ((v3 & 8) == 0 || *(a1 + 24) != *(a2 + 24))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 8) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x10) != 0)
+  {
+    if ((v3 & 0x10) == 0 || *(a1 + 28) != *(a2 + 28))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x10) != 0)
+  {
+    return 0;
+  }
+
+  if ((v2 & 0x8000) != 0)
+  {
+    if ((v3 & 0x8000) == 0 || *(a1 + 72) != *(a2 + 72))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v3 & 0x8000) != 0)
+  {
+    return 0;
+  }
+
+  v4 = (*(a2 + 88) & 0x200) == 0;
+  if ((v2 & 0x200) != 0)
+  {
+    return (v3 & 0x200) != 0 && *(a1 + 48) == *(a2 + 48);
   }
 
   return v4;

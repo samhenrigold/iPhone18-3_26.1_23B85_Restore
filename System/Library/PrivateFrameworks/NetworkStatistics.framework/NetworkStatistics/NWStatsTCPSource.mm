@@ -1,6 +1,7 @@
 @interface NWStatsTCPSource
 - (BOOL)updateWithDetails:(nstat_msg_src_details_convenient *)details length:(int64_t)length monitor:(id)monitor;
 - (NWStatsTCPSource)initWithDetails:(nstat_msg_src_details_convenient *)details length:(int64_t)length monitor:(id)monitor;
+- (id)createSnapshot:(int)snapshot firstOccurrence:(BOOL)occurrence;
 - (id)description;
 - (void)deriveAttribution:(id)attribution;
 - (void)significantMetadataChange:(nstat_tcp_descriptor *)change monitor:(id)monitor;
@@ -228,6 +229,56 @@
   }
 
   return v16;
+}
+
+- (id)createSnapshot:(int)snapshot firstOccurrence:(BOOL)occurrence
+{
+  occurrenceCopy = occurrence;
+  v5 = *&snapshot;
+  v7 = [NWStatsTCPSnapshot alloc];
+  [(NWStatsSource *)self creationTimestamp];
+  v9 = [(NWStatsTCPSnapshot *)v7 initWithDetails:&self->_nstatTCPDetails startTime:[(NWStatsSource *)self flowFlags] flowFlags:[(NWStatsSource *)self prevItemsPtr] previously:0 peerEgressCellularCounts:v8];
+  [(NWStatsSource *)self setFlowFlags:[(NWStatsSource *)self flowFlags]& 0xFFC00FFFLL];
+  [(NWStatsSource *)self saveOldValues:&self->_nstatTCPDetails.detailed_counts];
+  [(NWStatsSnapshot *)v9 setSnapshotReason:v5];
+  [(NWStatsSnapshot *)v9 setFirstOccurrence:occurrenceCopy];
+  attributedEntity = [(NWStatsSource *)self attributedEntity];
+  attributionReason = [(NWStatsSource *)self attributionReason];
+  delegateName = [(NWStatsSource *)self delegateName];
+  delegateAttributionReason = [(NWStatsSource *)self delegateAttributionReason];
+  attributedExtension = [(NWStatsSource *)self attributedExtension];
+  [(NWStatsSnapshot *)v9 setAttribution:attributedEntity derivation:attributionReason delegateName:delegateName delegateDerivation:delegateAttributionReason extensionName:attributedExtension];
+
+  domainName = [(NWStatsSource *)self domainName];
+  domainOwner = [(NWStatsSource *)self domainOwner];
+  domainTrackerContext = [(NWStatsSource *)self domainTrackerContext];
+  domainAttributedBundleId = [(NWStatsSource *)self domainAttributedBundleId];
+  isTracker = [(NWStatsSource *)self isTracker];
+  attributedEntity2 = [(NWStatsSource *)self attributedEntity];
+  isNonAppInitiated = [(NWStatsSource *)self bundleNameImpliesNonAppInitiated:attributedEntity2]|| [(NWStatsSource *)self isNonAppInitiated];
+  LOBYTE(v28) = [(NWStatsSource *)self isSilent];
+  [(NWStatsProtocolSnapshot *)v9 setDomainName:domainName owner:domainOwner context:domainTrackerContext attributedBundleId:domainAttributedBundleId isTracker:isTracker isNonAppInitiated:isNonAppInitiated isSilent:v28];
+
+  [(NWStatsProtocolSnapshot *)v9 setAppStateIsForeground:[(NWStatsSource *)self updateAppStateIsForeground] screenStateOn:[(NWStatsSource *)self updateScreenStateOn] startAppStateIsForeground:[(NWStatsSource *)self startAppStateIsForeground] startScreenStateOn:[(NWStatsSource *)self startScreenStateOn]];
+  if (self->_lookupResults)
+  {
+    v22 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithDictionary:self->_lookupResults];
+    [(NWStatsSnapshot *)v9 setLookupResults:v22];
+  }
+
+  extensions = [(NWStatsSource *)self extensions];
+
+  if (extensions)
+  {
+    v24 = objc_alloc(MEMORY[0x277CBEAC0]);
+    extensions2 = [(NWStatsSource *)self extensions];
+    v26 = [v24 initWithDictionary:extensions2];
+    [(NWStatsSnapshot *)v9 setExtensions:v26];
+  }
+
+  [(NWStatsProtocolSnapshot *)v9 runConsistencyChecks];
+
+  return v9;
 }
 
 @end

@@ -41,17 +41,16 @@
 
 - (id)requestOperationClasses
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = objc_opt_class();
-  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v6, 1);
-  v4 = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = objc_opt_class();
+  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v5, 1);
 
   return v3;
 }
 
 - (id)generateRequestOperations
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC880] != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -66,13 +65,13 @@
     v15 = objc_msgSend_apsEnvironmentString(self, v13, v14);
     v18 = objc_msgSend_bundleID(self, v16, v17);
     *buf = 138544131;
-    v67 = v9;
-    v68 = 2113;
-    v69 = v12;
-    v70 = 2114;
-    v71 = v15;
-    v72 = 2114;
-    v73 = v18;
+    v66 = v9;
+    v67 = 2113;
+    v68 = v12;
+    v69 = 2114;
+    v70 = v15;
+    v71 = 2114;
+    v72 = v18;
     _os_log_impl(&dword_22506F000, v6, OS_LOG_TYPE_INFO, "req: %{public}@, Unregistering token %{private}@ in aps environment %{public}@ for bundleID %{public}@", buf, 0x2Au);
   }
 
@@ -101,10 +100,8 @@
   v59 = objc_msgSend_tokenRegistrationBody(v56, v57, v58);
   objc_msgSend_setBundleIdentifier_(v59, v60, v53);
 
-  v65 = v21;
-  v62 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v61, &v65, 1);
-
-  v63 = *MEMORY[0x277D85DE8];
+  v64 = v21;
+  v62 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v61, &v64, 1);
 
   return v62;
 }

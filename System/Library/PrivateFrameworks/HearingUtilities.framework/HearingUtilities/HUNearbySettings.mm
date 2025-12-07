@@ -552,7 +552,7 @@ LABEL_17:
 - (id)cleanUpExpiredFromSavedDomainData:(id)data isOutcoming:(BOOL)outcoming
 {
   outcomingCopy = outcoming;
-  v52 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v6 = [dataCopy objectForKey:kAXSTimeStampsKey];
   if ([v6 count])
@@ -570,99 +570,98 @@ LABEL_17:
       v10 = 100;
     }
 
-    v41 = v6;
-    v42 = dataCopy;
-    v40 = v7;
-    v39 = outcomingCopy;
+    v39 = v6;
+    v40 = dataCopy;
+    v38 = v7;
+    v37 = outcomingCopy;
     if (v10 >= [v8 count])
     {
-      v44 = 0;
+      v42 = 0;
     }
 
     else
     {
-      v44 = [v8 count] - v10;
+      v42 = [v8 count] - v10;
     }
 
-    v47 = 0u;
-    v48 = 0u;
     v45 = 0u;
     v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     v12 = v8;
-    v13 = [v12 countByEnumeratingWithState:&v45 objects:v51 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v43 objects:v49 count:16];
     if (v13)
     {
       v14 = v13;
-      v43 = 0;
-      v15 = *v46;
+      v41 = 0;
+      v15 = *v44;
       v16 = 0x1E695D000uLL;
       v17 = 0x1E85C9000uLL;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v46 != v15)
+          if (*v44 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v19 = *(*(&v45 + 1) + 8 * i);
-          v20 = *(v16 + 3784);
+          v19 = *(*(&v43 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) != 0 && [v19 count])
           {
-            v21 = [v19 objectAtIndexedSubscript:0];
-            if (([*(v17 + 2552) isTimeStampExpired:v21] & 1) != 0 || v44 >= 1)
+            v20 = [v19 objectAtIndexedSubscript:0];
+            if (([*(v17 + 2552) isTimeStampExpired:v20] & 1) != 0 || v42 >= 1)
             {
-              v22 = v9;
-              v23 = v16;
-              v24 = v12;
-              v25 = v17;
-              v26 = v22;
-              [v22 addObject:v19];
-              v27 = HCLogHearingNearbyIDS();
-              if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+              v21 = v9;
+              v22 = v16;
+              v23 = v12;
+              v24 = v17;
+              v25 = v21;
+              [v21 addObject:v19];
+              v26 = HCLogHearingNearbyIDS();
+              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v50 = v19;
-                _os_log_debug_impl(&dword_1DA5E2000, v27, OS_LOG_TYPE_DEBUG, "Will remove timeStamp: %@", buf, 0xCu);
+                v48 = v19;
+                _os_log_debug_impl(&dword_1DA5E2000, v26, OS_LOG_TYPE_DEBUG, "Will remove timeStamp: %@", buf, 0xCu);
               }
 
               if ([v19 count] < 2)
               {
-                v17 = v25;
-                v12 = v24;
+                v17 = v24;
+                v12 = v23;
               }
 
               else
               {
-                v28 = [v19 objectAtIndexedSubscript:1];
+                v27 = [v19 objectAtIndexedSubscript:1];
                 objc_opt_class();
-                v17 = v25;
+                v17 = v24;
                 if (objc_opt_isKindOfClass())
                 {
-                  unsignedIntegerValue = [v28 unsignedIntegerValue];
-                  v30 = v43;
+                  unsignedIntegerValue = [v27 unsignedIntegerValue];
+                  v29 = v41;
                   if (unsignedIntegerValue == 2)
                   {
-                    v30 = v43 + 1;
+                    v29 = v41 + 1;
                   }
 
-                  v43 = v30;
+                  v41 = v29;
                 }
 
-                v12 = v24;
+                v12 = v23;
               }
 
-              v16 = v23;
-              v31 = v44 - 1;
-              if (v44 <= 0)
+              v16 = v22;
+              v30 = v42 - 1;
+              if (v42 <= 0)
               {
-                v31 = 0;
+                v30 = 0;
               }
 
-              v44 = v31;
-              v9 = v26;
+              v42 = v30;
+              v9 = v25;
             }
           }
 
@@ -672,7 +671,7 @@ LABEL_17:
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v45 objects:v51 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v43 objects:v49 count:16];
       }
 
       while (v14);
@@ -680,35 +679,33 @@ LABEL_17:
 
     else
     {
-      v43 = 0;
+      v41 = 0;
     }
 
     [v12 removeObjectsInArray:v9];
-    v11 = v40;
-    [v40 setObject:v12 forKey:kAXSTimeStampsKey];
-    v32 = [v12 count];
-    v33 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v32];
-    [v40 setObject:v33 forKey:kAXSCountKey];
+    v11 = v38;
+    [v38 setObject:v12 forKey:kAXSTimeStampsKey];
+    v31 = [v12 count];
+    v32 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v31];
+    [v38 setObject:v32 forKey:kAXSCountKey];
 
-    if (v39)
+    if (v37)
     {
-      v34 = [v40 objectForKey:kAXSNoWakeCountKey];
-      unsignedIntegerValue2 = [v34 unsignedIntegerValue];
+      v33 = [v38 objectForKey:kAXSNoWakeCountKey];
+      unsignedIntegerValue2 = [v33 unsignedIntegerValue];
 
-      v36 = [MEMORY[0x1E696AD98] numberWithInteger:(unsignedIntegerValue2 - v43) & ~((unsignedIntegerValue2 - v43) >> 63)];
-      [v40 setObject:v36 forKey:kAXSNoWakeCountKey];
+      v35 = [MEMORY[0x1E696AD98] numberWithInteger:(unsignedIntegerValue2 - v41) & ~((unsignedIntegerValue2 - v41) >> 63)];
+      [v38 setObject:v35 forKey:kAXSNoWakeCountKey];
     }
 
-    v6 = v41;
-    dataCopy = v42;
+    v6 = v39;
+    dataCopy = v40;
   }
 
   else
   {
     v11 = dataCopy;
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -754,47 +751,23 @@ void __49__HUNearbySettings_extractMessageIDsFromMessage___block_invoke(uint64_t
 
 + (void)isTimeStampExpired:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_2(&dword_1DA5E2000, a2, a3, "timeStamp is nonvalid %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)addNewMessage:domain:numberData:stringData:toDictionary:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_2(&dword_1DA5E2000, v0, v1, "Collected IDS messages %@ statistics %@");
-  v2 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_2(&dword_1DA5E2000, a2, a3, "timeStamp is nonvalid %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __62__HUNearbySettings_processAndSaveCollectedDataWithCompletion___block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_2(&dword_1DA5E2000, a2, a3, "IDS statistics data: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_2(&dword_1DA5E2000, a2, a3, "IDS statistics data: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)savedData
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_2(&dword_1DA5E2000, a2, a3, "Saved IDS messages statistics %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)savedDataForKey:fromData:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_2(&dword_1DA5E2000, v0, v1, "Saved IDS messages statistics %@\n%@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)cleanUpExpired:andSaveToData:forKey:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_2(&dword_1DA5E2000, v0, v1, "IDS statistics %@ data: %@");
-  v2 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_2_2(&dword_1DA5E2000, a2, a3, "Saved IDS messages statistics %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

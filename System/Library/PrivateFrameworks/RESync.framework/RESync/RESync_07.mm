@@ -1,3 +1,1504 @@
+re *re::Transport::queuePacketForProtocol(uint64_t a1, re *a2, uint64_t a3, uint64_t a4)
+{
+  v4 = a4;
+  v8 = a4;
+  v47 = *MEMORY[0x277D85DE8];
+  v9 = re::DataArray<re::Connection>::handle(a1 + 120, a3);
+  v10 = *(a3 + 104) + 1;
+  *(a3 + 104) = v10;
+  v11 = *(a2 + 1) + 1;
+  *v43 = &unk_2873F59D0;
+  *&v43[8] = v11;
+  *&v43[16] = 4;
+  v44 = 0;
+  v45 = 0;
+  v46 = 0;
+  re::BitWriter::writeUInt32Bits(v43, v10, 0x10u);
+  result = *(a1 + 560);
+  if (result)
+  {
+    result = (*(*result + 48))(result, a1, v9, v8, *(a2 + 8), a2);
+    if (!result)
+    {
+      return result;
+    }
+
+    a2 = result;
+    v13 = 0;
+    v14 = 0;
+    v15 = (*(result + 1) + 1);
+    do
+    {
+      v16 = *v15++;
+      v14 |= v16 << v13;
+      v13 += 8;
+    }
+
+    while (v13 != 32);
+  }
+
+  v17 = *(a3 + 16);
+  if (v17)
+  {
+    v18 = v17 >> 1;
+  }
+
+  else
+  {
+    v18 = v17 >> 1;
+  }
+
+  if (v4 <= 9 && v18)
+  {
+    v19 = *(a1 + 576);
+    if (v19)
+    {
+      v20 = (*(*v19 + 32))(v19, a2);
+      if (v20)
+      {
+        if (v20 == 1)
+        {
+          v21 = *re::networkLogObjects(v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+          {
+            if (*(a3 + 16))
+            {
+              v22 = *(a3 + 24);
+            }
+
+            else
+            {
+              v22 = a3 + 17;
+            }
+
+            *v43 = 136315394;
+            *&v43[4] = v22;
+            *&v43[12] = 1024;
+            *&v43[14] = v8;
+            _os_log_impl(&dword_26168F000, v21, OS_LOG_TYPE_INFO, "Stats filter triggered event for {destination: %s, channel: %u}", v43, 0x12u);
+          }
+
+          goto LABEL_19;
+        }
+
+        v23 = *re::networkLogObjects(v20);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        {
+          if (*(a3 + 16))
+          {
+            v39 = *(a3 + 24);
+          }
+
+          else
+          {
+            v39 = a3 + 17;
+          }
+
+          *v43 = 136315394;
+          *&v43[4] = v39;
+          *&v43[12] = 1024;
+          *&v43[14] = v8;
+          v40 = "Stats filter returned error for {destination: %s, channel: %u}";
+LABEL_58:
+          _os_log_error_impl(&dword_26168F000, v23, OS_LOG_TYPE_ERROR, v40, v43, 0x12u);
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v23 = *re::networkLogObjects(result);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    {
+      if (*(a3 + 16))
+      {
+        v42 = *(a3 + 24);
+      }
+
+      else
+      {
+        v42 = a3 + 17;
+      }
+
+      *v43 = 136315394;
+      *&v43[4] = v42;
+      *&v43[12] = 1024;
+      *&v43[14] = v8;
+      v40 = "Cannot collect stats for invalid connection {address: %s, channel: %d}";
+      goto LABEL_58;
+    }
+  }
+
+LABEL_19:
+  if (*(a1 + 584) == 1)
+  {
+    v24 = *(a3 + 116);
+    v25 = v24 == 0;
+    v26 = (v24 >> 4) & 1;
+    if (v25)
+    {
+      v26 = 1;
+    }
+
+    if (v26)
+    {
+      LODWORD(v8) = 0;
+    }
+
+    else
+    {
+      LODWORD(v8) = v4;
+    }
+  }
+
+  v28 = *(a3 + 40);
+  v27 = a3 + 40;
+  v29 = v28 + 40 * v8;
+  atomic_fetch_add_explicit((v29 + 936), *(a2 + 6), memory_order_release);
+  atomic_fetch_add_explicit((v29 + 944), *(a2 + 7), memory_order_release);
+  atomic_fetch_add_explicit((v29 + 928), 1uLL, memory_order_release);
+  atomic_store(a2, *(v29 + 912));
+  *(v29 + 912) = a2;
+  ++*(*v27 + 1712);
+  if ((*(v27 + 80) & 1) == 0)
+  {
+    os_unfair_lock_lock((a1 + 184));
+    v30 = *(a1 + 208);
+    if (v30)
+    {
+      v31 = 8 * v30;
+      v32 = *(a1 + 224);
+      while (*v32 != *v27)
+      {
+        ++v32;
+        v31 -= 8;
+        if (!v31)
+        {
+          goto LABEL_34;
+        }
+      }
+    }
+
+    else
+    {
+      v32 = *(a1 + 224);
+    }
+
+    if (v32 == (*(a1 + 224) + 8 * v30))
+    {
+LABEL_34:
+      re::DynamicArray<re::SharedPtr<re::ProtocolHandle>>::add((a1 + 192), v27);
+    }
+
+    os_unfair_lock_unlock((a1 + 184));
+  }
+
+  result = re::internal::enableHighFrequencyNetworkTracing(0, 0);
+  if (result)
+  {
+    v33 = *(a1 + 600);
+    if (v33)
+    {
+      re::Session::peerID(v33);
+      v34 = *(a1 + 600);
+      v35 = *(v34 + 2296);
+      if (v35)
+      {
+        v36 = *(v34 + 2312);
+        v37 = 8 * v35;
+        while (1)
+        {
+          v38 = *v36;
+          if (*(*v36 + 32) == v9)
+          {
+            break;
+          }
+
+          ++v36;
+          v37 -= 8;
+          if (!v37)
+          {
+            goto LABEL_50;
+          }
+        }
+
+        v41 = (v38 + 8);
+      }
+    }
+
+LABEL_50:
+    result = re::internal::enableSignposts(0, 0);
+    if (result)
+    {
+      result = re::internal::enableHighFrequencyNetworkTracing(0, 0);
+      if (result)
+      {
+        return kdebug_trace();
+      }
+    }
+  }
+
+  return result;
+}
+
+void re::Transport::cleanupPendingQueues(os_unfair_lock_s **a1, uint64_t a2)
+{
+  if (a2)
+  {
+    v3 = 0;
+    v4 = a2 + 32;
+    v5 = a2 + 912;
+    v6 = a2 + 1312;
+    do
+    {
+      v7 = re::PacketQueue::dequeue((v4 + 40 * v3));
+      if (v7)
+      {
+        v8 = v7;
+        do
+        {
+          re::PacketPool::free(a1[48], v8);
+          v8 = re::PacketQueue::dequeue((v4 + 40 * v3));
+        }
+
+        while (v8);
+      }
+
+      v9 = re::PacketQueue::dequeue((v5 + 40 * v3));
+      if (v9)
+      {
+        v10 = v9;
+        do
+        {
+          re::PacketPool::free(a1[48], v10);
+          v10 = re::PacketQueue::dequeue((v5 + 40 * v3));
+        }
+
+        while (v10);
+      }
+
+      v11 = re::PacketQueue::dequeue((v6 + 40 * v3));
+      if (v11)
+      {
+        v12 = v11;
+        do
+        {
+          re::PacketPool::free(a1[48], v12);
+          v12 = re::PacketQueue::dequeue((v6 + 40 * v3));
+        }
+
+        while (v12);
+      }
+
+      ++v3;
+    }
+
+    while (v3 != 10);
+  }
+
+  else
+  {
+    v13 = *re::networkLogObjects(a1);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      *v14 = 0;
+      _os_log_error_impl(&dword_26168F000, v13, OS_LOG_TYPE_ERROR, "Cannot cleanup pending queues for invalid handle: nil", v14, 2u);
+    }
+  }
+}
+
+uint64_t re::Transport::writePacketHeader(uint64_t a1, unsigned __int8 *a2, char a3)
+{
+  v5 = *(a1 + 8);
+  *(v5 + 2) = 0;
+  *v5 = 0;
+  v6 = *(a1 + 8);
+  v8[0] = &unk_2873F59D0;
+  v8[1] = v6;
+  v9 = 3;
+  v10 = 0;
+  v11 = 0;
+  v12 = 0;
+  re::BitWriter::writeUInt32Bits(v8, *a2, 1u);
+  result = re::BitWriter::writeUInt32Bits(v8, a2[1], 1u);
+  if ((a3 & 8) != 0)
+  {
+    re::BitWriter::writeUInt32Bits(v8, a2[2], 1u);
+    re::BitWriter::writeUInt32Bits(v8, 0, 1u);
+    re::BitWriter::writeUInt32Bits(v8, a2[3] + 1, 4u);
+    return re::BitWriter::writeUInt32Bits(v8, *(a2 + 2), 0x10u);
+  }
+
+  return result;
+}
+
+_anonymous_namespace_ *re::DynamicArray<re::SharedPtr<re::ProtocolHandle>>::add(_anonymous_namespace_ *result, uint64_t *a2)
+{
+  v3 = result;
+  v5 = *(result + 1);
+  v4 = *(result + 2);
+  if (v4 >= v5)
+  {
+    v6 = v4 + 1;
+    if (v5 < v4 + 1)
+    {
+      if (*result)
+      {
+        v7 = 2 * v5;
+        if (!v5)
+        {
+          v7 = 8;
+        }
+
+        if (v7 <= v6)
+        {
+          v8 = v6;
+        }
+
+        else
+        {
+          v8 = v7;
+        }
+
+        result = re::DynamicArray<re::SharedPtr<re::SyncObject>>::setCapacity(result, v8);
+      }
+
+      else
+      {
+        result = re::DynamicArray<re::SharedPtr<re::SyncObject>>::setCapacity(v3, v6);
+        ++*(v3 + 6);
+      }
+    }
+
+    v4 = *(v3 + 2);
+  }
+
+  v9 = *a2;
+  *(*(v3 + 4) + 8 * v4) = *a2;
+  if (v9)
+  {
+    result = (v9 + 8);
+    v4 = *(v3 + 2);
+  }
+
+  *(v3 + 2) = v4 + 1;
+  ++*(v3 + 6);
+  return result;
+}
+
+uint64_t re::Transport::send(re *a1, unint64_t a2, unint64_t a3, uint64_t a4, int a5, int a6, char a7)
+{
+  v7 = a3;
+  v8 = a1;
+  v80 = *MEMORY[0x277D85DE8];
+  if (*(a3 + 24) >> 27)
+  {
+    v9 = *re::networkLogObjects(a1);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      v24 = *(v7 + 24);
+      *buf = 67109376;
+      *&buf[4] = v24;
+      *&buf[8] = 2048;
+      *&buf[10] = 0x8000000;
+      _os_log_error_impl(&dword_26168F000, v9, OS_LOG_TYPE_ERROR, "Outbound message length (%u) exceeds kMaxSupportedMessageSize (%zu), message will be discarded.", buf, 0x12u);
+    }
+
+    re::PacketPool::free(*(v8 + 48), v7);
+    return 4;
+  }
+
+  if (a4 >= 0xA)
+  {
+    v12 = *re::networkLogObjects(a1);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&dword_26168F000, v12, OS_LOG_TYPE_ERROR, "Attempt to send data to an invalid channel", buf, 2u);
+    }
+
+    re::PacketPool::free(*(v8 + 48), v7);
+    return 1;
+  }
+
+  v17 = re::DataArray<re::Connection>::tryGet(a1 + 120, a2);
+  if (!v17)
+  {
+    v22 = *re::networkLogObjects(0);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&dword_26168F000, v22, OS_LOG_TYPE_ERROR, "Attempt to send data to connection that does not exist", buf, 2u);
+    }
+
+    re::PacketPool::free(*(v8 + 48), v7);
+    return 2;
+  }
+
+  v18 = v17;
+  if (*v17 != 1)
+  {
+    v23 = *re::networkLogObjects(v17);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    {
+      if (*(v18 + 16))
+      {
+        v64 = *(v18 + 24);
+      }
+
+      else
+      {
+        v64 = v18 + 17;
+      }
+
+      *buf = 136315138;
+      *&buf[4] = v64;
+      _os_log_error_impl(&dword_26168F000, v23, OS_LOG_TYPE_ERROR, "Attempt to send data to connection '%s' that is disconnected", buf, 0xCu);
+    }
+
+    re::PacketPool::free(*(v8 + 48), v7);
+    return 3;
+  }
+
+  v75 = a7;
+  if (*(v17 + 120) == 1)
+  {
+    v19.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
+    if (v19.__d_.__rep_ >= *(v18 + 128))
+    {
+      v20 = *re::networkLogObjects(v19.__d_.__rep_);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      {
+        if (*(v18 + 16))
+        {
+          v21 = *(v18 + 24);
+        }
+
+        else
+        {
+          v21 = v18 + 17;
+        }
+
+        *buf = 136315394;
+        *&buf[4] = v21;
+        *&buf[12] = 1024;
+        *&buf[14] = a4;
+        _os_log_impl(&dword_26168F000, v20, OS_LOG_TYPE_DEFAULT, "Sending data on paused connection '%s', channel %d", buf, 0x12u);
+      }
+
+      v19.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
+      *(v18 + 128) = v19.__d_.__rep_ + 2000000000;
+      a7 = v75;
+    }
+
+    if (atomic_load_explicit((*(v18 + 40) + 944), memory_order_acquire) >= 0x20000001)
+    {
+      v25 = *re::networkLogObjects(v19.__d_.__rep_);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      {
+        if (*(v18 + 16))
+        {
+          v65 = *(v18 + 24);
+        }
+
+        else
+        {
+          v65 = v18 + 17;
+        }
+
+        explicit = atomic_load_explicit((*(v18 + 40) + 944), memory_order_acquire);
+        *buf = 136315394;
+        *&buf[4] = v65;
+        *&buf[12] = 2048;
+        *&buf[14] = explicit;
+        _os_log_error_impl(&dword_26168F000, v25, OS_LOG_TYPE_ERROR, "Send queue on connection '%s' has overflowed (%zu bytes), disconnecting", buf, 0x16u);
+      }
+
+      (*(**(v8 + 76) + 16))(*(v8 + 76), a2, 4);
+      re::Transport::disconnect(v8, a2, 1);
+      a7 = v75;
+    }
+
+    if (atomic_load_explicit((*(v18 + 40) + 944), memory_order_acquire) >= 0x8000001)
+    {
+      v26 = *re::networkLogObjects(v19.__d_.__rep_);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      {
+        if (*(v18 + 16))
+        {
+          v27 = *(v18 + 24);
+        }
+
+        else
+        {
+          v27 = v18 + 17;
+        }
+
+        v28 = atomic_load_explicit((*(v18 + 40) + 944), memory_order_acquire);
+        *buf = 136315394;
+        *&buf[4] = v27;
+        *&buf[12] = 2048;
+        *&buf[14] = v28;
+        _os_log_impl(&dword_26168F000, v26, OS_LOG_TYPE_DEFAULT, "Send queue on connection '%s' is very large (%zu bytes)", buf, 0x16u);
+      }
+
+      (*(**(v8 + 76) + 16))(*(v8 + 76), a2, 3);
+      a7 = v75;
+    }
+  }
+
+  if (*(v18 + 16))
+  {
+    v29 = *(v18 + 24);
+  }
+
+  else
+  {
+    v29 = v18 + 17;
+  }
+
+  v30 = *(v8 + 392);
+  if (v30 == 4 || !a6)
+  {
+    goto LABEL_47;
+  }
+
+  v32 = re::PacketPool::allocate(*(v8 + 48), (*(v7 + 28) + 3));
+  re::Packet::offsetBy(v32, 3);
+  v33 = *(v32 + 1);
+  *(v33 + 2) = 0;
+  *v33 = 0;
+  v34 = compression_encode_scratch_buffer_size(v31);
+  if (*(v8 + 51) < v34)
+  {
+    re::DynamicArray<unsigned char>::resize(v8 + 400, v34);
+  }
+
+  v35 = *(v7 + 24);
+  if (v35 <= 4)
+  {
+    v36 = 0;
+  }
+
+  else
+  {
+    v36 = v35 - 4;
+  }
+
+  v37 = compression_encode_buffer((*(v32 + 2) + 4), v36, *(v7 + 16), v35, *(v8 + 54), v31);
+  if (!v37)
+  {
+    re::PacketPool::free(*(v8 + 48), v32);
+    a7 = v75;
+LABEL_47:
+    *(v7 + 28) += 3;
+    *(v7 + 16) = *(v7 + 8);
+    *buf = 0;
+    buf[2] = a5 == 0;
+    buf[3] = a4;
+    *&buf[4] = 0;
+    re::Transport::writePacketHeader(v7, buf, a7);
+    v74 = 0;
+    *(v7 + 24) += 3;
+    goto LABEL_48;
+  }
+
+  v38 = v37;
+  v40 = *(v32 + 1);
+  v39 = *(v32 + 2);
+  *(v32 + 7) += v39 - v40;
+  *v39 = *(v7 + 24);
+  *(v32 + 2) = v40;
+  v74 = 1;
+  *buf = 1;
+  buf[2] = a5 == 0;
+  buf[3] = a4;
+  *&buf[4] = 0;
+  re::Transport::writePacketHeader(v32, buf, v75);
+  *(v32 + 6) = v38 + 7;
+  re::PacketPool::free(*(v8 + 48), v7);
+  v7 = v32;
+LABEL_48:
+  *(v7 + 32) = a5;
+  if (*(v8 + 585) == 1)
+  {
+    v72 = re::Transport::generateNextPacketSeqNumber(void)::packetSeqNumber++;
+    v41 = *(v7 + 24);
+    v73 = v18;
+    v42 = 2;
+    if (v41 >= 0x80)
+    {
+      v43 = *(v7 + 24);
+      do
+      {
+        v44 = v43 >> 14;
+        v43 >>= 7;
+        v42 += 2;
+      }
+
+      while (v44);
+    }
+
+    if (v41)
+    {
+      v45 = 0;
+      v46 = 0;
+      v67 = a4;
+      v68 = (v41 + *(v8 + 128) - v42 - 13 - 1) / (*(v8 + 128) - v42 - 13);
+      v69 = *(v8 + 128) - v42 - 13;
+      v71 = v8;
+      v70 = a4;
+      do
+      {
+        v47 = *(v7 + 24);
+        v48 = 1;
+        if (v47 >= 0x80)
+        {
+          do
+          {
+            ++v48;
+            v49 = v47 >> 14;
+            v47 >>= 7;
+          }
+
+          while (v49);
+        }
+
+        v50 = 1;
+        if (v45 >= 0x80)
+        {
+          v51 = v45;
+          do
+          {
+            ++v50;
+            v52 = v51 >> 14;
+            v51 >>= 7;
+          }
+
+          while (v52);
+        }
+
+        if (v41 >= v69)
+        {
+          v53 = v69;
+        }
+
+        else
+        {
+          v53 = v41;
+        }
+
+        v54 = v53 + v48 + v50;
+        v55 = v54 + 10;
+        v8 = v71;
+        v56 = v54 + 13;
+        v57 = re::PacketPool::allocate(*(v71 + 384), (v54 + 13));
+        re::Packet::offsetBy(v57, 3);
+        v58 = *(v57 + 1);
+        *(v58 + 2) = 0;
+        *v58 = 0;
+        v59 = *(v57 + 2);
+        *buf = &unk_2873F59D0;
+        *&buf[8] = v59;
+        *&buf[16] = v55;
+        buf[20] = 0;
+        v78 = 0;
+        v79 = 0;
+        re::BitWriter::writeUInt32Bits(buf, v72, 0x10u);
+        re::BitWriter::writeUInt32Bits(buf, v46, 0x20u);
+        re::BitWriter::writeUInt32Bits(buf, v68, 0x20u);
+        v76 = 0;
+        re::BiasedVLQ::write(&v76, buf, *(v7 + 24));
+        v76 = 0;
+        re::BiasedVLQ::write(&v76, buf, v45);
+        re::BitWriter::writeData(buf, (*(v7 + 8) + v45), v53);
+        *(v57 + 7) += 3;
+        *(v57 + 2) = *(v57 + 1);
+        v60 = *(v7 + 32);
+        *(v57 + 8) = v60;
+        LOBYTE(v76) = v74;
+        BYTE1(v76) = 1;
+        BYTE2(v76) = v60 == 0;
+        BYTE3(v76) = v70;
+        WORD2(v76) = 0;
+        re::Transport::writePacketHeader(v57, &v76, v75);
+        *(v57 + 6) = v56;
+        if (*(v71 + 584) == 1)
+        {
+          v61 = v73;
+          v62 = *(v73 + 40) + 40 * v67;
+          atomic_fetch_add_explicit((v62 + 56), v56, memory_order_release);
+          atomic_fetch_add_explicit((v62 + 64), *(v57 + 7), memory_order_release);
+          atomic_fetch_add_explicit((v62 + 48), 1uLL, memory_order_release);
+          atomic_store(v57, *(v62 + 32));
+          *(v62 + 32) = v57;
+          ++*(v61 + 96);
+        }
+
+        else
+        {
+          re::Transport::queuePacketForProtocol(v71, v57, v73, v70);
+        }
+
+        v45 += v53;
+        ++v46;
+        v41 -= v53;
+      }
+
+      while (v41);
+    }
+
+    re::PacketPool::free(*(v8 + 48), v7);
+  }
+
+  else
+  {
+    if (*(v8 + 584) == 1)
+    {
+      result = 0;
+      v63 = *(v18 + 40) + 40 * a4;
+      atomic_fetch_add_explicit((v63 + 56), *(v7 + 24), memory_order_release);
+      atomic_fetch_add_explicit((v63 + 64), *(v7 + 28), memory_order_release);
+      atomic_fetch_add_explicit((v63 + 48), 1uLL, memory_order_release);
+      atomic_store(v7, *(v63 + 32));
+      *(v63 + 32) = v7;
+      ++*(v18 + 96);
+      return result;
+    }
+
+    re::Transport::queuePacketForProtocol(v8, v7, v18, a4);
+  }
+
+  return 0;
+}
+
+double anonymous namespace::logDebugConnectionStatsForHandle(uint64_t a1, uint64_t a2, int a3)
+{
+  v36 = *MEMORY[0x277D85DE8];
+  v6.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_ / 1000000;
+  v8 = v6.__d_.__rep_ - *(a1 + 1720);
+  if (v8 >= 0x1389)
+  {
+    os_unfair_lock_lock((a1 + 1760));
+    v9 = *(a1 + 1744);
+    v10 = *(a1 + 1748);
+    v11 = *(a1 + 1752);
+    v12 = *(a1 + 1756);
+    os_unfair_lock_unlock((a1 + 1760));
+    v14 = *re::networkLogObjects(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = *(a1 + 1712);
+      v16 = "onReceive";
+      v17 = *(a1 + 1716);
+      if (a3)
+      {
+        v16 = "onSend";
+      }
+
+      v18 = 136317186;
+      v19 = a2;
+      v20 = 1024;
+      v21 = v15;
+      v22 = 1024;
+      v23 = v17;
+      v24 = 1024;
+      v25 = v12;
+      v26 = 1024;
+      v27 = v10;
+      v28 = 1024;
+      v29 = v11;
+      v30 = 1024;
+      v31 = v9;
+      v32 = 2048;
+      v33 = v8;
+      v34 = 2080;
+      v35 = v16;
+      _os_log_impl(&dword_26168F000, v14, OS_LOG_TYPE_DEFAULT, "Connection Stats: address=%s, outbound=%d, inbound=%d, ProtocolConnectionStats: send=%u(%u bytes), recv=%u(%u bytes) <period=%llu ms, %s>", &v18, 0x44u);
+    }
+
+    result = 0.0;
+    *(a1 + 1712) = 0;
+    *(a1 + 1720) = v6;
+  }
+
+  return result;
+}
+
+BOOL re::Transport::receive(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t *a4)
+{
+  v18 = *MEMORY[0x277D85DE8];
+  if (a3 >= 0xA)
+  {
+    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Invalid channel", "channel < kChannelIdMaxChannels", "receive", 1058);
+    _os_crash("assertion failure: (channel < kChannelIdMaxChannels) Invalid channel");
+    __break(1u);
+  }
+
+  v6 = re::DataArray<re::Connection>::tryGet(a1 + 120, a2);
+  if (!v6)
+  {
+    v10 = *re::networkLogObjects(0);
+    result = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+    if (!result)
+    {
+      return result;
+    }
+
+    *buf = 0;
+    v11 = "Attempt to receive data from connection that does not exist";
+    v12 = v10;
+    v13 = 2;
+LABEL_13:
+    _os_log_error_impl(&dword_26168F000, v12, OS_LOG_TYPE_ERROR, v11, buf, v13);
+    return 0;
+  }
+
+  v7 = v6;
+  if (*v6 == 1)
+  {
+    v8 = re::PacketQueue::dequeue((*(v6 + 5) + 40 * a3 + 1312));
+    *a4 = v8;
+    return v8 != 0;
+  }
+
+  v14 = *re::networkLogObjects(v6);
+  result = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
+  if (result)
+  {
+    if (*(v7 + 16))
+    {
+      v15 = *(v7 + 3);
+    }
+
+    else
+    {
+      v15 = v7 + 17;
+    }
+
+    *buf = 136315138;
+    v17 = v15;
+    v11 = "Attempt to receive data from connection '%s' that is disconnected";
+    v12 = v14;
+    v13 = 12;
+    goto LABEL_13;
+  }
+
+  return result;
+}
+
+re::DynamicString *re::Transport::connectionAddress@<X0>(re::DynamicString *__return_ptr a1@<X8>, re::Transport *this@<X0>, uint64_t a3@<X1>)
+{
+  v4 = re::DataArray<re::Connection>::tryGet(this + 120, a3);
+  if (v4)
+  {
+
+    return re::DynamicString::DynamicString(a1, (v4 + 8));
+  }
+
+  else
+  {
+    *(a1 + 1) = 0;
+    *(a1 + 2) = 0;
+    *(a1 + 3) = 0;
+
+    return re::DynamicString::setCapacity(a1, 0);
+  }
+}
+
+void re::Transport::connectionStats(uint64_t *__return_ptr a1@<X8>, re::Transport *this@<X0>, uint64_t a3@<X1>)
+{
+  v4 = re::DataArray<re::Connection>::tryGet(this + 120, a3);
+  if (v4 && (v5 = *(v4 + 40)) != 0)
+  {
+    os_unfair_lock_lock((v5 + 1760));
+    *(a1 + 4) = *(v5 + 1736);
+    *(a1 + 20) = *(v5 + 1752);
+    os_unfair_lock_unlock((v5 + 1760));
+    v6 = 1;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  *a1 = v6;
+}
+
+void re::Transport::connectionSetState(uint64_t a1, uint64_t a2, int a3)
+{
+  v19 = *MEMORY[0x277D85DE8];
+  v5 = re::DataArray<re::Connection>::get(a1 + 120, a2);
+  v6 = *re::networkLogObjects(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    if (*(a1 + 488))
+    {
+      v7 = *(a1 + 496);
+    }
+
+    else
+    {
+      v7 = a1 + 489;
+    }
+
+    v8 = *(v5 + 3);
+    v9 = s_debugStateNames[*v5];
+    v10 = s_debugStateNames[a3];
+    if ((*(v5 + 2) & 1) == 0)
+    {
+      v8 = v5 + 17;
+    }
+
+    v11 = 136315906;
+    v12 = v7;
+    v13 = 2080;
+    v14 = v8;
+    v15 = 2080;
+    v16 = v9;
+    v17 = 2080;
+    v18 = v10;
+    _os_log_impl(&dword_26168F000, v6, OS_LOG_TYPE_DEFAULT, "Connection(%s->%s) state changed %s->%s", &v11, 0x2Au);
+  }
+
+  *v5 = a3;
+}
+
+uint64_t re::DataArray<re::Connection>::get(uint64_t a1, int a2)
+{
+  v18 = *MEMORY[0x277D85DE8];
+  v2 = HIWORD(a2);
+  v3 = *(a1 + 16);
+  if (v3 <= HIWORD(a2))
+  {
+    v8 = 0;
+    memset(v17, 0, sizeof(v17));
+    v5 = MEMORY[0x277D86220];
+    v9 = 136315906;
+    v10 = "operator[]";
+    v11 = 1024;
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v6 = 3;
+    }
+
+    else
+    {
+      v6 = 2;
+    }
+
+    v12 = 797;
+    v13 = 2048;
+    v14 = v2;
+    v15 = 2048;
+    v16 = v3;
+    _os_log_send_and_compose_impl(v6, &v8, v17, 80, &dword_26168F000, v5, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v9, 38, v7);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  return *(*(a1 + 32) + 16 * HIWORD(a2)) + 136 * a2;
+}
+
+void re::Transport::destroyConnection(re::Transport *this, unint64_t a2)
+{
+  v28[3] = *MEMORY[0x277D85DE8];
+  v4 = re::DataArray<re::Connection>::tryGet(this + 120, a2);
+  v5 = *re::networkLogObjects(v4);
+  if (v4)
+  {
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      if (*(this + 488))
+      {
+        v6 = *(this + 62);
+      }
+
+      else
+      {
+        v6 = this + 489;
+      }
+
+      if (v4[16])
+      {
+        v7 = *(v4 + 3);
+      }
+
+      else
+      {
+        v7 = v4 + 17;
+      }
+
+      v8 = s_debugStateNames[*v4];
+      v9 = *(v4 + 5);
+      *v26 = 136315906;
+      *&v26[4] = v6;
+      *&v26[12] = 2080;
+      *&v26[14] = v7;
+      *&v26[22] = 2080;
+      v27 = v8;
+      LOWORD(v28[0]) = 2048;
+      *(v28 + 2) = v9;
+      _os_log_impl(&dword_26168F000, v5, OS_LOG_TYPE_DEFAULT, "Destroy connection (%s->%s) (%s) bound to protocol handle %p", v26, 0x2Au);
+    }
+
+    v10 = *(this + 70);
+    if (v10)
+    {
+      (*(*v10 + 40))(v10, this, a2);
+    }
+
+    v11 = *(v4 + 5);
+    if (v11)
+    {
+      v12 = (v11 + 8);
+      os_unfair_lock_lock((v11 + 1764));
+      *(v11 + 24) = 0;
+      os_unfair_lock_unlock((v11 + 1764));
+      v13 = re::globalAllocators((v11 + 8))[2];
+      *&v26[16] = v11;
+      v27 = v13;
+      *v26 = &unk_2873F63D8;
+      *&v26[8] = this;
+      v28[0] = v26;
+      (*(**(this + 41) + 16))(*(this + 41), v26);
+      re::FunctionBase<24ul,void ()(void)>::destroyCallable(v26);
+    }
+
+    v14 = re::Address::hash((v4 + 8));
+    re::HashTable<re::Address,unsigned long long,re::Address::Hasher,re::EqualTo<re::Address>,true,false>::findEntry<re::Address>(this + 272, (v4 + 8), v14, v26);
+    v15 = *&v26[12];
+    if (*&v26[12] != 0x7FFFFFFF)
+    {
+      v16 = *(this + 36);
+      v17 = *(v16 + 56 * *&v26[12]) & 0x7FFFFFFF;
+      if (*&v26[16] == 0x7FFFFFFF)
+      {
+        *(*(this + 35) + 4 * *&v26[8]) = v17;
+        v15 = *&v26[12];
+      }
+
+      else
+      {
+        *(v16 + 56 * *&v26[16]) = *(v16 + 56 * *&v26[16]) & 0x80000000 | v17;
+      }
+
+      v18 = (v16 + 56 * v15);
+      v19 = *v18;
+      if (*v18 < 0)
+      {
+        *v18 = v19 & 0x7FFFFFFF;
+        re::DynamicString::deinit((v18 + 2));
+        v20 = *&v26[12];
+        v16 = *(this + 36);
+        v19 = *(v16 + 56 * *&v26[12]);
+        v15 = *&v26[12];
+      }
+
+      else
+      {
+        v20 = v15;
+      }
+
+      *(v16 + 56 * v20) = *(this + 77) | v19 & 0x80000000;
+      *(this + 77) = v15;
+      --*(this + 75);
+      ++*(this + 78);
+    }
+
+    while (*(v4 + 19))
+    {
+      v21 = *(v4 + 20);
+      if (v21)
+      {
+        v22 = 0;
+        v23 = *(v4 + 8);
+        while (1)
+        {
+          v24 = *v23;
+          v23 += 8;
+          if (v24 < 0)
+          {
+            break;
+          }
+
+          if (v21 == ++v22)
+          {
+            LODWORD(v22) = *(v4 + 20);
+            break;
+          }
+        }
+
+        v25 = v22;
+      }
+
+      else
+      {
+        v25 = 0;
+      }
+
+      re::Transport::removeStream(this, a2, *(*(v4 + 8) + 32 * v25 + 8));
+    }
+
+    re::DataArray<re::Connection>::destroy(this + 120, a2);
+  }
+
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  {
+    *v26 = 134217984;
+    *&v26[4] = a2;
+    _os_log_error_impl(&dword_26168F000, v5, OS_LOG_TYPE_ERROR, "Trying to destroy invalid connection handle (%llu).", v26, 0xCu);
+  }
+}
+
+void re::Transport::onConnected(re *a1, uint64_t a2, uint64_t a3, const re::DynamicString *a4)
+{
+  v18 = *MEMORY[0x277D85DE8];
+  if (a3)
+  {
+    v7 = (a3 + 8);
+    *&v12 = a1;
+    re::DynamicString::DynamicString((&v12 + 8), a4);
+    v14 = a3;
+    v8 = re::globalAllocators((a3 + 8))[2];
+    v16 = v8;
+    v17 = 0;
+    if (v8)
+    {
+      v9 = (*(*v8 + 32))(v8, 56, 0);
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+
+    *v9 = &unk_2873F6170;
+    v9[1] = v12;
+    re::DynamicString::DynamicString((v9 + 2), (&v12 + 8));
+    v9[6] = v14;
+    v14 = 0;
+    v17 = v9;
+    (*(**(a1 + 40) + 16))(*(a1 + 40), v15);
+    re::FunctionBase<24ul,void ()(void)>::destroyCallable(v15);
+    if (v14)
+    {
+
+      v14 = 0;
+    }
+
+    if (*(&v12 + 1))
+    {
+      if (v13)
+      {
+        (*(**(&v12 + 1) + 40))();
+      }
+    }
+  }
+
+  else
+  {
+    v10 = *re::networkLogObjects(a1);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      if (*(a4 + 1))
+      {
+        v11 = *(a4 + 2);
+      }
+
+      else
+      {
+        v11 = a4 + 9;
+      }
+
+      LODWORD(v12) = 136315138;
+      *(&v12 + 4) = v11;
+      _os_log_error_impl(&dword_26168F000, v10, OS_LOG_TYPE_ERROR, "onConnected: Invalid handle provided for '%s'!", &v12, 0xCu);
+    }
+  }
+}
+
+void re::Transport::onDisconnected(re *a1, uint64_t a2, uint64_t a3, const re::DynamicString *a4)
+{
+  v19 = *MEMORY[0x277D85DE8];
+  if (a3)
+  {
+    v7 = *re::networkLogObjects((a3 + 8));
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      if (*(a4 + 1))
+      {
+        v12 = *(a4 + 2);
+      }
+
+      else
+      {
+        v12 = a4 + 9;
+      }
+
+      LODWORD(v14) = 136315138;
+      *(&v14 + 4) = v12;
+      _os_log_debug_impl(&dword_26168F000, v7, OS_LOG_TYPE_DEBUG, "queueTransportCommand '%s' OnDisconnected", &v14, 0xCu);
+    }
+
+    *&v14 = a1;
+    *(&v14 + 1) = a3;
+    v8 = (a3 + 8);
+    v9 = re::DynamicString::DynamicString(v15, a4);
+    v17 = re::globalAllocators(v9)[2];
+    v10 = (*(*v17 + 32))(v17, 56, 0);
+    *v10 = &unk_2873F61C8;
+    *(v10 + 8) = v14;
+    *(&v14 + 1) = 0;
+    re::DynamicString::DynamicString((v10 + 24), v15);
+    v18 = v10;
+    (*(**(a1 + 40) + 16))(*(a1 + 40), v16);
+    re::FunctionBase<24ul,void ()(void)>::destroyCallable(v16);
+    if (v15[0])
+    {
+      if (v15[1])
+      {
+        (*(*v15[0] + 40))();
+      }
+
+      memset(v15, 0, sizeof(v15));
+    }
+
+    if (*(&v14 + 1))
+    {
+    }
+  }
+
+  else
+  {
+    v11 = *re::networkLogObjects(a1);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      if (*(a4 + 1))
+      {
+        v13 = *(a4 + 2);
+      }
+
+      else
+      {
+        v13 = a4 + 9;
+      }
+
+      LODWORD(v14) = 136315138;
+      *(&v14 + 4) = v13;
+      _os_log_error_impl(&dword_26168F000, v11, OS_LOG_TYPE_ERROR, "onDisconnected: Invalid handle provided for '%s'!", &v14, 0xCu);
+    }
+  }
+}
+
+void re::Transport::onError(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+{
+  v12 = *MEMORY[0x277D85DE8];
+  if (a3)
+  {
+    v7 = (a3 + 8);
+    v10 = re::globalAllocators((a3 + 8))[2];
+    v8 = (*(*v10 + 32))(v10, 32, 0);
+    *v8 = &unk_2873F6220;
+    *(v8 + 8) = a1;
+    *(v8 + 16) = a3;
+    *(v8 + 24) = a4;
+    v11 = v8;
+    (*(**(a1 + 320) + 16))(*(a1 + 320), v9);
+    re::FunctionBase<24ul,void ()(void)>::destroyCallable(v9);
+  }
+}
+
+void re::Transport::onUnresponsive(re *a1, uint64_t a2, uint64_t a3)
+{
+  v8[5] = *MEMORY[0x277D85DE8];
+  if (a3)
+  {
+    v5 = (a3 + 8);
+    v6 = re::globalAllocators((a3 + 8))[2];
+    v8[2] = a3;
+    v8[3] = v6;
+    v8[0] = &unk_2873F6278;
+    v8[1] = a1;
+    v8[4] = v8;
+    (*(**(a1 + 40) + 16))(*(a1 + 40), v8);
+    re::FunctionBase<24ul,void ()(void)>::destroyCallable(v8);
+  }
+
+  else
+  {
+    v7 = *re::networkLogObjects(a1);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(v8[0]) = 0;
+      _os_log_error_impl(&dword_26168F000, v7, OS_LOG_TYPE_ERROR, "onUnresponsive: Invalid handle!", v8, 2u);
+    }
+  }
+}
+
+void re::Transport::onResponsive(re *a1, uint64_t a2, uint64_t a3)
+{
+  v8[5] = *MEMORY[0x277D85DE8];
+  if (a3)
+  {
+    v5 = (a3 + 8);
+    v6 = re::globalAllocators((a3 + 8))[2];
+    v8[2] = a3;
+    v8[3] = v6;
+    v8[0] = &unk_2873F62D0;
+    v8[1] = a1;
+    v8[4] = v8;
+    (*(**(a1 + 40) + 16))(*(a1 + 40), v8);
+    re::FunctionBase<24ul,void ()(void)>::destroyCallable(v8);
+  }
+
+  else
+  {
+    v7 = *re::networkLogObjects(a1);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(v8[0]) = 0;
+      _os_log_error_impl(&dword_26168F000, v7, OS_LOG_TYPE_ERROR, "onResponsive: Invalid handle!", v8, 2u);
+    }
+  }
+}
+
+void re::Transport::onReceiveAsync(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, const void *a5, uint64_t a6)
+{
+  v24 = *MEMORY[0x277D85DE8];
+  v6 = atomic_load((a1 + 336));
+  if (v6)
+  {
+    v13 = re::DataArray<re::Connection>::tryGet(a1 + 120, *(a3 + 24));
+    if (v13)
+    {
+      if (a4 < 0xA)
+      {
+        v15 = re::PacketPool::allocate(*(a1 + 384), a6);
+        *(v15 + 6) = a6;
+        memcpy(*(v15 + 2), a5, a6);
+        v16 = (a3 + 8);
+        v22 = re::globalAllocators((a3 + 8))[2];
+        v17 = (*(*v22 + 32))(v22, 48, 0);
+        *v17 = &unk_2873F6328;
+        *(v17 + 8) = a1;
+        *(v17 + 16) = a2;
+        *(v17 + 24) = a3;
+        *(v17 + 32) = a4;
+        *(v17 + 40) = v15;
+        v23 = v17;
+        (*(**(a1 + 320) + 16))(*(a1 + 320), buf);
+        re::FunctionBase<24ul,void ()(void)>::destroyCallable(buf);
+        v18 = *(a1 + 376);
+        v19[0] = MEMORY[0x277D85DD0];
+        v19[1] = 0x40000000;
+        v19[2] = ___ZN2re9Transport14onReceiveAsyncEPNS_13ProtocolLayerEPNS_14ProtocolHandleENS_9ChannelIdEPKvj_block_invoke;
+        v19[3] = &__block_descriptor_tmp_6;
+        v19[4] = a1;
+        v19[5] = v18;
+        dispatch_async(v18, v19);
+      }
+
+      else
+      {
+        v14 = *re::networkLogObjects(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 67109120;
+          v21 = a4;
+          _os_log_error_impl(&dword_26168F000, v14, OS_LOG_TYPE_ERROR, "Transport cannot receive on invalid channel id: %hhu", buf, 8u);
+        }
+
+        if (re::internal::enableSignposts(0, 0))
+        {
+          kdebug_trace();
+        }
+      }
+    }
+  }
+}
+
+void *___ZN2re9Transport14onReceiveAsyncEPNS_13ProtocolLayerEPNS_14ProtocolHandleENS_9ChannelIdEPKvj_block_invoke(uint64_t a1)
+{
+  result = dispatch_queue_get_specific(*(a1 + 40), *(a1 + 32));
+  if (result)
+  {
+    result = result[76];
+    if (result)
+    {
+      v2 = *(*result + 48);
+
+      return v2();
+    }
+  }
+
+  return result;
+}
+
+unsigned __int8 *re::Transport::onReceive(re *a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned __int8 *a5, unsigned int a6)
+{
+  v20 = *MEMORY[0x277D85DE8];
+  if (a4 < 0xA)
+  {
+    ++*(a3 + 1716);
+    v13 = re::DataArray<re::Connection>::tryGet(a1 + 120, *(a3 + 24));
+    if (v13)
+    {
+      if (*(v13 + 16))
+      {
+        v14 = *(v13 + 24);
+      }
+
+      else
+      {
+        v14 = (v13 + 17);
+      }
+    }
+
+    else
+    {
+      v14 = "N/A";
+    }
+
+    v16 = a6;
+    v17 = *(a1 + 70);
+    if (v17)
+    {
+      result = (*(*v17 + 56))(v17, a1, *(a3 + 24), a4, a5, a6, v15);
+      if (!v18)
+      {
+        return result;
+      }
+
+      a5 = result;
+      v16 = v18;
+    }
+
+    return re::Transport::onReceiveData(a1, a3, a4, a5, v16);
+  }
+
+  else
+  {
+    v8 = *re::networkLogObjects(a1);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      v19[0] = 67109120;
+      v19[1] = a4;
+      _os_log_error_impl(&dword_26168F000, v8, OS_LOG_TYPE_ERROR, "Transport cannot receive on invalid channel id: %hhu", v19, 8u);
+    }
+
+    result = re::internal::enableSignposts(0, 0);
+    if (result)
+    {
+      return kdebug_trace();
+    }
+  }
+
+  return result;
+}
+
 uint64_t *re::FixedArray<unsigned char>::operator=(uint64_t *result, uint64_t *a2)
 {
   if (result != a2)
@@ -30,7 +1531,7 @@ uint64_t *re::FixedArray<unsigned char>::operator=(uint64_t *result, uint64_t *a
     else
     {
       re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) ", "!isInitialized() || m_allocator == other.m_allocator", "operator=", 296, v2, v3);
-      result = _os_crash();
+      result = _os_crash("assertion failure: (!isInitialized() || m_allocator == other.m_allocator) ");
       __break(1u);
     }
   }
@@ -112,7 +1613,7 @@ uint64_t re::Transport::dispatchPacketToStream(re::Transport *this, re::Packet *
   return result;
 }
 
-uint64_t re::HashTable<unsigned short,re::PendingPacketFragments,re::Hash<unsigned short>,re::EqualTo<unsigned short>,true,false>::tryGet(uint64_t a1, unsigned __int16 a2)
+uint64_t re::HashTable<unsigned short,re::PendingPacketFragments,re::Hash<unsigned short>,re::EqualTo<unsigned short>,true,false>::tryGet(uint64_t a1, uint64_t a2)
 {
   v3 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * a2) ^ ((0xBF58476D1CE4E5B9 * a2) >> 27));
   re::HashTable<unsigned short,re::PendingPacketFragments,re::Hash<unsigned short>,re::EqualTo<unsigned short>,true,false>::findEntry<unsigned short>(v5, a1, a2, v3 ^ (v3 >> 31));
@@ -127,14 +1628,15 @@ uint64_t re::HashTable<unsigned short,re::PendingPacketFragments,re::Hash<unsign
   }
 }
 
-uint64_t re::Transport::discardPacketFragments(uint64_t a1, unsigned int a2, unsigned int a3)
+uint64_t re::Transport::discardPacketFragments(uint64_t a1, unsigned int a2, uint64_t a3)
 {
+  v3 = a3;
   v4 = a1 + 48 * a2 + 432;
   result = re::HashTable<unsigned short,re::PendingPacketFragments,re::Hash<unsigned short>,re::EqualTo<unsigned short>,true,false>::tryGet(v4, a3);
   if (result)
   {
-    v6 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * a3) ^ ((0xBF58476D1CE4E5B9 * a3) >> 27));
-    result = re::HashTable<unsigned short,re::PendingPacketFragments,re::Hash<unsigned short>,re::EqualTo<unsigned short>,true,false>::findEntry<unsigned short>(v11, v4, a3, v6 ^ (v6 >> 31));
+    v6 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * v3) ^ ((0xBF58476D1CE4E5B9 * v3) >> 27));
+    result = re::HashTable<unsigned short,re::PendingPacketFragments,re::Hash<unsigned short>,re::EqualTo<unsigned short>,true,false>::findEntry<unsigned short>(v11, v4, v3, v6 ^ (v6 >> 31));
     v7 = v13;
     if (v13 != 0x7FFFFFFF)
     {
@@ -164,174 +1666,180 @@ uint64_t re::Transport::discardPacketFragments(uint64_t a1, unsigned int a2, uns
 
 uint64_t (***re::Transport::setDisconnectTimeout(re::Transport *this, int a2))(void)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = re::globalAllocators(this)[2];
-  v7[0] = &unk_2873F6380;
-  v7[1] = this;
-  v8 = a2;
-  v9 = v4;
-  v10 = v7;
-  (*(**(this + 41) + 16))(*(this + 41), v7);
-  result = re::FunctionBase<24ul,void ()(void)>::destroyCallable(v7);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v6[0] = &unk_2873F6380;
+  v6[1] = this;
+  v7 = a2;
+  v8 = v4;
+  v9 = v6;
+  (*(**(this + 41) + 16))(*(this + 41), v6);
+  return re::FunctionBase<24ul,void ()(void)>::destroyCallable(v6);
 }
 
-void re::Transport::removeStream(re::Transport *this, uint64_t a2, uint64_t a3)
+void re::Transport::removeStream(re::Transport *this, uint64_t a2, void *a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v30[0] = a3;
+  v47 = *MEMORY[0x277D85DE8];
+  v34 = a3;
   v4 = re::DataArray<re::Connection>::tryGet(this + 120, a2);
-  if (v4)
+  if (!v4)
   {
-    v5 = v4;
-    v6 = re::HashTable<unsigned long long,unsigned long,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(v4 + 48, v30);
-    if (v6)
+    v19 = *re::networkLogObjects(0);
+    if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v8 = v6;
-      v9 = *(this + 6);
-      if (*v6 >= v9)
-      {
-        re::internal::assertLog(4, v7, "assertion failure: '%s' (%s:line %i) ", "*index < m_streams.size()", "removeStream", 1921);
-        _os_crash();
-        __break(1u);
-      }
-
-      else
-      {
-        v10 = *(*(this + 8) + 8 * v9 - 8);
-        if (v10)
-        {
-          v11 = v10 - 8;
-        }
-
-        else
-        {
-          v11 = 0;
-        }
-
-        v12 = re::DataArray<re::Connection>::tryGet(this + 120, *(v11 + 40));
-        if (v12)
-        {
-          v13 = v12;
-          v14 = *(*(this + 8) + 8 * *(this + 6) - 8);
-          if (v14)
-          {
-            v15 = v14 - 8;
-          }
-
-          else
-          {
-            v15 = 0;
-          }
-
-          *v31 = *(v15 + 48);
-          memset(to, 0, 24);
-          v16 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (*v31 ^ (*v31 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (*v31 ^ (*v31 >> 30))) >> 27));
-          re::HashTable<unsigned long long,unsigned long,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::findEntry<unsigned long long>(v12 + 48, v31, v16 ^ (v16 >> 31), to);
-          v17 = HIDWORD(to[1]);
-          if (HIDWORD(to[1]) == 0x7FFFFFFF)
-          {
-            v18 = re::HashTable<unsigned long long,unsigned long,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::allocEntry(v13 + 48, to[1], to[0]);
-            *(v18 + 8) = *v31;
-            *(v18 + 16) = *v8;
-            ++*(v13 + 88);
-          }
-
-          else
-          {
-            ++*(v13 + 88);
-            *(*(v13 + 64) + 32 * v17 + 16) = *v8;
-          }
-        }
-
-        re::HashTable<unsigned long long,unsigned long,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::remove(v5 + 48, v30);
-        v5 = *(this + 6);
-        v8 = *v8;
-        if (v5 > v8)
-        {
-          v25 = *(this + 8);
-          v26 = (v25 + 8 * v5 - 8);
-          v27 = (v25 + 8 * v8);
-          to[0] = 0;
-          objc_moveWeak(to, v26);
-          re::ArcWeakPtr<re::TransportStream>::operator=(v26, v27);
-          re::ArcWeakPtr<re::TransportStream>::operator=(v27, to);
-          objc_destroyWeak(to);
-          v28 = *(this + 8) + 8 * *(this + 6);
-          objc_destroyWeak((v28 - 8));
-          *(v28 - 8) = 0;
-          --*(this + 6);
-          ++*(this + 14);
-          goto LABEL_21;
-        }
-      }
-
-      v30[1] = 0;
-      v40 = 0u;
-      v41 = 0u;
-      v39 = 0u;
-      memset(to, 0, sizeof(to));
-      os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      *v31 = 136315906;
-      *&v31[4] = "operator[]";
-      v32 = 1024;
-      v33 = 789;
-      v34 = 2048;
-      v35 = v8;
-      v36 = 2048;
-      v37 = v5;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
+      return;
     }
 
+    LOWORD(to[0]) = 0;
+    v20 = "Failed to remove unicast stream. Invalid connection handle.";
+    v21 = v19;
+    v22 = 2;
+    goto LABEL_24;
+  }
+
+  v5 = v4;
+  v6 = re::HashTable<unsigned long long,unsigned long,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(v4 + 48, &v34);
+  if (!v6)
+  {
     v23 = *re::networkLogObjects(0);
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      if (*(v5 + 16))
-      {
-        v24 = *(v5 + 24);
-      }
-
-      else
-      {
-        v24 = (v5 + 17);
-      }
-
-      LODWORD(to[0]) = 136315394;
-      *(to + 4) = v24;
-      WORD2(to[1]) = 2048;
-      *(&to[1] + 6) = v30[0];
-      v20 = "Connection %s does not have stream %llu.";
-      v21 = v23;
-      v22 = 22;
-      goto LABEL_24;
+      return;
     }
+
+    if (*(v5 + 16))
+    {
+      v24 = *(v5 + 24);
+    }
+
+    else
+    {
+      v24 = (v5 + 17);
+    }
+
+    LODWORD(to[0]) = 136315394;
+    *(to + 4) = v24;
+    WORD2(to[1]) = 2048;
+    *(&to[1] + 6) = v34;
+    v20 = "Connection %s does not have stream %llu.";
+    v21 = v23;
+    v22 = 22;
+LABEL_24:
+    _os_log_error_impl(&dword_26168F000, v21, OS_LOG_TYPE_ERROR, v20, to, v22);
+    return;
+  }
+
+  v8 = v6;
+  v9 = *(this + 6);
+  if (*v6 >= v9)
+  {
+    re::internal::assertLog(4, v7, "assertion failure: '%s' (%s:line %i) ", "*index < m_streams.size()", "removeStream", 1921);
+    _os_crash("assertion failure: (*index < m_streams.size()) ");
+    __break(1u);
+    goto LABEL_26;
+  }
+
+  v10 = *(*(this + 8) + 8 * v9 - 8);
+  if (v10)
+  {
+    v11 = v10 - 8;
   }
 
   else
   {
-    v19 = *re::networkLogObjects(0);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v11 = 0;
+  }
+
+  v12 = re::DataArray<re::Connection>::tryGet(this + 120, *(v11 + 40));
+  if (v12)
+  {
+    v13 = v12;
+    v14 = *(*(this + 8) + 8 * *(this + 6) - 8);
+    if (v14)
     {
-      LOWORD(to[0]) = 0;
-      v20 = "Failed to remove unicast stream. Invalid connection handle.";
-      v21 = v19;
-      v22 = 2;
-LABEL_24:
-      _os_log_error_impl(&dword_26168F000, v21, OS_LOG_TYPE_ERROR, v20, to, v22);
+      v15 = v14 - 8;
+    }
+
+    else
+    {
+      v15 = 0;
+    }
+
+    *v36 = *(v15 + 48);
+    memset(to, 0, 24);
+    v16 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (*v36 ^ (*v36 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (*v36 ^ (*v36 >> 30))) >> 27));
+    re::HashTable<unsigned long long,unsigned long,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::findEntry<unsigned long long>(v12 + 48, v36, v16 ^ (v16 >> 31), to);
+    v17 = HIDWORD(to[1]);
+    if (HIDWORD(to[1]) == 0x7FFFFFFF)
+    {
+      v18 = re::HashTable<unsigned long long,unsigned long,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::allocEntry(v13 + 48, to[1], to[0]);
+      *(v18 + 8) = *v36;
+      *(v18 + 16) = *v8;
+      ++*(v13 + 88);
+    }
+
+    else
+    {
+      ++*(v13 + 88);
+      *(*(v13 + 64) + 32 * v17 + 16) = *v8;
     }
   }
 
-LABEL_21:
-  v29 = *MEMORY[0x277D85DE8];
+  re::HashTable<unsigned long long,unsigned long,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::remove(v5 + 48, &v34);
+  v5 = *(this + 6);
+  v8 = *v8;
+  if (v5 <= v8)
+  {
+LABEL_26:
+    v35 = 0;
+    v45 = 0u;
+    v46 = 0u;
+    v44 = 0u;
+    memset(to, 0, sizeof(to));
+    v29 = MEMORY[0x277D86220];
+    v30 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    *v36 = 136315906;
+    *&v36[4] = "operator[]";
+    v37 = 1024;
+    if (v30)
+    {
+      v31 = 3;
+    }
+
+    else
+    {
+      v31 = 2;
+    }
+
+    v38 = 789;
+    v39 = 2048;
+    v40 = v8;
+    v41 = 2048;
+    v42 = v5;
+    _os_log_send_and_compose_impl(v31, &v35, to, 80, &dword_26168F000, v29, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v36, 38, v32, v33);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  v25 = *(this + 8);
+  v26 = (v25 + 8 * v5 - 8);
+  v27 = (v25 + 8 * v8);
+  to[0] = 0;
+  objc_moveWeak(to, v26);
+  re::ArcWeakPtr<re::TransportStream>::operator=(v26, v27);
+  re::ArcWeakPtr<re::TransportStream>::operator=(v27, to);
+  objc_destroyWeak(to);
+  v28 = *(this + 8) + 8 * *(this + 6);
+  objc_destroyWeak((v28 - 8));
+  *(v28 - 8) = 0;
+  --*(this + 6);
+  ++*(this + 14);
 }
 
 void re::DataArray<re::Connection>::destroy(uint64_t a1, unint64_t a2)
 {
   v2 = a2;
-  v9 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = a2 >> 16;
   v5 = re::DataArray<re::Connection>::tryGet(a1, a2 & 0xFFFFFFFF00000000 | (WORD1(a2) << 16) | a2);
   if (v5)
@@ -346,10 +1854,31 @@ void re::DataArray<re::Connection>::destroy(uint64_t a1, unint64_t a2)
     }
 
     re::DynamicString::deinit((v6 + 8));
-    if (*(a1 + 16) <= HIWORD(v2))
+    v8 = *(a1 + 16);
+    if (v8 <= HIWORD(v2))
     {
-      os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
+      v12 = 0;
+      memset(v21, 0, sizeof(v21));
+      v9 = MEMORY[0x277D86220];
+      v13 = 136315906;
+      v14 = "operator[]";
+      v15 = 1024;
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        v10 = 3;
+      }
+
+      else
+      {
+        v10 = 2;
+      }
+
+      v16 = 789;
+      v17 = 2048;
+      v18 = HIWORD(v2);
+      v19 = 2048;
+      v20 = v8;
+      _os_log_send_and_compose_impl(v10, &v12, v21, 80, &dword_26168F000, v9, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v13, 38, v11);
       _os_crash_msg();
       __break(1u);
     }
@@ -360,8 +1889,6 @@ void re::DataArray<re::Connection>::destroy(uint64_t a1, unint64_t a2)
     *(a1 + 54) = v4;
     --*(a1 + 40);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 char *re::Transport::createMultiplexedPacket(re::PacketPool **this, uint64_t a2, int a3)
@@ -401,7 +1928,7 @@ uint64_t re::Packet::offsetTo(uint64_t this, uint64_t a2)
   if (v4 < a2)
   {
     re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) ", "capacity() >= offset", "offsetTo", 125, v2, v3);
-    this = _os_crash();
+    this = _os_crash("assertion failure: (capacity() >= offset) ");
     __break(1u);
   }
 
@@ -419,122 +1946,117 @@ uint64_t re::Packet::offsetTo(uint64_t this, uint64_t a2)
 
 BOOL re::Transport::registerStream(re::Transport *this, re::TransportStream *a2, unint64_t a3, uint64_t a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v29 = a3;
+  v31 = *MEMORY[0x277D85DE8];
+  v28 = a3;
   v6 = re::DataArray<re::Connection>::tryGet(this + 120, a4);
-  if (v6)
+  if (!v6)
   {
-    v7 = v6;
-    v8 = re::HashTable<unsigned long long,unsigned long,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(v6 + 48, &v29);
-    if (v8)
+    v14 = *re::networkLogObjects(0);
+    result = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
+    if (!result)
     {
-      v9 = *re::networkLogObjects(v8);
-      result = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
-      if (result)
-      {
-        LODWORD(buf) = 134217984;
-        *(&buf + 4) = v29;
-        v11 = "Failed to register unicast stream. Stream %llu already exists.";
-        v12 = v9;
-        v13 = 12;
+      return result;
+    }
+
+    LOWORD(buf) = 0;
+    v11 = "Failed to register unicast stream. Invalid connection handle.";
+    v12 = v14;
+    v13 = 2;
+    goto LABEL_7;
+  }
+
+  v7 = v6;
+  v8 = re::HashTable<unsigned long long,unsigned long,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(v6 + 48, &v28);
+  if (v8)
+  {
+    v9 = *re::networkLogObjects(v8);
+    result = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+    if (!result)
+    {
+      return result;
+    }
+
+    LODWORD(buf) = 134217984;
+    *(&buf + 4) = v28;
+    v11 = "Failed to register unicast stream. Stream %llu already exists.";
+    v12 = v9;
+    v13 = 12;
 LABEL_7:
-        _os_log_error_impl(&dword_26168F000, v12, OS_LOG_TYPE_ERROR, v11, &buf, v13);
-        result = 0;
-      }
-    }
+    _os_log_error_impl(&dword_26168F000, v12, OS_LOG_TYPE_ERROR, v11, &buf, v13);
+    return 0;
+  }
 
-    else
-    {
-      v15 = *(this + 6);
-      if (a2)
-      {
-        v16 = a2 + 8;
-      }
-
-      else
-      {
-        v16 = 0;
-      }
-
-      inited = objc_initWeak(&buf, v16);
-      v18 = *(this + 5);
-      v19 = *(this + 6);
-      if (v19 >= v18)
-      {
-        v20 = v19 + 1;
-        if (v18 < v19 + 1)
-        {
-          if (*(this + 4))
-          {
-            v21 = 2 * v18;
-            v22 = v18 == 0;
-            v23 = 8;
-            if (!v22)
-            {
-              v23 = v21;
-            }
-
-            if (v23 <= v20)
-            {
-              v24 = v20;
-            }
-
-            else
-            {
-              v24 = v23;
-            }
-
-            re::DynamicArray<re::ArcWeakPtr<re::TransportStream>>::setCapacity(this + 4, v24);
-          }
-
-          else
-          {
-            re::DynamicArray<re::ArcWeakPtr<re::TransportStream>>::setCapacity(this + 4, v20);
-            ++*(this + 14);
-          }
-        }
-
-        v19 = *(this + 6);
-      }
-
-      v25 = (*(this + 8) + 8 * v19);
-      *v25 = 0;
-      objc_moveWeak(v25, &buf);
-      ++*(this + 6);
-      ++*(this + 14);
-      objc_destroyWeak(&buf);
-      buf = 0uLL;
-      v31 = 0;
-      v26 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v29 ^ (v29 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v29 ^ (v29 >> 30))) >> 27));
-      re::HashTable<unsigned long long,unsigned long,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::findEntry<unsigned long long>(v7 + 48, &v29, v26 ^ (v26 >> 31), &buf);
-      if (HIDWORD(buf) == 0x7FFFFFFF)
-      {
-        v27 = re::HashTable<unsigned long long,unsigned long,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::allocEntry(v7 + 48, DWORD2(buf), buf);
-        *(v27 + 8) = v29;
-        *(v27 + 16) = v15;
-        ++*(v7 + 88);
-      }
-
-      result = 1;
-    }
+  v15 = *(this + 6);
+  if (a2)
+  {
+    v16 = a2 + 8;
   }
 
   else
   {
-    v14 = *re::networkLogObjects(0);
-    result = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
-    if (result)
-    {
-      LOWORD(buf) = 0;
-      v11 = "Failed to register unicast stream. Invalid connection handle.";
-      v12 = v14;
-      v13 = 2;
-      goto LABEL_7;
-    }
+    v16 = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-  return result;
+  inited = objc_initWeak(&buf, v16);
+  v18 = *(this + 5);
+  v19 = *(this + 6);
+  if (v19 >= v18)
+  {
+    v20 = v19 + 1;
+    if (v18 < v19 + 1)
+    {
+      if (*(this + 4))
+      {
+        v21 = 2 * v18;
+        v22 = v18 == 0;
+        v23 = 8;
+        if (!v22)
+        {
+          v23 = v21;
+        }
+
+        if (v23 <= v20)
+        {
+          v24 = v20;
+        }
+
+        else
+        {
+          v24 = v23;
+        }
+
+        re::DynamicArray<re::ArcWeakPtr<re::TransportStream>>::setCapacity(this + 4, v24);
+      }
+
+      else
+      {
+        re::DynamicArray<re::ArcWeakPtr<re::TransportStream>>::setCapacity(this + 4, v20);
+        ++*(this + 14);
+      }
+    }
+
+    v19 = *(this + 6);
+  }
+
+  v25 = (*(this + 8) + 8 * v19);
+  *v25 = 0;
+  objc_moveWeak(v25, &buf);
+  ++*(this + 6);
+  ++*(this + 14);
+  objc_destroyWeak(&buf);
+  buf = 0uLL;
+  v30 = 0;
+  v26 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v28 ^ (v28 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v28 ^ (v28 >> 30))) >> 27));
+  re::HashTable<unsigned long long,unsigned long,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::findEntry<unsigned long long>(v7 + 48, &v28, v26 ^ (v26 >> 31), &buf);
+  if (HIDWORD(buf) == 0x7FFFFFFF)
+  {
+    v27 = re::HashTable<unsigned long long,unsigned long,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::allocEntry(v7 + 48, DWORD2(buf), buf);
+    *(v27 + 8) = v28;
+    *(v27 + 16) = v15;
+    ++*(v7 + 88);
+  }
+
+  return 1;
 }
 
 void *re::internal::Callable<re::Transport::deinit(void)::$_0,void ()(void)>::~Callable(void *a1)
@@ -854,14 +2376,14 @@ void re::internal::Callable<re::Transport::connect(re::Address const&)::$_0,void
 
 void re::internal::Callable<re::Transport::connect(re::Address const&)::$_0,void ()(void)>::operator()(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 8);
-  v3 = (*(**(v2 + 72) + 48))(&v12);
-  v4 = v12;
-  if (v12)
+  v3 = (*(**(v2 + 72) + 48))(&v11);
+  v4 = v11;
+  if (v11)
   {
     v5 = *(a1 + 48);
-    os_unfair_lock_lock(v12 + 441);
+    os_unfair_lock_lock(v11 + 441);
     *&v4[6]._os_unfair_lock_opaque = v5;
     os_unfair_lock_unlock(v4 + 441);
   }
@@ -874,23 +2396,23 @@ void re::internal::Callable<re::Transport::connect(re::Address const&)::$_0,void
     {
       if (*(a1 + 24))
       {
-        v11 = *(a1 + 32);
+        v10 = *(a1 + 32);
       }
 
       else
       {
-        v11 = a1 + 25;
+        v10 = a1 + 25;
       }
 
       LODWORD(buf) = 136315138;
-      *(&buf + 4) = v11;
+      *(&buf + 4) = v10;
       _os_log_error_impl(&dword_26168F000, v6, OS_LOG_TYPE_ERROR, "Failed to connect to %s", &buf, 0xCu);
     }
 
     v8 = *(a1 + 48);
     v9 = re::globalAllocators(v7)[2];
-    v14 = v8;
-    v15 = v9;
+    v13 = v8;
+    v14 = v9;
     *&buf = &unk_2873F5FB8;
     *(&buf + 1) = v2;
     p_buf = &buf;
@@ -898,11 +2420,9 @@ void re::internal::Callable<re::Transport::connect(re::Address const&)::$_0,void
     re::FunctionBase<24ul,void ()(void)>::destroyCallable(&buf);
   }
 
-  if (v12)
+  if (v11)
   {
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void *re::internal::Callable<re::Transport::connect(re::Address const&)::$_0,void ()(void)>::cloneInto(void *a1, void *a2)
@@ -1159,12 +2679,12 @@ void re::internal::Callable<re::Transport::onConnected(re::ProtocolLayer *,re::P
 
 void re::internal::Callable<re::Transport::onConnected(re::ProtocolLayer *,re::ProtocolHandle *,re::Address const&)::$_0,void ()(void)>::operator()(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 8);
   v2 = atomic_load(v1 + 336);
   if ((v2 & 1) == 0)
   {
-    goto LABEL_11;
+    return;
   }
 
   v4 = re::HashTable<re::Address,unsigned long long,re::Address::Hasher,re::EqualTo<re::Address>,true,false>::tryGet((v1 + 272), (a1 + 16));
@@ -1187,12 +2707,12 @@ void re::internal::Callable<re::Transport::onConnected(re::ProtocolLayer *,re::P
           v8 = a1 + 25;
         }
 
-        v12 = 136315138;
-        *v13 = v8;
-        _os_log_fault_impl(&dword_26168F000, v7, OS_LOG_TYPE_FAULT, "Connection '%s' found in m_addrToConnections but missing from m_connections!", &v12, 0xCu);
+        v11 = 136315138;
+        *v12 = v8;
+        _os_log_fault_impl(&dword_26168F000, v7, OS_LOG_TYPE_FAULT, "Connection '%s' found in m_addrToConnections but missing from m_connections!", &v11, 0xCu);
       }
 
-      goto LABEL_11;
+      return;
     }
   }
 
@@ -1207,21 +2727,18 @@ void re::internal::Callable<re::Transport::onConnected(re::ProtocolLayer *,re::P
   os_unfair_lock_lock((v9 + 1764));
   *(v9 + 24) = Connection;
   os_unfair_lock_unlock((v9 + 1764));
+  v13 = 0;
   v14 = 0;
   v15 = 0;
+  re::DynamicString::setCapacity(&v12[4], 0);
   v16 = 0;
-  re::DynamicString::setCapacity(&v13[4], 0);
-  v17 = 0;
-  v12 = 0;
-  re::DynamicString::operator=(&v13[4], (a1 + 16));
-  re::Transport::connectionStateEvent(v1, Connection, &v12);
-  if (*&v13[4] && (v14 & 1) != 0)
+  v11 = 0;
+  re::DynamicString::operator=(&v12[4], (a1 + 16));
+  re::Transport::connectionStateEvent(v1, Connection, &v11);
+  if (*&v12[4] && (v13 & 1) != 0)
   {
-    (*(**&v13[4] + 40))(*&v13[4]);
+    (*(**&v12[4] + 40))(*&v12[4]);
   }
-
-LABEL_11:
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void *re::internal::Callable<re::Transport::onConnected(re::ProtocolLayer *,re::ProtocolHandle *,re::Address const&)::$_0,void ()(void)>::cloneInto(void *a1, void *a2)
@@ -1281,7 +2798,7 @@ void re::internal::Callable<re::Transport::onDisconnected(re::ProtocolLayer *,re
 
 void re::internal::Callable<re::Transport::onDisconnected(re::ProtocolLayer *,re::ProtocolHandle *,re::Address const&)::$_0,void ()(void)>::operator()(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 8);
   v2 = atomic_load(v1 + 336);
   if (v2)
@@ -1291,16 +2808,19 @@ void re::internal::Callable<re::Transport::onDisconnected(re::ProtocolLayer *,re
     if (v5)
     {
       re::SharedPtr<re::SyncObject>::reset((v5 + 40), *(a1 + 16));
+      v11 = 0;
       v12 = 0;
       v13 = 0;
+      re::DynamicString::setCapacity(&v10[4], 0);
       v14 = 0;
-      re::DynamicString::setCapacity(&v11[4], 0);
-      v15 = 0;
-      v10 = 2;
-      re::Transport::connectionStateEvent(v1, v4, &v10);
-      if (*&v11[4] && (v12 & 1) != 0)
+      v9 = 2;
+      re::Transport::connectionStateEvent(v1, v4, &v9);
+      if (*&v10[4])
       {
-        (*(**&v11[4] + 40))();
+        if (v11)
+        {
+          (*(**&v10[4] + 40))();
+        }
       }
     }
 
@@ -1319,14 +2839,12 @@ void re::internal::Callable<re::Transport::onDisconnected(re::ProtocolLayer *,re
           v8 = a1 + 33;
         }
 
-        v10 = 136315138;
-        *v11 = v8;
-        _os_log_impl(&dword_26168F000, v7, OS_LOG_TYPE_DEFAULT, "Connection for address '%s' is already destroyed.Check logs for prior connection errors.", &v10, 0xCu);
+        v9 = 136315138;
+        *v10 = v8;
+        _os_log_impl(&dword_26168F000, v7, OS_LOG_TYPE_DEFAULT, "Connection for address '%s' is already destroyed.Check logs for prior connection errors.", &v9, 0xCu);
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void *re::internal::Callable<re::Transport::onDisconnected(re::ProtocolLayer *,re::ProtocolHandle *,re::Address const&)::$_0,void ()(void)>::cloneInto(void *a1, void *a2)
@@ -1733,7 +3251,7 @@ _anonymous_namespace_ *re::DataArray<re::Connection>::allocBlock(void *a1)
   if (!v4)
   {
     re::internal::assertLog(6, v5, "assertion failure: '%s' (%s:line %i) DataArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "block.elements", "allocBlock", 520, v3, *(*a1 + 8));
-    _os_crash();
+    _os_crash("assertion failure: (block.elements) DataArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v16, v18);
     __break(1u);
     goto LABEL_16;
   }
@@ -1745,7 +3263,7 @@ _anonymous_namespace_ *re::DataArray<re::Connection>::allocBlock(void *a1)
   {
 LABEL_16:
     re::internal::assertLog(6, v8, "assertion failure: '%s' (%s:line %i) DataArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "block.allocationCounters", "allocBlock", 528, v1, *(*a1 + 8));
-    result = _os_crash();
+    result = _os_crash("assertion failure: (block.allocationCounters) DataArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v17, v19);
     __break(1u);
     return result;
   }
@@ -1800,15 +3318,35 @@ LABEL_16:
 
 uint64_t re::DataArray<re::Connection>::DataArrayIterator<re::Connection,re::Connection&>::DataArrayIterator(uint64_t a1, uint64_t a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   *a1 = a2;
   if (*(a2 + 40))
   {
     *(a1 + 8) = 0;
     if (!*(a2 + 16))
     {
-      os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
+      v7 = 0;
+      memset(v16, 0, sizeof(v16));
+      v4 = MEMORY[0x277D86220];
+      v8 = 136315906;
+      v9 = "operator[]";
+      v10 = 1024;
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        v5 = 3;
+      }
+
+      else
+      {
+        v5 = 2;
+      }
+
+      v11 = 797;
+      v12 = 2048;
+      v13 = 0;
+      v14 = 2048;
+      v15 = 0;
+      _os_log_send_and_compose_impl(v5, &v7, v16, 80, &dword_26168F000, v4, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v8, 38, v6);
       _os_crash_msg();
       __break(1u);
     }
@@ -1824,7 +3362,6 @@ uint64_t re::DataArray<re::Connection>::DataArrayIterator<re::Connection,re::Con
     *(a1 + 8) = -1;
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -1946,16 +3483,16 @@ LABEL_6:
   return result;
 }
 
-uint64_t re::HashTable<unsigned short,re::PendingPacketFragments,re::Hash<unsigned short>,re::EqualTo<unsigned short>,true,false>::allocEntry(uint64_t a1, unsigned int a2, unint64_t a3)
+uint64_t re::HashTable<unsigned short,re::PendingPacketFragments,re::Hash<unsigned short>,re::EqualTo<unsigned short>,true,false>::allocEntry(uint64_t *a1, unsigned int a2, unint64_t a3)
 {
-  v5 = *(a1 + 36);
+  v5 = *(a1 + 9);
   if (v5 == 0x7FFFFFFF)
   {
-    v5 = *(a1 + 32);
+    v5 = *(a1 + 8);
     v6 = v5;
-    if (v5 == *(a1 + 24))
+    if (v5 == *(a1 + 6))
     {
-      v7 = *(a1 + 28);
+      v7 = *(a1 + 7);
       v8 = 2 * v7;
       v9 = *a1;
       if (*a1)
@@ -1979,52 +3516,52 @@ uint64_t re::HashTable<unsigned short,re::PendingPacketFragments,re::Hash<unsign
           *v30 = *a1;
           *a1 = v11;
           v12 = *&v30[16];
-          v13 = *(a1 + 16);
+          v13 = a1[2];
           *&v30[16] = v13;
-          *(a1 + 16) = v12;
+          a1[2] = v12;
           v15 = *&v30[24];
-          *&v30[24] = *(a1 + 24);
+          *&v30[24] = *(a1 + 3);
           v14 = *&v30[32];
-          *(a1 + 24) = v15;
+          *(a1 + 3) = v15;
           ++*&v30[40];
           v16 = v14;
           if (v14)
           {
             v17 = 0;
-            v18 = (v13 + 40);
+            v18 = v13 + 40;
             do
             {
-              if ((*(v18 - 5) & 0x80000000) != 0)
+              if ((*(v18 - 40) & 0x80000000) != 0)
               {
-                v19 = re::HashTable<unsigned short,re::PendingPacketFragments,re::Hash<unsigned short>,re::EqualTo<unsigned short>,true,false>::allocEntry(a1, v18[4] % *(a1 + 24));
-                *(v19 + 4) = *(v18 - 18);
+                v19 = re::HashTable<unsigned short,re::PendingPacketFragments,re::Hash<unsigned short>,re::EqualTo<unsigned short>,true,false>::allocEntry(a1, *(v18 + 32) % *(a1 + 6), *(v18 + 32));
+                *(v19 + 4) = *(v18 - 36);
                 *(v19 + 8) = 0;
                 *(v19 + 16) = 0;
                 *(v19 + 24) = 0;
-                v20 = *(v18 - 3);
-                *(v19 + 8) = *(v18 - 4);
+                v20 = *(v18 - 24);
+                *(v19 + 8) = *(v18 - 32);
                 *(v19 + 16) = v20;
-                *(v18 - 4) = 0;
-                *(v18 - 3) = 0;
+                *(v18 - 32) = 0;
+                *(v18 - 24) = 0;
                 v21 = *(v19 + 24);
-                *(v19 + 24) = *(v18 - 2);
-                *(v18 - 2) = v21;
+                *(v19 + 24) = *(v18 - 16);
+                *(v18 - 16) = v21;
                 *(v19 + 40) = 0;
                 *(v19 + 48) = 0;
                 *(v19 + 32) = 0;
                 v22 = *v18;
-                *(v19 + 32) = *(v18 - 1);
+                *(v19 + 32) = *(v18 - 8);
                 *(v19 + 40) = v22;
-                *(v18 - 1) = 0;
+                *(v18 - 8) = 0;
                 *v18 = 0;
                 v23 = *(v19 + 48);
-                *(v19 + 48) = v18[1];
-                v18[1] = v23;
-                *(v19 + 56) = *(v18 + 1);
+                *(v19 + 48) = *(v18 + 8);
+                *(v18 + 8) = v23;
+                *(v19 + 56) = *(v18 + 16);
               }
 
               ++v17;
-              v18 += 10;
+              v18 += 80;
             }
 
             while (v17 < v16);
@@ -2047,29 +3584,29 @@ uint64_t re::HashTable<unsigned short,re::PendingPacketFragments,re::Hash<unsign
         }
       }
 
-      a2 = a3 % *(a1 + 24);
-      v6 = *(a1 + 32);
+      a2 = a3 % *(a1 + 6);
+      v6 = *(a1 + 8);
     }
 
-    *(a1 + 32) = v6 + 1;
-    v24 = *(a1 + 16);
+    *(a1 + 8) = v6 + 1;
+    v24 = a1[2];
     v25 = *(v24 + 80 * v5);
   }
 
   else
   {
-    v24 = *(a1 + 16);
+    v24 = a1[2];
     v25 = *(v24 + 80 * v5);
-    *(a1 + 36) = v25 & 0x7FFFFFFF;
+    *(a1 + 9) = v25 & 0x7FFFFFFF;
   }
 
   v27 = v24 + 80 * v5;
   *v27 = v25 | 0x80000000;
-  v28 = *(a1 + 8);
+  v28 = a1[1];
   *v27 = *(v28 + 4 * a2) | 0x80000000;
   *(v28 + 4 * a2) = v5;
   *(v27 + 72) = a3;
-  ++*(a1 + 28);
+  ++*(a1 + 7);
   return v24 + 80 * v5;
 }
 
@@ -2082,7 +3619,7 @@ void re::HashTable<unsigned short,re::PendingPacketFragments,re::Hash<unsigned s
     v6 = v4 >> 1;
     v7 = &v5[v4 >> 1];
     v9 = *v7;
-    v8 = v7 + 1;
+    v8 = (v7 + 1);
     v4 += ~(v4 >> 1);
     if (v9 < a3)
     {
@@ -2117,7 +3654,7 @@ void re::HashTable<unsigned short,re::PendingPacketFragments,re::Hash<unsigned s
   else
   {
     re::internal::assertLog(4, v13, "assertion failure: '%s' (%s:line %i) Out of memory.", "temp", "init", 750);
-    _os_crash();
+    _os_crash("assertion failure: (temp) Out of memory.");
     __break(1u);
   }
 }
@@ -2160,7 +3697,7 @@ void re::FixedArray<unsigned char>::init<>(void *a1, uint64_t a2, uint64_t a3)
     else
     {
       re::internal::assertLog(4, v6, "assertion failure: '%s' (%s:line %i) Out of memory.", "m_data", "init", 327);
-      _os_crash();
+      _os_crash("assertion failure: (m_data) Out of memory.");
       __break(1u);
     }
   }
@@ -2215,7 +3752,7 @@ uint64_t re::HashTable<re::Address,unsigned long long,re::Address::Hasher,re::Eq
             {
               if ((*(v17 - 6) & 0x80000000) != 0)
               {
-                v18 = re::HashTable<re::Address,unsigned long long,re::Address::Hasher,re::EqualTo<re::Address>,true,false>::allocEntry(a1, *v17 % *(a1 + 24));
+                v18 = re::HashTable<re::Address,unsigned long long,re::Address::Hasher,re::EqualTo<re::Address>,true,false>::allocEntry(a1, *v17 % *(a1 + 24), *v17);
                 re::DynamicString::DynamicString((v18 + 8), (v17 - 5));
                 *(v18 + 40) = *(v17 - 1);
               }
@@ -2291,7 +3828,7 @@ void *re::DynamicArray<re::ArcWeakPtr<re::TransportStream>>::setCapacity(void *r
         if (a2 >> 61)
         {
           re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 8, a2);
-          _os_crash();
+          _os_crash("assertion failure: (!overflow) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", v13, v15);
           __break(1u);
         }
 
@@ -2312,7 +3849,7 @@ void *re::DynamicArray<re::ArcWeakPtr<re::TransportStream>>::setCapacity(void *r
         }
 
         re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
-        result = _os_crash();
+        result = _os_crash("assertion failure: (newData) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v14, v16);
         __break(1u);
         return result;
       }
@@ -2979,7 +4516,7 @@ uint64_t RESyncableGetHoldID(uint64_t result)
 
 BOOL re::MultipeerDiscoveryView::init(id *this, ObjCObject a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = *a2.var0;
   if (*a2.var0)
   {
@@ -2993,43 +4530,43 @@ BOOL re::MultipeerDiscoveryView::init(id *this, ObjCObject a2)
     v9 = (*(*v8[2] + 32))(v8[2], 72, 8);
     MCIdentity::MCIdentity(v9, v7, 1);
     *buf = v10;
-    re::DynamicArray<re::SharedPtr<re::DiscoveryIdentity>>::add(this + 26, buf);
+    re::DynamicArray<re::SharedPtr<re::DiscoveryIdentity>>::add((this + 26), buf);
     if (*buf)
     {
 
       *buf = 0;
     }
 
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v11 = [v6 connectedPeers];
-    v12 = [v11 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v23;
+      v14 = *v22;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v23 != v14)
+          if (*v22 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          *buf = *(*(&v22 + 1) + 8 * i);
-          v19 = 0;
-          re::make::shared::object<MCIdentity,MCPeerID * const {__strong}&,BOOL>(&v20, buf, &v19);
-          v21 = v20;
-          re::DynamicArray<re::SharedPtr<re::DiscoveryIdentity>>::add(this + 26, &v21);
-          if (v21)
+          *buf = *(*(&v21 + 1) + 8 * i);
+          v18 = 0;
+          re::make::shared::object<MCIdentity,MCPeerID * const {__strong}&,BOOL>(&v19, buf, &v18);
+          v20 = v19;
+          re::DynamicArray<re::SharedPtr<re::DiscoveryIdentity>>::add((this + 26), &v20);
+          if (v20)
           {
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
       }
 
       while (v13);
@@ -3048,103 +4585,136 @@ BOOL re::MultipeerDiscoveryView::init(id *this, ObjCObject a2)
     }
   }
 
-  result = v2 != 0;
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  return v2 != 0;
 }
 
-void *re::DynamicArray<re::SharedPtr<re::DiscoveryIdentity>>::add(void *this, void *a2)
+_anonymous_namespace_ *re::DynamicArray<re::SharedPtr<re::DiscoveryIdentity>>::add(_anonymous_namespace_ *this, void *a2)
 {
   v3 = this;
-  v4 = this[2];
-  if (v4 >= this[1])
+  v4 = *(this + 2);
+  if (v4 >= *(this + 1))
   {
     this = re::DynamicArray<re::SharedPtr<re::SyncObject>>::growCapacity(this, v4 + 1);
-    v4 = v3[2];
+    v4 = *(v3 + 2);
   }
 
-  *(v3[4] + 8 * v4) = *a2;
+  *(*(v3 + 4) + 8 * v4) = *a2;
   *a2 = 0;
-  v3[2] = v4 + 1;
+  *(v3 + 2) = v4 + 1;
   ++*(v3 + 6);
   return this;
 }
 
 void *re::MultipeerDiscoveryView::identityAtIndex@<X0>(void *this@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  if (this[28] <= a2)
+  v19 = *MEMORY[0x277D85DE8];
+  v4 = this[28];
+  if (v4 <= a2)
   {
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+    v9 = 0;
+    memset(v18, 0, sizeof(v18));
+    v6 = MEMORY[0x277D86220];
+    v10 = 136315906;
+    v11 = "operator[]";
+    v12 = 1024;
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v7 = 3;
+    }
+
+    else
+    {
+      v7 = 2;
+    }
+
+    v13 = 797;
+    v14 = 2048;
+    v15 = a2;
+    v16 = 2048;
+    v17 = v4;
+    _os_log_send_and_compose_impl(v7, &v9, v18, 80, &dword_26168F000, v6, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v10, 38, v8);
     _os_crash_msg();
     __break(1u);
   }
 
-  v3 = *(this[30] + 8 * a2);
-  *a3 = v3;
-  if (v3)
+  v5 = *(this[30] + 8 * a2);
+  *a3 = v5;
+  if (v5)
   {
-    v4 = *MEMORY[0x277D85DE8];
 
-    return (v3 + 8);
-  }
-
-  else
-  {
-    v5 = *MEMORY[0x277D85DE8];
+    return (v5 + 8);
   }
 
   return this;
 }
 
-id re::MultipeerDiscoveryView::multipeerIdAtIndex@<X0>(re::MultipeerDiscoveryView *this@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
+uint64_t *re::MultipeerDiscoveryView::multipeerIdAtIndex@<X0>(uint64_t *__return_ptr a1@<X8>, re::MultipeerDiscoveryView *this@<X0>, unint64_t a3@<X1>)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  if (*(this + 28) <= a2)
+  v20 = *MEMORY[0x277D85DE8];
+  v5 = *(this + 28);
+  if (v5 <= a3)
   {
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+    v10 = 0;
+    memset(v19, 0, sizeof(v19));
+    v7 = MEMORY[0x277D86220];
+    v11 = 136315906;
+    v12 = "operator[]";
+    v13 = 1024;
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v8 = 3;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+
+    v14 = 797;
+    v15 = 2048;
+    v16 = a3;
+    v17 = 2048;
+    v18 = v5;
+    _os_log_send_and_compose_impl(v8, &v10, v19, 80, &dword_26168F000, v7, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v11, 38, v9);
     _os_crash_msg();
     __break(1u);
   }
 
-  result = *(*(*(this + 30) + 8 * a2) + 24);
-  *a3 = result;
-  v5 = *MEMORY[0x277D85DE8];
+  result = *(*(*(this + 30) + 8 * a3) + 24);
+  *a1 = result;
   return result;
 }
 
 void re::MultipeerDiscoveryView::requestIdentity(uint64_t a1, uint64_t a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 200);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v5 = [v4 connectedPeers];
-  v6 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v24 = *(*(&v20 + 1) + 8 * i);
-        [REMultipeerHelper makeAddressFromPeerID:?];
-        if (re::DynamicString::operator==(a2, &v18))
+        v23 = *(*(&v19 + 1) + 8 * i);
+        objc_msgSend_makeAddressFromPeerID_(REMultipeerHelper);
+        if (re::DynamicString::operator==(a2, &v17))
         {
-          v16 = 0;
-          re::make::shared::object<MCIdentity,MCPeerID * const {__strong}&,BOOL>(&v17, &v24, &v16);
-          v10 = v17;
+          v15 = 0;
+          re::make::shared::object<MCIdentity,MCPeerID * const {__strong}&,BOOL>(&v16, &v23, &v15);
+          v10 = v16;
           v11 = *(a1 + 224);
           if (v11 >= *(a1 + 216))
           {
@@ -3158,7 +4728,7 @@ void re::MultipeerDiscoveryView::requestIdentity(uint64_t a1, uint64_t a2)
             v12 = (v10 + 8);
             ++*(a1 + 224);
             ++*(a1 + 232);
-            v15 = v10;
+            v14 = v10;
             v13 = (v10 + 8);
           }
 
@@ -3166,11 +4736,11 @@ void re::MultipeerDiscoveryView::requestIdentity(uint64_t a1, uint64_t a2)
           {
             *(a1 + 224) = v11 + 1;
             ++*(a1 + 232);
-            v15 = 0;
+            v14 = 0;
           }
 
-          re::Event<re::DiscoveryView,re::SharedPtr<re::DiscoveryIdentity>>::raise(a1 + 24, a1);
-          if (v15)
+          re::Event<re::DiscoveryView,re::SharedPtr<re::DiscoveryIdentity>>::raise((a1 + 24), a1);
+          if (v14)
           {
           }
 
@@ -3179,22 +4749,20 @@ void re::MultipeerDiscoveryView::requestIdentity(uint64_t a1, uint64_t a2)
           }
         }
 
-        if (v18 && (v19 & 1) != 0)
+        if (v17 && (v18 & 1) != 0)
         {
-          (*(*v18 + 40))();
+          (*(*v17 + 40))();
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t re::MultipeerDiscoveryView::removeIdentity(uint64_t a1, void *a2)
+uint64_t re::MultipeerDiscoveryView::removeIdentity(uint64_t a1, uint64_t *a2)
 {
   v4 = re::DynamicArray<re::SharedPtr<re::DiscoveryIdentity>>::remove(a1 + 208, a2);
   if (v4)
@@ -3205,7 +4773,7 @@ uint64_t re::MultipeerDiscoveryView::removeIdentity(uint64_t a1, void *a2)
       v5 = (*a2 + 8);
     }
 
-    re::Event<re::DiscoveryView,re::SharedPtr<re::DiscoveryIdentity>>::raise(a1 + 112, a1);
+    re::Event<re::DiscoveryView,re::SharedPtr<re::DiscoveryIdentity>>::raise((a1 + 112), a1);
     if (v7)
     {
     }
@@ -3292,7 +4860,7 @@ void MCIdentity::MCIdentity(MCIdentity *this, MCPeerID *a2, char a3)
   *(this + 3) = v5;
   v8 = v5;
 
-  [REMultipeerHelper makeAddressFromPeerID:v8];
+  objc_msgSend_makeAddressFromPeerID_(REMultipeerHelper);
   re::DynamicString::operator=((this + 32), &v9);
   if (v9 && (v10 & 1) != 0)
   {
@@ -3370,7 +4938,7 @@ void re::TcpProtocolLayer::~TcpProtocolLayer(re::TcpProtocolLayer *this)
   }
 
   re::DynamicString::deinit((this + 136));
-  re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::deinit(this + 80);
+  re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::deinit(this + 10);
   re::HashSetBase<re::SharedPtr<re::SyncView>,re::SharedPtr<re::SyncView>,re::internal::ValueAsKey<re::SharedPtr<re::SyncView>>,re::Hash<re::SharedPtr<re::SyncView>>,re::EqualTo<re::SharedPtr<re::SyncView>>,true,false>::deinit(this + 4);
   *this = &unk_2873F3D98;
   objc_destructInstance(this + 8);
@@ -3384,7 +4952,7 @@ void re::TcpProtocolLayer::~TcpProtocolLayer(re::TcpProtocolLayer *this)
 
 BOOL re::TcpProtocolLayer::init(uint64_t a1, uint64_t a2)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   *(a1 + 200) = *(a2 + 8);
   *(a1 + 180) = 0;
   *(a1 + 24) = kqueue();
@@ -3398,268 +4966,255 @@ BOOL re::TcpProtocolLayer::init(uint64_t a1, uint64_t a2)
     v3 = (a1 + 145);
   }
 
-  v4 = re::IP::makeFromString(v3, v58);
-  if (v58[0])
+  v4 = re::IP::makeFromString(v3, v57);
+  if ((v57[0] & 1) == 0)
   {
-    if (v58[8] != 1)
-    {
-      memset(&v57.ai_addrlen, 0, 32);
-      v57.ai_flags = 0;
-      *&v57.ai_family = 0x100000002;
-      v57.ai_protocol = 6;
-      v56 = 0;
-      *__str = 0;
-      snprintf(__str, 0xAuLL, "%i", *(a1 + 168));
-      v50 = 0;
-      if (*(a1 + 144))
-      {
-        v9 = *(a1 + 152);
-      }
-
-      else
-      {
-        v9 = (a1 + 145);
-      }
-
-      v10 = getaddrinfo(v9, __str, &v57, &v50);
-      if (v10)
-      {
-        v11 = v10;
-        v12 = *re::networkLogObjects(v10);
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-        {
-          v36 = gai_strerror(v11);
-          LODWORD(changelist.ident) = 136315138;
-          *(&changelist.ident + 4) = v36;
-          _os_log_error_impl(&dword_26168F000, v12, OS_LOG_TYPE_ERROR, "getaddrinfo failed: %s", &changelist, 0xCu);
-        }
-
-        freeaddrinfo(v50);
-        goto LABEL_52;
-      }
-
-      v13 = socket(v50->ai_family, v50->ai_socktype, v50->ai_protocol);
-      *(a1 + 192) = v13;
-      v49 = 1;
-      setsockopt(v13, 0xFFFF, 4, &v49, 4u);
-      v14 = bind(*(a1 + 192), v50->ai_addr, v50->ai_addrlen);
-      freeaddrinfo(v50);
-      v50 = 0;
-      if (v14 < 0)
-      {
-        v17 = *re::networkLogObjects(v15);
-        result = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
-        if (!result)
-        {
-          goto LABEL_53;
-        }
-
-        v18 = gai_strerror(v14);
-        v19 = __error();
-        v20 = strerror(*v19);
-        LODWORD(changelist.ident) = 136315650;
-        *(&changelist.ident + 4) = __str;
-        LOWORD(changelist.fflags) = 2080;
-        *(&changelist.fflags + 2) = v18;
-        HIWORD(changelist.data) = 2080;
-        changelist.udata = v20;
-        v21 = "bind on port %s failed: %s errno = %s";
-        p_changelist = &changelist;
-        v23 = v17;
-        v24 = 32;
-      }
-
-      else
-      {
-        v48 = 16;
-        v16 = getsockname(*(a1 + 192), &v54, &v48);
-        if ((v16 & 0x80000000) != 0)
-        {
-          v25 = v16;
-          v26 = *re::networkLogObjects(v16);
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
-          {
-            v41 = __error();
-            v42 = strerror(*v41);
-            v43 = gai_strerror(v25);
-            LODWORD(changelist.ident) = 136315394;
-            *(&changelist.ident + 4) = v42;
-            LOWORD(changelist.fflags) = 2080;
-            *(&changelist.fflags + 2) = v43;
-            _os_log_error_impl(&dword_26168F000, v26, OS_LOG_TYPE_ERROR, "getsockname: %s : %s", &changelist, 0x16u);
-          }
-        }
-
-        else
-        {
-          *(a1 + 180) = bswap32(*v54.sa_data) >> 16;
-        }
-
-        v27 = fcntl(*(a1 + 192), 3, 0);
-        v28 = v27;
-        if ((v27 & 0x80000000) != 0)
-        {
-          v29 = *re::networkLogObjects(v27);
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
-          {
-            v44 = __error();
-            v45 = strerror(*v44);
-            LODWORD(changelist.ident) = 136315138;
-            *(&changelist.ident + 4) = v45;
-            _os_log_error_impl(&dword_26168F000, v29, OS_LOG_TYPE_ERROR, "Could not get server socket flags: %s\n", &changelist, 0xCu);
-          }
-        }
-
-        v30 = fcntl(*(a1 + 192), 4, v28 | 4u);
-        if ((v30 & 0x80000000) != 0)
-        {
-          v31 = *re::networkLogObjects(v30);
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
-          {
-            v46 = __error();
-            v47 = strerror(*v46);
-            LODWORD(changelist.ident) = 136315138;
-            *(&changelist.ident + 4) = v47;
-            _os_log_error_impl(&dword_26168F000, v31, OS_LOG_TYPE_ERROR, "Could set server socket to be non blocking: %s\n", &changelist, 0xCu);
-          }
-        }
-
-        changelist.ident = *(a1 + 192);
-        *&changelist.filter = 0x1FFFF;
-        memset(&changelist.fflags, 0, 36);
-        v32 = kevent64(*(a1 + 24), &changelist, 1, 0, 0, 0, 0);
-        if (v32 == -1)
-        {
-          v35 = *re::networkLogObjects(v32);
-          result = os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
-          if (!result)
-          {
-            goto LABEL_53;
-          }
-
-          LOWORD(v51) = 0;
-          v21 = "kevent failed";
-        }
-
-        else
-        {
-          changelist.ident = 0;
-          *&changelist.filter = 393206;
-          memset(&changelist.fflags, 0, 36);
-          v33 = kevent64(*(a1 + 24), &changelist, 1, 0, 0, 0, 0);
-          if (v33 != -1)
-          {
-            v34 = listen(*(a1 + 192), *(a1 + 128));
-            if ((v34 & 0x80000000) != 0)
-            {
-              v37 = v34;
-              v38 = *re::networkLogObjects(v34);
-              result = os_log_type_enabled(v38, OS_LOG_TYPE_ERROR);
-              if (result)
-              {
-                v39 = gai_strerror(v37);
-                v51 = 136315138;
-                v52 = v39;
-                v21 = "listen failed: %s";
-                p_changelist = &v51;
-                v23 = v38;
-LABEL_50:
-                v24 = 12;
-                goto LABEL_51;
-              }
-            }
-
-            else
-            {
-              if (re::internal::enableSignposts(0, 0))
-              {
-                kdebug_trace();
-              }
-
-              result = 1;
-            }
-
-            goto LABEL_53;
-          }
-
-          v35 = *re::networkLogObjects(v33);
-          result = os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
-          if (!result)
-          {
-            goto LABEL_53;
-          }
-
-          LOWORD(v51) = 0;
-          v21 = "kevent failed";
-        }
-
-        p_changelist = &v51;
-        v23 = v35;
-        v24 = 2;
-      }
-
-LABEL_51:
-      _os_log_error_impl(&dword_26168F000, v23, OS_LOG_TYPE_ERROR, v21, p_changelist, v24);
-LABEL_52:
-      result = 0;
-      goto LABEL_53;
-    }
-
     v5 = *re::networkLogObjects(v4);
     result = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
-    if (result)
+    if (!result)
     {
-      if (*(a1 + 144))
-      {
-        v7 = *(a1 + 152);
-      }
+      return result;
+    }
 
-      else
-      {
-        v7 = a1 + 145;
-      }
+    if (*(a1 + 144))
+    {
+      v8 = *(a1 + 152);
+    }
 
-      v57.ai_flags = 136315138;
-      *&v57.ai_family = v7;
-      v21 = "An error occurred while trying to create an Tcp server host. Tcp only supports IPv4. IPv6 requested. (%s)";
+    else
+    {
+      v8 = a1 + 145;
+    }
+
+    v56.ai_flags = 136315138;
+    *&v56.ai_family = v8;
+    v21 = "An error occurred while trying to create an Tcp server host. Invalid bind address: %s";
+    goto LABEL_49;
+  }
+
+  if (v57[8] == 1)
+  {
+    v5 = *re::networkLogObjects(v4);
+    result = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    if (!result)
+    {
+      return result;
+    }
+
+    if (*(a1 + 144))
+    {
+      v7 = *(a1 + 152);
+    }
+
+    else
+    {
+      v7 = a1 + 145;
+    }
+
+    v56.ai_flags = 136315138;
+    *&v56.ai_family = v7;
+    v21 = "An error occurred while trying to create an Tcp server host. Tcp only supports IPv4. IPv6 requested. (%s)";
 LABEL_49:
-      p_changelist = &v57;
-      v23 = v5;
-      goto LABEL_50;
+    p_changelist = &v56;
+    v23 = v5;
+LABEL_50:
+    v24 = 12;
+    goto LABEL_51;
+  }
+
+  memset(&v56.ai_addrlen, 0, 32);
+  v56.ai_flags = 0;
+  *&v56.ai_family = 0x100000002;
+  v56.ai_protocol = 6;
+  v55 = 0;
+  *__str = 0;
+  snprintf(__str, 0xAuLL, "%i", *(a1 + 168));
+  v49 = 0;
+  if (*(a1 + 144))
+  {
+    v9 = *(a1 + 152);
+  }
+
+  else
+  {
+    v9 = (a1 + 145);
+  }
+
+  v10 = getaddrinfo(v9, __str, &v56, &v49);
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *re::networkLogObjects(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      v36 = gai_strerror(v11);
+      LODWORD(changelist.ident) = 136315138;
+      *(&changelist.ident + 4) = v36;
+      _os_log_error_impl(&dword_26168F000, v12, OS_LOG_TYPE_ERROR, "getaddrinfo failed: %s", &changelist, 0xCu);
+    }
+
+    freeaddrinfo(v49);
+    return 0;
+  }
+
+  v13 = socket(v49->ai_family, v49->ai_socktype, v49->ai_protocol);
+  *(a1 + 192) = v13;
+  v48 = 1;
+  setsockopt(v13, 0xFFFF, 4, &v48, 4u);
+  v14 = bind(*(a1 + 192), v49->ai_addr, v49->ai_addrlen);
+  freeaddrinfo(v49);
+  v49 = 0;
+  if (v14 < 0)
+  {
+    v17 = *re::networkLogObjects(v15);
+    result = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
+    if (!result)
+    {
+      return result;
+    }
+
+    v18 = gai_strerror(v14);
+    v19 = __error();
+    v20 = strerror(*v19);
+    LODWORD(changelist.ident) = 136315650;
+    *(&changelist.ident + 4) = __str;
+    LOWORD(changelist.fflags) = 2080;
+    *(&changelist.fflags + 2) = v18;
+    HIWORD(changelist.data) = 2080;
+    changelist.udata = v20;
+    v21 = "bind on port %s failed: %s errno = %s";
+    p_changelist = &changelist;
+    v23 = v17;
+    v24 = 32;
+    goto LABEL_51;
+  }
+
+  v47 = 16;
+  v16 = getsockname(*(a1 + 192), &v53, &v47);
+  if ((v16 & 0x80000000) != 0)
+  {
+    v25 = v16;
+    v26 = *re::networkLogObjects(v16);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    {
+      v40 = __error();
+      v41 = strerror(*v40);
+      v42 = gai_strerror(v25);
+      LODWORD(changelist.ident) = 136315394;
+      *(&changelist.ident + 4) = v41;
+      LOWORD(changelist.fflags) = 2080;
+      *(&changelist.fflags + 2) = v42;
+      _os_log_error_impl(&dword_26168F000, v26, OS_LOG_TYPE_ERROR, "getsockname: %s : %s", &changelist, 0x16u);
     }
   }
 
   else
   {
-    v5 = *re::networkLogObjects(v4);
-    result = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
-    if (result)
+    *(a1 + 180) = bswap32(*v53.sa_data) >> 16;
+  }
+
+  v27 = fcntl(*(a1 + 192), 3, 0);
+  v28 = v27;
+  if ((v27 & 0x80000000) != 0)
+  {
+    v29 = *re::networkLogObjects(v27);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      if (*(a1 + 144))
-      {
-        v8 = *(a1 + 152);
-      }
-
-      else
-      {
-        v8 = a1 + 145;
-      }
-
-      v57.ai_flags = 136315138;
-      *&v57.ai_family = v8;
-      v21 = "An error occurred while trying to create an Tcp server host. Invalid bind address: %s";
-      goto LABEL_49;
+      v43 = __error();
+      v44 = strerror(*v43);
+      LODWORD(changelist.ident) = 136315138;
+      *(&changelist.ident + 4) = v44;
+      _os_log_error_impl(&dword_26168F000, v29, OS_LOG_TYPE_ERROR, "Could not get server socket flags: %s\n", &changelist, 0xCu);
     }
   }
 
-LABEL_53:
-  v40 = *MEMORY[0x277D85DE8];
-  return result;
+  v30 = fcntl(*(a1 + 192), 4, v28 | 4u);
+  if ((v30 & 0x80000000) != 0)
+  {
+    v31 = *re::networkLogObjects(v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    {
+      v45 = __error();
+      v46 = strerror(*v45);
+      LODWORD(changelist.ident) = 136315138;
+      *(&changelist.ident + 4) = v46;
+      _os_log_error_impl(&dword_26168F000, v31, OS_LOG_TYPE_ERROR, "Could set server socket to be non blocking: %s\n", &changelist, 0xCu);
+    }
+  }
+
+  changelist.ident = *(a1 + 192);
+  *&changelist.filter = 0x1FFFF;
+  memset(&changelist.fflags, 0, 36);
+  v32 = kevent64(*(a1 + 24), &changelist, 1, 0, 0, 0, 0);
+  if (v32 == -1)
+  {
+    v35 = *re::networkLogObjects(v32);
+    result = os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
+    if (!result)
+    {
+      return result;
+    }
+
+    LOWORD(v50) = 0;
+    v21 = "kevent failed";
+LABEL_44:
+    p_changelist = &v50;
+    v23 = v35;
+    v24 = 2;
+LABEL_51:
+    _os_log_error_impl(&dword_26168F000, v23, OS_LOG_TYPE_ERROR, v21, p_changelist, v24);
+    return 0;
+  }
+
+  changelist.ident = 0;
+  *&changelist.filter = 393206;
+  memset(&changelist.fflags, 0, 36);
+  v33 = kevent64(*(a1 + 24), &changelist, 1, 0, 0, 0, 0);
+  if (v33 == -1)
+  {
+    v35 = *re::networkLogObjects(v33);
+    result = os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
+    if (!result)
+    {
+      return result;
+    }
+
+    LOWORD(v50) = 0;
+    v21 = "kevent failed";
+    goto LABEL_44;
+  }
+
+  v34 = listen(*(a1 + 192), *(a1 + 128));
+  if ((v34 & 0x80000000) != 0)
+  {
+    v37 = v34;
+    v38 = *re::networkLogObjects(v34);
+    result = os_log_type_enabled(v38, OS_LOG_TYPE_ERROR);
+    if (!result)
+    {
+      return result;
+    }
+
+    v39 = gai_strerror(v37);
+    v50 = 136315138;
+    v51 = v39;
+    v21 = "listen failed: %s";
+    p_changelist = &v50;
+    v23 = v38;
+    goto LABEL_50;
+  }
+
+  if (re::internal::enableSignposts(0, 0))
+  {
+    kdebug_trace();
+  }
+
+  return 1;
 }
 
 uint64_t re::TcpProtocolLayer::deinit(re::TcpProtocolLayer *this)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = *(this + 28);
   if (v2)
   {
@@ -3707,11 +5262,11 @@ uint64_t re::TcpProtocolLayer::deinit(re::TcpProtocolLayer *this)
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v27 = "deinit";
-      v28 = 1024;
-      v29 = 230;
-      v30 = 2048;
-      v31 = v7;
+      v26 = "deinit";
+      v27 = 1024;
+      v28 = 230;
+      v29 = 2048;
+      v30 = v7;
       _os_log_impl(&dword_26168F000, v11, OS_LOG_TYPE_DEFAULT, "%s:%u queueing close on handle %p", buf, 0x1Cu);
     }
 
@@ -3788,11 +5343,11 @@ LABEL_22:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v27 = "deinit";
-      v28 = 1024;
-      v29 = 242;
-      v30 = 2048;
-      v31 = v17;
+      v26 = "deinit";
+      v27 = 1024;
+      v28 = 242;
+      v29 = 2048;
+      v30 = v17;
       _os_log_impl(&dword_26168F000, v22, OS_LOG_TYPE_DEFAULT, "%s:%u queueing close on handle %p", buf, 0x1Cu);
     }
 
@@ -3825,7 +5380,6 @@ LABEL_42:
   *(this + 6) = -1;
   *(this + 90) = 0;
   *(this + 48) = -1;
-  v25 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3902,14 +5456,12 @@ void re::HashSetBase<re::SharedPtr<re::ProtocolHandle>,re::SharedPtr<re::Protoco
 
 uint64_t re::TcpProtocolLayer::open@<X0>(re::TcpProtocolLayer *this@<X0>, const re::Address *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   result = (*(*this + 160))(this);
-  v24 = result;
+  v23 = result;
   if ((result & 0x80000000) != 0)
   {
     *a3 = 0;
-LABEL_26:
-    v22 = *MEMORY[0x277D85DE8];
     return result;
   }
 
@@ -3937,62 +5489,61 @@ LABEL_26:
     _os_log_impl(&dword_26168F000, v8, OS_LOG_TYPE_INFO, "[ConDebug] Connecting to %s with socket %i from port %i", &buf, 0x18u);
   }
 
-  v25 = 1;
+  v24 = 1;
   LODWORD(buf.ident) = v7;
-  re::make::shared::object<re::TcpProtocolHandle,int &,re::TcpConnectionStatus &,re::Address const&>(&v23, &buf, &v25, a2);
-  v11 = v23;
-  buf.ident = v23;
-  if (v23)
+  re::make::shared::object<re::TcpProtocolHandle,int &,re::TcpConnectionStatus &,re::Address const&>(&v22, &buf, &v24, a2);
+  v11 = v22;
+  buf.ident = v22;
+  if (v22)
   {
-    v12 = (v23 + 8);
+    v12 = (v22 + 8);
   }
 
   v13 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v11 ^ (v11 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v11 ^ (v11 >> 30))) >> 27));
   v14 = v13 ^ (v13 >> 31);
   v15 = *(this + 14);
-  if (v15)
+  if (!v15)
   {
-    v16 = v14 % v15;
-    v17 = *(*(this + 5) + 4 * (v14 % v15));
-    if (v17 != 0x7FFFFFFF)
+    LODWORD(v16) = 0;
+    goto LABEL_17;
+  }
+
+  v16 = v14 % v15;
+  v17 = *(*(this + 5) + 4 * (v14 % v15));
+  if (v17 == 0x7FFFFFFF)
+  {
+LABEL_17:
+    re::HashSetBase<re::SharedPtr<re::ProtocolHandle>,re::SharedPtr<re::ProtocolHandle>,re::internal::ValueAsKey<re::SharedPtr<re::ProtocolHandle>>,re::Hash<re::SharedPtr<re::ProtocolHandle>>,re::EqualTo<re::SharedPtr<re::ProtocolHandle>>,true,false>::addAsMove(this + 32, v16, v14, &buf, &buf);
+    ++*(this + 18);
+    ident = buf.ident;
+    goto LABEL_18;
+  }
+
+  v18 = *(this + 6);
+  ident = v11;
+  if (*(v18 + 24 * v17 + 16) != v11)
+  {
+    while (1)
     {
-      v18 = *(this + 6);
-      ident = v11;
-      if (*(v18 + 24 * v17 + 16) == v11)
+      LODWORD(v17) = *(v18 + 24 * v17 + 8) & 0x7FFFFFFF;
+      if (v17 == 0x7FFFFFFF)
       {
-        goto LABEL_18;
+        goto LABEL_17;
       }
 
-      while (1)
+      if (*(v18 + 24 * v17 + 16) == v11)
       {
-        LODWORD(v17) = *(v18 + 24 * v17 + 8) & 0x7FFFFFFF;
-        if (v17 == 0x7FFFFFFF)
-        {
-          break;
-        }
-
-        if (*(v18 + 24 * v17 + 16) == v11)
-        {
-          ident = v11;
-          goto LABEL_18;
-        }
+        ident = v11;
+        break;
       }
     }
   }
 
-  else
-  {
-    LODWORD(v16) = 0;
-  }
-
-  re::HashSetBase<re::SharedPtr<re::ProtocolHandle>,re::SharedPtr<re::ProtocolHandle>,re::internal::ValueAsKey<re::SharedPtr<re::ProtocolHandle>>,re::Hash<re::SharedPtr<re::ProtocolHandle>>,re::EqualTo<re::SharedPtr<re::ProtocolHandle>>,true,false>::addAsMove(this + 32, v16, v14, &buf, &buf);
-  ++*(this + 18);
-  ident = buf.ident;
 LABEL_18:
   if (ident)
   {
 
-    v11 = v23;
+    v11 = v22;
   }
 
   buf.ident = v11;
@@ -4001,30 +5552,33 @@ LABEL_18:
     v20 = (v11 + 8);
   }
 
-  re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::addNew(this + 80, &v24, &buf);
+  re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::addNew(this + 80, &v23, &buf);
   if (buf.ident)
   {
   }
 
-  buf.ident = v24;
+  buf.ident = v23;
   *&buf.filter = 0x5FFFEuLL;
   buf.udata = v11;
   buf.ext[0] = 0;
   buf.ext[1] = 0;
   result = kevent64(*(this + 6), &buf, 1, 0, 0, 0, 0);
-  if (result != -1)
+  if (result == -1)
   {
-    *a3 = v11;
-    goto LABEL_26;
+    re::internal::assertLog(4, v21, "assertion failure: '%s' (%s:line %i) kevent failed", "!Unreachable code", "open", 275);
+    result = _os_crash("assertion failure: (!Unreachable code) kevent failed");
+    __break(1u);
   }
 
-  re::internal::assertLog(4, v21, "assertion failure: '%s' (%s:line %i) kevent failed", "!Unreachable code", "open", 275);
-  result = _os_crash();
-  __break(1u);
+  else
+  {
+    *a3 = v11;
+  }
+
   return result;
 }
 
-uint64_t re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::addNew(uint64_t a1, _DWORD *a2, void *a3)
+void *re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::addNew(uint64_t a1, int *a2, void *a3)
 {
   v8 = 0;
   v9 = 0;
@@ -4034,8 +5588,8 @@ uint64_t re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::E
   if (HIDWORD(v9) == 0x7FFFFFFF)
   {
     result = re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::allocEntry(a1, v9, v8);
-    *(result + 4) = *a2;
-    *(result + 8) = *a3;
+    *(result + 1) = *a2;
+    result[1] = *a3;
     *a3 = 0;
     ++*(a1 + 40);
   }
@@ -4046,58 +5600,56 @@ uint64_t re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::E
 void re::TcpProtocolLayer::setSocketOptions(re::TcpProtocolLayer *this)
 {
   v1 = this;
-  v14 = *MEMORY[0x277D85DE8];
-  v11 = 1;
-  v2 = setsockopt(this, 6, 1, &v11, 4u);
+  v13 = *MEMORY[0x277D85DE8];
+  v10 = 1;
+  v2 = setsockopt(this, 6, 1, &v10, 4u);
   if ((v2 & 0x80000000) != 0)
   {
     v3 = *re::networkLogObjects(v2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v7 = __error();
-      v8 = strerror(*v7);
+      v6 = __error();
+      v7 = strerror(*v6);
       *buf = 136315138;
-      v13 = v8;
+      v12 = v7;
       _os_log_error_impl(&dword_26168F000, v3, OS_LOG_TYPE_ERROR, "Could not set TCP_NODELAY %s\n", buf, 0xCu);
     }
   }
 
-  v11 = 1;
-  v4 = setsockopt(v1, 0xFFFF, 4130, &v11, 4u);
+  v10 = 1;
+  v4 = setsockopt(v1, 0xFFFF, 4130, &v10, 4u);
   if ((v4 & 0x80000000) != 0)
   {
     v5 = *re::networkLogObjects(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v9 = __error();
-      v10 = strerror(*v9);
+      v8 = __error();
+      v9 = strerror(*v8);
       *buf = 136315138;
-      v13 = v10;
+      v12 = v9;
       _os_log_error_impl(&dword_26168F000, v5, OS_LOG_TYPE_ERROR, "Could not set SO_NOSIGPIPE %s\n", buf, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t re::TcpProtocolLayer::connectToAddress(re::TcpProtocolLayer *this, const re::Address *a2)
 {
-  v44 = *MEMORY[0x277D85DE8];
-  IPPortPair = re::Address::getIPPortPair(a2, v42);
-  if (v42[0])
+  v43 = *MEMORY[0x277D85DE8];
+  IPPortPair = re::Address::getIPPortPair(&v41, a2);
+  if (v41)
   {
-    memset(&v41.ai_addrlen, 0, 32);
-    v41.ai_flags = 0;
-    *&v41.ai_family = 0x100000002;
-    v41.ai_protocol = 6;
-    v40 = 0;
+    memset(&v40.ai_addrlen, 0, 32);
+    v40.ai_flags = 0;
+    *&v40.ai_family = 0x100000002;
+    v40.ai_protocol = 6;
+    v39 = 0;
     *__str = 0;
-    snprintf(__str, 0xAuLL, "%i", v43[12]);
-    v34 = 0;
-    re::IP::generateString(v43, buf);
+    snprintf(__str, 0xAuLL, "%i", v42[12]);
+    v33 = 0;
+    re::IP::generateString(buf, v42);
     if (buf[8])
     {
-      v4 = *&v37[2];
+      v4 = *&v36[2];
     }
 
     else
@@ -4105,7 +5657,7 @@ uint64_t re::TcpProtocolLayer::connectToAddress(re::TcpProtocolLayer *this, cons
       v4 = &buf[9];
     }
 
-    v5 = getaddrinfo(v4, __str, &v41, &v34);
+    v5 = getaddrinfo(v4, __str, &v40, &v33);
     v6 = *buf;
     if (*buf && (buf[8] & 1) != 0)
     {
@@ -4118,102 +5670,102 @@ uint64_t re::TcpProtocolLayer::connectToAddress(re::TcpProtocolLayer *this, cons
       if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
 LABEL_10:
-        freeaddrinfo(v34);
-        goto LABEL_13;
+        freeaddrinfo(v33);
+        return v5;
       }
 
-      v25 = gai_strerror(v5);
+      v24 = gai_strerror(v5);
       *buf = 136315138;
-      *&buf[4] = v25;
-      v21 = "getaddrinfo failed: %s";
-      v22 = v7;
-      v23 = 12;
+      *&buf[4] = v24;
+      v20 = "getaddrinfo failed: %s";
+      v21 = v7;
+      v22 = 12;
 LABEL_32:
-      _os_log_error_impl(&dword_26168F000, v22, OS_LOG_TYPE_ERROR, v21, buf, v23);
+      _os_log_error_impl(&dword_26168F000, v21, OS_LOG_TYPE_ERROR, v20, buf, v22);
       goto LABEL_10;
     }
 
-    v11 = socket(v34->ai_family, v34->ai_socktype, v34->ai_protocol);
-    v5 = v11;
-    if ((v11 & 0x80000000) != 0)
+    v10 = socket(v33->ai_family, v33->ai_socktype, v33->ai_protocol);
+    v5 = v10;
+    if ((v10 & 0x80000000) != 0)
     {
-      v20 = *re::networkLogObjects(v11);
-      if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v19 = *re::networkLogObjects(v10);
+      if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_10;
       }
 
       *buf = 67109120;
       *&buf[4] = v5;
-      v21 = "Opening socket failed with %i";
-      v22 = v20;
-      v23 = 8;
+      v20 = "Opening socket failed with %i";
+      v21 = v19;
+      v22 = 8;
       goto LABEL_32;
     }
 
-    v12 = fcntl(v11, 3, 0);
-    v13 = v12;
-    if ((v12 & 0x80000000) != 0)
+    v11 = fcntl(v10, 3, 0);
+    v12 = v11;
+    if ((v11 & 0x80000000) != 0)
     {
-      v14 = *re::networkLogObjects(v12);
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v13 = *re::networkLogObjects(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v26 = __error();
-        v27 = strerror(*v26);
+        v25 = __error();
+        v26 = strerror(*v25);
         *buf = 136315138;
-        *&buf[4] = v27;
-        _os_log_error_impl(&dword_26168F000, v14, OS_LOG_TYPE_ERROR, "Could not get socket flags: %s\n", buf, 0xCu);
+        *&buf[4] = v26;
+        _os_log_error_impl(&dword_26168F000, v13, OS_LOG_TYPE_ERROR, "Could not get socket flags: %s\n", buf, 0xCu);
       }
     }
 
-    v15 = fcntl(v5, 4, v13 | 4u);
-    if ((v15 & 0x80000000) != 0)
+    v14 = fcntl(v5, 4, v12 | 4u);
+    if ((v14 & 0x80000000) != 0)
     {
-      v16 = *re::networkLogObjects(v15);
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v15 = *re::networkLogObjects(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v28 = __error();
-        v29 = strerror(*v28);
+        v27 = __error();
+        v28 = strerror(*v27);
         *buf = 136315138;
-        *&buf[4] = v29;
-        _os_log_error_impl(&dword_26168F000, v16, OS_LOG_TYPE_ERROR, "Could not set socket to be non blocking: %s\n", buf, 0xCu);
+        *&buf[4] = v28;
+        _os_log_error_impl(&dword_26168F000, v15, OS_LOG_TYPE_ERROR, "Could not set socket to be non blocking: %s\n", buf, 0xCu);
       }
     }
 
     re::TcpProtocolLayer::setSocketOptions(v5);
-    v17 = connect(v5, v34->ai_addr, v34->ai_addrlen);
-    freeaddrinfo(v34);
-    if ((v17 & 0x80000000) != 0)
+    v16 = connect(v5, v33->ai_addr, v33->ai_addrlen);
+    freeaddrinfo(v33);
+    if ((v16 & 0x80000000) != 0)
     {
-      v18 = __error();
-      if (*v18 != 36)
+      v17 = __error();
+      if (*v17 != 36)
       {
-        v19 = *re::networkLogObjects(v18);
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v18 = *re::networkLogObjects(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           if (*(a2 + 1))
           {
-            v30 = *(a2 + 2);
+            v29 = *(a2 + 2);
           }
 
           else
           {
-            v30 = a2 + 9;
+            v29 = a2 + 9;
           }
 
-          v31 = gai_strerror(v17);
-          v32 = __error();
-          v33 = strerror(*v32);
+          v30 = gai_strerror(v16);
+          v31 = __error();
+          v32 = strerror(*v31);
           *buf = 136315650;
-          *&buf[4] = v30;
-          v36 = 2080;
-          *v37 = v31;
-          *&v37[8] = 2080;
-          v38 = v33;
-          _os_log_error_impl(&dword_26168F000, v19, OS_LOG_TYPE_ERROR, "Failed to connect to %s : %s errno = %s", buf, 0x20u);
+          *&buf[4] = v29;
+          v35 = 2080;
+          *v36 = v30;
+          *&v36[8] = 2080;
+          v37 = v32;
+          _os_log_error_impl(&dword_26168F000, v18, OS_LOG_TYPE_ERROR, "Failed to connect to %s : %s errno = %s", buf, 0x20u);
         }
 
-        v5 = v17;
+        return v16;
       }
     }
   }
@@ -4225,40 +5777,38 @@ LABEL_32:
     {
       if (*(a2 + 1))
       {
-        v24 = *(a2 + 2);
+        v23 = *(a2 + 2);
       }
 
       else
       {
-        v24 = a2 + 9;
+        v23 = a2 + 9;
       }
 
-      v41.ai_flags = 136315138;
-      *&v41.ai_family = v24;
-      _os_log_error_impl(&dword_26168F000, v8, OS_LOG_TYPE_ERROR, "Expected ip:port address: %s", &v41, 0xCu);
+      v40.ai_flags = 136315138;
+      *&v40.ai_family = v23;
+      _os_log_error_impl(&dword_26168F000, v8, OS_LOG_TYPE_ERROR, "Expected ip:port address: %s", &v40, 0xCu);
     }
 
-    v5 = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
-LABEL_13:
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 void re::TcpProtocolLayer::close(uint64_t a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = *re::networkLogObjects(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (v5)
   {
     v6 = *(a1 + 180);
-    *v16 = 134218240;
-    *&v16[4] = a2;
-    v17 = 1024;
-    v18 = v6;
-    _os_log_impl(&dword_26168F000, v4, OS_LOG_TYPE_DEFAULT, "[ConDebug] Closing peer handle(%p) on port %i", v16, 0x12u);
+    *v15 = 134218240;
+    *&v15[4] = a2;
+    v16 = 1024;
+    v17 = v6;
+    _os_log_impl(&dword_26168F000, v4, OS_LOG_TYPE_DEFAULT, "[ConDebug] Closing peer handle(%p) on port %i", v15, 0x12u);
   }
 
   if (a2)
@@ -4272,9 +5822,9 @@ void re::TcpProtocolLayer::close(uint64_t a1, uint64_t a2)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a2 + 1808);
-      *v16 = 134217984;
-      *&v16[4] = v8;
-      _os_log_impl(&dword_26168F000, v7, OS_LOG_TYPE_DEFAULT, "Packet %p freed", v16, 0xCu);
+      *v15 = 134217984;
+      *&v15[4] = v8;
+      _os_log_impl(&dword_26168F000, v7, OS_LOG_TYPE_DEFAULT, "Packet %p freed", v15, 0xCu);
     }
 
     re::PacketPool::free(*(a1 + 200), *(a2 + 1808));
@@ -4293,30 +5843,28 @@ void re::TcpProtocolLayer::close(uint64_t a1, uint64_t a2)
   {
     v11 = *(a1 + 180);
     v12 = *(a2 + 1772);
-    *v16 = 134218496;
-    *&v16[4] = a2;
-    v17 = 1024;
-    v18 = v11;
-    v19 = 1024;
-    v20 = v12;
-    _os_log_impl(&dword_26168F000, v10, OS_LOG_TYPE_DEFAULT, "Closed peer handle(%p) on port %i socket %i", v16, 0x18u);
+    *v15 = 134218496;
+    *&v15[4] = a2;
+    v16 = 1024;
+    v17 = v11;
+    v18 = 1024;
+    v19 = v12;
+    _os_log_impl(&dword_26168F000, v10, OS_LOG_TYPE_DEFAULT, "Closed peer handle(%p) on port %i socket %i", v15, 0x18u);
   }
 
   (*(*a1 + 176))(a1, *(a2 + 1772));
   v13 = (a2 + 8);
-  *v16 = *(a2 + 1772);
-  re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::remove(a1 + 80, v16);
-  *v16 = a2;
+  *v15 = *(a2 + 1772);
+  re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::remove(a1 + 80, v15);
+  *v15 = a2;
   v14 = (a2 + 8);
-  re::HashSetBase<re::SharedPtr<re::SyncView>,re::SharedPtr<re::SyncView>,re::internal::ValueAsKey<re::SharedPtr<re::SyncView>>,re::Hash<re::SharedPtr<re::SyncView>>,re::EqualTo<re::SharedPtr<re::SyncView>>,true,false>::remove(a1 + 32, v16);
-  if (*v16)
+  re::HashSetBase<re::SharedPtr<re::SyncView>,re::SharedPtr<re::SyncView>,re::internal::ValueAsKey<re::SharedPtr<re::SyncView>>,re::Hash<re::SharedPtr<re::SyncView>>,re::EqualTo<re::SharedPtr<re::SyncView>>,true,false>::remove(a1 + 32, v15);
+  if (*v15)
   {
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
-BOOL re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::remove(uint64_t a1, _DWORD *a2)
+BOOL re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::remove(uint64_t a1, int *a2)
 {
   v3 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
   re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::findEntry<int>(a1, a2, (0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) ^ ((0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) >> 31), v5);
@@ -4326,65 +5874,63 @@ BOOL re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::Equal
 void re::TcpProtocolLayer::disconnect(uint64_t a1, uint64_t a2, int a3)
 {
   v13 = *MEMORY[0x277D85DE8];
-  if (*(a2 + 1768) == 4)
+  if (*(a2 + 1768) != 4)
   {
-    goto LABEL_8;
-  }
-
-  *(a2 + 1768) = 3;
-  if (!a3)
-  {
-    v6 = *re::networkLogObjects(a1);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    *(a2 + 1768) = 3;
+    if (a3)
     {
-      v7 = *(a2 + 1772);
-      v8 = *(a1 + 180);
-      LODWORD(changelist.ident) = 67109632;
-      HIDWORD(changelist.ident) = v7;
-      changelist.filter = 2048;
-      *&changelist.flags = a2;
-      WORD1(changelist.data) = 1024;
-      HIDWORD(changelist.data) = v8;
-      _os_log_impl(&dword_26168F000, v6, OS_LOG_TYPE_DEFAULT, "[ConDebug] disconnecting peer(%i) handle(%p) on port %i", &changelist, 0x18u);
+      changelist.ident = *(a2 + 1772);
+      *&changelist.filter = 196607;
+      memset(&changelist.fflags, 0, 36);
+      if (kevent64(*(a1 + 24), &changelist, 1, 0, 0, 0, 0) == -1)
+      {
+        __error();
+        v9 = __error();
+        re::internal::assertLog(5, v10, "assertion failure: '%s' (%s:line %i) kevent failed %d", "!Unreachable code", "disconnect", 455, *v9);
+        _os_crash("assertion failure: (!Unreachable code) kevent failed %d", v11);
+        __break(1u);
+      }
+
+      else
+      {
+        close(*(a2 + 1772));
+        v5 = *(a1 + 184);
+        if (v5)
+        {
+          (*(*v5 + 8))(v5, a1, a2, a2 + 1776);
+        }
+      }
     }
 
-    goto LABEL_8;
-  }
-
-  changelist.ident = *(a2 + 1772);
-  *&changelist.filter = 196607;
-  memset(&changelist.fflags, 0, 36);
-  if (kevent64(*(a1 + 24), &changelist, 1, 0, 0, 0, 0) != -1)
-  {
-    close(*(a2 + 1772));
-    v5 = *(a1 + 184);
-    if (v5)
+    else
     {
-      (*(*v5 + 8))(v5, a1, a2, a2 + 1776);
+      v6 = *re::networkLogObjects(a1);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        v7 = *(a2 + 1772);
+        v8 = *(a1 + 180);
+        LODWORD(changelist.ident) = 67109632;
+        HIDWORD(changelist.ident) = v7;
+        changelist.filter = 2048;
+        *&changelist.flags = a2;
+        WORD1(changelist.data) = 1024;
+        HIDWORD(changelist.data) = v8;
+        _os_log_impl(&dword_26168F000, v6, OS_LOG_TYPE_DEFAULT, "[ConDebug] disconnecting peer(%i) handle(%p) on port %i", &changelist, 0x18u);
+      }
     }
-
-LABEL_8:
-    v9 = *MEMORY[0x277D85DE8];
-    return;
   }
-
-  __error();
-  v10 = __error();
-  re::internal::assertLog(5, v11, "assertion failure: '%s' (%s:line %i) kevent failed %d", "!Unreachable code", "disconnect", 455, *v10);
-  _os_crash();
-  __break(1u);
 }
 
 void re::TcpProtocolLayer::getAddressFromSocket(re::TcpProtocolLayer *this@<X0>, int *a2@<X2>, int a3@<W1>, re::DynamicString *a4@<X8>)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v19 = a3;
+  v24 = *MEMORY[0x277D85DE8];
+  v18 = a3;
   *(a4 + 1) = 0;
   *(a4 + 2) = 0;
   *(a4 + 3) = 0;
   re::DynamicString::setCapacity(a4, 0);
-  v18 = 128;
-  v8 = getpeername(a3, &v20, &v18);
+  v17 = 128;
+  v8 = getpeername(a3, &v19, &v17);
   *a2 = v8;
   if ((v8 & 0x80000000) != 0)
   {
@@ -4395,52 +5941,51 @@ void re::TcpProtocolLayer::getAddressFromSocket(re::TcpProtocolLayer *this@<X0>,
       v11 = __error();
       v12 = strerror(*v11);
       *buf = 136315394;
-      v22 = v10;
-      LOWORD(v23[0]) = 2080;
-      *(v23 + 2) = v12;
+      v21 = v10;
+      LOWORD(v22[0]) = 2080;
+      *(v22 + 2) = v12;
       _os_log_error_impl(&dword_26168F000, v9, OS_LOG_TYPE_ERROR, "getpeername failed: %s errno = %s", buf, 0x16u);
     }
-
-    goto LABEL_10;
   }
 
-  if (v20.sa_family == 2)
+  else if (v19.sa_family == 2)
   {
-    memset(v23, 0, sizeof(v23));
+    memset(v22, 0, sizeof(v22));
     buf[0] = 0;
-    HIDWORD(v22) = *&v20.sa_data[2];
-    v24 = bswap32(*v20.sa_data) >> 16;
-    re::Address::makeFromIPAndPort(buf, &v16);
-    re::DynamicString::operator=(a4, &v16);
-    if (v16)
+    HIDWORD(v21) = *&v19.sa_data[2];
+    v23 = bswap32(*v19.sa_data) >> 16;
+    re::Address::makeFromIPAndPort(buf, &v15);
+    re::DynamicString::operator=(a4, &v15);
+    if (v15)
     {
-      if (v17)
+      if (v16)
       {
-        (*(*v16 + 40))();
+        (*(*v15 + 40))();
       }
     }
-
-    goto LABEL_10;
   }
 
-  v13 = re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::tryGet(this + 80, &v19);
-  if (v13)
+  else
   {
-    re::DynamicString::operator=(a4, (*v13 + 1776));
-LABEL_10:
-    v15 = *MEMORY[0x277D85DE8];
-    return;
-  }
+    v13 = re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::tryGet(this + 80, &v18);
+    if (v13)
+    {
+      re::DynamicString::operator=(a4, (*v13 + 1776));
+    }
 
-  re::internal::assertLog(4, v14, "assertion failure: '%s' (%s:line %i) IPv6 not supported yet", "!Unreachable code", "getAddressFromSocket", 486);
-  _os_crash();
-  __break(1u);
+    else
+    {
+      re::internal::assertLog(4, v14, "assertion failure: '%s' (%s:line %i) IPv6 not supported yet", "!Unreachable code", "getAddressFromSocket", 486);
+      _os_crash("assertion failure: (!Unreachable code) IPv6 not supported yet");
+      __break(1u);
+    }
+  }
 }
 
-uint64_t re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::tryGet(uint64_t a1, _DWORD *a2)
+uint64_t re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::tryGet(uint64_t a1, int *a2)
 {
   v3 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
-  re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::findEntry<int>(a1, a2, (0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) ^ ((0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) >> 31), v5);
+  re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::findEntry<int>(a1, a2, (0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) ^ ((0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) >> 31), &v5);
   if (v6 == 0x7FFFFFFF)
   {
     return 0;
@@ -4454,83 +5999,83 @@ uint64_t re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::E
 
 void re::TcpProtocolLayer::sendPacketParts(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 1772);
   v5 = *(a1 + 1824);
-  if (v5 <= 7)
+  if (v5 > 7)
   {
-    v6 = send(*(a1 + 1772), (a1 + 5 * v5 + 1816), 8uLL, 0);
-    if (v6 < 0)
+LABEL_4:
+    v7 = send(v4, (*(a2 + 16) + v5 - 8), *(a2 + 24) - (v5 - 8), 0);
+    if ((v7 & 0x8000000000000000) == 0)
     {
-      v10 = __error();
-      if (*v10 != 35)
-      {
-        v9 = *re::networkLogObjects(v10);
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_12;
-        }
-      }
-
-      goto LABEL_11;
+      *(a1 + 1824) += v7;
+      return;
     }
 
+    v8 = __error();
+    if (*v8 != 35)
+    {
+      v9 = *re::networkLogObjects(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_12;
+      }
+    }
+
+    return;
+  }
+
+  v6 = send(*(a1 + 1772), (a1 + 5 * v5 + 1816), 8uLL, 0);
+  if ((v6 & 0x8000000000000000) == 0)
+  {
     v5 = *(a1 + 1824) + v6;
     *(a1 + 1824) = v5;
     if (v5 < 8)
     {
-      goto LABEL_11;
+      return;
     }
+
+    goto LABEL_4;
   }
 
-  v7 = send(v4, (*(a2 + 16) + v5 - 8), *(a2 + 24) - (v5 - 8), 0);
-  if ((v7 & 0x8000000000000000) == 0)
+  v10 = __error();
+  if (*v10 != 35)
   {
-    *(a1 + 1824) += v7;
-    goto LABEL_11;
-  }
-
-  v8 = __error();
-  if (*v8 != 35)
-  {
-    v9 = *re::networkLogObjects(v8);
+    v9 = *re::networkLogObjects(v10);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
 LABEL_12:
-      v12 = __error();
-      v13 = strerror(*v12);
-      v14[0] = 67109378;
-      v14[1] = v4;
-      v15 = 2080;
-      v16 = v13;
-      _os_log_error_impl(&dword_26168F000, v9, OS_LOG_TYPE_ERROR, "send to %i failed: errno = %s", v14, 0x12u);
+      v11 = __error();
+      v12 = strerror(*v11);
+      v13[0] = 67109378;
+      v13[1] = v4;
+      v14 = 2080;
+      v15 = v12;
+      _os_log_error_impl(&dword_26168F000, v9, OS_LOG_TYPE_ERROR, "send to %i failed: errno = %s", v13, 0x12u);
     }
   }
-
-LABEL_11:
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t re::TcpProtocolLayer::connectionAdded(re::TcpProtocolLayer *this, re::TcpProtocolLayer *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v31 = 0;
-  v32 = a2;
-  v4 = (*(*this + 168))(&v27);
-  if (v31 < 0)
+  v35 = *MEMORY[0x277D85DE8];
+  v30 = 0;
+  v31 = a2;
+  v4 = (*(*this + 168))(&v26);
+  if (v30 < 0)
   {
     v15 = *re::networkLogObjects(v4);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v24 = __error();
-      v25 = strerror(*v24);
-      v26 = gai_strerror(v31);
+      v23 = __error();
+      v24 = strerror(*v23);
+      v25 = gai_strerror(v30);
       LODWORD(buf.ident) = 67109634;
       HIDWORD(buf.ident) = a2;
       buf.filter = 2080;
-      *&buf.flags = v25;
+      *&buf.flags = v24;
       WORD1(buf.data) = 2080;
-      *(&buf.data + 4) = v26;
+      *(&buf.data + 4) = v25;
       _os_log_error_impl(&dword_26168F000, v15, OS_LOG_TYPE_ERROR, "getpeername to %i failed: errno = %s, error = %s", &buf, 0x1Cu);
     }
 
@@ -4544,22 +6089,22 @@ uint64_t re::TcpProtocolLayer::connectionAdded(re::TcpProtocolLayer *this, re::T
     if (!*(this + 10) || (v5 = 0xBF58476D1CE4E5B9 * (a2 ^ (a2 >> 30)), v6 = *(*(this + 11) + 4 * (((0x94D049BB133111EBLL * (v5 ^ (v5 >> 27))) ^ ((0x94D049BB133111EBLL * (v5 ^ (v5 >> 27))) >> 31)) % *(this + 26))), v6 == 0x7FFFFFFF))
     {
 LABEL_7:
-      v33 = 2;
-      v34 = a2;
-      re::make::shared::object<re::TcpProtocolHandle,int &,re::TcpConnectionStatus &,re::Address const&>(&buf, &v34, &v33, &v27);
+      v32 = 2;
+      v33 = a2;
+      re::make::shared::object<re::TcpProtocolHandle,int &,re::TcpConnectionStatus &,re::Address const&>(&buf, &v33, &v32, &v26);
       ident = buf.ident;
       v10 = *re::networkLogObjects(v9);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         v11 = *(this + 90);
-        if (v28)
+        if (v27)
         {
-          v12 = v30;
+          v12 = v29;
         }
 
         else
         {
-          v12 = v29;
+          v12 = v28;
         }
 
         LODWORD(buf.ident) = 134218754;
@@ -4567,7 +6112,7 @@ LABEL_7:
         LOWORD(buf.fflags) = 1024;
         *(&buf.fflags + 2) = v11;
         WORD1(buf.data) = 1024;
-        HIDWORD(buf.data) = v32;
+        HIDWORD(buf.data) = v31;
         LOWORD(buf.udata) = 2080;
         *(&buf.udata + 2) = v12;
         _os_log_impl(&dword_26168F000, v10, OS_LOG_TYPE_INFO, "[ConDebug] %p Incoming connection complete  on port(%i) socket(%i) from %s", &buf, 0x22u);
@@ -4579,7 +6124,7 @@ LABEL_7:
         v13 = (ident + 8);
       }
 
-      re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::addNew(this + 80, &v32, &buf);
+      re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::addNew(this + 80, &v31, &buf);
       if (buf.ident)
       {
       }
@@ -4597,12 +6142,12 @@ LABEL_7:
         }
       }
 
-      ident = *re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::operator[](this + 80, &v32);
+      ident = *re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::operator[](this + 80, &v31);
       if (ident)
       {
-        v18 = (ident + 8);
+        v17 = (ident + 8);
         buf.ident = ident;
-        v19 = (ident + 8);
+        v18 = (ident + 8);
       }
 
       else
@@ -4610,40 +6155,40 @@ LABEL_7:
         buf.ident = 0;
       }
 
-      v20 = re::HashSetBase<re::SharedPtr<re::SyncView>,re::SharedPtr<re::SyncView>,re::internal::ValueAsKey<re::SharedPtr<re::SyncView>>,re::Hash<re::SharedPtr<re::SyncView>>,re::EqualTo<re::SharedPtr<re::SyncView>>,true,false>::remove(this + 32, &buf);
+      v19 = re::HashSetBase<re::SharedPtr<re::SyncView>,re::SharedPtr<re::SyncView>,re::internal::ValueAsKey<re::SharedPtr<re::SyncView>>,re::Hash<re::SharedPtr<re::SyncView>>,re::EqualTo<re::SharedPtr<re::SyncView>>,true,false>::remove(this + 32, &buf.ident);
       if (buf.ident)
       {
       }
 
       *(ident + 1768) = 2;
-      v21 = *re::networkLogObjects(v20);
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      v20 = *re::networkLogObjects(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
-        v22 = *(this + 90);
-        if (v28)
+        v21 = *(this + 90);
+        if (v27)
         {
-          v23 = v30;
+          v22 = v29;
         }
 
         else
         {
-          v23 = v29;
+          v22 = v28;
         }
 
         LODWORD(buf.ident) = 134218754;
         *(&buf.ident + 4) = ident;
         LOWORD(buf.fflags) = 1024;
-        *(&buf.fflags + 2) = v22;
+        *(&buf.fflags + 2) = v21;
         WORD1(buf.data) = 1024;
-        HIDWORD(buf.data) = v32;
+        HIDWORD(buf.data) = v31;
         LOWORD(buf.udata) = 2080;
-        *(&buf.udata + 2) = v23;
-        _os_log_impl(&dword_26168F000, v21, OS_LOG_TYPE_INFO, "[ConDebug] %p Outgoing connection complete on port(%i) socket(%i) from %s", &buf, 0x22u);
+        *(&buf.udata + 2) = v22;
+        _os_log_impl(&dword_26168F000, v20, OS_LOG_TYPE_INFO, "[ConDebug] %p Outgoing connection complete on port(%i) socket(%i) from %s", &buf, 0x22u);
       }
     }
 
-    (***(this + 23))(*(this + 23), this, ident, &v27);
-    buf.ident = v32;
+    (***(this + 23))(*(this + 23), this, ident, &v26);
+    buf.ident = v31;
     *&buf.filter = 0x5FFFFuLL;
     buf.udata = ident;
     buf.ext[0] = 0;
@@ -4651,7 +6196,7 @@ LABEL_7:
     if (kevent64(*(this + 6), &buf, 1, 0, 0, 0, 0) == -1)
     {
       re::internal::assertLog(4, v14, "assertion failure: '%s' (%s:line %i) kevent failed", "!Unreachable code", "connectionAdded", 569);
-      result = _os_crash();
+      result = _os_crash("assertion failure: (!Unreachable code) kevent failed");
       __break(1u);
       return result;
     }
@@ -4661,16 +6206,15 @@ LABEL_7:
     }
   }
 
-  result = v27;
-  if (v27)
+  result = v26;
+  if (v26)
   {
-    if (v28)
+    if (v27)
     {
-      result = (*(*v27 + 40))();
+      return (*(*v26 + 40))();
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4695,56 +6239,56 @@ uint64_t re::TcpProtocolLayer::connectionError(re::TcpProtocolLayer *this, int a
 
 void re::TcpProtocolLayer::setupKeepAlive(re::TcpProtocolLayer *this, int a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (*(this + 44))
   {
-    v28 = 1;
-    v4 = setsockopt(a2, 0xFFFF, 8, &v28, 4u);
+    v27 = 1;
+    v4 = setsockopt(a2, 0xFFFF, 8, &v27, 4u);
     if ((v4 & 0x80000000) != 0)
     {
       v5 = *re::networkLogObjects(v4);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v17 = __error();
-        v18 = strerror(*v17);
+        v16 = __error();
+        v17 = strerror(*v16);
         *buf = 136315138;
-        v30 = v18;
+        v29 = v17;
         _os_log_error_impl(&dword_26168F000, v5, OS_LOG_TYPE_ERROR, "Could not set SO_KEEPALIVE %s\n", buf, 0xCu);
       }
     }
 
-    v27 = *(this + 44);
-    v6 = setsockopt(a2, 6, 16, &v27, 4u);
+    v26 = *(this + 44);
+    v6 = setsockopt(a2, 6, 16, &v26, 4u);
     if ((v6 & 0x80000000) != 0)
     {
       v7 = *re::networkLogObjects(v6);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v19 = __error();
-        v20 = strerror(*v19);
+        v18 = __error();
+        v19 = strerror(*v18);
         *buf = 136315138;
-        v30 = v20;
+        v29 = v19;
         _os_log_error_impl(&dword_26168F000, v7, OS_LOG_TYPE_ERROR, "Could not set TCP_KEEPALIVE %s\n", buf, 0xCu);
       }
     }
 
-    v26 = 5;
-    v8 = setsockopt(a2, 6, 257, &v26, 4u);
+    v25 = 5;
+    v8 = setsockopt(a2, 6, 257, &v25, 4u);
     if ((v8 & 0x80000000) != 0)
     {
       v9 = *re::networkLogObjects(v8);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v21 = __error();
-        v22 = strerror(*v21);
+        v20 = __error();
+        v21 = strerror(*v20);
         *buf = 136315138;
-        v30 = v22;
+        v29 = v21;
         _os_log_error_impl(&dword_26168F000, v9, OS_LOG_TYPE_ERROR, "Could not set TCP_KEEPINTVL %s\n", buf, 0xCu);
       }
     }
 
-    v25 = 4;
-    v10 = setsockopt(a2, 6, 258, &v25, 4u);
+    v24 = 4;
+    v10 = setsockopt(a2, 6, 258, &v24, 4u);
     if ((v10 & 0x80000000) != 0)
     {
       v11 = *re::networkLogObjects(v10);
@@ -4753,7 +6297,7 @@ void re::TcpProtocolLayer::setupKeepAlive(re::TcpProtocolLayer *this, int a2)
         v12 = __error();
         v13 = strerror(*v12);
         *buf = 136315138;
-        v30 = v13;
+        v29 = v13;
         v14 = "Could not set TCP_KEEPCNT %s\n";
 LABEL_18:
         _os_log_error_impl(&dword_26168F000, v11, OS_LOG_TYPE_ERROR, v14, buf, 0xCu);
@@ -4763,37 +6307,35 @@ LABEL_18:
 
   else
   {
-    v28 = 0;
-    v15 = setsockopt(a2, 0xFFFF, 8, &v28, 4u);
+    v27 = 0;
+    v15 = setsockopt(a2, 0xFFFF, 8, &v27, 4u);
     if ((v15 & 0x80000000) != 0)
     {
       v11 = *re::networkLogObjects(v15);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v23 = __error();
-        v24 = strerror(*v23);
+        v22 = __error();
+        v23 = strerror(*v22);
         *buf = 136315138;
-        v30 = v24;
+        v29 = v23;
         v14 = "Could not set SO_KEEPALIVE %s\n";
         goto LABEL_18;
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::operator[](uint64_t a1, _DWORD *a2)
+uint64_t re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::operator[](uint64_t a1, int *a2)
 {
   v3 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
-  re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::findEntry<int>(a1, a2, (0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) ^ ((0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) >> 31), v5);
+  re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::findEntry<int>(a1, a2, (0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) ^ ((0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) >> 31), &v5);
   return *(a1 + 16) + 24 * v6 + 8;
 }
 
 void re::TcpProtocolLayer::update(re::TcpProtocolLayer *this)
 {
-  v112 = *MEMORY[0x277D85DE8];
-  re::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v107, 6022, this);
+  v111 = *MEMORY[0x277D85DE8];
+  re::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v106, 6022, this, 0, 0, 0);
   timeout.tv_sec = 0;
   timeout.tv_nsec = 0;
   v2 = kevent64(*(this + 6), 0, 0, eventlist, 32, 0, &timeout);
@@ -4830,12 +6372,11 @@ LABEL_94:
     if (v85 == v84)
     {
 LABEL_125:
-      re::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(v107);
-      v96 = *MEMORY[0x277D85DE8];
+      re::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(v106);
       return;
     }
 
-    v98 = *(this + 28);
+    v97 = *(this + 28);
     while (1)
     {
       v88 = *(*(this + 12) + 24 * v85 + 8);
@@ -4887,10 +6428,10 @@ LABEL_124:
     re::PacketPool::free(*(this + 25), v90);
 LABEL_107:
     v91 = 0;
-    v100 = v88 + 912;
+    v99 = v88 + 912;
     while (1)
     {
-      v92 = re::PacketQueue::dequeue((v100 + 40 * v91));
+      v92 = re::PacketQueue::dequeue((v99 + 40 * v91));
       if (v92)
       {
         break;
@@ -4899,7 +6440,7 @@ LABEL_107:
 LABEL_112:
       if (++v91 == 10)
       {
-        LODWORD(v84) = v98;
+        LODWORD(v84) = v97;
         if (!*(v88 + 1808) && *(v88 + 1768) == 3)
         {
           close(*(v88 + 1772));
@@ -4931,7 +6472,7 @@ LABEL_112:
       *(v88 + 1820) = 0;
       *(v88 + 1828) = 0;
       re::PacketPool::free(*(this + 25), v84);
-      v84 = re::PacketQueue::dequeue((v100 + 40 * v91));
+      v84 = re::PacketQueue::dequeue((v99 + 40 * v91));
       if (!v84)
       {
         goto LABEL_112;
@@ -4939,12 +6480,12 @@ LABEL_112:
     }
 
     *(v88 + 1808) = v84;
-    LODWORD(v84) = v98;
+    LODWORD(v84) = v97;
     goto LABEL_118;
   }
 
   v4 = 0;
-  v99 = v2;
+  v98 = v2;
   while (1)
   {
     v5 = &eventlist[v4];
@@ -4964,23 +6505,23 @@ LABEL_112:
       if (kevent64(*(this + 6), &changelist, 1, 0, 0, 0, 0) == -1)
       {
         re::internal::assertLog(4, v3, "assertion failure: '%s' (%s:line %i) kevent failed", "!Unreachable code", "update", 589);
-        _os_crash();
+        _os_crash("assertion failure: (!Unreachable code) kevent failed");
         __break(1u);
 LABEL_126:
-        re::internal::assertLog(4, v97, "assertion failure: '%s' (%s:line %i) Accept", "!Unreachable code", "update", 597);
-        _os_crash();
+        re::internal::assertLog(4, v96, "assertion failure: '%s' (%s:line %i) Accept", "!Unreachable code", "update", 597);
+        _os_crash("assertion failure: (!Unreachable code) Accept");
         __break(1u);
 LABEL_127:
         re::internal::assertLog(4, v3, "assertion failure: '%s' (%s:line %i) Unknown event", "!Unreachable code", "update", 639);
-        _os_crash();
+        _os_crash("assertion failure: (!Unreachable code) Unknown event");
         __break(1u);
 LABEL_128:
         re::internal::assertLog(4, v59, "assertion failure: '%s' (%s:line %i) kevent failed", "!Unreachable code", "update", 666);
-        _os_crash();
+        _os_crash("assertion failure: (!Unreachable code) kevent failed");
         __break(1u);
 LABEL_129:
         re::internal::assertLog(4, v3, "assertion failure: '%s' (%s:line %i) kevent failed", "!Unreachable code", "update", 631);
-        _os_crash();
+        _os_crash("assertion failure: (!Unreachable code) kevent failed");
         __break(1u);
       }
 
@@ -4991,44 +6532,44 @@ LABEL_129:
     v10 = ident;
     if (v9 == ident)
     {
-      v104 = 128;
-      v11 = accept(v9, &changelist, &v104);
+      v103 = 128;
+      v11 = accept(v9, &changelist, &v103);
       if (v11 == -1)
       {
         goto LABEL_126;
       }
 
       v12 = v11;
-      *&v111[16] = 0;
-      *&v111[8] = 0;
+      *&v110[16] = 0;
+      *&v110[8] = 0;
       buf[0] = 0;
-      *&v111[4] = HIDWORD(changelist.ident);
-      *&v111[20] = bswap32(WORD1(changelist.ident)) >> 16;
-      v13 = re::Address::makeFromIPAndPort(buf, v101);
+      *&v110[4] = HIDWORD(changelist.ident);
+      *&v110[20] = bswap32(WORD1(changelist.ident)) >> 16;
+      v13 = re::Address::makeFromIPAndPort(buf, v100);
       v14 = *re::networkLogObjects(v13);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v15 = v103;
-        if (v102)
+        v15 = v102;
+        if (v101)
         {
-          v15 = *&v103[7];
+          v15 = *&v102[7];
         }
 
         v16 = *(this + 90);
         *buf = 136315650;
-        *v111 = v15;
-        *&v111[8] = 1024;
-        *&v111[10] = v16;
-        *&v111[14] = 1024;
-        *&v111[16] = v12;
+        *v110 = v15;
+        *&v110[8] = 1024;
+        *&v110[10] = v16;
+        *&v110[14] = 1024;
+        *&v110[16] = v12;
         _os_log_impl(&dword_26168F000, v14, OS_LOG_TYPE_INFO, "[ConDebug] Accepting connection(%s) on port(%i) socket(%i)", buf, 0x18u);
       }
 
       re::TcpProtocolLayer::connectionAdded(this, v12);
-      v10 = *v101;
-      if (*v101 && (v102 & 1) != 0)
+      v10 = *v100;
+      if (*v100 && (v101 & 1) != 0)
       {
-        v10 = (*(**v101 + 40))();
+        v10 = (*(**v100 + 40))();
       }
     }
 
@@ -5036,9 +6577,9 @@ LABEL_129:
     {
       if (*(udata + 1768) == 1)
       {
-        v101[0] = 0;
-        v104 = 4;
-        v28 = getsockopt(ident, 0xFFFF, 4103, v101, &v104);
+        v100[0] = 0;
+        v103 = 4;
+        v28 = getsockopt(ident, 0xFFFF, 4103, v100, &v103);
         if ((v28 & 0x80000000) != 0)
         {
           v41 = v28;
@@ -5061,7 +6602,7 @@ LABEL_129:
           re::TcpProtocolLayer::connectionError(this, ident);
         }
 
-        else if (v101[0])
+        else if (v100[0])
         {
           v29 = *re::networkLogObjects(v28);
           if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
@@ -5069,7 +6610,7 @@ LABEL_129:
             v30 = ident;
             v31 = __error();
             v32 = strerror(*v31);
-            v33 = gai_strerror(v101[0]);
+            v33 = gai_strerror(v100[0]);
             LODWORD(changelist.ident) = 67109634;
             HIDWORD(changelist.ident) = v30;
             changelist.filter = 2080;
@@ -5082,8 +6623,8 @@ LABEL_129:
 
         else
         {
-          v66 = (*(*this + 168))(&changelist, this, ident, v101);
-          v67 = v101[0];
+          v66 = (*(*this + 168))(&changelist, this, ident, v100);
+          v67 = v100[0];
           v68 = *re::networkLogObjects(v66);
           if (v67 < 0)
           {
@@ -5092,13 +6633,13 @@ LABEL_129:
               v80 = ident;
               v81 = __error();
               v82 = strerror(*v81);
-              v83 = gai_strerror(v101[0]);
+              v83 = gai_strerror(v100[0]);
               *buf = 67109634;
-              *v111 = v80;
-              *&v111[4] = 2080;
-              *&v111[6] = v82;
-              *&v111[14] = 2080;
-              *&v111[16] = v83;
+              *v110 = v80;
+              *&v110[4] = 2080;
+              *&v110[6] = v82;
+              *&v110[14] = 2080;
+              *&v110[16] = v83;
               _os_log_error_impl(&dword_26168F000, v68, OS_LOG_TYPE_ERROR, "getAddressFromSocket to %i failed: errno = %s, error = %s", buf, 0x1Cu);
             }
 
@@ -5117,11 +6658,11 @@ LABEL_129:
               }
 
               *buf = 67109634;
-              *v111 = v69;
-              *&v111[4] = 1024;
-              *&v111[6] = ident;
-              *&v111[10] = 2080;
-              *&v111[12] = data;
+              *v110 = v69;
+              *&v110[4] = 1024;
+              *&v110[6] = ident;
+              *&v110[10] = 2080;
+              *&v110[12] = data;
               _os_log_impl(&dword_26168F000, v68, OS_LOG_TYPE_INFO, "[ConDebug] Server accepted connection on port(%i) socket(%i) from %s", buf, 0x18u);
             }
 
@@ -5299,7 +6840,7 @@ LABEL_52:
     }
 
 LABEL_54:
-    if (++v4 == v99)
+    if (++v4 == v98)
     {
       goto LABEL_94;
     }
@@ -5420,7 +6961,7 @@ LABEL_53:
         v75 = __error();
         v76 = strerror(*v75);
         *buf = 136315138;
-        *v111 = v76;
+        *v110 = v76;
         _os_log_error_impl(&dword_26168F000, v65, OS_LOG_TYPE_ERROR, "kevent failed: %s", buf, 0xCu);
       }
     }
@@ -5430,56 +6971,52 @@ LABEL_53:
   }
 
   re::internal::assertLog(4, v47, "assertion failure: '%s' (%s:line %i) Invalid Connection status", "!Unreachable code", "update", 679);
-  _os_crash();
+  _os_crash("assertion failure: (!Unreachable code) Invalid Connection status");
   __break(1u);
 }
 
 void re::TcpProtocolLayer::wait(re::TcpProtocolLayer *this)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = kevent64(*(this + 6), 0, 0, &v6, 1, 0, 0);
+  v8 = *MEMORY[0x277D85DE8];
+  v1 = kevent64(*(this + 6), 0, 0, &v5, 1, 0, 0);
   if (v1 == -1)
   {
     v2 = *re::networkLogObjects(v1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v4 = __error();
-      v5 = strerror(*v4);
+      v3 = __error();
+      v4 = strerror(*v3);
       *buf = 136315138;
-      v8 = v5;
+      v7 = v4;
       _os_log_error_impl(&dword_26168F000, v2, OS_LOG_TYPE_ERROR, "kevent failed %s", buf, 0xCu);
     }
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void re::TcpProtocolLayer::wakeup(re::TcpProtocolLayer *this)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v6.ident = 0;
-  *&v6.filter = 0x10000000004FFF6;
-  memset(&v6.data, 0, 32);
-  v1 = kevent64(*(this + 6), &v6, 1, 0, 0, 0, 0);
+  v8 = *MEMORY[0x277D85DE8];
+  v5.ident = 0;
+  *&v5.filter = 0x10000000004FFF6;
+  memset(&v5.data, 0, 32);
+  v1 = kevent64(*(this + 6), &v5, 1, 0, 0, 0, 0);
   if (v1 == -1)
   {
     v2 = *re::networkLogObjects(v1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v4 = __error();
-      v5 = strerror(*v4);
+      v3 = __error();
+      v4 = strerror(*v3);
       *buf = 136315138;
-      v8 = v5;
+      v7 = v4;
       _os_log_error_impl(&dword_26168F000, v2, OS_LOG_TYPE_ERROR, "kevent failed %s", buf, 0xCu);
     }
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 unint64_t re::TcpProtocolLayer::localAddresses(re::TcpProtocolLayer *this, re::Address *a2, unint64_t a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (*(this + 18))
   {
     v6 = *(this + 19);
@@ -5492,8 +7029,8 @@ unint64_t re::TcpProtocolLayer::localAddresses(re::TcpProtocolLayer *this, re::A
 
   if (!strcmp(v6, "0.0.0.0"))
   {
-    v28[0] = 0;
-    v8 = getifaddrs(v28);
+    v27[0] = 0;
+    v8 = getifaddrs(v27);
     if ((v8 & 0x80000000) != 0)
     {
       v18 = *re::networkLogObjects(v8);
@@ -5505,13 +7042,13 @@ unint64_t re::TcpProtocolLayer::localAddresses(re::TcpProtocolLayer *this, re::A
         _os_log_impl(&dword_26168F000, v18, OS_LOG_TYPE_DEFAULT, "TcpProtocolLayer: Unable to list network adapters(errno=%d).", buf, 8u);
       }
 
-      v7 = 0;
+      return 0;
     }
 
     else
     {
-      v10 = v28[0];
-      if (v28[0])
+      v10 = v27[0];
+      if (v27[0])
       {
         v7 = 0;
         do
@@ -5527,16 +7064,16 @@ unint64_t re::TcpProtocolLayer::localAddresses(re::TcpProtocolLayer *this, re::A
               v12 = v13;
               if (v13 != 65193 && ((ifa_flags & 8) == 0 || v12 == 16777343))
               {
-                v14 = inet_ntop(2, ifa_addr, v22, 0x11u);
+                v14 = inet_ntop(2, ifa_addr, v21, 0x11u);
                 if (v14)
                 {
                   if (v7 < a3)
                   {
-                    re::Address::makeFromIPAndPort(v14, *(this + 90), buf);
+                    re::Address::makeFromIPAndPort(buf, v14, *(this + 90));
                     re::DynamicString::operator=((a2 + 32 * v7), buf);
                     if (*buf)
                     {
-                      if (v26)
+                      if (v25)
                       {
                         (*(**buf + 40))();
                       }
@@ -5565,7 +7102,7 @@ unint64_t re::TcpProtocolLayer::localAddresses(re::TcpProtocolLayer *this, re::A
         }
 
         while (v10);
-        v17 = v28[0];
+        v17 = v27[0];
       }
 
       else
@@ -5581,28 +7118,27 @@ unint64_t re::TcpProtocolLayer::localAddresses(re::TcpProtocolLayer *this, re::A
   else
   {
     re::IP::makeFromString(v6, buf);
-    *v28 = v26;
-    v29 = v27;
+    *v27 = v25;
+    v28 = v26;
     if (a3)
     {
-      *v22 = *v28;
-      v23 = v29;
-      v24 = *(this + 90);
-      re::Address::makeFromIPAndPort(v22, buf);
+      *v21 = *v27;
+      v22 = v28;
+      v23 = *(this + 90);
+      re::Address::makeFromIPAndPort(v21, buf);
       re::DynamicString::operator=(a2, buf);
       if (*buf)
       {
-        if (v26)
+        if (v25)
         {
           (*(**buf + 40))();
         }
       }
     }
 
-    v7 = 1;
+    return 1;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -5718,12 +7254,12 @@ void re::TcpProtocolHandle::~TcpProtocolHandle(re::TcpProtocolHandle *this)
   JUMPOUT(0x266708EC0);
 }
 
-double re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::deinit(uint64_t a1)
+double re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::deinit(uint64_t *a1)
 {
   v2 = *a1;
   if (v2)
   {
-    if (*(a1 + 32))
+    if (*(a1 + 8))
     {
       v3 = 0;
       do
@@ -5731,14 +7267,14 @@ double re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::Equ
         re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::free(a1, v3++);
       }
 
-      while (v3 < *(a1 + 32));
+      while (v3 < *(a1 + 8));
       v2 = *a1;
     }
 
-    (*(*v2 + 40))(v2, *(a1 + 8));
-    *(a1 + 32) = 0;
+    (*(*v2 + 40))(v2, a1[1]);
+    *(a1 + 8) = 0;
     *a1 = 0u;
-    *(a1 + 16) = 0u;
+    *(a1 + 1) = 0u;
     *&result = 0x7FFFFFFFLL;
     *(a1 + 36) = 0x7FFFFFFFLL;
   }
@@ -5827,7 +7363,7 @@ void re::HashSetBase<re::SharedPtr<re::ProtocolHandle>,re::SharedPtr<re::Protoco
         {
           if ((*(*&v13[16] + v10 + 8) & 0x80000000) != 0)
           {
-            re::HashSetBase<re::SharedPtr<re::ProtocolHandle>,re::SharedPtr<re::ProtocolHandle>,re::internal::ValueAsKey<re::SharedPtr<re::ProtocolHandle>>,re::Hash<re::SharedPtr<re::ProtocolHandle>>,re::EqualTo<re::SharedPtr<re::ProtocolHandle>>,true,false>::addAsMove(a1, *(*&v13[16] + v10) % *(a1 + 24), *(*&v13[16] + v10), *&v13[16] + v10 + 16, *&v13[16] + v10 + 16);
+            re::HashSetBase<re::SharedPtr<re::ProtocolHandle>,re::SharedPtr<re::ProtocolHandle>,re::internal::ValueAsKey<re::SharedPtr<re::ProtocolHandle>>,re::Hash<re::SharedPtr<re::ProtocolHandle>>,re::EqualTo<re::SharedPtr<re::ProtocolHandle>>,true,false>::addAsMove(a1, *(*&v13[16] + v10) % *(a1 + 24), *(*&v13[16] + v10), *&v13[16] + v10 + 16, (*&v13[16] + v10 + 16));
             v9 = *&v13[32];
           }
 
@@ -6002,7 +7538,7 @@ uint64_t re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::E
     {
       if ((*(v7 + v5) & 0x80000000) != 0)
       {
-        result = re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::allocEntry(v4, *(v7 + v5 + 16) % *(v4 + 24));
+        result = re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::allocEntry(v4, *(v7 + v5 + 16) % *(v4 + 24), *(v7 + v5 + 16));
         v7 = *(a2 + 16);
         *(result + 4) = *(v7 + v5 + 4);
         *(result + 8) = *(v7 + v5 + 8);
@@ -6433,108 +7969,107 @@ uint64_t RESyncBitWriterGrowBuffer(re::BitWriter *a1, int a2, _DWORD *a3)
 
 uint64_t re::SyncCommitDump::log(NSObject *a1, uint64_t a2, const char *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   result = os_log_type_enabled(a1, OS_LOG_TYPE_DEBUG);
   if (result)
   {
-    v8 = *(a2 + 24);
-    v9 = "Commit";
+    v7 = *(a2 + 24);
+    v8 = "Commit";
     if (a3)
     {
-      v9 = a3;
+      v8 = a3;
     }
 
-    if (v8 <= 0.0)
+    if (v7 <= 0.0)
     {
-      v19 = "(Atomic)";
-      v20 = *(a2 + 28);
+      v18 = "(Atomic)";
+      v19 = *(a2 + 28);
       if ((*a2 & 1) == 0)
       {
-        v19 = "";
+        v18 = "";
       }
 
-      v21 = *(a2 + 8);
-      v13 = (*a2 & 2) == 0;
-      v24 = 136316162;
-      v22 = "(Held)";
-      if (v13)
+      v20 = *(a2 + 8);
+      v12 = (*a2 & 2) == 0;
+      v23 = 136316162;
+      v21 = "(Held)";
+      if (v12)
+      {
+        v21 = "";
+      }
+
+      v24 = v8;
+      v25 = 2080;
+      v26 = v18;
+      if (v19)
+      {
+        v22 = "(Fwd)";
+      }
+
+      else
       {
         v22 = "";
       }
 
-      v25 = v9;
-      v26 = 2080;
-      v27 = v19;
-      if (v20)
-      {
-        v23 = "(Fwd)";
-      }
-
-      else
-      {
-        v23 = "";
-      }
-
-      v28 = 2080;
-      v29 = v22;
-      v30 = 2080;
-      v31 = v23;
-      v32 = 2048;
-      v33 = v21;
-      v16 = "%s %s%s%s Peer=%llu";
-      v17 = a1;
-      v18 = 52;
+      v27 = 2080;
+      v28 = v21;
+      v29 = 2080;
+      v30 = v22;
+      v31 = 2048;
+      v32 = v20;
+      v15 = "%s %s%s%s Peer=%llu";
+      v16 = a1;
+      v17 = 52;
     }
 
     else
     {
-      v10 = "(Atomic)";
-      v11 = *(a2 + 28);
+      v9 = "(Atomic)";
+      v10 = *(a2 + 28);
       if ((*a2 & 1) == 0)
       {
-        v10 = "";
+        v9 = "";
       }
 
-      v12 = *(a2 + 8);
-      v13 = (*a2 & 2) == 0;
-      v24 = 136316418;
-      v14 = "(Held)";
-      if (v13)
+      v11 = *(a2 + 8);
+      v12 = (*a2 & 2) == 0;
+      v23 = 136316418;
+      v13 = "(Held)";
+      if (v12)
       {
-        v14 = "";
+        v13 = "";
       }
 
-      v25 = v9;
-      v26 = 2080;
-      v27 = v10;
-      if (v11)
+      v24 = v8;
+      v25 = 2080;
+      v26 = v9;
+      if (v10)
       {
-        v15 = "(Fwd)";
+        v14 = "(Fwd)";
       }
 
       else
       {
-        v15 = "";
+        v14 = "";
       }
 
-      v28 = 2080;
-      v29 = v14;
-      v30 = 2080;
-      v31 = v15;
-      v32 = 2048;
-      v33 = v12;
-      v34 = 2048;
-      v35 = v8;
-      v16 = "%s %s%s%s Peer=%llu TTL=%0.2f";
-      v17 = a1;
-      v18 = 62;
+      v27 = 2080;
+      v28 = v13;
+      v29 = 2080;
+      v30 = v14;
+      v31 = 2048;
+      v32 = v11;
+      v33 = 2048;
+      v34 = v7;
+      v15 = "%s %s%s%s Peer=%llu TTL=%0.2f";
+      v16 = a1;
+      v17 = 62;
     }
 
-    _os_log_debug_impl(&dword_26168F000, v17, OS_LOG_TYPE_DEBUG, v16, &v24, v18);
-    result = re::SyncSnapshotDump::log(a1, a2, a3);
+    _os_log_debug_impl(&dword_26168F000, v16, OS_LOG_TYPE_DEBUG, v15, &v23, v17);
+    return re::SyncSnapshotDump::log(a1, a2, a3);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6550,7 +8085,7 @@ uint64_t re::SyncCommitDump::log(re *a1, uint64_t a2, const char *a3)
     do
     {
       result = re::SyncCommitDump::log(v7, v5, a3);
-      v5 += 72;
+      v5 = (v5 + 72);
       v9 -= 72;
     }
 
@@ -6602,7 +8137,7 @@ uint64_t re::BiasedVLQ::read(re::BiasedVLQ *this, re::BitReader *a2, uint64_t *a
   return 1;
 }
 
-uint64_t re::SyncSnapshot::writeObject(void *a1, re::SyncObject **a2)
+uint64_t re::SyncSnapshot::writeObject(_anonymous_namespace_ *a1, re::SyncObject **a2)
 {
   re::SyncObject::addState(*a2, 0, 0);
   v4 = *a2;
@@ -6625,35 +8160,35 @@ uint64_t re::SyncSnapshot::writeObject(void *a1, re::SyncObject **a2)
   {
   }
 
-  v7 = a1[4] + 24 * a1[2];
+  v7 = *(a1 + 4) + 24 * *(a1 + 2);
   v9 = *(v7 - 24);
   result = v7 - 24;
   ++*(v9 + 176);
   return result;
 }
 
-void *re::DynamicArray<re::internal::SyncSnapshotEntry>::add(void *this, uint64_t a2)
+_anonymous_namespace_ *re::DynamicArray<re::internal::SyncSnapshotEntry>::add(_anonymous_namespace_ *this, uint64_t a2)
 {
   v3 = this;
-  v4 = this[2];
-  if (v4 >= this[1])
+  v4 = *(this + 2);
+  if (v4 >= *(this + 1))
   {
     this = re::DynamicArray<re::internal::SyncSnapshotEntry>::growCapacity(this, v4 + 1);
-    v4 = v3[2];
+    v4 = *(v3 + 2);
   }
 
-  v5 = v3[4] + 24 * v4;
+  v5 = *(v3 + 4) + 24 * v4;
   *v5 = *a2;
   *a2 = 0;
   v6 = *(a2 + 8);
   *(v5 + 16) = *(a2 + 16);
   *(v5 + 8) = v6;
-  ++v3[2];
+  ++*(v3 + 2);
   ++*(v3 + 6);
   return this;
 }
 
-BOOL re::SyncSnapshot::writeDestroyedObject(void *a1, re::SyncObject **a2)
+BOOL re::SyncSnapshot::writeDestroyedObject(_anonymous_namespace_ *a1, re::SyncObject **a2)
 {
   *(*a2 + 128) |= 4u;
   v4 = *a2;
@@ -6725,129 +8260,145 @@ BOOL re::SyncSnapshot::writeDestroyedObject(void *a1, re::SyncObject **a2)
   return LatestState != 0;
 }
 
-BOOL re::SyncSnapshot::addToView(void *a1, re::SyncObject **a2)
+BOOL re::SyncSnapshot::addToView(_anonymous_namespace_ *a1, re::SyncObject **a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = re::SyncObject::latestStateHandle(*a2);
   if (v4 == -1)
   {
     v7 = *re::networkLogObjects(0xFFFFFFFFFFFFFFFFLL);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(*a2 + 3);
-      v11 = *(*(*a2 + 11) + 16);
-      v12 = v11[4];
-      v13 = v11[6];
-      v14 = v11[7];
-      v15 = v11 + 49;
-      if (v13)
+      v9 = *(*a2 + 3);
+      v10 = *(*(*a2 + 11) + 16);
+      v11 = v10[4];
+      v12 = v10[6];
+      v13 = v10[7];
+      v14 = v10 + 49;
+      if (v12)
       {
-        v15 = v14;
+        v14 = v13;
       }
 
-      *v16 = 134218498;
-      *&v16[4] = v10;
-      *&v16[12] = 2048;
-      *&v16[14] = v12;
-      v17 = 2080;
-      v18 = v15;
-      _os_log_error_impl(&dword_26168F000, v7, OS_LOG_TYPE_ERROR, "Sync object without snapshot while adding to view (id: %llu, type: %llu[%s]).", v16, 0x20u);
+      *v15 = 134218498;
+      *&v15[4] = v9;
+      *&v15[12] = 2048;
+      *&v15[14] = v11;
+      v16 = 2080;
+      v17 = v14;
+      _os_log_error_impl(&dword_26168F000, v7, OS_LOG_TYPE_ERROR, "Sync object without snapshot while adding to view (id: %llu, type: %llu[%s]).", v15, 0x20u);
     }
   }
 
   else
   {
     v5 = *a2;
-    *v16 = v5;
+    *v15 = v5;
     if (v5)
     {
       v6 = v5 + 8;
     }
 
-    *&v16[8] = v4;
-    v16[16] = 1;
-    re::DynamicArray<re::internal::SyncSnapshotEntry>::add(a1, v16);
-    if (*v16)
+    *&v15[8] = v4;
+    v15[16] = 1;
+    re::DynamicArray<re::internal::SyncSnapshotEntry>::add(a1, v15);
+    if (*v15)
     {
     }
   }
 
-  result = v4 != -1;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v4 != -1;
 }
 
-BOOL re::SyncSnapshot::removeFromView(void *a1, re::SyncObject **a2)
+BOOL re::SyncSnapshot::removeFromView(_anonymous_namespace_ *a1, re::SyncObject **a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = re::SyncObject::latestStateHandle(*a2);
   if (v4 == -1)
   {
     v7 = *re::networkLogObjects(0xFFFFFFFFFFFFFFFFLL);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(*a2 + 3);
-      v11 = *(*(*a2 + 11) + 16);
-      v12 = v11[4];
-      v13 = v11[6];
-      v14 = v11[7];
-      v15 = v11 + 49;
-      if (v13)
+      v9 = *(*a2 + 3);
+      v10 = *(*(*a2 + 11) + 16);
+      v11 = v10[4];
+      v12 = v10[6];
+      v13 = v10[7];
+      v14 = v10 + 49;
+      if (v12)
       {
-        v15 = v14;
+        v14 = v13;
       }
 
-      *v16 = 134218498;
-      *&v16[4] = v10;
-      *&v16[12] = 2048;
-      *&v16[14] = v12;
-      v17 = 2080;
-      v18 = v15;
-      _os_log_error_impl(&dword_26168F000, v7, OS_LOG_TYPE_ERROR, "Sync object without snapshot while removing from view (id: %llu, type: %llu[%s]).", v16, 0x20u);
+      *v15 = 134218498;
+      *&v15[4] = v9;
+      *&v15[12] = 2048;
+      *&v15[14] = v11;
+      v16 = 2080;
+      v17 = v14;
+      _os_log_error_impl(&dword_26168F000, v7, OS_LOG_TYPE_ERROR, "Sync object without snapshot while removing from view (id: %llu, type: %llu[%s]).", v15, 0x20u);
     }
   }
 
   else
   {
     v5 = *a2;
-    *v16 = v5;
+    *v15 = v5;
     if (v5)
     {
       v6 = v5 + 8;
     }
 
-    *&v16[8] = v4;
-    v16[16] = 2;
-    re::DynamicArray<re::internal::SyncSnapshotEntry>::add(a1, v16);
-    if (*v16)
+    *&v15[8] = v4;
+    v15[16] = 2;
+    re::DynamicArray<re::internal::SyncSnapshotEntry>::add(a1, v15);
+    if (*v15)
     {
     }
   }
 
-  result = v4 != -1;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v4 != -1;
 }
 
-uint64_t re::SyncSnapshot::readAt(re::SyncSnapshot *this, unint64_t a2)
+unint64_t re::SyncSnapshot::readAt(re::SyncSnapshot *this, unint64_t a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  if (*(this + 2) <= a2)
+  v19 = *MEMORY[0x277D85DE8];
+  v3 = *(this + 2);
+  if (v3 <= a2)
   {
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+    v9 = 0;
+    memset(v18, 0, sizeof(v18));
+    v6 = MEMORY[0x277D86220];
+    v10 = 136315906;
+    v11 = "operator[]";
+    v12 = 1024;
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v7 = 3;
+    }
+
+    else
+    {
+      v7 = 2;
+    }
+
+    v13 = 797;
+    v14 = 2048;
+    v15 = a2;
+    v16 = 2048;
+    v17 = v3;
+    _os_log_send_and_compose_impl(v7, &v9, v18, 80, &dword_26168F000, v6, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v10, 38, v8);
     _os_crash_msg();
     __break(1u);
   }
 
-  v2 = *(this + 4) + 24 * a2;
-  if (!re::SyncObject::getState(*v2, *(v2 + 8)))
+  v4 = *(this + 4) + 24 * a2;
+  if (!re::SyncObject::getState(*v4, *(v4 + 8)))
   {
-    re::SyncObject::getOldestState(*v2);
+    re::SyncObject::getOldestState(*v4);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
-  return v2;
+  return v4;
 }
 
 re::DebugProtocolLayer *re::DebugProtocolLayer::DebugProtocolLayer(re::DebugProtocolLayer *this)
@@ -6879,7 +8430,7 @@ void re::DebugProtocolLayer::~DebugProtocolLayer(re::DebugProtocolLayer *this)
   *(this + 18) = 0;
   dispatch_release(*(this + 19));
   *(this + 19) = 0;
-  re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::deinit(this + 96);
+  re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::deinit(this + 12);
   re::HashSetBase<re::SharedPtr<re::SyncView>,re::SharedPtr<re::SyncView>,re::internal::ValueAsKey<re::SharedPtr<re::SyncView>>,re::Hash<re::SharedPtr<re::SyncView>>,re::EqualTo<re::SharedPtr<re::SyncView>>,true,false>::deinit(this + 6);
   v2 = *(this + 5);
   if (v2)
@@ -6996,7 +8547,7 @@ void re::anonymous namespace::interconnect(re::_anonymous_namespace_ *this)
     *&qword_27FEB8478 = 0u;
     dword_27FEB8498 = 1065353216;
     qword_27FEB84A0 = 0x100000001;
-    MEMORY[0x266708D60](&unk_27FEB84A8);
+    MEMORY[0x266708D60](&stru_27FEB84A8);
 
     __cxa_guard_release(&_MergedGlobals_1);
   }
@@ -7298,7 +8849,7 @@ LABEL_74:
 void re::DebugProtocolInterconnect::sendDisconnect(re::DebugProtocolInterconnect *this, int a2)
 {
   v3 = this;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   std::recursive_mutex::lock(&stru_27FEB84A8);
   v4 = std::__hash_table<std::__hash_value_type<int,re::DebugProtocolLayer *>,std::__unordered_map_hasher<int,std::__hash_value_type<int,re::DebugProtocolLayer *>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,re::DebugProtocolLayer *>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,re::DebugProtocolLayer *>>>::find<int>(v3);
   if (v4)
@@ -7306,8 +8857,8 @@ void re::DebugProtocolInterconnect::sendDisconnect(re::DebugProtocolInterconnect
     v5 = v4[3];
     if (v5)
     {
-      LODWORD(v13) = a2;
-      v6 = re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::tryGet(v5 + 96, &v13);
+      LODWORD(v12) = a2;
+      v6 = re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::tryGet(v5 + 96, &v12);
       if (v6)
       {
         v7 = *v6;
@@ -7318,25 +8869,25 @@ void re::DebugProtocolInterconnect::sendDisconnect(re::DebugProtocolInterconnect
           {
             v9 = *(v5 + 32);
             v10 = v7[444];
-            LODWORD(v13) = 67109632;
-            HIDWORD(v13) = v9;
-            v14 = 1024;
-            v15 = v10;
-            v16 = 1024;
-            LODWORD(v17) = a2;
-            _os_log_impl(&dword_26168F000, v8, OS_LOG_TYPE_DEFAULT, "[DebugLayer disconnected] local=%d remote=%d connection=%d", &v13, 0x14u);
+            LODWORD(v12) = 67109632;
+            HIDWORD(v12) = v9;
+            v13 = 1024;
+            v14 = v10;
+            v15 = 1024;
+            LODWORD(v16) = a2;
+            _os_log_impl(&dword_26168F000, v8, OS_LOG_TYPE_DEFAULT, "[DebugLayer disconnected] local=%d remote=%d connection=%d", &v12, 0x14u);
           }
 
           v7[447] = 3;
           v11 = *(v5 + 24);
           if (v11)
           {
-            (*(*v11 + 8))(v11, v5, v7, &v13);
-            if (v13)
+            (*(*v11 + 8))(v11, v5, v7, &v12);
+            if (v12)
             {
-              if (v14)
+              if (v13)
               {
-                (*(*v13 + 40))();
+                (*(*v12 + 40))();
               }
             }
           }
@@ -7346,40 +8897,37 @@ void re::DebugProtocolInterconnect::sendDisconnect(re::DebugProtocolInterconnect
   }
 
   std::recursive_mutex::unlock(&stru_27FEB84A8);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void re::DebugProtocolLayer::withlock_close(re *a1, _DWORD *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = *re::networkLogObjects(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 8);
     v6 = a2[444];
     v7 = a2[446];
-    LODWORD(v10) = 67109632;
-    HIDWORD(v10) = v5;
-    v11 = 1024;
-    v12 = v6;
-    v13 = 1024;
-    v14 = v7;
-    _os_log_impl(&dword_26168F000, v4, OS_LOG_TYPE_DEFAULT, "[DebugLayer close] local=%d remote=%d connection=%d", &v10, 0x14u);
+    LODWORD(v9) = 67109632;
+    HIDWORD(v9) = v5;
+    v10 = 1024;
+    v11 = v6;
+    v12 = 1024;
+    v13 = v7;
+    _os_log_impl(&dword_26168F000, v4, OS_LOG_TYPE_DEFAULT, "[DebugLayer close] local=%d remote=%d connection=%d", &v9, 0x14u);
   }
 
   a2[447] = 3;
   re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::remove(a1 + 96, a2 + 446);
   v8 = a2 + 2;
-  v10 = a2;
-  re::HashSetBase<re::SharedPtr<re::SyncView>,re::SharedPtr<re::SyncView>,re::internal::ValueAsKey<re::SharedPtr<re::SyncView>>,re::Hash<re::SharedPtr<re::SyncView>>,re::EqualTo<re::SharedPtr<re::SyncView>>,true,false>::remove(a1 + 48, &v10);
-  if (v10)
+  v9 = a2;
+  re::HashSetBase<re::SharedPtr<re::SyncView>,re::SharedPtr<re::SyncView>,re::internal::ValueAsKey<re::SharedPtr<re::SyncView>>,re::Hash<re::SharedPtr<re::SyncView>>,re::EqualTo<re::SharedPtr<re::SyncView>>,true,false>::remove(a1 + 48, &v9);
+  if (v9)
   {
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-void re::DebugProtocolLayer::send(re::_anonymous_namespace_ *a1, int *a2, uint64_t a3)
+void re::DebugProtocolLayer::send(re::_anonymous_namespace_ *a1, unsigned int *a2, uint64_t a3)
 {
   std::recursive_mutex::lock(&stru_27FEB84A8);
   v7 = *a3;
@@ -7509,16 +9057,18 @@ LABEL_19:
   std::recursive_mutex::unlock(&stru_27FEB84A8);
 }
 
-void re::DebugProtocolInterconnect::sendPacket(int a1, int a2, uint64_t a3, uint64_t a4)
+void re::DebugProtocolInterconnect::sendPacket(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v6 = a2;
+  v7 = a1;
   std::recursive_mutex::lock(&stru_27FEB84A8);
-  v8 = std::__hash_table<std::__hash_value_type<int,re::DebugProtocolLayer *>,std::__unordered_map_hasher<int,std::__hash_value_type<int,re::DebugProtocolLayer *>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,re::DebugProtocolLayer *>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,re::DebugProtocolLayer *>>>::find<int>(a1);
+  v8 = std::__hash_table<std::__hash_value_type<int,re::DebugProtocolLayer *>,std::__unordered_map_hasher<int,std::__hash_value_type<int,re::DebugProtocolLayer *>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,re::DebugProtocolLayer *>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,re::DebugProtocolLayer *>>>::find<int>(v7);
   if (v8)
   {
     v9 = v8[3];
     if (v9)
     {
-      re::DebugProtocolLayer::withlock_receive(v9, a2, a3, *(a4 + 16), *(a4 + 24));
+      re::DebugProtocolLayer::withlock_receive(v9, v6, a3, *(a4 + 16), *(a4 + 24));
     }
   }
 
@@ -7588,20 +9138,20 @@ uint64_t re::DebugProtocolLayer::hostStats(uint64_t a1, uint64_t a2)
 
 void re::DebugProtocolLayer::open(re::DebugProtocolLayer *this@<X0>, const re::Address *a2@<X1>, void *a3@<X8>)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   std::recursive_mutex::lock(&stru_27FEB84A8);
-  v46 = 0;
+  v45 = 0;
   re::DebugProtocolLayer::broadcastAddress(buf);
-  v7 = v50;
-  v6 = v53;
-  if (v50)
+  v7 = v49;
+  v6 = v52;
+  if (v49)
   {
-    v8 = v53;
+    v8 = v52;
   }
 
   else
   {
-    v8 = &v50 + 1;
+    v8 = &v49 + 1;
   }
 
   if (*(a2 + 1))
@@ -7637,7 +9187,7 @@ void re::DebugProtocolLayer::open(re::DebugProtocolLayer *this@<X0>, const re::A
       v12 = a2 + 9;
     }
 
-    v10 = sscanf(v12, "debug://%d/%d", &v46 + 4, &v46);
+    v10 = sscanf(v12, "debug://%d/%d", &v45 + 4, &v45);
     if (v10 < 1)
     {
       *a3 = 0;
@@ -7647,15 +9197,15 @@ void re::DebugProtocolLayer::open(re::DebugProtocolLayer *this@<X0>, const re::A
 
   else
   {
-    HIDWORD(v46) = -1;
+    HIDWORD(v45) = -1;
   }
 
   v13 = HIDWORD(qword_27FEB84A0)++;
-  re::make::shared::object<re::DebugProtocolHandle>(&v45);
-  v14 = v45;
-  v45[442] = *(this + 8);
+  re::make::shared::object<re::DebugProtocolHandle>(&v44);
+  v14 = v44;
+  v44[442] = *(this + 8);
   v14[443] = v13;
-  v14[444] = HIDWORD(v46);
+  v14[444] = HIDWORD(v45);
   v14[445] = 0;
   v14[446] = v13;
   v14[447] = 1;
@@ -7680,14 +9230,14 @@ void re::DebugProtocolLayer::open(re::DebugProtocolLayer *this@<X0>, const re::A
     v20 = *(this + 8);
     *buf = 67109632;
     *&buf[4] = v20;
-    v50 = 1024;
-    v51 = HIDWORD(v46);
-    v52 = 1024;
-    LODWORD(v53) = v13;
+    v49 = 1024;
+    v50 = HIDWORD(v45);
+    v51 = 1024;
+    LODWORD(v52) = v13;
     _os_log_impl(&dword_26168F000, v18, OS_LOG_TYPE_DEFAULT, "[DebugLayer connect] local=%d remote=%d connection=%d", buf, 0x14u);
   }
 
-  v21 = HIDWORD(v46);
+  v21 = HIDWORD(v45);
   v22 = *(this + 8);
   std::recursive_mutex::lock(&stru_27FEB84A8);
   if (v21 == -1)
@@ -7706,23 +9256,23 @@ void re::DebugProtocolLayer::open(re::DebugProtocolLayer *this@<X0>, const re::A
     v23 = std::__hash_table<std::__hash_value_type<int,re::DebugProtocolLayer *>,std::__unordered_map_hasher<int,std::__hash_value_type<int,re::DebugProtocolLayer *>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,re::DebugProtocolLayer *>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,re::DebugProtocolLayer *>>>::find<int>(v21);
     if (v23 && (v24 = v23[3]) != 0)
     {
-      v48 = v13;
+      v47 = v13;
       v25 = *re::networkLogObjects(v23);
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         v26 = *(v24 + 32);
         *buf = 67109632;
         *&buf[4] = v26;
-        v50 = 1024;
-        v51 = v22;
-        v52 = 1024;
-        LODWORD(v53) = v13;
+        v49 = 1024;
+        v50 = v22;
+        v51 = 1024;
+        LODWORD(v52) = v13;
         _os_log_impl(&dword_26168F000, v25, OS_LOG_TYPE_DEFAULT, "[DebugLayer accepted] local=%d remote=%d connection=%d", buf, 0x14u);
       }
 
-      re::make::shared::object<re::DebugProtocolHandle>(&v47);
-      v27 = v47;
-      v47[442] = *(v24 + 32);
+      re::make::shared::object<re::DebugProtocolHandle>(&v46);
+      v27 = v46;
+      v46[442] = *(v24 + 32);
       v27[443] = 0;
       v27[444] = v22;
       v27[445] = v13;
@@ -7737,7 +9287,7 @@ void re::DebugProtocolLayer::open(re::DebugProtocolLayer *this@<X0>, const re::A
 
       *buf = v27;
       v29 = v27 + 2;
-      v30 = re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::addNew(v24 + 96, &v48, buf);
+      v30 = re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::addNew(v24 + 96, &v47, buf);
       if (*buf)
       {
       }
@@ -7749,14 +9299,14 @@ void re::DebugProtocolLayer::open(re::DebugProtocolLayer *this@<X0>, const re::A
         v30 = *buf;
         if (*buf)
         {
-          if (v50)
+          if (v49)
           {
             v30 = (*(**buf + 40))();
           }
         }
       }
 
-      v32 = v48;
+      v32 = v47;
       std::recursive_mutex::lock(&stru_27FEB84A8);
       v33 = std::__hash_table<std::__hash_value_type<int,re::DebugProtocolLayer *>,std::__unordered_map_hasher<int,std::__hash_value_type<int,re::DebugProtocolLayer *>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,re::DebugProtocolLayer *>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,re::DebugProtocolLayer *>>>::find<int>(v22);
       if (v33)
@@ -7793,10 +9343,10 @@ void re::DebugProtocolLayer::open(re::DebugProtocolLayer *this@<X0>, const re::A
                 v41 = *(v38 + 1776);
                 *buf = 67109632;
                 *&buf[4] = v40;
-                v50 = 1024;
-                v51 = v41;
-                v52 = 1024;
-                LODWORD(v53) = v13;
+                v49 = 1024;
+                v50 = v41;
+                v51 = 1024;
+                LODWORD(v52) = v13;
                 _os_log_impl(&dword_26168F000, v39, OS_LOG_TYPE_DEFAULT, "[DebugLayer error] local=%d remote=%d connection=%d", buf, 0x14u);
               }
 
@@ -7820,7 +9370,6 @@ void re::DebugProtocolLayer::open(re::DebugProtocolLayer *this@<X0>, const re::A
   std::recursive_mutex::unlock(&stru_27FEB84A8);
   *a3 = v14;
 LABEL_54:
-  v44 = *MEMORY[0x277D85DE8];
 
   std::recursive_mutex::unlock(&stru_27FEB84A8);
 }
@@ -7835,7 +9384,7 @@ void re::DebugProtocolLayer::close(re::_anonymous_namespace_ *a1, _DWORD *a2)
 
 void re::DebugProtocolLayer::disconnect(uint64_t a1, _DWORD *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   std::recursive_mutex::lock(&stru_27FEB84A8);
   v5 = *re::networkLogObjects(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -7843,13 +9392,13 @@ void re::DebugProtocolLayer::disconnect(uint64_t a1, _DWORD *a2)
     v6 = *(a1 + 32);
     v7 = a2[444];
     v8 = a2[446];
-    LODWORD(v16) = 67109632;
-    HIDWORD(v16) = v6;
-    v17 = 1024;
-    v18 = v7;
-    v19 = 1024;
-    LODWORD(v20) = v8;
-    _os_log_impl(&dword_26168F000, v5, OS_LOG_TYPE_DEFAULT, "[DebugLayer disconnect] local=%d remote=%d connection=%d", &v16, 0x14u);
+    LODWORD(v15) = 67109632;
+    HIDWORD(v15) = v6;
+    v16 = 1024;
+    v17 = v7;
+    v18 = 1024;
+    LODWORD(v19) = v8;
+    _os_log_impl(&dword_26168F000, v5, OS_LOG_TYPE_DEFAULT, "[DebugLayer disconnect] local=%d remote=%d connection=%d", &v15, 0x14u);
   }
 
   if (a2[447] != 3)
@@ -7894,23 +9443,21 @@ void re::DebugProtocolLayer::disconnect(uint64_t a1, _DWORD *a2)
     v14 = *(a1 + 24);
     if (v14)
     {
-      (*(*v14 + 8))(v14, a1, a2, &v16);
-      if (v16)
+      (*(*v14 + 8))(v14, a1, a2, &v15);
+      if (v15)
       {
-        if (v17)
+        if (v16)
         {
-          (*(*v16 + 40))();
+          (*(*v15 + 40))();
         }
       }
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   std::recursive_mutex::unlock(&stru_27FEB84A8);
 }
 
-uint64_t re::HashSetBase<re::SharedPtr<re::ProtocolHandle>,re::SharedPtr<re::ProtocolHandle>,re::internal::ValueAsKey<re::SharedPtr<re::ProtocolHandle>>,re::Hash<re::SharedPtr<re::ProtocolHandle>>,re::EqualTo<re::SharedPtr<re::ProtocolHandle>>,true,false>::add(uint64_t result, uint64_t *a2)
+uint64_t re::HashSetBase<re::SharedPtr<re::ProtocolHandle>,re::SharedPtr<re::ProtocolHandle>,re::internal::ValueAsKey<re::SharedPtr<re::ProtocolHandle>>,re::Hash<re::SharedPtr<re::ProtocolHandle>>,re::EqualTo<re::SharedPtr<re::ProtocolHandle>>,true,false>::add(uint64_t result, unint64_t *a2)
 {
   v3 = result;
   v4 = *a2;
@@ -7957,9 +9504,9 @@ uint64_t re::HashSetBase<re::SharedPtr<re::ProtocolHandle>,re::SharedPtr<re::Pro
 
 void re::DebugProtocolLayer::withlock_connected(re::DebugProtocolLayer *this, int a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  LODWORD(v11) = a2;
-  v4 = re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::tryGet(this + 96, &v11);
+  v15 = *MEMORY[0x277D85DE8];
+  LODWORD(v10) = a2;
+  v4 = re::HashTable<int,re::SharedPtr<re::ProtocolHandle>,re::Hash<int>,re::EqualTo<int>,true,false>::tryGet(this + 96, &v10);
   if (v4)
   {
     v5 = *v4;
@@ -7970,13 +9517,13 @@ void re::DebugProtocolLayer::withlock_connected(re::DebugProtocolLayer *this, in
       {
         v7 = *(this + 8);
         v8 = v5[444];
-        LODWORD(v11) = 67109632;
-        HIDWORD(v11) = v7;
-        v12 = 1024;
-        v13 = v8;
-        v14 = 1024;
-        LODWORD(v15) = a2;
-        _os_log_impl(&dword_26168F000, v6, OS_LOG_TYPE_DEFAULT, "[DebugLayer connected] local=%d remote=%d connection=%d", &v11, 0x14u);
+        LODWORD(v10) = 67109632;
+        HIDWORD(v10) = v7;
+        v11 = 1024;
+        v12 = v8;
+        v13 = 1024;
+        LODWORD(v14) = a2;
+        _os_log_impl(&dword_26168F000, v6, OS_LOG_TYPE_DEFAULT, "[DebugLayer connected] local=%d remote=%d connection=%d", &v10, 0x14u);
       }
 
       if (v5[447] == 1)
@@ -7985,20 +9532,18 @@ void re::DebugProtocolLayer::withlock_connected(re::DebugProtocolLayer *this, in
         v9 = *(this + 3);
         if (v9)
         {
-          (**v9)(v9, this, v5, &v11);
-          if (v11)
+          (**v9)(v9, this, v5, &v10);
+          if (v10)
           {
-            if (v12)
+            if (v11)
             {
-              (*(*v11 + 40))();
+              (*(*v10 + 40))();
             }
           }
         }
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t re::DebugProtocolLayer::withlock_receive(uint64_t a1, int a2, uint64_t a3, uint64_t a4, int a5)

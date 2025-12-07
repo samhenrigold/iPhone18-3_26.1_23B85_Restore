@@ -148,61 +148,7 @@
     {
       v5 = equalCopy;
       isEyesFree = self->_isEyesFree;
-      if (isEyesFree != [(AFModesConfiguration *)v5 isEyesFree])
-      {
-        goto LABEL_24;
-      }
-
-      isUIFree = self->_isUIFree;
-      if (isUIFree != [(AFModesConfiguration *)v5 isUIFree])
-      {
-        goto LABEL_24;
-      }
-
-      isForCarDND = self->_isForCarDND;
-      if (isForCarDND != [(AFModesConfiguration *)v5 isForCarDND])
-      {
-        goto LABEL_24;
-      }
-
-      isInAmbient = self->_isInAmbient;
-      if (isInAmbient != [(AFModesConfiguration *)v5 isInAmbient])
-      {
-        goto LABEL_24;
-      }
-
-      isMapsNavigationActive = self->_isMapsNavigationActive;
-      if (isMapsNavigationActive != [(AFModesConfiguration *)v5 isMapsNavigationActive])
-      {
-        goto LABEL_24;
-      }
-
-      isVoiceTriggerRequest = self->_isVoiceTriggerRequest;
-      if (isVoiceTriggerRequest != [(AFModesConfiguration *)v5 isVoiceTriggerRequest])
-      {
-        goto LABEL_24;
-      }
-
-      isConnectedToCarPlay = self->_isConnectedToCarPlay;
-      if (isConnectedToCarPlay != [(AFModesConfiguration *)v5 isConnectedToCarPlay])
-      {
-        goto LABEL_24;
-      }
-
-      isRequestMadeWithPhysicalDeviceInteraction = self->_isRequestMadeWithPhysicalDeviceInteraction;
-      if (isRequestMadeWithPhysicalDeviceInteraction != [(AFModesConfiguration *)v5 isRequestMadeWithPhysicalDeviceInteraction])
-      {
-        goto LABEL_24;
-      }
-
-      isAudioAccessoryButtonActivation = self->_isAudioAccessoryButtonActivation;
-      if (isAudioAccessoryButtonActivation != [(AFModesConfiguration *)v5 isAudioAccessoryButtonActivation])
-      {
-        goto LABEL_24;
-      }
-
-      isSiriAutoPrompt = self->_isSiriAutoPrompt;
-      if (isSiriAutoPrompt == [(AFModesConfiguration *)v5 isSiriAutoPrompt]&& (isFlexibleFollowup = self->_isFlexibleFollowup, isFlexibleFollowup == [(AFModesConfiguration *)v5 isFlexibleFollowup]) && (userTypedInSiri = self->_userTypedInSiri, userTypedInSiri == [(AFModesConfiguration *)v5 userTypedInSiri]) && (isDeviceUnlocked = self->_isDeviceUnlocked, isDeviceUnlocked == [(AFModesConfiguration *)v5 isDeviceUnlocked]) && (isDeviceScreenON = self->_isDeviceScreenON, isDeviceScreenON == [(AFModesConfiguration *)v5 isDeviceScreenON]) && (isInitialBringUp = self->_isInitialBringUp, isInitialBringUp == [(AFModesConfiguration *)v5 isInitialBringUp]) && (isUserEngagedWithDevice = self->_isUserEngagedWithDevice, isUserEngagedWithDevice == [(AFModesConfiguration *)v5 isUserEngagedWithDevice]))
+      if (isEyesFree == [(AFModesConfiguration *)v5 isEyesFree]&& (isUIFree = self->_isUIFree, isUIFree == [(AFModesConfiguration *)v5 isUIFree]) && (isForCarDND = self->_isForCarDND, isForCarDND == [(AFModesConfiguration *)v5 isForCarDND]) && (isInAmbient = self->_isInAmbient, isInAmbient == [(AFModesConfiguration *)v5 isInAmbient]) && (isMapsNavigationActive = self->_isMapsNavigationActive, isMapsNavigationActive == [(AFModesConfiguration *)v5 isMapsNavigationActive]) && (isVoiceTriggerRequest = self->_isVoiceTriggerRequest, isVoiceTriggerRequest == [(AFModesConfiguration *)v5 isVoiceTriggerRequest]) && (isConnectedToCarPlay = self->_isConnectedToCarPlay, isConnectedToCarPlay == [(AFModesConfiguration *)v5 isConnectedToCarPlay]) && (isRequestMadeWithPhysicalDeviceInteraction = self->_isRequestMadeWithPhysicalDeviceInteraction, isRequestMadeWithPhysicalDeviceInteraction == [(AFModesConfiguration *)v5 isRequestMadeWithPhysicalDeviceInteraction]) && (isAudioAccessoryButtonActivation = self->_isAudioAccessoryButtonActivation, isAudioAccessoryButtonActivation == [(AFModesConfiguration *)v5 isAudioAccessoryButtonActivation]) && (isSiriAutoPrompt = self->_isSiriAutoPrompt, isSiriAutoPrompt == [(AFModesConfiguration *)v5 isSiriAutoPrompt]) && (isFlexibleFollowup = self->_isFlexibleFollowup, isFlexibleFollowup == [(AFModesConfiguration *)v5 isFlexibleFollowup]) && (userTypedInSiri = self->_userTypedInSiri, userTypedInSiri == [(AFModesConfiguration *)v5 userTypedInSiri]) && (isDeviceUnlocked = self->_isDeviceUnlocked, isDeviceUnlocked == [(AFModesConfiguration *)v5 isDeviceUnlocked]) && (isDeviceScreenON = self->_isDeviceScreenON, isDeviceScreenON == [(AFModesConfiguration *)v5 isDeviceScreenON]) && (isInitialBringUp = self->_isInitialBringUp, isInitialBringUp == [(AFModesConfiguration *)v5 isInitialBringUp]) && (isUserEngagedWithDevice = self->_isUserEngagedWithDevice, isUserEngagedWithDevice == [(AFModesConfiguration *)v5 isUserEngagedWithDevice]))
       {
         modeOverrideValue = [(AFModesConfiguration *)v5 modeOverrideValue];
         modeOverrideValue = self->_modeOverrideValue;
@@ -211,7 +157,6 @@
 
       else
       {
-LABEL_24:
         v24 = 0;
       }
     }

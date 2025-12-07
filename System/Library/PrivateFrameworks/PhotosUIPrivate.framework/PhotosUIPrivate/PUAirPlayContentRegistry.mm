@@ -109,7 +109,7 @@ BOOL __52__PUAirPlayContentRegistry__indexOfContentProvider___block_invoke(uint6
     [_contentProviders removePointerAtIndex:v5];
   }
 
-  MEMORY[0x1EEE66BE0]();
+  MEMORY[0x1EEE66BE0](v4);
 }
 
 - (void)addContentProvider:(id)provider

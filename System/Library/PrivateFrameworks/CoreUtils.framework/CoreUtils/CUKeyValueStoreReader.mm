@@ -95,7 +95,7 @@ LABEL_8:
   {
     if (error)
     {
-      v21 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960551, "Not opened", v11, v12, v13, v14, v15, v46);
+      v21 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960551, "Not opened");
       goto LABEL_8;
     }
 
@@ -355,7 +355,7 @@ LABEL_3:
 
     if (error)
     {
-      v22 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960551, "Not opened", v14, v15, v16, v17, v18, v36);
+      v22 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960551, "Not opened");
       goto LABEL_6;
     }
 
@@ -404,13 +404,13 @@ LABEL_27:
 
 - (BOOL)enumerateKeyType:(Class)type valueType:(Class)valueType error:(id *)error handler:(id)handler
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (self->_fd < 0)
   {
     if (error)
     {
-      v34 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960551, "Not opened", v9, v10, v11, v12, v13, v36);
+      v29 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960551, "Not opened");
       goto LABEL_17;
     }
 
@@ -419,48 +419,48 @@ LABEL_27:
 
   if (!cdb_read(&self->_cdb, __dst, 4uLL, 0))
   {
-    v22 = __dst[0];
+    v17 = __dst[0];
     if (__dst[0] < 0x801u)
     {
 LABEL_24:
-      v28 = 1;
+      v23 = 1;
       goto LABEL_25;
     }
 
-    v23 = 2048;
-    while (!cdb_read(&self->_cdb, __dst, 8uLL, v23))
+    v18 = 2048;
+    while (!cdb_read(&self->_cdb, __dst, 8uLL, v18))
     {
-      v25 = __dst[0];
-      v24 = __dst[1];
-      v26 = v23 + 8;
-      v27 = [(CUKeyValueStoreReader *)self _readObjectAtOffset:v23 + 8 length:__dst[0] type:type error:error];
-      v28 = v27 != 0;
-      if (!v27)
+      v20 = __dst[0];
+      v19 = __dst[1];
+      v21 = v18 + 8;
+      v22 = [(CUKeyValueStoreReader *)self _readObjectAtOffset:v18 + 8 length:__dst[0] type:type error:error];
+      v23 = v22 != 0;
+      if (!v22)
       {
         goto LABEL_25;
       }
 
-      v29 = v27;
-      v30 = v25 + v26;
-      v31 = [(CUKeyValueStoreReader *)self _readObjectAtOffset:v25 + v26 length:v24 type:valueType error:error];
-      if (!v31)
+      v24 = v22;
+      v25 = v20 + v21;
+      v26 = [(CUKeyValueStoreReader *)self _readObjectAtOffset:v20 + v21 length:v19 type:valueType error:error];
+      if (!v26)
       {
 
         goto LABEL_22;
       }
 
-      v32 = v31;
-      v38 = 0;
-      handlerCopy[2](handlerCopy, v29, v31, &v38);
-      if (v38 == 1)
+      v27 = v26;
+      v33 = 0;
+      handlerCopy[2](handlerCopy, v24, v26, &v33);
+      if (v33 == 1)
       {
 
         goto LABEL_24;
       }
 
-      v23 = v24 + v30;
+      v18 = v19 + v25;
 
-      if (v23 >= v22)
+      if (v18 >= v17)
       {
         goto LABEL_24;
       }
@@ -473,44 +473,44 @@ LABEL_24:
 
     if (*__error())
     {
-      v21 = *__error();
+      v16 = *__error();
     }
 
     else
     {
-      v21 = 4294960596;
+      v16 = 4294960596;
     }
 
-    v33 = "Read key/value lengths failed";
+    v28 = "Read key/value lengths failed";
     goto LABEL_16;
   }
 
   if (!error)
   {
 LABEL_22:
-    v28 = 0;
+    v23 = 0;
     goto LABEL_25;
   }
 
   if (*__error())
   {
-    v21 = *__error();
+    v16 = *__error();
   }
 
   else
   {
-    v21 = 4294960596;
+    v16 = 4294960596;
   }
 
-  v33 = "Read header failed";
+  v28 = "Read header failed";
 LABEL_16:
-  v34 = NSErrorWithOSStatusF(v21, v33, v15, v16, v17, v18, v19, v20, v36);
+  v29 = NSErrorWithOSStatusF(v16, v28, v10, v11, v12, v13, v14, v15, v31);
 LABEL_17:
-  v28 = 0;
-  *error = v34;
+  v23 = 0;
+  *error = v29;
 LABEL_25:
 
-  return v28;
+  return v23;
 }
 
 - (BOOL)enumerateKeysAndValuesAndReturnError:(id *)error handler:(id)handler

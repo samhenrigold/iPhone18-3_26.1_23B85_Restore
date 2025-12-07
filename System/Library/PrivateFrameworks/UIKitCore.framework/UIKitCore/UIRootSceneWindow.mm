@@ -50,7 +50,7 @@
 
     [(UIView *)v7->_sceneContainerView setAutoresizingMask:18];
     [(UIView *)v7 addSubview:v7->_sceneContainerView];
-    v13 = +[UIColor blackColor];
+    v13 = objc_msgSend_blackColor(UIColor);
     [(UIView *)v7 setBackgroundColor:v13];
 
     [(UIWindow *)v7 setLevel:0.0];
@@ -168,7 +168,7 @@
   sceneTransformer = self->_sceneTransformer;
   if (sceneTransformer)
   {
-    [(UITransform *)sceneTransformer transform];
+    objc_msgSend_transform(sceneTransformer, a2);
   }
 
   else

@@ -73,7 +73,7 @@ id __27__AAFXPCSession_connection__block_invoke(uint64_t a1)
 void __35__AAFXPCSession_remoteServiceProxy__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _AAFLogSystem();
+  v3 = _AAFLogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __35__AAFXPCSession_remoteServiceProxy__block_invoke_cold_1();
@@ -100,7 +100,7 @@ void __35__AAFXPCSession_remoteServiceProxy__block_invoke(uint64_t a1, void *a2)
 void __39__AAFXPCSession_syncRemoteServiceProxy__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _AAFLogSystem();
+  v3 = _AAFLogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __35__AAFXPCSession_remoteServiceProxy__block_invoke_cold_1();
@@ -118,7 +118,7 @@ void __39__AAFXPCSession_syncRemoteServiceProxy__block_invoke(uint64_t a1, void 
 
 - (void)activate
 {
-  v3 = _AAFLogSystem();
+  v3 = _AAFLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(AAFXPCSession *)v3 activate];
@@ -130,7 +130,7 @@ void __39__AAFXPCSession_syncRemoteServiceProxy__block_invoke(uint64_t a1, void 
 
 - (void)resume
 {
-  v3 = _AAFLogSystem();
+  v3 = _AAFLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(AAFXPCSession *)v3 resume];
@@ -260,15 +260,15 @@ void __44__AAFXPCSession__unsafe_createNewConnection__block_invoke(uint64_t a1)
 
   if ((v5 & 1) != 0 && WeakRetained)
   {
-    v6 = objc_loadWeakRetained((a1 + 40));
-    v7 = [v6 delegate];
-    [v7 remoteServiceDidInterrupt];
+    v7 = objc_loadWeakRetained((a1 + 40));
+    v8 = [v7 delegate];
+    [v8 remoteServiceDidInterrupt];
   }
 
   else
   {
-    v6 = _AAFLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _AAFLogSystem(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __44__AAFXPCSession__unsafe_createNewConnection__block_invoke_cold_1();
     }
@@ -285,14 +285,14 @@ void __44__AAFXPCSession__unsafe_createNewConnection__block_invoke_15(uint64_t a
 
   if ((v5 & 1) != 0 && v3)
   {
-    v6 = [WeakRetained delegate];
-    [v6 remoteServiceDidInvalidate];
+    v7 = [WeakRetained delegate];
+    [v7 remoteServiceDidInvalidate];
   }
 
   else
   {
-    v6 = _AAFLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _AAFLogSystem(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __44__AAFXPCSession__unsafe_createNewConnection__block_invoke_15_cold_1();
     }
@@ -304,30 +304,6 @@ void __44__AAFXPCSession__unsafe_createNewConnection__block_invoke_15(uint64_t a
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-void __35__AAFXPCSession_remoteServiceProxy__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1C8644000, v0, v1, "Error getting synchronous connection to service : %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __44__AAFXPCSession__unsafe_createNewConnection__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1C8644000, v0, v1, "Connection interrupted: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __44__AAFXPCSession__unsafe_createNewConnection__block_invoke_15_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1C8644000, v0, v1, "Connection invalidated: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

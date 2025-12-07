@@ -72,246 +72,34 @@
 
 - (void)ensureArrangedSubviewsAreValid
 {
-  v70 = *MEMORY[0x277D85DE8];
-  gridViewFlags = self->_gridViewFlags;
-  if ((*&gridViewFlags & 0x20000) != 0)
+  OUTLINED_FUNCTION_3_1();
+  do
   {
-    self->_gridViewFlags = (*&gridViewFlags & 0xFFFDFFFF);
-    if ((_NUIEnableAPIMisuseAssertions & 1) != 0 || _NUIIsDebuggerAttached())
+    v4 = 0;
+    do
     {
-      v4 = [(NSMutableArray *)self->_rows count];
-      if (v4 != [(NSMutableArray *)self->_viewRows count])
+      if (**(v1 + 16) != v3)
       {
-        [NUIContainerGridView ensureArrangedSubviewsAreValid];
-      }
-    }
-
-    if ((_NUIEnableAPIMisuseAssertions & 1) != 0 || _NUIIsDebuggerAttached())
-    {
-      v5 = [(NSMutableArray *)self->_columns count];
-      if (v5 != [-[NSMutableArray firstObject](self->_viewRows "firstObject")])
-      {
-        [NUIContainerGridView ensureArrangedSubviewsAreValid];
-      }
-    }
-
-    memset(v64, 0, 64);
-    v48 = 712;
-    if ([(NSMutableArray *)self->_rows countByEnumeratingWithState:v64 objects:v69 count:16])
-    {
-      [NUIContainerGridView ensureArrangedSubviewsAreValid];
-    }
-
-    memset(v63, 0, sizeof(v63));
-    if ([(NSMutableArray *)self->_columns countByEnumeratingWithState:v63 objects:&v68 count:16])
-    {
-      [NUIContainerGridView ensureArrangedSubviewsAreValid];
-    }
-
-    std::__tree<UIView *>::destroy(&self->_viewRanges, self->_viewRanges.__tree_.__end_node_.__left_);
-    self->_viewRanges.__tree_.__begin_node_ = &self->_viewRanges.__tree_.__end_node_;
-    self->_viewRanges.__tree_.__size_ = 0;
-    self->_viewRanges.__tree_.__end_node_.__left_ = 0;
-    selfCopy = self;
-    arrangedSubviews = [(NUIContainerView *)self arrangedSubviews];
-    [(NSArray *)arrangedSubviews count];
-    MEMORY[0x28223BE20]();
-    v45 = &selfCopy - v7;
-    bzero(&selfCopy - v7, v8);
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
-    v60 = 0u;
-    v9 = [(NSArray *)arrangedSubviews countByEnumeratingWithState:&v59 objects:v67 count:16];
-    if (v9)
-    {
-      v10 = v9;
-      v43 = 0;
-      v11 = *v60;
-      do
-      {
-        v12 = 0;
-        v13 = v45;
-        v14 = v43;
-        do
-        {
-          if (*v60 != v11)
-          {
-            objc_enumerationMutation(arrangedSubviews);
-            v13 = v45;
-          }
-
-          v15 = *(*(&v59 + 1) + 8 * v12);
-          v16 = v13;
-          if (v14)
-          {
-            v16 = v13;
-            v17 = v14;
-            do
-            {
-              v18 = v17 >> 1;
-              v19 = &v16[8 * (v17 >> 1)];
-              v21 = *v19;
-              v20 = v19 + 8;
-              v17 += ~(v17 >> 1);
-              if (v21 < v15)
-              {
-                v16 = v20;
-              }
-
-              else
-              {
-                v17 = v18;
-              }
-            }
-
-            while (v17);
-          }
-
-          v22 = &v13[8 * v14];
-          if (v16 == v22 || *v16 != v15)
-          {
-            if (v22 > v16)
-            {
-              memmove(v16 + 8, v16, v22 - v16);
-              v13 = v45;
-            }
-
-            *v16 = v15;
-            ++v14;
-          }
-
-          ++v12;
-        }
-
-        while (v12 != v10);
-        v43 = v14;
-        v10 = [(NSArray *)arrangedSubviews countByEnumeratingWithState:&v59 objects:v67 count:16];
+        objc_enumerationMutation(v0);
       }
 
-      while (v10);
-    }
-
-    else
-    {
-      v43 = 0;
-    }
-
-    v23 = selfCopy;
-    [*(&selfCopy->super.super.super.super.isa + v48) count];
-    [(NSMutableArray *)v23->_columns count];
-    MEMORY[0x28223BE20]();
-    v25 = &selfCopy - v24;
-    bzero(&selfCopy - v24, v26);
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
-    v56 = 0u;
-    viewRows = v23->_viewRows;
-    v47 = [(NSMutableArray *)viewRows countByEnumeratingWithState:&v55 objects:v66 count:16];
-    v27 = 0;
-    if (v47)
-    {
-      v46 = *v56;
-      do
+      v5 = *(*(v1 + 8) + 8 * v4);
+      if (v5)
       {
-        v28 = 0;
-        do
-        {
-          if (*v56 != v46)
-          {
-            objc_enumerationMutation(viewRows);
-          }
 
-          v48 = v28;
-          v29 = *(*(&v55 + 1) + 8 * v28);
-          v51 = 0u;
-          v52 = 0u;
-          v53 = 0u;
-          v54 = 0u;
-          v30 = [v29 countByEnumeratingWithState:&v51 objects:v65 count:16];
-          if (v30)
-          {
-            v31 = v30;
-            v32 = *v52;
-            do
-            {
-              for (i = 0; i != v31; ++i)
-              {
-                if (*v52 != v32)
-                {
-                  objc_enumerationMutation(v29);
-                }
-
-                v34 = *(*(&v51 + 1) + 8 * i);
-                v35 = v25;
-                if (v27)
-                {
-                  v35 = v25;
-                  v36 = v27;
-                  do
-                  {
-                    v37 = v36 >> 1;
-                    v38 = &v35[8 * (v36 >> 1)];
-                    v40 = *v38;
-                    v39 = v38 + 8;
-                    v36 += ~(v36 >> 1);
-                    if (v40 < v34)
-                    {
-                      v35 = v39;
-                    }
-
-                    else
-                    {
-                      v36 = v37;
-                    }
-                  }
-
-                  while (v36);
-                }
-
-                v41 = &v25[8 * v27];
-                if (v35 == v41 || *v35 != v34)
-                {
-                  if (v41 > v35)
-                  {
-                    memmove(v35 + 8, v35, v41 - v35);
-                  }
-
-                  *v35 = v34;
-                  ++v27;
-                }
-              }
-
-              v31 = [v29 countByEnumeratingWithState:&v51 objects:v65 count:16];
-            }
-
-            while (v31);
-          }
-
-          v28 = v48 + 1;
-        }
-
-        while (v48 + 1 != v47);
-        v47 = [(NSMutableArray *)viewRows countByEnumeratingWithState:&v55 objects:v66 count:16];
+        *(v5 + 16) = 0;
       }
 
-      while (v47);
+      v4 = v4 + 1;
     }
 
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = __54__NUIContainerGridView_ensureArrangedSubviewsAreValid__block_invoke;
-    v50[3] = &unk_278329598;
-    v50[4] = selfCopy;
-    v50[5] = v43;
-    v50[6] = v45;
-    v50[7] = v27;
-    v50[8] = v25;
-    v49.receiver = selfCopy;
-    v49.super_class = NUIContainerGridView;
-    [(NUIContainerView *)&v49 performBatchUpdates:v50];
+    while (v2 != v4);
+    result = OUTLINED_FUNCTION_9_0();
+    v2 = result;
   }
+
+  while (result);
+  return result;
 }
 
 - (NSArray)arrangedSubviewRows
@@ -340,17 +128,6 @@
 
   while (v4);
   return v7;
-}
-
-- (uint64_t)ensureArrangedSubviewsAreValid
-{
-  OUTLINED_FUNCTION_11();
-  [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AppSupportUI/AppSupportUI/NUIContainerGridView.mm"];
-  OUTLINED_FUNCTION_12();
-  [MEMORY[0x277CCA890] currentHandler];
-  OUTLINED_FUNCTION_0_1();
-
-  return [v0 handleFailureInMethod:? object:? file:? lineNumber:? description:?];
 }
 
 void *__54__NUIContainerGridView_ensureArrangedSubviewsAreValid__block_invoke(void *result)
@@ -471,7 +248,7 @@ LABEL_23:
 
 - (void)_setupViewRangesIfNeeded
 {
-  v13[8] = *MEMORY[0x277D85DE8];
+  v14[8] = *MEMORY[0x277D85DE8];
   if (self)
   {
     v2 = [*(self + 720) count];
@@ -489,28 +266,29 @@ LABEL_23:
     {
       v4 = v2;
       v5 = [*(self + 712) count];
-      v13[0] = 0;
-      v13[1] = v13;
-      v13[2] = 0x4012000000;
-      v13[3] = __Block_byref_object_copy__1;
-      v13[4] = __Block_byref_object_dispose__1;
-      v13[5] = 0;
-      MEMORY[0x28223BE20]();
-      v7 = v10 - v6;
-      bzero(v10 - v6, v8);
-      v13[6] = 0;
-      v13[7] = v7;
-      v9 = *(self + 544);
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __48__NUIContainerGridView__setupViewRangesIfNeeded__block_invoke;
-      v10[3] = &unk_278329680;
-      v11 = v4;
-      v12 = v5;
-      v10[4] = self;
-      v10[5] = v13;
-      [v9 enumerateObjectsUsingBlock:v10];
-      _Block_object_dispose(v13, 8);
+      v14[0] = 0;
+      v14[1] = v14;
+      v6.n128_u64[0] = 0x4012000000;
+      v14[2] = 0x4012000000;
+      v14[3] = __Block_byref_object_copy__1;
+      v14[4] = __Block_byref_object_dispose__1;
+      v14[5] = 0;
+      MEMORY[0x28223BE20](v6);
+      v8 = v11 - v7;
+      bzero(v11 - v7, v9);
+      v14[6] = 0;
+      v14[7] = v8;
+      v10 = *(self + 544);
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __48__NUIContainerGridView__setupViewRangesIfNeeded__block_invoke;
+      v11[3] = &unk_278329680;
+      v12 = v4;
+      v13 = v5;
+      v11[4] = self;
+      v11[5] = v14;
+      [v10 enumerateObjectsUsingBlock:v11];
+      _Block_object_dispose(v14, 8);
     }
   }
 }
@@ -528,10 +306,10 @@ uint64_t __48__NUIContainerGridView__setupViewRangesIfNeeded__block_invoke(uint6
   return [a2 enumerateObjectsUsingBlock:v4];
 }
 
-void *__48__NUIContainerGridView__setupViewRangesIfNeeded__block_invoke_2(void *result, unint64_t a2, uint64_t a3)
+void *__48__NUIContainerGridView__setupViewRangesIfNeeded__block_invoke_2(void *result, void *a2, uint64_t a3)
 {
   v5 = result;
-  v26 = a2;
+  v32 = a2;
   v6 = *(result[6] + 8);
   v8 = *(v6 + 48);
   v7 = *(v6 + 56);
@@ -546,7 +324,7 @@ void *__48__NUIContainerGridView__setupViewRangesIfNeeded__block_invoke_2(void *
     v10 = v8 >> 1;
     v11 = &v7[v8 >> 1];
     v13 = *v11;
-    v12 = v11 + 1;
+    v12 = (v11 + 1);
     v8 += ~(v8 >> 1);
     if (v13 < a2)
     {
@@ -578,46 +356,54 @@ LABEL_8:
       ++v14;
     }
 
-    for (i = 1; v5[7] + i < *(v5 + 33); ++i)
+    v17 = v5[7];
+    for (i = 1; v17 + i < *(v5 + 33); ++i)
     {
-      if ([objc_msgSend(*(v5[5] + 544) "objectAtIndex:{"objectAtIndex:", a3}")] != a2)
+      v19 = [objc_msgSend(*(v5[5] + 544) "objectAtIndex:{"objectAtIndex:", a3}")];
+      v17 = v5[7];
+      if (v19 != a2)
       {
         break;
       }
     }
 
-    result = std::__tree<std::__value_type<UIView *,std::pair<_NSRange,_NSRange> const>,std::__map_value_compare<UIView *,std::__value_type<UIView *,std::pair<_NSRange,_NSRange> const>,std::less<UIView *>,true>,std::allocator<std::__value_type<UIView *,std::pair<_NSRange,_NSRange> const>>>::__emplace_unique_key_args<UIView *,UIView * const&,std::pair<_NSRange,_NSRange>>(v5[5] + 672, &v26);
-    v18 = *(v5[6] + 8);
-    v19 = *(v18 + 48);
-    v20 = *(v18 + 56);
-    v21 = &v20[8 * v19];
-    while (v19)
+    v20 = v5[5];
+    *&v29 = a3;
+    *(&v29 + 1) = v16;
+    v30 = v17;
+    v31 = i;
+    result = std::__tree<std::__value_type<UIView *,std::pair<_NSRange,_NSRange> const>,std::__map_value_compare<UIView *,std::__value_type<UIView *,std::pair<_NSRange,_NSRange> const>,std::less<UIView *>,true>,std::allocator<std::__value_type<UIView *,std::pair<_NSRange,_NSRange> const>>>::__emplace_unique_key_args<UIView *,UIView * const&,std::pair<_NSRange,_NSRange>>(v20 + 672, &v32, &v32, &v29);
+    v21 = *(v5[6] + 8);
+    v22 = *(v21 + 48);
+    v23 = *(v21 + 56);
+    v24 = &v23[v22];
+    while (v22)
     {
-      v22 = v19 >> 1;
-      v23 = &v20[8 * (v19 >> 1)];
-      v25 = *v23;
-      v24 = (v23 + 1);
-      v19 += ~(v19 >> 1);
-      if (v25 < v26)
+      v25 = v22 >> 1;
+      v26 = &v23[v22 >> 1];
+      v28 = *v26;
+      v27 = (v26 + 1);
+      v22 += ~(v22 >> 1);
+      if (v28 < v32)
       {
-        v20 = v24;
+        v23 = v27;
       }
 
       else
       {
-        v19 = v22;
+        v22 = v25;
       }
     }
 
-    if (v20 == v21 || *v20 != v26)
+    if (v23 == v24 || *v23 != v32)
     {
-      if (v21 > v20)
+      if (v24 > v23)
       {
-        result = memmove(v20 + 8, v20, v21 - v20);
+        result = memmove(v23 + 1, v23, v24 - v23);
       }
 
-      *v20 = v26;
-      ++*(v18 + 48);
+      *v23 = v32;
+      ++*(v21 + 48);
     }
   }
 
@@ -754,7 +540,7 @@ LABEL_2:
   return v5;
 }
 
-uint64_t __52__NUIContainerGridView_initWithArrangedSubviewRows___block_invoke(uint64_t a1)
+void *__52__NUIContainerGridView_initWithArrangedSubviewRows___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x277D85DE8];
   v7 = 0u;
@@ -777,7 +563,8 @@ uint64_t __52__NUIContainerGridView_initWithArrangedSubviewRows___block_invoke(u
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) addRowWithArrangedSubviews:*(*(&v7 + 1) + 8 * v6++)];
+        [*(a1 + 40) addRowWithArrangedSubviews:*(*(&v7 + 1) + 8 * v6)];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -818,7 +605,7 @@ uint64_t __52__NUIContainerGridView_initWithArrangedSubviewRows___block_invoke(u
   [(NUIContainerView *)self performBatchUpdates:v6];
 }
 
-uint64_t __47__NUIContainerGridView_setArrangedSubviewRows___block_invoke(uint64_t a1)
+void *__47__NUIContainerGridView_setArrangedSubviewRows___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x277D85DE8];
   for (i = *(a1 + 32); [*(i + 712) count]; i = *(a1 + 32))
@@ -847,7 +634,8 @@ uint64_t __47__NUIContainerGridView_setArrangedSubviewRows___block_invoke(uint64
           objc_enumerationMutation(v3);
         }
 
-        [*(a1 + 32) addRowWithArrangedSubviews:*(*(&v8 + 1) + 8 * v7++)];
+        [*(a1 + 32) addRowWithArrangedSubviews:*(*(&v8 + 1) + 8 * v7)];
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);
@@ -1970,8 +1758,8 @@ LABEL_39:
                     else
                     {
                       _NUIGridArrangementCell::_NUIGridArrangementCell(cellsCopy[1], v74, v68, v69, v66, v67, v65, v33);
-                      v36 = v35 + 112;
-                      v34[1] = v35 + 112;
+                      v36 = (v35 + 7);
+                      v34[1] = v35 + 7;
                     }
 
                     v34[1] = v36;
@@ -2486,34 +2274,34 @@ LABEL_85:
 
 - (uint64_t)_verifyInternalGridConsistencyWarningOnly:(uint64_t)result
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v3 = result;
     v4 = [MEMORY[0x277CBEB58] setWithArray:{objc_msgSend(result, "arrangedSubviews")}];
     v5 = [MEMORY[0x277CBEB58] set];
     v6 = *(v3 + 544);
-    v8 = OUTLINED_FUNCTION_8_0(v5, v7);
-    if (v8)
+    v10 = OUTLINED_FUNCTION_8_0(v5, v7, v8, v9);
+    if (v10)
     {
-      v9 = v8;
-      v10 = MEMORY[0];
+      v11 = v10;
+      v12 = MEMORY[0];
       do
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (MEMORY[0] != v10)
+          if (MEMORY[0] != v12)
           {
             objc_enumerationMutation(v6);
           }
 
-          v12 = [v5 addObjectsFromArray:*(8 * i)];
+          v14 = [v5 addObjectsFromArray:*(8 * i)];
         }
 
-        v9 = OUTLINED_FUNCTION_8_0(v12, v13);
+        v11 = OUTLINED_FUNCTION_8_0(v14, v15, v16, v17);
       }
 
-      while (v9);
+      while (v11);
     }
 
     if ([v4 isEqualToSet:v5])
@@ -2523,13 +2311,13 @@ LABEL_85:
 
     else
     {
-      v14 = [v5 mutableCopy];
-      [v14 minusSet:v4];
+      v18 = [v5 mutableCopy];
+      [v18 minusSet:v4];
       [v4 minusSet:v5];
       string = [MEMORY[0x277CCAB68] string];
-      if ([v14 count])
+      if ([v18 count])
       {
-        [string appendFormat:@"Views managed by grid missing from arranged subviews: %@\n", v14];
+        [string appendFormat:@"Views managed by grid missing from arranged subviews: %@\n", v18];
       }
 
       if ([v4 count])
@@ -2539,12 +2327,12 @@ LABEL_85:
 
       if (a2)
       {
-        v16 = _NUILog();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v20 = _NUILog();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v18 = string;
-          _os_log_error_impl(&dword_21D09E000, v16, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+          v22 = string;
+          _os_log_error_impl(&dword_21D09E000, v20, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
         }
       }
 
@@ -2562,14 +2350,14 @@ LABEL_85:
 
 - (id)insertColumnAtIndex:(int64_t)index withArrangedSubviews:(id)subviews
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   [NUIContainerView _assertNotInLayoutPass:?];
   if (((_NUIEnableAPIMisuseAssertions & 1) != 0 || _NUIIsDebuggerAttached()) && [(NSMutableArray *)self->_columns count]< index)
   {
     [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AppSupportUI/AppSupportUI/NUIContainerGridView.mm"];
     OUTLINED_FUNCTION_5_1();
     OUTLINED_FUNCTION_4_1();
-    [v33 handleFailureInMethod:@"column <= _columns.count" object:? file:? lineNumber:? description:?];
+    [v34 handleFailureInMethod:@"column <= _columns.count" object:? file:? lineNumber:? description:?];
   }
 
   if (((_NUIEnableAPIMisuseAssertions & 1) != 0 || _NUIIsDebuggerAttached()) && ![subviews count])
@@ -2577,37 +2365,37 @@ LABEL_85:
     [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AppSupportUI/AppSupportUI/NUIContainerGridView.mm"];
     OUTLINED_FUNCTION_5_1();
     OUTLINED_FUNCTION_4_1();
-    [v34 handleFailureInMethod:@"arrangedViews.count > 0" object:? file:? lineNumber:? description:?];
+    [v35 handleFailureInMethod:@"arrangedViews.count > 0" object:? file:? lineNumber:? description:?];
   }
 
   *&self->_gridViewFlags |= 0x20000u;
-  v7 = [(NSMutableArray *)self->_rows count];
-  v15 = v7;
-  if (v7 < 2)
+  v8 = [(NSMutableArray *)self->_rows count];
+  v16 = v8;
+  if (v8 < 2)
   {
-    if (!v7)
+    if (!v8)
     {
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
-      v38 = 0u;
-      v18 = OUTLINED_FUNCTION_10_0(0, v8, v9, v10, v11, v12, v13, v14);
-      if (v18)
+      v48 = 0u;
+      v49 = 0u;
+      v46 = 0u;
+      v47 = 0u;
+      v19 = OUTLINED_FUNCTION_10_0(0, v9, v10, v11, v12, v13, v14, v15, v37, a2, v40, v41, v42, v43, subviewsCopy, indexCopy);
+      if (v19)
       {
-        v19 = v18;
-        v20 = *v38;
+        v20 = v19;
+        v21 = *v47;
         while (1)
         {
-          if (*v38 != v20)
+          if (*v47 != v21)
           {
             objc_enumerationMutation(subviews);
           }
 
-          v21 = -[NSMutableArray addObject:](self->_viewRows, "addObject:", [MEMORY[0x277CBEB18] array]);
-          if (!--v19)
+          v22 = -[NSMutableArray addObject:](self->_viewRows, "addObject:", [MEMORY[0x277CBEB18] array]);
+          if (!--v20)
           {
-            v19 = OUTLINED_FUNCTION_10_0(v21, v22, v23, v24, v25, v26, v27, v28);
-            if (!v19)
+            v20 = OUTLINED_FUNCTION_10_0(v22, v23, v24, v25, v26, v27, v28, v29, v38, v39, v40, v41, v42, v43, subviewsCopy, indexCopy);
+            if (!v20)
             {
               break;
             }
@@ -2615,50 +2403,50 @@ LABEL_85:
         }
       }
 
-      v15 = [subviews count];
+      v16 = [subviews count];
     }
   }
 
   else if ([subviews count] == 1)
   {
-    v16 = [MEMORY[0x277CBEB18] arrayWithCapacity:v15];
-    v17 = v15;
+    v17 = [MEMORY[0x277CBEB18] arrayWithCapacity:v16];
+    v18 = v16;
     do
     {
-      [v16 addObject:{objc_msgSend(subviews, "firstObject")}];
-      --v17;
+      [v17 addObject:{objc_msgSend(subviews, "firstObject")}];
+      --v18;
     }
 
-    while (v17);
-    subviews = v16;
+    while (v18);
+    subviews = v17;
   }
 
-  if (((_NUIEnableAPIMisuseAssertions & 1) != 0 || _NUIIsDebuggerAttached()) && v15 && v15 != [subviews count])
+  if (((_NUIEnableAPIMisuseAssertions & 1) != 0 || _NUIIsDebuggerAttached()) && v16 && v16 != [subviews count])
   {
     [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AppSupportUI/AppSupportUI/NUIContainerGridView.mm"];
     OUTLINED_FUNCTION_5_1();
     OUTLINED_FUNCTION_4_1();
-    [v35 handleFailureInMethod:@"numberOfRows == 0 || numberOfRows == copy.count" object:? file:? lineNumber:? description:?];
+    [v36 handleFailureInMethod:@"numberOfRows == 0 || numberOfRows == copy.count" object:? file:? lineNumber:? description:?];
   }
 
-  v29 = [subviews count];
+  v30 = [subviews count];
   viewRows = self->_viewRows;
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __65__NUIContainerGridView_insertColumnAtIndex_withArrangedSubviews___block_invoke;
-  v36[3] = &unk_2783295E8;
-  v36[4] = subviews;
-  v36[5] = index;
-  [(NSMutableArray *)viewRows enumerateObjectsUsingBlock:v36];
-  v31 = [[NUIGridDimension alloc] initWithContainerGridView:0 isRow:?];
-  [(NSMutableArray *)self->_columns insertObject:v31 atIndex:index];
-  while ([(NSMutableArray *)self->_rows count]< v29)
+  v40 = MEMORY[0x277D85DD0];
+  v41 = 3221225472;
+  v42 = __65__NUIContainerGridView_insertColumnAtIndex_withArrangedSubviews___block_invoke;
+  v43 = &unk_2783295E8;
+  subviewsCopy = subviews;
+  indexCopy = index;
+  [(NSMutableArray *)viewRows enumerateObjectsUsingBlock:&v40];
+  v32 = [[NUIGridDimension alloc] initWithContainerGridView:0 isRow:?];
+  [(NSMutableArray *)self->_columns insertObject:v32 atIndex:index];
+  while ([(NSMutableArray *)self->_rows count]< v30)
   {
     [(NSMutableArray *)self->_rows addObject:[[NUIGridDimension alloc] initWithContainerGridView:1 isRow:?]];
   }
 
   [(NUIContainerView *)self setNeedsInvalidation:4];
-  return v31;
+  return v32;
 }
 
 - (void)_baselineViewVendForFirstBaseline:(void *)baseline fromViews:
@@ -2924,6 +2712,17 @@ LABEL_85:
   }
 
   return result;
+}
+
+- (uint64_t)ensureArrangedSubviewsAreValid
+{
+  OUTLINED_FUNCTION_11();
+  [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AppSupportUI/AppSupportUI/NUIContainerGridView.mm"];
+  OUTLINED_FUNCTION_12();
+  [MEMORY[0x277CCA890] currentHandler];
+  OUTLINED_FUNCTION_0_1();
+
+  return [v0 handleFailureInMethod:? object:? file:? lineNumber:? description:?];
 }
 
 - (uint64_t)arrangedSubviewInColumnAtIndex:rowAtIndex:.cold.1()

@@ -172,7 +172,7 @@
   v20.super_class = UITabBarAppearance;
   if (![(UIBarAppearance *)&v20 _checkEqualTo:toCopy])
   {
-    LOBYTE(v10) = 0;
+    LOBYTE(isEqual) = 0;
     goto LABEL_19;
   }
 
@@ -201,9 +201,9 @@
       goto LABEL_17;
     }
 
-    v10 = [(UITabBarItemAppearance *)v6 isEqual:v7];
+    isEqual = objc_msgSend_isEqual_(v6);
 
-    if (!v10)
+    if (!isEqual)
     {
       goto LABEL_19;
     }
@@ -232,27 +232,27 @@ LABEL_28:
       v8 = v19;
       if (v6 == v19)
       {
-        LOBYTE(v10) = 1;
+        LOBYTE(isEqual) = 1;
       }
 
       else
       {
-        LOBYTE(v10) = 0;
+        LOBYTE(isEqual) = 0;
         if (v6 && v19)
         {
-          LOBYTE(v10) = [(UITabBarItemAppearance *)v6 isEqual:v19];
+          LOBYTE(isEqual) = objc_msgSend_isEqual_(v6);
         }
       }
 
       goto LABEL_18;
     }
 
-    LOBYTE(v10) = 0;
+    LOBYTE(isEqual) = 0;
     if (v6 && v16)
     {
-      v10 = [(UITabBarItemAppearance *)v6 isEqual:v16];
+      isEqual = objc_msgSend_isEqual_(v6);
 
-      if (!v10)
+      if (!isEqual)
       {
         goto LABEL_19;
       }
@@ -278,20 +278,20 @@ LABEL_18:
   if (v13)
   {
 LABEL_17:
-    LOBYTE(v10) = 0;
+    LOBYTE(isEqual) = 0;
     goto LABEL_18;
   }
 
-  v10 = [(UITabBarItemAppearance *)v6 isEqual:v12];
+  isEqual = objc_msgSend_isEqual_(v6);
 
-  if (v10)
+  if (isEqual)
   {
     goto LABEL_22;
   }
 
 LABEL_19:
 
-  return v10;
+  return isEqual;
 }
 
 - (id)_carPlayTabButtonAppearanceData
@@ -381,9 +381,9 @@ LABEL_13:
     goto LABEL_10;
   }
 
-  v8 = [(UITabBarItemAppearance *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
-  if (!v8)
+  if ((isEqual & 1) == 0)
   {
 LABEL_10:
     [(UITabBarItemAppearance *)self->_stackedLayoutAppearance _setOwningAppearance:0];
@@ -422,9 +422,9 @@ LABEL_11:
     goto LABEL_10;
   }
 
-  v8 = [(UITabBarItemAppearance *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
-  if (!v8)
+  if ((isEqual & 1) == 0)
   {
 LABEL_10:
     [(UITabBarItemAppearance *)self->_inlineLayoutAppearance _setOwningAppearance:0];
@@ -463,9 +463,9 @@ LABEL_11:
     goto LABEL_10;
   }
 
-  v8 = [(UITabBarItemAppearance *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
-  if (!v8)
+  if ((isEqual & 1) == 0)
   {
 LABEL_10:
     [(UITabBarItemAppearance *)self->_compactInlineLayoutAppearance _setOwningAppearance:0];
@@ -483,7 +483,7 @@ LABEL_11:
 - (void)setSelectionIndicatorTintColor:(UIColor *)selectionIndicatorTintColor
 {
   v4 = selectionIndicatorTintColor;
-  if (v4 && (+[UIColor clearColor], v5 = objc_claimAutoreleasedReturnValue(), v6 = [(UIColor *)v4 isEqual:v5], v5, !v6))
+  if (v4 && (+[UIColor clearColor], v5 = objc_claimAutoreleasedReturnValue(), isEqual = objc_msgSend_isEqual_(v4), v5, (isEqual & 1) == 0))
   {
     v7 = v4;
   }
@@ -508,9 +508,9 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v10 = [(UIColor *)selectionIndicatorTintColor isEqual:v9];
+  v10 = objc_msgSend_isEqual_(selectionIndicatorTintColor, v9, v9);
 
-  if (!v10)
+  if ((v10 & 1) == 0)
   {
 LABEL_12:
     writableInstance = [(_UIBarAppearanceData *)self->_layoutData writableInstance];
@@ -558,9 +558,9 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v11 = [(UIImage *)selectionIndicatorImage isEqual:v10];
+  isEqual = objc_msgSend_isEqual_(selectionIndicatorImage, v10, v10);
 
-  if (!v11)
+  if ((isEqual & 1) == 0)
   {
 LABEL_13:
     writableInstance = [(_UIBarAppearanceData *)self->_layoutData writableInstance];

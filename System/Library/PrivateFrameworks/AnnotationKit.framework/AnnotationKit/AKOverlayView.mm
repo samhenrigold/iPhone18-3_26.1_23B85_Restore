@@ -1063,20 +1063,23 @@ LABEL_23:
 - (void)_removeLiftOffHandleViewForRegion:(id)region
 {
   regionCopy = region;
+  v5 = regionCopy;
   if (regionCopy)
   {
-    v8 = regionCopy;
+    v9 = regionCopy;
     pointerRegionToHandleViewDict = [(AKOverlayView *)self pointerRegionToHandleViewDict];
-    v6 = [pointerRegionToHandleViewDict objectForKey:v8];
-    v7 = v6;
-    if (v6)
+    v7 = [pointerRegionToHandleViewDict objectForKey:v9];
+    v8 = v7;
+    if (v7)
     {
-      [v6 removeFromSuperview];
-      [pointerRegionToHandleViewDict removeObjectForKey:v8];
+      [v7 removeFromSuperview];
+      [pointerRegionToHandleViewDict removeObjectForKey:v9];
     }
+
+    v5 = v9;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](regionCopy, v5);
 }
 
 - (BOOL)_scribbleInteraction:(id)interaction shouldBeginAtLocation:(CGPoint)location

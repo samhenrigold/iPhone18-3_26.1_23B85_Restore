@@ -35,14 +35,14 @@
   if ((objc_opt_isKindOfClass() & 1) == 0 && MTLReportFailureTypeEnabled())
   {
     v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
+    v14 = NSStringFromClass(v9);
     filterCopy = filter;
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNDropoutNodes.mm", 0xA5, @"[%@ initWithGradientImage:forwardFilter:] filter <%p> must be a member of class MPSNNDropoutNode", v10, v11, v12, v13);
   }
 
-  v12.receiver = self;
-  v12.super_class = MPSCNNDropoutGradientNode;
-  result = [(MPSNNGradientFilterNode *)&v12 initWithGradientImages:images forwardFilter:filter, v10, filterCopy];
+  v16.receiver = self;
+  v16.super_class = MPSCNNDropoutGradientNode;
+  result = [(MPSNNGradientFilterNode *)&v16 initWithGradientImages:images forwardFilter:filter, v14, filterCopy];
   if (result)
   {
     result->_keepProbability = *(filter + 14);

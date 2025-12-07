@@ -8,9 +8,8 @@
 - (TSgPTPPortStatistics)init
 {
   v3 = MEMORY[0x277CBEAD8];
-  v4 = *MEMORY[0x277CBE660];
-  v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSgPTPPortStatistics init]"];
-  [v3 raise:v4 format:{@"Do not call %@", v5}];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:?];
+  [v3 raise:v4 format:?];
 
   return 0;
 }

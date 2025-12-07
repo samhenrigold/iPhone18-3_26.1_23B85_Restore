@@ -541,7 +541,7 @@ LABEL_12:
 
 - (void)didSelectShortcut:(id)shortcut
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   shortcutCopy = shortcut;
   v5 = shortcutCopy;
   if (shortcutCopy)
@@ -550,15 +550,15 @@ LABEL_12:
     commandItem = [(CACCustomCommandActionViewController *)self commandItem];
     [commandItem setCustomShortcutsWorkflowIdentifier:identifier];
 
-    v8 = CACLogShortcuts();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = CACLogShortcuts(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       commandItem2 = [(CACCustomCommandActionViewController *)self commandItem];
-      v11 = 138412546;
-      v12 = v5;
-      v13 = 2112;
-      v14 = commandItem2;
-      _os_log_impl(&dword_26B354000, v8, OS_LOG_TYPE_DEFAULT, "Delegate received shortcut %@ for commandItem %@", &v11, 0x16u);
+      v12 = 138412546;
+      v13 = v5;
+      v14 = 2112;
+      v15 = commandItem2;
+      _os_log_impl(&dword_26B354000, v9, OS_LOG_TYPE_DEFAULT, "Delegate received shortcut %@ for commandItem %@", &v12, 0x16u);
     }
 
     [(CACCustomCommandActionViewController *)self _updateForAction:2];

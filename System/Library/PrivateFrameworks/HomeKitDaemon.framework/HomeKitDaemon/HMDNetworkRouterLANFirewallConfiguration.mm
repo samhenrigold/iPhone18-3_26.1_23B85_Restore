@@ -44,7 +44,7 @@
 
 + (id)configurationFromFirewallRuleConfiguration:(id)configuration
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v4 = objc_alloc_init(HMDNetworkRouterLANFirewallConfiguration);
   hasFullAccessToLAN = [configurationCopy hasFullAccessToLAN];
@@ -57,34 +57,34 @@
     v8 = objc_alloc_init(HMDNetworkRouterLANFirewallRuleList);
     [(HMDNetworkRouterLANFirewallConfiguration *)v4 setRuleList:v8];
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
-    v34 = configurationCopy;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v33 = configurationCopy;
     lanRules = [configurationCopy lanRules];
-    v10 = [lanRules countByEnumeratingWithState:&v36 objects:v44 count:16];
+    v10 = [lanRules countByEnumeratingWithState:&v35 objects:v43 count:16];
     if (!v10)
     {
       goto LABEL_19;
     }
 
     v11 = v10;
-    v12 = *v37;
+    v12 = *v36;
     v13 = HMDCompositeSettingPrivileges;
     v14 = off_2786662A8;
     while (1)
     {
       v15 = 0;
-      v35 = v11;
+      v34 = v11;
       do
       {
-        if (*v37 != v12)
+        if (*v36 != v12)
         {
           objc_enumerationMutation(lanRules);
         }
 
-        v16 = *(*(&v36 + 1) + 8 * v15);
+        v16 = *(*(&v35 + 1) + 8 * v15);
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
         v18 = v14;
@@ -132,9 +132,9 @@ LABEL_14:
           v29 = lanRules;
           v31 = v30 = v4;
           *buf = 138543618;
-          v41 = v31;
-          v42 = 2112;
-          v43 = v16;
+          v40 = v31;
+          v41 = 2112;
+          v42 = v16;
           _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to convert LAN rule to TLV, skipping: %@", buf, 0x16u);
 
           v4 = v30;
@@ -142,7 +142,7 @@ LABEL_14:
           v13 = v28;
           v14 = v27;
           v12 = v26;
-          v11 = v35;
+          v11 = v34;
         }
 
         objc_autoreleasePoolPop(v24);
@@ -151,18 +151,16 @@ LABEL_17:
       }
 
       while (v11 != v15);
-      v11 = [lanRules countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v11 = [lanRules countByEnumeratingWithState:&v35 objects:v43 count:16];
       if (!v11)
       {
 LABEL_19:
 
-        configurationCopy = v34;
+        configurationCopy = v33;
         break;
       }
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -264,37 +262,37 @@ LABEL_15:
 
 - (id)serializeWithError:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
+  v39 = *MEMORY[0x277D85DE8];
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
+  v22 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v18 = 0u;
   TLV8BufferInit();
   type = [(HMDNetworkRouterLANFirewallConfiguration *)self type];
 
   if (type)
   {
     type2 = [(HMDNetworkRouterLANFirewallConfiguration *)self type];
-    v18 = 0;
-    v7 = [type2 serializeWithError:&v18];
-    v8 = v18;
+    v17 = 0;
+    v7 = [type2 serializeWithError:&v17];
+    v8 = v17;
 
     if (v8)
     {
@@ -326,15 +324,15 @@ LABEL_9:
   if (!ruleList)
   {
 LABEL_11:
-    v13 = [MEMORY[0x277CBEA90] dataWithBytes:v19 length:?];
+    v13 = [MEMORY[0x277CBEA90] dataWithBytes:v18 length:?];
     v8 = 0;
     goto LABEL_14;
   }
 
   ruleList2 = [(HMDNetworkRouterLANFirewallConfiguration *)self ruleList];
-  v17 = 0;
-  v7 = [ruleList2 serializeWithError:&v17];
-  v8 = v17;
+  v16 = 0;
+  v7 = [ruleList2 serializeWithError:&v16];
+  v8 = v16;
 
   if (!v8)
   {
@@ -364,8 +362,6 @@ LABEL_13:
   v13 = 0;
 LABEL_14:
   TLV8BufferFree();
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

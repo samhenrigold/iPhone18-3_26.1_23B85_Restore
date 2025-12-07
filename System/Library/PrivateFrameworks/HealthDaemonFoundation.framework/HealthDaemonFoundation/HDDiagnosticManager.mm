@@ -71,7 +71,7 @@ uint64_t __46__HDDiagnosticManager_sharedDiagnosticManager__block_invoke(uint64_
 - (id)_diagnosticsForKeys:(id)keys shouldLog:(BOOL)log
 {
   logCopy = log;
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   string = [MEMORY[0x277CCAB68] string];
   if (![keysCopy count])
@@ -84,26 +84,26 @@ uint64_t __46__HDDiagnosticManager_sharedDiagnosticManager__block_invoke(uint64_
   allObjects = [(NSHashTable *)self->_objects allObjects];
   os_unfair_lock_unlock(&self->_lock);
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   v8 = allObjects;
-  v9 = [v8 countByEnumeratingWithState:&v51 objects:v57 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v50 objects:v56 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v52;
+    v11 = *v51;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v52 != v11)
+        if (*v51 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v51 + 1) + 8 * i);
+        v13 = *(*(&v50 + 1) + 8 * i);
         v14 = objc_opt_class();
         v15 = NSStringFromClass(v14);
         if (![keysCopy count] || objc_msgSend(keysCopy, "containsObject:", v15))
@@ -119,62 +119,62 @@ uint64_t __46__HDDiagnosticManager_sharedDiagnosticManager__block_invoke(uint64_
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v51 objects:v57 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v50 objects:v56 count:16];
     }
 
     while (v10);
   }
 
-  v33 = v8;
-  v34 = keysCopy;
+  v32 = v8;
+  v33 = keysCopy;
 
   allKeys = [dictionary allKeys];
   v18 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   obj = v18;
-  v37 = [obj countByEnumeratingWithState:&v47 objects:v56 count:16];
-  if (v37)
+  v36 = [obj countByEnumeratingWithState:&v46 objects:v55 count:16];
+  if (v36)
   {
-    v36 = *v48;
+    v35 = *v47;
     do
     {
       v19 = 0;
       do
       {
-        if (*v48 != v36)
+        if (*v47 != v35)
         {
           objc_enumerationMutation(obj);
         }
 
-        v40 = v19;
-        v20 = *(*(&v47 + 1) + 8 * v19);
+        v39 = v19;
+        v20 = *(*(&v46 + 1) + 8 * v19);
         v21 = [dictionary objectForKeyedSubscript:v20];
-        v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"\n======== %@ ==========", v20];
-        _LogOrAppend(v39, string, logCopy);
-        v45 = 0u;
-        v46 = 0u;
-        v43 = 0u;
+        v38 = [MEMORY[0x277CCACA8] stringWithFormat:@"\n======== %@ ==========", v20];
+        _LogOrAppend(v38, string, logCopy);
         v44 = 0u;
+        v45 = 0u;
+        v42 = 0u;
+        v43 = 0u;
         v22 = v21;
-        v23 = [v22 countByEnumeratingWithState:&v43 objects:v55 count:16];
+        v23 = [v22 countByEnumeratingWithState:&v42 objects:v54 count:16];
         if (v23)
         {
           v24 = v23;
-          v25 = *v44;
+          v25 = *v43;
           do
           {
             for (j = 0; j != v24; ++j)
             {
-              if (*v44 != v25)
+              if (*v43 != v25)
               {
                 objc_enumerationMutation(v22);
               }
 
-              v27 = *(*(&v43 + 1) + 8 * j);
+              v27 = *(*(&v42 + 1) + 8 * j);
               v28 = MEMORY[0x277CCACA8];
               diagnosticDescription = [v27 diagnosticDescription];
               v30 = [v28 stringWithFormat:@"<%@:%p> %@", v20, v27, diagnosticDescription];
@@ -182,23 +182,21 @@ uint64_t __46__HDDiagnosticManager_sharedDiagnosticManager__block_invoke(uint64_
               _LogOrAppend(v30, string, logCopy);
             }
 
-            v24 = [v22 countByEnumeratingWithState:&v43 objects:v55 count:16];
+            v24 = [v22 countByEnumeratingWithState:&v42 objects:v54 count:16];
           }
 
           while (v24);
         }
 
-        v19 = v40 + 1;
+        v19 = v39 + 1;
       }
 
-      while (v40 + 1 != v37);
-      v37 = [obj countByEnumeratingWithState:&v47 objects:v56 count:16];
+      while (v39 + 1 != v36);
+      v36 = [obj countByEnumeratingWithState:&v46 objects:v55 count:16];
     }
 
-    while (v37);
+    while (v36);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return string;
 }

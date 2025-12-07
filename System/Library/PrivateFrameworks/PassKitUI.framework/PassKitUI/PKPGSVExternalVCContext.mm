@@ -1,12 +1,12 @@
 @interface PKPGSVExternalVCContext
 + (PKPGSVExternalVCContext)createForTransitionCoordinator:(void *)coordinator withParentViewController:(void *)controller dashboardPassGroupViewController:;
-- (double)_destinationViewFrameWithSize:(uint64_t)size@<X2> inViewControllerFrame:(uint64_t)frame@<X8>;
+- (double)_destinationViewFrameWithSize:(void *)size@<X2> inViewControllerFrame:(uint64_t)frame@<X8>;
 - (id)_animatingView;
 - (id)_containedView;
-- (uint64_t)_didDisappear;
+- (id)_didDisappear;
 - (uint64_t)_invert;
 - (uint64_t)_updateForViewControllerFrame:(int)frame usingPassAnchorPoint:(void *)point withSpringConfiguration:(int)configuration preferModalSpringFactories:;
-- (uint64_t)_willDisappear;
+- (unsigned)_willDisappear;
 - (void)_destinationViewControllerFrame;
 - (void)_didAppear;
 - (void)_interruptTransferedGroupView;
@@ -319,37 +319,37 @@ void __54__PKPGSVExternalVCContext__willAppearInContainerView___block_invoke(uin
   }
 }
 
-- (uint64_t)_willDisappear
+- (unsigned)_willDisappear
 {
   if (result)
   {
-    if ((*(result + 8) & 1) != 0 || *(result + 24) - 1 >= 2)
+    if ((result[8] & 1) != 0 || result[24] - 1 >= 2)
     {
       __break(1u);
     }
 
     else
     {
-      *(result + 24) = 3;
-      v1 = *(result + 32);
+      result[24] = 3;
+      v1 = *(result + 4);
       if (v1)
       {
         *(v1 + 600) = 0;
       }
 
-      return [*(result + 56) willMoveToParentViewController:0];
+      return [*(result + 7) willMoveToParentViewController:0];
     }
   }
 
   return result;
 }
 
-- (uint64_t)_didDisappear
+- (id)_didDisappear
 {
   if (result)
   {
     v1 = result;
-    if ((*(result + 8) & 1) != 0 || *(result + 24) != 3)
+    if ((result[1] & 1) != 0 || *(result + 24) != 3)
     {
       __break(1u);
     }
@@ -357,8 +357,8 @@ void __54__PKPGSVExternalVCContext__willAppearInContainerView___block_invoke(uin
     else
     {
       *(result + 24) = 0;
-      [*(result + 56) removeFromParentViewController];
-      v2 = *(v1 + 32);
+      [result[7] removeFromParentViewController];
+      v2 = v1[4];
 
       return [v2 removeFromSuperview];
     }
@@ -646,88 +646,53 @@ LABEL_8:
   }
 }
 
-- (double)_destinationViewFrameWithSize:(uint64_t)size@<X2> inViewControllerFrame:(uint64_t)frame@<X8>
+- (double)_destinationViewFrameWithSize:(void *)size@<X2> inViewControllerFrame:(uint64_t)frame@<X8>
 {
   if (self)
   {
     viewControllerLayoutProvider = [(PKPGSVExternalVCContext *)self viewControllerLayoutProvider];
-    v9 = viewControllerLayoutProvider;
-    v10 = 0uLL;
-    v41 = 0u;
-    memset(v42, 0, 24);
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
-    v36 = 0u;
+    v8 = viewControllerLayoutProvider;
+    v9 = 0uLL;
+    memset(v19, 0, 24);
     if (viewControllerLayoutProvider)
     {
-      v11 = *(a2 + 80);
-      v33[4] = *(a2 + 64);
-      v33[5] = v11;
-      v33[6] = *(a2 + 96);
-      v34 = *(a2 + 112);
-      v12 = *(a2 + 16);
-      v33[0] = *a2;
-      v33[1] = v12;
-      v13 = *(a2 + 48);
-      v33[2] = *(a2 + 32);
-      v33[3] = v13;
-      v14 = *(size + 112);
-      v31[6] = *(size + 96);
-      v31[7] = v14;
-      v32 = *(size + 128);
-      v15 = *(size + 48);
-      v31[2] = *(size + 32);
-      v31[3] = v15;
-      v16 = *(size + 80);
-      v31[4] = *(size + 64);
-      v31[5] = v16;
-      v17 = *(size + 16);
-      v31[0] = *size;
-      v31[1] = v17;
-      [viewControllerLayoutProvider externalVCContext:self destinationFrameForViewWithSize:v33 inViewControllerFrame:v31];
-      v10 = v37;
+      objc_msgSend_externalVCContext_destinationFrameForViewWithSize_inViewControllerFrame_(viewControllerLayoutProvider, *size, size[1], size[2], size[3], size[4], size[5], size[6], size[7], size[8], size[9], size[10], size[11], size[12], size[13], size[14], size[15], size[16]);
+      v9 = 0u;
     }
 
-    v18 = *(a2 + 32);
-    v19 = vmovn_s64(vceqq_f64(v10, v18));
-    if (v19.i32[0] & v19.i32[1])
+    v10 = *(a2 + 32);
+    v11 = vmovn_s64(vceqq_f64(v9, v10));
+    if (v11.i32[0] & v11.i32[1])
     {
-      v20 = v42[0];
-      *(frame + 96) = v41;
-      *(frame + 112) = v20;
-      *(frame + 128) = *&v42[1];
-      v21 = v38;
-      *(frame + 32) = v37;
-      *(frame + 48) = v21;
-      v22 = v40;
-      *(frame + 64) = v39;
-      *(frame + 80) = v22;
-      v23 = v36;
-      *frame = v35;
-      *(frame + 16) = v23;
+      *(frame + 96) = 0u;
+      *(frame + 112) = 0u;
+      *(frame + 128) = 0;
+      *(frame + 32) = 0u;
+      *(frame + 48) = 0u;
+      *(frame + 64) = 0u;
+      *(frame + 80) = 0u;
+      *frame = 0u;
+      *(frame + 16) = 0u;
     }
 
     else
     {
-      v24 = *(a2 + 80);
+      v12 = *(a2 + 80);
       *(frame + 64) = *(a2 + 64);
-      *(frame + 80) = v24;
+      *(frame + 80) = v12;
       *(frame + 96) = *(a2 + 96);
       *(frame + 112) = *(a2 + 112);
-      v25 = *(a2 + 16);
+      v13 = *(a2 + 16);
       *frame = *a2;
-      *(frame + 16) = v25;
-      v26 = *(a2 + 48);
+      *(frame + 16) = v13;
+      v14 = *(a2 + 48);
       *(frame + 32) = *(a2 + 32);
-      *(frame + 48) = v26;
-      v27 = vdup_n_s32(*v42 == 1.0);
-      v28.i64[0] = v27.u32[0];
-      v28.i64[1] = v27.u32[1];
-      v29 = vbslq_s8(vcltzq_s64(vshlq_n_s64(v28, 0x3FuLL)), v36, vmulq_n_f64(v36, *v42));
-      *(frame + 120) = vmlaq_f64(vmlsq_f64(*(v42 + 8), v29, v10), v29, v18);
+      *(frame + 48) = v14;
+      v15 = vdup_n_s32(v19[0].f64[0] == 1.0);
+      v16.i64[0] = v15.u32[0];
+      v16.i64[1] = v15.u32[1];
+      v17 = vbslq_s8(vcltzq_s64(vshlq_n_s64(v16, 0x3FuLL)), 0, vmulq_n_f64(0, v19[0].f64[0]));
+      *(frame + 120) = vmlaq_f64(vmlsq_f64(*(v19 + 8), v17, v9), v17, v10);
     }
   }
 

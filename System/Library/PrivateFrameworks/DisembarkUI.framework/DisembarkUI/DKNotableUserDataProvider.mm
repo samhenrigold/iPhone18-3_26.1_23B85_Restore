@@ -94,7 +94,7 @@
   }
 
   v12 = objc_alloc_init(DKNotableUserData);
-  v13 = _DKLogSystem();
+  v13 = _DKLogSystem(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -119,76 +119,76 @@
   storageProvider2 = [(DKNotableUserDataProvider *)self storageProvider];
   -[DKNotableUserData setDataSize:](v12, "setDataSize:", [storageProvider2 dataSize]);
 
-  v19 = _DKLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v20 = _DKLogSystem(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_248D68000, v19, OS_LOG_TYPE_DEFAULT, "Fetching asynchronous notable user data...", buf, 2u);
+    _os_log_impl(&dword_248D68000, v20, OS_LOG_TYPE_DEFAULT, "Fetching asynchronous notable user data...", buf, 2u);
   }
 
-  v20 = dispatch_group_create();
-  dispatch_group_enter(v20);
+  v21 = dispatch_group_create();
+  dispatch_group_enter(v21);
   findMyProvider2 = [(DKNotableUserDataProvider *)self findMyProvider];
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __50__DKNotableUserDataProvider_fetchNotableUserData___block_invoke;
-  v47[3] = &unk_278F7DE90;
-  v22 = v12;
-  v48 = v22;
-  v23 = v20;
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = __50__DKNotableUserDataProvider_fetchNotableUserData___block_invoke;
+  v48[3] = &unk_278F7DE90;
+  v23 = v12;
   v49 = v23;
-  [findMyProvider2 fetchFindMyState:v47];
+  v24 = v21;
+  v50 = v24;
+  [findMyProvider2 fetchFindMyState:v48];
 
-  dispatch_group_enter(v23);
+  dispatch_group_enter(v24);
   appleCareProvider2 = [(DKNotableUserDataProvider *)self appleCareProvider];
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __50__DKNotableUserDataProvider_fetchNotableUserData___block_invoke_55;
-  v44[3] = &unk_278F7DEB8;
-  v25 = v22;
-  v45 = v25;
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __50__DKNotableUserDataProvider_fetchNotableUserData___block_invoke_55;
+  v45[3] = &unk_278F7DEB8;
   v26 = v23;
   v46 = v26;
-  [appleCareProvider2 fetchAppleCareData:v44];
+  v27 = v24;
+  v47 = v27;
+  [appleCareProvider2 fetchAppleCareData:v45];
 
-  dispatch_group_enter(v26);
+  dispatch_group_enter(v27);
   accountProvider2 = [(DKNotableUserDataProvider *)self accountProvider];
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __50__DKNotableUserDataProvider_fetchNotableUserData___block_invoke_57;
-  v41[3] = &unk_278F7DEE0;
-  v28 = v25;
-  v42 = v28;
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __50__DKNotableUserDataProvider_fetchNotableUserData___block_invoke_57;
+  v42[3] = &unk_278F7DEE0;
   v29 = v26;
   v43 = v29;
-  [accountProvider2 fetchAccounts:v41];
+  v30 = v27;
+  v44 = v30;
+  [accountProvider2 fetchAccounts:v42];
 
-  dispatch_group_enter(v29);
+  dispatch_group_enter(v30);
   walletProvider2 = [(DKNotableUserDataProvider *)self walletProvider];
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __50__DKNotableUserDataProvider_fetchNotableUserData___block_invoke_59;
-  v38[3] = &unk_278F7DF08;
-  v31 = v28;
-  v39 = v31;
-  v40 = v29;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __50__DKNotableUserDataProvider_fetchNotableUserData___block_invoke_59;
+  v39[3] = &unk_278F7DF08;
   v32 = v29;
-  [walletProvider2 fetchAppleWalletCards:v38];
+  v40 = v32;
+  v41 = v30;
+  v33 = v30;
+  [walletProvider2 fetchAppleWalletCards:v39];
 
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __50__DKNotableUserDataProvider_fetchNotableUserData___block_invoke_61;
-  v35[3] = &unk_278F7D8F8;
-  v36 = v31;
-  v37 = dataCopy;
-  v33 = v31;
-  v34 = dataCopy;
-  dispatch_group_notify(v32, MEMORY[0x277D85CD0], v35);
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __50__DKNotableUserDataProvider_fetchNotableUserData___block_invoke_61;
+  v36[3] = &unk_278F7D8F8;
+  v37 = v32;
+  v38 = dataCopy;
+  v34 = v32;
+  v35 = dataCopy;
+  dispatch_group_notify(v33, MEMORY[0x277D85CD0], v36);
 }
 
 void __50__DKNotableUserDataProvider_fetchNotableUserData___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4 = _DKLogSystem();
+  v4 = _DKLogSystem(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -202,7 +202,7 @@ void __50__DKNotableUserDataProvider_fetchNotableUserData___block_invoke(uint64_
 void __50__DKNotableUserDataProvider_fetchNotableUserData___block_invoke_55(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _DKLogSystem();
+  v4 = _DKLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -216,7 +216,7 @@ void __50__DKNotableUserDataProvider_fetchNotableUserData___block_invoke_55(uint
 void __50__DKNotableUserDataProvider_fetchNotableUserData___block_invoke_57(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _DKLogSystem();
+  v4 = _DKLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -230,7 +230,7 @@ void __50__DKNotableUserDataProvider_fetchNotableUserData___block_invoke_57(uint
 void __50__DKNotableUserDataProvider_fetchNotableUserData___block_invoke_59(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _DKLogSystem();
+  v4 = _DKLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

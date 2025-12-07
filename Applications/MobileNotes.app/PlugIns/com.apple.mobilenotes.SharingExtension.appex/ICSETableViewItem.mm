@@ -1,4 +1,6 @@
 @interface ICSETableViewItem
++ (id)tableViewItemFromObject:(id)object selectedNote:(id)note selectedFolder:(id)folder isSearchResult:(BOOL)result isAccountPicker:(BOOL)picker;
++ (id)tableViewItemsForObjects:(id)objects selectedNote:(id)note selectedFolder:(id)folder isSearchResult:(BOOL)result noteContainer:(id)container isAccountPicker:(BOOL)picker;
 + (void)configureTableViewNibs:(id)nibs;
 - (BOOL)isChecked;
 - (BOOL)isEqual:(id)equal;
@@ -17,7 +19,7 @@
 
 - (double)cellHeight
 {
-  v3 = sub_1000032EC();
+  v3 = sub_1000032EC(self, a2);
   if ([(ICSETableViewItem *)self isSearchResult]|| ICAccessibilityAccessibilityLargerTextSizesEnabled())
   {
     return UITableViewAutomaticDimension;
@@ -73,38 +75,13 @@
 
 - (BOOL)isSelectable
 {
-  if ([(ICSETableViewItem *)self isHeader])
+  if (-[ICSETableViewItem isHeader](self, "isHeader") || (-[ICSETableViewItem note](self, "note"), v3 = objc_claimAutoreleasedReturnValue(), v4 = [v3 isPasswordProtected], v3, (v4 & 1) != 0) || (-[ICSETableViewItem note](self, "note"), (v5 = objc_claimAutoreleasedReturnValue()) != 0) && (v6 = v5, -[ICSETableViewItem note](self, "note"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isEditable"), v7, v6, !v8))
   {
-    goto LABEL_8;
-  }
-
-  note = [(ICSETableViewItem *)self note];
-  isPasswordProtected = [note isPasswordProtected];
-
-  if (isPasswordProtected)
-  {
-    goto LABEL_8;
-  }
-
-  note2 = [(ICSETableViewItem *)self note];
-  if (!note2)
-  {
-    goto LABEL_5;
-  }
-
-  v6 = note2;
-  note3 = [(ICSETableViewItem *)self note];
-  isEditable = [note3 isEditable];
-
-  if (!isEditable)
-  {
-LABEL_8:
     isSystemFolder = 0;
   }
 
   else
   {
-LABEL_5:
     folder = [(ICSETableViewItem *)self folder];
     if (folder)
     {
@@ -298,6 +275,174 @@ LABEL_9:
   }
 
   return @"NoteCell";
+}
+
++ (id)tableViewItemFromObject:(id)object selectedNote:(id)note selectedFolder:(id)folder isSearchResult:(BOOL)result isAccountPicker:(BOOL)picker
+{
+  pickerCopy = picker;
+  resultCopy = result;
+  noteCopy = note;
+  folderCopy = folder;
+  objectCopy = object;
+  objc_opt_class();
+  v13 = ICDynamicCast();
+  objc_opt_class();
+  v14 = ICDynamicCast();
+  objc_opt_class();
+  v15 = ICDynamicCast();
+  objc_opt_class();
+  v16 = ICDynamicCast();
+
+  if (v16)
+  {
+    if ([v16 isAccount])
+    {
+      objc_opt_class();
+      noteContainer = [v16 noteContainer];
+      v18 = ICDynamicCast();
+      v19 = v15;
+      v15 = v18;
+    }
+
+    else
+    {
+      objc_opt_class();
+      noteContainer = [v16 noteContainer];
+      v20 = ICDynamicCast();
+      v19 = v14;
+      v14 = v20;
+    }
+  }
+
+  if ([v13 isDeletedOrInTrash])
+  {
+
+    v13 = 0;
+  }
+
+  if ([v14 isTrashFolder])
+  {
+
+    v14 = 0;
+  }
+
+  if (v16 || v13 || v14 || v15)
+  {
+    v21 = objc_alloc_init(ICSETableViewItem);
+    [(ICSETableViewItem *)v21 setNote:v13];
+    [(ICSETableViewItem *)v21 setFolder:v14];
+    [(ICSETableViewItem *)v21 setAccount:v15];
+    [(ICSETableViewItem *)v21 setFolderListItem:v16];
+    [(ICSETableViewItem *)v21 setSelectedNote:noteCopy];
+    [(ICSETableViewItem *)v21 setSelectedFolder:folderCopy];
+    title = [v13 title];
+    if (v14)
+    {
+      localizedTitle = [v14 localizedTitle];
+      v24 = [localizedTitle copy];
+      v25 = title;
+      v26 = v15;
+      v27 = folderCopy;
+      v28 = noteCopy;
+      v29 = pickerCopy;
+      v30 = v24;
+
+      v31 = v30;
+      pickerCopy = v29;
+      noteCopy = v28;
+      folderCopy = v27;
+      v15 = v26;
+      title = v31;
+    }
+
+    [(ICSETableViewItem *)v21 setTitle:title];
+    [(ICSETableViewItem *)v21 setIsSearchResult:resultCopy];
+    [(ICSETableViewItem *)v21 setIsAccountPicker:pickerCopy];
+    if (v15)
+    {
+      accountName = [v15 accountName];
+      v33 = accountName;
+      if (pickerCopy)
+      {
+        [(ICSETableViewItem *)v21 setTitle:accountName];
+      }
+
+      else
+      {
+        [accountName localizedUppercaseString];
+        v42 = title;
+        v34 = v15;
+        v35 = folderCopy;
+        v36 = noteCopy;
+        pickerCopy = v37 = pickerCopy;
+        [(ICSETableViewItem *)v21 setTitle:pickerCopy];
+
+        LODWORD(pickerCopy) = v37;
+        noteCopy = v36;
+        folderCopy = v35;
+        v15 = v34;
+        title = v42;
+      }
+
+      [(ICSETableViewItem *)v21 setIsAccountHeader:pickerCopy ^ 1];
+    }
+
+    if (v13)
+    {
+      modificationDate = [v13 modificationDate];
+      ic_briefFormattedDate = [modificationDate ic_briefFormattedDate];
+      [(ICSETableViewItem *)v21 setSecondaryTitle:ic_briefFormattedDate];
+    }
+  }
+
+  else
+  {
+    v21 = 0;
+  }
+
+  return v21;
+}
+
++ (id)tableViewItemsForObjects:(id)objects selectedNote:(id)note selectedFolder:(id)folder isSearchResult:(BOOL)result noteContainer:(id)container isAccountPicker:(BOOL)picker
+{
+  pickerCopy = picker;
+  resultCopy = result;
+  objectsCopy = objects;
+  noteCopy = note;
+  folderCopy = folder;
+  containerCopy = container;
+  v17 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(objectsCopy, "count")}];
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  obj = objectsCopy;
+  v18 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  if (v18)
+  {
+    v19 = v18;
+    v20 = *v27;
+    do
+    {
+      for (i = 0; i != v19; i = i + 1)
+      {
+        if (*v27 != v20)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v22 = [self tableViewItemFromObject:*(*(&v26 + 1) + 8 * i) selectedNote:noteCopy selectedFolder:folderCopy isSearchResult:resultCopy isAccountPicker:pickerCopy];
+        [v22 setNoteContainer:containerCopy];
+        [v17 ic_addNonNilObject:v22];
+      }
+
+      v19 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+    }
+
+    while (v19);
+  }
+
+  return v17;
 }
 
 - (BOOL)isEqual:(id)equal

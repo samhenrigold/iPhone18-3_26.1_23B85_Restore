@@ -861,7 +861,7 @@ LABEL_30:
   return v40;
 }
 
-uint64_t __118__MIMCMContainer__enumeratorWithContainerClass_forPersona_isTransient_identifiers_groupIdentifiers_create_usingBlock___block_invoke(uint64_t a1, uint64_t a2)
+uint64_t __118__MIMCMContainer__enumeratorWithContainerClass_forPersona_isTransient_identifiers_groupIdentifiers_create_usingBlock___block_invoke(void *a1, uint64_t a2)
 {
   v4 = objc_autoreleasePoolPush();
   v11 = 0;
@@ -870,7 +870,7 @@ uint64_t __118__MIMCMContainer__enumeratorWithContainerClass_forPersona_isTransi
   v7 = v11;
   if (v5)
   {
-    v8 = (*(*(a1 + 32) + 16))();
+    v8 = (*(a1[4] + 16))();
   }
 
   else
@@ -881,7 +881,7 @@ uint64_t __118__MIMCMContainer__enumeratorWithContainerClass_forPersona_isTransi
       MOLogWrite();
     }
 
-    objc_storeStrong((*(*(a1 + 40) + 8) + 40), v6);
+    objc_storeStrong((*(a1[5] + 8) + 40), v6);
     v8 = 0;
   }
 

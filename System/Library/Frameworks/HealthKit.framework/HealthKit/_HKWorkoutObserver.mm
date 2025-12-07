@@ -1,5 +1,6 @@
 @interface _HKWorkoutObserver
 - (NSString)description;
+- (_HKWorkoutObserver)initWithHealthStore:(id)store reportInactiveSessions:(BOOL)sessions;
 - (_HKWorkoutObserverDelegate)delegate;
 - (id)exportedInterface;
 - (id)remoteInterface;
@@ -15,23 +16,81 @@
 
 @implementation _HKWorkoutObserver
 
+- (_HKWorkoutObserver)initWithHealthStore:(id)store reportInactiveSessions:(BOOL)sessions
+{
+  sessionsCopy = sessions;
+  location[3] = *MEMORY[0x1E69E9840];
+  storeCopy = store;
+  v25.receiver = self;
+  v25.super_class = _HKWorkoutObserver;
+  v8 = [(_HKWorkoutObserver *)&v25 init];
+  v10 = v8;
+  if (v8)
+  {
+    objc_storeStrong(&v8->_healthStore, store);
+    v11 = objc_alloc_init(MEMORY[0x1E696AD10]);
+    lock = v10->_lock;
+    v10->_lock = v11;
+
+    uUID = [MEMORY[0x1E696AFB0] UUID];
+    identifier = v10->_identifier;
+    v10->_identifier = uUID;
+
+    v10->_reportInactiveSessions = sessionsCopy;
+    v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    pendingHandlers = v10->_pendingHandlers;
+    v10->_pendingHandlers = v15;
+
+    v17 = [[HKTaskServerProxyProvider alloc] initWithHealthStore:v10->_healthStore taskIdentifier:@"_HKWorkoutObserverServerIdentifier" exportedObject:v10 taskUUID:v10->_identifier];
+    proxyProvider = v10->_proxyProvider;
+    v10->_proxyProvider = v17;
+
+    v19 = objc_alloc_init(_HKWorkoutObserverConfiguration);
+    configuration = v10->_configuration;
+    v10->_configuration = v19;
+
+    [(_HKWorkoutObserverConfiguration *)v10->_configuration setReportInactiveSessions:sessionsCopy];
+    [(HKTaskServerProxyProvider *)v10->_proxyProvider setTaskConfiguration:v10->_configuration];
+    objc_initWeak(location, v10);
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __65___HKWorkoutObserver_initWithHealthStore_reportInactiveSessions___block_invoke;
+    v23[3] = &unk_1E7378500;
+    objc_copyWeak(&v24, location);
+    [(HKProxyProvider *)v10->_proxyProvider setAutomaticProxyReconnectionHandler:v23];
+    [(_HKWorkoutObserver *)v10 _startTaskServerIfNeeded];
+    objc_destroyWeak(&v24);
+    objc_destroyWeak(location);
+  }
+
+  _HKInitializeLogging(v8, v9);
+  v21 = HKLogWorkouts;
+  if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
+  {
+    LODWORD(location[0]) = 138543362;
+    *(location + 4) = v10;
+    _os_log_impl(&dword_19197B000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@: Workout Observer created", location, 0xCu);
+  }
+
+  return v10;
+}
+
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
-  notify_cancel(self->_notifyToken);
-  _HKInitializeLogging();
-  v3 = HKLogWorkouts;
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = notify_cancel(self->_notifyToken);
+  _HKInitializeLogging(v3, v4);
+  v5 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Workout Observer dealloc", buf, 0xCu);
+    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Workout Observer dealloc", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = _HKWorkoutObserver;
-  [(_HKWorkoutObserver *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = _HKWorkoutObserver;
+  [(_HKWorkoutObserver *)&v6 dealloc];
 }
 
 - (NSString)description

@@ -7,7 +7,7 @@
 
 - (void)trackEventWithScalar:(unint64_t)scalar app:(SGMBannerDisplayApp_)app extracted:(SGMBannerExtractionType_)extracted selfId:(SGMTypeSafeBool_)id extractionModelVersion:(unint64_t)version contactDetail:(SGMContactDetailType_)detail
 {
-  v31[5] = *MEMORY[0x1E69E9840];
+  v30[5] = *MEMORY[0x1E69E9840];
   if (app.var0 >= 3)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -76,24 +76,22 @@ LABEL_11:
   }
 
   tracker = self->_tracker;
-  v31[0] = v14;
-  v31[1] = v17;
-  v31[2] = v18;
+  v30[0] = v14;
+  v30[1] = v17;
+  v30[2] = v18;
   v27 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:version];
-  v31[3] = v27;
-  v31[4] = v23;
-  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:5];
+  v30[3] = v27;
+  v30[4] = v23;
+  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:5];
   [(PETScalarEventTracker *)tracker trackEventWithPropertyValues:v28 value:scalar];
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (SGMContactInBanner)init
 {
-  v15[5] = *MEMORY[0x1E69E9840];
-  v14.receiver = self;
-  v14.super_class = SGMContactInBanner;
-  v2 = [(SGMContactInBanner *)&v14 init];
+  v14[5] = *MEMORY[0x1E69E9840];
+  v13.receiver = self;
+  v13.super_class = SGMContactInBanner;
+  v2 = [(SGMContactInBanner *)&v13 init];
   if (v2)
   {
     v3 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"App"];
@@ -102,18 +100,17 @@ LABEL_11:
     v6 = [MEMORY[0x1E69C5B40] propertyWithName:@"ExtractionModelVersion" range:0 clampValues:{1000, 1}];
     v7 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"ContactDetail"];
     v8 = objc_alloc(MEMORY[0x1E69C5B58]);
-    v15[0] = v3;
-    v15[1] = v4;
-    v15[2] = v5;
-    v15[3] = v6;
-    v15[4] = v7;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:5];
+    v14[0] = v3;
+    v14[1] = v4;
+    v14[2] = v5;
+    v14[3] = v6;
+    v14[4] = v7;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:5];
     v10 = [v8 initWithFeatureId:@"Found" event:@"ContactInBanner" registerProperties:v9 propertySubsets:MEMORY[0x1E695E0F0]];
     tracker = v2->_tracker;
     v2->_tracker = v10;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

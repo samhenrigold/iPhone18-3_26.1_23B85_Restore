@@ -117,20 +117,20 @@
     [v21 setObject:v14 forKey:v13];
   }
 
-  (v18)(v17, *MEMORY[0x1E69A5F80], v10);
-  (v18)(v17, *MEMORY[0x1E69A5FA8], v10);
-  (v18)(v17, *MEMORY[0x1E69A5F18], v10);
-  (v18)(v17, *MEMORY[0x1E69A6058], v10);
-  (v18)(v17, *MEMORY[0x1E69A6050], v10);
-  (v18)(v17, *MEMORY[0x1E69A5FB0], v11);
-  (v18)(v17, *MEMORY[0x1E69A6030], v10);
+  v18(v17, *MEMORY[0x1E69A5F80], v10);
+  v18(v17, *MEMORY[0x1E69A5FA8], v10);
+  v18(v17, *MEMORY[0x1E69A5F18], v10);
+  v18(v17, *MEMORY[0x1E69A6058], v10);
+  v18(v17, *MEMORY[0x1E69A6050], v10);
+  v18(v17, *MEMORY[0x1E69A5FB0], v11);
+  v18(v17, *MEMORY[0x1E69A6030], v10);
   v15 = *MEMORY[0x1E69A5F88];
-  (v18)(v17, *MEMORY[0x1E69A5F88], v9);
-  (v18)(v17, *MEMORY[0x1E69A5F08], v9);
-  (v18)(v17, *MEMORY[0x1E69A5FC8], v9);
-  (v18)(v17, *MEMORY[0x1E69A5F10], v10);
-  (v18)(v17, *MEMORY[0x1E69A5F28], v9);
-  (v18)(v17, *MEMORY[0x1E69A5F30], v10);
+  v18(v17, *MEMORY[0x1E69A5F88], v9);
+  v18(v17, *MEMORY[0x1E69A5F08], v9);
+  v18(v17, *MEMORY[0x1E69A5FC8], v9);
+  v18(v17, *MEMORY[0x1E69A5F10], v10);
+  v18(v17, *MEMORY[0x1E69A5F28], v9);
+  v18(v17, *MEMORY[0x1E69A5F30], v10);
   if (![attributes objectForKey:v15] && -[NSString length](self->_foregroundColor, "length"))
   {
     [v12 setObject:self->_foregroundColor forKey:v15];

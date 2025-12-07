@@ -19,20 +19,19 @@
   if (observerCopy)
   {
     observers = self->_observers;
-    v8 = observerCopy;
     if (!observers)
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AE08]) initWithOptions:5];
+      v6 = [objc_alloc(MEMORY[0x1E696AE08]) initWithOptions:?];
       v7 = self->_observers;
       self->_observers = v6;
 
       observers = self->_observers;
     }
 
-    [(NSPointerArray *)observers addPointer:v8];
+    observerCopy = [(NSPointerArray *)observers addPointer:?];
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](observerCopy);
 }
 
 - (void)removeObserver:(id)observer
@@ -47,7 +46,7 @@
       if ([(NSPointerArray *)self->_observers count])
       {
         v5 = 0;
-        while ([(NSPointerArray *)self->_observers pointerAtIndex:v5]!= observerCopy)
+        while ([(NSPointerArray *)self->_observers pointerAtIndex:?]!= observerCopy)
         {
           if (++v5 >= [(NSPointerArray *)self->_observers count])
           {
@@ -55,7 +54,7 @@
           }
         }
 
-        [(NSPointerArray *)self->_observers removePointerAtIndex:v5];
+        [(NSPointerArray *)self->_observers removePointerAtIndex:?];
       }
     }
   }
@@ -76,7 +75,7 @@ LABEL_9:
     {
       if (visualStyleSet)
       {
-        p_visualStyleSet = [(MTCoreMaterialVisualStylingProvider *)self _notifyObserversWithBlock:&__block_literal_global_8];
+        p_visualStyleSet = [(MTCoreMaterialVisualStylingProvider *)self _notifyObserversWithBlock:?];
       }
     }
   }
@@ -90,7 +89,7 @@ void __58__MTCoreMaterialVisualStylingProvider__setVisualStyleSet___block_invoke
   v4 = a3;
   if (objc_opt_respondsToSelector())
   {
-    [v4 providedStylesDidChangeForProvider:v5];
+    [v4 providedStylesDidChangeForProvider:?];
   }
 }
 
@@ -109,7 +108,7 @@ void __58__MTCoreMaterialVisualStylingProvider__setVisualStyleSet___block_invoke
         do
         {
           objc_initWeak(&location, self);
-          v7 = [(NSPointerArray *)self->_observers pointerAtIndex:v6];
+          v7 = [(NSPointerArray *)self->_observers pointerAtIndex:?];
           v8 = objc_loadWeakRetained(&location);
           blockCopy[2](blockCopy, v8, v7);
 
@@ -128,7 +127,7 @@ void __58__MTCoreMaterialVisualStylingProvider__setVisualStyleSet___block_invoke
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   visualStyleSetName = [(MTCoreMaterialVisualStylingProvider *)self visualStyleSetName];
-  v6 = [v3 stringWithFormat:@"<%@: %p: visualStyleSetName: %@>", v4, self, visualStyleSetName];
+  v6 = [v3 stringWithFormat:v4, self, visualStyleSetName];
 
   return v6;
 }
@@ -142,7 +141,7 @@ void __58__MTCoreMaterialVisualStylingProvider__setVisualStyleSet___block_invoke
     if (v5)
     {
       v4 = objc_alloc_init(MTCoreMaterialVisualStylingProvider);
-      [(MTCoreMaterialVisualStylingProvider *)v4 _setVisualStyleSet:v5];
+      [(MTCoreMaterialVisualStylingProvider *)v4 _setVisualStyleSet:?];
     }
 
     else
@@ -162,7 +161,7 @@ void __58__MTCoreMaterialVisualStylingProvider__setVisualStyleSet___block_invoke
     if (v4)
     {
       v5 = objc_alloc_init(MTCoreMaterialVisualStylingProvider);
-      [(MTCoreMaterialVisualStylingProvider *)v5 _setVisualStyleSet:v4];
+      [(MTCoreMaterialVisualStylingProvider *)v5 _setVisualStyleSet:?];
     }
 
     else
@@ -196,7 +195,7 @@ void __58__MTCoreMaterialVisualStylingProvider__setVisualStyleSet___block_invoke
     v4 = v6 != 0;
     if (v6)
     {
-      [(MTCoreMaterialVisualStylingProvider *)self _setVisualStyleSet:v6];
+      [(MTCoreMaterialVisualStylingProvider *)self _setVisualStyleSet:?];
     }
   }
 
@@ -208,15 +207,15 @@ void __58__MTCoreMaterialVisualStylingProvider__setVisualStyleSet___block_invoke
   recipeCopy = recipe;
   if (recipeCopy)
   {
-    v5 = [MTRecipeMaterialSettings styleSetNameForStyleSetFromRecipeWithName:recipeCopy];
+    v5 = [MTRecipeMaterialSettings styleSetNameForStyleSetFromRecipeWithName:?];
     _visualStyleSet = [(MTCoreMaterialVisualStylingProvider *)self _visualStyleSet];
     visualStyleSetName = [_visualStyleSet visualStyleSetName];
-    v8 = [visualStyleSetName isEqualToString:v5];
+    v8 = [visualStyleSetName isEqualToString:?];
 
     if ((v8 & 1) == 0)
     {
       v9 = MTSharedVisualStyleSetGeneratedFromRecipe(recipeCopy);
-      [(MTCoreMaterialVisualStylingProvider *)self _setVisualStyleSet:v9];
+      [(MTCoreMaterialVisualStylingProvider *)self _setVisualStyleSet:?];
     }
 
     v10 = v8 ^ 1;

@@ -7,24 +7,24 @@
 
 - (id)resultsTriggeredWithContext:(id)context inGraph:(id)graph progressReporter:(id)reporter
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   graphCopy = graph;
   reporterCopy = reporter;
-  v76 = 0;
-  v77 = &v76;
-  v78 = 0x2020000000;
-  v79 = 0;
+  v75 = 0;
+  v76 = &v75;
+  v77 = 0x2020000000;
+  v78 = 0;
   v11 = [reporterCopy isCancelledWithProgress:0.0];
-  *(v77 + 24) = v11;
+  *(v76 + 24) = v11;
   if (v11)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      *v82 = 56;
-      *&v82[4] = 2080;
-      *&v82[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerRecentSyndicatedAssets.m";
+      *v81 = 56;
+      *&v81[4] = 2080;
+      *&v81[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerRecentSyndicatedAssets.m";
       v12 = MEMORY[0x277D86220];
 LABEL_25:
       _os_log_impl(&dword_22F0FC000, v12, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -46,15 +46,15 @@ LABEL_25:
       _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGMemoryTriggerRecentSyndicatedAssets]: Trigger not available without a photo library.", buf, 2u);
     }
 
-    if (v77[3])
+    if (v76[3])
     {
-      *(v77 + 24) = 1;
+      *(v76 + 24) = 1;
     }
 
     else
     {
       v37 = [reporterCopy isCancelledWithProgress:1.0];
-      *(v77 + 24) = v37;
+      *(v76 + 24) = v37;
       if ((v37 & 1) == 0)
       {
         goto LABEL_26;
@@ -64,9 +64,9 @@ LABEL_25:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      *v82 = 59;
-      *&v82[4] = 2080;
-      *&v82[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerRecentSyndicatedAssets.m";
+      *v81 = 59;
+      *&v81[4] = 2080;
+      *&v81[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerRecentSyndicatedAssets.m";
       v12 = MEMORY[0x277D86220];
       goto LABEL_25;
     }
@@ -81,83 +81,83 @@ LABEL_26:
   timeZone = [contextCopy timeZone];
   v18 = [v16 universalDateFromLocalDate:localDate inTimeZone:timeZone];
 
-  v64 = [MEMORY[0x277D27690] dateByAddingDays:-7 toDate:v18];
+  v63 = [MEMORY[0x277D27690] dateByAddingDays:-7 toDate:v18];
   photoLibrary2 = [(PGPhotoKitMemoryTrigger *)self photoLibrary];
   librarySpecificFetchOptions = [photoLibrary2 librarySpecificFetchOptions];
 
-  v63 = [MEMORY[0x277D3B248] predicateForIncludeMask:objc_msgSend(MEMORY[0x277D3B248] useIndex:{"maskForGuestAsset"), 1}];
-  v62 = [MEMORY[0x277CCAC30] predicateWithFormat:@"dateCreated > %@ && dateCreated <= %@", v64, v18];
+  v62 = [MEMORY[0x277D3B248] predicateForIncludeMask:objc_msgSend(MEMORY[0x277D3B248] useIndex:{"maskForGuestAsset"), 1}];
+  v61 = [MEMORY[0x277CCAC30] predicateWithFormat:@"dateCreated > %@ && dateCreated <= %@", v63, v18];
   v21 = MEMORY[0x277CCA920];
-  v80[0] = v63;
-  v80[1] = v62;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:2];
+  v79[0] = v62;
+  v79[1] = v61;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:2];
   v23 = [v21 andPredicateWithSubpredicates:v22];
   [librarySpecificFetchOptions setInternalPredicate:v23];
 
   [librarySpecificFetchOptions setIncludeGuestAssets:1];
-  v61 = [MEMORY[0x277CD97A8] fetchAssetsWithOptions:librarySpecificFetchOptions];
-  v24 = [v61 count];
+  v60 = [MEMORY[0x277CD97A8] fetchAssetsWithOptions:librarySpecificFetchOptions];
+  v24 = [v60 count];
   if (v24)
   {
     loggingConnection2 = [(PGMemoryTrigger *)self loggingConnection];
     if (os_log_type_enabled(loggingConnection2, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      *v82 = v24;
+      *v81 = v24;
       _os_log_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_INFO, "[PGMemoryTriggerRecentSyndicatedAssets]: Found %tu recent guest", buf, 0xCu);
     }
 
     photoLibrary3 = [(PGPhotoKitMemoryTrigger *)self photoLibrary];
     librarySpecificFetchOptions2 = [photoLibrary3 librarySpecificFetchOptions];
 
-    v57 = [MEMORY[0x277CD98F8] fetchMomentUUIDByAssetUUIDForAssets:v61 options:librarySpecificFetchOptions2];
-    allValues = [v57 allValues];
+    v56 = [MEMORY[0x277CD98F8] fetchMomentUUIDByAssetUUIDForAssets:v60 options:librarySpecificFetchOptions2];
+    allValues = [v56 allValues];
     if ([allValues count])
     {
-      v58 = [PGGraphMomentNodeCollection momentNodesForArrayOfUUIDs:allValues inGraph:graphCopy];
-      if ([v58 count])
+      v57 = [PGGraphMomentNodeCollection momentNodesForArrayOfUUIDs:allValues inGraph:graphCopy];
+      if ([v57 count])
       {
         v27 = [MEMORY[0x277CCAB58] indexSetWithIndex:1];
         [v27 addIndex:19];
         [v27 addIndex:16];
-        v55 = objc_alloc_init(MEMORY[0x277CBEB58]);
+        v54 = objc_alloc_init(MEMORY[0x277CBEB58]);
         v28 = MEMORY[0x277D22BF8];
         v29 = +[PGGraphMomentNode memoryOfMoment];
-        v30 = [v28 adjacencyWithSources:v58 relation:v29 targetsClass:objc_opt_class()];
+        v30 = [v28 adjacencyWithSources:v57 relation:v29 targetsClass:objc_opt_class()];
 
         v31 = MEMORY[0x277D22C80];
-        v73[0] = MEMORY[0x277D85DD0];
-        v73[1] = 3221225472;
-        v73[2] = __94__PGMemoryTriggerRecentSyndicatedAssets_resultsTriggeredWithContext_inGraph_progressReporter___block_invoke;
-        v73[3] = &unk_278889448;
-        v75 = &v76;
-        v51 = reporterCopy;
-        v74 = v51;
-        v32 = [v31 progressReporterWithProgressBlock:v73];
-        v65[0] = MEMORY[0x277D85DD0];
-        v65[1] = 3221225472;
-        v65[2] = __94__PGMemoryTriggerRecentSyndicatedAssets_resultsTriggeredWithContext_inGraph_progressReporter___block_invoke_2;
-        v65[3] = &unk_278883698;
-        v53 = v30;
-        v66 = v53;
+        v72[0] = MEMORY[0x277D85DD0];
+        v72[1] = 3221225472;
+        v72[2] = __94__PGMemoryTriggerRecentSyndicatedAssets_resultsTriggeredWithContext_inGraph_progressReporter___block_invoke;
+        v72[3] = &unk_278889448;
+        v74 = &v75;
+        v50 = reporterCopy;
+        v73 = v50;
+        v32 = [v31 progressReporterWithProgressBlock:v72];
+        v64[0] = MEMORY[0x277D85DD0];
+        v64[1] = 3221225472;
+        v64[2] = __94__PGMemoryTriggerRecentSyndicatedAssets_resultsTriggeredWithContext_inGraph_progressReporter___block_invoke_2;
+        v64[3] = &unk_278883698;
+        v52 = v30;
+        v65 = v52;
         v33 = v27;
-        v67 = v33;
+        v66 = v33;
         selfCopy = self;
-        v69 = graphCopy;
-        v54 = v32;
-        v70 = v54;
-        v72 = &v76;
-        v56 = v55;
-        v71 = v56;
-        [v58 enumerateIdentifiersAsCollectionsWithBlock:v65];
-        if (*(v77 + 24) == 1)
+        v68 = graphCopy;
+        v53 = v32;
+        v69 = v53;
+        v71 = &v75;
+        v55 = v54;
+        v70 = v55;
+        [v57 enumerateIdentifiersAsCollectionsWithBlock:v64];
+        if (*(v76 + 24) == 1)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v82 = 161;
-            *&v82[4] = 2080;
-            *&v82[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerRecentSyndicatedAssets.m";
+            *v81 = 161;
+            *&v81[4] = 2080;
+            *&v81[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerRecentSyndicatedAssets.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
@@ -165,24 +165,24 @@ LABEL_26:
           goto LABEL_55;
         }
 
-        v52 = [MEMORY[0x277D27690] dateByAddingDays:5 toDate:localDate];
+        v51 = [MEMORY[0x277D27690] dateByAddingDays:5 toDate:localDate];
         v41 = objc_opt_class();
         timeZone2 = [contextCopy timeZone];
-        v43 = [v41 validityIntervalForLocalStartDate:localDate localEndDate:v52 timeZone:timeZone2];
+        v43 = [v41 validityIntervalForLocalStartDate:localDate localEndDate:v51 timeZone:timeZone2];
 
-        if (v77[3])
+        if (v76[3])
         {
-          *(v77 + 24) = 1;
+          *(v76 + 24) = 1;
         }
 
         else
         {
-          v46 = [v51 isCancelledWithProgress:1.0];
-          *(v77 + 24) = v46;
+          v46 = [v50 isCancelledWithProgress:1.0];
+          *(v76 + 24) = v46;
           if ((v46 & 1) == 0)
           {
             v47 = objc_opt_class();
-            allObjects = [v56 allObjects];
+            allObjects = [v55 allObjects];
             v34 = [v47 memoryTriggerResultsForMemoryNodesArray:allObjects withValidityInterval:v43];
 
 LABEL_54:
@@ -195,9 +195,9 @@ LABEL_55:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          *v82 = 165;
-          *&v82[4] = 2080;
-          *&v82[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerRecentSyndicatedAssets.m";
+          *v81 = 165;
+          *&v81[4] = 2080;
+          *&v81[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerRecentSyndicatedAssets.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
 
@@ -209,19 +209,19 @@ LABEL_55:
       if (os_log_type_enabled(loggingConnection3, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        *v82 = allValues;
+        *v81 = allValues;
         _os_log_impl(&dword_22F0FC000, loggingConnection3, OS_LOG_TYPE_DEFAULT, "[PGMemoryTriggerRecentSyndicatedAssets]: Couldn't find moment node for moment UUIDs: %@", buf, 0xCu);
       }
 
-      if (v77[3])
+      if (v76[3])
       {
-        *(v77 + 24) = 1;
+        *(v76 + 24) = 1;
       }
 
       else
       {
         v45 = [reporterCopy isCancelledWithProgress:1.0];
-        *(v77 + 24) = v45;
+        *(v76 + 24) = v45;
         if ((v45 & 1) == 0)
         {
 LABEL_48:
@@ -235,9 +235,9 @@ LABEL_56:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        *v82 = 103;
-        *&v82[4] = 2080;
-        *&v82[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerRecentSyndicatedAssets.m";
+        *v81 = 103;
+        *&v81[4] = 2080;
+        *&v81[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerRecentSyndicatedAssets.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -251,15 +251,15 @@ LABEL_56:
       _os_log_error_impl(&dword_22F0FC000, loggingConnection4, OS_LOG_TYPE_ERROR, "[PGMemoryTriggerRecentSyndicatedAssets]: Cannot find moments featuring the guest assets available", buf, 2u);
     }
 
-    if (v77[3])
+    if (v76[3])
     {
-      *(v77 + 24) = 1;
+      *(v76 + 24) = 1;
     }
 
     else
     {
       v44 = [reporterCopy isCancelledWithProgress:1.0];
-      *(v77 + 24) = v44;
+      *(v76 + 24) = v44;
       if ((v44 & 1) == 0)
       {
 LABEL_44:
@@ -273,9 +273,9 @@ LABEL_57:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      *v82 = 94;
-      *&v82[4] = 2080;
-      *&v82[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerRecentSyndicatedAssets.m";
+      *v81 = 94;
+      *&v81[4] = 2080;
+      *&v81[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerRecentSyndicatedAssets.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
@@ -289,23 +289,23 @@ LABEL_57:
     _os_log_impl(&dword_22F0FC000, loggingConnection5, OS_LOG_TYPE_DEFAULT, "[PGMemoryTriggerRecentSyndicatedAssets]: No recent guest assets available", buf, 2u);
   }
 
-  if (v77[3])
+  if (v76[3])
   {
-    *(v77 + 24) = 1;
+    *(v76 + 24) = 1;
     goto LABEL_32;
   }
 
   v39 = [reporterCopy isCancelledWithProgress:1.0];
-  *(v77 + 24) = v39;
+  *(v76 + 24) = v39;
   if (v39)
   {
 LABEL_32:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      *v82 = 79;
-      *&v82[4] = 2080;
-      *&v82[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerRecentSyndicatedAssets.m";
+      *v81 = 79;
+      *&v81[4] = 2080;
+      *&v81[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerRecentSyndicatedAssets.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
   }
@@ -314,9 +314,7 @@ LABEL_32:
 LABEL_58:
 
 LABEL_59:
-  _Block_object_dispose(&v76, 8);
-
-  v49 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v75, 8);
 
   return v34;
 }
@@ -346,7 +344,7 @@ uint64_t __94__PGMemoryTriggerRecentSyndicatedAssets_resultsTriggeredWithContext
 
 void __94__PGMemoryTriggerRecentSyndicatedAssets_resultsTriggeredWithContext_inGraph_progressReporter___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = [*(a1 + 32) targetsForSources:v6];
   v8 = [v7 subsetWithMemoryCategories:*(a1 + 40)];
@@ -364,9 +362,9 @@ void __94__PGMemoryTriggerRecentSyndicatedAssets_resultsTriggeredWithContext_inG
         if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
           v19 = [v6 anyNode];
-          v30 = 138412290;
-          v31 = v19;
-          _os_log_impl(&dword_22F0FC000, v12, OS_LOG_TYPE_INFO, "[PGMemoryTriggerRecentSyndicatedAssets]: interestingWithAlternateJunking failed for moment %@", &v30, 0xCu);
+          v29 = 138412290;
+          v30 = v19;
+          _os_log_impl(&dword_22F0FC000, v12, OS_LOG_TYPE_INFO, "[PGMemoryTriggerRecentSyndicatedAssets]: interestingWithAlternateJunking failed for moment %@", &v29, 0xCu);
         }
 
         v11 = v13;
@@ -389,23 +387,23 @@ void __94__PGMemoryTriggerRecentSyndicatedAssets_resultsTriggeredWithContext_inG
 
         if (![v16 containsCollection:v6])
         {
-          v22 = [v6 featureNodeCollection];
-          v23 = [v6 dateNodes];
-          v24 = [v23 monthDayNodes];
-          v25 = [v24 featureNodeCollection];
-          v26 = [v22 collectionByFormingUnionWith:v25];
+          v21 = [v6 featureNodeCollection];
+          v22 = [v6 dateNodes];
+          v23 = [v22 monthDayNodes];
+          v24 = [v23 featureNodeCollection];
+          v25 = [v21 collectionByFormingUnionWith:v24];
 
-          v27 = [[PGGraphMemory alloc] initWithMemoryCategory:1 memoryCategorySubcategory:1001 momentNodes:v11 featureNodes:v26];
-          [*(a1 + 72) addObject:v27];
-          v28 = [*(a1 + 48) loggingConnection];
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+          v26 = [[PGGraphMemory alloc] initWithMemoryCategory:1 memoryCategorySubcategory:1001 momentNodes:v11 featureNodes:v25];
+          [*(a1 + 72) addObject:v26];
+          v27 = [*(a1 + 48) loggingConnection];
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
-            v29 = [v6 anyNode];
-            v30 = 138412546;
-            v31 = v27;
-            v32 = 2112;
-            v33 = v29;
-            _os_log_impl(&dword_22F0FC000, v28, OS_LOG_TYPE_DEFAULT, "[PGMemoryTriggerRecentSyndicatedAssets]: Created Memory %@ for %@", &v30, 0x16u);
+            v28 = [v6 anyNode];
+            v29 = 138412546;
+            v30 = v26;
+            v31 = 2112;
+            v32 = v28;
+            _os_log_impl(&dword_22F0FC000, v27, OS_LOG_TYPE_DEFAULT, "[PGMemoryTriggerRecentSyndicatedAssets]: Created Memory %@ for %@", &v29, 0x16u);
           }
 
           goto LABEL_18;
@@ -414,10 +412,10 @@ void __94__PGMemoryTriggerRecentSyndicatedAssets_resultsTriggeredWithContext_inG
         v17 = [*(a1 + 48) loggingConnection];
         if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
-          v21 = [v6 anyNode];
-          v30 = 138412290;
-          v31 = v21;
-          _os_log_impl(&dword_22F0FC000, v17, OS_LOG_TYPE_INFO, "[PGMemoryTriggerRecentSyndicatedAssets]: Moment has blocked feature %@", &v30, 0xCu);
+          v20 = [v6 anyNode];
+          v29 = 138412290;
+          v30 = v20;
+          _os_log_impl(&dword_22F0FC000, v17, OS_LOG_TYPE_INFO, "[PGMemoryTriggerRecentSyndicatedAssets]: Moment has blocked feature %@", &v29, 0xCu);
         }
 
 LABEL_17:
@@ -432,8 +430,8 @@ LABEL_17:
       }
 
       v17 = [v6 anyNode];
-      v30 = 138412290;
-      v31 = v17;
+      v29 = 138412290;
+      v30 = v17;
       v18 = "[PGMemoryTriggerRecentSyndicatedAssets]: Not enough scene processed assets for moment %@";
     }
 
@@ -446,12 +444,12 @@ LABEL_17:
       }
 
       v17 = [v6 anyNode];
-      v30 = 138412290;
-      v31 = v17;
+      v29 = 138412290;
+      v30 = v17;
       v18 = "[PGMemoryTriggerRecentSyndicatedAssets]: Not enough assets for moment %@";
     }
 
-    _os_log_impl(&dword_22F0FC000, v12, OS_LOG_TYPE_INFO, v18, &v30, 0xCu);
+    _os_log_impl(&dword_22F0FC000, v12, OS_LOG_TYPE_INFO, v18, &v29, 0xCu);
     goto LABEL_17;
   }
 
@@ -463,15 +461,13 @@ LABEL_17:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = [v6 anyNode];
-    v30 = 138412546;
-    v31 = v8;
-    v32 = 2112;
-    v33 = v12;
-    _os_log_impl(&dword_22F0FC000, v11, OS_LOG_TYPE_DEFAULT, "[PGMemoryTriggerRecentSyndicatedAssets]: Found Memories %@ for %@", &v30, 0x16u);
+    v29 = 138412546;
+    v30 = v8;
+    v31 = 2112;
+    v32 = v12;
+    _os_log_impl(&dword_22F0FC000, v11, OS_LOG_TYPE_DEFAULT, "[PGMemoryTriggerRecentSyndicatedAssets]: Found Memories %@ for %@", &v29, 0x16u);
 LABEL_18:
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (PGMemoryTriggerRecentSyndicatedAssets)initWithLoggingConnection:(id)connection photoLibrary:(id)library momentNodesWithBlockedFeatureCache:(id)cache

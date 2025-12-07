@@ -1,4918 +1,44 @@
-uint64_t TranscriptProtoRequestPrescribedPlanOpenTool.elementAtIndex.setter(uint64_t a1, char a2)
-{
-  result = type metadata accessor for TranscriptProtoRequestPrescribedPlanOpenTool(0);
-  v6 = v2 + *(result + 20);
-  *v6 = a1;
-  *(v6 + 8) = a2 & 1;
-  return result;
-}
-
-uint64_t TranscriptProtoRequestPrescribedPlanOpenTool.init(resultStatementID:elementAtIndex:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X8>)
-{
-  v8 = type metadata accessor for TranscriptProtoStatementID(0);
-  (*(*(v8 - 8) + 56))(a4, 1, 1, v8);
-  v9 = type metadata accessor for TranscriptProtoRequestPrescribedPlanOpenTool(0);
-  v10 = *(v9 + 24);
-  v11 = a4 + *(v9 + 20);
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  result = sub_20E05EC5C(a1, a4, &qword_27C8639D0, &unk_20E33C230);
-  *v11 = a2;
-  *(v11 + 8) = a3 & 1;
-  return result;
-}
-
-uint64_t TranscriptProtoRequestPrescribedPlanOpenSuccessValueFromLatestRequestTool.elementAtIndex.getter()
-{
-  result = *v0;
-  v2 = *(v0 + 8);
-  return result;
-}
-
-uint64_t TranscriptProtoRequestPrescribedPlanOpenSuccessValueFromLatestRequestTool.elementAtIndex.setter(uint64_t result, char a2)
-{
-  *v2 = result;
-  *(v2 + 8) = a2 & 1;
-  return result;
-}
-
-uint64_t TranscriptProtoRequestPrescribedPlanOpenSuccessValueFromLatestRequestTool.init(elementAtIndex:)@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X8>)
-{
-  v6 = a3 + *(type metadata accessor for TranscriptProtoRequestPrescribedPlanOpenSuccessValueFromLatestRequestTool(0) + 20);
-  result = _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a3 = a1;
-  *(a3 + 8) = a2 & 1;
-  return result;
-}
-
-uint64_t TranscriptProtoAction.parameterValues.setter(uint64_t a1)
-{
-  v3 = *(v1 + 8);
-
-  *(v1 + 8) = a1;
-  return result;
-}
-
-uint64_t sub_20E1C1844(uint64_t (*a1)(void))
-{
-  v2 = (v1 + *(a1(0) + 28));
-  v3 = *v2;
-  v4 = v2[1];
-
-  return v3;
-}
-
-uint64_t sub_20E1C18A4(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
-{
-  v6 = (v3 + *(a3(0) + 28));
-  v7 = v6[1];
-
-  *v6 = a1;
-  v6[1] = a2;
-  return result;
-}
-
-uint64_t TranscriptProtoAction.init(statementID:bundleID:isConfirmed:parameterValues:planEventID:tool:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
-{
-  v14 = type metadata accessor for TranscriptProtoAction(0);
-  v15 = v14[6];
-  v16 = type metadata accessor for TranscriptProtoStatementID(0);
-  (*(*(v16 - 8) + 56))(a9 + v15, 1, 1, v16);
-  v17 = (a9 + v14[7]);
-  v18 = (a9 + v14[8]);
-  v19 = v14[9];
-  v20 = type metadata accessor for TranscriptProtoGlobalToolIdentifier(0);
-  (*(*(v20 - 8) + 56))(a9 + v19, 1, 1, v20);
-  v21 = a9 + v14[10];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  sub_20E05EC5C(a1, a9 + v15, &qword_27C8639D0, &unk_20E33C230);
-  *v17 = a2;
-  v17[1] = a3;
-  *a9 = a4;
-  *(a9 + 8) = a5;
-  *v18 = a6;
-  v18[1] = a7;
-  return sub_20E05EC5C(a8, a9 + v19, &qword_27C8639C8, &unk_20E323870);
-}
-
-uint64_t TranscriptProtoActionParameterValue.init(value:promptSelection:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v6 = type metadata accessor for TranscriptProtoToolParameterValue(0);
-  (*(*(v6 - 8) + 56))(a3, 1, 1, v6);
-  v7 = type metadata accessor for TranscriptProtoActionParameterValue(0);
-  v8 = *(v7 + 20);
-  v9 = type metadata accessor for TranscriptProtoPromptSelection(0);
-  (*(*(v9 - 8) + 56))(a3 + v8, 1, 1, v9);
-  v10 = a3 + *(v7 + 24);
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  sub_20E05EC5C(a1, a3, &qword_27C8686A0, &unk_20E33C250);
-  return sub_20E05EC5C(a2, a3 + v8, &qword_27C863B58, &qword_20E323E68);
-}
-
-void TranscriptProtoPromptSelection.promptSelectionValues.getter(uint64_t a1@<X8>)
-{
-  v2 = *(v1 + 8);
-  v3 = *(v1 + 9);
-  *a1 = *v1;
-  *(a1 + 8) = v2;
-  *(a1 + 9) = v3;
-}
-
-uint64_t TranscriptProtoPromptSelection.promptSelectionValues.setter(uint64_t result)
-{
-  v2 = *(result + 8);
-  v3 = *(result + 9);
-  *v1 = *result;
-  *(v1 + 8) = v2;
-  *(v1 + 9) = v3;
-  return result;
-}
-
-uint64_t static TranscriptProtoPromptSelectionEnum.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 8);
-  v3 = (*a1 == *a2) & ~v2;
-  if (*a2)
-  {
-    v4 = *(a2 + 8);
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  if (*a2)
-  {
-    v2 = 0;
-  }
-
-  if (*a1)
-  {
-    v5 = v4;
-  }
-
-  else
-  {
-    v5 = v2;
-  }
-
-  if (*(a1 + 8) == 1)
-  {
-    return v5;
-  }
-
-  else
-  {
-    return v3;
-  }
-}
-
-uint64_t static TranscriptProtoActionConfirmationSystemStyleEnum.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868660, &unk_20E33C270);
-  v5 = *(*(v4 - 8) + 64);
-  v6 = MEMORY[0x28223BE20](v4 - 8);
-  v8 = &v11 - v7;
-  v9 = *(v6 + 56);
-  sub_20E1E14FC(a1, &v11 - v7, type metadata accessor for TranscriptProtoActionConfirmationSystemStyleEnum);
-  sub_20E1E14FC(a2, &v8[v9], type metadata accessor for TranscriptProtoActionConfirmationSystemStyleEnum);
-  LOBYTE(a2) = _s23LighthouseDataProcessor61TranscriptProtoActionConfirmationSystemStyleMontaraEnablementV2eeoiySbAC_ACtFZ_0(v8, &v8[v9]);
-  sub_20E1E1564(&v8[v9], type metadata accessor for TranscriptProtoActionConfirmationSystemStyleMontaraEnablement);
-  sub_20E1E1564(v8, type metadata accessor for TranscriptProtoActionConfirmationSystemStyleMontaraEnablement);
-  return a2 & 1;
-}
-
-uint64_t sub_20E1C2260(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868660, &unk_20E33C270);
-  v5 = *(*(v4 - 8) + 64);
-  v6 = MEMORY[0x28223BE20](v4 - 8);
-  v8 = &v11 - v7;
-  v9 = *(v6 + 56);
-  sub_20E1E14FC(a1, &v11 - v7, type metadata accessor for TranscriptProtoActionConfirmationSystemStyleEnum);
-  sub_20E1E14FC(a2, &v8[v9], type metadata accessor for TranscriptProtoActionConfirmationSystemStyleEnum);
-  LOBYTE(a2) = static TranscriptProtoActionConfirmationSystemStyleMontaraEnablement.== infix(_:_:)(v8, &v8[v9]);
-  sub_20E1E1564(&v8[v9], type metadata accessor for TranscriptProtoActionConfirmationSystemStyleMontaraEnablement);
-  sub_20E1E1564(v8, type metadata accessor for TranscriptProtoActionConfirmationSystemStyleMontaraEnablement);
-  return a2 & 1;
-}
-
-uint64_t TranscriptProtoActionConfirmationSystemStyleMontaraEnablement.init(bundleIdentifier:source:isExplicitRequest:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char a4@<W3>, uint64_t a5@<X8>)
-{
-  v10 = type metadata accessor for TranscriptProtoActionConfirmationSystemStyleMontaraEnablement(0);
-  v11 = *(v10 + 24);
-  v12 = type metadata accessor for TranscriptProtoActionConfirmationSystemStyleMontaraEnablementSource(0);
-  (*(*(v12 - 8) + 56))(a5 + v11, 1, 1, v12);
-  v13 = a5 + *(v10 + 28);
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a5 = a1;
-  *(a5 + 8) = a2;
-  result = sub_20E05EC5C(a3, a5 + v11, &qword_27C868650, &qword_20E33B660);
-  *(a5 + 16) = a4;
-  return result;
-}
-
-uint64_t TranscriptProtoParameterValue.init(value:promptSelection:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v6 = type metadata accessor for ToolKitProtoTypedValue(0);
-  (*(*(v6 - 8) + 56))(a3, 1, 1, v6);
-  v7 = type metadata accessor for TranscriptProtoParameterValue(0);
-  v8 = *(v7 + 20);
-  v9 = type metadata accessor for TranscriptProtoPromptSelection(0);
-  (*(*(v9 - 8) + 56))(a3 + v8, 1, 1, v9);
-  v10 = a3 + *(v7 + 24);
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  sub_20E05EC5C(a1, a3, &qword_27C863B18, &qword_20E323EB0);
-  return sub_20E05EC5C(a2, a3 + v8, &qword_27C863B58, &qword_20E323E68);
-}
-
-uint64_t TranscriptProtoExternalAgentOutcome.init(responseText:statementID:statementOutcome:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char *a4@<X8>)
-{
-  v8 = type metadata accessor for TranscriptProtoExternalAgentOutcome(0);
-  v9 = v8[5];
-  v10 = type metadata accessor for TranscriptProtoStatementID(0);
-  (*(*(v10 - 8) + 56))(&a4[v9], 1, 1, v10);
-  v11 = v8[6];
-  v12 = type metadata accessor for TranscriptProtoStatementOutcome(0);
-  (*(*(v12 - 8) + 56))(&a4[v11], 1, 1, v12);
-  v13 = &a4[v8[7]];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a4 = a1;
-  sub_20E05EC5C(a2, &a4[v9], &qword_27C8639D0, &unk_20E33C230);
-  return sub_20E05EC5C(a3, &a4[v11], &qword_27C863BA8, &unk_20E345F00);
-}
-
-uint64_t TranscriptProtoStatementResultPayload.init(outcome:response:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v6 = type metadata accessor for TranscriptProtoStatementOutcome(0);
-  (*(*(v6 - 8) + 56))(a3, 1, 1, v6);
-  v7 = type metadata accessor for TranscriptProtoStatementResultPayload(0);
-  v8 = *(v7 + 20);
-  v9 = type metadata accessor for TranscriptProtoResponseManifest(0);
-  (*(*(v9 - 8) + 56))(a3 + v8, 1, 1, v9);
-  v10 = a3 + *(v7 + 24);
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  sub_20E05EC5C(a1, a3, &qword_27C863BA8, &unk_20E345F00);
-  return sub_20E05EC5C(a2, a3 + v8, &qword_27C863B48, &unk_20E33C280);
-}
-
-uint64_t TranscriptProtoStatementResult.actionEventID.getter()
-{
-  v1 = *v0;
-  v2 = v0[1];
-
-  return v1;
-}
-
-uint64_t TranscriptProtoStatementResult.actionEventID.setter(uint64_t a1, uint64_t a2)
-{
-  v5 = v2[1];
-
-  *v2 = a1;
-  v2[1] = a2;
-  return result;
-}
-
-uint64_t TranscriptProtoStatementResult.init(actionEventID:payload:resultStatementID:originProgramStatementID:originTaskStatementID:tool:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, char *a8@<X8>)
-{
-  v10 = type metadata accessor for TranscriptProtoStatementResult(0);
-  v11 = v10[5];
-  v12 = type metadata accessor for TranscriptProtoStatementResultPayload(0);
-  (*(*(v12 - 8) + 56))(&a8[v11], 1, 1, v12);
-  v13 = v10[6];
-  v14 = type metadata accessor for TranscriptProtoStatementID(0);
-  v15 = *(*(v14 - 8) + 56);
-  v15(&a8[v13], 1, 1, v14);
-  v16 = v10[7];
-  v15(&a8[v16], 1, 1, v14);
-  v17 = v10[8];
-  v15(&a8[v17], 1, 1, v14);
-  v18 = v10[9];
-  v19 = type metadata accessor for TranscriptProtoGlobalToolIdentifier(0);
-  (*(*(v19 - 8) + 56))(&a8[v18], 1, 1, v19);
-  v20 = &a8[v10[10]];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a8 = a1;
-  *(a8 + 1) = a2;
-  sub_20E05EC5C(a3, &a8[v11], &qword_27C863FB8, &unk_20E325F60);
-  sub_20E05EC5C(a4, &a8[v13], &qword_27C8639D0, &unk_20E33C230);
-  sub_20E05EC5C(a5, &a8[v16], &qword_27C8639D0, &unk_20E33C230);
-  sub_20E05EC5C(a6, &a8[v17], &qword_27C8639D0, &unk_20E33C230);
-  return sub_20E05EC5C(a7, &a8[v18], &qword_27C8639C8, &unk_20E323870);
-}
-
-uint64_t TranscriptProtoCandidate.init(value:source:promptStatus:statementID:)@<X0>(uint64_t a1@<X0>, char *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, _BYTE *a5@<X8>)
-{
-  v9 = *a2;
-  v10 = type metadata accessor for TranscriptProtoCandidate(0);
-  v11 = v10[5];
-  v12 = type metadata accessor for ToolKitProtoTypedValue(0);
-  (*(*(v12 - 8) + 56))(&a5[v11], 1, 1, v12);
-  v13 = v10[6];
-  v14 = type metadata accessor for TranscriptProtoCandidatePromptStatus(0);
-  (*(*(v14 - 8) + 56))(&a5[v13], 1, 1, v14);
-  v15 = v10[7];
-  v16 = type metadata accessor for TranscriptProtoStatementID(0);
-  (*(*(v16 - 8) + 56))(&a5[v15], 1, 1, v16);
-  v17 = &a5[v10[8]];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  sub_20E05EC5C(a1, &a5[v11], &qword_27C863B18, &qword_20E323EB0);
-  *a5 = v9;
-  sub_20E05EC5C(a3, &a5[v13], &qword_27C863B20, &unk_20E33C290);
-  return sub_20E05EC5C(a4, &a5[v15], &qword_27C8639D0, &unk_20E33C230);
-}
-
-uint64_t static TranscriptProtoCandidatePromptStatusEnum.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 8);
-  v3 = (*a1 == *a2) & ~v2;
-  if (*a2)
-  {
-    v4 = *(a2 + 8);
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  if (*a2)
-  {
-    v2 = 0;
-  }
-
-  if (*a1)
-  {
-    v5 = v4;
-  }
-
-  else
-  {
-    v5 = v2;
-  }
-
-  if (*(a1 + 8) == 1)
-  {
-    return v5;
-  }
-
-  else
-  {
-    return v3;
-  }
-}
-
-uint64_t TranscriptProtoClientAction.shimParameters.setter(uint64_t a1)
-{
-  v3 = *(v1 + 24);
-
-  *(v1 + 24) = a1;
-  return result;
-}
-
-uint64_t TranscriptProtoClientAction.clientQueryID.getter()
-{
-  v1 = *(v0 + 32);
-  v2 = *(v0 + 40);
-
-  return v1;
-}
-
-uint64_t TranscriptProtoClientAction.clientQueryID.setter(uint64_t a1, uint64_t a2)
-{
-  v5 = *(v2 + 40);
-
-  *(v2 + 32) = a1;
-  *(v2 + 40) = a2;
-  return result;
-}
-
-uint64_t TranscriptProtoClientAction.planEventID.getter()
-{
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 56);
-
-  return v1;
-}
-
-uint64_t TranscriptProtoClientAction.planEventID.setter(uint64_t a1, uint64_t a2)
-{
-  v5 = *(v2 + 56);
-
-  *(v2 + 48) = a1;
-  *(v2 + 56) = a2;
-  return result;
-}
-
-uint64_t TranscriptProtoClientAction.init(toolID:parameters:clientQueryID:planEventID:statementID:shimParameters:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, char *a9@<X8>, uint64_t a10)
-{
-  v18 = type metadata accessor for TranscriptProtoClientAction(0);
-  v19 = *(v18 + 36);
-  v20 = type metadata accessor for TranscriptProtoStatementID(0);
-  (*(*(v20 - 8) + 56))(&a9[v19], 1, 1, v20);
-  v21 = &a9[*(v18 + 40)];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a9 = a1;
-  *(a9 + 1) = a2;
-  *(a9 + 2) = a3;
-  *(a9 + 4) = a4;
-  *(a9 + 5) = a5;
-  *(a9 + 6) = a6;
-  *(a9 + 7) = a7;
-  result = sub_20E05EC5C(a8, &a9[v19], &qword_27C8639D0, &unk_20E33C230);
-  *(a9 + 3) = a10;
-  return result;
-}
-
-uint64_t TranscriptProtoPersonQuery.name.getter()
-{
-  v1 = *(v0 + 8);
-  v2 = *(v0 + 16);
-
-  return v1;
-}
-
-uint64_t TranscriptProtoPersonQuery.name.setter(uint64_t a1, uint64_t a2)
-{
-  v5 = *(v2 + 16);
-
-  *(v2 + 8) = a1;
-  *(v2 + 16) = a2;
-  return result;
-}
-
-uint64_t sub_20E1C3C24(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_20E195A50();
-
-  return MEMORY[0x28217E238](a1, a2, v4);
-}
-
-uint64_t TranscriptProtoPersonQuery.Handle.init(kind:)@<X0>(char *a1@<X0>, _BYTE *a2@<X8>)
-{
-  v3 = *a1;
-  *a2 = 3;
-  v4 = &a2[*(type metadata accessor for TranscriptProtoPersonQuery.Handle(0) + 20)];
-  result = _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a2 = v3;
-  return result;
-}
-
-uint64_t TranscriptProtoPersonQuery.init(name:handle:isMe:id:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
-{
-  v14 = type metadata accessor for TranscriptProtoPersonQuery(0);
-  v15 = v14[6];
-  v16 = type metadata accessor for TranscriptProtoPersonQuery.Handle(0);
-  (*(*(v16 - 8) + 56))(a7 + v15, 1, 1, v16);
-  v17 = v14[8];
-  v18 = (a7 + v14[7]);
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *(a7 + 8) = a1;
-  *(a7 + 16) = a2;
-  result = sub_20E05EC5C(a3, a7 + v15, &qword_27C868600, &unk_20E33C2A0);
-  *a7 = a4;
-  *v18 = a5;
-  v18[1] = a6;
-  return result;
-}
-
-uint64_t sub_20E1C3DFC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t (*a4)(void)@<X3>, void *a5@<X8>)
-{
-  v9 = a5 + *(a4(0) + 24);
-  result = _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  a5[1] = a1;
-  a5[2] = a2;
-  *a5 = a3;
-  return result;
-}
-
-uint64_t TranscriptProtoActionParameterContext.init(statementID:parameterID:tool:actionClass:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, char *a5@<X4>, uint64_t a6@<X8>)
-{
-  v11 = *a5;
-  v12 = type metadata accessor for TranscriptProtoActionParameterContext(0);
-  v13 = v12[6];
-  v14 = type metadata accessor for TranscriptProtoStatementID(0);
-  (*(*(v14 - 8) + 56))(a6 + v13, 1, 1, v14);
-  v15 = v12[7];
-  v16 = type metadata accessor for TranscriptProtoGlobalToolIdentifier(0);
-  (*(*(v16 - 8) + 56))(a6 + v15, 1, 1, v16);
-  v17 = a6 + v12[8];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  sub_20E05EC5C(a1, a6 + v13, &qword_27C8639D0, &unk_20E33C230);
-  *a6 = a2;
-  *(a6 + 8) = a3;
-  result = sub_20E05EC5C(a4, a6 + v15, &qword_27C8639C8, &unk_20E323870);
-  *(a6 + 16) = v11;
-  return result;
-}
-
-uint64_t sub_20E1C414C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t (*a4)(void)@<X3>, void *a5@<X8>)
-{
-  v9 = a5 + *(a4(0) + 24);
-  result = _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a5 = a1;
-  a5[1] = a2;
-  a5[2] = a3;
-  return result;
-}
-
-uint64_t TranscriptProtoSystemRequirementUserLocationForSystemRequest.minimumViableLocationAccuracy.getter()
-{
-  result = *(v0 + 8);
-  v2 = *(v0 + 16);
-  return result;
-}
-
-uint64_t TranscriptProtoSystemRequirementUserLocationForSystemRequest.minimumViableLocationAccuracy.setter(uint64_t result, char a2)
-{
-  *(v2 + 8) = result;
-  *(v2 + 16) = a2 & 1;
-  return result;
-}
-
-uint64_t TranscriptProtoSystemRequirementUserLocationForSystemRequest.timeoutForLocationFetch.getter()
-{
-  result = *(v0 + 24);
-  v2 = *(v0 + 32);
-  return result;
-}
-
-uint64_t TranscriptProtoSystemRequirementUserLocationForSystemRequest.timeoutForLocationFetch.setter(uint64_t result, char a2)
-{
-  *(v2 + 24) = result;
-  *(v2 + 32) = a2 & 1;
-  return result;
-}
-
-uint64_t TranscriptProtoSystemRequirementUserLocationForSystemRequest.init(isPreciseLocationRequired:minimumViableLocationAccuracy:timeoutForLocationFetch:)@<X0>(char a1@<W0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, char a5@<W4>, uint64_t a6@<X8>)
-{
-  v12 = a6 + *(type metadata accessor for TranscriptProtoSystemRequirementUserLocationForSystemRequest(0) + 28);
-  result = _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a6 = a1;
-  *(a6 + 8) = a2;
-  *(a6 + 16) = a3 & 1;
-  *(a6 + 24) = a4;
-  *(a6 + 32) = a5 & 1;
-  return result;
-}
-
-uint64_t TranscriptProtoActionFailure.init(failure:concludesStreamingStatementID:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v6 = type metadata accessor for TranscriptProtoActionFailureFailure(0);
-  (*(*(v6 - 8) + 56))(a3, 1, 1, v6);
-  v7 = type metadata accessor for TranscriptProtoActionFailure(0);
-  v8 = *(v7 + 20);
-  v9 = type metadata accessor for TranscriptProtoStatementID(0);
-  (*(*(v9 - 8) + 56))(a3 + v8, 1, 1, v9);
-  v10 = a3 + *(v7 + 24);
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  sub_20E05EC5C(a1, a3, &qword_27C868560, &unk_20E33C2E0);
-  return sub_20E05EC5C(a2, a3 + v8, &qword_27C8639D0, &unk_20E33C230);
-}
-
-uint64_t TranscriptProtoActionSuccess.inAppSearchString.getter()
-{
-  v1 = (v0 + *(type metadata accessor for TranscriptProtoActionSuccess(0) + 36));
-  v2 = *v1;
-  v3 = v1[1];
-
-  return v2;
-}
-
-uint64_t TranscriptProtoActionSuccess.inAppSearchString.setter(uint64_t a1, uint64_t a2)
-{
-  v5 = (v2 + *(type metadata accessor for TranscriptProtoActionSuccess(0) + 36));
-  v6 = v5[1];
-
-  *v5 = a1;
-  v5[1] = a2;
-  return result;
-}
-
-uint64_t TranscriptProtoActionSuccess.init(returnValue:undoContext:didShowInAppResult:followUpAction:shouldOpen:inAppSearchString:concludesStreamingStatementID:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, char a5@<W4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, _BYTE *a9@<X8>)
-{
-  v13 = type metadata accessor for TranscriptProtoActionSuccess(0);
-  v14 = v13[6];
-  v15 = type metadata accessor for ToolKitProtoTypedValue(0);
-  (*(*(v15 - 8) + 56))(&a9[v14], 1, 1, v15);
-  v16 = v13[7];
-  v17 = type metadata accessor for TranscriptProtoUndoContext(0);
-  (*(*(v17 - 8) + 56))(&a9[v16], 1, 1, v17);
-  v18 = v13[8];
-  v19 = type metadata accessor for TranscriptProtoFollowUpAction(0);
-  (*(*(v19 - 8) + 56))(&a9[v18], 1, 1, v19);
-  v20 = v13[10];
-  v21 = &a9[v13[9]];
-  v22 = type metadata accessor for TranscriptProtoStatementID(0);
-  (*(*(v22 - 8) + 56))(&a9[v20], 1, 1, v22);
-  v23 = &a9[v13[11]];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  sub_20E05EC5C(a1, &a9[v14], &qword_27C863B18, &qword_20E323EB0);
-  sub_20E05EC5C(a2, &a9[v16], &qword_27C868538, &unk_20E33C2F0);
-  *a9 = a3;
-  sub_20E05EC5C(a4, &a9[v18], &qword_27C868528, &qword_20E33B558);
-  a9[1] = a5;
-  *v21 = a6;
-  v21[1] = a7;
-  return sub_20E05EC5C(a8, &a9[v20], &qword_27C8639D0, &unk_20E33C230);
-}
-
-uint64_t sub_20E1C5214@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void)@<X1>, uint64_t (*a3)(void)@<X2>, uint64_t *a4@<X3>, uint64_t *a5@<X4>, uint64_t a6@<X8>)
-{
-  v11 = a2(0);
-  (*(*(v11 - 8) + 56))(a6, 1, 1, v11);
-  v12 = a6 + *(a3(0) + 20);
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  return sub_20E05EC5C(a1, a6, a4, a5);
-}
-
-uint64_t TranscriptProtoFollowUpActionExecutableActionLinkAction.linkAction.getter()
-{
-  v1 = *(v0 + 16);
-  sub_20E05E834(v1, *(v0 + 24));
-  return v1;
-}
-
-uint64_t TranscriptProtoFollowUpActionExecutableActionLinkAction.linkAction.setter(uint64_t a1, uint64_t a2)
-{
-  result = sub_20E05E888(*(v2 + 16), *(v2 + 24));
-  *(v2 + 16) = a1;
-  *(v2 + 24) = a2;
-  return result;
-}
-
-uint64_t sub_20E1C556C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t (*a6)(void)@<X5>, void *a7@<X8>)
-{
-  v13 = a7 + *(a6(0) + 28);
-  result = _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a7 = a1;
-  a7[1] = a2;
-  a7[2] = a3;
-  a7[3] = a4;
-  a7[4] = a5;
-  return result;
-}
-
-uint64_t TranscriptProtoParameterConfirmation.init(parameterID:parameterIndex:item:ancestorValue:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
-{
-  v11 = type metadata accessor for TranscriptProtoParameterConfirmation(0);
-  v12 = v11[6];
-  v13 = type metadata accessor for ToolKitProtoTypedValue(0);
-  v14 = *(*(v13 - 8) + 56);
-  v14(a7 + v12, 1, 1, v13);
-  v15 = v11[7];
-  v14(a7 + v15, 1, 1, v13);
-  v16 = a7 + v11[8];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a7 = a1;
-  *(a7 + 8) = a2;
-  *(a7 + 16) = a3;
-  *(a7 + 24) = a4 & 1;
-  sub_20E05EC5C(a5, a7 + v12, &qword_27C863B18, &qword_20E323EB0);
-  return sub_20E05EC5C(a6, a7 + v15, &qword_27C863B18, &qword_20E323EB0);
-}
-
-uint64_t TranscriptProtoParameterDisambiguation.init(parameterID:parameterIndex:items:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
-{
-  v12 = a6 + *(type metadata accessor for TranscriptProtoParameterDisambiguation(0) + 28);
-  result = _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a6 = a1;
-  *(a6 + 8) = a2;
-  *(a6 + 32) = a4 & 1;
-  *(a6 + 16) = a5;
-  *(a6 + 24) = a3;
-  return result;
-}
-
-uint64_t TranscriptProtoParameterNeedsValue.init(parameterID:typeInstance:context:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, char *a5@<X8>)
-{
-  v10 = type metadata accessor for TranscriptProtoParameterNeedsValue(0);
-  v11 = v10[5];
-  v12 = type metadata accessor for ToolKitProtoTypeInstance(0);
-  (*(*(v12 - 8) + 56))(&a5[v11], 1, 1, v12);
-  v13 = v10[6];
-  v14 = type metadata accessor for TranscriptProtoParameterNeedsValueContext(0);
-  (*(*(v14 - 8) + 56))(&a5[v13], 1, 1, v14);
-  v15 = &a5[v10[7]];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a5 = a1;
-  *(a5 + 1) = a2;
-  sub_20E05EC5C(a3, &a5[v11], &qword_27C863C48, &qword_20E323F30);
-  return sub_20E05EC5C(a4, &a5[v13], &qword_27C868488, &unk_20E33C310);
-}
-
-uint64_t sub_20E1C5E1C(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_20E18478C();
-
-  return MEMORY[0x28217E238](a1, a2, v4);
-}
-
-uint64_t TranscriptProtoParameterNotAllowed.init(parameterID:value:reason:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char *a4@<X3>, uint64_t a5@<X8>)
-{
-  v9 = *a4;
-  v10 = type metadata accessor for TranscriptProtoParameterNotAllowed(0);
-  v11 = *(v10 + 24);
-  v12 = type metadata accessor for ToolKitProtoTypedValue(0);
-  (*(*(v12 - 8) + 56))(a5 + v11, 1, 1, v12);
-  v13 = a5 + *(v10 + 28);
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a5 = a1;
-  *(a5 + 8) = a2;
-  result = sub_20E05EC5C(a3, a5 + v11, &qword_27C863B18, &qword_20E323EB0);
-  *(a5 + 16) = v9;
-  return result;
-}
-
-uint64_t sub_20E1C6034@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t (*a4)(void)@<X3>, uint64_t (*a5)(void)@<X4>, uint64_t *a6@<X5>, uint64_t *a7@<X6>, char *a8@<X8>)
-{
-  v15 = a4(0);
-  v16 = *(v15 + 20);
-  v17 = a5(0);
-  (*(*(v17 - 8) + 56))(&a8[v16], 1, 1, v17);
-  v18 = &a8[*(v15 + 24)];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a8 = a1;
-  *(a8 + 1) = a2;
-  return sub_20E05EC5C(a3, &a8[v16], a6, a7);
-}
-
-uint64_t TranscriptProtoPlan.promptResponse.getter()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-
-  return v1;
-}
-
-uint64_t TranscriptProtoPlan.promptResponse.setter(uint64_t a1, uint64_t a2)
-{
-  v5 = *(v2 + 24);
-
-  *(v2 + 16) = a1;
-  *(v2 + 24) = a2;
-  return result;
-}
-
-uint64_t TranscriptProtoPlan.statements.setter(uint64_t a1)
-{
-  v3 = *(v1 + 32);
-
-  *(v1 + 32) = a1;
-  return result;
-}
-
-uint64_t TranscriptProtoPlan.overrideID.getter()
-{
-  v1 = *(v0 + 40);
-  v2 = *(v0 + 48);
-
-  return v1;
-}
-
-uint64_t TranscriptProtoPlan.overrideID.setter(uint64_t a1, uint64_t a2)
-{
-  v5 = *(v2 + 48);
-
-  *(v2 + 40) = a1;
-  *(v2 + 48) = a2;
-  return result;
-}
-
-uint64_t TranscriptProtoPlan.init(prompt:promptResponse:statements:overrideID:planSource:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, char *a8@<X7>, uint64_t a9@<X8>)
-{
-  v17 = *a8;
-  *(a9 + 56) = 6;
-  v18 = a9 + *(type metadata accessor for TranscriptProtoPlan(0) + 36);
-  result = _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a9 = a1;
-  *(a9 + 8) = a2;
-  *(a9 + 16) = a3;
-  *(a9 + 24) = a4;
-  *(a9 + 32) = a5;
-  *(a9 + 40) = a6;
-  *(a9 + 48) = a7;
-  *(a9 + 56) = v17;
-  return result;
-}
-
-uint64_t static TranscriptProtoRecoverableErrorEnum.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868448, &qword_20E33B498);
-  v5 = *(*(v4 - 8) + 64);
-  v6 = MEMORY[0x28223BE20](v4 - 8);
-  v8 = &v11 - v7;
-  v9 = *(v6 + 56);
-  sub_20E1E14FC(a1, &v11 - v7, type metadata accessor for TranscriptProtoRecoverableErrorEnum);
-  sub_20E1E14FC(a2, &v8[v9], type metadata accessor for TranscriptProtoRecoverableErrorEnum);
-  LOBYTE(a2) = _s23LighthouseDataProcessor34TranscriptProtoPlanGenerationErrorV2eeoiySbAC_ACtFZ_0(v8, &v8[v9]);
-  sub_20E1E1564(&v8[v9], type metadata accessor for TranscriptProtoPlanGenerationError);
-  sub_20E1E1564(v8, type metadata accessor for TranscriptProtoPlanGenerationError);
-  return a2 & 1;
-}
-
-uint64_t sub_20E1C654C(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868448, &qword_20E33B498);
-  v5 = *(*(v4 - 8) + 64);
-  v6 = MEMORY[0x28223BE20](v4 - 8);
-  v8 = &v11 - v7;
-  v9 = *(v6 + 56);
-  sub_20E1E14FC(a1, &v11 - v7, type metadata accessor for TranscriptProtoRecoverableErrorEnum);
-  sub_20E1E14FC(a2, &v8[v9], type metadata accessor for TranscriptProtoRecoverableErrorEnum);
-  LOBYTE(a2) = static TranscriptProtoPlanGenerationError.== infix(_:_:)(v8, &v8[v9]);
-  sub_20E1E1564(&v8[v9], type metadata accessor for TranscriptProtoPlanGenerationError);
-  sub_20E1E1564(v8, type metadata accessor for TranscriptProtoPlanGenerationError);
-  return a2 & 1;
-}
-
-uint64_t static TranscriptProtoPlanGenerationErrorEnum.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868428, &qword_20E33B480);
-  v5 = *(*(v4 - 8) + 64);
-  v6 = MEMORY[0x28223BE20](v4 - 8);
-  v8 = (&v11 - v7);
-  v9 = *(v6 + 56);
-  sub_20E1E14FC(a1, &v11 - v7, type metadata accessor for TranscriptProtoPlanGenerationErrorEnum);
-  sub_20E1E14FC(a2, v8 + v9, type metadata accessor for TranscriptProtoPlanGenerationErrorEnum);
-  LOBYTE(a2) = _s23LighthouseDataProcessor45TranscriptProtoPlanGenerationModelOutputErrorV2eeoiySbAC_ACtFZ_0(v8, (v8 + v9));
-  sub_20E1E1564(v8 + v9, type metadata accessor for TranscriptProtoPlanGenerationModelOutputError);
-  sub_20E1E1564(v8, type metadata accessor for TranscriptProtoPlanGenerationModelOutputError);
-  return a2 & 1;
-}
-
-uint64_t sub_20E1C67C0(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868428, &qword_20E33B480);
-  v5 = *(*(v4 - 8) + 64);
-  v6 = MEMORY[0x28223BE20](v4 - 8);
-  v8 = (&v11 - v7);
-  v9 = *(v6 + 56);
-  sub_20E1E14FC(a1, &v11 - v7, type metadata accessor for TranscriptProtoPlanGenerationErrorEnum);
-  sub_20E1E14FC(a2, v8 + v9, type metadata accessor for TranscriptProtoPlanGenerationErrorEnum);
-  LOBYTE(a2) = static TranscriptProtoPlanGenerationModelOutputError.== infix(_:_:)(v8, (v8 + v9));
-  sub_20E1E1564(v8 + v9, type metadata accessor for TranscriptProtoPlanGenerationModelOutputError);
-  sub_20E1E1564(v8, type metadata accessor for TranscriptProtoPlanGenerationModelOutputError);
-  return a2 & 1;
-}
-
-uint64_t TranscriptProtoPlanGenerationModelOutputError.init(rawModelOutput:prompt:error:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, char *a6@<X8>)
-{
-  v12 = type metadata accessor for TranscriptProtoPlanGenerationModelOutputError(0);
-  v13 = *(v12 + 24);
-  v14 = type metadata accessor for TranscriptProtoIntelligenceFlowError(0);
-  (*(*(v14 - 8) + 56))(&a6[v13], 1, 1, v14);
-  v15 = &a6[*(v12 + 28)];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a6 = a1;
-  *(a6 + 1) = a2;
-  *(a6 + 2) = a3;
-  *(a6 + 3) = a4;
-  return sub_20E05EC5C(a5, &a6[v13], &qword_27C868418, &unk_20E33C340);
-}
-
-uint64_t TranscriptProtoQueryStep.init(statementID:context:payload:isAuthenticated:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char a4@<W3>, _BYTE *a5@<X8>)
-{
-  Step = type metadata accessor for TranscriptProtoQueryStep(0);
-  v11 = Step[5];
-  v12 = type metadata accessor for TranscriptProtoStatementID(0);
-  (*(*(v12 - 8) + 56))(&a5[v11], 1, 1, v12);
-  v13 = Step[6];
-  v14 = type metadata accessor for TranscriptProtoActionParameterContext(0);
-  (*(*(v14 - 8) + 56))(&a5[v13], 1, 1, v14);
-  v15 = Step[7];
-  Payload = type metadata accessor for TranscriptProtoQueryPayload(0);
-  (*(*(Payload - 8) + 56))(&a5[v15], 1, 1, Payload);
-  v17 = &a5[Step[8]];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  sub_20E05EC5C(a1, &a5[v11], &qword_27C8639D0, &unk_20E33C230);
-  sub_20E05EC5C(a2, &a5[v13], &qword_27C863BC0, &unk_20E323E90);
-  result = sub_20E05EC5C(a3, &a5[v15], &qword_27C863BB0, &unk_20E33C350);
-  *a5 = a4;
-  return result;
-}
-
-uint64_t sub_20E1C6FB4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t (*a4)(void)@<X3>, uint64_t (*a5)(void)@<X4>, uint64_t *a6@<X5>, uint64_t *a7@<X6>, char *a8@<X8>)
-{
-  v15 = a4(0);
-  v16 = *(v15 + 20);
-  v17 = a5(0);
-  (*(*(v17 - 8) + 56))(&a8[v16], 1, 1, v17);
-  v18 = &a8[*(v15 + 24)];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  result = sub_20E05EC5C(a1, &a8[v16], a6, a7);
-  *a8 = a2;
-  *(a8 + 1) = a3;
-  return result;
-}
-
-uint64_t TranscriptProtoQueryStepResults.rawQueryEventID.getter()
-{
-  v1 = *(v0 + 8);
-  v2 = *(v0 + 16);
-
-  return v1;
-}
-
-uint64_t TranscriptProtoQueryStepResults.rawQueryEventID.setter(uint64_t a1, uint64_t a2)
-{
-  v5 = *(v2 + 16);
-
-  *(v2 + 8) = a1;
-  *(v2 + 16) = a2;
-  return result;
-}
-
-uint64_t TranscriptProtoQueryStepResults.init(queryResults:originStatementID:rawQueryEventID:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, char *a5@<X8>)
-{
-  StepResults = type metadata accessor for TranscriptProtoQueryStepResults(0);
-  v11 = *(StepResults + 24);
-  v12 = type metadata accessor for TranscriptProtoStatementID(0);
-  (*(*(v12 - 8) + 56))(&a5[v11], 1, 1, v12);
-  v13 = &a5[*(StepResults + 28)];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a5 = a1;
-  result = sub_20E05EC5C(a2, &a5[v11], &qword_27C8639D0, &unk_20E33C230);
-  *(a5 + 1) = a3;
-  *(a5 + 2) = a4;
-  return result;
-}
-
-uint64_t TranscriptProtoResponseDialog.fullSpeak.getter()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-
-  return v1;
-}
-
-uint64_t TranscriptProtoResponseDialog.fullSpeak.setter(uint64_t a1, uint64_t a2)
-{
-  v5 = *(v2 + 24);
-
-  *(v2 + 16) = a1;
-  *(v2 + 24) = a2;
-  return result;
-}
-
-uint64_t TranscriptProtoResponseDialog.init(fullPrint:fullSpeak:supportingPrint:supportingSpeak:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, void *a9@<X8>)
-{
-  v18 = a9 + *(type metadata accessor for TranscriptProtoResponseDialog(0) + 32);
-  result = _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a9 = a1;
-  a9[1] = a2;
-  a9[2] = a3;
-  a9[3] = a4;
-  a9[4] = a5;
-  a9[5] = a6;
-  a9[6] = a7;
-  a9[7] = a8;
-  return result;
-}
-
-uint64_t TranscriptProtoResponseOutput.dialogIdentifier.getter()
-{
-  v1 = (v0 + *(type metadata accessor for TranscriptProtoResponseOutput(0) + 44));
-  v2 = *v1;
-  v3 = v1[1];
-
-  return v2;
-}
-
-uint64_t TranscriptProtoResponseOutput.dialogIdentifier.setter(uint64_t a1, uint64_t a2)
-{
-  v5 = (v2 + *(type metadata accessor for TranscriptProtoResponseOutput(0) + 44));
-  v6 = v5[1];
-
-  *v5 = a1;
-  v5[1] = a2;
-  return result;
-}
-
-uint64_t TranscriptProtoResponseOutput.init(visualOutput:printedDialogOutput:spokenDialogOutput:responseType:resultStatementIds:options:attribution:dialogIdentifier:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10)
-{
-  v26 = *a4;
-  v14 = type metadata accessor for TranscriptProtoResponseOutput(0);
-  v15 = v14[7];
-  v16 = type metadata accessor for TranscriptProtoDialogType(0);
-  v17 = *(*(v16 - 8) + 56);
-  v17(a9 + v15, 1, 1, v16);
-  v18 = v14[8];
-  v17(a9 + v18, 1, 1, v16);
-  v19 = v14[9];
-  v20 = type metadata accessor for TranscriptProtoVisualOutputOptions(0);
-  (*(*(v20 - 8) + 56))(a9 + v19, 1, 1, v20);
-  v21 = v14[10];
-  v22 = type metadata accessor for TranscriptProtoVisualOutput(0);
-  (*(*(v22 - 8) + 56))(a9 + v21, 1, 1, v22);
-  v23 = v14[12];
-  v24 = (a9 + v14[11]);
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a9 = a1;
-  sub_20E05EC5C(a2, a9 + v15, &qword_27C8683B8, &qword_20E33B420);
-  sub_20E05EC5C(a3, a9 + v18, &qword_27C8683B8, &qword_20E33B420);
-  *(a9 + 8) = v26;
-  *(a9 + 16) = a5;
-  sub_20E05EC5C(a6, a9 + v19, &qword_27C8683A8, &unk_20E33C360);
-  result = sub_20E05EC5C(a7, a9 + v21, &qword_27C868398, &qword_20E33B408);
-  *v24 = a8;
-  v24[1] = a10;
-  return result;
-}
-
-uint64_t sub_20E1C7FA4(uint64_t (*a1)(void))
-{
-  v2 = (v1 + *(a1(0) + 32));
-  v3 = *v2;
-  v4 = v2[1];
-
-  return v3;
-}
-
-uint64_t sub_20E1C8004(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
-{
-  v6 = (v3 + *(a3(0) + 32));
-  v7 = v6[1];
-
-  *v6 = a1;
-  v6[1] = a2;
-  return result;
-}
-
-uint64_t TranscriptProtoResponseManifest.useTemplateAsFallback.setter(char a1)
-{
-  result = type metadata accessor for TranscriptProtoResponseManifest(0);
-  *(v1 + *(result + 36)) = a1;
-  return result;
-}
-
-uint64_t TranscriptProtoResponseManifest.dialogPresentationHint.getter@<X0>(_BYTE *a1@<X8>)
-{
-  result = type metadata accessor for TranscriptProtoResponseManifest(0);
-  *a1 = *(v1 + *(result + 40));
-  return result;
-}
-
-uint64_t TranscriptProtoResponseManifest.dialogPresentationHint.setter(char *a1)
-{
-  v2 = *a1;
-  result = type metadata accessor for TranscriptProtoResponseManifest(0);
-  *(v1 + *(result + 40)) = v2;
-  return result;
-}
-
-uint64_t TranscriptProtoResponseManifest.init(parameters:dialog:visual:templateID:templateLocation:useTemplateAsFallback:dialogPresentationHint:attribution:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, char a8@<W7>, char *a9@<X8>, char *a10, uint64_t a11)
-{
-  v28 = *a10;
-  v13 = type metadata accessor for TranscriptProtoResponseManifest(0);
-  v14 = v13[5];
-  v15 = type metadata accessor for TranscriptProtoResponseDialog(0);
-  (*(*(v15 - 8) + 56))(&a9[v14], 1, 1, v15);
-  v16 = v13[6];
-  v17 = type metadata accessor for TranscriptProtoResponseVisual(0);
-  (*(*(v17 - 8) + 56))(&a9[v16], 1, 1, v17);
-  v18 = &a9[v13[7]];
-  v19 = &a9[v13[8]];
-  v20 = v13[9];
-  v21 = v13[10];
-  a9[v21] = 2;
-  v22 = v13[11];
-  v23 = type metadata accessor for TranscriptProtoUIType(0);
-  (*(*(v23 - 8) + 56))(&a9[v22], 1, 1, v23);
-  v24 = &a9[v13[12]];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a9 = a1;
-  sub_20E05EC5C(a2, &a9[v14], &qword_27C868320, &unk_20E33C380);
-  sub_20E05EC5C(a3, &a9[v16], &qword_27C868310, &qword_20E33B390);
-  *v18 = a4;
-  *(v18 + 1) = a5;
-  *v19 = a6;
-  *(v19 + 1) = a7;
-  a9[v20] = a8;
-  a9[v21] = v28;
-  return sub_20E05EC5C(a11, &a9[v22], &qword_27C868300, &unk_20E33C390);
-}
-
-uint64_t TranscriptProtoResponseParameter.value.getter()
-{
-  v1 = *(v0 + 16);
-  sub_20E047C8C(v1, *(v0 + 24));
-  return v1;
-}
-
-uint64_t TranscriptProtoResponseParameter.value.setter(uint64_t a1, uint64_t a2)
-{
-  result = sub_20E047D10(*(v2 + 16), *(v2 + 24));
-  *(v2 + 16) = a1;
-  *(v2 + 24) = a2;
-  return result;
-}
-
-uint64_t TranscriptProtoResponseParameter.format.getter()
-{
-  v1 = *(v0 + 56);
-  v2 = *(v0 + 64);
-
-  return v1;
-}
-
-uint64_t TranscriptProtoResponseParameter.format.setter(uint64_t a1, uint64_t a2)
-{
-  v5 = *(v2 + 64);
-
-  *(v2 + 56) = a1;
-  *(v2 + 64) = a2;
-  return result;
-}
-
-uint64_t TranscriptProtoResponseParameter.init(key:value:type:required:format:profanityFilter:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, char a7@<W6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, char a11)
-{
-  *(a9 + 16) = xmmword_20E323EA0;
-  v19 = a9 + *(type metadata accessor for TranscriptProtoResponseParameter(0) + 40);
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a9 = a1;
-  *(a9 + 8) = a2;
-  result = sub_20E047D10(*(a9 + 16), *(a9 + 24));
-  *(a9 + 16) = a3;
-  *(a9 + 24) = a4;
-  *(a9 + 32) = a5;
-  *(a9 + 40) = a6;
-  *(a9 + 48) = a7;
-  *(a9 + 56) = a8;
-  *(a9 + 64) = a10;
-  *(a9 + 72) = a11;
-  return result;
-}
-
-uint64_t TranscriptProtoResponseVisual.init(views:labels:options:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char *a4@<X8>)
-{
-  v8 = type metadata accessor for TranscriptProtoResponseVisual(0);
-  v9 = *(v8 + 24);
-  v10 = type metadata accessor for TranscriptProtoResponseVisualOptions(0);
-  (*(*(v10 - 8) + 56))(&a4[v9], 1, 1, v10);
-  v11 = &a4[*(v8 + 28)];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a4 = a1;
-  *(a4 + 1) = a2;
-  return sub_20E05EC5C(a3, &a4[v9], &qword_27C8682E8, &qword_20E33B378);
-}
-
-uint64_t sub_20E1C8890@<X0>(char a1@<W0>, uint64_t (*a2)(void)@<X1>, _BYTE *a3@<X8>)
-{
-  v5 = &a3[*(a2(0) + 20)];
-  result = _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a3 = a1;
-  return result;
-}
-
-uint64_t sub_20E1C8A30@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t (*a5)(void)@<X4>, void *a6@<X8>)
-{
-  v11 = a6 + *(a5(0) + 24);
-  result = _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a6 = a1;
-  a6[1] = a2;
-  a6[2] = a3;
-  a6[3] = a4;
-  return result;
-}
-
-uint64_t TranscriptProtoArchiveViewPayload.init(viewData:containerBundleID:targetBundleID:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, void *a7@<X8>)
-{
-  v14 = a7 + *(type metadata accessor for TranscriptProtoArchiveViewPayload(0) + 28);
-  result = _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a7 = a1;
-  a7[1] = a2;
-  a7[2] = a3;
-  a7[3] = a4;
-  a7[4] = a5;
-  a7[5] = a6;
-  return result;
-}
-
-uint64_t TranscriptProtoControlPayload.controlMetadata.getter()
-{
-  v1 = *v0;
-  sub_20E05E834(*v0, *(v0 + 8));
-  return v1;
-}
-
-uint64_t TranscriptProtoControlPayload.controlMetadata.setter(uint64_t a1, uint64_t a2)
-{
-  result = sub_20E05E888(*v2, *(v2 + 8));
-  *v2 = a1;
-  *(v2 + 8) = a2;
-  return result;
-}
-
-uint64_t TranscriptProtoSystemPromptResolution.init(actionEventID:userAction:systemResponseEventID:statementID:input:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, char *a8@<X8>)
-{
-  v14 = type metadata accessor for TranscriptProtoSystemPromptResolution(0);
-  v15 = v14[6];
-  v16 = type metadata accessor for TranscriptProtoSystemPromptResolutionUserAction(0);
-  (*(*(v16 - 8) + 56))(&a8[v15], 1, 1, v16);
-  v17 = v14[7];
-  v18 = type metadata accessor for TranscriptProtoStatementID(0);
-  (*(*(v18 - 8) + 56))(&a8[v17], 1, 1, v18);
-  v19 = v14[8];
-  v20 = type metadata accessor for TranscriptProtoSystemPromptResolutionInput(0);
-  (*(*(v20 - 8) + 56))(&a8[v19], 1, 1, v20);
-  v21 = &a8[v14[9]];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *(a8 + 2) = a1;
-  *(a8 + 3) = a2;
-  sub_20E05EC5C(a3, &a8[v15], &qword_27C863F10, &unk_20E33C3B0);
-  *a8 = a4;
-  *(a8 + 1) = a5;
-  sub_20E05EC5C(a6, &a8[v17], &qword_27C8639D0, &unk_20E33C230);
-  return sub_20E05EC5C(a7, &a8[v19], &qword_27C863B80, &qword_20E323E70);
-}
-
-uint64_t TranscriptProtoActionResolverRequest.init(resolvedParameters:unresolvedParameterSets:isConfirmed:statementID:isAuthenticated:tool:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, char a5@<W4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
-{
-  v13 = type metadata accessor for TranscriptProtoActionResolverRequest(0);
-  v14 = v13[7];
-  v15 = type metadata accessor for TranscriptProtoParameterSet(0);
-  (*(*(v15 - 8) + 56))(a7 + v14, 1, 1, v15);
-  v16 = v13[8];
-  v17 = type metadata accessor for TranscriptProtoStatementID(0);
-  (*(*(v17 - 8) + 56))(a7 + v16, 1, 1, v17);
-  v18 = v13[9];
-  v19 = type metadata accessor for TranscriptProtoGlobalToolIdentifier(0);
-  (*(*(v19 - 8) + 56))(a7 + v18, 1, 1, v19);
-  v20 = a7 + v13[10];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  sub_20E05EC5C(a1, a7 + v14, &qword_27C863B30, &qword_20E323E58);
-  *a7 = a2;
-  *(a7 + 8) = a3;
-  sub_20E05EC5C(a4, a7 + v16, &qword_27C8639D0, &unk_20E33C230);
-  *(a7 + 9) = a5;
-  return sub_20E05EC5C(a6, a7 + v18, &qword_27C8639C8, &unk_20E323870);
-}
-
-uint64_t TranscriptProtoContextRetrieved.init(requiredContext:utteranceContext:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
-{
-  v6 = a3 + *(type metadata accessor for TranscriptProtoContextRetrieved(0) + 24);
-  result = _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a3 = a1;
-  a3[1] = a2;
-  return result;
-}
-
-uint64_t TranscriptProtoRetrievedContextStatement.init(statementID:retrievedContext:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v6 = type metadata accessor for TranscriptProtoStatementID(0);
-  (*(*(v6 - 8) + 56))(a3, 1, 1, v6);
-  v7 = type metadata accessor for TranscriptProtoRetrievedContextStatement(0);
-  v8 = *(v7 + 20);
-  v9 = type metadata accessor for ContextProtoRetrievedContext(0);
-  (*(*(v9 - 8) + 56))(a3 + v8, 1, 1, v9);
-  v10 = a3 + *(v7 + 24);
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  sub_20E05EC5C(a1, a3, &qword_27C8639D0, &unk_20E33C230);
-  return sub_20E05EC5C(a2, a3 + v8, &qword_27C868260, &unk_20E33C3D0);
-}
-
-uint64_t TranscriptProtoDynamicEnumerationEntityStatement.init(statementID:dynamicEnumerationEntity:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v6 = type metadata accessor for TranscriptProtoStatementID(0);
-  (*(*(v6 - 8) + 56))(a3, 1, 1, v6);
-  v7 = type metadata accessor for TranscriptProtoDynamicEnumerationEntityStatement(0);
-  v8 = *(v7 + 20);
-  v9 = type metadata accessor for ContextProtoDynamicEnumerationEntity(0);
-  (*(*(v9 - 8) + 56))(a3 + v8, 1, 1, v9);
-  v10 = a3 + *(v7 + 24);
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  sub_20E05EC5C(a1, a3, &qword_27C8639D0, &unk_20E33C230);
-  return sub_20E05EC5C(a2, a3 + v8, &qword_27C867FA8, &qword_20E33B078);
-}
-
-uint64_t TranscriptProtoParameter.collectionIndex.getter()
-{
-  result = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return result;
-}
-
-uint64_t TranscriptProtoParameter.collectionIndex.setter(uint64_t result, char a2)
-{
-  *(v2 + 16) = result;
-  *(v2 + 24) = a2 & 1;
-  return result;
-}
-
-uint64_t TranscriptProtoParameter.init(key:collectionIndex:candidate:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
-{
-  v12 = type metadata accessor for TranscriptProtoParameter(0);
-  v13 = *(v12 + 24);
-  v14 = type metadata accessor for TranscriptProtoCandidate(0);
-  (*(*(v14 - 8) + 56))(a6 + v13, 1, 1, v14);
-  v15 = a6 + *(v12 + 28);
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a6 = a1;
-  *(a6 + 8) = a2;
-  *(a6 + 16) = a3;
-  *(a6 + 24) = a4 & 1;
-  return sub_20E05EC5C(a5, a6 + v13, &qword_27C863B28, &unk_20E33C3E0);
-}
-
-uint64_t sub_20E1C9CB4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t (*a3)(void)@<X2>, uint64_t (*a4)(void)@<X3>, uint64_t *a5@<X4>, uint64_t *a6@<X5>, char *a7@<X8>)
-{
-  v13 = a3(0);
-  v14 = *(v13 + 20);
-  v15 = a4(0);
-  (*(*(v15 - 8) + 56))(&a7[v14], 1, 1, v15);
-  v16 = &a7[*(v13 + 24)];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  result = sub_20E05EC5C(a1, &a7[v14], a5, a6);
-  *a7 = a2;
-  return result;
-}
-
-uint64_t sub_20E1C9E70@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t (*a3)(void)@<X2>, uint64_t (*a4)(void)@<X3>, uint64_t *a5@<X4>, uint64_t *a6@<X5>, char *a7@<X8>)
-{
-  v13 = a3(0);
-  v14 = *(v13 + 20);
-  v15 = a4(0);
-  (*(*(v15 - 8) + 56))(&a7[v14], 1, 1, v15);
-  v16 = &a7[*(v13 + 24)];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a7 = a1;
-  return sub_20E05EC5C(a2, &a7[v14], a5, a6);
-}
-
-void TranscriptProtoASTPickType.astpickTypeValues.getter(uint64_t a1@<X8>)
-{
-  v2 = *(v1 + 8);
-  *a1 = *v1;
-  *(a1 + 8) = v2;
-}
-
-uint64_t TranscriptProtoASTPickType.astpickTypeValues.setter(uint64_t result)
-{
-  v2 = *(result + 8);
-  *v1 = *result;
-  *(v1 + 8) = v2;
-  return result;
-}
-
-uint64_t static TranscriptProtoAstpickTypeEnum.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v2 = *a2 ^ *a1 ^ 1;
-  if ((*(a2 + 8) & 1) == 0)
-  {
-    LOBYTE(v2) = 0;
-  }
-
-  if (*(a1 + 8) != 1)
-  {
-    LOBYTE(v2) = (*a1 == *a2) & ~*(a2 + 8);
-  }
-
-  return v2 & 1;
-}
-
-uint64_t sub_20E1CA220(uint64_t a1, uint64_t a2)
-{
-  v2 = *a2 ^ *a1 ^ 1;
-  if ((*(a2 + 8) & 1) == 0)
-  {
-    LOBYTE(v2) = 0;
-  }
-
-  if (*(a1 + 8) != 1)
-  {
-    LOBYTE(v2) = (*a1 == *a2) & ~*(a2 + 8);
-  }
-
-  return v2 & 1;
-}
-
-uint64_t sub_20E1CA2D4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, char a4@<W3>, uint64_t (*a5)(void)@<X4>, uint64_t a6@<X8>)
-{
-  v11 = a6 + *(a5(0) + 28);
-  result = _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a6 = a1;
-  *(a6 + 8) = a2;
-  *(a6 + 16) = a3;
-  *(a6 + 17) = a4;
-  return result;
-}
-
-uint64_t TranscriptProtoASTFlatExprUpdateVariant.init(lhs:path:value:kind:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char *a4@<X3>, uint64_t a5@<X8>)
-{
-  v16 = *a4;
-  updated = type metadata accessor for TranscriptProtoASTFlatExprUpdateVariant(0);
-  v10 = updated[6];
-  v11 = type metadata accessor for TranscriptProtoASTFlatValue(0);
-  v12 = *(*(v11 - 8) + 56);
-  v12(a5 + v10, 1, 1, v11);
-  v13 = updated[7];
-  v12(a5 + v13, 1, 1, v11);
-  v14 = a5 + updated[8];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  sub_20E05EC5C(a1, a5 + v10, &qword_27C868048, &qword_20E33B0F0);
-  *a5 = a2;
-  result = sub_20E05EC5C(a3, a5 + v13, &qword_27C868048, &qword_20E33B0F0);
-  *(a5 + 8) = v16;
-  return result;
-}
-
-uint64_t sub_20E1CAA44@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t (*a3)(void)@<X2>, uint64_t (*a4)(void)@<X3>, uint64_t *a5@<X4>, uint64_t *a6@<X5>, uint64_t a7@<X8>)
-{
-  v13 = a3(0);
-  v14 = *(*(v13 - 8) + 56);
-  v14(a7, 1, 1, v13);
-  v15 = a4(0);
-  v16 = *(v15 + 20);
-  v14(a7 + v16, 1, 1, v13);
-  v17 = a7 + *(v15 + 24);
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  sub_20E05EC5C(a1, a7, a5, a6);
-  return sub_20E05EC5C(a2, a7 + v16, a5, a6);
-}
-
-uint64_t sub_20E1CB0EC@<X0>(char *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t (*a4)(void)@<X3>, uint64_t (*a5)(void)@<X4>, uint64_t *a6@<X5>, uint64_t *a7@<X6>, _BYTE *a8@<X8>)
-{
-  v12 = *a1;
-  v13 = a4(0);
-  v14 = v13[5];
-  v15 = a5(0);
-  v16 = *(*(v15 - 8) + 56);
-  v16(&a8[v14], 1, 1, v15);
-  v17 = v13[6];
-  v16(&a8[v17], 1, 1, v15);
-  v18 = &a8[v13[7]];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a8 = v12;
-  sub_20E05EC5C(a2, &a8[v14], a6, a7);
-  return sub_20E05EC5C(a3, &a8[v17], a6, a7);
-}
-
-uint64_t sub_20E1CB2F0@<X0>(char *a1@<X0>, uint64_t a2@<X1>, uint64_t (*a3)(void)@<X2>, uint64_t (*a4)(void)@<X3>, uint64_t *a5@<X4>, uint64_t *a6@<X5>, _BYTE *a7@<X8>)
-{
-  v12 = *a1;
-  v13 = a3(0);
-  v14 = *(v13 + 20);
-  v15 = a4(0);
-  (*(*(v15 - 8) + 56))(&a7[v14], 1, 1, v15);
-  v16 = &a7[*(v13 + 24)];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a7 = v12;
-  return sub_20E05EC5C(a2, &a7[v14], a5, a6);
-}
-
-uint64_t TranscriptProtoUpdateParameterExpression_UpdateParameter.parameterIndex.getter()
-{
-  v1 = (v0 + *(type metadata accessor for TranscriptProtoUpdateParameterExpression_UpdateParameter(0) + 28));
-  result = *v1;
-  v3 = *(v1 + 8);
-  return result;
-}
-
-uint64_t TranscriptProtoUpdateParameterExpression_UpdateParameter.parameterIndex.setter(uint64_t a1, char a2)
-{
-  result = type metadata accessor for TranscriptProtoUpdateParameterExpression_UpdateParameter(0);
-  v6 = v2 + *(result + 28);
-  *v6 = a1;
-  *(v6 + 8) = a2 & 1;
-  return result;
-}
-
-uint64_t TranscriptProtoUpdateParameterExpression_UpdateParameter.init(parameterID:kind:value:parameterIndex:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, char a6@<W5>, uint64_t a7@<X8>)
-{
-  v13 = *a3;
-  updated = type metadata accessor for TranscriptProtoUpdateParameterExpression_UpdateParameter(0);
-  v15 = updated[6];
-  v16 = type metadata accessor for TranscriptProtoStatementID(0);
-  (*(*(v16 - 8) + 56))(a7 + v15, 1, 1, v16);
-  v17 = updated[8];
-  v18 = a7 + updated[7];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a7 = a1;
-  *(a7 + 8) = a2;
-  *(a7 + 16) = v13;
-  result = sub_20E05EC5C(a4, a7 + v15, &qword_27C8639D0, &unk_20E33C230);
-  *v18 = a5;
-  *(v18 + 8) = a6 & 1;
-  return result;
-}
-
-uint64_t TranscriptProtoGlobalToolIdentifier.init(toolID:deviceIdsID:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
-{
-  v10 = a5 + *(type metadata accessor for TranscriptProtoGlobalToolIdentifier(0) + 24);
-  result = _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a5 = a1;
-  a5[1] = a2;
-  a5[2] = a3;
-  a5[3] = a4;
-  return result;
-}
-
-uint64_t TranscriptProtoSearchExpression.init(query:isLowConfidenceKnowledge:pickOne:shouldOpenResultIfApplicable:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, char a4@<W3>, char a5@<W4>, uint64_t a6@<X8>)
-{
-  v12 = a6 + *(type metadata accessor for TranscriptProtoSearchExpression(0) + 32);
-  result = _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a6 = a1;
-  *(a6 + 8) = a2;
-  *(a6 + 16) = a3;
-  *(a6 + 17) = a4;
-  *(a6 + 18) = a5;
-  return result;
-}
-
-uint64_t TranscriptProtoStructuredSearchExpression.StructuredSearchProperty.init(name:type:previousAnswerReference:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, char *a6@<X8>)
-{
-  v12 = type metadata accessor for TranscriptProtoStructuredSearchExpression.StructuredSearchProperty(0);
-  v13 = *(v12 + 24);
-  v14 = type metadata accessor for TranscriptProtoStatementID(0);
-  (*(*(v14 - 8) + 56))(&a6[v13], 1, 1, v14);
-  v15 = &a6[*(v12 + 28)];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a6 = a1;
-  *(a6 + 1) = a2;
-  *(a6 + 2) = a3;
-  *(a6 + 3) = a4;
-  return sub_20E05EC5C(a5, &a6[v13], &qword_27C8639D0, &unk_20E33C230);
-}
-
-uint64_t TranscriptProtoStructuredSearchExpression.init(parameters:returnType:properties:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char *a4@<X8>)
-{
-  v8 = type metadata accessor for TranscriptProtoStructuredSearchExpression(0);
-  v9 = *(v8 + 24);
-  v10 = type metadata accessor for ToolKitProtoTypeInstance(0);
-  (*(*(v10 - 8) + 56))(&a4[v9], 1, 1, v10);
-  v11 = &a4[*(v8 + 28)];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a4 = a1;
-  result = sub_20E05EC5C(a2, &a4[v9], &qword_27C863C48, &qword_20E323F30);
-  *(a4 + 1) = a3;
-  return result;
-}
-
-uint64_t TranscriptProtoUserConfirmExpression.init(promptForUser:confirmOption:dismissOption:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v8 = type metadata accessor for TranscriptProtoStatementID(0);
-  v9 = *(*(v8 - 8) + 56);
-  v9(a4, 1, 1, v8);
-  v10 = type metadata accessor for TranscriptProtoUserConfirmExpression(0);
-  v11 = v10[5];
-  v9(a4 + v11, 1, 1, v8);
-  v12 = v10[6];
-  v9(a4 + v12, 1, 1, v8);
-  v13 = a4 + v10[7];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  sub_20E05EC5C(a1, a4, &qword_27C8639D0, &unk_20E33C230);
-  sub_20E05EC5C(a2, a4 + v11, &qword_27C8639D0, &unk_20E33C230);
-  return sub_20E05EC5C(a3, a4 + v12, &qword_27C8639D0, &unk_20E33C230);
-}
-
-uint64_t static TranscriptProtoToolParameterValueEnum.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868028, &qword_20E33B0D8);
-  v5 = *(*(v4 - 8) + 64);
-  v6 = MEMORY[0x28223BE20](v4 - 8);
-  v8 = (&v11 - v7);
-  v9 = *(v6 + 56);
-  sub_20E1E14FC(a1, &v11 - v7, type metadata accessor for TranscriptProtoToolParameterValueEnum);
-  sub_20E1E14FC(a2, v8 + v9, type metadata accessor for TranscriptProtoToolParameterValueEnum);
-  LOBYTE(a2) = sub_20E2EC4C4(v8, (v8 + v9));
-  sub_20E1E1564(v8 + v9, type metadata accessor for ToolKitProtoTypedValue);
-  sub_20E1E1564(v8, type metadata accessor for ToolKitProtoTypedValue);
-  return a2 & 1;
-}
-
-uint64_t sub_20E1CC7B8(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868028, &qword_20E33B0D8);
-  v5 = *(*(v4 - 8) + 64);
-  v6 = MEMORY[0x28223BE20](v4 - 8);
-  v8 = (&v11 - v7);
-  v9 = *(v6 + 56);
-  sub_20E1E14FC(a1, &v11 - v7, type metadata accessor for TranscriptProtoToolParameterValueEnum);
-  sub_20E1E14FC(a2, v8 + v9, type metadata accessor for TranscriptProtoToolParameterValueEnum);
-  LOBYTE(a2) = static ToolKitProtoTypedValue.== infix(_:_:)(v8, (v8 + v9));
-  sub_20E1E1564(v8 + v9, type metadata accessor for ToolKitProtoTypedValue);
-  sub_20E1E1564(v8, type metadata accessor for ToolKitProtoTypedValue);
-  return a2 & 1;
-}
-
-uint64_t TranscriptProtoSpanMatchedEntityStatement.init(statementID:entity:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v6 = type metadata accessor for TranscriptProtoStatementID(0);
-  (*(*(v6 - 8) + 56))(a3, 1, 1, v6);
-  v7 = type metadata accessor for TranscriptProtoSpanMatchedEntityStatement(0);
-  v8 = *(v7 + 20);
-  v9 = type metadata accessor for ContextProtoSpanMatchedEntity(0);
-  (*(*(v9 - 8) + 56))(a3 + v8, 1, 1, v9);
-  v10 = a3 + *(v7 + 24);
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  sub_20E05EC5C(a1, a3, &qword_27C8639D0, &unk_20E33C230);
-  return sub_20E05EC5C(a2, a3 + v8, &qword_27C868018, &unk_20E33C430);
-}
-
-uint64_t TranscriptProtoToolRetrievalResponse.retrievedTools.setter(uint64_t a1)
-{
-  v3 = *(v1 + 40);
-
-  *(v1 + 40) = a1;
-  return result;
-}
-
-uint64_t TranscriptProtoToolRetrievalResponse.types.setter(uint64_t a1)
-{
-  v3 = *(v1 + 48);
-
-  *(v1 + 48) = a1;
-  return result;
-}
-
-uint64_t TranscriptProtoToolRetrievalResponse.init(originalSubQuery:rewrittenQuery:confidence:retrievedTools:types:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>, float a8@<S0>)
-{
-  v16 = a7 + *(type metadata accessor for TranscriptProtoToolRetrievalResponse(0) + 36);
-  result = _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a7 = a1;
-  *(a7 + 8) = a2;
-  *(a7 + 16) = a3;
-  *(a7 + 24) = a4;
-  *(a7 + 32) = a8;
-  *(a7 + 40) = a5;
-  *(a7 + 48) = a6;
-  return result;
-}
-
-uint64_t TranscriptProtoSystemResponse.clientQueryID.getter()
-{
-  v1 = (v0 + *(type metadata accessor for TranscriptProtoSystemResponse(0) + 24));
-  v2 = *v1;
-  v3 = v1[1];
-
-  return v2;
-}
-
-uint64_t TranscriptProtoSystemResponse.clientQueryID.setter(uint64_t a1, uint64_t a2)
-{
-  v5 = (v2 + *(type metadata accessor for TranscriptProtoSystemResponse(0) + 24));
-  v6 = v5[1];
-
-  *v5 = a1;
-  v5[1] = a2;
-  return result;
-}
-
-uint64_t TranscriptProtoSystemResponse.init(responseOutput:clientQueryID:interpretedStatementResults:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, char *a5@<X8>)
-{
-  v10 = type metadata accessor for TranscriptProtoSystemResponse(0);
-  v11 = v10[5];
-  v12 = type metadata accessor for TranscriptProtoResponseOutput(0);
-  (*(*(v12 - 8) + 56))(&a5[v11], 1, 1, v12);
-  v13 = v10[7];
-  v14 = &a5[v10[6]];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  result = sub_20E05EC5C(a1, &a5[v11], &qword_27C868008, &qword_20E33B0C0);
-  *v14 = a2;
-  *(v14 + 1) = a3;
-  *a5 = a4;
-  return result;
-}
-
-uint64_t TranscriptProtoInterpretedStatementResult.init(outcome:resultStatementID:originProgramStatementID:actionEventID:toolID:originTaskStatementID:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
-{
-  v11 = type metadata accessor for TranscriptProtoStatementOutcome(0);
-  (*(*(v11 - 8) + 56))(a9, 1, 1, v11);
-  v12 = type metadata accessor for TranscriptProtoInterpretedStatementResult(0);
-  v13 = v12[5];
-  v22 = v13;
-  v14 = type metadata accessor for TranscriptProtoStatementID(0);
-  v15 = *(*(v14 - 8) + 56);
-  v15(a9 + v13, 1, 1, v14);
-  v16 = v12[6];
-  v15(a9 + v16, 1, 1, v14);
-  v17 = (a9 + v12[7]);
-  v18 = (a9 + v12[8]);
-  v19 = v12[9];
-  v15(a9 + v19, 1, 1, v14);
-  v20 = a9 + v12[10];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  sub_20E05EC5C(a1, a9, &qword_27C863BA8, &unk_20E345F00);
-  sub_20E05EC5C(a2, a9 + v22, &qword_27C8639D0, &unk_20E33C230);
-  sub_20E05EC5C(a3, a9 + v16, &qword_27C8639D0, &unk_20E33C230);
-  *v17 = a4;
-  v17[1] = a5;
-  *v18 = a6;
-  v18[1] = a7;
-  return sub_20E05EC5C(a8, a9 + v19, &qword_27C8639D0, &unk_20E33C230);
-}
-
-uint64_t TranscriptProtoProgramStatement.isRoot.setter(char a1)
-{
-  result = type metadata accessor for TranscriptProtoProgramStatement(0);
-  *(v1 + *(result + 24)) = a1;
-  return result;
-}
-
-uint64_t TranscriptProtoProgramStatement.isExpanded.setter(char a1)
-{
-  result = type metadata accessor for TranscriptProtoProgramStatement(0);
-  *(v1 + *(result + 28)) = a1;
-  return result;
-}
-
-uint64_t TranscriptProtoProgramStatement.canonicalIndex.setter(uint64_t a1)
-{
-  result = type metadata accessor for TranscriptProtoProgramStatement(0);
-  v4 = v1 + *(result + 32);
-  *v4 = a1;
-  *(v4 + 4) = BYTE4(a1) & 1;
-  return result;
-}
-
-uint64_t TranscriptProtoProgramStatement.init(id:expression:isRoot:isExpanded:canonicalIndex:executionSupportType:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, char a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
-{
-  v11 = type metadata accessor for TranscriptProtoStatementID(0);
-  (*(*(v11 - 8) + 56))(a7, 1, 1, v11);
-  v12 = type metadata accessor for TranscriptProtoProgramStatement(0);
-  v13 = v12[5];
-  v14 = type metadata accessor for TranscriptProtoExpression(0);
-  (*(*(v14 - 8) + 56))(a7 + v13, 1, 1, v14);
-  v16 = v12[6];
-  v15 = v12[7];
-  v17 = v12[9];
-  v18 = a7 + v12[8];
-  v19 = type metadata accessor for TranscriptProtoProgramStatement.ExecutionSupportType(0);
-  (*(*(v19 - 8) + 56))(a7 + v17, 1, 1, v19);
-  v20 = a7 + v12[10];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  sub_20E05EC5C(a1, a7, &qword_27C8639D0, &unk_20E33C230);
-  sub_20E05EC5C(a2, a7 + v13, &qword_27C864168, &unk_20E33C440);
-  *(a7 + v16) = a3;
-  *(a7 + v15) = a4;
-  *v18 = a5;
-  *(v18 + 4) = BYTE4(a5) & 1;
-  return sub_20E05EC5C(a6, a7 + v17, &qword_27C867FE8, &qword_20E33B0A0);
-}
-
-uint64_t sub_20E1CD8CC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t (*a7)(void)@<X6>, void *a8@<X8>)
-{
-  v15 = a8 + *(a7(0) + 28);
-  result = _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a8 = a1;
-  a8[1] = a2;
-  a8[2] = a3;
-  a8[3] = a4;
-  a8[4] = a5;
-  a8[5] = a6;
-  return result;
-}
-
-uint64_t TranscriptProtoGenderSettings.init(voiceGender:userGender:)@<X0>(char *a1@<X0>, char *a2@<X1>, _BYTE *a3@<X8>)
-{
-  v4 = *a1;
-  v5 = *a2;
-  v6 = &a3[*(type metadata accessor for TranscriptProtoGenderSettings(0) + 24)];
-  result = _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a3 = v4;
-  a3[1] = v5;
-  return result;
-}
-
-uint64_t TranscriptProtoDeviceDetailsDeviceType.init(rawValue:)@<X0>(int a1@<W0>, _DWORD *a2@<X8>)
-{
-  v4 = a2 + *(type metadata accessor for TranscriptProtoDeviceDetailsDeviceType(0) + 20);
-  result = _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a2 = a1;
-  return result;
-}
-
-uint64_t TranscriptProtoStatementID.init(index:name:)@<X0>(int a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v8 = a4 + *(type metadata accessor for TranscriptProtoStatementID(0) + 24);
-  result = _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a4 = a1;
-  *(a4 + 8) = a2;
-  *(a4 + 16) = a3;
-  return result;
-}
-
-uint64_t TranscriptProtoUndoRedoRequest.init(bundleIdentifier:token:operation:statementID:statementIDToUndo:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, char *a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
-{
-  v11 = *a5;
-  v12 = type metadata accessor for TranscriptProtoUndoRedoRequest(0);
-  v13 = v12[7];
-  v14 = type metadata accessor for TranscriptProtoStatementID(0);
-  v15 = *(*(v14 - 8) + 56);
-  v15(a8 + v13, 1, 1, v14);
-  v16 = v12[8];
-  v15(a8 + v16, 1, 1, v14);
-  v17 = a8 + v12[9];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a8 = a1;
-  *(a8 + 8) = a2;
-  *(a8 + 24) = a3;
-  *(a8 + 32) = a4;
-  *(a8 + 16) = v11;
-  sub_20E05EC5C(a6, a8 + v13, &qword_27C8639D0, &unk_20E33C230);
-  return sub_20E05EC5C(a7, a8 + v16, &qword_27C8639D0, &unk_20E33C230);
-}
-
-uint64_t TranscriptProtoClientUndoRedoRequest.init(token:operation:statementID:statementIDToUndo:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
-{
-  v9 = *a3;
-  v10 = type metadata accessor for TranscriptProtoClientUndoRedoRequest(0);
-  v11 = v10[6];
-  v12 = type metadata accessor for TranscriptProtoStatementID(0);
-  v13 = *(*(v12 - 8) + 56);
-  v13(a6 + v11, 1, 1, v12);
-  v14 = v10[7];
-  v13(a6 + v14, 1, 1, v12);
-  v15 = a6 + v10[8];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a6 = a1;
-  *(a6 + 8) = a2;
-  *(a6 + 16) = v9;
-  sub_20E05EC5C(a4, a6 + v11, &qword_27C8639D0, &unk_20E33C230);
-  return sub_20E05EC5C(a5, a6 + v14, &qword_27C8639D0, &unk_20E33C230);
-}
-
-uint64_t TranscriptProtoTypeConversionRequest.init(value:target:statementID:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v8 = type metadata accessor for ToolKitProtoTypedValue(0);
-  (*(*(v8 - 8) + 56))(a4, 1, 1, v8);
-  v9 = type metadata accessor for TranscriptProtoTypeConversionRequest(0);
-  v10 = v9[5];
-  v11 = type metadata accessor for ToolKitProtoTypeInstance(0);
-  (*(*(v11 - 8) + 56))(a4 + v10, 1, 1, v11);
-  v12 = v9[6];
-  v13 = type metadata accessor for TranscriptProtoStatementID(0);
-  (*(*(v13 - 8) + 56))(a4 + v12, 1, 1, v13);
-  v14 = a4 + v9[7];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  sub_20E05EC5C(a1, a4, &qword_27C863B18, &qword_20E323EB0);
-  sub_20E05EC5C(a2, a4 + v10, &qword_27C863C48, &qword_20E323F30);
-  return sub_20E05EC5C(a3, a4 + v12, &qword_27C8639D0, &unk_20E33C230);
-}
-
-uint64_t sub_20E1CE75C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t (*a4)(void)@<X3>, uint64_t (*a5)(void)@<X4>, uint64_t *a6@<X5>, uint64_t *a7@<X6>, uint64_t a8@<X8>)
-{
-  v13 = a4(0);
-  (*(*(v13 - 8) + 56))(a8, 1, 1, v13);
-  v14 = a5(0);
-  v15 = v14[5];
-  v16 = type metadata accessor for TranscriptProtoStatementID(0);
-  v17 = *(*(v16 - 8) + 56);
-  v17(a8 + v15, 1, 1, v16);
-  v18 = v14[6];
-  v17(a8 + v18, 1, 1, v16);
-  v19 = a8 + v14[7];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  sub_20E05EC5C(a1, a8, a6, a7);
-  sub_20E05EC5C(a2, a8 + v15, &qword_27C8639D0, &unk_20E33C230);
-  return sub_20E05EC5C(a3, a8 + v18, &qword_27C8639D0, &unk_20E33C230);
-}
-
-uint64_t TranscriptProtoQueryDecorationResult.init(spans:toolRetrievalResponse:dynamicEnumerationEntities:context:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, char *a5@<X8>)
-{
-  DecorationResult = type metadata accessor for TranscriptProtoQueryDecorationResult(0);
-  v11 = *(DecorationResult + 28);
-  DecorationToolRetrievalResponse = type metadata accessor for ContextProtoQueryDecorationToolRetrievalResponse(0);
-  (*(*(DecorationToolRetrievalResponse - 8) + 56))(&a5[v11], 1, 1, DecorationToolRetrievalResponse);
-  v13 = &a5[*(DecorationResult + 32)];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  *a5 = a1;
-  result = sub_20E05EC5C(a2, &a5[v11], &qword_27C863C40, &unk_20E33C460);
-  *(a5 + 1) = a3;
-  *(a5 + 2) = a4;
-  return result;
-}
-
-uint64_t TranscriptProtoQueryDecorationPrePlannerResult.init(statementID:dataSource:payload:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, char *a5@<X8>)
-{
-  DecorationPrePlannerResult = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResult(0);
-  v11 = DecorationPrePlannerResult[5];
-  v12 = type metadata accessor for TranscriptProtoStatementID(0);
-  (*(*(v12 - 8) + 56))(&a5[v11], 1, 1, v12);
-  v13 = DecorationPrePlannerResult[6];
-  DecorationPrePlannerResultPayload = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayload(0);
-  (*(*(DecorationPrePlannerResultPayload - 8) + 56))(&a5[v13], 1, 1, DecorationPrePlannerResultPayload);
-  v15 = &a5[DecorationPrePlannerResult[7]];
-  _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
-  sub_20E05EC5C(a1, &a5[v11], &qword_27C8639D0, &unk_20E33C230);
-  *a5 = a2;
-  *(a5 + 1) = a3;
-  return sub_20E05EC5C(a4, &a5[v13], &qword_27C867F90, &qword_20E33B060);
-}
-
-uint64_t TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedToolQueryOutputVariant.values.setter(uint64_t a1)
-{
-  v3 = *v1;
-
-  *v1 = a1;
-  return result;
-}
-
-uint64_t _s23LighthouseDataProcessor51TranscriptProtoQueryDecorationPrePlannerPayloadEnumO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
-{
-  v74 = a1;
-  v75 = a2;
-  DecorationPrePlannerResultPayloadRepeatedToolQueryOutputVariant = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedToolQueryOutputVariant(0);
-  v2 = *(*(DecorationPrePlannerResultPayloadRepeatedToolQueryOutputVariant - 8) + 64);
-  MEMORY[0x28223BE20](DecorationPrePlannerResultPayloadRepeatedToolQueryOutputVariant);
-  v73 = (&DecorationPrePlannerResultPayloadRepeatedStringVariant - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
-  DecorationPrePlannerResultPayloadRepeatedRetrievedToolVariant = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedRetrievedToolVariant(0);
-  v4 = *(*(DecorationPrePlannerResultPayloadRepeatedRetrievedToolVariant - 8) + 64);
-  MEMORY[0x28223BE20](DecorationPrePlannerResultPayloadRepeatedRetrievedToolVariant);
-  v72 = (&DecorationPrePlannerResultPayloadRepeatedStringVariant - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  DecorationPrePlannerResultPayloadRepeatedSpanMatchedEntityVariant = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedSpanMatchedEntityVariant(0);
-  v6 = *(*(DecorationPrePlannerResultPayloadRepeatedSpanMatchedEntityVariant - 8) + 64);
-  MEMORY[0x28223BE20](DecorationPrePlannerResultPayloadRepeatedSpanMatchedEntityVariant);
-  v71 = (&DecorationPrePlannerResultPayloadRepeatedStringVariant - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  DecorationPrePlannerResultPayloadRepeatedRetrievedContextVariant = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedRetrievedContextVariant(0);
-  v8 = *(*(DecorationPrePlannerResultPayloadRepeatedRetrievedContextVariant - 8) + 64);
-  MEMORY[0x28223BE20](DecorationPrePlannerResultPayloadRepeatedRetrievedContextVariant);
-  v70 = (&DecorationPrePlannerResultPayloadRepeatedStringVariant - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
-  DecorationPrePlannerResultPayloadRepeatedTypedValueVariant = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedTypedValueVariant(0);
-  v10 = *(*(DecorationPrePlannerResultPayloadRepeatedTypedValueVariant - 8) + 64);
-  MEMORY[0x28223BE20](DecorationPrePlannerResultPayloadRepeatedTypedValueVariant);
-  v69 = (&DecorationPrePlannerResultPayloadRepeatedStringVariant - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
-  DecorationPrePlannerResultPayloadRepeatedStringVariant = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedStringVariant(0);
-  v12 = *(*(DecorationPrePlannerResultPayloadRepeatedStringVariant - 8) + 64);
-  MEMORY[0x28223BE20](DecorationPrePlannerResultPayloadRepeatedStringVariant);
-  v68 = (&DecorationPrePlannerResultPayloadRepeatedStringVariant - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
-  DecorationPrePlannerPayloadEnum = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerPayloadEnum(0);
-  v15 = *(*(DecorationPrePlannerPayloadEnum - 8) + 64);
-  v16 = MEMORY[0x28223BE20](DecorationPrePlannerPayloadEnum);
-  v18 = (&DecorationPrePlannerResultPayloadRepeatedStringVariant - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v19 = MEMORY[0x28223BE20](v16);
-  v21 = (&DecorationPrePlannerResultPayloadRepeatedStringVariant - v20);
-  v22 = MEMORY[0x28223BE20](v19);
-  v24 = (&DecorationPrePlannerResultPayloadRepeatedStringVariant - v23);
-  v25 = MEMORY[0x28223BE20](v22);
-  v27 = (&DecorationPrePlannerResultPayloadRepeatedStringVariant - v26);
-  v28 = MEMORY[0x28223BE20](v25);
-  v30 = (&DecorationPrePlannerResultPayloadRepeatedStringVariant - v29);
-  MEMORY[0x28223BE20](v28);
-  v32 = (&DecorationPrePlannerResultPayloadRepeatedStringVariant - v31);
-  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868E80, &qword_20E342078);
-  v34 = *(*(v33 - 8) + 64);
-  v35 = MEMORY[0x28223BE20](v33 - 8);
-  v37 = &DecorationPrePlannerResultPayloadRepeatedStringVariant - v36;
-  v38 = *(v35 + 56);
-  sub_20E1E14FC(v74, &DecorationPrePlannerResultPayloadRepeatedStringVariant - v36, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerPayloadEnum);
-  sub_20E1E14FC(v75, &v37[v38], type metadata accessor for TranscriptProtoQueryDecorationPrePlannerPayloadEnum);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload > 2)
-  {
-    if (EnumCaseMultiPayload != 3)
-    {
-      if (EnumCaseMultiPayload == 4)
-      {
-        sub_20E1E14FC(v37, v21, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerPayloadEnum);
-        if (swift_getEnumCaseMultiPayload() == 4)
-        {
-          v44 = v72;
-          sub_20E1EF280(&v37[v38], v72, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedRetrievedToolVariant);
-          if (sub_20E147918(*v21, *v44))
-          {
-            v45 = *(DecorationPrePlannerResultPayloadRepeatedRetrievedToolVariant + 20);
-            sub_20E3221C0();
-            sub_20E1EF2E8();
-            if (sub_20E322850())
-            {
-              v42 = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedRetrievedToolVariant;
-              sub_20E1E1564(v44, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedRetrievedToolVariant);
-              v43 = v21;
-              goto LABEL_37;
-            }
-          }
-
-          v59 = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedRetrievedToolVariant;
-          sub_20E1E1564(v44, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedRetrievedToolVariant);
-          v60 = v21;
-          goto LABEL_44;
-        }
-
-        v46 = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedRetrievedToolVariant;
-        v47 = v21;
-      }
-
-      else
-      {
-        sub_20E1E14FC(v37, v18, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerPayloadEnum);
-        if (swift_getEnumCaseMultiPayload() == 5)
-        {
-          v52 = v73;
-          sub_20E1EF280(&v37[v38], v73, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedToolQueryOutputVariant);
-          if (sub_20E149570(*v18, *v52))
-          {
-            v53 = *(DecorationPrePlannerResultPayloadRepeatedToolQueryOutputVariant + 20);
-            sub_20E3221C0();
-            sub_20E1EF2E8();
-            v54 = sub_20E322850();
-            sub_20E1E1564(v52, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedToolQueryOutputVariant);
-            if (v54)
-            {
-              v55 = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedToolQueryOutputVariant;
-              v43 = v18;
-LABEL_38:
-              sub_20E1E1564(v43, v55);
-              sub_20E1E1564(v37, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerPayloadEnum);
-              return 1;
-            }
-          }
-
-          else
-          {
-            sub_20E1E1564(v52, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedToolQueryOutputVariant);
-          }
-
-          v61 = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedToolQueryOutputVariant;
-          v60 = v18;
-          goto LABEL_45;
-        }
-
-        v46 = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedToolQueryOutputVariant;
-        v47 = v18;
-      }
-
-      goto LABEL_33;
-    }
-
-    sub_20E1E14FC(v37, v24, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerPayloadEnum);
-    if (swift_getEnumCaseMultiPayload() != 3)
-    {
-      v46 = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedSpanMatchedEntityVariant;
-      v47 = v24;
-      goto LABEL_33;
-    }
-
-    v48 = v71;
-    sub_20E1EF280(&v37[v38], v71, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedSpanMatchedEntityVariant);
-    if (sub_20E1463E0(*v24, *v48))
-    {
-      v49 = *(DecorationPrePlannerResultPayloadRepeatedSpanMatchedEntityVariant + 20);
-      sub_20E3221C0();
-      sub_20E1EF2E8();
-      if (sub_20E322850())
-      {
-        v42 = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedSpanMatchedEntityVariant;
-        sub_20E1E1564(v48, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedSpanMatchedEntityVariant);
-        v43 = v24;
-        goto LABEL_37;
-      }
-    }
-
-    v59 = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedSpanMatchedEntityVariant;
-    sub_20E1E1564(v48, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedSpanMatchedEntityVariant);
-    v60 = v24;
-LABEL_44:
-    v61 = v59;
-LABEL_45:
-    sub_20E1E1564(v60, v61);
-    sub_20E1E1564(v37, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerPayloadEnum);
-    return 0;
-  }
-
-  if (!EnumCaseMultiPayload)
-  {
-    sub_20E1E14FC(v37, v32, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerPayloadEnum);
-    if (swift_getEnumCaseMultiPayload())
-    {
-      v46 = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedStringVariant;
-      v47 = v32;
-      goto LABEL_33;
-    }
-
-    v56 = v68;
-    sub_20E1EF280(&v37[v38], v68, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedStringVariant);
-    if (sub_20E1494E0(*v32, *v56))
-    {
-      v57 = *(DecorationPrePlannerResultPayloadRepeatedStringVariant + 20);
-      sub_20E3221C0();
-      sub_20E1EF2E8();
-      if (sub_20E322850())
-      {
-        v42 = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedStringVariant;
-        sub_20E1E1564(v56, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedStringVariant);
-        v43 = v32;
-        goto LABEL_37;
-      }
-    }
-
-    v59 = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedStringVariant;
-    sub_20E1E1564(v56, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedStringVariant);
-    v60 = v32;
-    goto LABEL_44;
-  }
-
-  if (EnumCaseMultiPayload != 1)
-  {
-    sub_20E1E14FC(v37, v27, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerPayloadEnum);
-    if (swift_getEnumCaseMultiPayload() != 2)
-    {
-      v46 = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedRetrievedContextVariant;
-      v47 = v27;
-      goto LABEL_33;
-    }
-
-    v50 = v70;
-    sub_20E1EF280(&v37[v38], v70, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedRetrievedContextVariant);
-    if (sub_20E147724(*v27, *v50))
-    {
-      v51 = *(DecorationPrePlannerResultPayloadRepeatedRetrievedContextVariant + 20);
-      sub_20E3221C0();
-      sub_20E1EF2E8();
-      if (sub_20E322850())
-      {
-        v42 = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedRetrievedContextVariant;
-        sub_20E1E1564(v50, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedRetrievedContextVariant);
-        v43 = v27;
-        goto LABEL_37;
-      }
-    }
-
-    v59 = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedRetrievedContextVariant;
-    sub_20E1E1564(v50, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedRetrievedContextVariant);
-    v60 = v27;
-    goto LABEL_44;
-  }
-
-  sub_20E1E14FC(v37, v30, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerPayloadEnum);
-  if (swift_getEnumCaseMultiPayload() == 1)
-  {
-    v40 = v69;
-    sub_20E1EF280(&v37[v38], v69, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedTypedValueVariant);
-    if (sub_20E1484A4(*v30, *v40))
-    {
-      v41 = *(DecorationPrePlannerResultPayloadRepeatedTypedValueVariant + 20);
-      sub_20E3221C0();
-      sub_20E1EF2E8();
-      if (sub_20E322850())
-      {
-        v42 = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedTypedValueVariant;
-        sub_20E1E1564(v40, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedTypedValueVariant);
-        v43 = v30;
-LABEL_37:
-        v55 = v42;
-        goto LABEL_38;
-      }
-    }
-
-    v59 = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedTypedValueVariant;
-    sub_20E1E1564(v40, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedTypedValueVariant);
-    v60 = v30;
-    goto LABEL_44;
-  }
-
-  v46 = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedTypedValueVariant;
-  v47 = v30;
-LABEL_33:
-  sub_20E1E1564(v47, v46);
-  sub_20E04875C(v37, &qword_27C868E80, &qword_20E342078);
-  return 0;
-}
-
-uint64_t _s23LighthouseDataProcessor46TranscriptProtoSystemPromptResolutionInputEnumO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for TranscriptProtoRequestContentSpeechContent(0);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = (&v32 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v8 = type metadata accessor for TranscriptProtoRequestContentTextContent(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = (&v32 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v12 = type metadata accessor for TranscriptProtoSystemPromptResolutionInputEnum(0);
-  v13 = *(*(v12 - 8) + 64);
-  v14 = MEMORY[0x28223BE20](v12);
-  v16 = (&v32 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x28223BE20](v14);
-  v18 = (&v32 - v17);
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868EB0, &qword_20E3420A8);
-  v20 = *(*(v19 - 8) + 64);
-  v21 = MEMORY[0x28223BE20](v19 - 8);
-  v23 = &v32 - v22;
-  v24 = *(v21 + 56);
-  sub_20E1E14FC(a1, &v32 - v22, type metadata accessor for TranscriptProtoSystemPromptResolutionInputEnum);
-  sub_20E1E14FC(a2, &v23[v24], type metadata accessor for TranscriptProtoSystemPromptResolutionInputEnum);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload <= 1)
-  {
-    if (EnumCaseMultiPayload)
-    {
-      sub_20E1E14FC(v23, v16, type metadata accessor for TranscriptProtoSystemPromptResolutionInputEnum);
-      if (swift_getEnumCaseMultiPayload() != 1)
-      {
-        v26 = type metadata accessor for TranscriptProtoRequestContentSpeechContent;
-        v27 = v16;
-        goto LABEL_13;
-      }
-
-      sub_20E1EF280(&v23[v24], v7, type metadata accessor for TranscriptProtoRequestContentSpeechContent);
-      v28 = static TranscriptProtoRequestContentSpeechContent.== infix(_:_:)(v16, v7);
-      sub_20E1E1564(v7, type metadata accessor for TranscriptProtoRequestContentSpeechContent);
-      v29 = v16;
-      v30 = type metadata accessor for TranscriptProtoRequestContentSpeechContent;
-    }
-
-    else
-    {
-      sub_20E1E14FC(v23, v18, type metadata accessor for TranscriptProtoSystemPromptResolutionInputEnum);
-      if (swift_getEnumCaseMultiPayload())
-      {
-        v26 = type metadata accessor for TranscriptProtoRequestContentTextContent;
-        v27 = v18;
-LABEL_13:
-        sub_20E1E1564(v27, v26);
-        goto LABEL_14;
-      }
-
-      sub_20E1EF280(&v23[v24], v11, type metadata accessor for TranscriptProtoRequestContentTextContent);
-      v28 = static TranscriptProtoRequestContentTextContent.== infix(_:_:)(v18, v11);
-      sub_20E1E1564(v11, type metadata accessor for TranscriptProtoRequestContentTextContent);
-      v29 = v18;
-      v30 = type metadata accessor for TranscriptProtoRequestContentTextContent;
-    }
-
-    sub_20E1E1564(v29, v30);
-    sub_20E1E1564(v23, type metadata accessor for TranscriptProtoSystemPromptResolutionInputEnum);
-    return v28 & 1;
-  }
-
-  if (EnumCaseMultiPayload == 2)
-  {
-    if (swift_getEnumCaseMultiPayload() != 2)
-    {
-      goto LABEL_14;
-    }
-  }
-
-  else if (swift_getEnumCaseMultiPayload() != 3)
-  {
-LABEL_14:
-    sub_20E04875C(v23, &qword_27C868EB0, &qword_20E3420A8);
-    v28 = 0;
-    return v28 & 1;
-  }
-
-  sub_20E1E1564(v23, type metadata accessor for TranscriptProtoSystemPromptResolutionInputEnum);
-  v28 = 1;
-  return v28 & 1;
-}
-
-uint64_t _s23LighthouseDataProcessor43TranscriptProtoSystemRequirementMessageEnumO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
-{
-  v43 = a1;
-  v44 = a2;
-  v2 = type metadata accessor for TranscriptProtoSystemRequirementUserLocationForSystemRequest(0);
-  v3 = *(*(v2 - 8) + 64);
-  MEMORY[0x28223BE20](v2 - 8);
-  v42 = &v41 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = type metadata accessor for TranscriptProtoSystemRequirementAuthenticationRequest(0);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v41 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for TranscriptProtoSystemRequirementProtectedAppRequest(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  v12 = (&v41 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v13 = type metadata accessor for TranscriptProtoSystemRequirementMessageEnum(0);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13);
-  v17 = &v41 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = MEMORY[0x28223BE20](v15);
-  v20 = &v41 - v19;
-  MEMORY[0x28223BE20](v18);
-  v22 = (&v41 - v21);
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868EF8, &qword_20E3420F8);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x28223BE20](v23 - 8);
-  v27 = &v41 - v26;
-  v28 = *(v25 + 56);
-  sub_20E1E14FC(v43, &v41 - v26, type metadata accessor for TranscriptProtoSystemRequirementMessageEnum);
-  sub_20E1E14FC(v44, &v27[v28], type metadata accessor for TranscriptProtoSystemRequirementMessageEnum);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload > 2)
-  {
-    if (EnumCaseMultiPayload > 4)
-    {
-      if (EnumCaseMultiPayload == 5)
-      {
-        if (swift_getEnumCaseMultiPayload() == 5)
-        {
-          goto LABEL_34;
-        }
-      }
-
-      else if (swift_getEnumCaseMultiPayload() == 6)
-      {
-        goto LABEL_34;
-      }
-    }
-
-    else if (EnumCaseMultiPayload == 3)
-    {
-      if (swift_getEnumCaseMultiPayload() == 3)
-      {
-        goto LABEL_34;
-      }
-    }
-
-    else if (swift_getEnumCaseMultiPayload() == 4)
-    {
-      goto LABEL_34;
-    }
-
-    goto LABEL_25;
-  }
-
-  v30 = v20;
-  v31 = v42;
-  if (!EnumCaseMultiPayload)
-  {
-    v35 = v22;
-    sub_20E1E14FC(v27, v22, type metadata accessor for TranscriptProtoSystemRequirementMessageEnum);
-    if (!swift_getEnumCaseMultiPayload())
-    {
-      sub_20E1EF280(&v27[v28], v12, type metadata accessor for TranscriptProtoSystemRequirementProtectedAppRequest);
-      v38 = *v22 == *v12 && v22[1] == v12[1];
-      if (v38 || (sub_20E322D60() & 1) != 0)
-      {
-        v39 = *(v9 + 20);
-        sub_20E3221C0();
-        sub_20E1EF2E8();
-        if (sub_20E322850())
-        {
-          sub_20E1E1564(v12, type metadata accessor for TranscriptProtoSystemRequirementProtectedAppRequest);
-          sub_20E1E1564(v35, type metadata accessor for TranscriptProtoSystemRequirementProtectedAppRequest);
-LABEL_34:
-          sub_20E1E1564(v27, type metadata accessor for TranscriptProtoSystemRequirementMessageEnum);
-          v32 = 1;
-          return v32 & 1;
-        }
-      }
-
-      sub_20E1E1564(v12, type metadata accessor for TranscriptProtoSystemRequirementProtectedAppRequest);
-      sub_20E1E1564(v35, type metadata accessor for TranscriptProtoSystemRequirementProtectedAppRequest);
-      sub_20E1E1564(v27, type metadata accessor for TranscriptProtoSystemRequirementMessageEnum);
-      goto LABEL_26;
-    }
-
-    v36 = type metadata accessor for TranscriptProtoSystemRequirementProtectedAppRequest;
-    v37 = v22;
-    goto LABEL_24;
-  }
-
-  if (EnumCaseMultiPayload != 1)
-  {
-    sub_20E1E14FC(v27, v17, type metadata accessor for TranscriptProtoSystemRequirementMessageEnum);
-    if (swift_getEnumCaseMultiPayload() == 2)
-    {
-      sub_20E1EF280(&v27[v28], v31, type metadata accessor for TranscriptProtoSystemRequirementUserLocationForSystemRequest);
-      v32 = static TranscriptProtoSystemRequirementUserLocationForSystemRequest.== infix(_:_:)(v17, v31);
-      sub_20E1E1564(v31, type metadata accessor for TranscriptProtoSystemRequirementUserLocationForSystemRequest);
-      v33 = v17;
-      v34 = type metadata accessor for TranscriptProtoSystemRequirementUserLocationForSystemRequest;
-      goto LABEL_17;
-    }
-
-    v36 = type metadata accessor for TranscriptProtoSystemRequirementUserLocationForSystemRequest;
-    v37 = v17;
-LABEL_24:
-    sub_20E1E1564(v37, v36);
-LABEL_25:
-    sub_20E04875C(v27, &qword_27C868EF8, &qword_20E3420F8);
-LABEL_26:
-    v32 = 0;
-    return v32 & 1;
-  }
-
-  sub_20E1E14FC(v27, v30, type metadata accessor for TranscriptProtoSystemRequirementMessageEnum);
-  if (swift_getEnumCaseMultiPayload() != 1)
-  {
-    v36 = type metadata accessor for TranscriptProtoSystemRequirementAuthenticationRequest;
-    v37 = v30;
-    goto LABEL_24;
-  }
-
-  sub_20E1EF280(&v27[v28], v8, type metadata accessor for TranscriptProtoSystemRequirementAuthenticationRequest);
-  v32 = _s23LighthouseDataProcessor53TranscriptProtoSystemRequirementAuthenticationRequestV2eeoiySbAC_ACtFZ_0(v30, v8);
-  sub_20E1E1564(v8, type metadata accessor for TranscriptProtoSystemRequirementAuthenticationRequest);
-  v33 = v30;
-  v34 = type metadata accessor for TranscriptProtoSystemRequirementAuthenticationRequest;
-LABEL_17:
-  sub_20E1E1564(v33, v34);
-  sub_20E1E1564(v27, type metadata accessor for TranscriptProtoSystemRequirementMessageEnum);
-  return v32 & 1;
-}
-
-uint64_t _s23LighthouseDataProcessor42TranscriptProtoSessionCoordinatorErrorEnumO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
-{
-  v42 = type metadata accessor for TranscriptProtoIntelligenceFlowError(0);
-  v4 = *(*(v42 - 8) + 64);
-  v5 = MEMORY[0x28223BE20](v42);
-  v41 = (&v39 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v7 = MEMORY[0x28223BE20](v5);
-  v40 = (&v39 - v8);
-  MEMORY[0x28223BE20](v7);
-  v10 = (&v39 - v9);
-  v11 = type metadata accessor for TranscriptProtoSessionCoordinatorErrorEnum(0);
-  v12 = *(*(v11 - 8) + 64);
-  v13 = MEMORY[0x28223BE20](v11);
-  v15 = (&v39 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v16 = MEMORY[0x28223BE20](v13);
-  v18 = (&v39 - v17);
-  MEMORY[0x28223BE20](v16);
-  v20 = (&v39 - v19);
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868F18, &qword_20E342118);
-  v22 = *(*(v21 - 8) + 64);
-  v23 = MEMORY[0x28223BE20](v21 - 8);
-  v25 = &v39 - v24;
-  v26 = *(v23 + 56);
-  sub_20E1E14FC(a1, &v39 - v24, type metadata accessor for TranscriptProtoSessionCoordinatorErrorEnum);
-  sub_20E1E14FC(a2, &v25[v26], type metadata accessor for TranscriptProtoSessionCoordinatorErrorEnum);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload)
-  {
-    if (EnumCaseMultiPayload == 1)
-    {
-      sub_20E1E14FC(v25, v18, type metadata accessor for TranscriptProtoSessionCoordinatorErrorEnum);
-      if (swift_getEnumCaseMultiPayload() == 1)
-      {
-        v28 = v40;
-        sub_20E1EF280(&v25[v26], v40, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-        v29 = *v18 == *v28 && v18[1] == v28[1];
-        if (v29 || (sub_20E322D60()) && v18[2] == v28[2])
-        {
-          v30 = *(v42 + 24);
-          sub_20E3221C0();
-          sub_20E1EF2E8();
-          if (sub_20E322850())
-          {
-            sub_20E1E1564(v28, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-            v31 = v18;
-LABEL_35:
-            sub_20E1E1564(v31, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-            sub_20E1E1564(v25, type metadata accessor for TranscriptProtoSessionCoordinatorErrorEnum);
-            return 1;
-          }
-        }
-
-        sub_20E1E1564(v28, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-        v35 = v18;
-        goto LABEL_37;
-      }
-
-      v15 = v18;
-    }
-
-    else
-    {
-      sub_20E1E14FC(v25, v15, type metadata accessor for TranscriptProtoSessionCoordinatorErrorEnum);
-      if (swift_getEnumCaseMultiPayload() == 2)
-      {
-        v32 = v41;
-        sub_20E1EF280(&v25[v26], v41, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-        v33 = *v15 == *v32 && v15[1] == v32[1];
-        if (v33 || (sub_20E322D60()) && v15[2] == v32[2])
-        {
-          v34 = *(v42 + 24);
-          sub_20E3221C0();
-          sub_20E1EF2E8();
-          if (sub_20E322850())
-          {
-            sub_20E1E1564(v32, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-            v31 = v15;
-            goto LABEL_35;
-          }
-        }
-
-        sub_20E1E1564(v32, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-        v35 = v15;
-        goto LABEL_37;
-      }
-    }
-  }
-
-  else
-  {
-    sub_20E1E14FC(v25, v20, type metadata accessor for TranscriptProtoSessionCoordinatorErrorEnum);
-    if (!swift_getEnumCaseMultiPayload())
-    {
-      sub_20E1EF280(&v25[v26], v10, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-      v36 = *v20 == *v10 && v20[1] == v10[1];
-      if (v36 || (sub_20E322D60()) && v20[2] == v10[2])
-      {
-        v37 = *(v42 + 24);
-        sub_20E3221C0();
-        sub_20E1EF2E8();
-        if (sub_20E322850())
-        {
-          sub_20E1E1564(v10, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-          v31 = v20;
-          goto LABEL_35;
-        }
-      }
-
-      sub_20E1E1564(v10, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-      v35 = v20;
-LABEL_37:
-      sub_20E1E1564(v35, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-      sub_20E1E1564(v25, type metadata accessor for TranscriptProtoSessionCoordinatorErrorEnum);
-      return 0;
-    }
-
-    v15 = v20;
-  }
-
-  sub_20E1E1564(v15, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-  sub_20E04875C(v25, &qword_27C868F18, &qword_20E342118);
-  return 0;
-}
-
-uint64_t _s23LighthouseDataProcessor40TranscriptProtoRequestPrescribedPlanEnumO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
-{
-  v93 = a1;
-  v94 = a2;
-  v81 = type metadata accessor for TranscriptProtoRequestPrescribedPlanOpenSuccessValueFromLatestRequestTool(0);
-  v2 = *(*(v81 - 8) + 64);
-  MEMORY[0x28223BE20](v81);
-  v90 = (&v79 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v4 = type metadata accessor for TranscriptProtoRequestPrescribedPlanOpenTool(0);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v89 = &v79 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for TranscriptProtoRequestPrescribedPlanKnowledgeTool(0);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v88 = &v79 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for TranscriptProtoRequestPrescribedPlanDisplayTool(0);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x28223BE20](v10 - 8);
-  v87 = &v79 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = type metadata accessor for TranscriptProtoRequestPrescribedPlanConvertTool(0);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13 - 8);
-  v85 = &v79 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = type metadata accessor for TranscriptProtoRequestPrescribedPlanTextTool(0);
-  v17 = *(*(v16 - 8) + 64);
-  MEMORY[0x28223BE20](v16 - 8);
-  v84 = &v79 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v82 = type metadata accessor for TranscriptProtoRequestPrescribedPlanLowConfidenceKnowledgeTool(0);
-  v19 = *(*(v82 - 8) + 64);
-  MEMORY[0x28223BE20](v82);
-  v86 = (&v79 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v80 = type metadata accessor for TranscriptProtoRequestPrescribedPlanSearchTool(0);
-  v21 = *(*(v80 - 8) + 64);
-  MEMORY[0x28223BE20](v80);
-  v83 = &v79 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v23 = type metadata accessor for TranscriptProtoRequestPrescribedPlanEnum(0);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x28223BE20](v23);
-  v92 = (&v79 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v27 = MEMORY[0x28223BE20](v25);
-  v29 = &v79 - v28;
-  v30 = MEMORY[0x28223BE20](v27);
-  v32 = &v79 - v31;
-  v33 = MEMORY[0x28223BE20](v30);
-  v35 = &v79 - v34;
-  v36 = MEMORY[0x28223BE20](v33);
-  v38 = &v79 - v37;
-  v39 = MEMORY[0x28223BE20](v36);
-  v41 = (&v79 - v40);
-  v42 = MEMORY[0x28223BE20](v39);
-  v91 = (&v79 - v43);
-  MEMORY[0x28223BE20](v42);
-  v45 = &v79 - v44;
-  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868F30, &qword_20E342130);
-  v47 = *(*(v46 - 8) + 64);
-  v48 = MEMORY[0x28223BE20](v46 - 8);
-  v50 = &v79 - v49;
-  v51 = *(v48 + 56);
-  sub_20E1E14FC(v93, &v79 - v49, type metadata accessor for TranscriptProtoRequestPrescribedPlanEnum);
-  sub_20E1E14FC(v94, &v50[v51], type metadata accessor for TranscriptProtoRequestPrescribedPlanEnum);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload <= 3)
-  {
-    if (EnumCaseMultiPayload <= 1)
-    {
-      if (!EnumCaseMultiPayload)
-      {
-        sub_20E1E14FC(v50, v45, type metadata accessor for TranscriptProtoRequestPrescribedPlanEnum);
-        if (swift_getEnumCaseMultiPayload())
-        {
-          v53 = type metadata accessor for TranscriptProtoRequestPrescribedPlanSearchTool;
-          v54 = v45;
-LABEL_40:
-          sub_20E1E1564(v54, v53);
-          sub_20E04875C(v50, &qword_27C868F30, &qword_20E342130);
-LABEL_41:
-          v57 = 0;
-          return v57 & 1;
-        }
-
-        v71 = v83;
-        sub_20E1EF280(&v50[v51], v83, type metadata accessor for TranscriptProtoRequestPrescribedPlanSearchTool);
-        if (*v45 == *v71 && *(v45 + 1) == *(v71 + 8) || (sub_20E322D60()) && v45[16] == *(v71 + 16) && v45[17] == *(v71 + 17))
-        {
-          v72 = *(v80 + 28);
-          sub_20E3221C0();
-          sub_20E1EF2E8();
-          if (sub_20E322850())
-          {
-            v73 = type metadata accessor for TranscriptProtoRequestPrescribedPlanSearchTool;
-            sub_20E1E1564(v71, type metadata accessor for TranscriptProtoRequestPrescribedPlanSearchTool);
-            v74 = v45;
-LABEL_58:
-            sub_20E1E1564(v74, v73);
-            sub_20E1E1564(v50, type metadata accessor for TranscriptProtoRequestPrescribedPlanEnum);
-            v57 = 1;
-            return v57 & 1;
-          }
-        }
-
-        v75 = type metadata accessor for TranscriptProtoRequestPrescribedPlanSearchTool;
-        sub_20E1E1564(v71, type metadata accessor for TranscriptProtoRequestPrescribedPlanSearchTool);
-        v76 = v45;
-LABEL_61:
-        sub_20E1E1564(v76, v75);
-        sub_20E1E1564(v50, type metadata accessor for TranscriptProtoRequestPrescribedPlanEnum);
-        goto LABEL_41;
-      }
-
-      v41 = v91;
-      sub_20E1E14FC(v50, v91, type metadata accessor for TranscriptProtoRequestPrescribedPlanEnum);
-      if (swift_getEnumCaseMultiPayload() == 1)
-      {
-        v63 = v86;
-        sub_20E1EF280(&v50[v51], v86, type metadata accessor for TranscriptProtoRequestPrescribedPlanLowConfidenceKnowledgeTool);
-        if (*v41 == *v63 && v41[1] == v63[1] || (sub_20E322D60() & 1) != 0)
-        {
-          v64 = *(v82 + 20);
-          sub_20E3221C0();
-          sub_20E1EF2E8();
-          if (sub_20E322850())
-          {
-            v65 = type metadata accessor for TranscriptProtoRequestPrescribedPlanLowConfidenceKnowledgeTool;
-LABEL_57:
-            v73 = v65;
-            sub_20E1E1564(v63, v65);
-            v74 = v41;
-            goto LABEL_58;
-          }
-        }
-
-        v77 = type metadata accessor for TranscriptProtoRequestPrescribedPlanLowConfidenceKnowledgeTool;
-LABEL_60:
-        v75 = v77;
-        sub_20E1E1564(v63, v77);
-        v76 = v41;
-        goto LABEL_61;
-      }
-
-      v69 = type metadata accessor for TranscriptProtoRequestPrescribedPlanLowConfidenceKnowledgeTool;
-LABEL_39:
-      v53 = v69;
-      v54 = v41;
-      goto LABEL_40;
-    }
-
-    if (EnumCaseMultiPayload == 2)
-    {
-      sub_20E1E14FC(v50, v41, type metadata accessor for TranscriptProtoRequestPrescribedPlanEnum);
-      if (swift_getEnumCaseMultiPayload() != 2)
-      {
-        v69 = type metadata accessor for TranscriptProtoRequestPrescribedPlanTextTool;
-        goto LABEL_39;
-      }
-
-      v60 = v84;
-      sub_20E1EF280(&v50[v51], v84, type metadata accessor for TranscriptProtoRequestPrescribedPlanTextTool);
-      v56 = v50;
-      v57 = sub_20E1613DC(v41, v60);
-      v61 = type metadata accessor for TranscriptProtoRequestPrescribedPlanTextTool;
-      sub_20E1E1564(v60, type metadata accessor for TranscriptProtoRequestPrescribedPlanTextTool);
-      v58 = v41;
-    }
-
-    else
-    {
-      sub_20E1E14FC(v50, v38, type metadata accessor for TranscriptProtoRequestPrescribedPlanEnum);
-      if (swift_getEnumCaseMultiPayload() != 3)
-      {
-        v53 = type metadata accessor for TranscriptProtoRequestPrescribedPlanConvertTool;
-        v54 = v38;
-        goto LABEL_40;
-      }
-
-      v67 = v85;
-      sub_20E1EF280(&v50[v51], v85, type metadata accessor for TranscriptProtoRequestPrescribedPlanConvertTool);
-      v56 = v50;
-      v57 = _s23LighthouseDataProcessor47TranscriptProtoRequestPrescribedPlanConvertToolV2eeoiySbAC_ACtFZ_0(v38, v67);
-      v61 = type metadata accessor for TranscriptProtoRequestPrescribedPlanConvertTool;
-      sub_20E1E1564(v67, type metadata accessor for TranscriptProtoRequestPrescribedPlanConvertTool);
-      v58 = v38;
-    }
-
-    goto LABEL_26;
-  }
-
-  if (EnumCaseMultiPayload > 5)
-  {
-    if (EnumCaseMultiPayload == 6)
-    {
-      sub_20E1E14FC(v50, v29, type metadata accessor for TranscriptProtoRequestPrescribedPlanEnum);
-      if (swift_getEnumCaseMultiPayload() != 6)
-      {
-        v53 = type metadata accessor for TranscriptProtoRequestPrescribedPlanOpenTool;
-        v54 = v29;
-        goto LABEL_40;
-      }
-
-      v62 = v89;
-      sub_20E1EF280(&v50[v51], v89, type metadata accessor for TranscriptProtoRequestPrescribedPlanOpenTool);
-      v56 = v50;
-      v57 = _s23LighthouseDataProcessor44TranscriptProtoRequestPrescribedPlanOpenToolV2eeoiySbAC_ACtFZ_0(v29, v62);
-      v61 = type metadata accessor for TranscriptProtoRequestPrescribedPlanOpenTool;
-      sub_20E1E1564(v62, type metadata accessor for TranscriptProtoRequestPrescribedPlanOpenTool);
-      v58 = v29;
-      goto LABEL_26;
-    }
-
-    v41 = v92;
-    sub_20E1E14FC(v50, v92, type metadata accessor for TranscriptProtoRequestPrescribedPlanEnum);
-    if (swift_getEnumCaseMultiPayload() != 7)
-    {
-      v69 = type metadata accessor for TranscriptProtoRequestPrescribedPlanOpenSuccessValueFromLatestRequestTool;
-      goto LABEL_39;
-    }
-
-    v63 = v90;
-    sub_20E1EF280(&v50[v51], v90, type metadata accessor for TranscriptProtoRequestPrescribedPlanOpenSuccessValueFromLatestRequestTool);
-    v68 = *(v63 + 8);
-    if (v41[1])
-    {
-      if (!*(v63 + 8))
-      {
-LABEL_59:
-        v77 = type metadata accessor for TranscriptProtoRequestPrescribedPlanOpenSuccessValueFromLatestRequestTool;
-        goto LABEL_60;
-      }
-    }
-
-    else
-    {
-      if (*v41 != *v63)
-      {
-        v68 = 1;
-      }
-
-      if (v68)
-      {
-        goto LABEL_59;
-      }
-    }
-
-    v78 = *(v81 + 20);
-    sub_20E3221C0();
-    sub_20E1EF2E8();
-    if (sub_20E322850())
-    {
-      v65 = type metadata accessor for TranscriptProtoRequestPrescribedPlanOpenSuccessValueFromLatestRequestTool;
-      goto LABEL_57;
-    }
-
-    goto LABEL_59;
-  }
-
-  if (EnumCaseMultiPayload != 4)
-  {
-    sub_20E1E14FC(v50, v32, type metadata accessor for TranscriptProtoRequestPrescribedPlanEnum);
-    if (swift_getEnumCaseMultiPayload() != 5)
-    {
-      v53 = type metadata accessor for TranscriptProtoRequestPrescribedPlanKnowledgeTool;
-      v54 = v32;
-      goto LABEL_40;
-    }
-
-    v66 = v88;
-    sub_20E1EF280(&v50[v51], v88, type metadata accessor for TranscriptProtoRequestPrescribedPlanKnowledgeTool);
-    v56 = v50;
-    v57 = sub_20E1600CC(v32, v66);
-    v61 = type metadata accessor for TranscriptProtoRequestPrescribedPlanKnowledgeTool;
-    sub_20E1E1564(v66, type metadata accessor for TranscriptProtoRequestPrescribedPlanKnowledgeTool);
-    v58 = v32;
-LABEL_26:
-    v59 = v61;
-    goto LABEL_27;
-  }
-
-  sub_20E1E14FC(v50, v35, type metadata accessor for TranscriptProtoRequestPrescribedPlanEnum);
-  if (swift_getEnumCaseMultiPayload() != 4)
-  {
-    v53 = type metadata accessor for TranscriptProtoRequestPrescribedPlanDisplayTool;
-    v54 = v35;
-    goto LABEL_40;
-  }
-
-  v55 = v87;
-  sub_20E1EF280(&v50[v51], v87, type metadata accessor for TranscriptProtoRequestPrescribedPlanDisplayTool);
-  v56 = v50;
-  v57 = sub_20E1607E8(v35, v55);
-  sub_20E1E1564(v55, type metadata accessor for TranscriptProtoRequestPrescribedPlanDisplayTool);
-  v58 = v35;
-  v59 = type metadata accessor for TranscriptProtoRequestPrescribedPlanDisplayTool;
-LABEL_27:
-  sub_20E1E1564(v58, v59);
-  sub_20E1E1564(v56, type metadata accessor for TranscriptProtoRequestPrescribedPlanEnum);
-  return v57 & 1;
-}
-
-BOOL _s23LighthouseDataProcessor45TranscriptProtoParameterNeedsValueContextEnumO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for TranscriptProtoParameterNeedsValuePhotosSearch(0);
-  v5 = *(*(v4 - 8) + 64);
-  v6 = MEMORY[0x28223BE20](v4);
-  v8 = (&v21 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x28223BE20](v6);
-  v10 = (&v21 - v9);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868ED8, &qword_20E3420D8);
-  v12 = *(*(v11 - 8) + 64);
-  v13 = MEMORY[0x28223BE20](v11 - 8);
-  v15 = &v21 - v14;
-  v16 = *(v13 + 56);
-  sub_20E1E14FC(a1, &v21 - v14, type metadata accessor for TranscriptProtoParameterNeedsValueContextEnum);
-  sub_20E1E14FC(a2, &v15[v16], type metadata accessor for TranscriptProtoParameterNeedsValueContextEnum);
-  sub_20E1EF280(v15, v10, type metadata accessor for TranscriptProtoParameterNeedsValuePhotosSearch);
-  sub_20E1EF280(&v15[v16], v8, type metadata accessor for TranscriptProtoParameterNeedsValuePhotosSearch);
-  v17 = *v10 == *v8 && v10[1] == v8[1];
-  v19 = 0;
-  if (v17 || (sub_20E322D60() & 1) != 0)
-  {
-    v18 = *(v4 + 20);
-    sub_20E3221C0();
-    sub_20E1EF2E8();
-    if (sub_20E322850())
-    {
-      v19 = 1;
-    }
-  }
-
-  sub_20E1E1564(v8, type metadata accessor for TranscriptProtoParameterNeedsValuePhotosSearch);
-  sub_20E1E1564(v10, type metadata accessor for TranscriptProtoParameterNeedsValuePhotosSearch);
-  return v19;
-}
-
-uint64_t _s23LighthouseDataProcessor36TranscriptProtoActionRequirementEnumO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
-{
-  v39 = a2;
-  v3 = type metadata accessor for TranscriptProtoSystemRequirementMessage(0);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x28223BE20](v3 - 8);
-  v38 = &v38 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for TranscriptProtoPermissionRequirement(0);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8);
-  v9 = &v38 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for TranscriptProtoAppRequirement(0);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x28223BE20](v10 - 8);
-  v13 = &v38 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for TranscriptProtoActionRequirementEnum(0);
-  v15 = *(*(v14 - 8) + 64);
-  v16 = MEMORY[0x28223BE20](v14);
-  v18 = &v38 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = MEMORY[0x28223BE20](v16);
-  v21 = &v38 - v20;
-  MEMORY[0x28223BE20](v19);
-  v23 = &v38 - v22;
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868F00, &qword_20E342100);
-  v25 = *(*(v24 - 8) + 64);
-  v26 = MEMORY[0x28223BE20](v24 - 8);
-  v28 = &v38 - v27;
-  v29 = *(v26 + 56);
-  sub_20E1E14FC(a1, &v38 - v27, type metadata accessor for TranscriptProtoActionRequirementEnum);
-  sub_20E1E14FC(v39, &v28[v29], type metadata accessor for TranscriptProtoActionRequirementEnum);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload <= 1)
-  {
-    if (EnumCaseMultiPayload)
-    {
-      sub_20E1E14FC(v28, v21, type metadata accessor for TranscriptProtoActionRequirementEnum);
-      if (swift_getEnumCaseMultiPayload() != 1)
-      {
-        v31 = type metadata accessor for TranscriptProtoPermissionRequirement;
-        v32 = v21;
-        goto LABEL_14;
-      }
-
-      sub_20E1EF280(&v28[v29], v9, type metadata accessor for TranscriptProtoPermissionRequirement);
-      v34 = _s23LighthouseDataProcessor36TranscriptProtoPermissionRequirementV2eeoiySbAC_ACtFZ_0(v21, v9);
-      v35 = type metadata accessor for TranscriptProtoPermissionRequirement;
-      sub_20E1E1564(v9, type metadata accessor for TranscriptProtoPermissionRequirement);
-      v36 = v21;
-    }
-
-    else
-    {
-      sub_20E1E14FC(v28, v23, type metadata accessor for TranscriptProtoActionRequirementEnum);
-      if (swift_getEnumCaseMultiPayload())
-      {
-        v31 = type metadata accessor for TranscriptProtoAppRequirement;
-        v32 = v23;
-LABEL_14:
-        sub_20E1E1564(v32, v31);
-        goto LABEL_15;
-      }
-
-      sub_20E1EF280(&v28[v29], v13, type metadata accessor for TranscriptProtoAppRequirement);
-      v34 = static TranscriptProtoAppRequirement.== infix(_:_:)(v23, v13);
-      v35 = type metadata accessor for TranscriptProtoAppRequirement;
-      sub_20E1E1564(v13, type metadata accessor for TranscriptProtoAppRequirement);
-      v36 = v23;
-    }
-
-    goto LABEL_17;
-  }
-
-  if (EnumCaseMultiPayload == 2)
-  {
-    sub_20E1E14FC(v28, v18, type metadata accessor for TranscriptProtoActionRequirementEnum);
-    if (swift_getEnumCaseMultiPayload() != 2)
-    {
-      v31 = type metadata accessor for TranscriptProtoSystemRequirementMessage;
-      v32 = v18;
-      goto LABEL_14;
-    }
-
-    v33 = v38;
-    sub_20E1EF280(&v28[v29], v38, type metadata accessor for TranscriptProtoSystemRequirementMessage);
-    v34 = _s23LighthouseDataProcessor39TranscriptProtoSystemRequirementMessageV2eeoiySbAC_ACtFZ_0(v18, v33);
-    v35 = type metadata accessor for TranscriptProtoSystemRequirementMessage;
-    sub_20E1E1564(v33, type metadata accessor for TranscriptProtoSystemRequirementMessage);
-    v36 = v18;
-LABEL_17:
-    sub_20E1E1564(v36, v35);
-    sub_20E1E1564(v28, type metadata accessor for TranscriptProtoActionRequirementEnum);
-    return v34 & 1;
-  }
-
-  if (swift_getEnumCaseMultiPayload() != 3)
-  {
-LABEL_15:
-    sub_20E04875C(v28, &qword_27C868F00, &qword_20E342100);
-    v34 = 0;
-    return v34 & 1;
-  }
-
-  sub_20E1E1564(v28, type metadata accessor for TranscriptProtoActionRequirementEnum);
-  v34 = 1;
-  return v34 & 1;
-}
-
-uint64_t _s23LighthouseDataProcessor35TranscriptProtoStatementOutcomeEnumO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
-{
-  v113 = a2;
-  v3 = type metadata accessor for TranscriptProtoSnippetStream(0);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x28223BE20](v3 - 8);
-  v104 = (&v93 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v93 = type metadata accessor for TranscriptProtoValueDisambiguation(0);
-  v6 = *(*(v93 - 8) + 64);
-  MEMORY[0x28223BE20](v93);
-  v105 = (&v93 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v8 = type metadata accessor for TranscriptProtoActionFailure(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v103 = (&v93 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v11 = type metadata accessor for TranscriptProtoToolDisambiguation(0);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11 - 8);
-  v102 = (&v93 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v14 = type metadata accessor for TranscriptProtoActionRequirement(0);
-  v15 = *(*(v14 - 8) + 64);
-  MEMORY[0x28223BE20](v14 - 8);
-  v101 = (&v93 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v17 = type metadata accessor for TranscriptProtoParameterCandidatesNotFound(0);
-  v18 = *(*(v17 - 8) + 64);
-  MEMORY[0x28223BE20](v17 - 8);
-  v100 = (&v93 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v20 = type metadata accessor for TranscriptProtoParameterNotAllowed(0);
-  v21 = *(*(v20 - 8) + 64);
-  MEMORY[0x28223BE20](v20 - 8);
-  v99 = (&v93 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v23 = type metadata accessor for TranscriptProtoParameterDisambiguation(0);
-  v24 = *(*(v23 - 8) + 64);
-  MEMORY[0x28223BE20](v23 - 8);
-  v98 = &v93 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v26 = type metadata accessor for TranscriptProtoParameterConfirmation(0);
-  v27 = *(*(v26 - 8) + 64);
-  MEMORY[0x28223BE20](v26 - 8);
-  v97 = &v93 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v29 = type metadata accessor for TranscriptProtoParameterNeedsValue(0);
-  v30 = *(*(v29 - 8) + 64);
-  MEMORY[0x28223BE20](v29 - 8);
-  v96 = (&v93 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v32 = type metadata accessor for TranscriptProtoActionConfirmation(0);
-  v33 = *(*(v32 - 8) + 64);
-  MEMORY[0x28223BE20](v32 - 8);
-  v95 = (&v93 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v35 = type metadata accessor for TranscriptProtoActionSuccess(0);
-  v36 = *(*(v35 - 8) + 64);
-  MEMORY[0x28223BE20](v35 - 8);
-  v94 = &v93 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v38 = type metadata accessor for TranscriptProtoStatementOutcomeEnum(0);
-  v39 = *(*(v38 - 8) + 64);
-  v40 = MEMORY[0x28223BE20](v38);
-  v111 = (&v93 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v42 = MEMORY[0x28223BE20](v40);
-  v112 = (&v93 - v43);
-  v44 = MEMORY[0x28223BE20](v42);
-  v110 = (&v93 - v45);
-  v46 = MEMORY[0x28223BE20](v44);
-  v109 = (&v93 - v47);
-  v48 = MEMORY[0x28223BE20](v46);
-  v108 = (&v93 - v49);
-  v50 = MEMORY[0x28223BE20](v48);
-  v107 = (&v93 - v51);
-  v52 = MEMORY[0x28223BE20](v50);
-  v106 = (&v93 - v53);
-  v54 = MEMORY[0x28223BE20](v52);
-  v56 = &v93 - v55;
-  v57 = MEMORY[0x28223BE20](v54);
-  v59 = &v93 - v58;
-  v60 = MEMORY[0x28223BE20](v57);
-  v62 = (&v93 - v61);
-  v63 = MEMORY[0x28223BE20](v60);
-  v65 = (&v93 - v64);
-  MEMORY[0x28223BE20](v63);
-  v67 = &v93 - v66;
-  v68 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868EE0, &qword_20E3420E0);
-  v69 = *(*(v68 - 8) + 64);
-  v70 = MEMORY[0x28223BE20](v68 - 8);
-  v72 = &v93 - v71;
-  v73 = *(v70 + 56);
-  sub_20E1E14FC(a1, &v93 - v71, type metadata accessor for TranscriptProtoStatementOutcomeEnum);
-  sub_20E1E14FC(v113, &v72[v73], type metadata accessor for TranscriptProtoStatementOutcomeEnum);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload > 5)
-  {
-    if (EnumCaseMultiPayload <= 8)
-    {
-      if (EnumCaseMultiPayload == 6)
-      {
-        v65 = v107;
-        sub_20E1E14FC(v72, v107, type metadata accessor for TranscriptProtoStatementOutcomeEnum);
-        if (swift_getEnumCaseMultiPayload() == 6)
-        {
-          v75 = v100;
-          sub_20E1EF280(&v72[v73], v100, type metadata accessor for TranscriptProtoParameterCandidatesNotFound);
-          v76 = v72;
-          found = _s23LighthouseDataProcessor42TranscriptProtoParameterCandidatesNotFoundV2eeoiySbAC_ACtFZ_0(v65, v75);
-          v78 = type metadata accessor for TranscriptProtoParameterCandidatesNotFound;
-          goto LABEL_38;
-        }
-
-        v90 = type metadata accessor for TranscriptProtoParameterCandidatesNotFound;
-      }
-
-      else if (EnumCaseMultiPayload == 7)
-      {
-        v65 = v108;
-        sub_20E1E14FC(v72, v108, type metadata accessor for TranscriptProtoStatementOutcomeEnum);
-        if (swift_getEnumCaseMultiPayload() == 7)
-        {
-          v75 = v101;
-          sub_20E1EF280(&v72[v73], v101, type metadata accessor for TranscriptProtoActionRequirement);
-          v76 = v72;
-          found = _s23LighthouseDataProcessor32TranscriptProtoActionRequirementV2eeoiySbAC_ACtFZ_0(v65, v75);
-          v78 = type metadata accessor for TranscriptProtoActionRequirement;
-          goto LABEL_38;
-        }
-
-        v90 = type metadata accessor for TranscriptProtoActionRequirement;
-      }
-
-      else
-      {
-        v65 = v109;
-        sub_20E1E14FC(v72, v109, type metadata accessor for TranscriptProtoStatementOutcomeEnum);
-        if (swift_getEnumCaseMultiPayload() == 8)
-        {
-          v75 = v102;
-          sub_20E1EF280(&v72[v73], v102, type metadata accessor for TranscriptProtoToolDisambiguation);
-          v76 = v72;
-          found = _s23LighthouseDataProcessor33TranscriptProtoToolDisambiguationV2eeoiySbAC_ACtFZ_0(v65, v75);
-          v78 = type metadata accessor for TranscriptProtoToolDisambiguation;
-          goto LABEL_38;
-        }
-
-        v90 = type metadata accessor for TranscriptProtoToolDisambiguation;
-      }
-
-      goto LABEL_51;
-    }
-
-    if (EnumCaseMultiPayload == 9)
-    {
-      v65 = v110;
-      sub_20E1E14FC(v72, v110, type metadata accessor for TranscriptProtoStatementOutcomeEnum);
-      if (swift_getEnumCaseMultiPayload() == 9)
-      {
-        v75 = v103;
-        sub_20E1EF280(&v72[v73], v103, type metadata accessor for TranscriptProtoActionFailure);
-        v76 = v72;
-        found = static TranscriptProtoActionFailure.== infix(_:_:)(v65, v75);
-        v78 = type metadata accessor for TranscriptProtoActionFailure;
-        goto LABEL_38;
-      }
-
-      v90 = type metadata accessor for TranscriptProtoActionFailure;
-      goto LABEL_51;
-    }
-
-    if (EnumCaseMultiPayload != 10)
-    {
-      v65 = v111;
-      sub_20E1E14FC(v72, v111, type metadata accessor for TranscriptProtoStatementOutcomeEnum);
-      if (swift_getEnumCaseMultiPayload() == 11)
-      {
-        v75 = v104;
-        sub_20E1EF280(&v72[v73], v104, type metadata accessor for TranscriptProtoSnippetStream);
-        v76 = v72;
-        found = static TranscriptProtoSnippetStream.== infix(_:_:)(v65, v75);
-        v78 = type metadata accessor for TranscriptProtoSnippetStream;
-        goto LABEL_38;
-      }
-
-      v90 = type metadata accessor for TranscriptProtoSnippetStream;
-      goto LABEL_51;
-    }
-
-    v65 = v112;
-    sub_20E1E14FC(v72, v112, type metadata accessor for TranscriptProtoStatementOutcomeEnum);
-    if (swift_getEnumCaseMultiPayload() != 10)
-    {
-      v90 = type metadata accessor for TranscriptProtoValueDisambiguation;
-      goto LABEL_51;
-    }
-
-    v82 = v105;
-    sub_20E1EF280(&v72[v73], v105, type metadata accessor for TranscriptProtoValueDisambiguation);
-    if ((sub_20E1484A4(*v65, *v82) & 1) == 0 || (v83 = *(v93 + 20), sub_20E3221C0(), sub_20E1EF2E8(), (sub_20E322850() & 1) == 0))
-    {
-      sub_20E1E1564(v82, type metadata accessor for TranscriptProtoValueDisambiguation);
-      sub_20E1E1564(v65, type metadata accessor for TranscriptProtoValueDisambiguation);
-      sub_20E1E1564(v72, type metadata accessor for TranscriptProtoStatementOutcomeEnum);
-      goto LABEL_53;
-    }
-
-    sub_20E1E1564(v82, type metadata accessor for TranscriptProtoValueDisambiguation);
-    sub_20E1E1564(v65, type metadata accessor for TranscriptProtoValueDisambiguation);
-    sub_20E1E1564(v72, type metadata accessor for TranscriptProtoStatementOutcomeEnum);
-    found = 1;
-  }
-
-  else
-  {
-    if (EnumCaseMultiPayload <= 2)
-    {
-      if (!EnumCaseMultiPayload)
-      {
-        sub_20E1E14FC(v72, v67, type metadata accessor for TranscriptProtoStatementOutcomeEnum);
-        if (!swift_getEnumCaseMultiPayload())
-        {
-          v92 = v94;
-          sub_20E1EF280(&v72[v73], v94, type metadata accessor for TranscriptProtoActionSuccess);
-          v76 = v72;
-          found = static TranscriptProtoActionSuccess.== infix(_:_:)(v67, v92);
-          v80 = type metadata accessor for TranscriptProtoActionSuccess;
-          sub_20E1E1564(v92, type metadata accessor for TranscriptProtoActionSuccess);
-          v81 = v67;
-          goto LABEL_39;
-        }
-
-        v84 = type metadata accessor for TranscriptProtoActionSuccess;
-        v85 = v67;
-        goto LABEL_52;
-      }
-
-      if (EnumCaseMultiPayload == 1)
-      {
-        sub_20E1E14FC(v72, v65, type metadata accessor for TranscriptProtoStatementOutcomeEnum);
-        if (swift_getEnumCaseMultiPayload() == 1)
-        {
-          v75 = v95;
-          sub_20E1EF280(&v72[v73], v95, type metadata accessor for TranscriptProtoActionConfirmation);
-          v76 = v72;
-          found = _s23LighthouseDataProcessor33TranscriptProtoActionConfirmationV2eeoiySbAC_ACtFZ_0(v65, v75);
-          v78 = type metadata accessor for TranscriptProtoActionConfirmation;
-LABEL_38:
-          v80 = v78;
-          sub_20E1E1564(v75, v78);
-          v81 = v65;
-          goto LABEL_39;
-        }
-
-        v90 = type metadata accessor for TranscriptProtoActionConfirmation;
-        goto LABEL_51;
-      }
-
-      sub_20E1E14FC(v72, v62, type metadata accessor for TranscriptProtoStatementOutcomeEnum);
-      if (swift_getEnumCaseMultiPayload() == 2)
-      {
-        v89 = v96;
-        sub_20E1EF280(&v72[v73], v96, type metadata accessor for TranscriptProtoParameterNeedsValue);
-        v76 = v72;
-        found = _s23LighthouseDataProcessor34TranscriptProtoParameterNeedsValueV2eeoiySbAC_ACtFZ_0(v62, v89);
-        v80 = type metadata accessor for TranscriptProtoParameterNeedsValue;
-        sub_20E1E1564(v89, type metadata accessor for TranscriptProtoParameterNeedsValue);
-        v81 = v62;
-        goto LABEL_39;
-      }
-
-      v84 = type metadata accessor for TranscriptProtoParameterNeedsValue;
-      v85 = v62;
-      goto LABEL_52;
-    }
-
-    if (EnumCaseMultiPayload != 3)
-    {
-      if (EnumCaseMultiPayload == 4)
-      {
-        sub_20E1E14FC(v72, v56, type metadata accessor for TranscriptProtoStatementOutcomeEnum);
-        if (swift_getEnumCaseMultiPayload() == 4)
-        {
-          v79 = v98;
-          sub_20E1EF280(&v72[v73], v98, type metadata accessor for TranscriptProtoParameterDisambiguation);
-          v76 = v72;
-          found = _s23LighthouseDataProcessor38TranscriptProtoParameterDisambiguationV2eeoiySbAC_ACtFZ_0(v56, v79);
-          v80 = type metadata accessor for TranscriptProtoParameterDisambiguation;
-          sub_20E1E1564(v79, type metadata accessor for TranscriptProtoParameterDisambiguation);
-          v81 = v56;
-LABEL_39:
-          sub_20E1E1564(v81, v80);
-          sub_20E1E1564(v76, type metadata accessor for TranscriptProtoStatementOutcomeEnum);
-          return found & 1;
-        }
-
-        v84 = type metadata accessor for TranscriptProtoParameterDisambiguation;
-        v85 = v56;
-LABEL_52:
-        sub_20E1E1564(v85, v84);
-        sub_20E04875C(v72, &qword_27C868EE0, &qword_20E3420E0);
-LABEL_53:
-        found = 0;
-        return found & 1;
-      }
-
-      v65 = v106;
-      sub_20E1E14FC(v72, v106, type metadata accessor for TranscriptProtoStatementOutcomeEnum);
-      if (swift_getEnumCaseMultiPayload() == 5)
-      {
-        v75 = v99;
-        sub_20E1EF280(&v72[v73], v99, type metadata accessor for TranscriptProtoParameterNotAllowed);
-        v76 = v72;
-        found = _s23LighthouseDataProcessor34TranscriptProtoParameterNotAllowedV2eeoiySbAC_ACtFZ_0(v65, v75);
-        v78 = type metadata accessor for TranscriptProtoParameterNotAllowed;
-        goto LABEL_38;
-      }
-
-      v90 = type metadata accessor for TranscriptProtoParameterNotAllowed;
-LABEL_51:
-      v84 = v90;
-      v85 = v65;
-      goto LABEL_52;
-    }
-
-    sub_20E1E14FC(v72, v59, type metadata accessor for TranscriptProtoStatementOutcomeEnum);
-    if (swift_getEnumCaseMultiPayload() != 3)
-    {
-      v84 = type metadata accessor for TranscriptProtoParameterConfirmation;
-      v85 = v59;
-      goto LABEL_52;
-    }
-
-    v86 = &v72[v73];
-    v87 = v97;
-    sub_20E1EF280(v86, v97, type metadata accessor for TranscriptProtoParameterConfirmation);
-    v88 = v72;
-    found = _s23LighthouseDataProcessor36TranscriptProtoParameterConfirmationV2eeoiySbAC_ACtFZ_0(v59, v87);
-    sub_20E1E1564(v87, type metadata accessor for TranscriptProtoParameterConfirmation);
-    sub_20E1E1564(v59, type metadata accessor for TranscriptProtoParameterConfirmation);
-    sub_20E1E1564(v88, type metadata accessor for TranscriptProtoStatementOutcomeEnum);
-  }
-
-  return found & 1;
-}
-
-uint64_t _s23LighthouseDataProcessor32TranscriptProtoShimParameterEnumO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
-{
-  v50 = a1;
-  v51 = a2;
-  v2 = type metadata accessor for TranscriptProtoPhotosCandidates(0);
-  v3 = *(*(v2 - 8) + 64);
-  MEMORY[0x28223BE20](v2 - 8);
-  v48 = (&v46 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v5 = type metadata accessor for TranscriptProtoPersonQuery(0);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v46 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v47 = type metadata accessor for TranscriptProtoShimParameter.StringQuery(0);
-  v9 = *(*(v47 - 8) + 64);
-  MEMORY[0x28223BE20](v47);
-  v49 = (&v46 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v11 = type metadata accessor for ToolKitProtoTypedValue(0);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11 - 8);
-  v14 = (&v46 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v15 = type metadata accessor for TranscriptProtoShimParameterEnum(0);
-  v16 = *(*(v15 - 8) + 64);
-  v17 = MEMORY[0x28223BE20](v15);
-  v19 = (&v46 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v20 = MEMORY[0x28223BE20](v17);
-  v22 = &v46 - v21;
-  v23 = MEMORY[0x28223BE20](v20);
-  v25 = (&v46 - v24);
-  MEMORY[0x28223BE20](v23);
-  v27 = (&v46 - v26);
-  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868F28, &qword_20E342128);
-  v29 = *(*(v28 - 8) + 64);
-  v30 = MEMORY[0x28223BE20](v28 - 8);
-  v32 = &v46 - v31;
-  v33 = *(v30 + 56);
-  sub_20E1E14FC(v50, &v46 - v31, type metadata accessor for TranscriptProtoShimParameterEnum);
-  sub_20E1E14FC(v51, &v32[v33], type metadata accessor for TranscriptProtoShimParameterEnum);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload > 1)
-  {
-    if (EnumCaseMultiPayload == 2)
-    {
-      sub_20E1E14FC(v32, v22, type metadata accessor for TranscriptProtoShimParameterEnum);
-      if (swift_getEnumCaseMultiPayload() != 2)
-      {
-        v35 = type metadata accessor for TranscriptProtoPersonQuery;
-        v36 = v22;
-        goto LABEL_19;
-      }
-
-      sub_20E1EF280(&v32[v33], v8, type metadata accessor for TranscriptProtoPersonQuery);
-      v37 = static TranscriptProtoPersonQuery.== infix(_:_:)(v22, v8);
-      sub_20E1E1564(v8, type metadata accessor for TranscriptProtoPersonQuery);
-      v38 = v22;
-      v39 = type metadata accessor for TranscriptProtoPersonQuery;
-LABEL_23:
-      sub_20E1E1564(v38, v39);
-      sub_20E1E1564(v32, type metadata accessor for TranscriptProtoShimParameterEnum);
-      return v37 & 1;
-    }
-
-    sub_20E1E14FC(v32, v19, type metadata accessor for TranscriptProtoShimParameterEnum);
-    if (swift_getEnumCaseMultiPayload() != 3)
-    {
-      v35 = type metadata accessor for TranscriptProtoPhotosCandidates;
-      v36 = v19;
-      goto LABEL_19;
-    }
-
-    v43 = v48;
-    sub_20E1EF280(&v32[v33], v48, type metadata accessor for TranscriptProtoPhotosCandidates);
-    v37 = _s23LighthouseDataProcessor31TranscriptProtoPhotosCandidatesV2eeoiySbAC_ACtFZ_0(v19, v43);
-    v44 = type metadata accessor for TranscriptProtoPhotosCandidates;
-    sub_20E1E1564(v43, type metadata accessor for TranscriptProtoPhotosCandidates);
-    v38 = v19;
-LABEL_22:
-    v39 = v44;
-    goto LABEL_23;
-  }
-
-  if (!EnumCaseMultiPayload)
-  {
-    sub_20E1E14FC(v32, v27, type metadata accessor for TranscriptProtoShimParameterEnum);
-    if (swift_getEnumCaseMultiPayload())
-    {
-      v35 = type metadata accessor for ToolKitProtoTypedValue;
-      v36 = v27;
-LABEL_19:
-      sub_20E1E1564(v36, v35);
-      sub_20E04875C(v32, &qword_27C868F28, &qword_20E342128);
-LABEL_20:
-      v37 = 0;
-      return v37 & 1;
-    }
-
-    sub_20E1EF280(&v32[v33], v14, type metadata accessor for ToolKitProtoTypedValue);
-    v37 = static ToolKitProtoTypedValue.== infix(_:_:)(v27, v14);
-    v44 = type metadata accessor for ToolKitProtoTypedValue;
-    sub_20E1E1564(v14, type metadata accessor for ToolKitProtoTypedValue);
-    v38 = v27;
-    goto LABEL_22;
-  }
-
-  sub_20E1E14FC(v32, v25, type metadata accessor for TranscriptProtoShimParameterEnum);
-  if (swift_getEnumCaseMultiPayload() != 1)
-  {
-    v35 = type metadata accessor for TranscriptProtoShimParameter.StringQuery;
-    v36 = v25;
-    goto LABEL_19;
-  }
-
-  v40 = v49;
-  sub_20E1EF280(&v32[v33], v49, type metadata accessor for TranscriptProtoShimParameter.StringQuery);
-  if ((*v25 != *v40 || v25[1] != v40[1]) && (sub_20E322D60() & 1) == 0)
-  {
-    sub_20E1E1564(v40, type metadata accessor for TranscriptProtoShimParameter.StringQuery);
-    goto LABEL_26;
-  }
-
-  v41 = *(v47 + 20);
-  sub_20E3221C0();
-  sub_20E1EF2E8();
-  v42 = sub_20E322850();
-  sub_20E1E1564(v40, type metadata accessor for TranscriptProtoShimParameter.StringQuery);
-  if ((v42 & 1) == 0)
-  {
-LABEL_26:
-    sub_20E1E1564(v25, type metadata accessor for TranscriptProtoShimParameter.StringQuery);
-    sub_20E1E1564(v32, type metadata accessor for TranscriptProtoShimParameterEnum);
-    goto LABEL_20;
-  }
-
-  sub_20E1E1564(v25, type metadata accessor for TranscriptProtoShimParameter.StringQuery);
-  sub_20E1E1564(v32, type metadata accessor for TranscriptProtoShimParameterEnum);
-  v37 = 1;
-  return v37 & 1;
-}
-
-uint64_t _s23LighthouseDataProcessor32TranscriptProtoExecutorErrorEnumO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for TranscriptProtoIntelligenceFlowError(0);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v8 = (&v23 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v9 = type metadata accessor for TranscriptProtoExecutorErrorEnum(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = (&v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868F10, &qword_20E342110);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13 - 8);
-  v17 = &v23 - v16;
-  v18 = *(v15 + 56);
-  sub_20E1E14FC(a1, &v23 - v16, type metadata accessor for TranscriptProtoExecutorErrorEnum);
-  sub_20E1E14FC(a2, &v17[v18], type metadata accessor for TranscriptProtoExecutorErrorEnum);
-  v19 = *(v5 + 48);
-  if (v19(v17, 1, v4) == 1)
-  {
-    if (v19(&v17[v18], 1, v4) == 1)
-    {
-LABEL_3:
-      sub_20E1E1564(v17, type metadata accessor for TranscriptProtoExecutorErrorEnum);
-      return 1;
-    }
-
-    goto LABEL_6;
-  }
-
-  sub_20E1E14FC(v17, v12, type metadata accessor for TranscriptProtoExecutorErrorEnum);
-  if (v19(&v17[v18], 1, v4) == 1)
-  {
-    sub_20E1E1564(v12, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-LABEL_6:
-    sub_20E04875C(v17, &qword_27C868F10, &qword_20E342110);
-    return 0;
-  }
-
-  sub_20E1EF280(&v17[v18], v8, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-  v21 = *v12 == *v8 && v12[1] == v8[1];
-  if (v21 || (sub_20E322D60()) && v12[2] == v8[2])
-  {
-    v22 = *(v4 + 24);
-    sub_20E3221C0();
-    sub_20E1EF2E8();
-    if (sub_20E322850())
-    {
-      sub_20E1E1564(v8, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-      sub_20E1E1564(v12, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-      goto LABEL_3;
-    }
-  }
-
-  sub_20E1E1564(v8, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-  sub_20E1E1564(v12, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-  sub_20E1E1564(v17, type metadata accessor for TranscriptProtoExecutorErrorEnum);
-  return 0;
-}
-
-uint64_t _s23LighthouseDataProcessor31TranscriptProtoVisualOutputTypeO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
-{
-  v53 = a2;
-  v46 = type metadata accessor for TranscriptProtoPluginSnippetOutputPayload(0);
-  v3 = *(*(v46 - 8) + 64);
-  MEMORY[0x28223BE20](v46);
-  v52 = (&v46 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v47 = type metadata accessor for TranscriptProtoSystemSnippetOutputPayload(0);
-  v5 = *(*(v47 - 8) + 64);
-  MEMORY[0x28223BE20](v47);
-  v51 = &v46 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v49 = type metadata accessor for TranscriptProtoInAppResponseOutputPayload(0);
-  v7 = *(*(v49 - 8) + 64);
-  MEMORY[0x28223BE20](v49);
-  v50 = (&v46 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v48 = type metadata accessor for TranscriptProtoLiveActivityOutputPayload(0);
-  v9 = *(*(v48 - 8) + 64);
-  MEMORY[0x28223BE20](v48);
-  v11 = (&v46 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v12 = type metadata accessor for TranscriptProtoVisualOutputType(0);
-  v13 = *(*(v12 - 8) + 64);
-  v14 = MEMORY[0x28223BE20](v12);
-  v16 = (&v46 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v17 = MEMORY[0x28223BE20](v14);
-  v19 = &v46 - v18;
-  v20 = MEMORY[0x28223BE20](v17);
-  v22 = (&v46 - v21);
-  MEMORY[0x28223BE20](v20);
-  v24 = (&v46 - v23);
-  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868EC8, &qword_20E3420C8);
-  v26 = *(*(v25 - 8) + 64);
-  v27 = MEMORY[0x28223BE20](v25 - 8);
-  v29 = &v46 - v28;
-  v30 = *(v27 + 56);
-  sub_20E1E14FC(a1, &v46 - v28, type metadata accessor for TranscriptProtoVisualOutputType);
-  sub_20E1E14FC(v53, &v29[v30], type metadata accessor for TranscriptProtoVisualOutputType);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload > 1)
-  {
-    if (EnumCaseMultiPayload == 2)
-    {
-      sub_20E1E14FC(v29, v19, type metadata accessor for TranscriptProtoVisualOutputType);
-      if (swift_getEnumCaseMultiPayload() != 2)
-      {
-        v32 = type metadata accessor for TranscriptProtoSystemSnippetOutputPayload;
-        v33 = v19;
-        goto LABEL_26;
-      }
-
-      v34 = v51;
-      sub_20E1EF280(&v29[v30], v51, type metadata accessor for TranscriptProtoSystemSnippetOutputPayload);
-      if ((sub_20E15F7B0(*v19, *(v19 + 1), *v34, *(v34 + 8)) & 1) == 0 || (v35 = *(v47 + 20), sub_20E3221C0(), sub_20E1EF2E8(), (sub_20E322850() & 1) == 0))
-      {
-        v42 = type metadata accessor for TranscriptProtoSystemSnippetOutputPayload;
-        sub_20E1E1564(v34, type metadata accessor for TranscriptProtoSystemSnippetOutputPayload);
-        v43 = v19;
-        goto LABEL_37;
-      }
-
-      v36 = type metadata accessor for TranscriptProtoSystemSnippetOutputPayload;
-      sub_20E1E1564(v34, type metadata accessor for TranscriptProtoSystemSnippetOutputPayload);
-      v37 = v19;
-    }
-
-    else
-    {
-      sub_20E1E14FC(v29, v16, type metadata accessor for TranscriptProtoVisualOutputType);
-      if (swift_getEnumCaseMultiPayload() != 3)
-      {
-        v32 = type metadata accessor for TranscriptProtoPluginSnippetOutputPayload;
-        v33 = v16;
-        goto LABEL_26;
-      }
-
-      v40 = v52;
-      sub_20E1EF280(&v29[v30], v52, type metadata accessor for TranscriptProtoPluginSnippetOutputPayload);
-      if ((sub_20E15F7B0(*v16, v16[1], *v40, v40[1]) & 1) == 0 || (v16[2] != v40[2] || v16[3] != v40[3]) && (sub_20E322D60() & 1) == 0 || (v41 = *(v46 + 24), sub_20E3221C0(), sub_20E1EF2E8(), (sub_20E322850() & 1) == 0))
-      {
-        v42 = type metadata accessor for TranscriptProtoPluginSnippetOutputPayload;
-        sub_20E1E1564(v40, type metadata accessor for TranscriptProtoPluginSnippetOutputPayload);
-        v43 = v16;
-        goto LABEL_37;
-      }
-
-      v36 = type metadata accessor for TranscriptProtoPluginSnippetOutputPayload;
-      sub_20E1E1564(v40, type metadata accessor for TranscriptProtoPluginSnippetOutputPayload);
-      v37 = v16;
-    }
-
-LABEL_33:
-    sub_20E1E1564(v37, v36);
-    sub_20E1E1564(v29, type metadata accessor for TranscriptProtoVisualOutputType);
-    return 1;
-  }
-
-  if (EnumCaseMultiPayload)
-  {
-    sub_20E1E14FC(v29, v22, type metadata accessor for TranscriptProtoVisualOutputType);
-    if (swift_getEnumCaseMultiPayload() != 1)
-    {
-      v32 = type metadata accessor for TranscriptProtoInAppResponseOutputPayload;
-      v33 = v22;
-      goto LABEL_26;
-    }
-
-    v38 = v50;
-    sub_20E1EF280(&v29[v30], v50, type metadata accessor for TranscriptProtoInAppResponseOutputPayload);
-    if ((*v22 != *v38 || v22[1] != v38[1]) && (sub_20E322D60() & 1) == 0 || (v39 = *(v49 + 20), sub_20E3221C0(), sub_20E1EF2E8(), (sub_20E322850() & 1) == 0))
-    {
-      v42 = type metadata accessor for TranscriptProtoInAppResponseOutputPayload;
-      sub_20E1E1564(v38, type metadata accessor for TranscriptProtoInAppResponseOutputPayload);
-      v43 = v22;
-      goto LABEL_37;
-    }
-
-    v36 = type metadata accessor for TranscriptProtoInAppResponseOutputPayload;
-    sub_20E1E1564(v38, type metadata accessor for TranscriptProtoInAppResponseOutputPayload);
-    v37 = v22;
-    goto LABEL_33;
-  }
-
-  sub_20E1E14FC(v29, v24, type metadata accessor for TranscriptProtoVisualOutputType);
-  if (!swift_getEnumCaseMultiPayload())
-  {
-    sub_20E1EF280(&v29[v30], v11, type metadata accessor for TranscriptProtoLiveActivityOutputPayload);
-    if (*v24 == *v11 && v24[1] == v11[1] || (sub_20E322D60() & 1) != 0)
-    {
-      v44 = *(v48 + 20);
-      sub_20E3221C0();
-      sub_20E1EF2E8();
-      if (sub_20E322850())
-      {
-        v36 = type metadata accessor for TranscriptProtoLiveActivityOutputPayload;
-        sub_20E1E1564(v11, type metadata accessor for TranscriptProtoLiveActivityOutputPayload);
-        v37 = v24;
-        goto LABEL_33;
-      }
-    }
-
-    v42 = type metadata accessor for TranscriptProtoLiveActivityOutputPayload;
-    sub_20E1E1564(v11, type metadata accessor for TranscriptProtoLiveActivityOutputPayload);
-    v43 = v24;
-LABEL_37:
-    sub_20E1E1564(v43, v42);
-    sub_20E1E1564(v29, type metadata accessor for TranscriptProtoVisualOutputType);
-    return 0;
-  }
-
-  v32 = type metadata accessor for TranscriptProtoLiveActivityOutputPayload;
-  v33 = v24;
-LABEL_26:
-  sub_20E1E1564(v33, v32);
-  sub_20E04875C(v29, &qword_27C868EC8, &qword_20E3420C8);
-  return 0;
-}
-
-uint64_t _s23LighthouseDataProcessor31TranscriptProtoSessionErrorEnumO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
-{
-  v49 = a1;
-  v50 = a2;
-  v2 = type metadata accessor for TranscriptProtoExecutorError(0);
-  v3 = *(*(v2 - 8) + 64);
-  MEMORY[0x28223BE20](v2 - 8);
-  v48 = &v45 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = type metadata accessor for TranscriptProtoPlannerError(0);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v45 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for TranscriptProtoSessionCoordinatorError(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v45 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v46 = type metadata accessor for TranscriptProtoIntelligenceFlowError(0);
-  v13 = *(*(v46 - 8) + 64);
-  MEMORY[0x28223BE20](v46);
-  v47 = (&v45 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v15 = type metadata accessor for TranscriptProtoSessionErrorEnum(0);
-  v16 = *(*(v15 - 8) + 64);
-  v17 = MEMORY[0x28223BE20](v15);
-  v19 = &v45 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = MEMORY[0x28223BE20](v17);
-  v22 = &v45 - v21;
-  v23 = MEMORY[0x28223BE20](v20);
-  v25 = &v45 - v24;
-  MEMORY[0x28223BE20](v23);
-  v27 = (&v45 - v26);
-  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868F20, &qword_20E342120);
-  v29 = *(*(v28 - 8) + 64);
-  v30 = MEMORY[0x28223BE20](v28 - 8);
-  v32 = &v45 - v31;
-  v33 = *(v30 + 56);
-  sub_20E1E14FC(v49, &v45 - v31, type metadata accessor for TranscriptProtoSessionErrorEnum);
-  sub_20E1E14FC(v50, &v32[v33], type metadata accessor for TranscriptProtoSessionErrorEnum);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload <= 1)
-  {
-    if (!EnumCaseMultiPayload)
-    {
-      sub_20E1E14FC(v32, v27, type metadata accessor for TranscriptProtoSessionErrorEnum);
-      if (!swift_getEnumCaseMultiPayload())
-      {
-        v43 = v47;
-        sub_20E1EF280(&v32[v33], v47, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-        if (*v27 == *v43 && v27[1] == v43[1] || (sub_20E322D60()) && v27[2] == v43[2])
-        {
-          v44 = *(v46 + 24);
-          sub_20E3221C0();
-          sub_20E1EF2E8();
-          if (sub_20E322850())
-          {
-            sub_20E1E1564(v43, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-            sub_20E1E1564(v27, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-            sub_20E1E1564(v32, type metadata accessor for TranscriptProtoSessionErrorEnum);
-            v37 = 1;
-            return v37 & 1;
-          }
-        }
-
-        sub_20E1E1564(v43, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-        sub_20E1E1564(v27, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-        sub_20E1E1564(v32, type metadata accessor for TranscriptProtoSessionErrorEnum);
-        goto LABEL_18;
-      }
-
-      v35 = type metadata accessor for TranscriptProtoIntelligenceFlowError;
-      v36 = v27;
-LABEL_17:
-      sub_20E1E1564(v36, v35);
-      sub_20E04875C(v32, &qword_27C868F20, &qword_20E342120);
-LABEL_18:
-      v37 = 0;
-      return v37 & 1;
-    }
-
-    sub_20E1E14FC(v32, v25, type metadata accessor for TranscriptProtoSessionErrorEnum);
-    if (swift_getEnumCaseMultiPayload() != 1)
-    {
-      v35 = type metadata accessor for TranscriptProtoSessionCoordinatorError;
-      v36 = v25;
-      goto LABEL_17;
-    }
-
-    sub_20E1EF280(&v32[v33], v12, type metadata accessor for TranscriptProtoSessionCoordinatorError);
-    v37 = _s23LighthouseDataProcessor38TranscriptProtoSessionCoordinatorErrorV2eeoiySbAC_ACtFZ_0(v25, v12);
-    v40 = type metadata accessor for TranscriptProtoSessionCoordinatorError;
-    sub_20E1E1564(v12, type metadata accessor for TranscriptProtoSessionCoordinatorError);
-    v38 = v25;
-    goto LABEL_12;
-  }
-
-  if (EnumCaseMultiPayload != 2)
-  {
-    sub_20E1E14FC(v32, v19, type metadata accessor for TranscriptProtoSessionErrorEnum);
-    if (swift_getEnumCaseMultiPayload() != 3)
-    {
-      v35 = type metadata accessor for TranscriptProtoExecutorError;
-      v36 = v19;
-      goto LABEL_17;
-    }
-
-    v41 = v48;
-    sub_20E1EF280(&v32[v33], v48, type metadata accessor for TranscriptProtoExecutorError);
-    v37 = _s23LighthouseDataProcessor28TranscriptProtoExecutorErrorV2eeoiySbAC_ACtFZ_0(v19, v41);
-    v40 = type metadata accessor for TranscriptProtoExecutorError;
-    sub_20E1E1564(v41, type metadata accessor for TranscriptProtoExecutorError);
-    v38 = v19;
-LABEL_12:
-    v39 = v40;
-    goto LABEL_13;
-  }
-
-  sub_20E1E14FC(v32, v22, type metadata accessor for TranscriptProtoSessionErrorEnum);
-  if (swift_getEnumCaseMultiPayload() != 2)
-  {
-    v35 = type metadata accessor for TranscriptProtoPlannerError;
-    v36 = v22;
-    goto LABEL_17;
-  }
-
-  sub_20E1EF280(&v32[v33], v8, type metadata accessor for TranscriptProtoPlannerError);
-  v37 = static TranscriptProtoPlannerError.== infix(_:_:)(v22, v8);
-  sub_20E1E1564(v8, type metadata accessor for TranscriptProtoPlannerError);
-  v38 = v22;
-  v39 = type metadata accessor for TranscriptProtoPlannerError;
-LABEL_13:
-  sub_20E1E1564(v38, v39);
-  sub_20E1E1564(v32, type metadata accessor for TranscriptProtoSessionErrorEnum);
-  return v37 & 1;
-}
-
-uint64_t _s23LighthouseDataProcessor31TranscriptProtoQueryPayloadEnumO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
-{
-  v51 = a1;
-  v52 = a2;
-  v2 = type metadata accessor for TranscriptProtoQueryPayload.IdentifierQuery(0);
-  v3 = *(*(v2 - 8) + 64);
-  MEMORY[0x28223BE20](v2 - 8);
-  v50 = (&v47 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v5 = type metadata accessor for TranscriptProtoQueryPayload.StringQuery(0);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
-  v49 = (&v47 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v8 = type metadata accessor for TranscriptProtoPersonQuery(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = &v47 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v48 = type metadata accessor for TranscriptProtoQueryPayload.SearchToolQuery(0);
-  v12 = *(*(v48 - 8) + 64);
-  MEMORY[0x28223BE20](v48);
-  v14 = (&v47 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
-  PayloadEnum = type metadata accessor for TranscriptProtoQueryPayloadEnum(0);
-  v16 = *(*(PayloadEnum - 8) + 64);
-  v17 = MEMORY[0x28223BE20](PayloadEnum);
-  v19 = (&v47 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v20 = MEMORY[0x28223BE20](v17);
-  v22 = (&v47 - v21);
-  v23 = MEMORY[0x28223BE20](v20);
-  v25 = &v47 - v24;
-  MEMORY[0x28223BE20](v23);
-  v27 = (&v47 - v26);
-  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868ED0, &qword_20E3420D0);
-  v29 = *(*(v28 - 8) + 64);
-  v30 = MEMORY[0x28223BE20](v28 - 8);
-  v32 = &v47 - v31;
-  v33 = *(v30 + 56);
-  sub_20E1E14FC(v51, &v47 - v31, type metadata accessor for TranscriptProtoQueryPayloadEnum);
-  sub_20E1E14FC(v52, &v32[v33], type metadata accessor for TranscriptProtoQueryPayloadEnum);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload <= 1)
-  {
-    if (!EnumCaseMultiPayload)
-    {
-      sub_20E1E14FC(v32, v27, type metadata accessor for TranscriptProtoQueryPayloadEnum);
-      if (!swift_getEnumCaseMultiPayload())
-      {
-        sub_20E1EF280(&v32[v33], v14, type metadata accessor for TranscriptProtoQueryPayload.SearchToolQuery);
-        if (sub_20E15D148(*v27, *v14))
-        {
-          v45 = *(v48 + 20);
-          sub_20E3221C0();
-          sub_20E1EF2E8();
-          v46 = sub_20E322850();
-          sub_20E1E1564(v14, type metadata accessor for TranscriptProtoQueryPayload.SearchToolQuery);
-          if (v46)
-          {
-            sub_20E1E1564(v27, type metadata accessor for TranscriptProtoQueryPayload.SearchToolQuery);
-            sub_20E1E1564(v32, type metadata accessor for TranscriptProtoQueryPayloadEnum);
-            v39 = 1;
-            return v39 & 1;
-          }
-        }
-
-        else
-        {
-          sub_20E1E1564(v14, type metadata accessor for TranscriptProtoQueryPayload.SearchToolQuery);
-        }
-
-        sub_20E1E1564(v27, type metadata accessor for TranscriptProtoQueryPayload.SearchToolQuery);
-        sub_20E1E1564(v32, type metadata accessor for TranscriptProtoQueryPayloadEnum);
-        goto LABEL_18;
-      }
-
-      v35 = type metadata accessor for TranscriptProtoQueryPayload.SearchToolQuery;
-      v36 = v27;
-LABEL_17:
-      sub_20E1E1564(v36, v35);
-      sub_20E04875C(v32, &qword_27C868ED0, &qword_20E3420D0);
-LABEL_18:
-      v39 = 0;
-      return v39 & 1;
-    }
-
-    sub_20E1E14FC(v32, v25, type metadata accessor for TranscriptProtoQueryPayloadEnum);
-    if (swift_getEnumCaseMultiPayload() != 1)
-    {
-      v35 = type metadata accessor for TranscriptProtoPersonQuery;
-      v36 = v25;
-      goto LABEL_17;
-    }
-
-    sub_20E1EF280(&v32[v33], v11, type metadata accessor for TranscriptProtoPersonQuery);
-    v39 = static TranscriptProtoPersonQuery.== infix(_:_:)(v25, v11);
-    v40 = type metadata accessor for TranscriptProtoPersonQuery;
-    sub_20E1E1564(v11, type metadata accessor for TranscriptProtoPersonQuery);
-    v41 = v25;
-LABEL_10:
-    v42 = v40;
-    goto LABEL_13;
-  }
-
-  if (EnumCaseMultiPayload == 2)
-  {
-    sub_20E1E14FC(v32, v22, type metadata accessor for TranscriptProtoQueryPayloadEnum);
-    if (swift_getEnumCaseMultiPayload() != 2)
-    {
-      v35 = type metadata accessor for TranscriptProtoQueryPayload.StringQuery;
-      v36 = v22;
-      goto LABEL_17;
-    }
-
-    v37 = &v32[v33];
-    v38 = v49;
-    sub_20E1EF280(v37, v49, type metadata accessor for TranscriptProtoQueryPayload.StringQuery);
-    v39 = static TranscriptProtoQueryPayload.StringQuery.== infix(_:_:)(v22, v38);
-    v40 = type metadata accessor for TranscriptProtoQueryPayload.StringQuery;
-    sub_20E1E1564(v38, type metadata accessor for TranscriptProtoQueryPayload.StringQuery);
-    v41 = v22;
-    goto LABEL_10;
-  }
-
-  sub_20E1E14FC(v32, v19, type metadata accessor for TranscriptProtoQueryPayloadEnum);
-  if (swift_getEnumCaseMultiPayload() != 3)
-  {
-    v35 = type metadata accessor for TranscriptProtoQueryPayload.IdentifierQuery;
-    v36 = v19;
-    goto LABEL_17;
-  }
-
-  v43 = v50;
-  sub_20E1EF280(&v32[v33], v50, type metadata accessor for TranscriptProtoQueryPayload.IdentifierQuery);
-  v39 = static TranscriptProtoQueryPayload.IdentifierQuery.== infix(_:_:)(v19, v43);
-  sub_20E1E1564(v43, type metadata accessor for TranscriptProtoQueryPayload.IdentifierQuery);
-  v41 = v19;
-  v42 = type metadata accessor for TranscriptProtoQueryPayload.IdentifierQuery;
-LABEL_13:
-  sub_20E1E1564(v41, v42);
-  sub_20E1E1564(v32, type metadata accessor for TranscriptProtoQueryPayloadEnum);
-  return v39 & 1;
-}
-
-uint64_t _s23LighthouseDataProcessor31TranscriptProtoPlannerErrorEnumO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
-{
-  v32 = type metadata accessor for TranscriptProtoIntelligenceFlowError(0);
-  v4 = *(*(v32 - 8) + 64);
-  v5 = MEMORY[0x28223BE20](v32);
-  v7 = (&v31 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x28223BE20](v5);
-  v9 = (&v31 - v8);
-  v10 = type metadata accessor for TranscriptProtoPlannerErrorEnum(0);
-  v11 = *(*(v10 - 8) + 64);
-  v12 = MEMORY[0x28223BE20](v10);
-  v14 = (&v31 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x28223BE20](v12);
-  v16 = (&v31 - v15);
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868F08, &qword_20E342108);
-  v18 = *(*(v17 - 8) + 64);
-  v19 = MEMORY[0x28223BE20](v17 - 8);
-  v21 = &v31 - v20;
-  v22 = *(v19 + 56);
-  sub_20E1E14FC(a1, &v31 - v20, type metadata accessor for TranscriptProtoPlannerErrorEnum);
-  sub_20E1E14FC(a2, &v21[v22], type metadata accessor for TranscriptProtoPlannerErrorEnum);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload)
-  {
-    if (EnumCaseMultiPayload != 1)
-    {
-      if (swift_getEnumCaseMultiPayload() == 2)
-      {
-LABEL_27:
-        sub_20E1E1564(v21, type metadata accessor for TranscriptProtoPlannerErrorEnum);
-        return 1;
-      }
-
-      goto LABEL_16;
-    }
-
-    sub_20E1E14FC(v21, v14, type metadata accessor for TranscriptProtoPlannerErrorEnum);
-    if (swift_getEnumCaseMultiPayload() == 1)
-    {
-      sub_20E1EF280(&v21[v22], v7, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-      v24 = *v14 == *v7 && v14[1] == v7[1];
-      if (v24 || (sub_20E322D60()) && v14[2] == v7[2])
-      {
-        v25 = *(v32 + 24);
-        sub_20E3221C0();
-        sub_20E1EF2E8();
-        if (sub_20E322850())
-        {
-          sub_20E1E1564(v7, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-          v26 = v14;
-LABEL_26:
-          sub_20E1E1564(v26, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-          goto LABEL_27;
-        }
-      }
-
-      sub_20E1E1564(v7, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-      v27 = v14;
-LABEL_29:
-      sub_20E1E1564(v27, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-      sub_20E1E1564(v21, type metadata accessor for TranscriptProtoPlannerErrorEnum);
-      return 0;
-    }
-  }
-
-  else
-  {
-    sub_20E1E14FC(v21, v16, type metadata accessor for TranscriptProtoPlannerErrorEnum);
-    if (!swift_getEnumCaseMultiPayload())
-    {
-      sub_20E1EF280(&v21[v22], v9, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-      v28 = *v16 == *v9 && v16[1] == v9[1];
-      if (v28 || (sub_20E322D60()) && v16[2] == v9[2])
-      {
-        v29 = *(v32 + 24);
-        sub_20E3221C0();
-        sub_20E1EF2E8();
-        if (sub_20E322850())
-        {
-          sub_20E1E1564(v9, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-          v26 = v16;
-          goto LABEL_26;
-        }
-      }
-
-      sub_20E1E1564(v9, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-      v27 = v16;
-      goto LABEL_29;
-    }
-
-    v14 = v16;
-  }
-
-  sub_20E1E1564(v14, type metadata accessor for TranscriptProtoIntelligenceFlowError);
-LABEL_16:
-  sub_20E04875C(v21, &qword_27C868F08, &qword_20E342108);
-  return 0;
-}
-
-uint64_t _s23LighthouseDataProcessor31TranscriptProtoAstflatValueEnumO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
-{
-  v71 = a1;
-  v72 = a2;
-  v2 = type metadata accessor for TranscriptProtoStatementID(0);
-  v3 = *(*(v2 - 8) + 64);
-  MEMORY[0x28223BE20](v2 - 8);
-  v66 = &v63 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v64 = type metadata accessor for TranscriptProtoASTFlatValueDictVariant(0);
-  v5 = *(*(v64 - 8) + 64);
-  MEMORY[0x28223BE20](v64);
-  v67 = (&v63 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v63 = type metadata accessor for TranscriptProtoASTFlatValueArrayVariant(0);
-  v7 = *(*(v63 - 8) + 64);
-  MEMORY[0x28223BE20](v63);
-  v65 = (&v63 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v9 = type metadata accessor for TranscriptProtoAstflatValueEnum(0);
-  v10 = *(*(v9 - 8) + 64);
-  v11 = MEMORY[0x28223BE20](v9);
-  v68 = (&v63 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v13 = MEMORY[0x28223BE20](v11);
-  v15 = (&v63 - v14);
-  v16 = MEMORY[0x28223BE20](v13);
-  v18 = (&v63 - v17);
-  v19 = MEMORY[0x28223BE20](v16);
-  v70 = (&v63 - v20);
-  v21 = MEMORY[0x28223BE20](v19);
-  v69 = (&v63 - v22);
-  v23 = MEMORY[0x28223BE20](v21);
-  v25 = (&v63 - v24);
-  v26 = MEMORY[0x28223BE20](v23);
-  v28 = (&v63 - v27);
-  v29 = MEMORY[0x28223BE20](v26);
-  v31 = (&v63 - v30);
-  MEMORY[0x28223BE20](v29);
-  v33 = &v63 - v32;
-  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868E98, &qword_20E342090);
-  v35 = *(*(v34 - 8) + 64);
-  v36 = MEMORY[0x28223BE20](v34 - 8);
-  v38 = &v63 - v37;
-  v39 = (&v63 + *(v36 + 56) - v37);
-  sub_20E1E14FC(v71, &v63 - v37, type metadata accessor for TranscriptProtoAstflatValueEnum);
-  sub_20E1E14FC(v72, v39, type metadata accessor for TranscriptProtoAstflatValueEnum);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload > 4)
-  {
-    if (EnumCaseMultiPayload <= 6)
-    {
-      if (EnumCaseMultiPayload == 5)
-      {
-        v43 = v70;
-        sub_20E1E14FC(v38, v70, type metadata accessor for TranscriptProtoAstflatValueEnum);
-        if (swift_getEnumCaseMultiPayload() == 5)
-        {
-          v48 = v39;
-          v49 = v67;
-          sub_20E1EF280(v48, v67, type metadata accessor for TranscriptProtoASTFlatValueDictVariant);
-          if (sub_20E15B558(*v43, *v49))
-          {
-            v50 = *(v64 + 20);
-            sub_20E3221C0();
-            sub_20E1EF2E8();
-            if (sub_20E322850())
-            {
-              v51 = type metadata accessor for TranscriptProtoASTFlatValueDictVariant;
-LABEL_30:
-              v56 = v51;
-              sub_20E1E1564(v49, v51);
-              sub_20E1E1564(v43, v56);
-              goto LABEL_42;
-            }
-          }
-
-          v61 = type metadata accessor for TranscriptProtoASTFlatValueDictVariant;
-LABEL_52:
-          v62 = v61;
-          sub_20E1E1564(v49, v61);
-          sub_20E1E1564(v43, v62);
-          goto LABEL_53;
-        }
-
-        v59 = type metadata accessor for TranscriptProtoASTFlatValueDictVariant;
-LABEL_46:
-        sub_20E1E1564(v43, v59);
-        goto LABEL_47;
-      }
-
-      sub_20E1E14FC(v38, v18, type metadata accessor for TranscriptProtoAstflatValueEnum);
-      v42 = *v18;
-      v41 = v18[1];
-      if (swift_getEnumCaseMultiPayload() != 6)
-      {
-        goto LABEL_6;
-      }
-    }
-
-    else
-    {
-      if (EnumCaseMultiPayload != 7)
-      {
-        if (EnumCaseMultiPayload != 8)
-        {
-          if (swift_getEnumCaseMultiPayload() != 9)
-          {
-            goto LABEL_47;
-          }
-
-          goto LABEL_42;
-        }
-
-        v43 = v68;
-        sub_20E1E14FC(v38, v68, type metadata accessor for TranscriptProtoAstflatValueEnum);
-        if (swift_getEnumCaseMultiPayload() != 8)
-        {
-          v59 = type metadata accessor for TranscriptProtoStatementID;
-          goto LABEL_46;
-        }
-
-        v44 = v39;
-        v45 = v66;
-        sub_20E1EF280(v44, v66, type metadata accessor for TranscriptProtoStatementID);
-        v46 = static TranscriptProtoStatementID.== infix(_:_:)(v43, v45);
-        sub_20E1E1564(v45, type metadata accessor for TranscriptProtoStatementID);
-        sub_20E1E1564(v43, type metadata accessor for TranscriptProtoStatementID);
-        goto LABEL_38;
-      }
-
-      sub_20E1E14FC(v38, v15, type metadata accessor for TranscriptProtoAstflatValueEnum);
-      v42 = *v15;
-      v41 = v15[1];
-      if (swift_getEnumCaseMultiPayload() != 7)
-      {
-        goto LABEL_6;
-      }
-    }
-
-LABEL_23:
-    if (v42 == *v39 && v41 == *(v39 + 1))
-    {
-      v53 = *(v39 + 1);
-
-LABEL_42:
-      sub_20E1E1564(v38, type metadata accessor for TranscriptProtoAstflatValueEnum);
-      v46 = 1;
-      return v46 & 1;
-    }
-
-    v57 = *(v39 + 1);
-    v58 = sub_20E322D60();
-
-    if (v58)
-    {
-      goto LABEL_42;
-    }
-
-LABEL_53:
-    sub_20E1E1564(v38, type metadata accessor for TranscriptProtoAstflatValueEnum);
-    goto LABEL_48;
-  }
-
-  if (EnumCaseMultiPayload > 1)
-  {
-    if (EnumCaseMultiPayload != 2)
-    {
-      if (EnumCaseMultiPayload == 3)
-      {
-        sub_20E1E14FC(v38, v25, type metadata accessor for TranscriptProtoAstflatValueEnum);
-        v42 = *v25;
-        v41 = v25[1];
-        if (swift_getEnumCaseMultiPayload() != 3)
-        {
-LABEL_6:
-
-LABEL_47:
-          sub_20E04875C(v38, &qword_27C868E98, &qword_20E342090);
-LABEL_48:
-          v46 = 0;
-          return v46 & 1;
-        }
-
-        goto LABEL_23;
-      }
-
-      v43 = v69;
-      sub_20E1E14FC(v38, v69, type metadata accessor for TranscriptProtoAstflatValueEnum);
-      if (swift_getEnumCaseMultiPayload() == 4)
-      {
-        v54 = v39;
-        v49 = v65;
-        sub_20E1EF280(v54, v65, type metadata accessor for TranscriptProtoASTFlatValueArrayVariant);
-        if (sub_20E14C50C(*v43, *v49))
-        {
-          v55 = *(v63 + 20);
-          sub_20E3221C0();
-          sub_20E1EF2E8();
-          if (sub_20E322850())
-          {
-            v51 = type metadata accessor for TranscriptProtoASTFlatValueArrayVariant;
-            goto LABEL_30;
-          }
-        }
-
-        v61 = type metadata accessor for TranscriptProtoASTFlatValueArrayVariant;
-        goto LABEL_52;
-      }
-
-      v59 = type metadata accessor for TranscriptProtoASTFlatValueArrayVariant;
-      goto LABEL_46;
-    }
-
-    sub_20E1E14FC(v38, v28, type metadata accessor for TranscriptProtoAstflatValueEnum);
-    if (swift_getEnumCaseMultiPayload() != 2)
-    {
-      goto LABEL_47;
-    }
-
-    v52 = *v28 == *v39;
-    goto LABEL_35;
-  }
-
-  if (EnumCaseMultiPayload)
-  {
-    sub_20E1E14FC(v38, v31, type metadata accessor for TranscriptProtoAstflatValueEnum);
-    if (swift_getEnumCaseMultiPayload() != 1)
-    {
-      goto LABEL_47;
-    }
-
-    v52 = *v31 == *v39;
-LABEL_35:
-    v46 = v52;
-LABEL_38:
-    sub_20E1E1564(v38, type metadata accessor for TranscriptProtoAstflatValueEnum);
-    return v46 & 1;
-  }
-
-  sub_20E1E14FC(v38, v33, type metadata accessor for TranscriptProtoAstflatValueEnum);
-  if (swift_getEnumCaseMultiPayload())
-  {
-    goto LABEL_47;
-  }
-
-  v47 = *v33 ^ *v39;
-  sub_20E1E1564(v38, type metadata accessor for TranscriptProtoAstflatValueEnum);
-  v46 = v47 ^ 1;
-  return v46 & 1;
-}
-
-uint64_t _s23LighthouseDataProcessor30TranscriptProtoAstflatExprEnumO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
-{
-  v188 = a1;
-  v189 = a2;
-  MentionedApps = type metadata accessor for TranscriptProtoASTFlatExprGetMentionedApps(0);
-  v3 = *(*(MentionedApps - 8) + 64);
-  MEMORY[0x28223BE20](MentionedApps - 8);
-  v175 = &v147 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  updated = type metadata accessor for TranscriptProtoASTFlatExprUpdateParametersVariant(0);
-  v5 = *(*(updated - 8) + 64);
-  MEMORY[0x28223BE20](updated);
-  v174 = &v147 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for TranscriptProtoASTExprContinuePlanningVariant(0);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v172 = &v147 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v158 = type metadata accessor for TranscriptProtoASTFlatExprCancelVariant(0);
-  v10 = *(*(v158 - 8) + 64);
-  MEMORY[0x28223BE20](v158);
-  v173 = &v147 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v157 = type metadata accessor for TranscriptProtoASTFlatExprRejectVariant(0);
-  v12 = *(*(v157 - 8) + 64);
-  MEMORY[0x28223BE20](v157);
-  v171 = &v147 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v152 = type metadata accessor for TranscriptProtoASTFlatExprResolveToolVariant(0);
-  v14 = *(*(v152 - 8) + 64);
-  MEMORY[0x28223BE20](v152);
-  v169 = &v147 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v150 = type metadata accessor for TranscriptProtoASTFlatExprUndoVariant(0);
-  v16 = *(*(v150 - 8) + 64);
-  MEMORY[0x28223BE20](v150);
-  v170 = &v147 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v156 = type metadata accessor for TranscriptProtoASTFlatExprPickOneVariant(0);
-  v18 = *(*(v156 - 8) + 64);
-  MEMORY[0x28223BE20](v156);
-  v168 = &v147 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v148 = type metadata accessor for TranscriptProtoASTFlatExprSearchVariant(0);
-  v20 = *(*(v148 - 8) + 64);
-  MEMORY[0x28223BE20](v148);
-  v167 = &v147 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v155 = type metadata accessor for TranscriptProtoASTFlatExprConfirmVariant(0);
-  v22 = *(*(v155 - 8) + 64);
-  MEMORY[0x28223BE20](v155);
-  v166 = &v147 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v24 = type metadata accessor for TranscriptProtoASTFlatExprPickVariant(0);
-  v25 = *(*(v24 - 8) + 64);
-  MEMORY[0x28223BE20](v24 - 8);
-  v163 = (&v147 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v151 = type metadata accessor for TranscriptProtoASTFlatExprSayVariant(0);
-  v27 = *(*(v151 - 8) + 64);
-  MEMORY[0x28223BE20](v151);
-  v164 = &v147 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v149 = type metadata accessor for TranscriptProtoASTFlatExprCallVariant(0);
-  v29 = *(*(v149 - 8) + 64);
-  MEMORY[0x28223BE20](v149);
-  v165 = &v147 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v31 = type metadata accessor for TranscriptProtoASTFlatExprIndexVariant(0);
-  v32 = *(*(v31 - 8) + 64);
-  MEMORY[0x28223BE20](v31 - 8);
-  v162 = &v147 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v34 = type metadata accessor for TranscriptProtoASTFlatExprDotVariant(0);
-  v35 = *(*(v34 - 8) + 64);
-  MEMORY[0x28223BE20](v34 - 8);
-  v161 = (&v147 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v37 = type metadata accessor for TranscriptProtoASTFlatExprInfixVariant(0);
-  v38 = *(*(v37 - 8) + 64);
-  MEMORY[0x28223BE20](v37 - 8);
-  v160 = &v147 - ((v39 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v40 = type metadata accessor for TranscriptProtoASTFlatExprPrefixVariant(0);
-  v41 = *(*(v40 - 8) + 64);
-  MEMORY[0x28223BE20](v40 - 8);
-  v159 = &v147 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v43 = type metadata accessor for TranscriptProtoASTFlatValue(0);
-  v44 = *(*(v43 - 8) + 64);
-  MEMORY[0x28223BE20](v43 - 8);
-  v154 = &v147 - ((v45 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v46 = type metadata accessor for TranscriptProtoAstflatExprEnum(0);
-  v47 = *(*(v46 - 8) + 64);
-  v48 = MEMORY[0x28223BE20](v46);
-  v183 = &v147 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v50 = MEMORY[0x28223BE20](v48);
-  v186 = &v147 - v51;
-  v52 = MEMORY[0x28223BE20](v50);
-  v179 = &v147 - v53;
-  v54 = MEMORY[0x28223BE20](v52);
-  v187 = &v147 - v55;
-  v56 = MEMORY[0x28223BE20](v54);
-  v185 = &v147 - v57;
-  v58 = MEMORY[0x28223BE20](v56);
-  v180 = &v147 - v59;
-  v60 = MEMORY[0x28223BE20](v58);
-  v184 = &v147 - v61;
-  v62 = MEMORY[0x28223BE20](v60);
-  v181 = &v147 - v63;
-  v64 = MEMORY[0x28223BE20](v62);
-  v182 = &v147 - v65;
-  v66 = MEMORY[0x28223BE20](v64);
-  v178 = &v147 - v67;
-  v68 = MEMORY[0x28223BE20](v66);
-  v70 = (&v147 - v69);
-  v71 = MEMORY[0x28223BE20](v68);
-  v176 = &v147 - v72;
-  v73 = MEMORY[0x28223BE20](v71);
-  v177 = &v147 - v74;
-  v75 = MEMORY[0x28223BE20](v73);
-  v77 = &v147 - v76;
-  v78 = MEMORY[0x28223BE20](v75);
-  v80 = (&v147 - v79);
-  v81 = MEMORY[0x28223BE20](v78);
-  v83 = &v147 - v82;
-  v84 = MEMORY[0x28223BE20](v81);
-  v86 = &v147 - v85;
-  MEMORY[0x28223BE20](v84);
-  v88 = &v147 - v87;
-  v89 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868EA0, &qword_20E342098);
-  v90 = *(*(v89 - 8) + 64);
-  v91 = MEMORY[0x28223BE20](v89 - 8);
-  v93 = &v147 - v92;
-  v94 = *(v91 + 56);
-  sub_20E1E14FC(v188, &v147 - v92, type metadata accessor for TranscriptProtoAstflatExprEnum);
-  v188 = v94;
-  sub_20E1E14FC(v189, &v93[v94], type metadata accessor for TranscriptProtoAstflatExprEnum);
-  switch(swift_getEnumCaseMultiPayload())
-  {
-    case 1u:
-      sub_20E1E14FC(v93, v86, type metadata accessor for TranscriptProtoAstflatExprEnum);
-      v127 = v188;
-      if (swift_getEnumCaseMultiPayload() == 1)
-      {
-        v128 = v159;
-        sub_20E1EF280(&v93[v127], v159, type metadata accessor for TranscriptProtoASTFlatExprPrefixVariant);
-        v109 = _s23LighthouseDataProcessor39TranscriptProtoASTFlatExprPrefixVariantV2eeoiySbAC_ACtFZ_0(v86, v128);
-        v111 = type metadata accessor for TranscriptProtoASTFlatExprPrefixVariant;
-        sub_20E1E1564(v128, type metadata accessor for TranscriptProtoASTFlatExprPrefixVariant);
-        v119 = v86;
-        goto LABEL_49;
-      }
-
-      v96 = type metadata accessor for TranscriptProtoASTFlatExprPrefixVariant;
-      v97 = v86;
-      goto LABEL_102;
-    case 2u:
-      sub_20E1E14FC(v93, v83, type metadata accessor for TranscriptProtoAstflatExprEnum);
-      v117 = v188;
-      if (swift_getEnumCaseMultiPayload() == 2)
-      {
-        v118 = v160;
-        sub_20E1EF280(&v93[v117], v160, type metadata accessor for TranscriptProtoASTFlatExprInfixVariant);
-        v109 = _s23LighthouseDataProcessor38TranscriptProtoASTFlatExprInfixVariantV2eeoiySbAC_ACtFZ_0(v83, v118);
-        v111 = type metadata accessor for TranscriptProtoASTFlatExprInfixVariant;
-        sub_20E1E1564(v118, type metadata accessor for TranscriptProtoASTFlatExprInfixVariant);
-        v119 = v83;
-        goto LABEL_49;
-      }
-
-      v96 = type metadata accessor for TranscriptProtoASTFlatExprInfixVariant;
-      v97 = v83;
-      goto LABEL_102;
-    case 3u:
-      sub_20E1E14FC(v93, v80, type metadata accessor for TranscriptProtoAstflatExprEnum);
-      v122 = v188;
-      if (swift_getEnumCaseMultiPayload() == 3)
-      {
-        v123 = v161;
-        sub_20E1EF280(&v93[v122], v161, type metadata accessor for TranscriptProtoASTFlatExprDotVariant);
-        v109 = _s23LighthouseDataProcessor36TranscriptProtoASTFlatExprDotVariantV2eeoiySbAC_ACtFZ_0(v80, v123);
-        sub_20E1E1564(v123, type metadata accessor for TranscriptProtoASTFlatExprDotVariant);
-        v119 = v80;
-        v124 = type metadata accessor for TranscriptProtoASTFlatExprDotVariant;
-        goto LABEL_50;
-      }
-
-      v96 = type metadata accessor for TranscriptProtoASTFlatExprDotVariant;
-      v97 = v80;
-      goto LABEL_102;
-    case 4u:
-      sub_20E1E14FC(v93, v77, type metadata accessor for TranscriptProtoAstflatExprEnum);
-      v107 = v188;
-      if (swift_getEnumCaseMultiPayload() == 4)
-      {
-        v108 = v162;
-        sub_20E1EF280(&v93[v107], v162, type metadata accessor for TranscriptProtoASTFlatExprIndexVariant);
-        v109 = _s23LighthouseDataProcessor38TranscriptProtoASTFlatExprIndexVariantV2eeoiySbAC_ACtFZ_0(v77, v108);
-        v110 = type metadata accessor for TranscriptProtoASTFlatExprIndexVariant;
-        v111 = type metadata accessor for TranscriptProtoASTFlatExprIndexVariant;
-        v112 = v108;
-        goto LABEL_48;
-      }
-
-      v140 = type metadata accessor for TranscriptProtoASTFlatExprIndexVariant;
-      goto LABEL_101;
-    case 5u:
-      v77 = v177;
-      sub_20E1E14FC(v93, v177, type metadata accessor for TranscriptProtoAstflatExprEnum);
-      v130 = v188;
-      if (swift_getEnumCaseMultiPayload() != 5)
-      {
-        v140 = type metadata accessor for TranscriptProtoASTFlatExprCallVariant;
-        goto LABEL_101;
-      }
-
-      v99 = v165;
-      sub_20E1EF280(&v93[v130], v165, type metadata accessor for TranscriptProtoASTFlatExprCallVariant);
-      if (*v77 == *v99 && *(v77 + 1) == *(v99 + 8) || (sub_20E322D60()) && (sub_20E15B558(*(v77 + 2), *(v99 + 16)))
-      {
-        v131 = *(v149 + 24);
-        sub_20E3221C0();
-        sub_20E1EF2E8();
-        if (sub_20E322850())
-        {
-          v101 = type metadata accessor for TranscriptProtoASTFlatExprCallVariant;
-          goto LABEL_117;
-        }
-      }
-
-      v141 = type metadata accessor for TranscriptProtoASTFlatExprCallVariant;
-      goto LABEL_120;
-    case 6u:
-      v77 = v176;
-      sub_20E1E14FC(v93, v176, type metadata accessor for TranscriptProtoAstflatExprEnum);
-      v134 = v188;
-      if (swift_getEnumCaseMultiPayload() != 6)
-      {
-        v140 = type metadata accessor for TranscriptProtoASTFlatExprSayVariant;
-        goto LABEL_101;
-      }
-
-      v99 = v164;
-      sub_20E1EF280(&v93[v134], v164, type metadata accessor for TranscriptProtoASTFlatExprSayVariant);
-      if (sub_20E1494E0(*v77, *v99))
-      {
-        v135 = *(v151 + 20);
-        sub_20E3221C0();
-        sub_20E1EF2E8();
-        if (sub_20E322850())
-        {
-          v101 = type metadata accessor for TranscriptProtoASTFlatExprSayVariant;
-          goto LABEL_117;
-        }
-      }
-
-      v141 = type metadata accessor for TranscriptProtoASTFlatExprSayVariant;
-      goto LABEL_120;
-    case 7u:
-      sub_20E1E14FC(v93, v70, type metadata accessor for TranscriptProtoAstflatExprEnum);
-      v125 = v188;
-      if (swift_getEnumCaseMultiPayload() == 7)
-      {
-        v126 = v163;
-        sub_20E1EF280(&v93[v125], v163, type metadata accessor for TranscriptProtoASTFlatExprPickVariant);
-        v109 = _s23LighthouseDataProcessor37TranscriptProtoASTFlatExprPickVariantV2eeoiySbAC_ACtFZ_0(v70, v126);
-        v111 = type metadata accessor for TranscriptProtoASTFlatExprPickVariant;
-        sub_20E1E1564(v126, type metadata accessor for TranscriptProtoASTFlatExprPickVariant);
-        v119 = v70;
-        goto LABEL_49;
-      }
-
-      v96 = type metadata accessor for TranscriptProtoASTFlatExprPickVariant;
-      v97 = v70;
-      goto LABEL_102;
-    case 8u:
-      v77 = v178;
-      sub_20E1E14FC(v93, v178, type metadata accessor for TranscriptProtoAstflatExprEnum);
-      v138 = v188;
-      if (swift_getEnumCaseMultiPayload() != 8)
-      {
-        v140 = type metadata accessor for TranscriptProtoASTFlatExprConfirmVariant;
-        goto LABEL_101;
-      }
-
-      v99 = v166;
-      sub_20E1EF280(&v93[v138], v166, type metadata accessor for TranscriptProtoASTFlatExprConfirmVariant);
-      if (*v77 == *v99 && *(v77 + 1) == *(v99 + 8) || (sub_20E322D60() & 1) != 0)
-      {
-        v139 = *(v155 + 20);
-        sub_20E3221C0();
-        sub_20E1EF2E8();
-        if (sub_20E322850())
-        {
-          v101 = type metadata accessor for TranscriptProtoASTFlatExprConfirmVariant;
-          goto LABEL_117;
-        }
-      }
-
-      v141 = type metadata accessor for TranscriptProtoASTFlatExprConfirmVariant;
-      goto LABEL_120;
-    case 9u:
-      v77 = v182;
-      sub_20E1E14FC(v93, v182, type metadata accessor for TranscriptProtoAstflatExprEnum);
-      v115 = v188;
-      if (swift_getEnumCaseMultiPayload() != 9)
-      {
-        v140 = type metadata accessor for TranscriptProtoASTFlatExprSearchVariant;
-        goto LABEL_101;
-      }
-
-      v99 = v167;
-      sub_20E1EF280(&v93[v115], v167, type metadata accessor for TranscriptProtoASTFlatExprSearchVariant);
-      if (*v77 == *v99 && *(v77 + 1) == *(v99 + 8) || (sub_20E322D60()) && v77[16] == *(v99 + 16) && v77[17] == *(v99 + 17))
-      {
-        v116 = *(v148 + 28);
-        sub_20E3221C0();
-        sub_20E1EF2E8();
-        if (sub_20E322850())
-        {
-          v101 = type metadata accessor for TranscriptProtoASTFlatExprSearchVariant;
-          goto LABEL_117;
-        }
-      }
-
-      v141 = type metadata accessor for TranscriptProtoASTFlatExprSearchVariant;
-      goto LABEL_120;
-    case 0xAu:
-      v77 = v181;
-      sub_20E1E14FC(v93, v181, type metadata accessor for TranscriptProtoAstflatExprEnum);
-      v136 = v188;
-      if (swift_getEnumCaseMultiPayload() != 10)
-      {
-        v140 = type metadata accessor for TranscriptProtoASTFlatExprPickOneVariant;
-        goto LABEL_101;
-      }
-
-      v99 = v168;
-      sub_20E1EF280(&v93[v136], v168, type metadata accessor for TranscriptProtoASTFlatExprPickOneVariant);
-      if (*v77 == *v99 && *(v77 + 1) == *(v99 + 8) || (sub_20E322D60() & 1) != 0)
-      {
-        v137 = *(v156 + 20);
-        sub_20E3221C0();
-        sub_20E1EF2E8();
-        if (sub_20E322850())
-        {
-          v101 = type metadata accessor for TranscriptProtoASTFlatExprPickOneVariant;
-          goto LABEL_117;
-        }
-      }
-
-      v141 = type metadata accessor for TranscriptProtoASTFlatExprPickOneVariant;
-      goto LABEL_120;
-    case 0xBu:
-      v77 = v184;
-      sub_20E1E14FC(v93, v184, type metadata accessor for TranscriptProtoAstflatExprEnum);
-      v104 = v188;
-      if (swift_getEnumCaseMultiPayload() != 11)
-      {
-        v140 = type metadata accessor for TranscriptProtoASTFlatExprUndoVariant;
-        goto LABEL_101;
-      }
-
-      v99 = v170;
-      sub_20E1EF280(&v93[v104], v170, type metadata accessor for TranscriptProtoASTFlatExprUndoVariant);
-      v105 = *(v77 + 1);
-      v106 = *(v99 + 8);
-      if (v105)
-      {
-        if (!v106 || (*v77 != *v99 || v105 != v106) && (sub_20E322D60() & 1) == 0)
-        {
-          goto LABEL_119;
-        }
-      }
-
-      else if (v106)
-      {
-        goto LABEL_119;
-      }
-
-      v143 = *(v150 + 20);
-      sub_20E3221C0();
-      sub_20E1EF2E8();
-      if (sub_20E322850())
-      {
-        v101 = type metadata accessor for TranscriptProtoASTFlatExprUndoVariant;
-        goto LABEL_117;
-      }
-
-LABEL_119:
-      v141 = type metadata accessor for TranscriptProtoASTFlatExprUndoVariant;
-      goto LABEL_120;
-    case 0xCu:
-      v77 = v180;
-      sub_20E1E14FC(v93, v180, type metadata accessor for TranscriptProtoAstflatExprEnum);
-      v113 = v188;
-      if (swift_getEnumCaseMultiPayload() != 12)
-      {
-        v140 = type metadata accessor for TranscriptProtoASTFlatExprResolveToolVariant;
-        goto LABEL_101;
-      }
-
-      v99 = v169;
-      sub_20E1EF280(&v93[v113], v169, type metadata accessor for TranscriptProtoASTFlatExprResolveToolVariant);
-      if (sub_20E1494E0(*v77, *v99))
-      {
-        v114 = *(v152 + 20);
-        sub_20E3221C0();
-        sub_20E1EF2E8();
-        if (sub_20E322850())
-        {
-          v101 = type metadata accessor for TranscriptProtoASTFlatExprResolveToolVariant;
-          goto LABEL_117;
-        }
-      }
-
-      v141 = type metadata accessor for TranscriptProtoASTFlatExprResolveToolVariant;
-      goto LABEL_120;
-    case 0xDu:
-      v77 = v185;
-      sub_20E1E14FC(v93, v185, type metadata accessor for TranscriptProtoAstflatExprEnum);
-      v132 = v188;
-      if (swift_getEnumCaseMultiPayload() != 13)
-      {
-        v140 = type metadata accessor for TranscriptProtoASTFlatExprRejectVariant;
-        goto LABEL_101;
-      }
-
-      v99 = v171;
-      sub_20E1EF280(&v93[v132], v171, type metadata accessor for TranscriptProtoASTFlatExprRejectVariant);
-      if (*v77 == *v99 && *(v77 + 1) == *(v99 + 8) || (sub_20E322D60() & 1) != 0)
-      {
-        v133 = *(v157 + 20);
-        sub_20E3221C0();
-        sub_20E1EF2E8();
-        if (sub_20E322850())
-        {
-          v101 = type metadata accessor for TranscriptProtoASTFlatExprRejectVariant;
-          goto LABEL_117;
-        }
-      }
-
-      v141 = type metadata accessor for TranscriptProtoASTFlatExprRejectVariant;
-      goto LABEL_120;
-    case 0xEu:
-      v77 = v187;
-      sub_20E1E14FC(v93, v187, type metadata accessor for TranscriptProtoAstflatExprEnum);
-      v102 = v188;
-      if (swift_getEnumCaseMultiPayload() != 14)
-      {
-        v140 = type metadata accessor for TranscriptProtoASTFlatExprCancelVariant;
-        goto LABEL_101;
-      }
-
-      v99 = v173;
-      sub_20E1EF280(&v93[v102], v173, type metadata accessor for TranscriptProtoASTFlatExprCancelVariant);
-      if (*v77 == *v99 && *(v77 + 1) == *(v99 + 8) || (sub_20E322D60() & 1) != 0)
-      {
-        v103 = *(v158 + 20);
-        sub_20E3221C0();
-        sub_20E1EF2E8();
-        if (sub_20E322850())
-        {
-          v101 = type metadata accessor for TranscriptProtoASTFlatExprCancelVariant;
-          goto LABEL_117;
-        }
-      }
-
-      v141 = type metadata accessor for TranscriptProtoASTFlatExprCancelVariant;
-      goto LABEL_120;
-    case 0xFu:
-      v77 = v179;
-      sub_20E1E14FC(v93, v179, type metadata accessor for TranscriptProtoAstflatExprEnum);
-      v120 = v188;
-      if (swift_getEnumCaseMultiPayload() == 15)
-      {
-        v121 = v172;
-        sub_20E1EF280(&v93[v120], v172, type metadata accessor for TranscriptProtoASTExprContinuePlanningVariant);
-        sub_20E3221C0();
-        sub_20E1EF2E8();
-        v109 = sub_20E322850();
-        v110 = type metadata accessor for TranscriptProtoASTExprContinuePlanningVariant;
-        goto LABEL_47;
-      }
-
-      v140 = type metadata accessor for TranscriptProtoASTExprContinuePlanningVariant;
-      goto LABEL_101;
-    case 0x10u:
-      v77 = v186;
-      sub_20E1E14FC(v93, v186, type metadata accessor for TranscriptProtoAstflatExprEnum);
-      v98 = v188;
-      if (swift_getEnumCaseMultiPayload() != 16)
-      {
-        v140 = type metadata accessor for TranscriptProtoASTFlatExprUpdateParametersVariant;
-        goto LABEL_101;
-      }
-
-      v99 = v174;
-      sub_20E1EF280(&v93[v98], v174, type metadata accessor for TranscriptProtoASTFlatExprUpdateParametersVariant);
-      if (sub_20E1487B4(*v77, *v99))
-      {
-        v100 = *(updated + 20);
-        sub_20E3221C0();
-        sub_20E1EF2E8();
-        if (sub_20E322850())
-        {
-          v101 = type metadata accessor for TranscriptProtoASTFlatExprUpdateParametersVariant;
-LABEL_117:
-          v144 = v101;
-          sub_20E1E1564(v99, v101);
-          sub_20E1E1564(v77, v144);
-LABEL_118:
-          sub_20E1E1564(v93, type metadata accessor for TranscriptProtoAstflatExprEnum);
-          v109 = 1;
-          return v109 & 1;
-        }
-      }
-
-      v141 = type metadata accessor for TranscriptProtoASTFlatExprUpdateParametersVariant;
-LABEL_120:
-      v145 = v141;
-      sub_20E1E1564(v99, v141);
-      sub_20E1E1564(v77, v145);
-      sub_20E1E1564(v93, type metadata accessor for TranscriptProtoAstflatExprEnum);
-      goto LABEL_121;
-    case 0x11u:
-      v77 = v183;
-      sub_20E1E14FC(v93, v183, type metadata accessor for TranscriptProtoAstflatExprEnum);
-      v129 = v188;
-      if (swift_getEnumCaseMultiPayload() == 17)
-      {
-        v121 = v175;
-        sub_20E1EF280(&v93[v129], v175, type metadata accessor for TranscriptProtoASTFlatExprGetMentionedApps);
-        sub_20E3221C0();
-        sub_20E1EF2E8();
-        v109 = sub_20E322850();
-        v110 = type metadata accessor for TranscriptProtoASTFlatExprGetMentionedApps;
-LABEL_47:
-        v111 = v110;
-        v112 = v121;
-LABEL_48:
-        sub_20E1E1564(v112, v110);
-        v119 = v77;
-        goto LABEL_49;
-      }
-
-      v140 = type metadata accessor for TranscriptProtoASTFlatExprGetMentionedApps;
-LABEL_101:
-      v96 = v140;
-      v97 = v77;
-      goto LABEL_102;
-    case 0x12u:
-      if (swift_getEnumCaseMultiPayload() == 18)
-      {
-        goto LABEL_118;
-      }
-
-      goto LABEL_103;
-    case 0x13u:
-      if (swift_getEnumCaseMultiPayload() == 19)
-      {
-        goto LABEL_118;
-      }
-
-      goto LABEL_103;
-    default:
-      sub_20E1E14FC(v93, v88, type metadata accessor for TranscriptProtoAstflatExprEnum);
-      v95 = v188;
-      if (swift_getEnumCaseMultiPayload())
-      {
-        v96 = type metadata accessor for TranscriptProtoASTFlatValue;
-        v97 = v88;
-LABEL_102:
-        sub_20E1E1564(v97, v96);
-LABEL_103:
-        sub_20E04875C(v93, &qword_27C868EA0, &qword_20E342098);
-LABEL_121:
-        v109 = 0;
-      }
-
-      else
-      {
-        v142 = v154;
-        sub_20E1EF280(&v93[v95], v154, type metadata accessor for TranscriptProtoASTFlatValue);
-        v109 = _s23LighthouseDataProcessor27TranscriptProtoASTFlatValueV2eeoiySbAC_ACtFZ_0(v88, v142);
-        v111 = type metadata accessor for TranscriptProtoASTFlatValue;
-        sub_20E1E1564(v142, type metadata accessor for TranscriptProtoASTFlatValue);
-        v119 = v88;
-LABEL_49:
-        v124 = v111;
-LABEL_50:
-        sub_20E1E1564(v119, v124);
-        sub_20E1E1564(v93, type metadata accessor for TranscriptProtoAstflatExprEnum);
-      }
-
-      return v109 & 1;
-  }
-}
-
 uint64_t _s23LighthouseDataProcessor27TranscriptProtoDialogFormatO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
 {
-  v76 = a1;
-  v77 = a2;
-  v70 = type metadata accessor for TranscriptProtoCATDialog(0);
-  v2 = *(*(v70 - 8) + 64);
-  MEMORY[0x28223BE20](v70);
-  v75 = (&v66 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v4 = type metadata accessor for TranscriptProtoSuppressed(0);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v73 = &v66 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for TranscriptProtoUnableToGenerate(0);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v71 = &v66 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v69 = type metadata accessor for TranscriptProtoGeneratedText(0);
-  v10 = *(*(v69 - 8) + 64);
-  MEMORY[0x28223BE20](v69);
-  v74 = (&v66 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v68 = type metadata accessor for TranscriptProtoSonicText(0);
-  v12 = *(*(v68 - 8) + 64);
-  MEMORY[0x28223BE20](v68);
-  v72 = (&v66 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v66 = type metadata accessor for TranscriptProtoStaticText(0);
-  v14 = *(*(v66 - 8) + 64);
-  MEMORY[0x28223BE20](v66);
-  v67 = (&v66 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v16 = type metadata accessor for TranscriptProtoDialogFormat(0);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = MEMORY[0x28223BE20](v16);
-  v20 = (&v66 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v21 = MEMORY[0x28223BE20](v18);
-  v23 = &v66 - v22;
-  v24 = MEMORY[0x28223BE20](v21);
-  v26 = &v66 - v25;
-  v27 = MEMORY[0x28223BE20](v24);
-  v29 = (&v66 - v28);
-  v30 = MEMORY[0x28223BE20](v27);
-  v32 = (&v66 - v31);
-  MEMORY[0x28223BE20](v30);
-  v34 = (&v66 - v33);
-  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868EC0, &qword_20E3420C0);
-  v36 = *(*(v35 - 8) + 64);
-  v37 = MEMORY[0x28223BE20](v35 - 8);
-  v39 = &v66 - v38;
-  v40 = *(v37 + 56);
-  sub_20E1E14FC(v76, &v66 - v38, type metadata accessor for TranscriptProtoDialogFormat);
-  sub_20E1E14FC(v77, &v39[v40], type metadata accessor for TranscriptProtoDialogFormat);
+  v64 = a1;
+  v65 = a2;
+  v58 = type metadata accessor for TranscriptProtoCATDialog(0);
+  MEMORY[0x28223BE20](v58);
+  v63 = (&v54 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v3 = type metadata accessor for TranscriptProtoSuppressed(0);
+  MEMORY[0x28223BE20](v3 - 8);
+  v61 = &v54 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for TranscriptProtoUnableToGenerate(0);
+  MEMORY[0x28223BE20](v5 - 8);
+  v59 = &v54 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v57 = type metadata accessor for TranscriptProtoGeneratedText(0);
+  MEMORY[0x28223BE20](v57);
+  v62 = (&v54 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v56 = type metadata accessor for TranscriptProtoSonicText(0);
+  MEMORY[0x28223BE20](v56);
+  v60 = (&v54 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v54 = type metadata accessor for TranscriptProtoStaticText(0);
+  MEMORY[0x28223BE20](v54);
+  v55 = (&v54 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v10 = type metadata accessor for TranscriptProtoDialogFormat(0);
+  v11 = MEMORY[0x28223BE20](v10);
+  v13 = (&v54 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v14 = MEMORY[0x28223BE20](v11);
+  v16 = &v54 - v15;
+  v17 = MEMORY[0x28223BE20](v14);
+  v19 = &v54 - v18;
+  v20 = MEMORY[0x28223BE20](v17);
+  v22 = (&v54 - v21);
+  v23 = MEMORY[0x28223BE20](v20);
+  v25 = (&v54 - v24);
+  MEMORY[0x28223BE20](v23);
+  v27 = (&v54 - v26);
+  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868EC0, &qword_20E3420C0);
+  v29 = MEMORY[0x28223BE20](v28 - 8);
+  v31 = &v54 - v30;
+  v32 = *(v29 + 56);
+  sub_20E1E14FC(v64, &v54 - v30, type metadata accessor for TranscriptProtoDialogFormat);
+  sub_20E1E14FC(v65, &v31[v32], type metadata accessor for TranscriptProtoDialogFormat);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload <= 2)
   {
@@ -4920,250 +46,241 @@ uint64_t _s23LighthouseDataProcessor27TranscriptProtoDialogFormatO2eeoiySbAC_ACt
     {
       if (EnumCaseMultiPayload == 1)
       {
-        sub_20E1E14FC(v39, v32, type metadata accessor for TranscriptProtoDialogFormat);
+        sub_20E1E14FC(v31, v25, type metadata accessor for TranscriptProtoDialogFormat);
         if (swift_getEnumCaseMultiPayload() == 1)
         {
-          v42 = v72;
-          sub_20E1EF280(&v39[v40], v72, type metadata accessor for TranscriptProtoSonicText);
-          if (*v32 == *v42 && v32[1] == v42[1] || (sub_20E322D60() & 1) != 0)
+          v34 = v60;
+          sub_20E1EF280(&v31[v32], v60, type metadata accessor for TranscriptProtoSonicText);
+          if (*v25 == *v34 && v25[1] == v34[1] || (sub_20E322D60() & 1) != 0)
           {
-            v43 = *(v68 + 20);
             sub_20E3221C0();
             sub_20E1EF2E8();
-            v44 = sub_20E322850();
-            sub_20E1E1564(v42, type metadata accessor for TranscriptProtoSonicText);
-            if (v44)
+            v35 = sub_20E322850();
+            sub_20E1E1564(v34, type metadata accessor for TranscriptProtoSonicText);
+            if (v35)
             {
-              v45 = type metadata accessor for TranscriptProtoSonicText;
-              v46 = v32;
+              v36 = type metadata accessor for TranscriptProtoSonicText;
+              v37 = v25;
 LABEL_43:
-              sub_20E1E1564(v46, v45);
-              sub_20E1E1564(v39, type metadata accessor for TranscriptProtoDialogFormat);
-              v48 = 1;
-              return v48 & 1;
+              sub_20E1E1564(v37, v36);
+              sub_20E1E1564(v31, type metadata accessor for TranscriptProtoDialogFormat);
+              v39 = 1;
+              return v39 & 1;
             }
           }
 
           else
           {
-            sub_20E1E1564(v42, type metadata accessor for TranscriptProtoSonicText);
+            sub_20E1E1564(v34, type metadata accessor for TranscriptProtoSonicText);
           }
 
-          v64 = type metadata accessor for TranscriptProtoSonicText;
-          v63 = v32;
+          v52 = type metadata accessor for TranscriptProtoSonicText;
+          v51 = v25;
           goto LABEL_51;
         }
 
-        v51 = type metadata accessor for TranscriptProtoSonicText;
-        v52 = v32;
+        v42 = type metadata accessor for TranscriptProtoSonicText;
+        v43 = v25;
 LABEL_36:
-        sub_20E1E1564(v52, v51);
-        sub_20E04875C(v39, &qword_27C868EC0, &qword_20E3420C0);
+        sub_20E1E1564(v43, v42);
+        sub_20E04875C(v31, &qword_27C868EC0, &qword_20E3420C0);
 LABEL_52:
-        v48 = 0;
-        return v48 & 1;
+        v39 = 0;
+        return v39 & 1;
       }
 
-      sub_20E1E14FC(v39, v29, type metadata accessor for TranscriptProtoDialogFormat);
+      sub_20E1E14FC(v31, v22, type metadata accessor for TranscriptProtoDialogFormat);
       if (swift_getEnumCaseMultiPayload() != 2)
       {
-        v51 = type metadata accessor for TranscriptProtoGeneratedText;
-        v52 = v29;
+        v42 = type metadata accessor for TranscriptProtoGeneratedText;
+        v43 = v22;
         goto LABEL_36;
       }
 
-      v54 = v74;
-      sub_20E1EF280(&v39[v40], v74, type metadata accessor for TranscriptProtoGeneratedText);
-      if (*v29 == *v54 && v29[1] == v54[1] || (sub_20E322D60() & 1) != 0)
+      v45 = v62;
+      sub_20E1EF280(&v31[v32], v62, type metadata accessor for TranscriptProtoGeneratedText);
+      if (*v22 == *v45 && v22[1] == v45[1] || (sub_20E322D60() & 1) != 0)
       {
-        v55 = *(v69 + 20);
         sub_20E3221C0();
         sub_20E1EF2E8();
         if (sub_20E322850())
         {
-          v56 = type metadata accessor for TranscriptProtoGeneratedText;
-          sub_20E1E1564(v54, type metadata accessor for TranscriptProtoGeneratedText);
-          v46 = v29;
+          v46 = type metadata accessor for TranscriptProtoGeneratedText;
+          sub_20E1E1564(v45, type metadata accessor for TranscriptProtoGeneratedText);
+          v37 = v22;
 LABEL_42:
-          v45 = v56;
+          v36 = v46;
           goto LABEL_43;
         }
       }
 
-      v62 = type metadata accessor for TranscriptProtoGeneratedText;
-      sub_20E1E1564(v54, type metadata accessor for TranscriptProtoGeneratedText);
-      v63 = v29;
+      v50 = type metadata accessor for TranscriptProtoGeneratedText;
+      sub_20E1E1564(v45, type metadata accessor for TranscriptProtoGeneratedText);
+      v51 = v22;
     }
 
     else
     {
-      sub_20E1E14FC(v39, v34, type metadata accessor for TranscriptProtoDialogFormat);
+      sub_20E1E14FC(v31, v27, type metadata accessor for TranscriptProtoDialogFormat);
       if (swift_getEnumCaseMultiPayload())
       {
-        v51 = type metadata accessor for TranscriptProtoStaticText;
-        v52 = v34;
+        v42 = type metadata accessor for TranscriptProtoStaticText;
+        v43 = v27;
         goto LABEL_36;
       }
 
-      v60 = v67;
-      sub_20E1EF280(&v39[v40], v67, type metadata accessor for TranscriptProtoStaticText);
-      if (*v34 == *v60 && v34[1] == v60[1] || (sub_20E322D60() & 1) != 0)
+      v49 = v55;
+      sub_20E1EF280(&v31[v32], v55, type metadata accessor for TranscriptProtoStaticText);
+      if (*v27 == *v49 && v27[1] == v49[1] || (sub_20E322D60() & 1) != 0)
       {
-        v61 = *(v66 + 20);
         sub_20E3221C0();
         sub_20E1EF2E8();
         if (sub_20E322850())
         {
-          v56 = type metadata accessor for TranscriptProtoStaticText;
-          sub_20E1E1564(v60, type metadata accessor for TranscriptProtoStaticText);
-          v46 = v34;
+          v46 = type metadata accessor for TranscriptProtoStaticText;
+          sub_20E1E1564(v49, type metadata accessor for TranscriptProtoStaticText);
+          v37 = v27;
           goto LABEL_42;
         }
       }
 
-      v62 = type metadata accessor for TranscriptProtoStaticText;
-      sub_20E1E1564(v60, type metadata accessor for TranscriptProtoStaticText);
-      v63 = v34;
+      v50 = type metadata accessor for TranscriptProtoStaticText;
+      sub_20E1E1564(v49, type metadata accessor for TranscriptProtoStaticText);
+      v51 = v27;
     }
 
-    v64 = v62;
+    v52 = v50;
 LABEL_51:
-    sub_20E1E1564(v63, v64);
-    sub_20E1E1564(v39, type metadata accessor for TranscriptProtoDialogFormat);
+    sub_20E1E1564(v51, v52);
+    sub_20E1E1564(v31, type metadata accessor for TranscriptProtoDialogFormat);
     goto LABEL_52;
   }
 
   if (EnumCaseMultiPayload == 3)
   {
-    sub_20E1E14FC(v39, v26, type metadata accessor for TranscriptProtoDialogFormat);
+    sub_20E1E14FC(v31, v19, type metadata accessor for TranscriptProtoDialogFormat);
     if (swift_getEnumCaseMultiPayload() != 3)
     {
-      v51 = type metadata accessor for TranscriptProtoUnableToGenerate;
-      v52 = v26;
+      v42 = type metadata accessor for TranscriptProtoUnableToGenerate;
+      v43 = v19;
       goto LABEL_36;
     }
 
-    v53 = v71;
-    sub_20E1EF280(&v39[v40], v71, type metadata accessor for TranscriptProtoUnableToGenerate);
+    v44 = v59;
+    sub_20E1EF280(&v31[v32], v59, type metadata accessor for TranscriptProtoUnableToGenerate);
     sub_20E3221C0();
     sub_20E1EF2E8();
-    v48 = sub_20E322850();
-    v49 = type metadata accessor for TranscriptProtoUnableToGenerate;
-    sub_20E1E1564(v53, type metadata accessor for TranscriptProtoUnableToGenerate);
-    v50 = v26;
+    v39 = sub_20E322850();
+    v40 = type metadata accessor for TranscriptProtoUnableToGenerate;
+    sub_20E1E1564(v44, type metadata accessor for TranscriptProtoUnableToGenerate);
+    v41 = v19;
   }
 
   else
   {
     if (EnumCaseMultiPayload != 4)
     {
-      sub_20E1E14FC(v39, v20, type metadata accessor for TranscriptProtoDialogFormat);
+      sub_20E1E14FC(v31, v13, type metadata accessor for TranscriptProtoDialogFormat);
       if (swift_getEnumCaseMultiPayload() == 5)
       {
-        v57 = v75;
-        sub_20E1EF280(&v39[v40], v75, type metadata accessor for TranscriptProtoCATDialog);
-        if (*v20 == *v57 && v20[1] == v57[1] || (sub_20E322D60() & 1) != 0)
+        v47 = v63;
+        sub_20E1EF280(&v31[v32], v63, type metadata accessor for TranscriptProtoCATDialog);
+        if (*v13 == *v47 && v13[1] == v47[1] || (sub_20E322D60() & 1) != 0)
         {
-          v58 = *(v70 + 20);
           sub_20E3221C0();
           sub_20E1EF2E8();
-          v59 = sub_20E322850();
-          sub_20E1E1564(v57, type metadata accessor for TranscriptProtoCATDialog);
-          if (v59)
+          v48 = sub_20E322850();
+          sub_20E1E1564(v47, type metadata accessor for TranscriptProtoCATDialog);
+          if (v48)
           {
-            v45 = type metadata accessor for TranscriptProtoCATDialog;
-            v46 = v20;
+            v36 = type metadata accessor for TranscriptProtoCATDialog;
+            v37 = v13;
             goto LABEL_43;
           }
         }
 
         else
         {
-          sub_20E1E1564(v57, type metadata accessor for TranscriptProtoCATDialog);
+          sub_20E1E1564(v47, type metadata accessor for TranscriptProtoCATDialog);
         }
 
-        v64 = type metadata accessor for TranscriptProtoCATDialog;
-        v63 = v20;
+        v52 = type metadata accessor for TranscriptProtoCATDialog;
+        v51 = v13;
         goto LABEL_51;
       }
 
-      v51 = type metadata accessor for TranscriptProtoCATDialog;
-      v52 = v20;
+      v42 = type metadata accessor for TranscriptProtoCATDialog;
+      v43 = v13;
       goto LABEL_36;
     }
 
-    sub_20E1E14FC(v39, v23, type metadata accessor for TranscriptProtoDialogFormat);
+    sub_20E1E14FC(v31, v16, type metadata accessor for TranscriptProtoDialogFormat);
     if (swift_getEnumCaseMultiPayload() != 4)
     {
-      v51 = type metadata accessor for TranscriptProtoSuppressed;
-      v52 = v23;
+      v42 = type metadata accessor for TranscriptProtoSuppressed;
+      v43 = v16;
       goto LABEL_36;
     }
 
-    v47 = v73;
-    sub_20E1EF280(&v39[v40], v73, type metadata accessor for TranscriptProtoSuppressed);
+    v38 = v61;
+    sub_20E1EF280(&v31[v32], v61, type metadata accessor for TranscriptProtoSuppressed);
     sub_20E3221C0();
     sub_20E1EF2E8();
-    v48 = sub_20E322850();
-    v49 = type metadata accessor for TranscriptProtoSuppressed;
-    sub_20E1E1564(v47, type metadata accessor for TranscriptProtoSuppressed);
-    v50 = v23;
+    v39 = sub_20E322850();
+    v40 = type metadata accessor for TranscriptProtoSuppressed;
+    sub_20E1E1564(v38, type metadata accessor for TranscriptProtoSuppressed);
+    v41 = v16;
   }
 
-  sub_20E1E1564(v50, v49);
-  sub_20E1E1564(v39, type metadata accessor for TranscriptProtoDialogFormat);
-  return v48 & 1;
+  sub_20E1E1564(v41, v40);
+  sub_20E1E1564(v31, type metadata accessor for TranscriptProtoDialogFormat);
+  return v39 & 1;
 }
 
 uint64_t _s23LighthouseDataProcessor51TranscriptProtoSystemPromptResolutionUserActionEnumO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
 {
-  v53 = a1;
-  v54 = a2;
+  v47 = a1;
+  v48 = a2;
   v2 = type metadata accessor for TranscriptProtoSystemPromptResolutionActionCancellation(0);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v51 = &v49 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v49 = type metadata accessor for TranscriptProtoSystemPromptResolutionRequirementResolution(0);
-  v5 = *(*(v49 - 8) + 64);
-  MEMORY[0x28223BE20](v49);
-  v50 = &v49 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for ToolKitProtoTypedValue(0);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v10 = (&v49 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v11 = type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum(0);
-  v12 = *(*(v11 - 8) + 64);
-  v13 = MEMORY[0x28223BE20](v11);
-  v15 = &v49 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = MEMORY[0x28223BE20](v13);
-  v52 = &v49 - v17;
-  v18 = MEMORY[0x28223BE20](v16);
-  v20 = (&v49 - v19);
-  v21 = MEMORY[0x28223BE20](v18);
-  v23 = &v49 - v22;
-  v24 = MEMORY[0x28223BE20](v21);
-  v26 = (&v49 - v25);
-  MEMORY[0x28223BE20](v24);
-  v28 = &v49 - v27;
-  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868EA8, &qword_20E3420A0);
-  v30 = *(*(v29 - 8) + 64);
-  v31 = MEMORY[0x28223BE20](v29 - 8);
-  v33 = &v49 - v32;
-  v34 = *(v31 + 56);
-  sub_20E1E14FC(v53, &v49 - v32, type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum);
-  sub_20E1E14FC(v54, &v33[v34], type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum);
+  v45 = &v43 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v43 = type metadata accessor for TranscriptProtoSystemPromptResolutionRequirementResolution(0);
+  MEMORY[0x28223BE20](v43);
+  v44 = &v43 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for ToolKitProtoTypedValue(0);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = (&v43 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum(0);
+  v9 = MEMORY[0x28223BE20](v8);
+  v11 = &v43 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = MEMORY[0x28223BE20](v9);
+  v46 = &v43 - v13;
+  v14 = MEMORY[0x28223BE20](v12);
+  v16 = (&v43 - v15);
+  v17 = MEMORY[0x28223BE20](v14);
+  v19 = &v43 - v18;
+  v20 = MEMORY[0x28223BE20](v17);
+  v22 = (&v43 - v21);
+  MEMORY[0x28223BE20](v20);
+  v24 = &v43 - v23;
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868EA8, &qword_20E3420A0);
+  v26 = MEMORY[0x28223BE20](v25 - 8);
+  v28 = &v43 - v27;
+  v29 = *(v26 + 56);
+  sub_20E1E14FC(v47, &v43 - v27, type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum);
+  sub_20E1E14FC(v48, &v28[v29], type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload > 2)
   {
     if (EnumCaseMultiPayload == 3)
     {
-      sub_20E1E14FC(v33, v20, type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum);
+      sub_20E1E14FC(v28, v16, type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum);
       if (swift_getEnumCaseMultiPayload() == 3)
       {
-        v36 = *v20 == *&v33[v34];
+        v31 = *v16 == *&v28[v29];
 LABEL_21:
-        sub_20E1E1564(v33, type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum);
-        return v36 & 1;
+        sub_20E1E1564(v28, type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum);
+        return v31 & 1;
       }
 
       goto LABEL_26;
@@ -5171,60 +288,59 @@ LABEL_21:
 
     if (EnumCaseMultiPayload == 4)
     {
-      v39 = v52;
-      sub_20E1E14FC(v33, v52, type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum);
+      v34 = v46;
+      sub_20E1E14FC(v28, v46, type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum);
       if (swift_getEnumCaseMultiPayload() == 4)
       {
-        v40 = v50;
-        sub_20E1EF280(&v33[v34], v50, type metadata accessor for TranscriptProtoSystemPromptResolutionRequirementResolution);
-        if (*v39 == *v40)
+        v35 = v44;
+        sub_20E1EF280(&v28[v29], v44, type metadata accessor for TranscriptProtoSystemPromptResolutionRequirementResolution);
+        if (*v34 == *v35)
         {
-          v47 = *(v49 + 20);
           sub_20E3221C0();
           sub_20E1EF2E8();
-          v48 = sub_20E322850();
-          sub_20E1E1564(v40, type metadata accessor for TranscriptProtoSystemPromptResolutionRequirementResolution);
-          if (v48)
+          v42 = sub_20E322850();
+          sub_20E1E1564(v35, type metadata accessor for TranscriptProtoSystemPromptResolutionRequirementResolution);
+          if (v42)
           {
-            sub_20E1E1564(v39, type metadata accessor for TranscriptProtoSystemPromptResolutionRequirementResolution);
-            sub_20E1E1564(v33, type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum);
-            v36 = 1;
-            return v36 & 1;
+            sub_20E1E1564(v34, type metadata accessor for TranscriptProtoSystemPromptResolutionRequirementResolution);
+            sub_20E1E1564(v28, type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum);
+            v31 = 1;
+            return v31 & 1;
           }
         }
 
         else
         {
-          sub_20E1E1564(v40, type metadata accessor for TranscriptProtoSystemPromptResolutionRequirementResolution);
+          sub_20E1E1564(v35, type metadata accessor for TranscriptProtoSystemPromptResolutionRequirementResolution);
         }
 
-        sub_20E1E1564(v39, type metadata accessor for TranscriptProtoSystemPromptResolutionRequirementResolution);
-        sub_20E1E1564(v33, type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum);
+        sub_20E1E1564(v34, type metadata accessor for TranscriptProtoSystemPromptResolutionRequirementResolution);
+        sub_20E1E1564(v28, type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum);
         goto LABEL_27;
       }
 
-      v44 = type metadata accessor for TranscriptProtoSystemPromptResolutionRequirementResolution;
-      v45 = v39;
+      v39 = type metadata accessor for TranscriptProtoSystemPromptResolutionRequirementResolution;
+      v40 = v34;
     }
 
     else
     {
-      sub_20E1E14FC(v33, v15, type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum);
+      sub_20E1E14FC(v28, v11, type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum);
       if (swift_getEnumCaseMultiPayload() == 5)
       {
-        v43 = v51;
-        sub_20E1EF280(&v33[v34], v51, type metadata accessor for TranscriptProtoSystemPromptResolutionActionCancellation);
+        v38 = v45;
+        sub_20E1EF280(&v28[v29], v45, type metadata accessor for TranscriptProtoSystemPromptResolutionActionCancellation);
         sub_20E3221C0();
         sub_20E1EF2E8();
-        v36 = sub_20E322850();
-        sub_20E1E1564(v43, type metadata accessor for TranscriptProtoSystemPromptResolutionActionCancellation);
-        v37 = v15;
-        v38 = type metadata accessor for TranscriptProtoSystemPromptResolutionActionCancellation;
+        v31 = sub_20E322850();
+        sub_20E1E1564(v38, type metadata accessor for TranscriptProtoSystemPromptResolutionActionCancellation);
+        v32 = v11;
+        v33 = type metadata accessor for TranscriptProtoSystemPromptResolutionActionCancellation;
         goto LABEL_20;
       }
 
-      v44 = type metadata accessor for TranscriptProtoSystemPromptResolutionActionCancellation;
-      v45 = v15;
+      v39 = type metadata accessor for TranscriptProtoSystemPromptResolutionActionCancellation;
+      v40 = v11;
     }
 
     goto LABEL_25;
@@ -5234,407 +350,386 @@ LABEL_21:
   {
     if (EnumCaseMultiPayload == 1)
     {
-      sub_20E1E14FC(v33, v26, type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum);
+      sub_20E1E14FC(v28, v22, type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum);
       if (swift_getEnumCaseMultiPayload() == 1)
       {
-        sub_20E1EF280(&v33[v34], v10, type metadata accessor for ToolKitProtoTypedValue);
-        v36 = static ToolKitProtoTypedValue.== infix(_:_:)(v26, v10);
-        sub_20E1E1564(v10, type metadata accessor for ToolKitProtoTypedValue);
-        v37 = v26;
-        v38 = type metadata accessor for ToolKitProtoTypedValue;
+        sub_20E1EF280(&v28[v29], v7, type metadata accessor for ToolKitProtoTypedValue);
+        v31 = static ToolKitProtoTypedValue.== infix(_:_:)(v22, v7);
+        sub_20E1E1564(v7, type metadata accessor for ToolKitProtoTypedValue);
+        v32 = v22;
+        v33 = type metadata accessor for ToolKitProtoTypedValue;
 LABEL_20:
-        sub_20E1E1564(v37, v38);
+        sub_20E1E1564(v32, v33);
         goto LABEL_21;
       }
 
-      v44 = type metadata accessor for ToolKitProtoTypedValue;
-      v45 = v26;
+      v39 = type metadata accessor for ToolKitProtoTypedValue;
+      v40 = v22;
 LABEL_25:
-      sub_20E1E1564(v45, v44);
+      sub_20E1E1564(v40, v39);
       goto LABEL_26;
     }
 
-    sub_20E1E14FC(v33, v23, type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum);
+    sub_20E1E14FC(v28, v19, type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum);
     if (swift_getEnumCaseMultiPayload() == 2)
     {
-      v41 = *v23;
+      v36 = *v19;
       goto LABEL_17;
     }
 
 LABEL_26:
-    sub_20E04875C(v33, &qword_27C868EA8, &qword_20E3420A0);
+    sub_20E04875C(v28, &qword_27C868EA8, &qword_20E3420A0);
 LABEL_27:
-    v36 = 0;
-    return v36 & 1;
+    v31 = 0;
+    return v31 & 1;
   }
 
-  sub_20E1E14FC(v33, v28, type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum);
+  sub_20E1E14FC(v28, v24, type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum);
   if (swift_getEnumCaseMultiPayload())
   {
     goto LABEL_26;
   }
 
-  v41 = *v28;
+  v36 = *v24;
 LABEL_17:
-  v42 = v41 ^ v33[v34];
-  sub_20E1E1564(v33, type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum);
-  v36 = v42 ^ 1;
-  return v36 & 1;
+  v37 = v36 ^ v28[v29];
+  sub_20E1E1564(v28, type metadata accessor for TranscriptProtoSystemPromptResolutionUserActionEnum);
+  v31 = v37 ^ 1;
+  return v31 & 1;
 }
 
 uint64_t _s23LighthouseDataProcessor33TranscriptProtoRequestContentEnumO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
 {
-  v48 = a1;
-  v49 = a2;
+  v42 = a1;
+  v43 = a2;
   v2 = type metadata accessor for TranscriptProtoRequestContentStopContent(0);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v47 = &v46 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = type metadata accessor for TranscriptProtoSystemPromptResolution(0);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
-  v46 = (&v46 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v8 = type metadata accessor for TranscriptProtoRequestContentSpeechContent(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = (&v46 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v12 = type metadata accessor for TranscriptProtoRequestContentTextContent(0);
-  v13 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12 - 8);
-  v15 = (&v46 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v16 = type metadata accessor for TranscriptProtoRequestContentEnum(0);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = MEMORY[0x28223BE20](v16);
-  v20 = &v46 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = MEMORY[0x28223BE20](v18);
-  v23 = (&v46 - v22);
-  v24 = MEMORY[0x28223BE20](v21);
-  v26 = (&v46 - v25);
-  MEMORY[0x28223BE20](v24);
-  v28 = (&v46 - v27);
-  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868F38, &qword_20E342138);
-  v30 = *(*(v29 - 8) + 64);
-  v31 = MEMORY[0x28223BE20](v29 - 8);
-  v33 = &v46 - v32;
-  v34 = *(v31 + 56);
-  sub_20E1E14FC(v48, &v46 - v32, type metadata accessor for TranscriptProtoRequestContentEnum);
-  sub_20E1E14FC(v49, &v33[v34], type metadata accessor for TranscriptProtoRequestContentEnum);
+  v41 = &v40 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for TranscriptProtoSystemPromptResolution(0);
+  MEMORY[0x28223BE20](v4 - 8);
+  v40 = (&v40 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v6 = type metadata accessor for TranscriptProtoRequestContentSpeechContent(0);
+  MEMORY[0x28223BE20](v6 - 8);
+  v8 = &v40 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for TranscriptProtoRequestContentTextContent(0);
+  MEMORY[0x28223BE20](v9 - 8);
+  v11 = &v40 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for TranscriptProtoRequestContentEnum(0);
+  v13 = MEMORY[0x28223BE20](v12);
+  v15 = &v40 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = MEMORY[0x28223BE20](v13);
+  v18 = (&v40 - v17);
+  v19 = MEMORY[0x28223BE20](v16);
+  v21 = &v40 - v20;
+  MEMORY[0x28223BE20](v19);
+  v23 = &v40 - v22;
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868F38, &qword_20E342138);
+  v25 = MEMORY[0x28223BE20](v24 - 8);
+  v27 = &v40 - v26;
+  v28 = *(v25 + 56);
+  sub_20E1E14FC(v42, &v40 - v26, type metadata accessor for TranscriptProtoRequestContentEnum);
+  sub_20E1E14FC(v43, &v27[v28], type metadata accessor for TranscriptProtoRequestContentEnum);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload > 1)
   {
     if (EnumCaseMultiPayload == 2)
     {
-      sub_20E1E14FC(v33, v23, type metadata accessor for TranscriptProtoRequestContentEnum);
+      sub_20E1E14FC(v27, v18, type metadata accessor for TranscriptProtoRequestContentEnum);
       if (swift_getEnumCaseMultiPayload() != 2)
       {
-        v36 = type metadata accessor for TranscriptProtoSystemPromptResolution;
-        v37 = v23;
+        v30 = type metadata accessor for TranscriptProtoSystemPromptResolution;
+        v31 = v18;
         goto LABEL_15;
       }
 
-      v38 = &v33[v34];
-      v39 = v46;
-      sub_20E1EF280(v38, v46, type metadata accessor for TranscriptProtoSystemPromptResolution);
-      v40 = _s23LighthouseDataProcessor37TranscriptProtoSystemPromptResolutionV2eeoiySbAC_ACtFZ_0(v23, v39);
-      sub_20E1E1564(v39, type metadata accessor for TranscriptProtoSystemPromptResolution);
-      v41 = v23;
-      v42 = type metadata accessor for TranscriptProtoSystemPromptResolution;
+      v32 = &v27[v28];
+      v33 = v40;
+      sub_20E1EF280(v32, v40, type metadata accessor for TranscriptProtoSystemPromptResolution);
+      v34 = _s23LighthouseDataProcessor37TranscriptProtoSystemPromptResolutionV2eeoiySbAC_ACtFZ_0(v18, v33);
+      sub_20E1E1564(v33, type metadata accessor for TranscriptProtoSystemPromptResolution);
+      v35 = v18;
+      v36 = type metadata accessor for TranscriptProtoSystemPromptResolution;
 LABEL_18:
-      sub_20E1E1564(v41, v42);
-      sub_20E1E1564(v33, type metadata accessor for TranscriptProtoRequestContentEnum);
-      return v40 & 1;
+      sub_20E1E1564(v35, v36);
+      sub_20E1E1564(v27, type metadata accessor for TranscriptProtoRequestContentEnum);
+      return v34 & 1;
     }
 
-    sub_20E1E14FC(v33, v20, type metadata accessor for TranscriptProtoRequestContentEnum);
+    sub_20E1E14FC(v27, v15, type metadata accessor for TranscriptProtoRequestContentEnum);
     if (swift_getEnumCaseMultiPayload() != 3)
     {
-      v36 = type metadata accessor for TranscriptProtoRequestContentStopContent;
-      v37 = v20;
+      v30 = type metadata accessor for TranscriptProtoRequestContentStopContent;
+      v31 = v15;
       goto LABEL_15;
     }
 
-    v44 = v47;
-    sub_20E1EF280(&v33[v34], v47, type metadata accessor for TranscriptProtoRequestContentStopContent);
+    v38 = v41;
+    sub_20E1EF280(&v27[v28], v41, type metadata accessor for TranscriptProtoRequestContentStopContent);
     sub_20E3221C0();
     sub_20E1EF2E8();
-    v40 = sub_20E322850();
-    v43 = type metadata accessor for TranscriptProtoRequestContentStopContent;
-    sub_20E1E1564(v44, type metadata accessor for TranscriptProtoRequestContentStopContent);
-    v41 = v20;
+    v34 = sub_20E322850();
+    v37 = type metadata accessor for TranscriptProtoRequestContentStopContent;
+    sub_20E1E1564(v38, type metadata accessor for TranscriptProtoRequestContentStopContent);
+    v35 = v15;
 LABEL_17:
-    v42 = v43;
+    v36 = v37;
     goto LABEL_18;
   }
 
   if (EnumCaseMultiPayload)
   {
-    sub_20E1E14FC(v33, v26, type metadata accessor for TranscriptProtoRequestContentEnum);
+    sub_20E1E14FC(v27, v21, type metadata accessor for TranscriptProtoRequestContentEnum);
     if (swift_getEnumCaseMultiPayload() != 1)
     {
-      v36 = type metadata accessor for TranscriptProtoRequestContentSpeechContent;
-      v37 = v26;
+      v30 = type metadata accessor for TranscriptProtoRequestContentSpeechContent;
+      v31 = v21;
       goto LABEL_15;
     }
 
-    sub_20E1EF280(&v33[v34], v11, type metadata accessor for TranscriptProtoRequestContentSpeechContent);
-    v40 = static TranscriptProtoRequestContentSpeechContent.== infix(_:_:)(v26, v11);
-    v43 = type metadata accessor for TranscriptProtoRequestContentSpeechContent;
-    sub_20E1E1564(v11, type metadata accessor for TranscriptProtoRequestContentSpeechContent);
-    v41 = v26;
+    sub_20E1EF280(&v27[v28], v8, type metadata accessor for TranscriptProtoRequestContentSpeechContent);
+    v34 = static TranscriptProtoRequestContentSpeechContent.== infix(_:_:)();
+    v37 = type metadata accessor for TranscriptProtoRequestContentSpeechContent;
+    sub_20E1E1564(v8, type metadata accessor for TranscriptProtoRequestContentSpeechContent);
+    v35 = v21;
     goto LABEL_17;
   }
 
-  sub_20E1E14FC(v33, v28, type metadata accessor for TranscriptProtoRequestContentEnum);
+  sub_20E1E14FC(v27, v23, type metadata accessor for TranscriptProtoRequestContentEnum);
   if (!swift_getEnumCaseMultiPayload())
   {
-    sub_20E1EF280(&v33[v34], v15, type metadata accessor for TranscriptProtoRequestContentTextContent);
-    v40 = static TranscriptProtoRequestContentTextContent.== infix(_:_:)(v28, v15);
-    v43 = type metadata accessor for TranscriptProtoRequestContentTextContent;
-    sub_20E1E1564(v15, type metadata accessor for TranscriptProtoRequestContentTextContent);
-    v41 = v28;
+    sub_20E1EF280(&v27[v28], v11, type metadata accessor for TranscriptProtoRequestContentTextContent);
+    v34 = static TranscriptProtoRequestContentTextContent.== infix(_:_:)();
+    v37 = type metadata accessor for TranscriptProtoRequestContentTextContent;
+    sub_20E1E1564(v11, type metadata accessor for TranscriptProtoRequestContentTextContent);
+    v35 = v23;
     goto LABEL_17;
   }
 
-  v36 = type metadata accessor for TranscriptProtoRequestContentTextContent;
-  v37 = v28;
+  v30 = type metadata accessor for TranscriptProtoRequestContentTextContent;
+  v31 = v23;
 LABEL_15:
-  sub_20E1E1564(v37, v36);
-  sub_20E04875C(v33, &qword_27C868F38, &qword_20E342138);
-  v40 = 0;
-  return v40 & 1;
+  sub_20E1E1564(v31, v30);
+  sub_20E04875C(v27, &qword_27C868F38, &qword_20E342138);
+  v34 = 0;
+  return v34 & 1;
 }
 
 uint64_t _s23LighthouseDataProcessor21TranscriptProtoUitypeO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
 {
-  v54 = a2;
-  v49 = type metadata accessor for TranscriptProtoControlPayload(0);
-  v3 = *(*(v49 - 8) + 64);
-  MEMORY[0x28223BE20](v49);
-  v52 = &v47 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v48 = type metadata accessor for TranscriptProtoPluginSnippetPayload(0);
-  v5 = *(*(v48 - 8) + 64);
-  MEMORY[0x28223BE20](v48);
-  v53 = (&v47 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v50 = type metadata accessor for TranscriptProtoLiveActivityPayload(0);
-  v7 = *(*(v50 - 8) + 64);
-  MEMORY[0x28223BE20](v50);
-  v51 = (&v47 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v9 = type metadata accessor for TranscriptProtoArchiveViewPayload(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = (&v47 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v13 = type metadata accessor for TranscriptProtoUitype(0);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13);
-  v17 = &v47 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = MEMORY[0x28223BE20](v15);
-  v20 = (&v47 - v19);
-  v21 = MEMORY[0x28223BE20](v18);
-  v23 = (&v47 - v22);
-  MEMORY[0x28223BE20](v21);
-  v25 = (&v47 - v24);
-  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868EB8, &qword_20E3420B8);
-  v27 = *(*(v26 - 8) + 64);
-  v28 = MEMORY[0x28223BE20](v26 - 8);
-  v30 = &v47 - v29;
-  v31 = *(v28 + 56);
-  sub_20E1E14FC(a1, &v47 - v29, type metadata accessor for TranscriptProtoUitype);
-  sub_20E1E14FC(v54, &v30[v31], type metadata accessor for TranscriptProtoUitype);
+  v45 = a2;
+  v40 = type metadata accessor for TranscriptProtoControlPayload(0);
+  MEMORY[0x28223BE20](v40);
+  v43 = &v38 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v39 = type metadata accessor for TranscriptProtoPluginSnippetPayload(0);
+  MEMORY[0x28223BE20](v39);
+  v44 = (&v38 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v41 = type metadata accessor for TranscriptProtoLiveActivityPayload(0);
+  MEMORY[0x28223BE20](v41);
+  v42 = (&v38 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v6 = type metadata accessor for TranscriptProtoArchiveViewPayload(0);
+  MEMORY[0x28223BE20](v6 - 8);
+  v8 = (&v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v9 = type metadata accessor for TranscriptProtoUitype(0);
+  v10 = MEMORY[0x28223BE20](v9);
+  v12 = &v38 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = MEMORY[0x28223BE20](v10);
+  v15 = (&v38 - v14);
+  v16 = MEMORY[0x28223BE20](v13);
+  v18 = (&v38 - v17);
+  MEMORY[0x28223BE20](v16);
+  v20 = (&v38 - v19);
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868EB8, &qword_20E3420B8);
+  v22 = MEMORY[0x28223BE20](v21 - 8);
+  v24 = &v38 - v23;
+  v25 = *(v22 + 56);
+  sub_20E1E14FC(a1, &v38 - v23, type metadata accessor for TranscriptProtoUitype);
+  sub_20E1E14FC(v45, &v24[v25], type metadata accessor for TranscriptProtoUitype);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload > 1)
   {
     if (EnumCaseMultiPayload == 2)
     {
-      sub_20E1E14FC(v30, v20, type metadata accessor for TranscriptProtoUitype);
+      sub_20E1E14FC(v24, v15, type metadata accessor for TranscriptProtoUitype);
       if (swift_getEnumCaseMultiPayload() != 2)
       {
-        v33 = type metadata accessor for TranscriptProtoPluginSnippetPayload;
-        v34 = v20;
+        v27 = type metadata accessor for TranscriptProtoPluginSnippetPayload;
+        v28 = v15;
         goto LABEL_27;
       }
 
-      v35 = v53;
-      sub_20E1EF280(&v30[v31], v53, type metadata accessor for TranscriptProtoPluginSnippetPayload);
-      if (sub_20E15F7B0(*v20, v20[1], *v35, v35[1]) & 1) != 0 && (v20[2] == v35[2] && v20[3] == v35[3] || (sub_20E322D60()))
+      v29 = v44;
+      sub_20E1EF280(&v24[v25], v44, type metadata accessor for TranscriptProtoPluginSnippetPayload);
+      if (sub_20E15F7B0(*v15, v15[1], *v29, v29[1]) && (v15[2] == v29[2] && v15[3] == v29[3] || (sub_20E322D60() & 1) != 0))
       {
-        v36 = *(v48 + 24);
         sub_20E3221C0();
         sub_20E1EF2E8();
         if (sub_20E322850())
         {
-          v37 = type metadata accessor for TranscriptProtoPluginSnippetPayload;
-          sub_20E1E1564(v35, type metadata accessor for TranscriptProtoPluginSnippetPayload);
-          v38 = v20;
+          v30 = type metadata accessor for TranscriptProtoPluginSnippetPayload;
+          sub_20E1E1564(v29, type metadata accessor for TranscriptProtoPluginSnippetPayload);
+          v31 = v15;
 LABEL_23:
-          sub_20E1E1564(v38, v37);
-          sub_20E1E1564(v30, type metadata accessor for TranscriptProtoUitype);
-          v43 = 1;
-          return v43 & 1;
+          sub_20E1E1564(v31, v30);
+          sub_20E1E1564(v24, type metadata accessor for TranscriptProtoUitype);
+          v34 = 1;
+          return v34 & 1;
         }
       }
 
-      v44 = type metadata accessor for TranscriptProtoPluginSnippetPayload;
-      sub_20E1E1564(v35, type metadata accessor for TranscriptProtoPluginSnippetPayload);
-      v45 = v20;
+      v35 = type metadata accessor for TranscriptProtoPluginSnippetPayload;
+      sub_20E1E1564(v29, type metadata accessor for TranscriptProtoPluginSnippetPayload);
+      v36 = v15;
     }
 
     else
     {
-      sub_20E1E14FC(v30, v17, type metadata accessor for TranscriptProtoUitype);
+      sub_20E1E14FC(v24, v12, type metadata accessor for TranscriptProtoUitype);
       if (swift_getEnumCaseMultiPayload() != 3)
       {
-        v33 = type metadata accessor for TranscriptProtoControlPayload;
-        v34 = v17;
+        v27 = type metadata accessor for TranscriptProtoControlPayload;
+        v28 = v12;
         goto LABEL_27;
       }
 
-      v41 = v52;
-      sub_20E1EF280(&v30[v31], v52, type metadata accessor for TranscriptProtoControlPayload);
-      if (sub_20E15F7B0(*v17, *(v17 + 1), *v41, *(v41 + 8)))
+      v33 = v43;
+      sub_20E1EF280(&v24[v25], v43, type metadata accessor for TranscriptProtoControlPayload);
+      if (sub_20E15F7B0(*v12, *(v12 + 1), *v33, *(v33 + 8)))
       {
-        v42 = *(v49 + 20);
         sub_20E3221C0();
         sub_20E1EF2E8();
         if (sub_20E322850())
         {
-          v37 = type metadata accessor for TranscriptProtoControlPayload;
-          sub_20E1E1564(v41, type metadata accessor for TranscriptProtoControlPayload);
-          v38 = v17;
+          v30 = type metadata accessor for TranscriptProtoControlPayload;
+          sub_20E1E1564(v33, type metadata accessor for TranscriptProtoControlPayload);
+          v31 = v12;
           goto LABEL_23;
         }
       }
 
-      v44 = type metadata accessor for TranscriptProtoControlPayload;
-      sub_20E1E1564(v41, type metadata accessor for TranscriptProtoControlPayload);
-      v45 = v17;
+      v35 = type metadata accessor for TranscriptProtoControlPayload;
+      sub_20E1E1564(v33, type metadata accessor for TranscriptProtoControlPayload);
+      v36 = v12;
     }
 
 LABEL_32:
-    sub_20E1E1564(v45, v44);
-    sub_20E1E1564(v30, type metadata accessor for TranscriptProtoUitype);
+    sub_20E1E1564(v36, v35);
+    sub_20E1E1564(v24, type metadata accessor for TranscriptProtoUitype);
     goto LABEL_33;
   }
 
   if (EnumCaseMultiPayload)
   {
-    sub_20E1E14FC(v30, v23, type metadata accessor for TranscriptProtoUitype);
+    sub_20E1E14FC(v24, v18, type metadata accessor for TranscriptProtoUitype);
     if (swift_getEnumCaseMultiPayload() != 1)
     {
-      v33 = type metadata accessor for TranscriptProtoLiveActivityPayload;
-      v34 = v23;
+      v27 = type metadata accessor for TranscriptProtoLiveActivityPayload;
+      v28 = v18;
       goto LABEL_27;
     }
 
-    v39 = v51;
-    sub_20E1EF280(&v30[v31], v51, type metadata accessor for TranscriptProtoLiveActivityPayload);
-    if (*v23 == *v39 && v23[1] == v39[1] || (sub_20E322D60() & 1) != 0)
+    v32 = v42;
+    sub_20E1EF280(&v24[v25], v42, type metadata accessor for TranscriptProtoLiveActivityPayload);
+    if (*v18 == *v32 && v18[1] == v32[1] || (sub_20E322D60() & 1) != 0)
     {
-      v40 = *(v50 + 20);
       sub_20E3221C0();
       sub_20E1EF2E8();
       if (sub_20E322850())
       {
-        v37 = type metadata accessor for TranscriptProtoLiveActivityPayload;
-        sub_20E1E1564(v39, type metadata accessor for TranscriptProtoLiveActivityPayload);
-        v38 = v23;
+        v30 = type metadata accessor for TranscriptProtoLiveActivityPayload;
+        sub_20E1E1564(v32, type metadata accessor for TranscriptProtoLiveActivityPayload);
+        v31 = v18;
         goto LABEL_23;
       }
     }
 
-    v44 = type metadata accessor for TranscriptProtoLiveActivityPayload;
-    sub_20E1E1564(v39, type metadata accessor for TranscriptProtoLiveActivityPayload);
-    v45 = v23;
+    v35 = type metadata accessor for TranscriptProtoLiveActivityPayload;
+    sub_20E1E1564(v32, type metadata accessor for TranscriptProtoLiveActivityPayload);
+    v36 = v18;
     goto LABEL_32;
   }
 
-  sub_20E1E14FC(v30, v25, type metadata accessor for TranscriptProtoUitype);
+  sub_20E1E14FC(v24, v20, type metadata accessor for TranscriptProtoUitype);
   if (swift_getEnumCaseMultiPayload())
   {
-    v33 = type metadata accessor for TranscriptProtoArchiveViewPayload;
-    v34 = v25;
+    v27 = type metadata accessor for TranscriptProtoArchiveViewPayload;
+    v28 = v20;
 LABEL_27:
-    sub_20E1E1564(v34, v33);
-    sub_20E04875C(v30, &qword_27C868EB8, &qword_20E3420B8);
+    sub_20E1E1564(v28, v27);
+    sub_20E04875C(v24, &qword_27C868EB8, &qword_20E3420B8);
 LABEL_33:
-    v43 = 0;
-    return v43 & 1;
+    v34 = 0;
+    return v34 & 1;
   }
 
-  sub_20E1EF280(&v30[v31], v12, type metadata accessor for TranscriptProtoArchiveViewPayload);
-  v43 = _s23LighthouseDataProcessor33TranscriptProtoArchiveViewPayloadV2eeoiySbAC_ACtFZ_0(v25, v12);
-  sub_20E1E1564(v12, type metadata accessor for TranscriptProtoArchiveViewPayload);
-  sub_20E1E1564(v25, type metadata accessor for TranscriptProtoArchiveViewPayload);
-  sub_20E1E1564(v30, type metadata accessor for TranscriptProtoUitype);
-  return v43 & 1;
+  sub_20E1EF280(&v24[v25], v8, type metadata accessor for TranscriptProtoArchiveViewPayload);
+  v34 = _s23LighthouseDataProcessor33TranscriptProtoArchiveViewPayloadV2eeoiySbAC_ACtFZ_0(v20, v8);
+  sub_20E1E1564(v8, type metadata accessor for TranscriptProtoArchiveViewPayload);
+  sub_20E1E1564(v20, type metadata accessor for TranscriptProtoArchiveViewPayload);
+  sub_20E1E1564(v24, type metadata accessor for TranscriptProtoUitype);
+  return v34 & 1;
 }
 
 BOOL _s23LighthouseDataProcessor20TranscriptProtoLabelO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for TranscriptProtoUIConfirmationLabel(0);
-  v5 = *(*(v4 - 8) + 64);
-  v6 = MEMORY[0x28223BE20](v4);
-  v8 = (&v22 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x28223BE20](v6);
-  v10 = (&v22 - v9);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C8682F8, &qword_20E3420B0);
-  v12 = *(*(v11 - 8) + 64);
-  v13 = MEMORY[0x28223BE20](v11 - 8);
-  v15 = &v22 - v14;
-  v16 = *(v13 + 56);
-  sub_20E1E14FC(a1, &v22 - v14, type metadata accessor for TranscriptProtoLabel);
-  sub_20E1E14FC(a2, &v15[v16], type metadata accessor for TranscriptProtoLabel);
-  sub_20E1EF280(v15, v10, type metadata accessor for TranscriptProtoUIConfirmationLabel);
-  sub_20E1EF280(&v15[v16], v8, type metadata accessor for TranscriptProtoUIConfirmationLabel);
-  v17 = *v10 == *v8 && v10[1] == v8[1];
-  v20 = 0;
-  if (v17 || (sub_20E322D60() & 1) != 0)
+  v5 = MEMORY[0x28223BE20](v4);
+  v7 = (&v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x28223BE20](v5);
+  v9 = (&v19 - v8);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C8682F8, &qword_20E3420B0);
+  v11 = MEMORY[0x28223BE20](v10 - 8);
+  v13 = &v19 - v12;
+  v14 = *(v11 + 56);
+  sub_20E1E14FC(a1, &v19 - v12, type metadata accessor for TranscriptProtoLabel);
+  sub_20E1E14FC(a2, &v13[v14], type metadata accessor for TranscriptProtoLabel);
+  sub_20E1EF280(v13, v9, type metadata accessor for TranscriptProtoUIConfirmationLabel);
+  sub_20E1EF280(&v13[v14], v7, type metadata accessor for TranscriptProtoUIConfirmationLabel);
+  v15 = *v9 == *v7 && v9[1] == v7[1];
+  v17 = 0;
+  if (v15 || (sub_20E322D60() & 1) != 0)
   {
-    v18 = v10[2] == v8[2] && v10[3] == v8[3];
-    if (v18 || (sub_20E322D60() & 1) != 0)
+    v16 = v9[2] == v7[2] && v9[3] == v7[3];
+    if (v16 || (sub_20E322D60() & 1) != 0)
     {
-      v19 = *(v4 + 24);
       sub_20E3221C0();
       sub_20E1EF2E8();
       if (sub_20E322850())
       {
-        v20 = 1;
+        v17 = 1;
       }
     }
   }
 
-  sub_20E1E1564(v8, type metadata accessor for TranscriptProtoUIConfirmationLabel);
-  sub_20E1E1564(v10, type metadata accessor for TranscriptProtoUIConfirmationLabel);
-  return v20;
+  sub_20E1E1564(v7, type metadata accessor for TranscriptProtoUIConfirmationLabel);
+  sub_20E1E1564(v9, type metadata accessor for TranscriptProtoUIConfirmationLabel);
+  return v17;
 }
 
 uint64_t _s23LighthouseDataProcessor34TranscriptProtoValueExpressionEnumO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
 {
-  v46 = a2;
-  v43 = type metadata accessor for TranscriptProtoValueExpressionArrayVariant(0);
-  v3 = *(*(v43 - 8) + 64);
-  MEMORY[0x28223BE20](v43);
-  v44 = (&v43 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v5 = type metadata accessor for TranscriptProtoValueExpressionEnum(0);
-  v6 = *(*(v5 - 8) + 64);
-  v7 = MEMORY[0x28223BE20](v5);
-  v9 = (&v43 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v10 = MEMORY[0x28223BE20](v7);
-  v45 = (&v43 - v11);
-  v12 = MEMORY[0x28223BE20](v10);
-  v14 = (&v43 - v13);
-  v15 = MEMORY[0x28223BE20](v12);
-  v17 = (&v43 - v16);
-  v18 = MEMORY[0x28223BE20](v15);
-  v20 = (&v43 - v19);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v43 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868E88, &qword_20E342080);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x28223BE20](v23 - 8);
-  v27 = &v43 - v26;
-  v28 = (&v43 + *(v25 + 56) - v26);
-  sub_20E1E14FC(a1, &v43 - v26, type metadata accessor for TranscriptProtoValueExpressionEnum);
-  sub_20E1E14FC(v46, v28, type metadata accessor for TranscriptProtoValueExpressionEnum);
+  v40 = a2;
+  v37 = type metadata accessor for TranscriptProtoValueExpressionArrayVariant(0);
+  MEMORY[0x28223BE20](v37);
+  v38 = (&v37 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v4 = type metadata accessor for TranscriptProtoValueExpressionEnum(0);
+  v5 = MEMORY[0x28223BE20](v4);
+  v7 = (&v37 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = MEMORY[0x28223BE20](v5);
+  v39 = (&v37 - v9);
+  v10 = MEMORY[0x28223BE20](v8);
+  v12 = (&v37 - v11);
+  v13 = MEMORY[0x28223BE20](v10);
+  v15 = (&v37 - v14);
+  v16 = MEMORY[0x28223BE20](v13);
+  v18 = (&v37 - v17);
+  MEMORY[0x28223BE20](v16);
+  v20 = &v37 - v19;
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868E88, &qword_20E342080);
+  v22 = MEMORY[0x28223BE20](v21 - 8);
+  v24 = &v37 - v23;
+  v25 = (&v37 + *(v22 + 56) - v23);
+  sub_20E1E14FC(a1, &v37 - v23, type metadata accessor for TranscriptProtoValueExpressionEnum);
+  sub_20E1E14FC(v40, v25, type metadata accessor for TranscriptProtoValueExpressionEnum);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload > 2)
   {
@@ -5642,23 +737,21 @@ uint64_t _s23LighthouseDataProcessor34TranscriptProtoValueExpressionEnumO2eeoiyS
     {
       if (EnumCaseMultiPayload == 5)
       {
-        sub_20E1E14FC(v27, v9, type metadata accessor for TranscriptProtoValueExpressionEnum);
-        v31 = *v9;
-        v30 = v9[1];
+        sub_20E1E14FC(v24, v7, type metadata accessor for TranscriptProtoValueExpressionEnum);
+        v28 = *v7;
+        v27 = v7[1];
         if (swift_getEnumCaseMultiPayload() == 5)
         {
 LABEL_5:
-          if (v31 == *v28 && v30 == *(v28 + 1))
+          if (v28 == *v25 && v27 == *(v25 + 1))
           {
-            v41 = *(v28 + 1);
           }
 
           else
           {
-            v33 = *(v28 + 1);
-            v34 = sub_20E322D60();
+            v30 = sub_20E322D60();
 
-            if ((v34 & 1) == 0)
+            if ((v30 & 1) == 0)
             {
               goto LABEL_39;
             }
@@ -5673,9 +766,9 @@ LABEL_5:
       if (swift_getEnumCaseMultiPayload() == 6)
       {
 LABEL_33:
-        sub_20E1E1564(v27, type metadata accessor for TranscriptProtoValueExpressionEnum);
-        v37 = 1;
-        return v37 & 1;
+        sub_20E1E1564(v24, type metadata accessor for TranscriptProtoValueExpressionEnum);
+        v33 = 1;
+        return v33 & 1;
       }
     }
 
@@ -5683,9 +776,9 @@ LABEL_33:
     {
       if (EnumCaseMultiPayload == 3)
       {
-        sub_20E1E14FC(v27, v14, type metadata accessor for TranscriptProtoValueExpressionEnum);
-        v31 = *v14;
-        v30 = v14[1];
+        sub_20E1E14FC(v24, v12, type metadata accessor for TranscriptProtoValueExpressionEnum);
+        v28 = *v12;
+        v27 = v12[1];
         if (swift_getEnumCaseMultiPayload() == 3)
         {
           goto LABEL_5;
@@ -5696,1026 +789,977 @@ LABEL_17:
         goto LABEL_35;
       }
 
-      v38 = v45;
-      sub_20E1E14FC(v27, v45, type metadata accessor for TranscriptProtoValueExpressionEnum);
+      v34 = v39;
+      sub_20E1E14FC(v24, v39, type metadata accessor for TranscriptProtoValueExpressionEnum);
       if (swift_getEnumCaseMultiPayload() == 4)
       {
-        v39 = v44;
-        sub_20E1EF280(v28, v44, type metadata accessor for TranscriptProtoValueExpressionArrayVariant);
-        if ((sub_20E14A924(*v38, *v39) & 1) == 0 || (v40 = *(v43 + 20), sub_20E3221C0(), sub_20E1EF2E8(), (sub_20E322850() & 1) == 0))
+        v35 = v38;
+        sub_20E1EF280(v25, v38, type metadata accessor for TranscriptProtoValueExpressionArrayVariant);
+        if ((sub_20E14A924(*v34, *v35) & 1) == 0 || (sub_20E3221C0(), sub_20E1EF2E8(), (sub_20E322850() & 1) == 0))
         {
-          sub_20E1E1564(v39, type metadata accessor for TranscriptProtoValueExpressionArrayVariant);
-          sub_20E1E1564(v38, type metadata accessor for TranscriptProtoValueExpressionArrayVariant);
+          sub_20E1E1564(v35, type metadata accessor for TranscriptProtoValueExpressionArrayVariant);
+          sub_20E1E1564(v34, type metadata accessor for TranscriptProtoValueExpressionArrayVariant);
 LABEL_39:
-          sub_20E1E1564(v27, type metadata accessor for TranscriptProtoValueExpressionEnum);
+          sub_20E1E1564(v24, type metadata accessor for TranscriptProtoValueExpressionEnum);
           goto LABEL_36;
         }
 
-        sub_20E1E1564(v39, type metadata accessor for TranscriptProtoValueExpressionArrayVariant);
-        sub_20E1E1564(v38, type metadata accessor for TranscriptProtoValueExpressionArrayVariant);
+        sub_20E1E1564(v35, type metadata accessor for TranscriptProtoValueExpressionArrayVariant);
+        sub_20E1E1564(v34, type metadata accessor for TranscriptProtoValueExpressionArrayVariant);
         goto LABEL_33;
       }
 
-      sub_20E1E1564(v38, type metadata accessor for TranscriptProtoValueExpressionArrayVariant);
+      sub_20E1E1564(v34, type metadata accessor for TranscriptProtoValueExpressionArrayVariant);
     }
 
 LABEL_35:
-    sub_20E04875C(v27, &qword_27C868E88, &qword_20E342080);
+    sub_20E04875C(v24, &qword_27C868E88, &qword_20E342080);
 LABEL_36:
-    v37 = 0;
-    return v37 & 1;
+    v33 = 0;
+    return v33 & 1;
   }
 
   if (EnumCaseMultiPayload)
   {
     if (EnumCaseMultiPayload == 1)
     {
-      sub_20E1E14FC(v27, v20, type metadata accessor for TranscriptProtoValueExpressionEnum);
+      sub_20E1E14FC(v24, v18, type metadata accessor for TranscriptProtoValueExpressionEnum);
       if (swift_getEnumCaseMultiPayload() != 1)
       {
         goto LABEL_35;
       }
 
-      v35 = *v20 == *v28;
+      v31 = *v18 == *v25;
     }
 
     else
     {
-      sub_20E1E14FC(v27, v17, type metadata accessor for TranscriptProtoValueExpressionEnum);
+      sub_20E1E14FC(v24, v15, type metadata accessor for TranscriptProtoValueExpressionEnum);
       if (swift_getEnumCaseMultiPayload() != 2)
       {
         goto LABEL_35;
       }
 
-      v35 = *v17 == *v28;
+      v31 = *v15 == *v25;
     }
 
-    v37 = v35;
-    sub_20E1E1564(v27, type metadata accessor for TranscriptProtoValueExpressionEnum);
+    v33 = v31;
+    sub_20E1E1564(v24, type metadata accessor for TranscriptProtoValueExpressionEnum);
   }
 
   else
   {
-    sub_20E1E14FC(v27, v22, type metadata accessor for TranscriptProtoValueExpressionEnum);
+    sub_20E1E14FC(v24, v20, type metadata accessor for TranscriptProtoValueExpressionEnum);
     if (swift_getEnumCaseMultiPayload())
     {
       goto LABEL_35;
     }
 
-    v36 = *v22 ^ *v28;
-    sub_20E1E1564(v27, type metadata accessor for TranscriptProtoValueExpressionEnum);
-    v37 = v36 ^ 1;
+    v32 = *v20 ^ *v25;
+    sub_20E1E1564(v24, type metadata accessor for TranscriptProtoValueExpressionEnum);
+    v33 = v32 ^ 1;
   }
 
-  return v37 & 1;
+  return v33 & 1;
 }
 
 uint64_t _s23LighthouseDataProcessor29TranscriptProtoExpressionEnumO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
 {
-  v287 = a1;
-  v288 = a2;
+  v250 = a1;
+  v251 = a2;
   v2 = type metadata accessor for TranscriptProtoUserDisambiguateExpression(0);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v261 = (&v226 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v5 = type metadata accessor for TranscriptProtoUserConfirmExpression(0);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
-  v260 = (&v226 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v8 = type metadata accessor for TranscriptProtoSiriXFallbackExpression(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v259 = (&v226 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v224 = (&v189 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v4 = type metadata accessor for TranscriptProtoUserConfirmExpression(0);
+  MEMORY[0x28223BE20](v4 - 8);
+  v223 = (&v189 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v6 = type metadata accessor for TranscriptProtoSiriXFallbackExpression(0);
+  MEMORY[0x28223BE20](v6 - 8);
+  v222 = (&v189 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
   ToolsExpression = type metadata accessor for TranscriptProtoRetrieveToolsExpression(0);
-  v12 = *(*(ToolsExpression - 8) + 64);
   MEMORY[0x28223BE20](ToolsExpression - 8);
-  v258 = (&v226 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v221 = (&v189 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
   SpansExpression = type metadata accessor for TranscriptProtoRetrieveSpansExpression(0);
-  v15 = *(*(SpansExpression - 8) + 64);
   MEMORY[0x28223BE20](SpansExpression - 8);
-  v257 = (&v226 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v220 = (&v189 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
   ContextExpression = type metadata accessor for TranscriptProtoRetrieveContextExpression(0);
-  v18 = *(*(ContextExpression - 8) + 64);
   MEMORY[0x28223BE20](ContextExpression - 8);
-  v256 = &v226 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v230 = type metadata accessor for TranscriptProtoFormatExpression(0);
-  v20 = *(*(v230 - 8) + 64);
-  MEMORY[0x28223BE20](v230);
-  v255 = (&v226 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v229 = type metadata accessor for TranscriptProtoPayloadExpression(0);
-  v22 = *(*(v229 - 8) + 64);
-  MEMORY[0x28223BE20](v229);
-  v254 = (&v226 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v24 = type metadata accessor for TranscriptProtoExplicitResolutionRequest(0);
-  v25 = *(*(v24 - 8) + 64);
-  MEMORY[0x28223BE20](v24 - 8);
-  v253 = &v226 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v27 = type metadata accessor for TranscriptProtoOpenExpression(0);
-  v28 = *(*(v27 - 8) + 64);
-  MEMORY[0x28223BE20](v27 - 8);
-  v252 = (&v226 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v219 = &v189 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v193 = type metadata accessor for TranscriptProtoFormatExpression(0);
+  MEMORY[0x28223BE20](v193);
+  v218 = (&v189 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v192 = type metadata accessor for TranscriptProtoPayloadExpression(0);
+  MEMORY[0x28223BE20](v192);
+  v217 = (&v189 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v16 = type metadata accessor for TranscriptProtoExplicitResolutionRequest(0);
+  MEMORY[0x28223BE20](v16 - 8);
+  v216 = &v189 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = type metadata accessor for TranscriptProtoOpenExpression(0);
+  MEMORY[0x28223BE20](v18 - 8);
+  v215 = (&v189 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0));
   MentionedAppsExpression = type metadata accessor for TranscriptProtoGetMentionedAppsExpression(0);
-  v31 = *(*(MentionedAppsExpression - 8) + 64);
   MEMORY[0x28223BE20](MentionedAppsExpression - 8);
-  v251 = &v226 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v33 = type metadata accessor for TranscriptProtoEndOfPlanExpression(0);
-  v34 = *(*(v33 - 8) + 64);
-  MEMORY[0x28223BE20](v33 - 8);
-  v250 = &v226 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v36 = type metadata accessor for TranscriptProtoContinuePlanningExpression(0);
-  v37 = *(*(v36 - 8) + 64);
-  MEMORY[0x28223BE20](v36 - 8);
-  v249 = &v226 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v39 = type metadata accessor for TranscriptProtoNoMatchingToolExpression(0);
-  v40 = *(*(v39 - 8) + 64);
+  v214 = &v189 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = type metadata accessor for TranscriptProtoEndOfPlanExpression(0);
+  MEMORY[0x28223BE20](v22 - 8);
+  v213 = &v189 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = type metadata accessor for TranscriptProtoContinuePlanningExpression(0);
+  MEMORY[0x28223BE20](v24 - 8);
+  v212 = &v189 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v26 = type metadata accessor for TranscriptProtoNoMatchingToolExpression(0);
+  MEMORY[0x28223BE20](v26 - 8);
+  v211 = &v189 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v28 = type metadata accessor for TranscriptProtoCancelExpression(0);
+  MEMORY[0x28223BE20](v28 - 8);
+  v210 = (&v189 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v30 = type metadata accessor for TranscriptProtoRejectExpression(0);
+  MEMORY[0x28223BE20](v30 - 8);
+  v209 = (&v189 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v32 = type metadata accessor for TranscriptProtoUndoExpression(0);
+  MEMORY[0x28223BE20](v32 - 8);
+  v207 = (&v189 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v191 = type metadata accessor for TranscriptProtoResolveToolExpression(0);
+  MEMORY[0x28223BE20](v191);
+  v208 = (&v189 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v35 = type metadata accessor for TranscriptProtoPickOneExpression(0);
+  MEMORY[0x28223BE20](v35 - 8);
+  v206 = (&v189 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v37 = type metadata accessor for TranscriptProtoStructuredSearchExpression(0);
+  MEMORY[0x28223BE20](v37 - 8);
+  v205 = (&v189 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v39 = type metadata accessor for TranscriptProtoSearchExpression(0);
   MEMORY[0x28223BE20](v39 - 8);
-  v248 = &v226 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v42 = type metadata accessor for TranscriptProtoCancelExpression(0);
-  v43 = *(*(v42 - 8) + 64);
-  MEMORY[0x28223BE20](v42 - 8);
-  v247 = (&v226 - ((v44 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v45 = type metadata accessor for TranscriptProtoRejectExpression(0);
-  v46 = *(*(v45 - 8) + 64);
-  MEMORY[0x28223BE20](v45 - 8);
-  v246 = (&v226 - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v48 = type metadata accessor for TranscriptProtoUndoExpression(0);
-  v49 = *(*(v48 - 8) + 64);
-  MEMORY[0x28223BE20](v48 - 8);
-  v244 = (&v226 - ((v50 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v228 = type metadata accessor for TranscriptProtoResolveToolExpression(0);
-  v51 = *(*(v228 - 8) + 64);
-  MEMORY[0x28223BE20](v228);
-  v245 = (&v226 - ((v52 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v53 = type metadata accessor for TranscriptProtoPickOneExpression(0);
-  v54 = *(*(v53 - 8) + 64);
-  MEMORY[0x28223BE20](v53 - 8);
-  v243 = (&v226 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v56 = type metadata accessor for TranscriptProtoStructuredSearchExpression(0);
-  v57 = *(*(v56 - 8) + 64);
-  MEMORY[0x28223BE20](v56 - 8);
-  v242 = (&v226 - ((v58 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v59 = type metadata accessor for TranscriptProtoSearchExpression(0);
-  v60 = *(*(v59 - 8) + 64);
-  MEMORY[0x28223BE20](v59 - 8);
-  v241 = (&v226 - ((v61 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v62 = type metadata accessor for TranscriptProtoConfirmExpression(0);
-  v63 = *(*(v62 - 8) + 64);
-  MEMORY[0x28223BE20](v62 - 8);
-  v240 = (&v226 - ((v64 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v65 = type metadata accessor for TranscriptProtoPickExpression(0);
-  v66 = *(*(v65 - 8) + 64);
-  MEMORY[0x28223BE20](v65 - 8);
-  v238 = (&v226 - ((v67 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v227 = type metadata accessor for TranscriptProtoSayExpression(0);
-  v68 = *(*(v227 - 8) + 64);
-  MEMORY[0x28223BE20](v227);
-  v239 = (&v226 - ((v69 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v70 = type metadata accessor for TranscriptProtoCallExpression(0);
-  v71 = *(*(v70 - 8) + 64);
-  MEMORY[0x28223BE20](v70 - 8);
-  v237 = (&v226 - ((v72 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v204 = (&v189 - ((v40 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v41 = type metadata accessor for TranscriptProtoConfirmExpression(0);
+  MEMORY[0x28223BE20](v41 - 8);
+  v203 = (&v189 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v43 = type metadata accessor for TranscriptProtoPickExpression(0);
+  MEMORY[0x28223BE20](v43 - 8);
+  v201 = (&v189 - ((v44 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v190 = type metadata accessor for TranscriptProtoSayExpression(0);
+  MEMORY[0x28223BE20](v190);
+  v202 = (&v189 - ((v45 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v46 = type metadata accessor for TranscriptProtoCallExpression(0);
+  MEMORY[0x28223BE20](v46 - 8);
+  v200 = (&v189 - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0));
   updated = type metadata accessor for TranscriptProtoUpdateParametersExpression(0);
-  v74 = *(*(updated - 8) + 64);
   MEMORY[0x28223BE20](updated - 8);
-  v236 = (&v226 - ((v75 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v76 = type metadata accessor for TranscriptProtoIndexExpression(0);
-  v77 = *(*(v76 - 8) + 64);
-  MEMORY[0x28223BE20](v76 - 8);
-  v235 = (&v226 - ((v78 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v79 = type metadata accessor for TranscriptProtoInfixExpression(0);
-  v80 = *(*(v79 - 8) + 64);
-  MEMORY[0x28223BE20](v79 - 8);
-  v234 = &v226 - ((v81 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v82 = type metadata accessor for TranscriptProtoPrefixExpression(0);
-  v83 = *(*(v82 - 8) + 64);
-  MEMORY[0x28223BE20](v82 - 8);
-  v233 = &v226 - ((v84 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v85 = type metadata accessor for TranscriptProtoStatementID(0);
-  v86 = *(*(v85 - 8) + 64);
-  MEMORY[0x28223BE20](v85 - 8);
-  v232 = &v226 - ((v87 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v88 = type metadata accessor for TranscriptProtoValueExpression(0);
-  v89 = *(*(v88 - 8) + 64);
-  MEMORY[0x28223BE20](v88 - 8);
-  v231 = &v226 - ((v90 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v286 = type metadata accessor for TranscriptProtoExpressionEnum(0);
-  v91 = *(*(v286 - 8) + 64);
-  v92 = MEMORY[0x28223BE20](v286);
-  v285 = (&v226 - ((v93 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v199 = (&v189 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v50 = type metadata accessor for TranscriptProtoIndexExpression(0);
+  MEMORY[0x28223BE20](v50 - 8);
+  v198 = (&v189 - ((v51 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v52 = type metadata accessor for TranscriptProtoInfixExpression(0);
+  MEMORY[0x28223BE20](v52 - 8);
+  v197 = &v189 - ((v53 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v54 = type metadata accessor for TranscriptProtoPrefixExpression(0);
+  MEMORY[0x28223BE20](v54 - 8);
+  v196 = &v189 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v56 = type metadata accessor for TranscriptProtoStatementID(0);
+  MEMORY[0x28223BE20](v56 - 8);
+  v195 = &v189 - ((v57 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v58 = type metadata accessor for TranscriptProtoValueExpression(0);
+  MEMORY[0x28223BE20](v58 - 8);
+  v194 = &v189 - ((v59 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v249 = type metadata accessor for TranscriptProtoExpressionEnum(0);
+  v60 = MEMORY[0x28223BE20](v249);
+  v248 = (&v189 - ((v61 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v62 = MEMORY[0x28223BE20](v60);
+  v247 = (&v189 - v63);
+  v64 = MEMORY[0x28223BE20](v62);
+  v245 = (&v189 - v65);
+  v66 = MEMORY[0x28223BE20](v64);
+  v243 = (&v189 - v67);
+  v68 = MEMORY[0x28223BE20](v66);
+  v241 = (&v189 - v69);
+  v70 = MEMORY[0x28223BE20](v68);
+  v242 = &v189 - v71;
+  v72 = MEMORY[0x28223BE20](v70);
+  v246 = &v189 - v73;
+  v74 = MEMORY[0x28223BE20](v72);
+  v244 = &v189 - v75;
+  v76 = MEMORY[0x28223BE20](v74);
+  v240 = &v189 - v77;
+  v78 = MEMORY[0x28223BE20](v76);
+  v238 = (&v189 - v79);
+  v80 = MEMORY[0x28223BE20](v78);
+  v239 = &v189 - v81;
+  v82 = MEMORY[0x28223BE20](v80);
+  v237 = &v189 - v83;
+  v84 = MEMORY[0x28223BE20](v82);
+  v236 = &v189 - v85;
+  v86 = MEMORY[0x28223BE20](v84);
+  v235 = &v189 - v87;
+  v88 = MEMORY[0x28223BE20](v86);
+  v233 = (&v189 - v89);
+  v90 = MEMORY[0x28223BE20](v88);
+  v232 = (&v189 - v91);
+  v92 = MEMORY[0x28223BE20](v90);
+  v231 = (&v189 - v93);
   v94 = MEMORY[0x28223BE20](v92);
-  v284 = (&v226 - v95);
+  v234 = &v189 - v95;
   v96 = MEMORY[0x28223BE20](v94);
-  v282 = (&v226 - v97);
+  v230 = (&v189 - v97);
   v98 = MEMORY[0x28223BE20](v96);
-  v280 = (&v226 - v99);
+  v228 = (&v189 - v99);
   v100 = MEMORY[0x28223BE20](v98);
-  v278 = (&v226 - v101);
+  v227 = (&v189 - v101);
   v102 = MEMORY[0x28223BE20](v100);
-  v279 = &v226 - v103;
+  v226 = (&v189 - v103);
   v104 = MEMORY[0x28223BE20](v102);
-  v283 = &v226 - v105;
+  v225 = (&v189 - v105);
   v106 = MEMORY[0x28223BE20](v104);
-  v281 = &v226 - v107;
+  v229 = &v189 - v107;
   v108 = MEMORY[0x28223BE20](v106);
-  v277 = &v226 - v109;
-  v110 = MEMORY[0x28223BE20](v108);
-  v275 = (&v226 - v111);
-  v112 = MEMORY[0x28223BE20](v110);
-  v276 = &v226 - v113;
-  v114 = MEMORY[0x28223BE20](v112);
-  v274 = &v226 - v115;
-  v116 = MEMORY[0x28223BE20](v114);
-  v273 = &v226 - v117;
-  v118 = MEMORY[0x28223BE20](v116);
-  v272 = &v226 - v119;
-  v120 = MEMORY[0x28223BE20](v118);
-  v270 = (&v226 - v121);
-  v122 = MEMORY[0x28223BE20](v120);
-  v269 = (&v226 - v123);
-  v124 = MEMORY[0x28223BE20](v122);
-  v268 = (&v226 - v125);
-  v126 = MEMORY[0x28223BE20](v124);
-  v271 = &v226 - v127;
-  v128 = MEMORY[0x28223BE20](v126);
-  v267 = (&v226 - v129);
-  v130 = MEMORY[0x28223BE20](v128);
-  v265 = (&v226 - v131);
-  v132 = MEMORY[0x28223BE20](v130);
-  v264 = (&v226 - v133);
-  v134 = MEMORY[0x28223BE20](v132);
-  v263 = (&v226 - v135);
-  v136 = MEMORY[0x28223BE20](v134);
-  v262 = (&v226 - v137);
-  v138 = MEMORY[0x28223BE20](v136);
-  v266 = &v226 - v139;
-  v140 = MEMORY[0x28223BE20](v138);
-  v142 = (&v226 - v141);
-  v143 = MEMORY[0x28223BE20](v140);
-  v145 = (&v226 - v144);
-  v146 = MEMORY[0x28223BE20](v143);
-  v148 = (&v226 - v147);
-  v149 = MEMORY[0x28223BE20](v146);
-  v151 = &v226 - v150;
-  v152 = MEMORY[0x28223BE20](v149);
-  v154 = &v226 - v153;
-  v155 = MEMORY[0x28223BE20](v152);
-  v157 = &v226 - v156;
-  MEMORY[0x28223BE20](v155);
-  v159 = &v226 - v158;
-  v160 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868E90, &qword_20E342088);
-  v161 = *(*(v160 - 8) + 64);
-  v162 = MEMORY[0x28223BE20](v160 - 8);
-  v164 = &v226 - v163;
-  v165 = *(v162 + 56);
-  sub_20E1E14FC(v287, &v226 - v163, type metadata accessor for TranscriptProtoExpressionEnum);
-  v287 = v165;
-  sub_20E1E14FC(v288, &v164[v165], type metadata accessor for TranscriptProtoExpressionEnum);
+  v110 = (&v189 - v109);
+  v111 = MEMORY[0x28223BE20](v108);
+  v113 = (&v189 - v112);
+  v114 = MEMORY[0x28223BE20](v111);
+  v116 = (&v189 - v115);
+  v117 = MEMORY[0x28223BE20](v114);
+  v119 = &v189 - v118;
+  v120 = MEMORY[0x28223BE20](v117);
+  v122 = &v189 - v121;
+  v123 = MEMORY[0x28223BE20](v120);
+  v125 = &v189 - v124;
+  MEMORY[0x28223BE20](v123);
+  v127 = &v189 - v126;
+  v128 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868E90, &qword_20E342088);
+  v129 = MEMORY[0x28223BE20](v128 - 8);
+  v131 = &v189 - v130;
+  v132 = *(v129 + 56);
+  sub_20E1E14FC(v250, &v189 - v130, type metadata accessor for TranscriptProtoExpressionEnum);
+  v250 = v132;
+  sub_20E1E14FC(v251, &v131[v132], type metadata accessor for TranscriptProtoExpressionEnum);
   switch(swift_getEnumCaseMultiPayload())
   {
     case 1u:
-      sub_20E1E14FC(v164, v157, type metadata accessor for TranscriptProtoExpressionEnum);
-      v197 = v287;
+      sub_20E1E14FC(v131, v125, type metadata accessor for TranscriptProtoExpressionEnum);
+      v162 = v250;
       if (swift_getEnumCaseMultiPayload() == 1)
       {
-        v198 = v232;
-        sub_20E1EF280(&v164[v197], v232, type metadata accessor for TranscriptProtoStatementID);
-        v171 = static TranscriptProtoStatementID.== infix(_:_:)(v157, v198);
-        v188 = type metadata accessor for TranscriptProtoStatementID;
-        sub_20E1E1564(v198, type metadata accessor for TranscriptProtoStatementID);
-        v193 = v157;
+        v163 = v195;
+        sub_20E1EF280(&v131[v162], v195, type metadata accessor for TranscriptProtoStatementID);
+        v138 = static TranscriptProtoStatementID.== infix(_:_:)();
+        v154 = type metadata accessor for TranscriptProtoStatementID;
+        sub_20E1E1564(v163, type metadata accessor for TranscriptProtoStatementID);
+        v159 = v125;
         goto LABEL_76;
       }
 
-      v167 = type metadata accessor for TranscriptProtoStatementID;
-      v168 = v157;
+      v134 = type metadata accessor for TranscriptProtoStatementID;
+      v135 = v125;
       goto LABEL_110;
     case 2u:
-      sub_20E1E14FC(v164, v154, type metadata accessor for TranscriptProtoExpressionEnum);
-      v186 = v287;
+      sub_20E1E14FC(v131, v122, type metadata accessor for TranscriptProtoExpressionEnum);
+      v152 = v250;
       if (swift_getEnumCaseMultiPayload() == 2)
       {
-        v187 = v233;
-        sub_20E1EF280(&v164[v186], v233, type metadata accessor for TranscriptProtoPrefixExpression);
-        v171 = _s23LighthouseDataProcessor31TranscriptProtoPrefixExpressionV2eeoiySbAC_ACtFZ_0(v154, v187);
-        v181 = type metadata accessor for TranscriptProtoPrefixExpression;
-        v188 = type metadata accessor for TranscriptProtoPrefixExpression;
-        v189 = v187;
+        v153 = v196;
+        sub_20E1EF280(&v131[v152], v196, type metadata accessor for TranscriptProtoPrefixExpression);
+        v138 = _s23LighthouseDataProcessor31TranscriptProtoPrefixExpressionV2eeoiySbAC_ACtFZ_0(v122, v153);
+        v148 = type metadata accessor for TranscriptProtoPrefixExpression;
+        v154 = type metadata accessor for TranscriptProtoPrefixExpression;
+        v155 = v153;
         goto LABEL_63;
       }
 
-      v221 = type metadata accessor for TranscriptProtoPrefixExpression;
+      v184 = type metadata accessor for TranscriptProtoPrefixExpression;
       goto LABEL_105;
     case 3u:
-      sub_20E1E14FC(v164, v151, type metadata accessor for TranscriptProtoExpressionEnum);
-      v191 = v287;
+      sub_20E1E14FC(v131, v119, type metadata accessor for TranscriptProtoExpressionEnum);
+      v157 = v250;
       if (swift_getEnumCaseMultiPayload() == 3)
       {
-        v192 = v234;
-        sub_20E1EF280(&v164[v191], v234, type metadata accessor for TranscriptProtoInfixExpression);
-        v171 = _s23LighthouseDataProcessor30TranscriptProtoInfixExpressionV2eeoiySbAC_ACtFZ_0(v151, v192);
-        sub_20E1E1564(v192, type metadata accessor for TranscriptProtoInfixExpression);
-        v193 = v151;
-        v194 = type metadata accessor for TranscriptProtoInfixExpression;
+        v158 = v197;
+        sub_20E1EF280(&v131[v157], v197, type metadata accessor for TranscriptProtoInfixExpression);
+        v138 = _s23LighthouseDataProcessor30TranscriptProtoInfixExpressionV2eeoiySbAC_ACtFZ_0(v119, v158);
+        sub_20E1E1564(v158, type metadata accessor for TranscriptProtoInfixExpression);
+        v159 = v119;
+        v160 = type metadata accessor for TranscriptProtoInfixExpression;
         goto LABEL_77;
       }
 
-      v167 = type metadata accessor for TranscriptProtoInfixExpression;
-      v168 = v151;
+      v134 = type metadata accessor for TranscriptProtoInfixExpression;
+      v135 = v119;
       goto LABEL_110;
     case 4u:
-      sub_20E1E14FC(v164, v148, type metadata accessor for TranscriptProtoExpressionEnum);
-      v176 = v287;
+      sub_20E1E14FC(v131, v116, type metadata accessor for TranscriptProtoExpressionEnum);
+      v143 = v250;
       if (swift_getEnumCaseMultiPayload() == 4)
       {
-        v170 = v235;
-        sub_20E1EF280(&v164[v176], v235, type metadata accessor for TranscriptProtoIndexExpression);
-        v171 = sub_20E170670(v148, v170);
-        v172 = type metadata accessor for TranscriptProtoIndexExpression;
+        v137 = v198;
+        sub_20E1EF280(&v131[v143], v198, type metadata accessor for TranscriptProtoIndexExpression);
+        v138 = sub_20E170670(v116, v137);
+        v139 = type metadata accessor for TranscriptProtoIndexExpression;
         goto LABEL_75;
       }
 
-      v220 = type metadata accessor for TranscriptProtoIndexExpression;
+      v183 = type metadata accessor for TranscriptProtoIndexExpression;
       goto LABEL_109;
     case 5u:
-      sub_20E1E14FC(v164, v145, type metadata accessor for TranscriptProtoExpressionEnum);
-      v201 = v287;
+      sub_20E1E14FC(v131, v113, type metadata accessor for TranscriptProtoExpressionEnum);
+      v166 = v250;
       if (swift_getEnumCaseMultiPayload() == 5)
       {
-        v202 = v236;
-        sub_20E1EF280(&v164[v201], v236, type metadata accessor for TranscriptProtoUpdateParametersExpression);
-        v171 = sub_20E1626E4(v145, v202);
-        v188 = type metadata accessor for TranscriptProtoUpdateParametersExpression;
-        sub_20E1E1564(v202, type metadata accessor for TranscriptProtoUpdateParametersExpression);
-        v193 = v145;
+        v167 = v199;
+        sub_20E1EF280(&v131[v166], v199, type metadata accessor for TranscriptProtoUpdateParametersExpression);
+        v138 = sub_20E1626E4(v113, v167);
+        v154 = type metadata accessor for TranscriptProtoUpdateParametersExpression;
+        sub_20E1E1564(v167, type metadata accessor for TranscriptProtoUpdateParametersExpression);
+        v159 = v113;
         goto LABEL_76;
       }
 
-      v167 = type metadata accessor for TranscriptProtoUpdateParametersExpression;
-      v168 = v145;
+      v134 = type metadata accessor for TranscriptProtoUpdateParametersExpression;
+      v135 = v113;
       goto LABEL_110;
     case 6u:
-      sub_20E1E14FC(v164, v142, type metadata accessor for TranscriptProtoExpressionEnum);
-      v206 = v287;
+      sub_20E1E14FC(v131, v110, type metadata accessor for TranscriptProtoExpressionEnum);
+      v170 = v250;
       if (swift_getEnumCaseMultiPayload() == 6)
       {
-        v207 = v237;
-        sub_20E1EF280(&v164[v206], v237, type metadata accessor for TranscriptProtoCallExpression);
-        v171 = _s23LighthouseDataProcessor29TranscriptProtoCallExpressionV2eeoiySbAC_ACtFZ_0(v142, v207);
-        v188 = type metadata accessor for TranscriptProtoCallExpression;
-        sub_20E1E1564(v207, type metadata accessor for TranscriptProtoCallExpression);
-        v193 = v142;
+        v171 = v200;
+        sub_20E1EF280(&v131[v170], v200, type metadata accessor for TranscriptProtoCallExpression);
+        v138 = _s23LighthouseDataProcessor29TranscriptProtoCallExpressionV2eeoiySbAC_ACtFZ_0(v110, v171);
+        v154 = type metadata accessor for TranscriptProtoCallExpression;
+        sub_20E1E1564(v171, type metadata accessor for TranscriptProtoCallExpression);
+        v159 = v110;
         goto LABEL_76;
       }
 
-      v167 = type metadata accessor for TranscriptProtoCallExpression;
-      v168 = v142;
+      v134 = type metadata accessor for TranscriptProtoCallExpression;
+      v135 = v110;
       goto LABEL_110;
     case 7u:
-      v154 = v266;
-      sub_20E1E14FC(v164, v266, type metadata accessor for TranscriptProtoExpressionEnum);
-      v195 = v287;
+      v122 = v229;
+      sub_20E1E14FC(v131, v229, type metadata accessor for TranscriptProtoExpressionEnum);
+      v161 = v250;
       if (swift_getEnumCaseMultiPayload() != 7)
       {
-        v221 = type metadata accessor for TranscriptProtoSayExpression;
+        v184 = type metadata accessor for TranscriptProtoSayExpression;
         goto LABEL_105;
       }
 
-      v183 = v239;
-      sub_20E1EF280(&v164[v195], v239, type metadata accessor for TranscriptProtoSayExpression);
-      if (sub_20E14A924(*v154, *v183))
+      v150 = v202;
+      sub_20E1EF280(&v131[v161], v202, type metadata accessor for TranscriptProtoSayExpression);
+      if (sub_20E14A924(*v122, *v150))
       {
-        v196 = *(v227 + 20);
         sub_20E3221C0();
         sub_20E1EF2E8();
         if (sub_20E322850())
         {
-          v185 = type metadata accessor for TranscriptProtoSayExpression;
+          v151 = type metadata accessor for TranscriptProtoSayExpression;
           goto LABEL_68;
         }
       }
 
-      v223 = type metadata accessor for TranscriptProtoSayExpression;
+      v186 = type metadata accessor for TranscriptProtoSayExpression;
       goto LABEL_118;
     case 8u:
-      v148 = v262;
-      sub_20E1E14FC(v164, v262, type metadata accessor for TranscriptProtoExpressionEnum);
-      v210 = v287;
+      v116 = v225;
+      sub_20E1E14FC(v131, v225, type metadata accessor for TranscriptProtoExpressionEnum);
+      v174 = v250;
       if (swift_getEnumCaseMultiPayload() == 8)
       {
-        v170 = v238;
-        sub_20E1EF280(&v164[v210], v238, type metadata accessor for TranscriptProtoPickExpression);
-        v171 = _s23LighthouseDataProcessor29TranscriptProtoPickExpressionV2eeoiySbAC_ACtFZ_0(v148, v170);
-        v172 = type metadata accessor for TranscriptProtoPickExpression;
+        v137 = v201;
+        sub_20E1EF280(&v131[v174], v201, type metadata accessor for TranscriptProtoPickExpression);
+        v138 = _s23LighthouseDataProcessor29TranscriptProtoPickExpressionV2eeoiySbAC_ACtFZ_0(v116, v137);
+        v139 = type metadata accessor for TranscriptProtoPickExpression;
         goto LABEL_75;
       }
 
-      v220 = type metadata accessor for TranscriptProtoPickExpression;
+      v183 = type metadata accessor for TranscriptProtoPickExpression;
       goto LABEL_109;
     case 9u:
-      v148 = v263;
-      sub_20E1E14FC(v164, v263, type metadata accessor for TranscriptProtoExpressionEnum);
-      v178 = v287;
+      v116 = v226;
+      sub_20E1E14FC(v131, v226, type metadata accessor for TranscriptProtoExpressionEnum);
+      v145 = v250;
       if (swift_getEnumCaseMultiPayload() == 9)
       {
-        v170 = v240;
-        sub_20E1EF280(&v164[v178], v240, type metadata accessor for TranscriptProtoConfirmExpression);
-        v171 = sub_20E16BE2C(v148, v170);
-        v172 = type metadata accessor for TranscriptProtoConfirmExpression;
+        v137 = v203;
+        sub_20E1EF280(&v131[v145], v203, type metadata accessor for TranscriptProtoConfirmExpression);
+        v138 = sub_20E16BE2C(v116, v137);
+        v139 = type metadata accessor for TranscriptProtoConfirmExpression;
         goto LABEL_75;
       }
 
-      v220 = type metadata accessor for TranscriptProtoConfirmExpression;
+      v183 = type metadata accessor for TranscriptProtoConfirmExpression;
       goto LABEL_109;
     case 0xAu:
-      v148 = v264;
-      sub_20E1E14FC(v164, v264, type metadata accessor for TranscriptProtoExpressionEnum);
-      v209 = v287;
+      v116 = v227;
+      sub_20E1E14FC(v131, v227, type metadata accessor for TranscriptProtoExpressionEnum);
+      v173 = v250;
       if (swift_getEnumCaseMultiPayload() == 10)
       {
-        v170 = v241;
-        sub_20E1EF280(&v164[v209], v241, type metadata accessor for TranscriptProtoSearchExpression);
-        v171 = _s23LighthouseDataProcessor31TranscriptProtoSearchExpressionV2eeoiySbAC_ACtFZ_0(v148, v170);
-        v172 = type metadata accessor for TranscriptProtoSearchExpression;
+        v137 = v204;
+        sub_20E1EF280(&v131[v173], v204, type metadata accessor for TranscriptProtoSearchExpression);
+        v138 = _s23LighthouseDataProcessor31TranscriptProtoSearchExpressionV2eeoiySbAC_ACtFZ_0(v116, v137);
+        v139 = type metadata accessor for TranscriptProtoSearchExpression;
         goto LABEL_75;
       }
 
-      v220 = type metadata accessor for TranscriptProtoSearchExpression;
+      v183 = type metadata accessor for TranscriptProtoSearchExpression;
       goto LABEL_109;
     case 0xBu:
-      v148 = v265;
-      sub_20E1E14FC(v164, v265, type metadata accessor for TranscriptProtoExpressionEnum);
-      v175 = v287;
+      v116 = v228;
+      sub_20E1E14FC(v131, v228, type metadata accessor for TranscriptProtoExpressionEnum);
+      v142 = v250;
       if (swift_getEnumCaseMultiPayload() == 11)
       {
-        v170 = v242;
-        sub_20E1EF280(&v164[v175], v242, type metadata accessor for TranscriptProtoStructuredSearchExpression);
-        v171 = _s23LighthouseDataProcessor41TranscriptProtoStructuredSearchExpressionV2eeoiySbAC_ACtFZ_0(v148, v170);
-        v172 = type metadata accessor for TranscriptProtoStructuredSearchExpression;
+        v137 = v205;
+        sub_20E1EF280(&v131[v142], v205, type metadata accessor for TranscriptProtoStructuredSearchExpression);
+        v138 = _s23LighthouseDataProcessor41TranscriptProtoStructuredSearchExpressionV2eeoiySbAC_ACtFZ_0(v116, v137);
+        v139 = type metadata accessor for TranscriptProtoStructuredSearchExpression;
         goto LABEL_75;
       }
 
-      v220 = type metadata accessor for TranscriptProtoStructuredSearchExpression;
+      v183 = type metadata accessor for TranscriptProtoStructuredSearchExpression;
       goto LABEL_109;
     case 0xCu:
-      v148 = v267;
-      sub_20E1E14FC(v164, v267, type metadata accessor for TranscriptProtoExpressionEnum);
-      v177 = v287;
+      v116 = v230;
+      sub_20E1E14FC(v131, v230, type metadata accessor for TranscriptProtoExpressionEnum);
+      v144 = v250;
       if (swift_getEnumCaseMultiPayload() == 12)
       {
-        v170 = v243;
-        sub_20E1EF280(&v164[v177], v243, type metadata accessor for TranscriptProtoPickOneExpression);
-        v171 = sub_20E16BE14(v148, v170);
-        v172 = type metadata accessor for TranscriptProtoPickOneExpression;
+        v137 = v206;
+        sub_20E1EF280(&v131[v144], v206, type metadata accessor for TranscriptProtoPickOneExpression);
+        v138 = sub_20E16BE14(v116, v137);
+        v139 = type metadata accessor for TranscriptProtoPickOneExpression;
         goto LABEL_75;
       }
 
-      v220 = type metadata accessor for TranscriptProtoPickOneExpression;
+      v183 = type metadata accessor for TranscriptProtoPickOneExpression;
       goto LABEL_109;
     case 0xDu:
-      v154 = v271;
-      sub_20E1E14FC(v164, v271, type metadata accessor for TranscriptProtoExpressionEnum);
-      v204 = v287;
+      v122 = v234;
+      sub_20E1E14FC(v131, v234, type metadata accessor for TranscriptProtoExpressionEnum);
+      v169 = v250;
       if (swift_getEnumCaseMultiPayload() != 13)
       {
-        v221 = type metadata accessor for TranscriptProtoResolveToolExpression;
+        v184 = type metadata accessor for TranscriptProtoResolveToolExpression;
         goto LABEL_105;
       }
 
-      v183 = v245;
-      sub_20E1EF280(&v164[v204], v245, type metadata accessor for TranscriptProtoResolveToolExpression);
-      if (sub_20E14D9A0(*v154, *v183))
+      v150 = v208;
+      sub_20E1EF280(&v131[v169], v208, type metadata accessor for TranscriptProtoResolveToolExpression);
+      if (sub_20E14D9A0(*v122, *v150))
       {
-        v205 = *(v228 + 20);
         sub_20E3221C0();
         sub_20E1EF2E8();
         if (sub_20E322850())
         {
-          v185 = type metadata accessor for TranscriptProtoResolveToolExpression;
+          v151 = type metadata accessor for TranscriptProtoResolveToolExpression;
           goto LABEL_68;
         }
       }
 
-      v223 = type metadata accessor for TranscriptProtoResolveToolExpression;
+      v186 = type metadata accessor for TranscriptProtoResolveToolExpression;
       goto LABEL_118;
     case 0xEu:
-      v148 = v268;
-      sub_20E1E14FC(v164, v268, type metadata accessor for TranscriptProtoExpressionEnum);
-      v174 = v287;
+      v116 = v231;
+      sub_20E1E14FC(v131, v231, type metadata accessor for TranscriptProtoExpressionEnum);
+      v141 = v250;
       if (swift_getEnumCaseMultiPayload() == 14)
       {
-        v170 = v244;
-        sub_20E1EF280(&v164[v174], v244, type metadata accessor for TranscriptProtoUndoExpression);
-        v171 = sub_20E171320(v148, v170);
-        v172 = type metadata accessor for TranscriptProtoUndoExpression;
+        v137 = v207;
+        sub_20E1EF280(&v131[v141], v207, type metadata accessor for TranscriptProtoUndoExpression);
+        v138 = sub_20E171320(v116, v137);
+        v139 = type metadata accessor for TranscriptProtoUndoExpression;
         goto LABEL_75;
       }
 
-      v220 = type metadata accessor for TranscriptProtoUndoExpression;
+      v183 = type metadata accessor for TranscriptProtoUndoExpression;
       goto LABEL_109;
     case 0xFu:
-      v148 = v269;
-      sub_20E1E14FC(v164, v269, type metadata accessor for TranscriptProtoExpressionEnum);
-      v190 = v287;
+      v116 = v232;
+      sub_20E1E14FC(v131, v232, type metadata accessor for TranscriptProtoExpressionEnum);
+      v156 = v250;
       if (swift_getEnumCaseMultiPayload() == 15)
       {
-        v170 = v246;
-        sub_20E1EF280(&v164[v190], v246, type metadata accessor for TranscriptProtoRejectExpression);
-        v171 = sub_20E16C6C4(v148, v170);
-        v172 = type metadata accessor for TranscriptProtoRejectExpression;
+        v137 = v209;
+        sub_20E1EF280(&v131[v156], v209, type metadata accessor for TranscriptProtoRejectExpression);
+        v138 = sub_20E16C6C4(v116, v137);
+        v139 = type metadata accessor for TranscriptProtoRejectExpression;
         goto LABEL_75;
       }
 
-      v220 = type metadata accessor for TranscriptProtoRejectExpression;
+      v183 = type metadata accessor for TranscriptProtoRejectExpression;
       goto LABEL_109;
     case 0x10u:
-      v148 = v270;
-      sub_20E1E14FC(v164, v270, type metadata accessor for TranscriptProtoExpressionEnum);
-      v173 = v287;
+      v116 = v233;
+      sub_20E1E14FC(v131, v233, type metadata accessor for TranscriptProtoExpressionEnum);
+      v140 = v250;
       if (swift_getEnumCaseMultiPayload() == 16)
       {
-        v170 = v247;
-        sub_20E1EF280(&v164[v173], v247, type metadata accessor for TranscriptProtoCancelExpression);
-        v171 = sub_20E16DB7C(v148, v170);
-        v172 = type metadata accessor for TranscriptProtoCancelExpression;
+        v137 = v210;
+        sub_20E1EF280(&v131[v140], v210, type metadata accessor for TranscriptProtoCancelExpression);
+        v138 = sub_20E16DB7C(v116, v137);
+        v139 = type metadata accessor for TranscriptProtoCancelExpression;
         goto LABEL_75;
       }
 
-      v220 = type metadata accessor for TranscriptProtoCancelExpression;
+      v183 = type metadata accessor for TranscriptProtoCancelExpression;
       goto LABEL_109;
     case 0x11u:
-      v154 = v272;
-      sub_20E1E14FC(v164, v272, type metadata accessor for TranscriptProtoExpressionEnum);
-      v199 = v287;
+      v122 = v235;
+      sub_20E1E14FC(v131, v235, type metadata accessor for TranscriptProtoExpressionEnum);
+      v164 = v250;
       if (swift_getEnumCaseMultiPayload() == 17)
       {
-        v180 = v248;
-        sub_20E1EF280(&v164[v199], v248, type metadata accessor for TranscriptProtoNoMatchingToolExpression);
+        v147 = v211;
+        sub_20E1EF280(&v131[v164], v211, type metadata accessor for TranscriptProtoNoMatchingToolExpression);
         sub_20E3221C0();
         sub_20E1EF2E8();
-        v171 = sub_20E322850();
-        v181 = type metadata accessor for TranscriptProtoNoMatchingToolExpression;
+        v138 = sub_20E322850();
+        v148 = type metadata accessor for TranscriptProtoNoMatchingToolExpression;
         goto LABEL_62;
       }
 
-      v221 = type metadata accessor for TranscriptProtoNoMatchingToolExpression;
+      v184 = type metadata accessor for TranscriptProtoNoMatchingToolExpression;
       goto LABEL_105;
     case 0x12u:
-      v154 = v273;
-      sub_20E1E14FC(v164, v273, type metadata accessor for TranscriptProtoExpressionEnum);
-      v208 = v287;
+      v122 = v236;
+      sub_20E1E14FC(v131, v236, type metadata accessor for TranscriptProtoExpressionEnum);
+      v172 = v250;
       if (swift_getEnumCaseMultiPayload() == 18)
       {
-        v180 = v249;
-        sub_20E1EF280(&v164[v208], v249, type metadata accessor for TranscriptProtoContinuePlanningExpression);
+        v147 = v212;
+        sub_20E1EF280(&v131[v172], v212, type metadata accessor for TranscriptProtoContinuePlanningExpression);
         sub_20E3221C0();
         sub_20E1EF2E8();
-        v171 = sub_20E322850();
-        v181 = type metadata accessor for TranscriptProtoContinuePlanningExpression;
+        v138 = sub_20E322850();
+        v148 = type metadata accessor for TranscriptProtoContinuePlanningExpression;
         goto LABEL_62;
       }
 
-      v221 = type metadata accessor for TranscriptProtoContinuePlanningExpression;
+      v184 = type metadata accessor for TranscriptProtoContinuePlanningExpression;
       goto LABEL_105;
     case 0x13u:
-      v154 = v274;
-      sub_20E1E14FC(v164, v274, type metadata accessor for TranscriptProtoExpressionEnum);
-      v213 = v287;
+      v122 = v237;
+      sub_20E1E14FC(v131, v237, type metadata accessor for TranscriptProtoExpressionEnum);
+      v177 = v250;
       if (swift_getEnumCaseMultiPayload() == 19)
       {
-        v180 = v250;
-        sub_20E1EF280(&v164[v213], v250, type metadata accessor for TranscriptProtoEndOfPlanExpression);
+        v147 = v213;
+        sub_20E1EF280(&v131[v177], v213, type metadata accessor for TranscriptProtoEndOfPlanExpression);
         sub_20E3221C0();
         sub_20E1EF2E8();
-        v171 = sub_20E322850();
-        v181 = type metadata accessor for TranscriptProtoEndOfPlanExpression;
+        v138 = sub_20E322850();
+        v148 = type metadata accessor for TranscriptProtoEndOfPlanExpression;
         goto LABEL_62;
       }
 
-      v221 = type metadata accessor for TranscriptProtoEndOfPlanExpression;
+      v184 = type metadata accessor for TranscriptProtoEndOfPlanExpression;
       goto LABEL_105;
     case 0x14u:
-      v154 = v276;
-      sub_20E1E14FC(v164, v276, type metadata accessor for TranscriptProtoExpressionEnum);
-      v200 = v287;
+      v122 = v239;
+      sub_20E1E14FC(v131, v239, type metadata accessor for TranscriptProtoExpressionEnum);
+      v165 = v250;
       if (swift_getEnumCaseMultiPayload() == 20)
       {
-        v180 = v251;
-        sub_20E1EF280(&v164[v200], v251, type metadata accessor for TranscriptProtoGetMentionedAppsExpression);
+        v147 = v214;
+        sub_20E1EF280(&v131[v165], v214, type metadata accessor for TranscriptProtoGetMentionedAppsExpression);
         sub_20E3221C0();
         sub_20E1EF2E8();
-        v171 = sub_20E322850();
-        v181 = type metadata accessor for TranscriptProtoGetMentionedAppsExpression;
+        v138 = sub_20E322850();
+        v148 = type metadata accessor for TranscriptProtoGetMentionedAppsExpression;
         goto LABEL_62;
       }
 
-      v221 = type metadata accessor for TranscriptProtoGetMentionedAppsExpression;
+      v184 = type metadata accessor for TranscriptProtoGetMentionedAppsExpression;
       goto LABEL_105;
     case 0x15u:
-      v148 = v275;
-      sub_20E1E14FC(v164, v275, type metadata accessor for TranscriptProtoExpressionEnum);
-      v203 = v287;
+      v116 = v238;
+      sub_20E1E14FC(v131, v238, type metadata accessor for TranscriptProtoExpressionEnum);
+      v168 = v250;
       if (swift_getEnumCaseMultiPayload() == 21)
       {
-        v170 = v252;
-        sub_20E1EF280(&v164[v203], v252, type metadata accessor for TranscriptProtoOpenExpression);
-        v171 = sub_20E174CA0(v148, v170);
-        v172 = type metadata accessor for TranscriptProtoOpenExpression;
+        v137 = v215;
+        sub_20E1EF280(&v131[v168], v215, type metadata accessor for TranscriptProtoOpenExpression);
+        v138 = sub_20E174CA0(v116, v137);
+        v139 = type metadata accessor for TranscriptProtoOpenExpression;
         goto LABEL_75;
       }
 
-      v220 = type metadata accessor for TranscriptProtoOpenExpression;
+      v183 = type metadata accessor for TranscriptProtoOpenExpression;
       goto LABEL_109;
     case 0x16u:
-      v154 = v277;
-      sub_20E1E14FC(v164, v277, type metadata accessor for TranscriptProtoExpressionEnum);
-      v212 = v287;
+      v122 = v240;
+      sub_20E1E14FC(v131, v240, type metadata accessor for TranscriptProtoExpressionEnum);
+      v176 = v250;
       if (swift_getEnumCaseMultiPayload() == 22)
       {
-        v180 = v253;
-        sub_20E1EF280(&v164[v212], v253, type metadata accessor for TranscriptProtoExplicitResolutionRequest);
+        v147 = v216;
+        sub_20E1EF280(&v131[v176], v216, type metadata accessor for TranscriptProtoExplicitResolutionRequest);
         sub_20E3221C0();
         sub_20E1EF2E8();
-        v171 = sub_20E322850();
-        v181 = type metadata accessor for TranscriptProtoExplicitResolutionRequest;
+        v138 = sub_20E322850();
+        v148 = type metadata accessor for TranscriptProtoExplicitResolutionRequest;
         goto LABEL_62;
       }
 
-      v221 = type metadata accessor for TranscriptProtoExplicitResolutionRequest;
+      v184 = type metadata accessor for TranscriptProtoExplicitResolutionRequest;
       goto LABEL_105;
     case 0x17u:
-      v154 = v281;
-      sub_20E1E14FC(v164, v281, type metadata accessor for TranscriptProtoExpressionEnum);
-      v214 = v287;
+      v122 = v244;
+      sub_20E1E14FC(v131, v244, type metadata accessor for TranscriptProtoExpressionEnum);
+      v178 = v250;
       if (swift_getEnumCaseMultiPayload() != 23)
       {
-        v221 = type metadata accessor for TranscriptProtoPayloadExpression;
+        v184 = type metadata accessor for TranscriptProtoPayloadExpression;
         goto LABEL_105;
       }
 
-      v183 = v254;
-      sub_20E1EF280(&v164[v214], v254, type metadata accessor for TranscriptProtoPayloadExpression);
-      if (sub_20E14A924(*v154, *v183))
+      v150 = v217;
+      sub_20E1EF280(&v131[v178], v217, type metadata accessor for TranscriptProtoPayloadExpression);
+      if (sub_20E14A924(*v122, *v150))
       {
-        v215 = *(v229 + 20);
         sub_20E3221C0();
         sub_20E1EF2E8();
         if (sub_20E322850())
         {
-          v185 = type metadata accessor for TranscriptProtoPayloadExpression;
+          v151 = type metadata accessor for TranscriptProtoPayloadExpression;
           goto LABEL_68;
         }
       }
 
-      v223 = type metadata accessor for TranscriptProtoPayloadExpression;
+      v186 = type metadata accessor for TranscriptProtoPayloadExpression;
       goto LABEL_118;
     case 0x18u:
-      v154 = v283;
-      sub_20E1E14FC(v164, v283, type metadata accessor for TranscriptProtoExpressionEnum);
-      v182 = v287;
+      v122 = v246;
+      sub_20E1E14FC(v131, v246, type metadata accessor for TranscriptProtoExpressionEnum);
+      v149 = v250;
       if (swift_getEnumCaseMultiPayload() != 24)
       {
-        v221 = type metadata accessor for TranscriptProtoFormatExpression;
+        v184 = type metadata accessor for TranscriptProtoFormatExpression;
         goto LABEL_105;
       }
 
-      v183 = v255;
-      sub_20E1EF280(&v164[v182], v255, type metadata accessor for TranscriptProtoFormatExpression);
-      if (sub_20E14A924(*v154, *v183))
+      v150 = v218;
+      sub_20E1EF280(&v131[v149], v218, type metadata accessor for TranscriptProtoFormatExpression);
+      if (sub_20E14A924(*v122, *v150))
       {
-        v184 = *(v230 + 20);
         sub_20E3221C0();
         sub_20E1EF2E8();
         if (sub_20E322850())
         {
-          v185 = type metadata accessor for TranscriptProtoFormatExpression;
+          v151 = type metadata accessor for TranscriptProtoFormatExpression;
 LABEL_68:
-          v216 = v185;
-          sub_20E1E1564(v183, v185);
-          sub_20E1E1564(v154, v216);
-          sub_20E1E1564(v164, type metadata accessor for TranscriptProtoExpressionEnum);
-          v171 = 1;
-          return v171 & 1;
+          v179 = v151;
+          sub_20E1E1564(v150, v151);
+          sub_20E1E1564(v122, v179);
+          sub_20E1E1564(v131, type metadata accessor for TranscriptProtoExpressionEnum);
+          v138 = 1;
+          return v138 & 1;
         }
       }
 
-      v223 = type metadata accessor for TranscriptProtoFormatExpression;
+      v186 = type metadata accessor for TranscriptProtoFormatExpression;
 LABEL_118:
-      v225 = v223;
-      sub_20E1E1564(v183, v223);
-      sub_20E1E1564(v154, v225);
-      sub_20E1E1564(v164, type metadata accessor for TranscriptProtoExpressionEnum);
+      v188 = v186;
+      sub_20E1E1564(v150, v186);
+      sub_20E1E1564(v122, v188);
+      sub_20E1E1564(v131, type metadata accessor for TranscriptProtoExpressionEnum);
       goto LABEL_111;
     case 0x19u:
-      v154 = v279;
-      sub_20E1E14FC(v164, v279, type metadata accessor for TranscriptProtoExpressionEnum);
-      v179 = v287;
+      v122 = v242;
+      sub_20E1E14FC(v131, v242, type metadata accessor for TranscriptProtoExpressionEnum);
+      v146 = v250;
       if (swift_getEnumCaseMultiPayload() == 25)
       {
-        v180 = v256;
-        sub_20E1EF280(&v164[v179], v256, type metadata accessor for TranscriptProtoRetrieveContextExpression);
+        v147 = v219;
+        sub_20E1EF280(&v131[v146], v219, type metadata accessor for TranscriptProtoRetrieveContextExpression);
         sub_20E3221C0();
         sub_20E1EF2E8();
-        v171 = sub_20E322850();
-        v181 = type metadata accessor for TranscriptProtoRetrieveContextExpression;
+        v138 = sub_20E322850();
+        v148 = type metadata accessor for TranscriptProtoRetrieveContextExpression;
 LABEL_62:
-        v188 = v181;
-        v189 = v180;
+        v154 = v148;
+        v155 = v147;
 LABEL_63:
-        sub_20E1E1564(v189, v181);
-        v193 = v154;
+        sub_20E1E1564(v155, v148);
+        v159 = v122;
         goto LABEL_76;
       }
 
-      v221 = type metadata accessor for TranscriptProtoRetrieveContextExpression;
+      v184 = type metadata accessor for TranscriptProtoRetrieveContextExpression;
 LABEL_105:
-      v167 = v221;
-      v168 = v154;
+      v134 = v184;
+      v135 = v122;
       goto LABEL_110;
     case 0x1Au:
-      v148 = v278;
-      sub_20E1E14FC(v164, v278, type metadata accessor for TranscriptProtoExpressionEnum);
-      v219 = v287;
+      v116 = v241;
+      sub_20E1E14FC(v131, v241, type metadata accessor for TranscriptProtoExpressionEnum);
+      v182 = v250;
       if (swift_getEnumCaseMultiPayload() == 26)
       {
-        v170 = v257;
-        sub_20E1EF280(&v164[v219], v257, type metadata accessor for TranscriptProtoRetrieveSpansExpression);
-        v171 = sub_20E164EBC(v148, v170);
-        v172 = type metadata accessor for TranscriptProtoRetrieveSpansExpression;
+        v137 = v220;
+        sub_20E1EF280(&v131[v182], v220, type metadata accessor for TranscriptProtoRetrieveSpansExpression);
+        v138 = sub_20E164EBC(v116, v137);
+        v139 = type metadata accessor for TranscriptProtoRetrieveSpansExpression;
         goto LABEL_75;
       }
 
-      v220 = type metadata accessor for TranscriptProtoRetrieveSpansExpression;
+      v183 = type metadata accessor for TranscriptProtoRetrieveSpansExpression;
       goto LABEL_109;
     case 0x1Bu:
-      v148 = v280;
-      sub_20E1E14FC(v164, v280, type metadata accessor for TranscriptProtoExpressionEnum);
-      v169 = v287;
+      v116 = v243;
+      sub_20E1E14FC(v131, v243, type metadata accessor for TranscriptProtoExpressionEnum);
+      v136 = v250;
       if (swift_getEnumCaseMultiPayload() == 27)
       {
-        v170 = v258;
-        sub_20E1EF280(&v164[v169], v258, type metadata accessor for TranscriptProtoRetrieveToolsExpression);
-        v171 = sub_20E164EA4(v148, v170);
-        v172 = type metadata accessor for TranscriptProtoRetrieveToolsExpression;
+        v137 = v221;
+        sub_20E1EF280(&v131[v136], v221, type metadata accessor for TranscriptProtoRetrieveToolsExpression);
+        v138 = sub_20E164EA4(v116, v137);
+        v139 = type metadata accessor for TranscriptProtoRetrieveToolsExpression;
         goto LABEL_75;
       }
 
-      v220 = type metadata accessor for TranscriptProtoRetrieveToolsExpression;
+      v183 = type metadata accessor for TranscriptProtoRetrieveToolsExpression;
       goto LABEL_109;
     case 0x1Cu:
-      v148 = v282;
-      sub_20E1E14FC(v164, v282, type metadata accessor for TranscriptProtoExpressionEnum);
-      v217 = v287;
+      v116 = v245;
+      sub_20E1E14FC(v131, v245, type metadata accessor for TranscriptProtoExpressionEnum);
+      v180 = v250;
       if (swift_getEnumCaseMultiPayload() == 28)
       {
-        v170 = v259;
-        sub_20E1EF280(&v164[v217], v259, type metadata accessor for TranscriptProtoSiriXFallbackExpression);
-        v171 = sub_20E164B48(v148, v170);
-        v172 = type metadata accessor for TranscriptProtoSiriXFallbackExpression;
+        v137 = v222;
+        sub_20E1EF280(&v131[v180], v222, type metadata accessor for TranscriptProtoSiriXFallbackExpression);
+        v138 = sub_20E164B48(v116, v137);
+        v139 = type metadata accessor for TranscriptProtoSiriXFallbackExpression;
         goto LABEL_75;
       }
 
-      v220 = type metadata accessor for TranscriptProtoSiriXFallbackExpression;
+      v183 = type metadata accessor for TranscriptProtoSiriXFallbackExpression;
       goto LABEL_109;
     case 0x1Du:
-      v148 = v284;
-      sub_20E1E14FC(v164, v284, type metadata accessor for TranscriptProtoExpressionEnum);
-      v218 = v287;
+      v116 = v247;
+      sub_20E1E14FC(v131, v247, type metadata accessor for TranscriptProtoExpressionEnum);
+      v181 = v250;
       if (swift_getEnumCaseMultiPayload() == 29)
       {
-        v170 = v260;
-        sub_20E1EF280(&v164[v218], v260, type metadata accessor for TranscriptProtoUserConfirmExpression);
-        v171 = _s23LighthouseDataProcessor36TranscriptProtoUserConfirmExpressionV2eeoiySbAC_ACtFZ_0(v148, v170);
-        v172 = type metadata accessor for TranscriptProtoUserConfirmExpression;
+        v137 = v223;
+        sub_20E1EF280(&v131[v181], v223, type metadata accessor for TranscriptProtoUserConfirmExpression);
+        v138 = _s23LighthouseDataProcessor36TranscriptProtoUserConfirmExpressionV2eeoiySbAC_ACtFZ_0(v116, v137);
+        v139 = type metadata accessor for TranscriptProtoUserConfirmExpression;
         goto LABEL_75;
       }
 
-      v220 = type metadata accessor for TranscriptProtoUserConfirmExpression;
+      v183 = type metadata accessor for TranscriptProtoUserConfirmExpression;
       goto LABEL_109;
     case 0x1Eu:
-      v148 = v285;
-      sub_20E1E14FC(v164, v285, type metadata accessor for TranscriptProtoExpressionEnum);
-      v211 = v287;
+      v116 = v248;
+      sub_20E1E14FC(v131, v248, type metadata accessor for TranscriptProtoExpressionEnum);
+      v175 = v250;
       if (swift_getEnumCaseMultiPayload() == 30)
       {
-        v170 = v261;
-        sub_20E1EF280(&v164[v211], v261, type metadata accessor for TranscriptProtoUserDisambiguateExpression);
-        v171 = sub_20E1626B8(v148, v170);
-        v172 = type metadata accessor for TranscriptProtoUserDisambiguateExpression;
+        v137 = v224;
+        sub_20E1EF280(&v131[v175], v224, type metadata accessor for TranscriptProtoUserDisambiguateExpression);
+        v138 = sub_20E1626B8(v116, v137);
+        v139 = type metadata accessor for TranscriptProtoUserDisambiguateExpression;
 LABEL_75:
-        v188 = v172;
-        sub_20E1E1564(v170, v172);
-        v193 = v148;
+        v154 = v139;
+        sub_20E1E1564(v137, v139);
+        v159 = v116;
         goto LABEL_76;
       }
 
-      v220 = type metadata accessor for TranscriptProtoUserDisambiguateExpression;
+      v183 = type metadata accessor for TranscriptProtoUserDisambiguateExpression;
 LABEL_109:
-      v167 = v220;
-      v168 = v148;
+      v134 = v183;
+      v135 = v116;
       goto LABEL_110;
     default:
-      sub_20E1E14FC(v164, v159, type metadata accessor for TranscriptProtoExpressionEnum);
-      v166 = v287;
+      sub_20E1E14FC(v131, v127, type metadata accessor for TranscriptProtoExpressionEnum);
+      v133 = v250;
       if (swift_getEnumCaseMultiPayload())
       {
-        v167 = type metadata accessor for TranscriptProtoValueExpression;
-        v168 = v159;
+        v134 = type metadata accessor for TranscriptProtoValueExpression;
+        v135 = v127;
 LABEL_110:
-        sub_20E1E1564(v168, v167);
-        sub_20E04875C(v164, &qword_27C868E90, &qword_20E342088);
+        sub_20E1E1564(v135, v134);
+        sub_20E04875C(v131, &qword_27C868E90, &qword_20E342088);
 LABEL_111:
-        v171 = 0;
+        v138 = 0;
       }
 
       else
       {
-        v224 = v231;
-        sub_20E1EF280(&v164[v166], v231, type metadata accessor for TranscriptProtoValueExpression);
-        v171 = _s23LighthouseDataProcessor30TranscriptProtoValueExpressionV2eeoiySbAC_ACtFZ_0(v159, v224);
-        v188 = type metadata accessor for TranscriptProtoValueExpression;
-        sub_20E1E1564(v224, type metadata accessor for TranscriptProtoValueExpression);
-        v193 = v159;
+        v187 = v194;
+        sub_20E1EF280(&v131[v133], v194, type metadata accessor for TranscriptProtoValueExpression);
+        v138 = _s23LighthouseDataProcessor30TranscriptProtoValueExpressionV2eeoiySbAC_ACtFZ_0(v127, v187);
+        v154 = type metadata accessor for TranscriptProtoValueExpression;
+        sub_20E1E1564(v187, type metadata accessor for TranscriptProtoValueExpression);
+        v159 = v127;
 LABEL_76:
-        v194 = v188;
+        v160 = v154;
 LABEL_77:
-        sub_20E1E1564(v193, v194);
-        sub_20E1E1564(v164, type metadata accessor for TranscriptProtoExpressionEnum);
+        sub_20E1E1564(v159, v160);
+        sub_20E1E1564(v131, type metadata accessor for TranscriptProtoExpressionEnum);
       }
 
-      return v171 & 1;
+      return v138 & 1;
   }
 }
 
 uint64_t _s23LighthouseDataProcessor058TranscriptProtoExecutionPreconditionEvaluatorRequestActionI4EnumO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for TranscriptProtoClientAction(0);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = (&v31 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v8 = type metadata accessor for TranscriptProtoAction(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = &v31 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for TranscriptProtoExecutionPreconditionEvaluatorRequestActionRequestEnum(0);
-  v13 = *(*(v12 - 8) + 64);
-  v14 = MEMORY[0x28223BE20](v12);
-  v16 = (&v31 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x28223BE20](v14);
-  v18 = &v31 - v17;
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868E78, &qword_20E342070);
-  v20 = *(*(v19 - 8) + 64);
-  v21 = MEMORY[0x28223BE20](v19 - 8);
-  v23 = &v31 - v22;
-  v24 = *(v21 + 56);
-  sub_20E1E14FC(a1, &v31 - v22, type metadata accessor for TranscriptProtoExecutionPreconditionEvaluatorRequestActionRequestEnum);
-  sub_20E1E14FC(a2, &v23[v24], type metadata accessor for TranscriptProtoExecutionPreconditionEvaluatorRequestActionRequestEnum);
+  v6 = (&v27 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v7 = type metadata accessor for TranscriptProtoAction(0);
+  MEMORY[0x28223BE20](v7 - 8);
+  v9 = &v27 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for TranscriptProtoExecutionPreconditionEvaluatorRequestActionRequestEnum(0);
+  v11 = MEMORY[0x28223BE20](v10);
+  v13 = (&v27 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x28223BE20](v11);
+  v15 = &v27 - v14;
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868E78, &qword_20E342070);
+  v17 = MEMORY[0x28223BE20](v16 - 8);
+  v19 = &v27 - v18;
+  v20 = *(v17 + 56);
+  sub_20E1E14FC(a1, &v27 - v18, type metadata accessor for TranscriptProtoExecutionPreconditionEvaluatorRequestActionRequestEnum);
+  sub_20E1E14FC(a2, &v19[v20], type metadata accessor for TranscriptProtoExecutionPreconditionEvaluatorRequestActionRequestEnum);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    sub_20E1E14FC(v23, v16, type metadata accessor for TranscriptProtoExecutionPreconditionEvaluatorRequestActionRequestEnum);
+    sub_20E1E14FC(v19, v13, type metadata accessor for TranscriptProtoExecutionPreconditionEvaluatorRequestActionRequestEnum);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      sub_20E1EF280(&v23[v24], v7, type metadata accessor for TranscriptProtoClientAction);
-      v25 = _s23LighthouseDataProcessor27TranscriptProtoClientActionV2eeoiySbAC_ACtFZ_0(v16, v7);
-      sub_20E1E1564(v7, type metadata accessor for TranscriptProtoClientAction);
-      v26 = v16;
-      v27 = type metadata accessor for TranscriptProtoClientAction;
+      sub_20E1EF280(&v19[v20], v6, type metadata accessor for TranscriptProtoClientAction);
+      v21 = _s23LighthouseDataProcessor27TranscriptProtoClientActionV2eeoiySbAC_ACtFZ_0(v13, v6);
+      sub_20E1E1564(v6, type metadata accessor for TranscriptProtoClientAction);
+      v22 = v13;
+      v23 = type metadata accessor for TranscriptProtoClientAction;
 LABEL_9:
-      sub_20E1E1564(v26, v27);
-      sub_20E1E1564(v23, type metadata accessor for TranscriptProtoExecutionPreconditionEvaluatorRequestActionRequestEnum);
-      return v25 & 1;
+      sub_20E1E1564(v22, v23);
+      sub_20E1E1564(v19, type metadata accessor for TranscriptProtoExecutionPreconditionEvaluatorRequestActionRequestEnum);
+      return v21 & 1;
     }
 
-    v28 = type metadata accessor for TranscriptProtoClientAction;
-    v29 = v16;
+    v24 = type metadata accessor for TranscriptProtoClientAction;
+    v25 = v13;
   }
 
   else
   {
-    sub_20E1E14FC(v23, v18, type metadata accessor for TranscriptProtoExecutionPreconditionEvaluatorRequestActionRequestEnum);
+    sub_20E1E14FC(v19, v15, type metadata accessor for TranscriptProtoExecutionPreconditionEvaluatorRequestActionRequestEnum);
     if (swift_getEnumCaseMultiPayload() != 1)
     {
-      sub_20E1EF280(&v23[v24], v11, type metadata accessor for TranscriptProtoAction);
-      v25 = static TranscriptProtoAction.== infix(_:_:)(v18, v11);
-      sub_20E1E1564(v11, type metadata accessor for TranscriptProtoAction);
-      v26 = v18;
-      v27 = type metadata accessor for TranscriptProtoAction;
+      sub_20E1EF280(&v19[v20], v9, type metadata accessor for TranscriptProtoAction);
+      v21 = static TranscriptProtoAction.== infix(_:_:)();
+      sub_20E1E1564(v9, type metadata accessor for TranscriptProtoAction);
+      v22 = v15;
+      v23 = type metadata accessor for TranscriptProtoAction;
       goto LABEL_9;
     }
 
-    v28 = type metadata accessor for TranscriptProtoAction;
-    v29 = v18;
+    v24 = type metadata accessor for TranscriptProtoAction;
+    v25 = v15;
   }
 
-  sub_20E1E1564(v29, v28);
-  sub_20E04875C(v23, &qword_27C868E78, &qword_20E342070);
-  v25 = 0;
-  return v25 & 1;
+  sub_20E1E1564(v25, v24);
+  sub_20E04875C(v19, &qword_27C868E78, &qword_20E342070);
+  v21 = 0;
+  return v21 & 1;
 }
 
 BOOL _s23LighthouseDataProcessor039TranscriptProtoFollowUpActionExecutableH4EnumO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for TranscriptProtoFollowUpActionExecutableActionLinkAction(0);
-  v5 = *(*(v4 - 8) + 64);
-  v6 = MEMORY[0x28223BE20](v4);
-  v8 = (&v21 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x28223BE20](v6);
-  v10 = (&v21 - v9);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868EE8, &qword_20E3420E8);
-  v12 = *(*(v11 - 8) + 64);
-  v13 = MEMORY[0x28223BE20](v11 - 8);
-  v15 = &v21 - v14;
-  v16 = *(v13 + 56);
-  sub_20E1E14FC(a1, &v21 - v14, type metadata accessor for TranscriptProtoFollowUpActionExecutableActionEnum);
-  sub_20E1E14FC(a2, &v15[v16], type metadata accessor for TranscriptProtoFollowUpActionExecutableActionEnum);
-  sub_20E1EF280(v15, v10, type metadata accessor for TranscriptProtoFollowUpActionExecutableActionLinkAction);
-  sub_20E1EF280(&v15[v16], v8, type metadata accessor for TranscriptProtoFollowUpActionExecutableActionLinkAction);
-  v17 = *v10 == *v8 && v10[1] == v8[1];
-  v19 = 0;
-  if (v17 || (sub_20E322D60()) && (sub_20E15F7B0(v10[2], v10[3], v8[2], v8[3]) & 1) != 0 && v10[4] == v8[4])
+  v5 = MEMORY[0x28223BE20](v4);
+  v7 = (&v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x28223BE20](v5);
+  v9 = (&v18 - v8);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868EE8, &qword_20E3420E8);
+  v11 = MEMORY[0x28223BE20](v10 - 8);
+  v13 = &v18 - v12;
+  v14 = *(v11 + 56);
+  sub_20E1E14FC(a1, &v18 - v12, type metadata accessor for TranscriptProtoFollowUpActionExecutableActionEnum);
+  sub_20E1E14FC(a2, &v13[v14], type metadata accessor for TranscriptProtoFollowUpActionExecutableActionEnum);
+  sub_20E1EF280(v13, v9, type metadata accessor for TranscriptProtoFollowUpActionExecutableActionLinkAction);
+  sub_20E1EF280(&v13[v14], v7, type metadata accessor for TranscriptProtoFollowUpActionExecutableActionLinkAction);
+  v15 = *v9 == *v7 && v9[1] == v7[1];
+  v16 = 0;
+  if (v15 || (sub_20E322D60()) && sub_20E15F7B0(v9[2], v9[3], v7[2], v7[3]) && v9[4] == v7[4])
   {
-    v18 = *(v4 + 28);
     sub_20E3221C0();
     sub_20E1EF2E8();
     if (sub_20E322850())
     {
-      v19 = 1;
+      v16 = 1;
     }
   }
 
-  sub_20E1E1564(v8, type metadata accessor for TranscriptProtoFollowUpActionExecutableActionLinkAction);
-  sub_20E1E1564(v10, type metadata accessor for TranscriptProtoFollowUpActionExecutableActionLinkAction);
-  return v19;
+  sub_20E1E1564(v7, type metadata accessor for TranscriptProtoFollowUpActionExecutableActionLinkAction);
+  sub_20E1E1564(v9, type metadata accessor for TranscriptProtoFollowUpActionExecutableActionLinkAction);
+  return v16;
 }
 
 uint64_t _s23LighthouseDataProcessor028TranscriptProtoActionFailureG4EnumO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for TranscriptProtoActionFailureUnableToHandleRequest(0);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4);
-  v40 = (&v39 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v7 = type metadata accessor for TranscriptProtoActionFailureDeveloperDefinedError(0);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7);
-  v39 = (&v39 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v10 = type metadata accessor for TranscriptProtoActionFailureFailureEnum(0);
-  v11 = *(*(v10 - 8) + 64);
-  v12 = MEMORY[0x28223BE20](v10);
-  v14 = (&v39 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x28223BE20](v12);
-  v16 = (&v39 - v15);
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868EF0, &qword_20E3420F0);
-  v18 = *(*(v17 - 8) + 64);
-  v19 = MEMORY[0x28223BE20](v17 - 8);
-  v21 = &v39 - v20;
-  v22 = *(v19 + 56);
-  sub_20E1E14FC(a1, &v39 - v20, type metadata accessor for TranscriptProtoActionFailureFailureEnum);
-  sub_20E1E14FC(a2, &v21[v22], type metadata accessor for TranscriptProtoActionFailureFailureEnum);
+  v34 = (&v33 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v6 = type metadata accessor for TranscriptProtoActionFailureDeveloperDefinedError(0);
+  MEMORY[0x28223BE20](v6);
+  v33 = (&v33 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = type metadata accessor for TranscriptProtoActionFailureFailureEnum(0);
+  v9 = MEMORY[0x28223BE20](v8);
+  v11 = (&v33 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x28223BE20](v9);
+  v13 = (&v33 - v12);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868EF0, &qword_20E3420F0);
+  v15 = MEMORY[0x28223BE20](v14 - 8);
+  v17 = &v33 - v16;
+  v18 = *(v15 + 56);
+  sub_20E1E14FC(a1, &v33 - v16, type metadata accessor for TranscriptProtoActionFailureFailureEnum);
+  sub_20E1E14FC(a2, &v17[v18], type metadata accessor for TranscriptProtoActionFailureFailureEnum);
   switch(swift_getEnumCaseMultiPayload())
   {
     case 1u:
-      sub_20E1E14FC(v21, v14, type metadata accessor for TranscriptProtoActionFailureFailureEnum);
+      sub_20E1E14FC(v17, v11, type metadata accessor for TranscriptProtoActionFailureFailureEnum);
       if (swift_getEnumCaseMultiPayload() != 1)
       {
-        v23 = type metadata accessor for TranscriptProtoActionFailureUnableToHandleRequest;
-        v24 = v14;
+        v19 = type metadata accessor for TranscriptProtoActionFailureUnableToHandleRequest;
+        v20 = v11;
         goto LABEL_50;
       }
 
-      v25 = v40;
-      sub_20E1EF280(&v21[v22], v40, type metadata accessor for TranscriptProtoActionFailureUnableToHandleRequest);
-      v26 = v14[1];
-      v27 = v25[1];
-      if (v26)
+      v21 = v34;
+      sub_20E1EF280(&v17[v18], v34, type metadata accessor for TranscriptProtoActionFailureUnableToHandleRequest);
+      v22 = v11[1];
+      v23 = v21[1];
+      if (v22)
       {
-        if (!v27)
+        if (!v23)
         {
           goto LABEL_72;
         }
 
-        v28 = *v14 == *v25 && v26 == v27;
-        if (!v28 && (sub_20E322D60() & 1) == 0)
+        v24 = *v11 == *v21 && v22 == v23;
+        if (!v24 && (sub_20E322D60() & 1) == 0)
         {
           goto LABEL_72;
         }
       }
 
-      else if (v27)
+      else if (v23)
       {
 LABEL_72:
-        v36 = type metadata accessor for TranscriptProtoActionFailureUnableToHandleRequest;
-        sub_20E1E1564(v25, type metadata accessor for TranscriptProtoActionFailureUnableToHandleRequest);
-        v37 = v14;
+        v31 = type metadata accessor for TranscriptProtoActionFailureUnableToHandleRequest;
+        sub_20E1E1564(v21, type metadata accessor for TranscriptProtoActionFailureUnableToHandleRequest);
+        v32 = v11;
         goto LABEL_73;
       }
 
-      v38 = *(v4 + 20);
       sub_20E3221C0();
       sub_20E1EF2E8();
       if (sub_20E322850())
       {
-        v34 = type metadata accessor for TranscriptProtoActionFailureUnableToHandleRequest;
-        sub_20E1E1564(v25, type metadata accessor for TranscriptProtoActionFailureUnableToHandleRequest);
-        v35 = v14;
+        v29 = type metadata accessor for TranscriptProtoActionFailureUnableToHandleRequest;
+        sub_20E1E1564(v21, type metadata accessor for TranscriptProtoActionFailureUnableToHandleRequest);
+        v30 = v11;
         goto LABEL_70;
       }
 
@@ -6847,957 +1891,911 @@ LABEL_72:
 
       goto LABEL_51;
     default:
-      sub_20E1E14FC(v21, v16, type metadata accessor for TranscriptProtoActionFailureFailureEnum);
+      sub_20E1E14FC(v17, v13, type metadata accessor for TranscriptProtoActionFailureFailureEnum);
       if (swift_getEnumCaseMultiPayload())
       {
-        v23 = type metadata accessor for TranscriptProtoActionFailureDeveloperDefinedError;
-        v24 = v16;
+        v19 = type metadata accessor for TranscriptProtoActionFailureDeveloperDefinedError;
+        v20 = v13;
 LABEL_50:
-        sub_20E1E1564(v24, v23);
+        sub_20E1E1564(v20, v19);
 LABEL_51:
-        sub_20E04875C(v21, &qword_27C868EF0, &qword_20E3420F0);
+        sub_20E04875C(v17, &qword_27C868EF0, &qword_20E3420F0);
         return 0;
       }
 
-      v30 = v39;
-      sub_20E1EF280(&v21[v22], v39, type metadata accessor for TranscriptProtoActionFailureDeveloperDefinedError);
-      v31 = *v16 == *v30 && v16[1] == v30[1];
-      if (!v31 && (sub_20E322D60() & 1) == 0 || (v16[2] == v30[2] ? (v32 = v16[3] == v30[3]) : (v32 = 0), !v32 && (sub_20E322D60() & 1) == 0 || v16[4] != v30[4] || (v33 = *(v7 + 28), sub_20E3221C0(), sub_20E1EF2E8(), (sub_20E322850() & 1) == 0)))
+      v26 = v33;
+      sub_20E1EF280(&v17[v18], v33, type metadata accessor for TranscriptProtoActionFailureDeveloperDefinedError);
+      v27 = *v13 == *v26 && v13[1] == v26[1];
+      if (!v27 && (sub_20E322D60() & 1) == 0 || (v13[2] == v26[2] ? (v28 = v13[3] == v26[3]) : (v28 = 0), !v28 && (sub_20E322D60() & 1) == 0 || v13[4] != v26[4] || (sub_20E3221C0(), sub_20E1EF2E8(), (sub_20E322850() & 1) == 0)))
       {
-        v36 = type metadata accessor for TranscriptProtoActionFailureDeveloperDefinedError;
-        sub_20E1E1564(v30, type metadata accessor for TranscriptProtoActionFailureDeveloperDefinedError);
-        v37 = v16;
+        v31 = type metadata accessor for TranscriptProtoActionFailureDeveloperDefinedError;
+        sub_20E1E1564(v26, type metadata accessor for TranscriptProtoActionFailureDeveloperDefinedError);
+        v32 = v13;
 LABEL_73:
-        sub_20E1E1564(v37, v36);
-        sub_20E1E1564(v21, type metadata accessor for TranscriptProtoActionFailureFailureEnum);
+        sub_20E1E1564(v32, v31);
+        sub_20E1E1564(v17, type metadata accessor for TranscriptProtoActionFailureFailureEnum);
         return 0;
       }
 
-      v34 = type metadata accessor for TranscriptProtoActionFailureDeveloperDefinedError;
-      sub_20E1E1564(v30, type metadata accessor for TranscriptProtoActionFailureDeveloperDefinedError);
-      v35 = v16;
+      v29 = type metadata accessor for TranscriptProtoActionFailureDeveloperDefinedError;
+      sub_20E1E1564(v26, type metadata accessor for TranscriptProtoActionFailureDeveloperDefinedError);
+      v30 = v13;
 LABEL_70:
-      sub_20E1E1564(v35, v34);
+      sub_20E1E1564(v30, v29);
 LABEL_71:
-      sub_20E1E1564(v21, type metadata accessor for TranscriptProtoActionFailureFailureEnum);
+      sub_20E1E1564(v17, type metadata accessor for TranscriptProtoActionFailureFailureEnum);
       return 1;
   }
 }
 
 uint64_t _s23LighthouseDataProcessor26TranscriptProtoPayloadEnumO2eeoiySbAC_ACtFZ_0(uint64_t a1, uint64_t a2)
 {
-  v341 = a2;
-  v342 = a1;
+  v295 = a2;
+  v296 = a1;
   matched = type metadata accessor for TranscriptProtoSpanMatchRequest(0);
-  v2 = *(*(matched - 8) + 64);
   MEMORY[0x28223BE20](matched);
-  v309 = (&v266 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v4 = type metadata accessor for TranscriptProtoContextRetrievalRequest(0);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v307 = &v266 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v272 = type metadata accessor for TranscriptProtoToolRetrievalRequest(0);
-  v7 = *(*(v272 - 8) + 64);
-  MEMORY[0x28223BE20](v272);
-  v308 = (&v266 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v9 = type metadata accessor for TranscriptProtoRequestAmendment(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v306 = &v266 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for TranscriptProtoExecutionPreconditionEvaluatorRequest(0);
-  v13 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12 - 8);
-  v305 = &v266 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = type metadata accessor for TranscriptProtoSkipStatement(0);
-  v16 = *(*(v15 - 8) + 64);
-  MEMORY[0x28223BE20](v15 - 8);
-  v304 = &v266 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v263 = (&v220 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v3 = type metadata accessor for TranscriptProtoContextRetrievalRequest(0);
+  MEMORY[0x28223BE20](v3 - 8);
+  v261 = &v220 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v226 = type metadata accessor for TranscriptProtoToolRetrievalRequest(0);
+  MEMORY[0x28223BE20](v226);
+  v262 = (&v220 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v6 = type metadata accessor for TranscriptProtoRequestAmendment(0);
+  MEMORY[0x28223BE20](v6 - 8);
+  v260 = &v220 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for TranscriptProtoExecutionPreconditionEvaluatorRequest(0);
+  MEMORY[0x28223BE20](v8 - 8);
+  v259 = &v220 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for TranscriptProtoSkipStatement(0);
+  MEMORY[0x28223BE20](v10 - 8);
+  v258 = &v220 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   DecorationPrePlannerResult = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResult(0);
-  v19 = *(*(DecorationPrePlannerResult - 8) + 64);
   MEMORY[0x28223BE20](DecorationPrePlannerResult - 8);
-  v303 = &v266 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = type metadata accessor for TranscriptProtoContinuePlanning(0);
-  v22 = *(*(v21 - 8) + 64);
-  MEMORY[0x28223BE20](v21 - 8);
-  v302 = &v266 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v257 = &v220 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = type metadata accessor for TranscriptProtoContinuePlanning(0);
+  MEMORY[0x28223BE20](v14 - 8);
+  v256 = &v220 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   DecorationResult = type metadata accessor for TranscriptProtoQueryDecorationResult(0);
-  v25 = *(*(DecorationResult - 8) + 64);
   MEMORY[0x28223BE20](DecorationResult - 8);
-  v301 = &v266 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v27 = type metadata accessor for TranscriptProtoTypeConversionResult(0);
-  v28 = *(*(v27 - 8) + 64);
-  MEMORY[0x28223BE20](v27 - 8);
-  v300 = &v266 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v30 = type metadata accessor for TranscriptProtoTypeConversionRequest(0);
-  v31 = *(*(v30 - 8) + 64);
-  MEMORY[0x28223BE20](v30 - 8);
-  v299 = &v266 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v33 = type metadata accessor for TranscriptProtoClientUndoRedoRequest(0);
-  v34 = *(*(v33 - 8) + 64);
+  v255 = &v220 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = type metadata accessor for TranscriptProtoTypeConversionResult(0);
+  MEMORY[0x28223BE20](v18 - 8);
+  v254 = &v220 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = type metadata accessor for TranscriptProtoTypeConversionRequest(0);
+  MEMORY[0x28223BE20](v20 - 8);
+  v253 = &v220 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = type metadata accessor for TranscriptProtoClientUndoRedoRequest(0);
+  MEMORY[0x28223BE20](v22 - 8);
+  v251 = &v220 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = type metadata accessor for TranscriptProtoUndoRedoRequest(0);
+  MEMORY[0x28223BE20](v24 - 8);
+  v250 = &v220 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v26 = type metadata accessor for TranscriptProtoToolResolution(0);
+  MEMORY[0x28223BE20](v26 - 8);
+  v249 = &v220 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v221 = type metadata accessor for TranscriptProtoExternalAgentRequestRewriteMetadata(0);
+  MEMORY[0x28223BE20](v221);
+  v252 = (&v220 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v29 = type metadata accessor for TranscriptProtoExternalAgentOutcome(0);
+  MEMORY[0x28223BE20](v29 - 8);
+  v248 = &v220 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v31 = type metadata accessor for TranscriptProtoExternalAgentRequest(0);
+  MEMORY[0x28223BE20](v31 - 8);
+  v247 = &v220 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v33 = type metadata accessor for TranscriptProtoStatementResult(0);
   MEMORY[0x28223BE20](v33 - 8);
-  v297 = &v266 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v36 = type metadata accessor for TranscriptProtoUndoRedoRequest(0);
-  v37 = *(*(v36 - 8) + 64);
-  MEMORY[0x28223BE20](v36 - 8);
-  v296 = &v266 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v39 = type metadata accessor for TranscriptProtoToolResolution(0);
-  v40 = *(*(v39 - 8) + 64);
+  v246 = &v220 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v35 = type metadata accessor for TranscriptProtoSystemResponse(0);
+  MEMORY[0x28223BE20](v35 - 8);
+  v245 = &v220 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v37 = type metadata accessor for TranscriptProtoToolRetrievalResponse(0);
+  MEMORY[0x28223BE20](v37 - 8);
+  v243 = &v220 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v39 = type metadata accessor for TranscriptProtoActionCancellation(0);
   MEMORY[0x28223BE20](v39 - 8);
-  v295 = &v266 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v267 = type metadata accessor for TranscriptProtoExternalAgentRequestRewriteMetadata(0);
-  v42 = *(*(v267 - 8) + 64);
-  MEMORY[0x28223BE20](v267);
-  v298 = (&v266 - ((v43 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v44 = type metadata accessor for TranscriptProtoExternalAgentOutcome(0);
-  v45 = *(*(v44 - 8) + 64);
-  MEMORY[0x28223BE20](v44 - 8);
-  v294 = &v266 - ((v46 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v47 = type metadata accessor for TranscriptProtoExternalAgentRequest(0);
-  v48 = *(*(v47 - 8) + 64);
+  v242 = &v220 - ((v40 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v220 = type metadata accessor for TranscriptProtoContextRetrieved(0);
+  MEMORY[0x28223BE20](v220);
+  v244 = (&v220 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v224 = type metadata accessor for TranscriptProtoEntitySpanMatchResult(0);
+  MEMORY[0x28223BE20](v224);
+  v241 = (&v220 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v223 = type metadata accessor for TranscriptProtoResponseGenerationRequest(0);
+  MEMORY[0x28223BE20](v223);
+  v239 = (&v220 - ((v43 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v222 = type metadata accessor for TranscriptProtoSafetyModeException(0);
+  MEMORY[0x28223BE20](v222);
+  v240 = (&v220 - ((v44 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v45 = type metadata accessor for TranscriptProtoSafetyModeRelease(0);
+  MEMORY[0x28223BE20](v45 - 8);
+  v238 = &v220 - ((v46 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v47 = type metadata accessor for TranscriptProtoActionResolverRequest(0);
   MEMORY[0x28223BE20](v47 - 8);
-  v293 = &v266 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v50 = type metadata accessor for TranscriptProtoStatementResult(0);
-  v51 = *(*(v50 - 8) + 64);
-  MEMORY[0x28223BE20](v50 - 8);
-  v292 = &v266 - ((v52 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v53 = type metadata accessor for TranscriptProtoSystemResponse(0);
-  v54 = *(*(v53 - 8) + 64);
-  MEMORY[0x28223BE20](v53 - 8);
-  v291 = &v266 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v56 = type metadata accessor for TranscriptProtoToolRetrievalResponse(0);
-  v57 = *(*(v56 - 8) + 64);
-  MEMORY[0x28223BE20](v56 - 8);
-  v289 = &v266 - ((v58 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v59 = type metadata accessor for TranscriptProtoActionCancellation(0);
-  v60 = *(*(v59 - 8) + 64);
-  MEMORY[0x28223BE20](v59 - 8);
-  v288 = &v266 - ((v61 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v266 = type metadata accessor for TranscriptProtoContextRetrieved(0);
-  v62 = *(*(v266 - 8) + 64);
-  MEMORY[0x28223BE20](v266);
-  v290 = (&v266 - ((v63 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v270 = type metadata accessor for TranscriptProtoEntitySpanMatchResult(0);
-  v64 = *(*(v270 - 8) + 64);
-  MEMORY[0x28223BE20](v270);
-  v287 = (&v266 - ((v65 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v269 = type metadata accessor for TranscriptProtoResponseGenerationRequest(0);
-  v66 = *(*(v269 - 8) + 64);
-  MEMORY[0x28223BE20](v269);
-  v285 = (&v266 - ((v67 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v268 = type metadata accessor for TranscriptProtoSafetyModeException(0);
-  v68 = *(*(v268 - 8) + 64);
-  MEMORY[0x28223BE20](v268);
-  v286 = (&v266 - ((v69 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v70 = type metadata accessor for TranscriptProtoSafetyModeRelease(0);
-  v71 = *(*(v70 - 8) + 64);
-  MEMORY[0x28223BE20](v70 - 8);
-  v284 = &v266 - ((v72 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v73 = type metadata accessor for TranscriptProtoActionResolverRequest(0);
-  v74 = *(*(v73 - 8) + 64);
-  MEMORY[0x28223BE20](v73 - 8);
-  v283 = &v266 - ((v75 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v237 = &v220 - ((v48 + 15) & 0xFFFFFFFFFFFFFFF0);
   StepResults = type metadata accessor for TranscriptProtoQueryStepResults(0);
-  v77 = *(*(StepResults - 8) + 64);
   MEMORY[0x28223BE20](StepResults - 8);
-  v282 = &v266 - ((v78 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v79 = type metadata accessor for TranscriptProtoRecoverableError(0);
-  v80 = *(*(v79 - 8) + 64);
-  MEMORY[0x28223BE20](v79 - 8);
-  v281 = &v266 - ((v81 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v82 = type metadata accessor for TranscriptProtoSessionError(0);
-  v83 = *(*(v82 - 8) + 64);
-  MEMORY[0x28223BE20](v82 - 8);
-  v280 = &v266 - ((v84 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v85 = type metadata accessor for TranscriptProtoVariableStep(0);
-  v86 = *(*(v85 - 8) + 64);
-  MEMORY[0x28223BE20](v85 - 8);
-  v279 = (&v266 - ((v87 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v236 = &v220 - ((v50 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v51 = type metadata accessor for TranscriptProtoRecoverableError(0);
+  MEMORY[0x28223BE20](v51 - 8);
+  v235 = &v220 - ((v52 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v53 = type metadata accessor for TranscriptProtoSessionError(0);
+  MEMORY[0x28223BE20](v53 - 8);
+  v234 = &v220 - ((v54 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v55 = type metadata accessor for TranscriptProtoVariableStep(0);
+  MEMORY[0x28223BE20](v55 - 8);
+  v233 = (&v220 - ((v56 + 15) & 0xFFFFFFFFFFFFFFF0));
   Step = type metadata accessor for TranscriptProtoQueryStep(0);
-  v89 = *(*(Step - 8) + 64);
   MEMORY[0x28223BE20](Step - 8);
-  v278 = &v266 - ((v90 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v91 = type metadata accessor for TranscriptProtoClientAction(0);
-  v92 = *(*(v91 - 8) + 64);
-  MEMORY[0x28223BE20](v91 - 8);
-  v277 = (&v266 - ((v93 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v94 = type metadata accessor for TranscriptProtoAction(0);
-  v95 = *(*(v94 - 8) + 64);
-  MEMORY[0x28223BE20](v94 - 8);
-  v276 = &v266 - ((v96 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v97 = type metadata accessor for TranscriptProtoPlan(0);
-  v98 = *(*(v97 - 8) + 64);
-  MEMORY[0x28223BE20](v97 - 8);
-  v275 = &v266 - ((v99 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v100 = type metadata accessor for TranscriptProtoRequest(0);
-  v101 = *(*(v100 - 8) + 64);
-  MEMORY[0x28223BE20](v100 - 8);
-  v274 = &v266 - ((v102 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v103 = type metadata accessor for TranscriptProtoSessionStart(0);
-  v104 = *(*(v103 - 8) + 64);
-  MEMORY[0x28223BE20](v103 - 8);
-  v271 = &v266 - ((v105 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v340 = type metadata accessor for TranscriptProtoPayloadEnum(0);
-  v106 = *(*(v340 - 8) + 64);
-  v107 = MEMORY[0x28223BE20](v340);
-  v339 = (&v266 - ((v108 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v232 = &v220 - ((v58 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v59 = type metadata accessor for TranscriptProtoClientAction(0);
+  MEMORY[0x28223BE20](v59 - 8);
+  v231 = (&v220 - ((v60 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v61 = type metadata accessor for TranscriptProtoAction(0);
+  MEMORY[0x28223BE20](v61 - 8);
+  v230 = &v220 - ((v62 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v63 = type metadata accessor for TranscriptProtoPlan(0);
+  MEMORY[0x28223BE20](v63 - 8);
+  v229 = &v220 - ((v64 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v65 = type metadata accessor for TranscriptProtoRequest(0);
+  MEMORY[0x28223BE20](v65 - 8);
+  v228 = &v220 - ((v66 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v67 = type metadata accessor for TranscriptProtoSessionStart(0);
+  MEMORY[0x28223BE20](v67 - 8);
+  v225 = &v220 - ((v68 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v294 = type metadata accessor for TranscriptProtoPayloadEnum(0);
+  v69 = MEMORY[0x28223BE20](v294);
+  v293 = (&v220 - ((v70 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v71 = MEMORY[0x28223BE20](v69);
+  v291 = (&v220 - v72);
+  v73 = MEMORY[0x28223BE20](v71);
+  v292 = (&v220 - v74);
+  v75 = MEMORY[0x28223BE20](v73);
+  v290 = &v220 - v76;
+  v77 = MEMORY[0x28223BE20](v75);
+  v289 = &v220 - v78;
+  v79 = MEMORY[0x28223BE20](v77);
+  v288 = &v220 - v80;
+  v81 = MEMORY[0x28223BE20](v79);
+  v285 = &v220 - v82;
+  v83 = MEMORY[0x28223BE20](v81);
+  v287 = (&v220 - v84);
+  v85 = MEMORY[0x28223BE20](v83);
+  v284 = &v220 - v86;
+  v87 = MEMORY[0x28223BE20](v85);
+  v283 = &v220 - v88;
+  v89 = MEMORY[0x28223BE20](v87);
+  v282 = &v220 - v90;
+  v91 = MEMORY[0x28223BE20](v89);
+  v281 = &v220 - v92;
+  v93 = MEMORY[0x28223BE20](v91);
+  v280 = &v220 - v94;
+  v95 = MEMORY[0x28223BE20](v93);
+  v279 = &v220 - v96;
+  v97 = MEMORY[0x28223BE20](v95);
+  v286 = (&v220 - v98);
+  v99 = MEMORY[0x28223BE20](v97);
+  v277 = &v220 - v100;
+  v101 = MEMORY[0x28223BE20](v99);
+  v275 = &v220 - v102;
+  v103 = MEMORY[0x28223BE20](v101);
+  v274 = &v220 - v104;
+  v105 = MEMORY[0x28223BE20](v103);
+  v272 = &v220 - v106;
+  v107 = MEMORY[0x28223BE20](v105);
+  v270 = &v220 - v108;
   v109 = MEMORY[0x28223BE20](v107);
-  v337 = (&v266 - v110);
+  v269 = &v220 - v110;
   v111 = MEMORY[0x28223BE20](v109);
-  v338 = (&v266 - v112);
+  v278 = (&v220 - v112);
   v113 = MEMORY[0x28223BE20](v111);
-  v336 = &v266 - v114;
+  v273 = (&v220 - v114);
   v115 = MEMORY[0x28223BE20](v113);
-  v335 = &v266 - v116;
+  v271 = (&v220 - v116);
   v117 = MEMORY[0x28223BE20](v115);
-  v334 = &v266 - v118;
+  v276 = (&v220 - v118);
   v119 = MEMORY[0x28223BE20](v117);
-  v331 = &v266 - v120;
+  v268 = (&v220 - v120);
   v121 = MEMORY[0x28223BE20](v119);
-  v333 = (&v266 - v122);
+  v267 = &v220 - v122;
   v123 = MEMORY[0x28223BE20](v121);
-  v330 = &v266 - v124;
+  v266 = &v220 - v124;
   v125 = MEMORY[0x28223BE20](v123);
-  v329 = &v266 - v126;
+  v265 = &v220 - v126;
   v127 = MEMORY[0x28223BE20](v125);
-  v328 = &v266 - v128;
+  v264 = &v220 - v128;
   v129 = MEMORY[0x28223BE20](v127);
-  v327 = &v266 - v130;
-  v131 = MEMORY[0x28223BE20](v129);
-  v326 = &v266 - v132;
-  v133 = MEMORY[0x28223BE20](v131);
-  v325 = &v266 - v134;
-  v135 = MEMORY[0x28223BE20](v133);
-  v332 = (&v266 - v136);
-  v137 = MEMORY[0x28223BE20](v135);
-  v323 = &v266 - v138;
-  v139 = MEMORY[0x28223BE20](v137);
-  v321 = &v266 - v140;
-  v141 = MEMORY[0x28223BE20](v139);
-  v320 = &v266 - v142;
-  v143 = MEMORY[0x28223BE20](v141);
-  v318 = &v266 - v144;
-  v145 = MEMORY[0x28223BE20](v143);
-  v316 = &v266 - v146;
-  v147 = MEMORY[0x28223BE20](v145);
-  v315 = &v266 - v148;
-  v149 = MEMORY[0x28223BE20](v147);
-  v324 = (&v266 - v150);
-  v151 = MEMORY[0x28223BE20](v149);
-  v319 = (&v266 - v152);
-  v153 = MEMORY[0x28223BE20](v151);
-  v317 = (&v266 - v154);
-  v155 = MEMORY[0x28223BE20](v153);
-  v322 = (&v266 - v156);
-  v157 = MEMORY[0x28223BE20](v155);
-  v314 = (&v266 - v158);
-  v159 = MEMORY[0x28223BE20](v157);
-  v313 = &v266 - v160;
-  v161 = MEMORY[0x28223BE20](v159);
-  v312 = &v266 - v162;
-  v163 = MEMORY[0x28223BE20](v161);
-  v311 = &v266 - v164;
-  v165 = MEMORY[0x28223BE20](v163);
-  v310 = &v266 - v166;
-  v167 = MEMORY[0x28223BE20](v165);
-  v169 = (&v266 - v168);
-  v170 = MEMORY[0x28223BE20](v167);
-  v172 = &v266 - v171;
-  v173 = MEMORY[0x28223BE20](v170);
-  v175 = (&v266 - v174);
-  v176 = MEMORY[0x28223BE20](v173);
-  v178 = &v266 - v177;
-  v179 = MEMORY[0x28223BE20](v176);
-  v181 = &v266 - v180;
-  v182 = MEMORY[0x28223BE20](v179);
-  v184 = &v266 - v183;
-  MEMORY[0x28223BE20](v182);
-  v186 = &v266 - v185;
-  v187 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868F40, &unk_20E342140);
-  v188 = *(*(v187 - 8) + 64);
-  v189 = MEMORY[0x28223BE20](v187 - 8);
-  v191 = &v266 - v190;
-  v192 = *(v189 + 56);
-  sub_20E1E14FC(v342, &v266 - v190, type metadata accessor for TranscriptProtoPayloadEnum);
-  v342 = v192;
-  sub_20E1E14FC(v341, &v191[v192], type metadata accessor for TranscriptProtoPayloadEnum);
+  v131 = (&v220 - v130);
+  v132 = MEMORY[0x28223BE20](v129);
+  v134 = &v220 - v133;
+  v135 = MEMORY[0x28223BE20](v132);
+  v137 = (&v220 - v136);
+  v138 = MEMORY[0x28223BE20](v135);
+  v140 = &v220 - v139;
+  v141 = MEMORY[0x28223BE20](v138);
+  v143 = (&v220 - v142);
+  v144 = MEMORY[0x28223BE20](v141);
+  v146 = &v220 - v145;
+  MEMORY[0x28223BE20](v144);
+  v148 = &v220 - v147;
+  v149 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868F40, &unk_20E342140);
+  v150 = MEMORY[0x28223BE20](v149 - 8);
+  v152 = &v220 - v151;
+  v153 = *(v150 + 56);
+  sub_20E1E14FC(v296, &v220 - v151, type metadata accessor for TranscriptProtoPayloadEnum);
+  v296 = v153;
+  sub_20E1E14FC(v295, &v152[v153], type metadata accessor for TranscriptProtoPayloadEnum);
   switch(swift_getEnumCaseMultiPayload())
   {
     case 1u:
-      sub_20E1E14FC(v191, v184, type metadata accessor for TranscriptProtoPayloadEnum);
-      v232 = v342;
+      sub_20E1E14FC(v152, v146, type metadata accessor for TranscriptProtoPayloadEnum);
+      v189 = v296;
       if (swift_getEnumCaseMultiPayload() == 1)
       {
-        v233 = v274;
-        sub_20E1EF280(&v191[v232], v274, type metadata accessor for TranscriptProtoRequest);
-        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor22TranscriptProtoRequestV2eeoiySbAC_ACtFZ_0(v184, v233);
-        v217 = type metadata accessor for TranscriptProtoRequest;
-        sub_20E1E1564(v233, type metadata accessor for TranscriptProtoRequest);
-        v218 = v184;
+        v190 = v228;
+        sub_20E1EF280(&v152[v189], v228, type metadata accessor for TranscriptProtoRequest);
+        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor22TranscriptProtoRequestV2eeoiySbAC_ACtFZ_0(v146, v190);
+        v175 = type metadata accessor for TranscriptProtoRequest;
+        sub_20E1E1564(v190, type metadata accessor for TranscriptProtoRequest);
+        v176 = v146;
         goto LABEL_108;
       }
 
-      v194 = type metadata accessor for TranscriptProtoRequest;
-      v195 = v184;
+      v155 = type metadata accessor for TranscriptProtoRequest;
+      v156 = v146;
       goto LABEL_147;
     case 2u:
-      sub_20E1E14FC(v191, v181, type metadata accessor for TranscriptProtoPayloadEnum);
-      v225 = v342;
+      sub_20E1E14FC(v152, v143, type metadata accessor for TranscriptProtoPayloadEnum);
+      v183 = v296;
       if (swift_getEnumCaseMultiPayload() == 2)
       {
-        v226 = v275;
-        sub_20E1EF280(&v191[v225], v275, type metadata accessor for TranscriptProtoPlan);
-        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor19TranscriptProtoPlanV2eeoiySbAC_ACtFZ_0(v181, v226);
-        v217 = type metadata accessor for TranscriptProtoPlan;
-        sub_20E1E1564(v226, type metadata accessor for TranscriptProtoPlan);
-        v218 = v181;
+        v184 = v229;
+        sub_20E1EF280(&v152[v183], v229, type metadata accessor for TranscriptProtoPlan);
+        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor19TranscriptProtoPlanV2eeoiySbAC_ACtFZ_0(v143, v184);
+        v175 = type metadata accessor for TranscriptProtoPlan;
+        sub_20E1E1564(v184, type metadata accessor for TranscriptProtoPlan);
+        v176 = v143;
         goto LABEL_108;
       }
 
-      v194 = type metadata accessor for TranscriptProtoPlan;
-      v195 = v181;
+      v155 = type metadata accessor for TranscriptProtoPlan;
+      v156 = v143;
       goto LABEL_147;
     case 3u:
-      sub_20E1E14FC(v191, v178, type metadata accessor for TranscriptProtoPayloadEnum);
-      v229 = v342;
+      sub_20E1E14FC(v152, v140, type metadata accessor for TranscriptProtoPayloadEnum);
+      v186 = v296;
       if (swift_getEnumCaseMultiPayload() == 3)
       {
-        v230 = v276;
-        sub_20E1EF280(&v191[v229], v276, type metadata accessor for TranscriptProtoAction);
-        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor21TranscriptProtoActionV2eeoiySbAC_ACtFZ_0(v178, v230);
-        v217 = type metadata accessor for TranscriptProtoAction;
-        sub_20E1E1564(v230, type metadata accessor for TranscriptProtoAction);
-        v218 = v178;
+        v187 = v230;
+        sub_20E1EF280(&v152[v186], v230, type metadata accessor for TranscriptProtoAction);
+        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor21TranscriptProtoActionV2eeoiySbAC_ACtFZ_0(v140, v187);
+        v175 = type metadata accessor for TranscriptProtoAction;
+        sub_20E1E1564(v187, type metadata accessor for TranscriptProtoAction);
+        v176 = v140;
         goto LABEL_108;
       }
 
-      v194 = type metadata accessor for TranscriptProtoAction;
-      v195 = v178;
+      v155 = type metadata accessor for TranscriptProtoAction;
+      v156 = v140;
       goto LABEL_147;
     case 4u:
-      sub_20E1E14FC(v191, v175, type metadata accessor for TranscriptProtoPayloadEnum);
-      v215 = v342;
+      sub_20E1E14FC(v152, v137, type metadata accessor for TranscriptProtoPayloadEnum);
+      v173 = v296;
       if (swift_getEnumCaseMultiPayload() == 4)
       {
-        v216 = v277;
-        sub_20E1EF280(&v191[v215], v277, type metadata accessor for TranscriptProtoClientAction);
-        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor27TranscriptProtoClientActionV2eeoiySbAC_ACtFZ_0(v175, v216);
-        v217 = type metadata accessor for TranscriptProtoClientAction;
-        sub_20E1E1564(v216, type metadata accessor for TranscriptProtoClientAction);
-        v218 = v175;
+        v174 = v231;
+        sub_20E1EF280(&v152[v173], v231, type metadata accessor for TranscriptProtoClientAction);
+        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor27TranscriptProtoClientActionV2eeoiySbAC_ACtFZ_0(v137, v174);
+        v175 = type metadata accessor for TranscriptProtoClientAction;
+        sub_20E1E1564(v174, type metadata accessor for TranscriptProtoClientAction);
+        v176 = v137;
         goto LABEL_108;
       }
 
-      v194 = type metadata accessor for TranscriptProtoClientAction;
-      v195 = v175;
+      v155 = type metadata accessor for TranscriptProtoClientAction;
+      v156 = v137;
       goto LABEL_147;
     case 5u:
-      sub_20E1E14FC(v191, v172, type metadata accessor for TranscriptProtoPayloadEnum);
-      v237 = v342;
+      sub_20E1E14FC(v152, v134, type metadata accessor for TranscriptProtoPayloadEnum);
+      v194 = v296;
       if (swift_getEnumCaseMultiPayload() == 5)
       {
-        v206 = v278;
-        sub_20E1EF280(&v191[v237], v278, type metadata accessor for TranscriptProtoQueryStep);
-        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor24TranscriptProtoQueryStepV2eeoiySbAC_ACtFZ_0(v172, v206);
-        v207 = type metadata accessor for TranscriptProtoQueryStep;
+        v166 = v232;
+        sub_20E1EF280(&v152[v194], v232, type metadata accessor for TranscriptProtoQueryStep);
+        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor24TranscriptProtoQueryStepV2eeoiySbAC_ACtFZ_0(v134, v166);
+        v167 = type metadata accessor for TranscriptProtoQueryStep;
         goto LABEL_107;
       }
 
-      v259 = type metadata accessor for TranscriptProtoQueryStep;
+      v214 = type metadata accessor for TranscriptProtoQueryStep;
       goto LABEL_146;
     case 6u:
-      sub_20E1E14FC(v191, v169, type metadata accessor for TranscriptProtoPayloadEnum);
-      v241 = v342;
+      sub_20E1E14FC(v152, v131, type metadata accessor for TranscriptProtoPayloadEnum);
+      v197 = v296;
       if (swift_getEnumCaseMultiPayload() == 6)
       {
-        v242 = v279;
-        sub_20E1EF280(&v191[v241], v279, type metadata accessor for TranscriptProtoVariableStep);
-        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor27TranscriptProtoVariableStepV2eeoiySbAC_ACtFZ_0(v169, v242);
-        v217 = type metadata accessor for TranscriptProtoVariableStep;
-        sub_20E1E1564(v242, type metadata accessor for TranscriptProtoVariableStep);
-        v218 = v169;
+        v198 = v233;
+        sub_20E1EF280(&v152[v197], v233, type metadata accessor for TranscriptProtoVariableStep);
+        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor27TranscriptProtoVariableStepV2eeoiySbAC_ACtFZ_0(v131, v198);
+        v175 = type metadata accessor for TranscriptProtoVariableStep;
+        sub_20E1E1564(v198, type metadata accessor for TranscriptProtoVariableStep);
+        v176 = v131;
         goto LABEL_108;
       }
 
-      v258 = type metadata accessor for TranscriptProtoVariableStep;
+      v213 = type metadata accessor for TranscriptProtoVariableStep;
       goto LABEL_144;
     case 7u:
-      v172 = v310;
-      sub_20E1E14FC(v191, v310, type metadata accessor for TranscriptProtoPayloadEnum);
-      v231 = v342;
+      v134 = v264;
+      sub_20E1E14FC(v152, v264, type metadata accessor for TranscriptProtoPayloadEnum);
+      v188 = v296;
       if (swift_getEnumCaseMultiPayload() == 7)
       {
-        v206 = v280;
-        sub_20E1EF280(&v191[v231], v280, type metadata accessor for TranscriptProtoSessionError);
-        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor27TranscriptProtoSessionErrorV2eeoiySbAC_ACtFZ_0(v172, v206);
-        v207 = type metadata accessor for TranscriptProtoSessionError;
+        v166 = v234;
+        sub_20E1EF280(&v152[v188], v234, type metadata accessor for TranscriptProtoSessionError);
+        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor27TranscriptProtoSessionErrorV2eeoiySbAC_ACtFZ_0(v134, v166);
+        v167 = type metadata accessor for TranscriptProtoSessionError;
         goto LABEL_107;
       }
 
-      v259 = type metadata accessor for TranscriptProtoSessionError;
+      v214 = type metadata accessor for TranscriptProtoSessionError;
       goto LABEL_146;
     case 8u:
-      v172 = v311;
-      sub_20E1E14FC(v191, v311, type metadata accessor for TranscriptProtoPayloadEnum);
-      v245 = v342;
+      v134 = v265;
+      sub_20E1E14FC(v152, v265, type metadata accessor for TranscriptProtoPayloadEnum);
+      v201 = v296;
       if (swift_getEnumCaseMultiPayload() == 8)
       {
-        v206 = v281;
-        sub_20E1EF280(&v191[v245], v281, type metadata accessor for TranscriptProtoRecoverableError);
-        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor31TranscriptProtoRecoverableErrorV2eeoiySbAC_ACtFZ_0(v172, v206);
-        v207 = type metadata accessor for TranscriptProtoRecoverableError;
+        v166 = v235;
+        sub_20E1EF280(&v152[v201], v235, type metadata accessor for TranscriptProtoRecoverableError);
+        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor31TranscriptProtoRecoverableErrorV2eeoiySbAC_ACtFZ_0(v134, v166);
+        v167 = type metadata accessor for TranscriptProtoRecoverableError;
         goto LABEL_107;
       }
 
-      v259 = type metadata accessor for TranscriptProtoRecoverableError;
+      v214 = type metadata accessor for TranscriptProtoRecoverableError;
       goto LABEL_146;
     case 9u:
-      v172 = v312;
-      sub_20E1E14FC(v191, v312, type metadata accessor for TranscriptProtoPayloadEnum);
-      v222 = v342;
+      v134 = v266;
+      sub_20E1E14FC(v152, v266, type metadata accessor for TranscriptProtoPayloadEnum);
+      v180 = v296;
       if (swift_getEnumCaseMultiPayload() == 9)
       {
-        v206 = v282;
-        sub_20E1EF280(&v191[v222], v282, type metadata accessor for TranscriptProtoQueryStepResults);
-        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor31TranscriptProtoQueryStepResultsV2eeoiySbAC_ACtFZ_0(v172, v206);
-        v207 = type metadata accessor for TranscriptProtoQueryStepResults;
+        v166 = v236;
+        sub_20E1EF280(&v152[v180], v236, type metadata accessor for TranscriptProtoQueryStepResults);
+        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor31TranscriptProtoQueryStepResultsV2eeoiySbAC_ACtFZ_0(v134, v166);
+        v167 = type metadata accessor for TranscriptProtoQueryStepResults;
         goto LABEL_107;
       }
 
-      v259 = type metadata accessor for TranscriptProtoQueryStepResults;
+      v214 = type metadata accessor for TranscriptProtoQueryStepResults;
       goto LABEL_146;
     case 0xAu:
-      v172 = v313;
-      sub_20E1E14FC(v191, v313, type metadata accessor for TranscriptProtoPayloadEnum);
-      v244 = v342;
+      v134 = v267;
+      sub_20E1E14FC(v152, v267, type metadata accessor for TranscriptProtoPayloadEnum);
+      v200 = v296;
       if (swift_getEnumCaseMultiPayload() == 10)
       {
-        v206 = v283;
-        sub_20E1EF280(&v191[v244], v283, type metadata accessor for TranscriptProtoActionResolverRequest);
-        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor36TranscriptProtoActionResolverRequestV2eeoiySbAC_ACtFZ_0(v172, v206);
-        v207 = type metadata accessor for TranscriptProtoActionResolverRequest;
+        v166 = v237;
+        sub_20E1EF280(&v152[v200], v237, type metadata accessor for TranscriptProtoActionResolverRequest);
+        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor36TranscriptProtoActionResolverRequestV2eeoiySbAC_ACtFZ_0(v134, v166);
+        v167 = type metadata accessor for TranscriptProtoActionResolverRequest;
         goto LABEL_107;
       }
 
-      v259 = type metadata accessor for TranscriptProtoActionResolverRequest;
+      v214 = type metadata accessor for TranscriptProtoActionResolverRequest;
       goto LABEL_146;
     case 0xBu:
-      v169 = v314;
-      sub_20E1E14FC(v191, v314, type metadata accessor for TranscriptProtoPayloadEnum);
-      v214 = v342;
+      v131 = v268;
+      sub_20E1E14FC(v152, v268, type metadata accessor for TranscriptProtoPayloadEnum);
+      v172 = v296;
       if (swift_getEnumCaseMultiPayload() == 11)
       {
-        v197 = v284;
-        sub_20E1EF280(&v191[v214], v284, type metadata accessor for TranscriptProtoSafetyModeRelease);
+        v158 = v238;
+        sub_20E1EF280(&v152[v172], v238, type metadata accessor for TranscriptProtoSafetyModeRelease);
         sub_20E3221C0();
-        v198 = v191;
+        v159 = v152;
         sub_20E1EF2E8();
         StepV2eeoiySbAC_ACtFZ_0 = sub_20E322850();
-        v200 = type metadata accessor for TranscriptProtoSafetyModeRelease;
+        v161 = type metadata accessor for TranscriptProtoSafetyModeRelease;
         goto LABEL_101;
       }
 
-      v258 = type metadata accessor for TranscriptProtoSafetyModeRelease;
+      v213 = type metadata accessor for TranscriptProtoSafetyModeRelease;
       goto LABEL_144;
     case 0xCu:
-      v169 = v322;
-      sub_20E1E14FC(v191, v322, type metadata accessor for TranscriptProtoPayloadEnum);
-      v219 = v342;
+      v131 = v276;
+      sub_20E1E14FC(v152, v276, type metadata accessor for TranscriptProtoPayloadEnum);
+      v177 = v296;
       if (swift_getEnumCaseMultiPayload() != 12)
       {
-        v258 = type metadata accessor for TranscriptProtoSafetyModeException;
+        v213 = type metadata accessor for TranscriptProtoSafetyModeException;
         goto LABEL_144;
       }
 
-      v202 = v286;
-      sub_20E1EF280(&v191[v219], v286, type metadata accessor for TranscriptProtoSafetyModeException);
-      v220 = v169[1];
-      v221 = v202[1];
-      if (v220)
+      v163 = v240;
+      sub_20E1EF280(&v152[v177], v240, type metadata accessor for TranscriptProtoSafetyModeException);
+      v178 = v131[1];
+      v179 = v163[1];
+      if (v178)
       {
-        if (!v221 || (*v169 != *v202 || v220 != v221) && (sub_20E322D60() & 1) == 0)
+        if (!v179 || (*v131 != *v163 || v178 != v179) && (sub_20E322D60() & 1) == 0)
         {
           goto LABEL_163;
         }
       }
 
-      else if (v221)
+      else if (v179)
       {
         goto LABEL_163;
       }
 
-      v263 = *(v268 + 20);
       sub_20E3221C0();
       sub_20E1EF2E8();
       if (sub_20E322850())
       {
-        v204 = type metadata accessor for TranscriptProtoSafetyModeException;
+        v164 = type metadata accessor for TranscriptProtoSafetyModeException;
         goto LABEL_161;
       }
 
 LABEL_163:
-      v261 = type metadata accessor for TranscriptProtoSafetyModeException;
+      v216 = type metadata accessor for TranscriptProtoSafetyModeException;
       goto LABEL_164;
     case 0xDu:
-      v169 = v317;
-      sub_20E1E14FC(v191, v317, type metadata accessor for TranscriptProtoPayloadEnum);
-      v239 = v342;
+      v131 = v271;
+      sub_20E1E14FC(v152, v271, type metadata accessor for TranscriptProtoPayloadEnum);
+      v196 = v296;
       if (swift_getEnumCaseMultiPayload() != 13)
       {
-        v258 = type metadata accessor for TranscriptProtoResponseGenerationRequest;
+        v213 = type metadata accessor for TranscriptProtoResponseGenerationRequest;
         goto LABEL_144;
       }
 
-      v202 = v285;
-      sub_20E1EF280(&v191[v239], v285, type metadata accessor for TranscriptProtoResponseGenerationRequest);
-      if (sub_20E14C4B8(*v169, *v202))
+      v163 = v239;
+      sub_20E1EF280(&v152[v196], v239, type metadata accessor for TranscriptProtoResponseGenerationRequest);
+      if (sub_20E14C4B8(*v131, *v163))
       {
-        v240 = *(v269 + 20);
         sub_20E3221C0();
         sub_20E1EF2E8();
         if (sub_20E322850())
         {
-          v204 = type metadata accessor for TranscriptProtoResponseGenerationRequest;
+          v164 = type metadata accessor for TranscriptProtoResponseGenerationRequest;
           goto LABEL_161;
         }
       }
 
-      v261 = type metadata accessor for TranscriptProtoResponseGenerationRequest;
+      v216 = type metadata accessor for TranscriptProtoResponseGenerationRequest;
       goto LABEL_164;
     case 0xEu:
-      v169 = v319;
-      sub_20E1E14FC(v191, v319, type metadata accessor for TranscriptProtoPayloadEnum);
-      v211 = v342;
+      v131 = v273;
+      sub_20E1E14FC(v152, v273, type metadata accessor for TranscriptProtoPayloadEnum);
+      v170 = v296;
       if (swift_getEnumCaseMultiPayload() != 14)
       {
-        v258 = type metadata accessor for TranscriptProtoEntitySpanMatchResult;
+        v213 = type metadata accessor for TranscriptProtoEntitySpanMatchResult;
         goto LABEL_144;
       }
 
-      v202 = v287;
-      sub_20E1EF280(&v191[v211], v287, type metadata accessor for TranscriptProtoEntitySpanMatchResult);
-      if (sub_20E14EC10(*v169, *v202))
+      v163 = v241;
+      sub_20E1EF280(&v152[v170], v241, type metadata accessor for TranscriptProtoEntitySpanMatchResult);
+      if (sub_20E14EC10(*v131, *v163))
       {
-        v212 = *(v270 + 20);
         sub_20E3221C0();
         sub_20E1EF2E8();
         if (sub_20E322850())
         {
-          v204 = type metadata accessor for TranscriptProtoEntitySpanMatchResult;
+          v164 = type metadata accessor for TranscriptProtoEntitySpanMatchResult;
           goto LABEL_161;
         }
       }
 
-      v261 = type metadata accessor for TranscriptProtoEntitySpanMatchResult;
+      v216 = type metadata accessor for TranscriptProtoEntitySpanMatchResult;
       goto LABEL_164;
     case 0xFu:
-      v169 = v324;
-      sub_20E1E14FC(v191, v324, type metadata accessor for TranscriptProtoPayloadEnum);
-      v227 = v342;
+      v131 = v278;
+      sub_20E1E14FC(v152, v278, type metadata accessor for TranscriptProtoPayloadEnum);
+      v185 = v296;
       if (swift_getEnumCaseMultiPayload() != 15)
       {
-        v258 = type metadata accessor for TranscriptProtoContextRetrieved;
+        v213 = type metadata accessor for TranscriptProtoContextRetrieved;
         goto LABEL_144;
       }
 
-      v202 = v290;
-      sub_20E1EF280(&v191[v227], v290, type metadata accessor for TranscriptProtoContextRetrieved);
-      if (sub_20E14E2F8(*v169, *v202) & 1) != 0 && (sub_20E14E2F8(v169[1], v202[1]))
+      v163 = v244;
+      sub_20E1EF280(&v152[v185], v244, type metadata accessor for TranscriptProtoContextRetrieved);
+      if (sub_20E14E2F8(*v131, *v163) & 1) != 0 && (sub_20E14E2F8(v131[1], v163[1]))
       {
-        v228 = *(v266 + 24);
         sub_20E3221C0();
         sub_20E1EF2E8();
         if (sub_20E322850())
         {
-          v204 = type metadata accessor for TranscriptProtoContextRetrieved;
+          v164 = type metadata accessor for TranscriptProtoContextRetrieved;
           goto LABEL_161;
         }
       }
 
-      v261 = type metadata accessor for TranscriptProtoContextRetrieved;
+      v216 = type metadata accessor for TranscriptProtoContextRetrieved;
       goto LABEL_164;
     case 0x10u:
-      v172 = v315;
-      sub_20E1E14FC(v191, v315, type metadata accessor for TranscriptProtoPayloadEnum);
-      v210 = v342;
+      v134 = v269;
+      sub_20E1E14FC(v152, v269, type metadata accessor for TranscriptProtoPayloadEnum);
+      v169 = v296;
       if (swift_getEnumCaseMultiPayload() == 16)
       {
-        v206 = v288;
-        sub_20E1EF280(&v191[v210], v288, type metadata accessor for TranscriptProtoActionCancellation);
-        StepV2eeoiySbAC_ACtFZ_0 = sub_20E16BDFC(v172, v206);
-        v207 = type metadata accessor for TranscriptProtoActionCancellation;
+        v166 = v242;
+        sub_20E1EF280(&v152[v169], v242, type metadata accessor for TranscriptProtoActionCancellation);
+        StepV2eeoiySbAC_ACtFZ_0 = sub_20E16BDFC(v134, v166);
+        v167 = type metadata accessor for TranscriptProtoActionCancellation;
         goto LABEL_107;
       }
 
-      v259 = type metadata accessor for TranscriptProtoActionCancellation;
+      v214 = type metadata accessor for TranscriptProtoActionCancellation;
       goto LABEL_146;
     case 0x11u:
-      v172 = v316;
-      sub_20E1E14FC(v191, v316, type metadata accessor for TranscriptProtoPayloadEnum);
-      v235 = v342;
+      v134 = v270;
+      sub_20E1E14FC(v152, v270, type metadata accessor for TranscriptProtoPayloadEnum);
+      v192 = v296;
       if (swift_getEnumCaseMultiPayload() == 17)
       {
-        v206 = v289;
-        sub_20E1EF280(&v191[v235], v289, type metadata accessor for TranscriptProtoToolRetrievalResponse);
-        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor36TranscriptProtoToolRetrievalResponseV2eeoiySbAC_ACtFZ_0(v172, v206);
-        v207 = type metadata accessor for TranscriptProtoToolRetrievalResponse;
+        v166 = v243;
+        sub_20E1EF280(&v152[v192], v243, type metadata accessor for TranscriptProtoToolRetrievalResponse);
+        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor36TranscriptProtoToolRetrievalResponseV2eeoiySbAC_ACtFZ_0(v134, v166);
+        v167 = type metadata accessor for TranscriptProtoToolRetrievalResponse;
         goto LABEL_107;
       }
 
-      v259 = type metadata accessor for TranscriptProtoToolRetrievalResponse;
+      v214 = type metadata accessor for TranscriptProtoToolRetrievalResponse;
       goto LABEL_146;
     case 0x12u:
-      v172 = v318;
-      sub_20E1E14FC(v191, v318, type metadata accessor for TranscriptProtoPayloadEnum);
-      v243 = v342;
+      v134 = v272;
+      sub_20E1E14FC(v152, v272, type metadata accessor for TranscriptProtoPayloadEnum);
+      v199 = v296;
       if (swift_getEnumCaseMultiPayload() == 18)
       {
-        v206 = v291;
-        sub_20E1EF280(&v191[v243], v291, type metadata accessor for TranscriptProtoSystemResponse);
-        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor29TranscriptProtoSystemResponseV2eeoiySbAC_ACtFZ_0(v172, v206);
-        v207 = type metadata accessor for TranscriptProtoSystemResponse;
+        v166 = v245;
+        sub_20E1EF280(&v152[v199], v245, type metadata accessor for TranscriptProtoSystemResponse);
+        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor29TranscriptProtoSystemResponseV2eeoiySbAC_ACtFZ_0(v134, v166);
+        v167 = type metadata accessor for TranscriptProtoSystemResponse;
         goto LABEL_107;
       }
 
-      v259 = type metadata accessor for TranscriptProtoSystemResponse;
+      v214 = type metadata accessor for TranscriptProtoSystemResponse;
       goto LABEL_146;
     case 0x13u:
-      v172 = v320;
-      sub_20E1E14FC(v191, v320, type metadata accessor for TranscriptProtoPayloadEnum);
-      v250 = v342;
+      v134 = v274;
+      sub_20E1E14FC(v152, v274, type metadata accessor for TranscriptProtoPayloadEnum);
+      v205 = v296;
       if (swift_getEnumCaseMultiPayload() == 19)
       {
-        v206 = v292;
-        sub_20E1EF280(&v191[v250], v292, type metadata accessor for TranscriptProtoStatementResult);
-        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor30TranscriptProtoStatementResultV2eeoiySbAC_ACtFZ_0(v172, v206);
-        v207 = type metadata accessor for TranscriptProtoStatementResult;
+        v166 = v246;
+        sub_20E1EF280(&v152[v205], v246, type metadata accessor for TranscriptProtoStatementResult);
+        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor30TranscriptProtoStatementResultV2eeoiySbAC_ACtFZ_0(v134, v166);
+        v167 = type metadata accessor for TranscriptProtoStatementResult;
         goto LABEL_107;
       }
 
-      v259 = type metadata accessor for TranscriptProtoStatementResult;
+      v214 = type metadata accessor for TranscriptProtoStatementResult;
       goto LABEL_146;
     case 0x14u:
-      v172 = v321;
-      sub_20E1E14FC(v191, v321, type metadata accessor for TranscriptProtoPayloadEnum);
-      v236 = v342;
+      v134 = v275;
+      sub_20E1E14FC(v152, v275, type metadata accessor for TranscriptProtoPayloadEnum);
+      v193 = v296;
       if (swift_getEnumCaseMultiPayload() == 20)
       {
-        v206 = v293;
-        sub_20E1EF280(&v191[v236], v293, type metadata accessor for TranscriptProtoExternalAgentRequest);
-        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor35TranscriptProtoExternalAgentRequestV2eeoiySbAC_ACtFZ_0(v172, v206);
-        v207 = type metadata accessor for TranscriptProtoExternalAgentRequest;
+        v166 = v247;
+        sub_20E1EF280(&v152[v193], v247, type metadata accessor for TranscriptProtoExternalAgentRequest);
+        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor35TranscriptProtoExternalAgentRequestV2eeoiySbAC_ACtFZ_0(v134, v166);
+        v167 = type metadata accessor for TranscriptProtoExternalAgentRequest;
         goto LABEL_107;
       }
 
-      v259 = type metadata accessor for TranscriptProtoExternalAgentRequest;
+      v214 = type metadata accessor for TranscriptProtoExternalAgentRequest;
       goto LABEL_146;
     case 0x15u:
-      v172 = v323;
-      sub_20E1E14FC(v191, v323, type metadata accessor for TranscriptProtoPayloadEnum);
-      v238 = v342;
+      v134 = v277;
+      sub_20E1E14FC(v152, v277, type metadata accessor for TranscriptProtoPayloadEnum);
+      v195 = v296;
       if (swift_getEnumCaseMultiPayload() == 21)
       {
-        v206 = v294;
-        sub_20E1EF280(&v191[v238], v294, type metadata accessor for TranscriptProtoExternalAgentOutcome);
-        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor35TranscriptProtoExternalAgentOutcomeV2eeoiySbAC_ACtFZ_0(v172, v206);
-        v207 = type metadata accessor for TranscriptProtoExternalAgentOutcome;
+        v166 = v248;
+        sub_20E1EF280(&v152[v195], v248, type metadata accessor for TranscriptProtoExternalAgentOutcome);
+        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor35TranscriptProtoExternalAgentOutcomeV2eeoiySbAC_ACtFZ_0(v134, v166);
+        v167 = type metadata accessor for TranscriptProtoExternalAgentOutcome;
         goto LABEL_107;
       }
 
-      v259 = type metadata accessor for TranscriptProtoExternalAgentOutcome;
+      v214 = type metadata accessor for TranscriptProtoExternalAgentOutcome;
       goto LABEL_146;
     case 0x16u:
-      v169 = v332;
-      sub_20E1E14FC(v191, v332, type metadata accessor for TranscriptProtoPayloadEnum);
-      v248 = v342;
+      v131 = v286;
+      sub_20E1E14FC(v152, v286, type metadata accessor for TranscriptProtoPayloadEnum);
+      v204 = v296;
       if (swift_getEnumCaseMultiPayload() != 22)
       {
-        v258 = type metadata accessor for TranscriptProtoExternalAgentRequestRewriteMetadata;
+        v213 = type metadata accessor for TranscriptProtoExternalAgentRequestRewriteMetadata;
         goto LABEL_144;
       }
 
-      v202 = v298;
-      sub_20E1EF280(&v191[v248], v298, type metadata accessor for TranscriptProtoExternalAgentRequestRewriteMetadata);
-      if (*v169 == *v202 && v169[1] == v202[1] || (sub_20E322D60()) && (sub_20E1494E0(v169[2], v202[2]))
+      v163 = v252;
+      sub_20E1EF280(&v152[v204], v252, type metadata accessor for TranscriptProtoExternalAgentRequestRewriteMetadata);
+      if (*v131 == *v163 && v131[1] == v163[1] || (sub_20E322D60()) && (sub_20E1494E0(v131[2], v163[2]))
       {
-        v249 = *(v267 + 24);
         sub_20E3221C0();
         sub_20E1EF2E8();
         if (sub_20E322850())
         {
-          v204 = type metadata accessor for TranscriptProtoExternalAgentRequestRewriteMetadata;
+          v164 = type metadata accessor for TranscriptProtoExternalAgentRequestRewriteMetadata;
           goto LABEL_161;
         }
       }
 
-      v261 = type metadata accessor for TranscriptProtoExternalAgentRequestRewriteMetadata;
+      v216 = type metadata accessor for TranscriptProtoExternalAgentRequestRewriteMetadata;
       goto LABEL_164;
     case 0x17u:
-      v172 = v325;
-      sub_20E1E14FC(v191, v325, type metadata accessor for TranscriptProtoPayloadEnum);
-      v251 = v342;
+      v134 = v279;
+      sub_20E1E14FC(v152, v279, type metadata accessor for TranscriptProtoPayloadEnum);
+      v206 = v296;
       if (swift_getEnumCaseMultiPayload() == 23)
       {
-        v206 = v295;
-        sub_20E1EF280(&v191[v251], v295, type metadata accessor for TranscriptProtoToolResolution);
-        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor29TranscriptProtoToolResolutionV2eeoiySbAC_ACtFZ_0(v172, v206);
-        v207 = type metadata accessor for TranscriptProtoToolResolution;
+        v166 = v249;
+        sub_20E1EF280(&v152[v206], v249, type metadata accessor for TranscriptProtoToolResolution);
+        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor29TranscriptProtoToolResolutionV2eeoiySbAC_ACtFZ_0(v134, v166);
+        v167 = type metadata accessor for TranscriptProtoToolResolution;
         goto LABEL_107;
       }
 
-      v259 = type metadata accessor for TranscriptProtoToolResolution;
+      v214 = type metadata accessor for TranscriptProtoToolResolution;
       goto LABEL_146;
     case 0x18u:
-      v172 = v326;
-      sub_20E1E14FC(v191, v326, type metadata accessor for TranscriptProtoPayloadEnum);
-      v224 = v342;
+      v134 = v280;
+      sub_20E1E14FC(v152, v280, type metadata accessor for TranscriptProtoPayloadEnum);
+      v182 = v296;
       if (swift_getEnumCaseMultiPayload() == 24)
       {
-        v206 = v296;
-        sub_20E1EF280(&v191[v224], v296, type metadata accessor for TranscriptProtoUndoRedoRequest);
-        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor30TranscriptProtoUndoRedoRequestV2eeoiySbAC_ACtFZ_0(v172, v206);
-        v207 = type metadata accessor for TranscriptProtoUndoRedoRequest;
+        v166 = v250;
+        sub_20E1EF280(&v152[v182], v250, type metadata accessor for TranscriptProtoUndoRedoRequest);
+        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor30TranscriptProtoUndoRedoRequestV2eeoiySbAC_ACtFZ_0(v134, v166);
+        v167 = type metadata accessor for TranscriptProtoUndoRedoRequest;
         goto LABEL_107;
       }
 
-      v259 = type metadata accessor for TranscriptProtoUndoRedoRequest;
+      v214 = type metadata accessor for TranscriptProtoUndoRedoRequest;
       goto LABEL_146;
     case 0x19u:
-      v172 = v327;
-      sub_20E1E14FC(v191, v327, type metadata accessor for TranscriptProtoPayloadEnum);
-      v223 = v342;
+      v134 = v281;
+      sub_20E1E14FC(v152, v281, type metadata accessor for TranscriptProtoPayloadEnum);
+      v181 = v296;
       if (swift_getEnumCaseMultiPayload() == 25)
       {
-        v206 = v297;
-        sub_20E1EF280(&v191[v223], v297, type metadata accessor for TranscriptProtoClientUndoRedoRequest);
-        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor36TranscriptProtoClientUndoRedoRequestV2eeoiySbAC_ACtFZ_0(v172, v206);
-        v207 = type metadata accessor for TranscriptProtoClientUndoRedoRequest;
+        v166 = v251;
+        sub_20E1EF280(&v152[v181], v251, type metadata accessor for TranscriptProtoClientUndoRedoRequest);
+        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor36TranscriptProtoClientUndoRedoRequestV2eeoiySbAC_ACtFZ_0(v134, v166);
+        v167 = type metadata accessor for TranscriptProtoClientUndoRedoRequest;
         goto LABEL_107;
       }
 
-      v259 = type metadata accessor for TranscriptProtoClientUndoRedoRequest;
+      v214 = type metadata accessor for TranscriptProtoClientUndoRedoRequest;
       goto LABEL_146;
     case 0x1Au:
-      v172 = v328;
-      sub_20E1E14FC(v191, v328, type metadata accessor for TranscriptProtoPayloadEnum);
-      v257 = v342;
+      v134 = v282;
+      sub_20E1E14FC(v152, v282, type metadata accessor for TranscriptProtoPayloadEnum);
+      v212 = v296;
       if (swift_getEnumCaseMultiPayload() == 26)
       {
-        v206 = v299;
-        sub_20E1EF280(&v191[v257], v299, type metadata accessor for TranscriptProtoTypeConversionRequest);
-        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor36TranscriptProtoTypeConversionRequestV2eeoiySbAC_ACtFZ_0(v172, v206);
-        v207 = type metadata accessor for TranscriptProtoTypeConversionRequest;
+        v166 = v253;
+        sub_20E1EF280(&v152[v212], v253, type metadata accessor for TranscriptProtoTypeConversionRequest);
+        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor36TranscriptProtoTypeConversionRequestV2eeoiySbAC_ACtFZ_0(v134, v166);
+        v167 = type metadata accessor for TranscriptProtoTypeConversionRequest;
         goto LABEL_107;
       }
 
-      v259 = type metadata accessor for TranscriptProtoTypeConversionRequest;
+      v214 = type metadata accessor for TranscriptProtoTypeConversionRequest;
       goto LABEL_146;
     case 0x1Bu:
-      v172 = v329;
-      sub_20E1E14FC(v191, v329, type metadata accessor for TranscriptProtoPayloadEnum);
-      v205 = v342;
+      v134 = v283;
+      sub_20E1E14FC(v152, v283, type metadata accessor for TranscriptProtoPayloadEnum);
+      v165 = v296;
       if (swift_getEnumCaseMultiPayload() == 27)
       {
-        v206 = v300;
-        sub_20E1EF280(&v191[v205], v300, type metadata accessor for TranscriptProtoTypeConversionResult);
-        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor35TranscriptProtoTypeConversionResultV2eeoiySbAC_ACtFZ_0(v172, v206);
-        v207 = type metadata accessor for TranscriptProtoTypeConversionResult;
+        v166 = v254;
+        sub_20E1EF280(&v152[v165], v254, type metadata accessor for TranscriptProtoTypeConversionResult);
+        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor35TranscriptProtoTypeConversionResultV2eeoiySbAC_ACtFZ_0(v134, v166);
+        v167 = type metadata accessor for TranscriptProtoTypeConversionResult;
         goto LABEL_107;
       }
 
-      v259 = type metadata accessor for TranscriptProtoTypeConversionResult;
+      v214 = type metadata accessor for TranscriptProtoTypeConversionResult;
       goto LABEL_146;
     case 0x1Cu:
-      v172 = v330;
-      sub_20E1E14FC(v191, v330, type metadata accessor for TranscriptProtoPayloadEnum);
-      v252 = v342;
+      v134 = v284;
+      sub_20E1E14FC(v152, v284, type metadata accessor for TranscriptProtoPayloadEnum);
+      v207 = v296;
       if (swift_getEnumCaseMultiPayload() == 28)
       {
-        v206 = v301;
-        sub_20E1EF280(&v191[v252], v301, type metadata accessor for TranscriptProtoQueryDecorationResult);
-        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor36TranscriptProtoQueryDecorationResultV2eeoiySbAC_ACtFZ_0(v172, v206);
-        v207 = type metadata accessor for TranscriptProtoQueryDecorationResult;
+        v166 = v255;
+        sub_20E1EF280(&v152[v207], v255, type metadata accessor for TranscriptProtoQueryDecorationResult);
+        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor36TranscriptProtoQueryDecorationResultV2eeoiySbAC_ACtFZ_0(v134, v166);
+        v167 = type metadata accessor for TranscriptProtoQueryDecorationResult;
         goto LABEL_107;
       }
 
-      v259 = type metadata accessor for TranscriptProtoQueryDecorationResult;
+      v214 = type metadata accessor for TranscriptProtoQueryDecorationResult;
       goto LABEL_146;
     case 0x1Du:
-      v169 = v333;
-      sub_20E1E14FC(v191, v333, type metadata accessor for TranscriptProtoPayloadEnum);
-      v253 = v342;
+      v131 = v287;
+      sub_20E1E14FC(v152, v287, type metadata accessor for TranscriptProtoPayloadEnum);
+      v208 = v296;
       if (swift_getEnumCaseMultiPayload() == 29)
       {
-        v197 = v302;
-        sub_20E1EF280(&v191[v253], v302, type metadata accessor for TranscriptProtoContinuePlanning);
+        v158 = v256;
+        sub_20E1EF280(&v152[v208], v256, type metadata accessor for TranscriptProtoContinuePlanning);
         sub_20E3221C0();
-        v198 = v191;
+        v159 = v152;
         sub_20E1EF2E8();
         StepV2eeoiySbAC_ACtFZ_0 = sub_20E322850();
-        v200 = type metadata accessor for TranscriptProtoContinuePlanning;
+        v161 = type metadata accessor for TranscriptProtoContinuePlanning;
         goto LABEL_101;
       }
 
-      v258 = type metadata accessor for TranscriptProtoContinuePlanning;
+      v213 = type metadata accessor for TranscriptProtoContinuePlanning;
       goto LABEL_144;
     case 0x1Eu:
-      v172 = v331;
-      sub_20E1E14FC(v191, v331, type metadata accessor for TranscriptProtoPayloadEnum);
-      v246 = v342;
+      v134 = v285;
+      sub_20E1E14FC(v152, v285, type metadata accessor for TranscriptProtoPayloadEnum);
+      v202 = v296;
       if (swift_getEnumCaseMultiPayload() == 30)
       {
-        v206 = v303;
-        sub_20E1EF280(&v191[v246], v303, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResult);
-        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor46TranscriptProtoQueryDecorationPrePlannerResultV2eeoiySbAC_ACtFZ_0(v172, v206);
-        v207 = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResult;
+        v166 = v257;
+        sub_20E1EF280(&v152[v202], v257, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResult);
+        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor46TranscriptProtoQueryDecorationPrePlannerResultV2eeoiySbAC_ACtFZ_0(v134, v166);
+        v167 = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResult;
         goto LABEL_107;
       }
 
-      v259 = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResult;
+      v214 = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResult;
       goto LABEL_146;
     case 0x1Fu:
-      v172 = v334;
-      sub_20E1E14FC(v191, v334, type metadata accessor for TranscriptProtoPayloadEnum);
-      v234 = v342;
+      v134 = v288;
+      sub_20E1E14FC(v152, v288, type metadata accessor for TranscriptProtoPayloadEnum);
+      v191 = v296;
       if (swift_getEnumCaseMultiPayload() == 31)
       {
-        v206 = v304;
-        sub_20E1EF280(&v191[v234], v304, type metadata accessor for TranscriptProtoSkipStatement);
-        StepV2eeoiySbAC_ACtFZ_0 = sub_20E175878(v172, v206);
-        v207 = type metadata accessor for TranscriptProtoSkipStatement;
+        v166 = v258;
+        sub_20E1EF280(&v152[v191], v258, type metadata accessor for TranscriptProtoSkipStatement);
+        StepV2eeoiySbAC_ACtFZ_0 = sub_20E175878(v134, v166);
+        v167 = type metadata accessor for TranscriptProtoSkipStatement;
         goto LABEL_107;
       }
 
-      v259 = type metadata accessor for TranscriptProtoSkipStatement;
+      v214 = type metadata accessor for TranscriptProtoSkipStatement;
       goto LABEL_146;
     case 0x20u:
-      v172 = v335;
-      sub_20E1E14FC(v191, v335, type metadata accessor for TranscriptProtoPayloadEnum);
-      v247 = v342;
+      v134 = v289;
+      sub_20E1E14FC(v152, v289, type metadata accessor for TranscriptProtoPayloadEnum);
+      v203 = v296;
       if (swift_getEnumCaseMultiPayload() == 32)
       {
-        v206 = v305;
-        sub_20E1EF280(&v191[v247], v305, type metadata accessor for TranscriptProtoExecutionPreconditionEvaluatorRequest);
-        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor52TranscriptProtoExecutionPreconditionEvaluatorRequestV2eeoiySbAC_ACtFZ_0(v172, v206);
-        v207 = type metadata accessor for TranscriptProtoExecutionPreconditionEvaluatorRequest;
+        v166 = v259;
+        sub_20E1EF280(&v152[v203], v259, type metadata accessor for TranscriptProtoExecutionPreconditionEvaluatorRequest);
+        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor52TranscriptProtoExecutionPreconditionEvaluatorRequestV2eeoiySbAC_ACtFZ_0(v134, v166);
+        v167 = type metadata accessor for TranscriptProtoExecutionPreconditionEvaluatorRequest;
         goto LABEL_107;
       }
 
-      v259 = type metadata accessor for TranscriptProtoExecutionPreconditionEvaluatorRequest;
+      v214 = type metadata accessor for TranscriptProtoExecutionPreconditionEvaluatorRequest;
       goto LABEL_146;
     case 0x21u:
-      v172 = v336;
-      sub_20E1E14FC(v191, v336, type metadata accessor for TranscriptProtoPayloadEnum);
-      v213 = v342;
+      v134 = v290;
+      sub_20E1E14FC(v152, v290, type metadata accessor for TranscriptProtoPayloadEnum);
+      v171 = v296;
       if (swift_getEnumCaseMultiPayload() == 33)
       {
-        v206 = v306;
-        sub_20E1EF280(&v191[v213], v306, type metadata accessor for TranscriptProtoRequestAmendment);
-        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor31TranscriptProtoRequestAmendmentV2eeoiySbAC_ACtFZ_0(v172, v206);
-        v207 = type metadata accessor for TranscriptProtoRequestAmendment;
+        v166 = v260;
+        sub_20E1EF280(&v152[v171], v260, type metadata accessor for TranscriptProtoRequestAmendment);
+        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor31TranscriptProtoRequestAmendmentV2eeoiySbAC_ACtFZ_0(v134, v166);
+        v167 = type metadata accessor for TranscriptProtoRequestAmendment;
 LABEL_107:
-        v217 = v207;
-        sub_20E1E1564(v206, v207);
-        v218 = v172;
+        v175 = v167;
+        sub_20E1E1564(v166, v167);
+        v176 = v134;
 LABEL_108:
-        sub_20E1E1564(v218, v217);
-        sub_20E1E1564(v191, type metadata accessor for TranscriptProtoPayloadEnum);
+        sub_20E1E1564(v176, v175);
+        sub_20E1E1564(v152, type metadata accessor for TranscriptProtoPayloadEnum);
         return StepV2eeoiySbAC_ACtFZ_0 & 1;
       }
 
-      v259 = type metadata accessor for TranscriptProtoRequestAmendment;
+      v214 = type metadata accessor for TranscriptProtoRequestAmendment;
 LABEL_146:
-      v194 = v259;
-      v195 = v172;
+      v155 = v214;
+      v156 = v134;
       goto LABEL_147;
     case 0x22u:
-      v169 = v338;
-      sub_20E1E14FC(v191, v338, type metadata accessor for TranscriptProtoPayloadEnum);
-      v208 = v342;
+      v131 = v292;
+      sub_20E1E14FC(v152, v292, type metadata accessor for TranscriptProtoPayloadEnum);
+      v168 = v296;
       if (swift_getEnumCaseMultiPayload() != 34)
       {
-        v258 = type metadata accessor for TranscriptProtoToolRetrievalRequest;
+        v213 = type metadata accessor for TranscriptProtoToolRetrievalRequest;
         goto LABEL_144;
       }
 
-      v202 = v308;
-      sub_20E1EF280(&v191[v208], v308, type metadata accessor for TranscriptProtoToolRetrievalRequest);
-      if (*v169 == *v202 && v169[1] == v202[1] || (sub_20E322D60() & 1) != 0)
+      v163 = v262;
+      sub_20E1EF280(&v152[v168], v262, type metadata accessor for TranscriptProtoToolRetrievalRequest);
+      if (*v131 == *v163 && v131[1] == v163[1] || (sub_20E322D60() & 1) != 0)
       {
-        v209 = *(v272 + 20);
         sub_20E3221C0();
         sub_20E1EF2E8();
         if (sub_20E322850())
         {
-          v204 = type metadata accessor for TranscriptProtoToolRetrievalRequest;
+          v164 = type metadata accessor for TranscriptProtoToolRetrievalRequest;
           goto LABEL_161;
         }
       }
 
-      v261 = type metadata accessor for TranscriptProtoToolRetrievalRequest;
+      v216 = type metadata accessor for TranscriptProtoToolRetrievalRequest;
       goto LABEL_164;
     case 0x23u:
-      v169 = v337;
-      sub_20E1E14FC(v191, v337, type metadata accessor for TranscriptProtoPayloadEnum);
-      v196 = v342;
+      v131 = v291;
+      sub_20E1E14FC(v152, v291, type metadata accessor for TranscriptProtoPayloadEnum);
+      v157 = v296;
       if (swift_getEnumCaseMultiPayload() != 35)
       {
-        v258 = type metadata accessor for TranscriptProtoContextRetrievalRequest;
+        v213 = type metadata accessor for TranscriptProtoContextRetrievalRequest;
         goto LABEL_144;
       }
 
-      v197 = v307;
-      sub_20E1EF280(&v191[v196], v307, type metadata accessor for TranscriptProtoContextRetrievalRequest);
+      v158 = v261;
+      sub_20E1EF280(&v152[v157], v261, type metadata accessor for TranscriptProtoContextRetrievalRequest);
       sub_20E3221C0();
-      v198 = v191;
+      v159 = v152;
       sub_20E1EF2E8();
       StepV2eeoiySbAC_ACtFZ_0 = sub_20E322850();
-      v200 = type metadata accessor for TranscriptProtoContextRetrievalRequest;
+      v161 = type metadata accessor for TranscriptProtoContextRetrievalRequest;
 LABEL_101:
-      v254 = v200;
-      sub_20E1E1564(v197, v200);
-      v255 = v169;
-      v256 = v254;
+      v209 = v161;
+      sub_20E1E1564(v158, v161);
+      v210 = v131;
+      v211 = v209;
       goto LABEL_102;
     case 0x24u:
-      v169 = v339;
-      sub_20E1E14FC(v191, v339, type metadata accessor for TranscriptProtoPayloadEnum);
-      v201 = v342;
+      v131 = v293;
+      sub_20E1E14FC(v152, v293, type metadata accessor for TranscriptProtoPayloadEnum);
+      v162 = v296;
       if (swift_getEnumCaseMultiPayload() != 36)
       {
-        v258 = type metadata accessor for TranscriptProtoSpanMatchRequest;
+        v213 = type metadata accessor for TranscriptProtoSpanMatchRequest;
 LABEL_144:
-        v194 = v258;
-        v195 = v169;
+        v155 = v213;
+        v156 = v131;
         goto LABEL_147;
       }
 
-      v202 = v309;
-      sub_20E1EF280(&v191[v201], v309, type metadata accessor for TranscriptProtoSpanMatchRequest);
-      if (*v169 == *v202 && v169[1] == v202[1] || (sub_20E322D60() & 1) != 0)
+      v163 = v263;
+      sub_20E1EF280(&v152[v162], v263, type metadata accessor for TranscriptProtoSpanMatchRequest);
+      if (*v131 == *v163 && v131[1] == v163[1] || (sub_20E322D60() & 1) != 0)
       {
-        v203 = *(matched + 20);
         sub_20E3221C0();
         sub_20E1EF2E8();
         if (sub_20E322850())
         {
-          v204 = type metadata accessor for TranscriptProtoSpanMatchRequest;
+          v164 = type metadata accessor for TranscriptProtoSpanMatchRequest;
 LABEL_161:
-          v264 = v204;
-          sub_20E1E1564(v202, v204);
-          sub_20E1E1564(v169, v264);
+          v218 = v164;
+          sub_20E1E1564(v163, v164);
+          sub_20E1E1564(v131, v218);
 LABEL_162:
-          sub_20E1E1564(v191, type metadata accessor for TranscriptProtoPayloadEnum);
+          sub_20E1E1564(v152, type metadata accessor for TranscriptProtoPayloadEnum);
           StepV2eeoiySbAC_ACtFZ_0 = 1;
           return StepV2eeoiySbAC_ACtFZ_0 & 1;
         }
       }
 
-      v261 = type metadata accessor for TranscriptProtoSpanMatchRequest;
+      v216 = type metadata accessor for TranscriptProtoSpanMatchRequest;
 LABEL_164:
-      v265 = v261;
-      sub_20E1E1564(v202, v261);
-      sub_20E1E1564(v169, v265);
-      sub_20E1E1564(v191, type metadata accessor for TranscriptProtoPayloadEnum);
+      v219 = v216;
+      sub_20E1E1564(v163, v216);
+      sub_20E1E1564(v131, v219);
+      sub_20E1E1564(v152, type metadata accessor for TranscriptProtoPayloadEnum);
       goto LABEL_149;
     case 0x25u:
       if (swift_getEnumCaseMultiPayload() == 37)
@@ -7814,32 +2812,32 @@ LABEL_164:
 
       goto LABEL_148;
     default:
-      sub_20E1E14FC(v191, v186, type metadata accessor for TranscriptProtoPayloadEnum);
-      v193 = v342;
+      sub_20E1E14FC(v152, v148, type metadata accessor for TranscriptProtoPayloadEnum);
+      v154 = v296;
       if (swift_getEnumCaseMultiPayload())
       {
-        v194 = type metadata accessor for TranscriptProtoSessionStart;
-        v195 = v186;
+        v155 = type metadata accessor for TranscriptProtoSessionStart;
+        v156 = v148;
 LABEL_147:
-        sub_20E1E1564(v195, v194);
+        sub_20E1E1564(v156, v155);
 LABEL_148:
-        sub_20E04875C(v191, &qword_27C868F40, &unk_20E342140);
+        sub_20E04875C(v152, &qword_27C868F40, &unk_20E342140);
 LABEL_149:
         StepV2eeoiySbAC_ACtFZ_0 = 0;
       }
 
       else
       {
-        v262 = v271;
-        sub_20E1EF280(&v191[v193], v271, type metadata accessor for TranscriptProtoSessionStart);
-        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor27TranscriptProtoSessionStartV2eeoiySbAC_ACtFZ_0(v186, v262);
-        v198 = v191;
-        sub_20E1E1564(v262, type metadata accessor for TranscriptProtoSessionStart);
-        v255 = v186;
-        v256 = type metadata accessor for TranscriptProtoSessionStart;
+        v217 = v225;
+        sub_20E1EF280(&v152[v154], v225, type metadata accessor for TranscriptProtoSessionStart);
+        StepV2eeoiySbAC_ACtFZ_0 = _s23LighthouseDataProcessor27TranscriptProtoSessionStartV2eeoiySbAC_ACtFZ_0(v148, v217);
+        v159 = v152;
+        sub_20E1E1564(v217, type metadata accessor for TranscriptProtoSessionStart);
+        v210 = v148;
+        v211 = type metadata accessor for TranscriptProtoSessionStart;
 LABEL_102:
-        sub_20E1E1564(v255, v256);
-        sub_20E1E1564(v198, type metadata accessor for TranscriptProtoPayloadEnum);
+        sub_20E1E1564(v210, v211);
+        sub_20E1E1564(v159, type metadata accessor for TranscriptProtoPayloadEnum);
       }
 
       return StepV2eeoiySbAC_ACtFZ_0 & 1;
@@ -8262,28 +3260,28 @@ LABEL_20:
   return result;
 }
 
-void sub_20E1E21AC()
+void sub_20E1E21AC(uint64_t a1)
 {
   sub_20E1E23AC();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1ECF10(319, &qword_280E12B78, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E1E240C(319, qword_280E0F148, type metadata accessor for TranscriptProtoPayload, MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_20E1E240C(319, qword_280E0E930, type metadata accessor for TranscriptProtoTimepoint, MEMORY[0x277D83D88]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           sub_20E1E240C(319, qword_280E0C8F8, type metadata accessor for TranscriptProtoParticipantID, MEMORY[0x277D83D88]);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             sub_20E1E240C(319, qword_280E0FD80, type metadata accessor for TranscriptProtoSpanID, MEMORY[0x277D83D88]);
-            if (v5 <= 0x3F)
+            if (v6 <= 0x3F)
             {
               sub_20E3221C0();
-              if (v6 <= 0x3F)
+              if (v7 <= 0x3F)
               {
                 swift_cvw_initStructMetadataWithLayoutString();
               }
@@ -8320,118 +3318,118 @@ void sub_20E1E240C(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
   }
 }
 
-uint64_t sub_20E1E24CC()
+uint64_t sub_20E1E24CC(uint64_t a1)
 {
   result = type metadata accessor for TranscriptProtoSessionStart(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for TranscriptProtoRequest(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       result = type metadata accessor for TranscriptProtoPlan(319);
-      if (v3 <= 0x3F)
+      if (v4 <= 0x3F)
       {
         result = type metadata accessor for TranscriptProtoAction(319);
-        if (v4 <= 0x3F)
+        if (v5 <= 0x3F)
         {
           result = type metadata accessor for TranscriptProtoClientAction(319);
-          if (v5 <= 0x3F)
+          if (v6 <= 0x3F)
           {
             result = type metadata accessor for TranscriptProtoQueryStep(319);
-            if (v6 <= 0x3F)
+            if (v7 <= 0x3F)
             {
               result = type metadata accessor for TranscriptProtoVariableStep(319);
-              if (v7 <= 0x3F)
+              if (v8 <= 0x3F)
               {
                 result = type metadata accessor for TranscriptProtoSessionError(319);
-                if (v8 <= 0x3F)
+                if (v9 <= 0x3F)
                 {
                   result = type metadata accessor for TranscriptProtoRecoverableError(319);
-                  if (v9 <= 0x3F)
+                  if (v10 <= 0x3F)
                   {
                     result = type metadata accessor for TranscriptProtoQueryStepResults(319);
-                    if (v10 <= 0x3F)
+                    if (v11 <= 0x3F)
                     {
                       result = type metadata accessor for TranscriptProtoActionResolverRequest(319);
-                      if (v11 <= 0x3F)
+                      if (v12 <= 0x3F)
                       {
                         result = type metadata accessor for TranscriptProtoSafetyModeRelease(319);
-                        if (v12 <= 0x3F)
+                        if (v13 <= 0x3F)
                         {
                           result = type metadata accessor for TranscriptProtoSafetyModeException(319);
-                          if (v13 <= 0x3F)
+                          if (v14 <= 0x3F)
                           {
                             result = type metadata accessor for TranscriptProtoResponseGenerationRequest(319);
-                            if (v14 <= 0x3F)
+                            if (v15 <= 0x3F)
                             {
                               result = type metadata accessor for TranscriptProtoEntitySpanMatchResult(319);
-                              if (v15 <= 0x3F)
+                              if (v16 <= 0x3F)
                               {
                                 result = type metadata accessor for TranscriptProtoContextRetrieved(319);
-                                if (v16 <= 0x3F)
+                                if (v17 <= 0x3F)
                                 {
                                   result = type metadata accessor for TranscriptProtoActionCancellation(319);
-                                  if (v17 <= 0x3F)
+                                  if (v18 <= 0x3F)
                                   {
                                     result = type metadata accessor for TranscriptProtoToolRetrievalResponse(319);
-                                    if (v18 <= 0x3F)
+                                    if (v19 <= 0x3F)
                                     {
                                       result = type metadata accessor for TranscriptProtoSystemResponse(319);
-                                      if (v19 <= 0x3F)
+                                      if (v20 <= 0x3F)
                                       {
                                         result = type metadata accessor for TranscriptProtoStatementResult(319);
-                                        if (v20 <= 0x3F)
+                                        if (v21 <= 0x3F)
                                         {
                                           result = type metadata accessor for TranscriptProtoExternalAgentRequest(319);
-                                          if (v21 <= 0x3F)
+                                          if (v22 <= 0x3F)
                                           {
                                             result = type metadata accessor for TranscriptProtoExternalAgentOutcome(319);
-                                            if (v22 <= 0x3F)
+                                            if (v23 <= 0x3F)
                                             {
                                               result = type metadata accessor for TranscriptProtoExternalAgentRequestRewriteMetadata(319);
-                                              if (v23 <= 0x3F)
+                                              if (v24 <= 0x3F)
                                               {
                                                 result = type metadata accessor for TranscriptProtoToolResolution(319);
-                                                if (v24 <= 0x3F)
+                                                if (v25 <= 0x3F)
                                                 {
                                                   result = type metadata accessor for TranscriptProtoUndoRedoRequest(319);
-                                                  if (v25 <= 0x3F)
+                                                  if (v26 <= 0x3F)
                                                   {
                                                     result = type metadata accessor for TranscriptProtoClientUndoRedoRequest(319);
-                                                    if (v26 <= 0x3F)
+                                                    if (v27 <= 0x3F)
                                                     {
                                                       result = type metadata accessor for TranscriptProtoTypeConversionRequest(319);
-                                                      if (v27 <= 0x3F)
+                                                      if (v28 <= 0x3F)
                                                       {
                                                         result = type metadata accessor for TranscriptProtoTypeConversionResult(319);
-                                                        if (v28 <= 0x3F)
+                                                        if (v29 <= 0x3F)
                                                         {
                                                           result = type metadata accessor for TranscriptProtoQueryDecorationResult(319);
-                                                          if (v29 <= 0x3F)
+                                                          if (v30 <= 0x3F)
                                                           {
                                                             result = type metadata accessor for TranscriptProtoContinuePlanning(319);
-                                                            if (v30 <= 0x3F)
+                                                            if (v31 <= 0x3F)
                                                             {
                                                               result = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResult(319);
-                                                              if (v31 <= 0x3F)
+                                                              if (v32 <= 0x3F)
                                                               {
                                                                 result = type metadata accessor for TranscriptProtoSkipStatement(319);
-                                                                if (v32 <= 0x3F)
+                                                                if (v33 <= 0x3F)
                                                                 {
                                                                   result = type metadata accessor for TranscriptProtoExecutionPreconditionEvaluatorRequest(319);
-                                                                  if (v33 <= 0x3F)
+                                                                  if (v34 <= 0x3F)
                                                                   {
                                                                     result = type metadata accessor for TranscriptProtoRequestAmendment(319);
-                                                                    if (v34 <= 0x3F)
+                                                                    if (v35 <= 0x3F)
                                                                     {
                                                                       result = type metadata accessor for TranscriptProtoToolRetrievalRequest(319);
-                                                                      if (v35 <= 0x3F)
+                                                                      if (v36 <= 0x3F)
                                                                       {
                                                                         result = type metadata accessor for TranscriptProtoContextRetrievalRequest(319);
-                                                                        if (v36 <= 0x3F)
+                                                                        if (v37 <= 0x3F)
                                                                         {
                                                                           result = type metadata accessor for TranscriptProtoSpanMatchRequest(319);
-                                                                          if (v37 <= 0x3F)
+                                                                          if (v38 <= 0x3F)
                                                                           {
                                                                             swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
                                                                             return 0;
@@ -8476,16 +3474,16 @@ uint64_t sub_20E1E24CC()
   return result;
 }
 
-void sub_20E1E2884()
+void sub_20E1E2884(uint64_t a1)
 {
   sub_20E1E240C(319, &qword_280E04048, type metadata accessor for TranscriptProtoEvent, MEMORY[0x277D83940]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1ECF10(319, &qword_280E12B78, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E3221C0();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -8493,35 +3491,35 @@ void sub_20E1E2884()
   }
 }
 
-void sub_20E1E29AC()
+void sub_20E1E29AC(uint64_t a1)
 {
   sub_20E1E240C(319, &qword_280E12B10, MEMORY[0x277D21570], MEMORY[0x277D83D88]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E3221C0();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void sub_20E1E2AA8()
+void sub_20E1E2AA8(uint64_t a1)
 {
   sub_20E1E240C(319, qword_280E0BDD0, type metadata accessor for TranscriptProtoLocaleSettings, MEMORY[0x277D83D88]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1E240C(319, qword_280E0CAC0, type metadata accessor for TranscriptProtoDeviceDetails, MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E1E240C(319, qword_280E0BE70, type metadata accessor for TranscriptProtoGenderSettings, MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_20E1ECF10(319, &qword_280E12B60, MEMORY[0x277D839B0], MEMORY[0x277D83D88]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           sub_20E3221C0();
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             swift_cvw_initStructMetadataWithLayoutString();
           }
@@ -8531,31 +3529,31 @@ void sub_20E1E2AA8()
   }
 }
 
-void sub_20E1E2CA0()
+void sub_20E1E2CA0(uint64_t a1)
 {
   sub_20E1E240C(319, qword_280E0BB68, type metadata accessor for TranscriptProtoRequestContent, MEMORY[0x277D83D88]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1E240C(319, qword_280E073C8, type metadata accessor for TranscriptProtoRequestPrescribedPlan, MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E1ECF10(319, &qword_280E12B78, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_20E1E240C(319, qword_280E04A20, type metadata accessor for TranscriptProtoExternalAgentRequestRewriteMetadata, MEMORY[0x277D83D88]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           sub_20E1E240C(319, qword_280E11358, type metadata accessor for ContextProtoStructuredContextSiriRequestContext, MEMORY[0x277D83D88]);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             sub_20E1E240C(319, qword_280E05DB0, type metadata accessor for TranscriptProtoRequestSuggestedInvocation, MEMORY[0x277D83D88]);
-            if (v5 <= 0x3F)
+            if (v6 <= 0x3F)
             {
               sub_20E1E240C(319, qword_280E0AE38, type metadata accessor for TranscriptProtoDateTimeContext, MEMORY[0x277D83D88]);
-              if (v6 <= 0x3F)
+              if (v7 <= 0x3F)
               {
                 sub_20E3221C0();
-                if (v7 <= 0x3F)
+                if (v8 <= 0x3F)
                 {
                   swift_cvw_initStructMetadataWithLayoutString();
                 }
@@ -8568,16 +3566,16 @@ void sub_20E1E2CA0()
   }
 }
 
-void sub_20E1E30A0()
+void sub_20E1E30A0(uint64_t a1)
 {
   sub_20E1E240C(319, qword_280E0C3E0, type metadata accessor for TranscriptProtoSpeechPackage, MEMORY[0x277D83D88]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E3221C0();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -8585,10 +3583,10 @@ void sub_20E1E30A0()
   }
 }
 
-uint64_t sub_20E1E32EC()
+uint64_t sub_20E1E32EC(uint64_t a1)
 {
   result = sub_20E3221C0();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -8597,19 +3595,19 @@ uint64_t sub_20E1E32EC()
   return result;
 }
 
-void sub_20E1E33AC()
+void sub_20E1E33AC(uint64_t a1)
 {
   sub_20E1E240C(319, qword_280E0BB68, type metadata accessor for TranscriptProtoRequestContent, MEMORY[0x277D83D88]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1ECF10(319, &qword_280E12B78, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E1E240C(319, qword_280E04A20, type metadata accessor for TranscriptProtoExternalAgentRequestRewriteMetadata, MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_20E3221C0();
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
         }
@@ -8631,31 +3629,31 @@ void sub_20E1E3534(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t
   }
 }
 
-uint64_t sub_20E1E362C()
+uint64_t sub_20E1E362C(uint64_t a1)
 {
   result = type metadata accessor for TranscriptProtoRequestPrescribedPlanSearchTool(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for TranscriptProtoRequestPrescribedPlanLowConfidenceKnowledgeTool(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       result = type metadata accessor for TranscriptProtoRequestPrescribedPlanTextTool(319);
-      if (v3 <= 0x3F)
+      if (v4 <= 0x3F)
       {
         result = type metadata accessor for TranscriptProtoRequestPrescribedPlanConvertTool(319);
-        if (v4 <= 0x3F)
+        if (v5 <= 0x3F)
         {
           result = type metadata accessor for TranscriptProtoRequestPrescribedPlanDisplayTool(319);
-          if (v5 <= 0x3F)
+          if (v6 <= 0x3F)
           {
             result = type metadata accessor for TranscriptProtoRequestPrescribedPlanKnowledgeTool(319);
-            if (v6 <= 0x3F)
+            if (v7 <= 0x3F)
             {
               result = type metadata accessor for TranscriptProtoRequestPrescribedPlanOpenTool(319);
-              if (v7 <= 0x3F)
+              if (v8 <= 0x3F)
               {
                 result = type metadata accessor for TranscriptProtoRequestPrescribedPlanOpenSuccessValueFromLatestRequestTool(319);
-                if (v8 <= 0x3F)
+                if (v9 <= 0x3F)
                 {
                   swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
                   return 0;
@@ -8671,42 +3669,42 @@ uint64_t sub_20E1E362C()
   return result;
 }
 
-void sub_20E1E37B8()
+void sub_20E1E37B8(uint64_t a1)
 {
   sub_20E1ECF10(319, &qword_280E12B78, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E3221C0();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void sub_20E1E3898()
+void sub_20E1E3898(uint64_t a1)
 {
   sub_20E1ECF10(319, &qword_280E12B78, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E3221C0();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void sub_20E1E39A0()
+void sub_20E1E39A0(uint64_t a1)
 {
   sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1ECF10(319, &qword_280E03ED0, MEMORY[0x277D84A28], MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E3221C0();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -8727,22 +3725,22 @@ void sub_20E1E3AE0(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_
   }
 }
 
-void sub_20E1E3B98()
+void sub_20E1E3B98(uint64_t a1)
 {
-  sub_20E1E3F48(319, &qword_280E040B0, type metadata accessor for TranscriptProtoActionParameterValue);
-  if (v0 <= 0x3F)
+  sub_20E1E3F48(319, &qword_280E040B0, type metadata accessor for TranscriptProtoActionParameterValue, MEMORY[0x277D837D0], MEMORY[0x277D837E0]);
+  if (v1 <= 0x3F)
   {
     sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E1ECF10(319, &qword_280E12B78, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_20E1E240C(319, qword_280E07DA8, type metadata accessor for TranscriptProtoGlobalToolIdentifier, MEMORY[0x277D83D88]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           sub_20E3221C0();
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             swift_cvw_initStructMetadataWithLayoutString();
           }
@@ -8752,16 +3750,16 @@ void sub_20E1E3B98()
   }
 }
 
-void sub_20E1E3D4C()
+void sub_20E1E3D4C(uint64_t a1)
 {
   sub_20E1E240C(319, qword_280E08958, type metadata accessor for TranscriptProtoToolParameterValue, MEMORY[0x277D83D88]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1E240C(319, qword_280E0AC70, type metadata accessor for TranscriptProtoPromptSelection, MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E3221C0();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -8777,15 +3775,15 @@ uint64_t __swift_memcpy9_8(uint64_t result, uint64_t *a2)
   return result;
 }
 
-void sub_20E1E3F48(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_20E1E3F48(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t a4, uint64_t a5)
 {
   if (!*a2)
   {
     a3(255);
-    v4 = sub_20E322810();
-    if (!v5)
+    v6 = sub_20E322810();
+    if (!v7)
     {
-      atomic_store(v4, a2);
+      atomic_store(v6, a2);
     }
   }
 }
@@ -8804,16 +3802,16 @@ uint64_t sub_20E1E4068(uint64_t a1, uint64_t a2, uint64_t a3)
   return MEMORY[0x2821FEBD0](a1, a2, a3, v6, sub_20E03A1AC);
 }
 
-void sub_20E1E41C0()
+void sub_20E1E41C0(uint64_t a1)
 {
   sub_20E1E240C(319, qword_280E0F1E0, type metadata accessor for ToolKitProtoTypedValue, MEMORY[0x277D83D88]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1E240C(319, qword_280E0AC70, type metadata accessor for TranscriptProtoPromptSelection, MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E3221C0();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -8821,16 +3819,16 @@ void sub_20E1E41C0()
   }
 }
 
-void sub_20E1E42E4()
+void sub_20E1E42E4(uint64_t a1)
 {
   sub_20E1E240C(319, &qword_280E04070, type metadata accessor for ToolKitProtoToolDefinition.Version1, MEMORY[0x277D83940]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1ECF10(319, &qword_280E12B78, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E3221C0();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -8838,19 +3836,19 @@ void sub_20E1E42E4()
   }
 }
 
-void sub_20E1E43FC()
+void sub_20E1E43FC(uint64_t a1)
 {
   sub_20E1ECF10(319, &qword_280E12B68, MEMORY[0x277D837D0], MEMORY[0x277D83940]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E1E240C(319, qword_280E09BB0, type metadata accessor for TranscriptProtoStatementOutcome, MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_20E3221C0();
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
         }
@@ -8859,16 +3857,16 @@ void sub_20E1E43FC()
   }
 }
 
-void sub_20E1E455C()
+void sub_20E1E455C(uint64_t a1)
 {
   sub_20E1E240C(319, qword_280E09BB0, type metadata accessor for TranscriptProtoStatementOutcome, MEMORY[0x277D83D88]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1E240C(319, qword_280E09E38, type metadata accessor for TranscriptProtoResponseManifest, MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E3221C0();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -8876,22 +3874,22 @@ void sub_20E1E455C()
   }
 }
 
-void sub_20E1E4680()
+void sub_20E1E4680(uint64_t a1)
 {
   sub_20E1ECF10(319, &qword_280E12B78, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1E240C(319, qword_280E06E48, type metadata accessor for TranscriptProtoStatementResultPayload, MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_20E1E240C(319, qword_280E07DA8, type metadata accessor for TranscriptProtoGlobalToolIdentifier, MEMORY[0x277D83D88]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           sub_20E3221C0();
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             swift_cvw_initStructMetadataWithLayoutString();
           }
@@ -8901,19 +3899,19 @@ void sub_20E1E4680()
   }
 }
 
-void sub_20E1E488C()
+void sub_20E1E488C(uint64_t a1)
 {
   sub_20E1E240C(319, qword_280E0F1E0, type metadata accessor for ToolKitProtoTypedValue, MEMORY[0x277D83D88]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1E240C(319, qword_280E07800, type metadata accessor for TranscriptProtoCandidatePromptStatus, MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_20E3221C0();
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
         }
@@ -8922,22 +3920,22 @@ void sub_20E1E488C()
   }
 }
 
-void sub_20E1E4A68()
+void sub_20E1E4A68(uint64_t a1)
 {
-  sub_20E1E3F48(319, &unk_280E040D0, type metadata accessor for ToolKitProtoTypedValue);
-  if (v0 <= 0x3F)
+  sub_20E1E3F48(319, &unk_280E040D0, type metadata accessor for ToolKitProtoTypedValue, MEMORY[0x277D837D0], MEMORY[0x277D837E0]);
+  if (v1 <= 0x3F)
   {
-    sub_20E1E3F48(319, &qword_280E040B8, type metadata accessor for TranscriptProtoShimParameters);
-    if (v1 <= 0x3F)
+    sub_20E1E3F48(319, &qword_280E040B8, type metadata accessor for TranscriptProtoShimParameters, MEMORY[0x277D837D0], MEMORY[0x277D837E0]);
+    if (v2 <= 0x3F)
     {
       sub_20E1ECF10(319, &qword_280E12B78, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           sub_20E3221C0();
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             swift_cvw_initStructMetadataWithLayoutString();
           }
@@ -8947,9 +3945,9 @@ void sub_20E1E4A68()
   }
 }
 
-uint64_t sub_20E1E4D1C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t), uint64_t (*a5)(uint64_t), uint64_t (*a6)(uint64_t), uint64_t (*a7)(uint64_t))
+uint64_t sub_20E1E4D1C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t), uint64_t (*a5)(uint64_t), uint64_t (*a6)(uint64_t), uint64_t (*a7)(uint64_t))
 {
-  result = a4(319);
+  result = a4(319, a2, a3);
   if (v11 <= 0x3F)
   {
     result = a5(319);
@@ -8971,16 +3969,16 @@ uint64_t sub_20E1E4D1C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uin
   return result;
 }
 
-void sub_20E1E4E04()
+void sub_20E1E4E04(uint64_t a1)
 {
   sub_20E1ECF10(319, &qword_280E12B78, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1E240C(319, qword_280E0D8D0, type metadata accessor for TranscriptProtoPersonQuery.Handle, MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E3221C0();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -8988,16 +3986,16 @@ void sub_20E1E4E04()
   }
 }
 
-void sub_20E1E4F90()
+void sub_20E1E4F90(uint64_t a1)
 {
   sub_20E1E240C(319, &qword_280E04038, type metadata accessor for ToolKitProtoTypedValue, MEMORY[0x277D83940]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1ECF10(319, &qword_280E12B78, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E3221C0();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -9005,16 +4003,16 @@ void sub_20E1E4F90()
   }
 }
 
-void sub_20E1E50A8()
+void sub_20E1E50A8(uint64_t a1)
 {
   sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1E240C(319, qword_280E07DA8, type metadata accessor for TranscriptProtoGlobalToolIdentifier, MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E3221C0();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -9022,10 +4020,10 @@ void sub_20E1E50A8()
   }
 }
 
-uint64_t sub_20E1E5304()
+uint64_t sub_20E1E5304(uint64_t a1)
 {
   result = type metadata accessor for TranscriptProtoIntelligenceFlowError(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
     return 0;
@@ -9034,22 +4032,22 @@ uint64_t sub_20E1E5304()
   return result;
 }
 
-uint64_t sub_20E1E53EC()
+uint64_t sub_20E1E53EC(uint64_t a1)
 {
-  v0 = type metadata accessor for TranscriptProtoIntelligenceFlowError(319);
-  if (v1 <= 0x3F)
+  v1 = type metadata accessor for TranscriptProtoIntelligenceFlowError(319);
+  if (v2 <= 0x3F)
   {
     swift_cvw_initEnumMetadataSinglePayloadWithLayoutString();
     return 0;
   }
 
-  return v0;
+  return v1;
 }
 
-uint64_t sub_20E1E54A0()
+uint64_t sub_20E1E54A0(uint64_t a1)
 {
   result = type metadata accessor for TranscriptProtoIntelligenceFlowError(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
     return 0;
@@ -9058,9 +4056,9 @@ uint64_t sub_20E1E54A0()
   return result;
 }
 
-uint64_t sub_20E1E5638(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t), uint64_t (*a5)(uint64_t), uint64_t (*a6)(uint64_t))
+uint64_t sub_20E1E5638(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t), uint64_t (*a5)(uint64_t), uint64_t (*a6)(uint64_t))
 {
-  result = a4(319);
+  result = a4(319, a2, a3);
   if (v9 <= 0x3F)
   {
     result = a5(319);
@@ -9135,16 +4133,16 @@ _BYTE *__swift_store_extra_inhabitant_index_638Tm(_BYTE *result, uint64_t a2, in
   return result;
 }
 
-void sub_20E1E5998()
+void sub_20E1E5998(uint64_t a1)
 {
   sub_20E1ECF10(319, &qword_280E03F08, MEMORY[0x277D839F8], MEMORY[0x277D83D88]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1ECF10(319, &qword_280E03ED0, MEMORY[0x277D84A28], MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E3221C0();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -9314,16 +4312,16 @@ LABEL_20:
   return result;
 }
 
-void sub_20E1E5C54()
+void sub_20E1E5C54(uint64_t a1)
 {
   sub_20E1E240C(319, qword_280E10EC8, type metadata accessor for TranscriptProtoActionFailureFailure, MEMORY[0x277D83D88]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E3221C0();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -9331,25 +4329,25 @@ void sub_20E1E5C54()
   }
 }
 
-void sub_20E1E5E64()
+void sub_20E1E5E64(uint64_t a1)
 {
   sub_20E1E240C(319, qword_280E0F1E0, type metadata accessor for ToolKitProtoTypedValue, MEMORY[0x277D83D88]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1E240C(319, qword_280E0D6E0, type metadata accessor for TranscriptProtoUndoContext, MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E1E240C(319, qword_280E0BF10, type metadata accessor for TranscriptProtoFollowUpAction, MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_20E1ECF10(319, &qword_280E12B78, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             sub_20E3221C0();
-            if (v5 <= 0x3F)
+            if (v6 <= 0x3F)
             {
               swift_cvw_initStructMetadataWithLayoutString();
             }
@@ -9374,9 +4372,9 @@ uint64_t sub_20E1E61D0(uint64_t a1, uint64_t a2, uint64_t a3)
   return MEMORY[0x2821FEBD0](a1, a2, a3, v6, j_j____swift_store_extra_inhabitant_index_171Tm_5);
 }
 
-uint64_t sub_20E1E6250(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t))
+uint64_t sub_20E1E6250(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t))
 {
-  result = a4(319);
+  result = a4(319, a2, a3);
   if (v6 <= 0x3F)
   {
     v7 = result;
@@ -9388,77 +4386,77 @@ uint64_t sub_20E1E6250(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uin
   return result;
 }
 
-void sub_20E1E635C()
+void sub_20E1E635C(uint64_t a1)
 {
   sub_20E1ECF10(319, &qword_280E03ED0, MEMORY[0x277D84A28], MEMORY[0x277D83D88]);
-  if (v0 <= 0x3F)
-  {
-    sub_20E1E240C(319, qword_280E0F1E0, type metadata accessor for ToolKitProtoTypedValue, MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
-    {
-      sub_20E3221C0();
-      if (v2 <= 0x3F)
-      {
-        swift_cvw_initStructMetadataWithLayoutString();
-      }
-    }
-  }
-}
-
-void sub_20E1E6484()
-{
-  sub_20E1E240C(319, &qword_280E04038, type metadata accessor for ToolKitProtoTypedValue, MEMORY[0x277D83940]);
-  if (v0 <= 0x3F)
-  {
-    sub_20E1ECF10(319, &qword_280E03ED0, MEMORY[0x277D84A28], MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
-    {
-      sub_20E3221C0();
-      if (v2 <= 0x3F)
-      {
-        swift_cvw_initStructMetadataWithLayoutString();
-      }
-    }
-  }
-}
-
-uint64_t sub_20E1E6608()
-{
-  result = type metadata accessor for TranscriptProtoActionSuccess(319);
   if (v1 <= 0x3F)
   {
-    result = type metadata accessor for TranscriptProtoActionConfirmation(319);
+    sub_20E1E240C(319, qword_280E0F1E0, type metadata accessor for ToolKitProtoTypedValue, MEMORY[0x277D83D88]);
     if (v2 <= 0x3F)
     {
-      result = type metadata accessor for TranscriptProtoParameterNeedsValue(319);
+      sub_20E3221C0();
       if (v3 <= 0x3F)
       {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void sub_20E1E6484(uint64_t a1)
+{
+  sub_20E1E240C(319, &qword_280E04038, type metadata accessor for ToolKitProtoTypedValue, MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E1ECF10(319, &qword_280E03ED0, MEMORY[0x277D84A28], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      sub_20E3221C0();
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+uint64_t sub_20E1E6608(uint64_t a1)
+{
+  result = type metadata accessor for TranscriptProtoActionSuccess(319);
+  if (v2 <= 0x3F)
+  {
+    result = type metadata accessor for TranscriptProtoActionConfirmation(319);
+    if (v3 <= 0x3F)
+    {
+      result = type metadata accessor for TranscriptProtoParameterNeedsValue(319);
+      if (v4 <= 0x3F)
+      {
         result = type metadata accessor for TranscriptProtoParameterConfirmation(319);
-        if (v4 <= 0x3F)
+        if (v5 <= 0x3F)
         {
           result = type metadata accessor for TranscriptProtoParameterDisambiguation(319);
-          if (v5 <= 0x3F)
+          if (v6 <= 0x3F)
           {
             result = type metadata accessor for TranscriptProtoParameterNotAllowed(319);
-            if (v6 <= 0x3F)
+            if (v7 <= 0x3F)
             {
               result = type metadata accessor for TranscriptProtoParameterCandidatesNotFound(319);
-              if (v7 <= 0x3F)
+              if (v8 <= 0x3F)
               {
                 result = type metadata accessor for TranscriptProtoActionRequirement(319);
-                if (v8 <= 0x3F)
+                if (v9 <= 0x3F)
                 {
                   result = type metadata accessor for TranscriptProtoToolDisambiguation(319);
-                  if (v9 <= 0x3F)
+                  if (v10 <= 0x3F)
                   {
                     result = type metadata accessor for TranscriptProtoActionFailure(319);
-                    if (v10 <= 0x3F)
+                    if (v11 <= 0x3F)
                     {
                       result = type metadata accessor for TranscriptProtoValueDisambiguation(319);
-                      if (v11 <= 0x3F)
+                      if (v12 <= 0x3F)
                       {
                         result = type metadata accessor for TranscriptProtoSnippetStream(319);
-                        if (v12 <= 0x3F)
+                        if (v13 <= 0x3F)
                         {
                           swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
                           return 0;
@@ -9478,16 +4476,16 @@ uint64_t sub_20E1E6608()
   return result;
 }
 
-void sub_20E1E676C()
+void sub_20E1E676C(uint64_t a1)
 {
   sub_20E1E240C(319, qword_280E0ECE8, type metadata accessor for ToolKitProtoTypeInstance, MEMORY[0x277D83D88]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1E240C(319, qword_280E05EE0, type metadata accessor for TranscriptProtoParameterNeedsValueContext, MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E3221C0();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -9522,19 +4520,19 @@ void sub_20E1E6A24(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t
   }
 }
 
-void sub_20E1E6BB8()
+void sub_20E1E6BB8(uint64_t a1)
 {
   sub_20E1E240C(319, &qword_280E03F50, type metadata accessor for TranscriptProtoProgramStatement, MEMORY[0x277D83940]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1ECF10(319, &qword_280E12B78, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E1ECF10(319, qword_280E0E278, &type metadata for TranscriptProtoPlanSource, MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_20E3221C0();
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
         }
@@ -9571,19 +4569,19 @@ uint64_t sub_20E1E6EDC(uint64_t a1, uint64_t a2, uint64_t a3)
   return MEMORY[0x2821FEBD0](a1, a2, a3, v6, sub_20E03C1D8);
 }
 
-void sub_20E1E7030()
+void sub_20E1E7030(uint64_t a1)
 {
   sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1E240C(319, qword_280E06EE8, type metadata accessor for TranscriptProtoActionParameterContext, MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E1E240C(319, qword_280E0D040, type metadata accessor for TranscriptProtoQueryPayload, MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_20E3221C0();
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
         }
@@ -9592,16 +4590,16 @@ void sub_20E1E7030()
   }
 }
 
-void sub_20E1E72A0()
+void sub_20E1E72A0(uint64_t a1)
 {
   sub_20E1ECF10(319, &qword_280E12B68, MEMORY[0x277D837D0], MEMORY[0x277D83940]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1E240C(319, qword_280E0DAC0, type metadata accessor for ToolKitProtoTypeIdentifier, MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E3221C0();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -9609,16 +4607,16 @@ void sub_20E1E72A0()
   }
 }
 
-void sub_20E1E740C()
+void sub_20E1E740C(uint64_t a1)
 {
   sub_20E1E240C(319, &qword_280E03FC8, type metadata accessor for TranscriptProtoQueryResults, MEMORY[0x277D83940]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E3221C0();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -9626,41 +4624,41 @@ void sub_20E1E740C()
   }
 }
 
-void sub_20E1E7538()
+void sub_20E1E7538(uint64_t a1)
 {
   sub_20E1ECF10(319, &qword_280E12B78, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E3221C0();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void sub_20E1E7618()
+void sub_20E1E7618(uint64_t a1)
 {
   sub_20E1E240C(319, &qword_280E03FC0, type metadata accessor for TranscriptProtoVisualOutput, MEMORY[0x277D83940]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1E240C(319, &qword_280E03FE8, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83940]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E1E240C(319, qword_280E0E370, type metadata accessor for TranscriptProtoDialogType, MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_20E1E240C(319, qword_280E080C8, type metadata accessor for TranscriptProtoVisualOutputOptions, MEMORY[0x277D83D88]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           sub_20E1E240C(319, qword_280E0CD50, type metadata accessor for TranscriptProtoVisualOutput, MEMORY[0x277D83D88]);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             sub_20E1ECF10(319, &qword_280E12B78, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-            if (v5 <= 0x3F)
+            if (v6 <= 0x3F)
             {
               sub_20E3221C0();
-              if (v6 <= 0x3F)
+              if (v7 <= 0x3F)
               {
                 swift_cvw_initStructMetadataWithLayoutString();
               }
@@ -9672,25 +4670,25 @@ void sub_20E1E7618()
   }
 }
 
-uint64_t sub_20E1E7A04()
+uint64_t sub_20E1E7A04(uint64_t a1)
 {
   result = type metadata accessor for TranscriptProtoStaticText(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for TranscriptProtoSonicText(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       result = type metadata accessor for TranscriptProtoGeneratedText(319);
-      if (v3 <= 0x3F)
+      if (v4 <= 0x3F)
       {
         result = type metadata accessor for TranscriptProtoUnableToGenerate(319);
-        if (v4 <= 0x3F)
+        if (v5 <= 0x3F)
         {
           result = type metadata accessor for TranscriptProtoSuppressed(319);
-          if (v5 <= 0x3F)
+          if (v6 <= 0x3F)
           {
             result = type metadata accessor for TranscriptProtoCATDialog(319);
-            if (v6 <= 0x3F)
+            if (v7 <= 0x3F)
             {
               swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
               return 0;
@@ -9704,31 +4702,31 @@ uint64_t sub_20E1E7A04()
   return result;
 }
 
-void sub_20E1E7C20()
+void sub_20E1E7C20(uint64_t a1)
 {
   sub_20E1E240C(319, &qword_280E03F48, type metadata accessor for TranscriptProtoResponseParameter, MEMORY[0x277D83940]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_20E1E240C(319, qword_280E0BAC0, type metadata accessor for TranscriptProtoResponseDialog, MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_20E1E240C(319, qword_280E0B968, type metadata accessor for TranscriptProtoResponseVisual, MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_20E1ECF10(319, &qword_280E12B78, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           sub_20E1ECF10(319, &qword_280E12B60, MEMORY[0x277D839B0], MEMORY[0x277D83D88]);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             sub_20E1ECF10(319, qword_280E052F0, &type metadata for TranscriptProtoResponseDialogPresentationHint, MEMORY[0x277D83D88]);
-            if (v5 <= 0x3F)
+            if (v6 <= 0x3F)
             {
               sub_20E1E240C(319, qword_280E0FCE8, type metadata accessor for TranscriptProtoUIType, MEMORY[0x277D83D88]);
-              if (v6 <= 0x3F)
+              if (v7 <= 0x3F)
               {
                 sub_20E3221C0();
-                if (v7 <= 0x3F)
+                if (v8 <= 0x3F)
                 {
                   swift_cvw_initStructMetadataWithLayoutString();
                 }
@@ -9738,5 +4736,4816 @@ void sub_20E1E7C20()
         }
       }
     }
+  }
+}
+
+void sub_20E1E7E88(uint64_t a1)
+{
+  sub_20E1ECF10(319, &qword_280E12B40, MEMORY[0x277CC9318], MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E1ECF10(319, &qword_280E12B78, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      sub_20E1ECF10(319, &qword_280E12B60, MEMORY[0x277D839B0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        sub_20E3221C0();
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+void sub_20E1E7FEC(uint64_t a1)
+{
+  sub_20E1E240C(319, &qword_280E04040, type metadata accessor for TranscriptProtoUIType, MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E1E240C(319, &qword_280E04030, type metadata accessor for TranscriptProtoUILabel, MEMORY[0x277D83940]);
+    if (v2 <= 0x3F)
+    {
+      sub_20E1E240C(319, qword_280E072A0, type metadata accessor for TranscriptProtoResponseVisualOptions, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        sub_20E3221C0();
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+uint64_t sub_20E1E8264(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for TranscriptProtoUIConfirmationLabel(0);
+
+  return MEMORY[0x2821FE9C0](a1, a2, v4, j____swift_get_extra_inhabitant_index_443Tm_0);
+}
+
+uint64_t sub_20E1E82BC(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = type metadata accessor for TranscriptProtoUIConfirmationLabel(0);
+
+  return MEMORY[0x2821FEBD0](a1, a2, a3, v6, j____swift_store_extra_inhabitant_index_444Tm_0);
+}
+
+void sub_20E1E838C(uint64_t a1)
+{
+  sub_20E1ECF10(319, &qword_280E12B78, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E3221C0();
+    if (v2 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_1288Tm(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (a2 == 0x7FFFFFFF)
+  {
+    v4 = *(a1 + 24);
+    if (v4 >= 0xFFFFFFFF)
+    {
+      LODWORD(v4) = -1;
+    }
+
+    return (v4 + 1);
+  }
+
+  else
+  {
+    v8 = sub_20E3221C0();
+    v9 = *(*(v8 - 8) + 48);
+    v10 = a1 + *(a3 + 24);
+
+    return v9(v10, a2, v8);
+  }
+}
+
+uint64_t __swift_store_extra_inhabitant_index_1289Tm(uint64_t result, uint64_t a2, int a3, uint64_t a4)
+{
+  v5 = result;
+  if (a3 == 0x7FFFFFFF)
+  {
+    *(result + 24) = (a2 - 1);
+  }
+
+  else
+  {
+    v7 = sub_20E3221C0();
+    v8 = *(*(v7 - 8) + 56);
+    v9 = v5 + *(a4 + 24);
+
+    return v8(v9, a2, a2, v7);
+  }
+
+  return result;
+}
+
+uint64_t __swift_get_extra_inhabitant_index_1279Tm(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (a2 == 12)
+  {
+    v4 = *(a1 + 8) >> 60;
+    if (((4 * v4) & 0xC) != 0)
+    {
+      return 16 - ((4 * v4) & 0xC | (v4 >> 2));
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    v8 = sub_20E3221C0();
+    v9 = *(*(v8 - 8) + 48);
+    v10 = a1 + *(a3 + 20);
+
+    return v9(v10, a2, v8);
+  }
+}
+
+void *__swift_store_extra_inhabitant_index_1280Tm(void *result, uint64_t a2, int a3, uint64_t a4)
+{
+  v5 = result;
+  if (a3 == 12)
+  {
+    *result = 0;
+    result[1] = (((-a2 >> 2) & 3) - 4 * a2) << 60;
+  }
+
+  else
+  {
+    v7 = sub_20E3221C0();
+    v8 = *(*(v7 - 8) + 56);
+    v9 = v5 + *(a4 + 20);
+
+    return v8(v9, a2, a2, v7);
+  }
+
+  return result;
+}
+
+void sub_20E1E8798(uint64_t a1)
+{
+  sub_20E1ECF10(319, &qword_280E12B78, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E1E240C(319, qword_280E04F08, type metadata accessor for TranscriptProtoSystemPromptResolutionUserAction, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        sub_20E1E240C(319, qword_280E05798, type metadata accessor for TranscriptProtoSystemPromptResolutionInput, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          sub_20E3221C0();
+          if (v5 <= 0x3F)
+          {
+            swift_cvw_initStructMetadataWithLayoutString();
+          }
+        }
+      }
+    }
+  }
+}
+
+uint64_t sub_20E1E89A8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t), uint64_t (*a5)(uint64_t))
+{
+  result = a4(319, a2, a3);
+  if (v7 <= 0x3F)
+  {
+    result = a5(319);
+    if (v8 <= 0x3F)
+    {
+      swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+void sub_20E1E8A50(uint64_t a1)
+{
+  sub_20E1E240C(319, &qword_280E03FD0, type metadata accessor for TranscriptProtoParameterSet, MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E1E240C(319, qword_280E0D328, type metadata accessor for TranscriptProtoParameterSet, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        sub_20E1E240C(319, qword_280E07DA8, type metadata accessor for TranscriptProtoGlobalToolIdentifier, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          sub_20E3221C0();
+          if (v5 <= 0x3F)
+          {
+            swift_cvw_initStructMetadataWithLayoutString();
+          }
+        }
+      }
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_514Tm(unint64_t *a1, uint64_t a2, uint64_t a3)
+{
+  if (a2 == 0x7FFFFFFF)
+  {
+    v4 = *a1;
+    if (*a1 >= 0xFFFFFFFF)
+    {
+      LODWORD(v4) = -1;
+    }
+
+    return (v4 + 1);
+  }
+
+  else
+  {
+    v8 = sub_20E3221C0();
+    v9 = *(*(v8 - 8) + 48);
+    v10 = a1 + *(a3 + 24);
+
+    return v9(v10, a2, v8);
+  }
+}
+
+void *__swift_store_extra_inhabitant_index_515Tm(void *result, uint64_t a2, int a3, uint64_t a4)
+{
+  v5 = result;
+  if (a3 == 0x7FFFFFFF)
+  {
+    *result = (a2 - 1);
+  }
+
+  else
+  {
+    v7 = sub_20E3221C0();
+    v8 = *(*(v7 - 8) + 56);
+    v9 = v5 + *(a4 + 24);
+
+    return v8(v9, a2, a2, v7);
+  }
+
+  return result;
+}
+
+void sub_20E1E8DC0(uint64_t a1)
+{
+  sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E1E240C(319, qword_280E11770, type metadata accessor for ContextProtoRetrievedContext, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      sub_20E3221C0();
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void sub_20E1E8EE4(uint64_t a1)
+{
+  sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E1E240C(319, qword_280E079F0, type metadata accessor for ContextProtoDynamicEnumerationEntity, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      sub_20E3221C0();
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void sub_20E1E90B4(uint64_t a1)
+{
+  sub_20E1ECF10(319, &qword_280E03ED0, MEMORY[0x277D84A28], MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E1E240C(319, qword_280E0EBB0, type metadata accessor for TranscriptProtoCandidate, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      sub_20E3221C0();
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+uint64_t sub_20E1E9210(uint64_t a1)
+{
+  result = type metadata accessor for ToolKitProtoTypedValue(319);
+  if (v2 <= 0x3F)
+  {
+    result = type metadata accessor for TranscriptProtoSystemPromptResolutionRequirementResolution(319);
+    if (v3 <= 0x3F)
+    {
+      result = type metadata accessor for TranscriptProtoSystemPromptResolutionActionCancellation(319);
+      if (v4 <= 0x3F)
+      {
+        swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
+        return 0;
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t __swift_get_extra_inhabitant_index_1234Tm(unsigned __int8 *a1, uint64_t a2, uint64_t a3)
+{
+  if (a2 == 254)
+  {
+    v4 = *a1;
+    v5 = v4 >= 2;
+    v6 = (v4 + 2147483646) & 0x7FFFFFFF;
+    if (v5)
+    {
+      return (v6 + 1);
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    v10 = sub_20E3221C0();
+    v11 = *(*(v10 - 8) + 48);
+    v12 = &a1[*(a3 + 20)];
+
+    return v11(v12, a2, v10);
+  }
+}
+
+_BYTE *__swift_store_extra_inhabitant_index_1235Tm(_BYTE *result, uint64_t a2, int a3, uint64_t a4)
+{
+  v5 = result;
+  if (a3 == 254)
+  {
+    *result = a2 + 1;
+  }
+
+  else
+  {
+    v7 = sub_20E3221C0();
+    v8 = *(*(v7 - 8) + 56);
+    v9 = &v5[*(a4 + 20)];
+
+    return v8(v9, a2, a2, v7);
+  }
+
+  return result;
+}
+
+void sub_20E1E9494(uint64_t a1)
+{
+  sub_20E1E3F48(319, &qword_280E040A8, type metadata accessor for ToolKitProtoTypedValue, MEMORY[0x277D84CC0], MEMORY[0x277D84CD0]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E1E240C(319, qword_280E0F1E0, type metadata accessor for ToolKitProtoTypedValue, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      sub_20E3221C0();
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void sub_20E1E95B4(uint64_t a1)
+{
+  sub_20E1E240C(319, &qword_280E03F80, type metadata accessor for TranscriptProtoVariableSetter, MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      sub_20E3221C0();
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void sub_20E1E96D8(uint64_t a1)
+{
+  sub_20E1E3F48(319, &qword_27C868CA8, type metadata accessor for TranscriptProtoASTFlatValue, MEMORY[0x277D837D0], MEMORY[0x277D837E0]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E3221C0();
+    if (v2 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_895Tm(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (a2 == 2147483646)
+  {
+    v4 = *(a1 + 8);
+    if (v4 >= 0xFFFFFFFF)
+    {
+      LODWORD(v4) = -1;
+    }
+
+    v5 = v4 - 1;
+    if (v5 < 0)
+    {
+      v5 = -1;
+    }
+
+    return (v5 + 1);
+  }
+
+  else
+  {
+    v9 = sub_20E3221C0();
+    v10 = *(*(v9 - 8) + 48);
+    v11 = a1 + *(a3 + 20);
+
+    return v10(v11, a2, v9);
+  }
+}
+
+uint64_t __swift_store_extra_inhabitant_index_896Tm(uint64_t result, uint64_t a2, int a3, uint64_t a4)
+{
+  v5 = result;
+  if (a3 == 2147483646)
+  {
+    *(result + 8) = a2;
+  }
+
+  else
+  {
+    v7 = sub_20E3221C0();
+    v8 = *(*(v7 - 8) + 56);
+    v9 = v5 + *(a4 + 20);
+
+    return v8(v9, a2, a2, v7);
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for TranscriptProtoAstpickTypeEnum(uint64_t a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 >= 0xFF && *(a1 + 9))
+  {
+    return (*a1 + 255);
+  }
+
+  v3 = *(a1 + 8);
+  if (v3 <= 1)
+  {
+    v4 = -1;
+  }
+
+  else
+  {
+    v4 = v3 ^ 0xFF;
+  }
+
+  return (v4 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for TranscriptProtoAstpickTypeEnum(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0xFE)
+  {
+    *(result + 8) = 0;
+    *result = a2 - 255;
+    if (a3 >= 0xFF)
+    {
+      *(result + 9) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0xFF)
+    {
+      *(result + 9) = 0;
+    }
+
+    if (a2)
+    {
+      *(result + 8) = -a2;
+    }
+  }
+
+  return result;
+}
+
+void sub_20E1E9C88(uint64_t a1)
+{
+  sub_20E1E240C(319, &qword_27C868D98, type metadata accessor for TranscriptProtoASTFlatValue, MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E1E240C(319, &qword_27C868DA0, type metadata accessor for TranscriptProtoASTFlatValue, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      sub_20E3221C0();
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+uint64_t sub_20E1E9E88(uint64_t a1)
+{
+  result = type metadata accessor for TranscriptProtoASTFlatValue(319);
+  if (v2 <= 0x3F)
+  {
+    result = type metadata accessor for TranscriptProtoASTFlatExprPrefixVariant(319);
+    if (v3 <= 0x3F)
+    {
+      result = type metadata accessor for TranscriptProtoASTFlatExprInfixVariant(319);
+      if (v4 <= 0x3F)
+      {
+        result = type metadata accessor for TranscriptProtoASTFlatExprDotVariant(319);
+        if (v5 <= 0x3F)
+        {
+          result = type metadata accessor for TranscriptProtoASTFlatExprIndexVariant(319);
+          if (v6 <= 0x3F)
+          {
+            result = type metadata accessor for TranscriptProtoASTFlatExprCallVariant(319);
+            if (v7 <= 0x3F)
+            {
+              result = type metadata accessor for TranscriptProtoASTFlatExprSayVariant(319);
+              if (v8 <= 0x3F)
+              {
+                result = type metadata accessor for TranscriptProtoASTFlatExprPickVariant(319);
+                if (v9 <= 0x3F)
+                {
+                  result = type metadata accessor for TranscriptProtoASTFlatExprConfirmVariant(319);
+                  if (v10 <= 0x3F)
+                  {
+                    result = type metadata accessor for TranscriptProtoASTFlatExprSearchVariant(319);
+                    if (v11 <= 0x3F)
+                    {
+                      result = type metadata accessor for TranscriptProtoASTFlatExprPickOneVariant(319);
+                      if (v12 <= 0x3F)
+                      {
+                        result = type metadata accessor for TranscriptProtoASTFlatExprUndoVariant(319);
+                        if (v13 <= 0x3F)
+                        {
+                          result = type metadata accessor for TranscriptProtoASTFlatExprResolveToolVariant(319);
+                          if (v14 <= 0x3F)
+                          {
+                            result = type metadata accessor for TranscriptProtoASTFlatExprRejectVariant(319);
+                            if (v15 <= 0x3F)
+                            {
+                              result = type metadata accessor for TranscriptProtoASTFlatExprCancelVariant(319);
+                              if (v16 <= 0x3F)
+                              {
+                                result = type metadata accessor for TranscriptProtoASTExprContinuePlanningVariant(319);
+                                if (v17 <= 0x3F)
+                                {
+                                  result = type metadata accessor for TranscriptProtoASTFlatExprUpdateParametersVariant(319);
+                                  if (v18 <= 0x3F)
+                                  {
+                                    result = type metadata accessor for TranscriptProtoASTFlatExprGetMentionedApps(319);
+                                    if (v19 <= 0x3F)
+                                    {
+                                      swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
+                                      return 0;
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_20E1EA098(uint64_t a1)
+{
+  result = type metadata accessor for TranscriptProtoASTFlatValueArrayVariant(319);
+  if (v2 <= 0x3F)
+  {
+    result = type metadata accessor for TranscriptProtoASTFlatValueDictVariant(319);
+    if (v3 <= 0x3F)
+    {
+      result = type metadata accessor for TranscriptProtoStatementID(319);
+      if (v4 <= 0x3F)
+      {
+        swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
+        return 0;
+      }
+    }
+  }
+
+  return result;
+}
+
+void sub_20E1EA1F0(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t (*a5)(uint64_t))
+{
+  sub_20E1E3F48(319, a4, a5, MEMORY[0x277D837D0], MEMORY[0x277D837E0]);
+  if (v5 <= 0x3F)
+  {
+    sub_20E3221C0();
+    if (v6 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+uint64_t sub_20E1EA394(uint64_t a1)
+{
+  result = type metadata accessor for TranscriptProtoValueExpression(319);
+  if (v2 <= 0x3F)
+  {
+    result = type metadata accessor for TranscriptProtoStatementID(319);
+    if (v3 <= 0x3F)
+    {
+      result = type metadata accessor for TranscriptProtoPrefixExpression(319);
+      if (v4 <= 0x3F)
+      {
+        result = type metadata accessor for TranscriptProtoInfixExpression(319);
+        if (v5 <= 0x3F)
+        {
+          result = type metadata accessor for TranscriptProtoIndexExpression(319);
+          if (v6 <= 0x3F)
+          {
+            result = type metadata accessor for TranscriptProtoUpdateParametersExpression(319);
+            if (v7 <= 0x3F)
+            {
+              result = type metadata accessor for TranscriptProtoCallExpression(319);
+              if (v8 <= 0x3F)
+              {
+                result = type metadata accessor for TranscriptProtoSayExpression(319);
+                if (v9 <= 0x3F)
+                {
+                  result = type metadata accessor for TranscriptProtoPickExpression(319);
+                  if (v10 <= 0x3F)
+                  {
+                    result = type metadata accessor for TranscriptProtoConfirmExpression(319);
+                    if (v11 <= 0x3F)
+                    {
+                      result = type metadata accessor for TranscriptProtoSearchExpression(319);
+                      if (v12 <= 0x3F)
+                      {
+                        result = type metadata accessor for TranscriptProtoStructuredSearchExpression(319);
+                        if (v13 <= 0x3F)
+                        {
+                          result = type metadata accessor for TranscriptProtoPickOneExpression(319);
+                          if (v14 <= 0x3F)
+                          {
+                            result = type metadata accessor for TranscriptProtoResolveToolExpression(319);
+                            if (v15 <= 0x3F)
+                            {
+                              result = type metadata accessor for TranscriptProtoUndoExpression(319);
+                              if (v16 <= 0x3F)
+                              {
+                                result = type metadata accessor for TranscriptProtoRejectExpression(319);
+                                if (v17 <= 0x3F)
+                                {
+                                  result = type metadata accessor for TranscriptProtoCancelExpression(319);
+                                  if (v18 <= 0x3F)
+                                  {
+                                    result = type metadata accessor for TranscriptProtoNoMatchingToolExpression(319);
+                                    if (v19 <= 0x3F)
+                                    {
+                                      result = type metadata accessor for TranscriptProtoContinuePlanningExpression(319);
+                                      if (v20 <= 0x3F)
+                                      {
+                                        result = type metadata accessor for TranscriptProtoEndOfPlanExpression(319);
+                                        if (v21 <= 0x3F)
+                                        {
+                                          result = type metadata accessor for TranscriptProtoGetMentionedAppsExpression(319);
+                                          if (v22 <= 0x3F)
+                                          {
+                                            result = type metadata accessor for TranscriptProtoOpenExpression(319);
+                                            if (v23 <= 0x3F)
+                                            {
+                                              result = type metadata accessor for TranscriptProtoExplicitResolutionRequest(319);
+                                              if (v24 <= 0x3F)
+                                              {
+                                                result = type metadata accessor for TranscriptProtoPayloadExpression(319);
+                                                if (v25 <= 0x3F)
+                                                {
+                                                  result = type metadata accessor for TranscriptProtoFormatExpression(319);
+                                                  if (v26 <= 0x3F)
+                                                  {
+                                                    result = type metadata accessor for TranscriptProtoRetrieveContextExpression(319);
+                                                    if (v27 <= 0x3F)
+                                                    {
+                                                      result = type metadata accessor for TranscriptProtoRetrieveSpansExpression(319);
+                                                      if (v28 <= 0x3F)
+                                                      {
+                                                        result = type metadata accessor for TranscriptProtoRetrieveToolsExpression(319);
+                                                        if (v29 <= 0x3F)
+                                                        {
+                                                          result = type metadata accessor for TranscriptProtoSiriXFallbackExpression(319);
+                                                          if (v30 <= 0x3F)
+                                                          {
+                                                            result = type metadata accessor for TranscriptProtoUserConfirmExpression(319);
+                                                            if (v31 <= 0x3F)
+                                                            {
+                                                              result = type metadata accessor for TranscriptProtoUserDisambiguateExpression(319);
+                                                              if (v32 <= 0x3F)
+                                                              {
+                                                                swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
+                                                                return 0;
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_20E1EA790(uint64_t a1)
+{
+  result = type metadata accessor for TranscriptProtoValueExpressionArrayVariant(319);
+  if (v2 <= 0x3F)
+  {
+    swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t __swift_get_extra_inhabitant_index_1861Tm(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
+{
+  if (a2 == 237)
+  {
+    v6 = *a1;
+    if (v6 >= 0x13)
+    {
+      return v6 - 18;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(a4, a5);
+    v11 = *(v10 - 8);
+    if (*(v11 + 84) == a2)
+    {
+      v12 = v10;
+      v13 = *(v11 + 48);
+      v14 = &a1[*(a3 + 20)];
+
+      return v13(v14, a2, v12);
+    }
+
+    else
+    {
+      v15 = sub_20E3221C0();
+      v16 = *(*(v15 - 8) + 48);
+      v17 = &a1[*(a3 + 28)];
+
+      return v16(v17, a2, v15);
+    }
+  }
+}
+
+_BYTE *__swift_store_extra_inhabitant_index_1862Tm(_BYTE *result, uint64_t a2, int a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
+{
+  v7 = result;
+  if (a3 == 237)
+  {
+    *result = a2 + 18;
+  }
+
+  else
+  {
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+    v11 = *(v10 - 8);
+    if (*(v11 + 84) == a3)
+    {
+      v12 = v10;
+      v13 = *(v11 + 56);
+      v14 = &v7[*(a4 + 20)];
+
+      return v13(v14, a2, a2, v12);
+    }
+
+    else
+    {
+      v15 = sub_20E3221C0();
+      v16 = *(*(v15 - 8) + 56);
+      v17 = &v7[*(a4 + 28)];
+
+      return v16(v17, a2, a2, v15);
+    }
+  }
+
+  return result;
+}
+
+void sub_20E1EAB24(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t *a5, uint64_t (*a6)(uint64_t))
+{
+  sub_20E1E240C(319, a5, a6, MEMORY[0x277D83D88]);
+  if (v6 <= 0x3F)
+  {
+    sub_20E3221C0();
+    if (v7 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_1924Tm(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
+{
+  if (a2 == 253)
+  {
+    v6 = *a1;
+    if (v6 >= 3)
+    {
+      return v6 - 2;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(a4, a5);
+    v11 = *(v10 - 8);
+    if (*(v11 + 84) == a2)
+    {
+      v12 = v10;
+      v13 = *(v11 + 48);
+      v14 = &a1[*(a3 + 20)];
+
+      return v13(v14, a2, v12);
+    }
+
+    else
+    {
+      v15 = sub_20E3221C0();
+      v16 = *(*(v15 - 8) + 48);
+      v17 = &a1[*(a3 + 24)];
+
+      return v16(v17, a2, v15);
+    }
+  }
+}
+
+_BYTE *__swift_store_extra_inhabitant_index_1925Tm(_BYTE *result, uint64_t a2, int a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
+{
+  v7 = result;
+  if (a3 == 253)
+  {
+    *result = a2 + 2;
+  }
+
+  else
+  {
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+    v11 = *(v10 - 8);
+    if (*(v11 + 84) == a3)
+    {
+      v12 = v10;
+      v13 = *(v11 + 56);
+      v14 = &v7[*(a4 + 20)];
+
+      return v13(v14, a2, a2, v12);
+    }
+
+    else
+    {
+      v15 = sub_20E3221C0();
+      v16 = *(*(v15 - 8) + 56);
+      v17 = &v7[*(a4 + 24)];
+
+      return v16(v17, a2, a2, v15);
+    }
+  }
+
+  return result;
+}
+
+uint64_t __swift_get_extra_inhabitant_index_395Tm(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
+{
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(a4, a5);
+  v9 = *(v8 - 8);
+  if (*(v9 + 84) == a2)
+  {
+    v10 = *(v9 + 48);
+
+    return v10(a1, a2, v8);
+  }
+
+  else
+  {
+    v12 = sub_20E3221C0();
+    v13 = *(*(v12 - 8) + 48);
+    v14 = a1 + *(a3 + 24);
+
+    return v13(v14, a2, v12);
+  }
+}
+
+uint64_t __swift_store_extra_inhabitant_index_396Tm(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
+{
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+  v11 = *(v10 - 8);
+  if (*(v11 + 84) == a3)
+  {
+    v12 = *(v11 + 56);
+
+    return v12(a1, a2, a2, v10);
+  }
+
+  else
+  {
+    v14 = sub_20E3221C0();
+    v15 = *(*(v14 - 8) + 56);
+    v16 = a1 + *(a4 + 24);
+
+    return v15(v16, a2, a2, v14);
+  }
+}
+
+void sub_20E1EB07C(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t (*a5)(uint64_t), uint64_t (*a6)(uint64_t, uint64_t))
+{
+  sub_20E1E240C(319, a4, a5, a6);
+  if (v6 <= 0x3F)
+  {
+    sub_20E3221C0();
+    if (v7 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+void sub_20E1EB134(uint64_t a1)
+{
+  sub_20E1E240C(319, &qword_280E04050, type metadata accessor for TranscriptProtoUpdateParameterExpression_UpdateParameter, MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      sub_20E3221C0();
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void sub_20E1EB258(uint64_t a1)
+{
+  sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E1ECF10(319, &qword_280E03ED0, MEMORY[0x277D84A28], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      sub_20E3221C0();
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void sub_20E1EB414(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t (*a5)(uint64_t), unint64_t *a6, uint64_t (*a7)(uint64_t))
+{
+  sub_20E1E3F48(319, a4, a5, MEMORY[0x277D837D0], MEMORY[0x277D837E0]);
+  if (v9 <= 0x3F)
+  {
+    sub_20E1E240C(319, a6, a7, MEMORY[0x277D83D88]);
+    if (v10 <= 0x3F)
+    {
+      sub_20E3221C0();
+      if (v11 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_368Tm(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (a2 == 0x7FFFFFFF)
+  {
+    v4 = *(a1 + 8);
+    if (v4 >= 0xFFFFFFFF)
+    {
+      LODWORD(v4) = -1;
+    }
+
+    return (v4 + 1);
+  }
+
+  else
+  {
+    v8 = sub_20E3221C0();
+    v9 = *(*(v8 - 8) + 48);
+    v10 = a1 + *(a3 + 32);
+
+    return v9(v10, a2, v8);
+  }
+}
+
+uint64_t __swift_store_extra_inhabitant_index_369Tm(uint64_t result, uint64_t a2, int a3, uint64_t a4)
+{
+  v5 = result;
+  if (a3 == 0x7FFFFFFF)
+  {
+    *(result + 8) = (a2 - 1);
+  }
+
+  else
+  {
+    v7 = sub_20E3221C0();
+    v8 = *(*(v7 - 8) + 56);
+    v9 = v5 + *(a4 + 32);
+
+    return v8(v9, a2, a2, v7);
+  }
+
+  return result;
+}
+
+uint64_t sub_20E1EB784(uint64_t a1)
+{
+  result = sub_20E3221C0();
+  if (v2 <= 0x3F)
+  {
+    swift_cvw_initStructMetadataWithLayoutString();
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t __swift_get_extra_inhabitant_index_1207Tm(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
+{
+  if (a2 == 0x7FFFFFFF)
+  {
+    v6 = *a1;
+    if (*a1 >= 0xFFFFFFFF)
+    {
+      LODWORD(v6) = -1;
+    }
+
+    return (v6 + 1);
+  }
+
+  else
+  {
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(a4, a5);
+    v11 = *(v10 - 8);
+    if (*(v11 + 84) == a2)
+    {
+      v12 = v10;
+      v13 = *(v11 + 48);
+      v14 = a1 + *(a3 + 24);
+
+      return v13(v14, a2, v12);
+    }
+
+    else
+    {
+      v15 = sub_20E3221C0();
+      v16 = *(*(v15 - 8) + 48);
+      v17 = a1 + *(a3 + 28);
+
+      return v16(v17, a2, v15);
+    }
+  }
+}
+
+void *__swift_store_extra_inhabitant_index_1208Tm(void *result, uint64_t a2, int a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
+{
+  v7 = result;
+  if (a3 == 0x7FFFFFFF)
+  {
+    *result = (a2 - 1);
+  }
+
+  else
+  {
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+    v11 = *(v10 - 8);
+    if (*(v11 + 84) == a3)
+    {
+      v12 = v10;
+      v13 = *(v11 + 56);
+      v14 = v7 + *(a4 + 24);
+
+      return v13(v14, a2, a2, v12);
+    }
+
+    else
+    {
+      v15 = sub_20E3221C0();
+      v16 = *(*(v15 - 8) + 56);
+      v17 = v7 + *(a4 + 28);
+
+      return v16(v17, a2, a2, v15);
+    }
+  }
+
+  return result;
+}
+
+void sub_20E1EBA84(uint64_t a1)
+{
+  sub_20E1E3F48(319, &qword_280E040C8, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D837D0], MEMORY[0x277D837E0]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E1E240C(319, &qword_280E03F18, type metadata accessor for TranscriptProtoStructuredSearchExpression.StructuredSearchProperty, MEMORY[0x277D83940]);
+    if (v2 <= 0x3F)
+    {
+      sub_20E1E240C(319, qword_280E0ECE8, type metadata accessor for ToolKitProtoTypeInstance, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        sub_20E3221C0();
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_472Tm(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
+{
+  if (a2 == 0x7FFFFFFF)
+  {
+    v6 = *(a1 + 8);
+    if (v6 >= 0xFFFFFFFF)
+    {
+      LODWORD(v6) = -1;
+    }
+
+    return (v6 + 1);
+  }
+
+  else
+  {
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(a4, a5);
+    v11 = *(v10 - 8);
+    if (*(v11 + 84) == a2)
+    {
+      v12 = v10;
+      v13 = *(v11 + 48);
+      v14 = a1 + *(a3 + 24);
+
+      return v13(v14, a2, v12);
+    }
+
+    else
+    {
+      v15 = sub_20E3221C0();
+      v16 = *(*(v15 - 8) + 48);
+      v17 = a1 + *(a3 + 28);
+
+      return v16(v17, a2, v15);
+    }
+  }
+}
+
+uint64_t __swift_store_extra_inhabitant_index_473Tm(uint64_t result, uint64_t a2, int a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
+{
+  v7 = result;
+  if (a3 == 0x7FFFFFFF)
+  {
+    *(result + 8) = (a2 - 1);
+  }
+
+  else
+  {
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+    v11 = *(v10 - 8);
+    if (*(v11 + 84) == a3)
+    {
+      v12 = v10;
+      v13 = *(v11 + 56);
+      v14 = v7 + *(a4 + 24);
+
+      return v13(v14, a2, a2, v12);
+    }
+
+    else
+    {
+      v15 = sub_20E3221C0();
+      v16 = *(*(v15 - 8) + 56);
+      v17 = v7 + *(a4 + 28);
+
+      return v16(v17, a2, a2, v15);
+    }
+  }
+
+  return result;
+}
+
+void sub_20E1EBE3C(uint64_t a1)
+{
+  sub_20E1ECF10(319, &qword_280E12B78, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      sub_20E3221C0();
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void sub_20E1EC198(uint64_t a1)
+{
+  sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E3221C0();
+    if (v2 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+void sub_20E1EC27C(uint64_t a1)
+{
+  sub_20E1E240C(319, &qword_280E03FE8, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      sub_20E3221C0();
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+uint64_t sub_20E1EC3D4(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for ToolKitProtoTypedValue(0);
+
+  return MEMORY[0x2821FE9C0](a1, a2, v4, sub_20E03E5B8);
+}
+
+uint64_t sub_20E1EC42C(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = type metadata accessor for ToolKitProtoTypedValue(0);
+
+  return MEMORY[0x2821FEBD0](a1, a2, a3, v6, sub_20E03E670);
+}
+
+void sub_20E1EC4D4(uint64_t a1)
+{
+  sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E1E240C(319, qword_280E0C340, type metadata accessor for ContextProtoSpanMatchedEntity, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      sub_20E3221C0();
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_296Tm(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (a2 == 0x7FFFFFFF)
+  {
+    v4 = *(a1 + 8);
+    if (v4 >= 0xFFFFFFFF)
+    {
+      LODWORD(v4) = -1;
+    }
+
+    return (v4 + 1);
+  }
+
+  else
+  {
+    v8 = sub_20E3221C0();
+    v9 = *(*(v8 - 8) + 48);
+    v10 = a1 + *(a3 + 36);
+
+    return v9(v10, a2, v8);
+  }
+}
+
+uint64_t __swift_store_extra_inhabitant_index_297Tm(uint64_t result, uint64_t a2, int a3, uint64_t a4)
+{
+  v5 = result;
+  if (a3 == 0x7FFFFFFF)
+  {
+    *(result + 8) = (a2 - 1);
+  }
+
+  else
+  {
+    v7 = sub_20E3221C0();
+    v8 = *(*(v7 - 8) + 56);
+    v9 = v5 + *(a4 + 36);
+
+    return v8(v9, a2, a2, v7);
+  }
+
+  return result;
+}
+
+void sub_20E1EC7A4(uint64_t a1)
+{
+  sub_20E1E240C(319, &qword_280E04008, type metadata accessor for ContextProtoRetrievedTool, MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E1E240C(319, &qword_280E03F88, type metadata accessor for ContextProtoToolRetrievalType, MEMORY[0x277D83940]);
+    if (v2 <= 0x3F)
+    {
+      sub_20E3221C0();
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void sub_20E1EC8E8(uint64_t a1)
+{
+  sub_20E1E240C(319, &qword_280E03F28, type metadata accessor for TranscriptProtoInterpretedStatementResult, MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E1E240C(319, qword_280E0BA08, type metadata accessor for TranscriptProtoResponseOutput, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      sub_20E1ECF10(319, &qword_280E12B78, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        sub_20E3221C0();
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+void sub_20E1ECA48(uint64_t a1)
+{
+  sub_20E1E240C(319, qword_280E09BB0, type metadata accessor for TranscriptProtoStatementOutcome, MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      sub_20E1ECF10(319, &qword_280E12B78, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        sub_20E3221C0();
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+void sub_20E1ECBB4(uint64_t a1)
+{
+  sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E1E240C(319, qword_280E0E2D8, type metadata accessor for TranscriptProtoExpression, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      sub_20E1ECF10(319, &qword_280E12B60, MEMORY[0x277D839B0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        sub_20E1ECF10(319, &qword_280E12B48, MEMORY[0x277D84CC0], MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          sub_20E1E240C(319, qword_280E0A298, type metadata accessor for TranscriptProtoProgramStatement.ExecutionSupportType, MEMORY[0x277D83D88]);
+          if (v5 <= 0x3F)
+          {
+            sub_20E3221C0();
+            if (v6 <= 0x3F)
+            {
+              swift_cvw_initStructMetadataWithLayoutString();
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_805Tm(unsigned __int8 *a1, uint64_t a2, uint64_t a3)
+{
+  if (a2 == 253)
+  {
+    v4 = *a1;
+    if (v4 <= 2)
+    {
+      v5 = 2;
+    }
+
+    else
+    {
+      v5 = *a1;
+    }
+
+    v6 = v5 - 2;
+    if (v4 >= 2)
+    {
+      return v6;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    v10 = sub_20E3221C0();
+    v11 = *(*(v10 - 8) + 48);
+    v12 = &a1[*(a3 + 20)];
+
+    return v11(v12, a2, v10);
+  }
+}
+
+_BYTE *__swift_store_extra_inhabitant_index_806Tm(_BYTE *result, uint64_t a2, int a3, uint64_t a4)
+{
+  v5 = result;
+  if (a3 == 253)
+  {
+    *result = a2 + 2;
+  }
+
+  else
+  {
+    v7 = sub_20E3221C0();
+    v8 = *(*(v7 - 8) + 56);
+    v9 = &v5[*(a4 + 20)];
+
+    return v8(v9, a2, a2, v7);
+  }
+
+  return result;
+}
+
+void sub_20E1ECF10(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t (*a4)(void, uint64_t))
+{
+  if (!*a2)
+  {
+    v5 = a4(0, a3);
+    if (!v6)
+    {
+      atomic_store(v5, a2);
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_170Tm(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (a2 == 0x7FFFFFFF)
+  {
+    v4 = *(a1 + 8);
+    if (v4 >= 0xFFFFFFFF)
+    {
+      LODWORD(v4) = -1;
+    }
+
+    return (v4 + 1);
+  }
+
+  else
+  {
+    v8 = sub_20E3221C0();
+    v9 = *(*(v8 - 8) + 48);
+    v10 = a1 + *(a3 + 28);
+
+    return v9(v10, a2, v8);
+  }
+}
+
+uint64_t __swift_store_extra_inhabitant_index_171Tm(uint64_t result, uint64_t a2, int a3, uint64_t a4)
+{
+  v5 = result;
+  if (a3 == 0x7FFFFFFF)
+  {
+    *(result + 8) = (a2 - 1);
+  }
+
+  else
+  {
+    v7 = sub_20E3221C0();
+    v8 = *(*(v7 - 8) + 56);
+    v9 = v5 + *(a4 + 28);
+
+    return v8(v9, a2, a2, v7);
+  }
+
+  return result;
+}
+
+uint64_t sub_20E1ED0E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  result = sub_20E3221C0();
+  if (v6 <= 0x3F)
+  {
+    swift_cvw_initStructMetadataWithLayoutString();
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t __swift_get_extra_inhabitant_index_404Tm(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = *(a3 + 20);
+  v6 = sub_20E3221C0();
+  v7 = *(*(v6 - 8) + 48);
+
+  return v7(a1 + v5, a2, v6);
+}
+
+uint64_t __swift_store_extra_inhabitant_index_405Tm(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v6 = *(a4 + 20);
+  v7 = sub_20E3221C0();
+  v8 = *(*(v7 - 8) + 56);
+
+  return v8(a1 + v6, a2, a2, v7);
+}
+
+void sub_20E1ED3DC(uint64_t a1)
+{
+  sub_20E1ECF10(319, &qword_280E12B78, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      sub_20E3221C0();
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_967Tm(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
+{
+  if (a2 == 0x7FFFFFFF)
+  {
+    v6 = *(a1 + 8);
+    if (v6 >= 0xFFFFFFFF)
+    {
+      LODWORD(v6) = -1;
+    }
+
+    return (v6 + 1);
+  }
+
+  else
+  {
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(a4, a5);
+    v11 = *(v10 - 8);
+    if (*(v11 + 84) == a2)
+    {
+      v12 = v10;
+      v13 = *(v11 + 48);
+      v14 = a1 + *(a3 + 24);
+
+      return v13(v14, a2, v12);
+    }
+
+    else
+    {
+      v15 = sub_20E3221C0();
+      v16 = *(*(v15 - 8) + 48);
+      v17 = a1 + *(a3 + 32);
+
+      return v16(v17, a2, v15);
+    }
+  }
+}
+
+uint64_t __swift_store_extra_inhabitant_index_968Tm(uint64_t result, uint64_t a2, int a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
+{
+  v7 = result;
+  if (a3 == 0x7FFFFFFF)
+  {
+    *(result + 8) = (a2 - 1);
+  }
+
+  else
+  {
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+    v11 = *(v10 - 8);
+    if (*(v11 + 84) == a3)
+    {
+      v12 = v10;
+      v13 = *(v11 + 56);
+      v14 = v7 + *(a4 + 24);
+
+      return v13(v14, a2, a2, v12);
+    }
+
+    else
+    {
+      v15 = sub_20E3221C0();
+      v16 = *(*(v15 - 8) + 56);
+      v17 = v7 + *(a4 + 32);
+
+      return v16(v17, a2, a2, v15);
+    }
+  }
+
+  return result;
+}
+
+void sub_20E1ED754(uint64_t a1)
+{
+  sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E3221C0();
+    if (v2 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+void sub_20E1ED848(uint64_t a1)
+{
+  sub_20E1E240C(319, qword_280E0F1E0, type metadata accessor for ToolKitProtoTypedValue, MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E1E240C(319, qword_280E0ECE8, type metadata accessor for ToolKitProtoTypeInstance, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        sub_20E3221C0();
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_2344Tm(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
+{
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(a4, a5);
+  v9 = *(v8 - 8);
+  if (*(v9 + 84) == a2)
+  {
+    v10 = v8;
+    v11 = *(v9 + 48);
+    v12 = a1;
+LABEL_5:
+
+    return v11(v12, a2, v10);
+  }
+
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C8639D0, &unk_20E33C230);
+  v14 = *(v13 - 8);
+  if (*(v14 + 84) == a2)
+  {
+    v10 = v13;
+    v11 = *(v14 + 48);
+    v12 = a1 + *(a3 + 20);
+    goto LABEL_5;
+  }
+
+  v16 = sub_20E3221C0();
+  v17 = *(*(v16 - 8) + 48);
+  v18 = a1 + *(a3 + 28);
+
+  return v17(v18, a2, v16);
+}
+
+uint64_t __swift_store_extra_inhabitant_index_2345Tm(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
+{
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+  v11 = *(v10 - 8);
+  if (*(v11 + 84) == a3)
+  {
+    v12 = v10;
+    v13 = *(v11 + 56);
+    v14 = a1;
+LABEL_5:
+
+    return v13(v14, a2, a2, v12);
+  }
+
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C8639D0, &unk_20E33C230);
+  v16 = *(v15 - 8);
+  if (*(v16 + 84) == a3)
+  {
+    v12 = v15;
+    v13 = *(v16 + 56);
+    v14 = a1 + *(a4 + 20);
+    goto LABEL_5;
+  }
+
+  v18 = sub_20E3221C0();
+  v19 = *(*(v18 - 8) + 56);
+  v20 = a1 + *(a4 + 28);
+
+  return v19(v20, a2, a2, v18);
+}
+
+void sub_20E1EDC80(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t (*a5)(uint64_t))
+{
+  sub_20E1E240C(319, a4, a5, MEMORY[0x277D83D88]);
+  if (v5 <= 0x3F)
+  {
+    sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
+    if (v6 <= 0x3F)
+    {
+      sub_20E3221C0();
+      if (v7 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void sub_20E1EDD90(uint64_t a1)
+{
+  sub_20E1E240C(319, &qword_280E03F90, type metadata accessor for ContextProtoSpanMatchedEntity, MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E1E240C(319, &qword_280E03F10, type metadata accessor for TranscriptProtoDynamicEnumerationEntityStatement, MEMORY[0x277D83940]);
+    if (v2 <= 0x3F)
+    {
+      sub_20E1E240C(319, &qword_280E03F30, type metadata accessor for TranscriptProtoRetrievedContextStatement, MEMORY[0x277D83940]);
+      if (v3 <= 0x3F)
+      {
+        sub_20E1E240C(319, qword_280E04E60, type metadata accessor for ContextProtoQueryDecorationToolRetrievalResponse, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          sub_20E3221C0();
+          if (v5 <= 0x3F)
+          {
+            swift_cvw_initStructMetadataWithLayoutString();
+          }
+        }
+      }
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_1012Tm(uint64_t a1, uint64_t a2, int *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7)
+{
+  if (a2 == 0x7FFFFFFF)
+  {
+    v8 = *(a1 + 8);
+    if (v8 >= 0xFFFFFFFF)
+    {
+      LODWORD(v8) = -1;
+    }
+
+    return (v8 + 1);
+  }
+
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(a4, a5);
+  if (*(*(v14 - 8) + 84) == a2)
+  {
+    v15 = v14;
+    v16 = *(v14 - 8);
+    v17 = a3[5];
+LABEL_9:
+    v19 = *(v16 + 48);
+
+    return v19(a1 + v17, a2, v15);
+  }
+
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(a6, a7);
+  if (*(*(v18 - 8) + 84) == a2)
+  {
+    v15 = v18;
+    v16 = *(v18 - 8);
+    v17 = a3[6];
+    goto LABEL_9;
+  }
+
+  v20 = sub_20E3221C0();
+  v21 = *(*(v20 - 8) + 48);
+  v22 = a1 + a3[7];
+
+  return v21(v22, a2, v20);
+}
+
+uint64_t __swift_store_extra_inhabitant_index_1013Tm(uint64_t result, uint64_t a2, int a3, int *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8)
+{
+  v9 = result;
+  if (a3 == 0x7FFFFFFF)
+  {
+    *(result + 8) = (a2 - 1);
+    return result;
+  }
+
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+  if (*(*(v14 - 8) + 84) == a3)
+  {
+    v15 = v14;
+    v16 = *(v14 - 8);
+    v17 = a4[5];
+LABEL_7:
+    v19 = *(v16 + 56);
+
+    return v19(v9 + v17, a2, a2, v15);
+  }
+
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(a7, a8);
+  if (*(*(v18 - 8) + 84) == a3)
+  {
+    v15 = v18;
+    v16 = *(v18 - 8);
+    v17 = a4[6];
+    goto LABEL_7;
+  }
+
+  v20 = sub_20E3221C0();
+  v21 = *(*(v20 - 8) + 56);
+  v22 = v9 + a4[7];
+
+  return v21(v22, a2, a2, v20);
+}
+
+void sub_20E1EE25C(uint64_t a1)
+{
+  sub_20E1E240C(319, qword_280E0D780, type metadata accessor for TranscriptProtoStatementID, MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    sub_20E1E240C(319, qword_280E04700, type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayload, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      sub_20E3221C0();
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_269Tm(unint64_t *a1, uint64_t a2, uint64_t a3)
+{
+  if (a2 == 0x7FFFFFFF)
+  {
+    v4 = *a1;
+    if (*a1 >= 0xFFFFFFFF)
+    {
+      LODWORD(v4) = -1;
+    }
+
+    return (v4 + 1);
+  }
+
+  else
+  {
+    v8 = sub_20E3221C0();
+    v9 = *(*(v8 - 8) + 48);
+    v10 = a1 + *(a3 + 20);
+
+    return v9(v10, a2, v8);
+  }
+}
+
+void *__swift_store_extra_inhabitant_index_270Tm(void *result, uint64_t a2, int a3, uint64_t a4)
+{
+  v5 = result;
+  if (a3 == 0x7FFFFFFF)
+  {
+    *result = (a2 - 1);
+  }
+
+  else
+  {
+    v7 = sub_20E3221C0();
+    v8 = *(*(v7 - 8) + 56);
+    v9 = v5 + *(a4 + 20);
+
+    return v8(v9, a2, a2, v7);
+  }
+
+  return result;
+}
+
+uint64_t sub_20E1EE6D4(uint64_t a1)
+{
+  result = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedStringVariant(319);
+  if (v2 <= 0x3F)
+  {
+    result = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedTypedValueVariant(319);
+    if (v3 <= 0x3F)
+    {
+      result = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedRetrievedContextVariant(319);
+      if (v4 <= 0x3F)
+      {
+        result = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedSpanMatchedEntityVariant(319);
+        if (v5 <= 0x3F)
+        {
+          result = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedRetrievedToolVariant(319);
+          if (v6 <= 0x3F)
+          {
+            result = type metadata accessor for TranscriptProtoQueryDecorationPrePlannerResultPayloadRepeatedToolQueryOutputVariant(319);
+            if (v7 <= 0x3F)
+            {
+              swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
+              return 0;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t __swift_get_extra_inhabitant_index_454Tm(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
+{
+  if (a2 == 0x7FFFFFFF)
+  {
+    v6 = *a1;
+    if (*a1 >= 0xFFFFFFFF)
+    {
+      LODWORD(v6) = -1;
+    }
+
+    return (v6 + 1);
+  }
+
+  else
+  {
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(a4, a5);
+    v11 = *(v10 - 8);
+    if (*(v11 + 84) == a2)
+    {
+      v12 = v10;
+      v13 = *(v11 + 48);
+      v14 = a1 + *(a3 + 20);
+
+      return v13(v14, a2, v12);
+    }
+
+    else
+    {
+      v15 = sub_20E3221C0();
+      v16 = *(*(v15 - 8) + 48);
+      v17 = a1 + *(a3 + 24);
+
+      return v16(v17, a2, v15);
+    }
+  }
+}
+
+void *__swift_store_extra_inhabitant_index_455Tm(void *result, uint64_t a2, int a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
+{
+  v7 = result;
+  if (a3 == 0x7FFFFFFF)
+  {
+    *result = (a2 - 1);
+  }
+
+  else
+  {
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+    v11 = *(v10 - 8);
+    if (*(v11 + 84) == a3)
+    {
+      v12 = v10;
+      v13 = *(v11 + 56);
+      v14 = v7 + *(a4 + 20);
+
+      return v13(v14, a2, a2, v12);
+    }
+
+    else
+    {
+      v15 = sub_20E3221C0();
+      v16 = *(*(v15 - 8) + 56);
+      v17 = v7 + *(a4 + 24);
+
+      return v16(v17, a2, a2, v15);
+    }
+  }
+
+  return result;
+}
+
+void sub_20E1EEAF8(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t (*a5)(uint64_t), uint64_t (*a6)(uint64_t, uint64_t))
+{
+  sub_20E1E240C(319, a4, a5, a6);
+  if (v6 <= 0x3F)
+  {
+    sub_20E3221C0();
+    if (v7 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_197Tm(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
+{
+  if (a2 == 0x7FFFFFFF)
+  {
+    v6 = *(a1 + 8);
+    if (v6 >= 0xFFFFFFFF)
+    {
+      LODWORD(v6) = -1;
+    }
+
+    return (v6 + 1);
+  }
+
+  else
+  {
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(a4, a5);
+    v11 = *(v10 - 8);
+    if (*(v11 + 84) == a2)
+    {
+      v12 = v10;
+      v13 = *(v11 + 48);
+      v14 = a1 + *(a3 + 20);
+
+      return v13(v14, a2, v12);
+    }
+
+    else
+    {
+      v15 = sub_20E3221C0();
+      v16 = *(*(v15 - 8) + 48);
+      v17 = a1 + *(a3 + 24);
+
+      return v16(v17, a2, v15);
+    }
+  }
+}
+
+uint64_t __swift_store_extra_inhabitant_index_198Tm(uint64_t result, uint64_t a2, int a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
+{
+  v7 = result;
+  if (a3 == 0x7FFFFFFF)
+  {
+    *(result + 8) = (a2 - 1);
+  }
+
+  else
+  {
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+    v11 = *(v10 - 8);
+    if (*(v11 + 84) == a3)
+    {
+      v12 = v10;
+      v13 = *(v11 + 56);
+      v14 = v7 + *(a4 + 20);
+
+      return v13(v14, a2, a2, v12);
+    }
+
+    else
+    {
+      v15 = sub_20E3221C0();
+      v16 = *(*(v15 - 8) + 56);
+      v17 = v7 + *(a4 + 24);
+
+      return v16(v17, a2, a2, v15);
+    }
+  }
+
+  return result;
+}
+
+void sub_20E1EEE54(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t *a5, uint64_t (*a6)(uint64_t))
+{
+  sub_20E1E240C(319, a5, a6, MEMORY[0x277D83D88]);
+  if (v6 <= 0x3F)
+  {
+    sub_20E3221C0();
+    if (v7 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_242Tm(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_20E3221C0();
+  v5 = *(*(v4 - 8) + 48);
+
+  return v5(a1, a2, v4);
+}
+
+uint64_t __swift_store_extra_inhabitant_index_243Tm(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_20E3221C0();
+  v5 = *(*(v4 - 8) + 56);
+
+  return v5(a1, a2, a2, v4);
+}
+
+uint64_t sub_20E1EF028(uint64_t a1)
+{
+  result = sub_20E3221C0();
+  if (v2 <= 0x3F)
+  {
+    swift_cvw_initStructMetadataWithLayoutString();
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t __swift_get_extra_inhabitant_index_233Tm(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (a2 == 0x7FFFFFFF)
+  {
+    v4 = *(a1 + 8);
+    if (v4 >= 0xFFFFFFFF)
+    {
+      LODWORD(v4) = -1;
+    }
+
+    return (v4 + 1);
+  }
+
+  else
+  {
+    v8 = sub_20E3221C0();
+    v9 = *(*(v8 - 8) + 48);
+    v10 = a1 + *(a3 + 20);
+
+    return v9(v10, a2, v8);
+  }
+}
+
+uint64_t __swift_store_extra_inhabitant_index_234Tm(uint64_t result, uint64_t a2, int a3, uint64_t a4)
+{
+  v5 = result;
+  if (a3 == 0x7FFFFFFF)
+  {
+    *(result + 8) = (a2 - 1);
+  }
+
+  else
+  {
+    v7 = sub_20E3221C0();
+    v8 = *(*(v7 - 8) + 56);
+    v9 = v5 + *(a4 + 20);
+
+    return v8(v9, a2, a2, v7);
+  }
+
+  return result;
+}
+
+uint64_t sub_20E1EF20C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = sub_20E3221C0();
+  if (v5 <= 0x3F)
+  {
+    swift_cvw_initStructMetadataWithLayoutString();
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t sub_20E1EF280(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+{
+  v5 = a3(0);
+  (*(*(v5 - 8) + 32))(a2, a1, v5);
+  return a2;
+}
+
+unint64_t sub_20E1EF2E8()
+{
+  result = qword_27C865988;
+  if (!qword_27C865988)
+  {
+    sub_20E3221C0();
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27C865988);
+  }
+
+  return result;
+}
+
+uint64_t sub_20E1EFC04()
+{
+  v0 = sub_20E3225C0();
+  __swift_allocate_value_buffer(v0, qword_27C868F48);
+  __swift_project_value_buffer(v0, qword_27C868F48);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EE8, &qword_20E33AFB8);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EF0, &qword_20E33AFC0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v19 = swift_allocObject();
+  *(v19 + 16) = xmmword_20E3262C0;
+  v4 = v19 + v3;
+  v5 = v19 + v3 + v1[14];
+  *(v19 + v3) = 0;
+  *v5 = "onScreen";
+  *(v5 + 8) = 8;
+  *(v5 + 16) = 2;
+  v6 = *MEMORY[0x277D21870];
+  v7 = sub_20E322590();
+  v8 = *(*(v7 - 8) + 104);
+  (v8)(v5, v6, v7);
+  v9 = v4 + v2 + v1[14];
+  *(v4 + v2) = 1;
+  *v9 = "conversational";
+  *(v9 + 8) = 14;
+  *(v9 + 16) = 2;
+  v8();
+  v10 = (v4 + 2 * v2);
+  v11 = v10 + v1[14];
+  *v10 = 2;
+  *v11 = "announcement";
+  *(v11 + 1) = 12;
+  v11[16] = 2;
+  v8();
+  v12 = (v4 + 3 * v2);
+  v13 = v12 + v1[14];
+  *v12 = 3;
+  *v13 = "notification";
+  *(v13 + 1) = 12;
+  v13[16] = 2;
+  v8();
+  v14 = (v4 + 4 * v2);
+  v15 = v14 + v1[14];
+  *v14 = 4;
+  *v15 = "visual";
+  *(v15 + 1) = 6;
+  v15[16] = 2;
+  v8();
+  v16 = (v4 + 5 * v2);
+  v17 = v16 + v1[14];
+  *v16 = 5;
+  *v17 = "unknownSource";
+  *(v17 + 1) = 13;
+  v17[16] = 2;
+  v8();
+  return sub_20E3225A0();
+}
+
+uint64_t sub_20E1EFF10()
+{
+  v0 = sub_20E3225C0();
+  __swift_allocate_value_buffer(v0, qword_27C868F60);
+  __swift_project_value_buffer(v0, qword_27C868F60);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EE8, &qword_20E33AFB8);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EF0, &qword_20E33AFC0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v70 = swift_allocObject();
+  *(v70 + 16) = xmmword_20E342180;
+  v4 = v70 + v3;
+  v5 = v70 + v3 + v1[14];
+  *(v70 + v3) = 0;
+  *v5 = "APP_IN_FOCUS_BUNDLE_ID";
+  *(v5 + 8) = 22;
+  *(v5 + 16) = 2;
+  v6 = *MEMORY[0x277D21870];
+  v7 = sub_20E322590();
+  v8 = *(*(v7 - 8) + 104);
+  (v8)(v5, v6, v7);
+  v9 = v4 + v2 + v1[14];
+  *(v4 + v2) = 1;
+  *v9 = "BLUETOOTH_DEVICE_TYPE";
+  *(v9 + 8) = 21;
+  *(v9 + 16) = 2;
+  v8();
+  v10 = (v4 + 2 * v2);
+  v11 = v10 + v1[14];
+  *v10 = 2;
+  *v11 = "CALENDAR_EVENTS";
+  *(v11 + 1) = 15;
+  v11[16] = 2;
+  v8();
+  v12 = (v4 + 3 * v2);
+  v13 = v12 + v1[14];
+  *v12 = 3;
+  *v13 = "MOTION_STATE";
+  *(v13 + 1) = 12;
+  v13[16] = 2;
+  v8();
+  v14 = (v4 + 4 * v2);
+  v15 = v14 + v1[14];
+  *v14 = 4;
+  *v15 = "NOW_PLAYING_PLAYBACK_STATE";
+  *(v15 + 1) = 26;
+  v15[16] = 2;
+  v8();
+  v16 = (v4 + 5 * v2);
+  v17 = v16 + v1[14];
+  *v16 = 5;
+  *v17 = "POINT_OF_INTEREST";
+  *(v17 + 1) = 17;
+  v17[16] = 2;
+  v8();
+  v18 = (v4 + 6 * v2);
+  v19 = v18 + v1[14];
+  *v18 = 6;
+  *v19 = "RECENT_TRANSCRIPT";
+  *(v19 + 1) = 17;
+  v19[16] = 2;
+  v8();
+  v20 = (v4 + 7 * v2);
+  v21 = v20 + v1[14];
+  *v20 = 7;
+  *v21 = "SEMANTIC_LOCATION";
+  *(v21 + 1) = 17;
+  v21[16] = 2;
+  v8();
+  v22 = v4 + 8 * v2 + v1[14];
+  *(v4 + 8 * v2) = 8;
+  *v22 = "ON_SCREEN_CONTENT_EMAIL_ADDRESS";
+  *(v22 + 8) = 31;
+  *(v22 + 16) = 2;
+  v8();
+  v23 = (v4 + 9 * v2);
+  v24 = v23 + v1[14];
+  *v23 = 9;
+  *v24 = "ON_SCREEN_CONTENT_PHONE_NUMBER";
+  *(v24 + 1) = 30;
+  v24[16] = 2;
+  v8();
+  v25 = (v4 + 10 * v2);
+  v26 = v25 + v1[14];
+  *v25 = 10;
+  *v26 = "ON_SCREEN_CONTENT_POSTAL_ADDRESS";
+  *(v26 + 1) = 32;
+  v26[16] = 2;
+  v8();
+  v27 = (v4 + 11 * v2);
+  v28 = v27 + v1[14];
+  *v27 = 11;
+  *v28 = "ON_SCREEN_CONTENT_URI_LINK";
+  *(v28 + 1) = 26;
+  v28[16] = 2;
+  v8();
+  v29 = (v4 + 12 * v2);
+  v30 = v29 + v1[14];
+  *v29 = 12;
+  *v30 = "ON_SCREEN_PERSON";
+  *(v30 + 1) = 16;
+  v30[16] = 2;
+  v8();
+  v31 = (v4 + 13 * v2);
+  v32 = v31 + v1[14];
+  *v31 = 13;
+  *v32 = "ON_SCREEN_HOME";
+  *(v32 + 1) = 14;
+  v32[16] = 2;
+  v8();
+  v33 = (v4 + 14 * v2);
+  v34 = v33 + v1[14];
+  *v33 = 14;
+  *v34 = "ON_SCREEN_NOTIFICATION";
+  *(v34 + 1) = 22;
+  v34[16] = 2;
+  v8();
+  v35 = (v4 + 15 * v2);
+  v36 = v35 + v1[14];
+  *v35 = 15;
+  *v36 = "ON_SCREEN_DATE_TIME";
+  *(v36 + 1) = 19;
+  v36[16] = 2;
+  v8();
+  v37 = v4 + 16 * v2 + v1[14];
+  *(v4 + 16 * v2) = 16;
+  *v37 = "CONVERSATIONAL_REMINDER";
+  *(v37 + 8) = 23;
+  *(v37 + 16) = 2;
+  v8();
+  v38 = (v4 + 17 * v2);
+  v39 = v38 + v1[14];
+  *v38 = 17;
+  *v39 = "CONVERSATIONAL_CALENDAR_EVENT";
+  *(v39 + 1) = 29;
+  v39[16] = 2;
+  v8();
+  v40 = (v4 + 18 * v2);
+  v41 = v40 + v1[14];
+  *v40 = 18;
+  *v41 = "CONVERSATIONAL_PEOPLE";
+  *(v41 + 1) = 21;
+  v41[16] = 2;
+  v8();
+  v42 = (v4 + 19 * v2);
+  v43 = v42 + v1[14];
+  *v42 = 19;
+  *v43 = "CONVERSATIONAL_PLACES";
+  *(v43 + 1) = 21;
+  v43[16] = 2;
+  v8();
+  v44 = (v4 + 20 * v2);
+  v45 = v44 + v1[14];
+  *v44 = 20;
+  *v45 = "CONVERSATIONAL_ALARM";
+  *(v45 + 1) = 20;
+  v45[16] = 2;
+  v8();
+  v46 = (v4 + 21 * v2);
+  v47 = v46 + v1[14];
+  *v46 = 21;
+  *v47 = "CONVERSATIONAL_TIMER";
+  *(v47 + 1) = 20;
+  v47[16] = 2;
+  v8();
+  v48 = (v4 + 22 * v2);
+  v49 = v48 + v1[14];
+  *v48 = 22;
+  *v49 = "NOW_PLAYING_MEDIA_ITEM";
+  *(v49 + 1) = 22;
+  v49[16] = 2;
+  v8();
+  v50 = (v4 + 23 * v2);
+  v51 = v50 + v1[14];
+  *v50 = 23;
+  *v51 = "ON_SCREEN_CONTENT_APP_ENTITY";
+  *(v51 + 1) = 28;
+  v51[16] = 2;
+  v8();
+  v52 = (v4 + 24 * v2);
+  v53 = v52 + v1[14];
+  *v52 = 24;
+  *v53 = "SIRI_REQUEST_CONTEXT";
+  *(v53 + 1) = 20;
+  v53[16] = 2;
+  v8();
+  v54 = (v4 + 25 * v2);
+  v55 = v54 + v1[14];
+  *v54 = 25;
+  *v55 = "CURRENT_LOCATION";
+  *(v55 + 1) = 16;
+  v55[16] = 2;
+  v8();
+  v56 = (v4 + 26 * v2);
+  v57 = v56 + v1[14];
+  *v56 = 26;
+  *v57 = "INTELLIGENCE_COMMAND";
+  *(v57 + 1) = 20;
+  v57[16] = 2;
+  v8();
+  v58 = (v4 + 27 * v2);
+  v59 = v58 + v1[14];
+  *v58 = 27;
+  *v59 = "HAS_FOCUSED_ON_SCREEN_DOCUMENT";
+  *(v59 + 1) = 30;
+  v59[16] = 2;
+  v8();
+  v60 = (v4 + 28 * v2);
+  v61 = v60 + v1[14];
+  *v60 = 28;
+  *v61 = "HAS_FOCUSED_ON_SCREEN_IMAGE";
+  *(v61 + 1) = 27;
+  v61[16] = 2;
+  v8();
+  v62 = (v4 + 29 * v2);
+  v63 = v62 + v1[14];
+  *v62 = 29;
+  *v63 = "ON_SCREEN_UI_TEXT";
+  *(v63 + 1) = 17;
+  v63[16] = 2;
+  v8();
+  v64 = (v4 + 30 * v2);
+  v65 = v64 + v1[14];
+  *v64 = 30;
+  *v65 = "ON_SCREEN_APP";
+  *(v65 + 1) = 13;
+  v65[16] = 2;
+  v8();
+  v66 = (v4 + 31 * v2);
+  v67 = v66 + v1[14];
+  *v66 = 31;
+  *v67 = "ON_SCREEN_CONTENT_DOCUMENT_IMAGE";
+  *(v67 + 1) = 32;
+  v67[16] = 2;
+  v8();
+  v68 = v4 + 32 * v2 + v1[14];
+  *(v4 + 32 * v2) = 32;
+  *v68 = "LIVE_CALL";
+  *(v68 + 8) = 9;
+  *(v68 + 16) = 2;
+  v8();
+  return sub_20E3225A0();
+}
+
+uint64_t sub_20E1F0874()
+{
+  v0 = sub_20E3225C0();
+  __swift_allocate_value_buffer(v0, qword_27C868F78);
+  __swift_project_value_buffer(v0, qword_27C868F78);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EE8, &qword_20E33AFB8);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EF0, &qword_20E33AFC0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v20 = swift_allocObject();
+  *(v20 + 16) = xmmword_20E326330;
+  v4 = v20 + v3 + v1[14];
+  *(v20 + v3) = 0;
+  *v4 = "PlaybackStateUnknown";
+  *(v4 + 8) = 20;
+  *(v4 + 16) = 2;
+  v5 = *MEMORY[0x277D21870];
+  v6 = sub_20E322590();
+  v7 = *(*(v6 - 8) + 104);
+  (v7)(v4, v5, v6);
+  v8 = v20 + v3 + v2 + v1[14];
+  *(v20 + v3 + v2) = 1;
+  *v8 = "PlaybackStatePlaying";
+  *(v8 + 8) = 20;
+  *(v8 + 16) = 2;
+  v7();
+  v9 = (v20 + v3 + 2 * v2);
+  v10 = v9 + v1[14];
+  *v9 = 2;
+  *v10 = "PlaybackStatePaused";
+  *(v10 + 1) = 19;
+  v10[16] = 2;
+  v7();
+  v11 = (v20 + v3 + 3 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "PlaybackStateStopped";
+  *(v12 + 1) = 20;
+  v12[16] = 2;
+  v7();
+  v13 = (v20 + v3 + 4 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "PlaybackStateInterrupted";
+  *(v14 + 1) = 24;
+  v14[16] = 2;
+  v7();
+  v15 = (v20 + v3 + 5 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 5;
+  *v16 = "PlaybackStateSeeking";
+  *(v16 + 1) = 20;
+  v16[16] = 2;
+  v7();
+  v17 = (v20 + v3 + 6 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 6;
+  *v18 = "PlaybackStateUnsupported";
+  *(v18 + 1) = 24;
+  v18[16] = 2;
+  v7();
+  return sub_20E3225A0();
+}
+
+uint64_t sub_20E1F0BBC()
+{
+  v0 = sub_20E3225C0();
+  __swift_allocate_value_buffer(v0, qword_27C868F90);
+  __swift_project_value_buffer(v0, qword_27C868F90);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EE8, &qword_20E33AFB8);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EF0, &qword_20E33AFC0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_20E3262F0;
+  v5 = v4 + v3;
+  v6 = v4 + v3 + v1[14];
+  *(v4 + v3) = 0;
+  *v6 = "MediaTypeNone";
+  *(v6 + 8) = 13;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x277D21870];
+  v8 = sub_20E322590();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 1;
+  *v10 = "MediaTypeAudio";
+  *(v10 + 8) = 14;
+  *(v10 + 16) = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 2;
+  *v12 = "MediaTypeVideo";
+  *(v12 + 1) = 14;
+  v12[16] = 2;
+  v9();
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 3;
+  *v14 = "MediaTypeUnsupported";
+  *(v14 + 1) = 20;
+  v14[16] = 2;
+  v9();
+  return sub_20E3225A0();
+}
+
+uint64_t sub_20E1F0E50()
+{
+  v0 = sub_20E3225C0();
+  __swift_allocate_value_buffer(v0, qword_27C868FA8);
+  __swift_project_value_buffer(v0, qword_27C868FA8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EE8, &qword_20E33AFB8);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EF0, &qword_20E33AFC0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v24 = swift_allocObject();
+  *(v24 + 16) = xmmword_20E342190;
+  v4 = v24 + v3;
+  v5 = v24 + v3 + v1[14];
+  *(v24 + v3) = 0;
+  *v5 = "MediaSubTypeMusic";
+  *(v5 + 8) = 17;
+  *(v5 + 16) = 2;
+  v6 = *MEMORY[0x277D21870];
+  v7 = sub_20E322590();
+  v8 = *(*(v7 - 8) + 104);
+  (v8)(v5, v6, v7);
+  v9 = v4 + v2 + v1[14];
+  *(v4 + v2) = 1;
+  *v9 = "MediaSubTypeTVShow";
+  *(v9 + 8) = 18;
+  *(v9 + 16) = 2;
+  v8();
+  v10 = (v4 + 2 * v2);
+  v11 = v10 + v1[14];
+  *v10 = 2;
+  *v11 = "MediaSubTypeMovie";
+  *(v11 + 1) = 17;
+  v11[16] = 2;
+  v8();
+  v12 = (v4 + 3 * v2);
+  v13 = v12 + v1[14];
+  *v12 = 3;
+  *v13 = "MediaSubTypePodcast";
+  *(v13 + 1) = 19;
+  v13[16] = 2;
+  v8();
+  v14 = (v4 + 4 * v2);
+  v15 = v14 + v1[14];
+  *v14 = 4;
+  *v15 = "MediaSubTypeAudiobook";
+  *(v15 + 1) = 21;
+  v15[16] = 2;
+  v8();
+  v16 = (v4 + 5 * v2);
+  v17 = v16 + v1[14];
+  *v16 = 5;
+  *v17 = "MediaSubTypeITunesU";
+  *(v17 + 1) = 19;
+  v17[16] = 2;
+  v8();
+  v18 = (v4 + 6 * v2);
+  v19 = v18 + v1[14];
+  *v18 = 6;
+  *v19 = "MediaSubTypeHomeMedia";
+  *(v19 + 1) = 21;
+  v19[16] = 2;
+  v8();
+  v20 = (v4 + 7 * v2);
+  v21 = v20 + v1[14];
+  *v20 = 7;
+  *v21 = "MediaSubTypeUnsupported";
+  *(v21 + 1) = 23;
+  v21[16] = 2;
+  v8();
+  v22 = v4 + 8 * v2 + v1[14];
+  *(v4 + 8 * v2) = 8;
+  *v22 = "MediaSubTypeNone";
+  *(v22 + 8) = 16;
+  *(v22 + 16) = 2;
+  v8();
+  return sub_20E3225A0();
+}
+
+uint64_t sub_20E1F121C()
+{
+  v0 = sub_20E3225C0();
+  __swift_allocate_value_buffer(v0, qword_27C868FC0);
+  __swift_project_value_buffer(v0, qword_27C868FC0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EE8, &qword_20E33AFB8);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EF0, &qword_20E33AFC0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_20E326320;
+  v5 = v4 + v3;
+  v6 = v4 + v3 + v1[14];
+  *(v4 + v3) = 0;
+  *v6 = "Unknown";
+  *(v6 + 8) = 7;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x277D21870];
+  v8 = sub_20E322590();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 1;
+  *v10 = "Unsure1";
+  *(v10 + 8) = 7;
+  *(v10 + 16) = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 2;
+  *v12 = "UnsureN";
+  *(v12 + 1) = 7;
+  v12[16] = 2;
+  v9();
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 3;
+  *v14 = "Known";
+  *(v14 + 1) = 5;
+  v14[16] = 2;
+  v9();
+  v15 = v5 + 4 * v2 + v1[14];
+  *(v5 + 4 * v2) = 4;
+  *v15 = "Confident";
+  *(v15 + 8) = 9;
+  *(v15 + 16) = 2;
+  v9();
+  return sub_20E3225A0();
+}
+
+uint64_t sub_20E1F14F8()
+{
+  v0 = sub_20E3225C0();
+  __swift_allocate_value_buffer(v0, qword_27C868FD8);
+  __swift_project_value_buffer(v0, qword_27C868FD8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EE8, &qword_20E33AFB8);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EF0, &qword_20E33AFC0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v30 = swift_allocObject();
+  *(v30 + 16) = xmmword_20E326300;
+  v4 = v30 + v3;
+  v5 = v30 + v3 + v1[14];
+  *(v30 + v3) = 0;
+  *v5 = "DeviceIdiomUnknown";
+  *(v5 + 8) = 18;
+  *(v5 + 16) = 2;
+  v6 = *MEMORY[0x277D21870];
+  v7 = sub_20E322590();
+  v8 = *(*(v7 - 8) + 104);
+  (v8)(v5, v6, v7);
+  v9 = v30 + v3 + v2 + v1[14];
+  *(v4 + v2) = 1;
+  *v9 = "CarPlay";
+  *(v9 + 8) = 7;
+  *(v9 + 16) = 2;
+  v8();
+  v10 = (v30 + v3 + 2 * v2);
+  v11 = v10 + v1[14];
+  *v10 = 2;
+  *v11 = "EyesFree";
+  *(v11 + 1) = 8;
+  v11[16] = 2;
+  v8();
+  v12 = (v30 + v3 + 3 * v2);
+  v13 = v12 + v1[14];
+  *v12 = 3;
+  *v13 = "HomePod";
+  *(v13 + 1) = 7;
+  v13[16] = 2;
+  v8();
+  v14 = (v30 + v3 + 4 * v2);
+  v15 = v14 + v1[14];
+  *v14 = 4;
+  *v15 = "Mac";
+  *(v15 + 1) = 3;
+  v15[16] = 2;
+  v8();
+  v16 = (v30 + v3 + 5 * v2);
+  v17 = v16 + v1[14];
+  *v16 = 5;
+  *v17 = "AirPods";
+  *(v17 + 1) = 7;
+  v17[16] = 2;
+  v8();
+  v18 = (v30 + v3 + 6 * v2);
+  v19 = v18 + v1[14];
+  *v18 = 6;
+  *v19 = "IPhone";
+  *(v19 + 1) = 6;
+  v19[16] = 2;
+  v8();
+  v20 = (v30 + v3 + 7 * v2);
+  v21 = v20 + v1[14];
+  *v20 = 7;
+  *v21 = "IPad";
+  *(v21 + 1) = 4;
+  v21[16] = 2;
+  v8();
+  v22 = v30 + v3 + 8 * v2 + v1[14];
+  *(v4 + 8 * v2) = 8;
+  *v22 = "Watch";
+  *(v22 + 8) = 5;
+  *(v22 + 16) = 2;
+  v8();
+  v23 = (v30 + v3 + 9 * v2);
+  v24 = v23 + v1[14];
+  *v23 = 9;
+  *v24 = "TV";
+  *(v24 + 1) = 2;
+  v24[16] = 2;
+  v8();
+  v25 = (v30 + v3 + 10 * v2);
+  v26 = v25 + v1[14];
+  *v25 = 10;
+  *v26 = "Vision";
+  *(v26 + 1) = 6;
+  v26[16] = 2;
+  v8();
+  v27 = (v30 + v3 + 11 * v2);
+  v28 = v27 + v1[14];
+  *v27 = 11;
+  *v28 = "ELEVEN";
+  *(v28 + 1) = 6;
+  v28[16] = 2;
+  v8();
+  return sub_20E3225A0();
+}
+
+uint64_t sub_20E1F1968()
+{
+  v0 = sub_20E3225C0();
+  __swift_allocate_value_buffer(v0, qword_27C868FF0);
+  __swift_project_value_buffer(v0, qword_27C868FF0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EE8, &qword_20E33AFB8);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EF0, &qword_20E33AFC0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_20E326010;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 0;
+  *v6 = "LOW";
+  *(v6 + 8) = 3;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x277D21870];
+  v8 = sub_20E322590();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 1;
+  *v10 = "MEDIUM";
+  *(v10 + 1) = 6;
+  v10[16] = 2;
+  v9();
+  v11 = v5 + 2 * v2 + v1[14];
+  *(v5 + 2 * v2) = 2;
+  *v11 = "HIGH";
+  *(v11 + 8) = 4;
+  *(v11 + 16) = 2;
+  v9();
+  return sub_20E3225A0();
+}
+
+uint64_t sub_20E1F1BC4()
+{
+  v0 = sub_20E3225C0();
+  __swift_allocate_value_buffer(v0, qword_27C869008);
+  __swift_project_value_buffer(v0, qword_27C869008);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EE8, &qword_20E33AFB8);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EF0, &qword_20E33AFC0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_20E3262C0;
+  v5 = v4 + v3;
+  v6 = v4 + v3 + v1[14];
+  *(v4 + v3) = 0;
+  *v6 = "spanMatching";
+  *(v6 + 8) = 12;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x277D21870];
+  v8 = sub_20E322590();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 1;
+  *v10 = "contextRetrieval";
+  *(v10 + 8) = 16;
+  *(v10 + 16) = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 2;
+  *v12 = "toolRetrieval";
+  *(v12 + 1) = 13;
+  v12[16] = 2;
+  v9();
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 3;
+  *v14 = "toolContextRetrieval";
+  *(v14 + 1) = 20;
+  v14[16] = 2;
+  v9();
+  v15 = (v5 + 4 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 4;
+  *v16 = "jointResolver";
+  *(v16 + 1) = 13;
+  v16[16] = 2;
+  v9();
+  v17 = (v5 + 5 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 5;
+  *v18 = "screenContentRetrieval";
+  *(v18 + 1) = 22;
+  v18[16] = 2;
+  v9();
+  return sub_20E3225A0();
+}
+
+uint64_t sub_20E1F1ED8()
+{
+  v0 = sub_20E3225C0();
+  __swift_allocate_value_buffer(v0, qword_27C869020);
+  __swift_project_value_buffer(v0, qword_27C869020);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EE8, &qword_20E33AFB8);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EF0, &qword_20E33AFC0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_20E326010;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 0;
+  *v6 = "unset";
+  *(v6 + 8) = 5;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x277D21870];
+  v8 = sub_20E322590();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 1;
+  *v10 = "prePlanner";
+  *(v10 + 1) = 10;
+  v10[16] = 2;
+  v9();
+  v11 = v5 + 2 * v2 + v1[14];
+  *(v5 + 2 * v2) = 2;
+  *v11 = "fullPlanner";
+  *(v11 + 8) = 11;
+  *(v11 + 16) = 2;
+  v9();
+  return sub_20E3225A0();
+}
+
+uint64_t sub_20E1F2134()
+{
+  v0 = sub_20E3225C0();
+  __swift_allocate_value_buffer(v0, qword_27C869038);
+  __swift_project_value_buffer(v0, qword_27C869038);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EE8, &qword_20E33AFB8);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EF0, &qword_20E33AFC0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_20E326010;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 0;
+  *v6 = "unknown";
+  *(v6 + 8) = 7;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x277D21870];
+  v8 = sub_20E322590();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 1;
+  *v10 = "siriEntityMatcher";
+  *(v10 + 1) = 17;
+  v10[16] = 2;
+  v9();
+  v11 = v5 + 2 * v2 + v1[14];
+  *(v5 + 2 * v2) = 2;
+  *v11 = "globalEntityMatcher";
+  *(v11 + 8) = 19;
+  *(v11 + 16) = 2;
+  v9();
+  return sub_20E3225A0();
+}
+
+uint64_t sub_20E1F2390()
+{
+  v0 = sub_20E3225C0();
+  __swift_allocate_value_buffer(v0, qword_27C869050);
+  __swift_project_value_buffer(v0, qword_27C869050);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EE8, &qword_20E33AFB8);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EF0, &qword_20E33AFC0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_20E326330;
+  v5 = v4 + v3;
+  v6 = v4 + v3 + v1[14];
+  *(v4 + v3) = 0;
+  *v6 = "homeEntity";
+  *(v6 + 8) = 10;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x277D21870];
+  v8 = sub_20E322590();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 1;
+  *v10 = "synonym";
+  *(v10 + 8) = 7;
+  *(v10 + 16) = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 2;
+  *v12 = "transliteration";
+  *(v12 + 1) = 15;
+  v12[16] = 2;
+  v9();
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 3;
+  *v14 = "expandedEmoji";
+  *(v14 + 1) = 13;
+  v14[16] = 2;
+  v9();
+  v15 = (v5 + 4 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 4;
+  *v16 = "contactRelationship";
+  *(v16 + 1) = 19;
+  v16[16] = 2;
+  v9();
+  v17 = (v5 + 5 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 5;
+  *v18 = "contactHypocorism";
+  *(v18 + 1) = 17;
+  v18[16] = 2;
+  v9();
+  v19 = (v5 + 6 * v2);
+  v20 = v19 + v1[14];
+  *v19 = 6;
+  *v20 = "contactHandle";
+  *(v20 + 1) = 13;
+  v20[16] = 2;
+  v9();
+  return sub_20E3225A0();
+}
+
+uint64_t sub_20E1F26FC()
+{
+  v0 = sub_20E3225C0();
+  __swift_allocate_value_buffer(v0, qword_27C869068);
+  __swift_project_value_buffer(v0, qword_27C869068);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EE8, &qword_20E33AFB8);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EF0, &qword_20E33AFC0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v20 = swift_allocObject();
+  *(v20 + 16) = xmmword_20E326330;
+  v4 = v20 + v3 + v1[14];
+  *(v20 + v3) = 1;
+  *v4 = "value";
+  *(v4 + 8) = 5;
+  *(v4 + 16) = 2;
+  v5 = *MEMORY[0x277D21870];
+  v6 = sub_20E322590();
+  v7 = *(*(v6 - 8) + 104);
+  (v7)(v4, v5, v6);
+  v8 = v20 + v3 + v2 + v1[14];
+  *(v20 + v3 + v2) = 2;
+  *v8 = "relevance";
+  *(v8 + 8) = 9;
+  *(v8 + 16) = 2;
+  v7();
+  v9 = (v20 + v3 + 2 * v2);
+  v10 = v9 + v1[14];
+  *v9 = 3;
+  *v10 = "type";
+  *(v10 + 1) = 4;
+  v10[16] = 2;
+  v7();
+  v11 = (v20 + v3 + 3 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 4;
+  *v12 = "metadata";
+  *(v12 + 1) = 8;
+  v12[16] = 2;
+  v7();
+  v13 = (v20 + v3 + 4 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 5;
+  *v14 = "typedValue";
+  *(v14 + 1) = 10;
+  v14[16] = 2;
+  v7();
+  v15 = (v20 + v3 + 5 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 6;
+  *v16 = "structuredContext";
+  *(v16 + 1) = 17;
+  v16[16] = 2;
+  v7();
+  v17 = (v20 + v3 + 6 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 7;
+  *v18 = "identifier";
+  *(v18 + 1) = 10;
+  v18[16] = 2;
+  v7();
+  return sub_20E3225A0();
+}
+
+uint64_t ContextProtoRetrievedContext.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  result = sub_20E3222B0();
+  if (!v4)
+  {
+    while ((v10 & 1) == 0)
+    {
+      if (result <= 3)
+      {
+        switch(result)
+        {
+          case 1:
+            sub_20E1F2BB0(a1, v5, a2, a3);
+            break;
+          case 2:
+            sub_20E1F2C64(a1, v5, a2, a3);
+            break;
+          case 3:
+            sub_20E06396C();
+            sub_20E322310();
+            break;
+        }
+      }
+
+      else if (result > 5)
+      {
+        if (result == 6)
+        {
+          sub_20E1F2E80(a1, v5, a2, a3);
+        }
+
+        else if (result == 7)
+        {
+          type metadata accessor for ContextProtoRetrievedContext(0);
+          sub_20E3223D0();
+        }
+      }
+
+      else if (result == 4)
+      {
+        sub_20E1F2D18(a1, v5, a2, a3);
+      }
+
+      else
+      {
+        sub_20E1F2DCC(a1, v5, a2, a3);
+      }
+
+      result = sub_20E3222B0();
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_20E1F2BB0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  type metadata accessor for ContextProtoRetrievedContext(0);
+  type metadata accessor for ToolKitProtoTypedValue(0);
+  sub_20E21DA3C(qword_280E0F228, type metadata accessor for ToolKitProtoTypedValue, &protocol conformance descriptor for ToolKitProtoTypedValue);
+  return sub_20E322430();
+}
+
+uint64_t sub_20E1F2C64(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  type metadata accessor for ContextProtoRetrievedContext(0);
+  type metadata accessor for ContextProtoConfidence(0);
+  sub_20E21DA3C(&qword_27C8696D0, type metadata accessor for ContextProtoConfidence, &protocol conformance descriptor for ContextProtoConfidence);
+  return sub_20E322430();
+}
+
+uint64_t sub_20E1F2D18(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  type metadata accessor for ContextProtoRetrievedContext(0);
+  type metadata accessor for ContextProtoContextMetadata(0);
+  sub_20E21DA3C(&qword_27C869678, type metadata accessor for ContextProtoContextMetadata, &protocol conformance descriptor for ContextProtoContextMetadata);
+  return sub_20E322430();
+}
+
+uint64_t sub_20E1F2DCC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  type metadata accessor for ContextProtoRetrievedContext(0);
+  type metadata accessor for ToolKitProtoTypedValue(0);
+  sub_20E21DA3C(qword_280E0F228, type metadata accessor for ToolKitProtoTypedValue, &protocol conformance descriptor for ToolKitProtoTypedValue);
+  return sub_20E322430();
+}
+
+uint64_t sub_20E1F2E80(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  type metadata accessor for ContextProtoRetrievedContext(0);
+  type metadata accessor for ContextProtoStructuredContext(0);
+  sub_20E21DA3C(&qword_27C8696E8, type metadata accessor for ContextProtoStructuredContext, &protocol conformance descriptor for ContextProtoStructuredContext);
+  return sub_20E322430();
+}
+
+uint64_t ContextProtoRetrievedContext.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = sub_20E1F3088(v3, a1, a2, a3);
+  if (!v4)
+  {
+    sub_20E1F32A4(v3, a1, a2, a3);
+    if (*v3)
+    {
+      sub_20E06396C();
+      sub_20E3224D0();
+    }
+
+    sub_20E1F34C0(v3, a1, a2, a3);
+    sub_20E1F36DC(v3, a1, a2, a3);
+    sub_20E1F38F8(v3, a1, a2, a3);
+    sub_20E1F532C(v3, a1, a2, a3, type metadata accessor for ContextProtoRetrievedContext);
+    type metadata accessor for ContextProtoRetrievedContext(0);
+    return sub_20E3221A0();
+  }
+
+  return result;
+}
+
+uint64_t sub_20E1F3088(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C863B18, &qword_20E323EB0);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ToolKitProtoTypedValue(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoRetrievedContext(0);
+  sub_20E0486F4(a1 + *(v12 + 20), v7, &qword_27C863B18, &qword_20E323EB0);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_20E04875C(v7, &qword_27C863B18, &qword_20E323EB0);
+  }
+
+  sub_20E21DAE4(v7, v11, type metadata accessor for ToolKitProtoTypedValue);
+  sub_20E21DA3C(qword_280E0F228, type metadata accessor for ToolKitProtoTypedValue, &protocol conformance descriptor for ToolKitProtoTypedValue);
+  sub_20E322580();
+  return sub_20E21DA84(v11, type metadata accessor for ToolKitProtoTypedValue);
+}
+
+uint64_t sub_20E1F32A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C863BD0, &qword_20E323EB8);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoConfidence(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoRetrievedContext(0);
+  sub_20E0486F4(a1 + *(v12 + 24), v7, &qword_27C863BD0, &qword_20E323EB8);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_20E04875C(v7, &qword_27C863BD0, &qword_20E323EB8);
+  }
+
+  sub_20E21DAE4(v7, v11, type metadata accessor for ContextProtoConfidence);
+  sub_20E21DA3C(&qword_27C8696D0, type metadata accessor for ContextProtoConfidence, &protocol conformance descriptor for ContextProtoConfidence);
+  sub_20E322580();
+  return sub_20E21DA84(v11, type metadata accessor for ContextProtoConfidence);
+}
+
+uint64_t sub_20E1F34C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C863BD8, &qword_20E323EC0);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoContextMetadata(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoRetrievedContext(0);
+  sub_20E0486F4(a1 + *(v12 + 28), v7, &qword_27C863BD8, &qword_20E323EC0);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_20E04875C(v7, &qword_27C863BD8, &qword_20E323EC0);
+  }
+
+  sub_20E21DAE4(v7, v11, type metadata accessor for ContextProtoContextMetadata);
+  sub_20E21DA3C(&qword_27C869678, type metadata accessor for ContextProtoContextMetadata, &protocol conformance descriptor for ContextProtoContextMetadata);
+  sub_20E322580();
+  return sub_20E21DA84(v11, type metadata accessor for ContextProtoContextMetadata);
+}
+
+uint64_t sub_20E1F36DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C863B18, &qword_20E323EB0);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ToolKitProtoTypedValue(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoRetrievedContext(0);
+  sub_20E0486F4(a1 + *(v12 + 32), v7, &qword_27C863B18, &qword_20E323EB0);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_20E04875C(v7, &qword_27C863B18, &qword_20E323EB0);
+  }
+
+  sub_20E21DAE4(v7, v11, type metadata accessor for ToolKitProtoTypedValue);
+  sub_20E21DA3C(qword_280E0F228, type metadata accessor for ToolKitProtoTypedValue, &protocol conformance descriptor for ToolKitProtoTypedValue);
+  sub_20E322580();
+  return sub_20E21DA84(v11, type metadata accessor for ToolKitProtoTypedValue);
+}
+
+uint64_t sub_20E1F38F8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C863BE0, &qword_20E323EC8);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoStructuredContext(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoRetrievedContext(0);
+  sub_20E0486F4(a1 + *(v12 + 36), v7, &qword_27C863BE0, &qword_20E323EC8);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_20E04875C(v7, &qword_27C863BE0, &qword_20E323EC8);
+  }
+
+  sub_20E21DAE4(v7, v11, type metadata accessor for ContextProtoStructuredContext);
+  sub_20E21DA3C(&qword_27C8696E8, type metadata accessor for ContextProtoStructuredContext, &protocol conformance descriptor for ContextProtoStructuredContext);
+  sub_20E322580();
+  return sub_20E21DA84(v11, type metadata accessor for ContextProtoStructuredContext);
+}
+
+uint64_t sub_20E1F3B60@<X0>(int *a1@<X0>, _BYTE *a2@<X8>)
+{
+  v4 = a1[5];
+  v5 = type metadata accessor for ToolKitProtoTypedValue(0);
+  v6 = *(*(v5 - 8) + 56);
+  v6(&a2[v4], 1, 1, v5);
+  v7 = a1[6];
+  v8 = type metadata accessor for ContextProtoConfidence(0);
+  (*(*(v8 - 8) + 56))(&a2[v7], 1, 1, v8);
+  v9 = a1[7];
+  v10 = type metadata accessor for ContextProtoContextMetadata(0);
+  (*(*(v10 - 8) + 56))(&a2[v9], 1, 1, v10);
+  v6(&a2[a1[8]], 1, 1, v5);
+  v11 = a1[9];
+  v12 = type metadata accessor for ContextProtoStructuredContext(0);
+  (*(*(v12 - 8) + 56))(&a2[v11], 1, 1, v12);
+  v13 = &a2[a1[10]];
+  *v13 = 0;
+  v13[1] = 0;
+  result = _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
+  *a2 = 0;
+  return result;
+}
+
+uint64_t sub_20E1F3D2C(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_20E21DA3C(&qword_27C869AE8, type metadata accessor for ContextProtoRetrievedContext, &protocol conformance descriptor for ContextProtoRetrievedContext);
+
+  return MEMORY[0x28217E230](a1, a2, v4);
+}
+
+uint64_t sub_20E1F3DCC(uint64_t a1)
+{
+  sub_20E21DA3C(&qword_27C8661D0, type metadata accessor for ContextProtoRetrievedContext, &protocol conformance descriptor for ContextProtoRetrievedContext);
+
+  return sub_20E322470();
+}
+
+uint64_t sub_20E1F3E38(uint64_t a1, uint64_t a2)
+{
+  sub_20E21DA3C(&qword_27C8661D0, type metadata accessor for ContextProtoRetrievedContext, &protocol conformance descriptor for ContextProtoRetrievedContext);
+
+  return sub_20E322480();
+}
+
+uint64_t sub_20E1F3ED4()
+{
+  v0 = sub_20E3225C0();
+  __swift_allocate_value_buffer(v0, qword_27C869080);
+  __swift_project_value_buffer(v0, qword_27C869080);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EE8, &qword_20E33AFB8);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EF0, &qword_20E33AFC0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v39 = swift_allocObject();
+  *(v39 + 16) = xmmword_20E3421A0;
+  v4 = v39 + v3;
+  v5 = v39 + v3 + v1[14];
+  *(v39 + v3) = 1;
+  *v5 = "entity_id";
+  *(v5 + 8) = 9;
+  *(v5 + 16) = 2;
+  v6 = *MEMORY[0x277D21888];
+  v7 = sub_20E322590();
+  v8 = *(*(v7 - 8) + 104);
+  (v8)(v5, v6, v7);
+  v9 = v4 + v2 + v1[14];
+  *(v4 + v2) = 2;
+  *v9 = "app_bundle_id";
+  *(v9 + 8) = 13;
+  *(v9 + 16) = 2;
+  v8();
+  v10 = (v4 + 2 * v2);
+  v11 = v10 + v1[14];
+  *v10 = 3;
+  *v11 = "saliency";
+  *(v11 + 1) = 8;
+  v11[16] = 2;
+  v8();
+  v12 = (v4 + 3 * v2);
+  v13 = v12 + v1[14];
+  *v12 = 4;
+  *v13 = "on_screen_surrounding_text";
+  *(v13 + 1) = 26;
+  v13[16] = 2;
+  v8();
+  v14 = (v4 + 4 * v2);
+  v15 = v14 + v1[14];
+  *v14 = 5;
+  *v15 = "on_screen_bounding_box";
+  *(v15 + 1) = 22;
+  v15[16] = 2;
+  v8();
+  v16 = (v4 + 5 * v2);
+  v17 = v16 + v1[14];
+  *v16 = 6;
+  *v17 = "seq";
+  *(v17 + 1) = 3;
+  v17[16] = 2;
+  v8();
+  v18 = (v4 + 6 * v2);
+  v19 = v18 + v1[14];
+  *v18 = 7;
+  *v19 = "group_id";
+  *(v19 + 1) = 8;
+  v19[16] = 2;
+  v8();
+  v20 = (v4 + 7 * v2);
+  v21 = v20 + v1[14];
+  *v20 = 8;
+  *v21 = "isSelected";
+  *(v21 + 1) = 10;
+  v21[16] = 2;
+  v8();
+  v22 = v4 + 8 * v2 + v1[14];
+  *(v4 + 8 * v2) = 9;
+  *v22 = "isPrimary";
+  *(v22 + 8) = 9;
+  *(v22 + 16) = 2;
+  v8();
+  v23 = (v4 + 9 * v2);
+  v24 = v23 + v1[14];
+  *v23 = 10;
+  *v24 = "screenDimensions";
+  *(v24 + 1) = 16;
+  v24[16] = 2;
+  v8();
+  v25 = (v4 + 10 * v2);
+  v26 = v25 + v1[14];
+  *v25 = 11;
+  *v26 = "dataSource";
+  *(v26 + 1) = 10;
+  v26[16] = 2;
+  v8();
+  v27 = (v4 + 11 * v2);
+  v28 = v27 + v1[14];
+  *v27 = 12;
+  *v28 = "displayRepresentation";
+  *(v28 + 1) = 21;
+  v28[16] = 2;
+  v8();
+  v29 = (v4 + 12 * v2);
+  v30 = v29 + v1[14];
+  *v29 = 13;
+  *v30 = "appBundleIdentifier";
+  *(v30 + 1) = 19;
+  v30[16] = 2;
+  v8();
+  v31 = (v4 + 13 * v2);
+  v32 = v31 + v1[14];
+  *v31 = 14;
+  *v32 = "screenSize";
+  *(v32 + 1) = 10;
+  v32[16] = 2;
+  v8();
+  v33 = (v4 + 14 * v2);
+  v34 = v33 + v1[14];
+  *v33 = 15;
+  *v34 = "frame";
+  *(v34 + 1) = 5;
+  v34[16] = 2;
+  v8();
+  v35 = (v4 + 15 * v2);
+  v36 = v35 + v1[14];
+  *v35 = 16;
+  *v36 = "elementVisibility";
+  *(v36 + 1) = 17;
+  v36[16] = 2;
+  v8();
+  v37 = v4 + 16 * v2 + v1[14];
+  *(v4 + 16 * v2) = 17;
+  *v37 = "processInstanceIdentifier";
+  *(v37 + 8) = 25;
+  *(v37 + 16) = 2;
+  v8();
+  return sub_20E3225A0();
+}
+
+uint64_t ContextProtoContextMetadata.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  result = sub_20E3222B0();
+  if (!v4)
+  {
+    while ((v10 & 1) == 0)
+    {
+      switch(result)
+      {
+        case 1:
+        case 2:
+          goto LABEL_5;
+        case 3:
+          sub_20E1F4734(a1, v5, a2, a3);
+          break;
+        case 4:
+          type metadata accessor for ContextProtoSurroundingText(0);
+          sub_20E21DA3C(&qword_27C869458, type metadata accessor for ContextProtoSurroundingText, &protocol conformance descriptor for ContextProtoSurroundingText);
+          sub_20E322420();
+          break;
+        case 5:
+          sub_20E1F47E8(a1, v5, a2, a3);
+          break;
+        case 6:
+        case 16:
+          type metadata accessor for ContextProtoContextMetadata(0);
+          sub_20E3223B0();
+          break;
+        case 7:
+        case 13:
+        case 17:
+          type metadata accessor for ContextProtoContextMetadata(0);
+LABEL_5:
+          sub_20E3223D0();
+          break;
+        case 8:
+        case 9:
+          type metadata accessor for ContextProtoContextMetadata(0);
+          sub_20E3222E0();
+          break;
+        case 10:
+          sub_20E1F489C(a1, v5, a2, a3);
+          break;
+        case 11:
+          sub_20E1F4950(a1, v5, a2, a3);
+          break;
+        case 12:
+          sub_20E1F49C4(a1, v5, a2, a3);
+          break;
+        case 14:
+          sub_20E1F4A78(a1, v5, a2, a3);
+          break;
+        case 15:
+          sub_20E1F4B2C(a1, v5, a2, a3);
+          break;
+        default:
+          break;
+      }
+
+      result = sub_20E3222B0();
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_20E1F4734(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  type metadata accessor for ContextProtoContextMetadata(0);
+  type metadata accessor for ContextProtoConfidence(0);
+  sub_20E21DA3C(&qword_27C8696D0, type metadata accessor for ContextProtoConfidence, &protocol conformance descriptor for ContextProtoConfidence);
+  return sub_20E322430();
+}
+
+uint64_t sub_20E1F47E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  type metadata accessor for ContextProtoContextMetadata(0);
+  type metadata accessor for ContextProtoBoundingBox(0);
+  sub_20E21DA3C(&qword_27C8696A8, type metadata accessor for ContextProtoBoundingBox, &protocol conformance descriptor for ContextProtoBoundingBox);
+  return sub_20E322430();
+}
+
+uint64_t sub_20E1F489C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  type metadata accessor for ContextProtoContextMetadata(0);
+  type metadata accessor for ContextProtoBoundingBox(0);
+  sub_20E21DA3C(&qword_27C8696A8, type metadata accessor for ContextProtoBoundingBox, &protocol conformance descriptor for ContextProtoBoundingBox);
+  return sub_20E322430();
+}
+
+uint64_t sub_20E1F4950(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  type metadata accessor for ContextProtoContextMetadata(0);
+  sub_20E0639C0();
+  return sub_20E322300();
+}
+
+uint64_t sub_20E1F49C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  type metadata accessor for ContextProtoContextMetadata(0);
+  type metadata accessor for ContextProtoContextualEntityDisplayRepresentation(0);
+  sub_20E21DA3C(&qword_27C869690, type metadata accessor for ContextProtoContextualEntityDisplayRepresentation, &protocol conformance descriptor for ContextProtoContextualEntityDisplayRepresentation);
+  return sub_20E322430();
+}
+
+uint64_t sub_20E1F4A78(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  type metadata accessor for ContextProtoContextMetadata(0);
+  type metadata accessor for ContextProtoCGRect(0);
+  sub_20E21DA3C(&qword_27C869810, type metadata accessor for ContextProtoCGRect, &protocol conformance descriptor for ContextProtoCGRect);
+  return sub_20E322430();
+}
+
+uint64_t sub_20E1F4B2C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  type metadata accessor for ContextProtoContextMetadata(0);
+  type metadata accessor for ContextProtoCGRect(0);
+  sub_20E21DA3C(&qword_27C869810, type metadata accessor for ContextProtoCGRect, &protocol conformance descriptor for ContextProtoCGRect);
+  return sub_20E322430();
+}
+
+uint64_t ContextProtoContextMetadata.traverse<A>(visitor:)(uint64_t result, uint64_t a2, uint64_t a3)
+{
+  v7 = result;
+  if (v3[2])
+  {
+    result = sub_20E322540();
+  }
+
+  if (!v4)
+  {
+    if (v3[4])
+    {
+      sub_20E322540();
+    }
+
+    sub_20E1F4E7C(v3, v7, a2, a3);
+    if (*(*v3 + 16))
+    {
+      type metadata accessor for ContextProtoSurroundingText(0);
+      sub_20E21DA3C(&qword_27C869458, type metadata accessor for ContextProtoSurroundingText, &protocol conformance descriptor for ContextProtoSurroundingText);
+      sub_20E322570();
+    }
+
+    sub_20E1F5098(v3, v7, a2, a3);
+    sub_20E1F52B4(v3, v7, a2, a3);
+    sub_20E1F532C(v3, v7, a2, a3, type metadata accessor for ContextProtoContextMetadata);
+    sub_20E1F53A8(v3, v7, a2, a3);
+    sub_20E1F5420(v3, v7, a2, a3);
+    sub_20E1F5498(v3, v7, a2, a3);
+    sub_20E1F56B4(v3, v7, a2, a3);
+    sub_20E1F5740(v3, v7, a2, a3);
+    sub_20E1F595C(v3, v7, a2, a3);
+    sub_20E1F59D4(v3, v7, a2, a3);
+    sub_20E1F5BF0(v3, v7, a2, a3);
+    sub_20E1F5E0C(v3, v7, a2, a3);
+    sub_20E1F5E84(v3, v7, a2, a3);
+    type metadata accessor for ContextProtoContextMetadata(0);
+    return sub_20E3221A0();
+  }
+
+  return result;
+}
+
+uint64_t sub_20E1F4E7C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C863BD0, &qword_20E323EB8);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoConfidence(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoContextMetadata(0);
+  sub_20E0486F4(a1 + *(v12 + 28), v7, &qword_27C863BD0, &qword_20E323EB8);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_20E04875C(v7, &qword_27C863BD0, &qword_20E323EB8);
+  }
+
+  sub_20E21DAE4(v7, v11, type metadata accessor for ContextProtoConfidence);
+  sub_20E21DA3C(&qword_27C8696D0, type metadata accessor for ContextProtoConfidence, &protocol conformance descriptor for ContextProtoConfidence);
+  sub_20E322580();
+  return sub_20E21DA84(v11, type metadata accessor for ContextProtoConfidence);
+}
+
+uint64_t sub_20E1F5098(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C863BE8, &qword_20E323ED0);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoBoundingBox(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoContextMetadata(0);
+  sub_20E0486F4(a1 + *(v12 + 32), v7, &qword_27C863BE8, &qword_20E323ED0);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_20E04875C(v7, &qword_27C863BE8, &qword_20E323ED0);
+  }
+
+  sub_20E21DAE4(v7, v11, type metadata accessor for ContextProtoBoundingBox);
+  sub_20E21DA3C(&qword_27C8696A8, type metadata accessor for ContextProtoBoundingBox, &protocol conformance descriptor for ContextProtoBoundingBox);
+  sub_20E322580();
+  return sub_20E21DA84(v11, type metadata accessor for ContextProtoBoundingBox);
+}
+
+uint64_t sub_20E1F52B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = type metadata accessor for ContextProtoContextMetadata(0);
+  if ((*(a1 + *(result + 36) + 8) & 1) == 0)
+  {
+    return sub_20E322530();
+  }
+
+  return result;
+}
+
+uint64_t sub_20E1F532C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
+{
+  result = a5(0);
+  if (*(a1 + *(result + 40) + 8))
+  {
+    return sub_20E322540();
+  }
+
+  return result;
+}
+
+uint64_t sub_20E1F53A8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = type metadata accessor for ContextProtoContextMetadata(0);
+  if (*(a1 + *(result + 44)) != 2)
+  {
+    return sub_20E3224C0();
+  }
+
+  return result;
+}
+
+uint64_t sub_20E1F5420(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = type metadata accessor for ContextProtoContextMetadata(0);
+  if (*(a1 + *(result + 48)) != 2)
+  {
+    return sub_20E3224C0();
+  }
+
+  return result;
+}
+
+uint64_t sub_20E1F5498(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C863BE8, &qword_20E323ED0);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoBoundingBox(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoContextMetadata(0);
+  sub_20E0486F4(a1 + *(v12 + 52), v7, &qword_27C863BE8, &qword_20E323ED0);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_20E04875C(v7, &qword_27C863BE8, &qword_20E323ED0);
+  }
+
+  sub_20E21DAE4(v7, v11, type metadata accessor for ContextProtoBoundingBox);
+  sub_20E21DA3C(&qword_27C8696A8, type metadata accessor for ContextProtoBoundingBox, &protocol conformance descriptor for ContextProtoBoundingBox);
+  sub_20E322580();
+  return sub_20E21DA84(v11, type metadata accessor for ContextProtoBoundingBox);
+}
+
+uint64_t sub_20E1F56B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = type metadata accessor for ContextProtoContextMetadata(0);
+  if (*(a1 + *(result + 56)) != 6)
+  {
+    sub_20E0639C0();
+    return sub_20E3224D0();
+  }
+
+  return result;
+}
+
+uint64_t sub_20E1F5740(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C863BF0, &qword_20E323ED8);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoContextualEntityDisplayRepresentation(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoContextMetadata(0);
+  sub_20E0486F4(a1 + *(v12 + 60), v7, &qword_27C863BF0, &qword_20E323ED8);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_20E04875C(v7, &qword_27C863BF0, &qword_20E323ED8);
+  }
+
+  sub_20E21DAE4(v7, v11, type metadata accessor for ContextProtoContextualEntityDisplayRepresentation);
+  sub_20E21DA3C(&qword_27C869690, type metadata accessor for ContextProtoContextualEntityDisplayRepresentation, &protocol conformance descriptor for ContextProtoContextualEntityDisplayRepresentation);
+  sub_20E322580();
+  return sub_20E21DA84(v11, type metadata accessor for ContextProtoContextualEntityDisplayRepresentation);
+}
+
+uint64_t sub_20E1F595C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = type metadata accessor for ContextProtoContextMetadata(0);
+  if (*(a1 + *(result + 64) + 8))
+  {
+    return sub_20E322540();
+  }
+
+  return result;
+}
+
+uint64_t sub_20E1F59D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C863BF8, &qword_20E323EE0);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoCGRect(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoContextMetadata(0);
+  sub_20E0486F4(a1 + *(v12 + 68), v7, &qword_27C863BF8, &qword_20E323EE0);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_20E04875C(v7, &qword_27C863BF8, &qword_20E323EE0);
+  }
+
+  sub_20E21DAE4(v7, v11, type metadata accessor for ContextProtoCGRect);
+  sub_20E21DA3C(&qword_27C869810, type metadata accessor for ContextProtoCGRect, &protocol conformance descriptor for ContextProtoCGRect);
+  sub_20E322580();
+  return sub_20E21DA84(v11, type metadata accessor for ContextProtoCGRect);
+}
+
+uint64_t sub_20E1F5BF0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C863BF8, &qword_20E323EE0);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoCGRect(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoContextMetadata(0);
+  sub_20E0486F4(a1 + *(v12 + 72), v7, &qword_27C863BF8, &qword_20E323EE0);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_20E04875C(v7, &qword_27C863BF8, &qword_20E323EE0);
+  }
+
+  sub_20E21DAE4(v7, v11, type metadata accessor for ContextProtoCGRect);
+  sub_20E21DA3C(&qword_27C869810, type metadata accessor for ContextProtoCGRect, &protocol conformance descriptor for ContextProtoCGRect);
+  sub_20E322580();
+  return sub_20E21DA84(v11, type metadata accessor for ContextProtoCGRect);
+}
+
+uint64_t sub_20E1F5E0C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = type metadata accessor for ContextProtoContextMetadata(0);
+  if ((*(a1 + *(result + 76) + 8) & 1) == 0)
+  {
+    return sub_20E322530();
+  }
+
+  return result;
+}
+
+uint64_t sub_20E1F5E84(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = type metadata accessor for ContextProtoContextMetadata(0);
+  if (*(a1 + *(result + 80) + 8))
+  {
+    return sub_20E322540();
+  }
+
+  return result;
+}
+
+uint64_t sub_20E1F5F48(uint64_t (*a1)(void), unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t a4)
+{
+  sub_20E322DE0();
+  a1(0);
+  sub_20E21DA3C(a2, a3, a4);
+  sub_20E322820();
+  return sub_20E322E00();
+}
+
+uint64_t sub_20E1F5FF0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v4 = *(a1 + 84);
+  v5 = sub_20E3221C0();
+  v6 = *(*(v5 - 8) + 16);
+
+  return v6(a2, v2 + v4, v5);
+}
+
+uint64_t sub_20E1F6064(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a2 + 84);
+  v5 = sub_20E3221C0();
+  v6 = *(*(v5 - 8) + 40);
+
+  return v6(v2 + v4, a1, v5);
+}
+
+uint64_t sub_20E1F612C(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_20E21DA3C(&qword_27C869AE0, type metadata accessor for ContextProtoContextMetadata, &protocol conformance descriptor for ContextProtoContextMetadata);
+
+  return MEMORY[0x28217E230](a1, a2, v4);
+}
+
+uint64_t sub_20E1F61CC(uint64_t a1)
+{
+  sub_20E21DA3C(&qword_27C869678, type metadata accessor for ContextProtoContextMetadata, &protocol conformance descriptor for ContextProtoContextMetadata);
+
+  return sub_20E322470();
+}
+
+uint64_t sub_20E1F6238(uint64_t a1, uint64_t a2)
+{
+  sub_20E21DA3C(&qword_27C869678, type metadata accessor for ContextProtoContextMetadata, &protocol conformance descriptor for ContextProtoContextMetadata);
+
+  return sub_20E322480();
+}
+
+uint64_t sub_20E1F62D4()
+{
+  v0 = sub_20E3225C0();
+  __swift_allocate_value_buffer(v0, qword_27C869098);
+  __swift_project_value_buffer(v0, qword_27C869098);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EE8, &qword_20E33AFB8);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EF0, &qword_20E33AFC0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_20E3262D0;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 1;
+  *v6 = "title";
+  *(v6 + 8) = 5;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x277D21870];
+  v8 = sub_20E322590();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "subtitle";
+  *(v10 + 1) = 8;
+  v10[16] = 2;
+  v9();
+  return sub_20E3225A0();
+}
+
+uint64_t ContextProtoContextualEntityDisplayRepresentation.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  while (1)
+  {
+    result = sub_20E3222B0();
+    if (v3 || (v5 & 1) != 0)
+    {
+      break;
+    }
+
+    if (result == 1 || result == 2)
+    {
+      sub_20E3223D0();
+    }
+  }
+
+  return result;
+}
+
+uint64_t ContextProtoContextualEntityDisplayRepresentation.traverse<A>(visitor:)(uint64_t result, uint64_t a2, uint64_t a3)
+{
+  if (*(v3 + 8))
+  {
+    v5 = sub_20E322540();
+  }
+
+  if (!v4)
+  {
+    if (*(v3 + 24))
+    {
+      sub_20E322540();
+    }
+
+    type metadata accessor for ContextProtoContextualEntityDisplayRepresentation(0);
+    return sub_20E3221A0();
+  }
+
+  return v5;
+}
+
+uint64_t sub_20E1F6638@<X0>(_OWORD *a2@<X8>)
+{
+  *a2 = 0u;
+  a2[1] = 0u;
+  return _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
+}
+
+uint64_t sub_20E1F66AC(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_20E21DA3C(&qword_27C869AD8, type metadata accessor for ContextProtoContextualEntityDisplayRepresentation, &protocol conformance descriptor for ContextProtoContextualEntityDisplayRepresentation);
+
+  return MEMORY[0x28217E230](a1, a2, v4);
+}
+
+uint64_t sub_20E1F674C(uint64_t a1)
+{
+  sub_20E21DA3C(&qword_27C869690, type metadata accessor for ContextProtoContextualEntityDisplayRepresentation, &protocol conformance descriptor for ContextProtoContextualEntityDisplayRepresentation);
+
+  return sub_20E322470();
+}
+
+uint64_t sub_20E1F67B8(uint64_t a1, uint64_t a2)
+{
+  sub_20E21DA3C(&qword_27C869690, type metadata accessor for ContextProtoContextualEntityDisplayRepresentation, &protocol conformance descriptor for ContextProtoContextualEntityDisplayRepresentation);
+
+  return sub_20E322480();
+}
+
+uint64_t sub_20E1F6854()
+{
+  v0 = sub_20E3225C0();
+  __swift_allocate_value_buffer(v0, qword_27C8690B0);
+  __swift_project_value_buffer(v0, qword_27C8690B0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EE8, &qword_20E33AFB8);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EF0, &qword_20E33AFC0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_20E3262F0;
+  v5 = v4 + v3;
+  v6 = v4 + v3 + v1[14];
+  *(v4 + v3) = 1;
+  *v6 = "x_coordinate";
+  *(v6 + 8) = 12;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x277D21888];
+  v8 = sub_20E322590();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "y_coordinate";
+  *(v10 + 8) = 12;
+  *(v10 + 16) = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "width";
+  *(v12 + 1) = 5;
+  v12[16] = 2;
+  v9();
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "height";
+  *(v14 + 1) = 6;
+  v14[16] = 2;
+  v9();
+  return sub_20E3225A0();
+}
+
+uint64_t ContextProtoBoundingBox.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = sub_20E3222B0();
+  if (!v3)
+  {
+    while (1)
+    {
+      if (v5)
+      {
+        return result;
+      }
+
+      if (result > 2)
+      {
+        if (result == 3 || result == 4)
+        {
+LABEL_9:
+          sub_20E322340();
+        }
+      }
+
+      else if (result == 1 || result == 2)
+      {
+        goto LABEL_9;
+      }
+
+      result = sub_20E3222B0();
+    }
+  }
+
+  return result;
+}
+
+uint64_t ContextProtoBoundingBox.traverse<A>(visitor:)(uint64_t result, uint64_t a2, uint64_t a3)
+{
+  if ((v3[4] & 1) == 0)
+  {
+    v5 = sub_20E3224F0();
+  }
+
+  if (!v4)
+  {
+    if ((v3[12] & 1) == 0)
+    {
+      sub_20E3224F0();
+    }
+
+    if ((v3[20] & 1) == 0)
+    {
+      sub_20E3224F0();
+    }
+
+    if ((v3[28] & 1) == 0)
+    {
+      sub_20E3224F0();
+    }
+
+    type metadata accessor for ContextProtoBoundingBox(0);
+    return sub_20E3221A0();
+  }
+
+  return v5;
+}
+
+uint64_t sub_20E1F6CBC@<X0>(uint64_t a2@<X8>)
+{
+  *a2 = 0;
+  *(a2 + 4) = 1;
+  *(a2 + 8) = 0;
+  *(a2 + 12) = 1;
+  *(a2 + 16) = 0;
+  *(a2 + 20) = 1;
+  *(a2 + 24) = 0;
+  *(a2 + 28) = 1;
+  return _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
+}
+
+uint64_t sub_20E1F6D4C(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_20E21DA3C(&qword_27C869AD0, type metadata accessor for ContextProtoBoundingBox, &protocol conformance descriptor for ContextProtoBoundingBox);
+
+  return MEMORY[0x28217E230](a1, a2, v4);
+}
+
+uint64_t sub_20E1F6DEC(uint64_t a1)
+{
+  sub_20E21DA3C(&qword_27C8696A8, type metadata accessor for ContextProtoBoundingBox, &protocol conformance descriptor for ContextProtoBoundingBox);
+
+  return sub_20E322470();
+}
+
+uint64_t sub_20E1F6E58(uint64_t a1, uint64_t a2)
+{
+  sub_20E21DA3C(&qword_27C8696A8, type metadata accessor for ContextProtoBoundingBox, &protocol conformance descriptor for ContextProtoBoundingBox);
+
+  return sub_20E322480();
+}
+
+uint64_t sub_20E1F6EF4()
+{
+  v0 = sub_20E3225C0();
+  __swift_allocate_value_buffer(v0, qword_27C8690C8);
+  __swift_project_value_buffer(v0, qword_27C8690C8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EE8, &qword_20E33AFB8);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EF0, &qword_20E33AFC0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_20E3262D0;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 1;
+  *v6 = "text";
+  *(v6 + 8) = 4;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x277D21870];
+  v8 = sub_20E322590();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "on_screen_bounding_box";
+  *(v10 + 1) = 22;
+  v10[16] = 2;
+  v9();
+  return sub_20E3225A0();
+}
+
+uint64_t ContextProtoSurroundingText.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  while (1)
+  {
+    result = sub_20E3222B0();
+    if (v4 || (v10 & 1) != 0)
+    {
+      break;
+    }
+
+    if (result == 1)
+    {
+      sub_20E3223D0();
+    }
+
+    else if (result == 2)
+    {
+      sub_20E1F7178(a1, v5, a2, a3);
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_20E1F7178(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  type metadata accessor for ContextProtoSurroundingText(0);
+  type metadata accessor for ContextProtoBoundingBox(0);
+  sub_20E21DA3C(&qword_27C8696A8, type metadata accessor for ContextProtoBoundingBox, &protocol conformance descriptor for ContextProtoBoundingBox);
+  return sub_20E322430();
+}
+
+uint64_t ContextProtoSurroundingText.traverse<A>(visitor:)(uint64_t result, uint64_t a2, uint64_t a3)
+{
+  v7 = result;
+  if (*(v3 + 8))
+  {
+    result = sub_20E322540();
+  }
+
+  if (!v4)
+  {
+    sub_20E1F72CC(v3, v7, a2, a3);
+    type metadata accessor for ContextProtoSurroundingText(0);
+    return sub_20E3221A0();
+  }
+
+  return result;
+}
+
+uint64_t sub_20E1F72CC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C863BE8, &qword_20E323ED0);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for ContextProtoBoundingBox(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ContextProtoSurroundingText(0);
+  sub_20E0486F4(a1 + *(v12 + 20), v7, &qword_27C863BE8, &qword_20E323ED0);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_20E04875C(v7, &qword_27C863BE8, &qword_20E323ED0);
+  }
+
+  sub_20E21DAE4(v7, v11, type metadata accessor for ContextProtoBoundingBox);
+  sub_20E21DA3C(&qword_27C8696A8, type metadata accessor for ContextProtoBoundingBox, &protocol conformance descriptor for ContextProtoBoundingBox);
+  sub_20E322580();
+  return sub_20E21DA84(v11, type metadata accessor for ContextProtoBoundingBox);
+}
+
+uint64_t sub_20E1F7534@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
+{
+  *a2 = 0;
+  *(a2 + 1) = 0;
+  v3 = *(a1 + 20);
+  v4 = type metadata accessor for ContextProtoBoundingBox(0);
+  (*(*(v4 - 8) + 56))(&a2[v3], 1, 1, v4);
+  return _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
+}
+
+uint64_t sub_20E1F7600(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_20E21DA3C(&qword_27C869AC8, type metadata accessor for ContextProtoSurroundingText, &protocol conformance descriptor for ContextProtoSurroundingText);
+
+  return MEMORY[0x28217E230](a1, a2, v4);
+}
+
+uint64_t sub_20E1F76A0(uint64_t a1)
+{
+  sub_20E21DA3C(&qword_27C869458, type metadata accessor for ContextProtoSurroundingText, &protocol conformance descriptor for ContextProtoSurroundingText);
+
+  return sub_20E322470();
+}
+
+uint64_t sub_20E1F770C(uint64_t a1, uint64_t a2)
+{
+  sub_20E21DA3C(&qword_27C869458, type metadata accessor for ContextProtoSurroundingText, &protocol conformance descriptor for ContextProtoSurroundingText);
+
+  return sub_20E322480();
+}
+
+uint64_t sub_20E1F77A8()
+{
+  v0 = sub_20E3225C0();
+  __swift_allocate_value_buffer(v0, qword_27C8690E0);
+  __swift_project_value_buffer(v0, qword_27C8690E0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EE8, &qword_20E33AFB8);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EF0, &qword_20E33AFC0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_20E3262D0;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 1;
+  *v6 = "score";
+  *(v6 + 8) = 5;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x277D21870];
+  v8 = sub_20E322590();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "bucket";
+  *(v10 + 1) = 6;
+  v10[16] = 2;
+  v9();
+  return sub_20E3225A0();
+}
+
+uint64_t ContextProtoConfidence.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = sub_20E3222B0();
+  if (!v3)
+  {
+    while ((v5 & 1) == 0)
+    {
+      if (result == 1)
+      {
+        sub_20E322350();
+      }
+
+      else if (result == 2)
+      {
+        sub_20E063774();
+        sub_20E322310();
+      }
+
+      result = sub_20E3222B0();
+    }
+  }
+
+  return result;
+}
+
+uint64_t ContextProtoConfidence.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (*v3 == 0.0 || (result = sub_20E3224F0(), !v4))
+  {
+    if (!*(v3 + 4) || (sub_20E063774(), result = sub_20E3224D0(), !v4))
+    {
+      type metadata accessor for ContextProtoConfidence(0);
+      return sub_20E3221A0();
+    }
+  }
+
+  return result;
+}
+
+uint64_t static ContextProtoConfidence.== infix(_:_:)(uint64_t a1, uint64_t a2)
+{
+  if (*a1 != *a2 || *(a1 + 4) != *(a2 + 4))
+  {
+    return 0;
+  }
+
+  type metadata accessor for ContextProtoConfidence(0);
+  sub_20E3221C0();
+  sub_20E21DA3C(&qword_27C865988, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+  return sub_20E322850() & 1;
+}
+
+uint64_t sub_20E1F7C24@<X0>(uint64_t a2@<X8>)
+{
+  result = _s23LighthouseDataProcessor033TranscriptProtoRequestContentStopG0VACycfC_0();
+  *a2 = 0;
+  *(a2 + 4) = 0;
+  return result;
+}
+
+uint64_t sub_20E1F7CA4(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_20E21DA3C(&qword_27C869AC0, type metadata accessor for ContextProtoConfidence, &protocol conformance descriptor for ContextProtoConfidence);
+
+  return MEMORY[0x28217E230](a1, a2, v4);
+}
+
+uint64_t sub_20E1F7D44(uint64_t a1)
+{
+  sub_20E21DA3C(&qword_27C8696D0, type metadata accessor for ContextProtoConfidence, &protocol conformance descriptor for ContextProtoConfidence);
+
+  return sub_20E322470();
+}
+
+uint64_t sub_20E1F7DB0(uint64_t a1, uint64_t a2)
+{
+  sub_20E21DA3C(&qword_27C8696D0, type metadata accessor for ContextProtoConfidence, &protocol conformance descriptor for ContextProtoConfidence);
+
+  return sub_20E322480();
+}
+
+uint64_t sub_20E1F7E2C(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (*a1 != *a2 || *(a1 + 4) != *(a2 + 4))
+  {
+    return 0;
+  }
+
+  sub_20E3221C0();
+  sub_20E21DA3C(&qword_27C865988, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+  return sub_20E322850() & 1;
+}
+
+uint64_t sub_20E1F7EF8()
+{
+  v0 = sub_20E3225C0();
+  __swift_allocate_value_buffer(v0, qword_27C8690F8);
+  __swift_project_value_buffer(v0, qword_27C8690F8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EE8, &qword_20E33AFB8);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C867EF0, &qword_20E33AFC0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_20E3262C0;
+  v5 = v4 + v3;
+  v6 = v4 + v3 + v1[14];
+  *(v4 + v3) = 1;
+  *v6 = "siriRequestContext";
+  *(v6 + 8) = 18;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x277D21870];
+  v8 = sub_20E322590();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "intelligenceCommand";
+  *(v10 + 8) = 19;
+  *(v10 + 16) = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "appInFocusContext";
+  *(v12 + 1) = 17;
+  v12[16] = 2;
+  v9();
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "onScreenUIText";
+  *(v14 + 1) = 14;
+  v14[16] = 2;
+  v9();
+  v15 = (v5 + 4 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 5;
+  *v16 = "appContext";
+  *(v16 + 1) = 10;
+  v16[16] = 2;
+  v9();
+  v17 = (v5 + 5 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 6;
+  *v18 = "nowPlayingMediaItem";
+  *(v18 + 1) = 19;
+  v18[16] = 2;
+  v9();
+  return sub_20E3225A0();
+}
+
+uint64_t ContextProtoStructuredContext.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  while (1)
+  {
+    result = sub_20E3222B0();
+    if (v4 || (v10 & 1) != 0)
+    {
+      break;
+    }
+
+    if (result > 3)
+    {
+      switch(result)
+      {
+        case 4:
+          sub_20E1F943C(v5, a1, a2, a3);
+          break;
+        case 5:
+          sub_20E1F99F8(v5, a1, a2, a3);
+          break;
+        case 6:
+          sub_20E1F9FB4(v5, a1, a2, a3);
+          break;
+      }
+    }
+
+    else
+    {
+      switch(result)
+      {
+        case 1:
+          sub_20E1F8314(v5, a1, a2, a3);
+          break;
+        case 2:
+          sub_20E1F88C4(v5, a1, a2, a3);
+          break;
+        case 3:
+          sub_20E1F8E80(v5, a1, a2, a3);
+          break;
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_20E1F8314(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v47 = a4;
+  v45 = a2;
+  v46 = a3;
+  v5 = type metadata accessor for ContextProtoStructuredContextSiriRequestContext(0);
+  v6 = *(v5 - 8);
+  v7 = MEMORY[0x28223BE20](v5);
+  v40 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v39 = &v37 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C863C00, &qword_20E323EE8);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v37 - v11;
+  v13 = type metadata accessor for ContextProtoStructuredContextKind(0);
+  v14 = *(v13 - 8);
+  v15 = MEMORY[0x28223BE20](v13);
+  v17 = &v37 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15);
+  v19 = &v37 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C868758, &unk_20E33C210);
+  v21 = MEMORY[0x28223BE20](v20 - 8);
+  v42 = &v37 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v21);
+  v24 = &v37 - v23;
+  v41 = v6;
+  v25 = *(v6 + 56);
+  v44 = v5;
+  v26 = v5;
+  v27 = v25;
+  v25(&v37 - v23, 1, 1, v26);
+  v38 = a1;
+  sub_20E0486F4(a1, v12, &qword_27C863C00, &qword_20E323EE8);
+  v37 = v14;
+  v28 = (*(v14 + 48))(v12, 1, v13);
+  if (v28 == 1)
+  {
+    sub_20E04875C(v12, &qword_27C863C00, &qword_20E323EE8);
+    v29 = v44;
+    v30 = v13;
+  }
+
+  else
+  {
+    sub_20E21DAE4(v12, v19, type metadata accessor for ContextProtoStructuredContextKind);
+    sub_20E21DAE4(v19, v17, type metadata accessor for ContextProtoStructuredContextKind);
+    v30 = v13;
+    if (swift_getEnumCaseMultiPayload())
+    {
+      sub_20E21DA84(v17, type metadata accessor for ContextProtoStructuredContextKind);
+      v29 = v44;
+    }
+
+    else
+    {
+      sub_20E04875C(v24, &qword_27C868758, &unk_20E33C210);
+      v31 = v39;
+      sub_20E21DAE4(v17, v39, type metadata accessor for ContextProtoStructuredContextSiriRequestContext);
+      sub_20E21DAE4(v31, v24, type metadata accessor for ContextProtoStructuredContextSiriRequestContext);
+      v29 = v44;
+      v27(v24, 0, 1, v44);
+    }
+  }
+
+  v32 = v42;
+  sub_20E21DA3C(&qword_27C868770, type metadata accessor for ContextProtoStructuredContextSiriRequestContext, &protocol conformance descriptor for ContextProtoStructuredContextSiriRequestContext);
+  v33 = v43;
+  sub_20E322430();
+  if (v33)
+  {
+    return sub_20E04875C(v24, &qword_27C868758, &unk_20E33C210);
+  }
+
+  sub_20E0486F4(v24, v32, &qword_27C868758, &unk_20E33C210);
+  if ((*(v41 + 48))(v32, 1, v29) == 1)
+  {
+    sub_20E04875C(v24, &qword_27C868758, &unk_20E33C210);
+    return sub_20E04875C(v32, &qword_27C868758, &unk_20E33C210);
+  }
+
+  else
+  {
+    v35 = v40;
+    sub_20E21DAE4(v32, v40, type metadata accessor for ContextProtoStructuredContextSiriRequestContext);
+    if (v28 != 1)
+    {
+      sub_20E3222C0();
+    }
+
+    sub_20E04875C(v24, &qword_27C868758, &unk_20E33C210);
+    v36 = v38;
+    sub_20E04875C(v38, &qword_27C863C00, &qword_20E323EE8);
+    sub_20E21DAE4(v35, v36, type metadata accessor for ContextProtoStructuredContextSiriRequestContext);
+    swift_storeEnumTagMultiPayload();
+    return (*(v37 + 56))(v36, 0, 1, v30);
   }
 }

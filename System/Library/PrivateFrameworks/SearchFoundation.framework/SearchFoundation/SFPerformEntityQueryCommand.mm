@@ -13,11 +13,11 @@
 
 - (SFPerformEntityQueryCommand)initWithProtobuf:(id)protobuf
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v59.receiver = self;
-  v59.super_class = SFPerformEntityQueryCommand;
-  v5 = [(SFPerformEntityQueryCommand *)&v59 init];
+  v58.receiver = self;
+  v58.super_class = SFPerformEntityQueryCommand;
+  v5 = [(SFPerformEntityQueryCommand *)&v58 init];
   if (v5)
   {
     searchString = [protobufCopy searchString];
@@ -110,32 +110,32 @@
       v33 = 0;
     }
 
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
     v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
     filterQueries2 = [protobufCopy filterQueries];
-    v35 = [filterQueries2 countByEnumeratingWithState:&v55 objects:v61 count:16];
+    v35 = [filterQueries2 countByEnumeratingWithState:&v54 objects:v60 count:16];
     if (v35)
     {
       v36 = v35;
-      v37 = *v56;
+      v37 = *v55;
       do
       {
         for (i = 0; i != v36; ++i)
         {
-          if (*v56 != v37)
+          if (*v55 != v37)
           {
             objc_enumerationMutation(filterQueries2);
           }
 
-          if (*(*(&v55 + 1) + 8 * i))
+          if (*(*(&v54 + 1) + 8 * i))
           {
             [v33 addObject:?];
           }
         }
 
-        v36 = [filterQueries2 countByEnumeratingWithState:&v55 objects:v61 count:16];
+        v36 = [filterQueries2 countByEnumeratingWithState:&v54 objects:v60 count:16];
       }
 
       while (v36);
@@ -153,32 +153,32 @@
       v40 = 0;
     }
 
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     enabledDomains2 = [protobufCopy enabledDomains];
-    v42 = [enabledDomains2 countByEnumeratingWithState:&v51 objects:v60 count:16];
+    v42 = [enabledDomains2 countByEnumeratingWithState:&v50 objects:v59 count:16];
     if (v42)
     {
       v43 = v42;
-      v44 = *v52;
+      v44 = *v51;
       do
       {
         for (j = 0; j != v43; ++j)
         {
-          if (*v52 != v44)
+          if (*v51 != v44)
           {
             objc_enumerationMutation(enabledDomains2);
           }
 
-          if (*(*(&v51 + 1) + 8 * j))
+          if (*(*(&v50 + 1) + 8 * j))
           {
             [v40 addObject:?];
           }
         }
 
-        v43 = [enabledDomains2 countByEnumeratingWithState:&v51 objects:v60 count:16];
+        v43 = [enabledDomains2 countByEnumeratingWithState:&v50 objects:v59 count:16];
       }
 
       while (v43);
@@ -196,7 +196,6 @@
     v48 = v5;
   }
 
-  v49 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -313,7 +312,7 @@
     v10 = 0;
     v116 = 0;
     v11 = 0;
-    *(&v118[1] + 1) = 0;
+    v118[1] = 0uLL;
     v115 = 0;
     v12 = 0;
     v13 = 0;
@@ -324,7 +323,7 @@
     v17 = 0;
     v18 = 0;
     v19 = 0;
-    *(v118 + 8) = 1uLL;
+    *(&v118[0] + 1) = 1;
     goto LABEL_16;
   }
 
@@ -921,13 +920,12 @@
       *(&v118[1] + 4) = 0;
       v13 = 0;
       v14 = 0;
-      *(v118 + 12) = 0;
       v15 = 0;
       v16 = 0;
       v17 = 0;
       v18 = 0;
       v19 = 0;
-      *(v118 + 4) = 0x100000001;
+      *(v118 + 4) = 0x100000001uLL;
       *&v117[12] = 0x100000001;
       *&v117[8] = 1;
       LODWORD(v118[0]) = 1;

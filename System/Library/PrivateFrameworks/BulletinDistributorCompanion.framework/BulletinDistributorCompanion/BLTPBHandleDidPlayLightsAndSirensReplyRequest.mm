@@ -78,37 +78,35 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if ((*&self->_has & 2) != 0)
   {
-    didPlayLightsAndSirens = self->_didPlayLightsAndSirens;
     PBDataWriterWriteBOOLField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_publisherMatchID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_phoneSectionID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    date = self->_date;
     PBDataWriterWriteDoubleField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_replyToken)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -186,7 +184,6 @@
     goto LABEL_12;
   }
 
-  v5 = *(equalCopy + 44);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 44) & 2) == 0)
@@ -194,7 +191,6 @@
       goto LABEL_12;
     }
 
-    v11 = *(equalCopy + 40);
     if (self->_didPlayLightsAndSirens)
     {
       if ((*(equalCopy + 40) & 1) == 0)
@@ -229,7 +225,6 @@
     }
   }
 
-  v8 = *(equalCopy + 44);
   if (*&self->_has)
   {
     if ((*(equalCopy + 44) & 1) != 0 && self->_date == *(equalCopy + 1))
@@ -238,7 +233,7 @@
     }
 
 LABEL_12:
-    v9 = 0;
+    v7 = 0;
     goto LABEL_13;
   }
 
@@ -251,17 +246,17 @@ LABEL_21:
   replyToken = self->_replyToken;
   if (replyToken | *(equalCopy + 4))
   {
-    v9 = [(NSString *)replyToken isEqual:?];
+    v7 = [(NSString *)replyToken isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v7 = 1;
   }
 
 LABEL_13:
 
-  return v9;
+  return v7;
 }
 
 - (unint64_t)hash

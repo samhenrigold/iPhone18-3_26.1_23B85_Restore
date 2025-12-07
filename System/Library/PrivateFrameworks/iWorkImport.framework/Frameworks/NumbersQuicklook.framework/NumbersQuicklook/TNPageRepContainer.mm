@@ -48,7 +48,7 @@
 
 - (id)accessibilityLabel
 {
-  v3 = sub_275F37BC8();
+  v3 = sub_275F37BC8(self);
   v5 = objc_msgSend_localizedStringForKey_value_table_(v3, v4, @"Page %ld", &stru_2884F65E0, @"Numbers");
 
   v6 = MEMORY[0x277CCACA8];

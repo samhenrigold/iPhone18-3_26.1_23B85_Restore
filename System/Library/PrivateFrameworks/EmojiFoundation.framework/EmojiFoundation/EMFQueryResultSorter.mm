@@ -95,7 +95,7 @@ LABEL_6:
 
                   else
                   {
-                    v21 = emf_logging_get_default_log();
+                    v21 = emf_logging_get_default_log(0);
                     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
                     {
                       *buf = v30;

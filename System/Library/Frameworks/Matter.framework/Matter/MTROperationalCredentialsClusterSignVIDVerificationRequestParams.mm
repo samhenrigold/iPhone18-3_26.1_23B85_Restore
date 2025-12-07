@@ -36,8 +36,8 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc_init(MTROperationalCredentialsClusterSignVIDVerificationRequestParams);
-  fabricIndex = [(MTROperationalCredentialsClusterSignVIDVerificationRequestParams *)self fabricIndex];
-  [(MTROperationalCredentialsClusterSignVIDVerificationRequestParams *)v4 setFabricIndex:fabricIndex];
+  v5 = objc_msgSend_fabricIndex(self);
+  [(MTROperationalCredentialsClusterSignVIDVerificationRequestParams *)v4 setFabricIndex:v5];
 
   clientChallenge = [(MTROperationalCredentialsClusterSignVIDVerificationRequestParams *)self clientChallenge];
   [(MTROperationalCredentialsClusterSignVIDVerificationRequestParams *)v4 setClientChallenge:clientChallenge];
@@ -70,8 +70,8 @@
   v22[0] = 0;
   v22[1] = 0;
   v21 = v22;
-  fabricIndex = [(MTROperationalCredentialsClusterSignVIDVerificationRequestParams *)self fabricIndex];
-  v23[0] = [fabricIndex unsignedCharValue];
+  v5 = objc_msgSend_fabricIndex(self, a2);
+  v23[0] = [v5 unsignedCharValue];
 
   clientChallenge = [(MTROperationalCredentialsClusterSignVIDVerificationRequestParams *)self clientChallenge];
   sub_238DB6950(v15, [clientChallenge bytes], objc_msgSend(clientChallenge, "length"));

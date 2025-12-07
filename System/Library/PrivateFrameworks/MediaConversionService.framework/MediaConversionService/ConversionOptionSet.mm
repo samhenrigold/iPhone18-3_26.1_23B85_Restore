@@ -21,13 +21,13 @@
 
 - (id)photosAdjustmentsDictionaryForAdjustmentsFileAtPath:(id)path
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v4 = MEMORY[0x277CBEAC0];
   v5 = [MEMORY[0x277CBEBC0] fileURLWithPath:pathCopy];
-  v17 = 0;
-  v6 = [v4 dictionaryWithContentsOfURL:v5 error:&v17];
-  v7 = v17;
+  v16 = 0;
+  v6 = [v4 dictionaryWithContentsOfURL:v5 error:&v16];
+  v7 = v16;
 
   if (v6)
   {
@@ -53,13 +53,13 @@
 
     else
     {
-      v18[0] = @"PAMediaConversionServiceAdjustmentFormatIdentifierKey";
-      v18[1] = @"PAMediaConversionServiceAdjustmentFormatVersionKey";
-      v19[0] = v8;
-      v19[1] = v9;
-      v18[2] = @"PAMediaConversionServiceAdjustmentDataKey";
-      v19[2] = v10;
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
+      v17[0] = @"PAMediaConversionServiceAdjustmentFormatIdentifierKey";
+      v17[1] = @"PAMediaConversionServiceAdjustmentFormatVersionKey";
+      v18[0] = v8;
+      v18[1] = v9;
+      v17[2] = @"PAMediaConversionServiceAdjustmentDataKey";
+      v18[2] = v10;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
     }
   }
 
@@ -69,14 +69,12 @@
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (id)pfVideoAdjustmentsDictionaryForString:(id)string
 {
-  v18[5] = *MEMORY[0x277D85DE8];
+  v17[5] = *MEMORY[0x277D85DE8];
   v3 = [string componentsSeparatedByString:@":"];
   if ([v3 count] == 5)
   {
@@ -92,19 +90,19 @@
       v10 = [v3 objectAtIndexedSubscript:4];
       integerValue2 = [v10 integerValue];
 
-      v17[0] = @"adjustmentFormatIdentifier";
-      v17[1] = @"adjustmentFormatVersion";
-      v18[0] = v4;
-      v18[1] = v5;
-      v18[2] = v7;
-      v17[2] = @"adjustmentData";
-      v17[3] = @"adjustmentBaseVersion";
+      v16[0] = @"adjustmentFormatIdentifier";
+      v16[1] = @"adjustmentFormatVersion";
+      v17[0] = v4;
+      v17[1] = v5;
+      v17[2] = v7;
+      v16[2] = @"adjustmentData";
+      v16[3] = @"adjustmentBaseVersion";
       v12 = [MEMORY[0x277CCABB0] numberWithInteger:integerValue];
-      v18[3] = v12;
-      v17[4] = @"adjustmentRenderTypes";
+      v17[3] = v12;
+      v16[4] = @"adjustmentRenderTypes";
       v13 = [MEMORY[0x277CCABB0] numberWithInteger:integerValue2];
-      v18[4] = v13;
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:5];
+      v17[4] = v13;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:5];
     }
 
     else
@@ -120,14 +118,12 @@
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (id)photosAdjustmentsDictionaryForString:(id)string
 {
-  v18[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   stringCopy = string;
   stringByExpandingTildeInPath = [stringCopy stringByExpandingTildeInPath];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
@@ -150,13 +146,13 @@
       v14 = v13;
       if (v13)
       {
-        v17[0] = @"PAMediaConversionServiceAdjustmentFormatIdentifierKey";
-        v17[1] = @"PAMediaConversionServiceAdjustmentFormatVersionKey";
-        v18[0] = v10;
-        v18[1] = v11;
-        v17[2] = @"PAMediaConversionServiceAdjustmentDataKey";
-        v18[2] = v13;
-        v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
+        v16[0] = @"PAMediaConversionServiceAdjustmentFormatIdentifierKey";
+        v16[1] = @"PAMediaConversionServiceAdjustmentFormatVersionKey";
+        v17[0] = v10;
+        v17[1] = v11;
+        v16[2] = @"PAMediaConversionServiceAdjustmentDataKey";
+        v17[2] = v13;
+        v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
       }
 
       else
@@ -172,8 +168,6 @@
       v8 = 0;
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -222,14 +216,14 @@
 
 - (id)metadataPolicyForString:(id)string
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   stringCopy = string;
   if ([stringCopy isEqualToString:@"default"])
   {
     v4 = MEMORY[0x277D3B418];
     standardPolicy = [MEMORY[0x277D3B420] standardPolicy];
-    v13[0] = standardPolicy;
-    livePhotoPairingIdentifierMetadataKey = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = standardPolicy;
+    livePhotoPairingIdentifierMetadataKey = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     v7 = [v4 policyWithPolicies:livePhotoPairingIdentifierMetadataKey];
 LABEL_5:
     v10 = v7;
@@ -251,8 +245,6 @@ LABEL_5:
   [MediaConversionServiceCommandLineDriver outputError:@"metadata policy %@ is not supported\n", stringCopy];
   v10 = 0;
 LABEL_7:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -564,90 +556,88 @@ LABEL_31:
 
 - (id)presetNameToOptionsMappingForVideoTranscoding
 {
-  v43[9] = *MEMORY[0x277D85DE8];
-  v42[0] = @"CPLResourceTypeVideoLargeSize";
-  v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"ExportPresetName=%@", *MEMORY[0x277CE5C30]];
-  v41[0] = v32;
+  v42[9] = *MEMORY[0x277D85DE8];
+  v41[0] = @"CPLResourceTypeVideoLargeSize";
+  v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"ExportPresetName=%@", *MEMORY[0x277CE5C30]];
+  v40[0] = v31;
   v2 = *MEMORY[0x277CE5DA8];
-  v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"OutputFileType=%@", *MEMORY[0x277CE5DA8]];
-  v41[1] = v31;
-  v41[2] = @"AVIncludeMetadata=1";
-  v41[3] = @"AVMetadataIncludeLocation=1";
-  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:4];
-  v43[0] = v30;
-  v42[1] = @"CPLResourceTypeVideoMediumSize";
-  v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"ExportPresetName=%@", *MEMORY[0x277CE5C20]];
-  v40[0] = v29;
-  v3 = *MEMORY[0x277CE5D98];
-  v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"OutputFileType=%@", *MEMORY[0x277CE5D98]];
-  v40[1] = v28;
+  v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"OutputFileType=%@", *MEMORY[0x277CE5DA8]];
+  v40[1] = v30;
   v40[2] = @"AVIncludeMetadata=1";
   v40[3] = @"AVMetadataIncludeLocation=1";
-  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:4];
-  v43[1] = v27;
-  v42[2] = @"CPLResourceTypeVideoMediumSize+LivePhoto";
-  v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"ExportPresetName=%@", *MEMORY[0x277CE5C18]];
-  v39[0] = v26;
-  v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"OutputFileType=%@", v2];
-  v39[1] = v25;
+  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:4];
+  v42[0] = v29;
+  v41[1] = @"CPLResourceTypeVideoMediumSize";
+  v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"ExportPresetName=%@", *MEMORY[0x277CE5C20]];
+  v39[0] = v28;
+  v3 = *MEMORY[0x277CE5D98];
+  v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"OutputFileType=%@", *MEMORY[0x277CE5D98]];
+  v39[1] = v27;
   v39[2] = @"AVIncludeMetadata=1";
   v39[3] = @"AVMetadataIncludeLocation=1";
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:4];
-  v43[2] = v24;
-  v42[3] = @"CPLResourceTypeVideoMediumSize+HDR";
-  v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"ExportPresetName=%@", *MEMORY[0x277CE5C28]];
-  v38[0] = v23;
-  v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"OutputFileType=%@", v2];
-  v38[1] = v22;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:4];
+  v42[1] = v26;
+  v41[2] = @"CPLResourceTypeVideoMediumSize+LivePhoto";
+  v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"ExportPresetName=%@", *MEMORY[0x277CE5C18]];
+  v38[0] = v25;
+  v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"OutputFileType=%@", v2];
+  v38[1] = v24;
   v38[2] = @"AVIncludeMetadata=1";
   v38[3] = @"AVMetadataIncludeLocation=1";
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:4];
-  v43[3] = v21;
-  v42[4] = @"CPLResourceTypeVideoSmallSize";
-  v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"ExportPresetName=%@", *MEMORY[0x277CE5C08]];
-  v37[0] = v20;
-  v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"OutputFileType=%@", v3];
-  v37[1] = v19;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:4];
+  v42[2] = v23;
+  v41[3] = @"CPLResourceTypeVideoMediumSize+HDR";
+  v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"ExportPresetName=%@", *MEMORY[0x277CE5C28]];
+  v37[0] = v22;
+  v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"OutputFileType=%@", v2];
+  v37[1] = v21;
   v37[2] = @"AVIncludeMetadata=1";
   v37[3] = @"AVMetadataIncludeLocation=1";
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:4];
-  v43[4] = v18;
-  v42[5] = @"CPLResourceTypeVideoMetaData";
-  v36[0] = @"IsVideoMetadataTrackExtraction=1";
-  v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"OutputFileType=%@", v2];
-  v36[1] = v17;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
-  v43[5] = v16;
-  v42[6] = @"CPLResourceTypeVideoSmallSize+LivePhoto";
-  v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"ExportPresetName=%@", *MEMORY[0x277CE5C10]];
-  v35[0] = v15;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:4];
+  v42[3] = v20;
+  v41[4] = @"CPLResourceTypeVideoSmallSize";
+  v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"ExportPresetName=%@", *MEMORY[0x277CE5C08]];
+  v36[0] = v19;
+  v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"OutputFileType=%@", v3];
+  v36[1] = v18;
+  v36[2] = @"AVIncludeMetadata=1";
+  v36[3] = @"AVMetadataIncludeLocation=1";
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:4];
+  v42[4] = v17;
+  v41[5] = @"CPLResourceTypeVideoMetaData";
+  v35[0] = @"IsVideoMetadataTrackExtraction=1";
+  v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"OutputFileType=%@", v2];
+  v35[1] = v16;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
+  v42[5] = v15;
+  v41[6] = @"CPLResourceTypeVideoSmallSize+LivePhoto";
+  v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"ExportPresetName=%@", *MEMORY[0x277CE5C10]];
+  v34[0] = v14;
   v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"OutputFileType=%@", v2];
-  v35[1] = v4;
-  v35[2] = @"AVIncludeMetadata=1";
-  v35[3] = @"AVMetadataIncludeLocation=1";
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:4];
-  v43[6] = v5;
-  v42[7] = @"PhotostreamSmall";
-  v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"ExportPresetName=%@", *MEMORY[0x277CE5C80]];
-  v34[0] = v6;
-  v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"OutputFileType=%@", v3];
-  v34[1] = v7;
+  v34[1] = v4;
   v34[2] = @"AVIncludeMetadata=1";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:3];
-  v43[7] = v8;
-  v42[8] = @"Photostream";
-  v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"ExportPresetName=%@", *MEMORY[0x277CE5C88]];
-  v33[0] = v9;
-  v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"OutputFileType=%@", v3];
-  v33[1] = v10;
+  v34[3] = @"AVMetadataIncludeLocation=1";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:4];
+  v42[6] = v5;
+  v41[7] = @"PhotostreamSmall";
+  v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"ExportPresetName=%@", *MEMORY[0x277CE5C80]];
+  v33[0] = v6;
+  v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"OutputFileType=%@", v3];
+  v33[1] = v7;
   v33[2] = @"AVIncludeMetadata=1";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:3];
-  v43[8] = v11;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:9];
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:3];
+  v42[7] = v8;
+  v41[8] = @"Photostream";
+  v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"ExportPresetName=%@", *MEMORY[0x277CE5C88]];
+  v32[0] = v9;
+  v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"OutputFileType=%@", v3];
+  v32[1] = v10;
+  v32[2] = @"AVIncludeMetadata=1";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:3];
+  v42[8] = v11;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:9];
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v13;
 }
 
 - (id)presetListForMapping:(id)mapping
@@ -660,7 +650,7 @@ LABEL_31:
 
 - (int)checkDestinationExists
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   array = [MEMORY[0x277CBEB18] array];
   if (self->_destinationPath && [defaultManager fileExistsAtPath:?])
@@ -682,29 +672,29 @@ LABEL_18:
 
   if (self->_replaceExistingOutput)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v5 = array;
-    v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v20;
+      v8 = *v19;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v20 != v8)
+          if (*v19 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v19 + 1) + 8 * i);
-          v18 = 0;
-          v11 = [defaultManager removeItemAtPath:v10 error:&v18];
-          v12 = v18;
+          v10 = *(*(&v18 + 1) + 8 * i);
+          v17 = 0;
+          v11 = [defaultManager removeItemAtPath:v10 error:&v17];
+          v12 = v17;
           v13 = v12;
           if ((v11 & 1) == 0)
           {
@@ -714,7 +704,7 @@ LABEL_18:
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v7)
         {
           continue;
@@ -734,13 +724,12 @@ LABEL_21:
   v14 = 73;
 LABEL_22:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (int)validateAndProcess
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   knownConversionTypes = [objc_opt_class() knownConversionTypes];
   v4 = [knownConversionTypes containsObject:self->_conversionType];
 
@@ -779,8 +768,7 @@ LABEL_22:
       [MediaConversionServiceCommandLineDriver output:@"%@\n", v8];
 LABEL_17:
 
-      checkDestinationExists = 64;
-      goto LABEL_18;
+      return 64;
     }
 
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
@@ -794,57 +782,57 @@ LABEL_17:
         self->_conversionOptions = dictionary;
 
         [(NSMutableDictionary *)self->_conversionOptions setObject:@"photosctl media-conversion" forKeyedSubscript:@"PAMediaConversionServiceOptionRequestReasonKey"];
-        v34 = 0u;
-        v35 = 0u;
-        v32 = 0u;
         v33 = 0u;
-        v19 = self->_conversionOptionInputKeyValuePairs;
-        v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v32 objects:v36 count:16];
-        if (v20)
+        v34 = 0u;
+        v31 = 0u;
+        v32 = 0u;
+        v18 = self->_conversionOptionInputKeyValuePairs;
+        v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        if (v19)
         {
-          v21 = v20;
-          v22 = *v33;
+          v20 = v19;
+          v21 = *v32;
           while (2)
           {
-            for (i = 0; i != v21; ++i)
+            for (i = 0; i != v20; ++i)
             {
-              if (*v33 != v22)
+              if (*v32 != v21)
               {
-                objc_enumerationMutation(v19);
+                objc_enumerationMutation(v18);
               }
 
-              v24 = *(*(&v32 + 1) + 8 * i);
-              v25 = [v24 rangeOfString:@"="];
-              if (v25)
+              v23 = *(*(&v31 + 1) + 8 * i);
+              v24 = [v23 rangeOfString:@"="];
+              if (v24)
               {
-                v26 = v25 == 0x7FFFFFFFFFFFFFFFLL;
+                v25 = v24 == 0x7FFFFFFFFFFFFFFFLL;
               }
 
               else
               {
-                v26 = 1;
+                v25 = 1;
               }
 
-              if (v26 || (v27 = v25, v25 == [v24 length] - 1))
+              if (v25 || (v26 = v24, v24 == [v23 length] - 1))
               {
-                [MediaConversionServiceCommandLineDriver outputError:@"Invalid conversion option '%@', expecting 'key=value' format\n", v24];
+                [MediaConversionServiceCommandLineDriver outputError:@"Invalid conversion option '%@', expecting 'key=value' format\n", v23];
 LABEL_43:
 
                 goto LABEL_47;
               }
 
-              v28 = [v24 substringWithRange:{0, v27}];
-              v29 = [v24 substringWithRange:{v27 + 1, objc_msgSend(v24, "length") + ~v27}];
-              v30 = [(ConversionOptionSet *)self processConversionOptionKey:v28 valueString:v29];
+              v27 = [v23 substringWithRange:{0, v26}];
+              v28 = [v23 substringWithRange:{v26 + 1, objc_msgSend(v23, "length") + ~v26}];
+              v29 = [(ConversionOptionSet *)self processConversionOptionKey:v27 valueString:v28];
 
-              if (!v30)
+              if (!v29)
               {
                 goto LABEL_43;
               }
             }
 
-            v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v32 objects:v36 count:16];
-            if (v21)
+            v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v31 objects:v35 count:16];
+            if (v20)
             {
               continue;
             }
@@ -872,15 +860,15 @@ LABEL_38:
             goto LABEL_48;
           }
 
-          v31 = @"--source-video-complement is required if --destination-video-complement is given\n";
+          v30 = @"--source-video-complement is required if --destination-video-complement is given\n";
         }
 
         else
         {
-          v31 = @"--source-video-complement and --destination-video-complement are only valid for image conversions\n";
+          v30 = @"--source-video-complement and --destination-video-complement are only valid for image conversions\n";
         }
 
-        [MediaConversionServiceCommandLineDriver outputError:v31];
+        [MediaConversionServiceCommandLineDriver outputError:v30];
 LABEL_47:
         checkDestinationExists = 65;
       }
@@ -894,17 +882,14 @@ LABEL_47:
 
 LABEL_48:
 
-    goto LABEL_18;
+    return checkDestinationExists;
   }
 
   knownConversionTypes2 = [objc_opt_class() knownConversionTypes];
   v6 = [knownConversionTypes2 componentsJoinedByString:{@", "}];
   [MediaConversionServiceCommandLineDriver output:@"Please specify a valid conversion type: %@\n", v6];
 
-  checkDestinationExists = 65;
-LABEL_18:
-  v14 = *MEMORY[0x277D85DE8];
-  return checkDestinationExists;
+  return 65;
 }
 
 - (ConversionOptionSet)init
@@ -942,12 +927,11 @@ LABEL_18:
 
 + (id)knownConversionTypes
 {
-  v5[3] = *MEMORY[0x277D85DE8];
-  v5[0] = @"image";
-  v5[1] = @"video";
-  v5[2] = @"still";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
+  v4[0] = @"image";
+  v4[1] = @"video";
+  v4[2] = @"still";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
 
   return v2;
 }

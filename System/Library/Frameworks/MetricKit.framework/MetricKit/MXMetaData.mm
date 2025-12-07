@@ -338,17 +338,15 @@ LABEL_8:
 
 id __32__MXMetaData_JSONRepresentation__block_invoke()
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCA8D8] mainBundle];
   v1 = [v0 bundleIdentifier];
 
-  v5[0] = @"bundleID";
-  v5[1] = @"metricKitHelperFunctionType";
-  v6[0] = v1;
-  v6[1] = @"JSONRepresentation";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v4[0] = @"bundleID";
+  v4[1] = @"metricKitHelperFunctionType";
+  v5[0] = v1;
+  v5[1] = @"JSONRepresentation";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
@@ -365,17 +363,15 @@ id __32__MXMetaData_JSONRepresentation__block_invoke()
 
 id __38__MXMetaData_DictionaryRepresentation__block_invoke()
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCA8D8] mainBundle];
   v1 = [v0 bundleIdentifier];
 
-  v5[0] = @"bundleID";
-  v5[1] = @"metricKitHelperFunctionType";
-  v6[0] = v1;
-  v6[1] = @"DictionaryRepresentation";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v4[0] = @"bundleID";
+  v4[1] = @"metricKitHelperFunctionType";
+  v5[0] = v1;
+  v5[1] = @"DictionaryRepresentation";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
@@ -392,17 +388,15 @@ id __38__MXMetaData_DictionaryRepresentation__block_invoke()
 
 id __38__MXMetaData_dictionaryRepresentation__block_invoke()
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCA8D8] mainBundle];
   v1 = [v0 bundleIdentifier];
 
-  v5[0] = @"bundleID";
-  v5[1] = @"metricKitHelperFunctionType";
-  v6[0] = v1;
-  v6[1] = @"dictionaryRepresentation";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v4[0] = @"bundleID";
+  v4[1] = @"metricKitHelperFunctionType";
+  v5[0] = v1;
+  v5[1] = @"dictionaryRepresentation";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }

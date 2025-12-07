@@ -39,6 +39,7 @@
 + (id)updatesProductImageConsumer;
 + (id)wishlistIconConsumer;
 + (id)wishlistProductImageConsumer;
++ (void)isImageCompressionEnabled;
 - (BOOL)_backgroundIsOpaque;
 - (BOOL)isImagePlaceholderAvailable;
 - (CGSize)imageSize;
@@ -65,6 +66,8 @@
 - (id)imageForImage:(id)image;
 - (id)imagePlaceholderForColor:(id)color;
 - (void)_drawBordersWithImageRect:(CGRect)rect bounds:(CGRect)bounds;
+- (void)init;
+- (void)isImagePlaceholderAvailable;
 @end
 
 @implementation SKUIStyledImageDataConsumer
@@ -1524,33 +1527,33 @@ LABEL_24:
   return v5;
 }
 
-id __58__SKUIStyledImageDataConsumer__placeholderCornerPathBlock__block_invoke(double a1, double a2, double a3, double a4)
+id __58__SKUIStyledImageDataConsumer__placeholderCornerPathBlock__block_invoke(double a1, double a2, double a3, double a4, uint64_t a5, uint64_t a6)
 {
   if (os_variant_has_internal_content())
   {
     if (_os_feature_enabled_impl())
     {
-      v8 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG);
-      if (v8)
+      v10 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG);
+      if (v10)
       {
-        __58__SKUIStyledImageDataConsumer__placeholderCornerPathBlock__block_invoke_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
+        __58__SKUIStyledImageDataConsumer__placeholderCornerPathBlock__block_invoke_cold_1(v10, v11, v12, v13, v14, v15, v16, v17);
       }
     }
   }
 
   if (a4 >= a3)
   {
-    v16 = a4;
+    v18 = a4;
   }
 
   else
   {
-    v16 = a3;
+    v18 = a3;
   }
 
-  v17 = [MEMORY[0x277D75208] _bezierPathWithArcRoundedRect:a1 cornerRadius:{a2, a3, a4, v16 / 57.0 * 13.5}];
+  v19 = [MEMORY[0x277D75208] _bezierPathWithArcRoundedRect:a1 cornerRadius:{a2, a3, a4, v18 / 57.0 * 13.5}];
 
-  return v17;
+  return v19;
 }
 
 uint64_t __58__SKUIStyledImageDataConsumer__placeholderCornerPathBlock__block_invoke_5(double a1, double a2, double a3, double a4)
@@ -1730,7 +1733,7 @@ LABEL_12:
   v7 = size.height;
   v8 = size.width;
   blockCopy = block;
-  v11 = objc_autoreleasePoolPush();
+  v12 = objc_autoreleasePoolPush();
   switch(self->_imageTreatment)
   {
     case 0:
@@ -1738,220 +1741,220 @@ LABEL_12:
     case 5:
     case 7:
       right = self->_imagePadding.right;
-      v109 = *&self->_imagePadding.left;
+      v110 = *&self->_imagePadding.left;
       top = self->_imagePadding.top;
-      SKUIImageRectForBoundsAndPadding();
-      v13 = v12;
-      v15 = v14;
-      v17 = v16;
-      v19 = v18;
+      SKUIImageRectForBoundsAndPadding(self->_imageContentMode, v11);
+      v14 = v13;
+      v16 = v15;
+      v18 = v17;
+      v20 = v19;
       selfCopy4 = self;
-      v21 = width;
-      v22 = height;
+      v22 = width;
+      v23 = height;
       goto LABEL_3;
     case 1:
-      v116 = self->_imagePadding.right;
-      v110 = *&self->_imagePadding.left;
-      SKUIImageRectForBoundsAndPadding();
-      x = v49;
-      y = v50;
-      v26 = v51;
+      v117 = self->_imagePadding.right;
+      v111 = *&self->_imagePadding.left;
+      SKUIImageRectForBoundsAndPadding(self->_imageContentMode, v11);
+      x = v50;
+      y = v51;
       v27 = v52;
+      v28 = v53;
       if (os_variant_has_internal_content())
       {
         if (_os_feature_enabled_impl())
         {
-          v53 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG);
-          if (v53)
+          v54 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG);
+          if (v54)
           {
-            __58__SKUIStyledImageDataConsumer__placeholderCornerPathBlock__block_invoke_cold_1(v53, v54, v55, v56, v57, v58, v59, v60);
+            __58__SKUIStyledImageDataConsumer__placeholderCornerPathBlock__block_invoke_cold_1(v54, v55, v56, v57, v58, v59, v60, v61);
           }
         }
       }
 
-      if (v27 >= v26)
+      if (v28 >= v27)
       {
-        v61 = v27;
+        v62 = v28;
       }
 
       else
       {
-        v61 = v26;
+        v62 = v27;
       }
 
-      v29 = v61 / 57.0 * 13.5;
+      v30 = v62 / 57.0 * 13.5;
       goto LABEL_19;
     case 2:
-      v117 = self->_imagePadding.right;
-      v111 = *&self->_imagePadding.left;
-      SKUIImageRectForBoundsAndPadding();
-      v31 = v73;
-      v33 = v74;
-      v35 = v75;
-      v37 = v76;
-      *&v38 = 10.0;
+      v118 = self->_imagePadding.right;
+      v112 = *&self->_imagePadding.left;
+      SKUIImageRectForBoundsAndPadding(self->_imageContentMode, v11);
+      v32 = v74;
+      v34 = v75;
+      v36 = v76;
+      v38 = v77;
+      *&v39 = 10.0;
       goto LABEL_24;
     case 4:
+      v121 = self->_imagePadding.right;
+      v115 = *&self->_imagePadding.left;
+      v108 = self->_imagePadding.top;
+      SKUIImageRectForBoundsAndPadding(self->_imageContentMode, v11);
+      v24 = [(SKUIStyledImageDataConsumer *)self _leftToRightGradient:blockCopy contentRect:0.0 drawBlock:0.0, width, height, v63, v64, v65, v66, *&v108, v115, *&v121];
+      goto LABEL_28;
+    case 6:
       v120 = self->_imagePadding.right;
       v114 = *&self->_imagePadding.left;
       v107 = self->_imagePadding.top;
-      SKUIImageRectForBoundsAndPadding();
-      v23 = [(SKUIStyledImageDataConsumer *)self _leftToRightGradient:blockCopy contentRect:0.0 drawBlock:0.0, width, height, v62, v63, v64, v65, *&v107, v114, *&v120];
-      goto LABEL_28;
-    case 6:
-      v119 = self->_imagePadding.right;
-      v113 = *&self->_imagePadding.left;
-      v106 = self->_imagePadding.top;
-      SKUIImageRectForBoundsAndPadding();
-      v47 = [(SKUIStyledImageDataConsumer *)self _scaledImageWithBounds:blockCopy contentRect:0.0 drawBlock:0.0, width, height, v43, v44, v45, v46, *&v106, v113, *&v119];
-      v48 = [v47 imageWithRenderingMode:2];
+      SKUIImageRectForBoundsAndPadding(self->_imageContentMode, v11);
+      v48 = [(SKUIStyledImageDataConsumer *)self _scaledImageWithBounds:blockCopy contentRect:0.0 drawBlock:0.0, width, height, v44, v45, v46, v47, *&v107, v114, *&v120];
+      v49 = [v48 imageWithRenderingMode:2];
 
       break;
     case 8:
-      v23 = [(SKUIStyledImageDataConsumer *)self _dynamicUberImageWithBounds:blockCopy inputSize:0.0 drawBlock:0.0, width, height, v8, v7];
+      v24 = [(SKUIStyledImageDataConsumer *)self _dynamicUberImageWithBounds:blockCopy inputSize:0.0 drawBlock:0.0, width, height, v8, v7];
       goto LABEL_28;
     case 9:
-      v23 = [(SKUIStyledImageDataConsumer *)self _uberBannerImageWithBounds:blockCopy inputSize:0.0 drawBlock:0.0, width, height, v8, v7];
+      v24 = [(SKUIStyledImageDataConsumer *)self _uberBannerImageWithBounds:blockCopy inputSize:0.0 drawBlock:0.0, width, height, v8, v7];
       goto LABEL_28;
     case 0xALL:
     case 0xBLL:
-      v116 = self->_imagePadding.right;
-      v110 = *&self->_imagePadding.left;
-      SKUIImageRectForBoundsAndPadding();
-      x = v124.origin.x;
-      y = v124.origin.y;
-      v26 = v124.size.width;
-      v27 = v124.size.height;
-      v28 = CGRectGetWidth(v124) * 0.5;
-      v125.origin.x = x;
-      v125.origin.y = y;
-      v125.size.width = v26;
-      v125.size.height = v27;
-      v29 = CGRectGetHeight(v125) * 0.5;
-      if (v28 >= v29)
+      v117 = self->_imagePadding.right;
+      v111 = *&self->_imagePadding.left;
+      SKUIImageRectForBoundsAndPadding(self->_imageContentMode, v11);
+      x = v125.origin.x;
+      y = v125.origin.y;
+      v27 = v125.size.width;
+      v28 = v125.size.height;
+      v29 = CGRectGetWidth(v125) * 0.5;
+      v126.origin.x = x;
+      v126.origin.y = y;
+      v126.size.width = v27;
+      v126.size.height = v28;
+      v30 = CGRectGetHeight(v126) * 0.5;
+      if (v29 >= v30)
       {
-        v29 = v28;
+        v30 = v29;
       }
 
 LABEL_19:
-      [(SKUIStyledImageDataConsumer *)self _arcRoundedImageWithBounds:blockCopy contentRect:0.0 cornerRadius:0.0 drawBlock:width, height, x, y, v26, v27, *&v29, v110, *&v116];
+      [(SKUIStyledImageDataConsumer *)self _arcRoundedImageWithBounds:blockCopy contentRect:0.0 cornerRadius:0.0 drawBlock:width, height, x, y, v27, v28, *&v30, v111, *&v117];
       goto LABEL_27;
     case 0xCLL:
       right = self->_imagePadding.right;
-      v109 = *&self->_imagePadding.left;
+      v110 = *&self->_imagePadding.left;
       top = self->_imagePadding.top;
-      SKUIImageRectForBoundsAndPadding();
-      v13 = v66;
-      v15 = v67;
-      v17 = v68;
-      v19 = v69;
+      SKUIImageRectForBoundsAndPadding(self->_imageContentMode, v11);
+      v14 = v67;
+      v16 = v68;
+      v18 = v69;
+      v20 = v70;
       selfCopy3 = self;
-      v71 = width;
-      v72 = height;
+      v72 = width;
+      v73 = height;
       goto LABEL_41;
     case 0xDLL:
-      v98 = v8 + self->_imagePadding.left + self->_imagePadding.right;
-      v99 = v7 + self->_imagePadding.top + self->_imagePadding.bottom;
-      v109 = *&self->_imagePadding.left;
+      v99 = v8 + self->_imagePadding.left + self->_imagePadding.right;
+      v100 = v7 + self->_imagePadding.top + self->_imagePadding.bottom;
+      v110 = *&self->_imagePadding.left;
       right = self->_imagePadding.right;
       top = self->_imagePadding.top;
-      SKUIImageRectForBoundsAndPadding();
-      v13 = v100;
-      v15 = v101;
-      v17 = v102;
-      v19 = v103;
+      SKUIImageRectForBoundsAndPadding(1, v11);
+      v14 = v101;
+      v16 = v102;
+      v18 = v103;
+      v20 = v104;
       if (self->_imagePadding.bottom >= 0.00000011920929)
       {
         selfCopy3 = self;
-        v71 = v98;
         v72 = v99;
+        v73 = v100;
 LABEL_41:
-        v23 = [(SKUIStyledImageDataConsumer *)selfCopy3 _radialBlurImageWithBounds:blockCopy contentRect:0.0 drawBlock:0.0, v71, v72, v13, v15, v17, v19, *&top, v109, *&right];
+        v24 = [(SKUIStyledImageDataConsumer *)selfCopy3 _radialBlurImageWithBounds:blockCopy contentRect:0.0 drawBlock:0.0, v72, v73, v14, v16, v18, v20, *&top, v110, *&right];
       }
 
       else
       {
         selfCopy4 = self;
-        v21 = v98;
         v22 = v99;
+        v23 = v100;
 LABEL_3:
-        v23 = [(SKUIStyledImageDataConsumer *)selfCopy4 _scaledImageWithBounds:blockCopy contentRect:0.0 drawBlock:0.0, v21, v22, v13, v15, v17, v19, *&top, v109, *&right];
+        v24 = [(SKUIStyledImageDataConsumer *)selfCopy4 _scaledImageWithBounds:blockCopy contentRect:0.0 drawBlock:0.0, v22, v23, v14, v16, v18, v20, *&top, v110, *&right];
       }
 
       goto LABEL_28;
     case 0xELL:
-      v118 = self->_borderWidths.right;
-      v112 = *&self->_borderWidths.left;
-      v105 = self->_borderWidths.top;
-      SKUIImageRectForBoundsAndPadding();
-      v23 = [(SKUIStyledImageDataConsumer *)self _roundedBorderWithBounds:blockCopy contentRect:0.0 drawBlock:0.0, width, height, v39, v40, v41, v42, *&v105, v112, *&v118];
+      v119 = self->_borderWidths.right;
+      v113 = *&self->_borderWidths.left;
+      v106 = self->_borderWidths.top;
+      SKUIImageRectForBoundsAndPadding(self->_imageContentMode, v11);
+      v24 = [(SKUIStyledImageDataConsumer *)self _roundedBorderWithBounds:blockCopy contentRect:0.0 drawBlock:0.0, width, height, v40, v41, v42, v43, *&v106, v113, *&v119];
       goto LABEL_28;
     case 0xFLL:
-      v117 = self->_imagePadding.right;
-      v111 = *&self->_imagePadding.left;
-      SKUIImageRectForBoundsAndPadding();
-      v31 = v77;
-      v33 = v78;
-      v35 = v79;
-      v37 = v80;
-      v108 = v80 * 0.5;
+      v118 = self->_imagePadding.right;
+      v112 = *&self->_imagePadding.left;
+      SKUIImageRectForBoundsAndPadding(self->_imageContentMode, v11);
+      v32 = v78;
+      v34 = v79;
+      v36 = v80;
+      v38 = v81;
+      v109 = v81 * 0.5;
       goto LABEL_26;
     case 0x10:
-      v117 = self->_imagePadding.right;
-      v111 = *&self->_imagePadding.left;
-      SKUIImageRectForBoundsAndPadding();
-      v31 = v30;
-      v33 = v32;
-      v35 = v34;
-      v37 = v36;
-      *&v38 = 6.0;
+      v118 = self->_imagePadding.right;
+      v112 = *&self->_imagePadding.left;
+      SKUIImageRectForBoundsAndPadding(self->_imageContentMode, v11);
+      v32 = v31;
+      v34 = v33;
+      v36 = v35;
+      v38 = v37;
+      *&v39 = 6.0;
 LABEL_24:
-      v108 = *&v38;
+      v109 = *&v39;
 LABEL_26:
-      [(SKUIStyledImageDataConsumer *)self _arcRoundedImageWithBounds:blockCopy contentRect:0.0 cornerRadius:0.0 drawBlock:width, height, v31, v33, v35, v37, *&v108, v111, *&v117];
-      v23 = LABEL_27:;
+      [(SKUIStyledImageDataConsumer *)self _arcRoundedImageWithBounds:blockCopy contentRect:0.0 cornerRadius:0.0 drawBlock:width, height, v32, v34, v36, v38, *&v109, v112, *&v118];
+      v24 = LABEL_27:;
 LABEL_28:
-      v48 = v23;
+      v49 = v24;
       break;
     default:
-      v48 = 0;
+      v49 = 0;
       break;
   }
 
   p_shadowOffset = &self->_shadowOffset;
   if (self->_shadowOffset.width != *MEMORY[0x277CBF3A8] || self->_shadowOffset.height != *(MEMORY[0x277CBF3A8] + 8))
   {
-    [v48 size];
-    v84 = v83 + (fabs(p_shadowOffset->width) + self->_shadowRadius) * 2.0;
-    [v48 size];
+    [v49 size];
+    v85 = v84 + (fabs(p_shadowOffset->width) + self->_shadowRadius) * 2.0;
+    [v49 size];
     shadowRadius = self->_shadowRadius;
-    v86 = fabs(self->_shadowOffset.height) + shadowRadius;
-    v88 = v87 + v86 * 2.0;
-    v89 = shadowRadius + fabs(p_shadowOffset->width);
+    v87 = fabs(self->_shadowOffset.height) + shadowRadius;
+    v89 = v88 + v87 * 2.0;
+    v90 = shadowRadius + fabs(p_shadowOffset->width);
     mainScreen = [MEMORY[0x277D759A0] mainScreen];
     [mainScreen scale];
-    v92 = v91;
-    v122.width = v84;
-    v122.height = v88;
-    UIGraphicsBeginImageContextWithOptions(v122, 0, v92);
+    v93 = v92;
+    v123.width = v85;
+    v123.height = v89;
+    UIGraphicsBeginImageContextWithOptions(v123, 0, v93);
 
     CurrentContext = UIGraphicsGetCurrentContext();
     CGContextSetBlendMode(CurrentContext, kCGBlendModeMultiply);
-    v94 = self->_shadowRadius;
+    v95 = self->_shadowRadius;
     cGColor = [(UIColor *)self->_shadowColor CGColor];
-    v123.width = p_shadowOffset->width;
-    v123.height = self->_shadowOffset.height;
-    CGContextSetShadowWithColor(CurrentContext, v123, v94, cGColor);
-    [v48 drawAtPoint:{v89, v86}];
-    v96 = UIGraphicsGetImageFromCurrentImageContext();
+    v124.width = p_shadowOffset->width;
+    v124.height = self->_shadowOffset.height;
+    CGContextSetShadowWithColor(CurrentContext, v124, v95, cGColor);
+    [v49 drawAtPoint:{v90, v87}];
+    v97 = UIGraphicsGetImageFromCurrentImageContext();
 
     UIGraphicsEndImageContext();
-    v48 = v96;
+    v49 = v97;
   }
 
-  objc_autoreleasePoolPop(v11);
+  objc_autoreleasePoolPop(v12);
 
-  return v48;
+  return v49;
 }
 
 - (id)_imageWithSize:(CGSize)size isOpaque:(BOOL)opaque drawBlock:(id)block
@@ -1963,16 +1966,17 @@ LABEL_28:
   [mainScreen scale];
   v11 = v10;
 
-  v17.width = width;
-  v17.height = height;
-  UIGraphicsBeginImageContextWithOptions(v17, opaque, v11);
-  if (+[SKUIStyledImageDataConsumer isImageCompressionEnabled])
+  v21.width = width;
+  v21.height = height;
+  UIGraphicsBeginImageContextWithOptions(v21, opaque, v11);
+  v12 = +[SKUIStyledImageDataConsumer isImageCompressionEnabled];
+  if (v12)
   {
-    HasASTCSupport = SKUIGraphicsDeviceHasASTCSupport();
-    blockCopy[2](blockCopy, HasASTCSupport);
+    HasASTCSupport = SKUIGraphicsDeviceHasASTCSupport(v12, v13);
+    v15 = blockCopy[2](blockCopy, HasASTCSupport);
     if (HasASTCSupport)
     {
-      v13 = SKUIGraphicsGetASTCImageFromCurrentImageContext(v11);
+      v17 = SKUIGraphicsGetASTCImageFromCurrentImageContext(v11, v15, v16);
       goto LABEL_6;
     }
   }
@@ -1982,12 +1986,12 @@ LABEL_28:
     blockCopy[2](blockCopy, 0);
   }
 
-  v13 = UIGraphicsGetImageFromCurrentImageContext();
+  v17 = UIGraphicsGetImageFromCurrentImageContext();
 LABEL_6:
-  v14 = v13;
+  v18 = v17;
   UIGraphicsEndImageContext();
 
-  return v14;
+  return v18;
 }
 
 - (id)_arcRoundedImageWithBounds:(CGRect)bounds contentRect:(CGRect)rect cornerRadius:(double)radius drawBlock:(id)block
@@ -2134,7 +2138,7 @@ uint64_t __76__SKUIStyledImageDataConsumer__scaledImageWithBounds_contentRect_dr
 
 void __80__SKUIStyledImageDataConsumer__radialBlurImageWithBounds_contentRect_drawBlock___block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 56);
   if (v2)
   {
@@ -2146,30 +2150,30 @@ void __80__SKUIStyledImageDataConsumer__radialBlurImageWithBounds_contentRect_dr
   v3 = *(*(a1 + 32) + 56);
   if (v3)
   {
-    v36 = 0u;
-    memset(v37, 0, 48);
+    v38 = 0u;
+    memset(v39, 0, 48);
     __asm { FMOV            V0.2D, #1.0 }
 
-    v37[3] = _Q0;
-    [v3 getRed:&v36 green:&v36 + 8 blue:v37 alpha:0];
-    *(&v37[1] + 8) = v36;
-    *(&v37[2] + 1) = *&v37[0];
+    v39[3] = _Q0;
+    [v3 getRed:&v38 green:&v38 + 8 blue:v39 alpha:0];
+    *(&v39[1] + 8) = v38;
+    *(&v39[2] + 1) = *&v39[0];
     v10 = *(a1 + 64);
     v9 = *(a1 + 72);
     *locations = xmmword_215F3F970;
+    v37 = 0x3FF0000000000000;
+    components = v38;
+    v28 = *&v39[0];
+    v29 = 0;
+    v30 = v38;
+    v31 = *&v39[0];
+    v32 = 0x3FE3333340000000;
+    v33 = v38;
+    v34 = *&v39[0];
     v35 = 0x3FF0000000000000;
-    *components = v36;
-    components[2] = *v37;
-    components[3] = 0.0;
-    v28 = v36;
-    v29 = *&v37[0];
-    v30 = 0x3FE3333340000000;
-    v31 = v36;
-    v32 = *&v37[0];
-    v33 = 0x3FF0000000000000;
     CurrentContext = UIGraphicsGetCurrentContext();
     DeviceRGB = CGColorSpaceCreateDeviceRGB();
-    v13 = CGGradientCreateWithColorComponents(DeviceRGB, components, locations, 3uLL);
+    v13 = CGGradientCreateWithColorComponents(DeviceRGB, &components, locations, 3uLL);
     v14 = v10 * 0.25;
     v15 = *(a1 + 32);
     v16 = (v15 + 200);
@@ -2190,12 +2194,12 @@ void __80__SKUIStyledImageDataConsumer__radialBlurImageWithBounds_contentRect_dr
     }
 
     v23 = v10 * 0.5;
-    v39.x = floorf(v23);
+    v41.x = floorf(v23);
     v24 = v10 * 1.70000005;
     v25 = ceilf(v24);
     v26 = v10 * 1.89999998;
-    v39.y = v9 - v25 - v22;
-    CGContextDrawRadialGradient(CurrentContext, v13, v39, v25, v39, ceilf(v26), 2u);
+    v41.y = v9 - v25 - v22;
+    CGContextDrawRadialGradient(CurrentContext, v13, v41, v25, v41, ceilf(v26), 2u);
     CGColorSpaceRelease(DeviceRGB);
     CGGradientRelease(v13);
   }
@@ -2593,6 +2597,36 @@ void __74__SKUIStyledImageDataConsumer__leftToRightGradient_contentRect_drawBloc
   result.height = height;
   result.width = width;
   return result;
+}
+
++ (void)isImageCompressionEnabled
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIStyledImageDataConsumer isImageCompressionEnabled]";
+}
+
+- (void)init
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStyledImageDataConsumer init]";
+}
+
+- (void)initWithViewElement:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStyledImageDataConsumer initWithViewElement:]";
+}
+
+- (void)isImagePlaceholderAvailable
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "SKUIBorderWidthsAllSame";
+}
+
+void __58__SKUIStyledImageDataConsumer__placeholderCornerPathBlock__block_invoke_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "SKUIAppCornerRadiusForSize";
 }
 
 @end

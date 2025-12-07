@@ -36,31 +36,31 @@
 
 - (void)processRequest:(id)request configuration:(id)configuration completion:(id)completion
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   configurationCopy = configuration;
   completionCopy = completion;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v10 = [(LACDTOServiceProcessor *)self _entitlementsForRequest:requestCopy];
-  v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v24;
+    v13 = *v23;
     while (2)
     {
       v14 = 0;
       do
       {
-        if (*v24 != v13)
+        if (*v23 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v23 + 1) + 8 * v14);
+        v15 = *(*(&v22 + 1) + 8 * v14);
         client = [requestCopy client];
         v17 = [client checkEntitlement:v15];
 
@@ -78,7 +78,7 @@
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v12)
       {
         continue;
@@ -91,14 +91,11 @@
   v18 = configurationCopy;
   [(LACEvaluationRequestProcessor *)self->_compoundProcessor processRequest:requestCopy configuration:configurationCopy completion:completionCopy];
 LABEL_11:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)postProcessRequest:(id)request result:(id)result completion:(id)completion
 {
   requestCopy = request;
-  compoundProcessor = self->_compoundProcessor;
   completionCopy = completion;
   resultCopy = result;
   if (objc_opt_respondsToSelector())
@@ -114,11 +111,11 @@ LABEL_11:
 
 - (id)_entitlementsForRequest:(id)request
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v4 = objc_alloc(MEMORY[0x1E695DF70]);
-  v18[0] = @"com.apple.private.CoreAuthentication.SPI";
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+  v17[0] = @"com.apple.private.CoreAuthentication.SPI";
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
   v6 = [v4 initWithArray:v5];
 
   if ([requestCopy policy] == 1026)
@@ -158,8 +155,6 @@ LABEL_11:
   {
     [v6 addObject:@"com.apple.private.LocalAuthentication.DTO.AllowUnapprovedSensor"];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

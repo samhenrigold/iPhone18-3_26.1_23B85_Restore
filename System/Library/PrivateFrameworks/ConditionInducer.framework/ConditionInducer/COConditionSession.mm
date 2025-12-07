@@ -150,27 +150,27 @@ LABEL_12:
 
 + (id)_loadExternalConditionBundleInfo:(id)info supportedConditionData:(id)data error:(id *)error
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   dataCopy = data;
-  v62 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v61 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v10 = [dataCopy objectForKey:infoCopy];
-  v61 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v60 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (!v10)
   {
     createConditionInducerError("+[COConditionSession _loadExternalConditionBundleInfo:supportedConditionData:error:]", 174, -1, 0, @"No class information dict found in Info.plist %s for condition %@", v11, v12, v13, "SupportedConditionData");
     goto LABEL_27;
   }
 
-  v63 = [v10 objectForKey:@"Profiles"];
-  if (!v63)
+  v62 = [v10 objectForKey:@"Profiles"];
+  if (!v62)
   {
     createConditionInducerError("+[COConditionSession _loadExternalConditionBundleInfo:supportedConditionData:error:]", 180, -1, 0, @"Class information dictionary containing supported profiles for not found for condition %@", v14, v15, v16, infoCopy);
     v50 = LABEL_27:;
     v24 = 0;
     v20 = 0;
-    v63 = 0;
+    v62 = 0;
     if (!error)
     {
       goto LABEL_38;
@@ -186,7 +186,7 @@ LABEL_12:
     goto LABEL_31;
   }
 
-  if (![v63 count])
+  if (![v62 count])
   {
     createConditionInducerError("+[COConditionSession _loadExternalConditionBundleInfo:supportedConditionData:error:]", 192, -1, 0, @"Expected at least one supported profile for %@", v21, v22, v23, infoCopy);
     v50 = LABEL_31:;
@@ -199,7 +199,7 @@ LABEL_12:
     goto LABEL_36;
   }
 
-  v24 = [v63 objectAtIndexedSubscript:0];
+  v24 = [v62 objectAtIndexedSubscript:0];
   v25 = NSClassFromString(v24);
   if (v25)
   {
@@ -213,49 +213,49 @@ LABEL_12:
         [v9 setObject:v34 forKey:@"ConditionUserFriendlyName"];
       }
 
-      v55 = v34;
-      v56 = v24;
-      v58 = v10;
-      v60 = dataCopy;
+      v54 = v34;
+      v55 = v24;
+      v57 = v10;
+      v59 = dataCopy;
       v35 = [v33 identifierNameFromDict:v20];
       if (v35)
       {
         [v9 setObject:v35 forKey:@"ConditionIdentifierName"];
       }
 
-      v54 = v35;
+      v53 = v35;
       v36 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v33, "isDestructiveFromDict:", v20)}];
       [v9 setObject:v36 forKey:@"ConditionIsDestructive"];
 
       v37 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v33, "isInternalOnlyFromDict:", v20)}];
       [v9 setObject:v37 forKey:@"ConditionIsInternalOnly"];
 
-      v57 = v20;
+      v56 = v20;
       v38 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v33, "persistsAfterRebootFromDict:", v20)}];
-      v59 = v9;
+      v58 = v9;
       [v9 setObject:v38 forKey:@"ConditionPersistsAfterReboot"];
 
-      v66 = 0u;
-      v67 = 0u;
-      v64 = 0u;
       v65 = 0u;
-      v39 = v63;
-      v40 = [v39 countByEnumeratingWithState:&v64 objects:v68 count:16];
-      v63 = v39;
+      v66 = 0u;
+      v63 = 0u;
+      v64 = 0u;
+      v39 = v62;
+      v40 = [v39 countByEnumeratingWithState:&v63 objects:v67 count:16];
+      v62 = v39;
       if (v40)
       {
         v41 = v40;
-        v42 = *v65;
+        v42 = *v64;
         do
         {
           for (i = 0; i != v41; ++i)
           {
-            if (*v65 != v42)
+            if (*v64 != v42)
             {
               objc_enumerationMutation(v39);
             }
 
-            v44 = *(*(&v64 + 1) + 8 * i);
+            v44 = *(*(&v63 + 1) + 8 * i);
             v45 = NSClassFromString(v44);
             if (v45)
             {
@@ -267,30 +267,30 @@ LABEL_12:
                 v49 = [v47 dictionaryWithDictionary:info];
 
                 [v49 setValue:v44 forKey:@"ConditionBundleProfile"];
-                [v62 setValue:v49 forKey:v44];
-                [v61 addObject:v49];
+                [v61 setValue:v49 forKey:v44];
+                [v60 addObject:v49];
 
-                v39 = v63;
+                v39 = v62;
               }
             }
           }
 
-          v41 = [v39 countByEnumeratingWithState:&v64 objects:v68 count:16];
+          v41 = [v39 countByEnumeratingWithState:&v63 objects:v67 count:16];
         }
 
         while (v41);
       }
 
-      v9 = v59;
-      [v59 setObject:v61 forKey:@"ConditionBundleArray"];
-      [v59 setObject:v62 forKey:@"ConditionBundleDict"];
-      [v59 setObject:infoCopy forKey:@"ConditionCacheBundlePath"];
+      v9 = v58;
+      [v58 setObject:v60 forKey:@"ConditionBundleArray"];
+      [v58 setObject:v61 forKey:@"ConditionBundleDict"];
+      [v58 setObject:infoCopy forKey:@"ConditionCacheBundlePath"];
 
       v50 = 0;
-      dataCopy = v60;
-      v20 = v57;
-      v10 = v58;
-      v24 = v56;
+      dataCopy = v59;
+      v20 = v56;
+      v10 = v57;
+      v24 = v55;
       goto LABEL_38;
     }
 
@@ -315,8 +315,6 @@ LABEL_36:
   }
 
 LABEL_38:
-
-  v52 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -521,34 +519,34 @@ LABEL_11:
 
 + (id)getBundleURLsAtPath:(id)path
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEBC0] fileURLWithPath:path];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v23[0] = *MEMORY[0x277CBE868];
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+  v22[0] = *MEMORY[0x277CBE868];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
   v6 = [defaultManager contentsOfDirectoryAtURL:v3 includingPropertiesForKeys:v5 options:7 error:0];
 
   v7 = objc_opt_new();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v17 + 1) + 8 * i);
         pathExtension = [v13 pathExtension];
         v15 = pathExtension;
         if (pathExtension && ![pathExtension caseInsensitiveCompare:@"bundle"])
@@ -557,20 +555,18 @@ LABEL_11:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 + (id)bundleToDict:(id)dict
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   if (dictCopy)
   {
@@ -578,41 +574,41 @@ LABEL_11:
     v5 = v4;
     if (v4)
     {
-      v43 = 0;
-      v6 = [(COConditionBundle *)v4 loadAndReturnError:&v43];
-      v7 = v43;
+      v42 = 0;
+      v6 = [(COConditionBundle *)v4 loadAndReturnError:&v42];
+      v7 = v42;
       v8 = v7;
       if (v6)
       {
-        v35 = v7;
-        v38 = dictCopy;
-        v36 = objc_alloc_init(MEMORY[0x277CBEB38]);
+        v34 = v7;
+        v37 = dictCopy;
+        v35 = objc_alloc_init(MEMORY[0x277CBEB38]);
         v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
         v10 = objc_alloc(MEMORY[0x277CBEB18]);
         conditions = [(COConditionBundle *)v5 conditions];
         v12 = [v10 initWithCapacity:{objc_msgSend(conditions, "count")}];
 
-        v41 = 0u;
-        v42 = 0u;
-        v39 = 0u;
         v40 = 0u;
-        v37 = v5;
+        v41 = 0u;
+        v38 = 0u;
+        v39 = 0u;
+        v36 = v5;
         conditions2 = [(COConditionBundle *)v5 conditions];
-        v14 = [conditions2 countByEnumeratingWithState:&v39 objects:v44 count:16];
+        v14 = [conditions2 countByEnumeratingWithState:&v38 objects:v43 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v40;
+          v16 = *v39;
           do
           {
             for (i = 0; i != v15; ++i)
             {
-              if (*v40 != v16)
+              if (*v39 != v16)
               {
                 objc_enumerationMutation(conditions2);
               }
 
-              v18 = *(*(&v39 + 1) + 8 * i);
+              v18 = *(*(&v38 + 1) + 8 * i);
               v19 = MEMORY[0x277CBEB38];
               info = [v18 info];
               v21 = [v19 dictionaryWithDictionary:info];
@@ -625,55 +621,55 @@ LABEL_11:
               [v9 setValue:v21 forKey:v23];
             }
 
-            v15 = [conditions2 countByEnumeratingWithState:&v39 objects:v44 count:16];
+            v15 = [conditions2 countByEnumeratingWithState:&v38 objects:v43 count:16];
           }
 
           while (v15);
         }
 
-        v24 = v36;
-        [v36 setObject:v12 forKey:@"ConditionBundleArray"];
-        v5 = v37;
-        principalClass = [(COConditionBundle *)v37 principalClass];
+        v24 = v35;
+        [v35 setObject:v12 forKey:@"ConditionBundleArray"];
+        v5 = v36;
+        principalClass = [(COConditionBundle *)v36 principalClass];
         if (principalClass)
         {
           v26 = objc_alloc_init(principalClass);
           userFriendlyName = [v26 userFriendlyName];
           if (userFriendlyName)
           {
-            [v36 setObject:userFriendlyName forKey:@"ConditionUserFriendlyName"];
+            [v35 setObject:userFriendlyName forKey:@"ConditionUserFriendlyName"];
           }
 
           identifierName = [v26 identifierName];
           if (identifierName)
           {
-            [v36 setObject:identifierName forKey:@"ConditionIdentifierName"];
+            [v35 setObject:identifierName forKey:@"ConditionIdentifierName"];
           }
 
           v29 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v26, "isDestructive")}];
-          [v36 setObject:v29 forKey:@"ConditionIsDestructive"];
+          [v35 setObject:v29 forKey:@"ConditionIsDestructive"];
 
           v30 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v26, "isInternalOnly")}];
-          [v36 setObject:v30 forKey:@"ConditionIsInternalOnly"];
+          [v35 setObject:v30 forKey:@"ConditionIsInternalOnly"];
 
           v31 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v26, "persistsAfterReboot")}];
-          [v36 setObject:v31 forKey:@"ConditionPersistsAfterReboot"];
+          [v35 setObject:v31 forKey:@"ConditionPersistsAfterReboot"];
 
-          dictCopy = v38;
-          v32 = v35;
+          dictCopy = v37;
+          v32 = v34;
         }
 
         else
         {
-          dictCopy = v38;
-          v32 = v35;
+          dictCopy = v37;
+          v32 = v34;
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
             +[COConditionSession bundleToDict:];
           }
         }
 
-        [v36 setObject:v9 forKey:{@"ConditionBundleDict", v35}];
+        [v35 setObject:v9 forKey:{@"ConditionBundleDict", v34}];
 
         goto LABEL_29;
       }
@@ -702,8 +698,6 @@ LABEL_29:
 
   v24 = 0;
 LABEL_30:
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -765,7 +759,7 @@ LABEL_11:
 
 - (BOOL)_setupBundleAtPath:(id)path withError:(id *)error
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   if (!pathCopy)
   {
@@ -806,7 +800,7 @@ LABEL_9:
     v21 = @"Failed to load bundle.";
     v22 = 480;
 LABEL_11:
-    v27 = createConditionInducerError("[COConditionSession _setupBundleAtPath:withError:]", v22, -1, 0, v21, v6, v7, v8, v43);
+    v27 = createConditionInducerError("[COConditionSession _setupBundleAtPath:withError:]", v22, -1, 0, v21, v6, v7, v8, v42);
     if (error)
     {
       goto LABEL_12;
@@ -842,35 +836,35 @@ LABEL_14:
   v30 = objc_alloc_init(MEMORY[0x277CBEB38]);
   [(COConditionSession *)self setClassDict:v30];
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   bundle4 = [(COConditionSession *)self bundle];
   conditions = [bundle4 conditions];
 
-  v33 = [conditions countByEnumeratingWithState:&v44 objects:v48 count:16];
+  v33 = [conditions countByEnumeratingWithState:&v43 objects:v47 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v45;
+    v35 = *v44;
     do
     {
       for (i = 0; i != v34; ++i)
       {
-        if (*v45 != v35)
+        if (*v44 != v35)
         {
           objc_enumerationMutation(conditions);
         }
 
-        v37 = *(*(&v44 + 1) + 8 * i);
+        v37 = *(*(&v43 + 1) + 8 * i);
         classDict = [(COConditionSession *)self classDict];
         v39 = [v37 description];
         v40 = NSStringFromClass(v37);
         [classDict setValue:v39 forKey:v40];
       }
 
-      v34 = [conditions countByEnumeratingWithState:&v44 objects:v48 count:16];
+      v34 = [conditions countByEnumeratingWithState:&v43 objects:v47 count:16];
     }
 
     while (v34);
@@ -880,7 +874,6 @@ LABEL_14:
   v28 = 1;
 LABEL_23:
 
-  v41 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
@@ -1094,10 +1087,10 @@ LABEL_11:
 
 + (id)getBootSessionUUID
 {
-  v7 = *MEMORY[0x277D85DE8];
-  memset(v6, 0, sizeof(v6));
-  v5 = 256;
-  if (sysctlbyname("kern.bootsessionuuid", v6, &v5, 0, 0))
+  v6 = *MEMORY[0x277D85DE8];
+  memset(v5, 0, sizeof(v5));
+  v4 = 256;
+  if (sysctlbyname("kern.bootsessionuuid", v5, &v4, 0, 0))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
@@ -1109,10 +1102,8 @@ LABEL_11:
 
   else
   {
-    v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:v6];
+    v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:v5];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -1136,28 +1127,28 @@ LABEL_4:
       goto LABEL_5;
     }
 
-    v22 = [objc_alloc(MEMORY[0x277CCA9F8]) initWithFileDescriptor:v5];
-    v11 = v22;
-    if (!v22)
+    v21 = [objc_alloc(MEMORY[0x277CCA9F8]) initWithFileDescriptor:v5];
+    v11 = v21;
+    if (!v21)
     {
-      v9 = createConditionInducerError("+[COConditionSession loadConditionCacheWithError:]", 662, -1, 0, @"Failed to initialize file handle.", v23, v24, v25, 438);
+      v9 = createConditionInducerError("+[COConditionSession loadConditionCacheWithError:]", 662, -1, 0, @"Failed to initialize file handle.", v22, v23, v24, 438);
       v10 = 0;
       goto LABEL_4;
     }
 
-    readDataToEndOfFile = [v22 readDataToEndOfFile];
+    readDataToEndOfFile = [v21 readDataToEndOfFile];
     if (!readDataToEndOfFile)
     {
-      v9 = createConditionInducerError("+[COConditionSession loadConditionCacheWithError:]", 668, -1, 0, @"Failed to read file.", v26, v27, v28, 438);
+      v9 = createConditionInducerError("+[COConditionSession loadConditionCacheWithError:]", 668, -1, 0, @"Failed to read file.", v25, v26, v27, 438);
       v10 = 0;
       v12 = 0;
       v13 = 0;
       goto LABEL_5;
     }
 
-    v36 = 0;
-    v13 = [MEMORY[0x277CCAC58] propertyListWithData:readDataToEndOfFile options:0 format:0 error:&v36];
-    v29 = v36;
+    v35 = 0;
+    v13 = [MEMORY[0x277CCAC58] propertyListWithData:readDataToEndOfFile options:0 format:0 error:&v35];
+    v28 = v35;
     v10 = isNSDictionary(v13);
 
     if (v10)
@@ -1165,7 +1156,7 @@ LABEL_4:
       v10 = [COConditionSession removeStaleConditions:v13];
       if ([v10 isEqualToDictionary:v13])
       {
-        v9 = v29;
+        v9 = v28;
 LABEL_24:
         v10 = v10;
         v12 = v10;
@@ -1178,11 +1169,11 @@ LABEL_24:
         _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Stale keys were detected and removed from the condition cache", buf, 2u);
       }
 
-      v34 = v29;
-      v33 = [COConditionSession writeConditionCache:v10 toFileDescriptor:v5 error:&v34];
-      v9 = v34;
+      v33 = v28;
+      v32 = [COConditionSession writeConditionCache:v10 toFileDescriptor:v5 error:&v33];
+      v9 = v33;
 
-      if (v33)
+      if (v32)
       {
         goto LABEL_24;
       }
@@ -1195,7 +1186,7 @@ LABEL_24:
 
     else
     {
-      v9 = createConditionInducerError("+[COConditionSession loadConditionCacheWithError:]", 677, -1, v29, @"Failed to serialize property list.", v30, v31, v32, 438);
+      v9 = createConditionInducerError("+[COConditionSession loadConditionCacheWithError:]", 677, -1, v28, @"Failed to serialize property list.", v29, v30, v31, 438);
     }
 
     v12 = 0;
@@ -1210,10 +1201,10 @@ LABEL_5:
     goto LABEL_8;
   }
 
-  v15 = *__error();
-  v16 = __error();
-  strerror(*v16);
-  v9 = createConditionInducerError("+[COConditionSession loadConditionCacheWithError:]", 650, -1, 0, @"Failed to open %@: %d (%s)", v17, v18, v19, @"/var/mobile/Library/Preferences/com.apple.LoadedConditionInducer.plist");
+  __error();
+  v15 = __error();
+  strerror(*v15);
+  v9 = createConditionInducerError("+[COConditionSession loadConditionCacheWithError:]", 650, -1, 0, @"Failed to open %@: %d (%s)", v16, v17, v18, @"/var/mobile/Library/Preferences/com.apple.LoadedConditionInducer.plist");
   readDataToEndOfFile = 0;
   v13 = 0;
   v12 = 0;
@@ -1227,7 +1218,7 @@ LABEL_5:
 LABEL_8:
   if (!v12)
   {
-    v20 = v9;
+    v19 = v9;
     *error = v9;
   }
 
@@ -1303,32 +1294,32 @@ LABEL_10:
 
 + (id)removeStaleConditions:(id)conditions
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   conditionsCopy = conditions;
   v4 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(conditionsCopy, "count")}];
   v5 = +[COConditionSession getBootSessionUUID];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   allKeys = [conditionsCopy allKeys];
-  v21 = [allKeys countByEnumeratingWithState:&v22 objects:v32 count:16];
-  if (v21)
+  v20 = [allKeys countByEnumeratingWithState:&v21 objects:v31 count:16];
+  if (v20)
   {
-    v8 = *v23;
+    v8 = *v22;
     *&v7 = 138412802;
-    v20 = v7;
+    v19 = v7;
     do
     {
-      for (i = 0; i != v21; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
-        v11 = [conditionsCopy objectForKey:{v10, v20}];
+        v10 = *(*(&v21 + 1) + 8 * i);
+        v11 = [conditionsCopy objectForKey:{v10, v19}];
         v12 = [v11 objectForKey:@"ConditionCacheClassBootUUID"];
         if (v12 && [v5 compare:v12 options:1])
         {
@@ -1339,12 +1330,12 @@ LABEL_10:
             v14 = allKeys;
             v15 = conditionsCopy;
             v17 = v16 = v4;
-            *buf = v20;
-            v27 = v5;
-            v28 = 2112;
-            v29 = v10;
-            v30 = 2112;
-            v31 = v17;
+            *buf = v19;
+            v26 = v5;
+            v27 = 2112;
+            v28 = v10;
+            v29 = 2112;
+            v30 = v17;
             _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "The current boot session is %@. Condition %@ was induced in a previous boot session (%@) and is now no longer running. Removing from cache", buf, 0x20u);
 
             v4 = v16;
@@ -1360,13 +1351,11 @@ LABEL_10:
         }
       }
 
-      v21 = [allKeys countByEnumeratingWithState:&v22 objects:v32 count:16];
+      v20 = [allKeys countByEnumeratingWithState:&v21 objects:v31 count:16];
     }
 
-    while (v21);
+    while (v20);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1391,14 +1380,14 @@ LABEL_10:
   v19 = open_dprotected_np([@"/var/mobile/Library/Preferences/com.apple.LoadedConditionInducer.plist" fileSystemRepresentation], 770, 4, 0);
   if (v19 == -1)
   {
-    v36 = *__error();
-    v37 = __error();
-    strerror(*v37);
+    __error();
+    v36 = __error();
+    strerror(*v36);
     v34 = @"Failed to open %@: %d (%s)";
-    v65 = @"/var/mobile/Library/Preferences/com.apple.LoadedConditionInducer.plist";
+    v64 = @"/var/mobile/Library/Preferences/com.apple.LoadedConditionInducer.plist";
     v35 = 786;
 LABEL_10:
-    v26 = createConditionInducerError("+[COConditionSession updateConditionCache:forCondition:additionalArguments:conditionBundle:error:]", v35, -1, 0, v34, v13, v14, v15, v65);
+    v26 = createConditionInducerError("+[COConditionSession updateConditionCache:forCondition:additionalArguments:conditionBundle:error:]", v35, -1, 0, v34, v13, v14, v15, v64);
     v33 = 0;
     if (!error)
     {
@@ -1409,8 +1398,8 @@ LABEL_10:
   }
 
   v20 = v19;
-  v74 = argumentsCopy;
-  v75 = bundleCopy;
+  v73 = argumentsCopy;
+  v74 = bundleCopy;
   errorCopy = error;
   if (flock(v19, 6))
   {
@@ -1428,49 +1417,49 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  v40 = [objc_alloc(MEMORY[0x277CCA9F8]) initWithFileDescriptor:v20];
-  if (!v40)
+  v39 = [objc_alloc(MEMORY[0x277CCA9F8]) initWithFileDescriptor:v20];
+  if (!v39)
   {
     v24 = @"Failed to initialize file handle.";
     v25 = 798;
     goto LABEL_5;
   }
 
-  v72 = v40;
+  v71 = v39;
   if (v18)
   {
-    readDataToEndOfFile = [v40 readDataToEndOfFile];
+    readDataToEndOfFile = [v39 readDataToEndOfFile];
     if (!readDataToEndOfFile)
     {
-      v26 = createConditionInducerError("+[COConditionSession updateConditionCache:forCondition:additionalArguments:conditionBundle:error:]", 805, -1, 0, @"Failed to read file.", v42, v43, v44, 438);
+      v26 = createConditionInducerError("+[COConditionSession updateConditionCache:forCondition:additionalArguments:conditionBundle:error:]", 805, -1, 0, @"Failed to read file.", v41, v42, v43, 438);
       v27 = 0;
       v29 = 0;
       v30 = 0;
       v31 = 0;
       identifierName = 0;
       v33 = 0;
-      v28 = v72;
+      v28 = v71;
       goto LABEL_6;
     }
 
-    v78 = 0;
-    v71 = readDataToEndOfFile;
-    v45 = [MEMORY[0x277CCAC58] propertyListWithData:readDataToEndOfFile options:0 format:0 error:&v78];
-    v46 = v78;
-    if (v45)
+    v77 = 0;
+    v70 = readDataToEndOfFile;
+    v44 = [MEMORY[0x277CCAC58] propertyListWithData:readDataToEndOfFile options:0 format:0 error:&v77];
+    v45 = v77;
+    if (v44)
     {
-      v67 = v45;
-      v31 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:v45];
+      v66 = v44;
+      v31 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:v44];
       if (!v31)
       {
-        v26 = createConditionInducerError("+[COConditionSession updateConditionCache:forCondition:additionalArguments:conditionBundle:error:]", 817, -1, 0, @"Failed to initialize dictionary.", v47, v48, v49, 438);
+        v26 = createConditionInducerError("+[COConditionSession updateConditionCache:forCondition:additionalArguments:conditionBundle:error:]", 817, -1, 0, @"Failed to initialize dictionary.", v46, v47, v48, 438);
 
         v30 = 0;
         identifierName = 0;
         v33 = 0;
-        v27 = v71;
-        v28 = v72;
-        v29 = v67;
+        v27 = v70;
+        v28 = v71;
+        v29 = v66;
         goto LABEL_6;
       }
 
@@ -1480,47 +1469,47 @@ LABEL_5:
 
   else
   {
-    v71 = 0;
-    v46 = 0;
+    v70 = 0;
+    v45 = 0;
   }
 
   v31 = objc_alloc_init(MEMORY[0x277CBEB38]);
   if (!v31)
   {
-    v26 = createConditionInducerError("+[COConditionSession updateConditionCache:forCondition:additionalArguments:conditionBundle:error:]", 826, -1, 0, @"Failed to initialize dictionary.", v50, v51, v52, 438);
+    v26 = createConditionInducerError("+[COConditionSession updateConditionCache:forCondition:additionalArguments:conditionBundle:error:]", 826, -1, 0, @"Failed to initialize dictionary.", v49, v50, v51, 438);
 
     v29 = 0;
     v30 = 0;
     identifierName = 0;
     v33 = 0;
-    v27 = v71;
-    v28 = v72;
+    v27 = v70;
+    v28 = v71;
     goto LABEL_6;
   }
 
-  v67 = 0;
+  v66 = 0;
 LABEL_24:
   identifierName = [conditionCopy identifierName];
   if (!identifierName)
   {
     [bundleCopy bundlePath];
-    v53 = v68 = v46;
-    lastPathComponent = [v53 lastPathComponent];
+    v52 = v67 = v45;
+    lastPathComponent = [v52 lastPathComponent];
     identifierName = [lastPathComponent stringByDeletingPathExtension];
 
-    v46 = v68;
+    v45 = v67;
   }
 
   if ([COConditionSession conditionIsBundledWithFramework:identifierName])
   {
-    v77 = v46;
-    [COConditionSession prepareInfoDictForBuiltInCondition:identifierName error:&v77];
-    v56 = v55 = v46;
-    v69 = v77;
+    v76 = v45;
+    [COConditionSession prepareInfoDictForBuiltInCondition:identifierName error:&v76];
+    v55 = v54 = v45;
+    v68 = v76;
 
-    if (v56)
+    if (v55)
     {
-      persistsAfterReboot = [conditionCopy persistsAfterRebootFromDict:v56];
+      persistsAfterReboot = [conditionCopy persistsAfterRebootFromDict:v55];
     }
 
     else
@@ -1528,7 +1517,7 @@ LABEL_24:
       persistsAfterReboot = 1;
     }
 
-    v46 = v69;
+    v45 = v68;
   }
 
   else
@@ -1536,29 +1525,29 @@ LABEL_24:
     persistsAfterReboot = [conditionCopy persistsAfterReboot];
   }
 
-  v57 = [COConditionSession removeStaleConditions:v31];
+  v56 = [COConditionSession removeStaleConditions:v31];
 
-  v70 = v57;
+  v69 = v56;
   if (cacheCopy)
   {
     v31 = objc_alloc_init(MEMORY[0x277CBEB38]);
     if (!v31)
     {
-      v26 = createConditionInducerError("+[COConditionSession updateConditionCache:forCondition:additionalArguments:conditionBundle:error:]", 851, -1, 0, @"Failed to initialize dictionary.", v58, v59, v60, 438);
+      v26 = createConditionInducerError("+[COConditionSession updateConditionCache:forCondition:additionalArguments:conditionBundle:error:]", 851, -1, 0, @"Failed to initialize dictionary.", v57, v58, v59, 438);
 
 LABEL_47:
       v33 = 0;
       goto LABEL_48;
     }
 
-    v61 = objc_opt_class();
-    v62 = NSStringFromClass(v61);
-    [v31 setObject:v62 forKeyedSubscript:@"ConditionCacheClassName"];
+    v60 = objc_opt_class();
+    v61 = NSStringFromClass(v60);
+    [v31 setObject:v61 forKeyedSubscript:@"ConditionCacheClassName"];
 
     if ((persistsAfterReboot & 1) == 0)
     {
-      v63 = +[COConditionSession getBootSessionUUID];
-      [v31 setObject:v63 forKeyedSubscript:@"ConditionCacheClassBootUUID"];
+      v62 = +[COConditionSession getBootSessionUUID];
+      [v31 setObject:v62 forKeyedSubscript:@"ConditionCacheClassBootUUID"];
     }
 
     if (argumentsCopy)
@@ -1566,21 +1555,21 @@ LABEL_47:
       [v31 setObject:argumentsCopy forKeyedSubscript:@"ConditionCacheClassArguments"];
     }
 
-    v57 = v70;
-    [v70 setObject:v31 forKeyedSubscript:identifierName];
+    v56 = v69;
+    [v69 setObject:v31 forKeyedSubscript:identifierName];
   }
 
   else
   {
-    [v57 removeObjectForKey:identifierName];
+    [v56 removeObjectForKey:identifierName];
     v31 = 0;
   }
 
-  v76 = v46;
-  v64 = [COConditionSession writeConditionCache:v57 toFileDescriptor:v20 error:&v76];
-  v26 = v76;
+  v75 = v45;
+  v63 = [COConditionSession writeConditionCache:v56 toFileDescriptor:v20 error:&v75];
+  v26 = v75;
 
-  if (!v64)
+  if (!v63)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
@@ -1592,16 +1581,16 @@ LABEL_47:
 
   v33 = 1;
 LABEL_48:
-  v27 = v71;
-  v28 = v72;
-  v29 = v67;
-  v30 = v70;
+  v27 = v70;
+  v28 = v71;
+  v29 = v66;
+  v30 = v69;
 LABEL_6:
   flock(v20, 8);
   close(v20);
 
-  argumentsCopy = v74;
-  bundleCopy = v75;
+  argumentsCopy = v73;
+  bundleCopy = v74;
   error = errorCopy;
   if (!errorCopy)
   {
@@ -1611,7 +1600,7 @@ LABEL_6:
 LABEL_11:
   if (!v33)
   {
-    v38 = v26;
+    v37 = v26;
     *error = v26;
   }
 
@@ -1791,41 +1780,38 @@ LABEL_13:
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *(*a2 + 40);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 + (id)listAvailableConditions
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/AppleInternal/Tests/com.apple.ConditionInducer"];
   v4 = [COConditionSession getBundleURLsAtPath:v3];
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   obj = v4;
-  v5 = [obj countByEnumeratingWithState:&v34 objects:v45 count:16];
+  v5 = [obj countByEnumeratingWithState:&v33 objects:v43 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v35;
+    v7 = *v34;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v35 != v7)
+        if (*v34 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v34 + 1) + 8 * i);
+        v9 = *(*(&v33 + 1) + 8 * i);
         v10 = objc_alloc_init(MEMORY[0x277CBEB38]);
         v11 = [COConditionSession bundleToDict:v9];
         if (v11)
@@ -1838,13 +1824,13 @@ LABEL_13:
 
         else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          +[(COConditionSession *)v43];
+          +[(COConditionSession *)v42];
         }
 
         [v2 addObject:v10];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v34 objects:v45 count:16];
+      v6 = [obj countByEnumeratingWithState:&v33 objects:v43 count:16];
     }
 
     while (v6);
@@ -1854,40 +1840,40 @@ LABEL_13:
   v14 = v13;
   if (v13)
   {
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
-    v15 = [v13 countByEnumeratingWithState:&v30 objects:v42 count:16];
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v15 = [v13 countByEnumeratingWithState:&v29 objects:v41 count:16];
     if (v15)
     {
       v17 = v15;
-      v18 = *v31;
+      v18 = *v30;
       v19 = MEMORY[0x277D86220];
       *&v16 = 138412546;
-      v27 = v16;
+      v26 = v16;
       do
       {
         for (j = 0; j != v17; ++j)
         {
-          if (*v31 != v18)
+          if (*v30 != v18)
           {
             objc_enumerationMutation(v14);
           }
 
-          v21 = *(*(&v30 + 1) + 8 * j);
-          v29 = 0;
-          v22 = [COConditionSession prepareInfoDictForBuiltInCondition:v21 error:&v29, v27];
-          v23 = v29;
+          v21 = *(*(&v29 + 1) + 8 * j);
+          v28 = 0;
+          v22 = [COConditionSession prepareInfoDictForBuiltInCondition:v21 error:&v28, v26];
+          v23 = v28;
           if (v23)
           {
             if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
               v24 = [v23 description];
-              *buf = v27;
-              v39 = v21;
-              v40 = 2112;
-              v41 = v24;
+              *buf = v26;
+              v38 = v21;
+              v39 = 2112;
+              v40 = v24;
               _os_log_error_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Encountered an error loading externally-supported condition %@ from framework: %@", buf, 0x16u);
 
               v19 = MEMORY[0x277D86220];
@@ -1900,7 +1886,7 @@ LABEL_13:
           }
         }
 
-        v17 = [v14 countByEnumeratingWithState:&v30 objects:v42 count:16];
+        v17 = [v14 countByEnumeratingWithState:&v29 objects:v41 count:16];
       }
 
       while (v17);
@@ -1911,8 +1897,6 @@ LABEL_13:
   {
     +[COConditionSession listAvailableConditions];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -1948,23 +1932,23 @@ LABEL_13:
   }
 
   v4 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.cltm"];
+  v5 = v4;
   if (!v4)
   {
     v4 = objc_alloc_init(MEMORY[0x277CBEBD0]);
+    v5 = v4;
   }
 
-  v5 = _copySignpostLowSeverityLogHandle();
-  if (os_signpost_enabled(v5))
+  v6 = _copySignpostLowSeverityLogHandle(v4);
+  if (os_signpost_enabled(v6))
   {
-    dictionaryRepresentation = [v4 dictionaryRepresentation];
+    dictionaryRepresentation = [v5 dictionaryRepresentation];
     v8 = 138543618;
     v9 = v3;
     v10 = 2114;
     v11 = dictionaryRepresentation;
-    _os_signpost_emit_with_name_impl(&dword_243E0F000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ConditionsStateSignpost", "Active Conditions: %{public}@\ncltm settings: %{public}@", &v8, 0x16u);
+    _os_signpost_emit_with_name_impl(&dword_243E0F000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ConditionsStateSignpost", "Active Conditions: %{public}@\ncltm settings: %{public}@", &v8, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasActiveCondition
@@ -1986,30 +1970,30 @@ LABEL_13:
 
 - (BOOL)startConditionWithCallback:(id)callback teardownStartedCallback:(id)startedCallback teardownFinishedCallback:(id)finishedCallback
 {
-  v97 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   startedCallbackCopy = startedCallback;
   finishedCallbackCopy = finishedCallback;
-  v87 = 0;
-  v88[0] = &v87;
-  v88[1] = 0x3032000000;
-  v88[2] = __Block_byref_object_copy__0;
-  v88[3] = __Block_byref_object_dispose__0;
   v89 = 0;
-  v85[0] = 0;
-  v85[1] = v85;
-  v85[2] = 0x3032000000;
-  v85[3] = __Block_byref_object_copy__0;
-  v85[4] = __Block_byref_object_dispose__0;
-  v86 = 0;
-  v84[0] = MEMORY[0x277D85DD0];
-  v84[1] = 3221225472;
-  v84[2] = __98__COConditionSession_startConditionWithCallback_teardownStartedCallback_teardownFinishedCallback___block_invoke;
-  v84[3] = &unk_278DF7E68;
-  v84[4] = self;
-  v84[5] = v85;
-  v84[6] = &v87;
-  block = MEMORY[0x245D53520](v84);
+  v90 = &v89;
+  v91 = 0x3032000000;
+  v92 = __Block_byref_object_copy__0;
+  v93 = __Block_byref_object_dispose__0;
+  v94 = 0;
+  v87[0] = 0;
+  v87[1] = v87;
+  v87[2] = 0x3032000000;
+  v87[3] = __Block_byref_object_copy__0;
+  v87[4] = __Block_byref_object_dispose__0;
+  v88 = 0;
+  v86[0] = MEMORY[0x277D85DD0];
+  v86[1] = 3221225472;
+  v86[2] = __98__COConditionSession_startConditionWithCallback_teardownStartedCallback_teardownFinishedCallback___block_invoke;
+  v86[3] = &unk_278DF7E68;
+  v86[4] = self;
+  v86[5] = v87;
+  v86[6] = &v89;
+  block = MEMORY[0x245D53520](v86);
   v8 = MEMORY[0x245D53520](finishedCallbackCopy);
   statusBarPopupFinishedTeardownCallback = self->_statusBarPopupFinishedTeardownCallback;
   self->_statusBarPopupFinishedTeardownCallback = v8;
@@ -2024,53 +2008,53 @@ LABEL_13:
   if (!v13)
   {
     selectedCondition2 = [(COConditionSession *)self selectedCondition];
-    v18 = (v88[0] + 40);
-    v83 = *(v88[0] + 40);
-    v19 = [(COConditionSession *)self loadBundleWithPath:selectedCondition2 andError:&v83];
-    objc_storeStrong(v18, v83);
+    v18 = (v90 + 5);
+    v85 = v90[5];
+    v19 = [(COConditionSession *)self loadBundleWithPath:selectedCondition2 andError:&v85];
+    objc_storeStrong(v18, v85);
 
     if (v19)
     {
       selectedProfile = [(COConditionSession *)self selectedProfile];
-      v21 = (v88[0] + 40);
-      v82 = *(v88[0] + 40);
-      v22 = [(COConditionSession *)self loadProfileForBundle:selectedProfile withError:&v82];
-      objc_storeStrong(v21, v82);
+      v21 = (v90 + 5);
+      v84 = v90[5];
+      v22 = [(COConditionSession *)self loadProfileForBundle:selectedProfile withError:&v84];
+      objc_storeStrong(v21, v84);
 
-      v73 = 0;
+      v75 = 0;
       if (v22)
       {
         goto LABEL_25;
       }
 
 LABEL_41:
-      v63 = 0;
+      v66 = 0;
       goto LABEL_42;
     }
 
 LABEL_9:
-    v73 = 0;
+    v75 = 0;
     goto LABEL_41;
   }
 
   selectedCondition3 = [(COConditionSession *)self selectedCondition];
-  v15 = (v88[0] + 40);
-  obj = *(v88[0] + 40);
-  v73 = [COConditionSession prepareInfoDictForBuiltInCondition:selectedCondition3 error:&obj];
+  v15 = (v90 + 5);
+  obj = v90[5];
+  v75 = [COConditionSession prepareInfoDictForBuiltInCondition:selectedCondition3 error:&obj];
   objc_storeStrong(v15, obj);
 
-  if (!v73)
+  if (!v75)
   {
-    v23 = *(v88[0] + 40);
+    v23 = v90[5];
     selectedCondition4 = [(COConditionSession *)self selectedCondition];
     v28 = createConditionInducerError("[COConditionSession startConditionWithCallback:teardownStartedCallback:teardownFinishedCallback:]", 1124, -1, v23, @"Unable to load data for %@", v25, v26, v27, selectedCondition4);
-    v29 = *(v88[0] + 40);
-    *(v88[0] + 40) = v28;
+    v29 = v90[5];
+    v90[5] = v28;
 
     goto LABEL_9;
   }
 
-  v16 = [v73 valueForKey:@"ConditionIsDestructive"];
+  v16 = [v75 valueForKey:@"ConditionIsDestructive"];
 
   if (v16)
   {
@@ -2091,26 +2075,26 @@ LABEL_9:
   v32 = objc_alloc_init(MEMORY[0x277CBEB38]);
   [(COConditionSession *)self setClassDict:v32];
 
+  v81 = 0u;
+  v82 = 0u;
   v79 = 0u;
   v80 = 0u;
-  v77 = 0u;
-  v78 = 0u;
-  v33 = [v73 objectForKey:@"ConditionBundleDict"];
-  v34 = [v33 countByEnumeratingWithState:&v77 objects:v96 count:16];
+  v33 = [v75 objectForKey:@"ConditionBundleDict"];
+  v34 = [v33 countByEnumeratingWithState:&v79 objects:v100 count:16];
   if (v34)
   {
-    v35 = *v78;
+    v35 = *v80;
     v36 = MEMORY[0x277D86220];
     do
     {
       for (i = 0; i != v34; ++i)
       {
-        if (*v78 != v35)
+        if (*v80 != v35)
         {
           objc_enumerationMutation(v33);
         }
 
-        v38 = *(*(&v77 + 1) + 8 * i);
+        v38 = *(*(&v79 + 1) + 8 * i);
         v39 = NSClassFromString(v38);
         if (v39)
         {
@@ -2121,11 +2105,11 @@ LABEL_9:
 
         else if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
         {
-          [COConditionSession startConditionWithCallback:v94 teardownStartedCallback:v38 teardownFinishedCallback:&v95];
+          [COConditionSession startConditionWithCallback:v99 teardownStartedCallback:v38 teardownFinishedCallback:&v99[4]];
         }
       }
 
-      v34 = [v33 countByEnumeratingWithState:&v77 objects:v96 count:16];
+      v34 = [v33 countByEnumeratingWithState:&v79 objects:v100 count:16];
     }
 
     while (v34);
@@ -2137,9 +2121,9 @@ LABEL_9:
   if (!v43)
   {
     selectedProfile3 = [(COConditionSession *)self selectedProfile];
-    v58 = createConditionInducerError("[COConditionSession startConditionWithCallback:teardownStartedCallback:teardownFinishedCallback:]", 1149, -1, 0, @"Failed to load framework class %@", v55, v56, v57, selectedProfile3);
-    v59 = *(v88[0] + 40);
-    *(v88[0] + 40) = v58;
+    v61 = createConditionInducerError("[COConditionSession startConditionWithCallback:teardownStartedCallback:teardownFinishedCallback:]", 1149, -1, 0, @"Failed to load framework class %@", v58, v59, v60, selectedProfile3);
+    v62 = v90[5];
+    v90[5] = v61;
 
     goto LABEL_41;
   }
@@ -2153,67 +2137,68 @@ LABEL_9:
   if (v46)
   {
     selectedProfile4 = [(COConditionSession *)self selectedProfile];
-    v68 = createConditionInducerError("[COConditionSession startConditionWithCallback:teardownStartedCallback:teardownFinishedCallback:]", 1156, -1, 0, @"Failed to instantiate framework class %@", v65, v66, v67, selectedProfile4);
-    v69 = *(v88[0] + 40);
-    *(v88[0] + 40) = v68;
+    v71 = createConditionInducerError("[COConditionSession startConditionWithCallback:teardownStartedCallback:teardownFinishedCallback:]", 1156, -1, 0, @"Failed to instantiate framework class %@", v68, v69, v70, selectedProfile4);
+    v72 = v90[5];
+    v90[5] = v71;
 
     goto LABEL_41;
   }
 
 LABEL_25:
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  v47 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
+  if (v47)
   {
     *buf = 0;
     _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Running Setup", buf, 2u);
   }
 
-  v47 = _copySignpostLowSeverityLogHandle();
-  if (os_signpost_enabled(v47))
+  v48 = _copySignpostLowSeverityLogHandle(v47);
+  if (os_signpost_enabled(v48))
   {
     selectedCondition5 = [(COConditionSession *)self selectedCondition];
     selectedProfile5 = [(COConditionSession *)self selectedProfile];
     *buf = 138543618;
-    v91 = selectedCondition5;
-    v92 = 2114;
-    v93 = selectedProfile5;
-    _os_signpost_emit_with_name_impl(&dword_243E0F000, v47, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "induce-setup", "%{public}@ %{public}@", buf, 0x16u);
+    v96 = selectedCondition5;
+    v97 = 2114;
+    v98 = selectedProfile5;
+    _os_signpost_emit_with_name_impl(&dword_243E0F000, v48, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "induce-setup", "%{public}@ %{public}@", buf, 0x16u);
   }
 
   setUpQueue = [(COConditionSession *)self setUpQueue];
   dispatch_sync(setUpQueue, block);
 
-  v51 = _copySignpostLowSeverityLogHandle();
-  if (os_signpost_enabled(v51))
+  v53 = _copySignpostLowSeverityLogHandle(v52);
+  if (os_signpost_enabled(v53))
   {
     selectedCondition6 = [(COConditionSession *)self selectedCondition];
     selectedProfile6 = [(COConditionSession *)self selectedProfile];
     *buf = 138543618;
-    v91 = selectedCondition6;
-    v92 = 2114;
-    v93 = selectedProfile6;
-    _os_signpost_emit_with_name_impl(&dword_243E0F000, v51, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "induce-setup", "%{public}@ %{public}@", buf, 0x16u);
+    v96 = selectedCondition6;
+    v97 = 2114;
+    v98 = selectedProfile6;
+    _os_signpost_emit_with_name_impl(&dword_243E0F000, v53, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "induce-setup", "%{public}@ %{public}@", buf, 0x16u);
   }
 
-  if (*(v88[0] + 40))
+  if (v90[5])
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      [COConditionSession startConditionWithCallback:v88 teardownStartedCallback:? teardownFinishedCallback:?];
+      [COConditionSession startConditionWithCallback:teardownStartedCallback:teardownFinishedCallback:];
     }
 
     goto LABEL_41;
   }
 
-  v60 = _copySignpostLowSeverityLogHandle();
-  if (os_signpost_enabled(v60))
+  v63 = _copySignpostLowSeverityLogHandle(v56);
+  if (os_signpost_enabled(v63))
   {
     selectedCondition7 = [(COConditionSession *)self selectedCondition];
     selectedProfile7 = [(COConditionSession *)self selectedProfile];
     *buf = 138543618;
-    v91 = selectedCondition7;
-    v92 = 2114;
-    v93 = selectedProfile7;
-    _os_signpost_emit_with_name_impl(&dword_243E0F000, v60, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "induce", "%{public}@ %{public}@", buf, 0x16u);
+    v96 = selectedCondition7;
+    v97 = 2114;
+    v98 = selectedProfile7;
+    _os_signpost_emit_with_name_impl(&dword_243E0F000, v63, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "induce", "%{public}@ %{public}@", buf, 0x16u);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -2222,18 +2207,17 @@ LABEL_25:
     _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Setup Complete... Condition Running", buf, 2u);
   }
 
-  v63 = 1;
+  v66 = 1;
 LABEL_42:
   if (callbackCopy)
   {
-    callbackCopy[2](callbackCopy, *(v88[0] + 40));
+    callbackCopy[2](callbackCopy, v90[5]);
   }
 
-  _Block_object_dispose(v85, 8);
-  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(v87, 8);
+  _Block_object_dispose(&v89, 8);
 
-  v70 = *MEMORY[0x277D85DE8];
-  return v63;
+  return v66;
 }
 
 void __98__COConditionSession_startConditionWithCallback_teardownStartedCallback_teardownFinishedCallback___block_invoke(uint64_t a1)
@@ -2246,9 +2230,8 @@ void __98__COConditionSession_startConditionWithCallback_teardownStartedCallback
   v5 = *(a1 + 32);
   if (*(*(*(a1 + 40) + 8) + 40))
   {
-    v22 = [v5 selectedCondition];
-    v21 = *(*(*(a1 + 40) + 8) + 40);
-    v9 = createConditionInducerError("[COConditionSession startConditionWithCallback:teardownStartedCallback:teardownFinishedCallback:]_block_invoke", 1103, -1, 0, @"Condition is already running: %@ %@", v6, v7, v8, v22);
+    v21 = [v5 selectedCondition];
+    v9 = createConditionInducerError("[COConditionSession startConditionWithCallback:teardownStartedCallback:teardownFinishedCallback:]_block_invoke", 1103, -1, 0, @"Condition is already running: %@ %@", v6, v7, v8, v21);
     v10 = *(*(a1 + 48) + 8);
     v11 = *(v10 + 40);
     *(v10 + 40) = v9;
@@ -2272,68 +2255,69 @@ void __98__COConditionSession_startConditionWithCallback_teardownStartedCallback
 
 - (BOOL)stopConditionWithCallback:(id)callback
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+  v5 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
+  if (v5)
   {
-    v5 = +[COConditionSession getActiveConditions];
+    v6 = +[COConditionSession getActiveConditions];
     LODWORD(buf) = 138412290;
-    *(&buf + 4) = v5;
+    *(&buf + 4) = v6;
     _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Tearing down active condition before we destroy the object: %@", &buf, 0xCu);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__0;
-  v27 = __Block_byref_object_dispose__0;
-  v28 = 0;
-  v6 = _copySignpostLowSeverityLogHandle();
-  if (os_signpost_enabled(v6))
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__0;
+  v29 = __Block_byref_object_dispose__0;
+  v30 = 0;
+  v7 = _copySignpostLowSeverityLogHandle(v5);
+  if (os_signpost_enabled(v7))
   {
     selectedCondition = [(COConditionSession *)self selectedCondition];
     selectedProfile = [(COConditionSession *)self selectedProfile];
-    *v20 = 138543618;
-    v21 = selectedCondition;
-    v22 = 2114;
-    v23 = selectedProfile;
-    _os_signpost_emit_with_name_impl(&dword_243E0F000, v6, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "induce-teardown", "%{public}@ %{public}@", v20, 0x16u);
+    *v22 = 138543618;
+    v23 = selectedCondition;
+    v24 = 2114;
+    v25 = selectedProfile;
+    _os_signpost_emit_with_name_impl(&dword_243E0F000, v7, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "induce-teardown", "%{public}@ %{public}@", v22, 0x16u);
   }
 
   tearDownQueue = [(COConditionSession *)self tearDownQueue];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __48__COConditionSession_stopConditionWithCallback___block_invoke;
-  v19[3] = &unk_278DF7EE0;
-  v19[4] = self;
-  v19[5] = &buf;
-  dispatch_sync(tearDownQueue, v19);
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __48__COConditionSession_stopConditionWithCallback___block_invoke;
+  v21[3] = &unk_278DF7EE0;
+  v21[4] = self;
+  v21[5] = &buf;
+  dispatch_sync(tearDownQueue, v21);
 
   setUpQueue = [(COConditionSession *)self setUpQueue];
   dispatch_sync(setUpQueue, &__block_literal_global_1);
 
-  v11 = _copySignpostLowSeverityLogHandle();
-  if (os_signpost_enabled(v11))
+  v13 = _copySignpostLowSeverityLogHandle(v12);
+  if (os_signpost_enabled(v13))
   {
     selectedCondition2 = [(COConditionSession *)self selectedCondition];
     selectedProfile2 = [(COConditionSession *)self selectedProfile];
-    *v20 = 138543618;
-    v21 = selectedCondition2;
-    v22 = 2114;
-    v23 = selectedProfile2;
-    _os_signpost_emit_with_name_impl(&dword_243E0F000, v11, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "induce-teardown", "%{public}@ %{public}@", v20, 0x16u);
+    *v22 = 138543618;
+    v23 = selectedCondition2;
+    v24 = 2114;
+    v25 = selectedProfile2;
+    _os_signpost_emit_with_name_impl(&dword_243E0F000, v13, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "induce-teardown", "%{public}@ %{public}@", v22, 0x16u);
   }
 
-  v14 = _copySignpostLowSeverityLogHandle();
-  if (os_signpost_enabled(v14))
+  v17 = _copySignpostLowSeverityLogHandle(v16);
+  if (os_signpost_enabled(v17))
   {
     selectedCondition3 = [(COConditionSession *)self selectedCondition];
     selectedProfile3 = [(COConditionSession *)self selectedProfile];
-    *v20 = 138543618;
-    v21 = selectedCondition3;
-    v22 = 2114;
-    v23 = selectedProfile3;
-    _os_signpost_emit_with_name_impl(&dword_243E0F000, v14, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "induce", "%{public}@ %{public}@", v20, 0x16u);
+    *v22 = 138543618;
+    v23 = selectedCondition3;
+    v24 = 2114;
+    v25 = selectedProfile3;
+    _os_signpost_emit_with_name_impl(&dword_243E0F000, v17, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "induce", "%{public}@ %{public}@", v22, 0x16u);
   }
 
   if (callbackCopy && *(*(&buf + 1) + 40))
@@ -2343,7 +2327,6 @@ void __98__COConditionSession_startConditionWithCallback_teardownStartedCallback
 
   _Block_object_dispose(&buf, 8);
 
-  v17 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -2366,15 +2349,15 @@ void __48__COConditionSession_stopConditionWithCallback___block_invoke(uint64_t 
 
 + (BOOL)tearDownAllConditionsWithErrors:(id *)errors
 {
-  v53 = *MEMORY[0x277D85DE8];
-  v38 = +[COConditionSession getActiveConditions];
-  v36 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v52 = *MEMORY[0x277D85DE8];
+  v37 = +[COConditionSession getActiveConditions];
+  v35 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
-  obj = [v38 allKeys];
-  v3 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
+  obj = [v37 allKeys];
+  v3 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
   if (!v3)
   {
 
@@ -2382,34 +2365,34 @@ void __48__COConditionSession_stopConditionWithCallback___block_invoke(uint64_t 
     goto LABEL_25;
   }
 
-  v37 = *v49;
+  v36 = *v48;
   v4 = 1;
   do
   {
     for (i = 0; i != v3; ++i)
     {
-      if (*v49 != v37)
+      if (*v48 != v36)
       {
         objc_enumerationMutation(obj);
       }
 
-      v6 = *(*(&v48 + 1) + 8 * i);
-      v42 = 0;
-      v43 = &v42;
-      v44 = 0x3032000000;
-      v45 = __Block_byref_object_copy__0;
-      v46 = __Block_byref_object_dispose__0;
-      v47 = 0;
-      v7 = [v38 objectForKey:v6];
+      v6 = *(*(&v47 + 1) + 8 * i);
+      v41 = 0;
+      v42 = &v41;
+      v43 = 0x3032000000;
+      v44 = __Block_byref_object_copy__0;
+      v45 = __Block_byref_object_dispose__0;
+      v46 = 0;
+      v7 = [v37 objectForKey:v6];
       v8 = [v7 objectForKey:@"ConditionCacheClassName"];
       v12 = [v7 objectForKey:@"ConditionCacheClassArguments"];
       if (!v8)
       {
         v17 = createConditionInducerError("+[COConditionSession tearDownAllConditionsWithErrors:]", 1265, -1, 0, @"Missing subclass info for %@, skipping teardown", v9, v10, v11, v6);
-        v18 = v43[5];
-        v43[5] = v17;
+        v18 = v42[5];
+        v42[5] = v17;
 
-        [v36 setObject:v43[5] forKey:v6];
+        [v35 setObject:v42[5] forKey:v6];
         v4 = 0;
         goto LABEL_20;
       }
@@ -2418,10 +2401,10 @@ void __48__COConditionSession_stopConditionWithCallback___block_invoke(uint64_t 
       if (!v16)
       {
         v19 = createConditionInducerError("+[COConditionSession tearDownAllConditionsWithErrors:]", 1235, -1, 0, @"Failed to instantiate condition session for conditionKey:%@ profile:%@ args:%@", v13, v14, v15, v6);
-        v20 = v43[5];
-        v43[5] = v19;
+        v20 = v42[5];
+        v42[5] = v19;
 
-        [v36 setObject:v43[5] forKey:v6];
+        [v35 setObject:v42[5] forKey:v6];
 LABEL_18:
         v4 = 0;
         goto LABEL_19;
@@ -2430,26 +2413,26 @@ LABEL_18:
       if ([COConditionSession conditionIsBundledWithFramework:v6])
       {
 LABEL_9:
-        v39[0] = MEMORY[0x277D85DD0];
-        v39[1] = 3221225472;
-        v39[2] = __54__COConditionSession_tearDownAllConditionsWithErrors___block_invoke;
-        v39[3] = &unk_278DF8030;
-        v39[4] = v6;
-        v39[5] = &v42;
-        [(COConditionSession *)v16 stopConditionWithCallback:v39];
+        v38[0] = MEMORY[0x277D85DD0];
+        v38[1] = 3221225472;
+        v38[2] = __54__COConditionSession_tearDownAllConditionsWithErrors___block_invoke;
+        v38[3] = &unk_278DF8030;
+        v38[4] = v6;
+        v38[5] = &v41;
+        [(COConditionSession *)v16 stopConditionWithCallback:v38];
         goto LABEL_16;
       }
 
-      v21 = (v43 + 5);
-      v41 = v43[5];
-      v22 = [(COConditionSession *)v16 loadBundleWithPath:v6 andError:&v41];
-      objc_storeStrong(v21, v41);
+      v21 = (v42 + 5);
+      v40 = v42[5];
+      v22 = [(COConditionSession *)v16 loadBundleWithPath:v6 andError:&v40];
+      objc_storeStrong(v21, v40);
       if (v22)
       {
-        v26 = (v43 + 5);
-        v40 = v43[5];
-        v27 = [(COConditionSession *)v16 loadProfileForBundle:v8 withError:&v40];
-        objc_storeStrong(v26, v40);
+        v26 = (v42 + 5);
+        v39 = v42[5];
+        v27 = [(COConditionSession *)v16 loadProfileForBundle:v8 withError:&v39];
+        objc_storeStrong(v26, v39);
         if (v27)
         {
           goto LABEL_9;
@@ -2458,56 +2441,55 @@ LABEL_9:
 
       else
       {
-        v28 = createConditionInducerError("+[COConditionSession tearDownAllConditionsWithErrors:]", 1247, -1, 0, @"Failed to load bundle", v23, v24, v25, v33);
-        [v36 setObject:v28 forKey:v6];
+        v28 = createConditionInducerError("+[COConditionSession tearDownAllConditionsWithErrors:]", 1247, -1, 0, @"Failed to load bundle", v23, v24, v25, v32);
+        [v35 setObject:v28 forKey:v6];
 
         v4 = 0;
       }
 
 LABEL_16:
-      v29 = v43[5];
+      v29 = v42[5];
       if (v29)
       {
-        [v36 setObject:v29 forKey:v6];
+        [v35 setObject:v29 forKey:v6];
         goto LABEL_18;
       }
 
 LABEL_19:
 
 LABEL_20:
-      _Block_object_dispose(&v42, 8);
+      _Block_object_dispose(&v41, 8);
     }
 
-    v3 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
+    v3 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
   }
 
   while (v3);
 
   if (!((errors == 0) | v4 & 1))
   {
-    v30 = v36;
+    v30 = v35;
     v4 = 0;
-    *errors = v36;
+    *errors = v35;
   }
 
 LABEL_25:
 
-  v31 = *MEMORY[0x277D85DE8];
   return v4 & 1;
 }
 
 void __54__COConditionSession_tearDownAllConditionsWithErrors___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a2;
   if ([v4 code] == -10)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       v5 = *(a1 + 32);
-      v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "No need to tear down %@ because it's not running", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v5;
+      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "No need to tear down %@ because it's not running", &v6, 0xCu);
     }
   }
 
@@ -2515,108 +2497,81 @@ void __54__COConditionSession_tearDownAllConditionsWithErrors___block_invoke(uin
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userFriendlyNameForSelectedCondition
 {
-  v8 = *MEMORY[0x277D85DE8];
   selectedCondition = [self selectedCondition];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userFriendlyNameForSelectedProfile
 {
-  v8 = *MEMORY[0x277D85DE8];
   selectedProfile = [self selectedProfile];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)bundleToDict:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = [a1 path];
-  v10 = [a2 description];
+  v9 = [a2 description];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (void)bundleToDict:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   OUTLINED_FUNCTION_2();
   v1 = v0;
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)bundleToDict:(void *)a1 .cold.3(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 path];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)loadInformationDict
 {
-  v8 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   OUTLINED_FUNCTION_2();
   v1 = v0;
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)conditionsBundledWithFramework
 {
-  v8 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   OUTLINED_FUNCTION_2();
   v1 = v0;
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)listAvailableConditions
 {
-  v8 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)getActiveConditions
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Loaded Conditions: %@", v1, 0xCu);
-  v0 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Loaded Conditions: %@", v0, 0xCu);
 }
 
 - (void)startConditionWithCallback:(uint8_t *)buf teardownStartedCallback:(uint64_t)a2 teardownFinishedCallback:(void *)a3 .cold.1(uint8_t *buf, uint64_t a2, void *a3)
@@ -2624,15 +2579,6 @@ void __54__COConditionSession_tearDownAllConditionsWithErrors___block_invoke(uin
   *buf = 138412290;
   *a3 = a2;
   _os_log_error_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to load class from name: %@", buf, 0xCu);
-}
-
-- (void)startConditionWithCallback:(uint64_t)a1 teardownStartedCallback:teardownFinishedCallback:.cold.2(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(*a1 + 40);
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

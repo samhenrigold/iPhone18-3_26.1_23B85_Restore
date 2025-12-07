@@ -24,24 +24,22 @@
 
 - (void)savePerformanceMetrics:(id)metrics
 {
-  v4 = [(MKDiagnosticsMigrator *)self saveData:metrics toFile:@"performance.json"];
-  performanceMetricsPath = self->_performanceMetricsPath;
-  self->_performanceMetricsPath = v4;
+  self->_performanceMetricsPath = [(MKDiagnosticsMigrator *)self saveData:metrics toFile:@"performance.json"];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (id)saveData:(id)data toFile:(id)file
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   v7 = MEMORY[0x277CCAA00];
   dataCopy = data;
   defaultManager = [v7 defaultManager];
   basePath = self->_basePath;
-  v21 = 0;
-  v11 = [defaultManager createDirectoryAtPath:basePath withIntermediateDirectories:1 attributes:0 error:&v21];
-  v12 = v21;
+  v20 = 0;
+  v11 = [defaultManager createDirectoryAtPath:basePath withIntermediateDirectories:1 attributes:0 error:&v20];
+  v12 = v20;
 
   if ((v11 & 1) == 0)
   {
@@ -63,8 +61,8 @@
     {
       *buf = 138412546;
       selfCopy = self;
-      v24 = 2112;
-      v25 = v14;
+      v23 = 2112;
+      v24 = v14;
       _os_log_impl(&dword_2592D2000, v17, OS_LOG_TYPE_INFO, "%@: Saved data to file: %@", buf, 0x16u);
     }
 
@@ -80,8 +78,6 @@
 
     v18 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

@@ -116,7 +116,7 @@ LABEL_8:
 
 - (id)actionPickerItems
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   data = [(BCSAction *)self data];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -128,8 +128,8 @@ LABEL_8:
     if ([invalidContents length])
     {
       v7 = [[BCSCopyActionPickerItem alloc] initWithAction:self textToCopy:invalidContents];
-      v11[0] = v7;
-      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+      v10[0] = v7;
+      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     }
 
     else
@@ -142,8 +142,6 @@ LABEL_8:
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

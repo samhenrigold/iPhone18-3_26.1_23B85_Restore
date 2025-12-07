@@ -27,9 +27,11 @@
 
 uint64_t __34__SPFeedbackManager_sharedManager__block_invoke()
 {
-  sharedManager_sharedManager = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedManager_sharedManager;
+  sharedManager_sharedManager = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)updateNeedsToDisplayFirstTimeView
@@ -206,7 +208,7 @@ void __49__SPFeedbackManager_flushFeedbackWithCompletion___block_invoke_2(uint64
 void __48__SPFeedbackManager__sendFeedback_type_queryId___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v72 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) isParsecFeedbackEnabled])
   {
     [*(*(v1 + 32) + 32) reportFeedback:*(v1 + 40) queryId:*(v1 + 48)];
@@ -259,137 +261,133 @@ void __48__SPFeedbackManager__sendFeedback_type_queryId___block_invoke(uint64_t 
   }
 
   v15 = *(v1 + 40);
-  v16 = *(v1 + 40);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v17 = *(v1 + 40);
-    v18 = [v17 copy];
-    [v18 setQueryId:{objc_msgSend(v17, "queryId")}];
-    v19 = [v17 cardSection];
-    v20 = [v19 spotlightBackingResult];
-    if (v20)
+    v16 = *(v1 + 40);
+    v17 = [v16 copy];
+    [v17 setQueryId:{objc_msgSend(v16, "queryId")}];
+    v18 = [v16 cardSection];
+    v19 = [v18 spotlightBackingResult];
+    if (v19)
     {
-      v21 = v18;
-      [v18 setResult:v20];
+      v20 = v17;
+      [v17 setResult:v19];
     }
 
     else
     {
-      [v17 result];
-      v23 = v22 = v1;
-      v21 = v18;
-      [v18 setResult:v23];
+      [v16 result];
+      v22 = v21 = v1;
+      v20 = v17;
+      [v17 setResult:v22];
 
-      v1 = v22;
+      v1 = v21;
     }
 
-    v15 = v21;
+    v15 = v20;
   }
 
-  v24 = *(v1 + 40);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v54 = v15;
-    v55 = v1;
-    v25 = *(v1 + 40);
-    v26 = [v25 copy];
-    v27 = [v25 uniqueIdsOfVisibleButtons];
-    [v26 setUniqueIdsOfVisibleButtons:v27];
+    v49 = v15;
+    v50 = v1;
+    v23 = *(v1 + 40);
+    v24 = [v23 copy];
+    v25 = [v23 uniqueIdsOfVisibleButtons];
+    [v24 setUniqueIdsOfVisibleButtons:v25];
 
-    v28 = [v25 uniqueIdentifiersOfVisibleCardSections];
-    [v26 setUniqueIdentifiersOfVisibleCardSections:v28];
+    v26 = [v23 uniqueIdentifiersOfVisibleCardSections];
+    [v24 setUniqueIdentifiersOfVisibleCardSections:v26];
 
-    v53 = v25;
-    v29 = [v25 goTakeoverResult];
-    [v26 setGoTakeoverResult:v29];
+    v48 = v23;
+    v27 = [v23 goTakeoverResult];
+    [v24 setGoTakeoverResult:v27];
 
-    v30 = [v26 results];
-    v31 = objc_opt_new();
-    v66 = 0u;
-    v67 = 0u;
-    v68 = 0u;
-    v69 = 0u;
-    obj = v30;
-    v32 = [obj countByEnumeratingWithState:&v66 objects:v71 count:16];
-    if (!v32)
+    v28 = [v24 results];
+    v29 = objc_opt_new();
+    v61 = 0u;
+    v62 = 0u;
+    v63 = 0u;
+    v64 = 0u;
+    obj = v28;
+    v30 = [obj countByEnumeratingWithState:&v61 objects:v66 count:16];
+    if (!v30)
     {
       goto LABEL_47;
     }
 
-    v33 = v32;
-    v34 = *v67;
-    v35 = 0x1E69C9000uLL;
-    v56 = *v67;
+    v31 = v30;
+    v32 = *v62;
+    v51 = *v62;
     while (1)
     {
-      v36 = 0;
-      v57 = v33;
+      v33 = 0;
+      v52 = v31;
       do
       {
-        if (*v67 != v34)
+        if (*v62 != v32)
         {
           objc_enumerationMutation(obj);
         }
 
-        v37 = *(*(&v66 + 1) + 8 * v36);
-        if ([v37 usesCompactDisplay])
+        v34 = *(*(&v61 + 1) + 8 * v33);
+        if ([v34 usesCompactDisplay])
         {
-          [v37 compactCard];
+          [v34 compactCard];
         }
 
         else
         {
-          [v37 inlineCard];
+          [v34 inlineCard];
         }
-        v38 = ;
-        v39 = [v38 cardSections];
-        v40 = [v39 firstObject];
+        v35 = ;
+        v36 = [v35 cardSections];
+        v37 = [v36 firstObject];
 
-        v41 = *(v35 + 3928);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v60 = v38;
-          v61 = v36;
-          v64 = 0u;
-          v65 = 0u;
-          v62 = 0u;
-          v63 = 0u;
-          v59 = v40;
-          v42 = [v40 cardSections];
-          v43 = [v42 countByEnumeratingWithState:&v62 objects:v70 count:16];
-          if (!v43)
+          v55 = v35;
+          v56 = v33;
+          v59 = 0u;
+          v60 = 0u;
+          v57 = 0u;
+          v58 = 0u;
+          v54 = v37;
+          v38 = [v37 cardSections];
+          v39 = [v38 countByEnumeratingWithState:&v57 objects:v65 count:16];
+          if (!v39)
           {
             goto LABEL_43;
           }
 
-          v44 = v43;
-          v45 = *v63;
+          v40 = v39;
+          v41 = *v58;
           while (1)
           {
-            for (i = 0; i != v44; ++i)
+            for (i = 0; i != v40; ++i)
             {
-              if (*v63 != v45)
+              if (*v58 != v41)
               {
-                objc_enumerationMutation(v42);
+                objc_enumerationMutation(v38);
               }
 
-              v47 = *(*(&v62 + 1) + 8 * i);
-              v48 = [v26 uniqueIdentifiersOfVisibleCardSections];
-              v49 = [v47 cardSectionId];
-              if ([v48 containsObject:v49])
+              v43 = *(*(&v57 + 1) + 8 * i);
+              v44 = [v24 uniqueIdentifiersOfVisibleCardSections];
+              v45 = [v43 cardSectionId];
+              if ([v44 containsObject:v45])
               {
-                v50 = [v47 spotlightBackingResult];
+                v46 = [v43 spotlightBackingResult];
 
-                if (!v50)
+                if (!v46)
                 {
                   continue;
                 }
 
-                v48 = [v47 spotlightBackingResult];
-                [v31 addObject:v48];
+                v44 = [v43 spotlightBackingResult];
+                [v29 addObject:v44];
               }
 
               else
@@ -397,56 +395,53 @@ void __48__SPFeedbackManager__sendFeedback_type_queryId___block_invoke(uint64_t 
               }
             }
 
-            v44 = [v42 countByEnumeratingWithState:&v62 objects:v70 count:16];
-            if (!v44)
+            v40 = [v38 countByEnumeratingWithState:&v57 objects:v65 count:16];
+            if (!v40)
             {
 LABEL_43:
 
-              v34 = v56;
-              v33 = v57;
-              v35 = 0x1E69C9000;
-              v38 = v60;
-              v36 = v61;
-              v40 = v59;
+              v32 = v51;
+              v31 = v52;
+              v35 = v55;
+              v33 = v56;
+              v37 = v54;
               goto LABEL_45;
             }
           }
         }
 
-        [v31 addObject:v37];
+        [v29 addObject:v34];
 LABEL_45:
 
-        ++v36;
+        ++v33;
       }
 
-      while (v36 != v33);
-      v33 = [obj countByEnumeratingWithState:&v66 objects:v71 count:16];
-      if (!v33)
+      while (v33 != v31);
+      v31 = [obj countByEnumeratingWithState:&v61 objects:v66 count:16];
+      if (!v31)
       {
 LABEL_47:
 
-        [v26 setResults:v31];
-        v1 = v55;
+        [v24 setResults:v29];
+        v1 = v50;
         goto LABEL_49;
       }
     }
   }
 
-  v26 = v15;
+  v24 = v15;
 LABEL_49:
   if (*(*(v1 + 32) + 8) == 1)
   {
-    v51 = +[SPSearchFeedbackProxy sharedProxy];
-    [v51 sendFeedbackType:*(v1 + 56) feedback:v26 queryId:*(v1 + 48) clientID:*(*(v1 + 32) + 16)];
+    v47 = +[SPSearchFeedbackProxy sharedProxy];
+    [v47 sendFeedbackType:*(v1 + 56) feedback:v24 queryId:*(v1 + 48) clientID:*(*(v1 + 32) + 16)];
   }
 
   else
   {
-    v51 = +[SPDaemonConnection sharedBackgroundConnection];
-    [v51 sendSFFeedback:v26 type:*(v1 + 56) queryId:*(v1 + 48)];
+    v47 = +[SPDaemonConnection sharedBackgroundConnection];
+    [v47 sendSFFeedback:v24 type:*(v1 + 56) queryId:*(v1 + 48)];
   }
-
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendFeedback:(id)feedback type:(int64_t)type

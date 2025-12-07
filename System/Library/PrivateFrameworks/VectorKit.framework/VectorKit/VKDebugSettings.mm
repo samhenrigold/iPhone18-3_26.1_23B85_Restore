@@ -405,10 +405,11 @@ void __33__VKDebugSettings_sharedSettings__block_invoke()
 
 - (void)setLogicConsole:(unint64_t)console enabled:(BOOL)enabled
 {
+  consoleCopy = console;
   p_enabledLogicConsoles = &self->_enabledLogicConsoles;
   if (enabled)
   {
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(p_enabledLogicConsoles, console);
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(p_enabledLogicConsoles, console, &consoleCopy);
   }
 
   else

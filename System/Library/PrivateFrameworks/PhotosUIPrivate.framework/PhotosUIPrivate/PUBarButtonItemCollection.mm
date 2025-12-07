@@ -160,7 +160,7 @@ void __65__PUBarButtonItemCollection__arrangedBarButtonItems_identifiers___block
   return v9;
 }
 
-uint64_t __53__PUBarButtonItemCollection__newEntryForIdentifiers___block_invoke(id *a1, void *a2)
+void *__53__PUBarButtonItemCollection__newEntryForIdentifiers___block_invoke(id *a1, void *a2)
 {
   v3 = [a2 integerValue];
   result = [a1[4] containsIndex:v3];
@@ -299,13 +299,13 @@ void __55__PUBarButtonItemCollection_identifierForCustomButton___block_invoke(ui
   return v7;
 }
 
-uint64_t __56__PUBarButtonItemCollection_identifierForBarButtonItem___block_invoke(uint64_t result, void *a2, uint64_t a3, _BYTE *a4)
+void *__56__PUBarButtonItemCollection_identifierForBarButtonItem___block_invoke(void *result, void *a2, uint64_t a3, _BYTE *a4)
 {
-  if (*(result + 32) == a3)
+  if (result[4] == a3)
   {
     v5 = result;
     result = [a2 integerValue];
-    *(*(*(v5 + 40) + 8) + 24) = result;
+    *(*(v5[5] + 8) + 24) = result;
     *a4 = 1;
   }
 

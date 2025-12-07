@@ -26,14 +26,15 @@
 
 - (id)initInValueSpace:(id)space withLabel:(id)label
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   spaceCopy = space;
   labelCopy = label;
-  if (spaceCopy && (v8 = [spaceCopy count], labelCopy) && v8)
+  v8 = labelCopy;
+  if (spaceCopy && (labelCopy = [spaceCopy count], v8) && labelCopy)
   {
-    v17.receiver = self;
-    v17.super_class = NWPVar;
-    v9 = [(NWPVar *)&v17 init];
+    v16.receiver = self;
+    v16.super_class = NWPVar;
+    v9 = [(NWPVar *)&v16 init];
     v10 = v9;
     if (v9)
     {
@@ -51,26 +52,25 @@
 
   else
   {
-    v14 = nwpvarLogHandle();
+    v14 = nwpvarLogHandle(labelCopy);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v19 = spaceCopy;
-      v20 = 2112;
-      v21 = labelCopy;
+      v18 = spaceCopy;
+      v19 = 2112;
+      v20 = v8;
       _os_log_impl(&dword_2324A0000, v14, OS_LOG_TYPE_ERROR, "wrong argument: allValues %@, label %@", buf, 0x16u);
     }
 
     selfCopy = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (id)initFromCheckpoint:(id)checkpoint forLabel:(id)label
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   checkpointCopy = checkpoint;
   labelCopy = label;
   v8 = labelCopy;
@@ -83,9 +83,9 @@
     v12 = [NWPVar _fetchCheckpoint:v11 isPrefix:0];
     if (v12)
     {
-      v19.receiver = self;
-      v19.super_class = NWPVar;
-      v13 = [(NWPVar *)&v19 init];
+      v18.receiver = self;
+      v18.super_class = NWPVar;
+      v13 = [(NWPVar *)&v18 init];
       v14 = v13;
       if (v13)
       {
@@ -98,13 +98,13 @@
 
     else
     {
-      v16 = nwpvarLogHandle();
+      v16 = nwpvarLogHandle(0);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v21 = checkpointCopy;
-        v22 = 2112;
-        v23 = v8;
+        v20 = checkpointCopy;
+        v21 = 2112;
+        v22 = v8;
         _os_log_impl(&dword_2324A0000, v16, OS_LOG_TYPE_ERROR, "identifier failed to recover valid object for: %@ and label: %@", buf, 0x16u);
       }
 
@@ -114,26 +114,25 @@
 
   else
   {
-    v11 = nwpvarLogHandle();
+    v11 = nwpvarLogHandle(labelCopy);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v21 = checkpointCopy;
-      v22 = 2112;
-      v23 = v8;
+      v20 = checkpointCopy;
+      v21 = 2112;
+      v22 = v8;
       _os_log_impl(&dword_2324A0000, v11, OS_LOG_TYPE_ERROR, "wrong identifier: %@ or label: %@", buf, 0x16u);
     }
 
     selfCopy = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (id)initFromLastCheckpointForLabel:(id)label
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   labelCopy = label;
   if (labelCopy)
   {
@@ -141,9 +140,9 @@
     v6 = [NWPVar _fetchCheckpoint:labelCopy isPrefix:1];
     if (v6)
     {
-      v13.receiver = self;
-      v13.super_class = NWPVar;
-      v7 = [(NWPVar *)&v13 init];
+      v12.receiver = self;
+      v12.super_class = NWPVar;
+      v7 = [(NWPVar *)&v12 init];
       v8 = v7;
       if (v7)
       {
@@ -156,11 +155,11 @@
 
     else
     {
-      v10 = nwpvarLogHandle();
+      v10 = nwpvarLogHandle(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v15 = labelCopy;
+        v14 = labelCopy;
         _os_log_impl(&dword_2324A0000, v10, OS_LOG_TYPE_ERROR, "identifier failed to recover last valid object for label: %@", buf, 0xCu);
       }
 
@@ -170,18 +169,17 @@
 
   else
   {
-    labelCopy = nwpvarLogHandle();
+    labelCopy = nwpvarLogHandle(0);
     if (os_log_type_enabled(labelCopy, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v15 = 0;
+      v14 = 0;
       _os_log_impl(&dword_2324A0000, labelCopy, OS_LOG_TYPE_ERROR, "wrong label: %@", buf, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -340,30 +338,30 @@ void __25__NWPVar_setHyperParams___block_invoke(uint64_t a1, void *a2, void *a3)
 
 - (void)_setToCleanSlate
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   referenceValues = [(NWPVar *)self referenceValues];
-  v6 = [referenceValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [referenceValues countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(referenceValues);
         }
 
-        [v3 addObject:*(*(&v13 + 1) + 8 * v9)];
+        [v3 addObject:*(*(&v12 + 1) + 8 * v9)];
         v10 = objc_alloc_init(NWPVarValueItem);
         [v4 addObject:v10];
 
@@ -371,7 +369,7 @@ void __25__NWPVar_setHyperParams___block_invoke(uint64_t a1, void *a2, void *a3)
       }
 
       while (v7 != v9);
-      v7 = [referenceValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [referenceValues countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
@@ -383,8 +381,6 @@ void __25__NWPVar_setHyperParams___block_invoke(uint64_t a1, void *a2, void *a3)
   [(NWPVar *)self setPullCount:0];
   [(NWPVar *)self setExpectingRewardOn:0];
   [(NWPVar *)self setDurableId:0];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_serviceQueue
@@ -454,7 +450,7 @@ void __26__NWPVar__backgroundQueue__block_invoke()
 
 void __36__NWPVar__fetchCheckpoint_isPrefix___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = +[NWPVar _defaultBackingStore];
   if (v2)
   {
@@ -463,27 +459,27 @@ void __36__NWPVar__fetchCheckpoint_isPrefix___block_invoke(uint64_t a1)
       v3 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"timeStamp" ascending:0];
       v4 = [v2 listItemsNameWithPrefix:*(a1 + 32) sortDescriptor:v3];
       v5 = v4;
-      if (v4 && [v4 count])
+      if (v4 && (v6 = [v4 count]) != 0)
       {
-        v6 = nwpvarLogHandle();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+        v7 = nwpvarLogHandle(v6);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
         {
-          v16 = 134218242;
-          v17 = [v5 count];
-          v18 = 2112;
-          v19 = v5;
-          _os_log_impl(&dword_2324A0000, v6, OS_LOG_TYPE_DEBUG, "fetch returned %lu keys: %@", &v16, 0x16u);
+          v17 = 134218242;
+          v18 = [v5 count];
+          v19 = 2112;
+          v20 = v5;
+          _os_log_impl(&dword_2324A0000, v7, OS_LOG_TYPE_DEBUG, "fetch returned %lu keys: %@", &v17, 0x16u);
         }
 
-        v7 = [v5 firstObject];
+        v8 = [v5 firstObject];
       }
 
       else
       {
-        v7 = 0;
+        v8 = 0;
       }
 
-      if (!v7)
+      if (!v8)
       {
         goto LABEL_16;
       }
@@ -491,60 +487,59 @@ void __36__NWPVar__fetchCheckpoint_isPrefix___block_invoke(uint64_t a1)
 
     else
     {
-      v7 = *(a1 + 32);
-      if (!v7)
+      v11 = *(a1 + 32);
+      v8 = v11;
+      if (!v11)
       {
 LABEL_16:
-        v12 = nwpvarLogHandle();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v14 = nwpvarLogHandle(v11);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          v13 = *(a1 + 32);
-          v14 = "not ";
+          v15 = *(a1 + 32);
+          v16 = "not ";
           if (*(a1 + 48))
           {
-            v14 = &unk_2324A8BAA;
+            v16 = &unk_2324A8BAA;
           }
 
-          v16 = 138412546;
-          v17 = v13;
-          v18 = 2080;
-          v19 = v14;
-          _os_log_impl(&dword_2324A0000, v12, OS_LOG_TYPE_ERROR, "Unable to fetch %@, %sprefixed", &v16, 0x16u);
+          v17 = 138412546;
+          v18 = v15;
+          v19 = 2080;
+          v20 = v16;
+          _os_log_impl(&dword_2324A0000, v14, OS_LOG_TYPE_ERROR, "Unable to fetch %@, %sprefixed", &v17, 0x16u);
         }
 
         goto LABEL_20;
       }
     }
 
-    v10 = [v2 fetchItemUnderName:v7 verificationBlock:0];
-    v11 = *(*(a1 + 40) + 8);
-    v12 = *(v11 + 40);
-    *(v11 + 40) = v10;
+    v12 = [v2 fetchItemUnderName:v8 verificationBlock:0];
+    v13 = *(*(a1 + 40) + 8);
+    v14 = *(v13 + 40);
+    *(v13 + 40) = v12;
 LABEL_20:
 
     goto LABEL_21;
   }
 
-  v7 = nwpvarLogHandle();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = nwpvarLogHandle(0);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    v8 = *(a1 + 32);
-    v9 = "not ";
+    v9 = *(a1 + 32);
+    v10 = "not ";
     if (*(a1 + 48))
     {
-      v9 = &unk_2324A8BAA;
+      v10 = &unk_2324A8BAA;
     }
 
-    v16 = 138412546;
-    v17 = v8;
-    v18 = 2080;
-    v19 = v9;
-    _os_log_impl(&dword_2324A0000, v7, OS_LOG_TYPE_ERROR, "No backing store to fetch %@, %sprefixed", &v16, 0x16u);
+    v17 = 138412546;
+    v18 = v9;
+    v19 = 2080;
+    v20 = v10;
+    _os_log_impl(&dword_2324A0000, v8, OS_LOG_TYPE_ERROR, "No backing store to fetch %@, %sprefixed", &v17, 0x16u);
   }
 
 LABEL_21:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)_pruneOldCheckpoints
@@ -561,7 +556,7 @@ LABEL_21:
 
   else
   {
-    v7 = nwpvarLogHandle();
+    v7 = nwpvarLogHandle(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
@@ -618,73 +613,71 @@ void __20__NWPVar_checkpoint__block_invoke(uint64_t a1)
     v9 = [v8 UUIDString];
     v10 = [v6 initWithFormat:@"%s-%@-%@", "NWPVar", v7, v9];
 
-    if ([v2 storeUnderName:v10 item:v5])
+    v11 = [v2 storeUnderName:v10 item:v5];
+    if (v11)
     {
-      v11 = [*(a1 + 32) durableId];
-      v12 = *(*(a1 + 40) + 8);
-      v13 = *(v12 + 40);
-      *(v12 + 40) = v11;
+      v12 = [*(a1 + 32) durableId];
+      v13 = *(*(a1 + 40) + 8);
+      v14 = *(v13 + 40);
+      *(v13 + 40) = v12;
     }
 
     else
     {
-      v14 = nwpvarLogHandle();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = nwpvarLogHandle(v11);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v15 = *(a1 + 32);
+        v16 = *(a1 + 32);
         *buf = 134218242;
-        v24 = v15;
+        v24 = v16;
         v25 = 2112;
         v26 = v10;
-        _os_log_impl(&dword_2324A0000, v14, OS_LOG_TYPE_ERROR, "(%p) failed to archive and import as: %@", buf, 0x16u);
+        _os_log_impl(&dword_2324A0000, v15, OS_LOG_TYPE_ERROR, "(%p) failed to archive and import as: %@", buf, 0x16u);
       }
     }
 
-    v16 = [MEMORY[0x277CBEAA8] now];
-    v17 = v16;
-    if (!checkpointsLastPruned || ([v16 timeIntervalSinceDate:?], v18 > 604800.0))
+    v17 = [MEMORY[0x277CBEAA8] now];
+    v18 = v17;
+    if (!checkpointsLastPruned || ([v17 timeIntervalSinceDate:?], v19 > 604800.0))
     {
-      v19 = +[NWPVar _serviceQueue];
+      v20 = +[NWPVar _serviceQueue];
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __20__NWPVar_checkpoint__block_invoke_108;
       block[3] = &unk_278986950;
       block[4] = *(a1 + 32);
-      v22 = v17;
-      dispatch_async(v19, block);
+      v22 = v18;
+      dispatch_async(v20, block);
     }
   }
 
   else
   {
-    v5 = nwpvarLogHandle();
+    v5 = nwpvarLogHandle(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
       _os_log_impl(&dword_2324A0000, v5, OS_LOG_TYPE_ERROR, "No backing store to checkpoint to", buf, 2u);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __20__NWPVar_checkpoint__block_invoke_108(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _pruneOldCheckpoints];
-  v3 = nwpvarLogHandle();
+  v3 = nwpvarLogHandle(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
-    v6 = 134218240;
-    v7 = v4;
-    v8 = 2048;
-    v9 = v2;
-    _os_log_impl(&dword_2324A0000, v3, OS_LOG_TYPE_DEFAULT, "(%p) removed %ld stale checkpoints", &v6, 0x16u);
+    v5 = 134218240;
+    v6 = v4;
+    v7 = 2048;
+    v8 = v2;
+    _os_log_impl(&dword_2324A0000, v3, OS_LOG_TYPE_DEFAULT, "(%p) removed %ld stale checkpoints", &v5, 0x16u);
   }
 
   objc_storeStrong(&checkpointsLastPruned, *(a1 + 40));
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (NWPVar)initWithCoder:(id)coder
@@ -782,36 +775,35 @@ void __20__NWPVar_checkpoint__block_invoke_108(uint64_t a1)
     v4 = "num";
   }
 
-  logicalClock = self->_logicalClock;
-  v6 = [v3 initWithFormat:@"(%p) label: %@, exportLabel: %@, model: %lu, pullCount: %lu, %s-range, initVal: %@, expecting: %@, logical-clock: %llu, state: %@", self, *&self->_label, self->_model, self->_pullCount, v4, self->_firstValue, self->_expectingRewardOn, logicalClock, self->_allState];
+  v5 = [v3 initWithFormat:@"(%p) label: %@, exportLabel: %@, model: %lu, pullCount: %lu, %s-range, initVal: %@, expecting: %@, logical-clock: %llu, state: %@", self, *&self->_label, self->_model, self->_pullCount, v4, self->_firstValue, self->_expectingRewardOn, self->_logicalClock, self->_allState];
 
-  return v6;
+  return v5;
 }
 
 - (id)_pullCounts
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   allState = [(NWPVar *)self allState];
-  v5 = [allState countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [allState countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(allState);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         allState2 = [(NWPVar *)self allState];
         v11 = [allState2 objectForKeyedSubscript:v9];
 
@@ -819,13 +811,11 @@ void __20__NWPVar_checkpoint__block_invoke_108(uint64_t a1)
         [v3 setObject:v12 forKeyedSubscript:v9];
       }
 
-      v6 = [allState countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [allState countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

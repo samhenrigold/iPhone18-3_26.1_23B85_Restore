@@ -2019,7 +2019,7 @@ LABEL_26:
 
   else
   {
-    [(CIRAWFilterImpl *)self getScaleTransform:inputImage];
+    objc_msgSend_getScaleTransform_(self);
     v8 = v42;
     v9 = v43;
     v45 = v44;
@@ -2139,7 +2139,7 @@ LABEL_14:
     selfCopy2 = self;
     if (self)
     {
-      [(CIRAWFilterImpl *)self getScaleTransform:inputImage];
+      objc_msgSend_getScaleTransform_(self);
       v27 = v42;
       v28 = v43;
     }
@@ -2168,7 +2168,7 @@ LABEL_14:
   v42 = 0u;
   if (selfCopy2)
   {
-    [(CIRAWFilterImpl *)selfCopy2 getOrientationTransform:inputImage];
+    objc_msgSend_getOrientationTransform_(selfCopy2);
   }
 
   v33[0] = v42;
@@ -2198,7 +2198,7 @@ LABEL_14:
   v56 = 0u;
   v57 = 0u;
   v55 = 0u;
-  [(CIRAWFilterImpl *)self getScaleTransform:inputImage];
+  objc_msgSend_getScaleTransform_(self);
   v8 = fmax(fabs(*&v55), fmax(fabs(*(&v55 + 1)), fmax(fabs(*&v56), fabs(*(&v56 + 1)))));
   v51 = 0u;
   v52 = 0u;
@@ -2261,7 +2261,7 @@ LABEL_15:
 LABEL_33:
     if (v8 > 1.0)
     {
-      [(CIRAWFilterImpl *)selfCopy getScaleTransform:inputImage];
+      objc_msgSend_getScaleTransform_(selfCopy);
       v56 = v49;
       v57 = v50;
       v55 = v48;
@@ -2271,7 +2271,7 @@ LABEL_33:
     v49 = 0u;
     v50 = 0u;
     v48 = 0u;
-    [(CIRAWFilterImpl *)selfCopy getOrientationTransform:inputImage];
+    objc_msgSend_getOrientationTransform_(selfCopy);
     v43[0] = v48;
     v43[1] = v49;
     v43[2] = v50;
@@ -2993,12 +2993,13 @@ LABEL_26:
   if (version)
   {
     v6 = objc_opt_class();
-    if (([v6 isSubclassOfClass:objc_opt_class()] & 1) == 0)
+    v7 = [v6 isSubclassOfClass:objc_opt_class()];
+    if ((v7 & 1) == 0)
     {
-      v7 = ci_logger_api();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = ci_logger_api(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        [CIRAWFilterImpl(CustomAccessors) setInputDecoderVersion:v7];
+        [CIRAWFilterImpl(CustomAccessors) setInputDecoderVersion:v9];
       }
     }
   }
@@ -3018,12 +3019,13 @@ LABEL_26:
 
   else if (self->_isRawSource)
   {
-    if ([(NSArray *)self->_supportedDecoderVersions count])
+    v11 = [(NSArray *)self->_supportedDecoderVersions count];
+    if (v11)
     {
-      v9 = ci_logger_api();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v13 = ci_logger_api(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        [(CIRAWFilterImpl(CustomAccessors) *)version setInputDecoderVersion:v9];
+        [(CIRAWFilterImpl(CustomAccessors) *)version setInputDecoderVersion:v13];
       }
     }
   }

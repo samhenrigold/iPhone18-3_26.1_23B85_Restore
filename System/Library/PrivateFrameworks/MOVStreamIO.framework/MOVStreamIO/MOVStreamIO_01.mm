@@ -1,4 +1,126 @@
-void *std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,float,char>(void *a1, uint64_t a2, char **a3, std::locale *this, uint64_t a5, unint64_t a6)
+std::__1 *std::__formatter::__format_buffer[abi:ne200100]<float,float>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, std::__1 **a6@<X8>, float a7@<S0>)
+{
+  v9 = *(a1 + 2);
+  if (a2)
+  {
+    v10 = 45;
+  }
+
+  else if (a4 == 2)
+  {
+    v10 = 43;
+  }
+
+  else
+  {
+    if (a4 != 3)
+    {
+      goto LABEL_8;
+    }
+
+    v10 = 32;
+  }
+
+  *v9 = v10;
+  v9 = (v9 + 1);
+LABEL_8:
+  if (a5 > 14)
+  {
+    if ((a5 - 15) < 2)
+    {
+      v13 = *a1;
+      *a6 = v9;
+      result = MEMORY[0x259C68320](v9, *(a1 + 2) + *(a1 + 1), 2, v13);
+      a6[2] = result;
+      a6[3] = result;
+      if (v13)
+      {
+        v14 = v13 + 1;
+      }
+
+      else
+      {
+        v14 = 0;
+      }
+
+      a6[1] = (result - v14);
+      return result;
+    }
+
+    if (a5 != 17)
+    {
+      result = std::__formatter::__format_buffer_general_lower_case[abi:ne200100]<float,float>(a1, *a1, v9, a6);
+      v15 = a6[2];
+      if (v15 == a6[3])
+      {
+        return result;
+      }
+
+      goto LABEL_35;
+    }
+
+    goto LABEL_25;
+  }
+
+  if (a5 <= 11)
+  {
+    if (a5)
+    {
+      if (a3)
+      {
+        v18 = *a1;
+      }
+
+      else
+      {
+        v18 = 0xFFFFFFFFLL;
+      }
+
+      return std::__formatter::__format_buffer_hexadecimal_lower_case[abi:ne200100]<float,float>(a1, v18, v9, a6);
+    }
+
+    if (!a3)
+    {
+
+      return std::__formatter::__format_buffer_default[abi:ne200100]<float,float>(v9, a1, v9, a6, a7);
+    }
+
+LABEL_25:
+    v16 = *a1;
+
+    return std::__formatter::__format_buffer_general_lower_case[abi:ne200100]<float,float>(a1, v16, v9, a6);
+  }
+
+  if (a5 != 12)
+  {
+    if (a5 == 13)
+    {
+      v11 = *a1;
+
+      return std::__formatter::__format_buffer_scientific_lower_case[abi:ne200100]<float,float>(a1, v11, v9, a6);
+    }
+
+    result = std::__formatter::__format_buffer_scientific_lower_case[abi:ne200100]<float,float>(a1, *a1, v9, a6);
+    v15 = a6[2];
+LABEL_35:
+    *v15 = 69;
+    return result;
+  }
+
+  if (a3)
+  {
+    v17 = *a1;
+  }
+
+  else
+  {
+    v17 = 0xFFFFFFFFLL;
+  }
+
+  return std::__formatter::__format_buffer_hexadecimal_upper_case[abi:ne200100]<float,float>(a1, v17, v9, a6);
+}
+
+void *std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,float,char>(uint64_t *a1, uint64_t a2, char **a3, std::locale *this, uint64_t a5, unint64_t a6)
 {
   v11 = std::locale::use_facet(this, MEMORY[0x277D826C0]);
   (v11->__vftable[1].__on_zero_shared)(&__p);
@@ -305,7 +427,7 @@ _BYTE *std::__formatter::__format_buffer_general_lower_case[abi:ne200100]<float,
   v6 = MEMORY[0x259C68320](a3, *(a1 + 16) + *(a1 + 8), 3, a2);
   a4[3] = v6;
   result = (a3 + 1);
-  if (a3 + 1 == v6)
+  if ((a3 + 1) == v6)
   {
     a4[1] = v6;
     v11 = 2;
@@ -328,7 +450,7 @@ LABEL_8:
     }
 
     v10 = -v9;
-    while (*(v6 + v10) != 101)
+    while (v6[v10] != 101)
     {
       if (++v10 == -3)
       {
@@ -336,12 +458,12 @@ LABEL_8:
       }
     }
 
-    a4[2] = v6 + v10;
+    a4[2] = &v6[v10];
     if (v10)
     {
       if (*result == 46)
       {
-        v6 = a3 + 1;
+        v6 = (a3 + 1);
       }
 
       goto LABEL_11;
@@ -517,25 +639,25 @@ LABEL_8:
   return result;
 }
 
-uint64_t std::__format::__output_buffer<char>::push_back[abi:ne200100](uint64_t result, char a2)
+uint64_t *std::__format::__output_buffer<char>::push_back[abi:ne200100](uint64_t *result, char a2)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if (!v2 || (v4 = *v2, v3 = v2[1], v2[1] = v3 + 1, v3 < v4))
   {
     v5 = *result;
-    v6 = *(result + 16);
-    *(result + 16) = v6 + 1;
+    v6 = result[2];
+    result[2] = v6 + 1;
     *(v5 + v6) = a2;
-    if (*(result + 16) == *(result + 8))
+    if (result[2] == result[1])
     {
-      return (*(result + 24))(result, 2);
+      return (result[3])(result, 2);
     }
   }
 
   return result;
 }
 
-void *std::__formatter::__format_floating_point[abi:ne200100]<double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(void **a1, uint64_t a2, unint64_t a3, double a4)
+uint64_t *std::__formatter::__format_floating_point[abi:ne200100]<double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t **a1, uint64_t a2, unint64_t a3, double a4)
 {
   v43[128] = *MEMORY[0x277D85DE8];
   if ((*&a4 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
@@ -732,7 +854,7 @@ void sub_2578B9B40(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *std::__formatter::__format_buffer[abi:ne200100]<double,double>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, char **a6@<X8>, double a7@<D0>)
+std::__1 *std::__formatter::__format_buffer[abi:ne200100]<double,double>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, std::__1 **a6@<X8>, double a7@<D0>)
 {
   v9 = *(a1 + 2);
   if (a2)
@@ -777,7 +899,7 @@ LABEL_8:
         v14 = 0;
       }
 
-      a6[1] = &result[-v14];
+      a6[1] = (result - v14);
       return result;
     }
 
@@ -854,7 +976,7 @@ LABEL_35:
   return std::__formatter::__format_buffer_hexadecimal_upper_case[abi:ne200100]<double,double>(a1, v17, v9, a6);
 }
 
-void *std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,double,char>(void *a1, uint64_t a2, char **a3, std::locale *this, uint64_t a5, unint64_t a6)
+void *std::__formatter::__format_locale_specific_form[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,double,char>(uint64_t *a1, uint64_t a2, char **a3, std::locale *this, uint64_t a5, unint64_t a6)
 {
   v11 = std::locale::use_facet(this, MEMORY[0x277D826C0]);
   (v11->__vftable[1].__on_zero_shared)(&__p);
@@ -1127,7 +1249,7 @@ _BYTE *std::__formatter::__format_buffer_general_lower_case[abi:ne200100]<double
   v6 = MEMORY[0x259C682C0](a3, *(a1 + 16) + *(a1 + 8), 3, a2);
   a4[3] = v6;
   result = (a3 + 1);
-  if (a3 + 1 == v6)
+  if ((a3 + 1) == v6)
   {
     a4[1] = v6;
     v11 = 2;
@@ -1150,7 +1272,7 @@ LABEL_8:
     }
 
     v10 = -v9;
-    while (*(v6 + v10) != 101)
+    while (v6[v10] != 101)
     {
       if (++v10 == -3)
       {
@@ -1158,12 +1280,12 @@ LABEL_8:
       }
     }
 
-    a4[2] = v6 + v10;
+    a4[2] = &v6[v10];
     if (v10)
     {
       if (*result == 46)
       {
-        v6 = a3 + 1;
+        v6 = (a3 + 1);
       }
 
       goto LABEL_11;
@@ -1339,7 +1461,7 @@ LABEL_8:
   return result;
 }
 
-void *std::__formatter::__format_floating_point[abi:ne200100]<long double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(void **a1, uint64_t a2, unint64_t a3, double a4)
+uint64_t *std::__formatter::__format_floating_point[abi:ne200100]<long double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t **a1, uint64_t a2, unint64_t a3, double a4)
 {
   v43[128] = *MEMORY[0x277D85DE8];
   if ((*&a4 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
@@ -1536,7 +1658,7 @@ void sub_2578BA8B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *std::__formatter::__format_buffer[abi:ne200100]<double,long double>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, char **a6@<X8>, double a7@<D0>)
+std::__1 *std::__formatter::__format_buffer[abi:ne200100]<double,long double>@<X0>(unsigned int *a1@<X0>, char a2@<W1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, std::__1 **a6@<X8>, double a7@<D0>)
 {
   v9 = *(a1 + 2);
   if (a2)
@@ -1581,7 +1703,7 @@ LABEL_8:
         v14 = 0;
       }
 
-      a6[1] = &result[-v14];
+      a6[1] = (result - v14);
       return result;
     }
 
@@ -1665,7 +1787,7 @@ _BYTE *std::__formatter::__format_buffer_general_lower_case[abi:ne200100]<double
   v6 = MEMORY[0x259C682F0](a3, *(a1 + 16) + *(a1 + 8), 3, a2);
   a4[3] = v6;
   result = (a3 + 1);
-  if (a3 + 1 == v6)
+  if ((a3 + 1) == v6)
   {
     a4[1] = v6;
     v11 = 2;
@@ -1688,7 +1810,7 @@ LABEL_8:
     }
 
     v10 = -v9;
-    while (*(v6 + v10) != 101)
+    while (v6[v10] != 101)
     {
       if (++v10 == -3)
       {
@@ -1696,12 +1818,12 @@ LABEL_8:
       }
     }
 
-    a4[2] = v6 + v10;
+    a4[2] = &v6[v10];
     if (v10)
     {
       if (*result == 46)
       {
-        v6 = a3 + 1;
+        v6 = (a3 + 1);
       }
 
       goto LABEL_11;
@@ -1889,7 +2011,7 @@ unsigned __int8 *std::__formatter_string<char>::parse[abi:ne200100]<std::basic_f
   return result;
 }
 
-void *std::__formatter_string<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unsigned __int8 *a2, size_t a3, void *a4)
+void *std::__formatter_string<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, std::string::value_type *a2, size_t a3, uint64_t *a4)
 {
   v6 = *(a1 + 1);
   v7 = *a4;
@@ -1907,7 +2029,7 @@ void *std::__formatter_string<char>::format[abi:ne200100]<std::basic_format_cont
   }
 }
 
-void *std::__formatter::__format_escaped_string[abi:ne200100]<char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(unsigned __int8 *a1, uint64_t a2, void *a3, uint64_t a4, unint64_t a5)
+void *std::__formatter::__format_escaped_string[abi:ne200100]<char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(std::string::value_type *a1, uint64_t a2, void *a3, uint64_t a4, unint64_t a5)
 {
   memset(&v14, 0, sizeof(v14));
   std::string::push_back(&v14, 34);
@@ -1981,7 +2103,7 @@ unsigned __int8 *std::__formatter_pointer<char>::parse[abi:ne200100]<std::basic_
   return result;
 }
 
-void *std::__formatter_pointer<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, unint64_t a2, void *a3)
+void *std::__formatter_pointer<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, unint64_t a2, uint64_t **a3)
 {
   v5 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a3);
   v7 = 1536;
@@ -1993,14 +2115,14 @@ void *std::__formatter_pointer<char>::format[abi:ne200100]<std::basic_format_con
   return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a2, a3, v5 & 0xFFFFFFFFFFFF00FFLL | v7 | 0x20, v6, 0);
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, void **a2, unint64_t a3, unint64_t a4, char a5)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5)
 {
   v13 = *MEMORY[0x277D85DE8];
   if (BYTE1(a3) <= 3u)
   {
     if (!BYTE1(a3))
     {
-      return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 10);
+      return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 0xAu);
     }
 
     v10 = 2;
@@ -2041,7 +2163,7 @@ void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std::b
 
   if (BYTE1(a3) != 4)
   {
-    return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 10);
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 0xAu);
   }
 
   if (a1)
@@ -2054,10 +2176,10 @@ void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char,std::b
     v5 = 0;
   }
 
-  return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3 & 0xFFFFFFFFFFFF00FFLL | 0x400, a4, a5, v11, &v12 + 5, v5, 8);
+  return std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3 & 0xFFFFFFFFFFFF00FFLL | 0x400, a4, a5, v11, &v12 + 5, v5, 8u);
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, void **a2, unint64_t a3, unint64_t a4, char a5, char *a6, uint64_t a7, _BYTE *a8, signed int a9)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5, char *a6, char *a7, char *a8, unsigned int a9)
 {
   v9 = a6;
   v13 = a3;
@@ -2358,7 +2480,7 @@ LABEL_14:
   return 0;
 }
 
-uint64_t MultiRenderer::MultiRenderer(uint64_t a1, uint64_t a2, unint64_t a3, Renderer::Parms *a4)
+uint64_t MultiRenderer::MultiRenderer(uint64_t a1, void *a2, unint64_t a3, Renderer::Parms *a4)
 {
   v7 = 56 * a3;
   *a1 = 0;
@@ -2373,7 +2495,7 @@ uint64_t MultiRenderer::MultiRenderer(uint64_t a1, uint64_t a2, unint64_t a3, Re
     v9 = a2;
     do
     {
-      Renderer::Parms::makeRenderer(a4, v9, &v50);
+      Renderer::Parms::makeRenderer(&v50, a4, v9);
       v11 = *(a1 + 32);
       v10 = *(a1 + 40);
       if (v11 >= v10)
@@ -2550,14 +2672,14 @@ void sub_2578BC3A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t **MultiRenderer::render(uint64_t **this, int a2, __CVBuffer *a3)
+uint64_t MultiRenderer::render(uint64_t this, int a2, __CVBuffer *a3)
 {
   v4 = this;
-  v5 = this[3];
-  v6 = this[4];
+  v5 = *(this + 24);
+  v6 = *(this + 32);
   if (v5 == v6)
   {
-    v9 = this[3];
+    v9 = *(this + 24);
   }
 
   else
@@ -2570,25 +2692,25 @@ uint64_t **MultiRenderer::render(uint64_t **this, int a2, __CVBuffer *a3)
     }
 
     while (v5 != v6);
-    v9 = v4[3];
-    v5 = v4[4];
+    v9 = *(v4 + 24);
+    v5 = *(v4 + 32);
   }
 
-  if (0x6DB6DB6DB6DB6DB7 * (v4[1] - *v4) >= ((v5 - v9) >> 3))
+  if (0x6DB6DB6DB6DB6DB7 * ((*(v4 + 8) - *v4) >> 3) >= ((v5 - v9) >> 3))
   {
     v10 = (v5 - v9) >> 3;
   }
 
   else
   {
-    v10 = 0x6DB6DB6DB6DB6DB7 * (v4[1] - *v4);
+    v10 = 0x6DB6DB6DB6DB6DB7 * ((*(v4 + 8) - *v4) >> 3);
   }
 
   if (v10)
   {
     v11 = 56 * v10 - 56;
     v12 = 8 * v10 - 8;
-    v13 = (*v4 + 6);
+    v13 = (*v4 + 48);
     LODWORD(v4) = 1;
     while (1)
     {
@@ -2772,7 +2894,7 @@ LABEL_55:
       {
         *cf = 0u;
         v30 = 0u;
-        makeCroppedImageBufferView<unsigned char>(cf, 1, 1, &v33, v16, v15, v18, v17);
+        makeCroppedImageBufferView<unsigned char>(cf, &v33, 1, 1, v16, v15, v18, v17);
         v40 = v33;
         v41 = v34;
         v23 = (*v14 + 40);
@@ -2787,7 +2909,7 @@ LABEL_55:
 
         *cf = 0u;
         v30 = 0u;
-        makeCroppedImageBufferView<unsigned short>(cf, 1, 1, &v33, v16, v15, v18, v17);
+        makeCroppedImageBufferView<unsigned short>(cf, &v33, 1, 1, v16, v15, v18, v17);
         v40 = v33;
         v41 = v34;
         v23 = (*v14 + 48);
@@ -2808,7 +2930,7 @@ LABEL_57:
         }
       }
 
-      v4 = (v4 & v25);
+      v4 = v4 & v25;
       v9 += 8;
       v13 += 7;
       v26 = v12 | v11;
@@ -2875,13 +2997,13 @@ LABEL_57:
   return 1;
 }
 
-void sub_2578BCEA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_2578BCEA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<Area_renderer>::__init_with_size[abi:ne200100]<std::__wrap_iter<Area_renderer const*>,std::__wrap_iter<Area_renderer const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<Area_renderer>::__init_with_size[abi:ne200100]<std::__wrap_iter<Area_renderer const*>,std::__wrap_iter<Area_renderer const*>>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2898,7 +3020,7 @@ void sub_2578BCF6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<Area_renderer>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<Area_renderer>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x492492492492493)
   {
@@ -2998,7 +3120,7 @@ void *std::__split_buffer<std::unique_ptr<PixelBuffer_renderer>>::__destruct_at_
   return result;
 }
 
-double anonymous namespace::ImageBufferProvider::getCroppedImageBuffers<unsigned char>@<D0>(_anonymous_namespace_::ImageBufferProvider *a1@<X0>, unsigned int a2@<W1>, unsigned int a3@<W2>, uint64_t a4@<X8>, double a5@<D0>, double a6@<D1>, double a7@<D2>, double a8@<D3>)
+double anonymous namespace::ImageBufferProvider::getCroppedImageBuffers<unsigned char>@<D0>(_anonymous_namespace_::ImageBufferProvider *a1@<X0>, int a2@<W1>, int a3@<W2>, uint64_t a4@<X8>, double a5@<D0>, double a6@<D1>, double a7@<D2>, double a8@<D3>)
 {
   v36 = 0u;
   v37 = 0u;
@@ -3044,7 +3166,7 @@ double anonymous namespace::ImageBufferProvider::getCroppedImageBuffers<unsigned
   return result;
 }
 
-double anonymous namespace::ImageBufferProvider::getCroppedImageBuffers<unsigned short>@<D0>(_anonymous_namespace_::ImageBufferProvider *a1@<X0>, unsigned int a2@<W1>, unsigned int a3@<W2>, uint64_t a4@<X8>, double a5@<D0>, double a6@<D1>, double a7@<D2>, double a8@<D3>)
+double anonymous namespace::ImageBufferProvider::getCroppedImageBuffers<unsigned short>@<D0>(_anonymous_namespace_::ImageBufferProvider *a1@<X0>, int a2@<W1>, int a3@<W2>, uint64_t a4@<X8>, double a5@<D0>, double a6@<D1>, double a7@<D2>, double a8@<D3>)
 {
   v36 = 0u;
   v37 = 0u;
@@ -3090,7 +3212,7 @@ double anonymous namespace::ImageBufferProvider::getCroppedImageBuffers<unsigned
   return result;
 }
 
-size_t anonymous namespace::ImageBufferProvider::getImageBuffer@<X0>(_anonymous_namespace_::ImageBufferProvider *this@<X0>, size_t planeIndex@<X1>, void **a3@<X8>)
+uint64_t *anonymous namespace::ImageBufferProvider::getImageBuffer@<X0>(void **__return_ptr a1@<X8>, _anonymous_namespace_::ImageBufferProvider *this@<X0>, size_t planeIndex@<X1>)
 {
   v4 = *(this + 2);
   if (v4 <= planeIndex)
@@ -3100,39 +3222,39 @@ size_t anonymous namespace::ImageBufferProvider::getImageBuffer@<X0>(_anonymous_
   v6 = *this;
   if (v4 == 1)
   {
-    *a3 = CVPixelBufferGetBaseAddress(v6);
-    a3[2] = CVPixelBufferGetWidth(*this);
-    a3[1] = CVPixelBufferGetHeight(*this);
+    *a1 = CVPixelBufferGetBaseAddress(v6);
+    a1[2] = CVPixelBufferGetWidth(*this);
+    a1[1] = CVPixelBufferGetHeight(*this);
     result = CVPixelBufferGetBytesPerRow(*this);
   }
 
   else
   {
     v8 = planeIndex;
-    *a3 = CVPixelBufferGetBaseAddressOfPlane(v6, planeIndex);
-    a3[2] = CVPixelBufferGetWidthOfPlane(*this, v8);
-    a3[1] = CVPixelBufferGetHeightOfPlane(*this, v8);
+    *a1 = CVPixelBufferGetBaseAddressOfPlane(v6, planeIndex);
+    a1[2] = CVPixelBufferGetWidthOfPlane(*this, v8);
+    a1[1] = CVPixelBufferGetHeightOfPlane(*this, v8);
     result = CVPixelBufferGetBytesPerRowOfPlane(*this, v8);
   }
 
-  a3[3] = result;
+  a1[3] = result;
   return result;
 }
 
-void *makeCroppedImageBufferView<unsigned char>@<X0>(void *a1@<X0>, int a2@<W1>, int a3@<W2>, void *a4@<X8>, double a5@<D0>, double a6@<D1>, double a7@<D2>, double a8@<D3>)
+void *makeCroppedImageBufferView<unsigned char>@<X0>(void *a1@<X0>, void *a2@<X8>, int a3@<W1>, int a4@<W2>, double a5@<D0>, double a6@<D1>, double a7@<D2>, double a8@<D3>)
 {
   v8 = a1[2];
   v9 = v8 * a5;
   v10 = a1[1];
   v11 = v10 * a6;
   v12 = v9 + v8 * a7;
-  v13 = (a2 - 1);
-  v14 = a2;
-  v15 = (v9 + v13) / a2 * a2;
-  v16 = (a3 - 1);
-  v17 = a3;
-  v18 = (v11 + v16) / a3 * a3;
-  return makeCroppedImageBufferView<unsigned char>(a1, v15, v18, (v12 + v13) - v15 - (v12 + v13) % v14, (v11 + v10 * a8 + v16) - v18 - (v11 + v10 * a8 + v16) % v17, a4);
+  v13 = (a3 - 1);
+  v14 = a3;
+  v15 = (v9 + v13) / a3 * a3;
+  v16 = (a4 - 1);
+  v17 = a4;
+  v18 = (v11 + v16) / a4 * a4;
+  return makeCroppedImageBufferView<unsigned char>(a1, v15, v18, (v12 + v13) - v15 - (v12 + v13) % v14, (v11 + v10 * a8 + v16) - v18 - (v11 + v10 * a8 + v16) % v17, a2);
 }
 
 void *makeCroppedImageBufferView<unsigned char>@<X0>(void *result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, void *a6@<X8>)
@@ -3158,20 +3280,20 @@ void *makeCroppedImageBufferView<unsigned char>@<X0>(void *result@<X0>, uint64_t
   return result;
 }
 
-void *makeCroppedImageBufferView<unsigned short>@<X0>(void *a1@<X0>, int a2@<W1>, int a3@<W2>, void *a4@<X8>, double a5@<D0>, double a6@<D1>, double a7@<D2>, double a8@<D3>)
+void *makeCroppedImageBufferView<unsigned short>@<X0>(void *a1@<X0>, void *a2@<X8>, int a3@<W1>, int a4@<W2>, double a5@<D0>, double a6@<D1>, double a7@<D2>, double a8@<D3>)
 {
   v8 = a1[2];
   v9 = v8 * a5;
   v10 = a1[1];
   v11 = v10 * a6;
   v12 = v9 + v8 * a7;
-  v13 = (a2 - 1);
-  v14 = a2;
-  v15 = (v9 + v13) / a2 * a2;
-  v16 = (a3 - 1);
-  v17 = a3;
-  v18 = (v11 + v16) / a3 * a3;
-  return makeCroppedImageBufferView<unsigned short>(a1, v15, v18, (v12 + v13) - v15 - (v12 + v13) % v14, (v11 + v10 * a8 + v16) - v18 - (v11 + v10 * a8 + v16) % v17, a4);
+  v13 = (a3 - 1);
+  v14 = a3;
+  v15 = (v9 + v13) / a3 * a3;
+  v16 = (a4 - 1);
+  v17 = a4;
+  v18 = (v11 + v16) / a4 * a4;
+  return makeCroppedImageBufferView<unsigned short>(a1, v15, v18, (v12 + v13) - v15 - (v12 + v13) % v14, (v11 + v10 * a8 + v16) - v18 - (v11 + v10 * a8 + v16) % v17, a2);
 }
 
 void *makeCroppedImageBufferView<unsigned short>@<X0>(void *result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, void *a6@<X8>)
@@ -3197,67 +3319,67 @@ void *makeCroppedImageBufferView<unsigned short>@<X0>(void *result@<X0>, uint64_
   return result;
 }
 
-void Renderer::Parms::makeRenderer(Renderer::Parms *this@<X0>, void *a2@<X1>, void **a3@<X8>)
+void Renderer::Parms::makeRenderer(void **__return_ptr a1@<X8>, Renderer::Parms *this@<X0>, void *a3@<X1>)
 {
-  v5 = *(a2 + 23);
-  if (*(a2 + 23) < 0)
+  v5 = *(a3 + 23);
+  if (*(a3 + 23) < 0)
   {
-    if (a2[1] == 16 && **a2 == 0x7A69726574736152 && *(*a2 + 8) == 0x736B636F6C426465)
+    if (a3[1] == 16 && **a3 == 0x7A69726574736152 && *(*a3 + 8) == 0x736B636F6C426465)
     {
       goto LABEL_55;
     }
 
-    if (a2[1] == 9 && **a2 == 0x726142726F6C6F43 && *(*a2 + 8) == 115)
+    if (a3[1] == 9 && **a3 == 0x726142726F6C6F43 && *(*a3 + 8) == 115)
     {
       goto LABEL_67;
     }
 
-    if (a2[1] == 4 && **a2 == 1886216530)
+    if (a3[1] == 4 && **a3 == 1886216530)
     {
       goto LABEL_57;
     }
 
-    if (a2[1] != 14 || (**a2 == 0x7065745373726142 ? (v10 = *(*a2 + 6) == 0x73706D6152737065) : (v10 = 0), !v10))
+    if (a3[1] != 14 || (**a3 == 0x7065745373726142 ? (v10 = *(*a3 + 6) == 0x73706D6152737065) : (v10 = 0), !v10))
     {
-      if (a2[1] != 9)
+      if (a3[1] != 9)
       {
 LABEL_34:
-        if ((v5 & 0x80) != 0 && a2[1] == 27)
+        if ((v5 & 0x80) != 0 && a3[1] == 27)
         {
-          v14 = **a2 == 0x74616C50656E6F5ALL && *(*a2 + 8) == 0x7268436874695765;
-          v15 = v14 && *(*a2 + 16) == 0x6964617247616D6FLL;
-          if (v15 && *(*a2 + 19) == 0x746E656964617247)
+          v14 = **a3 == 0x74616C50656E6F5ALL && *(*a3 + 8) == 0x7268436874695765;
+          v15 = v14 && *(*a3 + 16) == 0x6964617247616D6FLL;
+          if (v15 && *(*a3 + 19) == 0x746E656964617247)
           {
             std::make_unique[abi:ne200100]<ZonePlate,int const&,int const&,double const&,double const&,double const&,int const&,double const&,0>();
           }
         }
 
 LABEL_62:
-        if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, "SMPTE_RP219"))
+        if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, "SMPTE_RP219"))
         {
           std::make_unique[abi:ne200100]<SMPTE_RP219,double const&,double const&,0>();
         }
 
-        if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, "RecursiveQuads") || std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, "RecursiveQuadsWithChroma") || std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, "RecursiveQuadsWithChromaGradient"))
+        if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, "RecursiveQuads") || std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, "RecursiveQuadsWithChroma") || std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, "RecursiveQuadsWithChromaGradient"))
         {
           std::make_unique[abi:ne200100]<RecursiveQuads,int const&,int const&,RecursiveQuads::ChromaMode_t,int const(&)[4],int const(&)[4],0>();
         }
 
-        if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, "BT2111_HLG") || std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, "BT2111_PQ"))
+        if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, "BT2111_HLG") || std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, "BT2111_PQ"))
         {
           std::make_unique[abi:ne200100]<ITU_R_BT2111,BT_2111::SignalFormat,0>();
         }
 
-        if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, "ColorSequence"))
+        if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, "ColorSequence"))
         {
-          frameSequenceValues(0x1EuLL, &__p);
+          frameSequenceValues(&__p, 0x1EuLL);
           std::make_unique[abi:ne200100]<ColorSequence,std::vector<math_color::rgb> &,double const&,double const&,double &,double &,double &,double &,0>();
         }
 
         Renderer::Parms::makeRenderer();
       }
 
-      v7 = *a2;
+      v7 = *a3;
 LABEL_30:
       v11 = *v7;
       v12 = *(v7 + 8);
@@ -3272,7 +3394,7 @@ LABEL_30:
     goto LABEL_68;
   }
 
-  if (*(a2 + 23) > 0xDu)
+  if (*(a3 + 23) > 0xDu)
   {
     if (v5 != 14)
     {
@@ -3281,7 +3403,7 @@ LABEL_30:
         goto LABEL_62;
       }
 
-      if (*a2 != 0x7A69726574736152 || a2[1] != 0x736B636F6C426465)
+      if (*a3 != 0x7A69726574736152 || a3[1] != 0x736B636F6C426465)
       {
         goto LABEL_62;
       }
@@ -3290,7 +3412,7 @@ LABEL_55:
       operator new();
     }
 
-    if (*a2 != 0x7065745373726142 || *(a2 + 6) != 0x73706D6152737065)
+    if (*a3 != 0x7065745373726142 || *(a3 + 6) != 0x73706D6152737065)
     {
       goto LABEL_62;
     }
@@ -3306,8 +3428,8 @@ LABEL_68:
       goto LABEL_62;
     }
 
-    v6 = *a2 == 0x726142726F6C6F43 && *(a2 + 8) == 115;
-    v7 = a2;
+    v6 = *a3 == 0x726142726F6C6F43 && *(a3 + 8) == 115;
+    v7 = a3;
     if (!v6)
     {
       goto LABEL_30;
@@ -3317,14 +3439,14 @@ LABEL_67:
     operator new();
   }
 
-  if (*a2 != 1886216530)
+  if (*a3 != 1886216530)
   {
     goto LABEL_62;
   }
 
 LABEL_57:
-  Renderer::Parms::makeRampRenderer(this, &__p);
-  *a3 = __p;
+  Renderer::Parms::makeRampRenderer(&__p, this);
+  *a1 = __p;
 }
 
 void sub_2578BDC84(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15)
@@ -3365,25 +3487,25 @@ BOOL std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<ch
   return 0;
 }
 
-void Renderer::Parms::makeRampRenderer(Renderer::Parms *this@<X0>, void *a2@<X8>)
+void Renderer::Parms::makeRampRenderer(uint64_t *__return_ptr a1@<X8>, Renderer::Parms *this@<X0>)
 {
-  v5 = *(this + 18);
-  if (v5)
+  v7 = *(this + 18);
+  if (v7)
   {
-    if (v5 < 1)
+    if (v7 < 1)
     {
       goto LABEL_39;
     }
 
-    v6 = *(this + 19);
-    if (v6)
+    v8 = *(this + 19);
+    if (v8)
     {
-      if (v6 > 0)
+      if (v8 > 0)
       {
-        v7 = 0;
-        v8 = 0;
         v9 = 0;
-        v10 = 4;
+        v10 = 0;
+        v11 = 0;
+        v12 = 4;
         goto LABEL_11;
       }
 
@@ -3391,86 +3513,86 @@ LABEL_39:
       Renderer::Parms::makeRampRenderer();
     }
 
-    v8 = 0;
-    v9 = 0;
-    v10 = 3;
-    v7 = 1;
+    v10 = 0;
+    v11 = 0;
+    v12 = 3;
+    v9 = 1;
   }
 
   else
   {
-    v11 = *(this + 19);
-    if (v11)
+    v13 = *(this + 19);
+    if (v13)
     {
-      if (v11 <= 0)
+      if (v13 <= 0)
       {
         goto LABEL_39;
       }
 
-      v7 = 0;
-      v8 = 0;
-      v10 = 2;
-      v9 = 1;
+      v9 = 0;
+      v10 = 0;
+      v12 = 2;
+      v11 = 1;
     }
 
     else
     {
-      v9 = 0;
-      v8 = *(this + 20) == 2;
-      v7 = 1;
-      v10 = v8;
+      v11 = 0;
+      v10 = *(this + 20) == 2;
+      v9 = 1;
+      v12 = v10;
     }
   }
 
 LABEL_11:
-  v12 = *(this + 4) - *(this + 3);
-  if (0xAAAAAAAAAAAAAAABLL * (v12 >> 3) <= 1)
+  v14 = *(this + 4) - *(this + 3);
+  if (0xAAAAAAAAAAAAAAABLL * (v14 >> 3) <= 1)
   {
-    v14 = *MEMORY[0x277D85DF8];
-    v15 = "colorList requires two or more colors\n";
-    v16 = 38;
+    v16 = *MEMORY[0x277D85DF8];
+    v17 = "colorList requires two or more colors\n";
+    v18 = 38;
     goto LABEL_35;
   }
 
-  if (v5 && v12 != *(this + 7) - *(this + 6))
+  if (v7 && v14 != *(this + 7) - *(this + 6))
   {
-    v14 = *MEMORY[0x277D85DF8];
-    v15 = "--colorSteps requires valid colorList with two or more colors and colorListEnd of the same size.\n";
-    v16 = 97;
+    v16 = *MEMORY[0x277D85DF8];
+    v17 = "--colorSteps requires valid colorList with two or more colors and colorListEnd of the same size.\n";
+    v18 = 97;
     goto LABEL_35;
   }
 
-  if (v8)
+  if (v10)
   {
-    v13 = *(this + 11);
-    if (v13 < 0.0 || v13 > 1.0)
+    v15 = *(this + 11);
+    if (v15 < 0.0 || v15 > 1.0)
     {
-      v14 = *MEMORY[0x277D85DF8];
-      v15 = "--raisedCosineInterpolation requires 0.0 <= alpha <= 1.0\n";
-      v16 = 57;
+      v16 = *MEMORY[0x277D85DF8];
+      v17 = "--raisedCosineInterpolation requires 0.0 <= alpha <= 1.0\n";
+      v18 = 57;
       goto LABEL_35;
     }
   }
 
-  else if (v9)
+  else if (v11)
   {
-    v17 = *(this + 11);
-    if (v17 < 0.0 || v17 > 1.0 || (v18 = *(this + 12), v18 < 0.0) || v18 > 1.0)
+    v19 = *(this + 11);
+    if (v19 < 0.0 || v19 > 1.0 || (v20 = *(this + 12), v20 < 0.0) || v20 > 1.0)
     {
-      v14 = *MEMORY[0x277D85DF8];
-      v15 = "--kColorRangeWithRaisedCosineRangeTemporal requires 0.0 <= alpha <= 1.0, and 0.0 <= alphaEnd <= 1.0\n";
-      v16 = 100;
+      v16 = *MEMORY[0x277D85DF8];
+      v17 = "--kColorRangeWithRaisedCosineRangeTemporal requires 0.0 <= alpha <= 1.0, and 0.0 <= alphaEnd <= 1.0\n";
+      v18 = 100;
       goto LABEL_35;
     }
   }
 
-  if ((v7 & 1) != 0 || *(this + 20) == 2)
+  if ((v9 & 1) != 0 || *(this + 20) == 2)
   {
-    if (v10 > 1)
+    if (v12 > 1)
     {
-      if (v10 != 2)
+      if (v12 != 2)
       {
-        if (v10 == 3)
+        if (v12 == 3)
         {
           std::make_unique[abi:ne200100]<Ramp,double &,double &,std::vector<math_color::rgb> const&,std::vector<math_color::rgb> const&,int const&,Ramp::EInterpolation const&,0>();
         }
@@ -3481,7 +3603,7 @@ LABEL_11:
       std::make_unique[abi:ne200100]<Ramp,double &,double &,std::vector<math_color::rgb> const&,double const&,double const&,int const&,0>();
     }
 
-    if (!v10)
+    if (!v12)
     {
       std::make_unique[abi:ne200100]<Ramp,double &,double &,std::vector<math_color::rgb> const&,Ramp::EInterpolation const&,0>();
     }
@@ -3489,12 +3611,12 @@ LABEL_11:
     std::make_unique[abi:ne200100]<Ramp,double &,double &,std::vector<math_color::rgb> const&,double const&,0>();
   }
 
-  v14 = *MEMORY[0x277D85DF8];
-  v15 = "--alphaSteps requires --raisedCosineInterpolation\n";
-  v16 = 50;
+  v16 = *MEMORY[0x277D85DF8];
+  v17 = "--alphaSteps requires --raisedCosineInterpolation\n";
+  v18 = 50;
 LABEL_35:
-  std::print[abi:ne200100]<>(v14, v15, v16);
-  *a2 = 0;
+  std::print[abi:ne200100]<>(v16, v17, v18);
+  *a1 = 0;
 }
 
 void std::print[abi:ne200100]<>(FILE *a1, __sFILE *a2, uint64_t a3)
@@ -3508,40 +3630,40 @@ void std::print[abi:ne200100]<>(FILE *a1, __sFILE *a2, uint64_t a3)
   std::__print::__vprint_nonunicode[abi:ne200100]<void>(a1, a2, a3, &v6, 0);
 }
 
-void sub_2578BE3E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+void sub_2578BE3E8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x259C68350](v12, v11);
+  MEMORY[0x259C68350](v12, v11, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_2578BE4EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+void sub_2578BE4EC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x259C68350](v12, v11);
+  MEMORY[0x259C68350](v12, v11, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_2578BE608(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+void sub_2578BE608(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x259C68350](v12, v11);
+  MEMORY[0x259C68350](v12, v11, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_2578BE754(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, void *a12, uint64_t a13)
+void sub_2578BE754(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, uint64_t a11, void *a12, uint64_t a13)
 {
   if (__p)
   {
@@ -3553,11 +3675,11 @@ void sub_2578BE754(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a12);
   }
 
-  MEMORY[0x259C68350](v14, v13);
+  MEMORY[0x259C68350](v14, v13, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_2578BE8C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, void *a12, uint64_t a13)
+void sub_2578BE8C4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, uint64_t a11, void *a12, uint64_t a13)
 {
   if (__p)
   {
@@ -3569,7 +3691,7 @@ void sub_2578BE8C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a12);
   }
 
-  MEMORY[0x259C68350](v13, 0x10A1C40BB8EA64DLL);
+  MEMORY[0x259C68350](v13, 0x10A1C40BB8EA64DLL, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -3865,7 +3987,7 @@ LABEL_74:
 
   if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, "ColorSequence"))
   {
-    frameSequenceValues(0x1EuLL, &__p);
+    frameSequenceValues(&__p, 0x1EuLL);
     v88 = objc_opt_new();
     v74 = __p;
     v75 = v90;
@@ -4144,7 +4266,7 @@ std::logic_error *std::out_of_range::out_of_range[abi:ne200100](std::logic_error
   return result;
 }
 
-uint64_t std::vector<math_color::rgb>::__init_with_size[abi:ne200100]<math_color::rgb*,math_color::rgb*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<math_color::rgb>::__init_with_size[abi:ne200100]<math_color::rgb*,math_color::rgb*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4166,7 +4288,7 @@ void sub_2578C0218(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<math_color::rgb>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<math_color::rgb>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -4555,10 +4677,10 @@ void sub_2578C4D98(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2578C58BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_2578C58BC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MIONonPlanarToL008FrameProcessor;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -4596,7 +4718,8 @@ uint64_t RasterizedBlocks::render_L008(_DWORD *a1, void *a2)
   v7 = a2[2];
   v16 = a2[1];
   v8 = v3 * v4;
-  std::vector<int>::vector[abi:ne200100](&__p, v3 * v4);
+  v20 = 0;
+  std::vector<int>::vector[abi:ne200100](&__p, v3 * v4, &v20);
   if (v3 >= 1)
   {
     v19 = 0;
@@ -4632,7 +4755,7 @@ uint64_t RasterizedBlocks::render_L008(_DWORD *a1, void *a2)
 
   if (__p)
   {
-    v21 = __p;
+    v22 = __p;
     operator delete(__p);
   }
 
@@ -4658,7 +4781,8 @@ uint64_t RasterizedBlocks::render_L010(_DWORD *a1, void *a2)
   v7 = a2[2];
   v16 = a2[1];
   v8 = v3 * v4;
-  std::vector<int>::vector[abi:ne200100](&__p, v3 * v4);
+  v20 = 0;
+  std::vector<int>::vector[abi:ne200100](&__p, v3 * v4, &v20);
   if (v3 >= 1)
   {
     v19 = 0;
@@ -4694,7 +4818,7 @@ uint64_t RasterizedBlocks::render_L010(_DWORD *a1, void *a2)
 
   if (__p)
   {
-    v21 = __p;
+    v22 = __p;
     operator delete(__p);
   }
 
@@ -4923,7 +5047,8 @@ void *RasterizedBlocks::render_444<PixelFormatTraits<1937126452u>>(uint64_t a1, 
 
 void anonymous namespace::modulo_multiply_permute(int a1, int a2, uint64_t a3, int a4)
 {
-  std::vector<int>::vector[abi:ne200100](__p, a4);
+  v12 = 0;
+  std::vector<int>::vector[abi:ne200100](__p, a4, &v12);
   v8 = __p[0];
   if (a4 < 1)
   {
@@ -5000,17 +5125,17 @@ void *fill_rect<unsigned char>(void *result, size_t a2, unint64_t a3, size_t a4,
   return result;
 }
 
-void *std::vector<int>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, int *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2578C6A5C(_Unwind_Exception *exception_object)
@@ -5025,7 +5150,7 @@ void sub_2578C6A5C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<int>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<int>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -5137,10 +5262,11 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<875704438u>>(uint64_t a1, v
   v6 = *(a1 + 20);
   v5 = *(a1 + 24);
   v22 = *(a1 + 32);
+  v23 = 0;
   v7 = a2[2];
   v18 = a2[1];
   v9 = v3 * v4;
-  std::vector<int>::vector[abi:ne200100](&__p, v3 * v4);
+  std::vector<int>::vector[abi:ne200100](&__p, v3 * v4, &v23);
   if (v3 >= 1)
   {
     v21 = 0;
@@ -5176,7 +5302,7 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<875704438u>>(uint64_t a1, v
 
   if (__p)
   {
-    v24 = __p;
+    v25 = __p;
     operator delete(__p);
   }
 
@@ -5273,7 +5399,8 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<875704422u>>(_DWORD *a1, vo
   v6 = a1[6];
   v8 = a2[2];
   v17 = a2[1];
-  std::vector<int>::vector[abi:ne200100](&__p, v4 * v5);
+  v20 = 0;
+  std::vector<int>::vector[abi:ne200100](&__p, v4 * v5, &v20);
   if (v4 >= 1)
   {
     v19 = 0;
@@ -5308,7 +5435,7 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<875704422u>>(_DWORD *a1, vo
 
   if (__p)
   {
-    v21 = __p;
+    v22 = __p;
     operator delete(__p);
   }
 
@@ -5332,10 +5459,11 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<2016686640u>>(uint64_t a1, 
   v6 = *(a1 + 20);
   v5 = *(a1 + 24);
   v22 = *(a1 + 32);
+  v23 = 0;
   v7 = a2[2];
   v18 = a2[1];
   v9 = v3 * v4;
-  std::vector<int>::vector[abi:ne200100](&__p, v3 * v4);
+  std::vector<int>::vector[abi:ne200100](&__p, v3 * v4, &v23);
   if (v3 >= 1)
   {
     v21 = 0;
@@ -5371,7 +5499,7 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<2016686640u>>(uint64_t a1, 
 
   if (__p)
   {
-    v24 = __p;
+    v25 = __p;
     operator delete(__p);
   }
 
@@ -5396,7 +5524,8 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<2019963440u>>(_DWORD *a1, v
   v6 = a1[6];
   v8 = a2[2];
   v17 = a2[1];
-  std::vector<int>::vector[abi:ne200100](&__p, v4 * v5);
+  v20 = 0;
+  std::vector<int>::vector[abi:ne200100](&__p, v4 * v5, &v20);
   if (v4 >= 1)
   {
     v19 = 0;
@@ -5431,7 +5560,7 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<2019963440u>>(_DWORD *a1, v
 
   if (__p)
   {
-    v21 = __p;
+    v22 = __p;
     operator delete(__p);
   }
 
@@ -5455,10 +5584,11 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<875704950u>>(uint64_t a1, v
   v6 = *(a1 + 20);
   v5 = *(a1 + 24);
   v22 = *(a1 + 32);
+  v23 = 0;
   v7 = a2[2];
   v18 = a2[1];
   v9 = v3 * v4;
-  std::vector<int>::vector[abi:ne200100](&__p, v3 * v4);
+  std::vector<int>::vector[abi:ne200100](&__p, v3 * v4, &v23);
   if (v3 >= 1)
   {
     v21 = 0;
@@ -5494,7 +5624,7 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<875704950u>>(uint64_t a1, v
 
   if (__p)
   {
-    v24 = __p;
+    v25 = __p;
     operator delete(__p);
   }
 
@@ -5519,7 +5649,8 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<875704934u>>(_DWORD *a1, vo
   v6 = a1[6];
   v8 = a2[2];
   v17 = a2[1];
-  std::vector<int>::vector[abi:ne200100](&__p, v4 * v5);
+  v20 = 0;
+  std::vector<int>::vector[abi:ne200100](&__p, v4 * v5, &v20);
   if (v4 >= 1)
   {
     v19 = 0;
@@ -5554,7 +5685,7 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<875704934u>>(_DWORD *a1, vo
 
   if (__p)
   {
-    v21 = __p;
+    v22 = __p;
     operator delete(__p);
   }
 
@@ -5578,10 +5709,11 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<2016686642u>>(uint64_t a1, 
   v6 = *(a1 + 20);
   v5 = *(a1 + 24);
   v22 = *(a1 + 32);
+  v23 = 0;
   v7 = a2[2];
   v18 = a2[1];
   v9 = v3 * v4;
-  std::vector<int>::vector[abi:ne200100](&__p, v3 * v4);
+  std::vector<int>::vector[abi:ne200100](&__p, v3 * v4, &v23);
   if (v3 >= 1)
   {
     v21 = 0;
@@ -5617,7 +5749,7 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<2016686642u>>(uint64_t a1, 
 
   if (__p)
   {
-    v24 = __p;
+    v25 = __p;
     operator delete(__p);
   }
 
@@ -5642,7 +5774,8 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<2019963442u>>(_DWORD *a1, v
   v6 = a1[6];
   v8 = a2[2];
   v17 = a2[1];
-  std::vector<int>::vector[abi:ne200100](&__p, v4 * v5);
+  v20 = 0;
+  std::vector<int>::vector[abi:ne200100](&__p, v4 * v5, &v20);
   if (v4 >= 1)
   {
     v19 = 0;
@@ -5677,7 +5810,7 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<2019963442u>>(_DWORD *a1, v
 
   if (__p)
   {
-    v21 = __p;
+    v22 = __p;
     operator delete(__p);
   }
 
@@ -5701,10 +5834,11 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<1937125938u>>(uint64_t a1, 
   v6 = *(a1 + 20);
   v5 = *(a1 + 24);
   v22 = *(a1 + 32);
+  v23 = 0;
   v7 = a2[2];
   v18 = a2[1];
   v9 = v3 * v4;
-  std::vector<int>::vector[abi:ne200100](&__p, v3 * v4);
+  std::vector<int>::vector[abi:ne200100](&__p, v3 * v4, &v23);
   if (v3 >= 1)
   {
     v21 = 0;
@@ -5740,7 +5874,7 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<1937125938u>>(uint64_t a1, 
 
   if (__p)
   {
-    v24 = __p;
+    v25 = __p;
     operator delete(__p);
   }
 
@@ -5764,10 +5898,11 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<875836534u>>(uint64_t a1, v
   v6 = *(a1 + 20);
   v5 = *(a1 + 24);
   v22 = *(a1 + 32);
+  v23 = 0;
   v7 = a2[2];
   v18 = a2[1];
   v9 = v3 * v4;
-  std::vector<int>::vector[abi:ne200100](&__p, v3 * v4);
+  std::vector<int>::vector[abi:ne200100](&__p, v3 * v4, &v23);
   if (v3 >= 1)
   {
     v21 = 0;
@@ -5803,7 +5938,7 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<875836534u>>(uint64_t a1, v
 
   if (__p)
   {
-    v24 = __p;
+    v25 = __p;
     operator delete(__p);
   }
 
@@ -5828,7 +5963,8 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<875836518u>>(_DWORD *a1, vo
   v6 = a1[6];
   v8 = a2[2];
   v17 = a2[1];
-  std::vector<int>::vector[abi:ne200100](&__p, v4 * v5);
+  v20 = 0;
+  std::vector<int>::vector[abi:ne200100](&__p, v4 * v5, &v20);
   if (v4 >= 1)
   {
     v19 = 0;
@@ -5863,7 +5999,7 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<875836518u>>(_DWORD *a1, vo
 
   if (__p)
   {
-    v21 = __p;
+    v22 = __p;
     operator delete(__p);
   }
 
@@ -5887,10 +6023,11 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<2016687156u>>(uint64_t a1, 
   v6 = *(a1 + 20);
   v5 = *(a1 + 24);
   v22 = *(a1 + 32);
+  v23 = 0;
   v7 = a2[2];
   v18 = a2[1];
   v9 = v3 * v4;
-  std::vector<int>::vector[abi:ne200100](&__p, v3 * v4);
+  std::vector<int>::vector[abi:ne200100](&__p, v3 * v4, &v23);
   if (v3 >= 1)
   {
     v21 = 0;
@@ -5926,7 +6063,7 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<2016687156u>>(uint64_t a1, 
 
   if (__p)
   {
-    v24 = __p;
+    v25 = __p;
     operator delete(__p);
   }
 
@@ -5951,7 +6088,8 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<2019963956u>>(_DWORD *a1, v
   v6 = a1[6];
   v8 = a2[2];
   v17 = a2[1];
-  std::vector<int>::vector[abi:ne200100](&__p, v4 * v5);
+  v20 = 0;
+  std::vector<int>::vector[abi:ne200100](&__p, v4 * v5, &v20);
   if (v4 >= 1)
   {
     v19 = 0;
@@ -5986,7 +6124,7 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<2019963956u>>(_DWORD *a1, v
 
   if (__p)
   {
-    v21 = __p;
+    v22 = __p;
     operator delete(__p);
   }
 
@@ -6010,10 +6148,11 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<1937126452u>>(uint64_t a1, 
   v6 = *(a1 + 20);
   v5 = *(a1 + 24);
   v22 = *(a1 + 32);
+  v23 = 0;
   v7 = a2[2];
   v18 = a2[1];
   v9 = v3 * v4;
-  std::vector<int>::vector[abi:ne200100](&__p, v3 * v4);
+  std::vector<int>::vector[abi:ne200100](&__p, v3 * v4, &v23);
   if (v3 >= 1)
   {
     v21 = 0;
@@ -6049,7 +6188,7 @@ void *RasterizedBlocks::render_4xx<PixelFormatTraits<1937126452u>>(uint64_t a1, 
 
   if (__p)
   {
-    v24 = __p;
+    v25 = __p;
     operator delete(__p);
   }
 
@@ -6068,7 +6207,7 @@ void sub_2578C83E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void BarsStepsRamps::BarsStepsRamps(BarsStepsRamps *this, double a2, double a3)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  *(&v21 + 1) = *MEMORY[0x277D85DE8];
   *this = &unk_2868CE308;
   ColorBars::ColorBars((this + 8), a2, a3, 1.0);
   ColorBars::ColorBars((this + 40), a2, a3, 0.75);
@@ -6080,7 +6219,7 @@ void BarsStepsRamps::BarsStepsRamps(BarsStepsRamps *this, double a2, double a3)
   v16 = 0;
   v17 = 0;
   __p = 0;
-  std::vector<math_color::rgb>::__init_with_size[abi:ne200100]<math_color::rgb const*,math_color::rgb const*>(&__p, &v18, v21, 2uLL);
+  std::vector<math_color::rgb>::__init_with_size[abi:ne200100]<math_color::rgb const*,math_color::rgb const*>(&__p, &v18, &v21, 2uLL);
   Ramp::Ramp(this + 112, &__p, 0, a2, a3);
   if (__p)
   {
@@ -6094,7 +6233,7 @@ void BarsStepsRamps::BarsStepsRamps(BarsStepsRamps *this, double a2, double a3)
   v13 = 0;
   v14 = 0;
   v12 = 0;
-  std::vector<math_color::rgb>::__init_with_size[abi:ne200100]<math_color::rgb const*,math_color::rgb const*>(&v12, &v18, v21, 2uLL);
+  std::vector<math_color::rgb>::__init_with_size[abi:ne200100]<math_color::rgb const*,math_color::rgb const*>(&v12, &v18, &v21, 2uLL);
   Ramp::Ramp(this + 232, &v12, 0, a2, a3);
   if (v12)
   {
@@ -6108,7 +6247,7 @@ void BarsStepsRamps::BarsStepsRamps(BarsStepsRamps *this, double a2, double a3)
   v10 = 0;
   v11 = 0;
   v9 = 0;
-  std::vector<math_color::rgb>::__init_with_size[abi:ne200100]<math_color::rgb const*,math_color::rgb const*>(&v9, &v18, v21, 2uLL);
+  std::vector<math_color::rgb>::__init_with_size[abi:ne200100]<math_color::rgb const*,math_color::rgb const*>(&v9, &v18, &v21, 2uLL);
   Ramp::Ramp(this + 352, &v9, 0, a2, a3);
   if (v9)
   {
@@ -6122,7 +6261,7 @@ void BarsStepsRamps::BarsStepsRamps(BarsStepsRamps *this, double a2, double a3)
   v7 = 0;
   v8 = 0;
   v6 = 0;
-  std::vector<math_color::rgb>::__init_with_size[abi:ne200100]<math_color::rgb const*,math_color::rgb const*>(&v6, &v18, v21, 2uLL);
+  std::vector<math_color::rgb>::__init_with_size[abi:ne200100]<math_color::rgb const*,math_color::rgb const*>(&v6, &v18, &v21, 2uLL);
   Ramp::Ramp(this + 472, &v6, 0, a2, a3);
   if (v6)
   {
@@ -6303,7 +6442,7 @@ void BarsStepsRamps::~BarsStepsRamps(BarsStepsRamps *this)
   }
 }
 
-uint64_t std::vector<math_color::rgb>::__init_with_size[abi:ne200100]<math_color::rgb const*,math_color::rgb const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<math_color::rgb>::__init_with_size[abi:ne200100]<math_color::rgb const*,math_color::rgb const*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6325,13 +6464,15 @@ void sub_2578C8D90(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t BarsStepsRamps::render_4xx<PixelFormatTraits<875704438u>>(uint64_t a1, void *a2, void *a3, void (*a4)(uint64_t, _OWORD *, uint64_t *), uint64_t a5, int a6, int a7)
+uint64_t BarsStepsRamps::render_4xx<PixelFormatTraits<875704438u>>(uint64_t a1, void *a2, void *a3, void (*a4)(uint64_t, void *, uint64_t *), uint64_t a5, uint64_t a6, uint64_t a7)
 {
+  v7 = a6;
   if (a2[2] != a3[2] * a6)
   {
     BarsStepsRamps::render_4xx<PixelFormatTraits<875704438u>>();
   }
 
+  v8 = a7;
   if (a2[1] != a3[1] * a7)
   {
     BarsStepsRamps::render_4xx<PixelFormatTraits<875704438u>>();
@@ -6369,7 +6510,7 @@ uint64_t BarsStepsRamps::render_4xx<PixelFormatTraits<875704438u>>(uint64_t a1, 
   return (a4)(v18, v22, &v23);
 }
 
-double anonymous namespace::subPatternBuffers<PixelFormatTraits<875704438u>>@<D0>(void *a1@<X0>, void *a2@<X1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, _OWORD *a6@<X8>)
+double anonymous namespace::subPatternBuffers<PixelFormatTraits<875704438u>>@<D0>(void *a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, int a5@<W4>, _OWORD *a6@<X8>)
 {
   v11 = a2[2];
   v14 = v13;
@@ -6687,9 +6828,9 @@ double BT2111::calculate_rec2111_PQ_rec709_bar(BT2111 *this, double a2, double a
   return v9;
 }
 
-void BT_2111::calculated_values(int a1@<W0>, char a2@<W1>, void *a3@<X8>)
+void BT_2111::calculated_values(int a1@<W0>, char a2@<W1>, uint64_t **a3@<X8>)
 {
-  v86 = *MEMORY[0x277D85DE8];
+  *&v86 = *MEMORY[0x277D85DE8];
   *v80 = xmmword_25792BDB0;
   *&v80[12] = *(&xmmword_25792BDB0 + 12);
   v77 = 0;
@@ -6962,7 +7103,7 @@ void BT_2111::calculated_values(int a1@<W0>, char a2@<W1>, void *a3@<X8>)
 
   a3[2] = 0;
   a3[1] = 0;
-  *a3 = a3 + 1;
+  *a3 = (a3 + 1);
   if (v27 != v26)
   {
     v29 = 0;
@@ -6972,7 +7113,7 @@ void BT_2111::calculated_values(int a1@<W0>, char a2@<W1>, void *a3@<X8>)
     {
       v32 = v35;
       v79 = &v26[v30];
-      v33 = std::__tree<std::__value_type<BT_2111::SignalLevel,BT_2111::rgb>,std::__map_value_compare<BT_2111::SignalLevel,std::__value_type<BT_2111::SignalLevel,BT_2111::rgb>,std::less<BT_2111::SignalLevel>,true>,std::allocator<std::__value_type<BT_2111::SignalLevel,BT_2111::rgb>>>::__emplace_unique_key_args<BT_2111::SignalLevel,std::piecewise_construct_t const&,std::tuple<BT_2111::SignalLevel const&>,std::tuple<>>(a3, &v26[v30]);
+      v33 = std::__tree<std::__value_type<BT_2111::SignalLevel,BT_2111::rgb>,std::__map_value_compare<BT_2111::SignalLevel,std::__value_type<BT_2111::SignalLevel,BT_2111::rgb>,std::less<BT_2111::SignalLevel>,true>,std::allocator<std::__value_type<BT_2111::SignalLevel,BT_2111::rgb>>>::__emplace_unique_key_args<BT_2111::SignalLevel,std::piecewise_construct_t const&,std::tuple<BT_2111::SignalLevel const&>,std::tuple<>>(a3, &v26[v30], &std::piecewise_construct, &v79);
       v34 = *&v32[v29];
       v33[7] = *&v32[v29 + 16];
       *(v33 + 5) = v34;
@@ -7191,9 +7332,9 @@ void sub_2578CD834(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a63);
   }
 
-  if (a66)
+  if (a65)
   {
-    operator delete(a66);
+    operator delete(a65);
   }
 
   _Unwind_Resume(a1);
@@ -7294,7 +7435,7 @@ void std::vector<BT_2111::rgb>::push_back[abi:ne200100](uint64_t a1, __int128 *a
   *(a1 + 8) = v7;
 }
 
-uint64_t std::vector<BT_2111::SignalLevel>::__init_with_size[abi:ne200100]<BT_2111::SignalLevel const*,BT_2111::SignalLevel const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<BT_2111::SignalLevel>::__init_with_size[abi:ne200100]<BT_2111::SignalLevel const*,BT_2111::SignalLevel const*>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7316,7 +7457,7 @@ void sub_2578CDC30(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<BT_2111::rgb>::__init_with_size[abi:ne200100]<BT_2111::rgb const*,BT_2111::rgb const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<BT_2111::rgb>::__init_with_size[abi:ne200100]<BT_2111::rgb const*,BT_2111::rgb const*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7338,7 +7479,7 @@ void sub_2578CDCB0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:ne200100]<double const*,double const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:ne200100]<double const*,double const*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7360,7 +7501,7 @@ void sub_2578CDD24(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<double>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<double>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -7428,7 +7569,8 @@ char *std::vector<BT_2111::SignalLevel>::__insert_with_size[abi:ne200100]<std::_
     v35 = (4 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 4;
       *v35++ = v36;
       v34 -= 4;
     }
@@ -7674,7 +7816,7 @@ char *std::vector<BT_2111::rgb>::__insert_with_size[abi:ne200100]<std::__wrap_it
   return v5;
 }
 
-char *std::vector<BT_2111::rgb>::__insert_with_size[abi:ne200100]<std::__wrap_iter<BT_2111::rgb*>,std::__wrap_iter<BT_2111::rgb*>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<BT_2111::rgb>::__insert_with_size[abi:ne200100]<std::__wrap_iter<BT_2111::rgb*>,std::__wrap_iter<BT_2111::rgb*>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -7683,8 +7825,8 @@ char *std::vector<BT_2111::rgb>::__insert_with_size[abi:ne200100]<std::__wrap_it
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if ((0xAAAAAAAAAAAAAAABLL * ((v9 - v10) >> 3)) < a5)
   {
     v11 = *a1;
@@ -7730,17 +7872,17 @@ char *std::vector<BT_2111::rgb>::__insert_with_size[abi:ne200100]<std::__wrap_it
     }
 
     while (v35);
-    memcpy((v34 + 24 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v34 + 24 * a5), v5, a1[1] - v5);
     v38 = *a1;
-    v39 = v34 + 24 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v39 = v34 + 24 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v40 = v5 - v38;
     v41 = (v34 - (v5 - v38));
     memcpy(v41, v38, v40);
     v42 = *a1;
     *a1 = v41;
-    *(a1 + 8) = v39;
-    *(a1 + 16) = 0;
+    a1[1] = v39;
+    a1[2] = 0;
     if (v42)
     {
       operator delete(v42);
@@ -7755,7 +7897,7 @@ char *std::vector<BT_2111::rgb>::__insert_with_size[abi:ne200100]<std::__wrap_it
     v29 = 3 * a5;
     v30 = &__dst[24 * a5];
     v31 = v10 - 24 * a5;
-    v32 = *(a1 + 8);
+    v32 = a1[1];
     while (v31 < v10)
     {
       v33 = *v31;
@@ -7765,7 +7907,7 @@ char *std::vector<BT_2111::rgb>::__insert_with_size[abi:ne200100]<std::__wrap_it
       v31 += 24;
     }
 
-    *(a1 + 8) = v32;
+    a1[1] = v32;
     if (v10 != v30)
     {
       memmove(&__dst[24 * a5], __dst, v10 - v30);
@@ -7780,11 +7922,11 @@ char *std::vector<BT_2111::rgb>::__insert_with_size[abi:ne200100]<std::__wrap_it
   v18 = a4 - &__src[v16];
   if (a4 != &__src[v16])
   {
-    memmove(*(a1 + 8), &__src[v16], a4 - &__src[v16]);
+    memmove(a1[1], &__src[v16], a4 - &__src[v16]);
   }
 
   v19 = (v10 + v18);
-  *(a1 + 8) = v10 + v18;
+  a1[1] = v10 + v18;
   if (v16 >= 1)
   {
     v20 = &v5[24 * a5];
@@ -7807,7 +7949,7 @@ char *std::vector<BT_2111::rgb>::__insert_with_size[abi:ne200100]<std::__wrap_it
       v21 = v22 - v7;
     }
 
-    *(a1 + 8) = v21;
+    a1[1] = v21;
     if (v19 != v20)
     {
       memmove(&v5[24 * a5], v5, v19 - v20);
@@ -7834,41 +7976,41 @@ void std::__tree<std::__value_type<BT_2111::SignalLevel,BT_2111::rgb>,std::__map
   }
 }
 
-uint64_t *std::__tree<std::__value_type<BT_2111::SignalLevel,BT_2111::rgb>,std::__map_value_compare<BT_2111::SignalLevel,std::__value_type<BT_2111::SignalLevel,BT_2111::rgb>,std::less<BT_2111::SignalLevel>,true>,std::allocator<std::__value_type<BT_2111::SignalLevel,BT_2111::rgb>>>::__emplace_unique_key_args<BT_2111::SignalLevel,std::piecewise_construct_t const&,std::tuple<BT_2111::SignalLevel const&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t **std::__tree<std::__value_type<BT_2111::SignalLevel,BT_2111::rgb>,std::__map_value_compare<BT_2111::SignalLevel,std::__value_type<BT_2111::SignalLevel,BT_2111::rgb>,std::less<BT_2111::SignalLevel>,true>,std::allocator<std::__value_type<BT_2111::SignalLevel,BT_2111::rgb>>>::__emplace_unique_key_args<BT_2111::SignalLevel,std::piecewise_construct_t const&,std::tuple<BT_2111::SignalLevel const&>,std::tuple<>>(uint64_t **a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = a1[1];
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 8);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -8016,10 +8158,10 @@ double math_color::mult_3x3<double>(double *a1, double *a2, double *a3)
   return result;
 }
 
-void sub_2578CEB3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_2578CEB3C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MIORawBayerFrameProcessor;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -8224,7 +8366,7 @@ void sub_2578D9110(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<CMTimeRange>::__assign_with_size[abi:ne200100]<CMTimeRange*,CMTimeRange*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<CMTimeRange>::__assign_with_size[abi:ne200100]<CMTimeRange*,CMTimeRange*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -8301,7 +8443,7 @@ void *std::vector<CMTimeRange>::__assign_with_size[abi:ne200100]<CMTimeRange*,CM
   return result;
 }
 
-void std::vector<CMTimeRange>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<CMTimeRange>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x555555555555556)
   {
@@ -8311,7 +8453,7 @@ void std::vector<CMTimeRange>::__vallocate[abi:ne200100](uint64_t a1, unint64_t 
   std::vector<Area_renderer>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<CMTimeRange>::__init_with_size[abi:ne200100]<CMTimeRange const*,CMTimeRange const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<CMTimeRange>::__init_with_size[abi:ne200100]<CMTimeRange const*,CMTimeRange const*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8368,10 +8510,10 @@ void sub_2578DB3E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2578DBE24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_2578DBE24(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MIOPixelBufferPool;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -8446,31 +8588,31 @@ void ColorBars::ColorBars(ColorBars *this, double a2, double a3, double a4)
   *(this + 3) = a4;
 }
 
-uint64_t ColorBars::render_L008(double *a1, void *a2)
+uint64_t ColorBars::render_L008(double *a1, void *a2, __n128 a3, __n128 a4)
 {
-  v2 = a1[1];
-  v3 = a1[2];
-  if (v2 == 0.0 && v3 == 0.0)
+  v4 = a1[1];
+  v5 = a1[2];
+  if (v4 == 0.0 && v5 == 0.0)
   {
-    v2 = 0.2126;
-    v3 = 0.0722;
+    v4 = 0.2126;
+    v5 = 0.0722;
   }
 
-  render_bars<PixelFormatTraits<1278226488u>,void render_ColorBars_luma<PixelFormatTraits<1278226488u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a2, v2, v3, a1[3]);
+  render_bars<PixelFormatTraits<1278226488u>,void render_ColorBars_luma<PixelFormatTraits<1278226488u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a2, v4, v5, a1[3]);
   return 1;
 }
 
-uint64_t ColorBars::render_L010(double *a1, void *a2)
+uint64_t ColorBars::render_L010(double *a1, void *a2, __n128 a3, __n128 a4)
 {
-  v2 = a1[1];
-  v3 = a1[2];
-  if (v2 == 0.0 && v3 == 0.0)
+  v4 = a1[1];
+  v5 = a1[2];
+  if (v4 == 0.0 && v5 == 0.0)
   {
-    v2 = 0.2126;
-    v3 = 0.0722;
+    v4 = 0.2126;
+    v5 = 0.0722;
   }
 
-  render_bars<PixelFormatTraits<1278226736u>,void render_ColorBars_luma<PixelFormatTraits<1278226736u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a2, v2, v3, a1[3]);
+  render_bars<PixelFormatTraits<1278226736u>,void render_ColorBars_luma<PixelFormatTraits<1278226736u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a2, v4, v5, a1[3]);
   return 1;
 }
 
@@ -8491,7 +8633,15 @@ void *render_ColorBars_420<PixelFormatTraits<875704438u>>(void *a1, void *a2, do
   return render_bars<PixelFormatTraits<875704438u>,void render_ColorBars_chroma<PixelFormatTraits<875704438u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a2, a3, a4, a5);
 }
 
-void *render_ColorBars_420<PixelFormatTraits<875704422u>>(void *a1, void *a2, double a3, double a4, double a5)
+uint64_t ColorBars::render_420f(double *a1, void *a2, void *a3, __n128 a4, __n128 a5)
+{
+  a4.n128_f64[0] = a1[1];
+  a5.n128_f64[0] = a1[2];
+  render_ColorBars_420<PixelFormatTraits<875704422u>>(a2, a3, a4, a5, a1[3]);
+  return 1;
+}
+
+void *render_ColorBars_420<PixelFormatTraits<875704422u>>(void *a1, void *a2, __n128 a3, __n128 a4, double a5)
 {
   if (a1[2] != 2 * a2[2])
   {
@@ -8503,9 +8653,11 @@ void *render_ColorBars_420<PixelFormatTraits<875704422u>>(void *a1, void *a2, do
     render_ColorBars_420<PixelFormatTraits<875704438u>>();
   }
 
-  render_bars<PixelFormatTraits<1278226488u>,void render_ColorBars_luma<PixelFormatTraits<1278226488u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a1, a3, a4, a5);
+  v7 = a4.n128_f64[0];
+  v8 = a3.n128_f64[0];
+  render_bars<PixelFormatTraits<1278226488u>,void render_ColorBars_luma<PixelFormatTraits<1278226488u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a1, a3.n128_f64[0], a4.n128_f64[0], a5);
 
-  return render_bars<PixelFormatTraits<875704422u>,void render_ColorBars_chroma<PixelFormatTraits<875704422u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a2, a3, a4, a5);
+  return render_bars<PixelFormatTraits<875704422u>,void render_ColorBars_chroma<PixelFormatTraits<875704422u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a2, v8, v7, a5);
 }
 
 void *render_ColorBars_420<PixelFormatTraits<2016686640u>>(void *a1, void *a2, double a3, double a4, double a5)
@@ -8525,7 +8677,15 @@ void *render_ColorBars_420<PixelFormatTraits<2016686640u>>(void *a1, void *a2, d
   return render_bars<PixelFormatTraits<2016686640u>,void render_ColorBars_chroma<PixelFormatTraits<2016686640u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a2, a3, a4, a5);
 }
 
-void *render_ColorBars_420<PixelFormatTraits<2019963440u>>(void *a1, void *a2, double a3, double a4, double a5)
+uint64_t ColorBars::render_xf20(double *a1, void *a2, void *a3, __n128 a4, __n128 a5)
+{
+  a4.n128_f64[0] = a1[1];
+  a5.n128_f64[0] = a1[2];
+  render_ColorBars_420<PixelFormatTraits<2019963440u>>(a2, a3, a4, a5, a1[3]);
+  return 1;
+}
+
+void *render_ColorBars_420<PixelFormatTraits<2019963440u>>(void *a1, void *a2, __n128 a3, __n128 a4, double a5)
 {
   if (a1[2] != 2 * a2[2])
   {
@@ -8537,9 +8697,11 @@ void *render_ColorBars_420<PixelFormatTraits<2019963440u>>(void *a1, void *a2, d
     render_ColorBars_420<PixelFormatTraits<875704438u>>();
   }
 
-  render_bars<PixelFormatTraits<1278226736u>,void render_ColorBars_luma<PixelFormatTraits<1278226736u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a1, a3, a4, a5);
+  v7 = a4.n128_f64[0];
+  v8 = a3.n128_f64[0];
+  render_bars<PixelFormatTraits<1278226736u>,void render_ColorBars_luma<PixelFormatTraits<1278226736u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a1, a3.n128_f64[0], a4.n128_f64[0], a5);
 
-  return render_bars<PixelFormatTraits<2019963440u>,void render_ColorBars_chroma<PixelFormatTraits<2019963440u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a2, a3, a4, a5);
+  return render_bars<PixelFormatTraits<2019963440u>,void render_ColorBars_chroma<PixelFormatTraits<2019963440u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a2, v8, v7, a5);
 }
 
 void *render_ColorBars_422<PixelFormatTraits<875704950u>>(void *a1, void *a2, double a3, double a4, double a5)
@@ -8559,7 +8721,15 @@ void *render_ColorBars_422<PixelFormatTraits<875704950u>>(void *a1, void *a2, do
   return render_bars<PixelFormatTraits<875704438u>,void render_ColorBars_chroma<PixelFormatTraits<875704438u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a2, a3, a4, a5);
 }
 
-void *render_ColorBars_422<PixelFormatTraits<875704934u>>(void *a1, void *a2, double a3, double a4, double a5)
+uint64_t ColorBars::render_422f(double *a1, void *a2, void *a3, __n128 a4, __n128 a5)
+{
+  a4.n128_f64[0] = a1[1];
+  a5.n128_f64[0] = a1[2];
+  render_ColorBars_422<PixelFormatTraits<875704934u>>(a2, a3, a4, a5, a1[3]);
+  return 1;
+}
+
+void *render_ColorBars_422<PixelFormatTraits<875704934u>>(void *a1, void *a2, __n128 a3, __n128 a4, double a5)
 {
   if (a1[2] != 2 * a2[2])
   {
@@ -8571,9 +8741,11 @@ void *render_ColorBars_422<PixelFormatTraits<875704934u>>(void *a1, void *a2, do
     render_ColorBars_422<PixelFormatTraits<875704950u>>();
   }
 
-  render_bars<PixelFormatTraits<1278226488u>,void render_ColorBars_luma<PixelFormatTraits<1278226488u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a1, a3, a4, a5);
+  v7 = a4.n128_f64[0];
+  v8 = a3.n128_f64[0];
+  render_bars<PixelFormatTraits<1278226488u>,void render_ColorBars_luma<PixelFormatTraits<1278226488u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a1, a3.n128_f64[0], a4.n128_f64[0], a5);
 
-  return render_bars<PixelFormatTraits<875704422u>,void render_ColorBars_chroma<PixelFormatTraits<875704422u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a2, a3, a4, a5);
+  return render_bars<PixelFormatTraits<875704422u>,void render_ColorBars_chroma<PixelFormatTraits<875704422u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a2, v8, v7, a5);
 }
 
 void *render_ColorBars_422<PixelFormatTraits<2016686642u>>(void *a1, void *a2, double a3, double a4, double a5)
@@ -8593,7 +8765,15 @@ void *render_ColorBars_422<PixelFormatTraits<2016686642u>>(void *a1, void *a2, d
   return render_bars<PixelFormatTraits<2016686640u>,void render_ColorBars_chroma<PixelFormatTraits<2016686640u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a2, a3, a4, a5);
 }
 
-void *render_ColorBars_422<PixelFormatTraits<2019963442u>>(void *a1, void *a2, double a3, double a4, double a5)
+uint64_t ColorBars::render_xf22(double *a1, void *a2, void *a3, __n128 a4, __n128 a5)
+{
+  a4.n128_f64[0] = a1[1];
+  a5.n128_f64[0] = a1[2];
+  render_ColorBars_422<PixelFormatTraits<2019963442u>>(a2, a3, a4, a5, a1[3]);
+  return 1;
+}
+
+void *render_ColorBars_422<PixelFormatTraits<2019963442u>>(void *a1, void *a2, __n128 a3, __n128 a4, double a5)
 {
   if (a1[2] != 2 * a2[2])
   {
@@ -8605,9 +8785,11 @@ void *render_ColorBars_422<PixelFormatTraits<2019963442u>>(void *a1, void *a2, d
     render_ColorBars_422<PixelFormatTraits<875704950u>>();
   }
 
-  render_bars<PixelFormatTraits<1278226736u>,void render_ColorBars_luma<PixelFormatTraits<1278226736u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a1, a3, a4, a5);
+  v7 = a4.n128_f64[0];
+  v8 = a3.n128_f64[0];
+  render_bars<PixelFormatTraits<1278226736u>,void render_ColorBars_luma<PixelFormatTraits<1278226736u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a1, a3.n128_f64[0], a4.n128_f64[0], a5);
 
-  return render_bars<PixelFormatTraits<2019963440u>,void render_ColorBars_chroma<PixelFormatTraits<2019963440u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a2, a3, a4, a5);
+  return render_bars<PixelFormatTraits<2019963440u>,void render_ColorBars_chroma<PixelFormatTraits<2019963440u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a2, v8, v7, a5);
 }
 
 void *render_ColorBars_422<PixelFormatTraits<1937125938u>>(void *a1, void *a2, double a3, double a4, double a5)
@@ -8644,7 +8826,15 @@ void *render_ColorBars_444<PixelFormatTraits<875836534u>>(void *a1, void *a2, do
   return render_bars<PixelFormatTraits<875704438u>,void render_ColorBars_chroma<PixelFormatTraits<875704438u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a2, a3, a4, a5);
 }
 
-void *render_ColorBars_444<PixelFormatTraits<875836518u>>(void *a1, void *a2, double a3, double a4, double a5)
+uint64_t ColorBars::render_444f(double *a1, void *a2, void *a3, __n128 a4, __n128 a5)
+{
+  a4.n128_f64[0] = a1[1];
+  a5.n128_f64[0] = a1[2];
+  render_ColorBars_444<PixelFormatTraits<875836518u>>(a2, a3, a4, a5, a1[3]);
+  return 1;
+}
+
+void *render_ColorBars_444<PixelFormatTraits<875836518u>>(void *a1, void *a2, __n128 a3, __n128 a4, double a5)
 {
   if (a1[2] != a2[2])
   {
@@ -8656,9 +8846,11 @@ void *render_ColorBars_444<PixelFormatTraits<875836518u>>(void *a1, void *a2, do
     render_ColorBars_444<PixelFormatTraits<875836534u>>();
   }
 
-  render_bars<PixelFormatTraits<1278226488u>,void render_ColorBars_luma<PixelFormatTraits<1278226488u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a1, a3, a4, a5);
+  v7 = a4.n128_f64[0];
+  v8 = a3.n128_f64[0];
+  render_bars<PixelFormatTraits<1278226488u>,void render_ColorBars_luma<PixelFormatTraits<1278226488u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a1, a3.n128_f64[0], a4.n128_f64[0], a5);
 
-  return render_bars<PixelFormatTraits<875704422u>,void render_ColorBars_chroma<PixelFormatTraits<875704422u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a2, a3, a4, a5);
+  return render_bars<PixelFormatTraits<875704422u>,void render_ColorBars_chroma<PixelFormatTraits<875704422u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a2, v8, v7, a5);
 }
 
 void *render_ColorBars_444<PixelFormatTraits<2016687156u>>(void *a1, void *a2, double a3, double a4, double a5)
@@ -8678,7 +8870,15 @@ void *render_ColorBars_444<PixelFormatTraits<2016687156u>>(void *a1, void *a2, d
   return render_bars<PixelFormatTraits<2016686640u>,void render_ColorBars_chroma<PixelFormatTraits<2016686640u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a2, a3, a4, a5);
 }
 
-void *render_ColorBars_444<PixelFormatTraits<2019963956u>>(void *a1, void *a2, double a3, double a4, double a5)
+uint64_t ColorBars::render_xf44(double *a1, void *a2, void *a3, __n128 a4, __n128 a5)
+{
+  a4.n128_f64[0] = a1[1];
+  a5.n128_f64[0] = a1[2];
+  render_ColorBars_444<PixelFormatTraits<2019963956u>>(a2, a3, a4, a5, a1[3]);
+  return 1;
+}
+
+void *render_ColorBars_444<PixelFormatTraits<2019963956u>>(void *a1, void *a2, __n128 a3, __n128 a4, double a5)
 {
   if (a1[2] != a2[2])
   {
@@ -8690,9 +8890,11 @@ void *render_ColorBars_444<PixelFormatTraits<2019963956u>>(void *a1, void *a2, d
     render_ColorBars_444<PixelFormatTraits<875836534u>>();
   }
 
-  render_bars<PixelFormatTraits<1278226736u>,void render_ColorBars_luma<PixelFormatTraits<1278226736u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a1, a3, a4, a5);
+  v7 = a4.n128_f64[0];
+  v8 = a3.n128_f64[0];
+  render_bars<PixelFormatTraits<1278226736u>,void render_ColorBars_luma<PixelFormatTraits<1278226736u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a1, a3.n128_f64[0], a4.n128_f64[0], a5);
 
-  return render_bars<PixelFormatTraits<2019963440u>,void render_ColorBars_chroma<PixelFormatTraits<2019963440u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a2, a3, a4, a5);
+  return render_bars<PixelFormatTraits<2019963440u>,void render_ColorBars_chroma<PixelFormatTraits<2019963440u>>(double,double,double,ImageBuffer const&)::{lambda(ImageBuffer const&,unsigned long,unsigned long,unsigned long,unsigned long,math_color::YCbCr,int)#1}>(a2, v8, v7, a5);
 }
 
 void *render_ColorBars_444<PixelFormatTraits<1937126452u>>(void *a1, void *a2, double a3, double a4, double a5)
@@ -9021,8 +9223,9 @@ uint64_t SMPTE_RP219::SMPTE_RP219(uint64_t result, int a2, double a3, double a4)
   return result;
 }
 
-uint64_t SMPTE_RP219::render_4xx<PixelFormatTraits<875704438u>>(uint64_t a1, void *a2, void *a3, int a4, int a5)
+uint64_t SMPTE_RP219::render_4xx<PixelFormatTraits<875704438u>>(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5)
 {
+  v5 = a4;
   v99 = *MEMORY[0x277D85DE8];
   v6 = a2[2];
   v60 = a4;
@@ -9031,6 +9234,7 @@ uint64_t SMPTE_RP219::render_4xx<PixelFormatTraits<875704438u>>(uint64_t a1, voi
     SMPTE_RP219::render_4xx<PixelFormatTraits<875704438u>>();
   }
 
+  v7 = a5;
   v10 = a2[1];
   v56 = a5;
   if (v10 != a3[1] * a5)
@@ -9071,10 +9275,10 @@ uint64_t SMPTE_RP219::render_4xx<PixelFormatTraits<875704438u>>(uint64_t a1, voi
     v12 = *v11;
   }
 
-  cinematic_bars::render_cinematic_bars<PixelFormatTraits<875704438u>>(a2, a3, a4, a5, &v64, v12);
+  cinematic_bars::render_cinematic_bars<PixelFormatTraits<875704438u>>(a2, a3, v5, v7, &v64, v12);
   v19 = *(&v64 + 1);
   v18 = v65;
-  SMPTE_RP219::Dimensions::Dimensions(&v88, v65, *(&v64 + 1), a5);
+  SMPTE_RP219::Dimensions::Dimensions(&v88, v65, *(&v64 + 1), v7);
   _CF = v18 >= v97 && v19 >= v98;
   v21 = _CF;
   if (_CF)
@@ -9423,7 +9627,7 @@ void *cinematic_bars::fill_buffer_black<PixelFormatTraits<875704438u>>(char **a1
   return fill_rect<unsigned short>(a2, 0, 0, a2[2], a2[1], BYTE4(v4) | (v6 << 8));
 }
 
-void *anonymous namespace::fill_rect<unsigned char>(void *result, unint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, unsigned int a6, int __c)
+void *anonymous namespace::fill_rect<unsigned char>(void *result, unint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, uint64_t a6, uint64_t __c)
 {
   v8 = result[2];
   if (v8 > a2)
@@ -9432,6 +9636,7 @@ void *anonymous namespace::fill_rect<unsigned char>(void *result, unint64_t a2, 
     v10 = v9 - a3;
     if (v9 > a3)
     {
+      v11 = __c;
       if (a5 + a3 <= v9)
       {
         v10 = a5;
@@ -9467,6 +9672,7 @@ void *anonymous namespace::fill_rect<unsigned char>(void *result, unint64_t a2, 
       v16 = v10 + a3;
       if (v10 + a3 > a3)
       {
+        v17 = a6;
         v18 = v14 + a2;
         v19 = a3;
         v20 = result[3];
@@ -9492,7 +9698,7 @@ void *anonymous namespace::fill_rect<unsigned char>(void *result, unint64_t a2, 
         while (v19 != v16);
       }
 
-      return fill_rect<unsigned char>(v27, v15, a3, v24 - v26, v25, __c);
+      return fill_rect<unsigned char>(v27, v15, a3, v24 - v26, v25, v11);
     }
   }
 
@@ -9594,249 +9800,4 @@ unsigned int anonymous namespace::bar_shape_10_90_value<unsigned char>(int a1, i
   v10 = asin(0.948683298);
   v11 = sin((v9 + a1 / (a2 - 1) * ((v10 + v10) / 3.14159265 - v9)) * 1.57079633);
   return llround(a3 + (a4 - a3) * (v11 * v11));
-}
-
-uint64_t SMPTE_RP219::render_4xx<PixelFormatTraits<2016686640u>>(uint64_t a1, void *a2, void *a3, int a4, int a5)
-{
-  v104 = *MEMORY[0x277D85DE8];
-  v6 = a2[2];
-  v62 = a4;
-  if (v6 != a3[2] * a4)
-  {
-    SMPTE_RP219::render_4xx<PixelFormatTraits<875704438u>>();
-  }
-
-  v10 = a2[1];
-  v58 = a5;
-  if (v10 != a3[1] * a5)
-  {
-    SMPTE_RP219::render_4xx<PixelFormatTraits<875704438u>>();
-  }
-
-  v93 = xmmword_25792C160;
-  v73 = 0;
-  v74 = 0;
-  __p = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double const*,double const*>(&__p, &v93, &v94, 2uLL);
-  v11 = __p;
-  v12 = v6 / v10;
-  if (v73 != __p)
-  {
-    if (v73 - __p != 8)
-    {
-      v13 = (__p + 8);
-      v14 = *__p;
-      v15 = (__p + 8);
-      do
-      {
-        v16 = *v15++;
-        v17 = v16;
-        if (vabdd_f64(v16, v12) < vabdd_f64(v14, v12))
-        {
-          v14 = v17;
-          v11 = v13;
-        }
-
-        v13 = v15;
-      }
-
-      while (v15 != v73);
-    }
-
-    v12 = *v11;
-  }
-
-  cinematic_bars::render_cinematic_bars<PixelFormatTraits<2016686640u>>(a2, a3, a4, a5, &v69, v12);
-  v19 = *(&v69 + 1);
-  v18 = v70;
-  SMPTE_RP219::Dimensions::Dimensions(&v93, v70, *(&v69 + 1), a5);
-  _CF = v18 >= v102 && v19 >= v103;
-  v21 = _CF;
-  if (_CF)
-  {
-    v57 = v21;
-    v22 = 0;
-    v65 = 0;
-    _ZF = *(a1 + 24) == 0;
-    if (!_ZF)
-    {
-    }
-
-    v87 = *v24;
-    v25 = v24[2];
-    v86 = 152;
-    v88 = v25;
-    v90 = 168;
-    v92 = 176;
-    __asm { FMOV            V0.2D, #-2.0 }
-
-    v59 = _Q0;
-    _D11 = 0;
-    do
-    {
-      v61 = v22;
-      v30 = (&v85 + v22);
-      v64 = *(&v93 + *(&v85 + v22 + 16));
-      _Q1 = *(a1 + 8);
-      _Q0 = vextq_s8(_Q1, _Q1, 8uLL);
-      v75 = _Q1;
-      v76 = 1.0 - *_Q1.i64 - *&_Q1.i64[1];
-      v77 = 0.5 / (1.0 - *&_Q1.i64[1]);
-      v78 = 0.5 / (1.0 - *_Q1.i64);
-      v79 = 1.0 - *_Q1.i64 + 1.0 - *_Q1.i64;
-      v80 = vdivq_f64(vmulq_f64(vmlsq_f64(_Q0, _Q0, _Q0), v59), vdupq_lane_s64(*&v76, 0));
-      v81 = 1.0 - *&_Q1.i64[1] + 1.0 - *&_Q1.i64[1];
-      v82[0] = 0;
-      v83 = 0x4000003FFLL;
-      v84 = 512;
-      __asm { FMLA            D0, D11, V1.D[1]; double }
-
-      v33 = math_color::YCC_coder::YPbPr_to_YCbCr(v82, _Q0.f64[0], v77 * (0.0 - _Q0.f64[0]), v78 * (0.0 - _Q0.f64[0]));
-      v35 = v30[1];
-      if (v35)
-      {
-        v36 = 0;
-        v37 = *v30;
-        v63 = *v30 + 32 * v35;
-        v38 = v34 << 22;
-        v39 = (v33 >> 26) & 0xFFC0;
-        v40 = v33 << 6;
-        do
-        {
-          v41 = *(v37 + 16);
-          v42 = *(v37 + 24);
-          v43 = *(v37 + 8) * v76 + *v75.i64 * *v37 + *&v75.i64[1] * v41;
-          v44 = math_color::YCC_coder::YPbPr_to_YCbCr(v82, v43, v77 * (v41 - v43), v78 * (*v37 - v43));
-          v46 = v45;
-          v47 = *(&v93 + v42);
-          v48 = v44 << 6;
-          v49 = (v44 >> 26) & 0xFFC0;
-          v66 = v45 << 22;
-          v67 = v67 & 0xFFFFFFFF00000000 | v39 | v38;
-          v68 = v68 & 0xFFFFFFFF00000000 | v49 & 0x3FFFFF | (v46 << 22);
-          v36 += v47;
-          v37 += 32;
-          v40 = v48;
-          v38 = v66;
-          LODWORD(v39) = v49;
-        }
-
-        while (v37 != v63);
-      }
-
-      v65 += v64;
-      v22 = v61 + 24;
-    }
-
-    while (v61 != 72);
-    fill_h_ramp<unsigned short>(&v69, v96 + v95, v101.i64[0] + v100.i64[1], v97, v101.i64[1], 0x1000u, 60160);
-    v50 = vaddvq_s64(vaddq_s64(v100, v101));
-    v51 = v99 - 4;
-    v52 = v95 + 2;
-    v53 = v100.i64[0];
-    fill_h_ramp<unsigned short>(&v69, v95 + 2, v50, (v99 - 4) >> 1, v100.i64[0], 0x1000u, 256);
-    fill_h_ramp<unsigned short>(&v69, v52 + (v51 >> 1), v50, v51 - (v51 >> 1), v53, 0x100u, 4096);
-    v54 = v98 - 4;
-    v55 = v95 + v99 + 2;
-    fill_h_ramp<unsigned short>(&v69, v55, v50, (v98 - 4) >> 1, v53, 0xEB00u, 65216);
-    fill_h_ramp<unsigned short>(&v69, v55 + (v54 >> 1), v50, v54 - (v54 >> 1), v53, 0xFEC0u, 60160);
-    v21 = v57;
-  }
-
-  if (__p)
-  {
-    v73 = __p;
-    operator delete(__p);
-  }
-
-  return v21;
-}
-
-void sub_2578E2D94(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-double cinematic_bars::render_cinematic_bars<PixelFormatTraits<2016686640u>>@<D0>(void *a1@<X0>, void *a2@<X1>, int a3@<W2>, int a4@<W3>, _OWORD *a5@<X8>, double a6@<D0>)
-{
-  v9 = *(a1 + 1);
-  v39 = *a1;
-  v40 = v9;
-  v10 = *(a2 + 1);
-  v37 = *a2;
-  v38 = v10;
-  v11 = a1[1];
-  v12 = a1[2];
-  v13 = v12 - llround(v11 * a6);
-  if (v13 >= 1)
-  {
-    v14 = v13 - (v13 >> 1);
-    v15 = (v13 >> 1) / a3;
-    v35 = 0u;
-    v36 = 0u;
-    v16 = v14 / a3;
-    makeCroppedImageBufferView<unsigned short>(a1, 0, 0, v13 >> 1, v11, &v35);
-    v33 = 0u;
-    v34 = 0u;
-    makeCroppedImageBufferView<unsigned short>(a1, a1[2] - v14, 0, v14, a1[1], &v33);
-    makeCroppedImageBufferView<unsigned short>(a1, v13 >> 1, 0, a1[2] - v13, a1[1], &v39);
-    v31 = 0u;
-    v32 = 0u;
-    makeCroppedImageBufferView<math_color::CbCr<unsigned short>>(a2, 0, 0, v15, a2[1], &v31);
-    v29 = 0u;
-    v30 = 0u;
-    makeCroppedImageBufferView<math_color::CbCr<unsigned short>>(a2, a2[2] - v16, 0, v16, a2[1], &v29);
-    v17 = a2[1];
-    v18 = a2[2] - v15 - v16;
-    v19 = a2;
-    v20 = v15;
-    v21 = 0;
-LABEL_5:
-    makeCroppedImageBufferView<math_color::CbCr<unsigned short>>(v19, v20, v21, v18, v17, &v37);
-    cinematic_bars::fill_buffer_black<PixelFormatTraits<2016686640u>>(&v35, &v31);
-    cinematic_bars::fill_buffer_black<PixelFormatTraits<2016686640u>>(&v33, &v29);
-    goto LABEL_6;
-  }
-
-  v22 = v11 - llround(v12 / a6);
-  if (v22 >= 1)
-  {
-    v23 = v22 - (v22 >> 1);
-    v24 = (v22 >> 1) / a4;
-    v35 = 0u;
-    v36 = 0u;
-    v25 = v23 / a4;
-    makeCroppedImageBufferView<unsigned short>(a1, 0, 0, v12, v22 >> 1, &v35);
-    v33 = 0u;
-    v34 = 0u;
-    makeCroppedImageBufferView<unsigned short>(a1, 0, a1[1] - v23, a1[2], v23, &v33);
-    makeCroppedImageBufferView<unsigned short>(a1, 0, v22 >> 1, a1[2], a1[1] - v22, &v39);
-    v31 = 0u;
-    v32 = 0u;
-    makeCroppedImageBufferView<math_color::CbCr<unsigned short>>(a2, 0, 0, a2[2], v24, &v31);
-    v29 = 0u;
-    v30 = 0u;
-    makeCroppedImageBufferView<math_color::CbCr<unsigned short>>(a2, 0, a2[1] - v25, a2[2], v25, &v29);
-    v18 = a2[2];
-    v17 = a2[1] - v24 - v25;
-    v19 = a2;
-    v20 = 0;
-    v21 = v24;
-    goto LABEL_5;
-  }
-
-LABEL_6:
-  v26 = v40;
-  *a5 = v39;
-  a5[1] = v26;
-  result = *&v37;
-  v28 = v38;
-  a5[2] = v37;
-  a5[3] = v28;
-  return result;
 }

@@ -1,39 +1,24 @@
-void CRDetectorPostProcessV3::extractTextBoxes(uint64_t a1, float **a2, uint64_t a3, uint64_t a4, float **a5, uint64_t a6, uint64_t a7, void *a8)
+void CRDetectorPostProcessV3::extractTextBoxes(uint64_t a1, float **a2, uint64_t *a3, uint64_t *a4, CRDetectorUtils **a5, int a6, int a7, void *a8, char a9)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   a8;
-  memset(&v21[3], 0, 24);
-  v18 = *(a1 + 8);
-  v19 = *(a1 + 16);
-  std::vector<float>::vector[abi:ne200100](v21, v19 * v18);
-  v10 = *(a1 + 16) * *(a1 + 8);
-  if (v10)
+  memset(&v22[3], 0, 24);
+  v19 = *(a1 + 8);
+  v20 = *(a1 + 16);
+  std::vector<float>::vector[abi:ne200100](v22, v20 * v19);
+  v11 = *(a1 + 16) * *(a1 + 8);
+  if (v11)
   {
-    v11 = *a1;
-    v12 = *a2;
-    v13 = *a5;
-    v14 = v21[0];
+    v12 = *a1;
+    v13 = *a2;
+    v14 = *a5;
+    v15 = v22[0];
     do
     {
-      v15 = 1.0;
-      if (*v11 <= 0.15)
-      {
-        if (*v12 <= 0.3)
-        {
-          v15 = 0.0;
-        }
-
-        else
-        {
-          v15 = 1.0;
-        }
-      }
-
-      *v13 = v15;
       v16 = 1.0;
-      if (*v11 <= 0.45)
+      if (*v12 <= 0.15)
       {
-        if (*v12 <= 0.3)
+        if (*v13 <= 0.3)
         {
           v16 = 0.0;
         }
@@ -44,17 +29,32 @@ void CRDetectorPostProcessV3::extractTextBoxes(uint64_t a1, float **a2, uint64_t
         }
       }
 
-      *v14++ = v16;
-      ++v12;
+      *v14 = v16;
+      v17 = 1.0;
+      if (*v12 <= 0.45)
+      {
+        if (*v13 <= 0.3)
+        {
+          v17 = 0.0;
+        }
+
+        else
+        {
+          v17 = 1.0;
+        }
+      }
+
+      *v15++ = v17;
       ++v13;
-      ++v11;
-      --v10;
+      ++v14;
+      ++v12;
+      --v11;
     }
 
-    while (v10);
+    while (v11);
   }
 
-  CRDetectorUtils::CRTextDetectorConnectedComponentResult::CRTextDetectorConnectedComponentResult(&v20, v19, v18, 1, 1, 1);
+  CRDetectorUtils::CRTextDetectorConnectedComponentResult::CRTextDetectorConnectedComponentResult(&v21, v20, v19, 1, 1, 1);
 }
 
 void sub_1B427F304(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, void *a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, void *a60, uint64_t a61, uint64_t a62, uint64_t a63)
@@ -140,7 +140,7 @@ void std::vector<float>::shrink_to_fit(const void **a1)
     {
       v7 = 4 * (v4 >> 2);
       v8 = a1[1] - v2;
-      v9 = v7 - v8;
+      v9 = (v7 - v8);
       memcpy((v7 - v8), v2, v8);
       v6 = *a1;
       *a1 = v9;
@@ -156,14 +156,14 @@ void std::vector<float>::shrink_to_fit(const void **a1)
   }
 }
 
-void CRDetectorPostProcessV3::Graph::connectedComponents(CRDetectorPostProcessV3::Graph *this@<X0>, void *a2@<X8>)
+void CRDetectorPostProcessV3::Graph::connectedComponents(char **__return_ptr a1@<X8>, CRDetectorPostProcessV3::Graph *this@<X0>)
 {
   v4 = *this;
   LOBYTE(__p) = 0;
-  std::vector<BOOL>::vector(v12, v4);
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
+  std::vector<BOOL>::vector(v12, v4, &__p);
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v5 = *this;
   if (*this >= 1)
   {
@@ -176,19 +176,19 @@ void CRDetectorPostProcessV3::Graph::connectedComponents(CRDetectorPostProcessV3
         v10 = 0;
         v11 = 0;
         CRDetectorPostProcessV3::Graph::dfsUtil(this, v6, v12, &__p);
-        v7 = a2[1];
-        if (v7 >= a2[2])
+        v7 = a1[1];
+        if (v7 >= a1[2])
         {
-          v8 = std::vector<std::vector<int>>::__emplace_back_slow_path<std::vector<int>&>(a2, &__p);
+          v8 = std::vector<std::vector<int>>::__emplace_back_slow_path<std::vector<int>&>(a1, &__p);
         }
 
         else
         {
-          std::vector<std::vector<int>>::__construct_one_at_end[abi:ne200100]<std::vector<int>&>(a2, &__p);
-          v8 = v7 + 24;
+          std::vector<std::vector<int>>::__construct_one_at_end[abi:ne200100]<std::vector<int>&>(a1, &__p);
+          v8 = (v7 + 24);
         }
 
-        a2[1] = v8;
+        a1[1] = v8;
         if (__p)
         {
           v10 = __p;
@@ -262,7 +262,7 @@ void CRDetectorPostProcessV3::Graph::dfsUtil(uint64_t a1, int a2, void *a3, cons
     }
 
     *(4 * v14) = a2;
-    v11 = 4 * v14 + 4;
+    v11 = (4 * v14 + 4);
     memcpy(0, v12, v13);
     v19 = *a4;
     *a4 = 0;
@@ -277,16 +277,17 @@ void CRDetectorPostProcessV3::Graph::dfsUtil(uint64_t a1, int a2, void *a3, cons
   else
   {
     *v10 = a2;
-    v11 = (v10 + 4);
+    v11 = v10 + 4;
   }
 
   a4[1] = v11;
   v20 = *(a1 + 8) + 24 * a2;
   for (i = *(v20 + 8); i != v20; i = *(i + 8))
   {
-    if (((*(*a3 + ((*(i + 16) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> *(i + 16)) & 1) == 0)
+    v22 = *(i + 16);
+    if (((*(*a3 + ((v22 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v22) & 1) == 0)
     {
-      CRDetectorPostProcessV3::Graph::dfsUtil(a1);
+      CRDetectorPostProcessV3::Graph::dfsUtil(a1, v22, a3, a4);
     }
   }
 }
@@ -309,7 +310,7 @@ CRDetectorPostProcessV3::Graph *CRDetectorPostProcessV3::Graph::Graph(CRDetector
   return this;
 }
 
-void std::vector<std::vector<CGPoint>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<CGPoint>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -319,7 +320,7 @@ void std::vector<std::vector<CGPoint>>::__vallocate[abi:ne200100](uint64_t a1, u
   std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<CGPoint>>,std::vector<CGPoint>*,std::vector<CGPoint>*,std::vector<CGPoint>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<CGPoint>>,std::vector<CGPoint>*,std::vector<CGPoint>*,std::vector<CGPoint>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -336,8 +337,8 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std:
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>(v4, *v6, v6[1], (v6[1] - *v6) >> 4);
-      v6 += 3;
+      std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 4);
+      v6 += 24;
       v4 = v11 + 3;
       v11 += 3;
     }
@@ -380,7 +381,7 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
   return a1;
 }
 
-char **std::__copy_impl::operator()[abi:ne200100]<std::vector<CGPoint> *,std::vector<CGPoint> *,std::vector<CGPoint> *>(char **a1, char **a2, char **a3)
+uint64_t *std::__copy_impl::operator()[abi:ne200100]<std::vector<CGPoint> *,std::vector<CGPoint> *,std::vector<CGPoint> *>(char **a1, char **a2, uint64_t *a3)
 {
   if (a1 != a2)
   {
@@ -412,15 +413,15 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<float,float
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<float,float> *,false>(unint64_t a1, float *a2, uint64_t a3, char a4)
+void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<float,float> *,false>(unint64_t result, float *a2, uint64_t a3, char a4)
 {
 LABEL_1:
   v8 = a2 - 2;
   v9 = a2 - 1;
-  v10 = a1;
+  v10 = result;
   while (1)
   {
-    a1 = v10;
+    result = v10;
     v11 = (a2 - v10) >> 3;
     if (v11 <= 2)
     {
@@ -527,7 +528,7 @@ LABEL_215:
     if (v11 == 4)
     {
 
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<float,float> *,0>(v10, v10 + 8, (v10 + 16), a2 - 2);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<float,float> *,0>(v10, (v10 + 8), (v10 + 16), a2 - 2);
       return;
     }
 
@@ -639,10 +640,10 @@ LABEL_250:
         return;
       }
 
-      for (i = (v10 + 4); ; i += 2)
+      for (i = v10 + 4; ; i += 8)
       {
-        v182 = a1;
-        a1 = v126;
+        v182 = result;
+        result = v126;
         v183 = v182[2];
         v184 = *v182;
         if (v183 < *v182)
@@ -661,7 +662,7 @@ LABEL_250:
 
 LABEL_328:
         v126 += 2;
-        if ((a1 + 8) == a2)
+        if ((result + 8) == a2)
         {
           return;
         }
@@ -823,7 +824,7 @@ LABEL_267:
               if (v166 >= 2)
               {
                 v168 = v167 >> 1;
-                v169 = (v10 + 8 * (v167 >> 1));
+                v169 = v10 + 8 * (v167 >> 1);
                 v170 = *v169;
                 v171 = *v159;
                 if (*v169 < *v159)
@@ -831,7 +832,7 @@ LABEL_267:
                   v155 = v159[1];
 LABEL_293:
                   *v159 = v170;
-                  v159[1] = v169[1];
+                  v159[1] = *(v169 + 4);
                   if (v167 >= 2)
                   {
                     while (1)
@@ -860,8 +861,8 @@ LABEL_293:
                       }
 
                       *v169 = v174;
-                      v169[1] = v175;
-                      v169 = (v10 + 8 * v168);
+                      *(v169 + 4) = v175;
+                      v169 = v10 + 8 * v168;
                       if (v173 <= 1)
                       {
                         goto LABEL_300;
@@ -879,7 +880,7 @@ LABEL_300:
                 if (v171 >= v170)
                 {
                   v155 = v159[1];
-                  if (v169[1] < v155)
+                  if (*(v169 + 4) < v155)
                   {
                     goto LABEL_293;
                   }
@@ -1349,10 +1350,10 @@ LABEL_177:
         while (v10 < k);
       }
 
-      if (v10 - 8 != a1)
+      if (v10 - 8 != result)
       {
-        *a1 = *(v10 - 8);
-        *(a1 + 4) = *(v10 - 4);
+        *result = *(v10 - 8);
+        *(result + 4) = *(v10 - 4);
       }
 
       a4 = 0;
@@ -1477,10 +1478,10 @@ LABEL_108:
         while (v10 < v93);
       }
 
-      if (v10 - 8 != a1)
+      if (v10 - 8 != result)
       {
-        *a1 = *(v10 - 8);
-        *(a1 + 4) = *(v10 - 4);
+        *result = *(v10 - 8);
+        *(result + 4) = *(v10 - 4);
       }
 
       *(v10 - 8) = v18;
@@ -1488,13 +1489,13 @@ LABEL_108:
       if (v86 < v88)
       {
 LABEL_145:
-        std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<float,float> *,false>(a1, v10 - 8, a3, a4 & 1);
+        std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<float,float> *,false>(result, (v10 - 8), a3, a4 & 1);
         a4 = 0;
       }
 
       else
       {
-        v97 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<float,float> *>(a1, (v10 - 8));
+        v97 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<float,float> *>(result, (v10 - 8));
         if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<float,float> *>(v10, a2))
         {
           a2 = (v10 - 8);
@@ -1514,7 +1515,7 @@ LABEL_145:
     }
   }
 
-  std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<float,float> *,0>(v10, v10 + 8, (v10 + 16), (v10 + 24));
+  std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<float,float> *,0>(v10, (v10 + 8), (v10 + 16), (v10 + 24));
   v115 = *(a2 - 2);
   v116 = *(v10 + 24);
   if (v115 < v116 || v116 >= v115 && *(a2 - 1) < *(v10 + 28))
@@ -1602,29 +1603,29 @@ LABEL_145:
   }
 }
 
-float std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<float,float> *,0>(float *a1, uint64_t a2, float *a3, float *a4)
+float std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<float,float> *,0>(float *a1, float *a2, float *a3, float *a4)
 {
   v4 = *a2;
   v5 = *a1;
-  if (*a2 < *a1 || v5 >= v4 && *(a2 + 4) < a1[1])
+  if (*a2 < *a1 || v5 >= v4 && a2[1] < a1[1])
   {
     v6 = *a3;
-    if (*a3 < v4 || v4 >= v6 && a3[1] < *(a2 + 4))
+    if (*a3 < v4 || v4 >= v6 && a3[1] < a2[1])
     {
       *a1 = v6;
-      v7 = (a1 + 1);
+      v7 = a1 + 1;
       *a3 = v5;
-      v8 = (a3 + 1);
+      v8 = a3 + 1;
     }
 
     else
     {
       *a1 = v4;
       *a2 = v5;
-      v7 = (a2 + 4);
+      v7 = a2 + 1;
       v13 = a1[1];
-      a1[1] = *(a2 + 4);
-      *(a2 + 4) = v13;
+      a1[1] = a2[1];
+      a2[1] = v13;
       v14 = *a3;
       v15 = *a2;
       if (*a3 >= *a2 && (v15 < v14 || a3[1] >= v13))
@@ -1634,27 +1635,27 @@ float std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &
 
       *a2 = v14;
       *a3 = v15;
-      v8 = (a3 + 1);
+      v8 = a3 + 1;
     }
 
     goto LABEL_13;
   }
 
   v9 = *a3;
-  if (*a3 < v4 || v4 >= v9 && a3[1] < *(a2 + 4))
+  if (*a3 < v4 || v4 >= v9 && a3[1] < a2[1])
   {
     *a2 = v9;
     *a3 = v4;
-    v8 = (a2 + 4);
-    v10 = *(a2 + 4);
-    *(a2 + 4) = a3[1];
+    v8 = a2 + 1;
+    v10 = *(a2 + 1);
+    a2[1] = a3[1];
     *(a3 + 1) = v10;
     v11 = *a2;
     v12 = *a1;
     if (*a2 < *a1 || v12 >= v11 && *v8 < a1[1])
     {
       *a1 = v11;
-      v7 = (a1 + 1);
+      v7 = a1 + 1;
       *a2 = v12;
 LABEL_13:
       v16 = *v7;
@@ -1675,22 +1676,22 @@ LABEL_14:
     *(a4 + 1) = v19;
     result = *a3;
     v20 = *a2;
-    if (*a3 < *a2 || v20 >= result && a3[1] < *(a2 + 4))
+    if (*a3 < *a2 || v20 >= result && a3[1] < a2[1])
     {
       *a2 = result;
       *a3 = v20;
-      v21 = *(a2 + 4);
-      *(a2 + 4) = a3[1];
+      v21 = *(a2 + 1);
+      a2[1] = a3[1];
       *(a3 + 1) = v21;
       result = *a2;
       v22 = *a1;
-      if (*a2 < *a1 || v22 >= result && *(a2 + 4) < a1[1])
+      if (*a2 < *a1 || v22 >= result && a2[1] < a1[1])
       {
         *a1 = result;
         *a2 = v22;
         result = a1[1];
-        a1[1] = *(a2 + 4);
-        *(a2 + 4) = result;
+        a1[1] = a2[1];
+        a2[1] = result;
       }
     }
   }
@@ -1707,7 +1708,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
     {
       if (v4 == 4)
       {
-        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<float,float> *,0>(a1, (a1 + 2), a1 + 4, a2 - 2);
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<float,float> *,0>(a1, a1 + 2, a1 + 4, a2 - 2);
         return 1;
       }
 
@@ -1716,7 +1717,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
         goto LABEL_20;
       }
 
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<float,float> *,0>(a1, (a1 + 2), a1 + 4, a1 + 6);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<float,float> *,0>(a1, a1 + 2, a1 + 4, a1 + 6);
       v8 = *(a2 - 2);
       v9 = a1[6];
       if (v8 >= v9 && (v9 < v8 || *(a2 - 1) >= a1[7]))
@@ -1833,7 +1834,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
 
       *a1 = v32;
       a1[2] = v33;
-      v23 = (a1 + 1);
+      v23 = a1 + 1;
       goto LABEL_60;
     }
 
@@ -1842,7 +1843,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
     {
 LABEL_19:
       *a1 = v22;
-      v23 = (a1 + 1);
+      v23 = a1 + 1;
       *(a2 - 2) = v21;
       v24 = a2 - 1;
       goto LABEL_60;
@@ -1876,7 +1877,7 @@ LABEL_19:
     a1[2] = v41;
     *(a2 - 2) = v21;
     v24 = a2 - 1;
-    v23 = (a1 + 3);
+    v23 = a1 + 3;
 LABEL_60:
     v42 = *v23;
     *v23 = *v24;
@@ -1917,9 +1918,9 @@ LABEL_20:
 LABEL_22:
       *a1 = v28;
       a1[4] = v27;
-      v29 = (a1 + 1);
+      v29 = a1 + 1;
 LABEL_64:
-      v37 = (a1 + 5);
+      v37 = a1 + 5;
       goto LABEL_65;
     }
 
@@ -1939,7 +1940,7 @@ LABEL_64:
 
     v43 = a1[1];
     a1[3] = v43;
-    v29 = (a1 + 3);
+    v29 = a1 + 3;
     *a1 = v26;
     a1[1] = v39;
     a1[2] = v27;
@@ -1960,7 +1961,7 @@ LABEL_64:
     v36 = a1[5];
 LABEL_33:
     a1[3] = v36;
-    v37 = (a1 + 3);
+    v37 = a1 + 3;
     a1[2] = v34;
     a1[4] = v26;
     a1[5] = v35;
@@ -1971,7 +1972,7 @@ LABEL_33:
 
     *a1 = v34;
     a1[2] = v27;
-    v29 = (a1 + 1);
+    v29 = a1 + 1;
 LABEL_65:
     v44 = *v29;
     *v29 = *v37;
@@ -2079,12 +2080,12 @@ LABEL_82:
   }
 }
 
-uint64_t std::__introsort<std::_ClassicAlgPolicy,tableRegionNMS(std::vector<std::pair<double,int>>,std::vector<CRNormalizedQuad * {__strong}> const&)::$_0 &,std::pair<double,int>*,false>(uint64_t result, unint64_t a2, void *a3, uint64_t a4, char a5)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,tableRegionNMS(std::vector<std::pair<double,int>>,std::vector<CRNormalizedQuad * {__strong}> const&)::$_0 &,std::pair<double,int>*,false>(uint64_t result, double *a2, void *a3, uint64_t a4, char a5)
 {
   v9 = result;
   while (2)
   {
-    v185 = a2 - 16;
+    v185 = a2 - 2;
     v10 = v9;
     while (1)
     {
@@ -2119,19 +2120,19 @@ uint64_t std::__introsort<std::_ClassicAlgPolicy,tableRegionNMS(std::vector<std:
 
             if (v11 == 2)
             {
-              v80 = *(a2 - 16);
-              [*(*a3 + 8 * *(a2 - 8)) area];
+              v80 = *(a2 - 2);
+              [*(*a3 + 8 * *(a2 - 2)) area];
               v81 = *v10;
               v83 = v80 / v82;
               result = [*(*a3 + 8 * *(v10 + 8)) area];
               if (v83 < v81 / v84)
               {
                 v85 = *v10;
-                *v10 = *(a2 - 16);
-                *(a2 - 16) = v85;
+                *v10 = *(a2 - 2);
+                *(a2 - 2) = v85;
                 v86 = *(v10 + 8);
-                *(v10 + 8) = *(a2 - 8);
-                *(a2 - 8) = v86;
+                *(v10 + 8) = *(a2 - 2);
+                *(a2 - 2) = v86;
               }
 
               return result;
@@ -2204,15 +2205,15 @@ LABEL_83:
               do
               {
                 v169 = v87;
-                v170 = *(v9 + 16);
-                [*(*a3 + 8 * *(v9 + 24)) area];
+                v170 = v9[2];
+                [*(*a3 + 8 * *(v9 + 6)) area];
                 v171 = *v9;
                 v173 = v170 / v172;
-                result = [*(*a3 + 8 * *(v9 + 8)) area];
+                result = [*(*a3 + 8 * *(v9 + 2)) area];
                 if (v173 < v171 / v174)
                 {
                   v175 = *v169;
-                  v176 = *(v9 + 24);
+                  v176 = *(v9 + 6);
                   v177 = v168;
                   do
                   {
@@ -2256,38 +2257,38 @@ LABEL_83:
                 if (v186 >= v107)
                 {
                   v109 = (2 * v107) | 1;
-                  v110 = v9 + 16 * v109;
+                  v110 = &v9[2 * v109];
                   if (2 * v107 + 2 < v11)
                   {
                     v111 = *v110;
-                    [*(*a3 + 8 * *(v110 + 8)) area];
-                    v112 = *(v110 + 16);
+                    [*(*a3 + 8 * *(v110 + 2)) area];
+                    v112 = v110[2];
                     v114 = v111 / v113;
-                    [*(*a3 + 8 * *(v110 + 24)) area];
+                    [*(*a3 + 8 * *(v110 + 6)) area];
                     if (v114 < v112 / v115)
                     {
-                      v110 += 16;
+                      v110 += 2;
                       v109 = 2 * v108 + 2;
                     }
                   }
 
-                  v116 = v9 + 16 * v108;
+                  v116 = &v9[2 * v108];
                   v117 = *v110;
-                  [*(*a3 + 8 * *(v110 + 8)) area];
+                  [*(*a3 + 8 * *(v110 + 2)) area];
                   v118 = *v116;
                   v120 = v117 / v119;
-                  result = [*(*a3 + 8 * *(v116 + 8)) area];
+                  result = [*(*a3 + 8 * *(v116 + 2)) area];
                   a2 = v184;
                   if (v120 >= v118 / v121)
                   {
                     v122 = *v116;
-                    v123 = *(v116 + 8);
+                    v123 = *(v116 + 2);
                     do
                     {
                       v124 = v116;
                       v116 = v110;
                       *v124 = *v110;
-                      *(v124 + 8) = *(v110 + 8);
+                      *(v124 + 2) = *(v110 + 2);
                       if (v186 < v109)
                       {
                         break;
@@ -2295,31 +2296,31 @@ LABEL_83:
 
                       v125 = 2 * v109;
                       v109 = (2 * v109) | 1;
-                      v110 = v9 + 16 * v109;
+                      v110 = &v9[2 * v109];
                       v126 = v125 + 2;
                       if (v125 + 2 < v11)
                       {
                         v127 = *v110;
-                        [*(*a3 + 8 * *(v110 + 8)) area];
-                        v128 = *(v110 + 16);
+                        [*(*a3 + 8 * *(v110 + 2)) area];
+                        v128 = v110[2];
                         v130 = v127 / v129;
-                        [*(*a3 + 8 * *(v110 + 24)) area];
+                        [*(*a3 + 8 * *(v110 + 6)) area];
                         if (v130 < v128 / v131)
                         {
-                          v110 += 16;
+                          v110 += 2;
                           v109 = v126;
                         }
                       }
 
                       v132 = *v110;
-                      [*(*a3 + 8 * *(v110 + 8)) area];
+                      [*(*a3 + 8 * *(v110 + 2)) area];
                       v134 = v132 / v133;
                       result = [*(*a3 + 8 * v123) area];
                     }
 
                     while (v134 >= v122 / v135);
                     *v116 = v122;
-                    *(v116 + 8) = v123;
+                    *(v116 + 2) = v123;
                     a2 = v184;
                   }
                 }
@@ -2333,24 +2334,24 @@ LABEL_83:
                 v136 = a2;
                 v137 = 0;
                 v138 = *v9;
-                v187 = *(v9 + 8);
+                v187 = *(v9 + 2);
                 v139 = v9;
                 do
                 {
                   v140 = v139;
-                  v141 = v139 + 16 * v137;
-                  v139 = v141 + 16;
+                  v141 = &v139[2 * v137];
+                  v139 = v141 + 2;
                   v142 = 2 * v137;
                   v137 = (2 * v137) | 1;
                   v143 = v142 + 2;
                   if (v142 + 2 < v11)
                   {
-                    v144 = *(v141 + 16);
-                    [*(*a3 + 8 * *(v141 + 24)) area];
-                    v146 = *(v141 + 32);
-                    v145 = v141 + 32;
+                    v144 = v141[2];
+                    [*(*a3 + 8 * *(v141 + 6)) area];
+                    v146 = v141[4];
+                    v145 = v141 + 4;
                     v148 = v144 / v147;
-                    result = [*(*a3 + 8 * *(v145 + 8)) area];
+                    result = [*(*a3 + 8 * *(v145 + 2)) area];
                     if (v148 < v146 / v149)
                     {
                       v139 = v145;
@@ -2359,61 +2360,61 @@ LABEL_83:
                   }
 
                   *v140 = *v139;
-                  *(v140 + 8) = *(v139 + 8);
+                  *(v140 + 2) = *(v139 + 2);
                 }
 
                 while (v137 <= ((v11 - 2) >> 1));
-                v150 = v136 - 16;
-                if (v139 == v136 - 16)
+                v150 = v136 - 2;
+                if (v139 == v136 - 2)
                 {
                   *v139 = v138;
-                  *(v139 + 8) = v187;
+                  *(v139 + 2) = v187;
                 }
 
                 else
                 {
-                  *v139 = *(v136 - 16);
-                  *(v139 + 8) = *(v136 - 8);
-                  *(v136 - 16) = v138;
-                  *(v136 - 8) = v187;
+                  *v139 = *(v136 - 2);
+                  *(v139 + 2) = *(v136 - 2);
+                  *(v136 - 2) = v138;
+                  *(v136 - 2) = v187;
                   v151 = (v139 - v9 + 16) >> 4;
                   v152 = v151 < 2;
                   v153 = v151 - 2;
                   if (!v152)
                   {
                     v154 = v153 >> 1;
-                    v155 = v9 + 16 * (v153 >> 1);
+                    v155 = &v9[2 * (v153 >> 1)];
                     v156 = *v155;
-                    [*(*a3 + 8 * *(v155 + 8)) area];
+                    [*(*a3 + 8 * *(v155 + 2)) area];
                     v157 = *v139;
                     v159 = v156 / v158;
-                    result = [*(*a3 + 8 * *(v139 + 8)) area];
+                    result = [*(*a3 + 8 * *(v139 + 2)) area];
                     if (v159 < v157 / v160)
                     {
                       v161 = *v139;
-                      v162 = *(v139 + 8);
+                      v162 = *(v139 + 2);
                       do
                       {
                         v163 = v139;
                         v139 = v155;
                         *v163 = *v155;
-                        *(v163 + 8) = *(v155 + 8);
+                        *(v163 + 2) = *(v155 + 2);
                         if (!v154)
                         {
                           break;
                         }
 
                         v154 = (v154 - 1) >> 1;
-                        v155 = v9 + 16 * v154;
+                        v155 = &v9[2 * v154];
                         v164 = *v155;
-                        [*(*a3 + 8 * *(v155 + 8)) area];
+                        [*(*a3 + 8 * *(v155 + 2)) area];
                         v166 = v164 / v165;
                         result = [*(*a3 + 8 * v162) area];
                       }
 
                       while (v166 < v161 / v167);
                       *v139 = v161;
-                      *(v139 + 8) = v162;
+                      *(v139 + 2) = v162;
                     }
                   }
                 }
@@ -2432,20 +2433,20 @@ LABEL_83:
           v13 = v10 + 16 * (v11 >> 1);
           if (v11 < 0x81)
           {
-            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,tableRegionNMS(std::vector<std::pair<double,int>>,std::vector<CRNormalizedQuad * {__strong}> const&)::$_0 &,std::pair<double,int>*,0>(v9 + 16 * (v11 >> 1), v9, v185, a3);
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,tableRegionNMS(std::vector<std::pair<double,int>>,std::vector<CRNormalizedQuad * {__strong}> const&)::$_0 &,std::pair<double,int>*,0>(&v9[2 * (v11 >> 1)], v9, v185, a3);
           }
 
           else
           {
-            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,tableRegionNMS(std::vector<std::pair<double,int>>,std::vector<CRNormalizedQuad * {__strong}> const&)::$_0 &,std::pair<double,int>*,0>(v9, v9 + 16 * (v11 >> 1), v185, a3);
-            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,tableRegionNMS(std::vector<std::pair<double,int>>,std::vector<CRNormalizedQuad * {__strong}> const&)::$_0 &,std::pair<double,int>*,0>(v9 + 16, v13 - 16, a2 - 32, a3);
-            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,tableRegionNMS(std::vector<std::pair<double,int>>,std::vector<CRNormalizedQuad * {__strong}> const&)::$_0 &,std::pair<double,int>*,0>(v9 + 32, v9 + 16 + 16 * v12, a2 - 48, a3);
-            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,tableRegionNMS(std::vector<std::pair<double,int>>,std::vector<CRNormalizedQuad * {__strong}> const&)::$_0 &,std::pair<double,int>*,0>(v13 - 16, v9 + 16 * (v11 >> 1), v9 + 16 + 16 * v12, a3);
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,tableRegionNMS(std::vector<std::pair<double,int>>,std::vector<CRNormalizedQuad * {__strong}> const&)::$_0 &,std::pair<double,int>*,0>(v9, &v9[2 * (v11 >> 1)], v185, a3);
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,tableRegionNMS(std::vector<std::pair<double,int>>,std::vector<CRNormalizedQuad * {__strong}> const&)::$_0 &,std::pair<double,int>*,0>((v9 + 2), v13 - 16, (a2 - 4), a3);
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,tableRegionNMS(std::vector<std::pair<double,int>>,std::vector<CRNormalizedQuad * {__strong}> const&)::$_0 &,std::pair<double,int>*,0>((v9 + 4), &v9[2 * v12 + 2], (a2 - 6), a3);
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,tableRegionNMS(std::vector<std::pair<double,int>>,std::vector<CRNormalizedQuad * {__strong}> const&)::$_0 &,std::pair<double,int>*,0>(v13 - 16, &v9[2 * (v11 >> 1)], &v9[2 * v12 + 2], a3);
             v14 = *v9;
             *v9 = *v13;
             *v13 = v14;
-            v15 = *(v9 + 8);
-            *(v9 + 8) = *(v13 + 8);
+            v15 = *(v9 + 2);
+            *(v9 + 2) = *(v13 + 8);
             *(v13 + 8) = v15;
           }
 
@@ -2455,25 +2456,25 @@ LABEL_83:
             break;
           }
 
-          v16 = *(v9 - 16);
-          [*(*a3 + 8 * *(v9 - 8)) area];
+          v16 = *(v9 - 2);
+          [*(*a3 + 8 * *(v9 - 2)) area];
           v17 = *v9;
           v19 = v16 / v18;
-          [*(*a3 + 8 * *(v9 + 8)) area];
+          [*(*a3 + 8 * *(v9 + 2)) area];
           if (v19 < v17 / v20)
           {
             break;
           }
 
           v50 = *v9;
-          v51 = *(v9 + 8);
+          v51 = *(v9 + 2);
           [*(*a3 + 8 * v51) area];
-          v52 = *(a2 - 16);
+          v52 = *(a2 - 2);
           v54 = v50 / v53;
-          result = [*(*a3 + 8 * *(a2 - 8)) area];
+          result = [*(*a3 + 8 * *(a2 - 2)) area];
           if (v54 >= v52 / v55)
           {
-            v60 = v9 + 16;
+            v60 = (v9 + 2);
             do
             {
               v10 = v60;
@@ -2514,10 +2515,10 @@ LABEL_83:
             do
             {
               [*(*a3 + 8 * v51) area];
-              v66 = *(v65 - 16);
-              v65 -= 16;
+              v66 = *(v65 - 2);
+              v65 -= 2;
               v68 = v50 / v67;
-              result = [*(*a3 + 8 * *(v65 + 8)) area];
+              result = [*(*a3 + 8 * *(v65 + 2)) area];
             }
 
             while (v68 < v66 / v69);
@@ -2529,8 +2530,8 @@ LABEL_83:
             *v10 = *v65;
             *v65 = v70;
             v71 = *(v10 + 8);
-            *(v10 + 8) = *(v65 + 8);
-            *(v65 + 8) = v71;
+            *(v10 + 8) = *(v65 + 2);
+            *(v65 + 2) = v71;
             do
             {
               [*(*a3 + 8 * v51) area];
@@ -2544,19 +2545,19 @@ LABEL_83:
             do
             {
               [*(*a3 + 8 * v51) area];
-              v76 = *(v65 - 16);
-              v65 -= 16;
+              v76 = *(v65 - 2);
+              v65 -= 2;
               v78 = v50 / v77;
-              result = [*(*a3 + 8 * *(v65 + 8)) area];
+              result = [*(*a3 + 8 * *(v65 + 2)) area];
             }
 
             while (v78 < v76 / v79);
           }
 
-          if (v10 - 16 != v9)
+          if ((v10 - 16) != v9)
           {
             *v9 = *(v10 - 16);
-            *(v9 + 8) = *(v10 - 8);
+            *(v9 + 2) = *(v10 - 8);
           }
 
           a5 = 0;
@@ -2566,20 +2567,20 @@ LABEL_83:
 
         v21 = 0;
         v22 = *v9;
-        v23 = *(v9 + 8);
+        v23 = *(v9 + 2);
         do
         {
-          v24 = *(v9 + v21 + 16);
-          [*(*a3 + 8 * *(v9 + v21 + 24)) area];
+          v24 = v9[v21 + 2];
+          [*(*a3 + 8 * SLODWORD(v9[v21 + 3])) area];
           v26 = v24 / v25;
           [*(*a3 + 8 * v23) area];
-          v21 += 16;
+          v21 += 2;
         }
 
         while (v26 < v22 / v27);
-        v28 = v9 + v21;
+        v28 = &v9[v21];
         v29 = a2;
-        if (v21 == 16)
+        if (v21 == 2)
         {
           v29 = a2;
           do
@@ -2589,9 +2590,9 @@ LABEL_83:
               break;
             }
 
-            v34 = *(v29 - 16);
-            v29 -= 16;
-            [*(*a3 + 8 * *(v29 + 8)) area];
+            v34 = *(v29 - 2);
+            v29 -= 2;
+            [*(*a3 + 8 * *(v29 + 2)) area];
             v36 = v34 / v35;
             [*(*a3 + 8 * v23) area];
           }
@@ -2603,9 +2604,9 @@ LABEL_83:
         {
           do
           {
-            v30 = *(v29 - 16);
-            v29 -= 16;
-            [*(*a3 + 8 * *(v29 + 8)) area];
+            v30 = *(v29 - 2);
+            v29 -= 2;
+            [*(*a3 + 8 * *(v29 + 2)) area];
             v32 = v30 / v31;
             [*(*a3 + 8 * v23) area];
           }
@@ -2613,7 +2614,7 @@ LABEL_83:
           while (v32 >= v22 / v33);
         }
 
-        v10 = v9 + v21;
+        v10 = &v9[v21];
         if (v28 < v29)
         {
           v38 = v29;
@@ -2623,8 +2624,8 @@ LABEL_83:
             *v10 = *v38;
             *v38 = v39;
             v40 = *(v10 + 8);
-            *(v10 + 8) = *(v38 + 8);
-            *(v38 + 8) = v40;
+            *(v10 + 8) = *(v38 + 2);
+            *(v38 + 2) = v40;
             do
             {
               v41 = *(v10 + 16);
@@ -2637,9 +2638,9 @@ LABEL_83:
             while (v43 < v22 / v44);
             do
             {
-              v45 = *(v38 - 16);
-              v38 -= 16;
-              [*(*a3 + 8 * *(v38 + 8)) area];
+              v45 = *(v38 - 2);
+              v38 -= 2;
+              [*(*a3 + 8 * *(v38 + 2)) area];
               v47 = v45 / v46;
               [*(*a3 + 8 * v23) area];
             }
@@ -2650,10 +2651,10 @@ LABEL_83:
           while (v10 < v38);
         }
 
-        if (v10 - 16 != v9)
+        if ((v10 - 16) != v9)
         {
           *v9 = *(v10 - 16);
-          *(v9 + 8) = *(v10 - 8);
+          *(v9 + 2) = *(v10 - 8);
         }
 
         *(v10 - 16) = v22;
@@ -2664,7 +2665,7 @@ LABEL_83:
         }
 
 LABEL_36:
-        result = std::__introsort<std::_ClassicAlgPolicy,tableRegionNMS(std::vector<std::pair<double,int>>,std::vector<CRNormalizedQuad * {__strong}> const&)::$_0 &,std::pair<double,int>*,false>(v9, v10 - 16, a3, a4, a5 & 1);
+        result = std::__introsort<std::_ClassicAlgPolicy,tableRegionNMS(std::vector<std::pair<double,int>>,std::vector<CRNormalizedQuad * {__strong}> const&)::$_0 &,std::pair<double,int>*,false>(v9, (v10 - 16), a3, a4, a5 & 1);
         a5 = 0;
       }
 
@@ -2681,7 +2682,7 @@ LABEL_36:
       }
     }
 
-    a2 = v10 - 16;
+    a2 = (v10 - 16);
     if (!v49)
     {
       continue;
@@ -2691,7 +2692,7 @@ LABEL_36:
   }
 }
 
-uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,tableRegionNMS(std::vector<std::pair<double,int>>,std::vector<CRNormalizedQuad * {__strong}> const&)::$_0 &,std::pair<double,int>*,0>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void *std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,tableRegionNMS(std::vector<std::pair<double,int>>,std::vector<CRNormalizedQuad * {__strong}> const&)::$_0 &,std::pair<double,int>*,0>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v8 = *a2;
   v9 = (a2 + 8);
@@ -2771,7 +2772,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,tableRegionNMS(std::vector<std::pair<double,int>>,std::vector<CRNormalizedQuad * {__strong}> const&)::$_0 &,std::pair<double,int>*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
+void *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,tableRegionNMS(std::vector<std::pair<double,int>>,std::vector<CRNormalizedQuad * {__strong}> const&)::$_0 &,std::pair<double,int>*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,tableRegionNMS(std::vector<std::pair<double,int>>,std::vector<CRNormalizedQuad * {__strong}> const&)::$_0 &,std::pair<double,int>*,0>(a1, a2, a3, a5);
   v10 = *a4;
@@ -2820,7 +2821,7 @@ uint64_t std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,tableRegionNMS(std::v
   return result;
 }
 
-uint64_t std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,tableRegionNMS(std::vector<std::pair<double,int>>,std::vector<CRNormalizedQuad * {__strong}> const&)::$_0 &,std::pair<double,int>*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
+void *std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,tableRegionNMS(std::vector<std::pair<double,int>>,std::vector<CRNormalizedQuad * {__strong}> const&)::$_0 &,std::pair<double,int>*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
 {
   std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,tableRegionNMS(std::vector<std::pair<double,int>>,std::vector<CRNormalizedQuad * {__strong}> const&)::$_0 &,std::pair<double,int>*,0>(a1, a2, a3, a4, a6);
   v12 = *a5;
@@ -3049,6 +3050,19 @@ uint64_t std::__split_buffer<CRNormalizedQuad * {__strong}>::~__split_buffer(uin
   return a1;
 }
 
+uint64_t *std::vector<float>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<float>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
+}
+
 void sub_1B428297C(_Unwind_Exception *exception_object)
 {
   v3 = *v1;
@@ -3071,11 +3085,11 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<double,int>
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<std::vector<float>>::vector[abi:ne200100](void *result, unint64_t a2)
+void *std::vector<std::vector<float>>::vector[abi:ne200100](void *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
     if (a2 < 0xAAAAAAAAAAAAAABLL)
@@ -3086,7 +3100,7 @@ void *std::vector<std::vector<float>>::vector[abi:ne200100](void *result, unint6
     std::vector<std::pair<float,float>>::__throw_length_error[abi:ne200100]();
   }
 
-  return result;
+  return a1;
 }
 
 void std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
@@ -3153,20 +3167,20 @@ uint64_t std::__split_buffer<CRDetectorUtils::CRTextDetectorQuad>::~__split_buff
   return a1;
 }
 
-void *std::vector<std::list<int>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::list<int>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::list<int>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::list<int>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<std::list<int>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::list<int>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -3246,9 +3260,9 @@ void cv::SmartPtr::~SmartPtr(cv::SmartPtr *this)
   JUMPOUT(0x1B8C73EF0);
 }
 
-void cv::SmartPtr::operator=(cv::SmartPtr *this@<X0>, cv::SmartPtr *a2@<X1>, void *a3@<X8>)
+void cv::SmartPtr::operator=(uint64_t *__return_ptr a1@<X8>, cv::SmartPtr *this@<X0>, cv::SmartPtr *a3@<X1>)
 {
-  if (this == a2)
+  if (this == a3)
   {
     v6 = *(this + 1);
     v7 = *(this + 2);
@@ -3257,8 +3271,8 @@ void cv::SmartPtr::operator=(cv::SmartPtr *this@<X0>, cv::SmartPtr *a2@<X1>, voi
   else
   {
     cv::SmartPtr::release(this);
-    v6 = *(a2 + 1);
-    v7 = *(a2 + 2);
+    v6 = *(a3 + 1);
+    v7 = *(a3 + 2);
     *(this + 1) = v6;
     *(this + 2) = v7;
     if (v7)
@@ -3267,9 +3281,9 @@ void cv::SmartPtr::operator=(cv::SmartPtr *this@<X0>, cv::SmartPtr *a2@<X1>, voi
     }
   }
 
-  *a3 = &unk_1F2BAF728;
-  a3[1] = v6;
-  a3[2] = v7;
+  *a1 = &unk_1F2BAF728;
+  a1[1] = v6;
+  a1[2] = v7;
   if (v7)
   {
     ++*v7;
@@ -3334,7 +3348,7 @@ void correctHistogram(unsigned __int8 **a1, void *a2)
 double houghTransformGlobalAngle(uint64_t a1, unint64_t a2, uint64_t a3, float a4)
 {
   v8 = 0;
-  v103 = *MEMORY[0x1E69E9840];
+  v104 = *MEMORY[0x1E69E9840];
   v9 = xmmword_1B42B0040;
   v87 = vdupq_n_s64(0x4066800000000000uLL);
   v88 = vdupq_n_s64(0x400921FB54442D18uLL);
@@ -3358,11 +3372,11 @@ double houghTransformGlobalAngle(uint64_t a1, unint64_t a2, uint64_t a3, float a
     v17.f64[0] = v18.__cosval;
     v16.f64[0] = v18.__sinval;
     v17.f64[1] = v15.__cosval;
-    *&v102[v8] = vcvt_hight_f32_f64(vcvt_f32_f64(v17), v89);
+    *&v103[v8] = vcvt_hight_f32_f64(vcvt_f32_f64(v17), v89);
     v19.f64[0] = v14.__sinval;
     v19.f64[1] = v12.__sinval;
     v16.f64[1] = v15.__sinval;
-    *&v102[v8 + 1440] = vcvt_hight_f32_f64(vcvt_f32_f64(v16), v19);
+    *&v103[v8 + 1440] = vcvt_hight_f32_f64(vcvt_f32_f64(v16), v19);
     *&v17.f64[0] = 0x400000004;
     *&v17.f64[1] = 0x400000004;
     v9 = vaddq_s32(v92, v17);
@@ -3372,14 +3386,15 @@ double houghTransformGlobalAngle(uint64_t a1, unint64_t a2, uint64_t a3, float a
   while (v8 != 1440);
   v20 = sqrt((a2 * a2 + a3 * a3));
   __src = 0;
-  v100 = 0;
   v101 = 0;
+  v102 = 0;
   __p = 0;
-  v97 = 0;
   v98 = 0;
+  v99 = 0;
   if (v20 >= 1)
   {
-    std::vector<int>::vector[abi:ne200100](&v94, (360 * v20));
+    v94 = 0;
+    std::vector<int>::vector[abi:ne200100](&v95, (360 * v20), &v94);
     if (a3 * a2)
     {
       v21 = 0;
@@ -3389,10 +3404,10 @@ double houghTransformGlobalAngle(uint64_t a1, unint64_t a2, uint64_t a3, float a
         if (*(a1 + v21))
         {
           v23 = 0;
-          v24 = v94;
+          v24 = v95;
           do
           {
-            v25 = ((*&v102[v23 + 1440] * (v21 / a2)) + ((v21 % a2) * *&v102[v23]));
+            v25 = ((*&v103[v23 + 1440] * (v21 / a2)) + ((v21 % a2) * *&v103[v23]));
             if (v25 >= 1 && v25 < v20)
             {
               v27 = &v24[1440 * v25];
@@ -3445,7 +3460,7 @@ double houghTransformGlobalAngle(uint64_t a1, unint64_t a2, uint64_t a3, float a
             v36 = v33;
           }
 
-          v37 = *(v94 + 4 * v33 + v34);
+          v37 = *(v95 + 4 * v33 + v34);
           if (v29 < v37)
           {
             v38 = v36 - 4;
@@ -3475,7 +3490,7 @@ double houghTransformGlobalAngle(uint64_t a1, unint64_t a2, uint64_t a3, float a
                 v44 = v43;
               }
 
-              v45 = v94 + 1440 * v43;
+              v45 = v95 + 1440 * v43;
               while (1)
               {
                 v46 = v38;
@@ -3490,20 +3505,20 @@ LABEL_37:
                 {
                   if (v42)
                   {
-                    v49 = v100;
-                    if (v100 >= v101)
+                    v49 = v101;
+                    if (v101 >= v102)
                     {
                       v51 = __src;
-                      v52 = v100 - __src;
-                      v53 = (v100 - __src) >> 3;
+                      v52 = v101 - __src;
+                      v53 = (v101 - __src) >> 3;
                       v54 = v53 + 1;
                       if ((v53 + 1) >> 61)
                       {
                         std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
                       }
 
-                      v55 = v101 - __src;
-                      if ((v101 - __src) >> 2 > v54)
+                      v55 = v102 - __src;
+                      if ((v102 - __src) >> 2 > v54)
                       {
                         v54 = v55 >> 2;
                       }
@@ -3525,8 +3540,8 @@ LABEL_37:
                       memcpy(0, v51, v52);
                       v57 = __src;
                       __src = 0;
-                      v100 = v50;
-                      v101 = 0;
+                      v101 = v50;
+                      v102 = 0;
                       if (v57)
                       {
                         operator delete(v57);
@@ -3535,11 +3550,11 @@ LABEL_37:
 
                     else
                     {
-                      *v100 = v37;
+                      *v101 = v37;
                       v50 = (v49 + 8);
                     }
 
-                    v100 = v50;
+                    v101 = v50;
                     v58 = v33 - 180;
                     if (v33 < 0xB5)
                     {
@@ -3547,20 +3562,20 @@ LABEL_37:
                     }
 
                     v59 = v58;
-                    v60 = v97;
-                    if (v97 >= v98)
+                    v60 = v98;
+                    if (v98 >= v99)
                     {
                       v62 = __p;
-                      v63 = v97 - __p;
-                      v64 = (v97 - __p) >> 3;
+                      v63 = v98 - __p;
+                      v64 = (v98 - __p) >> 3;
                       v65 = v64 + 1;
                       if ((v64 + 1) >> 61)
                       {
                         std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
                       }
 
-                      v66 = v98 - __p;
-                      if ((v98 - __p) >> 2 > v65)
+                      v66 = v99 - __p;
+                      if ((v99 - __p) >> 2 > v65)
                       {
                         v65 = v66 >> 2;
                       }
@@ -3582,8 +3597,8 @@ LABEL_37:
                       memcpy(0, v62, v63);
                       v68 = __p;
                       __p = 0;
-                      v97 = v61;
-                      v98 = 0;
+                      v98 = v61;
+                      v99 = 0;
                       if (v68)
                       {
                         operator delete(v68);
@@ -3592,11 +3607,11 @@ LABEL_37:
 
                     else
                     {
-                      *v97 = v59;
+                      *v98 = v59;
                       v61 = (v60 + 1);
                     }
 
-                    v97 = v61;
+                    v98 = v61;
                   }
 
                   goto LABEL_69;
@@ -3631,17 +3646,17 @@ LABEL_69:
       while (v30 != v20 - 9);
     }
 
-    if (v94)
+    if (v95)
     {
-      v95 = v94;
-      operator delete(v94);
+      v96 = v95;
+      operator delete(v95);
     }
   }
 
-  std::vector<unsigned long>::vector[abi:ne200100](&v94, 0xB4uLL);
+  std::vector<unsigned long>::vector[abi:ne200100](&v95, 0xB4uLL);
   v69 = __p;
   v70 = __src;
-  if (v97 == __p)
+  if (v98 == __p)
   {
     v84 = 0;
     v82 = 0.0;
@@ -3651,8 +3666,8 @@ LABEL_69:
   else
   {
     v71 = 0;
-    v72 = (v97 - __p) >> 3;
-    v73 = v94;
+    v72 = (v98 - __p) >> 3;
+    v73 = v95;
     if (v72 <= 1)
     {
       v72 = 1;
@@ -3692,27 +3707,27 @@ LABEL_69:
   }
 
   v85 = -1000.0;
-  if (v100 != v70 && (v82 * a4) <= v83)
+  if (v101 != v70 && (v82 * a4) <= v83)
   {
     v85 = v69[v84];
   }
 
-  if (v94)
+  if (v95)
   {
-    v95 = v94;
-    operator delete(v94);
+    v96 = v95;
+    operator delete(v95);
     v69 = __p;
   }
 
   if (v69)
   {
-    v97 = v69;
+    v98 = v69;
     operator delete(v69);
   }
 
   if (__src)
   {
-    v100 = __src;
+    v101 = __src;
     operator delete(__src);
   }
 
@@ -3746,7 +3761,7 @@ unint64_t generateIntegralImage(unint64_t result, int **a2)
     v6 = v5 + 1;
     v7 = *v5;
     v8 = (v2 & 0x7FFFFFFF) - 1;
-    v9 = (v4 + 1);
+    v9 = v4 + 1;
     do
     {
       v10 = *v9++;
@@ -3768,7 +3783,7 @@ unint64_t generateIntegralImage(unint64_t result, int **a2)
       {
         v13 = 0;
         v14 = &v5[v12];
-        v15 = (v4 + v12);
+        v15 = &v4[v12];
         v12 += v2;
         LODWORD(result) = v2;
         do
@@ -3869,11 +3884,13 @@ int32x4_t *generateIntegralImage_NEON(int32x4_t *result, const vImage_Buffer *a2
   return result;
 }
 
-void adaptiveThresholdIntegralImage(int32x4_t *a1, uint64_t *a2, int a3, int a4)
+void adaptiveThresholdIntegralImage(int32x4_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
   v4 = a1->i64[1];
   if (a1[1].i64[0] * v4)
   {
+    v5 = a4;
+    v6 = a3;
     v9 = malloc_type_malloc(4 * v4 * a1[1].i64[1], 0x100004052888210uLL);
     v10 = a1->u64[1];
     v11 = a1[1].u64[0];
@@ -3898,7 +3915,7 @@ void adaptiveThresholdIntegralImage(int32x4_t *a1, uint64_t *a2, int a3, int a4)
     v14 = a1[1];
     v15 = *a1;
     v16 = v14;
-    adaptiveThresholdIntegralImageWithBuffer(&v15, a2, &v17, a3, a4, v15, v14);
+    adaptiveThresholdIntegralImageWithBuffer(&v15, a2, &v17, v6, v5, v15, v14);
 
     free(v9);
   }
@@ -4303,48 +4320,48 @@ uint64_t __adaptiveThresholdIntegralImageWithBuffer_block_invoke(uint64_t result
   return result;
 }
 
-float find_homography(uint64_t a1, uint64_t a2)
+float find_homography(uint64_t a1)
 {
-  MEMORY[0x1EEE9AC00](a1, a2);
-  v4 = v3;
-  v5 = 0;
-  v18 = *MEMORY[0x1E69E9840];
-  v7 = (v6 + 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v3 = v2;
+  v4 = 0;
+  v17 = *MEMORY[0x1E69E9840];
+  v6 = (v5 + 8);
   do
   {
-    v8 = &v16[v5];
-    v9 = *v2++;
-    *(v8 + 24) = vnegq_f64(v9);
-    v11 = *(v7 - 1);
-    v10 = *v7;
-    *(v8 + 3) = vmulq_n_f64(v9, *v7);
-    *v8 = 0uLL;
-    *(v8 + 2) = 0;
-    *(v8 + 5) = 0xBFF0000000000000;
-    *(v8 + 8) = v10;
-    *(v8 + 72) = v9;
-    *(v8 + 88) = xmmword_1B42AF250;
-    *(v8 + 104) = 0uLL;
-    *(v8 + 120) = vmulq_n_f64(v9, -v11);
-    *(v8 + 17) = -v11;
-    v5 += 144;
-    v7 += 2;
+    v7 = &v15[v4];
+    v8 = *v1++;
+    *(v7 + 24) = vnegq_f64(v8);
+    v10 = *(v6 - 1);
+    v9 = *v6;
+    *(v7 + 3) = vmulq_n_f64(v8, *v6);
+    *v7 = 0uLL;
+    *(v7 + 2) = 0;
+    *(v7 + 5) = 0xBFF0000000000000;
+    *(v7 + 8) = v9;
+    *(v7 + 72) = v8;
+    *(v7 + 88) = xmmword_1B42AF250;
+    *(v7 + 104) = 0uLL;
+    *(v7 + 120) = vmulq_n_f64(v8, -v10);
+    *(v7 + 17) = -v10;
+    v4 += 144;
+    v6 += 2;
   }
 
-  while (v5 != 576);
+  while (v4 != 576);
   dgeqrf_NEWLAPACK();
   dorgqr_NEWLAPACK();
-  v12 = 576;
-  v13 = 1.0 / v17;
+  v11 = 576;
+  v12 = 1.0 / v16;
   do
   {
-    v14 = v13 * *&v16[v12];
-    *v4++ = v14;
-    v12 += 8;
+    v13 = v12 * *&v15[v11];
+    *v3++ = v13;
+    v11 += 8;
   }
 
-  while (v12 != 648);
-  return *&v13;
+  while (v11 != 648);
+  return *&v12;
 }
 
 uint64_t writeCGImageWithMetadata(CGImage *a1, void *a2, const __CFDictionary *a3)
@@ -4422,7 +4439,7 @@ void writeCGImage(CGImage *a1, void *a2)
 
   else
   {
-    NSLog(&cfstr_NoImageAvailab.isa);
+    NSLog(&cfstr_NoImageAvailab.isa, a2);
   }
 }
 
@@ -4708,14 +4725,14 @@ uint64_t CRLogger::log(uint64_t result, unsigned int a2, char *a3, ...)
   return result;
 }
 
-void sub_1B4285D4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B4285D4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B42881C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1B42881C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -4729,9 +4746,9 @@ uint64_t __Block_byref_object_copy__17(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1B428890C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1B428890C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4746,18 +4763,18 @@ void sub_1B4289C74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1B428B340(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1B428B340(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = CRImage;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_1B428C6A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1B428C6A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, const void *);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, const void *);
   applesauce::CF::ObjectRef<CGContext *>::~ObjectRef(va);
   applesauce::CF::ObjectRef<CGColorSpace *>::~ObjectRef(va1);
 
@@ -4800,10 +4817,10 @@ id createPixelBufferCLAPDictionaryFromRect(CGSize a1, CGRect a2)
   return v12;
 }
 
-void sub_1B428E7AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1B428E7AC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = CRImage_PixelBuffer;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -4972,14 +4989,15 @@ void CoreRecognition::decoder::ActivationMatrix::~ActivationMatrix(CoreRecogniti
   }
 }
 
-void sub_1B4290E04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, _Unwind_Exception *exception_object, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, char a17)
+void sub_1B4290E04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, _Unwind_Exception *exception_object, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, ...)
 {
-  _Block_object_dispose(&a17, 8);
+  va_start(va, a16);
 
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B42912E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, void *a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_1B42912E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -5214,10 +5232,10 @@ const void **applesauce::CF::ObjectRef<_LXLexicon const*>::~ObjectRef(const void
   return a1;
 }
 
-uint64_t CoreRecognition::decoder::AdditiveCombiningBeamScorer<CoreRecognition::decoder::CombinedBeamState>::~AdditiveCombiningBeamScorer(uint64_t a1)
+void *CoreRecognition::decoder::AdditiveCombiningBeamScorer<CoreRecognition::decoder::CombinedBeamState>::~AdditiveCombiningBeamScorer(void *a1)
 {
   *a1 = &unk_1F2BAF8F0;
-  v3 = (a1 + 24);
+  v3 = (a1 + 3);
   std::vector<std::unique_ptr<CoreRecognition::decoder::BaseBeamScorer>>::__destroy_vector::operator()[abi:ne200100](&v3);
   return a1;
 }
@@ -5231,7 +5249,7 @@ void sub_1B4292B7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void CoreRecognition::decoder::CTCGreedyDecoder<CoreRecognition::decoder::CharacterSegmentedPathBuilder<CoreRecognition::decoder::BaseState>>::decode(uint64_t a1@<X0>, unint64_t *a2@<X1>, void *a3@<X8>)
+void CoreRecognition::decoder::CTCGreedyDecoder<CoreRecognition::decoder::CharacterSegmentedPathBuilder<CoreRecognition::decoder::BaseState>>::decode(uint64_t a1@<X0>, unint64_t *a2@<X1>, unint64_t *a3@<X8>)
 {
   __p = 0;
   v48 = 0;
@@ -5470,7 +5488,7 @@ void sub_1B4292F38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1B42931B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_1B42931B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -5493,51 +5511,35 @@ void sub_1B429378C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1B4294BB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1B4294BB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   CoreRecognition::decoder::BeamSearchState<CoreRecognition::decoder::CombinedBeamState>::~BeamSearchState(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t CoreRecognition::decoder::CTCBeamSearchDecoder<CoreRecognition::decoder::AdditiveCombiningBeamScorer<CoreRecognition::decoder::CombinedBeamState>,CoreRecognition::decoder::CharacterSegmentedPathBuilder<CoreRecognition::decoder::CombinedBeamState>>::~CTCBeamSearchDecoder(uint64_t a1)
+void *CoreRecognition::decoder::CTCBeamSearchDecoder<CoreRecognition::decoder::AdditiveCombiningBeamScorer<CoreRecognition::decoder::CombinedBeamState>,CoreRecognition::decoder::CharacterSegmentedPathBuilder<CoreRecognition::decoder::CombinedBeamState>>::~CTCBeamSearchDecoder(void *a1)
 {
   *a1 = &unk_1F2BAFA68;
-  *(a1 + 16) = &unk_1F2BAF8F0;
-  v3 = (a1 + 40);
+  a1[2] = &unk_1F2BAF8F0;
+  v3 = (a1 + 5);
   std::vector<std::unique_ptr<CoreRecognition::decoder::BaseBeamScorer>>::__destroy_vector::operator()[abi:ne200100](&v3);
   return a1;
 }
 
-uint64_t CoreRecognition::decoder::CTCBeamSearchDecoder<CoreRecognition::decoder::AdditiveCombiningBeamScorer<CoreRecognition::decoder::CombinedBeamState>,CoreRecognition::decoder::SpaceSegmentedPathBuilder<CoreRecognition::decoder::CombinedBeamState>>::~CTCBeamSearchDecoder(uint64_t a1)
+void *CoreRecognition::decoder::CTCBeamSearchDecoder<CoreRecognition::decoder::AdditiveCombiningBeamScorer<CoreRecognition::decoder::CombinedBeamState>,CoreRecognition::decoder::SpaceSegmentedPathBuilder<CoreRecognition::decoder::CombinedBeamState>>::~CTCBeamSearchDecoder(void *a1)
 {
   *a1 = &unk_1F2BAFA90;
-  *(a1 + 64) = &unk_1F2BAF988;
-  v2 = *(a1 + 80);
+  a1[8] = &unk_1F2BAF988;
+  v2 = a1[10];
   if (v2)
   {
-    *(a1 + 88) = v2;
+    a1[11] = v2;
     operator delete(v2);
   }
 
-  *(a1 + 16) = &unk_1F2BAF8F0;
-  v4 = (a1 + 40);
-  std::vector<std::unique_ptr<CoreRecognition::decoder::BaseBeamScorer>>::__destroy_vector::operator()[abi:ne200100](&v4);
-  return a1;
-}
-
-{
-  *a1 = &unk_1F2BAFA90;
-  *(a1 + 64) = &unk_1F2BAF988;
-  v2 = *(a1 + 80);
-  if (v2)
-  {
-    *(a1 + 88) = v2;
-    operator delete(v2);
-  }
-
-  *(a1 + 16) = &unk_1F2BAF8F0;
-  v4 = (a1 + 40);
+  a1[2] = &unk_1F2BAF8F0;
+  v4 = (a1 + 5);
   std::vector<std::unique_ptr<CoreRecognition::decoder::BaseBeamScorer>>::__destroy_vector::operator()[abi:ne200100](&v4);
   return a1;
 }
@@ -5593,10 +5595,10 @@ const void **applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(const void
   return a1;
 }
 
-void CoreRecognition::decoder::AdditiveCombiningBeamScorer<CoreRecognition::decoder::CombinedBeamState>::~AdditiveCombiningBeamScorer(uint64_t a1)
+void CoreRecognition::decoder::AdditiveCombiningBeamScorer<CoreRecognition::decoder::CombinedBeamState>::~AdditiveCombiningBeamScorer(void *a1)
 {
   *a1 = &unk_1F2BAF8F0;
-  v1 = (a1 + 24);
+  v1 = (a1 + 3);
   std::vector<std::unique_ptr<CoreRecognition::decoder::BaseBeamScorer>>::__destroy_vector::operator()[abi:ne200100](&v1);
 
   JUMPOUT(0x1B8C73EF0);
@@ -5629,10 +5631,10 @@ void std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__destro
   }
 }
 
-void std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::clear[abi:ne200100](uint64_t *a1)
+void std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::clear[abi:ne200100](uint64_t *result)
 {
-  v2 = *a1;
-  for (i = a1[1]; i != v2; i -= 16)
+  v2 = *result;
+  for (i = result[1]; i != v2; i -= 16)
   {
     v4 = *(i - 8);
     if (v4)
@@ -5641,7 +5643,7 @@ void std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::clear[ab
     }
   }
 
-  a1[1] = v2;
+  result[1] = v2;
 }
 
 void std::__shared_weak_count::__release_shared[abi:ne200100](std::__shared_weak_count *a1)
@@ -5654,24 +5656,24 @@ void std::__shared_weak_count::__release_shared[abi:ne200100](std::__shared_weak
   }
 }
 
-uint64_t CoreRecognition::decoder::AdditiveCombiningBeamScorer<CoreRecognition::decoder::CombinedBeamState>::initializeState(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t CoreRecognition::decoder::AdditiveCombiningBeamScorer<CoreRecognition::decoder::CombinedBeamState>::initializeState(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (result != a2)
   {
-    v4 = (*(**result + 16))();
-    v5 = v4;
+    v5 = (*(**result + 16))();
+    v6 = v5;
     if (*(a3 + 24) < *(a3 + 32))
     {
-      std::shared_ptr<CoreRecognition::decoder::BaseState>::shared_ptr[abi:ne200100]<CoreRecognition::decoder::BaseState,0>(*(a3 + 24), v4);
+      std::shared_ptr<CoreRecognition::decoder::BaseState>::shared_ptr[abi:ne200100]<CoreRecognition::decoder::BaseState,0>(*(a3 + 24), v5);
     }
 
-    std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__emplace_back_slow_path<CoreRecognition::decoder::BaseState*>((a3 + 16), &v5);
+    std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__emplace_back_slow_path<CoreRecognition::decoder::BaseState*>((a3 + 16), &v6);
   }
 
   return result;
 }
 
-void std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__emplace_back_slow_path<CoreRecognition::decoder::BaseState*>(void *a1, uint64_t *a2)
+void std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__emplace_back_slow_path<CoreRecognition::decoder::BaseState*>(const void **a1, uint64_t *a2)
 {
   v2 = (a1[1] - *a1) >> 4;
   v3 = v2 + 1;
@@ -5704,9 +5706,9 @@ void std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__emplac
   std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
 }
 
-void sub_1B42999E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B42999E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::shared_ptr<CoreRecognition::decoder::BaseState>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5789,28 +5791,28 @@ uint64_t std::__split_buffer<std::shared_ptr<CoreRecognition::decoder::BaseState
   return a1;
 }
 
-double CoreRecognition::decoder::AdditiveCombiningBeamScorer<CoreRecognition::decoder::CombinedBeamState>::expandState(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+double CoreRecognition::decoder::AdditiveCombiningBeamScorer<CoreRecognition::decoder::CombinedBeamState>::expandState(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v5 = *(a1 + 24);
-  if (v5 != *(a1 + 32))
+  v6 = *(a1 + 24);
+  if (v6 != *(a1 + 32))
   {
-    v6 = (*(**v5 + 16))();
-    v9 = v6;
+    v7 = (*(**v6 + 16))(*v6, a2, a3, a4, a5);
+    v10 = v7;
     if (*(a4 + 24) < *(a4 + 32))
     {
-      std::shared_ptr<CoreRecognition::decoder::BaseState>::shared_ptr[abi:ne200100]<CoreRecognition::decoder::BaseState,0>(*(a4 + 24), v6);
+      std::shared_ptr<CoreRecognition::decoder::BaseState>::shared_ptr[abi:ne200100]<CoreRecognition::decoder::BaseState,0>(*(a4 + 24), v7);
     }
 
-    std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__emplace_back_slow_path<CoreRecognition::decoder::BaseState*>((a4 + 16), &v9);
+    std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__emplace_back_slow_path<CoreRecognition::decoder::BaseState*>((a4 + 16), &v10);
   }
 
-  v7 = *(a1 + 16);
-  if (v7 <= 0.0)
+  v8 = *(a1 + 16);
+  if (v8 <= 0.0)
   {
-    v7 = 0.0;
+    v8 = 0.0;
   }
 
-  result = *(a1 + 8) * v7;
+  result = *(a1 + 8) * v8;
   *(a4 + 8) = result;
   return result;
 }
@@ -6360,6 +6362,23 @@ void CoreRecognition::decoder::CTCBeamSearchDecoder<CoreRecognition::decoder::Ad
   std::vector<std::unique_ptr<CoreRecognition::decoder::BaseBeamScorer>>::__destroy_vector::operator()[abi:ne200100](&v1);
 
   JUMPOUT(0x1B8C73EF0);
+}
+
+uint64_t CoreRecognition::decoder::CTCBeamSearchDecoder<CoreRecognition::decoder::AdditiveCombiningBeamScorer<CoreRecognition::decoder::CombinedBeamState>,CoreRecognition::decoder::SpaceSegmentedPathBuilder<CoreRecognition::decoder::CombinedBeamState>>::~CTCBeamSearchDecoder(uint64_t a1)
+{
+  *a1 = &unk_1F2BAFA90;
+  *(a1 + 64) = &unk_1F2BAF988;
+  v2 = *(a1 + 80);
+  if (v2)
+  {
+    *(a1 + 88) = v2;
+    operator delete(v2);
+  }
+
+  *(a1 + 16) = &unk_1F2BAF8F0;
+  v4 = (a1 + 40);
+  std::vector<std::unique_ptr<CoreRecognition::decoder::BaseBeamScorer>>::__destroy_vector::operator()[abi:ne200100](&v4);
+  return a1;
 }
 
 void CoreRecognition::decoder::CTCBeamSearchDecoder<CoreRecognition::decoder::AdditiveCombiningBeamScorer<CoreRecognition::decoder::CombinedBeamState>,CoreRecognition::decoder::SpaceSegmentedPathBuilder<CoreRecognition::decoder::CombinedBeamState>>::~CTCBeamSearchDecoder(uint64_t a1)
@@ -6960,9 +6979,9 @@ void CoreRecognition::decoder::LSTMCharLMBeamScorer<CoreRecognition::decoder::LS
   }
 }
 
-void sub_1B429B4CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B429B4CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<CVNLPLanguageModelWithState *>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
@@ -7004,9 +7023,9 @@ double CoreRecognition::decoder::LSTMCharLMBeamScorer<CoreRecognition::decoder::
   return v10;
 }
 
-void sub_1B429B5B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B429B5B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::StringRef::~StringRef(va);
   _Unwind_Resume(a1);
 }
@@ -7084,7 +7103,7 @@ void sub_1B429B794(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::back_insert_iterator<std::vector<unsigned int>>::operator=[abi:ne200100](uint64_t *a1, _DWORD *a2)
+uint64_t *std::back_insert_iterator<std::vector<unsigned int>>::operator=[abi:ne200100](uint64_t *a1, int *a2)
 {
   v4 = *a1;
   v6 = *(*a1 + 8);
@@ -7318,7 +7337,7 @@ uint64_t std::__split_buffer<applesauce::CF::ObjectRef<_LXLexicon const*>>::~__s
   return a1;
 }
 
-void std::vector<applesauce::CF::ObjectRef<_LXLexicon const*>>::__init_with_size[abi:ne200100]<applesauce::CF::ObjectRef<_LXLexicon const*>*,applesauce::CF::ObjectRef<_LXLexicon const*>*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<applesauce::CF::ObjectRef<_LXLexicon const*>>::__init_with_size[abi:ne200100]<applesauce::CF::ObjectRef<_LXLexicon const*>*,applesauce::CF::ObjectRef<_LXLexicon const*>*>(uint64_t result, CFTypeRef *a2, CFTypeRef *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7532,10 +7551,10 @@ void sub_1B429C0C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-double CoreRecognition::decoder::LexiconBeamScorer<CoreRecognition::decoder::LexiconState>::expandState(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+double CoreRecognition::decoder::LexiconBeamScorer<CoreRecognition::decoder::LexiconState>::expandState(void *a1, double *a2, uint64_t a3, double *a4, uint64_t a5)
 {
-  *(a4 + 8) = 0;
-  *(a4 + 40) = *(a2 + 40);
+  a4[1] = 0.0;
+  a4[5] = a2[5];
   if (a1[10] == a5)
   {
     if (a4 == a2)
@@ -7543,19 +7562,19 @@ double CoreRecognition::decoder::LexiconBeamScorer<CoreRecognition::decoder::Lex
       return 0.0;
     }
 
-    v8 = (a4 + 16);
-    v7 = *(a4 + 16);
-    v10 = *(a2 + 16);
-    v9 = *(a2 + 24);
+    v8 = (a4 + 2);
+    v7 = *(a4 + 2);
+    v10 = *(a2 + 2);
+    v9 = *(a2 + 3);
     v11 = v9 - v10;
-    v12 = *(a4 + 32);
+    v12 = *(a4 + 4);
     if (v12 - v7 < v9 - v10)
     {
       v13 = v11 >> 3;
       if (v7)
       {
-        v14 = *(a4 + 24);
-        v15 = *(a4 + 16);
+        v14 = *(a4 + 3);
+        v15 = *(a4 + 2);
         if (v14 != v7)
         {
           do
@@ -7569,12 +7588,12 @@ double CoreRecognition::decoder::LexiconBeamScorer<CoreRecognition::decoder::Lex
           v15 = *v8;
         }
 
-        *(a4 + 24) = v7;
+        *(a4 + 3) = v7;
         operator delete(v15);
         v12 = 0;
         *v8 = 0;
-        *(a4 + 24) = 0;
-        *(a4 + 32) = 0;
+        a4[3] = 0.0;
+        a4[4] = 0.0;
       }
 
       if (!(v13 >> 61))
@@ -7604,34 +7623,34 @@ double CoreRecognition::decoder::LexiconBeamScorer<CoreRecognition::decoder::Lex
       std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
     }
 
-    v49 = *(a4 + 24) - v7;
+    v49 = *(a4 + 3) - v7;
     if (v49 >= v11)
     {
-      v76 = std::__copy_impl::operator()[abi:ne200100]<applesauce::CF::ObjectRef<_LXCursor const*> *,applesauce::CF::ObjectRef<_LXCursor const*> *,applesauce::CF::ObjectRef<_LXCursor const*> *>(*(a2 + 16), *(a2 + 24), *(a4 + 16));
-      for (i = *(a4 + 24); i != v76; --i)
+      v76 = std::__copy_impl::operator()[abi:ne200100]<applesauce::CF::ObjectRef<_LXCursor const*> *,applesauce::CF::ObjectRef<_LXCursor const*> *,applesauce::CF::ObjectRef<_LXCursor const*> *>(*(a2 + 2), *(a2 + 3), *(a4 + 2));
+      for (i = *(a4 + 3); i != v76; --i)
       {
         v78 = *(i - 1);
         std::allocator<applesauce::CF::ObjectRef<_LXCursor const*>>::destroy[abi:ne200100](v78);
       }
 
-      *(a4 + 24) = v76;
+      *(a4 + 3) = v76;
     }
 
     else
     {
       v50 = (v10 + v49);
-      std::__copy_impl::operator()[abi:ne200100]<applesauce::CF::ObjectRef<_LXCursor const*> *,applesauce::CF::ObjectRef<_LXCursor const*> *,applesauce::CF::ObjectRef<_LXCursor const*> *>(*(a2 + 16), (v10 + v49), *(a4 + 16));
-      v51 = *(a4 + 24);
+      std::__copy_impl::operator()[abi:ne200100]<applesauce::CF::ObjectRef<_LXCursor const*> *,applesauce::CF::ObjectRef<_LXCursor const*> *,applesauce::CF::ObjectRef<_LXCursor const*> *>(*(a2 + 2), (v10 + v49), *(a4 + 2));
+      v51 = *(a4 + 3);
       while (v50 != v9)
       {
         v52 = *v50++;
         std::allocator<applesauce::CF::ObjectRef<_LXCursor const*>>::construct[abi:ne200100]<applesauce::CF::ObjectRef<_LXCursor const*>,applesauce::CF::ObjectRef<_LXCursor const*>&>(v51++, v52);
       }
 
-      *(a4 + 24) = v51;
+      *(a4 + 3) = v51;
     }
 
-    return *(a4 + 8);
+    return a4[1];
   }
 
   v20 = a1;
@@ -7670,12 +7689,12 @@ double CoreRecognition::decoder::LexiconBeamScorer<CoreRecognition::decoder::Lex
   if (v20[9] != a5 && !MEMORY[0x1B8C736C0](cf))
   {
     v94 = v20;
-    v53 = *(a2 + 16);
-    v54 = *(a2 + 24);
+    v53 = *(a2 + 2);
+    v54 = *(a2 + 3);
     if (v53 != v54)
     {
-      v55 = (a4 + 16);
-      v95 = *(a2 + 24);
+      v55 = (a4 + 2);
+      v95 = *(a2 + 3);
       do
       {
         v56 = *v53;
@@ -7692,8 +7711,8 @@ double CoreRecognition::decoder::LexiconBeamScorer<CoreRecognition::decoder::Lex
           goto LABEL_73;
         }
 
-        v60 = *(a4 + 24);
-        v59 = *(a4 + 32);
+        v60 = *(a4 + 3);
+        v59 = *(a4 + 4);
         if (v60 >= v59)
         {
           v61 = v60 - *v55;
@@ -7719,7 +7738,7 @@ double CoreRecognition::decoder::LexiconBeamScorer<CoreRecognition::decoder::Lex
             v64 = v63;
           }
 
-          v104 = a4 + 16;
+          v104 = a4 + 2;
           if (v64)
           {
             std::__allocate_at_least[abi:ne200100]<std::allocator<applesauce::CF::ObjectRef<_LXLexicon const*>>>(v64);
@@ -7728,14 +7747,14 @@ double CoreRecognition::decoder::LexiconBeamScorer<CoreRecognition::decoder::Lex
           CFRetain(v58);
           v65 = (8 * v61);
           *v65 = v58;
-          v67 = *(a4 + 16);
-          v66 = *(a4 + 24);
+          v67 = *(a4 + 2);
+          v66 = *(a4 + 3);
           v68 = v65 + v67 - v66;
           if (v67 != v66)
           {
             v97 = (v65 + v67 - v66);
             v69 = v97;
-            v70 = *(a4 + 16);
+            v70 = *(a4 + 2);
             do
             {
               *v69++ = *v70;
@@ -7757,16 +7776,16 @@ double CoreRecognition::decoder::LexiconBeamScorer<CoreRecognition::decoder::Lex
           }
 
           v72 = v65 + 1;
-          *(a4 + 16) = v68;
-          *(a4 + 24) = v72;
-          v73 = *(a4 + 32);
-          *(a4 + 32) = 0;
+          *(a4 + 2) = v68;
+          *(a4 + 3) = v72;
+          v73 = *(a4 + 4);
+          a4[4] = 0.0;
           v102 = v67;
           v103 = v73;
           v100 = v67;
           v101 = v67;
           std::__split_buffer<applesauce::CF::ObjectRef<_LXCursor const*>>::~__split_buffer(&v100);
-          *(a4 + 24) = v72;
+          *(a4 + 3) = v72;
           v54 = v95;
           if (!v58)
           {
@@ -7778,7 +7797,7 @@ double CoreRecognition::decoder::LexiconBeamScorer<CoreRecognition::decoder::Lex
         {
           CFRetain(v57);
           *v60 = v58;
-          *(a4 + 24) = v60 + 1;
+          *(a4 + 3) = v60 + 1;
         }
 
         CFRelease(v58);
@@ -7807,8 +7826,8 @@ LABEL_119:
       goto LABEL_105;
     }
 
-    v79 = *(a4 + 16);
-    v80 = *(a4 + 24);
+    v79 = *(a4 + 2);
+    v80 = *(a4 + 3);
     if (v79 == v80)
     {
       v74 = &CoreRecognition::decoder::LexiconBeamScorer<CoreRecognition::decoder::LexiconState>::expandState(CoreRecognition::decoder::LexiconState const*,unsigned long,CoreRecognition::decoder::LexiconState*,unsigned long)const::WORD_MIN_LOG_PROB;
@@ -7821,21 +7840,21 @@ LABEL_105:
       v82 = *v74;
 LABEL_106:
       v89 = v94[2];
-      v90 = *(a4 + 40);
+      v90 = a4[5];
       v91 = v89 - v90;
       if (v82 >= v89 - v90)
       {
         v91 = v82;
       }
 
-      *(a4 + 40) = v90 + v91;
+      a4[5] = v90 + v91;
       if (v89 <= v91)
       {
         v89 = v91;
       }
 
       v48 = v94[1] * v89;
-      *(a4 + 8) = v48;
+      a4[1] = v48;
       goto LABEL_111;
     }
 
@@ -7910,14 +7929,14 @@ LABEL_101:
   v29 = v20[4];
   if (v30 != v29)
   {
-    v31 = (a4 + 16);
+    v31 = (a4 + 2);
     v96 = v29;
     do
     {
       RootCursor = LXLexiconCreateRootCursor();
       v33 = RootCursor;
-      v35 = *(a4 + 24);
-      v34 = *(a4 + 32);
+      v35 = *(a4 + 3);
+      v34 = *(a4 + 4);
       if (v35 >= v34)
       {
         v36 = *v31;
@@ -7944,7 +7963,7 @@ LABEL_101:
           v40 = v38;
         }
 
-        v104 = a4 + 16;
+        v104 = a4 + 2;
         if (v40)
         {
           std::__allocate_at_least[abi:ne200100]<std::allocator<applesauce::CF::ObjectRef<_LXLexicon const*>>>(v40);
@@ -7975,23 +7994,23 @@ LABEL_101:
           v36 = *v31;
         }
 
-        *(a4 + 16) = v43;
-        *(a4 + 24) = v42 + 1;
-        v47 = *(a4 + 32);
-        *(a4 + 32) = 0;
+        *(a4 + 2) = v43;
+        *(a4 + 3) = v42 + 1;
+        v47 = *(a4 + 4);
+        a4[4] = 0.0;
         v102 = v36;
         v103 = v47;
         v100 = v36;
         v101 = v36;
         std::__split_buffer<applesauce::CF::ObjectRef<_LXCursor const*>>::~__split_buffer(&v100);
-        *(a4 + 24) = v42 + 1;
+        *(a4 + 3) = v42 + 1;
         v29 = v96;
       }
 
       else
       {
         *v35 = RootCursor;
-        *(a4 + 24) = v35 + 1;
+        *(a4 + 3) = v35 + 1;
       }
 
       v30 += 8;
@@ -8000,8 +8019,8 @@ LABEL_101:
     while (v30 != v29);
   }
 
-  *(a4 + 40) = 0;
-  v48 = *(a4 + 8);
+  a4[5] = 0.0;
+  v48 = a4[1];
 LABEL_111:
   if (cf)
   {
@@ -8446,7 +8465,7 @@ void CoreRecognition::decoder::WordLMBeamScorer<CoreRecognition::decoder::WordLM
 {
   v7 = a2[5];
   v8 = a2[6];
-  v6 = (a2 + 5);
+  v6 = a2 + 5;
   if (v7 != v8)
   {
     if (*(a1 + 64) != a3)
@@ -8776,10 +8795,11 @@ void sub_1B429D7C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ___ZNK15CoreRecognition7decoder16WordLMBeamScorerINS0_11WordLMStateEE32queryLanguageModelAndUpdateStateEPS2_m_block_invoke(uint64_t a1, void *a2, int TokenIDForString)
+void ___ZNK15CoreRecognition7decoder16WordLMBeamScorerINS0_11WordLMStateEE32queryLanguageModelAndUpdateStateEPS2_m_block_invoke(uint64_t a1, void *a2, uint64_t TokenIDForString)
 {
+  v3 = TokenIDForString;
   v22 = a2;
-  if (TokenIDForString || ([v22 lowercaseString], v5 = objc_claimAutoreleasedReturnValue(), TokenIDForString = LMLanguageModelGetTokenIDForString(), v5, TokenIDForString))
+  if (v3 || ([v22 lowercaseString], v5 = objc_claimAutoreleasedReturnValue(), v3 = LMLanguageModelGetTokenIDForString(), v5, v3))
   {
     LMLanguageModelConditionalProbability();
     if (v6 < *(a1 + 56))
@@ -8829,7 +8849,7 @@ void ___ZNK15CoreRecognition7decoder16WordLMBeamScorerINS0_11WordLMStateEE32quer
     v18 = (v9 - v11) >> 2;
     v19 = (4 * v13);
     v20 = (4 * v13 - 4 * v18);
-    *v19 = TokenIDForString;
+    *v19 = v3;
     v10 = v19 + 1;
     memcpy(v20, v11, v12);
     v21 = v7[2];
@@ -8844,14 +8864,14 @@ void ___ZNK15CoreRecognition7decoder16WordLMBeamScorerINS0_11WordLMStateEE32quer
 
   else
   {
-    *v9 = TokenIDForString;
+    *v9 = v3;
     v10 = v9 + 4;
   }
 
   v7[3] = v10;
 }
 
-void *std::vector<std::unique_ptr<CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState>>>::reserve(void *result, unint64_t a2)
+const void **std::vector<std::unique_ptr<CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState>>>::reserve(const void **result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 3)
   {
@@ -8866,7 +8886,7 @@ void *std::vector<std::unique_ptr<CoreRecognition::decoder::BeamEntry<CoreRecogn
   return result;
 }
 
-void *std::vector<CoreRecognition::decoder::DecodingPath>::reserve(void *result, unint64_t a2)
+void **std::vector<CoreRecognition::decoder::DecodingPath>::reserve(void **result, unint64_t a2)
 {
   if (0xCCCCCCCCCCCCCCCDLL * ((result[2] - *result) >> 3) < a2)
   {
@@ -8881,16 +8901,16 @@ void *std::vector<CoreRecognition::decoder::DecodingPath>::reserve(void *result,
   return result;
 }
 
-void sub_1B429DB5C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B429DB5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<CoreRecognition::decoder::DecodingPath>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState> *,std::allocator<CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState> *>>::reserve(void *result, unint64_t a2)
+void std::vector<CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState> *,std::allocator<CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState> *>>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
@@ -8899,8 +8919,6 @@ void *std::vector<CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::
 
     std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 uint64_t CoreRecognition::decoder::BeamSearchState<CoreRecognition::decoder::CombinedBeamState>::~BeamSearchState(uint64_t a1)
@@ -8913,7 +8931,7 @@ uint64_t CoreRecognition::decoder::BeamSearchState<CoreRecognition::decoder::Com
   return a1;
 }
 
-void CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState>::getReversePrefix(void *a1)
+void CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState>::getReversePrefix(const void **a1, void *a2)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -8957,7 +8975,7 @@ uint64_t CoreRecognition::decoder::BeamSearchState<CoreRecognition::decoder::Com
   return a1;
 }
 
-void sub_1B429DE9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_1B429DE9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   std::vector<CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState>>::__destroy_vector::operator()[abi:ne200100](&a9);
   std::vector<std::unique_ptr<CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState>>>::__destroy_vector::operator()[abi:ne200100](&a9);
@@ -9151,9 +9169,9 @@ uint64_t std::__split_buffer<std::unique_ptr<CoreRecognition::decoder::BeamEntry
   return a1;
 }
 
-void *std::__tree<std::__value_type<std::vector<unsigned long>,CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState> *>,std::__map_value_compare<std::vector<unsigned long>,std::__value_type<std::vector<unsigned long>,CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState> *>,std::less<std::vector<unsigned long>>,true>,std::allocator<std::__value_type<std::vector<unsigned long>,CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState> *>>>::__emplace_unique_key_args<std::vector<unsigned long>,std::vector<unsigned long>,CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState> *&>(uint64_t a1, void *a2, void *a3)
+uint64_t *std::__tree<std::__value_type<std::vector<unsigned long>,CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState> *>,std::__map_value_compare<std::vector<unsigned long>,std::__value_type<std::vector<unsigned long>,CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState> *>,std::less<std::vector<unsigned long>>,true>,std::allocator<std::__value_type<std::vector<unsigned long>,CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState> *>>>::__emplace_unique_key_args<std::vector<unsigned long>,std::vector<unsigned long>,CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState> *&>(uint64_t **a1, void *a2, void *a3, uint64_t a4, uint64_t *a5)
 {
-  result = std::__tree<std::__value_type<std::vector<unsigned long>,CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState> *>,std::__map_value_compare<std::vector<unsigned long>,std::__value_type<std::vector<unsigned long>,CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState> *>,std::less<std::vector<unsigned long>>,true>,std::allocator<std::__value_type<std::vector<unsigned long>,CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState> *>>>::__find_equal<std::vector<unsigned long>>(a1, &v4, a2, a3);
+  result = std::__tree<std::__value_type<std::vector<unsigned long>,CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState> *>,std::__map_value_compare<std::vector<unsigned long>,std::__value_type<std::vector<unsigned long>,CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState> *>,std::less<std::vector<unsigned long>>,true>,std::allocator<std::__value_type<std::vector<unsigned long>,CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState> *>>>::__find_equal<std::vector<unsigned long>>(a1, &v6, a2, a3);
   if (!*result)
   {
     operator new();
@@ -9252,23 +9270,21 @@ BOOL std::less<std::vector<unsigned long>>::operator()[abi:ne200100](void *a1, v
   return *a1 < *a3;
 }
 
-void *CoreRecognition::decoder::ActivationPruning::pruneActivations(void *result, uint64_t a2)
+void CoreRecognition::decoder::ActivationPruning::pruneActivations(uint64_t *a1, uint64_t a2, uint64_t a3, float **a4)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  v2 = *(a2 + 8);
-  if (v2)
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  v4 = *(a2 + 8);
+  if (v4)
   {
-    if (!(v2 >> 60))
+    if (!(v4 >> 60))
     {
       operator new();
     }
 
     std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 uint64_t CoreRecognition::decoder::BeamSearchQueue<CoreRecognition::decoder::CombinedBeamState>::getFreeCandidate(uint64_t a1)
@@ -9363,67 +9379,66 @@ uint64_t CoreRecognition::decoder::BeamSearchQueue<CoreRecognition::decoder::Com
   return v7 - 104;
 }
 
-void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void>,std::__wrap_iter<CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState> *>>(uint64_t a1, uint64_t a2, uint64_t a3)
+void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void>,std::__wrap_iter<CoreRecognition::decoder::BeamEntry<CoreRecognition::decoder::CombinedBeamState> *>>(__int128 *a1, uint64_t a2, uint64_t a3)
 {
   if (a3 >= 2)
   {
     v30[11] = v3;
     v30[12] = v4;
     v8 = 0;
-    v25 = *(a1 + 32);
-    v26 = *(a1 + 48);
+    v25 = a1[2];
+    v26 = a1[3];
     v23 = *a1;
-    v24 = *(a1 + 16);
-    v27 = *(a1 + 72);
-    v28 = *(a1 + 80);
-    v29 = *(a1 + 96);
-    *(a1 + 88) = 0;
-    *(a1 + 96) = 0;
-    *(a1 + 80) = 0;
+    v24 = a1[1];
+    v27 = *(a1 + 9);
+    v28 = a1[5];
+    v29 = *(a1 + 12);
+    *(a1 + 88) = 0uLL;
+    *(a1 + 10) = 0;
     v9 = (a3 - 2) >> 1;
     v10 = a1;
     do
     {
       v11 = v10;
-      v10 += 104 * v8 + 104;
+      v10 = (v10 + 104 * v8 + 104);
       v12 = 2 * v8;
       v8 = (2 * v8) | 1;
       v13 = v12 + 2;
-      if (v13 < a3 && *(v10 + 32) + *(v10 + 48) > *(v10 + 136) + *(v10 + 152))
+      if (v13 < a3 && *(v10 + 4) + *(v10 + 6) > *(v10 + 17) + *(v10 + 19))
       {
-        v10 += 104;
+        v10 = (v10 + 104);
         v8 = v13;
       }
 
       v14 = *v10;
-      v15 = *(v10 + 16);
-      v16 = *(v10 + 48);
-      *(v11 + 32) = *(v10 + 32);
-      *(v11 + 48) = v16;
+      v15 = v10[1];
+      v16 = v10[3];
+      v11[2] = v10[2];
+      v11[3] = v16;
       *v11 = v14;
-      *(v11 + 16) = v15;
-      *(v11 + 72) = *(v10 + 72);
-      std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__vdeallocate((v11 + 80));
-      v17 = (v10 + 80);
-      *(v11 + 80) = *(v10 + 80);
-      *(v11 + 96) = *(v10 + 96);
-      *(v10 + 80) = 0;
-      *(v10 + 88) = 0;
-      *(v10 + 96) = 0;
+      v11[1] = v15;
+      *(v11 + 9) = *(v10 + 9);
+      std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__vdeallocate(v11 + 10);
+      v17 = (v10 + 5);
+      v11[5] = v10[5];
+      *(v11 + 12) = *(v10 + 12);
+      *(v10 + 10) = 0;
+      *(v10 + 11) = 0;
+      *(v10 + 12) = 0;
     }
 
     while (v8 <= v9);
     v18 = (a2 - 104);
-    if (a2 - 104 == v10)
+    if ((a2 - 104) == v10)
     {
-      *(v10 + 32) = v25;
-      *(v10 + 48) = v26;
+      v10[2] = v25;
+      v10[3] = v26;
       *v10 = v23;
-      *(v10 + 16) = v24;
-      *(v10 + 72) = v27;
+      v10[1] = v24;
+      *(v10 + 9) = v27;
       std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__vdeallocate(v17);
-      *(v10 + 80) = v28;
-      *(v10 + 96) = v29;
+      v10[5] = v28;
+      *(v10 + 12) = v29;
       v28 = 0uLL;
       v29 = 0;
     }
@@ -9433,15 +9448,15 @@ void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void>,std
       v19 = *v18;
       v20 = *(a2 - 88);
       v21 = *(a2 - 56);
-      *(v10 + 32) = *(a2 - 72);
-      *(v10 + 48) = v21;
+      v10[2] = *(a2 - 72);
+      v10[3] = v21;
       *v10 = v19;
-      *(v10 + 16) = v20;
-      *(v10 + 72) = *(a2 - 32);
+      v10[1] = v20;
+      *(v10 + 9) = *(a2 - 32);
       std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__vdeallocate(v17);
       v22 = (a2 - 24);
-      *(v10 + 80) = *(a2 - 24);
-      *(v10 + 96) = *(a2 - 8);
+      v10[5] = *(a2 - 24);
+      *(v10 + 12) = *(a2 - 8);
       *v22 = 0;
       v22[1] = 0;
       v22[2] = 0;
@@ -9529,7 +9544,7 @@ void std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void> &,st
   }
 }
 
-void std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__vdeallocate(uint64_t *a1)
+void std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__vdeallocate(void **a1)
 {
   if (*a1)
   {
@@ -9541,15 +9556,15 @@ void std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__vdeall
   }
 }
 
-void std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__assign_with_size[abi:ne200100]<std::shared_ptr<CoreRecognition::decoder::BaseState>*,std::shared_ptr<CoreRecognition::decoder::BaseState>*>(uint64_t *a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
+void std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__assign_with_size[abi:ne200100]<std::shared_ptr<CoreRecognition::decoder::BaseState>*,std::shared_ptr<CoreRecognition::decoder::BaseState>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   v7 = *a1;
-  if (a4 > (a1[2] - *a1) >> 4)
+  if (a4 > (*(a1 + 16) - *a1) >> 4)
   {
     std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__vdeallocate(a1);
     if (!(a4 >> 60))
     {
-      v8 = a1[2] - *a1;
+      v8 = *(a1 + 16) - *a1;
       v9 = v8 >> 3;
       if (v8 >> 3 <= a4)
       {
@@ -9572,11 +9587,11 @@ void std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__assign
     std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
   }
 
-  v11 = a1[1] - v7;
+  v11 = *(a1 + 8) - v7;
   if (a4 <= v11 >> 4)
   {
     v15 = std::__copy_impl::operator()[abi:ne200100]<std::shared_ptr<CoreRecognition::decoder::BaseState> *,std::shared_ptr<CoreRecognition::decoder::BaseState> *,std::shared_ptr<CoreRecognition::decoder::BaseState> *>(a2, a3, v7);
-    for (i = a1[1]; i != v15; i -= 2)
+    for (i = *(a1 + 8); i != v15; i -= 2)
     {
       v17 = *(i - 1);
       if (v17)
@@ -9585,14 +9600,14 @@ void std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__assign
       }
     }
 
-    a1[1] = v15;
+    *(a1 + 8) = v15;
   }
 
   else
   {
     v12 = (a2 + v11);
     std::__copy_impl::operator()[abi:ne200100]<std::shared_ptr<CoreRecognition::decoder::BaseState> *,std::shared_ptr<CoreRecognition::decoder::BaseState> *,std::shared_ptr<CoreRecognition::decoder::BaseState> *>(a2, (a2 + v11), v7);
-    for (j = a1[1]; v12 != a3; j += 2)
+    for (j = *(a1 + 8); v12 != a3; j += 2)
     {
       v14 = v12[1];
       *j = *v12;
@@ -9605,11 +9620,11 @@ void std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__assign
       v12 += 2;
     }
 
-    a1[1] = j;
+    *(a1 + 8) = j;
   }
 }
 
-void std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -9619,7 +9634,7 @@ void std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__valloc
   std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::__copy_impl::operator()[abi:ne200100]<std::shared_ptr<CoreRecognition::decoder::BaseState> *,std::shared_ptr<CoreRecognition::decoder::BaseState> *,std::shared_ptr<CoreRecognition::decoder::BaseState> *>(uint64_t *a1, uint64_t *a2, void *a3)
+uint64_t *std::__copy_impl::operator()[abi:ne200100]<std::shared_ptr<CoreRecognition::decoder::BaseState> *,std::shared_ptr<CoreRecognition::decoder::BaseState> *,std::shared_ptr<CoreRecognition::decoder::BaseState> *>(uint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
   if (a1 != a2)
   {
@@ -9816,7 +9831,7 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,CoreRecognition::
   return result;
 }
 
-uint64_t std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__init_with_size[abi:ne200100]<std::shared_ptr<CoreRecognition::decoder::BaseState>*,std::shared_ptr<CoreRecognition::decoder::BaseState>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::shared_ptr<CoreRecognition::decoder::BaseState>>::__init_with_size[abi:ne200100]<std::shared_ptr<CoreRecognition::decoder::BaseState>*,std::shared_ptr<CoreRecognition::decoder::BaseState>*>(uint64_t *result, void *a2, void *a3, unint64_t a4)
 {
   if (a4)
   {

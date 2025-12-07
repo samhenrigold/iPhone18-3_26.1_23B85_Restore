@@ -39,9 +39,9 @@
 
 - (id)_init
 {
-  v11.receiver = self;
-  v11.super_class = BCJSConfiguration;
-  v2 = [(BCJSConfiguration *)&v11 init];
+  v12.receiver = self;
+  v12.super_class = BCJSConfiguration;
+  v2 = [(BCJSConfiguration *)&v12 init];
   v3 = v2;
   if (v2)
   {
@@ -57,21 +57,21 @@
 
     if (v3->_overrideAlgorithm)
     {
-      v7 = BCJSConfigurationLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v8 = BCJSConfigurationLog(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        *v10 = 0;
-        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "Using overridden values for recent book algorithm.", v10, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "Using overridden values for recent book algorithm.", v11, 2u);
       }
     }
 
     if (v3->_overridePercentage)
     {
-      v8 = BCJSConfigurationLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v9 = BCJSConfigurationLog(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        *v10 = 0;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "Using overridden values for mark finished percentage.", v10, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "Using overridden values for mark finished percentage.", v11, 2u);
       }
     }
   }
@@ -82,7 +82,7 @@
 - (void)updateConfiguration:(id)configuration
 {
   configurationCopy = configuration;
-  v5 = BCJSConfigurationLog();
+  v5 = BCJSConfigurationLog(configurationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf) = 138543362;
@@ -116,7 +116,7 @@
 - (void)addObserver:(id)observer
 {
   observerCopy = observer;
-  v5 = BCJSConfigurationLog();
+  v5 = BCJSConfigurationLog(observerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_1E741C();
@@ -137,7 +137,7 @@
 - (void)removeObserver:(id)observer
 {
   observerCopy = observer;
-  v5 = BCJSConfigurationLog();
+  v5 = BCJSConfigurationLog(observerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_1E7484();
@@ -150,7 +150,7 @@
 - (void)_notifyObservers:(id)observers
 {
   observersCopy = observers;
-  v5 = BCJSConfigurationLog();
+  v5 = BCJSConfigurationLog(observersCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_1E74EC(v5);
@@ -201,7 +201,7 @@
     {
       [v4 doubleValue];
       v6 = [NSNumber numberWithDouble:v7 / 100.0];
-      v8 = BCJSConfigurationLog();
+      v8 = BCJSConfigurationLog(v6);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         sub_1E7530();
@@ -219,21 +219,21 @@
 
 - (NSDate)oldestDateToAvoidPurgeOfBooks
 {
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = sub_81710;
-  v25 = sub_81720;
-  v26 = 0;
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v17 = sub_81E4C;
-  v18 = &unk_2C7AE0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = sub_81710;
+  v26 = sub_81720;
+  v27 = 0;
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v18 = sub_81E4C;
+  v19 = &unk_2C7AE0;
   selfCopy = self;
-  v20 = &v21;
-  v3 = v16;
+  v21 = &v22;
+  v3 = v17;
   os_unfair_lock_lock(&self->_accessLock);
-  v17(v3);
+  v18(v3);
   os_unfair_lock_unlock(&self->_accessLock);
 
   v4 = +[NSUserDefaults standardUserDefaults];
@@ -254,48 +254,48 @@
   {
     [v5 doubleValue];
     v8 = [NSNumber numberWithDouble:?];
-    v9 = v22[5];
-    v22[5] = v8;
+    v9 = v23[5];
+    v23[5] = v8;
 
-    v10 = BCJSConfigurationLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = BCJSConfigurationLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       sub_1E7598();
     }
   }
 
-  v11 = +[NSDate distantPast];
-  v12 = v22[5];
-  if (v12)
+  v12 = +[NSDate distantPast];
+  v13 = v23[5];
+  if (v13)
   {
-    [v12 doubleValue];
-    v14 = [NSDate dateWithTimeIntervalSinceNow:v13 * 60.0 * -60.0];
+    [v13 doubleValue];
+    v15 = [NSDate dateWithTimeIntervalSinceNow:v14 * 60.0 * -60.0];
 
-    v11 = v14;
+    v12 = v15;
   }
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v22, 8);
 
-  return v11;
+  return v12;
 }
 
 - (NSDate)oldestDateToAvoidPurgeOfSamples
 {
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = sub_81710;
-  v25 = sub_81720;
-  v26 = 0;
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v17 = sub_82114;
-  v18 = &unk_2C7AE0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = sub_81710;
+  v26 = sub_81720;
+  v27 = 0;
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v18 = sub_82114;
+  v19 = &unk_2C7AE0;
   selfCopy = self;
-  v20 = &v21;
-  v3 = v16;
+  v21 = &v22;
+  v3 = v17;
   os_unfair_lock_lock(&self->_accessLock);
-  v17(v3);
+  v18(v3);
   os_unfair_lock_unlock(&self->_accessLock);
 
   v4 = +[NSUserDefaults standardUserDefaults];
@@ -316,29 +316,29 @@
   {
     [v5 doubleValue];
     v8 = [NSNumber numberWithDouble:?];
-    v9 = v22[5];
-    v22[5] = v8;
+    v9 = v23[5];
+    v23[5] = v8;
 
-    v10 = BCJSConfigurationLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = BCJSConfigurationLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       sub_1E7598();
     }
   }
 
-  v11 = +[NSDate distantPast];
-  v12 = v22[5];
-  if (v12)
+  v12 = +[NSDate distantPast];
+  v13 = v23[5];
+  if (v13)
   {
-    [v12 doubleValue];
-    v14 = [NSDate dateWithTimeIntervalSinceNow:v13 * 60.0 * -60.0];
+    [v13 doubleValue];
+    v15 = [NSDate dateWithTimeIntervalSinceNow:v14 * 60.0 * -60.0];
 
-    v11 = v14;
+    v12 = v15;
   }
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v22, 8);
 
-  return v11;
+  return v12;
 }
 
 - (NSNumber)launchesRequiredToPurge
@@ -376,21 +376,21 @@
 
 - (NSDate)oldestDateToKeepFinished
 {
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = sub_81710;
-  v25 = sub_81720;
-  v26 = 0;
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v17 = sub_825C4;
-  v18 = &unk_2C7AE0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = sub_81710;
+  v26 = sub_81720;
+  v27 = 0;
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v18 = sub_825C4;
+  v19 = &unk_2C7AE0;
   selfCopy = self;
-  v20 = &v21;
-  v3 = v16;
+  v21 = &v22;
+  v3 = v17;
   os_unfair_lock_lock(&self->_accessLock);
-  v17(v3);
+  v18(v3);
   os_unfair_lock_unlock(&self->_accessLock);
 
   v4 = +[NSUserDefaults standardUserDefaults];
@@ -411,48 +411,48 @@
   {
     [v5 doubleValue];
     v8 = [NSNumber numberWithDouble:?];
-    v9 = v22[5];
-    v22[5] = v8;
+    v9 = v23[5];
+    v23[5] = v8;
 
-    v10 = BCJSConfigurationLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = BCJSConfigurationLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       sub_1E7600();
     }
   }
 
-  v11 = +[NSDate distantPast];
-  v12 = v22[5];
-  if (v12)
+  v12 = +[NSDate distantPast];
+  v13 = v23[5];
+  if (v13)
   {
-    [v12 doubleValue];
-    v14 = [NSDate dateWithTimeIntervalSinceNow:v13 * 60.0 * -60.0];
+    [v13 doubleValue];
+    v15 = [NSDate dateWithTimeIntervalSinceNow:v14 * 60.0 * -60.0];
 
-    v11 = v14;
+    v12 = v15;
   }
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v22, 8);
 
-  return v11;
+  return v12;
 }
 
 - (NSDate)oldestDateForUpgrade
 {
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = sub_81710;
-  v25 = sub_81720;
-  v26 = 0;
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v17 = sub_8288C;
-  v18 = &unk_2C7AE0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = sub_81710;
+  v26 = sub_81720;
+  v27 = 0;
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v18 = sub_8288C;
+  v19 = &unk_2C7AE0;
   selfCopy = self;
-  v20 = &v21;
-  v3 = v16;
+  v21 = &v22;
+  v3 = v17;
   os_unfair_lock_lock(&self->_accessLock);
-  v17(v3);
+  v18(v3);
   os_unfair_lock_unlock(&self->_accessLock);
 
   v4 = +[NSUserDefaults standardUserDefaults];
@@ -473,48 +473,48 @@
   {
     [v5 doubleValue];
     v8 = [NSNumber numberWithDouble:?];
-    v9 = v22[5];
-    v22[5] = v8;
+    v9 = v23[5];
+    v23[5] = v8;
 
-    v10 = BCJSConfigurationLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = BCJSConfigurationLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       sub_1E7668();
     }
   }
 
-  v11 = +[NSDate distantPast];
-  v12 = v22[5];
-  if (v12)
+  v12 = +[NSDate distantPast];
+  v13 = v23[5];
+  if (v13)
   {
-    [v12 doubleValue];
-    v14 = [NSDate dateWithTimeIntervalSinceNow:v13 * 60.0 * -60.0];
+    [v13 doubleValue];
+    v15 = [NSDate dateWithTimeIntervalSinceNow:v14 * 60.0 * -60.0];
 
-    v11 = v14;
+    v12 = v15;
   }
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v22, 8);
 
-  return v11;
+  return v12;
 }
 
 - (NSNumber)timeThresholdForPromotion
 {
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = sub_81710;
-  v24 = sub_81720;
-  v25 = 0;
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v16 = sub_82B28;
-  v17 = &unk_2C7AE0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = sub_81710;
+  v25 = sub_81720;
+  v26 = 0;
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v17 = sub_82B28;
+  v18 = &unk_2C7AE0;
   selfCopy = self;
-  v19 = &v20;
-  v3 = v15;
+  v20 = &v21;
+  v3 = v16;
   os_unfair_lock_lock(&self->_accessLock);
-  v16(v3);
+  v17(v3);
   os_unfair_lock_unlock(&self->_accessLock);
 
   v4 = +[NSUserDefaults standardUserDefaults];
@@ -535,51 +535,51 @@
   {
     [v5 doubleValue];
     v8 = [NSNumber numberWithDouble:?];
-    v9 = v21[5];
-    v21[5] = v8;
+    v9 = v22[5];
+    v22[5] = v8;
 
-    v10 = BCJSConfigurationLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = BCJSConfigurationLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       sub_1E76D0();
     }
   }
 
-  v11 = v21[5];
-  if (v11)
+  v12 = v22[5];
+  if (v12)
   {
-    v12 = v11;
+    v13 = v12;
   }
 
   else
   {
-    v12 = [NSNumber numberWithDouble:30.0];
+    v13 = [NSNumber numberWithDouble:30.0];
   }
 
-  v13 = v12;
+  v14 = v13;
 
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v21, 8);
 
-  return v13;
+  return v14;
 }
 
 - (NSNumber)validCollectionPeriod
 {
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = sub_81710;
-  v23 = sub_81720;
-  v24 = 0;
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v15 = sub_82DC0;
-  v16 = &unk_2C7AE0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_81710;
+  v24 = sub_81720;
+  v25 = 0;
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v16 = sub_82DC0;
+  v17 = &unk_2C7AE0;
   selfCopy = self;
-  v18 = &v19;
-  v3 = v14;
+  v19 = &v20;
+  v3 = v15;
   os_unfair_lock_lock(&self->_accessLock);
-  v15(v3);
+  v16(v3);
   os_unfair_lock_unlock(&self->_accessLock);
 
   v4 = +[NSUserDefaults standardUserDefaults];
@@ -600,46 +600,46 @@
   {
     [v5 doubleValue];
     v8 = [NSNumber numberWithDouble:?];
-    v9 = v20[5];
-    v20[5] = v8;
+    v9 = v21[5];
+    v21[5] = v8;
 
-    v10 = BCJSConfigurationLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = BCJSConfigurationLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       sub_1E7738();
     }
   }
 
-  v11 = v20[5];
-  if (!v11)
+  v12 = v21[5];
+  if (!v12)
   {
-    v11 = &off_2EF498;
+    v12 = &off_2EF498;
   }
 
-  v12 = v11;
+  v13 = v12;
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v20, 8);
 
-  return v12;
+  return v13;
 }
 
 - (NSNumber)timeThresholdForOpenEvent
 {
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = sub_81710;
-  v23 = sub_81720;
-  v24 = 0;
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v15 = sub_8304C;
-  v16 = &unk_2C7AE0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_81710;
+  v24 = sub_81720;
+  v25 = 0;
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v16 = sub_8304C;
+  v17 = &unk_2C7AE0;
   selfCopy = self;
-  v18 = &v19;
-  v3 = v14;
+  v19 = &v20;
+  v3 = v15;
   os_unfair_lock_lock(&self->_accessLock);
-  v15(v3);
+  v16(v3);
   os_unfair_lock_unlock(&self->_accessLock);
 
   v4 = +[NSUserDefaults standardUserDefaults];
@@ -660,46 +660,46 @@
   {
     [v5 doubleValue];
     v8 = [NSNumber numberWithDouble:?];
-    v9 = v20[5];
-    v20[5] = v8;
+    v9 = v21[5];
+    v21[5] = v8;
 
-    v10 = BCJSConfigurationLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = BCJSConfigurationLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       sub_1E77A0();
     }
   }
 
-  v11 = v20[5];
-  if (!v11)
+  v12 = v21[5];
+  if (!v12)
   {
-    v11 = &off_2EF4A8;
+    v12 = &off_2EF4A8;
   }
 
-  v12 = v11;
+  v13 = v12;
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v20, 8);
 
-  return v12;
+  return v13;
 }
 
 - (NSNumber)numberOfBooksAllowedInRecentsList
 {
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = sub_81710;
-  v23 = sub_81720;
-  v24 = 0;
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v15 = sub_832DC;
-  v16 = &unk_2C7AE0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_81710;
+  v24 = sub_81720;
+  v25 = 0;
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v16 = sub_832DC;
+  v17 = &unk_2C7AE0;
   selfCopy = self;
-  v18 = &v19;
-  v3 = v14;
+  v19 = &v20;
+  v3 = v15;
   os_unfair_lock_lock(&self->_accessLock);
-  v15(v3);
+  v16(v3);
   os_unfair_lock_unlock(&self->_accessLock);
 
   v4 = +[NSUserDefaults standardUserDefaults];
@@ -719,27 +719,27 @@
   if (v7 == 1 && [v5 length])
   {
     v8 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v5 integerValue]);
-    v9 = v20[5];
-    v20[5] = v8;
+    v9 = v21[5];
+    v21[5] = v8;
 
-    v10 = BCJSConfigurationLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = BCJSConfigurationLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       sub_1E7808();
     }
   }
 
-  v11 = v20[5];
-  if (!v11)
+  v12 = v21[5];
+  if (!v12)
   {
-    v11 = &off_2E59D8;
+    v12 = &off_2E59D8;
   }
 
-  v12 = v11;
+  v13 = v12;
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v20, 8);
 
-  return v12;
+  return v13;
 }
 
 - (NSDate)dateRequiredForActiveBook
@@ -798,7 +798,7 @@
   {
     [v5 doubleValue];
     v9 = [NSDate dateWithTimeIntervalSinceNow:-v8];
-    v10 = BCJSConfigurationLog();
+    v10 = BCJSConfigurationLog(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       sub_1E7870();
@@ -814,7 +814,7 @@ LABEL_11:
   {
     [v11 doubleValue];
     v9 = [NSDate dateWithTimeIntervalSinceNow:-v12];
-    v10 = BCJSConfigurationLog();
+    v10 = BCJSConfigurationLog(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       sub_1E78D8();
@@ -926,10 +926,10 @@ LABEL_13:
   behaviorCopy = behavior;
   if (defaultsOverrideCopy && [defaultsOverrideCopy length])
   {
-    [defaultsOverrideCopy doubleValue];
-    valueCopy = v12;
-    v14 = BCJSConfigurationLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    doubleValue = [defaultsOverrideCopy doubleValue];
+    valueCopy = v13;
+    v15 = BCJSConfigurationLog(doubleValue);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       sub_1E7940();
     }
@@ -943,10 +943,10 @@ LABEL_13:
       goto LABEL_10;
     }
 
-    [overrideCopy doubleValue];
-    valueCopy = v15;
-    v14 = BCJSConfigurationLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    doubleValue2 = [overrideCopy doubleValue];
+    valueCopy = v17;
+    v15 = BCJSConfigurationLog(doubleValue2);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       sub_1E79B4();
     }

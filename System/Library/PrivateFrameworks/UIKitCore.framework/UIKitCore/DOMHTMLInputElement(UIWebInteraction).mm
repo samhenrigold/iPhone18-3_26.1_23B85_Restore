@@ -9,25 +9,25 @@
 - (uint64_t)isAssistedDateType
 {
   type = [self type];
-  if ([type isEqualToString:@"date"] & 1) != 0 || (objc_msgSend(type, "isEqualToString:", @"datetime-local") & 1) != 0 || (objc_msgSend(type, "isEqualToString:", @"month"))
+  if (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type))
   {
-    v2 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v2 = [type isEqualToString:@"time"];
+    isEqualToString = objc_msgSend_isEqualToString_(type);
   }
 
-  return v2;
+  return isEqualToString;
 }
 
 - (uint64_t)isLikelyToBeginPageLoad
 {
   type = [self type];
-  v2 = [type isEqual:@"submit"];
+  isEqual = objc_msgSend_isEqual_(type);
 
-  return v2;
+  return isEqual;
 }
 
 - (uint64_t)nodeCanBecomeFirstResponder

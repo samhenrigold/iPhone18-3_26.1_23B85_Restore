@@ -4,6 +4,8 @@
 + (unint64_t)ttlEventTrackerETATypeForHypothesis:(id)hypothesis;
 + (unint64_t)ttlEventTrackerTransportTypeForGEOTransportType:(int)type;
 + (unint64_t)ttlEventTrackerTravelStateForHypothesisTravelState:(int64_t)state;
++ (void)trackDirectionsEngagedForNotificationUsingTTLEventTracker:(id)tracker hypothesis:(id)hypothesis hasSuggestedLocation:(BOOL)location isOnSharedCalendar:(BOOL)calendar;
++ (void)trackEmailEngagedForNotificationUsingTTLEventTracker:(id)tracker hypothesis:(id)hypothesis hasSuggestedLocation:(BOOL)location isOnSharedCalendar:(BOOL)calendar;
 @end
 
 @implementation CALNTimeToLeaveEventTrackerUtilities
@@ -83,6 +85,30 @@
   {
     return *(&off_278D6F140 + period - 1);
   }
+}
+
++ (void)trackDirectionsEngagedForNotificationUsingTTLEventTracker:(id)tracker hypothesis:(id)hypothesis hasSuggestedLocation:(BOOL)location isOnSharedCalendar:(BOOL)calendar
+{
+  calendarCopy = calendar;
+  locationCopy = location;
+  hypothesisCopy = hypothesis;
+  trackerCopy = tracker;
+  v10 = +[CALNTimeToLeaveEventTrackerUtilities ttlEventTrackerTransportTypeForGEOTransportType:](CALNTimeToLeaveEventTrackerUtilities, "ttlEventTrackerTransportTypeForGEOTransportType:", [hypothesisCopy transportType]);
+  v11 = [CALNTimeToLeaveEventTrackerUtilities ttlEventTrackerETATypeForHypothesis:hypothesisCopy];
+
+  [trackerCopy trackDirectionsEngagedForTTLAlertWithTransportType:v10 etaType:v11 hasSuggestedLocation:locationCopy isOnSharedCalendar:calendarCopy];
+}
+
++ (void)trackEmailEngagedForNotificationUsingTTLEventTracker:(id)tracker hypothesis:(id)hypothesis hasSuggestedLocation:(BOOL)location isOnSharedCalendar:(BOOL)calendar
+{
+  calendarCopy = calendar;
+  locationCopy = location;
+  hypothesisCopy = hypothesis;
+  trackerCopy = tracker;
+  v10 = +[CALNTimeToLeaveEventTrackerUtilities ttlEventTrackerTransportTypeForGEOTransportType:](CALNTimeToLeaveEventTrackerUtilities, "ttlEventTrackerTransportTypeForGEOTransportType:", [hypothesisCopy transportType]);
+  v11 = [CALNTimeToLeaveEventTrackerUtilities ttlEventTrackerETATypeForHypothesis:hypothesisCopy];
+
+  [trackerCopy trackEmailEngagedForTTLAlertWithTransportType:v10 etaType:v11 hasSuggestedLocation:locationCopy isOnSharedCalendar:calendarCopy];
 }
 
 @end

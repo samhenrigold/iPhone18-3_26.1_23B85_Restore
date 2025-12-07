@@ -9,137 +9,135 @@
 
 - (id)_initWithAcknowledgments:(id)acknowledgments
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   acknowledgmentsCopy = acknowledgments;
-  if (!objc_msgSend_count(acknowledgmentsCopy, v5, v6))
+  if (![acknowledgmentsCopy count])
   {
-    v9 = MEMORY[0x1E696AEC0];
-    v10 = IMFileLocationTrimFileName();
-    v12 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v11, @"acknowledgments array must be nonempty");
-    v14 = objc_msgSend_stringWithFormat_(v9, v13, @"Unexpected false '%@' in %s at %s:%d. %@", @"acknowledgments.count > 0", "[IMAggregateAcknowledgmentChatItem _initWithAcknowledgments:]", v10, 5592, v12);
+    v5 = MEMORY[0x1E696AEC0];
+    v6 = IMFileLocationTrimFileName();
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"acknowledgments array must be nonempty"];
+    v8 = [v5 stringWithFormat:@"Unexpected false '%@' in %s at %s:%d. %@", @"acknowledgments.count > 0", "-[IMAggregateAcknowledgmentChatItem _initWithAcknowledgments:]", v6, 5592, v7];
 
-    v15 = IMGetAssertionFailureHandler();
-    if (v15)
+    v9 = IMGetAssertionFailureHandler();
+    if (v9)
     {
-      v15(v14);
+      v9(v8);
     }
 
     else
     {
-      v18 = objc_msgSend_warning(MEMORY[0x1E69A6138], v16, v17);
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      warning = [MEMORY[0x1E69A6138] warning];
+      if (os_log_type_enabled(warning, OS_LOG_TYPE_ERROR))
       {
         sub_1A84DFFFC();
       }
     }
   }
 
-  v19 = objc_msgSend_lastObject(acknowledgmentsCopy, v7, v8);
-  v22 = objc_msgSend__item(v19, v20, v21);
-  v25 = objc_msgSend_sender(v19, v23, v24);
-  v27 = objc_msgSend__initWithItem_sender_(self, v26, v22, v25);
+  lastObject = [acknowledgmentsCopy lastObject];
+  _item = [lastObject _item];
+  sender = [lastObject sender];
+  v14 = [(IMAssociatedMessageChatItem *)self _initWithItem:_item sender:sender];
 
-  if (v27)
+  if (v14)
   {
-    v30 = objc_msgSend_copy(acknowledgmentsCopy, v28, v29);
-    v31 = *(v27 + 168);
-    *(v27 + 168) = v30;
+    v15 = [acknowledgmentsCopy copy];
+    v16 = *(v14 + 21);
+    *(v14 + 21) = v15;
 
-    v75 = v19;
-    v34 = objc_msgSend_parentMessageIsFromMe(v19, v32, v33);
-    objc_msgSend__setParentMessageIsFromMe_(v27, v35, v34);
-    v80 = 0u;
-    v81 = 0u;
-    v78 = 0u;
-    v79 = 0u;
-    obj = *(v27 + 168);
-    v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v36, &v78, v86, 16);
-    if (v37)
+    v34 = lastObject;
+    [v14 _setParentMessageIsFromMe:{objc_msgSend(lastObject, "parentMessageIsFromMe")}];
+    v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    obj = *(v14 + 21);
+    v17 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
+    if (v17)
     {
-      v40 = v37;
-      v41 = *v79;
+      v18 = v17;
+      v19 = *v38;
       do
       {
-        v42 = 0;
+        v20 = 0;
         do
         {
-          if (*v79 != v41)
+          if (*v38 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v43 = *(*(&v78 + 1) + 8 * v42);
-          v44 = objc_msgSend_associatedMessageGUID(v27, v38, v39);
-          v47 = objc_msgSend_associatedMessageGUID(v43, v45, v46);
-          isEqualToString = objc_msgSend_isEqualToString_(v44, v48, v47);
+          v21 = *(*(&v37 + 1) + 8 * v20);
+          associatedMessageGUID = [v14 associatedMessageGUID];
+          associatedMessageGUID2 = [v21 associatedMessageGUID];
+          v24 = [associatedMessageGUID isEqualToString:associatedMessageGUID2];
 
-          if ((isEqualToString & 1) == 0)
+          if ((v24 & 1) == 0)
           {
-            v52 = MEMORY[0x1E696AEC0];
-            v53 = IMFileLocationTrimFileName();
-            v55 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v54, @"all acknowledgments must have the same associated message");
-            v57 = objc_msgSend_stringWithFormat_(v52, v56, @"Unexpected false '%@' in %s at %s:%d. %@", @"[self.associatedMessageGUID isEqualToString:acknowledgment.associatedMessageGUID]", "[IMAggregateAcknowledgmentChatItem _initWithAcknowledgments:]", v53, 5599, v55);
+            v25 = MEMORY[0x1E696AEC0];
+            v26 = IMFileLocationTrimFileName();
+            v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"all acknowledgments must have the same associated message"];
+            v28 = [v25 stringWithFormat:@"Unexpected false '%@' in %s at %s:%d. %@", @"[self.associatedMessageGUID isEqualToString:acknowledgment.associatedMessageGUID]", "-[IMAggregateAcknowledgmentChatItem _initWithAcknowledgments:]", v26, 5599, v27];
 
-            v58 = IMGetAssertionFailureHandler();
-            if (v58)
+            v29 = IMGetAssertionFailureHandler();
+            if (v29)
             {
-              v58(v57);
+              v29(v28);
             }
 
             else
             {
-              v61 = objc_msgSend_warning(MEMORY[0x1E69A6138], v59, v60);
-              if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+              warning2 = [MEMORY[0x1E69A6138] warning];
+              if (os_log_type_enabled(warning2, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                *&buf[4] = v57;
-                _os_log_error_impl(&dword_1A823F000, v61, OS_LOG_TYPE_ERROR, "ASSERTION FAILED: %@", buf, 0xCu);
+                *&buf[4] = v28;
+                _os_log_error_impl(&dword_1A823F000, warning2, OS_LOG_TYPE_ERROR, "ASSERTION FAILED: %@", buf, 0xCu);
               }
             }
           }
 
-          if (objc_msgSend_isFromMe(v43, v50, v51))
+          if ([v21 isFromMe])
           {
-            objc_storeStrong((v27 + 176), v43);
+            objc_storeStrong(v14 + 22, v21);
           }
 
-          ++v42;
+          ++v20;
         }
 
-        while (v40 != v42);
-        v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v38, &v78, v86, 16);
+        while (v18 != v20);
+        v18 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
       }
 
-      while (v40);
+      while (v18);
     }
 
-    *(v27 + 161) = objc_msgSend_count(acknowledgmentsCopy, v62, v63) > 1;
-    v19 = v75;
-    *(v27 + 160) = objc_msgSend_isFromMe(v75, v64, v65);
-    v68 = objc_msgSend_tapback(v75, v66, v67);
-    v69 = *(v27 + 184);
-    *(v27 + 184) = v68;
+    *(v14 + 161) = [acknowledgmentsCopy count] > 1;
+    lastObject = v34;
+    *(v14 + 160) = [v34 isFromMe];
+    tapback = [v34 tapback];
+    v32 = *(v14 + 23);
+    *(v14 + 23) = tapback;
 
-    v77 = 0u;
-    objc_msgSend_geometryDescriptor(v27, v70, v71);
-    *&v77 = 10;
-    *buf = v77;
-    v83 = 0u;
-    v84 = 0u;
-    v85 = 0;
-    objc_msgSend__setGeometryDescriptor_(v27, v72, buf);
+    v36 = 0u;
+    objc_msgSend_geometryDescriptor(v14);
+    *&v36 = 10;
+    *buf = v36;
+    v42 = 0u;
+    v43 = 0u;
+    v44 = 0;
+    [v14 _setGeometryDescriptor:buf];
   }
 
-  v73 = *MEMORY[0x1E69E9840];
-  return v27;
+  return v14;
 }
 
 - (unint64_t)hash
 {
-  v3 = objc_msgSend_lastObject(self->_acknowledgments, a2, v2);
-  v6 = objc_msgSend_hash(v3, v4, v5);
+  lastObject = [(NSArray *)self->_acknowledgments lastObject];
+  v3 = [lastObject hash];
 
-  return v6;
+  return v3;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -148,24 +146,24 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v6 = equalCopy;
-    if (self->_latestIsFromMe == *(v6 + 160) && objc_msgSend_isEqual_(self->_latestTapback, v5, v6[23]) && self->_includesMultiple == *(v6 + 161))
+    v5 = equalCopy;
+    if (self->_latestIsFromMe == *(v5 + 160) && [(IMTapback *)self->_latestTapback isEqual:v5[23]]&& self->_includesMultiple == *(v5 + 161))
     {
-      isEqual = objc_msgSend_isEqual_(self->_acknowledgments, v7, v6[21]);
+      v6 = [(NSArray *)self->_acknowledgments isEqual:v5[21]];
     }
 
     else
     {
-      isEqual = 0;
+      v6 = 0;
     }
   }
 
   else
   {
-    isEqual = 0;
+    v6 = 0;
   }
 
-  return isEqual;
+  return v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -173,7 +171,7 @@
   v4 = objc_alloc(objc_opt_class());
   acknowledgments = self->_acknowledgments;
 
-  return objc_msgSend__initWithAcknowledgments_(v4, v5, acknowledgments);
+  return [v4 _initWithAcknowledgments:acknowledgments];
 }
 
 @end

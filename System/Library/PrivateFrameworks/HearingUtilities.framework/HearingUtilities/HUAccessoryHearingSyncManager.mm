@@ -56,26 +56,24 @@ void __37__HUAccessoryHearingSyncManager_init__block_invoke_3(uint64_t a1)
 
 void __59__HUAccessoryHearingSyncManager_readHearingProtectionState__block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = HCLogHearingProtection();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v9 = @"a48fec08-3921-43db-82aa-afbce8ebb4fb";
-    v10 = 2112;
-    v11 = v3;
+    v8 = @"a48fec08-3921-43db-82aa-afbce8ebb4fb";
+    v9 = 2112;
+    v10 = v3;
     _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "HUAccessoryHearingSyncManager Characteristic %@, addresses %@", buf, 0x16u);
   }
 
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __59__HUAccessoryHearingSyncManager_readHearingProtectionState__block_invoke_26;
-  v6[3] = &unk_1E85CBC98;
-  v7 = *(a1 + 32);
-  [v3 enumerateObjectsUsingBlock:v6];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __59__HUAccessoryHearingSyncManager_readHearingProtectionState__block_invoke_26;
+  v5[3] = &unk_1E85CBC98;
+  v6 = *(a1 + 32);
+  [v3 enumerateObjectsUsingBlock:v5];
 }
 
 + (id)sharedInstance
@@ -92,9 +90,11 @@ void __59__HUAccessoryHearingSyncManager_readHearingProtectionState__block_invok
 
 uint64_t __47__HUAccessoryHearingSyncManager_sharedInstance__block_invoke()
 {
-  sharedInstance_Settings_2 = objc_alloc_init(HUAccessoryHearingSyncManager);
+  v0 = objc_alloc_init(HUAccessoryHearingSyncManager);
+  v1 = sharedInstance_Settings_2;
+  sharedInstance_Settings_2 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (HUAccessoryHearingSyncManager)init
@@ -191,7 +191,7 @@ void __37__HUAccessoryHearingSyncManager_init__block_invoke_2(uint64_t a1, void 
 
 - (void)_initCachedEnabled
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = +[HUAccessoryHearingSettings sharedInstance];
   activeHearingProtectionEnabled = [v3 activeHearingProtectionEnabled];
   v5 = [activeHearingProtectionEnabled mutableCopy];
@@ -209,12 +209,10 @@ void __37__HUAccessoryHearingSyncManager_init__block_invoke_2(uint64_t a1, void 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = self->_cachedEnabled;
-    v12 = 138412290;
-    v13 = v10;
-    _os_log_impl(&dword_1DA5E2000, v9, OS_LOG_TYPE_DEFAULT, "Starting sync %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v10;
+    _os_log_impl(&dword_1DA5E2000, v9, OS_LOG_TYPE_DEFAULT, "Starting sync %@", &v11, 0xCu);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_registerForAccessoryHearingSettingsUpdate
@@ -234,43 +232,42 @@ void __37__HUAccessoryHearingSyncManager_init__block_invoke_2(uint64_t a1, void 
 
 - (void)_registerForAccessoryManagerUpdate
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   objc_initWeak(&location, self);
   v3 = +[HUAccessoryManager sharedInstance];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __67__HUAccessoryHearingSyncManager__registerForAccessoryManagerUpdate__block_invoke;
-  v16[3] = &unk_1E85CC1F0;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __67__HUAccessoryHearingSyncManager__registerForAccessoryManagerUpdate__block_invoke;
+  v15[3] = &unk_1E85CC1F0;
   v4 = v3;
-  v17 = v4;
-  objc_copyWeak(&v18, &location);
-  [v4 registerDiscoveryBlock:v16 withListener:self];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __67__HUAccessoryHearingSyncManager__registerForAccessoryManagerUpdate__block_invoke_3;
-  v14[3] = &unk_1E85CC218;
-  v14[4] = self;
-  objc_copyWeak(&v15, &location);
+  v16 = v4;
+  objc_copyWeak(&v17, &location);
+  [v4 registerDiscoveryBlock:v15 withListener:self];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __67__HUAccessoryHearingSyncManager__registerForAccessoryManagerUpdate__block_invoke_3;
+  v13[3] = &unk_1E85CC218;
+  v13[4] = self;
+  objc_copyWeak(&v14, &location);
   v5 = [MEMORY[0x1E695D2A0] UUIDWithString:@"a48fec08-3921-43db-82aa-afbce8ebb4fb"];
-  v20[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
-  [v4 registerUpdateBlock:v14 forCharacteristicUUIDs:v6 withListener:self];
+  v19[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+  [v4 registerUpdateBlock:v13 forCharacteristicUUIDs:v6 withListener:self];
 
   v7 = +[HUAccessoryManager sharedInstance];
-  v9 = MEMORY[0x1E69E9820];
-  v10 = 3221225472;
-  v11 = __67__HUAccessoryHearingSyncManager__registerForAccessoryManagerUpdate__block_invoke_37;
-  v12 = &unk_1E85CC240;
-  objc_copyWeak(&v13, &location);
-  [v7 registerAttributeUpdateBlock:&v9 withListener:self];
+  v8 = MEMORY[0x1E69E9820];
+  v9 = 3221225472;
+  v10 = __67__HUAccessoryHearingSyncManager__registerForAccessoryManagerUpdate__block_invoke_37;
+  v11 = &unk_1E85CC240;
+  objc_copyWeak(&v12, &location);
+  [v7 registerAttributeUpdateBlock:&v8 withListener:self];
 
-  [v4 registerLoggingBlock:&__block_literal_global_41 withListener:{self, v9, v10, v11, v12}];
-  objc_destroyWeak(&v13);
-  objc_destroyWeak(&v15);
-  objc_destroyWeak(&v18);
+  [v4 registerLoggingBlock:&__block_literal_global_41 withListener:{self, v8, v9, v10, v11}];
+  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v17);
 
   objc_destroyWeak(&location);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_registerForNearbyControllerUpdate
@@ -333,82 +330,81 @@ void __37__HUAccessoryHearingSyncManager_init__block_invoke_2(uint64_t a1, void 
 
 - ($0AC6E346AE4835514AAA8AC86D8F4844)deviceState
 {
-  v36 = *MEMORY[0x1E69E9840];
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
-  v25 = 0;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
+  v35 = *MEMORY[0x1E69E9840];
   v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0;
   deviceListeningState = [(HUAccessoryHearingSyncManager *)self deviceListeningState];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __44__HUAccessoryHearingSyncManager_deviceState__block_invoke;
-  v17[3] = &unk_1E85CC128;
-  v17[4] = self;
-  v17[5] = &v22;
-  v17[6] = &v18;
-  [deviceListeningState enumerateKeysAndObjectsUsingBlock:v17];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __44__HUAccessoryHearingSyncManager_deviceState__block_invoke;
+  v16[3] = &unk_1E85CC128;
+  v16[4] = self;
+  v16[5] = &v21;
+  v16[6] = &v17;
+  [deviceListeningState enumerateKeysAndObjectsUsingBlock:v16];
 
-  if (!v23[3])
+  if (!v22[3])
   {
     nearbyDevicesListeningState = [(HUAccessoryHearingSyncManager *)self nearbyDevicesListeningState];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __44__HUAccessoryHearingSyncManager_deviceState__block_invoke_2;
-    v16[3] = &unk_1E85CC150;
-    v16[4] = self;
-    v16[5] = &v22;
-    v16[6] = &v18;
-    [nearbyDevicesListeningState enumerateKeysAndObjectsUsingBlock:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __44__HUAccessoryHearingSyncManager_deviceState__block_invoke_2;
+    v15[3] = &unk_1E85CC150;
+    v15[4] = self;
+    v15[5] = &v21;
+    v15[6] = &v17;
+    [nearbyDevicesListeningState enumerateKeysAndObjectsUsingBlock:v15];
   }
 
   if ([MEMORY[0x1E69A4560] isInternalInstall])
   {
     v5 = deviceState_LastListeningState;
-    if (deviceState_LastListeningState != v23[3])
+    if (deviceState_LastListeningState != v22[3])
     {
       v6 = HCLogHearingProtection();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = [MEMORY[0x1E696AD98] numberWithInteger:v19[3]];
-        v8 = [MEMORY[0x1E696AD98] numberWithInteger:v23[3]];
+        v7 = [MEMORY[0x1E696AD98] numberWithInteger:v18[3]];
+        v8 = [MEMORY[0x1E696AD98] numberWithInteger:v22[3]];
         deviceListeningState2 = [(HUAccessoryHearingSyncManager *)self deviceListeningState];
         nearbyDevicesListeningState2 = [(HUAccessoryHearingSyncManager *)self nearbyDevicesListeningState];
         deviceType = [(HUAccessoryHearingSyncManager *)self deviceType];
         *buf = 138413314;
-        v27 = v7;
-        v28 = 2112;
-        v29 = v8;
-        v30 = 2112;
-        v31 = deviceListeningState2;
-        v32 = 2112;
-        v33 = nearbyDevicesListeningState2;
-        v34 = 2112;
-        v35 = deviceType;
+        v26 = v7;
+        v27 = 2112;
+        v28 = v8;
+        v29 = 2112;
+        v30 = deviceListeningState2;
+        v31 = 2112;
+        v32 = nearbyDevicesListeningState2;
+        v33 = 2112;
+        v34 = deviceType;
         _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "Listening state %@ = %@ - %@ = %@ = %@", buf, 0x34u);
       }
 
-      v5 = v23[3];
+      v5 = v22[3];
       deviceState_LastListeningState = v5;
     }
   }
 
   else
   {
-    v5 = v23[3];
+    v5 = v22[3];
   }
 
-  v12 = v19[3];
-  _Block_object_dispose(&v18, 8);
-  _Block_object_dispose(&v22, 8);
-  v13 = *MEMORY[0x1E69E9840];
-  v14 = v12;
-  v15 = v5;
-  result.var1 = v15;
-  result.var0 = v14;
+  v12 = v18[3];
+  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v21, 8);
+  v13 = v12;
+  v14 = v5;
+  result.var1 = v14;
+  result.var0 = v13;
   return result;
 }
 
@@ -467,7 +463,7 @@ void __75__HUAccessoryHearingSyncManager__registerForAccessoryHearingSettingsUpd
 
 void __75__HUAccessoryHearingSyncManager__registerForAccessoryHearingSettingsUpdate__block_invoke_2(uint64_t a1)
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v2 = +[HUAccessoryHearingSettings sharedInstance];
   v3 = [v2 activeHearingProtectionEnabled];
 
@@ -486,15 +482,13 @@ void __75__HUAccessoryHearingSyncManager__registerForAccessoryHearingSettingsUpd
       v9 = [v3 mutableCopy];
       [v8 setCachedEnabled:v9];
 
-      v13 = @"HUAHPEnabledKey";
-      v14[0] = v3;
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v12 = @"HUAHPEnabledKey";
+      v13[0] = v3;
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
       v11 = +[HUNearbyController sharedInstance];
       [v11 sendMessage:v10 toDevicesWithDomain:@"com.apple.hearing.accessory" withPriority:1];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __59__HUAccessoryHearingSyncManager_readHearingProtectionState__block_invoke_26(uint64_t a1, void *a2)
@@ -512,37 +506,35 @@ void __59__HUAccessoryHearingSyncManager_readHearingProtectionState__block_invok
 
 void __59__HUAccessoryHearingSyncManager_readHearingProtectionState__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = HCLogHearingProtection();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [MEMORY[0x1E696AD98] numberWithBool:a2];
     v6 = *(a1 + 32);
-    v9 = 138412546;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "HP supported %@ for accessory %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "HP supported %@ for accessory %@", &v8, 0x16u);
   }
 
   v7 = +[HUAccessoryHearingSettings sharedInstance];
   [v7 setActiveHearingProtectionAvailable:a2 forAddress:*(a1 + 32)];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __67__HUAccessoryHearingSyncManager__registerForAccessoryManagerUpdate__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = HCLogHearingProtection();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v20 = v5;
-    v21 = 2112;
-    v22 = v6;
+    v19 = v5;
+    v20 = 2112;
+    v21 = v6;
     _os_log_impl(&dword_1DA5E2000, v7, OS_LOG_TYPE_DEFAULT, "Found new accessories %@, lost accessories %@", buf, 0x16u);
   }
 
@@ -551,33 +543,32 @@ void __67__HUAccessoryHearingSyncManager__registerForAccessoryManagerUpdate__blo
   [v8 readValueForCharacteristicUUID:v9];
 
   v10 = *(a1 + 32);
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __67__HUAccessoryHearingSyncManager__registerForAccessoryManagerUpdate__block_invoke_31;
-  v14[3] = &unk_1E85CC1C8;
-  objc_copyWeak(&v18, (a1 + 40));
-  v15 = *(a1 + 32);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __67__HUAccessoryHearingSyncManager__registerForAccessoryManagerUpdate__block_invoke_31;
+  v13[3] = &unk_1E85CC1C8;
+  objc_copyWeak(&v17, (a1 + 40));
+  v14 = *(a1 + 32);
   v11 = v5;
-  v16 = v11;
+  v15 = v11;
   v12 = v6;
-  v17 = v12;
-  [v10 getAvailableAddressesSupportingCharacteristic:@"a48fec08-3921-43db-82aa-afbce8ebb4fb" withCompletion:v14];
+  v16 = v12;
+  [v10 getAvailableAddressesSupportingCharacteristic:@"a48fec08-3921-43db-82aa-afbce8ebb4fb" withCompletion:v13];
 
-  objc_destroyWeak(&v18);
-  v13 = *MEMORY[0x1E69E9840];
+  objc_destroyWeak(&v17);
 }
 
 void __67__HUAccessoryHearingSyncManager__registerForAccessoryManagerUpdate__block_invoke_31(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = HCLogHearingProtection();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v19 = @"a48fec08-3921-43db-82aa-afbce8ebb4fb";
-    v20 = 2112;
-    v21 = v3;
+    v18 = @"a48fec08-3921-43db-82aa-afbce8ebb4fb";
+    v19 = 2112;
+    v20 = v3;
     _os_log_impl(&dword_1DA5E2000, v4, OS_LOG_TYPE_DEFAULT, "HUAccessoryHearingSyncManager Characteristic %@, addresses %@", buf, 0x16u);
   }
 
@@ -586,26 +577,24 @@ void __67__HUAccessoryHearingSyncManager__registerForAccessoryManagerUpdate__blo
 
   v6 = *(a1 + 32);
   v7 = *(a1 + 40);
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __67__HUAccessoryHearingSyncManager__registerForAccessoryManagerUpdate__block_invoke_32;
-  v16[3] = &unk_1E85CC178;
-  objc_copyWeak(&v17, (a1 + 56));
-  [v6 enumerateProductCodesForAddresses:v7 withBlock:v16];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __67__HUAccessoryHearingSyncManager__registerForAccessoryManagerUpdate__block_invoke_32;
+  v15[3] = &unk_1E85CC178;
+  objc_copyWeak(&v16, (a1 + 56));
+  [v6 enumerateProductCodesForAddresses:v7 withBlock:v15];
   v8 = *(a1 + 48);
-  v11 = MEMORY[0x1E69E9820];
-  v12 = 3221225472;
-  v13 = __67__HUAccessoryHearingSyncManager__registerForAccessoryManagerUpdate__block_invoke_2;
-  v14 = &unk_1E85CC1A0;
-  objc_copyWeak(&v15, (a1 + 56));
-  [v8 enumerateObjectsUsingBlock:&v11];
+  v10 = MEMORY[0x1E69E9820];
+  v11 = 3221225472;
+  v12 = __67__HUAccessoryHearingSyncManager__registerForAccessoryManagerUpdate__block_invoke_2;
+  v13 = &unk_1E85CC1A0;
+  objc_copyWeak(&v14, (a1 + 56));
+  [v8 enumerateObjectsUsingBlock:&v10];
   v9 = objc_loadWeakRetained((a1 + 56));
-  [v9 listeningModeDidChange:{0, v11, v12, v13, v14}];
+  [v9 listeningModeDidChange:{0, v10, v11, v12, v13}];
 
-  objc_destroyWeak(&v15);
-  objc_destroyWeak(&v17);
-
-  v10 = *MEMORY[0x1E69E9840];
+  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v16);
 }
 
 void __67__HUAccessoryHearingSyncManager__registerForAccessoryManagerUpdate__block_invoke_32(uint64_t a1, void *a2, void *a3)
@@ -633,7 +622,7 @@ void __67__HUAccessoryHearingSyncManager__registerForAccessoryManagerUpdate__blo
 
 void __67__HUAccessoryHearingSyncManager__registerForAccessoryManagerUpdate__block_invoke_3(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -647,19 +636,19 @@ void __67__HUAccessoryHearingSyncManager__registerForAccessoryManagerUpdate__blo
       v12 = HCLogHearingProtection();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 138412546;
-        v16 = v9;
-        v17 = 2112;
-        v18 = v7;
-        _os_log_impl(&dword_1DA5E2000, v12, OS_LOG_TYPE_DEFAULT, "Found value for AHP %@ - %@", &v15, 0x16u);
+        v14 = 138412546;
+        v15 = v9;
+        v16 = 2112;
+        v17 = v7;
+        _os_log_impl(&dword_1DA5E2000, v12, OS_LOG_TYPE_DEFAULT, "Found value for AHP %@ - %@", &v14, 0x16u);
       }
 
       if (v9)
       {
-        LOBYTE(v15) = 1;
-        [v9 getBytes:&v15 length:1];
+        LOBYTE(v14) = 1;
+        [v9 getBytes:&v14 length:1];
         WeakRetained = +[HUAccessoryHearingSettings sharedInstance];
-        [WeakRetained setActiveHearingProtectionEnabled:v15 != 0 forAddress:v7];
+        [WeakRetained setActiveHearingProtectionEnabled:v14 != 0 forAddress:v7];
       }
 
       else
@@ -669,8 +658,6 @@ void __67__HUAccessoryHearingSyncManager__registerForAccessoryManagerUpdate__blo
       }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __67__HUAccessoryHearingSyncManager__registerForAccessoryManagerUpdate__block_invoke_37(uint64_t a1, void *a2)
@@ -682,22 +669,20 @@ void __67__HUAccessoryHearingSyncManager__registerForAccessoryManagerUpdate__blo
 
 void __67__HUAccessoryHearingSyncManager__registerForAccessoryManagerUpdate__block_invoke_2_39(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = HCLogHearingProtection();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "%@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "%@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __67__HUAccessoryHearingSyncManager__registerForNearbyControllerUpdate__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) processNoiseMeasurementsDisabledMessage:v6 fromDevice:v5];
@@ -707,9 +692,9 @@ void __67__HUAccessoryHearingSyncManager__registerForNearbyControllerUpdate__blo
     v8 = HCLogHearingProtection();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = 138412290;
-      v28 = v7;
-      _os_log_impl(&dword_1DA5E2000, v8, OS_LOG_TYPE_DEFAULT, "Ignoring IDS message to update hearing protection: %@", &v27, 0xCu);
+      v26 = 138412290;
+      v27 = v7;
+      _os_log_impl(&dword_1DA5E2000, v8, OS_LOG_TYPE_DEFAULT, "Ignoring IDS message to update hearing protection: %@", &v26, 0xCu);
     }
   }
 
@@ -729,11 +714,11 @@ void __67__HUAccessoryHearingSyncManager__registerForNearbyControllerUpdate__blo
   v14 = HCLogHearingProtection();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = 138412546;
-    v28 = v13;
-    v29 = 2112;
-    v30 = v5;
-    _os_log_impl(&dword_1DA5E2000, v14, OS_LOG_TYPE_DEFAULT, "Listening modes %@ for device %@", &v27, 0x16u);
+    v26 = 138412546;
+    v27 = v13;
+    v28 = 2112;
+    v29 = v5;
+    _os_log_impl(&dword_1DA5E2000, v14, OS_LOG_TYPE_DEFAULT, "Listening modes %@ for device %@", &v26, 0x16u);
   }
 
   if (v5)
@@ -760,9 +745,9 @@ void __67__HUAccessoryHearingSyncManager__registerForNearbyControllerUpdate__blo
     {
       v20 = objc_loadWeakRetained((a1 + 40));
       v21 = [v20 nearbyDevicesListeningState];
-      v27 = 138412290;
-      v28 = v21;
-      _os_log_impl(&dword_1DA5E2000, v19, OS_LOG_TYPE_DEFAULT, "Updated nearbyDevicesListeningState: %@", &v27, 0xCu);
+      v26 = 138412290;
+      v27 = v21;
+      _os_log_impl(&dword_1DA5E2000, v19, OS_LOG_TYPE_DEFAULT, "Updated nearbyDevicesListeningState: %@", &v26, 0xCu);
     }
   }
 
@@ -770,11 +755,11 @@ void __67__HUAccessoryHearingSyncManager__registerForNearbyControllerUpdate__blo
   v23 = HCLogHearingProtection();
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = 138412546;
-    v28 = v22;
-    v29 = 2112;
-    v30 = v5;
-    _os_log_impl(&dword_1DA5E2000, v23, OS_LOG_TYPE_DEFAULT, "Device types %@ for device %@", &v27, 0x16u);
+    v26 = 138412546;
+    v27 = v22;
+    v28 = 2112;
+    v29 = v5;
+    _os_log_impl(&dword_1DA5E2000, v23, OS_LOG_TYPE_DEFAULT, "Device types %@ for device %@", &v26, 0x16u);
   }
 
   if (v5)
@@ -783,8 +768,6 @@ void __67__HUAccessoryHearingSyncManager__registerForNearbyControllerUpdate__blo
     v25 = [v24 deviceType];
     [v25 addEntriesFromDictionary:v22];
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __67__HUAccessoryHearingSyncManager__registerForNearbyControllerUpdate__block_invoke_45(uint64_t a1, void *a2, void *a3)
@@ -815,7 +798,7 @@ void __67__HUAccessoryHearingSyncManager__registerForNearbyControllerUpdate__blo
 
 void __67__HUAccessoryHearingSyncManager__registerForNearbyControllerUpdate__block_invoke_2(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E695DF90] dictionary];
   if (headphoneStreamSelected())
@@ -865,7 +848,7 @@ void __67__HUAccessoryHearingSyncManager__registerForNearbyControllerUpdate__blo
     {
       v11 = *(a1 + 40);
       *buf = 138412290;
-      v30 = v11;
+      v29 = v11;
       _os_log_impl(&dword_1DA5E2000, v10, OS_LOG_TYPE_DEFAULT, "Sending Accessory state message to discovered devices: %@", buf, 0xCu);
     }
 
@@ -879,29 +862,28 @@ void __67__HUAccessoryHearingSyncManager__registerForNearbyControllerUpdate__blo
   v16 = [v15 ax_mappedArrayUsingBlock:&__block_literal_global_59];
 
   v17 = [*(a1 + 32) nearbyDevicesListeningState];
-  v23 = MEMORY[0x1E69E9820];
-  v24 = 3221225472;
-  v25 = __67__HUAccessoryHearingSyncManager__registerForNearbyControllerUpdate__block_invoke_2_60;
-  v26 = &unk_1E85CC2D0;
+  v22 = MEMORY[0x1E69E9820];
+  v23 = 3221225472;
+  v24 = __67__HUAccessoryHearingSyncManager__registerForNearbyControllerUpdate__block_invoke_2_60;
+  v25 = &unk_1E85CC2D0;
   v18 = v16;
-  v27 = v18;
+  v26 = v18;
   v19 = v13;
-  v28 = v19;
-  [v17 enumerateKeysAndObjectsUsingBlock:&v23];
+  v27 = v19;
+  [v17 enumerateKeysAndObjectsUsingBlock:&v22];
 
   v20 = HCLogHearingProtection();
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     v21 = [*(a1 + 32) nearbyDevicesListeningState];
     *buf = 138412546;
-    v30 = v21;
-    v31 = 2112;
-    v32 = v19;
+    v29 = v21;
+    v30 = 2112;
+    v31 = v19;
     _os_log_impl(&dword_1DA5E2000, v20, OS_LOG_TYPE_DEFAULT, "Filtering nearby listening modes on update to nearby devices %@ - %@", buf, 0x16u);
   }
 
   [*(a1 + 32) setNearbyDevicesListeningState:v19];
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __67__HUAccessoryHearingSyncManager__registerForNearbyControllerUpdate__block_invoke_2_60(uint64_t a1, void *a2, void *a3)
@@ -916,17 +898,15 @@ void __67__HUAccessoryHearingSyncManager__registerForNearbyControllerUpdate__blo
 
 void __67__HUAccessoryHearingSyncManager__registerForNearbyControllerUpdate__block_invoke_61(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = HCLogHearingProtection();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "%@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "%@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cleanupNearbyDeviceStateDuplicatesForDevice:(id)device
@@ -985,7 +965,7 @@ LABEL_5:
 
 - (void)listeningModeDidChange:(id)change
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   v5 = HCLogHearingProtection();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -997,33 +977,32 @@ LABEL_5:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v14 = 0x3032000000;
-  v15 = __Block_byref_object_copy__5;
-  v16 = __Block_byref_object_dispose__5;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__5;
+  v15 = __Block_byref_object_dispose__5;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v6 = +[HUAccessoryManager sharedInstance];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __56__HUAccessoryHearingSyncManager_listeningModeDidChange___block_invoke;
-  v12[3] = &unk_1E85CC348;
-  v12[4] = &buf;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __56__HUAccessoryHearingSyncManager_listeningModeDidChange___block_invoke_74;
-  v9[3] = &unk_1E85CB970;
-  v9[4] = self;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __56__HUAccessoryHearingSyncManager_listeningModeDidChange___block_invoke;
+  v11[3] = &unk_1E85CC348;
+  v11[4] = &buf;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __56__HUAccessoryHearingSyncManager_listeningModeDidChange___block_invoke_74;
+  v8[3] = &unk_1E85CB970;
+  v8[4] = self;
   p_buf = &buf;
   v7 = changeCopy;
-  v10 = v7;
-  [v6 enumerateAvailableDevicesWithBlock:v12 andCompletion:v9];
+  v9 = v7;
+  [v6 enumerateAvailableDevicesWithBlock:v11 andCompletion:v8];
 
   _Block_object_dispose(&buf, 8);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __56__HUAccessoryHearingSyncManager_listeningModeDidChange___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v11 = a2;
   v12 = a3;
   v13 = +[HUAccessoryHearingSyncManager syncableSupportedDevices];
@@ -1078,24 +1057,22 @@ LABEL_18:
     {
       v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a5];
       v20 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a6];
-      v22 = 138413058;
-      v23 = v12;
-      v24 = 2112;
-      v25 = v19;
-      v26 = 2112;
-      v27 = v20;
-      v28 = 2112;
-      v29 = v11;
-      _os_log_impl(&dword_1DA5E2000, v18, OS_LOG_TYPE_DEFAULT, "Skipping device because not supported %@ %@, %@ %@", &v22, 0x2Au);
+      v21 = 138413058;
+      v22 = v12;
+      v23 = 2112;
+      v24 = v19;
+      v25 = 2112;
+      v26 = v20;
+      v27 = 2112;
+      v28 = v11;
+      _os_log_impl(&dword_1DA5E2000, v18, OS_LOG_TYPE_DEFAULT, "Skipping device because not supported %@ %@, %@ %@", &v21, 0x2Au);
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __56__HUAccessoryHearingSyncManager_listeningModeDidChange___block_invoke_74(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) deviceListeningState];
   v3 = [v2 isEqualToDictionary:*(*(*(a1 + 48) + 8) + 40)];
 
@@ -1116,21 +1093,19 @@ void __56__HUAccessoryHearingSyncManager_listeningModeDidChange___block_invoke_7
     v6 = [*(a1 + 32) deviceListeningState];
     v7 = *(*(*(a1 + 48) + 8) + 40);
     v8 = [MEMORY[0x1E696AD98] numberWithBool:v4];
-    v13 = 138412802;
-    v14 = v6;
-    v15 = 2112;
-    v16 = v7;
-    v17 = 2112;
-    v18 = v8;
-    _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "Listening modes current: %@ new: %@ forcing update %@", &v13, 0x20u);
+    v12 = 138412802;
+    v13 = v6;
+    v14 = 2112;
+    v15 = v7;
+    v16 = 2112;
+    v17 = v8;
+    _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "Listening modes current: %@ new: %@ forcing update %@", &v12, 0x20u);
   }
 
   v9 = *(a1 + 32);
   v10 = *(*(*(a1 + 48) + 8) + 40);
   v11 = [v10 allKeys];
   [v9 sendIDSMessageIfNeededForNewListeningModes:v10 addresses:v11 force:v4];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendUpdateToAccessory
@@ -1164,37 +1139,35 @@ void __54__HUAccessoryHearingSyncManager_sendUpdateToAccessory__block_invoke(uin
 
 void __54__HUAccessoryHearingSyncManager_sendUpdateToAccessory__block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[HUAccessoryHearingSettings sharedInstance];
   v5 = [v4 activeHearingProtectionEnabledForAddress:v3];
 
-  v12 = v5;
-  v6 = [MEMORY[0x1E695DEF0] dataWithBytes:&v12 length:1];
+  v11 = v5;
+  v6 = [MEMORY[0x1E695DEF0] dataWithBytes:&v11 length:1];
   [*(a1 + 32) setIgnoreHPUpdates:1];
   v7 = HCLogHearingProtection();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 40);
     *buf = 138412802;
-    v14 = v3;
-    v15 = 2112;
-    v16 = v6;
-    v17 = 2112;
-    v18 = v8;
+    v13 = v3;
+    v14 = 2112;
+    v15 = v6;
+    v16 = 2112;
+    v17 = v8;
     _os_log_impl(&dword_1DA5E2000, v7, OS_LOG_TYPE_DEFAULT, "Sending update to %@ - %@ - %@", buf, 0x20u);
   }
 
   [*(a1 + 40) writeValue:v6 forCharacteristicUUID:*(a1 + 48) andAddress:v3];
   v9 = [*(a1 + 32) ignoreHPTimer];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __54__HUAccessoryHearingSyncManager_sendUpdateToAccessory__block_invoke_76;
-  v11[3] = &unk_1E85C9F60;
-  v11[4] = *(a1 + 32);
-  [v9 afterDelay:v11 processBlock:1.0];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __54__HUAccessoryHearingSyncManager_sendUpdateToAccessory__block_invoke_76;
+  v10[3] = &unk_1E85C9F60;
+  v10[4] = *(a1 + 32);
+  [v9 afterDelay:v10 processBlock:1.0];
 }
 
 - (void)routesDidChange:(id)change
@@ -1209,7 +1182,7 @@ void __54__HUAccessoryHearingSyncManager_sendUpdateToAccessory__block_invoke_2(u
   dispatch_async(sharedQueue, block);
 }
 
-uint64_t __49__HUAccessoryHearingSyncManager_routesDidChange___block_invoke(uint64_t a1)
+void *__49__HUAccessoryHearingSyncManager_routesDidChange___block_invoke(uint64_t a1)
 {
   v2 = headphoneStreamSelected();
   result = [*(a1 + 32) isHeadphoneStreamSelected];
@@ -1343,7 +1316,7 @@ void __66__HUAccessoryHearingSyncManager_deviceTypesForAvailableAddresses___bloc
 
 - (BOOL)shouldUpdateWatchesWithListeningModes:(id)modes
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   modesCopy = modes;
   v5 = headphoneStreamSelected();
   v6 = HCLogHearingProtection();
@@ -1352,39 +1325,39 @@ void __66__HUAccessoryHearingSyncManager_deviceTypesForAvailableAddresses___bloc
     persistentDeviceListeningState = [(HUAccessoryHearingSyncManager *)self persistentDeviceListeningState];
     *buf = 67109634;
     *&buf[4] = v5;
-    *v31 = 2112;
-    *&v31[2] = persistentDeviceListeningState;
-    *&v31[10] = 2112;
-    *&v31[12] = modesCopy;
+    *v30 = 2112;
+    *&v30[2] = persistentDeviceListeningState;
+    *&v30[10] = 2112;
+    *&v30[12] = modesCopy;
     _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "Headphone Selected %d, Listening modes sent to Watches: %@, new: %@", buf, 0x1Cu);
   }
 
   *buf = 0;
-  *v31 = buf;
-  *&v31[8] = 0x2020000000;
-  v31[16] = 0;
+  *v30 = buf;
+  *&v30[8] = 0x2020000000;
+  v30[16] = 0;
   if (v5)
   {
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __71__HUAccessoryHearingSyncManager_shouldUpdateWatchesWithListeningModes___block_invoke;
-    v26[3] = &unk_1E85CAA90;
-    v26[4] = self;
-    v26[5] = buf;
-    [modesCopy enumerateKeysAndObjectsUsingBlock:v26];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __71__HUAccessoryHearingSyncManager_shouldUpdateWatchesWithListeningModes___block_invoke;
+    v25[3] = &unk_1E85CAA90;
+    v25[4] = self;
+    v25[5] = buf;
+    [modesCopy enumerateKeysAndObjectsUsingBlock:v25];
     persistentDeviceListeningState2 = [(HUAccessoryHearingSyncManager *)self persistentDeviceListeningState];
-    v20 = MEMORY[0x1E69E9820];
-    v21 = 3221225472;
-    v22 = __71__HUAccessoryHearingSyncManager_shouldUpdateWatchesWithListeningModes___block_invoke_78;
-    v23 = &unk_1E85CAA90;
+    v19 = MEMORY[0x1E69E9820];
+    v20 = 3221225472;
+    v21 = __71__HUAccessoryHearingSyncManager_shouldUpdateWatchesWithListeningModes___block_invoke_78;
+    v22 = &unk_1E85CAA90;
     v9 = modesCopy;
-    v24 = v9;
-    v25 = buf;
-    [persistentDeviceListeningState2 enumerateKeysAndObjectsUsingBlock:&v20];
+    v23 = v9;
+    v24 = buf;
+    [persistentDeviceListeningState2 enumerateKeysAndObjectsUsingBlock:&v19];
 
-    if (*(*v31 + 24) == 1)
+    if (*(*v30 + 24) == 1)
     {
-      [(HUAccessoryHearingSyncManager *)self setPersistentDeviceListeningState:v9, v20, v21, v22, v23];
+      [(HUAccessoryHearingSyncManager *)self setPersistentDeviceListeningState:v9, v19, v20, v21, v22];
     }
   }
 
@@ -1395,13 +1368,13 @@ void __66__HUAccessoryHearingSyncManager_deviceTypesForAvailableAddresses___bloc
 
     if (!v11)
     {
-      *(*v31 + 24) = 1;
+      *(*v30 + 24) = 1;
       v12 = objc_opt_new();
       [(HUAccessoryHearingSyncManager *)self setPersistentDeviceListeningState:v12];
     }
   }
 
-  if (*(*v31 + 24) == 1)
+  if (*(*v30 + 24) == 1)
   {
     self->_isHeadphoneStreamSelected = v5;
   }
@@ -1410,28 +1383,27 @@ void __66__HUAccessoryHearingSyncManager_deviceTypesForAvailableAddresses___bloc
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     persistentDeviceListeningState4 = [(HUAccessoryHearingSyncManager *)self persistentDeviceListeningState];
-    [(HUAccessoryHearingSyncManager *)persistentDeviceListeningState4 shouldUpdateWatchesWithListeningModes:v29, v13];
+    [(HUAccessoryHearingSyncManager *)persistentDeviceListeningState4 shouldUpdateWatchesWithListeningModes:v28, v13];
   }
 
   v15 = HCLogHearingProtection();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = *(*v31 + 24);
-    *v27 = 67109120;
-    v28 = v16;
-    _os_log_impl(&dword_1DA5E2000, v15, OS_LOG_TYPE_DEFAULT, "Listening modes for Watch changed: %d", v27, 8u);
+    v16 = *(*v30 + 24);
+    *v26 = 67109120;
+    v27 = v16;
+    _os_log_impl(&dword_1DA5E2000, v15, OS_LOG_TYPE_DEFAULT, "Listening modes for Watch changed: %d", v26, 8u);
   }
 
-  v17 = *(*v31 + 24);
+  v17 = *(*v30 + 24);
   _Block_object_dispose(buf, 8);
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17 & 1;
 }
 
 void __71__HUAccessoryHearingSyncManager_shouldUpdateWatchesWithListeningModes___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) persistentDeviceListeningState];
@@ -1442,10 +1414,10 @@ void __71__HUAccessoryHearingSyncManager_shouldUpdateWatchesWithListeningModes__
     v9 = HCLogHearingProtection();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412546;
-      v13 = v6;
-      v14 = 2112;
-      v15 = v5;
+      v11 = 138412546;
+      v12 = v6;
+      v13 = 2112;
+      v14 = v5;
       v10 = "Added listening mode %@, for device: %@";
       goto LABEL_7;
     }
@@ -1461,13 +1433,13 @@ LABEL_8:
     v9 = HCLogHearingProtection();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412546;
-      v13 = v6;
-      v14 = 2112;
-      v15 = v5;
+      v11 = 138412546;
+      v12 = v6;
+      v13 = 2112;
+      v14 = v5;
       v10 = "Changed listening mode %@, for device: %@";
 LABEL_7:
-      _os_log_impl(&dword_1DA5E2000, v9, OS_LOG_TYPE_DEFAULT, v10, &v12, 0x16u);
+      _os_log_impl(&dword_1DA5E2000, v9, OS_LOG_TYPE_DEFAULT, v10, &v11, 0x16u);
       goto LABEL_8;
     }
 
@@ -1475,13 +1447,11 @@ LABEL_7:
   }
 
 LABEL_9:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __71__HUAccessoryHearingSyncManager_shouldUpdateWatchesWithListeningModes___block_invoke_78(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) objectForKey:v5];
@@ -1490,17 +1460,15 @@ void __71__HUAccessoryHearingSyncManager_shouldUpdateWatchesWithListeningModes__
     v8 = HCLogHearingProtection();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412546;
-      v11 = v6;
-      v12 = 2112;
-      v13 = v5;
-      _os_log_impl(&dword_1DA5E2000, v8, OS_LOG_TYPE_DEFAULT, "Removed listening mode %@, for device: %@", &v10, 0x16u);
+      v9 = 138412546;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v5;
+      _os_log_impl(&dword_1DA5E2000, v8, OS_LOG_TYPE_DEFAULT, "Removed listening mode %@, for device: %@", &v9, 0x16u);
     }
 
     *(*(*(a1 + 40) + 8) + 24) = 1;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendListeningModesIDSMessageIfNeeded
@@ -1574,14 +1542,14 @@ void __69__HUAccessoryHearingSyncManager_sendListeningModesIDSMessageIfNeeded__b
 - (void)_sendIDSMessageIfNeededForListeningModes:(id)modes addresses:(id)addresses force:(BOOL)force
 {
   forceCopy = force;
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   if ([(HUAccessoryHearingSyncManager *)self shouldUpdateWatchesWithListeningModes:modes, addresses])
   {
     v7 = MEMORY[0x1E695DF90];
-    v20 = @"HUListenModeKey";
+    v19 = @"HUListenModeKey";
     persistentDeviceListeningState = [(HUAccessoryHearingSyncManager *)self persistentDeviceListeningState];
-    v21[0] = persistentDeviceListeningState;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v20[0] = persistentDeviceListeningState;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     v10 = [v7 dictionaryWithDictionary:v9];
 
     v11 = +[HUAccessoryHearingSettings sharedInstance];
@@ -1604,9 +1572,9 @@ void __69__HUAccessoryHearingSyncManager_sendListeningModesIDSMessageIfNeeded__b
     {
       if (v15)
       {
-        v18 = 138412290;
-        v19 = v10;
-        _os_log_impl(&dword_1DA5E2000, v14, OS_LOG_TYPE_DEFAULT, "Sending to all Accessory state message: %@", &v18, 0xCu);
+        v17 = 138412290;
+        v18 = v10;
+        _os_log_impl(&dword_1DA5E2000, v14, OS_LOG_TYPE_DEFAULT, "Sending to all Accessory state message: %@", &v17, 0xCu);
       }
 
       v16 = +[HUNearbyController sharedInstance];
@@ -1617,22 +1585,20 @@ void __69__HUAccessoryHearingSyncManager_sendListeningModesIDSMessageIfNeeded__b
     {
       if (v15)
       {
-        v18 = 138412290;
-        v19 = v10;
-        _os_log_impl(&dword_1DA5E2000, v14, OS_LOG_TYPE_DEFAULT, "Sending to Watches Accessory state message: %@", &v18, 0xCu);
+        v17 = 138412290;
+        v18 = v10;
+        _os_log_impl(&dword_1DA5E2000, v14, OS_LOG_TYPE_DEFAULT, "Sending to Watches Accessory state message: %@", &v17, 0xCu);
       }
 
       v16 = +[HUNearbyController sharedInstance];
       [v16 sendMessage:v10 toWatchDevicesWithDomain:@"com.apple.hearing.accessory" excludingState:&unk_1F5623EA8 withPriority:1];
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)processNoiseMeasurementsDisabledMessage:(id)message fromDevice:(id)device
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   v6 = MEMORY[0x1E696AEC0];
   messageCopy = message;
@@ -1645,21 +1611,19 @@ void __69__HUAccessoryHearingSyncManager_sendListeningModesIDSMessageIfNeeded__b
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v13 = v9;
-      v14 = 2112;
-      v15 = deviceCopy;
+      v12 = v9;
+      v13 = 2112;
+      v14 = deviceCopy;
       _os_log_impl(&dword_1DA5E2000, v10, OS_LOG_TYPE_DEFAULT, "IDS received Noise Disabled: %@ from device: %@", buf, 0x16u);
     }
 
     [deviceCopy setState:v9 forDomain:@"com.apple.hearing.accessory"];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasPairedDevicesWithListeningModes
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695D288] devicesWithDiscoveryFlags:0x80000800000 error:0];
   v3 = HCLogHearingProtection();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
@@ -1667,33 +1631,33 @@ void __69__HUAccessoryHearingSyncManager_sendListeningModesIDSMessageIfNeeded__b
     [(HUAccessoryHearingSyncManager *)v2 hasPairedDevicesWithListeningModes];
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         if (([v9 deviceFlags] & 0x4000000) != 0 || (objc_msgSend(v9, "deviceFlags") & 0x8000000) != 0)
         {
           v12 = HCLogHearingProtection();
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
-            *v15 = 0;
-            _os_log_impl(&dword_1DA5E2000, v12, OS_LOG_TYPE_DEFAULT, "Has paired devices with listening modes", v15, 2u);
+            *v14 = 0;
+            _os_log_impl(&dword_1DA5E2000, v12, OS_LOG_TYPE_DEFAULT, "Has paired devices with listening modes", v14, 2u);
           }
 
           v11 = 1;
@@ -1702,7 +1666,7 @@ void __69__HUAccessoryHearingSyncManager_sendListeningModesIDSMessageIfNeeded__b
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v6)
       {
         continue;
@@ -1715,14 +1679,13 @@ void __69__HUAccessoryHearingSyncManager_sendListeningModesIDSMessageIfNeeded__b
   v10 = HCLogHearingProtection();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    *v15 = 0;
-    _os_log_impl(&dword_1DA5E2000, v10, OS_LOG_TYPE_DEFAULT, "No paired devices with listening modes", v15, 2u);
+    *v14 = 0;
+    _os_log_impl(&dword_1DA5E2000, v10, OS_LOG_TYPE_DEFAULT, "No paired devices with listening modes", v14, 2u);
   }
 
   v11 = 0;
 LABEL_18:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -1735,22 +1698,19 @@ LABEL_18:
 
 void __69__HUAccessoryHearingSyncManager_sendListeningModesIDSMessageIfNeeded__block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [*(a1 + 32) deviceListeningState];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_1DA5E2000, a2, OS_LOG_TYPE_DEBUG, "Routes and isHeadphoneStreamSelected are updated, deviceListeningState: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_1DA5E2000, a2, OS_LOG_TYPE_DEBUG, "Routes and isHeadphoneStreamSelected are updated, deviceListeningState: %@", &v4, 0xCu);
 }
 
 - (void)hasPairedDevicesWithListeningModes
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1DA5E2000, a2, OS_LOG_TYPE_DEBUG, "AccessoryManager pairedDevices: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1DA5E2000, a2, OS_LOG_TYPE_DEBUG, "AccessoryManager pairedDevices: %@", &v2, 0xCu);
 }
 
 @end

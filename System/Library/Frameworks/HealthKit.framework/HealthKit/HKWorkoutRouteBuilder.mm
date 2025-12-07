@@ -233,13 +233,14 @@ void __68__HKWorkoutRouteBuilder_finishRouteWithWorkout_metadata_completion___bl
 void __68__HKWorkoutRouteBuilder_finishRouteWithWorkout_metadata_completion___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
   v3 = a3;
+  v5 = v3;
   if (v3)
   {
-    _HKInitializeLogging();
-    v4 = HKLogWorkouts;
+    _HKInitializeLogging(v3, v4);
+    v6 = HKLogWorkouts;
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
     {
-      __68__HKWorkoutRouteBuilder_finishRouteWithWorkout_metadata_completion___block_invoke_3_cold_1(v3, v4);
+      __68__HKWorkoutRouteBuilder_finishRouteWithWorkout_metadata_completion___block_invoke_3_cold_1(v5, v6);
     }
   }
 }
@@ -307,11 +308,10 @@ void __68__HKWorkoutRouteBuilder_finishRouteWithWorkout_metadata_completion___bl
 
 void __68__HKWorkoutRouteBuilder_finishRouteWithWorkout_metadata_completion___block_invoke_3_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "[routes] Couldn't finish workout route with error: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "[routes] Couldn't finish workout route with error: %{public}@", &v2, 0xCu);
 }
 
 @end

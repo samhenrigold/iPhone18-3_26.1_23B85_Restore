@@ -14,21 +14,21 @@
 
 - (id)activityViewController:(id)controller attachmentNameForActivityType:(id)type
 {
-  v5 = [(CNShareContactActivityItem *)self contacts:controller];
+  v5 = objc_msgSend_contacts(self, a2, controller, type);
   v6 = [v5 count];
 
   if (v6 == 1)
   {
-    contacts = [(CNShareContactActivityItem *)self contacts];
-    firstObject = [contacts firstObject];
+    displayString = objc_msgSend_contacts(self);
+    firstObject = [displayString firstObject];
     v9 = [CNUIVCardUtilities fileNameForContact:firstObject];
   }
 
   else
   {
     v10 = MEMORY[0x1E696AEC0];
-    contacts = [(CNShareContactActivityItem *)self displayString];
-    v9 = [v10 stringWithFormat:@"%@.vcf", contacts];
+    displayString = [(CNShareContactActivityItem *)self displayString];
+    v9 = [v10 stringWithFormat:@"%@.vcf", displayString];
   }
 
   return v9;
@@ -38,13 +38,13 @@
 {
   width = size.width;
   typeCopy = type;
-  contacts = [(CNShareContactActivityItem *)self contacts];
-  v9 = [contacts count];
+  v8 = objc_msgSend_contacts(self);
+  v9 = [v8 count];
 
   if (v9 == 1)
   {
-    contacts2 = [(CNShareContactActivityItem *)self contacts];
-    firstObject = [contacts2 firstObject];
+    v10 = objc_msgSend_contacts(self);
+    firstObject = [v10 firstObject];
 
     if ([typeCopy isEqualToString:*MEMORY[0x1E69CDA78]])
     {
@@ -101,21 +101,21 @@
 
   [optionsFromPreferences setIncludeMeCardOnlySharingProperties:{-[CNShareContactActivityItem canShareMeCardOnlySharingProperties](self, "canShareMeCardOnlySharingProperties")}];
   v9 = MEMORY[0x1E695CE30];
-  contacts = [(CNShareContactActivityItem *)self contacts];
-  v11 = [v9 dataWithContacts:contacts options:optionsFromPreferences error:0];
+  v10 = objc_msgSend_contacts(self);
+  v11 = [v9 dataWithContacts:v10 options:optionsFromPreferences error:0];
 
   return v11;
 }
 
 - (id)thumbnailImage
 {
-  contacts = [(CNShareContactActivityItem *)self contacts];
-  v4 = [contacts count];
+  v3 = objc_msgSend_contacts(self, a2);
+  v4 = [v3 count];
 
   if (v4 == 1)
   {
-    contacts2 = [(CNShareContactActivityItem *)self contacts];
-    firstObject = [contacts2 firstObject];
+    v5 = objc_msgSend_contacts(self);
+    firstObject = [v5 firstObject];
 
     thumbnailImageData = [firstObject thumbnailImageData];
 
@@ -151,13 +151,13 @@
 
 - (id)displayString
 {
-  contacts = [(CNShareContactActivityItem *)self contacts];
-  v4 = [contacts count];
+  v3 = objc_msgSend_contacts(self, a2);
+  v4 = [v3 count];
 
   if (v4 == 1)
   {
-    contacts2 = [(CNShareContactActivityItem *)self contacts];
-    firstObject = [contacts2 firstObject];
+    v5 = objc_msgSend_contacts(self);
+    firstObject = [v5 firstObject];
 
     contactFormatter = [(CNShareContactActivityItem *)self contactFormatter];
     v8 = [contactFormatter stringFromContact:firstObject];
@@ -188,8 +188,8 @@
   {
     v17 = [CNGroupIdentity alloc];
     groupName = [(CNShareContactActivityItem *)self groupName];
-    contacts3 = [(CNShareContactActivityItem *)self contacts];
-    firstObject = [(CNGroupIdentity *)v17 initGroupWithName:groupName photo:0 contacts:contacts3];
+    v19 = objc_msgSend_contacts(self);
+    firstObject = [(CNGroupIdentity *)v17 initGroupWithName:groupName photo:0 contacts:v19];
 
     value = [(CNShareContactActivityItem *)self contactFormatter];
     formattedStringValue = [value stringFromGroupIdentity:firstObject];
@@ -206,7 +206,7 @@ LABEL_7:
   linkMetadata = self->_linkMetadata;
   if (!linkMetadata)
   {
-    v4 = objc_alloc_init(getLPLinkMetadataClass());
+    v4 = objc_alloc_init(getLPLinkMetadataClass(0, a2));
     v5 = self->_linkMetadata;
     self->_linkMetadata = v4;
 

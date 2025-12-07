@@ -9,30 +9,28 @@
 
 - (id)attributeDescriptions
 {
-  v21[4] = *MEMORY[0x277D85DE8];
-  v20.receiver = self;
-  v20.super_class = HMDCompositeLanguageSetting;
-  attributeDescriptions = [(HMDCompositeSetting *)&v20 attributeDescriptions];
+  v20[4] = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = HMDCompositeLanguageSetting;
+  attributeDescriptions = [(HMDCompositeSetting *)&v19 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   inputLanguageCode = [(HMDCompositeLanguageSetting *)self inputLanguageCode];
   v5 = [v4 initWithName:@"inputLanguageCode" value:inputLanguageCode];
-  v21[0] = v5;
+  v20[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   outputVoiceGenderCode = [(HMDCompositeLanguageSetting *)self outputVoiceGenderCode];
   v8 = [v6 initWithName:@"outputVoiceGenderCode" value:outputVoiceGenderCode];
-  v21[1] = v8;
+  v20[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   outputVoiceLanguageCode = [(HMDCompositeLanguageSetting *)self outputVoiceLanguageCode];
   v11 = [v9 initWithName:@"outputVoiceLanguageCode" value:outputVoiceLanguageCode];
-  v21[2] = v11;
+  v20[2] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   voiceName = [(HMDCompositeLanguageSetting *)self voiceName];
   v14 = [v12 initWithName:@"voiceName" value:voiceName];
-  v21[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
+  v20[3] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
   v16 = [attributeDescriptions arrayByAddingObjectsFromArray:v15];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

@@ -145,7 +145,7 @@ LABEL_13:
 
 - (void)transactionObjectRemoved:(id)removed message:(id)message
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
   messageCopy = message;
   v8 = objc_autoreleasePoolPush();
@@ -156,22 +156,21 @@ LABEL_13:
     v11 = HMFGetLogIdentifier();
     uuid = [removedCopy uuid];
     parentUUID = [removedCopy parentUUID];
-    v15 = 138543874;
-    v16 = v11;
-    v17 = 2112;
-    v18 = uuid;
-    v19 = 2112;
-    v20 = parentUUID;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Outgoing invitations have no objects to remove. Transaction UUID: %@, Parent UUID: %@", &v15, 0x20u);
+    v14 = 138543874;
+    v15 = v11;
+    v16 = 2112;
+    v17 = uuid;
+    v18 = 2112;
+    v19 = parentUUID;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Outgoing invitations have no objects to remove. Transaction UUID: %@, Parent UUID: %@", &v14, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_transactionOutgoingInvitationUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -195,13 +194,13 @@ LABEL_13:
       v17 = HMFGetLogIdentifier();
       endDate = [(HMDHomeInvitation *)selfCopy endDate];
       expiryDate2 = [valuesCopy expiryDate];
-      v53 = 138543874;
-      v54 = v17;
-      v55 = 2112;
-      v56 = endDate;
-      v57 = 2112;
-      v58 = expiryDate2;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Expiry date is updated from: %@ to %@", &v53, 0x20u);
+      v52 = 138543874;
+      v53 = v17;
+      v54 = 2112;
+      v55 = endDate;
+      v56 = 2112;
+      v57 = expiryDate2;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Expiry date is updated from: %@ to %@", &v52, 0x20u);
     }
 
     objc_autoreleasePoolPop(v14);
@@ -286,11 +285,11 @@ LABEL_13:
         {
           v44 = HMFGetLogIdentifier();
           invitationState4 = [(HMDHomeInvitation *)selfCopy2 invitationState];
-          v53 = 138543618;
-          v54 = v44;
-          v55 = 2048;
-          v56 = invitationState4;
-          _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_INFO, "%{public}@Invitation state cannot be set back to pending, maintaining current state as %lu", &v53, 0x16u);
+          v52 = 138543618;
+          v53 = v44;
+          v54 = 2048;
+          v55 = invitationState4;
+          _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_INFO, "%{public}@Invitation state cannot be set back to pending, maintaining current state as %lu", &v52, 0x16u);
         }
 
         objc_autoreleasePoolPop(v41);
@@ -324,8 +323,6 @@ LABEL_29:
     responseHandler2 = [messageCopy responseHandler];
     responseHandler2[2](responseHandler2, 0, 0);
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
@@ -363,7 +360,7 @@ LABEL_29:
 - (NSArray)operationIdentifiers
 {
   os_unfair_lock_lock_with_options();
-  v3 = [(NSArray *)self->_operationIdentifiers copy];
+  v3 = objc_msgSend_copy(self->_operationIdentifiers);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -383,33 +380,33 @@ LABEL_29:
 
 - (void)notifyStateChangedForMessage:(id)message
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   invitationData = [(HMDHomeInvitation *)self invitationData];
-  v27[0] = invitationData;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+  v26[0] = invitationData;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
   v7 = encodeRootObject();
 
   v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:1];
   accessoryInvitationsInformation = [(HMDOutgoingHomeInvitation *)self accessoryInvitationsInformation];
   if (accessoryInvitationsInformation)
   {
-    v25[0] = @"kInvitationIdentifierKey";
+    v24[0] = @"kInvitationIdentifierKey";
     identifier = [(HMDHomeInvitation *)self identifier];
     uUIDString = [identifier UUIDString];
-    v25[1] = @"kAccessoryInvitationsKey";
-    v26[0] = uUIDString;
-    v26[1] = accessoryInvitationsInformation;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
+    v24[1] = @"kAccessoryInvitationsKey";
+    v25[0] = uUIDString;
+    v25[1] = accessoryInvitationsInformation;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
     [v8 addObject:v12];
   }
 
   v13 = encodeRootObject();
-  v23[0] = @"kInvitationsDataKey";
-  v23[1] = @"kAccessoryInvitationsDataKey";
-  v24[0] = v7;
-  v24[1] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+  v22[0] = @"kInvitationsDataKey";
+  v22[1] = @"kAccessoryInvitationsDataKey";
+  v23[0] = v7;
+  v23[1] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
   identifier2 = [messageCopy identifier];
 
   if (identifier2)
@@ -429,8 +426,6 @@ LABEL_29:
   msgDispatcher = [home msgDispatcher];
   uuid = [home uuid];
   [msgDispatcher sendMessage:v18 target:uuid];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)refreshDisplayName

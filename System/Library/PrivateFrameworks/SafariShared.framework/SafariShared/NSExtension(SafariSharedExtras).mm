@@ -116,16 +116,16 @@
   v2 = objc_alloc(MEMORY[0x1E69635F8]);
   _plugIn = [self _plugIn];
   containingUrl = [_plugIn containingUrl];
-  v9 = 0;
-  v5 = [v2 initWithURL:containingUrl allowPlaceholder:0 error:&v9];
-  v6 = v9;
+  v11 = 0;
+  v5 = [v2 initWithURL:containingUrl allowPlaceholder:0 error:&v11];
+  v6 = v11;
 
   if (!v5)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXExtensions();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXExtensions(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(NSExtension(SafariSharedExtras) *)v7 _safari_containingAppRecord];
+      [(NSExtension(SafariSharedExtras) *)v9 _safari_containingAppRecord];
     }
   }
 

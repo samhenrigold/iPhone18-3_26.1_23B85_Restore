@@ -27,67 +27,68 @@
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo14CAFUnitPercentCGMd, &_s10Foundation11MeasurementVySo14CAFUnitPercentCGMR);
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v13 - v9;
+  v9 = &v12 - v8;
   type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for CAFUnitPercent, 0x277CF8770);
   static Measurement._unconditionallyBridgeFromObjectiveC(_:)();
   serviceCopy = service;
   selfCopy = self;
-  CAFFuelLevelObservable.fuelLevelService(_:didUpdateFuelLevel:)(selfCopy, v10);
+  CAFFuelLevelObservable.fuelLevelService(_:didUpdateFuelLevel:)(selfCopy, v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)fuelLevelService:(id)service didUpdateFuelLevelState:(unsigned __int8)state
 {
+  stateCopy = state;
   serviceCopy = service;
   selfCopy = self;
-  CAFFuelLevelObservable.fuelLevelService(_:didUpdateFuelLevelState:)(selfCopy, state);
+  CAFFuelLevelObservable.fuelLevelService(_:didUpdateFuelLevelState:)(selfCopy, stateCopy);
 }
 
 - (void)fuelLevelService:(id)service didUpdateFuelLevelMarkerLow:(id)low
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo14CAFUnitPercentCGSgMd, &_s10Foundation11MeasurementVySo14CAFUnitPercentCGSgMR);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v16 - v9;
+  v9 = &v15 - v8;
   if (low)
   {
     type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for CAFUnitPercent, 0x277CF8770);
     static Measurement._unconditionallyBridgeFromObjectiveC(_:)();
-    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo14CAFUnitPercentCGMd, &_s10Foundation11MeasurementVySo14CAFUnitPercentCGMR);
-    v12 = v10;
-    v13 = 0;
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo14CAFUnitPercentCGMd, &_s10Foundation11MeasurementVySo14CAFUnitPercentCGMR);
+    v11 = v9;
+    v12 = 0;
   }
 
   else
   {
-    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo14CAFUnitPercentCGMd, &_s10Foundation11MeasurementVySo14CAFUnitPercentCGMR);
-    v12 = v10;
-    v13 = 1;
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo14CAFUnitPercentCGMd, &_s10Foundation11MeasurementVySo14CAFUnitPercentCGMR);
+    v11 = v9;
+    v12 = 1;
   }
 
-  __swift_storeEnumTagSinglePayload(v12, v13, 1, v11);
+  __swift_storeEnumTagSinglePayload(v11, v12, 1, v10);
   serviceCopy = service;
   selfCopy = self;
-  CAFFuelLevelObservable.fuelLevelService(_:didUpdateFuelLevelMarkerLow:)(selfCopy, v10);
+  CAFFuelLevelObservable.fuelLevelService(_:didUpdateFuelLevelMarkerLow:)(selfCopy, v9);
 
-  outlined destroy of Measurement<CAFUnitPercent>?(v10);
+  outlined destroy of Measurement<CAFUnitPercent>?(v9);
 }
 
 - (void)fuelLevelService:(id)service didUpdateFillLevelLabel:(unsigned __int8)label
 {
+  labelCopy = label;
   serviceCopy = service;
   selfCopy = self;
-  CAFFuelLevelObservable.fuelLevelService(_:didUpdateFillLevelLabel:)(selfCopy, label);
+  CAFFuelLevelObservable.fuelLevelService(_:didUpdateFillLevelLabel:)(selfCopy, labelCopy);
 }
 
 - (void)fuelLevelService:(id)service didUpdatePortSideIndicator:(unsigned __int8)indicator
 {
+  indicatorCopy = indicator;
   serviceCopy = service;
   selfCopy = self;
-  CAFFuelLevelObservable.fuelLevelService(_:didUpdatePortSideIndicator:)(selfCopy, indicator);
+  CAFFuelLevelObservable.fuelLevelService(_:didUpdatePortSideIndicator:)(selfCopy, indicatorCopy);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

@@ -447,7 +447,7 @@
       v57 = window;
       if (window)
       {
-        [window transform];
+        objc_msgSend_transform(window);
       }
 
       else
@@ -2465,21 +2465,21 @@ LABEL_26:
 
           else
           {
-            v48 = 0;
-            v49 = &v48;
-            v50 = 0x3032000000;
-            v51 = __Block_byref_object_copy__8;
-            v52 = __Block_byref_object_dispose__8;
-            v53 = 0;
-            v42 = MEMORY[0x29EDCA5F8];
-            v43 = 3221225472;
-            v44 = __79__SpringBoardAccessibility__iosAccessibilityPerformAction_withValue_fencePort___block_invoke_1078;
-            v45 = &unk_29F2FBCB8;
+            v47 = 0;
+            v48 = &v47;
+            v49 = 0x3032000000;
+            v50 = __Block_byref_object_copy__8;
+            v51 = __Block_byref_object_dispose__8;
+            v52 = 0;
+            v41 = MEMORY[0x29EDCA5F8];
+            v42 = 3221225472;
+            v43 = __79__SpringBoardAccessibility__iosAccessibilityPerformAction_withValue_fencePort___block_invoke_1078;
+            v44 = &unk_29F2FBCB8;
             selfCopy = self;
-            v47 = &v48;
+            v46 = &v47;
             AXPerformSafeBlock();
-            _accessibilityOrientationDeferralAssertion = v49[5];
-            _Block_object_dispose(&v48, 8);
+            _accessibilityOrientationDeferralAssertion = v48[5];
+            _Block_object_dispose(&v47, 8);
 
             [(SpringBoardAccessibility *)self _setAccessibilityOrientationDeferralAssertion:_accessibilityOrientationDeferralAssertion];
           }
@@ -2505,7 +2505,7 @@ LABEL_51:
 
     if (v6 != 5012)
     {
-      LOBYTE(v48) = 0;
+      LOBYTE(v47) = 0;
       v16 = [MEMORY[0x29EDC7938] safeValueForKeyPath:@"brightnessControl._displayBrightnessController"];
       server = __UIAccessibilitySafeClass();
 
@@ -2518,12 +2518,12 @@ LABEL_51:
         if (newHIDEventRef)
         {
           v21 = newHIDEventRef;
-          v54 = MEMORY[0x29EDCA5F8];
-          v55 = 3221225472;
-          v56 = __79__SpringBoardAccessibility__iosAccessibilityPerformAction_withValue_fencePort___block_invoke_2;
-          v57 = &unk_29F2FC560;
-          v58 = server;
-          v59 = v21;
+          v53 = MEMORY[0x29EDCA5F8];
+          v54 = 3221225472;
+          v55 = __79__SpringBoardAccessibility__iosAccessibilityPerformAction_withValue_fencePort___block_invoke_2;
+          v56 = &unk_29F2FC560;
+          v57 = server;
+          v58 = v21;
           AXPerformSafeBlock();
           CFRelease(v21);
         }
@@ -2534,24 +2534,24 @@ LABEL_51:
 
     v26 = [NSClassFromString(&cfstr_Sbuicontroller.isa) safeValueForKey:@"sharedInstance"];
     v27 = [NSClassFromString(&cfstr_Sbapplicationc.isa) safeValueForKey:@"sharedInstance"];
-    v48 = 0;
-    v49 = &v48;
-    v50 = 0x2020000000;
-    LOBYTE(v51) = 0;
-    v60 = MEMORY[0x29EDCA5F8];
-    v61 = 3221225472;
-    v62 = __79__SpringBoardAccessibility__iosAccessibilityPerformAction_withValue_fencePort___block_invoke;
-    v63 = &unk_29F2FC538;
+    v47 = 0;
+    v48 = &v47;
+    v49 = 0x2020000000;
+    LOBYTE(v50) = 0;
+    v59 = MEMORY[0x29EDCA5F8];
+    v60 = 3221225472;
+    v61 = __79__SpringBoardAccessibility__iosAccessibilityPerformAction_withValue_fencePort___block_invoke;
+    v62 = &unk_29F2FC538;
     v28 = v27;
-    v64 = v28;
-    v65 = v9;
+    v63 = v28;
+    v64 = v9;
     lastObject = v26;
-    v66 = lastObject;
-    v67 = &v48;
+    v65 = lastObject;
+    v66 = &v47;
     AXPerformSafeBlock();
-    isKindOfClass = *(v49 + 24);
+    isKindOfClass = *(v48 + 24);
 
-    _Block_object_dispose(&v48, 8);
+    _Block_object_dispose(&v47, 8);
 LABEL_61:
 
     goto LABEL_62;
@@ -2593,9 +2593,9 @@ LABEL_61:
       }
 
 LABEL_45:
-      v41.receiver = self;
-      v41.super_class = SpringBoardAccessibility;
-      isKindOfClass = [(SpringBoardAccessibility *)&v41 _iosAccessibilityPerformAction:v6 withValue:v9 fencePort:v5];
+      v40.receiver = self;
+      v40.super_class = SpringBoardAccessibility;
+      isKindOfClass = [(SpringBoardAccessibility *)&v40 _iosAccessibilityPerformAction:v6 withValue:v9 fencePort:v5];
       goto LABEL_62;
     }
 
@@ -2604,7 +2604,7 @@ LABEL_45:
       lastObject3 = 0;
       intValue2 = 0;
 LABEL_57:
-      LOBYTE(v48) = 0;
+      LOBYTE(v47) = 0;
       objc_opt_class();
       _axKeyboardFocusCoordinator = [(SpringBoardAccessibility *)self _axKeyboardFocusCoordinator];
       v38 = __UIAccessibilityCastAsSafeCategory();
@@ -2681,8 +2681,7 @@ LABEL_56:
 
       if (voiceOverHandwritingWasNativeAutocorrectEnabled)
       {
-        LOBYTE(v40) = 1;
-        _AXLogWithFacility();
+        _AXLogWithFacility(3, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Restoring preferences changed by VOT Handwriting now");
         mEMORY[0x29EDC7B28] = [MEMORY[0x29EDC7B28] sharedPreferencesController];
         [mEMORY[0x29EDC7B28] setValue:voiceOverHandwritingWasNativeAutocorrectEnabled forKey:8];
 
@@ -2696,7 +2695,7 @@ LABEL_56:
       else
       {
         _AXAssert();
-        _AXLogWithFacility();
+        _AXLogWithFacility(3, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Restoring preferences changed by VOT Handwriting now");
       }
 
 LABEL_48:
@@ -2769,7 +2768,7 @@ uint64_t __79__SpringBoardAccessibility__iosAccessibilityPerformAction_withValue
   return v7;
 }
 
-uint64_t __57__SpringBoardAccessibility__accessibilityFocusableScenes__block_invoke()
+uint64_t __57__SpringBoardAccessibility__accessibilityFocusableScenes__block_invoke(uint64_t a1)
 {
   result = objc_opt_respondsToSelector();
   _accessibilityFocusableScenes__sShouldCheckKeyboardFocusCoordinator = result & 1;
@@ -2892,7 +2891,7 @@ uint64_t __58__SpringBoardAccessibility__accessibilityCurrentCallState__block_in
 - (BOOL)accessibilityStartStopToggle
 {
   v75 = *MEMORY[0x29EDCA608];
-  v3 = AXSBHIconManagerFromSharedIconController();
+  v3 = AXSBHIconManagerFromSharedIconController(self, a2);
   v4 = [v3 safeBoolForKey:@"isEditing"];
 
   if (!v4)
@@ -3575,9 +3574,7 @@ LABEL_11:
         switch(state)
         {
           case 5:
-            v13 = @"Speak Screen gesture recognizer failed";
-            LOBYTE(v12) = 1;
-            _AXLogWithFacility();
+            _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Speak Screen gesture recognizer failed");
             break;
           case 4:
             break;
@@ -3750,15 +3747,17 @@ void __75__SpringBoardAccessibility__updateContinuityAttributesForProcess_isActi
 - (void)processManager:(void *)a1 didAddProcess:.cold.1(void *a1)
 {
   v1 = [a1 state];
+  v8 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_29C37A000, v2, v3, "%s process:%@.\n state:%@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_3(&dword_29C37A000, v2, v3, "%s process:%@.\n state:%@", v4, v5, v6, v7, v8);
 }
 
 - (void)processManager:(void *)a1 didRemoveProcess:.cold.1(void *a1)
 {
   v1 = [a1 state];
+  v8 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_29C37A000, v2, v3, "%s process:%@.\n state:%@", v4, v5, v6, v7, 2u);
+  OUTLINED_FUNCTION_3(&dword_29C37A000, v2, v3, "%s process:%@.\n state:%@", v4, v5, v6, v7, v8);
 }
 
 @end

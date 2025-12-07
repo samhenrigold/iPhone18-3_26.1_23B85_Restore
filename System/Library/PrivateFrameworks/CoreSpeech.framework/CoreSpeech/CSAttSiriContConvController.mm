@@ -15,6 +15,7 @@
 - (void)attSiriNode:(id)node startSpeechProcessing:(unint64_t)processing;
 - (void)gazeTrackerFaceTrackingMetaDataUpdate:(id)update atMachAbsTime:(unint64_t)time;
 - (void)handleAttendingTimeout;
+- (void)notifySiriSessionStateTTSOngoing:(BOOL)ongoing;
 - (void)relayGazeEstimates:(CGPoint)estimates landmarks:(id)landmarks;
 - (void)startAttendingWithAudioRecordContext:(id)context attendingSiriRequestContext:(id)requestContext withRequestId:(id)id shouldStartTimer:(BOOL)timer;
 - (void)startMagusLoggingForTriggerRequest;
@@ -23,6 +24,16 @@
 @end
 
 @implementation CSAttSiriContConvController
+
+- (void)notifySiriSessionStateTTSOngoing:(BOOL)ongoing
+{
+  ongoingCopy = ongoing;
+  if (CSIsIOS())
+  {
+    v4 = +[CSAVVoiceTriggerClientManager sharedVoiceTriggerClient];
+    [v4 setAggressiveECMode:ongoingCopy completionBlock:&stru_10024FB50];
+  }
+}
 
 - (void)handleAttendingTimeout
 {

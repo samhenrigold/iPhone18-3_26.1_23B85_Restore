@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (WiFiAwarePairingConfiguration)initWithCoder:(id)coder;
 - (WiFiAwarePairingConfiguration)initWithSupportedPairSetupMethods:(id)methods pairingCachingEnabled:(BOOL)enabled;
+- (WiFiAwarePairingConfiguration)initWithSupportedPairSetupMethods:(id)methods pairingCachingEnabled:(BOOL)enabled pairingSetupMode:(int64_t)mode;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
@@ -25,6 +26,13 @@
   }
 
   return v7;
+}
+
+- (WiFiAwarePairingConfiguration)initWithSupportedPairSetupMethods:(id)methods pairingCachingEnabled:(BOOL)enabled pairingSetupMode:(int64_t)mode
+{
+  v6 = [(WiFiAwarePairingConfiguration *)self initWithSupportedPairSetupMethods:methods pairingCachingEnabled:enabled];
+  [(WiFiAwarePairingConfiguration *)v6 setPairingSetupMode:mode];
+  return v6;
 }
 
 - (WiFiAwarePairingConfiguration)initWithCoder:(id)coder

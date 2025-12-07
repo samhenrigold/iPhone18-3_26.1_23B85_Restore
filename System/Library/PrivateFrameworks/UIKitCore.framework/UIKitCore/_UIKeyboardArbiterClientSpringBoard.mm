@@ -101,7 +101,7 @@
   v20 = *MEMORY[0x1E69E9840];
   appCopy = app;
   completionCopy = completion;
-  if (appCopy && ![(__CFString *)appCopy isEqualToString:&stru_1EFB14550])
+  if (appCopy && !objc_msgSend_isEqualToString_(appCopy))
   {
     focusedSceneIdentityStringOrIdentifier = 0;
   }

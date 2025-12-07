@@ -584,8 +584,8 @@ void __120__CKSocialLayerChatController_FullScreenBalloonViewControllerDelegate_
     }
   }
 
-  collectionViewController = [(CKCoreChatController *)self collectionViewController];
-  [collectionViewController verticallyScrollTranscriptByAmount:animatedCopy animated:completionCopy completion:amount];
+  v15 = [(CKCoreChatController *)self collectionViewController:*v16];
+  [v15 verticallyScrollTranscriptByAmount:animatedCopy animated:completionCopy completion:amount];
 }
 
 + (void)chatItemForMessageGUID:(uint64_t)a1 messagePartIndex:(uint64_t)a2 chatItems:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)

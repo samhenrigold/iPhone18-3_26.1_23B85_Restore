@@ -223,51 +223,56 @@ void __78__SKUISegmentedControlCollectionViewCell_reloadWithViewElement_width_co
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG);
-      if (v3)
-      {
-        [(SKUISegmentedControlCollectionViewCell *)v3 layoutSubviews:v4];
-      }
-    }
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISegmentedControlCollectionViewCell layoutSubviews]";
+}
 
-  v37.receiver = self;
-  v37.super_class = SKUISegmentedControlCollectionViewCell;
-  [(SKUICollectionViewCell *)&v37 layoutSubviews];
-  contentView = [(SKUISegmentedControlCollectionViewCell *)self contentView];
-  [contentView bounds];
-  v13 = v12;
-  v15 = v14;
-  v17 = v16;
-  v19 = v18;
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISegmentedControlCollectionViewCell prefetchResourcesForViewElement:reason:context:]";
+}
 
-  [(SKUIViewReuseCollectionViewCell *)self contentInset];
-  v21 = v13 + v20;
-  v23 = v15 + v22;
-  v25 = v17 - (v20 + v24);
-  v27 = v19 - (v22 + v26);
-  segmentedControlView = [(SKUISegmentedControlViewElementController *)self->_elementController segmentedControlView];
-  [segmentedControlView sizeThatFits:{v25, v27}];
-  v30 = v29;
-  v32 = v31;
-  *&v29 = v21 + (v25 - v29) * 0.5;
-  *&v31 = v23 + (v27 - v31) * 0.5;
-  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(floorf(*&v29), floorf(*&v31), v30, v32, v13, v15, v17, v19);
-  [segmentedControlView setFrame:?];
-  if (self->_bottomDividerView)
-  {
-    mainScreen = [MEMORY[0x277D759A0] mainScreen];
-    [mainScreen scale];
-    v35 = 1.0 / v34;
++ (void)preferredSizeForViewElement:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISegmentedControlCollectionViewCell preferredSizeForViewElement:context:]";
+}
 
-    bottomDividerView = self->_bottomDividerView;
-    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(0.0, v19 - v35, v17, v35, v13, v15, v17, v19);
-    [(SKUIDividerView *)bottomDividerView setFrame:?];
-  }
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISegmentedControlCollectionViewCell requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISegmentedControlCollectionViewCell sizeThatFitsWidth:viewElement:context:]";
+}
+
+- (void)reloadWithViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISegmentedControlCollectionViewCell reloadWithViewElement:width:context:]";
+}
+
+- (void)setImage:(uint64_t)a3 forArtworkRequest:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISegmentedControlCollectionViewCell setImage:forArtworkRequest:context:]";
+}
+
+- (void)updateWithItemState:(uint64_t)a3 context:(uint64_t)a4 animated:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISegmentedControlCollectionViewCell updateWithItemState:context:animated:]";
+}
+
+- (void)viewForElementIdentifier:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISegmentedControlCollectionViewCell viewForElementIdentifier:]";
 }
 
 @end

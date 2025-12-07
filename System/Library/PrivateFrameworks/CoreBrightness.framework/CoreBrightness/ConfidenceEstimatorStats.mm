@@ -70,7 +70,7 @@ id __44__ConfidenceEstimatorStats_initWithModelID___block_invoke(uint64_t a1, vo
   [(ConfidenceEstimatorStats *)&v3 dealloc];
 }
 
-uint64_t __34__ConfidenceEstimatorStats_submit__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
+void *__34__ConfidenceEstimatorStats_submit__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
 {
   v23 = a1;
   v22 = a2;
@@ -99,18 +99,16 @@ uint64_t __34__ConfidenceEstimatorStats_submit__block_invoke(uint64_t a1, uint64
 
 uint64_t __34__ConfidenceEstimatorStats_submit__block_invoke_2(void *a1)
 {
-  v5[4] = *MEMORY[0x1E69E9840];
-  v4[0] = @"modelType";
-  v5[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(a1[4] + 24)];
-  v4[1] = @"confidenceEdge";
-  v5[1] = [*(a1[4] + 16) valueForKey:a1[5]];
-  v4[2] = @"strengthEdge";
-  v5[2] = [*(a1[4] + 8) valueForKey:a1[6]];
-  v4[3] = @"value";
-  v5[3] = a1[7];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:4];
-  *MEMORY[0x1E69E9840];
-  return v3;
+  v4[4] = *MEMORY[0x1E69E9840];
+  v3[0] = @"modelType";
+  v4[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(a1[4] + 24)];
+  v3[1] = @"confidenceEdge";
+  v4[1] = [*(a1[4] + 16) valueForKey:a1[5]];
+  v3[2] = @"strengthEdge";
+  v4[2] = [*(a1[4] + 8) valueForKey:a1[6]];
+  v3[3] = @"value";
+  v4[3] = a1[7];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:4];
 }
 
 @end

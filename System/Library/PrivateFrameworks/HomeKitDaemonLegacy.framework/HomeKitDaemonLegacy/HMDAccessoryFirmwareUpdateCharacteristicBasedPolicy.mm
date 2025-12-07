@@ -93,7 +93,7 @@
 
 void __89__HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy_handleCharacteristicValuesChanged___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -101,7 +101,7 @@ void __89__HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy_handleCharacteris
   {
     v5 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v19 = v5;
+    v18 = v5;
     _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Received characteristic values changed notification", buf, 0xCu);
   }
 
@@ -109,12 +109,12 @@ void __89__HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy_handleCharacteris
   v6 = [*(a1 + 40) userInfo];
   v7 = [v6 hmf_arrayForKey:@"kModifiedCharacteristicsKey"];
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __89__HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy_handleCharacteristicValuesChanged___block_invoke_11;
-  v17[3] = &unk_279733D48;
-  v17[4] = *(a1 + 32);
-  v8 = [v7 na_firstObjectPassingTest:v17];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __89__HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy_handleCharacteristicValuesChanged___block_invoke_11;
+  v16[3] = &unk_279733D48;
+  v16[4] = *(a1 + 32);
+  v8 = [v7 na_firstObjectPassingTest:v16];
   if (v8)
   {
     v9 = [*(a1 + 32) _policyStatusFromCharacteristic:v8];
@@ -148,8 +148,6 @@ void __89__HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy_handleCharacteris
       [*(a1 + 32) notify:0];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __89__HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy_handleCharacteristicValuesChanged___block_invoke_11(uint64_t a1, void *a2)
@@ -165,7 +163,7 @@ uint64_t __89__HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy_handleCharact
     v8 = [v3 type];
     if ([v7 isEqualToString:v8])
     {
-      v9 = [*(a1 + 32) serviceType];
+      v9 = objc_msgSend_serviceType(*(a1 + 32));
       v10 = [v3 service];
       v11 = [v10 type];
       v12 = [v9 isEqualToString:v11];
@@ -187,7 +185,7 @@ uint64_t __89__HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy_handleCharact
 
 - (BOOL)evaluate
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   characteristic = [(HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy *)self characteristic];
   v4 = [(HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy *)self _policyStatusFromCharacteristic:characteristic];
 
@@ -198,15 +196,14 @@ uint64_t __89__HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy_handleCharact
   {
     v8 = HMFGetLogIdentifier();
     v9 = HMFBooleanToString();
-    v12 = 138543618;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v9;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Policy status evaluated to %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v9;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Policy status evaluated to %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v10 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -221,15 +218,15 @@ uint64_t __89__HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy_handleCharact
 {
   accessory = [(HMDAccessoryFirmwareUpdatePolicy *)self accessory];
   characteristicType = [(HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy *)self characteristicType];
-  serviceType = [(HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy *)self serviceType];
-  v6 = [accessory findCharacteristicType:characteristicType forServiceType:serviceType];
+  v5 = objc_msgSend_serviceType(self);
+  v6 = [accessory findCharacteristicType:characteristicType forServiceType:v5];
 
   return v6;
 }
 
 - (void)dealloc
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   accessory = [(HMDAccessoryFirmwareUpdatePolicy *)self accessory];
   if (accessory)
   {
@@ -239,8 +236,8 @@ uint64_t __89__HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy_handleCharact
     if (v5)
     {
       characteristic2 = [(HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy *)self characteristic];
-      v14 = characteristic2;
-      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+      v13 = characteristic2;
+      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
       [accessory setNotificationsEnabled:0 forCharacteristics:v7 clientIdentifier:@"com.apple.HomeKitDaemon.accessoryfirmwareupdate.policy.characteristic"];
     }
   }
@@ -254,17 +251,16 @@ uint64_t __89__HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy_handleCharact
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v16 = v11;
+      v15 = v11;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Accessory has been removed - bail out from dealloc", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
   }
 
-  v13.receiver = self;
-  v13.super_class = HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy;
-  [(HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy *)&v13 dealloc];
-  v12 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy;
+  [(HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy *)&v12 dealloc];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -289,25 +285,7 @@ uint64_t __89__HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy_handleCharact
     }
 
     v6 = v5;
-    if (!v6)
-    {
-      goto LABEL_9;
-    }
-
-    accessory = [(HMDAccessoryFirmwareUpdatePolicy *)self accessory];
-    accessory2 = [(HMDAccessoryFirmwareUpdatePolicy *)v6 accessory];
-    v9 = [accessory isEqual:accessory2];
-
-    if (!v9)
-    {
-      goto LABEL_9;
-    }
-
-    serviceType = [(HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy *)self serviceType];
-    serviceType2 = [(HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy *)v6 serviceType];
-    v12 = [serviceType isEqualToString:serviceType2];
-
-    if (v12)
+    if (v6 && (-[HMDAccessoryFirmwareUpdatePolicy accessory](self, "accessory"), v7 = objc_claimAutoreleasedReturnValue(), -[HMDAccessoryFirmwareUpdatePolicy accessory](v6, "accessory"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v7 isEqual:v8], v8, v7, v9) && (objc_msgSend_serviceType(self), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend_serviceType(v6), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "isEqualToString:", v11), v11, v10, v12))
     {
       characteristicType = [(HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy *)self characteristicType];
       characteristicType2 = [(HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy *)v6 characteristicType];
@@ -316,7 +294,6 @@ uint64_t __89__HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy_handleCharact
 
     else
     {
-LABEL_9:
       v15 = 0;
     }
   }
@@ -334,15 +311,15 @@ LABEL_9:
 
 - (void)configure
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   [(HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy *)self registerForNotifications];
   characteristic = [(HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy *)self characteristic];
   [characteristic setNotificationEnabled:1 forClientIdentifier:@"com.apple.HomeKitDaemon.accessoryfirmwareupdate.policy.characteristic"];
 
   accessory = [(HMDAccessoryFirmwareUpdatePolicy *)self accessory];
   characteristic2 = [(HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy *)self characteristic];
-  v8[0] = characteristic2;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = characteristic2;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   [accessory setNotificationsEnabled:1 forCharacteristics:v6 clientIdentifier:@"com.apple.HomeKitDaemon.accessoryfirmwareupdate.policy.characteristic"];
 
   if ([(HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy *)self evaluate])
@@ -351,7 +328,6 @@ LABEL_9:
   }
 
   [(HMDAccessoryFirmwareUpdatePolicy *)self setStatus:0];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy)initWithAccessory:(id)accessory serviceType:(id)type characteristicType:(id)characteristicType debounceDuration:(unint64_t)duration policyHandler:(id)handler workQueue:(id)queue
@@ -390,12 +366,11 @@ LABEL_9:
 
 uint64_t __66__HMDAccessoryFirmwareUpdateCharacteristicBasedPolicy_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_87457;
-  logCategory__hmf_once_v1_87457 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_87457;
+  logCategory__hmf_once_v1_87457 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

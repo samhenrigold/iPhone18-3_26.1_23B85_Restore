@@ -28,6 +28,7 @@
 + (void)readAttributeSupportedThreadFeaturesWithClusterStateCache:(id)cache endpoint:(id)endpoint queue:(id)queue completion:(id)completion;
 + (void)readAttributeSupportedWiFiBandsWithClusterStateCache:(id)cache endpoint:(id)endpoint queue:(id)queue completion:(id)completion;
 + (void)readAttributeThreadVersionWithClusterStateCache:(id)cache endpoint:(id)endpoint queue:(id)queue completion:(id)completion;
+- (MTRBaseClusterNetworkCommissioning)initWithDevice:(MTRBaseDevice *)device endpoint:(uint16_t)endpoint queue:(dispatch_queue_t)queue;
 - (void)addOrUpdateThreadNetworkWithParams:(MTRNetworkCommissioningClusterAddOrUpdateThreadNetworkParams *)params completion:(void *)completion;
 - (void)addOrUpdateThreadNetworkWithParams:(MTRNetworkCommissioningClusterAddOrUpdateThreadNetworkParams *)params completionHandler:(void *)completionHandler;
 - (void)addOrUpdateWiFiNetworkWithParams:(MTRNetworkCommissioningClusterAddOrUpdateWiFiNetworkParams *)params completion:(void *)completion;
@@ -1539,6 +1540,17 @@
   v14 = v12;
   v16 = v14;
   [self readAttributeClusterRevisionWithClusterStateCache:realContainer endpoint:v10 queue:v11 completion:v15];
+}
+
+- (MTRBaseClusterNetworkCommissioning)initWithDevice:(MTRBaseDevice *)device endpoint:(uint16_t)endpoint queue:(dispatch_queue_t)queue
+{
+  v6 = endpoint;
+  v8 = device;
+  v9 = queue;
+  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v6];
+  v11 = [(MTRGenericBaseCluster *)self initWithDevice:v8 endpointID:v10 queue:v9];
+
+  return v11;
 }
 
 @end

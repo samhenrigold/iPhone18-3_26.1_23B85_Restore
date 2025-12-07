@@ -12,10 +12,10 @@
   if (!lazy cache variable for type metadata for [String : Apple_Workout_Core_ActivityMetadataValue])
   {
     type metadata accessor for Apple_Workout_Core_ActivityMetadataValue(255);
-    v0 = type metadata accessor for Dictionary();
-    if (!v1)
+    v1 = type metadata accessor for Dictionary();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [String : Apple_Workout_Core_ActivityMetadataValue]);
+      atomic_store(v1, &lazy cache variable for type metadata for [String : Apple_Workout_Core_ActivityMetadataValue]);
     }
   }
 }
@@ -23,22 +23,21 @@
 - (Class)NSObject
 {
   v1 = *(self + 32);
-  v2 = *(self + 40);
 
-  v4 = v1(v3);
+  v3 = v1(v2);
 
-  if (v4)
+  if (v3)
   {
     _sSo8NSStringCMaTm_0(0, &lazy cache variable for type metadata for NSObject, 0x277D82BB8);
-    v5.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+    v4.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
   }
 
   else
   {
-    v5.super.isa = 0;
+    v4.super.isa = 0;
   }
 
-  return v5.super.isa;
+  return v4.super.isa;
 }
 
 - (unint64_t)MediaPlaybackConfigurationItem
@@ -47,7 +46,7 @@
   if (!lazy protocol witness table cache variable for type [String : MediaPlaybackConfigurationItem] and conformance <> [A : B])
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDySS11WorkoutCore30MediaPlaybackConfigurationItemCGMd, &_sSDySS11WorkoutCore30MediaPlaybackConfigurationItemCGMR);
-    lazy protocol witness table accessor for type MediaPlaybackConfigurationItem and conformance MediaPlaybackConfigurationItem(&lazy protocol witness table cache variable for type MediaPlaybackConfigurationItem and conformance MediaPlaybackConfigurationItem);
+    lazy protocol witness table accessor for type MediaPlaybackConfigurationItem and conformance MediaPlaybackConfigurationItem(&lazy protocol witness table cache variable for type MediaPlaybackConfigurationItem and conformance MediaPlaybackConfigurationItem, &protocol conformance descriptor for MediaPlaybackConfigurationItem);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [String : MediaPlaybackConfigurationItem] and conformance <> [A : B]);
   }

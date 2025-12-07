@@ -144,7 +144,7 @@
     v13 = 0u;
     v14 = 0u;
     monitoredIdentifiers = [(CLMonitor *)regionMonitor monitoredIdentifiers];
-    v5 = [(NSArray *)monitoredIdentifiers countByEnumeratingWithState:&v13 objects:v18 count:16];
+    v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(monitoredIdentifiers);
     if (v5)
     {
       v6 = v5;
@@ -172,7 +172,7 @@
           }
         }
 
-        v6 = [(NSArray *)monitoredIdentifiers countByEnumeratingWithState:&v13 objects:v18 count:16];
+        v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(monitoredIdentifiers);
       }
 
       while (v6);
@@ -425,27 +425,23 @@
 - (id)retrieveAllActiveGeofences
 {
   v3 = +[NSMutableArray array];
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
   monitoredIdentifiers = [(CLMonitor *)self->_regionMonitor monitoredIdentifiers];
-  v5 = [(NSArray *)monitoredIdentifiers countByEnumeratingWithState:&v21 objects:v30 count:16];
+  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(monitoredIdentifiers);
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = MEMORY[0];
     do
     {
       v8 = 0;
       do
       {
-        if (*v22 != v7)
+        if (MEMORY[0] != v7)
         {
           objc_enumerationMutation(monitoredIdentifiers);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * v8);
+        v9 = *(8 * v8);
         v10 = [(CLMonitor *)self->_regionMonitor monitoringRecordForIdentifier:v9];
         if (v10)
         {
@@ -472,10 +468,10 @@
           {
             uTF8String = [v9 UTF8String];
             *buf = 68289282;
-            v26 = 2082;
-            v27 = "";
-            v28 = 2082;
-            v29 = uTF8String;
+            v22 = 2082;
+            v23 = "";
+            v24 = 2082;
+            v25 = uTF8String;
             _os_log_impl(dword_100000000, v16, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#LoiBridge, was unable to retrieve monitor record for valid region identifier, identifier:%{public, location:escape_only}s}", buf, 0x1Cu);
             if (qword_1025D46D0 != -1)
             {
@@ -488,10 +484,10 @@
           {
             uTF8String2 = [v9 UTF8String];
             *buf = 68289282;
-            v26 = 2082;
-            v27 = "";
-            v28 = 2082;
-            v29 = uTF8String2;
+            v22 = 2082;
+            v23 = "";
+            v24 = 2082;
+            v25 = uTF8String2;
             _os_signpost_emit_with_name_impl(dword_100000000, v18, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#LoiBridge, was unable to retrieve monitor record for valid region identifier", "{msg%{public}.0s:#LoiBridge, was unable to retrieve monitor record for valid region identifier, identifier:%{public, location:escape_only}s}", buf, 0x1Cu);
           }
         }
@@ -500,7 +496,7 @@
       }
 
       while (v6 != v8);
-      v6 = [(NSArray *)monitoredIdentifiers countByEnumeratingWithState:&v21 objects:v30 count:16];
+      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(monitoredIdentifiers);
     }
 
     while (v6);
@@ -539,15 +535,11 @@
   if (self->_regionMonitor)
   {
     retrieveAllActiveGeofences = [(CLMicroLocationLoiBridge *)self retrieveAllActiveGeofences];
-    v24 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    v8 = [retrieveAllActiveGeofences countByEnumeratingWithState:&v24 objects:v36 count:16];
+    v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(retrieveAllActiveGeofences);
     if (v8)
     {
       v10 = v8;
-      v11 = *v25;
+      v11 = MEMORY[0];
       *&v9 = 68289539;
       v23 = v9;
       do
@@ -555,12 +547,12 @@
         v12 = 0;
         do
         {
-          if (*v25 != v11)
+          if (MEMORY[0] != v11)
           {
             objc_enumerationMutation(retrieveAllActiveGeofences);
           }
 
-          v13 = *(*(&v24 + 1) + 8 * v12);
+          v13 = *(8 * v12);
           [objc_msgSend(v13 regionCenterLocation];
           v15 = v14;
           [objc_msgSend(v13 "regionCenterLocation")];
@@ -578,13 +570,13 @@
             {
               v22 = [objc_msgSend(v13 "regionId")];
               *buf = v23;
-              v29 = 0;
-              v30 = 2082;
-              v31 = "";
-              v32 = 2081;
-              v33 = v22;
-              v34 = 2049;
-              v35 = v17;
+              v25 = 0;
+              v26 = 2082;
+              v27 = "";
+              v28 = 2081;
+              v29 = v22;
+              v30 = 2049;
+              v31 = v17;
               _os_log_impl(dword_100000000, v21, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#LOI Bridge, removing geofence because it overlap the geofence at the requested location, Geofence ID:%{private, location:escape_only}s, Distance Between Geofences:%{private}7f}", buf, 0x26u);
             }
 
@@ -603,13 +595,13 @@
             {
               v20 = [objc_msgSend(v13 "regionId")];
               *buf = v23;
-              v29 = 0;
-              v30 = 2082;
-              v31 = "";
-              v32 = 2081;
-              v33 = v20;
-              v34 = 2049;
-              v35 = v17;
+              v25 = 0;
+              v26 = 2082;
+              v27 = "";
+              v28 = 2081;
+              v29 = v20;
+              v30 = 2049;
+              v31 = v17;
               _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#LOI Bridge, geofence does not overlap the geofence at the requested location, Geofence ID:%{private, location:escape_only}s, Distance Between Geofences:%{private}7f}", buf, 0x26u);
             }
           }
@@ -618,7 +610,7 @@
         }
 
         while (v10 != v12);
-        v10 = [retrieveAllActiveGeofences countByEnumeratingWithState:&v24 objects:v36 count:16];
+        v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(retrieveAllActiveGeofences);
       }
 
       while (v10);

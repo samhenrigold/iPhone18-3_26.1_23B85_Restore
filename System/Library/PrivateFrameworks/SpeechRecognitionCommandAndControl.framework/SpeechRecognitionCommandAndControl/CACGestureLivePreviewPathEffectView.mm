@@ -17,51 +17,52 @@
 
 - (CACGestureLivePreviewPathEffectView)initWithFrame:(CGRect)frame
 {
-  v24.receiver = self;
-  v24.super_class = CACGestureLivePreviewPathEffectView;
-  v3 = [(CACGestureLivePreviewPathEffectView *)&v24 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v25.receiver = self;
+  v25.super_class = CACGestureLivePreviewPathEffectView;
+  v3 = [(CACGestureLivePreviewPathEffectView *)&v25 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v4 = v3;
   if (v3)
   {
-    v4 = CACLogGestureRecording();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = CACLogGestureRecording(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      [(CACGestureLivePreviewPathEffectView *)v4 initWithFrame:v5, v6, v7, v8, v9, v10, v11];
+      [(CACGestureLivePreviewPathEffectView *)v5 initWithFrame:v6, v7, v8, v9, v10, v11, v12];
     }
 
-    [(CACGestureLivePreviewPathEffectView *)v3 setUserInteractionEnabled:0];
-    layer = [(CACGestureLivePreviewPathEffectView *)v3 layer];
+    [(CACGestureLivePreviewPathEffectView *)v4 setUserInteractionEnabled:0];
+    layer = [(CACGestureLivePreviewPathEffectView *)v4 layer];
     [layer setAllowsHitTesting:0];
 
-    layer2 = [(CACGestureLivePreviewPathEffectView *)v3 layer];
+    layer2 = [(CACGestureLivePreviewPathEffectView *)v4 layer];
     [layer2 setDrawsAsynchronously:1];
 
     clearColor = [MEMORY[0x277D75348] clearColor];
-    [(CACGestureLivePreviewPathEffectView *)v3 setBackgroundColor:clearColor];
+    [(CACGestureLivePreviewPathEffectView *)v4 setBackgroundColor:clearColor];
 
-    [(CACGestureLivePreviewPathEffectView *)v3 setIncreasedContrastEnabled:UIAccessibilityDarkerSystemColorsEnabled()];
-    v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    [(CACGestureLivePreviewPathEffectView *)v3 setPaths:v15];
+    [(CACGestureLivePreviewPathEffectView *)v4 setIncreasedContrastEnabled:UIAccessibilityDarkerSystemColorsEnabled()];
+    v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    [(CACGestureLivePreviewPathEffectView *)v4 setPaths:v16];
 
-    objc_initWeak(&location, v3);
-    v16 = [[CACGestureLivePreviewHandwritingQuadCurvePointFIFO alloc] initWithFIFO:0 scale:1.0];
-    [(CACGestureLivePreviewPathEffectView *)v3 setPointInterpolator:v16];
+    objc_initWeak(&location, v4);
+    v17 = [[CACGestureLivePreviewHandwritingQuadCurvePointFIFO alloc] initWithFIFO:0 scale:1.0];
+    [(CACGestureLivePreviewPathEffectView *)v4 setPointInterpolator:v17];
 
-    v21 = MEMORY[0x277D85DD0];
-    objc_copyWeak(&v22, &location);
-    v17 = [(CACGestureLivePreviewPathEffectView *)v3 pointInterpolator:v21];
-    [v17 setEmissionHandler:&v21];
+    v22 = MEMORY[0x277D85DD0];
+    objc_copyWeak(&v23, &location);
+    v18 = [(CACGestureLivePreviewPathEffectView *)v4 pointInterpolator:v22];
+    [v18 setEmissionHandler:&v22];
 
-    v18 = objc_alloc_init(MEMORY[0x277CCAB58]);
-    [(CACGestureLivePreviewPathEffectView *)v3 setPointDecayQueue:v18];
+    v19 = objc_alloc_init(MEMORY[0x277CCAB58]);
+    [(CACGestureLivePreviewPathEffectView *)v4 setPointDecayQueue:v19];
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    [defaultCenter addObserver:v3 selector:sel_accessibilityValueChanged_ name:*MEMORY[0x277D76460] object:0];
+    [defaultCenter addObserver:v4 selector:sel_accessibilityValueChanged_ name:*MEMORY[0x277D76460] object:0];
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(&location);
   }
 
-  return v3;
+  return v4;
 }
 
 void __53__CACGestureLivePreviewPathEffectView_initWithFrame___block_invoke(uint64_t a1, void *a2)
@@ -107,7 +108,7 @@ void __53__CACGestureLivePreviewPathEffectView_initWithFrame___block_invoke(uint
 
 - (void)didMoveToWindow
 {
-  v3 = CACLogGestureRecording();
+  v3 = CACLogGestureRecording(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(CACGestureLivePreviewPathEffectView *)v3 didMoveToWindow:v4];
@@ -161,7 +162,7 @@ void __53__CACGestureLivePreviewPathEffectView_initWithFrame___block_invoke(uint
 - (void)_displayLinkFired:(id)fired
 {
   v47 = *MEMORY[0x277D85DE8];
-  v4 = CACLogGestureRecording();
+  v4 = CACLogGestureRecording(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [(CACGestureLivePreviewPathEffectView *)v4 _displayLinkFired:v5, v6, v7, v8, v9, v10, v11];
@@ -410,7 +411,7 @@ LABEL_19:
     v9 = 0.619;
   }
 
-  v10 = CACLogGestureRecording();
+  v10 = CACLogGestureRecording(v3);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     v15 = 134218752;

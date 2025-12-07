@@ -1645,10 +1645,10 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  if ([(NSString *)self isEqualToString:@"\\\\""])
+  if ([(NSString *)self isEqualToString:@"\\\"])
   {
-    v8 = [@"\\"" stringByAppendingPathExtension:extensionCopy];
-    v9 = [@"\\"" stringByAppendingString:v8];
+    v8 = [@"\" stringByAppendingPathExtension:extensionCopy];
+    v9 = [@"\" stringByAppendingString:v8];
   }
 
   else
@@ -2428,7 +2428,7 @@ LABEL_31:
           }
 
           v10 = stringCopy;
-          v11 = @"\\"";
+          v11 = @"\";
         }
       }
 
@@ -2438,7 +2438,7 @@ LABEL_31:
         {
           case 0x5C:
             v10 = stringCopy;
-            v11 = @"\\\\"";
+            v11 = @"\\\";
             break;
           case 0x2028:
             v10 = stringCopy;
@@ -2683,7 +2683,7 @@ LABEL_24:
   }
 
   v6 = v5;
-  __chkstk_darwin();
+  __chkstk_darwin(v5);
   v8 = (&v16 - ((v7 + 17) & 0xFFFFFFFFFFFFFFF0));
   [v4 getCharacters:v8 range:{0, v6}];
   v9 = 0;

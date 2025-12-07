@@ -353,7 +353,7 @@ LABEL_14:
     goto LABEL_25;
   }
 
-  if (!v27 || ([v27 isEqual:maskCopy] & 1) == 0)
+  if (!v27 || (objc_msgSend_isEqual_(v27) & 1) == 0)
   {
     objc_storeStrong(v23 + 6, mask);
 LABEL_25:
@@ -1346,9 +1346,9 @@ LABEL_19:
 
         if (v64 && v65)
         {
-          v67 = [(UIBezierPath *)v64 isEqual:v65];
+          isEqual = objc_msgSend_isEqual_(v64);
 
-          if (v67)
+          if (isEqual)
           {
             goto LABEL_40;
           }

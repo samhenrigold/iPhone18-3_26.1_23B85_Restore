@@ -1,27 +1,26 @@
-std::string *flatbuffers::Parser::TokenToStringId@<X0>(std::string *this@<X0>, int a2@<W1>, std::string *a3@<X8>)
+char *flatbuffers::Parser::TokenToStringId@<X0>(char *this@<X0>, int a2@<W1>, std::string *a3@<X8>)
 {
   if (a2 != 260)
   {
     return sub_213C8A7F8(a3, a2);
   }
 
-  if (this[2].__r_.__value_.__s.__data_[7] < 0)
+  if (this[55] < 0)
   {
-    return sub_213C9D958(a3, this[1].__r_.__value_.__l.__size_, this[1].__r_.__value_.__r.__words[2]);
+    return sub_213C9D958(a3, *(this + 4), *(this + 5));
   }
 
-  *&a3->__r_.__value_.__l.__data_ = *&this[1].__r_.__value_.__r.__words[1];
-  a3->__r_.__value_.__r.__words[2] = this[2].__r_.__value_.__r.__words[0];
+  *a3 = *(this + 32);
   return this;
 }
 
-void flatbuffers::Parser::ParseHexNum(flatbuffers::Parser *this@<X0>, unint64_t *a2@<X2>, uint64_t a3@<X1>, _WORD *a4@<X8>)
+void flatbuffers::Parser::ParseHexNum(void **this@<X0>, unint64_t *a2@<X2>, uint64_t a3@<X1>, _WORD *a4@<X8>)
 {
   v5 = a3;
   if (a3 < 1)
   {
 LABEL_8:
-    sub_213C9DF08(__p, *this, (*this + a3), a3);
+    sub_213C9DF08(__p, *this, *this + a3, a3);
     if (v24 >= 0)
     {
       v13 = __p;
@@ -41,7 +40,7 @@ LABEL_8:
     }
 
     *a2 = v15;
-    *this += v5;
+    *this = *this + v5;
     *a4 = 0;
     if (SHIBYTE(v24) < 0)
     {
@@ -104,7 +103,7 @@ LABEL_16:
   }
 }
 
-unsigned __int8 **flatbuffers::Parser::SkipByteOrderMark@<X0>(unsigned __int8 **this@<X0>, _WORD *a2@<X8>)
+void flatbuffers::Parser::SkipByteOrderMark(unsigned __int8 **this@<X0>, _WORD *a2@<X8>)
 {
   v3 = *this;
   if (**this == 239)
@@ -119,12 +118,11 @@ unsigned __int8 **flatbuffers::Parser::SkipByteOrderMark@<X0>(unsigned __int8 **
   }
 
   *a2 = 0;
-  return this;
 }
 
 void flatbuffers::Parser::Next(flatbuffers::Parser *this@<X0>, uint64_t a2@<X8>)
 {
-  v78[2] = *MEMORY[0x277D85DE8];
+  v77[2] = *MEMORY[0x277D85DE8];
   v4 = *(this + 7);
   v5 = *(this + 8);
   v6 = (this + 56);
@@ -197,7 +195,7 @@ LABEL_61:
           }
 
           *this = v10;
-          v25 = 256;
+          v24 = 256;
           goto LABEL_53;
         }
       }
@@ -232,9 +230,9 @@ LABEL_61:
       {
         *this = i;
         v18 = i->__r_.__value_.__s.__data_[0];
-        v28 = v18 > 0xD;
+        v27 = v18 > 0xD;
         v19 = (1 << v18) & 0x2401;
-        if (!v28 && v19 != 0)
+        if (!v27 && v19 != 0)
         {
           break;
         }
@@ -250,13 +248,13 @@ LABEL_61:
         }
 
         sub_213C9DF08(&__p, &v10->__r_.__value_.__s.__data_[3], i, v17);
-        v48 = *(this + 8);
-        if (v48 >= *(this + 9))
+        v47 = *(this + 8);
+        if (v47 >= *(this + 9))
         {
-          v71 = sub_213CBFAA0(v6, &__p);
-          v72 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
-          *(this + 8) = v71;
-          if (v72 < 0)
+          v70 = sub_213CBFAA0(v6, &__p);
+          v71 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
+          *(this + 8) = v70;
+          if (v71 < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
           }
@@ -264,8 +262,8 @@ LABEL_61:
 
         else
         {
-          *v48 = __p;
-          *(this + 8) = v48 + 1;
+          *v47 = __p;
+          *(this + 8) = v47 + 1;
         }
 
         goto LABEL_61;
@@ -301,7 +299,7 @@ LABEL_21:
         ++v15;
         if (!v16)
         {
-          v22 = "end of file in comment";
+          v21 = "end of file in comment";
           goto LABEL_44;
         }
       }
@@ -321,13 +319,13 @@ LABEL_21:
   {
 LABEL_41:
     *a2 = 0;
-    goto LABEL_42;
+    return;
   }
 
   if (((1 << (v11 - 34)) & 0x21) != 0)
   {
-    v24 = i->__r_.__value_.__s.__data_[0];
-    if (v24 == v11)
+    v23 = i->__r_.__value_.__s.__data_[0];
+    if (v23 == v11)
     {
       goto LABEL_50;
     }
@@ -335,26 +333,26 @@ LABEL_41:
     data = -1;
     while (1)
     {
-      if (v24 <= 0x1Fu)
+      if (v23 <= 0x1Fu)
       {
         operator new();
       }
 
-      if (v24 != 92)
+      if (v23 != 92)
       {
         if (data != -1)
         {
           goto LABEL_133;
         }
 
-        v35 = (v24 - 32) >= 0x5F;
-        v41 = *(this + 24);
-        if (v35)
+        v34 = (v23 - 32) >= 0x5F;
+        v40 = *(this + 24);
+        if (v34)
         {
-          v41 = 0;
+          v40 = 0;
         }
 
-        *(this + 24) = v41;
+        *(this + 24) = v40;
         *this = i->__r_.__value_.__r.__words + 1;
         std::string::push_back((this + 32), i->__r_.__value_.__s.__data_[0]);
         goto LABEL_103;
@@ -362,46 +360,46 @@ LABEL_41:
 
       *(this + 24) = 0;
       *this = i->__r_.__value_.__r.__words + 1;
-      v38 = i->__r_.__value_.__s.__data_[1];
+      v37 = i->__r_.__value_.__s.__data_[1];
       if (data == -1)
       {
         if (i->__r_.__value_.__s.__data_[1] <= 0x65u)
         {
           if (i->__r_.__value_.__s.__data_[1] <= 0x2Eu)
           {
-            if (v38 == 34)
+            if (v37 == 34)
             {
-              v39 = (this + 32);
-              v40 = 34;
+              v38 = (this + 32);
+              v39 = 34;
             }
 
             else
             {
-              if (v38 != 39)
+              if (v37 != 39)
               {
                 goto LABEL_227;
               }
 
-              v39 = (this + 32);
-              v40 = 39;
+              v38 = (this + 32);
+              v39 = 39;
             }
           }
 
           else
           {
-            switch(v38)
+            switch(v37)
             {
               case '/':
-                v39 = (this + 32);
-                v40 = 47;
+                v38 = (this + 32);
+                v39 = 47;
                 break;
               case '\\':
-                v39 = (this + 32);
-                v40 = 92;
+                v38 = (this + 32);
+                v39 = 92;
                 break;
               case 'b':
-                v39 = (this + 32);
-                v40 = 8;
+                v38 = (this + 32);
+                v39 = 8;
                 break;
               default:
                 goto LABEL_227;
@@ -413,21 +411,21 @@ LABEL_41:
 
         if (i->__r_.__value_.__s.__data_[1] <= 0x71u)
         {
-          if (v38 == 102)
+          if (v37 == 102)
           {
-            v39 = (this + 32);
-            v40 = 12;
+            v38 = (this + 32);
+            v39 = 12;
           }
 
           else
           {
-            if (v38 != 110)
+            if (v37 != 110)
             {
               goto LABEL_227;
             }
 
-            v39 = (this + 32);
-            v40 = 10;
+            v38 = (this + 32);
+            v39 = 10;
           }
 
           goto LABEL_121;
@@ -435,29 +433,29 @@ LABEL_41:
 
         if (i->__r_.__value_.__s.__data_[1] <= 0x73u)
         {
-          if (v38 != 114)
+          if (v37 != 114)
           {
             goto LABEL_227;
           }
 
-          v39 = (this + 32);
-          v40 = 13;
+          v38 = (this + 32);
+          v39 = 13;
           goto LABEL_121;
         }
 
-        if (v38 == 116)
+        if (v37 == 116)
         {
-          v39 = (this + 32);
-          v40 = 9;
+          v38 = (this + 32);
+          v39 = 9;
 LABEL_121:
-          std::string::push_back(v39, v40);
+          std::string::push_back(v38, v39);
           ++*this;
           goto LABEL_122;
         }
 
-        if (v38 != 117)
+        if (v37 != 117)
         {
-          if (v38 != 120)
+          if (v37 != 120)
           {
 LABEL_227:
             operator new();
@@ -469,7 +467,7 @@ LABEL_227:
           *(a2 + 1) = 1;
           if (*a2)
           {
-            goto LABEL_42;
+            return;
           }
 
           std::string::push_back((this + 32), __p.__r_.__value_.__s.__data_[0]);
@@ -477,7 +475,7 @@ LABEL_227:
         }
       }
 
-      else if (v38 != 117)
+      else if (v37 != 117)
       {
         goto LABEL_133;
       }
@@ -488,7 +486,7 @@ LABEL_227:
       *(a2 + 1) = 1;
       if (*a2)
       {
-        goto LABEL_42;
+        return;
       }
 
       if ((__dst.__r_.__value_.__r.__words[0] & 0xFFFFFFFFFFFFFC00) == 0xD800)
@@ -523,8 +521,8 @@ LABEL_122:
       data = -1;
 LABEL_103:
       i = *this;
-      v24 = **this;
-      if (v24 == v12)
+      v23 = **this;
+      if (v23 == v12)
       {
         if (data != -1)
         {
@@ -537,49 +535,49 @@ LABEL_50:
         if (*(this + 24) & 1) != 0 || (*(this + 865))
         {
 LABEL_52:
-          v25 = 257;
+          v24 = 257;
           goto LABEL_53;
         }
 
-        v49 = *(this + 55);
-        v50 = *(this + 4);
-        v51 = *(this + 5);
-        if (v49 >= 0)
+        v48 = *(this + 55);
+        v49 = *(this + 4);
+        v50 = *(this + 5);
+        if (v48 >= 0)
         {
-          v50 = this + 32;
+          v49 = this + 32;
         }
 
-        __p.__r_.__value_.__r.__words[0] = v50;
-        if (v49 < 0)
+        __p.__r_.__value_.__r.__words[0] = v49;
+        if (v48 < 0)
         {
-          v49 = v51;
+          v48 = v50;
         }
 
-        v52 = &v50[v49];
+        v51 = &v49[v48];
         do
         {
-          if (__p.__r_.__value_.__r.__words[0] >= v52)
+          if (__p.__r_.__value_.__r.__words[0] >= v51)
           {
             goto LABEL_52;
           }
         }
 
         while ((sub_213CBA380(&__p.__r_.__value_.__l.__data_) & 0x80000000) == 0);
-        v22 = "illegal UTF-8 sequence";
+        v21 = "illegal UTF-8 sequence";
 LABEL_44:
-        *&__p.__r_.__value_.__l.__data_ = *v22;
-        *(&__p.__r_.__value_.__r.__words[1] + 6) = *(v22 + 14);
+        *&__p.__r_.__value_.__l.__data_ = *v21;
+        *(&__p.__r_.__value_.__r.__words[1] + 6) = *(v21 + 14);
         HIWORD(__p.__r_.__value_.__r.__words[2]) = 5632;
         flatbuffers::Parser::Error(this, a2);
 LABEL_45:
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
-          v23 = __p.__r_.__value_.__r.__words[0];
+          v22 = __p.__r_.__value_.__r.__words[0];
 LABEL_47:
-          operator delete(v23);
+          operator delete(v22);
         }
 
-        goto LABEL_42;
+        return;
       }
     }
   }
@@ -591,12 +589,12 @@ LABEL_54:
   }
 
 LABEL_62:
-  v27 = v12 != 43 && v12 != 45;
-  v28 = v12 != 95 && (v12 & 0xFFFFFFDF) - 65 > 0x19;
-  if (!v28)
+  v26 = v12 != 43 && v12 != 45;
+  v27 = v12 != 95 && (v12 & 0xFFFFFFDF) - 65 > 0x19;
+  if (!v27)
   {
-    v29 = i->__r_.__value_.__s.__data_[0];
-    v30 = (i->__r_.__value_.__s.__data_[0] & 0xFFFFFFDF) - 65;
+    v28 = i->__r_.__value_.__s.__data_[0];
+    v29 = (i->__r_.__value_.__s.__data_[0] & 0xFFFFFFDF) - 65;
     goto LABEL_73;
   }
 
@@ -604,44 +602,44 @@ LABEL_62:
   {
     case '+':
 LABEL_137:
-      v42 = i->__r_.__value_.__s.__data_[0];
-      v29 = i->__r_.__value_.__s.__data_[0];
-      v30 = (v42 & 0xFFFFFFDF) - 65;
-      if (v42 != 95 && v30 > 0x19)
+      v41 = i->__r_.__value_.__s.__data_[0];
+      v28 = i->__r_.__value_.__s.__data_[0];
+      v29 = (v41 & 0xFFFFFFDF) - 65;
+      if (v41 != 95 && v29 > 0x19)
       {
         goto LABEL_139;
       }
 
 LABEL_73:
-      if (v30 < 0x1A || v29 == 95 || (v29 - 48) <= 9)
+      if (v29 < 0x1A || v28 == 95 || (v28 - 48) <= 9)
       {
-        v31 = &v10->__r_.__value_.__s.__data_[2];
+        v30 = &v10->__r_.__value_.__s.__data_[2];
         do
         {
-          *this = v31;
-          v32 = *v31++;
-          v33 = (v32 & 0xFFFFFFDF) - 65;
-          v34 = v32 - 48;
-          v35 = v32 != 95 && v33 >= 0x1A;
+          *this = v30;
+          v31 = *v30++;
+          v32 = (v31 & 0xFFFFFFDF) - 65;
+          v33 = v31 - 48;
+          v34 = v31 != 95 && v32 >= 0x1A;
         }
 
-        while (!v35 || v34 < 0xA);
-        i = (v31 - 1);
+        while (!v34 || v33 < 0xA);
+        i = (v30 - 1);
       }
 
       sub_213C8A8E8((this + 32), v10, i);
-      if (v27)
+      if (v26)
       {
-        v25 = 260;
+        v24 = 260;
       }
 
       else
       {
-        v25 = 257;
+        v24 = 257;
       }
 
 LABEL_53:
-      *(this + 5) = v25;
+      *(this + 5) = v24;
       goto LABEL_41;
     case '.':
       if ((i->__r_.__value_.__s.__data_[0] - 48) >= 0xA)
@@ -649,18 +647,18 @@ LABEL_53:
         goto LABEL_41;
       }
 
+      v42 = 0;
       v43 = 0;
-      v44 = 0;
       break;
     case '-':
       goto LABEL_137;
     default:
       if ((v12 - 48) < 0xA)
       {
+        v42 = 1;
+        v44 = i;
         v43 = 1;
-        v45 = i;
-        v44 = 1;
-        v46 = v10;
+        v45 = v10;
         goto LABEL_144;
       }
 
@@ -672,23 +670,23 @@ LABEL_139:
         if ((v12 - 32) >= 0x5F)
         {
           sub_213C8A4E8(v12);
-          v73 = std::string::insert(&__dst, 0, "code: ");
-          v74 = v73->__r_.__value_.__r.__words[0];
-          v78[0] = v73->__r_.__value_.__l.__size_;
-          *(v78 + 7) = *(&v73->__r_.__value_.__r.__words[1] + 7);
-          v75 = HIBYTE(v73->__r_.__value_.__r.__words[2]);
-          v73->__r_.__value_.__l.__size_ = 0;
-          v73->__r_.__value_.__r.__words[2] = 0;
-          v73->__r_.__value_.__r.__words[0] = 0;
+          v72 = std::string::insert(&__dst, 0, "code: ");
+          v73 = v72->__r_.__value_.__r.__words[0];
+          v77[0] = v72->__r_.__value_.__l.__size_;
+          *(v77 + 7) = *(&v72->__r_.__value_.__r.__words[1] + 7);
+          v74 = HIBYTE(v72->__r_.__value_.__r.__words[2]);
+          v72->__r_.__value_.__l.__size_ = 0;
+          v72->__r_.__value_.__r.__words[2] = 0;
+          v72->__r_.__value_.__r.__words[0] = 0;
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
           }
 
-          __p.__r_.__value_.__r.__words[0] = v74;
-          __p.__r_.__value_.__l.__size_ = v78[0];
-          *(&__p.__r_.__value_.__r.__words[1] + 7) = *(v78 + 7);
-          *(&__p.__r_.__value_.__s + 23) = v75;
+          __p.__r_.__value_.__r.__words[0] = v73;
+          __p.__r_.__value_.__l.__size_ = v77[0];
+          *(&__p.__r_.__value_.__r.__words[1] + 7) = *(v77 + 7);
+          *(&__p.__r_.__value_.__s + 23) = v74;
           if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__dst.__r_.__value_.__l.__data_);
@@ -705,87 +703,87 @@ LABEL_139:
         goto LABEL_45;
       }
 
+      v42 = 1;
       v43 = 1;
-      v44 = 1;
       break;
   }
 
   if ((i->__r_.__value_.__s.__data_[0] - 48) > 9)
   {
-    v47 = 0;
+    v46 = 0;
     goto LABEL_164;
   }
 
-  v45 = &v10->__r_.__value_.__s.__data_[2];
+  v44 = &v10->__r_.__value_.__s.__data_[2];
   *this = v10->__r_.__value_.__r.__words + 2;
   LOBYTE(v12) = v10->__r_.__value_.__s.__data_[1];
-  v46 = i;
+  v45 = i;
 LABEL_144:
-  v47 = 0;
-  if (v44 && v12 == 48)
+  v46 = 0;
+  if (v43 && v12 == 48)
   {
-    if ((v45->__r_.__value_.__s.__data_[0] & 0xDF) == 0x58)
+    if ((v44->__r_.__value_.__s.__data_[0] & 0xDF) == 0x58)
     {
-      i = (&v45->__r_.__value_.__l.__data_ + 1);
-      *this = v45->__r_.__value_.__r.__words + 1;
-      v47 = 1;
+      i = (&v44->__r_.__value_.__l.__data_ + 1);
+      *this = v44->__r_.__value_.__r.__words + 1;
+      v46 = 1;
 LABEL_164:
-      v46 = i;
+      v45 = i;
       goto LABEL_165;
     }
 
-    v47 = 0;
+    v46 = 0;
   }
 
-  i = v45;
+  i = v44;
 LABEL_165:
   while (2)
   {
-    v53 = v43;
+    v52 = v42;
+    v53 = i->__r_.__value_.__s.__data_[0];
     v54 = i->__r_.__value_.__s.__data_[0];
-    v55 = i->__r_.__value_.__s.__data_[0];
-    v56 = v54 - 48;
-    if (v47)
+    v55 = v53 - 48;
+    if (v46)
     {
-      v57 = (v54 & 0xFFFFFFDF) - 65;
-      if (v56 < 0xA || v57 <= 5)
+      v56 = (v53 & 0xFFFFFFDF) - 65;
+      if (v55 < 0xA || v56 <= 5)
       {
-        v59 = &i->__r_.__value_.__s.__data_[1];
+        v58 = &i->__r_.__value_.__s.__data_[1];
         do
         {
-          *this = v59;
-          v60 = *v59++;
-          LOBYTE(v55) = v60;
-          v61 = (v60 & 0xFFFFFFDF) - 65;
+          *this = v58;
+          v59 = *v58++;
+          LOBYTE(v54) = v59;
+          v60 = (v59 & 0xFFFFFFDF) - 65;
         }
 
-        while ((v60 - 48) < 0xA || v61 < 6);
+        while ((v59 - 48) < 0xA || v60 < 6);
 LABEL_180:
-        v55 = v55;
-        i = (v59 - 1);
+        v54 = v54;
+        i = (v58 - 1);
       }
     }
 
-    else if (v56 <= 9)
+    else if (v55 <= 9)
     {
-      v59 = &i->__r_.__value_.__s.__data_[1];
+      v58 = &i->__r_.__value_.__s.__data_[1];
       do
       {
-        *this = v59;
-        v63 = *v59++;
-        LOBYTE(v55) = v63;
+        *this = v58;
+        v62 = *v58++;
+        LOBYTE(v54) = v62;
       }
 
-      while ((v63 - 48) < 0xA);
+      while ((v62 - 48) < 0xA);
       goto LABEL_180;
     }
 
-    if (v55 == 46)
+    if (v54 == 46)
     {
-      v43 = 0;
+      v42 = 0;
       i = (i + 1);
       *this = i;
-      if (!v53)
+      if (!v52)
       {
         goto LABEL_183;
       }
@@ -796,54 +794,54 @@ LABEL_180:
     break;
   }
 
-  if (i <= v46)
+  if (i <= v45)
   {
     goto LABEL_205;
   }
 
-  if ((v47 & (v53 == 0)) != 0)
+  if ((v46 & (v52 == 0)) != 0)
   {
-    v46 = i;
+    v45 = i;
   }
 
-  v66 = v55 & 0xFFFFFFDF;
-  if (v66 != 80)
+  v65 = v54 & 0xFFFFFFDF;
+  if (v65 != 80)
   {
-    v47 = 0;
+    v46 = 0;
   }
 
-  if (v66 != 69 && v47 == 0)
+  if (v65 != 69 && v46 == 0)
   {
     goto LABEL_205;
   }
 
-  v46 = (&i->__r_.__value_.__l.__data_ + 1);
+  v45 = (&i->__r_.__value_.__l.__data_ + 1);
   *this = i->__r_.__value_.__r.__words + 1;
-  v68 = i->__r_.__value_.__s.__data_[1];
-  if (v68 == 45 || v68 == 43)
+  v67 = i->__r_.__value_.__s.__data_[1];
+  if (v67 == 45 || v67 == 43)
   {
-    v46 = &i->__r_.__value_.__s.__data_[2];
+    v45 = &i->__r_.__value_.__s.__data_[2];
     *this = i->__r_.__value_.__r.__words + 2;
-    v68 = i->__r_.__value_.__s.__data_[2];
+    v67 = i->__r_.__value_.__s.__data_[2];
   }
 
-  i = v46;
-  if ((v68 - 48) <= 9)
+  i = v45;
+  if ((v67 - 48) <= 9)
   {
-    v69 = &v46->__r_.__value_.__s.__data_[1];
+    v68 = &v45->__r_.__value_.__s.__data_[1];
     do
     {
-      *this = v69;
-      v70 = *v69++;
-      LOBYTE(v68) = v70;
+      *this = v68;
+      v69 = *v68++;
+      LOBYTE(v67) = v69;
     }
 
-    while ((v70 - 48) < 0xA);
-    v68 = v68;
-    i = (v69 - 1);
+    while ((v69 - 48) < 0xA);
+    v67 = v67;
+    i = (v68 - 1);
   }
 
-  if (v68 == 46)
+  if (v67 == 46)
   {
     i = (i + 1);
     *this = i;
@@ -851,19 +849,19 @@ LABEL_180:
 
   else
   {
-    v53 = 0;
+    v52 = 0;
 LABEL_205:
-    if (i > v46)
+    if (i > v45)
     {
       sub_213C8A8E8((this + 32), v10, i);
-      if (v53)
+      if (v52)
       {
-        v25 = 258;
+        v24 = 258;
       }
 
       else
       {
-        v25 = 259;
+        v24 = 259;
       }
 
       goto LABEL_53;
@@ -872,13 +870,13 @@ LABEL_205:
 
 LABEL_183:
   sub_213C9DF08(&__dst, v10, i, i - v10);
-  v64 = std::string::insert(&__dst, 0, "invalid number: ");
-  v65 = v64->__r_.__value_.__r.__words[2];
-  *&__p.__r_.__value_.__l.__data_ = *&v64->__r_.__value_.__l.__data_;
-  __p.__r_.__value_.__r.__words[2] = v65;
-  v64->__r_.__value_.__l.__size_ = 0;
-  v64->__r_.__value_.__r.__words[2] = 0;
-  v64->__r_.__value_.__r.__words[0] = 0;
+  v63 = std::string::insert(&__dst, 0, "invalid number: ");
+  v64 = v63->__r_.__value_.__r.__words[2];
+  *&__p.__r_.__value_.__l.__data_ = *&v63->__r_.__value_.__l.__data_;
+  __p.__r_.__value_.__r.__words[2] = v64;
+  v63->__r_.__value_.__l.__size_ = 0;
+  v63->__r_.__value_.__r.__words[2] = 0;
+  v63->__r_.__value_.__r.__words[0] = 0;
   flatbuffers::Parser::Error(this, a2);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -887,12 +885,9 @@ LABEL_183:
 
   if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
   {
-    v23 = __dst.__r_.__value_.__r.__words[0];
+    v22 = __dst.__r_.__value_.__r.__words[0];
     goto LABEL_47;
   }
-
-LABEL_42:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void sub_213CAC8F4(unsigned int a1, std::string *this)
@@ -932,21 +927,21 @@ void sub_213CAC8F4(unsigned int a1, std::string *this)
   }
 }
 
-void flatbuffers::Parser::Expect(flatbuffers::Parser *this@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+void flatbuffers::Parser::Expect(uint64_t *__return_ptr a1@<X8>, flatbuffers::Parser *this@<X0>, int a3@<W1>)
 {
-  if (*(this + 5) == a2)
+  if (*(this + 5) == a3)
   {
-    flatbuffers::Parser::Next(this, a3);
-    *(a3 + 1) = 1;
-    if ((*a3 & 1) == 0)
+    flatbuffers::Parser::Next(this, a1);
+    *(a1 + 1) = 1;
+    if ((*a1 & 1) == 0)
     {
-      *a3 = 0;
+      *a1 = 0;
     }
   }
 
   else
   {
-    sub_213C8A7F8(&v14, a2);
+    sub_213C8A7F8(&v14, a3);
     v5 = std::string::insert(&v14, 0, "expecting: ");
     v6 = v5->__r_.__value_.__r.__words[2];
     *&v15.__r_.__value_.__l.__data_ = *&v5->__r_.__value_.__l.__data_;
@@ -989,7 +984,7 @@ void flatbuffers::Parser::Expect(flatbuffers::Parser *this@<X0>, int a2@<W1>, ui
     v11->__r_.__value_.__l.__size_ = 0;
     v11->__r_.__value_.__r.__words[2] = 0;
     v11->__r_.__value_.__r.__words[0] = 0;
-    flatbuffers::Parser::Error(this, a3);
+    flatbuffers::Parser::Error(this, a1);
     if (SHIBYTE(v18) < 0)
     {
       operator delete(v17);
@@ -1017,27 +1012,26 @@ void flatbuffers::Parser::Expect(flatbuffers::Parser *this@<X0>, int a2@<W1>, ui
   }
 }
 
-void flatbuffers::Parser::ParseNamespacing(flatbuffers::Parser *this@<X0>, std::string *a2@<X1>, std::string *a3@<X2>, _BYTE *a4@<X8>)
+void flatbuffers::Parser::ParseNamespacing(flatbuffers::Parser *this@<X0>, std::string *a2@<X1>, std::string *a3@<X2>, uint64_t a4@<X8>)
 {
   while (*(this + 5) == 46)
   {
     flatbuffers::Parser::Next(this, a4);
-    a4[1] = 1;
+    *(a4 + 1) = 1;
     if ((*a4 & 1) == 0)
     {
       std::string::append(a2, ".");
       v8 = *(this + 55);
       v9 = v8 >= 0 ? this + 32 : *(this + 4);
-      v10 = *(this + 5);
-      v11 = v8 >= 0 ? *(this + 55) : *(this + 5);
-      std::string::append(a2, v9, v11);
+      v10 = v8 >= 0 ? *(this + 55) : *(this + 5);
+      std::string::append(a2, v9, v10);
       if (a3)
       {
         std::string::operator=(a3, (this + 32));
       }
 
-      flatbuffers::Parser::Expect(this, 260, a4);
-      a4[1] = 1;
+      flatbuffers::Parser::Expect(a4, this, 260);
+      *(a4 + 1) = 1;
       if ((*a4 & 1) == 0)
       {
         continue;
@@ -1084,7 +1078,7 @@ uint64_t flatbuffers::Parser::LookupEnum(uint64_t a1, uint64_t a2)
   return v8;
 }
 
-void flatbuffers::Parser::ParseTypeIdent(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void flatbuffers::Parser::ParseTypeIdent(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   if (*(a1 + 55) < 0)
   {
@@ -1096,12 +1090,12 @@ void flatbuffers::Parser::ParseTypeIdent(uint64_t a1@<X0>, uint64_t a2@<X1>, _BY
     __p = *(a1 + 32);
   }
 
-  flatbuffers::Parser::Expect(a1, 260, a3);
-  a3[1] = 1;
+  flatbuffers::Parser::Expect(a3, a1, 260);
+  *(a3 + 1) = 1;
   if ((*a3 & 1) == 0)
   {
     flatbuffers::Parser::ParseNamespacing(a1, &__p, 0, a3);
-    a3[1] = 1;
+    *(a3 + 1) = 1;
     if ((*a3 & 1) == 0)
     {
       v6 = flatbuffers::Parser::LookupEnum(a1, &__p);
@@ -1383,7 +1377,7 @@ LABEL_7:
   if (v8 < 64)
   {
     *(a1 + 1204) = v8 + 1;
-    flatbuffers::Parser::ParseType(a1, __p);
+    flatbuffers::Parser::ParseType(a1, __p, a3);
     --*(a1 + 1204);
   }
 
@@ -1456,7 +1450,7 @@ LABEL_7:
   }
 
   *(a2 + 4) = v9;
-  flatbuffers::Parser::Expect(a1, 93, a3);
+  flatbuffers::Parser::Expect(a3, a1, 93);
   *(a3 + 1) = 1;
   if (!*a3)
   {
@@ -1526,32 +1520,31 @@ uint64_t sub_213CAD6D8(uint64_t a1)
   return byte_213CC7CD8[v1 + 4];
 }
 
-void flatbuffers::Parser::ParseField(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void flatbuffers::Parser::ParseField(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   if (*(a1 + 55) < 0)
   {
-    sub_213C9D958(&v19, *(a1 + 32), *(a1 + 40));
+    sub_213C9D958(v19, *(a1 + 32), *(a1 + 40));
   }
 
   else
   {
-    v19 = *(a1 + 32);
-    v20 = *(a1 + 48);
+    v19[0] = *(a1 + 32);
   }
 
-  if (flatbuffers::Parser::LookupCreateStruct(a1, &v19, 0, 0))
+  if (flatbuffers::Parser::LookupCreateStruct(a1, v19, 0, 0))
   {
     operator new();
   }
 
   memset(v18, 0, sizeof(v18));
   sub_213C9DCE4(v18, *(a1 + 56), *(a1 + 64), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 64) - *(a1 + 56)) >> 3));
-  flatbuffers::Parser::Expect(a1, 260, a3);
-  a3[1] = 1;
+  flatbuffers::Parser::Expect(a3, a1, 260);
+  *(a3 + 1) = 1;
   if ((*a3 & 1) == 0)
   {
-    flatbuffers::Parser::Expect(a1, 58, a3);
-    a3[1] = 1;
+    flatbuffers::Parser::Expect(a3, a1, 58);
+    *(a3 + 1) = 1;
     if ((*a3 & 1) == 0)
     {
       __p = 0;
@@ -1559,7 +1552,7 @@ void flatbuffers::Parser::ParseField(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *
       v17 = 0;
       v16 = 0;
       flatbuffers::Parser::ParseType(a1, &__p, a3);
-      a3[1] = 1;
+      *(a3 + 1) = 1;
       if ((*a3 & 1) == 0)
       {
         v6 = __p;
@@ -1600,7 +1593,7 @@ LABEL_32:
           v13 = 0;
           if (__p == 16)
           {
-            sub_213C8B29C(v11, &v19, "_type");
+            sub_213C8B29C(v11, &v19[0].__r_.__value_.__l.__data_, "_type");
             flatbuffers::Parser::AddField();
           }
         }
@@ -1613,10 +1606,10 @@ LABEL_32:
             v11[1] = 0;
             v11[2] = v16;
             v12 = 0;
-            v9 = v16[38];
+            v9 = *(v16 + 152);
             LODWORD(v11[0]) = 14;
             HIDWORD(v11[0]) = v9;
-            sub_213C8B29C(&v10.__r_.__value_.__l.__data_, &v19, "_type");
+            sub_213C8B29C(&v10, &v19[0].__r_.__value_.__l.__data_, "_type");
             flatbuffers::Parser::AddField();
           }
 
@@ -1630,9 +1623,9 @@ LABEL_32:
 
   __p = v18;
   sub_213C9DC58(&__p);
-  if (SHIBYTE(v20) < 0)
+  if (SHIBYTE(v19[0].__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v19);
+    operator delete(v19[0].__r_.__value_.__l.__data_);
   }
 }
 
@@ -1645,12 +1638,12 @@ void flatbuffers::Parser::ParseSingleValue(uint64_t a1@<X0>, uint64_t a2@<X1>, i
     {
       if (*(a1 + 55) < 0)
       {
-        sub_213C9D958(&v96, *(a1 + 32), *(a1 + 40));
+        sub_213C9D958(&v94, *(a1 + 32), *(a1 + 40));
       }
 
       else
       {
-        v96 = *(a1 + 32);
+        v94 = *(a1 + 32);
       }
 
       v17 = *a3 + 4;
@@ -1658,32 +1651,32 @@ void flatbuffers::Parser::ParseSingleValue(uint64_t a1@<X0>, uint64_t a2@<X1>, i
       v19 = (1 << v17) & 0x18001;
       if (v18 || v19 == 0)
       {
-        sub_213C8B29C(&v88.__r_.__value_.__l.__data_, &v96.__r_.__value_.__l.__data_, ": type of argument mismatch, expecting: ");
-        v21 = std::string::append(&v88, "double");
+        sub_213C8B29C(&v86, &v94.__r_.__value_.__l.__data_, ": type of argument mismatch, expecting: ");
+        v21 = std::string::append(&v86, "double");
         v22 = v21->__r_.__value_.__r.__words[2];
-        *&v89.__r_.__value_.__l.__data_ = *&v21->__r_.__value_.__l.__data_;
-        v89.__r_.__value_.__r.__words[2] = v22;
+        *&v87.__r_.__value_.__l.__data_ = *&v21->__r_.__value_.__l.__data_;
+        v87.__r_.__value_.__r.__words[2] = v22;
         v21->__r_.__value_.__l.__size_ = 0;
         v21->__r_.__value_.__r.__words[2] = 0;
         v21->__r_.__value_.__r.__words[0] = 0;
-        v23 = std::string::append(&v89, ", found: ");
+        v23 = std::string::append(&v87, ", found: ");
         v24 = v23->__r_.__value_.__r.__words[2];
-        *&v90.__r_.__value_.__l.__data_ = *&v23->__r_.__value_.__l.__data_;
-        v90.__r_.__value_.__r.__words[2] = v24;
+        *&v88.__r_.__value_.__l.__data_ = *&v23->__r_.__value_.__l.__data_;
+        v88.__r_.__value_.__r.__words[2] = v24;
         v23->__r_.__value_.__r.__words[0] = 0;
         v23->__r_.__value_.__l.__size_ = 0;
         v23->__r_.__value_.__r.__words[2] = 0;
-        v25 = std::string::append(&v90, (&off_278171A78)[*a3 + 4]);
+        v25 = std::string::append(&v88, (&off_278171A78)[*a3 + 4]);
         v26 = v25->__r_.__value_.__r.__words[2];
-        *&v91.__r_.__value_.__l.__data_ = *&v25->__r_.__value_.__l.__data_;
-        v91.__r_.__value_.__r.__words[2] = v26;
+        *&v89.__r_.__value_.__l.__data_ = *&v25->__r_.__value_.__l.__data_;
+        v89.__r_.__value_.__r.__words[2] = v26;
         v25->__r_.__value_.__l.__size_ = 0;
         v25->__r_.__value_.__r.__words[2] = 0;
         v25->__r_.__value_.__r.__words[0] = 0;
-        v27 = std::string::append(&v91, ", name: ");
+        v27 = std::string::append(&v89, ", name: ");
         v28 = v27->__r_.__value_.__r.__words[2];
-        *&v92.__r_.__value_.__l.__data_ = *&v27->__r_.__value_.__l.__data_;
-        v92.__r_.__value_.__r.__words[2] = v28;
+        *&v90.__r_.__value_.__l.__data_ = *&v27->__r_.__value_.__l.__data_;
+        v90.__r_.__value_.__r.__words[2] = v28;
         v27->__r_.__value_.__l.__size_ = 0;
         v27->__r_.__value_.__r.__words[2] = 0;
         v27->__r_.__value_.__r.__words[0] = 0;
@@ -1697,17 +1690,17 @@ void flatbuffers::Parser::ParseSingleValue(uint64_t a1@<X0>, uint64_t a2@<X1>, i
           else
           {
             *__p = *a2;
-            v87 = *(a2 + 16);
+            v85 = *(a2 + 16);
           }
         }
 
         else
         {
-          HIBYTE(v87) = 0;
+          HIBYTE(v85) = 0;
           LOBYTE(__p[0]) = 0;
         }
 
-        if (v87 >= 0)
+        if (v85 >= 0)
         {
           v29 = __p;
         }
@@ -1717,9 +1710,9 @@ void flatbuffers::Parser::ParseSingleValue(uint64_t a1@<X0>, uint64_t a2@<X1>, i
           v29 = __p[0];
         }
 
-        if (v87 >= 0)
+        if (v85 >= 0)
         {
-          v30 = SHIBYTE(v87);
+          v30 = SHIBYTE(v85);
         }
 
         else
@@ -1727,17 +1720,17 @@ void flatbuffers::Parser::ParseSingleValue(uint64_t a1@<X0>, uint64_t a2@<X1>, i
           v30 = __p[1];
         }
 
-        v31 = std::string::append(&v92, v29, v30);
+        v31 = std::string::append(&v90, v29, v30);
         v32 = v31->__r_.__value_.__r.__words[2];
-        *&v93.__r_.__value_.__l.__data_ = *&v31->__r_.__value_.__l.__data_;
-        v93.__r_.__value_.__r.__words[2] = v32;
+        *&v91.__r_.__value_.__l.__data_ = *&v31->__r_.__value_.__l.__data_;
+        v91.__r_.__value_.__r.__words[2] = v32;
         v31->__r_.__value_.__l.__size_ = 0;
         v31->__r_.__value_.__r.__words[2] = 0;
         v31->__r_.__value_.__r.__words[0] = 0;
-        v33 = std::string::append(&v93, ", value: ");
+        v33 = std::string::append(&v91, ", value: ");
         v34 = v33->__r_.__value_.__r.__words[2];
-        *&v94.__r_.__value_.__l.__data_ = *&v33->__r_.__value_.__l.__data_;
-        v94.__r_.__value_.__r.__words[2] = v34;
+        *&v92.__r_.__value_.__l.__data_ = *&v33->__r_.__value_.__l.__data_;
+        v92.__r_.__value_.__r.__words[2] = v34;
         v33->__r_.__value_.__l.__size_ = 0;
         v33->__r_.__value_.__r.__words[2] = 0;
         v33->__r_.__value_.__r.__words[0] = 0;
@@ -1755,43 +1748,27 @@ void flatbuffers::Parser::ParseSingleValue(uint64_t a1@<X0>, uint64_t a2@<X1>, i
           v39 = v35;
         }
 
-        v40 = *(v36 + 1);
         if (v38 >= 0)
         {
-          v41 = *(v36 + 23);
+          v40 = *(v36 + 23);
         }
 
         else
         {
-          v41 = *(v36 + 1);
+          v40 = *(v36 + 1);
         }
 
-        v42 = std::string::append(&v94, v39, v41);
-        v43 = v42->__r_.__value_.__r.__words[2];
-        *&v95.__r_.__value_.__l.__data_ = *&v42->__r_.__value_.__l.__data_;
-        v95.__r_.__value_.__r.__words[2] = v43;
-        v42->__r_.__value_.__l.__size_ = 0;
-        v42->__r_.__value_.__r.__words[2] = 0;
-        v42->__r_.__value_.__r.__words[0] = 0;
+        v41 = std::string::append(&v92, v39, v40);
+        v42 = v41->__r_.__value_.__r.__words[2];
+        *&v93.__r_.__value_.__l.__data_ = *&v41->__r_.__value_.__l.__data_;
+        v93.__r_.__value_.__r.__words[2] = v42;
+        v41->__r_.__value_.__l.__size_ = 0;
+        v41->__r_.__value_.__r.__words[2] = 0;
+        v41->__r_.__value_.__r.__words[0] = 0;
         flatbuffers::Parser::Error(a1, a5);
-        if (SHIBYTE(v95.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v95.__r_.__value_.__l.__data_);
-        }
-
-        if (SHIBYTE(v94.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v94.__r_.__value_.__l.__data_);
-        }
-
         if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(v93.__r_.__value_.__l.__data_);
-        }
-
-        if (SHIBYTE(v87) < 0)
-        {
-          operator delete(__p[0]);
         }
 
         if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
@@ -1802,6 +1779,11 @@ void flatbuffers::Parser::ParseSingleValue(uint64_t a1@<X0>, uint64_t a2@<X1>, i
         if (SHIBYTE(v91.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(v91.__r_.__value_.__l.__data_);
+        }
+
+        if (SHIBYTE(v85) < 0)
+        {
+          operator delete(__p[0]);
         }
 
         if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
@@ -1818,6 +1800,16 @@ void flatbuffers::Parser::ParseSingleValue(uint64_t a1@<X0>, uint64_t a2@<X1>, i
         {
           operator delete(v88.__r_.__value_.__l.__data_);
         }
+
+        if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v87.__r_.__value_.__l.__data_);
+        }
+
+        if (SHIBYTE(v86.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v86.__r_.__value_.__l.__data_);
+        }
       }
 
       else
@@ -1826,15 +1818,15 @@ void flatbuffers::Parser::ParseSingleValue(uint64_t a1@<X0>, uint64_t a2@<X1>, i
         *(a5 + 1) = 1;
         if ((*a5 & 1) == 0)
         {
-          flatbuffers::Parser::Expect(a1, 40, a5);
+          flatbuffers::Parser::Expect(a5, a1, 40);
           *(a5 + 1) = 1;
           if ((*a5 & 1) == 0)
           {
-            v57 = *(a1 + 1204);
-            if (v57 < 64)
+            v56 = *(a1 + 1204);
+            if (v56 < 64)
             {
-              *(a1 + 1204) = v57 + 1;
-              flatbuffers::Parser::ParseSingleValue(a1, a2, a3, 0);
+              *(a1 + 1204) = v56 + 1;
+              flatbuffers::Parser::ParseSingleValue(a1, a2, a3, 0, a5);
               --*(a1 + 1204);
             }
 
@@ -1846,71 +1838,70 @@ void flatbuffers::Parser::ParseSingleValue(uint64_t a1@<X0>, uint64_t a2@<X1>, i
             *(a5 + 1) = 1;
             if ((*a5 & 1) == 0)
             {
-              flatbuffers::Parser::Expect(a1, 41, a5);
+              flatbuffers::Parser::Expect(a5, a1, 41);
               *(a5 + 1) = 1;
               if ((*a5 & 1) == 0)
               {
-                v88.__r_.__value_.__r.__words[0] = 0;
-                v83 = (a3 + 8);
-                v82 = *(a3 + 4);
-                v84 = *(a3 + 55) >= 0 ? (a3 + 8) : *(a3 + 4);
-                sub_213CB4F90(a5, v84, a1, &v88);
+                v86.__r_.__value_.__r.__words[0] = 0;
+                v81 = (a3 + 8);
+                v82 = *(a3 + 55) >= 0 ? (a3 + 8) : *(a3 + 4);
+                sub_213CB4F90(a5, v82, a1, &v86);
                 *(a5 + 1) = 1;
                 if ((*a5 & 1) == 0)
                 {
-                  if (sub_213C8AAF4(&v96, "deg"))
+                  if (sub_213C8AAF4(&v94, "deg"))
                   {
-                    v85 = *&v88.__r_.__value_.__l.__data_ / 3.14159265 * 180.0;
+                    v83 = *&v86.__r_.__value_.__l.__data_ / 3.14159265 * 180.0;
                   }
 
-                  else if (sub_213C8AAF4(&v96, "rad"))
+                  else if (sub_213C8AAF4(&v94, "rad"))
                   {
-                    v85 = *&v88.__r_.__value_.__l.__data_ * 3.14159265 / 180.0;
+                    v83 = *&v86.__r_.__value_.__l.__data_ * 3.14159265 / 180.0;
                   }
 
-                  else if (sub_213C8AAF4(&v96, "sin"))
+                  else if (sub_213C8AAF4(&v94, "sin"))
                   {
-                    v85 = sin(*&v88.__r_.__value_.__l.__data_);
+                    v83 = sin(*&v86.__r_.__value_.__l.__data_);
                   }
 
-                  else if (sub_213C8AAF4(&v96, "cos"))
+                  else if (sub_213C8AAF4(&v94, "cos"))
                   {
-                    v85 = cos(*&v88.__r_.__value_.__l.__data_);
+                    v83 = cos(*&v86.__r_.__value_.__l.__data_);
                   }
 
-                  else if (sub_213C8AAF4(&v96, "tan"))
+                  else if (sub_213C8AAF4(&v94, "tan"))
                   {
-                    v85 = tan(*&v88.__r_.__value_.__l.__data_);
+                    v83 = tan(*&v86.__r_.__value_.__l.__data_);
                   }
 
-                  else if (sub_213C8AAF4(&v96, "asin"))
+                  else if (sub_213C8AAF4(&v94, "asin"))
                   {
-                    v85 = asin(*&v88.__r_.__value_.__l.__data_);
+                    v83 = asin(*&v86.__r_.__value_.__l.__data_);
                   }
 
-                  else if (sub_213C8AAF4(&v96, "acos"))
+                  else if (sub_213C8AAF4(&v94, "acos"))
                   {
-                    v85 = acos(*&v88.__r_.__value_.__l.__data_);
+                    v83 = acos(*&v86.__r_.__value_.__l.__data_);
                   }
 
                   else
                   {
-                    if (!sub_213C8AAF4(&v96, "atan"))
+                    if (!sub_213C8AAF4(&v94, "atan"))
                     {
                       operator new();
                     }
 
-                    v85 = atan(*&v88.__r_.__value_.__l.__data_);
+                    v83 = atan(*&v86.__r_.__value_.__l.__data_);
                   }
 
-                  sub_213CB9B98(12, &v95, v85);
+                  sub_213CB9B98(12, &v93, v83);
                   if (*(a3 + 55) < 0)
                   {
-                    operator delete(*v83);
+                    operator delete(*v81);
                   }
 
-                  *v83 = *&v95.__r_.__value_.__l.__data_;
-                  *(a3 + 6) = *(&v95.__r_.__value_.__l + 2);
+                  *v81 = *&v93.__r_.__value_.__l.__data_;
+                  *(a3 + 6) = *(&v93.__r_.__value_.__l + 2);
                   *a5 = 0;
                 }
               }
@@ -1920,41 +1911,41 @@ void flatbuffers::Parser::ParseSingleValue(uint64_t a1@<X0>, uint64_t a2@<X1>, i
       }
 
 LABEL_38:
-      if (SHIBYTE(v96.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v94.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v96.__r_.__value_.__l.__data_);
+        operator delete(v94.__r_.__value_.__l.__data_);
       }
 
       return;
     }
 
-    v89.__r_.__value_.__s.__data_[0] = 0;
+    v87.__r_.__value_.__s.__data_[0] = 0;
     v11 = *a3;
   }
 
   else
   {
-    v89.__r_.__value_.__s.__data_[0] = 0;
+    v87.__r_.__value_.__s.__data_[0] = 0;
     v11 = *a3;
     if (v10 != 257)
     {
       if (v11 + 4 <= 0x10 && ((1 << (v11 + 4)) & 0x18001) != 0)
       {
-        flatbuffers::Parser::TryTypedValue(a1, 259, 1, a3, 11, &v89, a5);
+        flatbuffers::Parser::TryTypedValue(a1, 259, 1, a3, 11, &v87, a5);
         *(a5 + 1) = 1;
         if (*a5)
         {
           return;
         }
 
-        if (v89.__r_.__value_.__s.__data_[0])
+        if (v87.__r_.__value_.__s.__data_[0])
         {
           goto LABEL_26;
         }
       }
 
       v14 = v11 > 0xFFFFFFFB || v11 - 1 < 0xC;
-      flatbuffers::Parser::TryTypedValue(a1, 258, v14, a3, 7, &v89, a5);
+      flatbuffers::Parser::TryTypedValue(a1, 258, v14, a3, 7, &v87, a5);
       *(a5 + 1) = 1;
       goto LABEL_19;
     }
@@ -1963,14 +1954,14 @@ LABEL_38:
   v15 = v10;
   if (v11 == 13)
   {
-    flatbuffers::Parser::TryTypedValue(a1, 257, 1, a3, 13, &v89, a5);
+    flatbuffers::Parser::TryTypedValue(a1, 257, 1, a3, 13, &v87, a5);
     *(a5 + 1) = 1;
     if (*a5)
     {
       return;
     }
 
-    if (v89.__r_.__value_.__s.__data_[0])
+    if (v87.__r_.__value_.__s.__data_[0])
     {
       v11 = 13;
       goto LABEL_26;
@@ -1996,23 +1987,23 @@ LABEL_38:
   {
     if (sub_213C8AAF4((a1 + 32), "true"))
     {
-      v59 = "1";
+      v58 = "1";
       goto LABEL_117;
     }
 
     if (sub_213C8AAF4((a1 + 32), "false"))
     {
-      v59 = "0";
+      v58 = "0";
 LABEL_117:
-      MEMORY[0x21604CF40](a1 + 32, v59);
-      flatbuffers::Parser::TryTypedValue(a1, v10, 1, a3, 2, &v89, a5);
+      MEMORY[0x21604CF40](a1 + 32, v58);
+      flatbuffers::Parser::TryTypedValue(a1, v10, 1, a3, 2, &v87, a5);
       *(a5 + 1) = 1;
       if (*a5)
       {
         return;
       }
 
-      if (v89.__r_.__value_.__s.__data_[0])
+      if (v87.__r_.__value_.__s.__data_[0])
       {
         v11 = 2;
         goto LABEL_26;
@@ -2022,27 +2013,27 @@ LABEL_117:
 LABEL_122:
     if (*(a1 + 20) == 257 && (v11 > 0xFFFFFFFB || v11 - 1 <= 0xB))
     {
-      v62 = *(a1 + 55);
-      if (v62 < 0)
+      v61 = *(a1 + 55);
+      if (v61 < 0)
       {
-        v63 = *(a1 + 32);
-        v62 = *(a1 + 40);
+        v62 = *(a1 + 32);
+        v61 = *(a1 + 40);
       }
 
       else
       {
-        v63 = a1 + 32;
+        v62 = a1 + 32;
       }
 
-      v64 = v63 - 1;
-      while (v62)
+      v63 = v62 - 1;
+      while (v61)
       {
-        v65 = *(v64 + v62--);
-        if (v65 != 32)
+        v64 = *(v63 + v61--);
+        if (v64 != 32)
         {
-          if (v62 != -1)
+          if (v61 != -1)
           {
-            std::string::resize((a1 + 32), v62 + 1, 0);
+            std::string::resize((a1 + 32), v61 + 1, 0);
           }
 
           break;
@@ -2055,14 +2046,14 @@ LABEL_122:
       a4 = 1;
       if (((1 << (v11 + 4)) & 0x18001) != 0)
       {
-        flatbuffers::Parser::TryTypedValue(a1, v10, 1, a3, 11, &v89, a5);
+        flatbuffers::Parser::TryTypedValue(a1, v10, 1, a3, 11, &v87, a5);
         *(a5 + 1) = 1;
         if (*a5)
         {
           return;
         }
 
-        if (v89.__r_.__value_.__s.__data_[0])
+        if (v87.__r_.__value_.__s.__data_[0])
         {
           goto LABEL_26;
         }
@@ -2072,20 +2063,20 @@ LABEL_122:
     if (v11 > 0xFFFFFFFC || v11 - 1 <= 9)
     {
       a4 = 1;
-      flatbuffers::Parser::TryTypedValue(a1, v10, 1, a3, 7, &v89, a5);
+      flatbuffers::Parser::TryTypedValue(a1, v10, 1, a3, 7, &v87, a5);
       *(a5 + 1) = 1;
       if (*a5)
       {
         return;
       }
 
-      if (v89.__r_.__value_.__s.__data_[0])
+      if (v87.__r_.__value_.__s.__data_[0])
       {
         goto LABEL_26;
       }
     }
 
-    flatbuffers::Parser::TryTypedValue(a1, 257, v11 == 13, a3, 13, &v89, a5);
+    flatbuffers::Parser::TryTypedValue(a1, 257, v11 == 13, a3, 13, &v87, a5);
     a4 = 1;
     *(a5 + 1) = 1;
 LABEL_19:
@@ -2103,14 +2094,14 @@ LABEL_120:
     goto LABEL_122;
   }
 
-  v60 = (a1 + 32);
+  v59 = (a1 + 32);
   if (*(a1 + 55) < 0)
   {
-    v60 = *v60;
+    v59 = *v59;
   }
 
-  v61 = *v60;
-  if (v61 != 95 && (v61 & 0xFFFFFFDF) - 65 > 0x19)
+  v60 = *v59;
+  if (v60 != 95 && (v60 & 0xFFFFFFDF) - 65 > 0x19)
   {
     goto LABEL_122;
   }
@@ -2129,98 +2120,83 @@ LABEL_120:
     return;
   }
 
-  v89.__r_.__value_.__s.__data_[0] = 1;
+  v87.__r_.__value_.__s.__data_[0] = 1;
 LABEL_26:
-  if ((v89.__r_.__value_.__s.__data_[0] & 1) == 0)
+  if ((v87.__r_.__value_.__s.__data_[0] & 1) == 0)
   {
-    memset(&v96, 0, sizeof(v96));
-    flatbuffers::Parser::TokenToStringId(a1, *(a1 + 20), &v91);
-    v44 = std::string::insert(&v91, 0, "Cannot assign token starting with '");
-    v45 = v44->__r_.__value_.__r.__words[2];
-    *&v92.__r_.__value_.__l.__data_ = *&v44->__r_.__value_.__l.__data_;
-    v92.__r_.__value_.__r.__words[2] = v45;
-    v44->__r_.__value_.__l.__size_ = 0;
-    v44->__r_.__value_.__r.__words[2] = 0;
-    v44->__r_.__value_.__r.__words[0] = 0;
-    v46 = std::string::append(&v92, "' to value of <");
-    v47 = v46->__r_.__value_.__r.__words[2];
-    *&v93.__r_.__value_.__l.__data_ = *&v46->__r_.__value_.__l.__data_;
-    v93.__r_.__value_.__r.__words[2] = v47;
-    v46->__r_.__value_.__l.__size_ = 0;
-    v46->__r_.__value_.__r.__words[2] = 0;
-    v46->__r_.__value_.__r.__words[0] = 0;
-    v48 = strlen((&off_278171A78)[v11 + 4]);
-    std::string::__init(&v90, (&off_278171A78)[v11 + 4], v48);
-    if ((v90.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    memset(&v94, 0, sizeof(v94));
+    flatbuffers::Parser::TokenToStringId(a1, *(a1 + 20), &v89);
+    v43 = std::string::insert(&v89, 0, "Cannot assign token starting with '");
+    v44 = v43->__r_.__value_.__r.__words[2];
+    *&v90.__r_.__value_.__l.__data_ = *&v43->__r_.__value_.__l.__data_;
+    v90.__r_.__value_.__r.__words[2] = v44;
+    v43->__r_.__value_.__l.__size_ = 0;
+    v43->__r_.__value_.__r.__words[2] = 0;
+    v43->__r_.__value_.__r.__words[0] = 0;
+    v45 = std::string::append(&v90, "' to value of <");
+    v46 = v45->__r_.__value_.__r.__words[2];
+    *&v91.__r_.__value_.__l.__data_ = *&v45->__r_.__value_.__l.__data_;
+    v91.__r_.__value_.__r.__words[2] = v46;
+    v45->__r_.__value_.__l.__size_ = 0;
+    v45->__r_.__value_.__r.__words[2] = 0;
+    v45->__r_.__value_.__r.__words[0] = 0;
+    v47 = strlen((&off_278171A78)[v11 + 4]);
+    std::string::__init(&v88, (&off_278171A78)[v11 + 4], v47);
+    if ((v88.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v49 = &v90;
+      v48 = &v88;
     }
 
     else
     {
-      v49 = v90.__r_.__value_.__r.__words[0];
+      v48 = v88.__r_.__value_.__r.__words[0];
     }
 
-    if ((v90.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v88.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = SHIBYTE(v90.__r_.__value_.__r.__words[2]);
+      size = SHIBYTE(v88.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v90.__r_.__value_.__l.__size_;
+      size = v88.__r_.__value_.__l.__size_;
     }
 
-    v51 = std::string::append(&v93, v49, size);
-    v52 = v51->__r_.__value_.__r.__words[2];
-    *&v94.__r_.__value_.__l.__data_ = *&v51->__r_.__value_.__l.__data_;
-    v94.__r_.__value_.__r.__words[2] = v52;
-    v51->__r_.__value_.__l.__size_ = 0;
-    v51->__r_.__value_.__r.__words[2] = 0;
-    v51->__r_.__value_.__r.__words[0] = 0;
-    v53 = std::string::append(&v94, "> type.");
-    v54 = v53->__r_.__value_.__r.__words[2];
-    *&v95.__r_.__value_.__l.__data_ = *&v53->__r_.__value_.__l.__data_;
-    v95.__r_.__value_.__r.__words[2] = v54;
-    v53->__r_.__value_.__l.__size_ = 0;
-    v53->__r_.__value_.__r.__words[2] = 0;
-    v53->__r_.__value_.__r.__words[0] = 0;
-    if ((v95.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v50 = std::string::append(&v91, v48, size);
+    v51 = v50->__r_.__value_.__r.__words[2];
+    *&v92.__r_.__value_.__l.__data_ = *&v50->__r_.__value_.__l.__data_;
+    v92.__r_.__value_.__r.__words[2] = v51;
+    v50->__r_.__value_.__l.__size_ = 0;
+    v50->__r_.__value_.__r.__words[2] = 0;
+    v50->__r_.__value_.__r.__words[0] = 0;
+    v52 = std::string::append(&v92, "> type.");
+    v53 = v52->__r_.__value_.__r.__words[2];
+    *&v93.__r_.__value_.__l.__data_ = *&v52->__r_.__value_.__l.__data_;
+    v93.__r_.__value_.__r.__words[2] = v53;
+    v52->__r_.__value_.__l.__size_ = 0;
+    v52->__r_.__value_.__r.__words[2] = 0;
+    v52->__r_.__value_.__r.__words[0] = 0;
+    if ((v93.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v55 = &v95;
+      v54 = &v93;
     }
 
     else
     {
-      v55 = v95.__r_.__value_.__r.__words[0];
+      v54 = v93.__r_.__value_.__r.__words[0];
     }
 
-    if ((v95.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v93.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v56 = SHIBYTE(v95.__r_.__value_.__r.__words[2]);
+      v55 = SHIBYTE(v93.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v56 = v95.__r_.__value_.__l.__size_;
+      v55 = v93.__r_.__value_.__l.__size_;
     }
 
-    std::string::append(&v96, v55, v56);
-    if (SHIBYTE(v95.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v95.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v94.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v94.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v90.__r_.__value_.__l.__data_);
-    }
-
+    std::string::append(&v94, v54, v55);
     if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v93.__r_.__value_.__l.__data_);
@@ -2231,9 +2207,24 @@ LABEL_26:
       operator delete(v92.__r_.__value_.__l.__data_);
     }
 
+    if (SHIBYTE(v88.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v88.__r_.__value_.__l.__data_);
+    }
+
     if (SHIBYTE(v91.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v91.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v90.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v89.__r_.__value_.__l.__data_);
     }
 
     flatbuffers::Parser::Error(a1, a5);
@@ -2246,51 +2237,7 @@ LABEL_26:
     {
       case -3:
       case 10:
-        v96.__r_.__value_.__r.__words[0] = 0;
-        if (*(a3 + 55) >= 0)
-        {
-          v67 = (a3 + 8);
-        }
-
-        else
-        {
-          v67 = *(a3 + 4);
-        }
-
-        sub_213CB0C44(a5, v67, a1, &v96);
-        *(a5 + 1) = 1;
-        if ((*a5 & 1) == 0)
-        {
-          sub_213CB6154(a3, v96.__r_.__value_.__l.__data_);
-          goto LABEL_30;
-        }
-
-        break;
-      case -2:
-      case 8:
-        LODWORD(v96.__r_.__value_.__l.__data_) = 0;
-        if (*(a3 + 55) >= 0)
-        {
-          v68 = (a3 + 8);
-        }
-
-        else
-        {
-          v68 = *(a3 + 4);
-        }
-
-        sub_213CB0108(a5, v68, a1, &v96);
-        *(a5 + 1) = 1;
-        if ((*a5 & 1) == 0)
-        {
-          sub_213CB61C0(a3, LODWORD(v96.__r_.__value_.__l.__data_));
-          goto LABEL_30;
-        }
-
-        break;
-      case -1:
-      case 6:
-        LOWORD(v96.__r_.__value_.__l.__data_) = 0;
+        v94.__r_.__value_.__r.__words[0] = 0;
         if (*(a3 + 55) >= 0)
         {
           v66 = (a3 + 8);
@@ -2301,11 +2248,55 @@ LABEL_26:
           v66 = *(a3 + 4);
         }
 
-        sub_213CB09D8(a5, v66, a1, &v96);
+        sub_213CB0C44(a5, v66, a1, &v94);
         *(a5 + 1) = 1;
         if ((*a5 & 1) == 0)
         {
-          sub_213CB622C(a3, LOWORD(v96.__r_.__value_.__l.__data_));
+          sub_213CB6154(a3, v94.__r_.__value_.__l.__data_);
+          goto LABEL_30;
+        }
+
+        break;
+      case -2:
+      case 8:
+        LODWORD(v94.__r_.__value_.__l.__data_) = 0;
+        if (*(a3 + 55) >= 0)
+        {
+          v67 = (a3 + 8);
+        }
+
+        else
+        {
+          v67 = *(a3 + 4);
+        }
+
+        sub_213CB0108(a5, v67, a1, &v94);
+        *(a5 + 1) = 1;
+        if ((*a5 & 1) == 0)
+        {
+          sub_213CB61C0(a3, LODWORD(v94.__r_.__value_.__l.__data_));
+          goto LABEL_30;
+        }
+
+        break;
+      case -1:
+      case 6:
+        LOWORD(v94.__r_.__value_.__l.__data_) = 0;
+        if (*(a3 + 55) >= 0)
+        {
+          v65 = (a3 + 8);
+        }
+
+        else
+        {
+          v65 = *(a3 + 4);
+        }
+
+        sub_213CB09D8(a5, v65, a1, &v94);
+        *(a5 + 1) = 1;
+        if ((*a5 & 1) == 0)
+        {
+          sub_213CB622C(a3, LOWORD(v94.__r_.__value_.__l.__data_));
           goto LABEL_30;
         }
 
@@ -2314,91 +2305,28 @@ LABEL_26:
       case 1:
       case 2:
       case 4:
-        v96.__r_.__value_.__s.__data_[0] = 0;
+        v94.__r_.__value_.__s.__data_[0] = 0;
         if (*(a3 + 55) >= 0)
         {
-          v58 = (a3 + 8);
+          v57 = (a3 + 8);
         }
 
         else
         {
-          v58 = *(a3 + 4);
+          v57 = *(a3 + 4);
         }
 
-        sub_213CB076C(a5, v58, a1, &v96);
+        sub_213CB076C(a5, v57, a1, &v94);
         *(a5 + 1) = 1;
         if ((*a5 & 1) == 0)
         {
-          sub_213CB629C(a3, v96.__r_.__value_.__s.__data_[0]);
+          sub_213CB629C(a3, v94.__r_.__value_.__s.__data_[0]);
           goto LABEL_30;
         }
 
         break;
       case 3:
-        v96.__r_.__value_.__s.__data_[0] = 0;
-        if (*(a3 + 55) >= 0)
-        {
-          v74 = (a3 + 8);
-        }
-
-        else
-        {
-          v74 = *(a3 + 4);
-        }
-
-        sub_213CB42AC(a5, v74, a1, &v96);
-        *(a5 + 1) = 1;
-        if ((*a5 & 1) == 0)
-        {
-          sub_213CB629C(a3, v96.__r_.__value_.__s.__data_[0]);
-          goto LABEL_30;
-        }
-
-        break;
-      case 5:
-        LOWORD(v96.__r_.__value_.__l.__data_) = 0;
-        if (*(a3 + 55) >= 0)
-        {
-          v75 = (a3 + 8);
-        }
-
-        else
-        {
-          v75 = *(a3 + 4);
-        }
-
-        sub_213CB4528(a5, v75, a1, &v96);
-        *(a5 + 1) = 1;
-        if ((*a5 & 1) == 0)
-        {
-          sub_213CB6308(a3, SLOWORD(v96.__r_.__value_.__l.__data_));
-          goto LABEL_30;
-        }
-
-        break;
-      case 7:
-        LODWORD(v96.__r_.__value_.__l.__data_) = 0;
-        if (*(a3 + 55) >= 0)
-        {
-          v81 = (a3 + 8);
-        }
-
-        else
-        {
-          v81 = *(a3 + 4);
-        }
-
-        sub_213CB47A4(a5, v81, a1, &v96);
-        *(a5 + 1) = 1;
-        if ((*a5 & 1) == 0)
-        {
-          sub_213CB629C(a3, LODWORD(v96.__r_.__value_.__l.__data_));
-          goto LABEL_30;
-        }
-
-        break;
-      case 9:
-        v96.__r_.__value_.__r.__words[0] = 0;
+        v94.__r_.__value_.__s.__data_[0] = 0;
         if (*(a3 + 55) >= 0)
         {
           v73 = (a3 + 8);
@@ -2409,62 +2337,38 @@ LABEL_26:
           v73 = *(a3 + 4);
         }
 
-        sub_213CB4A20(a5, v73, a1, &v96);
+        sub_213CB42AC(a5, v73, a1, &v94);
         *(a5 + 1) = 1;
         if ((*a5 & 1) == 0)
         {
-          sub_213CB6378(a3, v96.__r_.__value_.__l.__data_);
+          sub_213CB629C(a3, v94.__r_.__value_.__s.__data_[0]);
           goto LABEL_30;
         }
 
         break;
-      case 11:
-        LODWORD(v96.__r_.__value_.__l.__data_) = 0;
-        v78 = *(a3 + 4);
-        v77 = (a3 + 8);
-        v76 = v78;
-        if (v77[23] >= 0)
+      case 5:
+        LOWORD(v94.__r_.__value_.__l.__data_) = 0;
+        if (*(a3 + 55) >= 0)
         {
-          v79 = v77;
+          v74 = (a3 + 8);
         }
 
         else
         {
-          v79 = v76;
+          v74 = *(a3 + 4);
         }
 
-        sub_213CB4CD8(a5, v79, a1, &v96);
+        sub_213CB4528(a5, v74, a1, &v94);
         *(a5 + 1) = 1;
         if ((*a5 & 1) == 0)
         {
+          sub_213CB6308(a3, SLOWORD(v94.__r_.__value_.__l.__data_));
           goto LABEL_30;
         }
 
         break;
-      case 12:
-        v96.__r_.__value_.__r.__words[0] = 0;
-        v71 = *(a3 + 4);
-        v70 = (a3 + 8);
-        v69 = v71;
-        if (v70[23] >= 0)
-        {
-          v72 = v70;
-        }
-
-        else
-        {
-          v72 = v69;
-        }
-
-        sub_213CB4F90(a5, v72, a1, &v96);
-        *(a5 + 1) = 1;
-        if ((*a5 & 1) == 0)
-        {
-          goto LABEL_30;
-        }
-
-        break;
-      default:
+      case 7:
+        LODWORD(v94.__r_.__value_.__l.__data_) = 0;
         if (*(a3 + 55) >= 0)
         {
           v80 = (a3 + 8);
@@ -2475,11 +2379,98 @@ LABEL_26:
           v80 = *(a3 + 4);
         }
 
-        sub_213CB3F58(a5, v80, a1, &v96);
+        sub_213CB47A4(a5, v80, a1, &v94);
         *(a5 + 1) = 1;
         if ((*a5 & 1) == 0)
         {
-          sub_213CB60DC(a3, v96.__r_.__value_.__l.__data_);
+          sub_213CB629C(a3, LODWORD(v94.__r_.__value_.__l.__data_));
+          goto LABEL_30;
+        }
+
+        break;
+      case 9:
+        v94.__r_.__value_.__r.__words[0] = 0;
+        if (*(a3 + 55) >= 0)
+        {
+          v72 = (a3 + 8);
+        }
+
+        else
+        {
+          v72 = *(a3 + 4);
+        }
+
+        sub_213CB4A20(a5, v72, a1, &v94);
+        *(a5 + 1) = 1;
+        if ((*a5 & 1) == 0)
+        {
+          sub_213CB6378(a3, v94.__r_.__value_.__l.__data_);
+          goto LABEL_30;
+        }
+
+        break;
+      case 11:
+        LODWORD(v94.__r_.__value_.__l.__data_) = 0;
+        v77 = *(a3 + 4);
+        v76 = a3 + 8;
+        v75 = v77;
+        if (*(v76 + 23) >= 0)
+        {
+          v78 = v76;
+        }
+
+        else
+        {
+          v78 = v75;
+        }
+
+        sub_213CB4CD8(a5, v78, a1, &v94);
+        *(a5 + 1) = 1;
+        if ((*a5 & 1) == 0)
+        {
+          goto LABEL_30;
+        }
+
+        break;
+      case 12:
+        v94.__r_.__value_.__r.__words[0] = 0;
+        v70 = *(a3 + 4);
+        v69 = a3 + 8;
+        v68 = v70;
+        if (*(v69 + 23) >= 0)
+        {
+          v71 = v69;
+        }
+
+        else
+        {
+          v71 = v68;
+        }
+
+        sub_213CB4F90(a5, v71, a1, &v94);
+        *(a5 + 1) = 1;
+        if ((*a5 & 1) == 0)
+        {
+          goto LABEL_30;
+        }
+
+        break;
+      default:
+        if (*(a3 + 55) >= 0)
+        {
+          v79 = (a3 + 8);
+        }
+
+        else
+        {
+          v79 = *(a3 + 4);
+        }
+
+        sub_213CB3F58(a5, v79, a1, &v94);
+        *(a5 + 1) = 1;
+        if ((*a5 & 1) == 0)
+        {
+          sub_213CB60DC(a3, v94.__r_.__value_.__l.__data_);
           goto LABEL_30;
         }
 
@@ -2534,7 +2525,7 @@ uint64_t flatbuffers::EnumDef::FindByValue(uint64_t a1, char *a2)
     v6 = v10;
   }
 
-  for (i = *(a1 + 208); i != *(a1 + 216); ++i)
+  for (i = *(a1 + 208); i != *(a1 + 216); i += 8)
   {
     result = *i;
     if (*(*i + 136) == v6)
@@ -2546,13 +2537,13 @@ uint64_t flatbuffers::EnumDef::FindByValue(uint64_t a1, char *a2)
   return 0;
 }
 
-BOOL sub_213CAFF7C(uint64_t a1, uint64_t *a2, uint64_t a3)
+BOOL sub_213CAFF7C(uint64_t a1, const void ***a2, uint64_t a3)
 {
-  v10[0] = a3;
+  v10 = a3;
   v6 = *(a1 + 32);
   if (v6 >= *(a1 + 40))
   {
-    v7 = sub_213CBFBD0(a1 + 24, v10);
+    v7 = sub_213CBFBD0(a1 + 24, &v10);
   }
 
   else
@@ -2565,8 +2556,8 @@ BOOL sub_213CAFF7C(uint64_t a1, uint64_t *a2, uint64_t a3)
   v8 = sub_213CBBD28(a1, a2);
   if (a1 + 8 == v8)
   {
-    v10[1] = a2;
-    *(sub_213CBFCBC(a1, a2) + 56) = a3;
+    v11 = a2;
+    sub_213CBFCBC(a1, a2, &v11)[7] = a3;
   }
 
   return a1 + 8 != v8;
@@ -2585,7 +2576,7 @@ void flatbuffers::Parser::ParseString(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64
     v12 = *(a1 + 48);
   }
 
-  flatbuffers::Parser::Expect(a1, 257, a3);
+  flatbuffers::Parser::Expect(a3, a1, 257);
   *(a3 + 1) = 1;
   if ((*a3 & 1) == 0)
   {
@@ -2763,7 +2754,7 @@ LABEL_11:
   }
 }
 
-void flatbuffers::Parser::SkipAnyJsonValue(flatbuffers::Parser *this@<X0>, unsigned __int8 *a2@<X8>)
+void flatbuffers::Parser::SkipAnyJsonValue(flatbuffers::Parser *this@<X0>, uint64_t *a2@<X8>)
 {
   v4 = *(this + 5);
   if (v4 > 256)
@@ -2775,7 +2766,7 @@ void flatbuffers::Parser::SkipAnyJsonValue(flatbuffers::Parser *this@<X0>, unsig
 
 LABEL_3:
     flatbuffers::Parser::Next(this, a2);
-    a2[1] = 1;
+    *(a2 + 1) = 1;
     if ((*a2 & 1) == 0)
     {
       *a2 = 0;
@@ -2786,8 +2777,8 @@ LABEL_3:
 
   if (v4 == 91)
   {
-    flatbuffers::Parser::Expect(this, 91, a2);
-    a2[1] = 1;
+    flatbuffers::Parser::Expect(a2, this, 91);
+    *(a2 + 1) = 1;
     if (*a2)
     {
       return;
@@ -2807,7 +2798,7 @@ LABEL_3:
       if (v12 < 64)
       {
         *(this + 301) = v12 + 1;
-        flatbuffers::Parser::SkipAnyJsonValue(this);
+        flatbuffers::Parser::SkipAnyJsonValue(this, a2);
         --*(this + 301);
       }
 
@@ -2816,7 +2807,7 @@ LABEL_3:
         flatbuffers::Parser::RecurseError(this, a2);
       }
 
-      a2[1] = 1;
+      *(a2 + 1) = 1;
       if (*a2)
       {
         return;
@@ -2829,8 +2820,8 @@ LABEL_3:
 
       if ((*(this + 954) & 1) == 0)
       {
-        flatbuffers::Parser::Expect(this, 44, a2);
-        a2[1] = 1;
+        flatbuffers::Parser::Expect(a2, this, 44);
+        *(a2 + 1) = 1;
         if (*a2)
         {
           return;
@@ -2843,8 +2834,8 @@ LABEL_3:
 
   if (v4 == 123)
   {
-    flatbuffers::Parser::Expect(this, 123, a2);
-    a2[1] = 1;
+    flatbuffers::Parser::Expect(a2, this, 123);
+    *(a2 + 1) = 1;
     if (*a2)
     {
       return;
@@ -2878,20 +2869,20 @@ LABEL_3:
           v7 = 260;
         }
 
-        flatbuffers::Parser::Expect(this, v7, a2);
+        flatbuffers::Parser::Expect(a2, this, v7);
       }
 
       v8 = 1;
-      a2[1] = 1;
+      *(a2 + 1) = 1;
       if ((*a2 & 1) == 0)
       {
-        if (*(this + 954) == 1 && (*(this + 5) | 0x20) == 0x7B || (flatbuffers::Parser::Expect(this, 58, a2), a2[1] = 1, (*a2 & 1) == 0))
+        if (*(this + 954) == 1 && (*(this + 5) | 0x20) == 0x7B || (flatbuffers::Parser::Expect(a2, this, 58), *(a2 + 1) = 1, (*a2 & 1) == 0))
         {
           v13 = *(this + 301);
           if (v13 < 64)
           {
             *(this + 301) = v13 + 1;
-            flatbuffers::Parser::SkipAnyJsonValue(this);
+            flatbuffers::Parser::SkipAnyJsonValue(this, a2);
             --*(this + 301);
           }
 
@@ -2902,7 +2893,7 @@ LABEL_3:
 
           if (*a2 == 1)
           {
-            a2[1] = 1;
+            *(a2 + 1) = 1;
           }
 
           else
@@ -2916,13 +2907,13 @@ LABEL_3:
 
             else
             {
-              if ((*(this + 954) & 1) != 0 || (flatbuffers::Parser::Expect(this, 44, a2), v8 = *a2, (v8 & 1) == 0))
+              if ((*(this + 954) & 1) != 0 || (flatbuffers::Parser::Expect(a2, this, 44), v8 = *a2, (v8 & 1) == 0))
               {
                 v8 = 0;
                 *a2 = 0;
               }
 
-              a2[1] = 1;
+              *(a2 + 1) = 1;
             }
           }
         }
@@ -3373,7 +3364,7 @@ void flatbuffers::Parser::ParseTable(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_
   v8 = *(a1 + 20);
   if (v8 != 91)
   {
-    flatbuffers::Parser::Expect(a1, 123, &v163);
+    flatbuffers::Parser::Expect(&v163, a1, 123);
     HIBYTE(v163) = 1;
     if ((v163 & 1) == 0)
     {
@@ -3417,7 +3408,7 @@ LABEL_21:
 LABEL_31:
       if (sub_213C8AAF4(&v164, "$schema"))
       {
-        flatbuffers::Parser::Expect(a1, 257, &v163);
+        flatbuffers::Parser::Expect(&v163, a1, 257);
         goto LABEL_33;
       }
 
@@ -3442,7 +3433,7 @@ LABEL_35:
 
               else
               {
-                if ((*(a1 + 954) & 1) != 0 || (flatbuffers::Parser::Expect(a1, 44, &v163), v21 = v163, (v163 & 1) == 0))
+                if ((*(a1 + 954) & 1) != 0 || (flatbuffers::Parser::Expect(&v163, a1, 44), v21 = v163, (v163 & 1) == 0))
                 {
                   v21 = 0;
                   LOBYTE(v163) = 0;
@@ -3528,7 +3519,7 @@ LABEL_34:
 
         if (*(v26 + 224))
         {
-          flatbuffers::Parser::ParseNestedFlatbuffer(a1, v172, v26, v11, a2, &v163);
+          flatbuffers::Parser::ParseNestedFlatbuffer(&v163, a1, v172, v26, v11, a2);
         }
 
         else
@@ -3542,7 +3533,7 @@ LABEL_34:
           else
           {
             *(a1 + 1204) = v28 + 1;
-            v9 = flatbuffers::Parser::ParseAnyValue(a1, v172, v26, v11, a2, 0, 0);
+            flatbuffers::Parser::ParseAnyValue(a1, v172, v26, v11, a2, 0, 0, &v163);
             --*(a1 + 1204);
           }
         }
@@ -3649,7 +3640,7 @@ LABEL_481:
         v24 = 260;
       }
 
-      flatbuffers::Parser::Expect(a1, v24, &v163);
+      flatbuffers::Parser::Expect(&v163, a1, v24);
     }
 
     v21 = 1;
@@ -3661,7 +3652,7 @@ LABEL_481:
         goto LABEL_31;
       }
 
-      flatbuffers::Parser::Expect(a1, 58, &v163);
+      flatbuffers::Parser::Expect(&v163, a1, 58);
       HIBYTE(v163) = 1;
       if ((v163 & 1) == 0)
       {
@@ -5142,9 +5133,9 @@ LABEL_266:
   }
 }
 
-void flatbuffers::Parser::ParseVector(uint64_t a1@<X0>, uint64_t a2@<X1>, _DWORD *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+void flatbuffers::Parser::ParseVector(uint64_t a1@<X0>, uint64_t a2@<X1>, _DWORD *a3@<X2>, const void **a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  flatbuffers::Parser::Expect(a1, 91, &v52);
+  flatbuffers::Parser::Expect(&v52, a1, 91);
   HIBYTE(v52) = 1;
   v10 = v52;
   if (v52)
@@ -5175,7 +5166,7 @@ void flatbuffers::Parser::ParseVector(uint64_t a1@<X0>, uint64_t a2@<X1>, _DWORD
     else
     {
       *(a1 + 1204) = v13 + 1;
-      flatbuffers::Parser::ParseAnyValue(a1, v65, a4, a5, 0, v11, 1);
+      flatbuffers::Parser::ParseAnyValue(a1, v65, a4, a5, 0, v11, 1, &v52);
       --*(a1 + 1204);
     }
 
@@ -5235,18 +5226,18 @@ void flatbuffers::Parser::ParseVector(uint64_t a1@<X0>, uint64_t a2@<X1>, _DWORD
 
     if (*(a1 + 20) == 93)
     {
-      LODWORD(v11) = v11 + 1;
+      ++v11;
       break;
     }
 
-    if ((*(a1 + 954) & 1) != 0 || (flatbuffers::Parser::Expect(a1, 44, &v52), v10 = v52, (v52 & 1) == 0))
+    if ((*(a1 + 954) & 1) != 0 || (flatbuffers::Parser::Expect(&v52, a1, 44), v10 = v52, (v52 & 1) == 0))
     {
       v10 = 0;
       LOBYTE(v52) = 0;
     }
 
     HIBYTE(v52) = 1;
-    v11 = (v11 + 1);
+    ++v11;
     if (v10)
     {
       goto LABEL_2;
@@ -5268,8 +5259,8 @@ LABEL_2:
     *a6 = 256;
     BYTE7(v60) = 11;
     strcpy(v59, "force_align");
-    v14 = sub_213C9E148(a4 + 72, v59);
-    if (a4 + 80 == v14)
+    v14 = sub_213C9E148((a4 + 9), v59);
+    if (a4 + 10 == v14)
     {
       v15 = 0;
     }
@@ -5604,7 +5595,7 @@ LABEL_111:
         v45 = *(a2 + 8);
         v46 = *(a1 + 384);
         v49 = *v46;
-        v47 = (v46 + 1);
+        v47 = v46 + 1;
         v48 = v49;
         if (*(v45 + 200) == 1)
         {
@@ -5613,7 +5604,7 @@ LABEL_111:
 
         else
         {
-          sub_213C8CB6C(v47, v47 + 4 * v48);
+          sub_213C8CB6C(v47, &v47[v48]);
         }
       }
     }
@@ -5639,7 +5630,7 @@ void flatbuffers::Parser::ParseArray(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_
   v5 = *(a2 + 4);
   v34 = *(a2 + 8);
   v6 = *(a2 + 24);
-  flatbuffers::Parser::Expect(a1, 91, &v35);
+  flatbuffers::Parser::Expect(&v35, a1, 91);
   HIBYTE(v35) = 1;
   v7 = v35;
   if (v35)
@@ -5720,7 +5711,7 @@ LABEL_27:
       break;
     }
 
-    if ((*(a1 + 954) & 1) != 0 || (flatbuffers::Parser::Expect(a1, 44, &v35), v7 = v35, (v35 & 1) == 0))
+    if ((*(a1 + 954) & 1) != 0 || (flatbuffers::Parser::Expect(&v35, a1, 44), v7 = v35, (v35 & 1) == 0))
     {
       v7 = 0;
       LOBYTE(v35) = 0;
@@ -6008,7 +5999,7 @@ LABEL_3:
   sub_213C9EA70(&v36);
 }
 
-void flatbuffers::Parser::ParseHash(char *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+void flatbuffers::Parser::ParseHash(flatbuffers::Parser *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   HIBYTE(v60) = 4;
   strcpy(__p, "hash");
@@ -6063,7 +6054,7 @@ void flatbuffers::Parser::ParseHash(char *a1@<X0>, uint64_t a2@<X1>, uint64_t a3
         v34 = v33[1];
 LABEL_54:
         v49 = a1 + 32;
-        if (a1[55] < 0)
+        if (*(a1 + 55) < 0)
         {
           v49 = *v49;
         }
@@ -6101,7 +6092,7 @@ LABEL_54:
         v46 = v45[1];
 LABEL_70:
         v57 = a1 + 32;
-        if (a1[55] < 0)
+        if (*(a1 + 55) < 0)
         {
           v57 = *v57;
         }
@@ -6139,7 +6130,7 @@ LABEL_70:
         v22 = v21[1];
 LABEL_62:
         v53 = a1 + 32;
-        if (a1[55] < 0)
+        if (*(a1 + 55) < 0)
         {
           v53 = *v53;
         }
@@ -6186,7 +6177,7 @@ LABEL_62:
         v28 = v27[1];
 LABEL_50:
         v47 = a1 + 32;
-        if (a1[55] < 0)
+        if (*(a1 + 55) < 0)
         {
           v47 = *v47;
         }
@@ -6224,7 +6215,7 @@ LABEL_50:
         v40 = v39[1];
 LABEL_66:
         v55 = a1 + 32;
-        if (a1[55] < 0)
+        if (*(a1 + 55) < 0)
         {
           v55 = *v55;
         }
@@ -6262,7 +6253,7 @@ LABEL_66:
         v16 = v15[1];
 LABEL_58:
         v51 = a1 + 32;
-        if (a1[55] < 0)
+        if (*(a1 + 55) < 0)
         {
           v51 = *v51;
         }
@@ -7076,35 +7067,35 @@ void sub_213CB4CD8(_WORD *a1, char *a2, uint64_t a3, flatbuffers::ClassicLocale 
   if (*a4 == 0.0)
   {
     v8 = strlen(a2);
-    std::string::__init(&v28, a2, v8);
-    v9 = std::string::insert(&v28, 0, "invalid number: ");
+    std::string::__init(&v29, a2, v8);
+    v9 = std::string::insert(&v29, 0, "invalid number: ");
     v10 = v9->__r_.__value_.__r.__words[2];
-    *&v29.__r_.__value_.__l.__data_ = *&v9->__r_.__value_.__l.__data_;
-    v29.__r_.__value_.__r.__words[2] = v10;
+    *&v30.__r_.__value_.__l.__data_ = *&v9->__r_.__value_.__l.__data_;
+    v30.__r_.__value_.__r.__words[2] = v10;
     v9->__r_.__value_.__l.__size_ = 0;
     v9->__r_.__value_.__r.__words[2] = 0;
     v9->__r_.__value_.__r.__words[0] = 0;
-    v11 = std::string::append(&v29, "");
+    v11 = std::string::append(&v30, "");
     v12 = v11->__r_.__value_.__r.__words[2];
-    v30 = *&v11->__r_.__value_.__l.__data_;
-    v31 = v12;
+    v31 = *&v11->__r_.__value_.__l.__data_;
+    v32 = v12;
     v11->__r_.__value_.__l.__size_ = 0;
     v11->__r_.__value_.__r.__words[2] = 0;
     v11->__r_.__value_.__r.__words[0] = 0;
     flatbuffers::Parser::Error(a3, a1);
-    if (SHIBYTE(v31) < 0)
+    if (SHIBYTE(v32) < 0)
     {
-      operator delete(v30);
+      operator delete(v31);
+    }
+
+    if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v30.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v29.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
-    {
-      v13 = v28.__r_.__value_.__r.__words[0];
+      v13 = v29.__r_.__value_.__r.__words[0];
 LABEL_29:
       operator delete(v13);
     }
@@ -7113,29 +7104,30 @@ LABEL_29:
   else
   {
     v14 = strlen(a2);
-    std::string::__init(&v26, a2, v14);
-    v15 = std::string::insert(&v26, 0, "invalid number: ");
+    std::string::__init(&v27, a2, v14);
+    v15 = std::string::insert(&v27, 0, "invalid number: ");
     v16 = v15->__r_.__value_.__r.__words[2];
-    *&v27.__r_.__value_.__l.__data_ = *&v15->__r_.__value_.__l.__data_;
-    v27.__r_.__value_.__r.__words[2] = v16;
+    *&v28.__r_.__value_.__l.__data_ = *&v15->__r_.__value_.__l.__data_;
+    v28.__r_.__value_.__r.__words[2] = v16;
     v15->__r_.__value_.__l.__size_ = 0;
     v15->__r_.__value_.__r.__words[2] = 0;
     v15->__r_.__value_.__r.__words[0] = 0;
-    v17 = std::string::append(&v27, "");
+    v17 = std::string::append(&v28, "");
     v18 = v17->__r_.__value_.__r.__words[2];
-    *&v28.__r_.__value_.__l.__data_ = *&v17->__r_.__value_.__l.__data_;
-    v28.__r_.__value_.__r.__words[2] = v18;
+    *&v29.__r_.__value_.__l.__data_ = *&v17->__r_.__value_.__l.__data_;
+    v29.__r_.__value_.__r.__words[2] = v18;
     v17->__r_.__value_.__l.__size_ = 0;
     v17->__r_.__value_.__r.__words[2] = 0;
     v17->__r_.__value_.__r.__words[0] = 0;
-    v19 = std::string::append(&v28, ", constant does not fit ");
+    v19 = std::string::append(&v29, ", constant does not fit ");
     v20 = v19->__r_.__value_.__r.__words[2];
-    *&v29.__r_.__value_.__l.__data_ = *&v19->__r_.__value_.__l.__data_;
-    v29.__r_.__value_.__r.__words[2] = v20;
+    *&v30.__r_.__value_.__l.__data_ = *&v19->__r_.__value_.__l.__data_;
+    v21 = *&v30.__r_.__value_.__l.__data_;
+    v30.__r_.__value_.__r.__words[2] = v20;
     v19->__r_.__value_.__l.__size_ = 0;
     v19->__r_.__value_.__r.__words[2] = 0;
     v19->__r_.__value_.__r.__words[0] = 0;
-    sub_213C99528(&__p);
+    sub_213C99528(&__p, v21);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       p_p = &__p;
@@ -7156,22 +7148,27 @@ LABEL_29:
       size = __p.__r_.__value_.__l.__size_;
     }
 
-    v23 = std::string::append(&v29, p_p, size);
-    v24 = v23->__r_.__value_.__r.__words[2];
-    v30 = *&v23->__r_.__value_.__l.__data_;
-    v31 = v24;
-    v23->__r_.__value_.__l.__size_ = 0;
-    v23->__r_.__value_.__r.__words[2] = 0;
-    v23->__r_.__value_.__r.__words[0] = 0;
+    v24 = std::string::append(&v30, p_p, size);
+    v25 = v24->__r_.__value_.__r.__words[2];
+    v31 = *&v24->__r_.__value_.__l.__data_;
+    v32 = v25;
+    v24->__r_.__value_.__l.__size_ = 0;
+    v24->__r_.__value_.__r.__words[2] = 0;
+    v24->__r_.__value_.__r.__words[0] = 0;
     flatbuffers::Parser::Error(a3, a1);
-    if (SHIBYTE(v31) < 0)
+    if (SHIBYTE(v32) < 0)
     {
-      operator delete(v30);
+      operator delete(v31);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v30.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
@@ -7186,12 +7183,7 @@ LABEL_29:
 
     if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v27.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
-    {
-      v13 = v26.__r_.__value_.__r.__words[0];
+      v13 = v27.__r_.__value_.__r.__words[0];
       goto LABEL_29;
     }
   }
@@ -7224,35 +7216,35 @@ void sub_213CB4F90(_WORD *a1, char *a2, uint64_t a3, flatbuffers::ClassicLocale 
   if (*a4 == 0.0)
   {
     v8 = strlen(a2);
-    std::string::__init(&v28, a2, v8);
-    v9 = std::string::insert(&v28, 0, "invalid number: ");
+    std::string::__init(&v29, a2, v8);
+    v9 = std::string::insert(&v29, 0, "invalid number: ");
     v10 = v9->__r_.__value_.__r.__words[2];
-    *&v29.__r_.__value_.__l.__data_ = *&v9->__r_.__value_.__l.__data_;
-    v29.__r_.__value_.__r.__words[2] = v10;
+    *&v30.__r_.__value_.__l.__data_ = *&v9->__r_.__value_.__l.__data_;
+    v30.__r_.__value_.__r.__words[2] = v10;
     v9->__r_.__value_.__l.__size_ = 0;
     v9->__r_.__value_.__r.__words[2] = 0;
     v9->__r_.__value_.__r.__words[0] = 0;
-    v11 = std::string::append(&v29, "");
+    v11 = std::string::append(&v30, "");
     v12 = v11->__r_.__value_.__r.__words[2];
-    v30 = *&v11->__r_.__value_.__l.__data_;
-    v31 = v12;
+    v31 = *&v11->__r_.__value_.__l.__data_;
+    v32 = v12;
     v11->__r_.__value_.__l.__size_ = 0;
     v11->__r_.__value_.__r.__words[2] = 0;
     v11->__r_.__value_.__r.__words[0] = 0;
     flatbuffers::Parser::Error(a3, a1);
-    if (SHIBYTE(v31) < 0)
+    if (SHIBYTE(v32) < 0)
     {
-      operator delete(v30);
+      operator delete(v31);
+    }
+
+    if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v30.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v29.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
-    {
-      v13 = v28.__r_.__value_.__r.__words[0];
+      v13 = v29.__r_.__value_.__r.__words[0];
 LABEL_29:
       operator delete(v13);
     }
@@ -7261,29 +7253,30 @@ LABEL_29:
   else
   {
     v14 = strlen(a2);
-    std::string::__init(&v26, a2, v14);
-    v15 = std::string::insert(&v26, 0, "invalid number: ");
+    std::string::__init(&v27, a2, v14);
+    v15 = std::string::insert(&v27, 0, "invalid number: ");
     v16 = v15->__r_.__value_.__r.__words[2];
-    *&v27.__r_.__value_.__l.__data_ = *&v15->__r_.__value_.__l.__data_;
-    v27.__r_.__value_.__r.__words[2] = v16;
+    *&v28.__r_.__value_.__l.__data_ = *&v15->__r_.__value_.__l.__data_;
+    v28.__r_.__value_.__r.__words[2] = v16;
     v15->__r_.__value_.__l.__size_ = 0;
     v15->__r_.__value_.__r.__words[2] = 0;
     v15->__r_.__value_.__r.__words[0] = 0;
-    v17 = std::string::append(&v27, "");
+    v17 = std::string::append(&v28, "");
     v18 = v17->__r_.__value_.__r.__words[2];
-    *&v28.__r_.__value_.__l.__data_ = *&v17->__r_.__value_.__l.__data_;
-    v28.__r_.__value_.__r.__words[2] = v18;
+    *&v29.__r_.__value_.__l.__data_ = *&v17->__r_.__value_.__l.__data_;
+    v29.__r_.__value_.__r.__words[2] = v18;
     v17->__r_.__value_.__l.__size_ = 0;
     v17->__r_.__value_.__r.__words[2] = 0;
     v17->__r_.__value_.__r.__words[0] = 0;
-    v19 = std::string::append(&v28, ", constant does not fit ");
+    v19 = std::string::append(&v29, ", constant does not fit ");
     v20 = v19->__r_.__value_.__r.__words[2];
-    *&v29.__r_.__value_.__l.__data_ = *&v19->__r_.__value_.__l.__data_;
-    v29.__r_.__value_.__r.__words[2] = v20;
+    *&v30.__r_.__value_.__l.__data_ = *&v19->__r_.__value_.__l.__data_;
+    v21 = *&v30.__r_.__value_.__l.__data_;
+    v30.__r_.__value_.__r.__words[2] = v20;
     v19->__r_.__value_.__l.__size_ = 0;
     v19->__r_.__value_.__r.__words[2] = 0;
     v19->__r_.__value_.__r.__words[0] = 0;
-    sub_213C99680(&__p);
+    sub_213C99680(&__p, v21);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       p_p = &__p;
@@ -7304,22 +7297,27 @@ LABEL_29:
       size = __p.__r_.__value_.__l.__size_;
     }
 
-    v23 = std::string::append(&v29, p_p, size);
-    v24 = v23->__r_.__value_.__r.__words[2];
-    v30 = *&v23->__r_.__value_.__l.__data_;
-    v31 = v24;
-    v23->__r_.__value_.__l.__size_ = 0;
-    v23->__r_.__value_.__r.__words[2] = 0;
-    v23->__r_.__value_.__r.__words[0] = 0;
+    v24 = std::string::append(&v30, p_p, size);
+    v25 = v24->__r_.__value_.__r.__words[2];
+    v31 = *&v24->__r_.__value_.__l.__data_;
+    v32 = v25;
+    v24->__r_.__value_.__l.__size_ = 0;
+    v24->__r_.__value_.__r.__words[2] = 0;
+    v24->__r_.__value_.__r.__words[0] = 0;
     flatbuffers::Parser::Error(a3, a1);
-    if (SHIBYTE(v31) < 0)
+    if (SHIBYTE(v32) < 0)
     {
-      operator delete(v30);
+      operator delete(v31);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v30.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
@@ -7334,12 +7332,7 @@ LABEL_29:
 
     if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v27.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
-    {
-      v13 = v26.__r_.__value_.__r.__words[0];
+      v13 = v27.__r_.__value_.__r.__words[0];
       goto LABEL_29;
     }
   }
@@ -7361,75 +7354,78 @@ uint64_t sub_213CB51DC(uint64_t a1, double a2)
   return (*(a1 + 32) - v5 + *(a1 + 40));
 }
 
-void flatbuffers::Parser::ParseNestedFlatbuffer(flatbuffers::Parser *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, unsigned __int8 *a6@<X8>)
+void flatbuffers::Parser::ParseNestedFlatbuffer(char *__return_ptr a1@<X8>, flatbuffers::Parser *this@<X0>, uint64_t a3@<X1>, const void **a4@<X2>, uint64_t a5@<X3>, uint64_t a6@<X4>)
 {
   if (*(this + 5) == 91)
   {
-    flatbuffers::Parser::ParseAnyValue(this, a2, a3, a4, a5, 0, 0);
-    a6[1] = 1;
-    if ((*a6 & 1) == 0)
+    flatbuffers::Parser::ParseAnyValue(this, a3, a4, a5, a6, 0, 0, a1);
+    a1[1] = 1;
+    if ((*a1 & 1) == 0)
     {
-      *a6 = 0;
+      *a1 = 0;
     }
   }
 
   else
   {
     v8 = *this;
-    flatbuffers::Parser::SkipAnyJsonValue(this, a6);
-    a6[1] = 1;
-    if ((*a6 & 1) == 0)
+    flatbuffers::Parser::SkipAnyJsonValue(this, a1);
+    a1[1] = 1;
+    if ((*a1 & 1) == 0)
     {
       sub_213C9DF08(&__dst, (v8 - 1), (*this - 1), *this - v8);
-      v9[23] = 15;
-      strcpy(v9, "std::unique_ptr");
+      memset(v9, 0, 7);
+      v10 = 0x10100000002;
+      v11[0] = 1;
+      *&v11[1] = 0;
+      v11[9] = 0;
+      v12[23] = 15;
+      strcpy(v12, "std::unique_ptr");
+      v18 = 0;
+      v19 = 0;
+      v17 = 0;
+      v14 = 0;
       v15 = 0;
       v16 = 0;
-      v14 = 0;
-      v11 = 0;
-      v12 = 0;
       v13 = 0;
-      v10 = 0;
-      v17 = 84;
-      v18 = 257;
-      v20 = 0;
-      v21[0] = 0;
-      *(v21 + 5) = 0;
-      v19 = 0;
-      v22 = 0u;
-      v23 = 0u;
-      v24 = 0u;
-      v25 = 1;
-      v27 = 0;
-      v28[0] = 0;
-      *(v28 + 7) = 0;
-      v26 = 0;
-      v29 = 0u;
-      v30 = 0u;
-      v31 = 0u;
+      v20 = 84;
+      v21 = 257;
+      v23 = 0;
+      v24[0] = 0;
+      *(v24 + 5) = 0;
+      v22 = 0;
+      v25 = 0u;
+      v26 = 0u;
+      v27 = 0u;
+      v28 = 1;
+      v30 = 0;
+      v31[0] = 0;
+      *(v31 + 7) = 0;
+      v29 = 0;
       v32 = 0u;
-      strcpy(v35, "\n");
-      v33 = 0;
-      strcpy(v34, "_generated");
-      v38 = 0;
-      v39 = 0;
-      v35[2] = 0;
+      v33 = 0u;
+      v34 = 0u;
+      v35 = 0u;
+      v38 = 10;
       v36 = 0;
-      v37 = 0;
-      v40 = 1;
+      strcpy(v37, "_generated");
+      v40 = 0;
       v41 = 0;
-      v42 = 257;
-      sub_213CBA66C(v43);
+      v39 = 0;
+      v42 = 1;
+      v43 = 0;
+      v44 = 257;
+      sub_213CBA66C(v45, v9);
     }
   }
 }
 
-uint64_t *sub_213CB5538(uint64_t *a1, uint64_t *a2)
+uint64_t sub_213CB5538(uint64_t a1, uint64_t a2)
 {
   if (a1 != a2)
   {
-    sub_213CBB3F8(a1, *a2, a2 + 1);
-    sub_213C98980(a1 + 3, a2[3], a2[4], (a2[4] - a2[3]) >> 3);
+    sub_213CBB3F8(a1, *a2, (a2 + 8));
+    sub_213C98980((a1 + 24), *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 3);
   }
 
   return a1;
@@ -7486,93 +7482,93 @@ uint64_t flatbuffers::Parser::Parse(flatbuffers::Parser *this, const char *a2, c
   {
     v8 = v4;
     v9 = v5;
-    flatbuffers::Parser::ParseRoot(this, a2, a3, a4, v7);
-    return (v7[0] & 1) == 0;
+    flatbuffers::Parser::ParseRoot(&v7, this, a2, a3, a4);
+    return (v7 & 1) == 0;
   }
 }
 
-void flatbuffers::Parser::TryTypedValue(uint64_t a1@<X0>, int a2@<W2>, char a3@<W3>, uint64_t a4@<X4>, int a5@<W5>, _BYTE *a6@<X6>, uint64_t a7@<X8>)
+void flatbuffers::Parser::TryTypedValue(uint64_t a1@<X0>, int a3@<W2>, char a4@<W3>, int *a5@<X4>, int a6@<W5>, _BYTE *a7@<X6>, uint64_t a8@<X8>)
 {
-  if (*(a1 + 20) != a2)
+  if (*(a1 + 20) != a3)
   {
     goto LABEL_2;
   }
 
-  *a6 = 1;
-  v13 = (a4 + 32);
-  std::string::operator=((a4 + 32), (a1 + 32));
-  if ((a3 & 1) == 0)
+  *a7 = 1;
+  v14 = (a5 + 8);
+  std::string::operator=((a5 + 8), (a1 + 32));
+  if ((a4 & 1) == 0)
   {
-    if (*a4)
+    if (*a5)
     {
       operator new();
     }
 
-    *a4 = a5;
+    *a5 = a6;
   }
 
-  if (a2 == 259)
+  if (a3 == 259)
   {
     goto LABEL_6;
   }
 
-  v14 = *a4 + 4;
-  v15 = v14 > 0x10;
-  v16 = (1 << v14) & 0x18001;
-  if (v15 || v16 == 0)
+  v15 = *a5 + 4;
+  v16 = v15 > 0x10;
+  v17 = (1 << v15) & 0x18001;
+  if (v16 || v17 == 0)
   {
     goto LABEL_6;
   }
 
-  v18 = sub_213C8B3B8(v13, "0123456789.", 0);
-  if (v18 == -1)
+  v19 = sub_213C8B3B8(v14, "0123456789.", 0);
+  if (v19 == -1)
   {
     goto LABEL_6;
   }
 
-  v19 = *(a4 + 55);
-  v20 = *(a4 + 40);
-  if (v19 >= 0)
+  v20 = *(a5 + 55);
+  v21 = *(a5 + 5);
+  if (v20 >= 0)
   {
-    v20 = *(a4 + 55);
+    v21 = *(a5 + 55);
   }
 
-  if (v20 <= v18 + 1 || (v19 >= 0 ? (v21 = v13) : (v21 = *v13), *(v21 + v18) != 48 || (*(v21 + v18 + 1) & 0xDF) != 0x58 || sub_213C8B3B8(v13, "pP", v18 + 2) != -1))
+  if (v21 <= v19 + 1 || (v20 >= 0 ? (v22 = v14) : (v22 = *v14), *(v22 + v19) != 48 || (*(v22 + v19 + 1) & 0xDF) != 0x58 || sub_213C8B3B8(v14, "pP", v19 + 2) != -1))
   {
 LABEL_6:
-    flatbuffers::Parser::Next(a1, a7);
-    *(a7 + 1) = 1;
-    if ((*a7 & 1) == 0)
+    flatbuffers::Parser::Next(a1, a8);
+    *(a8 + 1) = 1;
+    if ((*a8 & 1) == 0)
     {
 LABEL_2:
-      *a7 = 0;
+      *a8 = 0;
     }
   }
 
   else
   {
     std::operator+<char>();
-    v22 = std::string::append(&v24, "");
-    v23 = v22->__r_.__value_.__r.__words[2];
-    v25 = *&v22->__r_.__value_.__l.__data_;
-    v26 = v23;
-    v22->__r_.__value_.__l.__size_ = 0;
-    v22->__r_.__value_.__r.__words[2] = 0;
-    v22->__r_.__value_.__r.__words[0] = 0;
-    flatbuffers::Parser::Error(a1, a7);
-    if (SHIBYTE(v26) < 0)
+    v23 = std::string::append(&v25, "");
+    v24 = v23->__r_.__value_.__r.__words[2];
+    v26 = *&v23->__r_.__value_.__l.__data_;
+    v27 = v24;
+    v23->__r_.__value_.__l.__size_ = 0;
+    v23->__r_.__value_.__r.__words[2] = 0;
+    v23->__r_.__value_.__r.__words[0] = 0;
+    flatbuffers::Parser::Error(a1, a8);
+    if (SHIBYTE(v27) < 0)
     {
-      operator delete(v25);
+      operator delete(v26);
     }
 
-    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v24.__r_.__value_.__l.__data_);
+      operator delete(v25.__r_.__value_.__l.__data_);
     }
   }
 }
 
-double flatbuffers::Parser::ParseEnumFromString@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _WORD *a4@<X8>)
+void flatbuffers::Parser::ParseEnumFromString(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _WORD *a4@<X8>)
 {
   v6 = *(a2 + 16);
   if (v6)
@@ -7626,26 +7622,26 @@ double flatbuffers::Parser::ParseEnumFromString@<D0>(uint64_t a1@<X0>, uint64_t 
         operator new();
       }
 
-      v26 = v18;
-      std::string::basic_string(&__p, &__str, 0, v18, &v30);
-      v27 = flatbuffers::Parser::LookupEnum(a1, &__p);
-      if (v27)
+      v25 = v18;
+      std::string::basic_string(&__p, &__str, 0, v18, &v28);
+      v26 = flatbuffers::Parser::LookupEnum(a1, &__p);
+      if (v26)
       {
-        std::string::basic_string(&v30, &__str, v26 + 1, 0xFFFFFFFFFFFFFFFFLL, &v33);
-        v25 = sub_213CBBD28(v27 + 184, &v30);
-        if ((v27 + 192) == v25)
+        std::string::basic_string(&v28, &__str, v25 + 1, 0xFFFFFFFFFFFFFFFFLL, &v31);
+        v24 = sub_213CBBD28(v26 + 184, &v28);
+        if ((v26 + 192) == v24)
         {
-          v29 = 0;
+          v27 = 0;
         }
 
         else
         {
-          v29 = *(v25 + 7);
+          v27 = *(v24 + 7);
         }
 
-        if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v30.__r_.__value_.__l.__data_);
+          operator delete(v28.__r_.__value_.__l.__data_);
         }
       }
 
@@ -7653,12 +7649,12 @@ double flatbuffers::Parser::ParseEnumFromString@<D0>(uint64_t a1@<X0>, uint64_t 
       {
         std::operator+<char>();
         flatbuffers::Parser::Error(a1, a4);
-        if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v30.__r_.__value_.__l.__data_);
+          operator delete(v28.__r_.__value_.__l.__data_);
         }
 
-        v29 = 0;
+        v27 = 0;
       }
 
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -7666,7 +7662,7 @@ double flatbuffers::Parser::ParseEnumFromString@<D0>(uint64_t a1@<X0>, uint64_t 
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (!v27)
+      if (!v26)
       {
         goto LABEL_21;
       }
@@ -7676,38 +7672,38 @@ double flatbuffers::Parser::ParseEnumFromString@<D0>(uint64_t a1@<X0>, uint64_t 
 
     if (*(a1 + 743) == 1)
     {
-      v21 = *(v17 + 23);
-      if ((v21 & 0x8000000000000000) != 0)
+      v20 = *(v17 + 23);
+      if ((v20 & 0x8000000000000000) != 0)
       {
-        v21 = *(v17 + 8);
+        v20 = *(v17 + 8);
       }
 
-      std::string::basic_string(&__p, &__str, 0, v21, &v30);
-      v22 = sub_213C8C1C8(&__p, *(a2 + 16));
+      std::string::basic_string(&__p, &__str, 0, v20, &v28);
+      v21 = sub_213C8C1C8(&__p, *(a2 + 16));
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (v22)
+      if (v21)
       {
-        v23 = *(a2 + 16);
-        v24 = *(v23 + 23);
-        if ((v24 & 0x8000000000000000) != 0)
+        v22 = *(a2 + 16);
+        v23 = *(v22 + 23);
+        if ((v23 & 0x8000000000000000) != 0)
         {
-          v24 = *(v23 + 8);
+          v23 = *(v22 + 8);
         }
 
-        std::string::basic_string(&__p, &__str, v24, 0xFFFFFFFFFFFFFFFFLL, &v30);
-        v25 = sub_213CBBD28(v23 + 184, &__p);
-        if ((v23 + 192) == v25)
+        std::string::basic_string(&__p, &__str, v23, 0xFFFFFFFFFFFFFFFFLL, &v28);
+        v24 = sub_213CBBD28(v22 + 184, &__p);
+        if ((v22 + 192) == v24)
         {
-          v29 = 0;
+          v27 = 0;
         }
 
         else
         {
-          v29 = *(v25 + 7);
+          v27 = *(v24 + 7);
         }
 
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -7716,30 +7712,25 @@ double flatbuffers::Parser::ParseEnumFromString@<D0>(uint64_t a1@<X0>, uint64_t 
         }
 
 LABEL_46:
-        if (v29 && (!flatbuffers::HideAppleInternal(v25) || *(v29 + 80) != 1))
+        if (v27 && (!flatbuffers::HideAppleInternal(v24) || *(v27 + 80) != 1))
         {
-          v13 |= *(v29 + 136);
-          v20 = 1;
+          v13 |= *(v27 + 136);
+          v19 = 1;
           goto LABEL_22;
         }
-
-        goto LABEL_55;
       }
-
-      v28 = *(a2 + 16);
     }
 
     else
     {
-      v25 = sub_213CBBD28(v17 + 184, &__str);
-      if ((v17 + 192) != v25)
+      v24 = sub_213CBBD28(v17 + 184, &__str);
+      if ((v17 + 192) != v24)
       {
-        v29 = *(v25 + 7);
+        v27 = *(v24 + 7);
         goto LABEL_46;
       }
     }
 
-LABEL_55:
     std::operator+<char>();
     flatbuffers::Parser::Error(a1, a4);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -7748,7 +7739,7 @@ LABEL_55:
     }
 
 LABEL_21:
-    v20 = 0;
+    v19 = 0;
 LABEL_22:
     if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -7756,9 +7747,9 @@ LABEL_22:
     }
 
     v12 = v16;
-    if ((v20 & 1) == 0)
+    if ((v19 & 1) == 0)
     {
-      return result;
+      return;
     }
   }
 
@@ -7768,10 +7759,8 @@ LABEL_22:
     operator delete(*a3);
   }
 
-  result = *&__str.__r_.__value_.__l.__data_;
   *a3 = __str;
   *a4 = 0;
-  return result;
 }
 
 uint64_t sub_213CB5F68(uint64_t a1)
@@ -7942,27 +7931,28 @@ double sub_213CB6378(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_213CB63E4(uint64_t **a1, uint64_t a2, const void **a3)
+uint64_t sub_213CB63E4(uint64_t **a1, uint64_t a2, __int128 *a3)
 {
   result = sub_213CA194C(a1, a2);
   if (a1 + 1 != result)
   {
     v6 = *(result + 56);
     sub_213CC1154(a1, result);
-    result = sub_213CC079C(a1, a3);
+    v7 = a3;
+    result = sub_213CC079C(a1, a3, &v7);
     *(result + 56) = v6;
   }
 
   return result;
 }
 
-BOOL sub_213CB6454(uint64_t a1, const void **a2, uint64_t a3)
+BOOL sub_213CB6454(uint64_t a1, __int128 *a2, uint64_t a3)
 {
-  v10[0] = a3;
+  v10 = a3;
   v6 = *(a1 + 32);
   if (v6 >= *(a1 + 40))
   {
-    v7 = sub_213CC0840(a1 + 24, v10);
+    v7 = sub_213CC0840(a1 + 24, &v10);
   }
 
   else
@@ -7975,8 +7965,8 @@ BOOL sub_213CB6454(uint64_t a1, const void **a2, uint64_t a3)
   v8 = sub_213CA194C(a1, a2);
   if (a1 + 8 == v8)
   {
-    v10[1] = a2;
-    *(sub_213CC079C(a1, a2) + 56) = a3;
+    v11 = a2;
+    sub_213CC079C(a1, a2, &v11)[7] = a3;
   }
 
   return a1 + 8 != v8;
@@ -8118,67 +8108,67 @@ LABEL_15:
   return this;
 }
 
-void flatbuffers::Parser::ParseEnum(flatbuffers::Parser *this@<X0>, _BYTE *a2@<X8>)
+void flatbuffers::Parser::ParseEnum(flatbuffers::Parser *this@<X0>, uint64_t a4@<X8>)
 {
-  v5 = *(this + 7);
-  memset(v9, 0, 24);
-  sub_213C9DCE4(v9, v5, *(this + 8), 0xAAAAAAAAAAAAAAABLL * ((*(this + 8) - v5) >> 3));
-  flatbuffers::Parser::Next(this, a2);
-  a2[1] = 1;
-  if ((*a2 & 1) == 0)
+  v6 = *(this + 7);
+  memset(v10, 0, 24);
+  sub_213C9DCE4(v10, v6, *(this + 8), 0xAAAAAAAAAAAAAAABLL * ((*(this + 8) - v6) >> 3));
+  flatbuffers::Parser::Next(this, a4);
+  *(a4 + 1) = 1;
+  if ((*a4 & 1) == 0)
   {
     if (*(this + 55) < 0)
     {
-      sub_213C9D958(&v7, *(this + 4), *(this + 5));
+      sub_213C9D958(&v8, *(this + 4), *(this + 5));
     }
 
     else
     {
-      v7 = *(this + 2);
-      v8 = *(this + 6);
+      v8 = *(this + 2);
+      v9 = *(this + 6);
     }
 
-    flatbuffers::Parser::Expect(this, 260, a2);
-    a2[1] = 1;
-    if ((*a2 & 1) == 0)
+    flatbuffers::Parser::Expect(a4, this, 260);
+    *(a4 + 1) = 1;
+    if ((*a4 & 1) == 0)
     {
       __p[4] = 0;
       flatbuffers::Parser::StartEnum();
     }
 
-    if (SHIBYTE(v8) < 0)
+    if (SHIBYTE(v9) < 0)
     {
-      operator delete(v7);
+      operator delete(v8);
     }
   }
 
-  __p[0] = v9;
+  __p[0] = v10;
   sub_213C9DC58(__p);
 }
 
-void sub_213CB76AC(uint64_t a1)
+void sub_213CB76AC(uint64_t a1, uint64_t a2)
 {
   *(a1 + 25) = sub_213CBBDEC(a1) == 0;
   *(a1 + 26) = 0;
   operator new();
 }
 
-void flatbuffers::Parser::ParseProtoOption(flatbuffers::Parser *this@<X0>, char *a2@<X8>)
+void flatbuffers::Parser::ParseProtoOption(flatbuffers::Parser *this@<X0>, uint64_t a2@<X8>)
 {
   flatbuffers::Parser::Next(this, a2);
-  a2[1] = 1;
+  *(a2 + 1) = 1;
   if ((*a2 & 1) == 0)
   {
     flatbuffers::Parser::ParseProtoKey(this, a2);
-    a2[1] = 1;
+    *(a2 + 1) = 1;
     if ((*a2 & 1) == 0)
     {
-      flatbuffers::Parser::Expect(this, 61, a2);
-      a2[1] = 1;
+      flatbuffers::Parser::Expect(a2, this, 61);
+      *(a2 + 1) = 1;
       if ((*a2 & 1) == 0)
       {
         flatbuffers::Parser::ParseProtoCurliesOrIdent(this, a2);
-        a2[1] = 1;
+        *(a2 + 1) = 1;
         if ((*a2 & 1) == 0)
         {
           *a2 = 0;
@@ -8237,7 +8227,6 @@ void sub_213CB77B8(_WORD *a1, uint64_t a2, char *a3)
     {
       if (sub_213CBBDEC(a2))
       {
-        v16 = *a2;
         operator new();
       }
     }
@@ -8250,22 +8239,22 @@ void sub_213CB77B8(_WORD *a1, uint64_t a2, char *a3)
   {
     v13 = *a2;
     std::operator+<char>();
-    v14 = std::string::append(&v17, "");
+    v14 = std::string::append(&v16, "");
     v15 = v14->__r_.__value_.__r.__words[2];
     *__p = *&v14->__r_.__value_.__l.__data_;
-    v19 = v15;
+    v18 = v15;
     v14->__r_.__value_.__l.__size_ = 0;
     v14->__r_.__value_.__r.__words[2] = 0;
     v14->__r_.__value_.__r.__words[0] = 0;
     flatbuffers::Parser::Error(v13, a1);
-    if (SHIBYTE(v19) < 0)
+    if (SHIBYTE(v18) < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v17.__r_.__value_.__l.__data_);
+      operator delete(v16.__r_.__value_.__l.__data_);
     }
   }
 }
@@ -8275,7 +8264,7 @@ void sub_213CB7984(_WORD *a1, uint64_t a2)
   v4 = *(a2 + 8);
   *(&__p.__r_.__value_.__s + 23) = 9;
   strcpy(&__p, "bit_flags");
-  v5 = sub_213C9E148(v4 + 72, &__p.__r_.__value_.__l.__data_);
+  v5 = sub_213C9E148(v4 + 72, &__p);
   v6 = v4 + 80 == v5 || *(v5 + 56) == 0;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -8284,20 +8273,18 @@ void sub_213CB7984(_WORD *a1, uint64_t a2)
 
   if (v6)
   {
-    v19 = *a2;
     operator new();
   }
 
   if (*(a2 + 26) == 1)
   {
-    v20 = *a2;
     operator new();
   }
 
   v7 = *(a2 + 16);
   *(&__p.__r_.__value_.__s + 23) = 13;
   strcpy(&__p, "bit_flags_set");
-  v8 = sub_213C9E148(v7 + 88, &__p.__r_.__value_.__l.__data_);
+  v8 = sub_213C9E148(v7 + 88, &__p);
   if (v7 + 96 == v8)
   {
     v9 = 0;
@@ -8328,7 +8315,7 @@ void sub_213CB7984(_WORD *a1, uint64_t a2)
       v13 = v12;
       v14 = v12 + 1;
       v15 = v12 == -1 ? -1 : v12 - v11;
-      std::string::basic_string(&__p, (v9 + 32), v11, v15, &v22);
+      std::string::basic_string(&__p, (v9 + 32), v11, v15, &v20);
       v16 = *(a2 + 8);
       v17 = sub_213CBBD28(v16 + 184, &__p);
       if ((v16 + 192) == v17)
@@ -8354,12 +8341,12 @@ void sub_213CB7984(_WORD *a1, uint64_t a2)
       }
     }
 
-    v21 = *a2;
+    v19 = *a2;
     std::operator+<char>();
-    flatbuffers::Parser::Error(v21, a1);
-    if (v23 < 0)
+    flatbuffers::Parser::Error(v19, a1);
+    if (v21 < 0)
     {
-      operator delete(v22);
+      operator delete(v20);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -8651,7 +8638,7 @@ void flatbuffers::Parser::ParseNamespace(flatbuffers::Parser *this@<X0>, _BYTE *
   }
 }
 
-void flatbuffers::Parser::ParseProtoDecl(flatbuffers::Parser *this@<X0>, char *a2@<X8>)
+void flatbuffers::Parser::ParseProtoDecl(flatbuffers::Parser *this@<X0>, uint64_t *a2@<X8>)
 {
   v4 = *(this + 5);
   if (v4 != 260)
@@ -8676,7 +8663,7 @@ void flatbuffers::Parser::ParseProtoDecl(flatbuffers::Parser *this@<X0>, char *a
   {
     flatbuffers::Parser::ParseNamespace(this, a2);
 LABEL_5:
-    a2[1] = 1;
+    *(a2 + 1) = 1;
 LABEL_6:
     if ((*a2 & 1) == 0)
     {
@@ -8709,7 +8696,7 @@ LABEL_10:
     v16 = 0;
     sub_213C9DCE4(__p, *(this + 7), *(this + 8), 0xAAAAAAAAAAAAAAABLL * ((*(this + 8) - *(this + 7)) >> 3));
     flatbuffers::Parser::Next(this, a2);
-    a2[1] = 1;
+    *(a2 + 1) = 1;
     if (*a2)
     {
       v13.__r_.__value_.__r.__words[0] = __p;
@@ -8721,7 +8708,7 @@ LABEL_12:
     v14 = 0;
     if (v6)
     {
-      if (*(this + 5) != 46 || (flatbuffers::Parser::Next(this, a2), a2[1] = 1, (*a2 & 1) == 0))
+      if (*(this + 5) != 46 || (flatbuffers::Parser::Next(this, a2), *(a2 + 1) = 1, (*a2 & 1) == 0))
       {
         if (*(this + 55) < 0)
         {
@@ -8733,19 +8720,19 @@ LABEL_12:
           v13 = *(this + 32);
         }
 
-        flatbuffers::Parser::Expect(this, 260, a2);
-        a2[1] = 1;
+        flatbuffers::Parser::Expect(a2, this, 260);
+        *(a2 + 1) = 1;
         if ((*a2 & 1) == 0)
         {
           flatbuffers::Parser::ParseNamespacing(this, &v13, 0, a2);
-          a2[1] = 1;
+          *(a2 + 1) = 1;
           if ((*a2 & 1) == 0)
           {
-            Struct = flatbuffers::Parser::LookupCreateStruct(this, &v13, 0, 0);
-            v14 = Struct;
-            if (Struct)
+            v9 = flatbuffers::Parser::LookupCreateStruct(this, &v13, 0, 0);
+            v14 = v9;
+            if (v9)
             {
-              v10 = Struct;
+              v10 = v9;
               if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(v13.__r_.__value_.__l.__data_);
@@ -8757,7 +8744,7 @@ LABEL_12:
               }
 
               flatbuffers::Parser::ParseProtoFields(this, v10, v6, 0, a2);
-              a2[1] = 1;
+              *(a2 + 1) = 1;
               if ((*a2 & 1) == 0)
               {
                 if ((v6 & 1) == 0)
@@ -8765,7 +8752,7 @@ LABEL_12:
                   *(this + 37) = 0;
                 }
 
-                if (*(this + 5) != 59 || (flatbuffers::Parser::Next(this, a2), a2[1] = 1, (*a2 & 1) == 0))
+                if (*(this + 5) != 59 || (flatbuffers::Parser::Next(this, a2), *(a2 + 1) = 1, (*a2 & 1) == 0))
                 {
                   v13.__r_.__value_.__r.__words[0] = __p;
                   sub_213C9DC58(&v13);
@@ -8804,12 +8791,12 @@ LABEL_12:
         v13 = *(this + 32);
       }
 
-      flatbuffers::Parser::Expect(this, 260, a2);
-      a2[1] = 1;
+      flatbuffers::Parser::Expect(a2, this, 260);
+      *(a2 + 1) = 1;
       if ((*a2 & 1) == 0)
       {
         flatbuffers::Parser::StartStruct(this, &v13, &v14, a2);
-        a2[1] = 1;
+        *(a2 + 1) = 1;
         if ((*a2 & 1) == 0)
         {
           operator new();
@@ -8841,20 +8828,20 @@ LABEL_60:
       if (sub_213C8AAF4(this + 4, "syntax"))
       {
         flatbuffers::Parser::Next(this, a2);
-        a2[1] = 1;
+        *(a2 + 1) = 1;
         if (*a2)
         {
           return;
         }
 
-        flatbuffers::Parser::Expect(this, 61, a2);
-        a2[1] = 1;
+        flatbuffers::Parser::Expect(a2, this, 61);
+        *(a2 + 1) = 1;
         if (*a2)
         {
           return;
         }
 
-        flatbuffers::Parser::Expect(this, 257, a2);
+        flatbuffers::Parser::Expect(a2, this, 257);
         goto LABEL_54;
       }
 
@@ -8865,14 +8852,14 @@ LABEL_60:
         {
           flatbuffers::Parser::ParseProtoOption(this, a2);
 LABEL_54:
-          a2[1] = 1;
+          *(a2 + 1) = 1;
           if (*a2)
           {
             return;
           }
 
-          flatbuffers::Parser::Expect(this, 59, a2);
-          a2[1] = 1;
+          flatbuffers::Parser::Expect(a2, this, 59);
+          *(a2 + 1) = 1;
           goto LABEL_6;
         }
 
@@ -8882,14 +8869,14 @@ LABEL_54:
           if (sub_213C8AAF4(this + 4, "service"))
           {
             flatbuffers::Parser::Next(this, a2);
-            a2[1] = 1;
+            *(a2 + 1) = 1;
             if (*a2)
             {
               return;
             }
 
-            flatbuffers::Parser::Expect(this, 260, a2);
-            a2[1] = 1;
+            flatbuffers::Parser::Expect(a2, this, 260);
+            *(a2 + 1) = 1;
             if (*a2)
             {
               return;
@@ -8929,10 +8916,10 @@ LABEL_22:
 
   __p[0] = 0;
   flatbuffers::Parser::ParseEnum(this, a2);
-  a2[1] = 1;
+  *(a2 + 1) = 1;
   if ((*a2 & 1) == 0)
   {
-    if (*(this + 5) != 59 || (flatbuffers::Parser::Next(this, a2), a2[1] = 1, (*a2 & 1) == 0))
+    if (*(this + 5) != 59 || (flatbuffers::Parser::Next(this, a2), *(a2 + 1) = 1, (*a2 & 1) == 0))
     {
       flatbuffers::EnumDef::RemoveDuplicates(__p[0]);
       goto LABEL_7;
@@ -8940,12 +8927,11 @@ LABEL_22:
   }
 }
 
-void flatbuffers::Parser::ParseProtoCurliesOrIdent(flatbuffers::Parser *this@<X0>, char *a2@<X8>)
+void flatbuffers::Parser::ParseProtoCurliesOrIdent(flatbuffers::Parser *this@<X0>, _BYTE *a2@<X8>)
 {
   v4 = *(this + 5);
   flatbuffers::Parser::Next(this, a2);
   a2[1] = 1;
-  v5 = *a2;
   if (v4 == 123)
   {
     if (*a2)
@@ -8953,28 +8939,28 @@ void flatbuffers::Parser::ParseProtoCurliesOrIdent(flatbuffers::Parser *this@<X0
       return;
     }
 
-    v6 = 1;
-    while (v6)
+    v5 = 1;
+    while (v5)
     {
-      v7 = *(this + 5);
-      if (v7 == 123)
+      v6 = *(this + 5);
+      if (v6 == 123)
       {
-        v8 = v6 + 1;
+        v7 = v5 + 1;
       }
 
       else
       {
-        v8 = v6;
+        v7 = v5;
       }
 
-      if (v7 == 125)
+      if (v6 == 125)
       {
-        --v6;
+        --v5;
       }
 
       else
       {
-        v6 = v8;
+        v5 = v7;
       }
 
       flatbuffers::Parser::Next(this, a2);
@@ -8994,9 +8980,9 @@ void flatbuffers::Parser::ParseProtoCurliesOrIdent(flatbuffers::Parser *this@<X0
   *a2 = 0;
 }
 
-BOOL sub_213CB8870(uint64_t a1, uint64_t *a2, uint64_t a3)
+BOOL sub_213CB8870(uint64_t a1, const void ***a2, uint64_t a3)
 {
-  v10[0] = a3;
+  v10 = a3;
   v6 = *(a1 + 32);
   if (v6 < *(a1 + 40))
   {
@@ -9006,21 +8992,21 @@ BOOL sub_213CB8870(uint64_t a1, uint64_t *a2, uint64_t a3)
 
   else
   {
-    v7 = sub_213CC0840(a1 + 24, v10);
+    v7 = sub_213CC0840(a1 + 24, &v10);
   }
 
   *(a1 + 32) = v7;
   v8 = sub_213CA17D8(a1, a2);
   if (a1 + 8 == v8)
   {
-    v10[1] = a2;
-    *(sub_213CC0DA4(a1, a2) + 56) = a3;
+    v11 = a2;
+    sub_213CC0DA4(a1, a2, &v11)[7] = a3;
   }
 
   return a1 + 8 != v8;
 }
 
-void flatbuffers::Parser::ParseTypeFromProtoType(uint64_t a1@<X0>, void *a2@<X1>, _BYTE *a3@<X8>)
+void flatbuffers::Parser::ParseTypeFromProtoType(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
 {
   v6 = "float";
   v7 = &off_278171B40;
@@ -9031,7 +9017,7 @@ void flatbuffers::Parser::ParseTypeFromProtoType(uint64_t a1@<X0>, void *a2@<X1>
       *a2 = *(v7 - 1);
       flatbuffers::Parser::Next(a1, a3);
 LABEL_8:
-      a3[1] = 1;
+      *(a3 + 1) = 1;
       if ((*a3 & 1) == 0)
       {
         *a3 = 0;
@@ -9046,21 +9032,21 @@ LABEL_8:
   }
 
   while (v8);
-  if (*(a1 + 20) != 46 || (flatbuffers::Parser::Next(a1, a3), a3[1] = 1, (*a3 & 1) == 0))
+  if (*(a1 + 20) != 46 || (flatbuffers::Parser::Next(a1, a3), *(a3 + 1) = 1, (*a3 & 1) == 0))
   {
     flatbuffers::Parser::ParseTypeIdent(a1, a2, a3);
     goto LABEL_8;
   }
 }
 
-void flatbuffers::Parser::ParseProtoKey(flatbuffers::Parser *this@<X0>, _BYTE *a2@<X8>)
+void flatbuffers::Parser::ParseProtoKey(flatbuffers::Parser *this@<X0>, uint64_t a2@<X8>)
 {
   if (*(this + 5) == 40)
   {
     flatbuffers::Parser::Next(this, a2);
     while (1)
     {
-      a2[1] = 1;
+      *(a2 + 1) = 1;
       if (*a2)
       {
         break;
@@ -9069,10 +9055,10 @@ void flatbuffers::Parser::ParseProtoKey(flatbuffers::Parser *this@<X0>, _BYTE *a
       v4 = *(this + 5);
       if (v4 != 260 && v4 != 46)
       {
-        flatbuffers::Parser::Expect(this, 41, a2);
+        flatbuffers::Parser::Expect(a2, this, 41);
         while (1)
         {
-          a2[1] = 1;
+          *(a2 + 1) = 1;
           if (*a2)
           {
             break;
@@ -9084,13 +9070,13 @@ void flatbuffers::Parser::ParseProtoKey(flatbuffers::Parser *this@<X0>, _BYTE *a
           }
 
           flatbuffers::Parser::Next(this, a2);
-          a2[1] = 1;
+          *(a2 + 1) = 1;
           if (*a2)
           {
             break;
           }
 
-          flatbuffers::Parser::Expect(this, 260, a2);
+          flatbuffers::Parser::Expect(a2, this, 260);
         }
 
         return;
@@ -9102,8 +9088,8 @@ void flatbuffers::Parser::ParseProtoKey(flatbuffers::Parser *this@<X0>, _BYTE *a
 
   else
   {
-    flatbuffers::Parser::Expect(this, 260, a2);
-    a2[1] = 1;
+    flatbuffers::Parser::Expect(a2, this, 260);
+    *(a2 + 1) = 1;
     if ((*a2 & 1) == 0)
     {
 LABEL_8:
@@ -9144,27 +9130,27 @@ void flatbuffers::Parser::ParseFlexBufferValue(uint64_t a1@<X0>, uint64_t *a2@<X
     switch(v6)
     {
       case 91:
-        v17 = a2[3];
-        v16 = a2[4];
-        flatbuffers::Parser::Expect(a1, 91, a3);
+        v16 = a2[3];
+        v15 = a2[4];
+        flatbuffers::Parser::Expect(a3, a1, 91);
         *(a3 + 1) = 1;
         if (*a3)
         {
           goto LABEL_21;
         }
 
-        v24 = 0;
-        v25 = (v16 - v17) >> 4;
+        v23 = 0;
+        v24 = (v15 - v16) >> 4;
         while (1)
         {
-          v26 = v24-- != 0;
-          v27 = v26;
-          if ((*(a1 + 729) != 1 || !v27) && *(a1 + 20) == 93)
+          v25 = v23-- != 0;
+          v26 = v25;
+          if ((*(a1 + 729) != 1 || !v26) && *(a1 + 20) == 93)
           {
             break;
           }
 
-          flatbuffers::Parser::ParseFlexBufferValue(a1, a2);
+          flatbuffers::Parser::ParseFlexBufferValue(a1, a2, a3);
           *(a3 + 1) = 1;
           if (*a3)
           {
@@ -9178,7 +9164,7 @@ void flatbuffers::Parser::ParseFlexBufferValue(uint64_t a1@<X0>, uint64_t *a2@<X
 
           if ((*(a1 + 954) & 1) == 0)
           {
-            flatbuffers::Parser::Expect(a1, 44, a3);
+            flatbuffers::Parser::Expect(a3, a1, 44);
             *(a3 + 1) = 1;
             if (*a3)
             {
@@ -9198,118 +9184,118 @@ LABEL_21:
           return;
         }
 
-        sub_213CB91E0(a2, v25);
+        sub_213CB91E0(a2, v24);
         break;
       case 123:
-        v21 = a2[3];
-        v20 = a2[4];
-        flatbuffers::Parser::Expect(a1, 123, &v34);
-        HIBYTE(v34) = 1;
-        LOBYTE(v22) = v34;
-        if (v34)
+        v20 = a2[3];
+        v19 = a2[4];
+        flatbuffers::Parser::Expect(&v33, a1, 123);
+        HIBYTE(v33) = 1;
+        LOBYTE(v21) = v33;
+        if (v33)
         {
           goto LABEL_29;
         }
 
-        v28 = 0;
+        v27 = 0;
         while (1)
         {
-          v29 = *(a1 + 729) != 1 || v28 == 0;
-          if (v29 && *(a1 + 20) == 125)
+          v28 = *(a1 + 729) != 1 || v27 == 0;
+          if (v28 && *(a1 + 20) == 125)
           {
             break;
           }
 
-          memset(&v35, 0, sizeof(v35));
-          std::string::operator=(&v35, (a1 + 32));
+          memset(&v34, 0, sizeof(v34));
+          std::string::operator=(&v34, (a1 + 32));
           if (*(a1 + 20) == 257)
           {
-            flatbuffers::Parser::Next(a1, &v34);
+            flatbuffers::Parser::Next(a1, &v33);
           }
 
           else
           {
             if (*(a1 + 729))
             {
-              v30 = 257;
+              v29 = 257;
             }
 
             else
             {
-              v30 = 260;
+              v29 = 260;
             }
 
-            flatbuffers::Parser::Expect(a1, v30, &v34);
+            flatbuffers::Parser::Expect(&v33, a1, v29);
           }
 
-          v31 = 1;
-          HIBYTE(v34) = 1;
-          LOBYTE(v22) = v34;
-          if ((v34 & 1) == 0)
+          v30 = 1;
+          HIBYTE(v33) = 1;
+          LOBYTE(v21) = v33;
+          if ((v33 & 1) == 0)
           {
-            if (*(a1 + 954) == 1 && (*(a1 + 20) | 0x20) == 0x7B || (flatbuffers::Parser::Expect(a1, 58, &v34), HIBYTE(v34) = 1, LOBYTE(v22) = v34, (v34 & 1) == 0))
+            if (*(a1 + 954) == 1 && (*(a1 + 20) | 0x20) == 0x7B || (flatbuffers::Parser::Expect(&v33, a1, 58), HIBYTE(v33) = 1, LOBYTE(v21) = v33, (v33 & 1) == 0))
             {
-              if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+              if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v32 = &v35;
+                v31 = &v34;
               }
 
               else
               {
-                v32 = v35.__r_.__value_.__r.__words[0];
+                v31 = v34.__r_.__value_.__r.__words[0];
               }
 
-              if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+              if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                size = SHIBYTE(v35.__r_.__value_.__r.__words[2]);
-              }
-
-              else
-              {
-                size = v35.__r_.__value_.__l.__size_;
-              }
-
-              sub_213CC0F20(a2, v32, size);
-              flatbuffers::Parser::ParseFlexBufferValue(a1, a2);
-              LOBYTE(v22) = v34;
-              if (v34 == 1)
-              {
-                HIBYTE(v34) = 1;
+                size = SHIBYTE(v34.__r_.__value_.__r.__words[2]);
               }
 
               else
               {
-                ++v28;
-                v34 = 256;
+                size = v34.__r_.__value_.__l.__size_;
+              }
+
+              sub_213CC0F20(a2, v31, size);
+              flatbuffers::Parser::ParseFlexBufferValue(a1, a2, &v33);
+              LOBYTE(v21) = v33;
+              if (v33 == 1)
+              {
+                HIBYTE(v33) = 1;
+              }
+
+              else
+              {
+                ++v27;
+                v33 = 256;
                 if (*(a1 + 20) == 125)
                 {
-                  LOBYTE(v22) = 0;
-                  v31 = 2;
+                  LOBYTE(v21) = 0;
+                  v30 = 2;
                 }
 
                 else
                 {
-                  if ((*(a1 + 954) & 1) != 0 || (flatbuffers::Parser::Expect(a1, 44, &v34), v22 = v34, (v34 & 1) == 0))
+                  if ((*(a1 + 954) & 1) != 0 || (flatbuffers::Parser::Expect(&v33, a1, 44), v21 = v33, (v33 & 1) == 0))
                   {
-                    v22 = 0;
-                    LOBYTE(v34) = 0;
+                    v21 = 0;
+                    LOBYTE(v33) = 0;
                   }
 
-                  HIBYTE(v34) = 1;
-                  v31 = v22;
+                  HIBYTE(v33) = 1;
+                  v30 = v21;
                 }
               }
             }
           }
 
-          if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v35.__r_.__value_.__l.__data_);
+            operator delete(v34.__r_.__value_.__l.__data_);
           }
 
-          if (v31)
+          if (v30)
           {
-            if (v31 != 2)
+            if (v30 != 2)
             {
               goto LABEL_29;
             }
@@ -9318,14 +9304,14 @@ LABEL_21:
           }
         }
 
-        flatbuffers::Parser::Next(a1, &v34);
-        LOBYTE(v22) = v34;
-        if (v34)
+        flatbuffers::Parser::Next(a1, &v33);
+        LOBYTE(v21) = v33;
+        if (v33)
         {
 LABEL_29:
-          *a3 = v22;
+          *a3 = v21;
           *(a3 + 1) = 1;
-          if (v22)
+          if (v21)
           {
             return;
           }
@@ -9336,7 +9322,7 @@ LABEL_29:
           *a3 = 0;
         }
 
-        sub_213CB90B8(a2, (v20 - v21) >> 4);
+        sub_213CB90B8(a2, (v19 - v20) >> 4);
         break;
       case 257:
         v7 = *(a1 + 55);
@@ -9350,23 +9336,22 @@ LABEL_29:
           v8 = *(a1 + 32);
         }
 
-        v9 = *(a1 + 40);
         if (v7 >= 0)
         {
-          v10 = *(a1 + 55);
+          v9 = *(a1 + 55);
         }
 
         else
         {
-          v10 = *(a1 + 40);
+          v9 = *(a1 + 40);
         }
 
-        sub_213CBE8CC(a2, v8, v10);
-        v11 = a3;
-        v12 = a1;
-        v13 = 257;
+        sub_213CBE8CC(a2, v8, v9);
+        v10 = a3;
+        v11 = a1;
+        v12 = 257;
 LABEL_34:
-        flatbuffers::Parser::Expect(v12, v13, v11);
+        flatbuffers::Parser::Expect(v10, v11, v12);
 LABEL_35:
         *(a3 + 1) = 1;
         goto LABEL_36;
@@ -9382,25 +9367,25 @@ LABEL_37:
   switch(v6)
   {
     case 258:
-      v18 = (a1 + 32);
+      v17 = (a1 + 32);
       if (*(a1 + 55) < 0)
       {
-        v18 = *v18;
+        v17 = *v17;
       }
 
-      v35.__r_.__value_.__r.__words[0] = 0;
-      if (sub_213C98C40(&v35, v18, 10, 1))
+      v34.__r_.__value_.__r.__words[0] = 0;
+      if (sub_213C98C40(&v34, v17, 10, 1))
       {
-        v19 = v35.__r_.__value_.__r.__words[0];
+        v18 = v34.__r_.__value_.__r.__words[0];
       }
 
       else
       {
-        v19 = 0;
+        v18 = 0;
       }
 
-      sub_213CB92A8(a2, v19);
-      flatbuffers::Parser::Expect(a1, 258, a3);
+      sub_213CB92A8(a2, v18);
+      flatbuffers::Parser::Expect(a3, a1, 258);
       *(a3 + 1) = 1;
 LABEL_36:
       if (*a3)
@@ -9410,23 +9395,23 @@ LABEL_36:
 
       goto LABEL_37;
     case 259:
-      v35.__r_.__value_.__r.__words[0] = 0;
-      v23 = (a1 + 32);
+      v34.__r_.__value_.__r.__words[0] = 0;
+      v22 = (a1 + 32);
       if (*(a1 + 55) < 0)
       {
-        v23 = *v23;
+        v22 = *v22;
       }
 
-      sub_213CBED98(&v35, v23);
-      sub_213CB9330(a2, *&v35.__r_.__value_.__l.__data_);
-      v11 = a3;
-      v12 = a1;
-      v13 = 259;
+      sub_213CBED98(&v34, v22);
+      sub_213CB9330(a2, *&v34.__r_.__value_.__l.__data_);
+      v10 = a3;
+      v11 = a1;
+      v12 = 259;
       goto LABEL_34;
     case 260:
       if (sub_213C8AAF4((a1 + 32), "true"))
       {
-        v35.__r_.__value_.__r.__words[0] = 1;
+        v34.__r_.__value_.__r.__words[0] = 1;
       }
 
       else
@@ -9443,32 +9428,32 @@ LABEL_36:
             break;
           }
 
-          *&v35.__r_.__value_.__l.__data_ = 0uLL;
-          v14 = a2[4];
-          if (v14 < a2[5])
+          *&v34.__r_.__value_.__l.__data_ = 0uLL;
+          v13 = a2[4];
+          if (v13 < a2[5])
           {
-            *v14 = 0;
-            v14[1] = 0;
+            *v13 = 0;
+            v13[1] = 0;
             goto LABEL_19;
           }
 
 LABEL_81:
-          v15 = sub_213C9AD38((a2 + 3), &v35);
+          v14 = sub_213C9AD38((a2 + 3), &v34);
           goto LABEL_82;
         }
 
-        v35.__r_.__value_.__r.__words[0] = 0;
+        v34.__r_.__value_.__r.__words[0] = 0;
       }
 
-      v35.__r_.__value_.__l.__size_ = 26;
-      v14 = a2[4];
-      if (v14 < a2[5])
+      v34.__r_.__value_.__l.__size_ = 26;
+      v13 = a2[4];
+      if (v13 < a2[5])
       {
-        *v14 = *&v35.__r_.__value_.__l.__data_;
+        *v13 = *&v34.__r_.__value_.__l.__data_;
 LABEL_19:
-        v15 = (v14 + 2);
+        v14 = v13 + 2;
 LABEL_82:
-        a2[4] = v15;
+        a2[4] = v14;
         flatbuffers::Parser::Next(a1, a3);
         goto LABEL_35;
       }
@@ -9481,7 +9466,7 @@ LABEL_78:
   flatbuffers::Parser::TokenError(a1, a3);
 }
 
-uint64_t sub_213CB90B8(uint64_t *a1, unint64_t a2)
+_OWORD *sub_213CB90B8(uint64_t *a1, unint64_t a2)
 {
   v5 = a1 + 3;
   v4 = a1[3];
@@ -9493,7 +9478,7 @@ uint64_t sub_213CB90B8(uint64_t *a1, unint64_t a2)
 
   v7 = v6 - a2;
   v8 = v7 >> 1;
-  v9 = v4 + 16 * a2;
+  v9 = (v4 + 16 * a2);
   v18[0] = a1;
   v10 = 126 - 2 * __clz(v7 >> 1);
   if (v7 >= 2)
@@ -9506,7 +9491,7 @@ uint64_t sub_213CB90B8(uint64_t *a1, unint64_t a2)
     v11 = 0;
   }
 
-  sub_213CBDFE8(v9, (v9 + 32 * (v7 >> 1)), v18, v11, 1);
+  sub_213CBDFE8(v9, &v9[4 * (v7 >> 1)], v18, v11, 1);
   v18[0] = sub_213CBDCC0(a1, a2, v8, 2, 1, 0);
   v18[1] = v12;
   *&v17 = sub_213CBDCC0(a1, a2 + 1, v8, 2, 0, v18);
@@ -9533,14 +9518,14 @@ uint64_t sub_213CB90B8(uint64_t *a1, unint64_t a2)
   else
   {
     *v14 = v17;
-    result = (v14 + 1);
+    result = v14 + 1;
   }
 
   a1[4] = result;
   return result;
 }
 
-uint64_t sub_213CB91E0(void *a1, unint64_t a2)
+_OWORD *sub_213CB91E0(uint64_t *a1, unint64_t a2)
 {
   v4 = a1 + 3;
   *&v9 = sub_213CBDCC0(a1, a2, ((a1[4] - a1[3]) >> 4) - a2, 1, 0, 0);
@@ -9567,14 +9552,14 @@ uint64_t sub_213CB91E0(void *a1, unint64_t a2)
   else
   {
     *v6 = v9;
-    result = (v6 + 1);
+    result = v6 + 1;
   }
 
   a1[4] = result;
   return result;
 }
 
-uint64_t sub_213CB92A8(uint64_t a1, uint64_t a2)
+_OWORD *sub_213CB92A8(uint64_t a1, uint64_t a2)
 {
   v3 = (2 * a2) ^ (a2 >> 63);
   if (HIDWORD(v3))
@@ -9614,14 +9599,14 @@ uint64_t sub_213CB92A8(uint64_t a1, uint64_t a2)
   else
   {
     *v6 = v8;
-    result = (v6 + 1);
+    result = v6 + 1;
   }
 
   *(a1 + 32) = result;
   return result;
 }
 
-uint64_t sub_213CB9330(uint64_t a1, double a2)
+_OWORD *sub_213CB9330(uint64_t a1, double a2)
 {
   *&v7 = a2;
   v3 = a2;
@@ -9646,7 +9631,7 @@ uint64_t sub_213CB9330(uint64_t a1, double a2)
   else
   {
     *v5 = v7;
-    result = (v5 + 1);
+    result = v5 + 1;
   }
 
   *(a1 + 32) = result;
@@ -9655,8 +9640,8 @@ uint64_t sub_213CB9330(uint64_t a1, double a2)
 
 uint64_t flatbuffers::Parser::ParseFlexBuffer(flatbuffers::Parser *a1, const char *a2, const char *a3, uint64_t *a4)
 {
-  flatbuffers::Parser::StartParseFile(a1, a2, a3, v8);
-  if (v8[0] == 1)
+  flatbuffers::Parser::StartParseFile(&v8, a1, a2, a3);
+  if (v8 == 1)
   {
     return 0;
   }
@@ -9671,11 +9656,11 @@ uint64_t flatbuffers::Parser::ParseFlexBuffer(flatbuffers::Parser *a1, const cha
   return 1;
 }
 
-void flatbuffers::Parser::StartParseFile(flatbuffers::Parser *this@<X0>, const char *a2@<X1>, const char *a3@<X2>, uint64_t a4@<X8>)
+void flatbuffers::Parser::StartParseFile(uint64_t *__return_ptr a1@<X8>, flatbuffers::Parser *this@<X0>, const char *a3@<X1>, const char *a4@<X2>)
 {
-  if (a3)
+  if (a4)
   {
-    v7 = a3;
+    v7 = a4;
   }
 
   else
@@ -9684,9 +9669,9 @@ void flatbuffers::Parser::StartParseFile(flatbuffers::Parser *this@<X0>, const c
   }
 
   MEMORY[0x21604CF40](this + 1152, v7);
-  *(this + 143) = a2;
-  *this = a2;
-  *(this + 1) = a2;
+  *(this + 143) = a3;
+  *this = a3;
+  *(this + 1) = a3;
   *(this + 4) = 1;
   if (*(this + 335) < 0)
   {
@@ -9700,59 +9685,59 @@ void flatbuffers::Parser::StartParseFile(flatbuffers::Parser *this@<X0>, const c
     *(this + 335) = 0;
   }
 
-  flatbuffers::Parser::SkipByteOrderMark(this, a4);
-  *(a4 + 1) = 1;
-  if ((*a4 & 1) == 0)
+  flatbuffers::Parser::SkipByteOrderMark(this, a1);
+  *(a1 + 1) = 1;
+  if ((*a1 & 1) == 0)
   {
-    flatbuffers::Parser::Next(this, a4);
-    *(a4 + 1) = 1;
-    if ((*a4 & 1) == 0)
+    flatbuffers::Parser::Next(this, a1);
+    *(a1 + 1) = 1;
+    if ((*a1 & 1) == 0)
     {
       if (*(this + 5) == 256)
       {
         strcpy(__p, "input file is empty");
-        flatbuffers::Parser::Error(this, a4);
+        flatbuffers::Parser::Error(this, a1);
       }
 
       else
       {
-        *a4 = 0;
+        *a1 = 0;
       }
     }
   }
 }
 
-char *sub_213CB9524(uint64_t a1)
+char *sub_213CB9524(char *a1)
 {
   v3 = *a1;
-  v2 = *(a1 + 8);
-  v4 = (1 << sub_213CBE3D0(*(a1 + 24), &v2[-*a1], 0));
-  v10 = 0;
-  sub_213CBE508(a1, v2, (v4 - 1) & (v3 - v2), &v10);
-  sub_213CBE464(a1, *(a1 + 24), v4);
-  v5 = *(a1 + 24);
+  v2 = *(a1 + 1);
+  v4 = (1 << sub_213CBE3D0(*(a1 + 3), &v2[-*a1], 0));
   v11 = 0;
-  v6 = *(v5 + 8);
-  v7 = (v5 + 12);
-  v8 = v6 < 4 || v6 == 26;
-  if (v8 && *v7 < 0)
+  sub_213CBE508(a1, v2, (v4 - 1) & (v3 - v2), &v11);
+  sub_213CBE464(a1, *(a1 + 3), v4, v5);
+  v6 = *(a1 + 3);
+  v12 = 0;
+  v7 = *(v6 + 8);
+  v8 = (v6 + 12);
+  v9 = v7 < 4 || v7 == 26;
+  if (v9 && *v8 < 0)
   {
-    v7 = &v11;
+    v8 = &v12;
   }
 
-  __src = *v7 | (4 * v6);
-  sub_213C9AA34(a1, *(a1 + 8), &__src, &v13, 1);
-  v13 = v4;
-  result = sub_213C9AA34(a1, *(a1 + 8), &v13, &v14, 1);
-  *(a1 + 48) = 1;
+  __src = *v8 | (4 * v7);
+  sub_213C9AA34(a1, *(a1 + 1), &__src, &v14, 1);
+  v14 = v4;
+  result = sub_213C9AA34(a1, *(a1 + 1), &v14, &v15, 1);
+  a1[48] = 1;
   return result;
 }
 
-void flatbuffers::Parser::ParseRoot(uint64_t **this@<X0>, const char *a2@<X1>, const char **a3@<X2>, const char *a4@<X3>, char *a5@<X8>)
+void flatbuffers::Parser::ParseRoot(uint64_t *__return_ptr a1@<X8>, uint64_t **this@<X0>, const char *a3@<X1>, const char **a4@<X2>, const char *a5@<X3>)
 {
-  flatbuffers::Parser::DoParse(this, a2, a3, a4, 0, a5);
-  a5[1] = 1;
-  if (*a5)
+  flatbuffers::Parser::DoParse(this, a3, a4, a5, 0, a1);
+  *(a1 + 1) = 1;
+  if (*a1)
   {
     return;
   }
@@ -9929,7 +9914,7 @@ LABEL_46:
         v50->__r_.__value_.__l.__size_ = 0;
         v50->__r_.__value_.__r.__words[2] = 0;
         v50->__r_.__value_.__r.__words[0] = 0;
-        flatbuffers::Parser::Error(this, a5);
+        flatbuffers::Parser::Error(this, a1);
         if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(v59.__r_.__value_.__l.__data_);
@@ -9980,7 +9965,7 @@ LABEL_46:
 
       this[20] = (v8 + v23);
       sub_213C8D018((v9 + 224), 0);
-      sub_213C99840(v9 + 152);
+      sub_213C99840((v9 + 152));
       v24 = sub_213C997D8(v9);
       MEMORY[0x21604D1A0](v24, 0x10B2C4058EA06FBLL);
       v7 = this[20];
@@ -9997,7 +9982,7 @@ LABEL_46:
   if (v25 == v26)
   {
 LABEL_45:
-    *a5 = 0;
+    *a1 = 0;
   }
 
   else
@@ -10047,7 +10032,7 @@ LABEL_44:
 
     std::operator+<char>();
 LABEL_55:
-    flatbuffers::Parser::Error(this, a5);
+    flatbuffers::Parser::Error(this, a1);
     if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
     {
       v36 = v59.__r_.__value_.__r.__words[0];

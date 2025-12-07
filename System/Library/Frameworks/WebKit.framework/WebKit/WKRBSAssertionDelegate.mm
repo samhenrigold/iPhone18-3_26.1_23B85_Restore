@@ -21,30 +21,30 @@
 
 - (void)assertionWillInvalidate:(id)invalidate
 {
-  buf[3] = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = qword_1ED641030;
   v5 = os_log_type_enabled(qword_1ED641030, OS_LOG_TYPE_DEFAULT);
   if (v5)
   {
-    LODWORD(buf[0]) = 134217984;
-    *(buf + 4) = self;
+    *buf = 134217984;
+    *&buf[4] = self;
     _os_log_impl(&dword_19D52D000, v4, OS_LOG_TYPE_DEFAULT, "%p - WKRBSAssertionDelegate: assertionWillInvalidate", buf, 0xCu);
   }
 
   WTF::RunLoop::mainSingleton(v5);
   location = 0;
   objc_initWeak(&location, self);
-  v6 = WTF::fastMalloc(0x10);
-  *v6 = &unk_1F1100C48;
-  *(v6 + 8) = 0;
-  objc_moveWeak((v6 + 8), &location);
-  buf[0] = v6;
+  v7 = WTF::fastMalloc(v6, 0x10);
+  *v7 = &unk_1F1100C48;
+  v7[1] = 0;
+  objc_moveWeak(v7 + 1, &location);
+  *buf = v7;
   WTF::RunLoop::dispatch();
-  v7 = buf[0];
-  buf[0] = 0;
-  if (v7)
+  v8 = *buf;
+  *buf = 0;
+  if (v8)
   {
-    (*(*v7 + 8))(v7);
+    (*(*v8 + 8))(v8);
   }
 
   objc_destroyWeak(&location);
@@ -52,14 +52,14 @@
 
 - (void)assertion:(id)assertion didInvalidateWithError:(id)error
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v6 = qword_1ED641030;
   v7 = os_log_type_enabled(qword_1ED641030, OS_LOG_TYPE_DEFAULT);
   if (v7)
   {
     *buf = 134218242;
     *&buf[4] = self;
-    v12 = 2114;
+    v13 = 2114;
     errorCopy = error;
     _os_log_impl(&dword_19D52D000, v6, OS_LOG_TYPE_DEFAULT, "%p - WKRBSAssertionDelegate: assertion was invalidated, error: %{public}@", buf, 0x16u);
   }
@@ -67,17 +67,17 @@
   WTF::RunLoop::mainSingleton(v7);
   location = 0;
   objc_initWeak(&location, self);
-  v8 = WTF::fastMalloc(0x10);
-  *v8 = &unk_1F1100C70;
-  *(v8 + 8) = 0;
-  objc_moveWeak((v8 + 8), &location);
-  *buf = v8;
+  v9 = WTF::fastMalloc(v8, 0x10);
+  *v9 = &unk_1F1100C70;
+  v9[1] = 0;
+  objc_moveWeak(v9 + 1, &location);
+  *buf = v9;
   WTF::RunLoop::dispatch();
-  v9 = *buf;
+  v10 = *buf;
   *buf = 0;
-  if (v9)
+  if (v10)
   {
-    (*(*v9 + 8))(v9);
+    (*(*v10 + 8))(v10);
   }
 
   objc_destroyWeak(&location);

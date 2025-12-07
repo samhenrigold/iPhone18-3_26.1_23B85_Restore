@@ -30,41 +30,37 @@
 
 - (void)_queue_transitionToStreaming
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (self)
   {
     _HKInitializeLogging();
     v2 = *MEMORY[0x277CCC298];
     if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_DEBUG))
     {
-      v4 = v2;
-      v5 = objc_opt_class();
-      v6 = *(self + 40);
-      v8 = 138543618;
-      v9 = v5;
-      v10 = 2048;
-      v11 = v6;
-      v7 = v5;
-      _os_log_debug_impl(&dword_228986000, v4, OS_LOG_TYPE_DEBUG, "%{public}@: Transitioning to Streaming. Previous state %ld", &v8, 0x16u);
+      v3 = v2;
+      v4 = objc_opt_class();
+      v5 = *(self + 40);
+      v7 = 138543618;
+      v8 = v4;
+      v9 = 2048;
+      v10 = v5;
+      v6 = v4;
+      _os_log_debug_impl(&dword_228986000, v3, OS_LOG_TYPE_DEBUG, "%{public}@: Transitioning to Streaming. Previous state %ld", &v7, 0x16u);
     }
 
     *(self + 40) = 2;
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (id)secondaryContextClasses
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
+  v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
-  v9 = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:3];
-  v4 = [v2 setWithArray:{v3, v7, v8}];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:3];
+  v4 = [v2 setWithArray:{v3, v6, v7}];
 
   return v4;
 }
@@ -129,36 +125,34 @@
 
 - (void)_persistContext:(void *)context forKey:
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (self)
   {
     contextCopy = context;
     v6 = a2;
     domain = [objc_opt_class() domain];
     WeakRetained = objc_loadWeakRetained((self + 16));
-    v16 = 0;
-    v9 = [(HDKeyValueEntity *)HDUnprotectedKeyValueEntity setData:v6 forKey:contextCopy domain:domain category:0 profile:WeakRetained error:&v16];
+    v15 = 0;
+    v9 = [(HDKeyValueEntity *)HDUnprotectedKeyValueEntity setData:v6 forKey:contextCopy domain:domain category:0 profile:WeakRetained error:&v15];
 
-    v10 = v16;
+    v10 = v15;
     if (!v9)
     {
       _HKInitializeLogging();
       v11 = *MEMORY[0x277CCC298];
       if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_ERROR))
       {
-        v13 = v11;
-        v14 = objc_opt_class();
+        v12 = v11;
+        v13 = objc_opt_class();
         *buf = 138543618;
-        v18 = v14;
-        v19 = 2114;
-        v20 = v10;
-        v15 = v14;
-        _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "%{public}@: Error persisting context: %{public}@", buf, 0x16u);
+        v17 = v13;
+        v18 = 2114;
+        v19 = v10;
+        v14 = v13;
+        _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "%{public}@: Error persisting context: %{public}@", buf, 0x16u);
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_retrieveContextForKey:(uint64_t)key
@@ -173,62 +167,60 @@
 
 + (id)_retrieveContextForKey:(void *)key domain:(void *)domain profile:
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   domainCopy = domain;
   keyCopy = key;
   v8 = a2;
   objc_opt_self();
-  v17 = 0;
-  v9 = [(HDKeyValueEntity *)HDUnprotectedKeyValueEntity dataForKey:v8 domain:keyCopy category:0 profile:domainCopy entity:0 error:&v17];
+  v16 = 0;
+  v9 = [(HDKeyValueEntity *)HDUnprotectedKeyValueEntity dataForKey:v8 domain:keyCopy category:0 profile:domainCopy entity:0 error:&v16];
 
-  v10 = v17;
+  v10 = v16;
   if (v10)
   {
     _HKInitializeLogging();
     v11 = *MEMORY[0x277CCC298];
     if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_ERROR))
     {
-      v14 = v11;
-      v15 = objc_opt_class();
+      v13 = v11;
+      v14 = objc_opt_class();
       *buf = 138543618;
-      v19 = v15;
-      v20 = 2114;
-      v21 = v10;
-      v16 = v15;
-      _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "%{public}@: Error retrieving context: %{public}@", buf, 0x16u);
+      v18 = v14;
+      v19 = 2114;
+      v20 = v10;
+      v15 = v14;
+      _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "%{public}@: Error retrieving context: %{public}@", buf, 0x16u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 + (id)_sensorDatumFromContext:(id)context
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = contextCopy;
   if (contextCopy && [contextCopy length])
   {
-    v14 = 0;
-    v6 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_msgSend(self fromData:"sensorDatumClass") error:{v5, &v14}];
-    v7 = v14;
+    v13 = 0;
+    v6 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_msgSend(self fromData:"sensorDatumClass") error:{v5, &v13}];
+    v7 = v13;
     if (!v6)
     {
       _HKInitializeLogging();
       v8 = *MEMORY[0x277CCC298];
       if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_ERROR))
       {
-        v12 = v8;
-        v13 = [v5 length];
+        v11 = v8;
+        v12 = [v5 length];
         *buf = 138543874;
         selfCopy2 = self;
-        v17 = 2048;
-        v18 = v13;
-        v19 = 2114;
-        v20 = v7;
-        _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "%{public}@: Error decoding context (%lu bytes) %{public}@", buf, 0x20u);
+        v16 = 2048;
+        v17 = v12;
+        v18 = 2114;
+        v19 = v7;
+        _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "%{public}@: Error decoding context (%lu bytes) %{public}@", buf, 0x20u);
       }
     }
   }
@@ -241,15 +233,13 @@
     {
       *buf = 138543618;
       selfCopy2 = self;
-      v17 = 2114;
-      v18 = v5;
+      v16 = 2114;
+      v17 = v5;
       _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Asked to decode empty context (%{public}@), returning nil", buf, 0x16u);
     }
 
     v6 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -357,25 +347,25 @@ uint64_t __27__HDDataCollector_disabled__block_invoke(uint64_t result)
   [(HDDataCollector *)self _performAsync:v3];
 }
 
-uint64_t __31__HDDataCollector_setDisabled___block_invoke(uint64_t result)
+void *__31__HDDataCollector_setDisabled___block_invoke(void *result)
 {
   v1 = *(result + 40);
-  v2 = *(result + 32);
+  v2 = result[4];
   v3 = *(v2 + 72);
   *(v2 + 72) = v1;
   if (v1 != v3)
   {
-    v4 = *(result + 32);
+    v4 = result[4];
     if (*(v4 + 72) == 1)
     {
-      v5 = *(result + 32);
+      v5 = result[4];
 
       return [v5 stopPerformingUpdatesWithErrorEncountered:0];
     }
 
     else if ((*(v4 + 40) - 1) >= 2)
     {
-      [(HDDataCollector *)*(result + 32) _queue_transitionToStreaming];
+      [(HDDataCollector *)result[4] _queue_transitionToStreaming];
 
       return [v4 _queue_beginStreaming];
     }
@@ -386,7 +376,7 @@ uint64_t __31__HDDataCollector_setDisabled___block_invoke(uint64_t result)
 
 - (void)_queue_transitionToFailure
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (self)
   {
     _HKInitializeLogging();
@@ -397,12 +387,12 @@ uint64_t __31__HDDataCollector_setDisabled___block_invoke(uint64_t result)
       v4 = v3;
       v5 = objc_opt_class();
       v6 = self[5];
-      v20 = 138543618;
-      v21 = v5;
-      v22 = 2048;
-      v23 = v6;
+      v19 = 138543618;
+      v20 = v5;
+      v21 = 2048;
+      v22 = v6;
       v7 = v5;
-      _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Transitioning to Failure. Previous state %ld", &v20, 0x16u);
+      _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Transitioning to Failure. Previous state %ld", &v19, 0x16u);
     }
 
     if (self[5] != 1)
@@ -420,12 +410,12 @@ uint64_t __31__HDDataCollector_setDisabled___block_invoke(uint64_t result)
           v15 = v9;
           v16 = objc_opt_class();
           v17 = self[8];
-          v20 = 138543618;
-          v21 = v16;
-          v22 = 2048;
-          v23 = v17;
+          v19 = 138543618;
+          v20 = v16;
+          v21 = 2048;
+          v22 = v17;
           v18 = v16;
-          _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: Retrying count limit reached (%ld), not retrying", &v20, 0x16u);
+          _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: Retrying count limit reached (%ld), not retrying", &v19, 0x16u);
         }
 
         self[8] = 0;
@@ -438,12 +428,12 @@ uint64_t __31__HDDataCollector_setDisabled___block_invoke(uint64_t result)
           v11 = v9;
           v12 = objc_opt_class();
           v13 = self[8];
-          v20 = 138543618;
-          v21 = v12;
-          v22 = 2048;
-          v23 = v13;
+          v19 = 138543618;
+          v20 = v12;
+          v21 = 2048;
+          v22 = v13;
           v14 = v12;
-          _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Retrying from failure (%ld)", &v20, 0x16u);
+          _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Retrying from failure (%ld)", &v19, 0x16u);
         }
 
         ++self[8];
@@ -455,13 +445,11 @@ uint64_t __31__HDDataCollector_setDisabled___block_invoke(uint64_t result)
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_updateCollectionInterval:(uint64_t)interval
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (interval)
   {
     if (*(interval + 32) != a2)
@@ -471,19 +459,17 @@ uint64_t __31__HDDataCollector_setDisabled___block_invoke(uint64_t result)
       if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_DEFAULT))
       {
         v5 = v4;
-        v8 = 138543618;
-        v9 = objc_opt_class();
-        v10 = 2048;
-        v11 = a2;
-        v6 = v9;
-        _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Updating collection period to %lf", &v8, 0x16u);
+        v7 = 138543618;
+        v8 = objc_opt_class();
+        v9 = 2048;
+        v10 = a2;
+        v6 = v8;
+        _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Updating collection period to %lf", &v7, 0x16u);
       }
     }
 
     *(interval + 32) = a2;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)collectionStartedForType:(id)type collectionInterval:(double)interval
@@ -544,21 +530,20 @@ void __63__HDDataCollector_collectionStartedForType_collectionInterval___block_i
 
 void __44__HDDataCollector_collectionStoppedForType___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = MEMORY[0x277CCC298];
   v3 = *MEMORY[0x277CCC298];
   if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 32);
-    v8 = v3;
-    *v14 = 138543362;
-    *&v14[4] = objc_opt_class();
-    v9 = *&v14[4];
-    _os_log_debug_impl(&dword_228986000, v8, OS_LOG_TYPE_DEBUG, "%{public}@: Stopping data collection", v14, 0xCu);
+    v6 = v3;
+    *v12 = 138543362;
+    *&v12[4] = objc_opt_class();
+    v7 = *&v12[4];
+    _os_log_debug_impl(&dword_228986000, v6, OS_LOG_TYPE_DEBUG, "%{public}@: Stopping data collection", v12, 0xCu);
   }
 
-  [*(a1 + 32) stopPerformingUpdatesWithErrorEncountered:{0, *v14}];
+  [*(a1 + 32) stopPerformingUpdatesWithErrorEncountered:{0, *v12, *&v12[8]}];
   v4 = *(a1 + 32);
   if (v4)
   {
@@ -566,21 +551,19 @@ void __44__HDDataCollector_collectionStoppedForType___block_invoke(uint64_t a1)
     v5 = *v2;
     if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEBUG))
     {
-      v10 = v5;
-      v11 = objc_opt_class();
-      v12 = *(v4 + 40);
-      *v14 = 138543618;
-      *&v14[4] = v11;
-      *&v14[12] = 2048;
-      *&v14[14] = v12;
-      v13 = v11;
-      _os_log_debug_impl(&dword_228986000, v10, OS_LOG_TYPE_DEBUG, "%{public}@: Transitioning to Idle. Previous state %ld", v14, 0x16u);
+      v8 = v5;
+      v9 = objc_opt_class();
+      v10 = *(v4 + 40);
+      *v12 = 138543618;
+      *&v12[4] = v9;
+      *&v12[12] = 2048;
+      *&v12[14] = v10;
+      v11 = v9;
+      _os_log_debug_impl(&dword_228986000, v8, OS_LOG_TYPE_DEBUG, "%{public}@: Transitioning to Idle. Previous state %ld", v12, 0x16u);
     }
 
     *(v4 + 40) = 1;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dataCollectorDiagnosticDescription

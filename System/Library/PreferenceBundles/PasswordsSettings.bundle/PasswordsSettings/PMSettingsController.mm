@@ -63,23 +63,21 @@
 
 - (void)showPasswordsPrivacySheet
 {
-  v2 = *&self->PSListController_opaque[OBJC_IVAR___PMSettingsController_passwordsPrivacySplashIdentifier];
-  v3 = *&self->passwordsPrivacySplashIdentifier[OBJC_IVAR___PMSettingsController_passwordsPrivacySplashIdentifier];
   selfCopy = self;
-  v4 = sub_127F8();
-  v5 = [objc_opt_self() presenterForPrivacySplashWithIdentifier:v4];
+  v2 = sub_127F8();
+  v3 = [objc_opt_self() presenterForPrivacySplashWithIdentifier:v2];
 
-  if (v5)
+  if (v3)
   {
-    [v5 setPresentingViewController:selfCopy];
-    [v5 present];
+    [v3 setPresentingViewController:selfCopy];
+    [v3 present];
   }
 }
 
 - (void)presentNeverSavedSheetView
 {
-  v3 = (*(*(sub_7114(&qword_1D068, &qword_13830) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v3 = sub_7114(&qword_1D068, &qword_13830);
+  __chkstk_darwin(v3 - 8);
   v5 = &v10 - v4;
   v6 = sub_128E8();
   (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
@@ -109,23 +107,22 @@
 {
   v0 = sub_12418();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  __chkstk_darwin();
-  v4 = &v12 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v0);
+  v3 = &v11 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   defaultWorkspace = [objc_opt_self() defaultWorkspace];
   if (defaultWorkspace)
   {
-    v6 = defaultWorkspace;
+    v5 = defaultWorkspace;
     passwordManagerURL = [objc_opt_self() passwordManagerURL];
     sub_123F8();
 
-    sub_123E8(v8);
-    v10 = v9;
-    (*(v1 + 8))(v4, v0);
+    sub_123E8(v7);
+    v9 = v8;
+    (*(v1 + 8))(v3, v0);
     sub_7508(&_swiftEmptyArrayStorage);
     isa = sub_127E8().super.isa;
 
-    [v6 openSensitiveURL:v10 withOptions:isa];
+    [v5 openSensitiveURL:v9 withOptions:isa];
   }
 
   else
@@ -136,14 +133,13 @@
 
 - (id)openAutoFillSettings
 {
-  v0 = (*(*(sub_7114(&qword_1D080, &qword_13850) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
-  v2 = &v14 - v1;
+  v0 = sub_7114(&qword_1D080, &qword_13850);
+  __chkstk_darwin(v0 - 8);
+  v2 = &v13 - v1;
   v3 = sub_12418();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  __chkstk_darwin();
-  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v3);
+  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_12408();
   result = (*(v4 + 48))(v2, 1, v3);
   if (result == 1)
@@ -153,19 +149,19 @@
 
   else
   {
-    (*(v4 + 32))(v7, v2, v3);
+    (*(v4 + 32))(v6, v2, v3);
     result = [objc_opt_self() defaultWorkspace];
     if (result)
     {
-      v10 = result;
-      sub_123E8(v9);
-      v12 = v11;
+      v9 = result;
+      sub_123E8(v8);
+      v11 = v10;
       sub_7508(&_swiftEmptyArrayStorage);
       isa = sub_127E8().super.isa;
 
-      [v10 openSensitiveURL:v12 withOptions:isa];
+      [v9 openSensitiveURL:v11 withOptions:isa];
 
-      return (*(v4 + 8))(v7, v3);
+      return (*(v4 + 8))(v6, v3);
     }
   }
 

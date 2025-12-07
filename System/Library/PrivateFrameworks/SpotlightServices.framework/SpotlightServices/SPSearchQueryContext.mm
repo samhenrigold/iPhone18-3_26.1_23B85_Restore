@@ -6,6 +6,7 @@
 + (id)queryKindString:(unint64_t)string;
 + (id)removeAppEntitySpecificStopwords:(id)stopwords withEntityTypeIdentifier:(id)identifier bundleID:(id)d;
 - (BOOL)wantsMoreResults;
+- (BOOL)wantsSearchDomain:(unsigned int)domain;
 - (NSString)displayedText;
 - (NSString)getTrimmedSearchString;
 - (SPSearchQueryContext)initWithSearchString:(id)string;
@@ -43,7 +44,7 @@
 
 + (id)getAppEntityParams:(id)params
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   if (getAppEntityParams__onceToken != -1)
   {
@@ -51,27 +52,27 @@
   }
 
   v4 = [&unk_1F55B7830 mutableCopy];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v23 = paramsCopy;
+  v22 = paramsCopy;
   filterQueries = [paramsCopy filterQueries];
-  v6 = [filterQueries countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v6 = [filterQueries countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v25;
+    v8 = *v24;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(filterQueries);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * i);
+        v10 = *(*(&v23 + 1) + 8 * i);
         v11 = [getAppEntityParams__regex firstMatchInString:v10 options:0 range:{0, objc_msgSend(v10, "length")}];
         v12 = v11;
         if (v11 && [v11 numberOfRanges] == 3)
@@ -100,13 +101,11 @@
         }
       }
 
-      v7 = [filterQueries countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v7 = [filterQueries countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v7);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -120,7 +119,7 @@ uint64_t __43__SPSearchQueryContext_getAppEntityParams___block_invoke()
 
 + (id)removeAppEntitySpecificStopwords:(id)stopwords withEntityTypeIdentifier:(id)identifier bundleID:(id)d
 {
-  v39[2] = *MEMORY[0x1E69E9840];
+  v38[2] = *MEMORY[0x1E69E9840];
   stopwordsCopy = stopwords;
   identifierCopy = identifier;
   dCopy = d;
@@ -129,48 +128,48 @@ uint64_t __43__SPSearchQueryContext_getAppEntityParams___block_invoke()
     +[SPSearchQueryContext removeAppEntitySpecificStopwords:withEntityTypeIdentifier:bundleID:];
   }
 
-  v39[0] = dCopy;
-  v39[1] = identifierCopy;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
+  v38[0] = dCopy;
+  v38[1] = identifierCopy;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
   v11 = [removeAppEntitySpecificStopwords_withEntityTypeIdentifier_bundleID__stopwordsMap objectForKeyedSubscript:v10];
   v12 = v11;
   if (v11)
   {
-    v26 = v10;
-    v28 = identifierCopy;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
+    v25 = v10;
+    v27 = identifierCopy;
     v31 = 0u;
-    v13 = [v11 countByEnumeratingWithState:&v30 objects:v38 count:16];
-    v27 = dCopy;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v13 = [v11 countByEnumeratingWithState:&v29 objects:v37 count:16];
+    v26 = dCopy;
     if (v13)
     {
       v14 = v13;
-      v15 = *v31;
+      v15 = *v30;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v31 != v15)
+          if (*v30 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v30 + 1) + 8 * i);
+          v17 = *(*(&v29 + 1) + 8 * i);
           v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"\\b%@\\b", v17];
-          v29 = 0;
-          v19 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:v18 options:1 error:&v29];
-          v20 = v29;
+          v28 = 0;
+          v19 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:v18 options:1 error:&v28];
+          v20 = v28;
           if (v20)
           {
             v21 = SSGeneralLog();
             if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v35 = v17;
-              v36 = 2112;
-              v37 = v20;
+              v34 = v17;
+              v35 = 2112;
+              v36 = v20;
               _os_log_error_impl(&dword_1D9F69000, v21, OS_LOG_TYPE_ERROR, "[POMMES][SearchTool][Query Normalization] Error creating regex for appEntity stopword %@: %@", buf, 0x16u);
             }
           }
@@ -182,7 +181,7 @@ uint64_t __43__SPSearchQueryContext_getAppEntityParams___block_invoke()
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v29 objects:v37 count:16];
       }
 
       while (v14);
@@ -192,9 +191,9 @@ uint64_t __43__SPSearchQueryContext_getAppEntityParams___block_invoke()
     v23 = [stopwordsCopy stringByTrimmingCharactersInSet:whitespaceCharacterSet];
 
     stopwordsCopy = v23;
-    dCopy = v27;
-    identifierCopy = v28;
-    v10 = v26;
+    dCopy = v26;
+    identifierCopy = v27;
+    v10 = v25;
   }
 
   else
@@ -203,41 +202,37 @@ uint64_t __43__SPSearchQueryContext_getAppEntityParams___block_invoke()
     if (os_log_type_enabled(whitespaceCharacterSet, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v35 = dCopy;
-      v36 = 2112;
-      v37 = identifierCopy;
+      v34 = dCopy;
+      v35 = 2112;
+      v36 = identifierCopy;
       _os_log_impl(&dword_1D9F69000, whitespaceCharacterSet, OS_LOG_TYPE_INFO, "[POMMES][SearchTool][Query Normalization] No stopwords found for bundleID %@ and typeIdentifier %@", buf, 0x16u);
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return stopwordsCopy;
 }
 
 void __91__SPSearchQueryContext_removeAppEntitySpecificStopwords_withEntityTypeIdentifier_bundleID___block_invoke()
 {
-  v4[5] = *MEMORY[0x1E69E9840];
-  v3[0] = &unk_1F55B73E8;
-  v3[1] = &unk_1F55B7418;
-  v4[0] = &unk_1F55B7400;
-  v4[1] = &unk_1F55B7430;
-  v3[2] = &unk_1F55B7448;
-  v3[3] = &unk_1F55B7478;
-  v4[2] = &unk_1F55B7460;
-  v4[3] = &unk_1F55B7490;
-  v3[4] = &unk_1F55B74A8;
-  v4[4] = &unk_1F55B74C0;
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:5];
+  v3[5] = *MEMORY[0x1E69E9840];
+  v2[0] = &unk_1F55B73E8;
+  v2[1] = &unk_1F55B7418;
+  v3[0] = &unk_1F55B7400;
+  v3[1] = &unk_1F55B7430;
+  v2[2] = &unk_1F55B7448;
+  v2[3] = &unk_1F55B7478;
+  v3[2] = &unk_1F55B7460;
+  v3[3] = &unk_1F55B7490;
+  v2[4] = &unk_1F55B74A8;
+  v3[4] = &unk_1F55B74C0;
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:5];
   v1 = removeAppEntitySpecificStopwords_withEntityTypeIdentifier_bundleID__stopwordsMap;
   removeAppEntitySpecificStopwords_withEntityTypeIdentifier_bundleID__stopwordsMap = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)normalizeSearchString:(id)string queryContext:(id)context
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   contextCopy = context;
   if (_os_feature_enabled_impl())
@@ -258,11 +253,11 @@ void __91__SPSearchQueryContext_removeAppEntitySpecificStopwords_withEntityTypeI
       v14 = SSGeneralLog();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v27 = 138412546;
-        v28 = v13;
-        v29 = 2112;
-        v30 = v12;
-        _os_log_impl(&dword_1D9F69000, v14, OS_LOG_TYPE_INFO, "[POMMES][SearchTool][Query Normalization] SearchTool AppEntity Search detected with bundleID: %@ and typeIdentifier: %@", &v27, 0x16u);
+        v26 = 138412546;
+        v27 = v13;
+        v28 = 2112;
+        v29 = v12;
+        _os_log_impl(&dword_1D9F69000, v14, OS_LOG_TYPE_INFO, "[POMMES][SearchTool][Query Normalization] SearchTool AppEntity Search detected with bundleID: %@ and typeIdentifier: %@", &v26, 0x16u);
       }
 
       if (v12 && v13)
@@ -295,15 +290,13 @@ void __91__SPSearchQueryContext_removeAppEntitySpecificStopwords_withEntityTypeI
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       v24 = SSRedactStringClient(v22, 1, [contextCopy isSearchToolClient]);
-      v27 = 138412290;
-      v28 = v24;
-      _os_log_impl(&dword_1D9F69000, v23, OS_LOG_TYPE_INFO, "[POMMES][SearchTool][Query Normalization] Normalized Query: %@", &v27, 0xCu);
+      v26 = 138412290;
+      v27 = v24;
+      _os_log_impl(&dword_1D9F69000, v23, OS_LOG_TYPE_INFO, "[POMMES][SearchTool][Query Normalization] Normalized Query: %@", &v26, 0xCu);
     }
 
     v8 = v22;
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -1097,9 +1090,28 @@ LABEL_34:
   return v7;
 }
 
+- (BOOL)wantsSearchDomain:(unsigned int)domain
+{
+  v3 = *&domain;
+  searchDomains = [(SPSearchQueryContext *)self searchDomains];
+  if (objc_msgSend_count(searchDomains))
+  {
+    searchDomains2 = [(SPSearchQueryContext *)self searchDomains];
+    v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v3];
+    v8 = [searchDomains2 containsObject:v7];
+  }
+
+  else
+  {
+    v8 = 1;
+  }
+
+  return v8;
+}
+
 - (BOOL)wantsMoreResults
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if ([(SPSearchQueryContext *)self shouldAllowMoreResults])
   {
     LOBYTE(v3) = 1;
@@ -1107,32 +1119,32 @@ LABEL_34:
 
   else
   {
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
     v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
     searchEntities = [(SPSearchQueryContext *)self searchEntities];
-    v3 = [searchEntities countByEnumeratingWithState:&v9 objects:v13 count:16];
+    v3 = [searchEntities countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (v3)
     {
-      v5 = *v10;
+      v5 = *v9;
       while (2)
       {
         for (i = 0; i != v3; ++i)
         {
-          if (*v10 != v5)
+          if (*v9 != v5)
           {
             objc_enumerationMutation(searchEntities);
           }
 
-          if ([*(*(&v9 + 1) + 8 * i) shouldAllowMoreResults])
+          if ([*(*(&v8 + 1) + 8 * i) shouldAllowMoreResults])
           {
             LOBYTE(v3) = 1;
             goto LABEL_13;
           }
         }
 
-        v3 = [searchEntities countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v3 = [searchEntities countByEnumeratingWithState:&v8 objects:v12 count:16];
         if (v3)
         {
           continue;
@@ -1145,7 +1157,6 @@ LABEL_34:
 LABEL_13:
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

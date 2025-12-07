@@ -178,51 +178,51 @@
       v26 = v25;
       v28 = v27;
       [be_contentView bounds];
-      v44.origin.x = v22;
-      v44.origin.y = v24;
-      v44.size.width = v26;
-      v44.size.height = v28;
-      v41 = CGRectIntersection(v40, v44);
-      x = v41.origin.x;
-      y = v41.origin.y;
-      width = v41.size.width;
-      height = v41.size.height;
-      v29 = _BookEPUBLog();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+      v45.origin.x = v22;
+      v45.origin.y = v24;
+      v45.size.width = v26;
+      v45.size.height = v28;
+      v42 = CGRectIntersection(v41, v45);
+      x = v42.origin.x;
+      y = v42.origin.y;
+      width = v42.size.width;
+      height = v42.size.height;
+      v30 = _BookEPUBLog(v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
-        v42.origin.x = x;
-        v42.origin.y = y;
-        v42.size.width = width;
-        v42.size.height = height;
-        v30 = NSStringFromCGRect(v42);
+        v43.origin.x = x;
+        v43.origin.y = y;
+        v43.size.width = width;
+        v43.size.height = height;
+        v31 = NSStringFromCGRect(v43);
         *buf = 138412546;
-        v37 = v30;
-        v38 = 2048;
-        v39 = v5;
-        _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEBUG, "{WebViewLifeCycle} webView new visibleFrame %@ at scale %f", buf, 0x16u);
+        v38 = v31;
+        v39 = 2048;
+        v40 = v5;
+        _os_log_impl(&dword_0, v30, OS_LOG_TYPE_DEBUG, "{WebViewLifeCycle} webView new visibleFrame %@ at scale %f", buf, 0x16u);
       }
     }
   }
 
   else
   {
-    v35.receiver = self;
-    v35.super_class = _BEFixedLayoutWKWebView;
-    [(BEWKWebView *)&v35 _visibleContentRect];
+    v36.receiver = self;
+    v36.super_class = _BEFixedLayoutWKWebView;
+    [(BEWKWebView *)&v36 _visibleContentRect];
     x = v17;
     y = v18;
     width = v19;
     height = v20;
   }
 
-  v31 = x;
-  v32 = y;
-  v33 = width;
-  v34 = height;
-  result.size.height = v34;
-  result.size.width = v33;
-  result.origin.y = v32;
-  result.origin.x = v31;
+  v32 = x;
+  v33 = y;
+  v34 = width;
+  v35 = height;
+  result.size.height = v35;
+  result.size.width = v34;
+  result.origin.y = v33;
+  result.origin.x = v32;
   return result;
 }
 

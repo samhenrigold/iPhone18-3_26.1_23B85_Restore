@@ -59,12 +59,4 @@ LABEL_6:
   return v11;
 }
 
-- (void)updaterForSet:withRequest:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_1DA444000, v0, v1, "Failed to obtain data resource writer for set: %@, request: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 @end

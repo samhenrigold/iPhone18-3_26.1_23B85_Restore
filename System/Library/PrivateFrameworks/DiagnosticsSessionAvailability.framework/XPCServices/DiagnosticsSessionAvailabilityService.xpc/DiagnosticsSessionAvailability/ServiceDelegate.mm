@@ -12,7 +12,7 @@
   v8 = connectionCopy;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else
@@ -43,16 +43,16 @@
 {
   entitlementCopy = entitlement;
   [entitlementCopy UTF8String];
-  v5 = xpc_copy_entitlement_for_token();
-  v6 = v5;
-  if (v5 && xpc_BOOL_get_value(v5))
+  value = xpc_copy_entitlement_for_token();
+  v6 = value;
+  if (value && (value = xpc_BOOL_get_value(value), (value & 1) != 0))
   {
     v7 = 1;
   }
 
   else
   {
-    v8 = DSLogSessionAvailability();
+    v8 = DSLogSessionAvailability(value);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10000AF58(v8);

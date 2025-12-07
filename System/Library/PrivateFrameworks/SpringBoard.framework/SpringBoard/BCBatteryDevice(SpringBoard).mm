@@ -1,11 +1,11 @@
 @interface BCBatteryDevice(SpringBoard)
 + (id)localizedBatteryDetailTextForBatteryLevel:()SpringBoard;
-- (uint64_t)sb_supportsDetailedBatteryMetrics;
+- (void)sb_supportsDetailedBatteryMetrics;
 @end
 
 @implementation BCBatteryDevice(SpringBoard)
 
-- (uint64_t)sb_supportsDetailedBatteryMetrics
+- (void)sb_supportsDetailedBatteryMetrics
 {
   result = [self isInternal];
   if (result)

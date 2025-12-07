@@ -16,8 +16,8 @@
   v13 = [PHAPrivateFederatedLearningRecipeDecoder decodeRecipeUserInfo:infoCopy attachmentURLs:attachmentsCopy photoLibrary:systemPhotoLibrary graphManager:graphManager decodingError:&v25];
 
   v14 = v25;
-  options = [v13 options];
-  learningFramework = [options learningFramework];
+  v15 = objc_msgSend_options(v13);
+  learningFramework = [v15 learningFramework];
   LODWORD(infoCopy) = [learningFramework isEqualToString:@"coreML"];
 
   if (infoCopy)

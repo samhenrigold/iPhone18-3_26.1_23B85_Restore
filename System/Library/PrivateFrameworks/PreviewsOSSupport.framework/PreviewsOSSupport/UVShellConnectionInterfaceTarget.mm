@@ -131,13 +131,11 @@ LABEL_7:
 
 - (void)_handleNullArgument:(void *)a1 replyHandler:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 localizedDescription];
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_error_impl(&dword_25F4D4000, a2, OS_LOG_TYPE_ERROR, "%{public}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_error_impl(&dword_25F4D4000, a2, OS_LOG_TYPE_ERROR, "%{public}@", &v4, 0xCu);
 }
 
 @end

@@ -10,7 +10,7 @@
 + (id)validatedSamplesFromAchievements:(id)achievements workouts:(id)workouts activitySnapshots:(id)snapshots friendListManager:(id)manager isInvitationData:(BOOL)data
 {
   dataCopy = data;
-  v101 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   v10 = MEMORY[0x277CBEBF8];
   if (workouts)
@@ -23,7 +23,7 @@
     workoutsCopy = MEMORY[0x277CBEBF8];
   }
 
-  v64 = workoutsCopy;
+  v63 = workoutsCopy;
   snapshotsCopy = snapshots;
   achievementsCopy = achievements;
   if (snapshotsCopy)
@@ -48,32 +48,32 @@
     v16 = v10;
   }
 
-  v63 = v16;
+  v62 = v16;
 
   v17 = v15;
   v18 = [MEMORY[0x277CBEB98] set];
+  v82 = 0u;
   v83 = 0u;
   v84 = 0u;
   v85 = 0u;
-  v86 = 0u;
   v19 = v17;
-  v20 = [v19 countByEnumeratingWithState:&v83 objects:buf count:16];
+  v20 = [v19 countByEnumeratingWithState:&v82 objects:buf count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v84;
+    v22 = *v83;
     do
     {
       v23 = 0;
       v24 = v18;
       do
       {
-        if (*v84 != v22)
+        if (*v83 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        friendUUID = [*(*(&v83 + 1) + 8 * v23) friendUUID];
+        friendUUID = [*(*(&v82 + 1) + 8 * v23) friendUUID];
         v18 = [v24 setByAddingObject:friendUUID];
 
         ++v23;
@@ -81,39 +81,39 @@
       }
 
       while (v21 != v23);
-      v21 = [v19 countByEnumeratingWithState:&v83 objects:buf count:16];
+      v21 = [v19 countByEnumeratingWithState:&v82 objects:buf count:16];
     }
 
     while (v21);
   }
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v78 = 0u;
   v79 = 0u;
   v80 = 0u;
   v81 = 0u;
-  v82 = 0u;
   obj = v18;
-  v26 = [obj countByEnumeratingWithState:&v79 objects:v88 count:16];
+  v26 = [obj countByEnumeratingWithState:&v78 objects:v87 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v80;
+    v28 = *v79;
     do
     {
       for (i = 0; i != v27; ++i)
       {
-        if (*v80 != v28)
+        if (*v79 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v30 = *(*(&v79 + 1) + 8 * i);
-        v78[0] = MEMORY[0x277D85DD0];
-        v78[1] = 3221225472;
-        v78[2] = ___FriendTimeZonesFromNewActivitySnapshots_block_invoke;
-        v78[3] = &unk_278C4B890;
-        v78[4] = v30;
-        v31 = [MEMORY[0x277CCAC30] predicateWithBlock:v78];
+        v30 = *(*(&v78 + 1) + 8 * i);
+        v77[0] = MEMORY[0x277D85DD0];
+        v77[1] = 3221225472;
+        v77[2] = ___FriendTimeZonesFromNewActivitySnapshots_block_invoke;
+        v77[3] = &unk_278C4B890;
+        v77[4] = v30;
+        v31 = [MEMORY[0x277CCAC30] predicateWithBlock:v77];
         v32 = [v19 filteredArrayUsingPredicate:v31];
 
         v33 = _HKMostRecentActivitySnapshotInSnapshots();
@@ -124,15 +124,15 @@
         }
       }
 
-      v27 = [obj countByEnumeratingWithState:&v79 objects:v88 count:16];
+      v27 = [obj countByEnumeratingWithState:&v78 objects:v87 count:16];
     }
 
     while (v27);
   }
 
-  v35 = [self _removeInvalidWorkouts:v64];
+  v35 = [self _removeInvalidWorkouts:v63];
 
-  v36 = [self _shiftedAchievements:v63 friendTimeZones:dictionary friendListManager:managerCopy];
+  v36 = [self _shiftedAchievements:v62 friendTimeZones:dictionary friendListManager:managerCopy];
 
   obja = [v19 count];
   v37 = [v35 count];
@@ -153,24 +153,24 @@
     v46 = v37 - [v41 count];
     v47 = [v42 count];
     *buf = 134219264;
-    v90 = v45;
-    v91 = 2048;
-    v92 = obja;
-    v93 = 2048;
-    v94 = v46;
-    v95 = 2048;
-    v96 = v37;
-    v97 = 2048;
-    v98 = v38 - v47;
-    v99 = 2048;
-    v100 = v38;
+    v89 = v45;
+    v90 = 2048;
+    v91 = obja;
+    v92 = 2048;
+    v93 = v46;
+    v94 = 2048;
+    v95 = v37;
+    v96 = 2048;
+    v97 = v38 - v47;
+    v98 = 2048;
+    v99 = v38;
     _os_log_impl(&dword_23E5E3000, v44, OS_LOG_TYPE_DEFAULT, "Filtered hidden data: %lu/%lu snapshots, %lu/%lu workouts, %lu/%lu achievements.", buf, 0x3Eu);
   }
 
-  v65 = v42;
-  v67 = v41;
+  v64 = v42;
+  v66 = v41;
   v48 = [v41 arrayByAddingObjectsFromArray:v42];
-  v69 = v39;
+  v68 = v39;
   v49 = [v48 arrayByAddingObjectsFromArray:v39];
 
   ASLoggingInitialize();
@@ -181,26 +181,26 @@
     _os_log_impl(&dword_23E5E3000, v50, OS_LOG_TYPE_DEFAULT, "Validated samples:", buf, 2u);
   }
 
-  v76 = 0u;
-  v77 = 0u;
-  v74 = 0u;
   v75 = 0u;
+  v76 = 0u;
+  v73 = 0u;
+  v74 = 0u;
   v51 = v49;
-  v52 = [v51 countByEnumeratingWithState:&v74 objects:v87 count:16];
+  v52 = [v51 countByEnumeratingWithState:&v73 objects:v86 count:16];
   if (v52)
   {
     v53 = v52;
-    v54 = *v75;
+    v54 = *v74;
     do
     {
       for (j = 0; j != v53; ++j)
       {
-        if (*v75 != v54)
+        if (*v74 != v54)
         {
           objc_enumerationMutation(v51);
         }
 
-        v56 = *(*(&v74 + 1) + 8 * j);
+        v56 = *(*(&v73 + 1) + 8 * j);
         if (objc_opt_respondsToSelector())
         {
           ASLoggingInitialize();
@@ -211,21 +211,19 @@
             filter_friendUUID = [v56 filter_friendUUID];
             filter_description = [v56 filter_description];
             *buf = 138412546;
-            v90 = filter_friendUUID;
-            v91 = 2112;
-            v92 = filter_description;
+            v89 = filter_friendUUID;
+            v90 = 2112;
+            v91 = filter_description;
             _os_log_impl(&dword_23E5E3000, v58, OS_LOG_TYPE_DEFAULT, "%@ -> %@", buf, 0x16u);
           }
         }
       }
 
-      v53 = [v51 countByEnumeratingWithState:&v74 objects:v87 count:16];
+      v53 = [v51 countByEnumeratingWithState:&v73 objects:v86 count:16];
     }
 
     while (v53);
   }
-
-  v61 = *MEMORY[0x277D85DE8];
 
   return v51;
 }
@@ -318,7 +316,7 @@ id __82__ASActivityDataValidator__shiftedAchievements_friendTimeZones_friendList
 
 uint64_t __114__ASActivityDataValidator__unhiddenSamplesInFilterableSamples_friendTimeZones_friendListManager_isInvitationData___block_invoke(uint64_t a1, void *a2)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 filter_friendUUID];
   v5 = [v3 filter_date];
@@ -375,7 +373,7 @@ LABEL_23:
   }
 
 LABEL_10:
-  v34 = v19;
+  v33 = v19;
   ASLoggingInitialize();
   v20 = MEMORY[0x277CE8FC8];
   v21 = *MEMORY[0x277CE8FC8];
@@ -385,9 +383,9 @@ LABEL_10:
     v23 = [v6 contact];
     v24 = [v23 fullName];
     *buf = 138543618;
-    v36 = v4;
-    v37 = 2112;
-    v38 = v24;
+    v35 = v4;
+    v36 = 2112;
+    v37 = v24;
     _os_log_impl(&dword_23E5E3000, v22, OS_LOG_TYPE_DEFAULT, "Not allowing sample for friend %{public}@ - %@", buf, 0x16u);
   }
 
@@ -396,7 +394,7 @@ LABEL_10:
   if (os_log_type_enabled(*v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v36 = v15;
+    v35 = v15;
     _os_log_impl(&dword_23E5E3000, v25, OS_LOG_TYPE_DEFAULT, "Sample date: %{public}@", buf, 0xCu);
   }
 
@@ -405,7 +403,7 @@ LABEL_10:
   if (os_log_type_enabled(*v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v36) = v7;
+    LODWORD(v35) = v7;
     _os_log_impl(&dword_23E5E3000, v26, OS_LOG_TYPE_DEFAULT, "Activity data visible: %d", buf, 8u);
   }
 
@@ -414,7 +412,7 @@ LABEL_10:
   if (os_log_type_enabled(*v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v36) = v8;
+    LODWORD(v35) = v8;
     _os_log_impl(&dword_23E5E3000, v27, OS_LOG_TYPE_DEFAULT, "Explicitly hiding: %d", buf, 8u);
   }
 
@@ -424,7 +422,7 @@ LABEL_10:
   {
     v29 = *(a1 + 56);
     *buf = 67109120;
-    LODWORD(v36) = v29;
+    LODWORD(v35) = v29;
     _os_log_impl(&dword_23E5E3000, v28, OS_LOG_TYPE_DEFAULT, "Invitation data: %d", buf, 8u);
   }
 
@@ -434,14 +432,13 @@ LABEL_10:
   if (os_log_type_enabled(*v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v36) = v34;
+    LODWORD(v35) = v33;
     _os_log_impl(&dword_23E5E3000, v30, OS_LOG_TYPE_DEFAULT, "Is on same day as friendship began: %d", buf, 8u);
     v31 = 0;
   }
 
 LABEL_24:
 
-  v32 = *MEMORY[0x277D85DE8];
   return v31;
 }
 

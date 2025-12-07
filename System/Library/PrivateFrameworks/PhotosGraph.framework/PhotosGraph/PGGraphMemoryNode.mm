@@ -26,7 +26,7 @@
 
 + (id)fullyQualifiedMemoryTypeForMemoryType:(id)type withPrefix:(id)prefix
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   prefixCopy = prefix;
   if ([(__CFString *)prefixCopy length])
@@ -41,9 +41,9 @@
 
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
-      v13 = 138412290;
-      v14 = typeCopy;
-      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGGraphMemoryNode] qualifier prefix for MemoryTypeString: %@ is nil", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = typeCopy;
+      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGGraphMemoryNode] qualifier prefix for MemoryTypeString: %@ is nil", &v12, 0xCu);
     }
 
     v7 = @"Unknown";
@@ -51,14 +51,12 @@
 
   v10 = [(__CFString *)v7 stringByAppendingString:typeCopy];
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 + (id)allMemoryTypeStrings
 {
-  v238 = *MEMORY[0x277D85DE8];
+  v237 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v3 = +[PGMeaningfulEventRequiredCriteriaFactory availableMeaningLabels];
   v4 = +[PGTrendsMemoryGenerator allTrendSceneFeatureLabels];
@@ -177,270 +175,270 @@
   [v2 addObject:@"ROIOverTheYears"];
 
   v43 = @"MeaningfulEventSingleEvent";
+  v218 = 0u;
   v219 = 0u;
   v220 = 0u;
   v221 = 0u;
-  v222 = 0u;
   v44 = v3;
-  v45 = [v44 countByEnumeratingWithState:&v219 objects:v237 count:16];
+  v45 = [v44 countByEnumeratingWithState:&v218 objects:v236 count:16];
   if (v45)
   {
     v46 = v45;
-    v47 = *v220;
+    v47 = *v219;
     do
     {
       for (i = 0; i != v46; ++i)
       {
-        if (*v220 != v47)
+        if (*v219 != v47)
         {
           objc_enumerationMutation(v44);
         }
 
-        v49 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"MeaningfulEventSingleEvent" withPrefix:*(*(&v219 + 1) + 8 * i)];
+        v49 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"MeaningfulEventSingleEvent" withPrefix:*(*(&v218 + 1) + 8 * i)];
         [v2 addObject:v49];
       }
 
-      v46 = [v44 countByEnumeratingWithState:&v219 objects:v237 count:16];
+      v46 = [v44 countByEnumeratingWithState:&v218 objects:v236 count:16];
     }
 
     while (v46);
   }
 
   v50 = @"MeaningfulEventGenericYear";
+  v214 = 0u;
   v215 = 0u;
   v216 = 0u;
   v217 = 0u;
-  v218 = 0u;
   v51 = v44;
-  v52 = [v51 countByEnumeratingWithState:&v215 objects:v236 count:16];
+  v52 = [v51 countByEnumeratingWithState:&v214 objects:v235 count:16];
   if (v52)
   {
     v53 = v52;
-    v54 = *v216;
+    v54 = *v215;
     do
     {
       for (j = 0; j != v53; ++j)
       {
-        if (*v216 != v54)
+        if (*v215 != v54)
         {
           objc_enumerationMutation(v51);
         }
 
-        v56 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"MeaningfulEventGenericYear" withPrefix:*(*(&v215 + 1) + 8 * j)];
+        v56 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"MeaningfulEventGenericYear" withPrefix:*(*(&v214 + 1) + 8 * j)];
         [v2 addObject:v56];
       }
 
-      v53 = [v51 countByEnumeratingWithState:&v215 objects:v236 count:16];
+      v53 = [v51 countByEnumeratingWithState:&v214 objects:v235 count:16];
     }
 
     while (v53);
   }
 
   v57 = @"MeaningfulEventGenericOverTheYears";
+  v210 = 0u;
   v211 = 0u;
   v212 = 0u;
   v213 = 0u;
-  v214 = 0u;
   v58 = v51;
-  v59 = [v58 countByEnumeratingWithState:&v211 objects:v235 count:16];
+  v59 = [v58 countByEnumeratingWithState:&v210 objects:v234 count:16];
   if (v59)
   {
     v60 = v59;
-    v61 = *v212;
+    v61 = *v211;
     do
     {
       for (k = 0; k != v60; ++k)
       {
-        if (*v212 != v61)
+        if (*v211 != v61)
         {
           objc_enumerationMutation(v58);
         }
 
-        v63 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"MeaningfulEventGenericOverTheYears" withPrefix:*(*(&v211 + 1) + 8 * k)];
+        v63 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"MeaningfulEventGenericOverTheYears" withPrefix:*(*(&v210 + 1) + 8 * k)];
         [v2 addObject:v63];
       }
 
-      v60 = [v58 countByEnumeratingWithState:&v211 objects:v235 count:16];
+      v60 = [v58 countByEnumeratingWithState:&v210 objects:v234 count:16];
     }
 
     while (v60);
   }
 
   v64 = @"MeaningfulEventSocialGroupYear";
+  v206 = 0u;
   v207 = 0u;
   v208 = 0u;
   v209 = 0u;
-  v210 = 0u;
   v65 = v58;
-  v66 = [v65 countByEnumeratingWithState:&v207 objects:v234 count:16];
+  v66 = [v65 countByEnumeratingWithState:&v206 objects:v233 count:16];
   if (v66)
   {
     v67 = v66;
-    v68 = *v208;
+    v68 = *v207;
     do
     {
       for (m = 0; m != v67; ++m)
       {
-        if (*v208 != v68)
+        if (*v207 != v68)
         {
           objc_enumerationMutation(v65);
         }
 
-        v70 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"MeaningfulEventSocialGroupYear" withPrefix:*(*(&v207 + 1) + 8 * m)];
+        v70 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"MeaningfulEventSocialGroupYear" withPrefix:*(*(&v206 + 1) + 8 * m)];
         [v2 addObject:v70];
       }
 
-      v67 = [v65 countByEnumeratingWithState:&v207 objects:v234 count:16];
+      v67 = [v65 countByEnumeratingWithState:&v206 objects:v233 count:16];
     }
 
     while (v67);
   }
 
   v71 = @"MeaningfulEventSocialGroupOverTheYears";
+  v202 = 0u;
   v203 = 0u;
   v204 = 0u;
   v205 = 0u;
-  v206 = 0u;
   v72 = v65;
-  v73 = [v72 countByEnumeratingWithState:&v203 objects:v233 count:16];
+  v73 = [v72 countByEnumeratingWithState:&v202 objects:v232 count:16];
   if (v73)
   {
     v74 = v73;
-    v75 = *v204;
+    v75 = *v203;
     do
     {
       for (n = 0; n != v74; ++n)
       {
-        if (*v204 != v75)
+        if (*v203 != v75)
         {
           objc_enumerationMutation(v72);
         }
 
-        v77 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"MeaningfulEventSocialGroupOverTheYears" withPrefix:*(*(&v203 + 1) + 8 * n)];
+        v77 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"MeaningfulEventSocialGroupOverTheYears" withPrefix:*(*(&v202 + 1) + 8 * n)];
         [v2 addObject:v77];
       }
 
-      v74 = [v72 countByEnumeratingWithState:&v203 objects:v233 count:16];
+      v74 = [v72 countByEnumeratingWithState:&v202 objects:v232 count:16];
     }
 
     while (v74);
   }
 
   v78 = @"MeaningfulEventAreaYear";
+  v198 = 0u;
   v199 = 0u;
   v200 = 0u;
   v201 = 0u;
-  v202 = 0u;
   v79 = v72;
-  v80 = [v79 countByEnumeratingWithState:&v199 objects:v232 count:16];
+  v80 = [v79 countByEnumeratingWithState:&v198 objects:v231 count:16];
   if (v80)
   {
     v81 = v80;
-    v82 = *v200;
+    v82 = *v199;
     do
     {
       for (ii = 0; ii != v81; ++ii)
       {
-        if (*v200 != v82)
+        if (*v199 != v82)
         {
           objc_enumerationMutation(v79);
         }
 
-        v84 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"MeaningfulEventAreaYear" withPrefix:*(*(&v199 + 1) + 8 * ii)];
+        v84 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"MeaningfulEventAreaYear" withPrefix:*(*(&v198 + 1) + 8 * ii)];
         [v2 addObject:v84];
       }
 
-      v81 = [v79 countByEnumeratingWithState:&v199 objects:v232 count:16];
+      v81 = [v79 countByEnumeratingWithState:&v198 objects:v231 count:16];
     }
 
     while (v81);
   }
 
   v85 = @"MeaningfulEventAreaOverTheYears";
+  v194 = 0u;
   v195 = 0u;
   v196 = 0u;
   v197 = 0u;
-  v198 = 0u;
   v86 = v79;
-  v87 = [v86 countByEnumeratingWithState:&v195 objects:v231 count:16];
+  v87 = [v86 countByEnumeratingWithState:&v194 objects:v230 count:16];
   if (v87)
   {
     v88 = v87;
-    v89 = *v196;
+    v89 = *v195;
     do
     {
       for (jj = 0; jj != v88; ++jj)
       {
-        if (*v196 != v89)
+        if (*v195 != v89)
         {
           objc_enumerationMutation(v86);
         }
 
-        v91 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"MeaningfulEventAreaOverTheYears" withPrefix:*(*(&v195 + 1) + 8 * jj)];
+        v91 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"MeaningfulEventAreaOverTheYears" withPrefix:*(*(&v194 + 1) + 8 * jj)];
         [v2 addObject:v91];
       }
 
-      v88 = [v86 countByEnumeratingWithState:&v195 objects:v231 count:16];
+      v88 = [v86 countByEnumeratingWithState:&v194 objects:v230 count:16];
     }
 
     while (v88);
   }
 
   v92 = @"MeaningfulEventCityYear";
+  v190 = 0u;
   v191 = 0u;
   v192 = 0u;
   v193 = 0u;
-  v194 = 0u;
   v93 = v86;
-  v94 = [v93 countByEnumeratingWithState:&v191 objects:v230 count:16];
+  v94 = [v93 countByEnumeratingWithState:&v190 objects:v229 count:16];
   if (v94)
   {
     v95 = v94;
-    v96 = *v192;
+    v96 = *v191;
     do
     {
       for (kk = 0; kk != v95; ++kk)
       {
-        if (*v192 != v96)
+        if (*v191 != v96)
         {
           objc_enumerationMutation(v93);
         }
 
-        v98 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"MeaningfulEventCityYear" withPrefix:*(*(&v191 + 1) + 8 * kk)];
+        v98 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"MeaningfulEventCityYear" withPrefix:*(*(&v190 + 1) + 8 * kk)];
         [v2 addObject:v98];
       }
 
-      v95 = [v93 countByEnumeratingWithState:&v191 objects:v230 count:16];
+      v95 = [v93 countByEnumeratingWithState:&v190 objects:v229 count:16];
     }
 
     while (v95);
   }
 
   v99 = @"MeaningfulEventCityOverTheYears";
+  v186 = 0u;
   v187 = 0u;
   v188 = 0u;
   v189 = 0u;
-  v190 = 0u;
   v100 = v93;
-  v101 = [v100 countByEnumeratingWithState:&v187 objects:v229 count:16];
+  v101 = [v100 countByEnumeratingWithState:&v186 objects:v228 count:16];
   if (v101)
   {
     v102 = v101;
-    v103 = *v188;
+    v103 = *v187;
     do
     {
       for (mm = 0; mm != v102; ++mm)
       {
-        if (*v188 != v103)
+        if (*v187 != v103)
         {
           objc_enumerationMutation(v100);
         }
 
-        v105 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"MeaningfulEventCityOverTheYears" withPrefix:*(*(&v187 + 1) + 8 * mm)];
+        v105 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"MeaningfulEventCityOverTheYears" withPrefix:*(*(&v186 + 1) + 8 * mm)];
         [v2 addObject:v105];
       }
 
-      v102 = [v100 countByEnumeratingWithState:&v187 objects:v229 count:16];
+      v102 = [v100 countByEnumeratingWithState:&v186 objects:v228 count:16];
     }
 
     while (v102);
@@ -480,180 +478,180 @@
   [v2 addObject:@"ChildOutdoorOverTheYears"];
 
   v117 = @"TrendsGenericYear";
+  v182 = 0u;
   v183 = 0u;
   v184 = 0u;
   v185 = 0u;
-  v186 = 0u;
   v118 = v4;
-  v119 = [v118 countByEnumeratingWithState:&v183 objects:v228 count:16];
+  v119 = [v118 countByEnumeratingWithState:&v182 objects:v227 count:16];
   if (v119)
   {
     v120 = v119;
-    v121 = *v184;
+    v121 = *v183;
     do
     {
       for (nn = 0; nn != v120; ++nn)
       {
-        if (*v184 != v121)
+        if (*v183 != v121)
         {
           objc_enumerationMutation(v118);
         }
 
-        v123 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"TrendsGenericYear" withPrefix:*(*(&v183 + 1) + 8 * nn)];
+        v123 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"TrendsGenericYear" withPrefix:*(*(&v182 + 1) + 8 * nn)];
         [v2 addObject:v123];
       }
 
-      v120 = [v118 countByEnumeratingWithState:&v183 objects:v228 count:16];
+      v120 = [v118 countByEnumeratingWithState:&v182 objects:v227 count:16];
     }
 
     while (v120);
   }
 
   v124 = @"TrendsGenericOverTheYears";
+  v178 = 0u;
   v179 = 0u;
   v180 = 0u;
   v181 = 0u;
-  v182 = 0u;
   v125 = v118;
-  v126 = [v125 countByEnumeratingWithState:&v179 objects:v227 count:16];
+  v126 = [v125 countByEnumeratingWithState:&v178 objects:v226 count:16];
   if (v126)
   {
     v127 = v126;
-    v128 = *v180;
+    v128 = *v179;
     do
     {
       for (i1 = 0; i1 != v127; ++i1)
       {
-        if (*v180 != v128)
+        if (*v179 != v128)
         {
           objc_enumerationMutation(v125);
         }
 
-        v130 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"TrendsGenericOverTheYears" withPrefix:*(*(&v179 + 1) + 8 * i1)];
+        v130 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"TrendsGenericOverTheYears" withPrefix:*(*(&v178 + 1) + 8 * i1)];
         [v2 addObject:v130];
       }
 
-      v127 = [v125 countByEnumeratingWithState:&v179 objects:v227 count:16];
+      v127 = [v125 countByEnumeratingWithState:&v178 objects:v226 count:16];
     }
 
     while (v127);
   }
 
   v131 = @"TrendsPersonYear";
+  v174 = 0u;
   v175 = 0u;
   v176 = 0u;
   v177 = 0u;
-  v178 = 0u;
   v132 = v125;
-  v133 = [v132 countByEnumeratingWithState:&v175 objects:v226 count:16];
+  v133 = [v132 countByEnumeratingWithState:&v174 objects:v225 count:16];
   if (v133)
   {
     v134 = v133;
-    v135 = *v176;
+    v135 = *v175;
     do
     {
       for (i2 = 0; i2 != v134; ++i2)
       {
-        if (*v176 != v135)
+        if (*v175 != v135)
         {
           objc_enumerationMutation(v132);
         }
 
-        v137 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"TrendsPersonYear" withPrefix:*(*(&v175 + 1) + 8 * i2)];
+        v137 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"TrendsPersonYear" withPrefix:*(*(&v174 + 1) + 8 * i2)];
         [v2 addObject:v137];
       }
 
-      v134 = [v132 countByEnumeratingWithState:&v175 objects:v226 count:16];
+      v134 = [v132 countByEnumeratingWithState:&v174 objects:v225 count:16];
     }
 
     while (v134);
   }
 
   v138 = @"TrendsPersonOverTheYears";
+  v170 = 0u;
   v171 = 0u;
   v172 = 0u;
   v173 = 0u;
-  v174 = 0u;
   v139 = v132;
-  v140 = [v139 countByEnumeratingWithState:&v171 objects:v225 count:16];
+  v140 = [v139 countByEnumeratingWithState:&v170 objects:v224 count:16];
   if (v140)
   {
     v141 = v140;
-    v142 = *v172;
+    v142 = *v171;
     do
     {
       for (i3 = 0; i3 != v141; ++i3)
       {
-        if (*v172 != v142)
+        if (*v171 != v142)
         {
           objc_enumerationMutation(v139);
         }
 
-        v144 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"TrendsPersonOverTheYears" withPrefix:*(*(&v171 + 1) + 8 * i3)];
+        v144 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"TrendsPersonOverTheYears" withPrefix:*(*(&v170 + 1) + 8 * i3)];
         [v2 addObject:v144];
       }
 
-      v141 = [v139 countByEnumeratingWithState:&v171 objects:v225 count:16];
+      v141 = [v139 countByEnumeratingWithState:&v170 objects:v224 count:16];
     }
 
     while (v141);
   }
 
   v145 = @"TrendsCityYear";
+  v166 = 0u;
   v167 = 0u;
   v168 = 0u;
   v169 = 0u;
-  v170 = 0u;
   v146 = v139;
-  v147 = [v146 countByEnumeratingWithState:&v167 objects:v224 count:16];
+  v147 = [v146 countByEnumeratingWithState:&v166 objects:v223 count:16];
   if (v147)
   {
     v148 = v147;
-    v149 = *v168;
+    v149 = *v167;
     do
     {
       for (i4 = 0; i4 != v148; ++i4)
       {
-        if (*v168 != v149)
+        if (*v167 != v149)
         {
           objc_enumerationMutation(v146);
         }
 
-        v151 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"TrendsCityYear" withPrefix:*(*(&v167 + 1) + 8 * i4)];
+        v151 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"TrendsCityYear" withPrefix:*(*(&v166 + 1) + 8 * i4)];
         [v2 addObject:v151];
       }
 
-      v148 = [v146 countByEnumeratingWithState:&v167 objects:v224 count:16];
+      v148 = [v146 countByEnumeratingWithState:&v166 objects:v223 count:16];
     }
 
     while (v148);
   }
 
   v152 = @"TrendsCityOverTheYears";
+  v162 = 0u;
   v163 = 0u;
   v164 = 0u;
   v165 = 0u;
-  v166 = 0u;
   v153 = v146;
-  v154 = [v153 countByEnumeratingWithState:&v163 objects:v223 count:16];
+  v154 = [v153 countByEnumeratingWithState:&v162 objects:v222 count:16];
   if (v154)
   {
     v155 = v154;
-    v156 = *v164;
+    v156 = *v163;
     do
     {
       for (i5 = 0; i5 != v155; ++i5)
       {
-        if (*v164 != v156)
+        if (*v163 != v156)
         {
           objc_enumerationMutation(v153);
         }
 
-        v158 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"TrendsCityOverTheYears" withPrefix:{*(*(&v163 + 1) + 8 * i5), v163}];
+        v158 = [objc_opt_class() fullyQualifiedMemoryTypeForMemoryType:@"TrendsCityOverTheYears" withPrefix:{*(*(&v162 + 1) + 8 * i5), v162}];
         [v2 addObject:v158];
       }
 
-      v155 = [v153 countByEnumeratingWithState:&v163 objects:v223 count:16];
+      v155 = [v153 countByEnumeratingWithState:&v162 objects:v222 count:16];
     }
 
     while (v155);
@@ -664,8 +662,6 @@
 
   v160 = @"ContentCreationToolOverTime";
   [v2 addObject:@"ContentCreationToolOverTime"];
-
-  v161 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -764,32 +760,22 @@ LABEL_6:
   {
     v6 = [v5 objectForKeyedSubscript:@"memid"];
     v7 = v6;
-    if (v6 && ![v6 isEqual:self->_uniqueMemoryIdentifier])
+    v10 = 0;
+    if (!v6 || [v6 isEqual:self->_uniqueMemoryIdentifier])
     {
-      goto LABEL_11;
-    }
 
-    v8 = [v5 objectForKeyedSubscript:@"subcategory"];
-    v7 = v8;
-    if (v8)
-    {
-      if ([v8 unsignedIntegerValue] != self->_memoryCategorySubcategory)
+      v8 = [v5 objectForKeyedSubscript:@"subcategory"];
+      v7 = v8;
+      if (!v8 || [v8 unsignedIntegerValue] == self->_memoryCategorySubcategory)
       {
-        goto LABEL_11;
+
+        v9 = [v5 objectForKeyedSubscript:@"generatedWithFallbackRequirements"];
+        v7 = v9;
+        if (!v9 || self->_generatedWithFallbackRequirements == [v9 BOOLValue])
+        {
+          v10 = 1;
+        }
       }
-    }
-
-    v9 = [v5 objectForKeyedSubscript:@"generatedWithFallbackRequirements"];
-    v7 = v9;
-    if (v9 && self->_generatedWithFallbackRequirements != [v9 BOOLValue])
-    {
-LABEL_11:
-      v10 = 0;
-    }
-
-    else
-    {
-      v10 = 1;
     }
   }
 
@@ -840,14 +826,14 @@ LABEL_11:
 
 + (id)uniqueMemoryIdentifierWithMemoryLabel:(id)label featureNodes:(id)nodes
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   labelCopy = label;
   featureIdentifiers = [nodes featureIdentifiers];
   if ([featureIdentifiers count])
   {
     v7 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"self" ascending:0];
-    v15[0] = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v14[0] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
     v9 = [featureIdentifiers sortedArrayUsingDescriptors:v8];
 
     v10 = MEMORY[0x277CCACA8];
@@ -859,8 +845,6 @@ LABEL_11:
   {
     labelCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", labelCopy];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return labelCopy;
 }
@@ -883,48 +867,42 @@ LABEL_11:
 
 + (id)filterWithUniqueMemoryIdentifierArray:(id)array
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   filter = [self filter];
-  v10 = @"memid";
-  v11[0] = arrayCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = @"memid";
+  v10[0] = arrayCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   v7 = [filter filterBySettingProperties:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 + (id)filterWithUniqueMemoryIdentifiers:(id)identifiers
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   filter = [self filter];
-  v10 = @"memid";
-  v11[0] = identifiersCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = @"memid";
+  v10[0] = identifiersCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   v7 = [filter filterBySettingProperties:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 + (id)filterWithUniqueMemoryIdentifier:(id)identifier
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   filter = [self filter];
-  v10 = @"memid";
-  v11[0] = identifierCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = @"memid";
+  v10[0] = identifierCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   v7 = [filter filterBySettingProperties:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -951,7 +929,7 @@ LABEL_11:
 void __48__PGGraphMemoryNode_filterWithMemoryCategories___block_invoke(uint64_t a1, uint64_t a2)
 {
   v2 = a2;
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = [PGGraphBuilder memoryLabelForCategory:a2];
   if ([v4 isEqualToString:@"Unknown"])
   {
@@ -960,9 +938,9 @@ void __48__PGGraphMemoryNode_filterWithMemoryCategories___block_invoke(uint64_t 
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8[0] = 67109120;
-      v8[1] = v2;
-      _os_log_error_impl(&dword_22F0FC000, v6, OS_LOG_TYPE_ERROR, "[PGGraphMemoryNode filterWithMemoryCategories:] passed an unsupported category %d", v8, 8u);
+      v7[0] = 67109120;
+      v7[1] = v2;
+      _os_log_error_impl(&dword_22F0FC000, v6, OS_LOG_TYPE_ERROR, "[PGGraphMemoryNode filterWithMemoryCategories:] passed an unsupported category %d", v7, 8u);
     }
   }
 
@@ -970,8 +948,6 @@ void __48__PGGraphMemoryNode_filterWithMemoryCategories___block_invoke(uint64_t 
   {
     [*(a1 + 32) addObject:v4];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (id)filterWithMemoryCategory:(unint64_t)category

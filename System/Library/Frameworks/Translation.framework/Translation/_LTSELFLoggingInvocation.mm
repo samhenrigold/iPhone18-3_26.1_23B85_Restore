@@ -1,4 +1,5 @@
 @interface _LTSELFLoggingInvocation
++ (void)translationTTSPlayedWithInvocationId:(id)id sourceOrTargetLanguage:(int64_t)language isAutoplayTranslation:(BOOL)translation ttsPlaybackSpeed:(int64_t)speed audioChannel:(int64_t)channel;
 + (void)userEndedTypingWithInvocationId:(id)id payload:(id)payload localePair:(id)pair reason:(int64_t)reason;
 - (_LTSELFLoggingInvocation)initWithInvocationId:(id)id;
 - (void)cancelWithReason:(id)reason localePair:(id)pair qssSessionId:(id)id;
@@ -34,21 +35,22 @@
 {
   idCopy = id;
   pairCopy = pair;
+  v9 = pairCopy;
   if (self->_endSent)
   {
-    v8 = _LTOSLogSELFLogging();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v10 = _LTOSLogSELFLogging(pairCopy, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      [_LTSELFLoggingInvocation endSuccessfullyWithQSSSessionId:? localePair:?];
+      [_LTSELFLoggingInvocation endSuccessfullyWithQSSSessionId:localePair:];
     }
   }
 
   else
   {
-    v9 = [[_LTSELFLoggingEventData alloc] initWithType:2 invocationId:self->_invocationId];
-    [(_LTSELFLoggingEventData *)v9 setQssSessionId:idCopy];
-    [(_LTSELFLoggingEventData *)v9 setTranslationLocalePair:pairCopy];
-    [_LTTranslator selfLoggingEventWithData:v9];
+    v11 = [[_LTSELFLoggingEventData alloc] initWithType:2 invocationId:self->_invocationId];
+    [(_LTSELFLoggingEventData *)v11 setQssSessionId:idCopy];
+    [(_LTSELFLoggingEventData *)v11 setTranslationLocalePair:v9];
+    [_LTTranslator selfLoggingEventWithData:v11];
     self->_endSent = 1;
   }
 }
@@ -58,22 +60,23 @@
   errorCopy = error;
   pairCopy = pair;
   idCopy = id;
+  v12 = idCopy;
   if (self->_endSent)
   {
-    v11 = _LTOSLogSELFLogging();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v13 = _LTOSLogSELFLogging(idCopy, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      [_LTSELFLoggingInvocation endWithError:? localePair:? qssSessionId:?];
+      [_LTSELFLoggingInvocation endWithError:localePair:qssSessionId:];
     }
   }
 
   else
   {
-    v12 = [[_LTSELFLoggingEventData alloc] initWithType:3 invocationId:self->_invocationId];
-    [(_LTSELFLoggingEventData *)v12 setQssSessionId:idCopy];
-    [(_LTSELFLoggingEventData *)v12 setInvocationEndedError:errorCopy];
-    [(_LTSELFLoggingEventData *)v12 setTranslationLocalePair:pairCopy];
-    [_LTTranslator selfLoggingEventWithData:v12];
+    v14 = [[_LTSELFLoggingEventData alloc] initWithType:3 invocationId:self->_invocationId];
+    [(_LTSELFLoggingEventData *)v14 setQssSessionId:v12];
+    [(_LTSELFLoggingEventData *)v14 setInvocationEndedError:errorCopy];
+    [(_LTSELFLoggingEventData *)v14 setTranslationLocalePair:pairCopy];
+    [_LTTranslator selfLoggingEventWithData:v14];
     self->_endSent = 1;
   }
 }
@@ -83,22 +86,23 @@
   reasonCopy = reason;
   pairCopy = pair;
   idCopy = id;
+  v12 = idCopy;
   if (self->_endSent)
   {
-    v11 = _LTOSLogSELFLogging();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v13 = _LTOSLogSELFLogging(idCopy, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      [_LTSELFLoggingInvocation cancelWithReason:? localePair:? qssSessionId:?];
+      [_LTSELFLoggingInvocation cancelWithReason:localePair:qssSessionId:];
     }
   }
 
   else
   {
-    v12 = [[_LTSELFLoggingEventData alloc] initWithType:4 invocationId:self->_invocationId];
-    [(_LTSELFLoggingEventData *)v12 setQssSessionId:idCopy];
-    [(_LTSELFLoggingEventData *)v12 setInvocationCancelledReason:reasonCopy];
-    [(_LTSELFLoggingEventData *)v12 setTranslationLocalePair:pairCopy];
-    [_LTTranslator selfLoggingEventWithData:v12];
+    v14 = [[_LTSELFLoggingEventData alloc] initWithType:4 invocationId:self->_invocationId];
+    [(_LTSELFLoggingEventData *)v14 setQssSessionId:v12];
+    [(_LTSELFLoggingEventData *)v14 setInvocationCancelledReason:reasonCopy];
+    [(_LTSELFLoggingEventData *)v14 setTranslationLocalePair:pairCopy];
+    [_LTTranslator selfLoggingEventWithData:v14];
     self->_endSent = 1;
   }
 }
@@ -116,6 +120,17 @@
   }
 
   [(_LTSELFLoggingInvocation *)self sendUserEndedTypingEventWithPayload:payload localePair:pair type:v5];
+}
+
++ (void)translationTTSPlayedWithInvocationId:(id)id sourceOrTargetLanguage:(int64_t)language isAutoplayTranslation:(BOOL)translation ttsPlaybackSpeed:(int64_t)speed audioChannel:(int64_t)channel
+{
+  translationCopy = translation;
+  idCopy = id;
+  v13 = [[_LTSELFLoggingEventData alloc] initWithType:9 invocationId:idCopy];
+
+  v12 = [[_LTSELFLoggingTranslationTTSData alloc] initWithSourceOrTargetLanguage:language isAutoplayTranslation:translationCopy ttsPlaybackSpeed:speed audioChannel:channel];
+  [(_LTSELFLoggingEventData *)v13 setTranslationTTSData:v12];
+  [_LTTranslator selfLoggingEventWithData:v13];
 }
 
 - (void)languageIdentificationCompletedWithInputSource:(int64_t)source topLocale:(id)locale lowConfidenceLocales:(id)locales
@@ -142,10 +157,10 @@
 {
   if (self->_endSent)
   {
-    v6 = _LTOSLogSELFLogging();
+    v6 = _LTOSLogSELFLogging(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      [_LTSELFLoggingInvocation sendUserEndedTypingEventWithPayload:? localePair:? type:?];
+      [_LTSELFLoggingInvocation sendUserEndedTypingEventWithPayload:localePair:type:];
     }
   }
 
@@ -191,37 +206,33 @@
   [_LTTranslator selfLoggingEventWithData:v7];
 }
 
-- (void)endSuccessfullyWithQSSSessionId:(uint64_t)a1 localePair:.cold.1(uint64_t a1)
+- (void)endSuccessfullyWithQSSSessionId:localePair:.cold.1()
 {
-  OUTLINED_FUNCTION_2_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_1(&dword_23AAF5000, v1, v2, "Invocation [%{public}@] has ended already, so ignoring successful end of event with QSS Session ID of %{public}@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_23AAF5000, v0, v1, "Invocation [%{public}@] has ended already, so ignoring successful end of event with QSS Session ID of %{public}@");
 }
 
-- (void)endWithError:(uint64_t)a1 localePair:qssSessionId:.cold.1(uint64_t a1)
+- (void)endWithError:localePair:qssSessionId:.cold.1()
 {
-  OUTLINED_FUNCTION_2_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_1(&dword_23AAF5000, v1, v2, "Invocation [%{public}@] has ended already so ignoring end with error of event with QSS Session ID of %{public}@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_23AAF5000, v0, v1, "Invocation [%{public}@] has ended already so ignoring end with error of event with QSS Session ID of %{public}@");
 }
 
-- (void)cancelWithReason:(uint64_t)a1 localePair:qssSessionId:.cold.1(uint64_t a1)
+- (void)cancelWithReason:localePair:qssSessionId:.cold.1()
 {
-  OUTLINED_FUNCTION_2_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_1(&dword_23AAF5000, v1, v2, "Invocation [%{public}@] has ended already so ignoring cancel with reason of event with QSS Session ID of %{public}@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_23AAF5000, v0, v1, "Invocation [%{public}@] has ended already so ignoring cancel with reason of event with QSS Session ID of %{public}@");
 }
 
-- (void)sendUserEndedTypingEventWithPayload:(uint64_t)a1 localePair:type:.cold.1(uint64_t a1)
+- (void)sendUserEndedTypingEventWithPayload:localePair:type:.cold.1()
 {
-  OUTLINED_FUNCTION_2_1(a1, *MEMORY[0x277D85DE8]);
-  v4 = 138543362;
-  v5 = v1;
-  _os_log_debug_impl(&dword_23AAF5000, v2, OS_LOG_TYPE_DEBUG, "Invocation [%{public}@] has ended already, so ignoring successful end with user ending typing", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(*MEMORY[0x277D85DE8]);
+  v2 = 138543362;
+  v3 = v0;
+  _os_log_debug_impl(&dword_23AAF5000, v1, OS_LOG_TYPE_DEBUG, "Invocation [%{public}@] has ended already, so ignoring successful end with user ending typing", &v2, 0xCu);
 }
 
 @end

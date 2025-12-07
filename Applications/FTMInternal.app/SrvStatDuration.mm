@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)ratAsString:(int)string;
+- (id)statAsString:(int)string;
 - (int)StringAsRat:(id)rat;
 - (int)StringAsStat:(id)stat;
 - (int)rat;
@@ -43,6 +45,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)ratAsString:(int)string
+{
+  if (string >= 0xA)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317BA0 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsRat:(id)rat
@@ -132,6 +149,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)statAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317BF0 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsStat:(id)stat
@@ -269,12 +301,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    rat = self->_rat;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -293,15 +324,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  stat = self->_stat;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_4:
-    durationMs = self->_durationMs;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:

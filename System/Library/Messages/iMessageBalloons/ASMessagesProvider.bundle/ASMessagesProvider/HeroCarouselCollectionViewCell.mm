@@ -29,7 +29,7 @@
 
 - (BOOL)gestureRecognizer:(id)recognizer shouldReceiveTouch:(id)touch
 {
-  sub_BE70(0, &qword_94AB00);
+  sub_BE70(0, &qword_94AB00, NSObject_ptr);
   recognizerCopy = recognizer;
   touchCopy = touch;
   selfCopy = self;
@@ -61,12 +61,13 @@
   v3 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider30HeroCarouselCollectionViewCell_didSelectHandler);
   if (v3)
   {
-    v4 = *(*(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider30HeroCarouselCollectionViewCell_carouselView) + OBJC_IVAR____TtC18ASMessagesProvider16HeroCarouselView_pageControl);
+    v4 = *&self->carouselView[OBJC_IVAR____TtC18ASMessagesProvider30HeroCarouselCollectionViewCell_didSelectHandler];
+    v5 = *(*(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider30HeroCarouselCollectionViewCell_carouselView) + OBJC_IVAR____TtC18ASMessagesProvider16HeroCarouselView_pageControl);
     selfCopy = self;
-    sub_F714(v3);
-    v3([v4 currentPage]);
+    currentPage = [v5 currentPage];
+    v3(currentPage);
 
-    sub_F704(v3);
+    sub_F704(v3, v4);
   }
 }
 

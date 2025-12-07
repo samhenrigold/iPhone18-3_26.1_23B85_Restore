@@ -101,7 +101,7 @@
   v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  v10 = sub_10059DF18();
+  v10 = sub_10059DF18(v8);
 
   (*(v6 + 8))(v8, v5);
 
@@ -117,7 +117,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_1005A2398();
+  v13 = sub_1005A2398(v10);
 
   (*(v8 + 8))(v10, v7);
 
@@ -144,7 +144,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_10059FBBC(viewCopy);
+  sub_10059FBBC(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 }

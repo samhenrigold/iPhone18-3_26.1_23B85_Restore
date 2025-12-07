@@ -12,9 +12,9 @@
 
 - (COSLegalMessagePane)init
 {
-  v30.receiver = self;
-  v30.super_class = COSLegalMessagePane;
-  v2 = [(COSLegalMessagePane *)&v30 init];
+  v31.receiver = self;
+  v31.super_class = COSLegalMessagePane;
+  v2 = [(COSLegalMessagePane *)&v31 init];
   v3 = v2;
   if (v2)
   {
@@ -72,8 +72,8 @@
     v25 = [(UIWebView *)v21 stringByEvaluatingJavaScriptFromString:v24];
 
     v26 = v3->_webView;
-    v27 = sub_10002D68C();
-    v28 = [(UIWebView *)v26 stringByEvaluatingJavaScriptFromString:v27];
+    v28 = sub_10002D68C(v27);
+    v29 = [(UIWebView *)v26 stringByEvaluatingJavaScriptFromString:v28];
   }
 
   return v3;

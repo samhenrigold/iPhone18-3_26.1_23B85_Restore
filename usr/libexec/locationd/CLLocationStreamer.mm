@@ -199,27 +199,27 @@
 
 - (void)sendAliveAgainMessage
 {
-  v3 = sub_1000206B4();
+  v3 = sub_1000206B4(self, a2);
   Current = CFAbsoluteTimeGetCurrent();
-  sub_100116D68(v3, "kCLLocationStreamerLastAliveAgainMessageTimestamp", &Current);
-  v4 = *sub_1000206B4();
-  (*(v4 + 944))();
-  v5 = objc_alloc_init(CLLocationStreamingMessage);
-  [(CLLocationStreamingMessage *)v5 setMessageType:@"kCLLocationStreamingMessageTypeAliveAgain"];
-  [(CLLocationStreamingMessage *)v5 setPriority:300];
-  v8[0] = IDSSendMessageOptionTimeoutKey;
-  v6 = [NSNumber numberWithDouble:30.0];
-  v8[1] = IDSSendMessageOptionForceLocalDeliveryKey;
-  v8[2] = IDSSendMessageOptionEncryptPayloadKey;
-  v9[0] = v6;
-  v9[1] = &__kCFBooleanTrue;
-  v9[2] = &__kCFBooleanTrue;
-  v9[3] = &__kCFBooleanTrue;
-  v8[3] = IDSSendMessageOptionRequireBluetoothKey;
-  v8[4] = IDSSendMessageOptionQueueOneIdentifierKey;
-  v9[4] = @"kCLLocationStreamingMessageTypeAliveAgain";
-  [(CLLocationStreamingMessage *)v5 setIdsOptions:[NSDictionary dictionaryWithObjects:v9 forKeys:v8 count:5]];
-  [(CLLocationStreamingConnectionManagerServiceProtocol *)[(CLLocationStreamer *)self streamingConnection] sendMessage:v5];
+  v4 = sub_100116D68(v3, "kCLLocationStreamerLastAliveAgainMessageTimestamp", &Current);
+  v6 = *sub_1000206B4(v4, v5);
+  (*(v6 + 944))();
+  v7 = objc_alloc_init(CLLocationStreamingMessage);
+  [(CLLocationStreamingMessage *)v7 setMessageType:@"kCLLocationStreamingMessageTypeAliveAgain"];
+  [(CLLocationStreamingMessage *)v7 setPriority:300];
+  v10[0] = IDSSendMessageOptionTimeoutKey;
+  v8 = [NSNumber numberWithDouble:30.0];
+  v10[1] = IDSSendMessageOptionForceLocalDeliveryKey;
+  v10[2] = IDSSendMessageOptionEncryptPayloadKey;
+  v11[0] = v8;
+  v11[1] = &__kCFBooleanTrue;
+  v11[2] = &__kCFBooleanTrue;
+  v11[3] = &__kCFBooleanTrue;
+  v10[3] = IDSSendMessageOptionRequireBluetoothKey;
+  v10[4] = IDSSendMessageOptionQueueOneIdentifierKey;
+  v11[4] = @"kCLLocationStreamingMessageTypeAliveAgain";
+  [(CLLocationStreamingMessage *)v7 setIdsOptions:[NSDictionary dictionaryWithObjects:v11 forKeys:v10 count:5]];
+  [(CLLocationStreamingConnectionManagerServiceProtocol *)[(CLLocationStreamer *)self streamingConnection] sendMessage:v7];
 }
 
 - (void)setEmergencyEnablementAssertionActive:(BOOL)active

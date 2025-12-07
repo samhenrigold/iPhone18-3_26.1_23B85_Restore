@@ -221,7 +221,7 @@ uint64_t __33__PBUIWallpaperDefaults_defaults__block_invoke()
   PBUIWallpaperEnumerateVariantsForLocations(locationsCopy, v8);
 }
 
-uint64_t __60__PBUIWallpaperDefaults_updateDefaultsForLocations_updater___block_invoke(uint64_t a1, uint64_t a2)
+void *__60__PBUIWallpaperDefaults_updateDefaultsForLocations_updater___block_invoke(uint64_t a1, uint64_t a2)
 {
   for (i = 0; i != 4; ++i)
   {

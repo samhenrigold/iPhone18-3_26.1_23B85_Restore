@@ -4,6 +4,7 @@
 - (int64_t)timeoutForRow:(int64_t)row;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation iFBAPreferencesTimeoutViewController
@@ -15,6 +16,25 @@
   [(iFBAPreferencesTimeoutViewController *)&v4 viewDidLoad];
   tableView = [(iFBAPreferencesTimeoutViewController *)self tableView];
   [tableView registerClass:objc_opt_class() forCellReuseIdentifier:@"TimeoutCell"];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v10.receiver = self;
+  v10.super_class = iFBAPreferencesTimeoutViewController;
+  [(iFBAPreferencesTimeoutViewController *)&v10 viewWillAppear:appear];
+  v4 = +[NSBundle mainBundle];
+  v5 = [v4 localizedStringForKey:@"TOUCH_ID_REQUIRE" value:&stru_1000E2210 table:0];
+  navigationItem = [(iFBAPreferencesTimeoutViewController *)self navigationItem];
+  [navigationItem setTitle:v5];
+
+  if (+[iFBKUtils deviceSupportsFaceID])
+  {
+    v7 = +[NSBundle mainBundle];
+    v8 = [v7 localizedStringForKey:@"FACE_ID_REQUIRE" value:&stru_1000E2210 table:0];
+    navigationItem2 = [(iFBAPreferencesTimeoutViewController *)self navigationItem];
+    [navigationItem2 setTitle:v8];
+  }
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path

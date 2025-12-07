@@ -194,18 +194,19 @@ LABEL_22:
   return v2;
 }
 
-ssize_t __logredirect__write(int __fd, void *__buf, ssize_t __nbyte)
+ssize_t __logredirect__write(uint64_t __fd, void *__buf, ssize_t __nbyte)
 {
+  v5 = __fd;
   if ((__fd - 3) < 0xFFFFFFFE || !__PAIR64__(hookMode, interceptionMode) || (pthread_getspecific(logRedirectThreadLockFlagsKey) & 4) != 0)
   {
     LOBYTE(v7) = 0;
     v9 = 1;
 LABEL_12:
-    __nbyte = write(__fd, __buf, __nbyte);
+    __nbyte = write(v5, __buf, __nbyte);
     goto LABEL_13;
   }
 
-  if (__fd == 1)
+  if (v5 == 1)
   {
     v6 = 4;
   }
@@ -215,7 +216,7 @@ LABEL_12:
     v6 = 8;
   }
 
-  v7 = interceptionMode >> (__fd != 1);
+  v7 = interceptionMode >> (v5 != 1);
   v8 = interceptionMode & v6;
   if ((interceptionMode & v6) != 0 && (v7 & 1) == 0)
   {
@@ -270,7 +271,7 @@ LABEL_13:
   {
     v14[0] = __buf;
     v14[1] = __nbyte;
-    LogRedirectSendToOSLog(__fd, v14, 1, __nbyte);
+    LogRedirectSendToOSLog(v5, v14, 1u, __nbyte);
   }
 
   if ((v9 & 1) == 0)
@@ -286,8 +287,9 @@ LABEL_17:
   return __nbyte;
 }
 
-int64_t __logredirect__write_nocancel(int a1, uint64_t a2, int64_t a3)
+unint64_t __logredirect__write_nocancel(uint64_t a1, uint64_t a2, unint64_t a3)
 {
+  v5 = a1;
   if ((a1 - 3) < 0xFFFFFFFE || !__PAIR64__(hookMode, interceptionMode) || (pthread_getspecific(logRedirectThreadLockFlagsKey) & 4) != 0)
   {
     LOBYTE(v7) = 0;
@@ -297,7 +299,7 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  if (a1 == 1)
+  if (v5 == 1)
   {
     v6 = 4;
   }
@@ -307,7 +309,7 @@ LABEL_12:
     v6 = 8;
   }
 
-  v7 = interceptionMode >> (a1 != 1);
+  v7 = interceptionMode >> (v5 != 1);
   v8 = interceptionMode & v6;
   if ((interceptionMode & v6) != 0 && (v7 & 1) == 0)
   {
@@ -362,7 +364,7 @@ LABEL_13:
   {
     v14[0] = a2;
     v14[1] = a3;
-    LogRedirectSendToOSLog(a1, v14, 1, a3);
+    LogRedirectSendToOSLog(v5, v14, 1u, a3);
   }
 
   if ((v9 & 1) == 0)
@@ -378,7 +380,7 @@ LABEL_17:
   return a3;
 }
 
-int64_t LogRedirectWritev(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t))
+uint64_t LogRedirectWritev(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t))
 {
   if ((a1 - 3) >= 0xFFFFFFFE && __PAIR64__(hookMode, interceptionMode) && (pthread_getspecific(logRedirectThreadLockFlagsKey) & 4) == 0)
   {
@@ -500,7 +502,7 @@ LABEL_17:
   return v13;
 }
 
-void LogRedirectSendToOSLog(int a1, uint64_t a2, int a3, unint64_t a4)
+void LogRedirectSendToOSLog(int a1, uint64_t a2, unsigned int a3, unint64_t a4)
 {
   if (a1 == 1)
   {
@@ -661,77 +663,77 @@ uint64_t LogHook_init(uint64_t a1)
   if ((HookValidateParamsBuffersOnly(a1) & 1) == 0)
   {
     hookMode = 0;
-    v11 = 14;
+    v6 = 14;
     goto LABEL_20;
   }
 
   v2 = getenv("OS_LOG_DT_HOOK_PREFIX");
-  v8 = v2;
+  v3 = v2;
   if (!v2)
   {
     goto LABEL_8;
   }
 
-  v9 = strlen(v2);
-  if (!v9)
+  v4 = strlen(v2);
+  if (!v4)
   {
-    v8 = 0;
+    v3 = 0;
     goto LABEL_8;
   }
 
-  if (v9 < 0x81)
+  if (v4 < 0x81)
   {
 LABEL_8:
-    v11 = 0;
-    v10 = 1;
+    v6 = 0;
+    v5 = 1;
     goto LABEL_9;
   }
 
-  v8 = 0;
-  v10 = 0;
+  v3 = 0;
+  v5 = 0;
   hookMode = 0;
-  v11 = 7;
+  v6 = 7;
 LABEL_9:
-  v12 = "libLogRedirect:";
-  if (v8)
+  v7 = "libLogRedirect:";
+  if (v3)
   {
-    LOBYTE(v12) = v8;
+    v7 = v3;
   }
 
-  v13 = HookBufferAppend(a1, 0, "\n%s ", v3, v4, v5, v6, v7, v12);
-  *(a1 + 48) = v13;
-  if (v10 && !v13)
+  v8 = HookBufferAppend(a1, 0, "\n%s ", v7);
+  *(a1 + 48) = v8;
+  if (v5 && !v8)
   {
     hookMode = 0;
-    v11 = *__error();
+    v6 = *__error();
   }
 
-  if (!v11)
+  if (!v6)
   {
     EnvMode = GetEnvMode("OS_LOG_DT_HOOK_MODE", 0, 1855);
     hookMode = EnvMode;
     if (EnvMode)
     {
-      v11 = 0;
+      v6 = 0;
       *(a1 + 68) = 1;
     }
 
     else if (EnvMode)
     {
       hookMode = 0;
-      v11 = 22;
+      v6 = 22;
     }
 
     else
     {
-      v11 = 0;
+      v6 = 0;
     }
   }
 
 LABEL_20:
   unsetenv("OS_LOG_DT_HOOK_MODE");
   unsetenv("OS_LOG_DT_HOOK_PREFIX");
-  return v11;
+  return v6;
 }
 
 void *HookValidateParamsBuffersOnly(void *result)
@@ -752,46 +754,49 @@ void *HookValidateParamsBuffersOnly(void *result)
   return result;
 }
 
-unint64_t HookBufferAppend(void *a1, unint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+unint64_t HookBufferAppend(void *a1, unint64_t a2, const char *a3, ...)
 {
+  va_start(va, a3);
   if (!a1)
   {
     goto LABEL_9;
   }
 
-  v10 = a1[1];
-  v11 = v10 - a2;
-  v12 = *a1 && v10 > a2;
-  if (!v12 || v10 - a2 <= 1)
+  v4 = a1[1];
+  v5 = v4 - a2;
+  v6 = *a1 && v4 > a2;
+  if (!v6 || v4 - a2 <= 1)
   {
     goto LABEL_9;
   }
 
-  v16 = vsnprintf((*a1 + a2), v11, a3, &a9);
-  if ((v16 & 0x80000000) != 0)
+  v10 = vsnprintf((*a1 + a2), v5, a3, va);
+  if ((v10 & 0x80000000) != 0)
   {
     return 0;
   }
 
-  if (v11 <= v16)
+  if (v5 <= v10)
   {
 LABEL_9:
-    v14 = __error();
+    v8 = __error();
     result = 0;
-    *v14 = 12;
+    *v8 = 12;
     return result;
   }
 
-  return v16 + a2;
+  return v10 + a2;
 }
 
-void LibLogRedirect_InitComplete(int a1, int a2, uint64_t a3, int a4)
+void LibLogRedirect_InitComplete(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
   if (!(hookMode | a1 | a2 | interceptionMode))
   {
     return;
   }
 
+  v6 = a2;
+  v7 = a1;
   if (pthread_key_create(&logRedirectThreadLockFlagsKey, 0))
   {
     v8 = *__error();
@@ -825,29 +830,29 @@ void LibLogRedirect_InitComplete(int a1, int a2, uint64_t a3, int a4)
     hookMode = 0;
     if (!a3)
     {
-      v25 = 2;
+      v15 = 2;
 LABEL_31:
-      write(v25, "\nlibLogRedirect: 0 0 E 0 {errorCode:14}\tFailed to initialize\n", 0x3DuLL);
+      write(v15, "\nlibLogRedirect: 0 0 E 0 {errorCode:14}\tFailed to initialize\n", 0x3DuLL);
       goto LABEL_32;
     }
 
 LABEL_28:
     if (*(a3 + 64) < 0)
     {
-      v25 = 2;
+      v15 = 2;
     }
 
     else
     {
-      v25 = *(a3 + 64);
+      v15 = *(a3 + 64);
     }
 
     goto LABEL_31;
   }
 
-  v16 = HookBufferAppend((a3 + 16), 0, "%x %x ", v11, v12, v13, v14, v15, hookMode);
-  *(a3 + 56) = v16;
-  if (!v16)
+  v11 = HookBufferAppend((a3 + 16), 0, "%x %x ", hookMode, interceptionMode);
+  *(a3 + 56) = v11;
+  if (!v11)
   {
 LABEL_27:
     interceptionMode = 0;
@@ -855,41 +860,41 @@ LABEL_27:
     goto LABEL_28;
   }
 
-  if (a1)
+  if (v7)
   {
-    v22 = "Failed to initialize LogHook";
-    v23 = a3;
-    v24 = a1;
+    v12 = "Failed to initialize LogHook";
+    v13 = a3;
+    v14 = v7;
     goto LABEL_26;
   }
 
-  if (a2)
+  if (v6)
   {
-    v22 = "Failed to initialize LogRedirect";
-    v23 = a3;
-    v24 = a2;
+    v12 = "Failed to initialize LogRedirect";
+    v13 = a3;
+    v14 = v6;
     goto LABEL_26;
   }
 
   if (v8)
   {
-    v22 = "Failed to initialize libLogRedirect";
-    v23 = a3;
-    v24 = v8;
+    v12 = "Failed to initialize libLogRedirect";
+    v13 = a3;
+    v14 = v8;
     goto LABEL_26;
   }
 
-  v26 = HookBufferAppend((a3 + 16), v16, "%c 0 ", v17, v18, v19, v20, v21, 73);
-  if (!v26)
+  v16 = HookBufferAppend((a3 + 16), v11, "%c 0 ", 73);
+  if (!v16)
   {
     hookMode = 0;
-    *(a3 + 56) = HookBufferAppend((a3 + 16), 0, "0 %x ", v27, v28, v29, v30, v31, interceptionMode);
-    v24 = *__error();
-    v22 = "Failed to initialize LogHook flags";
+    *(a3 + 56) = HookBufferAppend((a3 + 16), 0, "0 %x ", interceptionMode);
+    v14 = *__error();
+    v12 = "Failed to initialize LogHook flags";
 LABEL_25:
-    v23 = a3;
+    v13 = a3;
 LABEL_26:
-    if ((HookWriteError(v23, v24, v22) & 0x80000000) == 0)
+    if ((HookWriteError(v13, v14, v12) & 0x80000000) == 0)
     {
       goto LABEL_32;
     }
@@ -897,18 +902,18 @@ LABEL_26:
     goto LABEL_27;
   }
 
-  v32 = v26;
-  v33 = HookBufferAppend((a3 + 32), 0, "{version:2}\t", v27, v28, v29, v30, v31, v39);
-  if (!v33)
+  v17 = v16;
+  v18 = HookBufferAppend((a3 + 32), 0, "{version:2}\t");
+  if (!v18)
   {
     hookMode = 0;
-    *(a3 + 56) = HookBufferAppend((a3 + 16), 0, "0 %x ", v34, v35, v36, v37, v38, interceptionMode);
-    v24 = *__error();
-    v22 = "Failed to initialize LogHook metadata";
+    *(a3 + 56) = HookBufferAppend((a3 + 16), 0, "0 %x ", interceptionMode);
+    v14 = *__error();
+    v12 = "Failed to initialize LogHook metadata";
     goto LABEL_25;
   }
 
-  if (HookWrite(a3, v32, v33, "Initialization successful"))
+  if (HookWrite(a3, v17, v18, "Initialization successful"))
   {
     goto LABEL_27;
   }
@@ -934,7 +939,7 @@ LABEL_32:
 
 uint64_t HookWriteError(uint64_t a1, int a2, char *a3)
 {
-  if (!HookValidateParamsBuffersOnly(a1) || !*(a1 + 48) || (v11 = *(a1 + 56)) == 0 || !a3 || (*(a1 + 64) & 0x80000000) != 0)
+  if (!HookValidateParamsBuffersOnly(a1) || !*(a1 + 48) || (v6 = *(a1 + 56)) == 0 || !a3 || (*(a1 + 64) & 0x80000000) != 0)
   {
     *__error() = 14;
     return 0xFFFFFFFFLL;
@@ -945,29 +950,29 @@ uint64_t HookWriteError(uint64_t a1, int a2, char *a3)
     return 1;
   }
 
-  v13 = HookBufferAppend((a1 + 16), v11, "%c %llx ", v6, v7, v8, v9, v10, 69);
+  v8 = HookBufferAppend((a1 + 16), v6, "%c %llx ", 69, HookWriteError_errorSequenceNum);
   ++HookWriteError_errorSequenceNum;
   HookWriteError_lastErrorCode = a2;
   HookWriteError_lastStaticError = a3;
-  if (!v13)
+  if (!v8)
   {
     return 0xFFFFFFFFLL;
   }
 
-  v19 = v13;
-  v20 = HookBufferAppend((a1 + 32), 0, "{errorCode:%d", v14, v15, v16, v17, v18, a2);
-  if (!v20)
+  v9 = v8;
+  v10 = HookBufferAppend((a1 + 32), 0, "{errorCode:%d", a2);
+  if (!v10)
   {
     return 0xFFFFFFFFLL;
   }
 
-  appended = HookBufferAppendMetadataEndWithLineCount((a1 + 32), v20, a3, v21, v22, v23, v24, v25, v27);
+  appended = HookBufferAppendMetadataEndWithLineCount((a1 + 32), v10, a3);
   if (!appended)
   {
     return 0xFFFFFFFFLL;
   }
 
-  return HookWrite(a1, v19, appended, a3);
+  return HookWrite(a1, v9, appended, a3);
 }
 
 uint64_t HookWrite(uint64_t *a1, uint64_t a2, uint64_t a3, const char *a4)
@@ -1042,12 +1047,12 @@ uint64_t HookWrite(uint64_t *a1, uint64_t a2, uint64_t a3, const char *a4)
   }
 }
 
-unint64_t HookBufferAppendMetadataEndWithLineCount(void *a1, unint64_t a2, _BYTE *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+unint64_t HookBufferAppendMetadataEndWithLineCount(void *a1, unint64_t a2, _BYTE *a3)
 {
-  v9 = 1;
+  v3 = 1;
   while (*a3 == 10)
   {
-    ++v9;
+    ++v3;
 LABEL_6:
     ++a3;
   }
@@ -1057,15 +1062,15 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  if (v9 >= 2)
+  if (v3 >= 2)
   {
-    return HookBufferAppend(a1, a2, ",lines:%d}\t", a4, a5, a6, a7, a8, v9);
+    return HookBufferAppend(a1, a2, ",lines:%d}\t", v3);
   }
 
-  return HookBufferAppend(a1, a2, "}\t", a4, a5, a6, a7, a8, a9);
+  return HookBufferAppend(a1, a2, "}\t");
 }
 
-unint64_t HookBufferAppendEscapedString(uint64_t *a1, unint64_t a2, char a3, _BYTE *a4, char *__s1, char *__s2, uint64_t a7, uint64_t a8)
+unint64_t HookBufferAppendEscapedString(uint64_t *a1, unint64_t a2, char a3, char *a4, char *__s1, char *__s2)
 {
   if (!a1)
   {
@@ -1077,7 +1082,7 @@ unint64_t HookBufferAppendEscapedString(uint64_t *a1, unint64_t a2, char a3, _BY
     goto LABEL_46;
   }
 
-  v9 = a2;
+  v7 = a2;
   if (a1[1] <= a2)
   {
     goto LABEL_46;
@@ -1085,68 +1090,68 @@ unint64_t HookBufferAppendEscapedString(uint64_t *a1, unint64_t a2, char a3, _BY
 
   if (__s1)
   {
-    v12 = __s1;
+    v10 = __s1;
     if (__s2)
     {
-      v12 = __s1;
+      v10 = __s1;
       if ((a3 & 1) == 0)
       {
-        v13 = strcmp(__s1, __s2);
-        v12 = __s1;
-        if (!v13)
+        v11 = strcmp(__s1, __s2);
+        v10 = __s1;
+        if (!v11)
         {
-          return v9;
+          return v7;
         }
       }
     }
 
 LABEL_11:
-    v14 = *a4;
+    v12 = *a4;
     if (*a4)
     {
-      v15 = a4 + 1;
+      v13 = a4 + 1;
       do
       {
-        *(*a1 + v9++) = v14;
-        if (v9 >= a1[1] - 1)
+        *(*a1 + v7++) = v12;
+        if (v7 >= a1[1] - 1)
         {
           goto LABEL_46;
         }
 
-        v16 = *v15++;
-        v14 = v16;
+        v14 = *v13++;
+        v12 = v14;
       }
 
-      while (v16);
+      while (v14);
     }
 
-    if (!__s1 || (*(*a1 + v9) = 34, ++v9, v9 < a1[1] - 1))
+    if (!__s1 || (*(*a1 + v7) = 34, ++v7, v7 < a1[1] - 1))
     {
-      v17 = *v12;
-      if (*v12)
+      v15 = *v10;
+      if (*v10)
       {
-        v18 = (v12 + 1);
+        v16 = (v10 + 1);
         do
         {
-          if (v17 > 11)
+          if (v15 > 11)
           {
-            switch(v17)
+            switch(v15)
             {
               case 12:
-                LOBYTE(v17) = 102;
+                LOBYTE(v15) = 102;
                 goto LABEL_34;
               case 13:
-                LOBYTE(v17) = 114;
+                LOBYTE(v15) = 114;
 LABEL_34:
-                *(*a1 + v9++) = 92;
-                if (v9 >= a1[1] - 1)
+                *(*a1 + v7++) = 92;
+                if (v7 >= a1[1] - 1)
                 {
                   goto LABEL_46;
                 }
 
 LABEL_35:
-                *(*a1 + v9++) = v17;
-                if (v9 >= a1[1] - 1)
+                *(*a1 + v7++) = v15;
+                if (v7 >= a1[1] - 1)
                 {
                   goto LABEL_46;
                 }
@@ -1159,68 +1164,68 @@ LABEL_35:
 
           else
           {
-            switch(v17)
+            switch(v15)
             {
               case 8:
-                LOBYTE(v17) = 98;
+                LOBYTE(v15) = 98;
                 goto LABEL_34;
               case 9:
-                LOBYTE(v17) = 116;
+                LOBYTE(v15) = 116;
                 goto LABEL_34;
               case 10:
-                LOBYTE(v17) = 110;
+                LOBYTE(v15) = 110;
                 goto LABEL_34;
             }
           }
 
-          if (v17 >= 0x20 && v17 != 34 && v17 != 127 && v17 != 125)
+          if (v15 >= 0x20 && v15 != 34 && v15 != 127 && v15 != 125)
           {
             goto LABEL_35;
           }
 
-          v9 = HookBufferAppend(a1, v9, "\\u%04X", a4, __s1, __s2, a7, a8, v17);
-          if (!v9)
+          v7 = HookBufferAppend(a1, v7, "\\u%04X", v15);
+          if (!v7)
           {
-            return v9;
+            return v7;
           }
 
 LABEL_36:
-          v19 = *v18++;
-          v17 = v19;
+          v17 = *v16++;
+          v15 = v17;
         }
 
-        while (v19);
+        while (v17);
       }
 
-      v20 = *a1;
+      v18 = *a1;
       if (!__s1)
       {
 LABEL_45:
-        *(v20 + v9) = 0;
-        return v9;
+        *(v18 + v7) = 0;
+        return v7;
       }
 
-      *(v20 + v9++) = 34;
-      if (v9 < a1[1] - 1)
+      *(v18 + v7++) = 34;
+      if (v7 < a1[1] - 1)
       {
-        v20 = *a1;
+        v18 = *a1;
         goto LABEL_45;
       }
     }
 
 LABEL_46:
-    v9 = 0;
+    v7 = 0;
     *__error() = 12;
-    return v9;
+    return v7;
   }
 
-  v12 = "null";
+  v10 = "null";
   if (__s2 || (a3 & 1) != 0)
   {
     goto LABEL_11;
   }
 
-  return v9;
+  return v7;
 }
 
 uint64_t __logredirect__fork()

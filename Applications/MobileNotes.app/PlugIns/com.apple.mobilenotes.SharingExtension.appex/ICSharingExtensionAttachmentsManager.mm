@@ -13,6 +13,7 @@
 - (id)mediaUTIs;
 - (id)newNoteWithString:(id)string error:(id *)error;
 - (id)newNoteWithString:(id)string inFolder:(id)folder error:(id *)error;
+- (id)saveAttachmentsToNewNote:(id)note inFolder:(id)folder isSystemPaper:(BOOL)paper textBefore:(id)before textAfter:(id)after;
 - (id)titleFromExtensionItem:(id)item;
 - (void)completeExtensionRequest:(BOOL)request waitUntilDone:(BOOL)done;
 - (void)consolidateDuplicateAttachments:(id)attachments;
@@ -22,6 +23,7 @@
 - (void)fillOutTitleAndSummaryForAttachments:(id)attachments;
 - (void)refreshManagedObjects;
 - (void)saveAttachments:(id)attachments toNote:(id)note textBefore:(id)before textAfter:(id)after;
+- (void)saveAttachments:(id)attachments toNote:(id)note textBefore:(id)before textAfter:(id)after fetchFirst:(BOOL)first;
 - (void)syncChangesToCloudWithCompletionHandler:(id)handler;
 @end
 
@@ -529,6 +531,36 @@ LABEL_32:
   return v5;
 }
 
+- (id)saveAttachmentsToNewNote:(id)note inFolder:(id)folder isSystemPaper:(BOOL)paper textBefore:(id)before textAfter:(id)after
+{
+  paperCopy = paper;
+  noteCopy = note;
+  folderCopy = folder;
+  beforeCopy = before;
+  afterCopy = after;
+  v16 = [noteCopy count];
+  if (v16 <= +[ICNote maxNoteAttachments])
+  {
+    [(ICSharingExtensionAttachmentsManager *)self refreshManagedObjects];
+    v22.receiver = self;
+    v22.super_class = ICSharingExtensionAttachmentsManager;
+    v17 = [(ICSharingExtensionAttachmentsManager *)&v22 saveAttachmentsToNewNote:noteCopy inFolder:folderCopy isSystemPaper:paperCopy textBefore:beforeCopy textAfter:afterCopy];
+    v18 = +[NSUserDefaults standardUserDefaults];
+    identifier = [v17 identifier];
+    [v18 setObject:identifier forKey:@"SharingExtensionLastSavedNoteIdentifier"];
+
+    v20 = +[NSDate date];
+    [v18 setObject:v20 forKey:@"SharingExtensionLastSavedNoteTimeStamp"];
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  return v17;
+}
+
 - (void)saveAttachments:(id)attachments toNote:(id)note textBefore:(id)before textAfter:(id)after
 {
   attachmentsCopy = attachments;
@@ -595,6 +627,22 @@ LABEL_32:
 LABEL_9:
 
   return v12;
+}
+
+- (void)saveAttachments:(id)attachments toNote:(id)note textBefore:(id)before textAfter:(id)after fetchFirst:(BOOL)first
+{
+  firstCopy = first;
+  afterCopy = after;
+  beforeCopy = before;
+  noteCopy = note;
+  attachmentsCopy = attachments;
+  [(ICSharingExtensionAttachmentsManager *)self dbWriteLock];
+  v16.receiver = self;
+  v16.super_class = ICSharingExtensionAttachmentsManager;
+  [(ICSharingExtensionAttachmentsManager *)&v16 saveAttachments:attachmentsCopy toNote:noteCopy textBefore:beforeCopy textAfter:afterCopy fetchFirst:firstCopy];
+
+  [noteCopy setNeedsInitialFetchFromCloud:0];
+  [(ICSharingExtensionAttachmentsManager *)self dbWriteUnlock];
 }
 
 - (void)completeExtensionRequest:(BOOL)request waitUntilDone:(BOOL)done

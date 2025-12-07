@@ -541,7 +541,6 @@
     objc_destroyWeak(location);
   }
 
-  *MEMORY[0x277D85DE8];
   v6 = selfCopy->_loginOptions;
 
   return v6;
@@ -847,18 +846,18 @@ uint64_t __66__AKBasicLoginViewController_context_needsPasswordWithCompletion___
   return [*(a1 + 32) stopAnimating];
 }
 
-void __66__AKBasicLoginViewController_context_needsPasswordWithCompletion___block_invoke_2(uint64_t a1)
+double __66__AKBasicLoginViewController_context_needsPasswordWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v3 = [*(a1 + 32) tableView];
-  v2 = [MEMORY[0x277CCAA70] indexPathForRow:? inSection:?];
-  v4[0] = v2;
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
-  [v3 insertRowsAtIndexPaths:? withRowAnimation:?];
-  MEMORY[0x277D82BD8](v1);
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = [*(a1 + 32) tableView];
+  v3 = [MEMORY[0x277CCAA70] indexPathForRow:? inSection:?];
+  v5[0] = v3;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  [v4 insertRowsAtIndexPaths:? withRowAnimation:?];
   MEMORY[0x277D82BD8](v2);
   MEMORY[0x277D82BD8](v3);
-  *MEMORY[0x277D85DE8];
+  *&result = MEMORY[0x277D82BD8](v4).n128_u64[0];
+  return result;
 }
 
 - (void)_setPasswordHiddenIfNeeded
@@ -917,16 +916,16 @@ void __66__AKBasicLoginViewController_context_needsPasswordWithCompletion___bloc
   }
 }
 
-void __56__AKBasicLoginViewController__setPasswordHiddenIfNeeded__block_invoke(uint64_t a1)
+double __56__AKBasicLoginViewController__setPasswordHiddenIfNeeded__block_invoke(uint64_t a1)
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v3 = [*(a1 + 32) tableView];
-  v4[0] = *(a1 + 40);
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
-  [v3 deleteRowsAtIndexPaths:? withRowAnimation:?];
-  MEMORY[0x277D82BD8](v2);
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = [*(a1 + 32) tableView];
+  v5[0] = *(a1 + 40);
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  [v4 deleteRowsAtIndexPaths:? withRowAnimation:?];
   MEMORY[0x277D82BD8](v3);
-  *MEMORY[0x277D85DE8];
+  *&result = MEMORY[0x277D82BD8](v4).n128_u64[0];
+  return result;
 }
 
 double __56__AKBasicLoginViewController__setPasswordHiddenIfNeeded__block_invoke_2(uint64_t a1)
@@ -1174,7 +1173,6 @@ double __56__AKBasicLoginViewController__setPasswordHiddenIfNeeded__block_invoke
   MEMORY[0x277D82BD8](headerView4);
   objc_storeStrong(&_loginOptions, 0);
   objc_storeStrong(&_tableView, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section

@@ -13,51 +13,51 @@
 - (id)zoneByMutatingLowerBound:(double)bound
 {
   selfCopy = self;
-  v5 = sub_1E030(bound);
+  sub_1E030(bound);
+  v6 = v5;
 
-  return v5;
+  return v6;
 }
 
 - (id)zoneByMutatingUpperBound:(double)bound
 {
   selfCopy = self;
-  v5 = sub_1E168(bound);
+  sub_1E168(bound);
+  v6 = v5;
 
-  return v5;
+  return v6;
 }
 
 - (int64_t)zoneIndex
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___WOHeartRateZone_heartRateZone);
   selfCopy = self;
-  v4 = sub_22734();
+  v3 = sub_22734();
 
-  return v4;
+  return v3;
 }
 
 - (int64_t)zoneCount
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___WOHeartRateZone_heartRateZone);
   selfCopy = self;
   sub_22734();
-  v5 = v4;
+  v4 = v3;
 
-  return v5;
+  return v4;
 }
 
 - (NSString)description
 {
   selfCopy = self;
-  HeartRateZoneBridge.description.getter();
+  HeartRateZoneBridge.description.getter(selfCopy, v3);
 
-  v3 = sub_22864();
+  v4 = sub_22864();
 
-  return v3;
+  return v4;
 }
 
 + (id)zones:(id)zones replacingZoneAtIndex:(int64_t)index withZone:(id)zone
 {
-  type metadata accessor for HeartRateZoneBridge();
+  type metadata accessor for HeartRateZoneBridge(self, a2);
   v7 = sub_228D4();
   zoneCopy = zone;
   sub_1F698(v7, index, zoneCopy);

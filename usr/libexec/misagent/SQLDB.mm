@@ -28,47 +28,10 @@
   v9 = v8;
   if (v8)
   {
-    objc_storeStrong(&v8->_url, l);
-    v10 = dispatch_semaphore_create(1);
-    transactionSemaphore = v9->_transactionSemaphore;
-    v9->_transactionSemaphore = v10;
-
-    if (!v9->_transactionSemaphore)
+    if ((objc_storeStrong(&v8->_url, l), v10 = dispatch_semaphore_create(1), transactionSemaphore = v9->_transactionSemaphore, v9->_transactionSemaphore = v10, transactionSemaphore, !v9->_transactionSemaphore) || (db = sub_10000FD58(v9->_url, onlyCopy), (v9->_db = db) == 0) || (!onlyCopy ? ([(SQLDB *)v9 setupPermissions], v13 = sub_10000FDF0(v9->_db, 0), db = v9->_db) : (v13 = 1), (v9->_readonly = v13, sqlite3_busy_timeout(db, 300000), !v9->_readonly) && ([(SQLDB *)v9 executeQuery:@"PRAGMA journal_mode = WAL" withBind:0 withResults:0], [(SQLDB *)v9 executeQuery:@"PRAGMA foreign_keys = ON" withBind:0 withResults:0], ![(SQLDB *)v9 setupSchema])))
     {
-      goto LABEL_9;
-    }
 
-    db = sub_10000FD58(v9->_url, onlyCopy);
-    v9->_db = db;
-    if (!db)
-    {
-      goto LABEL_9;
-    }
-
-    if (onlyCopy)
-    {
-      v13 = 1;
-    }
-
-    else
-    {
-      [(SQLDB *)v9 setupPermissions];
-      v13 = sub_10000FDF0(v9->_db, 0);
-      db = v9->_db;
-    }
-
-    v9->_readonly = v13;
-    sqlite3_busy_timeout(db, 300000);
-    if (!v9->_readonly)
-    {
-      [(SQLDB *)v9 executeQuery:@"PRAGMA journal_mode = WAL" withBind:0 withResults:0];
-      [(SQLDB *)v9 executeQuery:@"PRAGMA foreign_keys = ON" withBind:0 withResults:0];
-      if (![(SQLDB *)v9 setupSchema])
-      {
-LABEL_9:
-
-        v9 = 0;
-      }
+      v9 = 0;
     }
   }
 
@@ -78,7 +41,7 @@ LABEL_9:
 + (id)databaseWithURL:(id)l
 {
   lCopy = l;
-  v5 = sub_1000027A4();
+  v5 = sub_1000027A4(lCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138543362;
@@ -124,16 +87,17 @@ LABEL_9:
 - (BOOL)setupSchema
 {
   v2 = [(SQLDB *)self executeQuery:@"CREATE TABLE IF NOT EXISTS settings(name TEXT withBind:value TEXT withResults:PRIMARY KEY (name))", 0, 0];
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_1000027A4();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_1000027A4(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_10001A058(v3);
+      sub_10001A058(v4);
     }
   }
 
-  return v2 == 0;
+  return v3 == 0;
 }
 
 - (void)setupPermissions
@@ -189,19 +153,19 @@ LABEL_9:
   if (v13)
   {
     v14 = v13;
-    v15 = sub_1000027A4();
+    v15 = sub_1000027A4(v13);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_10001A09C(p_db);
     }
 
-    v16 = sub_1000027A4();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = sub_1000027A4(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_10001A130();
     }
 
-    v17 = &__NSDictionary0__struct;
+    v18 = &__NSDictionary0__struct;
 LABEL_40:
   }
 
@@ -212,108 +176,108 @@ LABEL_40:
       bindCopy[2](bindCopy, ppStmt);
     }
 
-    if (resultsCopy && (v18 = ppStmt, (v19 = sqlite3_column_count(ppStmt)) != 0))
+    if (resultsCopy && (v19 = ppStmt, (v20 = sqlite3_column_count(ppStmt)) != 0))
     {
-      v20 = v19;
-      v17 = [NSMutableDictionary dictionaryWithCapacity:2 * v19];
-      if (v20 >= 1)
+      v21 = v20;
+      v18 = [NSMutableDictionary dictionaryWithCapacity:2 * v20];
+      if (v21 >= 1)
       {
-        v42 = bindCopy;
-        v43 = queryCopy;
-        v21 = 0;
+        v46 = bindCopy;
+        v47 = queryCopy;
+        v22 = 0;
         do
         {
-          v22 = sqlite3_column_origin_name(v18, v21);
-          v23 = sqlite3_column_name(v18, v21);
-          v24 = sqlite3_column_table_name(v18, v21);
-          if (v22 && v24)
+          v23 = sqlite3_column_origin_name(v19, v22);
+          v24 = sqlite3_column_name(v19, v22);
+          v25 = sqlite3_column_table_name(v19, v22);
+          if (v23 && v25)
           {
-            v25 = [NSString stringWithUTF8String:v24];
-            if ([v25 hasSuffix:@"s"])
+            v26 = [NSString stringWithUTF8String:v25];
+            if ([v26 hasSuffix:@"s"])
             {
-              v26 = [v25 substringToIndex:{objc_msgSend(v25, "length") - 1}];
+              v27 = [v26 substringToIndex:{objc_msgSend(v26, "length") - 1}];
 
-              v25 = v26;
+              v26 = v27;
             }
 
-            v27 = [NSNumber numberWithInt:v21];
-            v28 = [NSString stringWithFormat:@"%@_%s", v25, v22];
-            [v17 setObject:v27 forKeyedSubscript:v28];
+            v28 = [NSNumber numberWithInt:v22];
+            v29 = [NSString stringWithFormat:@"%@_%s", v26, v23];
+            [v18 setObject:v28 forKeyedSubscript:v29];
           }
 
-          if (v23)
+          if (v24)
           {
-            v29 = [NSNumber numberWithInt:v21];
-            v30 = [NSString stringWithUTF8String:v23];
-            [v17 setObject:v29 forKeyedSubscript:v30];
+            v30 = [NSNumber numberWithInt:v22];
+            v31 = [NSString stringWithUTF8String:v24];
+            [v18 setObject:v30 forKeyedSubscript:v31];
           }
 
-          v21 = (v21 + 1);
+          v22 = (v22 + 1);
         }
 
-        while (v20 != v21);
-        bindCopy = v42;
-        queryCopy = v43;
+        while (v21 != v22);
+        bindCopy = v46;
+        queryCopy = v47;
       }
     }
 
     else
     {
-      v17 = &__NSDictionary0__struct;
+      v18 = &__NSDictionary0__struct;
     }
 
     do
     {
-      v31 = sqlite3_step(ppStmt);
-      v14 = v31;
-      if ((v31 - 102) <= 0xFFFFFFFD)
+      v32 = sqlite3_step(ppStmt);
+      v14 = v32;
+      if ((v32 - 102) <= 0xFFFFFFFD)
       {
-        v34 = sub_1000027A4();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        v35 = sub_1000027A4(v32);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
         {
-          v40 = sqlite3_errmsg(*p_db);
-          v41 = sqlite3_errcode(*p_db);
+          v44 = sqlite3_errmsg(*p_db);
+          v45 = sqlite3_errcode(*p_db);
           *buf = 136446466;
-          *v46 = v40;
-          *&v46[8] = 1024;
-          *&v46[10] = v41;
-          _os_log_error_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "SQL error '%{public}s' (%1d)", buf, 0x12u);
+          *v50 = v44;
+          *&v50[8] = 1024;
+          *&v50[10] = v45;
+          _os_log_error_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "SQL error '%{public}s' (%1d)", buf, 0x12u);
         }
 
-        v16 = sub_1000027A4();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v17 = sub_1000027A4(v36);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109378;
-          *v46 = v14;
-          *&v46[4] = 2114;
-          *&v46[6] = queryCopy;
-          _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Step error (%d) on query: %{public}@", buf, 0x12u);
+          *v50 = v14;
+          *&v50[4] = 2114;
+          *&v50[6] = queryCopy;
+          _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Step error (%d) on query: %{public}@", buf, 0x12u);
         }
 
         goto LABEL_40;
       }
 
-      v32 = v31 == 100;
-      v33 = 1;
+      v33 = v32 == 100;
+      v34 = 1;
       if (resultsCopy && v14 == 100)
       {
-        v33 = resultsCopy[2](resultsCopy, ppStmt, v17);
-        v32 = 1;
+        v34 = resultsCopy[2](resultsCopy, ppStmt, v18);
+        v33 = 1;
       }
     }
 
-    while (v32 && (v33 & 1) != 0);
-    if (v32)
+    while (v33 && (v34 & 1) != 0);
+    if (v33)
     {
       v14 = 100;
     }
 
-    if (!(v33 & 1 | !v32))
+    if (!(v34 & 1 | !v33))
     {
-      v16 = sub_1000027A4();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = sub_1000027A4(v34);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        sub_10001A198(v16);
+        sub_10001A198(v17);
       }
 
       v14 = 4;
@@ -321,20 +285,21 @@ LABEL_40:
     }
   }
 
-  v35 = v14;
+  v37 = v14;
   if (ppStmt)
   {
-    v35 = sqlite3_finalize(ppStmt);
-    if (v35)
+    v38 = sqlite3_finalize(ppStmt);
+    v37 = v38;
+    if (v38)
     {
-      v36 = sub_1000027A4();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      v39 = sub_1000027A4(v38);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         sub_10001A09C(p_db);
       }
 
-      v37 = sub_1000027A4();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v41 = sub_1000027A4(v40);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
         sub_10001A1DC();
       }
@@ -343,20 +308,20 @@ LABEL_40:
 
   if (v14 == 101)
   {
-    v38 = v35;
+    v42 = v37;
   }
 
   else
   {
-    v38 = v14;
+    v42 = v14;
   }
 
   if (v14)
   {
-    v35 = v38;
+    v37 = v42;
   }
 
-  return v35;
+  return v37;
 }
 
 - (int)transaction:(id)transaction immediate:(BOOL)immediate
@@ -447,32 +412,33 @@ LABEL_40:
 - (unint64_t)tableRowCount:(id)count
 {
   countCopy = count;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = sub_10000B9C0;
-  v16 = sub_10000B9D0;
-  v17 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = sub_10000B9C0;
+  v17 = sub_10000B9D0;
+  v18 = 0;
   countCopy = [NSString stringWithFormat:@"SELECT COUNT(*) FROM %@", countCopy];
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_10000BE28;
-  v11[3] = &unk_100028F50;
-  v11[4] = &v12;
-  v6 = [(SQLDB *)self executeQuery:countCopy withBind:0 withResults:v11];
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10000BE28;
+  v12[3] = &unk_100028F50;
+  v12[4] = &v13;
+  v6 = [(SQLDB *)self executeQuery:countCopy withBind:0 withResults:v12];
+  v7 = v6;
   if (v6)
   {
-    v7 = sub_1000027A4();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_1000027A4(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_10001A244(countCopy, v6, v7);
+      sub_10001A244(countCopy, v7, v8);
     }
   }
 
-  v8 = v13[5];
-  if (v8)
+  v9 = v14[5];
+  if (v9)
   {
-    unsignedIntegerValue = [v8 unsignedIntegerValue];
+    unsignedIntegerValue = [v9 unsignedIntegerValue];
   }
 
   else
@@ -480,7 +446,7 @@ LABEL_40:
     unsignedIntegerValue = 0;
   }
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v13, 8);
   return unsignedIntegerValue;
 }
 

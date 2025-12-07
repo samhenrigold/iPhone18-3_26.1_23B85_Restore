@@ -4,6 +4,7 @@
 - (BOOL)_wantsStatusBarIconShadow;
 - (CGPoint)_contentCenterOffset;
 - (CGPoint)_myContentCenterOffset;
+- (CGRect)_keylineFrameForComplicationSlot:(id)slot selected:(BOOL)selected;
 - (NTKVictoryAnalogFaceView)initWithFaceStyle:(int64_t)style forDevice:(id)device clientIdentifier:(id)identifier;
 - (double)_backgroundAlphaForEditMode:(int64_t)mode;
 - (double)_complicationAlphaForEditMode:(int64_t)mode;
@@ -30,10 +31,12 @@
 - (void)_configureComplicationView:(id)view forSlot:(id)slot;
 - (void)_configureForTransitionFraction:(double)fraction fromEditMode:(int64_t)mode toEditMode:(int64_t)editMode;
 - (void)_configureTimeView:(id)view;
+- (void)_endScrubbingAnimated:(BOOL)animated withCompletion:(id)completion;
 - (void)_loadLayoutRules;
 - (void)_loadSnapshotContentViews;
 - (void)_prepareForEditing;
 - (void)_setStyle:(unint64_t)style;
+- (void)_startScrubbingAnimated:(BOOL)animated withCompletion:(id)completion;
 - (void)_unloadSnapshotContentViews;
 - (void)logoTappedFromRect:(CGRect)rect;
 @end
@@ -188,6 +191,40 @@
   [(NTKVictoryAnalogBackgroundView *)backgroundView setUserInteractionEnabled:v3];
 }
 
+- (CGRect)_keylineFrameForComplicationSlot:(id)slot selected:(BOOL)selected
+{
+  selectedCopy = selected;
+  slotCopy = slot;
+  v23.receiver = self;
+  v23.super_class = NTKVictoryAnalogFaceView;
+  [(NTKVictoryAnalogFaceView *)&v23 _keylineFrameForComplicationSlot:slotCopy selected:selectedCopy];
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
+  v14 = v13;
+  if (NTKComplicationSlotTopLeft == slotCopy || NTKComplicationSlotTopRight == slotCopy)
+  {
+    delegate = [(NTKVictoryAnalogFaceView *)self delegate];
+    v17 = [delegate faceViewComplicationIsEmptyForSlot:slotCopy];
+
+    if ((v17 & 1) == 0)
+    {
+      [(NTKUtilityComplicationFactory *)self->_utilityComplicationFactory selectedKeylineHeight];
+      v14 = v18;
+    }
+  }
+
+  v19 = v8;
+  v20 = v10;
+  v21 = v12;
+  v22 = v14;
+  result.size.height = v22;
+  result.size.width = v21;
+  result.origin.y = v20;
+  result.origin.x = v19;
+  return result;
+}
+
 - (double)_keylineCornerRadiusForComplicationSlot:(id)slot
 {
   utilityComplicationFactory = self->_utilityComplicationFactory;
@@ -275,6 +312,26 @@ LABEL_10:
   v4 = CLKIsBlackColor();
 
   return v4 ^ 1;
+}
+
+- (void)_startScrubbingAnimated:(BOOL)animated withCompletion:(id)completion
+{
+  animatedCopy = animated;
+  v6.receiver = self;
+  v6.super_class = NTKVictoryAnalogFaceView;
+  [(NTKVictoryAnalogFaceView *)&v6 _startScrubbingAnimated:animated withCompletion:completion];
+  [(NTKVictoryAnalogBackgroundView *)self->_backgroundView setInTimeTravel:1 animated:animatedCopy];
+}
+
+- (void)_endScrubbingAnimated:(BOOL)animated withCompletion:(id)completion
+{
+  animatedCopy = animated;
+  backgroundView = self->_backgroundView;
+  completionCopy = completion;
+  [(NTKVictoryAnalogBackgroundView *)backgroundView setInTimeTravel:0 animated:animatedCopy];
+  v8.receiver = self;
+  v8.super_class = NTKVictoryAnalogFaceView;
+  [(NTKVictoryAnalogFaceView *)&v8 _endScrubbingAnimated:animatedCopy withCompletion:completionCopy];
 }
 
 - (void)_applyOption:(id)option forCustomEditMode:(int64_t)mode slot:(id)slot

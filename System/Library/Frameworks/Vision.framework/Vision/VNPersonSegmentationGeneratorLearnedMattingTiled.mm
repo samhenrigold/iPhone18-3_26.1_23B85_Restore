@@ -8,7 +8,7 @@
 - (optional<std::tuple<std::unordered_map<NSString)_processTiledImageBuffer:(std:(espresso_buffer_t>>> *__return_ptr)retstr :(VNPersonSegmentationGeneratorLearnedMattingTiled *)self unordered_map<NSString *) inputMaskObservation:(SEL)observation options:(id)options qosClass:(id)class error:(id)error;
 - (optional<std::tuple<std::unordered_map<NSString)processLockedImageBuffer:(std:(espresso_buffer_t>>> *__return_ptr)retstr :(VNPersonSegmentationGeneratorLearnedMattingTiled *)self unordered_map<NSString *) inputMaskObservation:(SEL)observation options:(__CVBuffer *)options qosClass:(id)class error:(id)error;
 - (uint64_t)_processTiledImageBuffer:(uint64_t)buffer inputMaskObservation:options:qosClass:error:;
-- (void)_processTiledImageBuffer:(void *)result inputMaskObservation:(void *)observation options:qosClass:error:;
+- (void)_processTiledImageBuffer:(unint64_t *)buffer inputMaskObservation:(void *)observation options:qosClass:error:;
 @end
 
 @implementation VNPersonSegmentationGeneratorLearnedMattingTiled
@@ -413,7 +413,7 @@ LABEL_29:
           *v93 = 0u;
           v94 = 0u;
           v95 = 1065353216;
-          std::__hash_table<std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},__CVBuffer *>>>::__emplace_unique_key_args<NSString * {__strong},std::pair<NSString * const {__strong},__CVBuffer *> const&>(v93, v186);
+          std::__hash_table<std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},__CVBuffer *>>>::__emplace_unique_key_args<NSString * {__strong},std::pair<NSString * const {__strong},__CVBuffer *> const&>(v93, v186, v186);
           v61 = v93[0];
           v62 = v93[1];
           v93[0] = 0;
@@ -984,7 +984,7 @@ void __121__VNPersonSegmentationGeneratorLearnedMattingTiled__processTiledImageB
     {
       v22 = v15[9];
       v23 = v15[6];
-      if (v16 - v17 < (v22 - v23))
+      if (v16 - v17 < v22 - v23)
       {
         operator new();
       }
@@ -1009,7 +1009,7 @@ void __121__VNPersonSegmentationGeneratorLearnedMattingTiled__processTiledImageB
 
     v15[10] = v21;
     v46 = *v17;
-    v15[7] = v17 + 8;
+    v15[7] = (v17 + 8);
     std::__split_buffer<[VNPersonSegmentationGeneratorLearnedMattingTiled _processTiledImageBuffer:inputMaskObservation:options:qosClass:error:]::OutputTileData *>::emplace_back<[VNPersonSegmentationGeneratorLearnedMattingTiled _processTiledImageBuffer:inputMaskObservation:options:qosClass:error:]::OutputTileData *&>(v15 + 6, &v46);
   }
 
@@ -1051,24 +1051,23 @@ BOOL __121__VNPersonSegmentationGeneratorLearnedMattingTiled__processTiledImageB
   return v4;
 }
 
-- (void)_processTiledImageBuffer:(void *)result inputMaskObservation:(void *)observation options:qosClass:error:
+- (void)_processTiledImageBuffer:(unint64_t *)buffer inputMaskObservation:(void *)observation options:qosClass:error:
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = buffer[2];
+  if (v4 == buffer[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = buffer[1];
+    v6 = &v5[-*buffer];
+    if (v5 <= *buffer)
     {
-      if (v4 == *result)
+      if (v4 == *buffer)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*buffer] >> 2;
       }
 
       if (!(v11 >> 61))
@@ -1085,18 +1084,17 @@ BOOL __121__VNPersonSegmentationGeneratorLearnedMattingTiled__processTiledImageB
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = buffer[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    buffer[1] = &v5[8 * v7];
+    buffer[2] = &v9[v10];
   }
 
   *v4 = *observation;
-  v3[2] += 8;
-  return result;
+  buffer[2] += 8;
 }
 
 void __121__VNPersonSegmentationGeneratorLearnedMattingTiled__processTiledImageBuffer_inputMaskObservation_options_qosClass_error___block_invoke_5(uint64_t a1, void *a2)
@@ -1116,7 +1114,7 @@ void __121__VNPersonSegmentationGeneratorLearnedMattingTiled__processTiledImageB
 void __121__VNPersonSegmentationGeneratorLearnedMattingTiled__processTiledImageBuffer_inputMaskObservation_options_qosClass_error___block_invoke_3(uint64_t a1)
 {
   CVPixelBufferRelease(*(a1 + 40));
-  if (*(a1 + 48) + 1 == *(a1 + 72) && *(a1 + 56) + 1 == *(a1 + 80))
+  if (__PAIR128__(*(a1 + 56) + 1, *(a1 + 48) + 1) == *(a1 + 72))
   {
     v2 = *(a1 + 32);
 
@@ -1126,246 +1124,97 @@ void __121__VNPersonSegmentationGeneratorLearnedMattingTiled__processTiledImageB
 
 - (optional<std::tuple<std::unordered_map<NSString)processLockedImageBuffer:(std:(espresso_buffer_t>>> *__return_ptr)retstr :(VNPersonSegmentationGeneratorLearnedMattingTiled *)self unordered_map<NSString *) inputMaskObservation:(SEL)observation options:(__CVBuffer *)options qosClass:(id)class error:(id)error
 {
-  v9 = *&a7;
   classCopy = class;
   errorCopy = error;
-  v15 = [(VNDetector *)self validatedImageBufferFromOptions:errorCopy error:a8];
-  if (v15)
+  v14 = [(VNDetector *)self validatedImageBufferFromOptions:errorCopy error:a8];
+  if (v14)
   {
-    LOBYTE(__p) = 0;
-    v66 = 0;
-    v16 = objc_autoreleasePoolPush();
-    v44 = 0;
-    [(VNPersonSegmentationGeneratorLearnedMattingTiled *)self _processTiledImageBuffer:v15 inputMaskObservation:classCopy options:errorCopy qosClass:v9 error:&v44];
-    v17 = v44;
-    if (v66 == v55)
+    LOBYTE(__p[0]) = 0;
+    v42 = 0;
+    v15 = objc_autoreleasePoolPush();
+    objc_msgSend__processTiledImageBuffer_inputMaskObservation_options_qosClass_error_(self);
+    v16 = 0;
+    if (v35)
     {
-      if (v66)
+      v17 = v25;
+      v25 = 0;
+      __p[0] = v17;
+      __p[1] = v26;
+      v37[0] = v27;
+      v37[1] = v28;
+      v38 = v29;
+      if (v28)
       {
-        if (v59)
+        v18 = *(v27 + 8);
+        if ((v26 & (v26 - 1)) != 0)
         {
-          std::__hash_table<std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},__CVBuffer *>>>::__deallocate_node(v58);
-          v58 = 0;
-          v18 = v57;
-          if (v57)
+          if (v18 >= v26)
           {
-            v19 = 0;
-            do
-            {
-              *(__p + v19++) = 0;
-            }
-
-            while (v18 != v19);
+            v18 %= v26;
           }
-
-          v59 = 0;
         }
 
-        v20 = v45;
-        v45 = 0;
-        v21 = __p;
-        __p = v20;
-        if (v21)
+        else
         {
-          operator delete(v21);
+          v18 &= v26 - 1;
         }
 
-        v22 = v46;
-        v46 = 0;
-        v58 = v47;
-        v59 = v48;
-        v60 = v49;
-        v57 = v22;
-        if (v48)
-        {
-          v23 = v47[1];
-          if ((v22 & (v22 - 1)) != 0)
-          {
-            if (v23 >= v22)
-            {
-              v23 %= v22;
-            }
-          }
-
-          else
-          {
-            v23 &= v22 - 1;
-          }
-
-          *(__p + v23) = &v58;
-          v47 = 0;
-          v48 = 0;
-        }
-
-        if (v64)
-        {
-          std::__hash_table<std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},__CVBuffer *>>>::__deallocate_node(v63);
-          v63 = 0;
-          v29 = v62;
-          if (v62)
-          {
-            v30 = 0;
-            do
-            {
-              *(v61 + v30++) = 0;
-            }
-
-            while (v29 != v30);
-          }
-
-          v64 = 0;
-        }
-
-        v31 = v50;
-        v50 = 0;
-        v32 = v61;
-        v61 = v31;
-        if (v32)
-        {
-          operator delete(v32);
-        }
-
-        v33 = v51;
-        v51 = 0;
-        v63 = v52;
-        v64 = v53;
-        v65 = v54;
-        v62 = v33;
-        if (v53)
-        {
-          v34 = v52[1];
-          if ((v33 & (v33 - 1)) != 0)
-          {
-            if (v34 >= v33)
-            {
-              v34 %= v33;
-            }
-          }
-
-          else
-          {
-            v34 &= v33 - 1;
-          }
-
-          *(v61 + v34) = &v63;
-          v52 = 0;
-          v53 = 0;
-        }
+        *(v17 + v18) = v37;
+        v27 = 0;
       }
+
+      v19 = v30;
+      v30 = 0;
+      v39[0] = v19;
+      v39[1] = v31;
+      v40[0] = v32;
+      v40[1] = v33;
+      v41 = v34;
+      if (v33)
+      {
+        v20 = *(v32 + 8);
+        if ((v31 & (v31 - 1)) != 0)
+        {
+          if (v20 >= v31)
+          {
+            v20 %= v31;
+          }
+        }
+
+        else
+        {
+          v20 &= v31 - 1;
+        }
+
+        *(v19 + v20) = v40;
+        v32 = 0;
+      }
+
+      v42 = 1;
     }
 
-    else if (v66)
+    if (v35 == 1)
     {
-      std::__hash_table<std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},__CVBuffer *>>>::__deallocate_node(v63);
-      v24 = v61;
-      v61 = 0;
-      if (v24)
+      std::__hash_table<std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},__CVBuffer *>>>::__deallocate_node(v32);
+      if (v30)
       {
-        operator delete(v24);
+        operator delete(v30);
       }
 
-      std::__hash_table<std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},__CVBuffer *>>>::__deallocate_node(v58);
-      v25 = __p;
-      __p = 0;
+      std::__hash_table<std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},__CVBuffer *>>>::__deallocate_node(v27);
       if (v25)
       {
         operator delete(v25);
       }
-
-      v66 = 0;
     }
 
-    else
-    {
-      v26 = v45;
-      v27 = v46;
-      v45 = 0;
-      v46 = 0;
-      __p = v26;
-      v57 = v27;
-      v58 = v47;
-      v59 = v48;
-      v60 = v49;
-      if (v48)
-      {
-        v28 = v47[1];
-        if ((v27 & (v27 - 1)) != 0)
-        {
-          if (v28 >= v27)
-          {
-            v28 %= v27;
-          }
-        }
-
-        else
-        {
-          v28 &= v27 - 1;
-        }
-
-        *(v26 + v28) = &v58;
-        v47 = 0;
-        v48 = 0;
-      }
-
-      v35 = v50;
-      v36 = v51;
-      v50 = 0;
-      v51 = 0;
-      v61 = v35;
-      v62 = v36;
-      v63 = v52;
-      v64 = v53;
-      v65 = v54;
-      if (v53)
-      {
-        v37 = v52[1];
-        if ((v36 & (v36 - 1)) != 0)
-        {
-          if (v37 >= v36)
-          {
-            v37 %= v36;
-          }
-        }
-
-        else
-        {
-          v37 &= v36 - 1;
-        }
-
-        *(v35 + v37) = &v63;
-        v52 = 0;
-        v53 = 0;
-      }
-
-      v66 = 1;
-    }
-
-    if (v55 == 1)
-    {
-      std::__hash_table<std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},__CVBuffer *>>>::__deallocate_node(v52);
-      v38 = v50;
-      v50 = 0;
-      if (v38)
-      {
-        operator delete(v38);
-      }
-
-      std::__hash_table<std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},__CVBuffer *>>>::__deallocate_node(v47);
-      v39 = v45;
-      v45 = 0;
-      if (v39)
-      {
-        operator delete(v39);
-      }
-    }
-
-    objc_autoreleasePoolPop(v16);
-    if (v66)
+    objc_autoreleasePoolPop(v15);
+    if (v42)
     {
       retstr->var0.var0 = 0;
       retstr->var1 = 0;
-      std::__hash_table<std::__hash_value_type<NSString * {__strong},espresso_buffer_t>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},espresso_buffer_t>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},espresso_buffer_t>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},espresso_buffer_t>>>::__hash_table(retstr, &__p);
-      std::__hash_table<std::__hash_value_type<NSString * {__strong},espresso_buffer_t>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},espresso_buffer_t>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},espresso_buffer_t>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},espresso_buffer_t>>>::__hash_table(&retstr->var0.var1.var0.var1, &v61);
+      std::__hash_table<std::__hash_value_type<NSString * {__strong},espresso_buffer_t>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},espresso_buffer_t>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},espresso_buffer_t>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},espresso_buffer_t>>>::__hash_table(retstr, __p);
+      std::__hash_table<std::__hash_value_type<NSString * {__strong},espresso_buffer_t>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},espresso_buffer_t>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},espresso_buffer_t>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},espresso_buffer_t>>>::__hash_table(&retstr->var0.var1.var0.var1, v39);
       retstr->var1 = 1;
     }
 
@@ -1373,30 +1222,30 @@ void __121__VNPersonSegmentationGeneratorLearnedMattingTiled__processTiledImageB
     {
       if (a8)
       {
-        v40 = v17;
-        *a8 = v17;
+        v21 = v16;
+        *a8 = v16;
       }
 
       retstr->var0.var0 = 0;
       retstr->var1 = 0;
     }
 
-    if (v66 == 1)
+    if (v42 == 1)
     {
-      std::__hash_table<std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},__CVBuffer *>>>::__deallocate_node(v63);
-      v41 = v61;
-      v61 = 0;
-      if (v41)
+      std::__hash_table<std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},__CVBuffer *>>>::__deallocate_node(v40[0]);
+      v22 = v39[0];
+      v39[0] = 0;
+      if (v22)
       {
-        operator delete(v41);
+        operator delete(v22);
       }
 
-      std::__hash_table<std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},__CVBuffer *>>>::__deallocate_node(v58);
-      v42 = __p;
-      __p = 0;
-      if (v42)
+      std::__hash_table<std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},__CVBuffer *>>>::__deallocate_node(v37[0]);
+      v23 = __p[0];
+      __p[0] = 0;
+      if (v23)
       {
-        operator delete(v42);
+        operator delete(v23);
       }
     }
   }

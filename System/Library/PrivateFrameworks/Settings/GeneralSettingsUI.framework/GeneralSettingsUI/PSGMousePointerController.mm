@@ -35,12 +35,11 @@
 
 uint64_t __43__PSGMousePointerController_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_alloc_init(objc_opt_class());
-  v3 = sharedInstance_sharedInstance;
-  sharedInstance_sharedInstance = v2;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = sharedInstance_sharedInstance;
+  sharedInstance_sharedInstance = v1;
 
-  return MEMORY[0x2821F96F8](v2, v3);
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (PSGMousePointerController)init
@@ -66,26 +65,24 @@ uint64_t __43__PSGMousePointerController_sharedInstance__block_invoke(uint64_t a
   v15 = *MEMORY[0x277D85DE8];
   connectCopy = connect;
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v6 = _PSGLoggingFacility();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v6 = objc_sync_enter(selfCopy);
+  v7 = _PSGLoggingFacility(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
     v12 = "[PSGMousePointerController mousePointerDevicesDidConnect:]";
     v13 = 2112;
     v14 = connectCopy;
-    _os_log_impl(&dword_21CF20000, v6, OS_LOG_TYPE_DEFAULT, "%s: %@", buf, 0x16u);
+    _os_log_impl(&dword_21CF20000, v7, OS_LOG_TYPE_DEFAULT, "%s: %@", buf, 0x16u);
   }
 
-  v7 = [MEMORY[0x277CCAC30] predicateWithFormat:@"NOT (productName CONTAINS[c] %@)", @"UC Automouse"];
-  v8 = [connectCopy filteredSetUsingPredicate:v7];
+  v8 = [MEMORY[0x277CCAC30] predicateWithFormat:@"NOT (productName CONTAINS[c] %@)", @"UC Automouse"];
+  v9 = [connectCopy filteredSetUsingPredicate:v8];
   pointerDevices = [(PSGMousePointerController *)selfCopy pointerDevices];
-  [pointerDevices unionSet:v8];
+  [pointerDevices unionSet:v9];
 
   objc_sync_exit(selfCopy);
   dispatch_async(MEMORY[0x277D85CD0], &__block_literal_global_4);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __59__PSGMousePointerController_mousePointerDevicesDidConnect___block_invoke()
@@ -99,15 +96,15 @@ void __59__PSGMousePointerController_mousePointerDevicesDidConnect___block_invok
   v13 = *MEMORY[0x277D85DE8];
   disconnectCopy = disconnect;
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v6 = _PSGLoggingFacility();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v6 = objc_sync_enter(selfCopy);
+  v7 = _PSGLoggingFacility(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315394;
     v10 = "[PSGMousePointerController mousePointerDevicesDidDisconnect:]";
     v11 = 2112;
     v12 = disconnectCopy;
-    _os_log_impl(&dword_21CF20000, v6, OS_LOG_TYPE_DEFAULT, "%s: %@", &v9, 0x16u);
+    _os_log_impl(&dword_21CF20000, v7, OS_LOG_TYPE_DEFAULT, "%s: %@", &v9, 0x16u);
   }
 
   pointerDevices = [(PSGMousePointerController *)selfCopy pointerDevices];
@@ -115,8 +112,6 @@ void __59__PSGMousePointerController_mousePointerDevicesDidConnect___block_invok
 
   objc_sync_exit(selfCopy);
   dispatch_async(MEMORY[0x277D85CD0], &__block_literal_global_12);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __62__PSGMousePointerController_mousePointerDevicesDidDisconnect___block_invoke()
@@ -184,28 +179,28 @@ void __62__PSGMousePointerController_mousePointerDevicesDidDisconnect___block_in
 
 - (BOOL)hasTrackpad
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   pointerDevices = [(PSGMousePointerController *)selfCopy pointerDevices];
-  v4 = [pointerDevices countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [pointerDevices countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(pointerDevices);
         }
 
-        senderDescriptor = [*(*(&v11 + 1) + 8 * i) senderDescriptor];
+        senderDescriptor = [*(*(&v10 + 1) + 8 * i) senderDescriptor];
         v8 = [senderDescriptor hardwareType] == 9;
 
         if (v8)
@@ -215,7 +210,7 @@ void __62__PSGMousePointerController_mousePointerDevicesDidDisconnect___block_in
         }
       }
 
-      v4 = [pointerDevices countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [pointerDevices countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         continue;
@@ -228,34 +223,33 @@ void __62__PSGMousePointerController_mousePointerDevicesDidDisconnect___block_in
 LABEL_11:
 
   objc_sync_exit(selfCopy);
-  v9 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (BOOL)hasMouse
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   pointerDevices = [(PSGMousePointerController *)selfCopy pointerDevices];
-  v4 = [pointerDevices countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [pointerDevices countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(pointerDevices);
         }
 
-        senderDescriptor = [*(*(&v11 + 1) + 8 * i) senderDescriptor];
+        senderDescriptor = [*(*(&v10 + 1) + 8 * i) senderDescriptor];
         v8 = [senderDescriptor hardwareType] == 8;
 
         if (v8)
@@ -265,7 +259,7 @@ LABEL_11:
         }
       }
 
-      v4 = [pointerDevices countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [pointerDevices countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         continue;
@@ -278,41 +272,40 @@ LABEL_11:
 LABEL_11:
 
   objc_sync_exit(selfCopy);
-  v9 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (BOOL)hasMagicMouse
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   pointerDevices = [(PSGMousePointerController *)selfCopy pointerDevices];
-  v4 = [pointerDevices countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [pointerDevices countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(pointerDevices);
         }
 
-        if ([*(*(&v9 + 1) + 8 * i) hasVirtualMouseButtons])
+        if ([*(*(&v8 + 1) + 8 * i) hasVirtualMouseButtons])
         {
           LOBYTE(v4) = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [pointerDevices countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [pointerDevices countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -325,43 +318,42 @@ LABEL_11:
 LABEL_11:
 
   objc_sync_exit(selfCopy);
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (BOOL)trackpadSupportsSilentClick
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ([(PSGMousePointerController *)self hasTrackpad])
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
+    v9 = 0u;
     v10 = 0u;
     v11 = 0u;
     v12 = 0u;
-    v13 = 0u;
     pointerDevices = [(PSGMousePointerController *)selfCopy pointerDevices];
-    v5 = [pointerDevices countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v5 = [pointerDevices countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v5)
     {
-      v6 = *v11;
+      v6 = *v10;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v11 != v6)
+          if (*v10 != v6)
           {
             objc_enumerationMutation(pointerDevices);
           }
 
-          if ([*(*(&v10 + 1) + 8 * i) supportsLightClick])
+          if ([*(*(&v9 + 1) + 8 * i) supportsLightClick])
           {
             LOBYTE(v5) = 1;
             goto LABEL_13;
           }
         }
 
-        v5 = [pointerDevices countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [pointerDevices countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v5)
         {
           continue;
@@ -381,43 +373,42 @@ LABEL_13:
     LOBYTE(v5) = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (BOOL)trackpadSupportsSystemHaptics
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ([(PSGMousePointerController *)self hasTrackpad])
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
+    v9 = 0u;
     v10 = 0u;
     v11 = 0u;
     v12 = 0u;
-    v13 = 0u;
     pointerDevices = [(PSGMousePointerController *)selfCopy pointerDevices];
-    v5 = [pointerDevices countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v5 = [pointerDevices countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v5)
     {
-      v6 = *v11;
+      v6 = *v10;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v11 != v6)
+          if (*v10 != v6)
           {
             objc_enumerationMutation(pointerDevices);
           }
 
-          if ([*(*(&v10 + 1) + 8 * i) supportsSystemHaptics])
+          if ([*(*(&v9 + 1) + 8 * i) supportsSystemHaptics])
           {
             LOBYTE(v5) = 1;
             goto LABEL_13;
           }
         }
 
-        v5 = [pointerDevices countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [pointerDevices countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v5)
         {
           continue;
@@ -437,7 +428,6 @@ LABEL_13:
     LOBYTE(v5) = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

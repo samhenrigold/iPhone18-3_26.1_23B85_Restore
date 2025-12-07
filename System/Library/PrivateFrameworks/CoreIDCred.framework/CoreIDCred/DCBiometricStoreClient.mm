@@ -22,6 +22,7 @@
 - (void)nonceForAuthorizationTokenWithCompletion:(id)completion;
 - (void)passcodeBindingUnboundACL:(id)l;
 - (void)prearmCredentialWithAuthorizationToken:(id)token completion:(id)completion;
+- (void)refreshProgenitorKeyDesignationsWithSessionHandoffToken:(id)token onlyIfNeeded:(BOOL)needed completion:(id)completion;
 - (void)revokeCredentialAuthorizationToken:(id)token;
 - (void)setGlobalAuthACL:(id)l ofType:(unint64_t)type completion:(id)completion;
 - (void)setModifiedGlobalAuthACL:(id)l externalizedLAContext:(id)context completion:(id)completion;
@@ -31,46 +32,47 @@
 
 - (DCBiometricStoreClient)init
 {
-  v3 = DC_LOG_CLIENT();
+  v3 = DC_LOG_CLIENT(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [DCBiometricStoreClient init];
   }
 
-  v18.receiver = self;
-  v18.super_class = DCBiometricStoreClient;
-  v4 = [(DCBiometricStoreClient *)&v18 init];
+  v19.receiver = self;
+  v19.super_class = DCBiometricStoreClient;
+  v4 = [(DCBiometricStoreClient *)&v19 init];
+  v5 = v4;
   if (v4)
   {
-    v5 = DC_LOG_CLIENT();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = DC_LOG_CLIENT(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [DCBiometricStoreClient init];
     }
 
-    v6 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.idcredd.biometrics.xpc" options:4096];
-    [(DCBiometricStoreClient *)v4 setServerConnection:v6];
+    v7 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.idcredd.biometrics.xpc" options:4096];
+    [(DCBiometricStoreClient *)v5 setServerConnection:v7];
 
-    v7 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_285872BE0];
-    serverConnection = [(DCBiometricStoreClient *)v4 serverConnection];
-    [serverConnection setRemoteObjectInterface:v7];
+    v8 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_285872BE0];
+    serverConnection = [(DCBiometricStoreClient *)v5 serverConnection];
+    [serverConnection setRemoteObjectInterface:v8];
 
-    v9 = MEMORY[0x277CBEB98];
-    v10 = objc_opt_class();
-    v11 = [v9 setWithObjects:{v10, objc_opt_class(), 0}];
-    serverConnection2 = [(DCBiometricStoreClient *)v4 serverConnection];
+    v10 = MEMORY[0x277CBEB98];
+    v11 = objc_opt_class();
+    v12 = [v10 setWithObjects:{v11, objc_opt_class(), 0}];
+    serverConnection2 = [(DCBiometricStoreClient *)v5 serverConnection];
     remoteObjectInterface = [serverConnection2 remoteObjectInterface];
-    [remoteObjectInterface setClasses:v11 forSelector:sel_globalAuthACLTemplateUUIDsWithCompletion_ argumentIndex:0 ofReply:1];
+    [remoteObjectInterface setClasses:v12 forSelector:sel_globalAuthACLTemplateUUIDsWithCompletion_ argumentIndex:0 ofReply:1];
 
-    serverConnection3 = [(DCBiometricStoreClient *)v4 serverConnection];
+    serverConnection3 = [(DCBiometricStoreClient *)v5 serverConnection];
     remoteObjectInterface2 = [serverConnection3 remoteObjectInterface];
-    [remoteObjectInterface2 setClasses:v11 forSelector:sel_setModifiedGlobalAuthACL_externalizedLAContext_completion_ argumentIndex:0 ofReply:1];
+    [remoteObjectInterface2 setClasses:v12 forSelector:sel_setModifiedGlobalAuthACL_externalizedLAContext_completion_ argumentIndex:0 ofReply:1];
 
-    serverConnection4 = [(DCBiometricStoreClient *)v4 serverConnection];
+    serverConnection4 = [(DCBiometricStoreClient *)v5 serverConnection];
     [serverConnection4 activate];
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)dealloc
@@ -83,7 +85,7 @@
 - (void)bioBindingUnboundACL:(id)l
 {
   lCopy = l;
-  v5 = DC_LOG_CLIENT();
+  v5 = DC_LOG_CLIENT(lCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [DCBiometricStoreClient bioBindingUnboundACL:];
@@ -110,7 +112,7 @@ void __47__DCBiometricStoreClient_bioBindingUnboundACL___block_invoke_2(uint64_t
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT();
+  v7 = DC_LOG_CLIENT(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -127,7 +129,7 @@ void __47__DCBiometricStoreClient_bioBindingUnboundACL___block_invoke_2(uint64_t
       __47__DCBiometricStoreClient_bioBindingUnboundACL___block_invoke_2_cold_2();
     }
 
-    v7 = DC_LOG_MILESTONE_LOG();
+    v7 = DC_LOG_MILESTONE_LOG(v9);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       __47__DCBiometricStoreClient_bioBindingUnboundACL___block_invoke_2_cold_3();
@@ -140,7 +142,7 @@ void __47__DCBiometricStoreClient_bioBindingUnboundACL___block_invoke_2(uint64_t
 - (void)passcodeBindingUnboundACL:(id)l
 {
   lCopy = l;
-  v5 = DC_LOG_CLIENT();
+  v5 = DC_LOG_CLIENT(lCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [DCBiometricStoreClient passcodeBindingUnboundACL:];
@@ -167,7 +169,7 @@ void __52__DCBiometricStoreClient_passcodeBindingUnboundACL___block_invoke_2(uin
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT();
+  v7 = DC_LOG_CLIENT(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -184,7 +186,7 @@ void __52__DCBiometricStoreClient_passcodeBindingUnboundACL___block_invoke_2(uin
       __52__DCBiometricStoreClient_passcodeBindingUnboundACL___block_invoke_2_cold_2();
     }
 
-    v7 = DC_LOG_MILESTONE_LOG();
+    v7 = DC_LOG_MILESTONE_LOG(v9);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       __52__DCBiometricStoreClient_passcodeBindingUnboundACL___block_invoke_2_cold_3();
@@ -198,7 +200,7 @@ void __52__DCBiometricStoreClient_passcodeBindingUnboundACL___block_invoke_2(uin
 {
   completionCopy = completion;
   lCopy = l;
-  v10 = DC_LOG_CLIENT();
+  v10 = DC_LOG_CLIENT(lCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [DCBiometricStoreClient setGlobalAuthACL:ofType:completion:];
@@ -218,7 +220,7 @@ void __52__DCBiometricStoreClient_passcodeBindingUnboundACL___block_invoke_2(uin
 void __61__DCBiometricStoreClient_setGlobalAuthACL_ofType_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DC_LOG_CLIENT();
+  v4 = DC_LOG_CLIENT(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
   if (v3)
   {
@@ -235,7 +237,7 @@ void __61__DCBiometricStoreClient_setGlobalAuthACL_ofType_completion___block_inv
       __61__DCBiometricStoreClient_setGlobalAuthACL_ofType_completion___block_invoke_cold_2();
     }
 
-    v4 = DC_LOG_MILESTONE_LOG();
+    v4 = DC_LOG_MILESTONE_LOG(v6);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       __61__DCBiometricStoreClient_setGlobalAuthACL_ofType_completion___block_invoke_cold_3();
@@ -250,7 +252,7 @@ void __61__DCBiometricStoreClient_setGlobalAuthACL_ofType_completion___block_inv
   completionCopy = completion;
   contextCopy = context;
   lCopy = l;
-  v11 = DC_LOG_CLIENT();
+  v11 = DC_LOG_CLIENT(lCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [DCBiometricStoreClient setModifiedGlobalAuthACL:externalizedLAContext:completion:];
@@ -277,7 +279,7 @@ void __84__DCBiometricStoreClient_setModifiedGlobalAuthACL_externalizedLAContext
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT();
+  v7 = DC_LOG_CLIENT(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -294,7 +296,7 @@ void __84__DCBiometricStoreClient_setModifiedGlobalAuthACL_externalizedLAContext
       __84__DCBiometricStoreClient_setModifiedGlobalAuthACL_externalizedLAContext_completion___block_invoke_2_cold_2();
     }
 
-    v7 = DC_LOG_MILESTONE_LOG();
+    v7 = DC_LOG_MILESTONE_LOG(v9);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       __84__DCBiometricStoreClient_setModifiedGlobalAuthACL_externalizedLAContext_completion___block_invoke_2_cold_3();
@@ -307,7 +309,7 @@ void __84__DCBiometricStoreClient_setModifiedGlobalAuthACL_externalizedLAContext
 - (void)globalAuthACLWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = DC_LOG_CLIENT();
+  v5 = DC_LOG_CLIENT(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [DCBiometricStoreClient globalAuthACLWithCompletion:];
@@ -334,7 +336,7 @@ void __54__DCBiometricStoreClient_globalAuthACLWithCompletion___block_invoke_2(u
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT();
+  v7 = DC_LOG_CLIENT(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -351,7 +353,7 @@ void __54__DCBiometricStoreClient_globalAuthACLWithCompletion___block_invoke_2(u
       __54__DCBiometricStoreClient_globalAuthACLWithCompletion___block_invoke_2_cold_2();
     }
 
-    v7 = DC_LOG_MILESTONE_LOG();
+    v7 = DC_LOG_MILESTONE_LOG(v9);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       __54__DCBiometricStoreClient_globalAuthACLWithCompletion___block_invoke_2_cold_3();
@@ -364,7 +366,7 @@ void __54__DCBiometricStoreClient_globalAuthACLWithCompletion___block_invoke_2(u
 - (void)deleteGlobalAuthACLWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = DC_LOG_CLIENT();
+  v5 = DC_LOG_CLIENT(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [DCBiometricStoreClient deleteGlobalAuthACLWithCompletion:];
@@ -390,7 +392,7 @@ void __54__DCBiometricStoreClient_globalAuthACLWithCompletion___block_invoke_2(u
 void __60__DCBiometricStoreClient_deleteGlobalAuthACLWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = DC_LOG_CLIENT();
+  v5 = DC_LOG_CLIENT(v4);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
   if (v4)
   {
@@ -407,7 +409,7 @@ void __60__DCBiometricStoreClient_deleteGlobalAuthACLWithCompletion___block_invo
       __60__DCBiometricStoreClient_deleteGlobalAuthACLWithCompletion___block_invoke_2_cold_2();
     }
 
-    v5 = DC_LOG_MILESTONE_LOG();
+    v5 = DC_LOG_MILESTONE_LOG(v7);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       __60__DCBiometricStoreClient_deleteGlobalAuthACLWithCompletion___block_invoke_2_cold_3();
@@ -420,7 +422,7 @@ void __60__DCBiometricStoreClient_deleteGlobalAuthACLWithCompletion___block_invo
 - (void)globalAuthACLTemplateUUIDsWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = DC_LOG_CLIENT();
+  v5 = DC_LOG_CLIENT(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [DCBiometricStoreClient globalAuthACLTemplateUUIDsWithCompletion:];
@@ -447,7 +449,7 @@ void __67__DCBiometricStoreClient_globalAuthACLTemplateUUIDsWithCompletion___blo
 {
   v7 = a5;
   v8 = a2;
-  v9 = DC_LOG_CLIENT();
+  v9 = DC_LOG_CLIENT(v8);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
   if (v7)
   {
@@ -464,7 +466,7 @@ void __67__DCBiometricStoreClient_globalAuthACLTemplateUUIDsWithCompletion___blo
       __67__DCBiometricStoreClient_globalAuthACLTemplateUUIDsWithCompletion___block_invoke_2_cold_2();
     }
 
-    v9 = DC_LOG_MILESTONE_LOG();
+    v9 = DC_LOG_MILESTONE_LOG(v11);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       __67__DCBiometricStoreClient_globalAuthACLTemplateUUIDsWithCompletion___block_invoke_2_cold_3();
@@ -477,7 +479,7 @@ void __67__DCBiometricStoreClient_globalAuthACLTemplateUUIDsWithCompletion___blo
 - (void)nonceForAuthorizationTokenWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = DC_LOG_CLIENT();
+  v5 = DC_LOG_CLIENT(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [DCBiometricStoreClient nonceForAuthorizationTokenWithCompletion:];
@@ -504,7 +506,7 @@ void __67__DCBiometricStoreClient_nonceForAuthorizationTokenWithCompletion___blo
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT();
+  v7 = DC_LOG_CLIENT(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -521,7 +523,7 @@ void __67__DCBiometricStoreClient_nonceForAuthorizationTokenWithCompletion___blo
       __67__DCBiometricStoreClient_nonceForAuthorizationTokenWithCompletion___block_invoke_2_cold_2();
     }
 
-    v7 = DC_LOG_MILESTONE_LOG();
+    v7 = DC_LOG_MILESTONE_LOG(v9);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       __67__DCBiometricStoreClient_nonceForAuthorizationTokenWithCompletion___block_invoke_2_cold_3();
@@ -535,7 +537,7 @@ void __67__DCBiometricStoreClient_nonceForAuthorizationTokenWithCompletion___blo
 {
   completionCopy = completion;
   tokenCopy = token;
-  v8 = DC_LOG_CLIENT();
+  v8 = DC_LOG_CLIENT(tokenCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [DCBiometricStoreClient prearmCredentialWithAuthorizationToken:completion:];
@@ -555,7 +557,7 @@ void __67__DCBiometricStoreClient_nonceForAuthorizationTokenWithCompletion___blo
 void __76__DCBiometricStoreClient_prearmCredentialWithAuthorizationToken_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DC_LOG_CLIENT();
+  v4 = DC_LOG_CLIENT(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
   if (v3)
   {
@@ -572,7 +574,7 @@ void __76__DCBiometricStoreClient_prearmCredentialWithAuthorizationToken_complet
       __76__DCBiometricStoreClient_prearmCredentialWithAuthorizationToken_completion___block_invoke_cold_2();
     }
 
-    v4 = DC_LOG_MILESTONE_LOG();
+    v4 = DC_LOG_MILESTONE_LOG(v6);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       __76__DCBiometricStoreClient_prearmCredentialWithAuthorizationToken_completion___block_invoke_cold_3();
@@ -586,7 +588,7 @@ void __76__DCBiometricStoreClient_prearmCredentialWithAuthorizationToken_complet
 {
   completionCopy = completion;
   v2Copy = v2;
-  v8 = DC_LOG_CLIENT();
+  v8 = DC_LOG_CLIENT(v2Copy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [DCBiometricStoreClient establishPrearmTrustV2:completion:];
@@ -613,7 +615,7 @@ void __60__DCBiometricStoreClient_establishPrearmTrustV2_completion___block_invo
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT();
+  v7 = DC_LOG_CLIENT(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -630,7 +632,7 @@ void __60__DCBiometricStoreClient_establishPrearmTrustV2_completion___block_invo
       __60__DCBiometricStoreClient_establishPrearmTrustV2_completion___block_invoke_2_cold_2();
     }
 
-    v7 = DC_LOG_MILESTONE_LOG();
+    v7 = DC_LOG_MILESTONE_LOG(v9);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       __60__DCBiometricStoreClient_establishPrearmTrustV2_completion___block_invoke_2_cold_3();
@@ -643,7 +645,7 @@ void __60__DCBiometricStoreClient_establishPrearmTrustV2_completion___block_invo
 - (void)revokeCredentialAuthorizationToken:(id)token
 {
   tokenCopy = token;
-  v5 = DC_LOG_CLIENT();
+  v5 = DC_LOG_CLIENT(tokenCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [DCBiometricStoreClient revokeCredentialAuthorizationToken:];
@@ -663,7 +665,7 @@ void __60__DCBiometricStoreClient_establishPrearmTrustV2_completion___block_invo
 void __61__DCBiometricStoreClient_revokeCredentialAuthorizationToken___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DC_LOG_CLIENT();
+  v4 = DC_LOG_CLIENT(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
   if (v3)
   {
@@ -680,7 +682,7 @@ void __61__DCBiometricStoreClient_revokeCredentialAuthorizationToken___block_inv
       __61__DCBiometricStoreClient_revokeCredentialAuthorizationToken___block_invoke_cold_2();
     }
 
-    v4 = DC_LOG_MILESTONE_LOG();
+    v4 = DC_LOG_MILESTONE_LOG(v6);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       __61__DCBiometricStoreClient_revokeCredentialAuthorizationToken___block_invoke_cold_3();
@@ -696,7 +698,7 @@ void __61__DCBiometricStoreClient_revokeCredentialAuthorizationToken___block_inv
   dCopy = d;
   blobCopy = blob;
   nonceCopy = nonce;
-  v14 = DC_LOG_CLIENT();
+  v14 = DC_LOG_CLIENT(nonceCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     [DCBiometricStoreClient generatePhoneTokenWithNonce:keyBlob:pairingID:completion:];
@@ -723,7 +725,7 @@ void __83__DCBiometricStoreClient_generatePhoneTokenWithNonce_keyBlob_pairingID_
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT();
+  v7 = DC_LOG_CLIENT(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -740,7 +742,7 @@ void __83__DCBiometricStoreClient_generatePhoneTokenWithNonce_keyBlob_pairingID_
       __83__DCBiometricStoreClient_generatePhoneTokenWithNonce_keyBlob_pairingID_completion___block_invoke_2_cold_2();
     }
 
-    v7 = DC_LOG_MILESTONE_LOG();
+    v7 = DC_LOG_MILESTONE_LOG(v9);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       __83__DCBiometricStoreClient_generatePhoneTokenWithNonce_keyBlob_pairingID_completion___block_invoke_2_cold_3();
@@ -755,7 +757,7 @@ void __83__DCBiometricStoreClient_generatePhoneTokenWithNonce_keyBlob_pairingID_
   completionCopy = completion;
   dCopy = d;
   nonceCopy = nonce;
-  v11 = DC_LOG_CLIENT();
+  v11 = DC_LOG_CLIENT(nonceCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [DCBiometricStoreClient generatePrearmTrustCertificateWithNonce:pairingID:completion:];
@@ -782,7 +784,7 @@ void __87__DCBiometricStoreClient_generatePrearmTrustCertificateWithNonce_pairin
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT();
+  v7 = DC_LOG_CLIENT(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -806,7 +808,7 @@ void __87__DCBiometricStoreClient_generatePrearmTrustCertificateWithNonce_pairin
   dCopy = d;
   nonceCopy = nonce;
   blobCopy = blob;
-  v14 = DC_LOG_CLIENT();
+  v14 = DC_LOG_CLIENT(blobCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     [DCBiometricStoreClient generatePrearmTrustCertificateFromKeyBlob:nonce:pairingID:completion:];
@@ -833,7 +835,7 @@ void __95__DCBiometricStoreClient_generatePrearmTrustCertificateFromKeyBlob_nonc
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT();
+  v7 = DC_LOG_CLIENT(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -855,7 +857,7 @@ void __95__DCBiometricStoreClient_generatePrearmTrustCertificateFromKeyBlob_nonc
 {
   completionCopy = completion;
   blobCopy = blob;
-  v8 = DC_LOG_CLIENT();
+  v8 = DC_LOG_CLIENT(blobCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [DCBiometricStoreClient migratePrearmTrustBlob:completion:];
@@ -882,7 +884,7 @@ void __60__DCBiometricStoreClient_migratePrearmTrustBlob_completion___block_invo
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT();
+  v7 = DC_LOG_CLIENT(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -903,7 +905,7 @@ void __60__DCBiometricStoreClient_migratePrearmTrustBlob_completion___block_invo
 - (void)credentialAuthenticationTokenStatus:(id)status
 {
   statusCopy = status;
-  v5 = DC_LOG_CLIENT();
+  v5 = DC_LOG_CLIENT(statusCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [DCBiometricStoreClient credentialAuthenticationTokenStatus:];
@@ -929,7 +931,7 @@ void __60__DCBiometricStoreClient_migratePrearmTrustBlob_completion___block_invo
 void __62__DCBiometricStoreClient_credentialAuthenticationTokenStatus___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = DC_LOG_CLIENT();
+  v5 = DC_LOG_CLIENT(v4);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
   if (v4)
   {
@@ -950,7 +952,7 @@ void __62__DCBiometricStoreClient_credentialAuthenticationTokenStatus___block_in
 - (void)getCASDCertificate:(id)certificate
 {
   certificateCopy = certificate;
-  v5 = DC_LOG_CLIENT();
+  v5 = DC_LOG_CLIENT(certificateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [DCBiometricStoreClient getCASDCertificate:];
@@ -977,7 +979,7 @@ void __45__DCBiometricStoreClient_getCASDCertificate___block_invoke_2(uint64_t a
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT();
+  v7 = DC_LOG_CLIENT(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -998,7 +1000,7 @@ void __45__DCBiometricStoreClient_getCASDCertificate___block_invoke_2(uint64_t a
 - (void)getGlobalProgenitorKeyAttestation:(id)attestation
 {
   attestationCopy = attestation;
-  v5 = DC_LOG_CLIENT();
+  v5 = DC_LOG_CLIENT(attestationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [DCBiometricStoreClient getGlobalProgenitorKeyAttestation:];
@@ -1025,7 +1027,7 @@ void __60__DCBiometricStoreClient_getGlobalProgenitorKeyAttestation___block_invo
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT();
+  v7 = DC_LOG_CLIENT(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -1046,7 +1048,7 @@ void __60__DCBiometricStoreClient_getGlobalProgenitorKeyAttestation___block_invo
 - (void)getGlobalThirdPartyProgenitorKeyAttestation:(id)attestation
 {
   attestationCopy = attestation;
-  v5 = DC_LOG_CLIENT();
+  v5 = DC_LOG_CLIENT(attestationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [DCBiometricStoreClient getGlobalThirdPartyProgenitorKeyAttestation:];
@@ -1073,7 +1075,7 @@ void __70__DCBiometricStoreClient_getGlobalThirdPartyProgenitorKeyAttestation___
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT();
+  v7 = DC_LOG_CLIENT(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -1094,7 +1096,7 @@ void __70__DCBiometricStoreClient_getGlobalThirdPartyProgenitorKeyAttestation___
 - (void)boundAppletPresentmentACL:(id)l
 {
   lCopy = l;
-  v5 = DC_LOG_CLIENT();
+  v5 = DC_LOG_CLIENT(lCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [DCBiometricStoreClient boundAppletPresentmentACL:];
@@ -1121,7 +1123,7 @@ void __52__DCBiometricStoreClient_boundAppletPresentmentACL___block_invoke_2(uin
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT();
+  v7 = DC_LOG_CLIENT(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -1139,10 +1141,38 @@ void __52__DCBiometricStoreClient_boundAppletPresentmentACL___block_invoke_2(uin
   (*(*(a1 + 40) + 16))();
 }
 
+- (void)refreshProgenitorKeyDesignationsWithSessionHandoffToken:(id)token onlyIfNeeded:(BOOL)needed completion:(id)completion
+{
+  neededCopy = needed;
+  completionCopy = completion;
+  tokenCopy = token;
+  v10 = DC_LOG_CLIENT(tokenCopy);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  {
+    [DCBiometricStoreClient refreshProgenitorKeyDesignationsWithSessionHandoffToken:onlyIfNeeded:completion:];
+  }
+
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __106__DCBiometricStoreClient_refreshProgenitorKeyDesignationsWithSessionHandoffToken_onlyIfNeeded_completion___block_invoke;
+  v16[3] = &unk_278E812F0;
+  v11 = completionCopy;
+  v17 = v11;
+  v12 = [(DCBiometricStoreClient *)self remoteObjectProxyWithErrorHandler:v16];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __106__DCBiometricStoreClient_refreshProgenitorKeyDesignationsWithSessionHandoffToken_onlyIfNeeded_completion___block_invoke_2;
+  v14[3] = &unk_278E81340;
+  v14[4] = self;
+  v15 = v11;
+  v13 = v11;
+  [v12 refreshProgenitorKeyDesignationsWithSessionHandoffToken:tokenCopy onlyIfNeeded:neededCopy completion:v14];
+}
+
 void __106__DCBiometricStoreClient_refreshProgenitorKeyDesignationsWithSessionHandoffToken_onlyIfNeeded_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DC_LOG_CLIENT();
+  v4 = DC_LOG_CLIENT(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
   if (v3)
   {
@@ -1163,7 +1193,7 @@ void __106__DCBiometricStoreClient_refreshProgenitorKeyDesignationsWithSessionHa
 - (void)clearProgenitorKeyDesignationsWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = DC_LOG_CLIENT();
+  v5 = DC_LOG_CLIENT(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [DCBiometricStoreClient clearProgenitorKeyDesignationsWithCompletion:];
@@ -1189,7 +1219,7 @@ void __106__DCBiometricStoreClient_refreshProgenitorKeyDesignationsWithSessionHa
 void __71__DCBiometricStoreClient_clearProgenitorKeyDesignationsWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DC_LOG_CLIENT();
+  v4 = DC_LOG_CLIENT(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
   if (v3)
   {
@@ -1233,7 +1263,7 @@ void __71__DCBiometricStoreClient_clearProgenitorKeyDesignationsWithCompletion__
 void __60__DCBiometricStoreClient_remoteObjectProxyWithErrorHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DC_LOG_CLIENT();
+  v4 = DC_LOG_CLIENT(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __60__DCBiometricStoreClient_remoteObjectProxyWithErrorHandler___block_invoke_cold_1();
@@ -1249,10 +1279,9 @@ void __60__DCBiometricStoreClient_remoteObjectProxyWithErrorHandler___block_invo
 
 - (void)init
 {
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
 - (void)bioBindingUnboundACL:.cold.1()
@@ -1264,11 +1293,9 @@ void __60__DCBiometricStoreClient_remoteObjectProxyWithErrorHandler___block_invo
 
 void __47__DCBiometricStoreClient_bioBindingUnboundACL___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __47__DCBiometricStoreClient_bioBindingUnboundACL___block_invoke_2_cold_2()
@@ -1280,11 +1307,9 @@ void __47__DCBiometricStoreClient_bioBindingUnboundACL___block_invoke_2_cold_2()
 
 void __47__DCBiometricStoreClient_bioBindingUnboundACL___block_invoke_2_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)passcodeBindingUnboundACL:.cold.1()
@@ -1296,11 +1321,9 @@ void __47__DCBiometricStoreClient_bioBindingUnboundACL___block_invoke_2_cold_3()
 
 void __52__DCBiometricStoreClient_passcodeBindingUnboundACL___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __52__DCBiometricStoreClient_passcodeBindingUnboundACL___block_invoke_2_cold_2()
@@ -1312,11 +1335,9 @@ void __52__DCBiometricStoreClient_passcodeBindingUnboundACL___block_invoke_2_col
 
 void __52__DCBiometricStoreClient_passcodeBindingUnboundACL___block_invoke_2_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setGlobalAuthACL:ofType:completion:.cold.1()
@@ -1328,11 +1349,9 @@ void __52__DCBiometricStoreClient_passcodeBindingUnboundACL___block_invoke_2_col
 
 void __61__DCBiometricStoreClient_setGlobalAuthACL_ofType_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __61__DCBiometricStoreClient_setGlobalAuthACL_ofType_completion___block_invoke_cold_2()
@@ -1344,11 +1363,9 @@ void __61__DCBiometricStoreClient_setGlobalAuthACL_ofType_completion___block_inv
 
 void __61__DCBiometricStoreClient_setGlobalAuthACL_ofType_completion___block_invoke_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setModifiedGlobalAuthACL:externalizedLAContext:completion:.cold.1()
@@ -1360,11 +1377,9 @@ void __61__DCBiometricStoreClient_setGlobalAuthACL_ofType_completion___block_inv
 
 void __84__DCBiometricStoreClient_setModifiedGlobalAuthACL_externalizedLAContext_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __84__DCBiometricStoreClient_setModifiedGlobalAuthACL_externalizedLAContext_completion___block_invoke_2_cold_2()
@@ -1376,11 +1391,9 @@ void __84__DCBiometricStoreClient_setModifiedGlobalAuthACL_externalizedLAContext
 
 void __84__DCBiometricStoreClient_setModifiedGlobalAuthACL_externalizedLAContext_completion___block_invoke_2_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)globalAuthACLWithCompletion:.cold.1()
@@ -1392,11 +1405,9 @@ void __84__DCBiometricStoreClient_setModifiedGlobalAuthACL_externalizedLAContext
 
 void __54__DCBiometricStoreClient_globalAuthACLWithCompletion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __54__DCBiometricStoreClient_globalAuthACLWithCompletion___block_invoke_2_cold_2()
@@ -1408,11 +1419,9 @@ void __54__DCBiometricStoreClient_globalAuthACLWithCompletion___block_invoke_2_c
 
 void __54__DCBiometricStoreClient_globalAuthACLWithCompletion___block_invoke_2_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteGlobalAuthACLWithCompletion:.cold.1()
@@ -1424,11 +1433,9 @@ void __54__DCBiometricStoreClient_globalAuthACLWithCompletion___block_invoke_2_c
 
 void __60__DCBiometricStoreClient_deleteGlobalAuthACLWithCompletion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __60__DCBiometricStoreClient_deleteGlobalAuthACLWithCompletion___block_invoke_2_cold_2()
@@ -1440,11 +1447,9 @@ void __60__DCBiometricStoreClient_deleteGlobalAuthACLWithCompletion___block_invo
 
 void __60__DCBiometricStoreClient_deleteGlobalAuthACLWithCompletion___block_invoke_2_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)globalAuthACLTemplateUUIDsWithCompletion:.cold.1()
@@ -1456,11 +1461,9 @@ void __60__DCBiometricStoreClient_deleteGlobalAuthACLWithCompletion___block_invo
 
 void __67__DCBiometricStoreClient_globalAuthACLTemplateUUIDsWithCompletion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __67__DCBiometricStoreClient_globalAuthACLTemplateUUIDsWithCompletion___block_invoke_2_cold_2()
@@ -1472,11 +1475,9 @@ void __67__DCBiometricStoreClient_globalAuthACLTemplateUUIDsWithCompletion___blo
 
 void __67__DCBiometricStoreClient_globalAuthACLTemplateUUIDsWithCompletion___block_invoke_2_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)nonceForAuthorizationTokenWithCompletion:.cold.1()
@@ -1488,11 +1489,9 @@ void __67__DCBiometricStoreClient_globalAuthACLTemplateUUIDsWithCompletion___blo
 
 void __67__DCBiometricStoreClient_nonceForAuthorizationTokenWithCompletion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __67__DCBiometricStoreClient_nonceForAuthorizationTokenWithCompletion___block_invoke_2_cold_2()
@@ -1504,11 +1503,9 @@ void __67__DCBiometricStoreClient_nonceForAuthorizationTokenWithCompletion___blo
 
 void __67__DCBiometricStoreClient_nonceForAuthorizationTokenWithCompletion___block_invoke_2_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prearmCredentialWithAuthorizationToken:completion:.cold.1()
@@ -1520,11 +1517,9 @@ void __67__DCBiometricStoreClient_nonceForAuthorizationTokenWithCompletion___blo
 
 void __76__DCBiometricStoreClient_prearmCredentialWithAuthorizationToken_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __76__DCBiometricStoreClient_prearmCredentialWithAuthorizationToken_completion___block_invoke_cold_2()
@@ -1536,11 +1531,9 @@ void __76__DCBiometricStoreClient_prearmCredentialWithAuthorizationToken_complet
 
 void __76__DCBiometricStoreClient_prearmCredentialWithAuthorizationToken_completion___block_invoke_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)establishPrearmTrustV2:completion:.cold.1()
@@ -1552,11 +1545,9 @@ void __76__DCBiometricStoreClient_prearmCredentialWithAuthorizationToken_complet
 
 void __60__DCBiometricStoreClient_establishPrearmTrustV2_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __60__DCBiometricStoreClient_establishPrearmTrustV2_completion___block_invoke_2_cold_2()
@@ -1568,11 +1559,9 @@ void __60__DCBiometricStoreClient_establishPrearmTrustV2_completion___block_invo
 
 void __60__DCBiometricStoreClient_establishPrearmTrustV2_completion___block_invoke_2_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)revokeCredentialAuthorizationToken:.cold.1()
@@ -1584,11 +1573,9 @@ void __60__DCBiometricStoreClient_establishPrearmTrustV2_completion___block_invo
 
 void __61__DCBiometricStoreClient_revokeCredentialAuthorizationToken___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __61__DCBiometricStoreClient_revokeCredentialAuthorizationToken___block_invoke_cold_2()
@@ -1600,11 +1587,9 @@ void __61__DCBiometricStoreClient_revokeCredentialAuthorizationToken___block_inv
 
 void __61__DCBiometricStoreClient_revokeCredentialAuthorizationToken___block_invoke_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generatePhoneTokenWithNonce:keyBlob:pairingID:completion:.cold.1()
@@ -1616,11 +1601,9 @@ void __61__DCBiometricStoreClient_revokeCredentialAuthorizationToken___block_inv
 
 void __83__DCBiometricStoreClient_generatePhoneTokenWithNonce_keyBlob_pairingID_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __83__DCBiometricStoreClient_generatePhoneTokenWithNonce_keyBlob_pairingID_completion___block_invoke_2_cold_2()
@@ -1632,11 +1615,9 @@ void __83__DCBiometricStoreClient_generatePhoneTokenWithNonce_keyBlob_pairingID_
 
 void __83__DCBiometricStoreClient_generatePhoneTokenWithNonce_keyBlob_pairingID_completion___block_invoke_2_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generatePrearmTrustCertificateWithNonce:pairingID:completion:.cold.1()
@@ -1648,11 +1629,9 @@ void __83__DCBiometricStoreClient_generatePhoneTokenWithNonce_keyBlob_pairingID_
 
 void __87__DCBiometricStoreClient_generatePrearmTrustCertificateWithNonce_pairingID_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __87__DCBiometricStoreClient_generatePrearmTrustCertificateWithNonce_pairingID_completion___block_invoke_2_cold_2()
@@ -1671,11 +1650,9 @@ void __87__DCBiometricStoreClient_generatePrearmTrustCertificateWithNonce_pairin
 
 void __95__DCBiometricStoreClient_generatePrearmTrustCertificateFromKeyBlob_nonce_pairingID_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __95__DCBiometricStoreClient_generatePrearmTrustCertificateFromKeyBlob_nonce_pairingID_completion___block_invoke_2_cold_2()
@@ -1694,11 +1671,9 @@ void __95__DCBiometricStoreClient_generatePrearmTrustCertificateFromKeyBlob_nonc
 
 void __60__DCBiometricStoreClient_migratePrearmTrustBlob_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __60__DCBiometricStoreClient_migratePrearmTrustBlob_completion___block_invoke_2_cold_2()
@@ -1717,11 +1692,9 @@ void __60__DCBiometricStoreClient_migratePrearmTrustBlob_completion___block_invo
 
 void __62__DCBiometricStoreClient_credentialAuthenticationTokenStatus___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __62__DCBiometricStoreClient_credentialAuthenticationTokenStatus___block_invoke_2_cold_2()
@@ -1733,114 +1706,90 @@ void __62__DCBiometricStoreClient_credentialAuthenticationTokenStatus___block_in
 
 - (void)getCASDCertificate:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __45__DCBiometricStoreClient_getCASDCertificate___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __45__DCBiometricStoreClient_getCASDCertificate___block_invoke_2_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getGlobalProgenitorKeyAttestation:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __60__DCBiometricStoreClient_getGlobalProgenitorKeyAttestation___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __60__DCBiometricStoreClient_getGlobalProgenitorKeyAttestation___block_invoke_2_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getGlobalThirdPartyProgenitorKeyAttestation:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __70__DCBiometricStoreClient_getGlobalThirdPartyProgenitorKeyAttestation___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __70__DCBiometricStoreClient_getGlobalThirdPartyProgenitorKeyAttestation___block_invoke_2_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)boundAppletPresentmentACL:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __52__DCBiometricStoreClient_boundAppletPresentmentACL___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __52__DCBiometricStoreClient_boundAppletPresentmentACL___block_invoke_2_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)refreshProgenitorKeyDesignationsWithSessionHandoffToken:onlyIfNeeded:completion:.cold.1()
@@ -1852,11 +1801,9 @@ void __52__DCBiometricStoreClient_boundAppletPresentmentACL___block_invoke_2_col
 
 void __106__DCBiometricStoreClient_refreshProgenitorKeyDesignationsWithSessionHandoffToken_onlyIfNeeded_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __106__DCBiometricStoreClient_refreshProgenitorKeyDesignationsWithSessionHandoffToken_onlyIfNeeded_completion___block_invoke_2_cold_2()
@@ -1875,11 +1822,9 @@ void __106__DCBiometricStoreClient_refreshProgenitorKeyDesignationsWithSessionHa
 
 void __71__DCBiometricStoreClient_clearProgenitorKeyDesignationsWithCompletion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __71__DCBiometricStoreClient_clearProgenitorKeyDesignationsWithCompletion___block_invoke_2_cold_2()
@@ -1891,10 +1836,9 @@ void __71__DCBiometricStoreClient_clearProgenitorKeyDesignationsWithCompletion__
 
 void __60__DCBiometricStoreClient_remoteObjectProxyWithErrorHandler___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(&dword_24560F000, v0, OS_LOG_TYPE_ERROR, "DCBiometricStoreClient remote object proxy error: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24560F000, v0, OS_LOG_TYPE_ERROR, "DCBiometricStoreClient remote object proxy error: %{public}@", v1, 0xCu);
 }
 
 @end

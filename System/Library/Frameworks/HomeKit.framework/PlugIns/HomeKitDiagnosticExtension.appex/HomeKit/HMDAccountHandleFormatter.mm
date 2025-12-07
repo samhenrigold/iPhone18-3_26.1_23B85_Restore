@@ -297,21 +297,8 @@ LABEL_7:
   }
 
   v6 = valueCopy;
-  if (v5)
+  if (v5 || ((v7 = valueCopy, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) ? (v8 = 0) : (v8 = v7), v9 = v8, v7, [(HMDAccountHandleFormatter *)self accountHandleFromString:v9], v6 = objc_claimAutoreleasedReturnValue(), v9, v6))
   {
-    goto LABEL_9;
-  }
-
-  v7 = valueCopy;
-  objc_opt_class();
-  v8 = (objc_opt_isKindOfClass() & 1) != 0 ? v7 : 0;
-  v9 = v8;
-
-  v6 = [(HMDAccountHandleFormatter *)self accountHandleFromString:v9];
-
-  if (v6)
-  {
-LABEL_9:
     v10 = [v6 URI];
     unprefixedURI = [v10 unprefixedURI];
   }

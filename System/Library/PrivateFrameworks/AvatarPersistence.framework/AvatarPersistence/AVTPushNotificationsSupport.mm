@@ -52,7 +52,7 @@
 
 void __68__AVTPushNotificationsSupport_setupConnectionWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -69,9 +69,9 @@ void __68__AVTPushNotificationsSupport_setupConnectionWithCompletionHandler___bl
 
     else
     {
-      v15 = *MEMORY[0x277CCA470];
-      v16[0] = @"Unable to create an APSConnection";
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v14 = *MEMORY[0x277CCA470];
+      v15[0] = @"Unable to create an APSConnection";
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
       v13 = [AVTError errorWithCode:1 userInfo:v12];
       (*(v10 + 16))(v10, 0, v13);
     }
@@ -85,8 +85,6 @@ void __68__AVTPushNotificationsSupport_setupConnectionWithCompletionHandler___bl
       (*(v11 + 16))(v11, 0, v6);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didReceivePublicToken:(id)token
@@ -136,29 +134,26 @@ void __68__AVTPushNotificationsSupport_setupConnectionWithCompletionHandler___bl
 
 void __64__AVTPushNotificationsSupport_startListeningToPushNotifications__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
   {
     [v5 setDelegate:*(a1 + 32)];
     [*(a1 + 32) setPushConnection:v5];
-    v7 = *(a1 + 32);
-    v8 = [objc_opt_class() topic];
-    v14[0] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-    v10 = [*(a1 + 32) pushConnection];
-    [v10 _setEnabledTopics:v9];
+    v7 = [objc_opt_class() topic];
+    v12[0] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v9 = [*(a1 + 32) pushConnection];
+    [v9 _setEnabledTopics:v8];
   }
 
   else
   {
-    v11 = [*(a1 + 32) logger];
-    v12 = [v6 description];
-    [v11 logUnableToCreatePushConnection:v12];
+    v10 = [*(a1 + 32) logger];
+    v11 = [v6 description];
+    [v10 logUnableToCreatePushConnection:v11];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopListeningToPushNotifications

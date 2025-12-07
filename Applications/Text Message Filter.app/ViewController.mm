@@ -2,6 +2,7 @@
 - (_TtC19Text_Message_Filter14ViewController)initWithCoder:(id)coder;
 - (_TtC19Text_Message_Filter14ViewController)initWithNibName:(id)name bundle:(id)bundle;
 - (void)goToSettings:(id)settings;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -12,6 +13,22 @@
   v2.receiver = self;
   v2.super_class = type metadata accessor for ViewController();
   [(ViewController *)&v2 viewDidLoad];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for ViewController();
+  v4 = v6.receiver;
+  [(ViewController *)&v6 viewDidAppear:appearCopy];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd, &_ss23_ContiguousArrayStorageCyypGMR);
+  v5 = swift_allocObject();
+  *(v5 + 16) = xmmword_100003080;
+  *(v5 + 56) = &type metadata for String;
+  strcpy((v5 + 32), "VIEW APPEARED");
+  *(v5 + 46) = -4864;
+  print(_:separator:terminator:)();
 }
 
 - (void)goToSettings:(id)settings

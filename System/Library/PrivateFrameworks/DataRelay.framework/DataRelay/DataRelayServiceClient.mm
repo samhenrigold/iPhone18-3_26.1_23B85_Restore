@@ -68,11 +68,14 @@ void __49__DataRelayServiceClient_activateWithCompletion___block_invoke(uint64_t
   v2 = *(a1 + 32);
   if (*(v2 + 8) == 1)
   {
-    v3 = *MEMORY[0x277CCA590];
-    v8 = NSErrorF();
-    if (gLogCategory_DataRelayServiceClient <= 90 && (gLogCategory_DataRelayServiceClient != -1 || _LogCategory_Initialize()))
+    v3 = NSErrorF();
+    v9 = v3;
+    if (gLogCategory_DataRelayServiceClient <= 90)
     {
-      __49__DataRelayServiceClient_activateWithCompletion___block_invoke_cold_1();
+      if (gLogCategory_DataRelayServiceClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v9, v4))
+      {
+        __49__DataRelayServiceClient_activateWithCompletion___block_invoke_cold_1(v3);
+      }
     }
 
     (*(*(a1 + 40) + 16))();
@@ -81,14 +84,14 @@ void __49__DataRelayServiceClient_activateWithCompletion___block_invoke(uint64_t
   else
   {
     *(v2 + 8) = 1;
-    v4 = MEMORY[0x24C1D4510](*(a1 + 40));
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 16);
-    *(v5 + 16) = v4;
+    v5 = MEMORY[0x24C1D4510](*(a1 + 40));
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 16);
+    *(v6 + 16) = v5;
 
-    v7 = *(a1 + 32);
+    v8 = *(a1 + 32);
 
-    [v7 _activate];
+    [v8 _activate];
   }
 }
 
@@ -96,27 +99,26 @@ void __49__DataRelayServiceClient_activateWithCompletion___block_invoke(uint64_t
 {
   if (self->_invalidateCalled)
   {
-    v3 = *MEMORY[0x277CCA590];
-    v8 = NSErrorF();
+    v7 = NSErrorF();
     if (gLogCategory_DataRelayServiceClient <= 90 && (gLogCategory_DataRelayServiceClient != -1 || _LogCategory_Initialize()))
     {
-      [DataRelayServiceClient _activate];
+      [(DataRelayServiceClient *)v7 _activate];
     }
 
-    v4 = MEMORY[0x24C1D4510](self->_activateCompletion);
+    v3 = MEMORY[0x24C1D4510](self->_activateCompletion);
     activateCompletion = self->_activateCompletion;
     self->_activateCompletion = 0;
 
-    if (v4)
+    if (v3)
     {
-      (v4)[2](v4, v8);
+      (v3)[2](v3, v7);
     }
   }
 
   else
   {
     _ensureXPCStarted = [(DataRelayServiceClient *)self _ensureXPCStarted];
-    v8 = _ensureXPCStarted;
+    v7 = _ensureXPCStarted;
     if (_ensureXPCStarted)
     {
       [(DataRelayServiceClient *)self _reportError:_ensureXPCStarted];
@@ -125,16 +127,16 @@ void __49__DataRelayServiceClient_activateWithCompletion___block_invoke(uint64_t
 
     if (gLogCategory_DataRelayServiceClient <= 30 && (gLogCategory_DataRelayServiceClient != -1 || _LogCategory_Initialize()))
     {
-      [DataRelayServiceClient _activate];
+      [(DataRelayServiceClient *)self _activate];
     }
 
-    v4 = MEMORY[0x24C1D4510](self->_activateCompletion);
-    v7 = self->_activateCompletion;
+    v3 = MEMORY[0x24C1D4510](self->_activateCompletion);
+    v6 = self->_activateCompletion;
     self->_activateCompletion = 0;
 
-    if (v4)
+    if (v3)
     {
-      v4[2](v4, 0);
+      v3[2](v3, 0);
     }
   }
 
@@ -194,14 +196,16 @@ void __43__DataRelayServiceClient__ensureXPCStarted__block_invoke_2(uint64_t a1)
 - (void)_interrupted
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (gLogCategory_DataRelayServiceClient <= 90 && (gLogCategory_DataRelayServiceClient != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_DataRelayServiceClient <= 90)
   {
-    [DataRelayServiceClient _interrupted];
+    if (gLogCategory_DataRelayServiceClient != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      [(DataRelayServiceClient *)v3 _interrupted];
+    }
   }
 
-  v3 = *MEMORY[0x277CCA590];
-  v4 = NSErrorF();
-  [(DataRelayServiceClient *)self _reportError:v4];
+  v6 = NSErrorF();
+  [(DataRelayServiceClient *)self _reportError:v6];
 
   activateCompletion = self->_activateCompletion;
   self->_activateCompletion = 0;
@@ -209,9 +213,9 @@ void __43__DataRelayServiceClient__ensureXPCStarted__block_invoke_2(uint64_t a1)
   interruptionHandler = self->_interruptionHandler;
   if (interruptionHandler)
   {
-    v7 = *(interruptionHandler + 2);
+    v9 = *(interruptionHandler + 2);
 
-    v7();
+    v9();
   }
 }
 
@@ -245,16 +249,15 @@ void __36__DataRelayServiceClient_invalidate__block_invoke(uint64_t a1)
       v4 = *(a1 + 32);
     }
 
-    v10 = MEMORY[0x24C1D4510](*(v4 + 16));
+    v9 = MEMORY[0x24C1D4510](*(v4 + 16));
     v6 = *(a1 + 32);
     v7 = *(v6 + 16);
     *(v6 + 16) = 0;
 
-    if (v10)
+    if (v9)
     {
-      v8 = *MEMORY[0x277CCA590];
-      v9 = NSErrorF();
-      v10[2](v10, v9);
+      v8 = NSErrorF();
+      v9[2](v9, v8);
     }
 
     [*(a1 + 32) _invalidated];
@@ -265,40 +268,43 @@ void __36__DataRelayServiceClient_invalidate__block_invoke(uint64_t a1)
 {
   if (!self->_invalidateDone)
   {
-    if (!self->_invalidateCalled && gLogCategory_DataRelayServiceClient <= 90 && (gLogCategory_DataRelayServiceClient != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (!self->_invalidateCalled && gLogCategory_DataRelayServiceClient <= 90)
     {
-      [DataRelayServiceClient _invalidated];
+      if (gLogCategory_DataRelayServiceClient != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(DataRelayServiceClient *)self _invalidated];
+      }
     }
 
-    if (!self->_xpcCnx)
+    if (!selfCopy->_xpcCnx)
     {
-      v10 = MEMORY[0x24C1D4510](self->_activateCompletion, a2);
-      activateCompletion = self->_activateCompletion;
-      self->_activateCompletion = 0;
+      v10 = MEMORY[0x24C1D4510](selfCopy->_activateCompletion, a2);
+      activateCompletion = selfCopy->_activateCompletion;
+      selfCopy->_activateCompletion = 0;
 
       if (v10)
       {
-        v4 = *MEMORY[0x277CCA590];
         v5 = NSErrorF();
         v10[2](v10, v5);
       }
 
-      interruptionHandler = self->_interruptionHandler;
-      self->_interruptionHandler = 0;
+      interruptionHandler = selfCopy->_interruptionHandler;
+      selfCopy->_interruptionHandler = 0;
 
-      v7 = MEMORY[0x24C1D4510](self->_invalidationHandler);
-      invalidationHandler = self->_invalidationHandler;
-      self->_invalidationHandler = 0;
+      v7 = MEMORY[0x24C1D4510](selfCopy->_invalidationHandler);
+      invalidationHandler = selfCopy->_invalidationHandler;
+      selfCopy->_invalidationHandler = 0;
 
       if (v7)
       {
         v7[2](v7);
       }
 
-      xpcCnx = self->_xpcCnx;
-      self->_xpcCnx = 0;
+      xpcCnx = selfCopy->_xpcCnx;
+      selfCopy->_xpcCnx = 0;
 
-      self->_invalidateDone = 1;
+      selfCopy->_invalidateDone = 1;
     }
   }
 }
@@ -320,24 +326,27 @@ void __36__DataRelayServiceClient_invalidate__block_invoke(uint64_t a1)
 {
   availableCopy = available;
   completionCopy = completion;
-  v10 = completionCopy;
+  v12 = completionCopy;
   if (self->_activateCalled)
   {
     dispatchQueue = self->_dispatchQueue;
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __67__DataRelayServiceClient_sensorDataAvailable_dataTypes_completion___block_invoke;
-    v12[3] = &unk_278F4E420;
-    v12[4] = self;
-    v14 = completionCopy;
-    v13 = availableCopy;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __67__DataRelayServiceClient_sensorDataAvailable_dataTypes_completion___block_invoke;
+    v14[3] = &unk_278F4E420;
+    v14[4] = self;
+    v16 = completionCopy;
+    v15 = availableCopy;
     typesCopy = types;
-    dispatch_async(dispatchQueue, v12);
+    dispatch_async(dispatchQueue, v14);
   }
 
-  else if (gLogCategory_DataRelayServiceClient <= 60 && (gLogCategory_DataRelayServiceClient != -1 || _LogCategory_Initialize()))
+  else if (gLogCategory_DataRelayServiceClient <= 60)
   {
-    [DataRelayServiceClient sensorDataAvailable:dataTypes:completion:];
+    if (gLogCategory_DataRelayServiceClient != -1 || (completionCopy = _LogCategory_Initialize(), completionCopy))
+    {
+      [DataRelayServiceClient sensorDataAvailable:completionCopy dataTypes:v10 completion:v11];
+    }
   }
 }
 
@@ -346,26 +355,23 @@ void __67__DataRelayServiceClient_sensorDataAvailable_dataTypes_completion___blo
   v2 = *(a1 + 32);
   if (v2[24] == 1)
   {
-    v3 = *MEMORY[0x277CCA590];
-    v4 = NSErrorF();
-    v12 = v4;
+    v3 = NSErrorF();
+    v10 = v3;
     if (gLogCategory_DataRelayServiceClient <= 90)
     {
-      if (gLogCategory_DataRelayServiceClient != -1 || (v10 = _LogCategory_Initialize(), v4 = v12, v10))
+      if (gLogCategory_DataRelayServiceClient != -1 || (v9 = _LogCategory_Initialize(), v3 = v10, v9))
       {
-        v11 = *(a1 + 32);
-        LogPrintF();
-        v4 = v12;
+        LogPrintF(&gLogCategory_DataRelayServiceClient, "[DataRelayServiceClient sensorDataAvailable:dataTypes:completion:]_block_invoke", 90, "sensorDataAvailable failed: %@, %@", *(a1 + 32), v3);
       }
     }
 
-    (*(*(a1 + 48) + 16))(*(a1 + 48), v4);
+    (*(*(a1 + 48) + 16))();
   }
 
   else
   {
-    v5 = [v2 _ensureXPCStarted];
-    if (v5)
+    v4 = [v2 _ensureXPCStarted];
+    if (v4)
     {
       (*(*(a1 + 48) + 16))();
     }
@@ -377,21 +383,21 @@ void __67__DataRelayServiceClient_sensorDataAvailable_dataTypes_completion___blo
         __67__DataRelayServiceClient_sensorDataAvailable_dataTypes_completion___block_invoke_cold_1(a1);
       }
 
-      v6 = *(*(a1 + 32) + 32);
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __67__DataRelayServiceClient_sensorDataAvailable_dataTypes_completion___block_invoke_2;
-      v15[3] = &unk_278F4E3F8;
-      v16 = *(a1 + 48);
-      v7 = [v6 remoteObjectProxyWithErrorHandler:v15];
-      v8 = *(a1 + 56);
+      v5 = *(*(a1 + 32) + 32);
       v13[0] = MEMORY[0x277D85DD0];
       v13[1] = 3221225472;
-      v13[2] = __67__DataRelayServiceClient_sensorDataAvailable_dataTypes_completion___block_invoke_3;
+      v13[2] = __67__DataRelayServiceClient_sensorDataAvailable_dataTypes_completion___block_invoke_2;
       v13[3] = &unk_278F4E3F8;
-      v9 = *(a1 + 40);
       v14 = *(a1 + 48);
-      [v7 informDRClientSensorDataAvailable:v9 dataTypes:v8 completion:v13];
+      v6 = [v5 remoteObjectProxyWithErrorHandler:v13];
+      v7 = *(a1 + 56);
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __67__DataRelayServiceClient_sensorDataAvailable_dataTypes_completion___block_invoke_3;
+      v11[3] = &unk_278F4E3F8;
+      v8 = *(a1 + 40);
+      v12 = *(a1 + 48);
+      [v6 informDRClientSensorDataAvailable:v8 dataTypes:v7 completion:v11];
     }
   }
 }
@@ -400,24 +406,27 @@ void __67__DataRelayServiceClient_sensorDataAvailable_dataTypes_completion___blo
 {
   unavailableCopy = unavailable;
   completionCopy = completion;
-  v10 = completionCopy;
+  v12 = completionCopy;
   if (self->_activateCalled)
   {
     dispatchQueue = self->_dispatchQueue;
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __69__DataRelayServiceClient_sensorDataUnavailable_dataTypes_completion___block_invoke;
-    v12[3] = &unk_278F4E420;
-    v12[4] = self;
-    v14 = completionCopy;
-    v13 = unavailableCopy;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __69__DataRelayServiceClient_sensorDataUnavailable_dataTypes_completion___block_invoke;
+    v14[3] = &unk_278F4E420;
+    v14[4] = self;
+    v16 = completionCopy;
+    v15 = unavailableCopy;
     typesCopy = types;
-    dispatch_async(dispatchQueue, v12);
+    dispatch_async(dispatchQueue, v14);
   }
 
-  else if (gLogCategory_DataRelayServiceClient <= 60 && (gLogCategory_DataRelayServiceClient != -1 || _LogCategory_Initialize()))
+  else if (gLogCategory_DataRelayServiceClient <= 60)
   {
-    [DataRelayServiceClient sensorDataUnavailable:dataTypes:completion:];
+    if (gLogCategory_DataRelayServiceClient != -1 || (completionCopy = _LogCategory_Initialize(), completionCopy))
+    {
+      [DataRelayServiceClient sensorDataUnavailable:completionCopy dataTypes:v10 completion:v11];
+    }
   }
 }
 
@@ -426,26 +435,23 @@ void __69__DataRelayServiceClient_sensorDataUnavailable_dataTypes_completion___b
   v2 = *(a1 + 32);
   if (v2[24] == 1)
   {
-    v3 = *MEMORY[0x277CCA590];
-    v4 = NSErrorF();
-    v12 = v4;
+    v3 = NSErrorF();
+    v10 = v3;
     if (gLogCategory_DataRelayServiceClient <= 90)
     {
-      if (gLogCategory_DataRelayServiceClient != -1 || (v10 = _LogCategory_Initialize(), v4 = v12, v10))
+      if (gLogCategory_DataRelayServiceClient != -1 || (v9 = _LogCategory_Initialize(), v3 = v10, v9))
       {
-        v11 = *(a1 + 32);
-        LogPrintF();
-        v4 = v12;
+        LogPrintF(&gLogCategory_DataRelayServiceClient, "[DataRelayServiceClient sensorDataUnavailable:dataTypes:completion:]_block_invoke", 90, "sensorDataLost failed: %@, %@", *(a1 + 32), v3);
       }
     }
 
-    (*(*(a1 + 48) + 16))(*(a1 + 48), v4);
+    (*(*(a1 + 48) + 16))();
   }
 
   else
   {
-    v5 = [v2 _ensureXPCStarted];
-    if (v5)
+    v4 = [v2 _ensureXPCStarted];
+    if (v4)
     {
       (*(*(a1 + 48) + 16))();
     }
@@ -457,21 +463,21 @@ void __69__DataRelayServiceClient_sensorDataUnavailable_dataTypes_completion___b
         __69__DataRelayServiceClient_sensorDataUnavailable_dataTypes_completion___block_invoke_cold_1(a1);
       }
 
-      v6 = *(*(a1 + 32) + 32);
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __69__DataRelayServiceClient_sensorDataUnavailable_dataTypes_completion___block_invoke_2;
-      v15[3] = &unk_278F4E3F8;
-      v16 = *(a1 + 48);
-      v7 = [v6 remoteObjectProxyWithErrorHandler:v15];
-      v8 = *(a1 + 56);
+      v5 = *(*(a1 + 32) + 32);
       v13[0] = MEMORY[0x277D85DD0];
       v13[1] = 3221225472;
-      v13[2] = __69__DataRelayServiceClient_sensorDataUnavailable_dataTypes_completion___block_invoke_3;
+      v13[2] = __69__DataRelayServiceClient_sensorDataUnavailable_dataTypes_completion___block_invoke_2;
       v13[3] = &unk_278F4E3F8;
-      v9 = *(a1 + 40);
       v14 = *(a1 + 48);
-      [v7 informDRClientSensorDataUnavailable:v9 dataTypes:v8 completion:v13];
+      v6 = [v5 remoteObjectProxyWithErrorHandler:v13];
+      v7 = *(a1 + 56);
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __69__DataRelayServiceClient_sensorDataUnavailable_dataTypes_completion___block_invoke_3;
+      v11[3] = &unk_278F4E3F8;
+      v8 = *(a1 + 40);
+      v12 = *(a1 + 48);
+      [v6 informDRClientSensorDataUnavailable:v8 dataTypes:v7 completion:v11];
     }
   }
 }
@@ -502,7 +508,7 @@ void __67__DataRelayServiceClient_sensorDataAvailable_dataTypes_completion___blo
     v5 = @"None";
   }
 
-  LogPrintF();
+  LogPrintF(&gLogCategory_DataRelayServiceClient, "[DataRelayServiceClient sensorDataAvailable:dataTypes:completion:]_block_invoke", 40, "sensorDataAvailable, identifier: %@, dataTypes: %@", v1, v5);
 }
 
 void __69__DataRelayServiceClient_sensorDataUnavailable_dataTypes_completion___block_invoke_cold_1(uint64_t a1)
@@ -531,7 +537,7 @@ void __69__DataRelayServiceClient_sensorDataUnavailable_dataTypes_completion___b
     v5 = @"None";
   }
 
-  LogPrintF();
+  LogPrintF(&gLogCategory_DataRelayServiceClient, "[DataRelayServiceClient sensorDataUnavailable:dataTypes:completion:]_block_invoke", 40, "sensorDataUnavailable, identifier: %@, dataTypes: %@", v1, v5);
 }
 
 @end

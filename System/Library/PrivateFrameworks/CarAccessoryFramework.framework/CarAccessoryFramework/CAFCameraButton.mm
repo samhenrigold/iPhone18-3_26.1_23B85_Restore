@@ -39,7 +39,10 @@
 - (unsigned)buttonAction;
 - (unsigned)selectedEntryIndex;
 - (unsigned)sortOrder;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setButtonAction:(unsigned __int8)action;
+- (void)setSelectedEntryIndex:(unsigned __int8)index;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -146,6 +149,13 @@
   buttonActionValue = [buttonActionCharacteristic buttonActionValue];
 
   return buttonActionValue;
+}
+
+- (void)setButtonAction:(unsigned __int8)action
+{
+  actionCopy = action;
+  buttonActionCharacteristic = [(CAFCameraButton *)self buttonActionCharacteristic];
+  [buttonActionCharacteristic setButtonActionValue:actionCopy];
 }
 
 - (BOOL)hasButtonAction
@@ -502,6 +512,13 @@
   return uint8Value;
 }
 
+- (void)setSelectedEntryIndex:(unsigned __int8)index
+{
+  indexCopy = index;
+  selectedEntryIndexCharacteristic = [(CAFCameraButton *)self selectedEntryIndexCharacteristic];
+  [selectedEntryIndexCharacteristic setUint8Value:indexCopy];
+}
+
 - (CAFUInt8Range)selectedEntryIndexRange
 {
   selectedEntryIndexCharacteristic = [(CAFCameraButton *)self selectedEntryIndexCharacteristic];
@@ -516,6 +533,227 @@
   v3 = selectedEntryIndexCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000036000010"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    buttonActionCharacteristic = [(CAFCameraButton *)self buttonActionCharacteristic];
+    uniqueIdentifier2 = [buttonActionCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers cameraButtonService:self didUpdateButtonAction:{-[CAFCameraButton buttonAction](self, "buttonAction")}];
+      goto LABEL_18;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000036000066"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    contentURLActionCharacteristic = [(CAFCameraButton *)self contentURLActionCharacteristic];
+    uniqueIdentifier4 = [contentURLActionCharacteristic uniqueIdentifier];
+    v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v17)
+    {
+      observers = [(CAFService *)self observers];
+      contentURLAction = [(CAFCameraButton *)self contentURLAction];
+      [observers cameraButtonService:self didUpdateContentURLAction:contentURLAction];
+LABEL_17:
+
+      goto LABEL_18;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000030000003"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    sortOrderCharacteristic = [(CAFCameraButton *)self sortOrderCharacteristic];
+    uniqueIdentifier6 = [sortOrderCharacteristic uniqueIdentifier];
+    v23 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v23)
+    {
+      observers2 = [(CAFService *)self observers];
+      [observers2 cameraButtonService:self didUpdateSortOrder:{-[CAFCameraButton sortOrder](self, "sortOrder")}];
+LABEL_16:
+
+      observers = [(CAFService *)self observers];
+      contentURLAction = [(CAFCameraButton *)self name];
+      [observers cameraButtonService:self didUpdateName:contentURLAction];
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType4 = [updateCopy characteristicType];
+  if ([characteristicType4 isEqual:@"0x000000003000005E"])
+  {
+    uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+    symbolNameCharacteristic = [(CAFCameraButton *)self symbolNameCharacteristic];
+    uniqueIdentifier8 = [symbolNameCharacteristic uniqueIdentifier];
+    v29 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+    if (v29)
+    {
+      observers2 = [(CAFService *)self observers];
+      symbolName = [(CAFCameraButton *)self symbolName];
+      [observers2 cameraButtonService:self didUpdateSymbolName:symbolName];
+
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType5 = [updateCopy characteristicType];
+  if ([characteristicType5 isEqual:@"0x0000000032000011"])
+  {
+    uniqueIdentifier9 = [updateCopy uniqueIdentifier];
+    disabledCharacteristic = [(CAFCameraButton *)self disabledCharacteristic];
+    uniqueIdentifier10 = [disabledCharacteristic uniqueIdentifier];
+    v35 = [uniqueIdentifier9 isEqual:uniqueIdentifier10];
+
+    if (v35)
+    {
+      observers = [(CAFService *)self observers];
+      [observers cameraButtonService:self didUpdateDisabled:{-[CAFCameraButton disabled](self, "disabled")}];
+      goto LABEL_18;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType6 = [updateCopy characteristicType];
+  if ([characteristicType6 isEqual:@"0x0000000036000064"])
+  {
+    uniqueIdentifier11 = [updateCopy uniqueIdentifier];
+    selectedCharacteristic = [(CAFCameraButton *)self selectedCharacteristic];
+    uniqueIdentifier12 = [selectedCharacteristic uniqueIdentifier];
+    v40 = [uniqueIdentifier11 isEqual:uniqueIdentifier12];
+
+    if (v40)
+    {
+      observers = [(CAFService *)self observers];
+      [observers cameraButtonService:self didUpdateSelected:{-[CAFCameraButton selected](self, "selected")}];
+      goto LABEL_18;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType7 = [updateCopy characteristicType];
+  if ([characteristicType7 isEqual:@"0x0000000036000023"])
+  {
+    uniqueIdentifier13 = [updateCopy uniqueIdentifier];
+    hiddenCharacteristic = [(CAFCameraButton *)self hiddenCharacteristic];
+    uniqueIdentifier14 = [hiddenCharacteristic uniqueIdentifier];
+    v45 = [uniqueIdentifier13 isEqual:uniqueIdentifier14];
+
+    if (v45)
+    {
+      observers = [(CAFService *)self observers];
+      [observers cameraButtonService:self didUpdateHidden:{-[CAFCameraButton hidden](self, "hidden")}];
+      goto LABEL_18;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType8 = [updateCopy characteristicType];
+  if ([characteristicType8 isEqual:@"0x0000000030000019"])
+  {
+    uniqueIdentifier15 = [updateCopy uniqueIdentifier];
+    identifierCharacteristic = [(CAFCameraButton *)self identifierCharacteristic];
+    uniqueIdentifier16 = [identifierCharacteristic uniqueIdentifier];
+    v50 = [uniqueIdentifier15 isEqual:uniqueIdentifier16];
+
+    if (v50)
+    {
+      observers = [(CAFService *)self observers];
+      contentURLAction = [(CAFCameraButton *)self identifier];
+      [observers cameraButtonService:self didUpdateIdentifier:contentURLAction];
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType9 = [updateCopy characteristicType];
+  if ([characteristicType9 isEqual:@"0x0000000050000001"])
+  {
+    uniqueIdentifier17 = [updateCopy uniqueIdentifier];
+    childrenIdentifiersCharacteristic = [(CAFCameraButton *)self childrenIdentifiersCharacteristic];
+    uniqueIdentifier18 = [childrenIdentifiersCharacteristic uniqueIdentifier];
+    v55 = [uniqueIdentifier17 isEqual:uniqueIdentifier18];
+
+    if (v55)
+    {
+      observers = [(CAFService *)self observers];
+      contentURLAction = [(CAFCameraButton *)self childrenIdentifiers];
+      [observers cameraButtonService:self didUpdateChildrenIdentifiers:contentURLAction];
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if ([observers isEqual:@"0x0000000030000061"])
+  {
+    uniqueIdentifier19 = [updateCopy uniqueIdentifier];
+    selectedEntryIndexCharacteristic = [(CAFCameraButton *)self selectedEntryIndexCharacteristic];
+    uniqueIdentifier20 = [selectedEntryIndexCharacteristic uniqueIdentifier];
+    v59 = [uniqueIdentifier19 isEqual:uniqueIdentifier20];
+
+    if (!v59)
+    {
+      goto LABEL_19;
+    }
+
+    observers = [(CAFService *)self observers];
+    [observers cameraButtonService:self didUpdateSelectedEntryIndex:{-[CAFCameraButton selectedEntryIndex](self, "selectedEntryIndex")}];
+  }
+
+LABEL_18:
+
+LABEL_19:
+  v60.receiver = self;
+  v60.super_class = CAFCameraButton;
+  [(CAFService *)&v60 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForButtonAction

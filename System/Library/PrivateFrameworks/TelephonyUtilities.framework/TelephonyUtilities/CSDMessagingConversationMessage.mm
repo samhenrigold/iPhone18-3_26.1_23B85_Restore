@@ -1,13 +1,19 @@
 @interface CSDMessagingConversationMessage
 - (BOOL)constitutesLetMeInApproval;
 - (BOOL)isEqual:(id)equal;
+- (CSDMessagingConversationMessage)initWithEncryptedMessage:(id)message enclosedType:(int)type link:(id)link;
+- (CSDMessagingConversationMessage)initWithType:(int)type groupUUID:(id)d link:(id)link;
 - (NSSet)tuInvitationPreferences;
 - (NSUUID)conversationGroupUUID;
 - (TUConversationInvitationContext)tuInvitationContext;
 - (TUConversationLink)tuConversationLink;
+- (id)avModeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)enclosedEncryptedTypeAsString:(int)string;
+- (id)presentationModeAsString:(int)string;
+- (id)typeAsString:(int)string;
 - (int)StringAsAvMode:(id)mode;
 - (int)StringAsEnclosedEncryptedType:(id)type;
 - (int)StringAsPresentationMode:(id)mode;
@@ -44,6 +50,46 @@
 @end
 
 @implementation CSDMessagingConversationMessage
+
+- (CSDMessagingConversationMessage)initWithType:(int)type groupUUID:(id)d link:(id)link
+{
+  v6 = *&type;
+  dCopy = d;
+  linkCopy = link;
+  v10 = [(CSDMessagingConversationMessage *)self init];
+  [(CSDMessagingConversationMessage *)v10 setType:v6];
+  if (dCopy)
+  {
+    [(CSDMessagingConversationMessage *)v10 setConversationGroupUUID:dCopy];
+  }
+
+  if (linkCopy)
+  {
+    v11 = [CSDMessagingConversationLink linkWithTUConversationLink:linkCopy includeGroupUUID:1];
+    [(CSDMessagingConversationMessage *)v10 setLink:v11];
+  }
+
+  return v10;
+}
+
+- (CSDMessagingConversationMessage)initWithEncryptedMessage:(id)message enclosedType:(int)type link:(id)link
+{
+  v5 = *&type;
+  linkCopy = link;
+  messageCopy = message;
+  v10 = [(CSDMessagingConversationMessage *)self init];
+  [(CSDMessagingConversationMessage *)v10 setType:13];
+  [(CSDMessagingConversationMessage *)v10 setEncryptedMessage:messageCopy];
+
+  [(CSDMessagingConversationMessage *)v10 setEnclosedEncryptedType:v5];
+  if (linkCopy)
+  {
+    v11 = [CSDMessagingConversationLink linkWithTUConversationLink:linkCopy includeGroupUUID:0];
+    [(CSDMessagingConversationMessage *)v10 setLink:v11];
+  }
+
+  return v10;
+}
 
 - (BOOL)constitutesLetMeInApproval
 {
@@ -273,6 +319,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFFDF | v3;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string < 0x26 && ((0x3FFFE9FF7FuLL >> string) & 1) != 0)
+  {
+    v4 = off_10061EED0[string];
+  }
+
+  else
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsType:(id)type
@@ -583,6 +644,21 @@
   *&self->_has = *&self->_has & 0xFFFB | v3;
 }
 
+- (id)enclosedEncryptedTypeAsString:(int)string
+{
+  if (string < 0x26 && ((0x3FFFE9FF7FuLL >> string) & 1) != 0)
+  {
+    v4 = off_10061EED0[string];
+  }
+
+  else
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsEnclosedEncryptedType:(id)type
 {
   typeCopy = type;
@@ -864,6 +940,21 @@
   }
 }
 
+- (id)avModeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_10061F000[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsAvMode:(id)mode
 {
   modeCopy = mode;
@@ -931,6 +1022,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFFF7 | v3;
+}
+
+- (id)presentationModeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_10061F018[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsPresentationMode:(id)mode
@@ -1462,7 +1568,6 @@ LABEL_5:
   has = self->_has;
   if ((has & 0x40) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x20) == 0)
@@ -1482,46 +1587,43 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  type = self->_type;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x400) != 0)
   {
 LABEL_4:
-    shouldSuppressInCallUI = self->_shouldSuppressInCallUI;
     PBDataWriterWriteBOOLField();
   }
 
 LABEL_5:
-  v86 = 0u;
-  v87 = 0u;
-  v84 = 0u;
-  v85 = 0u;
-  v7 = self->_activeParticipants;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v84 objects:v94 count:16];
-  if (v8)
+  v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v6 = self->_activeParticipants;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v66 objects:v76 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v85;
+    v8 = v7;
+    v9 = *v67;
     do
     {
-      v11 = 0;
+      v10 = 0;
       do
       {
-        if (*v85 != v10)
+        if (*v67 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v84 + 1) + 8 * v11);
         PBDataWriterWriteSubmessage();
-        v11 = v11 + 1;
+        ++v10;
       }
 
-      while (v9 != v11);
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v84 objects:v94 count:16];
+      while (v8 != v10);
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v66 objects:v76 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
   if (self->_conversationGroupUUIDString)
@@ -1529,41 +1631,39 @@ LABEL_5:
     PBDataWriterWriteStringField();
   }
 
-  v82 = 0u;
-  v83 = 0u;
-  v80 = 0u;
-  v81 = 0u;
-  v13 = self->_addedMembers;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v80 objects:v93 count:16];
-  if (v14)
+  v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v11 = self->_addedMembers;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v62 objects:v75 count:16];
+  if (v12)
   {
-    v15 = v14;
-    v16 = *v81;
+    v13 = v12;
+    v14 = *v63;
     do
     {
-      v17 = 0;
+      v15 = 0;
       do
       {
-        if (*v81 != v16)
+        if (*v63 != v14)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v11);
         }
 
-        v18 = *(*(&v80 + 1) + 8 * v17);
         PBDataWriterWriteSubmessage();
-        v17 = v17 + 1;
+        ++v15;
       }
 
-      while (v15 != v17);
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v80 objects:v93 count:16];
+      while (v13 != v15);
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v62 objects:v75 count:16];
     }
 
-    while (v15);
+    while (v13);
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    disconnectedReason = self->_disconnectedReason;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1572,36 +1672,35 @@ LABEL_5:
     PBDataWriterWriteStringField();
   }
 
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
-  v77 = 0u;
-  v20 = self->_activitySessions;
-  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v76 objects:v92 count:16];
-  if (v21)
+  v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v16 = self->_activitySessions;
+  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v58 objects:v74 count:16];
+  if (v17)
   {
-    v22 = v21;
-    v23 = *v77;
+    v18 = v17;
+    v19 = *v59;
     do
     {
-      v24 = 0;
+      v20 = 0;
       do
       {
-        if (*v77 != v23)
+        if (*v59 != v19)
         {
-          objc_enumerationMutation(v20);
+          objc_enumerationMutation(v16);
         }
 
-        v25 = *(*(&v76 + 1) + 8 * v24);
         PBDataWriterWriteSubmessage();
-        v24 = v24 + 1;
+        ++v20;
       }
 
-      while (v22 != v24);
-      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v76 objects:v92 count:16];
+      while (v18 != v20);
+      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v58 objects:v74 count:16];
     }
 
-    while (v22);
+    while (v18);
   }
 
   if (self->_nickname)
@@ -1621,7 +1720,6 @@ LABEL_5:
 
   if ((*&self->_has & 0x100) != 0)
   {
-    isLetMeInApproved = self->_isLetMeInApproved;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1642,141 +1740,135 @@ LABEL_5:
 
   if ((*&self->_has & 4) != 0)
   {
-    enclosedEncryptedType = self->_enclosedEncryptedType;
     PBDataWriterWriteInt32Field();
   }
 
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
-  v73 = 0u;
-  v28 = self->_invitationPreferences;
-  v29 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v72 objects:v91 count:16];
-  if (v29)
+  v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  v21 = self->_invitationPreferences;
+  v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v54 objects:v73 count:16];
+  if (v22)
   {
-    v30 = v29;
-    v31 = *v73;
+    v23 = v22;
+    v24 = *v55;
     do
     {
-      v32 = 0;
+      v25 = 0;
       do
       {
-        if (*v73 != v31)
+        if (*v55 != v24)
         {
-          objc_enumerationMutation(v28);
+          objc_enumerationMutation(v21);
         }
 
-        v33 = *(*(&v72 + 1) + 8 * v32);
         PBDataWriterWriteSubmessage();
-        v32 = v32 + 1;
+        ++v25;
       }
 
-      while (v30 != v32);
-      v30 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v72 objects:v91 count:16];
+      while (v23 != v25);
+      v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v54 objects:v73 count:16];
     }
 
-    while (v30);
+    while (v23);
   }
 
-  v70 = 0u;
-  v71 = 0u;
-  v68 = 0u;
-  v69 = 0u;
-  v34 = self->_removedMembers;
-  v35 = [(NSMutableArray *)v34 countByEnumeratingWithState:&v68 objects:v90 count:16];
-  if (v35)
+  v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v26 = self->_removedMembers;
+  v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v50 objects:v72 count:16];
+  if (v27)
   {
-    v36 = v35;
-    v37 = *v69;
+    v28 = v27;
+    v29 = *v51;
     do
     {
-      v38 = 0;
+      v30 = 0;
       do
       {
-        if (*v69 != v37)
+        if (*v51 != v29)
         {
-          objc_enumerationMutation(v34);
+          objc_enumerationMutation(v26);
         }
 
-        v39 = *(*(&v68 + 1) + 8 * v38);
         PBDataWriterWriteSubmessage();
-        v38 = v38 + 1;
+        ++v30;
       }
 
-      while (v36 != v38);
-      v36 = [(NSMutableArray *)v34 countByEnumeratingWithState:&v68 objects:v90 count:16];
+      while (v28 != v30);
+      v28 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v50 objects:v72 count:16];
     }
 
-    while (v36);
+    while (v28);
   }
 
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
-  v65 = 0u;
-  v40 = self->_lightweightMembers;
-  v41 = [(NSMutableArray *)v40 countByEnumeratingWithState:&v64 objects:v89 count:16];
-  if (v41)
+  v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v31 = self->_lightweightMembers;
+  v32 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v46 objects:v71 count:16];
+  if (v32)
   {
-    v42 = v41;
-    v43 = *v65;
+    v33 = v32;
+    v34 = *v47;
     do
     {
-      v44 = 0;
+      v35 = 0;
       do
       {
-        if (*v65 != v43)
+        if (*v47 != v34)
         {
-          objc_enumerationMutation(v40);
+          objc_enumerationMutation(v31);
         }
 
-        v45 = *(*(&v64 + 1) + 8 * v44);
         PBDataWriterWriteSubmessage();
-        v44 = v44 + 1;
+        ++v35;
       }
 
-      while (v42 != v44);
-      v42 = [(NSMutableArray *)v40 countByEnumeratingWithState:&v64 objects:v89 count:16];
+      while (v33 != v35);
+      v33 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v46 objects:v71 count:16];
     }
 
-    while (v42);
+    while (v33);
   }
 
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
-  v61 = 0u;
-  v46 = self->_activeLightweightParticipants;
-  v47 = [(NSMutableArray *)v46 countByEnumeratingWithState:&v60 objects:v88 count:16];
-  if (v47)
+  v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v36 = self->_activeLightweightParticipants;
+  v37 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v42 objects:v70 count:16];
+  if (v37)
   {
-    v48 = v47;
-    v49 = *v61;
+    v38 = v37;
+    v39 = *v43;
     do
     {
-      v50 = 0;
+      v40 = 0;
       do
       {
-        if (*v61 != v49)
+        if (*v43 != v39)
         {
-          objc_enumerationMutation(v46);
+          objc_enumerationMutation(v36);
         }
 
-        v51 = *(*(&v60 + 1) + 8 * v50);
         PBDataWriterWriteSubmessage();
-        v50 = v50 + 1;
+        ++v40;
       }
 
-      while (v48 != v50);
-      v48 = [(NSMutableArray *)v46 countByEnumeratingWithState:&v60 objects:v88 count:16];
+      while (v38 != v40);
+      v38 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v42 objects:v70 count:16];
     }
 
-    while (v48);
+    while (v38);
   }
 
   if ((*&self->_has & 0x80) != 0)
   {
-    guestModeEnabled = self->_guestModeEnabled;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1795,17 +1887,15 @@ LABEL_5:
     PBDataWriterWriteSubmessage();
   }
 
-  v53 = self->_has;
-  if (v53)
+  v41 = self->_has;
+  if (v41)
   {
-    avMode = self->_avMode;
     PBDataWriterWriteInt32Field();
-    v53 = self->_has;
+    v41 = self->_has;
   }
 
-  if ((v53 & 0x10) != 0)
+  if ((v41 & 0x10) != 0)
   {
-    requestBlobRecoveryOptions = self->_requestBlobRecoveryOptions;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1816,7 +1906,6 @@ LABEL_5:
 
   if ((*&self->_has & 8) != 0)
   {
-    presentationMode = self->_presentationMode;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1827,7 +1916,6 @@ LABEL_5:
 
   if ((*&self->_has & 0x200) != 0)
   {
-    isNearbySession = self->_isNearbySession;
     PBDataWriterWriteBOOLField();
   }
 
@@ -2536,7 +2624,6 @@ LABEL_5:
       goto LABEL_24;
     }
 
-    v13 = *(equalCopy + 219);
     if (self->_shouldSuppressInCallUI)
     {
       if ((*(equalCopy + 219) & 1) == 0)
@@ -2636,7 +2723,6 @@ LABEL_5:
     }
   }
 
-  v19 = *(equalCopy + 110);
   if ((*&self->_has & 0x100) != 0)
   {
     if ((*(equalCopy + 110) & 0x100) == 0)
@@ -2644,7 +2730,6 @@ LABEL_5:
       goto LABEL_24;
     }
 
-    v24 = *(equalCopy + 217);
     if (self->_isLetMeInApproved)
     {
       if ((*(equalCopy + 217) & 1) == 0)
@@ -2688,16 +2773,16 @@ LABEL_5:
     }
   }
 
-  v23 = *(equalCopy + 110);
+  v21 = *(equalCopy + 110);
   if ((*&self->_has & 4) != 0)
   {
-    if ((v23 & 4) == 0 || self->_enclosedEncryptedType != *(equalCopy + 15))
+    if ((v21 & 4) == 0 || self->_enclosedEncryptedType != *(equalCopy + 15))
     {
       goto LABEL_24;
     }
   }
 
-  else if ((v23 & 4) != 0)
+  else if ((v21 & 4) != 0)
   {
     goto LABEL_24;
   }
@@ -2735,15 +2820,14 @@ LABEL_5:
     }
   }
 
-  v29 = *(equalCopy + 110);
+  v26 = *(equalCopy + 110);
   if ((*&self->_has & 0x80) != 0)
   {
-    if ((v29 & 0x80) == 0)
+    if ((v26 & 0x80) == 0)
     {
       goto LABEL_24;
     }
 
-    v35 = *(equalCopy + 216);
     if (self->_guestModeEnabled)
     {
       if ((*(equalCopy + 216) & 1) == 0)
@@ -2758,7 +2842,7 @@ LABEL_5:
     }
   }
 
-  else if ((v29 & 0x80) != 0)
+  else if ((v26 & 0x80) != 0)
   {
     goto LABEL_24;
   }
@@ -2787,30 +2871,30 @@ LABEL_5:
     }
   }
 
-  v33 = self->_has;
-  v34 = *(equalCopy + 110);
-  if (v33)
+  v30 = self->_has;
+  v31 = *(equalCopy + 110);
+  if (v30)
   {
-    if ((v34 & 1) == 0 || self->_avMode != *(equalCopy + 10))
+    if ((v31 & 1) == 0 || self->_avMode != *(equalCopy + 10))
     {
       goto LABEL_24;
     }
   }
 
-  else if (v34)
+  else if (v31)
   {
     goto LABEL_24;
   }
 
-  if ((v33 & 0x10) != 0)
+  if ((v30 & 0x10) != 0)
   {
-    if ((v34 & 0x10) == 0 || self->_requestBlobRecoveryOptions != *(equalCopy + 44))
+    if ((v31 & 0x10) == 0 || self->_requestBlobRecoveryOptions != *(equalCopy + 44))
     {
       goto LABEL_24;
     }
   }
 
-  else if ((v34 & 0x10) != 0)
+  else if ((v31 & 0x10) != 0)
   {
     goto LABEL_24;
   }
@@ -2823,19 +2907,19 @@ LABEL_5:
       goto LABEL_24;
     }
 
-    v33 = self->_has;
+    v30 = self->_has;
   }
 
-  v37 = *(equalCopy + 110);
-  if ((v33 & 8) != 0)
+  v33 = *(equalCopy + 110);
+  if ((v30 & 8) != 0)
   {
-    if ((v37 & 8) == 0 || self->_presentationMode != *(equalCopy + 36))
+    if ((v33 & 8) == 0 || self->_presentationMode != *(equalCopy + 36))
     {
       goto LABEL_24;
     }
   }
 
-  else if ((v37 & 8) != 0)
+  else if ((v33 & 8) != 0)
   {
     goto LABEL_24;
   }
@@ -2848,11 +2932,10 @@ LABEL_5:
       goto LABEL_24;
     }
 
-    v33 = self->_has;
+    v30 = self->_has;
   }
 
-  v39 = *(equalCopy + 110);
-  if ((v33 & 0x200) == 0)
+  if ((v30 & 0x200) == 0)
   {
     if ((*(equalCopy + 110) & 0x200) == 0)
     {
@@ -2869,7 +2952,6 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  v40 = *(equalCopy + 218);
   if (!self->_isNearbySession)
   {
     if ((*(equalCopy + 218) & 1) == 0)

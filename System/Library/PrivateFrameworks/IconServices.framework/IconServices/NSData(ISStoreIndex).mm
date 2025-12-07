@@ -10,7 +10,7 @@
   v4 = open([path UTF8String], 0);
   if (v4 == -1)
   {
-    v8 = _ISDefaultLog();
+    v8 = _ISDefaultLog(v4);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       [NSData(ISStoreIndex) _ISStoreIndex_mappedDataWithURL:v8];
@@ -51,12 +51,11 @@
 
 + (void)_ISStoreIndex_mappedDataWithURL:()ISStoreIndex .cold.1(NSObject *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v2 = *__error();
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_debug_impl(&dword_1A77B8000, a1, OS_LOG_TYPE_DEBUG, "Failed to open store index with errno: %d", v4, 8u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_debug_impl(&dword_1A77B8000, a1, OS_LOG_TYPE_DEBUG, "Failed to open store index with errno: %d", v3, 8u);
 }
 
 @end

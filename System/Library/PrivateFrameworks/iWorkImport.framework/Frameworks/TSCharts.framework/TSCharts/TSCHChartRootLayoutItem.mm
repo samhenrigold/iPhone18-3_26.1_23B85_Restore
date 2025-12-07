@@ -120,9 +120,9 @@
     v33 = objc_msgSend_parent(self, v29, v30, v31, v32);
     if (v33)
     {
-      v38 = v33;
-      objc_msgSend_layoutSettings(v33, v34, v35, v36, v37);
-      v33 = v38;
+      v37 = v33;
+      objc_msgSend_layoutSettings(v33, v34, v35, v36);
+      v33 = v37;
     }
 
     else
@@ -244,7 +244,7 @@
 
 - (TSCHLegendAreaLayoutItem)legendAreaLayoutItem
 {
-  objc_msgSend_layoutSettings(self, a2, v2, v3, v4);
+  objc_msgSend_layoutSettings(self, v2, v3, v4, a2);
   if (v16)
   {
     v10 = 0;
@@ -402,30 +402,37 @@
     objc_msgSend_bottomLegendOffsetForChartAreaFrame_legendFrame_(self, v26, v18, v20, v22, v24, v27, v28, v29, v30);
     objc_msgSend_setLayoutOffset_(v6, v31, v32, v33, v34);
     v35 = *(MEMORY[0x277CBF398] + 16);
-    v74[0] = *MEMORY[0x277CBF398];
-    v74[1] = v35;
-    v73[0] = v74[0];
-    v73[1] = v35;
-    objc_msgSend_rootedLayoutRect(v16, v36, *v74, *&v35, v37);
-    objc_msgSend_chartBodyLayoutRect(v16, v38, v39, v40, v41);
-    objc_msgSend_rootedLayoutRect(v6, v42, v43, v44, v45);
-    v71 = v46;
-    v72 = v47;
-    v69 = v48;
-    v70 = v49;
-    sub_276283170(0, v74, 0, v73);
-    objc_msgSend_setLayoutOffset_(v16, v50, *v74, *(v74 + 1), v51, v69, v70, v71, v72);
-    objc_msgSend_setLayoutOffset_(v6, v52, *v73, *(v73 + 1), v53);
+    v80[0] = *MEMORY[0x277CBF398];
+    v80[1] = v35;
+    v79[0] = v80[0];
+    v79[1] = v35;
+    objc_msgSend_rootedLayoutRect(v16, v36, *v80, *&v35, v37);
+    v39 = *&v38;
+    v41 = *&v40;
+    v43 = v42;
+    v45 = v44;
+    objc_msgSend_chartBodyLayoutRect(v16, v46, v38, v40, v42);
+    v48 = v47;
+    v50 = v49;
+    v52 = v51;
+    v54 = v53;
+    objc_msgSend_rootedLayoutRect(v6, v55, v47, v49, v51);
+    v78 = v56;
+    v57.n128_u64[0] = v39;
+    v58.n128_u64[0] = v41;
+    sub_276283170(0, v80, 0, v79, v57, v58, v43, v45, v48, v50, v52, v54, v78);
+    objc_msgSend_setLayoutOffset_(v16, v59, *v80, *(v80 + 1), v60);
+    objc_msgSend_setLayoutOffset_(v6, v61, *v79, *(v79 + 1), v62);
   }
 
   else
   {
-    v54 = MEMORY[0x277D81150];
-    v55 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v13, v14, v15, "[TSCHChartRootLayoutItem positionLegendAtBottom]");
-    v60 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v56, v57, v58, v59, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartRootLayoutItem.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v54, v61, v62, v63, v64, v55, v60, 196, 0, "Invalid layout items legend %@, area %@", v6, v16);
+    v63 = MEMORY[0x277D81150];
+    v64 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v13, v14, v15, "[TSCHChartRootLayoutItem positionLegendAtBottom]");
+    v69 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v65, v66, v67, v68, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartRootLayoutItem.m");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v63, v70, v71, v72, v73, v64, v69, 196, 0, "Invalid layout items legend %@, area %@", v6, v16);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v65, v66, v67, v68);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v74, v75, v76, v77);
   }
 }
 
@@ -512,8 +519,8 @@ LABEL_7:
   v26 = MEMORY[0x277CBF348];
   if (v22 && v16)
   {
-    objc_msgSend_layoutSettings(self, v21, v23, v24, v25);
-    if (v84 == 1)
+    objc_msgSend_layoutSettings(self, v23, v24, v25);
+    if (v90 == 1)
     {
       objc_msgSend_positionLegendAtBottom(self, v27, v28, v29, v30);
     }
@@ -521,28 +528,34 @@ LABEL_7:
     else
     {
       v55 = *(MEMORY[0x277CBF398] + 16);
-      v83[0] = *MEMORY[0x277CBF398];
-      v83[1] = v55;
-      v82[0] = v83[0];
-      v82[1] = v55;
-      objc_msgSend_rootedLayoutRect(v6, v27, *v83, *&v55, v30);
-      objc_msgSend_chartBodyLayoutRect(v6, v56, v57, v58, v59);
-      objc_msgSend_legendModelGeometryFrame(v22, v60, v61, v62, v63);
-      v65 = v64;
-      v67 = v66;
-      objc_msgSend_legendModelGeometryFrame(v22, v68, v64, v66, v69);
-      v80 = v70;
-      v81 = v71;
-      sub_2762833A4(0, v83, 0, v82);
-      objc_msgSend_setLayoutOffset_(v6, v72, *v83, *(v83 + 1), v73, *&v65, *&v67, v80, v81);
-      objc_msgSend_setLayoutOffset_(v22, v74, *v82, *(v82 + 1), v75);
+      v89[0] = *MEMORY[0x277CBF398];
+      v89[1] = v55;
+      v88[0] = v89[0];
+      v88[1] = v55;
+      objc_msgSend_rootedLayoutRect(v6, v27, *v89, *&v55, v30);
+      v86 = v57;
+      v87 = v56;
+      v59 = v58;
+      v61 = v60;
+      objc_msgSend_chartBodyLayoutRect(v6, v62, v56, v57, v58);
+      v64 = v63;
+      v66 = v65;
+      v68 = v67;
+      v70 = v69;
+      objc_msgSend_legendModelGeometryFrame(v22, v71, v63, v65, v67);
+      v73 = v72;
+      v75 = v74;
+      objc_msgSend_legendModelGeometryFrame(v22, v76, v72, v74, v77);
+      sub_2762833A4(0, v89, 0, v88, v87, v86, v59, v61, v64, v66, v68, v70, v73, v75);
+      objc_msgSend_setLayoutOffset_(v6, v78, *v89, *(v89 + 1), v79);
+      objc_msgSend_setLayoutOffset_(v22, v80, *v88, *(v88 + 1), v81);
     }
 
     objc_msgSend_layoutRect(v22, v31, v32, v33, v34);
     v43 = v38;
     v44 = v39;
     v45 = v40;
-    v46 = v76;
+    v46 = v82;
     if (!v6)
     {
 LABEL_11:
@@ -581,13 +594,13 @@ LABEL_11:
   v52 = v51;
   v54 = v53;
 LABEL_12:
-  v85.origin.x = v43;
-  v85.origin.y = v44;
-  v85.size.width = v45;
-  v85.size.height = v46;
-  v86 = CGRectUnion(v85, *&v48);
-  objc_msgSend_setLayoutSize_(self, v77, v86.size.width, v86.size.height, v86.size.width);
-  objc_msgSend_setLayoutOffset_(self, v78, *v26, v26[1], v79);
+  v91.origin.x = v43;
+  v91.origin.y = v44;
+  v91.size.width = v45;
+  v91.size.height = v46;
+  v92 = CGRectUnion(v91, *&v48);
+  objc_msgSend_setLayoutSize_(self, v83, v92.size.width, v92.size.height, v92.size.width);
+  objc_msgSend_setLayoutOffset_(self, v84, *v26, v26[1], v85);
 }
 
 - (void)layoutInward
@@ -617,126 +630,126 @@ LABEL_12:
     }
 
     objc_msgSend_layoutSize(self, v31, v32, v33, v34);
-    v66 = v65;
-    v143 = v67;
-    v70 = objc_msgSend_chartInfo(self, v68, v65, v67, v69);
-    v148.origin.x = p_chartInnerFrame->origin.x;
-    v148.origin.y = self->_chartInnerFrame.origin.y;
-    y = v148.origin.y;
+    v65 = v64;
+    v142 = v66;
+    v69 = objc_msgSend_chartInfo(self, v67, v64, v66, v68);
+    v147.origin.x = p_chartInnerFrame->origin.x;
+    v147.origin.y = self->_chartInnerFrame.origin.y;
+    y = v147.origin.y;
     x = p_chartInnerFrame->origin.x;
     width = self->_chartInnerFrame.size.width;
-    v148.size.height = self->_chartInnerFrame.size.height;
-    rect = v148.size.height;
-    v72 = p_legendInnerFrame->origin.x;
-    v73 = self->_legendInnerFrame.origin.y;
-    v74 = self->_legendInnerFrame.size.width;
+    v147.size.height = self->_chartInnerFrame.size.height;
+    rect = v147.size.height;
+    v71 = p_legendInnerFrame->origin.x;
+    v72 = self->_legendInnerFrame.origin.y;
+    v73 = self->_legendInnerFrame.size.width;
     height = self->_legendInnerFrame.size.height;
-    v148.size.width = width;
-    v156.origin.x = p_legendInnerFrame->origin.x;
-    v156.origin.y = v73;
-    v156.size.width = v74;
-    v156.size.height = height;
-    v149 = CGRectUnion(v148, v156);
-    v76 = v149.size.width;
-    v77 = v149.size.height;
-    objc_msgSend_resizedLegendFrame_oldChartSize_newChartSize_(v70, v78, v72, v73, v74, height, v149.size.width, v149.size.height, v66, v143);
-    v80 = v79;
-    memset(&v147, 0, sizeof(v147));
-    CGAffineTransformMakeScale(&v147, v66 / v76, v143 / v77);
-    v146 = v147;
-    v150.origin.y = y;
-    v150.origin.x = x;
-    v150.size.width = width;
-    v150.size.height = rect;
-    v151 = CGRectApplyAffineTransform(v150, &v146);
-    v81 = v151.origin.x;
-    v82 = v151.origin.y;
-    v83 = v151.size.width;
-    v84 = v151.size.height;
+    v147.size.width = width;
+    v155.origin.x = p_legendInnerFrame->origin.x;
+    v155.origin.y = v72;
+    v155.size.width = v73;
+    v155.size.height = height;
+    v148 = CGRectUnion(v147, v155);
+    v75 = v148.size.width;
+    v76 = v148.size.height;
+    objc_msgSend_resizedLegendFrame_oldChartSize_newChartSize_(v69, v77, v71, v72, v73, height, v148.size.width, v148.size.height, v65, v142);
+    v79 = v78;
+    memset(&v146, 0, sizeof(v146));
+    CGAffineTransformMakeScale(&v146, v65 / v75, v142 / v76);
+    v145 = v146;
+    v149.origin.y = y;
+    v149.origin.x = x;
+    v149.size.width = width;
+    v149.size.height = rect;
+    v150 = CGRectApplyAffineTransform(v149, &v145);
+    v80 = v150.origin.x;
+    v81 = v150.origin.y;
+    v82 = v150.size.width;
+    v83 = v150.size.height;
     TSURectWithSize();
-    v157.origin.x = v85;
-    v157.origin.y = v86;
-    v157.size.width = v87;
-    v157.size.height = v88;
-    v152.origin.x = v81;
-    v152.origin.y = v82;
-    v152.size.width = v83;
-    v152.size.height = v84;
-    v153 = CGRectIntersection(v152, v157);
-    v142 = v153.origin.x;
-    v89 = v153.origin.y;
-    v90 = v153.size.width;
-    v91 = v153.size.height;
-    objc_msgSend_setLayoutSize_(v20, v92, v80, 0.0, v153.size.width);
-    objc_msgSend_layoutSize(v20, v93, v94, v95, v96);
+    v156.origin.x = v84;
+    v156.origin.y = v85;
+    v156.size.width = v86;
+    v156.size.height = v87;
+    v151.origin.x = v80;
+    v151.origin.y = v81;
+    v151.size.width = v82;
+    v151.size.height = v83;
+    v152 = CGRectIntersection(v151, v156);
+    v141 = v152.origin.x;
+    v88 = v152.origin.y;
+    v89 = v152.size.width;
+    v90 = v152.size.height;
+    objc_msgSend_setLayoutSize_(v20, v91, v79, 0.0, v152.size.width);
+    objc_msgSend_layoutSize(v20, v92, v93, v94, v95);
     TSURectWithOriginAndSize();
-    v97 = v154.origin.x;
-    v98 = v154.origin.y;
-    v99 = v154.size.width;
-    v100 = v154.size.height;
-    if (CGRectGetMaxX(v154) <= v66)
+    v96 = v153.origin.x;
+    v97 = v153.origin.y;
+    v98 = v153.size.width;
+    v99 = v153.size.height;
+    if (CGRectGetMaxX(v153) <= v65)
     {
-      v101 = v97;
+      v100 = v96;
     }
 
     else
     {
-      v101 = v66 - v99;
+      v100 = v65 - v98;
     }
 
-    if (v101 >= 0.0)
+    if (v100 >= 0.0)
     {
-      v102 = v101;
+      v101 = v100;
     }
 
     else
     {
-      v102 = 0.0;
+      v101 = 0.0;
     }
 
-    v155.origin.x = v102;
-    v155.origin.y = v98;
-    v155.size.width = v99;
-    v155.size.height = v100;
-    if (CGRectGetMaxY(v155) <= v143)
+    v154.origin.x = v101;
+    v154.origin.y = v97;
+    v154.size.width = v98;
+    v154.size.height = v99;
+    if (CGRectGetMaxY(v154) <= v142)
     {
-      v104 = v98;
+      v103 = v97;
     }
 
     else
     {
-      v104 = v143 - v100;
+      v103 = v142 - v99;
     }
 
-    if (v104 >= 0.0)
+    if (v103 >= 0.0)
     {
-      v105 = v104;
+      v104 = v103;
     }
 
     else
     {
-      v105 = 0.0;
+      v104 = 0.0;
     }
 
-    objc_msgSend_setLayoutSize_(v26, v103, v90, v91, v143);
-    objc_msgSend_setLayoutOffset_(v26, v106, v142, v89, v107);
-    objc_msgSend_setLayoutSize_(v20, v108, v99, v100, v109);
-    objc_msgSend_setLayoutOffset_(v20, v110, v102, v105, v111);
-    objc_msgSend_layoutSize(v20, v112, v113, v114, v115);
-    v117 = v116;
+    objc_msgSend_setLayoutSize_(v26, v102, v89, v90, v142);
+    objc_msgSend_setLayoutOffset_(v26, v105, v141, v88, v106);
+    objc_msgSend_setLayoutSize_(v20, v107, v98, v99, v108);
+    objc_msgSend_setLayoutOffset_(v20, v109, v101, v104, v110);
+    objc_msgSend_layoutSize(v20, v111, v112, v113, v114);
+    v116 = v115;
     if ((TSUNearlyEqualSizes() & 1) == 0)
     {
-      v122 = MEMORY[0x277D81150];
-      v123 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v118, v119, v120, v121, "[TSCHChartRootLayoutItem layoutInward]");
-      v128 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v124, v125, v126, v127, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartRootLayoutItem.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v122, v129, v130, v131, v132, v123, v128, 355, 0, "The legendItem resized the legend after we explicitly got this size FROM it. Check on this.");
+      v121 = MEMORY[0x277D81150];
+      v122 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v117, v118, v119, v120, "[TSCHChartRootLayoutItem layoutInward]");
+      v127 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v123, v124, v125, v126, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartRootLayoutItem.m");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v121, v128, v129, v130, v131, v122, v127, 355, 0, "The legendItem resized the legend after we explicitly got this size FROM it. Check on this.");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v133, v134, v135, v136);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v132, v133, v134, v135);
     }
 
-    if ((TSUNearlyEqualSizes() & 1) == 0 && v117 > 0.0)
+    if ((TSUNearlyEqualSizes() & 1) == 0 && v116 > 0.0)
     {
-      objc_msgSend_setLayoutSize_(v20, v137, v99, v117, v138);
+      objc_msgSend_setLayoutSize_(v20, v136, v98, v116, v137);
     }
   }
 
@@ -747,16 +760,16 @@ LABEL_12:
     objc_msgSend_setLayoutOffset_(v26, v55, *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8), v56);
   }
 
-  v145.receiver = self;
-  v145.super_class = TSCHChartRootLayoutItem;
-  [(TSCHChartLayoutItem *)&v145 layoutInward];
-  objc_msgSend_layoutSettings(self, v57, v58, v59, v60);
-  if (v144 == 1)
+  v144.receiver = self;
+  v144.super_class = TSCHChartRootLayoutItem;
+  [(TSCHChartLayoutItem *)&v144 layoutInward];
+  objc_msgSend_layoutSettings(self, v57, v58, v59);
+  if (v143 == 1)
   {
-    objc_msgSend_positionLegendAtBottom(self, v61, v62, v63, v64);
+    objc_msgSend_positionLegendAtBottom(self, v60, v61, v62, v63);
   }
 
-  objc_msgSend_updateLayoutSize(self, v61, v62, v63, v64);
+  objc_msgSend_updateLayoutSize(self, v60, v61, v62, v63);
 LABEL_12:
 }
 
@@ -854,8 +867,8 @@ LABEL_12:
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v63, v64, v65, v66);
   }
 
-  objc_msgSend_layoutSettings(self, v48, v49, v50, v51);
-  if ((v88 & 1) == 0)
+  objc_msgSend_layoutSettings(self, v49, v50, v51);
+  if ((v88[0] & 1) == 0)
   {
     v71 = [TSCHLegendAreaLayoutItem alloc];
     v76 = objc_msgSend_initWithParent_(v71, v72, v73, v74, v75, self);

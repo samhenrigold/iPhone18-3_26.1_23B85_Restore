@@ -100,7 +100,7 @@
 
 - (void)writeTo:(id)to
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (!self->_targetHost)
   {
@@ -118,47 +118,42 @@
   has = self->_has;
   if (has)
   {
-    proxyIndex = self->_proxyIndex;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    weight = self->_weight;
     PBDataWriterWriteUint32Field();
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v9 = self->_processes;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v10)
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v7 = self->_processes;
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v8)
   {
-    v11 = v10;
-    v12 = *v17;
+    v9 = v8;
+    v10 = *v13;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v12)
+        if (*v13 != v10)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v11);
+    while (v9);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -198,7 +193,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_targetHost copyWithZone:zone];
   v7 = *(v5 + 32);
@@ -222,36 +217,35 @@
     *(v5 + 44) |= 2u;
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v11 = self->_processes;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v20;
+    v14 = *v19;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v20 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = [*(*(&v19 + 1) + 8 * i) copyWithZone:{zone, v19}];
+        v16 = [*(*(&v18 + 1) + 8 * i) copyWithZone:{zone, v18}];
         [v5 addProcesses:v16];
       }
 
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v13);
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -281,7 +275,6 @@
     }
   }
 
-  v7 = *(equalCopy + 44);
   if (*&self->_has)
   {
     if ((*(equalCopy + 44) & 1) == 0 || self->_proxyIndex != *(equalCopy + 4))
@@ -293,7 +286,7 @@
   else if (*(equalCopy + 44))
   {
 LABEL_18:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_19;
   }
 
@@ -313,17 +306,17 @@ LABEL_18:
   processes = self->_processes;
   if (processes | *(equalCopy + 1))
   {
-    v9 = [(NSMutableArray *)processes isEqual:?];
+    v8 = [(NSMutableArray *)processes isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_19:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash
@@ -356,7 +349,7 @@ LABEL_3:
 
 - (void)mergeFrom:(id)from
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (*(fromCopy + 4))
   {
@@ -382,35 +375,33 @@ LABEL_3:
     *&self->_has |= 2u;
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = *(fromCopy + 1);
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(NSPPrivacyProxyObliviousTargetInfo *)self addProcesses:*(*(&v12 + 1) + 8 * i), v12];
+        [(NSPPrivacyProxyObliviousTargetInfo *)self addProcesses:*(*(&v11 + 1) + 8 * i), v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -3,6 +3,9 @@
 - (_INPBHomeAttributeValue)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)limitValueAsString:(int)string;
+- (id)unitAsString:(int)string;
+- (id)valueTypeAsString:(int)string;
 - (int)StringAsLimitValue:(id)value;
 - (int)StringAsUnit:(id)unit;
 - (int)StringAsValueType:(id)type;
@@ -431,25 +434,21 @@ LABEL_29:
   toCopy = to;
   if ([(_INPBHomeAttributeValue *)self hasBooleanValue])
   {
-    BOOLeanValue = self->_BOOLeanValue;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBHomeAttributeValue *)self hasDoubleValue])
   {
-    doubleValue = self->_doubleValue;
     PBDataWriterWriteDoubleField();
   }
 
   if ([(_INPBHomeAttributeValue *)self hasIntegerValue])
   {
-    integerValue = self->_integerValue;
     PBDataWriterWriteInt64Field();
   }
 
   if ([(_INPBHomeAttributeValue *)self hasLimitValue])
   {
-    limitValue = self->_limitValue;
     PBDataWriterWriteInt32Field();
   }
 
@@ -465,19 +464,16 @@ LABEL_29:
 
   if (stringValue)
   {
-    stringValue = self->_stringValue;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBHomeAttributeValue *)self hasUnit])
   {
-    unit = self->_unit;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBHomeAttributeValue *)self hasValueType])
   {
-    valueType = self->_valueType;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -518,6 +514,21 @@ LABEL_29:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)valueTypeAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727F5E0[string];
   }
 
   return v4;
@@ -589,6 +600,21 @@ LABEL_29:
   return v4;
 }
 
+- (id)unitAsString:(int)string
+{
+  if ((string - 1) >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727F5B8[string - 1];
+  }
+
+  return v4;
+}
+
 - (void)setHasUnit:(BOOL)unit
 {
   if (unit)
@@ -643,6 +669,26 @@ LABEL_29:
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)limitValueAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"MIN";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"MAX";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;

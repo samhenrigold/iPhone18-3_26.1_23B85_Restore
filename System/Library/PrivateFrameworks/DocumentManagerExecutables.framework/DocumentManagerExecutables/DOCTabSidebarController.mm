@@ -17,18 +17,18 @@
   objc_allocWithZone(type metadata accessor for DOCTabSidebarDataSource());
   configurationCopy = configuration;
   observerCopy = observer;
-  v10 = configurationCopy;
-  v11 = observerCopy;
+  v11 = configurationCopy;
+  v12 = observerCopy;
   swift_unknownObjectRetain_n();
-  v12 = v10;
   v13 = v11;
-  *(&self->super.super.super.super.isa + OBJC_IVAR____TtC26DocumentManagerExecutables23DOCTabSidebarController_dataSource) = DOCTabSidebarDataSource.init(configuration:sourceObserver:delegate:)(v12, v13);
-  v16.receiver = self;
-  v16.super_class = type metadata accessor for DOCTabSidebarController();
-  v14 = [(DOCTabSidebarController *)&v16 initWithNibName:0 bundle:0];
+  v14 = v12;
+  *(&self->super.super.super.super.isa + OBJC_IVAR____TtC26DocumentManagerExecutables23DOCTabSidebarController_dataSource) = DOCTabSidebarDataSource.init(configuration:sourceObserver:delegate:)(v13, v14, delegate);
+  v17.receiver = self;
+  v17.super_class = type metadata accessor for DOCTabSidebarController();
+  v15 = [(DOCTabSidebarController *)&v17 initWithNibName:0 bundle:0];
 
   swift_unknownObjectRelease();
-  return v14;
+  return v15;
 }
 
 - (_TtC26DocumentManagerExecutables23DOCTabSidebarController)initWithCoder:(id)coder

@@ -68,7 +68,7 @@ void __46__TUCoreTelephonyClient_TTY__RTTSettingsClass__block_invoke()
   RTTSettingsClass_sRTTSettingsClass = CUTWeakLinkClass();
   if (!RTTSettingsClass_sRTTSettingsClass)
   {
-    v0 = TUDefaultLog();
+    v0 = TUDefaultLog(0);
     if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
     {
       *v1 = 0;
@@ -82,7 +82,7 @@ void __56__TUCoreTelephonyClient_TTY__RTTTelephonyUtilitiesClass__block_invoke()
   RTTTelephonyUtilitiesClass_sRTTTelephonyUtilitiesClass = CUTWeakLinkClass();
   if (!RTTTelephonyUtilitiesClass_sRTTTelephonyUtilitiesClass)
   {
-    v0 = TUDefaultLog();
+    v0 = TUDefaultLog(0);
     if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
     {
       *v1 = 0;
@@ -395,48 +395,48 @@ uint64_t __57__TUCoreTelephonyClient_TTY__sharedRTTTelephonyUtilities__block_inv
 
 - (id)subscriptionForLabelIdentifier:(id)identifier
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   client = [(TUCoreTelephonyClient *)self client];
-  v25 = 0;
-  v6 = [client getActiveContexts:&v25];
-  v7 = v25;
+  v26 = 0;
+  v6 = [client getActiveContexts:&v26];
+  v7 = v26;
   subscriptions = [v6 subscriptions];
 
   if (subscriptions)
   {
-    v23 = 0u;
     v24 = 0u;
-    v21 = 0u;
+    v25 = 0u;
     v22 = 0u;
-    v9 = subscriptions;
-    v10 = [v9 countByEnumeratingWithState:&v21 objects:v26 count:16];
-    if (v10)
+    v23 = 0u;
+    v10 = subscriptions;
+    v11 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v22;
+      v12 = v11;
+      v13 = *v23;
 LABEL_4:
-      v13 = 0;
+      v14 = 0;
       while (1)
       {
-        if (*v22 != v12)
+        if (*v23 != v13)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * v13);
-        labelID = [v14 labelID];
-        v16 = [labelID isEqualToString:identifierCopy];
+        v15 = *(*(&v22 + 1) + 8 * v14);
+        labelID = [v15 labelID];
+        v17 = [labelID isEqualToString:identifierCopy];
 
-        if (v16)
+        if (v17)
         {
           break;
         }
 
-        if (v11 == ++v13)
+        if (v12 == ++v14)
         {
-          v11 = [v9 countByEnumeratingWithState:&v21 objects:v26 count:16];
-          if (v11)
+          v12 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
+          if (v12)
           {
             goto LABEL_4;
           }
@@ -445,7 +445,7 @@ LABEL_4:
         }
       }
 
-      context = [v14 context];
+      context = [v15 context];
 
       if (context)
       {
@@ -458,10 +458,10 @@ LABEL_4:
 LABEL_10:
     }
 
-    v18 = TUDefaultLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = TUDefaultLog(v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [(TUCoreTelephonyClient *)identifierCopy subscriptionForLabelIdentifier:v18];
+      [(TUCoreTelephonyClient *)identifierCopy subscriptionForLabelIdentifier:v20];
     }
 
     goto LABEL_17;
@@ -469,8 +469,8 @@ LABEL_10:
 
   if (v7)
   {
-    v18 = TUDefaultLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = TUDefaultLog(v9);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [TUCoreTelephonyClient subscriptionForLabelIdentifier:?];
     }
@@ -480,56 +480,54 @@ LABEL_17:
 
   context = 0;
 LABEL_19:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return context;
 }
 
 - (id)subscriptionForUUID:(id)d
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dCopy = d;
   client = [(TUCoreTelephonyClient *)self client];
-  v25 = 0;
-  v6 = [client getActiveContexts:&v25];
-  v7 = v25;
+  v26 = 0;
+  v6 = [client getActiveContexts:&v26];
+  v7 = v26;
   subscriptions = [v6 subscriptions];
 
   if (subscriptions)
   {
-    v23 = 0u;
     v24 = 0u;
-    v21 = 0u;
+    v25 = 0u;
     v22 = 0u;
-    v9 = subscriptions;
-    v10 = [v9 countByEnumeratingWithState:&v21 objects:v26 count:16];
-    if (v10)
+    v23 = 0u;
+    v10 = subscriptions;
+    v11 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v22;
+      v12 = v11;
+      v13 = *v23;
 LABEL_4:
-      v13 = 0;
+      v14 = 0;
       while (1)
       {
-        if (*v22 != v12)
+        if (*v23 != v13)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * v13);
-        uuid = [v14 uuid];
-        v16 = [uuid isEqual:dCopy];
+        v15 = *(*(&v22 + 1) + 8 * v14);
+        uuid = [v15 uuid];
+        v17 = [uuid isEqual:dCopy];
 
-        if (v16)
+        if (v17)
         {
           break;
         }
 
-        if (v11 == ++v13)
+        if (v12 == ++v14)
         {
-          v11 = [v9 countByEnumeratingWithState:&v21 objects:v26 count:16];
-          if (v11)
+          v12 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
+          if (v12)
           {
             goto LABEL_4;
           }
@@ -538,7 +536,7 @@ LABEL_4:
         }
       }
 
-      context = [v14 context];
+      context = [v15 context];
 
       if (context)
       {
@@ -551,10 +549,10 @@ LABEL_4:
 LABEL_10:
     }
 
-    v18 = TUDefaultLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = TUDefaultLog(v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [(TUCoreTelephonyClient *)dCopy subscriptionForUUID:v18];
+      [(TUCoreTelephonyClient *)dCopy subscriptionForUUID:v20];
     }
 
     goto LABEL_17;
@@ -562,8 +560,8 @@ LABEL_10:
 
   if (v7)
   {
-    v18 = TUDefaultLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = TUDefaultLog(v9);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [TUCoreTelephonyClient subscriptionForLabelIdentifier:?];
     }
@@ -573,8 +571,6 @@ LABEL_17:
 
   context = 0;
 LABEL_19:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return context;
 }
@@ -752,30 +748,25 @@ LABEL_19:
 
 - (void)subscriptionForLabelIdentifier:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Could not find subscription context for the specified label identifier: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Could not find subscription context for the specified label identifier: %@", &v2, 0xCu);
 }
 
 - (void)subscriptionForLabelIdentifier:(void *)a1 .cold.2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 client];
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_2(&dword_1956FD000, v2, v3, "Retrieving active contexts from client %@ failed with error %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1956FD000, v2, v3, "Retrieving active contexts from client %@ failed with error %@", v4, v5, v6, v7);
 }
 
 - (void)subscriptionForUUID:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Could not find subscription context for the specified UUID: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Could not find subscription context for the specified UUID: %@", &v2, 0xCu);
 }
 
 @end

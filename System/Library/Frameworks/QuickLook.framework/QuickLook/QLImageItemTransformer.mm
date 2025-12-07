@@ -83,7 +83,7 @@
 
 - (id)_contentsFromCGImageSource:(CGImageSource *)source context:(id)context scale:(double)scale
 {
-  v57[1] = *MEMORY[0x277D85DE8];
+  v54[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   Count = CGImageSourceGetCount(source);
   contentType = [contextCopy contentType];
@@ -105,11 +105,11 @@
 
   else
   {
-    v56 = *MEMORY[0x277CD3648];
+    v53 = *MEMORY[0x277CD3648];
     v18 = MEMORY[0x277CBEC38];
-    v57[0] = MEMORY[0x277CBEC38];
+    v54[0] = MEMORY[0x277CBEC38];
     unsignedIntValue = 1;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:&v56 count:1];
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:&v53 count:1];
     v21 = CGImageSourceCopyPropertiesAtIndex(source, 0, v20);
     v22 = [(__CFDictionary *)v21 objectForKeyedSubscript:*MEMORY[0x277CD3450]];
     [v22 floatValue];
@@ -143,49 +143,47 @@
     if (v33 <= v31 * 0.5)
     {
       [(QLImageItemTransformer *)self _maximumDimension];
-      v44 = QLScaledPlatformImageFromImageSource();
-      v45 = MEMORY[0x277D755B8];
-      cGImage = [v44 CGImage];
-      [v44 scale];
-      v17 = [v45 imageWithCGImage:cGImage scale:UIImageOrientationFromCGImageOrientation(objc_msgSend(v44 orientation:{"orientation")), v47}];
+      v42 = QLScaledPlatformImageFromImageSource();
+      v43 = MEMORY[0x277D755B8];
+      cGImage = [v42 CGImage];
+      [v42 scale];
+      v17 = [v43 imageWithCGImage:cGImage scale:UIImageOrientationFromCGImageOrientation(objc_msgSend(v42 orientation:{"orientation")), v45}];
 
-      v48 = v20;
+      v46 = v20;
     }
 
     else
     {
       v35 = viewDynamicRange;
-      v36 = _os_feature_enabled_impl();
-      v37 = *MEMORY[0x277CD3678];
-      if (v36 && v35)
+      if (_os_feature_enabled_impl() && v35)
       {
-        v38 = *MEMORY[0x277CD3580];
-        v54[0] = *MEMORY[0x277CD3678];
-        v54[1] = v38;
-        v39 = *MEMORY[0x277CD3590];
-        v55[0] = v18;
-        v55[1] = v39;
-        v54[2] = *MEMORY[0x277CD3588];
-        v55[2] = &unk_284D73138;
-        v40 = MEMORY[0x277CBEAC0];
-        v41 = v55;
-        v42 = v54;
-        v43 = 3;
+        v36 = *MEMORY[0x277CD3580];
+        v51[0] = *MEMORY[0x277CD3678];
+        v51[1] = v36;
+        v37 = *MEMORY[0x277CD3590];
+        v52[0] = v18;
+        v52[1] = v37;
+        v51[2] = *MEMORY[0x277CD3588];
+        v52[2] = &unk_284D73138;
+        v38 = MEMORY[0x277CBEAC0];
+        v39 = v52;
+        v40 = v51;
+        v41 = 3;
       }
 
       else
       {
-        v52 = *MEMORY[0x277CD3678];
-        v53 = v18;
-        v40 = MEMORY[0x277CBEAC0];
-        v41 = &v53;
-        v42 = &v52;
-        v43 = 1;
+        v49 = *MEMORY[0x277CD3678];
+        v50 = v18;
+        v38 = MEMORY[0x277CBEAC0];
+        v39 = &v50;
+        v40 = &v49;
+        v41 = 1;
       }
 
-      v48 = [v40 dictionaryWithObjects:v41 forKeys:v42 count:v43];
+      v46 = [v38 dictionaryWithObjects:v39 forKeys:v40 count:v41];
 
-      ImageAtIndex = CGImageSourceCreateImageAtIndex(source, 0, v48);
+      ImageAtIndex = CGImageSourceCreateImageAtIndex(source, 0, v46);
       v17 = [MEMORY[0x277D755B8] imageWithCGImage:ImageAtIndex scale:UIImageOrientationFromCGImageOrientation(unsignedIntValue) orientation:scale];
       if (ImageAtIndex)
       {
@@ -193,8 +191,6 @@
       }
     }
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

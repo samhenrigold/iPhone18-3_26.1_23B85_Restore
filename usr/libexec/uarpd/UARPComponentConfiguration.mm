@@ -890,340 +890,44 @@
       endpointID = [(UARPComponentConfiguration *)v5 endpointID];
       LODWORD(endpointID) = [(NSNumber *)endpointID isEqualToNumber:endpointID];
 
-      if (!endpointID)
-      {
-        goto LABEL_43;
-      }
-
-      componentTag = self->_componentTag;
-      componentTag = [(UARPComponentConfiguration *)v5 componentTag];
-      LODWORD(componentTag) = [(UARPComponentTag *)componentTag isEqual:componentTag];
-
-      if (!componentTag)
-      {
-        goto LABEL_43;
-      }
-
-      firmwareVersion = self->_firmwareVersion;
-      firmwareVersion = [(UARPComponentConfiguration *)v5 firmwareVersion];
-      LODWORD(firmwareVersion) = [(UARPComponentVersion *)firmwareVersion isEqual:firmwareVersion];
-
-      if (!firmwareVersion)
-      {
-        goto LABEL_43;
-      }
-
-      friendlyName = self->_friendlyName;
-      friendlyName = [(UARPComponentConfiguration *)v5 friendlyName];
-      LODWORD(friendlyName) = [(NSString *)friendlyName isEqualToString:friendlyName];
-
-      if (!friendlyName)
-      {
-        goto LABEL_43;
-      }
-
-      hardwareVersion = self->_hardwareVersion;
-      hardwareVersion = [(UARPComponentConfiguration *)v5 hardwareVersion];
-      LODWORD(hardwareVersion) = [(NSString *)hardwareVersion isEqualToString:hardwareVersion];
-
-      if (!hardwareVersion)
-      {
-        goto LABEL_43;
-      }
-
-      manufacturerName = self->_manufacturerName;
-      manufacturerName = [(UARPComponentConfiguration *)v5 manufacturerName];
-      LODWORD(manufacturerName) = [(NSString *)manufacturerName isEqualToString:manufacturerName];
-
-      if (!manufacturerName)
-      {
-        goto LABEL_43;
-      }
-
-      modelName = self->_modelName;
-      modelName = [(UARPComponentConfiguration *)v5 modelName];
-      LODWORD(modelName) = [(NSString *)modelName isEqualToString:modelName];
-
-      if (!modelName)
-      {
-        goto LABEL_43;
-      }
-
-      serialNumber = self->_serialNumber;
-      serialNumber = [(UARPComponentConfiguration *)v5 serialNumber];
-      LODWORD(serialNumber) = [(NSString *)serialNumber isEqualToString:serialNumber];
-
-      if (!serialNumber)
-      {
-        goto LABEL_43;
-      }
-
-      stagedFirmwareVersion = self->_stagedFirmwareVersion;
-      stagedFirmwareVersion = [(UARPComponentConfiguration *)v5 stagedFirmwareVersion];
-      LODWORD(stagedFirmwareVersion) = [(UARPComponentVersion *)stagedFirmwareVersion isEqual:stagedFirmwareVersion];
-
-      if (!stagedFirmwareVersion)
-      {
-        goto LABEL_43;
-      }
-
-      appleModelNumber = self->_appleModelNumber;
-      appleModelNumber = [(UARPComponentConfiguration *)v5 appleModelNumber];
-      LODWORD(appleModelNumber) = [(NSString *)appleModelNumber isEqualToString:appleModelNumber];
-
-      if (!appleModelNumber)
-      {
-        goto LABEL_43;
-      }
-
-      hwFusingType = self->_hwFusingType;
-      hwFusingType = [(UARPComponentConfiguration *)v5 hwFusingType];
-      LODWORD(hwFusingType) = [(NSString *)hwFusingType isEqualToString:hwFusingType];
-
-      if (!hwFusingType)
-      {
-        goto LABEL_43;
-      }
-
-      boardID32 = self->_boardID32;
-      boardID32 = [(UARPComponentConfiguration *)v5 boardID32];
-      LODWORD(boardID32) = [(NSNumber *)boardID32 isEqualToNumber:boardID32];
-
-      if (!boardID32)
-      {
-        goto LABEL_43;
-      }
-
-      boardID64 = self->_boardID64;
-      boardID64 = [(UARPComponentConfiguration *)v5 boardID64];
-      LODWORD(boardID64) = [(NSNumber *)boardID64 isEqualToNumber:boardID64];
-
-      if (!boardID64)
-      {
-        goto LABEL_43;
-      }
-
-      chipEpoch = self->_chipEpoch;
-      chipEpoch = [(UARPComponentConfiguration *)v5 chipEpoch];
-      LODWORD(chipEpoch) = [(NSNumber *)chipEpoch isEqualToNumber:chipEpoch];
-
-      if (!chipEpoch)
-      {
-        goto LABEL_43;
-      }
-
-      chipID = self->_chipID;
-      chipID = [(UARPComponentConfiguration *)v5 chipID];
-      LODWORD(chipID) = [(NSNumber *)chipID isEqualToNumber:chipID];
-
-      if (!chipID)
-      {
-        goto LABEL_43;
-      }
-
-      chipRevision = self->_chipRevision;
-      chipRevision = [(UARPComponentConfiguration *)v5 chipRevision];
-      LODWORD(chipRevision) = [(NSNumber *)chipRevision isEqualToNumber:chipRevision];
-
-      if (!chipRevision)
-      {
-        goto LABEL_43;
-      }
-
-      ECID = self->_ECID;
-      eCID = [(UARPComponentConfiguration *)v5 ECID];
-      LODWORD(ECID) = [(NSNumber *)ECID isEqualToNumber:eCID];
-
-      if (!ECID)
-      {
-        goto LABEL_43;
-      }
-
-      ecidData = self->_ecidData;
-      ecidData = [(UARPComponentConfiguration *)v5 ecidData];
-      LODWORD(ecidData) = [(NSData *)ecidData isEqualToData:ecidData];
-
-      if (!ecidData)
-      {
-        goto LABEL_43;
-      }
-
-      enableFutureFWVersion = self->_enableFutureFWVersion;
-      enableFutureFWVersion = [(UARPComponentConfiguration *)v5 enableFutureFWVersion];
-      LODWORD(enableFutureFWVersion) = [(NSNumber *)enableFutureFWVersion isEqualToNumber:enableFutureFWVersion];
-
-      if (!enableFutureFWVersion)
-      {
-        goto LABEL_43;
-      }
-
-      enableMixMatch = self->_enableMixMatch;
-      enableMixMatch = [(UARPComponentConfiguration *)v5 enableMixMatch];
-      LODWORD(enableMixMatch) = [(NSNumber *)enableMixMatch isEqualToNumber:enableMixMatch];
-
-      if (!enableMixMatch)
-      {
-        goto LABEL_43;
-      }
-
-      ftabGeneration = self->_ftabGeneration;
-      ftabGeneration = [(UARPComponentConfiguration *)v5 ftabGeneration];
-      LODWORD(ftabGeneration) = [(NSNumber *)ftabGeneration isEqualToNumber:ftabGeneration];
-
-      if (!ftabGeneration)
-      {
-        goto LABEL_43;
-      }
-
-      hardwareSpecific = self->_hardwareSpecific;
-      hardwareSpecific = [(UARPComponentConfiguration *)v5 hardwareSpecific];
-      LODWORD(hardwareSpecific) = [(NSData *)hardwareSpecific isEqualToData:hardwareSpecific];
-
-      if (!hardwareSpecific)
-      {
-        goto LABEL_43;
-      }
-
-      life = self->_life;
-      life = [(UARPComponentConfiguration *)v5 life];
-      LODWORD(life) = [(NSNumber *)life isEqualToNumber:life];
-
-      if (!life)
-      {
-        goto LABEL_43;
-      }
-
-      liveNonce = self->_liveNonce;
-      liveNonce = [(UARPComponentConfiguration *)v5 liveNonce];
-      LODWORD(liveNonce) = [(NSNumber *)liveNonce isEqualToNumber:liveNonce];
-
-      if (!liveNonce)
-      {
-        goto LABEL_43;
-      }
-
-      logicalUnitNumber = self->_logicalUnitNumber;
-      logicalUnitNumber = [(UARPComponentConfiguration *)v5 logicalUnitNumber];
-      LODWORD(logicalUnitNumber) = [(NSNumber *)logicalUnitNumber isEqualToNumber:logicalUnitNumber];
-
-      if (!logicalUnitNumber)
-      {
-        goto LABEL_43;
-      }
-
-      manifestEpoch = self->_manifestEpoch;
-      manifestEpoch = [(UARPComponentConfiguration *)v5 manifestEpoch];
-      LODWORD(manifestEpoch) = [(NSNumber *)manifestEpoch isEqualToNumber:manifestEpoch];
-
-      if (!manifestEpoch)
-      {
-        goto LABEL_43;
-      }
-
-      manifestPrefix = self->_manifestPrefix;
-      manifestPrefix = [(UARPComponentConfiguration *)v5 manifestPrefix];
-      LODWORD(manifestPrefix) = [(NSString *)manifestPrefix isEqualToString:manifestPrefix];
-
-      if (!manifestPrefix)
-      {
-        goto LABEL_43;
-      }
-
-      manifestSuffix = self->_manifestSuffix;
-      manifestSuffix = [(UARPComponentConfiguration *)v5 manifestSuffix];
-      LODWORD(manifestSuffix) = [(NSString *)manifestSuffix isEqualToString:manifestSuffix];
-
-      if (!manifestSuffix)
-      {
-        goto LABEL_43;
-      }
-
-      nonce = self->_nonce;
-      nonce = [(UARPComponentConfiguration *)v5 nonce];
-      LODWORD(nonce) = [(NSData *)nonce isEqualToData:nonce];
-
-      if (!nonce)
-      {
-        goto LABEL_43;
-      }
-
-      nonceSeed = self->_nonceSeed;
-      nonceSeed = [(UARPComponentConfiguration *)v5 nonceSeed];
-      LODWORD(nonceSeed) = [(NSData *)nonceSeed isEqualToData:nonceSeed];
-
-      if (!nonceSeed)
-      {
-        goto LABEL_43;
-      }
-
-      prefixNeedsLUN = self->_prefixNeedsLUN;
-      prefixNeedsLUN = [(UARPComponentConfiguration *)v5 prefixNeedsLUN];
-      LODWORD(prefixNeedsLUN) = [(NSNumber *)prefixNeedsLUN isEqualToNumber:prefixNeedsLUN];
-
-      if (!prefixNeedsLUN)
-      {
-        goto LABEL_43;
-      }
-
-      productionMode = self->_productionMode;
-      productionMode = [(UARPComponentConfiguration *)v5 productionMode];
-      LODWORD(productionMode) = [(NSNumber *)productionMode isEqualToNumber:productionMode];
-
-      if (!productionMode)
-      {
-        goto LABEL_43;
-      }
-
-      provisioning = self->_provisioning;
-      provisioning = [(UARPComponentConfiguration *)v5 provisioning];
-      LODWORD(provisioning) = [(NSNumber *)provisioning isEqualToNumber:provisioning];
-
-      if (!provisioning)
-      {
-        goto LABEL_43;
-      }
-
-      realHdcpKeyPresent = self->_realHdcpKeyPresent;
-      realHdcpKeyPresent = [(UARPComponentConfiguration *)v5 realHdcpKeyPresent];
-      LODWORD(realHdcpKeyPresent) = [(NSNumber *)realHdcpKeyPresent isEqualToNumber:realHdcpKeyPresent];
-
-      if (!realHdcpKeyPresent)
-      {
-        goto LABEL_43;
-      }
-
-      requiresPersonalization = self->_requiresPersonalization;
-      requiresPersonalization = [(UARPComponentConfiguration *)v5 requiresPersonalization];
-      LODWORD(requiresPersonalization) = [(NSNumber *)requiresPersonalization isEqualToNumber:requiresPersonalization];
-
-      if (!requiresPersonalization)
-      {
-        goto LABEL_43;
-      }
-
-      securityDomain = self->_securityDomain;
-      securityDomain = [(UARPComponentConfiguration *)v5 securityDomain];
-      LODWORD(securityDomain) = [(NSNumber *)securityDomain isEqualToNumber:securityDomain];
-
-      if (!securityDomain)
-      {
-        goto LABEL_43;
-      }
-
-      securityMode = self->_securityMode;
-      securityMode = [(UARPComponentConfiguration *)v5 securityMode];
-      LODWORD(securityMode) = [(NSNumber *)securityMode isEqualToNumber:securityMode];
-
-      if (!securityMode)
-      {
-        goto LABEL_43;
-      }
-
-      suffixNeedsLUN = self->_suffixNeedsLUN;
-      suffixNeedsLUN = [(UARPComponentConfiguration *)v5 suffixNeedsLUN];
-      LODWORD(suffixNeedsLUN) = [(NSNumber *)suffixNeedsLUN isEqualToNumber:suffixNeedsLUN];
-
-      if (suffixNeedsLUN)
+      if (endpointID
+        && (componentTag = self->_componentTag, [(UARPComponentConfiguration *)v5 componentTag], v9 = objc_claimAutoreleasedReturnValue(), LODWORD(componentTag) = [(UARPComponentTag *)componentTag isEqual:v9], v9, componentTag)
+        && (firmwareVersion = self->_firmwareVersion, [(UARPComponentConfiguration *)v5 firmwareVersion], v11 = objc_claimAutoreleasedReturnValue(), LODWORD(firmwareVersion) = [(UARPComponentVersion *)firmwareVersion isEqual:v11], v11, firmwareVersion)
+        && (friendlyName = self->_friendlyName, [(UARPComponentConfiguration *)v5 friendlyName], v13 = objc_claimAutoreleasedReturnValue(), LODWORD(friendlyName) = [(NSString *)friendlyName isEqualToString:v13], v13, friendlyName)
+        && (hardwareVersion = self->_hardwareVersion, [(UARPComponentConfiguration *)v5 hardwareVersion], v15 = objc_claimAutoreleasedReturnValue(), LODWORD(hardwareVersion) = [(NSString *)hardwareVersion isEqualToString:v15], v15, hardwareVersion)
+        && (manufacturerName = self->_manufacturerName, [(UARPComponentConfiguration *)v5 manufacturerName], v17 = objc_claimAutoreleasedReturnValue(), LODWORD(manufacturerName) = [(NSString *)manufacturerName isEqualToString:v17], v17, manufacturerName)
+        && (modelName = self->_modelName, [(UARPComponentConfiguration *)v5 modelName], v19 = objc_claimAutoreleasedReturnValue(), LODWORD(modelName) = [(NSString *)modelName isEqualToString:v19], v19, modelName)
+        && (serialNumber = self->_serialNumber, [(UARPComponentConfiguration *)v5 serialNumber], v21 = objc_claimAutoreleasedReturnValue(), LODWORD(serialNumber) = [(NSString *)serialNumber isEqualToString:v21], v21, serialNumber)
+        && (stagedFirmwareVersion = self->_stagedFirmwareVersion, [(UARPComponentConfiguration *)v5 stagedFirmwareVersion], v23 = objc_claimAutoreleasedReturnValue(), LODWORD(stagedFirmwareVersion) = [(UARPComponentVersion *)stagedFirmwareVersion isEqual:v23], v23, stagedFirmwareVersion)
+        && (appleModelNumber = self->_appleModelNumber, [(UARPComponentConfiguration *)v5 appleModelNumber], v25 = objc_claimAutoreleasedReturnValue(), LODWORD(appleModelNumber) = [(NSString *)appleModelNumber isEqualToString:v25], v25, appleModelNumber)
+        && (hwFusingType = self->_hwFusingType, [(UARPComponentConfiguration *)v5 hwFusingType], v27 = objc_claimAutoreleasedReturnValue(), LODWORD(hwFusingType) = [(NSString *)hwFusingType isEqualToString:v27], v27, hwFusingType)
+        && (boardID32 = self->_boardID32, [(UARPComponentConfiguration *)v5 boardID32], v29 = objc_claimAutoreleasedReturnValue(), LODWORD(boardID32) = [(NSNumber *)boardID32 isEqualToNumber:v29], v29, boardID32)
+        && (boardID64 = self->_boardID64, [(UARPComponentConfiguration *)v5 boardID64], v31 = objc_claimAutoreleasedReturnValue(), LODWORD(boardID64) = [(NSNumber *)boardID64 isEqualToNumber:v31], v31, boardID64)
+        && (chipEpoch = self->_chipEpoch, [(UARPComponentConfiguration *)v5 chipEpoch], v33 = objc_claimAutoreleasedReturnValue(), LODWORD(chipEpoch) = [(NSNumber *)chipEpoch isEqualToNumber:v33], v33, chipEpoch)
+        && (chipID = self->_chipID, [(UARPComponentConfiguration *)v5 chipID], v35 = objc_claimAutoreleasedReturnValue(), LODWORD(chipID) = [(NSNumber *)chipID isEqualToNumber:v35], v35, chipID)
+        && (chipRevision = self->_chipRevision, [(UARPComponentConfiguration *)v5 chipRevision], v37 = objc_claimAutoreleasedReturnValue(), LODWORD(chipRevision) = [(NSNumber *)chipRevision isEqualToNumber:v37], v37, chipRevision)
+        && (ECID = self->_ECID, [(UARPComponentConfiguration *)v5 ECID], v39 = objc_claimAutoreleasedReturnValue(), LODWORD(ECID) = [(NSNumber *)ECID isEqualToNumber:v39], v39, ECID)
+        && (ecidData = self->_ecidData, [(UARPComponentConfiguration *)v5 ecidData], v41 = objc_claimAutoreleasedReturnValue(), LODWORD(ecidData) = [(NSData *)ecidData isEqualToData:v41], v41, ecidData)
+        && (enableFutureFWVersion = self->_enableFutureFWVersion, [(UARPComponentConfiguration *)v5 enableFutureFWVersion], v43 = objc_claimAutoreleasedReturnValue(), LODWORD(enableFutureFWVersion) = [(NSNumber *)enableFutureFWVersion isEqualToNumber:v43], v43, enableFutureFWVersion)
+        && (enableMixMatch = self->_enableMixMatch, [(UARPComponentConfiguration *)v5 enableMixMatch], v45 = objc_claimAutoreleasedReturnValue(), LODWORD(enableMixMatch) = [(NSNumber *)enableMixMatch isEqualToNumber:v45], v45, enableMixMatch)
+        && (ftabGeneration = self->_ftabGeneration, [(UARPComponentConfiguration *)v5 ftabGeneration], v47 = objc_claimAutoreleasedReturnValue(), LODWORD(ftabGeneration) = [(NSNumber *)ftabGeneration isEqualToNumber:v47], v47, ftabGeneration)
+        && (hardwareSpecific = self->_hardwareSpecific, [(UARPComponentConfiguration *)v5 hardwareSpecific], v49 = objc_claimAutoreleasedReturnValue(), LODWORD(hardwareSpecific) = [(NSData *)hardwareSpecific isEqualToData:v49], v49, hardwareSpecific)
+        && (life = self->_life, [(UARPComponentConfiguration *)v5 life], v51 = objc_claimAutoreleasedReturnValue(), LODWORD(life) = [(NSNumber *)life isEqualToNumber:v51], v51, life)
+        && (liveNonce = self->_liveNonce, [(UARPComponentConfiguration *)v5 liveNonce], v53 = objc_claimAutoreleasedReturnValue(), LODWORD(liveNonce) = [(NSNumber *)liveNonce isEqualToNumber:v53], v53, liveNonce)
+        && (logicalUnitNumber = self->_logicalUnitNumber, [(UARPComponentConfiguration *)v5 logicalUnitNumber], v55 = objc_claimAutoreleasedReturnValue(), LODWORD(logicalUnitNumber) = [(NSNumber *)logicalUnitNumber isEqualToNumber:v55], v55, logicalUnitNumber)
+        && (manifestEpoch = self->_manifestEpoch, [(UARPComponentConfiguration *)v5 manifestEpoch], v57 = objc_claimAutoreleasedReturnValue(), LODWORD(manifestEpoch) = [(NSNumber *)manifestEpoch isEqualToNumber:v57], v57, manifestEpoch)
+        && (manifestPrefix = self->_manifestPrefix, [(UARPComponentConfiguration *)v5 manifestPrefix], v59 = objc_claimAutoreleasedReturnValue(), LODWORD(manifestPrefix) = [(NSString *)manifestPrefix isEqualToString:v59], v59, manifestPrefix)
+        && (manifestSuffix = self->_manifestSuffix, [(UARPComponentConfiguration *)v5 manifestSuffix], v61 = objc_claimAutoreleasedReturnValue(), LODWORD(manifestSuffix) = [(NSString *)manifestSuffix isEqualToString:v61], v61, manifestSuffix)
+        && (nonce = self->_nonce, [(UARPComponentConfiguration *)v5 nonce], v63 = objc_claimAutoreleasedReturnValue(), LODWORD(nonce) = [(NSData *)nonce isEqualToData:v63], v63, nonce)
+        && (nonceSeed = self->_nonceSeed, [(UARPComponentConfiguration *)v5 nonceSeed], v65 = objc_claimAutoreleasedReturnValue(), LODWORD(nonceSeed) = [(NSData *)nonceSeed isEqualToData:v65], v65, nonceSeed)
+        && (prefixNeedsLUN = self->_prefixNeedsLUN, [(UARPComponentConfiguration *)v5 prefixNeedsLUN], v67 = objc_claimAutoreleasedReturnValue(), LODWORD(prefixNeedsLUN) = [(NSNumber *)prefixNeedsLUN isEqualToNumber:v67], v67, prefixNeedsLUN)
+        && (productionMode = self->_productionMode, [(UARPComponentConfiguration *)v5 productionMode], v69 = objc_claimAutoreleasedReturnValue(), LODWORD(productionMode) = [(NSNumber *)productionMode isEqualToNumber:v69], v69, productionMode)
+        && (provisioning = self->_provisioning, [(UARPComponentConfiguration *)v5 provisioning], v71 = objc_claimAutoreleasedReturnValue(), LODWORD(provisioning) = [(NSNumber *)provisioning isEqualToNumber:v71], v71, provisioning)
+        && (realHdcpKeyPresent = self->_realHdcpKeyPresent, [(UARPComponentConfiguration *)v5 realHdcpKeyPresent], v73 = objc_claimAutoreleasedReturnValue(), LODWORD(realHdcpKeyPresent) = [(NSNumber *)realHdcpKeyPresent isEqualToNumber:v73], v73, realHdcpKeyPresent)
+        && (requiresPersonalization = self->_requiresPersonalization, [(UARPComponentConfiguration *)v5 requiresPersonalization], v75 = objc_claimAutoreleasedReturnValue(), LODWORD(requiresPersonalization) = [(NSNumber *)requiresPersonalization isEqualToNumber:v75], v75, requiresPersonalization)
+        && (securityDomain = self->_securityDomain, [(UARPComponentConfiguration *)v5 securityDomain], v77 = objc_claimAutoreleasedReturnValue(), LODWORD(securityDomain) = [(NSNumber *)securityDomain isEqualToNumber:v77], v77, securityDomain)
+        && (securityMode = self->_securityMode, [(UARPComponentConfiguration *)v5 securityMode], v79 = objc_claimAutoreleasedReturnValue(), LODWORD(securityMode) = [(NSNumber *)securityMode isEqualToNumber:v79], v79, securityMode)
+        && (suffixNeedsLUN = self->_suffixNeedsLUN, [(UARPComponentConfiguration *)v5 suffixNeedsLUN], v81 = objc_claimAutoreleasedReturnValue(), LODWORD(suffixNeedsLUN) = [(NSNumber *)suffixNeedsLUN isEqualToNumber:v81], v81, suffixNeedsLUN))
       {
         ticketLongName = self->_ticketLongName;
         ticketLongName = [(UARPComponentConfiguration *)v5 ticketLongName];
@@ -1232,7 +936,6 @@
 
       else
       {
-LABEL_43:
         v84 = 0;
       }
     }
@@ -1248,12 +951,10 @@ LABEL_43:
 
 - (unint64_t)hash
 {
-  ecidData = self->_ecidData;
-  boardID64 = self->_boardID64;
-  v4 = [NSString stringWithFormat:@"%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@", self->_manufacturerName, self->_modelName, self->_serialNumber, self->_hardwareVersion, self->_firmwareVersion, self->_stagedFirmwareVersion, self->_componentTag, self->_friendlyName, self->_appleModelNumber, self->_hwFusingType, self->_boardID32, boardID64, self->_chipID, self->_chipRevision, self->_ECID, ecidData, self->_ftabGeneration, self->_securityDomain, self->_securityMode, self->_productionMode, self->_chipEpoch, self->_liveNonce, self->_enableFutureFWVersion, self->_enableMixMatch, self->_nonce, self->_nonceSeed, self->_life, self->_manifestEpoch, self->_provisioning, self->_realHdcpKeyPresent, self->_requiresPersonalization, self->_manifestPrefix, self->_manifestSuffix, self->_ticketLongName, self->_prefixNeedsLUN, self->_suffixNeedsLUN, self->_logicalUnitNumber];
-  v5 = [v4 hash];
+  v2 = [NSString stringWithFormat:@"%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@-%@", self->_manufacturerName, self->_modelName, self->_serialNumber, self->_hardwareVersion, self->_firmwareVersion, self->_stagedFirmwareVersion, self->_componentTag, self->_friendlyName, self->_appleModelNumber, self->_hwFusingType, self->_boardID32, self->_boardID64, self->_chipID, self->_chipRevision, self->_ECID, self->_ecidData, self->_ftabGeneration, self->_securityDomain, self->_securityMode, self->_productionMode, self->_chipEpoch, self->_liveNonce, self->_enableFutureFWVersion, self->_enableMixMatch, self->_nonce, self->_nonceSeed, self->_life, self->_manifestEpoch, self->_provisioning, self->_realHdcpKeyPresent, self->_requiresPersonalization, self->_manifestPrefix, self->_manifestSuffix, self->_ticketLongName, self->_prefixNeedsLUN, self->_suffixNeedsLUN, self->_logicalUnitNumber];
+  v3 = [v2 hash];
 
-  return v5;
+  return v3;
 }
 
 - (id)exportAsDictionary

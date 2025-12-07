@@ -1,4 +1,5 @@
 @interface SLCollaborationHandshakeController
+- (SLCollaborationHandshakeController)initWithTargetSerialQueue:(id)queue synchronous:(BOOL)synchronous;
 - (id)_handshakeService;
 - (id)_sandboxExtensionIssueFileURL:(id)l withAuditToken:(id *)token;
 - (id)taskServiceWithErrorHandler:(id)handler;
@@ -14,60 +15,101 @@
 
 @implementation SLCollaborationHandshakeController
 
+- (SLCollaborationHandshakeController)initWithTargetSerialQueue:(id)queue synchronous:(BOOL)synchronous
+{
+  synchronousCopy = synchronous;
+  v23 = *MEMORY[0x277D85DE8];
+  queueCopy = queue;
+  v8 = objc_opt_class();
+  v16.receiver = self;
+  v16.super_class = SLCollaborationHandshakeController;
+  v9 = [(SLDServiceProxy *)&v16 initWithServiceClass:v8 targetSerialQueue:queueCopy delegate:0];
+  v10 = v9;
+  if (v9)
+  {
+    v11 = SLFrameworkLogHandle(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    {
+      v12 = @"NO";
+      *buf = 134218498;
+      v18 = v10;
+      v19 = 2112;
+      if (synchronousCopy)
+      {
+        v12 = @"YES";
+      }
+
+      v20 = queueCopy;
+      v21 = 2112;
+      v22 = v12;
+      _os_log_impl(&dword_231772000, v11, OS_LOG_TYPE_INFO, "[%p] initWithTargetSerialQueue: %@ synchronous: %@", buf, 0x20u);
+    }
+
+    objc_storeStrong(&v10->_targetSerialQueue, queue);
+    v10->_synchronous = synchronousCopy;
+    v13 = [[SLRemoteTaskManager alloc] initWithDelegate:v10 targetSerialQueue:v10->_targetSerialQueue synchronous:synchronousCopy];
+    taskManager = v10->_taskManager;
+    v10->_taskManager = v13;
+
+    [(SLDServiceProxy *)v10 connect];
+  }
+
+  return v10;
+}
+
 - (void)startCollaborationWithMetadata:(id)metadata participants:(id)participants timeout:(double)timeout completion:(id)completion
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   participantsCopy = participants;
   completionCopy = completion;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__2;
-  v34 = __Block_byref_object_dispose__2;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__2;
+  v33 = __Block_byref_object_dispose__2;
   uUID = [MEMORY[0x277CCAD78] UUID];
-  v13 = SLFrameworkLogHandle();
+  v13 = SLFrameworkLogHandle(uUID);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v14 = v31[5];
+    v14 = v30[5];
     *buf = 136315906;
-    v37 = "[SLCollaborationHandshakeController startCollaborationWithMetadata:participants:timeout:completion:]";
-    v38 = 2112;
-    v39 = metadataCopy;
-    v40 = 2112;
-    v41 = participantsCopy;
-    v42 = 2112;
-    v43 = v14;
+    v36 = "[SLCollaborationHandshakeController startCollaborationWithMetadata:participants:timeout:completion:]";
+    v37 = 2112;
+    v38 = metadataCopy;
+    v39 = 2112;
+    v40 = participantsCopy;
+    v41 = 2112;
+    v42 = v14;
     _os_log_impl(&dword_231772000, v13, OS_LOG_TYPE_INFO, "%s: Metadata: %@, Participants: %@, requestUUID: %@", buf, 0x2Au);
   }
 
   taskManager = [(SLCollaborationHandshakeController *)self taskManager];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __101__SLCollaborationHandshakeController_startCollaborationWithMetadata_participants_timeout_completion___block_invoke;
-  v24[3] = &unk_2789261A0;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __101__SLCollaborationHandshakeController_startCollaborationWithMetadata_participants_timeout_completion___block_invoke;
+  v23[3] = &unk_2789261A0;
   v16 = metadataCopy;
-  v25 = v16;
+  v24 = v16;
   v17 = participantsCopy;
-  v26 = v17;
+  v25 = v17;
   selfCopy = self;
-  v29 = &v30;
-  v28 = completionCopy;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __101__SLCollaborationHandshakeController_startCollaborationWithMetadata_participants_timeout_completion___block_invoke_9;
-  v22[3] = &unk_2789261C8;
-  v23 = v28;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __101__SLCollaborationHandshakeController_startCollaborationWithMetadata_participants_timeout_completion___block_invoke_2_14;
-  v20[3] = &unk_2789261F0;
-  v18 = v23;
-  v21 = v18;
-  [taskManager startTask:v24 withTimeout:v22 timeoutHandler:v20 errorHandler:timeout];
+  v28 = &v29;
+  v27 = completionCopy;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __101__SLCollaborationHandshakeController_startCollaborationWithMetadata_participants_timeout_completion___block_invoke_9;
+  v21[3] = &unk_2789261C8;
+  v22 = v27;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __101__SLCollaborationHandshakeController_startCollaborationWithMetadata_participants_timeout_completion___block_invoke_2_14;
+  v19[3] = &unk_2789261F0;
+  v18 = v22;
+  v20 = v18;
+  [taskManager startTask:v23 withTimeout:v21 timeoutHandler:v19 errorHandler:timeout];
 
-  _Block_object_dispose(&v30, 8);
-  v19 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v29, 8);
 }
 
 id __101__SLCollaborationHandshakeController_startCollaborationWithMetadata_participants_timeout_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -113,32 +155,27 @@ void __101__SLCollaborationHandshakeController_startCollaborationWithMetadata_pa
   dispatch_async(v10, block);
 }
 
-uint64_t __101__SLCollaborationHandshakeController_startCollaborationWithMetadata_participants_timeout_completion___block_invoke_3(uint64_t a1)
+void *__101__SLCollaborationHandshakeController_startCollaborationWithMetadata_participants_timeout_completion___block_invoke_3(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) isValid];
   if (result)
   {
-    [*(a1 + 32) suppress];
-    v3 = SLFrameworkLogHandle();
+    v3 = SLFrameworkLogHandle([*(a1 + 32) suppress]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = *(*(*(a1 + 72) + 8) + 40);
       v5 = *(a1 + 40);
-      v10 = 138412546;
-      v11 = v4;
-      v12 = 2112;
-      v13 = v5;
-      _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_INFO, "[SLCollaborationHandshakeController] startCollaborationWithMetadata received response for request UUID: %@, error: %@", &v10, 0x16u);
+      v6 = 138412546;
+      v7 = v4;
+      v8 = 2112;
+      v9 = v5;
+      _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_INFO, "[SLCollaborationHandshakeController] startCollaborationWithMetadata received response for request UUID: %@, error: %@", &v6, 0x16u);
     }
 
-    v6 = *(a1 + 56);
-    v8 = *(a1 + 40);
-    v7 = *(a1 + 48);
-    result = (*(*(a1 + 64) + 16))();
+    return (*(*(a1 + 64) + 16))();
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -150,94 +187,92 @@ void __101__SLCollaborationHandshakeController_startCollaborationWithMetadata_pa
 
 - (void)startCollaborationWithFileURL:(id)l metadata:(id)metadata participants:(id)participants timeout:(double)timeout completion:(id)completion
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   lCopy = l;
   metadataCopy = metadata;
   participantsCopy = participants;
   completionCopy = completion;
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x3032000000;
-  v45 = __Block_byref_object_copy__2;
-  v46 = __Block_byref_object_dispose__2;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy__2;
+  v45 = __Block_byref_object_dispose__2;
   uUID = [MEMORY[0x277CCAD78] UUID];
-  v16 = SLFrameworkLogHandle();
+  v16 = SLFrameworkLogHandle(uUID);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
-    v17 = v43[5];
+    v17 = v42[5];
     *buf = 136315906;
     *&buf[4] = "[SLCollaborationHandshakeController startCollaborationWithFileURL:metadata:participants:timeout:completion:]";
     *&buf[12] = 2112;
     *&buf[14] = metadataCopy;
     *&buf[22] = 2112;
-    v49 = participantsCopy;
-    LOWORD(v50) = 2112;
-    *(&v50 + 2) = v17;
+    v48 = participantsCopy;
+    LOWORD(v49) = 2112;
+    *(&v49 + 2) = v17;
     _os_log_impl(&dword_231772000, v16, OS_LOG_TYPE_INFO, "%s: Metadata: %@, Participants: %@, requestUUID: %@", buf, 0x2Au);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x4010000000;
-  v49 = "";
+  v48 = "";
+  v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   _handshakeService = [(SLCollaborationHandshakeController *)self _handshakeService];
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __109__SLCollaborationHandshakeController_startCollaborationWithFileURL_metadata_participants_timeout_completion___block_invoke;
-  v41[3] = &unk_278925B78;
-  v41[4] = buf;
-  [_handshakeService prepareConnectionWithReply:v41];
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __109__SLCollaborationHandshakeController_startCollaborationWithFileURL_metadata_participants_timeout_completion___block_invoke;
+  v40[3] = &unk_278925B78;
+  v40[4] = buf;
+  [_handshakeService prepareConnectionWithReply:v40];
 
-  v39[0] = 0;
-  v39[1] = v39;
-  v39[2] = 0x3032000000;
-  v39[3] = __Block_byref_object_copy__2;
-  v39[4] = __Block_byref_object_dispose__2;
+  v38[0] = 0;
+  v38[1] = v38;
+  v38[2] = 0x3032000000;
+  v38[3] = __Block_byref_object_copy__2;
+  v38[4] = __Block_byref_object_dispose__2;
   v19 = *(*&buf[8] + 48);
-  v38[0] = *(*&buf[8] + 32);
-  v38[1] = v19;
-  v40 = [(SLCollaborationHandshakeController *)self _sandboxExtensionIssueFileURL:lCopy withAuditToken:v38];
+  v37[0] = *(*&buf[8] + 32);
+  v37[1] = v19;
+  v39 = [(SLCollaborationHandshakeController *)self _sandboxExtensionIssueFileURL:lCopy withAuditToken:v37];
   taskManager = [(SLCollaborationHandshakeController *)self taskManager];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __109__SLCollaborationHandshakeController_startCollaborationWithFileURL_metadata_participants_timeout_completion___block_invoke_2;
-  v30[3] = &unk_278926218;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __109__SLCollaborationHandshakeController_startCollaborationWithFileURL_metadata_participants_timeout_completion___block_invoke_2;
+  v29[3] = &unk_278926218;
   v21 = lCopy;
-  v31 = v21;
-  v36 = v39;
+  v30 = v21;
+  v35 = v38;
   v22 = metadataCopy;
-  v32 = v22;
+  v31 = v22;
   v23 = participantsCopy;
-  v33 = v23;
+  v32 = v23;
   selfCopy = self;
-  v37 = &v42;
-  v35 = completionCopy;
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __109__SLCollaborationHandshakeController_startCollaborationWithFileURL_metadata_participants_timeout_completion___block_invoke_17;
-  v28[3] = &unk_2789261C8;
-  v29 = v35;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __109__SLCollaborationHandshakeController_startCollaborationWithFileURL_metadata_participants_timeout_completion___block_invoke_2_18;
-  v26[3] = &unk_2789261F0;
-  v24 = v29;
-  v27 = v24;
-  [taskManager startTask:v30 withTimeout:v28 timeoutHandler:v26 errorHandler:timeout];
+  v36 = &v41;
+  v34 = completionCopy;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __109__SLCollaborationHandshakeController_startCollaborationWithFileURL_metadata_participants_timeout_completion___block_invoke_17;
+  v27[3] = &unk_2789261C8;
+  v28 = v34;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __109__SLCollaborationHandshakeController_startCollaborationWithFileURL_metadata_participants_timeout_completion___block_invoke_2_18;
+  v25[3] = &unk_2789261F0;
+  v24 = v28;
+  v26 = v24;
+  [taskManager startTask:v29 withTimeout:v27 timeoutHandler:v25 errorHandler:timeout];
 
-  _Block_object_dispose(v39, 8);
+  _Block_object_dispose(v38, 8);
   _Block_object_dispose(buf, 8);
-  _Block_object_dispose(&v42, 8);
-
-  v25 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v41, 8);
 }
 
 void __109__SLCollaborationHandshakeController_startCollaborationWithFileURL_metadata_participants_timeout_completion___block_invoke(uint64_t a1)
 {
   v2 = [MEMORY[0x277CCAE80] currentConnection];
-  [v2 auditToken];
+  objc_msgSend_auditToken(v2);
   v3 = *(*(a1 + 32) + 8);
   v4 = v6;
   *(v3 + 32) = v5;
@@ -289,32 +324,27 @@ void __109__SLCollaborationHandshakeController_startCollaborationWithFileURL_met
   dispatch_async(v10, block);
 }
 
-uint64_t __109__SLCollaborationHandshakeController_startCollaborationWithFileURL_metadata_participants_timeout_completion___block_invoke_4(uint64_t a1)
+void *__109__SLCollaborationHandshakeController_startCollaborationWithFileURL_metadata_participants_timeout_completion___block_invoke_4(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) isValid];
   if (result)
   {
-    [*(a1 + 32) suppress];
-    v3 = SLFrameworkLogHandle();
+    v3 = SLFrameworkLogHandle([*(a1 + 32) suppress]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = *(*(*(a1 + 72) + 8) + 40);
       v5 = *(a1 + 40);
-      v10 = 138412546;
-      v11 = v4;
-      v12 = 2112;
-      v13 = v5;
-      _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_INFO, "[SLCollaborationHandshakeController] startCollaborationWithFileURL Received response for requestUUID: %@, error: %@", &v10, 0x16u);
+      v6 = 138412546;
+      v7 = v4;
+      v8 = 2112;
+      v9 = v5;
+      _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_INFO, "[SLCollaborationHandshakeController] startCollaborationWithFileURL Received response for requestUUID: %@, error: %@", &v6, 0x16u);
     }
 
-    v6 = *(a1 + 56);
-    v8 = *(a1 + 40);
-    v7 = *(a1 + 48);
-    result = (*(*(a1 + 64) + 16))();
+    return (*(*(a1 + 64) + 16))();
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -326,57 +356,56 @@ void __109__SLCollaborationHandshakeController_startCollaborationWithFileURL_met
 
 - (void)addParticipantHandles:(id)handles withMetadata:(id)metadata timeout:(double)timeout completion:(id)completion
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   handlesCopy = handles;
   metadataCopy = metadata;
   completionCopy = completion;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__2;
-  v35 = __Block_byref_object_dispose__2;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__2;
+  v34 = __Block_byref_object_dispose__2;
   uUID = [MEMORY[0x277CCAD78] UUID];
-  v13 = SLFrameworkLogHandle();
+  v13 = SLFrameworkLogHandle(uUID);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v14 = v32[5];
+    v14 = v31[5];
     *buf = 136315650;
-    v38 = "[SLCollaborationHandshakeController addParticipantHandles:withMetadata:timeout:completion:]";
-    v39 = 2112;
-    v40 = metadataCopy;
-    v41 = 2112;
-    v42 = v14;
+    v37 = "[SLCollaborationHandshakeController addParticipantHandles:withMetadata:timeout:completion:]";
+    v38 = 2112;
+    v39 = metadataCopy;
+    v40 = 2112;
+    v41 = v14;
     _os_log_impl(&dword_231772000, v13, OS_LOG_TYPE_INFO, "%s: Metadata: %@, requestUUID: %@", buf, 0x20u);
   }
 
   taskManager = [(SLCollaborationHandshakeController *)self taskManager];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __92__SLCollaborationHandshakeController_addParticipantHandles_withMetadata_timeout_completion___block_invoke;
-  v25[3] = &unk_2789261A0;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __92__SLCollaborationHandshakeController_addParticipantHandles_withMetadata_timeout_completion___block_invoke;
+  v24[3] = &unk_2789261A0;
   v16 = handlesCopy;
-  v26 = v16;
+  v25 = v16;
   v17 = metadataCopy;
-  v27 = v17;
+  v26 = v17;
   selfCopy = self;
-  v30 = &v31;
-  v29 = completionCopy;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __92__SLCollaborationHandshakeController_addParticipantHandles_withMetadata_timeout_completion___block_invoke_20;
-  v22[3] = &unk_278926290;
-  v24 = &v31;
-  v23 = v29;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __92__SLCollaborationHandshakeController_addParticipantHandles_withMetadata_timeout_completion___block_invoke_21;
-  v20[3] = &unk_2789261F0;
-  v18 = v23;
-  v21 = v18;
-  [taskManager startTask:v25 withTimeout:v22 timeoutHandler:v20 errorHandler:timeout];
+  v29 = &v30;
+  v28 = completionCopy;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __92__SLCollaborationHandshakeController_addParticipantHandles_withMetadata_timeout_completion___block_invoke_20;
+  v21[3] = &unk_278926290;
+  v23 = &v30;
+  v22 = v28;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __92__SLCollaborationHandshakeController_addParticipantHandles_withMetadata_timeout_completion___block_invoke_21;
+  v19[3] = &unk_2789261F0;
+  v18 = v22;
+  v20 = v18;
+  [taskManager startTask:v24 withTimeout:v21 timeoutHandler:v19 errorHandler:timeout];
 
-  _Block_object_dispose(&v31, 8);
-  v19 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v30, 8);
 }
 
 id __92__SLCollaborationHandshakeController_addParticipantHandles_withMetadata_timeout_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -419,40 +448,36 @@ void __92__SLCollaborationHandshakeController_addParticipantHandles_withMetadata
   dispatch_async(v7, block);
 }
 
-uint64_t __92__SLCollaborationHandshakeController_addParticipantHandles_withMetadata_timeout_completion___block_invoke_3(uint64_t a1)
+void *__92__SLCollaborationHandshakeController_addParticipantHandles_withMetadata_timeout_completion___block_invoke_3(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) isValid];
   if (result)
   {
-    [*(a1 + 32) suppress];
-    v3 = SLFrameworkLogHandle();
+    v3 = SLFrameworkLogHandle([*(a1 + 32) suppress]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = *(*(*(a1 + 64) + 8) + 40);
       v5 = *(a1 + 40);
-      v9 = 138412546;
-      v10 = v4;
-      v11 = 2112;
-      v12 = v5;
-      _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_INFO, "[SLCollaborationHandshakeController] addParticipantHandles received response for request UUID: %@, error: %@", &v9, 0x16u);
+      v6 = 138412546;
+      v7 = v4;
+      v8 = 2112;
+      v9 = v5;
+      _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_INFO, "[SLCollaborationHandshakeController] addParticipantHandles received response for request UUID: %@, error: %@", &v6, 0x16u);
     }
 
-    v6 = *(a1 + 48);
-    v7 = *(a1 + 40);
-    result = (*(*(a1 + 56) + 16))();
+    return (*(*(a1 + 56) + 16))();
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void __92__SLCollaborationHandshakeController_addParticipantHandles_withMetadata_timeout_completion___block_invoke_20(uint64_t a1)
 {
-  v2 = SLFrameworkLogHandle();
+  v2 = SLFrameworkLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __92__SLCollaborationHandshakeController_addParticipantHandles_withMetadata_timeout_completion___block_invoke_20_cold_1(a1);
+    __92__SLCollaborationHandshakeController_addParticipantHandles_withMetadata_timeout_completion___block_invoke_20_cold_1();
   }
 
   v3 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.SocialLayer.SLCollaborationHandshakeController" code:2 userInfo:0];
@@ -461,93 +486,91 @@ void __92__SLCollaborationHandshakeController_addParticipantHandles_withMetadata
 
 - (void)addParticipantHandles:(id)handles withFileURL:(id)l metadata:(id)metadata timeout:(double)timeout completion:(id)completion
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   handlesCopy = handles;
   lCopy = l;
   metadataCopy = metadata;
   completionCopy = completion;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy__2;
-  v47 = __Block_byref_object_dispose__2;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy__2;
+  v46 = __Block_byref_object_dispose__2;
   uUID = [MEMORY[0x277CCAD78] UUID];
-  v16 = SLFrameworkLogHandle();
+  v16 = SLFrameworkLogHandle(uUID);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
-    v17 = v44[5];
+    v17 = v43[5];
     *buf = 136315650;
     *&buf[4] = "[SLCollaborationHandshakeController addParticipantHandles:withFileURL:metadata:timeout:completion:]";
     *&buf[12] = 2112;
     *&buf[14] = metadataCopy;
     *&buf[22] = 2112;
-    v50 = v17;
+    v49 = v17;
     _os_log_impl(&dword_231772000, v16, OS_LOG_TYPE_INFO, "%s: Metadata: %@, requestUUID: %@", buf, 0x20u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x4010000000;
-  v50 = "";
+  v49 = "";
+  v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
   _handshakeService = [(SLCollaborationHandshakeController *)self _handshakeService];
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __100__SLCollaborationHandshakeController_addParticipantHandles_withFileURL_metadata_timeout_completion___block_invoke;
-  v42[3] = &unk_278925B78;
-  v42[4] = buf;
-  [_handshakeService prepareConnectionWithReply:v42];
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __100__SLCollaborationHandshakeController_addParticipantHandles_withFileURL_metadata_timeout_completion___block_invoke;
+  v41[3] = &unk_278925B78;
+  v41[4] = buf;
+  [_handshakeService prepareConnectionWithReply:v41];
 
-  v40[0] = 0;
-  v40[1] = v40;
-  v40[2] = 0x3032000000;
-  v40[3] = __Block_byref_object_copy__2;
-  v40[4] = __Block_byref_object_dispose__2;
+  v39[0] = 0;
+  v39[1] = v39;
+  v39[2] = 0x3032000000;
+  v39[3] = __Block_byref_object_copy__2;
+  v39[4] = __Block_byref_object_dispose__2;
   v19 = *(*&buf[8] + 48);
-  v39[0] = *(*&buf[8] + 32);
-  v39[1] = v19;
-  v41 = [(SLCollaborationHandshakeController *)self _sandboxExtensionIssueFileURL:lCopy withAuditToken:v39];
+  v38[0] = *(*&buf[8] + 32);
+  v38[1] = v19;
+  v40 = [(SLCollaborationHandshakeController *)self _sandboxExtensionIssueFileURL:lCopy withAuditToken:v38];
   taskManager = [(SLCollaborationHandshakeController *)self taskManager];
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __100__SLCollaborationHandshakeController_addParticipantHandles_withFileURL_metadata_timeout_completion___block_invoke_2;
-  v31[3] = &unk_2789262B8;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __100__SLCollaborationHandshakeController_addParticipantHandles_withFileURL_metadata_timeout_completion___block_invoke_2;
+  v30[3] = &unk_2789262B8;
   v21 = handlesCopy;
-  v32 = v21;
+  v31 = v21;
   v22 = lCopy;
-  v33 = v22;
-  v37 = v40;
+  v32 = v22;
+  v36 = v39;
   v23 = metadataCopy;
-  v34 = v23;
+  v33 = v23;
   selfCopy = self;
-  v38 = &v43;
-  v36 = completionCopy;
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __100__SLCollaborationHandshakeController_addParticipantHandles_withFileURL_metadata_timeout_completion___block_invoke_23;
-  v28[3] = &unk_278926290;
-  v30 = &v43;
-  v29 = v36;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __100__SLCollaborationHandshakeController_addParticipantHandles_withFileURL_metadata_timeout_completion___block_invoke_24;
-  v26[3] = &unk_2789261F0;
-  v24 = v29;
-  v27 = v24;
-  [taskManager startTask:v31 withTimeout:v28 timeoutHandler:v26 errorHandler:timeout];
+  v37 = &v42;
+  v35 = completionCopy;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __100__SLCollaborationHandshakeController_addParticipantHandles_withFileURL_metadata_timeout_completion___block_invoke_23;
+  v27[3] = &unk_278926290;
+  v29 = &v42;
+  v28 = v35;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __100__SLCollaborationHandshakeController_addParticipantHandles_withFileURL_metadata_timeout_completion___block_invoke_24;
+  v25[3] = &unk_2789261F0;
+  v24 = v28;
+  v26 = v24;
+  [taskManager startTask:v30 withTimeout:v27 timeoutHandler:v25 errorHandler:timeout];
 
-  _Block_object_dispose(v40, 8);
+  _Block_object_dispose(v39, 8);
   _Block_object_dispose(buf, 8);
-  _Block_object_dispose(&v43, 8);
-
-  v25 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v42, 8);
 }
 
 void __100__SLCollaborationHandshakeController_addParticipantHandles_withFileURL_metadata_timeout_completion___block_invoke(uint64_t a1)
 {
   v2 = [MEMORY[0x277CCAE80] currentConnection];
-  [v2 auditToken];
+  objc_msgSend_auditToken(v2);
   v3 = *(*(a1 + 32) + 8);
   v4 = v6;
   *(v3 + 32) = v5;
@@ -596,40 +619,36 @@ void __100__SLCollaborationHandshakeController_addParticipantHandles_withFileURL
   dispatch_async(v7, block);
 }
 
-uint64_t __100__SLCollaborationHandshakeController_addParticipantHandles_withFileURL_metadata_timeout_completion___block_invoke_4(uint64_t a1)
+void *__100__SLCollaborationHandshakeController_addParticipantHandles_withFileURL_metadata_timeout_completion___block_invoke_4(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) isValid];
   if (result)
   {
-    [*(a1 + 32) suppress];
-    v3 = SLFrameworkLogHandle();
+    v3 = SLFrameworkLogHandle([*(a1 + 32) suppress]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = *(*(*(a1 + 64) + 8) + 40);
       v5 = *(a1 + 40);
-      v9 = 138412546;
-      v10 = v4;
-      v11 = 2112;
-      v12 = v5;
-      _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_INFO, "[SLCollaborationHandshakeController] addParticipantHandles:withFileURL: received response for request UUID: %@, error: %@", &v9, 0x16u);
+      v6 = 138412546;
+      v7 = v4;
+      v8 = 2112;
+      v9 = v5;
+      _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_INFO, "[SLCollaborationHandshakeController] addParticipantHandles:withFileURL: received response for request UUID: %@, error: %@", &v6, 0x16u);
     }
 
-    v6 = *(a1 + 48);
-    v7 = *(a1 + 40);
-    result = (*(*(a1 + 56) + 16))();
+    return (*(*(a1 + 56) + 16))();
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void __100__SLCollaborationHandshakeController_addParticipantHandles_withFileURL_metadata_timeout_completion___block_invoke_23(uint64_t a1)
 {
-  v2 = SLFrameworkLogHandle();
+  v2 = SLFrameworkLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __100__SLCollaborationHandshakeController_addParticipantHandles_withFileURL_metadata_timeout_completion___block_invoke_23_cold_1(a1);
+    __100__SLCollaborationHandshakeController_addParticipantHandles_withFileURL_metadata_timeout_completion___block_invoke_23_cold_1();
   }
 
   v3 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.SocialLayer.SLCollaborationHandshakeController" code:2 userInfo:0];
@@ -638,57 +657,56 @@ void __100__SLCollaborationHandshakeController_addParticipantHandles_withFileURL
 
 - (void)removeParticipantIdentities:(id)identities withMetadata:(id)metadata timeout:(double)timeout completion:(id)completion
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   identitiesCopy = identities;
   metadataCopy = metadata;
   completionCopy = completion;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__2;
-  v35 = __Block_byref_object_dispose__2;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__2;
+  v34 = __Block_byref_object_dispose__2;
   uUID = [MEMORY[0x277CCAD78] UUID];
-  v13 = SLFrameworkLogHandle();
+  v13 = SLFrameworkLogHandle(uUID);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v14 = v32[5];
+    v14 = v31[5];
     *buf = 136315650;
-    v38 = "[SLCollaborationHandshakeController removeParticipantIdentities:withMetadata:timeout:completion:]";
-    v39 = 2112;
-    v40 = metadataCopy;
-    v41 = 2112;
-    v42 = v14;
+    v37 = "[SLCollaborationHandshakeController removeParticipantIdentities:withMetadata:timeout:completion:]";
+    v38 = 2112;
+    v39 = metadataCopy;
+    v40 = 2112;
+    v41 = v14;
     _os_log_impl(&dword_231772000, v13, OS_LOG_TYPE_INFO, "%s: Metadata: %@, requestUUID: %@", buf, 0x20u);
   }
 
   taskManager = [(SLCollaborationHandshakeController *)self taskManager];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __98__SLCollaborationHandshakeController_removeParticipantIdentities_withMetadata_timeout_completion___block_invoke;
-  v25[3] = &unk_2789261A0;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __98__SLCollaborationHandshakeController_removeParticipantIdentities_withMetadata_timeout_completion___block_invoke;
+  v24[3] = &unk_2789261A0;
   v16 = identitiesCopy;
-  v26 = v16;
+  v25 = v16;
   v17 = metadataCopy;
-  v27 = v17;
+  v26 = v17;
   selfCopy = self;
-  v30 = &v31;
-  v29 = completionCopy;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __98__SLCollaborationHandshakeController_removeParticipantIdentities_withMetadata_timeout_completion___block_invoke_25;
-  v22[3] = &unk_278926290;
-  v24 = &v31;
-  v23 = v29;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __98__SLCollaborationHandshakeController_removeParticipantIdentities_withMetadata_timeout_completion___block_invoke_26;
-  v20[3] = &unk_2789261F0;
-  v18 = v23;
-  v21 = v18;
-  [taskManager startTask:v25 withTimeout:v22 timeoutHandler:v20 errorHandler:timeout];
+  v29 = &v30;
+  v28 = completionCopy;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __98__SLCollaborationHandshakeController_removeParticipantIdentities_withMetadata_timeout_completion___block_invoke_25;
+  v21[3] = &unk_278926290;
+  v23 = &v30;
+  v22 = v28;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __98__SLCollaborationHandshakeController_removeParticipantIdentities_withMetadata_timeout_completion___block_invoke_26;
+  v19[3] = &unk_2789261F0;
+  v18 = v22;
+  v20 = v18;
+  [taskManager startTask:v24 withTimeout:v21 timeoutHandler:v19 errorHandler:timeout];
 
-  _Block_object_dispose(&v31, 8);
-  v19 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v30, 8);
 }
 
 id __98__SLCollaborationHandshakeController_removeParticipantIdentities_withMetadata_timeout_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -731,40 +749,36 @@ void __98__SLCollaborationHandshakeController_removeParticipantIdentities_withMe
   dispatch_async(v7, block);
 }
 
-uint64_t __98__SLCollaborationHandshakeController_removeParticipantIdentities_withMetadata_timeout_completion___block_invoke_3(uint64_t a1)
+void *__98__SLCollaborationHandshakeController_removeParticipantIdentities_withMetadata_timeout_completion___block_invoke_3(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) isValid];
   if (result)
   {
-    [*(a1 + 32) suppress];
-    v3 = SLFrameworkLogHandle();
+    v3 = SLFrameworkLogHandle([*(a1 + 32) suppress]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = *(*(*(a1 + 64) + 8) + 40);
       v5 = *(a1 + 40);
-      v9 = 138412546;
-      v10 = v4;
-      v11 = 2112;
-      v12 = v5;
-      _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_INFO, "[SLCollaborationHandshakeController] removeParticipantIdentities received response for request UUID: %@, error: %@", &v9, 0x16u);
+      v6 = 138412546;
+      v7 = v4;
+      v8 = 2112;
+      v9 = v5;
+      _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_INFO, "[SLCollaborationHandshakeController] removeParticipantIdentities received response for request UUID: %@, error: %@", &v6, 0x16u);
     }
 
-    v6 = *(a1 + 48);
-    v7 = *(a1 + 40);
-    result = (*(*(a1 + 56) + 16))();
+    return (*(*(a1 + 56) + 16))();
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void __98__SLCollaborationHandshakeController_removeParticipantIdentities_withMetadata_timeout_completion___block_invoke_25(uint64_t a1)
 {
-  v2 = SLFrameworkLogHandle();
+  v2 = SLFrameworkLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __98__SLCollaborationHandshakeController_removeParticipantIdentities_withMetadata_timeout_completion___block_invoke_25_cold_1(a1);
+    __98__SLCollaborationHandshakeController_removeParticipantIdentities_withMetadata_timeout_completion___block_invoke_25_cold_1();
   }
 
   v3 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.SocialLayer.SLCollaborationHandshakeController" code:2 userInfo:0];
@@ -773,93 +787,91 @@ void __98__SLCollaborationHandshakeController_removeParticipantIdentities_withMe
 
 - (void)removeParticipantIdentities:(id)identities withFileURL:(id)l metadata:(id)metadata timeout:(double)timeout completion:(id)completion
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   identitiesCopy = identities;
   lCopy = l;
   metadataCopy = metadata;
   completionCopy = completion;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy__2;
-  v47 = __Block_byref_object_dispose__2;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy__2;
+  v46 = __Block_byref_object_dispose__2;
   uUID = [MEMORY[0x277CCAD78] UUID];
-  v16 = SLFrameworkLogHandle();
+  v16 = SLFrameworkLogHandle(uUID);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
-    v17 = v44[5];
+    v17 = v43[5];
     *buf = 136315650;
     *&buf[4] = "[SLCollaborationHandshakeController removeParticipantIdentities:withFileURL:metadata:timeout:completion:]";
     *&buf[12] = 2112;
     *&buf[14] = metadataCopy;
     *&buf[22] = 2112;
-    v50 = v17;
+    v49 = v17;
     _os_log_impl(&dword_231772000, v16, OS_LOG_TYPE_INFO, "%s: Metadata: %@, requestUUID: %@", buf, 0x20u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x4010000000;
-  v50 = "";
+  v49 = "";
+  v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
   _handshakeService = [(SLCollaborationHandshakeController *)self _handshakeService];
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __106__SLCollaborationHandshakeController_removeParticipantIdentities_withFileURL_metadata_timeout_completion___block_invoke;
-  v42[3] = &unk_278925B78;
-  v42[4] = buf;
-  [_handshakeService prepareConnectionWithReply:v42];
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __106__SLCollaborationHandshakeController_removeParticipantIdentities_withFileURL_metadata_timeout_completion___block_invoke;
+  v41[3] = &unk_278925B78;
+  v41[4] = buf;
+  [_handshakeService prepareConnectionWithReply:v41];
 
-  v40[0] = 0;
-  v40[1] = v40;
-  v40[2] = 0x3032000000;
-  v40[3] = __Block_byref_object_copy__2;
-  v40[4] = __Block_byref_object_dispose__2;
+  v39[0] = 0;
+  v39[1] = v39;
+  v39[2] = 0x3032000000;
+  v39[3] = __Block_byref_object_copy__2;
+  v39[4] = __Block_byref_object_dispose__2;
   v19 = *(*&buf[8] + 48);
-  v39[0] = *(*&buf[8] + 32);
-  v39[1] = v19;
-  v41 = [(SLCollaborationHandshakeController *)self _sandboxExtensionIssueFileURL:lCopy withAuditToken:v39];
+  v38[0] = *(*&buf[8] + 32);
+  v38[1] = v19;
+  v40 = [(SLCollaborationHandshakeController *)self _sandboxExtensionIssueFileURL:lCopy withAuditToken:v38];
   taskManager = [(SLCollaborationHandshakeController *)self taskManager];
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __106__SLCollaborationHandshakeController_removeParticipantIdentities_withFileURL_metadata_timeout_completion___block_invoke_2;
-  v31[3] = &unk_2789262B8;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __106__SLCollaborationHandshakeController_removeParticipantIdentities_withFileURL_metadata_timeout_completion___block_invoke_2;
+  v30[3] = &unk_2789262B8;
   v21 = identitiesCopy;
-  v32 = v21;
+  v31 = v21;
   v22 = lCopy;
-  v33 = v22;
-  v37 = v40;
+  v32 = v22;
+  v36 = v39;
   v23 = metadataCopy;
-  v34 = v23;
+  v33 = v23;
   selfCopy = self;
-  v38 = &v43;
-  v36 = completionCopy;
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __106__SLCollaborationHandshakeController_removeParticipantIdentities_withFileURL_metadata_timeout_completion___block_invoke_28;
-  v28[3] = &unk_278926290;
-  v30 = &v43;
-  v29 = v36;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __106__SLCollaborationHandshakeController_removeParticipantIdentities_withFileURL_metadata_timeout_completion___block_invoke_29;
-  v26[3] = &unk_2789261F0;
-  v24 = v29;
-  v27 = v24;
-  [taskManager startTask:v31 withTimeout:v28 timeoutHandler:v26 errorHandler:timeout];
+  v37 = &v42;
+  v35 = completionCopy;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __106__SLCollaborationHandshakeController_removeParticipantIdentities_withFileURL_metadata_timeout_completion___block_invoke_28;
+  v27[3] = &unk_278926290;
+  v29 = &v42;
+  v28 = v35;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __106__SLCollaborationHandshakeController_removeParticipantIdentities_withFileURL_metadata_timeout_completion___block_invoke_29;
+  v25[3] = &unk_2789261F0;
+  v24 = v28;
+  v26 = v24;
+  [taskManager startTask:v30 withTimeout:v27 timeoutHandler:v25 errorHandler:timeout];
 
-  _Block_object_dispose(v40, 8);
+  _Block_object_dispose(v39, 8);
   _Block_object_dispose(buf, 8);
-  _Block_object_dispose(&v43, 8);
-
-  v25 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v42, 8);
 }
 
 void __106__SLCollaborationHandshakeController_removeParticipantIdentities_withFileURL_metadata_timeout_completion___block_invoke(uint64_t a1)
 {
   v2 = [MEMORY[0x277CCAE80] currentConnection];
-  [v2 auditToken];
+  objc_msgSend_auditToken(v2);
   v3 = *(*(a1 + 32) + 8);
   v4 = v6;
   *(v3 + 32) = v5;
@@ -908,40 +920,36 @@ void __106__SLCollaborationHandshakeController_removeParticipantIdentities_withF
   dispatch_async(v7, block);
 }
 
-uint64_t __106__SLCollaborationHandshakeController_removeParticipantIdentities_withFileURL_metadata_timeout_completion___block_invoke_4(uint64_t a1)
+void *__106__SLCollaborationHandshakeController_removeParticipantIdentities_withFileURL_metadata_timeout_completion___block_invoke_4(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) isValid];
   if (result)
   {
-    [*(a1 + 32) suppress];
-    v3 = SLFrameworkLogHandle();
+    v3 = SLFrameworkLogHandle([*(a1 + 32) suppress]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = *(*(*(a1 + 64) + 8) + 40);
       v5 = *(a1 + 40);
-      v9 = 138412546;
-      v10 = v4;
-      v11 = 2112;
-      v12 = v5;
-      _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_INFO, "[SLCollaborationHandshakeController] removeParticipantIdentities:withFileURL: received response for request UUID: %@, error: %@", &v9, 0x16u);
+      v6 = 138412546;
+      v7 = v4;
+      v8 = 2112;
+      v9 = v5;
+      _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_INFO, "[SLCollaborationHandshakeController] removeParticipantIdentities:withFileURL: received response for request UUID: %@, error: %@", &v6, 0x16u);
     }
 
-    v6 = *(a1 + 48);
-    v7 = *(a1 + 40);
-    result = (*(*(a1 + 56) + 16))();
+    return (*(*(a1 + 56) + 16))();
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void __106__SLCollaborationHandshakeController_removeParticipantIdentities_withFileURL_metadata_timeout_completion___block_invoke_28(uint64_t a1)
 {
-  v2 = SLFrameworkLogHandle();
+  v2 = SLFrameworkLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __106__SLCollaborationHandshakeController_removeParticipantIdentities_withFileURL_metadata_timeout_completion___block_invoke_28_cold_1(a1);
+    __106__SLCollaborationHandshakeController_removeParticipantIdentities_withFileURL_metadata_timeout_completion___block_invoke_28_cold_1();
   }
 
   v3 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.SocialLayer.SLCollaborationHandshakeController" code:2 userInfo:0];
@@ -950,59 +958,58 @@ void __106__SLCollaborationHandshakeController_removeParticipantIdentities_withF
 
 - (void)generateProofForIdentity:(id)identity collaborationIdentifier:(id)identifier timeout:(double)timeout completion:(id)completion
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   identifierCopy = identifier;
   completionCopy = completion;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__2;
-  v35 = __Block_byref_object_dispose__2;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__2;
+  v34 = __Block_byref_object_dispose__2;
   uUID = [MEMORY[0x277CCAD78] UUID];
-  v13 = SLFrameworkLogHandle();
+  v13 = SLFrameworkLogHandle(uUID);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v14 = v32[5];
+    v14 = v31[5];
     *buf = 136315906;
-    v38 = "[SLCollaborationHandshakeController generateProofForIdentity:collaborationIdentifier:timeout:completion:]";
-    v39 = 2112;
-    v40 = identityCopy;
-    v41 = 2112;
-    v42 = identifierCopy;
-    v43 = 2112;
-    v44 = v14;
+    v37 = "[SLCollaborationHandshakeController generateProofForIdentity:collaborationIdentifier:timeout:completion:]";
+    v38 = 2112;
+    v39 = identityCopy;
+    v40 = 2112;
+    v41 = identifierCopy;
+    v42 = 2112;
+    v43 = v14;
     _os_log_impl(&dword_231772000, v13, OS_LOG_TYPE_INFO, "%s: identity: %@ documentIdentifier: %@ uuid: %@", buf, 0x2Au);
   }
 
   taskManager = [(SLCollaborationHandshakeController *)self taskManager];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __106__SLCollaborationHandshakeController_generateProofForIdentity_collaborationIdentifier_timeout_completion___block_invoke;
-  v25[3] = &unk_2789261A0;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __106__SLCollaborationHandshakeController_generateProofForIdentity_collaborationIdentifier_timeout_completion___block_invoke;
+  v24[3] = &unk_2789261A0;
   v16 = identityCopy;
-  v26 = v16;
+  v25 = v16;
   v17 = identifierCopy;
-  v27 = v17;
+  v26 = v17;
   selfCopy = self;
-  v30 = &v31;
-  v29 = completionCopy;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __106__SLCollaborationHandshakeController_generateProofForIdentity_collaborationIdentifier_timeout_completion___block_invoke_31;
-  v22[3] = &unk_278926290;
-  v24 = &v31;
-  v23 = v29;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __106__SLCollaborationHandshakeController_generateProofForIdentity_collaborationIdentifier_timeout_completion___block_invoke_32;
-  v20[3] = &unk_2789261F0;
-  v18 = v23;
-  v21 = v18;
-  [taskManager startTask:v25 withTimeout:v22 timeoutHandler:v20 errorHandler:timeout];
+  v29 = &v30;
+  v28 = completionCopy;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __106__SLCollaborationHandshakeController_generateProofForIdentity_collaborationIdentifier_timeout_completion___block_invoke_31;
+  v21[3] = &unk_278926290;
+  v23 = &v30;
+  v22 = v28;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __106__SLCollaborationHandshakeController_generateProofForIdentity_collaborationIdentifier_timeout_completion___block_invoke_32;
+  v19[3] = &unk_2789261F0;
+  v18 = v22;
+  v20 = v18;
+  [taskManager startTask:v24 withTimeout:v21 timeoutHandler:v19 errorHandler:timeout];
 
-  _Block_object_dispose(&v31, 8);
-  v19 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v30, 8);
 }
 
 id __106__SLCollaborationHandshakeController_generateProofForIdentity_collaborationIdentifier_timeout_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1045,40 +1052,36 @@ void __106__SLCollaborationHandshakeController_generateProofForIdentity_collabor
   dispatch_async(v7, block);
 }
 
-uint64_t __106__SLCollaborationHandshakeController_generateProofForIdentity_collaborationIdentifier_timeout_completion___block_invoke_3(uint64_t a1)
+void *__106__SLCollaborationHandshakeController_generateProofForIdentity_collaborationIdentifier_timeout_completion___block_invoke_3(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) isValid];
   if (result)
   {
-    [*(a1 + 32) suppress];
-    v3 = SLFrameworkLogHandle();
+    v3 = SLFrameworkLogHandle([*(a1 + 32) suppress]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(*(*(a1 + 64) + 8) + 40);
       v5 = *(a1 + 40);
-      v9 = 138412546;
-      v10 = v4;
-      v11 = 2112;
-      v12 = v5;
-      _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_DEFAULT, "[SLCollaborationHandshakeController] generateProofForIdentity:collaborationIdentifier: received response for request UUID: %@, error: %@", &v9, 0x16u);
+      v6 = 138412546;
+      v7 = v4;
+      v8 = 2112;
+      v9 = v5;
+      _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_DEFAULT, "[SLCollaborationHandshakeController] generateProofForIdentity:collaborationIdentifier: received response for request UUID: %@, error: %@", &v6, 0x16u);
     }
 
-    v6 = *(a1 + 48);
-    v7 = *(a1 + 40);
-    result = (*(*(a1 + 56) + 16))();
+    return (*(*(a1 + 56) + 16))();
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void __106__SLCollaborationHandshakeController_generateProofForIdentity_collaborationIdentifier_timeout_completion___block_invoke_31(uint64_t a1)
 {
-  v2 = SLFrameworkLogHandle();
+  v2 = SLFrameworkLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __106__SLCollaborationHandshakeController_generateProofForIdentity_collaborationIdentifier_timeout_completion___block_invoke_31_cold_1(a1);
+    __106__SLCollaborationHandshakeController_generateProofForIdentity_collaborationIdentifier_timeout_completion___block_invoke_31_cold_1();
   }
 
   v3 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.SocialLayer.SLCollaborationHandshakeController" code:2 userInfo:0];
@@ -1087,55 +1090,54 @@ void __106__SLCollaborationHandshakeController_generateProofForIdentity_collabor
 
 - (void)verifySourceBundleIdentifierFromMetadata:(id)metadata timeout:(double)timeout completion:(id)completion
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   completionCopy = completion;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__2;
-  v31 = __Block_byref_object_dispose__2;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__2;
+  v30 = __Block_byref_object_dispose__2;
   uUID = [MEMORY[0x277CCAD78] UUID];
-  v10 = SLFrameworkLogHandle();
+  v10 = SLFrameworkLogHandle(uUID);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     localIdentifier = [metadataCopy localIdentifier];
-    v12 = v28[5];
+    v12 = v27[5];
     *buf = 136315650;
-    v34 = "[SLCollaborationHandshakeController verifySourceBundleIdentifierFromMetadata:timeout:completion:]";
-    v35 = 2112;
-    v36 = localIdentifier;
-    v37 = 2112;
-    v38 = v12;
+    v33 = "[SLCollaborationHandshakeController verifySourceBundleIdentifierFromMetadata:timeout:completion:]";
+    v34 = 2112;
+    v35 = localIdentifier;
+    v36 = 2112;
+    v37 = v12;
     _os_log_impl(&dword_231772000, v10, OS_LOG_TYPE_INFO, "%s: local identifier: %@ uuid: %@", buf, 0x20u);
   }
 
   taskManager = [(SLCollaborationHandshakeController *)self taskManager];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __98__SLCollaborationHandshakeController_verifySourceBundleIdentifierFromMetadata_timeout_completion___block_invoke;
-  v22[3] = &unk_278926330;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __98__SLCollaborationHandshakeController_verifySourceBundleIdentifierFromMetadata_timeout_completion___block_invoke;
+  v21[3] = &unk_278926330;
   v14 = metadataCopy;
-  v23 = v14;
+  v22 = v14;
   selfCopy = self;
-  v26 = &v27;
-  v25 = completionCopy;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __98__SLCollaborationHandshakeController_verifySourceBundleIdentifierFromMetadata_timeout_completion___block_invoke_34;
-  v19[3] = &unk_278926290;
-  v21 = &v27;
-  v20 = v25;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __98__SLCollaborationHandshakeController_verifySourceBundleIdentifierFromMetadata_timeout_completion___block_invoke_35;
-  v17[3] = &unk_2789261F0;
-  v15 = v20;
-  v18 = v15;
-  [taskManager startTask:v22 withTimeout:v19 timeoutHandler:v17 errorHandler:timeout];
+  v25 = &v26;
+  v24 = completionCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __98__SLCollaborationHandshakeController_verifySourceBundleIdentifierFromMetadata_timeout_completion___block_invoke_34;
+  v18[3] = &unk_278926290;
+  v20 = &v26;
+  v19 = v24;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __98__SLCollaborationHandshakeController_verifySourceBundleIdentifierFromMetadata_timeout_completion___block_invoke_35;
+  v16[3] = &unk_2789261F0;
+  v15 = v19;
+  v17 = v15;
+  [taskManager startTask:v21 withTimeout:v18 timeoutHandler:v16 errorHandler:timeout];
 
-  _Block_object_dispose(&v27, 8);
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v26, 8);
 }
 
 id __98__SLCollaborationHandshakeController_verifySourceBundleIdentifierFromMetadata_timeout_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1177,40 +1179,36 @@ void __98__SLCollaborationHandshakeController_verifySourceBundleIdentifierFromMe
   dispatch_async(v7, block);
 }
 
-uint64_t __98__SLCollaborationHandshakeController_verifySourceBundleIdentifierFromMetadata_timeout_completion___block_invoke_3(uint64_t a1)
+void *__98__SLCollaborationHandshakeController_verifySourceBundleIdentifierFromMetadata_timeout_completion___block_invoke_3(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) isValid];
   if (result)
   {
-    [*(a1 + 32) suppress];
-    v3 = SLFrameworkLogHandle();
+    v3 = SLFrameworkLogHandle([*(a1 + 32) suppress]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(*(*(a1 + 64) + 8) + 40);
       v5 = *(a1 + 40);
-      v9 = 138412546;
-      v10 = v4;
-      v11 = 2112;
-      v12 = v5;
-      _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_DEFAULT, "[SLCollaborationHandshakeController] verifySourceBundleIdentifierFromMetadata: received response for request UUID: %@, error: %@", &v9, 0x16u);
+      v6 = 138412546;
+      v7 = v4;
+      v8 = 2112;
+      v9 = v5;
+      _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_DEFAULT, "[SLCollaborationHandshakeController] verifySourceBundleIdentifierFromMetadata: received response for request UUID: %@, error: %@", &v6, 0x16u);
     }
 
-    v6 = *(a1 + 48);
-    v7 = *(a1 + 40);
-    result = (*(*(a1 + 56) + 16))();
+    return (*(*(a1 + 56) + 16))();
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void __98__SLCollaborationHandshakeController_verifySourceBundleIdentifierFromMetadata_timeout_completion___block_invoke_34(uint64_t a1)
 {
-  v2 = SLFrameworkLogHandle();
+  v2 = SLFrameworkLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __98__SLCollaborationHandshakeController_verifySourceBundleIdentifierFromMetadata_timeout_completion___block_invoke_34_cold_1(a1);
+    __98__SLCollaborationHandshakeController_verifySourceBundleIdentifierFromMetadata_timeout_completion___block_invoke_34_cold_1();
   }
 
   v3 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.SocialLayer.SLCollaborationHandshakeController" code:2 userInfo:0];
@@ -1254,67 +1252,59 @@ void __98__SLCollaborationHandshakeController_verifySourceBundleIdentifierFromMe
     path = v8;
   }
 
-  v9 = *MEMORY[0x277D861C0];
   [path fileSystemRepresentation];
-  v10 = *MEMORY[0x277D861E8];
-  v14 = *token->var0;
-  v15 = *&token->var0[4];
-  v11 = sandbox_extension_issue_file_to_process();
-  v12 = v11;
-  if (v11)
+  v12 = *token->var0;
+  v13 = *&token->var0[4];
+  v9 = sandbox_extension_issue_file_to_process();
+  v10 = v9;
+  if (v9)
   {
-    v12 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v11 length:strlen(v11) + 1 freeWhenDone:{1, v14, v15}];
+    v10 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v9 length:strlen(v9) + 1 freeWhenDone:{1, v12, v13}];
   }
 
-  return v12;
+  return v10;
 }
 
-void __92__SLCollaborationHandshakeController_addParticipantHandles_withMetadata_timeout_completion___block_invoke_20_cold_1(uint64_t a1)
+void __92__SLCollaborationHandshakeController_addParticipantHandles_withMetadata_timeout_completion___block_invoke_20_cold_1()
 {
-  OUTLINED_FUNCTION_0_6(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_6(&dword_231772000, v1, v2, "[SLCollaborationHandshakeController] addParticipantHandles request with UUID timed out: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "[SLCollaborationHandshakeController] addParticipantHandles request with UUID timed out: %@", v2, v3, v4, v5);
 }
 
-void __100__SLCollaborationHandshakeController_addParticipantHandles_withFileURL_metadata_timeout_completion___block_invoke_23_cold_1(uint64_t a1)
+void __100__SLCollaborationHandshakeController_addParticipantHandles_withFileURL_metadata_timeout_completion___block_invoke_23_cold_1()
 {
-  OUTLINED_FUNCTION_0_6(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_6(&dword_231772000, v1, v2, "[SLCollaborationHandshakeController] addParticipantHandles:withFileURL: request with UUID timed out: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "[SLCollaborationHandshakeController] addParticipantHandles:withFileURL: request with UUID timed out: %@", v2, v3, v4, v5);
 }
 
-void __98__SLCollaborationHandshakeController_removeParticipantIdentities_withMetadata_timeout_completion___block_invoke_25_cold_1(uint64_t a1)
+void __98__SLCollaborationHandshakeController_removeParticipantIdentities_withMetadata_timeout_completion___block_invoke_25_cold_1()
 {
-  OUTLINED_FUNCTION_0_6(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_6(&dword_231772000, v1, v2, "[SLCollaborationHandshakeController] removeParticipantIdentities request with UUID timed out: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "[SLCollaborationHandshakeController] removeParticipantIdentities request with UUID timed out: %@", v2, v3, v4, v5);
 }
 
-void __106__SLCollaborationHandshakeController_removeParticipantIdentities_withFileURL_metadata_timeout_completion___block_invoke_28_cold_1(uint64_t a1)
+void __106__SLCollaborationHandshakeController_removeParticipantIdentities_withFileURL_metadata_timeout_completion___block_invoke_28_cold_1()
 {
-  OUTLINED_FUNCTION_0_6(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_6(&dword_231772000, v1, v2, "[SLCollaborationHandshakeController] removeParticipantIdentities:withFileURL: request with UUID timed out: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "[SLCollaborationHandshakeController] removeParticipantIdentities:withFileURL: request with UUID timed out: %@", v2, v3, v4, v5);
 }
 
-void __106__SLCollaborationHandshakeController_generateProofForIdentity_collaborationIdentifier_timeout_completion___block_invoke_31_cold_1(uint64_t a1)
+void __106__SLCollaborationHandshakeController_generateProofForIdentity_collaborationIdentifier_timeout_completion___block_invoke_31_cold_1()
 {
-  OUTLINED_FUNCTION_0_6(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_6(&dword_231772000, v1, v2, "[SLCollaborationHandshakeController] generateProofForIdentity:collaborationIdentifier: request with UUID timed out: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "[SLCollaborationHandshakeController] generateProofForIdentity:collaborationIdentifier: request with UUID timed out: %@", v2, v3, v4, v5);
 }
 
-void __98__SLCollaborationHandshakeController_verifySourceBundleIdentifierFromMetadata_timeout_completion___block_invoke_34_cold_1(uint64_t a1)
+void __98__SLCollaborationHandshakeController_verifySourceBundleIdentifierFromMetadata_timeout_completion___block_invoke_34_cold_1()
 {
-  OUTLINED_FUNCTION_0_6(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_6(&dword_231772000, v1, v2, "[SLCollaborationHandshakeController] verifySourceBundleIdentifierFromMetadata: request with UUID timed out: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "[SLCollaborationHandshakeController] verifySourceBundleIdentifierFromMetadata: request with UUID timed out: %@", v2, v3, v4, v5);
 }
 
 @end

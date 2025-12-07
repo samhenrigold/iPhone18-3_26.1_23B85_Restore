@@ -33,33 +33,33 @@
 - (void)collectDEPayloadsWithIdentifier:(id)identifier diagnosticExtensions:(id)extensions queue:(id)queue reply:(id)reply
 {
   selfCopy = self;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   extensionsCopy = extensions;
   queueCopy = queue;
   replyCopy = reply;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v13 = extensionsCopy;
-  v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v24;
+    v16 = *v23;
     do
     {
       v17 = 0;
       do
       {
-        if (*v24 != v16)
+        if (*v23 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v23 + 1) + 8 * v17);
+        v18 = *(*(&v22 + 1) + 8 * v17);
         null = [MEMORY[0x277CBEB68] null];
         [dictionary setObject:null forKeyedSubscript:v18];
 
@@ -67,72 +67,71 @@
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v15);
   }
 
   [(DiagnosticExtensionController *)selfCopy collectDEPayloadsWithIdentifier:identifierCopy diagnosticExtensionsWithParameters:dictionary queue:queueCopy reply:replyCopy];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)collectDEPayloadsWithIdentifier:(id)identifier diagnosticExtensionsWithParameters:(id)parameters queue:(id)queue reply:(id)reply
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   parametersCopy = parameters;
   queueCopy = queue;
   replyCopy = reply;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v38[0] = 0;
-  v38[1] = v38;
-  v38[2] = 0x2020000000;
-  v38[3] = 0;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
-  v37 = [parametersCopy count];
+  v39[0] = 0;
+  v39[1] = v39;
+  v39[2] = 0x2020000000;
+  v39[3] = 0;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2020000000;
+  v38 = [parametersCopy count];
   dateFormatter = self->dateFormatter;
   date = [MEMORY[0x277CBEAA8] date];
   v17 = [(NSDateFormatter *)dateFormatter stringFromDate:date];
   v18 = [identifierCopy stringByAppendingFormat:@"-%@", v17];
 
-  v19 = diagextLogHandle();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v20 = diagextLogHandle(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = [parametersCopy count];
+    v21 = [parametersCopy count];
     allKeys = [parametersCopy allKeys];
     *buf = 134218242;
-    v40 = v20;
-    v41 = 2112;
-    v42 = allKeys;
-    _os_log_impl(&dword_241804000, v19, OS_LOG_TYPE_DEFAULT, "Calling %ld DEs: %@", buf, 0x16u);
+    v41 = v21;
+    v42 = 2112;
+    v43 = allKeys;
+    _os_log_impl(&dword_241804000, v20, OS_LOG_TYPE_DEFAULT, "Calling %ld DEs: %@", buf, 0x16u);
   }
 
-  if (v35[3])
+  if (v36[3])
   {
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __112__DiagnosticExtensionController_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke;
-    v27[3] = &unk_278CF06D8;
-    v27[4] = self;
-    v28 = dictionary;
-    v32 = v38;
-    v29 = v18;
-    v33 = &v34;
-    v31 = replyCopy;
-    v30 = queueCopy;
-    [parametersCopy enumerateKeysAndObjectsUsingBlock:v27];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __112__DiagnosticExtensionController_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke;
+    v28[3] = &unk_278CF06D8;
+    v28[4] = self;
+    v29 = dictionary;
+    v33 = v39;
+    v30 = v18;
+    v34 = &v35;
+    v32 = replyCopy;
+    v31 = queueCopy;
+    [parametersCopy enumerateKeysAndObjectsUsingBlock:v28];
   }
 
   else
   {
-    v22 = diagextLogHandle();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v24 = diagextLogHandle(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v22, OS_LOG_TYPE_DEFAULT, "List of DiagnosticExtensions to call was empty", buf, 2u);
+      _os_log_impl(&dword_241804000, v24, OS_LOG_TYPE_DEFAULT, "List of DiagnosticExtensions to call was empty", buf, 2u);
     }
 
     if (replyCopy)
@@ -141,16 +140,14 @@
       block[1] = 3221225472;
       block[2] = __112__DiagnosticExtensionController_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke_105;
       block[3] = &unk_278CEFF50;
-      v26 = replyCopy;
-      v25 = dictionary;
+      v27 = replyCopy;
+      v26 = dictionary;
       dispatch_async(queueCopy, block);
     }
   }
 
-  _Block_object_dispose(&v34, 8);
-  _Block_object_dispose(v38, 8);
-
-  v23 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(v39, 8);
 }
 
 void __112__DiagnosticExtensionController_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -163,67 +160,67 @@ void __112__DiagnosticExtensionController_collectDEPayloadsWithIdentifier_diagno
   {
     v7 = v5;
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v8 = v6;
+      isKindOfClass = v6;
+      v9 = isKindOfClass;
     }
 
     else
     {
-      v8 = 0;
+      v9 = 0;
     }
 
-    v9 = diagextLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = diagextLogHandle(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
       v27 = v7;
-      _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_INFO, "Ready to call DE %@", buf, 0xCu);
+      _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_INFO, "Ready to call DE %@", buf, 0xCu);
     }
 
-    v10 = *(*(a1 + 32) + 16);
+    v11 = *(*(a1 + 32) + 16);
     v19[0] = MEMORY[0x277D85DD0];
     v19[1] = 3221225472;
     v19[2] = __112__DiagnosticExtensionController_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke_92;
     v19[3] = &unk_278CF06B0;
     v20 = v7;
-    v11 = *(a1 + 40);
+    v12 = *(a1 + 40);
     v24 = *(a1 + 72);
-    v12 = *(a1 + 48);
+    v13 = *(a1 + 48);
     v25 = *(a1 + 80);
     v18 = *(a1 + 32);
     v23 = *(a1 + 64);
-    v13 = *(a1 + 56);
-    *&v14 = v18;
-    *(&v14 + 1) = v13;
-    *&v15 = v11;
-    *(&v15 + 1) = v12;
-    v21 = v15;
-    v22 = v14;
-    v16 = v7;
-    [DiagnosticExtensionCaller getAttachmentsFrom:v16 forBundleID:0 withParameters:v8 queue:v10 reply:v19];
+    v14 = *(a1 + 56);
+    *&v15 = v18;
+    *(&v15 + 1) = v14;
+    *&v16 = v12;
+    *(&v16 + 1) = v13;
+    v21 = v16;
+    v22 = v15;
+    v17 = v7;
+    [DiagnosticExtensionCaller getAttachmentsFrom:v17 forBundleID:0 withParameters:v9 queue:v11 reply:v19];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __112__DiagnosticExtensionController_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke_92(uint64_t a1, void *a2, void *a3)
 {
-  v99 = *MEMORY[0x277D85DE8];
+  v105 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
-  v75 = [MEMORY[0x277CBEB58] set];
-  v8 = diagextLogHandle();
+  v81 = [MEMORY[0x277CBEB58] set];
+  v8 = diagextLogHandle(v81);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
   if (v5)
   {
     if (v9)
     {
       *buf = 138412546;
-      v89 = v7;
-      v90 = 2048;
-      v91 = [v5 count];
+      v95 = v7;
+      v96 = 2048;
+      v97 = [v5 count];
       _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_INFO, "Reply for DE %@, with %ld attachments", buf, 0x16u);
     }
 
@@ -235,19 +232,19 @@ LABEL_10:
   if (v9)
   {
     *buf = 138412546;
-    v89 = v7;
-    v90 = 2112;
-    v91 = v6;
+    v95 = v7;
+    v96 = 2112;
+    v97 = v6;
     _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_INFO, "Reply for DE %@, with error:%@", buf, 0x16u);
   }
 
   if ([v6 code] == 45)
   {
-    v10 = diagextLogHandle();
+    v10 = diagextLogHandle(45);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v89 = v7;
+      v95 = v7;
       _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEBUG, "DE %@ is not available on this device. Marking as not required.", buf, 0xCu);
     }
 
@@ -263,88 +260,91 @@ LABEL_11:
   aBlock[1] = 3221225472;
   aBlock[2] = __112__DiagnosticExtensionController_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke_94;
   aBlock[3] = &unk_278CF0688;
-  v70 = v11;
-  v86 = v70;
-  v74 = _Block_copy(aBlock);
-  v71 = v5;
-  if ([v5 count])
+  v76 = v11;
+  v92 = v76;
+  v80 = _Block_copy(aBlock);
+  v12 = [v5 count];
+  v77 = v5;
+  if (v12)
   {
-    v12 = diagextLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = diagextLogHandle(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v13 = [v5 count];
+      v14 = [v5 count];
       *buf = 134218242;
-      v89 = v13;
-      v90 = 2112;
-      v91 = v7;
-      _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_INFO, "Processing %ld attachments from %@", buf, 0x16u);
+      v95 = v14;
+      v96 = 2112;
+      v97 = v7;
+      _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_INFO, "Processing %ld attachments from %@", buf, 0x16u);
     }
 
-    v67 = a1;
-    v68 = v7;
-    v69 = v6;
+    v73 = a1;
+    v74 = v7;
+    v75 = v6;
 
-    v83 = 0u;
-    v84 = 0u;
-    v81 = 0u;
-    v82 = 0u;
-    v14 = v5;
-    v77 = [v14 countByEnumeratingWithState:&v81 objects:v98 count:16];
-    v15 = 0;
-    v16 = 0;
-    if (v77)
+    v89 = 0u;
+    v90 = 0u;
+    v87 = 0u;
+    v88 = 0u;
+    v15 = v5;
+    v16 = [v15 countByEnumeratingWithState:&v87 objects:v104 count:16];
+    v83 = v16;
+    v17 = 0;
+    v18 = 0;
+    if (v16)
     {
-      v76 = *v82;
-      v72 = v14;
+      v82 = *v88;
+      v78 = v15;
       do
       {
-        for (i = 0; i != v77; ++i)
+        v19 = 0;
+        do
         {
-          if (*v82 != v76)
+          if (*v88 != v82)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v15);
           }
 
-          v18 = *(*(&v81 + 1) + 8 * i);
-          v19 = diagextLogHandle();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+          v20 = *(*(&v87 + 1) + 8 * v19);
+          v21 = diagextLogHandle(v16);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
           {
-            v20 = [v18 deleteOnAttach];
-            v21 = [v18 shouldCompress];
-            v22 = [v18 modificationDate];
-            v23 = [v18 filesize];
+            v22 = [v20 deleteOnAttach];
+            v23 = [v20 shouldCompress];
+            v24 = [v20 modificationDate];
+            v25 = [v20 filesize];
             *buf = 138413314;
-            v89 = v18;
-            v90 = 2112;
-            v91 = v20;
-            v92 = 2112;
-            v93 = v21;
-            v94 = 2112;
-            v95 = v22;
+            v95 = v20;
             v96 = 2112;
-            v97 = v23;
-            _os_log_impl(&dword_241804000, v19, OS_LOG_TYPE_INFO, "Processing %@ (deleteOnAttach:%@, shouldCompress:%@, modificationDate:%@, fileSize:%@)", buf, 0x34u);
+            v97 = v22;
+            v98 = 2112;
+            v99 = v23;
+            v100 = 2112;
+            v101 = v24;
+            v102 = 2112;
+            v103 = v25;
+            _os_log_impl(&dword_241804000, v21, OS_LOG_TYPE_INFO, "Processing %@ (deleteOnAttach:%@, shouldCompress:%@, modificationDate:%@, fileSize:%@)", buf, 0x34u);
           }
 
-          if (v15)
+          if (v17)
           {
-            v24 = [v18 modificationDate];
-            if (v24)
+            v26 = [v20 modificationDate];
+            if (v26)
             {
-              v25 = v24;
-              v26 = [v15 modificationDate];
+              v27 = v26;
+              v28 = [v17 modificationDate];
 
-              if (v26)
+              if (v28)
               {
-                v27 = [v15 modificationDate];
-                v28 = [v18 modificationDate];
-                v29 = [v27 compare:v28];
+                v29 = [v17 modificationDate];
+                v30 = [v20 modificationDate];
+                v31 = [v29 compare:v30];
 
-                if (v29 == -1)
+                if (v31 == -1)
                 {
-                  v30 = v18;
+                  v32 = v20;
 
-                  v15 = v30;
+                  v17 = v32;
                 }
               }
             }
@@ -352,204 +352,207 @@ LABEL_11:
 
           else
           {
-            v15 = v18;
+            v17 = v20;
           }
 
-          v31 = [v18 path];
+          v33 = [v20 path];
 
-          if (v31)
+          if (v33)
           {
-            if (v16)
+            if (v18)
             {
-              v16 = 1;
+              v18 = 1;
             }
 
             else
             {
-              v32 = [v18 deleteOnAttach];
-              v16 = [v32 BOOLValue];
+              v34 = [v20 deleteOnAttach];
+              v18 = [v34 BOOLValue];
             }
 
-            v33 = [v18 path];
-            v34 = [v33 path];
-            v35 = [v34 length];
+            v35 = [v20 path];
+            v36 = [v35 path];
+            v37 = [v36 length];
 
-            if (v35)
+            if (v37)
             {
-              v74[2](v74, v18);
-              v36 = [v33 path];
-              [v75 addObject:v36];
+              v80[2](v80, v20);
+              v39 = [v35 path];
+              [v81 addObject:v39];
 
-              v37 = diagextLogHandle();
-              if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+              v41 = diagextLogHandle(v40);
+              if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
               {
-                [v18 deleteOnAttach];
-                v38 = v73 = v15;
-                v39 = [v18 shouldCompress];
-                v40 = [v18 modificationDate];
-                v41 = [v18 filesize];
+                [v20 deleteOnAttach];
+                v42 = v79 = v17;
+                v43 = [v20 shouldCompress];
+                v44 = [v20 modificationDate];
+                v45 = [v20 filesize];
                 *buf = 138413314;
-                v89 = v18;
-                v90 = 2112;
-                v91 = v38;
-                v92 = 2112;
-                v93 = v39;
-                v94 = 2112;
-                v95 = v40;
+                v95 = v20;
                 v96 = 2112;
-                v97 = v41;
-                _os_log_impl(&dword_241804000, v37, OS_LOG_TYPE_INFO, "Adding to archive: %@ (deleteOnAttach:%@, shouldCompress:%@, modificationDate:%@, fileSize:%@)", buf, 0x34u);
+                v97 = v42;
+                v98 = 2112;
+                v99 = v43;
+                v100 = 2112;
+                v101 = v44;
+                v102 = 2112;
+                v103 = v45;
+                _os_log_impl(&dword_241804000, v41, OS_LOG_TYPE_INFO, "Adding to archive: %@ (deleteOnAttach:%@, shouldCompress:%@, modificationDate:%@, fileSize:%@)", buf, 0x34u);
 
-                v14 = v72;
-                v15 = v73;
+                v15 = v78;
+                v17 = v79;
               }
             }
 
             else
             {
-              v37 = diagextLogHandle();
-              if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+              v41 = diagextLogHandle(v38);
+              if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
               {
                 *buf = 0;
-                _os_log_impl(&dword_241804000, v37, OS_LOG_TYPE_INFO, "Attachment did not have a path we could successfully determine.", buf, 2u);
+                _os_log_impl(&dword_241804000, v41, OS_LOG_TYPE_INFO, "Attachment did not have a path we could successfully determine.", buf, 2u);
               }
             }
           }
+
+          ++v19;
         }
 
-        v77 = [v14 countByEnumeratingWithState:&v81 objects:v98 count:16];
+        while (v83 != v19);
+        v16 = [v15 countByEnumeratingWithState:&v87 objects:v104 count:16];
+        v83 = v16;
       }
 
-      while (v77);
+      while (v16);
     }
 
-    v42 = v16;
+    v46 = v18;
 
-    v7 = v68;
-    v6 = v69;
-    a1 = v67;
+    v7 = v74;
+    v6 = v75;
+    a1 = v73;
   }
 
   else
   {
-    v42 = 0;
+    v46 = 0;
   }
 
-  if ([v75 count])
+  v47 = [v81 count];
+  if (v47)
   {
-    v43 = diagextLogHandle();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+    v48 = diagextLogHandle(v47);
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v89 = v75;
-      _os_log_impl(&dword_241804000, v43, OS_LOG_TYPE_INFO, "Preparing to create archives with: %@", buf, 0xCu);
+      v95 = v81;
+      _os_log_impl(&dword_241804000, v48, OS_LOG_TYPE_INFO, "Preparing to create archives with: %@", buf, 0xCu);
     }
 
-    v44 = [*(a1 + 48) stringByAppendingFormat:@"-%@", *(a1 + 32)];
-    v45 = [*(a1 + 56) destinationRootDirectory];
-    v46 = [v45 stringByAppendingPathComponent:v44];
+    v49 = [*(a1 + 48) stringByAppendingFormat:@"-%@", *(a1 + 32)];
+    v50 = [*(a1 + 56) destinationRootDirectory];
+    v51 = [v50 stringByAppendingPathComponent:v49];
 
-    v47 = diagextLogHandle();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    v53 = diagextLogHandle(v52);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
     {
-      v48 = [v75 count];
+      v54 = [v81 count];
       *buf = 134218242;
-      v89 = v48;
-      v90 = 2112;
-      v91 = v46;
-      _os_log_impl(&dword_241804000, v47, OS_LOG_TYPE_DEFAULT, "Creating archive with %ld files at: %@", buf, 0x16u);
+      v95 = v54;
+      v96 = 2112;
+      v97 = v51;
+      _os_log_impl(&dword_241804000, v53, OS_LOG_TYPE_DEFAULT, "Creating archive with %ld files at: %@", buf, 0x16u);
     }
 
-    v49 = [v75 allObjects];
-    v50 = [FileArchiver archiveWithPaths:v49 destinationDir:v46 deleteSource:v42 & 1];
+    v55 = [v81 allObjects];
+    v56 = [FileArchiver archiveWithPaths:v55 destinationDir:v51 deleteSource:v46 & 1];
 
-    v51 = [v50 length];
-    v52 = diagextLogHandle();
-    v53 = os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT);
-    if (v51)
+    v57 = [v56 length];
+    v58 = diagextLogHandle(v57);
+    v59 = os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT);
+    if (v57)
     {
-      if (v53)
+      if (v59)
       {
         *buf = 138412290;
-        v89 = v44;
-        _os_log_impl(&dword_241804000, v52, OS_LOG_TYPE_DEFAULT, "Archive creation for %@ was successful.", buf, 0xCu);
+        v95 = v49;
+        _os_log_impl(&dword_241804000, v58, OS_LOG_TYPE_DEFAULT, "Archive creation for %@ was successful.", buf, 0xCu);
       }
 
-      v87 = v50;
-      v54 = [MEMORY[0x277CBEA60] arrayWithObjects:&v87 count:1];
-      [*(a1 + 40) setObject:v54 forKeyedSubscript:*(a1 + 32)];
+      v93 = v56;
+      v60 = [MEMORY[0x277CBEA60] arrayWithObjects:&v93 count:1];
+      [*(a1 + 40) setObject:v60 forKeyedSubscript:*(a1 + 32)];
     }
 
     else
     {
-      if (v53)
+      if (v59)
       {
         *buf = 138412290;
-        v89 = v44;
-        _os_log_impl(&dword_241804000, v52, OS_LOG_TYPE_DEFAULT, "Archive creation for %@ failed.", buf, 0xCu);
+        v95 = v49;
+        _os_log_impl(&dword_241804000, v58, OS_LOG_TYPE_DEFAULT, "Archive creation for %@ failed.", buf, 0xCu);
       }
 
       [*(a1 + 40) setObject:MEMORY[0x277CBEBF8] forKeyedSubscript:*(a1 + 32)];
     }
   }
 
-  v55 = diagextLogHandle();
-  if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+  v61 = diagextLogHandle(v47);
+  if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
   {
-    v56 = *(*(*(a1 + 80) + 8) + 24);
-    v57 = *(*(*(a1 + 88) + 8) + 24);
+    v62 = *(*(*(a1 + 80) + 8) + 24);
+    v63 = *(*(*(a1 + 88) + 8) + 24);
     *buf = 134218240;
-    v89 = v56;
-    v90 = 2048;
-    v91 = v57;
-    _os_log_impl(&dword_241804000, v55, OS_LOG_TYPE_DEFAULT, "Received %ld DE results. (expecting %ld total)", buf, 0x16u);
+    v95 = v62;
+    v96 = 2048;
+    v97 = v63;
+    _os_log_impl(&dword_241804000, v61, OS_LOG_TYPE_DEFAULT, "Received %ld DE results. (expecting %ld total)", buf, 0x16u);
   }
 
-  v58 = *(*(*(a1 + 80) + 8) + 24);
-  v59 = *(*(*(a1 + 88) + 8) + 24);
-  if (v58 >= v59)
+  v65 = *(*(*(a1 + 80) + 8) + 24);
+  v66 = *(*(*(a1 + 88) + 8) + 24);
+  if (v65 >= v66)
   {
     if (*(a1 + 72))
     {
-      v60 = diagextLogHandle();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
+      v67 = diagextLogHandle(v64);
+      if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
       {
-        v61 = *(a1 + 40);
+        v68 = *(a1 + 40);
         *buf = 138412290;
-        v89 = v61;
-        _os_log_impl(&dword_241804000, v60, OS_LOG_TYPE_INFO, "Calling reply block with resultDict %@.", buf, 0xCu);
+        v95 = v68;
+        _os_log_impl(&dword_241804000, v67, OS_LOG_TYPE_INFO, "Calling reply block with resultDict %@.", buf, 0xCu);
       }
 
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __112__DiagnosticExtensionController_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke_101;
       block[3] = &unk_278CEFF50;
-      v62 = *(a1 + 64);
-      v80 = *(a1 + 72);
-      v79 = *(a1 + 40);
-      dispatch_async(v62, block);
+      v69 = *(a1 + 64);
+      v86 = *(a1 + 72);
+      v85 = *(a1 + 40);
+      dispatch_async(v69, block);
 
-      v58 = *(*(*(a1 + 80) + 8) + 24);
-      v59 = *(*(*(a1 + 88) + 8) + 24);
+      v65 = *(*(*(a1 + 80) + 8) + 24);
+      v66 = *(*(*(a1 + 88) + 8) + 24);
     }
 
-    if (v58 > v59)
+    if (v65 > v66)
     {
-      v63 = diagextLogHandle();
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+      v70 = diagextLogHandle(v64);
+      if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
       {
-        v64 = *(*(*(a1 + 88) + 8) + 24);
-        v65 = *(*(*(a1 + 80) + 8) + 24);
+        v71 = *(*(*(a1 + 88) + 8) + 24);
+        v72 = *(*(*(a1 + 80) + 8) + 24);
         *buf = 134218240;
-        v89 = v64;
-        v90 = 2048;
-        v91 = v65;
-        _os_log_impl(&dword_241804000, v63, OS_LOG_TYPE_ERROR, "How did we get more than %ld results??? (counted %ld)", buf, 0x16u);
+        v95 = v71;
+        v96 = 2048;
+        v97 = v72;
+        _os_log_impl(&dword_241804000, v70, OS_LOG_TYPE_ERROR, "How did we get more than %ld results??? (counted %ld)", buf, 0x16u);
       }
     }
   }
-
-  v66 = *MEMORY[0x277D85DE8];
 }
 
 void __112__DiagnosticExtensionController_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke_94(uint64_t a1, void *a2)
@@ -559,6 +562,7 @@ void __112__DiagnosticExtensionController_collectDEPayloadsWithIdentifier_diagno
   v13 = 0;
   v4 = [v3 sandboxExtensionHandleWithErrorOut:&v13];
   v5 = v13;
+  v6 = v5;
   if (v4)
   {
     [*(a1 + 32) addObject:v4];
@@ -566,28 +570,26 @@ void __112__DiagnosticExtensionController_collectDEPayloadsWithIdentifier_diagno
 
   else
   {
-    v6 = diagextLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = diagextLogHandle(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v7 = [v3 path];
-      v8 = [v7 path];
-      v9 = [v5 localizedDescription];
-      v10 = v9;
-      v11 = @"Unknown";
-      if (v9)
+      v8 = [v3 path];
+      v9 = [v8 path];
+      v10 = [v6 localizedDescription];
+      v11 = v10;
+      v12 = @"Unknown";
+      if (v10)
       {
-        v11 = v9;
+        v12 = v10;
       }
 
       *buf = 138412546;
-      v15 = v8;
+      v15 = v9;
       v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_ERROR, "Could not consume extension handle for item with path '%@' due to error: %@", buf, 0x16u);
+      v17 = v12;
+      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_ERROR, "Could not consume extension handle for item with path '%@' due to error: %@", buf, 0x16u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

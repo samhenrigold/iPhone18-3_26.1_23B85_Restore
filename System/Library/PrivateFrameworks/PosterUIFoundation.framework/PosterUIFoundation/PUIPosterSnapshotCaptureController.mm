@@ -52,7 +52,7 @@
   v36 = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
   lCopy = l;
-  v8 = PUILogSnapshotting();
+  v8 = PUILogSnapshotting(lCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained(&self->_scene);
@@ -91,7 +91,7 @@
     }
 
     selfCopy->_captureQueueHighWaterMark = captureQueueHighWaterMark;
-    v20 = PUILogSnapshotting();
+    v20 = PUILogSnapshotting(v17);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       v21 = objc_loadWeakRetained(&selfCopy->_scene);
@@ -275,50 +275,50 @@ void __74__PUIPosterSnapshotCaptureController__updateSceneSnapshotReadinessActio
 
 - (void)invalidate
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v3 = PUILogSnapshotting();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v3 = objc_sync_enter(selfCopy);
+  v4 = PUILogSnapshotting(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v18 = selfCopy;
-    _os_log_impl(&dword_1A8C85000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating PUIPosterSnapshotCaptureController: %p", buf, 0xCu);
+    v19 = selfCopy;
+    _os_log_impl(&dword_1A8C85000, v4, OS_LOG_TYPE_DEFAULT, "Invalidating PUIPosterSnapshotCaptureController: %p", buf, 0xCu);
   }
 
   objc_storeWeak(&selfCopy->_scene, 0);
-  v4 = [(NSMutableArray *)selfCopy->_captureQueue copy];
+  v5 = [(NSMutableArray *)selfCopy->_captureQueue copy];
   [(NSMutableArray *)selfCopy->_captureQueue removeAllObjects];
   captureQueue = selfCopy->_captureQueue;
   selfCopy->_captureQueue = 0;
 
-  v14 = 0u;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
-  v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v7)
+  v14 = 0u;
+  v7 = v5;
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v8)
   {
-    v8 = *v13;
+    v9 = *v14;
     do
     {
-      v9 = 0;
+      v10 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v14 != v9)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v7);
         }
 
-        [*(*(&v12 + 1) + 8 * v9++) invalidate];
+        [*(*(&v13 + 1) + 8 * v10++) invalidate];
       }
 
-      while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      while (v8 != v10);
+      v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
-    while (v7);
+    while (v8);
   }
 
   [(_PUIPosterSnapshotCapture *)selfCopy->_activeCapture invalidate];
@@ -367,7 +367,7 @@ void __74__PUIPosterSnapshotCaptureController__updateSceneSnapshotReadinessActio
       identifier = [v7 identifier];
 
       v9 = self->_activeCapture;
-      v10 = PUILogSnapshotting();
+      v10 = PUILogSnapshotting(v9);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = v21;
@@ -453,26 +453,27 @@ LABEL_10:
 
 void __60__PUIPosterSnapshotCaptureController__lock_kickCaptureQueue__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = PUILogSnapshotting();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = PUILogSnapshotting(WeakRetained);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 32);
-      v5 = *(a1 + 40);
-      v7 = 138412546;
-      v8 = v4;
-      v9 = 2048;
-      v10 = v5;
-      _os_log_impl(&dword_1A8C85000, v3, OS_LOG_TYPE_DEFAULT, "(%@) Captured successfully %p", &v7, 0x16u);
+      v5 = *(a1 + 32);
+      v6 = *(a1 + 40);
+      v8 = 138412546;
+      v9 = v5;
+      v10 = 2048;
+      v11 = v6;
+      _os_log_impl(&dword_1A8C85000, v4, OS_LOG_TYPE_DEFAULT, "(%@) Captured successfully %p", &v8, 0x16u);
     }
 
-    v6 = WeakRetained[2];
-    WeakRetained[2] = 0;
+    v7 = v3[2];
+    v3[2] = 0;
 
-    [WeakRetained _kickCaptureQueue];
+    [v3 _kickCaptureQueue];
   }
 }
 
@@ -480,18 +481,19 @@ void __60__PUIPosterSnapshotCaptureController__lock_kickCaptureQueue__block_invo
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = PUILogSnapshotting();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = PUILogSnapshotting(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __60__PUIPosterSnapshotCaptureController__lock_kickCaptureQueue__block_invoke_207_cold_1();
     }
 
-    v6 = WeakRetained[2];
-    WeakRetained[2] = 0;
+    v7 = v5[2];
+    v5[2] = 0;
 
-    [WeakRetained _kickCaptureQueue];
+    [v5 _kickCaptureQueue];
   }
 }
 

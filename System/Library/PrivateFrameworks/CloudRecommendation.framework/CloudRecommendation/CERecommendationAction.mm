@@ -30,62 +30,65 @@
 - (CERecommendationAction)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v16.receiver = self;
-  v16.super_class = CERecommendationAction;
-  v5 = [(CERecommendationAction *)&v16 init];
+  v19.receiver = self;
+  v19.super_class = CERecommendationAction;
+  v5 = [(CERecommendationAction *)&v19 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"identifier"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v7 = v6;
+      v8 = v6;
       actionIdentifier = v5->_actionIdentifier;
-      v5->_actionIdentifier = v7;
+      v5->_actionIdentifier = v8;
     }
 
     else
     {
-      actionIdentifier = _CELogSystem();
+      actionIdentifier = _CELogSystem(isKindOfClass);
       if (os_log_type_enabled(actionIdentifier, OS_LOG_TYPE_DEBUG))
       {
-        [CERecommendationAction initWithDictionary:];
+        [CERecommendationAction initWithDictionary:v5];
       }
     }
 
-    v9 = [dictionaryCopy objectForKeyedSubscript:@"title"];
+    v10 = [dictionaryCopy objectForKeyedSubscript:@"title"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v11 = objc_opt_isKindOfClass();
+    if (v11)
     {
-      v10 = v9;
+      v12 = v10;
       actionTitle = v5->_actionTitle;
-      v5->_actionTitle = v10;
+      v5->_actionTitle = v12;
     }
 
     else
     {
-      actionTitle = _CELogSystem();
+      actionTitle = _CELogSystem(v11);
       if (os_log_type_enabled(actionTitle, OS_LOG_TYPE_DEBUG))
       {
-        [CERecommendationAction initWithDictionary:];
+        [CERecommendationAction initWithDictionary:v5];
       }
     }
 
-    v12 = [dictionaryCopy objectForKeyedSubscript:@"actionType"];
+    v14 = [dictionaryCopy objectForKeyedSubscript:@"actionType"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v15 = objc_opt_isKindOfClass();
+    if (v15)
     {
-      v13 = v12;
+      v16 = v14;
       actionType = v5->_actionType;
-      v5->_actionType = v13;
+      v5->_actionType = v16;
     }
 
     else
     {
-      actionType = _CELogSystem();
+      actionType = _CELogSystem(v15);
       if (os_log_type_enabled(actionType, OS_LOG_TYPE_DEBUG))
       {
-        [CERecommendationAction initWithDictionary:];
+        [CERecommendationAction initWithDictionary:v5];
       }
     }
   }
@@ -135,34 +138,25 @@
   return v4;
 }
 
-- (void)initWithDictionary:.cold.1()
+- (void)initWithDictionary:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse actionIdentifier from dictionary", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v3, v4, "%@ Unable to parse actionIdentifier from dictionary", v5, v6, v7, v8);
 }
 
-- (void)initWithDictionary:.cold.2()
+- (void)initWithDictionary:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse actionTitle from dictionary", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v3, v4, "%@ Unable to parse actionTitle from dictionary", v5, v6, v7, v8);
 }
 
-- (void)initWithDictionary:.cold.3()
+- (void)initWithDictionary:(uint64_t)a1 .cold.3(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse actionType from dictionary", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v3, v4, "%@ Unable to parse actionType from dictionary", v5, v6, v7, v8);
 }
 
 @end

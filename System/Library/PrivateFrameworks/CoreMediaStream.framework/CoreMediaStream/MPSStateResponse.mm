@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)icplActionAsString:(int)string;
+- (id)mpsActionAsString:(int)string;
 - (int)StringAsIcplAction:(id)action;
 - (int)StringAsMpsAction:(id)action;
 - (int)icplAction;
@@ -303,7 +305,6 @@ LABEL_6:
   has = self->_has;
   if (has)
   {
-    retryAfterSeconds = self->_retryAfterSeconds;
     PBDataWriterWriteInt64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -323,7 +324,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  mpsAction = self->_mpsAction;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -338,12 +338,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  icplAction = self->_icplAction;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_5:
-    version = self->_version;
     PBDataWriterWriteInt64Field();
   }
 
@@ -483,6 +481,21 @@ LABEL_6:
   return v4;
 }
 
+- (id)icplActionAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278E90730[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasIcplAction:(BOOL)action
 {
   if (action)
@@ -532,6 +545,21 @@ LABEL_6:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)mpsActionAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278E90718[string];
   }
 
   return v4;

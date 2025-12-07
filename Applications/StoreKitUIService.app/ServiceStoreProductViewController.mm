@@ -24,6 +24,8 @@
 - (void)setPreview:(id)preview;
 - (void)setProductPageStyle:(id)style;
 - (void)setupWithClientBundleID:(id)d bagType:(int64_t)type;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 - (void)willRotateToInterfaceOrientation:(int64_t)orientation duration:(double)duration;
 @end
@@ -82,6 +84,33 @@
   return v4;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  rootViewController = [(SKUIApplicationController *)self->_applicationController rootViewController];
+  self->_didShow = 1;
+  [(ServiceStoreProductViewController *)self _sendInstallAttributionIfAllowed];
+  if ((SKUIViewControllerIsDescendent() & 1) == 0)
+  {
+    objc_initWeak(&location, self);
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_100011330;
+    v7[3] = &unk_1000515A0;
+    objc_copyWeak(&v10, &location);
+    v8 = rootViewController;
+    selfCopy = self;
+    [(ServiceStoreProductViewController *)self _presentOnboardingIfNeededWithCompletion:v7];
+
+    objc_destroyWeak(&v10);
+    objc_destroyWeak(&location);
+  }
+
+  v6.receiver = self;
+  v6.super_class = ServiceStoreProductViewController;
+  [(ServiceStoreProductViewController *)&v6 viewDidAppear:appearCopy];
+}
+
 - (void)viewDidLayoutSubviews
 {
   loadingPlaceholderViewController = self->_loadingPlaceholderViewController;
@@ -105,6 +134,19 @@
   v8.receiver = self;
   v8.super_class = ServiceStoreProductViewController;
   [(ServiceStoreProductViewController *)&v8 viewDidLayoutSubviews];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  if (!self->_preview)
+  {
+    [(SKUIApplicationController *)self->_applicationController _resetDocumentControllers];
+  }
+
+  v5.receiver = self;
+  v5.super_class = ServiceStoreProductViewController;
+  [(ServiceStoreProductViewController *)&v5 viewDidDisappear:disappearCopy];
 }
 
 - (void)dealloc
@@ -142,7 +184,7 @@
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_10002C1E4(self);
+        sub_10002C1E4();
       }
 
       v5 = [NSError alloc];
@@ -245,13 +287,13 @@ LABEL_13:
 
       else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_10002C268(self);
+        sub_10002C268();
       }
     }
 
     else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_10002C2EC(self);
+      sub_10002C2EC();
     }
   }
 }
@@ -332,7 +374,7 @@ LABEL_13:
   errorCopy = error;
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
-    sub_10002C370(self);
+    sub_10002C370();
   }
 
   v8 = [_UIContentUnavailableView alloc];

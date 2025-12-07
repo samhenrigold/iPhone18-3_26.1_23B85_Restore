@@ -1,9 +1,9 @@
 @interface _UITableViewPrefetchContext
 - (_NSRange)_offsetAndValidateRange:(_NSRange)range firstIndexOffset:(int64_t)offset lastIndexOffset:(int64_t)indexOffset;
 - (_NSRange)_validatedRangeWithLocation:(int64_t)location length:(int64_t)length;
+- (id)cancelWithNewMaxIndex:(id *)result;
 - (id)description;
 - (int)_effectiveRefreshDirectionForProposedVisibleIndexRange:(_NSRange)range withContentOffset:(double)offset;
-- (uint64_t)cancelWithNewMaxIndex:(uint64_t)result;
 - (uint64_t)pruneCellsForVisibleIndexRange:(uint64_t)range;
 - (void)initWithMaxIndex:(uint64_t)index prefetchItemCount:(uint64_t)count refreshPrefetchThresholdCount:(uint64_t)thresholdCount cancelThresholdCount:;
 - (void)schedulePrefetchRequestAfterNextCACommit:(uint64_t)commit;
@@ -442,22 +442,22 @@ LABEL_79:
   return result;
 }
 
-- (uint64_t)cancelWithNewMaxIndex:(uint64_t)result
+- (id)cancelWithNewMaxIndex:(id *)result
 {
   if (result)
   {
     v3 = result;
     *(result + 8) = 0;
-    v4 = *(result + 24);
+    v4 = result[3];
     if (v4)
     {
       v5 = v4;
-      v6 = [*(v3 + 48) count];
+      v6 = [v3[6] count];
 
       if (v6)
       {
-        v7 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(*(v3 + 48), "count")}];
-        v8 = *(v3 + 48);
+        v7 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v3[6], "count")}];
+        v8 = v3[6];
         v10[0] = MEMORY[0x1E69E9820];
         v10[1] = 3221225472;
         v10[2] = __53___UITableViewPrefetchContext_cancelWithNewMaxIndex___block_invoke;
@@ -465,15 +465,15 @@ LABEL_79:
         v11 = v7;
         v9 = v7;
         [v8 enumerateIndexesUsingBlock:v10];
-        (*(*(v3 + 24) + 16))();
+        (*(v3[3] + 2))();
       }
     }
 
-    result = [*(v3 + 48) removeAllIndexes];
-    *(v3 + 96) = 0;
-    *(v3 + 104) = 0;
-    *(v3 + 56) = a2;
-    *(v3 + 64) = 0x7FEFFFFFFFFFFFFFLL;
+    result = [v3[6] removeAllIndexes];
+    v3[12] = 0;
+    v3[13] = 0;
+    v3[7] = a2;
+    v3[8] = 0x7FEFFFFFFFFFFFFFLL;
   }
 
   return result;

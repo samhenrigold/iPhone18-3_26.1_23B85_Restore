@@ -73,23 +73,23 @@
 
 - (id)fpui_extensionInfoForKey:()FPUIAdditions ofClass:
 {
-  v4 = a3;
+  v5 = a3;
   infoDictionary = [self infoDictionary];
-  v6 = [infoDictionary objectForKey:@"NSExtension" ofClass:objc_opt_class()];
+  v7 = [infoDictionary objectForKey:@"NSExtension" ofClass:objc_opt_class()];
 
-  v7 = [v6 objectForKey:v4];
+  v8 = [v7 objectForKey:v5];
 
   if (objc_opt_isKindOfClass())
   {
-    v8 = v7;
+    v9 = v8;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (id)fpui_entitlementValueForKey:()FPUIAdditions ofClass:

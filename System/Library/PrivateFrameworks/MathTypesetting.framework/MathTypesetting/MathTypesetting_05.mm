@@ -121,21 +121,22 @@ void sub_25828F428(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ___Z56EQKitMathMLParserConvertNamedColorStringToRGBFloatValuesRKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEERdS8_S8__block_invoke()
+uint64_t **___Z56EQKitMathMLParserConvertNamedColorStringToRGBFloatValuesRKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEERdS8_S8__block_invoke()
 {
   result = operator new(0x18uLL, MEMORY[0x277D826F0]);
   if (result)
   {
     v1 = result;
-    *(result + 16) = 0;
-    *(result + 8) = 0;
-    *result = result + 8;
+    result[2] = 0;
+    result[1] = 0;
+    *result = (result + 1);
     v2 = &_HTMLColors;
     v3 = 147;
     do
     {
-      result = std::__tree<std::__value_type<std::string_view,std::string_view>,std::__map_value_compare<std::string_view,std::__value_type<std::string_view,std::string_view>,std::less<std::string_view>,true>,std::allocator<std::__value_type<std::string_view,std::string_view>>>::__emplace_unique_key_args<std::string_view,std::piecewise_construct_t const&,std::tuple<std::string_view const&>,std::tuple<>>(v1, v2);
-      *(result + 48) = *(v2 + 1);
+      v4 = v2;
+      result = std::__tree<std::__value_type<std::string_view,std::string_view>,std::__map_value_compare<std::string_view,std::__value_type<std::string_view,std::string_view>,std::less<std::string_view>,true>,std::allocator<std::__value_type<std::string_view,std::string_view>>>::__emplace_unique_key_args<std::string_view,std::piecewise_construct_t const&,std::tuple<std::string_view const&>,std::tuple<>>(v1, v2, &std::piecewise_construct, &v4);
+      *(result + 3) = *(v2 + 1);
       v2 += 4;
       --v3;
     }
@@ -283,25 +284,25 @@ uint64_t EQKitMathMLParserHexToDec(const std::string *a1)
   return v1;
 }
 
-void sub_25828F86C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25828F86C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::istringstream::~istringstream(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t a1, uint64_t *a2)
+uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t **a1, uint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(uint64_t a1, void *a2, uint64_t *a3)
+uint64_t *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(uint64_t a1, uint64_t **a2, uint64_t *a3)
 {
   v5 = *(a1 + 8);
   result = (a1 + 8);
@@ -315,7 +316,7 @@ uint64_t *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKit
       while (1)
       {
         v8 = v4;
-        v9 = v4[4];
+        v9 = *(v4 + 32);
         v10 = v6 < v9;
         v11 = *(v8 + 10);
         if (v9 == v6)
@@ -366,75 +367,77 @@ LABEL_14:
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKit::ScriptLevel>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKit::ScriptLevel,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKit::ScriptLevel>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t a1, uint64_t *a2)
+uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKit::ScriptLevel>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKit::ScriptLevel,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKit::ScriptLevel>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t **a1, uint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKitLength>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKitLength,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKitLength>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t a1, uint64_t *a2)
+uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKitLength>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKitLength,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKitLength>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t **a1, uint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-char *EQKit::AttributeCollection::setValueForKey<std::vector<EQKitLength>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t *EQKit::AttributeCollection::setValueForKey<std::vector<EQKitLength>>(uint64_t a1, uint64_t **a2, uint64_t *a3, _OWORD *a4)
 {
-  result = (std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<EQKitLength>>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::vector<EQKitLength>,std::less<EQKitTypes::Attributes::Enum>,true>,EQKitLength<std::vector<EQKitLength>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(a2, a4) + 48);
+  v6 = a4;
+  result = (std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<EQKitLength>>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::vector<EQKitLength>,std::less<EQKitTypes::Attributes::Enum>,true>,EQKitLength<std::vector<EQKitLength>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(a2, a4, &std::piecewise_construct, &v6) + 48);
   if (result != a3)
   {
-    return std::vector<EQKitLength>::__assign_with_size[abi:ne200100]<EQKitLength*,EQKitLength*>(result, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 4);
+    return std::vector<EQKitLength>::__assign_with_size[abi:ne200100]<EQKitLength*,EQKitLength*>(result, *a3, a3[1], (a3[1] - *a3) >> 4);
   }
 
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<EQKitLength>>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::vector<EQKitLength>,std::less<EQKitTypes::Attributes::Enum>,true>,EQKitLength<std::vector<EQKitLength>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t a1, uint64_t *a2)
+uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<EQKitLength>>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::vector<EQKitLength>,std::less<EQKitTypes::Attributes::Enum>,true>,EQKitLength<std::vector<EQKitLength>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t **a1, uint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,double>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t a1, uint64_t *a2)
+uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,double>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t **a1, uint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::string>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::string,std::less<EQKitTypes::Attributes::Enum>,true>,std::char_traits<char><std::string>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t a1, uint64_t *a2)
+uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::string>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::string,std::less<EQKitTypes::Attributes::Enum>,true>,std::char_traits<char><std::string>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t **a1, uint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-char **EQKit::AttributeCollection::setValueForKey<std::vector<EQKitTypes::VAlign::Enum>>(uint64_t a1, uint64_t a2, char **a3, uint64_t *a4)
+void **EQKit::AttributeCollection::setValueForKey<std::vector<EQKitTypes::VAlign::Enum>>(uint64_t a1, uint64_t **a2, char **a3, _OWORD *a4)
 {
-  result = (std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum>>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::vector<objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum>,std::less<EQKitTypes::Attributes::Enum>,true>,objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum<std::vector<objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(a2, a4) + 48);
+  v6 = a4;
+  result = (std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum>>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::vector<objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum>,std::less<EQKitTypes::Attributes::Enum>,true>,objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum<std::vector<objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(a2, a4, &std::piecewise_construct, &v6) + 48);
   if (result != a3)
   {
     return std::vector<EQKitTypes::Notation::Enum>::__assign_with_size[abi:ne200100]<EQKitTypes::Notation::Enum*,EQKitTypes::Notation::Enum*>(result, *a3, a3[1], (a3[1] - *a3) >> 2);
@@ -443,57 +446,58 @@ char **EQKit::AttributeCollection::setValueForKey<std::vector<EQKitTypes::VAlign
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum>>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::vector<objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum>,std::less<EQKitTypes::Attributes::Enum>,true>,objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum<std::vector<objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t a1, uint64_t *a2)
+uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum>>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::vector<objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum>,std::less<EQKitTypes::Attributes::Enum>,true>,objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum<std::vector<objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t **a1, uint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-void EQKit::AttributeCollection::setValueForKey<std::vector<std::string>>(uint64_t a1, uint64_t a2, std::string **a3, uint64_t *a4)
+void EQKit::AttributeCollection::setValueForKey<std::vector<std::string>>(uint64_t a1, uint64_t **a2, std::string **a3, _OWORD *a4)
 {
-  v5 = (std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<EQKitLength>>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::vector<EQKitLength>,std::less<EQKitTypes::Attributes::Enum>,true>,EQKitLength<std::vector<EQKitLength>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(a2, a4) + 48);
+  v6 = a4;
+  v5 = (std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<EQKitLength>>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::vector<EQKitLength>,std::less<EQKitTypes::Attributes::Enum>,true>,EQKitLength<std::vector<EQKitLength>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(a2, a4, &std::piecewise_construct, &v6) + 48);
   if (v5 != a3)
   {
     std::vector<std::string>::__assign_with_size[abi:ne200100]<std::string*,std::string*>(v5, *a3, a3[1], 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 3));
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKitPseudoUnitLength>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKitPseudoUnitLength,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKitPseudoUnitLength>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t a1, uint64_t *a2)
+uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKitPseudoUnitLength>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKitPseudoUnitLength,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKitPseudoUnitLength>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t **a1, uint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,unsigned short>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t a1, uint64_t *a2)
+uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,unsigned short>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t **a1, uint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::CFRetainRelease>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::CFRetainRelease,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::CFRetainRelease>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t a1, uint64_t *a2)
+uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::CFRetainRelease>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::CFRetainRelease,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::CFRetainRelease>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t **a1, uint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::CFRetainRelease>,void *>,std::__tree_node_destructor<std::allocator<void *>>>::~unique_ptr[abi:ne200100](uint64_t a1)
@@ -569,20 +573,19 @@ void sub_258290288(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,_xmlEntity *>,std::__map_value_compare<std::string,std::__value_type<std::string,_xmlEntity *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,_xmlEntity *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,_xmlEntity *>,std::__map_value_compare<std::string,std::__value_type<std::string,_xmlEntity *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,_xmlEntity *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, uint64_t ***a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-void *std::deque<EQKitMathMLParserState>::push_back(void *result, _DWORD *a2)
+void std::deque<EQKitMathMLParserState>::push_back(unint64_t *result, _DWORD *a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   if (v4 == v5)
@@ -599,30 +602,29 @@ void *std::deque<EQKitMathMLParserState>::push_back(void *result, _DWORD *a2)
   v8 = v7 + result[4];
   if (v6 == v8)
   {
-    result = std::deque<EQKitMathMLParserState>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5];
-    v8 = v3[4] + v7;
+    std::deque<EQKitMathMLParserState>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
   *(*(v5 + ((v8 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v8 & 0x3FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  result[5] = v7 + 1;
 }
 
-void *std::deque<EQKitMathMLParserState>::__add_back_capacity(void *a1)
+void std::deque<EQKitMathMLParserState>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x400;
   v3 = v1 - 1024;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -630,25 +632,25 @@ void *std::deque<EQKitMathMLParserState>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<unsigned long *>::emplace_back<unsigned long *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<unsigned long *>::emplace_back<unsigned long *&>(a1, &v9);
 }
 
 void sub_258290560(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -701,29 +703,30 @@ uint64_t std::deque<EQKitMathMLParserState>::__maybe_remove_back_spare[abi:ne200
   return v7 ^ 1u;
 }
 
-uint64_t std::__tree<std::__value_type<std::string_view,std::string_view>,std::__map_value_compare<std::string_view,std::__value_type<std::string_view,std::string_view>,std::less<std::string_view>,true>,std::allocator<std::__value_type<std::string_view,std::string_view>>>::__emplace_unique_key_args<std::string_view,std::piecewise_construct_t const&,std::tuple<std::string_view const&>,std::tuple<>>(uint64_t a1, uint64_t a2)
+uint64_t std::__tree<std::__value_type<std::string_view,std::string_view>,std::__map_value_compare<std::string_view,std::__value_type<std::string_view,std::string_view>,std::less<std::string_view>,true>,std::allocator<std::__value_type<std::string_view,std::string_view>>>::__emplace_unique_key_args<std::string_view,std::piecewise_construct_t const&,std::tuple<std::string_view const&>,std::tuple<>>(uint64_t **a1, uint64_t a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__find_equal<std::string_view>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__find_equal<std::string_view>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-void *std::set<EQKitTypes::Attributes::Enum>::set[abi:ne200100]<EQKitTypes::Attributes::Enum const*>(void *a1, int *a2, int *a3)
+uint64_t **std::set<EQKitTypes::Attributes::Enum>::set[abi:ne200100]<EQKitTypes::Attributes::Enum const*>(uint64_t **a1, int *a2, int *a3)
 {
   a1[1] = 0;
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<EQKitTypes::Attributes::Enum>::__emplace_hint_unique_key_args<EQKitTypes::Attributes::Enum,EQKitTypes::Attributes::Enum const&>(a1, v4, v6++);
+      std::__tree<EQKitTypes::Attributes::Enum>::__emplace_hint_unique_key_args<EQKitTypes::Attributes::Enum,EQKitTypes::Attributes::Enum const&>(a1, v4, v6, v6);
+      ++v6;
     }
 
     while (v6 != a3);
@@ -732,20 +735,20 @@ void *std::set<EQKitTypes::Attributes::Enum>::set[abi:ne200100]<EQKitTypes::Attr
   return a1;
 }
 
-uint64_t std::__tree<EQKitTypes::Attributes::Enum>::__emplace_hint_unique_key_args<EQKitTypes::Attributes::Enum,EQKitTypes::Attributes::Enum const&>(void *a1, uint64_t *a2, int *a3)
+uint64_t std::__tree<EQKitTypes::Attributes::Enum>::__emplace_hint_unique_key_args<EQKitTypes::Attributes::Enum,EQKitTypes::Attributes::Enum const&>(uint64_t **a1, uint64_t *a2, int *a3, _DWORD *a4)
 {
-  v3 = *std::__tree<EQKitTypes::Attributes::Enum>::__find_equal<EQKitTypes::Attributes::Enum>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<EQKitTypes::Attributes::Enum>::__find_equal<EQKitTypes::Attributes::Enum>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t *std::__tree<EQKitTypes::Attributes::Enum>::__find_equal<EQKitTypes::Attributes::Enum>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
+uint64_t *std::__tree<EQKitTypes::Attributes::Enum>::__find_equal<EQKitTypes::Attributes::Enum>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 7), *a5 < v7))
   {
     v8 = *a2;
@@ -772,7 +775,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -833,7 +836,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -912,7 +915,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -1104,7 +1107,7 @@ uint64_t EQKitMathMLElement::fromString(uint64_t *a1)
     a1 = v5;
     if (v6)
     {
-      std::map<std::string_view const,EQKitMathMLElement::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitMathMLElement::Enum> const*>(EQKitMathMLElement::fromString(std::string const&)::sMap, &EQKitMathMLElement::sData, (&EQKitMathMLElement::sData + 525));
+      std::map<std::string_view const,EQKitMathMLElement::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitMathMLElement::Enum> const*>(&EQKitMathMLElement::fromString(std::string const&)::sMap, &EQKitMathMLElement::sData, (&EQKitMathMLElement::sData + 525));
       a1 = v5;
     }
   }
@@ -1127,8 +1130,8 @@ uint64_t EQKitMathMLElement::fromString(uint64_t *a1)
 
   v7[0] = v2;
   v7[1] = v1;
-  v3 = std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::find<std::string_view>(EQKitMathMLElement::fromString(std::string const&)::sMap, v7);
-  if (v3 == &EQKitMathMLElement::fromString(std::string const&)::sMap[1])
+  v3 = std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::find<std::string_view>(&EQKitMathMLElement::fromString(std::string const&)::sMap, v7);
+  if (v3 == &unk_27F926808)
   {
     return 0;
   }
@@ -1142,7 +1145,7 @@ uint64_t EQKitMathMLElement::fromString(uint64_t *a1)
 uint64_t EQKitTypes::Display::displayFromMathMLString(uint64_t *a1, uint64_t a2)
 {
   {
-    std::map<std::string_view const,EQKitTypes::Display::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Display::Enum> const*>(EQKitTypes::Display::displayFromMathMLString(std::string const&,EQKitTypes::Display::Enum)::sMap, &EQKitTypes::Display::sData, &EQKit::Script::sData);
+    std::map<std::string_view const,EQKitTypes::Display::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Display::Enum> const*>(&EQKitTypes::Display::displayFromMathMLString(std::string const&,EQKitTypes::Display::Enum)::sMap, &EQKitTypes::Display::sData, &EQKit::Script::sData);
   }
 
   v4 = *(a1 + 23);
@@ -1163,8 +1166,8 @@ uint64_t EQKitTypes::Display::displayFromMathMLString(uint64_t *a1, uint64_t a2)
 
   v8[0] = v5;
   v8[1] = v4;
-  v6 = std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::find<std::string_view>(EQKitTypes::Display::displayFromMathMLString(std::string const&,EQKitTypes::Display::Enum)::sMap, v8);
-  if (v6 != &EQKitTypes::Display::displayFromMathMLString(std::string const&,EQKitTypes::Display::Enum)::sMap[1])
+  v6 = std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::find<std::string_view>(&EQKitTypes::Display::displayFromMathMLString(std::string const&,EQKitTypes::Display::Enum)::sMap, v8);
+  if (v6 != &unk_27F926828)
   {
     return *(v6 + 48);
   }
@@ -1175,7 +1178,7 @@ uint64_t EQKitTypes::Display::displayFromMathMLString(uint64_t *a1, uint64_t a2)
 uint64_t EQKit::Script::variantFromMathMLString(uint64_t *a1, uint64_t a2)
 {
   {
-    std::map<std::string_view const,EQKit::Script::Variant>::map[abi:ne200100]<std::pair<std::string_view const,EQKit::Script::Variant> const*>(EQKit::Script::variantFromMathMLString(std::string const&,EQKit::Script::Variant)::sMap, &EQKit::Script::sData, &EQKit::Config::Operator::sData);
+    std::map<std::string_view const,EQKit::Script::Variant>::map[abi:ne200100]<std::pair<std::string_view const,EQKit::Script::Variant> const*>(&EQKit::Script::variantFromMathMLString(std::string const&,EQKit::Script::Variant)::sMap, &EQKit::Script::sData, &EQKit::Config::Operator::sData);
   }
 
   v4 = *(a1 + 23);
@@ -1196,8 +1199,8 @@ uint64_t EQKit::Script::variantFromMathMLString(uint64_t *a1, uint64_t a2)
 
   v8[0] = v5;
   v8[1] = v4;
-  v6 = std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::find<std::string_view>(EQKit::Script::variantFromMathMLString(std::string const&,EQKit::Script::Variant)::sMap, v8);
-  if (v6 != &EQKit::Script::variantFromMathMLString(std::string const&,EQKit::Script::Variant)::sMap[1])
+  v6 = std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::find<std::string_view>(&EQKit::Script::variantFromMathMLString(std::string const&,EQKit::Script::Variant)::sMap, v8);
+  if (v6 != &unk_27F926848)
   {
     return *(v6 + 48);
   }
@@ -1208,7 +1211,7 @@ uint64_t EQKit::Script::variantFromMathMLString(uint64_t *a1, uint64_t a2)
 uint64_t EQKit::Config::Operator::formFromMathMLString(uint64_t *a1, uint64_t a2)
 {
   {
-    std::map<std::string_view const,EQKit::Config::Operator::Form>::map[abi:ne200100]<std::pair<std::string_view const,EQKit::Config::Operator::Form> const*>(EQKit::Config::Operator::formFromMathMLString(std::string const&,EQKit::Config::Operator::Form)::sMap, &EQKit::Config::Operator::sData, &EQKitTypes::Align::sData);
+    std::map<std::string_view const,EQKit::Config::Operator::Form>::map[abi:ne200100]<std::pair<std::string_view const,EQKit::Config::Operator::Form> const*>(&EQKit::Config::Operator::formFromMathMLString(std::string const&,EQKit::Config::Operator::Form)::sMap, &EQKit::Config::Operator::sData, &EQKitTypes::Align::sData);
   }
 
   v4 = *(a1 + 23);
@@ -1229,8 +1232,8 @@ uint64_t EQKit::Config::Operator::formFromMathMLString(uint64_t *a1, uint64_t a2
 
   v8[0] = v5;
   v8[1] = v4;
-  v6 = std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::find<std::string_view>(EQKit::Config::Operator::formFromMathMLString(std::string const&,EQKit::Config::Operator::Form)::sMap, v8);
-  if (v6 != &EQKit::Config::Operator::formFromMathMLString(std::string const&,EQKit::Config::Operator::Form)::sMap[1])
+  v6 = std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::find<std::string_view>(&EQKit::Config::Operator::formFromMathMLString(std::string const&,EQKit::Config::Operator::Form)::sMap, v8);
+  if (v6 != &unk_27F926868)
   {
     return *(v6 + 48);
   }
@@ -1241,7 +1244,7 @@ uint64_t EQKit::Config::Operator::formFromMathMLString(uint64_t *a1, uint64_t a2
 uint64_t EQKitTypes::Align::alignFromMathMLString(uint64_t *a1, uint64_t a2)
 {
   {
-    std::map<std::string_view const,EQKitTypes::Align::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Align::Enum> const*>(EQKitTypes::Align::alignFromMathMLString(std::string const&,EQKitTypes::Align::Enum)::sMap, &EQKitTypes::Align::sData, &EQKitTypes::VAlign::sData);
+    std::map<std::string_view const,EQKitTypes::Align::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Align::Enum> const*>(&EQKitTypes::Align::alignFromMathMLString(std::string const&,EQKitTypes::Align::Enum)::sMap, &EQKitTypes::Align::sData, &EQKitTypes::VAlign::sData);
   }
 
   v4 = *(a1 + 23);
@@ -1262,8 +1265,8 @@ uint64_t EQKitTypes::Align::alignFromMathMLString(uint64_t *a1, uint64_t a2)
 
   v8[0] = v5;
   v8[1] = v4;
-  v6 = std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::find<std::string_view>(EQKitTypes::Align::alignFromMathMLString(std::string const&,EQKitTypes::Align::Enum)::sMap, v8);
-  if (v6 != &EQKitTypes::Align::alignFromMathMLString(std::string const&,EQKitTypes::Align::Enum)::sMap[1])
+  v6 = std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::find<std::string_view>(&EQKitTypes::Align::alignFromMathMLString(std::string const&,EQKitTypes::Align::Enum)::sMap, v8);
+  if (v6 != &unk_27F926888)
   {
     return *(v6 + 48);
   }
@@ -1274,7 +1277,7 @@ uint64_t EQKitTypes::Align::alignFromMathMLString(uint64_t *a1, uint64_t a2)
 uint64_t EQKitTypes::VAlign::vAlignFromMathMLString(uint64_t *a1, uint64_t a2)
 {
   {
-    std::map<std::string_view const,EQKitTypes::VAlign::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::VAlign::Enum> const*>(EQKitTypes::VAlign::vAlignFromMathMLString(std::string const&,EQKitTypes::VAlign::Enum)::sMap, &EQKitTypes::VAlign::sData, &EQKitTypes::Boolean::sData);
+    std::map<std::string_view const,EQKitTypes::VAlign::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::VAlign::Enum> const*>(&EQKitTypes::VAlign::vAlignFromMathMLString(std::string const&,EQKitTypes::VAlign::Enum)::sMap, &EQKitTypes::VAlign::sData, &EQKitTypes::Boolean::sData);
   }
 
   v4 = *(a1 + 23);
@@ -1295,8 +1298,8 @@ uint64_t EQKitTypes::VAlign::vAlignFromMathMLString(uint64_t *a1, uint64_t a2)
 
   v8[0] = v5;
   v8[1] = v4;
-  v6 = std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::find<std::string_view>(EQKitTypes::VAlign::vAlignFromMathMLString(std::string const&,EQKitTypes::VAlign::Enum)::sMap, v8);
-  if (v6 != &EQKitTypes::VAlign::vAlignFromMathMLString(std::string const&,EQKitTypes::VAlign::Enum)::sMap[1])
+  v6 = std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::find<std::string_view>(&EQKitTypes::VAlign::vAlignFromMathMLString(std::string const&,EQKitTypes::VAlign::Enum)::sMap, v8);
+  if (v6 != &unk_27F9268A8)
   {
     return *(v6 + 48);
   }
@@ -1307,7 +1310,7 @@ uint64_t EQKitTypes::VAlign::vAlignFromMathMLString(uint64_t *a1, uint64_t a2)
 uint64_t EQKitTypes::Boolean::BOOLeanFromMathMLString(uint64_t *a1, uint64_t a2)
 {
   {
-    std::map<std::string_view const,EQKitTypes::Boolean::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Boolean::Enum> const*>(EQKitTypes::Boolean::BOOLeanFromMathMLString(std::string const&,EQKitTypes::Boolean::Enum)::sMap, &EQKitTypes::Boolean::sData, &EQKitTypes::Attributes::sData);
+    std::map<std::string_view const,EQKitTypes::Boolean::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Boolean::Enum> const*>(&EQKitTypes::Boolean::BOOLeanFromMathMLString(std::string const&,EQKitTypes::Boolean::Enum)::sMap, &EQKitTypes::Boolean::sData, &EQKitTypes::Attributes::sData);
   }
 
   v4 = *(a1 + 23);
@@ -1328,8 +1331,8 @@ uint64_t EQKitTypes::Boolean::BOOLeanFromMathMLString(uint64_t *a1, uint64_t a2)
 
   v8[0] = v5;
   v8[1] = v4;
-  v6 = std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::find<std::string_view>(EQKitTypes::Boolean::BOOLeanFromMathMLString(std::string const&,EQKitTypes::Boolean::Enum)::sMap, v8);
-  if (v6 != &EQKitTypes::Boolean::BOOLeanFromMathMLString(std::string const&,EQKitTypes::Boolean::Enum)::sMap[1])
+  v6 = std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::find<std::string_view>(&EQKitTypes::Boolean::BOOLeanFromMathMLString(std::string const&,EQKitTypes::Boolean::Enum)::sMap, v8);
+  if (v6 != &unk_27F9268C8)
   {
     return *(v6 + 48);
   }
@@ -1340,7 +1343,7 @@ uint64_t EQKitTypes::Boolean::BOOLeanFromMathMLString(uint64_t *a1, uint64_t a2)
 uint64_t EQKitTypes::Attributes::attributeFromMathMLString(uint64_t *a1, uint64_t a2)
 {
   {
-    std::map<std::string_view const,EQKitTypes::Attributes::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Attributes::Enum> const*>(EQKitTypes::Attributes::attributeFromMathMLString(std::string const&,EQKitTypes::Attributes::Enum)::sMap, &EQKitTypes::Attributes::sData, &EQKitTypes::Crossout::sData);
+    std::map<std::string_view const,EQKitTypes::Attributes::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Attributes::Enum> const*>(&EQKitTypes::Attributes::attributeFromMathMLString(std::string const&,EQKitTypes::Attributes::Enum)::sMap, &EQKitTypes::Attributes::sData, &EQKitTypes::Crossout::sData);
   }
 
   v4 = *(a1 + 23);
@@ -1361,8 +1364,8 @@ uint64_t EQKitTypes::Attributes::attributeFromMathMLString(uint64_t *a1, uint64_
 
   v8[0] = v5;
   v8[1] = v4;
-  v6 = std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::find<std::string_view>(EQKitTypes::Attributes::attributeFromMathMLString(std::string const&,EQKitTypes::Attributes::Enum)::sMap, v8);
-  if (v6 != &EQKitTypes::Attributes::attributeFromMathMLString(std::string const&,EQKitTypes::Attributes::Enum)::sMap[1])
+  v6 = std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::find<std::string_view>(&EQKitTypes::Attributes::attributeFromMathMLString(std::string const&,EQKitTypes::Attributes::Enum)::sMap, v8);
+  if (v6 != &unk_27F9268E8)
   {
     return *(v6 + 48);
   }
@@ -1370,12 +1373,12 @@ uint64_t EQKitTypes::Attributes::attributeFromMathMLString(uint64_t *a1, uint64_
   return a2;
 }
 
-void EQKitTypes::Align::alignVectorFromMathMLString(std::string *__str@<X0>, const void **a2@<X8>)
+void EQKitTypes::Align::alignVectorFromMathMLString(const void **__return_ptr a1@<X8>, std::string *__str@<X0>)
 {
   v4 = 0;
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   do
   {
     size = HIBYTE(__str->__r_.__value_.__r.__words[2]);
@@ -1430,12 +1433,12 @@ LABEL_17:
     v11 = EQKitTypes::Align::alignFromMathMLString(&__p, 0);
     if (v11)
     {
-      v13 = a2[1];
-      v12 = a2[2];
+      v13 = a1[1];
+      v12 = a1[2];
       if (v13 >= v12)
       {
-        v15 = *a2;
-        v16 = v13 - *a2;
+        v15 = *a1;
+        v16 = v13 - *a1;
         v17 = v16 >> 2;
         v18 = (v16 >> 2) + 1;
         if (v18 >> 62)
@@ -1458,16 +1461,16 @@ LABEL_17:
 
         if (v21)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<wchar_t>>(a2, v21);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<wchar_t>>(a1, v21);
         }
 
         *(4 * v17) = v11;
-        v14 = 4 * v17 + 4;
+        v14 = (4 * v17 + 4);
         memcpy(0, v15, v16);
-        v22 = *a2;
-        *a2 = 0;
-        a2[1] = v14;
-        a2[2] = 0;
+        v22 = *a1;
+        *a1 = 0;
+        a1[1] = v14;
+        a1[2] = 0;
         if (v22)
         {
           operator delete(v22);
@@ -1477,10 +1480,10 @@ LABEL_17:
       else
       {
         *v13 = v11;
-        v14 = (v13 + 4);
+        v14 = v13 + 4;
       }
 
-      a2[1] = v14;
+      a1[1] = v14;
     }
 
     v4 = v10 + 1;
@@ -1551,12 +1554,12 @@ void sub_258296B94(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void EQKitTypes::VAlign::vAlignVectorFromMathMLString(std::string *__str@<X0>, const void **a2@<X8>)
+void EQKitTypes::VAlign::vAlignVectorFromMathMLString(const void **__return_ptr a1@<X8>, std::string *__str@<X0>)
 {
   v4 = 0;
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   do
   {
     size = HIBYTE(__str->__r_.__value_.__r.__words[2]);
@@ -1611,12 +1614,12 @@ LABEL_17:
     v11 = EQKitTypes::VAlign::vAlignFromMathMLString(&__p, 0);
     if (v11)
     {
-      v13 = a2[1];
-      v12 = a2[2];
+      v13 = a1[1];
+      v12 = a1[2];
       if (v13 >= v12)
       {
-        v15 = *a2;
-        v16 = v13 - *a2;
+        v15 = *a1;
+        v16 = v13 - *a1;
         v17 = v16 >> 2;
         v18 = (v16 >> 2) + 1;
         if (v18 >> 62)
@@ -1639,16 +1642,16 @@ LABEL_17:
 
         if (v21)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<wchar_t>>(a2, v21);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<wchar_t>>(a1, v21);
         }
 
         *(4 * v17) = v11;
-        v14 = 4 * v17 + 4;
+        v14 = (4 * v17 + 4);
         memcpy(0, v15, v16);
-        v22 = *a2;
-        *a2 = 0;
-        a2[1] = v14;
-        a2[2] = 0;
+        v22 = *a1;
+        *a1 = 0;
+        a1[1] = v14;
+        a1[2] = 0;
         if (v22)
         {
           operator delete(v22);
@@ -1658,10 +1661,10 @@ LABEL_17:
       else
       {
         *v13 = v11;
-        v14 = (v13 + 4);
+        v14 = v13 + 4;
       }
 
-      a2[1] = v14;
+      a1[1] = v14;
     }
 
     v4 = v10 + 1;
@@ -1920,9 +1923,9 @@ uint64_t EQKitTypes::Integer::integerFromMathMLString(const std::string *a1, BOO
   return v3;
 }
 
-void sub_25829736C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25829736C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::istringstream::~istringstream(va);
   _Unwind_Resume(a1);
 }
@@ -1949,9 +1952,9 @@ uint64_t EQKitTypes::UInteger::uIntegerFromMathMLString(const std::string *a1, B
   return v3;
 }
 
-void sub_258297500(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_258297500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::istringstream::~istringstream(va);
   _Unwind_Resume(a1);
 }
@@ -1959,7 +1962,7 @@ void sub_258297500(_Unwind_Exception *a1, uint64_t a2, ...)
 uint64_t EQKitTypes::Crossout::crossoutFromMathMLString(uint64_t *a1, uint64_t a2)
 {
   {
-    std::map<std::string_view const,EQKitTypes::Crossout::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Crossout::Enum> const*>(EQKitTypes::Crossout::crossoutFromMathMLString(std::string const&,EQKitTypes::Crossout::Enum)::sMap, &EQKitTypes::Crossout::sData, &EQKitTypes::Notation::sData);
+    std::map<std::string_view const,EQKitTypes::Crossout::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Crossout::Enum> const*>(&EQKitTypes::Crossout::crossoutFromMathMLString(std::string const&,EQKitTypes::Crossout::Enum)::sMap, &EQKitTypes::Crossout::sData, &EQKitTypes::Notation::sData);
   }
 
   v4 = *(a1 + 23);
@@ -1980,8 +1983,8 @@ uint64_t EQKitTypes::Crossout::crossoutFromMathMLString(uint64_t *a1, uint64_t a
 
   v8[0] = v5;
   v8[1] = v4;
-  v6 = std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::find<std::string_view>(EQKitTypes::Crossout::crossoutFromMathMLString(std::string const&,EQKitTypes::Crossout::Enum)::sMap, v8);
-  if (v6 != &EQKitTypes::Crossout::crossoutFromMathMLString(std::string const&,EQKitTypes::Crossout::Enum)::sMap[1])
+  v6 = std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::find<std::string_view>(&EQKitTypes::Crossout::crossoutFromMathMLString(std::string const&,EQKitTypes::Crossout::Enum)::sMap, v8);
+  if (v6 != &unk_27F926908)
   {
     return *(v6 + 48);
   }
@@ -1989,12 +1992,12 @@ uint64_t EQKitTypes::Crossout::crossoutFromMathMLString(uint64_t *a1, uint64_t a
   return a2;
 }
 
-void EQKitTypes::Crossout::crossoutVectorFromMathMLString(std::string *__str@<X0>, const void **a2@<X8>)
+void EQKitTypes::Crossout::crossoutVectorFromMathMLString(const void **__return_ptr a1@<X8>, std::string *__str@<X0>)
 {
   v4 = 0;
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   do
   {
     size = HIBYTE(__str->__r_.__value_.__r.__words[2]);
@@ -2047,12 +2050,12 @@ LABEL_16:
 LABEL_17:
     std::string::basic_string(&__p, __str, v4, v10 - v4, &v30);
     v11 = EQKitTypes::Crossout::crossoutFromMathMLString(&__p, 0);
-    v13 = a2[1];
-    v12 = a2[2];
+    v13 = a1[1];
+    v12 = a1[2];
     if (v13 >= v12)
     {
-      v15 = *a2;
-      v16 = v13 - *a2;
+      v15 = *a1;
+      v16 = v13 - *a1;
       v17 = v16 >> 2;
       v18 = (v16 >> 2) + 1;
       if (v18 >> 62)
@@ -2075,16 +2078,16 @@ LABEL_17:
 
       if (v21)
       {
-        std::__allocate_at_least[abi:ne200100]<std::allocator<wchar_t>>(a2, v21);
+        std::__allocate_at_least[abi:ne200100]<std::allocator<wchar_t>>(a1, v21);
       }
 
       *(4 * v17) = v11;
-      v14 = 4 * v17 + 4;
+      v14 = (4 * v17 + 4);
       memcpy(0, v15, v16);
-      v22 = *a2;
-      *a2 = 0;
-      a2[1] = v14;
-      a2[2] = 0;
+      v22 = *a1;
+      *a1 = 0;
+      a1[1] = v14;
+      a1[2] = 0;
       if (v22)
       {
         operator delete(v22);
@@ -2094,10 +2097,10 @@ LABEL_17:
     else
     {
       *v13 = v11;
-      v14 = (v13 + 4);
+      v14 = v13 + 4;
     }
 
-    a2[1] = v14;
+    a1[1] = v14;
     v4 = v10 + 1;
     v23 = HIBYTE(__str->__r_.__value_.__r.__words[2]);
     if ((v23 & 0x80u) == 0)
@@ -2169,7 +2172,7 @@ void sub_258297800(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 uint64_t EQKitTypes::Notation::notationFromMathMLString(uint64_t *a1, uint64_t a2)
 {
   {
-    std::map<std::string_view const,EQKitTypes::Notation::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Notation::Enum> const*>(EQKitTypes::Notation::notationFromMathMLString(std::string const&,EQKitTypes::Notation::Enum)::sMap, &EQKitTypes::Notation::sData, &EQKitTypes::GroupAlign::sData);
+    std::map<std::string_view const,EQKitTypes::Notation::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Notation::Enum> const*>(&EQKitTypes::Notation::notationFromMathMLString(std::string const&,EQKitTypes::Notation::Enum)::sMap, &EQKitTypes::Notation::sData, &EQKitTypes::GroupAlign::sData);
   }
 
   v4 = *(a1 + 23);
@@ -2190,8 +2193,8 @@ uint64_t EQKitTypes::Notation::notationFromMathMLString(uint64_t *a1, uint64_t a
 
   v8[0] = v5;
   v8[1] = v4;
-  v6 = std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::find<std::string_view>(EQKitTypes::Notation::notationFromMathMLString(std::string const&,EQKitTypes::Notation::Enum)::sMap, v8);
-  if (v6 != &EQKitTypes::Notation::notationFromMathMLString(std::string const&,EQKitTypes::Notation::Enum)::sMap[1])
+  v6 = std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::find<std::string_view>(&EQKitTypes::Notation::notationFromMathMLString(std::string const&,EQKitTypes::Notation::Enum)::sMap, v8);
+  if (v6 != &unk_27F926928)
   {
     return *(v6 + 48);
   }
@@ -2199,12 +2202,12 @@ uint64_t EQKitTypes::Notation::notationFromMathMLString(uint64_t *a1, uint64_t a
   return a2;
 }
 
-void EQKitTypes::Notation::notationVectorFromMathMLString(std::string *__str@<X0>, const void **a2@<X8>)
+void EQKitTypes::Notation::notationVectorFromMathMLString(const void **__return_ptr a1@<X8>, std::string *__str@<X0>)
 {
   v4 = 0;
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   do
   {
     size = HIBYTE(__str->__r_.__value_.__r.__words[2]);
@@ -2257,12 +2260,12 @@ LABEL_16:
 LABEL_17:
     std::string::basic_string(&__p, __str, v4, v10 - v4, &v30);
     v11 = EQKitTypes::Notation::notationFromMathMLString(&__p, 0);
-    v13 = a2[1];
-    v12 = a2[2];
+    v13 = a1[1];
+    v12 = a1[2];
     if (v13 >= v12)
     {
-      v15 = *a2;
-      v16 = v13 - *a2;
+      v15 = *a1;
+      v16 = v13 - *a1;
       v17 = v16 >> 2;
       v18 = (v16 >> 2) + 1;
       if (v18 >> 62)
@@ -2285,16 +2288,16 @@ LABEL_17:
 
       if (v21)
       {
-        std::__allocate_at_least[abi:ne200100]<std::allocator<wchar_t>>(a2, v21);
+        std::__allocate_at_least[abi:ne200100]<std::allocator<wchar_t>>(a1, v21);
       }
 
       *(4 * v17) = v11;
-      v14 = 4 * v17 + 4;
+      v14 = (4 * v17 + 4);
       memcpy(0, v15, v16);
-      v22 = *a2;
-      *a2 = 0;
-      a2[1] = v14;
-      a2[2] = 0;
+      v22 = *a1;
+      *a1 = 0;
+      a1[1] = v14;
+      a1[2] = 0;
       if (v22)
       {
         operator delete(v22);
@@ -2304,10 +2307,10 @@ LABEL_17:
     else
     {
       *v13 = v11;
-      v14 = (v13 + 4);
+      v14 = v13 + 4;
     }
 
-    a2[1] = v14;
+    a1[1] = v14;
     v4 = v10 + 1;
     v23 = HIBYTE(__str->__r_.__value_.__r.__words[2]);
     if ((v23 & 0x80u) == 0)
@@ -2379,7 +2382,7 @@ void sub_258297B24(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 uint64_t EQKitTypes::GroupAlign::groupAlignFromMathMLString(uint64_t *a1, uint64_t a2)
 {
   {
-    std::map<std::string_view const,EQKitTypes::GroupAlign::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::GroupAlign::Enum> const*>(EQKitTypes::GroupAlign::groupAlignFromMathMLString(std::string const&,EQKitTypes::GroupAlign::Enum)::sMap, &EQKitTypes::GroupAlign::sData, &EQKitTypes::Edge::sData);
+    std::map<std::string_view const,EQKitTypes::GroupAlign::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::GroupAlign::Enum> const*>(&EQKitTypes::GroupAlign::groupAlignFromMathMLString(std::string const&,EQKitTypes::GroupAlign::Enum)::sMap, &EQKitTypes::GroupAlign::sData, &EQKitTypes::Edge::sData);
   }
 
   v4 = *(a1 + 23);
@@ -2400,8 +2403,8 @@ uint64_t EQKitTypes::GroupAlign::groupAlignFromMathMLString(uint64_t *a1, uint64
 
   v8[0] = v5;
   v8[1] = v4;
-  v6 = std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::find<std::string_view>(EQKitTypes::GroupAlign::groupAlignFromMathMLString(std::string const&,EQKitTypes::GroupAlign::Enum)::sMap, v8);
-  if (v6 != &EQKitTypes::GroupAlign::groupAlignFromMathMLString(std::string const&,EQKitTypes::GroupAlign::Enum)::sMap[1])
+  v6 = std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::find<std::string_view>(&EQKitTypes::GroupAlign::groupAlignFromMathMLString(std::string const&,EQKitTypes::GroupAlign::Enum)::sMap, v8);
+  if (v6 != &unk_27F926948)
   {
     return *(v6 + 48);
   }
@@ -2412,7 +2415,7 @@ uint64_t EQKitTypes::GroupAlign::groupAlignFromMathMLString(uint64_t *a1, uint64
 uint64_t EQKitTypes::Edge::edgeFromMathMLString(uint64_t *a1, uint64_t a2)
 {
   {
-    std::map<std::string_view const,EQKitTypes::Edge::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Edge::Enum> const*>(EQKitTypes::Edge::edgeFromMathMLString(std::string const&,EQKitTypes::Edge::Enum)::sMap, &EQKitTypes::Edge::sData, &__block_descriptor_40_e5_v8__0l);
+    std::map<std::string_view const,EQKitTypes::Edge::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Edge::Enum> const*>(&EQKitTypes::Edge::edgeFromMathMLString(std::string const&,EQKitTypes::Edge::Enum)::sMap, &EQKitTypes::Edge::sData, &__block_descriptor_40_e5_v8__0l);
   }
 
   v4 = *(a1 + 23);
@@ -2433,8 +2436,8 @@ uint64_t EQKitTypes::Edge::edgeFromMathMLString(uint64_t *a1, uint64_t a2)
 
   v8[0] = v5;
   v8[1] = v4;
-  v6 = std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::find<std::string_view>(EQKitTypes::Edge::edgeFromMathMLString(std::string const&,EQKitTypes::Edge::Enum)::sMap, v8);
-  if (v6 != &EQKitTypes::Edge::edgeFromMathMLString(std::string const&,EQKitTypes::Edge::Enum)::sMap[1])
+  v6 = std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::find<std::string_view>(&EQKitTypes::Edge::edgeFromMathMLString(std::string const&,EQKitTypes::Edge::Enum)::sMap, v8);
+  if (v6 != &unk_27F926968)
   {
     return *(v6 + 48);
   }
@@ -2442,18 +2445,18 @@ uint64_t EQKitTypes::Edge::edgeFromMathMLString(uint64_t *a1, uint64_t a2)
   return a2;
 }
 
-void *std::map<std::string_view const,EQKitMathMLElement::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitMathMLElement::Enum> const*>(void *a1, uint64_t a2, uint64_t a3)
+uint64_t std::map<std::string_view const,EQKitMathMLElement::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitMathMLElement::Enum> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  a1[1] = 0;
-  v4 = a1 + 1;
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6, v6);
       v6 += 24;
     }
 
@@ -2463,18 +2466,18 @@ void *std::map<std::string_view const,EQKitMathMLElement::Enum>::map[abi:ne20010
   return a1;
 }
 
-void *std::map<std::string_view const,EQKitTypes::Display::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Display::Enum> const*>(void *a1, uint64_t a2, uint64_t a3)
+uint64_t std::map<std::string_view const,EQKitTypes::Display::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Display::Enum> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  a1[1] = 0;
-  v4 = a1 + 1;
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6, v6);
       v6 += 24;
     }
 
@@ -2484,18 +2487,18 @@ void *std::map<std::string_view const,EQKitTypes::Display::Enum>::map[abi:ne2001
   return a1;
 }
 
-void *std::map<std::string_view const,EQKit::Script::Variant>::map[abi:ne200100]<std::pair<std::string_view const,EQKit::Script::Variant> const*>(void *a1, uint64_t a2, uint64_t a3)
+uint64_t std::map<std::string_view const,EQKit::Script::Variant>::map[abi:ne200100]<std::pair<std::string_view const,EQKit::Script::Variant> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  a1[1] = 0;
-  v4 = a1 + 1;
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6, v6);
       v6 += 24;
     }
 
@@ -2505,18 +2508,18 @@ void *std::map<std::string_view const,EQKit::Script::Variant>::map[abi:ne200100]
   return a1;
 }
 
-void *std::map<std::string_view const,EQKit::Config::Operator::Form>::map[abi:ne200100]<std::pair<std::string_view const,EQKit::Config::Operator::Form> const*>(void *a1, uint64_t a2, uint64_t a3)
+uint64_t std::map<std::string_view const,EQKit::Config::Operator::Form>::map[abi:ne200100]<std::pair<std::string_view const,EQKit::Config::Operator::Form> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  a1[1] = 0;
-  v4 = a1 + 1;
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6, v6);
       v6 += 24;
     }
 
@@ -2526,18 +2529,18 @@ void *std::map<std::string_view const,EQKit::Config::Operator::Form>::map[abi:ne
   return a1;
 }
 
-void *std::map<std::string_view const,EQKitTypes::Align::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Align::Enum> const*>(void *a1, uint64_t a2, uint64_t a3)
+uint64_t std::map<std::string_view const,EQKitTypes::Align::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Align::Enum> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  a1[1] = 0;
-  v4 = a1 + 1;
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6, v6);
       v6 += 24;
     }
 
@@ -2547,18 +2550,18 @@ void *std::map<std::string_view const,EQKitTypes::Align::Enum>::map[abi:ne200100
   return a1;
 }
 
-void *std::map<std::string_view const,EQKitTypes::VAlign::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::VAlign::Enum> const*>(void *a1, uint64_t a2, uint64_t a3)
+uint64_t std::map<std::string_view const,EQKitTypes::VAlign::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::VAlign::Enum> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  a1[1] = 0;
-  v4 = a1 + 1;
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6, v6);
       v6 += 24;
     }
 
@@ -2568,18 +2571,18 @@ void *std::map<std::string_view const,EQKitTypes::VAlign::Enum>::map[abi:ne20010
   return a1;
 }
 
-void *std::map<std::string_view const,EQKitTypes::Boolean::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Boolean::Enum> const*>(void *a1, uint64_t a2, uint64_t a3)
+uint64_t std::map<std::string_view const,EQKitTypes::Boolean::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Boolean::Enum> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  a1[1] = 0;
-  v4 = a1 + 1;
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6, v6);
       v6 += 24;
     }
 
@@ -2589,18 +2592,18 @@ void *std::map<std::string_view const,EQKitTypes::Boolean::Enum>::map[abi:ne2001
   return a1;
 }
 
-void *std::map<std::string_view const,EQKitTypes::Attributes::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Attributes::Enum> const*>(void *a1, uint64_t a2, uint64_t a3)
+uint64_t std::map<std::string_view const,EQKitTypes::Attributes::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Attributes::Enum> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  a1[1] = 0;
-  v4 = a1 + 1;
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6, v6);
       v6 += 24;
     }
 
@@ -2610,18 +2613,18 @@ void *std::map<std::string_view const,EQKitTypes::Attributes::Enum>::map[abi:ne2
   return a1;
 }
 
-void *std::map<std::string_view const,EQKitTypes::Crossout::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Crossout::Enum> const*>(void *a1, uint64_t a2, uint64_t a3)
+uint64_t std::map<std::string_view const,EQKitTypes::Crossout::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Crossout::Enum> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  a1[1] = 0;
-  v4 = a1 + 1;
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6, v6);
       v6 += 24;
     }
 
@@ -2631,18 +2634,18 @@ void *std::map<std::string_view const,EQKitTypes::Crossout::Enum>::map[abi:ne200
   return a1;
 }
 
-void *std::map<std::string_view const,EQKitTypes::Notation::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Notation::Enum> const*>(void *a1, uint64_t a2, uint64_t a3)
+uint64_t std::map<std::string_view const,EQKitTypes::Notation::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Notation::Enum> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  a1[1] = 0;
-  v4 = a1 + 1;
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6, v6);
       v6 += 24;
     }
 
@@ -2652,18 +2655,18 @@ void *std::map<std::string_view const,EQKitTypes::Notation::Enum>::map[abi:ne200
   return a1;
 }
 
-void *std::map<std::string_view const,EQKitTypes::GroupAlign::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::GroupAlign::Enum> const*>(void *a1, uint64_t a2, uint64_t a3)
+uint64_t std::map<std::string_view const,EQKitTypes::GroupAlign::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::GroupAlign::Enum> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  a1[1] = 0;
-  v4 = a1 + 1;
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6, v6);
       v6 += 24;
     }
 
@@ -2673,18 +2676,18 @@ void *std::map<std::string_view const,EQKitTypes::GroupAlign::Enum>::map[abi:ne2
   return a1;
 }
 
-void *std::map<std::string_view const,EQKitTypes::Edge::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Edge::Enum> const*>(void *a1, uint64_t a2, uint64_t a3)
+uint64_t std::map<std::string_view const,EQKitTypes::Edge::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKitTypes::Edge::Enum> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  a1[1] = 0;
-  v4 = a1 + 1;
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6, v6);
       v6 += 24;
     }
 
@@ -2711,26 +2714,26 @@ CGFloat EQKitBox_ContextScale(CGContext *a1)
   return v3.scale.height;
 }
 
-void sub_25829A3E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25829A3E0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = EQKitRule;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_25829A9F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25829A9F0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = EQKitStringBox;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_25829B4FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25829B4FC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = EQKitPathBox;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -2741,16 +2744,16 @@ void sub_25829F3B0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void blahtex::translateToken(blahtex *this@<X0>, blahtex::Token *a2@<X8>)
+void blahtex::translateToken(const std::wstring *this@<X0>, std::wstring *a2@<X8>)
 {
   {
     std::unordered_map<wchar_t,std::wstring_view>::unordered_map<std::pair<wchar_t,std::wstring_view> const*>(blahtex::translateToken(blahtex::Token const&)::equivalentInputSymbolsTable, &blahtex::equivalentInputSymbolsArray, &blahtex::equivalentInputSymbolsArray + 2442);
   }
 
-  v5 = *(this + 23);
-  if (v5 < 0)
+  v4 = SHIBYTE(this->__r_.__value_.__r.__words[2]);
+  if (v4 < 0)
   {
-    if (*(this + 1) != 1)
+    if (this->__r_.__value_.__l.__size_ != 1)
     {
 LABEL_12:
 
@@ -2758,57 +2761,57 @@ LABEL_12:
       return;
     }
 
-    v6 = *this;
+    v5 = this->__r_.__value_.__r.__words[0];
   }
 
   else
   {
-    v6 = this;
-    if (v5 != 1)
+    v5 = this;
+    if (v4 != 1)
     {
       goto LABEL_12;
     }
   }
 
-  v7 = std::__hash_table<std::__hash_value_type<wchar_t,std::wstring_view>,std::__unordered_map_hasher<wchar_t,std::__hash_value_type<wchar_t,std::wstring_view>,std::hash<wchar_t>,std::equal_to<wchar_t>,true>,std::__unordered_map_equal<wchar_t,std::__hash_value_type<wchar_t,std::wstring_view>,std::equal_to<wchar_t>,std::hash<wchar_t>,true>,std::allocator<std::__hash_value_type<wchar_t,std::wstring_view>>>::find<wchar_t>(blahtex::translateToken(blahtex::Token const&)::equivalentInputSymbolsTable, v6);
-  if (!v7)
+  v6 = std::__hash_table<std::__hash_value_type<wchar_t,std::wstring_view>,std::__unordered_map_hasher<wchar_t,std::__hash_value_type<wchar_t,std::wstring_view>,std::hash<wchar_t>,std::equal_to<wchar_t>,true>,std::__unordered_map_equal<wchar_t,std::__hash_value_type<wchar_t,std::wstring_view>,std::equal_to<wchar_t>,std::hash<wchar_t>,true>,std::allocator<std::__hash_value_type<wchar_t,std::wstring_view>>>::find<wchar_t>(blahtex::translateToken(blahtex::Token const&)::equivalentInputSymbolsTable, v5);
+  if (!v6)
   {
     goto LABEL_12;
   }
 
-  v8 = v7[4];
-  if (v8 >= 0x3FFFFFFFFFFFFFF8)
+  v7 = v6[4];
+  if (v7 >= 0x3FFFFFFFFFFFFFF8)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  v9 = v7[3];
-  if (v8 >= 5)
+  v8 = v6[3];
+  if (v7 >= 5)
   {
-    if ((v8 | 1) == 5)
+    if ((v7 | 1) == 5)
     {
-      v10 = 7;
+      v9 = 7;
     }
 
     else
     {
-      v10 = (v8 | 1) + 1;
+      v9 = (v7 | 1) + 1;
     }
 
-    std::__allocate_at_least[abi:ne200100]<std::allocator<wchar_t>>(&__dst, v10);
+    std::__allocate_at_least[abi:ne200100]<std::allocator<wchar_t>>(&__dst, v9);
   }
 
-  v12 = v7[4];
-  if (v8)
+  *(&__dst.__r_.__value_.__s + 23) = v6[4];
+  if (v7)
   {
-    memmove(&__dst, v9, 4 * v8);
+    memmove(&__dst, v8, 4 * v7);
   }
 
-  *(&__dst + v8) = 0;
-  blahtex::Token::Token(a2, &__dst, *(this + 3));
-  if (v12 < 0)
+  __dst.__r_.__value_.__s.__data_[v7] = 0;
+  blahtex::Token::Token(a2, &__dst, this[1].__r_.__value_.__r.__words[0]);
+  if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__dst);
+    operator delete(__dst.__r_.__value_.__l.__data_);
   }
 }
 
@@ -2822,7 +2825,7 @@ uint64_t std::unordered_map<wchar_t,std::wstring_view>::unordered_map<std::pair<
     v5 = a2;
     do
     {
-      std::__hash_table<std::__hash_value_type<wchar_t,std::wstring_view>,std::__unordered_map_hasher<wchar_t,std::__hash_value_type<wchar_t,std::wstring_view>,std::hash<wchar_t>,std::equal_to<wchar_t>,true>,std::__unordered_map_equal<wchar_t,std::__hash_value_type<wchar_t,std::wstring_view>,std::equal_to<wchar_t>,std::hash<wchar_t>,true>,std::allocator<std::__hash_value_type<wchar_t,std::wstring_view>>>::__emplace_unique_key_args<wchar_t,std::pair<wchar_t,std::wstring_view> const&>(a1, v5);
+      std::__hash_table<std::__hash_value_type<wchar_t,std::wstring_view>,std::__unordered_map_hasher<wchar_t,std::__hash_value_type<wchar_t,std::wstring_view>,std::hash<wchar_t>,std::equal_to<wchar_t>,true>,std::__unordered_map_equal<wchar_t,std::__hash_value_type<wchar_t,std::wstring_view>,std::equal_to<wchar_t>,std::hash<wchar_t>,true>,std::allocator<std::__hash_value_type<wchar_t,std::wstring_view>>>::__emplace_unique_key_args<wchar_t,std::pair<wchar_t,std::wstring_view> const&>(a1, v5, v5);
       v5 += 6;
     }
 
@@ -2832,33 +2835,33 @@ uint64_t std::unordered_map<wchar_t,std::wstring_view>::unordered_map<std::pair<
   return a1;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<wchar_t,std::wstring_view>,std::__unordered_map_hasher<wchar_t,std::__hash_value_type<wchar_t,std::wstring_view>,std::hash<wchar_t>,std::equal_to<wchar_t>,true>,std::__unordered_map_equal<wchar_t,std::__hash_value_type<wchar_t,std::wstring_view>,std::equal_to<wchar_t>,std::hash<wchar_t>,true>,std::allocator<std::__hash_value_type<wchar_t,std::wstring_view>>>::__emplace_unique_key_args<wchar_t,std::pair<wchar_t,std::wstring_view> const&>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<wchar_t,std::wstring_view>,std::__unordered_map_hasher<wchar_t,std::__hash_value_type<wchar_t,std::wstring_view>,std::hash<wchar_t>,std::equal_to<wchar_t>,true>,std::__unordered_map_equal<wchar_t,std::__hash_value_type<wchar_t,std::wstring_view>,std::equal_to<wchar_t>,std::hash<wchar_t>,true>,std::allocator<std::__hash_value_type<wchar_t,std::wstring_view>>>::__emplace_unique_key_args<wchar_t,std::pair<wchar_t,std::wstring_view> const&>(void *a1, int *a2, uint64_t a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -2866,44 +2869,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t *std::__hash_table<std::__hash_value_type<wchar_t,std::wstring_view>,std::__unordered_map_hasher<wchar_t,std::__hash_value_type<wchar_t,std::wstring_view>,std::hash<wchar_t>,std::equal_to<wchar_t>,true>,std::__unordered_map_equal<wchar_t,std::__hash_value_type<wchar_t,std::wstring_view>,std::equal_to<wchar_t>,std::hash<wchar_t>,true>,std::allocator<std::__hash_value_type<wchar_t,std::wstring_view>>>::find<wchar_t>(void *a1, int *a2)
@@ -2973,12 +2976,12 @@ uint64_t *std::__hash_table<std::__hash_value_type<wchar_t,std::wstring_view>,st
   return result;
 }
 
-uint64_t blahtex::Interface::GetMathml@<X0>(blahtex::Interface *this@<X0>, std::wstringbuf::string_type *a2@<X8>)
+uint64_t *blahtex::Interface::GetMathml@<X0>(std::wstringbuf::string_type *__return_ptr a1@<X8>, blahtex::Interface *this@<X0>)
 {
   std::wostringstream::basic_ostringstream[abi:ne200100](&v6);
   blahtex::Manager::GenerateMathml(*this, (this + 8));
   blahtex::MathmlNode::Print(v5, &v6, this + 32, *(this + 121), 0);
-  std::wstringbuf::str(a2, &v7);
+  std::wstringbuf::str(a1, &v7);
   std::unique_ptr<blahtex::MathmlNode>::~unique_ptr[abi:ne200100](&v5);
   if (SHIBYTE(v7.__str_.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -2991,12 +2994,11 @@ uint64_t blahtex::Interface::GetMathml@<X0>(blahtex::Interface *this@<X0>, std::
   return MEMORY[0x259C7CB30](&v8);
 }
 
-void sub_2582A009C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2582A009C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
@@ -3009,6 +3011,7 @@ void sub_2582A009C(_Unwind_Exception *a1, uint64_t a2, ...)
   v15 = va_arg(va1, void);
   v16 = va_arg(va1, void);
   v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   MEMORY[0x259C7CB30](va1);
   _Unwind_Resume(a1);
 }
@@ -3735,28 +3738,28 @@ void blahtex::Exception::~Exception(void **this)
 
 uint64_t blahtex::LayoutTree::FormatColour@<X0>(std::wstringbuf::string_type *a1@<X8>)
 {
-  std::wostringstream::basic_ostringstream[abi:ne200100](&v7);
-  v3 = std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(&v7, "#", 1);
-  *(v3 + *(*v3 - 24) + 8) = *(v3 + *(*v3 - 24) + 8) & 0xFFFFFFB5 | 8;
-  v6 = 48;
-  v4 = std::operator<<[abi:ne200100]<std::char_traits<wchar_t>>(v3, &v6);
-  *(v4 + *(*v4 - 24) + 24) = 6;
+  std::wostringstream::basic_ostringstream[abi:ne200100](&v6);
+  v2 = std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar_t>>(&v6, "#", 1);
+  *(v2 + *(*v2 - 24) + 8) = *(v2 + *(*v2 - 24) + 8) & 0xFFFFFFB5 | 8;
+  v5 = 48;
+  v3 = std::operator<<[abi:ne200100]<std::char_traits<wchar_t>>(v2, &v5);
+  *(v3 + *(*v3 - 24) + 24) = 6;
   MEMORY[0x259C7CA80]();
-  std::wstringbuf::str(a1, &v8);
-  if (SHIBYTE(v8.__str_.__r_.__value_.__r.__words[2]) < 0)
+  std::wstringbuf::str(a1, &v7);
+  if (SHIBYTE(v7.__str_.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v8.__str_.__r_.__value_.__l.__data_);
+    operator delete(v7.__str_.__r_.__value_.__l.__data_);
   }
 
-  v8.__vftable = (MEMORY[0x277D82870] + 16);
-  std::locale::~locale(&v8.__loc_);
+  v7.__vftable = (MEMORY[0x277D82870] + 16);
+  std::locale::~locale(&v7.__loc_);
   std::wostream::~wostream();
-  return MEMORY[0x259C7CB30](&v9);
+  return MEMORY[0x259C7CB30](&v8);
 }
 
-void sub_2582A13B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2582A13B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::wostringstream::~wostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -3778,7 +3781,7 @@ void *std::operator<<[abi:ne200100]<std::char_traits<wchar_t>>(void *a1, int *a2
   return a1;
 }
 
-void *blahtex::LayoutTree::AdjustMathmlEnvironment@<X0>(void *result@<X0>, unint64_t a2@<X1>, int a3@<W2>, unint64_t a4@<X3>, int a5@<W4>, void *a6@<X8>)
+unsigned int **blahtex::LayoutTree::AdjustMathmlEnvironment@<X0>(unsigned int **result@<X0>, unint64_t a2@<X1>, int a3@<W2>, unint64_t a4@<X3>, int a5@<W4>, void *a6@<X8>)
 {
   if (HIDWORD(a2) != HIDWORD(a4) || ((a4 ^ a2) & 1) != 0 || a3 != a5 || (v7 = *result, **result == 18))
   {
@@ -3801,7 +3804,7 @@ void sub_2582A18E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2582A2614(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, blahtex::MathmlNode **a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, uint64_t a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, blahtex::MathmlNode *a40, uint64_t a41, uint64_t a42, void *__p, uint64_t a44, int a45, __int16 a46, char a47, char a48)
+void sub_2582A2614(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, blahtex::MathmlNode **a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, uint64_t a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, void *__p, uint64_t a44, int a45, __int16 a46, char a47, char a48)
 {
   std::unique_ptr<blahtex::MathmlNode>::reset[abi:ne200100](&a40, 0);
   if (*(v48 - 169) < 0)
@@ -4060,7 +4063,7 @@ uint64_t blahtex::LayoutTree::FixOutOfSequenceMathmlCharacter(uint64_t result)
   return result;
 }
 
-uint64_t std::wstring::basic_string[abi:ne200100](uint64_t result, unint64_t a2, int a3)
+void *std::wstring::basic_string[abi:ne200100](void *a1, unint64_t a2, int a3)
 {
   if (a2 >= 0x3FFFFFFFFFFFFFF8)
   {
@@ -4079,15 +4082,15 @@ uint64_t std::wstring::basic_string[abi:ne200100](uint64_t result, unint64_t a2,
       v3 = (a2 | 1) + 1;
     }
 
-    std::__allocate_at_least[abi:ne200100]<std::allocator<wchar_t>>(result, v3);
+    std::__allocate_at_least[abi:ne200100]<std::allocator<wchar_t>>(a1, v3);
   }
 
-  *(result + 23) = a2;
+  *(a1 + 23) = a2;
   if (a2)
   {
     v4 = 0;
     v5 = vdupq_n_s64(a2 - 1);
-    v6 = (result + 8);
+    v6 = a1 + 1;
     do
     {
       v7 = vdupq_n_s64(v4);
@@ -4115,8 +4118,8 @@ uint64_t std::wstring::basic_string[abi:ne200100](uint64_t result, unint64_t a2,
     while (((a2 + 3) & 0x7FFFFFFFFFFFFFFCLL) != v4);
   }
 
-  *(result + 4 * a2) = 0;
-  return result;
+  *(a1 + a2) = 0;
+  return a1;
 }
 
 void blahtex::LayoutTree::SymbolOperator::BuildMathmlTree(uint64_t a1)
@@ -4130,26 +4133,26 @@ void blahtex::LayoutTree::SymbolOperator::BuildMathmlTree(uint64_t a1)
   }
 
   std::wstring::basic_string[abi:ne200100]<0>(&__p, dword_2582D4A28);
-  v2 = blahtex::Token::operator==((a1 + 24), &__p);
-  v3 = v2;
-  if (v5 < 0)
+  v5 = blahtex::Token::operator==((a1 + 24), &__p);
+  v6 = v5;
+  if (v8 < 0)
   {
     operator delete(__p);
-    if (v3)
+    if (v6)
     {
 LABEL_5:
       operator new();
     }
   }
 
-  else if (v2)
+  else if (v5)
   {
     goto LABEL_5;
   }
 
   {
     {
-      std::unordered_set<wchar_t>::unordered_set<wchar_t const*>(&blahtex::LayoutTree::SymbolOperator::BuildMathmlTree(blahtex::MathmlOptions const&,blahtex::MathmlEnvironment const&,unsigned int &)const::accentByDefaultTable, &blahtex::LayoutTree::SymbolOperator::BuildMathmlTree(blahtex::MathmlOptions const&,blahtex::MathmlEnvironment const&,unsigned int &)const::accentByDefaultArray, dword_2582D4A64);
+      std::unordered_set<wchar_t>::unordered_set<wchar_t const*>(blahtex::LayoutTree::SymbolOperator::BuildMathmlTree(blahtex::MathmlOptions const&,blahtex::MathmlEnvironment const&,unsigned int &)const::accentByDefaultTable, &blahtex::LayoutTree::SymbolOperator::BuildMathmlTree(blahtex::MathmlOptions const&,blahtex::MathmlEnvironment const&,unsigned int &)const::accentByDefaultArray, dword_2582D4A64);
     }
   }
 
@@ -4166,30 +4169,30 @@ void sub_2582A3A28(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   JUMPOUT(0x2582A3A20);
 }
 
-blahtex::MathmlNode *blahtex::LayoutTree::Phantom::BuildMathmlTree@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, void *a3@<X8>)
+blahtex::MathmlNode *blahtex::LayoutTree::Phantom::BuildMathmlTree@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, void *a4@<X8>)
 {
-  blahtex::MathmlEnvironment::MathmlEnvironment(&v11, *(a1 + 8), *(a1 + 20));
-  (*(**(a1 + 56) + 24))(&v10);
-  v9 = 0;
-  v6 = v10;
-  if (*v10 != 5)
+  blahtex::MathmlEnvironment::MathmlEnvironment(&v12, *(a1 + 8), *(a1 + 20));
+  (*(**(a1 + 56) + 24))(&v11);
+  v10 = 0;
+  v7 = v11;
+  if (*v11 != 5)
   {
     operator new();
   }
 
+  v11 = 0;
+  *v7 = 14;
   v10 = 0;
-  *v6 = 14;
-  v9 = 0;
-  v8 = v6;
-  blahtex::LayoutTree::AdjustMathmlEnvironment(&v8, *a2, *(a2 + 8), v11, v12, a3);
-  if (v8)
+  v9 = v7;
+  blahtex::LayoutTree::AdjustMathmlEnvironment(&v9, *a2, *(a2 + 8), v12, v13, a4);
+  if (v9)
   {
-    blahtex::MathmlNode::~MathmlNode(v8);
+    blahtex::MathmlNode::~MathmlNode(v9);
     MEMORY[0x259C7CB70]();
   }
 
-  result = v10;
-  v10 = 0;
+  result = v11;
+  v11 = 0;
   if (result)
   {
     blahtex::MathmlNode::~MathmlNode(result);
@@ -4206,35 +4209,35 @@ void sub_2582A3E58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-blahtex::MathmlNode *blahtex::LayoutTree::Cancel::BuildMathmlTree@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, void *a3@<X8>)
+blahtex::MathmlNode *blahtex::LayoutTree::Cancel::BuildMathmlTree@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, void *a4@<X8>)
 {
-  blahtex::MathmlEnvironment::MathmlEnvironment(&v13, *(a1 + 8), *(a1 + 20));
-  (*(**(a1 + 56) + 24))(&v12);
-  v11 = 0;
-  v6 = v12;
-  if (*v12 != 5)
+  blahtex::MathmlEnvironment::MathmlEnvironment(&v15, *(a1 + 8), *(a1 + 20));
+  (*(**(a1 + 56) + 24))(&v14);
+  v13 = 0;
+  v7 = v14;
+  if (*v14 != 5)
   {
     operator new();
   }
 
-  v12 = 0;
-  v11 = v6;
-  *v6 = 15;
-  v10 = 20;
-  v9[4] = &v10;
-  v7 = std::__tree<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::__map_value_compare<blahtex::MathmlNode::Attribute,std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::less<blahtex::MathmlNode::Attribute>,true>,std::allocator<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>>>::__emplace_unique_key_args<blahtex::MathmlNode::Attribute,std::piecewise_construct_t const&,std::tuple<blahtex::MathmlNode::Attribute&&>,std::tuple<>>(v6 + 8, &v10);
-  MEMORY[0x259C7C920](v7 + 5, dword_2582D4A64);
-  v11 = 0;
-  v9[0] = v6;
-  blahtex::LayoutTree::AdjustMathmlEnvironment(v9, *a2, *(a2 + 8), v13, v14, a3);
-  if (v9[0])
+  v14 = 0;
+  v13 = v7;
+  *v7 = 15;
+  v12 = 20;
+  __p = &v12;
+  v8 = std::__tree<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::__map_value_compare<blahtex::MathmlNode::Attribute,std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::less<blahtex::MathmlNode::Attribute>,true>,std::allocator<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>>>::__emplace_unique_key_args<blahtex::MathmlNode::Attribute,std::piecewise_construct_t const&,std::tuple<blahtex::MathmlNode::Attribute&&>,std::tuple<>>(v7 + 8, &v12, &std::piecewise_construct, &__p);
+  MEMORY[0x259C7C920](v8 + 5, dword_2582D4A64);
+  v13 = 0;
+  v10 = v7;
+  blahtex::LayoutTree::AdjustMathmlEnvironment(&v10, *a2, *(a2 + 8), v15, v16, a4);
+  if (v10)
   {
-    blahtex::MathmlNode::~MathmlNode(v9[0]);
+    blahtex::MathmlNode::~MathmlNode(v10);
     MEMORY[0x259C7CB70]();
   }
 
-  result = v12;
-  v12 = 0;
+  result = v14;
+  v14 = 0;
   if (result)
   {
     blahtex::MathmlNode::~MathmlNode(result);
@@ -4251,44 +4254,44 @@ void sub_2582A4130(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-blahtex::MathmlNode *blahtex::LayoutTree::Sqrt::BuildMathmlTree@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, void *a3@<X8>)
+blahtex::MathmlNode *blahtex::LayoutTree::Sqrt::BuildMathmlTree@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, void *a4@<X8>)
 {
-  blahtex::MathmlEnvironment::MathmlEnvironment(&v12, *(a1 + 8), *(a1 + 20));
-  (*(**(a1 + 56) + 24))(&v11);
-  v10 = 0;
-  v6 = v11;
-  if (*v11 != 5)
+  blahtex::MathmlEnvironment::MathmlEnvironment(&v13, *(a1 + 8), *(a1 + 20));
+  (*(**(a1 + 56) + 24))(&v12);
+  v11 = 0;
+  v7 = v12;
+  if (*v12 != 5)
   {
     operator new();
   }
 
-  v10 = v11;
+  v11 = v12;
+  v12 = 0;
+  *v7 = 16;
+  std::wstring::basic_string[abi:ne200100]<0>(&__p, &dword_2582D48AC);
+  blahtex::Token::Token(&v10, &__p, *(a1 + 48));
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  blahtex::Token::operator=((v7 + 32), &v10);
+  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v10.__r_.__value_.__l.__data_);
+  }
+
   v11 = 0;
-  *v6 = 16;
-  std::wstring::basic_string[abi:ne200100]<0>(__p, &dword_2582D48AC);
-  blahtex::Token::Token(&v9, __p, *(a1 + 48));
-  if (v15 < 0)
+  v9 = v7;
+  blahtex::LayoutTree::AdjustMathmlEnvironment(&v9, *a2, *(a2 + 8), v13, v14, a4);
+  if (v9)
   {
-    operator delete(__p[0]);
-  }
-
-  blahtex::Token::operator=((v6 + 32), &v9);
-  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v9.__r_.__value_.__l.__data_);
-  }
-
-  v10 = 0;
-  v8 = v6;
-  blahtex::LayoutTree::AdjustMathmlEnvironment(&v8, *a2, *(a2 + 8), v12, v13, a3);
-  if (v8)
-  {
-    blahtex::MathmlNode::~MathmlNode(v8);
+    blahtex::MathmlNode::~MathmlNode(v9);
     MEMORY[0x259C7CB70]();
   }
 
-  result = v11;
-  v11 = 0;
+  result = v12;
+  v12 = 0;
   if (result)
   {
     blahtex::MathmlNode::~MathmlNode(result);
@@ -4314,17 +4317,17 @@ void sub_2582A46E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void blahtex::LayoutTree::Scripts::BuildMathmlTree(uint64_t a1)
 {
-  blahtex::MathmlEnvironment::MathmlEnvironment(v8, *(a1 + 8), *(a1 + 20));
-  v4 = 0;
-  v5 = v8[0];
-  LOBYTE(v5) = 0;
-  v6 = v8[1] + 1;
-  v7 = v8[2];
-  v2 = *(a1 + 32);
-  if (v2)
+  blahtex::MathmlEnvironment::MathmlEnvironment(v12, *(a1 + 8), *(a1 + 20));
+  v8 = 0;
+  v9 = v12[0];
+  LOBYTE(v9) = 0;
+  v10 = v12[1] + 1;
+  v11 = v12[2];
+  v6 = *(a1 + 32);
+  if (v6)
   {
-    (*(*v2 + 24))(&__p);
-    v4 = __p;
+    (*(*v6 + 24))(&__p);
+    v8 = __p;
     operator new();
   }
 
@@ -4341,17 +4344,17 @@ void sub_2582A4C88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void blahtex::LayoutTree::Fraction::BuildMathmlTree(uint64_t a1)
 {
-  blahtex::MathmlEnvironment::MathmlEnvironment(&v3, *(a1 + 8), *(a1 + 20));
-  v1 = v3;
-  v2 = v4;
-  if (v3 == 1)
+  blahtex::MathmlEnvironment::MathmlEnvironment(&v6, *(a1 + 8), *(a1 + 20));
+  v4 = v6;
+  v5 = v7;
+  if (v6 == 1)
   {
-    LOBYTE(v1) = 0;
+    LOBYTE(v4) = 0;
   }
 
   else
   {
-    ++HIDWORD(v1);
+    ++HIDWORD(v4);
   }
 
   operator new();
@@ -4376,11 +4379,11 @@ void blahtex::LayoutTree::Space::BuildMathmlTree(uint64_t a1)
   __cxa_throw(exception, MEMORY[0x277D82750], MEMORY[0x277D825D8]);
 }
 
-blahtex *blahtex::LayoutTree::Fenced::BuildMathmlTree@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X3>, void *a4@<X8>)
+blahtex *blahtex::LayoutTree::Fenced::BuildMathmlTree@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned int *a4@<X3>, uint64_t *a5@<X8>)
 {
-  v8 = *(a1 + 88);
+  v9 = *(a1 + 88);
   blahtex::MathmlEnvironment::MathmlEnvironment(__p, *(a1 + 8), *(a1 + 20));
-  result = (*(*v8 + 24))(&v16, v8, a2, __p, a3);
+  result = (*(*v9 + 24))(&v17, v9, a2, __p, a4);
   if ((*(a1 + 47) & 0x8000000000000000) != 0)
   {
     if (*(a1 + 32))
@@ -4399,49 +4402,49 @@ blahtex *blahtex::LayoutTree::Fenced::BuildMathmlTree@<X0>(uint64_t a1@<X0>, uin
     if (*(a1 + 64))
     {
 LABEL_7:
-      if (*v16 == 5)
+      if (*v17 == 5)
       {
         operator new();
       }
 
-      if ((*(v16 + 55) & 0x8000000000000000) != 0)
+      if ((*(v17 + 55) & 0x8000000000000000) != 0)
       {
-        if (!*(v16 + 40))
+        if (!*(v17 + 40))
         {
           goto LABEL_19;
         }
       }
 
-      else if (!*(v16 + 55))
+      else if (!*(v17 + 55))
       {
         goto LABEL_19;
       }
 
       blahtex::ForcedSpaceOpsTable(result);
-      v10 = *(v16 + 55);
-      if ((v10 & 0x8000000000000000) != 0)
+      v11 = *(v17 + 55);
+      if ((v11 & 0x8000000000000000) != 0)
       {
-        v11 = *(v16 + 32);
-        v10 = *(v16 + 40);
+        v12 = *(v17 + 32);
+        v11 = *(v17 + 40);
       }
 
       else
       {
-        v11 = (v16 + 32);
+        v12 = (v17 + 32);
       }
 
-      __p[0] = v11;
-      __p[1] = v10;
+      __p[0] = v12;
+      __p[1] = v11;
       if (std::__hash_table<std::wstring_view,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,std::allocator<std::wstring_view>>::find<std::wstring_view>(blahtex::ForcedSpaceOpsTable(void)::forcedSpaceOpsTable, __p))
       {
-        LODWORD(v15) = 4;
-        __p[0] = &v15;
-        v12 = std::__tree<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::__map_value_compare<blahtex::MathmlNode::Attribute,std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::less<blahtex::MathmlNode::Attribute>,true>,std::allocator<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>>>::__emplace_unique_key_args<blahtex::MathmlNode::Attribute,std::piecewise_construct_t const&,std::tuple<blahtex::MathmlNode::Attribute&&>,std::tuple<>>(v16 + 8, &v15);
-        MEMORY[0x259C7C920](v12 + 5, "0");
-        LODWORD(v15) = 5;
-        __p[0] = &v15;
-        v13 = std::__tree<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::__map_value_compare<blahtex::MathmlNode::Attribute,std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::less<blahtex::MathmlNode::Attribute>,true>,std::allocator<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>>>::__emplace_unique_key_args<blahtex::MathmlNode::Attribute,std::piecewise_construct_t const&,std::tuple<blahtex::MathmlNode::Attribute&&>,std::tuple<>>(v16 + 8, &v15);
+        LODWORD(v16) = 4;
+        __p[0] = &v16;
+        v13 = std::__tree<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::__map_value_compare<blahtex::MathmlNode::Attribute,std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::less<blahtex::MathmlNode::Attribute>,true>,std::allocator<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>>>::__emplace_unique_key_args<blahtex::MathmlNode::Attribute,std::piecewise_construct_t const&,std::tuple<blahtex::MathmlNode::Attribute&&>,std::tuple<>>(v17 + 8, &v16, &std::piecewise_construct, __p);
         MEMORY[0x259C7C920](v13 + 5, "0");
+        LODWORD(v16) = 5;
+        __p[0] = &v16;
+        v14 = std::__tree<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::__map_value_compare<blahtex::MathmlNode::Attribute,std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::less<blahtex::MathmlNode::Attribute>,true>,std::allocator<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>>>::__emplace_unique_key_args<blahtex::MathmlNode::Attribute,std::piecewise_construct_t const&,std::tuple<blahtex::MathmlNode::Attribute&&>,std::tuple<>>(v17 + 8, &v16, &std::piecewise_construct, __p);
+        MEMORY[0x259C7C920](v14 + 5, "0");
       }
 
 LABEL_19:
@@ -4454,13 +4457,13 @@ LABEL_19:
     goto LABEL_7;
   }
 
-  *a4 = v16;
+  *a5 = v17;
   return result;
 }
 
-void sub_2582A5B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2582A5B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::unique_ptr<blahtex::MathmlNode>::reset[abi:ne200100](va, 0);
   _Unwind_Resume(a1);
 }
@@ -4844,7 +4847,7 @@ LABEL_97:
                 }
 
                 blahtex::Token::append(v48 + 1, &v50[1]);
-                std::swap[abi:ne200100]<blahtex::Token>(&v48[1], v50 + 1);
+                std::swap[abi:ne200100]<blahtex::Token>(v48 + 1, v50 + 1);
                 goto LABEL_52;
               }
             }
@@ -4922,7 +4925,7 @@ LABEL_82:
         goto LABEL_16;
       }
 
-      blahtex::Token::Token(&__p, &v48[1]);
+      blahtex::Token::Token(&__p, v48 + 1);
       blahtex::Token::operator=(v48 + 1, v50 + 1);
       blahtex::Token::operator=(v50 + 1, &__p);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -4948,7 +4951,7 @@ LABEL_54:
   }
 }
 
-void std::swap[abi:ne200100]<blahtex::Token>(blahtex::Token *a1, std::wstring *a2)
+void std::swap[abi:ne200100]<blahtex::Token>(std::wstring *a1, std::wstring *a2)
 {
   blahtex::Token::Token(&__p, a1);
   blahtex::Token::operator=(a1, a2);
@@ -5232,7 +5235,7 @@ void blahtex::LayoutTree::Row::Print(blahtex::LayoutTree::Node *a1, void *a2, in
     operator delete(v18[0]);
   }
 
-  v14 = (a1 + 24);
+  v14 = a1 + 24;
   for (i = *(a1 + 4); i != v14; i = *(i + 8))
   {
     (*(**(i + 16) + 32))(*(i + 16), a2, (a3 + 1));
@@ -7169,13 +7172,13 @@ std::wstring *blahtex::Exception::Exception(std::wstring *this, __int128 *a2, ui
   return this;
 }
 
-void sub_2582AA5C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2582AA5C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
-  if (*(v2 + 23) < 0)
+  if (*(v3 + 23) < 0)
   {
-    operator delete(*v2);
+    operator delete(*v3);
   }
 
   _Unwind_Resume(a1);
@@ -7286,7 +7289,7 @@ std::__split_buffer<std::wstring>::pointer std::vector<std::wstring>::__emplace_
   return v11;
 }
 
-uint64_t blahtex::MathmlNode::MathmlNode(uint64_t a1, int a2, blahtex::Token *a3)
+uint64_t blahtex::MathmlNode::MathmlNode(uint64_t a1, int a2, const std::wstring *a3)
 {
   *a1 = a2;
   *(a1 + 16) = 0;
@@ -7299,7 +7302,7 @@ uint64_t blahtex::MathmlNode::MathmlNode(uint64_t a1, int a2, blahtex::Token *a3
   return a1;
 }
 
-uint64_t std::unordered_set<std::wstring_view>::unordered_set<std::wstring_view const*>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t std::unordered_set<std::wstring_view>::unordered_set<std::wstring_view const*>(uint64_t a1, uint64_t **a2, uint64_t **a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -7309,8 +7312,8 @@ uint64_t std::unordered_set<std::wstring_view>::unordered_set<std::wstring_view 
     v5 = a2;
     do
     {
-      std::__hash_table<std::wstring_view,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,std::allocator<std::wstring_view>>::__emplace_unique_key_args<std::wstring_view,std::wstring_view const&>(a1, v5);
-      v5 += 16;
+      std::__hash_table<std::wstring_view,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,std::allocator<std::wstring_view>>::__emplace_unique_key_args<std::wstring_view,std::wstring_view const&>(a1, v5, v5);
+      v5 += 2;
     }
 
     while (v5 != a3);
@@ -7319,35 +7322,35 @@ uint64_t std::unordered_set<std::wstring_view>::unordered_set<std::wstring_view 
   return a1;
 }
 
-void *std::__hash_table<std::wstring_view,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,std::allocator<std::wstring_view>>::__emplace_unique_key_args<std::wstring_view,std::wstring_view const&>(void *a1, uint64_t a2)
+void *std::__hash_table<std::wstring_view,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,std::allocator<std::wstring_view>>::__emplace_unique_key_args<std::wstring_view,std::wstring_view const&>(void *a1, uint64_t **a2, _OWORD *a3)
 {
-  v4 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, *(a2 + 8));
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, a2[1]);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -7355,44 +7358,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v11 + 2), a2))
+  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v12 + 2), a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 BOOL std::equal_to<std::wstring_view>::operator()[abi:ne200100](uint64_t a1, uint64_t a2, uint64_t a3)
@@ -7659,16 +7662,16 @@ void *std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82688]);
       v9 = (v10->__vftable[3].__on_zero_shared)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -7691,9 +7694,9 @@ void *std::__put_character_sequence[abi:ne200100]<wchar_t,std::char_traits<wchar
   return a1;
 }
 
-void sub_2582AB2C8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_2582AB2C8(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x259C7CA40](&a10);
+  MEMORY[0x259C7CA40](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -7763,48 +7766,48 @@ void sub_2582AB4A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__tree<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::__map_value_compare<blahtex::MathmlNode::Attribute,std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::less<blahtex::MathmlNode::Attribute>,true>,std::allocator<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>>>::__emplace_unique_key_args<blahtex::MathmlNode::Attribute,std::piecewise_construct_t const&,std::tuple<blahtex::MathmlNode::Attribute&&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::__map_value_compare<blahtex::MathmlNode::Attribute,std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>,std::less<blahtex::MathmlNode::Attribute>,true>,std::allocator<std::__value_type<blahtex::MathmlNode::Attribute,std::wstring>>>::__emplace_unique_key_args<blahtex::MathmlNode::Attribute,std::piecewise_construct_t const&,std::tuple<blahtex::MathmlNode::Attribute&&>,std::tuple<>>(uint64_t a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-__int128 *std::__list_imp<blahtex::MathmlNode *>::swap(__int128 *result, uint64_t *a2)
+__int128 *std::__list_imp<blahtex::MathmlNode *>::swap(__int128 *result, uint64_t **a2)
 {
   v2 = *(result + 2);
   *(result + 2) = a2[2];
@@ -7851,9 +7854,9 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<blahtex::MathmlEnviro
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::__hash_table<std::wstring_view,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,std::allocator<std::wstring_view>>::find<std::wstring_view>(void *a1, uint64_t a2)
+void *std::__hash_table<std::wstring_view,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,std::allocator<std::wstring_view>>::find<std::wstring_view>(void *a1, uint64_t **a2)
 {
-  v4 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, *(a2 + 8));
+  v4 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, a2[1]);
   v5 = a1[1];
   if (!*&v5)
   {
@@ -7938,7 +7941,8 @@ uint64_t std::unordered_set<wchar_t>::unordered_set<wchar_t const*>(uint64_t a1,
     v5 = a2;
     do
     {
-      std::__hash_table<wchar_t,std::hash<wchar_t>,std::equal_to<wchar_t>,std::allocator<wchar_t>>::__emplace_unique_key_args<wchar_t,wchar_t const&>(a1, v5++);
+      std::__hash_table<wchar_t,std::hash<wchar_t>,std::equal_to<wchar_t>,std::allocator<wchar_t>>::__emplace_unique_key_args<wchar_t,wchar_t const&>(a1, v5, v5);
+      ++v5;
     }
 
     while (v5 != a3);
@@ -7947,33 +7951,33 @@ uint64_t std::unordered_set<wchar_t>::unordered_set<wchar_t const*>(uint64_t a1,
   return a1;
 }
 
-uint64_t *std::__hash_table<wchar_t,std::hash<wchar_t>,std::equal_to<wchar_t>,std::allocator<wchar_t>>::__emplace_unique_key_args<wchar_t,wchar_t const&>(void *a1, int *a2)
+uint64_t *std::__hash_table<wchar_t,std::hash<wchar_t>,std::equal_to<wchar_t>,std::allocator<wchar_t>>::__emplace_unique_key_args<wchar_t,wchar_t const&>(void *a1, int *a2, _DWORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -7981,47 +7985,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-uint64_t std::unordered_map<std::wstring_view,std::wstring_view>::unordered_map<std::pair<std::wstring_view,std::wstring_view> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t std::unordered_map<std::wstring_view,std::wstring_view>::unordered_map<std::pair<std::wstring_view,std::wstring_view> const*>(uint64_t a1, uint64_t **a2, uint64_t **a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -8031,8 +8035,8 @@ uint64_t std::unordered_map<std::wstring_view,std::wstring_view>::unordered_map<
     v5 = a2;
     do
     {
-      std::__hash_table<std::__hash_value_type<std::wstring_view,std::wstring_view>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,std::wstring_view>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,std::wstring_view>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,std::wstring_view>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,std::wstring_view> const&>(a1, v5);
-      v5 += 32;
+      std::__hash_table<std::__hash_value_type<std::wstring_view,std::wstring_view>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,std::wstring_view>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,std::wstring_view>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,std::wstring_view>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,std::wstring_view> const&>(a1, v5, v5);
+      v5 += 4;
     }
 
     while (v5 != a3);
@@ -8041,35 +8045,35 @@ uint64_t std::unordered_map<std::wstring_view,std::wstring_view>::unordered_map<
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::wstring_view,std::wstring_view>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,std::wstring_view>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,std::wstring_view>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,std::wstring_view>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,std::wstring_view> const&>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::wstring_view,std::wstring_view>,std::__unordered_map_hasher<std::wstring_view,std::__hash_value_type<std::wstring_view,std::wstring_view>,std::hash<std::wstring_view>,std::equal_to<std::wstring_view>,true>,std::__unordered_map_equal<std::wstring_view,std::__hash_value_type<std::wstring_view,std::wstring_view>,std::equal_to<std::wstring_view>,std::hash<std::wstring_view>,true>,std::allocator<std::__hash_value_type<std::wstring_view,std::wstring_view>>>::__emplace_unique_key_args<std::wstring_view,std::pair<std::wstring_view,std::wstring_view> const&>(void *a1, uint64_t **a2, _OWORD *a3)
 {
-  v4 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, *(a2 + 8));
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_view_hash<wchar_t>::operator()[abi:ne200100](a1, *a2, a2[1]);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -8077,44 +8081,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v11 + 2), a2))
+  if (!std::equal_to<std::wstring_view>::operator()[abi:ne200100](a1, (v12 + 2), a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 void blahtex::StripReservedSuffix(std::wstring *__str@<X0>, std::wstring *a2@<X8>)
@@ -8172,12 +8176,12 @@ LABEL_15:
   std::wstring::basic_string(a2, __str, 0, v7 - 8, &__p);
 }
 
-uint64_t blahtex::MacroProcessor::MacroProcessor(uint64_t a1, blahtex::Token **a2)
+uint64_t blahtex::MacroProcessor::MacroProcessor(uint64_t a1, const std::wstring **a2)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
   *(a1 + 40) = 0;
-  v3 = a1 + 40;
+  v3 = (a1 + 40);
   *(a1 + 32) = 1065353216;
   *(a1 + 48) = 0;
   *(a1 + 56) = 0;
@@ -8194,7 +8198,7 @@ uint64_t blahtex::MacroProcessor::MacroProcessor(uint64_t a1, blahtex::Token **a
     do
     {
       v4 = (v4 - 32);
-      v7 = std::vector<blahtex::Token>::insert(v3, v7, v4) + 32;
+      v7 = (std::vector<blahtex::Token>::insert(v3, v7, v4) + 32);
     }
 
     while (v4 != v5);
@@ -8207,11 +8211,11 @@ uint64_t blahtex::MacroProcessor::MacroProcessor(uint64_t a1, blahtex::Token **a
   return a1;
 }
 
-void sub_2582ABE8C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2582ABE8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<blahtex::Token>::__destroy_vector::operator()[abi:ne200100](va);
-  std::__hash_table<std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>,std::__unordered_map_hasher<std::wstring,std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>,std::hash<std::wstring>,std::equal_to<std::wstring>,true>,std::__unordered_map_equal<std::wstring,std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>,std::equal_to<std::wstring>,std::hash<std::wstring>,true>,std::allocator<std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>>>::~__hash_table(v2);
+  std::__hash_table<std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>,std::__unordered_map_hasher<std::wstring,std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>,std::hash<std::wstring>,std::equal_to<std::wstring>,true>,std::__unordered_map_equal<std::wstring,std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>,std::equal_to<std::wstring>,std::hash<std::wstring>,true>,std::allocator<std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>>>::~__hash_table(v3);
   _Unwind_Resume(a1);
 }
 
@@ -8276,11 +8280,11 @@ void blahtex::MacroProcessor::Peek(blahtex::MacroProcessor *this@<X0>, uint64_t 
   if (v4 == v3)
   {
 LABEL_56:
-    std::wstring::basic_string[abi:ne200100]<0>(v63, &dword_2582D575C);
-    blahtex::Token::Token(a2, v63, 0);
-    if (v64 < 0)
+    std::wstring::basic_string[abi:ne200100]<0>(&v63, &dword_2582D575C);
+    blahtex::Token::Token(a2, &v63, 0);
+    if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v63[0]);
+      operator delete(v63.__r_.__value_.__l.__data_);
     }
 
     return;
@@ -8293,11 +8297,11 @@ LABEL_56:
     if ((v7 + ((v3 - v4) >> 5)) >> 5 >= 0x271)
     {
       exception = __cxa_allocate_exception(0x30uLL);
-      std::wstring::basic_string[abi:ne200100]<0>(&v65, dword_2582D598C);
-      std::wstring::basic_string[abi:ne200100]<0>(v70, &dword_2582D575C);
+      std::wstring::basic_string[abi:ne200100]<0>(&v64, dword_2582D598C);
+      std::wstring::basic_string[abi:ne200100]<0>(v69, &dword_2582D575C);
       std::wstring::basic_string[abi:ne200100]<0>(&__p, &dword_2582D575C);
-      std::wstring::basic_string[abi:ne200100]<0>(v68, &dword_2582D575C);
-      blahtex::Exception::Exception(exception, &v65, v70, &__p, v68);
+      std::wstring::basic_string[abi:ne200100]<0>(v67, &dword_2582D575C);
+      blahtex::Exception::Exception(exception, &v64, v69, &__p, v67);
     }
 
     v8 = (v3 - 32);
@@ -8307,16 +8311,16 @@ LABEL_56:
       return;
     }
 
-    std::wstring::basic_string[abi:ne200100]<0>(&v65, dword_2582D59C4);
-    if (blahtex::Token::operator==(v8, &v65))
+    std::wstring::basic_string[abi:ne200100]<0>(&v64, dword_2582D59C4);
+    if (blahtex::Token::operator==(v8, &v64))
     {
       v9 = 1;
     }
 
     else
     {
-      std::wstring::basic_string[abi:ne200100]<0>(v70, dword_2582D59FC);
-      if (blahtex::Token::operator==(v8, v70))
+      std::wstring::basic_string[abi:ne200100]<0>(v69, dword_2582D59FC);
+      if (blahtex::Token::operator==(v8, v69))
       {
         v9 = 1;
       }
@@ -8331,15 +8335,15 @@ LABEL_56:
         }
       }
 
-      if (v71 < 0)
+      if (v70 < 0)
       {
-        operator delete(v70[0]);
+        operator delete(v69[0]);
       }
     }
 
-    if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v65.__r_.__value_.__l.__data_);
+      operator delete(v64.__r_.__value_.__l.__data_);
     }
 
     blahtex::Token::Token(a2, (*(this + 6) - 32));
@@ -8362,21 +8366,21 @@ LABEL_56:
     }
 
     *(this + 6) = v12;
-    std::vector<std::vector<blahtex::Token>>::vector[abi:ne200100](v70, *(v10 + 10));
+    std::vector<std::vector<blahtex::Token>>::vector[abi:ne200100](v69, *(v10 + 10));
     if (*(v10 + 10) >= 1)
     {
       v13 = 0;
       v14 = 0;
       do
       {
-        if (!blahtex::MacroProcessor::ReadArgument(this, v70[0] + v13))
+        if (!blahtex::MacroProcessor::ReadArgument(this, v69[0] + v13))
         {
           v56 = __cxa_allocate_exception(0x30uLL);
-          std::wstring::basic_string[abi:ne200100]<0>(&v65, dword_2582D5940);
+          std::wstring::basic_string[abi:ne200100]<0>(&v64, dword_2582D5940);
           blahtex::StripReservedSuffix(a2, &__p);
-          std::wstring::basic_string[abi:ne200100]<0>(v68, &dword_2582D575C);
           std::wstring::basic_string[abi:ne200100]<0>(v67, &dword_2582D575C);
-          blahtex::Exception::Exception(v56, &v65, &__p, v68, v67);
+          std::wstring::basic_string[abi:ne200100]<0>(v66, &dword_2582D575C);
+          blahtex::Exception::Exception(v56, &v64, &__p, v67, v66);
         }
 
         ++v14;
@@ -8393,12 +8397,12 @@ LABEL_56:
       while (1)
       {
         ++*(this + 17);
-        std::wstring::basic_string[abi:ne200100]<0>(&v65, &unk_2582D5B40);
-        v16 = blahtex::Token::operator==(v15, &v65);
+        std::wstring::basic_string[abi:ne200100]<0>(&v64, &unk_2582D5B40);
+        v16 = blahtex::Token::operator==(v15, &v64);
         v17 = v16;
-        if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v65.__r_.__value_.__l.__data_);
+          operator delete(v64.__r_.__value_.__l.__data_);
           if (v17)
           {
 LABEL_25:
@@ -8415,10 +8419,10 @@ LABEL_25:
               {
 LABEL_117:
                 v58 = __cxa_allocate_exception(0x30uLL);
-                std::wstring::basic_string[abi:ne200100]<0>(&v65, dword_2582D5B48);
-                std::wstring::basic_string[abi:ne200100]<0>(v68, &dword_2582D575C);
+                std::wstring::basic_string[abi:ne200100]<0>(&v64, dword_2582D5B48);
                 std::wstring::basic_string[abi:ne200100]<0>(v67, &dword_2582D575C);
-                blahtex::Exception::Exception(v58, &v65, a2, v68, v67);
+                std::wstring::basic_string[abi:ne200100]<0>(v66, &dword_2582D575C);
+                blahtex::Exception::Exception(v58, &v64, a2, v67, v66);
               }
 
               v20 = *v18;
@@ -8438,13 +8442,13 @@ LABEL_117:
             if (v23 < 49 || v24 >= *(v10 + 10))
             {
               v57 = __cxa_allocate_exception(0x30uLL);
-              std::wstring::basic_string[abi:ne200100]<0>(&v65, dword_2582D5B48);
-              std::wstring::basic_string[abi:ne200100]<0>(v68, &dword_2582D575C);
+              std::wstring::basic_string[abi:ne200100]<0>(&v64, dword_2582D5B48);
               std::wstring::basic_string[abi:ne200100]<0>(v67, &dword_2582D575C);
-              blahtex::Exception::Exception(v57, &v65, a2, v68, v67);
+              std::wstring::basic_string[abi:ne200100]<0>(v66, &dword_2582D575C);
+              blahtex::Exception::Exception(v57, &v64, a2, v67, v66);
             }
 
-            v25 = v70[0] + 24 * v24;
+            v25 = v69[0] + 24 * v24;
             v27 = *v25;
             v26 = *(v25 + 1);
             if (*v25 == v26)
@@ -8461,7 +8465,7 @@ LABEL_117:
               }
 
               while (v27 != v26);
-              v28 = v70[0] + 24 * v24;
+              v28 = v69[0] + 24 * v24;
               v27 = *v28;
               v29 = *(v28 + 1);
             }
@@ -8476,28 +8480,28 @@ LABEL_117:
           goto LABEL_25;
         }
 
-        blahtex::Token::Token(&v65, v15);
-        if (!v66)
+        blahtex::Token::Token(&v64, v15);
+        if (!v65)
         {
-          v66 = *(a2 + 24);
+          v65 = *(a2 + 24);
         }
 
         size = __p.__r_.__value_.__l.__size_;
         if (__p.__r_.__value_.__l.__size_ >= __p.__r_.__value_.__r.__words[2])
         {
-          v22 = std::vector<blahtex::Token>::__emplace_back_slow_path<blahtex::Token>(&__p, &v65);
+          v22 = std::vector<blahtex::Token>::__emplace_back_slow_path<blahtex::Token>(&__p, &v64);
         }
 
         else
         {
-          blahtex::Token::Token(__p.__r_.__value_.__l.__size_, &v65);
+          blahtex::Token::Token(__p.__r_.__value_.__l.__size_, &v64);
           v22 = size + 32;
         }
 
         __p.__r_.__value_.__l.__size_ = v22;
-        if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v65.__r_.__value_.__l.__data_);
+          operator delete(v64.__r_.__value_.__l.__data_);
         }
 
         v18 = v15;
@@ -8534,10 +8538,10 @@ LABEL_47:
     v32 = 0;
 LABEL_53:
     *(this + 17) += (v32 - v30) >> 5;
-    v65.__r_.__value_.__r.__words[0] = &__p;
-    std::vector<blahtex::Token>::__destroy_vector::operator()[abi:ne200100](&v65);
-    v65.__r_.__value_.__r.__words[0] = v70;
-    std::vector<std::vector<blahtex::Token>>::__destroy_vector::operator()[abi:ne200100](&v65);
+    v64.__r_.__value_.__r.__words[0] = &__p;
+    std::vector<blahtex::Token>::__destroy_vector::operator()[abi:ne200100](&v64);
+    v64.__r_.__value_.__r.__words[0] = v69;
+    std::vector<std::vector<blahtex::Token>>::__destroy_vector::operator()[abi:ne200100](&v64);
     if (*(a2 + 23) < 0)
     {
       operator delete(*a2);
@@ -8566,23 +8570,23 @@ LABEL_53:
     goto LABEL_85;
   }
 
-  std::wstring::basic_string[abi:ne200100]<0>(&v65, &unk_2582D5860);
-  v36 = blahtex::Token::operator==((v35 - 32), &v65);
+  std::wstring::basic_string[abi:ne200100]<0>(&v64, &unk_2582D5860);
+  v36 = blahtex::Token::operator==((v35 - 32), &v64);
   v37 = v36;
-  if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v65.__r_.__value_.__l.__data_);
+    operator delete(v64.__r_.__value_.__l.__data_);
     if (!v37)
     {
       goto LABEL_85;
     }
 
 LABEL_64:
-    std::wstring::basic_string[abi:ne200100]<0>(&v65, &unk_2582D5708);
-    blahtex::Token::operator=((*(this + 6) - 32), &v65);
-    if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+    std::wstring::basic_string[abi:ne200100]<0>(&v64, &unk_2582D5708);
+    blahtex::Token::operator=((*(this + 6) - 32), &v64);
+    if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v65.__r_.__value_.__l.__data_);
+      operator delete(v64.__r_.__value_.__l.__data_);
     }
 
     v38 = *(this + 5);
@@ -8593,52 +8597,52 @@ LABEL_104:
       if (v39 == v38)
       {
         v61 = __cxa_allocate_exception(0x30uLL);
-        std::wstring::basic_string[abi:ne200100]<0>(&v65, dword_2582D58EC);
-        std::wstring::basic_string[abi:ne200100]<0>(v70, &dword_2582D575C);
+        std::wstring::basic_string[abi:ne200100]<0>(&v64, dword_2582D58EC);
+        std::wstring::basic_string[abi:ne200100]<0>(v69, &dword_2582D575C);
         std::wstring::basic_string[abi:ne200100]<0>(&__p, &dword_2582D575C);
-        std::wstring::basic_string[abi:ne200100]<0>(v68, &dword_2582D575C);
-        blahtex::Exception::Exception(v61, &v65, v70, &__p, v68);
+        std::wstring::basic_string[abi:ne200100]<0>(v67, &dword_2582D575C);
+        blahtex::Exception::Exception(v61, &v64, v69, &__p, v67);
       }
 
-      std::wstring::basic_string[abi:ne200100]<0>(&v65, &unk_2582D58E4);
+      std::wstring::basic_string[abi:ne200100]<0>(&v64, &unk_2582D58E4);
       v53 = (v39 - 8);
-      v54 = std::operator!=[abi:ne200100]<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>(v53, &v65);
-      if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+      v54 = std::operator!=[abi:ne200100]<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>(v53, &v64);
+      if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v65.__r_.__value_.__l.__data_);
+        operator delete(v64.__r_.__value_.__l.__data_);
       }
 
       if (v54)
       {
         v62 = __cxa_allocate_exception(0x30uLL);
-        std::wstring::basic_string[abi:ne200100]<0>(&v65, dword_2582D5940);
-        std::wstring::basic_string[abi:ne200100]<0>(v70, dword_2582D5AF0);
+        std::wstring::basic_string[abi:ne200100]<0>(&v64, dword_2582D5940);
+        std::wstring::basic_string[abi:ne200100]<0>(v69, dword_2582D5AF0);
         std::wstring::basic_string[abi:ne200100]<0>(&__p, &dword_2582D575C);
-        std::wstring::basic_string[abi:ne200100]<0>(v68, &dword_2582D575C);
-        blahtex::Exception::Exception(v62, &v65, v70, &__p, v68);
+        std::wstring::basic_string[abi:ne200100]<0>(v67, &dword_2582D575C);
+        blahtex::Exception::Exception(v62, &v64, v69, &__p, v67);
       }
 
-      std::wstring::basic_string[abi:ne200100]<0>(&v65, &unk_2582D5700);
-      blahtex::Token::operator=(v53, &v65);
-      if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+      std::wstring::basic_string[abi:ne200100]<0>(&v64, &unk_2582D5700);
+      blahtex::Token::operator=(v53, &v64);
+      if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v65.__r_.__value_.__l.__data_);
+        operator delete(v64.__r_.__value_.__l.__data_);
       }
 
-      std::wstring::basic_string[abi:ne200100]<0>(&v65, dword_2582D59C4);
-      v55 = blahtex::Token::operator==(a2, &v65);
-      if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+      std::wstring::basic_string[abi:ne200100]<0>(&v64, dword_2582D59C4);
+      v55 = blahtex::Token::operator==(a2, &v64);
+      if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v65.__r_.__value_.__l.__data_);
+        operator delete(v64.__r_.__value_.__l.__data_);
       }
 
       if (v55)
       {
-        std::wstring::basic_string[abi:ne200100]<0>(&v65, dword_2582D5B08);
-        blahtex::Token::operator=(a2, &v65);
-        if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+        std::wstring::basic_string[abi:ne200100]<0>(&v64, dword_2582D5B08);
+        blahtex::Token::operator=(a2, &v64);
+        if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v65.__r_.__value_.__l.__data_);
+          operator delete(v64.__r_.__value_.__l.__data_);
         }
       }
 
@@ -8650,11 +8654,11 @@ LABEL_104:
     {
       if (v40 <= 0)
       {
-        std::wstring::basic_string[abi:ne200100]<0>(&v65, &unk_2582D58E4);
-        v41 = std::operator!=[abi:ne200100]<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>(v39 - 8, &v65);
-        if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+        std::wstring::basic_string[abi:ne200100]<0>(&v64, &unk_2582D58E4);
+        v41 = std::operator!=[abi:ne200100]<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>(v39 - 8, &v64);
+        if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v65.__r_.__value_.__l.__data_);
+          operator delete(v64.__r_.__value_.__l.__data_);
         }
 
         if (!v41)
@@ -8665,13 +8669,13 @@ LABEL_104:
       }
 
       ++*(this + 17);
-      std::wstring::basic_string[abi:ne200100]<0>(&v65, &unk_2582D5708);
+      std::wstring::basic_string[abi:ne200100]<0>(&v64, &unk_2582D5708);
       v39 -= 8;
-      v42 = blahtex::Token::operator==(v39, &v65);
+      v42 = blahtex::Token::operator==(v39, &v64);
       v43 = v42;
-      if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v65.__r_.__value_.__l.__data_);
+        operator delete(v64.__r_.__value_.__l.__data_);
         if (v43)
         {
 LABEL_74:
@@ -8685,23 +8689,23 @@ LABEL_74:
         goto LABEL_74;
       }
 
-      std::wstring::basic_string[abi:ne200100]<0>(&v65, &unk_2582D5700);
-      v44 = blahtex::Token::operator==(v39, &v65);
+      std::wstring::basic_string[abi:ne200100]<0>(&v64, &unk_2582D5700);
+      v44 = blahtex::Token::operator==(v39, &v64);
       v45 = v44;
-      if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v65.__r_.__value_.__l.__data_);
+        operator delete(v64.__r_.__value_.__l.__data_);
         if (v45)
         {
 LABEL_80:
           if (v40 <= 0)
           {
             v60 = __cxa_allocate_exception(0x30uLL);
-            std::wstring::basic_string[abi:ne200100]<0>(&v65, dword_2582D5AA0);
-            std::wstring::basic_string[abi:ne200100]<0>(v70, &dword_2582D575C);
+            std::wstring::basic_string[abi:ne200100]<0>(&v64, dword_2582D5AA0);
+            std::wstring::basic_string[abi:ne200100]<0>(v69, &dword_2582D575C);
             std::wstring::basic_string[abi:ne200100]<0>(&__p, &dword_2582D575C);
-            std::wstring::basic_string[abi:ne200100]<0>(v68, &dword_2582D575C);
-            blahtex::Exception::Exception(v60, &v65, v70, &__p, v68);
+            std::wstring::basic_string[abi:ne200100]<0>(v67, &dword_2582D575C);
+            blahtex::Exception::Exception(v60, &v64, v69, &__p, v67);
           }
 
           --v40;
@@ -8744,7 +8748,7 @@ LABEL_85:
     v46 = *(a2 + 8);
   }
 
-  v48 = &v47[v46];
+  v48 = v47 + 4 * v46;
   if (v46 >= 8)
   {
     v49 = v47;
@@ -8763,7 +8767,7 @@ LABEL_85:
       }
 
       v49 = v51 + 1;
-      v46 = v48 - (v51 + 1);
+      v46 = (v48 - (v51 + 1)) >> 2;
     }
 
     while (v46 > 7);
@@ -8778,7 +8782,7 @@ LABEL_96:
 
   else
   {
-    v52 = v51 - v47;
+    v52 = (v51 - v47) >> 2;
   }
 
   std::wstring::erase(a2, v52, 0xFFFFFFFFFFFFFFFFLL);
@@ -8869,7 +8873,7 @@ BOOL blahtex::MacroProcessor::ReadArgument(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  blahtex::Token::Token(v27, (v4 - 32));
+  blahtex::Token::Token(&v26, (v4 - 32));
   v5 = *(a1 + 48);
   v6 = (v5 - 32);
   if (*(v5 - 9) < 0)
@@ -8879,12 +8883,12 @@ BOOL blahtex::MacroProcessor::ReadArgument(uint64_t a1, uint64_t a2)
 
   *(a1 + 48) = v6;
   ++*(a1 + 68);
-  std::wstring::basic_string[abi:ne200100]<0>(__p, &unk_2582D5700);
-  v7 = blahtex::Token::operator==(v27, __p);
+  std::wstring::basic_string[abi:ne200100]<0>(&__p, &unk_2582D5700);
+  v7 = blahtex::Token::operator==(&v26, &__p);
   v8 = v7;
-  if (v26 < 0)
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
     if (v8)
     {
       goto LABEL_36;
@@ -8896,19 +8900,19 @@ BOOL blahtex::MacroProcessor::ReadArgument(uint64_t a1, uint64_t a2)
     goto LABEL_36;
   }
 
-  std::wstring::basic_string[abi:ne200100]<0>(__p, &unk_2582D5708);
-  v10 = blahtex::Token::operator==(v27, __p);
+  std::wstring::basic_string[abi:ne200100]<0>(&__p, &unk_2582D5708);
+  v10 = blahtex::Token::operator==(&v26, &__p);
   v11 = v10;
-  if (v26 < 0)
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
     if (v11)
     {
       goto LABEL_11;
     }
 
 LABEL_34:
-    std::vector<blahtex::Token>::push_back[abi:ne200100](a2, v27);
+    std::vector<blahtex::Token>::push_back[abi:ne200100](a2, &v26);
     goto LABEL_35;
   }
 
@@ -8928,7 +8932,7 @@ LABEL_11:
     }
 
     ++*(a1 + 68);
-    blahtex::Token::Token(__p, (v13 - 32));
+    blahtex::Token::Token(&__p, (v13 - 32));
     v14 = *(a1 + 48);
     v15 = (v14 - 32);
     if (*(v14 - 9) < 0)
@@ -8938,7 +8942,7 @@ LABEL_11:
 
     *(a1 + 48) = v15;
     std::wstring::basic_string[abi:ne200100]<0>(v23, &unk_2582D5708);
-    v16 = blahtex::Token::operator==(__p, v23);
+    v16 = blahtex::Token::operator==(&__p, v23);
     v17 = v16;
     if (v24 < 0)
     {
@@ -8948,7 +8952,7 @@ LABEL_11:
 LABEL_17:
         ++v12;
 LABEL_26:
-        std::vector<blahtex::Token>::push_back[abi:ne200100](a2, __p);
+        std::vector<blahtex::Token>::push_back[abi:ne200100](a2, &__p);
         v18 = 1;
         goto LABEL_27;
       }
@@ -8960,7 +8964,7 @@ LABEL_26:
     }
 
     std::wstring::basic_string[abi:ne200100]<0>(v23, &unk_2582D5700);
-    if (!blahtex::Token::operator==(__p, v23))
+    if (!blahtex::Token::operator==(&__p, v23))
     {
       if (v24 < 0)
       {
@@ -8982,9 +8986,9 @@ LABEL_26:
 
     v18 = 0;
 LABEL_27:
-    if (v26 < 0)
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(__p[0]);
+      operator delete(__p.__r_.__value_.__l.__data_);
       if ((v18 & 1) == 0)
       {
         break;
@@ -9000,20 +9004,20 @@ LABEL_27:
   if (v12 >= 1)
   {
     exception = __cxa_allocate_exception(0x30uLL);
-    std::wstring::basic_string[abi:ne200100]<0>(__p, dword_2582D5710);
+    std::wstring::basic_string[abi:ne200100]<0>(&__p, dword_2582D5710);
     std::wstring::basic_string[abi:ne200100]<0>(v23, &dword_2582D575C);
     std::wstring::basic_string[abi:ne200100]<0>(v22, &dword_2582D575C);
     std::wstring::basic_string[abi:ne200100]<0>(v21, &dword_2582D575C);
-    blahtex::Exception::Exception(exception, __p, v23, v22, v21);
+    blahtex::Exception::Exception(exception, &__p, v23, v22, v21);
   }
 
 LABEL_35:
   *(a1 + 64) = 0;
 LABEL_36:
   v9 = !v8;
-  if (v28 < 0)
+  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v27[0]);
+    operator delete(v26.__r_.__value_.__l.__data_);
   }
 
   return v9;
@@ -9060,7 +9064,7 @@ LABEL_12:
   goto LABEL_12;
 }
 
-uint64_t std::vector<blahtex::Token>::push_back[abi:ne200100](uint64_t a1, const blahtex::Token *a2)
+uint64_t std::vector<blahtex::Token>::push_back[abi:ne200100](uint64_t a1, const std::wstring *a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -9123,22 +9127,22 @@ void blahtex::MacroProcessor::HandleNewcommand(blahtex::MacroProcessor *this)
   }
 
   v5 = (v4 - 32);
-  std::wstring::basic_string[abi:ne200100]<0>(__p, &unk_2582D5708);
-  v6 = std::operator!=[abi:ne200100]<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>(v5, __p);
-  if (v44 < 0)
+  std::wstring::basic_string[abi:ne200100]<0>(&__p, &unk_2582D5708);
+  v6 = std::operator!=[abi:ne200100]<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>(v5, &__p);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   if (v6)
   {
 LABEL_52:
     exception = __cxa_allocate_exception(0x30uLL);
-    std::wstring::basic_string[abi:ne200100]<0>(__p, dword_2582D5760);
-    std::wstring::basic_string[abi:ne200100]<0>(&v47, dword_2582D57B8);
-    std::wstring::basic_string[abi:ne200100]<0>(v46, &dword_2582D575C);
+    std::wstring::basic_string[abi:ne200100]<0>(&__p, dword_2582D5760);
+    std::wstring::basic_string[abi:ne200100]<0>(&v46, dword_2582D57B8);
     std::wstring::basic_string[abi:ne200100]<0>(v45, &dword_2582D575C);
-    blahtex::Exception::Exception(exception, __p, &v47, v46, v45);
+    std::wstring::basic_string[abi:ne200100]<0>(v44, &dword_2582D575C);
+    blahtex::Exception::Exception(exception, &__p, &v46, v45, v44);
   }
 
   v7 = *(this + 6);
@@ -9155,11 +9159,11 @@ LABEL_52:
   {
 LABEL_51:
     v34 = __cxa_allocate_exception(0x30uLL);
-    std::wstring::basic_string[abi:ne200100]<0>(__p, dword_2582D57E8);
-    std::wstring::basic_string[abi:ne200100]<0>(&v47, &dword_2582D575C);
-    std::wstring::basic_string[abi:ne200100]<0>(v46, &dword_2582D575C);
+    std::wstring::basic_string[abi:ne200100]<0>(&__p, dword_2582D57E8);
+    std::wstring::basic_string[abi:ne200100]<0>(&v46, &dword_2582D575C);
     std::wstring::basic_string[abi:ne200100]<0>(v45, &dword_2582D575C);
-    blahtex::Exception::Exception(v34, __p, &v47, v46, v45);
+    std::wstring::basic_string[abi:ne200100]<0>(v44, &dword_2582D575C);
+    blahtex::Exception::Exception(v34, &__p, &v46, v45, v44);
   }
 
   v10 = (v9 - 32);
@@ -9171,7 +9175,7 @@ LABEL_51:
       goto LABEL_51;
     }
 
-    v12 = *v10;
+    v12 = v10->__r_.__value_.__r.__words[0];
   }
 
   else
@@ -9188,7 +9192,7 @@ LABEL_51:
     goto LABEL_51;
   }
 
-  blahtex::Token::Token(__p, v10);
+  blahtex::Token::Token(&__p, v10);
   v13 = *(this + 6);
   v14 = (v13 - 32);
   if (*(v13 - 9) < 0)
@@ -9202,28 +9206,28 @@ LABEL_51:
   if (*(this + 5) == v15)
   {
     v36 = __cxa_allocate_exception(0x30uLL);
-    std::wstring::basic_string[abi:ne200100]<0>(&v47, dword_2582D5710);
-    std::wstring::basic_string[abi:ne200100]<0>(v46, &dword_2582D575C);
+    std::wstring::basic_string[abi:ne200100]<0>(&v46, dword_2582D5710);
     std::wstring::basic_string[abi:ne200100]<0>(v45, &dword_2582D575C);
+    std::wstring::basic_string[abi:ne200100]<0>(v44, &dword_2582D575C);
     std::wstring::basic_string[abi:ne200100]<0>(v42, &dword_2582D575C);
-    blahtex::Exception::Exception(v36, &v47, v46, v45, v42);
+    blahtex::Exception::Exception(v36, &v46, v45, v44, v42);
   }
 
-  std::wstring::basic_string[abi:ne200100]<0>(&v47, &unk_2582D5700);
-  v16 = std::operator!=[abi:ne200100]<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>((v15 - 32), &v47);
-  if (v48 < 0)
+  std::wstring::basic_string[abi:ne200100]<0>(&v46, &unk_2582D5700);
+  v16 = std::operator!=[abi:ne200100]<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>((v15 - 32), &v46);
+  if (v47 < 0)
   {
-    operator delete(v47);
+    operator delete(v46);
   }
 
   if (v16)
   {
     v37 = __cxa_allocate_exception(0x30uLL);
-    std::wstring::basic_string[abi:ne200100]<0>(&v47, dword_2582D57E8);
-    std::wstring::basic_string[abi:ne200100]<0>(v46, &dword_2582D575C);
+    std::wstring::basic_string[abi:ne200100]<0>(&v46, dword_2582D57E8);
     std::wstring::basic_string[abi:ne200100]<0>(v45, &dword_2582D575C);
+    std::wstring::basic_string[abi:ne200100]<0>(v44, &dword_2582D575C);
     std::wstring::basic_string[abi:ne200100]<0>(v42, &dword_2582D575C);
-    blahtex::Exception::Exception(v37, &v47, v46, v45, v42);
+    blahtex::Exception::Exception(v37, &v46, v45, v44, v42);
   }
 
   v17 = *(this + 6);
@@ -9234,18 +9238,18 @@ LABEL_51:
   }
 
   *(this + 6) = v18;
-  *&v47 = __p;
-  v19 = std::__hash_table<std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>,std::__unordered_map_hasher<std::wstring,std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>,std::hash<std::wstring>,std::equal_to<std::wstring>,true>,std::__unordered_map_equal<std::wstring,std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>,std::equal_to<std::wstring>,std::hash<std::wstring>,true>,std::allocator<std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>>>::__emplace_unique_key_args<std::wstring,std::piecewise_construct_t const&,std::tuple<std::wstring const&>,std::tuple<>>(this, __p);
+  *&v46 = &__p;
+  v19 = std::__hash_table<std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>,std::__unordered_map_hasher<std::wstring,std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>,std::hash<std::wstring>,std::equal_to<std::wstring>,true>,std::__unordered_map_equal<std::wstring,std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>,std::equal_to<std::wstring>,std::hash<std::wstring>,true>,std::allocator<std::__hash_value_type<std::wstring,blahtex::MacroProcessor::Macro>>>::__emplace_unique_key_args<std::wstring,std::piecewise_construct_t const&,std::tuple<std::wstring const&>,std::tuple<>>(this, &__p, &std::piecewise_construct, &v46, v45);
   blahtex::MacroProcessor::SkipWhitespaceRaw(this);
   v20 = *(this + 6);
   if (*(this + 5) != v20)
   {
-    std::wstring::basic_string[abi:ne200100]<0>(&v47, &unk_2582D5860);
-    v21 = blahtex::Token::operator==((v20 - 32), &v47);
+    std::wstring::basic_string[abi:ne200100]<0>(&v46, &unk_2582D5860);
+    v21 = blahtex::Token::operator==((v20 - 32), &v46);
     v22 = v21;
-    if (v48 < 0)
+    if (v47 < 0)
     {
-      operator delete(v47);
+      operator delete(v46);
       if (!v22)
       {
         goto LABEL_47;
@@ -9271,10 +9275,10 @@ LABEL_51:
     {
 LABEL_56:
       v39 = __cxa_allocate_exception(0x30uLL);
-      std::wstring::basic_string[abi:ne200100]<0>(&v47, dword_2582D5868);
-      std::wstring::basic_string[abi:ne200100]<0>(v46, &dword_2582D575C);
+      std::wstring::basic_string[abi:ne200100]<0>(&v46, dword_2582D5868);
       std::wstring::basic_string[abi:ne200100]<0>(v45, &dword_2582D575C);
-      blahtex::Exception::Exception(v39, &v47, __p, v46, v45);
+      std::wstring::basic_string[abi:ne200100]<0>(v44, &dword_2582D575C);
+      blahtex::Exception::Exception(v39, &v46, &__p, v45, v44);
     }
 
     v26 = (v25 - 32);
@@ -9303,10 +9307,10 @@ LABEL_56:
     if ((v29 - 58) <= 0xFFFFFFF6)
     {
       v41 = __cxa_allocate_exception(0x30uLL);
-      std::wstring::basic_string[abi:ne200100]<0>(&v47, dword_2582D5868);
-      std::wstring::basic_string[abi:ne200100]<0>(v46, &dword_2582D575C);
+      std::wstring::basic_string[abi:ne200100]<0>(&v46, dword_2582D5868);
       std::wstring::basic_string[abi:ne200100]<0>(v45, &dword_2582D575C);
-      blahtex::Exception::Exception(v41, &v47, __p, v46, v45);
+      std::wstring::basic_string[abi:ne200100]<0>(v44, &dword_2582D575C);
+      blahtex::Exception::Exception(v41, &v46, &__p, v45, v44);
     }
 
     if (*(v25 - 9) < 0)
@@ -9322,22 +9326,22 @@ LABEL_56:
       goto LABEL_57;
     }
 
-    std::wstring::basic_string[abi:ne200100]<0>(&v47, &unk_2582D58E4);
-    v31 = std::operator!=[abi:ne200100]<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>((v30 - 32), &v47);
-    if (v48 < 0)
+    std::wstring::basic_string[abi:ne200100]<0>(&v46, &unk_2582D58E4);
+    v31 = std::operator!=[abi:ne200100]<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>((v30 - 32), &v46);
+    if (v47 < 0)
     {
-      operator delete(v47);
+      operator delete(v46);
     }
 
     if (v31)
     {
 LABEL_57:
       v40 = __cxa_allocate_exception(0x30uLL);
-      std::wstring::basic_string[abi:ne200100]<0>(&v47, dword_2582D58EC);
-      std::wstring::basic_string[abi:ne200100]<0>(v46, &dword_2582D575C);
+      std::wstring::basic_string[abi:ne200100]<0>(&v46, dword_2582D58EC);
       std::wstring::basic_string[abi:ne200100]<0>(v45, &dword_2582D575C);
+      std::wstring::basic_string[abi:ne200100]<0>(v44, &dword_2582D575C);
       std::wstring::basic_string[abi:ne200100]<0>(v42, &dword_2582D575C);
-      blahtex::Exception::Exception(v40, &v47, v46, v45, v42);
+      blahtex::Exception::Exception(v40, &v46, v45, v44, v42);
     }
 
     v32 = *(this + 6);
@@ -9354,16 +9358,16 @@ LABEL_47:
   if (!blahtex::MacroProcessor::ReadArgument(this, (v19 + 6)))
   {
     v38 = __cxa_allocate_exception(0x30uLL);
-    std::wstring::basic_string[abi:ne200100]<0>(&v47, dword_2582D5940);
-    std::wstring::basic_string[abi:ne200100]<0>(v46, dword_2582D57B8);
-    std::wstring::basic_string[abi:ne200100]<0>(v45, &dword_2582D575C);
+    std::wstring::basic_string[abi:ne200100]<0>(&v46, dword_2582D5940);
+    std::wstring::basic_string[abi:ne200100]<0>(v45, dword_2582D57B8);
+    std::wstring::basic_string[abi:ne200100]<0>(v44, &dword_2582D575C);
     std::wstring::basic_string[abi:ne200100]<0>(v42, &dword_2582D575C);
-    blahtex::Exception::Exception(v38, &v47, v46, v45, v42);
+    blahtex::Exception::Exception(v38, &v46, v45, v44, v42);
   }
 
-  if (v44 < 0)
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 }
 
@@ -9477,15 +9481,15 @@ void std::__destroy_at[abi:ne200100]<std::pair<std::wstring const,blahtex::Macro
   }
 }
 
-blahtex::Token *std::vector<blahtex::Token>::insert(uint64_t a1, uint64_t a2, blahtex::Token *a3)
+blahtex::Token *std::vector<blahtex::Token>::insert(std::wstring *a1, blahtex::Token *a2, const std::wstring *a3)
 {
   v4 = a2;
-  v7 = *(a1 + 8);
-  v6 = *(a1 + 16);
-  if (v7 >= v6)
+  size = a1->__r_.__value_.__l.__size_;
+  v6 = a1->__r_.__value_.__r.__words[2];
+  if (size >= v6)
   {
-    v10 = *a1;
-    v11 = ((v7 - *a1) >> 5) + 1;
+    v10 = a1->__r_.__value_.__r.__words[0];
+    v11 = ((size - a1->__r_.__value_.__r.__words[0]) >> 5) + 1;
     if (v11 >> 59)
     {
       std::vector<std::string>::__throw_length_error[abi:ne200100]();
@@ -9496,7 +9500,7 @@ blahtex::Token *std::vector<blahtex::Token>::insert(uint64_t a1, uint64_t a2, bl
     v14 = v13 >> 4;
     if (v13 >> 4 <= v11)
     {
-      v14 = ((v7 - *a1) >> 5) + 1;
+      v14 = ((size - a1->__r_.__value_.__r.__words[0]) >> 5) + 1;
     }
 
     if (v13 >= 0x7FFFFFFFFFFFFFE0)
@@ -9517,24 +9521,24 @@ blahtex::Token *std::vector<blahtex::Token>::insert(uint64_t a1, uint64_t a2, bl
     }
 
     v18[0] = 0;
-    v18[1] = (32 * v16);
-    v18[2] = (32 * v16);
+    v18[1] = 32 * v16;
+    v18[2] = 32 * v16;
     v18[3] = 0;
     std::__split_buffer<blahtex::Token>::emplace_back<blahtex::Token const&>(v18, a3);
     v4 = std::vector<blahtex::Token>::__swap_out_circular_buffer(a1, v18, v4);
     std::__split_buffer<blahtex::Token>::~__split_buffer(v18);
   }
 
-  else if (a2 == v7)
+  else if (a2 == size)
   {
-    blahtex::Token::Token(*(a1 + 8), a3);
-    *(a1 + 8) = v7 + 32;
+    blahtex::Token::Token(a1->__r_.__value_.__l.__size_, a3);
+    a1->__r_.__value_.__l.__size_ = size + 32;
   }
 
   else
   {
-    std::vector<blahtex::Token>::__move_range(a1, a2, *(a1 + 8), a2 + 32);
-    v8 = *(a1 + 8) <= a3 || v4 > a3;
+    std::vector<blahtex::Token>::__move_range(a1, a2, a1->__r_.__value_.__l.__size_, a2 + 32);
+    v8 = a1->__r_.__value_.__l.__size_ <= a3 || v4 > a3;
     v9 = 32;
     if (v8)
     {
@@ -9590,7 +9594,7 @@ std::wstring *std::vector<blahtex::Token>::__move_range(std::wstring *result, ui
   return result;
 }
 
-uint64_t std::__split_buffer<blahtex::Token>::emplace_back<blahtex::Token const&>(std::wstring **a1, blahtex::Token *a2)
+std::wstring *std::__split_buffer<blahtex::Token>::emplace_back<blahtex::Token const&>(unint64_t *a1, const std::wstring *a2)
 {
   v4 = a1[2];
   v5 = v4;
@@ -9630,18 +9634,18 @@ uint64_t std::__split_buffer<blahtex::Token>::emplace_back<blahtex::Token const&
       v6 = a1[1];
     }
 
-    a1[1] = (v6 + 32 * v8);
+    a1[1] = v6 + 32 * v8;
     a1[2] = v5;
   }
 
   result = blahtex::Token::Token(v5, a2);
-  a1[2] = (a1[2] + 32);
+  a1[2] += 32;
   return result;
 }
 
-void sub_2582AE18C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2582AE18C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<blahtex::Token>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9681,7 +9685,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<blahtex::Token>>(uint
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<blahtex::Token>,blahtex::Token*>(uint64_t a1, blahtex::Token *a2, blahtex::Token *a3, blahtex::Token *this)
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<blahtex::Token>,blahtex::Token*>(uint64_t a1, blahtex::Token *a2, blahtex::Token *a3, std::wstring *this)
 {
   v10 = this;
   v11 = this;
@@ -9780,7 +9784,7 @@ void std::__split_buffer<blahtex::Token>::__destruct_at_end[abi:ne200100](uint64
   }
 }
 
-uint64_t std::vector<blahtex::Token>::__emplace_back_slow_path<blahtex::Token const&>(uint64_t a1, const blahtex::Token *a2)
+uint64_t std::vector<blahtex::Token>::__emplace_back_slow_path<blahtex::Token const&>(uint64_t a1, const std::wstring *a2)
 {
   v2 = (*(a1 + 8) - *a1) >> 5;
   v3 = v2 + 1;

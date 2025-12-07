@@ -114,12 +114,10 @@
 
 - (NSString)plainTextBody
 {
-  v2 = *&self->stickerTapBack[OBJC_IVAR___BlastDoorStickerTapBack_stickerTapBack + 280];
-  v3 = *&self->stickerTapBack[OBJC_IVAR___BlastDoorStickerTapBack_stickerTapBack + 288];
 
-  v4 = sub_2146D9588();
+  v2 = sub_2146D9588();
 
-  return v4;
+  return v2;
 }
 
 - (BlastDoorStickerTapBack)init

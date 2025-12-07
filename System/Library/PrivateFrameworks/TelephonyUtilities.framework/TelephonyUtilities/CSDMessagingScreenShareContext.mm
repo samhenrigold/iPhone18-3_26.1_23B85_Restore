@@ -5,6 +5,8 @@
 - (id)dictionaryRepresentation;
 - (id)incomingScreenShareRequestFromParticipant:(id)participant handleEligibilityBlock:(id)block error:(id *)error;
 - (id)initOutgoingRequestWithScreenSharingRequest:(id)request;
+- (id)originTypeAsString:(int)string;
+- (id)typeAsString:(int)string;
 - (int)StringAsOriginType:(id)type;
 - (int)StringAsType:(id)type;
 - (int)originType;
@@ -44,6 +46,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_10061ACF0 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsType:(id)type
@@ -88,6 +105,29 @@
   {
     return 0;
   }
+}
+
+- (id)originTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"AskToShare";
+    }
+
+    else
+    {
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"JoinRequest";
+  }
+
+  return v4;
 }
 
 - (int)StringAsOriginType:(id)type
@@ -183,33 +223,31 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_screenShareUUID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    originType = self->_originType;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_metadata)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -289,7 +327,6 @@
     }
   }
 
-  v6 = *(equalCopy + 36);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 36) & 2) == 0 || self->_type != *(equalCopy + 8))
@@ -301,7 +338,7 @@
   else if ((*(equalCopy + 36) & 2) != 0)
   {
 LABEL_16:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_17;
   }
 
@@ -321,17 +358,17 @@ LABEL_16:
   metadata = self->_metadata;
   if (metadata | *(equalCopy + 1))
   {
-    v8 = [(CSDMessagingScreenShareContextMetadata *)metadata isEqual:?];
+    v7 = [(CSDMessagingScreenShareContextMetadata *)metadata isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_17:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash
@@ -448,7 +485,7 @@ LABEL_8:
     goto LABEL_12;
   }
 
-  v11 = sub_100004778();
+  v11 = sub_100004778(type);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     sub_100478DE4();
@@ -529,70 +566,71 @@ LABEL_13:
         metadata = objc_alloc_init(TUScreenSharingRequestMetadata);
         metadata2 = [(CSDMessagingScreenShareContext *)self metadata];
         [metadata2 appName];
-        v39 = identifier;
-        v23 = v12;
-        v24 = handle;
+        v41 = identifier;
+        v24 = v12;
+        v25 = handle;
         errorCopy = error;
-        v26 = blockCopy;
-        v27 = v16;
-        v29 = v28 = v18;
-        [metadata setAppName:v29];
+        v27 = blockCopy;
+        v28 = v16;
+        v30 = v29 = v18;
+        [metadata setAppName:v30];
 
         metadata3 = [(CSDMessagingScreenShareContext *)self metadata];
         bundleIdentifier = [metadata3 bundleIdentifier];
         [metadata setBundleIdentifier:bundleIdentifier];
 
-        v18 = v28;
-        v16 = v27;
-        blockCopy = v26;
+        v18 = v29;
+        v16 = v28;
+        blockCopy = v27;
         error = errorCopy;
-        handle = v24;
-        v12 = v23;
-        identifier = v39;
+        handle = v25;
+        v12 = v24;
+        identifier = v41;
       }
 
       if (v12)
       {
-        if (blockCopy[2](blockCopy, handle))
+        v33 = blockCopy[2](blockCopy, handle);
+        if (v33)
         {
-          v32 = [[TUScreenSharingRequest alloc] initWithHandle:handle type:v16 originType:v18 UUID:v12 participantIdentifier:identifier metadata:metadata];
+          v34 = [[TUScreenSharingRequest alloc] initWithHandle:handle type:v16 originType:v18 UUID:v12 participantIdentifier:identifier metadata:metadata];
           goto LABEL_33;
         }
 
-        v37 = sub_100004778();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+        v39 = sub_100004778(v33);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
           sub_100478E4C();
         }
 
         if (error)
         {
-          v35 = TUScreenSharingRequestErrorDomain;
-          v36 = 3;
+          v37 = TUScreenSharingRequestErrorDomain;
+          v38 = 3;
           goto LABEL_31;
         }
       }
 
       else
       {
-        v34 = sub_100004778();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        v36 = sub_100004778(v22);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
         {
           sub_100478EB4();
         }
 
         if (error)
         {
-          v35 = TUScreenSharingRequestErrorDomain;
-          v36 = 2;
+          v37 = TUScreenSharingRequestErrorDomain;
+          v38 = 2;
 LABEL_31:
-          v20 = [NSError errorWithDomain:v35 code:v36 userInfo:0];
+          v20 = [NSError errorWithDomain:v37 code:v38 userInfo:0];
           goto LABEL_32;
         }
       }
 
 LABEL_22:
-      v32 = 0;
+      v34 = 0;
       goto LABEL_33;
     }
 
@@ -602,8 +640,8 @@ LABEL_22:
       goto LABEL_13;
     }
 
-    v33 = sub_100004778();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v35 = sub_100004778(originType);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       sub_100478F1C();
     }
@@ -613,7 +651,7 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  v19 = sub_100004778();
+  v19 = sub_100004778(type);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     sub_100478F84();
@@ -627,11 +665,11 @@ LABEL_21:
   v20 = [NSError errorWithDomain:TUScreenSharingRequestErrorDomain code:1 userInfo:0];
   metadata = 0;
 LABEL_32:
-  v32 = 0;
+  v34 = 0;
   *error = v20;
 LABEL_33:
 
-  return v32;
+  return v34;
 }
 
 @end

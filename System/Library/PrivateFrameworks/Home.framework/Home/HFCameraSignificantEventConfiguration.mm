@@ -169,25 +169,25 @@ uint64_t __89__HFCameraSignificantEventConfiguration_configurationForCameraProfi
 
 + (id)_configurationForCameraProfiles:(id)profiles eventTypesTransform:(id)transform personFamiliarityOptionsTransform:(id)optionsTransform
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   profilesCopy = profiles;
   transformCopy = transform;
   optionsTransformCopy = optionsTransform;
   indexSet = [MEMORY[0x277CCAB58] indexSet];
   indexSet2 = [MEMORY[0x277CCAB58] indexSet];
-  v24 = MEMORY[0x277D85DD0];
-  v25 = 3221225472;
-  v26 = __127__HFCameraSignificantEventConfiguration__configurationForCameraProfiles_eventTypesTransform_personFamiliarityOptionsTransform___block_invoke;
-  v27 = &unk_277DF5D38;
+  v23 = MEMORY[0x277D85DD0];
+  v24 = 3221225472;
+  v25 = __127__HFCameraSignificantEventConfiguration__configurationForCameraProfiles_eventTypesTransform_personFamiliarityOptionsTransform___block_invoke;
+  v26 = &unk_277DF5D38;
   v13 = indexSet;
-  v28 = v13;
-  v30 = transformCopy;
+  v27 = v13;
+  v29 = transformCopy;
   v14 = indexSet2;
-  v29 = v14;
-  v31 = optionsTransformCopy;
+  v28 = v14;
+  v30 = optionsTransformCopy;
   v15 = optionsTransformCopy;
   v16 = transformCopy;
-  [profilesCopy na_each:&v24];
+  [profilesCopy na_each:&v23];
   if ([v13 count] == 1)
   {
     firstIndex = [v13 firstIndex];
@@ -199,9 +199,9 @@ uint64_t __89__HFCameraSignificantEventConfiguration_configurationForCameraProfi
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v33 = v13;
-      v34 = 2112;
-      v35 = profilesCopy;
+      v32 = v13;
+      v33 = 2112;
+      v34 = profilesCopy;
       _os_log_error_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_ERROR, "Mismatched HMCameraSignificantEventTypes:%@ for HMCameraProfiles:%@", buf, 0x16u);
     }
 
@@ -219,9 +219,9 @@ uint64_t __89__HFCameraSignificantEventConfiguration_configurationForCameraProfi
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v33 = v14;
-      v34 = 2112;
-      v35 = profilesCopy;
+      v32 = v14;
+      v33 = 2112;
+      v34 = profilesCopy;
       _os_log_error_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_ERROR, "Mismatched HMCameraSignificantEventPersonFamiliarityOptions:%@ for HMCameraProfiles:%@", buf, 0x16u);
     }
 
@@ -229,8 +229,6 @@ uint64_t __89__HFCameraSignificantEventConfiguration_configurationForCameraProfi
   }
 
   v21 = [self configurationWithEventTypes:firstIndex personFamiliarityOptions:firstIndex2];
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

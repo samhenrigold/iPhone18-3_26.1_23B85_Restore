@@ -191,9 +191,9 @@ uint64_t __45__HKProfileStore_synchronouslyFetchFirstName__block_invoke(uint64_t
 void __45__HKProfileStore_synchronouslyFetchFirstName__block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogInfrastructure();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogInfrastructure(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     __45__HKProfileStore_synchronouslyFetchFirstName__block_invoke_3_cold_1(a1);
   }
@@ -349,9 +349,9 @@ void __47__HKProfileStore_startObservingWithCompletion___block_invoke_3(uint64_t
 void __47__HKProfileStore_startObservingWithCompletion___block_invoke_5(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogInfrastructure();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogInfrastructure(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     __47__HKProfileStore_startObservingWithCompletion___block_invoke_5_cold_1(a1);
   }
@@ -437,22 +437,16 @@ uint64_t __41__HKProfileStore_addObserver_completion___block_invoke_3(uint64_t a
 
 void __45__HKProfileStore_synchronouslyFetchFirstName__block_invoke_3_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromSelector(*(a1 + 32));
   OUTLINED_FUNCTION_0_29();
-  OUTLINED_FUNCTION_1_5(&dword_19197B000, v2, v3, "%{public}@ failed: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_19197B000, v2, v3, "%{public}@ failed: %{public}@", v4, v5, v6, v7);
 }
 
 void __47__HKProfileStore_startObservingWithCompletion___block_invoke_5_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromSelector(*(a1 + 40));
   OUTLINED_FUNCTION_0_29();
-  OUTLINED_FUNCTION_1_5(&dword_19197B000, v2, v3, "%{public}@ failed: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_19197B000, v2, v3, "%{public}@ failed: %{public}@", v4, v5, v6, v7);
 }
 
 @end

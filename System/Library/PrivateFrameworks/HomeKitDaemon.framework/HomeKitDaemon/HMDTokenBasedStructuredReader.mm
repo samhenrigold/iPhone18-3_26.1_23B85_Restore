@@ -4,10 +4,10 @@
 - (_HMDStructuredDataToken)readToken;
 - (id)_consumeTokenOfType:(uint64_t)type;
 - (id)error;
-- (uint64_t)_bufferInitialTokenIfNecessary;
 - (uint64_t)_consumeToken;
 - (unint64_t)beginArray;
 - (unint64_t)beginDictionary;
+- (void)_bufferInitialTokenIfNecessary;
 - (void)failWithError:(id)error;
 - (void)skipToken;
 @end
@@ -34,17 +34,15 @@
   [(HMDTokenBasedStructuredReader *)self _consumeToken];
 }
 
-- (uint64_t)_bufferInitialTokenIfNecessary
+- (void)_bufferInitialTokenIfNecessary
 {
   if (result)
   {
     v1 = result + 1;
     if (!result[1])
     {
-      v2 = [result nextTokenAfterToken:0];
-      v3 = v1[1];
-      *v1 = v2;
-      v1[1] = v4;
+      *v1 = [result nextTokenAfterToken:0];
+      v1[1] = v2;
 
       return MEMORY[0x2821F9730]();
     }
@@ -60,10 +58,8 @@
     v1 = result + 1;
     if (result[1] >= 1)
     {
-      v2 = [result nextTokenAfterToken:result + 1];
-      v3 = v1[1];
-      *v1 = v2;
-      v1[1] = v4;
+      *v1 = [result nextTokenAfterToken:result + 1];
+      v1[1] = v2;
 
       return MEMORY[0x2821F9730]();
     }

@@ -3186,12 +3186,12 @@ LABEL_56:
   return v3;
 }
 
-uint64_t __64__ICNoteEditorNavigationItemConfiguration_emphasisBarButtonItem__block_invoke(uint64_t a1)
+uint64_t __64__ICNoteEditorNavigationItemConfiguration_emphasisBarButtonItem__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = ic_currentEmphasisColorTypeDefault() - 1;
+  v2 = *(a1 + 32);
+  v3 = ic_currentEmphasisColorTypeDefault() - 1;
 
-  return [v1 objectAtIndexedSubscript:v2];
+  return [v2 objectAtIndexedSubscript:v3];
 }
 
 void __64__ICNoteEditorNavigationItemConfiguration_emphasisBarButtonItem__block_invoke_2(uint64_t a1, void *a2)

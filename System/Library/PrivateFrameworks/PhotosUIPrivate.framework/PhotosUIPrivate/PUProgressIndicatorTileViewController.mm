@@ -765,7 +765,7 @@ LABEL_11:
     }
   }
 
-  [(PUProgressIndicatorTileViewController *)self _invalidateStatusViews];
+  [(PUProgressIndicatorTileViewController *)self _invalidateStatusViews:*v13];
 LABEL_17:
 }
 

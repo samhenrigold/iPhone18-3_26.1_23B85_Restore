@@ -184,12 +184,11 @@ void __48__DSReviewAccessController_resetAllDeviceAccess__block_invoke_2(uint64_
     v4 = DSLog_13;
     if (os_log_type_enabled(DSLog_13, OS_LOG_TYPE_INFO))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_248C7E000, v4, OS_LOG_TYPE_INFO, "Successfully reset alternative device access methods", v7, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_248C7E000, v4, OS_LOG_TYPE_INFO, "Successfully reset alternative device access methods", v6, 2u);
     }
 
     v5 = [*(a1 + 32) delegate];
-    v6 = *(a1 + 32);
     [v5 pushPaneAfterPaneType:objc_opt_class()];
   }
 }
@@ -268,11 +267,10 @@ void __48__DSReviewAccessController_resetAllDeviceAccess__block_invoke_2(uint64_
 
 - (void)presentErrorAlert:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "Error resetting device access methods: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "Error resetting device access methods: %@", &v2, 0xCu);
 }
 
 @end

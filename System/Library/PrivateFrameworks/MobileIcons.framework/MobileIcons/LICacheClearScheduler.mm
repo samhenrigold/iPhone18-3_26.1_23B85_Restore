@@ -186,21 +186,27 @@ void __31__LICacheClearScheduler_object__block_invoke(uint64_t a1)
 {
   v3 = a2;
   v4 = [OUTLINED_FUNCTION_1() transactionDescription:?];
-  OUTLINED_FUNCTION_0(&dword_259AA3000, v5, v6, "Release transaction %@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0(&dword_259AA3000, v5, v6, "Release transaction %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void __31__LICacheClearScheduler_object__block_invoke_cold_2(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [OUTLINED_FUNCTION_1() transactionDescription:?];
-  OUTLINED_FUNCTION_0(&dword_259AA3000, v5, v6, "Extending transaction %@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0(&dword_259AA3000, v5, v6, "Extending transaction %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void __31__LICacheClearScheduler_object__block_invoke_cold_4(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [OUTLINED_FUNCTION_1() transactionDescription:?];
-  OUTLINED_FUNCTION_0(&dword_259AA3000, v5, v6, "Created transaction %@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0(&dword_259AA3000, v5, v6, "Created transaction %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

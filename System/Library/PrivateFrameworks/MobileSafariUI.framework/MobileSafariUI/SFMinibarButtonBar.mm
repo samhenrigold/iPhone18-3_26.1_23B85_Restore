@@ -45,7 +45,7 @@
   viewCopy = view;
   selfCopy = self;
   sub_2159FA3E4(imageCopy, viewCopy, item, v15, v16, x, y, width, height);
-  sub_2159F7E0C(v15);
+  sub_2159F7E0C(v15, v16);
 }
 
 - (void)willBeginTransitionWithCoordinator:(id)coordinator

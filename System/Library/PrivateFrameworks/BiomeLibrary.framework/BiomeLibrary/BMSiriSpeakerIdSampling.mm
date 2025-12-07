@@ -18,16 +18,14 @@
 
 + (id)columns
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"timestamp" dataType:3 requestOnly:0 fieldNumber:1 protoDataType:0 convertedType:2];
   v3 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"onDeviceSampleIdentifiers_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_91178];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"enrollmentIdentifier" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
-  v8[0] = v2;
-  v8[1] = v3;
-  v8[2] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[0] = v2;
+  v7[1] = v3;
+  v7[2] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
 
   return v5;
 }
@@ -123,7 +121,7 @@ LABEL_16:
 
 - (id)jsonDictionary
 {
-  v16[3] = *MEMORY[0x1E69E9840];
+  v15[3] = *MEMORY[0x1E69E9840];
   timestamp = [(BMSiriSpeakerIdSampling *)self timestamp];
   if (timestamp)
   {
@@ -140,31 +138,31 @@ LABEL_16:
 
   _onDeviceSampleIdentifiersJSONArray = [(BMSiriSpeakerIdSampling *)self _onDeviceSampleIdentifiersJSONArray];
   enrollmentIdentifier = [(BMSiriSpeakerIdSampling *)self enrollmentIdentifier];
-  v15[0] = @"timestamp";
+  v14[0] = @"timestamp";
   null = v6;
   if (!v6)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[0] = null;
-  v15[1] = @"onDeviceSampleIdentifiers";
+  v15[0] = null;
+  v14[1] = @"onDeviceSampleIdentifiers";
   null2 = _onDeviceSampleIdentifiersJSONArray;
   if (!_onDeviceSampleIdentifiersJSONArray)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[1] = null2;
-  v15[2] = @"enrollmentIdentifier";
+  v15[1] = null2;
+  v14[2] = @"enrollmentIdentifier";
   null3 = enrollmentIdentifier;
   if (!enrollmentIdentifier)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[2] = null3;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v15[2] = null3;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
   if (enrollmentIdentifier)
   {
     if (_onDeviceSampleIdentifiersJSONArray)
@@ -196,51 +194,48 @@ LABEL_12:
 LABEL_18:
 
 LABEL_13:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (id)_onDeviceSampleIdentifiersJSONArray
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   onDeviceSampleIdentifiers = [(BMSiriSpeakerIdSampling *)self onDeviceSampleIdentifiers];
-  v5 = [onDeviceSampleIdentifiers countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [onDeviceSampleIdentifiers countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(onDeviceSampleIdentifiers);
         }
 
-        [v3 addObject:*(*(&v11 + 1) + 8 * i)];
+        [v3 addObject:*(*(&v10 + 1) + 8 * i)];
       }
 
-      v6 = [onDeviceSampleIdentifiers countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [onDeviceSampleIdentifiers countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BMSiriSpeakerIdSampling)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v65[1] = *MEMORY[0x1E69E9840];
+  v64[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v6 = [dictionaryCopy objectForKeyedSubscript:@"timestamp"];
   if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -273,16 +268,16 @@ LABEL_13:
         {
           if (error)
           {
-            v43 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v44 = *MEMORY[0x1E698F240];
-            v64 = *MEMORY[0x1E696A578];
+            v42 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v43 = *MEMORY[0x1E698F240];
+            v63 = *MEMORY[0x1E696A578];
             v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"timestamp"];
-            v65[0] = v8;
-            v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v65 forKeys:&v64 count:1];
-            v45 = [v43 initWithDomain:v44 code:2 userInfo:v11];
+            v64[0] = v8;
+            v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v64 forKeys:&v63 count:1];
+            v44 = [v42 initWithDomain:v43 code:2 userInfo:v11];
             v7 = 0;
             selfCopy3 = 0;
-            *error = v45;
+            *error = v44;
             goto LABEL_39;
           }
 
@@ -307,8 +302,8 @@ LABEL_13:
 
   if (v10)
   {
-    v46 = dictionaryCopy;
-    v47 = v7;
+    v45 = dictionaryCopy;
+    v46 = v7;
     selfCopy2 = self;
 
     v8 = 0;
@@ -323,13 +318,13 @@ LABEL_13:
       {
         if (error)
         {
-          v49 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v48 = objc_alloc(MEMORY[0x1E696ABC0]);
           v34 = *MEMORY[0x1E698F240];
-          v62 = *MEMORY[0x1E696A578];
+          v61 = *MEMORY[0x1E696A578];
           v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"onDeviceSampleIdentifiers"];
-          v63 = v11;
-          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
-          v35 = [v49 initWithDomain:v34 code:2 userInfo:v18];
+          v62 = v11;
+          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
+          v35 = [v48 initWithDomain:v34 code:2 userInfo:v18];
           selfCopy3 = 0;
           *error = v35;
           goto LABEL_38;
@@ -340,35 +335,35 @@ LABEL_13:
       }
     }
 
-    v46 = dictionaryCopy;
-    v47 = v7;
+    v45 = dictionaryCopy;
+    v46 = v7;
     selfCopy2 = self;
   }
 
   v11 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v8, "count")}];
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   v8 = v8;
-  v12 = [v8 countByEnumeratingWithState:&v51 objects:v61 count:16];
+  v12 = [v8 countByEnumeratingWithState:&v50 objects:v60 count:16];
   if (!v12)
   {
     goto LABEL_18;
   }
 
   v13 = v12;
-  v14 = *v52;
+  v14 = *v51;
   while (2)
   {
     for (i = 0; i != v13; ++i)
     {
-      if (*v52 != v14)
+      if (*v51 != v14)
       {
         objc_enumerationMutation(v8);
       }
 
-      v16 = *(*(&v51 + 1) + 8 * i);
+      v16 = *(*(&v50 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -377,10 +372,10 @@ LABEL_13:
         {
           v25 = objc_alloc(MEMORY[0x1E696ABC0]);
           v26 = *MEMORY[0x1E698F240];
-          v59 = *MEMORY[0x1E696A578];
+          v58 = *MEMORY[0x1E696A578];
           v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"onDeviceSampleIdentifiers"];
-          v60 = v17;
-          v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+          v59 = v17;
+          v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
           v28 = v25;
           v29 = v26;
 LABEL_27:
@@ -388,18 +383,18 @@ LABEL_27:
 
           selfCopy3 = 0;
           v18 = v8;
-          v7 = v47;
+          v7 = v46;
           self = selfCopy2;
-          dictionaryCopy = v46;
+          dictionaryCopy = v45;
           goto LABEL_37;
         }
 
 LABEL_28:
         selfCopy3 = 0;
         v18 = v8;
-        v7 = v47;
+        v7 = v46;
         self = selfCopy2;
-        dictionaryCopy = v46;
+        dictionaryCopy = v45;
         goto LABEL_38;
       }
 
@@ -410,10 +405,10 @@ LABEL_28:
         {
           v30 = objc_alloc(MEMORY[0x1E696ABC0]);
           v31 = *MEMORY[0x1E698F240];
-          v57 = *MEMORY[0x1E696A578];
+          v56 = *MEMORY[0x1E696A578];
           v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"onDeviceSampleIdentifiers"];
-          v58 = v17;
-          v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+          v57 = v17;
+          v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
           v28 = v30;
           v29 = v31;
           errorCopy2 = error;
@@ -426,7 +421,7 @@ LABEL_28:
       [v11 addObject:v16];
     }
 
-    v13 = [v8 countByEnumeratingWithState:&v51 objects:v61 count:16];
+    v13 = [v8 countByEnumeratingWithState:&v50 objects:v60 count:16];
     if (v13)
     {
       continue;
@@ -437,8 +432,8 @@ LABEL_28:
 
 LABEL_18:
 
-  dictionaryCopy = v46;
-  v17 = [v46 objectForKeyedSubscript:@"enrollmentIdentifier"];
+  dictionaryCopy = v45;
+  v17 = [v45 objectForKeyedSubscript:@"enrollmentIdentifier"];
   if (!v17)
   {
     v18 = 0;
@@ -459,8 +454,8 @@ LABEL_18:
   {
     v18 = v17;
 LABEL_36:
-    v7 = v47;
-    self = [(BMSiriSpeakerIdSampling *)self initWithTimestamp:v47 onDeviceSampleIdentifiers:v11 enrollmentIdentifier:v18];
+    v7 = v46;
+    self = [(BMSiriSpeakerIdSampling *)self initWithTimestamp:v46 onDeviceSampleIdentifiers:v11 enrollmentIdentifier:v18];
     selfCopy3 = self;
   }
 
@@ -468,20 +463,20 @@ LABEL_36:
   {
     if (error)
     {
-      v38 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v39 = *MEMORY[0x1E698F240];
-      v55 = *MEMORY[0x1E696A578];
-      v40 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"enrollmentIdentifier"];
-      v56 = v40;
-      v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
-      v42 = v39;
+      v37 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v38 = *MEMORY[0x1E698F240];
+      v54 = *MEMORY[0x1E696A578];
+      v39 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"enrollmentIdentifier"];
+      v55 = v39;
+      v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+      v41 = v38;
       self = selfCopy2;
-      *error = [v38 initWithDomain:v42 code:2 userInfo:v41];
+      *error = [v37 initWithDomain:v41 code:2 userInfo:v40];
     }
 
     v18 = 0;
     selfCopy3 = 0;
-    v7 = v47;
+    v7 = v46;
   }
 
 LABEL_37:
@@ -492,7 +487,6 @@ LABEL_39:
 LABEL_40:
 LABEL_41:
 
-  v36 = *MEMORY[0x1E69E9840];
   return selfCopy3;
 }
 
@@ -507,52 +501,48 @@ LABEL_41:
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_hasRaw_timestamp)
   {
-    raw_timestamp = self->_raw_timestamp;
     PBDataWriterWriteDoubleField();
   }
 
-  v15 = 0u;
-  v16 = 0u;
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v6 = self->_onDeviceSampleIdentifiers;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v7)
+  v10 = 0u;
+  v11 = 0u;
+  v5 = self->_onDeviceSampleIdentifiers;
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v14;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
         PBDataWriterWriteStringField();
-        ++v10;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      while (v7 != v9);
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   if (self->_enrollmentIdentifier)
   {
     PBDataWriterWriteStringField();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initByReadFrom:(id)from
@@ -736,26 +726,24 @@ LABEL_34:
 
 + (id)protoFields
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"timestamp" number:1 type:0 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"onDeviceSampleIdentifiers" number:2 type:13 subMessageClass:{0, v2}];
-  v8[1] = v3;
+  v7[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"enrollmentIdentifier" number:3 type:13 subMessageClass:0];
-  v8[2] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[2] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
 
   return v5;
 }
 
-id __34__BMSiriSpeakerIdSampling_columns__block_invoke(uint64_t a1, void *a2)
+id __34__BMSiriSpeakerIdSampling_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _onDeviceSampleIdentifiersJSONArray];
-  v4 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _onDeviceSampleIdentifiersJSONArray];
+  v5 = BMConvertObjectToJSONString();
 
-  return v4;
+  return v5;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

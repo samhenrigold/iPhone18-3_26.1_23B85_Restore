@@ -36,7 +36,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v121 = *MEMORY[0x1E69E9840];
+  v120 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(_INPBWholeHouseAudioMetadata *)self hasHasExcept])
   {
@@ -47,30 +47,30 @@
   if ([(NSArray *)self->_intentDestinationSpeakers count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v107 = 0u;
     v108 = 0u;
     v109 = 0u;
     v110 = 0u;
-    v111 = 0u;
     v6 = self->_intentDestinationSpeakers;
-    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v108 objects:v120 count:16];
+    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v107 objects:v119 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v109;
+      v9 = *v108;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v109 != v9)
+          if (*v108 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          dictionaryRepresentation = [*(*(&v108 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v107 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v108 objects:v120 count:16];
+        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v107 objects:v119 count:16];
       }
 
       while (v8);
@@ -82,30 +82,30 @@
   if ([(NSArray *)self->_intentPermanentNames count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v103 = 0u;
     v104 = 0u;
     v105 = 0u;
     v106 = 0u;
-    v107 = 0u;
     v13 = self->_intentPermanentNames;
-    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v104 objects:v119 count:16];
+    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v103 objects:v118 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v105;
+      v16 = *v104;
       do
       {
         for (j = 0; j != v15; ++j)
         {
-          if (*v105 != v16)
+          if (*v104 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          dictionaryRepresentation2 = [*(*(&v104 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v103 + 1) + 8 * j) dictionaryRepresentation];
           [array2 addObject:dictionaryRepresentation2];
         }
 
-        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v104 objects:v119 count:16];
+        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v103 objects:v118 count:16];
       }
 
       while (v15);
@@ -117,30 +117,30 @@
   if ([(NSArray *)self->_intentSpeakerNames count])
   {
     array3 = [MEMORY[0x1E695DF70] array];
+    v99 = 0u;
     v100 = 0u;
     v101 = 0u;
     v102 = 0u;
-    v103 = 0u;
     v20 = self->_intentSpeakerNames;
-    v21 = [(NSArray *)v20 countByEnumeratingWithState:&v100 objects:v118 count:16];
+    v21 = [(NSArray *)v20 countByEnumeratingWithState:&v99 objects:v117 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v101;
+      v23 = *v100;
       do
       {
         for (k = 0; k != v22; ++k)
         {
-          if (*v101 != v23)
+          if (*v100 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          dictionaryRepresentation3 = [*(*(&v100 + 1) + 8 * k) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v99 + 1) + 8 * k) dictionaryRepresentation];
           [array3 addObject:dictionaryRepresentation3];
         }
 
-        v22 = [(NSArray *)v20 countByEnumeratingWithState:&v100 objects:v118 count:16];
+        v22 = [(NSArray *)v20 countByEnumeratingWithState:&v99 objects:v117 count:16];
       }
 
       while (v22);
@@ -152,30 +152,30 @@
   if ([(NSArray *)self->_intentSpeakerRooms count])
   {
     array4 = [MEMORY[0x1E695DF70] array];
+    v95 = 0u;
     v96 = 0u;
     v97 = 0u;
     v98 = 0u;
-    v99 = 0u;
     v27 = self->_intentSpeakerRooms;
-    v28 = [(NSArray *)v27 countByEnumeratingWithState:&v96 objects:v117 count:16];
+    v28 = [(NSArray *)v27 countByEnumeratingWithState:&v95 objects:v116 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v97;
+      v30 = *v96;
       do
       {
         for (m = 0; m != v29; ++m)
         {
-          if (*v97 != v30)
+          if (*v96 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
-          dictionaryRepresentation4 = [*(*(&v96 + 1) + 8 * m) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v95 + 1) + 8 * m) dictionaryRepresentation];
           [array4 addObject:dictionaryRepresentation4];
         }
 
-        v29 = [(NSArray *)v27 countByEnumeratingWithState:&v96 objects:v117 count:16];
+        v29 = [(NSArray *)v27 countByEnumeratingWithState:&v95 objects:v116 count:16];
       }
 
       while (v29);
@@ -223,30 +223,30 @@
   if ([(NSArray *)self->_permanentNames count])
   {
     array5 = [MEMORY[0x1E695DF70] array];
+    v91 = 0u;
     v92 = 0u;
     v93 = 0u;
     v94 = 0u;
-    v95 = 0u;
     v40 = self->_permanentNames;
-    v41 = [(NSArray *)v40 countByEnumeratingWithState:&v92 objects:v116 count:16];
+    v41 = [(NSArray *)v40 countByEnumeratingWithState:&v91 objects:v115 count:16];
     if (v41)
     {
       v42 = v41;
-      v43 = *v93;
+      v43 = *v92;
       do
       {
         for (n = 0; n != v42; ++n)
         {
-          if (*v93 != v43)
+          if (*v92 != v43)
           {
             objc_enumerationMutation(v40);
           }
 
-          dictionaryRepresentation5 = [*(*(&v92 + 1) + 8 * n) dictionaryRepresentation];
+          dictionaryRepresentation5 = [*(*(&v91 + 1) + 8 * n) dictionaryRepresentation];
           [array5 addObject:dictionaryRepresentation5];
         }
 
-        v42 = [(NSArray *)v40 countByEnumeratingWithState:&v92 objects:v116 count:16];
+        v42 = [(NSArray *)v40 countByEnumeratingWithState:&v91 objects:v115 count:16];
       }
 
       while (v42);
@@ -258,30 +258,30 @@
   if ([(NSArray *)self->_speakerNames count])
   {
     array6 = [MEMORY[0x1E695DF70] array];
+    v87 = 0u;
     v88 = 0u;
     v89 = 0u;
     v90 = 0u;
-    v91 = 0u;
     v47 = self->_speakerNames;
-    v48 = [(NSArray *)v47 countByEnumeratingWithState:&v88 objects:v115 count:16];
+    v48 = [(NSArray *)v47 countByEnumeratingWithState:&v87 objects:v114 count:16];
     if (v48)
     {
       v49 = v48;
-      v50 = *v89;
+      v50 = *v88;
       do
       {
         for (ii = 0; ii != v49; ++ii)
         {
-          if (*v89 != v50)
+          if (*v88 != v50)
           {
             objc_enumerationMutation(v47);
           }
 
-          dictionaryRepresentation6 = [*(*(&v88 + 1) + 8 * ii) dictionaryRepresentation];
+          dictionaryRepresentation6 = [*(*(&v87 + 1) + 8 * ii) dictionaryRepresentation];
           [array6 addObject:dictionaryRepresentation6];
         }
 
-        v49 = [(NSArray *)v47 countByEnumeratingWithState:&v88 objects:v115 count:16];
+        v49 = [(NSArray *)v47 countByEnumeratingWithState:&v87 objects:v114 count:16];
       }
 
       while (v49);
@@ -293,30 +293,30 @@
   if ([(NSArray *)self->_speakerRooms count])
   {
     array7 = [MEMORY[0x1E695DF70] array];
+    v83 = 0u;
     v84 = 0u;
     v85 = 0u;
     v86 = 0u;
-    v87 = 0u;
     v54 = self->_speakerRooms;
-    v55 = [(NSArray *)v54 countByEnumeratingWithState:&v84 objects:v114 count:16];
+    v55 = [(NSArray *)v54 countByEnumeratingWithState:&v83 objects:v113 count:16];
     if (v55)
     {
       v56 = v55;
-      v57 = *v85;
+      v57 = *v84;
       do
       {
         for (jj = 0; jj != v56; ++jj)
         {
-          if (*v85 != v57)
+          if (*v84 != v57)
           {
             objc_enumerationMutation(v54);
           }
 
-          dictionaryRepresentation7 = [*(*(&v84 + 1) + 8 * jj) dictionaryRepresentation];
+          dictionaryRepresentation7 = [*(*(&v83 + 1) + 8 * jj) dictionaryRepresentation];
           [array7 addObject:dictionaryRepresentation7];
         }
 
-        v56 = [(NSArray *)v54 countByEnumeratingWithState:&v84 objects:v114 count:16];
+        v56 = [(NSArray *)v54 countByEnumeratingWithState:&v83 objects:v113 count:16];
       }
 
       while (v56);
@@ -328,30 +328,30 @@
   if ([(NSArray *)self->_spokenEntityNames count])
   {
     array8 = [MEMORY[0x1E695DF70] array];
+    v79 = 0u;
     v80 = 0u;
     v81 = 0u;
     v82 = 0u;
-    v83 = 0u;
     v61 = self->_spokenEntityNames;
-    v62 = [(NSArray *)v61 countByEnumeratingWithState:&v80 objects:v113 count:16];
+    v62 = [(NSArray *)v61 countByEnumeratingWithState:&v79 objects:v112 count:16];
     if (v62)
     {
       v63 = v62;
-      v64 = *v81;
+      v64 = *v80;
       do
       {
         for (kk = 0; kk != v63; ++kk)
         {
-          if (*v81 != v64)
+          if (*v80 != v64)
           {
             objc_enumerationMutation(v61);
           }
 
-          dictionaryRepresentation8 = [*(*(&v80 + 1) + 8 * kk) dictionaryRepresentation];
+          dictionaryRepresentation8 = [*(*(&v79 + 1) + 8 * kk) dictionaryRepresentation];
           [array8 addObject:dictionaryRepresentation8];
         }
 
-        v63 = [(NSArray *)v61 countByEnumeratingWithState:&v80 objects:v113 count:16];
+        v63 = [(NSArray *)v61 countByEnumeratingWithState:&v79 objects:v112 count:16];
       }
 
       while (v63);
@@ -363,30 +363,30 @@
   if ([(NSArray *)self->_spokenEntityTypes count])
   {
     array9 = [MEMORY[0x1E695DF70] array];
+    v75 = 0u;
     v76 = 0u;
     v77 = 0u;
     v78 = 0u;
-    v79 = 0u;
     v68 = self->_spokenEntityTypes;
-    v69 = [(NSArray *)v68 countByEnumeratingWithState:&v76 objects:v112 count:16];
+    v69 = [(NSArray *)v68 countByEnumeratingWithState:&v75 objects:v111 count:16];
     if (v69)
     {
       v70 = v69;
-      v71 = *v77;
+      v71 = *v76;
       do
       {
         for (mm = 0; mm != v70; ++mm)
         {
-          if (*v77 != v71)
+          if (*v76 != v71)
           {
             objc_enumerationMutation(v68);
           }
 
-          dictionaryRepresentation9 = [*(*(&v76 + 1) + 8 * mm) dictionaryRepresentation];
+          dictionaryRepresentation9 = [*(*(&v75 + 1) + 8 * mm) dictionaryRepresentation];
           [array9 addObject:dictionaryRepresentation9];
         }
 
-        v70 = [(NSArray *)v68 countByEnumeratingWithState:&v76 objects:v112 count:16];
+        v70 = [(NSArray *)v68 countByEnumeratingWithState:&v75 objects:v111 count:16];
       }
 
       while (v70);
@@ -394,8 +394,6 @@
 
     [dictionary setObject:array9 forKeyedSubscript:@"spokenEntityType"];
   }
-
-  v74 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -948,339 +946,321 @@ LABEL_76:
 
 - (void)writeTo:(id)to
 {
-  v112 = *MEMORY[0x1E69E9840];
+  v95 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ([(_INPBWholeHouseAudioMetadata *)self hasHasExcept])
   {
-    hasExcept = self->_hasExcept;
     PBDataWriterWriteBOOLField();
   }
 
-  v101 = 0u;
-  v102 = 0u;
-  v99 = 0u;
-  v100 = 0u;
-  v6 = self->_intentDestinationSpeakers;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v99 objects:v111 count:16];
-  if (v7)
+  v84 = 0u;
+  v85 = 0u;
+  v82 = 0u;
+  v83 = 0u;
+  v5 = self->_intentDestinationSpeakers;
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v82 objects:v94 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v100;
+    v7 = v6;
+    v8 = *v83;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v100 != v9)
+        if (*v83 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v99 + 1) + 8 * v10);
         PBDataWriterWriteSubmessage();
-        ++v10;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v99 objects:v111 count:16];
+      while (v7 != v9);
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v82 objects:v94 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
-  v97 = 0u;
-  v98 = 0u;
-  v95 = 0u;
-  v96 = 0u;
-  v12 = self->_intentPermanentNames;
-  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v95 objects:v110 count:16];
-  if (v13)
+  v80 = 0u;
+  v81 = 0u;
+  v78 = 0u;
+  v79 = 0u;
+  v10 = self->_intentPermanentNames;
+  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v78 objects:v93 count:16];
+  if (v11)
   {
-    v14 = v13;
-    v15 = *v96;
+    v12 = v11;
+    v13 = *v79;
     do
     {
-      v16 = 0;
+      v14 = 0;
       do
       {
-        if (*v96 != v15)
+        if (*v79 != v13)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v10);
         }
 
-        v17 = *(*(&v95 + 1) + 8 * v16);
         PBDataWriterWriteSubmessage();
-        ++v16;
+        ++v14;
       }
 
-      while (v14 != v16);
-      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v95 objects:v110 count:16];
+      while (v12 != v14);
+      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v78 objects:v93 count:16];
     }
 
-    while (v14);
+    while (v12);
   }
 
-  v93 = 0u;
-  v94 = 0u;
-  v91 = 0u;
-  v92 = 0u;
-  v18 = self->_intentSpeakerNames;
-  v19 = [(NSArray *)v18 countByEnumeratingWithState:&v91 objects:v109 count:16];
-  if (v19)
+  v76 = 0u;
+  v77 = 0u;
+  v74 = 0u;
+  v75 = 0u;
+  v15 = self->_intentSpeakerNames;
+  v16 = [(NSArray *)v15 countByEnumeratingWithState:&v74 objects:v92 count:16];
+  if (v16)
   {
-    v20 = v19;
-    v21 = *v92;
+    v17 = v16;
+    v18 = *v75;
     do
     {
-      v22 = 0;
+      v19 = 0;
       do
       {
-        if (*v92 != v21)
+        if (*v75 != v18)
         {
-          objc_enumerationMutation(v18);
+          objc_enumerationMutation(v15);
         }
 
-        v23 = *(*(&v91 + 1) + 8 * v22);
         PBDataWriterWriteSubmessage();
-        ++v22;
+        ++v19;
       }
 
-      while (v20 != v22);
-      v20 = [(NSArray *)v18 countByEnumeratingWithState:&v91 objects:v109 count:16];
+      while (v17 != v19);
+      v17 = [(NSArray *)v15 countByEnumeratingWithState:&v74 objects:v92 count:16];
     }
 
-    while (v20);
+    while (v17);
   }
 
-  v89 = 0u;
-  v90 = 0u;
-  v87 = 0u;
-  v88 = 0u;
-  v24 = self->_intentSpeakerRooms;
-  v25 = [(NSArray *)v24 countByEnumeratingWithState:&v87 objects:v108 count:16];
-  if (v25)
+  v72 = 0u;
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
+  v20 = self->_intentSpeakerRooms;
+  v21 = [(NSArray *)v20 countByEnumeratingWithState:&v70 objects:v91 count:16];
+  if (v21)
   {
-    v26 = v25;
-    v27 = *v88;
+    v22 = v21;
+    v23 = *v71;
     do
     {
-      v28 = 0;
+      v24 = 0;
       do
       {
-        if (*v88 != v27)
+        if (*v71 != v23)
         {
-          objc_enumerationMutation(v24);
+          objc_enumerationMutation(v20);
         }
 
-        v29 = *(*(&v87 + 1) + 8 * v28);
         PBDataWriterWriteSubmessage();
-        ++v28;
+        ++v24;
       }
 
-      while (v26 != v28);
-      v26 = [(NSArray *)v24 countByEnumeratingWithState:&v87 objects:v108 count:16];
+      while (v22 != v24);
+      v22 = [(NSArray *)v20 countByEnumeratingWithState:&v70 objects:v91 count:16];
     }
 
-    while (v26);
+    while (v22);
   }
 
   if ([(_INPBWholeHouseAudioMetadata *)self hasIsAllSpeakers])
   {
-    isAllSpeakers = self->_isAllSpeakers;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBWholeHouseAudioMetadata *)self hasIsInHere])
   {
-    isInHere = self->_isInHere;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBWholeHouseAudioMetadata *)self hasIsParticipatingSpeaker])
   {
-    isParticipatingSpeaker = self->_isParticipatingSpeaker;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBWholeHouseAudioMetadata *)self hasIsPauseOrStop])
   {
-    isPauseOrStop = self->_isPauseOrStop;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBWholeHouseAudioMetadata *)self hasIsWholeHouseAudioCommand])
   {
-    isWholeHouseAudioCommand = self->_isWholeHouseAudioCommand;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBWholeHouseAudioMetadata *)self hasNumberOfHomeAutomationWords])
   {
-    numberOfHomeAutomationWords = self->_numberOfHomeAutomationWords;
     PBDataWriterWriteInt32Field();
   }
 
-  v85 = 0u;
-  v86 = 0u;
-  v83 = 0u;
-  v84 = 0u;
-  v36 = self->_permanentNames;
-  v37 = [(NSArray *)v36 countByEnumeratingWithState:&v83 objects:v107 count:16];
-  if (v37)
-  {
-    v38 = v37;
-    v39 = *v84;
-    do
-    {
-      v40 = 0;
-      do
-      {
-        if (*v84 != v39)
-        {
-          objc_enumerationMutation(v36);
-        }
-
-        v41 = *(*(&v83 + 1) + 8 * v40);
-        PBDataWriterWriteSubmessage();
-        ++v40;
-      }
-
-      while (v38 != v40);
-      v38 = [(NSArray *)v36 countByEnumeratingWithState:&v83 objects:v107 count:16];
-    }
-
-    while (v38);
-  }
-
-  v81 = 0u;
-  v82 = 0u;
-  v79 = 0u;
-  v80 = 0u;
-  v42 = self->_speakerNames;
-  v43 = [(NSArray *)v42 countByEnumeratingWithState:&v79 objects:v106 count:16];
-  if (v43)
-  {
-    v44 = v43;
-    v45 = *v80;
-    do
-    {
-      v46 = 0;
-      do
-      {
-        if (*v80 != v45)
-        {
-          objc_enumerationMutation(v42);
-        }
-
-        v47 = *(*(&v79 + 1) + 8 * v46);
-        PBDataWriterWriteSubmessage();
-        ++v46;
-      }
-
-      while (v44 != v46);
-      v44 = [(NSArray *)v42 countByEnumeratingWithState:&v79 objects:v106 count:16];
-    }
-
-    while (v44);
-  }
-
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
-  v76 = 0u;
-  v48 = self->_speakerRooms;
-  v49 = [(NSArray *)v48 countByEnumeratingWithState:&v75 objects:v105 count:16];
-  if (v49)
-  {
-    v50 = v49;
-    v51 = *v76;
-    do
-    {
-      v52 = 0;
-      do
-      {
-        if (*v76 != v51)
-        {
-          objc_enumerationMutation(v48);
-        }
-
-        v53 = *(*(&v75 + 1) + 8 * v52);
-        PBDataWriterWriteSubmessage();
-        ++v52;
-      }
-
-      while (v50 != v52);
-      v50 = [(NSArray *)v48 countByEnumeratingWithState:&v75 objects:v105 count:16];
-    }
-
-    while (v50);
-  }
-
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
-  v72 = 0u;
-  v54 = self->_spokenEntityNames;
-  v55 = [(NSArray *)v54 countByEnumeratingWithState:&v71 objects:v104 count:16];
-  if (v55)
-  {
-    v56 = v55;
-    v57 = *v72;
-    do
-    {
-      v58 = 0;
-      do
-      {
-        if (*v72 != v57)
-        {
-          objc_enumerationMutation(v54);
-        }
-
-        v59 = *(*(&v71 + 1) + 8 * v58);
-        PBDataWriterWriteSubmessage();
-        ++v58;
-      }
-
-      while (v56 != v58);
-      v56 = [(NSArray *)v54 countByEnumeratingWithState:&v71 objects:v104 count:16];
-    }
-
-    while (v56);
-  }
-
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
   v68 = 0u;
-  v60 = self->_spokenEntityTypes;
-  v61 = [(NSArray *)v60 countByEnumeratingWithState:&v67 objects:v103 count:16];
-  if (v61)
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v25 = self->_permanentNames;
+  v26 = [(NSArray *)v25 countByEnumeratingWithState:&v66 objects:v90 count:16];
+  if (v26)
   {
-    v62 = v61;
-    v63 = *v68;
+    v27 = v26;
+    v28 = *v67;
     do
     {
-      v64 = 0;
+      v29 = 0;
       do
       {
-        if (*v68 != v63)
+        if (*v67 != v28)
         {
-          objc_enumerationMutation(v60);
+          objc_enumerationMutation(v25);
         }
 
-        v65 = *(*(&v67 + 1) + 8 * v64);
         PBDataWriterWriteSubmessage();
-        ++v64;
+        ++v29;
       }
 
-      while (v62 != v64);
-      v62 = [(NSArray *)v60 countByEnumeratingWithState:&v67 objects:v103 count:16];
+      while (v27 != v29);
+      v27 = [(NSArray *)v25 countByEnumeratingWithState:&v66 objects:v90 count:16];
     }
 
-    while (v62);
+    while (v27);
   }
 
-  v66 = *MEMORY[0x1E69E9840];
+  v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v30 = self->_speakerNames;
+  v31 = [(NSArray *)v30 countByEnumeratingWithState:&v62 objects:v89 count:16];
+  if (v31)
+  {
+    v32 = v31;
+    v33 = *v63;
+    do
+    {
+      v34 = 0;
+      do
+      {
+        if (*v63 != v33)
+        {
+          objc_enumerationMutation(v30);
+        }
+
+        PBDataWriterWriteSubmessage();
+        ++v34;
+      }
+
+      while (v32 != v34);
+      v32 = [(NSArray *)v30 countByEnumeratingWithState:&v62 objects:v89 count:16];
+    }
+
+    while (v32);
+  }
+
+  v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v35 = self->_speakerRooms;
+  v36 = [(NSArray *)v35 countByEnumeratingWithState:&v58 objects:v88 count:16];
+  if (v36)
+  {
+    v37 = v36;
+    v38 = *v59;
+    do
+    {
+      v39 = 0;
+      do
+      {
+        if (*v59 != v38)
+        {
+          objc_enumerationMutation(v35);
+        }
+
+        PBDataWriterWriteSubmessage();
+        ++v39;
+      }
+
+      while (v37 != v39);
+      v37 = [(NSArray *)v35 countByEnumeratingWithState:&v58 objects:v88 count:16];
+    }
+
+    while (v37);
+  }
+
+  v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  v40 = self->_spokenEntityNames;
+  v41 = [(NSArray *)v40 countByEnumeratingWithState:&v54 objects:v87 count:16];
+  if (v41)
+  {
+    v42 = v41;
+    v43 = *v55;
+    do
+    {
+      v44 = 0;
+      do
+      {
+        if (*v55 != v43)
+        {
+          objc_enumerationMutation(v40);
+        }
+
+        PBDataWriterWriteSubmessage();
+        ++v44;
+      }
+
+      while (v42 != v44);
+      v42 = [(NSArray *)v40 countByEnumeratingWithState:&v54 objects:v87 count:16];
+    }
+
+    while (v42);
+  }
+
+  v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v45 = self->_spokenEntityTypes;
+  v46 = [(NSArray *)v45 countByEnumeratingWithState:&v50 objects:v86 count:16];
+  if (v46)
+  {
+    v47 = v46;
+    v48 = *v51;
+    do
+    {
+      v49 = 0;
+      do
+      {
+        if (*v51 != v48)
+        {
+          objc_enumerationMutation(v45);
+        }
+
+        PBDataWriterWriteSubmessage();
+        ++v49;
+      }
+
+      while (v47 != v49);
+      v47 = [(NSArray *)v45 countByEnumeratingWithState:&v50 objects:v86 count:16];
+    }
+
+    while (v47);
+  }
 }
 
 - (void)addSpokenEntityType:(id)type

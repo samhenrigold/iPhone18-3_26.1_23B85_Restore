@@ -13,6 +13,7 @@
 - (void)_invalidatePreferredEnvironments;
 - (void)_reportInferredPreferredFocusEnvironment:(id)environment;
 - (void)_resolvePreferredFocusEnvironments;
+- (void)_stopLogging;
 - (void)popEnvironment;
 - (void)pushEnvironment:(id)environment;
 @end
@@ -567,6 +568,13 @@ LABEL_13:
   rootNode = [(_UIDebugLogStack *)self->_debugStack rootNode];
 
   return rootNode;
+}
+
+- (void)_stopLogging
+{
+  debugStack = self->_debugStack;
+  self->_debugStack = 0;
+  MEMORY[0x2821F96F8](self, debugStack);
 }
 
 - (void)_reportInferredPreferredFocusEnvironment:(id)environment

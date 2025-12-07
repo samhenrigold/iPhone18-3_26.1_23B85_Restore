@@ -83,10 +83,11 @@ void __61__OKMediaFileSystemItem_createMetadataWithCompletionHandler___block_inv
     v5 = [MEMORY[0x277CE6650] URLAssetWithURL:a2 options:0];
     if (!v5)
     {
-      goto LABEL_26;
+      goto LABEL_27;
     }
 
-    goto LABEL_3;
+    objc_msgSend_duration(v5);
+    goto LABEL_4;
   }
 
   if (UTTypeConformsTo(v4, *MEMORY[0x277CC20B0]) == 1)
@@ -171,18 +172,17 @@ void __61__OKMediaFileSystemItem_createMetadataWithCompletionHandler___block_inv
         }
 
         [*(a1 + 32) setResolution:{v24, v25}];
-        v5 = v18;
-LABEL_3:
-        [v5 duration];
+        objc_msgSend_duration(v18);
+LABEL_4:
         [*(a1 + 32) setDuration:CMTimeGetSeconds(&time)];
-        goto LABEL_26;
+        goto LABEL_27;
       }
 
       [*(a1 + 32) setType:1];
     }
   }
 
-LABEL_26:
+LABEL_27:
   v20 = objc_alloc_init(MEMORY[0x277CCAA00]);
   time.value = 0;
   v21 = [v20 attributesOfItemAtPath:objc_msgSend(a2 error:{"relativePath"), &time}];
@@ -266,18 +266,18 @@ void __90__OKMediaFileSystemItem_createThumbnailImageForResolution_withMetadata_
   _Block_object_dispose(&v13, 8);
 }
 
-uint64_t __90__OKMediaFileSystemItem_createThumbnailImageForResolution_withMetadata_completionHandler___block_invoke_2(uint64_t result)
+uint64_t __90__OKMediaFileSystemItem_createThumbnailImageForResolution_withMetadata_completionHandler___block_invoke_2(uint64_t result, uint64_t a2)
 {
-  v1 = result;
-  v2 = *(result + 40);
-  if (v2 == 3)
+  v2 = result;
+  v3 = *(result + 40);
+  if (v3 == 3)
   {
     result = OFAVAssetCreateThumbnailWithURL();
   }
 
   else
   {
-    if (v2 != 2)
+    if (v3 != 2)
     {
       return result;
     }
@@ -293,7 +293,7 @@ uint64_t __90__OKMediaFileSystemItem_createThumbnailImageForResolution_withMetad
     }
   }
 
-  *(*(*(v1 + 32) + 8) + 24) = result;
+  *(*(*(v2 + 32) + 8) + 24) = result;
   return result;
 }
 
@@ -367,7 +367,7 @@ LABEL_8:
   [a2 finish];
 }
 
-uint64_t __69__OKMediaFileSystemItem_importMediaToDirectoryURL_completionHandler___block_invoke_2(void *a1, void *a2, void *a3)
+void *__69__OKMediaFileSystemItem_importMediaToDirectoryURL_completionHandler___block_invoke_2(void *a1, void *a2, void *a3)
 {
   v5 = a1[4];
   v6 = [a2 relativePath];
@@ -382,7 +382,7 @@ uint64_t __69__OKMediaFileSystemItem_importMediaToDirectoryURL_completionHandler
   return result;
 }
 
-uint64_t __69__OKMediaFileSystemItem_importMediaToDirectoryURL_completionHandler___block_invoke_3(uint64_t a1, _BYTE *a2)
+void *__69__OKMediaFileSystemItem_importMediaToDirectoryURL_completionHandler___block_invoke_3(uint64_t a1, _BYTE *a2)
 {
   [*(a1 + 32) setProgress:?];
   result = [*(a1 + 32) isCancelled];

@@ -34,33 +34,33 @@
 
 - (unint64_t)autoJoinCount
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   autoJoinTriggerCounts = [(CWFAutoJoinStatistics *)self autoJoinTriggerCounts];
   allValues = [autoJoinTriggerCounts allValues];
 
-  v4 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v6 += [*(*(&v11 + 1) + 8 * i) unsignedIntegerValue];
+        v6 += [*(*(&v10 + 1) + 8 * i) unsignedIntegerValue];
       }
 
-      v5 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -71,7 +71,6 @@
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -144,7 +143,7 @@
 
 - (NSDictionary)coreAnalyticsEventPayload
 {
-  v264 = *MEMORY[0x1E69E9840];
+  v263 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(CWFAutoJoinStatistics *)self autoJoinCount])
   {
@@ -424,97 +423,97 @@
     [dictionary setObject:0 forKeyedSubscript:@"totalKnownNetworkCount"];
   }
 
-  v260 = 0u;
-  v261 = 0u;
-  v258 = 0u;
   v259 = 0u;
+  v260 = 0u;
+  v257 = 0u;
+  v258 = 0u;
   obj = [(CWFAutoJoinStatistics *)self knownNetworks];
-  v183 = [obj countByEnumeratingWithState:&v258 objects:v263 count:16];
-  if (v183)
+  v182 = [obj countByEnumeratingWithState:&v257 objects:v262 count:16];
+  if (v182)
   {
     v32 = 0;
-    v237 = 0;
-    v238 = 0;
-    v247 = 0;
-    v235 = 0;
     v236 = 0;
+    v237 = 0;
+    v246 = 0;
+    v234 = 0;
+    v235 = 0;
     v33 = 0;
     v34 = 0;
     v35 = 0;
-    v250 = 0;
-    v233 = 0;
-    v234 = 0;
     v249 = 0;
-    v240 = 0;
-    v36 = 0;
-    v239 = 0;
-    v214 = 0;
-    v215 = 0;
-    v212 = 0;
-    v213 = 0;
-    v210 = 0;
-    v211 = 0;
-    v208 = 0;
-    v209 = 0;
-    v206 = 0;
-    v207 = 0;
-    v204 = 0;
-    v205 = 0;
-    v202 = 0;
-    v203 = 0;
-    v200 = 0;
-    v201 = 0;
-    v231 = 0;
     v232 = 0;
-    v198 = 0;
+    v233 = 0;
+    v248 = 0;
+    v239 = 0;
+    v36 = 0;
+    v238 = 0;
+    v213 = 0;
+    v214 = 0;
+    v211 = 0;
+    v212 = 0;
+    v209 = 0;
+    v210 = 0;
+    v207 = 0;
+    v208 = 0;
+    v205 = 0;
+    v206 = 0;
+    v203 = 0;
+    v204 = 0;
+    v201 = 0;
+    v202 = 0;
     v199 = 0;
-    v196 = 0;
+    v200 = 0;
+    v230 = 0;
+    v231 = 0;
     v197 = 0;
-    v194 = 0;
+    v198 = 0;
     v195 = 0;
-    v192 = 0;
+    v196 = 0;
     v193 = 0;
-    v219 = 0;
-    v220 = 0;
-    v190 = 0;
+    v194 = 0;
     v191 = 0;
-    v188 = 0;
+    v192 = 0;
+    v218 = 0;
+    v219 = 0;
     v189 = 0;
-    v186 = 0;
+    v190 = 0;
     v187 = 0;
-    v184 = 0;
+    v188 = 0;
     v185 = 0;
+    v186 = 0;
+    v183 = 0;
+    v184 = 0;
     v37 = 0;
-    v245 = 0;
     v244 = 0;
     v243 = 0;
     v242 = 0;
     v241 = 0;
-    v248 = 0;
+    v240 = 0;
+    v247 = 0;
+    v220 = 0;
     v221 = 0;
-    v222 = 0;
+    v215 = 0;
     v216 = 0;
-    v217 = 0;
-    v179 = -63115200.0;
-    v181 = *v259;
-    v182 = dictionary;
+    v178 = -63115200.0;
+    v180 = *v258;
+    v181 = dictionary;
 LABEL_78:
     v38 = 0;
     while (2)
     {
-      if (*v259 != v181)
+      if (*v258 != v180)
       {
         objc_enumerationMutation(obj);
       }
 
-      v39 = *(*(&v258 + 1) + 8 * v38);
+      v39 = *(*(&v257 + 1) + 8 * v38);
       isAutoJoinDisabled = [v39 isAutoJoinDisabled];
       isPersonalHotspot = [v39 isPersonalHotspot];
       isPasspoint = [v39 isPasspoint];
-      v228 = v38;
+      v227 = v38;
       if ([v39 isCaptiveStateDetermined])
       {
-        v247 += [v39 isCaptive];
+        v246 += [v39 isCaptive];
       }
 
       isCarPlay = [v39 isCarPlay];
@@ -524,8 +523,8 @@ LABEL_78:
       }
 
       userPreferredNetworkNames = [v39 userPreferredNetworkNames];
-      v253 = v39;
-      v229 = v36;
+      v252 = v39;
+      v228 = v36;
       if ([userPreferredNetworkNames count])
       {
       }
@@ -537,7 +536,7 @@ LABEL_78:
         v44 = [v43 count];
 
         v35 = v42;
-        v39 = v253;
+        v39 = v252;
 
         if (!v44)
         {
@@ -547,63 +546,63 @@ LABEL_78:
 
       ++v34;
 LABEL_89:
-      v251 = v37;
+      v250 = v37;
       isPublicAirPlayNetwork = [v39 isPublicAirPlayNetwork];
       if ([v39 publicAttribute] == 1)
       {
         ++v35;
       }
 
-      v246 = v35;
+      v245 = v35;
       movingAttribute = [v39 movingAttribute];
-      v46 = v250;
+      v46 = v249;
       if (movingAttribute == 1)
       {
-        v46 = v250 + 1;
+        v46 = v249 + 1;
       }
 
-      v250 = v46;
+      v249 = v46;
       isPrivacyProxyEnabled = [v39 isPrivacyProxyEnabled];
       disable6EMode = [v39 disable6EMode];
-      v48 = v249;
+      v48 = v248;
       if (disable6EMode == 2)
       {
-        v48 = v249 + 1;
+        v48 = v248 + 1;
       }
 
-      v249 = v48;
+      v248 = v48;
+      v253 = 0u;
       v254 = 0u;
       v255 = 0u;
       v256 = 0u;
-      v257 = 0u;
       bSSList = [v39 BSSList];
-      v50 = [bSSList countByEnumeratingWithState:&v254 objects:v262 count:16];
+      v50 = [bSSList countByEnumeratingWithState:&v253 objects:v261 count:16];
       if (v50)
       {
         v51 = v50;
-        v218 = isAutoJoinDisabled;
+        v217 = isAutoJoinDisabled;
         v52 = v32;
-        v53 = *v255;
+        v53 = *v254;
         while (2)
         {
           for (i = 0; i != v51; ++i)
           {
-            if (*v255 != v53)
+            if (*v254 != v53)
             {
               objc_enumerationMutation(bSSList);
             }
 
-            channel = [*(*(&v254 + 1) + 8 * i) channel];
+            channel = [*(*(&v253 + 1) + 8 * i) channel];
             is6GHz = [channel is6GHz];
 
             if (is6GHz)
             {
-              ++v240;
+              ++v239;
               goto LABEL_105;
             }
           }
 
-          v51 = [bSSList countByEnumeratingWithState:&v254 objects:v262 count:16];
+          v51 = [bSSList countByEnumeratingWithState:&v253 objects:v261 count:16];
           if (v51)
           {
             continue;
@@ -614,56 +613,56 @@ LABEL_89:
 
 LABEL_105:
         v32 = v52;
-        v57 = v247;
-        v39 = v253;
-        isAutoJoinDisabled = v218;
+        v57 = v246;
+        v39 = v252;
+        isAutoJoinDisabled = v217;
       }
 
       else
       {
-        v57 = v247;
+        v57 = v246;
       }
 
       v32 += isAutoJoinDisabled;
 
       isStandalone6G = [v39 isStandalone6G];
       wasRecently6GHzOnlyOnAnyDevice = [v39 wasRecently6GHzOnlyOnAnyDevice];
-      dictionary = v182;
-      v35 = v246;
+      dictionary = v181;
+      v35 = v245;
       if (v32)
       {
         v60 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v32];
-        [v182 setObject:v60 forKeyedSubscript:@"disableCount"];
+        [v181 setObject:v60 forKeyedSubscript:@"disableCount"];
       }
 
       else
       {
-        [v182 setObject:0 forKeyedSubscript:@"disableCount"];
+        [v181 setObject:0 forKeyedSubscript:@"disableCount"];
       }
 
-      v238 += isPersonalHotspot;
-      if (v238)
-      {
-        v61 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-        [v182 setObject:v61 forKeyedSubscript:@"personalHotspotCount"];
-      }
-
-      else
-      {
-        [v182 setObject:0 forKeyedSubscript:@"personalHotspotCount"];
-      }
-
-      v237 += isPasspoint;
+      v237 += isPersonalHotspot;
       if (v237)
       {
+        v61 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+        [v181 setObject:v61 forKeyedSubscript:@"personalHotspotCount"];
+      }
+
+      else
+      {
+        [v181 setObject:0 forKeyedSubscript:@"personalHotspotCount"];
+      }
+
+      v236 += isPasspoint;
+      if (v236)
+      {
         v62 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-        [v182 setObject:v62 forKeyedSubscript:@"passpointCount"];
+        [v181 setObject:v62 forKeyedSubscript:@"passpointCount"];
 
         if (v57)
         {
 LABEL_115:
           v63 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v57];
-          [v182 setObject:v63 forKeyedSubscript:@"captiveCount"];
+          [v181 setObject:v63 forKeyedSubscript:@"captiveCount"];
 
           goto LABEL_118;
         }
@@ -671,20 +670,20 @@ LABEL_115:
 
       else
       {
-        [v182 setObject:0 forKeyedSubscript:@"passpointCount"];
+        [v181 setObject:0 forKeyedSubscript:@"passpointCount"];
         if (v57)
         {
           goto LABEL_115;
         }
       }
 
-      [v182 setObject:0 forKeyedSubscript:@"captiveCount"];
+      [v181 setObject:0 forKeyedSubscript:@"captiveCount"];
 LABEL_118:
-      v236 += isCarPlay;
-      if (v236)
+      v235 += isCarPlay;
+      if (v235)
       {
         v64 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-        [v182 setObject:v64 forKeyedSubscript:@"carplayCount"];
+        [v181 setObject:v64 forKeyedSubscript:@"carplayCount"];
 
         if (v33)
         {
@@ -694,36 +693,36 @@ LABEL_118:
 
       else
       {
-        [v182 setObject:0 forKeyedSubscript:@"carplayCount"];
+        [v181 setObject:0 forKeyedSubscript:@"carplayCount"];
         if (v33)
         {
 LABEL_120:
           v65 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v33];
-          [v182 setObject:v65 forKeyedSubscript:@"hiddenCount"];
+          [v181 setObject:v65 forKeyedSubscript:@"hiddenCount"];
 
           if (v34)
           {
 LABEL_121:
             v66 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v34];
-            [v182 setObject:v66 forKeyedSubscript:@"userJoinPrefCount"];
+            [v181 setObject:v66 forKeyedSubscript:@"userJoinPrefCount"];
 
             goto LABEL_125;
           }
 
 LABEL_124:
-          [v182 setObject:0 forKeyedSubscript:@"userJoinPrefCount"];
+          [v181 setObject:0 forKeyedSubscript:@"userJoinPrefCount"];
 LABEL_125:
-          v235 += isPublicAirPlayNetwork;
-          if (v235)
+          v234 += isPublicAirPlayNetwork;
+          if (v234)
           {
             v67 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-            [v182 setObject:v67 forKeyedSubscript:@"publicAirPlayCount"];
+            [v181 setObject:v67 forKeyedSubscript:@"publicAirPlayCount"];
 
-            if (v246)
+            if (v245)
             {
 LABEL_127:
-              v68 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v246];
-              [v182 setObject:v68 forKeyedSubscript:@"publicAttrCount"];
+              v68 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v245];
+              [v181 setObject:v68 forKeyedSubscript:@"publicAttrCount"];
 
               goto LABEL_130;
             }
@@ -731,121 +730,121 @@ LABEL_127:
 
           else
           {
-            [v182 setObject:0 forKeyedSubscript:@"publicAirPlayCount"];
-            if (v246)
+            [v181 setObject:0 forKeyedSubscript:@"publicAirPlayCount"];
+            if (v245)
             {
               goto LABEL_127;
             }
           }
 
-          [v182 setObject:0 forKeyedSubscript:@"publicAttrCount"];
+          [v181 setObject:0 forKeyedSubscript:@"publicAttrCount"];
 LABEL_130:
-          if (v250)
-          {
-            v69 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-            [v182 setObject:v69 forKeyedSubscript:@"movingAttrCount"];
-          }
-
-          else
-          {
-            [v182 setObject:0 forKeyedSubscript:@"movingAttrCount"];
-          }
-
-          v234 += isPrivacyProxyEnabled ^ 1u;
-          if (v234)
-          {
-            v70 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-            [v182 setObject:v70 forKeyedSubscript:@"privacyProxyDisabledCount"];
-          }
-
-          else
-          {
-            [v182 setObject:0 forKeyedSubscript:@"privacyProxyDisabledCount"];
-          }
-
           if (v249)
           {
-            v71 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-            [v182 setObject:v71 forKeyedSubscript:@"disabled6EModeCount"];
+            v69 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+            [v181 setObject:v69 forKeyedSubscript:@"movingAttrCount"];
           }
 
           else
           {
-            [v182 setObject:0 forKeyedSubscript:@"disabled6EModeCount"];
+            [v181 setObject:0 forKeyedSubscript:@"movingAttrCount"];
           }
 
-          if (v240)
+          v233 += isPrivacyProxyEnabled ^ 1u;
+          if (v233)
+          {
+            v70 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+            [v181 setObject:v70 forKeyedSubscript:@"privacyProxyDisabledCount"];
+          }
+
+          else
+          {
+            [v181 setObject:0 forKeyedSubscript:@"privacyProxyDisabledCount"];
+          }
+
+          if (v248)
+          {
+            v71 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+            [v181 setObject:v71 forKeyedSubscript:@"disabled6EModeCount"];
+          }
+
+          else
+          {
+            [v181 setObject:0 forKeyedSubscript:@"disabled6EModeCount"];
+          }
+
+          if (v239)
           {
             v72 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-            [v182 setObject:v72 forKeyedSubscript:@"has6GHzBSSCount"];
+            [v181 setObject:v72 forKeyedSubscript:@"has6GHzBSSCount"];
           }
 
           else
           {
-            [v182 setObject:0 forKeyedSubscript:@"has6GHzBSSCount"];
+            [v181 setObject:0 forKeyedSubscript:@"has6GHzBSSCount"];
           }
 
-          v36 = v229 + isStandalone6G;
+          v36 = v228 + isStandalone6G;
           if (v36)
           {
             v73 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v36];
-            [v182 setObject:v73 forKeyedSubscript:@"standalone6GHzCount"];
+            [v181 setObject:v73 forKeyedSubscript:@"standalone6GHzCount"];
           }
 
           else
           {
-            [v182 setObject:0 forKeyedSubscript:@"standalone6GHzCount"];
+            [v181 setObject:0 forKeyedSubscript:@"standalone6GHzCount"];
           }
 
-          v233 += wasRecently6GHzOnlyOnAnyDevice;
-          if (v233)
+          v232 += wasRecently6GHzOnlyOnAnyDevice;
+          if (v232)
           {
             v74 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-            [v182 setObject:v74 forKeyedSubscript:@"wasRecently6GHzOnlyCount"];
+            [v181 setObject:v74 forKeyedSubscript:@"wasRecently6GHzOnlyCount"];
           }
 
           else
           {
-            [v182 setObject:0 forKeyedSubscript:@"wasRecently6GHzOnlyCount"];
+            [v181 setObject:0 forKeyedSubscript:@"wasRecently6GHzOnlyCount"];
           }
 
-          supportedSecurityTypes = [v253 supportedSecurityTypes];
+          supportedSecurityTypes = [v252 supportedSecurityTypes];
           if (supportedSecurityTypes <= 39)
           {
-            v76 = v239;
+            v76 = v238;
             if (supportedSecurityTypes <= 7)
             {
               if (supportedSecurityTypes == 1)
               {
-                wEPSubtype = [v253 WEPSubtype];
-                v78 = v212;
+                wEPSubtype = [v252 WEPSubtype];
+                v78 = v211;
                 if (wEPSubtype != 5)
                 {
-                  v78 = v212 + 1;
+                  v78 = v211 + 1;
                 }
 
-                v212 = v78;
+                v211 = v78;
               }
 
               else
               {
                 if (supportedSecurityTypes != 2)
                 {
-                  v76 = v239;
+                  v76 = v238;
                   if (supportedSecurityTypes == 4)
                   {
-                    ++v210;
+                    ++v209;
                     goto LABEL_188;
                   }
 
                   goto LABEL_183;
                 }
 
-                [v253 WAPISubtype];
-                ++v211;
+                [v252 WAPISubtype];
+                ++v210;
               }
 
-              v76 = v239;
+              v76 = v238;
               goto LABEL_188;
             }
 
@@ -853,13 +852,13 @@ LABEL_130:
             {
               if (supportedSecurityTypes == 20)
               {
-                ++v209;
+                ++v208;
                 goto LABEL_188;
               }
 
               if (supportedSecurityTypes == 32)
               {
-                ++v203;
+                ++v202;
                 goto LABEL_188;
               }
             }
@@ -868,13 +867,13 @@ LABEL_130:
             {
               if (supportedSecurityTypes == 8)
               {
-                ++v205;
+                ++v204;
                 goto LABEL_188;
               }
 
               if (supportedSecurityTypes == 16)
               {
-                ++v208;
+                ++v207;
                 goto LABEL_188;
               }
             }
@@ -882,20 +881,20 @@ LABEL_130:
 
           else
           {
-            v76 = v239;
+            v76 = v238;
             if (supportedSecurityTypes > 159)
             {
               if (supportedSecurityTypes > 511)
               {
                 if (supportedSecurityTypes == 768)
                 {
-                  ++v214;
+                  ++v213;
                   goto LABEL_188;
                 }
 
                 if (supportedSecurityTypes == 512)
                 {
-                  ++v215;
+                  ++v214;
                   goto LABEL_188;
                 }
               }
@@ -904,13 +903,13 @@ LABEL_130:
               {
                 if (supportedSecurityTypes == 160)
                 {
-                  ++v202;
+                  ++v201;
                   goto LABEL_188;
                 }
 
                 if (supportedSecurityTypes == 256)
                 {
-                  ++v213;
+                  ++v212;
                   goto LABEL_188;
                 }
               }
@@ -920,13 +919,13 @@ LABEL_130:
             {
               if (supportedSecurityTypes == 80)
               {
-                ++v207;
+                ++v206;
                 goto LABEL_188;
               }
 
               if (supportedSecurityTypes == 128)
               {
-                ++v201;
+                ++v200;
                 goto LABEL_188;
               }
             }
@@ -935,466 +934,466 @@ LABEL_130:
             {
               if (supportedSecurityTypes == 40)
               {
-                ++v204;
+                ++v203;
                 goto LABEL_188;
               }
 
               if (supportedSecurityTypes == 64)
               {
-                ++v206;
+                ++v205;
 LABEL_188:
-                v239 = v76;
+                v238 = v76;
                 if (v76)
                 {
                   v79 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                  [v182 setObject:v79 forKeyedSubscript:@"unknownSecurityCount"];
+                  [v181 setObject:v79 forKeyedSubscript:@"unknownSecurityCount"];
                 }
 
                 else
                 {
-                  [v182 setObject:0 forKeyedSubscript:@"unknownSecurityCount"];
-                }
-
-                if (v215)
-                {
-                  v80 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                  [v182 setObject:v80 forKeyedSubscript:@"openCount"];
-                }
-
-                else
-                {
-                  [v182 setObject:0 forKeyedSubscript:@"openCount"];
+                  [v181 setObject:0 forKeyedSubscript:@"unknownSecurityCount"];
                 }
 
                 if (v214)
                 {
-                  v81 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                  [v182 setObject:v81 forKeyedSubscript:@"oweTransitionCount"];
+                  v80 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                  [v181 setObject:v80 forKeyedSubscript:@"openCount"];
                 }
 
                 else
                 {
-                  [v182 setObject:0 forKeyedSubscript:@"oweTransitionCount"];
+                  [v181 setObject:0 forKeyedSubscript:@"openCount"];
                 }
 
                 if (v213)
                 {
-                  v82 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                  [v182 setObject:v82 forKeyedSubscript:@"oweCount"];
+                  v81 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                  [v181 setObject:v81 forKeyedSubscript:@"oweTransitionCount"];
                 }
 
                 else
                 {
-                  [v182 setObject:0 forKeyedSubscript:@"oweCount"];
+                  [v181 setObject:0 forKeyedSubscript:@"oweTransitionCount"];
                 }
 
                 if (v212)
                 {
-                  v83 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                  [v182 setObject:v83 forKeyedSubscript:@"wepCount"];
+                  v82 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                  [v181 setObject:v82 forKeyedSubscript:@"oweCount"];
                 }
 
                 else
                 {
-                  [v182 setObject:0 forKeyedSubscript:@"wepCount"];
+                  [v181 setObject:0 forKeyedSubscript:@"oweCount"];
                 }
 
                 if (v211)
                 {
-                  v84 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                  [v182 setObject:v84 forKeyedSubscript:@"wapiPSKCount"];
+                  v83 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                  [v181 setObject:v83 forKeyedSubscript:@"wepCount"];
                 }
 
                 else
                 {
-                  [v182 setObject:0 forKeyedSubscript:@"wapiPSKCount"];
+                  [v181 setObject:0 forKeyedSubscript:@"wepCount"];
                 }
 
-                [v182 setObject:0 forKeyedSubscript:@"wapiCertCount"];
                 if (v210)
                 {
-                  v85 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                  [v182 setObject:v85 forKeyedSubscript:@"wpaPersonalCount"];
+                  v84 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                  [v181 setObject:v84 forKeyedSubscript:@"wapiPSKCount"];
                 }
 
                 else
                 {
-                  [v182 setObject:0 forKeyedSubscript:@"wpaPersonalCount"];
+                  [v181 setObject:0 forKeyedSubscript:@"wapiPSKCount"];
                 }
 
+                [v181 setObject:0 forKeyedSubscript:@"wapiCertCount"];
                 if (v209)
                 {
-                  v86 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                  [v182 setObject:v86 forKeyedSubscript:@"wpa2PersonalMixedCount"];
+                  v85 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                  [v181 setObject:v85 forKeyedSubscript:@"wpaPersonalCount"];
                 }
 
                 else
                 {
-                  [v182 setObject:0 forKeyedSubscript:@"wpa2PersonalMixedCount"];
+                  [v181 setObject:0 forKeyedSubscript:@"wpaPersonalCount"];
                 }
 
                 if (v208)
                 {
-                  v87 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                  [v182 setObject:v87 forKeyedSubscript:@"wpa2PersonalCount"];
+                  v86 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                  [v181 setObject:v86 forKeyedSubscript:@"wpa2PersonalMixedCount"];
                 }
 
                 else
                 {
-                  [v182 setObject:0 forKeyedSubscript:@"wpa2PersonalCount"];
+                  [v181 setObject:0 forKeyedSubscript:@"wpa2PersonalMixedCount"];
                 }
 
                 if (v207)
                 {
-                  v88 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                  [v182 setObject:v88 forKeyedSubscript:@"wpa3TransitionCount"];
+                  v87 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                  [v181 setObject:v87 forKeyedSubscript:@"wpa2PersonalCount"];
                 }
 
                 else
                 {
-                  [v182 setObject:0 forKeyedSubscript:@"wpa3TransitionCount"];
+                  [v181 setObject:0 forKeyedSubscript:@"wpa2PersonalCount"];
                 }
 
                 if (v206)
                 {
-                  v89 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                  [v182 setObject:v89 forKeyedSubscript:@"wpa3SAECount"];
+                  v88 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                  [v181 setObject:v88 forKeyedSubscript:@"wpa3TransitionCount"];
                 }
 
                 else
                 {
-                  [v182 setObject:0 forKeyedSubscript:@"wpa3SAECount"];
+                  [v181 setObject:0 forKeyedSubscript:@"wpa3TransitionCount"];
                 }
 
                 if (v205)
                 {
-                  v90 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                  [v182 setObject:v90 forKeyedSubscript:@"wpaEnterpriseCount"];
+                  v89 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                  [v181 setObject:v89 forKeyedSubscript:@"wpa3SAECount"];
                 }
 
                 else
                 {
-                  [v182 setObject:0 forKeyedSubscript:@"wpaEnterpriseCount"];
+                  [v181 setObject:0 forKeyedSubscript:@"wpa3SAECount"];
                 }
 
                 if (v204)
                 {
-                  v91 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                  [v182 setObject:v91 forKeyedSubscript:@"wpa2EnterpriseMixedCount"];
+                  v90 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                  [v181 setObject:v90 forKeyedSubscript:@"wpaEnterpriseCount"];
                 }
 
                 else
                 {
-                  [v182 setObject:0 forKeyedSubscript:@"wpa2EnterpriseMixedCount"];
+                  [v181 setObject:0 forKeyedSubscript:@"wpaEnterpriseCount"];
                 }
 
                 if (v203)
                 {
-                  v92 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                  [v182 setObject:v92 forKeyedSubscript:@"wpa2EnterpriseCount"];
+                  v91 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                  [v181 setObject:v91 forKeyedSubscript:@"wpa2EnterpriseMixedCount"];
                 }
 
                 else
                 {
-                  [v182 setObject:0 forKeyedSubscript:@"wpa2EnterpriseCount"];
+                  [v181 setObject:0 forKeyedSubscript:@"wpa2EnterpriseMixedCount"];
                 }
 
                 if (v202)
                 {
-                  v93 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                  [v182 setObject:v93 forKeyedSubscript:@"wpa3EnterpriseCount"];
+                  v92 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                  [v181 setObject:v92 forKeyedSubscript:@"wpa2EnterpriseCount"];
                 }
 
                 else
                 {
-                  [v182 setObject:0 forKeyedSubscript:@"wpa3EnterpriseCount"];
+                  [v181 setObject:0 forKeyedSubscript:@"wpa2EnterpriseCount"];
                 }
 
                 if (v201)
                 {
-                  v94 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                  [v182 setObject:v94 forKeyedSubscript:@"wpa3EnterpriseSuiteBCount"];
+                  v93 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                  [v181 setObject:v93 forKeyedSubscript:@"wpa3EnterpriseCount"];
                 }
 
                 else
                 {
-                  [v182 setObject:0 forKeyedSubscript:@"wpa3EnterpriseSuiteBCount"];
+                  [v181 setObject:0 forKeyedSubscript:@"wpa3EnterpriseCount"];
                 }
 
-                switch([v253 addReason])
+                if (v200)
+                {
+                  v94 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                  [v181 setObject:v94 forKeyedSubscript:@"wpa3EnterpriseSuiteBCount"];
+                }
+
+                else
+                {
+                  [v181 setObject:0 forKeyedSubscript:@"wpa3EnterpriseSuiteBCount"];
+                }
+
+                switch([v252 addReason])
                 {
                   case 2:
-                    ++v191;
+                    ++v190;
                     goto LABEL_255;
                   case 3:
                   case 4:
                   case 5:
-                    ++v219;
+                    ++v218;
                     goto LABEL_255;
                   case 6:
-                    ++v189;
-                    goto LABEL_255;
-                  case 7:
-                    ++v190;
-                    goto LABEL_255;
-                  case 8:
                     ++v188;
                     goto LABEL_255;
-                  case 9:
-                    ++v199;
+                  case 7:
+                    ++v189;
                     goto LABEL_255;
-                  case 10:
-                    v95 = v232 + 1;
-                    goto LABEL_256;
-                  case 11:
+                  case 8:
                     ++v187;
                     goto LABEL_255;
-                  case 12:
-                    ++v186;
-                    goto LABEL_255;
-                  case 13:
-                    ++v185;
-                    goto LABEL_255;
-                  case 14:
-                    ++v195;
-                    goto LABEL_255;
-                  case 15:
-                    ++v194;
-                    goto LABEL_255;
-                  case 16:
-                    ++v192;
-                    goto LABEL_255;
-                  case 17:
+                  case 9:
                     ++v198;
                     goto LABEL_255;
-                  case 18:
+                  case 10:
+                    v95 = v231 + 1;
+                    goto LABEL_256;
+                  case 11:
+                    ++v186;
+                    goto LABEL_255;
+                  case 12:
+                    ++v185;
+                    goto LABEL_255;
+                  case 13:
+                    ++v184;
+                    goto LABEL_255;
+                  case 14:
+                    ++v194;
+                    goto LABEL_255;
+                  case 15:
                     ++v193;
                     goto LABEL_255;
-                  case 19:
+                  case 16:
+                    ++v191;
+                    goto LABEL_255;
+                  case 17:
                     ++v197;
                     goto LABEL_255;
-                  case 21:
+                  case 18:
+                    ++v192;
+                    goto LABEL_255;
+                  case 19:
                     ++v196;
                     goto LABEL_255;
+                  case 21:
+                    ++v195;
+                    goto LABEL_255;
                   default:
-                    ++v184;
+                    ++v183;
 LABEL_255:
-                    v95 = v232;
+                    v95 = v231;
 LABEL_256:
-                    v232 = v95;
+                    v231 = v95;
                     if (v95)
                     {
                       v96 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v96 forKeyedSubscript:@"addedByCarrierCount"];
+                      [v181 setObject:v96 forKeyedSubscript:@"addedByCarrierCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"addedByCarrierCount"];
-                    }
-
-                    if (v199)
-                    {
-                      v97 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v97 forKeyedSubscript:@"addedByProfileCount"];
-                    }
-
-                    else
-                    {
-                      [v182 setObject:0 forKeyedSubscript:@"addedByProfileCount"];
+                      [v181 setObject:0 forKeyedSubscript:@"addedByCarrierCount"];
                     }
 
                     if (v198)
                     {
-                      v98 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v98 forKeyedSubscript:@"addedByWalletCount"];
+                      v97 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v97 forKeyedSubscript:@"addedByProfileCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"addedByWalletCount"];
+                      [v181 setObject:0 forKeyedSubscript:@"addedByProfileCount"];
                     }
 
                     if (v197)
                     {
-                      v99 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v99 forKeyedSubscript:@"addedByNearbySyncCount"];
+                      v98 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v98 forKeyedSubscript:@"addedByWalletCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"addedByNearbySyncCount"];
+                      [v181 setObject:0 forKeyedSubscript:@"addedByWalletCount"];
                     }
 
                     if (v196)
                     {
-                      v100 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v100 forKeyedSubscript:@"addedByNearbyRecommendationCount"];
+                      v99 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v99 forKeyedSubscript:@"addedByNearbySyncCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"addedByNearbyRecommendationCount"];
+                      [v181 setObject:0 forKeyedSubscript:@"addedByNearbySyncCount"];
                     }
 
                     if (v195)
                     {
-                      v101 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v101 forKeyedSubscript:@"addedBySystemAppCount"];
+                      v100 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v100 forKeyedSubscript:@"addedByNearbyRecommendationCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"addedBySystemAppCount"];
+                      [v181 setObject:0 forKeyedSubscript:@"addedByNearbyRecommendationCount"];
                     }
 
                     if (v194)
                     {
-                      v102 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v102 forKeyedSubscript:@"addedBy3PAppCount"];
+                      v101 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v101 forKeyedSubscript:@"addedBySystemAppCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"addedBy3PAppCount"];
+                      [v181 setObject:0 forKeyedSubscript:@"addedBySystemAppCount"];
                     }
 
                     if (v193)
                     {
-                      v103 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v103 forKeyedSubscript:@"addedByAccessoryAppCount"];
+                      v102 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v102 forKeyedSubscript:@"addedBy3PAppCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"addedByAccessoryAppCount"];
+                      [v181 setObject:0 forKeyedSubscript:@"addedBy3PAppCount"];
                     }
 
                     if (v192)
                     {
-                      v104 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v104 forKeyedSubscript:@"addedByRecommendationCount"];
+                      v103 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v103 forKeyedSubscript:@"addedByAccessoryAppCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"addedByRecommendationCount"];
-                    }
-
-                    if (v219)
-                    {
-                      v105 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v105 forKeyedSubscript:@"addedByWiFiSettingsCount"];
-                    }
-
-                    else
-                    {
-                      [v182 setObject:0 forKeyedSubscript:@"addedByWiFiSettingsCount"];
+                      [v181 setObject:0 forKeyedSubscript:@"addedByAccessoryAppCount"];
                     }
 
                     if (v191)
                     {
-                      v106 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v106 forKeyedSubscript:@"addedByWiFiMenuCount"];
+                      v104 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v104 forKeyedSubscript:@"addedByRecommendationCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"addedByWiFiMenuCount"];
+                      [v181 setObject:0 forKeyedSubscript:@"addedByRecommendationCount"];
+                    }
+
+                    if (v218)
+                    {
+                      v105 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v105 forKeyedSubscript:@"addedByWiFiSettingsCount"];
+                    }
+
+                    else
+                    {
+                      [v181 setObject:0 forKeyedSubscript:@"addedByWiFiSettingsCount"];
                     }
 
                     if (v190)
                     {
-                      v107 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v107 forKeyedSubscript:@"addedBySetupAssistantCount"];
+                      v106 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v106 forKeyedSubscript:@"addedByWiFiMenuCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"addedBySetupAssistantCount"];
+                      [v181 setObject:0 forKeyedSubscript:@"addedByWiFiMenuCount"];
                     }
 
                     if (v189)
                     {
-                      v108 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v108 forKeyedSubscript:@"addedByATJCount"];
+                      v107 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v107 forKeyedSubscript:@"addedBySetupAssistantCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"addedByATJCount"];
+                      [v181 setObject:0 forKeyedSubscript:@"addedBySetupAssistantCount"];
                     }
 
                     if (v188)
                     {
-                      v109 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v109 forKeyedSubscript:@"addedByCloudSyncCount"];
+                      v108 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v108 forKeyedSubscript:@"addedByATJCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"addedByCloudSyncCount"];
+                      [v181 setObject:0 forKeyedSubscript:@"addedByATJCount"];
                     }
 
                     if (v187)
                     {
-                      v110 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v110 forKeyedSubscript:@"addedByWiFiPasswordSharingCount"];
+                      v109 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v109 forKeyedSubscript:@"addedByCloudSyncCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"addedByWiFiPasswordSharingCount"];
+                      [v181 setObject:0 forKeyedSubscript:@"addedByCloudSyncCount"];
                     }
 
                     if (v186)
                     {
-                      v111 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v111 forKeyedSubscript:@"addedByTapToSetupCount"];
+                      v110 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v110 forKeyedSubscript:@"addedByWiFiPasswordSharingCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"addedByTapToSetupCount"];
+                      [v181 setObject:0 forKeyedSubscript:@"addedByWiFiPasswordSharingCount"];
                     }
 
                     if (v185)
                     {
-                      v112 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v112 forKeyedSubscript:@"addedBySSIDGuessingCount"];
+                      v111 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v111 forKeyedSubscript:@"addedByTapToSetupCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"addedBySSIDGuessingCount"];
+                      [v181 setObject:0 forKeyedSubscript:@"addedByTapToSetupCount"];
                     }
 
                     if (v184)
                     {
-                      v113 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v113 forKeyedSubscript:@"addedByUnknownReason"];
+                      v112 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v112 forKeyedSubscript:@"addedBySSIDGuessingCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"addedByUnknownReason"];
+                      [v181 setObject:0 forKeyedSubscript:@"addedBySSIDGuessingCount"];
                     }
 
-                    lastJoinedAt = [v253 lastJoinedAt];
+                    if (v183)
+                    {
+                      v113 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v113 forKeyedSubscript:@"addedByUnknownReason"];
+                    }
 
-                    v247 = v57;
+                    else
+                    {
+                      [v181 setObject:0 forKeyedSubscript:@"addedByUnknownReason"];
+                    }
+
+                    lastJoinedAt = [v252 lastJoinedAt];
+
+                    v246 = v57;
                     if (!lastJoinedAt)
                     {
-                      v37 = v251;
-                      v158 = v248;
+                      v37 = v250;
+                      v158 = v247;
                       goto LABEL_336;
                     }
 
-                    v230 = v33;
-                    lastJoinedAt2 = [v253 lastJoinedAt];
+                    v229 = v33;
+                    lastJoinedAt2 = [v252 lastJoinedAt];
                     [lastJoinedAt2 timeIntervalSinceNow];
                     v117 = v116;
-                    lastJoinedAt3 = [v253 lastJoinedAt];
+                    lastJoinedAt3 = [v252 lastJoinedAt];
                     [lastJoinedAt3 timeIntervalSinceNow];
                     v120 = v119;
 
@@ -1408,11 +1407,11 @@ LABEL_256:
                       v121 = v120 < 604800.0;
                     }
 
-                    v252 = v251 + v121;
-                    lastJoinedAt4 = [v253 lastJoinedAt];
+                    v251 = v250 + v121;
+                    lastJoinedAt4 = [v252 lastJoinedAt];
                     [lastJoinedAt4 timeIntervalSinceNow];
                     v124 = v123;
-                    lastJoinedAt5 = [v253 lastJoinedAt];
+                    lastJoinedAt5 = [v252 lastJoinedAt];
                     [lastJoinedAt5 timeIntervalSinceNow];
                     if (v124 < 0.0)
                     {
@@ -1424,11 +1423,11 @@ LABEL_256:
                       v127 = v126 < 1209600.0;
                     }
 
-                    v245 += v127;
-                    lastJoinedAt6 = [v253 lastJoinedAt];
+                    v244 += v127;
+                    lastJoinedAt6 = [v252 lastJoinedAt];
                     [lastJoinedAt6 timeIntervalSinceNow];
                     v130 = v129;
-                    lastJoinedAt7 = [v253 lastJoinedAt];
+                    lastJoinedAt7 = [v252 lastJoinedAt];
                     [lastJoinedAt7 timeIntervalSinceNow];
                     if (v130 < 0.0)
                     {
@@ -1440,11 +1439,11 @@ LABEL_256:
                       v133 = v132 < 2629800.0;
                     }
 
-                    v244 += v133;
-                    lastJoinedAt8 = [v253 lastJoinedAt];
+                    v243 += v133;
+                    lastJoinedAt8 = [v252 lastJoinedAt];
                     [lastJoinedAt8 timeIntervalSinceNow];
                     v136 = v135;
-                    lastJoinedAt9 = [v253 lastJoinedAt];
+                    lastJoinedAt9 = [v252 lastJoinedAt];
                     [lastJoinedAt9 timeIntervalSinceNow];
                     if (v136 < 0.0)
                     {
@@ -1456,11 +1455,11 @@ LABEL_256:
                       v139 = v138 < 5259600.0;
                     }
 
-                    v243 += v139;
-                    lastJoinedAt10 = [v253 lastJoinedAt];
+                    v242 += v139;
+                    lastJoinedAt10 = [v252 lastJoinedAt];
                     [lastJoinedAt10 timeIntervalSinceNow];
                     v142 = v141;
-                    lastJoinedAt11 = [v253 lastJoinedAt];
+                    lastJoinedAt11 = [v252 lastJoinedAt];
                     [lastJoinedAt11 timeIntervalSinceNow];
                     if (v142 < 0.0)
                     {
@@ -1472,11 +1471,11 @@ LABEL_256:
                       v145 = v144 < 15778800.0;
                     }
 
-                    v242 += v145;
-                    lastJoinedAt12 = [v253 lastJoinedAt];
+                    v241 += v145;
+                    lastJoinedAt12 = [v252 lastJoinedAt];
                     [lastJoinedAt12 timeIntervalSinceNow];
                     v148 = v147;
-                    lastJoinedAt13 = [v253 lastJoinedAt];
+                    lastJoinedAt13 = [v252 lastJoinedAt];
                     [lastJoinedAt13 timeIntervalSinceNow];
                     if (v148 < 0.0)
                     {
@@ -1488,19 +1487,19 @@ LABEL_256:
                       v151 = v150 < 31557600.0;
                     }
 
-                    v241 += v151;
-                    lastJoinedAt14 = [v253 lastJoinedAt];
+                    v240 += v151;
+                    lastJoinedAt14 = [v252 lastJoinedAt];
                     [lastJoinedAt14 timeIntervalSinceNow];
                     v154 = v153;
-                    lastJoinedAt15 = [v253 lastJoinedAt];
+                    lastJoinedAt15 = [v252 lastJoinedAt];
                     [lastJoinedAt15 timeIntervalSinceNow];
                     v157 = v156;
 
                     if (v154 < 0.0)
                     {
-                      v33 = v230;
-                      v158 = v248;
-                      if (v157 <= v179)
+                      v33 = v229;
+                      v158 = v247;
+                      if (v157 <= v178)
                       {
                         goto LABEL_335;
                       }
@@ -1508,8 +1507,8 @@ LABEL_256:
 
                     else
                     {
-                      v33 = v230;
-                      v158 = v248;
+                      v33 = v229;
+                      v158 = v247;
                       if (v157 >= 63115200.0)
                       {
                         goto LABEL_335;
@@ -1518,106 +1517,91 @@ LABEL_256:
 
                     ++v158;
 LABEL_335:
-                    v35 = v246;
-                    v37 = v252;
+                    v35 = v245;
+                    v37 = v251;
 LABEL_336:
-                    v248 = v158;
+                    v247 = v158;
                     if (v37)
                     {
                       v159 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v37];
-                      [v182 setObject:v159 forKeyedSubscript:@"joinedInPastWeekCount"];
+                      [v181 setObject:v159 forKeyedSubscript:@"joinedInPastWeekCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"joinedInPastWeekCount"];
-                    }
-
-                    if (v245)
-                    {
-                      v160 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v160 forKeyedSubscript:@"joinedInPast2WeeksCount"];
-                    }
-
-                    else
-                    {
-                      [v182 setObject:0 forKeyedSubscript:@"joinedInPast2WeeksCount"];
+                      [v181 setObject:0 forKeyedSubscript:@"joinedInPastWeekCount"];
                     }
 
                     if (v244)
                     {
-                      v161 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v161 forKeyedSubscript:@"joinedInPastMonthCount"];
+                      v160 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v160 forKeyedSubscript:@"joinedInPast2WeeksCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"joinedInPastMonthCount"];
+                      [v181 setObject:0 forKeyedSubscript:@"joinedInPast2WeeksCount"];
                     }
 
                     if (v243)
                     {
-                      v162 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v162 forKeyedSubscript:@"joinedInPast2MonthsCount"];
+                      v161 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v161 forKeyedSubscript:@"joinedInPastMonthCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"joinedInPast2MonthsCount"];
+                      [v181 setObject:0 forKeyedSubscript:@"joinedInPastMonthCount"];
                     }
 
                     if (v242)
                     {
-                      v163 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v163 forKeyedSubscript:@"joinedInPast6MonthsCount"];
+                      v162 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v162 forKeyedSubscript:@"joinedInPast2MonthsCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"joinedInPast6MonthsCount"];
+                      [v181 setObject:0 forKeyedSubscript:@"joinedInPast2MonthsCount"];
                     }
 
                     if (v241)
                     {
-                      v164 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v164 forKeyedSubscript:@"joinedInPastYearCount"];
+                      v163 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v163 forKeyedSubscript:@"joinedInPast6MonthsCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"joinedInPastYearCount"];
+                      [v181 setObject:0 forKeyedSubscript:@"joinedInPast6MonthsCount"];
                     }
 
-                    if (v248)
+                    if (v240)
+                    {
+                      v164 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v164 forKeyedSubscript:@"joinedInPastYearCount"];
+                    }
+
+                    else
+                    {
+                      [v181 setObject:0 forKeyedSubscript:@"joinedInPastYearCount"];
+                    }
+
+                    if (v247)
                     {
                       v165 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v165 forKeyedSubscript:@"joinedInPast2YearsCount"];
+                      [v181 setObject:v165 forKeyedSubscript:@"joinedInPast2YearsCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"joinedInPast2YearsCount"];
+                      [v181 setObject:0 forKeyedSubscript:@"joinedInPast2YearsCount"];
                     }
 
-                    v166 = [v253 effectivePrivateMACModeWithSystemSetting:0];
+                    v166 = [v252 effectivePrivateMACModeWithSystemSetting:0];
                     if (v166 == 3)
                     {
-                      if ([v253 privateMACAddressModeUserSetting])
-                      {
-                        ++v221;
-                      }
-
-                      else
-                      {
-                        ++v217;
-                      }
-
-                      goto LABEL_370;
-                    }
-
-                    if (v166 == 2)
-                    {
-                      if ([v253 privateMACAddressModeUserSetting])
+                      if ([v252 privateMACAddressModeUserSetting])
                       {
                         ++v220;
                       }
@@ -1630,113 +1614,128 @@ LABEL_336:
                       goto LABEL_370;
                     }
 
+                    if (v166 == 2)
+                    {
+                      if ([v252 privateMACAddressModeUserSetting])
+                      {
+                        ++v219;
+                      }
+
+                      else
+                      {
+                        ++v215;
+                      }
+
+                      goto LABEL_370;
+                    }
+
                     if (v166 != 1)
                     {
                       goto LABEL_370;
                     }
 
-                    if ([v253 privateMACAddressModeUserSetting])
+                    if ([v252 privateMACAddressModeUserSetting])
                     {
-                      ++v222;
+                      ++v221;
 LABEL_370:
-                      v167 = v231;
+                      v167 = v230;
                       goto LABEL_371;
                     }
 
-                    if ([v253 privateMACAddressModeConfigurationProfileSetting])
+                    if ([v252 privateMACAddressModeConfigurationProfileSetting])
                     {
-                      ++v200;
+                      ++v199;
                       goto LABEL_370;
                     }
 
-                    v167 = v231 + 1;
+                    v167 = v230 + 1;
 LABEL_371:
-                    v231 = v167;
+                    v230 = v167;
                     if (v167)
                     {
                       v168 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v168 forKeyedSubscript:@"privateMACOffByDefaultCount"];
+                      [v181 setObject:v168 forKeyedSubscript:@"privateMACOffByDefaultCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"privateMACOffByDefaultCount"];
-                    }
-
-                    if (v222)
-                    {
-                      v169 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v169 forKeyedSubscript:@"privateMACOffByUserCount"];
-                    }
-
-                    else
-                    {
-                      [v182 setObject:0 forKeyedSubscript:@"privateMACOffByUserCount"];
-                    }
-
-                    if (v200)
-                    {
-                      v170 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v170 forKeyedSubscript:@"privateMACOffByProfileCount"];
-                    }
-
-                    else
-                    {
-                      [v182 setObject:0 forKeyedSubscript:@"privateMACOffByProfileCount"];
-                    }
-
-                    if (v217)
-                    {
-                      v171 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v171 forKeyedSubscript:@"privateMACStaticByDefaultCount"];
-                    }
-
-                    else
-                    {
-                      [v182 setObject:0 forKeyedSubscript:@"privateMACStaticByDefaultCount"];
+                      [v181 setObject:0 forKeyedSubscript:@"privateMACOffByDefaultCount"];
                     }
 
                     if (v221)
                     {
-                      v172 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v172 forKeyedSubscript:@"privateMACStaticByUserCount"];
+                      v169 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v169 forKeyedSubscript:@"privateMACOffByUserCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"privateMACStaticByUserCount"];
+                      [v181 setObject:0 forKeyedSubscript:@"privateMACOffByUserCount"];
+                    }
+
+                    if (v199)
+                    {
+                      v170 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v170 forKeyedSubscript:@"privateMACOffByProfileCount"];
+                    }
+
+                    else
+                    {
+                      [v181 setObject:0 forKeyedSubscript:@"privateMACOffByProfileCount"];
                     }
 
                     if (v216)
                     {
-                      v173 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v173 forKeyedSubscript:@"privateMACRotatingByDefaultCount"];
+                      v171 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v171 forKeyedSubscript:@"privateMACStaticByDefaultCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"privateMACRotatingByDefaultCount"];
+                      [v181 setObject:0 forKeyedSubscript:@"privateMACStaticByDefaultCount"];
                     }
 
                     if (v220)
                     {
-                      v174 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
-                      [v182 setObject:v174 forKeyedSubscript:@"privateMACRotatingByUserCount"];
+                      v172 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v172 forKeyedSubscript:@"privateMACStaticByUserCount"];
                     }
 
                     else
                     {
-                      [v182 setObject:0 forKeyedSubscript:@"privateMACRotatingByUserCount"];
+                      [v181 setObject:0 forKeyedSubscript:@"privateMACStaticByUserCount"];
                     }
 
-                    v38 = v228 + 1;
-                    if (v228 + 1 != v183)
+                    if (v215)
+                    {
+                      v173 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v173 forKeyedSubscript:@"privateMACRotatingByDefaultCount"];
+                    }
+
+                    else
+                    {
+                      [v181 setObject:0 forKeyedSubscript:@"privateMACRotatingByDefaultCount"];
+                    }
+
+                    if (v219)
+                    {
+                      v174 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+                      [v181 setObject:v174 forKeyedSubscript:@"privateMACRotatingByUserCount"];
+                    }
+
+                    else
+                    {
+                      [v181 setObject:0 forKeyedSubscript:@"privateMACRotatingByUserCount"];
+                    }
+
+                    v38 = v227 + 1;
+                    if (v227 + 1 != v182)
                     {
                       continue;
                     }
 
-                    v175 = [obj countByEnumeratingWithState:&v258 objects:v263 count:16];
-                    v183 = v175;
+                    v175 = [obj countByEnumeratingWithState:&v257 objects:v262 count:16];
+                    v182 = v175;
                     if (!v175)
                     {
                       goto LABEL_396;
@@ -1757,7 +1756,7 @@ LABEL_183:
       break;
     }
 
-    [v182 setObject:0 forKeyedSubscript:@"hiddenCount"];
+    [v181 setObject:0 forKeyedSubscript:@"hiddenCount"];
     if (v34)
     {
       goto LABEL_121;
@@ -1769,46 +1768,45 @@ LABEL_183:
 LABEL_396:
 
   v176 = [dictionary copy];
-  v177 = *MEMORY[0x1E69E9840];
 
   return v176;
 }
 
 - (NSString)description
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   selfCopy = self;
   coreAnalyticsEventPayload = [(CWFAutoJoinStatistics *)self coreAnalyticsEventPayload];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   allKeys = [coreAnalyticsEventPayload allKeys];
   v6 = [allKeys sortedArrayUsingSelector:sel_caseInsensitiveCompare_];
 
-  v7 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v26;
+    v9 = *v25;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v26 != v9)
+        if (*v25 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v25 + 1) + 8 * i);
+        v11 = *(*(&v24 + 1) + 8 * i);
         v12 = MEMORY[0x1E696AEC0];
         v13 = [coreAnalyticsEventPayload objectForKeyedSubscript:v11];
         v14 = [v12 stringWithFormat:@"%@=%@", v11, v13];
         [array addObject:v14];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v8);
@@ -1816,20 +1814,18 @@ LABEL_396:
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   autoJoinTriggerCounts = [(CWFAutoJoinStatistics *)selfCopy autoJoinTriggerCounts];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = sub_1E0D666DC;
-  v23[3] = &unk_1E86EA4A8;
-  v24 = dictionary;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = sub_1E0D666DC;
+  v22[3] = &unk_1E86EA4A8;
+  v23 = dictionary;
   v17 = dictionary;
-  [autoJoinTriggerCounts enumerateKeysAndObjectsUsingBlock:v23];
+  [autoJoinTriggerCounts enumerateKeysAndObjectsUsingBlock:v22];
 
   v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"triggers=%@", v17];
   [array addObject:v18];
 
   v19 = [array componentsJoinedByString:{@", "}];
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }

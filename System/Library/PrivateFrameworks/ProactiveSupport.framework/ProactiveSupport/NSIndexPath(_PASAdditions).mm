@@ -124,7 +124,7 @@ LABEL_20:
 + (id)_pas_fromVersionString:()_PASAdditions withExceptions:
 {
   LODWORD(currentHandler2) = a4;
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = [(__CFString *)v7 length];
   if (![(__CFString *)v7 length])
@@ -150,15 +150,15 @@ LABEL_5:
     v11 = (v8 + 1) >> 1;
     v12 = (8 * v11) | 7;
     __endptr = 0;
-    v28 = 0;
+    v27 = 0;
     if (v12 > 0x1F4)
     {
-      v24 = malloc_type_posix_memalign(&__endptr, 8uLL, 8 * v11, 0x100004000313F17uLL);
-      LOBYTE(v28) = 0;
-      if (v24)
+      v23 = malloc_type_posix_memalign(&__endptr, 8uLL, 8 * v11, 0x100004000313F17uLL);
+      LOBYTE(v27) = 0;
+      if (v23)
       {
-        v25 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA18] reason:@"malloc failed" userInfo:0];
-        objc_exception_throw(v25);
+        v24 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA18] reason:@"malloc failed" userInfo:0];
+        objc_exception_throw(v24);
       }
 
       v13 = __endptr;
@@ -166,7 +166,7 @@ LABEL_5:
 
     else
     {
-      v13 = &v26 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v13 = &v25 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
       bzero(v13, (8 * v11) | 7);
     }
 
@@ -316,8 +316,6 @@ LABEL_46:
 LABEL_31:
   v19 = 0;
 LABEL_26:
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v19;
 }

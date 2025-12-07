@@ -1,4 +1,5 @@
 @interface TSPDocumentSaveValidationPolicy
++ (TSPDocumentSaveValidationPolicy)saveValidationPolicyWithValidateDataCRC:(BOOL)c validateDataDigest:(BOOL)digest scanForOSLikeCorruption:(BOOL)corruption corruptedDataFailToSaveMitigationPolicy:(int64_t)policy corruptedDataRemovalMitigationPolicy:(int64_t)mitigationPolicy updateDataModificationDate:(BOOL)date failToSaveIfUpdateDataModificationDateFails:(BOOL)fails;
 - (TSPDocumentSaveValidationPolicy)initWithValidateDataCRC:(BOOL)c validateDataDigest:(BOOL)digest scanForOSLikeCorruption:(BOOL)corruption corruptedDataFailToSaveMitigationPolicy:(int64_t)policy corruptedDataRemovalMitigationPolicy:(int64_t)mitigationPolicy updateDataModificationDate:(BOOL)date failToSaveIfUpdateDataModificationDateFails:(BOOL)fails;
 - (id)description;
 @end
@@ -52,6 +53,18 @@
   }
 
   return v17;
+}
+
++ (TSPDocumentSaveValidationPolicy)saveValidationPolicyWithValidateDataCRC:(BOOL)c validateDataDigest:(BOOL)digest scanForOSLikeCorruption:(BOOL)corruption corruptedDataFailToSaveMitigationPolicy:(int64_t)policy corruptedDataRemovalMitigationPolicy:(int64_t)mitigationPolicy updateDataModificationDate:(BOOL)date failToSaveIfUpdateDataModificationDateFails:(BOOL)fails
+{
+  dateCopy = date;
+  corruptionCopy = corruption;
+  digestCopy = digest;
+  cCopy = c;
+  v15 = [self alloc];
+  updated = objc_msgSend_initWithValidateDataCRC_validateDataDigest_scanForOSLikeCorruption_corruptedDataFailToSaveMitigationPolicy_corruptedDataRemovalMitigationPolicy_updateDataModificationDate_failToSaveIfUpdateDataModificationDateFails_(v15, v16, cCopy, digestCopy, corruptionCopy, policy, mitigationPolicy, dateCopy, fails);
+
+  return updated;
 }
 
 - (id)description

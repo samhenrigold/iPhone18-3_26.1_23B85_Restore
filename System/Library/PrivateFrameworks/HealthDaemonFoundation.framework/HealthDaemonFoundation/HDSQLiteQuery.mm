@@ -125,12 +125,11 @@ uint64_t __78__HDSQLiteQuery_enumeratePersistentIDsAndProperties_error_enumerati
 {
   if ((*(*a3 + 16))(a3, 0) <= 0)
   {
-    v7 = [MEMORY[0x277CCA890] currentHandler];
-    [v7 handleFailureInMethod:a1[7] object:a1[4] file:@"HDSQLiteQuery.mm" lineNumber:76 description:{@"Invalid parameter not satisfying: %@", @"pID > 0"}];
+    v6 = [MEMORY[0x277CCA890] currentHandler];
+    [v6 handleFailureInMethod:a1[7] object:a1[4] file:@"HDSQLiteQuery.mm" lineNumber:76 description:{@"Invalid parameter not satisfying: %@", @"pID > 0"}];
   }
 
   a3[4] = 1;
-  v5 = a1[5];
   result = (*(a1[6] + 16))();
   a3[4] = 0;
   return result;
@@ -138,10 +137,10 @@ uint64_t __78__HDSQLiteQuery_enumeratePersistentIDsAndProperties_error_enumerati
 
 - (BOOL)enumerateProperties:(id)properties error:(id *)error enumerationHandler:(id)handler
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   handlerCopy = handler;
-  v34 = propertiesCopy;
+  v33 = propertiesCopy;
   if ([propertiesCopy count] >= 0x7FFFFFFF)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
@@ -149,7 +148,7 @@ uint64_t __78__HDSQLiteQuery_enumeratePersistentIDsAndProperties_error_enumerati
   }
 
   v10 = handlerCopy;
-  v35 = [(HDSQLiteQueryDescriptor *)self->_descriptor selectSQLForProperties:v34];
+  v34 = [(HDSQLiteQueryDescriptor *)self->_descriptor selectSQLForProperties:v33];
   errorCopy = error;
   if ([(HDSQLiteQueryDescriptor *)self->_descriptor shouldExpandLastSQLStatement])
   {
@@ -158,54 +157,54 @@ uint64_t __78__HDSQLiteQuery_enumeratePersistentIDsAndProperties_error_enumerati
 
   else
   {
-    v11 = [v35 copy];
+    v11 = [v34 copy];
   }
 
   lastSQLStatement = self->_lastSQLStatement;
   self->_lastSQLStatement = v11;
 
-  v52[0] = 0;
-  v52[1] = v52;
-  v52[2] = 0x2020000000;
-  v53 = 1;
+  v51[0] = 0;
+  v51[1] = v51;
+  v51[2] = 0x2020000000;
+  v52 = 1;
   __p = 0;
+  v49 = 0;
   v50 = 0;
-  v51 = 0;
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
-  v13 = v34;
-  v14 = [v13 countByEnumeratingWithState:&v45 objects:v54 count:16];
+  v13 = v33;
+  v14 = [v13 countByEnumeratingWithState:&v44 objects:v53 count:16];
   if (v14)
   {
-    v15 = *v46;
+    v15 = *v45;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v46 != v15)
+        if (*v45 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        uTF8String = [*(*(&v45 + 1) + 8 * i) UTF8String];
-        v18 = v50;
-        if (v50 >= v51)
+        uTF8String = [*(*(&v44 + 1) + 8 * i) UTF8String];
+        v18 = v49;
+        if (v49 >= v50)
         {
-          v20 = (v50 - __p) >> 3;
+          v20 = (v49 - __p) >> 3;
           if ((v20 + 1) >> 61)
           {
             std::vector<char const*>::__throw_length_error[abi:ne200100]();
           }
 
-          v21 = (v51 - __p) >> 2;
+          v21 = (v50 - __p) >> 2;
           if (v21 <= v20 + 1)
           {
             v21 = v20 + 1;
           }
 
-          if (v51 - __p >= 0x7FFFFFFFFFFFFFF8)
+          if (v50 - __p >= 0x7FFFFFFFFFFFFFF8)
           {
             v22 = 0x1FFFFFFFFFFFFFFFLL;
           }
@@ -223,12 +222,12 @@ uint64_t __78__HDSQLiteQuery_enumeratePersistentIDsAndProperties_error_enumerati
           v23 = (8 * v20);
           *v23 = uTF8String;
           v19 = (8 * v20 + 8);
-          v24 = v23 - (v50 - __p);
-          memcpy(v24, __p, v50 - __p);
+          v24 = v23 - (v49 - __p);
+          memcpy(v24, __p, v49 - __p);
           v25 = __p;
           __p = v24;
-          v50 = v19;
-          v51 = 0;
+          v49 = v19;
+          v50 = 0;
           if (v25)
           {
             operator delete(v25);
@@ -239,78 +238,76 @@ uint64_t __78__HDSQLiteQuery_enumeratePersistentIDsAndProperties_error_enumerati
 
         else
         {
-          *v50 = uTF8String;
+          *v49 = uTF8String;
           v19 = v18 + 1;
         }
 
-        v50 = v19;
+        v49 = v19;
       }
 
-      v14 = [v13 countByEnumeratingWithState:&v45 objects:v54 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v44 objects:v53 count:16];
     }
 
     while (v14);
   }
 
   database = self->_database;
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __62__HDSQLiteQuery_enumerateProperties_error_enumerationHandler___block_invoke;
-  v44[3] = &unk_2796BDFF0;
-  v44[4] = self;
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3321888768;
-  v37[2] = __62__HDSQLiteQuery_enumerateProperties_error_enumerationHandler___block_invoke_2;
-  v37[3] = &unk_286379C30;
-  v40 = v52;
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __62__HDSQLiteQuery_enumerateProperties_error_enumerationHandler___block_invoke;
+  v43[3] = &unk_2796BDFF0;
+  v43[4] = self;
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3321888768;
+  v36[2] = __62__HDSQLiteQuery_enumerateProperties_error_enumerationHandler___block_invoke_2;
+  v36[3] = &unk_286379C30;
+  v39 = v51;
+  v40 = 0;
   v41 = 0;
   v42 = 0;
-  v43 = 0;
-  std::vector<char const*>::__init_with_size[abi:ne200100]<char const**,char const**>(&v41, __p, v50, (v50 - __p) >> 3);
+  std::vector<char const*>::__init_with_size[abi:ne200100]<char const**,char const**>(&v40, __p, v49, (v49 - __p) >> 3);
   v27 = v10;
-  v39 = v27;
+  v38 = v27;
   v28 = v13;
-  v38 = v28;
-  v29 = [(HDSQLiteDatabase *)database executeSQL:v35 error:errorCopy bindingHandler:v44 enumerationHandler:v37];
+  v37 = v28;
+  v29 = [(HDSQLiteDatabase *)database executeSQL:v34 error:errorCopy bindingHandler:v43 enumerationHandler:v36];
 
-  if (v41)
+  if (v40)
   {
-    v42 = v41;
-    operator delete(v41);
+    v41 = v40;
+    operator delete(v40);
   }
 
   if (__p)
   {
-    v50 = __p;
+    v49 = __p;
     operator delete(__p);
   }
 
-  _Block_object_dispose(v52, 8);
+  _Block_object_dispose(v51, 8);
 
-  v30 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
-uint64_t __62__HDSQLiteQuery_enumerateProperties_error_enumerationHandler___block_invoke_2(void *a1, uint64_t **a2)
+uint64_t __62__HDSQLiteQuery_enumerateProperties_error_enumerationHandler___block_invoke_2(uint64_t a1, uint64_t **a2)
 {
-  if (*(*(a1[6] + 8) + 24) == 1)
+  if (*(*(*(a1 + 48) + 8) + 24) == 1)
   {
     __p = 0;
+    v6 = 0;
     v7 = 0;
-    v8 = 0;
-    std::vector<char const*>::__init_with_size[abi:ne200100]<char const**,char const**>(&__p, a1[7], a1[8], (a1[8] - a1[7]) >> 3);
+    std::vector<char const*>::__init_with_size[abi:ne200100]<char const**,char const**>(&__p, *(a1 + 56), *(a1 + 64), (*(a1 + 64) - *(a1 + 56)) >> 3);
     HDSQLiteRow::setColumnNames(a2, &__p);
     if (__p)
     {
-      v7 = __p;
+      v6 = __p;
       operator delete(__p);
     }
 
-    *(*(a1[6] + 8) + 24) = 0;
+    *(*(*(a1 + 48) + 8) + 24) = 0;
   }
 
-  v4 = a1[4];
-  return (*(a1[5] + 16))();
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)_expandLastSQLStatementIfNecessary:(uint64_t)necessary

@@ -64,73 +64,61 @@
 
 void __33__CPLBrokenScope_showAlertToUser__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 16);
-  if (v2)
+  if (!v2 || ([v2 timeIntervalSinceNow], v3 < -180.0))
   {
-    [v2 timeIntervalSinceNow];
-    if (v3 >= -180.0)
+    v4 = [MEMORY[0x1E695DF00] date];
+    v5 = *(a1 + 32);
+    v6 = *(v5 + 16);
+    *(v5 + 16) = v4;
+
+    if ([*(a1 + 32) shouldShowAlertToUser])
     {
-LABEL_11:
-      v15 = *MEMORY[0x1E69E9840];
-      return;
+      v7 = *(a1 + 32);
+      v14 = [v7 alertMessage];
+      v8 = [*(a1 + 32) readMoreURL];
+      v9 = [*(a1 + 32) createRadarURL];
+      [v7 _showAlertWithMessage:v14 readMoreURL:v8 createRadarURL:v9 showsRecoverButton:{objc_msgSend(*(a1 + 32), "hasEngineRecoveryMechanism")}];
     }
-  }
 
-  v4 = [MEMORY[0x1E695DF00] date];
-  v5 = *(a1 + 32);
-  v6 = *(v5 + 16);
-  *(v5 + 16) = v4;
-
-  if (![*(a1 + 32) shouldShowAlertToUser])
-  {
-    if ((_CPLSilentLogging & 1) == 0)
+    else if ((_CPLSilentLogging & 1) == 0)
     {
-      v11 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v10 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v12 = *(a1 + 32);
-        v13 = v12[4];
-        v14 = [v12 brokenMessage];
+        v11 = *(a1 + 32);
+        v12 = v11[4];
+        v13 = [v11 brokenMessage];
         *buf = 138412546;
+        v16 = v12;
+        v17 = 2112;
         v18 = v13;
-        v19 = 2112;
-        v20 = v14;
-        _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "Broken scope detected: %@\n%@", buf, 0x16u);
+        _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_ERROR, "Broken scope detected: %@\n%@", buf, 0x16u);
       }
     }
-
-    goto LABEL_11;
   }
-
-  v7 = *(a1 + 32);
-  v16 = [v7 alertMessage];
-  v8 = [*(a1 + 32) readMoreURL];
-  v9 = [*(a1 + 32) createRadarURL];
-  [v7 _showAlertWithMessage:v16 readMoreURL:v8 createRadarURL:v9 showsRecoverButton:{objc_msgSend(*(a1 + 32), "hasEngineRecoveryMechanism")}];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_showAlertWithMessage:(id)message readMoreURL:(id)l createRadarURL:(id)rL showsRecoverButton:(BOOL)button
 {
   buttonCopy = button;
-  v43[4] = *MEMORY[0x1E69E9840];
+  v42[4] = *MEMORY[0x1E69E9840];
   messageCopy = message;
   lCopy = l;
   rLCopy = rL;
   dispatch_assert_queue_V2(self->_queue);
   v13 = *MEMORY[0x1E695EE60];
-  v42[0] = *MEMORY[0x1E695EE58];
-  v42[1] = v13;
-  v43[0] = @"iCloud Photo Library";
-  v43[1] = messageCopy;
+  v41[0] = *MEMORY[0x1E695EE58];
+  v41[1] = v13;
+  v42[0] = @"iCloud Photo Library";
+  v42[1] = messageCopy;
   v14 = *MEMORY[0x1E695EE68];
-  v42[2] = *MEMORY[0x1E695EE78];
-  v42[3] = v14;
-  v43[2] = @"OK";
-  v43[3] = MEMORY[0x1E695E118];
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:v42 count:4];
+  v41[2] = *MEMORY[0x1E695EE78];
+  v41[3] = v14;
+  v42[2] = @"OK";
+  v42[3] = MEMORY[0x1E695E118];
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:4];
   v16 = [v15 mutableCopy];
 
   if (lCopy)
@@ -169,7 +157,7 @@ LABEL_8:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v39 = messageCopy;
+        v38 = messageCopy;
         _os_log_impl(&dword_1DC05A000, v22, OS_LOG_TYPE_DEFAULT, "Waiting for response to message: %@", buf, 0xCu);
       }
     }
@@ -185,7 +173,7 @@ LABEL_8:
       {
         v25 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v23];
         *buf = 138412290;
-        v39 = v25;
+        v38 = v25;
         _os_log_impl(&dword_1DC05A000, v24, OS_LOG_TYPE_DEFAULT, "Button pressed is %@", buf, 0xCu);
       }
     }
@@ -207,13 +195,13 @@ LABEL_8:
       {
         shouldShowAlertToUser = self->_shouldShowAlertToUser;
         self->_shouldShowAlertToUser = 0;
-        v34[0] = MEMORY[0x1E69E9820];
-        v34[1] = 3221225472;
-        v34[2] = __86__CPLBrokenScope__showAlertWithMessage_readMoreURL_createRadarURL_showsRecoverButton___block_invoke;
-        v34[3] = &unk_1E861F388;
-        v34[4] = self;
-        v35 = shouldShowAlertToUser;
-        [(CPLBrokenScope *)self recoverUsingEngineWithCompletionHandler:v34];
+        v33[0] = MEMORY[0x1E69E9820];
+        v33[1] = 3221225472;
+        v33[2] = __86__CPLBrokenScope__showAlertWithMessage_readMoreURL_createRadarURL_showsRecoverButton___block_invoke;
+        v33[3] = &unk_1E861F388;
+        v33[4] = self;
+        v34 = shouldShowAlertToUser;
+        [(CPLBrokenScope *)self recoverUsingEngineWithCompletionHandler:v33];
         goto LABEL_30;
       }
 
@@ -238,16 +226,14 @@ LABEL_8:
     {
       engineScope = self->_engineScope;
       *buf = 138412546;
-      v39 = engineScope;
-      v40 = 1024;
-      v41 = error;
+      v38 = engineScope;
+      v39 = 1024;
+      v40 = error;
       _os_log_impl(&dword_1DC05A000, v30, OS_LOG_TYPE_ERROR, "Could not create user notification for broken scope %@: %d", buf, 0x12u);
     }
   }
 
 LABEL_30:
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 void __86__CPLBrokenScope__showAlertWithMessage_readMoreURL_createRadarURL_showsRecoverButton___block_invoke(uint64_t a1, void *a2)
@@ -276,7 +262,7 @@ void __86__CPLBrokenScope__showAlertWithMessage_readMoreURL_createRadarURL_shows
 
 void __86__CPLBrokenScope__showAlertWithMessage_readMoreURL_createRadarURL_showsRecoverButton___block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -287,7 +273,7 @@ void __86__CPLBrokenScope__showAlertWithMessage_readMoreURL_createRadarURL_shows
       {
         v4 = *(a1 + 32);
         *buf = 138412290;
-        v17 = v4;
+        v15 = v4;
         _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_ERROR, "Failed to clean-up: %@", buf, 0xCu);
       }
 
@@ -313,24 +299,21 @@ void __86__CPLBrokenScope__showAlertWithMessage_readMoreURL_createRadarURL_shows
     }
 
     *(*(a1 + 40) + 25) = *(a1 + 48);
-    v11 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
     [*(a1 + 40) _showAlertWithMessage:@"Library has been cleaned up successfully." readMoreURL:0 createRadarURL:0 showsRecoverButton:0];
     WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 40));
-    v12 = [WeakRetained syncManager];
-    v13 = [*(a1 + 40) engineScope];
-    [v12 removeBrokenScope:v13];
-
-    v14 = *MEMORY[0x1E69E9840];
+    v11 = [WeakRetained syncManager];
+    v12 = [*(a1 + 40) engineScope];
+    [v11 removeBrokenScope:v12];
   }
 }
 
 - (NSURL)createRadarURL
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (self->_internal)
   {
     v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -348,33 +331,33 @@ void __86__CPLBrokenScope__showAlertWithMessage_readMoreURL_createRadarURL_shows
 
     v6 = [MEMORY[0x1E696AF20] componentsWithString:@"tap-to-radar://new"];
     v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v8 = v3;
-    v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v21;
+      v11 = *v20;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v20 + 1) + 8 * i);
+          v13 = *(*(&v19 + 1) + 8 * i);
           v14 = MEMORY[0x1E696AF60];
-          v15 = [v8 objectForKeyedSubscript:{v13, v20}];
+          v15 = [v8 objectForKeyedSubscript:{v13, v19}];
           v16 = [v14 queryItemWithName:v13 value:v15];
           [v7 addObject:v16];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v10);
@@ -388,8 +371,6 @@ void __86__CPLBrokenScope__showAlertWithMessage_readMoreURL_createRadarURL_shows
   {
     v17 = 0;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

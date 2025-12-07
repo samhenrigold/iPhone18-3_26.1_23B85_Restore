@@ -7,21 +7,18 @@ uint64_t __routingContextResilientRemote_AddToSelectedRoutes_block_invoke(uint64
 {
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  VTable = CMBaseObjectGetVTable();
-  v6 = *(*(VTable + 16) + 80);
-  if (!v6)
+  v5 = *(*(CMBaseObjectGetVTable() + 16) + 80);
+  if (!v5)
   {
     return 4294954514;
   }
 
-  v7 = *(VTable + 16) + 80;
-
-  return v6(a2, v3, v4);
+  return v5(a2, v3, v4);
 }
 
 void __routingContext_AddToSelectedRoutes_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{*(a1 + 32), 0}];
@@ -59,8 +56,6 @@ void __routingContext_AddToSelectedRoutes_block_invoke(uint64_t a1)
   {
     CFRelease(v7);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

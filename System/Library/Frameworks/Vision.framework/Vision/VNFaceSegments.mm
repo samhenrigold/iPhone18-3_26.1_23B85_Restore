@@ -50,7 +50,7 @@
   {
     v8 = self->_outputBufferHeight * self->_outputBufferWidth;
     v23 = 2143289344;
-    std::vector<float>::resize(p_probabilityNormSums, v8, &v23, *&rect.origin.x);
+    std::vector<float>::resize(&p_probabilityNormSums->__begin_, v8, &v23, *&rect.origin.x);
   }
 
   numberOfFaceSegments = self->_numberOfFaceSegments;
@@ -193,7 +193,7 @@ LABEL_22:
   v24 = (1.0 - v16 - v17) * outputBufferHeight;
   v25 = v17 * outputBufferHeight;
   memset(&src, 0, sizeof(src));
-  [(VNFaceSegments *)self _makeFaceSegmentProbabilityDataImageBuffer:v15 rect:v20 * outputBufferWidth, v24, v22 * outputBufferWidth, v25];
+  objc_msgSend__makeFaceSegmentProbabilityDataImageBuffer_rect_(self, v20 * outputBufferWidth, v24, v22 * outputBufferWidth, v25);
   v26 = [(VNFaceSegments *)self _createFaceSegmentProabilityDataPixelBufferWithSize:error error:v23, v25];
   v27 = v26;
   if (v26)

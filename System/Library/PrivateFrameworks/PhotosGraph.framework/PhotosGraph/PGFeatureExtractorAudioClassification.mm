@@ -99,16 +99,15 @@ LABEL_17:
 
 - (id)featureNames
 {
-  v5[7] = *MEMORY[0x277D85DE8];
-  v5[0] = @"AudioNone";
-  v5[1] = @"Applause";
-  v5[2] = @"Babble";
-  v5[3] = @"Cheering";
-  v5[4] = @"Laughter";
-  v5[5] = @"Speech";
-  v5[6] = @"Music";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:7];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[7] = *MEMORY[0x277D85DE8];
+  v4[0] = @"AudioNone";
+  v4[1] = @"Applause";
+  v4[2] = @"Babble";
+  v4[3] = @"Cheering";
+  v4[4] = @"Laughter";
+  v4[5] = @"Speech";
+  v4[6] = @"Music";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:7];
 
   return v2;
 }

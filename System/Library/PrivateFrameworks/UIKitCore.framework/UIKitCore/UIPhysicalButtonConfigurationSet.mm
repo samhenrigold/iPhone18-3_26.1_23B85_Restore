@@ -149,12 +149,12 @@ void __75___UIPhysicalButtonConfigurationSet_descriptionBuilderWithMultilinePref
   v4 = [v3 appendObject:a2 withName:v5];
 }
 
-uint64_t __53___UIPhysicalButtonConfigurationSet_encodeWithCoder___block_invoke(uint64_t a1, void *a2)
+char *__53___UIPhysicalButtonConfigurationSet_encodeWithCoder___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 _button];
   if ((result - 1) <= 6)
   {
-    v5 = off_1E712C678[result - 1];
+    v5 = off_1E712C678[(result - 1)];
     v6 = *(a1 + 32);
 
     return [v6 encodeObject:a2 forKey:v5];
@@ -190,12 +190,12 @@ void __51___UIPhysicalButtonConfigurationSet_initWithCoder___block_invoke(uint64
   }
 }
 
-uint64_t __61___UIPhysicalButtonConfigurationSet_encodeWithXPCDictionary___block_invoke(uint64_t a1, void *a2)
+char *__61___UIPhysicalButtonConfigurationSet_encodeWithXPCDictionary___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 _button];
   if ((result - 1) <= 6)
   {
-    [(__CFString *)off_1E712C678[result - 1] UTF8String];
+    [(__CFString *)off_1E712C678[(result - 1)] UTF8String];
 
     return BSSerializeBSXPCEncodableObjectToXPCDictionaryWithKey();
   }
@@ -231,12 +231,12 @@ void __59___UIPhysicalButtonConfigurationSet_initWithXPCDictionary___block_invok
   }
 }
 
-uint64_t __58___UIPhysicalButtonConfigurationSet_encodeWithBSXPCCoder___block_invoke(uint64_t a1, void *a2)
+char *__58___UIPhysicalButtonConfigurationSet_encodeWithBSXPCCoder___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 _button];
   if ((result - 1) <= 6)
   {
-    v5 = off_1E712C678[result - 1];
+    v5 = off_1E712C678[(result - 1)];
     v6 = *(a1 + 32);
 
     return [v6 encodeObject:a2 forKey:v5];

@@ -1,8 +1,10 @@
 @interface PDSQLiteDatabase
 + (BOOL)_stepStatement:(sqlite3_stmt *)statement hasRow:(BOOL *)row resultCode:(int *)code error:(id *)error;
 - (BOOL)_enableDisableForeignKeys:(BOOL)keys error:(id *)error;
+- (BOOL)_executeSQL:(id)l cache:(BOOL)cache error:(id *)error bindingHandler:(id)handler enumerationHandler:(id)enumerationHandler;
 - (BOOL)_executeSQL:(id)l error:(id *)error retryIfBusy:(BOOL)busy;
 - (BOOL)_integerValueForPragma:(id)pragma databaseName:(id)name value:(int64_t *)value error:(id *)error;
+- (BOOL)_prepareStatementForSQL:(id)l cache:(BOOL)cache error:(id *)error usingBlock:(id)block;
 - (BOOL)_setPragma:(id)pragma integerValue:(int64_t)value withDatabaseName:(id)name error:(id *)error;
 - (BOOL)_verifyDatabaseOpenAndReturnError:(id *)error;
 - (BOOL)attachDatabaseWithName:(id)name fileURL:(id)l error:(id *)error;
@@ -625,6 +627,67 @@ LABEL_51:
 LABEL_52:
 
   return v18;
+}
+
+- (BOOL)_prepareStatementForSQL:(id)l cache:(BOOL)cache error:(id *)error usingBlock:(id)block
+{
+  cacheCopy = cache;
+  lCopy = l;
+  blockCopy = block;
+  v12 = [(PDSQLiteDatabase *)self _statementForSQL:lCopy cache:cacheCopy error:error];
+  if (v12)
+  {
+    v13 = objc_autoreleasePoolPush();
+    v18[0] = 0;
+    v14 = blockCopy[2](blockCopy, v12, v18);
+    v15 = v18[0];
+    objc_autoreleasePoolPop(v13);
+    if ((v14 & 1) == 0)
+    {
+      [NSError cls_assignError:error fromError:v15];
+    }
+
+    v16 = v14;
+    [(PDSQLiteDatabase *)self _resetStatement:v12 finalize:cacheCopy ^ 1];
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  return v16;
+}
+
+- (BOOL)_executeSQL:(id)l cache:(BOOL)cache error:(id *)error bindingHandler:(id)handler enumerationHandler:(id)enumerationHandler
+{
+  cacheCopy = cache;
+  lCopy = l;
+  handlerCopy = handler;
+  enumerationHandlerCopy = enumerationHandler;
+  if ([(PDSQLiteDatabase *)self _verifyDatabaseOpenAndReturnError:error])
+  {
+    if (!self->_isHandlingTransactionEnd)
+    {
+      v17[0] = _NSConcreteStackBlock;
+      v17[1] = 3221225472;
+      v17[2] = sub_100048DA8;
+      v17[3] = &unk_100203070;
+      v18 = handlerCopy;
+      v19 = enumerationHandlerCopy;
+      errorCopy = error;
+      v15 = [(PDSQLiteDatabase *)self _prepareStatementForSQL:lCopy cache:cacheCopy error:error usingBlock:v17];
+
+      goto LABEL_6;
+    }
+
+    [NSError cls_assignError:error code:100 description:@"Attempt to execute SQL within a commit or rollback block."];
+  }
+
+  v15 = 0;
+LABEL_6:
+
+  return v15;
 }
 
 - (void)_resetStatement:(sqlite3_stmt *)statement finalize:(BOOL)finalize

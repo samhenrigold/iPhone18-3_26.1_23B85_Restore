@@ -127,78 +127,74 @@
 
 - (id)allowedApplications
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = self->_allowedApplicationIdentifiers;
-  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
-        v10 = [(NSMutableDictionary *)self->_allowedApplicationIdentifiers objectForKeyedSubscript:v9, v14];
+        v9 = *(*(&v13 + 1) + 8 * i);
+        v10 = [(NSMutableDictionary *)self->_allowedApplicationIdentifiers objectForKeyedSubscript:v9, v13];
         bundleID = [v9 bundleID];
         [dictionary setObject:v10 forKeyedSubscript:bundleID];
       }
 
-      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 - (id)deniedApplications
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_deniedApplicationIdentifiers;
-  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        bundleID = [*(*(&v12 + 1) + 8 * i) bundleID];
+        bundleID = [*(*(&v11 + 1) + 8 * i) bundleID];
         [v3 addObject:bundleID];
       }
 
-      v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -545,86 +541,85 @@ LABEL_77:
 - (id)_descriptionForRedacted:(BOOL)redacted
 {
   redactedCopy = redacted;
-  v26 = MEMORY[0x277CCACA8];
-  v25 = objc_opt_class();
-  v27 = DNDStringFromInterruptionSuppression(self->_suppressionType);
+  v25 = MEMORY[0x277CCACA8];
+  v24 = objc_opt_class();
+  v26 = DNDStringFromInterruptionSuppression(self->_suppressionType);
   v5 = DNDStringFromInterruptionSuppressionMode(self->_suppressionMode);
   allowedApplicationIdentifiers = self->_allowedApplicationIdentifiers;
-  allowedWebApplicationIdentifiers = self->_allowedWebApplicationIdentifiers;
   deniedWebApplicationIdentifiers = self->_deniedWebApplicationIdentifiers;
-  v22 = allowedWebApplicationIdentifiers;
+  allowedWebApplicationIdentifiers = self->_allowedWebApplicationIdentifiers;
   deniedApplicationIdentifiers = self->_deniedApplicationIdentifiers;
   senderConfiguration = self->_senderConfiguration;
-  v28 = redactedCopy;
+  v27 = redactedCopy;
   if (redactedCopy)
   {
     senderConfiguration = [senderConfiguration redactedDescription];
   }
 
-  v9 = DNDStringFromBreakthroughUrgency(self->_minimumBreakthroughUrgency);
-  v10 = DNDEnabledSettingToString([(DNDConfiguration *)self hideApplicationBadges]);
-  v11 = DNDEnabledSettingToString([(DNDConfiguration *)self allowIntelligentManagement]);
-  v12 = @"Inclusive";
+  v8 = DNDStringFromBreakthroughUrgency(self->_minimumBreakthroughUrgency);
+  v9 = DNDEnabledSettingToString([(DNDConfiguration *)self hideApplicationBadges]);
+  v10 = DNDEnabledSettingToString([(DNDConfiguration *)self allowIntelligentManagement]);
+  v11 = @"Inclusive";
   applicationConfigurationType = self->_applicationConfigurationType;
   senderConfigurationType = self->_senderConfigurationType;
   if (applicationConfigurationType)
   {
-    v15 = @"Inclusive";
+    v14 = @"Inclusive";
   }
 
   else
   {
-    v15 = @"Exclusive";
+    v14 = @"Exclusive";
   }
 
   if (applicationConfigurationType == 2)
   {
-    v16 = @"Unconfigured";
+    v15 = @"Unconfigured";
   }
 
   else
   {
-    v16 = v15;
+    v15 = v14;
   }
 
   if (!senderConfigurationType)
   {
-    v12 = @"Exclusive";
+    v11 = @"Exclusive";
   }
 
   if (senderConfigurationType == 2)
   {
-    v12 = @"Unconfigured";
+    v11 = @"Unconfigured";
   }
 
-  v17 = v12;
-  v18 = v16;
-  v19 = DNDCompatibilityVersionToString([(DNDConfiguration *)self compatibilityVersion]);
-  v20 = [v26 stringWithFormat:@"<%@: %p suppressionType: %@; suppressionMode: %@ allowedApplicationIdentifiers: %@; deniedApplicationIdentifiers: %@; allowedWebApplicationIdentifiers: %@; deniedWebApplicationIdentifiers: %@; senderConfiguration: %@; minimumBreakthroughUrgency: %@; hideApplicationBadges: %@; allowIntelligentManagement: %@; applicationConfigurationType: %@; senderConfigurationType: %@; compatibilityVersion: %@; >", v25, self, v27, v5, allowedApplicationIdentifiers, deniedApplicationIdentifiers, v22, deniedWebApplicationIdentifiers, senderConfiguration, v9, v10, v11, v18, v17, v19];;
+  v16 = v11;
+  v17 = v15;
+  v18 = DNDCompatibilityVersionToString([(DNDConfiguration *)self compatibilityVersion]);
+  v19 = [v25 stringWithFormat:@"<%@: %p suppressionType: %@; suppressionMode: %@ allowedApplicationIdentifiers: %@; deniedApplicationIdentifiers: %@; allowedWebApplicationIdentifiers: %@; deniedWebApplicationIdentifiers: %@; senderConfiguration: %@; minimumBreakthroughUrgency: %@; hideApplicationBadges: %@; allowIntelligentManagement: %@; applicationConfigurationType: %@; senderConfigurationType: %@; compatibilityVersion: %@; >", v24, self, v26, v5, allowedApplicationIdentifiers, deniedApplicationIdentifiers, allowedWebApplicationIdentifiers, deniedWebApplicationIdentifiers, senderConfiguration, v8, v9, v10, v17, v16, v18];;
 
-  if (v28)
+  if (v27)
   {
   }
 
-  return v20;
+  return v19;
 }
 
 - (void)log:(id)log withPrefix:(id)prefix
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   logCopy = log;
   prefixCopy = prefix;
   if (os_log_type_enabled(logCopy, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v71 = prefixCopy;
+    v70 = prefixCopy;
     _os_log_impl(&dword_22002F000, logCopy, OS_LOG_TYPE_DEFAULT, "[%{public}@] Begin configuration", buf, 0xCu);
   }
 
   v7 = logCopy;
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v48 = DNDStringFromInterruptionSuppression(self->_suppressionType);
+    v47 = DNDStringFromInterruptionSuppression(self->_suppressionType);
     v8 = DNDStringFromInterruptionSuppressionMode(self->_suppressionMode);
     v9 = DNDStringFromBreakthroughUrgency(self->_minimumBreakthroughUrgency);
     v10 = DNDEnabledSettingToString([(DNDConfiguration *)self hideApplicationBadges]);
@@ -667,172 +662,172 @@ LABEL_77:
       v17 = v12;
     }
 
-    v47 = v17;
-    v46 = v16;
+    v46 = v17;
+    v45 = v16;
     v18 = DNDCompatibilityVersionToString([(DNDConfiguration *)self compatibilityVersion]);
     *buf = 138545410;
-    v71 = prefixCopy;
-    v72 = 2114;
-    v73 = v48;
-    v74 = 2114;
-    v75 = v8;
-    v76 = 2114;
-    v77 = v9;
-    v78 = 2114;
-    v79 = v10;
-    v80 = 2114;
-    v81 = v11;
-    v82 = 2114;
-    v83 = v16;
-    v84 = 2114;
-    v85 = v17;
-    v86 = 2114;
-    v87 = v18;
+    v70 = prefixCopy;
+    v71 = 2114;
+    v72 = v47;
+    v73 = 2114;
+    v74 = v8;
+    v75 = 2114;
+    v76 = v9;
+    v77 = 2114;
+    v78 = v10;
+    v79 = 2114;
+    v80 = v11;
+    v81 = 2114;
+    v82 = v16;
+    v83 = 2114;
+    v84 = v17;
+    v85 = 2114;
+    v86 = v18;
     _os_log_impl(&dword_22002F000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] suppressionType: %{public}@; suppressionMode: %{public}@; minimumBreakthroughUrgency: %{public}@; hideApplicationBadges: %{public}@; allowIntelligentManagement: %{public}@; applicationConfigurationType: %{public}@; senderConfigurationType: %{public}@; compatibilityVersion: %{public}@", buf, 0x5Cu);
   }
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
   v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   v19 = self->_allowedApplicationIdentifiers;
-  v20 = [(NSMutableDictionary *)v19 countByEnumeratingWithState:&v62 objects:v69 count:16];
+  v20 = [(NSMutableDictionary *)v19 countByEnumeratingWithState:&v61 objects:v68 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v63;
+    v22 = *v62;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v63 != v22)
+        if (*v62 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v62 + 1) + 8 * i);
+        v24 = *(*(&v61 + 1) + 8 * i);
         v25 = [(NSMutableDictionary *)self->_allowedApplicationIdentifiers objectForKeyedSubscript:v24];
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543875;
-          v71 = prefixCopy;
-          v72 = 2113;
-          v73 = v24;
-          v74 = 2113;
-          v75 = v25;
+          v70 = prefixCopy;
+          v71 = 2113;
+          v72 = v24;
+          v73 = 2113;
+          v74 = v25;
           _os_log_impl(&dword_22002F000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Allowed app: %{private}@; %{private}@", buf, 0x20u);
         }
       }
 
-      v21 = [(NSMutableDictionary *)v19 countByEnumeratingWithState:&v62 objects:v69 count:16];
+      v21 = [(NSMutableDictionary *)v19 countByEnumeratingWithState:&v61 objects:v68 count:16];
     }
 
     while (v21);
   }
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   v26 = self->_deniedApplicationIdentifiers;
-  v27 = [(NSMutableSet *)v26 countByEnumeratingWithState:&v58 objects:v68 count:16];
+  v27 = [(NSMutableSet *)v26 countByEnumeratingWithState:&v57 objects:v67 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v59;
+    v29 = *v58;
     do
     {
       for (j = 0; j != v28; ++j)
       {
-        if (*v59 != v29)
+        if (*v58 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v31 = *(*(&v58 + 1) + 8 * j);
+          v31 = *(*(&v57 + 1) + 8 * j);
           *buf = 138543619;
-          v71 = prefixCopy;
-          v72 = 2113;
-          v73 = v31;
+          v70 = prefixCopy;
+          v71 = 2113;
+          v72 = v31;
           _os_log_impl(&dword_22002F000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Denied app: %{private}@", buf, 0x16u);
         }
       }
 
-      v28 = [(NSMutableSet *)v26 countByEnumeratingWithState:&v58 objects:v68 count:16];
+      v28 = [(NSMutableSet *)v26 countByEnumeratingWithState:&v57 objects:v67 count:16];
     }
 
     while (v28);
   }
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   v32 = self->_allowedWebApplicationIdentifiers;
-  v33 = [(NSMutableSet *)v32 countByEnumeratingWithState:&v54 objects:v67 count:16];
+  v33 = [(NSMutableSet *)v32 countByEnumeratingWithState:&v53 objects:v66 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v55;
+    v35 = *v54;
     do
     {
       for (k = 0; k != v34; ++k)
       {
-        if (*v55 != v35)
+        if (*v54 != v35)
         {
           objc_enumerationMutation(v32);
         }
 
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v37 = *(*(&v54 + 1) + 8 * k);
+          v37 = *(*(&v53 + 1) + 8 * k);
           *buf = 138543619;
-          v71 = prefixCopy;
-          v72 = 2113;
-          v73 = v37;
+          v70 = prefixCopy;
+          v71 = 2113;
+          v72 = v37;
           _os_log_impl(&dword_22002F000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Allowed Web app: %{private}@", buf, 0x16u);
         }
       }
 
-      v34 = [(NSMutableSet *)v32 countByEnumeratingWithState:&v54 objects:v67 count:16];
+      v34 = [(NSMutableSet *)v32 countByEnumeratingWithState:&v53 objects:v66 count:16];
     }
 
     while (v34);
   }
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   v38 = self->_deniedWebApplicationIdentifiers;
-  v39 = [(NSMutableSet *)v38 countByEnumeratingWithState:&v50 objects:v66 count:16];
+  v39 = [(NSMutableSet *)v38 countByEnumeratingWithState:&v49 objects:v65 count:16];
   if (v39)
   {
     v40 = v39;
-    v41 = *v51;
+    v41 = *v50;
     do
     {
       for (m = 0; m != v40; ++m)
       {
-        if (*v51 != v41)
+        if (*v50 != v41)
         {
           objc_enumerationMutation(v38);
         }
 
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v43 = *(*(&v50 + 1) + 8 * m);
+          v43 = *(*(&v49 + 1) + 8 * m);
           *buf = 138543619;
-          v71 = prefixCopy;
-          v72 = 2113;
-          v73 = v43;
+          v70 = prefixCopy;
+          v71 = 2113;
+          v72 = v43;
           _os_log_impl(&dword_22002F000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Denied Web app: %{private}@", buf, 0x16u);
         }
       }
 
-      v40 = [(NSMutableSet *)v38 countByEnumeratingWithState:&v50 objects:v66 count:16];
+      v40 = [(NSMutableSet *)v38 countByEnumeratingWithState:&v49 objects:v65 count:16];
     }
 
     while (v40);
@@ -842,20 +837,18 @@ LABEL_77:
   {
     senderConfiguration = self->_senderConfiguration;
     *buf = 138543619;
-    v71 = prefixCopy;
-    v72 = 2113;
-    v73 = senderConfiguration;
+    v70 = prefixCopy;
+    v71 = 2113;
+    v72 = senderConfiguration;
     _os_log_impl(&dword_22002F000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] senderConfiguration: %{private}@", buf, 0x16u);
   }
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v71 = prefixCopy;
+    v70 = prefixCopy;
     _os_log_impl(&dword_22002F000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] End configuration", buf, 0xCu);
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (void)diffAgainstObject:(id)object usingDiffBuilder:(id)builder withDescription:(id)description
@@ -926,36 +919,36 @@ LABEL_77:
 
 - (DNDConfiguration)initWithCoder:(id)coder
 {
-  v34[3] = *MEMORY[0x277D85DE8];
+  v33[3] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v29 = [coderCopy decodeIntegerForKey:@"suppressionType"];
-  v28 = [coderCopy decodeIntegerForKey:@"suppressionMode"];
+  v28 = [coderCopy decodeIntegerForKey:@"suppressionType"];
+  v27 = [coderCopy decodeIntegerForKey:@"suppressionMode"];
   v4 = MEMORY[0x277CBEB98];
-  v34[0] = objc_opt_class();
-  v34[1] = objc_opt_class();
-  v34[2] = objc_opt_class();
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:3];
-  v6 = [v4 setWithArray:v5];
-  v27 = [coderCopy decodeObjectOfClasses:v6 forKey:@"allowedApplicationIdentifiers"];
-
-  v7 = MEMORY[0x277CBEB98];
   v33[0] = objc_opt_class();
   v33[1] = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
+  v33[2] = objc_opt_class();
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:3];
+  v6 = [v4 setWithArray:v5];
+  v26 = [coderCopy decodeObjectOfClasses:v6 forKey:@"allowedApplicationIdentifiers"];
+
+  v7 = MEMORY[0x277CBEB98];
+  v32[0] = objc_opt_class();
+  v32[1] = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
   v9 = [v7 setWithArray:v8];
   v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"deniedApplicationIdentifiers"];
 
   v11 = MEMORY[0x277CBEB98];
-  v32[0] = objc_opt_class();
-  v32[1] = objc_opt_class();
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
+  v31[0] = objc_opt_class();
+  v31[1] = objc_opt_class();
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
   v13 = [v11 setWithArray:v12];
   v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"allowedWebApplicationIdentifiers"];
 
   v15 = MEMORY[0x277CBEB98];
-  v31[0] = objc_opt_class();
-  v31[1] = objc_opt_class();
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
+  v30[0] = objc_opt_class();
+  v30[1] = objc_opt_class();
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
   v17 = [v15 setWithArray:v16];
   v18 = [coderCopy decodeObjectOfClasses:v17 forKey:@"deniedWebApplicationIdentifiers"];
 
@@ -991,9 +984,8 @@ LABEL_77:
     v23 = 2;
   }
 
-  v24 = -[DNDConfiguration _initWithSuppressionType:suppressionMode:allowedApplicationIdentifiers:deniedApplicationIdentifiers:allowedWebApplicationIdentifiers:deniedWebApplicationIdentifiers:senderConfiguration:minimumBreakthroughUrgency:hideApplicationBadges:allowIntelligentManagement:compatibilityVersion:applicationConfigurationType:senderConfigurationType:](self, "_initWithSuppressionType:suppressionMode:allowedApplicationIdentifiers:deniedApplicationIdentifiers:allowedWebApplicationIdentifiers:deniedWebApplicationIdentifiers:senderConfiguration:minimumBreakthroughUrgency:hideApplicationBadges:allowIntelligentManagement:compatibilityVersion:applicationConfigurationType:senderConfigurationType:", v29, v28, v27, v10, v14, v18, v19, v20, v21, v22, v23, [coderCopy decodeIntegerForKey:@"applicationConfigurationType"], objc_msgSend(coderCopy, "decodeIntegerForKey:", @"senderConfigurationType"));
+  v24 = -[DNDConfiguration _initWithSuppressionType:suppressionMode:allowedApplicationIdentifiers:deniedApplicationIdentifiers:allowedWebApplicationIdentifiers:deniedWebApplicationIdentifiers:senderConfiguration:minimumBreakthroughUrgency:hideApplicationBadges:allowIntelligentManagement:compatibilityVersion:applicationConfigurationType:senderConfigurationType:](self, "_initWithSuppressionType:suppressionMode:allowedApplicationIdentifiers:deniedApplicationIdentifiers:allowedWebApplicationIdentifiers:deniedWebApplicationIdentifiers:senderConfiguration:minimumBreakthroughUrgency:hideApplicationBadges:allowIntelligentManagement:compatibilityVersion:applicationConfigurationType:senderConfigurationType:", v28, v27, v26, v10, v14, v18, v19, v20, v21, v22, v23, [coderCopy decodeIntegerForKey:@"applicationConfigurationType"], objc_msgSend(coderCopy, "decodeIntegerForKey:", @"senderConfigurationType"));
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -1018,37 +1010,37 @@ LABEL_77:
 
 - (NSSet)applicationsWithExceptions
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v17 = objc_opt_new();
+  v22 = *MEMORY[0x277D85DE8];
+  v16 = objc_opt_new();
   applicationConfigurationType = [(DNDConfiguration *)self applicationConfigurationType];
   if (applicationConfigurationType == 1)
   {
     allObjects = [(NSMutableSet *)self->_deniedApplicationIdentifiers allObjects];
-    [v17 addObjectsFromArray:allObjects];
+    [v16 addObjectsFromArray:allObjects];
   }
 
   else if (!applicationConfigurationType)
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v4 = self->_allowedApplicationIdentifiers;
-    v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v19;
+      v7 = *v18;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v19 != v7)
+          if (*v18 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v18 + 1) + 8 * i);
+          v9 = *(*(&v17 + 1) + 8 * i);
           v10 = [(NSMutableDictionary *)self->_allowedApplicationIdentifiers objectForKey:v9];
           allowedThreads = [v10 allowedThreads];
           if ([allowedThreads count])
@@ -1062,21 +1054,19 @@ LABEL_77:
 
             if (!v13)
             {
-              [v17 addObject:v9];
+              [v16 addObject:v9];
             }
           }
         }
 
-        v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v6);
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v17;
+  return v16;
 }
 
 - (unint64_t)exceptionForApplication:(id)application
@@ -1214,29 +1204,29 @@ LABEL_18:
 
 - (NSDictionary)threadsWithExceptions
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v4 = self->_allowedApplicationIdentifiers;
-  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
-        v10 = [(NSMutableDictionary *)self->_allowedApplicationIdentifiers objectForKey:v9, v16];
+        v9 = *(*(&v15 + 1) + 8 * i);
+        v10 = [(NSMutableDictionary *)self->_allowedApplicationIdentifiers objectForKey:v9, v15];
         threadConfigurationType = [(DNDConfiguration *)self threadConfigurationType];
         if (threadConfigurationType == 1)
         {
@@ -1259,13 +1249,11 @@ LABEL_18:
 LABEL_11:
       }
 
-      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -1385,7 +1373,7 @@ LABEL_6:
   return v9;
 }
 
-uint64_t __46__DNDConfiguration_exceptionForContactHandle___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__46__DNDConfiguration_exceptionForContactHandle___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 matchesContactHandle:*(a1 + 32)];
   if (result)
@@ -1397,7 +1385,7 @@ uint64_t __46__DNDConfiguration_exceptionForContactHandle___block_invoke(uint64_
   return result;
 }
 
-uint64_t __46__DNDConfiguration_exceptionForContactHandle___block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
+void *__46__DNDConfiguration_exceptionForContactHandle___block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 matchesContactHandle:*(a1 + 32)];
   if (result)

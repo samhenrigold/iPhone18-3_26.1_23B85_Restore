@@ -6,42 +6,42 @@
 
 - (id)suggestedResultsForInput:(id)input withOptions:(id)options
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   momentNodes = [inputCopy momentNodes];
-  v22 = inputCopy;
+  v21 = inputCopy;
   graph = [inputCopy graph];
   [graph _checkCanRead];
   v7 = objc_alloc_init(MEMORY[0x277D22BD0]);
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v8 = momentNodes;
-  v9 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v26;
+    v11 = *v25;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v26 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v25 + 1) + 8 * i);
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __74__PGSharingSuggestionSourceHomeWork_suggestedResultsForInput_withOptions___block_invoke;
-        v23[3] = &unk_278889878;
-        v24 = v7;
-        [v13 enumeratePreciseAddressNodesUsingBlock:v23];
+        v13 = *(*(&v24 + 1) + 8 * i);
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __74__PGSharingSuggestionSourceHomeWork_suggestedResultsForInput_withOptions___block_invoke;
+        v22[3] = &unk_278889878;
+        v23 = v7;
+        [v13 enumeratePreciseAddressNodesUsingBlock:v22];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v10);
@@ -58,8 +58,6 @@
   {
     v18 = [MEMORY[0x277CBEB98] set];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

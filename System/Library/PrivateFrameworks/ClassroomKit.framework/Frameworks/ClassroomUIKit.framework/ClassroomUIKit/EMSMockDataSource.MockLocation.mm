@@ -19,7 +19,6 @@
   }
 
   v6 = (self + OBJC_IVAR____TtCC14ClassroomUIKit17EMSMockDataSource12MockLocation_name);
-  v7 = *(self + OBJC_IVAR____TtCC14ClassroomUIKit17EMSMockDataSource12MockLocation_name + 8);
   *v6 = v4;
   v6[1] = v5;
 }

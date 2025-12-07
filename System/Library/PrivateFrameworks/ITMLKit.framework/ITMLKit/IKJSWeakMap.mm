@@ -32,36 +32,33 @@
 
 - (void)setValue:(id)value forWeakKey:(id)key
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   valueCopy = value;
   _jsWeakMap = [(IKJSWeakMap *)self _jsWeakMap];
-  v12[0] = keyCopy;
-  v12[1] = valueCopy;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v11[0] = keyCopy;
+  v11[1] = valueCopy;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   v10 = [_jsWeakMap invokeMethod:@"set" withArguments:v9];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)valueForWeakKey:(id)key
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   _jsWeakMap = [(IKJSWeakMap *)self _jsWeakMap];
-  v10[0] = keyCopy;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = keyCopy;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
 
   v7 = [_jsWeakMap invokeMethod:@"get" withArguments:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (OpaqueJSValue)valueRefForWeakKeyRef:(OpaqueJSValue *)ref
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   appContext = [(IKJSObject *)self appContext];
   jsContext = [appContext jsContext];
 
@@ -73,10 +70,9 @@
   Property = JSObjectGetProperty(jSGlobalContextRef, v9, v10, 0);
   v12 = JSValueToObject(jSGlobalContextRef, Property, 0);
   JSStringRelease(v10);
-  v16[0] = ref;
-  v13 = JSObjectCallAsFunction(jSGlobalContextRef, v12, v9, 1uLL, v16, 0);
+  v15[0] = ref;
+  v13 = JSObjectCallAsFunction(jSGlobalContextRef, v12, v9, 1uLL, v15, 0);
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

@@ -96,55 +96,55 @@
   v9 = *(v7 + 480);
   selfCopy = self;
   swift_unknownObjectRetain();
-  v9(v18, v4, v6, ObjectType, v7);
+  v9(v19, v4, v6, ObjectType, v7);
   swift_unknownObjectRelease();
 
-  v11 = v19;
-  if (v19)
+  v11 = v20;
+  if (v20)
   {
-    v12 = __swift_project_boxed_opaque_existential_1(v18, v19);
+    v12 = __swift_project_boxed_opaque_existential_1(v19, v20);
     v13 = *(v11 - 8);
-    MEMORY[0x1EEE9AC00](v12);
-    v15 = v18 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v13 + 16))(v15);
-    v16 = _bridgeAnythingToObjectiveC<A>(_:)();
-    (*(v13 + 8))(v15, v11);
-    __swift_destroy_boxed_opaque_existential_1(v18);
+    v14 = MEMORY[0x1EEE9AC00](v12);
+    v16 = v19 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v13 + 16))(v16, v14);
+    v17 = _bridgeAnythingToObjectiveC<A>(_:)();
+    (*(v13 + 8))(v16, v11);
+    __swift_destroy_boxed_opaque_existential_1(v19);
   }
 
   else
   {
-    v16 = 0;
+    v17 = 0;
   }
 
-  return v16;
+  return v17;
 }
 
 - (id)objectForKey:(id)key
 {
   keyCopy = key;
   selfCopy = self;
-  _NSSwiftLocale.object(forKey:)(keyCopy, v13);
+  _NSSwiftLocale.object(forKey:)(keyCopy, v14);
 
-  v6 = v14;
-  if (v14)
+  v6 = v15;
+  if (v15)
   {
-    v7 = __swift_project_boxed_opaque_existential_1(v13, v14);
+    v7 = __swift_project_boxed_opaque_existential_1(v14, v15);
     v8 = *(v6 - 8);
-    MEMORY[0x1EEE9AC00](v7);
-    v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v8 + 16))(v10);
-    v11 = _bridgeAnythingToObjectiveC<A>(_:)();
-    (*(v8 + 8))(v10, v6);
-    __swift_destroy_boxed_opaque_existential_1(v13);
+    v9 = MEMORY[0x1EEE9AC00](v7);
+    v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v8 + 16))(v11, v9);
+    v12 = _bridgeAnythingToObjectiveC<A>(_:)();
+    (*(v8 + 8))(v11, v6);
+    __swift_destroy_boxed_opaque_existential_1(v14);
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 - (NSString)localeIdentifier
@@ -573,10 +573,10 @@
   selfCopy = self;
   _NSSwiftLocale.exemplarCharacterSet.getter(&v5);
 
-  [*(v5 + 16) copy];
+  [v5[2] copy];
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSCharacterSet);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSCharacterSet, off_1E69EE268);
   swift_dynamicCast();
 
   return v4;

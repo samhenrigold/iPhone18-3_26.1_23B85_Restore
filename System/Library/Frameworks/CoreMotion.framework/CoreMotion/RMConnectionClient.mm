@@ -9,7 +9,7 @@
 
 - (void)endpointWasInterrupted:(id)interrupted
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   interruptedCopy = interrupted;
   if (!self)
   {
@@ -19,61 +19,60 @@
   dispatch_assert_queue_V2(self->_queue);
   for (i = self->_endpoint; i != interruptedCopy; i = 0)
   {
-    v6 = sub_19B60A530();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v5 = sub_19B60A530();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v10 = 0;
-      v11 = 2082;
-      v12 = "";
-      v13 = 2082;
-      v14 = "assert";
-      v15 = 2081;
-      v16 = "endpoint == self.endpoint";
-      _os_log_impl(&dword_19B41C000, v6, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Received interruption event for an unmanaged endpoint, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v9 = 0;
+      v10 = 2082;
+      v11 = "";
+      v12 = 2082;
+      v13 = "assert";
+      v14 = 2081;
+      v15 = "endpoint == self.endpoint";
+      _os_log_impl(&dword_19B41C000, v5, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Received interruption event for an unmanaged endpoint, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v7 = sub_19B60A530();
-    if (os_signpost_enabled(v7))
+    v6 = sub_19B60A530();
+    if (os_signpost_enabled(v6))
     {
       *buf = 68289539;
-      v10 = 0;
-      v11 = 2082;
-      v12 = "";
-      v13 = 2082;
-      v14 = "assert";
-      v15 = 2081;
-      v16 = "endpoint == self.endpoint";
-      _os_signpost_emit_with_name_impl(&dword_19B41C000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Received interruption event for an unmanaged endpoint", "{msg%{public}.0s:Received interruption event for an unmanaged endpoint, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v9 = 0;
+      v10 = 2082;
+      v11 = "";
+      v12 = 2082;
+      v13 = "assert";
+      v14 = 2081;
+      v15 = "endpoint == self.endpoint";
+      _os_signpost_emit_with_name_impl(&dword_19B41C000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Received interruption event for an unmanaged endpoint", "{msg%{public}.0s:Received interruption event for an unmanaged endpoint, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
     self = sub_19B60A530();
     if (os_log_type_enabled(&self->super, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v10 = 0;
-      v11 = 2082;
-      v12 = "";
-      v13 = 2082;
-      v14 = "assert";
-      v15 = 2081;
-      v16 = "endpoint == self.endpoint";
+      v9 = 0;
+      v10 = 2082;
+      v11 = "";
+      v12 = 2082;
+      v13 = "assert";
+      v14 = 2081;
+      v15 = "endpoint == self.endpoint";
       _os_log_impl(&dword_19B41C000, &self->super, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Received interruption event for an unmanaged endpoint, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Framework/CoreMotion/RMConnection/RMConnectionClient.m", 256, "[RMConnectionClient endpointWasInterrupted:]");
 LABEL_14:
     dispatch_assert_queue_V2(0);
   }
 
   sub_19B60ABA4(self);
   sub_19B60A280(self);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endpointWasInvalidated:(id)invalidated
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   invalidatedCopy = invalidated;
   if (self)
   {
@@ -89,50 +88,50 @@ LABEL_14:
 
   if (endpoint != invalidatedCopy)
   {
-    v14 = sub_19B60A530();
+    v13 = sub_19B60A530();
     self = "endpoint == self.endpoint";
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v18 = 0;
-      v19 = 2082;
-      v20 = "";
-      v21 = 2082;
-      v22 = "assert";
-      v23 = 2081;
-      v24 = "endpoint == self.endpoint";
-      _os_log_impl(&dword_19B41C000, v14, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Received invalidation event for an unmanaged endpoint, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v17 = 0;
+      v18 = 2082;
+      v19 = "";
+      v20 = 2082;
+      v21 = "assert";
+      v22 = 2081;
+      v23 = "endpoint == self.endpoint";
+      _os_log_impl(&dword_19B41C000, v13, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Received invalidation event for an unmanaged endpoint, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v15 = sub_19B60A530();
-    if (os_signpost_enabled(v15))
+    v14 = sub_19B60A530();
+    if (os_signpost_enabled(v14))
     {
       *buf = 68289539;
-      v18 = 0;
-      v19 = 2082;
-      v20 = "";
-      v21 = 2082;
-      v22 = "assert";
-      v23 = 2081;
-      v24 = "endpoint == self.endpoint";
-      _os_signpost_emit_with_name_impl(&dword_19B41C000, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Received invalidation event for an unmanaged endpoint", "{msg%{public}.0s:Received invalidation event for an unmanaged endpoint, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v17 = 0;
+      v18 = 2082;
+      v19 = "";
+      v20 = 2082;
+      v21 = "assert";
+      v22 = 2081;
+      v23 = "endpoint == self.endpoint";
+      _os_signpost_emit_with_name_impl(&dword_19B41C000, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Received invalidation event for an unmanaged endpoint", "{msg%{public}.0s:Received invalidation event for an unmanaged endpoint, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
     invalidatedCopy = sub_19B60A530();
     if (os_log_type_enabled(invalidatedCopy, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v18 = 0;
-      v19 = 2082;
-      v20 = "";
-      v21 = 2082;
-      v22 = "assert";
-      v23 = 2081;
-      v24 = "endpoint == self.endpoint";
+      v17 = 0;
+      v18 = 2082;
+      v19 = "";
+      v20 = 2082;
+      v21 = "assert";
+      v22 = 2081;
+      v23 = "endpoint == self.endpoint";
       _os_log_impl(&dword_19B41C000, invalidatedCopy, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Received invalidation event for an unmanaged endpoint, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Framework/CoreMotion/RMConnection/RMConnectionClient.m", 263, "[RMConnectionClient endpointWasInvalidated:]");
     goto LABEL_21;
   }
 
@@ -186,8 +185,6 @@ LABEL_21:
   }
 
 LABEL_13:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endpoint:(id)endpoint didReceiveStreamedData:(id)data

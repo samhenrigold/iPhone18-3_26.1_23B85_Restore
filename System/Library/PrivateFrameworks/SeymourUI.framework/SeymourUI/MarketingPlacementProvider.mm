@@ -17,7 +17,7 @@
 
 - (void)engagement:(id)engagement didUpdateRequest:(id)request placement:(id)placement serviceType:(id)type
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C762220);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C762220, &qword_20C151250);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v20 - v10;
   v12 = sub_20C13C954();
@@ -40,7 +40,7 @@
 
 - (void)engagement:(AMSEngagement *)engagement handleDialogRequest:(AMSDialogRequest *)request completion:(id)completion
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C762220);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C762220, &qword_20C151250);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(completion);
@@ -69,7 +69,7 @@
 
 - (void)engagement:(AMSEngagement *)engagement handleEngagementRequest:(AMSEngagementRequest *)request completion:(id)completion
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C762220);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C762220, &qword_20C151250);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(completion);
@@ -98,7 +98,7 @@
 
 - (void)engagement:(AMSEngagement *)engagement didUpdateEngagementRequest:(AMSEngagementRequest *)request placement:(NSString *)placement serviceType:(NSString *)type completion:(id)completion
 {
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C762220);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C762220, &qword_20C151250);
   MEMORY[0x28223BE20](v13 - 8);
   v15 = &v26 - v14;
   v16 = _Block_copy(completion);

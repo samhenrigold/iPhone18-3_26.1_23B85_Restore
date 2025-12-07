@@ -59,9 +59,9 @@
 
 - (SESKeychainWrapper)init
 {
-  v12.receiver = self;
-  v12.super_class = SESKeychainWrapper;
-  v2 = [(SESKeychainWrapper *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = SESKeychainWrapper;
+  v2 = [(SESKeychainWrapper *)&v11 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -75,8 +75,7 @@
     lastRetrievedViewInformation = v2->_lastRetrievedViewInformation;
     v2->_lastRetrievedViewInformation = v7;
 
-    v9 = v2->_queue;
-    v11 = v2;
+    v10 = v2;
     os_state_add_handler();
   }
 

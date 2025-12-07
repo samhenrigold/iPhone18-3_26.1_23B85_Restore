@@ -70,13 +70,13 @@ uint64_t __46__BLSHSystemWaker_sharedSystemActivityFactory__block_invoke()
   return v9;
 }
 
-uint64_t __58__BLSHSystemWaker_initWithIdentifier_osInterfaceProvider___block_invoke(uint64_t a1)
+uint64_t __58__BLSHSystemWaker_initWithIdentifier_osInterfaceProvider___block_invoke(uint64_t a1, uint64_t a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = [WeakRetained description];
-  v3 = BLSStateDataWithTitleDescriptionAndHints();
+  v3 = [WeakRetained description];
+  v4 = BLSStateDataWithTitleDescriptionAndHints();
 
-  return v3;
+  return v4;
 }
 
 - (void)dealloc
@@ -125,20 +125,18 @@ id __30__BLSHSystemWaker_description__block_invoke(uint64_t a1)
   v2 = [*(a1 + 32) appendObject:*(*(a1 + 40) + 8) withName:@"id"];
   mach_continuous_time();
   v3 = *(a1 + 32);
-  v4 = *(*(a1 + 40) + 56);
   BSTimeDifferenceFromMachTimeToMachTime();
-  v5 = [v3 appendTimeInterval:@"elapsed" withName:0 decomposeUnits:?];
-  v6 = *(a1 + 40);
-  if (*(v6 + 81) == 1)
+  v4 = [v3 appendTimeInterval:@"elapsed" withName:0 decomposeUnits:?];
+  v5 = *(a1 + 40);
+  if (*(v5 + 81) == 1)
   {
-    v7 = *(a1 + 32);
-    v8 = *(v6 + 64);
+    v6 = *(a1 + 32);
     BSTimeDifferenceFromMachTimeToMachTime();
-    v9 = [v7 appendTimeInterval:@"sinceCompletionCalled" withName:0 decomposeUnits:?];
-    v6 = *(a1 + 40);
+    v7 = [v6 appendTimeInterval:@"sinceCompletionCalled" withName:0 decomposeUnits:?];
+    v5 = *(a1 + 40);
   }
 
-  result = [*(v6 + 24) isActive];
+  result = [*(v5 + 24) isActive];
   if (result)
   {
     return [*(a1 + 32) appendObject:*(*(a1 + 40) + 24) withName:@"systemActivity"];
@@ -206,7 +204,7 @@ id __30__BLSHSystemWaker_description__block_invoke(uint64_t a1)
 
 void __38__BLSHSystemWaker_wakeWithCompletion___block_invoke_2(uint64_t a1, int a2, void *a3, void *a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -235,23 +233,22 @@ void __38__BLSHSystemWaker_wakeWithCompletion___block_invoke_2(uint64_t a1, int 
     if (os_log_type_enabled(v11, v12))
     {
       v15 = *(a1 + 40);
-      v16 = *(a1 + 64);
       mach_continuous_time();
       BSTimeDifferenceFromMachTimeToMachTime();
-      v18 = v17;
-      v19 = [v10 aggregateState];
-      v20 = [v7 bls_loggingString];
-      v22 = 134219010;
-      v23 = WeakRetained;
-      v24 = 2114;
-      v25 = v15;
-      v26 = 2048;
+      v17 = v16;
+      v18 = [v10 aggregateState];
+      v19 = [v7 bls_loggingString];
+      v20 = 134219010;
+      v21 = WeakRetained;
+      v22 = 2114;
+      v23 = v15;
+      v24 = 2048;
+      v25 = v17;
+      v26 = 2114;
       v27 = v18;
       v28 = 2114;
       v29 = v19;
-      v30 = 2114;
-      v31 = v20;
-      _os_log_impl(&dword_21FD11000, v11, v12, "%p system waker activity acquired:%{public}@ elapsed:%.4lfs %{public}@ error:%{public}@", &v22, 0x34u);
+      _os_log_impl(&dword_21FD11000, v11, v12, "%p system waker activity acquired:%{public}@ elapsed:%.4lfs %{public}@ error:%{public}@", &v20, 0x34u);
     }
 
     [WeakRetained startWatchdogTimer];
@@ -265,8 +262,6 @@ void __38__BLSHSystemWaker_wakeWithCompletion___block_invoke_2(uint64_t a1, int 
     v14 = *(v13 + 40);
     *(v13 + 40) = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startWatchdogTimer
@@ -300,7 +295,7 @@ void __37__BLSHSystemWaker_startWatchdogTimer__block_invoke(uint64_t a1, void *a
 
 - (void)callCompletionForReason:(id)reason
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   os_unfair_lock_lock(&self->_lock);
   lock_invalidated = self->_lock_invalidated;
@@ -309,57 +304,54 @@ void __37__BLSHSystemWaker_startWatchdogTimer__block_invoke(uint64_t a1, void *a
   self->_lock_completion = 0;
 
   v8 = self->_lock_systemActivity;
-  lock_waitStartTimestamp = self->_lock_waitStartTimestamp;
   self->_lock_didWakeTimestamp = mach_continuous_time();
   self->_lock_didCallCompletion = 1;
   os_unfair_lock_unlock(&self->_lock);
   systemSleepMonitor = [(BLSHOSInterfaceProviding *)self->_osInterfaceProvider systemSleepMonitor];
-  v11 = systemSleepMonitor;
+  v10 = systemSleepMonitor;
   if (!lock_invalidated && v6)
   {
     isAwakeOrAbortingSleep = [systemSleepMonitor isAwakeOrAbortingSleep];
-    v13 = bls_backlight_log();
-    v14 = v13;
+    v12 = bls_backlight_log();
+    v13 = v12;
     if (isAwakeOrAbortingSleep)
     {
-      v15 = OS_LOG_TYPE_DEBUG;
+      v14 = OS_LOG_TYPE_DEBUG;
     }
 
     else
     {
-      v15 = OS_LOG_TYPE_FAULT;
+      v14 = OS_LOG_TYPE_FAULT;
     }
 
-    if (os_log_type_enabled(v13, v15))
+    if (os_log_type_enabled(v12, v14))
     {
       identifier = self->_identifier;
       BSTimeDifferenceFromMachTimeToMachTime();
-      v18 = v17;
-      aggregateState = [v11 aggregateState];
-      v21 = 134219266;
+      v17 = v16;
+      aggregateState = [v10 aggregateState];
+      v19 = 134219266;
       selfCopy = self;
+      v21 = 2114;
+      v22 = identifier;
       v23 = 2114;
-      v24 = identifier;
-      v25 = 2114;
-      v26 = reasonCopy;
-      v27 = 2048;
-      v28 = v18;
-      v29 = 2114;
-      v30 = aggregateState;
-      v31 = 1024;
+      v24 = reasonCopy;
+      v25 = 2048;
+      v26 = v17;
+      v27 = 2114;
+      v28 = aggregateState;
+      v29 = 1024;
       isActive = [(BLSHSystemActivityAsserting *)v8 isActive];
-      _os_log_impl(&dword_21FD11000, v14, v15, "%p waited for system awake :%{public}@ details:%{public}@ elapsed:%.4lfs %{public}@ activityActive:%{BOOL}u", &v21, 0x3Au);
+      _os_log_impl(&dword_21FD11000, v13, v14, "%p waited for system awake :%{public}@ details:%{public}@ elapsed:%.4lfs %{public}@ activityActive:%{BOOL}u", &v19, 0x3Au);
     }
 
     v6[2](v6);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)watchdogTimerFired:(id)fired
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   firedCopy = fired;
   v6 = self->_identifier;
   os_unfair_lock_lock(&self->_lock);
@@ -380,8 +372,6 @@ void __37__BLSHSystemWaker_startWatchdogTimer__block_invoke(uint64_t a1, void *a
     v10 = 0;
   }
 
-  lock_waitStartTimestamp = self->_lock_waitStartTimestamp;
-  lock_didWakeTimestamp = self->_lock_didWakeTimestamp;
   lock_didCallCompletion = self->_lock_didCallCompletion;
   isActive = [(BLSHSystemActivityAsserting *)v8 isActive];
   os_unfair_lock_unlock(&self->_lock);
@@ -389,54 +379,54 @@ void __37__BLSHSystemWaker_startWatchdogTimer__block_invoke(uint64_t a1, void *a
   {
     mach_continuous_time();
     BSTimeDifferenceFromMachTimeToMachTime();
-    v16 = v15;
+    v14 = v13;
     if (lock_didCallCompletion)
     {
       BSTimeDifferenceFromMachTimeToMachTime();
-      v18 = v17;
+      v16 = v15;
       if (os_variant_has_internal_diagnostics())
       {
-        v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%p system waker not invalidated after elapsed:%.4lfs sinceCompletionCalled:%.4lfs systemActivityIsActive:%u identifier:%@", self, v16, v18, isActive, v6];
-        BLSHRecordCriticalAssertFailure(v19, 1, 0);
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __38__BLSHSystemWaker_watchdogTimerFired___block_invoke;
-        v33[3] = &unk_278420B50;
-        v33[4] = self;
-        v35 = v16;
-        v36 = v18;
-        v38 = isActive;
-        v34 = v6;
-        v37 = a2;
-        v20 = MEMORY[0x223D70730](v33);
+        v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%p system waker not invalidated after elapsed:%.4lfs sinceCompletionCalled:%.4lfs systemActivityIsActive:%u identifier:%@", self, v14, v16, isActive, v6];
+        BLSHRecordCriticalAssertFailure(v17, 1, 0);
+        v30[0] = MEMORY[0x277D85DD0];
+        v30[1] = 3221225472;
+        v30[2] = __38__BLSHSystemWaker_watchdogTimerFired___block_invoke;
+        v30[3] = &unk_278420B50;
+        v30[4] = self;
+        v32 = v14;
+        v33 = v16;
+        v35 = isActive;
+        v31 = v6;
+        v34 = a2;
+        v18 = MEMORY[0x223D70730](v30);
         if (BLSHIsUnitTestRunning())
         {
-          v20[2](v20);
+          v18[2](v18);
         }
 
         else
         {
-          v25 = dispatch_time(0, 1000000000);
-          dispatch_after(v25, MEMORY[0x277D85CD0], v20);
+          v23 = dispatch_time(0, 1000000000);
+          dispatch_after(v23, MEMORY[0x277D85CD0], v18);
         }
       }
 
       else
       {
-        v24 = bls_backlight_log();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+        v22 = bls_backlight_log();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
         {
           *buf = 134219010;
           selfCopy2 = self;
-          v41 = 2048;
-          v42 = v16;
-          v43 = 2048;
-          *v44 = v18;
-          *&v44[8] = 1024;
-          *&v44[10] = isActive;
-          v45 = 2114;
-          v46 = v6;
-          _os_log_fault_impl(&dword_21FD11000, v24, OS_LOG_TYPE_FAULT, "%p system waker not invalidated after elapsed:%.4lfs sinceCompletionCalled:%.4lfs systemActivityIsActive:%{BOOL}u identifier:%{public}@", buf, 0x30u);
+          v38 = 2048;
+          v39 = v14;
+          v40 = 2048;
+          *v41 = v16;
+          *&v41[8] = 1024;
+          *&v41[10] = isActive;
+          v42 = 2114;
+          v43 = v6;
+          _os_log_fault_impl(&dword_21FD11000, v22, OS_LOG_TYPE_FAULT, "%p system waker not invalidated after elapsed:%.4lfs sinceCompletionCalled:%.4lfs systemActivityIsActive:%{BOOL}u identifier:%{public}@", buf, 0x30u);
         }
       }
     }
@@ -445,44 +435,44 @@ void __37__BLSHSystemWaker_startWatchdogTimer__block_invoke(uint64_t a1, void *a
     {
       if (os_variant_has_internal_diagnostics())
       {
-        v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%p system waker did not wake after elapsed:%.4lfs systemActivityIsActive:%u identifier:%@", self, v16, isActive, v6];
-        BLSHRecordCriticalAssertFailure(v21, 1, 0);
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __38__BLSHSystemWaker_watchdogTimerFired___block_invoke_107;
-        v28[3] = &unk_278420B78;
-        v28[4] = self;
-        v30 = v16;
-        v32 = isActive;
-        v29 = v6;
-        v31 = a2;
-        v22 = MEMORY[0x223D70730](v28);
+        v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%p system waker did not wake after elapsed:%.4lfs systemActivityIsActive:%u identifier:%@", self, v14, isActive, v6];
+        BLSHRecordCriticalAssertFailure(v19, 1, 0);
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __38__BLSHSystemWaker_watchdogTimerFired___block_invoke_107;
+        v25[3] = &unk_278420B78;
+        v25[4] = self;
+        v27 = v14;
+        v29 = isActive;
+        v26 = v6;
+        v28 = a2;
+        v20 = MEMORY[0x223D70730](v25);
         if (BLSHIsUnitTestRunning())
         {
-          v22[2](v22);
+          v20[2](v20);
         }
 
         else
         {
-          v26 = dispatch_time(0, 1000000000);
-          dispatch_after(v26, MEMORY[0x277D85CD0], v22);
+          v24 = dispatch_time(0, 1000000000);
+          dispatch_after(v24, MEMORY[0x277D85CD0], v20);
         }
       }
 
       else
       {
-        v21 = bls_backlight_log();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+        v19 = bls_backlight_log();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
         {
           *buf = 134218754;
           selfCopy2 = self;
-          v41 = 2048;
-          v42 = v16;
-          v43 = 1024;
-          *v44 = isActive;
-          *&v44[4] = 2114;
-          *&v44[6] = v6;
-          _os_log_fault_impl(&dword_21FD11000, v21, OS_LOG_TYPE_FAULT, "%p system waker did not wake after elapsed:%.4lfs systemActivityIsActive:%{BOOL}u identifier:%{public}@", buf, 0x26u);
+          v38 = 2048;
+          v39 = v14;
+          v40 = 1024;
+          *v41 = isActive;
+          *&v41[4] = 2114;
+          *&v41[6] = v6;
+          _os_log_fault_impl(&dword_21FD11000, v19, OS_LOG_TYPE_FAULT, "%p system waker did not wake after elapsed:%.4lfs systemActivityIsActive:%{BOOL}u identifier:%{public}@", buf, 0x26u);
         }
       }
 
@@ -491,8 +481,6 @@ void __37__BLSHSystemWaker_startWatchdogTimer__block_invoke(uint64_t a1, void *a
 
     [(BLSHSystemActivityAsserting *)v8 invalidate];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __38__BLSHSystemWaker_watchdogTimerFired___block_invoke(uint64_t a1)
@@ -503,22 +491,21 @@ void __38__BLSHSystemWaker_watchdogTimerFired___block_invoke(uint64_t a1)
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     v4 = NSStringFromSelector(*(a1 + 64));
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v8 = *(a1 + 32);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = *(a1 + 32);
     *buf = 138544642;
-    v10 = v4;
-    v11 = 2114;
-    v12 = v7;
-    v13 = 2048;
-    v14 = v8;
-    v15 = 2114;
-    v16 = @"BLSHSystemWaker.m";
-    v17 = 1024;
-    v18 = 199;
-    v19 = 2114;
-    v20 = v3;
+    v9 = v4;
+    v10 = 2114;
+    v11 = v6;
+    v12 = 2048;
+    v13 = v7;
+    v14 = 2114;
+    v15 = @"BLSHSystemWaker.m";
+    v16 = 1024;
+    v17 = 199;
+    v18 = 2114;
+    v19 = v3;
     _os_log_error_impl(&dword_21FD11000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
@@ -535,22 +522,21 @@ void __38__BLSHSystemWaker_watchdogTimerFired___block_invoke_107(uint64_t a1)
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     v4 = NSStringFromSelector(*(a1 + 56));
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v8 = *(a1 + 32);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = *(a1 + 32);
     *buf = 138544642;
-    v10 = v4;
-    v11 = 2114;
-    v12 = v7;
-    v13 = 2048;
-    v14 = v8;
-    v15 = 2114;
-    v16 = @"BLSHSystemWaker.m";
-    v17 = 1024;
-    v18 = 205;
-    v19 = 2114;
-    v20 = v3;
+    v9 = v4;
+    v10 = 2114;
+    v11 = v6;
+    v12 = 2048;
+    v13 = v7;
+    v14 = 2114;
+    v15 = @"BLSHSystemWaker.m";
+    v16 = 1024;
+    v17 = 205;
+    v18 = 2114;
+    v19 = v3;
     _os_log_error_impl(&dword_21FD11000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 

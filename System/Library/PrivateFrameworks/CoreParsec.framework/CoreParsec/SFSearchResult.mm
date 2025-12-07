@@ -5,7 +5,7 @@
 
 void __82__SFSearchResult_VisualCat__processVisualCATResultSynchronouslyUsingPatternClass___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (PARLogHandleForCategory_onceToken_23 != -1)
@@ -18,8 +18,8 @@ void __82__SFSearchResult_VisualCat__processVisualCATResultSynchronouslyUsingPat
   v9 = *(a1 + 48);
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    LOWORD(v17) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B1064000, v8, OS_SIGNPOST_INTERVAL_END, v9, "execute", "", &v17, 2u);
+    LOWORD(v16) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1B1064000, v8, OS_SIGNPOST_INTERVAL_END, v9, "execute", "", &v16, 2u);
   }
 
   if (v6 || ([v5 visual], v13 = objc_claimAutoreleasedReturnValue(), v13, !v13))
@@ -34,9 +34,9 @@ void __82__SFSearchResult_VisualCat__processVisualCATResultSynchronouslyUsingPat
     {
       v11 = v10;
       v12 = [v6 localizedDescription];
-      v17 = 138412290;
-      v18 = v12;
-      _os_log_error_impl(&dword_1B1064000, v11, OS_LOG_TYPE_ERROR, "Empty VisualCAT output, check DialogEngine logs. Execution error: %@.", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v12;
+      _os_log_error_impl(&dword_1B1064000, v11, OS_LOG_TYPE_ERROR, "Empty VisualCAT output, check DialogEngine logs. Execution error: %@.", &v16, 0xCu);
     }
   }
 
@@ -48,8 +48,6 @@ void __82__SFSearchResult_VisualCat__processVisualCATResultSynchronouslyUsingPat
   }
 
   dispatch_group_leave(*(a1 + 32));
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

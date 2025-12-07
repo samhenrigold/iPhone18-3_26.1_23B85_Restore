@@ -93,7 +93,7 @@
   sub_10075E06C();
   viewCopy = view;
   selfCopy = self;
-  sub_100684C7C(viewCopy);
+  sub_100684C7C(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 }
@@ -253,7 +253,7 @@ LABEL_8:
 
 - (void)signInController:(id)controller didCompleteWithOperationsResults:(id)results
 {
-  sub_100016F40(0, &unk_100945180);
+  sub_100016F40(0, &unk_100945180, AIDAServiceOperationResult_ptr);
   v6 = sub_10076FE4C();
   controllerCopy = controller;
   selfCopy = self;
@@ -271,7 +271,7 @@ LABEL_8:
 
   v4 = sub_10076FD4C();
   sub_10000A61C(v4, qword_100963158);
-  sub_10000A5D4(&unk_100942A60);
+  sub_10000A5D4(&unk_100942A60, &unk_100784760);
   sub_10076F33C();
   *(swift_allocObject() + 16) = xmmword_100784500;
   sub_10076F31C();

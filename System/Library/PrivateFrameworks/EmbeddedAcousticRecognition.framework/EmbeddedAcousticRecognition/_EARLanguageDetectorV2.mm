@@ -37,45 +37,45 @@
     {
       if (fileCopy)
       {
-        [fileCopy ear_toString];
+        objc_msgSend_ear_toString(fileCopy);
       }
 
       else
       {
-        __p[0] = 0;
-        __p[1] = 0;
+        __p = 0uLL;
         v19 = 0;
       }
 
       memset(v22, 0, sizeof(v22));
       memset(v20, 0, sizeof(v20));
       v21 = 1065353216;
-      JsonFile = quasar::SystemConfig::readJsonFile(&v6->_sysConfig, __p, v22, v20, 0, 0);
+      quasar::SystemConfig::readJsonFile(&v6->_sysConfig, &__p, v22, v20, 0, 0);
+      v12 = v11;
       std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(v20);
       v24 = v22;
       std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v24);
       if (SHIBYTE(v19) < 0)
       {
-        operator delete(__p[0]);
+        operator delete(__p);
       }
 
-      if (JsonFile != 2)
+      if (v12 != 2)
       {
-        v14 = dispatch_queue_create("com.apple._EARLanguageDetectorV2", 0);
+        v15 = dispatch_queue_create("com.apple._EARLanguageDetectorV2", 0);
         lidQueue = v6->_lidQueue;
-        v6->_lidQueue = v14;
+        v6->_lidQueue = v15;
 
-        std::string::basic_string[abi:ne200100]<0>(__p, "ld-inference");
-        quasar::SystemConfig::enforceMinVersion(&v6->_sysConfig, 207, 0, __p);
+        std::string::basic_string[abi:ne200100]<0>(&__p, "ld-inference");
+        quasar::SystemConfig::enforceMinVersion(&v6->_sysConfig, 207, 0, &__p);
         if (SHIBYTE(v19) < 0)
         {
-          operator delete(__p[0]);
+          operator delete(__p);
         }
 
-        quasar::LanguageDetectorV2::languageIdV2Configuration(&v6->_sysConfig, v16);
+        quasar::LanguageDetectorV2::languageIdV2Configuration(&v6->_sysConfig);
       }
 
-      v10 = EARLogger::QuasarOSLogger(v12);
+      v10 = EARLogger::QuasarOSLogger(v13);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [_EARLanguageDetectorV2 initWithConfigFile:v10 useNNVad:?];
@@ -91,15 +91,15 @@
       }
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v13;
+  return v14;
 }
 
 - (void)dealloc
@@ -159,14 +159,14 @@
 
 - (id)earLIDScores:(void *)scores
 {
-  *&v6 = kaldi::VectorBase<float>::ApplySoftMax(scores, v3);
+  kaldi::VectorBase<float>::ApplySoftMax(scores, v3);
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   for (i = 0; [(NSArray *)self->_supportedLocales count]> i; ++i)
   {
-    LODWORD(v9) = *(*scores + 4 * i);
-    v10 = [MEMORY[0x1E696AD98] numberWithFloat:v9];
-    v11 = [(NSArray *)self->_supportedLocales objectAtIndexedSubscript:i];
-    [dictionary setObject:v10 forKeyedSubscript:v11];
+    LODWORD(v8) = *(*scores + 4 * i);
+    v9 = [MEMORY[0x1E696AD98] numberWithFloat:v8];
+    v10 = [(NSArray *)self->_supportedLocales objectAtIndexedSubscript:i];
+    [dictionary setObject:v9 forKeyedSubscript:v10];
   }
 
   return dictionary;

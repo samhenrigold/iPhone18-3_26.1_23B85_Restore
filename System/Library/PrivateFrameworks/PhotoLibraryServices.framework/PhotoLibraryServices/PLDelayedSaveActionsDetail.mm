@@ -29,7 +29,7 @@
   v3 = PLPlatformMomentsSupported();
   if (v3)
   {
-    LOBYTE(v3) = [(NSArray *)self->_momentInsertsAndUpdates count]|| [(NSDictionary *)self->_momentDeletes count]|| [(NSArray *)self->_updatedAssetIDsForHighlights count]|| [(NSArray *)self->_updatedMomentIDsForHighlights count]!= 0;
+    LOBYTE(v3) = objc_msgSend_count(self->_momentInsertsAndUpdates) || objc_msgSend_count(self->_momentDeletes) || objc_msgSend_count(self->_updatedAssetIDsForHighlights) || objc_msgSend_count(self->_updatedMomentIDsForHighlights) != 0;
   }
 
   return v3;

@@ -45,28 +45,28 @@ BOOL __24__LACOwnerInfos_cleanup__block_invoke(uint64_t a1, void *a2)
 
 - (id)description
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   allInfos = [(LACOwnerInfos *)self allInfos];
-  v5 = [allInfos countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [allInfos countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(allInfos);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
+        v9 = *(*(&v16 + 1) + 8 * i);
         proxy = [v9 proxy];
 
         if (proxy)
@@ -76,7 +76,7 @@ BOOL __24__LACOwnerInfos_cleanup__block_invoke(uint64_t a1, void *a2)
         }
       }
 
-      v6 = [allInfos countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [allInfos countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
@@ -85,8 +85,6 @@ BOOL __24__LACOwnerInfos_cleanup__block_invoke(uint64_t a1, void *a2)
   v12 = MEMORY[0x1E696AEC0];
   context = [(LACOwnerInfos *)self context];
   v14 = [v12 stringWithFormat:@"<%@ : %@>", context, v3];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

@@ -28,9 +28,8 @@
 
 - (void)_didReceiveRetryAfterDate:(id)date
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   dateCopy = date;
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
     [(MSStreamsProtocolDelegate *)self->_delegate protocol:self didReceiveRetryAfterDate:dateCopy];
@@ -38,13 +37,11 @@
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
-    v9 = objc_opt_class();
-    v6 = v9;
-    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@ retrieved a retry-after header, but we're ignoring it.", &v8, 0xCu);
+    v6 = 138543362;
+    v7 = objc_opt_class();
+    v5 = v7;
+    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@ retrieved a retry-after header, but we're ignoring it.", &v6, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didFindServerSideConfigurationVersion:(id)version

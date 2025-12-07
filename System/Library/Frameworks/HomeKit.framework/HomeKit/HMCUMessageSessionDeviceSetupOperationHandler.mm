@@ -39,7 +39,7 @@ LABEL_7:
 
 - (void)_handleReceivedRequestDictionary:(id)dictionary responseHandler:(id)handler
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   handlerCopy = handler;
   v8 = [objc_alloc(MEMORY[0x1E69A29C0]) initWithName:@"TRRequestMessageHandler"];
@@ -66,25 +66,25 @@ LABEL_7:
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v23;
-      v34 = 2112;
-      v35 = dictionaryCopy;
+      v32 = v23;
+      v33 = 2112;
+      v34 = dictionaryCopy;
       _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_INFO, "%{public}@Received request: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v20);
     objc_initWeak(buf, selfCopy);
     setupSession = [(HMDeviceSetupOperationHandlerBase *)selfCopy setupSession];
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __98__HMCUMessageSessionDeviceSetupOperationHandler__handleReceivedRequestDictionary_responseHandler___block_invoke;
-    v26[3] = &unk_1E754BD08;
-    v27 = v8;
-    objc_copyWeak(&v29, buf);
-    v28 = handlerCopy;
-    [setupSession sendExchangeData:v9 qualityOfService:integerValue completionHandler:v26];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __98__HMCUMessageSessionDeviceSetupOperationHandler__handleReceivedRequestDictionary_responseHandler___block_invoke;
+    v25[3] = &unk_1E754BD08;
+    v26 = v8;
+    objc_copyWeak(&v28, buf);
+    v27 = handlerCopy;
+    [setupSession sendExchangeData:v9 qualityOfService:integerValue completionHandler:v25];
 
-    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v28);
     objc_destroyWeak(buf);
   }
 
@@ -97,27 +97,25 @@ LABEL_7:
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v16;
-      v34 = 2112;
-      v35 = dictionaryCopy;
+      v32 = v16;
+      v33 = 2112;
+      v34 = dictionaryCopy;
       _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@Received an unexpected request with no data %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
     v17 = [MEMORY[0x1E696ABC0] hmErrorWithCode:27];
     code = [v17 code];
-    v30 = @"err";
-    v31 = v17;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+    v29 = @"err";
+    v30 = v17;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
     (*(handlerCopy + 2))(handlerCopy, (code + 300200), 0, v19);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __98__HMCUMessageSessionDeviceSetupOperationHandler__handleReceivedRequestDictionary_responseHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) begin];
@@ -132,11 +130,11 @@ void __98__HMCUMessageSessionDeviceSetupOperationHandler__handleReceivedRequestD
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v14 = 138543618;
-    v15 = v12;
-    v16 = 2112;
-    v17 = v7;
-    _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_INFO, "%{public}@Sending response payload: %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v12;
+    v15 = 2112;
+    v16 = v7;
+    _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_INFO, "%{public}@Sending response payload: %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -147,13 +145,11 @@ void __98__HMCUMessageSessionDeviceSetupOperationHandler__handleReceivedRequestD
 
   (*(*(a1 + 40) + 16))();
   [*(a1 + 32) end];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerMessageHandlersForMessageSession:(id)session
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -162,25 +158,23 @@ void __98__HMCUMessageSessionDeviceSetupOperationHandler__handleReceivedRequestD
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v14 = v8;
+    v13 = v8;
     _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Registering the handlers", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
-  v12.receiver = selfCopy;
-  v12.super_class = HMCUMessageSessionDeviceSetupOperationHandler;
-  [(HMDeviceSetupOperationHandlerBase *)&v12 configureSessionForMessages];
+  v11.receiver = selfCopy;
+  v11.super_class = HMCUMessageSessionDeviceSetupOperationHandler;
+  [(HMDeviceSetupOperationHandlerBase *)&v11 configureSessionForMessages];
   objc_initWeak(buf, selfCopy);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __90__HMCUMessageSessionDeviceSetupOperationHandler_registerMessageHandlersForMessageSession___block_invoke;
-  v10[3] = &unk_1E754BCE0;
-  objc_copyWeak(&v11, buf);
-  [sessionCopy registerRequestID:@"HMDSS.cu.rq" options:0 handler:v10];
-  objc_destroyWeak(&v11);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __90__HMCUMessageSessionDeviceSetupOperationHandler_registerMessageHandlersForMessageSession___block_invoke;
+  v9[3] = &unk_1E754BCE0;
+  objc_copyWeak(&v10, buf);
+  [sessionCopy registerRequestID:@"HMDSS.cu.rq" options:0 handler:v9];
+  objc_destroyWeak(&v10);
   objc_destroyWeak(buf);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __90__HMCUMessageSessionDeviceSetupOperationHandler_registerMessageHandlersForMessageSession___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)

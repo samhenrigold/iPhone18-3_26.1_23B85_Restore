@@ -518,9 +518,9 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  v15 = [(_UIScreenBasedWindowScene *)windowScene isEqual:selfCopy];
+  isEqual = objc_msgSend_isEqual_(windowScene);
 
-  if (v15)
+  if (isEqual)
   {
 LABEL_17:
     rootViewController = [v11 rootViewController];
@@ -797,9 +797,9 @@ LABEL_14:
           goto LABEL_15;
         }
 
-        v12 = [(_UIScreenBasedWindowScene *)selfCopy isEqual:v10];
+        isEqual = objc_msgSend_isEqual_(selfCopy);
 
-        if ((v12 & 1) == 0)
+        if ((isEqual & 1) == 0)
         {
           goto LABEL_14;
         }
@@ -877,9 +877,9 @@ LABEL_14:
           goto LABEL_15;
         }
 
-        v12 = [(_UIScreenBasedWindowScene *)selfCopy isEqual:v10];
+        isEqual = objc_msgSend_isEqual_(selfCopy);
 
-        if ((v12 & 1) == 0)
+        if ((isEqual & 1) == 0)
         {
           goto LABEL_14;
         }

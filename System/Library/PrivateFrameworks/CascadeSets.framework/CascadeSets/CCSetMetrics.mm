@@ -15,7 +15,7 @@
 
 + (void)computeAndReportMetricsForAllSets:(id)sets shouldDefer:(id)defer
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   setsCopy = sets;
   deferCopy = defer;
   if ([CCSetMetrics shouldReportAnalyticsEventWithName:@"com.apple.CascadeSets.SetDistribution"])
@@ -25,39 +25,39 @@
     {
       v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(setsCopy, "count")}];
       *buf = 138412290;
-      v43 = v6;
+      v42 = v6;
       _os_log_impl(&dword_1B6DB2000, v5, OS_LOG_TYPE_DEFAULT, "Preparing to enumerate and compute metrics for %@ set(s)", buf, 0xCu);
     }
 
-    v27 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
+    v26 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v7 = setsCopy;
-    v8 = [v7 countByEnumeratingWithState:&v37 objects:v46 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v36 objects:v45 count:16];
     if (v8)
     {
-      v28 = *v38;
+      v27 = *v37;
       *&v9 = 138412546;
-      v25 = v9;
+      v24 = v9;
 LABEL_6:
       v10 = 0;
       while (1)
       {
-        if (*v38 != v28)
+        if (*v37 != v27)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v37 + 1) + 8 * v10);
+        v11 = *(*(&v36 + 1) + 8 * v10);
         v12 = objc_autoreleasePoolPush();
         if (deferCopy && deferCopy[2]())
         {
           v13 = __biome_log_for_category();
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
-            [(CCSetMetrics *)&v35 computeAndReportMetricsForAllSets:v36 shouldDefer:v13];
+            [(CCSetMetrics *)&v34 computeAndReportMetricsForAllSets:v35 shouldDefer:v13];
           }
 
           v14 = 0;
@@ -65,9 +65,9 @@ LABEL_6:
 
         else
         {
-          v34 = 0;
-          v15 = [CCSetMetrics _computeMetricsForSet:v11 error:&v34, v25];
-          v13 = v34;
+          v33 = 0;
+          v15 = [CCSetMetrics _computeMetricsForSet:v11 error:&v33, v24];
+          v13 = v33;
           v14 = v15 != 0;
           if (v15)
           {
@@ -75,11 +75,11 @@ LABEL_6:
             if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v43 = v15;
+              v42 = v15;
               _os_log_impl(&dword_1B6DB2000, v16, OS_LOG_TYPE_DEFAULT, "Computed set metrics: %@", buf, 0xCu);
             }
 
-            [v27 addObject:v15];
+            [v26 addObject:v15];
           }
 
           else
@@ -87,10 +87,10 @@ LABEL_6:
             v17 = __biome_log_for_category();
             if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
-              *buf = v25;
-              v43 = v11;
-              v44 = 2112;
-              v45 = v13;
+              *buf = v24;
+              v42 = v11;
+              v43 = 2112;
+              v44 = v13;
               _os_log_error_impl(&dword_1B6DB2000, v17, OS_LOG_TYPE_ERROR, "Failed to compute metrics for set: %@ error: %@", buf, 0x16u);
             }
           }
@@ -104,7 +104,7 @@ LABEL_6:
 
         if (v8 == ++v10)
         {
-          v8 = [v7 countByEnumeratingWithState:&v37 objects:v46 count:16];
+          v8 = [v7 countByEnumeratingWithState:&v36 objects:v45 count:16];
           if (v8)
           {
             goto LABEL_6;
@@ -122,41 +122,41 @@ LABEL_25:
       v18 = __biome_log_for_category();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSObject count](v27, "count")}];
+        v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSObject count](v26, "count")}];
         *buf = 138412290;
-        v43 = v19;
+        v42 = v19;
         _os_log_impl(&dword_1B6DB2000, v18, OS_LOG_TYPE_DEFAULT, "Reporting metrics for %@ set(s)", buf, 0xCu);
       }
 
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
       v31 = 0u;
-      v7 = v27;
-      v20 = [v7 countByEnumeratingWithState:&v30 objects:v41 count:16];
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
+      v7 = v26;
+      v20 = [v7 countByEnumeratingWithState:&v29 objects:v40 count:16];
       if (v20)
       {
-        v21 = *v31;
+        v21 = *v30;
         do
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v31 != v21)
+            if (*v30 != v21)
             {
               objc_enumerationMutation(v7);
             }
 
-            [CCSetMetrics reportAnalyticsEvent:*(*(&v30 + 1) + 8 * i) withName:@"com.apple.CascadeSets.SetDistribution", v25];
+            [CCSetMetrics reportAnalyticsEvent:*(*(&v29 + 1) + 8 * i) withName:@"com.apple.CascadeSets.SetDistribution", v24];
           }
 
-          v20 = [v7 countByEnumeratingWithState:&v30 objects:v41 count:16];
+          v20 = [v7 countByEnumeratingWithState:&v29 objects:v40 count:16];
         }
 
         while (v20);
       }
     }
 
-    v23 = v27;
+    v23 = v26;
   }
 
   else
@@ -165,12 +165,10 @@ LABEL_25:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v43 = @"com.apple.CascadeSets.SetDistribution";
+      v42 = @"com.apple.CascadeSets.SetDistribution";
       _os_log_impl(&dword_1B6DB2000, v23, OS_LOG_TYPE_DEFAULT, "Skipping metrics computation as the event: %@ is not used.", buf, 0xCu);
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_computeMetricsForSet:(id)set error:(id *)error

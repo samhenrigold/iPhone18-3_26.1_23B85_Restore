@@ -114,11 +114,10 @@
   v10 = self->_addressType | self->_btAddressType;
   irkData = [(CBOOBKeyInfo *)self irkData];
   v12 = CUPrintNSObjectMasked();
-  keyType = self->_keyType;
-  v14 = CUPrintFlags32();
-  v15 = [v8 initWithFormat:@"Addr %@, AddrType: %x, IRK %@, keyUsage: %@", v9, v10, v12, v14];
+  v13 = CUPrintFlags32();
+  v14 = [v8 initWithFormat:@"Addr %@, AddrType: %x, IRK %@, keyUsage: %@", v9, v10, v12, v13];
 
-  return v15;
+  return v14;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -226,7 +225,7 @@ LABEL_20:
       [objc_opt_class() description];
       objc_claimAutoreleasedReturnValue();
       OUTLINED_FUNCTION_3_4();
-      *v5 = CBErrorF(-6756, "%@ init failed", v47, v48, v49, v50, v51, v52, v54);
+      *v5 = CBErrorF(-6756, "%@ init failed", v67, v68, v69, v70, v71, v72, v74);
     }
 
     goto LABEL_13;
@@ -236,8 +235,8 @@ LABEL_20:
   {
     if (v5)
     {
-      v53 = CBErrorF(-6756, "XPC non-dict", v8, v9, v10, v11, v12, v13, v54);
-      OUTLINED_FUNCTION_16(v53);
+      v73 = CBErrorF(-6756, "XPC non-dict", v8, v9, v10, v11, v12, v13, v74);
+      OUTLINED_FUNCTION_16(v73);
       goto LABEL_22;
     }
 
@@ -250,35 +249,35 @@ LABEL_20:
     goto LABEL_13;
   }
 
-  OUTLINED_FUNCTION_0();
-  v14 = OUTLINED_FUNCTION_3_1();
-  if (v14 == 6)
+  v14 = OUTLINED_FUNCTION_0();
+  v19 = OUTLINED_FUNCTION_3_1(v14, v15, v16, v17, v18);
+  if (v19 == 6)
   {
-    OUTLINED_FUNCTION_5_4(v14, v15, v16, v17, v18, v19, v20, v21, v54, 0);
+    OUTLINED_FUNCTION_5_4(v19, v20, v21, v22, v23, v24, v25, v26, v74, 0);
   }
 
-  else if (v14 == 5)
+  else if (v19 == 5)
   {
     goto LABEL_13;
   }
 
-  OUTLINED_FUNCTION_0();
-  v22 = OUTLINED_FUNCTION_3_1();
-  if (v22 == 6)
+  v27 = OUTLINED_FUNCTION_0();
+  v32 = OUTLINED_FUNCTION_3_1(v27, v28, v29, v30, v31);
+  if (v32 == 6)
   {
-    OUTLINED_FUNCTION_5_4(v22, v23, v24, v25, v26, v27, v28, v29, v54, 0);
+    OUTLINED_FUNCTION_5_4(v32, v33, v34, v35, v36, v37, v38, v39, v74, 0);
   }
 
-  else if (v22 == 5)
+  else if (v32 == 5)
   {
-    OUTLINED_FUNCTION_0();
-    v30 = OUTLINED_FUNCTION_3_1();
-    if (v30 == 6)
+    v40 = OUTLINED_FUNCTION_0();
+    v45 = OUTLINED_FUNCTION_3_1(v40, v41, v42, v43, v44);
+    if (v45 == 6)
     {
-      OUTLINED_FUNCTION_11(v30, v31, v32, v33, v34, v35, v36, v37, v54, 0);
+      OUTLINED_FUNCTION_11(v45, v46, v47, v48, v49, v50, v51, v52, v74, 0);
     }
 
-    else if (v30 == 5)
+    else if (v45 == 5)
     {
       goto LABEL_13;
     }
@@ -290,15 +289,15 @@ LABEL_20:
     goto LABEL_13;
   }
 
-  OUTLINED_FUNCTION_0();
-  v38 = OUTLINED_FUNCTION_3_1();
-  if (v38 == 6)
+  v53 = OUTLINED_FUNCTION_0();
+  v58 = OUTLINED_FUNCTION_3_1(v53, v54, v55, v56, v57);
+  if (v58 == 6)
   {
-    OUTLINED_FUNCTION_10_1(v38, v39, v40, v41, v42, v43, v44, v45, v54, 0);
+    OUTLINED_FUNCTION_10_1(v58, v59, v60, v61, v62, v63, v64, v65, v74, 0);
     goto LABEL_18;
   }
 
-  if (v38 == 5)
+  if (v58 == 5)
   {
 LABEL_13:
     v6 = 0;

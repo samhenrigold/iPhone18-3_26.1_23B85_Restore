@@ -51,15 +51,16 @@
 
 - (void)updateControls
 {
-  if ([(PHAudioCallControlsViewController *)self updatesPaused])
+  updatesPaused = [(PHAudioCallControlsViewController *)self updatesPaused];
+  if (updatesPaused)
   {
-    v3 = sub_100004F84();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100004F84(updatesPaused);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v7 = objc_opt_class();
-      v4 = v7;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@ updates are paused, skipping update.", buf, 0xCu);
+      v8 = objc_opt_class();
+      v5 = v8;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@ updates are paused, skipping update.", buf, 0xCu);
     }
   }
 
@@ -253,58 +254,58 @@
   screenSharingButtonViewModel = self->_screenSharingButtonViewModel;
   if (screenSharingButtonViewModel && (-[PHScreenSharingButtonViewModel callUUID](screenSharingButtonViewModel, "callUUID"), v4 = objc_claimAutoreleasedReturnValue(), -[PHAudioCallControlsViewController activeCall](self, "activeCall"), v5 = objc_claimAutoreleasedReturnValue(), [v5 callUUID], v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v4, v4 == v6))
   {
-    v17 = self->_screenSharingButtonViewModel;
+    v18 = self->_screenSharingButtonViewModel;
   }
 
   else
   {
     activeCall = [(PHAudioCallControlsViewController *)self activeCall];
 
-    v8 = sub_100004F84();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v9 = sub_100004F84(v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
     if (activeCall)
     {
-      if (v9)
+      if (v10)
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Creating new PHScreenSharingButtonViewModel", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Creating new PHScreenSharingButtonViewModel", buf, 2u);
       }
 
-      v10 = [PHScreenSharingButtonViewModel alloc];
+      v11 = [PHScreenSharingButtonViewModel alloc];
       activeCall2 = [(PHAudioCallControlsViewController *)self activeCall];
       callCenter = [(PHAudioCallControlsViewController *)self callCenter];
-      v13 = [(PHScreenSharingButtonViewModel *)v10 initWithCall:activeCall2 callCenter:callCenter];
-      v14 = self->_screenSharingButtonViewModel;
-      self->_screenSharingButtonViewModel = v13;
+      v14 = [(PHScreenSharingButtonViewModel *)v11 initWithCall:activeCall2 callCenter:callCenter];
+      v15 = self->_screenSharingButtonViewModel;
+      self->_screenSharingButtonViewModel = v14;
 
       objc_initWeak(buf, self);
-      v15 = self->_screenSharingButtonViewModel;
-      v19[0] = _NSConcreteStackBlock;
-      v19[1] = 3221225472;
-      v19[2] = sub_10014445C;
-      v19[3] = &unk_10035A1C8;
-      objc_copyWeak(&v20, buf);
-      v16 = [(PHScreenSharingButtonViewModel *)v15 listenWith:v19];
-      [(PHAudioCallControlsViewController *)self setScreenSharingButtonViewModelObserver:v16];
+      v16 = self->_screenSharingButtonViewModel;
+      v20[0] = _NSConcreteStackBlock;
+      v20[1] = 3221225472;
+      v20[2] = sub_10014445C;
+      v20[3] = &unk_10035A1C8;
+      objc_copyWeak(&v21, buf);
+      v17 = [(PHScreenSharingButtonViewModel *)v16 listenWith:v20];
+      [(PHAudioCallControlsViewController *)self setScreenSharingButtonViewModelObserver:v17];
 
-      v17 = self->_screenSharingButtonViewModel;
-      objc_destroyWeak(&v20);
+      v18 = self->_screenSharingButtonViewModel;
+      objc_destroyWeak(&v21);
       objc_destroyWeak(buf);
     }
 
     else
     {
-      if (v9)
+      if (v10)
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Not creating new PHScreenSharingButtonViewModel because fontmostCall is nil", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Not creating new PHScreenSharingButtonViewModel because fontmostCall is nil", buf, 2u);
       }
 
-      v17 = 0;
+      v18 = 0;
     }
   }
 
-  return v17;
+  return v18;
 }
 
 - (void)setPrioritizedCall:(id)call
@@ -320,7 +321,7 @@
 - (void)callStatusChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -339,7 +340,7 @@
 - (void)callIsOnHoldChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -358,7 +359,7 @@
 - (void)conferenceParticipantCallsChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -377,7 +378,7 @@
 - (void)faceTimeIDStatusChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -396,7 +397,7 @@
 - (void)callModelChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -415,7 +416,7 @@
 - (void)uplinkStateChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -434,7 +435,7 @@
 - (void)handleTUCallSupportsTTYWithVoiceChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -453,7 +454,7 @@
 - (void)handleTUCallTTYTypeChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -472,7 +473,7 @@
 - (void)handleTUCallIsSharePlayCapableChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -491,7 +492,7 @@
 - (void)handleTUCallIsSharingScreenChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -888,12 +889,12 @@ LABEL_25:
 - (void)controlTypeTapped:(unint64_t)tapped forView:(id)view
 {
   viewCopy = view;
-  v7 = sub_100004F84();
+  v7 = sub_100004F84(viewCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v56 = 134217984;
+    v60 = 134217984;
     tappedCopy = tapped;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Control type tapped (%lu)", &v56, 0xCu);
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Control type tapped (%lu)", &v60, 0xCu);
   }
 
   switch(tapped)
@@ -926,25 +927,25 @@ LABEL_25:
 
         if (activeCall)
         {
-          v16 = +[TUCallCenter sharedInstance];
-          routeController3 = [v16 routeController];
+          v17 = +[TUCallCenter sharedInstance];
+          routeController3 = [v17 routeController];
           [routeController3 pickRoute:activeCall];
 
           controlsView2 = [(PHAudioCallControlsViewController *)self controlsView];
           delegate = controlsView2;
-          v20 = 0;
+          v21 = 0;
 LABEL_35:
-          [controlsView2 setSelectedState:v20 forControlType:2];
+          [controlsView2 setSelectedState:v21 forControlType:2];
           goto LABEL_52;
         }
 
-        delegate = sub_100004F84();
+        delegate = sub_100004F84(v16);
         if (os_log_type_enabled(delegate, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v56) = 0;
-          v55 = "[WARN] Could not find available route to pick for speaker disable";
+          LOWORD(v60) = 0;
+          v59 = "[WARN] Could not find available route to pick for speaker disable";
 LABEL_51:
-          _os_log_impl(&_mh_execute_header, delegate, OS_LOG_TYPE_DEFAULT, v55, &v56, 2u);
+          _os_log_impl(&_mh_execute_header, delegate, OS_LOG_TYPE_DEFAULT, v59, &v60, 2u);
         }
       }
 
@@ -954,21 +955,21 @@ LABEL_51:
 
         if (activeCall)
         {
-          v42 = +[TUCallCenter sharedInstance];
-          routeController4 = [v42 routeController];
+          v46 = +[TUCallCenter sharedInstance];
+          routeController4 = [v46 routeController];
           [routeController4 pickRoute:activeCall];
 
           controlsView2 = [(PHAudioCallControlsViewController *)self controlsView];
           delegate = controlsView2;
-          v20 = 1;
+          v21 = 1;
           goto LABEL_35;
         }
 
-        delegate = sub_100004F84();
+        delegate = sub_100004F84(v45);
         if (os_log_type_enabled(delegate, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v56) = 0;
-          v55 = "[WARN] Could not find available route to pick for speaker enable";
+          LOWORD(v60) = 0;
+          v59 = "[WARN] Could not find available route to pick for speaker enable";
           goto LABEL_51;
         }
       }
@@ -977,8 +978,8 @@ LABEL_52:
 
       goto LABEL_53;
     case 3uLL:
-      v21 = +[TUCallCenter sharedInstance];
-      routeController5 = [v21 routeController];
+      v22 = +[TUCallCenter sharedInstance];
+      routeController5 = [v22 routeController];
       areAuxiliaryRoutesAvailable = [routeController5 areAuxiliaryRoutesAvailable];
 
       if (!areAuxiliaryRoutesAvailable)
@@ -1000,9 +1001,9 @@ LABEL_37:
         goto LABEL_53;
       }
 
-      v44 = +[APApplication isPhoneAppLocked];
+      v48 = +[APApplication isPhoneAppLocked];
 
-      if (v44)
+      if (v48)
       {
         goto LABEL_37;
       }
@@ -1015,11 +1016,11 @@ LABEL_54:
       return;
     case 5uLL:
       callContainer = [(PHAudioCallControlsViewController *)self callContainer];
-      v27 = [callContainer callWithStatus:1];
-      v28 = v27;
-      if (v27)
+      v28 = [callContainer callWithStatus:1];
+      v29 = v28;
+      if (v28)
       {
-        activeCall = v27;
+        activeCall = v28;
       }
 
       else
@@ -1028,12 +1029,12 @@ LABEL_54:
         activeCall = [callContainer2 callWithStatus:2];
       }
 
-      v46 = +[TUCallCenter sharedInstance];
-      [v46 requestVideoUpgradeForCall:activeCall originatingUIType:27];
+      v50 = +[TUCallCenter sharedInstance];
+      [v50 requestVideoUpgradeForCall:activeCall originatingUIType:27];
 
       [activeCall setIsSendingVideo:1];
-      v47 = +[TUCallCenter sharedInstance];
-      routeController6 = [v47 routeController];
+      v51 = +[TUCallCenter sharedInstance];
+      routeController6 = [v51 routeController];
       pickedRoute2 = [routeController6 pickedRoute];
       isReceiver = [pickedRoute2 isReceiver];
 
@@ -1044,8 +1045,8 @@ LABEL_54:
 
       delegate = +[TUCallCenter sharedInstance];
       routeController7 = [delegate routeController];
-      v52 = +[TUCallCenter sharedInstance];
-      routeController8 = [v52 routeController];
+      v56 = +[TUCallCenter sharedInstance];
+      routeController8 = [v56 routeController];
       speakerRoute = [routeController8 speakerRoute];
       [routeController7 pickRoute:speakerRoute];
 
@@ -1063,7 +1064,7 @@ LABEL_54:
 
       LOBYTE(currentCalls) = [activeCall isOnHold];
       callCenter = [(PHAudioCallControlsViewController *)self callCenter];
-      v37 = callCenter;
+      v39 = callCenter;
       if (currentCalls)
       {
         [callCenter unholdCall:activeCall];
@@ -1085,20 +1086,20 @@ LABEL_54:
       activeCall = [callContainer4 callWithStatus:2];
 
       callContainer5 = [(PHAudioCallControlsViewController *)self callContainer];
-      v31 = [callContainer5 callWithStatus:1];
+      v32 = [callContainer5 callWithStatus:1];
 
-      v32 = sub_100004F84();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+      v34 = sub_100004F84(v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
-        v56 = 138412546;
+        v60 = 138412546;
         tappedCopy = activeCall;
-        v58 = 2112;
-        v59 = v31;
-        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "PHAudioCallControlTypeMerge tapped. Grouping held call %@ with active call %@", &v56, 0x16u);
+        v62 = 2112;
+        v63 = v32;
+        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "PHAudioCallControlTypeMerge tapped. Grouping held call %@ with active call %@", &v60, 0x16u);
       }
 
       callCenter2 = [(PHAudioCallControlsViewController *)self callCenter];
-      [callCenter2 groupCall:activeCall withOtherCall:v31];
+      [callCenter2 groupCall:activeCall withOtherCall:v32];
 
       goto LABEL_53;
     case 0xBuLL:
@@ -1156,7 +1157,7 @@ LABEL_54:
 
       else
       {
-        activeCall = sub_100004F84();
+        activeCall = sub_100004F84(v41);
         if (os_log_type_enabled(activeCall, OS_LOG_TYPE_ERROR))
         {
           sub_100257284(activeCall);
@@ -1175,7 +1176,7 @@ LABEL_54:
 
 - (void)controlTypeShortPressed:(unint64_t)pressed
 {
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 134217984;
@@ -1186,12 +1187,12 @@ LABEL_54:
 
 - (void)controlTypeLongPressed:(unint64_t)pressed
 {
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 134217984;
-    *v19 = pressed;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Control type long pressed (%lu)", &v18, 0xCu);
+    v19 = 134217984;
+    *v20 = pressed;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Control type long pressed (%lu)", &v19, 0xCu);
   }
 
   if (pressed == 1)
@@ -1223,21 +1224,21 @@ LABEL_54:
   if (!supportsHolding)
   {
 LABEL_11:
-    v12 = sub_100004F84();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100004F84(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       callContainer3 = [(PHAudioCallControlsViewController *)self callContainer];
       currentCallGroups2 = [callContainer3 currentCallGroups];
-      v15 = [currentCallGroups2 count] != 1;
+      v16 = [currentCallGroups2 count] != 1;
       model2 = [delegate model];
       supportsHolding2 = [model2 supportsHolding];
-      v18 = 67109632;
-      *v19 = v15;
-      *&v19[4] = 1024;
-      *&v19[6] = delegate == 0;
-      v20 = 1024;
-      v21 = supportsHolding2 ^ 1;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Not holding: current call count isn't 1 (%d), active call doesn't exist (%d), or active call doesn't support holding (%d)", &v18, 0x14u);
+      v19 = 67109632;
+      *v20 = v16;
+      *&v20[4] = 1024;
+      *&v20[6] = delegate == 0;
+      v21 = 1024;
+      v22 = supportsHolding2 ^ 1;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Not holding: current call count isn't 1 (%d), active call doesn't exist (%d), or active call doesn't support holding (%d)", &v19, 0x14u);
     }
 
     goto LABEL_14;
@@ -1671,7 +1672,7 @@ LABEL_18:
 - (void)setUpdatesPaused:(BOOL)paused
 {
   pausedCopy = paused;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412546;
@@ -1913,7 +1914,7 @@ LABEL_34:
     localSenderIdentityUUID = [firstObject localSenderIdentityUUID];
     if (!localSenderIdentityUUID)
     {
-      v38 = sub_100004F84();
+      v38 = sub_100004F84(0);
       if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
         v68 = 138412290;
@@ -2070,48 +2071,49 @@ LABEL_77:
 - (void)openMessagesForCall:(id)call
 {
   callCopy = call;
-  if ([callCopy isConversation])
+  isConversation = [callCopy isConversation];
+  if (isConversation)
   {
-    v4 = +[TUCallCenter sharedInstance];
-    v5 = [v4 activeConversationForCall:callCopy];
+    v5 = +[TUCallCenter sharedInstance];
+    v6 = [v5 activeConversationForCall:callCopy];
 
-    if (v5)
+    if (v6)
     {
-      v6 = objc_alloc_init(NSMutableArray);
-      groupUUID = [v5 groupUUID];
+      v8 = objc_alloc_init(NSMutableArray);
+      groupUUID = [v6 groupUUID];
 
       if (groupUUID)
       {
-        v8 = [NSURLQueryItem alloc];
-        groupUUID2 = [v5 groupUUID];
+        v10 = [NSURLQueryItem alloc];
+        groupUUID2 = [v6 groupUUID];
         uUIDString = [groupUUID2 UUIDString];
-        v11 = [v8 initWithName:@"groupid" value:uUIDString];
+        v13 = [v10 initWithName:@"groupid" value:uUIDString];
 
-        [v6 addObject:v11];
+        [v8 addObject:v13];
       }
 
-      v12 = objc_alloc_init(NSMutableArray);
-      v29 = 0u;
-      v30 = 0u;
+      v14 = objc_alloc_init(NSMutableArray);
       v31 = 0u;
       v32 = 0u;
-      remoteMembers = [v5 remoteMembers];
-      v14 = [remoteMembers countByEnumeratingWithState:&v29 objects:v35 count:16];
-      if (v14)
+      v33 = 0u;
+      v34 = 0u;
+      remoteMembers = [v6 remoteMembers];
+      v16 = [remoteMembers countByEnumeratingWithState:&v31 objects:v37 count:16];
+      if (v16)
       {
-        v15 = v14;
-        v16 = *v30;
+        v17 = v16;
+        v18 = *v32;
         do
         {
-          v17 = 0;
+          v19 = 0;
           do
           {
-            if (*v30 != v16)
+            if (*v32 != v18)
             {
               objc_enumerationMutation(remoteMembers);
             }
 
-            handles = [*(*(&v29 + 1) + 8 * v17) handles];
+            handles = [*(*(&v31 + 1) + 8 * v19) handles];
             anyObject = [handles anyObject];
 
             value = [anyObject value];
@@ -2119,63 +2121,62 @@ LABEL_77:
             if (value)
             {
               value2 = [anyObject value];
-              [v12 addObject:value2];
+              [v14 addObject:value2];
             }
 
-            v17 = v17 + 1;
+            v19 = v19 + 1;
           }
 
-          while (v15 != v17);
-          v15 = [remoteMembers countByEnumeratingWithState:&v29 objects:v35 count:16];
+          while (v17 != v19);
+          v17 = [remoteMembers countByEnumeratingWithState:&v31 objects:v37 count:16];
         }
 
-        while (v15);
+        while (v17);
       }
 
-      if ([v12 count])
+      if ([v14 count])
       {
-        v22 = [NSURLQueryItem alloc];
-        v23 = [v12 componentsJoinedByString:{@", "}];
-        v24 = [v22 initWithName:@"addresses" value:v23];
+        v24 = [NSURLQueryItem alloc];
+        v25 = [v14 componentsJoinedByString:{@", "}];
+        v26 = [v24 initWithName:@"addresses" value:v25];
 
-        [v6 addObject:v24];
+        [v8 addObject:v26];
       }
 
-      v25 = objc_alloc_init(NSURLComponents);
-      [v25 setScheme:@"sms"];
-      [v25 setPath:@"open"];
-      [v25 setQueryItems:v6];
-      v26 = sub_100004F84();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v27 = objc_alloc_init(NSURLComponents);
+      [v27 setScheme:@"sms"];
+      [v27 setPath:@"open"];
+      v28 = sub_100004F84([v27 setQueryItems:v8]);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = [v25 URL];
+        v29 = [v27 URL];
         *buf = 138412290;
-        v34 = v27;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Opening Multiway Messages URL: %@ ...", buf, 0xCu);
+        v36 = v29;
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Opening Multiway Messages URL: %@ ...", buf, 0xCu);
       }
 
-      v28 = [v25 URL];
+      v30 = [v27 URL];
       TUUnlockAndOpenURL();
     }
 
     else
     {
-      v6 = sub_100004F84();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = sub_100004F84(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        sub_1002572C8(callCopy, v6);
+        sub_1002572C8(callCopy, v8);
       }
     }
   }
 
   else
   {
-    v5 = sub_100004F84();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004F84(isConversation);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v34 = callCopy;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Not opening Multiway Messages for call. Call is not a conversation: %@", buf, 0xCu);
+      v36 = callCopy;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Not opening Multiway Messages for call. Call is not a conversation: %@", buf, 0xCu);
     }
   }
 }
@@ -2183,13 +2184,13 @@ LABEL_77:
 - (void)routesChangedForRouteController:(id)controller
 {
   controllerCopy = controller;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(controllerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     lastPickedRoute = [(PHAudioCallControlsViewController *)self lastPickedRoute];
-    v12 = 138412290;
-    v13 = lastPickedRoute;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Last picked route %@", &v12, 0xCu);
+    v13 = 138412290;
+    v14 = lastPickedRoute;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Last picked route %@", &v13, 0xCu);
   }
 
   [(PHAudioCallControlsViewController *)self updateControls];
@@ -2200,11 +2201,11 @@ LABEL_77:
 
   if ((v9 & 1) == 0)
   {
-    v10 = sub_100004F84();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100004F84(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Dismissing route menu since the selected route changed", &v12, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Dismissing route menu since the selected route changed", &v13, 2u);
     }
 
     controlsView = [(PHAudioCallControlsViewController *)self controlsView];

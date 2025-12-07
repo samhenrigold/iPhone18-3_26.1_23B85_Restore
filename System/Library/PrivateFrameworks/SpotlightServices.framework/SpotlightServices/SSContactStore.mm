@@ -65,12 +65,10 @@ uint64_t __30__SSContactStore_contactStore__block_invoke()
 
 + (id)_defaultKeysForContactByIdentifier
 {
-  v6[9] = *MEMORY[0x1E69E9840];
+  v5[9] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695CD80] descriptorForRequiredKeysForStyle:{0, *MEMORY[0x1E695C240], *MEMORY[0x1E695C230], *MEMORY[0x1E695C208], *MEMORY[0x1E695C330], *MEMORY[0x1E695C360], *MEMORY[0x1E695C1D0], *MEMORY[0x1E695C3D0], *MEMORY[0x1E695C328]}];
-  v6[8] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:9];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[8] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:9];
 
   return v3;
 }
@@ -257,7 +255,7 @@ uint64_t __30__SSContactStore_contactStore__block_invoke()
 
 + (void)precacheContactsForResults:(id)results
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   v4 = [SSMailResultBuilder authorEmailsFromResults:resultsCopy];
   v5 = objc_opt_new();
@@ -265,200 +263,198 @@ uint64_t __30__SSContactStore_contactStore__block_invoke()
   keyEnumerator = [mapTableRepresentation keyEnumerator];
   allObjects = [keyEnumerator allObjects];
 
-  v80 = 0u;
-  v81 = 0u;
-  v78 = 0u;
   v79 = 0u;
+  v80 = 0u;
+  v77 = 0u;
+  v78 = 0u;
   v8 = v4;
-  v9 = [v8 countByEnumeratingWithState:&v78 objects:v86 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v77 objects:v85 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v79;
+    v11 = *v78;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v79 != v11)
+        if (*v78 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v78 + 1) + 8 * i);
+        v13 = *(*(&v77 + 1) + 8 * i);
         if (([allObjects containsObject:v13] & 1) == 0)
         {
           [v5 addObject:v13];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v78 objects:v86 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v77 objects:v85 count:16];
     }
 
     while (v10);
   }
 
-  v52 = allObjects;
+  v51 = allObjects;
 
-  v54 = resultsCopy;
+  v53 = resultsCopy;
   v14 = [SSContactResultBuilder contactIdentifiersFromResults:resultsCopy];
   v15 = objc_opt_new();
   mapTableRepresentation2 = [_SSIdToContactCache mapTableRepresentation];
   keyEnumerator2 = [mapTableRepresentation2 keyEnumerator];
   allObjects2 = [keyEnumerator2 allObjects];
 
-  v76 = 0u;
-  v77 = 0u;
-  v74 = 0u;
   v75 = 0u;
+  v76 = 0u;
+  v73 = 0u;
+  v74 = 0u;
   v18 = v14;
-  v19 = [v18 countByEnumeratingWithState:&v74 objects:v85 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v73 objects:v84 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v75;
+    v21 = *v74;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v75 != v21)
+        if (*v74 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v74 + 1) + 8 * j);
+        v23 = *(*(&v73 + 1) + 8 * j);
         if (([allObjects2 containsObject:v23] & 1) == 0)
         {
           [v15 addObject:v23];
         }
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v74 objects:v85 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v73 objects:v84 count:16];
     }
 
     while (v20);
   }
 
-  v56 = v8;
-  v57 = v5;
-  v55 = v18;
-  if ([v5 count])
+  v55 = v8;
+  v56 = v5;
+  v54 = v18;
+  if (objc_msgSend_count(v5))
   {
     v24 = +[SSMailResultBuilder contactKeysToFetch];
     v25 = [self _contactsWithEmails:v5 keysToFetch:v24];
 
-    v72[0] = MEMORY[0x1E69E9820];
-    v72[1] = 3221225472;
-    v72[2] = __45__SSContactStore_precacheContactsForResults___block_invoke;
-    v72[3] = &unk_1E8595C10;
+    v71[0] = MEMORY[0x1E69E9820];
+    v71[1] = 3221225472;
+    v71[2] = __45__SSContactStore_precacheContactsForResults___block_invoke;
+    v71[3] = &unk_1E8595C10;
     v26 = v5;
-    v73 = v26;
-    v50 = v25;
-    [v25 enumerateKeysAndObjectsUsingBlock:v72];
-    v70 = 0u;
-    v71 = 0u;
-    v68 = 0u;
+    v72 = v26;
+    v49 = v25;
+    [v25 enumerateKeysAndObjectsUsingBlock:v71];
     v69 = 0u;
+    v70 = 0u;
+    v67 = 0u;
+    v68 = 0u;
     v27 = v26;
-    v28 = [v27 countByEnumeratingWithState:&v68 objects:v84 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v67 objects:v83 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v69;
+      v30 = *v68;
       do
       {
         for (k = 0; k != v29; ++k)
         {
-          if (*v69 != v30)
+          if (*v68 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
-          v32 = *(*(&v68 + 1) + 8 * k);
+          v32 = *(*(&v67 + 1) + 8 * k);
           v33 = _SSEmailToContactCache;
           null = [MEMORY[0x1E695DFB0] null];
           [v33 setObject:null forKey:v32];
         }
 
-        v29 = [v27 countByEnumeratingWithState:&v68 objects:v84 count:16];
+        v29 = [v27 countByEnumeratingWithState:&v67 objects:v83 count:16];
       }
 
       while (v29);
     }
 
-    v8 = v56;
-    v18 = v55;
+    v8 = v55;
+    v18 = v54;
   }
 
-  if ([v15 count])
+  if (objc_msgSend_count(v15))
   {
     [self _contactsWithIds:v15];
+    v63 = 0u;
     v64 = 0u;
     v65 = 0u;
-    v66 = 0u;
-    obja = v67 = 0u;
-    v35 = [obja countByEnumeratingWithState:&v64 objects:v83 count:16];
+    obja = v66 = 0u;
+    v35 = [obja countByEnumeratingWithState:&v63 objects:v82 count:16];
     if (v35)
     {
       v36 = v35;
-      v37 = *v65;
+      v37 = *v64;
       do
       {
         for (m = 0; m != v36; ++m)
         {
-          if (*v65 != v37)
+          if (*v64 != v37)
           {
             objc_enumerationMutation(obja);
           }
 
-          v39 = *(*(&v64 + 1) + 8 * m);
+          v39 = *(*(&v63 + 1) + 8 * m);
           identifier = [v39 identifier];
           [_SSIdToContactCache setObject:v39 forKey:identifier];
           [v15 removeObject:identifier];
         }
 
-        v36 = [obja countByEnumeratingWithState:&v64 objects:v83 count:16];
+        v36 = [obja countByEnumeratingWithState:&v63 objects:v82 count:16];
       }
 
       while (v36);
     }
 
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
     v61 = 0u;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
     v41 = v15;
-    v42 = [v41 countByEnumeratingWithState:&v60 objects:v82 count:16];
+    v42 = [v41 countByEnumeratingWithState:&v59 objects:v81 count:16];
     if (v42)
     {
       v43 = v42;
-      v44 = *v61;
+      v44 = *v60;
       do
       {
         for (n = 0; n != v43; ++n)
         {
-          if (*v61 != v44)
+          if (*v60 != v44)
           {
             objc_enumerationMutation(v41);
           }
 
-          v46 = *(*(&v60 + 1) + 8 * n);
+          v46 = *(*(&v59 + 1) + 8 * n);
           v47 = _SSIdToContactCache;
           null2 = [MEMORY[0x1E695DFB0] null];
           [v47 setObject:null2 forKey:v46];
         }
 
-        v43 = [v41 countByEnumeratingWithState:&v60 objects:v82 count:16];
+        v43 = [v41 countByEnumeratingWithState:&v59 objects:v81 count:16];
       }
 
       while (v43);
     }
 
-    v8 = v56;
-    v5 = v57;
-    v18 = v55;
+    v8 = v55;
+    v5 = v56;
+    v18 = v54;
   }
-
-  v49 = *MEMORY[0x1E69E9840];
 }
 
 void __45__SSContactStore_precacheContactsForResults___block_invoke(uint64_t a1, void *a2, void *a3)

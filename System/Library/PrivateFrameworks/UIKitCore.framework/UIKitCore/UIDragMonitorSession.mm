@@ -175,7 +175,7 @@ void __40___UIDragMonitorSession_requestPreviews__block_invoke_2(uint64_t a1)
         v8 = *(*(&v18 + 1) + 8 * i);
         v9 = objc_alloc_init(_DUIPreviewAndImageComponentUpdate);
         -[_DUIPreviewAndImageComponent setIndex:](v9, "setIndex:", [v8 itemIndex]);
-        v10 = [v8 preview];
+        v10 = objc_msgSend_preview(v8);
         [(_DUIPreviewAndImageComponent *)v9 setPreview:v10];
 
         v11 = [v8 imageComponent];

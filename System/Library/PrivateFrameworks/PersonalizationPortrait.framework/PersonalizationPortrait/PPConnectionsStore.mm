@@ -26,18 +26,17 @@
 
 - (id)forwardingTargetForSelector:(SEL)selector
 {
-  clientFeedbackHelper = self->_clientFeedbackHelper;
   if (objc_opt_respondsToSelector())
   {
-    v5 = self->_clientFeedbackHelper;
+    v4 = self->_clientFeedbackHelper;
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  return v5;
+  return v4;
 }
 
 - (void)registerFeedback:(id)feedback completion:(id)completion
@@ -77,7 +76,7 @@
 
 void __50__PPConnectionsStore_registerFeedback_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = *(a1 + 32);
   if (v5)
@@ -85,9 +84,9 @@ void __50__PPConnectionsStore_registerFeedback_completion___block_invoke(uint64_
     v7 = pp_connections_log_handle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = v5;
-      _os_log_error_impl(&dword_1A7FD3000, v7, OS_LOG_TYPE_ERROR, "Error from registerFeedback:completion: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v5;
+      _os_log_error_impl(&dword_1A7FD3000, v7, OS_LOG_TYPE_ERROR, "Error from registerFeedback:completion: %@", &v9, 0xCu);
     }
   }
 
@@ -96,8 +95,6 @@ void __50__PPConnectionsStore_registerFeedback_completion___block_invoke(uint64_
   {
     (*(v8 + 16))(v8, a2, v5);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)iterRecentLocationsForConsumer:(unint64_t)consumer criteria:(id)criteria limit:(unint64_t)limit explanationSet:(id)set client:(id)client error:(id *)error block:(id)block
@@ -120,31 +117,30 @@ void __50__PPConnectionsStore_registerFeedback_completion___block_invoke(uint64_
 
 void __102__PPConnectionsStore_iterRecentLocationsForConsumer_criteria_limit_explanationSet_client_error_block___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   if ((*a3 & 1) == 0)
   {
-    v16 = 0u;
-    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v13;
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v15 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
         (*(*(a1 + 32) + 16))(*(a1 + 32));
         if (*a3)
         {
@@ -153,7 +149,7 @@ LABEL_4:
 
         if (v9 == ++v11)
         {
-          v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
           if (v9)
           {
             goto LABEL_4;
@@ -164,8 +160,6 @@ LABEL_4:
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)iterRecentLocationsForConsumer:(unint64_t)consumer criteria:(id)criteria limit:(unint64_t)limit client:(id)client error:(id *)error block:(id)block
@@ -187,31 +181,30 @@ LABEL_4:
 
 void __87__PPConnectionsStore_iterRecentLocationsForConsumer_criteria_limit_client_error_block___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   if ((*a3 & 1) == 0)
   {
-    v16 = 0u;
-    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v13;
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v15 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
         (*(*(a1 + 32) + 16))(*(a1 + 32));
         if (*a3)
         {
@@ -220,7 +213,7 @@ LABEL_4:
 
         if (v9 == ++v11)
         {
-          v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
           if (v9)
           {
             goto LABEL_4;
@@ -231,8 +224,6 @@ LABEL_4:
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)iterRecentLocationDonationsSinceDate:(id)date client:(id)client error:(id *)error block:(id)block
@@ -254,31 +245,30 @@ LABEL_4:
 
 void __78__PPConnectionsStore_iterRecentLocationDonationsSinceDate_client_error_block___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   if ((*a3 & 1) == 0)
   {
-    v16 = 0u;
-    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v13;
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v15 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
         (*(*(a1 + 32) + 16))(*(a1 + 32));
         if (*a3)
         {
@@ -287,7 +277,7 @@ LABEL_4:
 
         if (v9 == ++v11)
         {
-          v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
           if (v9)
           {
             goto LABEL_4;
@@ -298,8 +288,6 @@ LABEL_4:
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -17,12 +17,14 @@
 
 - (id)activityViewController:(id)controller thumbnailImageForActivityType:(id)type suggestedSize:(CGSize)size
 {
+  height = size.height;
+  width = size.width;
   controllerCopy = controller;
   typeCopy = type;
   selfCopy = self;
-  v10 = sub_1BA375AD0();
+  v12 = sub_1BA375AD0(width, height);
 
-  return v10;
+  return v12;
 }
 
 - (_TtC18HealthExperienceUI31HealthImageActivityItemProvider)initWithPlaceholderItem:(id)item

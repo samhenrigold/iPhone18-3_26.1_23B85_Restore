@@ -30,62 +30,77 @@
 
 - (void)overrideFrequencyCapExpiration:(double)expiration
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = APLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v10 = objc_msgSend_pageType(self, v6, v7, v8, v9);
     v14 = objc_msgSend__capTypeToString_(self, v11, v10, v12, v13);
-    v20 = 138412546;
-    v21 = v14;
-    v22 = 2048;
+    v19 = 138412546;
+    v20 = v14;
+    v21 = 2048;
     expirationCopy = expiration;
-    _os_log_impl(&dword_264E42000, v5, OS_LOG_TYPE_DEFAULT, "%@ Frequency Cap Expiration Overridden: %f seconds.", &v20, 0x16u);
+    _os_log_impl(&dword_264E42000, v5, OS_LOG_TYPE_DEFAULT, "%@ Frequency Cap Expiration Overridden: %f seconds.", &v19, 0x16u);
   }
 
   objc_msgSend_setFrequencyCapExpirationInSeconds_(self, v15, v16, v17, v18, expiration);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)overrideMaxFrequencyCapElements:(unint64_t)elements
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = APLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v10 = objc_msgSend_pageType(self, v6, v7, v8, v9);
     v14 = objc_msgSend__capTypeToString_(self, v11, v10, v12, v13);
-    v19 = 138412546;
-    v20 = v14;
-    v21 = 2048;
+    v18 = 138412546;
+    v19 = v14;
+    v20 = 2048;
     elementsCopy = elements;
-    _os_log_impl(&dword_264E42000, v5, OS_LOG_TYPE_DEFAULT, "%@ Max Frequency Cap Elements Overridden: %lu elements.", &v19, 0x16u);
+    _os_log_impl(&dword_264E42000, v5, OS_LOG_TYPE_DEFAULT, "%@ Max Frequency Cap Elements Overridden: %lu elements.", &v18, 0x16u);
   }
 
   objc_msgSend_setMaxFrequencyCapElements_(self, v15, elements, v16, v17);
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)overrideClickExpiration:(double)expiration
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = APLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v10 = objc_msgSend_pageType(self, v6, v7, v8, v9);
     v14 = objc_msgSend__capTypeToString_(self, v11, v10, v12, v13);
-    v20 = 138412546;
-    v21 = v14;
-    v22 = 2048;
+    v19 = 138412546;
+    v20 = v14;
+    v21 = 2048;
     expirationCopy = expiration;
-    _os_log_impl(&dword_264E42000, v5, OS_LOG_TYPE_DEFAULT, "%@ Toro Click Expiration Overridden: %f seconds.", &v20, 0x16u);
+    _os_log_impl(&dword_264E42000, v5, OS_LOG_TYPE_DEFAULT, "%@ Toro Click Expiration Overridden: %f seconds.", &v19, 0x16u);
   }
 
   objc_msgSend_setClickExpirationThresholdInSeconds_(self, v15, v16, v17, v18, expiration);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)overrideMaxClickElements:(unint64_t)elements
+{
+  v22 = *MEMORY[0x277D85DE8];
+  v5 = APLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = objc_msgSend_pageType(self, v6, v7, v8, v9);
+    v14 = objc_msgSend__capTypeToString_(self, v11, v10, v12, v13);
+    v18 = 138412546;
+    v19 = v14;
+    v20 = 2048;
+    elementsCopy = elements;
+    _os_log_impl(&dword_264E42000, v5, OS_LOG_TYPE_DEFAULT, "%@ Max Toro Click Elements Overridden: %lu elements.", &v18, 0x16u);
+  }
+
+  objc_msgSend_setMaxClickCapElements_(self, v15, elements, v16, v17);
+}
+
+- (void)overrideRevGeoThreshold:(double)threshold
 {
   v23 = *MEMORY[0x277D85DE8];
   v5 = APLogForCategory();
@@ -96,31 +111,11 @@
     v19 = 138412546;
     v20 = v14;
     v21 = 2048;
-    elementsCopy = elements;
-    _os_log_impl(&dword_264E42000, v5, OS_LOG_TYPE_DEFAULT, "%@ Max Toro Click Elements Overridden: %lu elements.", &v19, 0x16u);
-  }
-
-  objc_msgSend_setMaxClickCapElements_(self, v15, elements, v16, v17);
-  v18 = *MEMORY[0x277D85DE8];
-}
-
-- (void)overrideRevGeoThreshold:(double)threshold
-{
-  v24 = *MEMORY[0x277D85DE8];
-  v5 = APLogForCategory();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-  {
-    v10 = objc_msgSend_pageType(self, v6, v7, v8, v9);
-    v14 = objc_msgSend__capTypeToString_(self, v11, v10, v12, v13);
-    v20 = 138412546;
-    v21 = v14;
-    v22 = 2048;
     thresholdCopy = threshold;
-    _os_log_impl(&dword_264E42000, v5, OS_LOG_TYPE_DEFAULT, "%@ Reverse Geolocation Update Threshold Overridden: %f meters.", &v20, 0x16u);
+    _os_log_impl(&dword_264E42000, v5, OS_LOG_TYPE_DEFAULT, "%@ Reverse Geolocation Update Threshold Overridden: %f meters.", &v19, 0x16u);
   }
 
   objc_msgSend_setReverseGeolocationRefreshThresholdInMeters_(self, v15, v16, v17, v18, threshold);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_capTypeToString:(int64_t)string

@@ -123,8 +123,7 @@
   }
 
   [(RBSXPCMessageContext *)self _unset];
-  handoffToken = self->_handoffToken;
-  v11 = blockCopy;
+  v10 = blockCopy;
   xpc_dictionary_handoff_reply();
 }
 

@@ -31,34 +31,34 @@
 
 - (BOOL)areUsersNotAtHome:(id)home
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   if ([homeCopy count])
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v5 = homeCopy;
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       v9 = 1;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = v9 && [(HMDHomePresence *)self isUserNotAtHome:*(*(&v13 + 1) + 8 * i), v13];
+          v9 = v9 && [(HMDHomePresence *)self isUserNotAtHome:*(*(&v12 + 1) + 8 * i), v12];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -75,40 +75,39 @@
     v9 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)areUsersAtHome:(id)home
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   if ([homeCopy count])
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v5 = homeCopy;
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
       v8 = 0;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v5);
           }
 
-          v8 = v8 || [(HMDHomePresence *)self isUserAtHome:*(*(&v13 + 1) + 8 * i), v13];
+          v8 = v8 || [(HMDHomePresence *)self isUserAtHome:*(*(&v12 + 1) + 8 * i), v12];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -125,13 +124,12 @@
     v8 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (BOOL)isPresenceRegionKnownForUser:(id)user
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   userCopy = user;
   presenceAuthStatus = [userCopy presenceAuthStatus];
   value = [presenceAuthStatus value];
@@ -165,11 +163,11 @@
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         v20 = HMFGetLogIdentifier();
-        v23 = 138543618;
-        v24 = v20;
-        v25 = 2112;
-        v26 = userCopy;
-        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Could not find user %@", &v23, 0x16u);
+        v22 = 138543618;
+        v23 = v20;
+        v24 = 2112;
+        v25 = userCopy;
+        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Could not find user %@", &v22, 0x16u);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -185,24 +183,23 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       v16 = HMFGetLogIdentifier();
-      v23 = 138543618;
-      v24 = v16;
-      v25 = 2112;
-      v26 = userCopy;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_DEBUG, "%{public}@%@ is not presence-authorized, cannot determine isUserPresenceRegionKnown", &v23, 0x16u);
+      v22 = 138543618;
+      v23 = v16;
+      v24 = 2112;
+      v25 = userCopy;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_DEBUG, "%{public}@%@ is not presence-authorized, cannot determine isUserPresenceRegionKnown", &v22, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
     v12 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (BOOL)isUserNotAtHome:(id)home
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   presenceAuthStatus = [homeCopy presenceAuthStatus];
   value = [presenceAuthStatus value];
@@ -227,11 +224,11 @@
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         v19 = HMFGetLogIdentifier();
-        v22 = 138543618;
-        v23 = v19;
-        v24 = 2112;
-        v25 = homeCopy;
-        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Could not find user %@", &v22, 0x16u);
+        v21 = 138543618;
+        v22 = v19;
+        v23 = 2112;
+        v24 = homeCopy;
+        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Could not find user %@", &v21, 0x16u);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -247,24 +244,23 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       v15 = HMFGetLogIdentifier();
-      v22 = 138543618;
-      v23 = v15;
-      v24 = 2112;
-      v25 = homeCopy;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEBUG, "%{public}@%@ is not presence-authorized, cannot determine isUserNotAtHome", &v22, 0x16u);
+      v21 = 138543618;
+      v22 = v15;
+      v23 = 2112;
+      v24 = homeCopy;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEBUG, "%{public}@%@ is not presence-authorized, cannot determine isUserNotAtHome", &v21, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
     v11 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (BOOL)isUserAtHome:(id)home
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   presenceAuthStatus = [homeCopy presenceAuthStatus];
   value = [presenceAuthStatus value];
@@ -289,11 +285,11 @@
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         v19 = HMFGetLogIdentifier();
-        v22 = 138543618;
-        v23 = v19;
-        v24 = 2112;
-        v25 = homeCopy;
-        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Could not find user %@", &v22, 0x16u);
+        v21 = 138543618;
+        v22 = v19;
+        v23 = 2112;
+        v24 = homeCopy;
+        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Could not find user %@", &v21, 0x16u);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -309,54 +305,53 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       v15 = HMFGetLogIdentifier();
-      v22 = 138543618;
-      v23 = v15;
-      v24 = 2112;
-      v25 = homeCopy;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEBUG, "%{public}@%@ is not presence-authorized, cannot determine isUserAtHome", &v22, 0x16u);
+      v21 = 138543618;
+      v22 = v15;
+      v23 = 2112;
+      v24 = homeCopy;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEBUG, "%{public}@%@ is not presence-authorized, cannot determine isUserAtHome", &v21, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
     v11 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (BOOL)hasPresenceRegionForAllUsers
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   authorizedUsers = [(HMDHomePresence *)self authorizedUsers];
   if ([authorizedUsers count])
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v4 = authorizedUsers;
-    v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v17;
+      v7 = *v16;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v17 != v7)
+          if (*v16 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          if (![(HMDHomePresence *)self isPresenceRegionKnownForUser:*(*(&v16 + 1) + 8 * i), v16])
+          if (![(HMDHomePresence *)self isPresenceRegionKnownForUser:*(*(&v15 + 1) + 8 * i), v15])
           {
             v9 = 0;
             goto LABEL_12;
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v6)
         {
           continue;
@@ -379,7 +374,7 @@ LABEL_12:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v22 = v13;
+      v21 = v13;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@doAllUsersHavePresenceRegion - No users in presence map", buf, 0xCu);
     }
 
@@ -387,40 +382,39 @@ LABEL_12:
     v9 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)isAnyUserAtHome
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   authorizedUsers = [(HMDHomePresence *)self authorizedUsers];
   if ([authorizedUsers count])
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v4 = authorizedUsers;
-    v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = 0;
-      v8 = *v17;
+      v8 = *v16;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(v4);
           }
 
-          v7 = v7 || [(HMDHomePresence *)self isUserAtHome:*(*(&v16 + 1) + 8 * i), v16];
+          v7 = v7 || [(HMDHomePresence *)self isUserAtHome:*(*(&v15 + 1) + 8 * i), v15];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v6);
@@ -441,7 +435,7 @@ LABEL_12:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v22 = v13;
+      v21 = v13;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@isAnyUserAtHome - No users in presence map", buf, 0xCu);
     }
 
@@ -449,40 +443,39 @@ LABEL_12:
     v7 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (BOOL)isNoUserAtHome
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   authorizedUsers = [(HMDHomePresence *)self authorizedUsers];
   if ([authorizedUsers count])
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v4 = authorizedUsers;
-    v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v17;
+      v7 = *v16;
       v8 = 1;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v17 != v7)
+          if (*v16 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v8 = v8 && [(HMDHomePresence *)self isUserNotAtHome:*(*(&v16 + 1) + 8 * i), v16];
+          v8 = v8 && [(HMDHomePresence *)self isUserNotAtHome:*(*(&v15 + 1) + 8 * i), v15];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v6);
@@ -503,7 +496,7 @@ LABEL_12:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v22 = v13;
+      v21 = v13;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@isNoUserAtHome - No users in presence map", buf, 0xCu);
     }
 
@@ -511,64 +504,60 @@ LABEL_12:
     v8 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (id)attributeDescriptions
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   userPresenceMap = [(HMDHomePresence *)self userPresenceMap];
   allValues = [userPresenceMap allValues];
   v6 = [allValues componentsJoinedByString:{@", "}];
   v7 = [v3 initWithName:@"UP" value:v6];
-  v11[0] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10[0] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
 
   return v8;
 }
 
 - (id)shortDescription
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   string = [MEMORY[0x277CCAB68] string];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   userPresenceMap = [(HMDHomePresence *)self userPresenceMap];
   allValues = [userPresenceMap allValues];
 
-  v7 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        shortDescription = [*(*(&v14 + 1) + 8 * i) shortDescription];
+        shortDescription = [*(*(&v13 + 1) + 8 * i) shortDescription];
         [string appendFormat:@"%@, ", shortDescription];
       }
 
-      v8 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
 
   objc_autoreleasePoolPop(v3);
-  v12 = *MEMORY[0x277D85DE8];
 
   return string;
 }
@@ -654,7 +643,7 @@ LABEL_12:
 
 void __49__HMDHomePresence_serializedIdentifierDictionary__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v6 user];
@@ -681,11 +670,11 @@ LABEL_7:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       v18 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v18;
-      v22 = 2112;
-      v23 = v7;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Using HMDUserPresenceRegionStatusUnknown for user with nil presence: %@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v18;
+      v21 = 2112;
+      v22 = v7;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Using HMDUserPresenceRegionStatusUnknown for user with nil presence: %@", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
@@ -697,7 +686,6 @@ LABEL_7:
   [*(a1 + 32) setObject:v14 forKeyedSubscript:v9];
 
 LABEL_8:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)serializedUUIDDictionary
@@ -722,7 +710,7 @@ LABEL_8:
 
 void __43__HMDHomePresence_serializedUUIDDictionary__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v6 user];
@@ -749,11 +737,11 @@ LABEL_7:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       v19 = HMFGetLogIdentifier();
-      v22 = 138543618;
-      v23 = v19;
-      v24 = 2112;
-      v25 = v7;
-      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Using HMDUserPresenceRegionStatusUnknown for user with nil presence: %@", &v22, 0x16u);
+      v21 = 138543618;
+      v22 = v19;
+      v23 = 2112;
+      v24 = v7;
+      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Using HMDUserPresenceRegionStatusUnknown for user with nil presence: %@", &v21, 0x16u);
     }
 
     objc_autoreleasePoolPop(v16);
@@ -768,35 +756,34 @@ LABEL_7:
   [v13 setObject:v12 forKeyedSubscript:v15];
 
 LABEL_8:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)authorizedUsers
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   userPresenceMap = [(HMDHomePresence *)self userPresenceMap];
   allValues = [userPresenceMap allValues];
 
-  v6 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         user = [v10 user];
         presenceAuthStatus = [user presenceAuthStatus];
         value = [presenceAuthStatus value];
@@ -808,14 +795,13 @@ LABEL_8:
         }
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
   }
 
-  v15 = [array copy];
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = objc_msgSend_copy(array);
 
   return v15;
 }
@@ -832,7 +818,7 @@ LABEL_8:
   if (v11)
   {
     objc_storeWeak(&v11->_home, homeCopy);
-    v13 = [mapCopy copy];
+    v13 = objc_msgSend_copy(mapCopy);
     userPresenceMap = v12->_userPresenceMap;
     v12->_userPresenceMap = v13;
 
@@ -856,10 +842,9 @@ LABEL_8:
 
 void __30__HMDHomePresence_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_210917;
-  logCategory__hmf_once_v4_210917 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_210917;
+  logCategory__hmf_once_v4_210917 = v0;
 }
 
 @end

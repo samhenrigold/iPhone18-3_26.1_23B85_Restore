@@ -712,7 +712,7 @@ uint8_t *getOverrideSectionPtr(void)::$_0::__invoke()
   return result;
 }
 
-uint64_t swift::hashable_support::findHashableBaseTypeOfHashableType(swift *a1)
+char *swift::hashable_support::findHashableBaseTypeOfHashableType(swift *a1)
 {
   atomic_fetch_add_explicit(&HashableConformances, 1u, memory_order_acquire);
   do
@@ -737,7 +737,7 @@ uint64_t swift::hashable_support::findHashableBaseTypeOfHashableType(swift *a1)
   v6 = v5 || v4 == 0;
   {
     atomic_fetch_add_explicit(&HashableConformances, 0xFFFFFFFF, memory_order_release);
-    v9 = *swift_conformsToProtocolCommon(a1, &protocol descriptor for Hashable);
+    v9 = *swift_conformsToProtocolCommon(a1, &protocol descriptor for Hashable.Flags);
     if (v9)
     {
       v10 = v9;
@@ -901,7 +901,7 @@ LABEL_51:
   return ConformingSuperclass;
 }
 
-uint64_t swift::hashable_support::findHashableBaseType(swift *a1)
+char *swift::hashable_support::findHashableBaseType(swift *a1)
 {
   atomic_fetch_add_explicit(&HashableConformances, 1u, memory_order_acquire);
   do
@@ -926,7 +926,7 @@ uint64_t swift::hashable_support::findHashableBaseType(swift *a1)
   v6 = v5 || v4 == 0;
   {
     atomic_fetch_add_explicit(&HashableConformances, 0xFFFFFFFF, memory_order_release);
-    v9 = swift_conformsToProtocolCommon(a1, &protocol descriptor for Hashable);
+    v9 = swift_conformsToProtocolCommon(a1, &protocol descriptor for Hashable.Flags);
     if (!v9)
     {
       return 0;
@@ -1121,7 +1121,7 @@ uint64_t _swift_makeAnyHashableUpcastingToHashableBaseType(swift **a1, objc_obje
 
     ValueFromSwiftValue = swift::getValueFromSwiftValue(AsSwiftValue, v11);
     v14 = v13;
-    v15 = swift_conformsToProtocolCommon(ValueFromSwiftValue, &protocol descriptor for Hashable);
+    v15 = swift_conformsToProtocolCommon(ValueFromSwiftValue, &protocol descriptor for Hashable.Flags);
     if (!v15)
     {
       break;
@@ -1900,7 +1900,7 @@ LABEL_12:
   return __dst;
 }
 
-void swift_arrayDestroy(uint64_t a1, uint64_t a2, unint64_t *a3)
+void swift_arrayDestroy(uint64_t result, uint64_t a2, unint64_t *a3)
 {
   if (a2)
   {
@@ -1929,7 +1929,7 @@ void swift_arrayDestroy(uint64_t a1, uint64_t a2, unint64_t *a3)
     if (TypeContextDescriptor && (*(TypeContextDescriptor + 2) & 0x10) != 0)
     {
 
-      swift::swift_cvw_arrayDestroy(a1, v4, v8, a3);
+      swift::swift_cvw_arrayDestroy(result, v4, v8, a3);
     }
 
     else
@@ -1937,8 +1937,8 @@ void swift_arrayDestroy(uint64_t a1, uint64_t a2, unint64_t *a3)
       v10 = (v7 + 8);
       do
       {
-        (*v10)(a1, a3);
-        a1 += v8;
+        (*v10)(result, a3);
+        result += v8;
         --v4;
       }
 
@@ -1947,7 +1947,7 @@ void swift_arrayDestroy(uint64_t a1, uint64_t a2, unint64_t *a3)
   }
 }
 
-uint64_t swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(unint64_t *a1)
+unint64_t swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(unint64_t *a1)
 {
   v1 = *a1;
   if (*a1 > 0x7FF)
@@ -2070,7 +2070,7 @@ uint64_t swift::AutoDiffLinearMapContext::allocateSubcontext(uint64_t a1, uint64
 
   *(v5 + 16 * *(a1 + 120)) = *v8;
   *v8 = 0;
-  *(v8 + 1) = 0;
+  v8[1] = 0;
   ++*(a1 + 120);
   if (v12)
   {
@@ -2125,63 +2125,63 @@ double swift_autoDiffCreateLinearMapContextWithType(uint64_t a1)
   return result;
 }
 
-void destroyLinearMapContext()
+void destroyLinearMapContext(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v1 = *(v0 + 112);
-  v2 = *(v0 + 120);
-  if (v2)
+  v5 = *(v4 + 112);
+  v6 = *(v4 + 120);
+  if (v6)
   {
-    v3 = 16 * v2;
-    v4 = &v1[v3 - 8];
-    v5 = -v3;
+    v7 = 16 * v6;
+    v8 = &v5[v7 - 8];
+    v9 = -v7;
     do
     {
-      v6 = *(v4 - 1);
-      if (v6 && *v4)
+      a2 = *(v8 - 1);
+      if (a2 && *v8)
       {
-        (*(*(v6 - 8) + 8))();
+        (*(*(a2 - 8) + 8))();
       }
 
-      v4 -= 16;
-      v5 += 16;
+      v8 -= 16;
+      v9 += 16;
     }
 
-    while (v5);
-    v1 = *(v0 + 112);
+    while (v9);
+    v5 = *(v4 + 112);
   }
 
-  if (v1 != (v0 + 128))
+  if (v5 != (v4 + 128))
   {
-    free(v1);
+    free(v5);
   }
 
-  __swift::__runtime::llvm::BumpPtrAllocatorImpl<__swift::__runtime::llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(v0 + 16);
+  __swift::__runtime::llvm::BumpPtrAllocatorImpl<__swift::__runtime::llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(v4 + 16, a2, a3, a4);
 
-  free(v0);
+  free(v4);
 }
 
-uint64_t __swift::__runtime::llvm::BumpPtrAllocatorImpl<__swift::__runtime::llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(uint64_t a1)
+uint64_t __swift::__runtime::llvm::BumpPtrAllocatorImpl<__swift::__runtime::llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (*(a1 + 24))
   {
     __swift::__runtime::llvm::deallocate_buffer(**(a1 + 16), 0x1000);
   }
 
-  v2 = *(a1 + 64);
+  v5 = *(a1 + 64);
   if (*(a1 + 72))
   {
-    __swift::__runtime::llvm::deallocate_buffer(*v2, *(v2 + 8));
+    __swift::__runtime::llvm::deallocate_buffer(*v5, *(v5 + 8));
   }
 
-  if (v2 != a1 + 80)
+  if (v5 != a1 + 80)
   {
     free(*(a1 + 64));
   }
 
-  v3 = *(a1 + 16);
-  if (v3 != (a1 + 32))
+  v6 = *(a1 + 16);
+  if (v6 != (a1 + 32))
   {
-    free(v3);
+    free(v6);
   }
 
   return a1;
@@ -2243,7 +2243,7 @@ void __swift::__runtime::llvm::SmallVectorTemplateBase<swift::AutoDiffLinearMapC
 
 uint64_t __swift::__runtime::llvm::BumpPtrAllocatorImpl<__swift::__runtime::llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(uint64_t *__sz, uint64_t a2, char a3)
 {
-  v4 = (__sz + 10);
+  v4 = __sz + 10;
   __sz[10] += a2;
   v5 = (1 << a3) - 1;
   v6 = *__sz;
@@ -2280,8 +2280,8 @@ uint64_t __swift::__runtime::llvm::BumpPtrAllocatorImpl<__swift::__runtime::llvm
 
       *(__sz[2] + 8 * v19) = buffer;
       ++*(__sz + 6);
-      v20 = &buffer[v17];
-      result = &buffer[v5] & v7;
+      v20 = buffer + v17;
+      result = (buffer + v5) & v7;
       *__sz = result + a2;
       __sz[1] = v20;
     }
@@ -2331,7 +2331,7 @@ uint64_t _swift_stdlib_isExecutableLinkedOnOrAfter(unsigned int a1)
   return dyld_program_sdk_at_least();
 }
 
-void swift::runtime::bincompat::checkBinCompatEnvironmentVariable(swift::runtime::bincompat *this, void *a2, const char *a3, char *a4)
+void swift::runtime::bincompat::checkBinCompatEnvironmentVariable(uint64_t this, void *a2, const char *a3, char *a4)
 {
   if (swift::runtime::environment::initializeToken != -1)
   {
@@ -2613,7 +2613,7 @@ LABEL_45:
   return result;
 }
 
-uint64_t swift_cvw_instantiateLayoutString(uint64_t result, uint64_t *a2)
+uint64_t swift_cvw_instantiateLayoutString(uint64_t result, unint64_t *a2)
 {
   v2 = *a2;
   if (*a2 > 0x7FF)
@@ -2623,7 +2623,7 @@ uint64_t swift_cvw_instantiateLayoutString(uint64_t result, uint64_t *a2)
 
   if (!v2 || v2 == 773 || v2 == 515)
   {
-    v3 = a2 - 3;
+    v3 = (a2 - 3);
     if (result)
     {
 LABEL_7:
@@ -2634,7 +2634,7 @@ LABEL_7:
 
   else
   {
-    v3 = a2 - 2;
+    v3 = (a2 - 2);
     if (result)
     {
       goto LABEL_7;
@@ -2681,39 +2681,39 @@ void swift_cvw_destroy(uint64_t a1, uint64_t a2)
   }
 }
 
-void swift_generic_assignWithCopy(void *__dst, void *__src, uint64_t a3)
+void swift_generic_assignWithCopy(void *a1, void *a2, uint64_t a3)
 {
   if (swift_cvw_assignWithCopy::Override == 1)
   {
-    swift_cvw_assignWithCopyImpl(__dst, __src, a3);
+    swift_cvw_assignWithCopyImpl(a1, a2, a3);
   }
 
   else if (swift_cvw_assignWithCopy::Override)
   {
-    swift_cvw_assignWithCopy::Override(__dst, __src, a3, swift_cvw_assignWithCopyImpl);
+    swift_cvw_assignWithCopy::Override(a1, a2, a3, swift_cvw_assignWithCopyImpl);
   }
 
   else
   {
-    swift_cvw_assignWithCopySlow(__dst, __src, a3);
+    swift_cvw_assignWithCopySlow(a1, a2, a3);
   }
 }
 
-void swift_cvw_assignWithCopy(void *__dst, void *__src, uint64_t a3)
+void swift_cvw_assignWithCopy(void *a1, void *a2, uint64_t a3)
 {
   if (swift_cvw_assignWithCopy::Override == 1)
   {
-    swift_cvw_assignWithCopyImpl(__dst, __src, a3);
+    swift_cvw_assignWithCopyImpl(a1, a2, a3);
   }
 
   else if (swift_cvw_assignWithCopy::Override)
   {
-    swift_cvw_assignWithCopy::Override(__dst, __src, a3, swift_cvw_assignWithCopyImpl);
+    swift_cvw_assignWithCopy::Override(a1, a2, a3, swift_cvw_assignWithCopyImpl);
   }
 
   else
   {
-    swift_cvw_assignWithCopySlow(__dst, __src, a3);
+    swift_cvw_assignWithCopySlow(a1, a2, a3);
   }
 }
 
@@ -2747,73 +2747,73 @@ void *swift_cvw_assignWithTake(swift *a1, void *a2, uint64_t a3)
   return swift_cvw_assignWithTakeSlow(a1, a2, a3);
 }
 
-void swift_generic_initWithCopy(void *__dst, void *__src, uint64_t a3)
+void swift_generic_initWithCopy(void *a1, void *a2, uint64_t a3)
 {
   if (swift_cvw_initWithCopy::Override == 1)
   {
-    swift_cvw_initWithCopyImpl(__dst, __src, a3);
+    swift_cvw_initWithCopyImpl(a1, a2, a3);
   }
 
   else if (swift_cvw_initWithCopy::Override)
   {
-    swift_cvw_initWithCopy::Override(__dst, __src, a3, swift_cvw_initWithCopyImpl);
+    swift_cvw_initWithCopy::Override(a1, a2, a3, swift_cvw_initWithCopyImpl);
   }
 
   else
   {
-    swift_cvw_initWithCopySlow(__dst, __src, a3);
+    swift_cvw_initWithCopySlow(a1, a2, a3);
   }
 }
 
-void swift_cvw_initWithCopy(void *__dst, void *__src, uint64_t a3)
+void swift_cvw_initWithCopy(void *a1, void *a2, uint64_t a3)
 {
   if (swift_cvw_initWithCopy::Override == 1)
   {
-    swift_cvw_initWithCopyImpl(__dst, __src, a3);
+    swift_cvw_initWithCopyImpl(a1, a2, a3);
   }
 
   else if (swift_cvw_initWithCopy::Override)
   {
-    swift_cvw_initWithCopy::Override(__dst, __src, a3, swift_cvw_initWithCopyImpl);
+    swift_cvw_initWithCopy::Override(a1, a2, a3, swift_cvw_initWithCopyImpl);
   }
 
   else
   {
-    swift_cvw_initWithCopySlow(__dst, __src, a3);
+    swift_cvw_initWithCopySlow(a1, a2, a3);
   }
 }
 
-void *swift_generic_initWithTake(void *__dst, void *__src, uint64_t a3)
+void *swift_generic_initWithTake(void *a1, void *a2, uint64_t a3)
 {
   if (swift_cvw_initWithTake::Override == 1)
   {
-    return swift_cvw_initWithTakeImpl(__dst, __src, a3);
+    return swift_cvw_initWithTakeImpl(a1, a2, a3);
   }
 
   if (swift_cvw_initWithTake::Override)
   {
-    return swift_cvw_initWithTake::Override(__dst, __src, a3, swift_cvw_initWithTakeImpl);
+    return swift_cvw_initWithTake::Override(a1, a2, a3, swift_cvw_initWithTakeImpl);
   }
 
-  return swift_cvw_initWithTakeSlow(__dst, __src, a3);
+  return swift_cvw_initWithTakeSlow(a1, a2, a3);
 }
 
-void *swift_cvw_initWithTake(void *__dst, void *__src, uint64_t a3)
+void *swift_cvw_initWithTake(void *a1, void *a2, uint64_t a3)
 {
   if (swift_cvw_initWithTake::Override == 1)
   {
-    return swift_cvw_initWithTakeImpl(__dst, __src, a3);
+    return swift_cvw_initWithTakeImpl(a1, a2, a3);
   }
 
   if (swift_cvw_initWithTake::Override)
   {
-    return swift_cvw_initWithTake::Override(__dst, __src, a3, swift_cvw_initWithTakeImpl);
+    return swift_cvw_initWithTake::Override(a1, a2, a3, swift_cvw_initWithTakeImpl);
   }
 
-  return swift_cvw_initWithTakeSlow(__dst, __src, a3);
+  return swift_cvw_initWithTakeSlow(a1, a2, a3);
 }
 
-void swift_cvw_initializeBufferWithCopyOfBuffer(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+void swift_cvw_initializeBufferWithCopyOfBuffer(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   v3 = swift_cvw_initializeBufferWithCopyOfBuffer::Override;
   if (swift_cvw_initializeBufferWithCopyOfBuffer::Override == 1)
@@ -2857,37 +2857,37 @@ LABEL_10:
   }
 }
 
-unsigned __int16 *swift_enumSimple_getEnumTag(unsigned __int16 *result, uint64_t a2)
+unsigned __int16 *swift_enumSimple_getEnumTag(unsigned __int16 *a1, uint64_t a2)
 {
   if (swift_cvw_enumSimple_getEnumTag::Override == 1)
   {
-    return swift_cvw_enumSimple_getEnumTagImpl(result, a2);
+    return swift_cvw_enumSimple_getEnumTagImpl(a1, a2);
   }
 
   if (swift_cvw_enumSimple_getEnumTag::Override)
   {
-    return swift_cvw_enumSimple_getEnumTag::Override(result, a2, swift_cvw_enumSimple_getEnumTagImpl);
+    return swift_cvw_enumSimple_getEnumTag::Override(a1, a2, swift_cvw_enumSimple_getEnumTagImpl);
   }
 
-  return swift_cvw_enumSimple_getEnumTagSlow(result, a2);
+  return swift_cvw_enumSimple_getEnumTagSlow(a1, a2);
 }
 
-unsigned __int16 *swift_cvw_enumSimple_getEnumTag(unsigned __int16 *result, uint64_t a2)
+unsigned __int16 *swift_cvw_enumSimple_getEnumTag(unsigned __int16 *a1, uint64_t a2)
 {
   if (swift_cvw_enumSimple_getEnumTag::Override == 1)
   {
-    return swift_cvw_enumSimple_getEnumTagImpl(result, a2);
+    return swift_cvw_enumSimple_getEnumTagImpl(a1, a2);
   }
 
   if (swift_cvw_enumSimple_getEnumTag::Override)
   {
-    return swift_cvw_enumSimple_getEnumTag::Override(result, a2, swift_cvw_enumSimple_getEnumTagImpl);
+    return swift_cvw_enumSimple_getEnumTag::Override(a1, a2, swift_cvw_enumSimple_getEnumTagImpl);
   }
 
-  return swift_cvw_enumSimple_getEnumTagSlow(result, a2);
+  return swift_cvw_enumSimple_getEnumTagSlow(a1, a2);
 }
 
-uint64_t swift_enumSimple_destructiveInjectEnumTag(uint64_t a1, uint64_t a2, uint64_t a3)
+void *swift_enumSimple_destructiveInjectEnumTag(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (swift_cvw_enumSimple_destructiveInjectEnumTag::Override == 1)
   {
@@ -2902,7 +2902,7 @@ uint64_t swift_enumSimple_destructiveInjectEnumTag(uint64_t a1, uint64_t a2, uin
   return swift_cvw_enumSimple_destructiveInjectEnumTagSlow(a1, a2, a3);
 }
 
-uint64_t swift_cvw_enumSimple_destructiveInjectEnumTag(uint64_t a1, uint64_t a2, uint64_t a3)
+void *swift_cvw_enumSimple_destructiveInjectEnumTag(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (swift_cvw_enumSimple_destructiveInjectEnumTag::Override == 1)
   {
@@ -2917,7 +2917,7 @@ uint64_t swift_cvw_enumSimple_destructiveInjectEnumTag(uint64_t a1, uint64_t a2,
   return swift_cvw_enumSimple_destructiveInjectEnumTagSlow(a1, a2, a3);
 }
 
-void *swift_enumFn_getEnumTag(swift *a1, uint64_t a2)
+uint64_t (*swift_enumFn_getEnumTag(swift *a1, uint64_t a2))(void, void, void)
 {
   if (swift_cvw_enumFn_getEnumTag::Override == 1)
   {
@@ -2926,7 +2926,7 @@ void *swift_enumFn_getEnumTag(swift *a1, uint64_t a2)
     v2 = v3;
     if ((v3 & 1) == 0)
     {
-      return ((v2 + 24 + *(v2 + 24)))();
+      return ((v2 + 24 + *(v2 + 24)))(a1);
     }
 
     __break(1u);
@@ -2940,7 +2940,7 @@ void *swift_enumFn_getEnumTag(swift *a1, uint64_t a2)
   return swift_cvw_enumFn_getEnumTagSlow(a1, a2);
 }
 
-void *swift_cvw_enumFn_getEnumTag(swift *a1, uint64_t a2)
+uint64_t (*swift_cvw_enumFn_getEnumTag(swift *a1, uint64_t a2))(void, void, void)
 {
   if (swift_cvw_enumFn_getEnumTag::Override == 1)
   {
@@ -2949,7 +2949,7 @@ void *swift_cvw_enumFn_getEnumTag(swift *a1, uint64_t a2)
     v2 = v3;
     if ((v3 & 1) == 0)
     {
-      return ((v2 + 24 + *(v2 + 24)))();
+      return ((v2 + 24 + *(v2 + 24)))(a1);
     }
 
     __break(1u);
@@ -2963,34 +2963,34 @@ void *swift_cvw_enumFn_getEnumTag(swift *a1, uint64_t a2)
   return swift_cvw_enumFn_getEnumTagSlow(a1, a2);
 }
 
-unsigned __int16 *swift_multiPayloadEnumGeneric_getEnumTag(unsigned __int16 *result, uint64_t a2)
+unsigned __int16 *swift_multiPayloadEnumGeneric_getEnumTag(unsigned __int16 *a1, uint64_t a2)
 {
   if (swift_cvw_multiPayloadEnumGeneric_getEnumTag::Override == 1)
   {
-    return swift_cvw_multiPayloadEnumGeneric_getEnumTagImpl(result, a2);
+    return swift_cvw_multiPayloadEnumGeneric_getEnumTagImpl(a1, a2);
   }
 
   if (swift_cvw_multiPayloadEnumGeneric_getEnumTag::Override)
   {
-    return swift_cvw_multiPayloadEnumGeneric_getEnumTag::Override(result, a2, swift_cvw_multiPayloadEnumGeneric_getEnumTagImpl);
+    return swift_cvw_multiPayloadEnumGeneric_getEnumTag::Override(a1, a2, swift_cvw_multiPayloadEnumGeneric_getEnumTagImpl);
   }
 
-  return swift_cvw_multiPayloadEnumGeneric_getEnumTagSlow(result, a2);
+  return swift_cvw_multiPayloadEnumGeneric_getEnumTagSlow(a1, a2);
 }
 
-unsigned __int16 *swift_cvw_multiPayloadEnumGeneric_getEnumTag(unsigned __int16 *result, uint64_t a2)
+unsigned __int16 *swift_cvw_multiPayloadEnumGeneric_getEnumTag(unsigned __int16 *a1, uint64_t a2)
 {
   if (swift_cvw_multiPayloadEnumGeneric_getEnumTag::Override == 1)
   {
-    return swift_cvw_multiPayloadEnumGeneric_getEnumTagImpl(result, a2);
+    return swift_cvw_multiPayloadEnumGeneric_getEnumTagImpl(a1, a2);
   }
 
   if (swift_cvw_multiPayloadEnumGeneric_getEnumTag::Override)
   {
-    return swift_cvw_multiPayloadEnumGeneric_getEnumTag::Override(result, a2, swift_cvw_multiPayloadEnumGeneric_getEnumTagImpl);
+    return swift_cvw_multiPayloadEnumGeneric_getEnumTag::Override(a1, a2, swift_cvw_multiPayloadEnumGeneric_getEnumTagImpl);
   }
 
-  return swift_cvw_multiPayloadEnumGeneric_getEnumTagSlow(result, a2);
+  return swift_cvw_multiPayloadEnumGeneric_getEnumTagSlow(a1, a2);
 }
 
 void swift_multiPayloadEnumGeneric_destructiveInjectEnumTag(_BYTE *a1, uint64_t a2, uint64_t a3)
@@ -3167,7 +3167,7 @@ LABEL_32:
   return v10;
 }
 
-uint64_t swift_singlePayloadEnumGeneric_destructiveInjectEnumTag(uint64_t a1, uint64_t a2, uint64_t a3)
+void *swift_singlePayloadEnumGeneric_destructiveInjectEnumTag(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (swift_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTag::Override == 1)
   {
@@ -3182,7 +3182,7 @@ uint64_t swift_singlePayloadEnumGeneric_destructiveInjectEnumTag(uint64_t a1, ui
   return swift_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTagSlow(a1, a2, a3);
 }
 
-uint64_t swift_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTag(uint64_t a1, uint64_t a2, uint64_t a3)
+void *swift_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTag(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (swift_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTag::Override == 1)
   {
@@ -3197,7 +3197,7 @@ uint64_t swift_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTag(uint64_t a1
   return swift_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTagSlow(a1, a2, a3);
 }
 
-uint64_t swift_generic_instantiateLayoutString(uint64_t result, uint64_t *a2)
+uint64_t swift_generic_instantiateLayoutString(uint64_t result, unint64_t *a2)
 {
   v2 = *a2;
   if (*a2 > 0x7FF)
@@ -3207,7 +3207,7 @@ uint64_t swift_generic_instantiateLayoutString(uint64_t result, uint64_t *a2)
 
   if (!v2 || v2 == 773 || v2 == 515)
   {
-    v3 = a2 - 3;
+    v3 = (a2 - 3);
     if (result)
     {
 LABEL_7:
@@ -3218,7 +3218,7 @@ LABEL_7:
 
   else
   {
-    v3 = a2 - 2;
+    v3 = (a2 - 2);
     if (result)
     {
       goto LABEL_7;
@@ -3257,7 +3257,7 @@ uint64_t sub_1801D84C4()
   return (*(v1 + 8 * HIBYTE(*(v2 & 0x7FFFFFFFFFFFFFFFLL))))(v5);
 }
 
-uint64_t sub_1801D8568(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unint64_t a12)
+uint64_t sub_1801D8568(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   v15 = resilientDestroy(v12, &a12, &a11, v13);
   v16 = *(a12 & 0x7FFFFFFFFFFFFFFFLL);
@@ -3284,7 +3284,7 @@ void swift_cvw_destroySlow(swift *a1, uint64_t a2)
   {
     swift_cvw_destroy::Override = Override_cvw_destroy;
 
-    (Override_cvw_destroy)(a1, a2, swift_cvw_destroyImpl);
+    Override_cvw_destroy(a1, a2, swift_cvw_destroyImpl);
   }
 
   else
@@ -3335,7 +3335,7 @@ uint64_t sub_1801D87B8()
   v6 = *(v1 + v2);
   *(v0 + v2) = v6;
   v5 & 0xFFFFFFFFFFFFFF8;
-  v7 = (v6 & 0xFFFFFFFFFFFFFF8);
+  v7 = v6 & 0xFFFFFFFFFFFFFF8;
   v8 = *(v4 & 0x7FFFFFFFFFFFFFFFLL);
   if ((v8 & 0xFFFFFFFFFFFFFFLL) != 0)
   {
@@ -3506,7 +3506,7 @@ uint64_t sub_1801D8BC0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return (*(v14 + 8 * HIBYTE(v17)))(v16);
 }
 
-uint64_t sub_1801D8C14(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unint64_t a12)
+uint64_t sub_1801D8C14(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   v16 = resilientAssignWithCopy(v12, &a12, &a11, v13, v14);
   v17 = a11;
@@ -3521,7 +3521,7 @@ uint64_t sub_1801D8C14(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return (*(v15 + 8 * HIBYTE(v18)))(v16);
 }
 
-uint64_t sub_1801D8C70@<X0>(uint64_t a1@<X8>, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_1801D8C70@<X0>(uint64_t a1@<X8>, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5)
 {
   a2 = v10;
   a3 = v8;
@@ -3545,7 +3545,7 @@ void swift_cvw_assignWithCopySlow(swift *a1, void *a2, uint64_t a3)
   {
     swift_cvw_assignWithCopy::Override = Override_cvw_assignWithCopy;
 
-    (Override_cvw_assignWithCopy)(a1, a2, a3, swift_cvw_assignWithCopyImpl);
+    Override_cvw_assignWithCopy(a1, a2, a3, swift_cvw_assignWithCopyImpl);
   }
 
   else
@@ -3600,7 +3600,7 @@ void *swift_cvw_assignWithTakeSlow(swift *a1, void *a2, uint64_t a3)
   {
     swift_cvw_assignWithTake::Override = Override_cvw_assignWithTake;
 
-    return (Override_cvw_assignWithTake)(a1, a2, a3, swift_cvw_assignWithTakeImpl);
+    return Override_cvw_assignWithTake(a1, a2, a3, swift_cvw_assignWithTakeImpl);
   }
 
   else
@@ -3647,7 +3647,7 @@ uint64_t sub_1801D9068()
 {
   v5 = *(v1 + v2);
   *(v0 + v2) = v5;
-  v6 = (v5 & 0xFFFFFFFFFFFFFF8);
+  v6 = v5 & 0xFFFFFFFFFFFFFF8;
   v7 = *(v4 & 0x7FFFFFFFFFFFFFFFLL);
   if ((v7 & 0xFFFFFFFFFFFFFFLL) != 0)
   {
@@ -3803,7 +3803,7 @@ uint64_t sub_1801D9420()
   return (*(v3 + 8 * HIBYTE(v6)))(v5);
 }
 
-uint64_t sub_1801D9498(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unint64_t a12)
+uint64_t sub_1801D9498(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   v16 = resilientInitWithCopy(v12, &a12, &a11, v13, v14);
   v17 = a11;
@@ -3818,7 +3818,7 @@ uint64_t sub_1801D9498(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return (*(v15 + 8 * HIBYTE(v18)))(v16);
 }
 
-uint64_t sub_1801D94F4@<X0>(uint64_t a1@<X8>, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_1801D94F4@<X0>(uint64_t a1@<X8>, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5)
 {
   a2 = v10;
   a3 = v8;
@@ -3842,7 +3842,7 @@ void swift_cvw_initWithCopySlow(swift *a1, void *a2, uint64_t a3)
   {
     swift_cvw_initWithCopy::Override = Override_cvw_initWithCopy;
 
-    (Override_cvw_initWithCopy)(a1, a2, a3, swift_cvw_initWithCopyImpl);
+    Override_cvw_initWithCopy(a1, a2, a3, swift_cvw_initWithCopyImpl);
   }
 
   else
@@ -4071,7 +4071,7 @@ uint64_t sub_1801D9B78(uint64_t a1, uint64_t a2)
   return (*(v5 + 8 * HIBYTE(v8)))(a1, a2);
 }
 
-uint64_t sub_1801D9C28(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unint64_t a12)
+uint64_t sub_1801D9C28(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   resilientInitWithTake(v12, &a12, &a11, a1, a2);
   v16 = a11;
@@ -4086,7 +4086,7 @@ uint64_t sub_1801D9C28(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return (*(v15 + 8 * HIBYTE(v17)))(v14, v13);
 }
 
-uint64_t sub_1801D9C8C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t sub_1801D9C8C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7)
 {
   a4 = v12;
   a5 = v10;
@@ -4110,7 +4110,7 @@ void *swift_cvw_initWithTakeSlow(swift *a1, void *a2, uint64_t a3)
   {
     swift_cvw_initWithTake::Override = Override_cvw_initWithTake;
 
-    return (Override_cvw_initWithTake)(a1, a2, a3, swift_cvw_initWithTakeImpl);
+    return Override_cvw_initWithTake(a1, a2, a3, swift_cvw_initWithTakeImpl);
   }
 
   else
@@ -4121,7 +4121,7 @@ void *swift_cvw_initWithTakeSlow(swift *a1, void *a2, uint64_t a3)
   }
 }
 
-void swift_cvw_initializeBufferWithCopyOfBufferImpl(atomic_ullong **a1, atomic_ullong **a2, uint64_t a3)
+void swift_cvw_initializeBufferWithCopyOfBufferImpl(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if ((*(*(a3 - 8) + 82) & 2) != 0)
   {
@@ -4141,7 +4141,7 @@ void swift_cvw_initializeBufferWithCopyOfBufferImpl(atomic_ullong **a1, atomic_u
     else if (swift_cvw_initWithCopy::Override)
     {
 
-      v3();
+      v3(a1, a2);
     }
 
     else
@@ -4152,7 +4152,7 @@ void swift_cvw_initializeBufferWithCopyOfBufferImpl(atomic_ullong **a1, atomic_u
   }
 }
 
-void swift_cvw_initializeBufferWithCopyOfBufferSlow(swift *a1, atomic_ullong **a2, uint64_t a3)
+void swift_cvw_initializeBufferWithCopyOfBufferSlow(swift *a1, uint64_t *a2, uint64_t a3)
 {
   Override_cvw_initializeBufferWithCopyOfBuffer = swift::getOverride_cvw_initializeBufferWithCopyOfBuffer(a1);
   if (Override_cvw_initializeBufferWithCopyOfBuffer)
@@ -4191,19 +4191,19 @@ LABEL_3:
   swift_cvw_initWithCopySlow(a1, a2, a3);
 }
 
-uint64_t swift_cvw_destroyMultiPayloadEnumFN(uint64_t result, uint64_t a2)
+uint64_t swift_cvw_destroyMultiPayloadEnumFN(uint64_t a1, uint64_t a2)
 {
   if (swift_cvw_destroyMultiPayloadEnumFN::Override == 1)
   {
-    return swift_cvw_destroyMultiPayloadEnumFNImpl(result, a2);
+    return swift_cvw_destroyMultiPayloadEnumFNImpl(a1, a2);
   }
 
   if (swift_cvw_destroyMultiPayloadEnumFN::Override)
   {
-    return swift_cvw_destroyMultiPayloadEnumFN::Override(result, a2, swift_cvw_destroyMultiPayloadEnumFNImpl);
+    return swift_cvw_destroyMultiPayloadEnumFN::Override(a1, a2, swift_cvw_destroyMultiPayloadEnumFNImpl);
   }
 
-  return swift_cvw_destroyMultiPayloadEnumFNSlow(result, a2);
+  return swift_cvw_destroyMultiPayloadEnumFNSlow(a1, a2);
 }
 
 uint64_t swift_cvw_destroyMultiPayloadEnumFNImpl(uint64_t result, uint64_t a2)
@@ -4253,7 +4253,7 @@ uint64_t swift_cvw_destroyMultiPayloadEnumFNSlow(swift *a1, uint64_t a2)
   {
     swift_cvw_destroyMultiPayloadEnumFN::Override = Override_cvw_destroyMultiPayloadEnumFN;
 
-    return (Override_cvw_destroyMultiPayloadEnumFN)(a1, a2, swift_cvw_destroyMultiPayloadEnumFNImpl);
+    return Override_cvw_destroyMultiPayloadEnumFN(a1, a2, swift_cvw_destroyMultiPayloadEnumFNImpl);
   }
 
   else
@@ -4264,28 +4264,28 @@ uint64_t swift_cvw_destroyMultiPayloadEnumFNSlow(swift *a1, uint64_t a2)
   }
 }
 
-uint64_t swift_cvw_assignWithCopyMultiPayloadEnumFN(swift *a1, uint64_t a2, unint64_t *a3)
+swift *swift_cvw_assignWithCopyMultiPayloadEnumFN(swift *a1, uint64_t a2, unint64_t *a3, uint64_t a4)
 {
-  v4 = swift_cvw_assignWithCopyMultiPayloadEnumFN::Override;
+  v5 = swift_cvw_assignWithCopyMultiPayloadEnumFN::Override;
   if (swift_cvw_assignWithCopyMultiPayloadEnumFN::Override == 1)
   {
-    v5 = *(a3 - 2);
-    v6 = v5 & 0x7FFFFFFFFFFFFFFELL | 0x8000000000000000;
-    if ((v5 & 1) == 0)
+    v6 = *(a3 - 2);
+    v7 = v6 & 0x7FFFFFFFFFFFFFFELL | 0x8000000000000000;
+    if ((v6 & 1) == 0)
     {
-      v6 = *(a3 - 2);
+      v7 = *(a3 - 2);
     }
 
-    v8 = 0;
-    v9 = v6 + 24;
-    multiPayloadEnumFNAssignWithCopy(a3, &v9, &v8, a1, a2);
+    v9 = 0;
+    v10 = v7 + 24;
+    multiPayloadEnumFNAssignWithCopy(a3, &v10, &v9, a1, a2);
     return a1;
   }
 
   else if (swift_cvw_assignWithCopyMultiPayloadEnumFN::Override)
   {
 
-    return v4(a1, a2, a3, swift_cvw_assignWithCopyMultiPayloadEnumFNImpl, a2);
+    return v5(a1, a2, a3, swift_cvw_assignWithCopyMultiPayloadEnumFNImpl, a2);
   }
 
   else
@@ -4310,7 +4310,7 @@ uint64_t swift_cvw_assignWithCopyMultiPayloadEnumFNImpl(uint64_t a1, uint64_t a2
   return a1;
 }
 
-uint64_t swift_cvw_assignWithCopyMultiPayloadEnumFNSlow(swift *a1, uint64_t a2, unint64_t *a3)
+swift *swift_cvw_assignWithCopyMultiPayloadEnumFNSlow(swift *a1, uint64_t a2, unint64_t *a3)
 {
   Override_cvw_assignWithCopyMultiPayloadEnumFN = swift::getOverride_cvw_assignWithCopyMultiPayloadEnumFN(a1);
   if (Override_cvw_assignWithCopyMultiPayloadEnumFN)
@@ -4396,7 +4396,7 @@ void *swift_cvw_assignWithTakeMultiPayloadEnumFNSlow(swift *a1, void *a2, uint64
   {
     swift_cvw_assignWithTakeMultiPayloadEnumFN::Override = Override_cvw_assignWithTakeMultiPayloadEnumFN;
 
-    return (Override_cvw_assignWithTakeMultiPayloadEnumFN)(a1, a2, a3, swift_cvw_assignWithTakeMultiPayloadEnumFNImpl);
+    return Override_cvw_assignWithTakeMultiPayloadEnumFN(a1, a2, a3, swift_cvw_assignWithTakeMultiPayloadEnumFNImpl);
   }
 
   else
@@ -4491,7 +4491,7 @@ char *swift_cvw_initWithCopyMultiPayloadEnumFNSlow(swift *a1, char *a2, uint64_t
   {
     swift_cvw_initWithCopyMultiPayloadEnumFN::Override = Override_cvw_initWithCopyMultiPayloadEnumFN;
 
-    return (Override_cvw_initWithCopyMultiPayloadEnumFN)(a1, a2, a3, swift_cvw_initWithCopyMultiPayloadEnumFNImpl);
+    return Override_cvw_initWithCopyMultiPayloadEnumFN(a1, a2, a3, swift_cvw_initWithCopyMultiPayloadEnumFNImpl);
   }
 
   else
@@ -4502,41 +4502,41 @@ char *swift_cvw_initWithCopyMultiPayloadEnumFNSlow(swift *a1, char *a2, uint64_t
   }
 }
 
-swift *swift_cvw_initWithTakeMultiPayloadEnumFN(void *a1, void *__src, uint64_t a3)
+swift *swift_cvw_initWithTakeMultiPayloadEnumFN(void *a1, void *__src, uint64_t a3, uint64_t a4)
 {
-  v5 = swift_cvw_initWithTakeMultiPayloadEnumFN::Override;
+  v6 = swift_cvw_initWithTakeMultiPayloadEnumFN::Override;
   if (swift_cvw_initWithTakeMultiPayloadEnumFN::Override == 1)
   {
-    v6 = *(a3 - 8);
-    if ((*(v6 + 82) & 0x10) != 0)
+    v7 = *(a3 - 8);
+    if ((*(v7 + 82) & 0x10) != 0)
     {
-      v13[3] = v3;
-      v13[4] = v4;
-      v9 = *(a3 - 16);
-      v11 = v9 & 0x7FFFFFFFFFFFFFFELL | 0x8000000000000000;
-      if ((v9 & 1) == 0)
+      v14[3] = v4;
+      v14[4] = v5;
+      v10 = *(a3 - 16);
+      v12 = v10 & 0x7FFFFFFFFFFFFFFELL | 0x8000000000000000;
+      if ((v10 & 1) == 0)
       {
-        v11 = *(a3 - 16);
+        v12 = *(a3 - 16);
       }
 
-      v12 = 0;
-      v13[0] = v11 + 24;
-      multiPayloadEnumFN<&(handleRefCountsInitWithTake(swift::TargetMetadata<swift::InProcess> const*,swift::LayoutStringReader1 &,unsigned long &,unsigned char *,unsigned char *))>(a3, v13, &v12, a1, __src);
+      v13 = 0;
+      v14[0] = v12 + 24;
+      multiPayloadEnumFN<&(handleRefCountsInitWithTake(swift::TargetMetadata<swift::InProcess> const*,swift::LayoutStringReader1 &,unsigned long &,unsigned char *,unsigned char *))>(a3, v14, &v13, a1, __src);
       return a1;
     }
 
     else
     {
-      v7 = *(v6 + 64);
+      v8 = *(v7 + 64);
 
-      return memcpy(a1, __src, v7);
+      return memcpy(a1, __src, v8);
     }
   }
 
   else if (swift_cvw_initWithTakeMultiPayloadEnumFN::Override)
   {
 
-    return v5(a1, __src, a3, swift_cvw_initWithTakeMultiPayloadEnumFNImpl, __src);
+    return v6(a1, __src, a3, swift_cvw_initWithTakeMultiPayloadEnumFNImpl, __src);
   }
 
   else
@@ -4675,7 +4675,7 @@ char *swift_cvw_initializeBufferWithCopyOfBufferMultiPayloadEnumFNImpl(char *a1,
     else if (swift_cvw_initWithCopyMultiPayloadEnumFN::Override)
     {
 
-      return v3();
+      return v3(a1, a2);
     }
 
     else
@@ -4863,7 +4863,7 @@ unsigned __int16 *swift_cvw_enumSimple_getEnumTagSlow(swift *a1, uint64_t a2)
   {
     swift_cvw_enumSimple_getEnumTag::Override = EnumTag;
 
-    return (EnumTag)(a1, a2, swift_cvw_enumSimple_getEnumTagImpl);
+    return EnumTag(a1, a2, swift_cvw_enumSimple_getEnumTagImpl);
   }
 
   else
@@ -4874,7 +4874,7 @@ unsigned __int16 *swift_cvw_enumSimple_getEnumTagSlow(swift *a1, uint64_t a2)
   }
 }
 
-uint64_t swift_cvw_enumSimple_destructiveInjectEnumTagImpl(uint64_t a1, unsigned int a2, uint64_t a3)
+void *swift_cvw_enumSimple_destructiveInjectEnumTagImpl(uint64_t a1, unsigned int a2, uint64_t a3)
 {
   v3 = 0;
   v26 = *MEMORY[0x1E69E9840];
@@ -5106,14 +5106,14 @@ LABEL_48:
   return result;
 }
 
-uint64_t swift_cvw_enumSimple_destructiveInjectEnumTagSlow(swift *a1, uint64_t a2, uint64_t a3)
+void *swift_cvw_enumSimple_destructiveInjectEnumTagSlow(swift *a1, uint64_t a2, uint64_t a3)
 {
   Override_cvw_enumSimple_destructiveInjectEnumTag = swift::getOverride_cvw_enumSimple_destructiveInjectEnumTag(a1);
   if (Override_cvw_enumSimple_destructiveInjectEnumTag)
   {
     swift_cvw_enumSimple_destructiveInjectEnumTag::Override = Override_cvw_enumSimple_destructiveInjectEnumTag;
 
-    return (Override_cvw_enumSimple_destructiveInjectEnumTag)(a1, a2, a3, swift_cvw_enumSimple_destructiveInjectEnumTagImpl);
+    return Override_cvw_enumSimple_destructiveInjectEnumTag(a1, a2, a3, swift_cvw_enumSimple_destructiveInjectEnumTagImpl);
   }
 
   else
@@ -5129,21 +5129,21 @@ uint64_t swift_cvw_enumFn_getEnumTagImpl(uint64_t a1, uint64_t a2)
   v2 = *(a2 - 16);
   if ((v2 & 1) == 0)
   {
-    return ((v2 + 24 + *(v2 + 24)))();
+    return ((v2 + 24 + *(v2 + 24)))(a1);
   }
 
   __break(1u);
-  return result;
+  return a1;
 }
 
-void *swift_cvw_enumFn_getEnumTagSlow(swift *a1, uint64_t a2)
+uint64_t (*swift_cvw_enumFn_getEnumTagSlow(swift *a1, uint64_t a2))(void, void, void)
 {
   result = swift::getOverride_cvw_enumFn_getEnumTag(a1);
   if (result)
   {
     swift_cvw_enumFn_getEnumTag::Override = result;
 
-    return (result)(a1, a2, swift_cvw_enumFn_getEnumTagImpl);
+    return result(a1, a2, swift_cvw_enumFn_getEnumTagImpl);
   }
 
   else
@@ -5273,7 +5273,7 @@ unsigned __int16 *swift_cvw_multiPayloadEnumGeneric_getEnumTagSlow(swift *a1, ui
   {
     swift_cvw_multiPayloadEnumGeneric_getEnumTag::Override = EnumTag;
 
-    return (EnumTag)(a1, a2, swift_cvw_multiPayloadEnumGeneric_getEnumTagImpl);
+    return EnumTag(a1, a2, swift_cvw_multiPayloadEnumGeneric_getEnumTagImpl);
   }
 
   else
@@ -5460,7 +5460,7 @@ void swift_cvw_multiPayloadEnumGeneric_destructiveInjectEnumTagSlow(swift *a1, u
   {
     swift_cvw_multiPayloadEnumGeneric_destructiveInjectEnumTag::Override = Override_cvw_multiPayloadEnumGeneric_destructiveInjectEnumTag;
 
-    (Override_cvw_multiPayloadEnumGeneric_destructiveInjectEnumTag)(a1, a2, a3, swift_cvw_multiPayloadEnumGeneric_destructiveInjectEnumTagImpl);
+    Override_cvw_multiPayloadEnumGeneric_destructiveInjectEnumTag(a1, a2, a3, swift_cvw_multiPayloadEnumGeneric_destructiveInjectEnumTagImpl);
   }
 
   else
@@ -5493,7 +5493,7 @@ unsigned __int16 *swift_cvw_singlePayloadEnumGeneric_getEnumTagSlow(swift *a1, u
   {
     swift_cvw_singlePayloadEnumGeneric_getEnumTag::Override = EnumTag;
 
-    return (EnumTag)(a1, a2, swift_cvw_singlePayloadEnumGeneric_getEnumTagImpl);
+    return EnumTag(a1, a2, swift_cvw_singlePayloadEnumGeneric_getEnumTagImpl);
   }
 
   else
@@ -5504,34 +5504,34 @@ unsigned __int16 *swift_cvw_singlePayloadEnumGeneric_getEnumTagSlow(swift *a1, u
   }
 }
 
-uint64_t swift_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTagImpl(uint64_t a1, unsigned int a2, uint64_t a3)
+void *swift_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTagImpl(uint64_t a1, unsigned int a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = *(a3 - 16) & 0xFFFFFFFFFFFFFFFELL;
-  v19[0] = &unk_1EEEAA608;
-  v19[1] = a2;
-  v19[2] = a1;
-  v20 = v19;
-  v5 = v17;
-  v17[0] = &unk_1EEEAA650;
-  v17[1] = a2;
-  v17[2] = a1;
-  v18 = v17;
+  v22[0] = &unk_1EEEAA608;
+  v22[1] = a2;
+  v22[2] = a1;
+  v23 = v22;
+  v5 = v20;
+  v20[0] = &unk_1EEEAA650;
+  v20[1] = a2;
+  v20[2] = a1;
+  v21 = v20;
   v7 = *(v4 + 24);
   v6 = *(v4 + 32);
   v8 = *(v4 + 40);
   if (v7 >> 62)
   {
-    v16 = *(v4 + 40);
+    v19 = *(v4 + 40);
     v9 = 1 << ((v7 >> 62) - 1);
-    v13 = v6;
-    LOBYTE(v15) = v9;
-    if ((std::__function::__func<swift_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTagImpl(swift::OpaqueValue *,unsigned int,swift::TargetMetadata<swift::InProcess> const*)::$_0,std::allocator<swift_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTagImpl(swift::OpaqueValue *,unsigned int,swift::TargetMetadata<swift::InProcess> const*)::$_0>,std::optional<BOOL> ()(swift::TargetMetadata<swift::InProcess> const*,unsigned long,unsigned char)>::operator()(v19, &v16, &v13, &v15) & 0x100) != 0)
+    v16 = v6;
+    LOBYTE(v18) = v9;
+    if ((std::__function::__func<swift_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTagImpl(swift::OpaqueValue *,unsigned int,swift::TargetMetadata<swift::InProcess> const*)::$_0,std::allocator<swift_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTagImpl(swift::OpaqueValue *,unsigned int,swift::TargetMetadata<swift::InProcess> const*)::$_0>,std::optional<BOOL> ()(swift::TargetMetadata<swift::InProcess> const*,unsigned long,unsigned char)>::operator()(v22, &v19, &v16, &v18) & 0x100) != 0)
     {
       goto LABEL_7;
     }
 
-    v5 = v18;
+    v5 = v21;
   }
 
   else
@@ -5540,51 +5540,51 @@ uint64_t swift_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTagImpl(uint64_
   }
 
   v10 = *(v4 + 48);
-  v16 = v8;
-  v14 = v10;
-  v15 = v7;
-  v13 = v6;
-  v12 = v9;
+  v19 = v8;
+  v17 = v10;
+  v18 = v7;
+  v16 = v6;
+  v15 = v9;
   if (!v5)
   {
     std::__throw_bad_function_call[abi:nn200100]();
-    return swift_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTagSlow();
+    return swift_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTagSlow(v12, v13, v14);
   }
 
-  (*(*v5 + 48))(v5, &v16, &v15, &v14, &v13, &v12);
+  (*(*v5 + 48))(v5, &v19, &v18, &v17, &v16, &v15);
 LABEL_7:
-  if (v18 == v17)
+  if (v21 == v20)
   {
-    (*(*v18 + 32))(v18);
+    (*(*v21 + 32))(v21);
   }
 
-  else if (v18)
+  else if (v21)
   {
-    (*(*v18 + 40))();
+    (*(*v21 + 40))();
   }
 
-  result = v20;
-  if (v20 == v19)
+  result = v23;
+  if (v23 == v22)
   {
-    return (*(*v20 + 32))(v20);
+    return (*(*v23 + 32))(v23);
   }
 
-  if (v20)
+  if (v23)
   {
-    return (*(*v20 + 40))();
+    return (*(*v23 + 40))();
   }
 
   return result;
 }
 
-uint64_t swift_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTagSlow(swift *a1, uint64_t a2, uint64_t a3)
+void *swift_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTagSlow(swift *a1, uint64_t a2, uint64_t a3)
 {
   Override_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTag = swift::getOverride_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTag(a1);
   if (Override_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTag)
   {
     swift_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTag::Override = Override_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTag;
 
-    return (Override_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTag)(a1, a2, a3, swift_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTagImpl);
+    return Override_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTag(a1, a2, a3, swift_cvw_singlePayloadEnumGeneric_destructiveInjectEnumTagImpl);
   }
 
   else
@@ -5641,7 +5641,7 @@ uint64_t unknownWeakDestroy(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
   v4 = *a3;
   *a3 += 8;
-  return swift_unknownObjectWeakDestroy(a4 + v4);
+  return swift_unknownObjectWeakDestroy((a4 + v4));
 }
 
 void bridgeDestroy(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
@@ -6251,13 +6251,13 @@ id errorRetain(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
   return swift_errorRetain((v6 & 0xFFFFFFFFFFFFFF8));
 }
 
-atomic_ullong *nativeStrongRetain(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
+uint64_t nativeStrongRetain(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
 {
   v5 = *a3;
   v6 = *(a5 + *a3);
   *(a4 + v5) = v6;
   *a3 = v5 + 8;
-  return (v6 & 0xFFFFFFFFFFFFFF8);
+  return v6 & 0xFFFFFFFFFFFFFF8;
 }
 
 uint64_t unownedRetain(uint64_t a1, uint64_t a2, char *a3, char *a4, uint64_t a5)
@@ -6857,7 +6857,7 @@ id errorAssignWithCopy(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint
   return swift_errorRetain((v7 & 0xFFFFFFFFFFFFFF8));
 }
 
-atomic_ullong *nativeStrongAssignWithCopy(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
+uint64_t nativeStrongAssignWithCopy(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
 {
   v5 = *a3;
   v6 = *(a4 + *a3);
@@ -6866,7 +6866,7 @@ atomic_ullong *nativeStrongAssignWithCopy(uint64_t a1, uint64_t a2, uint64_t *a3
   *a3 = v5 + 8;
   v6 & 0xFFFFFFFFFFFFFF8;
 
-  return (v7 & 0xFFFFFFFFFFFFFF8);
+  return v7 & 0xFFFFFFFFFFFFFF8;
 }
 
 uint64_t unownedAssignWithCopy(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
@@ -6881,7 +6881,7 @@ uint64_t unownedAssignWithCopy(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t 
   return swift_unownedRetain(v7 & 0xFFFFFFFFFFFFFF8, v8, v9, v10);
 }
 
-swift *weakAssignWithCopy(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
+swift::WeakReference *weakAssignWithCopy(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
 {
   v5 = *a3;
   *a3 += 8;
@@ -6971,7 +6971,7 @@ uint64_t metatypeAssignWithCopy(uint64_t a1, void *a2, uint64_t *a3, uint64_t a4
   return v8(a4 + v5, a5 + v5, v6);
 }
 
-atomic_ullong *existentialAssignWithCopy(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
+uint64_t existentialAssignWithCopy(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
 {
   v5 = (a5 + *a3);
   v6 = v5[3];
@@ -7583,7 +7583,7 @@ LABEL_38:
   return result;
 }
 
-void multiPayloadEnumFNAssignWithCopy(unint64_t *a1, unint64_t *a2, uint64_t *a3, uint64_t a4, uint64_t a5)
+void multiPayloadEnumFNAssignWithCopy(unint64_t *result, unint64_t *a2, uint64_t *a3, uint64_t a4, uint64_t a5)
 {
   v5 = *a2;
   if ((*a2 & 0x8000000000000000) != 0)
@@ -7652,7 +7652,7 @@ LABEL_71:
           *(a4 + v27) = v41;
           v42 = v27 + 8;
           v40 & 0xFFFFFFFFFFFFFF8;
-          (v41 & 0xFFFFFFFFFFFFFF8);
+          v41 & 0xFFFFFFFFFFFFFF8;
           v43 = *(v25 & 0x7FFFFFFFFFFFFFFFLL);
           v94 = v25 + 8;
           if ((v43 & 0xFFFFFFFFFFFFFFLL) != 0)
@@ -7846,7 +7846,7 @@ LABEL_71:
 
           return;
         case 0xFu:
-          resilientAssignWithCopy(a1, &v94, &v95, a4, a5);
+          resilientAssignWithCopy(result, &v94, &v95, a4, a5);
           v84 = v95;
           v85 = *(v94 & 0x7FFFFFFFFFFFFFFFLL);
           v94 += 8;
@@ -7868,7 +7868,7 @@ LABEL_71:
         case 0x16u:
           v92 = v97 + 8;
           v93 = v26 + v15;
-          (assignWithCopyTable[HIBYTE(v24)])(a1, &v92, &v93, a4, a5);
+          (assignWithCopyTable[HIBYTE(v24)])(result, &v92, &v93, a4, a5);
           v86 = v93;
           v87 = *(v92 & 0x7FFFFFFFFFFFFFFFLL);
           v94 = v92 + 8;
@@ -7892,7 +7892,7 @@ LABEL_71:
     v90 = (v31 & 0xFFFFFFFFFFFFFFLL) + v15;
     for (i = v30 + 8; HIBYTE(v31); i += 8)
     {
-      (destroyTable[HIBYTE(v31)])(a1, &i, &v90, a4);
+      (destroyTable[HIBYTE(v31)])(result, &i, &v90, a4);
       v31 = *(i & 0x7FFFFFFFFFFFFFFFLL);
       v90 += v31 & 0xFFFFFFFFFFFFFFLL;
     }
@@ -7915,7 +7915,7 @@ LABEL_71:
         break;
       }
 
-      (initWithCopyTable[HIBYTE(v33)])(a1, &v97, &v96, a4, a5);
+      (initWithCopyTable[HIBYTE(v33)])(result, &v97, &v96, a4, a5);
     }
 
 LABEL_67:
@@ -8036,7 +8036,7 @@ LABEL_13:
   }
 }
 
-void multiPayloadEnumGenericAssignWithCopy(uint64_t a1, void *a2, uint64_t *a3, uint64_t a4, uint64_t a5)
+void multiPayloadEnumGenericAssignWithCopy(void *result, void *a2, uint64_t *a3, uint64_t a4, uint64_t a5)
 {
   v10 = *(*a2 & 0x7FFFFFFFFFFFFFFFLL);
   v9 = *((*a2 & 0x7FFFFFFFFFFFFFFFLL) + 8);
@@ -8133,7 +8133,7 @@ LABEL_21:
     v31 = (v25 & 0xFFFFFFFFFFFFFFLL) + v14;
     for (i = v24 + 8; HIBYTE(v25); i += 8)
     {
-      (destroyTable[HIBYTE(v25)])(a1, &i, &v31, a4);
+      (destroyTable[HIBYTE(v25)])(result, &i, &v31, a4);
       v25 = *(i & 0x7FFFFFFFFFFFFFFFLL);
       v31 += v25 & 0xFFFFFFFFFFFFFFLL;
     }
@@ -8156,7 +8156,7 @@ LABEL_21:
         break;
       }
 
-      (initWithCopyTable[HIBYTE(v27)])(a1, &v33, &v34, a4, a5);
+      (initWithCopyTable[HIBYTE(v27)])(result, &v33, &v34, a4, a5);
     }
 
     v30 = *a3 - v29;
@@ -9078,12 +9078,12 @@ LABEL_16:
   return 1;
 }
 
-std::string *swift::nameForMetadata@<X0>(std::string *__return_ptr a1@<X8>, Class *cls@<X0>, char a3@<W1>)
+std::string *swift::nameForMetadata@<X0>(Class *cls@<X0>, char a2@<W1>, uint64_t a3@<X8>)
 {
   v63 = *MEMORY[0x1E69E9840];
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
-  a1->__r_.__value_.__r.__words[2] = 0;
+  *a3 = 0;
+  *(a3 + 8) = 0;
+  *(a3 + 16) = 0;
   v4 = *cls;
   if (*cls > 0x7FF)
   {
@@ -9155,20 +9155,20 @@ LABEL_16:
       v21[0] = &unk_1EEEAA698;
       v21[1] = swift::Demangle::__runtime::genericParameterName;
       v22 = v21;
-      v13[1] = a3;
-      if ((a3 & 1) == 0)
+      v13[1] = a2;
+      if ((a2 & 1) == 0)
       {
         BYTE4(v15) = 0;
       }
 
-      swift::Demangle::__runtime::nodeToString(v9, v13, v10, &v11);
-      if (SHIBYTE(a1->__r_.__value_.__r.__words[2]) < 0)
+      swift::Demangle::__runtime::nodeToString(&v11, v9, v13, v10);
+      if (*(a3 + 23) < 0)
       {
-        operator delete(a1->__r_.__value_.__l.__data_);
+        operator delete(*a3);
       }
 
-      *&a1->__r_.__value_.__l.__data_ = v11;
-      a1->__r_.__value_.__r.__words[2] = v12;
+      *a3 = v11;
+      *(a3 + 16) = v12;
       if (v22 == v21)
       {
         (*(*v22 + 32))(v22);
@@ -9182,7 +9182,7 @@ LABEL_16:
 
     else
     {
-      MEMORY[0x1865C91F0](a1, "<<< invalid type >>>");
+      MEMORY[0x1865C91F0](a3, "<<< invalid type >>>");
     }
 
     v23[0] = &unk_1EEEADB90;
@@ -9225,18 +9225,18 @@ LABEL_16:
 LABEL_7:
   Name = class_getName(v5);
 
-  return std::string::append(a1, Name);
+  return std::string::append(a3, Name);
 }
 
 _BYTE *swift_getTypeName(unint64_t a1, char a2)
 {
-  v3 = 2;
+  v4 = 2;
   if ((a2 & 1) == 0)
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  v4 = v3 | a1 & 0xFFFFFFFFFFFFFFF9;
+  v5 = v4 | a1 & 0xFFFFFFFFFFFFFFF9;
   if (qword_1ED415E68 != -1)
   {
     swift_getTypeName_cold_1(a1);
@@ -9245,34 +9245,34 @@ _BYTE *swift_getTypeName(unint64_t a1, char a2)
   os_unfair_lock_lock(&TypeNameCacheLock);
   if (dword_1ED415E60)
   {
-    v5 = (dword_1ED415E60 - 1) & (v4 ^ (a1 >> 9));
-    v6 = (TypeNameCache + 24 * v5);
-    v7 = *v6;
-    if (v4 == *v6)
+    v6 = (dword_1ED415E60 - 1) & (v5 ^ (a1 >> 9));
+    v7 = (TypeNameCache + 24 * v6);
+    v8 = *v7;
+    if (v5 == *v7)
     {
       goto LABEL_12;
     }
 
-    v8 = 1;
-    while (v7 != -2)
+    v9 = 1;
+    while (v8 != -2)
     {
-      v9 = v5 + v8++;
-      v5 = v9 & (dword_1ED415E60 - 1);
-      v6 = (TypeNameCache + 24 * v5);
-      v7 = *v6;
-      if (v4 == *v6)
+      v10 = v6 + v9++;
+      v6 = v10 & (dword_1ED415E60 - 1);
+      v7 = (TypeNameCache + 24 * v6);
+      v8 = *v7;
+      if (v5 == *v7)
       {
         goto LABEL_12;
       }
     }
   }
 
-  v6 = (TypeNameCache + 24 * dword_1ED415E60);
+  v7 = (TypeNameCache + 24 * dword_1ED415E60);
 LABEL_12:
-  if (v6 != (TypeNameCache + 24 * dword_1ED415E60))
+  if (v7 != (TypeNameCache + 24 * dword_1ED415E60))
   {
 LABEL_21:
-    v14 = v6[1];
+    v15 = v7[1];
     goto LABEL_22;
   }
 
@@ -9280,72 +9280,72 @@ LABEL_21:
   os_unfair_lock_lock(&TypeNameCacheLock);
   if (dword_1ED415E60)
   {
-    v10 = (dword_1ED415E60 - 1) & (v4 ^ (a1 >> 9));
-    v6 = (TypeNameCache + 24 * v10);
-    v11 = *v6;
-    if (v4 == *v6)
+    v11 = (dword_1ED415E60 - 1) & (v5 ^ (a1 >> 9));
+    v7 = (TypeNameCache + 24 * v11);
+    v12 = *v7;
+    if (v5 == *v7)
     {
       goto LABEL_20;
     }
 
-    v12 = 1;
-    while (v11 != -2)
+    v13 = 1;
+    while (v12 != -2)
     {
-      v13 = v10 + v12++;
-      v10 = v13 & (dword_1ED415E60 - 1);
-      v6 = (TypeNameCache + 24 * v10);
-      v11 = *v6;
-      if (v4 == *v6)
+      v14 = v11 + v13++;
+      v11 = v14 & (dword_1ED415E60 - 1);
+      v7 = (TypeNameCache + 24 * v11);
+      v12 = *v7;
+      if (v5 == *v7)
       {
         goto LABEL_20;
       }
     }
   }
 
-  v6 = (TypeNameCache + 24 * dword_1ED415E60);
+  v7 = (TypeNameCache + 24 * dword_1ED415E60);
 LABEL_20:
-  if (v6 != (TypeNameCache + 24 * dword_1ED415E60))
+  if (v7 != (TypeNameCache + 24 * dword_1ED415E60))
   {
     goto LABEL_21;
   }
 
-  swift::nameForMetadata(__p, a1);
-  if ((v23 & 0x80u) == 0)
+  swift::nameForMetadata(a1, a2 & 1, __p);
+  if ((v24 & 0x80u) == 0)
   {
-    v16 = v23;
+    v17 = v24;
   }
 
   else
   {
-    v16 = __p[1];
+    v17 = __p[1];
   }
 
-  v17 = malloc_type_malloc(v16 + 1, 0x100004077774924uLL);
-  v14 = v17;
-  if ((v23 & 0x80u) == 0)
+  v18 = malloc_type_malloc(v17 + 1, 0x100004077774924uLL);
+  v15 = v18;
+  if ((v24 & 0x80u) == 0)
   {
-    v18 = __p;
+    v19 = __p;
   }
 
   else
   {
-    v18 = __p[0];
+    v19 = __p[0];
   }
 
-  memcpy(v17, v18, v16);
-  v14[v16] = 0;
-  v20 = v4;
-  *&v21 = v14;
-  *(&v21 + 1) = v16;
-  __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>,__swift::__runtime::llvm::DenseMapInfo<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>>,__swift::__runtime::llvm::detail::DenseMapPair<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>>>,__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>,__swift::__runtime::llvm::DenseMapInfo<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>>,__swift::__runtime::llvm::detail::DenseMapPair<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>>>::try_emplace<std::pair<char const*,unsigned long>>(&TypeNameCache, &v20, &v21, v19);
-  if (v23 < 0)
+  memcpy(v18, v19, v17);
+  v15[v17] = 0;
+  v21 = v5;
+  *&v22 = v15;
+  *(&v22 + 1) = v17;
+  __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>,__swift::__runtime::llvm::DenseMapInfo<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>>,__swift::__runtime::llvm::detail::DenseMapPair<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>>>,__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>,__swift::__runtime::llvm::DenseMapInfo<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>>,__swift::__runtime::llvm::detail::DenseMapPair<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>>>::try_emplace<std::pair<char const*,unsigned long>>(&TypeNameCache, &v21, &v22, v20);
+  if (v24 < 0)
   {
     operator delete(__p[0]);
   }
 
 LABEL_22:
   os_unfair_lock_unlock(&TypeNameCacheLock);
-  return v14;
+  return v15;
 }
 
 uint64_t swift::Lazy<__swift::__runtime::llvm::DenseMap<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>,__swift::__runtime::llvm::DenseMapInfo<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>>,__swift::__runtime::llvm::detail::DenseMapPair<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>>>>::defaultInitCallback(uint64_t result)
@@ -9476,8 +9476,8 @@ LABEL_18:
   v14 = _swift_buildDemanglingForMetadata(a1, v24);
   if (v14)
   {
-    swift::Demangle::__runtime::mangleNode(v14);
-    if (v22)
+    swift::Demangle::__runtime::mangleNode(v14, 0);
+    if (LODWORD(v22[0]))
     {
       v12 = 0;
     }
@@ -9521,7 +9521,7 @@ LABEL_18:
       v19 = v2;
       *&v20 = v12;
       *(&v20 + 1) = size;
-      __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>,__swift::__runtime::llvm::DenseMapInfo<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>>,__swift::__runtime::llvm::detail::DenseMapPair<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>>>,__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>,__swift::__runtime::llvm::DenseMapInfo<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>>,__swift::__runtime::llvm::detail::DenseMapPair<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>>>::try_emplace<std::pair<char const*,unsigned long>>(&TypeNameCache, &v19, &v20, &v18);
+      __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>,__swift::__runtime::llvm::DenseMapInfo<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>>,__swift::__runtime::llvm::detail::DenseMapPair<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>>>,__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>,__swift::__runtime::llvm::DenseMapInfo<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>>,__swift::__runtime::llvm::detail::DenseMapPair<__swift::__runtime::llvm::PointerIntPair<swift::TargetMetadata<swift::InProcess> const*,2u,TypeNameKind,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>,__swift::__runtime::llvm::PointerIntPairInfo<swift::TargetMetadata<swift::InProcess> const*,2u,__swift::__runtime::llvm::PointerLikeTypeTraits<swift::TargetMetadata<swift::InProcess> const*>>>,std::pair<char const*,unsigned long>>>::try_emplace<std::pair<char const*,unsigned long>>(&TypeNameCache, &v19, &v20, v18);
       if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v21.__r_.__value_.__l.__data_);
@@ -9562,7 +9562,7 @@ LABEL_20:
   return v12;
 }
 
-_BYTE *swift_getFunctionFullNameFromMangledName(void *a1, size_t a2)
+_BYTE *swift_getFunctionFullNameFromMangledName(unsigned __int8 *a1, size_t a2)
 {
   v115 = *MEMORY[0x1E69E9840];
   if (qword_1EA79E990 != -1)

@@ -1,7 +1,6 @@
 @interface WBSPasswordBreachQueuedPassword
 - (NSUUID)uuid;
 - (WBSPasswordBreachQueuedPassword)initWithCredentials:(id)credentials context:(id)context;
-- (id)description;
 - (id)initFakePasswordWithContext:(id)context;
 @end
 
@@ -9,16 +8,16 @@
 
 - (id)initFakePasswordWithContext:(id)context
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   contextCopy = context;
-  v23.receiver = self;
-  v23.super_class = WBSPasswordBreachQueuedPassword;
-  v5 = [(WBSPasswordBreachQueuedPassword *)&v23 init];
+  v27.receiver = self;
+  v27.super_class = WBSPasswordBreachQueuedPassword;
+  v5 = [(WBSPasswordBreachQueuedPassword *)&v27 init];
   if (v5)
   {
     data = [MEMORY[0x1E695DEF0] data];
-    v24[0] = data;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+    v28[0] = data;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
     persistentIdentifiers = v5->_persistentIdentifiers;
     v5->_persistentIdentifiers = v7;
 
@@ -26,9 +25,9 @@
     generateFakeEncodedPasswordForLowFrequencyBucket = [cryptographicOperations generateFakeEncodedPasswordForLowFrequencyBucket];
     if (generateFakeEncodedPasswordForLowFrequencyBucket)
     {
-      v11 = [MEMORY[0x1E695DF70] arrayWithObject:generateFakeEncodedPasswordForLowFrequencyBucket];
+      v12 = [MEMORY[0x1E695DF70] arrayWithObject:generateFakeEncodedPasswordForLowFrequencyBucket];
       bucketIdentifierAndHashStack = v5->_bucketIdentifierAndHashStack;
-      v5->_bucketIdentifierAndHashStack = v11;
+      v5->_bucketIdentifierAndHashStack = v12;
 
       generateFakeEncodedPasswordForHighFrequencyBucket = [cryptographicOperations generateFakeEncodedPasswordForHighFrequencyBucket];
       highFrequencyEncodedPassword = v5->_highFrequencyEncodedPassword;
@@ -41,54 +40,53 @@
 
         if (verboseSensitiveLoggingEnabled)
         {
-          v17 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+          v22 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v20, v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
           {
-            [(WBSPasswordBreachQueuedPassword *)v17 initFakePasswordWithContext:v5];
+            [(WBSPasswordBreachQueuedPassword *)v22 initFakePasswordWithContext:v5];
           }
         }
 
-        v18 = v5;
+        v23 = v5;
         goto LABEL_14;
       }
 
-      v20 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v25 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v16, v17);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        [WBSPasswordBreachQueuedPassword initFakePasswordWithContext:v20];
+        [WBSPasswordBreachQueuedPassword initFakePasswordWithContext:v25];
       }
     }
 
     else
     {
-      v19 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v24 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v10);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        [WBSPasswordBreachQueuedPassword initFakePasswordWithContext:v19];
+        [WBSPasswordBreachQueuedPassword initFakePasswordWithContext:v24];
       }
     }
 
-    v18 = 0;
+    v23 = 0;
 LABEL_14:
 
     goto LABEL_15;
   }
 
-  v18 = 0;
+  v23 = 0;
 LABEL_15:
 
-  v21 = *MEMORY[0x1E69E9840];
-  return v18;
+  return v23;
 }
 
 - (WBSPasswordBreachQueuedPassword)initWithCredentials:(id)credentials context:(id)context
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   credentialsCopy = credentials;
   contextCopy = context;
-  v37.receiver = self;
-  v37.super_class = WBSPasswordBreachQueuedPassword;
-  v8 = [(WBSPasswordBreachQueuedPassword *)&v37 init];
+  v38.receiver = self;
+  v38.super_class = WBSPasswordBreachQueuedPassword;
+  v8 = [(WBSPasswordBreachQueuedPassword *)&v38 init];
   if (v8)
   {
     cryptographicOperations = [contextCopy cryptographicOperations];
@@ -97,30 +95,30 @@ LABEL_15:
     password = [firstObject password];
 
     v12 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v9];
-    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
     v13 = credentialsCopy;
-    v14 = [v13 countByEnumeratingWithState:&v33 objects:v38 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v34;
+      v16 = *v35;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v34 != v16)
+          if (*v35 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          persistentIdentifier = [*(*(&v33 + 1) + 8 * i) persistentIdentifier];
+          persistentIdentifier = [*(*(&v34 + 1) + 8 * i) persistentIdentifier];
           [(NSArray *)v12 addObject:persistentIdentifier];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v34 objects:v39 count:16];
       }
 
       while (v15);
@@ -145,17 +143,16 @@ LABEL_15:
 
     if (v21)
     {
-      v28 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+      v30 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v28, v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
-        [(WBSPasswordBreachQueuedPassword *)password initWithCredentials:v28 context:v8];
+        [(WBSPasswordBreachQueuedPassword *)password initWithCredentials:v30 context:v8];
       }
     }
 
-    v29 = v8;
+    v31 = v8;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -176,38 +173,26 @@ LABEL_15:
   return uuid;
 }
 
-- (id)description
-{
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = objc_opt_class();
-  uuid = self->_uuid;
-  return [v3 stringWithFormat:@"<%@: %p, persistentIdentifiers: %@, bucketIdentifierAndHashStack: %@, uuid: %@, highFrequencyEncodedPassword: %@>", v4, self, self->_persistentIdentifiers, self->_bucketIdentifierAndHashStack, uuid, self->_highFrequencyEncodedPassword];
-}
-
 - (void)initFakePasswordWithContext:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 uuid];
-  v6 = 138739971;
-  v7 = v4;
-  _os_log_debug_impl(&dword_1B8447000, v3, OS_LOG_TYPE_DEBUG, "Generated password with UUID %{sensitive}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138739971;
+  v6 = v4;
+  _os_log_debug_impl(&dword_1B8447000, v3, OS_LOG_TYPE_DEBUG, "Generated password with UUID %{sensitive}@", &v5, 0xCu);
 }
 
 - (void)initWithCredentials:(void *)a3 context:.cold.1(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = [a3 uuid];
-  v8 = 138740227;
-  v9 = a1;
-  v10 = 2117;
-  v11 = v6;
-  _os_log_debug_impl(&dword_1B8447000, v5, OS_LOG_TYPE_DEBUG, "Enqueued password %{sensitive}@ with UUID %{sensitive}@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138740227;
+  v8 = a1;
+  v9 = 2117;
+  v10 = v6;
+  _os_log_debug_impl(&dword_1B8447000, v5, OS_LOG_TYPE_DEBUG, "Enqueued password %{sensitive}@ with UUID %{sensitive}@", &v7, 0x16u);
 }
 
 @end

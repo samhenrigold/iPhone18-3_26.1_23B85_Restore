@@ -43,7 +43,7 @@
 {
   sub_1BA4A1878();
   v4.receiver = self;
-  v4.super_class = type metadata accessor for LastSyncedDateFormatter();
+  v4.super_class = type metadata accessor for LastSyncedDateFormatter(0);
   return [(LastSyncedDateFormatter *)&v4 init];
 }
 
@@ -52,7 +52,7 @@
   coderCopy = coder;
   sub_1BA4A1878();
   v7.receiver = self;
-  v7.super_class = type metadata accessor for LastSyncedDateFormatter();
+  v7.super_class = type metadata accessor for LastSyncedDateFormatter(0);
   v5 = [(LastSyncedDateFormatter *)&v7 initWithCoder:coderCopy];
 
   if (v5)

@@ -12,7 +12,7 @@
 
 + (void)applyUserDefaultOverridesToResponse:(id)response
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v5 = [standardUserDefaults stringForKey:@"MPSStateResponseOverride"];
@@ -42,28 +42,26 @@
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 138543618;
-        v16 = responseCopy;
-        v17 = 2114;
-        v18 = @"MPSStateResponseOverride";
-        _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Overriding MPS state response to %{public}@ because %{public}@ user default is set", &v15, 0x16u);
+        v14 = 138543618;
+        v15 = responseCopy;
+        v16 = 2114;
+        v17 = @"MPSStateResponseOverride";
+        _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Overriding MPS state response to %{public}@ because %{public}@ user default is set", &v14, 0x16u);
       }
     }
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v15 = 138543362;
-      v16 = v7;
-      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Invalid override string, unexpected item count: %{public}@", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v7;
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Invalid override string, unexpected item count: %{public}@", &v14, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (void)fetchMPSStateWithBaseAvailabilityURL:(id)l personID:(id)d originalLibrarySize:(id)size completionBlock:(id)block
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   dCopy = d;
   blockCopy = block;
   sizeCopy = size;
@@ -71,7 +69,7 @@
   v13 = [v12 URLByAppendingPathComponent:@"sharedstreams"];
   v14 = [v13 URLByAppendingPathComponent:@"mpsstate"];
 
-  v47 = v14;
+  v46 = v14;
   v15 = [MEMORY[0x277CBAB50] requestWithURL:v14];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   selfCopy = self;
@@ -79,7 +77,7 @@
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v61 = v17;
+    v60 = v17;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "deviceInfo %@", buf, 0xCu);
   }
 
@@ -102,21 +100,21 @@
     [dictionary setObject:v23 forKey:@"X-MMe-Client-Info"];
   }
 
-  v42 = v23;
-  v48 = dCopy;
+  v41 = v23;
+  v47 = dCopy;
   [dictionary setObject:@"application/protobuf" forKey:@"Content-Type"];
   [(__CFString *)v15 setAllHTTPHeaderFields:dictionary];
   v24 = objc_alloc_init(MPSStateRequest);
-  v40 = [(__CFString *)v17 objectForKey:@"UDID"];
-  SHA1StringOfUDID = createSHA1StringOfUDID(v40);
+  v39 = [(__CFString *)v17 objectForKey:@"UDID"];
+  SHA1StringOfUDID = createSHA1StringOfUDID(v39);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v61 = SHA1StringOfUDID;
+    v60 = SHA1StringOfUDID;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Setting MPS deviceID: %@", buf, 0xCu);
   }
 
-  v39 = SHA1StringOfUDID;
+  v38 = SHA1StringOfUDID;
   [(MPSStateRequest *)v24 setMPSDeviceID:SHA1StringOfUDID];
   v26 = dispatch_group_create();
   v27 = [getCKContainerClass() containerWithIdentifier:@"com.apple.photos.cloud"];
@@ -125,56 +123,56 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v61 = v27;
+      v60 = v27;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "iCPLContainer is %p", buf, 0xCu);
     }
 
     dispatch_group_enter(v26);
-    v57[0] = MEMORY[0x277D85DD0];
-    v57[1] = 3221225472;
-    v57[2] = __105__MSProtocolUtilities_fetchMPSStateWithBaseAvailabilityURL_personID_originalLibrarySize_completionBlock___block_invoke;
-    v57[3] = &unk_278E91B28;
-    v58 = v24;
-    v59 = v26;
-    [(__CFString *)v27 fetchCurrentDeviceIDWithCompletionHandler:v57];
+    v56[0] = MEMORY[0x277D85DD0];
+    v56[1] = 3221225472;
+    v56[2] = __105__MSProtocolUtilities_fetchMPSStateWithBaseAvailabilityURL_personID_originalLibrarySize_completionBlock___block_invoke;
+    v56[3] = &unk_278E91B28;
+    v57 = v24;
+    v58 = v26;
+    [(__CFString *)v27 fetchCurrentDeviceIDWithCompletionHandler:v56];
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 134217984;
-    v61 = 0;
+    v60 = 0;
     _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "iCPLContainer is %p", buf, 0xCu);
   }
 
-  v49 = [getCKContainerClass() containerWithIdentifier:@"com.apple.backup.ios"];
-  v45 = v17;
-  if (v49)
+  v48 = [getCKContainerClass() containerWithIdentifier:@"com.apple.backup.ios"];
+  v44 = v17;
+  if (v48)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v61 = v49;
+      v60 = v48;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "backupContainer is %p", buf, 0xCu);
     }
 
     dispatch_group_enter(v26);
-    v54[0] = MEMORY[0x277D85DD0];
-    v54[1] = 3221225472;
-    v54[2] = __105__MSProtocolUtilities_fetchMPSStateWithBaseAvailabilityURL_personID_originalLibrarySize_completionBlock___block_invoke_54;
-    v54[3] = &unk_278E91B28;
-    v55 = v24;
-    v56 = v26;
-    [(__CFString *)v49 fetchCurrentDeviceIDWithCompletionHandler:v54];
+    v53[0] = MEMORY[0x277D85DD0];
+    v53[1] = 3221225472;
+    v53[2] = __105__MSProtocolUtilities_fetchMPSStateWithBaseAvailabilityURL_personID_originalLibrarySize_completionBlock___block_invoke_54;
+    v53[3] = &unk_278E91B28;
+    v54 = v24;
+    v55 = v26;
+    [(__CFString *)v48 fetchCurrentDeviceIDWithCompletionHandler:v53];
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 134217984;
-    v61 = 0;
+    v60 = 0;
     _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "backupContainer is %p", buf, 0xCu);
   }
 
-  v43 = v18;
+  v42 = v18;
   v28 = objc_alloc_init(MEMORY[0x277D28A40]);
   backupDeviceUUID = [v28 backupDeviceUUID];
   if (backupDeviceUUID)
@@ -183,12 +181,12 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v61 = backupDeviceUUID;
+      v60 = backupDeviceUUID;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Setting Backup deviceUUID: %@", buf, 0xCu);
     }
   }
 
-  v38 = v27;
+  v37 = v27;
   backupDeviceUDID = [v28 backupDeviceUDID];
   if (backupDeviceUDID)
   {
@@ -196,12 +194,12 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v61 = backupDeviceUDID;
+      v60 = backupDeviceUDID;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Setting Backup deviceUDID: %@", buf, 0xCu);
     }
   }
 
-  v46 = dictionary;
+  v45 = dictionary;
   dispatch_group_wait(v26, 0xFFFFFFFFFFFFFFFFLL);
   longLongValue = [sizeCopy longLongValue];
 
@@ -212,69 +210,64 @@
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v61 = v15;
+    v60 = v15;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Request %@", buf, 0xCu);
   }
 
   _urlSession = [objc_opt_class() _urlSession];
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __105__MSProtocolUtilities_fetchMPSStateWithBaseAvailabilityURL_personID_originalLibrarySize_completionBlock___block_invoke_59;
-  v50[3] = &unk_278E91B50;
-  v51 = v15;
-  v52 = blockCopy;
-  v53 = selfCopy;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __105__MSProtocolUtilities_fetchMPSStateWithBaseAvailabilityURL_personID_originalLibrarySize_completionBlock___block_invoke_59;
+  v49[3] = &unk_278E91B50;
+  v50 = v15;
+  v51 = blockCopy;
+  v52 = selfCopy;
   v34 = blockCopy;
   v35 = v15;
-  v36 = [_urlSession dataTaskWithRequest:v35 completionHandler:v50];
+  v36 = [_urlSession dataTaskWithRequest:v35 completionHandler:v49];
 
   [v36 resume];
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 void __105__MSProtocolUtilities_fetchMPSStateWithBaseAvailabilityURL_personID_originalLibrarySize_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) setICPLDeviceID:v5];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412546;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Setting iCPL deviceID: %@ Error: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Setting iCPL deviceID: %@ Error: %@", &v7, 0x16u);
   }
 
   dispatch_group_leave(*(a1 + 40));
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __105__MSProtocolUtilities_fetchMPSStateWithBaseAvailabilityURL_personID_originalLibrarySize_completionBlock___block_invoke_54(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) setBackupDeviceID:v5];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412546;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Setting Backup deviceID: %@ Error: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Setting Backup deviceID: %@ Error: %@", &v7, 0x16u);
   }
 
   dispatch_group_leave(*(a1 + 40));
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __105__MSProtocolUtilities_fetchMPSStateWithBaseAvailabilityURL_personID_originalLibrarySize_completionBlock___block_invoke_59(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -283,7 +276,7 @@ void __105__MSProtocolUtilities_fetchMPSStateWithBaseAvailabilityURL_personID_or
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = v8;
+      v18 = v8;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Response %@", buf, 0xCu);
     }
 
@@ -297,7 +290,7 @@ void __105__MSProtocolUtilities_fetchMPSStateWithBaseAvailabilityURL_personID_or
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v19 = v11;
+          v18 = v11;
           _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "MPSStateResponse %{public}@", buf, 0xCu);
         }
 
@@ -322,7 +315,7 @@ void __105__MSProtocolUtilities_fetchMPSStateWithBaseAvailabilityURL_personID_or
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v19 = v14;
+        v18 = v14;
         _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Invalid status code %ld, ignoring", buf, 0xCu);
       }
     }
@@ -335,11 +328,11 @@ LABEL_16:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v17 = *(a1 + 32);
+    v16 = *(a1 + 32);
     *buf = 138412546;
-    v19 = v17;
-    v20 = 2112;
-    v21 = v9;
+    v18 = v16;
+    v19 = 2112;
+    v20 = v9;
     _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Received error for request %@: %@", buf, 0x16u);
   }
 
@@ -347,8 +340,6 @@ LABEL_16:
   v11 = 0;
 LABEL_17:
   (*(*(a1 + 40) + 16))();
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_urlSession
@@ -395,7 +386,7 @@ uint64_t __37__MSProtocolUtilities_appleIDSession__block_invoke()
 
 + (id)retryAfterDateBasedOnRetryAfterHeaderString:(id)string
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   if (!stringCopy)
   {
@@ -414,9 +405,9 @@ uint64_t __37__MSProtocolUtilities_appleIDSession__block_invoke()
   }
 
   v4 = _nonNumericNonSpaceCharacterSet_charSet_6338;
-  v18.length = CFStringGetLength(stringCopy);
-  v18.location = 0;
-  if (!CFStringFindCharacterFromSet(stringCopy, v4, v18, 0, 0))
+  v17.length = CFStringGetLength(stringCopy);
+  v17.location = 0;
+  if (!CFStringFindCharacterFromSet(stringCopy, v4, v17, 0, 0))
   {
     goto LABEL_11;
   }
@@ -441,11 +432,11 @@ LABEL_11:
         v6 = v10;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
         {
-          v14 = 67109378;
-          *v15 = v8;
-          *&v15[4] = 2114;
-          *&v15[6] = v6;
-          _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Found a retry-after header with a relative interval of %d seconds. Date: %{public}@", &v14, 0x12u);
+          v13 = 67109378;
+          *v14 = v8;
+          *&v14[4] = 2114;
+          *&v14[6] = v6;
+          _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Found a retry-after header with a relative interval of %d seconds. Date: %{public}@", &v13, 0x12u);
         }
 
         goto LABEL_15;
@@ -455,9 +446,9 @@ LABEL_11:
 LABEL_19:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v14 = 138543362;
-      *v15 = stringCopy;
-      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Found a retry-after header that could not be parsed: %{public}@", &v14, 0xCu);
+      v13 = 138543362;
+      *v14 = stringCopy;
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Found a retry-after header that could not be parsed: %{public}@", &v13, 0xCu);
     }
 
     goto LABEL_21;
@@ -466,11 +457,11 @@ LABEL_19:
   v6 = DateFromString;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v14 = 138543618;
-    *v15 = stringCopy;
-    *&v15[8] = 2114;
-    *&v15[10] = v6;
-    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Found a retry-after header with a date string: %{public}@. Date: %{public}@", &v14, 0x16u);
+    v13 = 138543618;
+    *v14 = stringCopy;
+    *&v14[8] = 2114;
+    *&v14[10] = v6;
+    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Found a retry-after header with a date string: %{public}@. Date: %{public}@", &v13, 0x16u);
   }
 
 LABEL_15:
@@ -482,16 +473,14 @@ LABEL_15:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138543362;
-    *v15 = v6;
-    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Received a retry-after date which occurs in the past: %{public}@. Ignoring.", &v14, 0xCu);
+    v13 = 138543362;
+    *v14 = v6;
+    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Received a retry-after date which occurs in the past: %{public}@. Ignoring.", &v13, 0xCu);
   }
 
 LABEL_21:
   v6 = 0;
 LABEL_22:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -549,31 +538,30 @@ LABEL_22:
 
 void __49__MSProtocolUtilities_deviceInfoDictForPersonID___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v2 = [v15 infoDictionary];
-  v14 = [v2 objectForKey:*MEMORY[0x277CBED38]];
-  v3 = [v2 objectForKey:@"CFBundleShortVersionString"];
-  v4 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@/%@", v14, v3];
-  v5 = objc_alloc(MEMORY[0x277CCACA8]);
-  v6 = MSPlatform();
-  v7 = [v6 hardwareString];
-  v8 = MSPlatform();
-  v9 = [v8 OSString];
-  v10 = MSPlatform();
-  v11 = [v10 appBundleInfoString];
-  v12 = [v5 initWithFormat:@"<%@><%@><%@ (%@)>", v7, v9, v4, v11];
-  v13 = deviceInfoDictForPersonID__clientInfo;
-  deviceInfoDictForPersonID__clientInfo = v12;
+  v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v1 = [v14 infoDictionary];
+  v13 = [v1 objectForKey:*MEMORY[0x277CBED38]];
+  v2 = [v1 objectForKey:@"CFBundleShortVersionString"];
+  v3 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@/%@", v13, v2];
+  v4 = objc_alloc(MEMORY[0x277CCACA8]);
+  v5 = MSPlatform();
+  v6 = [v5 hardwareString];
+  v7 = MSPlatform();
+  v8 = [v7 OSString];
+  v9 = MSPlatform();
+  v10 = [v9 appBundleInfoString];
+  v11 = [v4 initWithFormat:@"<%@><%@><%@ (%@)>", v6, v8, v3, v10];
+  v12 = deviceInfoDictForPersonID__clientInfo;
+  deviceInfoDictForPersonID__clientInfo = v11;
 }
 
 + (id)Win32SHA1OfUDID:(id)d
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  memset(&v10, 0, sizeof(v10));
-  CC_SHA1_Init(&v10);
-  CC_SHA1_Update(&v10, &Win32SHA1OfUDID___prepend, 3u);
+  memset(&v9, 0, sizeof(v9));
+  CC_SHA1_Init(&v9);
+  CC_SHA1_Update(&v9, &Win32SHA1OfUDID___prepend, 3u);
   uTF8String = [dCopy UTF8String];
   v5 = strlen(uTF8String);
   if (v5 >= 0xFFFFFFFF)
@@ -581,12 +569,10 @@ void __49__MSProtocolUtilities_deviceInfoDictForPersonID___block_invoke(uint64_t
     __assert_rtn("+[MSProtocolUtilities Win32SHA1OfUDID:]", "MSProtocolUtilities.m", 54, "udidLength < UINT32_MAX");
   }
 
-  CC_SHA1_Update(&v10, uTF8String, v5);
-  CC_SHA1_Final(md, &v10);
+  CC_SHA1_Update(&v9, uTF8String, v5);
+  CC_SHA1_Final(md, &v9);
   v6 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:md length:20 freeWhenDone:0];
   mSHexString = [v6 MSHexString];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return mSHexString;
 }

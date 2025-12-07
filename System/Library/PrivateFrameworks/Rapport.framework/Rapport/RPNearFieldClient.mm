@@ -79,17 +79,20 @@
 - (void)_interrupted
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (gLogCategory_RPNearFieldClient <= 50 && (gLogCategory_RPNearFieldClient != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_RPNearFieldClient <= 50)
   {
-    [RPNearFieldClient _interrupted];
+    if (gLogCategory_RPNearFieldClient != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      [(RPNearFieldClient *)v3 _interrupted];
+    }
   }
 
-  v3 = _Block_copy(self->_interruptionHandler);
-  if (v3)
+  v6 = _Block_copy(self->_interruptionHandler);
+  if (v6)
   {
-    v4 = v3;
-    v3[2]();
-    v3 = v4;
+    v7 = v6;
+    v6[2]();
+    v6 = v7;
   }
 }
 
@@ -138,9 +141,12 @@ void __31__RPNearFieldClient_invalidate__block_invoke(uint64_t a1)
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_invalidateDone)
   {
-    if (!self->_invalidateCalled && gLogCategory_RPNearFieldClient <= 50 && (gLogCategory_RPNearFieldClient != -1 || _LogCategory_Initialize()))
+    if (!self->_invalidateCalled && gLogCategory_RPNearFieldClient <= 50)
     {
-      [RPNearFieldClient _invalidated];
+      if (gLogCategory_RPNearFieldClient != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        [(RPNearFieldClient *)v3 _invalidated];
+      }
     }
 
     invalidationHandler = self->_invalidationHandler;
@@ -152,7 +158,7 @@ void __31__RPNearFieldClient_invalidate__block_invoke(uint64_t a1)
     interruptionHandler = self->_interruptionHandler;
     self->_interruptionHandler = 0;
 
-    v5 = self->_invalidationHandler;
+    v8 = self->_invalidationHandler;
     self->_invalidationHandler = 0;
 
     xpcCnx = self->_xpcCnx;
@@ -192,7 +198,7 @@ void __40__RPNearFieldClient_stopWithCompletion___block_invoke(uint64_t a1, void
   v5 = a2;
   if (gLogCategory_RPNearFieldClient <= 90 && (gLogCategory_RPNearFieldClient != -1 || _LogCategory_Initialize()))
   {
-    __40__RPNearFieldClient_stopWithCompletion___block_invoke_cold_1();
+    __40__RPNearFieldClient_stopWithCompletion___block_invoke_cold_1(v5);
   }
 
   v3 = _Block_copy(*(a1 + 32));
@@ -210,7 +216,7 @@ void __40__RPNearFieldClient_stopWithCompletion___block_invoke_2(uint64_t a1, vo
   {
     if (gLogCategory_RPNearFieldClient <= 90 && (gLogCategory_RPNearFieldClient != -1 || _LogCategory_Initialize()))
     {
-      __40__RPNearFieldClient_stopWithCompletion___block_invoke_2_cold_1();
+      __40__RPNearFieldClient_stopWithCompletion___block_invoke_2_cold_1(v5);
     }
   }
 

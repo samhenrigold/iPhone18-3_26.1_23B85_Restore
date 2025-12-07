@@ -3,6 +3,7 @@
 - (id)_accessibilityHitTest:(CGPoint)test withEvent:(id)event;
 - (id)_axToolPaletteLocationAlongEdge:(int64_t)edge;
 - (id)_axToolPaletteLocationAtCorner:(unint64_t)corner;
+- (void)_dockPaletteToPosition:(int64_t)position animated:(BOOL)animated;
 @end
 
 @implementation PKPaletteHostViewAccessibility
@@ -30,6 +31,17 @@
   [*v7 _accessibilitySetBoolValue:0 forKey:@"AXIsHitTestingPKPaletteHostViewKey"];
 
   return v10;
+}
+
+- (void)_dockPaletteToPosition:(int64_t)position animated:(BOOL)animated
+{
+  v8.receiver = self;
+  v8.super_class = PKPaletteHostViewAccessibility;
+  [(PKPaletteHostViewAccessibility *)&v8 _dockPaletteToPosition:position animated:animated];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
+  v6 = *MEMORY[0x29EDC7EA8];
+  v7 = [(PKPaletteHostViewAccessibility *)self _axToolPaletteLocationAlongEdge:position];
+  UIAccessibilityPostNotification(v6, v7);
 }
 
 - (id)_axToolPaletteLocationAlongEdge:(int64_t)edge

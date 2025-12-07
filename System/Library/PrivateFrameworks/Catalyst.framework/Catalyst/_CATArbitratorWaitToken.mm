@@ -4,6 +4,7 @@
 - (void)cancel;
 - (void)performCompletionBlock;
 - (void)resume;
+- (void)waitForRegistrationEntry:(id)entry forKey:(id)key exclusive:(BOOL)exclusive;
 @end
 
 @implementation _CATArbitratorWaitToken
@@ -52,6 +53,22 @@ LABEL_3:
   }
 
   return v10;
+}
+
+- (void)waitForRegistrationEntry:(id)entry forKey:(id)key exclusive:(BOOL)exclusive
+{
+  exclusiveCopy = exclusive;
+  entryCopy = entry;
+  keyCopy = key;
+  v9 = entryCopy;
+  if (!entryCopy)
+  {
+    [_CATArbitratorWaitToken waitForRegistrationEntry:forKey:exclusive:];
+    v9 = 0;
+  }
+
+  v10 = [v9 waitForResourceWithExclusive:exclusiveCopy group:self->mGroup];
+  [(NSMutableDictionary *)self->mTokenByKey setObject:v10 forKeyedSubscript:keyCopy];
 }
 
 - (void)resume

@@ -10,7 +10,6 @@
 - (int)preprocessData:(float)data inputDisparity:(id)disparity outputDisparity:(id)outputDisparity outputConfidence:(id)confidence;
 - (int)setFarWithDistance:(id)distance inputDistanceTransformMap:(id)map inputDisparity:(id)disparity inoutConfidenceMap:(id)confidenceMap outputDistanceTransformDisparity:(id)transformDisparity;
 - (void)dealloc;
-- (void)releaseResources;
 @end
 
 @implementation DepthProcUtilitiesMetal
@@ -177,13 +176,6 @@ LABEL_14:
   }
 
   return 0;
-}
-
-- (void)releaseResources
-{
-  setFarDistFurthestDisparityArray = self->_setFarDistFurthestDisparityArray;
-  self->_setFarDistFurthestDisparityArray = 0;
-  MEMORY[0x2A1C71028]();
 }
 
 - (void)dealloc

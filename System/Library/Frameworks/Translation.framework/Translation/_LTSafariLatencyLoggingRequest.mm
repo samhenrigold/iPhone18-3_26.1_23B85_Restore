@@ -114,7 +114,7 @@
 
 - (NSDictionary)dict
 {
-  v14[6] = *MEMORY[0x277D85DE8];
+  v13[6] = *MEMORY[0x277D85DE8];
   if (self->_firstResponse < 0.0)
   {
     self->_firstResponse = self->_start;
@@ -131,27 +131,25 @@
     self->_progressComplete = start;
   }
 
-  v13[0] = @"localePair";
+  v12[0] = @"localePair";
   combinedLocaleIdentifier = [(_LTLocalePair *)self->_localePair combinedLocaleIdentifier];
   processName = self->_processName;
-  v14[0] = combinedLocaleIdentifier;
-  v14[1] = processName;
-  v13[1] = @"processName";
-  v13[2] = @"timeToFirstResponse";
+  v13[0] = combinedLocaleIdentifier;
+  v13[1] = processName;
+  v12[1] = @"processName";
+  v12[2] = @"timeToFirstResponse";
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:self->_firstResponse - self->_start];
-  v14[2] = v6;
-  v13[3] = @"timeToFirstParagraphComplete";
+  v13[2] = v6;
+  v12[3] = @"timeToFirstParagraphComplete";
   v7 = [MEMORY[0x277CCABB0] numberWithDouble:self->_firstParagraphComplete - self->_start];
-  v14[3] = v7;
-  v13[4] = @"timeToProgressComplete";
+  v13[3] = v7;
+  v12[4] = @"timeToProgressComplete";
   v8 = [MEMORY[0x277CCABB0] numberWithDouble:self->_progressComplete - self->_start];
-  v14[4] = v8;
-  v13[5] = @"timeToPageComplete";
+  v13[4] = v8;
+  v12[5] = @"timeToPageComplete";
   v9 = [MEMORY[0x277CCABB0] numberWithDouble:self->_pageComplete - self->_start];
-  v14[5] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:6];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[5] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:6];
 
   return v10;
 }

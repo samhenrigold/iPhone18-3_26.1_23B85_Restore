@@ -39,7 +39,7 @@
   v8 = v7;
   v10 = v9;
   memset(&v30, 0, sizeof(v30));
-  [(_PUVideoHighlightStripView *)self videoDuration];
+  objc_msgSend_videoDuration(self);
   time = v30;
   Seconds = CMTimeGetSeconds(&time);
   highlightTimeRanges = [(_PUVideoHighlightStripView *)self highlightTimeRanges];
@@ -101,7 +101,7 @@
 {
   v11 = 0uLL;
   v12 = 0;
-  [(_PUVideoHighlightStripView *)self currentTime];
+  objc_msgSend_currentTime(self, a2);
   v7 = 0;
   v8 = &v7;
   v9 = 0x2020000000;

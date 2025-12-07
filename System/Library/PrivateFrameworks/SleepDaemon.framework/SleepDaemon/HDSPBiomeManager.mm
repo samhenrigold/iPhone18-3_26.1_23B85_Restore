@@ -49,43 +49,40 @@
 
 - (id)subscribe:(id)subscribe callback:(id)callback
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   subscribeCopy = subscribe;
   callbackCopy = callback;
   v8 = HKSPLogForCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543618;
+    v11 = 138543618;
     selfCopy = self;
-    v14 = 2114;
-    v15 = subscribeCopy;
-    _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] subscribing publisher %{public}@", &v12, 0x16u);
+    v13 = 2114;
+    v14 = subscribeCopy;
+    _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] subscribing publisher %{public}@", &v11, 0x16u);
   }
 
   v9 = [(HDSPBiomeInterface *)self->_biomeInterface subscribe:subscribeCopy callback:callbackCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (void)unsubscribe:(id)unsubscribe
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   unsubscribeCopy = unsubscribe;
   v4 = HKSPLogForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543618;
-    v8 = objc_opt_class();
-    v9 = 2114;
-    v10 = unsubscribeCopy;
-    v5 = v8;
-    _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] unsubscribing %{public}@", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = objc_opt_class();
+    v8 = 2114;
+    v9 = unsubscribeCopy;
+    v5 = v7;
+    _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] unsubscribing %{public}@", &v6, 0x16u);
   }
 
   [unsubscribeCopy cancel];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sleepModePublisher
@@ -116,7 +113,7 @@
 
 - (void)sleepScheduleStateDidChange:(unint64_t)change previousState:(unint64_t)state reason:(unint64_t)reason
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (state != change)
   {
     v8 = HKSPLogForCategory();
@@ -127,15 +124,15 @@
       v11 = NSStringFromHKSPSleepScheduleState();
       v12 = NSStringFromHKSPSleepScheduleState();
       v13 = NSStringFromHKSPSleepScheduleStateChangeReason();
-      v20 = 138544130;
-      v21 = v9;
-      v22 = 2114;
-      v23 = v11;
-      v24 = 2114;
-      v25 = v12;
-      v26 = 2114;
-      v27 = v13;
-      _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep state changed from %{public}@ to %{public}@ (%{public}@)", &v20, 0x2Au);
+      v19 = 138544130;
+      v20 = v9;
+      v21 = 2114;
+      v22 = v11;
+      v23 = 2114;
+      v24 = v12;
+      v25 = 2114;
+      v26 = v13;
+      _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep state changed from %{public}@ to %{public}@ (%{public}@)", &v19, 0x2Au);
     }
 
     environment = [(HDSPBiomeManager *)self environment];
@@ -147,10 +144,10 @@
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         v17 = objc_opt_class();
-        v20 = 138543362;
-        v21 = v17;
+        v19 = 138543362;
+        v20 = v17;
         v18 = v17;
-        _os_log_impl(&dword_269B11000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] we're in user requested sleep mode before wind down/bedtime, telling Biome", &v20, 0xCu);
+        _os_log_impl(&dword_269B11000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] we're in user requested sleep mode before wind down/bedtime, telling Biome", &v19, 0xCu);
       }
 
       [(HDSPBiomeManager *)self _writeSleepModeToBiome:2 reason:2 forceWrite:0];
@@ -158,23 +155,21 @@
 
     [(HDSPBiomeManager *)self _writeSleepScheduleStateToBiome:change reason:reason forceWrite:1];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sleepScheduleModelManager:(id)manager didUpdateSleepScheduleModel:(id)model
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   v6 = HKSPLogForCategory();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543618;
-    v13 = objc_opt_class();
-    v14 = 2114;
-    v15 = modelCopy;
-    v7 = v13;
-    _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] didUpdateSleepScheduleModel: %{public}@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = objc_opt_class();
+    v13 = 2114;
+    v14 = modelCopy;
+    v7 = v12;
+    _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] didUpdateSleepScheduleModel: %{public}@", &v11, 0x16u);
   }
 
   environment = [(HDSPBiomeManager *)self environment];
@@ -185,13 +180,11 @@
   {
     [(HDSPBiomeManager *)self _writeSleepModeToBiome:sleepMode reason:10 forceWrite:0];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sleepModeDidChange:(int64_t)change previousMode:(int64_t)mode reason:(unint64_t)reason
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v9 = HKSPLogForCategory();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
@@ -200,24 +193,23 @@
     v12 = NSStringFromHKSPSleepMode();
     v13 = NSStringFromHKSPSleepMode();
     v14 = NSStringFromHKSPSleepModeChangeReason();
-    v16 = 138544130;
-    v17 = v10;
-    v18 = 2114;
-    v19 = v12;
-    v20 = 2114;
-    v21 = v13;
-    v22 = 2114;
-    v23 = v14;
-    _os_log_impl(&dword_269B11000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep mode changed from %{public}@ to %{public}@ (%{public}@)", &v16, 0x2Au);
+    v15 = 138544130;
+    v16 = v10;
+    v17 = 2114;
+    v18 = v12;
+    v19 = 2114;
+    v20 = v13;
+    v21 = 2114;
+    v22 = v14;
+    _os_log_impl(&dword_269B11000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep mode changed from %{public}@ to %{public}@ (%{public}@)", &v15, 0x2Au);
   }
 
   [(HDSPBiomeManager *)self _writeSleepModeToBiome:change reason:reason forceWrite:change != mode];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldWriteToBiome
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   environment = [(HDSPBiomeManager *)self environment];
   sleepScheduleModelManager = [environment sleepScheduleModelManager];
   sleepSettings = [sleepScheduleModelManager sleepSettings];
@@ -242,16 +234,15 @@ LABEL_7:
   v9 = HKSPLogForCategory();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138543362;
-    v15 = objc_opt_class();
-    v10 = v15;
-    _os_log_impl(&dword_269B11000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] not writing to biome because sleep features are disabled for this watch", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = objc_opt_class();
+    v10 = v14;
+    _os_log_impl(&dword_269B11000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] not writing to biome because sleep features are disabled for this watch", &v13, 0xCu);
   }
 
   v11 = 0;
 LABEL_8:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

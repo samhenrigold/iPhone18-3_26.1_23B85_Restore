@@ -22,28 +22,28 @@
   v4 = sub_100000F10(@"HangTracerEnabled", prefixForDefaults);
   CFPreferencesSetValue(v4, kCFBooleanTrue, @"com.apple.da", @"mobile", kCFPreferencesAnyHost);
 
-  v5 = sub_10000B598();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = sub_10000B598(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     sub_10000C944(self);
   }
 
   prefixForDefaults2 = [self prefixForDefaults];
-  v7 = sub_100000F10(@"HangTracerReportPeriod", prefixForDefaults2);
-  CFPreferencesSetValue(v7, [NSNumber numberWithDouble:3600.0], @"com.apple.da", @"mobile", kCFPreferencesAnyHost);
+  v8 = sub_100000F10(@"HangTracerReportPeriod", prefixForDefaults2);
+  CFPreferencesSetValue(v8, [NSNumber numberWithDouble:3600.0], @"com.apple.da", @"mobile", kCFPreferencesAnyHost);
 
-  v8 = sub_10000B598();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v10 = sub_10000B598(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     sub_10000C9E8(self);
   }
 
   prefixForDefaults3 = [self prefixForDefaults];
-  v10 = sub_100000F10(@"HangTracerEnableTailspin", prefixForDefaults3);
-  CFPreferencesSetValue(v10, kCFBooleanFalse, @"com.apple.da", @"mobile", kCFPreferencesAnyHost);
+  v12 = sub_100000F10(@"HangTracerEnableTailspin", prefixForDefaults3);
+  CFPreferencesSetValue(v12, kCFBooleanFalse, @"com.apple.da", @"mobile", kCFPreferencesAnyHost);
 
-  v11 = sub_10000B598();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v14 = sub_10000B598(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     sub_10000CA8C(self);
   }

@@ -5,12 +5,12 @@
 
 uint64_t __35___OSLogCatalogFilter_readDSCUUIDs__block_invoke(uint64_t result, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v8 = __35___OSLogCatalogFilter_readDSCUUIDs__block_invoke_2;
-  v9 = &unk_2787AE430;
-  v10 = *(result + 32);
+  v10 = *MEMORY[0x277D85DE8];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v7 = __35___OSLogCatalogFilter_readDSCUUIDs__block_invoke_2;
+  v8 = &unk_2787AE430;
+  v9 = *(result + 32);
   v2 = *(a2 + 8);
   if (*(v2 + 12))
   {
@@ -18,7 +18,7 @@ uint64_t __35___OSLogCatalogFilter_readDSCUUIDs__block_invoke(uint64_t result, u
     v5 = 28;
     do
     {
-      result = (v8)(v7, *(a2 + 24) + v5 - 16, v2 + *(*(a2 + 24) + v5));
+      result = (v7)(v6, *(a2 + 24) + v5 - 16, v2 + *(*(a2 + 24) + v5));
       if ((result & 1) == 0)
       {
         break;
@@ -32,7 +32,6 @@ uint64_t __35___OSLogCatalogFilter_readDSCUUIDs__block_invoke(uint64_t result, u
     while (v4 < *(v2 + 12));
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 

@@ -1,16 +1,16 @@
-void std::__sort3[abi:fn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,anonymous namespace::LigInput *,0>(__int16 **a1, uint64_t a2, __int16 **a3)
+void std::__sort3[abi:fn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,anonymous namespace::LigInput *,0>(__int16 **a1, uint64_t a2, char **a3)
 {
   v6 = *a2;
   v7 = *(a2 + 8);
   v8 = *a1;
   v9 = a1[1];
-  v10 = v7 - v6;
+  v10 = (v7 - v6) >> 1;
   v11 = v9 - *a1;
   if (v10 > v11 >> 1)
   {
     v12 = *a3;
     v13 = a3[1];
-    v14 = v13 - *a3;
+    v14 = (v13 - *a3) >> 1;
     if (v14 > v10)
     {
       goto LABEL_26;
@@ -40,8 +40,8 @@ LABEL_24:
           break;
         }
 
-        ++v12;
-        ++v23;
+        v12 += 2;
+        v23 += 2;
         if (!--v14)
         {
           goto LABEL_24;
@@ -88,7 +88,7 @@ LABEL_31:
           return;
         }
 
-        for (i = *a2; ; ++i)
+        for (i = *a2; ; i += 2)
         {
           v48 = *v37;
           v49 = *i;
@@ -117,7 +117,7 @@ LABEL_31:
       v50 = v43;
       TInlineVector<unsigned short,3ul>::TInlineVector(&v50, v39, v40);
       WORD4(v52) = *(a2 + 40);
-      std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a2, *a3, a3[1], a3[1] - *a3);
+      std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a2, *a3, a3[1], (a3[1] - *a3) >> 1);
       *(a2 + 40) = *(a3 + 20);
 LABEL_27:
       std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a3, v50, *(&v50 + 1), (*(&v50 + 1) - v50) >> 1);
@@ -135,7 +135,7 @@ LABEL_26:
     v50 = v27;
     TInlineVector<unsigned short,3ul>::TInlineVector(&v50, v8, v9);
     WORD4(v52) = *(a1 + 20);
-    std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a1, *a3, a3[1], a3[1] - *a3);
+    std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a1, *a3, a3[1], (a3[1] - *a3) >> 1);
     *(a1 + 20) = *(a3 + 20);
     goto LABEL_27;
   }
@@ -143,7 +143,7 @@ LABEL_26:
   v16 = v11 >> 1;
   if (v7 != v6 && v10 >= v16)
   {
-    v15 = v7 - v6;
+    v15 = (v7 - v6) >> 1;
     v18 = *a1;
     v19 = v6;
     while (1)
@@ -155,7 +155,7 @@ LABEL_26:
         break;
       }
 
-      ++v19;
+      v19 += 2;
       ++v18;
       if (!--v15)
       {
@@ -174,7 +174,7 @@ LABEL_26:
 LABEL_14:
   v12 = *a3;
   v13 = a3[1];
-  v14 = v13 - *a3;
+  v14 = (v13 - *a3) >> 1;
   if (v14 <= v10)
   {
     goto LABEL_17;
@@ -193,7 +193,7 @@ LABEL_32:
   v50 = v28;
   TInlineVector<unsigned short,3ul>::TInlineVector(&v50, v6, v7);
   WORD4(v52) = *(a2 + 40);
-  std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a2, *a3, a3[1], a3[1] - *a3);
+  std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a2, *a3, a3[1], (a3[1] - *a3) >> 1);
   *(a2 + 40) = *(a3 + 20);
   std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a3, v50, *(&v50 + 1), (*(&v50 + 1) - v50) >> 1);
   *(a3 + 20) = WORD4(v52);
@@ -202,7 +202,7 @@ LABEL_32:
   v30 = *(a2 + 8);
   v31 = *a1;
   v32 = a1[1];
-  v33 = (v30 - *a2) >> 1;
+  v33 = &v30[-*a2] >> 1;
   v34 = v32 - *a1;
   if (v33 > v34 >> 1)
   {
@@ -220,7 +220,7 @@ LABEL_32:
         break;
       }
 
-      ++v29;
+      v29 += 2;
       if (!--v33)
       {
         return;
@@ -246,13 +246,13 @@ LABEL_33:
   }
 }
 
-void std::__sort4[abi:fn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,anonymous namespace::LigInput *,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::__sort4[abi:fn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,anonymous namespace::LigInput *,0>(uint64_t a1, __int16 **a2, uint64_t a3, uint64_t a4)
 {
   v8 = *a4;
   v9 = *(a4 + 8);
   v10 = *a3;
   v11 = *(a3 + 8);
-  v12 = (v9 - *a4) >> 1;
+  v12 = &v9[-*a4] >> 1;
   v13 = v11 - *a3;
   if (v12 > v13 >> 1)
   {
@@ -262,7 +262,7 @@ void std::__sort4[abi:fn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,
   v29 = v13 >> 1;
   if (v9 != v8 && v12 >= v29)
   {
-    for (i = *a3; ; ++i)
+    for (i = *a3; ; i += 2)
     {
       v32 = *v8;
       v33 = *i;
@@ -271,7 +271,7 @@ void std::__sort4[abi:fn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,
         break;
       }
 
-      ++v8;
+      v8 += 2;
       if (!--v12)
       {
         return;
@@ -296,8 +296,8 @@ LABEL_2:
       v15 = *a3;
       v16 = *(a3 + 8);
       v17 = *a2;
-      v18 = *(a2 + 8);
-      v19 = (v16 - *a3) >> 1;
+      v18 = a2[1];
+      v19 = &v16[-*a3] >> 1;
       v20 = v18 - *a2;
       if (v19 > v20 >> 1)
       {
@@ -315,7 +315,7 @@ LABEL_2:
             break;
           }
 
-          ++v15;
+          v15 += 2;
           if (!--v19)
           {
             return;
@@ -331,14 +331,14 @@ LABEL_3:
           v42 = v21;
           v40 = v21;
           TInlineVector<unsigned short,3ul>::TInlineVector(&v40, v17, v18);
-          WORD4(v42) = *(a2 + 40);
+          WORD4(v42) = *(a2 + 20);
           std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a2, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 1);
-          *(a2 + 40) = *(a3 + 40);
+          *(a2 + 20) = *(a3 + 40);
           std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a3, v40, *(&v40 + 1), (*(&v40 + 1) - v40) >> 1);
           *(a3 + 40) = WORD4(v42);
           std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__destroy_vector::operator()[abi:fn200100](&v40);
           v22 = *a2;
-          v23 = *(a2 + 8);
+          v23 = a2[1];
           v24 = *a1;
           v25 = *(a1 + 8);
           v26 = (v23 - *a2) >> 1;
@@ -376,10 +376,10 @@ LABEL_4:
               v40 = v28;
               TInlineVector<unsigned short,3ul>::TInlineVector(&v40, v24, v25);
               WORD4(v42) = *(a1 + 40);
-              std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 1);
-              *(a1 + 40) = *(a2 + 40);
+              std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a1, *a2, a2[1], a2[1] - *a2);
+              *(a1 + 40) = *(a2 + 20);
               std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a2, v40, *(&v40 + 1), (*(&v40 + 1) - v40) >> 1);
-              *(a2 + 40) = WORD4(v42);
+              *(a2 + 20) = WORD4(v42);
               std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__destroy_vector::operator()[abi:fn200100](&v40);
             }
           }
@@ -389,13 +389,13 @@ LABEL_4:
   }
 }
 
-void std::__sort5[abi:fn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,anonymous namespace::LigInput *,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void std::__sort5[abi:fn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,anonymous namespace::LigInput *,0>(__int16 **a1, uint64_t a2, __int16 **a3, __int16 **a4, uint64_t a5)
 {
   v10 = *a5;
   v11 = *(a5 + 8);
   v12 = *a4;
-  v13 = *(a4 + 8);
-  v14 = (v11 - *a5) >> 1;
+  v13 = a4[1];
+  v14 = &v11[-*a5] >> 1;
   v15 = v13 - *a4;
   if (v14 > v15 >> 1)
   {
@@ -414,7 +414,7 @@ void std::__sort5[abi:fn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,
         break;
       }
 
-      ++v10;
+      v10 += 2;
       if (!--v14)
       {
         return;
@@ -430,16 +430,16 @@ LABEL_2:
       v54 = v16;
       v52 = v16;
       TInlineVector<unsigned short,3ul>::TInlineVector(&v52, v12, v13);
-      WORD4(v54) = *(a4 + 40);
+      WORD4(v54) = *(a4 + 20);
       std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a4, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 1);
-      *(a4 + 40) = *(a5 + 40);
+      *(a4 + 20) = *(a5 + 40);
       std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a5, v52, *(&v52 + 1), (*(&v52 + 1) - v52) >> 1);
       *(a5 + 40) = WORD4(v54);
       std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__destroy_vector::operator()[abi:fn200100](&v52);
       v17 = *a4;
-      v18 = *(a4 + 8);
+      v18 = a4[1];
       v19 = *a3;
-      v20 = *(a3 + 8);
+      v20 = a3[1];
       v21 = (v18 - *a4) >> 1;
       v22 = v20 - *a3;
       if (v21 > v22 >> 1)
@@ -474,14 +474,14 @@ LABEL_3:
           v54 = v23;
           v52 = v23;
           TInlineVector<unsigned short,3ul>::TInlineVector(&v52, v19, v20);
-          WORD4(v54) = *(a3 + 40);
-          std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a3, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 1);
-          *(a3 + 40) = *(a4 + 40);
+          WORD4(v54) = *(a3 + 20);
+          std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a3, *a4, a4[1], a4[1] - *a4);
+          *(a3 + 20) = *(a4 + 20);
           std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a4, v52, *(&v52 + 1), (*(&v52 + 1) - v52) >> 1);
-          *(a4 + 40) = WORD4(v54);
+          *(a4 + 20) = WORD4(v54);
           std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__destroy_vector::operator()[abi:fn200100](&v52);
           v24 = *a3;
-          v25 = *(a3 + 8);
+          v25 = a3[1];
           v26 = *a2;
           v27 = *(a2 + 8);
           v28 = (v25 - *a3) >> 1;
@@ -519,15 +519,15 @@ LABEL_4:
               v52 = v30;
               TInlineVector<unsigned short,3ul>::TInlineVector(&v52, v26, v27);
               WORD4(v54) = *(a2 + 40);
-              std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a2, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 1);
-              *(a2 + 40) = *(a3 + 40);
+              std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a2, *a3, a3[1], a3[1] - *a3);
+              *(a2 + 40) = *(a3 + 20);
               std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a3, v52, *(&v52 + 1), (*(&v52 + 1) - v52) >> 1);
-              *(a3 + 40) = WORD4(v54);
+              *(a3 + 20) = WORD4(v54);
               std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__destroy_vector::operator()[abi:fn200100](&v52);
               v31 = *a2;
               v32 = *(a2 + 8);
               v33 = *a1;
-              v34 = *(a1 + 8);
+              v34 = a1[1];
               v35 = (v32 - *a2) >> 1;
               v36 = v34 - *a1;
               if (v35 > v36 >> 1)
@@ -562,9 +562,9 @@ LABEL_5:
                   v54 = v37;
                   v52 = v37;
                   TInlineVector<unsigned short,3ul>::TInlineVector(&v52, v33, v34);
-                  WORD4(v54) = *(a1 + 40);
+                  WORD4(v54) = *(a1 + 20);
                   std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 1);
-                  *(a1 + 40) = *(a2 + 40);
+                  *(a1 + 20) = *(a2 + 40);
                   std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a2, v52, *(&v52 + 1), (*(&v52 + 1) - v52) >> 1);
                   *(a2 + 40) = WORD4(v54);
                   std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__destroy_vector::operator()[abi:fn200100](&v52);
@@ -578,7 +578,7 @@ LABEL_5:
   }
 }
 
-uint64_t std::__insertion_sort_incomplete[abi:fn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,anonymous namespace::LigInput *>(uint64_t a1, unsigned __int16 **a2)
+BOOL std::__insertion_sort_incomplete[abi:fn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,anonymous namespace::LigInput *>(uint64_t a1, unsigned __int16 **a2)
 {
   v4 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 4);
   if (v4 > 2)
@@ -635,7 +635,7 @@ LABEL_11:
             }
 
             ++v33;
-            ++v17;
+            v17 += 2;
             if (!--v18)
             {
               goto LABEL_40;
@@ -663,9 +663,9 @@ LABEL_14:
               v25 = *(&v41 + 1);
               v24 = v41;
               v26 = (*(&v41 + 1) - v41) >> 1;
-              if (v26 <= v23 - v22)
+              if (v26 <= (v23 - v22) >> 1)
               {
-                if (*(&v41 + 1) == v41 || v26 < v23 - v22)
+                if (*(&v41 + 1) == v41 || v26 < (v23 - v22) >> 1)
                 {
                   break;
                 }
@@ -674,7 +674,7 @@ LABEL_14:
                 while (1)
                 {
                   v29 = *(v41 + 2 * v28);
-                  v30 = v22[v28];
+                  v30 = *&v22[2 * v28];
                   if (v29 != v30)
                   {
                     break;
@@ -692,7 +692,7 @@ LABEL_14:
                 }
               }
 
-              std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(v12, v22, v23, v23 - v22);
+              std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(v12, v22, v23, (v23 - v22) >> 1);
               *(v12 + 40) = *(v12 - 8);
               v12 = v21;
               if (v21 == a1)
@@ -810,7 +810,7 @@ BOOL anonymous namespace::MorxLigatureSubtableBuilder::StateNeedsAction(_anonymo
   return result;
 }
 
-void std::vector<anonymous namespace::StateMemberInfo,TInlineBufferAllocator<anonymous namespace::StateMemberInfo,30ul>>::push_back[abi:fn200100](unint64_t *a1, uint64_t a2)
+void std::vector<anonymous namespace::StateMemberInfo,TInlineBufferAllocator<anonymous namespace::StateMemberInfo,30ul>>::push_back[abi:fn200100](void **a1, uint64_t a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -925,7 +925,7 @@ void std::vector<anonymous namespace::StateMemberInfo,TInlineBufferAllocator<ano
   a1[1] = v7;
 }
 
-void DoSubgroupSubstitutions(void *a1, uint64_t a2, unsigned __int16 **a3, uint64_t a4)
+void DoSubgroupSubstitutions(void *a1, uint64_t a2, char **a3, uint64_t a4)
 {
   v4 = *(a2 + 48) - *(a2 + 40);
   if (v4)
@@ -1024,7 +1024,7 @@ LABEL_20:
   }
 }
 
-uint64_t GetActionLookupIndex(char **a1, uint64_t a2, int a3, __int16 **a4)
+uint64_t GetActionLookupIndex(unint64_t *a1, uint64_t a2, int a3, __int16 **a4)
 {
   v48 = 0xAAAAAAAAAAAAAAAALL;
   v50[0] = 0xAAAAAAAAAAAAAAAALL;
@@ -1051,9 +1051,9 @@ uint64_t GetActionLookupIndex(char **a1, uint64_t a2, int a3, __int16 **a4)
     v12 = v5 - v6;
     while (v9 > v11)
     {
-      v13 = &v8[56 * v11];
+      v13 = (v8 + 56 * v11);
       v14 = *v13;
-      v15 = *(v13 + 1);
+      v15 = v13[1];
       v16 = *(v13 + 1);
       v17 = v12 == *(v13 + 2) - v16 && memcmp(v6, v16, v12) == 0;
       if (v14 == a2)
@@ -1105,7 +1105,7 @@ LABEL_24:
   {
     LOWORD(v48) = a2;
     WORD1(v48) = a3;
-    std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(&v48 + 1, v6, v46, v46 - v6);
+    std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(&v48 + 1, v6, v46, (v46 - v6) >> 1);
     v20 = a1[1];
     v19 = a1[2];
     if (v20 >= v19)
@@ -1136,7 +1136,7 @@ LABEL_24:
       if (v26)
       {
         v27 = a1[213];
-        v28 = &v27[56 * v26];
+        v28 = v27 + 56 * v26;
         if (v28 > (a1 + 213))
         {
           if (v26 <= 0x492492492492492)
@@ -1155,14 +1155,14 @@ LABEL_24:
         v27 = 0;
       }
 
-      v29 = &v27[56 * v23];
+      v29 = v27 + 56 * v23;
       *v29 = v48;
-      TInlineVector<unsigned short,3ul>::TInlineVector(v29 + 1, *(&v48 + 1), v49);
-      *(v29 + 12) = v51;
+      TInlineVector<unsigned short,3ul>::TInlineVector((v29 + 8), *(&v48 + 1), v49);
+      *(v29 + 48) = v51;
       v30 = *a1;
       v31 = a1[1];
-      v32 = &v29[-(v31 - *a1)];
-      v33 = &v27[56 * v26];
+      v32 = v29 - (v31 - *a1);
+      v33 = v27 + 56 * v26;
       v21 = v29 + 56;
       if (v31 == *a1)
       {
@@ -1171,15 +1171,15 @@ LABEL_24:
 
       else
       {
-        v34 = &v27[56 * v23 - 8 * ((v31 - *a1) >> 3) + 8];
+        v34 = (56 * v23 - 8 * ((v31 - *a1) >> 3) + v27 + 8);
         v35 = *a1;
-        v36 = &v29[-(v31 - *a1)];
+        v36 = v29 - (v31 - *a1);
         do
         {
           *(v34 - 2) = *v35;
-          v37 = TInlineVector<unsigned short,3ul>::TInlineVector(v34, v35[1], v35[2]);
-          *(v36 + 12) = *(v35 + 12);
-          v35 += 7;
+          v37 = TInlineVector<unsigned short,3ul>::TInlineVector(v34, *(v35 + 8), *(v35 + 16));
+          *(v36 + 48) = *(v35 + 48);
+          v35 += 56;
           v36 += 56;
           v34 = v37 + 7;
         }
@@ -1188,8 +1188,8 @@ LABEL_24:
         v22 = a4;
         do
         {
-          std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__destroy_vector::operator()[abi:fn200100]((v30 + 8));
-          v30 += 56;
+          std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__destroy_vector::operator()[abi:fn200100]((v30 + 1));
+          v30 += 7;
         }
 
         while (v30 != v31);
@@ -1202,7 +1202,7 @@ LABEL_24:
       a1[2] = v33;
       if (v30)
       {
-        v39 = (a1 + 213);
+        v39 = a1 + 213;
         if (a1 + 3 <= v30 && v39 > v30)
         {
           if (v38 == *v39)
@@ -1221,8 +1221,8 @@ LABEL_24:
     else
     {
       *v20 = v48;
-      TInlineVector<unsigned short,3ul>::TInlineVector(v20 + 1, *(&v48 + 1), v49);
-      *(v20 + 12) = v51;
+      TInlineVector<unsigned short,3ul>::TInlineVector((v20 + 8), *(&v48 + 1), v49);
+      *(v20 + 48) = v51;
       v21 = v20 + 56;
       v22 = a4;
     }
@@ -1271,7 +1271,7 @@ uint64_t *TInlineVector<anonymous namespace::StateMemberInfo,30ul>::TInlineVecto
 {
   *a1 = 0;
   a1[1] = 0;
-  v4 = (a1 + 3);
+  v4 = a1 + 3;
   a1[2] = 0;
   a1[213] = v4;
   if (a3 != a2)
@@ -1346,7 +1346,7 @@ void std::allocator_traits<TInlineBufferAllocator<anonymous namespace::StateInfo
   std::vector<unsigned short,TInlineBufferAllocator<unsigned short,3ul>>::__destroy_vector::operator()[abi:fn200100](a1);
 }
 
-unsigned __int16 *ReplaceSubgroupWithSingle(unsigned __int16 *result, unsigned __int16 **a2, unsigned __int16 a3)
+unsigned __int16 *ReplaceSubgroupWithSingle(unsigned __int16 *result, char **a2, unsigned __int16 a3)
 {
   v4 = *result;
   v3 = *(result + 1);
@@ -1358,7 +1358,7 @@ unsigned __int16 *ReplaceSubgroupWithSingle(unsigned __int16 *result, unsigned _
     v7 = 0;
 LABEL_5:
     v11 = v6 - v5;
-    v12 = v6 - v5;
+    v12 = (v6 - v5) >> 1;
     while (1)
     {
       if (v6 != v5)
@@ -1392,7 +1392,7 @@ LABEL_15:
           }
 
           result = v17 + 1;
-          v18 = v5 + 1;
+          v18 = (v5 + 2);
           while (v18 != v6)
           {
             v20 = *result++;
@@ -1450,7 +1450,7 @@ LABEL_18:
   return (v7 & 1);
 }
 
-unsigned __int16 *ChangeIdentityForward(void *a1, uint64_t a2, unsigned __int16 **a3, uint64_t a4)
+unsigned __int16 *ChangeIdentityForward(void *a1, uint64_t a2, char **a3, uint64_t a4)
 {
   result = ReplaceSubgroupWithSingle(a2, a3, a4);
   if (result)
@@ -1860,7 +1860,7 @@ void std::vector<STXEntryOne,TInlineBufferAllocator<STXEntryOne,30ul>>::__destro
   }
 }
 
-void *std::vector<std::vector<unsigned short>,TInlineBufferAllocator<std::vector<unsigned short>,4ul>>::__init_with_size[abi:fn200100]<std::__wrap_iter<std::vector<unsigned short> const*>,std::__wrap_iter<std::vector<unsigned short> const*>>(void *result, void *a2, void *a3, unint64_t a4)
+uint64_t *std::vector<std::vector<unsigned short>,TInlineBufferAllocator<std::vector<unsigned short>,4ul>>::__init_with_size[abi:fn200100]<std::__wrap_iter<std::vector<unsigned short> const*>,std::__wrap_iter<std::vector<unsigned short> const*>>(uint64_t *result, void *a2, void *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1930,7 +1930,7 @@ void std::vector<std::vector<unsigned short>,TInlineBufferAllocator<std::vector<
   }
 }
 
-void *std::__split_buffer<anonymous namespace::SubstFormat3,TInlineBufferAllocator<anonymous namespace::SubstFormat3,30ul> &>::__split_buffer(void *a1, unint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::__split_buffer<anonymous namespace::SubstFormat3,TInlineBufferAllocator<anonymous namespace::SubstFormat3,30ul> &>::__split_buffer(uint64_t *a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   a1[3] = 0;
   a1[4] = a4;
@@ -1964,16 +1964,16 @@ void *std::__split_buffer<anonymous namespace::SubstFormat3,TInlineBufferAllocat
   return a1;
 }
 
-void std::vector<anonymous namespace::SubstFormat3,TInlineBufferAllocator<anonymous namespace::SubstFormat3,30ul>>::__swap_out_circular_buffer(uint64_t a1, void *a2)
+void std::vector<anonymous namespace::SubstFormat3,TInlineBufferAllocator<anonymous namespace::SubstFormat3,30ul>>::__swap_out_circular_buffer(void ***result, void *a2)
 {
   v4 = a2[1];
-  v5 = *a1;
-  v6 = *(a1 + 8);
-  v7 = v4 + *a1 - v6;
-  if (v6 != *a1)
+  v5 = *result;
+  v6 = result[1];
+  v7 = *result + v4 - v6;
+  if (v6 != *result)
   {
-    v8 = *a1;
-    v9 = (v4 + *a1 - v6);
+    v8 = *result;
+    v9 = (*result + v4 - v6);
     do
     {
       v8 += 26;
@@ -1987,18 +1987,18 @@ void std::vector<anonymous namespace::SubstFormat3,TInlineBufferAllocator<anonym
     }
 
     while (v5 != v6);
-    v5 = *a1;
+    v5 = *result;
   }
 
   a2[1] = v7;
-  *a1 = v7;
-  *(a1 + 8) = v5;
+  *result = v7;
+  result[1] = v5;
   a2[1] = v5;
-  v10 = *(a1 + 8);
-  *(a1 + 8) = a2[2];
+  v10 = result[1];
+  result[1] = a2[2];
   a2[2] = v10;
-  v11 = *(a1 + 16);
-  *(a1 + 16) = a2[3];
+  v11 = result[2];
+  result[2] = a2[3];
   a2[3] = v11;
   *a2 = a2[1];
 }
@@ -2041,11 +2041,10 @@ __n128 std::allocator_traits<TInlineBufferAllocator<anonymous namespace::SubstFo
   *a1 = *a2;
   v4 = a2[1].n128_u64[0];
   v5 = a2[1].n128_u64[1];
-  a1[1].n128_u64[0] = 0;
-  a1[1].n128_u64[1] = 0;
+  a1[1] = 0uLL;
   a1[2].n128_u64[0] = 0;
   a1[8].n128_u64[1] = &a1[2].n128_u64[1];
-  std::vector<std::vector<unsigned short>,TInlineBufferAllocator<std::vector<unsigned short>,4ul>>::__init_with_size[abi:fn200100]<std::__wrap_iter<std::vector<unsigned short> const*>,std::__wrap_iter<std::vector<unsigned short> const*>>(a1[1].n128_u64, v4, v5, 0xAAAAAAAAAAAAAAABLL * (v5 - v4));
+  std::vector<std::vector<unsigned short>,TInlineBufferAllocator<std::vector<unsigned short>,4ul>>::__init_with_size[abi:fn200100]<std::__wrap_iter<std::vector<unsigned short> const*>,std::__wrap_iter<std::vector<unsigned short> const*>>(&a1[1], v4, v5, 0xAAAAAAAAAAAAAAABLL * (v5 - v4));
   v6 = a2[9].n128_u64[0];
   v7 = a2[9].n128_u64[1];
   v3[9].n128_u64[0] = 0;
@@ -2060,7 +2059,7 @@ __n128 std::allocator_traits<TInlineBufferAllocator<anonymous namespace::SubstFo
   v3[8].n128_u64[1] = 0;
   v3[9].n128_u64[0] = 0;
   v3[15].n128_u64[1] = &v3[9].n128_u64[1];
-  std::vector<std::vector<unsigned short>,TInlineBufferAllocator<std::vector<unsigned short>,4ul>>::__init_with_size[abi:fn200100]<std::__wrap_iter<std::vector<unsigned short> const*>,std::__wrap_iter<std::vector<unsigned short> const*>>(v3[8].n128_u64, v8, v9, 0xAAAAAAAAAAAAAAABLL * (v9 - v8));
+  std::vector<std::vector<unsigned short>,TInlineBufferAllocator<std::vector<unsigned short>,4ul>>::__init_with_size[abi:fn200100]<std::__wrap_iter<std::vector<unsigned short> const*>,std::__wrap_iter<std::vector<unsigned short> const*>>(&v3[8], v8, v9, 0xAAAAAAAAAAAAAAABLL * (v9 - v8));
   result = a2[25];
   v3[16] = result;
   return result;
@@ -2186,13 +2185,13 @@ uint64_t std::allocator_traits<TInlineBufferAllocator<std::vector<unsigned short
   return result;
 }
 
-void std::vector<std::vector<unsigned short>,TInlineBufferAllocator<std::vector<unsigned short>,30ul>>::__assign_with_size[abi:fn200100]<std::reverse_iterator<std::__wrap_iter<std::vector<unsigned short> const*>>,std::reverse_iterator<std::__wrap_iter<std::vector<unsigned short> const*>>>(uint64_t *a1, uint64_t a2, char **a3, int a4, char **a5, unint64_t a6)
+void std::vector<std::vector<unsigned short>,TInlineBufferAllocator<std::vector<unsigned short>,30ul>>::__assign_with_size[abi:fn200100]<std::reverse_iterator<std::__wrap_iter<std::vector<unsigned short> const*>>,std::reverse_iterator<std::__wrap_iter<std::vector<unsigned short> const*>>>(void ***a1, void *a2, void **a3, int a4, void **a5, unint64_t a6)
 {
   v8 = a3;
   v10 = *a1;
-  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= a6)
+  if (0xAAAAAAAAAAAAAAABLL * (a1[2] - *a1) >= a6)
   {
-    v14 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - v10) >> 3);
+    v14 = 0xAAAAAAAAAAAAAAABLL * (a1[1] - v10);
     if (v14 >= a6)
     {
       std::__copy_move_unwrap_iters[abi:fn200100]<std::__copy_impl,std::reverse_iterator<std::__wrap_iter<std::vector<unsigned short> const*>>,std::reverse_iterator<std::__wrap_iter<std::vector<unsigned short> const*>>,std::vector<unsigned short>*,0>(v23, a2, a3, a4, a5, v10);
@@ -2208,7 +2207,7 @@ void std::vector<std::vector<unsigned short>,TInlineBufferAllocator<std::vector<
           v21 = v22;
           if (v22)
           {
-            *(v19 - 16) = v21;
+            *(v19 - 2) = v21;
             operator delete(v21);
           }
 
@@ -2252,13 +2251,13 @@ void std::vector<std::vector<unsigned short>,TInlineBufferAllocator<std::vector<
       std::__throw_bad_array_new_length[abi:fn200100]();
     }
 
-    v11 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
+    v11 = 0x5555555555555556 * (a1[2] - *a1);
     if (v11 <= a6)
     {
       v11 = a6;
     }
 
-    if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
+    if (0xAAAAAAAAAAAAAAABLL * (a1[2] - *a1) >= 0x555555555555555)
     {
       v12 = 0xAAAAAAAAAAAAAAALL;
     }
@@ -2306,7 +2305,7 @@ void std::vector<std::vector<unsigned short>,TInlineBufferAllocator<std::vector<
   }
 }
 
-void *std::__copy_move_unwrap_iters[abi:fn200100]<std::__copy_impl,std::reverse_iterator<std::__wrap_iter<std::vector<unsigned short> const*>>,std::reverse_iterator<std::__wrap_iter<std::vector<unsigned short> const*>>,std::vector<unsigned short>*,0>(void *result, uint64_t a2, char **a3, int a4, char **a5, char **a6)
+void **std::__copy_move_unwrap_iters[abi:fn200100]<std::__copy_impl,std::reverse_iterator<std::__wrap_iter<std::vector<unsigned short> const*>>,std::reverse_iterator<std::__wrap_iter<std::vector<unsigned short> const*>>,std::vector<unsigned short>*,0>(void **result, void *a2, void **a3, int a4, void **a5, void **a6)
 {
   v8 = result;
   if (a3 == a5)
@@ -2317,7 +2316,7 @@ void *std::__copy_move_unwrap_iters[abi:fn200100]<std::__copy_impl,std::reverse_
   else
   {
     v9 = a5;
-    v10 = a3 - 3;
+    v10 = (a3 - 3);
     do
     {
       if (v10 != a6)
@@ -2339,7 +2338,7 @@ void *std::__copy_move_unwrap_iters[abi:fn200100]<std::__copy_impl,std::reverse_
   return result;
 }
 
-void *std::vector<unsigned short>::__assign_with_size[abi:fn200100]<unsigned short *,unsigned short *>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<unsigned short>::__assign_with_size[abi:fn200100]<unsigned short *,unsigned short *>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -2419,7 +2418,7 @@ void *std::vector<unsigned short>::__assign_with_size[abi:fn200100]<unsigned sho
   return result;
 }
 
-void std::vector<unsigned short>::__vallocate[abi:fn200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned short>::__vallocate[abi:fn200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -2429,11 +2428,11 @@ void std::vector<unsigned short>::__vallocate[abi:fn200100](uint64_t a1, uint64_
   std::__throw_bad_array_new_length[abi:fn200100]();
 }
 
-void std::vector<std::vector<unsigned short>,TInlineBufferAllocator<std::vector<unsigned short>,30ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<std::vector<unsigned short> const*>,std::__wrap_iter<std::vector<unsigned short> const*>>(uint64_t *a1, char **a2, char **a3, unint64_t a4)
+void std::vector<std::vector<unsigned short>,TInlineBufferAllocator<std::vector<unsigned short>,30ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<std::vector<unsigned short> const*>,std::__wrap_iter<std::vector<unsigned short> const*>>(void ***a1, char **a2, char **a3, unint64_t a4)
 {
   v6 = a2;
   v8 = *a1;
-  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= a4)
+  if (0xAAAAAAAAAAAAAAABLL * (a1[2] - *a1) >= a4)
   {
     v13 = a1[1] - v8;
     if (0xAAAAAAAAAAAAAAABLL * (v13 >> 3) >= a4)
@@ -2495,13 +2494,13 @@ void std::vector<std::vector<unsigned short>,TInlineBufferAllocator<std::vector<
       std::__throw_bad_array_new_length[abi:fn200100]();
     }
 
-    v9 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
+    v9 = 0x5555555555555556 * (a1[2] - *a1);
     if (v9 <= a4)
     {
       v9 = a4;
     }
 
-    if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
+    if (0xAAAAAAAAAAAAAAABLL * (a1[2] - *a1) >= 0x555555555555555)
     {
       v10 = 0xAAAAAAAAAAAAAAALL;
     }
@@ -2524,7 +2523,7 @@ void std::vector<std::vector<unsigned short>,TInlineBufferAllocator<std::vector<
   }
 }
 
-char **std::__copy_impl::operator()[abi:fn200100]<std::vector<unsigned short> const*,std::vector<unsigned short> const*,std::vector<unsigned short>*>(char **a1, char **a2, char **a3)
+char **std::__copy_impl::operator()[abi:fn200100]<std::vector<unsigned short> const*,std::vector<unsigned short> const*,std::vector<unsigned short>*>(char **a1, char **a2, void **a3)
 {
   v4 = a1;
   if (a1 != a2)
@@ -2547,37 +2546,37 @@ char **std::__copy_impl::operator()[abi:fn200100]<std::vector<unsigned short> co
   return v4;
 }
 
-void *std::vector<unsigned short>::vector[abi:fn200100](void *result, void *a2)
+uint64_t *std::vector<unsigned short>::vector[abi:fn200100](uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<unsigned short>::__vallocate[abi:fn200100](result, (v2 - *a2) >> 1);
+    std::vector<unsigned short>::__vallocate[abi:fn200100](a1, (v2 - *a2) >> 1);
   }
 
-  return result;
+  return a1;
 }
 
-__CFData *CreateSingleSubstitutionLKTHandle(int64_t a1, int a2, unsigned __int16 *a3, unint64_t a4, uint64_t a5, uint64_t a6)
+__CFData *CreateSingleSubstitutionLKTHandle(int64_t a1, int a2, OTL::Coverage *a3, unint64_t a4, uint64_t a5, uint64_t a6, __int16 a7)
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v11 = NewLKTHandle(a1, 0);
+  v39 = *MEMORY[0x1E69E9840];
+  v12 = NewLKTHandle(a1, 0);
   if (a2 == 3)
   {
-    v37 = a3;
-    v17 = a3 + 3;
-    if ((a3 + 3) <= a4)
+    v38 = a3;
+    v18 = (a3 + 6);
+    if (a3 + 6 <= a4)
     {
-      v18 = bswap32(a3[2]) >> 16;
-      v19 = &v17[v18];
-      v20 = (a3 + 4) <= a4 ? (a4 - v17) >> 1 : 0;
-      v21 = v19 <= a4 && v19 >= v17;
-      if (v21 || v20 == v18)
+      v19 = bswap32(*(a3 + 2)) >> 16;
+      v20 = &v18[v19];
+      v21 = a3 + 8 <= a4 ? (a4 - v18) >> 1 : 0;
+      v22 = v20 <= a4 && v20 >= v18;
+      if (v22 || v21 == v19)
       {
-        OTL::LookupWithCoverage::GetCoverage(a3, a4, v31, v12, v13);
+        OTL::LookupWithCoverage::GetCoverage(a3, a4, v32, v13, v14);
         operator new();
       }
     }
@@ -2588,55 +2587,55 @@ __CFData *CreateSingleSubstitutionLKTHandle(int64_t a1, int a2, unsigned __int16
   if (a2 != 1)
   {
 LABEL_20:
-    DisposeLKTHandle(v11);
+    DisposeLKTHandle(v12);
     return 0;
   }
 
-  std::__function::__value_func<BOOL ()(unsigned short)>::__value_func[abi:fn200100](v36, a6);
-  v34 = a5;
-  v35 = v11;
-  v16 = bswap32(*a3) >> 16;
-  if (v16 == 2)
+  std::__function::__value_func<BOOL ()(unsigned short)>::__value_func[abi:fn200100](v37, a6);
+  v35 = a5;
+  v36 = v12;
+  v17 = bswap32(*a3) >> 16;
+  if (v17 == 2)
   {
-    v33 = a3;
-    v23 = a3 + 3;
-    if ((a3 + 3) <= a4)
+    v34 = a3;
+    v24 = (a3 + 6);
+    if (a3 + 6 <= a4)
     {
-      v24 = bswap32(a3[2]) >> 16;
-      v25 = &v23[v24];
-      v27 = v25 >= v23 && v25 <= a4;
-      v28 = (a4 - v23) >> 1;
-      if ((a3 + 4) > a4)
+      v25 = bswap32(*(a3 + 2)) >> 16;
+      v26 = &v24[v25];
+      v28 = v26 >= v24 && v26 <= a4;
+      v29 = (a4 - v24) >> 1;
+      if (a3 + 8 > a4)
       {
-        v28 = 0;
+        v29 = 0;
       }
 
-      if (v27 || v28 == v24)
+      if (v28 || v29 == v25)
       {
-        v32 = 0xAAAAAAAAAAAAAAAALL;
-        *&v29 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v29 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v31[1] = v29;
-        v31[2] = v29;
-        v31[0] = v29;
-        OTL::LookupWithCoverage::GetCoverage(a3, a4, v31, -3.72066208e-103, v15);
+        v33 = 0xAAAAAAAAAAAAAAAALL;
+        *&v30 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v30 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v32[1] = v30;
+        v32[2] = v30;
+        v32[0] = v30;
+        OTL::LookupWithCoverage::GetCoverage(a3, a4, v32, -3.72066208e-103, v16);
         operator new();
       }
     }
   }
 
-  else if (v16 == 1)
+  else if (v17 == 1)
   {
-    v33 = a3;
-    if ((a3 + 3) <= a4)
+    v34 = a3;
+    if (a3 + 6 <= a4)
     {
-      OTL::LookupWithCoverage::GetCoverage(a3, a4, v31, v14, v15);
+      OTL::LookupWithCoverage::GetCoverage(a3, a4, v32, v15, v16);
       operator new();
     }
   }
 
-  std::__function::__value_func<BOOL ()(unsigned short)>::~__value_func[abi:fn200100](v36);
-  return v11;
+  std::__function::__value_func<BOOL ()(unsigned short)>::~__value_func[abi:fn200100](v37);
+  return v12;
 }
 
 __n128 std::__function::__func<AddSingleSubstitutions(LKTHandle,OTL::LookupSubtable const*,void const*,unsigned char *,std::function<BOOL ()(unsigned short)>)::$_0,std::allocator<AddSingleSubstitutions(LKTHandle,OTL::LookupSubtable const*,void const*,unsigned char *,std::function<BOOL ()(unsigned short)>)::$_0>,BOOL ()(unsigned short,unsigned short,unsigned short)>::__clone(uint64_t a1, uint64_t a2)
@@ -2875,20 +2874,20 @@ void std::__function::__func<anonymous namespace::MorxTableBuilder::From(TBaseFo
   JUMPOUT(0x1865F22D0);
 }
 
-void *std::__function::__func<anonymous namespace::MorxTableBuilder::From(TBaseFont const&,OTL::GCommon::Header const*,void const*,anonymous namespace::OTFeaturesMap &)::$_6,std::allocator<anonymous namespace::MorxTableBuilder::From(TBaseFont const&,OTL::GCommon::Header const*,void const*,anonymous namespace::OTFeaturesMap &)::$_6>,BOOL ()(unsigned short)>::__clone(uint64_t a1, uint64_t a2)
+uint64_t *std::__function::__func<anonymous namespace::MorxTableBuilder::From(TBaseFont const&,OTL::GCommon::Header const*,void const*,anonymous namespace::OTFeaturesMap &)::$_6,std::allocator<anonymous namespace::MorxTableBuilder::From(TBaseFont const&,OTL::GCommon::Header const*,void const*,anonymous namespace::OTFeaturesMap &)::$_6>,BOOL ()(unsigned short)>::__clone(_OWORD *a1, uint64_t a2)
 {
   *a2 = &unk_1EF25B630;
-  std::vector<unsigned short>::vector[abi:fn200100]((a2 + 8), (a1 + 8));
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 64);
-  *(a2 + 48) = *(a1 + 48);
+  std::vector<unsigned short>::vector[abi:fn200100]((a2 + 8), a1 + 1);
+  v4 = a1[2];
+  v5 = a1[4];
+  *(a2 + 48) = a1[3];
   *(a2 + 64) = v5;
   *(a2 + 32) = v4;
 
-  return std::vector<unsigned short>::vector[abi:fn200100]((a2 + 80), (a1 + 80));
+  return std::vector<unsigned short>::vector[abi:fn200100]((a2 + 80), a1 + 10);
 }
 
-void std::__function::__func<anonymous namespace::MorxTableBuilder::From(TBaseFont const&,OTL::GCommon::Header const*,void const*,anonymous namespace::OTFeaturesMap &)::$_6,std::allocator<anonymous namespace::MorxTableBuilder::From(TBaseFont const&,OTL::GCommon::Header const*,void const*,anonymous namespace::OTFeaturesMap &)::$_6>,BOOL ()(unsigned short)>::destroy_deallocate(void *a1)
+void std::__function::__func<anonymous namespace::MorxTableBuilder::From(TBaseFont const&,OTL::GCommon::Header const*,void const*,anonymous namespace::OTFeaturesMap &)::$_6,std::allocator<anonymous namespace::MorxTableBuilder::From(TBaseFont const&,OTL::GCommon::Header const*,void const*,anonymous namespace::OTFeaturesMap &)::$_6>,BOOL ()(unsigned short)>::destroy_deallocate(char *a1)
 {
 
   operator delete(a1);
@@ -3126,7 +3125,7 @@ unsigned __int16 *AddGlyphClassesByAppearance(unsigned __int16 **a1, __CFData *a
         *v31 = v44;
         memcpy(v31 + 1, v18, a1[1] - v18);
         v32 = *a1;
-        v33 = v31 + a1[1] - v18 + 2;
+        v33 = (v31 + a1[1] - v18 + 2);
         a1[1] = v18;
         v34 = v18 - v32;
         v35 = v31 - (v18 - v32);
@@ -3300,32 +3299,32 @@ void std::vector<std::vector<unsigned short>,TInlineBufferAllocator<std::vector<
   *(a1 + 8) = v6;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<unsigned short,unsigned int>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,unsigned int>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(void *a1, unsigned __int16 a2)
+uint64_t **std::__hash_table<std::__hash_value_type<unsigned short,unsigned int>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,unsigned int>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(float *a1, unsigned __int16 a2, _WORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = *(a1 + 1);
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % a1[1];
+      v5 = a2 % *(a1 + 1);
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -3333,44 +3332,44 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 8) != a2)
+  if (*(v7 + 8) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
 __n128 std::__function::__func<anonymous namespace::MorxContextualSubtableBuilder::FromSubstitution(long,unsigned int,unsigned int,TInlineVector<std::vector<unsigned short>,30ul> const&,TInlineVector<std::vector<unsigned short>,30ul> const&,__CFData const*,std::vector<unsigned short> const&)::$_0,std::allocator<anonymous namespace::MorxContextualSubtableBuilder::FromSubstitution(long,unsigned int,unsigned int,TInlineVector<std::vector<unsigned short>,30ul> const&,TInlineVector<std::vector<unsigned short>,30ul> const&,__CFData const*,std::vector<unsigned short> const&)::$_0>,void ()(unsigned short,unsigned short,unsigned short)>::__clone(uint64_t a1, uint64_t a2)
@@ -3392,10 +3391,10 @@ uint64_t **std::__function::__func<anonymous namespace::MorxContextualSubtableBu
     do
     {
       v9 = v3;
-      v7 = v5[1];
-      v8 = *v5[2];
+      v7 = *(v5 + 8);
+      v8 = **(v5 + 16);
       v10 = &v9;
-      result = std::__hash_table<std::__hash_value_type<unsigned short,unsigned int>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,unsigned int>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v7, v3);
+      result = std::__hash_table<std::__hash_value_type<unsigned short,unsigned int>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,unsigned int>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v7, v3, &v10);
       *(result + 5) |= v8;
       ++v3;
     }
@@ -3671,8 +3670,8 @@ LABEL_194:
           v115 = i;
           do
           {
-            v116 = (v115 + 8 * v113);
-            v117 = (v116 + 2);
+            v116 = v115 + 8 * v113;
+            v117 = v116 + 8;
             v118 = (2 * v113) | 1;
             v113 = 2 * v113 + 2;
             if (v113 >= v9)
@@ -3682,9 +3681,9 @@ LABEL_194:
 
             else
             {
-              v119 = v116[3];
-              v120 = v116[5];
-              v121 = (v116 + 4);
+              v119 = *(v116 + 12);
+              v120 = *(v116 + 20);
+              v121 = v116 + 16;
               if (v119 >= v120)
               {
                 v113 = v118;
@@ -3697,7 +3696,7 @@ LABEL_194:
             }
 
             *v115 = *v117;
-            *(v115 + 4) = *(v117 + 1);
+            *(v115 + 4) = *(v117 + 4);
             v115 = v117;
           }
 
@@ -3705,16 +3704,16 @@ LABEL_194:
           if (v117 == a2 - 8)
           {
             *v117 = v114;
-            *(v117 + 1) = HIDWORD(v114);
+            *(v117 + 4) = HIDWORD(v114);
           }
 
           else
           {
             *v117 = *(a2 - 4);
-            *(v117 + 1) = *(a2 - 1);
+            *(v117 + 4) = *(a2 - 1);
             *(a2 - 4) = v114;
             *(a2 - 1) = HIDWORD(v114);
-            v122 = &v117[-i + 8] >> 3;
+            v122 = (v117 - i + 8) >> 3;
             v123 = v122 < 2;
             v124 = v122 - 2;
             if (!v123)
@@ -3722,16 +3721,16 @@ LABEL_194:
               v125 = v124 >> 1;
               v126 = i + 8 * v125;
               v127 = *(v126 + 4);
-              if (v127 < *(v117 + 1))
+              if (v127 < *(v117 + 4))
               {
                 v128 = *v117;
-                v129 = *(v117 + 1);
+                v129 = *(v117 + 4);
                 do
                 {
                   v130 = v117;
                   v117 = v126;
                   *v130 = *v126;
-                  *(v130 + 1) = v127;
+                  *(v130 + 4) = v127;
                   if (!v125)
                   {
                     break;
@@ -3744,7 +3743,7 @@ LABEL_194:
 
                 while (v127 < v129);
                 *v117 = v128;
-                *(v117 + 1) = v129;
+                *(v117 + 4) = v129;
               }
             }
           }
@@ -4104,14 +4103,14 @@ LABEL_73:
         v62 = *(i + 4);
         *(i + 4) = *(v60 + 1);
         *(v60 + 1) = v62;
-        v63 = (i + 8);
+        v63 = i + 8;
         while (v63 != a2)
         {
-          v64 = *(v63 + 1);
+          v64 = *(v63 + 4);
           v63 += 8;
           if (v64 >= v53)
           {
-            i = (v63 - 8);
+            i = v63 - 8;
             v65 = v60;
             while (v65 != v7)
             {
@@ -4193,7 +4192,7 @@ LABEL_85:
 
     else
     {
-      v69 = (i + 8);
+      v69 = i + 8;
       do
       {
         if (v69 == a2)
@@ -4201,12 +4200,12 @@ LABEL_85:
           goto LABEL_187;
         }
 
-        LODWORD(v15) = *(v69 + 1);
+        LODWORD(v15) = *(v69 + 4);
         v69 += 8;
       }
 
       while (v15 <= v53);
-      i = (v69 - 8);
+      i = v69 - 8;
     }
 
     v72 = a2;
@@ -4878,7 +4877,7 @@ uint64_t std::__function::__func<anonymous namespace::MorxContextualSubtableBuil
       v8 = *(v5 + 8);
       v7 = *(v5 + 16);
       v26[0] = &v25;
-      result = std::__hash_table<std::__hash_value_type<unsigned short,unsigned int>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,unsigned int>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v7, v3);
+      result = std::__hash_table<std::__hash_value_type<unsigned short,unsigned int>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,unsigned int>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v7, v3, v26);
       v9 = result;
       v11 = *(v8 + 8);
       v10 = *(v8 + 16);
@@ -4908,7 +4907,7 @@ uint64_t std::__function::__func<anonymous namespace::MorxContextualSubtableBuil
           v17 = v15;
         }
 
-        v26[4] = v8 + 24;
+        v26[4] = (v8 + 24);
         if (v17)
         {
           v18 = *(v8 + 264);
@@ -5356,19 +5355,17 @@ uint64_t anonymous namespace::MorxContextualSubtableBuilder::BuildArabicSubtable
   return v8;
 }
 
-void *std::vector<unsigned short>::reserve(void *result, unint64_t a2)
+void std::vector<unsigned short>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 1)
+  if (a2 > (a1[2] - *a1) >> 1)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
-      std::allocator<unsigned short>::allocate_at_least[abi:fn200100](result, a2);
+      std::allocator<unsigned short>::allocate_at_least[abi:fn200100](a1, a2);
     }
 
     std::__throw_bad_array_new_length[abi:fn200100]();
   }
-
-  return result;
 }
 
 void ArabicCharactersWithJoiningType(const char *a1, const char *a2)
@@ -5386,7 +5383,7 @@ uint64_t std::__function::__func<ArabicCharactersWithJoiningType(char const*)::$
   return result;
 }
 
-void std::__function::__func<ArabicCharactersWithJoiningType(char const*)::$_0,std::allocator<ArabicCharactersWithJoiningType(char const*)::$_0>,void ()(unsigned int,unsigned int)>::operator()(uint64_t a1, int *a2, int *a3)
+void std::__function::__func<ArabicCharactersWithJoiningType(char const*)::$_0,std::allocator<ArabicCharactersWithJoiningType(char const*)::$_0>,void ()(unsigned int,unsigned int)>::operator()(uint64_t a1, unsigned int *a2, int *a3)
 {
   v3 = *a2;
   v4 = *a3;
@@ -5585,7 +5582,7 @@ uint64_t std::__function::__func<anonymous namespace::MorxContextualSubtableBuil
   return result;
 }
 
-void *std::vector<MortFeatureEntry,TInlineBufferAllocator<MortFeatureEntry,30ul>>::emplace<MortFeatureEntry>(void *result, char *__src, uint64_t *a3)
+char **std::vector<MortFeatureEntry,TInlineBufferAllocator<MortFeatureEntry,30ul>>::emplace<MortFeatureEntry>(char **result, char *__src, uint64_t *a3)
 {
   v5 = result;
   v6 = result[1];
@@ -5619,7 +5616,7 @@ void *std::vector<MortFeatureEntry,TInlineBufferAllocator<MortFeatureEntry,30ul>
       v18 = v15;
     }
 
-    v39 = (result + 3);
+    v39 = result + 3;
     if (v18)
     {
       v19 = std::allocator_traits<TInlineBufferAllocator<MortFeatureEntry,30ul>>::allocate_at_least[abi:fn200100]<TInlineBufferAllocator<MortFeatureEntry,30ul>>((result + 3), v18);
@@ -5648,8 +5645,8 @@ void *std::vector<MortFeatureEntry,TInlineBufferAllocator<MortFeatureEntry,30ul>
           v23 = 0x5555555555555556 * (v16 >> 2);
         }
 
-        v44 = v5 + 24;
-        v24 = std::allocator_traits<TInlineBufferAllocator<MortFeatureEntry,30ul>>::allocate_at_least[abi:fn200100]<TInlineBufferAllocator<MortFeatureEntry,30ul>>(v5 + 24, v23);
+        v44 = v5 + 3;
+        v24 = std::allocator_traits<TInlineBufferAllocator<MortFeatureEntry,30ul>>::allocate_at_least[abi:fn200100]<TInlineBufferAllocator<MortFeatureEntry,30ul>>((v5 + 3), v23);
         v25 = v24 + 12 * (v23 >> 2);
         v35 = v24;
         v36 = v25;
@@ -5673,19 +5670,19 @@ void *std::vector<MortFeatureEntry,TInlineBufferAllocator<MortFeatureEntry,30ul>
     *(v21 + 8) = *(a3 + 2);
     *v21 = v27;
     v37 = (v21 + 12);
-    memcpy((v21 + 12), __src, *(v5 + 8) - __src);
+    memcpy((v21 + 12), __src, v5[1] - __src);
     v28 = *v5;
     v29 = v36;
-    v30 = v21 + 12 + *(v5 + 8) - __src;
-    *(v5 + 8) = __src;
+    v30 = v21 + 12 + v5[1] - __src;
+    v5[1] = __src;
     v31 = (__src - v28);
     v32 = &v29[-(__src - v28)];
     memcpy(v32, v28, v31);
     v33 = *v5;
     *v5 = v32;
-    *(v5 + 8) = v30;
-    v34 = *(v5 + 16);
-    *(v5 + 16) = v38;
+    v5[1] = v30;
+    v34 = v5[2];
+    v5[2] = v38;
     v37 = v33;
     v38 = v34;
     v35 = v33;
@@ -5696,9 +5693,9 @@ void *std::vector<MortFeatureEntry,TInlineBufferAllocator<MortFeatureEntry,30ul>
   else if (__src == v6)
   {
     v20 = *a3;
-    *(v6 + 2) = *(a3 + 2);
+    *(v6 + 8) = *(a3 + 2);
     *v6 = v20;
-    result[1] = v6 + 12;
+    result[1] = (v6 + 12);
   }
 
   else
@@ -5714,9 +5711,9 @@ void *std::vector<MortFeatureEntry,TInlineBufferAllocator<MortFeatureEntry,30ul>
 
     else
     {
-      v12 = v6 + 12;
+      v12 = (v6 + 12);
       v13 = *(v6 - 12);
-      *(v6 + 2) = *(v6 - 1);
+      *(v6 + 8) = *(v6 - 4);
       *v6 = v13;
     }
 
@@ -5753,11 +5750,11 @@ void *std::allocator_traits<TInlineBufferAllocator<anonymous namespace::MorxChai
   return std::vector<TCFRef<__CFData const*>,TInlineBufferAllocator<TCFRef<__CFData const*>,30ul>>::__init_with_size[abi:fn200100]<std::__wrap_iter<TCFRef<__CFData const*> const*>,std::__wrap_iter<TCFRef<__CFData const*> const*>>((a1 + 672), v6, v7, v7 - v6);
 }
 
-uint64_t *std::vector<MortFeatureEntry,TInlineBufferAllocator<MortFeatureEntry,30ul>>::vector[abi:fn200100]<std::__wrap_iter<MortFeatureEntry const*>,0>(uint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t *std::vector<MortFeatureEntry,TInlineBufferAllocator<MortFeatureEntry,30ul>>::vector[abi:fn200100]<std::__wrap_iter<MortFeatureEntry const*>,0>(uint64_t *a1, char *a2, char *a3)
 {
   *a1 = 0;
   a1[1] = 0;
-  v4 = (a1 + 3);
+  v4 = a1 + 3;
   a1[2] = 0;
   a1[48] = v4;
   if (a3 != a2)
@@ -5779,7 +5776,7 @@ uint64_t *std::vector<MortFeatureEntry,TInlineBufferAllocator<MortFeatureEntry,3
       *(v8 + 8) = *(v5 + 2);
       *v8 = v10;
       v8 += 12;
-      v5 = (v5 + 12);
+      v5 += 12;
     }
 
     while (v5 != a3);
@@ -6021,7 +6018,7 @@ void std::__tree<std::__value_type<unsigned int,std::set<unsigned int>>,std::__m
   }
 }
 
-void AddLigInputForCharacters(uint64_t *a1, TBaseFont *a2, __int16 a3, __int16 *a4, unint64_t a5)
+void AddLigInputForCharacters(unint64_t *a1, TBaseFont *a2, __int16 a3, __int16 *a4, unint64_t a5)
 {
   v5 = a5;
   v38 = *MEMORY[0x1E69E9840];
@@ -6136,7 +6133,7 @@ LABEL_19:
   std::vector<unsigned short,TInlineBufferAllocator<unsigned short,30ul>>::__destroy_vector::operator()[abi:fn200100](&v27);
 }
 
-void CreateLookupTableFromCharacterSwashes<std::pair<unsigned short,unsigned short> const*>(atomic_ullong *a1, uint64_t a2, int64_t a3, int *a4, int *a5, uint64_t a6)
+void CreateLookupTableFromCharacterSwashes<std::pair<unsigned short,unsigned short> const*>(CFDataRef *a1, uint64_t a2, int64_t a3, int *a4, int *a5, uint64_t a6)
 {
   for (i = NewLKTHandle(a3, 0); a4 != a5; ++a4)
   {
@@ -6581,7 +6578,7 @@ uint64_t Has<(CharClass)19>(uint64_t result, uint64_t a2, int64_t a3)
     if (*(v4 + 16 * v3 + 8) == 19)
     {
       v6 = v3 + 1;
-      if ((v3 + 1) >= a3)
+      if (v3 + 1 >= a3)
       {
 LABEL_8:
         *(result + 8) = v6;
@@ -7648,7 +7645,7 @@ LABEL_215:
         {
           v95 = *(v86 + 8);
           LOWORD(p_StringIndex) = v232[0];
-          v96 = TRunGlue::DoGlyphInsertion(v95, &p_StringIndex, 1u, *(v95 + 6) >= 0, 0, v90, v90, 1, 0);
+          v96 = TRunGlue::DoGlyphInsertion(v95, &p_StringIndex, 1u, *(v95 + 24) >= 0, 0, v90, v90, 1, 0);
           v185 |= v96;
           if (v90 >= ((v13[1] - *v13) >> 4))
           {
@@ -8285,20 +8282,20 @@ LABEL_310:
   return v185;
 }
 
-void std::vector<TGlyphAuxDataListEntry,TInlineBufferAllocator<TGlyphAuxDataListEntry,30ul>>::resize(void *a1, unint64_t a2)
+void std::vector<TGlyphAuxDataListEntry,TInlineBufferAllocator<TGlyphAuxDataListEntry,30ul>>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 4;
+  v2 = (result[1] - *result) >> 4;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 16 * a2;
+      result[1] = *result + 16 * a2;
     }
   }
 
   else
   {
-    std::vector<TGlyphAuxDataListEntry,TInlineBufferAllocator<TGlyphAuxDataListEntry,30ul>>::__append(a1, a2 - v2);
+    std::vector<TGlyphAuxDataListEntry,TInlineBufferAllocator<TGlyphAuxDataListEntry,30ul>>::__append(result, a2 - v2);
   }
 }
 
@@ -8514,14 +8511,14 @@ uint64_t IsLooseFontNameMatchingDisabled(void)
   return v0 & 1;
 }
 
-uint64_t ___Z31IsLooseFontNameMatchingDisabledv_block_invoke()
+void *___Z31IsLooseFontNameMatchingDisabledv_block_invoke()
 {
   result = [objc_msgSend(CTFontGetPlistFromGSFontCache(@"CoreTextConfig.plist" 0)];
   gDisableLooseFontNameMatchingOverride = result;
   return result;
 }
 
-void CopyPostScriptNameForAliasLowercased(const __CFString *a1@<X0>, void *a2@<X8>)
+void CopyPostScriptNameForAliasLowercased(uint64_t *__return_ptr a1@<X8>, const __CFString *a2@<X0>)
 {
   if (qword_1ED568240 != -1)
   {
@@ -8533,7 +8530,7 @@ void CopyPostScriptNameForAliasLowercased(const __CFString *a1@<X0>, void *a2@<X
     Value = CFDictionaryGetValue(v4, @"Faces");
     if (Value)
     {
-      Value = CFDictionaryGetValue(Value, a1);
+      Value = CFDictionaryGetValue(Value, a2);
     }
   }
 
@@ -8543,14 +8540,14 @@ void CopyPostScriptNameForAliasLowercased(const __CFString *a1@<X0>, void *a2@<X
   }
 
   v6 = Value;
-  *a2 = atomic_exchange(&v6, 0);
+  *a1 = atomic_exchange(&v6, 0);
 }
 
 BOOL IsPostScriptNameAlias(const __CFString *a1, const __CFString *a2)
 {
   v8 = 0xAAAAAAAAAAAAAAAALL;
-  CopyLowercasedString(a1, &v8);
-  CopyPostScriptNameForAliasLowercased(atomic_load_explicit(&v8, memory_order_acquire), &v7);
+  CopyLowercasedString(&v8, a1);
+  CopyPostScriptNameForAliasLowercased(&v7, atomic_load_explicit(&v8, memory_order_acquire));
   v3 = atomic_load_explicit(&v7, memory_order_acquire);
   v4 = v3;
   if (v3 == a2)
@@ -8570,20 +8567,20 @@ BOOL IsPostScriptNameAlias(const __CFString *a1, const __CFString *a2)
   return v5;
 }
 
-void CopyPostScriptNamesForFamily(const __CFString *a1@<X0>, char a2@<W1>, __CFString *a3@<X8>)
+void CopyPostScriptNamesForFamily(__CFString *__return_ptr a1@<X8>, const __CFString *a2@<X0>, char a3@<W1>)
 {
   v19 = 0xAAAAAAAAAAAAAAAALL;
-  CopyLowercasedString(a1, &v19);
-  a3->isa = 0xAAAAAAAAAAAAAAAALL;
-  CopyPostScriptNamesForFamilyLowercased(a3, atomic_load_explicit(&v19, memory_order_acquire));
-  if (a1 != @"." && (!a1 || !CFStringHasPrefix(a1, @".")))
+  CopyLowercasedString(&v19, a2);
+  a1->isa = 0xAAAAAAAAAAAAAAAALL;
+  CopyPostScriptNamesForFamilyLowercased(a1, atomic_load_explicit(&v19, memory_order_acquire));
+  if (a2 != @"." && (!a2 || !CFStringHasPrefix(a2, @".")))
   {
     atomic_load_explicit(&v19, memory_order_acquire);
     v6 = FSFontCopyFontNamesForFamily();
-    if (atomic_load_explicit(a3, memory_order_acquire))
+    if (atomic_load_explicit(a1, memory_order_acquire))
     {
       v20.isa = 0xAAAAAAAAAAAAAAAALL;
-      TCFMutableArray::TCFMutableArray(&v20, atomic_load_explicit(a3, memory_order_acquire));
+      TCFMutableArray::TCFMutableArray(&v20, atomic_load_explicit(a1, memory_order_acquire));
       if (v6)
       {
         Count = CFArrayGetCount(v6);
@@ -8607,11 +8604,11 @@ void CopyPostScriptNamesForFamily(const __CFString *a1@<X0>, char a2@<W1>, __CFS
 
     else
     {
-      TCFRef<__CTFont const*>::Retain(a3, v6);
+      TCFRef<__CTFont const*>::Retain(a1, v6);
     }
   }
 
-  v12 = atomic_load_explicit(a3, memory_order_acquire);
+  v12 = atomic_load_explicit(a1, memory_order_acquire);
   v13 = v12;
   if (v12)
   {
@@ -8623,7 +8620,7 @@ void CopyPostScriptNamesForFamily(const __CFString *a1@<X0>, char a2@<W1>, __CFS
     v14 = 0;
   }
 
-  if (!v14 && (a2 & 1) == 0)
+  if (!v14 && (a3 & 1) == 0)
   {
     v15 = atomic_load_explicit(&v19, memory_order_acquire);
     if (qword_1ED568240 != -1)
@@ -8799,7 +8796,7 @@ const __CFArray *IsInvisiblePlatformDelivery(const __CFArray *result)
   return result;
 }
 
-uint64_t ___ZL23FontServicesLibraryCorePPc_block_invoke()
+uint64_t ___ZL23FontServicesLibraryCorePPc_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   FontServicesLibraryCore(char **)::frameworkLibrary = result;
@@ -8832,9 +8829,9 @@ void GetStringEncodingSpecialCase(__CFString const*,unsigned int *)::$_0::__invo
   qword_1ED568228 = Mutable;
 }
 
-uint64_t CreateFontWithData@<X0>(atomic_ullong *a1@<X8>)
+uint64_t CreateFontWithData@<X0>(atomic_ullong *a2@<X8>)
 {
-  *a1 = 0;
+  *a2 = 0;
   result = FPFontCreateWithData();
   if (result)
   {
@@ -8871,10 +8868,10 @@ LABEL_5:
   }
 }
 
-void CopyPathFromInMemoryFontURL(const __CFURL *a1@<X0>, CFStringRef *a2@<X8>)
+void CopyPathFromInMemoryFontURL(CFStringRef *__return_ptr a1@<X8>, const __CFURL *a2@<X0>)
 {
   v13 = *MEMORY[0x1E69E9840];
-  if (a1)
+  if (a2)
   {
     *&v3 = 0xAAAAAAAAAAAAAAAALL;
     *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
@@ -8894,7 +8891,7 @@ void CopyPathFromInMemoryFontURL(const __CFURL *a1@<X0>, CFStringRef *a2@<X8>)
     v10 = 0;
     v8 = 0;
     v12 = v11;
-    BytesForComponent = GetBytesForComponent(a1, &v8);
+    BytesForComponent = GetBytesForComponent(a2, &v8);
     if (BytesForComponent == -1)
     {
       v6 = 0;
@@ -8910,18 +8907,18 @@ void CopyPathFromInMemoryFontURL(const __CFURL *a1@<X0>, CFStringRef *a2@<X8>)
       v6 = CFStringCreateWithBytes(*MEMORY[0x1E695E480], &v8[BytesForComponent], v5, 0x8000100u, 0);
     }
 
-    *a2 = v6;
+    *a1 = v6;
     v7 = &v8;
     std::vector<unsigned char,TInlineBufferAllocator<unsigned char,192ul>>::__destroy_vector::operator()[abi:fn200100](&v7);
   }
 
   else
   {
-    *a2 = 0;
+    *a1 = 0;
   }
 }
 
-void CreateMaskedPath(const CGPath *a1@<X0>, CGPathRef path@<X1>, CGFloat a3@<D0>, CGAffineTransform *a4@<X2>, char a5@<W3>, void *a6@<X8>)
+void CreateMaskedPath(uint64_t *__return_ptr a1@<X8>, const CGPath *a2@<X0>, CGPathRef path@<X1>, CGFloat a4@<D0>, CGAffineTransform *a5@<X2>, char a6@<W3>)
 {
   SeparateComponents = CGPathCreateSeparateComponents(path, 0);
   Mutable = CGPathCreateMutable();
@@ -8939,17 +8936,17 @@ void CreateMaskedPath(const CGPath *a1@<X0>, CGPathRef path@<X1>, CGFloat a3@<D0
         v30[3] = ___Z16CreateMaskedPathPK6CGPathS1_dP17CGAffineTransformb_block_invoke;
         v30[4] = &__block_descriptor_48_8_32c21_ZTS6TCFRefIP6CGPathE_e40_v24__0r__CGPathElement_i__CGPoint__8_B16l;
         v31 = Mutable;
-        v32 = a4;
+        v32 = a5;
         CGPathApplyWithBlock2();
       }
     }
   }
 
-  v30[0] = CGPathCreateCopyByStrokingPath(Mutable, 0, a3, kCGLineCapButt, kCGLineJoinRound, 0.0);
-  v14 = a1;
-  if (a5)
+  v30[0] = CGPathCreateCopyByStrokingPath(Mutable, 0, a4, kCGLineCapButt, kCGLineJoinRound, 0.0);
+  v14 = a2;
+  if (a6)
   {
-    BoundingBox = CGPathGetBoundingBox(a1);
+    BoundingBox = CGPathGetBoundingBox(a2);
     x = BoundingBox.origin.x;
     y = BoundingBox.origin.y;
     width = BoundingBox.size.width;
@@ -8961,7 +8958,7 @@ void CreateMaskedPath(const CGPath *a1@<X0>, CGPathRef path@<X1>, CGFloat a3@<D0
     v34.size.height = height;
     v35.origin.x = CGRectGetMinX(v34);
     v35.origin.y = y;
-    v35.size.width = a3;
+    v35.size.width = a4;
     v35.size.height = height;
     CGPathAddRect(v19, 0, v35);
     v36.origin.x = x;
@@ -8969,7 +8966,7 @@ void CreateMaskedPath(const CGPath *a1@<X0>, CGPathRef path@<X1>, CGFloat a3@<D0
     v36.size.width = width;
     v36.size.height = height;
     v37.origin.x = CGRectGetMaxX(v36);
-    v37.size.width = -a3;
+    v37.size.width = -a4;
     v37.origin.y = y;
     v37.size.height = height;
     CGPathAddRect(v19, 0, v37);
@@ -8991,7 +8988,7 @@ void CreateMaskedPath(const CGPath *a1@<X0>, CGPathRef path@<X1>, CGFloat a3@<D0
       {
         ValueAtIndex = CFArrayGetValueAtIndex(v21, j);
         PathBoundingBox = CGPathGetPathBoundingBox(ValueAtIndex);
-        if (PathBoundingBox.size.width >= a3 || PathBoundingBox.size.height >= a3)
+        if (PathBoundingBox.size.width >= a4 || PathBoundingBox.size.height >= a4)
         {
           CGPathAddPath(atomic_load_explicit(&CopyBySubtractingPath, memory_order_acquire), 0, ValueAtIndex);
         }
@@ -8999,7 +8996,7 @@ void CreateMaskedPath(const CGPath *a1@<X0>, CGPathRef path@<X1>, CGFloat a3@<D0
     }
   }
 
-  *a6 = atomic_exchange(&CopyBySubtractingPath, 0);
+  *a1 = atomic_exchange(&CopyBySubtractingPath, 0);
 }
 
 void ___Z16CreateMaskedPathPK6CGPathS1_dP17CGAffineTransformb_block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
@@ -9076,7 +9073,7 @@ id __copy_helper_block_8_32c21_ZTS6TCFRefIP6CGPathE(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void TArabicJustEngine::PostcompTable(TArabicJustEngine *this@<X0>, unint64_t *a2@<X8>)
+void TArabicJustEngine::PostcompTable(uint64_t *__return_ptr a1@<X8>, TArabicJustEngine *this@<X0>)
 {
   Mutable = CFDataCreateMutable(*MEMORY[0x1E695E480], 0);
   explicit = atomic_load_explicit((*(this + 1) + 56), memory_order_acquire);
@@ -9152,33 +9149,33 @@ void TArabicJustEngine::PostcompTable(TArabicJustEngine *this@<X0>, unint64_t *a
     v10 = atomic_exchange(&Mutable, 0);
   }
 
-  *a2 = v10;
+  *a1 = v10;
 }
 
-void TFallbacksSource::CopyDescriptorsForFamily(atomic_ullong **this@<X0>, const __CFString *a2@<X1>, atomic_ullong *a3@<X8>)
+void TFallbacksSource::CopyDescriptorsForFamily(uint64_t *__return_ptr a1@<X8>, atomic_ullong **this@<X0>, const __CFString *a3@<X1>, unint64_t a4@<X2>)
 {
-  *a3 = 0xAAAAAAAAAAAAAAAALL;
-  TPurgeableCache::RetainedValueForKey(*this, a2, &v10);
-  *a3 = atomic_exchange(&v10, 0);
+  *a1 = 0xAAAAAAAAAAAAAAAALL;
+  TPurgeableCache::RetainedValueForKey(&v12, *this, a3);
+  *a1 = atomic_exchange(&v12, 0);
 
-  if (!atomic_load_explicit(a3, memory_order_acquire))
+  if (!atomic_load_explicit(a1, memory_order_acquire))
   {
-    TDescriptorSource::TDescriptorSource(&v9);
-    TDescriptorSource::CopyMatchingDescriptorsForFamily(&v9, a2, &v10);
+    TDescriptorSource::TDescriptorSource(&v11);
+    TDescriptorSource::CopyMatchingDescriptorsForFamily(&v12, &v11, a3, a4, 0);
 
-    if (atomic_load_explicit(a3, memory_order_acquire))
+    if (atomic_load_explicit(a1, memory_order_acquire))
     {
-      v6 = *this;
-      explicit = atomic_load_explicit(a3, memory_order_acquire);
-      v8 = atomic_load_explicit(v6, memory_order_acquire);
+      v8 = *this;
+      explicit = atomic_load_explicit(a1, memory_order_acquire);
+      v10 = atomic_load_explicit(v8, memory_order_acquire);
       if (explicit)
       {
-        [v8 setObject:explicit forKey:a2];
+        [v10 setObject:explicit forKey:a3];
       }
 
       else
       {
-        [v8 removeObjectForKey:a2];
+        [v10 removeObjectForKey:a3];
       }
     }
   }
@@ -9410,9 +9407,9 @@ void SyriacShapingEngine::SetFeatures(SyriacShapingEngine *this, const OTL::GSUB
   v43 = v71;
   do
   {
-    IsDeleted = TRunGlue::TGlyph::IsDeleted(&v91);
+    v44 = TRunGlue::TGlyph::IsDeleted(&v91);
     v45 = v92;
-    if (IsDeleted)
+    if (v44)
     {
       goto LABEL_58;
     }
@@ -9697,7 +9694,7 @@ uint64_t JoiningScriptShapingEngine::ApplyStretching(TRunGlue **this, const OTL:
   return v6;
 }
 
-uint64_t JoiningScriptShapingEngine::MakePositioningAdjustments(JoiningScriptShapingEngine *this)
+TRunGlue *JoiningScriptShapingEngine::MakePositioningAdjustments(JoiningScriptShapingEngine *this)
 {
   v1 = *(this + 2);
   v10 = *(this + 1);

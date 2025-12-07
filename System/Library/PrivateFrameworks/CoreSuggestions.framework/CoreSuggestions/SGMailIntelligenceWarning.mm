@@ -56,11 +56,9 @@
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  signature = self->_signature;
-  v5 = [v3 initWithFormat:@"<SGMailIntelligenceWarning triggered on: %@ (with signature %@) score: %@>", self->_snippet, signature, self->_score];
+  v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"<SGMailIntelligenceWarning triggered on: %@ (with signature %@) score: %@>", self->_snippet, self->_signature, self->_score];
 
-  return v5;
+  return v2;
 }
 
 - (SGMailIntelligenceWarning)initWithCoder:(id)coder

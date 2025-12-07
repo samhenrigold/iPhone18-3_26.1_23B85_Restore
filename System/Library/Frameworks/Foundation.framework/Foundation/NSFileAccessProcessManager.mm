@@ -318,7 +318,7 @@ void *__61__NSFileAccessProcessManager_needToManageConnection_forURLs___block_in
   dispatch_async(queue, v3);
 }
 
-uint64_t __46__NSFileAccessProcessManager_processSuspended__block_invoke(uint64_t a1)
+uint64_t (**__46__NSFileAccessProcessManager_processSuspended__block_invoke(uint64_t a1))(void)
 {
   v8 = *MEMORY[0x1E69E9840];
   v2 = _NSFCProcessMonitorLog();
@@ -334,7 +334,7 @@ uint64_t __46__NSFileAccessProcessManager_processSuspended__block_invoke(uint64_
   result = *(v4 + 32);
   if (result)
   {
-    result = (*(result + 16))();
+    result = result[2]();
     v4 = *(a1 + 32);
   }
 

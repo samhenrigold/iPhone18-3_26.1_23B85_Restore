@@ -75,29 +75,29 @@
 
 - (id)br_watchedURL
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if ([self compoundPredicateType] == 1)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     subpredicates = [self subpredicates];
-    v3 = [subpredicates countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v3 = [subpredicates countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v17;
+      v5 = *v16;
       while (2)
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v17 != v5)
+          if (*v16 != v5)
           {
             objc_enumerationMutation(subpredicates);
           }
 
-          br_watchedURL = [*(*(&v16 + 1) + 8 * i) br_watchedURL];
+          br_watchedURL = [*(*(&v15 + 1) + 8 * i) br_watchedURL];
           if (br_watchedURL)
           {
             v13 = br_watchedURL;
@@ -105,7 +105,7 @@
           }
         }
 
-        v4 = [subpredicates countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v4 = [subpredicates countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v4)
         {
           continue;
@@ -126,63 +126,46 @@ LABEL_17:
   }
 
   subpredicates = [self subpredicates];
-  if ([subpredicates count] != 2)
+  if ([subpredicates count] != 2 || (objc_msgSend(subpredicates, "objectAtIndexedSubscript:", 0), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(subpredicates, "objectAtIndexedSubscript:", 1), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(self, "_br_watchedURLWithORPredicate1:predicate2:", v8, v9), v10 = objc_claimAutoreleasedReturnValue(), v9, v8, !v10) && (objc_msgSend(subpredicates, "objectAtIndexedSubscript:", 1), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(subpredicates, "objectAtIndexedSubscript:", 0), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(self, "_br_watchedURLWithORPredicate1:predicate2:", v11, v12), v10 = objc_claimAutoreleasedReturnValue(), v12, v11, !v10))
   {
-    goto LABEL_16;
-  }
-
-  v8 = [subpredicates objectAtIndexedSubscript:0];
-  v9 = [subpredicates objectAtIndexedSubscript:1];
-  v10 = [self _br_watchedURLWithORPredicate1:v8 predicate2:v9];
-
-  if (!v10)
-  {
-    v11 = [subpredicates objectAtIndexedSubscript:1];
-    v12 = [subpredicates objectAtIndexedSubscript:0];
-    v10 = [self _br_watchedURLWithORPredicate1:v11 predicate2:v12];
-
-    if (!v10)
-    {
 LABEL_16:
 
-      goto LABEL_17;
-    }
+    goto LABEL_17;
   }
 
   v13 = v10;
 
 LABEL_19:
 LABEL_20:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 - (id)br_urlWithWatchedChildren
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if ([self compoundPredicateType] == 1)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     subpredicates = [self subpredicates];
-    v3 = [subpredicates countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v3 = [subpredicates countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v17;
+      v5 = *v16;
       while (2)
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v17 != v5)
+          if (*v16 != v5)
           {
             objc_enumerationMutation(subpredicates);
           }
 
-          br_urlWithWatchedChildren = [*(*(&v16 + 1) + 8 * i) br_urlWithWatchedChildren];
+          br_urlWithWatchedChildren = [*(*(&v15 + 1) + 8 * i) br_urlWithWatchedChildren];
           if (br_urlWithWatchedChildren)
           {
             v13 = br_urlWithWatchedChildren;
@@ -190,7 +173,7 @@ LABEL_20:
           }
         }
 
-        v4 = [subpredicates countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v4 = [subpredicates countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v4)
         {
           continue;
@@ -211,34 +194,17 @@ LABEL_17:
   }
 
   subpredicates = [self subpredicates];
-  if ([subpredicates count] != 2)
+  if ([subpredicates count] != 2 || (objc_msgSend(subpredicates, "objectAtIndexedSubscript:", 0), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(subpredicates, "objectAtIndexedSubscript:", 1), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(self, "_br_watchedParentURLWithORPredicate1:predicate2:", v8, v9), v10 = objc_claimAutoreleasedReturnValue(), v9, v8, !v10) && (objc_msgSend(subpredicates, "objectAtIndexedSubscript:", 1), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(subpredicates, "objectAtIndexedSubscript:", 0), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(self, "_br_watchedParentURLWithORPredicate1:predicate2:", v11, v12), v10 = objc_claimAutoreleasedReturnValue(), v12, v11, !v10))
   {
-    goto LABEL_16;
-  }
-
-  v8 = [subpredicates objectAtIndexedSubscript:0];
-  v9 = [subpredicates objectAtIndexedSubscript:1];
-  v10 = [self _br_watchedParentURLWithORPredicate1:v8 predicate2:v9];
-
-  if (!v10)
-  {
-    v11 = [subpredicates objectAtIndexedSubscript:1];
-    v12 = [subpredicates objectAtIndexedSubscript:0];
-    v10 = [self _br_watchedParentURLWithORPredicate1:v11 predicate2:v12];
-
-    if (!v10)
-    {
 LABEL_16:
 
-      goto LABEL_17;
-    }
+    goto LABEL_17;
   }
 
   v13 = v10;
 
 LABEL_19:
 LABEL_20:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

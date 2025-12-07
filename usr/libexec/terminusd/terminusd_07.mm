@@ -23,7 +23,7 @@ uint64_t sub_10009C0A8(void *a1)
     v3 = socket(2, 2, 0);
     if ((v3 & 0x80000000) == 0)
     {
-      v4 = v3;
+      LODWORD(v4) = v3;
       [a1 virtualInterface];
       v5 = NEVirtualInterfaceCopyName();
       v6 = v5;
@@ -32,52 +32,52 @@ uint64_t sub_10009C0A8(void *a1)
         v7 = [v5 UTF8String];
         if (v7)
         {
-          v30 = *v7;
-          if (v30)
+          v28 = *v7;
+          if (v28)
           {
-            v31 = v7[1];
-            if (v31)
+            v29 = v7[1];
+            if (v29)
             {
-              v32 = v7[2];
-              if (v32)
+              v30 = v7[2];
+              if (v30)
               {
-                v33 = v7[3];
-                if (v33)
+                v31 = v7[3];
+                if (v31)
                 {
-                  v34 = v7[4];
-                  if (v34)
+                  v32 = v7[4];
+                  if (v32)
                   {
-                    v35 = v7[5];
-                    if (v35)
+                    v33 = v7[5];
+                    if (v33)
                     {
-                      v36 = v7[6];
-                      if (v36)
+                      v34 = v7[6];
+                      if (v34)
                       {
-                        v37 = v7[7];
-                        if (v37)
+                        v35 = v7[7];
+                        if (v35)
                         {
-                          v38 = v7[8];
-                          if (v38)
+                          v36 = v7[8];
+                          if (v36)
                           {
-                            v39 = v7[9];
-                            if (v39)
+                            v37 = v7[9];
+                            if (v37)
                             {
-                              v40 = v7[10];
-                              if (v40)
+                              v38 = v7[10];
+                              if (v38)
                               {
-                                v41 = v7[11];
-                                if (v41)
+                                v39 = v7[11];
+                                if (v39)
                                 {
-                                  v42 = v7[12];
-                                  if (v42)
+                                  v40 = v7[12];
+                                  if (v40)
                                   {
-                                    v43 = v7[13];
-                                    if (v43)
+                                    v41 = v7[13];
+                                    if (v41)
                                     {
-                                      v44 = v7[14];
-                                      if (v44)
+                                      v42 = v7[14];
+                                      if (v42)
                                       {
-                                        v45 = 0;
+                                        v43 = 0;
                                       }
                                     }
                                   }
@@ -94,11 +94,11 @@ uint64_t sub_10009C0A8(void *a1)
             }
           }
 
-          LODWORD(v46) = 2;
-          if (ioctl(v4, 0xC02069B4uLL, &v30) < 0)
+          LODWORD(v44) = 2;
+          if (ioctl(v4, 0xC02069B4uLL, &v28) < 0)
           {
-            v16 = __error();
-            if (strerror_r(*v16, __strerrbuf, 0x80uLL))
+            v15 = __error();
+            if (strerror_r(*v15, __strerrbuf, 0x80uLL))
             {
               __strerrbuf[0] = 0;
             }
@@ -108,68 +108,68 @@ uint64_t sub_10009C0A8(void *a1)
               dispatch_once(&qword_100229088, &stru_1001FB1C0);
             }
 
-            if (!_NRLogIsLevelEnabled())
+            if (_NRLogIsLevelEnabled())
             {
-              goto LABEL_76;
+              if (qword_100229088 != -1)
+              {
+                dispatch_once(&qword_100229088, &stru_1001FB1C0);
+              }
+
+              _NRLogWithArgs(qword_100229080, 17, "ioctl SIOCSQOSMARKINGMODE failed: [%d] %s");
             }
 
-            if (qword_100229088 == -1)
-            {
-              goto LABEL_75;
-            }
-
-            goto LABEL_87;
+            goto LABEL_78;
           }
 
           v8 = [v6 UTF8String];
           if (v8)
           {
-            v30 = *v8;
-            if (v30)
+            v28 = *v8;
+            if (v28)
             {
-              v31 = v8[1];
-              if (v31)
+              v29 = v8[1];
+              if (v29)
               {
-                v32 = v8[2];
-                if (v32)
+                v30 = v8[2];
+                if (v30)
                 {
-                  v33 = v8[3];
-                  if (v33)
+                  v31 = v8[3];
+                  if (v31)
                   {
-                    v34 = v8[4];
-                    if (v34)
+                    v32 = v8[4];
+                    if (v32)
                     {
-                      v35 = v8[5];
-                      if (v35)
+                      v33 = v8[5];
+                      if (v33)
                       {
-                        v36 = v8[6];
-                        if (v36)
+                        v34 = v8[6];
+                        if (v34)
                         {
-                          v37 = v8[7];
-                          if (v37)
+                          v35 = v8[7];
+                          if (v35)
                           {
-                            v38 = v8[8];
-                            if (v38)
+                            v36 = v8[8];
+                            if (v36)
                             {
-                              v39 = v8[9];
-                              if (v39)
+                              v37 = v8[9];
+                              if (v37)
                               {
-                                v40 = v8[10];
-                                if (v40)
+                                v38 = v8[10];
+                                if (v38)
                                 {
-                                  v41 = v8[11];
-                                  if (v41)
+                                  v39 = v8[11];
+                                  if (v39)
                                   {
-                                    v42 = v8[12];
-                                    if (v42)
+                                    v40 = v8[12];
+                                    if (v40)
                                     {
-                                      v43 = v8[13];
-                                      if (v43)
+                                      v41 = v8[13];
+                                      if (v41)
                                       {
-                                        v44 = v8[14];
-                                        if (v44)
+                                        v42 = v8[14];
+                                        if (v42)
                                         {
-                                          v45 = 0;
+                                          v43 = 0;
                                         }
                                       }
                                     }
@@ -186,8 +186,8 @@ uint64_t sub_10009C0A8(void *a1)
               }
             }
 
-            LODWORD(v46) = 1;
-            if ((ioctl(v4, 0xC02069B5uLL, &v30) & 0x80000000) == 0)
+            LODWORD(v44) = 1;
+            if ((ioctl(v4, 0xC02069B5uLL, &v28) & 0x80000000) == 0)
             {
               if (qword_100229088 != -1)
               {
@@ -203,15 +203,14 @@ uint64_t sub_10009C0A8(void *a1)
                 }
 
                 v10 = qword_100229080;
-                [v6 UTF8String];
-                _NRLogWithArgs();
+                _NRLogWithArgs(v10, 1, "%s%.30s:%-4d Successfully enabled QoS marking on interface %s", "", "-[NRLinkBluetooth setQosMarkingEnabled]", 2511, [v6 UTF8String]);
               }
 
-              goto LABEL_77;
+              goto LABEL_79;
             }
 
-            v17 = __error();
-            if (strerror_r(*v17, __strerrbuf, 0x80uLL))
+            v16 = __error();
+            if (strerror_r(*v16, __strerrbuf, 0x80uLL))
             {
               __strerrbuf[0] = 0;
             }
@@ -223,61 +222,57 @@ uint64_t sub_10009C0A8(void *a1)
 
             if (_NRLogIsLevelEnabled())
             {
-              if (qword_100229088 == -1)
+              if (qword_100229088 != -1)
               {
-LABEL_75:
-                _NRLogWithArgs();
-                goto LABEL_76;
+                dispatch_once(&qword_100229088, &stru_1001FB1C0);
               }
 
-LABEL_87:
-              dispatch_once(&qword_100229088, &stru_1001FB1C0);
-              goto LABEL_75;
+              _NRLogWithArgs(qword_100229080, 17, "ioctl SIOCSQOSMARKINGENABLED failed: [%d] %s");
             }
 
-LABEL_76:
+LABEL_78:
             v9 = 0;
-LABEL_77:
+LABEL_79:
 
             close(v4);
             return v9;
           }
 
-          v24 = sub_10007CF34();
+          v23 = sub_10007CF34();
           IsLevelEnabled = _NRLogIsLevelEnabled();
 
           v1 = "_strict_strlcpy";
           if (IsLevelEnabled)
           {
-            v26 = sub_10007CF34();
-            _NRLogWithArgs();
+            v25 = sub_10007CF34();
+            _NRLogWithArgs(v25, 16, "%s%.30s:%-4d ABORTING: strict_strlcpy called with NULL src", "", "_strict_strlcpy", 221);
           }
 
           v4 = _os_log_pack_size();
-          v6 = &v30 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
-          v27 = *__error();
-          v28 = _os_log_pack_fill();
-          *v28 = 136446210;
-          *(v28 + 4) = "_strict_strlcpy";
+          v6 = &v28 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+          v26 = __error();
+          v27 = _os_log_pack_fill(v6, v4, *v26, &_mh_execute_header, "%{public}s strict_strlcpy called with NULL src");
+          *v27 = 136446210;
+          *(v27 + 4) = "_strict_strlcpy";
         }
 
         else
         {
-          v19 = sub_10007CF34();
-          v20 = _NRLogIsLevelEnabled();
+          v18 = sub_10007CF34();
+          v19 = _NRLogIsLevelEnabled();
 
-          if (v20)
+          if (v19)
           {
-            v21 = sub_10007CF34();
-            _NRLogWithArgs();
+            v20 = sub_10007CF34();
+            _NRLogWithArgs(v20, 16, "%s%.30s:%-4d ABORTING: strict_strlcpy called with NULL src", "", "_strict_strlcpy", 221);
           }
 
           v4 = _os_log_pack_size();
-          v6 = &v30 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
-          v22 = *__error();
-          v23 = _os_log_pack_fill();
-          *v23 = 136446210;
-          *(v23 + 4) = "_strict_strlcpy";
+          v6 = &v28 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+          v21 = __error();
+          v22 = _os_log_pack_fill(v6, v4, *v21, &_mh_execute_header, "%{public}s strict_strlcpy called with NULL src");
+          *v22 = 136446210;
+          *(v22 + 4) = "_strict_strlcpy";
         }
 
         sub_10007CF34();
@@ -302,14 +297,14 @@ LABEL_58:
           dispatch_once(&qword_100229088, &stru_1001FB1C0);
         }
 
-        goto LABEL_75;
+        _NRLogWithArgs(qword_100229080, 17, "Failed to copy virtual interface name");
       }
 
-      goto LABEL_76;
+      goto LABEL_78;
     }
 
-    v15 = __error();
-    if (strerror_r(*v15, __strerrbuf, 0x80uLL))
+    v14 = *__error();
+    if (strerror_r(v14, __strerrbuf, 0x80uLL))
     {
       __strerrbuf[0] = 0;
     }
@@ -326,7 +321,7 @@ LABEL_58:
         dispatch_once(&qword_100229088, &stru_1001FB1C0);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100229080, 17, "Failed to create socket for setting QoS marking flags: [%d] %s", v14, __strerrbuf);
     }
 
     return 0;
@@ -334,16 +329,14 @@ LABEL_58:
 
   else
   {
-    v11 = a1[4];
-    v12 = _NRCopyLogObjectForNRUUID();
+    v11 = _NRCopyLogObjectForNRUUID();
     v9 = _NRLogIsLevelEnabled();
 
     if (v9)
     {
-      v13 = a1[4];
-      v14 = _NRCopyLogObjectForNRUUID();
-      v29 = [a1 copyDescription];
-      _NRLogWithArgs();
+      v12 = _NRCopyLogObjectForNRUUID();
+      v13 = [a1 copyDescription];
+      _NRLogWithArgs(v12, 17, "%@: No virtualInterface to set QoS marking mode enabled", v13);
 
       return 0;
     }
@@ -366,17 +359,15 @@ void sub_10009C854(uint64_t a1, unsigned int a2)
         ++*(a1 + 1095);
         if (gNRPacketLoggingEnabled == 1)
         {
-          v6 = *(a1 + 32);
-          v7 = _NRCopyLogObjectForNRUUID();
+          v6 = _NRCopyLogObjectForNRUUID();
           IsLevelEnabled = _NRLogIsLevelEnabled();
 
           v3 = &OBJC_IVAR___BTPResolver__sdRefResolve;
           if (IsLevelEnabled)
           {
-            v9 = *(a1 + 32);
-            v10 = _NRCopyLogObjectForNRUUID();
-            v16 = [a1 copyDescription];
-            _NRLogWithArgs();
+            v8 = _NRCopyLogObjectForNRUUID();
+            v9 = [a1 copyDescription];
+            _NRLogWithArgs(v8, 1, "%s%.30s:%-4d %@: source-suspend: LinkOutput", "", "NRLinkSuspendLinkOutputSource", 846, v9);
 
             v3 = &OBJC_IVAR___BTPResolver__sdRefResolve;
           }
@@ -395,17 +386,15 @@ void sub_10009C854(uint64_t a1, unsigned int a2)
         ++*(a1 + 487);
         if (gNRPacketLoggingEnabled == 1)
         {
-          v11 = *(a1 + 32);
-          v12 = _NRCopyLogObjectForNRUUID();
-          v13 = _NRLogIsLevelEnabled();
+          v10 = _NRCopyLogObjectForNRUUID();
+          v11 = _NRLogIsLevelEnabled();
 
           v4 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-          if (v13)
+          if (v11)
           {
-            v14 = *(a1 + 32);
-            v15 = _NRCopyLogObjectForNRUUID();
-            v17 = [a1 copyDescription];
-            _NRLogWithArgs();
+            v12 = _NRCopyLogObjectForNRUUID();
+            v13 = [a1 copyDescription];
+            _NRLogWithArgs(v12, 1, "%s%.30s:%-4d %@: source-resume: NexusInput", "", "NRLinkResumeNexusInputSource", 873, v13);
 
             v4 = &OBJC_IVAR___BTPResolver__sdRefResolve;
           }
@@ -430,189 +419,179 @@ void sub_10009CA80(uint64_t a1)
   {
     v2 = *(a1 + 298);
     v3 = *(a1 + 297);
-    v4 = *(a1 + 32);
-    v5 = _NRCopyLogObjectForNRUUID();
+    v4 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v7 = *(a1 + 32);
-      v8 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v6 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v6, 0, "LinkStats: ------ %s datapath snapshot ------", "Rx(M)");
     }
 
     if (*(a1 + 297))
     {
-      v9 = 0;
-      v10 = v2 - (v2 / v3) * v3;
+      v7 = 0;
+      v8 = v2 - (v2 / v3) * v3;
       do
       {
-        v11 = (*(a1 + 2023) + 8 * v10);
-        if ((v11 & 7) != 0)
+        v9 = (*(a1 + 2023) + 8 * v8);
+        if ((v9 & 7) != 0)
         {
           break;
         }
 
-        sub_10009CEE4(*v11, *(a1 + 32));
-        *v11 = 0;
-        v12 = *(a1 + 297);
-        v10 = (v10 + 1) % v12;
-        ++v9;
+        sub_10009CEE4(*v9, *(a1 + 32));
+        *v9 = 0;
+        v10 = *(a1 + 297);
+        v8 = (v8 + 1) % v10;
+        ++v7;
       }
 
-      while (v9 < v12);
+      while (v7 < v10);
     }
   }
 
   if (*(a1 + 2071))
   {
-    v13 = *(a1 + 304);
-    v14 = *(a1 + 303);
-    v15 = *(a1 + 32);
-    v16 = _NRCopyLogObjectForNRUUID();
-    v17 = _NRLogIsLevelEnabled();
+    v11 = *(a1 + 304);
+    v12 = *(a1 + 303);
+    v13 = _NRCopyLogObjectForNRUUID();
+    v14 = _NRLogIsLevelEnabled();
 
-    if (v17)
+    if (v14)
     {
-      v18 = *(a1 + 32);
-      v19 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v15 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v15, 0, "LinkStats: ------ %s datapath snapshot ------", "Tx(M)");
     }
 
     if (*(a1 + 303))
     {
-      v20 = 0;
-      v21 = v13 - (v13 / v14) * v14;
+      v16 = 0;
+      v17 = v11 - (v11 / v12) * v12;
       do
       {
-        v22 = (*(a1 + 2071) + 8 * v21);
-        if ((v22 & 7) != 0)
+        v18 = (*(a1 + 2071) + 8 * v17);
+        if ((v18 & 7) != 0)
         {
           break;
         }
 
-        sub_10009D908(*v22, *(a1 + 32));
-        *v22 = 0;
-        v23 = *(a1 + 303);
-        v21 = (v21 + 1) % v23;
-        ++v20;
+        sub_10009D908(*v18, *(a1 + 32));
+        *v18 = 0;
+        v19 = *(a1 + 303);
+        v17 = (v17 + 1) % v19;
+        ++v16;
       }
 
-      while (v20 < v23);
+      while (v16 < v19);
     }
   }
 
   if (*(a1 + 2039))
   {
-    v24 = *(a1 + 300);
-    v25 = *(a1 + 299);
-    v26 = *(a1 + 32);
-    v27 = _NRCopyLogObjectForNRUUID();
-    v28 = _NRLogIsLevelEnabled();
+    v20 = *(a1 + 300);
+    v21 = *(a1 + 299);
+    v22 = _NRCopyLogObjectForNRUUID();
+    v23 = _NRLogIsLevelEnabled();
 
-    if (v28)
+    if (v23)
     {
-      v29 = *(a1 + 32);
-      v30 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v24 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v24, 0, "LinkStats: ------ %s datapath snapshot ------", "Rx(U)");
     }
 
     if (*(a1 + 299))
     {
-      v31 = 0;
-      v32 = v24 - (v24 / v25) * v25;
+      v25 = 0;
+      v26 = v20 - (v20 / v21) * v21;
       do
       {
-        v33 = (*(a1 + 2039) + 8 * v32);
-        if ((v33 & 7) != 0)
+        v27 = (*(a1 + 2039) + 8 * v26);
+        if ((v27 & 7) != 0)
         {
           break;
         }
 
-        sub_10009CEE4(*v33, *(a1 + 32));
-        *v33 = 0;
-        v34 = *(a1 + 299);
-        v32 = (v32 + 1) % v34;
-        ++v31;
+        sub_10009CEE4(*v27, *(a1 + 32));
+        *v27 = 0;
+        v28 = *(a1 + 299);
+        v26 = (v26 + 1) % v28;
+        ++v25;
       }
 
-      while (v31 < v34);
+      while (v25 < v28);
     }
   }
 
   if (*(a1 + 2087))
   {
-    v35 = *(a1 + 306);
-    v36 = *(a1 + 305);
-    v37 = *(a1 + 32);
-    v38 = _NRCopyLogObjectForNRUUID();
-    v39 = _NRLogIsLevelEnabled();
+    v29 = *(a1 + 306);
+    v30 = *(a1 + 305);
+    v31 = _NRCopyLogObjectForNRUUID();
+    v32 = _NRLogIsLevelEnabled();
 
-    if (v39)
+    if (v32)
     {
-      v40 = *(a1 + 32);
-      v41 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v33 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v33, 0, "LinkStats: ------ %s datapath snapshot ------", "Tx(U)");
     }
 
     if (*(a1 + 305))
     {
-      v42 = 0;
-      v43 = v35 - (v35 / v36) * v36;
+      v34 = 0;
+      v35 = v29 - (v29 / v30) * v30;
       do
       {
-        v44 = (*(a1 + 2087) + 8 * v43);
-        if ((v44 & 7) != 0)
+        v36 = (*(a1 + 2087) + 8 * v35);
+        if ((v36 & 7) != 0)
         {
           break;
         }
 
-        sub_10009D908(*v44, *(a1 + 32));
-        *v44 = 0;
-        v45 = *(a1 + 305);
-        v43 = (v43 + 1) % v45;
-        ++v42;
+        sub_10009D908(*v36, *(a1 + 32));
+        *v36 = 0;
+        v37 = *(a1 + 305);
+        v35 = (v35 + 1) % v37;
+        ++v34;
       }
 
-      while (v42 < v45);
+      while (v34 < v37);
     }
   }
 
   if (*(a1 + 2055))
   {
-    v46 = *(a1 + 302);
-    v47 = *(a1 + 301);
-    v48 = *(a1 + 32);
-    v49 = _NRCopyLogObjectForNRUUID();
-    v50 = _NRLogIsLevelEnabled();
+    v38 = *(a1 + 302);
+    v39 = *(a1 + 301);
+    v40 = _NRCopyLogObjectForNRUUID();
+    v41 = _NRLogIsLevelEnabled();
 
-    if (v50)
+    if (v41)
     {
-      v51 = *(a1 + 32);
-      v52 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v42 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v42, 0, "LinkStats: ------ %s datapath snapshot ------", "Rx(D)");
     }
 
     if (*(a1 + 301))
     {
-      v53 = 0;
-      v54 = v46 - (v46 / v47) * v47;
+      v43 = 0;
+      v44 = v38 - (v38 / v39) * v39;
       do
       {
-        v55 = (*(a1 + 2055) + 8 * v54);
-        if ((v55 & 7) != 0)
+        v45 = (*(a1 + 2055) + 8 * v44);
+        if ((v45 & 7) != 0)
         {
           break;
         }
 
-        sub_10009CEE4(*v55, *(a1 + 32));
-        *v55 = 0;
-        v56 = *(a1 + 301);
-        v54 = (v54 + 1) % v56;
-        ++v53;
+        sub_10009CEE4(*v45, *(a1 + 32));
+        *v45 = 0;
+        v46 = *(a1 + 301);
+        v44 = (v44 + 1) % v46;
+        ++v43;
       }
 
-      while (v53 < v56);
+      while (v43 < v46);
     }
   }
 }
@@ -631,7 +610,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (IsLevelEnabled)
       {
         v6 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v6, 0, "LinkStats: LTNStartOuterLoop");
       }
     }
 
@@ -643,7 +622,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v8)
       {
         v9 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v9, 0, "LinkStats: LTNStartInnerLoop");
       }
     }
 
@@ -655,7 +634,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v11)
       {
         v12 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v12, 0, "LinkStats: LTNReadAllCurLinkInputSlot");
       }
     }
 
@@ -667,7 +646,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v14)
       {
         v15 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v15, 0, "LinkStats: LTNGotNewSlot");
       }
     }
 
@@ -679,7 +658,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v17)
       {
         v18 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v18, 0, "LinkStats: LTNReuseExistingSlot");
       }
     }
 
@@ -691,7 +670,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v20)
       {
         v21 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v21, 0, "LinkStats: LTNNoLinkInputSlot");
       }
     }
 
@@ -703,7 +682,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v23)
       {
         v24 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v24, 0, "LinkStats: LTNIncomingTLV1");
       }
     }
 
@@ -715,7 +694,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v26)
       {
         v27 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v27, 0, "LinkStats: LTNIncomingTLV2");
       }
     }
 
@@ -727,7 +706,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v29)
       {
         v30 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v30, 0, "LinkStats: LTNIncomingTLV3");
       }
     }
 
@@ -739,7 +718,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v32)
       {
         v33 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v33, 0, "LinkStats: LTNIncomingTLV4");
       }
     }
 
@@ -751,7 +730,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v35)
       {
         v36 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v36, 0, "LinkStats: LTNIncomingTLV5");
       }
     }
 
@@ -763,7 +742,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v38)
       {
         v39 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v39, 0, "LinkStats: LTNPlacingLinkReadBuffer");
       }
     }
 
@@ -775,7 +754,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v41)
       {
         v42 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v42, 0, "LinkStats: LTNPlacingCurLinkInputSlot");
       }
     }
 
@@ -787,7 +766,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v44)
       {
         v45 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v45, 0, "LinkStats: LTNShrinkingIOVec");
       }
     }
 
@@ -799,7 +778,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v47)
       {
         v48 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v48, 0, "LinkStats: LTNNotShrinkingIOVec");
       }
     }
 
@@ -811,7 +790,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v50)
       {
         v51 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v51, 0, "LinkStats: LTNNoLookAheadSlots");
       }
     }
 
@@ -823,7 +802,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v53)
       {
         v54 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v54, 0, "LinkStats: LTNPlacingLookAheadSlots");
       }
     }
 
@@ -835,7 +814,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v56)
       {
         v57 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v57, 0, "LinkStats: LTNShrinkingLastIOVec");
       }
     }
 
@@ -847,7 +826,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v59)
       {
         v60 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v60, 0, "LinkStats: LTNNotShrinkingLastIOVec");
       }
     }
 
@@ -859,7 +838,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v62)
       {
         v63 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v63, 0, "LinkStats: LTNNotEnoughInputBytes");
       }
     }
 
@@ -871,7 +850,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v65)
       {
         v66 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v66, 0, "LinkStats: LTNCurInputSlotComplete");
       }
     }
 
@@ -883,7 +862,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v68)
       {
         v69 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v69, 0, "LinkStats: LTNCurInputSlotCompleteLRB");
       }
     }
 
@@ -895,7 +874,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v71)
       {
         v72 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v72, 0, "LinkStats: LTNNoNexusOutputSlot");
       }
     }
 
@@ -907,7 +886,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v74)
       {
         v75 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v75, 0, "LinkStats: LTNNoNexusOutputSlotAndFullLRB");
       }
     }
 
@@ -919,7 +898,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v77)
       {
         v78 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v78, 0, "LinkStats: LTNNoNexusOutputSlotWithAllInLRB");
       }
     }
 
@@ -931,7 +910,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v80)
       {
         v81 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v81, 0, "LinkStats: LTNCurInputSlotCompleteWithNoNexusOutputSlot");
       }
     }
 
@@ -943,7 +922,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v83)
       {
         v84 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v84, 0, "LinkStats: LTNReinjectingPacketToNexus");
       }
     }
 
@@ -955,7 +934,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v86)
       {
         v87 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v87, 0, "LinkStats: LTNMarkedWakePacketFlag");
       }
     }
 
@@ -967,7 +946,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v89)
       {
         v90 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v90, 0, "LinkStats: LTNReinjectingIKEv2Packet");
       }
     }
 
@@ -979,7 +958,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v92)
       {
         v93 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v93, 0, "LinkStats: LTNEndInnerLoop");
       }
     }
 
@@ -991,7 +970,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v95)
       {
         v96 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v96, 0, "LinkStats: LTNMemmovingLRB");
       }
     }
 
@@ -1003,7 +982,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v98)
       {
         v99 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v99, 0, "LinkStats: LTNNotMemmovingLRBWithHandled");
       }
     }
 
@@ -1015,7 +994,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v101)
       {
         v102 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v102, 0, "LinkStats: LTNNotMemmovingLRBWithNoHandled");
       }
     }
 
@@ -1027,7 +1006,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v104)
       {
         v105 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v105, 0, "LinkStats: LTNResettingLRB");
       }
     }
 
@@ -1039,7 +1018,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v107)
       {
         v108 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v108, 0, "LinkStats: LTNLinkChannelSync");
       }
     }
 
@@ -1051,7 +1030,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
       if (v110)
       {
         v111 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v111, 0, "LinkStats: LTNNexusOutputSync");
       }
     }
 
@@ -1062,7 +1041,7 @@ void sub_10009CEE4(uint64_t a1, void *a2)
     if (v113)
     {
       v114 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v114, 0, "LinkStats: ------------------------------");
 
       v3 = v115;
     }
@@ -1083,7 +1062,7 @@ void sub_10009D908(uint64_t a1, void *a2)
       if (IsLevelEnabled)
       {
         v6 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v6, 0, "LinkStats: NTLStartInnerLoop");
       }
     }
 
@@ -1095,7 +1074,7 @@ void sub_10009D908(uint64_t a1, void *a2)
       if (v8)
       {
         v9 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v9, 0, "LinkStats: NTLNoDatagramLinkInputSlot");
       }
     }
 
@@ -1107,7 +1086,7 @@ void sub_10009D908(uint64_t a1, void *a2)
       if (v11)
       {
         v12 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v12, 0, "LinkStats: NTLNoNexusInputSlotForDatagramLink");
       }
     }
 
@@ -1119,7 +1098,7 @@ void sub_10009D908(uint64_t a1, void *a2)
       if (v14)
       {
         v15 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v15, 0, "LinkStats: NTLWroteToDatagramLink");
       }
     }
 
@@ -1131,7 +1110,7 @@ void sub_10009D908(uint64_t a1, void *a2)
       if (v17)
       {
         v18 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v18, 0, "LinkStats: NTLGotLinkOutputSlot");
       }
     }
 
@@ -1143,7 +1122,7 @@ void sub_10009D908(uint64_t a1, void *a2)
       if (v20)
       {
         v21 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v21, 0, "LinkStats: NTLReuseExistingSlot");
       }
     }
 
@@ -1155,7 +1134,7 @@ void sub_10009D908(uint64_t a1, void *a2)
       if (v23)
       {
         v24 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v24, 0, "LinkStats: NTLNoLinkOutputSlot");
       }
     }
 
@@ -1167,7 +1146,7 @@ void sub_10009D908(uint64_t a1, void *a2)
       if (v26)
       {
         v27 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v27, 0, "LinkStats: NTLWroteBytesFromLWB");
       }
     }
 
@@ -1179,7 +1158,7 @@ void sub_10009D908(uint64_t a1, void *a2)
       if (v29)
       {
         v30 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v30, 0, "LinkStats: NTLFilledLinkOutputWithLWB");
       }
     }
 
@@ -1191,7 +1170,7 @@ void sub_10009D908(uint64_t a1, void *a2)
       if (v32)
       {
         v33 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v33, 0, "LinkStats: NTLNilNexusInputRing");
       }
     }
 
@@ -1203,7 +1182,7 @@ void sub_10009D908(uint64_t a1, void *a2)
       if (v35)
       {
         v36 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v36, 0, "LinkStats: NTLNoNexusInput");
       }
     }
 
@@ -1215,7 +1194,7 @@ void sub_10009D908(uint64_t a1, void *a2)
       if (v38)
       {
         v39 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v39, 0, "LinkStats: NTLGotLookaheadOutputSlot");
       }
     }
 
@@ -1227,7 +1206,7 @@ void sub_10009D908(uint64_t a1, void *a2)
       if (v41)
       {
         v42 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v42, 0, "LinkStats: NTLNotEnoughRoomInLinkOutputSlot");
       }
     }
 
@@ -1239,7 +1218,7 @@ void sub_10009D908(uint64_t a1, void *a2)
       if (v44)
       {
         v45 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v45, 0, "LinkStats: NTLWroteToLinkOutputSlot");
       }
     }
 
@@ -1251,7 +1230,7 @@ void sub_10009D908(uint64_t a1, void *a2)
       if (v47)
       {
         v48 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v48, 0, "LinkStats: NTLWroteToLookaheadOutputSlot");
       }
     }
 
@@ -1263,7 +1242,7 @@ void sub_10009D908(uint64_t a1, void *a2)
       if (v50)
       {
         v51 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v51, 0, "LinkStats: NTLWroteNexusPacket");
       }
     }
 
@@ -1275,7 +1254,7 @@ void sub_10009D908(uint64_t a1, void *a2)
       if (v53)
       {
         v54 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v54, 0, "LinkStats: NTLWrotePartialBytesToLinkOutput");
       }
     }
 
@@ -1287,7 +1266,7 @@ void sub_10009D908(uint64_t a1, void *a2)
       if (v56)
       {
         v57 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v57, 0, "LinkStats: NTLWroteAllBytesToLinkOutput");
       }
     }
 
@@ -1299,7 +1278,7 @@ void sub_10009D908(uint64_t a1, void *a2)
       if (v59)
       {
         v60 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v60, 0, "LinkStats: NTLMemmovingLWB");
       }
     }
 
@@ -1311,7 +1290,7 @@ void sub_10009D908(uint64_t a1, void *a2)
       if (v62)
       {
         v63 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v63, 0, "LinkStats: NTLResettingLWB");
       }
     }
 
@@ -1323,7 +1302,7 @@ void sub_10009D908(uint64_t a1, void *a2)
       if (v65)
       {
         v66 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v66, 0, "LinkStats: NTLLinkOutputSync");
       }
     }
 
@@ -1335,7 +1314,7 @@ void sub_10009D908(uint64_t a1, void *a2)
       if (v68)
       {
         v69 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v69, 0, "LinkStats: NTLLinkChannelSync");
       }
     }
 
@@ -1347,7 +1326,7 @@ void sub_10009D908(uint64_t a1, void *a2)
       if (v71)
       {
         v72 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v72, 0, "LinkStats: NTLDatagramLinkChannelSync");
       }
     }
 
@@ -1359,7 +1338,7 @@ void sub_10009D908(uint64_t a1, void *a2)
       if (v74)
       {
         v75 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v75, 0, "LinkStats: NTLNexusInputSync");
       }
     }
 
@@ -1370,7 +1349,7 @@ void sub_10009D908(uint64_t a1, void *a2)
     if (v77)
     {
       v78 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v78, 0, "LinkStats: ------------------------------");
 
       v3 = v79;
     }
@@ -1403,8 +1382,8 @@ void sub_10009DFFC(uint64_t a1, unsigned int a2)
   }
 
   v5 = [v3 length];
-  v61 = *(a1 + 1471);
-  v6 = [v61 bytes];
+  v44 = *(a1 + 1471);
+  v6 = [v44 bytes];
   if (*(a1 + 1063))
   {
     if (*(a1 + 1047))
@@ -1416,47 +1395,44 @@ void sub_10009DFFC(uint64_t a1, unsigned int a2)
         v9 = 0;
         while (1)
         {
-          v65 = 0u;
-          v66 = 0u;
-          v63 = 0u;
+          v48 = 0u;
+          v49 = 0u;
+          v46 = 0u;
           *__dst = 0u;
-          v10 = *(a1 + 1063);
           next_slot = os_channel_get_next_slot();
           if (!next_slot)
           {
             break;
           }
 
-          v12 = next_slot;
-          if (WORD1(v63) <= (v5 - v8))
+          v11 = next_slot;
+          if (WORD1(v46) <= (v5 - v8))
           {
-            v13 = WORD1(v63);
+            v12 = WORD1(v46);
           }
 
           else
           {
-            v13 = v5 - v8;
+            v12 = v5 - v8;
           }
 
-          memcpy(__dst[0], &v7[v8], v13);
-          WORD1(v63) = v13;
-          v8 += v13;
-          v14 = *(a1 + 1063);
+          memcpy(__dst[0], &v7[v8], v12);
+          WORD1(v46) = v12;
+          v8 += v12;
           os_channel_set_slot_properties();
-          v9 = v12;
+          v9 = v11;
           if (v8 >= v5)
           {
-            goto LABEL_24;
+            goto LABEL_25;
           }
         }
 
         if (!v9)
         {
-          goto LABEL_25;
+          goto LABEL_26;
         }
 
-LABEL_24:
-        v24 = *(a1 + 1063);
+LABEL_25:
         os_channel_advance_slot();
       }
 
@@ -1465,23 +1441,20 @@ LABEL_24:
         v8 = 0;
       }
 
-LABEL_25:
-      v25 = *(a1 + 1047);
+LABEL_26:
       os_channel_sync();
       if (v8 == v5)
       {
         if (gNRPacketLoggingEnabled)
         {
-          v35 = *(a1 + 32);
-          v36 = _NRCopyLogObjectForNRUUID();
+          v27 = _NRCopyLogObjectForNRUUID();
           IsLevelEnabled = _NRLogIsLevelEnabled();
 
           if (IsLevelEnabled)
           {
-            v38 = *(a1 + 32);
-            v39 = _NRCopyLogObjectForNRUUID();
-            v56 = [a1 copyDescription];
-            _NRLogWithArgs();
+            v29 = _NRCopyLogObjectForNRUUID();
+            v30 = [a1 copyDescription];
+            _NRLogWithArgs(v29, 1, "%s%.30s:%-4d %@: Wrote %zu bytes to the channel", "", "[NRLinkBluetooth writeBytesToChannel:length:]", 7839, v30, v5);
           }
         }
 
@@ -1490,62 +1463,58 @@ LABEL_25:
 
       else if (gNRPacketLoggingEnabled)
       {
-        v40 = *(a1 + 32);
-        v41 = _NRCopyLogObjectForNRUUID();
-        v42 = _NRLogIsLevelEnabled();
+        v31 = _NRCopyLogObjectForNRUUID();
+        v32 = _NRLogIsLevelEnabled();
 
-        if (v42)
+        if (v32)
         {
-          v43 = *(a1 + 32);
-          v44 = _NRCopyLogObjectForNRUUID();
-          v57 = [a1 copyDescription];
-          _NRLogWithArgs();
+          v33 = _NRCopyLogObjectForNRUUID();
+          v34 = [a1 copyDescription];
+          _NRLogWithArgs(v33, 1, "%s%.30s:%-4d %@: Wrote %zu bytes (but asked for %zu) to the channel", "", "[NRLinkBluetooth writeBytesToChannel:length:]", 7837, v34, v8, v5);
         }
       }
 
-      goto LABEL_29;
+      goto LABEL_30;
     }
 
-    v18 = *(a1 + 32);
-    v19 = _NRCopyLogObjectForNRUUID();
-    v20 = _NRLogIsLevelEnabled();
+    v17 = _NRCopyLogObjectForNRUUID();
+    v18 = _NRLogIsLevelEnabled();
 
-    if (v20)
+    if (v18)
     {
-      goto LABEL_20;
+      v15 = _NRCopyLogObjectForNRUUID();
+      v16 = [a1 copyDescription];
+      _NRLogWithArgs(v15, 17, "%@: Tried to write but _linkChannel is NULL", v16);
+      goto LABEL_21;
     }
   }
 
   else
   {
-    v15 = *(a1 + 32);
-    v16 = _NRCopyLogObjectForNRUUID();
-    v17 = _NRLogIsLevelEnabled();
+    v13 = _NRCopyLogObjectForNRUUID();
+    v14 = _NRLogIsLevelEnabled();
 
-    if (v17)
+    if (v14)
     {
-LABEL_20:
-      v21 = *(a1 + 32);
-      v22 = _NRCopyLogObjectForNRUUID();
-      v23 = [a1 copyDescription];
-      _NRLogWithArgs();
+      v15 = _NRCopyLogObjectForNRUUID();
+      v16 = [a1 copyDescription];
+      _NRLogWithArgs(v15, 17, "%@: Tried to write but _linkOutputRing is NULL", v16);
+LABEL_21:
     }
   }
 
   v8 = 0;
-LABEL_29:
+LABEL_30:
   if (gNRPacketLoggingEnabled == 1)
   {
-    v28 = *(a1 + 32);
-    v29 = _NRCopyLogObjectForNRUUID();
-    v30 = _NRLogIsLevelEnabled();
+    v21 = _NRCopyLogObjectForNRUUID();
+    v22 = _NRLogIsLevelEnabled();
 
-    if (v30)
+    if (v22)
     {
-      v31 = *(a1 + 32);
-      v32 = _NRCopyLogObjectForNRUUID();
-      v55 = [a1 copyDescription];
-      _NRLogWithArgs();
+      v23 = _NRCopyLogObjectForNRUUID();
+      v24 = [a1 copyDescription];
+      _NRLogWithArgs(v23, 1, "%s%.30s:%-4d %@: wrote %lld", "", "[NRLinkBluetooth sendDataWithCount:]", 7916, v24, v8);
     }
   }
 
@@ -1558,18 +1527,18 @@ LABEL_29:
   {
     if (gNRPacketLoggingEnabled == 1)
     {
-      v33 = +[NSDate date];
-      v34 = *(a1 + 1831);
-      *(a1 + 1831) = v33;
+      v25 = +[NSDate date];
+      v26 = *(a1 + 1831);
+      *(a1 + 1831) = v25;
     }
 
     *(a1 + 1527) += v8;
     if (v8 == v5)
     {
-      v26 = *(a1 + 1471);
+      v19 = *(a1 + 1471);
       *(a1 + 1471) = 0;
 
-      sub_10009C854(a1, a2 + 1);
+      sub_10009C854(a1);
     }
 
     else
@@ -1585,16 +1554,14 @@ LABEL_29:
         ++*(a1 + 1095);
         if (gNRPacketLoggingEnabled == 1)
         {
-          v45 = *(a1 + 32);
-          v46 = _NRCopyLogObjectForNRUUID();
-          v47 = _NRLogIsLevelEnabled();
+          v35 = _NRCopyLogObjectForNRUUID();
+          v36 = _NRLogIsLevelEnabled();
 
-          if (v47)
+          if (v36)
           {
-            v48 = *(a1 + 32);
-            v49 = _NRCopyLogObjectForNRUUID();
-            v58 = [a1 copyDescription];
-            _NRLogWithArgs();
+            v37 = _NRCopyLogObjectForNRUUID();
+            v38 = [a1 copyDescription];
+            _NRLogWithArgs(v37, 1, "%s%.30s:%-4d %@: source-resume: LinkOutput", "", "NRLinkResumeLinkOutputSource", 854, v38);
           }
         }
 
@@ -1607,26 +1574,24 @@ LABEL_29:
         ++*(a1 + 487);
         if (gNRPacketLoggingEnabled == 1)
         {
-          v50 = *(a1 + 32);
-          v51 = _NRCopyLogObjectForNRUUID();
-          v52 = _NRLogIsLevelEnabled();
+          v39 = _NRCopyLogObjectForNRUUID();
+          v40 = _NRLogIsLevelEnabled();
 
-          if (v52)
+          if (v40)
           {
-            v53 = *(a1 + 32);
-            v54 = _NRCopyLogObjectForNRUUID();
-            v59 = [a1 copyDescription];
-            _NRLogWithArgs();
+            v41 = _NRCopyLogObjectForNRUUID();
+            v42 = [a1 copyDescription];
+            _NRLogWithArgs(v41, 1, "%s%.30s:%-4d %@: source-suspend: NexusInput", "", "NRLinkSuspendNexusInputSource", 863, v42);
           }
         }
 
         dispatch_suspend(*(a1 + 463));
       }
 
-      v27 = *(a1 + 1495);
-      if (v27)
+      v20 = *(a1 + 1495);
+      if (v20)
       {
-        [v27 setReceiveWindowPacketCount:0];
+        [v20 setReceiveWindowPacketCount:0];
       }
 
       sub_10009DFFC(a1, a2 + 1);
@@ -1641,73 +1606,70 @@ void sub_10009E6A4(uint64_t a1)
     v2 = sub_100163A30(NRDLocalDevice, *(a1 + 32));
     if (!v2)
     {
-      v17 = sub_10007CF34();
+      v16 = sub_10007CF34();
       IsLevelEnabled = _NRLogIsLevelEnabled();
 
       if (IsLevelEnabled)
       {
-        v19 = sub_10007CF34();
-        _NRLogWithArgs();
+        v18 = sub_10007CF34();
+        _NRLogWithArgs(v18, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (localDevice) != ((void*)0)", "", "[NRLinkBluetooth setupIPsecForPairingInitiatorIfNecessary]", 9566);
       }
 
-      _os_log_pack_size();
-      __chkstk_darwin();
-      v20 = *__error();
-      v21 = _os_log_pack_fill();
-      *v21 = 136446210;
-      *(v21 + 4) = "[NRLinkBluetooth setupIPsecForPairingInitiatorIfNecessary]";
+      v19 = _os_log_pack_size();
+      v20 = &v24[-1] - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+      v21 = __error();
+      v22 = _os_log_pack_fill(v20, v19, *v21, &_mh_execute_header, "%{public}s Assertion Failed: (localDevice) != ((void*)0)");
+      *v22 = 136446210;
+      *(v22 + 4) = "[NRLinkBluetooth setupIPsecForPairingInitiatorIfNecessary]";
       sub_10007CF34();
       _NRLogAbortWithPack();
     }
 
     v3 = v2;
     v4 = *(a1 + 250);
-    v5 = *(a1 + 32);
-    v6 = _NRCopyLogObjectForNRUUID();
-    v7 = _NRLogIsLevelEnabled();
+    v5 = _NRCopyLogObjectForNRUUID();
+    v6 = _NRLogIsLevelEnabled();
 
     if (v4 == 11)
     {
-      if (v7)
+      if (v6)
       {
-        v8 = *(a1 + 32);
-        v9 = _NRCopyLogObjectForNRUUID();
-        v22 = [a1 copyDescription];
-        _NRLogWithArgs();
+        v7 = _NRCopyLogObjectForNRUUID();
+        v8 = [a1 copyDescription];
+        _NRLogWithArgs(v7, 0, "%s%.30s:%-4d %@: Initiator querying IDS keys for pairing", "", "[NRLinkBluetooth setupIPsecForPairingInitiatorIfNecessary]", 9569, v8);
       }
 
-      v10 = *(a1 + 32);
+      v9 = *(a1 + 32);
       v26[0] = _NSConcreteStackBlock;
       v26[1] = 3221225472;
       v26[2] = sub_10009EB94;
       v26[3] = &unk_1001FB100;
-      v11 = &v27;
+      v10 = &v27;
       v26[4] = a1;
       v27 = v3;
-      v12 = v3;
-      sub_10016E0BC(NRDLocalDevice, v10, 4, v26);
+      v11 = v3;
+      sub_10016E0BC(NRDLocalDevice, v9, 4, v26);
     }
 
     else
     {
-      if (v7)
+      if (v6)
       {
-        v13 = *(a1 + 32);
-        v14 = _NRCopyLogObjectForNRUUID();
-        v23 = [a1 copyDescription];
-        _NRLogWithArgs();
+        v12 = _NRCopyLogObjectForNRUUID();
+        v13 = [a1 copyDescription];
+        _NRLogWithArgs(v12, 0, "%s%.30s:%-4d %@: Querying for pairing keys for OOBK pairing", "", "[NRLinkBluetooth setupIPsecForPairingInitiatorIfNecessary]", 9633, v13);
       }
 
-      v15 = *(a1 + 32);
+      v14 = *(a1 + 32);
       v24[0] = _NSConcreteStackBlock;
       v24[1] = 3221225472;
       v24[2] = sub_10009F144;
       v24[3] = &unk_1001FB128;
-      v11 = &v25;
+      v10 = &v25;
       v24[4] = a1;
       v25 = v3;
-      v16 = v3;
-      sub_10016D738(NRDLocalDevice, v15, 1, 0, v24);
+      v15 = v3;
+      sub_10016D738(NRDLocalDevice, v14, 1, 0, v24);
     }
   }
 }
@@ -1718,12 +1680,12 @@ uint64_t sub_10009E9F0(uint64_t a1)
   v2 = WeakRetained;
   if (WeakRetained)
   {
-    v11 = WeakRetained;
+    v12 = WeakRetained;
     sub_1000850B4(WeakRetained, 3);
-    v2 = v11;
-    if ((*(v11 + 289) & 1) == 0)
+    v2 = v12;
+    if ((*(v12 + 289) & 1) == 0)
     {
-      v3 = sub_100163A30(NRDLocalDevice, *(v11 + 32));
+      v3 = sub_100163A30(NRDLocalDevice, v12[4]);
       if (!v3)
       {
         v5 = sub_10007CF34();
@@ -1732,14 +1694,14 @@ uint64_t sub_10009E9F0(uint64_t a1)
         if (IsLevelEnabled)
         {
           v7 = sub_10007CF34();
-          _NRLogWithArgs();
+          _NRLogWithArgs(v7, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (localDevice) != ((void*)0)", "", "[NRLinkBluetooth setupIPsec]_block_invoke", 9943);
         }
 
-        _os_log_pack_size();
-        v8 = *__error();
-        v9 = _os_log_pack_fill();
-        *v9 = 136446210;
-        *(v9 + 4) = "[NRLinkBluetooth setupIPsec]_block_invoke";
+        v8 = _os_log_pack_size();
+        v9 = __error();
+        v10 = _os_log_pack_fill(&v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), v8, *v9, &_mh_execute_header, "%{public}s Assertion Failed: (localDevice) != ((void*)0)");
+        *v10 = 136446210;
+        *(v10 + 4) = "[NRLinkBluetooth setupIPsec]_block_invoke";
         sub_10007CF34();
         _NRLogAbortWithPack();
       }
@@ -1747,11 +1709,11 @@ uint64_t sub_10009E9F0(uint64_t a1)
       if ((v3[24] & 0x4010) == 0 && v3[8] <= 0x12u)
       {
         v4 = v3;
-        sub_1000850B4(v11, 1);
+        sub_1000850B4(v12, 1);
         v3 = v4;
       }
 
-      v2 = v11;
+      v2 = v12;
     }
   }
 
@@ -1760,13 +1722,12 @@ uint64_t sub_10009E9F0(uint64_t a1)
 
 void sub_10009EB94(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5, void *a6)
 {
-  v66 = a4;
+  v55 = a4;
   v12 = a5;
   v13 = a6;
   if ([*(a1 + 32) state] == 255)
   {
-    v47 = *(*(a1 + 32) + 32);
-    v48 = _NRCopyLogObjectForNRUUID();
+    v43 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (!IsLevelEnabled)
@@ -1774,159 +1735,333 @@ void sub_10009EB94(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5, vo
       goto LABEL_32;
     }
 
-    v50 = *(*(a1 + 32) + 32);
-    v22 = _NRCopyLogObjectForNRUUID();
-    v65 = [*(a1 + 32) copyDescription];
-    _NRLogWithArgs();
+    v21 = _NRCopyLogObjectForNRUUID();
+    v45 = [*(a1 + 32) copyDescription];
+    _NRLogWithArgs(v21, 0, "%s%.30s:%-4d %@: Ignoring result as link is cancelled", "", "[NRLinkBluetooth setupIPsecForPairingInitiatorIfNecessary]_block_invoke", 9580, v45);
 
     goto LABEL_31;
   }
 
-  if (a2)
+  if (!a2)
   {
-    if (a3)
+    v46 = sub_10007CF34();
+    v47 = _NRLogIsLevelEnabled();
+
+    if (!v47)
     {
-      if (v66)
+      goto LABEL_32;
+    }
+
+    v21 = sub_10007CF34();
+    _NRLogWithArgs(v21, 17, "%s called with null remotePublicIDSClassDSigningKey");
+    goto LABEL_31;
+  }
+
+  if (!a3)
+  {
+    v48 = sub_10007CF34();
+    v49 = _NRLogIsLevelEnabled();
+
+    if (!v49)
+    {
+      goto LABEL_32;
+    }
+
+    v21 = sub_10007CF34();
+    _NRLogWithArgs(v21, 17, "%s called with null localPrivateIDSClassDSigningKey");
+LABEL_31:
+
+    goto LABEL_32;
+  }
+
+  if (v55)
+  {
+    v14 = _NRCopyLogObjectForNRUUID();
+    v15 = _NRLogIsLevelEnabled();
+
+    if (v15)
+    {
+      v16 = _NRCopyLogObjectForNRUUID();
+      v17 = [*(a1 + 32) copyDescription];
+      _NRLogWithArgs(v16, 0, "%s%.30s:%-4d %@: Initiator queried IDS keys for pairing", "", "[NRLinkBluetooth setupIPsecForPairingInitiatorIfNecessary]_block_invoke", 9587, v17);
+    }
+
+    v18 = *(a1 + 32);
+    if (v18)
+    {
+      objc_storeStrong((v18 + 1375), a4);
+    }
+
+    if (v12)
+    {
+      v19 = *(a1 + 32);
+      if (v19)
       {
-        v14 = *(*(a1 + 32) + 32);
-        v15 = _NRCopyLogObjectForNRUUID();
-        v16 = _NRLogIsLevelEnabled();
+        objc_storeStrong((v19 + 1383), a5);
+      }
+    }
 
-        if (v16)
-        {
-          v17 = *(*(a1 + 32) + 32);
-          v18 = _NRCopyLogObjectForNRUUID();
-          v63 = 9587;
-          v64 = [*(a1 + 32) copyDescription];
-          _NRLogWithArgs();
-        }
+    if (v13)
+    {
+      v20 = *(a1 + 32);
+      if (v20)
+      {
+        objc_storeStrong((v20 + 1391), a6);
+      }
+    }
 
-        v19 = *(a1 + 32);
-        if (v19)
-        {
-          objc_storeStrong((v19 + 1375), a4);
-        }
+    v21 = [[NEIKEv2AuthenticationProtocol alloc] initWithNonStandardDigitalSignature:2];
+    if (qword_100229318 != -1)
+    {
+      dispatch_once(&qword_100229318, &stru_1001FC5B8);
+    }
 
-        if (v12)
-        {
-          v20 = *(a1 + 32);
-          if (v20)
-          {
-            objc_storeStrong((v20 + 1383), a5);
-          }
-        }
+    v22 = qword_100229310;
+    v23 = sub_1001472F0(1, v22, v21);
 
-        if (v13)
-        {
-          v21 = *(a1 + 32);
-          if (v21)
-          {
-            objc_storeStrong((v21 + 1391), a6);
-          }
-        }
+    [v23 setLocalPrivateKeyRef:a3];
+    [v23 setRemotePublicKeyRef:a2];
+    [*(a1 + 32) reportEvent:3011];
+    v24 = nr_absolute_time();
+    v25 = *(a1 + 32);
+    if (v25 && ((v26 = *(v25 + 2007)) == 0 || (*(v26 + 120) = v24, (v25 = *(a1 + 32)) != 0)))
+    {
+      v27 = *(v25 + 2007);
+      if (v27)
+      {
+        ++v27[14];
+      }
+    }
 
-        v22 = [[NEIKEv2AuthenticationProtocol alloc] initWithNonStandardDigitalSignature:2];
-        if (qword_100229318 != -1)
-        {
-          dispatch_once(&qword_100229318, &stru_1001FC5B8);
-        }
+    else
+    {
+      v27 = 0;
+    }
 
-        v23 = qword_100229310;
-        v24 = sub_1001472F0(1, v23, v22);
+    v28 = sub_100146274(0);
+    [v28 setMaximumPacketSize:2000];
+    [v28 setHeaderOverhead:5];
 
-        [v24 setLocalPrivateKeyRef:a3];
-        [v24 setRemotePublicKeyRef:a2];
-        [*(a1 + 32) reportEvent:3011];
-        v25 = nr_absolute_time();
-        v26 = *(a1 + 32);
-        if (v26 && ((v27 = *(v26 + 2007)) == 0 || (*(v27 + 120) = v25, (v26 = *(a1 + 32)) != 0)))
-        {
-          v28 = *(v26 + 2007);
-          if (v28)
-          {
-            ++v28[14];
-          }
-        }
+    v29 = [NEIKEv2Session alloc];
+    v30 = sub_100146C84(*(a1 + 40), 1, 0);
+    v31 = [v29 initWithIKEConfig:v28 firstChildConfig:v30 sessionConfig:v23 queue:*(*(a1 + 32) + 8) ipsecInterface:0 ikeSocketHandler:0 kernelSASessionName:@"terminusIKEForPairingWithIDS" packetDelegate:*(a1 + 32)];
+    v32 = *(a1 + 32);
+    v33 = *(v32 + 1335);
+    *(v32 + 1335) = v31;
 
-        else
-        {
-          v28 = 0;
-        }
+    v34 = *(*(a1 + 32) + 1335);
+    v35 = _NRCopyLogObjectForNRUUID();
+    if (v34)
+    {
+      v36 = _NRLogIsLevelEnabled();
 
-        v29 = sub_100146274(0);
-        [v29 setMaximumPacketSize:2000];
-        [v29 setHeaderOverhead:5];
-
-        v30 = [NEIKEv2Session alloc];
-        v31 = sub_100146C84(*(a1 + 40), 1, 0);
-        v32 = [v30 initWithIKEConfig:v29 firstChildConfig:v31 sessionConfig:v24 queue:*(*(a1 + 32) + 8) ipsecInterface:0 ikeSocketHandler:0 kernelSASessionName:@"terminusIKEForPairingWithIDS" packetDelegate:*(a1 + 32)];
-        v33 = *(a1 + 32);
-        v34 = *(v33 + 1335);
-        *(v33 + 1335) = v32;
-
-        v35 = *(a1 + 32);
-        v36 = *(v35 + 1335);
-        v37 = *(v35 + 32);
-        v38 = _NRCopyLogObjectForNRUUID();
-        if (v36)
-        {
-          v39 = _NRLogIsLevelEnabled();
-
-          if (v39)
-          {
-            v40 = *(*(a1 + 32) + 32);
-            v41 = _NRCopyLogObjectForNRUUID();
-            v63 = 9625;
-            v64 = [*(a1 + 32) copyDescription];
-            v60 = "";
-            v62 = "[NRLinkBluetooth setupIPsecForPairingInitiatorIfNecessary]_block_invoke";
-            _NRLogWithArgs();
-          }
-
-          sub_100083088(*(a1 + 32));
-          v42 = *(*(a1 + 32) + 32);
-          v43 = _NRCopyLogObjectForNRUUID();
-          v44 = _NRLogIsLevelEnabled();
-
-          if (v44)
-          {
-            v45 = *(*(a1 + 32) + 32);
-            v46 = _NRCopyLogObjectForNRUUID();
-            v63 = 9629;
-            v64 = [*(a1 + 32) copyDescription];
-            v60 = "";
-            v62 = "[NRLinkBluetooth setupIPsecForPairingInitiatorIfNecessary]_block_invoke";
-            _NRLogWithArgs();
-          }
-
-          [*(*(a1 + 32) + 1335) connect];
-        }
-
-        else
-        {
-          v57 = _NRLogIsLevelEnabled();
-
-          if (v57)
-          {
-            v58 = *(*(a1 + 32) + 32);
-            v59 = _NRCopyLogObjectForNRUUID();
-            v61 = [*(a1 + 32) copyDescription];
-            _NRLogWithArgs();
-          }
-        }
-
-        goto LABEL_31;
+      if (v36)
+      {
+        v37 = _NRCopyLogObjectForNRUUID();
+        v38 = [*(a1 + 32) copyDescription];
+        _NRLogWithArgs(v37, 0, "%s%.30s:%-4d %@: Created initiator IDS pairing IKE session", "", "[NRLinkBluetooth setupIPsecForPairingInitiatorIfNecessary]_block_invoke", 9625, v38);
       }
 
-      v55 = sub_10007CF34();
-      v56 = _NRLogIsLevelEnabled();
+      sub_100083088(*(a1 + 32));
+      v39 = _NRCopyLogObjectForNRUUID();
+      v40 = _NRLogIsLevelEnabled();
 
-      if (v56)
+      if (v40)
       {
-LABEL_40:
-        v22 = sub_10007CF34();
-        _NRLogWithArgs();
-LABEL_31:
+        v41 = _NRCopyLogObjectForNRUUID();
+        v42 = [*(a1 + 32) copyDescription];
+        _NRLogWithArgs(v41, 0, "%s%.30s:%-4d %@: Connecting initiator IDS pairing session", "", "[NRLinkBluetooth setupIPsecForPairingInitiatorIfNecessary]_block_invoke", 9629, v42);
+      }
+
+      [*(*(a1 + 32) + 1335) connect];
+    }
+
+    else
+    {
+      v52 = _NRLogIsLevelEnabled();
+
+      if (v52)
+      {
+        v53 = _NRCopyLogObjectForNRUUID();
+        v54 = [*(a1 + 32) copyDescription];
+        _NRLogWithArgs(v53, 17, "%@: Failed to create initiator IDS pairing IKE session", v54);
+      }
+    }
+
+    goto LABEL_31;
+  }
+
+  v50 = sub_10007CF34();
+  v51 = _NRLogIsLevelEnabled();
+
+  if (v51)
+  {
+    v21 = sub_10007CF34();
+    _NRLogWithArgs(v21, 17, "%s called with null localPublicClassDKeysEncryptedWithIDS");
+    goto LABEL_31;
+  }
+
+LABEL_32:
+}
+
+void sub_10009F144(uint64_t a1, void *a2, void *a3, void *a4)
+{
+  v59 = a2;
+  v8 = a3;
+  v9 = a4;
+  v10 = _NRCopyLogObjectForNRUUID();
+  IsLevelEnabled = _NRLogIsLevelEnabled();
+
+  if (IsLevelEnabled)
+  {
+    v12 = _NRCopyLogObjectForNRUUID();
+    v13 = [*(a1 + 32) copyDescription];
+    LogString = _NRKeyCreateLogString();
+    v58 = a3;
+    v15 = v8;
+    v16 = _NRKeyCreateLogString();
+    v17 = _NRKeyCreateLogString();
+    _NRLogWithArgs(v12, 0, "%s%.30s:%-4d %@: Queried for pairing keys for OOBK pairing D %@ C %@ A %@", "", "[NRLinkBluetooth setupIPsecForPairingInitiatorIfNecessary]_block_invoke_2", 9644, v13, LogString, v16, v17);
+
+    v8 = v15;
+    a3 = v58;
+  }
+
+  v18 = [*(a1 + 32) state];
+  v19 = *(a1 + 32);
+  if (v18 == 255)
+  {
+    v51 = _NRCopyLogObjectForNRUUID();
+    v52 = _NRLogIsLevelEnabled();
+
+    if (!v52)
+    {
+      goto LABEL_30;
+    }
+
+    v22 = _NRCopyLogObjectForNRUUID();
+    v24 = [*(a1 + 32) copyDescription];
+    _NRLogWithArgs(v22, 0, "%s%.30s:%-4d %@: Ignoring result as link is cancelled", "", "[NRLinkBluetooth setupIPsecForPairingInitiatorIfNecessary]_block_invoke_2", 9647, v24);
+  }
+
+  else
+  {
+    if (v19)
+    {
+      objc_storeStrong((v19 + 1351), a2);
+      v20 = *(a1 + 32);
+      if (v20)
+      {
+        objc_storeStrong((v20 + 1359), a3);
+        v21 = *(a1 + 32);
+        if (v21)
+        {
+          objc_storeStrong((v21 + 1367), a4);
+        }
+      }
+    }
+
+    v22 = [[NEIKEv2AuthenticationProtocol alloc] initWithMethod:2];
+    if (qword_100229328 != -1)
+    {
+      dispatch_once(&qword_100229328, &stru_1001FC5D8);
+    }
+
+    v23 = qword_100229320;
+    v24 = sub_1001472F0(1, v23, v22);
+
+    v25 = *(a1 + 40);
+    if (v25)
+    {
+      v26 = *(v25 + 176);
+      if (v26)
+      {
+        v26 = v26[2];
+      }
+
+      v27 = v26;
+    }
+
+    else
+    {
+      v27 = 0;
+    }
+
+    [v24 setSharedSecret:v27];
+
+    v28 = [v24 sharedSecret];
+
+    if (v28)
+    {
+      v29 = *(a1 + 32);
+      v30 = [v24 sharedSecret];
+      v31 = _NRKeyCreateLogString();
+      [v29 reportEvent:3013 details:v31];
+
+      v32 = nr_absolute_time();
+      v33 = *(a1 + 32);
+      if (v33 && ((v34 = *(v33 + 2007)) == 0 || (*(v34 + 120) = v32, (v33 = *(a1 + 32)) != 0)))
+      {
+        v35 = *(v33 + 2007);
+        if (v35)
+        {
+          ++v35[14];
+        }
+      }
+
+      else
+      {
+        v35 = 0;
+      }
+
+      v36 = sub_100146274(0);
+      [v36 setMaximumPacketSize:2000];
+      [v36 setHeaderOverhead:5];
+
+      v37 = [NEIKEv2Session alloc];
+      v38 = sub_100146C84(*(a1 + 40), 1, 0);
+      v39 = [v37 initWithIKEConfig:v36 firstChildConfig:v38 sessionConfig:v24 queue:*(*(a1 + 32) + 8) ipsecInterface:0 ikeSocketHandler:0 kernelSASessionName:@"terminusIKEForPairingWithOOBKey" packetDelegate:*(a1 + 32)];
+      v40 = *(a1 + 32);
+      v41 = *(v40 + 1335);
+      *(v40 + 1335) = v39;
+
+      v42 = *(*(a1 + 32) + 1335);
+      v43 = _NRCopyLogObjectForNRUUID();
+      if (v42)
+      {
+        v44 = _NRLogIsLevelEnabled();
+
+        if (v44)
+        {
+          v45 = _NRCopyLogObjectForNRUUID();
+          v46 = [*(a1 + 32) copyDescription];
+          _NRLogWithArgs(v45, 0, "%s%.30s:%-4d %@: Created initiator OOBK pairing IKE session", "", "[NRLinkBluetooth setupIPsecForPairingInitiatorIfNecessary]_block_invoke_2", 9684, v46);
+        }
+
+        sub_100083088(*(a1 + 32));
+        v47 = _NRCopyLogObjectForNRUUID();
+        v48 = _NRLogIsLevelEnabled();
+
+        if (v48)
+        {
+          v49 = _NRCopyLogObjectForNRUUID();
+          v50 = [*(a1 + 32) copyDescription];
+          _NRLogWithArgs(v49, 0, "%s%.30s:%-4d %@: Connecting initiator OOBK pairing session", "", "[NRLinkBluetooth setupIPsecForPairingInitiatorIfNecessary]_block_invoke_2", 9688, v50);
+        }
+
+        [*(*(a1 + 32) + 1335) connect];
+      }
+
+      else
+      {
+        v55 = _NRLogIsLevelEnabled();
+
+        if (v55)
+        {
+          v56 = _NRCopyLogObjectForNRUUID();
+          v57 = [*(a1 + 32) copyDescription];
+          _NRLogWithArgs(v56, 17, "%@: Failed to create initiator OOBK pairing IKE session", v57);
+        }
       }
     }
 
@@ -1935,218 +2070,13 @@ LABEL_31:
       v53 = sub_10007CF34();
       v54 = _NRLogIsLevelEnabled();
 
-      if (v54)
-      {
-        goto LABEL_40;
-      }
-    }
-  }
-
-  else
-  {
-    v51 = sub_10007CF34();
-    v52 = _NRLogIsLevelEnabled();
-
-    if (v52)
-    {
-      goto LABEL_40;
-    }
-  }
-
-LABEL_32:
-}
-
-void sub_10009F144(uint64_t a1, void *a2, void *a3, void *a4)
-{
-  v76 = a2;
-  v8 = a3;
-  v9 = a4;
-  v10 = *(*(a1 + 32) + 32);
-  v11 = _NRCopyLogObjectForNRUUID();
-  IsLevelEnabled = _NRLogIsLevelEnabled();
-
-  if (IsLevelEnabled)
-  {
-    v13 = *(*(a1 + 32) + 32);
-    v14 = _NRCopyLogObjectForNRUUID();
-    v15 = [*(a1 + 32) copyDescription];
-    LogString = _NRKeyCreateLogString();
-    v74 = _NRKeyCreateLogString();
-    v75 = _NRKeyCreateLogString();
-    v71 = v15;
-    v73 = LogString;
-    v69 = 9644;
-    v62 = "";
-    v66 = "[NRLinkBluetooth setupIPsecForPairingInitiatorIfNecessary]_block_invoke_2";
-    _NRLogWithArgs();
-  }
-
-  v17 = [*(a1 + 32) state];
-  v18 = *(a1 + 32);
-  if (v17 == 255)
-  {
-    v53 = *(v18 + 32);
-    v54 = _NRCopyLogObjectForNRUUID();
-    v55 = _NRLogIsLevelEnabled();
-
-    if (!v55)
-    {
-      goto LABEL_30;
-    }
-
-    v56 = *(*(a1 + 32) + 32);
-    v21 = _NRCopyLogObjectForNRUUID();
-    v23 = [*(a1 + 32) copyDescription];
-    _NRLogWithArgs();
-  }
-
-  else
-  {
-    if (v18)
-    {
-      objc_storeStrong((v18 + 1351), a2);
-      v19 = *(a1 + 32);
-      if (v19)
-      {
-        objc_storeStrong((v19 + 1359), a3);
-        v20 = *(a1 + 32);
-        if (v20)
-        {
-          objc_storeStrong((v20 + 1367), a4);
-        }
-      }
-    }
-
-    v21 = [[NEIKEv2AuthenticationProtocol alloc] initWithMethod:2];
-    if (qword_100229328 != -1)
-    {
-      dispatch_once(&qword_100229328, &stru_1001FC5D8);
-    }
-
-    v22 = qword_100229320;
-    v23 = sub_1001472F0(1, v22, v21);
-
-    v24 = *(a1 + 40);
-    if (v24)
-    {
-      v25 = *(v24 + 176);
-      if (v25)
-      {
-        v25 = v25[2];
-      }
-
-      v26 = v25;
-    }
-
-    else
-    {
-      v26 = 0;
-    }
-
-    [v23 setSharedSecret:v26];
-
-    v27 = [v23 sharedSecret];
-
-    if (v27)
-    {
-      v28 = *(a1 + 32);
-      v29 = [v23 sharedSecret];
-      v30 = _NRKeyCreateLogString();
-      [v28 reportEvent:3013 details:v30];
-
-      v31 = nr_absolute_time();
-      v32 = *(a1 + 32);
-      if (v32 && ((v33 = *(v32 + 2007)) == 0 || (*(v33 + 120) = v31, (v32 = *(a1 + 32)) != 0)))
-      {
-        v34 = *(v32 + 2007);
-        if (v34)
-        {
-          ++v34[14];
-        }
-      }
-
-      else
-      {
-        v34 = 0;
-      }
-
-      v35 = sub_100146274(0);
-      [v35 setMaximumPacketSize:2000];
-      [v35 setHeaderOverhead:5];
-
-      v36 = [NEIKEv2Session alloc];
-      v37 = sub_100146C84(*(a1 + 40), 1, 0);
-      v38 = [v36 initWithIKEConfig:v35 firstChildConfig:v37 sessionConfig:v23 queue:*(*(a1 + 32) + 8) ipsecInterface:0 ikeSocketHandler:0 kernelSASessionName:@"terminusIKEForPairingWithOOBKey" packetDelegate:*(a1 + 32)];
-      v39 = *(a1 + 32);
-      v40 = *(v39 + 1335);
-      *(v39 + 1335) = v38;
-
-      v41 = *(a1 + 32);
-      v42 = *(v41 + 1335);
-      v43 = *(v41 + 32);
-      v44 = _NRCopyLogObjectForNRUUID();
-      if (v42)
-      {
-        v45 = _NRLogIsLevelEnabled();
-
-        if (v45)
-        {
-          v46 = *(*(a1 + 32) + 32);
-          v47 = _NRCopyLogObjectForNRUUID();
-          v70 = 9684;
-          v72 = [*(a1 + 32) copyDescription];
-          v63 = "";
-          v67 = "[NRLinkBluetooth setupIPsecForPairingInitiatorIfNecessary]_block_invoke_2";
-          _NRLogWithArgs();
-        }
-
-        sub_100083088(*(a1 + 32));
-        v48 = *(*(a1 + 32) + 32);
-        v49 = _NRCopyLogObjectForNRUUID();
-        v50 = _NRLogIsLevelEnabled();
-
-        if (v50)
-        {
-          v51 = *(*(a1 + 32) + 32);
-          v52 = _NRCopyLogObjectForNRUUID();
-          v70 = 9688;
-          v72 = [*(a1 + 32) copyDescription];
-          v63 = "";
-          v67 = "[NRLinkBluetooth setupIPsecForPairingInitiatorIfNecessary]_block_invoke_2";
-          _NRLogWithArgs();
-        }
-
-        [*(*(a1 + 32) + 1335) connect];
-      }
-
-      else
-      {
-        v59 = _NRLogIsLevelEnabled();
-
-        if (v59)
-        {
-          v60 = *(*(a1 + 32) + 32);
-          v61 = _NRCopyLogObjectForNRUUID();
-          v65 = [*(a1 + 32) copyDescription];
-          _NRLogWithArgs();
-        }
-      }
-    }
-
-    else
-    {
-      v57 = sub_10007CF34();
-      v58 = _NRLogIsLevelEnabled();
-
-      if (!v58)
+      if (!v54)
       {
         goto LABEL_29;
       }
 
-      v35 = sub_10007CF34();
-      v64 = *(a1 + 40);
-      v68 = *(a1 + 32);
-      _NRLogWithArgs();
+      v36 = sub_10007CF34();
+      _NRLogWithArgs(v36, 17, "Missing out of band key for %@, %@", *(a1 + 40), *(a1 + 32));
     }
   }
 
@@ -2158,44 +2088,42 @@ LABEL_30:
 uint64_t sub_10009F6F4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (!os_channel_attr_create())
+  v4 = os_channel_attr_create();
+  if (!v4)
   {
-    v31 = *(a1 + 32);
-    v32 = _NRCopyLogObjectForNRUUID();
+    v28 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v34 = *(a1 + 32);
-      v35 = _NRCopyLogObjectForNRUUID();
-      v36 = [a1 copyDescription];
+      v30 = _NRCopyLogObjectForNRUUID();
+      v31 = [a1 copyDescription];
+      _NRLogWithArgs(v30, 17, "%@: os_channel_attr_create failed", v31);
 LABEL_13:
-      _NRLogWithArgs();
     }
 
 LABEL_17:
-    v27 = 0;
+    v24 = 0;
     goto LABEL_18;
   }
 
+  v5 = v4;
   os_channel_attr_set();
-  v75[0] = 0;
-  v75[1] = 0;
-  [v3 getUUIDBytes:v75];
+  v68[0] = 0;
+  v68[1] = 0;
+  [v3 getUUIDBytes:v68];
   extended = os_channel_create_extended();
   if (!extended)
   {
-    v37 = *(a1 + 32);
-    v38 = _NRCopyLogObjectForNRUUID();
-    v39 = _NRLogIsLevelEnabled();
+    v32 = _NRCopyLogObjectForNRUUID();
+    v33 = _NRLogIsLevelEnabled();
 
-    if (v39)
+    if (v33)
     {
-      v40 = *(a1 + 32);
-      v41 = _NRCopyLogObjectForNRUUID();
-      v42 = [a1 copyDescription];
-      v67 = *__error();
-      _NRLogWithArgs();
+      v34 = _NRCopyLogObjectForNRUUID();
+      v35 = [a1 copyDescription];
+      v36 = __error();
+      _NRLogWithArgs(v34, 16, "%s%.30s:%-4d %@: os_channel_create_extended for %@ failed (errno %d)\n", "", "[NRLinkBluetooth setupNexusChannelBestEffort:]", 2238, v35, v3, *v36);
     }
 
     [a1 virtualInterface];
@@ -2204,112 +2132,112 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v5 = extended;
+  v7 = extended;
   *(a1 + 439) = extended;
-  if (!sub_1000A1674(a1))
+  if (!sub_1000A1674(a1, v5))
   {
     goto LABEL_17;
   }
 
   os_channel_attr_destroy();
-  v6 = *(a1 + 439);
   os_channel_ring_id();
-  v7 = *(a1 + 439);
   v8 = os_channel_rx_ring();
   *(a1 + 447) = v8;
   if (!v8)
   {
-    v44 = *(a1 + 32);
-    v45 = _NRCopyLogObjectForNRUUID();
-    v46 = _NRLogIsLevelEnabled();
+    v38 = _NRCopyLogObjectForNRUUID();
+    v39 = _NRLogIsLevelEnabled();
 
-    if (!v46)
+    if (!v39)
     {
       goto LABEL_17;
     }
 
-    goto LABEL_24;
-  }
-
-  v9 = *(a1 + 439);
-  os_channel_ring_id();
-  v10 = *(a1 + 439);
-  v11 = os_channel_tx_ring();
-  *(a1 + 455) = v11;
-  if (!v11)
-  {
-    v47 = *(a1 + 32);
-    v48 = _NRCopyLogObjectForNRUUID();
-    v49 = _NRLogIsLevelEnabled();
-
-    if (!v49)
-    {
-      goto LABEL_17;
-    }
-
-    goto LABEL_24;
-  }
-
-  v12 = *(a1 + 439);
-  fd = os_channel_get_fd();
-  if ((fd & 0x80000000) != 0)
-  {
-    v50 = *(a1 + 32);
-    v51 = _NRCopyLogObjectForNRUUID();
-    v52 = _NRLogIsLevelEnabled();
-
-    if (!v52)
-    {
-      goto LABEL_17;
-    }
-
-LABEL_24:
-    v53 = *(a1 + 32);
-    v35 = _NRCopyLogObjectForNRUUID();
-    v36 = [a1 copyDescription];
+    v30 = _NRCopyLogObjectForNRUUID();
+    v31 = [a1 copyDescription];
+    _NRLogWithArgs(v30, 17, "%@: _nexusInputRing is NULL", v31);
     goto LABEL_13;
   }
 
-  v14 = fd;
-  v15 = dispatch_group_create();
-  if (!v15)
+  os_channel_ring_id();
+  v9 = os_channel_tx_ring();
+  *(a1 + 455) = v9;
+  if (!v9)
   {
-    v54 = sub_10007CF34();
-    v55 = _NRLogIsLevelEnabled();
+    v40 = _NRCopyLogObjectForNRUUID();
+    v41 = _NRLogIsLevelEnabled();
 
-    if (v55)
+    if (!v41)
     {
-      v56 = sub_10007CF34();
-      _NRLogWithArgs();
+      goto LABEL_17;
     }
 
-    goto LABEL_30;
+    v30 = _NRCopyLogObjectForNRUUID();
+    v31 = [a1 copyDescription];
+    _NRLogWithArgs(v30, 17, "%@: _nexusOutputRing is NULL", v31);
+    goto LABEL_13;
   }
 
-  v16 = v15;
-  v17 = dispatch_source_create(&_dispatch_source_type_read, v14, 0, *(a1 + 8));
-  v18 = *(a1 + 463);
-  *(a1 + 463) = v17;
-
-  v19 = *(a1 + 463);
-  if (!v19)
+  fd = os_channel_get_fd();
+  if ((fd & 0x80000000) != 0)
   {
-    v57 = sub_10007CF34();
-    v58 = _NRLogIsLevelEnabled();
+    v42 = _NRCopyLogObjectForNRUUID();
+    v43 = _NRLogIsLevelEnabled();
 
-    if (v58)
+    if (!v43)
     {
-      v59 = sub_10007CF34();
-      _NRLogWithArgs();
+      goto LABEL_17;
     }
 
-LABEL_30:
-    _os_log_pack_size();
-    v60 = *__error();
-    v61 = _os_log_pack_fill();
-    *v61 = 136446210;
-    *(v61 + 4) = "[NRLinkBluetooth setupNexusChannelBestEffort:]";
-    goto LABEL_34;
+    v30 = _NRCopyLogObjectForNRUUID();
+    v31 = [a1 copyDescription];
+    _NRLogWithArgs(v30, 17, "%@: os_channel_get_fd failed", v31);
+    goto LABEL_13;
+  }
+
+  v11 = fd;
+  v12 = dispatch_group_create();
+  if (!v12)
+  {
+    v44 = sub_10007CF34();
+    v45 = _NRLogIsLevelEnabled();
+
+    if (v45)
+    {
+      v46 = sub_10007CF34();
+      _NRLogWithArgs(v46, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (nexusGroup) != ((void*)0)", "", "[NRLinkBluetooth setupNexusChannelBestEffort:]", 2274);
+    }
+
+    v47 = _os_log_pack_size();
+    v48 = *__error();
+    v49 = _os_log_pack_fill(block - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0), v47, v48, &_mh_execute_header, "%{public}s Assertion Failed: (nexusGroup) != ((void*)0)");
+    goto LABEL_31;
+  }
+
+  v13 = v12;
+  v14 = dispatch_source_create(&_dispatch_source_type_read, v11, 0, *(a1 + 8));
+  v15 = *(a1 + 463);
+  *(a1 + 463) = v14;
+
+  v16 = *(a1 + 463);
+  if (!v16)
+  {
+    v50 = sub_10007CF34();
+    v51 = _NRLogIsLevelEnabled();
+
+    if (v51)
+    {
+      v52 = sub_10007CF34();
+      _NRLogWithArgs(v52, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (_dNexusInputSource) != ((void*)0)", "", "[NRLinkBluetooth setupNexusChannelBestEffort:]", 2277);
+    }
+
+    v53 = _os_log_pack_size();
+    v54 = *__error();
+    v49 = _os_log_pack_fill(block - ((v53 + 15) & 0xFFFFFFFFFFFFFFF0), v53, v54, &_mh_execute_header, "%{public}s Assertion Failed: (_dNexusInputSource) != ((void*)0)");
+LABEL_31:
+    *v49 = 136446210;
+    *(v49 + 4) = "[NRLinkBluetooth setupNexusChannelBestEffort:]";
+    goto LABEL_35;
   }
 
   handler[0] = _NSConcreteStackBlock;
@@ -2317,116 +2245,114 @@ LABEL_30:
   handler[2] = sub_1000AC29C;
   handler[3] = &unk_1001FD3C8;
   handler[4] = a1;
-  dispatch_source_set_event_handler(v19, handler);
-  dispatch_group_enter(v16);
-  v20 = *(a1 + 463);
-  v72[0] = _NSConcreteStackBlock;
-  v72[1] = 3221225472;
-  v72[2] = sub_1000AC44C;
-  v72[3] = &unk_1001FD3C8;
-  v21 = v16;
-  v73 = v21;
-  dispatch_source_set_cancel_handler(v20, v72);
+  dispatch_source_set_event_handler(v16, handler);
+  dispatch_group_enter(v13);
+  v17 = *(a1 + 463);
+  v65[0] = _NSConcreteStackBlock;
+  v65[1] = 3221225472;
+  v65[2] = sub_1000AC44C;
+  v65[3] = &unk_1001FD3C8;
+  v18 = v13;
+  v66 = v18;
+  dispatch_source_set_cancel_handler(v17, v65);
   dispatch_activate(*(a1 + 463));
-  v22 = dispatch_source_create(&_dispatch_source_type_write, v14, 0, *(a1 + 8));
-  v23 = *(a1 + 471);
-  *(a1 + 471) = v22;
+  v19 = dispatch_source_create(&_dispatch_source_type_write, v11, 0, *(a1 + 8));
+  v20 = *(a1 + 471);
+  *(a1 + 471) = v19;
 
-  v24 = *(a1 + 471);
-  if (!v24)
+  v21 = *(a1 + 471);
+  if (!v21)
   {
-    v62 = sub_10007CF34();
-    v63 = _NRLogIsLevelEnabled();
+    v55 = sub_10007CF34();
+    v56 = _NRLogIsLevelEnabled();
 
-    if (v63)
+    if (v56)
     {
-      v64 = sub_10007CF34();
-      _NRLogWithArgs();
+      v57 = sub_10007CF34();
+      _NRLogWithArgs(v57, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (_dNexusOutputSource) != ((void*)0)", "", "[NRLinkBluetooth setupNexusChannelBestEffort:]", 2295);
     }
 
-    _os_log_pack_size();
-    v65 = *__error();
-    v66 = _os_log_pack_fill();
-    *v66 = 136446210;
-    *(v66 + 4) = "[NRLinkBluetooth setupNexusChannelBestEffort:]";
-LABEL_34:
+    v58 = _os_log_pack_size();
+    v59 = __error();
+    v60 = _os_log_pack_fill(block - ((v58 + 15) & 0xFFFFFFFFFFFFFFF0), v58, *v59, &_mh_execute_header, "%{public}s Assertion Failed: (_dNexusOutputSource) != ((void*)0)");
+    *v60 = 136446210;
+    *(v60 + 4) = "[NRLinkBluetooth setupNexusChannelBestEffort:]";
+LABEL_35:
     sub_10007CF34();
     _NRLogAbortWithPack();
   }
 
-  v71[0] = _NSConcreteStackBlock;
-  v71[1] = 3221225472;
-  v71[2] = sub_1000AC454;
-  v71[3] = &unk_1001FD3C8;
-  v71[4] = a1;
-  dispatch_source_set_event_handler(v24, v71);
-  dispatch_group_enter(v21);
-  v25 = *(a1 + 471);
-  v69[0] = _NSConcreteStackBlock;
-  v69[1] = 3221225472;
-  v69[2] = sub_1000AC5F8;
-  v69[3] = &unk_1001FD3C8;
-  v26 = v21;
-  v70 = v26;
-  dispatch_source_set_cancel_handler(v25, v69);
-  v27 = 1;
+  v64[0] = _NSConcreteStackBlock;
+  v64[1] = 3221225472;
+  v64[2] = sub_1000AC454;
+  v64[3] = &unk_1001FD3C8;
+  v64[4] = a1;
+  dispatch_source_set_event_handler(v21, v64);
+  dispatch_group_enter(v18);
+  v22 = *(a1 + 471);
+  v62[0] = _NSConcreteStackBlock;
+  v62[1] = 3221225472;
+  v62[2] = sub_1000AC5F8;
+  v62[3] = &unk_1001FD3C8;
+  v23 = v18;
+  v63 = v23;
+  dispatch_source_set_cancel_handler(v22, v62);
+  v24 = 1;
   *(a1 + 253) = 1;
-  v28 = *(a1 + 8);
+  v25 = *(a1 + 8);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000AC600;
   block[3] = &unk_1001FCDD8;
-  block[4] = v5;
-  dispatch_group_notify(v26, v28, block);
-  v29 = *(a1 + 479);
-  *(a1 + 479) = v26;
-  v30 = v26;
+  block[4] = v7;
+  dispatch_group_notify(v23, v25, block);
+  v26 = *(a1 + 479);
+  *(a1 + 479) = v23;
+  v27 = v23;
 
 LABEL_18:
-  return v27;
+  return v24;
 }
 
 uint64_t sub_10009FED4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (!os_channel_attr_create())
+  v4 = os_channel_attr_create();
+  if (!v4)
   {
-    v31 = *(a1 + 32);
-    v32 = _NRCopyLogObjectForNRUUID();
+    v28 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v34 = *(a1 + 32);
-      v35 = _NRCopyLogObjectForNRUUID();
-      v36 = [a1 copyDescription];
+      v30 = _NRCopyLogObjectForNRUUID();
+      v31 = [a1 copyDescription];
+      _NRLogWithArgs(v30, 17, "%@: os_channel_attr_create failed", v31);
 LABEL_13:
-      _NRLogWithArgs();
     }
 
 LABEL_17:
-    v27 = 0;
+    v24 = 0;
     goto LABEL_18;
   }
 
+  v5 = v4;
   os_channel_attr_set();
-  v75[0] = 0;
-  v75[1] = 0;
-  [v3 getUUIDBytes:v75];
+  v68[0] = 0;
+  v68[1] = 0;
+  [v3 getUUIDBytes:v68];
   extended = os_channel_create_extended();
   if (!extended)
   {
-    v37 = *(a1 + 32);
-    v38 = _NRCopyLogObjectForNRUUID();
-    v39 = _NRLogIsLevelEnabled();
+    v32 = _NRCopyLogObjectForNRUUID();
+    v33 = _NRLogIsLevelEnabled();
 
-    if (v39)
+    if (v33)
     {
-      v40 = *(a1 + 32);
-      v41 = _NRCopyLogObjectForNRUUID();
-      v42 = [a1 copyDescription];
-      v67 = *__error();
-      _NRLogWithArgs();
+      v34 = _NRCopyLogObjectForNRUUID();
+      v35 = [a1 copyDescription];
+      v36 = __error();
+      _NRLogWithArgs(v34, 16, "%s%.30s:%-4d %@: os_channel_create_extended for %@ failed (errno %d)\n", "", "[NRLinkBluetooth setupNexusChannelVoice:]", 2334, v35, v3, *v36);
     }
 
     [a1 virtualInterface];
@@ -2435,112 +2361,112 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v5 = extended;
+  v7 = extended;
   *(a1 + 599) = extended;
-  if (!sub_1000A1674(a1))
+  if (!sub_1000A1674(a1, v5))
   {
     goto LABEL_17;
   }
 
   os_channel_attr_destroy();
-  v6 = *(a1 + 599);
   os_channel_ring_id();
-  v7 = *(a1 + 599);
   v8 = os_channel_rx_ring();
   *(a1 + 607) = v8;
   if (!v8)
   {
-    v44 = *(a1 + 32);
-    v45 = _NRCopyLogObjectForNRUUID();
-    v46 = _NRLogIsLevelEnabled();
+    v38 = _NRCopyLogObjectForNRUUID();
+    v39 = _NRLogIsLevelEnabled();
 
-    if (!v46)
+    if (!v39)
     {
       goto LABEL_17;
     }
 
-    goto LABEL_24;
-  }
-
-  v9 = *(a1 + 599);
-  os_channel_ring_id();
-  v10 = *(a1 + 599);
-  v11 = os_channel_tx_ring();
-  *(a1 + 615) = v11;
-  if (!v11)
-  {
-    v47 = *(a1 + 32);
-    v48 = _NRCopyLogObjectForNRUUID();
-    v49 = _NRLogIsLevelEnabled();
-
-    if (!v49)
-    {
-      goto LABEL_17;
-    }
-
-    goto LABEL_24;
-  }
-
-  v12 = *(a1 + 599);
-  fd = os_channel_get_fd();
-  if ((fd & 0x80000000) != 0)
-  {
-    v50 = *(a1 + 32);
-    v51 = _NRCopyLogObjectForNRUUID();
-    v52 = _NRLogIsLevelEnabled();
-
-    if (!v52)
-    {
-      goto LABEL_17;
-    }
-
-LABEL_24:
-    v53 = *(a1 + 32);
-    v35 = _NRCopyLogObjectForNRUUID();
-    v36 = [a1 copyDescription];
+    v30 = _NRCopyLogObjectForNRUUID();
+    v31 = [a1 copyDescription];
+    _NRLogWithArgs(v30, 17, "%@: _nexusVOInputRing is NULL", v31);
     goto LABEL_13;
   }
 
-  v14 = fd;
-  v15 = dispatch_group_create();
-  if (!v15)
+  os_channel_ring_id();
+  v9 = os_channel_tx_ring();
+  *(a1 + 615) = v9;
+  if (!v9)
   {
-    v54 = sub_10007CF34();
-    v55 = _NRLogIsLevelEnabled();
+    v40 = _NRCopyLogObjectForNRUUID();
+    v41 = _NRLogIsLevelEnabled();
 
-    if (v55)
+    if (!v41)
     {
-      v56 = sub_10007CF34();
-      _NRLogWithArgs();
+      goto LABEL_17;
     }
 
-    goto LABEL_30;
+    v30 = _NRCopyLogObjectForNRUUID();
+    v31 = [a1 copyDescription];
+    _NRLogWithArgs(v30, 17, "%@: _nexusVOOutputRing is NULL", v31);
+    goto LABEL_13;
   }
 
-  v16 = v15;
-  v17 = dispatch_source_create(&_dispatch_source_type_read, v14, 0, *(a1 + 8));
-  v18 = *(a1 + 623);
-  *(a1 + 623) = v17;
-
-  v19 = *(a1 + 623);
-  if (!v19)
+  fd = os_channel_get_fd();
+  if ((fd & 0x80000000) != 0)
   {
-    v57 = sub_10007CF34();
-    v58 = _NRLogIsLevelEnabled();
+    v42 = _NRCopyLogObjectForNRUUID();
+    v43 = _NRLogIsLevelEnabled();
 
-    if (v58)
+    if (!v43)
     {
-      v59 = sub_10007CF34();
-      _NRLogWithArgs();
+      goto LABEL_17;
     }
 
-LABEL_30:
-    _os_log_pack_size();
-    v60 = *__error();
-    v61 = _os_log_pack_fill();
-    *v61 = 136446210;
-    *(v61 + 4) = "[NRLinkBluetooth setupNexusChannelVoice:]";
-    goto LABEL_34;
+    v30 = _NRCopyLogObjectForNRUUID();
+    v31 = [a1 copyDescription];
+    _NRLogWithArgs(v30, 17, "%@: os_channel_get_fd failed", v31);
+    goto LABEL_13;
+  }
+
+  v11 = fd;
+  v12 = dispatch_group_create();
+  if (!v12)
+  {
+    v44 = sub_10007CF34();
+    v45 = _NRLogIsLevelEnabled();
+
+    if (v45)
+    {
+      v46 = sub_10007CF34();
+      _NRLogWithArgs(v46, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (nexusGroup) != ((void*)0)", "", "[NRLinkBluetooth setupNexusChannelVoice:]", 2370);
+    }
+
+    v47 = _os_log_pack_size();
+    v48 = *__error();
+    v49 = _os_log_pack_fill(block - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0), v47, v48, &_mh_execute_header, "%{public}s Assertion Failed: (nexusGroup) != ((void*)0)");
+    goto LABEL_31;
+  }
+
+  v13 = v12;
+  v14 = dispatch_source_create(&_dispatch_source_type_read, v11, 0, *(a1 + 8));
+  v15 = *(a1 + 623);
+  *(a1 + 623) = v14;
+
+  v16 = *(a1 + 623);
+  if (!v16)
+  {
+    v50 = sub_10007CF34();
+    v51 = _NRLogIsLevelEnabled();
+
+    if (v51)
+    {
+      v52 = sub_10007CF34();
+      _NRLogWithArgs(v52, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (_dNexusVOInputSource) != ((void*)0)", "", "[NRLinkBluetooth setupNexusChannelVoice:]", 2374);
+    }
+
+    v53 = _os_log_pack_size();
+    v54 = *__error();
+    v49 = _os_log_pack_fill(block - ((v53 + 15) & 0xFFFFFFFFFFFFFFF0), v53, v54, &_mh_execute_header, "%{public}s Assertion Failed: (_dNexusVOInputSource) != ((void*)0)");
+LABEL_31:
+    *v49 = 136446210;
+    *(v49 + 4) = "[NRLinkBluetooth setupNexusChannelVoice:]";
+    goto LABEL_35;
   }
 
   handler[0] = _NSConcreteStackBlock;
@@ -2548,116 +2474,114 @@ LABEL_30:
   handler[2] = sub_1000AAC6C;
   handler[3] = &unk_1001FD3C8;
   handler[4] = a1;
-  dispatch_source_set_event_handler(v19, handler);
-  dispatch_group_enter(v16);
-  v20 = *(a1 + 623);
-  v72[0] = _NSConcreteStackBlock;
-  v72[1] = 3221225472;
-  v72[2] = sub_1000AAE1C;
-  v72[3] = &unk_1001FD3C8;
-  v21 = v16;
-  v73 = v21;
-  dispatch_source_set_cancel_handler(v20, v72);
+  dispatch_source_set_event_handler(v16, handler);
+  dispatch_group_enter(v13);
+  v17 = *(a1 + 623);
+  v65[0] = _NSConcreteStackBlock;
+  v65[1] = 3221225472;
+  v65[2] = sub_1000AAE1C;
+  v65[3] = &unk_1001FD3C8;
+  v18 = v13;
+  v66 = v18;
+  dispatch_source_set_cancel_handler(v17, v65);
   dispatch_activate(*(a1 + 623));
-  v22 = dispatch_source_create(&_dispatch_source_type_write, v14, 0, *(a1 + 8));
-  v23 = *(a1 + 631);
-  *(a1 + 631) = v22;
+  v19 = dispatch_source_create(&_dispatch_source_type_write, v11, 0, *(a1 + 8));
+  v20 = *(a1 + 631);
+  *(a1 + 631) = v19;
 
-  v24 = *(a1 + 631);
-  if (!v24)
+  v21 = *(a1 + 631);
+  if (!v21)
   {
-    v62 = sub_10007CF34();
-    v63 = _NRLogIsLevelEnabled();
+    v55 = sub_10007CF34();
+    v56 = _NRLogIsLevelEnabled();
 
-    if (v63)
+    if (v56)
     {
-      v64 = sub_10007CF34();
-      _NRLogWithArgs();
+      v57 = sub_10007CF34();
+      _NRLogWithArgs(v57, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (_dNexusVOOutputSource) != ((void*)0)", "", "[NRLinkBluetooth setupNexusChannelVoice:]", 2392);
     }
 
-    _os_log_pack_size();
-    v65 = *__error();
-    v66 = _os_log_pack_fill();
-    *v66 = 136446210;
-    *(v66 + 4) = "[NRLinkBluetooth setupNexusChannelVoice:]";
-LABEL_34:
+    v58 = _os_log_pack_size();
+    v59 = __error();
+    v60 = _os_log_pack_fill(block - ((v58 + 15) & 0xFFFFFFFFFFFFFFF0), v58, *v59, &_mh_execute_header, "%{public}s Assertion Failed: (_dNexusVOOutputSource) != ((void*)0)");
+    *v60 = 136446210;
+    *(v60 + 4) = "[NRLinkBluetooth setupNexusChannelVoice:]";
+LABEL_35:
     sub_10007CF34();
     _NRLogAbortWithPack();
   }
 
-  v71[0] = _NSConcreteStackBlock;
-  v71[1] = 3221225472;
-  v71[2] = sub_1000AAE24;
-  v71[3] = &unk_1001FD3C8;
-  v71[4] = a1;
-  dispatch_source_set_event_handler(v24, v71);
-  dispatch_group_enter(v21);
-  v25 = *(a1 + 631);
-  v69[0] = _NSConcreteStackBlock;
-  v69[1] = 3221225472;
-  v69[2] = sub_1000AAFC8;
-  v69[3] = &unk_1001FD3C8;
-  v26 = v21;
-  v70 = v26;
-  dispatch_source_set_cancel_handler(v25, v69);
-  v27 = 1;
+  v64[0] = _NSConcreteStackBlock;
+  v64[1] = 3221225472;
+  v64[2] = sub_1000AAE24;
+  v64[3] = &unk_1001FD3C8;
+  v64[4] = a1;
+  dispatch_source_set_event_handler(v21, v64);
+  dispatch_group_enter(v18);
+  v22 = *(a1 + 631);
+  v62[0] = _NSConcreteStackBlock;
+  v62[1] = 3221225472;
+  v62[2] = sub_1000AAFC8;
+  v62[3] = &unk_1001FD3C8;
+  v23 = v18;
+  v63 = v23;
+  dispatch_source_set_cancel_handler(v22, v62);
+  v24 = 1;
   *(a1 + 255) = 1;
-  v28 = *(a1 + 8);
+  v25 = *(a1 + 8);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000AAFD0;
   block[3] = &unk_1001FCDD8;
-  block[4] = v5;
-  dispatch_group_notify(v26, v28, block);
-  v29 = *(a1 + 591);
-  *(a1 + 591) = v26;
-  v30 = v26;
+  block[4] = v7;
+  dispatch_group_notify(v23, v25, block);
+  v26 = *(a1 + 591);
+  *(a1 + 591) = v23;
+  v27 = v23;
 
 LABEL_18:
-  return v27;
+  return v24;
 }
 
 uint64_t sub_1000A06B4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (!os_channel_attr_create())
+  v4 = os_channel_attr_create();
+  if (!v4)
   {
-    v31 = *(a1 + 32);
-    v32 = _NRCopyLogObjectForNRUUID();
+    v28 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v34 = *(a1 + 32);
-      v35 = _NRCopyLogObjectForNRUUID();
-      v36 = [a1 copyDescription];
+      v30 = _NRCopyLogObjectForNRUUID();
+      v31 = [a1 copyDescription];
+      _NRLogWithArgs(v30, 17, "%@: os_channel_attr_create failed", v31);
 LABEL_13:
-      _NRLogWithArgs();
     }
 
 LABEL_17:
-    v27 = 0;
+    v24 = 0;
     goto LABEL_18;
   }
 
+  v5 = v4;
   os_channel_attr_set();
-  v75[0] = 0;
-  v75[1] = 0;
-  [v3 getUUIDBytes:v75];
+  v68[0] = 0;
+  v68[1] = 0;
+  [v3 getUUIDBytes:v68];
   extended = os_channel_create_extended();
   if (!extended)
   {
-    v37 = *(a1 + 32);
-    v38 = _NRCopyLogObjectForNRUUID();
-    v39 = _NRLogIsLevelEnabled();
+    v32 = _NRCopyLogObjectForNRUUID();
+    v33 = _NRLogIsLevelEnabled();
 
-    if (v39)
+    if (v33)
     {
-      v40 = *(a1 + 32);
-      v41 = _NRCopyLogObjectForNRUUID();
-      v42 = [a1 copyDescription];
-      v67 = *__error();
-      _NRLogWithArgs();
+      v34 = _NRCopyLogObjectForNRUUID();
+      v35 = [a1 copyDescription];
+      v36 = __error();
+      _NRLogWithArgs(v34, 16, "%s%.30s:%-4d %@: os_channel_create_extended for %@ failed (errno %d)\n", "", "[NRLinkBluetooth setupNexusChannelVideo:]", 2044, v35, v3, *v36);
     }
 
     [a1 virtualInterface];
@@ -2666,112 +2590,112 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v5 = extended;
+  v7 = extended;
   *(a1 + 759) = extended;
-  if (!sub_1000A1674(a1))
+  if (!sub_1000A1674(a1, v5))
   {
     goto LABEL_17;
   }
 
   os_channel_attr_destroy();
-  v6 = *(a1 + 759);
   os_channel_ring_id();
-  v7 = *(a1 + 759);
   v8 = os_channel_rx_ring();
   *(a1 + 767) = v8;
   if (!v8)
   {
-    v44 = *(a1 + 32);
-    v45 = _NRCopyLogObjectForNRUUID();
-    v46 = _NRLogIsLevelEnabled();
+    v38 = _NRCopyLogObjectForNRUUID();
+    v39 = _NRLogIsLevelEnabled();
 
-    if (!v46)
+    if (!v39)
     {
       goto LABEL_17;
     }
 
-    goto LABEL_24;
-  }
-
-  v9 = *(a1 + 759);
-  os_channel_ring_id();
-  v10 = *(a1 + 759);
-  v11 = os_channel_tx_ring();
-  *(a1 + 775) = v11;
-  if (!v11)
-  {
-    v47 = *(a1 + 32);
-    v48 = _NRCopyLogObjectForNRUUID();
-    v49 = _NRLogIsLevelEnabled();
-
-    if (!v49)
-    {
-      goto LABEL_17;
-    }
-
-    goto LABEL_24;
-  }
-
-  v12 = *(a1 + 759);
-  fd = os_channel_get_fd();
-  if ((fd & 0x80000000) != 0)
-  {
-    v50 = *(a1 + 32);
-    v51 = _NRCopyLogObjectForNRUUID();
-    v52 = _NRLogIsLevelEnabled();
-
-    if (!v52)
-    {
-      goto LABEL_17;
-    }
-
-LABEL_24:
-    v53 = *(a1 + 32);
-    v35 = _NRCopyLogObjectForNRUUID();
-    v36 = [a1 copyDescription];
+    v30 = _NRCopyLogObjectForNRUUID();
+    v31 = [a1 copyDescription];
+    _NRLogWithArgs(v30, 17, "%@: _nexusVIInputRing is NULL", v31);
     goto LABEL_13;
   }
 
-  v14 = fd;
-  v15 = dispatch_group_create();
-  if (!v15)
+  os_channel_ring_id();
+  v9 = os_channel_tx_ring();
+  *(a1 + 775) = v9;
+  if (!v9)
   {
-    v54 = sub_10007CF34();
-    v55 = _NRLogIsLevelEnabled();
+    v40 = _NRCopyLogObjectForNRUUID();
+    v41 = _NRLogIsLevelEnabled();
 
-    if (v55)
+    if (!v41)
     {
-      v56 = sub_10007CF34();
-      _NRLogWithArgs();
+      goto LABEL_17;
     }
 
-    goto LABEL_30;
+    v30 = _NRCopyLogObjectForNRUUID();
+    v31 = [a1 copyDescription];
+    _NRLogWithArgs(v30, 17, "%@: _nexusVIOutputRing is NULL", v31);
+    goto LABEL_13;
   }
 
-  v16 = v15;
-  v17 = dispatch_source_create(&_dispatch_source_type_read, v14, 0, *(a1 + 8));
-  v18 = *(a1 + 783);
-  *(a1 + 783) = v17;
-
-  v19 = *(a1 + 783);
-  if (!v19)
+  fd = os_channel_get_fd();
+  if ((fd & 0x80000000) != 0)
   {
-    v57 = sub_10007CF34();
-    v58 = _NRLogIsLevelEnabled();
+    v42 = _NRCopyLogObjectForNRUUID();
+    v43 = _NRLogIsLevelEnabled();
 
-    if (v58)
+    if (!v43)
     {
-      v59 = sub_10007CF34();
-      _NRLogWithArgs();
+      goto LABEL_17;
     }
 
-LABEL_30:
-    _os_log_pack_size();
-    v60 = *__error();
-    v61 = _os_log_pack_fill();
-    *v61 = 136446210;
-    *(v61 + 4) = "[NRLinkBluetooth setupNexusChannelVideo:]";
-    goto LABEL_34;
+    v30 = _NRCopyLogObjectForNRUUID();
+    v31 = [a1 copyDescription];
+    _NRLogWithArgs(v30, 17, "%@: os_channel_get_fd failed", v31);
+    goto LABEL_13;
+  }
+
+  v11 = fd;
+  v12 = dispatch_group_create();
+  if (!v12)
+  {
+    v44 = sub_10007CF34();
+    v45 = _NRLogIsLevelEnabled();
+
+    if (v45)
+    {
+      v46 = sub_10007CF34();
+      _NRLogWithArgs(v46, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (nexusGroup) != ((void*)0)", "", "[NRLinkBluetooth setupNexusChannelVideo:]", 2080);
+    }
+
+    v47 = _os_log_pack_size();
+    v48 = *__error();
+    v49 = _os_log_pack_fill(block - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0), v47, v48, &_mh_execute_header, "%{public}s Assertion Failed: (nexusGroup) != ((void*)0)");
+    goto LABEL_31;
+  }
+
+  v13 = v12;
+  v14 = dispatch_source_create(&_dispatch_source_type_read, v11, 0, *(a1 + 8));
+  v15 = *(a1 + 783);
+  *(a1 + 783) = v14;
+
+  v16 = *(a1 + 783);
+  if (!v16)
+  {
+    v50 = sub_10007CF34();
+    v51 = _NRLogIsLevelEnabled();
+
+    if (v51)
+    {
+      v52 = sub_10007CF34();
+      _NRLogWithArgs(v52, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (_dNexusVIInputSource) != ((void*)0)", "", "[NRLinkBluetooth setupNexusChannelVideo:]", 2084);
+    }
+
+    v53 = _os_log_pack_size();
+    v54 = *__error();
+    v49 = _os_log_pack_fill(block - ((v53 + 15) & 0xFFFFFFFFFFFFFFF0), v53, v54, &_mh_execute_header, "%{public}s Assertion Failed: (_dNexusVIInputSource) != ((void*)0)");
+LABEL_31:
+    *v49 = 136446210;
+    *(v49 + 4) = "[NRLinkBluetooth setupNexusChannelVideo:]";
+    goto LABEL_35;
   }
 
   handler[0] = _NSConcreteStackBlock;
@@ -2779,116 +2703,114 @@ LABEL_30:
   handler[2] = sub_1000A28E4;
   handler[3] = &unk_1001FD3C8;
   handler[4] = a1;
-  dispatch_source_set_event_handler(v19, handler);
-  dispatch_group_enter(v16);
-  v20 = *(a1 + 783);
-  v72[0] = _NSConcreteStackBlock;
-  v72[1] = 3221225472;
-  v72[2] = sub_1000A2A94;
-  v72[3] = &unk_1001FD3C8;
-  v21 = v16;
-  v73 = v21;
-  dispatch_source_set_cancel_handler(v20, v72);
+  dispatch_source_set_event_handler(v16, handler);
+  dispatch_group_enter(v13);
+  v17 = *(a1 + 783);
+  v65[0] = _NSConcreteStackBlock;
+  v65[1] = 3221225472;
+  v65[2] = sub_1000A2A94;
+  v65[3] = &unk_1001FD3C8;
+  v18 = v13;
+  v66 = v18;
+  dispatch_source_set_cancel_handler(v17, v65);
   dispatch_activate(*(a1 + 783));
-  v22 = dispatch_source_create(&_dispatch_source_type_write, v14, 0, *(a1 + 8));
-  v23 = *(a1 + 791);
-  *(a1 + 791) = v22;
+  v19 = dispatch_source_create(&_dispatch_source_type_write, v11, 0, *(a1 + 8));
+  v20 = *(a1 + 791);
+  *(a1 + 791) = v19;
 
-  v24 = *(a1 + 791);
-  if (!v24)
+  v21 = *(a1 + 791);
+  if (!v21)
   {
-    v62 = sub_10007CF34();
-    v63 = _NRLogIsLevelEnabled();
+    v55 = sub_10007CF34();
+    v56 = _NRLogIsLevelEnabled();
 
-    if (v63)
+    if (v56)
     {
-      v64 = sub_10007CF34();
-      _NRLogWithArgs();
+      v57 = sub_10007CF34();
+      _NRLogWithArgs(v57, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (_dNexusVIOutputSource) != ((void*)0)", "", "[NRLinkBluetooth setupNexusChannelVideo:]", 2102);
     }
 
-    _os_log_pack_size();
-    v65 = *__error();
-    v66 = _os_log_pack_fill();
-    *v66 = 136446210;
-    *(v66 + 4) = "[NRLinkBluetooth setupNexusChannelVideo:]";
-LABEL_34:
+    v58 = _os_log_pack_size();
+    v59 = __error();
+    v60 = _os_log_pack_fill(block - ((v58 + 15) & 0xFFFFFFFFFFFFFFF0), v58, *v59, &_mh_execute_header, "%{public}s Assertion Failed: (_dNexusVIOutputSource) != ((void*)0)");
+    *v60 = 136446210;
+    *(v60 + 4) = "[NRLinkBluetooth setupNexusChannelVideo:]";
+LABEL_35:
     sub_10007CF34();
     _NRLogAbortWithPack();
   }
 
-  v71[0] = _NSConcreteStackBlock;
-  v71[1] = 3221225472;
-  v71[2] = sub_1000A2A9C;
-  v71[3] = &unk_1001FD3C8;
-  v71[4] = a1;
-  dispatch_source_set_event_handler(v24, v71);
-  dispatch_group_enter(v21);
-  v25 = *(a1 + 791);
-  v69[0] = _NSConcreteStackBlock;
-  v69[1] = 3221225472;
-  v69[2] = sub_1000A2C40;
-  v69[3] = &unk_1001FD3C8;
-  v26 = v21;
-  v70 = v26;
-  dispatch_source_set_cancel_handler(v25, v69);
-  v27 = 1;
+  v64[0] = _NSConcreteStackBlock;
+  v64[1] = 3221225472;
+  v64[2] = sub_1000A2A9C;
+  v64[3] = &unk_1001FD3C8;
+  v64[4] = a1;
+  dispatch_source_set_event_handler(v21, v64);
+  dispatch_group_enter(v18);
+  v22 = *(a1 + 791);
+  v62[0] = _NSConcreteStackBlock;
+  v62[1] = 3221225472;
+  v62[2] = sub_1000A2C40;
+  v62[3] = &unk_1001FD3C8;
+  v23 = v18;
+  v63 = v23;
+  dispatch_source_set_cancel_handler(v22, v62);
+  v24 = 1;
   *(a1 + 257) = 1;
-  v28 = *(a1 + 8);
+  v25 = *(a1 + 8);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000A2C48;
   block[3] = &unk_1001FCDD8;
-  block[4] = v5;
-  dispatch_group_notify(v26, v28, block);
-  v29 = *(a1 + 751);
-  *(a1 + 751) = v26;
-  v30 = v26;
+  block[4] = v7;
+  dispatch_group_notify(v23, v25, block);
+  v26 = *(a1 + 751);
+  *(a1 + 751) = v23;
+  v27 = v23;
 
 LABEL_18:
-  return v27;
+  return v24;
 }
 
 uint64_t sub_1000A0E94(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (!os_channel_attr_create())
+  v4 = os_channel_attr_create();
+  if (!v4)
   {
-    v31 = *(a1 + 32);
-    v32 = _NRCopyLogObjectForNRUUID();
+    v28 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v34 = *(a1 + 32);
-      v35 = _NRCopyLogObjectForNRUUID();
-      v36 = [a1 copyDescription];
+      v30 = _NRCopyLogObjectForNRUUID();
+      v31 = [a1 copyDescription];
+      _NRLogWithArgs(v30, 17, "%@: os_channel_attr_create failed", v31);
 LABEL_13:
-      _NRLogWithArgs();
     }
 
 LABEL_17:
-    v27 = 0;
+    v24 = 0;
     goto LABEL_18;
   }
 
+  v5 = v4;
   os_channel_attr_set();
-  v75[0] = 0;
-  v75[1] = 0;
-  [v3 getUUIDBytes:v75];
+  v68[0] = 0;
+  v68[1] = 0;
+  [v3 getUUIDBytes:v68];
   extended = os_channel_create_extended();
   if (!extended)
   {
-    v37 = *(a1 + 32);
-    v38 = _NRCopyLogObjectForNRUUID();
-    v39 = _NRLogIsLevelEnabled();
+    v32 = _NRCopyLogObjectForNRUUID();
+    v33 = _NRLogIsLevelEnabled();
 
-    if (v39)
+    if (v33)
     {
-      v40 = *(a1 + 32);
-      v41 = _NRCopyLogObjectForNRUUID();
-      v42 = [a1 copyDescription];
-      v67 = *__error();
-      _NRLogWithArgs();
+      v34 = _NRCopyLogObjectForNRUUID();
+      v35 = [a1 copyDescription];
+      v36 = __error();
+      _NRLogWithArgs(v34, 16, "%s%.30s:%-4d %@: os_channel_create_extended for %@ failed (errno %d)\n", "", "[NRLinkBluetooth setupNexusChannelBackground:]", 2141, v35, v3, *v36);
     }
 
     [a1 virtualInterface];
@@ -2897,112 +2819,112 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v5 = extended;
+  v7 = extended;
   *(a1 + 903) = extended;
-  if (!sub_1000A1674(a1))
+  if (!sub_1000A1674(a1, v5))
   {
     goto LABEL_17;
   }
 
   os_channel_attr_destroy();
-  v6 = *(a1 + 903);
   os_channel_ring_id();
-  v7 = *(a1 + 903);
   v8 = os_channel_rx_ring();
   *(a1 + 911) = v8;
   if (!v8)
   {
-    v44 = *(a1 + 32);
-    v45 = _NRCopyLogObjectForNRUUID();
-    v46 = _NRLogIsLevelEnabled();
+    v38 = _NRCopyLogObjectForNRUUID();
+    v39 = _NRLogIsLevelEnabled();
 
-    if (!v46)
+    if (!v39)
     {
       goto LABEL_17;
     }
 
-    goto LABEL_24;
-  }
-
-  v9 = *(a1 + 903);
-  os_channel_ring_id();
-  v10 = *(a1 + 903);
-  v11 = os_channel_tx_ring();
-  *(a1 + 919) = v11;
-  if (!v11)
-  {
-    v47 = *(a1 + 32);
-    v48 = _NRCopyLogObjectForNRUUID();
-    v49 = _NRLogIsLevelEnabled();
-
-    if (!v49)
-    {
-      goto LABEL_17;
-    }
-
-    goto LABEL_24;
-  }
-
-  v12 = *(a1 + 903);
-  fd = os_channel_get_fd();
-  if ((fd & 0x80000000) != 0)
-  {
-    v50 = *(a1 + 32);
-    v51 = _NRCopyLogObjectForNRUUID();
-    v52 = _NRLogIsLevelEnabled();
-
-    if (!v52)
-    {
-      goto LABEL_17;
-    }
-
-LABEL_24:
-    v53 = *(a1 + 32);
-    v35 = _NRCopyLogObjectForNRUUID();
-    v36 = [a1 copyDescription];
+    v30 = _NRCopyLogObjectForNRUUID();
+    v31 = [a1 copyDescription];
+    _NRLogWithArgs(v30, 17, "%@: _nexusBKInputRing is NULL", v31);
     goto LABEL_13;
   }
 
-  v14 = fd;
-  v15 = dispatch_group_create();
-  if (!v15)
+  os_channel_ring_id();
+  v9 = os_channel_tx_ring();
+  *(a1 + 919) = v9;
+  if (!v9)
   {
-    v54 = sub_10007CF34();
-    v55 = _NRLogIsLevelEnabled();
+    v40 = _NRCopyLogObjectForNRUUID();
+    v41 = _NRLogIsLevelEnabled();
 
-    if (v55)
+    if (!v41)
     {
-      v56 = sub_10007CF34();
-      _NRLogWithArgs();
+      goto LABEL_17;
     }
 
-    goto LABEL_30;
+    v30 = _NRCopyLogObjectForNRUUID();
+    v31 = [a1 copyDescription];
+    _NRLogWithArgs(v30, 17, "%@: _nexusBKOutputRing is NULL", v31);
+    goto LABEL_13;
   }
 
-  v16 = v15;
-  v17 = dispatch_source_create(&_dispatch_source_type_read, v14, 0, *(a1 + 8));
-  v18 = *(a1 + 927);
-  *(a1 + 927) = v17;
-
-  v19 = *(a1 + 927);
-  if (!v19)
+  fd = os_channel_get_fd();
+  if ((fd & 0x80000000) != 0)
   {
-    v57 = sub_10007CF34();
-    v58 = _NRLogIsLevelEnabled();
+    v42 = _NRCopyLogObjectForNRUUID();
+    v43 = _NRLogIsLevelEnabled();
 
-    if (v58)
+    if (!v43)
     {
-      v59 = sub_10007CF34();
-      _NRLogWithArgs();
+      goto LABEL_17;
     }
 
-LABEL_30:
-    _os_log_pack_size();
-    v60 = *__error();
-    v61 = _os_log_pack_fill();
-    *v61 = 136446210;
-    *(v61 + 4) = "[NRLinkBluetooth setupNexusChannelBackground:]";
-    goto LABEL_34;
+    v30 = _NRCopyLogObjectForNRUUID();
+    v31 = [a1 copyDescription];
+    _NRLogWithArgs(v30, 17, "%@: os_channel_get_fd failed", v31);
+    goto LABEL_13;
+  }
+
+  v11 = fd;
+  v12 = dispatch_group_create();
+  if (!v12)
+  {
+    v44 = sub_10007CF34();
+    v45 = _NRLogIsLevelEnabled();
+
+    if (v45)
+    {
+      v46 = sub_10007CF34();
+      _NRLogWithArgs(v46, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (nexusGroup) != ((void*)0)", "", "[NRLinkBluetooth setupNexusChannelBackground:]", 2177);
+    }
+
+    v47 = _os_log_pack_size();
+    v48 = *__error();
+    v49 = _os_log_pack_fill(block - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0), v47, v48, &_mh_execute_header, "%{public}s Assertion Failed: (nexusGroup) != ((void*)0)");
+    goto LABEL_31;
+  }
+
+  v13 = v12;
+  v14 = dispatch_source_create(&_dispatch_source_type_read, v11, 0, *(a1 + 8));
+  v15 = *(a1 + 927);
+  *(a1 + 927) = v14;
+
+  v16 = *(a1 + 927);
+  if (!v16)
+  {
+    v50 = sub_10007CF34();
+    v51 = _NRLogIsLevelEnabled();
+
+    if (v51)
+    {
+      v52 = sub_10007CF34();
+      _NRLogWithArgs(v52, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (_dNexusBKInputSource) != ((void*)0)", "", "[NRLinkBluetooth setupNexusChannelBackground:]", 2181);
+    }
+
+    v53 = _os_log_pack_size();
+    v54 = *__error();
+    v49 = _os_log_pack_fill(block - ((v53 + 15) & 0xFFFFFFFFFFFFFFF0), v53, v54, &_mh_execute_header, "%{public}s Assertion Failed: (_dNexusBKInputSource) != ((void*)0)");
+LABEL_31:
+    *v49 = 136446210;
+    *(v49 + 4) = "[NRLinkBluetooth setupNexusChannelBackground:]";
+    goto LABEL_35;
   }
 
   handler[0] = _NSConcreteStackBlock;
@@ -3010,137 +2932,143 @@ LABEL_30:
   handler[2] = sub_1000A2578;
   handler[3] = &unk_1001FD3C8;
   handler[4] = a1;
-  dispatch_source_set_event_handler(v19, handler);
-  dispatch_group_enter(v16);
-  v20 = *(a1 + 927);
-  v72[0] = _NSConcreteStackBlock;
-  v72[1] = 3221225472;
-  v72[2] = sub_1000A2728;
-  v72[3] = &unk_1001FD3C8;
-  v21 = v16;
-  v73 = v21;
-  dispatch_source_set_cancel_handler(v20, v72);
+  dispatch_source_set_event_handler(v16, handler);
+  dispatch_group_enter(v13);
+  v17 = *(a1 + 927);
+  v65[0] = _NSConcreteStackBlock;
+  v65[1] = 3221225472;
+  v65[2] = sub_1000A2728;
+  v65[3] = &unk_1001FD3C8;
+  v18 = v13;
+  v66 = v18;
+  dispatch_source_set_cancel_handler(v17, v65);
   dispatch_activate(*(a1 + 927));
-  v22 = dispatch_source_create(&_dispatch_source_type_write, v14, 0, *(a1 + 8));
-  v23 = *(a1 + 935);
-  *(a1 + 935) = v22;
+  v19 = dispatch_source_create(&_dispatch_source_type_write, v11, 0, *(a1 + 8));
+  v20 = *(a1 + 935);
+  *(a1 + 935) = v19;
 
-  v24 = *(a1 + 935);
-  if (!v24)
+  v21 = *(a1 + 935);
+  if (!v21)
   {
-    v62 = sub_10007CF34();
-    v63 = _NRLogIsLevelEnabled();
+    v55 = sub_10007CF34();
+    v56 = _NRLogIsLevelEnabled();
 
-    if (v63)
+    if (v56)
     {
-      v64 = sub_10007CF34();
-      _NRLogWithArgs();
+      v57 = sub_10007CF34();
+      _NRLogWithArgs(v57, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (_dNexusBKOutputSource) != ((void*)0)", "", "[NRLinkBluetooth setupNexusChannelBackground:]", 2199);
     }
 
-    _os_log_pack_size();
-    v65 = *__error();
-    v66 = _os_log_pack_fill();
-    *v66 = 136446210;
-    *(v66 + 4) = "[NRLinkBluetooth setupNexusChannelBackground:]";
-LABEL_34:
+    v58 = _os_log_pack_size();
+    v59 = __error();
+    v60 = _os_log_pack_fill(block - ((v58 + 15) & 0xFFFFFFFFFFFFFFF0), v58, *v59, &_mh_execute_header, "%{public}s Assertion Failed: (_dNexusBKOutputSource) != ((void*)0)");
+    *v60 = 136446210;
+    *(v60 + 4) = "[NRLinkBluetooth setupNexusChannelBackground:]";
+LABEL_35:
     sub_10007CF34();
     _NRLogAbortWithPack();
   }
 
-  v71[0] = _NSConcreteStackBlock;
-  v71[1] = 3221225472;
-  v71[2] = sub_1000A2730;
-  v71[3] = &unk_1001FD3C8;
-  v71[4] = a1;
-  dispatch_source_set_event_handler(v24, v71);
-  dispatch_group_enter(v21);
-  v25 = *(a1 + 935);
-  v69[0] = _NSConcreteStackBlock;
-  v69[1] = 3221225472;
-  v69[2] = sub_1000A28D4;
-  v69[3] = &unk_1001FD3C8;
-  v26 = v21;
-  v70 = v26;
-  dispatch_source_set_cancel_handler(v25, v69);
-  v27 = 1;
+  v64[0] = _NSConcreteStackBlock;
+  v64[1] = 3221225472;
+  v64[2] = sub_1000A2730;
+  v64[3] = &unk_1001FD3C8;
+  v64[4] = a1;
+  dispatch_source_set_event_handler(v21, v64);
+  dispatch_group_enter(v18);
+  v22 = *(a1 + 935);
+  v62[0] = _NSConcreteStackBlock;
+  v62[1] = 3221225472;
+  v62[2] = sub_1000A28D4;
+  v62[3] = &unk_1001FD3C8;
+  v23 = v18;
+  v63 = v23;
+  dispatch_source_set_cancel_handler(v22, v62);
+  v24 = 1;
   *(a1 + 259) = 1;
-  v28 = *(a1 + 8);
+  v25 = *(a1 + 8);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000A28DC;
   block[3] = &unk_1001FCDD8;
-  block[4] = v5;
-  dispatch_group_notify(v26, v28, block);
-  v29 = *(a1 + 895);
-  *(a1 + 895) = v26;
-  v30 = v26;
+  block[4] = v7;
+  dispatch_group_notify(v23, v25, block);
+  v26 = *(a1 + 895);
+  *(a1 + 895) = v23;
+  v27 = v23;
 
 LABEL_18:
-  return v27;
+  return v24;
 }
 
-uint64_t sub_1000A1674(void *a1)
+uint64_t sub_1000A1674(void *a1, uint64_t a2)
 {
-  v2 = os_channel_attr_get();
-  v3 = a1[4];
+  v3 = os_channel_attr_get();
   v4 = _NRCopyLogObjectForNRUUID();
-  if (v2)
+  if (v3)
   {
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      goto LABEL_83;
+      v6 = _NRCopyLogObjectForNRUUID();
+      v7 = [a1 copyDescription];
+      _NRLogWithArgs(v6, 17, "%@: os_channel_attr_get(TX_RINGS) returned %d", v7, v3);
+LABEL_84:
+
+      return 0;
     }
 
     return 0;
   }
 
-  v6 = _NRLogIsLevelEnabled();
+  v8 = _NRLogIsLevelEnabled();
 
-  if (v6)
+  if (v8)
   {
-    v7 = a1[4];
-    v8 = _NRCopyLogObjectForNRUUID();
-    v135 = [a1 copyDescription];
-    _NRLogWithArgs();
+    v9 = _NRCopyLogObjectForNRUUID();
+    v10 = [a1 copyDescription];
+    _NRLogWithArgs(v9, 2, "%s%.30s:%-4d %@: Nexus Channel TX_RINGS = %llu", "", "[NRLinkBluetooth validateChannelAttributes:]", 2002, v10, 0);
   }
 
-  v9 = os_channel_attr_get();
-  v10 = a1[4];
-  v11 = _NRCopyLogObjectForNRUUID();
-  if (v9)
+  v11 = os_channel_attr_get();
+  v12 = _NRCopyLogObjectForNRUUID();
+  if (v11)
   {
-    v12 = _NRLogIsLevelEnabled();
+    v13 = _NRLogIsLevelEnabled();
 
-    if (v12)
+    if (v13)
     {
-      goto LABEL_83;
+      v6 = _NRCopyLogObjectForNRUUID();
+      v7 = [a1 copyDescription];
+      _NRLogWithArgs(v6, 17, "%@: os_channel_attr_get(RX_RINGS) returned %d", v7, v11);
+      goto LABEL_84;
     }
 
     return 0;
   }
 
-  v13 = _NRLogIsLevelEnabled();
+  v14 = _NRLogIsLevelEnabled();
 
-  if (v13)
+  if (v14)
   {
-    v14 = a1[4];
     v15 = _NRCopyLogObjectForNRUUID();
-    v136 = [a1 copyDescription];
-    _NRLogWithArgs();
+    v16 = [a1 copyDescription];
+    _NRLogWithArgs(v15, 2, "%s%.30s:%-4d %@: Nexus Channel RX_RINGS = %llu", "", "[NRLinkBluetooth validateChannelAttributes:]", 2003, v16, 0);
   }
 
-  v16 = os_channel_attr_get();
-  v17 = a1[4];
+  v17 = os_channel_attr_get();
   v18 = _NRCopyLogObjectForNRUUID();
-  if (v16)
+  if (v17)
   {
     v19 = _NRLogIsLevelEnabled();
 
     if (v19)
     {
-      goto LABEL_83;
+      v6 = _NRCopyLogObjectForNRUUID();
+      v7 = [a1 copyDescription];
+      _NRLogWithArgs(v6, 17, "%@: os_channel_attr_get(TX_SLOTS) returned %d", v7, v17);
+      goto LABEL_84;
     }
 
     return 0;
@@ -3150,147 +3078,179 @@ uint64_t sub_1000A1674(void *a1)
 
   if (v20)
   {
-    v21 = a1[4];
-    v22 = _NRCopyLogObjectForNRUUID();
-    v137 = [a1 copyDescription];
-    _NRLogWithArgs();
+    v21 = _NRCopyLogObjectForNRUUID();
+    v22 = [a1 copyDescription];
+    _NRLogWithArgs(v21, 2, "%s%.30s:%-4d %@: Nexus Channel TX_SLOTS = %llu", "", "[NRLinkBluetooth validateChannelAttributes:]", 2004, v22, 0);
   }
 
   v23 = os_channel_attr_get();
-  v24 = a1[4];
-  v25 = _NRCopyLogObjectForNRUUID();
+  v24 = _NRCopyLogObjectForNRUUID();
   if (v23)
   {
-    v26 = _NRLogIsLevelEnabled();
+    v25 = _NRLogIsLevelEnabled();
 
-    if (v26)
+    if (v25)
     {
-      goto LABEL_83;
+      v6 = _NRCopyLogObjectForNRUUID();
+      v7 = [a1 copyDescription];
+      _NRLogWithArgs(v6, 17, "%@: os_channel_attr_get(RX_SLOTS) returned %d", v7, v23);
+      goto LABEL_84;
     }
 
     return 0;
   }
 
-  v27 = _NRLogIsLevelEnabled();
+  v26 = _NRLogIsLevelEnabled();
 
-  if (v27)
+  if (v26)
   {
-    v28 = a1[4];
-    v29 = _NRCopyLogObjectForNRUUID();
-    v138 = [a1 copyDescription];
-    _NRLogWithArgs();
+    v27 = _NRCopyLogObjectForNRUUID();
+    v28 = [a1 copyDescription];
+    _NRLogWithArgs(v27, 2, "%s%.30s:%-4d %@: Nexus Channel RX_SLOTS = %llu", "", "[NRLinkBluetooth validateChannelAttributes:]", 2005, v28, 0);
   }
 
-  v30 = os_channel_attr_get();
-  v31 = a1[4];
-  v32 = _NRCopyLogObjectForNRUUID();
-  if (v30)
+  v29 = os_channel_attr_get();
+  v30 = _NRCopyLogObjectForNRUUID();
+  if (v29)
   {
-    v33 = _NRLogIsLevelEnabled();
+    v31 = _NRLogIsLevelEnabled();
 
-    if (v33)
+    if (v31)
     {
-      goto LABEL_83;
+      v6 = _NRCopyLogObjectForNRUUID();
+      v7 = [a1 copyDescription];
+      _NRLogWithArgs(v6, 17, "%@: os_channel_attr_get(SLOT_BUF_SIZE) returned %d", v7, v29);
+      goto LABEL_84;
     }
 
     return 0;
   }
 
-  v34 = _NRLogIsLevelEnabled();
+  v32 = _NRLogIsLevelEnabled();
 
-  if (v34)
+  if (v32)
   {
-    v35 = a1[4];
-    v36 = _NRCopyLogObjectForNRUUID();
-    v139 = [a1 copyDescription];
-    _NRLogWithArgs();
+    v33 = _NRCopyLogObjectForNRUUID();
+    v34 = [a1 copyDescription];
+    _NRLogWithArgs(v33, 2, "%s%.30s:%-4d %@: Nexus Channel SLOT_BUF_SIZE = %llu", "", "[NRLinkBluetooth validateChannelAttributes:]", 2006, v34, 0);
   }
 
-  v37 = os_channel_attr_get();
-  v38 = a1[4];
-  v39 = _NRCopyLogObjectForNRUUID();
-  if (v37)
+  v35 = os_channel_attr_get();
+  v36 = _NRCopyLogObjectForNRUUID();
+  if (v35)
   {
-    v40 = _NRLogIsLevelEnabled();
+    v37 = _NRLogIsLevelEnabled();
 
-    if (v40)
+    if (v37)
     {
-      goto LABEL_83;
+      v6 = _NRCopyLogObjectForNRUUID();
+      v7 = [a1 copyDescription];
+      _NRLogWithArgs(v6, 17, "%@: os_channel_attr_get(SLOT_META_SIZE) returned %d", v7, v35);
+      goto LABEL_84;
     }
 
     return 0;
   }
 
-  v41 = _NRLogIsLevelEnabled();
+  v38 = _NRLogIsLevelEnabled();
 
+  if (v38)
+  {
+    v39 = _NRCopyLogObjectForNRUUID();
+    v40 = [a1 copyDescription];
+    _NRLogWithArgs(v39, 2, "%s%.30s:%-4d %@: Nexus Channel SLOT_META_SIZE = %llu", "", "[NRLinkBluetooth validateChannelAttributes:]", 2007, v40, 0);
+  }
+
+  v41 = os_channel_attr_get();
+  v42 = _NRCopyLogObjectForNRUUID();
   if (v41)
   {
-    v42 = a1[4];
-    v43 = _NRCopyLogObjectForNRUUID();
-    v140 = [a1 copyDescription];
-    _NRLogWithArgs();
+    v43 = _NRLogIsLevelEnabled();
+
+    if (v43)
+    {
+      v6 = _NRCopyLogObjectForNRUUID();
+      v7 = [a1 copyDescription];
+      _NRLogWithArgs(v6, 17, "%@: os_channel_attr_get(EXCLUSIVE) returned %d", v7, v41);
+      goto LABEL_84;
+    }
+
+    return 0;
   }
 
-  v44 = os_channel_attr_get();
-  v45 = a1[4];
-  v46 = _NRCopyLogObjectForNRUUID();
+  v44 = _NRLogIsLevelEnabled();
+
   if (v44)
   {
-    v47 = _NRLogIsLevelEnabled();
+    v45 = _NRCopyLogObjectForNRUUID();
+    v46 = [a1 copyDescription];
+    _NRLogWithArgs(v45, 2, "%s%.30s:%-4d %@: Nexus Channel EXCLUSIVE = %llu", "", "[NRLinkBluetooth validateChannelAttributes:]", 2008, v46, 0);
+  }
 
-    if (v47)
+  v47 = os_channel_attr_get();
+  v48 = _NRCopyLogObjectForNRUUID();
+  if (v47)
+  {
+    v49 = _NRLogIsLevelEnabled();
+
+    if (v49)
     {
-      goto LABEL_83;
+      v6 = _NRCopyLogObjectForNRUUID();
+      v7 = [a1 copyDescription];
+      _NRLogWithArgs(v6, 17, "%@: os_channel_attr_get(NO_AUTO_SYNC) returned %d", v7, v47);
+      goto LABEL_84;
     }
 
     return 0;
   }
 
-  v48 = _NRLogIsLevelEnabled();
+  v50 = _NRLogIsLevelEnabled();
 
-  if (v48)
+  if (v50)
   {
-    v49 = a1[4];
-    v50 = _NRCopyLogObjectForNRUUID();
-    v141 = [a1 copyDescription];
-    _NRLogWithArgs();
+    v51 = _NRCopyLogObjectForNRUUID();
+    v52 = [a1 copyDescription];
+    _NRLogWithArgs(v51, 2, "%s%.30s:%-4d %@: Nexus Channel NO_AUTO_SYNC = %llu", "", "[NRLinkBluetooth validateChannelAttributes:]", 2009, v52, 0);
   }
 
-  v51 = os_channel_attr_get();
-  v52 = a1[4];
-  v53 = _NRCopyLogObjectForNRUUID();
-  if (v51)
+  v53 = os_channel_attr_get();
+  v54 = _NRCopyLogObjectForNRUUID();
+  if (v53)
   {
-    v54 = _NRLogIsLevelEnabled();
+    v55 = _NRLogIsLevelEnabled();
 
-    if (v54)
+    if (v55)
     {
-      goto LABEL_83;
+      v6 = _NRCopyLogObjectForNRUUID();
+      v7 = [a1 copyDescription];
+      _NRLogWithArgs(v6, 17, "%@: os_channel_attr_get(TX_LOWAT_UNIT) returned %d", v7, v53);
+      goto LABEL_84;
     }
 
     return 0;
   }
 
-  v55 = _NRLogIsLevelEnabled();
+  v56 = _NRLogIsLevelEnabled();
 
-  if (v55)
+  if (v56)
   {
-    v56 = a1[4];
     v57 = _NRCopyLogObjectForNRUUID();
-    v142 = [a1 copyDescription];
-    _NRLogWithArgs();
+    v58 = [a1 copyDescription];
+    _NRLogWithArgs(v57, 2, "%s%.30s:%-4d %@: Nexus Channel TX_LOWAT_UNIT = %llu", "", "[NRLinkBluetooth validateChannelAttributes:]", 2010, v58, 0);
   }
 
-  v58 = os_channel_attr_get();
-  v59 = a1[4];
+  v59 = os_channel_attr_get();
   v60 = _NRCopyLogObjectForNRUUID();
-  if (v58)
+  if (v59)
   {
     v61 = _NRLogIsLevelEnabled();
 
     if (v61)
     {
-      goto LABEL_83;
+      v6 = _NRCopyLogObjectForNRUUID();
+      v7 = [a1 copyDescription];
+      _NRLogWithArgs(v6, 17, "%@: os_channel_attr_get(TX_LOWAT_VALUE) returned %d", v7, v59);
+      goto LABEL_84;
     }
 
     return 0;
@@ -3300,242 +3260,216 @@ uint64_t sub_1000A1674(void *a1)
 
   if (v62)
   {
-    v63 = a1[4];
-    v64 = _NRCopyLogObjectForNRUUID();
-    v143 = [a1 copyDescription];
-    _NRLogWithArgs();
+    v63 = _NRCopyLogObjectForNRUUID();
+    v64 = [a1 copyDescription];
+    _NRLogWithArgs(v63, 2, "%s%.30s:%-4d %@: Nexus Channel TX_LOWAT_VALUE = %llu", "", "[NRLinkBluetooth validateChannelAttributes:]", 2011, v64, 0);
   }
 
   v65 = os_channel_attr_get();
-  v66 = a1[4];
-  v67 = _NRCopyLogObjectForNRUUID();
+  v66 = _NRCopyLogObjectForNRUUID();
   if (v65)
   {
-    v68 = _NRLogIsLevelEnabled();
+    v67 = _NRLogIsLevelEnabled();
 
-    if (v68)
+    if (v67)
     {
-      goto LABEL_83;
+      v6 = _NRCopyLogObjectForNRUUID();
+      v7 = [a1 copyDescription];
+      _NRLogWithArgs(v6, 17, "%@: os_channel_attr_get(RX_LOWAT_UNIT) returned %d", v7, v65);
+      goto LABEL_84;
     }
 
     return 0;
   }
 
-  v69 = _NRLogIsLevelEnabled();
+  v68 = _NRLogIsLevelEnabled();
 
-  if (v69)
+  if (v68)
   {
-    v70 = a1[4];
-    v71 = _NRCopyLogObjectForNRUUID();
-    v144 = [a1 copyDescription];
-    _NRLogWithArgs();
+    v69 = _NRCopyLogObjectForNRUUID();
+    v70 = [a1 copyDescription];
+    _NRLogWithArgs(v69, 2, "%s%.30s:%-4d %@: Nexus Channel RX_LOWAT_UNIT = %llu", "", "[NRLinkBluetooth validateChannelAttributes:]", 2012, v70, 0);
   }
 
-  v72 = os_channel_attr_get();
-  v73 = a1[4];
-  v74 = _NRCopyLogObjectForNRUUID();
-  if (v72)
+  v71 = os_channel_attr_get();
+  v72 = _NRCopyLogObjectForNRUUID();
+  if (v71)
   {
-    v75 = _NRLogIsLevelEnabled();
+    v73 = _NRLogIsLevelEnabled();
 
-    if (v75)
+    if (v73)
     {
-      goto LABEL_83;
+      v6 = _NRCopyLogObjectForNRUUID();
+      v7 = [a1 copyDescription];
+      _NRLogWithArgs(v6, 17, "%@: os_channel_attr_get(RX_LOWAT_VALUE) returned %d", v7, v71);
+      goto LABEL_84;
     }
 
     return 0;
   }
 
-  v76 = _NRLogIsLevelEnabled();
+  v74 = _NRLogIsLevelEnabled();
 
-  if (v76)
+  if (v74)
   {
-    v77 = a1[4];
-    v78 = _NRCopyLogObjectForNRUUID();
-    v145 = [a1 copyDescription];
-    _NRLogWithArgs();
+    v75 = _NRCopyLogObjectForNRUUID();
+    v76 = [a1 copyDescription];
+    _NRLogWithArgs(v75, 2, "%s%.30s:%-4d %@: Nexus Channel RX_LOWAT_VALUE = %llu", "", "[NRLinkBluetooth validateChannelAttributes:]", 2013, v76, 0);
   }
 
-  v79 = os_channel_attr_get();
-  v80 = a1[4];
-  v81 = _NRCopyLogObjectForNRUUID();
-  if (v79)
+  v77 = os_channel_attr_get();
+  v78 = _NRCopyLogObjectForNRUUID();
+  if (v77)
   {
-    v82 = _NRLogIsLevelEnabled();
+    v79 = _NRLogIsLevelEnabled();
 
-    if (v82)
+    if (v79)
     {
-      goto LABEL_83;
+      v6 = _NRCopyLogObjectForNRUUID();
+      v7 = [a1 copyDescription];
+      _NRLogWithArgs(v6, 17, "%@: os_channel_attr_get(NEXUS_TYPE) returned %d", v7, v77);
+      goto LABEL_84;
     }
 
     return 0;
   }
 
-  v83 = _NRLogIsLevelEnabled();
+  v80 = _NRLogIsLevelEnabled();
 
+  if (v80)
+  {
+    v81 = _NRCopyLogObjectForNRUUID();
+    v82 = [a1 copyDescription];
+    _NRLogWithArgs(v81, 2, "%s%.30s:%-4d %@: Nexus Channel NEXUS_TYPE = %llu", "", "[NRLinkBluetooth validateChannelAttributes:]", 2014, v82, 0);
+  }
+
+  v83 = os_channel_attr_get();
+  v84 = _NRCopyLogObjectForNRUUID();
   if (v83)
   {
-    v84 = a1[4];
-    v85 = _NRCopyLogObjectForNRUUID();
-    v146 = [a1 copyDescription];
-    _NRLogWithArgs();
+    v85 = _NRLogIsLevelEnabled();
+
+    if (v85)
+    {
+      v6 = _NRCopyLogObjectForNRUUID();
+      v7 = [a1 copyDescription];
+      _NRLogWithArgs(v6, 17, "%@: os_channel_attr_get(NEXUS_EXTENSIONS) returned %d", v7, v83);
+      goto LABEL_84;
+    }
+
+    return 0;
   }
 
-  v86 = os_channel_attr_get();
-  v87 = a1[4];
-  v88 = _NRCopyLogObjectForNRUUID();
+  v86 = _NRLogIsLevelEnabled();
+
   if (v86)
   {
-    v89 = _NRLogIsLevelEnabled();
+    v87 = _NRCopyLogObjectForNRUUID();
+    v88 = [a1 copyDescription];
+    _NRLogWithArgs(v87, 2, "%s%.30s:%-4d %@: Nexus Channel NEXUS_EXTENSIONS = %llu", "", "[NRLinkBluetooth validateChannelAttributes:]", 2015, v88, 0);
+  }
 
-    if (v89)
+  v89 = os_channel_attr_get();
+  v90 = _NRCopyLogObjectForNRUUID();
+  if (v89)
+  {
+    v91 = _NRLogIsLevelEnabled();
+
+    if (v91)
     {
-      goto LABEL_83;
+      v6 = _NRCopyLogObjectForNRUUID();
+      v7 = [a1 copyDescription];
+      _NRLogWithArgs(v6, 17, "%@: os_channel_attr_get(NEXUS_MHINTS) returned %d", v7, v89);
+      goto LABEL_84;
     }
 
     return 0;
   }
 
-  v90 = _NRLogIsLevelEnabled();
+  v92 = _NRLogIsLevelEnabled();
 
-  if (v90)
+  if (v92)
   {
-    v91 = a1[4];
-    v92 = _NRCopyLogObjectForNRUUID();
-    v147 = [a1 copyDescription];
-    _NRLogWithArgs();
+    v93 = _NRCopyLogObjectForNRUUID();
+    v94 = [a1 copyDescription];
+    _NRLogWithArgs(v93, 2, "%s%.30s:%-4d %@: Nexus Channel NEXUS_MHINTS = %llu", "", "[NRLinkBluetooth validateChannelAttributes:]", 2016, v94, 0);
   }
 
-  v93 = os_channel_attr_get();
-  v94 = a1[4];
-  v95 = _NRCopyLogObjectForNRUUID();
-  if (v93)
+  v95 = os_channel_attr_get();
+  v96 = _NRCopyLogObjectForNRUUID();
+  if (v95)
   {
-    v96 = _NRLogIsLevelEnabled();
+    v97 = _NRLogIsLevelEnabled();
 
-    if (v96)
+    if (v97)
     {
-      goto LABEL_83;
+      v6 = _NRCopyLogObjectForNRUUID();
+      v7 = [a1 copyDescription];
+      _NRLogWithArgs(v6, 17, "%@: os_channel_attr_get(NEXUS_IFINDEX) returned %d", v7, v95);
+      goto LABEL_84;
     }
 
     return 0;
   }
 
-  v97 = _NRLogIsLevelEnabled();
+  v98 = _NRLogIsLevelEnabled();
 
-  if (v97)
+  if (v98)
   {
-    v98 = a1[4];
     v99 = _NRCopyLogObjectForNRUUID();
-    v148 = [a1 copyDescription];
-    _NRLogWithArgs();
+    v100 = [a1 copyDescription];
+    _NRLogWithArgs(v99, 2, "%s%.30s:%-4d %@: Nexus Channel NEXUS_IFINDEX = %llu", "", "[NRLinkBluetooth validateChannelAttributes:]", 2017, v100, 0);
   }
 
-  v100 = os_channel_attr_get();
-  v101 = a1[4];
+  v101 = os_channel_attr_get();
   v102 = _NRCopyLogObjectForNRUUID();
-  if (v100)
+  if (v101)
   {
     v103 = _NRLogIsLevelEnabled();
 
     if (v103)
     {
-      goto LABEL_83;
+      v6 = _NRCopyLogObjectForNRUUID();
+      v7 = [a1 copyDescription];
+      _NRLogWithArgs(v6, 17, "%@: os_channel_attr_get(NEXUS_STATS_SIZE) returned %d", v7, v101);
+      goto LABEL_84;
     }
 
     return 0;
   }
 
-  v104 = _NRLogIsLevelEnabled();
+  v105 = _NRLogIsLevelEnabled();
 
-  if (v104)
+  if (v105)
   {
-    v105 = a1[4];
     v106 = _NRCopyLogObjectForNRUUID();
-    v149 = [a1 copyDescription];
-    _NRLogWithArgs();
+    v107 = [a1 copyDescription];
+    _NRLogWithArgs(v106, 2, "%s%.30s:%-4d %@: Nexus Channel NEXUS_STATS_SIZE = %llu", "", "[NRLinkBluetooth validateChannelAttributes:]", 2018, v107, 0);
   }
 
-  v107 = os_channel_attr_get();
-  v108 = a1[4];
+  v108 = os_channel_attr_get();
   v109 = _NRCopyLogObjectForNRUUID();
-  if (v107)
+  if (v108)
   {
     v110 = _NRLogIsLevelEnabled();
 
     if (v110)
     {
-      goto LABEL_83;
+      v111 = _NRCopyLogObjectForNRUUID();
+      v112 = [a1 copyDescription];
+      _NRLogWithArgs(v111, 17, "%@: os_channel_attr_get(NEXUS_FLOWADV_MAX) returned %d", v112, v108);
     }
 
     return 0;
   }
 
-  v111 = _NRLogIsLevelEnabled();
+  v113 = _NRLogIsLevelEnabled();
 
-  if (v111)
+  if (v113)
   {
-    v112 = a1[4];
-    v113 = _NRCopyLogObjectForNRUUID();
-    v150 = [a1 copyDescription];
-    _NRLogWithArgs();
-  }
-
-  v114 = os_channel_attr_get();
-  v115 = a1[4];
-  v116 = _NRCopyLogObjectForNRUUID();
-  if (v114)
-  {
-    v117 = _NRLogIsLevelEnabled();
-
-    if (v117)
-    {
-LABEL_83:
-      v118 = a1[4];
-      v119 = _NRCopyLogObjectForNRUUID();
-      v120 = [a1 copyDescription];
-      _NRLogWithArgs();
-    }
-
-    return 0;
-  }
-
-  v122 = _NRLogIsLevelEnabled();
-
-  if (v122)
-  {
-    v123 = a1[4];
-    v124 = _NRCopyLogObjectForNRUUID();
-    v151 = [a1 copyDescription];
-    _NRLogWithArgs();
-  }
-
-  v125 = os_channel_attr_get();
-  v126 = a1[4];
-  v127 = _NRCopyLogObjectForNRUUID();
-  if (v125)
-  {
-    v128 = _NRLogIsLevelEnabled();
-
-    if (v128)
-    {
-      v129 = a1[4];
-      v130 = _NRCopyLogObjectForNRUUID();
-      v134 = [a1 copyDescription];
-      _NRLogWithArgs();
-    }
-
-    return 0;
-  }
-
-  v131 = _NRLogIsLevelEnabled();
-
-  if (v131)
-  {
-    v132 = a1[4];
-    v133 = _NRCopyLogObjectForNRUUID();
-    v152 = [a1 copyDescription];
-    _NRLogWithArgs();
+    v114 = _NRCopyLogObjectForNRUUID();
+    v115 = [a1 copyDescription];
+    _NRLogWithArgs(v114, 2, "%s%.30s:%-4d %@: Nexus Channel NEXUS_FLOWADV_MAX = %llu", "", "[NRLinkBluetooth validateChannelAttributes:]", 2019, v115, 0);
   }
 
   return 1;
@@ -3546,16 +3480,14 @@ void sub_1000A2578(uint64_t a1)
   v2 = *(a1 + 32);
   if (*(v2 + 16) == 255)
   {
-    v5 = *(v2 + 32);
-    v6 = _NRCopyLogObjectForNRUUID();
+    v5 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v8 = *(*(a1 + 32) + 32);
-      v16 = _NRCopyLogObjectForNRUUID();
-      v14 = [*(a1 + 32) copyDescription];
-      _NRLogWithArgs();
+      v12 = _NRCopyLogObjectForNRUUID();
+      v7 = [*(a1 + 32) copyDescription];
+      _NRLogWithArgs(v12, 16, "%s%.30s:%-4d %@: Nexus BK input available but cancelled", "", "[NRLinkBluetooth setupNexusChannelBackground:]_block_invoke", 2184, v7);
     }
   }
 
@@ -3564,16 +3496,14 @@ void sub_1000A2578(uint64_t a1)
     ++*(v2 + 975);
     if (gNRPacketLoggingEnabled == 1)
     {
-      v9 = *(*(a1 + 32) + 32);
-      v10 = _NRCopyLogObjectForNRUUID();
-      v11 = _NRLogIsLevelEnabled();
+      v8 = _NRCopyLogObjectForNRUUID();
+      v9 = _NRLogIsLevelEnabled();
 
-      if (v11)
+      if (v9)
       {
-        v12 = *(*(a1 + 32) + 32);
-        v13 = _NRCopyLogObjectForNRUUID();
-        v15 = [*(a1 + 32) copyDescription];
-        _NRLogWithArgs();
+        v10 = _NRCopyLogObjectForNRUUID();
+        v11 = [*(a1 + 32) copyDescription];
+        _NRLogWithArgs(v10, 1, "%s%.30s:%-4d %@: Nexus BK input available", "", "[NRLinkBluetooth setupNexusChannelBackground:]_block_invoke", 2188, v11);
       }
     }
 
@@ -3589,16 +3519,14 @@ void sub_1000A2730(uint64_t a1)
   v2 = *(a1 + 32);
   if (*(v2 + 16) == 255)
   {
-    v4 = *(v2 + 32);
-    v5 = _NRCopyLogObjectForNRUUID();
+    v4 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v7 = *(*(a1 + 32) + 32);
-      v15 = _NRCopyLogObjectForNRUUID();
-      v13 = [*(a1 + 32) copyDescription];
-      _NRLogWithArgs();
+      v11 = _NRCopyLogObjectForNRUUID();
+      v6 = [*(a1 + 32) copyDescription];
+      _NRLogWithArgs(v11, 16, "%s%.30s:%-4d %@: Nexus BK output available but cancelled", "", "[NRLinkBluetooth setupNexusChannelBackground:]_block_invoke", 2202, v6);
     }
   }
 
@@ -3607,16 +3535,14 @@ void sub_1000A2730(uint64_t a1)
     ++*(v2 + 983);
     if (gNRPacketLoggingEnabled == 1)
     {
-      v8 = *(*(a1 + 32) + 32);
-      v9 = _NRCopyLogObjectForNRUUID();
-      v10 = _NRLogIsLevelEnabled();
+      v7 = _NRCopyLogObjectForNRUUID();
+      v8 = _NRLogIsLevelEnabled();
 
-      if (v10)
+      if (v8)
       {
-        v11 = *(*(a1 + 32) + 32);
-        v12 = _NRCopyLogObjectForNRUUID();
-        v14 = [*(a1 + 32) copyDescription];
-        _NRLogWithArgs();
+        v9 = _NRCopyLogObjectForNRUUID();
+        v10 = [*(a1 + 32) copyDescription];
+        _NRLogWithArgs(v9, 1, "%s%.30s:%-4d %@: Nexus BK output available", "", "[NRLinkBluetooth setupNexusChannelBackground:]_block_invoke", 2206, v10);
       }
     }
 
@@ -3631,16 +3557,14 @@ void sub_1000A28E4(uint64_t a1)
   v2 = *(a1 + 32);
   if (*(v2 + 16) == 255)
   {
-    v5 = *(v2 + 32);
-    v6 = _NRCopyLogObjectForNRUUID();
+    v5 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v8 = *(*(a1 + 32) + 32);
-      v16 = _NRCopyLogObjectForNRUUID();
-      v14 = [*(a1 + 32) copyDescription];
-      _NRLogWithArgs();
+      v12 = _NRCopyLogObjectForNRUUID();
+      v7 = [*(a1 + 32) copyDescription];
+      _NRLogWithArgs(v12, 16, "%s%.30s:%-4d %@: Nexus VI input available but cancelled", "", "[NRLinkBluetooth setupNexusChannelVideo:]_block_invoke", 2087, v7);
     }
   }
 
@@ -3649,16 +3573,14 @@ void sub_1000A28E4(uint64_t a1)
     ++*(v2 + 831);
     if (gNRPacketLoggingEnabled == 1)
     {
-      v9 = *(*(a1 + 32) + 32);
-      v10 = _NRCopyLogObjectForNRUUID();
-      v11 = _NRLogIsLevelEnabled();
+      v8 = _NRCopyLogObjectForNRUUID();
+      v9 = _NRLogIsLevelEnabled();
 
-      if (v11)
+      if (v9)
       {
-        v12 = *(*(a1 + 32) + 32);
-        v13 = _NRCopyLogObjectForNRUUID();
-        v15 = [*(a1 + 32) copyDescription];
-        _NRLogWithArgs();
+        v10 = _NRCopyLogObjectForNRUUID();
+        v11 = [*(a1 + 32) copyDescription];
+        _NRLogWithArgs(v10, 1, "%s%.30s:%-4d %@: Nexus VI input available", "", "[NRLinkBluetooth setupNexusChannelVideo:]_block_invoke", 2091, v11);
       }
     }
 
@@ -3674,16 +3596,14 @@ void sub_1000A2A9C(uint64_t a1)
   v2 = *(a1 + 32);
   if (*(v2 + 16) == 255)
   {
-    v4 = *(v2 + 32);
-    v5 = _NRCopyLogObjectForNRUUID();
+    v4 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v7 = *(*(a1 + 32) + 32);
-      v15 = _NRCopyLogObjectForNRUUID();
-      v13 = [*(a1 + 32) copyDescription];
-      _NRLogWithArgs();
+      v11 = _NRCopyLogObjectForNRUUID();
+      v6 = [*(a1 + 32) copyDescription];
+      _NRLogWithArgs(v11, 16, "%s%.30s:%-4d %@: Nexus VI output available but cancelled", "", "[NRLinkBluetooth setupNexusChannelVideo:]_block_invoke", 2105, v6);
     }
   }
 
@@ -3692,16 +3612,14 @@ void sub_1000A2A9C(uint64_t a1)
     ++*(v2 + 839);
     if (gNRPacketLoggingEnabled == 1)
     {
-      v8 = *(*(a1 + 32) + 32);
-      v9 = _NRCopyLogObjectForNRUUID();
-      v10 = _NRLogIsLevelEnabled();
+      v7 = _NRCopyLogObjectForNRUUID();
+      v8 = _NRLogIsLevelEnabled();
 
-      if (v10)
+      if (v8)
       {
-        v11 = *(*(a1 + 32) + 32);
-        v12 = _NRCopyLogObjectForNRUUID();
-        v14 = [*(a1 + 32) copyDescription];
-        _NRLogWithArgs();
+        v9 = _NRCopyLogObjectForNRUUID();
+        v10 = [*(a1 + 32) copyDescription];
+        _NRLogWithArgs(v9, 1, "%s%.30s:%-4d %@: Nexus VI output available", "", "[NRLinkBluetooth setupNexusChannelVideo:]_block_invoke", 2109, v10);
       }
     }
 
@@ -3714,617 +3632,607 @@ void sub_1000A2A9C(uint64_t a1)
 void sub_1000A2C50(void *a1)
 {
   v1 = a1;
-  v2 = v1;
   if (gNRPacketLoggingEnabled == 1)
   {
-    v432 = v1[4];
-    v433 = _NRCopyLogObjectForNRUUID();
+    v392 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v435 = v2[4];
-      v436 = _NRCopyLogObjectForNRUUID();
-      v627 = [v2 copyDescription];
-      _NRLogWithArgs();
+      v394 = _NRCopyLogObjectForNRUUID();
+      v395 = [v1 copyDescription];
+      _NRLogWithArgs(v394, 1, "%s%.30s:%-4d %@: UrgentLink:start LtN-U loop function", "", "NRLinkLinkToNexusLoopUrgent", 4875, v395);
     }
   }
 
-  v3 = *(v2 + 16);
-  if (v3 == 255)
+  v2 = *(v1 + 16);
+  if (v2 == 255)
   {
-    v4 = v2[4];
-    v5 = _NRCopyLogObjectForNRUUID();
-    v6 = _NRLogIsLevelEnabled();
+    v3 = _NRCopyLogObjectForNRUUID();
+    v4 = _NRLogIsLevelEnabled();
 
-    if (!v6)
+    if (!v4)
     {
-      goto LABEL_466;
+      goto LABEL_465;
     }
 
-    goto LABEL_4;
+    StringFromNRTLVType = _NRCopyLogObjectForNRUUID();
+    IOVecStringWithContents = [v1 copyDescription];
+    _NRLogWithArgs(StringFromNRTLVType, 16, "%s%.30s:%-4d %@: LinkToNexusLoopUrgent but cancelled", "", "NRLinkLinkToNexusLoopUrgent", 4878, IOVecStringWithContents);
+    goto LABEL_463;
   }
 
-  v10 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-  if (!*(v2 + 1215))
+  if (!*(v1 + 1215))
   {
-    v470 = v2[4];
-    v471 = _NRCopyLogObjectForNRUUID();
-    v472 = _NRLogIsLevelEnabled();
+    v446 = _NRCopyLogObjectForNRUUID();
+    v447 = _NRLogIsLevelEnabled();
 
-    if (!v472)
+    if (!v447)
     {
-      goto LABEL_466;
+      goto LABEL_465;
     }
 
-    goto LABEL_461;
+    StringFromNRTLVType = _NRCopyLogObjectForNRUUID();
+    IOVecStringWithContents = [v1 copyDescription];
+    _NRLogWithArgs(StringFromNRTLVType, 17, "%@: Tried to linkToNexusLoopUrgent but _urgentLinkInputRing is NULL", IOVecStringWithContents);
+    goto LABEL_463;
   }
 
-  if ((v3 - 1) < 2)
+  if ((v2 - 1) < 2)
   {
-    v11 = *(v2 + 269);
-    v12 = v2[4];
-    v13 = _NRCopyLogObjectForNRUUID();
-    if (v11 == 1)
+    v7 = *(v1 + 269);
+    v8 = _NRCopyLogObjectForNRUUID();
+    if (v7 == 1)
     {
-      v14 = _NRLogIsLevelEnabled();
+      v9 = _NRLogIsLevelEnabled();
 
-      if (!v14)
+      if (!v9)
       {
-        goto LABEL_466;
+        goto LABEL_465;
       }
 
-LABEL_4:
-      v7 = v2[4];
       StringFromNRTLVType = _NRCopyLogObjectForNRUUID();
-      IOVecStringWithContents = [v2 copyDescription];
-      goto LABEL_5;
+      IOVecStringWithContents = [v1 copyDescription];
+      _NRLogWithArgs(StringFromNRTLVType, 0, "%s%.30s:%-4d %@: Tried to linkToNexusLoopUrgent after receiving urgent prelude", "", "NRLinkLinkToNexusLoopUrgent", 4890, IOVecStringWithContents);
     }
 
-    v379 = _NRLogIsLevelEnabled();
-
-    if (!v379)
+    else
     {
-      goto LABEL_466;
+      v330 = _NRLogIsLevelEnabled();
+
+      if (!v330)
+      {
+        goto LABEL_465;
+      }
+
+      StringFromNRTLVType = _NRCopyLogObjectForNRUUID();
+      IOVecStringWithContents = [v1 copyDescription];
+      _NRLogWithArgs(StringFromNRTLVType, 17, "%@: Tried to linkToNexusLoopUrgent but bad state", IOVecStringWithContents);
     }
 
-LABEL_461:
-    v380 = v2[4];
-    StringFromNRTLVType = _NRCopyLogObjectForNRUUID();
-    IOVecStringWithContents = [v2 copyDescription];
-    _NRLogWithArgs();
-    goto LABEL_464;
+    goto LABEL_463;
   }
 
-  v638 = 0;
-  v639 = 0;
-  v636[2] = &v670;
-  v637 = &v676 + 8;
-  v640 = &v675 + 2;
-  v15 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-  v16 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-  v17 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-  v655 = v2;
+  v606 = 0;
+  v607 = 0;
+  v604[2] = &v638;
+  v605 = &v644 + 8;
+  v608 = &v643 + 8;
+  v10 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+  v11 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+  v12 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+  v623 = v1;
   while (2)
   {
-    v18 = 0;
-    LODWORD(v657) = 0;
-    v653 = 0;
-    v644 = 0uLL;
-    v648 = 0;
-    v666 = 0u;
-    v667 = 0u;
-    v664 = 0u;
-    v665 = 0u;
-    v662 = 0;
-    v663 = 0;
-    LODWORD(v651) = *(v2 + v15[625]);
+    v13 = 0;
+    LODWORD(v625) = 0;
+    v621 = 0;
+    v612 = 0uLL;
+    v616 = 0;
+    v634 = 0u;
+    v635 = 0u;
+    v632 = 0u;
+    v633 = 0u;
+    v630 = 0;
+    v631 = 0;
+    LODWORD(v619) = *(v1 + v10[625]);
     while (1)
     {
-LABEL_16:
-      v654 = 2031;
-      *(v2 + 2031) = 4;
-      if (v18 && v18 >= v657)
+LABEL_15:
+      v622 = 2031;
+      *(v1 + 2031) = 4;
+      if (v13 && v13 >= v625)
       {
-        if (v18 != v657)
+        if (v13 != v625)
         {
-          goto LABEL_501;
+          goto LABEL_502;
         }
 
-        v19 = v654;
-        *(v2 + v654) = 12;
+        v14 = v622;
+        *(v1 + v622) = 12;
       }
 
       else
       {
-        v19 = v654;
-        if (v18)
+        v14 = v622;
+        if (v13)
         {
-          *(v2 + v654) = 36;
-          if (!v648)
+          *(v1 + v622) = 36;
+          if (!v616)
           {
-            goto LABEL_377;
+            goto LABEL_374;
           }
 
-          goto LABEL_29;
+          goto LABEL_27;
         }
       }
 
-      v20 = *(v2 + v10[527]);
       next_slot = os_channel_get_next_slot();
-      *(v2 + v19) = (*(v2 + v19) | 0x10);
+      *(v1 + v14) = (*(v1 + v14) | 0x10);
       if (!next_slot)
       {
-LABEL_377:
-        if (*(v2 + 267) == 1 && *(v2 + 1231))
+LABEL_374:
+        if (*(v1 + 267) == 1 && *(v1 + 1231))
         {
-          *(v2 + 267) = 0;
-          ++*(v2 + 1247);
+          *(v1 + 267) = 0;
+          ++*(v1 + 1247);
           if (gNRPacketLoggingEnabled == 1)
           {
-            v357 = v2[4];
-            v358 = _NRCopyLogObjectForNRUUID();
-            v359 = _NRLogIsLevelEnabled();
+            v313 = _NRCopyLogObjectForNRUUID();
+            v314 = _NRLogIsLevelEnabled();
 
-            if (v359)
+            if (v314)
             {
-              v360 = v2[4];
-              v361 = _NRCopyLogObjectForNRUUID();
-              v624 = [v2 copyDescription];
-              _NRLogWithArgs();
+              v315 = _NRCopyLogObjectForNRUUID();
+              v316 = [v1 copyDescription];
+              _NRLogWithArgs(v315, 1, "%s%.30s:%-4d %@: source-resume: UrgentLinkInput", "", "NRLinkResumeUrgentLinkInputSource", 857, v316);
             }
           }
 
-          dispatch_resume(*(v2 + 1231));
+          dispatch_resume(*(v1 + 1231));
         }
 
-        if ((*(v2 + 257) & 1) == 0 && *(v2 + 791))
+        if ((*(v1 + 257) & 1) == 0 && *(v1 + 791))
         {
-          *(v2 + 257) = 1;
-          ++*(v2 + 807);
+          *(v1 + 257) = 1;
+          ++*(v1 + 807);
           if (gNRPacketLoggingEnabled == 1)
           {
-            v362 = v2[4];
-            v363 = _NRCopyLogObjectForNRUUID();
-            v364 = _NRLogIsLevelEnabled();
+            v317 = _NRCopyLogObjectForNRUUID();
+            v318 = _NRLogIsLevelEnabled();
 
-            if (v364)
+            if (v318)
             {
-              v365 = v2[4];
-              v366 = _NRCopyLogObjectForNRUUID();
-              v625 = [v2 copyDescription];
-              _NRLogWithArgs();
+              v319 = _NRCopyLogObjectForNRUUID();
+              v320 = [v1 copyDescription];
+              _NRLogWithArgs(v319, 1, "%s%.30s:%-4d %@: source-suspend: NexusVIOutput", "", "NRLinkSuspendNexusVIOutputSource", 868, v320);
             }
           }
 
-          dispatch_suspend(*(v2 + 791));
+          dispatch_suspend(*(v1 + 791));
         }
 
-        *(v2 + v654) = (*(v2 + v654) | 0x40);
-        goto LABEL_405;
+        *(v1 + v622) = (*(v1 + v622) | 0x40);
+        goto LABEL_402;
       }
 
-      v22 = next_slot;
-      v23 = *(v2 + v10[527]);
-      v648 = v22;
+      v616 = next_slot;
       os_channel_slot_get_packet();
       os_packet_get_next_buflet();
       object_address = os_buflet_get_object_address();
       data_offset = os_buflet_get_data_offset();
-      LODWORD(v657) = os_buflet_get_data_length();
-      if (v657 >= 0x10000)
+      LODWORD(v625) = os_buflet_get_data_length();
+      if (v625 >= 0x10000)
       {
-        v423 = sub_10007CF34();
-        v424 = _NRLogIsLevelEnabled();
+        v378 = sub_10007CF34();
+        v379 = _NRLogIsLevelEnabled();
 
-        if (v424)
+        if (v379)
         {
-          v425 = sub_10007CF34();
-          _NRLogWithArgs();
+          v380 = sub_10007CF34();
+          _NRLogWithArgs(v380, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: inputBufferLength <= 65535", "", "NRLinkLinkToNexusLoopUrgent", 4947);
         }
 
-        goto LABEL_487;
+        goto LABEL_480;
       }
 
-      v653 = object_address + data_offset;
+      v621 = object_address + data_offset;
       os_packet_get_flow_uuid();
-      v18 = 0;
-      if (*(v2 + 292) == 1)
+      v13 = 0;
+      if (*(v1 + 292) == 1)
       {
-        *(v2 + 292) = 0;
-        LODWORD(v651) = 1;
+        *(v1 + 292) = 0;
+        LODWORD(v619) = 1;
       }
 
       else
       {
-        LODWORD(v651) = v651 | BYTE2(v662);
+        LODWORD(v619) = v619 | BYTE2(v630);
       }
 
-      v10 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-LABEL_29:
-      if ((*(v2 + 267) & 1) == 0 && *(v2 + 1231))
+LABEL_27:
+      if ((*(v1 + 267) & 1) == 0 && *(v1 + 1231))
       {
-        *(v2 + 267) = 1;
-        ++*(v2 + 1247);
+        *(v1 + 267) = 1;
+        ++*(v1 + 1247);
         if (gNRPacketLoggingEnabled == 1)
         {
-          v243 = v2[4];
-          v244 = _NRCopyLogObjectForNRUUID();
-          v245 = _NRLogIsLevelEnabled();
+          v219 = _NRCopyLogObjectForNRUUID();
+          v220 = _NRLogIsLevelEnabled();
 
-          if (v245)
+          if (v220)
           {
-            v246 = v2[4];
-            v247 = _NRCopyLogObjectForNRUUID();
-            v618 = [v2 copyDescription];
-            _NRLogWithArgs();
+            v221 = _NRCopyLogObjectForNRUUID();
+            v222 = [v1 copyDescription];
+            _NRLogWithArgs(v221, 1, "%s%.30s:%-4d %@: source-suspend: UrgentLinkInput", "", "NRLinkSuspendUrgentLinkInputSource", 849, v222);
           }
         }
 
-        dispatch_suspend(*(v2 + 1231));
+        dispatch_suspend(*(v1 + 1231));
       }
 
-      v26 = *(v2 + v16[534]);
-      v27 = *(v2 + v17[533]);
-      if (v26 <= v27)
+      v18 = *(v1 + v11[534]);
+      v19 = *(v1 + v12[533]);
+      if (v18 <= v19)
       {
         break;
       }
 
-      v28 = (*(v2 + 1463))[v27];
-      v29 = v653;
-      if ((*(v2 + 1463))[v27])
+      v20 = (*(v1 + 1463))[v19];
+      v21 = v621;
+      if ((*(v1 + 1463))[v19])
       {
-LABEL_39:
-        v645 = v28;
-        goto LABEL_46;
+LABEL_37:
+        v613 = v20;
+        goto LABEL_44;
       }
 
       while (1)
       {
-        v30 = v2[4];
-        v31 = _NRCopyLogObjectForNRUUID();
-        v32 = _NRLogIsLevelEnabled();
+        v22 = _NRCopyLogObjectForNRUUID();
+        v23 = _NRLogIsLevelEnabled();
 
-        if (v32)
+        if (v23)
         {
-          v33 = v2[4];
-          v34 = _NRCopyLogObjectForNRUUID();
-          v615 = [v2 copyDescription];
-          _NRLogWithArgs();
+          v24 = _NRCopyLogObjectForNRUUID();
+          v25 = [v1 copyDescription];
+          _NRLogWithArgs(v24, 1, "%s%.30s:%-4d %@: Handling Pad0 in linkReadBuffer", "", "NRLinkLinkToNexusLoopUrgent", 4996, v25);
         }
 
-        ++*(v2 + v17[533]);
-        v26 = *(v2 + v16[534]);
-        v27 = *(v2 + v17[533]);
-        if (v26 <= v27)
+        ++*(v1 + v12[533]);
+        v18 = *(v1 + v11[534]);
+        v19 = *(v1 + v12[533]);
+        if (v18 <= v19)
         {
           break;
         }
 
-        v28 = (*(v2 + 1463))[v27];
-        if ((*(v2 + 1463))[v27])
+        v20 = (*(v1 + 1463))[v19];
+        if ((*(v1 + 1463))[v19])
         {
-          goto LABEL_39;
+          goto LABEL_37;
         }
       }
 
-      if (v26 != v27)
+      if (v18 != v19)
       {
-        v522 = sub_10007CF34();
-        v523 = _NRLogIsLevelEnabled();
+        v514 = sub_10007CF34();
+        v515 = _NRLogIsLevelEnabled();
 
-        if (v523)
+        if (v515)
         {
-          v524 = sub_10007CF34();
-          _NRLogWithArgs();
+          v516 = sub_10007CF34();
+          _NRLogWithArgs(v516, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: self->_filledInUrgentLinkReadBufferBytes == self->_handledUrgentLinkReadBufferBytes", "", "NRLinkLinkToNexusLoopUrgent", 5000);
         }
 
-        goto LABEL_487;
-      }
-
-      v62 = v2[4];
-      v63 = _NRCopyLogObjectForNRUUID();
-      v64 = _NRLogIsLevelEnabled();
-
-      if (v64)
-      {
-        v65 = v2[4];
-        v66 = _NRCopyLogObjectForNRUUID();
-        v67 = [v2 copyDescription];
-        v599 = *(v2 + v17[533]);
-        v616 = *(v2 + v16[534]);
-        _NRLogWithArgs();
-      }
-    }
-
-    v29 = v653;
-    while (!*(v29 + v18))
-    {
-      v35 = v2[4];
-      v36 = _NRCopyLogObjectForNRUUID();
-      v37 = _NRLogIsLevelEnabled();
-
-      if (v37)
-      {
-        v38 = v2[4];
-        v39 = _NRCopyLogObjectForNRUUID();
-        v580 = [v2 copyDescription];
-        _NRLogWithArgs();
-      }
-
-      v18 = (v18 + 1);
-      if (v18 >= v657)
-      {
-        if (v18 == v657)
-        {
-          v270 = v2[4];
-          v271 = _NRCopyLogObjectForNRUUID();
-          v272 = _NRLogIsLevelEnabled();
-
-          if (v272)
-          {
-            v273 = v2[4];
-            v274 = _NRCopyLogObjectForNRUUID();
-            v275 = [v2 copyDescription];
-            v603 = *(v2 + v17[533]);
-            v620 = *(v2 + v16[534]);
-            _NRLogWithArgs();
-          }
-
-          goto LABEL_405;
-        }
-
-        v467 = sub_10007CF34();
-        v468 = _NRLogIsLevelEnabled();
-
-        if (v468)
-        {
-          v469 = sub_10007CF34();
-          _NRLogWithArgs();
-        }
-
-LABEL_487:
-        _os_log_pack_size();
-        __chkstk_darwin();
-        v409 = *__error();
-        v410 = _os_log_pack_fill();
-        *v410 = 136446210;
-        v411 = "NRLinkLinkToNexusLoopUrgent";
+        v517 = _os_log_pack_size();
+        v518 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+        v519 = *__error();
+        v362 = _os_log_pack_fill(v518, v517, v519, &_mh_execute_header, "%{public}s Assertion Failed: self->_filledInUrgentLinkReadBufferBytes == self->_handledUrgentLinkReadBufferBytes");
         goto LABEL_488;
       }
+
+      v52 = _NRCopyLogObjectForNRUUID();
+      v53 = _NRLogIsLevelEnabled();
+
+      if (v53)
+      {
+        v54 = _NRCopyLogObjectForNRUUID();
+        v55 = [v1 copyDescription];
+        _NRLogWithArgs(v54, 1, "%s%.30s:%-4d %@: Ended linkReadBuffer on a Pad0 handled=%u filledIn=%u", "", "NRLinkLinkToNexusLoopUrgent", 5002, v55, *(v1 + v12[533]), *(v1 + v11[534]));
+      }
     }
 
-    v645 = *(v29 + v18);
-    v27 = *(v2 + v17[533]);
-    v26 = *(v2 + v16[534]);
-LABEL_46:
-    if (v26 <= v27 + 2)
+    v21 = v621;
+    while (!*(v21 + v13))
     {
-      if (v26 == v27 + 2)
+      v26 = _NRCopyLogObjectForNRUUID();
+      v27 = _NRLogIsLevelEnabled();
+
+      if (v27)
       {
-        v42 = (*(v2 + 1463))[v27 + 1];
-        if (v18 >= v657)
+        v28 = _NRCopyLogObjectForNRUUID();
+        v29 = [v1 copyDescription];
+        _NRLogWithArgs(v28, 1, "%s%.30s:%-4d %@: Handling Pad0 in linkInputSlot alreadyRead=%u", "", "NRLinkLinkToNexusLoopUrgent", 5020, v29, v13);
+      }
+
+      v13 = (v13 + 1);
+      if (v13 >= v625)
+      {
+        if (v13 == v625)
         {
-          v41 = 0;
-          v43 = 0;
-          v44 = 512;
+          v240 = _NRCopyLogObjectForNRUUID();
+          v241 = _NRLogIsLevelEnabled();
+
+          if (v241)
+          {
+            v242 = _NRCopyLogObjectForNRUUID();
+            v243 = [v1 copyDescription];
+            _NRLogWithArgs(v242, 1, "%s%.30s:%-4d %@: Ended linkInputSlot on a Pad0 handled=%u filledIn=%u", "", "NRLinkLinkToNexusLoopUrgent", 5026, v243, *(v1 + v12[533]), *(v1 + v11[534]));
+          }
+
+          goto LABEL_402;
+        }
+
+        v443 = sub_10007CF34();
+        v444 = _NRLogIsLevelEnabled();
+
+        if (v444)
+        {
+          v445 = sub_10007CF34();
+          _NRLogWithArgs(v445, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: curLinkInputSlotPartialBytesAlreadyRead == linkInputBufferLength", "", "NRLinkLinkToNexusLoopUrgent", 5024);
+        }
+
+LABEL_504:
+        v389 = _os_log_pack_size();
+        v390 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+        v391 = *__error();
+        v362 = _os_log_pack_fill(v390, v389, v391, &_mh_execute_header, "%{public}s Assertion Failed: curLinkInputSlotPartialBytesAlreadyRead == linkInputBufferLength");
+LABEL_488:
+        *v362 = 136446210;
+        v366 = "NRLinkLinkToNexusLoopUrgent";
+        goto LABEL_489;
+      }
+    }
+
+    v613 = *(v21 + v13);
+    v19 = *(v1 + v12[533]);
+    v18 = *(v1 + v11[534]);
+LABEL_44:
+    if (v18 <= v19 + 2)
+    {
+      if (v18 == v19 + 2)
+      {
+        v32 = (*(v1 + 1463))[v19 + 1];
+        if (v13 >= v625)
+        {
+          v31 = 0;
+          v33 = 0;
+          v34 = 512;
         }
 
         else
         {
-          v41 = *(v29 + v18);
-          v43 = 1;
-          v44 = 256;
+          v31 = *(v21 + v13);
+          v33 = 1;
+          v34 = 256;
         }
       }
 
       else
       {
-        if (v26 == v27 + 1)
+        if (v18 == v19 + 1)
         {
-          v59 = v18;
+          v49 = v13;
         }
 
         else
         {
-          v59 = v18 + 1;
+          v49 = v13 + 1;
         }
 
-        if (v59 + 2 >= v657)
+        if (v49 + 2 >= v625)
         {
-          v42 = 0;
-          v41 = 0;
-          v43 = 0;
-          v44 = 2048;
+          v32 = 0;
+          v31 = 0;
+          v33 = 0;
+          v34 = 2048;
         }
 
         else
         {
-          v60 = bswap32(*(v29 + v59));
-          v41 = BYTE2(v60);
-          v42 = HIBYTE(v60);
-          v43 = 1;
-          v44 = 1024;
+          v50 = bswap32(*(v21 + v49));
+          v31 = BYTE2(v50);
+          v32 = HIBYTE(v50);
+          v33 = 1;
+          v34 = 1024;
         }
       }
     }
 
     else
     {
-      v40 = bswap32(*&(*(v2 + 1463))[v27 + 1]);
-      v41 = BYTE2(v40);
-      v42 = HIBYTE(v40);
-      v43 = 1;
-      v44 = 128;
+      v30 = bswap32(*&(*(v1 + 1463))[v19 + 1]);
+      v31 = BYTE2(v30);
+      v32 = HIBYTE(v30);
+      v33 = 1;
+      v34 = 128;
     }
 
-    v45 = *(v2 + v654) | v44;
-    *(v2 + v654) = v45;
-    v689 = 0u;
-    v690 = 0u;
-    v687 = 0u;
-    v688 = 0u;
-    v685 = 0u;
-    v686 = 0u;
-    v683 = 0u;
-    v684 = 0u;
-    v681 = 0u;
-    v682 = 0u;
-    v679 = 0u;
-    v680 = 0u;
-    v677 = 0u;
-    v678 = 0u;
-    v675 = 0u;
-    v676 = 0u;
-    v46 = v26 - v27;
-    v642 = v27;
-    v643 = v26;
-    if (v26 <= v27)
+    v35 = *(v1 + v622) | v34;
+    *(v1 + v622) = v35;
+    v657 = 0u;
+    v658 = 0u;
+    v655 = 0u;
+    v656 = 0u;
+    v653 = 0u;
+    v654 = 0u;
+    v651 = 0u;
+    v652 = 0u;
+    v649 = 0u;
+    v650 = 0u;
+    v647 = 0u;
+    v648 = 0u;
+    v645 = 0u;
+    v646 = 0u;
+    v643 = 0u;
+    v644 = 0u;
+    v36 = v18 - v19;
+    v610 = v19;
+    v611 = v18;
+    if (v18 <= v19)
+    {
+      v38 = 0;
+      v40 = 0;
+      v39 = v622;
+    }
+
+    else
+    {
+      *&v643 = &(*(v1 + 1463))[v19];
+      v37 = v31 | (v32 << 8);
+      if (v37 + 5 >= v36)
+      {
+        v38 = v36;
+      }
+
+      else
+      {
+        v38 = (v37 + 5);
+      }
+
+      if (!v38)
+      {
+        v404 = sub_10007CF34();
+        v405 = _NRLogIsLevelEnabled();
+
+        if (v405)
+        {
+          v406 = sub_10007CF34();
+          _NRLogWithArgs(v406, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: lrbIOVecLen > 0; tlvLen=%u filledInLinkReadBufferBytes=%u handledLinkReadBufferBytes=%u", "", "NRLinkLinkToNexusLoopUrgent", 5108, v37, *(v1 + v11[534]), *(v1 + v12[533]));
+        }
+
+        v407 = _os_log_pack_size();
+        v408 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+        v409 = __error();
+        v410 = _os_log_pack_fill(v408, v407, *v409, &_mh_execute_header, "%{public}s Assertion Failed: lrbIOVecLen > 0; tlvLen=%u filledInLinkReadBufferBytes=%u handledLinkReadBufferBytes=%u");
+        sub_100095124(v410, "NRLinkLinkToNexusLoopUrgent", v37, *(v1 + v11[534]), *(v1 + v12[533]));
+        goto LABEL_571;
+      }
+
+      DWORD2(v643) = v38;
+      v35 |= 0x1000uLL;
+      v39 = v622;
+      *(v1 + v622) = v35;
+      v40 = 1;
+    }
+
+    v41 = v625;
+    v42 = v625;
+    if (v13 >= v625)
     {
       v48 = 0;
-      v50 = 0;
-      v49 = v654;
+      v47 = 0;
+      if (v33)
+      {
+        goto LABEL_94;
+      }
+
+      goto LABEL_100;
+    }
+
+    if (v33 && (v31 | (v32 << 8)) + 5 <= v38)
+    {
+      v48 = 0;
+      goto LABEL_94;
+    }
+
+    v43 = &v643 + v40;
+    *v43 = v21 + v13;
+    v44 = v42 - v13;
+    *(v43 + 2) = v44;
+    v38 = (v38 + v44);
+    *(v1 + v39) = (v35 | 0x2000);
+    v45 = v40;
+    if (v38 < 3)
+    {
+      v46 = 1;
     }
 
     else
     {
-      *&v675 = &(*(v2 + 1463))[v27];
-      v47 = v41 | (v42 << 8);
-      if (v47 + 5 >= v46)
+      v46 = v33;
+    }
+
+    if ((v46 & 1) == 0)
+    {
+      if (DWORD2(v643) >= 3)
       {
-        v48 = v46;
+        v51 = *(v643 + 1);
+LABEL_88:
+        v56 = v51;
+        v57 = v51 >> 8;
+LABEL_89:
+        v58 = bswap32(v56 | (v57 << 8));
+        v31 = BYTE2(v58);
+        v32 = HIBYTE(v58);
+        goto LABEL_90;
       }
 
-      else
+      if (DWORD2(v643) == 2)
       {
-        v48 = (v47 + 5);
-      }
-
-      if (!v48)
-      {
-        v440 = sub_10007CF34();
-        v441 = _NRLogIsLevelEnabled();
-
-        if (v441)
+        if (v611 <= v610)
         {
-          v442 = sub_10007CF34();
-          v611 = *(v2 + v16[534]);
-          v629 = *(v2 + v17[533]);
-          _NRLogWithArgs();
+          goto LABEL_572;
         }
 
-        _os_log_pack_size();
-        __chkstk_darwin();
-        v443 = *__error();
-        v444 = _os_log_pack_fill();
-        sub_100095124(v444, "NRLinkLinkToNexusLoopUrgent", v47, *(v2 + v16[534]), *(v2 + v17[533]));
-        goto LABEL_567;
+        v56 = *(v643 + 1);
+        v57 = *v644;
+        goto LABEL_89;
       }
 
-      DWORD2(v675) = v48;
-      v45 |= 0x1000uLL;
-      v49 = v654;
-      *(v2 + v654) = v45;
-      v50 = 1;
-    }
-
-    v51 = v657;
-    v52 = v657;
-    if (v18 >= v657)
-    {
-      v58 = 0;
-      v57 = 0;
-      if (v43)
+      if (DWORD2(v643) == 1)
       {
-        goto LABEL_96;
-      }
-
-      goto LABEL_102;
-    }
-
-    if (v43 && (v41 | (v42 << 8)) + 5 <= v48)
-    {
-      v58 = 0;
-      goto LABEL_96;
-    }
-
-    v53 = &v675 + v50;
-    *v53 = v29 + v18;
-    v54 = v52 - v18;
-    *(v53 + 2) = v54;
-    v48 = (v48 + v54);
-    *(v2 + v49) = (v45 | 0x2000);
-    v55 = v50;
-    if (v48 < 3)
-    {
-      v56 = 1;
-    }
-
-    else
-    {
-      v56 = v43;
-    }
-
-    if ((v56 & 1) == 0)
-    {
-      if (DWORD2(v675) >= 3)
-      {
-        v61 = *(v675 + 1);
-LABEL_90:
-        v68 = v61;
-        v69 = v61 >> 8;
-LABEL_91:
-        v70 = bswap32(v68 | (v69 << 8));
-        v41 = BYTE2(v70);
-        v42 = HIBYTE(v70);
-        goto LABEL_92;
-      }
-
-      if (DWORD2(v675) == 2)
-      {
-        if (v643 <= v642)
+        if (DWORD2(v644) < 2)
         {
-          goto LABEL_568;
-        }
+          v583 = sub_10007CF34();
+          v584 = _NRLogIsLevelEnabled();
 
-        v68 = *(v675 + 1);
-        v69 = *v676;
-        goto LABEL_91;
-      }
-
-      if (DWORD2(v675) == 1)
-      {
-        if (DWORD2(v676) < 2)
-        {
-          v562 = sub_10007CF34();
-          v563 = _NRLogIsLevelEnabled();
-
-          if (v563)
+          if (v584)
           {
-            v564 = sub_10007CF34();
+            v585 = sub_10007CF34();
             IOVecString = createIOVecString();
-            _NRLogWithArgs();
+            _NRLogWithArgs(v585, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: numIOVecs > 2; %@", "", "nrReadTLVLenHBOFromIOVec", 274, IOVecString);
           }
+
+          v587 = _os_log_pack_size();
+          v588 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+          v589 = *__error();
+          v543 = _os_log_pack_fill(v588, v587, v589, &_mh_execute_header, "%{public}s Assertion Failed: numIOVecs > 2; %@");
         }
 
         else
         {
-          if (v643 > v642)
+          if (v611 > v610)
           {
-            v61 = *v676;
-            goto LABEL_90;
+            v51 = *v644;
+            goto LABEL_88;
           }
 
-          v539 = sub_10007CF34();
-          v540 = _NRLogIsLevelEnabled();
+          v544 = sub_10007CF34();
+          v545 = _NRLogIsLevelEnabled();
 
-          if (v540)
+          if (v545)
           {
-            v541 = sub_10007CF34();
-            v633 = createIOVecString();
-            _NRLogWithArgs();
+            v546 = sub_10007CF34();
+            v547 = createIOVecString();
+            _NRLogWithArgs(v546, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: numIOVecs > 1; %@", "", "nrReadTLVLenHBOFromIOVec", 271, v547);
           }
+
+          v548 = _os_log_pack_size();
+          v549 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+          v550 = *__error();
+          v543 = _os_log_pack_fill(v549, v548, v550, &_mh_execute_header, "%{public}s Assertion Failed: numIOVecs > 1; %@");
         }
       }
 
@@ -4336,141 +4244,138 @@ LABEL_91:
         if (v537)
         {
           v538 = sub_10007CF34();
-          v632 = createIOVecString();
-          _NRLogWithArgs();
+          v539 = createIOVecString();
+          _NRLogWithArgs(v538, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: ioVecs[0].len == 1; %@", "", "nrReadTLVLenHBOFromIOVec", 269, v539);
         }
+
+        v540 = _os_log_pack_size();
+        v541 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+        v542 = *__error();
+        v543 = _os_log_pack_fill(v541, v540, v542, &_mh_execute_header, "%{public}s Assertion Failed: ioVecs[0].len == 1; %@");
       }
 
-      _os_log_pack_size();
-      __chkstk_darwin();
-      v542 = *__error();
-      v543 = _os_log_pack_fill();
-      v544 = createIOVecString();
-      *v543 = 136446466;
-      *(v543 + 4) = "nrReadTLVLenHBOFromIOVec";
-      *(v543 + 12) = 2112;
-      *(v543 + 14) = v544;
-      goto LABEL_500;
+      v551 = v543;
+      v552 = createIOVecString();
+      *v551 = 136446466;
+      *(v551 + 4) = "nrReadTLVLenHBOFromIOVec";
+      *(v551 + 12) = 2112;
+      *(v551 + 14) = v552;
+      goto LABEL_501;
     }
 
-    if (!v43)
+    if (!v33)
     {
-      v57 = 0;
-      *(v2 + v49) = (v45 | 0xA000);
-      v58 = 1;
-      v50 = (v50 + 1);
-      v18 = v51;
-      goto LABEL_102;
+      v47 = 0;
+      *(v1 + v39) = (v35 | 0xA000);
+      v48 = 1;
+      v40 = (v40 + 1);
+      v13 = v41;
+      goto LABEL_100;
     }
 
-LABEL_92:
-    v71 = (v41 | (v42 << 8)) + 5;
-    if (v71 >= v48)
+LABEL_90:
+    v59 = (v31 | (v32 << 8)) + 5;
+    if (v59 >= v38)
     {
-      v45 = *(v2 + v49) | 0x8000;
-      *(v2 + v49) = v45;
-      v58 = 1;
-      v18 = v51;
-      v50 = (v50 + 1);
+      v35 = *(v1 + v39) | 0x8000;
+      *(v1 + v39) = v35;
+      v48 = 1;
+      v13 = v41;
+      v40 = (v40 + 1);
     }
 
     else
     {
-      v72 = v48 - v71;
-      v45 = *(v2 + v49) | 0x4000;
-      *(v2 + v49) = v45;
-      v73 = &v675 + v50;
-      v74 = *(v73 + 2) - (v48 - v71);
-      *(v73 + 2) = v74;
-      if (!v74)
+      v60 = (v38 - v59);
+      v35 = *(v1 + v39) | 0x4000;
+      *(v1 + v39) = v35;
+      v61 = &v643 + v40;
+      v62 = *(v61 + 2) - v60;
+      *(v61 + 2) = v62;
+      if (!v62)
       {
-        v525 = v48;
-        v526 = sub_10007CF34();
-        v527 = _NRLogIsLevelEnabled();
+        v520 = v38;
+        v521 = sub_10007CF34();
+        v522 = _NRLogIsLevelEnabled();
 
-        if (v527)
+        if (v522)
         {
-          v528 = sub_10007CF34();
-          v598 = createIOVecString();
-          _NRLogWithArgs();
+          v523 = sub_10007CF34();
+          v524 = createIOVecString();
+          _NRLogWithArgs(v523, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: ioVecs[iovecIndex - 1].len > 0; Shrunk ioVecs[%u] down by %u to 0 - %@ ioVecContentLen=%u alreadyRead=%u", "", "NRLinkLinkToNexusLoopUrgent", 5147, v45, v60, v524, v520, v42);
         }
 
-        _os_log_pack_size();
-        __chkstk_darwin();
-        v529 = *__error();
-        v530 = _os_log_pack_fill();
-        v531 = createIOVecString();
-        sub_10009C064(v530, "NRLinkLinkToNexusLoopUrgent", v55, v72, v531, v525, v52);
-        goto LABEL_567;
+        v525 = _os_log_pack_size();
+        v526 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+        v527 = __error();
+        v528 = _os_log_pack_fill(v526, v525, *v527, &_mh_execute_header, "%{public}s Assertion Failed: ioVecs[iovecIndex - 1].len > 0; Shrunk ioVecs[%u] down by %u to 0 - %@ ioVecContentLen=%u alreadyRead=%u");
+        v529 = createIOVecString();
+        sub_10009C064(v528, "NRLinkLinkToNexusLoopUrgent", v45, v60, v529, v520, v42);
+        goto LABEL_571;
       }
 
-      v18 = (v51 - v72);
-      v58 = 1;
-      v50 = (v50 + 1);
-      v48 = (v41 | (v42 << 8)) + 5;
+      v13 = (v41 - v60);
+      v48 = 1;
+      v40 = (v40 + 1);
+      v38 = (v31 | (v32 << 8)) + 5;
     }
 
-LABEL_96:
-    v75 = v18;
-    if ((v645 - 100) >= 6 && (v645 - 2) >= 4)
+LABEL_94:
+    v63 = v13;
+    if ((v613 - 100) >= 6 && (v613 - 2) >= 4)
     {
-      v77 = v648;
-      if (v645 == 1)
+      v65 = v616;
+      if (v613 == 1)
       {
-        v76 = 255;
-        goto LABEL_99;
+        v64 = 255;
+        goto LABEL_97;
       }
     }
 
     else
     {
-      v76 = 2000;
-      v77 = v648;
-LABEL_99:
-      v78 = v41 | (v42 << 8);
-      if (v78 > v76)
+      v64 = 2000;
+      v65 = v616;
+LABEL_97:
+      v66 = v31 | (v32 << 8);
+      if (v66 > v64)
       {
         StringFromNRTLVType = createStringFromNRTLVType();
         IOVecStringWithContents = createIOVecStringWithContents();
-        sub_100080EB4(v2, @"Received invalid TLV len %u for %@ (max=%u) %@", v387, v388, v389, v390, v391, v392, v78);
-        goto LABEL_464;
+        sub_100080EB4(v1, @"Received invalid TLV len %u for %@ (max=%u) %@", v337, v338, v339, v340, v341, v342, v66);
+        goto LABEL_463;
       }
     }
 
-    if ((v41 | (v42 << 8)) + 5 <= v48)
+    if ((v31 | (v32 << 8)) + 5 <= v38)
     {
-      v10 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-      v18 = v75;
-      goto LABEL_185;
+      v13 = v63;
+      goto LABEL_183;
     }
 
-    v57 = 1;
-    v10 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-    v18 = v75;
-LABEL_102:
-    LODWORD(v650) = v57;
-    v79 = v29;
-    v80 = v42;
-    v652 = v41;
-    v81 = v48;
-    v646 = v50;
-    v660 = 0uLL;
-    v661 = 0uLL;
-    v658 = 0uLL;
-    v659 = 0uLL;
-    v82 = *(v2 + v10[527]);
-    v77 = v648;
-    v83 = os_channel_get_next_slot();
-    if (v83)
+    v47 = 1;
+    v13 = v63;
+LABEL_100:
+    LODWORD(v618) = v47;
+    v67 = v21;
+    v68 = v32;
+    v620 = v31;
+    v69 = v38;
+    v614 = v40;
+    v628 = 0uLL;
+    v629 = 0uLL;
+    v626 = 0uLL;
+    v627 = 0uLL;
+    v65 = v616;
+    v70 = os_channel_get_next_slot();
+    if (v70)
     {
-      v84 = v83;
-      v656 = v18;
-      v85 = *(v2 + v10[527]);
-      v86 = v84;
+      v624 = v13;
+      v71 = v70;
       os_channel_slot_get_packet();
       os_packet_get_next_buflet();
-      v87 = os_buflet_get_object_address();
-      v88 = os_buflet_get_data_offset();
+      v72 = os_buflet_get_object_address();
+      v73 = os_buflet_get_data_offset();
       data_length = os_buflet_get_data_length();
       if (HIWORD(data_length))
       {
@@ -4487,34 +4392,39 @@ LABEL_474:
             dispatch_once(&qword_100229088, &stru_1001FB1C0);
           }
 
-          _NRLogWithArgs();
+          _NRLogWithArgs(qword_100229080, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: inputBufferLength <= 65535", "", "NRLinkLinkToNexusLoopUrgent", 5188);
         }
 
-        goto LABEL_487;
+LABEL_480:
+        v359 = _os_log_pack_size();
+        v360 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+        v361 = *__error();
+        v362 = _os_log_pack_fill(v360, v359, v361, &_mh_execute_header, "%{public}s Assertion Failed: inputBufferLength <= 65535");
+        goto LABEL_488;
       }
 
-      v90 = data_length;
+      v75 = data_length;
       os_packet_get_flow_uuid();
-      if (*(v2 + 292) == 1)
+      if (*(v1 + 292) == 1)
       {
-        *(v2 + 292) = 0;
-        LODWORD(v651) = 1;
+        *(v1 + 292) = 0;
+        LODWORD(v619) = 1;
       }
 
       else
       {
-        LODWORD(v651) = v651 | BYTE2(v662);
+        LODWORD(v619) = v619 | BYTE2(v630);
       }
 
-      v18 = v656;
-      v41 = v652;
-      v42 = v80;
-      v91 = v650;
-      v92 = v646;
-      v29 = v87 + v88;
-      v93 = &v675 + v646;
-      *v93 = v29;
-      if (!v90)
+      v13 = v624;
+      v31 = v620;
+      v32 = v68;
+      v76 = v618;
+      v77 = v614;
+      v21 = v72 + v73;
+      v78 = &v643 + v614;
+      *v78 = v21;
+      if (!v75)
       {
 LABEL_481:
         if (qword_100229088 != -1)
@@ -4529,921 +4439,957 @@ LABEL_481:
             dispatch_once(&qword_100229088, &stru_1001FB1C0);
           }
 
-          _NRLogWithArgs();
+          _NRLogWithArgs(qword_100229080, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: lookAheadLinkInputBufferLength > 0", "", "NRLinkLinkToNexusLoopUrgent", 5200);
         }
 
-        goto LABEL_487;
+        v363 = _os_log_pack_size();
+        v364 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+        v365 = *__error();
+        v362 = _os_log_pack_fill(v364, v363, v365, &_mh_execute_header, "%{public}s Assertion Failed: lookAheadLinkInputBufferLength > 0");
+        goto LABEL_488;
       }
 
-      *(v93 + 2) = v90;
-      v94 = *&v655[v654] | 0x20000;
-      *&v655[v654] = v94;
-      v48 = v90 + v81;
-      if (v48 < 3)
+      *(v78 + 2) = v75;
+      v79 = *(v623 + v622) | 0x20000;
+      *(v623 + v622) = v79;
+      v38 = v75 + v69;
+      if (v38 < 3)
       {
-        v95 = 1;
+        v80 = 1;
       }
 
       else
       {
-        v95 = v91;
+        v80 = v76;
       }
 
-      if (v95)
+      if (v80)
       {
-        v10 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-        if (v91)
+        if (v76)
         {
-          v96 = v648;
-          v97 = v654;
-          goto LABEL_137;
+          v81 = v616;
+          v82 = v622;
+          goto LABEL_135;
         }
 
-        v100 = 0;
-        v96 = v648;
-        v97 = v654;
-LABEL_139:
-        v45 = v94 | 0x80000;
-        v2 = v655;
-        *&v655[v97] = v45;
-        v641 = v96;
-        v29 = v653;
-        v107 = v86;
-LABEL_142:
-        v112 = v92 + 2;
-        v113 = &v637[16 * v92];
+        v85 = 0;
+        v81 = v616;
+        v82 = v622;
+LABEL_137:
+        v35 = v79 | 0x80000;
+        v1 = v623;
+        *(v623 + v82) = v35;
+        v609 = v81;
+        v21 = v621;
+        v92 = v71;
+LABEL_140:
+        v97 = v77 + 2;
+        v98 = &v605[16 * v77];
         while (2)
         {
-          v646 = v112 - 1;
-          if ((v100 & 1) != 0 && (v42 << 8) + v41 + 5 <= v48)
+          v614 = v97 - 1;
+          if ((v85 & 1) != 0 && (v32 << 8) + v31 + 5 <= v38)
           {
-            v648 = v96;
-            v58 = 1;
-            v50 = v646;
-LABEL_184:
-            v77 = v641;
-            goto LABEL_185;
+            v616 = v81;
+            v48 = 1;
+            v40 = v614;
+LABEL_182:
+            v65 = v609;
+            goto LABEL_183;
           }
 
-          v114 = v100;
-          v115 = v113;
-          v649 = v42;
-          v650 = v48;
-          v652 = v41;
-          v660 = 0u;
-          v661 = 0u;
-          v658 = 0u;
-          v659 = 0u;
-          v116 = *(v2 + v10[527]);
-          v117 = os_channel_get_next_slot();
-          if (!v117)
+          v99 = v85;
+          v100 = v98;
+          v617 = v32;
+          v618 = v38;
+          v620 = v31;
+          v628 = 0u;
+          v629 = 0u;
+          v626 = 0u;
+          v627 = 0u;
+          v101 = os_channel_get_next_slot();
+          if (!v101)
           {
-            v50 = (v112 - 1);
-            v45 = *(v2 + v97) | 0x10000;
-            *(v2 + v97) = v45;
-            if (v114)
+            v40 = (v97 - 1);
+            v35 = *(v1 + v82) | 0x10000;
+            *(v1 + v82) = v35;
+            if (v99)
             {
-              v58 = 1;
-              v648 = v107;
-              LODWORD(v42) = v649;
-              v48 = v650;
-              LODWORD(v41) = v652;
-              goto LABEL_184;
+              v48 = 1;
+              v616 = v92;
+              LODWORD(v32) = v617;
+              v38 = v618;
+              LODWORD(v31) = v620;
+              goto LABEL_182;
             }
 
-            v648 = v107;
-LABEL_391:
+            v616 = v92;
+            LOWORD(v32) = v617;
+            v38 = v618;
+            LOWORD(v31) = v620;
+LABEL_388:
             if (gNRPacketLoggingEnabled == 1)
             {
-              v350 = v2[4];
-              v351 = v50;
-              v352 = _NRCopyLogObjectForNRUUID();
-              v353 = _NRLogIsLevelEnabled();
+              v299 = v38;
+              v300 = v31;
+              v301 = v32;
+              v302 = v40;
+              v303 = _NRCopyLogObjectForNRUUID();
+              v304 = _NRLogIsLevelEnabled();
 
-              LOWORD(v50) = v351;
-              if (v353)
+              LOWORD(v40) = v302;
+              if (v304)
               {
-                v354 = v2[4];
-                v355 = _NRCopyLogObjectForNRUUID();
-                v356 = [v2 copyDescription];
-                v592 = createStringFromNRTLVType();
-                _NRLogWithArgs();
+                v305 = v301;
+                v306 = v300;
+                v307 = v299;
+                v308 = v306;
+                v309 = v305;
+                v310 = _NRCopyLogObjectForNRUUID();
+                v311 = [v1 copyDescription];
+                v312 = createStringFromNRTLVType();
+                _NRLogWithArgs(v310, 1, "%s%.30s:%-4d %@: UrgentLink:LtN-U not enough input bytes from linkInputSlot %u to fit %@ tlvLen %u", "", "NRLinkLinkToNexusLoopUrgent", 5275, v311, v307, v312, v308 | (v309 << 8));
 
-                LOWORD(v50) = v351;
+                LOWORD(v40) = v302;
               }
             }
 
-            v17 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-            v16 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-            if (*(v2 + 267) == 1 && *(v2 + 1231))
+            v12 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+            v11 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+            if (*(v1 + 267) == 1 && *(v1 + 1231))
             {
-              v277 = v50;
-              *(v2 + 267) = 0;
-              ++*(v2 + 1247);
+              v245 = v40;
+              *(v1 + 267) = 0;
+              ++*(v1 + 1247);
               if (gNRPacketLoggingEnabled == 1)
               {
-                v367 = v2[4];
-                v368 = v50;
-                v369 = _NRCopyLogObjectForNRUUID();
-                v370 = _NRLogIsLevelEnabled();
+                v321 = v40;
+                v322 = _NRCopyLogObjectForNRUUID();
+                v323 = _NRLogIsLevelEnabled();
 
-                v277 = v368;
-                if (v370)
+                v245 = v321;
+                if (v323)
                 {
-                  v371 = v2[4];
-                  v372 = _NRCopyLogObjectForNRUUID();
-                  v626 = [v2 copyDescription];
-                  _NRLogWithArgs();
+                  v324 = _NRCopyLogObjectForNRUUID();
+                  v325 = [v1 copyDescription];
+                  _NRLogWithArgs(v324, 1, "%s%.30s:%-4d %@: source-resume: UrgentLinkInput", "", "NRLinkResumeUrgentLinkInputSource", 857, v325);
 
-                  v277 = v368;
+                  v245 = v321;
                 }
               }
 
-              dispatch_resume(*(v2 + 1231));
-              LOWORD(v50) = v277;
+              dispatch_resume(*(v1 + 1231));
+              LOWORD(v40) = v245;
             }
 
-            if ((v643 > v642) < v50)
+            if ((v611 > v610) < v40)
             {
-              v278 = v50 - (v643 > v642);
-              v279 = &v640[4 * (v643 > v642)];
+              v246 = v40 - (v611 > v610);
+              v247 = &v608[16 * (v611 > v610)];
               do
               {
                 if (gNRPacketLoggingEnabled == 1)
                 {
-                  v281 = v2[4];
-                  v282 = _NRCopyLogObjectForNRUUID();
-                  v283 = _NRLogIsLevelEnabled();
+                  v249 = _NRCopyLogObjectForNRUUID();
+                  v250 = _NRLogIsLevelEnabled();
 
-                  if (v283)
+                  if (v250)
                   {
-                    v284 = v2[4];
-                    v285 = _NRCopyLogObjectForNRUUID();
-                    v286 = [v2 copyDescription];
-                    v604 = *(v2 + 379);
-                    v621 = *(v2 + 383);
-                    v575 = *v279;
-                    v586 = *(v279 - 1);
-                    _NRLogWithArgs();
+                    v251 = _NRCopyLogObjectForNRUUID();
+                    v252 = [v1 copyDescription];
+                    _NRLogWithArgs(v251, 1, "%s%.30s:%-4d %@: partial TLV - consolidating %u bytes from linkInputSlot buf %p to linkReadBuffer filledIn=%u handled=%u", "", "NRLinkLinkToNexusLoopUrgent", 5282, v252, *v247, *(v247 - 1), *(v1 + 379), *(v1 + 383));
                   }
                 }
 
-                memcpy(&(*(v2 + 1463))[*(v2 + 379)], *(v279 - 1), *v279);
-                v280 = *v279;
-                v279 += 16;
-                *(v2 + 379) += v280;
-                --v278;
+                memcpy(&(*(v1 + 1463))[*(v1 + 379)], *(v247 - 1), *v247);
+                v248 = *v247;
+                v247 += 4;
+                *(v1 + 379) += v248;
+                --v246;
               }
 
-              while (v278);
+              while (v246);
             }
 
-            *(v2 + v654) = (*(v2 + v654) | 0x100000);
-LABEL_404:
-            *(&v644 + 1) = v648;
-            goto LABEL_405;
+            *(v1 + v622) = (*(v1 + v622) | 0x100000);
+LABEL_401:
+            *(&v612 + 1) = v616;
+            goto LABEL_402;
           }
 
-          v647 = v117;
-          v648 = v107;
-          v118 = v112;
-          v653 = v29;
-          v656 = v18;
-          v119 = *(v2 + v10[527]);
+          v615 = v101;
+          v616 = v92;
+          v102 = v97;
+          v621 = v21;
+          v624 = v13;
           os_channel_slot_get_packet();
           os_packet_get_next_buflet();
-          v120 = os_buflet_get_object_address();
-          v121 = os_buflet_get_data_offset();
-          v122 = os_buflet_get_data_length();
-          if (v122 >= 0x10000)
+          v103 = os_buflet_get_object_address();
+          v104 = os_buflet_get_data_offset();
+          v105 = os_buflet_get_data_length();
+          if (v105 >= 0x10000)
           {
             goto LABEL_474;
           }
 
-          v123 = v122;
+          v106 = v105;
           os_packet_get_flow_uuid();
-          if (*(v2 + 292) == 1)
+          if (*(v1 + 292) == 1)
           {
-            *(v2 + 292) = 0;
-            LODWORD(v651) = 1;
+            *(v1 + 292) = 0;
+            LODWORD(v619) = 1;
           }
 
           else
           {
-            LODWORD(v651) = v651 | BYTE2(v662);
+            LODWORD(v619) = v619 | BYTE2(v630);
           }
 
-          v42 = v649;
-          v124 = v650;
-          v41 = v652;
-          v125 = v115;
-          v29 = v120 + v121;
-          *(v115 - 1) = v29;
-          v18 = v656;
-          if (!v123)
+          v32 = v617;
+          v107 = v618;
+          v31 = v620;
+          v108 = v100;
+          v21 = v103 + v104;
+          *(v100 - 1) = v21;
+          v13 = v624;
+          if (!v106)
           {
             goto LABEL_481;
           }
 
-          *v115 = v123;
-          v97 = v654;
-          v126 = *&v655[v654];
-          *&v655[v654] = v126 | 0x20000;
-          v48 = v123 + v124;
-          if (v114 & 1 | (v48 < 3))
+          *v100 = v106;
+          v82 = v622;
+          v109 = *(v623 + v622);
+          *(v623 + v622) = (v109 | 0x20000);
+          v38 = v106 + v107;
+          if (v99 & 1 | (v38 < 3))
           {
-            v127 = v118;
-            if (v114)
+            v110 = v102;
+            if (v99)
             {
-              v96 = v648;
-LABEL_173:
-              v134 = (v42 << 8) + v41 + 5;
-              v135 = *&v655[v97];
-              if (v134 <= v48)
+              v81 = v616;
+LABEL_171:
+              v117 = (v32 << 8) + v31 + 5;
+              v118 = *(v623 + v82);
+              if (v117 <= v38)
               {
-                v45 = v135 | 0x40000;
-                *&v655[v97] = v45;
-                v108 = v48 - v134;
-                v136 = &v675 + v127 - 1;
-                v137 = *(v136 + 2) - (v48 - v134);
-                *(v136 + 2) = v137;
-                if (!v137)
+                v35 = v118 | 0x40000;
+                *(v623 + v82) = v35;
+                v93 = (v38 - v117);
+                v119 = &v643 + v110 - 1;
+                v120 = *(v119 + 2) - v93;
+                *(v119 + 2) = v120;
+                if (!v120)
                 {
-                  v2 = v48;
-                  v109 = v127 - 1;
-                  goto LABEL_493;
+                  v1 = v38;
+                  v94 = (v110 - 1);
+                  goto LABEL_494;
                 }
 
-                v18 = v123 - v108;
-                v664 = v658;
-                v665 = v659;
-                v666 = v660;
-                v667 = v661;
-                if (v127 == 16)
+                v13 = v106 - v93;
+                v632 = v626;
+                v633 = v627;
+                v634 = v628;
+                v635 = v629;
+                if (v110 == 16)
                 {
-                  v77 = v647;
-                  LODWORD(v657) = v123;
-                  v48 = (v42 << 8) + v41 + 5;
-                  v2 = v655;
-                  goto LABEL_192;
+                  v65 = v615;
+                  LODWORD(v625) = v106;
+                  v38 = (v32 << 8) + v31 + 5;
+                  v1 = v623;
+                  goto LABEL_190;
                 }
 
-                v100 = 1;
-                v107 = v647;
-                v641 = v647;
-                LODWORD(v657) = v123;
-                v48 = (v42 << 8) + v41 + 5;
-                v10 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-                v2 = v655;
+                v85 = 1;
+                v92 = v615;
+                v609 = v615;
+                LODWORD(v625) = v106;
+                v38 = (v32 << 8) + v31 + 5;
+                v1 = v623;
               }
 
               else
               {
-                v45 = v135 | 0x80000;
-                *&v655[v97] = v45;
-                if (v127 == 16)
+                v35 = v118 | 0x80000;
+                *(v623 + v82) = v35;
+                if (v110 == 16)
                 {
-                  v141 = v134 > v48;
-                  v134 = v48;
-                  v2 = v655;
-                  v18 = v656;
-                  v29 = v653;
-                  v77 = v641;
-                  if (v141)
+                  v124 = v117 > v38;
+                  v117 = v38;
+                  v1 = v623;
+                  v13 = v624;
+                  v21 = v621;
+                  v65 = v609;
+                  if (v124)
                   {
-                    goto LABEL_490;
+                    goto LABEL_491;
                   }
 
-LABEL_192:
-                  v649 = (v41 | (v42 << 8));
-                  v50 = 16;
-                  v138 = v41 | (v42 << 8);
-LABEL_193:
-                  v139 = v45 | 0x200000;
-                  v140 = v77;
-                  *(&v644 + 1) = v77;
-                  goto LABEL_194;
+LABEL_190:
+                  v617 = (v31 | (v32 << 8));
+                  v40 = 16;
+                  v121 = v31 | (v32 << 8);
+LABEL_191:
+                  v122 = v35 | 0x200000;
+                  v123 = v65;
+                  *(&v612 + 1) = v65;
+                  goto LABEL_192;
                 }
 
-                v100 = 1;
-                v10 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-                v2 = v655;
-                v18 = v656;
-                v29 = v653;
-                v107 = v647;
+                v85 = 1;
+                v1 = v623;
+                v13 = v624;
+                v21 = v621;
+                v92 = v615;
               }
             }
 
             else
             {
-              v45 = v126 | 0xA0000;
-              v2 = v655;
-              *&v655[v97] = v45;
-              v107 = v647;
-              v96 = v648;
-              if (v127 == 16)
+              v35 = v109 | 0xA0000;
+              v1 = v623;
+              *(v623 + v82) = v35;
+              v92 = v615;
+              v81 = v616;
+              if (v110 == 16)
               {
-                goto LABEL_491;
+                goto LABEL_492;
               }
 
-              v100 = 0;
-              v10 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-              v29 = v653;
+              v85 = 0;
+              v21 = v621;
             }
 
-            v112 = v127 + 1;
-            v113 = (v125 + 4);
+            v97 = v110 + 1;
+            v98 = (v108 + 4);
             continue;
           }
 
           break;
         }
 
-        v127 = v118;
-        if (DWORD2(v675) >= 3)
+        v110 = v102;
+        if (DWORD2(v643) >= 3)
         {
-          v128 = *(v675 + 1);
-          v129 = HIBYTE(*(v675 + 1));
-          v96 = v648;
-LABEL_169:
-          v131 = v128 | (v129 << 8);
-          v132 = bswap32(v131);
-          v41 = BYTE2(v132);
-          v42 = HIBYTE(v132);
-          if ((v645 - 100) >= 6 && (v645 - 2) >= 4)
+          v111 = *(v643 + 1);
+          v112 = HIBYTE(*(v643 + 1));
+          v81 = v616;
+LABEL_167:
+          v114 = v111 | (v112 << 8);
+          v115 = bswap32(v114);
+          v31 = BYTE2(v115);
+          v32 = HIBYTE(v115);
+          if ((v613 - 100) >= 6 && (v613 - 2) >= 4)
           {
-            if (v645 != 1)
+            if (v613 != 1)
             {
-              goto LABEL_173;
+              goto LABEL_171;
             }
 
-            v133 = 255;
+            v116 = 255;
           }
 
           else
           {
-            v133 = 2000;
+            v116 = 2000;
           }
 
-          v105 = __rev16(v131);
-          if (v105 > v133)
+          v90 = __rev16(v114);
+          if (v90 > v116)
           {
-            goto LABEL_462;
+            goto LABEL_461;
           }
 
-          goto LABEL_173;
+          goto LABEL_171;
         }
 
-        v96 = v648;
-        if (DWORD2(v675) == 2)
+        v81 = v616;
+        if (DWORD2(v643) == 2)
         {
-          v130 = v676;
-          v128 = *(v675 + 1);
+          v113 = v644;
+          v111 = *(v643 + 1);
         }
 
         else
         {
-          if (DWORD2(v675) != 1)
+          if (DWORD2(v643) != 1)
           {
-            goto LABEL_506;
+            goto LABEL_507;
           }
 
-          if (DWORD2(v676) > 1)
+          if (DWORD2(v644) > 1)
           {
-            v128 = *v676;
-            v129 = HIBYTE(*v676);
-            goto LABEL_169;
+            v111 = *v644;
+            v112 = HIBYTE(*v644);
+            goto LABEL_167;
           }
 
-          if (v646 <= 1)
+          if (v614 <= 1)
           {
-            goto LABEL_530;
+            goto LABEL_531;
           }
 
-          if (DWORD2(v676) != 1)
+          if (DWORD2(v644) != 1)
           {
-            goto LABEL_533;
+            goto LABEL_534;
           }
 
-          v130 = v677;
-          v128 = *v676;
+          v113 = v645;
+          v111 = *v644;
         }
 
-        v129 = *v130;
-        goto LABEL_169;
+        v112 = *v113;
+        goto LABEL_167;
       }
 
-      v10 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-      if (DWORD2(v675) > 2)
+      if (DWORD2(v643) > 2)
       {
-        v98 = *(v675 + 1);
-        v99 = HIBYTE(*(v675 + 1));
-        v96 = v648;
-        v97 = v654;
-LABEL_133:
-        v102 = v98 | (v99 << 8);
-        v103 = bswap32(v102);
-        v41 = BYTE2(v103);
-        v42 = HIBYTE(v103);
-        if ((v645 - 100) >= 6 && (v645 - 2) >= 4)
+        v83 = *(v643 + 1);
+        v84 = HIBYTE(*(v643 + 1));
+        v81 = v616;
+        v82 = v622;
+LABEL_131:
+        v87 = v83 | (v84 << 8);
+        v88 = bswap32(v87);
+        v31 = BYTE2(v88);
+        v32 = HIBYTE(v88);
+        if ((v613 - 100) >= 6 && (v613 - 2) >= 4)
         {
-          if (v645 == 1)
+          if (v613 == 1)
           {
-            v104 = 255;
-            goto LABEL_136;
+            v89 = 255;
+            goto LABEL_134;
           }
         }
 
         else
         {
-          v104 = 2000;
-LABEL_136:
-          v105 = __rev16(v102);
-          if (v105 > v104)
+          v89 = 2000;
+LABEL_134:
+          v90 = __rev16(v87);
+          if (v90 > v89)
           {
-LABEL_462:
+LABEL_461:
             StringFromNRTLVType = createStringFromNRTLVType();
             IOVecStringWithContents = createIOVecStringWithContents();
-            v2 = v655;
-            sub_100080EB4(v655, @"LookAhead received invalid TLV len %u for %@ (max=%u) %@", v381, v382, v383, v384, v385, v386, v105);
-            goto LABEL_464;
+            v1 = v623;
+            sub_100080EB4(v623, @"LookAhead received invalid TLV len %u for %@ (max=%u) %@", v331, v332, v333, v334, v335, v336, v90);
+            goto LABEL_463;
           }
         }
 
-LABEL_137:
-        v106 = (v41 | (v42 << 8)) + 5;
-        v94 = *&v655[v97];
-        if (v106 > v48)
+LABEL_135:
+        v91 = (v31 | (v32 << 8)) + 5;
+        v79 = *(v623 + v82);
+        if (v91 > v38)
         {
-          v100 = 1;
-          v18 = v656;
-          goto LABEL_139;
+          v85 = 1;
+          v13 = v624;
+          goto LABEL_137;
         }
 
-        v45 = v94 | 0x40000;
-        *&v655[v97] = v45;
-        v108 = v48 - v106;
-        v109 = v92;
-        v110 = &v675 + v92;
-        v111 = *(v110 + 2) - (v48 - v106);
-        *(v110 + 2) = v111;
-        if (v111)
+        v35 = v79 | 0x40000;
+        *(v623 + v82) = v35;
+        v93 = (v38 - v91);
+        v94 = v77;
+        v95 = &v643 + v77;
+        v96 = *(v95 + 2) - v93;
+        *(v95 + 2) = v96;
+        if (v96)
         {
-          v18 = v90 - v108;
-          v664 = v658;
-          v665 = v659;
-          v100 = 1;
-          v666 = v660;
-          v667 = v661;
-          v48 = (v41 | (v42 << 8)) + 5;
-          LODWORD(v657) = v90;
-          v107 = v86;
-          v641 = v86;
-          v10 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-          v2 = v655;
-          goto LABEL_142;
+          v13 = v75 - v93;
+          v632 = v626;
+          v633 = v627;
+          v85 = 1;
+          v634 = v628;
+          v635 = v629;
+          v38 = (v31 | (v32 << 8)) + 5;
+          LODWORD(v625) = v75;
+          v92 = v71;
+          v609 = v71;
+          v1 = v623;
+          goto LABEL_140;
         }
 
-        v2 = v48;
-LABEL_493:
-        v418 = sub_10007CF34();
-        v419 = _NRLogIsLevelEnabled();
+        v1 = v38;
+LABEL_494:
+        v373 = sub_10007CF34();
+        v374 = _NRLogIsLevelEnabled();
 
-        if (v419)
+        if (v374)
         {
-          v420 = sub_10007CF34();
-          v421 = createIOVecString();
-          v422 = v656;
-          _NRLogWithArgs();
+          v375 = sub_10007CF34();
+          v376 = createIOVecString();
+          v377 = v624;
+          _NRLogWithArgs(v375, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: ioVecs[iovecIndex - 1].len > 0; Shrunk last ioVecs[%u] down by %u to 0 - %@ ioVecContentLen=%u alreadyRead=%u", "", "NRLinkLinkToNexusLoopUrgent", 5237, v94, v93, v376, v1, v624);
         }
 
         else
         {
-          v422 = v656;
+          v377 = v624;
         }
 
-        _os_log_pack_size();
-        __chkstk_darwin();
-        v426 = *__error();
-        v427 = _os_log_pack_fill();
-        v428 = createIOVecString();
-        sub_10009C064(v427, "NRLinkLinkToNexusLoopUrgent", v109, v108, v428, v2, v422);
+        v381 = _os_log_pack_size();
+        v382 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+        v383 = __error();
+        v384 = _os_log_pack_fill(v382, v381, *v383, &_mh_execute_header, "%{public}s Assertion Failed: ioVecs[iovecIndex - 1].len > 0; Shrunk last ioVecs[%u] down by %u to 0 - %@ ioVecContentLen=%u alreadyRead=%u");
+        v385 = createIOVecString();
+        sub_10009C064(v384, "NRLinkLinkToNexusLoopUrgent", v94, v93, v385, v1, v377);
 
-LABEL_500:
+LABEL_501:
         sub_10007CF34();
         _NRLogAbortWithPack();
-LABEL_501:
-        v429 = sub_10007CF34();
-        v430 = _NRLogIsLevelEnabled();
+LABEL_502:
+        v386 = sub_10007CF34();
+        v387 = _NRLogIsLevelEnabled();
 
-        if (v430)
+        if (v387)
         {
-          v431 = sub_10007CF34();
-          _NRLogWithArgs();
+          v388 = sub_10007CF34();
+          _NRLogWithArgs(v388, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: curLinkInputSlotPartialBytesAlreadyRead == linkInputBufferLength", "", "NRLinkLinkToNexusLoopUrgent", 4931);
         }
 
-        goto LABEL_487;
+        goto LABEL_504;
       }
 
-      v96 = v648;
-      v97 = v654;
-      if (DWORD2(v675) == 2)
+      v81 = v616;
+      v82 = v622;
+      if (DWORD2(v643) == 2)
       {
-        if (!v646)
+        if (!v614)
         {
-          goto LABEL_568;
+          goto LABEL_572;
         }
 
-        v101 = v676;
-        v98 = *(v675 + 1);
-        goto LABEL_132;
+        v86 = v644;
+        v83 = *(v643 + 1);
+        goto LABEL_130;
       }
 
-      if (DWORD2(v675) == 1)
+      if (DWORD2(v643) == 1)
       {
-        if (DWORD2(v676) <= 1)
+        if (DWORD2(v644) > 1)
         {
-          if (v646 < 2)
+          if (v614)
           {
-LABEL_530:
-            v473 = sub_10007CF34();
-            v474 = _NRLogIsLevelEnabled();
-
-            if (v474)
-            {
-              v475 = sub_10007CF34();
-              v630 = createIOVecString();
-              _NRLogWithArgs();
-            }
+            v83 = *v644;
+            v84 = HIBYTE(*v644);
+            goto LABEL_131;
           }
 
-          else
+          v561 = sub_10007CF34();
+          v562 = _NRLogIsLevelEnabled();
+
+          if (v562)
           {
-            if (DWORD2(v676) == 1)
+            v563 = sub_10007CF34();
+            v564 = createIOVecString();
+            _NRLogWithArgs(v563, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: numIOVecs > 1; %@", "", "nrReadTLVLenHBOFromIOVec", 271, v564);
+          }
+
+          v565 = _os_log_pack_size();
+          v566 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+          v567 = __error();
+          v462 = _os_log_pack_fill(v566, v565, *v567, &_mh_execute_header, "%{public}s Assertion Failed: numIOVecs > 1; %@");
+          v463 = createIOVecString();
+          *v462 = 136446466;
+          *(v462 + 4) = "nrReadTLVLenHBOFromIOVec";
+LABEL_538:
+          *(v462 + 12) = 2112;
+          *(v462 + 14) = v463;
+          goto LABEL_490;
+        }
+
+        if (v614 < 2)
+        {
+LABEL_531:
+          v448 = sub_10007CF34();
+          v449 = _NRLogIsLevelEnabled();
+
+          if (v449)
+          {
+            v450 = sub_10007CF34();
+            v451 = createIOVecString();
+            _NRLogWithArgs(v450, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: numIOVecs > 2; %@", "", "nrReadTLVLenHBOFromIOVec", 274, v451);
+          }
+
+          v452 = _os_log_pack_size();
+          v453 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+          v454 = *__error();
+          v403 = _os_log_pack_fill(v453, v452, v454, &_mh_execute_header, "%{public}s Assertion Failed: numIOVecs > 2; %@");
+        }
+
+        else
+        {
+          if (DWORD2(v644) == 1)
+          {
+            v86 = v645;
+            v83 = *v644;
+LABEL_130:
+            v84 = *v86;
+            goto LABEL_131;
+          }
+
+LABEL_534:
+          v455 = sub_10007CF34();
+          v456 = _NRLogIsLevelEnabled();
+
+          if (v456)
+          {
+            v457 = sub_10007CF34();
+            v458 = createIOVecString();
+            _NRLogWithArgs(v457, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: ioVecs[1].len == 1; %@", "", "nrReadTLVLenHBOFromIOVec", 275, v458);
+          }
+
+          v459 = _os_log_pack_size();
+          v460 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+          v461 = *__error();
+          v403 = _os_log_pack_fill(v460, v459, v461, &_mh_execute_header, "%{public}s Assertion Failed: ioVecs[1].len == 1; %@");
+        }
+      }
+
+      else
+      {
+LABEL_507:
+        v396 = sub_10007CF34();
+        v397 = _NRLogIsLevelEnabled();
+
+        if (v397)
+        {
+          v398 = sub_10007CF34();
+          v399 = createIOVecString();
+          _NRLogWithArgs(v398, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: ioVecs[0].len == 1; %@", "", "nrReadTLVLenHBOFromIOVec", 269, v399);
+        }
+
+        v400 = _os_log_pack_size();
+        v401 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+        v402 = *__error();
+        v403 = _os_log_pack_fill(v401, v400, v402, &_mh_execute_header, "%{public}s Assertion Failed: ioVecs[0].len == 1; %@");
+      }
+
+      v462 = v403;
+      v463 = createIOVecString();
+      *v462 = 136446466;
+      *(v462 + 4) = "nrReadTLVLenHBOFromIOVec";
+      goto LABEL_538;
+    }
+
+    v35 = *(v1 + v622) | 0x10000;
+    *(v1 + v622) = v35;
+    v40 = v614;
+    v38 = v69;
+    LODWORD(v31) = v620;
+    LODWORD(v32) = v68;
+    v21 = v67;
+    if ((v618 & 1) == 0)
+    {
+      goto LABEL_388;
+    }
+
+LABEL_183:
+    v117 = v38;
+    v121 = v31 | (v32 << 8);
+    v617 = (v31 | (v32 << 8));
+    if (v617 + 5 > v38)
+    {
+      goto LABEL_388;
+    }
+
+    if (v48)
+    {
+      v82 = v622;
+      goto LABEL_191;
+    }
+
+    v122 = v35 | 0x400000;
+    v123 = v65;
+    v82 = v622;
+LABEL_192:
+    v618 = v38;
+    *(v1 + v82) = v122;
+    *(v1 + 1551) += v117;
+    v624 = v13;
+    v616 = v123;
+    v614 = v40;
+    v620 = v121;
+    if (v613 < 100)
+    {
+      if (!v40)
+      {
+        v417 = sub_10007CF34();
+        v418 = _NRLogIsLevelEnabled();
+
+        if (v418)
+        {
+          v419 = sub_10007CF34();
+          _NRLogWithArgs(v419, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: numIOVecs > 0", "", "nrChecksumIOVecInner", 143);
+        }
+
+        v420 = _os_log_pack_size();
+        v421 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+        v422 = __error();
+        v362 = _os_log_pack_fill(v421, v420, *v422, &_mh_execute_header, "%{public}s Assertion Failed: numIOVecs > 0");
+        *v362 = 136446210;
+        v366 = "nrChecksumIOVecInner";
+        goto LABEL_489;
+      }
+
+      LODWORD(v609) = v40;
+      v615 = v604;
+      v135 = 0;
+      v136 = 0;
+      v137 = 0;
+      v138 = 0;
+      v139 = v121 + 3;
+      v140 = v40;
+      v141 = v608;
+      while (1)
+      {
+        v142 = v139 - v136;
+        if (v139 <= v136)
+        {
+          break;
+        }
+
+        if (*v141 >= v142)
+        {
+          v143 = v142;
+        }
+
+        else
+        {
+          v143 = *v141;
+        }
+
+        if (!v143)
+        {
+          v345 = sub_10007CF34();
+          v346 = _NRLogIsLevelEnabled();
+
+          v347 = "nrChecksumUpdate";
+          if (v346)
+          {
+            v348 = sub_10007CF34();
+            _NRLogWithArgs(v348, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: dataLen > 0", "", "nrChecksumUpdate", 69);
+          }
+
+          v349 = _os_log_pack_size();
+          v350 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+          v351 = *__error();
+          v352 = _os_log_pack_fill(v350, v349, v351, &_mh_execute_header, "%{public}s Assertion Failed: dataLen > 0");
+          goto LABEL_472;
+        }
+
+        v1 = v604;
+        v144 = *(v141 - 1);
+        if ((v137 & 1) == 0 || (v604[1] = *(v141 - 1), LOWORD(v626) = *v144 << 8, v138 = os_inet_checksum(), v143 != 1))
+        {
+          v138 = os_inet_checksum();
+        }
+
+        if (v143)
+        {
+          v137 ^= 1u;
+        }
+
+        v136 += v143;
+        if (v136 >= v139 && v143 < *v141)
+        {
+          goto LABEL_224;
+        }
+
+        ++v135;
+        v141 += 4;
+        if (v140 == v135)
+        {
+          v145 = v614;
+          LOWORD(v135) = v614;
+          goto LABEL_226;
+        }
+      }
+
+      v143 = 0;
+LABEL_224:
+      v145 = v614;
+LABEL_226:
+      v11 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+      if (v136 == v139)
+      {
+        v146 = ~v138;
+        v147 = (~v138 >> 8);
+        v148 = &v643 + v135;
+        v149 = *(v148 + 2);
+        if (v149 < v143 + 2)
+        {
+          if (v149 < v143 + 1)
+          {
+            v467 = sub_10007CF34();
+            v468 = _NRLogIsLevelEnabled();
+
+            if (v468)
             {
-              v101 = v677;
-              v98 = *v676;
-LABEL_132:
-              v99 = *v101;
-              goto LABEL_133;
+              v469 = sub_10007CF34();
+              v470 = createIOVecString();
+              _NRLogWithArgs(v469, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: iovecs[iovecIndex].len >= bytesToCheckThisIOVec + 1; %@, iovecIndex=%u bytesToCheckThisIOVec=%u", "", "nrChecksumIOVecInner", 189, v470, v135, v143);
             }
 
-LABEL_533:
+            v471 = _os_log_pack_size();
+            v472 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+            v473 = __error();
+            v474 = _os_log_pack_fill(v472, v471, *v473, &_mh_execute_header, "%{public}s Assertion Failed: iovecs[iovecIndex].len >= bytesToCheckThisIOVec + 1; %@, iovecIndex=%u bytesToCheckThisIOVec=%u");
+            v475 = createIOVecString();
+          }
+
+          else if (v135 + 1 >= v609)
+          {
             v476 = sub_10007CF34();
             v477 = _NRLogIsLevelEnabled();
 
             if (v477)
             {
               v478 = sub_10007CF34();
-              v631 = createIOVecString();
-              _NRLogWithArgs();
+              v479 = createIOVecString();
+              _NRLogWithArgs(v478, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: iovecIndex + 1 < numIOVecs; %@, iovecIndex=%u bytesToCheckThisIOVec=%u", "", "nrChecksumIOVecInner", 191, v479, v135, v143);
             }
-          }
-        }
 
-        else
-        {
-          if (v646)
-          {
-            v98 = *v676;
-            v99 = HIBYTE(*v676);
-            goto LABEL_133;
-          }
-
-          v550 = sub_10007CF34();
-          v551 = _NRLogIsLevelEnabled();
-
-          if (v551)
-          {
-            v552 = sub_10007CF34();
-            v634 = createIOVecString();
-            _NRLogWithArgs();
-          }
-        }
-      }
-
-      else
-      {
-LABEL_506:
-        v437 = sub_10007CF34();
-        v438 = _NRLogIsLevelEnabled();
-
-        if (v438)
-        {
-          v439 = sub_10007CF34();
-          v628 = createIOVecString();
-          _NRLogWithArgs();
-        }
-      }
-
-      _os_log_pack_size();
-      __chkstk_darwin();
-      v479 = *__error();
-      v480 = _os_log_pack_fill();
-      v481 = createIOVecString();
-      *v480 = 136446466;
-      *(v480 + 4) = "nrReadTLVLenHBOFromIOVec";
-      *(v480 + 12) = 2112;
-      *(v480 + 14) = v481;
-      goto LABEL_489;
-    }
-
-    v45 = *(v2 + v654) | 0x10000;
-    *(v2 + v654) = v45;
-    v50 = v646;
-    v48 = v81;
-    LODWORD(v41) = v652;
-    LODWORD(v42) = v80;
-    v29 = v79;
-    if ((v650 & 1) == 0)
-    {
-      goto LABEL_391;
-    }
-
-LABEL_185:
-    v134 = v48;
-    v138 = v41 | (v42 << 8);
-    v649 = (v41 | (v42 << 8));
-    if (v649 + 5 > v48)
-    {
-      goto LABEL_391;
-    }
-
-    if (v58)
-    {
-      v97 = v654;
-      goto LABEL_193;
-    }
-
-    v139 = v45 | 0x400000;
-    v140 = v77;
-    v97 = v654;
-LABEL_194:
-    v650 = v48;
-    *(v2 + v97) = v139;
-    *(v2 + 1551) += v134;
-    v656 = v18;
-    v648 = v140;
-    v646 = v50;
-    v652 = v138;
-    if (v645 < 100)
-    {
-      if (!v50)
-      {
-        v449 = sub_10007CF34();
-        v450 = _NRLogIsLevelEnabled();
-
-        if (v450)
-        {
-          v451 = sub_10007CF34();
-          _NRLogWithArgs();
-        }
-
-        _os_log_pack_size();
-        __chkstk_darwin();
-        v452 = *__error();
-        v410 = _os_log_pack_fill();
-        *v410 = 136446210;
-        v411 = "nrChecksumIOVecInner";
-        goto LABEL_488;
-      }
-
-      LODWORD(v641) = v50;
-      v647 = v636;
-      v152 = 0;
-      v153 = 0;
-      v154 = 0;
-      v155 = 0;
-      v156 = v138 + 3;
-      v157 = v50;
-      v158 = v640;
-      while (v156 > v153)
-      {
-        if (*v158 >= v156 - v153)
-        {
-          v159 = v156 - v153;
-        }
-
-        else
-        {
-          v159 = *v158;
-        }
-
-        if (!v159)
-        {
-          v397 = sub_10007CF34();
-          v398 = _NRLogIsLevelEnabled();
-
-          v399 = "nrChecksumUpdate";
-          if (v398)
-          {
-            v400 = sub_10007CF34();
-            _NRLogWithArgs();
-          }
-
-          goto LABEL_472;
-        }
-
-        v2 = v636;
-        v160 = *(v158 - 1);
-        if ((v154 & 1) == 0 || (v636[1] = *(v158 - 1), LOWORD(v658) = *v160 << 8, v155 = os_inet_checksum(), v159 != 1))
-        {
-          v155 = os_inet_checksum();
-        }
-
-        if (v159)
-        {
-          v154 ^= 1u;
-        }
-
-        v153 += v159;
-        if (v153 >= v156 && v159 < *v158)
-        {
-          goto LABEL_226;
-        }
-
-        ++v152;
-        v158 += 4;
-        if (v157 == v152)
-        {
-          v161 = v646;
-          LOWORD(v152) = v646;
-          goto LABEL_228;
-        }
-      }
-
-      v159 = 0;
-LABEL_226:
-      v161 = v646;
-LABEL_228:
-      v16 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-      if (v153 == v156)
-      {
-        v162 = ~v155;
-        v163 = (~v155 >> 8);
-        v164 = &v675 + v152;
-        v165 = *(v164 + 2);
-        if (v165 < v159 + 2)
-        {
-          if (v165 < v159 + 1)
-          {
-            v486 = sub_10007CF34();
-            v487 = _NRLogIsLevelEnabled();
-
-            if (v487)
-            {
-              v488 = sub_10007CF34();
-              v595 = createIOVecString();
-              _NRLogWithArgs();
-            }
-          }
-
-          else if (v152 + 1 >= v641)
-          {
-            v489 = sub_10007CF34();
-            v490 = _NRLogIsLevelEnabled();
-
-            if (v490)
-            {
-              v491 = sub_10007CF34();
-              v596 = createIOVecString();
-              _NRLogWithArgs();
-            }
+            v480 = _os_log_pack_size();
+            v481 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+            v482 = __error();
+            v474 = _os_log_pack_fill(v481, v480, *v482, &_mh_execute_header, "%{public}s Assertion Failed: iovecIndex + 1 < numIOVecs; %@, iovecIndex=%u bytesToCheckThisIOVec=%u");
+            v475 = createIOVecString();
           }
 
           else
           {
-            v2 = (&v675 + v152 + 1);
-            if (*(v2 + 2))
+            v1 = (&v643 + v135 + 1);
+            if (*(v1 + 2))
             {
-              if (*(*v164 + v159) != v162 || **v2 != v163)
+              if (*(*v148 + v143) != v146 || **v1 != v147)
               {
-                v498 = sub_10007CF34();
-                v499 = _NRLogIsLevelEnabled();
+                v491 = sub_10007CF34();
+                v492 = _NRLogIsLevelEnabled();
 
-                if (v499)
+                if (v492)
                 {
-                  v484 = sub_10007CF34();
-                  v573 = *(*v164 + v159);
-                  v579 = **v2;
-LABEL_549:
-                  _NRLogWithArgs();
+                  v466 = sub_10007CF34();
+                  _NRLogWithArgs(v466, 16, "%s%.30s:%-4d checksum failed disjoint IOVec received 0x%02x%02x != computed 0x%02x%02x", "");
+LABEL_553:
                 }
 
-                goto LABEL_550;
+                goto LABEL_554;
               }
 
-              goto LABEL_238;
+              goto LABEL_236;
             }
 
-            v492 = sub_10007CF34();
-            v493 = _NRLogIsLevelEnabled();
+            v483 = sub_10007CF34();
+            v484 = _NRLogIsLevelEnabled();
 
-            if (v493)
+            if (v484)
             {
-              v494 = sub_10007CF34();
-              v597 = createIOVecString();
-              _NRLogWithArgs();
+              v485 = sub_10007CF34();
+              v486 = createIOVecString();
+              _NRLogWithArgs(v485, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: iovecs[iovecIndex + 1].len >= 1; %@, iovecIndex=%u bytesToCheckThisIOVec=%u", "", "nrChecksumIOVecInner", 193, v486, v135, v143);
             }
+
+            v487 = _os_log_pack_size();
+            v488 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+            v489 = __error();
+            v474 = _os_log_pack_fill(v488, v487, *v489, &_mh_execute_header, "%{public}s Assertion Failed: iovecs[iovecIndex + 1].len >= 1; %@, iovecIndex=%u bytesToCheckThisIOVec=%u");
+            v475 = createIOVecString();
           }
 
-          _os_log_pack_size();
-          __chkstk_darwin();
-          v495 = *__error();
-          v496 = _os_log_pack_fill();
-          v497 = createIOVecString();
-          sub_10005015C(v496, "nrChecksumIOVecInner", v497, v152, v159);
+          v490 = v475;
+          sub_10005015C(v474, "nrChecksumIOVecInner", v490, v135, v143);
 
-          goto LABEL_489;
+          goto LABEL_490;
         }
 
-        v166 = (*v164 + v159);
-        if (*v166 != v162 || v166[1] != v163)
+        v150 = (*v148 + v143);
+        if (*v150 != v146 || v150[1] != v147)
         {
-          v482 = sub_10007CF34();
-          v483 = _NRLogIsLevelEnabled();
+          v464 = sub_10007CF34();
+          v465 = _NRLogIsLevelEnabled();
 
-          if (v483)
+          if (v465)
           {
-            v484 = sub_10007CF34();
-            v485 = (*v164 + v159);
-            v572 = *v485;
-            v578 = v485[1];
-            goto LABEL_549;
+            v466 = sub_10007CF34();
+            _NRLogWithArgs(v466, 16, "%s%.30s:%-4d checksum failed same IOVec received 0x%02x%02x != computed 0x%02x%02x", "");
+            goto LABEL_553;
           }
 
-LABEL_550:
-          v2 = v655;
-          LOWORD(v18) = v656;
-          goto LABEL_551;
+LABEL_554:
+          v1 = v623;
+          LOWORD(v13) = v624;
+          goto LABEL_555;
         }
 
-LABEL_238:
-        v2 = v655;
-        v18 = v656;
-        goto LABEL_243;
+LABEL_236:
+        v1 = v623;
+        v13 = v624;
+        goto LABEL_241;
       }
 
-      v464 = sub_10007CF34();
-      v465 = _NRLogIsLevelEnabled();
+      v437 = sub_10007CF34();
+      v438 = _NRLogIsLevelEnabled();
 
-      v399 = "nrChecksumIOVecInner";
-      if (v465)
+      v347 = "nrChecksumIOVecInner";
+      if (v438)
       {
-        v466 = sub_10007CF34();
-        _NRLogWithArgs();
+        v439 = sub_10007CF34();
+        _NRLogWithArgs(v439, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: computedBytes == writtenLength", "", "nrChecksumIOVecInner", 164);
       }
 
+      v440 = _os_log_pack_size();
+      v441 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+      v442 = *__error();
+      v352 = _os_log_pack_fill(v441, v440, v442, &_mh_execute_header, "%{public}s Assertion Failed: computedBytes == writtenLength");
 LABEL_472:
-      _os_log_pack_size();
-      __chkstk_darwin();
-      v401 = *__error();
-      v402 = _os_log_pack_fill();
-      *v402 = 136446210;
-      *(v402 + 4) = v399;
-      goto LABEL_489;
+      *v352 = 136446210;
+      *(v352 + 4) = v347;
+      goto LABEL_490;
     }
 
-    LOWORD(v658) = 0;
-    if (!v50)
+    LOWORD(v626) = 0;
+    if (!v40)
     {
-      goto LABEL_512;
+      goto LABEL_513;
     }
 
-    v647 = v636;
-    v142 = 0;
-    v143 = bswap32(v138);
-    v144 = v50;
-    v145 = v640;
-    v641 = (v138 + 3);
-    v146 = v138 + 3;
-    v147 = (v645 >> 4) ^ HIWORD(v143);
-    v148 = (16 * v645) ^ HIBYTE(v143);
+    v615 = v604;
+    v125 = 0;
+    v126 = bswap32(v121);
+    v127 = v40;
+    v128 = v608;
+    v609 = (v121 + 3);
+    v129 = v121 + 3;
+    v130 = (v613 >> 4) ^ HIWORD(v126);
+    v131 = (16 * v613) ^ HIBYTE(v126);
     while (2)
     {
-      v149 = *v145;
-      if (v146)
+      v132 = *v128;
+      if (v129)
       {
-        if (v146 > v149)
+        if (v129 > v132)
         {
-          v146 -= v149;
+          v129 -= v132;
         }
 
         else
         {
-          if (v146 < v149)
+          if (v129 < v132)
           {
             break;
           }
 
-          v146 = 0;
+          v129 = 0;
         }
 
-LABEL_198:
-        v145 += 4;
-        if (!--v144)
+LABEL_196:
+        v128 += 4;
+        if (!--v127)
         {
-          goto LABEL_240;
+          goto LABEL_238;
         }
 
         continue;
@@ -5452,666 +5398,611 @@ LABEL_198:
       break;
     }
 
-    v150 = v149 - v146;
-    if (v150 >= 2 - v142)
+    v133 = v132 - v129;
+    if (v133 >= 2 - v125)
     {
-      v151 = 2 - v142;
+      v134 = (2 - v125);
     }
 
     else
     {
-      v151 = v150;
+      v134 = v133;
     }
 
-    memcpy(&v658 + v142, (*(v145 - 1) + v146), v151);
-    v142 += v151;
-    if (v142 <= 1)
+    memcpy(&v626 + v125, (*(v128 - 1) + v129), v134);
+    v125 = (v134 + v125);
+    if (v125 <= 1)
     {
-      v146 = 0;
-      v18 = v656;
-      goto LABEL_198;
+      v129 = 0;
+      v13 = v624;
+      goto LABEL_196;
     }
 
-    v18 = v656;
-LABEL_240:
-    if (v142 != 2)
+    v13 = v624;
+LABEL_238:
+    if (v125 != 2)
     {
-      v453 = sub_10007CF34();
-      v454 = _NRLogIsLevelEnabled();
+      v423 = sub_10007CF34();
+      v424 = _NRLogIsLevelEnabled();
 
-      v455 = v641;
-      if (v454)
+      v425 = v609;
+      if (v424)
       {
-        v456 = sub_10007CF34();
-        v612 = createIOVecString();
-        _NRLogWithArgs();
+        v426 = sub_10007CF34();
+        v427 = createIOVecString();
+        _NRLogWithArgs(v426, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: bytesWritten == length; bytesWritten (%u) != length (%u), offset: %u, ioVec: %@", "", "nrWriteIOVecToBuffer", 342, v125, 2, v425, v427);
       }
 
-      _os_log_pack_size();
-      __chkstk_darwin();
-      v457 = *__error();
-      v458 = _os_log_pack_fill();
-      v459 = createIOVecString();
-      v460 = v458;
-      v461 = v142;
-      v462 = 2;
-      v463 = v455;
-      goto LABEL_521;
+      v428 = _os_log_pack_size();
+      v429 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+      v430 = __error();
+      v431 = _os_log_pack_fill(v429, v428, *v430, &_mh_execute_header, "%{public}s Assertion Failed: bytesWritten == length; bytesWritten (%u) != length (%u), offset: %u, ioVec: %@");
+      v432 = createIOVecString();
+      v433 = v431;
+      v434 = v125;
+      v435 = 2;
+      v436 = v425;
+      goto LABEL_522;
     }
 
-    v161 = v646;
-    v167 = v658 == (v147 | (v148 << 8));
-    v16 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-    if (!v167)
+    v145 = v614;
+    v151 = v626 == (v130 | (v131 << 8));
+    v11 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+    if (!v151)
     {
-LABEL_551:
-      v500 = *(v2 + 2007);
-      v501 = v652;
-      if (v500)
+LABEL_555:
+      v493 = *(v1 + 2007);
+      v494 = v620;
+      if (v493)
       {
-        v500[104] = 1;
+        v493[104] = 1;
       }
 
-      v502 = v2[4];
-      v503 = _NRCopyLogObjectForNRUUID();
-      v504 = _NRLogIsLevelEnabled();
+      v495 = _NRCopyLogObjectForNRUUID();
+      v496 = _NRLogIsLevelEnabled();
 
-      if (v504)
+      if (v496)
       {
-        v505 = v2[4];
-        v654 = _NRCopyLogObjectForNRUUID();
-        v506 = [v2 copyDescription];
-        v507 = createStringFromNRTLVType();
-        v657 = v501;
-        v653 = *(v655 + 379);
-        v508 = *(v655 + 383);
-        v651 = createIOVecString();
-        v656 = v18;
-        v16 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-        v2 = v655;
-        v509 = v507;
-        v510 = v654;
-        _NRLogWithArgs();
+        v622 = _NRCopyLogObjectForNRUUID();
+        v497 = [v1 copyDescription];
+        v498 = createStringFromNRTLVType();
+        v625 = v494;
+        v621 = *(v623 + 379);
+        v499 = *(v623 + 383);
+        v619 = createIOVecString();
+        v624 = v13;
+        v603 = v13;
+        v1 = v623;
+        v602 = v498;
+        v500 = v498;
+        v501 = v622;
+        _NRLogWithArgs(v622, 17, "%@: Invalid checksum detected in urgent loop on read type %@ len %u filledIn=%u handled=%u in %@ ioVecContentLen=%u alreadyRead=%u curLinkInputSlot=%p", v497, v602, v494, v621, v499, v619, v618, v603, v616);
       }
 
       else
       {
-        v657 = v501;
-        v656 = v18;
+        v625 = v494;
+        v624 = v13;
       }
 
       StringFromNRTLVType = createStringFromNRTLVType();
-      v511 = *(v2 + v16[534]);
-      v512 = *(v2 + 383);
       IOVecStringWithContents = createIOVecString();
-      sub_100080EB4(v2, @"Invalid checksum detected in urgent loop on read type %@ len %u filledIn=%u handled=%u in %@ ioVecContentLen=%u alreadyRead=%u curLinkInputSlot=%p", v513, v514, v515, v516, v517, v518, StringFromNRTLVType);
-      goto LABEL_464;
+      sub_100080EB4(v1, @"Invalid checksum detected in urgent loop on read type %@ len %u filledIn=%u handled=%u in %@ ioVecContentLen=%u alreadyRead=%u curLinkInputSlot=%p", v502, v503, v504, v505, v506, v507, StringFromNRTLVType);
+      goto LABEL_463;
     }
 
-LABEL_243:
-    v660 = 0u;
-    v661 = 0u;
-    v658 = 0u;
-    v659 = 0u;
-    v168 = *(v2 + 775);
-    v169 = os_channel_get_next_slot();
-    v653 = v29;
-    if (!v169)
+LABEL_241:
+    v628 = 0u;
+    v629 = 0u;
+    v626 = 0u;
+    v627 = 0u;
+    v152 = os_channel_get_next_slot();
+    v621 = v21;
+    if (!v152)
     {
-      v17 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-      v10 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-      v173 = v642;
-      v172 = v643;
-      if (*(v2 + 257) == 1 && *(v2 + 791))
+      v12 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+      v156 = v610;
+      v155 = v611;
+      if (*(v1 + 257) == 1 && *(v1 + 791))
       {
-        *(v2 + 257) = 0;
-        ++*(v2 + 807);
+        *(v1 + 257) = 0;
+        ++*(v1 + 807);
         if (gNRPacketLoggingEnabled == 1)
         {
-          v265 = v2[4];
-          v266 = _NRCopyLogObjectForNRUUID();
-          v267 = _NRLogIsLevelEnabled();
+          v236 = _NRCopyLogObjectForNRUUID();
+          v237 = _NRLogIsLevelEnabled();
 
-          v161 = v646;
-          if (v267)
+          v145 = v614;
+          if (v237)
           {
-            v268 = v2[4];
-            v269 = _NRCopyLogObjectForNRUUID();
-            v619 = [v2 copyDescription];
-            _NRLogWithArgs();
+            v238 = _NRCopyLogObjectForNRUUID();
+            v239 = [v1 copyDescription];
+            _NRLogWithArgs(v238, 1, "%s%.30s:%-4d %@: source-resume: NexusVIOutput", "", "NRLinkResumeNexusVIOutputSource", 878, v239);
 
-            v161 = v646;
+            v145 = v614;
           }
         }
 
-        dispatch_resume(*(v2 + 791));
-        v173 = v642;
-        v172 = v643;
+        dispatch_resume(*(v1 + 791));
+        v156 = v610;
+        v155 = v611;
       }
 
-      v174 = *(v2 + v654) | 0x800000;
-      *(v2 + v654) = v174;
-      if ((v172 > v173) < v161)
+      v157 = *(v1 + v622) | 0x800000;
+      *(v1 + v622) = v157;
+      if ((v155 > v156) < v145)
       {
-        v175 = v172 > v173;
-        v176 = v161;
-        v177 = &v640[4 * v175];
+        v158 = v155 > v156;
+        v159 = v145;
+        v160 = &v608[16 * v158];
         do
         {
           if (gNRPacketLoggingEnabled == 1)
           {
-            v181 = v2[4];
-            v182 = _NRCopyLogObjectForNRUUID();
-            v183 = _NRLogIsLevelEnabled();
+            v164 = _NRCopyLogObjectForNRUUID();
+            v165 = _NRLogIsLevelEnabled();
 
-            v161 = v646;
-            if (v183)
+            v145 = v614;
+            if (v165)
             {
-              v184 = v2[4];
-              v185 = _NRCopyLogObjectForNRUUID();
-              v186 = [v2 copyDescription];
-              v581 = *(v2 + 379);
-              v600 = *(v2 + 383);
-              v574 = *(v177 - 1);
-              v571 = *v177;
-              _NRLogWithArgs();
+              v166 = _NRCopyLogObjectForNRUUID();
+              v167 = [v1 copyDescription];
+              _NRLogWithArgs(v166, 1, "%s%.30s:%-4d %@: UrgentLink:no nexusOutputSlot - consolidating %u bytes from linkInputSlot ioVecs[%u].buf=%p to linkReadBuffer filledIn=%u handled=%u", "", "NRLinkLinkToNexusLoopUrgent", 5347, v167, *v160, v158, *(v160 - 1), *(v1 + 379), *(v1 + 383));
 
-              v161 = v646;
+              v145 = v614;
             }
           }
 
-          v178 = *(v2 + 379);
-          v179 = *v177;
-          if ((v179 + v178) >= *(v2 + 319))
+          v161 = *(v1 + 379);
+          v162 = *v160;
+          if ((v162 + v161) >= *(v1 + 319))
           {
-            *(v2 + v654) = (*(v2 + v654) | 0x1000000);
+            *(v1 + v622) = (*(v1 + v622) | 0x1000000);
             StringFromNRTLVType = createIOVecString();
-            v594 = *(v2 + 379);
-            v610 = *(v2 + 383);
-            sub_100080EB4(v2, @"no nexusOutputSlot and linkReadBuffer is full %@ filledIn=%u handled=%u", v403, v404, v405, v406, v407, v408, StringFromNRTLVType);
-            goto LABEL_465;
+            sub_100080EB4(v1, @"no nexusOutputSlot and linkReadBuffer is full %@ filledIn=%u handled=%u", v353, v354, v355, v356, v357, v358, StringFromNRTLVType);
+            goto LABEL_464;
           }
 
-          memcpy(&(*(v2 + 1463))[v178], *(v177 - 1), v179);
-          v180 = *v177;
-          v177 += 16;
-          *(v2 + 379) += v180;
-          ++v175;
+          memcpy(&(*(v1 + 1463))[v161], *(v160 - 1), v162);
+          v163 = *v160;
+          v160 += 4;
+          *(v1 + 379) += v163;
+          ++v158;
         }
 
-        while (v176 != v175);
-        v174 = *(v2 + v654);
-        v10 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-        v18 = v656;
-        v173 = v642;
-        v172 = v643;
+        while (v159 != v158);
+        v157 = *(v1 + v622);
+        v13 = v624;
+        v156 = v610;
+        v155 = v611;
       }
 
-      if (v172 <= v173 || v161 != 1)
+      if (v155 <= v156 || v145 != 1)
       {
-        *(v2 + v654) = (v174 | 0x4000000);
-        *(&v644 + 1) = v648;
-        goto LABEL_16;
+        *(v1 + v622) = (v157 | 0x4000000);
+        *(&v612 + 1) = v616;
+        goto LABEL_15;
       }
 
-      *(v2 + v654) = (v174 | 0x2000000);
-      if (v18 && v657 > v18)
+      *(v1 + v622) = (v157 | 0x2000000);
+      if (v13 && v625 > v13)
       {
-        v276 = v657 - v18;
+        v244 = v625 - v13;
         if (gNRPacketLoggingEnabled == 1)
         {
-          v373 = v2[4];
-          v374 = _NRCopyLogObjectForNRUUID();
-          v375 = _NRLogIsLevelEnabled();
+          v326 = _NRCopyLogObjectForNRUUID();
+          v327 = _NRLogIsLevelEnabled();
 
-          if (v375)
+          if (v327)
           {
-            v376 = v2[4];
-            v377 = _NRCopyLogObjectForNRUUID();
-            v378 = [v2 copyDescription];
-            v609 = *(v2 + 383);
-            v593 = *(v2 + 379);
-            _NRLogWithArgs();
+            v328 = _NRCopyLogObjectForNRUUID();
+            v329 = [v1 copyDescription];
+            _NRLogWithArgs(v328, 1, "%s%.30s:%-4d %@: UrgentLink:no nexusOutputSlot - tail consolidating %u bytes from linkInputSlot to linkReadBuffer filledIn=%u handled=%u and marking curLinkInputSlot=%p as completed", "", "NRLinkLinkToNexusLoopUrgent", 5381, v329, v244, *(v1 + 379), *(v1 + 383), v616);
           }
         }
 
-        memcpy(&(*(v2 + 1463))[*(v2 + 379)], (v653 + v18), v276);
-        *(v2 + 379) += v276;
-        goto LABEL_404;
+        memcpy(&(*(v1 + 1463))[*(v1 + 379)], (v621 + v13), v244);
+        *(v1 + 379) += v244;
+        goto LABEL_401;
       }
 
-LABEL_405:
-      if (*(&v644 + 1))
+LABEL_402:
+      if (*(&v612 + 1))
       {
-        v287 = *(v2 + v16[534]);
-        v288 = *(v2 + v17[533]);
-        if (v287 <= v288)
+        v253 = *(v1 + v11[534]);
+        v254 = *(v1 + v12[533]);
+        if (v253 <= v254)
         {
-          if (v288 != v287)
+          if (v254 != v253)
           {
-            v519 = sub_10007CF34();
-            v520 = _NRLogIsLevelEnabled();
+            v508 = sub_10007CF34();
+            v509 = _NRLogIsLevelEnabled();
 
-            if (v520)
+            if (v509)
             {
-              v521 = sub_10007CF34();
-              _NRLogWithArgs();
+              v510 = sub_10007CF34();
+              _NRLogWithArgs(v510, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: self->_handledUrgentLinkReadBufferBytes == self->_filledInUrgentLinkReadBufferBytes", "", "NRLinkLinkToNexusLoopUrgent", 5556);
             }
 
-            goto LABEL_487;
+            v511 = _os_log_pack_size();
+            v512 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+            v513 = *__error();
+            v362 = _os_log_pack_fill(v512, v511, v513, &_mh_execute_header, "%{public}s Assertion Failed: self->_handledUrgentLinkReadBufferBytes == self->_filledInUrgentLinkReadBufferBytes");
+            goto LABEL_488;
           }
 
-          *(v2 + 2031) = (*(v2 + 2031) | 0x400000000);
+          *(v1 + 2031) = (*(v1 + 2031) | 0x400000000);
           if (gNRPacketLoggingEnabled == 1)
           {
-            v339 = v2[4];
-            v340 = _NRCopyLogObjectForNRUUID();
-            v341 = _NRLogIsLevelEnabled();
+            v291 = _NRCopyLogObjectForNRUUID();
+            v292 = _NRLogIsLevelEnabled();
 
-            if (v341)
+            if (v292)
             {
-              v342 = v2[4];
-              v343 = _NRCopyLogObjectForNRUUID();
-              v590 = [v2 copyDescription];
-              v607 = *(v2 + v16[534]);
-              _NRLogWithArgs();
+              v293 = _NRCopyLogObjectForNRUUID();
+              v294 = [v1 copyDescription];
+              _NRLogWithArgs(v293, 1, "%s%.30s:%-4d %@: UrgentLink:resetting the linkReadBuffer (filledIn=%u)", "", "NRLinkLinkToNexusLoopUrgent", 5559, v294, *(v1 + v11[534]));
             }
           }
 
-          *(v2 + v16[534]) = 0;
-LABEL_413:
-          *(v2 + v17[533]) = 0;
+          *(v1 + v11[534]) = 0;
+LABEL_410:
+          *(v1 + v12[533]) = 0;
         }
 
         else
         {
-          if (v288 > *(v2 + 327))
+          if (v254 > *(v1 + 327))
           {
-            *(v2 + 2031) = (*(v2 + 2031) | 0x80000000);
+            *(v1 + 2031) = (*(v1 + 2031) | 0x80000000);
             if (gNRPacketLoggingEnabled == 1)
             {
-              v344 = v2[4];
-              v345 = _NRCopyLogObjectForNRUUID();
-              v346 = _NRLogIsLevelEnabled();
+              v295 = _NRCopyLogObjectForNRUUID();
+              v296 = _NRLogIsLevelEnabled();
 
-              if (v346)
+              if (v296)
               {
-                v347 = v2[4];
-                v348 = _NRCopyLogObjectForNRUUID();
-                v349 = [v2 copyDescription];
-                v591 = *(v2 + v16[534]);
-                v608 = *(v2 + 327);
-                v577 = *(v2 + v17[533]);
-                _NRLogWithArgs();
+                v297 = _NRCopyLogObjectForNRUUID();
+                v298 = [v1 copyDescription];
+                _NRLogWithArgs(v297, 1, "%s%.30s:%-4d %@: UrgentLink:memmoving the linkReadBuffer by handled=%u (filledIn=%u) thresh=%u", "", "NRLinkLinkToNexusLoopUrgent", 5537, v298, *(v1 + v12[533]), *(v1 + v11[534]), *(v1 + 327));
               }
             }
 
-            v289 = *(v2 + v17[533]);
-            memmove(*(v2 + 1463), &(*(v2 + 1463))[v289], (*(v2 + v16[534]) - v289));
-            *(v2 + v16[534]) -= *(v2 + v17[533]);
-            goto LABEL_413;
+            v255 = *(v1 + v12[533]);
+            memmove(*(v1 + 1463), &(*(v1 + 1463))[v255], (*(v1 + v11[534]) - v255));
+            *(v1 + v11[534]) -= *(v1 + v12[533]);
+            goto LABEL_410;
           }
 
-          v301 = *(v2 + 2031);
-          if (v288)
+          v262 = *(v1 + 2031);
+          if (v254)
           {
-            *(v2 + 2031) = (v301 | &_mh_execute_header);
+            *(v1 + 2031) = (v262 | &_mh_execute_header);
             if (gNRPacketLoggingEnabled == 1)
             {
-              v302 = v2[4];
-              v303 = _NRCopyLogObjectForNRUUID();
-              v304 = _NRLogIsLevelEnabled();
+              v263 = _NRCopyLogObjectForNRUUID();
+              v264 = _NRLogIsLevelEnabled();
 
-              if (v304)
+              if (v264)
               {
-                goto LABEL_435;
+                v265 = _NRCopyLogObjectForNRUUID();
+                v266 = [v1 copyDescription];
+                _NRLogWithArgs(v265, 1, "%s%.30s:%-4d %@: UrgentLink:not memmoving the linkReadBuffer thresh handled=%u filledIn=%u thresh=%u", "", "NRLinkLinkToNexusLoopUrgent", 5547, v266, *(v1 + v12[533]), *(v1 + v11[534]), *(v1 + 327));
+                goto LABEL_433;
               }
             }
           }
 
           else
           {
-            *(v2 + 2031) = (v301 | 0x200000000);
+            *(v1 + 2031) = (v262 | 0x200000000);
             if (gNRPacketLoggingEnabled == 1)
             {
-              v305 = v2[4];
-              v306 = _NRCopyLogObjectForNRUUID();
-              v307 = _NRLogIsLevelEnabled();
+              v267 = _NRCopyLogObjectForNRUUID();
+              v268 = _NRLogIsLevelEnabled();
 
-              if (v307)
+              if (v268)
               {
-LABEL_435:
-                v308 = v2[4];
-                v309 = _NRCopyLogObjectForNRUUID();
-                v310 = [v2 copyDescription];
-                v587 = *(v2 + v16[534]);
-                v606 = *(v2 + 327);
-                v576 = *(v2 + v17[533]);
-                _NRLogWithArgs();
+                v265 = _NRCopyLogObjectForNRUUID();
+                v266 = [v1 copyDescription];
+                _NRLogWithArgs(v265, 1, "%s%.30s:%-4d %@: UrgentLink:not memmoving the linkReadBuffer zero handled=%u filledIn=%u thresh=%u", "", "NRLinkLinkToNexusLoopUrgent", 5553, v266, *(v1 + v12[533]), *(v1 + v11[534]), *(v1 + 327));
+LABEL_433:
               }
             }
           }
         }
 
-        *(v2 + 2031) = (*(v2 + 2031) | 0x800000000);
+        *(v1 + 2031) = (*(v1 + 2031) | 0x800000000);
         if (gNRPacketLoggingEnabled == 1)
         {
-          v314 = v2[4];
-          v315 = _NRCopyLogObjectForNRUUID();
-          v316 = _NRLogIsLevelEnabled();
+          v273 = _NRCopyLogObjectForNRUUID();
+          v274 = _NRLogIsLevelEnabled();
 
-          if (v316)
+          if (v274)
           {
-            v317 = v2[4];
-            v318 = _NRCopyLogObjectForNRUUID();
-            v588 = [v2 copyDescription];
-            _NRLogWithArgs();
+            v275 = _NRCopyLogObjectForNRUUID();
+            v276 = [v1 copyDescription];
+            _NRLogWithArgs(v275, 1, "%s%.30s:%-4d %@: UrgentLink:advancing past linkInputSlot=%p and syncing urgent link input", "", "NRLinkLinkToNexusLoopUrgent", 5565, v276, *(&v612 + 1));
           }
         }
 
         if (gNRPacketLoggingEnabled == 1)
         {
-          v319 = +[NSDate date];
-          v320 = *(v2 + 1855);
-          *(v2 + 1855) = v319;
+          v277 = +[NSDate date];
+          v278 = *(v1 + 1855);
+          *(v1 + 1855) = v277;
         }
 
-        v290 = *(v2 + v10[527]);
         os_channel_advance_slot();
-        v291 = *(v2 + 1207);
         os_channel_sync();
-        ++*(v2 + 1599);
+        ++*(v1 + 1599);
         if (gNRPacketLoggingEnabled == 1)
         {
-          v321 = v2[4];
-          v322 = _NRCopyLogObjectForNRUUID();
-          v323 = _NRLogIsLevelEnabled();
+          v279 = _NRCopyLogObjectForNRUUID();
+          v280 = _NRLogIsLevelEnabled();
 
-          if (v323)
+          if (v280)
           {
-            v324 = v2[4];
-            v325 = _NRCopyLogObjectForNRUUID();
-            v623 = [v2 copyDescription];
-            _NRLogWithArgs();
+            v281 = _NRCopyLogObjectForNRUUID();
+            v282 = [v1 copyDescription];
+            _NRLogWithArgs(v281, 1, "%s%.30s:%-4d %@: UrgentLink:read from urgent pipe", "", "NRLinkLinkToNexusLoopUrgent", 5570, v282);
           }
         }
       }
 
-      if (v644)
+      if (v612)
       {
-        if (*(v2 + 775))
+        if (*(v1 + 775))
         {
-          *(v2 + 2031) = (*(v2 + 2031) | 0x1000000000);
+          *(v1 + 2031) = (*(v1 + 2031) | 0x1000000000);
           if (gNRPacketLoggingEnabled == 1)
           {
-            v326 = v2[4];
-            v327 = _NRCopyLogObjectForNRUUID();
-            v328 = _NRLogIsLevelEnabled();
+            v283 = _NRCopyLogObjectForNRUUID();
+            v284 = _NRLogIsLevelEnabled();
 
-            if (v328)
+            if (v284)
             {
-              v329 = v2[4];
-              v330 = _NRCopyLogObjectForNRUUID();
-              v589 = [v2 copyDescription];
-              _NRLogWithArgs();
+              v285 = _NRCopyLogObjectForNRUUID();
+              v286 = [v1 copyDescription];
+              _NRLogWithArgs(v285, 1, "%s%.30s:%-4d %@: UrgentLink:advancing past nexusVIOutputSlot=%p and syncing nexus VI output", "", "NRLinkLinkToNexusLoopUrgent", 5577, v286, v612);
             }
           }
 
           if (gNRPacketLoggingEnabled == 1)
           {
-            v331 = +[NSDate date];
-            v332 = *(v2 + 1815);
-            *(v2 + 1815) = v331;
+            v287 = +[NSDate date];
+            v288 = *(v1 + 1815);
+            *(v1 + 1815) = v287;
           }
 
-          v292 = *(v2 + 775);
           os_channel_advance_slot();
-          v293 = *(v2 + 759);
           os_channel_sync();
-          ++*(v2 + 855);
+          ++*(v1 + 855);
           if (gNRPacketLoggingEnabled == 1)
           {
-            v333 = v2[4];
-            v334 = _NRCopyLogObjectForNRUUID();
-            v335 = _NRLogIsLevelEnabled();
+            v289 = _NRCopyLogObjectForNRUUID();
+            v290 = _NRLogIsLevelEnabled();
 
-            if (v335)
+            if (v290)
             {
-LABEL_445:
-              v336 = v2[4];
-              v337 = _NRCopyLogObjectForNRUUID();
-              v338 = [v2 copyDescription];
-              _NRLogWithArgs();
+              v271 = _NRCopyLogObjectForNRUUID();
+              v272 = [v1 copyDescription];
+              _NRLogWithArgs(v271, 1, "%s%.30s:%-4d %@: UrgentLink:read from urgent pipe: %llu packets, %llu bytes", "", "NRLinkLinkToNexusLoopUrgent", 5582, v272, v607, v606);
+LABEL_444:
             }
           }
         }
 
         else
         {
-          v311 = v2[4];
-          v312 = _NRCopyLogObjectForNRUUID();
-          v313 = _NRLogIsLevelEnabled();
+          v269 = _NRCopyLogObjectForNRUUID();
+          v270 = _NRLogIsLevelEnabled();
 
-          if (v313)
+          if (v270)
           {
-            goto LABEL_445;
+            v271 = _NRCopyLogObjectForNRUUID();
+            v272 = [v1 copyDescription];
+            _NRLogWithArgs(v271, 17, "%@: Tried to sync nexus output but _nexusOutputRing is NULL", v272);
+            goto LABEL_444;
           }
         }
       }
 
-      if (*(v2 + 2031) && *(v2 + 2039))
+      if (*(v1 + 2031) && *(v1 + 2039))
       {
-        *(v2 + 300) %= *(v2 + 299);
-        v294 = *(v2 + 2039);
-        v295 = (v294 + 8 * *(v2 + 300));
-        if ((v295 + 1) <= v294 + 8 * *(v2 + 299))
+        *(v1 + 300) %= *(v1 + 299);
+        v256 = *(v1 + 2039);
+        v257 = (v256 + 8 * *(v1 + 300));
+        if ((v257 + 1) <= v256 + 8 * *(v1 + 299))
         {
-          if ((v295 & 7) == 0)
+          if ((v257 & 7) == 0)
           {
-            *v295 = *(v2 + 2031);
-            ++*(v2 + 300);
-            *(v2 + 2031) = 0;
+            *v257 = *(v1 + 2031);
+            ++*(v1 + 300);
+            *(v1 + 2031) = 0;
           }
         }
 
         else
         {
-          v296 = v2[4];
-          v297 = _NRCopyLogObjectForNRUUID();
-          v298 = _NRLogIsLevelEnabled();
+          v258 = _NRCopyLogObjectForNRUUID();
+          v259 = _NRLogIsLevelEnabled();
 
-          if (v298)
+          if (v259)
           {
-            v299 = v2[4];
-            v300 = _NRCopyLogObjectForNRUUID();
-            v605 = [v2 copyDescription];
-            v622 = *(v2 + 300);
-            _NRLogWithArgs();
+            v260 = _NRCopyLogObjectForNRUUID();
+            v261 = [v1 copyDescription];
+            _NRLogWithArgs(v260, 17, "%@: invalid index for link log list (curIdx: %u)", v261, *(v1 + 300));
           }
         }
       }
 
-      v15 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-      *(v2 + 266) = v651 & 1;
-      if (v644 == 0)
+      v10 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+      *(v1 + 266) = v619 & 1;
+      if (v612 != 0)
       {
-        if (gNRPacketLoggingEnabled != 1)
-        {
-          goto LABEL_466;
-        }
+        continue;
+      }
 
-        v393 = v2[4];
-        v394 = _NRCopyLogObjectForNRUUID();
-        v395 = _NRLogIsLevelEnabled();
-
-        if (!v395)
-        {
-          goto LABEL_466;
-        }
-
-        v396 = v2[4];
-        StringFromNRTLVType = _NRCopyLogObjectForNRUUID();
-        IOVecStringWithContents = [v2 copyDescription];
-LABEL_5:
-        _NRLogWithArgs();
-LABEL_464:
-
+      if (gNRPacketLoggingEnabled != 1)
+      {
         goto LABEL_465;
       }
 
-      continue;
+      v343 = _NRCopyLogObjectForNRUUID();
+      v344 = _NRLogIsLevelEnabled();
+
+      if (!v344)
+      {
+        goto LABEL_465;
+      }
+
+      StringFromNRTLVType = _NRCopyLogObjectForNRUUID();
+      IOVecStringWithContents = [v1 copyDescription];
+      _NRLogWithArgs(StringFromNRTLVType, 1, "%s%.30s:%-4d %@: UrgentLink:out of LtN-U outer loop", "", "NRLinkLinkToNexusLoopUrgent", 5601, IOVecStringWithContents);
+LABEL_463:
+
+      goto LABEL_464;
     }
 
     break;
   }
 
-  v10 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-  v170 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-  if (v643 > v642)
+  v153 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+  if (v611 > v610)
   {
     if (gNRPacketLoggingEnabled == 1)
     {
-      v248 = v169;
-      v249 = v2[4];
-      v250 = _NRCopyLogObjectForNRUUID();
-      v251 = _NRLogIsLevelEnabled();
+      v223 = v152;
+      v224 = _NRCopyLogObjectForNRUUID();
+      v225 = _NRLogIsLevelEnabled();
 
-      v169 = v248;
-      v170 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-      if (v251)
+      v152 = v223;
+      v153 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+      if (v225)
       {
-        v252 = v2[4];
-        v253 = _NRCopyLogObjectForNRUUID();
-        v254 = [v2 copyDescription];
-        v583 = *(v2 + 383);
-        v602 = *(v2 + 379);
-        _NRLogWithArgs();
+        v226 = _NRCopyLogObjectForNRUUID();
+        v227 = [v1 copyDescription];
+        _NRLogWithArgs(v226, 1, "%s%.30s:%-4d %@: UrgentLink:Advancing linkReadBuffer handled by %u handled=%u filledIn=%u", "", "NRLinkLinkToNexusLoopUrgent", 5404, v227, DWORD2(v643), *(v1 + 383), *(v1 + 379));
 
-        v169 = v248;
-        v170 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+        v152 = v223;
+        v153 = &OBJC_IVAR___BTPResolver__sdRefResolve;
       }
     }
 
-    *(v2 + 383) += DWORD2(v675);
-    v18 = v656;
+    *(v1 + 383) += DWORD2(v643);
+    v13 = v624;
   }
 
-  if (v645 > 99)
+  if (v613 > 99)
   {
-    if (v645 <= 102)
+    if (v613 <= 102)
     {
-      if (v645 == 100)
+      if (v613 == 100)
       {
-        v171 = &OBJC_IVAR___NRLinkBluetooth__recvKnownIPv6Hdr_ESP;
+        v154 = &OBJC_IVAR___NRLinkBluetooth__recvKnownIPv6Hdr_ESP;
       }
 
-      else if (v645 == 101)
+      else if (v613 == 101)
       {
-        v171 = &OBJC_IVAR___NRLinkBluetooth__recvKnownIPv6Hdr_ESP_ECT0;
+        v154 = &OBJC_IVAR___NRLinkBluetooth__recvKnownIPv6Hdr_ESP_ECT0;
       }
 
       else
       {
-        v171 = &OBJC_IVAR___NRLinkBluetooth__recvKnownIPv6Hdr_TCP;
+        v154 = &OBJC_IVAR___NRLinkBluetooth__recvKnownIPv6Hdr_TCP;
       }
 
-LABEL_303:
-      ++*(v2 + *v171);
-      v203 = v169;
-      if (*(v2 + 311))
+LABEL_301:
+      ++*(v1 + *v154);
+      v183 = v152;
+      if (*(v1 + 311))
       {
-        *v659 = 503316480;
-        v204 = *(v2 + 311);
+        *v627 = 503316480;
       }
 
-      v205 = nrTLVToPacket();
-      if (v205)
+      v184 = v620;
+      v185 = nrTLVToPacket();
+      if (v185)
       {
-        v206 = v205;
-        *(v2 + v654) = (*(v2 + v654) | 0x8000000);
-        WORD1(v658) = *(v2 + 311) + v205;
+        v186 = v185;
+        *(v1 + v622) = (*(v1 + v622) | 0x8000000);
+        WORD1(v626) = *(v1 + 311) + v185;
         if (gNRPacketLoggingEnabled == 1)
         {
-          getESPSequenceNumberFromPacket();
-          v187 = v203;
+          ESPSequenceNumberFromPacket = getESPSequenceNumberFromPacket();
+          v168 = v183;
           if (gNRPacketLoggingEnabled)
           {
             getESPSPIFromPacket();
             if (gNRPacketLoggingEnabled)
             {
-              v255 = *(v655 + 4);
-              v256 = _NRCopyLogObjectForNRUUID();
-              v257 = _NRLogIsLevelEnabled();
+              v228 = _NRCopyLogObjectForNRUUID();
+              v229 = _NRLogIsLevelEnabled();
 
-              v2 = v655;
-              if (v257)
+              v1 = v623;
+              if (v229)
               {
-                v258 = *(v655 + 4);
-                v259 = _NRCopyLogObjectForNRUUID();
-                v584 = [v2 copyDescription];
-                _NRLogWithArgs();
+                v230 = _NRCopyLogObjectForNRUUID();
+                v231 = [v1 copyDescription];
+                _NRLogWithArgs(v230, 1, "%s%.30s:%-4d %@: UrgentLink:Received ESP sequence number: %u", "", "NRLinkLinkToNexusLoopUrgent", 5463, v231, ESPSequenceNumberFromPacket);
               }
-
-              v10 = &OBJC_IVAR___BTPResolver__sdRefResolve;
             }
 
             else
             {
-              v2 = v655;
+              v1 = v623;
             }
 
-            v18 = v656;
+            v13 = v624;
           }
         }
 
         else
         {
-          v187 = v203;
+          ESPSequenceNumberFromPacket = 0;
+          v168 = v183;
         }
 
-        v207 = *(v2 + 775);
         packet = os_channel_slot_get_packet();
-        if (v651)
+        if (v619)
         {
-          memset(v674, 0, sizeof(v674));
-          v673 = 1;
+          memset(v642, 0, sizeof(v642));
+          v641 = 1;
           if (packet)
           {
             os_packet_set_flow_uuid();
-            *(v2 + v654) = (*(v2 + v654) | 0x10000000);
+            *(v1 + v622) = (*(v1 + v622) | 0x10000000);
             if (gNRPacketLoggingEnabled == 1)
             {
-              v260 = v2[4];
-              v261 = _NRCopyLogObjectForNRUUID();
-              v262 = _NRLogIsLevelEnabled();
+              v232 = _NRCopyLogObjectForNRUUID();
+              v233 = _NRLogIsLevelEnabled();
 
-              if (v262)
+              if (v233)
               {
-                v263 = v2[4];
-                v264 = _NRCopyLogObjectForNRUUID();
-                v585 = [v2 copyDescription];
-                _NRLogWithArgs();
+                v234 = _NRCopyLogObjectForNRUUID();
+                v235 = [v1 copyDescription];
+                _NRLogWithArgs(v234, 1, "%s%.30s:%-4d %@: UrgentLink:Set waking metadata for packet w/ ESP sequence number: %u", "", "NRLinkLinkToNexusLoopUrgent", 5471, v235, ESPSequenceNumberFromPacket);
               }
             }
           }
 
-          ESPSequenceNumberFromPacket = getESPSequenceNumberFromPacket();
+          v189 = getESPSequenceNumberFromPacket();
           ESPSPIFromPacket = getESPSPIFromPacket();
           if (qword_100229268 != -1)
           {
             dispatch_once(&qword_100229268, &stru_1001FC3A0);
           }
 
-          v211 = qword_100229260;
-          v668 = _NSConcreteStackBlock;
-          v669 = 3221225472;
-          v670 = sub_1000922D0;
-          v671 = &unk_1001FCDD8;
-          v672 = __PAIR64__(ESPSequenceNumberFromPacket, ESPSPIFromPacket);
-          dispatch_async(v211, &v668);
+          v191 = qword_100229260;
+          v636 = _NSConcreteStackBlock;
+          v637 = 3221225472;
+          v638 = sub_1000922D0;
+          v639 = &unk_1001FCDD8;
+          v640 = __PAIR64__(v189, ESPSPIFromPacket);
+          dispatch_async(v191, &v636);
 
-          v10 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-          v18 = v656;
+          v13 = v624;
         }
 
         else if (packet)
@@ -6119,300 +6010,280 @@ LABEL_303:
           os_packet_clear_flow_uuid();
         }
 
-        v219 = *(v2 + 775);
         os_channel_set_slot_properties();
-        LODWORD(v651) = 0;
-        ++*(v2 + 871);
-        *(v2 + 887) += v206;
-        v638 += v206;
-        ++v639;
-        goto LABEL_320;
+        LODWORD(v619) = 0;
+        ++*(v1 + 871);
+        *(v1 + 887) += v186;
+        v606 += v186;
+        ++v607;
+        goto LABEL_318;
       }
 
-      v212 = v2[4];
-      v213 = _NRCopyLogObjectForNRUUID();
-      v214 = _NRLogIsLevelEnabled();
+      v192 = _NRCopyLogObjectForNRUUID();
+      v193 = _NRLogIsLevelEnabled();
 
-      if (v214)
+      if (v193)
       {
-        v215 = v2[4];
-        v216 = _NRCopyLogObjectForNRUUID();
-        v217 = [v2 copyDescription];
-        v218 = createStringFromNRTLVType();
-        _NRLogWithArgs();
+        v194 = _NRCopyLogObjectForNRUUID();
+        v195 = [v1 copyDescription];
+        v196 = createStringFromNRTLVType();
+        _NRLogWithArgs(v194, 17, "%@: failed to reinject %@ tlvLen=%u slotLen=%u", v195, v196, v184, WORD1(v626));
 
-        v18 = v656;
+        v13 = v624;
       }
 
-      v187 = v644;
-      v170 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-LABEL_321:
-      *(v2 + v654) = (*(v2 + v654) | 0x40000000);
-      if (*(v2 + 2031) && *(v2 + v170[530]))
+      v168 = v612;
+      v153 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+LABEL_319:
+      *(v1 + v622) = (*(v1 + v622) | 0x40000000);
+      if (*(v1 + 2031) && *(v1 + v153[530]))
       {
-        *(v2 + 300) %= *(v2 + 299);
-        v220 = *(v2 + v170[530]);
-        v221 = (v220 + 8 * *(v2 + 300));
-        if ((v221 + 1) <= v220 + 8 * *(v2 + 299))
+        *(v1 + 300) %= *(v1 + 299);
+        v197 = *(v1 + v153[530]);
+        v198 = (v197 + 8 * *(v1 + 300));
+        if ((v198 + 1) <= v197 + 8 * *(v1 + 299))
         {
-          if ((v221 & 7) == 0)
+          if ((v198 & 7) == 0)
           {
-            *v221 = *(v2 + 2031);
-            ++*(v2 + 300);
-            *(v2 + 2031) = 0;
+            *v198 = *(v1 + 2031);
+            ++*(v1 + 300);
+            *(v1 + 2031) = 0;
           }
         }
 
         else
         {
-          v222 = v2[4];
-          v223 = _NRCopyLogObjectForNRUUID();
-          v224 = _NRLogIsLevelEnabled();
+          v199 = _NRCopyLogObjectForNRUUID();
+          v200 = _NRLogIsLevelEnabled();
 
-          if (v224)
+          if (v200)
           {
-            v225 = v2[4];
-            v226 = _NRCopyLogObjectForNRUUID();
-            v601 = [v2 copyDescription];
-            v617 = *(v2 + 300);
-            _NRLogWithArgs();
+            v201 = _NRCopyLogObjectForNRUUID();
+            v202 = [v1 copyDescription];
+            _NRLogWithArgs(v201, 17, "%@: invalid index for link log list (curIdx: %u)", v202, *(v1 + 300));
           }
         }
       }
 
-      *&v644 = v187;
-      v17 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-      goto LABEL_16;
+      *&v612 = v168;
+      v12 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+      goto LABEL_15;
     }
 
-    switch(v645)
+    switch(v613)
     {
       case 'g':
-        v171 = &OBJC_IVAR___NRLinkBluetooth__recvKnownIPv6Hdr_TCP_ECT0;
-        goto LABEL_303;
+        v154 = &OBJC_IVAR___NRLinkBluetooth__recvKnownIPv6Hdr_TCP_ECT0;
+        goto LABEL_301;
       case 'h':
-        v171 = &OBJC_IVAR___NRLinkBluetooth__recvKnownIPv6Hdr_ESP_ClassC;
-        goto LABEL_303;
+        v154 = &OBJC_IVAR___NRLinkBluetooth__recvKnownIPv6Hdr_ESP_ClassC;
+        goto LABEL_301;
       case 'i':
-        v171 = &OBJC_IVAR___NRLinkBluetooth__recvKnownIPv6Hdr_ESP_ClassC_ECT0;
-        goto LABEL_303;
+        v154 = &OBJC_IVAR___NRLinkBluetooth__recvKnownIPv6Hdr_ESP_ClassC_ECT0;
+        goto LABEL_301;
     }
 
-LABEL_280:
-    v187 = v644;
-    goto LABEL_321;
+LABEL_278:
+    v168 = v612;
+    goto LABEL_319;
   }
 
-  if (v645 <= 2)
+  if (v613 <= 2)
   {
-    if (v645 == 1)
+    if (v613 == 1)
     {
-      v188 = v2[4];
-      v189 = _NRCopyLogObjectForNRUUID();
-      v190 = _NRLogIsLevelEnabled();
+      v169 = _NRCopyLogObjectForNRUUID();
+      v170 = _NRLogIsLevelEnabled();
 
-      if (v190)
+      if (v170)
       {
-        v191 = v2[4];
-        v192 = _NRCopyLogObjectForNRUUID();
-        v582 = [v2 copyDescription];
-        _NRLogWithArgs();
+        v171 = _NRCopyLogObjectForNRUUID();
+        v172 = [v1 copyDescription];
+        _NRLogWithArgs(v171, 1, "%s%.30s:%-4d %@: Handling PadN %u", "", "NRLinkLinkToNexusLoopUrgent", 5433, v172, v620);
       }
 
-      v187 = v644;
-LABEL_320:
-      v170 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-      goto LABEL_321;
+      v168 = v612;
+LABEL_318:
+      v153 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+      goto LABEL_319;
     }
 
-    v171 = &OBJC_IVAR___NRLinkBluetooth__recvUncompressedIP;
-    if (v645 == 2)
+    v154 = &OBJC_IVAR___NRLinkBluetooth__recvUncompressedIP;
+    if (v613 == 2)
     {
-      goto LABEL_303;
+      goto LABEL_301;
     }
 
-    goto LABEL_280;
+    goto LABEL_278;
   }
 
-  if (v645 == 3)
+  if (v613 == 3)
   {
-    v171 = &OBJC_IVAR___NRLinkBluetooth__recvEncapsulated6LoWPAN;
-    goto LABEL_303;
+    v154 = &OBJC_IVAR___NRLinkBluetooth__recvEncapsulated6LoWPAN;
+    goto LABEL_301;
   }
 
-  if (v645 == 4)
+  if (v613 == 4)
   {
-    v193 = v652;
-    if (!v652)
+    v173 = v620;
+    if (!v620)
     {
-      v228 = objc_alloc_init(NSData);
-LABEL_331:
-      v229 = v654;
-      v10 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-      v170 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-      if (v651)
+      v204 = objc_alloc_init(NSData);
+LABEL_329:
+      v205 = v622;
+      v153 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+      if (v619)
       {
-        [v228 bytes];
-        [v228 length];
+        [v204 bytes];
+        [v204 length];
         if (qword_100229268 != -1)
         {
           dispatch_once(&qword_100229268, &stru_1001FC3A0);
         }
 
-        v230 = qword_100229260;
-        v668 = _NSConcreteStackBlock;
-        v669 = 3221225472;
-        v670 = sub_1000922D0;
-        v671 = &unk_1001FCDD8;
-        v672 = 0;
-        dispatch_async(v230, &v668);
+        v206 = qword_100229260;
+        v636 = _NSConcreteStackBlock;
+        v637 = 3221225472;
+        v638 = sub_1000922D0;
+        v639 = &unk_1001FCDD8;
+        v640 = 0;
+        dispatch_async(v206, &v636);
 
-        v170 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+        v153 = &OBJC_IVAR___BTPResolver__sdRefResolve;
       }
 
-      *(v2 + v229) = (*(v2 + v229) | 0x20000000);
-      sub_100094EDC(v2, v228);
+      *(v1 + v205) = (*(v1 + v205) | 0x20000000);
+      sub_100094EDC(v1, v204);
 
-      LODWORD(v651) = 0;
-      v187 = v644;
-      v18 = v656;
-      goto LABEL_321;
+      LODWORD(v619) = 0;
+      v168 = v612;
+      v13 = v624;
+      goto LABEL_319;
     }
 
-    v194 = malloc_type_malloc(v649, 0x87367FC4uLL);
-    if (!v194)
+    v174 = malloc_type_malloc(v617, 0x87367FC4uLL);
+    if (!v174)
     {
-      v565 = sub_10007CF34();
-      v566 = _NRLogIsLevelEnabled();
+      v590 = sub_10007CF34();
+      v591 = _NRLogIsLevelEnabled();
 
-      v399 = "createNSDataFromTLVIOVec";
-      if (v566)
+      v347 = "createNSDataFromTLVIOVec";
+      if (v591)
       {
-        v567 = sub_10007CF34();
-        _NRLogWithArgs();
+        v592 = sub_10007CF34();
+        _NRLogWithArgs(v592, 16, "%s%.30s:%-4d ABORTING: strict allocator failed", "", "createNSDataFromTLVIOVec", 423);
       }
 
+      v593 = _os_log_pack_size();
+      v594 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+      v595 = *__error();
+      v352 = _os_log_pack_fill(v594, v593, v595, &_mh_execute_header, "%{public}s strict allocator failed");
       goto LABEL_472;
     }
 
-    if (!v161)
+    if (!v145)
     {
-      goto LABEL_512;
+      goto LABEL_513;
     }
 
-    v195 = v194;
-    v196 = 0;
-    v197 = v161;
-    v198 = 3;
-    v199 = v640;
+    v175 = v174;
+    v176 = 0;
+    v177 = v145;
+    v178 = 3;
+    v179 = v608;
     while (1)
     {
-      v200 = *v199;
-      if (!v198)
+      v180 = *v179;
+      if (!v178)
       {
-        goto LABEL_293;
+        goto LABEL_291;
       }
 
-      if (v198 <= v200)
+      if (v178 <= v180)
       {
         break;
       }
 
-      v198 -= v200;
-LABEL_289:
-      v199 += 4;
-      if (!--v197)
+      v178 -= v180;
+LABEL_287:
+      v179 += 4;
+      if (!--v177)
       {
-        goto LABEL_329;
+        goto LABEL_327;
       }
     }
 
-    if (v198 < v200)
+    if (v178 < v180)
     {
-LABEL_293:
-      v201 = v200 - v198;
-      if (v201 >= v193 - v196)
+LABEL_291:
+      v181 = v180 - v178;
+      if (v181 >= v173 - v176)
       {
-        v202 = v193 - v196;
+        v182 = (v173 - v176);
       }
 
       else
       {
-        v202 = v201;
+        v182 = v181;
       }
 
-      memcpy(&v195[v196], (*(v199 - 1) + v198), v202);
-      v196 += v202;
-      if (v196 >= v193)
+      memcpy(&v175[v176], (*(v179 - 1) + v178), v182);
+      v176 = (v182 + v176);
+      if (v176 >= v173)
       {
-LABEL_329:
-        if (v196 == v193)
+LABEL_327:
+        if (v176 == v173)
         {
-          v227 = [NSData alloc];
-          v228 = [v227 initWithBytesNoCopy:v195 length:v649 freeWhenDone:1];
-          v16 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-          goto LABEL_331;
+          v203 = [NSData alloc];
+          v204 = [v203 initWithBytesNoCopy:v175 length:v617 freeWhenDone:1];
+          v11 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+          goto LABEL_329;
         }
 
-        v545 = sub_10007CF34();
-        v546 = _NRLogIsLevelEnabled();
+        v553 = sub_10007CF34();
+        v554 = _NRLogIsLevelEnabled();
 
-        if (v546)
+        if (v554)
         {
-          v547 = sub_10007CF34();
-          v613 = createIOVecString();
-          _NRLogWithArgs();
+          v555 = sub_10007CF34();
+          v556 = createIOVecString();
+          _NRLogWithArgs(v555, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: bytesWritten == length; bytesWritten (%u) != length (%u), offset: %u, ioVec: %@", "", "nrWriteIOVecToBuffer", 342, v176, v173, 3, v556);
         }
 
-        _os_log_pack_size();
-        __chkstk_darwin();
-        v548 = *__error();
-        v549 = _os_log_pack_fill();
-        v459 = createIOVecString();
-        v460 = v549;
-        v461 = v196;
-        v462 = v193;
-        v463 = 3;
-LABEL_521:
-        sub_100050120(v460, "nrWriteIOVecToBuffer", v461, v462, v463, v459);
+        v557 = _os_log_pack_size();
+        v558 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+        v559 = __error();
+        v560 = _os_log_pack_fill(v558, v557, *v559, &_mh_execute_header, "%{public}s Assertion Failed: bytesWritten == length; bytesWritten (%u) != length (%u), offset: %u, ioVec: %@");
+        v432 = createIOVecString();
+        v433 = v560;
+        v434 = v176;
+        v435 = v173;
+        v436 = 3;
+LABEL_522:
+        sub_100050120(v433, "nrWriteIOVecToBuffer", v434, v435, v436, v432);
 
-        goto LABEL_489;
+        goto LABEL_490;
       }
     }
 
-    v198 = 0;
-    goto LABEL_289;
+    v178 = 0;
+    goto LABEL_287;
   }
 
-  if (v645 != 5)
+  if (v613 != 5)
   {
-    goto LABEL_280;
+    goto LABEL_278;
   }
 
-  if (v161 == 1 && (DWORD2(v675) - 5) <= 0xFFFA)
+  if (v145 == 1 && (DWORD2(v643) - 5) <= 0xFFFA)
   {
-    sub_100096BD0(v2, (v675 + 3), (WORD4(v675) - 5));
-    v187 = v644;
-    goto LABEL_321;
+    sub_100096BD0(v1, (v643 + 3), (WORD4(v643) - 5));
+    v168 = v612;
+    goto LABEL_319;
   }
 
-  v231 = v652;
-  if (!v652)
-  {
-    v553 = sub_10007CF34();
-    v554 = _NRLogIsLevelEnabled();
-
-    if (v554)
-    {
-      v555 = sub_10007CF34();
-      _NRLogWithArgs();
-    }
-
-    goto LABEL_487;
-  }
-
-  v232 = malloc_type_malloc(v649, 0x2EC54791uLL);
-  if (!v232)
+  v207 = v620;
+  if (!v620)
   {
     v568 = sub_10007CF34();
     v569 = _NRLogIsLevelEnabled();
@@ -6420,363 +6291,409 @@ LABEL_521:
     if (v569)
     {
       v570 = sub_10007CF34();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v570, 16, "%s%.30s:%-4d ABORTING: strict_malloc called with size 0", "", "NRLinkLinkToNexusLoopUrgent", 5517);
     }
 
-    goto LABEL_487;
-  }
-
-  if (!v161)
-  {
-LABEL_512:
-    v445 = sub_10007CF34();
-    v446 = _NRLogIsLevelEnabled();
-
-    if (v446)
-    {
-      v447 = sub_10007CF34();
-      _NRLogWithArgs();
-    }
-
-    _os_log_pack_size();
-    __chkstk_darwin();
-    v448 = *__error();
-    v410 = _os_log_pack_fill();
-    *v410 = 136446210;
-    v411 = "nrWriteIOVecToBuffer";
+    v571 = _os_log_pack_size();
+    v572 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+    v573 = *__error();
+    v362 = _os_log_pack_fill(v572, v571, v573, &_mh_execute_header, "%{public}s strict_malloc called with size 0");
     goto LABEL_488;
   }
 
-  v233 = v232;
-  v234 = v161;
-  v650 = v636;
-  v235 = 0;
-  v236 = v231;
-  v237 = v234;
-  v238 = 3;
-  v239 = v640;
+  v208 = malloc_type_malloc(v617, 0x2EC54791uLL);
+  if (!v208)
+  {
+    v596 = sub_10007CF34();
+    v597 = _NRLogIsLevelEnabled();
+
+    if (v597)
+    {
+      v598 = sub_10007CF34();
+      _NRLogWithArgs(v598, 16, "%s%.30s:%-4d ABORTING: strict allocator failed", "", "NRLinkLinkToNexusLoopUrgent", 5517);
+    }
+
+    v599 = _os_log_pack_size();
+    v600 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+    v601 = *__error();
+    v362 = _os_log_pack_fill(v600, v599, v601, &_mh_execute_header, "%{public}s strict allocator failed");
+    goto LABEL_488;
+  }
+
+  if (!v145)
+  {
+LABEL_513:
+    v411 = sub_10007CF34();
+    v412 = _NRLogIsLevelEnabled();
+
+    if (v412)
+    {
+      v413 = sub_10007CF34();
+      _NRLogWithArgs(v413, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: numIOVecs > 0", "", "nrWriteIOVecToBuffer", 313);
+    }
+
+    v414 = _os_log_pack_size();
+    v415 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+    v416 = __error();
+    v362 = _os_log_pack_fill(v415, v414, *v416, &_mh_execute_header, "%{public}s Assertion Failed: numIOVecs > 0");
+    *v362 = 136446210;
+    v366 = "nrWriteIOVecToBuffer";
+    goto LABEL_489;
+  }
+
+  v209 = v208;
+  v210 = v145;
+  v618 = v604;
+  v211 = 0;
+  v212 = v207;
+  v213 = v210;
+  v214 = 3;
+  v215 = v608;
   while (1)
   {
-    v240 = *v239;
-    if (!v238)
+    v216 = *v215;
+    if (!v214)
     {
       break;
     }
 
-    if (v238 <= v240)
+    if (v214 <= v216)
     {
-      if (v238 >= v240)
+      if (v214 >= v216)
       {
-        v238 = 0;
-        goto LABEL_344;
+        v214 = 0;
+        goto LABEL_342;
       }
 
       break;
     }
 
-    v238 -= v240;
-LABEL_344:
-    v239 += 4;
-    if (!--v237)
+    v214 -= v216;
+LABEL_342:
+    v215 += 4;
+    if (!--v213)
     {
-      goto LABEL_355;
+      goto LABEL_353;
     }
   }
 
-  v241 = v240 - v238;
-  if (v241 >= v231 - v235)
+  v217 = v216 - v214;
+  if (v217 >= v207 - v211)
   {
-    v242 = v231 - v235;
+    v218 = v207 - v211;
   }
 
   else
   {
-    v242 = v241;
+    v218 = v217;
   }
 
-  memcpy(&v233[v235], (*(v239 - 1) + v238), v242);
-  v235 += v242;
-  if (v235 < v231)
+  memcpy(&v209[v211], (*(v215 - 1) + v214), v218);
+  v211 = (v218 + v211);
+  if (v211 < v207)
   {
-    v238 = 0;
-    v18 = v656;
-    goto LABEL_344;
+    v214 = 0;
+    v13 = v624;
+    goto LABEL_342;
   }
 
-  v18 = v656;
-LABEL_355:
-  if (v235 == v231)
+  v13 = v624;
+LABEL_353:
+  if (v211 == v207)
   {
-    sub_100096BD0(v2, v233, v231);
-    free(v233);
-    v187 = v644;
-    v10 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-    goto LABEL_320;
+    sub_100096BD0(v1, v209, v207);
+    free(v209);
+    v168 = v612;
+    goto LABEL_318;
   }
 
-  v556 = sub_10007CF34();
-  v557 = _NRLogIsLevelEnabled();
+  v574 = sub_10007CF34();
+  v575 = _NRLogIsLevelEnabled();
 
-  if (v557)
+  if (v575)
   {
-    v558 = sub_10007CF34();
-    v614 = createIOVecString();
-    _NRLogWithArgs();
+    v576 = sub_10007CF34();
+    v577 = createIOVecString();
+    _NRLogWithArgs(v576, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: bytesWritten == length; bytesWritten (%u) != length (%u), offset: %u, ioVec: %@", "", "nrWriteIOVecToBuffer", 342, v211, v212, 3, v577);
   }
 
-  _os_log_pack_size();
-  __chkstk_darwin();
-  v559 = *__error();
-  v560 = _os_log_pack_fill();
-  v561 = createIOVecString();
-  sub_100050120(v560, "nrWriteIOVecToBuffer", v235, v236, 3, v561);
+  v578 = _os_log_pack_size();
+  v579 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+  v580 = __error();
+  v581 = _os_log_pack_fill(v579, v578, *v580, &_mh_execute_header, "%{public}s Assertion Failed: bytesWritten == length; bytesWritten (%u) != length (%u), offset: %u, ioVec: %@");
+  v582 = createIOVecString();
+  sub_100050120(v581, "nrWriteIOVecToBuffer", v211, v212, 3, v582);
 
-LABEL_567:
+LABEL_571:
   sub_10007CF34();
   _NRLogAbortWithPack();
-LABEL_568:
-  v532 = sub_10007CF34();
-  v533 = _NRLogIsLevelEnabled();
+LABEL_572:
+  v530 = sub_10007CF34();
+  v531 = _NRLogIsLevelEnabled();
 
-  if (v533)
+  if (v531)
   {
-    v534 = sub_10007CF34();
-    _NRLogWithArgs();
+    v532 = sub_10007CF34();
+    _NRLogWithArgs(v532, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: numIOVecs > 1", "", "nrReadTLVLenHBOFromIOVec", 265);
   }
 
-  _os_log_pack_size();
-  __chkstk_darwin();
-  v535 = *__error();
-  v410 = _os_log_pack_fill();
-  *v410 = 136446210;
-  v411 = "nrReadTLVLenHBOFromIOVec";
-LABEL_488:
-  *(v410 + 4) = v411;
+  v533 = _os_log_pack_size();
+  v534 = v604 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+  v535 = __error();
+  v362 = _os_log_pack_fill(v534, v533, *v535, &_mh_execute_header, "%{public}s Assertion Failed: numIOVecs > 1");
+  *v362 = 136446210;
+  v366 = "nrReadTLVLenHBOFromIOVec";
 LABEL_489:
+  *(v362 + 4) = v366;
+LABEL_490:
   sub_10007CF34();
   _NRLogAbortWithPack();
-LABEL_490:
-  v649 = v42;
-  v652 = v41;
 LABEL_491:
+  v617 = v32;
+  v620 = v31;
+LABEL_492:
   StringFromNRTLVType = createIOVecStringWithContents();
-  sub_100080EB4(v2, @"LtN not enough ioVecs %@ for %u", v412, v413, v414, v415, v416, v417, StringFromNRTLVType);
-LABEL_465:
+  sub_100080EB4(v1, @"LtN not enough ioVecs %@ for %u", v367, v368, v369, v370, v371, v372, StringFromNRTLVType);
+LABEL_464:
 
-LABEL_466:
+LABEL_465:
 }
 
 void sub_1000A7C10(void *a1, uint64_t a2)
 {
+  v313 = a2;
   v2 = a1;
   v3 = v2;
-  if (*(v2 + 16) == 255)
+  if (v2[16] == 255)
   {
-    v7 = v2[4];
     v8 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
-    if (!IsLevelEnabled)
+    if (IsLevelEnabled)
     {
-      goto LABEL_272;
+      v6 = _NRCopyLogObjectForNRUUID();
+      v7 = [v3 copyDescription];
+      _NRLogWithArgs(v6, 16, "%s%.30s:%-4d %@: nexusToLinkLoopUrgent but cancelled", "", "NRLinkNexusToLinkLoopUrgent", 3511, v7);
+      goto LABEL_14;
     }
 
-    goto LABEL_13;
+    goto LABEL_275;
   }
 
   if (!*(v2 + 1199))
   {
-    sub_10007D9C4(v2, a2);
-    goto LABEL_272;
+    sub_10007D9C4(v2, v313);
+    goto LABEL_275;
   }
 
   if (!*(v2 + 1223))
   {
-    if (*(v2 + 293))
+    if ((v2[293] & 1) == 0)
     {
-      goto LABEL_272;
+      v10 = _NRCopyLogObjectForNRUUID();
+      v11 = _NRLogIsLevelEnabled();
+
+      if (v11)
+      {
+        v6 = _NRCopyLogObjectForNRUUID();
+        v7 = [v3 copyDescription];
+        _NRLogWithArgs(v6, 17, "%@: Tried to nexusToLinkLoop but _urgentLinkOutputRing is NULL", v7);
+        goto LABEL_14;
+      }
     }
 
-    v10 = v2[4];
-    v11 = _NRCopyLogObjectForNRUUID();
-    v12 = _NRLogIsLevelEnabled();
-
-    if (!v12)
-    {
-      goto LABEL_272;
-    }
-
-LABEL_13:
-    v13 = *(v3 + 32);
-    v14 = _NRCopyLogObjectForNRUUID();
-    v15 = [v3 copyDescription];
-    goto LABEL_14;
+    goto LABEL_275;
   }
 
-  v352 = *(v2 + 599);
-  if (v352 == a2)
+  v312 = *(v2 + 599);
+  if (v312 == v313)
   {
-    v348 = sub_100080F38;
-    v343 = sub_1000813E8;
-    if (gNRPacketLoggingEnabled != 1 || (v263 = v2[4], v264 = _NRCopyLogObjectForNRUUID(), v265 = _NRLogIsLevelEnabled(), v264, v348 = sub_100080F38, v343 = sub_1000813E8, !v265))
+    v308 = sub_100080F38;
+    v303 = sub_1000813E8;
+    if (gNRPacketLoggingEnabled != 1 || (v255 = _NRCopyLogObjectForNRUUID(), v256 = _NRLogIsLevelEnabled(), v255, v308 = sub_100080F38, v303 = sub_1000813E8, !v256))
     {
-      v16 = &OBJC_IVAR___NRLinkBluetooth__nexusVOInputRing;
-      v17 = &OBJC_IVAR___NRLinkBluetooth__packetsFromNexusVO;
-      v18 = &OBJC_IVAR___NRLinkBluetooth__bytesFromNexusVO;
-      v19 = &OBJC_IVAR___NRLinkBluetooth__syncNexusVOInput;
+      v12 = &OBJC_IVAR___NRLinkBluetooth__nexusVOInputRing;
+      v13 = &OBJC_IVAR___NRLinkBluetooth__packetsFromNexusVO;
+      v14 = &OBJC_IVAR___NRLinkBluetooth__bytesFromNexusVO;
+      v15 = &OBJC_IVAR___NRLinkBluetooth__syncNexusVOInput;
       goto LABEL_19;
     }
 
-    v266 = *(v3 + 32);
-    v267 = _NRCopyLogObjectForNRUUID();
-    v268 = [v3 copyDescription];
-    _NRLogWithArgs();
-    v16 = &OBJC_IVAR___NRLinkBluetooth__nexusVOInputRing;
-    v17 = &OBJC_IVAR___NRLinkBluetooth__packetsFromNexusVO;
-    v18 = &OBJC_IVAR___NRLinkBluetooth__bytesFromNexusVO;
-    v19 = &OBJC_IVAR___NRLinkBluetooth__syncNexusVOInput;
-    v348 = sub_100080F38;
-    v269 = sub_1000813E8;
+    v257 = _NRCopyLogObjectForNRUUID();
+    v258 = [v3 copyDescription];
+    _NRLogWithArgs(v257, 1, "%s%.30s:%-4d %@: UrgentLink:Serving voice channel", "", "NRLinkNexusToLinkLoopUrgent", 3542, v258);
+    v12 = &OBJC_IVAR___NRLinkBluetooth__nexusVOInputRing;
+    v13 = &OBJC_IVAR___NRLinkBluetooth__packetsFromNexusVO;
+    v14 = &OBJC_IVAR___NRLinkBluetooth__bytesFromNexusVO;
+    v15 = &OBJC_IVAR___NRLinkBluetooth__syncNexusVOInput;
+    v308 = sub_100080F38;
+    v259 = sub_1000813E8;
   }
 
   else
   {
-    if (*(v2 + 759) != a2)
+    if (*(v2 + 759) != v313)
     {
-      v4 = v2[4];
-      v5 = _NRCopyLogObjectForNRUUID();
-      v6 = _NRLogIsLevelEnabled();
+      v4 = _NRCopyLogObjectForNRUUID();
+      v5 = _NRLogIsLevelEnabled();
 
-      if (!v6)
+      if (v5)
       {
-        goto LABEL_272;
+        v6 = _NRCopyLogObjectForNRUUID();
+        v7 = [v3 copyDescription];
+        _NRLogWithArgs(v6, 17, "%@: channel %p not eligible for urgent link", v7, v313);
+        goto LABEL_14;
       }
 
-      goto LABEL_13;
+      goto LABEL_275;
     }
 
-    v348 = sub_100081064;
-    v343 = sub_100081514;
-    if (gNRPacketLoggingEnabled != 1 || (v280 = v2[4], v281 = _NRCopyLogObjectForNRUUID(), v282 = _NRLogIsLevelEnabled(), v281, v348 = sub_100081064, v343 = sub_100081514, !v282))
+    v308 = sub_100081064;
+    v303 = sub_100081514;
+    if (gNRPacketLoggingEnabled != 1 || (v270 = _NRCopyLogObjectForNRUUID(), v271 = _NRLogIsLevelEnabled(), v270, v308 = sub_100081064, v303 = sub_100081514, !v271))
     {
-      v16 = &OBJC_IVAR___NRLinkBluetooth__nexusVIInputRing;
-      v17 = &OBJC_IVAR___NRLinkBluetooth__packetsFromNexusVI;
-      v18 = &OBJC_IVAR___NRLinkBluetooth__bytesFromNexusVI;
-      v19 = &OBJC_IVAR___NRLinkBluetooth__syncNexusVIInput;
+      v12 = &OBJC_IVAR___NRLinkBluetooth__nexusVIInputRing;
+      v13 = &OBJC_IVAR___NRLinkBluetooth__packetsFromNexusVI;
+      v14 = &OBJC_IVAR___NRLinkBluetooth__bytesFromNexusVI;
+      v15 = &OBJC_IVAR___NRLinkBluetooth__syncNexusVIInput;
       goto LABEL_19;
     }
 
-    v283 = *(v3 + 32);
-    v267 = _NRCopyLogObjectForNRUUID();
-    v268 = [v3 copyDescription];
-    _NRLogWithArgs();
-    v16 = &OBJC_IVAR___NRLinkBluetooth__nexusVIInputRing;
-    v17 = &OBJC_IVAR___NRLinkBluetooth__packetsFromNexusVI;
-    v18 = &OBJC_IVAR___NRLinkBluetooth__bytesFromNexusVI;
-    v19 = &OBJC_IVAR___NRLinkBluetooth__syncNexusVIInput;
-    v348 = sub_100081064;
-    v269 = sub_100081514;
+    v257 = _NRCopyLogObjectForNRUUID();
+    v258 = [v3 copyDescription];
+    _NRLogWithArgs(v257, 1, "%s%.30s:%-4d %@: UrgentLink:Serving video channel", "", "NRLinkNexusToLinkLoopUrgent", 3553, v258);
+    v12 = &OBJC_IVAR___NRLinkBluetooth__nexusVIInputRing;
+    v13 = &OBJC_IVAR___NRLinkBluetooth__packetsFromNexusVI;
+    v14 = &OBJC_IVAR___NRLinkBluetooth__bytesFromNexusVI;
+    v15 = &OBJC_IVAR___NRLinkBluetooth__syncNexusVIInput;
+    v308 = sub_100081064;
+    v259 = sub_100081514;
   }
 
-  v343 = v269;
+  v303 = v259;
 
 LABEL_19:
-  v344 = 0;
-  v341 = *v18;
-  v20 = *v17;
-  v21 = *(v3 + *v16);
-  v338 = *(v3 + v20);
-  v339 = *(v3 + v341);
-  v340 = v20;
-  v342 = *v19;
-  v22 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-  v355 = v21;
+  v304 = 0;
+  v16 = *(v3 + *v12);
+  v301 = *v14;
+  v17 = *(v3 + v301);
+  v18 = *v13;
+  v19 = v16;
+  v297 = *(v3 + v18);
+  v298 = v17;
+  v299 = &v334 + 8;
+  v300 = v18;
+  v302 = *v15;
+  v20 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+  v315 = v16;
 LABEL_22:
+  v21 = 0;
+  v309 = 0;
+  ESPSequenceNumberFromPacket = 0;
+  v22 = 0;
+  v316 = 0;
+  v317 = 0;
   v23 = 0;
-  v349 = 0;
+  v314 = 0;
   v24 = 0;
-  object_address = 0;
-  v25 = 0;
-  v354 = 0;
-  v26 = 0;
-  v377 = 0;
-  v378 = 0;
-  v357 = *(v3 + 1039);
+  v332 = 0u;
+  v333 = 0u;
+  v330 = 0u;
+  v331 = 0u;
+  v350 = 0;
+  v351 = 0;
+  v25 = *(v3 + 1039);
+  packet = 0;
+  v319 = v25;
   while (2)
   {
-    v27 = v357;
+    v26 = v319;
     while (1)
     {
       *(v3 + 2079) = 2;
-      v363 = 0u;
-      v364 = 0u;
-      v361 = 0u;
-      v362 = 0u;
-      v358 = v23;
-      v360 = v26;
-      if (!v21)
+      v336 = 0u;
+      v337 = 0u;
+      v334 = 0u;
+      v335 = 0u;
+      v320 = v21;
+      v321 = v24;
+      if (!v19)
       {
-        v28 = 0;
-        if (v23)
+        v27 = 0;
+        if (v21)
         {
-          goto LABEL_42;
+          goto LABEL_44;
         }
 
-        goto LABEL_33;
+        goto LABEL_35;
       }
 
-      v28 = v21;
+      v27 = v19;
       next_slot = os_channel_get_next_slot();
       if (!next_slot)
       {
-        v23 = v358;
-        v26 = v360;
-        if (v358)
+        v21 = v320;
+        v24 = v321;
+        if (v320)
         {
-          goto LABEL_42;
+          goto LABEL_44;
         }
 
-        goto LABEL_33;
+        goto LABEL_35;
       }
 
-      v23 = v358;
-      if (v352 != a2)
+      v21 = v320;
+      if (v312 != v313)
       {
-        v26 = v360;
-LABEL_41:
-        if (v358)
+        v24 = v321;
+LABEL_43:
+        if (v320)
         {
-          goto LABEL_42;
+          goto LABEL_44;
         }
 
-        goto LABEL_33;
+        goto LABEL_35;
       }
 
-      v26 = v360;
+      v24 = v321;
       if ((*(v3 + 265) & 1) == 0)
       {
-        goto LABEL_41;
+        goto LABEL_43;
       }
 
-      if (v362)
+      v29 = 0;
+      if (v335)
       {
         v30 = 0;
-        if (WORD1(v361))
+        if (WORD1(v334))
         {
           v31 = next_slot;
           if (isPacketValidIPv6())
           {
-            v30 = getDSCPFromPacket() == 46 && WORD1(v361) < 0x2A4u;
+            DSCPFromPacket = getDSCPFromPacket();
+            v33 = DSCPFromPacket == 46;
+            v34 = WORD1(v334) < 0x2A4u;
+            v30 = v33 && v34;
+            if (v33 && v34)
+            {
+              v29 = 46;
+            }
+
+            else
+            {
+              v29 = DSCPFromPacket;
+            }
           }
 
           else
           {
+            v29 = 0;
             v30 = 0;
           }
 
           next_slot = v31;
-          v23 = v358;
-          v26 = v360;
+          v21 = v320;
+          v24 = v321;
         }
       }
 
@@ -6787,498 +6704,499 @@ LABEL_41:
 
       if (gNRPacketLoggingEnabled == 1)
       {
-        v56 = next_slot;
-        getESPSequenceNumberFromPacket();
+        v307 = v29;
+        v55 = next_slot;
+        ESPSequenceNumberFromPacket = getESPSequenceNumberFromPacket();
         if (gNRPacketLoggingEnabled)
         {
           getESPSPIFromPacket();
         }
 
-        next_slot = v56;
-        v23 = v358;
-        v26 = v360;
+        next_slot = v55;
+        v21 = v320;
+        v24 = v321;
+        v29 = v307;
         if (v30)
         {
-LABEL_105:
-          v351 = next_slot;
-          v74 = *(v3 + 1143);
-          v75 = os_channel_get_next_slot();
-          v357 = v27;
-          if (!v75)
+LABEL_108:
+          v307 = v29;
+          v311 = next_slot;
+          v328 = 0u;
+          v329 = 0u;
+          v326 = 0u;
+          v327 = 0u;
+          v70 = os_channel_get_next_slot();
+          v71 = *(v3 + 264);
+          v319 = v26;
+          if (!v70)
           {
-            v22 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-            if (*(v3 + 264) && *(v3 + 1159))
+            v20 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+            if (v71 && *(v3 + 1159))
             {
               *(v3 + 264) = 0;
               ++*(v3 + 1175);
               if (gNRPacketLoggingEnabled == 1)
               {
-                v139 = *(v3 + 32);
-                v140 = _NRCopyLogObjectForNRUUID();
-                v141 = _NRLogIsLevelEnabled();
+                v127 = _NRCopyLogObjectForNRUUID();
+                v128 = _NRLogIsLevelEnabled();
 
-                if (v141)
+                if (v128)
                 {
-                  v142 = *(v3 + 32);
-                  v143 = _NRCopyLogObjectForNRUUID();
-                  v327 = [v3 copyDescription];
-                  _NRLogWithArgs();
+                  v129 = _NRCopyLogObjectForNRUUID();
+                  v130 = [v3 copyDescription];
+                  _NRLogWithArgs(v129, 1, "%s%.30s:%-4d %@: source-resume: DatagramLinkOutput", "", "NRLinkResumeDatagramLinkOutputSource", 856, v130);
                 }
               }
 
               dispatch_resume(*(v3 + 1159));
-              v22 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+              v20 = &OBJC_IVAR___BTPResolver__sdRefResolve;
             }
 
-            v348(v3);
+            v308(v3);
             *(v3 + 2079) |= 4uLL;
-            LODWORD(v60) = 25;
-            goto LABEL_131;
+            LODWORD(v59) = 25;
+            goto LABEL_134;
           }
 
-          v76 = v75;
-          if ((*(v3 + 264) & 1) == 0 && *(v3 + 1159))
+          v72 = v70;
+          if ((v71 & 1) == 0 && *(v3 + 1159))
           {
-            v77 = v75;
-            v78 = v25;
+            v73 = v70;
+            v74 = v23;
             *(v3 + 264) = 1;
             ++*(v3 + 1175);
             if (gNRPacketLoggingEnabled == 1)
             {
-              v134 = *(v3 + 32);
-              v135 = _NRCopyLogObjectForNRUUID();
-              v136 = _NRLogIsLevelEnabled();
+              v123 = _NRCopyLogObjectForNRUUID();
+              v124 = _NRLogIsLevelEnabled();
 
-              v78 = v25;
-              if (v136)
+              v74 = v23;
+              if (v124)
               {
-                v137 = *(v3 + 32);
-                v138 = _NRCopyLogObjectForNRUUID();
-                v326 = [v3 copyDescription];
-                _NRLogWithArgs();
+                v125 = _NRCopyLogObjectForNRUUID();
+                v126 = [v3 copyDescription];
+                _NRLogWithArgs(v125, 1, "%s%.30s:%-4d %@: source-suspend: DatagramLinkOutput", "", "NRLinkSuspendDatagramLinkOutputSource", 848, v126);
 
-                v78 = v25;
+                v74 = v23;
               }
             }
 
             dispatch_suspend(*(v3 + 1159));
-            v25 = v78;
-            v76 = v77;
+            v23 = v74;
+            v72 = v73;
           }
 
-          v79 = *(v3 + 1143);
-          v80 = v76;
+          v75 = v72;
           os_channel_slot_get_packet();
           os_packet_get_next_buflet();
-          os_buflet_get_object_address();
-          if (os_buflet_get_data_limit() < 0x10000)
+          object_address = os_buflet_get_object_address();
+          data_limit = os_buflet_get_data_limit();
+          if (data_limit < 0x10000)
           {
-            v81 = *(v3 + 311);
-            *(v3 + 1543) += nrPacketToTLV();
-            *(v3 + v341) += WORD1(v361);
-            ++*(v3 + v340);
+            *&v322 = object_address;
+            *(&v322 + 1) = data_limit;
+            v78 = nrPacketToTLV();
+            *(v3 + 1543) += v78;
+            *(v3 + v301) += WORD1(v334);
+            ++*(v3 + v300);
             *(v3 + 2079) |= 0x10uLL;
             if (gNRPacketLoggingEnabled == 1)
             {
-              v128 = *(v3 + 32);
-              v129 = _NRCopyLogObjectForNRUUID();
-              v130 = _NRLogIsLevelEnabled();
+              v314 = v78;
+              v119 = _NRCopyLogObjectForNRUUID();
+              v120 = _NRLogIsLevelEnabled();
 
-              if (v130)
+              if (v120)
               {
-                v131 = *(v3 + 32);
-                v132 = _NRCopyLogObjectForNRUUID();
-                v133 = [v3 copyDescription];
-                _NRLogWithArgs();
+                v121 = _NRCopyLogObjectForNRUUID();
+                v122 = [v3 copyDescription];
+                _NRLogWithArgs(v121, 1, "%s%.30s:%-4d %@: wrote payload of length: %u, dscp: %u, uncompressedLen = %u", "", "NRLinkNexusToLinkLoopUrgent", 3688, v122, v314, v307, WORD1(v334));
               }
             }
 
             os_buflet_set_data_length();
-            v357 = v27 + 1;
-            v378 = v27 + 1;
+            v351 = ++v319;
             os_packet_set_flow_uuid();
-            v82 = os_packet_finalize();
-            if (v82)
+            v79 = os_packet_finalize();
+            if (v79)
             {
-              v274 = v82;
-              v306 = sub_10007CF34();
-              v307 = _NRLogIsLevelEnabled();
+              v262 = v79;
+              v293 = sub_10007CF34();
+              v294 = _NRLogIsLevelEnabled();
 
-              if (v307)
+              if (v294)
               {
-                v308 = sub_10007CF34();
-                _NRLogWithArgs();
+                v295 = sub_10007CF34();
+                _NRLogWithArgs(v295, 16, "%s%.30s:%-4d ABORTING: os_packet_finalize returned %d", "", "NRLinkNexusToLinkLoopUrgent", 3692, v262);
               }
 
-              goto LABEL_310;
+              goto LABEL_314;
             }
 
-            LODWORD(v60) = 24;
-            v349 = v80;
-            v354 = v351;
-            v22 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-LABEL_131:
-            v61 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-            v23 = v358;
-            v26 = v360;
-            v21 = v28;
-            goto LABEL_116;
+            LODWORD(v59) = 24;
+            v309 = v75;
+            v314 = v311;
+            v20 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+LABEL_134:
+            v60 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+            v21 = v320;
+            v24 = v321;
+            v19 = v27;
+            goto LABEL_119;
           }
 
-          v260 = sub_10007CF34();
-          v261 = _NRLogIsLevelEnabled();
+          v249 = sub_10007CF34();
+          v250 = _NRLogIsLevelEnabled();
 
-          if (v261)
+          if (v250)
           {
-            v262 = sub_10007CF34();
-            _NRLogWithArgs();
+            v251 = sub_10007CF34();
+            _NRLogWithArgs(v251, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: datagramBufferLength <= 65535", "", "NRLinkNexusToLinkLoopUrgent", 3667);
           }
 
-          while (1)
+          v252 = _os_log_pack_size();
+          v253 = &v296 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+          v254 = *__error();
+          for (i = _os_log_pack_fill(v253, v252, v254, &_mh_execute_header, "%{public}s Assertion Failed: datagramBufferLength <= 65535"); ; i = _os_log_pack_fill(v232, v231, v233, &_mh_execute_header, "%{public}s Assertion Failed: curLinkOutputSlot == highestLinkOutputSlotWrittenTo"))
           {
-LABEL_290:
-            _os_log_pack_size();
-            __chkstk_darwin();
-            v246 = *__error();
-            v247 = _os_log_pack_fill();
-            *v247 = 136446210;
-            *(v247 + 4) = "NRLinkNexusToLinkLoopUrgent";
-LABEL_291:
+LABEL_294:
+            *i = 136446210;
+            *(i + 4) = "NRLinkNexusToLinkLoopUrgent";
+LABEL_295:
             sub_10007CF34();
             _NRLogAbortWithPack();
-LABEL_292:
-            v248 = sub_10007CF34();
-            v249 = _NRLogIsLevelEnabled();
+LABEL_296:
+            v228 = sub_10007CF34();
+            v229 = _NRLogIsLevelEnabled();
 
-            if (v249)
+            if (v229)
             {
-              v250 = sub_10007CF34();
-              _NRLogWithArgs();
+              v230 = sub_10007CF34();
+              _NRLogWithArgs(v230, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: curLinkOutputSlot == highestLinkOutputSlotWrittenTo", "", "NRLinkNexusToLinkLoopUrgent", 3982);
             }
+
+            v231 = _os_log_pack_size();
+            v232 = &v296 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+            v233 = *__error();
           }
         }
       }
 
-      else if (v30)
+      else
       {
-        goto LABEL_105;
+        ESPSequenceNumberFromPacket = 0;
+        if (v30)
+        {
+          goto LABEL_108;
+        }
       }
 
-      v22 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-      if (v23)
+      v20 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+      if (v21)
       {
-LABEL_42:
+LABEL_44:
         *(v3 + 2079) |= 0x40uLL;
-        if (!v26)
+        if (!v24)
         {
-          goto LABEL_177;
+          goto LABEL_180;
         }
 
-        goto LABEL_43;
+        goto LABEL_45;
       }
 
-LABEL_33:
-      v32 = *(v3 + 1223);
-      v33 = os_channel_get_next_slot();
-      if (!v33)
+LABEL_35:
+      v35 = os_channel_get_next_slot();
+      if (!v35)
       {
-        LODWORD(v358) = 0;
-LABEL_177:
-        v21 = v28;
+        v320 = 0;
+LABEL_180:
+        v19 = v27;
         if (*(v3 + 268) == 1 && *(v3 + 1239))
         {
           *(v3 + 268) = 0;
           ++*(v3 + 1255);
           if (gNRPacketLoggingEnabled == 1)
           {
-            v223 = *(v3 + 32);
-            v224 = _NRCopyLogObjectForNRUUID();
-            v225 = _NRLogIsLevelEnabled();
+            v190 = _NRCopyLogObjectForNRUUID();
+            v191 = _NRLogIsLevelEnabled();
 
-            if (v225)
+            if (v191)
             {
-              v226 = *(v3 + 32);
-              v227 = _NRCopyLogObjectForNRUUID();
-              v334 = [v3 copyDescription];
-              _NRLogWithArgs();
+              v192 = _NRCopyLogObjectForNRUUID();
+              v193 = [v3 copyDescription];
+              _NRLogWithArgs(v192, 1, "%s%.30s:%-4d %@: source-resume: UrgentLinkOutput", "", "NRLinkResumeUrgentLinkOutputSource", 858, v193);
             }
           }
 
           dispatch_resume(*(v3 + 1239));
         }
 
-        v357 = v27;
-        v348(v3);
+        v319 = v26;
+        v308(v3);
         *(v3 + 2079) |= 0x80uLL;
         if (gNRPacketLoggingEnabled == 1)
         {
-          v165 = *(v3 + 32);
-          v166 = _NRCopyLogObjectForNRUUID();
-          v167 = _NRLogIsLevelEnabled();
+          v146 = _NRCopyLogObjectForNRUUID();
+          v147 = _NRLogIsLevelEnabled();
 
-          v61 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-          if (v167)
+          v60 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+          if (v147)
           {
-            v168 = *(v3 + 32);
-            v169 = _NRCopyLogObjectForNRUUID();
-            v329 = [v3 copyDescription];
-            _NRLogWithArgs();
+            v148 = _NRCopyLogObjectForNRUUID();
+            v149 = [v3 copyDescription];
+            _NRLogWithArgs(v148, 1, "%s%.30s:%-4d %@: no urgent link output slot", "", "NRLinkNexusToLinkLoopUrgent", 3730, v149);
           }
 
-          v26 = 0;
+          v24 = 0;
         }
 
         else
         {
-          v26 = 0;
-          v61 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+          v24 = 0;
+          v60 = &OBJC_IVAR___BTPResolver__sdRefResolve;
         }
 
-        LODWORD(v23) = v358;
-        goto LABEL_184;
+        LODWORD(v21) = v320;
+        goto LABEL_187;
       }
 
-      v34 = v33;
+      v36 = v23;
       *(v3 + 2079) |= 0x20uLL;
-      v35 = *(v3 + 1223);
-      v36 = v34;
-      os_channel_slot_get_packet();
-      os_packet_get_next_buflet();
-      object_address = os_buflet_get_object_address();
-      data_limit = os_buflet_get_data_limit();
-      if (data_limit >= 0x10000)
+      v37 = v35;
+      packet = os_channel_slot_get_packet();
+      next_buflet = os_packet_get_next_buflet();
+      v316 = os_buflet_get_object_address();
+      v317 = next_buflet;
+      v39 = os_buflet_get_data_limit();
+      if (v39 >= 0x10000)
       {
-        v231 = sub_10007CF34();
-        v232 = _NRLogIsLevelEnabled();
+        v201 = sub_10007CF34();
+        v202 = _NRLogIsLevelEnabled();
 
-        if (v232)
+        if (v202)
         {
-          v233 = sub_10007CF34();
-          _NRLogWithArgs();
+          v203 = sub_10007CF34();
+          _NRLogWithArgs(v203, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: outputBufferLength <= 65535", "", "NRLinkNexusToLinkLoopUrgent", 3718);
         }
 
-        goto LABEL_290;
+LABEL_281:
+        v204 = _os_log_pack_size();
+        v205 = &v296 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+        v206 = *__error();
+        i = _os_log_pack_fill(v205, v204, v206, &_mh_execute_header, "%{public}s Assertion Failed: outputBufferLength <= 65535");
+        goto LABEL_294;
       }
 
-      v360 = v36;
-      if (v25 != v36)
+      v321 = v37;
+      v23 = v36;
+      if (v36 != v37)
       {
-        ++v27;
+        ++v26;
       }
 
-      v24 = data_limit;
-      v23 = v358;
-LABEL_43:
+      v22 = v39;
+      v21 = v320;
+LABEL_45:
       if ((*(v3 + 268) & 1) == 0 && *(v3 + 1239))
       {
         *(v3 + 268) = 1;
         ++*(v3 + 1255);
         if (gNRPacketLoggingEnabled == 1)
         {
-          v51 = *(v3 + 32);
-          v52 = _NRCopyLogObjectForNRUUID();
-          v53 = _NRLogIsLevelEnabled();
+          v51 = _NRCopyLogObjectForNRUUID();
+          v52 = _NRLogIsLevelEnabled();
 
-          if (v53)
+          if (v52)
           {
-            v54 = *(v3 + 32);
-            v55 = _NRCopyLogObjectForNRUUID();
-            v323 = [v3 copyDescription];
-            _NRLogWithArgs();
+            v53 = _NRCopyLogObjectForNRUUID();
+            v54 = [v3 copyDescription];
+            _NRLogWithArgs(v53, 1, "%s%.30s:%-4d %@: source-suspend: UrgentLinkOutput", "", "NRLinkSuspendUrgentLinkOutputSource", 850, v54);
           }
         }
 
         dispatch_suspend(*(v3 + 1239));
-        v22 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-        v23 = v358;
+        v20 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+        v21 = v320;
       }
 
-      v357 = v27;
-      v38 = *(v3 + 351);
-      v39 = *(v3 + v22[411]);
-      if (v38 <= v39)
+      v319 = v26;
+      v40 = *(v3 + 351);
+      v41 = *(v3 + v20[411]);
+      if (v40 <= v41)
       {
         break;
       }
 
-      v40 = v38 - v39;
-      if (v40 >= (v24 - v23))
+      v42 = v40 - v41;
+      if (v42 >= (v22 - v21))
       {
-        v41 = v24 - v23;
+        v43 = v22 - v21;
       }
 
       else
       {
-        v41 = v40;
+        v43 = v42;
       }
 
-      v42 = v23;
-      memcpy(object_address, (*(v3 + 1279) + v39), v41);
-      *(v3 + v22[411]) += v41;
-      *(v3 + 1559) += v41;
+      v44 = v21;
+      memcpy(v316, (*(v3 + 1279) + v41), v43);
+      *(v3 + v20[411]) += v43;
+      *(v3 + 1559) += v43;
       ++*(v3 + 347);
       *(v3 + 2079) |= 0x100uLL;
       if (gNRPacketLoggingEnabled == 1)
       {
-        v45 = *(v3 + 32);
-        v46 = _NRCopyLogObjectForNRUUID();
-        v47 = _NRLogIsLevelEnabled();
+        v47 = _NRCopyLogObjectForNRUUID();
+        v48 = _NRLogIsLevelEnabled();
 
-        if (v47)
+        if (v48)
         {
-          v48 = *(v3 + 32);
           v49 = _NRCopyLogObjectForNRUUID();
           v50 = [v3 copyDescription];
-          v309 = *(v3 + 351);
-          v316 = *(v3 + 355);
-          _NRLogWithArgs();
+          _NRLogWithArgs(v49, 1, "%s%.30s:%-4d %@: wrote %u bytes from linkWriteBuffer to link, filledIn=%u handled=%u", "", "NRLinkNexusToLinkLoopUrgent", 3768, v50, v43, *(v3 + 351), *(v3 + 355));
         }
       }
 
-      v43 = v41 + v42;
-      v21 = v355;
-      if (v43 < v24)
+      v45 = v43 + v44;
+      v19 = v315;
+      if (v45 < v22)
       {
-        v23 = v43;
-        v26 = v360;
-        v25 = v360;
-        v22 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-        v359 = v23;
-        if (v355)
+        v21 = v45;
+        v24 = v321;
+        v23 = v321;
+        v20 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+        v320 = v21;
+        if (v315)
         {
-          goto LABEL_75;
+          goto LABEL_77;
         }
 
-LABEL_231:
+LABEL_234:
         if (*(v3 + 16) == 8)
         {
-          v160 = *(v3 + 32);
-          v161 = _NRCopyLogObjectForNRUUID();
-          v162 = _NRLogIsLevelEnabled();
+          v142 = _NRCopyLogObjectForNRUUID();
+          v143 = _NRLogIsLevelEnabled();
 
-          if (v162)
+          if (v143)
           {
-            v163 = *(v3 + 32);
-            v164 = _NRCopyLogObjectForNRUUID();
-            v319 = [v3 copyDescription];
-            _NRLogWithArgs();
+            v144 = _NRCopyLogObjectForNRUUID();
+            v145 = [v3 copyDescription];
+            _NRLogWithArgs(v144, 17, "%@: Tried to nexusToLinkLoopUrgent but _nexusInputRing is NULL", v145);
           }
 
-          v61 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-          LODWORD(v23) = v359;
-          v26 = v360;
+          v60 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+          LODWORD(v21) = v320;
+          v24 = v321;
         }
 
         else
         {
           *(v3 + 2079) |= 0x400uLL;
-          v61 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+          v60 = &OBJC_IVAR___BTPResolver__sdRefResolve;
         }
 
-LABEL_184:
-        if (v25)
+LABEL_187:
+        if (v23)
         {
-          if (v26 != v25)
+          if (v24 != v23)
           {
-            goto LABEL_292;
+            goto LABEL_296;
           }
 
-          if (v23)
+          if (v21)
           {
-            v90 = v23;
-          }
-
-          else
-          {
-            v90 = v24;
-          }
-
-          if (v23)
-          {
-            v144 = v24 == v23;
+            v87 = v21;
           }
 
           else
           {
-            v144 = 1;
+            v87 = v22;
           }
 
-          v145 = 0x40000;
-          if (!v144)
+          if (v21)
           {
-            v145 = 0x20000;
+            v131 = v22 == v21;
           }
 
-          *(v3 + 2079) |= v145;
+          else
+          {
+            v131 = 1;
+          }
+
+          v132 = 0x40000;
+          if (!v131)
+          {
+            v132 = 0x20000;
+          }
+
+          *(v3 + 2079) |= v132;
           if (gNRPacketLoggingEnabled == 1)
           {
-            v183 = *(v3 + 32);
-            v184 = _NRCopyLogObjectForNRUUID();
-            v185 = _NRLogIsLevelEnabled();
+            v160 = _NRCopyLogObjectForNRUUID();
+            v161 = _NRLogIsLevelEnabled();
 
-            if (v185)
+            if (v161)
             {
-              v186 = *(v3 + 32);
-              v187 = _NRCopyLogObjectForNRUUID();
-              v313 = [v3 copyDescription];
-              _NRLogWithArgs();
+              v162 = _NRCopyLogObjectForNRUUID();
+              v163 = [v3 copyDescription];
+              _NRLogWithArgs(v162, 1, "%s%.30s:%-4d %@: UrgentLink:Sending ESP sequence number %u (4)", "", "NRLinkNexusToLinkLoopUrgent", 3997, v163, ESPSequenceNumberFromPacket);
             }
           }
 
-          v378 = v357;
+          v351 = v319;
           os_buflet_set_data_length();
           os_packet_set_flow_uuid();
-          v146 = os_packet_finalize();
-          if (v146)
+          v133 = os_packet_finalize();
+          if (v133)
           {
-            v284 = v146;
-            v300 = sub_10007CF34();
-            v301 = _NRLogIsLevelEnabled();
+            v272 = v133;
+            v287 = sub_10007CF34();
+            v288 = _NRLogIsLevelEnabled();
 
-            if (v301)
+            if (v288)
             {
-              v302 = sub_10007CF34();
-              _NRLogWithArgs();
+              v289 = sub_10007CF34();
+              _NRLogWithArgs(v289, 16, "%s%.30s:%-4d ABORTING: os_packet_finalize returned %d", "", "NRLinkNexusToLinkLoopUrgent", 4001, v272);
             }
 
-            goto LABEL_316;
+            goto LABEL_320;
           }
 
-          v147 = *(v3 + 351);
-          v148 = *(v3 + 355);
-          if (v147 <= v148)
+          v134 = *(v3 + 351);
+          v135 = *(v3 + 355);
+          if (v134 <= v135)
           {
-            if (v147 != v148)
+            if (v134 != v135)
             {
-              v257 = sub_10007CF34();
-              v258 = _NRLogIsLevelEnabled();
+              v243 = sub_10007CF34();
+              v244 = _NRLogIsLevelEnabled();
 
-              if (v258)
+              if (v244)
               {
-                v259 = sub_10007CF34();
-                _NRLogWithArgs();
+                v245 = sub_10007CF34();
+                _NRLogWithArgs(v245, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: self->_filledInUrgentLinkWriteBufferBytes == self->_handledUrgentLinkWriteBufferBytes", "", "NRLinkNexusToLinkLoopUrgent", 4016);
               }
 
-              goto LABEL_290;
+              v246 = _os_log_pack_size();
+              v247 = &v296 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+              v248 = *__error();
+              i = _os_log_pack_fill(v247, v246, v248, &_mh_execute_header, "%{public}s Assertion Failed: self->_filledInUrgentLinkWriteBufferBytes == self->_handledUrgentLinkWriteBufferBytes");
+              goto LABEL_294;
             }
 
             if (gNRPacketLoggingEnabled == 1)
             {
-              if (v147)
+              if (v134)
               {
                 *(v3 + 2079) |= 0x100000uLL;
-                v217 = *(v3 + 32);
-                v218 = _NRCopyLogObjectForNRUUID();
-                v219 = _NRLogIsLevelEnabled();
+                v186 = _NRCopyLogObjectForNRUUID();
+                v187 = _NRLogIsLevelEnabled();
 
-                if (v219)
+                if (v187)
                 {
-                  v220 = *(v3 + 32);
-                  v221 = _NRCopyLogObjectForNRUUID();
-                  v222 = [v3 copyDescription];
-                  v322 = *(v3 + 351);
-                  v333 = *(v3 + 355);
-                  _NRLogWithArgs();
+                  v188 = _NRCopyLogObjectForNRUUID();
+                  v189 = [v3 copyDescription];
+                  _NRLogWithArgs(v188, 1, "%s%.30s:%-4d %@: UrgentLink:resetting the linkWriteBuffer from filledIn=%u handled=%u", "", "NRLinkNexusToLinkLoopUrgent", 4020, v189, *(v3 + 351), *(v3 + 355));
                 }
               }
             }
@@ -7291,18 +7209,14 @@ LABEL_184:
             *(v3 + 2079) |= 0x80000uLL;
             if (gNRPacketLoggingEnabled == 1)
             {
-              v211 = *(v3 + 32);
-              v212 = _NRCopyLogObjectForNRUUID();
-              v213 = _NRLogIsLevelEnabled();
+              v182 = _NRCopyLogObjectForNRUUID();
+              v183 = _NRLogIsLevelEnabled();
 
-              if (v213)
+              if (v183)
               {
-                v214 = *(v3 + 32);
-                v215 = _NRCopyLogObjectForNRUUID();
-                v216 = [v3 copyDescription];
-                v321 = *(v3 + 351);
-                v332 = *(v3 + 355);
-                _NRLogWithArgs();
+                v184 = _NRCopyLogObjectForNRUUID();
+                v185 = [v3 copyDescription];
+                _NRLogWithArgs(v184, 1, "%s%.30s:%-4d %@: UrgentLink:memmoving the linkWriteBuffer from filledIn=%u handled=%u", "", "NRLinkNexusToLinkLoopUrgent", 4009, v185, *(v3 + 351), *(v3 + 355));
               }
             }
 
@@ -7314,156 +7228,138 @@ LABEL_184:
           *(v3 + 2079) |= 0x200000uLL;
           if (gNRPacketLoggingEnabled == 1)
           {
-            v188 = *(v3 + 32);
-            v189 = _NRCopyLogObjectForNRUUID();
-            v190 = _NRLogIsLevelEnabled();
+            v164 = _NRCopyLogObjectForNRUUID();
+            v165 = _NRLogIsLevelEnabled();
 
-            if (v190)
+            if (v165)
             {
-              v191 = *(v3 + 32);
-              v192 = _NRCopyLogObjectForNRUUID();
-              v314 = [v3 copyDescription];
-              _NRLogWithArgs();
+              v166 = _NRCopyLogObjectForNRUUID();
+              v167 = [v3 copyDescription];
+              _NRLogWithArgs(v166, 1, "%s%.30s:%-4d %@: UrgentLink:advancing past urgentLinkOutputSlot=%p and syncing urgent link output", "", "NRLinkNexusToLinkLoopUrgent", 4026, v167, v23);
             }
           }
 
           if (gNRPacketLoggingEnabled == 1)
           {
-            v193 = +[NSDate date];
-            v194 = *(v3 + 1863);
-            *(v3 + 1863) = v193;
+            v168 = +[NSDate date];
+            v169 = *(v3 + 1863);
+            *(v3 + 1863) = v168;
           }
 
-          v149 = *(v3 + 1223);
           os_channel_advance_slot();
-          v150 = *(v3 + 1207);
           os_channel_sync();
           ++*(v3 + 1607);
           if (gNRPacketLoggingEnabled == 1)
           {
-            v195 = *(v3 + 32);
-            v196 = _NRCopyLogObjectForNRUUID();
-            v197 = _NRLogIsLevelEnabled();
+            v170 = _NRCopyLogObjectForNRUUID();
+            v171 = _NRLogIsLevelEnabled();
 
-            if (v197)
+            if (v171)
             {
-              v198 = *(v3 + 32);
-              v199 = _NRCopyLogObjectForNRUUID();
-              v330 = [v3 copyDescription];
-              _NRLogWithArgs();
+              v172 = _NRCopyLogObjectForNRUUID();
+              v173 = [v3 copyDescription];
+              _NRLogWithArgs(v172, 1, "%s%.30s:%-4d %@: UrgentLink:Wrote to urgent pipe", "", "NRLinkNexusToLinkLoopUrgent", 4031, v173);
             }
           }
         }
 
-        if (v349)
+        if (v309)
         {
           *(v3 + 2079) |= 0x800000uLL;
           if (gNRPacketLoggingEnabled == 1)
           {
-            v170 = *(v3 + 32);
-            v171 = _NRCopyLogObjectForNRUUID();
-            v172 = _NRLogIsLevelEnabled();
+            v150 = _NRCopyLogObjectForNRUUID();
+            v151 = _NRLogIsLevelEnabled();
 
-            if (v172)
+            if (v151)
             {
-              v173 = *(v3 + 32);
-              v174 = _NRCopyLogObjectForNRUUID();
-              v312 = [v3 copyDescription];
-              _NRLogWithArgs();
+              v152 = _NRCopyLogObjectForNRUUID();
+              v153 = [v3 copyDescription];
+              _NRLogWithArgs(v152, 1, "%s%.30s:%-4d %@: DatagramLink:advancing past linkOutputSlot=%p and syncing datagram link output", "", "NRLinkNexusToLinkLoopUrgent", 4038, v153, v309);
             }
           }
 
           if (gNRPacketLoggingEnabled == 1)
           {
-            v175 = +[NSDate date];
-            v176 = *(v3 + 1847);
-            *(v3 + 1847) = v175;
+            v154 = +[NSDate date];
+            v155 = *(v3 + 1847);
+            *(v3 + 1847) = v154;
           }
 
-          v151 = *(v3 + 1143);
           os_channel_advance_slot();
-          v152 = *(v3 + 1127);
           os_channel_sync();
           ++*(v3 + 1591);
         }
 
-        if (v354)
+        if (v314)
         {
-          if (v21)
+          if (v19)
           {
             *(v3 + 2079) |= 0x1000000uLL;
             if (gNRPacketLoggingEnabled == 1)
             {
-              v200 = *(v3 + 32);
-              v201 = _NRCopyLogObjectForNRUUID();
-              v202 = _NRLogIsLevelEnabled();
+              v174 = _NRCopyLogObjectForNRUUID();
+              v175 = _NRLogIsLevelEnabled();
 
-              if (v202)
+              if (v175)
               {
-                v203 = *(v3 + 32);
-                v204 = _NRCopyLogObjectForNRUUID();
-                v315 = [v3 copyDescription];
-                _NRLogWithArgs();
+                v176 = _NRCopyLogObjectForNRUUID();
+                v177 = [v3 copyDescription];
+                _NRLogWithArgs(v176, 1, "%s%.30s:%-4d %@: UrgentLink:advancing past nexusInputSlot=%p and syncing nexus input", "", "NRLinkNexusToLinkLoopUrgent", 4048, v177, v314);
               }
             }
 
             if (gNRPacketLoggingEnabled == 1)
             {
-              v205 = +[NSDate date];
-              v206 = *(v3 + 1807);
-              *(v3 + 1807) = v205;
+              v178 = +[NSDate date];
+              v179 = *(v3 + 1807);
+              *(v3 + 1807) = v178;
             }
 
             os_channel_advance_slot();
             os_channel_sync();
-            ++*(v3 + v342);
+            ++*(v3 + v302);
             if (gNRPacketLoggingEnabled == 1)
             {
-              v207 = *(v3 + 32);
-              v208 = _NRCopyLogObjectForNRUUID();
-              v209 = _NRLogIsLevelEnabled();
+              v180 = _NRCopyLogObjectForNRUUID();
+              v181 = _NRLogIsLevelEnabled();
 
-              if (v209)
+              if (v181)
               {
-                v210 = *(v3 + 32);
-                v181 = _NRCopyLogObjectForNRUUID();
-                v182 = [v3 copyDescription];
-                v320 = *(v3 + v340) - v338;
-                v331 = *(v3 + v341) - v339;
-                _NRLogWithArgs();
-                goto LABEL_253;
+                v158 = _NRCopyLogObjectForNRUUID();
+                v159 = [v3 copyDescription];
+                _NRLogWithArgs(v158, 1, "%s%.30s:%-4d %@: UrgentLink:Served %llu packets, %llu bytes", "", "NRLinkNexusToLinkLoopUrgent", 4054, v159, *(v3 + v300) - v297, *(v3 + v301) - v298);
+                goto LABEL_256;
               }
             }
           }
 
           else
           {
-            v177 = *(v3 + 32);
-            v178 = _NRCopyLogObjectForNRUUID();
-            v179 = _NRLogIsLevelEnabled();
+            v156 = _NRCopyLogObjectForNRUUID();
+            v157 = _NRLogIsLevelEnabled();
 
-            if (v179)
+            if (v157)
             {
-              v180 = *(v3 + 32);
-              v181 = _NRCopyLogObjectForNRUUID();
-              v182 = [v3 copyDescription];
-              _NRLogWithArgs();
-LABEL_253:
+              v158 = _NRCopyLogObjectForNRUUID();
+              v159 = [v3 copyDescription];
+              _NRLogWithArgs(v158, 17, "%@: Tried to sync nexus input but _nexusInputRing is NULL", v159);
+LABEL_256:
             }
           }
         }
 
-        *(v3 + 1039) = v357;
-        if (*(v3 + 2079) && *(v3 + v61[531]))
+        *(v3 + 1039) = v319;
+        if (*(v3 + 2079) && *(v3 + v60[531]))
         {
           *(v3 + 306) %= *(v3 + 305);
-          v153 = *(v3 + v61[531]);
-          v154 = (v153 + 8 * *(v3 + 306));
-          if ((v154 + 1) <= v153 + 8 * *(v3 + 305))
+          v136 = *(v3 + v60[531]);
+          v137 = (v136 + 8 * *(v3 + 306));
+          if ((v137 + 1) <= v136 + 8 * *(v3 + 305))
           {
-            if ((v154 & 7) == 0)
+            if ((v137 & 7) == 0)
             {
-              *v154 = *(v3 + 2079);
+              *v137 = *(v3 + 2079);
               ++*(v3 + 306);
               *(v3 + 2079) = 0;
             }
@@ -7471,496 +7367,513 @@ LABEL_253:
 
           else
           {
-            v155 = *(v3 + 32);
-            v156 = _NRCopyLogObjectForNRUUID();
-            v157 = _NRLogIsLevelEnabled();
+            v138 = _NRCopyLogObjectForNRUUID();
+            v139 = _NRLogIsLevelEnabled();
 
-            if (v157)
+            if (v139)
             {
-              v158 = *(v3 + 32);
-              v159 = _NRCopyLogObjectForNRUUID();
-              v318 = [v3 copyDescription];
-              v328 = *(v3 + 306);
-              _NRLogWithArgs();
+              v140 = _NRCopyLogObjectForNRUUID();
+              v141 = [v3 copyDescription];
+              _NRLogWithArgs(v140, 17, "%@: invalid index for ntl log list (curIdx: %u)", v141, *(v3 + 306));
             }
           }
         }
 
-        LODWORD(v60) = 0;
-        if (v354)
+        LODWORD(v59) = 0;
+        if (v314)
         {
-          v22 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+          v20 = &OBJC_IVAR___BTPResolver__sdRefResolve;
           goto LABEL_21;
         }
 
-        v22 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-        if (!v25 && !v349)
+        v20 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+        if (!v23 && !v309)
         {
-          if (v344)
+          if (v304)
           {
             if (*(v3 + 256) == 1)
             {
-              v90 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+              v87 = &OBJC_IVAR___BTPResolver__sdRefResolve;
               if (*(v3 + 783))
               {
                 *(v3 + 256) = 0;
                 ++*(v3 + 799);
                 if (gNRPacketLoggingEnabled == 1)
                 {
-                  goto LABEL_317;
+                  goto LABEL_321;
                 }
 
-                goto LABEL_266;
+                goto LABEL_269;
               }
             }
 
-            goto LABEL_267;
+            goto LABEL_270;
           }
 
-          goto LABEL_271;
+          goto LABEL_274;
         }
 
 LABEL_21:
-        if (v60)
+        if (v59)
         {
-          goto LABEL_272;
+          goto LABEL_275;
         }
 
         goto LABEL_22;
       }
 
-      if (v43 != v24)
+      if (v45 != v22)
       {
-        v228 = sub_10007CF34();
-        v229 = _NRLogIsLevelEnabled();
+        v194 = sub_10007CF34();
+        v195 = _NRLogIsLevelEnabled();
 
-        if (v229)
+        if (v195)
         {
-          v230 = sub_10007CF34();
-          _NRLogWithArgs();
+          v196 = sub_10007CF34();
+          _NRLogWithArgs(v196, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: curLinkOutputSlotPartialBytesAlreadyWritten == linkOutputBufferLength", "", "NRLinkNexusToLinkLoopUrgent", 3771);
         }
 
-        goto LABEL_290;
+        v197 = _os_log_pack_size();
+        v198 = &v296 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+        v199 = *__error();
+        i = _os_log_pack_fill(v198, v197, v199, &_mh_execute_header, "%{public}s Assertion Failed: curLinkOutputSlotPartialBytesAlreadyWritten == linkOutputBufferLength");
+        goto LABEL_294;
       }
 
       os_buflet_set_data_length();
-      v378 = v27;
+      v26 = v319;
+      v351 = v319;
       os_packet_set_flow_uuid();
-      v44 = os_packet_finalize();
-      if (v44)
+      v46 = os_packet_finalize();
+      if (v46)
       {
-        v274 = v44;
-        v275 = sub_10007CF34();
-        v276 = _NRLogIsLevelEnabled();
+        v262 = v46;
+        v263 = sub_10007CF34();
+        v264 = _NRLogIsLevelEnabled();
 
-        if (v276)
+        if (v264)
         {
-          v277 = sub_10007CF34();
-          _NRLogWithArgs();
+          v265 = sub_10007CF34();
+          _NRLogWithArgs(v265, 16, "%s%.30s:%-4d ABORTING: os_packet_finalize returned %d", "", "NRLinkNexusToLinkLoopUrgent", 3779, v262);
         }
 
-LABEL_310:
-        _os_log_pack_size();
-        __chkstk_darwin();
-        v278 = *__error();
-        v279 = _os_log_pack_fill();
-        *v279 = 136446466;
-        *(v279 + 4) = "NRLinkNexusToLinkLoopUrgent";
-        *(v279 + 12) = 1024;
-        *(v279 + 14) = v274;
-        goto LABEL_291;
+LABEL_314:
+        v266 = _os_log_pack_size();
+        v267 = &v296 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+        v268 = *__error();
+        v269 = _os_log_pack_fill(v267, v266, v268, &_mh_execute_header, "%{public}s os_packet_finalize returned %d");
+        *v269 = 136446466;
+        *(v269 + 4) = "NRLinkNexusToLinkLoopUrgent";
+        *(v269 + 12) = 1024;
+        *(v269 + 14) = v262;
+        goto LABEL_295;
       }
 
-      v23 = 0;
+      v21 = 0;
       *(v3 + 2079) |= 0x200uLL;
-      v26 = v360;
-      v25 = v360;
-      v22 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+      v24 = v321;
+      v23 = v321;
+      v20 = &OBJC_IVAR___BTPResolver__sdRefResolve;
     }
 
-    v21 = v355;
-    v26 = v360;
-    v359 = v23;
-    if (!v355)
+    v19 = v315;
+    v24 = v321;
+    v320 = v21;
+    if (!v315)
     {
-      goto LABEL_231;
+      goto LABEL_234;
     }
 
-LABEL_75:
-    v57 = os_channel_get_next_slot();
-    if (!v57)
+LABEL_77:
+    v328 = 0u;
+    v329 = 0u;
+    v326 = 0u;
+    v327 = 0u;
+    v56 = os_channel_get_next_slot();
+    if (!v56)
     {
-      v343(v3);
+      v303(v3);
       *(v3 + 2079) |= 0x800uLL;
-      LODWORD(v60) = 25;
-      v344 = 1;
-      v61 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-      goto LABEL_115;
+      LODWORD(v59) = 25;
+      v304 = 1;
+      v60 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+      goto LABEL_118;
     }
 
-    v346 = v57;
-    v348(v3);
+    v306 = v56;
+    v308(v3);
     if (gNRPacketLoggingEnabled == 1)
     {
-      getESPSequenceNumberFromPacket();
+      ESPSequenceNumberFromPacket = getESPSequenceNumberFromPacket();
       if (gNRPacketLoggingEnabled)
       {
         getESPSPIFromPacket();
         if (gNRPacketLoggingEnabled)
         {
-          v112 = *(v3 + 32);
-          v113 = _NRCopyLogObjectForNRUUID();
-          v114 = _NRLogIsLevelEnabled();
+          v107 = _NRCopyLogObjectForNRUUID();
+          v108 = _NRLogIsLevelEnabled();
 
-          if (v114)
+          if (v108)
           {
-            v115 = *(v3 + 32);
-            v116 = _NRCopyLogObjectForNRUUID();
-            v117 = [v3 copyDescription];
-            _NRLogWithArgs();
+            v109 = _NRCopyLogObjectForNRUUID();
+            v110 = [v3 copyDescription];
+            _NRLogWithArgs(v109, 1, "%s%.30s:%-4d %@: UrgentLink:Sending ESP sequence number - to be sent on urgent pipe: %u (%u bytes)", "", "NRLinkNexusToLinkLoopUrgent", 3817, v110, ESPSequenceNumberFromPacket, WORD1(v326));
           }
         }
 
-        v21 = v355;
+        v19 = v315;
       }
-    }
-
-    v350 = nrMaxTLVLengthForPacket();
-    v375 = 0u;
-    v376 = 0u;
-    v373 = 0u;
-    v374 = 0u;
-    v371 = 0u;
-    v372 = 0u;
-    v369 = 0u;
-    v370 = 0u;
-    v367 = 0u;
-    v368 = 0u;
-    v365 = 0u;
-    v366 = 0u;
-    v363 = 0u;
-    v364 = 0u;
-    v347 = v24;
-    v23 = v359;
-    v361 = 0u;
-    v362 = 0u;
-    if (v24 <= v359)
-    {
-      v58 = 0;
-      v59 = 0;
     }
 
     else
     {
-      *&v361 = &object_address[v359];
-      v58 = v24 - v359;
-      DWORD2(v361) = v58;
-      v59 = 1;
+      ESPSequenceNumberFromPacket = 0;
     }
 
-    if (v58 < v350)
+    v311 = nrMaxTLVLengthForPacket();
+    v348 = 0u;
+    v349 = 0u;
+    v346 = 0u;
+    v347 = 0u;
+    v344 = 0u;
+    v345 = 0u;
+    v342 = 0u;
+    v343 = 0u;
+    v340 = 0u;
+    v341 = 0u;
+    v338 = 0u;
+    v339 = 0u;
+    v336 = 0u;
+    v337 = 0u;
+    LODWORD(v307) = v22;
+    v21 = v320;
+    v334 = 0u;
+    v335 = 0u;
+    if (v22 <= v320)
     {
-      v345 = v25;
-      v62 = v59;
-      v63 = &v361 + 4 * v59 + 2;
+      v57 = 0;
+      v58 = 0;
+    }
+
+    else
+    {
+      *&v334 = &v316[v320];
+      v57 = v22 - v320;
+      DWORD2(v334) = v57;
+      v58 = 1;
+    }
+
+    if (v57 < v311)
+    {
+      v305 = v23;
+      v61 = v58;
+      v62 = &v299[16 * v58];
       do
       {
-        v64 = *(v3 + 1223);
+        v324 = 0u;
+        v325 = 0u;
+        v322 = 0u;
+        v323 = 0u;
         if (!os_channel_get_next_slot())
         {
           break;
         }
 
-        v65 = *(v3 + 1223);
         os_channel_slot_get_packet();
         os_packet_get_next_buflet();
-        v66 = os_buflet_get_object_address();
-        v67 = os_buflet_get_data_limit();
-        if (v67 >= 0x10000)
+        v63 = os_buflet_get_object_address();
+        v64 = os_buflet_get_data_limit();
+        if (v64 >= 0x10000)
         {
-          v240 = sub_10007CF34();
-          v241 = _NRLogIsLevelEnabled();
+          v216 = sub_10007CF34();
+          v217 = _NRLogIsLevelEnabled();
 
-          if (v241)
+          if (v217)
           {
-            v242 = sub_10007CF34();
-            _NRLogWithArgs();
+            v218 = sub_10007CF34();
+            _NRLogWithArgs(v218, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: lookAheadLinkOutputBufferLength <= 65535", "", "NRLinkNexusToLinkLoopUrgent", 3846);
           }
 
-          goto LABEL_290;
+          v219 = _os_log_pack_size();
+          v220 = &v296 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+          v221 = *__error();
+          i = _os_log_pack_fill(v220, v219, v221, &_mh_execute_header, "%{public}s Assertion Failed: lookAheadLinkOutputBufferLength <= 65535");
+          goto LABEL_294;
         }
 
-        *(v63 - 1) = v66;
-        if (!v67)
+        *(v62 - 1) = v63;
+        if (!v64)
         {
-          v243 = sub_10007CF34();
-          v244 = _NRLogIsLevelEnabled();
+          v222 = sub_10007CF34();
+          v223 = _NRLogIsLevelEnabled();
 
-          if (v244)
+          if (v223)
           {
-            v245 = sub_10007CF34();
-            _NRLogWithArgs();
+            v224 = sub_10007CF34();
+            _NRLogWithArgs(v224, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: lookAheadLinkOutputBufferLength > 0", "", "NRLinkNexusToLinkLoopUrgent", 3849);
           }
 
-          goto LABEL_290;
+          v225 = _os_log_pack_size();
+          v226 = &v296 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+          v227 = *__error();
+          i = _os_log_pack_fill(v226, v225, v227, &_mh_execute_header, "%{public}s Assertion Failed: lookAheadLinkOutputBufferLength > 0");
+          goto LABEL_294;
         }
 
-        *v63 = v67;
+        *v62 = v64;
         *(v3 + 2079) |= 0x1000uLL;
-        if (v62 == 15)
+        if (v61 == 15)
         {
           IOVecString = createIOVecString();
-          sub_100080EB4(v3, @"NtL-U not enough ioVecs %@ for %u", v84, v85, v86, v87, v88, v89, IOVecString);
+          sub_100080EB4(v3, @"NtL-U not enough ioVecs %@ for %u", v81, v82, v83, v84, v85, v86, IOVecString);
 
-          LODWORD(v60) = 1;
-          v21 = v355;
-          v22 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-          v61 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-          v25 = v345;
-          v24 = v347;
-          goto LABEL_115;
+          LODWORD(v59) = 1;
+          v19 = v315;
+          v20 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+          v60 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+          v23 = v305;
+          v22 = v307;
+          goto LABEL_118;
         }
 
-        ++v62;
-        v58 += v67;
-        v63 += 4;
+        ++v61;
+        v57 += v64;
+        v62 += 4;
       }
 
-      while (v58 < v350);
-      v21 = v355;
-      v25 = v345;
-      v23 = v359;
+      while (v57 < v311);
+      v19 = v315;
+      v23 = v305;
+      v21 = v320;
     }
 
-    if (v58 < v350)
+    if (v57 < v311)
     {
       *(v3 + 2079) |= 0x2000uLL;
-      v24 = v347;
+      v22 = v307;
       if (*(v3 + 268) != 1)
       {
-        LODWORD(v60) = 25;
-        v22 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-        v61 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-        v26 = v360;
-        goto LABEL_116;
+        LODWORD(v59) = 25;
+        v20 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+        v60 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+        v24 = v321;
+        goto LABEL_119;
       }
 
-      v61 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+      v60 = &OBJC_IVAR___BTPResolver__sdRefResolve;
       if (!*(v3 + 1239))
       {
-        LODWORD(v60) = 25;
-        v22 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-        v26 = v360;
-        goto LABEL_116;
+        LODWORD(v59) = 25;
+        v20 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+        v24 = v321;
+        goto LABEL_119;
       }
 
       *(v3 + 268) = 0;
       ++*(v3 + 1255);
       if (gNRPacketLoggingEnabled == 1)
       {
-        v123 = *(v3 + 32);
-        v124 = _NRCopyLogObjectForNRUUID();
-        v125 = _NRLogIsLevelEnabled();
+        v115 = _NRCopyLogObjectForNRUUID();
+        v116 = _NRLogIsLevelEnabled();
 
-        if (v125)
+        if (v116)
         {
-          v126 = *(v3 + 32);
-          v127 = _NRCopyLogObjectForNRUUID();
-          v325 = [v3 copyDescription];
-          _NRLogWithArgs();
+          v117 = _NRCopyLogObjectForNRUUID();
+          v118 = [v3 copyDescription];
+          _NRLogWithArgs(v117, 1, "%s%.30s:%-4d %@: source-resume: UrgentLinkOutput", "", "NRLinkResumeUrgentLinkOutputSource", 858, v118);
         }
       }
 
       dispatch_resume(*(v3 + 1239));
-      LODWORD(v60) = 25;
-      v22 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-LABEL_115:
-      v23 = v359;
-      v26 = v360;
-      goto LABEL_116;
+      LODWORD(v59) = 25;
+      v20 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+LABEL_118:
+      v21 = v320;
+      v24 = v321;
+      goto LABEL_119;
     }
 
-    v24 = v347;
-    if (!v361)
+    v22 = v307;
+    if (!v334)
     {
-      v251 = sub_10007CF34();
-      v252 = _NRLogIsLevelEnabled();
+      v234 = sub_10007CF34();
+      v235 = _NRLogIsLevelEnabled();
 
-      if (v252)
+      if (v235)
       {
-        v253 = sub_10007CF34();
-        v335 = createIOVecString();
-        _NRLogWithArgs();
+        v236 = sub_10007CF34();
+        v237 = createIOVecString();
+        _NRLogWithArgs(v236, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: ioVecs[0].buf != ((void*)0); We have enough content but first ioVec is NULL: %@", "", "NRLinkNexusToLinkLoopUrgent", 3878, v237);
       }
 
-      _os_log_pack_size();
-      __chkstk_darwin();
-      v254 = *__error();
-      v255 = _os_log_pack_fill();
-      v256 = createIOVecString();
-      *v255 = 136446466;
-      *(v255 + 4) = "NRLinkNexusToLinkLoopUrgent";
-      *(v255 + 12) = 2112;
-      *(v255 + 14) = v256;
-      goto LABEL_291;
+      v238 = _os_log_pack_size();
+      v239 = &v296 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+      v240 = __error();
+      v241 = _os_log_pack_fill(v239, v238, *v240, &_mh_execute_header, "%{public}s Assertion Failed: ioVecs[0].buf != ((void*)0); We have enough content but first ioVec is NULL: %@");
+      v242 = createIOVecString();
+      *v241 = 136446466;
+      *(v241 + 4) = "NRLinkNexusToLinkLoopUrgent";
+      *(v241 + 12) = 2112;
+      *(v241 + 14) = v242;
+      goto LABEL_295;
     }
 
-    v68 = *(v3 + 311);
-    v69 = nrPacketToTLV();
-    v70 = v69;
-    v71 = *v361;
-    if (v71 > 0x65)
+    v65 = nrPacketToTLV();
+    v66 = v65;
+    v67 = *v334;
+    if (v67 > 0x65)
     {
-      v72 = v359;
-      if (*v361 > 0x67u)
+      v68 = v320;
+      if (*v334 > 0x67u)
       {
-        if (v71 == 104)
+        if (v67 == 104)
         {
-          v73 = &OBJC_IVAR___NRLinkBluetooth__sentKnownIPv6Hdr_ESP_ClassC;
+          v69 = &OBJC_IVAR___NRLinkBluetooth__sentKnownIPv6Hdr_ESP_ClassC;
         }
 
         else
         {
-          if (v71 != 105)
+          if (v67 != 105)
           {
-            goto LABEL_136;
+            goto LABEL_139;
           }
 
-          v73 = &OBJC_IVAR___NRLinkBluetooth__sentKnownIPv6Hdr_ESP_ClassC_ECT0;
+          v69 = &OBJC_IVAR___NRLinkBluetooth__sentKnownIPv6Hdr_ESP_ClassC_ECT0;
         }
       }
 
-      else if (v71 == 102)
+      else if (v67 == 102)
       {
-        v73 = &OBJC_IVAR___NRLinkBluetooth__sentKnownIPv6Hdr_TCP;
+        v69 = &OBJC_IVAR___NRLinkBluetooth__sentKnownIPv6Hdr_TCP;
       }
 
       else
       {
-        if (v71 != 103)
+        if (v67 != 103)
         {
-          goto LABEL_136;
+          goto LABEL_139;
         }
 
-        v73 = &OBJC_IVAR___NRLinkBluetooth__sentKnownIPv6Hdr_TCP_ECT0;
+        v69 = &OBJC_IVAR___NRLinkBluetooth__sentKnownIPv6Hdr_TCP_ECT0;
       }
 
-      goto LABEL_135;
+      goto LABEL_138;
     }
 
-    v72 = v359;
-    if (*v361 > 0x63u)
+    v68 = v320;
+    if (*v334 > 0x63u)
     {
-      if (v71 == 100)
+      if (v67 == 100)
       {
-        v73 = &OBJC_IVAR___NRLinkBluetooth__sentKnownIPv6Hdr_ESP;
+        v69 = &OBJC_IVAR___NRLinkBluetooth__sentKnownIPv6Hdr_ESP;
       }
 
       else
       {
-        if (v71 != 101)
+        if (v67 != 101)
         {
-          goto LABEL_136;
+          goto LABEL_139;
         }
 
-        v73 = &OBJC_IVAR___NRLinkBluetooth__sentKnownIPv6Hdr_ESP_ECT0;
+        v69 = &OBJC_IVAR___NRLinkBluetooth__sentKnownIPv6Hdr_ESP_ECT0;
       }
 
-LABEL_135:
-      ++*(v3 + *v73);
-      goto LABEL_136;
+LABEL_138:
+      ++*(v3 + *v69);
+      goto LABEL_139;
     }
 
-    v73 = &OBJC_IVAR___NRLinkBluetooth__sentUncompressedIP;
-    if (v71 == 2)
+    v69 = &OBJC_IVAR___NRLinkBluetooth__sentUncompressedIP;
+    if (v67 == 2)
     {
-      goto LABEL_135;
+      goto LABEL_138;
     }
 
-    if (v71 == 3)
+    if (v67 == 3)
     {
-      v73 = &OBJC_IVAR___NRLinkBluetooth__sentEncapsulated6LoWPAN;
-      goto LABEL_135;
+      v69 = &OBJC_IVAR___NRLinkBluetooth__sentEncapsulated6LoWPAN;
+      goto LABEL_138;
     }
 
-LABEL_136:
-    *(v3 + 1559) += v69;
-    v90 = (v347 - v72);
-    if (v69 <= v90)
+LABEL_139:
+    *(v3 + 1559) += v65;
+    v87 = (v22 - v68);
+    if (v65 <= v87)
     {
-      v23 = v72 + v69;
-      goto LABEL_151;
+      v21 = v68 + v65;
+      goto LABEL_154;
     }
 
     *(v3 + 2079) |= 0x4000uLL;
     if (gNRPacketLoggingEnabled == 1)
     {
-      v118 = *(v3 + 32);
-      v119 = _NRCopyLogObjectForNRUUID();
-      v120 = _NRLogIsLevelEnabled();
+      v111 = _NRCopyLogObjectForNRUUID();
+      v112 = _NRLogIsLevelEnabled();
 
-      if (v120)
+      if (v112)
       {
-        v121 = *(v3 + 32);
-        v122 = _NRCopyLogObjectForNRUUID();
-        v311 = [v3 copyDescription];
-        _NRLogWithArgs();
+        v113 = _NRCopyLogObjectForNRUUID();
+        v114 = [v3 copyDescription];
+        _NRLogWithArgs(v113, 1, "%s%.30s:%-4d %@: UrgentLink:Sending ESP sequence number %u (2)", "", "NRLinkNexusToLinkLoopUrgent", 3924, v114, ESPSequenceNumberFromPacket);
       }
     }
 
-    v378 = v27;
+    v351 = v319;
+    v88 = v319;
     os_buflet_set_data_length();
     os_packet_set_flow_uuid();
-    v91 = os_packet_finalize();
-    if (!v91)
+    v89 = os_packet_finalize();
+    if (!v89)
     {
       while (1)
       {
-        v92 = *(v3 + 1223);
-        v93 = os_channel_get_next_slot();
-        if (!v93)
+        v90 = os_channel_get_next_slot();
+        if (!v90)
         {
-          v234 = sub_10007CF34();
-          v235 = _NRLogIsLevelEnabled();
+          v207 = sub_10007CF34();
+          v208 = _NRLogIsLevelEnabled();
 
-          if (v235)
+          if (v208)
           {
-            v236 = sub_10007CF34();
-            _NRLogWithArgs();
+            v209 = sub_10007CF34();
+            _NRLogWithArgs(v209, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (curLinkOutputSlot) != ((void*)0)", "", "NRLinkNexusToLinkLoopUrgent", 3936);
           }
 
-          goto LABEL_290;
+          v210 = _os_log_pack_size();
+          v211 = &v296 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+          v212 = *__error();
+          i = _os_log_pack_fill(v211, v210, v212, &_mh_execute_header, "%{public}s Assertion Failed: (curLinkOutputSlot) != ((void*)0)");
+          goto LABEL_294;
         }
 
-        v94 = v93;
-        if (v25 != v93)
+        if (v23 != v90)
         {
-          ++v27;
+          ++v88;
         }
 
-        v95 = *(v3 + 1223);
-        v360 = v94;
-        os_channel_slot_get_packet();
-        os_packet_get_next_buflet();
-        object_address = os_buflet_get_object_address();
-        v96 = os_buflet_get_data_limit();
-        if (v96 >= 0x10000)
+        v321 = v90;
+        packet = os_channel_slot_get_packet();
+        v91 = os_packet_get_next_buflet();
+        v316 = os_buflet_get_object_address();
+        v317 = v91;
+        v92 = os_buflet_get_data_limit();
+        if (v92 >= 0x10000)
         {
-          v237 = sub_10007CF34();
-          v238 = _NRLogIsLevelEnabled();
+          v213 = sub_10007CF34();
+          v214 = _NRLogIsLevelEnabled();
 
-          if (v238)
+          if (v214)
           {
-            v239 = sub_10007CF34();
-            _NRLogWithArgs();
+            v215 = sub_10007CF34();
+            _NRLogWithArgs(v215, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: outputBufferLength <= 65535", "", "NRLinkNexusToLinkLoopUrgent", 3946);
           }
 
-          goto LABEL_290;
+          goto LABEL_281;
         }
 
-        v24 = v96;
-        v97 = (v96 + v90);
-        if (v97 >= v70)
+        v22 = v92;
+        v93 = (v92 + v87);
+        if (v93 >= v66)
         {
           break;
         }
@@ -7968,111 +7881,107 @@ LABEL_136:
         *(v3 + 2079) |= 0x8000uLL;
         if (gNRPacketLoggingEnabled == 1)
         {
-          v99 = *(v3 + 32);
-          v100 = _NRCopyLogObjectForNRUUID();
-          v101 = _NRLogIsLevelEnabled();
+          v95 = _NRCopyLogObjectForNRUUID();
+          v96 = _NRLogIsLevelEnabled();
 
-          if (v101)
+          if (v96)
           {
-            v102 = *(v3 + 32);
-            v103 = _NRCopyLogObjectForNRUUID();
-            v310 = [v3 copyDescription];
-            _NRLogWithArgs();
+            v97 = _NRCopyLogObjectForNRUUID();
+            v98 = [v3 copyDescription];
+            _NRLogWithArgs(v97, 1, "%s%.30s:%-4d %@: UrgentLink:Sending ESP sequence number %u (3)", "", "NRLinkNexusToLinkLoopUrgent", 3959, v98, ESPSequenceNumberFromPacket);
           }
         }
 
-        v378 = v27;
+        v351 = v88;
         os_buflet_set_data_length();
         os_packet_set_flow_uuid();
-        v98 = os_packet_finalize();
-        v90 = v97;
-        if (v98)
+        v94 = os_packet_finalize();
+        v87 = v93;
+        if (v94)
         {
-          v284 = v98;
-          v285 = sub_10007CF34();
-          v286 = _NRLogIsLevelEnabled();
+          v272 = v94;
+          v273 = sub_10007CF34();
+          v274 = _NRLogIsLevelEnabled();
 
-          if (v286)
+          if (v274)
           {
-            v287 = sub_10007CF34();
-            _NRLogWithArgs();
+            v275 = sub_10007CF34();
+            _NRLogWithArgs(v275, 16, "%s%.30s:%-4d ABORTING: os_packet_finalize returned %d", "", "NRLinkNexusToLinkLoopUrgent", 3966, v272);
           }
 
-          goto LABEL_316;
+          goto LABEL_320;
         }
       }
 
-      v357 = v27;
-      v23 = v70 - v90;
-      v21 = v355;
-LABEL_151:
-      ++*(v3 + v340);
-      *(v3 + v341) = *(v3 + v341);
+      v319 = v88;
+      v21 = v66 - v87;
+      v19 = v315;
+LABEL_154:
+      v99 = v301;
+      ++*(v3 + v300);
+      *(v3 + v99) += WORD1(v326);
       *(v3 + 2079) |= 0x10000uLL;
-      v60 = *(v3 + 2079);
-      v22 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-      if (!v60)
+      v59 = *(v3 + 2079);
+      v20 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+      if (!v59)
       {
-        v26 = v360;
-        v25 = v360;
-        v354 = v346;
-        v61 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-        goto LABEL_116;
+        v24 = v321;
+        v23 = v321;
+        v314 = v306;
+        v60 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+        goto LABEL_119;
       }
 
-      v61 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-      v60 = *(v3 + 2087);
-      if (!v60)
+      v60 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+      v59 = *(v3 + 2087);
+      if (!v59)
       {
-        goto LABEL_160;
+        goto LABEL_163;
       }
 
       *(v3 + 306) %= *(v3 + 305);
-      v104 = *(v3 + 2087);
-      v105 = (v104 + 8 * *(v3 + 306));
-      if ((v105 + 1) <= v104 + 8 * *(v3 + 305))
+      v100 = *(v3 + 2087);
+      v101 = (v100 + 8 * *(v3 + 306));
+      if ((v101 + 1) <= v100 + 8 * *(v3 + 305))
       {
-        LODWORD(v60) = 0;
-        if ((v105 & 7) == 0)
+        LODWORD(v59) = 0;
+        if ((v101 & 7) == 0)
         {
-          *v105 = *(v3 + 2079);
+          *v101 = *(v3 + 2079);
           ++*(v3 + 306);
           *(v3 + 2079) = 0;
         }
 
-LABEL_160:
-        v26 = v360;
-        v25 = v360;
-        v354 = v346;
-        goto LABEL_116;
+LABEL_163:
+        v24 = v321;
+        v23 = v321;
+        v314 = v306;
+        goto LABEL_119;
       }
 
-      v106 = v23;
-      v107 = *(v3 + 32);
-      v108 = _NRCopyLogObjectForNRUUID();
-      v109 = _NRLogIsLevelEnabled();
+      v102 = v21;
+      v103 = _NRCopyLogObjectForNRUUID();
+      v104 = _NRLogIsLevelEnabled();
 
-      if (v109)
+      if (v104)
       {
-        v110 = *(v3 + 32);
-        v111 = _NRCopyLogObjectForNRUUID();
-        v317 = [v3 copyDescription];
-        v324 = *(v3 + 306);
-        _NRLogWithArgs();
+        v105 = _NRCopyLogObjectForNRUUID();
+        v106 = [v3 copyDescription];
+        _NRLogWithArgs(v105, 17, "%@: invalid index for ntl log list (curIdx: %u)", v106, *(v3 + 306));
       }
 
-      LODWORD(v60) = 0;
-      v26 = v360;
-      v25 = v360;
-      v354 = v346;
-      v22 = &OBJC_IVAR___BTPResolver__sdRefResolve;
-      v23 = v106;
-LABEL_116:
-      if (v60 && v60 != 24)
+      LODWORD(v59) = 0;
+      v24 = v321;
+      v23 = v321;
+      v314 = v306;
+      v20 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+      v21 = v102;
+LABEL_119:
+      if (v59 && v59 != 24)
       {
-        if (v60 == 25)
+        if (v59 == 25)
         {
-          goto LABEL_184;
+          goto LABEL_187;
         }
 
         goto LABEL_21;
@@ -8084,83 +7993,77 @@ LABEL_116:
     break;
   }
 
-  v284 = v91;
-  v303 = sub_10007CF34();
-  v304 = _NRLogIsLevelEnabled();
+  v272 = v89;
+  v290 = sub_10007CF34();
+  v291 = _NRLogIsLevelEnabled();
 
-  if (v304)
+  if (v291)
   {
-    v305 = sub_10007CF34();
-    _NRLogWithArgs();
+    v292 = sub_10007CF34();
+    _NRLogWithArgs(v292, 16, "%s%.30s:%-4d ABORTING: os_packet_finalize returned %d", "", "NRLinkNexusToLinkLoopUrgent", 3928, v272);
   }
 
-LABEL_316:
+LABEL_320:
   v3 = _os_log_pack_size();
-  __chkstk_darwin();
-  v288 = *__error();
-  v289 = _os_log_pack_fill();
-  *v289 = 136446466;
-  *(v289 + 4) = "NRLinkNexusToLinkLoopUrgent";
-  *(v289 + 12) = 1024;
-  *(v289 + 14) = v284;
+  v276 = &v296 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+  v277 = *__error();
+  v278 = _os_log_pack_fill(v276, v3, v277, &_mh_execute_header, "%{public}s os_packet_finalize returned %d");
+  *v278 = 136446466;
+  *(v278 + 4) = "NRLinkNexusToLinkLoopUrgent";
+  *(v278 + 12) = 1024;
+  *(v278 + 14) = v272;
   sub_10007CF34();
   _NRLogAbortWithPack();
-LABEL_317:
-  v290 = *(v3 + 32);
-  v291 = _NRCopyLogObjectForNRUUID();
-  v292 = _NRLogIsLevelEnabled();
+LABEL_321:
+  v279 = _NRCopyLogObjectForNRUUID();
+  v280 = _NRLogIsLevelEnabled();
 
-  if (v292)
+  if (v280)
   {
-    v293 = *(v3 + 32);
-    v294 = _NRCopyLogObjectForNRUUID();
-    v336 = [v3 copyDescription];
-    _NRLogWithArgs();
+    v281 = _NRCopyLogObjectForNRUUID();
+    v282 = [v3 copyDescription];
+    _NRLogWithArgs(v281, 1, "%s%.30s:%-4d %@: source-resume: NexusVIInput", "", "NRLinkResumeNexusVIInputSource", 877, v282);
   }
 
-LABEL_266:
-  dispatch_resume(*(v3 + *(v90 + 1996)));
-LABEL_267:
+LABEL_269:
+  dispatch_resume(*(v3 + *(v87 + 1996)));
+LABEL_270:
   if (*(v3 + 254) == 1 && *(v3 + 623))
   {
     *(v3 + 254) = 0;
     ++*(v3 + 639);
     if (gNRPacketLoggingEnabled == 1)
     {
-      v295 = *(v3 + 32);
-      v296 = _NRCopyLogObjectForNRUUID();
-      v297 = _NRLogIsLevelEnabled();
+      v283 = _NRCopyLogObjectForNRUUID();
+      v284 = _NRLogIsLevelEnabled();
 
-      if (v297)
+      if (v284)
       {
-        v298 = *(v3 + 32);
-        v299 = _NRCopyLogObjectForNRUUID();
-        v337 = [v3 copyDescription];
-        _NRLogWithArgs();
+        v285 = _NRCopyLogObjectForNRUUID();
+        v286 = [v3 copyDescription];
+        _NRLogWithArgs(v285, 1, "%s%.30s:%-4d %@: source-resume: NexusVOInput", "", "NRLinkResumeNexusVOInputSource", 875, v286);
       }
     }
 
     dispatch_resume(*(v3 + 623));
   }
 
-LABEL_271:
+LABEL_274:
   if (gNRPacketLoggingEnabled == 1)
   {
-    v270 = *(v3 + 32);
-    v271 = _NRCopyLogObjectForNRUUID();
-    v272 = _NRLogIsLevelEnabled();
+    v260 = _NRCopyLogObjectForNRUUID();
+    v261 = _NRLogIsLevelEnabled();
 
-    if (v272)
+    if (v261)
     {
-      v273 = *(v3 + 32);
-      v14 = _NRCopyLogObjectForNRUUID();
-      v15 = [v3 copyDescription];
+      v6 = _NRCopyLogObjectForNRUUID();
+      v7 = [v3 copyDescription];
+      _NRLogWithArgs(v6, 1, "%s%.30s:%-4d %@: UrgentLink:out of NtL-U outer loop", "", "NRLinkNexusToLinkLoopUrgent", 4075, v7);
 LABEL_14:
-      _NRLogWithArgs();
     }
   }
 
-LABEL_272:
+LABEL_275:
 }
 
 void sub_1000AAC6C(uint64_t a1)
@@ -8168,16 +8071,14 @@ void sub_1000AAC6C(uint64_t a1)
   v2 = *(a1 + 32);
   if (*(v2 + 16) == 255)
   {
-    v5 = *(v2 + 32);
-    v6 = _NRCopyLogObjectForNRUUID();
+    v5 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v8 = *(*(a1 + 32) + 32);
-      v16 = _NRCopyLogObjectForNRUUID();
-      v14 = [*(a1 + 32) copyDescription];
-      _NRLogWithArgs();
+      v12 = _NRCopyLogObjectForNRUUID();
+      v7 = [*(a1 + 32) copyDescription];
+      _NRLogWithArgs(v12, 16, "%s%.30s:%-4d %@: Nexus VO input available but cancelled", "", "[NRLinkBluetooth setupNexusChannelVoice:]_block_invoke", 2377, v7);
     }
   }
 
@@ -8186,16 +8087,14 @@ void sub_1000AAC6C(uint64_t a1)
     ++*(v2 + 671);
     if (gNRPacketLoggingEnabled == 1)
     {
-      v9 = *(*(a1 + 32) + 32);
-      v10 = _NRCopyLogObjectForNRUUID();
-      v11 = _NRLogIsLevelEnabled();
+      v8 = _NRCopyLogObjectForNRUUID();
+      v9 = _NRLogIsLevelEnabled();
 
-      if (v11)
+      if (v9)
       {
-        v12 = *(*(a1 + 32) + 32);
-        v13 = _NRCopyLogObjectForNRUUID();
-        v15 = [*(a1 + 32) copyDescription];
-        _NRLogWithArgs();
+        v10 = _NRCopyLogObjectForNRUUID();
+        v11 = [*(a1 + 32) copyDescription];
+        _NRLogWithArgs(v10, 1, "%s%.30s:%-4d %@: Nexus VO input available", "", "[NRLinkBluetooth setupNexusChannelVoice:]_block_invoke", 2381, v11);
       }
     }
 
@@ -8211,16 +8110,14 @@ void sub_1000AAE24(uint64_t a1)
   v2 = *(a1 + 32);
   if (*(v2 + 16) == 255)
   {
-    v4 = *(v2 + 32);
-    v5 = _NRCopyLogObjectForNRUUID();
+    v4 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v7 = *(*(a1 + 32) + 32);
-      v15 = _NRCopyLogObjectForNRUUID();
-      v13 = [*(a1 + 32) copyDescription];
-      _NRLogWithArgs();
+      v11 = _NRCopyLogObjectForNRUUID();
+      v6 = [*(a1 + 32) copyDescription];
+      _NRLogWithArgs(v11, 16, "%s%.30s:%-4d %@: Nexus VO output available but cancelled", "", "[NRLinkBluetooth setupNexusChannelVoice:]_block_invoke", 2395, v6);
     }
   }
 
@@ -8229,16 +8126,14 @@ void sub_1000AAE24(uint64_t a1)
     ++*(v2 + 679);
     if (gNRPacketLoggingEnabled == 1)
     {
-      v8 = *(*(a1 + 32) + 32);
-      v9 = _NRCopyLogObjectForNRUUID();
-      v10 = _NRLogIsLevelEnabled();
+      v7 = _NRCopyLogObjectForNRUUID();
+      v8 = _NRLogIsLevelEnabled();
 
-      if (v10)
+      if (v8)
       {
-        v11 = *(*(a1 + 32) + 32);
-        v12 = _NRCopyLogObjectForNRUUID();
-        v14 = [*(a1 + 32) copyDescription];
-        _NRLogWithArgs();
+        v9 = _NRCopyLogObjectForNRUUID();
+        v10 = [*(a1 + 32) copyDescription];
+        _NRLogWithArgs(v9, 1, "%s%.30s:%-4d %@: Nexus VO output available", "", "[NRLinkBluetooth setupNexusChannelVoice:]_block_invoke", 2399, v10);
       }
     }
 
@@ -8252,359 +8147,531 @@ void sub_1000AAFD8(void *a1)
 {
   v1 = a1;
   v2 = v1;
-  v3 = *(v1 + 16);
+  v3 = v1[16];
   if (v3 == 255)
   {
-    v4 = v1[4];
-    v5 = _NRCopyLogObjectForNRUUID();
+    v4 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-LABEL_10:
-      v13 = *(v2 + 4);
-      v14 = _NRCopyLogObjectForNRUUID();
-      v15 = [v2 copyDescription];
-      _NRLogWithArgs();
+      v6 = _NRCopyLogObjectForNRUUID();
+      v7 = [v2 copyDescription];
+      _NRLogWithArgs(v6, 16, "%s%.30s:%-4d %@: LinkToNexusLoop but cancelled", "", "NRLinkDatagramLinkToNexusLoop", 4699, v7);
+LABEL_11:
+
+      goto LABEL_12;
     }
+
+    goto LABEL_12;
   }
 
-  else if (*(v1 + 1135))
+  if (!*(v1 + 1135))
   {
-    if ((v3 - 1) >= 2)
+    if (v1[265] == 1)
     {
-      do
+      v10 = _NRCopyLogObjectForNRUUID();
+      v11 = _NRLogIsLevelEnabled();
+
+      if (v11)
       {
-        v16 = 0;
-        v17 = 0;
-        while (1)
+        v6 = _NRCopyLogObjectForNRUUID();
+        v7 = [v2 copyDescription];
+        _NRLogWithArgs(v6, 17, "%@: Tried to linkToNexusLoop but _datagramLinkInputRing is NULL", v7);
+        goto LABEL_11;
+      }
+    }
+
+    goto LABEL_12;
+  }
+
+  if ((v3 - 1) >= 2)
+  {
+    v103 = v119;
+    v12 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+    while (1)
+    {
+      v13 = 0;
+      v14 = 0;
+      v116 = 0u;
+      v117 = 0u;
+      v114 = 0u;
+      v115 = 0u;
+      v112 = 0;
+      v113 = 0;
+      while (1)
+      {
+        v15 = v12[650];
+        *&v2[v15] = 4;
+        v111 = 0u;
+        v110 = 0u;
+        v109 = 0u;
+        v108 = 0u;
+        next_slot = os_channel_get_next_slot();
+        if (!next_slot)
         {
-          *(v2 + 2047) = 4;
-          v18 = *(v2 + 615);
-          if (!os_channel_get_next_slot())
+          break;
+        }
+
+        v17 = next_slot;
+        v18 = os_channel_get_next_slot();
+        if (!v18)
+        {
+          if (v2[263] == 1 && *(v2 + 1151))
           {
-            break;
-          }
-
-          v19 = *(v2 + 1135);
-          next_slot = os_channel_get_next_slot();
-          if (!next_slot)
-          {
-            if (v2[263] == 1 && *(v2 + 1151))
-            {
-              v2[263] = 0;
-              ++*(v2 + 1167);
-              if (gNRPacketLoggingEnabled == 1)
-              {
-                v70 = *(v2 + 4);
-                v71 = _NRCopyLogObjectForNRUUID();
-                v72 = _NRLogIsLevelEnabled();
-
-                if (v72)
-                {
-                  v73 = *(v2 + 4);
-                  v74 = _NRCopyLogObjectForNRUUID();
-                  v92 = [v2 copyDescription];
-                  _NRLogWithArgs();
-                }
-              }
-
-              dispatch_resume(*(v2 + 1151));
-            }
-
-            if ((v2[255] & 1) == 0 && *(v2 + 631))
-            {
-              v2[255] = 1;
-              ++*(v2 + 647);
-              if (gNRPacketLoggingEnabled == 1)
-              {
-                v75 = *(v2 + 4);
-                v76 = _NRCopyLogObjectForNRUUID();
-                v77 = _NRLogIsLevelEnabled();
-
-                if (v77)
-                {
-                  v78 = *(v2 + 4);
-                  v79 = _NRCopyLogObjectForNRUUID();
-                  v93 = [v2 copyDescription];
-                  _NRLogWithArgs();
-                }
-              }
-
-              dispatch_suspend(*(v2 + 631));
-            }
-
-            v43 = 64;
-            goto LABEL_59;
-          }
-
-          v21 = v16;
-          v22 = next_slot;
-          v23 = *(v2 + 1135);
-          v95 = v22;
-          os_channel_slot_get_packet();
-          os_packet_get_next_buflet();
-          os_buflet_get_object_address();
-          os_buflet_get_data_offset();
-          data_length = os_buflet_get_data_length();
-          if (data_length >= 0x10000)
-          {
-            if (qword_100229088 != -1)
-            {
-              goto LABEL_83;
-            }
-
-            while (1)
-            {
-              if (_NRLogIsLevelEnabled())
-              {
-                v80 = sub_10007CF34();
-                _NRLogWithArgs();
-              }
-
-              _os_log_pack_size();
-              __chkstk_darwin();
-              v81 = *__error();
-              v82 = _os_log_pack_fill();
-              *v82 = 136446210;
-              *(v82 + 4) = "NRLinkDatagramLinkToNexusLoop";
-              sub_10007CF34();
-              _NRLogAbortWithPack();
-LABEL_83:
-              dispatch_once(&qword_100229088, &stru_1001FB1C0);
-            }
-          }
-
-          v25 = data_length;
-          os_packet_get_flow_uuid();
-          if ((v2[263] & 1) == 0 && *(v2 + 1151))
-          {
-            v2[263] = 1;
+            v2[263] = 0;
             ++*(v2 + 1167);
             if (gNRPacketLoggingEnabled == 1)
             {
-              v34 = *(v2 + 4);
-              v35 = _NRCopyLogObjectForNRUUID();
-              v94 = _NRLogIsLevelEnabled();
+              v88 = _NRCopyLogObjectForNRUUID();
+              v89 = _NRLogIsLevelEnabled();
 
-              if (v94)
+              if (v89)
               {
-                v36 = *(v2 + 4);
-                v37 = _NRCopyLogObjectForNRUUID();
-                v88 = [v2 copyDescription];
-                _NRLogWithArgs();
+                v90 = _NRCopyLogObjectForNRUUID();
+                v91 = [v2 copyDescription];
+                _NRLogWithArgs(v90, 1, "%s%.30s:%-4d %@: source-resume: DatagramLinkInput", "", "NRLinkResumeDatagramLinkInputSource", 855, v91);
               }
             }
 
-            dispatch_suspend(*(v2 + 1151));
+            dispatch_resume(*(v2 + 1151));
           }
 
-          if (v25)
+          if ((v2[255] & 1) == 0 && *(v2 + 631))
           {
-            v16 = v21;
-            v17 = v95;
-          }
-
-          else
-          {
+            v2[255] = 1;
+            ++*(v2 + 647);
             if (gNRPacketLoggingEnabled == 1)
             {
-              v38 = *(v2 + 4);
-              v39 = _NRCopyLogObjectForNRUUID();
-              v40 = _NRLogIsLevelEnabled();
+              v92 = _NRCopyLogObjectForNRUUID();
+              v93 = _NRLogIsLevelEnabled();
 
-              if (v40)
+              if (v93)
               {
-                v41 = *(v2 + 4);
-                v42 = _NRCopyLogObjectForNRUUID();
-                v83 = [v2 copyDescription];
-                _NRLogWithArgs();
+                v94 = _NRCopyLogObjectForNRUUID();
+                v95 = [v2 copyDescription];
+                _NRLogWithArgs(v94, 1, "%s%.30s:%-4d %@: source-suspend: NexusVOOutput", "", "NRLinkSuspendNexusVOOutputSource", 866, v95);
               }
-
-              v26 = v21;
             }
 
-            else
-            {
-              v26 = v21;
-            }
-
-            v17 = v95;
-            v16 = v26;
+            dispatch_suspend(*(v2 + 631));
           }
 
-          if (*(v2 + 2047) && *(v2 + 2055))
+          v63 = 64;
+          goto LABEL_92;
+        }
+
+        v19 = v13;
+        v20 = v12;
+        v104 = v18;
+        os_channel_slot_get_packet();
+        os_packet_get_next_buflet();
+        object_address = os_buflet_get_object_address();
+        data_offset = os_buflet_get_data_offset();
+        data_length = os_buflet_get_data_length();
+        if (data_length >= 0x10000)
+        {
+          if (qword_100229088 != -1)
           {
-            v2[302] = v2[302] % v2[301];
-            v27 = *(v2 + 2055);
-            v28 = (v27 + 8 * v2[302]);
-            if ((v28 + 1) <= v27 + 8 * v2[301])
+            goto LABEL_121;
+          }
+
+          while (1)
+          {
+            if (_NRLogIsLevelEnabled())
             {
-              if ((v28 & 7) == 0)
-              {
-                *v28 = *(v2 + 2047);
-                ++v2[302];
-                *(v2 + 2047) = 0;
-              }
+              v96 = sub_10007CF34();
+              _NRLogWithArgs(v96, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: inputBufferLength <= 65535", "", "NRLinkDatagramLinkToNexusLoop", 4768);
             }
 
-            else
-            {
-              v29 = *(v2 + 4);
-              v30 = _NRCopyLogObjectForNRUUID();
-              v31 = _NRLogIsLevelEnabled();
-
-              if (v31)
-              {
-                v32 = *(v2 + 4);
-                v33 = _NRCopyLogObjectForNRUUID();
-                v85 = [v2 copyDescription];
-                v87 = v2[302];
-                _NRLogWithArgs();
-              }
-            }
+            v97 = _os_log_pack_size();
+            v98 = &v101 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+            v99 = __error();
+            v100 = _os_log_pack_fill(v98, v97, *v99, &_mh_execute_header, "%{public}s Assertion Failed: inputBufferLength <= 65535");
+            *v100 = 136446210;
+            *(v100 + 4) = "NRLinkDatagramLinkToNexusLoop";
+            sub_10007CF34();
+            _NRLogAbortWithPack();
+LABEL_121:
+            dispatch_once(&qword_100229088, &stru_1001FB1C0);
           }
         }
 
+        v24 = data_length;
+        os_packet_get_flow_uuid();
         if ((v2[263] & 1) == 0 && *(v2 + 1151))
         {
           v2[263] = 1;
           ++*(v2 + 1167);
           if (gNRPacketLoggingEnabled == 1)
           {
-            v60 = *(v2 + 4);
-            v61 = _NRCopyLogObjectForNRUUID();
-            v62 = _NRLogIsLevelEnabled();
+            v44 = _NRCopyLogObjectForNRUUID();
+            LODWORD(v102) = _NRLogIsLevelEnabled();
 
-            if (v62)
+            if (v102)
             {
-              v63 = *(v2 + 4);
-              v64 = _NRCopyLogObjectForNRUUID();
-              v90 = [v2 copyDescription];
-              _NRLogWithArgs();
+              v45 = _NRCopyLogObjectForNRUUID();
+              v102 = [v2 copyDescription];
+              _NRLogWithArgs(v45, 1, "%s%.30s:%-4d %@: source-suspend: DatagramLinkInput", "", "NRLinkSuspendDatagramLinkInputSource", 847, v102);
             }
           }
 
           dispatch_suspend(*(v2 + 1151));
         }
 
-        if (v2[255] == 1 && *(v2 + 631))
+        if (v24 > WORD1(v108))
         {
-          v2[255] = 0;
-          ++*(v2 + 647);
-          if (gNRPacketLoggingEnabled == 1)
-          {
-            v65 = *(v2 + 4);
-            v66 = _NRCopyLogObjectForNRUUID();
-            v67 = _NRLogIsLevelEnabled();
-
-            if (v67)
-            {
-              v68 = *(v2 + 4);
-              v69 = _NRCopyLogObjectForNRUUID();
-              v91 = [v2 copyDescription];
-              _NRLogWithArgs();
-            }
-          }
-
-          dispatch_resume(*(v2 + 631));
+          v12 = v20;
+          v13 = v19;
+          v14 = v104;
+          goto LABEL_51;
         }
 
-        v43 = 0x800000;
-LABEL_59:
-        *(v2 + 2047) |= v43;
-        if (v17)
+        v107 = 0;
+        v105 = object_address + data_offset;
+        v106 = v24;
+        if (v24 < 3)
         {
-          *(v2 + 2047) |= 0x800000000uLL;
           if (gNRPacketLoggingEnabled == 1)
           {
-            v53 = *(v2 + 4);
-            v54 = _NRCopyLogObjectForNRUUID();
-            v55 = _NRLogIsLevelEnabled();
+            v46 = _NRCopyLogObjectForNRUUID();
+            v47 = _NRLogIsLevelEnabled();
 
-            if (v55)
+            v12 = v20;
+            if (v47)
             {
-              v56 = *(v2 + 4);
-              v57 = _NRCopyLogObjectForNRUUID();
-              v84 = [v2 copyDescription];
-              _NRLogWithArgs();
+              v48 = _NRCopyLogObjectForNRUUID();
+              v49 = [v2 copyDescription];
+              _NRLogWithArgs(v48, 1, "%s%.30s:%-4d %@: received unexpected packet length: %u", "", "NRLinkDatagramLinkToNexusLoop", 4838, v49, v106);
             }
-          }
 
-          if (gNRPacketLoggingEnabled == 1)
-          {
-            v58 = +[NSDate date];
-            v59 = *(v2 + 1839);
-            *(v2 + 1839) = v58;
+            v17 = v19;
+            goto LABEL_50;
           }
-
-          v44 = *(v2 + 1135);
-          os_channel_advance_slot();
-          v45 = *(v2 + 1127);
-          os_channel_sync();
-          ++*(v2 + 1583);
         }
 
-        if (*(v2 + 2047) && *(v2 + 2055))
+        else
+        {
+          v25 = v24;
+          v26 = bswap32(*(object_address + data_offset + 1)) >> 16;
+          if (v26 + 5 == v24)
+          {
+            v27 = nrTLVToPacket();
+            if (gNRPacketLoggingEnabled == 1)
+            {
+              v102 = _NRCopyLogObjectForNRUUID();
+              LODWORD(v101) = _NRLogIsLevelEnabled();
+
+              if (v101)
+              {
+                v102 = _NRCopyLogObjectForNRUUID();
+                v101 = [v2 copyDescription];
+                _NRLogWithArgs(v102, 1, "%s%.30s:%-4d %@: DatagramLink:read %u bytes from datagram link, uncompressedLen = %u", "", "NRLinkDatagramLinkToNexusLoop", 4801, v101, v24, v27);
+              }
+            }
+
+            if (v27)
+            {
+              WORD1(v108) = v27;
+              if (gNRPacketLoggingEnabled != 1)
+              {
+                ESPSequenceNumberFromPacket = 0;
+                goto LABEL_33;
+              }
+
+              ESPSequenceNumberFromPacket = getESPSequenceNumberFromPacket();
+              if (gNRPacketLoggingEnabled)
+              {
+                getESPSPIFromPacket();
+                v54 = gNRPacketLoggingEnabled;
+                *&v2[v15] |= 0x8000000uLL;
+                if (v54)
+                {
+                  v55 = _NRCopyLogObjectForNRUUID();
+                  v56 = _NRLogIsLevelEnabled();
+
+                  if (v56)
+                  {
+                    v57 = _NRCopyLogObjectForNRUUID();
+                    v58 = [v2 copyDescription];
+                    _NRLogWithArgs(v57, 1, "%s%.30s:%-4d %@: DatagramLink:Received ESP sequence number: %u", "", "NRLinkDatagramLinkToNexusLoop", 4806, v58, ESPSequenceNumberFromPacket);
+                  }
+                }
+
+                v12 = v20;
+              }
+
+              else
+              {
+LABEL_33:
+                v12 = v20;
+                *&v2[v15] |= 0x8000000uLL;
+              }
+
+              packet = os_channel_slot_get_packet();
+              if ((v112 & 0x10000) != 0 || v2[292] == 1)
+              {
+                v2[292] = 0;
+                memset(v123, 0, sizeof(v123));
+                v122 = 1;
+                if (packet)
+                {
+                  os_packet_set_flow_uuid();
+                  *&v2[v15] |= 0x10000000uLL;
+                  if (gNRPacketLoggingEnabled == 1)
+                  {
+                    v59 = _NRCopyLogObjectForNRUUID();
+                    v60 = _NRLogIsLevelEnabled();
+
+                    if (v60)
+                    {
+                      v61 = _NRCopyLogObjectForNRUUID();
+                      v62 = [v2 copyDescription];
+                      _NRLogWithArgs(v61, 1, "%s%.30s:%-4d %@: DatagramLink:Set waking metadata for packet w/ ESP sequence number: %u", "", "NRLinkDatagramLinkToNexusLoop", 4818, v62, ESPSequenceNumberFromPacket);
+                    }
+                  }
+                }
+
+                v35 = getESPSequenceNumberFromPacket();
+                ESPSPIFromPacket = getESPSPIFromPacket();
+                if (qword_100229268 != -1)
+                {
+                  dispatch_once(&qword_100229268, &stru_1001FC3A0);
+                }
+
+                v37 = qword_100229260;
+                block[0] = _NSConcreteStackBlock;
+                block[1] = 3221225472;
+                v119[0] = sub_1000922D0;
+                v119[1] = &unk_1001FCDD8;
+                v120 = ESPSPIFromPacket;
+                v121 = v35;
+                dispatch_async(v37, block);
+
+                v12 = v20;
+              }
+
+              else if (packet)
+              {
+                os_packet_clear_flow_uuid();
+              }
+
+              os_channel_set_slot_properties();
+              *(v2 + 1535) += v25;
+              *(v2 + 727) += v27;
+              ++*(v2 + 711);
+              goto LABEL_50;
+            }
+
+            v30 = _NRCopyLogObjectForNRUUID();
+            v31 = _NRLogIsLevelEnabled();
+
+            if (v31)
+            {
+              v32 = _NRCopyLogObjectForNRUUID();
+              v33 = [v2 copyDescription];
+              StringFromNRTLVType = createStringFromNRTLVType();
+              _NRLogWithArgs(v32, 17, "%@: failed to reinject %@ tlvLen=%u slotLen=%u", v33, StringFromNRTLVType, v26, WORD1(v108));
+            }
+
+LABEL_41:
+            v17 = v19;
+            v12 = v20;
+            goto LABEL_50;
+          }
+
+          if (gNRPacketLoggingEnabled != 1)
+          {
+            goto LABEL_41;
+          }
+
+          v50 = _NRCopyLogObjectForNRUUID();
+          v51 = _NRLogIsLevelEnabled();
+
+          if (v51)
+          {
+            v52 = _NRCopyLogObjectForNRUUID();
+            v53 = [v2 copyDescription];
+            _NRLogWithArgs(v52, 1, "%s%.30s:%-4d %@: DatagramLink:Ignoring truncated packet (%zu + %zu + %u + %zu != %u)", "", "NRLinkDatagramLinkToNexusLoop", 4793, v53, 1, 2, v26, 2, v106);
+          }
+        }
+
+        v17 = v19;
+        v12 = v20;
+LABEL_50:
+        v14 = v104;
+        v13 = v17;
+LABEL_51:
+        if (*&v2[v12[650]] && *(v2 + 2055))
         {
           v2[302] = v2[302] % v2[301];
-          v46 = *(v2 + 2055);
-          v47 = (v46 + 8 * v2[302]);
-          if ((v47 + 1) <= v46 + 8 * v2[301])
+          v38 = *(v2 + 2055);
+          v39 = (v38 + 8 * v2[302]);
+          if ((v39 + 1) <= v38 + 8 * v2[301])
           {
-            if ((v47 & 7) == 0)
+            if ((v39 & 7) == 0)
             {
-              *v47 = *(v2 + 2047);
+              *v39 = *&v2[v12[650]];
               ++v2[302];
-              *(v2 + 2047) = 0;
+              *&v2[v12[650]] = 0;
             }
           }
 
           else
           {
-            v48 = *(v2 + 4);
-            v49 = _NRCopyLogObjectForNRUUID();
-            v50 = _NRLogIsLevelEnabled();
+            v40 = _NRCopyLogObjectForNRUUID();
+            v41 = _NRLogIsLevelEnabled();
 
-            if (v50)
+            if (v41)
             {
-              v51 = *(v2 + 4);
-              v52 = _NRCopyLogObjectForNRUUID();
-              v86 = [v2 copyDescription];
-              v89 = v2[302];
-              _NRLogWithArgs();
+              v42 = _NRCopyLogObjectForNRUUID();
+              v43 = [v2 copyDescription];
+              _NRLogWithArgs(v42, 17, "%@: invalid index for link log list (curIdx: %u)", v43, v2[302]);
             }
           }
         }
       }
 
-      while (v16 | v17);
-    }
-
-    else
-    {
-      v7 = v1[4];
-      v8 = _NRCopyLogObjectForNRUUID();
-      v9 = _NRLogIsLevelEnabled();
-
-      if (v9)
+      if ((v2[263] & 1) == 0 && *(v2 + 1151))
       {
-        goto LABEL_10;
+        v2[263] = 1;
+        ++*(v2 + 1167);
+        if (gNRPacketLoggingEnabled == 1)
+        {
+          v80 = _NRCopyLogObjectForNRUUID();
+          v81 = _NRLogIsLevelEnabled();
+
+          if (v81)
+          {
+            v82 = _NRCopyLogObjectForNRUUID();
+            v83 = [v2 copyDescription];
+            _NRLogWithArgs(v82, 1, "%s%.30s:%-4d %@: source-suspend: DatagramLinkInput", "", "NRLinkSuspendDatagramLinkInputSource", 847, v83);
+          }
+        }
+
+        dispatch_suspend(*(v2 + 1151));
+      }
+
+      if (v2[255] == 1 && *(v2 + 631))
+      {
+        v2[255] = 0;
+        ++*(v2 + 647);
+        if (gNRPacketLoggingEnabled == 1)
+        {
+          v84 = _NRCopyLogObjectForNRUUID();
+          v85 = _NRLogIsLevelEnabled();
+
+          if (v85)
+          {
+            v86 = _NRCopyLogObjectForNRUUID();
+            v87 = [v2 copyDescription];
+            _NRLogWithArgs(v86, 1, "%s%.30s:%-4d %@: source-resume: NexusVOOutput", "", "NRLinkResumeNexusVOOutputSource", 876, v87);
+          }
+        }
+
+        dispatch_resume(*(v2 + 631));
+      }
+
+      v63 = 0x800000;
+LABEL_92:
+      *&v2[v15] |= v63;
+      if (v14)
+      {
+        *&v2[v12[650]] |= 0x800000000uLL;
+        if (gNRPacketLoggingEnabled == 1)
+        {
+          v70 = _NRCopyLogObjectForNRUUID();
+          v71 = _NRLogIsLevelEnabled();
+
+          if (v71)
+          {
+            v72 = _NRCopyLogObjectForNRUUID();
+            v73 = [v2 copyDescription];
+            _NRLogWithArgs(v72, 1, "%s%.30s:%-4d %@: DatagramLink:advancing past datagramLinkInputSlot=%p and syncing link input", "", "NRLinkDatagramLinkToNexusLoop", 4849, v73, v14);
+          }
+        }
+
+        if (gNRPacketLoggingEnabled == 1)
+        {
+          v74 = +[NSDate date];
+          v75 = *(v2 + 1839);
+          *(v2 + 1839) = v74;
+        }
+
+        os_channel_advance_slot();
+        os_channel_sync();
+        ++*(v2 + 1583);
+      }
+
+      if (v13)
+      {
+        *&v2[v12[650]] |= 0x1000000000uLL;
+        if (gNRPacketLoggingEnabled == 1)
+        {
+          v76 = _NRCopyLogObjectForNRUUID();
+          v77 = _NRLogIsLevelEnabled();
+
+          if (v77)
+          {
+            v78 = _NRCopyLogObjectForNRUUID();
+            v79 = [v2 copyDescription];
+            _NRLogWithArgs(v78, 1, "%s%.30s:%-4d %@: DatagramLink:advancing past nexusOutputSlot=%p and syncing nexus output", "", "NRLinkDatagramLinkToNexusLoop", 4858, v79, v13);
+          }
+        }
+
+        os_channel_advance_slot();
+        os_channel_sync();
+        ++*(v2 + 695);
+      }
+
+      if (*&v2[v12[650]] && *(v2 + 2055))
+      {
+        v2[302] = v2[302] % v2[301];
+        v64 = *(v2 + 2055);
+        v65 = (v64 + 8 * v2[302]);
+        if ((v65 + 1) <= v64 + 8 * v2[301])
+        {
+          if ((v65 & 7) == 0)
+          {
+            *v65 = *&v2[v12[650]];
+            ++v2[302];
+            *&v2[v12[650]] = 0;
+          }
+        }
+
+        else
+        {
+          v66 = _NRCopyLogObjectForNRUUID();
+          v67 = _NRLogIsLevelEnabled();
+
+          if (v67)
+          {
+            v68 = _NRCopyLogObjectForNRUUID();
+            v69 = [v2 copyDescription];
+            _NRLogWithArgs(v68, 17, "%@: invalid index for link log list (curIdx: %u)", v69, v2[302]);
+          }
+        }
+      }
+
+      if (!(v13 | v14))
+      {
+        goto LABEL_12;
       }
     }
   }
 
-  else if (*(v1 + 265) == 1)
-  {
-    v10 = v1[4];
-    v11 = _NRCopyLogObjectForNRUUID();
-    v12 = _NRLogIsLevelEnabled();
+  v8 = _NRCopyLogObjectForNRUUID();
+  v9 = _NRLogIsLevelEnabled();
 
-    if (v12)
-    {
-      goto LABEL_10;
-    }
+  if (v9)
+  {
+    v6 = _NRCopyLogObjectForNRUUID();
+    v7 = [v2 copyDescription];
+    _NRLogWithArgs(v6, 17, "%@: Tried to linkToNexusLoop but bad state", v7);
+    goto LABEL_11;
   }
+
+LABEL_12:
 }
 
 void sub_1000AC29C(uint64_t a1)
@@ -8612,16 +8679,14 @@ void sub_1000AC29C(uint64_t a1)
   v2 = *(a1 + 32);
   if (*(v2 + 16) == 255)
   {
-    v5 = *(v2 + 32);
-    v6 = _NRCopyLogObjectForNRUUID();
+    v5 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v8 = *(*(a1 + 32) + 32);
-      v16 = _NRCopyLogObjectForNRUUID();
-      v14 = [*(a1 + 32) copyDescription];
-      _NRLogWithArgs();
+      v12 = _NRCopyLogObjectForNRUUID();
+      v7 = [*(a1 + 32) copyDescription];
+      _NRLogWithArgs(v12, 16, "%s%.30s:%-4d %@: Nexus input available but cancelled", "", "[NRLinkBluetooth setupNexusChannelBestEffort:]_block_invoke", 2280, v7);
     }
   }
 
@@ -8630,16 +8695,14 @@ void sub_1000AC29C(uint64_t a1)
     ++*(v2 + 527);
     if (gNRPacketLoggingEnabled == 1)
     {
-      v9 = *(*(a1 + 32) + 32);
-      v10 = _NRCopyLogObjectForNRUUID();
-      v11 = _NRLogIsLevelEnabled();
+      v8 = _NRCopyLogObjectForNRUUID();
+      v9 = _NRLogIsLevelEnabled();
 
-      if (v11)
+      if (v9)
       {
-        v12 = *(*(a1 + 32) + 32);
-        v13 = _NRCopyLogObjectForNRUUID();
-        v15 = [*(a1 + 32) copyDescription];
-        _NRLogWithArgs();
+        v10 = _NRCopyLogObjectForNRUUID();
+        v11 = [*(a1 + 32) copyDescription];
+        _NRLogWithArgs(v10, 1, "%s%.30s:%-4d %@: Nexus input available", "", "[NRLinkBluetooth setupNexusChannelBestEffort:]_block_invoke", 2284, v11);
       }
     }
 
@@ -8655,16 +8718,14 @@ void sub_1000AC454(uint64_t a1)
   v2 = *(a1 + 32);
   if (*(v2 + 16) == 255)
   {
-    v4 = *(v2 + 32);
-    v5 = _NRCopyLogObjectForNRUUID();
+    v4 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v7 = *(*(a1 + 32) + 32);
-      v15 = _NRCopyLogObjectForNRUUID();
-      v13 = [*(a1 + 32) copyDescription];
-      _NRLogWithArgs();
+      v11 = _NRCopyLogObjectForNRUUID();
+      v6 = [*(a1 + 32) copyDescription];
+      _NRLogWithArgs(v11, 16, "%s%.30s:%-4d %@: Nexus output available but cancelled", "", "[NRLinkBluetooth setupNexusChannelBestEffort:]_block_invoke", 2298, v6);
     }
   }
 
@@ -8673,16 +8734,14 @@ void sub_1000AC454(uint64_t a1)
     ++*(v2 + 535);
     if (gNRPacketLoggingEnabled == 1)
     {
-      v8 = *(*(a1 + 32) + 32);
-      v9 = _NRCopyLogObjectForNRUUID();
-      v10 = _NRLogIsLevelEnabled();
+      v7 = _NRCopyLogObjectForNRUUID();
+      v8 = _NRLogIsLevelEnabled();
 
-      if (v10)
+      if (v8)
       {
-        v11 = *(*(a1 + 32) + 32);
-        v12 = _NRCopyLogObjectForNRUUID();
-        v14 = [*(a1 + 32) copyDescription];
-        _NRLogWithArgs();
+        v9 = _NRCopyLogObjectForNRUUID();
+        v10 = [*(a1 + 32) copyDescription];
+        _NRLogWithArgs(v9, 1, "%s%.30s:%-4d %@: Nexus output available", "", "[NRLinkBluetooth setupNexusChannelBestEffort:]_block_invoke", 2302, v10);
       }
     }
 
@@ -8692,7 +8751,7 @@ void sub_1000AC454(uint64_t a1)
   }
 }
 
-id sub_1000AC608(void *a1, uint64_t a2, unint64_t a3, unint64_t *a4)
+id sub_1000AC608(void *a1, uint64_t a2, size_t a3, size_t *a4)
 {
   if (a4)
   {
@@ -8714,7 +8773,7 @@ id sub_1000AC608(void *a1, uint64_t a2, unint64_t a3, unint64_t *a4)
         dispatch_once(&qword_100229088, &stru_1001FB1C0);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100229080, 16, "%s%.30s:%-4d invalid context", "", "NRLinkParserWriteOutputCallback", 3156);
     }
 
     goto LABEL_17;
@@ -8735,7 +8794,7 @@ id sub_1000AC608(void *a1, uint64_t a2, unint64_t a3, unint64_t *a4)
       if (IsLevelEnabled)
       {
         v15 = sub_10007CF34();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v15, 1, "%s%.30s:%-4d writing data of len %zu bytes", "", "NRLinkParserWriteOutputCallback", 3166, a3);
       }
     }
 
@@ -8790,7 +8849,7 @@ void sub_1000AC8B8(_Unwind_Exception *a1)
 
 void sub_1000AC8D4(uint64_t a1, void *a2, int a3)
 {
-  v12 = a2;
+  v11 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v6 = WeakRetained;
   if (WeakRetained && [WeakRetained state] != 255)
@@ -8803,12 +8862,11 @@ void sub_1000AC8D4(uint64_t a1, void *a2, int a3)
       if (IsLevelEnabled)
       {
         v10 = sub_10007CF34();
-        v11 = *(a1 + 40);
-        _NRLogWithArgs();
+        _NRLogWithArgs(v10, 1, "%s%.30s:%-4d completed writing data %u/%zu bytes", "", "NRLinkParserWriteOutputCallback_block_invoke", 3176, a3, *(a1 + 40));
       }
     }
 
-    if (v12 && [v12 code])
+    if (v11 && [v11 code])
     {
       if (qword_100229088 != -1)
       {
@@ -8822,7 +8880,7 @@ void sub_1000AC8D4(uint64_t a1, void *a2, int a3)
           dispatch_once(&qword_100229088, &stru_1001FB1C0);
         }
 
-        _NRLogWithArgs();
+        _NRLogWithArgs(qword_100229080, 16, "%s%.30s:%-4d l2CAP channel write error %@", "", "NRLinkParserWriteOutputCallback_block_invoke", 3178, v11);
       }
     }
 
@@ -8944,23 +9002,20 @@ void sub_1000AE684(uint64_t a1, void *a2)
   v5 = v4;
   if (!a1 || *(a1 + 1119) == v4)
   {
-    goto LABEL_62;
+    goto LABEL_63;
   }
 
   if (*(a1 + 293))
   {
 LABEL_4:
-    v6 = *(a1 + 32);
-    v7 = _NRCopyLogObjectForNRUUID();
+    v6 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v9 = *(a1 + 32);
-      v10 = _NRCopyLogObjectForNRUUID();
-      v11 = [a1 copyDescription];
-      v122 = *(a1 + 1119);
-      _NRLogWithArgs();
+      v8 = _NRCopyLogObjectForNRUUID();
+      v9 = [a1 copyDescription];
+      _NRLogWithArgs(v8, 1, "%s%.30s:%-4d %@: Updating datagram pipe: %@ -> %@", "", "[NRLinkBluetooth updateDatagramPipe:]", 2911, v9, *(a1 + 1119), v5);
     }
 
     objc_storeStrong((a1 + 1119), a2);
@@ -8978,13 +9033,13 @@ LABEL_4:
       }
     }
 
-    goto LABEL_62;
+    goto LABEL_63;
   }
 
-  v12 = *(a1 + 1151);
+  v10 = *(a1 + 1151);
   if (!v5)
   {
-    if (v12)
+    if (v10)
     {
       if (*(a1 + 263) == 1)
       {
@@ -8992,30 +9047,28 @@ LABEL_4:
         ++*(a1 + 1167);
         if (gNRPacketLoggingEnabled == 1)
         {
-          v81 = *(a1 + 32);
-          v82 = _NRCopyLogObjectForNRUUID();
-          v83 = _NRLogIsLevelEnabled();
+          v66 = _NRCopyLogObjectForNRUUID();
+          v67 = _NRLogIsLevelEnabled();
 
-          if (v83)
+          if (v67)
           {
-            v84 = *(a1 + 32);
-            v85 = _NRCopyLogObjectForNRUUID();
-            v126 = [a1 copyDescription];
-            _NRLogWithArgs();
+            v68 = _NRCopyLogObjectForNRUUID();
+            v69 = [a1 copyDescription];
+            _NRLogWithArgs(v68, 1, "%s%.30s:%-4d %@: source-resume: DatagramLinkInput", "", "NRLinkResumeDatagramLinkInputSource", 855, v69);
           }
         }
 
         dispatch_resume(*(a1 + 1151));
-        v12 = *(a1 + 1151);
+        v10 = *(a1 + 1151);
       }
 
-      dispatch_source_cancel(v12);
-      v21 = *(a1 + 1151);
+      dispatch_source_cancel(v10);
+      v23 = *(a1 + 1151);
       *(a1 + 1151) = 0;
     }
 
-    v22 = *(a1 + 1159);
-    if (v22)
+    v24 = *(a1 + 1159);
+    if (v24)
     {
       if (*(a1 + 264) == 1)
       {
@@ -9023,25 +9076,23 @@ LABEL_4:
         ++*(a1 + 1175);
         if (gNRPacketLoggingEnabled == 1)
         {
-          v86 = *(a1 + 32);
-          v87 = _NRCopyLogObjectForNRUUID();
-          v88 = _NRLogIsLevelEnabled();
+          v70 = _NRCopyLogObjectForNRUUID();
+          v71 = _NRLogIsLevelEnabled();
 
-          if (v88)
+          if (v71)
           {
-            v89 = *(a1 + 32);
-            v90 = _NRCopyLogObjectForNRUUID();
-            v127 = [a1 copyDescription];
-            _NRLogWithArgs();
+            v72 = _NRCopyLogObjectForNRUUID();
+            v73 = [a1 copyDescription];
+            _NRLogWithArgs(v72, 1, "%s%.30s:%-4d %@: source-resume: DatagramLinkOutput", "", "NRLinkResumeDatagramLinkOutputSource", 856, v73);
           }
         }
 
         dispatch_resume(*(a1 + 1159));
-        v22 = *(a1 + 1159);
+        v24 = *(a1 + 1159);
       }
 
-      dispatch_source_cancel(v22);
-      v23 = *(a1 + 1159);
+      dispatch_source_cancel(v24);
+      v25 = *(a1 + 1159);
       *(a1 + 1159) = 0;
     }
 
@@ -9051,16 +9102,14 @@ LABEL_4:
       ++*(a1 + 647);
       if (gNRPacketLoggingEnabled == 1)
       {
-        v91 = *(a1 + 32);
-        v92 = _NRCopyLogObjectForNRUUID();
-        v93 = _NRLogIsLevelEnabled();
+        v74 = _NRCopyLogObjectForNRUUID();
+        v75 = _NRLogIsLevelEnabled();
 
-        if (v93)
+        if (v75)
         {
-          v94 = *(a1 + 32);
-          v95 = _NRCopyLogObjectForNRUUID();
-          v128 = [a1 copyDescription];
-          _NRLogWithArgs();
+          v76 = _NRCopyLogObjectForNRUUID();
+          v77 = [a1 copyDescription];
+          _NRLogWithArgs(v76, 1, "%s%.30s:%-4d %@: source-suspend: NexusVOOutput", "", "NRLinkSuspendNexusVOOutputSource", 866, v77);
         }
       }
 
@@ -9073,16 +9122,14 @@ LABEL_4:
       ++*(a1 + 487);
       if (gNRPacketLoggingEnabled == 1)
       {
-        v96 = *(a1 + 32);
-        v97 = _NRCopyLogObjectForNRUUID();
-        v98 = _NRLogIsLevelEnabled();
+        v78 = _NRCopyLogObjectForNRUUID();
+        v79 = _NRLogIsLevelEnabled();
 
-        if (v98)
+        if (v79)
         {
-          v99 = *(a1 + 32);
-          v100 = _NRCopyLogObjectForNRUUID();
-          v129 = [a1 copyDescription];
-          _NRLogWithArgs();
+          v80 = _NRCopyLogObjectForNRUUID();
+          v81 = [a1 copyDescription];
+          _NRLogWithArgs(v80, 1, "%s%.30s:%-4d %@: source-resume: NexusInput", "", "NRLinkResumeNexusInputSource", 873, v81);
         }
       }
 
@@ -9095,16 +9142,14 @@ LABEL_4:
       ++*(a1 + 799);
       if (gNRPacketLoggingEnabled == 1)
       {
-        v101 = *(a1 + 32);
-        v102 = _NRCopyLogObjectForNRUUID();
-        v103 = _NRLogIsLevelEnabled();
+        v82 = _NRCopyLogObjectForNRUUID();
+        v83 = _NRLogIsLevelEnabled();
 
-        if (v103)
+        if (v83)
         {
-          v104 = *(a1 + 32);
-          v105 = _NRCopyLogObjectForNRUUID();
-          v130 = [a1 copyDescription];
-          _NRLogWithArgs();
+          v84 = _NRCopyLogObjectForNRUUID();
+          v85 = [a1 copyDescription];
+          _NRLogWithArgs(v84, 1, "%s%.30s:%-4d %@: source-resume: NexusVIInput", "", "NRLinkResumeNexusVIInputSource", 877, v85);
         }
       }
 
@@ -9117,16 +9162,14 @@ LABEL_4:
       ++*(a1 + 943);
       if (gNRPacketLoggingEnabled == 1)
       {
-        v106 = *(a1 + 32);
-        v107 = _NRCopyLogObjectForNRUUID();
-        v108 = _NRLogIsLevelEnabled();
+        v86 = _NRCopyLogObjectForNRUUID();
+        v87 = _NRLogIsLevelEnabled();
 
-        if (v108)
+        if (v87)
         {
-          v109 = *(a1 + 32);
-          v110 = _NRCopyLogObjectForNRUUID();
-          v131 = [a1 copyDescription];
-          _NRLogWithArgs();
+          v88 = _NRCopyLogObjectForNRUUID();
+          v89 = [a1 copyDescription];
+          _NRLogWithArgs(v88, 1, "%s%.30s:%-4d %@: source-resume: NexusBKInput", "", "NRLinkResumeNexusBKInputSource", 879, v89);
         }
       }
 
@@ -9139,16 +9182,14 @@ LABEL_4:
       ++*(a1 + 639);
       if (gNRPacketLoggingEnabled == 1)
       {
-        v111 = *(a1 + 32);
-        v112 = _NRCopyLogObjectForNRUUID();
-        v113 = _NRLogIsLevelEnabled();
+        v90 = _NRCopyLogObjectForNRUUID();
+        v91 = _NRLogIsLevelEnabled();
 
-        if (v113)
+        if (v91)
         {
-          v114 = *(a1 + 32);
-          v115 = _NRCopyLogObjectForNRUUID();
-          v132 = [a1 copyDescription];
-          _NRLogWithArgs();
+          v92 = _NRCopyLogObjectForNRUUID();
+          v93 = [a1 copyDescription];
+          _NRLogWithArgs(v92, 1, "%s%.30s:%-4d %@: source-resume: NexusVOInput", "", "NRLinkResumeNexusVOInputSource", 875, v93);
         }
       }
 
@@ -9160,17 +9201,17 @@ LABEL_4:
     *(a1 + 1135) = 0;
     *(a1 + 1167) = 0;
     *(a1 + 1175) = 0;
-    v24 = *(a1 + 2055);
-    if (v24)
+    v26 = *(a1 + 2055);
+    if (v26)
     {
-      free(v24);
+      free(v26);
       *(a1 + 2055) = 0;
     }
 
     goto LABEL_4;
   }
 
-  if (v12)
+  if (v10)
   {
     if (*(a1 + 263) == 1)
     {
@@ -9178,30 +9219,28 @@ LABEL_4:
       ++*(a1 + 1167);
       if (gNRPacketLoggingEnabled == 1)
       {
-        v71 = *(a1 + 32);
-        v72 = _NRCopyLogObjectForNRUUID();
-        v73 = _NRLogIsLevelEnabled();
+        v58 = _NRCopyLogObjectForNRUUID();
+        v59 = _NRLogIsLevelEnabled();
 
-        if (v73)
+        if (v59)
         {
-          v74 = *(a1 + 32);
-          v75 = _NRCopyLogObjectForNRUUID();
-          v124 = [a1 copyDescription];
-          _NRLogWithArgs();
+          v60 = _NRCopyLogObjectForNRUUID();
+          v61 = [a1 copyDescription];
+          _NRLogWithArgs(v60, 1, "%s%.30s:%-4d %@: source-resume: DatagramLinkInput", "", "NRLinkResumeDatagramLinkInputSource", 855, v61);
         }
       }
 
       dispatch_resume(*(a1 + 1151));
-      v12 = *(a1 + 1151);
+      v10 = *(a1 + 1151);
     }
 
-    dispatch_source_cancel(v12);
-    v13 = *(a1 + 1151);
+    dispatch_source_cancel(v10);
+    v11 = *(a1 + 1151);
     *(a1 + 1151) = 0;
   }
 
-  v14 = *(a1 + 1159);
-  if (v14)
+  v12 = *(a1 + 1159);
+  if (v12)
   {
     if (*(a1 + 264) == 1)
     {
@@ -9209,161 +9248,169 @@ LABEL_4:
       ++*(a1 + 1175);
       if (gNRPacketLoggingEnabled == 1)
       {
-        v76 = *(a1 + 32);
-        v77 = _NRCopyLogObjectForNRUUID();
-        v78 = _NRLogIsLevelEnabled();
+        v62 = _NRCopyLogObjectForNRUUID();
+        v63 = _NRLogIsLevelEnabled();
 
-        if (v78)
+        if (v63)
         {
-          v79 = *(a1 + 32);
-          v80 = _NRCopyLogObjectForNRUUID();
-          v125 = [a1 copyDescription];
-          _NRLogWithArgs();
+          v64 = _NRCopyLogObjectForNRUUID();
+          v65 = [a1 copyDescription];
+          _NRLogWithArgs(v64, 1, "%s%.30s:%-4d %@: source-resume: DatagramLinkOutput", "", "NRLinkResumeDatagramLinkOutputSource", 856, v65);
         }
       }
 
       dispatch_resume(*(a1 + 1159));
-      v14 = *(a1 + 1159);
+      v12 = *(a1 + 1159);
     }
 
-    dispatch_source_cancel(v14);
-    v15 = *(a1 + 1159);
+    dispatch_source_cancel(v12);
+    v13 = *(a1 + 1159);
     *(a1 + 1159) = 0;
   }
 
   *(a1 + 1127) = 0;
   *(a1 + 1143) = 0;
   *(a1 + 1135) = 0;
-  v16 = [v5 channel];
-  *(a1 + 1127) = v16;
-  if (!v16)
+  v14 = [v5 channel];
+  *(a1 + 1127) = v14;
+  if (!v14)
   {
-    v25 = *(a1 + 32);
-    v26 = _NRCopyLogObjectForNRUUID();
-    v27 = _NRLogIsLevelEnabled();
+    v27 = _NRCopyLogObjectForNRUUID();
+    v28 = _NRLogIsLevelEnabled();
 
-    if (v27)
+    if (v28)
     {
-      goto LABEL_61;
+      v21 = _NRCopyLogObjectForNRUUID();
+      v22 = [a1 copyDescription];
+      _NRLogWithArgs(v21, 17, "%@: _datagramLinkChannel is NULL", v22, v103);
+      goto LABEL_62;
     }
 
-    goto LABEL_62;
+LABEL_63:
+
+    return;
   }
 
-  if (!os_channel_attr_create())
+  v15 = os_channel_attr_create();
+  if (!v15)
   {
-    v28 = *(a1 + 32);
     v29 = _NRCopyLogObjectForNRUUID();
     v30 = _NRLogIsLevelEnabled();
 
     if (v30)
     {
-LABEL_61:
-      v31 = *(a1 + 32);
-      v32 = _NRCopyLogObjectForNRUUID();
-      v33 = [a1 copyDescription];
-      _NRLogWithArgs();
+      v21 = _NRCopyLogObjectForNRUUID();
+      v22 = [a1 copyDescription];
+      _NRLogWithArgs(v21, 17, "%@: os_channel_attr_create failed", v22, v103);
+      goto LABEL_62;
     }
 
-LABEL_62:
-
-    return;
+    goto LABEL_63;
   }
 
-  v17 = *(a1 + 1127);
-  if (os_channel_read_attr())
+  v16 = v15;
+  attr = os_channel_read_attr();
+  if (attr)
   {
-    v18 = *(a1 + 32);
+    v18 = attr;
     v19 = _NRCopyLogObjectForNRUUID();
     v20 = _NRLogIsLevelEnabled();
 
     if (v20)
     {
-      goto LABEL_61;
+      v21 = _NRCopyLogObjectForNRUUID();
+      v22 = [a1 copyDescription];
+      _NRLogWithArgs(v21, 17, "%@: os_channel_read_attr returned %d", v22, v18);
+LABEL_62:
+
+      goto LABEL_63;
     }
 
-    goto LABEL_62;
+    goto LABEL_63;
   }
 
-  v34 = sub_1000A1674(a1);
+  v31 = sub_1000A1674(a1, v16);
   os_channel_attr_destroy();
-  if (!v34)
+  if (!v31)
   {
+    goto LABEL_63;
+  }
+
+  os_channel_ring_id();
+  v32 = os_channel_rx_ring();
+  *(a1 + 1135) = v32;
+  if (!v32)
+  {
+    v46 = _NRCopyLogObjectForNRUUID();
+    v47 = _NRLogIsLevelEnabled();
+
+    if (!v47)
+    {
+      goto LABEL_63;
+    }
+
+    v21 = _NRCopyLogObjectForNRUUID();
+    v22 = [a1 copyDescription];
+    _NRLogWithArgs(v21, 17, "%@: _datagramLinkInputRing is NULL", v22, v103);
     goto LABEL_62;
   }
 
-  v35 = *(a1 + 1127);
   os_channel_ring_id();
-  v36 = *(a1 + 1127);
-  v37 = os_channel_rx_ring();
-  *(a1 + 1135) = v37;
-  if (!v37)
+  v33 = os_channel_tx_ring();
+  *(a1 + 1143) = v33;
+  if (!v33)
   {
-    v54 = *(a1 + 32);
-    v55 = _NRCopyLogObjectForNRUUID();
-    v56 = _NRLogIsLevelEnabled();
+    v48 = _NRCopyLogObjectForNRUUID();
+    v49 = _NRLogIsLevelEnabled();
 
-    if (!v56)
+    if (!v49)
     {
-      goto LABEL_62;
+      goto LABEL_63;
     }
 
-    goto LABEL_61;
+    v21 = _NRCopyLogObjectForNRUUID();
+    v22 = [a1 copyDescription];
+    _NRLogWithArgs(v21, 17, "%@: _datagramLinkOutputRing is NULL", v22, v103);
+    goto LABEL_62;
   }
 
-  v38 = *(a1 + 1127);
-  os_channel_ring_id();
-  v39 = *(a1 + 1127);
-  v40 = os_channel_tx_ring();
-  *(a1 + 1143) = v40;
-  if (!v40)
-  {
-    v57 = *(a1 + 32);
-    v58 = _NRCopyLogObjectForNRUUID();
-    v59 = _NRLogIsLevelEnabled();
-
-    if (!v59)
-    {
-      goto LABEL_62;
-    }
-
-    goto LABEL_61;
-  }
-
-  v41 = *(a1 + 1127);
   fd = os_channel_get_fd();
   if ((fd & 0x80000000) != 0)
   {
-    v60 = *(a1 + 32);
-    v61 = _NRCopyLogObjectForNRUUID();
-    v62 = _NRLogIsLevelEnabled();
+    v50 = _NRCopyLogObjectForNRUUID();
+    v51 = _NRLogIsLevelEnabled();
 
-    if (!v62)
+    if (!v51)
     {
-      goto LABEL_62;
+      goto LABEL_63;
     }
 
-    goto LABEL_61;
+    v21 = _NRCopyLogObjectForNRUUID();
+    v22 = [a1 copyDescription];
+    _NRLogWithArgs(v21, 17, "%@: os_channel_get_fd failed", v22, v103);
+    goto LABEL_62;
   }
 
-  v43 = fd;
-  v44 = dispatch_source_create(&_dispatch_source_type_read, fd, 0, *(a1 + 8));
-  v45 = *(a1 + 1151);
-  *(a1 + 1151) = v44;
+  v35 = fd;
+  v36 = dispatch_source_create(&_dispatch_source_type_read, fd, 0, *(a1 + 8));
+  v37 = *(a1 + 1151);
+  *(a1 + 1151) = v36;
 
-  v46 = *(a1 + 1151);
-  if (!v46)
+  v38 = *(a1 + 1151);
+  if (!v38)
   {
-    v63 = *(a1 + 32);
-    v64 = _NRCopyLogObjectForNRUUID();
-    v65 = _NRLogIsLevelEnabled();
+    v52 = _NRCopyLogObjectForNRUUID();
+    v53 = _NRLogIsLevelEnabled();
 
-    if (!v65)
+    if (!v53)
     {
-      goto LABEL_62;
+      goto LABEL_63;
     }
 
-    goto LABEL_61;
+    v21 = _NRCopyLogObjectForNRUUID();
+    v22 = [a1 copyDescription];
+    _NRLogWithArgs(v21, 17, "%@: _dDatagramLinkInputSource is NULL", v22, v103);
+    goto LABEL_62;
   }
 
   handler[0] = _NSConcreteStackBlock;
@@ -9371,88 +9418,86 @@ LABEL_62:
   handler[2] = sub_1000B1C18;
   handler[3] = &unk_1001FD3C8;
   handler[4] = a1;
-  dispatch_source_set_event_handler(v46, handler);
-  v47 = *(a1 + 1151);
-  v137[0] = _NSConcreteStackBlock;
-  v137[1] = 3221225472;
-  v137[2] = nullsub_9;
-  v137[3] = &unk_1001FD3C8;
-  v48 = v5;
-  v138 = v48;
-  dispatch_source_set_cancel_handler(v47, v137);
+  dispatch_source_set_event_handler(v38, handler);
+  v39 = *(a1 + 1151);
+  v109[0] = _NSConcreteStackBlock;
+  v109[1] = 3221225472;
+  v109[2] = nullsub_9;
+  v109[3] = &unk_1001FD3C8;
+  v40 = v5;
+  v110 = v40;
+  dispatch_source_set_cancel_handler(v39, v109);
   dispatch_activate(*(a1 + 1151));
-  v49 = dispatch_source_create(&_dispatch_source_type_write, v43, 0, *(a1 + 8));
-  v50 = *(a1 + 1159);
-  *(a1 + 1159) = v49;
+  v41 = dispatch_source_create(&_dispatch_source_type_write, v35, 0, *(a1 + 8));
+  v42 = *(a1 + 1159);
+  *(a1 + 1159) = v41;
 
-  v51 = *(a1 + 1159);
-  if (!v51)
+  v43 = *(a1 + 1159);
+  if (!v43)
   {
-    v66 = *(a1 + 32);
-    v67 = _NRCopyLogObjectForNRUUID();
-    v68 = _NRLogIsLevelEnabled();
+    v54 = _NRCopyLogObjectForNRUUID();
+    v55 = _NRLogIsLevelEnabled();
 
-    if (v68)
+    if (v55)
     {
-      v69 = *(a1 + 32);
-      v70 = _NRCopyLogObjectForNRUUID();
-      v123 = [a1 copyDescription];
-      _NRLogWithArgs();
+      v56 = _NRCopyLogObjectForNRUUID();
+      v57 = [a1 copyDescription];
+      _NRLogWithArgs(v56, 17, "%@: _dDatagramLinkOutputSource is NULL", v57);
     }
 
-    goto LABEL_62;
+    goto LABEL_63;
   }
 
-  v136[0] = _NSConcreteStackBlock;
-  v136[1] = 3221225472;
-  v136[2] = sub_1000B1E24;
-  v136[3] = &unk_1001FD3C8;
-  v136[4] = a1;
-  dispatch_source_set_event_handler(v51, v136);
-  v52 = *(a1 + 1159);
-  v134[0] = _NSConcreteStackBlock;
-  v134[1] = 3221225472;
-  v134[2] = nullsub_10;
-  v134[3] = &unk_1001FD3C8;
-  v135 = v48;
-  dispatch_source_set_cancel_handler(v52, v134);
+  v108[0] = _NSConcreteStackBlock;
+  v108[1] = 3221225472;
+  v108[2] = sub_1000B1E24;
+  v108[3] = &unk_1001FD3C8;
+  v108[4] = a1;
+  dispatch_source_set_event_handler(v43, v108);
+  v44 = *(a1 + 1159);
+  v106[0] = _NSConcreteStackBlock;
+  v106[1] = 3221225472;
+  v106[2] = nullsub_10;
+  v106[3] = &unk_1001FD3C8;
+  v107 = v40;
+  dispatch_source_set_cancel_handler(v44, v106);
   *(a1 + 264) = 1;
   *(a1 + 301) = 10;
   if (!*(a1 + 301))
   {
-LABEL_73:
+LABEL_74:
 
     goto LABEL_4;
   }
 
-  v53 = 8 * *(a1 + 301);
+  v45 = 8 * *(a1 + 301);
   memptr = 0;
-  if (!malloc_type_posix_memalign(&memptr, 8uLL, v53, 0xE17AD3EDuLL) && memptr)
+  if (!malloc_type_posix_memalign(&memptr, 8uLL, v45, 0xE17AD3EDuLL) && memptr)
   {
     *(a1 + 2055) = memptr;
-    goto LABEL_73;
+    goto LABEL_74;
   }
 
-  v116 = sub_10007CF34();
-  v117 = _NRLogIsLevelEnabled();
+  v94 = sub_10007CF34();
+  v95 = _NRLogIsLevelEnabled();
 
-  if (v117)
+  if (v95)
   {
-    v118 = sub_10007CF34();
-    _NRLogWithArgs();
+    v96 = sub_10007CF34();
+    _NRLogWithArgs(v96, 16, "%s%.30s:%-4d ABORTING: posix_memalign(..., %zu, %zu) failed", "", "[NRLinkBluetooth updateDatagramPipe:]", 2875, 8uLL, v45);
   }
 
-  _os_log_pack_size();
-  __chkstk_darwin();
-  v119 = *__error();
-  v120 = _os_log_pack_fill();
-  *v120 = 136446722;
-  *(v120 + 4) = "[NRLinkBluetooth updateDatagramPipe:]";
-  *(v120 + 12) = 2048;
-  *(v120 + 14) = 8;
-  *(v120 + 22) = 2048;
-  *(v120 + 24) = v53;
+  v97 = _os_log_pack_size();
+  v98 = &v104 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+  v99 = __error();
+  v100 = _os_log_pack_fill(v98, v97, *v99, &_mh_execute_header, "%{public}s posix_memalign(..., %zu, %zu) failed");
+  *v100 = 136446722;
+  *(v100 + 4) = "[NRLinkBluetooth updateDatagramPipe:]";
+  *(v100 + 12) = 2048;
+  *(v100 + 14) = 8;
+  *(v100 + 22) = 2048;
+  *(v100 + 24) = v45;
   sub_10007CF34();
-  v121 = _NRLogAbortWithPack();
-  sub_1000AF784(v121);
+  v101 = _NRLogAbortWithPack();
+  sub_1000AF784(v101, v102);
 }

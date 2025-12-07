@@ -1,12 +1,153 @@
 @interface RTLearnedRouteFetchOptions
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToFetchOptions:(id)options;
+- (RTLearnedRouteFetchOptions)initWithBundleIdentifier:(id)identifier bundlePath:(id)path routeOriginLocation:(id)location routeDestinationLocation:(id)destinationLocation routeDate:(id)date routeFetchType:(int)type fetchAllRouteLocations:(BOOL)locations routeOriginType:(int)self0;
+- (RTLearnedRouteFetchOptions)initWithBundleIdentifier:(id)identifier routeOriginLocation:(id)location routeDestinationLocation:(id)destinationLocation routeDate:(id)date routeFetchType:(int)type fetchAllRouteLocations:(BOOL)locations routeOriginType:(int)originType;
+- (RTLearnedRouteFetchOptions)initWithBundlePath:(id)path routeOriginLocation:(id)location routeDestinationLocation:(id)destinationLocation routeDate:(id)date routeFetchType:(int)type fetchAllRouteLocations:(BOOL)locations routeOriginType:(int)originType;
 - (RTLearnedRouteFetchOptions)initWithCoder:(id)coder;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation RTLearnedRouteFetchOptions
+
+- (RTLearnedRouteFetchOptions)initWithBundleIdentifier:(id)identifier bundlePath:(id)path routeOriginLocation:(id)location routeDestinationLocation:(id)destinationLocation routeDate:(id)date routeFetchType:(int)type fetchAllRouteLocations:(BOOL)locations routeOriginType:(int)self0
+{
+  v10 = *&type;
+  v36 = *MEMORY[0x1E69E9840];
+  identifierCopy = identifier;
+  pathCopy = path;
+  pathCopy2 = path;
+  locationCopy = location;
+  destinationLocationCopy = destinationLocation;
+  obj = date;
+  dateCopy = date;
+  if (!(identifierCopy | pathCopy2))
+  {
+    v19 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v33 = "[RTLearnedRouteFetchOptions initWithBundleIdentifier:bundlePath:routeOriginLocation:routeDestinationLocation:routeDate:routeFetchType:fetchAllRouteLocations:routeOriginType:]";
+      v34 = 1024;
+      v35 = 34;
+      _os_log_error_impl(&dword_1BF1C4000, v19, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: bundleIdentifier || bundlePath (in %s:%d)", buf, 0x12u);
+    }
+  }
+
+  if (originType >= 2)
+  {
+    v20 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v33 = "[RTLearnedRouteFetchOptions initWithBundleIdentifier:bundlePath:routeOriginLocation:routeDestinationLocation:routeDate:routeFetchType:fetchAllRouteLocations:routeOriginType:]";
+      v34 = 1024;
+      v35 = 35;
+      _os_log_error_impl(&dword_1BF1C4000, v20, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: (routeOriginType == RTLearnedRouteOriginType_OriginIsCurrentLocation) || (routeOriginType == RTLearnedRouteOriginType_OriginIsVisitLocation) (in %s:%d)", buf, 0x12u);
+    }
+  }
+
+  if (![RTLearnedRouteFetchOptions isValidRouteFetchType:v10])
+  {
+    v21 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v33 = "[RTLearnedRouteFetchOptions initWithBundleIdentifier:bundlePath:routeOriginLocation:routeDestinationLocation:routeDate:routeFetchType:fetchAllRouteLocations:routeOriginType:]";
+      v34 = 1024;
+      v35 = 36;
+      _os_log_error_impl(&dword_1BF1C4000, v21, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: [RTLearnedRouteFetchOptions isValidRouteFetchType:routeFetchType] (in %s:%d)", buf, 0x12u);
+    }
+  }
+
+  if (![RTLearnedRouteFetchOptions _isValidRouteODLocation:locationCopy routeDestinationLocation:destinationLocationCopy routeFetchType:v10])
+  {
+    v22 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v33 = "[RTLearnedRouteFetchOptions initWithBundleIdentifier:bundlePath:routeOriginLocation:routeDestinationLocation:routeDate:routeFetchType:fetchAllRouteLocations:routeOriginType:]";
+      v34 = 1024;
+      v35 = 39;
+      _os_log_error_impl(&dword_1BF1C4000, v22, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: [RTLearnedRouteFetchOptions _isValidRouteODLocation:routeOriginLocation routeDestinationLocation:routeDestinationLocation routeFetchType:routeFetchType] (in %s:%d)", buf, 0x12u);
+    }
+  }
+
+  v31.receiver = self;
+  v31.super_class = RTLearnedRouteFetchOptions;
+  v23 = [(RTLearnedRouteFetchOptions *)&v31 init];
+  v24 = v23;
+  if (v23)
+  {
+    objc_storeStrong(&v23->_originVisit, location);
+    objc_storeStrong(&v24->_destinationVisit, destinationLocation);
+    objc_storeStrong(&v24->_routeDate, obj);
+    v24->_fetchAllRouteLocations = locations;
+    v24->_routeFetchType = v10;
+    v24->_routeOriginType = originType;
+    objc_storeStrong(&v24->_bundleIdentifier, identifier);
+    objc_storeStrong(&v24->_bundlePath, pathCopy);
+  }
+
+  return v24;
+}
+
+- (RTLearnedRouteFetchOptions)initWithBundleIdentifier:(id)identifier routeOriginLocation:(id)location routeDestinationLocation:(id)destinationLocation routeDate:(id)date routeFetchType:(int)type fetchAllRouteLocations:(BOOL)locations routeOriginType:(int)originType
+{
+  v10 = *&type;
+  v27 = *MEMORY[0x1E69E9840];
+  identifierCopy = identifier;
+  locationCopy = location;
+  destinationLocationCopy = destinationLocation;
+  dateCopy = date;
+  if (!identifierCopy)
+  {
+    v19 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v24 = "[RTLearnedRouteFetchOptions initWithBundleIdentifier:routeOriginLocation:routeDestinationLocation:routeDate:routeFetchType:fetchAllRouteLocations:routeOriginType:]";
+      v25 = 1024;
+      v26 = 63;
+      _os_log_error_impl(&dword_1BF1C4000, v19, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: bundleIdentifier (in %s:%d)", buf, 0x12u);
+    }
+  }
+
+  HIDWORD(v22) = originType;
+  LOBYTE(v22) = locations;
+  v20 = [(RTLearnedRouteFetchOptions *)self initWithBundleIdentifier:identifierCopy bundlePath:0 routeOriginLocation:locationCopy routeDestinationLocation:destinationLocationCopy routeDate:dateCopy routeFetchType:v10 fetchAllRouteLocations:v22 routeOriginType:?];
+
+  return v20;
+}
+
+- (RTLearnedRouteFetchOptions)initWithBundlePath:(id)path routeOriginLocation:(id)location routeDestinationLocation:(id)destinationLocation routeDate:(id)date routeFetchType:(int)type fetchAllRouteLocations:(BOOL)locations routeOriginType:(int)originType
+{
+  v10 = *&type;
+  v27 = *MEMORY[0x1E69E9840];
+  pathCopy = path;
+  locationCopy = location;
+  destinationLocationCopy = destinationLocation;
+  dateCopy = date;
+  if (!pathCopy)
+  {
+    v19 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v24 = "[RTLearnedRouteFetchOptions initWithBundlePath:routeOriginLocation:routeDestinationLocation:routeDate:routeFetchType:fetchAllRouteLocations:routeOriginType:]";
+      v25 = 1024;
+      v26 = 82;
+      _os_log_error_impl(&dword_1BF1C4000, v19, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: bundlePath (in %s:%d)", buf, 0x12u);
+    }
+  }
+
+  HIDWORD(v22) = originType;
+  LOBYTE(v22) = locations;
+  v20 = [(RTLearnedRouteFetchOptions *)self initWithBundleIdentifier:0 bundlePath:pathCopy routeOriginLocation:locationCopy routeDestinationLocation:destinationLocationCopy routeDate:dateCopy routeFetchType:v10 fetchAllRouteLocations:v22 routeOriginType:?];
+
+  return v20;
+}
 
 - (BOOL)isEqual:(id)equal
 {

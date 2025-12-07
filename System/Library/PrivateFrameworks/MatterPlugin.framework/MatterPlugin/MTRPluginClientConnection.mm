@@ -4,6 +4,7 @@
 - (BOOL)_deliverMessagePayloadToPrimaryResident:(id)resident timeout:(double)timeout responseHandler:(id)handler;
 - (BOOL)_isRunning;
 - (BOOL)_setupConnection;
+- (MTRPluginClientConnection)initWithClientConnection:(id)connection backgroundModeEntitled:(BOOL)entitled pid:(int)pid context:(id)context delegate:(id)delegate delegateQueue:(id)queue;
 - (NSString)description;
 - (void)_assignHomeUUIDIfUnassigned:(id)unassigned;
 - (void)deviceController:(id)controller nodeID:(id)d downloadLogOfType:(int64_t)type timeout:(double)timeout completion:(id)completion;
@@ -47,11 +48,37 @@ void __50__MTRPluginClientConnection_clientConnectionQueue__block_invoke()
   clientConnectionQueue_sSingleConnectionQueue = v0;
 }
 
+- (MTRPluginClientConnection)initWithClientConnection:(id)connection backgroundModeEntitled:(BOOL)entitled pid:(int)pid context:(id)context delegate:(id)delegate delegateQueue:(id)queue
+{
+  v11 = *&pid;
+  entitledCopy = entitled;
+  connectionCopy = connection;
+  contextCopy = context;
+  delegateCopy = delegate;
+  queueCopy = queue;
+  v24.receiver = self;
+  v24.super_class = MTRPluginClientConnection;
+  v18 = [(MTRPluginClientConnection *)&v24 init];
+  v19 = v18;
+  if (v18 && (-[MTRPluginClientConnection setConnection:](v18, "setConnection:", connectionCopy), -[MTRPluginClientConnection setContext:](v19, "setContext:", contextCopy), -[MTRPluginClientConnection setBackgroundModeEntitled:](v19, "setBackgroundModeEntitled:", entitledCopy), -[MTRPluginClientConnection setPid:](v19, "setPid:", v11), [MEMORY[0x277CCAD78] UUID], v20 = objc_claimAutoreleasedReturnValue(), -[MTRPluginClientConnection setSessionID:](v19, "setSessionID:", v20), v20, -[MTRPluginClientConnection setDelegate:](v19, "setDelegate:", delegateCopy), -[MTRPluginClientConnection setDelegateQueue:](v19, "setDelegateQueue:", queueCopy), +[MTRPluginClientConnection clientConnectionQueue](MTRPluginClientConnection, "clientConnectionQueue"), v21 = objc_claimAutoreleasedReturnValue(), -[MTRPluginClientConnection setQueue:](v19, "setQueue:", v21), v21, -[MTRPluginClientConnection _setupConnection](v19, "_setupConnection")))
+  {
+    v22 = v19;
+  }
+
+  else
+  {
+    v22 = 0;
+  }
+
+  return v22;
+}
+
 + (id)_interfaceForServerProtocol
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_28697F080];
   v3 = MEMORY[0x277CBEB98];
+  v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = objc_opt_class();
@@ -62,9 +89,8 @@ void __50__MTRPluginClientConnection_clientConnectionQueue__block_invoke()
   v15 = objc_opt_class();
   v16 = objc_opt_class();
   v17 = objc_opt_class();
-  v18 = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:11];
-  v5 = [v3 setWithArray:{v4, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17}];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:11];
+  v5 = [v3 setWithArray:{v4, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16}];
 
   [v2 setClasses:v5 forSelector:sel_deviceController_nodeID_writeAttributeWithEndpointID_clusterID_attributeID_value_expectedValueInterval_timedWriteTimeout_ argumentIndex:5 ofReply:0];
   [v2 setClasses:v5 forSelector:sel_deviceController_nodeID_invokeCommandWithEndpointID_clusterID_commandID_commandFields_expectedValues_expectedValueInterval_timedInvokeTimeout_serverSideProcessingTimeout_completion_ argumentIndex:6 ofReply:0];
@@ -73,14 +99,12 @@ void __50__MTRPluginClientConnection_clientConnectionQueue__block_invoke()
   [v2 setClasses:v5 forSelector:sel_deviceController_nodeID_invokeCommands_completion_ argumentIndex:2 ofReply:0];
   [v2 setClasses:v5 forSelector:sel_deviceController_nodeID_invokeCommands_completion_ argumentIndex:0 ofReply:1];
 
-  v6 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
 - (BOOL)_setupConnection
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = +[MTRPluginClientManager sharedInstance];
   connection = [(MTRPluginClientConnection *)self connection];
   sessionID = [(MTRPluginClientConnection *)self sessionID];
@@ -104,23 +128,22 @@ void __50__MTRPluginClientConnection_clientConnectionQueue__block_invoke()
   {
     v14 = v13;
     pluginClient = [(MTRPluginClientConnection *)self pluginClient];
-    v20 = 138412546;
+    v19 = 138412546;
     selfCopy = self;
-    v22 = 2112;
-    v23 = pluginClient;
-    _os_log_impl(&dword_25830F000, v14, OS_LOG_TYPE_DEFAULT, "Setting up MTRPluginClientConnection: %@ pluginClient : %@", &v20, 0x16u);
+    v21 = 2112;
+    v22 = pluginClient;
+    _os_log_impl(&dword_25830F000, v14, OS_LOG_TYPE_DEFAULT, "Setting up MTRPluginClientConnection: %@ pluginClient : %@", &v19, 0x16u);
   }
 
   pluginClient2 = [(MTRPluginClientConnection *)self pluginClient];
   v17 = pluginClient2 != 0;
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (BOOL)_deliverMessagePayloadToPrimaryResident:(id)resident timeout:(double)timeout responseHandler:(id)handler
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   residentCopy = resident;
   handlerCopy = handler;
   v10 = matterPluginLog_default;
@@ -130,8 +153,8 @@ void __50__MTRPluginClientConnection_clientConnectionQueue__block_invoke()
     delegate = [(MTRPluginClientConnection *)self delegate];
     *buf = 138412546;
     selfCopy = self;
-    v32 = 2112;
-    v33 = delegate;
+    v31 = 2112;
+    v32 = delegate;
     _os_log_impl(&dword_25830F000, v11, OS_LOG_TYPE_DEFAULT, "%@ <= Sending message to delegate %@ to deliver to home hub", buf, 0x16u);
   }
 
@@ -141,17 +164,17 @@ void __50__MTRPluginClientConnection_clientConnectionQueue__block_invoke()
   if (v14)
   {
     delegateQueue = [(MTRPluginClientConnection *)self delegateQueue];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __93__MTRPluginClientConnection__deliverMessagePayloadToPrimaryResident_timeout_responseHandler___block_invoke;
-    v27[3] = &unk_279894158;
-    v27[4] = self;
-    v16 = &v28;
-    v28 = residentCopy;
-    v17 = v29;
-    v29[0] = handlerCopy;
-    *&v29[1] = timeout;
-    v18 = v27;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __93__MTRPluginClientConnection__deliverMessagePayloadToPrimaryResident_timeout_responseHandler___block_invoke;
+    v26[3] = &unk_279894158;
+    v26[4] = self;
+    v16 = &v27;
+    v27 = residentCopy;
+    v17 = v28;
+    v28[0] = handlerCopy;
+    *&v28[1] = timeout;
+    v18 = v26;
   }
 
   else
@@ -171,10 +194,10 @@ void __50__MTRPluginClientConnection_clientConnectionQueue__block_invoke()
     block[2] = __93__MTRPluginClientConnection__deliverMessagePayloadToPrimaryResident_timeout_responseHandler___block_invoke_141;
     block[3] = &unk_279893D70;
     block[4] = self;
-    v16 = &v25;
-    v25 = residentCopy;
-    v17 = &v26;
-    v26 = handlerCopy;
+    v16 = &v24;
+    v24 = residentCopy;
+    v17 = &v25;
+    v25 = handlerCopy;
     v18 = block;
   }
 
@@ -183,7 +206,6 @@ void __50__MTRPluginClientConnection_clientConnectionQueue__block_invoke()
   v21 = 1;
 LABEL_9:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -250,7 +272,7 @@ void __93__MTRPluginClientConnection__deliverMessagePayloadToPrimaryResident_tim
 
 - (void)_assignHomeUUIDIfUnassigned:(id)unassigned
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   unassignedCopy = unassigned;
   homeUUID = [(MTRPluginClientConnection *)self homeUUID];
 
@@ -262,13 +284,13 @@ void __93__MTRPluginClientConnection__deliverMessagePayloadToPrimaryResident_tim
     {
       v7 = v6;
       homeUUID2 = [(MTRPluginClientConnection *)self homeUUID];
-      v15 = 138412802;
-      v16 = homeUUID2;
-      v17 = 2112;
+      v14 = 138412802;
+      v15 = homeUUID2;
+      v16 = 2112;
       selfCopy = self;
-      v19 = 2112;
-      v20 = unassignedCopy;
-      _os_log_impl(&dword_25830F000, v7, OS_LOG_TYPE_DEFAULT, " => Assigning home UUID: %@ to connection: %@   controllerID: %@", &v15, 0x20u);
+      v18 = 2112;
+      v19 = unassignedCopy;
+      _os_log_impl(&dword_25830F000, v7, OS_LOG_TYPE_DEFAULT, " => Assigning home UUID: %@ to connection: %@   controllerID: %@", &v14, 0x20u);
     }
 
     homeUUID3 = [(MTRPluginClientConnection *)self homeUUID];
@@ -281,8 +303,6 @@ void __93__MTRPluginClientConnection__deliverMessagePayloadToPrimaryResident_tim
     v13 = +[MTRPluginDeviceControllerRegistry sharedInstance];
     [v13 _updateRunningMode:v12 forceUpdateControllerConfiguration:1 forHomeUUID:unassignedCopy];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isRunning
@@ -295,22 +315,35 @@ void __93__MTRPluginClientConnection__deliverMessagePayloadToPrimaryResident_tim
 
 - (void)resume
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = matterPluginLog_default;
   if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
+    v5 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_25830F000, v3, OS_LOG_TYPE_DEFAULT, "Resuming MTRPluginClientConnection: %@", &v6, 0xCu);
+    _os_log_impl(&dword_25830F000, v3, OS_LOG_TYPE_DEFAULT, "Resuming MTRPluginClientConnection: %@", &v5, 0xCu);
   }
 
   connection = [(MTRPluginClientConnection *)self connection];
   [connection resume];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = matterPluginLog_default;
+  if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = 138412290;
+    selfCopy = self;
+    _os_log_impl(&dword_25830F000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating MTRPluginClientConnection: %@", &v5, 0xCu);
+  }
+
+  connection = [(MTRPluginClientConnection *)self connection];
+  [connection invalidate];
+}
+
+- (void)invalidated
 {
   v8 = *MEMORY[0x277D85DE8];
   v3 = matterPluginLog_default;
@@ -318,24 +351,7 @@ void __93__MTRPluginClientConnection__deliverMessagePayloadToPrimaryResident_tim
   {
     v6 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_25830F000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating MTRPluginClientConnection: %@", &v6, 0xCu);
-  }
-
-  connection = [(MTRPluginClientConnection *)self connection];
-  [connection invalidate];
-
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)invalidated
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = matterPluginLog_default;
-  if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT))
-  {
-    v7 = 138412290;
-    selfCopy = self;
-    _os_log_impl(&dword_25830F000, v3, OS_LOG_TYPE_DEFAULT, " => Invalidated MTRPluginClientConnection: %@", &v7, 0xCu);
+    _os_log_impl(&dword_25830F000, v3, OS_LOG_TYPE_DEFAULT, " => Invalidated MTRPluginClientConnection: %@", &v6, 0xCu);
   }
 
   v4 = +[MTRPluginClientManager sharedInstance];
@@ -343,18 +359,17 @@ void __93__MTRPluginClientConnection__deliverMessagePayloadToPrimaryResident_tim
   [v4 removeClientForXPCConnection:connection];
 
   [(MTRPluginClientConnection *)self setConnection:0];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)interrupted
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = matterPluginLog_default;
   if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
+    v6 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_25830F000, v3, OS_LOG_TYPE_DEFAULT, " => Interrupted MTRPluginClientConnection: %@", &v7, 0xCu);
+    _os_log_impl(&dword_25830F000, v3, OS_LOG_TYPE_DEFAULT, " => Interrupted MTRPluginClientConnection: %@", &v6, 0xCu);
   }
 
   v4 = +[MTRPluginClientManager sharedInstance];
@@ -362,7 +377,6 @@ void __93__MTRPluginClientConnection__deliverMessagePayloadToPrimaryResident_tim
   [v4 removeClientForXPCConnection:connection];
 
   [(MTRPluginClientConnection *)self setConnection:0];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateControllerConfigurationForRemotePeer
@@ -403,27 +417,27 @@ void __93__MTRPluginClientConnection__deliverMessagePayloadToPrimaryResident_tim
 
 - (void)deviceController:(id)controller nodeID:(id)d getStateWithReply:(id)reply
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   dCopy = d;
   replyCopy = reply;
   [(MTRPluginClientConnection *)self _assignHomeUUIDIfUnassigned:controllerCopy];
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
   delegateQueue = [(MTRPluginClientConnection *)self delegateQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __71__MTRPluginClientConnection_deviceController_nodeID_getStateWithReply___block_invoke;
   block[3] = &unk_279893DF0;
-  v22 = &v23;
+  v21 = &v22;
   block[4] = self;
   v12 = dCopy;
-  v21 = v12;
+  v20 = v12;
   dispatch_sync(delegateQueue, block);
 
-  if (v24[3])
+  if (v23[3])
   {
     v13 = objc_autoreleasePoolPush();
     pluginClient = [(MTRPluginClientConnection *)self pluginClient];
@@ -442,17 +456,16 @@ void __93__MTRPluginClientConnection__deliverMessagePayloadToPrimaryResident_tim
       [MTRPluginClientConnection deviceController:nodeID:getStateWithReply:];
     }
 
-    v19 = replyCopy;
-    v16 = v19;
-    v18 = v16;
+    v18 = replyCopy;
+    v16 = v18;
+    v17 = v16;
     if (v16)
     {
       (*(v16 + 2))(v16, 0);
     }
   }
 
-  _Block_object_dispose(&v23, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v22, 8);
 }
 
 void __71__MTRPluginClientConnection_deviceController_nodeID_getStateWithReply___block_invoke(uint64_t a1)
@@ -487,27 +500,27 @@ uint64_t __71__MTRPluginClientConnection_deviceController_nodeID_getStateWithRep
 
 - (void)deviceController:(id)controller nodeID:(id)d getDeviceCachePrimedWithReply:(id)reply
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   dCopy = d;
   replyCopy = reply;
   [(MTRPluginClientConnection *)self _assignHomeUUIDIfUnassigned:controllerCopy];
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
   delegateQueue = [(MTRPluginClientConnection *)self delegateQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __83__MTRPluginClientConnection_deviceController_nodeID_getDeviceCachePrimedWithReply___block_invoke;
   block[3] = &unk_279893DF0;
-  v22 = &v23;
+  v21 = &v22;
   block[4] = self;
   v12 = dCopy;
-  v21 = v12;
+  v20 = v12;
   dispatch_sync(delegateQueue, block);
 
-  if (v24[3])
+  if (v23[3])
   {
     v13 = objc_autoreleasePoolPush();
     pluginClient = [(MTRPluginClientConnection *)self pluginClient];
@@ -526,17 +539,16 @@ uint64_t __71__MTRPluginClientConnection_deviceController_nodeID_getStateWithRep
       [MTRPluginClientConnection deviceController:nodeID:getStateWithReply:];
     }
 
-    v19 = replyCopy;
-    v16 = v19;
-    v18 = v16;
+    v18 = replyCopy;
+    v16 = v18;
+    v17 = v16;
     if (v16)
     {
       (*(v16 + 2))(v16, 0);
     }
   }
 
-  _Block_object_dispose(&v23, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v22, 8);
 }
 
 void __83__MTRPluginClientConnection_deviceController_nodeID_getDeviceCachePrimedWithReply___block_invoke(uint64_t a1)
@@ -571,27 +583,27 @@ uint64_t __83__MTRPluginClientConnection_deviceController_nodeID_getDeviceCacheP
 
 - (void)deviceController:(id)controller nodeID:(id)d getEstimatedStartTimeWithReply:(id)reply
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   dCopy = d;
   replyCopy = reply;
   [(MTRPluginClientConnection *)self _assignHomeUUIDIfUnassigned:controllerCopy];
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
   delegateQueue = [(MTRPluginClientConnection *)self delegateQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __84__MTRPluginClientConnection_deviceController_nodeID_getEstimatedStartTimeWithReply___block_invoke;
   block[3] = &unk_279893DF0;
-  v22 = &v23;
+  v21 = &v22;
   block[4] = self;
   v12 = dCopy;
-  v21 = v12;
+  v20 = v12;
   dispatch_sync(delegateQueue, block);
 
-  if (v24[3])
+  if (v23[3])
   {
     v13 = objc_autoreleasePoolPush();
     pluginClient = [(MTRPluginClientConnection *)self pluginClient];
@@ -610,17 +622,16 @@ uint64_t __83__MTRPluginClientConnection_deviceController_nodeID_getDeviceCacheP
       [MTRPluginClientConnection deviceController:nodeID:getStateWithReply:];
     }
 
-    v19 = replyCopy;
-    v16 = v19;
-    v18 = v16;
+    v18 = replyCopy;
+    v16 = v18;
+    v17 = v16;
     if (v16)
     {
       (*(v16 + 2))(v16, 0);
     }
   }
 
-  _Block_object_dispose(&v23, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v22, 8);
 }
 
 void __84__MTRPluginClientConnection_deviceController_nodeID_getEstimatedStartTimeWithReply___block_invoke(uint64_t a1)
@@ -655,27 +666,27 @@ uint64_t __84__MTRPluginClientConnection_deviceController_nodeID_getEstimatedSta
 
 - (void)deviceController:(id)controller nodeID:(id)d getEstimatedSubscriptionLatencyWithReply:(id)reply
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   dCopy = d;
   replyCopy = reply;
   [(MTRPluginClientConnection *)self _assignHomeUUIDIfUnassigned:controllerCopy];
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
   delegateQueue = [(MTRPluginClientConnection *)self delegateQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __94__MTRPluginClientConnection_deviceController_nodeID_getEstimatedSubscriptionLatencyWithReply___block_invoke;
   block[3] = &unk_279893DF0;
-  v22 = &v23;
+  v21 = &v22;
   block[4] = self;
   v12 = dCopy;
-  v21 = v12;
+  v20 = v12;
   dispatch_sync(delegateQueue, block);
 
-  if (v24[3])
+  if (v23[3])
   {
     v13 = objc_autoreleasePoolPush();
     pluginClient = [(MTRPluginClientConnection *)self pluginClient];
@@ -694,17 +705,16 @@ uint64_t __84__MTRPluginClientConnection_deviceController_nodeID_getEstimatedSta
       [MTRPluginClientConnection deviceController:nodeID:getStateWithReply:];
     }
 
-    v19 = replyCopy;
-    v16 = v19;
-    v18 = v16;
+    v18 = replyCopy;
+    v16 = v18;
+    v17 = v16;
     if (v16)
     {
       (*(v16 + 2))(v16, 0);
     }
   }
 
-  _Block_object_dispose(&v23, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v22, 8);
 }
 
 void __94__MTRPluginClientConnection_deviceController_nodeID_getEstimatedSubscriptionLatencyWithReply___block_invoke(uint64_t a1)
@@ -739,7 +749,7 @@ uint64_t __94__MTRPluginClientConnection_deviceController_nodeID_getEstimatedSub
 
 - (void)deviceController:(id)controller nodeID:(id)d readAttributeWithEndpointID:(id)iD clusterID:(id)clusterID attributeID:(id)attributeID params:(id)params withReply:(id)reply
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   dCopy = d;
   iDCopy = iD;
@@ -748,28 +758,28 @@ uint64_t __94__MTRPluginClientConnection_deviceController_nodeID_getEstimatedSub
   paramsCopy = params;
   replyCopy = reply;
   [(MTRPluginClientConnection *)self _assignHomeUUIDIfUnassigned:controllerCopy];
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2020000000;
-  v43 = 0;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
+  v42 = 0;
   delegateQueue = [(MTRPluginClientConnection *)self delegateQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __120__MTRPluginClientConnection_deviceController_nodeID_readAttributeWithEndpointID_clusterID_attributeID_params_withReply___block_invoke;
   block[3] = &unk_2798941A8;
-  v39 = &v40;
+  v38 = &v39;
   block[4] = self;
   v23 = dCopy;
-  v35 = v23;
+  v34 = v23;
   v24 = iDCopy;
-  v36 = v24;
+  v35 = v24;
   v25 = clusterIDCopy;
-  v37 = v25;
+  v36 = v25;
   v26 = attributeIDCopy;
-  v38 = v26;
+  v37 = v26;
   dispatch_sync(delegateQueue, block);
 
-  if (v41[3])
+  if (v40[3])
   {
     v27 = objc_autoreleasePoolPush();
     pluginClient = [(MTRPluginClientConnection *)self pluginClient];
@@ -788,17 +798,16 @@ uint64_t __94__MTRPluginClientConnection_deviceController_nodeID_getEstimatedSub
       [MTRPluginClientConnection deviceController:nodeID:readAttributeWithEndpointID:clusterID:attributeID:params:withReply:];
     }
 
-    v33 = replyCopy;
-    v30 = v33;
-    v32 = v30;
+    v32 = replyCopy;
+    v30 = v32;
+    v31 = v30;
     if (v30)
     {
       (*(v30 + 2))(v30, 0);
     }
   }
 
-  _Block_object_dispose(&v40, 8);
-  v31 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v39, 8);
 }
 
 void __120__MTRPluginClientConnection_deviceController_nodeID_readAttributeWithEndpointID_clusterID_attributeID_params_withReply___block_invoke(uint64_t a1)
@@ -833,28 +842,28 @@ uint64_t __120__MTRPluginClientConnection_deviceController_nodeID_readAttributeW
 
 - (void)deviceController:(id)controller nodeID:(id)d readAttributePaths:(id)paths withReply:(id)reply
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   dCopy = d;
   pathsCopy = paths;
   replyCopy = reply;
   [(MTRPluginClientConnection *)self _assignHomeUUIDIfUnassigned:controllerCopy];
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
-  v33 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2020000000;
+  v32 = 0;
   delegateQueue = [(MTRPluginClientConnection *)self delegateQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __82__MTRPluginClientConnection_deviceController_nodeID_readAttributePaths_withReply___block_invoke;
   block[3] = &unk_279893DF0;
-  v29 = &v30;
+  v28 = &v29;
   block[4] = self;
   v15 = dCopy;
-  v28 = v15;
+  v27 = v15;
   dispatch_sync(delegateQueue, block);
 
-  if (v31[3])
+  if (v30[3])
   {
     v16 = objc_autoreleasePoolPush();
     pluginClient = [(MTRPluginClientConnection *)self pluginClient];
@@ -873,21 +882,20 @@ uint64_t __120__MTRPluginClientConnection_deviceController_nodeID_readAttributeW
       [MTRPluginClientConnection deviceController:nodeID:readAttributeWithEndpointID:clusterID:attributeID:params:withReply:];
     }
 
-    v22 = MEMORY[0x277D85DD0];
-    v23 = 3221225472;
-    v24 = __82__MTRPluginClientConnection_deviceController_nodeID_readAttributePaths_withReply___block_invoke_158;
-    v25 = &unk_279894180;
-    v26 = replyCopy;
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __82__MTRPluginClientConnection_deviceController_nodeID_readAttributePaths_withReply___block_invoke_2;
-    v20[3] = &unk_279894180;
-    v21 = v26;
-    __82__MTRPluginClientConnection_deviceController_nodeID_readAttributePaths_withReply___block_invoke_2(v20);
+    v21 = MEMORY[0x277D85DD0];
+    v22 = 3221225472;
+    v23 = __82__MTRPluginClientConnection_deviceController_nodeID_readAttributePaths_withReply___block_invoke_158;
+    v24 = &unk_279894180;
+    v25 = replyCopy;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __82__MTRPluginClientConnection_deviceController_nodeID_readAttributePaths_withReply___block_invoke_2;
+    v19[3] = &unk_279894180;
+    v20 = v25;
+    __82__MTRPluginClientConnection_deviceController_nodeID_readAttributePaths_withReply___block_invoke_2(v19);
   }
 
-  _Block_object_dispose(&v30, 8);
-  v19 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v29, 8);
 }
 
 void __82__MTRPluginClientConnection_deviceController_nodeID_readAttributePaths_withReply___block_invoke(uint64_t a1)
@@ -920,7 +928,7 @@ void __82__MTRPluginClientConnection_deviceController_nodeID_readAttributePaths_
 
 - (void)deviceController:(id)controller nodeID:(id)d writeAttributeWithEndpointID:(id)iD clusterID:(id)clusterID attributeID:(id)attributeID value:(id)value expectedValueInterval:(id)interval timedWriteTimeout:(id)self0
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   dCopy = d;
   iDCopy = iD;
@@ -930,28 +938,28 @@ void __82__MTRPluginClientConnection_deviceController_nodeID_readAttributePaths_
   intervalCopy = interval;
   timeoutCopy = timeout;
   [(MTRPluginClientConnection *)self _assignHomeUUIDIfUnassigned:controllerCopy];
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
-  v42 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
   delegateQueue = [(MTRPluginClientConnection *)self delegateQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __150__MTRPluginClientConnection_deviceController_nodeID_writeAttributeWithEndpointID_clusterID_attributeID_value_expectedValueInterval_timedWriteTimeout___block_invoke;
   block[3] = &unk_2798941A8;
-  v38 = &v39;
+  v37 = &v38;
   block[4] = self;
   v23 = dCopy;
-  v34 = v23;
+  v33 = v23;
   v24 = iDCopy;
-  v35 = v24;
+  v34 = v24;
   v25 = clusterIDCopy;
-  v36 = v25;
+  v35 = v25;
   v26 = attributeIDCopy;
-  v37 = v26;
+  v36 = v26;
   dispatch_sync(delegateQueue, block);
 
-  if (v40[3])
+  if (v39[3])
   {
     v27 = objc_autoreleasePoolPush();
     pluginClient = [(MTRPluginClientConnection *)self pluginClient];
@@ -971,8 +979,7 @@ void __82__MTRPluginClientConnection_deviceController_nodeID_readAttributePaths_
     }
   }
 
-  _Block_object_dispose(&v39, 8);
-  v30 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v38, 8);
 }
 
 void __150__MTRPluginClientConnection_deviceController_nodeID_writeAttributeWithEndpointID_clusterID_attributeID_value_expectedValueInterval_timedWriteTimeout___block_invoke(uint64_t a1)
@@ -985,7 +992,7 @@ void __150__MTRPluginClientConnection_deviceController_nodeID_writeAttributeWith
 
 - (void)deviceController:(id)controller nodeID:(id)d invokeCommandWithEndpointID:(id)iD clusterID:(id)clusterID commandID:(id)commandID commandFields:(id)fields expectedValues:(id)values expectedValueInterval:(id)self0 timedInvokeTimeout:(id)self1 serverSideProcessingTimeout:(id)self2 completion:(id)self3
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   dCopy = d;
   iDCopy = iD;
@@ -997,36 +1004,36 @@ void __150__MTRPluginClientConnection_deviceController_nodeID_writeAttributeWith
   timeoutCopy = timeout;
   processingTimeoutCopy = processingTimeout;
   completionCopy = completion;
-  v36 = controllerCopy;
+  v35 = controllerCopy;
   v25 = controllerCopy;
   v26 = fieldsCopy;
   [(MTRPluginClientConnection *)self _assignHomeUUIDIfUnassigned:v25];
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2020000000;
-  v51 = 0;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x2020000000;
+  v50 = 0;
   delegateQueue = [(MTRPluginClientConnection *)self delegateQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __210__MTRPluginClientConnection_deviceController_nodeID_invokeCommandWithEndpointID_clusterID_commandID_commandFields_expectedValues_expectedValueInterval_timedInvokeTimeout_serverSideProcessingTimeout_completion___block_invoke;
   block[3] = &unk_2798941A8;
-  v47 = &v48;
+  v46 = &v47;
   block[4] = self;
   v28 = dCopy;
-  v43 = v28;
+  v42 = v28;
   v29 = commandIDCopy;
-  v44 = v29;
+  v43 = v29;
   v30 = iDCopy;
-  v45 = v30;
+  v44 = v30;
   v31 = clusterIDCopy;
-  v46 = v31;
+  v45 = v31;
   dispatch_sync(delegateQueue, block);
 
-  if (v49[3])
+  if (v48[3])
   {
     v32 = objc_autoreleasePoolPush();
     pluginClient = [(MTRPluginClientConnection *)self pluginClient];
-    [pluginClient deviceController:v36 nodeID:v28 invokeCommandWithEndpointID:v30 clusterID:v31 commandID:v29 commandFields:v26 expectedValues:valuesCopy expectedValueInterval:intervalCopy timedInvokeTimeout:timeoutCopy serverSideProcessingTimeout:processingTimeoutCopy completion:completionCopy];
+    [pluginClient deviceController:v35 nodeID:v28 invokeCommandWithEndpointID:v30 clusterID:v31 commandID:v29 commandFields:v26 expectedValues:valuesCopy expectedValueInterval:intervalCopy timedInvokeTimeout:timeoutCopy serverSideProcessingTimeout:processingTimeoutCopy completion:completionCopy];
 
     objc_autoreleasePoolPop(v32);
   }
@@ -1042,8 +1049,7 @@ void __150__MTRPluginClientConnection_deviceController_nodeID_writeAttributeWith
     }
   }
 
-  _Block_object_dispose(&v48, 8);
-  v35 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v47, 8);
 }
 
 void __210__MTRPluginClientConnection_deviceController_nodeID_invokeCommandWithEndpointID_clusterID_commandID_commandFields_expectedValues_expectedValueInterval_timedInvokeTimeout_serverSideProcessingTimeout_completion___block_invoke(uint64_t a1)
@@ -1056,7 +1062,7 @@ void __210__MTRPluginClientConnection_deviceController_nodeID_invokeCommandWithE
 
 - (void)deviceController:(id)controller nodeID:(id)d openCommissioningWindowWithSetupPasscode:(id)passcode discriminator:(id)discriminator duration:(id)duration completion:(id)completion
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   dCopy = d;
   passcodeCopy = passcode;
@@ -1064,22 +1070,22 @@ void __210__MTRPluginClientConnection_deviceController_nodeID_invokeCommandWithE
   durationCopy = duration;
   completionCopy = completion;
   [(MTRPluginClientConnection *)self _assignHomeUUIDIfUnassigned:controllerCopy];
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x2020000000;
-  v39 = 0;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2020000000;
+  v38 = 0;
   delegateQueue = [(MTRPluginClientConnection *)self delegateQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __128__MTRPluginClientConnection_deviceController_nodeID_openCommissioningWindowWithSetupPasscode_discriminator_duration_completion___block_invoke;
   block[3] = &unk_279893DF0;
-  v35 = &v36;
+  v34 = &v35;
   block[4] = self;
   v21 = dCopy;
-  v34 = v21;
+  v33 = v21;
   dispatch_sync(delegateQueue, block);
 
-  if (v37[3])
+  if (v36[3])
   {
     v22 = objc_autoreleasePoolPush();
     pluginClient = [(MTRPluginClientConnection *)self pluginClient];
@@ -1098,21 +1104,20 @@ void __210__MTRPluginClientConnection_deviceController_nodeID_invokeCommandWithE
       [MTRPluginClientConnection deviceController:nodeID:openCommissioningWindowWithSetupPasscode:discriminator:duration:completion:];
     }
 
-    v28 = MEMORY[0x277D85DD0];
-    v29 = 3221225472;
-    v30 = __128__MTRPluginClientConnection_deviceController_nodeID_openCommissioningWindowWithSetupPasscode_discriminator_duration_completion___block_invoke_169;
-    v31 = &unk_279894180;
-    v32 = completionCopy;
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __128__MTRPluginClientConnection_deviceController_nodeID_openCommissioningWindowWithSetupPasscode_discriminator_duration_completion___block_invoke_2;
-    v26[3] = &unk_279894180;
-    v27 = v32;
-    __128__MTRPluginClientConnection_deviceController_nodeID_openCommissioningWindowWithSetupPasscode_discriminator_duration_completion___block_invoke_2(v26);
+    v27 = MEMORY[0x277D85DD0];
+    v28 = 3221225472;
+    v29 = __128__MTRPluginClientConnection_deviceController_nodeID_openCommissioningWindowWithSetupPasscode_discriminator_duration_completion___block_invoke_169;
+    v30 = &unk_279894180;
+    v31 = completionCopy;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __128__MTRPluginClientConnection_deviceController_nodeID_openCommissioningWindowWithSetupPasscode_discriminator_duration_completion___block_invoke_2;
+    v25[3] = &unk_279894180;
+    v26 = v31;
+    __128__MTRPluginClientConnection_deviceController_nodeID_openCommissioningWindowWithSetupPasscode_discriminator_duration_completion___block_invoke_2(v25);
   }
 
-  _Block_object_dispose(&v36, 8);
-  v25 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v35, 8);
 }
 
 void __128__MTRPluginClientConnection_deviceController_nodeID_openCommissioningWindowWithSetupPasscode_discriminator_duration_completion___block_invoke(uint64_t a1)
@@ -1145,27 +1150,27 @@ void __128__MTRPluginClientConnection_deviceController_nodeID_openCommissioningW
 
 - (void)deviceController:(id)controller nodeID:(id)d downloadLogOfType:(int64_t)type timeout:(double)timeout completion:(id)completion
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   dCopy = d;
   completionCopy = completion;
   [(MTRPluginClientConnection *)self _assignHomeUUIDIfUnassigned:controllerCopy];
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
-  v34 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 0;
   delegateQueue = [(MTRPluginClientConnection *)self delegateQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __90__MTRPluginClientConnection_deviceController_nodeID_downloadLogOfType_timeout_completion___block_invoke;
   block[3] = &unk_279893DF0;
-  v30 = &v31;
+  v29 = &v30;
   block[4] = self;
   v16 = dCopy;
-  v29 = v16;
+  v28 = v16;
   dispatch_sync(delegateQueue, block);
 
-  if (v32[3])
+  if (v31[3])
   {
     v17 = objc_autoreleasePoolPush();
     pluginClient = [(MTRPluginClientConnection *)self pluginClient];
@@ -1184,21 +1189,20 @@ void __128__MTRPluginClientConnection_deviceController_nodeID_openCommissioningW
       [MTRPluginClientConnection deviceController:nodeID:downloadLogOfType:timeout:completion:];
     }
 
-    v23 = MEMORY[0x277D85DD0];
-    v24 = 3221225472;
-    v25 = __90__MTRPluginClientConnection_deviceController_nodeID_downloadLogOfType_timeout_completion___block_invoke_170;
-    v26 = &unk_279894180;
-    v27 = completionCopy;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __90__MTRPluginClientConnection_deviceController_nodeID_downloadLogOfType_timeout_completion___block_invoke_2;
-    v21[3] = &unk_279894180;
-    v22 = v27;
-    __90__MTRPluginClientConnection_deviceController_nodeID_downloadLogOfType_timeout_completion___block_invoke_2(v21);
+    v22 = MEMORY[0x277D85DD0];
+    v23 = 3221225472;
+    v24 = __90__MTRPluginClientConnection_deviceController_nodeID_downloadLogOfType_timeout_completion___block_invoke_170;
+    v25 = &unk_279894180;
+    v26 = completionCopy;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __90__MTRPluginClientConnection_deviceController_nodeID_downloadLogOfType_timeout_completion___block_invoke_2;
+    v20[3] = &unk_279894180;
+    v21 = v26;
+    __90__MTRPluginClientConnection_deviceController_nodeID_downloadLogOfType_timeout_completion___block_invoke_2(v20);
   }
 
-  _Block_object_dispose(&v31, 8);
-  v20 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v30, 8);
 }
 
 void __90__MTRPluginClientConnection_deviceController_nodeID_downloadLogOfType_timeout_completion___block_invoke(uint64_t a1)
@@ -1231,36 +1235,36 @@ void __90__MTRPluginClientConnection_deviceController_nodeID_downloadLogOfType_t
 
 - (void)deviceController:(id)controller nodeID:(id)d invokeCommands:(id)commands completion:(id)completion
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   dCopy = d;
   commandsCopy = commands;
   completionCopy = completion;
   [(MTRPluginClientConnection *)self _assignHomeUUIDIfUnassigned:controllerCopy];
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   obj = commandsCopy;
-  v34 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
-  if (v34)
+  v33 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
+  if (v33)
   {
-    v12 = *v50;
-    v31 = *v50;
+    v12 = *v49;
+    v30 = *v49;
     do
     {
       v13 = 0;
       do
       {
-        if (*v50 != v12)
+        if (*v49 != v12)
         {
           v14 = v13;
           objc_enumerationMutation(obj);
           v13 = v14;
         }
 
-        v32 = v13;
-        v15 = *(*(&v49 + 1) + 8 * v13);
+        v31 = v13;
+        v15 = *(*(&v48 + 1) + 8 * v13);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1273,25 +1277,25 @@ void __90__MTRPluginClientConnection_deviceController_nodeID_downloadLogOfType_t
         }
 
         v17 = v16;
+        v44 = 0u;
         v45 = 0u;
         v46 = 0u;
         v47 = 0u;
-        v48 = 0u;
         v18 = v17;
-        v19 = [v18 countByEnumeratingWithState:&v45 objects:v53 count:16];
+        v19 = [v18 countByEnumeratingWithState:&v44 objects:v52 count:16];
         if (v19)
         {
-          v20 = *v46;
+          v20 = *v45;
           while (2)
           {
             for (i = 0; i != v19; ++i)
             {
-              if (*v46 != v20)
+              if (*v45 != v20)
               {
                 objc_enumerationMutation(v18);
               }
 
-              v22 = *(*(&v45 + 1) + 8 * i);
+              v22 = *(*(&v44 + 1) + 8 * i);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -1306,23 +1310,23 @@ void __90__MTRPluginClientConnection_deviceController_nodeID_downloadLogOfType_t
               v24 = v23;
               if (v24)
               {
-                v41 = 0;
-                v42 = &v41;
-                v43 = 0x2020000000;
-                v44 = 0;
+                v40 = 0;
+                v41 = &v40;
+                v42 = 0x2020000000;
+                v43 = 0;
                 delegateQueue = [(MTRPluginClientConnection *)self delegateQueue];
                 block[0] = MEMORY[0x277D85DD0];
                 block[1] = 3221225472;
                 block[2] = __79__MTRPluginClientConnection_deviceController_nodeID_invokeCommands_completion___block_invoke;
                 block[3] = &unk_2798941D0;
-                v40 = &v41;
+                v39 = &v40;
                 block[4] = self;
-                v38 = dCopy;
+                v37 = dCopy;
                 v26 = v24;
-                v39 = v26;
+                v38 = v26;
                 dispatch_sync(delegateQueue, block);
 
-                if ((v42[3] & 1) == 0)
+                if ((v41[3] & 1) == 0)
                 {
                   v29 = matterPluginLog_default;
                   if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
@@ -1332,15 +1336,15 @@ void __90__MTRPluginClientConnection_deviceController_nodeID_downloadLogOfType_t
                     [MTRPluginClientConnection deviceController:nodeID:invokeCommandWithEndpointID:clusterID:commandID:commandFields:expectedValues:expectedValueInterval:timedInvokeTimeout:serverSideProcessingTimeout:completion:];
                   }
 
-                  _Block_object_dispose(&v41, 8);
+                  _Block_object_dispose(&v40, 8);
                   goto LABEL_28;
                 }
 
-                _Block_object_dispose(&v41, 8);
+                _Block_object_dispose(&v40, 8);
               }
             }
 
-            v19 = [v18 countByEnumeratingWithState:&v45 objects:v53 count:16];
+            v19 = [v18 countByEnumeratingWithState:&v44 objects:v52 count:16];
             if (v19)
             {
               continue;
@@ -1350,16 +1354,16 @@ void __90__MTRPluginClientConnection_deviceController_nodeID_downloadLogOfType_t
           }
         }
 
-        v12 = v31;
-        v13 = v32 + 1;
+        v12 = v30;
+        v13 = v31 + 1;
       }
 
-      while (v32 + 1 != v34);
-      v34 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
-      v12 = v31;
+      while (v31 + 1 != v33);
+      v33 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
+      v12 = v30;
     }
 
-    while (v34);
+    while (v33);
   }
 
   v27 = objc_autoreleasePoolPush();
@@ -1368,8 +1372,6 @@ void __90__MTRPluginClientConnection_deviceController_nodeID_downloadLogOfType_t
 
   objc_autoreleasePoolPop(v27);
 LABEL_28:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __79__MTRPluginClientConnection_deviceController_nodeID_invokeCommands_completion___block_invoke(uint64_t a1)
@@ -1389,24 +1391,24 @@ void __79__MTRPluginClientConnection_deviceController_nodeID_invokeCommands_comp
 
 - (void)deviceController:(id)controller updateControllerConfiguration:(id)configuration
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   configurationCopy = configuration;
   [(MTRPluginClientConnection *)self _assignHomeUUIDIfUnassigned:controllerCopy];
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
-  v17 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
   delegateQueue = [(MTRPluginClientConnection *)self delegateQueue];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __76__MTRPluginClientConnection_deviceController_updateControllerConfiguration___block_invoke;
-  v13[3] = &unk_2798941F8;
-  v13[4] = self;
-  v13[5] = &v14;
-  dispatch_sync(delegateQueue, v13);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __76__MTRPluginClientConnection_deviceController_updateControllerConfiguration___block_invoke;
+  v12[3] = &unk_2798941F8;
+  v12[4] = self;
+  v12[5] = &v13;
+  dispatch_sync(delegateQueue, v12);
 
-  if (v15[3])
+  if (v14[3])
   {
     v9 = objc_autoreleasePoolPush();
     pluginClient = [(MTRPluginClientConnection *)self pluginClient];
@@ -1426,9 +1428,7 @@ void __79__MTRPluginClientConnection_deviceController_nodeID_invokeCommands_comp
     }
   }
 
-  _Block_object_dispose(&v14, 8);
-
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v13, 8);
 }
 
 void __76__MTRPluginClientConnection_deviceController_updateControllerConfiguration___block_invoke(uint64_t a1)
@@ -1441,11 +1441,10 @@ void __76__MTRPluginClientConnection_deviceController_updateControllerConfigurat
 
 void __93__MTRPluginClientConnection__deliverMessagePayloadToPrimaryResident_timeout_responseHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25830F000, a2, OS_LOG_TYPE_ERROR, " *** Failed to sendMessage to primary home hub with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25830F000, a2, OS_LOG_TYPE_ERROR, " *** Failed to sendMessage to primary home hub with error: %@", &v2, 0xCu);
 }
 
 - (void)deviceController:nodeID:getStateWithReply:.cold.1()

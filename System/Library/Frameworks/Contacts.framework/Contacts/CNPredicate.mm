@@ -89,10 +89,10 @@ uint64_t __32__CNPredicate_Suggested__os_log__block_invoke()
 
 - (id)suggestedContactsWithSortOrder:(void *)order keysToFetch:(unsigned int)fetch mutableObjects:(void *)objects service:(void *)service error:
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   orderCopy = order;
   objectsCopy = objects;
-  v53 = objectsCopy;
+  v55 = objectsCopy;
   if (self)
   {
     if (!objectsCopy)
@@ -121,130 +121,130 @@ uint64_t __32__CNPredicate_Suggested__os_log__block_invoke()
       v11 = 0;
     }
 
-    v51 = v11;
+    v53 = v11;
 
     array = [MEMORY[0x1E695DF70] array];
-    v68 = 0;
-    v69 = &v68;
-    v70 = 0x3032000000;
-    v71 = __Block_byref_object_copy__0;
-    v72 = __Block_byref_object_dispose__0;
-    v73 = 0;
+    v70 = 0;
+    v71 = &v70;
+    v72 = 0x3032000000;
+    v73 = __Block_byref_object_copy__0;
+    v74 = __Block_byref_object_dispose__0;
+    v75 = 0;
     currentEnvironment = [MEMORY[0x1E69966E8] currentEnvironment];
     watchdog = [currentEnvironment watchdog];
     v15 = [watchdog statusForEvent:*MEMORY[0x1E6996600]] == 0;
 
     if (!v15)
     {
-      objc_opt_class();
-      v16 = +[CNPredicate os_log];
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v16 = objc_opt_class();
+      v17 = +[(CNPredicate *)v16];
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        [CNPredicate suggestedContactsWithSortOrder:v16 keysToFetch:? mutableObjects:? service:? error:?];
+        [CNPredicate suggestedContactsWithSortOrder:v17 keysToFetch:? mutableObjects:? service:? error:?];
       }
 
-      v17 = MEMORY[0x1E695E0F0];
+      v18 = MEMORY[0x1E695E0F0];
 LABEL_61:
 
-      _Block_object_dispose(&v68, 8);
+      _Block_object_dispose(&v70, 8);
       goto LABEL_62;
     }
 
-    v48 = objc_alloc_init(MEMORY[0x1E6996838]);
-    v67[0] = MEMORY[0x1E69E9820];
-    v67[1] = 3221225472;
-    v67[2] = __98__CNPredicate_Suggested__suggestedContactsWithSortOrder_keysToFetch_mutableObjects_service_error___block_invoke;
-    v67[3] = &unk_1E7412358;
-    v67[5] = &v68;
-    v67[4] = selfCopy;
-    v18 = [v67 copy];
-    v19 = objc_opt_self();
-    v20 = _Block_copy(v19);
-    [v48 push:v20];
+    v50 = objc_alloc_init(MEMORY[0x1E6996838]);
+    v69[0] = MEMORY[0x1E69E9820];
+    v69[1] = 3221225472;
+    v69[2] = __98__CNPredicate_Suggested__suggestedContactsWithSortOrder_keysToFetch_mutableObjects_service_error___block_invoke;
+    v69[3] = &unk_1E7412358;
+    v69[5] = &v70;
+    v69[4] = selfCopy;
+    v19 = [v69 copy];
+    v20 = objc_opt_self();
+    v21 = _Block_copy(v20);
+    [v50 push:v21];
 
     if ([selfCopy augmentMainStoreResults])
     {
-      v21 = objc_opt_new();
-      v65[0] = MEMORY[0x1E69E9820];
-      v65[1] = 3221225472;
-      v65[2] = __98__CNPredicate_Suggested__suggestedContactsWithSortOrder_keysToFetch_mutableObjects_service_error___block_invoke_91;
-      v65[3] = &unk_1E7412380;
-      v22 = v21;
-      v66 = v22;
-      [orderCopy enumerateObjectsUsingBlock:v65];
+      v22 = objc_opt_new();
+      v67[0] = MEMORY[0x1E69E9820];
+      v67[1] = 3221225472;
+      v67[2] = __98__CNPredicate_Suggested__suggestedContactsWithSortOrder_keysToFetch_mutableObjects_service_error___block_invoke_91;
+      v67[3] = &unk_1E7412380;
+      v23 = v22;
+      v68 = v23;
+      [orderCopy enumerateObjectsUsingBlock:v67];
       if (suggestedContactsWithSortOrder_keysToFetch_mutableObjects_service_error__cn_once_token_6 != -1)
       {
         [CNPredicate suggestedContactsWithSortOrder:keysToFetch:mutableObjects:service:error:];
       }
 
-      v42 = v22;
-      v43 = suggestedContactsWithSortOrder_keysToFetch_mutableObjects_service_error__cn_once_object_6;
-      if ([v43 intersectsKeyVector:v22])
+      v44 = v23;
+      v45 = suggestedContactsWithSortOrder_keysToFetch_mutableObjects_service_error__cn_once_object_6;
+      if ([v45 intersectsKeyVector:v23])
       {
         [selfCopy mainStoreContactIdentifiers];
+        v65 = 0u;
+        v66 = 0u;
         v63 = 0u;
-        v64 = 0u;
-        v61 = 0u;
-        obj = v62 = 0u;
-        v23 = [obj countByEnumeratingWithState:&v61 objects:v75 count:16];
-        if (v23)
+        obj = v64 = 0u;
+        v24 = [obj countByEnumeratingWithState:&v63 objects:v77 count:16];
+        if (v24)
         {
-          v49 = *v62;
+          v51 = *v64;
           while (2)
           {
-            for (i = 0; i != v23; i = (i + 1))
+            for (i = 0; i != v24; i = (i + 1))
             {
-              if (*v62 != v49)
+              if (*v64 != v51)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v25 = *(*(&v61 + 1) + 8 * i);
-              v60 = 0;
-              v26 = [v53 contactMatchesWithContactIdentifier:v25 limitTo:1 error:&v60];
-              v27 = v60;
-              v28 = v60;
-              if (v28)
+              v26 = *(*(&v63 + 1) + 8 * i);
+              v62 = 0;
+              v27 = [v55 contactMatchesWithContactIdentifier:v26 limitTo:1 error:&v62];
+              v28 = v62;
+              v29 = v62;
+              if (v29)
               {
-                v34 = v28;
-                objc_storeStrong(v69 + 5, v27);
-                v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CONTACTS: failed to augment contact with identifier %@ with suggestions, error: %@", v25, v69[5], v42, v43];
+                v35 = v29;
+                objc_storeStrong(v71 + 5, v28);
+                v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CONTACTS: failed to augment contact with identifier %@ with suggestions, error: %@", v26, v71[5], v44, v45];
 
                 goto LABEL_37;
               }
 
+              v60 = 0u;
+              v61 = 0u;
               v58 = 0u;
               v59 = 0u;
-              v56 = 0u;
-              v57 = 0u;
-              v29 = v26;
-              v30 = [v29 countByEnumeratingWithState:&v56 objects:v74 count:16];
-              if (v30)
+              v30 = v27;
+              v31 = [v30 countByEnumeratingWithState:&v58 objects:v76 count:16];
+              if (v31)
               {
-                v31 = *v57;
+                v32 = *v59;
                 do
                 {
-                  for (j = 0; j != v30; ++j)
+                  for (j = 0; j != v31; ++j)
                   {
-                    if (*v57 != v31)
+                    if (*v59 != v32)
                     {
-                      objc_enumerationMutation(v29);
+                      objc_enumerationMutation(v30);
                     }
 
-                    v33 = [CNContactSuggestionMatch suggestionFromContactMatch:*(*(&v56 + 1) + 8 * j)];
-                    [v33 setMainStoreLinkedIdentifier:v25];
-                    [array addObject:v33];
+                    v34 = [CNContactSuggestionMatch suggestionFromContactMatch:*(*(&v58 + 1) + 8 * j)];
+                    [v34 setMainStoreLinkedIdentifier:v26];
+                    [array addObject:v34];
                   }
 
-                  v30 = [v29 countByEnumeratingWithState:&v56 objects:v74 count:16];
+                  v31 = [v30 countByEnumeratingWithState:&v58 objects:v76 count:16];
                 }
 
-                while (v30);
+                while (v31);
               }
             }
 
-            v23 = [obj countByEnumeratingWithState:&v61 objects:v75 count:16];
-            if (v23)
+            v24 = [obj countByEnumeratingWithState:&v63 objects:v77 count:16];
+            if (v24)
             {
               continue;
             }
@@ -258,40 +258,40 @@ LABEL_37:
 
       else
       {
-        v23 = 0;
+        v24 = 0;
       }
     }
 
     else
     {
-      v23 = 0;
+      v24 = 0;
     }
 
-    if (v69[5])
+    if (v71[5])
     {
       goto LABEL_40;
     }
 
     if (objc_opt_respondsToSelector())
     {
-      v35 = v69 + 5;
-      v55 = v69[5];
-      v36 = [v51 suggestionsWithSortOrder:a2 mutableObjects:fetch service:v53 error:&v55];
-      objc_storeStrong(v35, v55);
-      if ([v36 count])
+      v36 = v71 + 5;
+      v57 = v71[5];
+      v37 = [v53 suggestionsWithSortOrder:a2 mutableObjects:fetch service:v55 error:&v57];
+      objc_storeStrong(v36, v57);
+      if ([v37 count])
       {
-        [array addObjectsFromArray:v36];
+        [array addObjectsFromArray:v37];
 LABEL_52:
-        v16 = v23;
+        v17 = v24;
         goto LABEL_53;
       }
 
-      if (!v69[5])
+      if (!v71[5])
       {
         goto LABEL_52;
       }
 
-      v38 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CONTACTS: failed to find suggested contacts, error: %@", v69[5]];
+      v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CONTACTS: failed to find suggested contacts, error: %@", v71[5]];
     }
 
     else
@@ -299,63 +299,63 @@ LABEL_52:
       if ((objc_opt_respondsToSelector() & 1) == 0)
       {
 LABEL_40:
-        v16 = v23;
+        v17 = v24;
 LABEL_54:
-        if (v69[5])
+        if (v71[5])
         {
-          objc_opt_class();
-          v39 = +[CNPredicate os_log];
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+          v40 = objc_opt_class();
+          v41 = +[(CNPredicate *)v40];
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
           {
-            [CNPredicate suggestedContactsWithSortOrder:v16 keysToFetch:v39 mutableObjects:? service:? error:?];
+            [CNPredicate suggestedContactsWithSortOrder:v17 keysToFetch:v41 mutableObjects:? service:? error:?];
           }
 
-          v17 = 0;
+          v18 = 0;
           if (service)
           {
-            *service = v69[5];
+            *service = v71[5];
           }
         }
 
         else
         {
-          v17 = [CNPredicate _convertSuggestions:array withSortOrder:? mutableObjects:?];
+          v18 = [CNPredicate _convertSuggestions:array withSortOrder:? mutableObjects:?];
         }
 
-        [v48 popAllWithHandler:&__block_literal_global_110];
-        v40 = objc_opt_self();
+        [v50 popAllWithHandler:&__block_literal_global_110];
+        v42 = objc_opt_self();
 
         goto LABEL_61;
       }
 
-      v37 = v69 + 5;
-      v54 = v69[5];
-      v36 = [v51 sgContactMatchesWithSortOrder:a2 mutableObjects:fetch service:v53 error:&v54];
-      objc_storeStrong(v37, v54);
-      if ([v36 count])
+      v38 = v71 + 5;
+      v56 = v71[5];
+      v37 = [v53 sgContactMatchesWithSortOrder:a2 mutableObjects:fetch service:v55 error:&v56];
+      objc_storeStrong(v38, v56);
+      if ([v37 count])
       {
-        [(CNPredicate *)selfCopy _convertContactMatches:v36 withService:v53 intoSuggestions:array];
+        [(CNPredicate *)selfCopy _convertContactMatches:v37 withService:v55 intoSuggestions:array];
         goto LABEL_52;
       }
 
-      if (!v69[5])
+      if (!v71[5])
       {
         goto LABEL_52;
       }
 
-      v38 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CONTACTS: failed to fetch suggested contact matches, error: %@", v69[5]];
+      v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CONTACTS: failed to fetch suggested contact matches, error: %@", v71[5]];
     }
 
-    v16 = v38;
+    v17 = v39;
 
 LABEL_53:
     goto LABEL_54;
   }
 
-  v17 = 0;
+  v18 = 0;
 LABEL_62:
 
-  return v17;
+  return v18;
 }
 
 void __98__CNPredicate_Suggested__suggestedContactsWithSortOrder_keysToFetch_mutableObjects_service_error___block_invoke(uint64_t a1)
@@ -367,16 +367,16 @@ void __98__CNPredicate_Suggested__suggestedContactsWithSortOrder_keysToFetch_mut
 
     if (v3)
     {
-      objc_opt_class();
-      v4 = +[CNPredicate os_log];
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v4 = objc_opt_class();
+      v5 = +[(CNPredicate *)v4];
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        __98__CNPredicate_Suggested__suggestedContactsWithSortOrder_keysToFetch_mutableObjects_service_error___block_invoke_cold_1(v4);
+        __98__CNPredicate_Suggested__suggestedContactsWithSortOrder_keysToFetch_mutableObjects_service_error___block_invoke_cold_1(v5);
       }
 
-      v5 = [MEMORY[0x1E69966E8] currentEnvironment];
-      v6 = [v5 watchdog];
-      [v6 recordExceptionForEvent:*MEMORY[0x1E6996600]];
+      v6 = [MEMORY[0x1E69966E8] currentEnvironment];
+      v7 = [v6 watchdog];
+      [v7 recordExceptionForEvent:*MEMORY[0x1E6996600]];
     }
   }
 }

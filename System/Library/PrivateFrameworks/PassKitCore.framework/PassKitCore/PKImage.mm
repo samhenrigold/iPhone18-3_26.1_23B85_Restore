@@ -913,7 +913,7 @@ LABEL_22:
     CGContextConcatCTM(context, &transform);
   }
 
-  if (v17 == width && v16 == height || !(v29 = [(PKImage *)self _isTiledWhenStretchedToSize:width, height]) && (vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqzq_f64(*&self->_capInsets.top), vceqzq_f64(*&self->_capInsets.bottom))))) & 1) == 0)
+  if (v17 == width && v16 == height || (v29 = [(PKImage *)self _isTiledWhenStretchedToSize:width, height], (v29 & 1) == 0) && (vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqzq_f64(*&self->_capInsets.top), vceqzq_f64(*&self->_capInsets.bottom))))) & 1) == 0)
   {
     v26 = *MEMORY[0x1E695EFF8];
     v27 = *(MEMORY[0x1E695EFF8] + 8);

@@ -5,26 +5,26 @@
 - (uint64_t)activateSubreason:(uint64_t)result;
 - (uint64_t)deactivateSubreason:(uint64_t)result;
 - (uint64_t)setUpdateRequestRecord:(uint64_t)result;
-- (uint64_t)updateDisplayLink:(uint64_t)result;
 - (void)_updateCompleted;
 - (void)dealloc;
 - (void)reset;
 - (void)updateBounds:(CGFloat)bounds scale:(CGFloat)scale;
+- (void)updateDisplayLink:(void *)result;
 @end
 
 @implementation _UIScrollViewVFD
 
 - (void)reset
 {
-  if (self)
+  if (result)
   {
-    if (*(self + 24))
+    if (*(result + 24))
     {
-      [(_UIScrollViewVFD *)self _deactivateActiveSubreasons:?];
-      *(self + 24) = 0;
+      [(_UIScrollViewVFD *)result _deactivateActiveSubreasons:?];
+      *(result + 24) = 0;
     }
 
-    _UIUpdateCompletionObservationRemoveObserver(mainCompletionObservation, self, 0);
+    _UIUpdateCompletionObservationRemoveObserver(mainCompletionObservation, result, 0);
   }
 }
 
@@ -136,7 +136,7 @@
             _UIUpdateRequestRegistryRemoveRecord(&mainRegistry, v4, v6);
           }
 
-          ++v6;
+          v6 = (v6 + 1);
           v7 = v5 > 1;
           v5 >>= 1;
         }
@@ -173,7 +173,7 @@
             _UIUpdateRequestRegistryAddRecord(&mainRegistry, v4, v6);
           }
 
-          ++v6;
+          v6 = (v6 + 1);
           v7 = v5 > 1;
           v5 >>= 1;
         }
@@ -207,7 +207,7 @@
 
       if (*(v3 + 64) == v3 + 32)
       {
-        result = _UIUpdateRequestRegistryAddRecord(&mainRegistry, (v3 + 32), a2 + 1048577);
+        result = _UIUpdateRequestRegistryAddRecord(&mainRegistry, (v3 + 32), (a2 + 1048577));
       }
 
       *(v3 + 24) |= v4;
@@ -237,7 +237,7 @@
       if (*(v3 + 64) == v3 + 32)
       {
 
-        return _UIUpdateRequestRegistryRemoveRecord(&mainRegistry, (v3 + 32), a2 + 1048577);
+        return _UIUpdateRequestRegistryRemoveRecord(&mainRegistry, (v3 + 32), (a2 + 1048577));
       }
     }
   }
@@ -333,11 +333,11 @@
   }
 }
 
-- (uint64_t)updateDisplayLink:(uint64_t)result
+- (void)updateDisplayLink:(void *)result
 {
   if (result && a2)
   {
-    v4 = CAFrameRateRangeMake(*(*(result + 64) + 4), *(*(result + 64) + 12), *(*(result + 64) + 8));
+    v4 = CAFrameRateRangeMake(*(result[8] + 4), *(result[8] + 12), *(result[8] + 8));
 
     return [a2 setPreferredFrameRateRange:{*&v4.minimum, *&v4.maximum, *&v4.preferred}];
   }

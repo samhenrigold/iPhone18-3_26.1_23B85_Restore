@@ -29,17 +29,17 @@
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Performing miscellaneous migration", v7, 2u);
   }
 
-  sub_1003D53A4();
+  sub_1003D53A4(AppDefaultsManager);
   sub_1003D5620(AppDefaultsManager, 0);
-  sub_1001E79D4();
-  v3 = sub_100405768();
+  sub_1001E79D4(AppPurgeCoordinator);
+  v3 = sub_100405768(FamilyManager);
   sub_1004062D4(v3);
 
   v4 = objc_alloc_init(_TtC9appstored6LogKey);
-  v5 = sub_10020BE10();
+  v5 = sub_10020BE10(BadgingCoordinator);
   sub_10020DED8(v5, v4);
 
-  v6 = sub_1002AB1B0();
+  v6 = sub_1002AB1B0(AppLedger);
   sub_1002AB6CC(v6);
 }
 

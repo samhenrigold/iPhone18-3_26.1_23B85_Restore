@@ -24,7 +24,7 @@
 
 - (id)runIndividuallyWithInput:(id)input
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   if (IMOSLoggingEnabled())
   {
@@ -117,7 +117,7 @@ LABEL_32:
       {
         fromIdentifier = [inputCopy fromIdentifier];
         *buf = 138412290;
-        v55 = fromIdentifier;
+        v54 = fromIdentifier;
         _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "Message is a message from me, not processing for filtering: %@", buf, 0xCu);
       }
     }
@@ -126,22 +126,22 @@ LABEL_32:
   }
 
   chat = [inputCopy chat];
-  v24 = chat;
+  v23 = chat;
   if (chat)
   {
-    if (![chat isFiltered] || objc_msgSend(v24, "isFiltered") == 2 || objc_msgSend(v24, "isBusinessChat"))
+    if (![chat isFiltered] || objc_msgSend(v23, "isFiltered") == 2 || objc_msgSend(v23, "isBusinessChat"))
     {
       if (IMOSLoggingEnabled())
       {
-        v25 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+        v24 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_22B4CC000, v25, OS_LOG_TYPE_INFO, "Skipping CTS check", buf, 2u);
+          _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Skipping CTS check", buf, 2u);
         }
       }
 
-      v26 = 1;
+      v25 = 1;
       goto LABEL_51;
     }
   }
@@ -150,31 +150,31 @@ LABEL_32:
   {
     if (IMOSLoggingEnabled())
     {
-      v27 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+      v26 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_22B4CC000, v27, OS_LOG_TYPE_INFO, "Could not find chat, using context instead", buf, 2u);
+        _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_INFO, "Could not find chat, using context instead", buf, 2u);
       }
     }
 
     [(IMFilterMessagePipelineComponentContext *)self->_filteringContext setWasContextUsed:1];
   }
 
-  v26 = 0;
+  v25 = 0;
 LABEL_51:
   messageItems3 = [inputCopy messageItems];
-  v29 = [messageItems3 count] == 0;
+  v28 = [messageItems3 count] == 0;
 
-  if (v29)
+  if (v28)
   {
     if (IMOSLoggingEnabled())
     {
-      v39 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+      v38 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_22B4CC000, v39, OS_LOG_TYPE_INFO, "No message provided", buf, 2u);
+        _os_log_impl(&dword_22B4CC000, v38, OS_LOG_TYPE_INFO, "No message provided", buf, 2u);
       }
     }
 
@@ -186,59 +186,58 @@ LABEL_51:
     messageItems4 = [inputCopy messageItems];
     firstObject2 = [messageItems4 firstObject];
 
-    v32 = objc_alloc_init(MEMORY[0x277D18E08]);
+    v31 = objc_alloc_init(MEMORY[0x277D18E08]);
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = sub_22B5D9298;
     aBlock[3] = &unk_2787051F0;
     aBlock[4] = self;
-    v33 = v24;
+    v32 = v23;
+    v49 = v32;
+    v33 = firstObject2;
     v50 = v33;
-    v34 = firstObject2;
+    v34 = v31;
     v51 = v34;
-    v35 = v32;
+    v35 = inputCopy;
     v52 = v35;
-    v36 = inputCopy;
-    v53 = v36;
-    v37 = _Block_copy(aBlock);
-    v38 = v37;
-    if (v26)
+    v36 = _Block_copy(aBlock);
+    v37 = v36;
+    if (v25)
     {
-      (*(v37 + 2))(v37);
+      (*(v36 + 2))(v36);
     }
 
     else
     {
       if (IMOSLoggingEnabled())
       {
-        v40 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+        v39 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_22B4CC000, v40, OS_LOG_TYPE_INFO, "Performing CTS check", buf, 2u);
+          _os_log_impl(&dword_22B4CC000, v39, OS_LOG_TYPE_INFO, "Performing CTS check", buf, 2u);
         }
       }
 
-      v42 = +[IMDCommunicationTrustManager sharedManager];
-      sender = [v34 sender];
-      v43[0] = MEMORY[0x277D85DD0];
-      v43[1] = 3221225472;
-      v43[2] = sub_22B5D9B28;
-      v43[3] = &unk_278705EC8;
-      v43[4] = self;
-      v44 = v33;
+      v41 = +[IMDCommunicationTrustManager sharedManager];
+      sender = [v33 sender];
+      v42[0] = MEMORY[0x277D85DD0];
+      v42[1] = 3221225472;
+      v42[2] = sub_22B5D9B28;
+      v42[3] = &unk_278705EC8;
+      v42[4] = self;
+      v43 = v32;
+      v44 = v34;
       v45 = v35;
-      v46 = v36;
-      v47 = v34;
-      v48 = v38;
-      [v42 requestDecisionForSender:sender completion:v43];
+      v46 = v33;
+      v47 = v37;
+      [v41 requestDecisionForSender:sender completion:v42];
     }
 
-    v20 = v35;
+    v20 = v34;
   }
 
 LABEL_33:
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

@@ -55,7 +55,7 @@
 
 - (void)_processAttachment:(id)attachment withID:(id)d
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   attachmentCopy = attachment;
   dCopy = d;
   contentType = [attachmentCopy contentType];
@@ -84,16 +84,16 @@
       v17 = *MEMORY[0x277D43EF8];
       if (!*MEMORY[0x277D43EF8])
       {
-        v19 = MEMORY[0x277D43EF8];
+        v18 = MEMORY[0x277D43EF8];
         QLSInitLogging();
-        v17 = *v19;
+        v17 = *v18;
       }
 
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v20 = 138412290;
-        v21 = dCopy;
-        _os_log_impl(&dword_23A714000, v17, OS_LOG_TYPE_ERROR, "Unable to create attachment for id %@ #Conversion", &v20, 0xCu);
+        v19 = 138412290;
+        v20 = dCopy;
+        _os_log_impl(&dword_23A714000, v17, OS_LOG_TYPE_ERROR, "Unable to create attachment for id %@ #Conversion", &v19, 0xCu);
       }
     }
   }
@@ -110,13 +110,11 @@
 
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v20 = 138412290;
-      v21 = dCopy;
-      _os_log_impl(&dword_23A714000, v16, OS_LOG_TYPE_ERROR, "No data for attachement with id %@ #Conversion", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = dCopy;
+      _os_log_impl(&dword_23A714000, v16, OS_LOG_TYPE_ERROR, "No data for attachement with id %@ #Conversion", &v19, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)newAttachmentURLWithID:(id)d mimeType:(id)type encoding:(unint64_t)encoding
@@ -157,7 +155,7 @@
 
 - (id)URLRequestForContentID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   stringByRemovingPercentEncoding = [dCopy stringByRemovingPercentEncoding];
   selfCopy = self;
@@ -178,11 +176,11 @@
 
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v14 = 138412546;
-        v15 = dCopy;
-        v16 = 2112;
-        v17 = stringByRemovingPercentEncoding;
-        _os_log_impl(&dword_23A714000, v11, OS_LOG_TYPE_INFO, "Preview generator uses escaped content ID as key (%@) in attachments dictionary (kQLPreviewPropertyAttachmentsKey). It should use the unescaped content ID (%@) #Conversion", &v14, 0x16u);
+        v13 = 138412546;
+        v14 = dCopy;
+        v15 = 2112;
+        v16 = stringByRemovingPercentEncoding;
+        _os_log_impl(&dword_23A714000, v11, OS_LOG_TYPE_INFO, "Preview generator uses escaped content ID as key (%@) in attachments dictionary (kQLPreviewPropertyAttachmentsKey). It should use the unescaped content ID (%@) #Conversion", &v13, 0x16u);
       }
     }
   }
@@ -196,11 +194,11 @@
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v14 = 138412546;
-    v15 = v7;
-    v16 = 2112;
-    v17 = stringByRemovingPercentEncoding;
-    _os_log_impl(&dword_23A714000, v9, OS_LOG_TYPE_DEBUG, "Returning url %@ for contentID %@ #Conversion", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = v7;
+    v15 = 2112;
+    v16 = stringByRemovingPercentEncoding;
+    _os_log_impl(&dword_23A714000, v9, OS_LOG_TYPE_DEBUG, "Returning url %@ for contentID %@ #Conversion", &v13, 0x16u);
   }
 
   objc_sync_exit(selfCopy);
@@ -214,8 +212,6 @@
   {
     v10 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

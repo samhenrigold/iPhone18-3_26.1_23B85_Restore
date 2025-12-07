@@ -2,13 +2,14 @@
 - (JavaNetPlainSocketImpl_PlainSocketOutputStream)initWithJavaNetPlainSocketImpl:(id)impl;
 - (void)close;
 - (void)dealloc;
+- (void)writeWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
 @end
 
 @implementation JavaNetPlainSocketImpl_PlainSocketOutputStream
 
 - (JavaNetPlainSocketImpl_PlainSocketOutputStream)initWithJavaNetPlainSocketImpl:(id)impl
 {
-  JavaIoOutputStream_init(self, a2);
+  JavaIoOutputStream_init();
   JreStrongAssign(&self->socketImpl_, impl);
   return self;
 }
@@ -22,6 +23,17 @@
   }
 
   [(JavaNetPlainSocketImpl *)socketImpl close];
+}
+
+- (void)writeWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  socketImpl = self->socketImpl_;
+  if (!socketImpl)
+  {
+    JreThrowNullPointerException();
+  }
+
+  sub_100149C24(socketImpl, array, *&int, *&withInt);
 }
 
 - (void)dealloc

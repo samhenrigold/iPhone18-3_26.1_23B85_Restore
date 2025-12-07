@@ -22,10 +22,9 @@
 
 void __39__HMDMediaDestinationModel_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_124433;
-  logCategory__hmf_once_v1_124433 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_124433;
+  logCategory__hmf_once_v1_124433 = v0;
 }
 
 + (id)properties
@@ -42,39 +41,37 @@ void __39__HMDMediaDestinationModel_logCategory__block_invoke()
 
 void __38__HMDMediaDestinationModel_properties__block_invoke()
 {
-  v7[3] = *MEMORY[0x277D85DE8];
-  v6[0] = @"type";
+  v6[3] = *MEMORY[0x277D85DE8];
+  v5[0] = @"type";
   v0 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v7[0] = v0;
-  v6[1] = @"supportedOptions";
+  v6[0] = v0;
+  v5[1] = @"supportedOptions";
   v1 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v7[1] = v1;
-  v6[2] = @"audioGroupIdentifier";
+  v6[1] = v1;
+  v5[2] = @"audioGroupIdentifier";
   v2 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v7[2] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
+  v6[2] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:3];
   v4 = properties__properties_124440;
   properties__properties_124440 = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)attributeDescriptions
 {
-  v22[4] = *MEMORY[0x277D85DE8];
+  v21[4] = *MEMORY[0x277D85DE8];
   setProperties = [(HMDBackingStoreModelObject *)self setProperties];
   v4 = [setProperties containsObject:@"supportedOptions"];
   v5 = [setProperties containsObject:@"audioGroupIdentifier"];
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   uuid = [(HMDBackingStoreModelObject *)self uuid];
   v7 = [v6 initWithName:@"uuid" value:?];
-  v22[0] = v7;
+  v21[0] = v7;
   v8 = objc_alloc(MEMORY[0x277D0F778]);
   parentUUID = [(HMDBackingStoreModelObject *)self parentUUID];
   v10 = [v8 initWithName:@"parentUUID" value:parentUUID];
-  v22[1] = v10;
+  v21[1] = v10;
   v11 = objc_alloc(MEMORY[0x277D0F778]);
-  v20 = v4;
+  v19 = v4;
   if (v4)
   {
     supportedOptions = [(HMDMediaDestinationModel *)self supportedOptions];
@@ -86,7 +83,7 @@ void __38__HMDMediaDestinationModel_properties__block_invoke()
   }
 
   v13 = [v11 initWithName:@"supportedOptions" value:supportedOptions];
-  v22[2] = v13;
+  v21[2] = v13;
   v14 = objc_alloc(MEMORY[0x277D0F778]);
   if (v5)
   {
@@ -99,18 +96,16 @@ void __38__HMDMediaDestinationModel_properties__block_invoke()
   }
 
   v16 = [v14 initWithName:@"audioGroupIdentifier" value:audioGroupIdentifier];
-  v22[3] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:4];
+  v21[3] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
 
   if (v5)
   {
   }
 
-  if (v20)
+  if (v19)
   {
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

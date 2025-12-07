@@ -416,9 +416,9 @@ LABEL_20:
   }
 
   v22 = getCHHapticEventTypeAudioCustom();
-  v23 = [v10 isEqualToString:v22];
+  isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-  if (v23)
+  if (isEqualToString)
   {
 LABEL_26:
     v31 = objc_alloc(getCHHapticEventClass());
@@ -438,7 +438,7 @@ LABEL_26:
   }
 
   v26 = getCHHapticEventTypeHapticContinuous();
-  v27 = [v10 isEqualToString:v26];
+  v27 = objc_msgSend_isEqualToString_(v10);
 
   if (v27)
   {
@@ -827,9 +827,9 @@ LABEL_26:
       }
 
       v26 = getCHHapticEventTypeHapticTransient();
-      v27 = [v23 isEqualToString:v26];
+      isEqualToString = objc_msgSend_isEqualToString_(v23);
 
-      if (v27)
+      if (isEqualToString)
       {
 LABEL_44:
         v50 = getCHHapticEventParameterIDHapticIntensity();
@@ -839,7 +839,7 @@ LABEL_44:
         }
 
         v51 = getCHHapticEventParameterIDHapticIntensity();
-        if ([v22 isEqualToString:v51])
+        if (objc_msgSend_isEqualToString_(v22))
         {
           goto LABEL_85;
         }
@@ -853,7 +853,7 @@ LABEL_44:
         v53 = getCHHapticEventParameterIDHapticSharpness();
 LABEL_58:
         v54 = v53;
-        v55 = [v22 isEqualToString:v53];
+        v55 = objc_msgSend_isEqualToString_(v22);
         goto LABEL_59;
       }
 
@@ -866,7 +866,7 @@ LABEL_58:
       }
 
       v30 = getCHHapticEventTypeAudioClick();
-      v31 = [v23 isEqualToString:v30];
+      v31 = objc_msgSend_isEqualToString_(v23);
 
       if (v31)
       {
@@ -878,7 +878,7 @@ LABEL_49:
         }
 
         v51 = getCHHapticEventParameterIDAudioVolume();
-        if ([v22 isEqualToString:v51])
+        if (objc_msgSend_isEqualToString_(v22))
         {
           goto LABEL_85;
         }
@@ -902,7 +902,7 @@ LABEL_49:
       }
 
       v34 = getCHHapticEventTypeWheelsOfTime();
-      v35 = [v23 isEqualToString:v34];
+      v35 = objc_msgSend_isEqualToString_(v23);
 
       if (v35)
       {
@@ -914,7 +914,7 @@ LABEL_54:
         }
 
         v51 = getCHHapticEventParameterIDHapticIntensity();
-        if ([v22 isEqualToString:v51])
+        if (objc_msgSend_isEqualToString_(v22))
         {
           goto LABEL_85;
         }
@@ -939,20 +939,20 @@ LABEL_62:
         if (v50 != v22)
         {
           v51 = getCHHapticEventParameterIDAudioVolume();
-          if (([v22 isEqualToString:v51] & 1) == 0)
+          if ((objc_msgSend_isEqualToString_(v22) & 1) == 0)
           {
             v52 = getCHHapticEventParameterIDAudioPan();
             if (v52 != v22)
             {
               v54 = getCHHapticEventParameterIDAudioPan();
-              if (([v22 isEqualToString:v54] & 1) == 0)
+              if ((objc_msgSend_isEqualToString_(v22) & 1) == 0)
               {
                 v56 = getCHHapticEventParameterIDAudioBrightness();
                 if (v56 != v22)
                 {
                   v82 = v56;
                   v80 = getCHHapticEventParameterIDAudioBrightness();
-                  if (([v22 isEqualToString:?] & 1) == 0)
+                  if ((objc_msgSend_isEqualToString_(v22) & 1) == 0)
                   {
                     v57 = getCHHapticEventParameterIDAudioPitch();
                     if (v57 == v22)
@@ -964,7 +964,7 @@ LABEL_62:
                     {
                       v77 = v57;
                       v74 = getCHHapticEventParameterIDAudioPitch();
-                      v55 = [v22 isEqualToString:v74];
+                      v55 = objc_msgSend_isEqualToString_(v22);
 
                       v57 = v77;
                     }
@@ -1006,7 +1006,7 @@ LABEL_87:
       }
 
       v38 = getCHHapticEventTypeAudioCustom();
-      v39 = [v23 isEqualToString:v38];
+      v39 = objc_msgSend_isEqualToString_(v23);
 
       if (v39)
       {
@@ -1023,20 +1023,20 @@ LABEL_71:
         if (v50 != v22)
         {
           v51 = getCHHapticEventParameterIDHapticIntensity();
-          if (([v22 isEqualToString:v51] & 1) == 0)
+          if ((objc_msgSend_isEqualToString_(v22) & 1) == 0)
           {
             v52 = getCHHapticEventParameterIDHapticSharpness();
             if (v52 != v22)
             {
               v54 = getCHHapticEventParameterIDHapticSharpness();
-              if (([v22 isEqualToString:v54] & 1) == 0)
+              if ((objc_msgSend_isEqualToString_(v22) & 1) == 0)
               {
                 v56 = getCHHapticEventParameterIDAttackTime();
                 if (v56 != v22)
                 {
                   v82 = v56;
                   v80 = getCHHapticEventParameterIDAttackTime();
-                  if (([v22 isEqualToString:?] & 1) == 0)
+                  if ((objc_msgSend_isEqualToString_(v22) & 1) == 0)
                   {
                     v78 = getCHHapticEventParameterIDDecayTime();
                     if (v78 == v22)
@@ -1047,7 +1047,7 @@ LABEL_71:
                     else
                     {
                       v75 = getCHHapticEventParameterIDDecayTime();
-                      if ([v22 isEqualToString:?])
+                      if (objc_msgSend_isEqualToString_(v22))
                       {
                         v55 = 1;
                       }
@@ -1063,7 +1063,7 @@ LABEL_71:
                         else
                         {
                           v70 = getCHHapticEventParameterIDReleaseTime();
-                          if ([v22 isEqualToString:?])
+                          if (objc_msgSend_isEqualToString_(v22))
                           {
                             v55 = 1;
                           }
@@ -1079,7 +1079,7 @@ LABEL_71:
                             else
                             {
                               v66 = getCHHapticEventParameterIDSustained();
-                              v55 = [v22 isEqualToString:v66];
+                              v55 = objc_msgSend_isEqualToString_(v22);
                             }
                           }
                         }
@@ -1108,7 +1108,7 @@ LABEL_71:
       }
 
       v42 = getCHHapticEventTypeHapticContinuous();
-      v43 = [v23 isEqualToString:v42];
+      v43 = objc_msgSend_isEqualToString_(v23);
 
       if (v43)
       {
@@ -1124,7 +1124,7 @@ LABEL_71:
       else
       {
         v46 = getCHHapticEventTypeAudioContinuous();
-        v47 = [v23 isEqualToString:v46];
+        v47 = objc_msgSend_isEqualToString_(v23);
 
         if ((v47 & 1) == 0)
         {
@@ -1140,7 +1140,7 @@ LABEL_71:
       }
 
       v51 = getCHHapticEventParameterIDAudioVolume();
-      if ([v22 isEqualToString:v51])
+      if (objc_msgSend_isEqualToString_(v22))
       {
         goto LABEL_85;
       }
@@ -1152,7 +1152,7 @@ LABEL_71:
       }
 
       v54 = getCHHapticEventParameterIDAudioPan();
-      if ([v22 isEqualToString:v54])
+      if (objc_msgSend_isEqualToString_(v22))
       {
         goto LABEL_83;
       }
@@ -1166,7 +1166,7 @@ LABEL_71:
       else
       {
         v81 = getCHHapticEventParameterIDAudioBrightness();
-        if ([v22 isEqualToString:?])
+        if (objc_msgSend_isEqualToString_(v22))
         {
           v55 = 1;
         }
@@ -1182,7 +1182,7 @@ LABEL_71:
           else
           {
             v76 = getCHHapticEventParameterIDAudioPitch();
-            if ([v22 isEqualToString:?])
+            if (objc_msgSend_isEqualToString_(v22))
             {
               v55 = 1;
             }
@@ -1198,7 +1198,7 @@ LABEL_71:
               else
               {
                 v71 = getCHHapticEventParameterIDAttackTime();
-                if ([v22 isEqualToString:?])
+                if (objc_msgSend_isEqualToString_(v22))
                 {
                   v55 = 1;
                 }
@@ -1214,7 +1214,7 @@ LABEL_71:
                   else
                   {
                     v67 = getCHHapticEventParameterIDDecayTime();
-                    if ([v22 isEqualToString:?])
+                    if (objc_msgSend_isEqualToString_(v22))
                     {
                       v55 = 1;
                     }
@@ -1230,7 +1230,7 @@ LABEL_71:
                       else
                       {
                         v64 = getCHHapticEventParameterIDReleaseTime();
-                        if ([v22 isEqualToString:?])
+                        if (objc_msgSend_isEqualToString_(v22))
                         {
                           v55 = 1;
                         }
@@ -1246,7 +1246,7 @@ LABEL_71:
                           else
                           {
                             v62 = getCHHapticEventParameterIDSustained();
-                            v55 = [v22 isEqualToString:v62];
+                            v55 = objc_msgSend_isEqualToString_(v22);
                           }
                         }
                       }

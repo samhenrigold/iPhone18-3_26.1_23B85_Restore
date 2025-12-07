@@ -48,7 +48,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_B5BB0();
+  sub_B5BB0(selfCopy);
 }
 
 - (_TtC16MusicApplication32JSItemizedTextListViewController)initWithNibName:(id)name bundle:(id)bundle

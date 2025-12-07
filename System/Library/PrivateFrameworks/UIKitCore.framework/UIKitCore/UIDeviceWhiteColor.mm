@@ -144,7 +144,7 @@
 
     else if (white == 0.0 && alpha == 1.0)
     {
-      v15 = +[UIColor blackColor];
+      v15 = objc_msgSend_blackColor(UIColor);
     }
 
     else if (white == 0.0 && alpha == 0.0)
@@ -320,9 +320,9 @@ LABEL_14:
     else
     {
       colorSpaceName2 = [(UIDeviceWhiteColor *)self colorSpaceName];
-      v10 = [colorSpaceName isEqualToString:colorSpaceName2];
+      isEqualToString = objc_msgSend_isEqualToString_(colorSpaceName);
 
-      if (v10)
+      if (isEqualToString)
       {
         v12 = 0.0;
         v13 = 0.0;

@@ -57,7 +57,7 @@
 
 - (id)constructMASoftwareUpdateCatalogDownloadOptionsWithUUID:(id)d assetAudience:(id)audience
 {
-  v90 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   dCopy = d;
   mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
   oslog = [mEMORY[0x277D64460] oslog];
@@ -66,7 +66,7 @@
   {
     v8 = [(SUCorePolicyMacRecoveryOSUpdate *)self description];
     *buf = 138543362;
-    v89 = v8;
+    v88 = v8;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[POLICY] constructMASoftwareUpdateCatalogDownloadOptionsWithUUID for SUCorePolicyMacRecoveryOSUpdate: %{public}@", buf, 0xCu);
   }
 
@@ -74,22 +74,22 @@
   v10 = objc_alloc_init(MEMORY[0x277CBEB38]);
   [v9 setAdditionalServerParams:v10];
 
-  v86.receiver = self;
-  v86.super_class = SUCorePolicyMacRecoveryOSUpdate;
-  softwareUpdateScanPolicy = [(SUCorePolicy *)&v86 softwareUpdateScanPolicy];
-  [v9 setDiscretionary:{objc_msgSend(softwareUpdateScanPolicy, "discretionary")}];
-
   v85.receiver = self;
   v85.super_class = SUCorePolicyMacRecoveryOSUpdate;
-  softwareUpdateScanPolicy2 = [(SUCorePolicy *)&v85 softwareUpdateScanPolicy];
-  [v9 setRequiresPowerPluggedIn:{objc_msgSend(softwareUpdateScanPolicy2, "requiresPowerPluggedIn")}];
+  softwareUpdateScanPolicy = [(SUCorePolicy *)&v85 softwareUpdateScanPolicy];
+  [v9 setDiscretionary:{objc_msgSend(softwareUpdateScanPolicy, "discretionary")}];
 
   v84.receiver = self;
   v84.super_class = SUCorePolicyMacRecoveryOSUpdate;
-  softwareUpdateScanPolicy3 = [(SUCorePolicy *)&v84 softwareUpdateScanPolicy];
+  softwareUpdateScanPolicy2 = [(SUCorePolicy *)&v84 softwareUpdateScanPolicy];
+  [v9 setRequiresPowerPluggedIn:{objc_msgSend(softwareUpdateScanPolicy2, "requiresPowerPluggedIn")}];
+
+  v83.receiver = self;
+  v83.super_class = SUCorePolicyMacRecoveryOSUpdate;
+  softwareUpdateScanPolicy3 = [(SUCorePolicy *)&v83 softwareUpdateScanPolicy];
   [v9 setLiveServerCatalogOnly:{objc_msgSend(softwareUpdateScanPolicy3, "liveServerCatalogOnly")}];
 
-  v68 = dCopy;
+  v67 = dCopy;
   [v9 setSessionId:dCopy];
   additionalServerParams = [v9 additionalServerParams];
   targetRestoreVersion = [(SUCorePolicy *)self targetRestoreVersion];
@@ -116,70 +116,70 @@
   [additionalServerParams6 setSafeObject:installedRecoveryOSReleaseType forKey:@"ReleaseType"];
 
   additionalServerParams7 = [v9 additionalServerParams];
-  v83.receiver = self;
-  v83.super_class = SUCorePolicyMacRecoveryOSUpdate;
-  productType = [(SUCorePolicy *)&v83 productType];
+  v82.receiver = self;
+  v82.super_class = SUCorePolicyMacRecoveryOSUpdate;
+  productType = [(SUCorePolicy *)&v82 productType];
   [additionalServerParams7 setSafeObject:productType forKey:@"ProductType"];
 
   additionalServerParams8 = [v9 additionalServerParams];
-  v82.receiver = self;
-  v82.super_class = SUCorePolicyMacRecoveryOSUpdate;
-  hwModelStr = [(SUCorePolicy *)&v82 hwModelStr];
+  v81.receiver = self;
+  v81.super_class = SUCorePolicyMacRecoveryOSUpdate;
+  hwModelStr = [(SUCorePolicy *)&v81 hwModelStr];
   [additionalServerParams8 setSafeObject:hwModelStr forKey:@"HWModelStr"];
 
   additionalServerParams9 = [v9 additionalServerParams];
-  v81.receiver = self;
-  v81.super_class = SUCorePolicyMacRecoveryOSUpdate;
-  deviceClass = [(SUCorePolicy *)&v81 deviceClass];
+  v80.receiver = self;
+  v80.super_class = SUCorePolicyMacRecoveryOSUpdate;
+  deviceClass = [(SUCorePolicy *)&v80 deviceClass];
   [additionalServerParams9 setSafeObject:deviceClass forKey:@"DeviceName"];
 
   additionalServerParams10 = [v9 additionalServerParams];
   v33 = MEMORY[0x277CCABB0];
-  v80.receiver = self;
-  v80.super_class = SUCorePolicyMacRecoveryOSUpdate;
-  softwareUpdateScanPolicy4 = [(SUCorePolicy *)&v80 softwareUpdateScanPolicy];
+  v79.receiver = self;
+  v79.super_class = SUCorePolicyMacRecoveryOSUpdate;
+  softwareUpdateScanPolicy4 = [(SUCorePolicy *)&v79 softwareUpdateScanPolicy];
   v35 = [v33 numberWithBool:{objc_msgSend(softwareUpdateScanPolicy4, "allowSameVersion")}];
   [additionalServerParams10 setSafeObject:v35 forKey:@"AllowSameBuildVersion"];
 
   additionalServerParams11 = [v9 additionalServerParams];
   v37 = MEMORY[0x277CCABB0];
-  v79.receiver = self;
-  v79.super_class = SUCorePolicyMacRecoveryOSUpdate;
-  softwareUpdateScanPolicy5 = [(SUCorePolicy *)&v79 softwareUpdateScanPolicy];
+  v78.receiver = self;
+  v78.super_class = SUCorePolicyMacRecoveryOSUpdate;
+  softwareUpdateScanPolicy5 = [(SUCorePolicy *)&v78 softwareUpdateScanPolicy];
   v39 = [v37 numberWithBool:{objc_msgSend(softwareUpdateScanPolicy5, "allowSameVersion")}];
   [additionalServerParams11 setSafeObject:v39 forKey:@"AllowSameRestoreVersion"];
 
-  v78.receiver = self;
-  v78.super_class = SUCorePolicyMacRecoveryOSUpdate;
-  prerequisiteBuildVersion = [(SUCorePolicy *)&v78 prerequisiteBuildVersion];
-  [v9 setPrerequisiteProductVersion:prerequisiteBuildVersion];
-
   v77.receiver = self;
   v77.super_class = SUCorePolicyMacRecoveryOSUpdate;
-  prerequisiteProductVersion = [(SUCorePolicy *)&v77 prerequisiteProductVersion];
+  prerequisiteBuildVersion = [(SUCorePolicy *)&v77 prerequisiteBuildVersion];
+  [v9 setPrerequisiteProductVersion:prerequisiteBuildVersion];
+
+  v76.receiver = self;
+  v76.super_class = SUCorePolicyMacRecoveryOSUpdate;
+  prerequisiteProductVersion = [(SUCorePolicy *)&v76 prerequisiteProductVersion];
   [v9 setPrerequisiteBuildVersion:prerequisiteProductVersion];
 
   downloadAuthorizationHeader = [(SUCorePolicy *)self downloadAuthorizationHeader];
 
   if (downloadAuthorizationHeader)
   {
-    v76.receiver = self;
-    v76.super_class = SUCorePolicyMacRecoveryOSUpdate;
-    downloadAuthorizationHeader2 = [(SUCorePolicy *)&v76 downloadAuthorizationHeader];
+    v75.receiver = self;
+    v75.super_class = SUCorePolicyMacRecoveryOSUpdate;
+    downloadAuthorizationHeader2 = [(SUCorePolicy *)&v75 downloadAuthorizationHeader];
     [v9 setDownloadAuthorizationHeader:downloadAuthorizationHeader2];
   }
 
-  v75.receiver = self;
-  v75.super_class = SUCorePolicyMacRecoveryOSUpdate;
-  softwareUpdateScanPolicy6 = [(SUCorePolicy *)&v75 softwareUpdateScanPolicy];
+  v74.receiver = self;
+  v74.super_class = SUCorePolicyMacRecoveryOSUpdate;
+  softwareUpdateScanPolicy6 = [(SUCorePolicy *)&v74 softwareUpdateScanPolicy];
   additionalServerParams12 = [softwareUpdateScanPolicy6 additionalServerParams];
 
   if (additionalServerParams12)
   {
     additionalServerParams13 = [v9 additionalServerParams];
-    v74.receiver = self;
-    v74.super_class = SUCorePolicyMacRecoveryOSUpdate;
-    softwareUpdateScanPolicy7 = [(SUCorePolicy *)&v74 softwareUpdateScanPolicy];
+    v73.receiver = self;
+    v73.super_class = SUCorePolicyMacRecoveryOSUpdate;
+    softwareUpdateScanPolicy7 = [(SUCorePolicy *)&v73 softwareUpdateScanPolicy];
     additionalServerParams14 = [softwareUpdateScanPolicy7 additionalServerParams];
     [additionalServerParams13 addEntriesFromDictionary:additionalServerParams14];
   }
@@ -197,11 +197,11 @@
   if (os_log_type_enabled(oslog2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v89 = v49;
+    v88 = v49;
     _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "[POLICY] MacRecoveryOSUpdate catalog download options summary: %{public}@", buf, 0xCu);
   }
 
-  v67 = v49;
+  v66 = v49;
 
   mEMORY[0x277D64460]3 = [MEMORY[0x277D64460] sharedLogger];
   oslog3 = [mEMORY[0x277D64460]3 oslog];
@@ -209,32 +209,32 @@
   if (os_log_type_enabled(oslog3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v89 = v9;
+    v88 = v9;
     _os_log_impl(&dword_23193C000, oslog3, OS_LOG_TYPE_DEFAULT, "[POLICY] MacRecoveryOSUpdate catalog downloadOptions: %{public}@", buf, 0xCu);
   }
 
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
   v71 = 0u;
-  v69.receiver = self;
-  v69.super_class = SUCorePolicyMacRecoveryOSUpdate;
-  policyExtensions = [(SUCorePolicy *)&v69 policyExtensions];
-  v57 = [policyExtensions countByEnumeratingWithState:&v70 objects:v87 count:16];
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
+  v68.receiver = self;
+  v68.super_class = SUCorePolicyMacRecoveryOSUpdate;
+  policyExtensions = [(SUCorePolicy *)&v68 policyExtensions];
+  v57 = [policyExtensions countByEnumeratingWithState:&v69 objects:v86 count:16];
   if (v57)
   {
     v58 = v57;
-    v59 = *v71;
+    v59 = *v70;
     do
     {
       for (i = 0; i != v58; ++i)
       {
-        if (*v71 != v59)
+        if (*v70 != v59)
         {
           objc_enumerationMutation(policyExtensions);
         }
 
-        v61 = *(*(&v70 + 1) + 8 * i);
+        v61 = *(*(&v69 + 1) + 8 * i);
         mEMORY[0x277D64460]4 = [MEMORY[0x277D64460] sharedLogger];
         oslog4 = [mEMORY[0x277D64460]4 oslog];
 
@@ -242,35 +242,33 @@
         {
           extensionName = [v61 extensionName];
           *buf = 138543362;
-          v89 = extensionName;
+          v88 = extensionName;
           _os_log_impl(&dword_23193C000, oslog4, OS_LOG_TYPE_DEFAULT, "[POLICY] extending MacRecoveryOSUpdate catalog download options for extension %{public}@", buf, 0xCu);
         }
 
         [v61 extendMASoftwareUpdateCatalogDownloadOptions:v9];
       }
 
-      v58 = [policyExtensions countByEnumeratingWithState:&v70 objects:v87 count:16];
+      v58 = [policyExtensions countByEnumeratingWithState:&v69 objects:v86 count:16];
     }
 
     while (v58);
   }
-
-  v65 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)constructSoftwareUpdateMAAssetQueryWithPurpose:(id)purpose
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   purposeCopy = purpose;
   v5 = [MEMORY[0x277CCAB68] stringWithString:@"|"];
   null = [MEMORY[0x277CBEB68] null];
   v7 = objc_alloc(MEMORY[0x277D289D8]);
-  v41.receiver = self;
-  v41.super_class = SUCorePolicyMacRecoveryOSUpdate;
-  softwareUpdateAssetType = [(SUCorePolicy *)&v41 softwareUpdateAssetType];
-  v36 = purposeCopy;
+  v40.receiver = self;
+  v40.super_class = SUCorePolicyMacRecoveryOSUpdate;
+  softwareUpdateAssetType = [(SUCorePolicy *)&v40 softwareUpdateAssetType];
+  v35 = purposeCopy;
   v9 = [v7 initWithType:softwareUpdateAssetType andPurpose:purposeCopy];
 
   hwModelStr = [(SUCorePolicy *)self hwModelStr];
@@ -319,32 +317,32 @@
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v44 = v5;
+    v43 = v5;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[POLICY] querying MacRecoveryOSUpdate metadata: %{public}@", buf, 0xCu);
   }
 
-  v35 = v5;
+  v34 = v5;
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   policyExtensions = [(SUCorePolicy *)self policyExtensions];
-  v25 = [policyExtensions countByEnumeratingWithState:&v37 objects:v42 count:16];
+  v25 = [policyExtensions countByEnumeratingWithState:&v36 objects:v41 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v38;
+    v27 = *v37;
     do
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v38 != v27)
+        if (*v37 != v27)
         {
           objc_enumerationMutation(policyExtensions);
         }
 
-        v29 = *(*(&v37 + 1) + 8 * i);
+        v29 = *(*(&v36 + 1) + 8 * i);
         mEMORY[0x277D64460]2 = [MEMORY[0x277D64460] sharedLogger];
         oslog2 = [mEMORY[0x277D64460]2 oslog];
 
@@ -352,27 +350,25 @@
         {
           extensionName = [v29 extensionName];
           *buf = 138543362;
-          v44 = extensionName;
+          v43 = extensionName;
           _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "[POLICY] extending MacRecoveryOSUpdate query for extension %{public}@", buf, 0xCu);
         }
 
         [v29 extendSoftwareUpdateMAAssetQuery:v9];
       }
 
-      v26 = [policyExtensions countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v26 = [policyExtensions countByEnumeratingWithState:&v36 objects:v41 count:16];
     }
 
     while (v26);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (void)selectSoftwareUpdatePrimaryAsset:(id *)asset secondaryAsset:(id *)secondaryAsset fromAssetQuery:(id)query
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   v9 = queryCopy;
   if (asset)
@@ -413,37 +409,37 @@
   if (v14)
   {
     *buf = 134217984;
-    v83 = [mEMORY[0x277D64428] count];
+    v82 = [mEMORY[0x277D64428] count];
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[POLICY] %lu MacRecoveryOSUpdate query results (before filtering)", buf, 0xCu);
   }
 
   assetCopy = asset;
   secondaryAssetCopy = secondaryAsset;
-  v68 = v9;
+  v67 = v9;
 
-  v79 = 0u;
-  v80 = 0u;
-  v77 = 0u;
   v78 = 0u;
+  v79 = 0u;
+  v76 = 0u;
+  v77 = 0u;
   selfCopy = self;
   log = [(SUCorePolicy *)self policyExtensions];
-  v15 = [log countByEnumeratingWithState:&v77 objects:v86 count:16];
+  v15 = [log countByEnumeratingWithState:&v76 objects:v85 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v78;
+    v17 = *v77;
     do
     {
       v18 = 0;
       v19 = mEMORY[0x277D64428];
       do
       {
-        if (*v78 != v17)
+        if (*v77 != v17)
         {
           objc_enumerationMutation(log);
         }
 
-        v20 = *(*(&v77 + 1) + 8 * v18);
+        v20 = *(*(&v76 + 1) + 8 * v18);
         mEMORY[0x277D64428] = [v20 filterSoftwareUpdateAssetArray:v19];
 
         mEMORY[0x277D64460]2 = [MEMORY[0x277D64460] sharedLogger];
@@ -454,9 +450,9 @@
           v23 = [mEMORY[0x277D64428] count];
           extensionName = [v20 extensionName];
           *buf = 134218242;
-          v83 = v23;
-          v84 = 2114;
-          v85 = extensionName;
+          v82 = v23;
+          v83 = 2114;
+          v84 = extensionName;
           _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "[POLICY] %lu MacRecoveryOSUpdate assets left after filtering from SUCorePolicyExtension %{public}@", buf, 0x16u);
         }
 
@@ -471,7 +467,7 @@
             _os_log_impl(&dword_23193C000, oslog3, OS_LOG_TYPE_DEFAULT, "[POLICY] 0 MacRecoveryOSUpdate assets found, stopping filtering early", buf, 2u);
           }
 
-          v9 = v68;
+          v9 = v67;
           goto LABEL_56;
         }
 
@@ -480,7 +476,7 @@
       }
 
       while (v16 != v18);
-      v16 = [log countByEnumeratingWithState:&v77 objects:v86 count:16];
+      v16 = [log countByEnumeratingWithState:&v76 objects:v85 count:16];
     }
 
     while (v16);
@@ -492,13 +488,13 @@
   v28 = [attributes safeStringForKey:@"RestoreVersion"];
 
   v29 = MEMORY[0x277CCAC30];
-  v75[0] = MEMORY[0x277D85DD0];
-  v75[1] = 3221225472;
-  v75[2] = __98__SUCorePolicyMacRecoveryOSUpdate_selectSoftwareUpdatePrimaryAsset_secondaryAsset_fromAssetQuery___block_invoke_2;
-  v75[3] = &unk_27892C8F8;
+  v74[0] = MEMORY[0x277D85DD0];
+  v74[1] = 3221225472;
+  v74[2] = __98__SUCorePolicyMacRecoveryOSUpdate_selectSoftwareUpdatePrimaryAsset_secondaryAsset_fromAssetQuery___block_invoke_2;
+  v74[3] = &unk_27892C8F8;
   v30 = v28;
-  v76 = v30;
-  v31 = [v29 predicateWithBlock:v75];
+  v75 = v30;
+  v31 = [v29 predicateWithBlock:v74];
   log = v25;
   v32 = [v25 filteredArrayUsingPredicate:v31];
 
@@ -509,19 +505,19 @@
   {
     v35 = [v32 count];
     *buf = 134217984;
-    v83 = v35;
+    v82 = v35;
     _os_log_impl(&dword_23193C000, oslog4, OS_LOG_TYPE_DEFAULT, "[POLICY] %lu assets left after filtering for highest MacRecoveryOSUpdate assets in SUCorePolicyMacRecoveryOSUpdate", buf, 0xCu);
   }
 
-  v64 = v30;
-  v69 = mEMORY[0x277D64428];
+  v63 = v30;
+  v68 = mEMORY[0x277D64428];
 
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
   v72 = 0u;
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
   v36 = v32;
-  v37 = [v36 countByEnumeratingWithState:&v71 objects:v81 count:16];
+  v37 = [v36 countByEnumeratingWithState:&v70 objects:v80 count:16];
   if (!v37)
   {
     v39 = 0;
@@ -532,18 +528,18 @@
   v38 = v37;
   v39 = 0;
   v40 = 0;
-  v41 = *v72;
+  v41 = *v71;
   do
   {
     for (i = 0; i != v38; ++i)
     {
-      if (*v72 != v41)
+      if (*v71 != v41)
       {
         objc_enumerationMutation(v36);
       }
 
-      v43 = *(*(&v71 + 1) + 8 * i);
-      if (v39 || ([*(*(&v71 + 1) + 8 * i) attributes], v46 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v46, "safeStringForKey:", @"PrerequisiteBuild"), v47 = objc_claimAutoreleasedReturnValue(), v47, v46, !v47))
+      v43 = *(*(&v70 + 1) + 8 * i);
+      if (v39 || ([*(*(&v70 + 1) + 8 * i) attributes], v46 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v46, "safeStringForKey:", @"PrerequisiteBuild"), v47 = objc_claimAutoreleasedReturnValue(), v47, v46, !v47))
       {
         if (v40)
         {
@@ -570,7 +566,7 @@
       v48 = v43;
     }
 
-    v38 = [v36 countByEnumeratingWithState:&v71 objects:v81 count:16];
+    v38 = [v36 countByEnumeratingWithState:&v70 objects:v80 count:16];
   }
 
   while (v38);
@@ -583,22 +579,22 @@ LABEL_44:
   {
     v53 = v40;
     v54 = 0;
-    v9 = v68;
-    mEMORY[0x277D64428] = v69;
+    v9 = v67;
+    mEMORY[0x277D64428] = v68;
     v56 = assetCopy;
     v55 = secondaryAssetCopy;
-    v57 = v64;
+    v57 = v63;
     goto LABEL_53;
   }
 
   softwareUpdateScanPolicy2 = [(SUCorePolicy *)selfCopy softwareUpdateScanPolicy];
   restrictToIncremental = [softwareUpdateScanPolicy2 restrictToIncremental];
 
-  v9 = v68;
-  mEMORY[0x277D64428] = v69;
+  v9 = v67;
+  mEMORY[0x277D64428] = v68;
   v56 = assetCopy;
   v55 = secondaryAssetCopy;
-  v57 = v64;
+  v57 = v63;
   if (restrictToIncremental)
   {
     v60 = v39;
@@ -630,8 +626,6 @@ LABEL_53:
 
 LABEL_56:
 LABEL_57:
-
-  v63 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __98__SUCorePolicyMacRecoveryOSUpdate_selectSoftwareUpdatePrimaryAsset_secondaryAsset_fromAssetQuery___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -653,7 +647,7 @@ uint64_t __98__SUCorePolicyMacRecoveryOSUpdate_selectSoftwareUpdatePrimaryAsset_
 
 uint64_t __98__SUCorePolicyMacRecoveryOSUpdate_selectSoftwareUpdatePrimaryAsset_secondaryAsset_fromAssetQuery___block_invoke_2(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = [a2 attributes];
   v4 = [v3 safeStringForKey:@"RestoreVersion"];
 
@@ -665,21 +659,20 @@ uint64_t __98__SUCorePolicyMacRecoveryOSUpdate_selectSoftwareUpdatePrimaryAsset_
   {
     v8 = *(a1 + 32);
     v9 = @"NO";
-    v12 = 138543874;
+    v11 = 138543874;
     if (v5)
     {
       v9 = @"YES";
     }
 
-    v13 = v8;
-    v14 = 2114;
-    v15 = v4;
-    v16 = 2114;
-    v17 = v9;
-    _os_log_impl(&dword_23193C000, v7, OS_LOG_TYPE_DEFAULT, "[POLICY] filtering highest MacRecoveryOSUpdate restore version, highestRestoreVersion=%{public}@, assetRestoreVersion=%{public}@ | keep=%{public}@", &v12, 0x20u);
+    v12 = v8;
+    v13 = 2114;
+    v14 = v4;
+    v15 = 2114;
+    v16 = v9;
+    _os_log_impl(&dword_23193C000, v7, OS_LOG_TYPE_DEFAULT, "[POLICY] filtering highest MacRecoveryOSUpdate restore version, highestRestoreVersion=%{public}@, assetRestoreVersion=%{public}@ | keep=%{public}@", &v11, 0x20u);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

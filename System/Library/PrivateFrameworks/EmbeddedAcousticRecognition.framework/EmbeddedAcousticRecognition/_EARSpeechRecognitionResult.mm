@@ -87,7 +87,7 @@
         v33 = 0;
         v26 = quasar::QsrText::SingletonInstance(v20);
         quasar::QsrText::qsrToHatTokens(v26, a4, &v32, 1);
-        std::vector<quasar::Token>::__vdeallocate(&a4->__begin_);
+        std::vector<quasar::Token>::__vdeallocate(a4);
         *&a4->__begin_ = v32;
         a4->__cap_ = v33;
         v33 = 0;

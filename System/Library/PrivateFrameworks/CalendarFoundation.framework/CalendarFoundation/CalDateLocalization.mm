@@ -28,6 +28,7 @@
 + (void)rebuildFormatters;
 + (void)rebuildWeekendDays;
 + (void)setupFormat:(id)format forKey:(id)key locale:(id)locale standalone:(BOOL)standalone;
++ (void)setupFormatTemplate:(id)template forKey:(id)key locale:(id)locale standalone:(BOOL)standalone;
 + (void)setupFormatter:(__CFDateFormatter *)formatter forKey:(id)key;
 @end
 
@@ -363,6 +364,31 @@
 
   [self setupFormatter:v11 forKey:keyCopy];
   CFRelease(v11);
+}
+
++ (void)setupFormatTemplate:(id)template forKey:(id)key locale:(id)locale standalone:(BOOL)standalone
+{
+  standaloneCopy = standalone;
+  templateCopy = template;
+  keyCopy = key;
+  localeCopy = locale;
+  if ([templateCopy length])
+  {
+    v13 = [MEMORY[0x1E696AB78] dateFormatFromTemplate:templateCopy options:0 locale:localeCopy];
+    if ([v13 length])
+    {
+      [self setupFormat:v13 forKey:keyCopy locale:localeCopy standalone:standaloneCopy];
+    }
+
+    else
+    {
+      v14 = +[CalFoundationLogSubsystem defaultCategory];
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        [CalDateLocalization setupFormatTemplate:templateCopy forKey:localeCopy locale:v14 standalone:?];
+      }
+    }
+  }
 }
 
 + (void)generateStandardFormatters:(id)formatters
@@ -788,17 +814,15 @@ LABEL_29:
 
 + (void)setupFormatTemplate:(NSObject *)a3 forKey:locale:standalone:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = [a2 localeIdentifier];
-  v7 = 136315650;
-  v8 = "+[CalDateLocalization setupFormatTemplate:forKey:locale:standalone:]";
-  v9 = 2112;
-  v10 = a1;
-  v11 = 2112;
-  v12 = v5;
-  _os_log_error_impl(&dword_1B990D000, a3, OS_LOG_TYPE_ERROR, "%s ERROR: unable to generate format string from template %@ in locale %@", &v7, 0x20u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 136315650;
+  v7 = "+[CalDateLocalization setupFormatTemplate:forKey:locale:standalone:]";
+  v8 = 2112;
+  v9 = a1;
+  v10 = 2112;
+  v11 = v5;
+  _os_log_error_impl(&dword_1B990D000, a3, OS_LOG_TYPE_ERROR, "%s ERROR: unable to generate format string from template %@ in locale %@", &v6, 0x20u);
 }
 
 @end

@@ -194,20 +194,20 @@
   v4 = sub_100006E1C();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    options = [(CarMoreButton *)self->_moreButton options];
+    v5 = objc_msgSend_options(self->_moreButton);
     v8 = 134217984;
-    v9 = options;
+    v9 = v5;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "CarPlaceCard 'More' button pressed with options: %lu", &v8, 0xCu);
   }
 
-  if ((~[(CarMoreButton *)self->_moreButton options]& 6) != 0)
+  if ((~objc_msgSend_options(self->_moreButton) & 6) != 0)
   {
-    if (([(CarMoreButton *)self->_moreButton options]& 2) != 0)
+    if ((objc_msgSend_options(self->_moreButton) & 2) != 0)
     {
       [(CarPlaceCardCardViewController *)self _callDestination];
     }
 
-    else if (([(CarMoreButton *)self->_moreButton options]& 4) != 0)
+    else if ((objc_msgSend_options(self->_moreButton) & 4) != 0)
     {
       delegate = [(CarPlaceCardCardViewController *)self delegate];
       [delegate placeCardDidSelectHandoff:self];
@@ -322,7 +322,7 @@
   [v3 setModalPresentationStyle:5];
   objc_initWeak(&location, self);
   v4 = [[NSMutableArray alloc] initWithCapacity:3];
-  if (([(CarMoreButton *)self->_moreButton options]& 2) != 0)
+  if ((objc_msgSend_options(self->_moreButton) & 2) != 0)
   {
     v5 = +[NSBundle mainBundle];
     v6 = [v5 localizedStringForKey:@"Call [CarPlay]" value:@"localized string not found" table:0];
@@ -342,7 +342,7 @@
     objc_destroyWeak(&v41);
   }
 
-  if (([(CarMoreButton *)self->_moreButton options]& 4) != 0)
+  if ((objc_msgSend_options(self->_moreButton) & 4) != 0)
   {
     v12 = +[MapsExternalDevice sharedInstance];
     mapsDisplayName = [v12 mapsDisplayName];
@@ -1715,7 +1715,7 @@ LABEL_7:
   goButton = self->_goButton;
   if (goButton)
   {
-    [(CarCardRoundedButton *)goButton buttonMetrics];
+    objc_msgSend_buttonMetrics(goButton);
     v66 = v165;
   }
 

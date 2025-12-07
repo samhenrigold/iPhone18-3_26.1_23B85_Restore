@@ -27,7 +27,7 @@
 
 - (_TtC21DocumentUnderstanding24DUTopicDetectionResponse)topics
 {
-  v2 = sub_232BF7580();
+  v2 = sub_232BF7580(self);
 
   return v2;
 }
@@ -36,12 +36,12 @@
 {
   topicsCopy = topics;
   selfCopy = self;
-  sub_232BF7618();
+  sub_232BF7618(topics);
 }
 
 - (_TtC21DocumentUnderstanding26DUStructuredEntityResponse)structuredEntities
 {
-  v2 = sub_232BF7708();
+  v2 = sub_232BF7708(self);
 
   return v2;
 }
@@ -50,12 +50,12 @@
 {
   entitiesCopy = entities;
   selfCopy = self;
-  sub_232BF77A0();
+  sub_232BF77A0(entities);
 }
 
 - (_TtC21DocumentUnderstanding25DULanguageTaggingResponse)languageTags
 {
-  v2 = sub_232BF7890();
+  v2 = sub_232BF7890(self);
 
   return v2;
 }
@@ -64,12 +64,12 @@
 {
   tagsCopy = tags;
   selfCopy = self;
-  sub_232BF7928();
+  sub_232BF7928(tags);
 }
 
 - (_TtC21DocumentUnderstanding36DUUserInterfaceUnderstandingResponse)userInterfaceUnderstandingResults
 {
-  v2 = sub_232BF7A18();
+  v2 = sub_232BF7A18(self);
 
   return v2;
 }
@@ -78,12 +78,12 @@
 {
   resultsCopy = results;
   selfCopy = self;
-  sub_232BF7AB0();
+  sub_232BF7AB0(results);
 }
 
 - (_TtC21DocumentUnderstanding32DUCategoryClassificationResponse)documentCategories
 {
-  v2 = sub_232BF7BA0();
+  v2 = sub_232BF7BA0(self);
 
   return v2;
 }
@@ -92,12 +92,12 @@
 {
   categoriesCopy = categories;
   selfCopy = self;
-  sub_232BF7C38();
+  sub_232BF7C38(categories);
 }
 
 - (_TtC21DocumentUnderstanding20DUFoundInEventResult)foundInEventResult
 {
-  v2 = sub_232BF7D28();
+  v2 = sub_232BF7D28(self);
 
   return v2;
 }
@@ -106,12 +106,12 @@
 {
   resultCopy = result;
   selfCopy = self;
-  sub_232BF7DC0();
+  sub_232BF7DC0(result);
 }
 
 - (_TtC21DocumentUnderstanding34DUFoundInEventClassificationResult)foundInEventClassificationResult
 {
-  v2 = sub_232BF7EB0();
+  v2 = sub_232BF7EB0(self);
 
   return v2;
 }
@@ -120,23 +120,24 @@
 {
   resultCopy = result;
   selfCopy = self;
-  sub_232BF7F48();
+  sub_232BF7F48(result);
 }
 
 - (NSArray)poem
 {
-  if (sub_232BF807C())
+  sub_232BF807C();
+  if (v2)
   {
     sub_232BA4DEC(0, &qword_27DDC7908, 0x277CF1680);
-    v2 = sub_232CE9FD0();
+    v3 = sub_232CE9FD0();
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)setPoem:(id)poem
@@ -154,18 +155,19 @@
 
 - (NSArray)posTags
 {
-  if (sub_232BF81F8())
+  sub_232BF81F8();
+  if (v2)
   {
     type metadata accessor for PosTaggingResult();
-    v2 = sub_232CE9FD0();
+    v3 = sub_232CE9FD0();
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)setPosTags:(id)tags
@@ -183,7 +185,7 @@
 
 - (_TtC21DocumentUnderstanding11DUDebugInfo)responseDebugInfo
 {
-  v2 = sub_232BF8330();
+  v2 = sub_232BF8330(self);
 
   return v2;
 }
@@ -192,7 +194,7 @@
 {
   infoCopy = info;
   selfCopy = self;
-  sub_232BF83C8();
+  sub_232BF83C8(info);
 }
 
 - (id)copyWithZone:(void *)zone
@@ -210,7 +212,7 @@
 {
   coderCopy = coder;
   selfCopy = self;
-  sub_232BFE850();
+  sub_232BFE850(coderCopy);
 }
 
 @end

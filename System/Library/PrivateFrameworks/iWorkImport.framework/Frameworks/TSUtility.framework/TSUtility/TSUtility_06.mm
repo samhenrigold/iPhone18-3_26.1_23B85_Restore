@@ -1,8 +1,17 @@
-void sub_2770D469C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+uint64_t sub_2770D4420()
 {
-  va_start(va, a9);
+  v0 = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v0;
+
+  return MEMORY[0x2821F96F8](v0, v1);
+}
+
+void sub_2770D469C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -116,9 +125,9 @@ void sub_2770D46C0(uint64_t a1)
   }
 }
 
-void sub_2770D4A60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_2770D4A60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -301,9 +310,9 @@ ssize_t sub_2770D517C(uint64_t a1)
   return result;
 }
 
-void sub_2770D59D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_2770D59D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1004,9 +1013,9 @@ uint64_t sub_2770D7A24(void *a1, uint64_t a2, void *a3)
   return v6 & 1;
 }
 
-void sub_2770D7AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2770D7AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1106,9 +1115,9 @@ void sub_2770D8D68(void *a1)
   }
 }
 
-void sub_2770D9110(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_2770D9110(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1552,7 +1561,7 @@ void sub_2770DE12C(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_2770DE238(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void sub_2770DE238(uint64_t a1, uint64_t a2, unint64_t a3, void *a4)
 {
   v18 = a4;
   v6 = [v18 decimalSeparator];
@@ -1724,9 +1733,9 @@ void sub_2770DF040(uint64_t a1, void *a2)
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_2770DF354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2770DF354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1811,10 +1820,10 @@ uint64_t sub_2770DF9DC(uint64_t a1, int a2, uint64_t a3, uint64_t a4, void *a5)
   return MEMORY[0x2821F9730]();
 }
 
-void sub_2770E03D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_2770E03D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a51, 8);
-  _Block_object_dispose(&a68, 8);
+  _Block_object_dispose(&a65, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1866,15 +1875,15 @@ void sub_2770E0570(void *a1, uint64_t a2)
   *(v5 + 40) = 0;
 }
 
-uint64_t sub_2770E0638(void *a1)
+uint64_t sub_2770E0638(void *a1, uint64_t a2)
 {
-  v2 = objc_opt_class();
-  v3 = [a1 statusCode];
+  v3 = objc_opt_class();
+  v4 = [a1 statusCode];
 
-  return [v2 tsu_isSuccessStatusCode:v3];
+  return [v3 tsu_isSuccessStatusCode:v4];
 }
 
-uint64_t sub_2770E06EC(int *a1, int *a2, int *a3, _BOOL4 *a4, unint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8, unint64_t a9, unint64_t a10, unsigned int a11, int *a12)
+uint64_t sub_2770E06EC(int *a1, int *a2, int *a3, _BOOL4 *a4, unint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8, unint64_t a9, unint64_t a10, int a11, int *a12)
 {
   v16 = a10;
   v608 = *MEMORY[0x277D85DE8];
@@ -5998,7 +6007,7 @@ LABEL_45:
   return result;
 }
 
-double sub_2770E4F78(int a1, int a2, int a3, int a4, uint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8, int64x2_t *a9, unsigned int a10, int *a11, _BOOL4 *a12, int *a13, int *a14, int *a15, __int128 *a16)
+double sub_2770E4F78(int a1, int a2, int a3, int a4, uint64_t a5, uint64_t a6, unint64_t a7, unint64_t a8, int64x2_t *a9, unsigned int a10, int *a11, _BOOL4 *a12, int *a13, int *a14, int *a15, __int128 *a16)
 {
   v16 = a6;
   v159 = *MEMORY[0x277D85DE8];
@@ -6693,7 +6702,7 @@ LABEL_2:
   v12 = a1[2];
   if (v12)
   {
-    if (v12 < qword_280A5DAA0 || v12 == qword_280A5DAA0 && *a1 < xmmword_280A5DA90)
+    if (v12 < unk_280A5DAA0 || v12 == unk_280A5DAA0 && *a1 < xmmword_280A5DA90)
     {
       return 39;
     }
@@ -6703,7 +6712,7 @@ LABEL_2:
 
   if (a1[1])
   {
-    if (*a1 < xmmword_280A5D960)
+    if (*a1 < xmmword_280A5D960[0])
     {
       return 20;
     }
@@ -6961,10 +6970,10 @@ uint64_t sub_2770E6E14()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-uint64_t sub_2770E6ECC(uint64_t result)
+void *sub_2770E6ECC(void *result)
 {
   v1 = result;
-  v2 = *(result + 32);
+  v2 = result[4];
   v3 = *(v2 + 24);
   *(v2 + 24) = v3 - 1;
   if (v3 <= 0)
@@ -6981,7 +6990,7 @@ uint64_t sub_2770E6ECC(uint64_t result)
     return result;
   }
 
-  v6 = *(v1 + 32);
+  v6 = v1[4];
 
   return [v6 p_stopNotifier];
 }
@@ -7242,7 +7251,7 @@ unint64_t TSUMakeTSKNumberFormatCacheKey(int a1, int a2, int a3, unsigned int a4
   return (a3 << 16) | ((a2 | (a1 << 16)) << 32) | (a4 << 8) | v6 | a6;
 }
 
-id TSUFormatGetDecimalFormatterWithTSKNumberFormatParameters(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6, unint64_t a7, void *a8)
+id TSUFormatGetDecimalFormatterWithTSKNumberFormatParameters(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6, unint64_t a7, void *a8)
 {
   v11 = a4;
   v12 = a3;
@@ -7340,7 +7349,7 @@ LABEL_19:
   return v17;
 }
 
-id TSUFormatStringFromDoubleWithTSKNumberFormatParameters(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6, unint64_t a7, void *a8, double a9)
+id TSUFormatStringFromDoubleWithTSKNumberFormatParameters(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6, unint64_t a7, void *a8, double a9)
 {
   v13 = a1;
   v14 = TSUFormatGetDecimalFormatterWithTSKNumberFormatParameters(a1, a2, a3, a4, a5, a6, a7, a8);
@@ -7585,16 +7594,16 @@ void *sub_2770E8CFC(uint64_t (*a1)(uint64_t, uint64_t, char *, uint64_t, char *)
   return result;
 }
 
-id sub_2770E8E38()
+id sub_2770E8E38(uint64_t a1)
 {
   if (qword_280A63E18 != -1)
   {
     sub_2771150F8();
   }
 
-  v1 = qword_280A63E10;
+  v2 = qword_280A63E10;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_2770E8E7C()
@@ -7606,10 +7615,11 @@ uint64_t sub_2770E8E7C()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id TSUCurrencyCodeForIndex(unsigned int a1)
+id TSUCurrencyCodeForIndex(uint64_t a1)
 {
-  v2 = sub_2770E8E38();
-  v3 = [v2 stringForIndex:a1];
+  v1 = a1;
+  v2 = sub_2770E8E38(a1);
+  v3 = [v2 stringForIndex:v1];
 
   return v3;
 }
@@ -7617,7 +7627,7 @@ id TSUCurrencyCodeForIndex(unsigned int a1)
 uint64_t TSUCurrencyCodeIndexForCode(void *a1)
 {
   v1 = a1;
-  v2 = sub_2770E8E38();
+  v2 = sub_2770E8E38(v1);
   v3 = [v2 indexForString:v1];
 
   if (v3 >= 0x10000)
@@ -7740,7 +7750,7 @@ LABEL_11:
   }
 }
 
-unint64_t sub_2770E92C8(TSUDecimal *a1, TSUDecimal *a2, unint64_t *a3, TSUDecimal *a4, int a5)
+unint64_t sub_2770E92C8(TSUDecimal *a1, unint64_t *a2, unint64_t *a3, TSUDecimal *a4, int a5)
 {
   v9 = *a3;
   v19 = *a1;
@@ -7766,12 +7776,12 @@ LABEL_13:
     goto LABEL_12;
   }
 
-  if (!a5 || (TSUDecimal::operator=(&v15, 0), v11 = TSUDecimal::doubleValue(&v16), TSUDecimal::equalWithTolerence(&v17, &v15, v11)) || (v20 = *a3, TSUDecimal::operator-=(&v20, a4), v14 = v20, TSUDecimal::operator<=(v19.var0.var0, &v14)) && !TSUDecimal::operator==(v19.var0.var0, v14.var0.var0) || (v20 = *a3, TSUDecimal::operator-=(&v20, &v17), v13 = v20, !TSUDecimal::operator<=(v19.var0.var0, &v13)))
+  if (!a5 || (TSUDecimal::operator=(&v15, 0), v11 = TSUDecimal::doubleValue(&v16), TSUDecimal::equalWithTolerence(&v17, &v15, v11)) || (v20 = *a3, TSUDecimal::operator-=(&v20, a4), v14 = v20, TSUDecimal::operator<=(v19.var0.var0, v14.var0.var0)) && !TSUDecimal::operator==(v19.var0.var0, v14.var0.var0) || (v20 = *a3, TSUDecimal::operator-=(&v20, &v17), v13 = v20, !TSUDecimal::operator<=(v19.var0.var0, v13.var0.var0)))
   {
     TSUDecimal::operator-=(&v19, a2);
     TSUDecimal::operator/=(v19.var0.var0, a4->var0.var0);
     TSUDecimal::round(&v19);
-    TSUDecimal::operator*=(&v19, a4);
+    TSUDecimal::operator*=(&v19, a4->var0.var0);
     TSUDecimal::operator+=(&v19, a2);
     if (TSUDecimal::operator<=(v19.var0.var0, a3))
     {
@@ -7799,7 +7809,7 @@ void TSUFormatRecomputedControlValueFromLimits(int a1, double a2, double a3, dou
   TSUDecimal::reinterpretDoubleAsDecimal(&v13);
   TSUDecimal::reinterpretDoubleAsDecimal(&v12);
   TSUDecimal::reinterpretDoubleAsDecimal(&v11);
-  v10.var0.var0[0] = sub_2770E92C8(&v14, &v13, v12.var0.var0, &v11, a1);
+  v10.var0.var0[0] = sub_2770E92C8(&v14, v13.var0.var0, v12.var0.var0, &v11, a1);
   v10.var0.var0[1] = v9;
   TSUDecimal::doubleValue(&v10);
 }
@@ -7901,7 +7911,7 @@ uint64_t sub_2770EA7CC()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-uint64_t sub_2770EA9D4(uint64_t a1)
+void *sub_2770EA9D4(uint64_t a1)
 {
   result = [*(a1 + 32) entriesCountImpl];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -8150,14 +8160,14 @@ void sub_2770EC3C0(uint64_t a1)
 void sub_2770EC4D8(id *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v9 = a1[4];
-  if (*(v9 + 72) == 1)
+  if (v9[72] == 1)
   {
     sub_2771155CC(v9, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  if (*(v9 + 160))
+  if (*(v9 + 20))
   {
-    *(v9 + 72) = 1;
+    v9[72] = 1;
     v10 = *(a1[4] + 20);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
@@ -8331,9 +8341,9 @@ void sub_2770ED580(uint64_t a1)
   _Block_object_dispose(v9, 8);
 }
 
-void sub_2770ED6A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2770ED6A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8534,11 +8544,11 @@ uint64_t sub_2770EF824()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-void sub_2770EFA10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2770EFA10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8588,22 +8598,22 @@ void sub_2770EFA4C(uint64_t a1, void *a2, void *a3, _BYTE *a4)
   }
 }
 
-uint64_t sub_2770EFDF4(uint64_t a1)
+uint64_t sub_2770EFDF4(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_opt_class();
-  v3 = TSUDynamicCast(v2, a1);
-  v4 = v3;
-  if (v3)
+  v3 = objc_opt_class();
+  v4 = TSUDynamicCast(v3, a1);
+  v5 = v4;
+  if (v4)
   {
-    v5 = [MEMORY[0x277CCAA40] tsu_isSuccessStatusCode:{objc_msgSend(v3, "statusCode")}];
+    v6 = [MEMORY[0x277CCAA40] tsu_isSuccessStatusCode:{objc_msgSend(v4, "statusCode")}];
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 uint64_t sub_2770EFEA4()
@@ -8633,12 +8643,12 @@ uint64_t sub_2770F003C()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-void sub_2770F0794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_2770F0794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 144), 8);
-  _Block_object_dispose((v17 - 112), 8);
+  _Block_object_dispose((v24 - 144), 8);
+  _Block_object_dispose((v24 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -9034,33 +9044,33 @@ id sub_2770F3970(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return v8;
 }
 
-void sub_2770F3AAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2770F3AAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_2770F3AC4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *sub_2770F3AC4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  result = [*(a1 + 32) processBytes:a2 size:?];
+  result = [*(a1 + 32) processBytes:a2 size:a4];
   *(*(*(a1 + 40) + 8) + 24) = result;
   *a5 = *(*(*(a1 + 40) + 8) + 24) ^ 1;
   return result;
 }
 
-void sub_2770F3F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_2770F3F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va1, a12);
-  va_start(va, a12);
-  v14 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a19);
+  va_start(va, a19);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v12 - 144), 8);
-  _Block_object_dispose((v12 - 112), 8);
+  _Block_object_dispose((v19 - 144), 8);
+  _Block_object_dispose((v19 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -9296,7 +9306,7 @@ id sub_2770F5D80(uint64_t a1, uint64_t a2, void *a3)
   return v6;
 }
 
-uint64_t sub_2770F6F2C(uint64_t a1, void *a2)
+char *sub_2770F6F2C(uint64_t a1, void *a2)
 {
   v2 = a2;
   v3 = [v2 substringToIndex:1];
@@ -9496,22 +9506,4 @@ id sub_2770F90DC(void *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
   v13 = [a1 p_stringWithString:v12 lowercase:a5 dateFormatter:v9];
 
   return v13;
-}
-
-id sub_2770F91BC(void *a1, uint64_t a2, void *a3, void *a4, uint64_t a5)
-{
-  v8 = a4;
-  v9 = a3;
-  v10 = [a1 dateFormatterFromTemplate12Hour:@"hhmma" template24Hour:@"HHmm" withDateFormatter:v8];
-  v11 = SFUMainBundle();
-  v12 = [v11 localizedStringForKey:@"Yesterday value:%@" table:{&stru_28862C2A0, @"TSUtility"}];
-
-  v13 = [a1 p_stringWithString:v12 lowercase:a5 dateFormatter:v8];
-
-  v14 = MEMORY[0x277CCACA8];
-  v15 = [v10 stringFromDate:v9];
-
-  v16 = [v14 stringWithFormat:v13, v15];
-
-  return v16;
 }

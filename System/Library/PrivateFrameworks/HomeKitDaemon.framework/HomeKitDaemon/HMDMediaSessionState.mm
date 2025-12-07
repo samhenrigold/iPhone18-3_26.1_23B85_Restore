@@ -116,22 +116,7 @@
     }
 
     v6 = v5;
-    if (!v6)
-    {
-      goto LABEL_12;
-    }
-
-    sessionIdentifier = [(HMDMediaSessionState *)self sessionIdentifier];
-    sessionIdentifier2 = [(HMDMediaSessionState *)v6 sessionIdentifier];
-    v9 = HMFEqualObjects();
-
-    if (!v9)
-    {
-      goto LABEL_12;
-    }
-
-    playbackState = [(HMDMediaSessionState *)self playbackState];
-    if (playbackState == [(HMDMediaSessionState *)v6 playbackState]&& (v11 = [(HMDMediaSessionState *)self shuffleState], v11 == [(HMDMediaSessionState *)v6 shuffleState]) && (v12 = [(HMDMediaSessionState *)self repeatState], v12 == [(HMDMediaSessionState *)v6 repeatState]))
+    if (v6 && ([(HMDMediaSessionState *)self sessionIdentifier], v7 = objc_claimAutoreleasedReturnValue(), [(HMDMediaSessionState *)v6 sessionIdentifier], v8 = objc_claimAutoreleasedReturnValue(), v9 = HMFEqualObjects(), v8, v7, v9) && (v10 = [(HMDMediaSessionState *)self playbackState], v10 == [(HMDMediaSessionState *)v6 playbackState]) && (v11 = [(HMDMediaSessionState *)self shuffleState], v11 == [(HMDMediaSessionState *)v6 shuffleState]) && (v12 = [(HMDMediaSessionState *)self repeatState], v12 == [(HMDMediaSessionState *)v6 repeatState]))
     {
       volume = [(HMDMediaSessionState *)self volume];
       [volume floatValue];
@@ -153,7 +138,6 @@
 
     else
     {
-LABEL_12:
       v20 = 0;
     }
   }
@@ -321,7 +305,7 @@ LABEL_12:
     if (v6)
     {
       v6->_lock._os_unfair_lock_opaque = 0;
-      v8 = [v5 copy];
+      v8 = objc_msgSend_copy(v5);
       sessionIdentifier = v7->_sessionIdentifier;
       v7->_sessionIdentifier = v8;
 

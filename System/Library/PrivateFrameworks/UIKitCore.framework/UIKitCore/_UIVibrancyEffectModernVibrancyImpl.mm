@@ -66,9 +66,9 @@
 
   if (v6 && v7)
   {
-    v9 = [(UIColor *)v6 isEqual:v7];
+    isEqual = objc_msgSend_isEqual_(v6);
 
-    if (!v9)
+    if (!isEqual)
     {
       goto LABEL_9;
     }
@@ -89,9 +89,8 @@ LABEL_10:
 - (void)encodeWithCoder:(id)coder
 {
   v4 = *MEMORY[0x1E6979D90];
-  filterType = self->_filterType;
   coderCopy = coder;
-  [coderCopy encodeInteger:objc_msgSend(v4 forKey:{"isEqualToString:", filterType), @"UIVibrancyEffectFilterType"}];
+  [coderCopy encodeInteger:objc_msgSend_isEqualToString_(v4) forKey:@"UIVibrancyEffectFilterType"];
   [coderCopy encodeObject:self->_inputColor1 forKey:@"UIVibrancyEffectColor1"];
   [coderCopy encodeObject:self->_inputColor2 forKey:@"UIVibrancyEffectColor2"];
   [coderCopy encodeObject:self->_compositingColor forKey:@"UIVibrancyEffectCompositingColor"];
@@ -104,7 +103,7 @@ LABEL_10:
   if ([equalCopy isMemberOfClass:objc_opt_class()])
   {
     v5 = equalCopy;
-    if (![v5[1] isEqualToString:self->_filterType])
+    if (!objc_msgSend_isEqualToString_(v5[1]))
     {
       goto LABEL_24;
     }
@@ -134,9 +133,9 @@ LABEL_10:
         goto LABEL_23;
       }
 
-      v11 = [(UIColor *)v7 isEqual:v8];
+      isEqual = objc_msgSend_isEqual_(v7);
 
-      if (!v11)
+      if (!isEqual)
       {
         goto LABEL_24;
       }
@@ -157,7 +156,7 @@ LABEL_10:
         goto LABEL_23;
       }
 
-      v15 = [(UIColor *)v7 isEqual:v14];
+      v15 = objc_msgSend_isEqual_(v7);
 
       if (!v15)
       {
@@ -179,7 +178,7 @@ LABEL_28:
 
     if (v7 && v17)
     {
-      v18 = [(UIColor *)v7 isEqual:v17];
+      v18 = objc_msgSend_isEqual_(v7);
 
       if (v18)
       {
@@ -223,7 +222,7 @@ LABEL_26:
 - (void)appendDescriptionTo:(id)to
 {
   toCopy = to;
-  if ([(NSString *)self->_filterType isEqualToString:*MEMORY[0x1E6979D90]])
+  if (objc_msgSend_isEqualToString_(self->_filterType))
   {
     v4 = @" lightVibrancy";
   }

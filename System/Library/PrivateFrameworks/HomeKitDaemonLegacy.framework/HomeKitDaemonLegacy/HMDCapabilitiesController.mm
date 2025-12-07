@@ -193,7 +193,7 @@
 
 void __55__HMDCapabilitiesController_didRemoveCurrentAccessory___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [(HMDCapabilitiesController *)*(a1 + 32) accessoryUUID];
   v3 = [v2 hmf_isEqualToUUID:*(a1 + 40)];
 
@@ -205,17 +205,15 @@ void __55__HMDCapabilitiesController_didRemoveCurrentAccessory___block_invoke(ui
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Reset accessory on removal", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Reset accessory on removal", &v8, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
     [(HMDCapabilitiesController *)*(a1 + 32) setAccessoryUUID:?];
     [(HMDCapabilitiesController *)*(a1 + 32) setHomeUUID:?];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAccessoryUUID:(uint64_t)d
@@ -224,7 +222,7 @@ void __55__HMDCapabilitiesController_didRemoveCurrentAccessory___block_invoke(ui
   if (d)
   {
     os_unfair_lock_lock_with_options();
-    v3 = [v5 copy];
+    v3 = objc_msgSend_copy(v5);
     v4 = *(d + 24);
     *(d + 24) = v3;
 
@@ -238,7 +236,7 @@ void __55__HMDCapabilitiesController_didRemoveCurrentAccessory___block_invoke(ui
   if (d)
   {
     os_unfair_lock_lock_with_options();
-    v3 = [v5 copy];
+    v3 = objc_msgSend_copy(v5);
     v4 = *(d + 16);
     *(d + 16) = v3;
 
@@ -268,16 +266,16 @@ void __55__HMDCapabilitiesController_didRemoveCurrentAccessory___block_invoke(ui
 
 void __63__HMDCapabilitiesController_currentAccessoryDidBecomeAvailable__block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v36 = 138543362;
-    v37 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Current accessory available", &v36, 0xCu);
+    v35 = 138543362;
+    v36 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Current accessory available", &v35, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -320,9 +318,9 @@ void __63__HMDCapabilitiesController_currentAccessoryDidBecomeAvailable__block_i
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             v20 = HMFGetLogIdentifier();
-            v36 = 138543362;
-            v37 = v20;
-            _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Current accessory became available and is different", &v36, 0xCu);
+            v35 = 138543362;
+            v36 = v20;
+            _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Current accessory became available and is different", &v35, 0xCu);
           }
 
           objc_autoreleasePoolPop(v17);
@@ -384,13 +382,11 @@ void __63__HMDCapabilitiesController_currentAccessoryDidBecomeAvailable__block_i
   }
 
 LABEL_24:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postCurrentAccessoryCapabilitiesEventIfNeeded:(uint64_t)needed
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (needed)
   {
@@ -424,9 +420,9 @@ LABEL_24:
             {
               v19 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v30 = v19;
-              v31 = 2112;
-              v32 = v3;
+              v29 = v19;
+              v30 = 2112;
+              v31 = v3;
               _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Accessory capabilities are the same not posting: %@", buf, 0x16u);
             }
 
@@ -439,9 +435,9 @@ LABEL_24:
             {
               v20 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v30 = v20;
-              v31 = 2112;
-              v32 = v3;
+              v29 = v20;
+              v30 = 2112;
+              v31 = v3;
               _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@Posting event as current accessory capabilities are different: %@", buf, 0x16u);
             }
 
@@ -453,24 +449,22 @@ LABEL_24:
             v25 = [v21 initWithEventData:data metadata:_metadataForEvent];
 
             eventForwarder = [WeakRetained eventForwarder];
-            v28[0] = MEMORY[0x277D85DD0];
-            v28[1] = 3221225472;
-            v28[2] = __76__HMDCapabilitiesController__postCurrentAccessoryCapabilitiesEventIfNeeded___block_invoke;
-            v28[3] = &unk_2797359D8;
-            v28[4] = neededCopy;
-            [eventForwarder forwardEvent:v25 topic:v12 completion:v28];
+            v27[0] = MEMORY[0x277D85DD0];
+            v27[1] = 3221225472;
+            v27[2] = __76__HMDCapabilitiesController__postCurrentAccessoryCapabilitiesEventIfNeeded___block_invoke;
+            v27[3] = &unk_2797359D8;
+            v27[4] = neededCopy;
+            [eventForwarder forwardEvent:v25 topic:v12 completion:v27];
           }
         }
       }
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postCurrentResidentCapabilitiesEventIfNeeded:(uint64_t)needed
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (needed)
   {
@@ -504,9 +498,9 @@ LABEL_24:
               {
                 v17 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                v31 = v17;
-                v32 = 2112;
-                v33 = v3;
+                v30 = v17;
+                v31 = 2112;
+                v32 = v3;
                 _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Resident capabilities are the same not posting: %@", buf, 0x16u);
               }
 
@@ -523,9 +517,9 @@ LABEL_24:
             {
               v21 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v31 = v21;
-              v32 = 2112;
-              v33 = v3;
+              v30 = v21;
+              v31 = 2112;
+              v32 = v3;
               _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@Posting event as current resident capabilities are different: %@", buf, 0x16u);
             }
 
@@ -537,19 +531,17 @@ LABEL_24:
             v26 = [v22 initWithEventData:data metadata:_metadataForEvent];
 
             eventForwarder = [WeakRetained eventForwarder];
-            v29[0] = MEMORY[0x277D85DD0];
-            v29[1] = 3221225472;
-            v29[2] = __75__HMDCapabilitiesController__postCurrentResidentCapabilitiesEventIfNeeded___block_invoke;
-            v29[3] = &unk_2797359D8;
-            v29[4] = neededCopy2;
-            [eventForwarder forwardEvent:v26 topic:v12 completion:v29];
+            v28[0] = MEMORY[0x277D85DD0];
+            v28[1] = 3221225472;
+            v28[2] = __75__HMDCapabilitiesController__postCurrentResidentCapabilitiesEventIfNeeded___block_invoke;
+            v28[3] = &unk_2797359D8;
+            v28[4] = neededCopy2;
+            [eventForwarder forwardEvent:v26 topic:v12 completion:v28];
           }
         }
       }
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_metadataForEvent
@@ -565,7 +557,7 @@ LABEL_24:
 
 void __75__HMDCapabilitiesController__postCurrentResidentCapabilitiesEventIfNeeded___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -573,20 +565,19 @@ void __75__HMDCapabilitiesController__postCurrentResidentCapabilitiesEventIfNeed
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Posted event for current resident capabilities error: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Posted event for current resident capabilities error: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __76__HMDCapabilitiesController__postCurrentAccessoryCapabilitiesEventIfNeeded___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -594,15 +585,14 @@ void __76__HMDCapabilitiesController__postCurrentAccessoryCapabilitiesEventIfNee
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Posted event for current accessory capabilities error: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Posted event for current accessory capabilities error: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)encodedCurrentResidentCapabilities
@@ -663,7 +653,7 @@ void __76__HMDCapabilitiesController__postCurrentAccessoryCapabilitiesEventIfNee
 
 - (void)updateCurrentAccessoryCapabilities
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (self && (WeakRetained = objc_loadWeakRetained(&self->_dataSource)) != 0)
   {
     v4 = WeakRetained;
@@ -696,7 +686,7 @@ void __76__HMDCapabilitiesController__postCurrentAccessoryCapabilitiesEventIfNee
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v29 = v16;
+      v28 = v16;
       _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@Finished loading current capabilities", buf, 0xCu);
     }
 
@@ -707,8 +697,8 @@ void __76__HMDCapabilitiesController__postCurrentAccessoryCapabilitiesEventIfNee
     block[2] = __63__HMDCapabilitiesController_updateCurrentAccessoryCapabilities__block_invoke;
     block[3] = &unk_279734960;
     block[4] = selfCopy;
-    v26 = createCurrentAccessoryCapabilities;
-    v27 = createCurrentResidentCapabilities;
+    v25 = createCurrentAccessoryCapabilities;
+    v26 = createCurrentResidentCapabilities;
     v18 = createCurrentResidentCapabilities;
     v19 = createCurrentAccessoryCapabilities;
     dispatch_async(queue, block);
@@ -723,14 +713,12 @@ void __76__HMDCapabilitiesController__postCurrentAccessoryCapabilitiesEventIfNee
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v29 = v23;
+      v28 = v23;
       _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Nil dataSource", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v20);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HMDCapabilitiesController_updateCurrentAccessoryCapabilities__block_invoke(uint64_t a1)
@@ -791,12 +779,11 @@ void __63__HMDCapabilitiesController_updateCurrentAccessoryCapabilities__block_i
 
 uint64_t __40__HMDCapabilitiesController_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_131730;
-  logCategory__hmf_once_v1_131730 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_131730;
+  logCategory__hmf_once_v1_131730 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

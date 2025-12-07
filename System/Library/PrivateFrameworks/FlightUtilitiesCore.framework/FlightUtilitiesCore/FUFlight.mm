@@ -377,35 +377,35 @@ LABEL_27:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   [v4 setFlightNumber:{-[FUFlight flightNumber](self, "flightNumber")}];
   v5 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   allLegs = [(FUFlight *)self allLegs];
-  v7 = [allLegs countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [allLegs countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       v10 = 0;
       do
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(allLegs);
         }
 
-        [v5 addObject:*(*(&v19 + 1) + 8 * v10++)];
+        [v5 addObject:*(*(&v18 + 1) + 8 * v10++)];
       }
 
       while (v8 != v10);
-      v8 = [allLegs countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [allLegs countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v8);
@@ -427,34 +427,33 @@ LABEL_27:
   [v4 setOperatorFlightNumber:{-[FUFlight operatorFlightNumber](self, "operatorFlightNumber")}];
   [v4 setDepartureLegIndex:-[FUFlight departureLegIndex](self arrivalLegIndex:{"departureLegIndex"), -[FUFlight arrivalLegIndex](self, "arrivalLegIndex")}];
 
-  v17 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (id)legsAsFlights
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = [(FUFlight *)self legs];
-  v4 = [obj countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v4 = [obj countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v18;
+    v6 = *v17;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v18 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
+        v8 = *(*(&v16 + 1) + 8 * i);
         v9 = objc_alloc_init(FUFlight);
         airline = [(FUFlight *)self airline];
         [(FUFlight *)v9 setAirline:airline];
@@ -464,20 +463,18 @@ LABEL_27:
         [(FUFlight *)v9 setCancellationMessage:cancellationMessage];
 
         v12 = [v8 copy];
-        v21 = v12;
-        v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+        v20 = v12;
+        v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
         [(FUFlight *)v9 setAllLegs:v13];
 
         [array addObject:v9];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v5 = [obj countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v5);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -531,28 +528,28 @@ LABEL_27:
 
 - (int64_t)status
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   legs = [(FUFlight *)self legs];
-  v3 = [legs countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [legs countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(legs);
         }
 
-        status = [*(*(&v12 + 1) + 8 * i) status];
+        status = [*(*(&v11 + 1) + 8 * i) status];
         if (status <= 6)
         {
           v9 = status;
@@ -585,7 +582,7 @@ LABEL_27:
         }
       }
 
-      v4 = [legs countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [legs countByEnumeratingWithState:&v11 objects:v15 count:16];
       v9 = v5;
       if (v4)
       {
@@ -603,35 +600,34 @@ LABEL_27:
 
 LABEL_20:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (id)relevantLeg
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   legs = [(FUFlight *)self legs];
-  v3 = [legs countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [legs countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       v7 = 0;
       do
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(legs);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * v7);
+        v8 = *(*(&v14 + 1) + 8 * v7);
         status = [v8 status];
         if (status <= 6)
         {
@@ -654,7 +650,7 @@ LABEL_20:
       }
 
       while (v4 != v7);
-      v11 = [legs countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v11 = [legs countByEnumeratingWithState:&v14 objects:v18 count:16];
       v4 = v11;
     }
 
@@ -669,8 +665,6 @@ LABEL_20:
   v5 = v5;
   v12 = v5;
 LABEL_17:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

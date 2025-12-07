@@ -1,10 +1,10 @@
-uint64_t sub_100001DEC(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t sub_100001DEC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (a2 == 3 || !*(a6 + 40))
   {
     if (a2 == 3)
     {
-      NSLog(@"Error while copying");
+      NSLog(@"Error while copying", a2, a3, a4, a5);
     }
 
     return 2;
@@ -28,10 +28,11 @@ Copier *sub_100001EE4()
   return result;
 }
 
-ssize_t sub_100001F0C(int a1, const char *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char value)
+ssize_t sub_100001F0C(int a1, const char *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
+  va_start(va, a27);
 
-  return getxattr(v28, a2, &value, 0xFFuLL, 0, 1);
+  return getxattr(v27, a2, va, 0xFFuLL, 0, 1);
 }
 
 uint64_t sub_100001F30(int a1, uint64_t a2, unsigned int *a3, int *a4, _OWORD *a5)
@@ -710,26 +711,27 @@ void sub_100002F04()
   }
 }
 
-void sub_100002F44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_100002F44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   if (dword_10000C640)
   {
-    v9 = 5;
+    v8 = 5;
   }
 
   else
   {
-    v9 = 7;
+    v8 = 7;
   }
 
   if (qword_10000C6D8)
   {
-    asl_vlog(qword_10000C6D8, 0, v9, "now quitting (%d sec idle)", &a9);
+    asl_vlog(qword_10000C6D8, 0, v8, "now quitting (%d sec idle)", va);
   }
 
   else
   {
-    vsyslog(v9, "now quitting (%d sec idle)", &a9);
+    vsyslog(v8, "now quitting (%d sec idle)", va);
   }
 }
 
@@ -1129,24 +1131,7 @@ const char *sub_100003C38(const char *result, uint64_t a2)
   }
 
   result = memchr((result + 40), 0, v25 - 40);
-  if (!result)
-  {
-    goto LABEL_43;
-  }
-
-  v26 = &v3[v4];
-  v27 = v13 + 1072;
-  v28 = v26 - (v13 + 1072) >= 1024 ? 1024 : v26 - (v13 + 1072);
-  result = memchr(v13 + 1072, 0, v28);
-  if (!result)
-  {
-    goto LABEL_43;
-  }
-
-  v29 = v19 + 2104;
-  v30 = &v26[-v19 - 2104] >= 1024 ? 1024 : &v26[-v19 - 2104];
-  result = memchr((v19 + 2104), 0, v30);
-  if (result && ((v31 = v20 - 1024, v32 = (v20 + 2116), v26 - v32 >= 1024) ? (v33 = 1024) : (v33 = v26 - v32), (result = memchr(v32, 0, v33)) != 0))
+  if (result && ((v26 = &v3[v4], v27 = v13 + 1072, v26 - (v13 + 1072) >= 1024) ? (v28 = 1024) : (v28 = v26 - (v13 + 1072)), (result = memchr(v13 + 1072, 0, v28)) != 0 && ((v29 = v19 + 2104, &v26[-v19 - 2104] >= 1024) ? (v30 = 1024) : (v30 = &v26[-v19 - 2104]), (result = memchr((v19 + 2104), 0, v30)) != 0 && ((v31 = v20 - 1024, v32 = (v20 + 2116), v26 - v32 >= 1024) ? (v33 = 1024) : (v33 = v26 - v32), (result = memchr(v32, 0, v33)) != 0))))
   {
     result = sub_100002404(*(v3 + 3), v3 + 40, v27, v29, *(v31 + 3128), v32, *(v31 + v22 + 3140));
     *(a2 + 32) = result;

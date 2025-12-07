@@ -17,7 +17,7 @@
   return self;
 }
 
-void __42__SNLPITFMClassifier__initializationBlock__block_invoke(void *a1@<X1>, void *a2@<X2>, void *a3@<X8>)
+void __42__SNLPITFMClassifier__initializationBlock__block_invoke(void *a1@<X1>, void *a2@<X2>, uint64_t *a3@<X8>)
 {
   v9 = *MEMORY[0x277D85DE8];
   v5 = a1;
@@ -26,7 +26,7 @@ void __42__SNLPITFMClassifier__initializationBlock__block_invoke(void *a1@<X1>, 
   [v5 versionURL];
   [objc_claimAutoreleasedReturnValue() path];
   v7 = [objc_claimAutoreleasedReturnValue() UTF8String];
-  v6 = std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(&v8, &v7);
+  v6 = std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(v8, &v7);
   getAssetDirectoryNCV(v6);
 }
 
@@ -42,7 +42,7 @@ void __42__SNLPITFMClassifier__initializationBlock__block_invoke(void *a1@<X1>, 
 
 - (id)responseForRequest:(id)request error:(id *)error
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v6 = SNLPOSLoggerForCategory(7);
   v7 = os_signpost_id_generate(v6);
@@ -72,11 +72,11 @@ void __42__SNLPITFMClassifier__initializationBlock__block_invoke(void *a1@<X1>, 
       v15 = SNLPOSLoggerForCategory(4);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        *v34 = 136315394;
-        *&v34[4] = "<UNDEFINED_COMPONENT>";
-        v35 = 2048;
-        v36 = v13;
-        _os_log_impl(&dword_22284A000, v15, OS_LOG_TYPE_ERROR, "[%s] The component %zu is invalid", v34, 0x16u);
+        *v33 = 136315394;
+        *&v33[4] = "<UNDEFINED_COMPONENT>";
+        v34 = 2048;
+        v35 = v13;
+        _os_log_impl(&dword_22284A000, v15, OS_LOG_TYPE_ERROR, "[%s] The component %zu is invalid", v33, 0x16u);
       }
 
       v14 = "<UNDEFINED_COMPONENT>";
@@ -88,35 +88,35 @@ void __42__SNLPITFMClassifier__initializationBlock__block_invoke(void *a1@<X1>, 
     }
 
     loggingComponentString = [(SNLPITFMModelInfo *)self->_modelInfo loggingComponentString];
-    snlp::common::asset_logger::SNLPAssetLogger::toString(v34, self->_assetLogger.__ptr_);
-    if (v37 >= 0)
+    snlp::common::asset_logger::SNLPAssetLogger::toString(self->_assetLogger.__ptr_);
+    if (v36 >= 0)
     {
-      v17 = v34;
+      v17 = v33;
     }
 
     else
     {
-      v17 = *v34;
+      v17 = *v33;
     }
 
     *buf = 136315650;
-    v39 = v14;
-    v40 = 2112;
-    v41 = loggingComponentString;
-    v42 = 2080;
-    v43 = v17;
+    v38 = v14;
+    v39 = 2112;
+    v40 = loggingComponentString;
+    v41 = 2080;
+    v42 = v17;
     _os_log_impl(&dword_22284A000, v11, OS_LOG_TYPE_DEBUG, "[%s] [%@ Assets] %s", buf, 0x20u);
-    if (v37 < 0)
+    if (v36 < 0)
     {
-      operator delete(*v34);
+      operator delete(*v33);
     }
   }
 
   v18 = objc_opt_class();
   if (v18)
   {
-    [v18 _convertRequest:requestCopy];
-    v19 = v33;
+    objc_msgSend__convertRequest_(v18);
+    v19 = v32[0];
   }
 
   else
@@ -125,58 +125,56 @@ void __42__SNLPITFMClassifier__initializationBlock__block_invoke(void *a1@<X1>, 
   }
 
   buf[0] = 0;
-  v44 = 0;
+  v43 = 0;
   ptr = self->_orchestrator.__ptr_;
-  v32 = v19;
-  v33 = 0;
-  (**ptr)(v34);
+  v31 = v19;
+  v32[0] = 0;
+  (**ptr)(v33);
   std::optional<sirinluinternalitfm::ITFMParserResponse>::operator=[abi:ne200100]<sirinluinternalitfm::ITFMParserResponse,void>(buf);
-  MEMORY[0x223DC3310](v34);
-  v21 = v32;
-  v32 = 0;
+  MEMORY[0x223DC3310](v33);
+  v21 = v31;
+  v31 = 0;
   if (v21)
   {
     (*(*v21 + 8))(v21);
   }
 
   v22 = objc_opt_class();
-  if ((v44 & 1) == 0)
+  if ((v43 & 1) == 0)
   {
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
   v23 = v22;
-  MEMORY[0x223DC32F0](v31, buf);
-  v24 = [v23 _convertResponse:v31];
-  MEMORY[0x223DC3310](v31);
+  MEMORY[0x223DC32F0](v30, buf);
+  v24 = [v23 _convertResponse:v30];
+  MEMORY[0x223DC3310](v30);
   v25 = SNLPOSLoggerForCategory(7);
   v26 = v25;
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
   {
-    *v34 = 0;
-    _os_signpost_emit_with_name_impl(&dword_22284A000, v26, OS_SIGNPOST_INTERVAL_END, v7, "SNLPITFMClassifier responseForRequest", "", v34, 2u);
+    *v33 = 0;
+    _os_signpost_emit_with_name_impl(&dword_22284A000, v26, OS_SIGNPOST_INTERVAL_END, v7, "SNLPITFMClassifier responseForRequest", "", v33, 2u);
   }
 
   v27 = SNLPOSLoggerForCategory(0);
   if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
-    *v34 = 0;
-    _os_log_impl(&dword_22284A000, v27, OS_LOG_TYPE_DEFAULT, "END SNLPITFMClassifier responseForRequest", v34, 2u);
+    *v33 = 0;
+    _os_log_impl(&dword_22284A000, v27, OS_LOG_TYPE_DEFAULT, "END SNLPITFMClassifier responseForRequest", v33, 2u);
   }
 
-  if (v44 == 1)
+  if (v43 == 1)
   {
     MEMORY[0x223DC3310](buf);
   }
 
-  v28 = v33;
-  v33 = 0;
+  v28 = v32[0];
+  v32[0] = 0;
   if (v28)
   {
     (*(*v28 + 8))(v28);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -209,7 +207,7 @@ void __42__SNLPITFMClassifier__initializationBlock__block_invoke(void *a1@<X1>, 
         (*(*ptr + 16))(ptr);
       }
 
-      [(SNLPITFMClassifier *)v17 _setupAssetLogger];
+      objc_msgSend__setupAssetLogger(v17);
       v20 = v25;
       v25 = 0;
       std::unique_ptr<snlp::common::asset_logger::SNLPAssetLogger>::reset[abi:ne200100](&v17->_assetLogger, v20);

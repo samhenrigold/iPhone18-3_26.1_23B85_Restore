@@ -30,7 +30,7 @@
   sub_1A22E5698();
   viewCopy = view;
   selfCopy = self;
-  sub_1A22D60E4();
+  sub_1A22D60E4(v9);
   v12 = sub_1A22E5688();
   [viewCopy deselectItemAtIndexPath:v12 animated:1];
 

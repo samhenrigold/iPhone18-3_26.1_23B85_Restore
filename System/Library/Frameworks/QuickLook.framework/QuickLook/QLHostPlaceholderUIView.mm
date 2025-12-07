@@ -9,13 +9,11 @@
 - (_TtC9QuickLook23QLHostPlaceholderUIView)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC9QuickLook23QLHostPlaceholderUIView_hostingState;
-  v5 = type metadata accessor for HostingState();
-  v6 = *(v5 + 48);
-  v7 = *(v5 + 52);
-  v8 = swift_allocObject();
-  *(v8 + 16) = 0;
+  type metadata accessor for HostingState(0);
+  v5 = swift_allocObject();
+  *(v5 + 16) = 0;
   sub_23A7EE044();
-  *(&self->super.super.super.isa + v4) = v8;
+  *(&self->super.super.super.isa + v4) = v5;
   result = sub_23A7EED64();
   __break(1u);
   return result;

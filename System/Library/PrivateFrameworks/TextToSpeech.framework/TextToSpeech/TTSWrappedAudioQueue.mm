@@ -21,6 +21,8 @@
 - (void)handleMediaServicesReset;
 - (void)playBuffer:(id)buffer completionHandler:(id)handler;
 - (void)scheduleBuffer:(id)buffer completionHandler:(id)handler;
+- (void)scheduleBuffer:(id)buffer completionHandler:(id)handler lastBuffer:(BOOL)lastBuffer;
+- (void)setAudioQueueFlags:(unsigned int)flags;
 - (void)setAudioSession:(id)session;
 - (void)setChannels:(id)channels;
 - (void)setDspGraph:(id)graph;
@@ -34,27 +36,26 @@
 
 - (TTSWrappedAudioQueue)init
 {
-  v32.receiver = self;
-  v32.super_class = TTSWrappedAudioQueue;
-  v2 = [(TTSWrappedAudioQueue *)&v32 init];
+  v19.receiver = self;
+  v19.super_class = TTSWrappedAudioQueue;
+  v2 = [(TTSWrappedAudioQueue *)&v19 init];
   v3 = v2;
   if (v2)
   {
     *&v2->_bufferLock._os_unfair_lock_opaque = 0;
-    v4 = [TTSAudioFormat alloc];
-    v30[0] = xmmword_1A95862E0;
-    v30[1] = unk_1A95862F0;
-    v31 = 32;
-    v8 = objc_msgSend_initWithStreamDescription_(v4, v5, v30, v6, v7);
+    v17[0] = xmmword_1A95862E0;
+    v17[1] = unk_1A95862F0;
+    v18 = 32;
+    v4 = [[TTSAudioFormat alloc] initWithStreamDescription:v17];
     outputFormat = v3->_outputFormat;
-    v3->_outputFormat = v8;
+    v3->_outputFormat = v4;
 
     queueFormat = v3->_queueFormat;
     v3->_queueFormat = 0;
 
-    v15 = objc_msgSend_orderedSet(MEMORY[0x1E695DFA0], v11, v12, v13, v14);
+    orderedSet = [MEMORY[0x1E695DFA0] orderedSet];
     inflightBuffers = v3->_inflightBuffers;
-    v3->_inflightBuffers = v15;
+    v3->_inflightBuffers = orderedSet;
 
     cachedAudioConverter = v3->_cachedAudioConverter;
     v3->_cachedAudioConverter = 0;
@@ -66,13 +67,13 @@
     channels = v3->_channels;
     v3->_channels = MEMORY[0x1E695E0F0];
 
-    v20 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INTERACTIVE, -1);
-    v21 = dispatch_queue_create("TTSAQ.callback", v20);
+    v12 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INTERACTIVE, -1);
+    v13 = dispatch_queue_create("TTSAQ.callback", v12);
     callbackQueue = v3->_callbackQueue;
-    v3->_callbackQueue = v21;
+    v3->_callbackQueue = v13;
 
-    v27 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v23, v24, v25, v26);
-    objc_msgSend_addObserver_selector_name_object_(v27, v28, v3, sel_handleMediaServicesReset, *MEMORY[0x1E6958120], 0);
+    defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+    [defaultCenter addObserver:v3 selector:sel_handleMediaServicesReset name:*MEMORY[0x1E6958120] object:0];
   }
 
   return v3;
@@ -80,52 +81,52 @@
 
 - (void)dealloc
 {
-  v6 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], a2, v2, v3, v4);
-  objc_msgSend_removeObserver_(v6, v7, self, v8, v9);
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter removeObserver:self];
 
-  objc_msgSend__tearDownAudioQueue(self, v10, v11, v12, v13);
-  v14.receiver = self;
-  v14.super_class = TTSWrappedAudioQueue;
-  [(TTSWrappedAudioQueue *)&v14 dealloc];
+  [(TTSWrappedAudioQueue *)self _tearDownAudioQueue];
+  v4.receiver = self;
+  v4.super_class = TTSWrappedAudioQueue;
+  [(TTSWrappedAudioQueue *)&v4 dealloc];
 }
 
 - (id)convertBufferIfNecessary:(id)necessary
 {
   necessaryCopy = necessary;
-  v9 = objc_msgSend_queueFormat(self, v5, v6, v7, v8);
-  v14 = objc_msgSend_format(necessaryCopy, v10, v11, v12, v13);
-  v19 = objc_msgSend_avFormat(v14, v15, v16, v17, v18);
-  if (objc_msgSend_isEqual_(v9, v20, v19, v21, v22))
+  queueFormat = [(TTSWrappedAudioQueue *)self queueFormat];
+  format = [necessaryCopy format];
+  avFormat = [format avFormat];
+  if ([queueFormat isEqual:avFormat])
   {
 
 LABEL_8:
-    v79 = necessaryCopy;
+    v18 = necessaryCopy;
     goto LABEL_12;
   }
 
-  v27 = objc_msgSend_queueFormat(self, v23, v24, v25, v26);
+  queueFormat2 = [(TTSWrappedAudioQueue *)self queueFormat];
 
-  if (!v27)
+  if (!queueFormat2)
   {
     goto LABEL_8;
   }
 
-  v32 = objc_msgSend_cachedAudioConverter(self, v28, v29, v30, v31);
-  if (v32)
+  cachedAudioConverter = [(TTSWrappedAudioQueue *)self cachedAudioConverter];
+  if (cachedAudioConverter)
   {
-    v37 = v32;
-    v38 = objc_msgSend_cachedAudioConverter(self, v33, v34, v35, v36);
-    v43 = objc_msgSend_inputFormat(v38, v39, v40, v41, v42);
-    v48 = objc_msgSend_format(necessaryCopy, v44, v45, v46, v47);
-    v53 = objc_msgSend_avFormat(v48, v49, v50, v51, v52);
-    if (objc_msgSend_isEqual_(v43, v54, v53, v55, v56))
+    v10 = cachedAudioConverter;
+    cachedAudioConverter2 = [(TTSWrappedAudioQueue *)self cachedAudioConverter];
+    inputFormat = [cachedAudioConverter2 inputFormat];
+    format2 = [necessaryCopy format];
+    avFormat2 = [format2 avFormat];
+    if ([inputFormat isEqual:avFormat2])
     {
-      v61 = objc_msgSend_cachedAudioConverter(self, v57, v58, v59, v60);
-      v66 = objc_msgSend_outputFormat(v61, v62, v63, v64, v65);
-      v71 = objc_msgSend_queueFormat(self, v67, v68, v69, v70);
-      isEqual = objc_msgSend_isEqual_(v66, v72, v71, v73, v74);
+      cachedAudioConverter3 = [(TTSWrappedAudioQueue *)self cachedAudioConverter];
+      outputFormat = [cachedAudioConverter3 outputFormat];
+      queueFormat3 = [(TTSWrappedAudioQueue *)self queueFormat];
+      v38 = [outputFormat isEqual:queueFormat3];
 
-      if (isEqual)
+      if (v38)
       {
         goto LABEL_11;
       }
@@ -136,211 +137,214 @@ LABEL_8:
     }
   }
 
-  v80 = objc_alloc(MEMORY[0x1E69583E8]);
-  v85 = objc_msgSend_format(necessaryCopy, v81, v82, v83, v84);
-  v90 = objc_msgSend_avFormat(v85, v86, v87, v88, v89);
-  v95 = objc_msgSend_queueFormat(self, v91, v92, v93, v94);
-  v98 = objc_msgSend_initFromFormat_toFormat_(v80, v96, v90, v95, v97);
-  objc_msgSend_setCachedAudioConverter_(self, v99, v98, v100, v101);
+  v19 = objc_alloc(MEMORY[0x1E69583E8]);
+  format3 = [necessaryCopy format];
+  avFormat3 = [format3 avFormat];
+  queueFormat4 = [(TTSWrappedAudioQueue *)self queueFormat];
+  v23 = [v19 initFromFormat:avFormat3 toFormat:queueFormat4];
+  [(TTSWrappedAudioQueue *)self setCachedAudioConverter:v23];
 
-  v106 = objc_msgSend_channels(self, v102, v103, v104, v105);
-  v110 = objc_msgSend_ax_mappedArrayUsingBlock_(v106, v107, &unk_1F1CEDA88, v108, v109);
-  v115 = objc_msgSend_cachedAudioConverter(self, v111, v112, v113, v114);
-  objc_msgSend_setChannelMap_(v115, v116, v110, v117, v118);
+  channels = [(TTSWrappedAudioQueue *)self channels];
+  v25 = [channels ax_mappedArrayUsingBlock:&unk_1F1CEDA88];
+  cachedAudioConverter4 = [(TTSWrappedAudioQueue *)self cachedAudioConverter];
+  [cachedAudioConverter4 setChannelMap:v25];
 
 LABEL_11:
-  v119 = objc_msgSend_queueFormat(self, v75, v76, v77, v78);
-  objc_msgSend_sampleRate(v119, v120, v121, v122, v123);
-  v125 = v124;
-  v130 = objc_msgSend_format(necessaryCopy, v126, v127, v128, v129);
-  objc_msgSend_sampleRate(v130, v131, v132, v133, v134);
-  *&v125 = v125 / v135;
+  queueFormat5 = [(TTSWrappedAudioQueue *)self queueFormat];
+  [queueFormat5 sampleRate];
+  v29 = v28;
+  format4 = [necessaryCopy format];
+  [format4 sampleRate];
+  *&v29 = v29 / v31;
 
-  v136 = objc_alloc(MEMORY[0x1E6958438]);
-  v141 = objc_msgSend_queueFormat(self, v137, v138, v139, v140);
-  v146 = objc_msgSend_frameLength(necessaryCopy, v142, v143, v144, v145);
-  v149 = objc_msgSend_initWithPCMFormat_frameCapacity_(v136, v147, v141, (*&v125 * v146), v148);
+  v32 = objc_alloc(MEMORY[0x1E6958438]);
+  queueFormat6 = [(TTSWrappedAudioQueue *)self queueFormat];
+  v34 = [v32 initWithPCMFormat:queueFormat6 frameCapacity:(*&v29 * objc_msgSend(necessaryCopy, "frameLength"))];
 
-  v167[0] = 0;
-  v167[1] = v167;
-  v167[2] = 0x2020000000;
-  v168 = 0;
-  v154 = objc_msgSend_cachedAudioConverter(self, v150, v151, v152, v153);
-  v165 = v167;
-  v166 = 0;
-  v163[0] = MEMORY[0x1E69E9820];
-  v163[1] = 3221225472;
-  v163[2] = sub_1A9330538;
-  v163[3] = &unk_1E787FDF8;
-  v164 = necessaryCopy;
-  objc_msgSend_convertToBuffer_error_withInputFromBlock_(v154, v155, v149, &v166, v163);
-  v156 = v166;
+  v43[0] = 0;
+  v43[1] = v43;
+  v43[2] = 0x2020000000;
+  v44 = 0;
+  cachedAudioConverter5 = [(TTSWrappedAudioQueue *)self cachedAudioConverter];
+  v41 = v43;
+  v42 = 0;
+  v39[0] = MEMORY[0x1E69E9820];
+  v39[1] = 3221225472;
+  v39[2] = sub_1A9330538;
+  v39[3] = &unk_1E787FDF8;
+  v40 = necessaryCopy;
+  [cachedAudioConverter5 convertToBuffer:v34 error:&v42 withInputFromBlock:v39];
+  v36 = v42;
 
-  v157 = [TTSAudioBuffer alloc];
-  v79 = objc_msgSend_initWithAVBuffer_(v157, v158, v149, v159, v160);
+  v18 = [[TTSAudioBuffer alloc] initWithAVBuffer:v34];
+  _Block_object_dispose(v43, 8);
 
-  _Block_object_dispose(v167, 8);
 LABEL_12:
 
-  return v79;
+  return v18;
+}
+
+- (void)scheduleBuffer:(id)buffer completionHandler:(id)handler lastBuffer:(BOOL)lastBuffer
+{
+  lastBufferCopy = lastBuffer;
+  [(TTSWrappedAudioQueue *)self scheduleBuffer:buffer completionHandler:handler];
+  if (lastBufferCopy)
+  {
+    AX_PERFORM_WITH_LOCK();
+  }
 }
 
 - (void)scheduleBuffer:(id)buffer completionHandler:(id)handler
 {
   bufferCopy = buffer;
   handlerCopy = handler;
-  v10 = handlerCopy;
+  v8 = handlerCopy;
   if (handlerCopy)
   {
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = sub_1A9330724;
     aBlock[3] = &unk_1E787FE48;
-    v13 = handlerCopy;
-    v11 = _Block_copy(aBlock);
+    v11 = handlerCopy;
+    v9 = _Block_copy(aBlock);
   }
 
   else
   {
-    v11 = 0;
+    v9 = 0;
   }
 
-  objc_msgSend_playBuffer_completionHandler_(self, v8, bufferCopy, v11, v9);
+  [(TTSWrappedAudioQueue *)self playBuffer:bufferCopy completionHandler:v9];
 }
 
 - (void)playBuffer:(id)buffer completionHandler:(id)handler
 {
-  v168 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   bufferCopy = buffer;
   handlerCopy = handler;
-  if (objc_msgSend_state(self, v8, v9, v10, v11))
+  if ([(TTSWrappedAudioQueue *)self state])
   {
-    v15 = objc_msgSend_convertBufferIfNecessary_(self, v12, bufferCopy, v13, v14);
+    v8 = [(TTSWrappedAudioQueue *)self convertBufferIfNecessary:bufferCopy];
 
-    v20 = objc_msgSend_frameLength(v15, v16, v17, v18, v19);
-    v25 = objc_msgSend_format(v15, v21, v22, v23, v24);
-    v30 = v25;
-    if (v25)
+    frameLength = [v8 frameLength];
+    format = [v8 format];
+    v11 = format;
+    if (format)
     {
-      objc_msgSend_streamDescription(v25, v26, v27, v28, v29);
-      v31 = DWORD2(v163);
+      objc_msgSend_streamDescription(format);
+      v12 = DWORD2(v62);
     }
 
     else
     {
-      v31 = 0;
-      v164 = 0;
-      v162 = 0u;
-      v163 = 0u;
+      v12 = 0;
+      v63 = 0;
+      v61 = 0u;
+      v62 = 0u;
     }
 
     outBuffer = 0;
-    v42 = objc_msgSend_aqRef(self, v38, v39, v40, v41);
-    v47 = objc_msgSend__minimumBufferByteSize(self, v43, v44, v45, v46);
-    v48 = AudioQueueAllocateBuffer(v42, v47, &outBuffer);
-    v49 = objc_alloc_init(TTSWrappedAudioQueueBuffer);
-    objc_msgSend_setAqBuffer_(v49, v50, outBuffer, v51, v52);
-    if (v48)
+    v15 = AudioQueueAllocateBuffer([(TTSWrappedAudioQueue *)self aqRef], [(TTSWrappedAudioQueue *)self _minimumBufferByteSize], &outBuffer);
+    v16 = objc_alloc_init(TTSWrappedAudioQueueBuffer);
+    [(TTSWrappedAudioQueueBuffer *)v16 setAqBuffer:outBuffer];
+    if (v15)
     {
-      v56 = AXTTSLogCommon();
-      if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+      v17 = AXTTSLogCommon();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        sub_1A9577124(v48, v56, v57, v58, v59);
+        sub_1A9577124(v15);
       }
 
-      v160[1] = MEMORY[0x1E69E9820];
-      v160[2] = 3221225472;
-      v160[3] = sub_1A9330DFC;
-      v160[4] = &unk_1E787FE20;
-      v160[5] = self;
+      v59[1] = MEMORY[0x1E69E9820];
+      v59[2] = 3221225472;
+      v59[3] = sub_1A9330DFC;
+      v59[4] = &unk_1E787FE20;
+      v59[5] = self;
       AX_PERFORM_WITH_LOCK();
       if (!handlerCopy)
       {
         goto LABEL_36;
       }
 
-      v64 = objc_msgSend_callbackQueue(self, v60, v61, v62, v63);
-      v159[0] = MEMORY[0x1E69E9820];
-      v159[1] = 3221225472;
-      v159[2] = sub_1A9330E38;
-      v159[3] = &unk_1E787FE70;
-      v160[0] = handlerCopy;
-      dispatch_async(v64, v159);
+      callbackQueue = [(TTSWrappedAudioQueue *)self callbackQueue];
+      v58[0] = MEMORY[0x1E69E9820];
+      v58[1] = 3221225472;
+      v58[2] = sub_1A9330E38;
+      v58[3] = &unk_1E787FE70;
+      v59[0] = handlerCopy;
+      dispatch_async(callbackQueue, v58);
 
-      v65 = v160;
+      v19 = v59;
     }
 
     else
     {
-      objc_msgSend_setCompletionHandler_(v49, v53, handlerCopy, v54, v55);
-      v70 = (v31 * v20);
-      *(objc_msgSend_aqBuffer(v49, v66, v67, v68, v69) + 16) = v70;
-      if (objc_msgSend_frameLength(v15, v71, v72, v73, v74) == 1)
+      [(TTSWrappedAudioQueueBuffer *)v16 setCompletionHandler:handlerCopy];
+      v20 = (v12 * frameLength);
+      *([(TTSWrappedAudioQueueBuffer *)v16 aqBuffer]+ 16) = v20;
+      if ([v8 frameLength] == 1)
       {
-        objc_msgSend_queueStreamDescription(self, v75, v76, v77, v78);
-        v83 = objc_msgSend_aqBuffer(v49, v79, v80, v81, v82);
-        if ((v158 << 8) >= *v83)
+        objc_msgSend_queueStreamDescription(self);
+        aqBuffer = [(TTSWrappedAudioQueueBuffer *)v16 aqBuffer];
+        if (v57 << 8 >= aqBuffer->mAudioDataBytesCapacity)
         {
-          v88 = *v83;
+          mAudioDataBytesCapacity = aqBuffer->mAudioDataBytesCapacity;
         }
 
         else
         {
-          v88 = (v158 << 8);
+          mAudioDataBytesCapacity = (v57 << 8);
         }
 
-        v89 = objc_msgSend_aqBuffer(v49, v84, v85, v86, v87);
-        bzero(*(v89 + 8), v88);
-        *(objc_msgSend_aqBuffer(v49, v90, v91, v92, v93) + 16) = v88;
+        bzero([(TTSWrappedAudioQueueBuffer *)v16 aqBuffer][8], mAudioDataBytesCapacity);
+        *([(TTSWrappedAudioQueueBuffer *)v16 aqBuffer]+ 16) = mAudioDataBytesCapacity;
       }
 
       else
       {
-        v98 = *(objc_msgSend_aqBuffer(v49, v75, v76, v77, v78) + 8);
-        v103 = objc_msgSend_mutableAudioBufferList(v15, v99, v100, v101, v102);
-        memcpy(v98, *(v103 + 16), v70);
+        memcpy(-[TTSWrappedAudioQueueBuffer aqBuffer](v16, "aqBuffer")[8], *([v8 mutableAudioBufferList] + 16), v20);
       }
 
-      *(objc_msgSend_aqBuffer(v49, v94, v95, v96, v97) + 24) = v49;
-      v152 = MEMORY[0x1E69E9820];
-      v153 = 3221225472;
-      v154 = sub_1A9330E4C;
-      v155 = &unk_1E787FE98;
+      *([(TTSWrappedAudioQueueBuffer *)v16 aqBuffer]+ 24) = v16;
+      v51 = MEMORY[0x1E69E9820];
+      v52 = 3221225472;
+      v53 = sub_1A9330E4C;
+      v54 = &unk_1E787FE98;
       selfCopy = self;
-      v157 = v49;
+      v56 = v16;
       AX_PERFORM_WITH_LOCK();
-      v148 = 0;
-      v149 = &v148;
-      v150 = 0x2020000000;
-      v151 = 0;
-      v141 = MEMORY[0x1E69E9820];
-      v142 = 3221225472;
-      v143 = sub_1A9330EA0;
-      v144 = &unk_1E787FEC0;
+      v47 = 0;
+      v48 = &v47;
+      v49 = 0x2020000000;
+      v50 = 0;
+      v40 = MEMORY[0x1E69E9820];
+      v41 = 3221225472;
+      v42 = sub_1A9330EA0;
+      v43 = &unk_1E787FEC0;
       selfCopy2 = self;
-      v104 = v157;
-      v146 = v104;
-      v147 = &v148;
+      v23 = v56;
+      v45 = v23;
+      v46 = &v47;
       AX_PERFORM_WITH_LOCK();
-      if (*(v149 + 6))
+      if (*(v48 + 6))
       {
-        v135 = MEMORY[0x1E69E9820];
-        v136 = 3221225472;
-        v137 = sub_1A9330F78;
-        v138 = &unk_1E787FE98;
+        v34 = MEMORY[0x1E69E9820];
+        v35 = 3221225472;
+        v36 = sub_1A9330F78;
+        v37 = &unk_1E787FE98;
         selfCopy3 = self;
-        v140 = v104;
+        v39 = v23;
         AX_PERFORM_WITH_LOCK();
-        if (*(v149 + 6) == -66671)
+        if (*(v48 + 6) == -66671)
         {
-          v130 = MEMORY[0x1E69E9820];
-          v131 = 3221225472;
-          v132 = sub_1A9330FCC;
-          v133 = &unk_1E787FE20;
+          v29 = MEMORY[0x1E69E9820];
+          v30 = 3221225472;
+          v31 = sub_1A9330FCC;
+          v32 = &unk_1E787FE20;
           selfCopy4 = self;
           AX_PERFORM_WITH_LOCK();
-          v109 = AXTTSLogCommon();
-          if (os_log_type_enabled(v109, OS_LOG_TYPE_DEBUG))
+          v24 = AXTTSLogCommon();
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
           {
             sub_1A957720C();
           }
@@ -348,84 +352,82 @@ LABEL_12:
 
         else
         {
-          v109 = AXTTSLogCommon();
-          if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
+          v24 = AXTTSLogCommon();
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
           {
-            v121 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v118, *(v149 + 6), v119, v120);
-            sub_1A95771BC(v121, v167, v109);
+            v25 = [MEMORY[0x1E696AD98] numberWithInt:*(v48 + 6)];
+            sub_1A95771BC(v25, v66, v24);
           }
         }
 
         if (handlerCopy)
         {
-          v126 = objc_msgSend_callbackQueue(self, v122, v123, v124, v125);
-          v128[0] = MEMORY[0x1E69E9820];
-          v128[1] = 3221225472;
-          v128[2] = sub_1A9331008;
-          v128[3] = &unk_1E787FE70;
-          v129 = handlerCopy;
-          dispatch_async(v126, v128);
+          callbackQueue2 = [(TTSWrappedAudioQueue *)self callbackQueue];
+          v27[0] = MEMORY[0x1E69E9820];
+          v27[1] = 3221225472;
+          v27[2] = sub_1A9331008;
+          v27[3] = &unk_1E787FE70;
+          v28 = handlerCopy;
+          dispatch_async(callbackQueue2, v27);
         }
       }
 
-      else if (objc_msgSend_state(self, v105, v106, v107, v108) == 2 || !objc_msgSend_state(self, v110, v111, v112, v113))
+      else if ([(TTSWrappedAudioQueue *)self state]== 2 || ![(TTSWrappedAudioQueue *)self state])
       {
         AX_PERFORM_WITH_LOCK();
       }
 
       else
       {
-        objc_msgSend__attemptQueueStart(self, v114, v115, v116, v117);
+        [(TTSWrappedAudioQueue *)self _attemptQueueStart];
       }
 
-      v65 = &v157;
-      _Block_object_dispose(&v148, 8);
+      v19 = &v56;
+      _Block_object_dispose(&v47, 8);
     }
 
 LABEL_36:
-    bufferCopy = v15;
+    bufferCopy = v8;
     goto LABEL_37;
   }
 
-  v32 = AXTTSLogCommon();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+  v13 = AXTTSLogCommon();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     sub_1A9577240();
   }
 
   if (handlerCopy)
   {
-    v37 = objc_msgSend_callbackQueue(self, v33, v34, v35, v36);
+    callbackQueue3 = [(TTSWrappedAudioQueue *)self callbackQueue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = sub_1A9330DE8;
     block[3] = &unk_1E787FE70;
-    v166 = handlerCopy;
-    dispatch_async(v37, block);
+    v65 = handlerCopy;
+    dispatch_async(callbackQueue3, block);
   }
 
 LABEL_37:
-
-  v127 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)play
 {
-  if (objc_msgSend_shouldRebuildAudioQueue(self, a2, v2, v3, v4))
+  if ([(TTSWrappedAudioQueue *)self shouldRebuildAudioQueue])
   {
-    objc_msgSend__tearDownAudioQueue(self, v6, v7, v8, v9);
-    objc_msgSend_setShouldRebuildAudioQueue_(self, v10, 0, v11, v12);
+    [(TTSWrappedAudioQueue *)self _tearDownAudioQueue];
+    [(TTSWrappedAudioQueue *)self setShouldRebuildAudioQueue:0];
   }
 
-  objc_msgSend__buildAudioQueue(self, v6, v7, v8, v9);
-  if (objc_msgSend_state(self, v13, v14, v15, v16) == 2 && !objc_msgSend__startQueueWithRetry(self, v17, v18, v19, v20))
+  [(TTSWrappedAudioQueue *)self _buildAudioQueue];
+  if ([(TTSWrappedAudioQueue *)self state]== 2 && ![(TTSWrappedAudioQueue *)self _startQueueWithRetry])
   {
     return 0;
   }
 
-  v21 = 1;
-  objc_msgSend_setState_(self, v17, 1, v19, v20);
-  return v21;
+  v3 = 1;
+  [(TTSWrappedAudioQueue *)self setState:1];
+  return v3;
 }
 
 - (void)stop
@@ -436,77 +438,96 @@ LABEL_37:
     sub_1A9577274();
   }
 
-  if (objc_msgSend_state(self, v4, v5, v6, v7) || objc_msgSend_audioQueueActive(self, v8, v9, v10, v11))
+  if ([(TTSWrappedAudioQueue *)self state]|| [(TTSWrappedAudioQueue *)self audioQueueActive])
   {
-    objc_msgSend_setState_(self, v8, 0, v10, v11);
+    [(TTSWrappedAudioQueue *)self setState:0];
     AX_PERFORM_WITH_LOCK();
   }
 
-  objc_msgSend_setState_(self, v8, 0, v10, v11);
+  [(TTSWrappedAudioQueue *)self setState:0];
 }
 
 - (void)setAudioSession:(id)session
 {
   sessionCopy = session;
-  v10 = objc_msgSend_audioSession(self, v6, v7, v8, v9);
-  v15 = objc_msgSend_opaqueSessionID(v10, v11, v12, v13, v14);
+  audioSession = [(TTSWrappedAudioQueue *)self audioSession];
+  opaqueSessionID = [audioSession opaqueSessionID];
 
   objc_storeStrong(&self->_audioSession, session);
-  if (v15 != objc_msgSend_opaqueSessionID(sessionCopy, v16, v17, v18, v19))
+  if (opaqueSessionID != [sessionCopy opaqueSessionID])
   {
-    v20 = AXTTSLogCommon();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v8 = AXTTSLogCommon();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      *v43 = 0;
-      _os_log_impl(&dword_1A9324000, v20, OS_LOG_TYPE_INFO, "TTSAQ: Audio session changed, rebuilding audio queue.", v43, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_1A9324000, v8, OS_LOG_TYPE_INFO, "TTSAQ: Audio session changed, rebuilding audio queue.", v11, 2u);
     }
 
-    objc_msgSend__tearDownAudioQueue(self, v21, v22, v23, v24);
-    v29 = objc_msgSend_opaqueSessionID(sessionCopy, v25, v26, v27, v28);
-    v34 = objc_msgSend_sharedInstance(MEMORY[0x1E6958468], v30, v31, v32, v33);
-    v39 = v29 == objc_msgSend_opaqueSessionID(v34, v35, v36, v37, v38);
-    objc_msgSend_setUsingSharedSession_(self, v40, v39, v41, v42);
+    [(TTSWrappedAudioQueue *)self _tearDownAudioQueue];
+    opaqueSessionID2 = [sessionCopy opaqueSessionID];
+    mEMORY[0x1E6958468] = [MEMORY[0x1E6958468] sharedInstance];
+    -[TTSWrappedAudioQueue setUsingSharedSession:](self, "setUsingSharedSession:", opaqueSessionID2 == [mEMORY[0x1E6958468] opaqueSessionID]);
   }
 }
 
 - (void)setChannels:(id)channels
 {
   channelsCopy = channels;
-  if ((objc_msgSend_isEqualToArray_(channelsCopy, v6, self->_channels, v7, v8) & 1) == 0)
+  if (([channelsCopy isEqualToArray:self->_channels] & 1) == 0)
   {
     objc_storeStrong(&self->_channels, channels);
-    objc_msgSend__reconfigureQueueFormatForMultiChannelOutputIfNecessary(self, v9, v10, v11, v12);
-    v13 = AXTTSLogCommon();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    [(TTSWrappedAudioQueue *)self _reconfigureQueueFormatForMultiChannelOutputIfNecessary];
+    v6 = AXTTSLogCommon();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      *v17 = 0;
-      _os_log_impl(&dword_1A9324000, v13, OS_LOG_TYPE_INFO, "TTSAQ: Audio channels changed, rebuilding audio queue.", v17, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_1A9324000, v6, OS_LOG_TYPE_INFO, "TTSAQ: Audio channels changed, rebuilding audio queue.", v7, 2u);
     }
 
-    objc_msgSend_setShouldRebuildAudioQueue_(self, v14, 1, v15, v16);
+    [(TTSWrappedAudioQueue *)self setShouldRebuildAudioQueue:1];
   }
 }
 
 - (void)setOutputFormat:(id)format
 {
   formatCopy = format;
-  v10 = objc_msgSend_outputFormat(self, v6, v7, v8, v9);
-  isEqual = objc_msgSend_isEqual_(formatCopy, v11, v10, v12, v13);
+  outputFormat = [(TTSWrappedAudioQueue *)self outputFormat];
+  v7 = [formatCopy isEqual:outputFormat];
 
-  if ((isEqual & 1) == 0)
+  if ((v7 & 1) == 0)
   {
-    v19 = AXTTSLogCommon();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v8 = AXTTSLogCommon();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      *v23 = 0;
-      _os_log_impl(&dword_1A9324000, v19, OS_LOG_TYPE_INFO, "TTSAQ: Audio format changed, rebuilding audio queue.", v23, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_1A9324000, v8, OS_LOG_TYPE_INFO, "TTSAQ: Audio format changed, rebuilding audio queue.", v9, 2u);
     }
 
     objc_storeStrong(&self->_outputFormat, format);
-    objc_msgSend_setShouldRebuildAudioQueue_(self, v20, 1, v21, v22);
+    [(TTSWrappedAudioQueue *)self setShouldRebuildAudioQueue:1];
   }
 
-  objc_msgSend__reconfigureQueueFormatForMultiChannelOutputIfNecessary(self, v15, v16, v17, v18);
+  [(TTSWrappedAudioQueue *)self _reconfigureQueueFormatForMultiChannelOutputIfNecessary];
+}
+
+- (void)setAudioQueueFlags:(unsigned int)flags
+{
+  v9 = *MEMORY[0x1E69E9840];
+  if (self->_audioQueueFlags != flags)
+  {
+    v3 = *&flags;
+    v5 = AXTTSLogCommon();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    {
+      v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v3];
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_impl(&dword_1A9324000, v5, OS_LOG_TYPE_INFO, "TTSAQ: Audio queue flags changed to %@, rebuilding audio queue.", &v7, 0xCu);
+    }
+
+    self->_audioQueueFlags = v3;
+    [(TTSWrappedAudioQueue *)self setShouldRebuildAudioQueue:1];
+  }
 }
 
 - (void)handleMediaServicesReset
@@ -518,210 +539,197 @@ LABEL_37:
     _os_log_impl(&dword_1A9324000, v3, OS_LOG_TYPE_INFO, "TTSAQ: Media services reset", buf, 2u);
   }
 
-  v8 = objc_msgSend_callbackQueue(self, v4, v5, v6, v7);
+  callbackQueue = [(TTSWrappedAudioQueue *)self callbackQueue];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = sub_1A93316E8;
   block[3] = &unk_1E787FE20;
   block[4] = self;
-  dispatch_async(v8, block);
+  dispatch_async(callbackQueue, block);
 }
 
 - (BOOL)audioQueueActive
 {
-  v6 = objc_msgSend_aqRef(self, a2, v2, v3, v4);
-  if (v6)
+  aqRef = [(TTSWrappedAudioQueue *)self aqRef];
+  if (aqRef)
   {
     ioDataSize = 4;
     outData = 0;
-    v11 = objc_msgSend_aqRef(self, v7, v8, v9, v10);
-    if (AudioQueueGetProperty(v11, 0x6171726Eu, &outData, &ioDataSize))
+    if (AudioQueueGetProperty([(TTSWrappedAudioQueue *)self aqRef], 0x6171726Eu, &outData, &ioDataSize))
     {
-      v12 = 1;
+      v4 = 1;
     }
 
     else
     {
-      v12 = outData == 0;
+      v4 = outData == 0;
     }
 
-    LOBYTE(v6) = !v12;
+    LOBYTE(aqRef) = !v4;
   }
 
-  return v6;
+  return aqRef;
 }
 
 - (void)bufferCallback:(AudioQueueBuffer *)callback
 {
   outBuffer[3] = *MEMORY[0x1E69E9840];
-  v113 = 0;
-  v114 = &v113;
-  v115 = 0x3032000000;
-  v116 = sub_1A9331CB0;
-  v117 = sub_1A9331CDC;
-  v118 = 0;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = sub_1A9331CB0;
+  v50 = sub_1A9331CDC;
+  v51 = 0;
   v5 = callback->mUserData;
-  v107 = 0;
-  v108 = &v107;
-  v109 = 0x3032000000;
-  v110 = sub_1A9331CE4;
-  v111 = sub_1A9331CF4;
-  v112 = 0;
-  v103 = 0;
-  v104 = &v103;
-  v105 = 0x2020000000;
-  v106 = 0;
-  v10 = objc_msgSend_audioQueueActive(self, v6, v7, v8, v9);
-  v95 = MEMORY[0x1E69E9820];
-  v96 = 3221225472;
-  v97 = sub_1A9331CFC;
-  v98 = &unk_1E787FEE8;
-  v11 = v5;
-  v99 = v11;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x3032000000;
+  v43 = sub_1A9331CE4;
+  v44 = sub_1A9331CF4;
+  v45 = 0;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
+  v39 = 0;
+  audioQueueActive = [(TTSWrappedAudioQueue *)self audioQueueActive];
+  v28 = MEMORY[0x1E69E9820];
+  v29 = 3221225472;
+  v30 = sub_1A9331CFC;
+  v31 = &unk_1E787FEE8;
+  v7 = v5;
+  v32 = v7;
   selfCopy = self;
-  v101 = &v107;
-  v102 = &v103;
+  v34 = &v40;
+  v35 = &v36;
   AX_PERFORM_WITH_LOCK();
-  if (v11)
+  if (v7)
   {
-    v16 = objc_msgSend_completionHandler(v108[5], v12, v13, v14, v15);
+    completionHandler = [v41[5] completionHandler];
 
-    if (v16)
+    if (completionHandler)
     {
-      v21 = objc_msgSend_completionHandler(v108[5], v17, v18, v19, v20);
-      v22 = v114[5];
-      v114[5] = v21;
+      completionHandler2 = [v41[5] completionHandler];
+      v10 = v47[5];
+      v47[5] = completionHandler2;
 
-      objc_msgSend_setCompletionHandler_(v108[5], v23, 0, v24, v25);
+      [v41[5] setCompletionHandler:0];
     }
 
-    v26 = objc_msgSend_aqRef(self, v17, v18, v19, v20);
-    AudioQueueFreeBuffer(v26, callback);
-    if (v114[5])
+    AudioQueueFreeBuffer([(TTSWrappedAudioQueue *)self aqRef], callback);
+    if (v47[5])
     {
-      v31 = objc_msgSend_state(self, v27, v28, v29, v30);
-      v36 = objc_msgSend_callbackQueue(self, v32, v33, v34, v35);
-      v93[0] = MEMORY[0x1E69E9820];
-      v93[1] = 3221225472;
-      v93[2] = sub_1A9331D94;
-      v93[3] = &unk_1E787FF10;
-      v93[4] = &v113;
-      v94 = v31 == 0;
-      dispatch_async(v36, v93);
+      state = [(TTSWrappedAudioQueue *)self state];
+      callbackQueue = [(TTSWrappedAudioQueue *)self callbackQueue];
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = sub_1A9331D94;
+      v26[3] = &unk_1E787FF10;
+      v26[4] = &v46;
+      v27 = state == 0;
+      dispatch_async(callbackQueue, v26);
     }
 
-    if (v104[3] & v10)
+    if (v37[3] & audioQueueActive)
     {
-      v37 = objc_msgSend__minimumBufferByteSize(self, v27, v28, v29, v30);
+      _minimumBufferByteSize = [(TTSWrappedAudioQueue *)self _minimumBufferByteSize];
       outBuffer[0] = 0;
-      v42 = objc_msgSend_aqRef(self, v38, v39, v40, v41);
-      AudioQueueAllocateBuffer(v42, v37, outBuffer);
-      v43 = outBuffer[0];
+      AudioQueueAllocateBuffer([(TTSWrappedAudioQueue *)self aqRef], _minimumBufferByteSize, outBuffer);
+      v14 = outBuffer[0];
       outBuffer[0]->mUserData = 0;
-      v43->mAudioDataByteSize = v37;
-      bzero(v43->mAudioData, v37);
-      objc_msgSend_setCurrentSilenceBufferCount_(self, v44, &unk_1F1D0F780, v45, v46);
-      v51 = objc_msgSend_aqRef(self, v47, v48, v49, v50);
-      AudioQueueEnqueueBuffer(v51, outBuffer[0], 0, 0);
+      v14->mAudioDataByteSize = _minimumBufferByteSize;
+      bzero(v14->mAudioData, _minimumBufferByteSize);
+      [(TTSWrappedAudioQueue *)self setCurrentSilenceBufferCount:&unk_1F1D0F780];
+      aqRef = [(TTSWrappedAudioQueue *)self aqRef];
+      AudioQueueEnqueueBuffer(aqRef, outBuffer[0], 0, 0);
     }
 
     goto LABEL_18;
   }
 
-  v52 = objc_msgSend_currentSilenceBufferCount(self, v12, v13, v14, v15);
-  v57 = objc_msgSend_unsignedIntValue(v52, v53, v54, v55, v56);
+  currentSilenceBufferCount = [(TTSWrappedAudioQueue *)self currentSilenceBufferCount];
+  unsignedIntValue = [currentSilenceBufferCount unsignedIntValue];
 
-  v62 = v57 * 0.1;
-  if (v62 > 0.5)
+  v18 = unsignedIntValue * 0.1;
+  if (v18 > 0.5)
   {
-    v69 = 1;
+    v21 = 1;
     goto LABEL_12;
   }
 
-  v63 = objc_msgSend_audioSession(self, v58, v59, v60, v61);
-  isActive = objc_msgSend_isActive(v63, v64, v65, v66, v67);
+  audioSession = [(TTSWrappedAudioQueue *)self audioSession];
+  isActive = [audioSession isActive];
 
-  v69 = isActive ^ 1;
-  if ((v104[3] & (isActive & v10) & 1) == 0)
+  v21 = isActive ^ 1;
+  if ((v37[3] & isActive & audioQueueActive & 1) == 0)
   {
 LABEL_12:
-    v79 = objc_msgSend_aqRef(self, v58, v59, v60, v61);
-    AudioQueueFreeBuffer(v79, callback);
+    AudioQueueFreeBuffer([(TTSWrappedAudioQueue *)self aqRef], callback);
     goto LABEL_13;
   }
 
-  v70 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x1E696AD98], v58, v57 + 1, v60, v61);
-  objc_msgSend_setCurrentSilenceBufferCount_(self, v71, v70, v72, v73);
+  v22 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:unsignedIntValue + 1];
+  [(TTSWrappedAudioQueue *)self setCurrentSilenceBufferCount:v22];
 
-  v78 = objc_msgSend_aqRef(self, v74, v75, v76, v77);
-  AudioQueueEnqueueBuffer(v78, callback, 0, 0);
+  AudioQueueEnqueueBuffer([(TTSWrappedAudioQueue *)self aqRef], callback, 0, 0);
 LABEL_13:
-  if (v69 && *(v104 + 24) == 1)
+  if (v21 && *(v37 + 24) == 1)
   {
-    v80 = AXTTSLogCommon();
-    if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
+    v23 = AXTTSLogCommon();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
-      *&v85 = v57 * 0.1;
-      v86 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v81, v82, v83, v84, v85);
-      sub_1A9577344(v86, outBuffer, v80);
+      *&v24 = unsignedIntValue * 0.1;
+      v25 = [MEMORY[0x1E696AD98] numberWithFloat:v24];
+      sub_1A9577344(v25, outBuffer, v23);
     }
 
-    v91 = objc_msgSend_aqRef(self, v87, v88, v89, v90);
-    AudioQueueStop(v91, 1u);
+    AudioQueueStop([(TTSWrappedAudioQueue *)self aqRef], 1u);
   }
 
 LABEL_18:
 
-  _Block_object_dispose(&v103, 8);
-  _Block_object_dispose(&v107, 8);
+  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v40, 8);
 
-  _Block_object_dispose(&v113, 8);
-  v92 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v46, 8);
 }
 
 - (BOOL)_startQueueWithRetry
 {
-  *&v30[5] = *MEMORY[0x1E69E9840];
-  objc_msgSend__buildAudioQueue(self, a2, v2, v3, v4);
-  if (objc_msgSend__attemptQueueStart(self, v6, v7, v8, v9))
+  *&v9[5] = *MEMORY[0x1E69E9840];
+  [(TTSWrappedAudioQueue *)self _buildAudioQueue];
+  if ([(TTSWrappedAudioQueue *)self _attemptQueueStart])
   {
-    result = 1;
+    return 1;
   }
 
-  else
+  v4 = 0;
+  do
   {
-    v11 = 0;
-    do
+    v5 = v4;
+    v6 = AXTTSLogCommon();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v12 = v11;
-      v13 = AXTTSLogCommon();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-      {
-        sub_1A957739C(v29, (v12 + 1), v30, v13, v14);
-      }
-
-      objc_msgSend__tearDownAudioQueue(self, v15, v16, v17, v18);
-      if (v12)
-      {
-        objc_msgSend_sleepForTimeInterval_(MEMORY[0x1E696AF00], v19, v20, v21, v22, 0.1);
-      }
-
-      if (v12 == 2)
-      {
-        break;
-      }
-
-      objc_msgSend__buildAudioQueue(self, v19, v20, v21, v22);
-      v27 = objc_msgSend__attemptQueueStart(self, v23, v24, v25, v26);
-      v11 = v12 + 1;
+      sub_1A957739C(v8, v5 + 1, v9, v6);
     }
 
-    while ((v27 & 1) == 0);
-    result = v12 < 2;
+    [(TTSWrappedAudioQueue *)self _tearDownAudioQueue];
+    if (v5)
+    {
+      [MEMORY[0x1E696AF00] sleepForTimeInterval:0.1];
+    }
+
+    if (v5 == 2)
+    {
+      break;
+    }
+
+    [(TTSWrappedAudioQueue *)self _buildAudioQueue];
+    _attemptQueueStart = [(TTSWrappedAudioQueue *)self _attemptQueueStart];
+    v4 = v5 + 1;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
-  return result;
+  while (!_attemptQueueStart);
+  return v5 < 2;
 }
 
 - (BOOL)_attemptQueueStart
@@ -737,97 +745,94 @@ LABEL_18:
 
 - (unint64_t)_minimumBufferByteSize
 {
-  v6 = objc_msgSend_outputFormat(self, a2, v2, v3, v4);
-  objc_msgSend_sampleRate(v6, v7, v8, v9, v10);
-  v12 = v11;
-  v17 = objc_msgSend_outputFormat(self, v13, v14, v15, v16);
-  v22 = v17;
-  if (v17)
+  outputFormat = [(TTSWrappedAudioQueue *)self outputFormat];
+  [outputFormat sampleRate];
+  v5 = v4;
+  outputFormat2 = [(TTSWrappedAudioQueue *)self outputFormat];
+  v7 = outputFormat2;
+  if (outputFormat2)
   {
-    objc_msgSend_streamDescription(v17, v18, v19, v20, v21);
-    v23 = v26;
+    objc_msgSend_streamDescription(outputFormat2);
+    v8 = v11;
   }
 
   else
   {
-    v23 = 0;
+    v8 = 0;
   }
 
-  v24 = v23 * (v12 * 0.1);
+  v9 = v8 * (v5 * 0.1);
 
-  return v24;
+  return v9;
 }
 
 - (void)_tearDownAudioQueue
 {
-  if (objc_msgSend_aqRef(self, a2, v2, v3, v4))
+  if ([(TTSWrappedAudioQueue *)self aqRef])
   {
-    v6 = AXTTSLogCommon();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v3 = AXTTSLogCommon();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      sub_1A957741C(self, v6, v7, v8, v9);
+      sub_1A957741C(self);
     }
 
-    v14 = objc_msgSend_aqRef(self, v10, v11, v12, v13);
-    AudioQueueRemovePropertyListener(v14, 0x6171726Eu, sub_1A9332340, self);
-    v19 = objc_msgSend_aqRef(self, v15, v16, v17, v18);
-    AudioQueueStop(v19, 1u);
-    objc_msgSend_procNodeRef(self, v20, v21, v22, v23);
+    AudioQueueRemovePropertyListener([(TTSWrappedAudioQueue *)self aqRef], 0x6171726Eu, sub_1A9332340, self);
+    AudioQueueStop([(TTSWrappedAudioQueue *)self aqRef], 1u);
+    [(TTSWrappedAudioQueue *)self procNodeRef];
     ATAudioProcessingNodeDispose();
-    v28 = objc_msgSend_aqRef(self, v24, v25, v26, v27);
-    AudioQueueDispose(v28, 1u);
-    objc_msgSend_setState_(self, v29, 0, v30, v31);
-    objc_msgSend_setAqRef_(self, v32, 0, v33, v34);
-    v45[0] = 0;
-    v45[1] = v45;
-    v45[2] = 0x3032000000;
-    v45[3] = sub_1A9331CE4;
-    v45[4] = sub_1A9331CF4;
-    v46 = objc_msgSend_array(MEMORY[0x1E695DF70], v35, v36, v37, v38);
+    AudioQueueDispose([(TTSWrappedAudioQueue *)self aqRef], 1u);
+    [(TTSWrappedAudioQueue *)self setState:0];
+    [(TTSWrappedAudioQueue *)self setAqRef:0];
+    v6[0] = 0;
+    v6[1] = v6;
+    v6[2] = 0x3032000000;
+    v6[3] = sub_1A9331CE4;
+    v6[4] = sub_1A9331CF4;
+    array = [MEMORY[0x1E695DF70] array];
     block[5] = MEMORY[0x1E69E9820];
     block[6] = 3221225472;
     block[7] = sub_1A93323DC;
     block[8] = &unk_1E787FF38;
     block[9] = self;
-    block[10] = v45;
+    block[10] = v6;
     AX_PERFORM_WITH_LOCK();
-    v43 = objc_msgSend_callbackQueue(self, v39, v40, v41, v42);
+    callbackQueue = [(TTSWrappedAudioQueue *)self callbackQueue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = sub_1A9332544;
     block[3] = &unk_1E787FF60;
-    block[4] = v45;
-    dispatch_async(v43, block);
+    block[4] = v6;
+    dispatch_async(callbackQueue, block);
 
-    _Block_object_dispose(v45, 8);
+    _Block_object_dispose(v6, 8);
   }
 }
 
 - (AudioStreamBasicDescription)queueStreamDescription
 {
-  v8 = objc_msgSend_queueFormat(self, a3, v3, v4, v5);
+  queueFormat = [(TTSWrappedAudioQueue *)self queueFormat];
 
-  if (v8)
+  if (queueFormat)
   {
-    v27 = objc_msgSend_queueFormat(self, v9, v10, v11, v12);
-    v17 = objc_msgSend_streamDescription(v27, v13, v14, v15, v16);
-    v18 = *(v17 + 32);
-    v20 = *v17;
-    v19 = *(v17 + 16);
-    v21 = v27;
-    *&retstr->mSampleRate = v20;
-    *&retstr->mBytesPerPacket = v19;
-    *&retstr->mBitsPerChannel = v18;
+    queueFormat2 = [(TTSWrappedAudioQueue *)self queueFormat];
+    v6 = objc_msgSend_streamDescription(queueFormat2);
+    v7 = *(v6 + 32);
+    v9 = *v6;
+    v8 = *(v6 + 16);
+    outputFormat = queueFormat2;
+    *&retstr->mSampleRate = v9;
+    *&retstr->mBytesPerPacket = v8;
+    *&retstr->mBitsPerChannel = v7;
   }
 
   else
   {
-    v21 = objc_msgSend_outputFormat(self, v9, v10, v11, v12);
-    if (v21)
+    outputFormat = [(TTSWrappedAudioQueue *)self outputFormat];
+    if (outputFormat)
     {
-      v28 = v21;
-      objc_msgSend_streamDescription(v21, v22, v23, v24, v25);
-      v21 = v28;
+      v13 = outputFormat;
+      objc_msgSend_streamDescription(outputFormat);
+      outputFormat = v13;
     }
 
     else
@@ -843,101 +848,100 @@ LABEL_18:
 
 - (void)_rebuildAudioQueue
 {
-  v42 = 0;
-  objc_msgSend_queueStreamDescription(self, a2, v2, v3, v4, 0, 0, 0, 0, 0);
-  if (objc_msgSend_usingSharedSession(self, v6, v7, v8, v9))
+  v6 = 0;
+  objc_msgSend_queueStreamDescription(self, a2, 0, 0, 0, 0, 0);
+  if ([(TTSWrappedAudioQueue *)self usingSharedSession])
   {
-    objc_msgSend_sharedInstance(MEMORY[0x1E6958468], v10, v11, v12, v13);
+    [MEMORY[0x1E6958468] sharedInstance];
   }
 
   else
   {
-    objc_msgSend_audioSession(self, v10, v11, v12, v13);
+    [(TTSWrappedAudioQueue *)self audioSession];
   }
-  v14 = ;
-  objc_msgSend_opaqueSessionID(v14, v15, v16, v17, v18);
+  v3 = ;
+  [v3 opaqueSessionID];
 
-  objc_msgSend_audioQueueFlags(self, v19, v20, v21, v22);
+  [(TTSWrappedAudioQueue *)self audioQueueFlags];
   AudioQueueNewOutputWithAudioSession();
-  v27 = objc_msgSend_audioSession(self, v23, v24, v25, v26);
-  objc_msgSend_setPreferredIOBufferDuration_error_(v27, v28, 0, v29, v30, 0.003);
+  audioSession = [(TTSWrappedAudioQueue *)self audioSession];
+  [audioSession setPreferredIOBufferDuration:0 error:0.003];
 
-  objc_msgSend__selectChannels_(self, v31, v42, v32, v33);
-  self->_aqRef = v42;
-  objc_msgSend__configureEffects(self, v34, v35, v36, v37);
+  [(TTSWrappedAudioQueue *)self _selectChannels:v6];
+  self->_aqRef = v6;
+  [(TTSWrappedAudioQueue *)self _configureEffects];
   AudioQueueAddPropertyListener(self->_aqRef, 0x6171726Eu, sub_1A9332340, self);
-  v38 = AXTTSLogCommon();
-  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+  v5 = AXTTSLogCommon();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    sub_1A95775D8(self, v38, v39, v40, v41);
+    sub_1A95775D8(self);
   }
 }
 
 - (void)_reconfigureQueueFormatForMultiChannelOutputIfNecessary
 {
-  v6 = objc_msgSend_outputFormat(self, a2, v2, v3, v4);
+  outputFormat = [(TTSWrappedAudioQueue *)self outputFormat];
 
-  if (v6)
+  if (outputFormat)
   {
-    v50 = 0;
-    v48 = 0u;
-    v49 = 0u;
-    v11 = objc_msgSend_outputFormat(self, v7, v8, v9, v10);
-    v16 = v11;
-    if (v11)
+    v21 = 0;
+    v19 = 0u;
+    v20 = 0u;
+    outputFormat2 = [(TTSWrappedAudioQueue *)self outputFormat];
+    v5 = outputFormat2;
+    if (outputFormat2)
     {
-      objc_msgSend_streamDescription(v11, v12, v13, v14, v15);
+      objc_msgSend_streamDescription(outputFormat2);
     }
 
     else
     {
-      v50 = 0;
-      v48 = 0u;
-      v49 = 0u;
+      v21 = 0;
+      v19 = 0u;
+      v20 = 0u;
     }
 
-    if (objc_msgSend_count(self->_channels, v18, v19, v20, v21))
+    if ([(NSArray *)self->_channels count])
     {
-      v26 = objc_msgSend_count(self->_channels, v22, v23, v24, v25);
+      v7 = [(NSArray *)self->_channels count];
     }
 
     else
     {
-      v26 = 1;
+      v7 = 1;
     }
 
-    if (HIDWORD(v49) == v26)
+    if (HIDWORD(v20) == v7)
     {
-      v27 = objc_msgSend_outputFormat(self, v22, v23, v24, v25);
-      v32 = objc_msgSend_avFormat(v27, v28, v29, v30, v31);
+      outputFormat3 = [(TTSWrappedAudioQueue *)self outputFormat];
+      avFormat = [outputFormat3 avFormat];
       queueFormat = self->_queueFormat;
-      self->_queueFormat = v32;
+      self->_queueFormat = avFormat;
     }
 
     else
     {
-      DWORD2(v49) *= v26;
-      HIDWORD(v49) = v26;
-      HIDWORD(v48) &= ~0x20u;
-      LODWORD(v49) = v49 * v26;
-      v45 = 0;
-      v46 = 0;
-      v47 = 0;
-      LODWORD(v44) = v26 | 0x930000;
-      HIDWORD(v44) = 15;
-      v34 = objc_alloc(MEMORY[0x1E6958420]);
-      v35 = objc_alloc(MEMORY[0x1E69583C8]);
-      v39 = objc_msgSend_initWithLayout_(v35, v36, &v44, v37, v38);
-      v42 = objc_msgSend_initWithStreamDescription_channelLayout_(v34, v40, &v48, v39, v41, v44, v45, v46, v47);
-      v43 = self->_queueFormat;
-      self->_queueFormat = v42;
+      DWORD2(v20) *= v7;
+      HIDWORD(v20) = v7;
+      HIDWORD(v19) &= ~0x20u;
+      LODWORD(v20) = v20 * v7;
+      v16 = 0;
+      v17 = 0;
+      v18 = 0;
+      LODWORD(v15) = v7 | 0x930000;
+      HIDWORD(v15) = 15;
+      v11 = objc_alloc(MEMORY[0x1E6958420]);
+      v12 = [objc_alloc(MEMORY[0x1E69583C8]) initWithLayout:&v15];
+      v13 = [v11 initWithStreamDescription:&v19 channelLayout:{v12, v15, v16, v17, v18}];
+      v14 = self->_queueFormat;
+      self->_queueFormat = v13;
     }
   }
 
   else
   {
-    v17 = AXTTSLogCommon();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v6 = AXTTSLogCommon();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1A9577670();
     }
@@ -946,113 +950,113 @@ LABEL_18:
 
 - (void)_selectChannels:(OpaqueAudioQueue *)channels
 {
-  v94 = *MEMORY[0x1E69E9840];
-  v7 = objc_msgSend_queueFormat(self, a2, channels, v3, v4);
+  v48 = *MEMORY[0x1E69E9840];
+  queueFormat = [(TTSWrappedAudioQueue *)self queueFormat];
 
-  if (v7)
+  if (queueFormat)
   {
-    v8 = AXTTSLogCommon();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v6 = AXTTSLogCommon();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       channels = self->_channels;
       *buf = 138412290;
-      *v90 = channels;
-      _os_log_impl(&dword_1A9324000, v8, OS_LOG_TYPE_INFO, "TTSAQ: Selecting channels %@", buf, 0xCu);
+      *v44 = channels;
+      _os_log_impl(&dword_1A9324000, v6, OS_LOG_TYPE_INFO, "TTSAQ: Selecting channels %@", buf, 0xCu);
     }
 
     p_channels = &self->_channels;
-    if (objc_msgSend_count(self->_channels, v11, v12, v13, v14))
+    if ([(NSArray *)self->_channels count])
     {
-      v19 = objc_msgSend_queueFormat(self, v15, v16, v17, v18);
-      v24 = *(objc_msgSend_streamDescription(v19, v20, v21, v22, v23) + 28);
+      queueFormat2 = [(TTSWrappedAudioQueue *)self queueFormat];
+      v10 = *(objc_msgSend_streamDescription(queueFormat2) + 28);
 
-      v29 = objc_msgSend_queueFormat(self, v25, v26, v27, v28);
-      v34 = objc_msgSend_channelCount(v29, v30, v31, v32, v33);
-      v39 = objc_msgSend_count(self->_channels, v35, v36, v37, v38);
+      queueFormat3 = [(TTSWrappedAudioQueue *)self queueFormat];
+      channelCount = [queueFormat3 channelCount];
+      v13 = [(NSArray *)self->_channels count];
 
-      if (v39 == v34)
+      if (v13 == channelCount)
       {
-        v40 = &v81 - 2 * v24;
-        v41 = 16 * v24;
-        bzero(v40, v41);
-        v88 = 0u;
-        v87 = 0u;
-        v86 = 0u;
-        v85 = 0u;
-        v42 = *p_channels;
-        v44 = objc_msgSend_countByEnumeratingWithState_objects_count_(v42, v43, &v85, v93, 16);
-        if (v44)
+        v14 = &v35 - 2 * v10;
+        v15 = 16 * v10;
+        bzero(v14, v15);
+        v42 = 0u;
+        v41 = 0u;
+        v40 = 0u;
+        v39 = 0u;
+        v16 = *p_channels;
+        v17 = [(NSArray *)v16 countByEnumeratingWithState:&v39 objects:v47 count:16];
+        if (v17)
         {
-          v49 = v44;
-          v82 = v41;
-          *&v83 = channels;
-          v84 = &v81;
-          v50 = 0;
-          v51 = *v86;
+          v18 = v17;
+          v36 = v15;
+          *&v37 = channels;
+          v38 = &v35;
+          v19 = 0;
+          v20 = *v40;
           do
           {
-            v52 = 0;
-            v53 = &v40[2 * v50 + 1];
-            v50 += v49;
+            v21 = 0;
+            v22 = &v14[2 * v19 + 1];
+            v19 += v18;
             do
             {
-              if (*v86 != v51)
+              if (*v40 != v20)
               {
-                objc_enumerationMutation(v42);
+                objc_enumerationMutation(v16);
               }
 
-              v54 = *(*(&v85 + 1) + 8 * v52);
-              *v53 = objc_msgSend_channelNumber(v54, v45, v46, v47, v48);
-              v59 = objc_msgSend_owningPortUID(v54, v55, v56, v57, v58);
-              *(v53 - 1) = v59;
+              v23 = *(*(&v39 + 1) + 8 * v21);
+              *v22 = [v23 channelNumber];
+              owningPortUID = [v23 owningPortUID];
+              *(v22 - 1) = owningPortUID;
 
-              ++v52;
-              v53 += 2;
+              ++v21;
+              v22 += 2;
             }
 
-            while (v49 != v52);
-            v49 = objc_msgSend_countByEnumeratingWithState_objects_count_(v42, v45, &v85, v93, 16);
+            while (v18 != v21);
+            v18 = [(NSArray *)v16 countByEnumeratingWithState:&v39 objects:v47 count:16];
           }
 
-          while (v49);
+          while (v18);
 
-          v60 = AudioQueueSetProperty(v83, 0x61716361u, v40, v82);
-          if (v60 << 16)
+          v25 = AudioQueueSetProperty(v37, 0x61716361u, v14, v36);
+          if (v25 << 16)
           {
-            v61 = v60;
-            v62 = AXTTSLogCommon();
-            if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+            v26 = v25;
+            v27 = AXTTSLogCommon();
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
             {
-              sub_1A9577768(v61, v62);
+              sub_1A9577768(v26, v27);
             }
 
-            if (objc_msgSend_count(*p_channels, v63, v64, v65, v66))
+            if ([(NSArray *)*p_channels count])
             {
-              v68 = 0;
-              v69 = v40 + 1;
-              *&v67 = 67109634;
-              v83 = v67;
+              v29 = 0;
+              v30 = v14 + 1;
+              *&v28 = 67109634;
+              v37 = v28;
               do
               {
-                v70 = AXTTSLogCommon();
-                if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+                v31 = AXTTSLogCommon();
+                if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
                 {
-                  v75 = *v69;
-                  v76 = *(v69 - 1);
-                  *buf = v83;
-                  *v90 = v68;
-                  *&v90[4] = 1024;
-                  *&v90[6] = v75;
-                  v91 = 2112;
-                  v92 = v76;
-                  _os_log_error_impl(&dword_1A9324000, v70, OS_LOG_TYPE_ERROR, "TTSAQ: Channel layout error: [%d], channel number: %d, deviceUID: %@", buf, 0x18u);
+                  v32 = *v30;
+                  v33 = *(v30 - 1);
+                  *buf = v37;
+                  *v44 = v29;
+                  *&v44[4] = 1024;
+                  *&v44[6] = v32;
+                  v45 = 2112;
+                  v46 = v33;
+                  _os_log_error_impl(&dword_1A9324000, v31, OS_LOG_TYPE_ERROR, "TTSAQ: Channel layout error: [%d], channel number: %d, deviceUID: %@", buf, 0x18u);
                 }
 
-                ++v68;
-                v69 += 4;
+                ++v29;
+                v30 += 4;
               }
 
-              while (objc_msgSend_count(*p_channels, v71, v72, v73, v74) > v68);
+              while ([(NSArray *)*p_channels count]> v29);
             }
           }
         }
@@ -1064,48 +1068,46 @@ LABEL_18:
 
       else
       {
-        v77 = AXTTSLogCommon();
-        if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
+        v34 = AXTTSLogCommon();
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
         {
-          sub_1A95776B0(v24, p_channels, v77, v78, v79);
+          sub_1A95776B0(v10);
         }
       }
     }
   }
-
-  v80 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_initializeDSPGraphAU
 {
-  objc_msgSend_aqRef(self, a2, v2, v3, v4);
-  v6 = ATAudioProcessingNodeInstantiate();
-  objc_msgSend_setProcNodeRef_(self, v7, 0, v8, v9);
-  if (v6)
+  [(TTSWrappedAudioQueue *)self aqRef];
+  v3 = ATAudioProcessingNodeInstantiate();
+  [(TTSWrappedAudioQueue *)self setProcNodeRef:0];
+  if (v3)
   {
-    v10 = AXTTSLogCommon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v4 = AXTTSLogCommon();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_1A95777F4(v6, v10, v11, v12, v13);
+      sub_1A95777F4(v3);
     }
   }
 }
 
 - (void)_tearDownDSPGraphAU
 {
-  if (objc_msgSend_procNodeRef(self, a2, v2, v3, v4))
+  if ([(TTSWrappedAudioQueue *)self procNodeRef])
   {
-    objc_msgSend_procNodeRef(self, v6, v7, v8, v9);
+    [(TTSWrappedAudioQueue *)self procNodeRef];
     ATAudioProcessingNodeDispose();
 
-    objc_msgSend_setProcNodeRef_(self, v10, 0, v11, v12);
+    [(TTSWrappedAudioQueue *)self setProcNodeRef:0];
   }
 }
 
 - (void)setDspGraph:(id)graph
 {
   graphCopy = graph;
-  if ((objc_msgSend_isEqualToString_(self->_dspGraph, v6, graphCopy, v7, v8) & 1) == 0)
+  if (![(NSString *)self->_dspGraph isEqualToString:graphCopy])
   {
     objc_storeStrong(&self->_dspGraph, graph);
     AX_PERFORM_WITH_LOCK();
@@ -1115,7 +1117,7 @@ LABEL_18:
 - (void)setGraphProperties:(id)properties
 {
   propertiesCopy = properties;
-  if ((objc_msgSend_isEqualToDictionary_(self->_graphProperties, v6, propertiesCopy, v7, v8) & 1) == 0)
+  if (![(NSDictionary *)self->_graphProperties isEqualToDictionary:propertiesCopy])
   {
     objc_storeStrong(&self->_graphProperties, properties);
     AX_PERFORM_WITH_LOCK();
@@ -1125,7 +1127,7 @@ LABEL_18:
 - (void)setGraphParameters:(id)parameters
 {
   parametersCopy = parameters;
-  if ((objc_msgSend_isEqualToDictionary_(self->_graphParameters, v6, parametersCopy, v7, v8) & 1) == 0)
+  if (![(NSDictionary *)self->_graphParameters isEqualToDictionary:parametersCopy])
   {
     objc_storeStrong(&self->_graphParameters, parameters);
     AX_PERFORM_WITH_LOCK();
@@ -1134,104 +1136,101 @@ LABEL_18:
 
 - (void)_syncGraphParameters
 {
-  v64 = *MEMORY[0x1E69E9840];
-  if (objc_msgSend_aqRef(self, a2, v2, v3, v4) && objc_msgSend_procNodeRef(self, v6, v7, v8, v9) && objc_msgSend_needsParameterSync(self, v6, v10, v8, v9))
+  v27 = *MEMORY[0x1E69E9840];
+  if ([(TTSWrappedAudioQueue *)self aqRef]&& [(TTSWrappedAudioQueue *)self procNodeRef]&& [(TTSWrappedAudioQueue *)self needsParameterSync])
   {
-    objc_msgSend_setNeedsParameterSync_(self, v6, 0, v8, v9);
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
-    v56 = 0u;
-    v15 = objc_msgSend_graphParameters(self, v11, v12, v13, v14);
-    v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v16, &v55, v63, 16);
-    if (v17)
+    [(TTSWrappedAudioQueue *)self setNeedsParameterSync:0];
+    v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    graphParameters = [(TTSWrappedAudioQueue *)self graphParameters];
+    v4 = [graphParameters countByEnumeratingWithState:&v18 objects:v26 count:16];
+    if (v4)
     {
-      v23 = v17;
-      v24 = *v56;
-      *&v22 = 138412546;
-      v53 = v22;
+      v6 = v4;
+      v7 = *v19;
+      *&v5 = 138412546;
+      v16 = v5;
       do
       {
-        for (i = 0; i != v23; ++i)
+        for (i = 0; i != v6; ++i)
         {
-          if (*v56 != v24)
+          if (*v19 != v7)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(graphParameters);
           }
 
-          v26 = *(*(&v55 + 1) + 8 * i);
-          LODWORD(v54) = 0;
-          objc_msgSend_unsignedIntValue(v26, v18, v19, v20, v21, v53, 0, v54);
-          v31 = objc_msgSend_graphParameters(self, v27, v28, v29, v30);
-          v35 = objc_msgSend_objectForKeyedSubscript_(v31, v32, v26, v33, v34);
-          objc_msgSend_floatValue(v35, v36, v37, v38, v39);
+          v9 = *(*(&v18 + 1) + 8 * i);
+          LODWORD(v17) = 0;
+          [v9 unsignedIntValue];
+          graphParameters2 = [(TTSWrappedAudioQueue *)self graphParameters];
+          v11 = [graphParameters2 objectForKeyedSubscript:v9];
+          [v11 floatValue];
 
-          objc_msgSend_procNodeRef(self, v40, v41, v42, v43);
-          v44 = ATAudioProcessingNodeSetParameter();
-          if (v44)
+          [(TTSWrappedAudioQueue *)self procNodeRef];
+          v12 = ATAudioProcessingNodeSetParameter();
+          if (v12)
           {
-            v45 = v44;
-            v46 = AXTTSLogCommon();
-            if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+            v13 = v12;
+            v14 = AXTTSLogCommon();
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
             {
-              v50 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v47, v45, v48, v49);
-              *buf = v53;
-              v60 = v26;
-              v61 = 2112;
-              v62 = v50;
-              _os_log_error_impl(&dword_1A9324000, v46, OS_LOG_TYPE_ERROR, "TTSAQ: Could not set AUDSPGraph parameter [%@] with error: %@", buf, 0x16u);
+              v15 = [MEMORY[0x1E696AD98] numberWithInt:v13];
+              *buf = v16;
+              v23 = v9;
+              v24 = 2112;
+              v25 = v15;
+              _os_log_error_impl(&dword_1A9324000, v14, OS_LOG_TYPE_ERROR, "TTSAQ: Could not set AUDSPGraph parameter [%@] with error: %@", buf, 0x16u);
             }
           }
         }
 
-        v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v18, &v55, v63, 16);
+        v6 = [graphParameters countByEnumeratingWithState:&v18 objects:v26 count:16];
       }
 
-      while (v23);
+      while (v6);
     }
-
-    v51 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v52 = *MEMORY[0x1E69E9840];
 
-    objc_msgSend_setNeedsParameterSync_(self, v6, 1, v8, v9);
+    [(TTSWrappedAudioQueue *)self setNeedsParameterSync:1];
   }
 }
 
 - (void)_syncGraphProperties
 {
-  v11 = !objc_msgSend_aqRef(self, a2, v2, v3, v4) || !objc_msgSend_procNodeRef(self, v6, v7, v8, v9) || (objc_msgSend_needsPropertySync(self, v6, v10, v8, v9) & 1) == 0;
+  v3 = ![(TTSWrappedAudioQueue *)self aqRef]|| ![(TTSWrappedAudioQueue *)self procNodeRef]|| ![(TTSWrappedAudioQueue *)self needsPropertySync];
 
-  objc_msgSend_setNeedsPropertySync_(self, v6, v11, v8, v9);
+  [(TTSWrappedAudioQueue *)self setNeedsPropertySync:v3];
 }
 
 - (void)_configureEffects
 {
-  objc_msgSend__tearDownDSPGraphAU(self, a2, v2, v3, v4);
-  v10 = objc_msgSend_dspGraph(self, v6, v7, v8, v9);
+  [(TTSWrappedAudioQueue *)self _tearDownDSPGraphAU];
+  dspGraph = [(TTSWrappedAudioQueue *)self dspGraph];
 
-  if (v10)
+  if (dspGraph)
   {
-    if (!objc_msgSend_procNodeRef(self, v11, v12, v13, v14))
+    if (![(TTSWrappedAudioQueue *)self procNodeRef])
     {
-      objc_msgSend__initializeDSPGraphAU(self, v15, v16, v17, v18);
+      [(TTSWrappedAudioQueue *)self _initializeDSPGraphAU];
     }
 
-    objc_msgSend_dspGraph(self, v15, v16, v17, v18);
+    [(TTSWrappedAudioQueue *)self dspGraph];
 
-    objc_msgSend_procNodeRef(self, v19, v20, v21, v22);
-    v23 = ATAudioProcessingNodeSetProperty();
-    objc_msgSend_setNeedsPropertySync_(self, v24, 1, v25, v26);
-    objc_msgSend_setNeedsParameterSync_(self, v27, 1, v28, v29);
-    if (v23)
+    [(TTSWrappedAudioQueue *)self procNodeRef];
+    v4 = ATAudioProcessingNodeSetProperty();
+    [(TTSWrappedAudioQueue *)self setNeedsPropertySync:1];
+    [(TTSWrappedAudioQueue *)self setNeedsParameterSync:1];
+    if (v4)
     {
-      v30 = AXTTSLogCommon();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v5 = AXTTSLogCommon();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        sub_1A9577888(v23, v30, v31, v32, v33);
+        sub_1A9577888(v4);
       }
     }
   }

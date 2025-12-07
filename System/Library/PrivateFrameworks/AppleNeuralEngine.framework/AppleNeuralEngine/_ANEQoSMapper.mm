@@ -9,80 +9,62 @@
 
 + (unint64_t)queueIndexForQoS:(unsigned int)s
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if ([self aneRealTimeTaskQoS] == s)
   {
-    result = 2;
+    return 2;
   }
 
-  else
+  HIDWORD(v7) = s - 9;
+  LODWORD(v7) = s - 9;
+  v6 = v7 >> 2;
+  if (v6 < 7 && ((0x5Du >> v6) & 1) != 0)
   {
-    HIDWORD(v7) = s - 9;
-    LODWORD(v7) = s - 9;
-    v6 = v7 >> 2;
-    if (v6 < 7 && ((0x5Du >> v6) & 1) != 0)
-    {
-      result = qword_1AD28F120[v6];
-    }
-
-    else
-    {
-      v8 = +[_ANELog daemon];
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
-      {
-        v9 = NSStringFromSelector(a2);
-        v11 = 138412546;
-        v12 = v9;
-        v13 = 1024;
-        sCopy = s;
-        _os_log_impl(&dword_1AD246000, v8, OS_LOG_TYPE_INFO, "%@: %d => Invalid qos requested", &v11, 0x12u);
-      }
-
-      result = 5;
-    }
+    return qword_1AD28F120[v6];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  v8 = +[_ANELog daemon];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  {
+    v9 = NSStringFromSelector(a2);
+    v10 = 138412546;
+    v11 = v9;
+    v12 = 1024;
+    sCopy = s;
+    _os_log_impl(&dword_1AD246000, v8, OS_LOG_TYPE_INFO, "%@: %d => Invalid qos requested", &v10, 0x12u);
+  }
+
+  return 5;
 }
 
 + (int)programPriorityForQoS:(unsigned int)s
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if ([self aneRealTimeTaskQoS] == s)
   {
-    result = 2;
+    return 2;
   }
 
-  else
+  HIDWORD(v7) = s - 9;
+  LODWORD(v7) = s - 9;
+  v6 = v7 >> 2;
+  if (v6 < 7 && ((0x5Du >> v6) & 1) != 0)
   {
-    HIDWORD(v7) = s - 9;
-    LODWORD(v7) = s - 9;
-    v6 = v7 >> 2;
-    if (v6 < 7 && ((0x5Du >> v6) & 1) != 0)
-    {
-      result = dword_1AD28F158[v6];
-    }
-
-    else
-    {
-      v8 = +[_ANELog daemon];
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
-      {
-        v9 = NSStringFromSelector(a2);
-        v11 = 138412546;
-        v12 = v9;
-        v13 = 1024;
-        sCopy = s;
-        _os_log_impl(&dword_1AD246000, v8, OS_LOG_TYPE_INFO, "%@: %d => Invalid qos requested", &v11, 0x12u);
-      }
-
-      result = 5;
-    }
+    return dword_1AD28F158[v6];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  v8 = +[_ANELog daemon];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  {
+    v9 = NSStringFromSelector(a2);
+    v10 = 138412546;
+    v11 = v9;
+    v12 = 1024;
+    sCopy = s;
+    _os_log_impl(&dword_1AD246000, v8, OS_LOG_TYPE_INFO, "%@: %d => Invalid qos requested", &v10, 0x12u);
+  }
+
+  return 5;
 }
 
 + (unsigned)qosForProgramPriority:(int)priority

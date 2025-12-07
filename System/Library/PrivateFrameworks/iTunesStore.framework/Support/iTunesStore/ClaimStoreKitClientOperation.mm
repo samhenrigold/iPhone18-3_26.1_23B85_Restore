@@ -88,11 +88,11 @@ LABEL_36:
 
     v10 = [NSNumber alloc];
     applicationDSID = [v7 applicationDSID];
-    v38 = [v10 initWithLongLong:{objc_msgSend(applicationDSID, "longLongValue")}];
+    v37 = [v10 initWithLongLong:{objc_msgSend(applicationDSID, "longLongValue")}];
 
     itemID = [v7 itemID];
     externalVersionIdentifier = [v7 externalVersionIdentifier];
-    v37 = v7;
+    v36 = v7;
     if (!itemID || !externalVersionIdentifier)
     {
       goto LABEL_19;
@@ -100,7 +100,7 @@ LABEL_36:
 
     accountIdentifier = [(StoreKitClientIdentity *)self->_clientIdentity accountIdentifier];
     v14 = accountIdentifier;
-    if (accountIdentifier == v38)
+    if (accountIdentifier == v37)
     {
     }
 
@@ -108,12 +108,12 @@ LABEL_36:
     {
       accountIdentifier2 = [(StoreKitClientIdentity *)self->_clientIdentity accountIdentifier];
       v16 = accountIdentifier2;
-      if (!accountIdentifier2 || !v38)
+      if (!accountIdentifier2 || !v37)
       {
 
 LABEL_19:
         +[SSLogConfig sharedDaemonConfig];
-        v19 = v7 = v37;
+        v19 = v7 = v36;
         if (!v19)
         {
           v19 = +[SSLogConfig sharedConfig];
@@ -138,18 +138,16 @@ LABEL_19:
 
         if (v22)
         {
-          *v43 = 138412546;
-          *&v43[4] = objc_opt_class();
-          *&v43[12] = 2112;
-          *&v43[14] = bundleIdentifier;
-          v23 = *&v43[4];
-          LODWORD(v36) = 22;
-          v35 = v43;
-          v24 = _os_log_send_and_compose_impl();
+          *v42 = 138412546;
+          *&v42[4] = objc_opt_class();
+          *&v42[12] = 2112;
+          *&v42[14] = bundleIdentifier;
+          v23 = *&v42[4];
+          v24 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Attemping claim before in-app activity: %@", v42, 22);
 
           if (v24)
           {
-            v25 = [NSString stringWithCString:v24 encoding:4, v43, v36];
+            v25 = [NSString stringWithCString:v24 encoding:4];
             free(v24);
             v35 = v25;
             SSFileLog();
@@ -160,27 +158,27 @@ LABEL_19:
         {
         }
 
-        *v43 = 0;
-        *&v43[8] = v43;
-        *&v43[16] = 0x3032000000;
-        v44 = sub_1001FA994;
-        v45 = sub_1001FA9A4;
-        v46 = 0;
+        *v42 = 0;
+        *&v42[8] = v42;
+        *&v42[16] = 0x3032000000;
+        v43 = sub_1001FA994;
+        v44 = sub_1001FA9A4;
+        v45 = 0;
         v26 = dispatch_semaphore_create(0);
         clientAuditTokenData = [(ClaimStoreKitClientOperation *)self clientAuditTokenData];
-        v40[0] = _NSConcreteStackBlock;
-        v40[1] = 3221225472;
-        v40[2] = sub_1001FA9AC;
-        v40[3] = &unk_10032C2E8;
-        v42 = v43;
+        v39[0] = _NSConcreteStackBlock;
+        v39[1] = 3221225472;
+        v39[2] = sub_1001FA9AC;
+        v39[3] = &unk_10032C2E8;
+        v41 = v42;
         v28 = v26;
-        v41 = v28;
-        [AppStoreUtility checkFirstPartyClaimsWithAuditTokenData:clientAuditTokenData completionBlock:v40];
+        v40 = v28;
+        [AppStoreUtility checkFirstPartyClaimsWithAuditTokenData:clientAuditTokenData completionBlock:v39];
 
         dispatch_semaphore_wait(v28, 0xFFFFFFFFFFFFFFFFLL);
-        if ([*(*&v43[8] + 40) count])
+        if ([*(*&v42[8] + 40) count])
         {
-          firstObject = [*(*&v43[8] + 40) firstObject];
+          firstObject = [*(*&v42[8] + 40) firstObject];
           v30 = [LSApplicationProxy applicationProxyForIdentifier:firstObject];
           if (v30)
           {
@@ -196,15 +194,15 @@ LABEL_19:
             [(ClaimStoreKitClientOperation *)self unlock];
           }
 
-          v7 = v37;
+          v7 = v36;
         }
 
-        _Block_object_dispose(v43, 8);
+        _Block_object_dispose(v42, 8);
         goto LABEL_35;
       }
 
       accountIdentifier3 = [(StoreKitClientIdentity *)self->_clientIdentity accountIdentifier];
-      v18 = [accountIdentifier3 isEqualToNumber:v38];
+      v18 = [accountIdentifier3 isEqualToNumber:v37];
 
       if (!v18)
       {
@@ -216,7 +214,7 @@ LABEL_19:
     [(StoreKitClientIdentity *)self->_clientIdentity setStoreIdentifier:itemID];
     [(StoreKitClientIdentity *)self->_clientIdentity setStoreVersion:externalVersionIdentifier];
     [(ClaimStoreKitClientOperation *)self unlock];
-    v7 = v37;
+    v7 = v36;
 LABEL_35:
 
     goto LABEL_36;

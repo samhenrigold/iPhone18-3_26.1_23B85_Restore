@@ -63,22 +63,20 @@ LABEL_5:
   v3 = [(NSArray *)self->super._initialPhaseFiles count];
   v4 = [(NSArray *)self->super._captureFiles count]+ v3;
   v5 = v4 + [(NSArray *)self->super._deltaFiles count];
-  cache = self->_cache;
-  if (v5 > (cache[2] - *cache) >> 3)
+  if (v5 > (*(self->_cache + 2) - *self->_cache) >> 3)
   {
     if (!(v5 >> 61))
     {
-      v7 = cache[1] - *cache;
       operator new();
     }
 
     std::vector<unsigned int>::__throw_length_error[abi:ne200100]();
   }
 
-  v8 = self->_cache;
-  v9 = *v8;
-  v8[3] = *v8;
-  v8[4] = v9;
+  cache = self->_cache;
+  v7 = *cache;
+  cache[3] = *cache;
+  cache[4] = v7;
 }
 
 @end

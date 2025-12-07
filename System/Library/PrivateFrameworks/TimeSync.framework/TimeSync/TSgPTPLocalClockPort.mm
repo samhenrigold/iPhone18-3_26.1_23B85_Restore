@@ -35,442 +35,338 @@ LABEL_4:
 {
   infoCopy = info;
   indentCopy = indent;
-  v44.receiver = self;
-  v44.super_class = &OBJC_METACLASS___TSgPTPLocalClockPort;
-  v8 = objc_msgSendSuper2(&v44, sel_diagnosticDescriptionForInfo_withIndent_, infoCopy, indentCopy);
-  [v8 appendFormat:@"%@    Announce Clock Priority 1: ", indentCopy];
-  v9 = [infoCopy objectForKeyedSubscript:@"ClockPriority1"];
+  v38.receiver = self;
+  v38.super_class = &OBJC_METACLASS___TSgPTPLocalClockPort;
+  v8 = objc_msgSendSuper2(&v38, sel_diagnosticDescriptionForInfo_withIndent_, infoCopy, indentCopy);
+  [v8 appendFormat:indentCopy];
+  v9 = [infoCopy objectForKeyedSubscript:?];
   v10 = v9;
   if (v9)
   {
-    [v8 appendFormat:@"%hhu\n", objc_msgSend(v9, "unsignedCharValue")];
+    [v8 appendFormat:objc_msgSend(v9, "unsignedCharValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Announce Clock Class: ", indentCopy];
-  v11 = [infoCopy objectForKeyedSubscript:@"ClockClass"];
+  [v8 appendFormat:indentCopy];
+  v11 = [infoCopy objectForKeyedSubscript:?];
 
   if (v11)
   {
-    [v8 appendFormat:@"%hhu\n", objc_msgSend(v11, "unsignedCharValue")];
+    [v8 appendFormat:objc_msgSend(v11, "unsignedCharValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Announce Clock Accuracy: ", indentCopy];
-  v12 = [infoCopy objectForKeyedSubscript:@"ClockAccuracy"];
+  [v8 appendFormat:indentCopy];
+  v12 = [infoCopy objectForKeyedSubscript:?];
 
   if (v12)
   {
-    [v8 appendFormat:@"%hhu\n", objc_msgSend(v12, "unsignedCharValue")];
+    [v8 appendFormat:objc_msgSend(v12, "unsignedCharValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Announce Offset Scaled Log Variance: ", indentCopy];
-  v13 = [infoCopy objectForKeyedSubscript:@"OffsetScaledLogVariance"];
+  [v8 appendFormat:indentCopy];
+  v13 = [infoCopy objectForKeyedSubscript:?];
 
   if (v13)
   {
-    [v8 appendFormat:@"%hu\n", objc_msgSend(v13, "unsignedShortValue")];
+    [v8 appendFormat:objc_msgSend(v13, "unsignedShortValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Announce Clock Priority 2: ", indentCopy];
-  v14 = [infoCopy objectForKeyedSubscript:@"ClockPriority2"];
+  [v8 appendFormat:indentCopy];
+  v14 = [infoCopy objectForKeyedSubscript:?];
 
   if (v14)
   {
-    [v8 appendFormat:@"%hhu\n", objc_msgSend(v14, "unsignedCharValue")];
+    [v8 appendFormat:objc_msgSend(v14, "unsignedCharValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Announce Grandmaster Identity: ", indentCopy];
-  v15 = [infoCopy objectForKeyedSubscript:@"GrandmasterID"];
+  [v8 appendFormat:indentCopy];
+  v15 = [infoCopy objectForKeyedSubscript:?];
 
   if (v15)
   {
-    [v8 appendFormat:@"%016llx\n", objc_msgSend(v15, "unsignedLongLongValue")];
+    [v8 appendFormat:objc_msgSend(v15, "unsignedLongLongValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Announce Steps Removed: ", indentCopy];
-  v16 = [infoCopy objectForKeyedSubscript:@"StepsRemoved"];
+  [v8 appendFormat:indentCopy];
+  v16 = [infoCopy objectForKeyedSubscript:?];
 
   if (v16)
   {
-    [v8 appendFormat:@"%hu\n", objc_msgSend(v16, "unsignedShortValue")];
+    [v8 appendFormat:objc_msgSend(v16, "unsignedShortValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Announce Time Source: ", indentCopy];
-  v17 = [infoCopy objectForKeyedSubscript:@"TimeSource"];
+  [v8 appendFormat:indentCopy];
+  v17 = [infoCopy objectForKeyedSubscript:?];
 
   if (v17)
   {
-    [v8 appendFormat:@"%hhu\n", objc_msgSend(v17, "unsignedCharValue")];
+    [v8 appendFormat:objc_msgSend(v17, "unsignedCharValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Received Clock Priority 1: ", indentCopy];
-  v18 = [infoCopy objectForKeyedSubscript:@"ReceivedClockPriority1"];
+  [v8 appendFormat:indentCopy];
+  v18 = [infoCopy objectForKeyedSubscript:?];
 
   if (v18)
   {
-    [v8 appendFormat:@"%hhu\n", objc_msgSend(v18, "unsignedCharValue")];
+    [v8 appendFormat:objc_msgSend(v18, "unsignedCharValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Received Clock Class: ", indentCopy];
-  v19 = [infoCopy objectForKeyedSubscript:@"ReceivedClockClass"];
+  [v8 appendFormat:indentCopy];
+  v19 = [infoCopy objectForKeyedSubscript:?];
 
   if (v19)
   {
-    [v8 appendFormat:@"%hhu\n", objc_msgSend(v19, "unsignedCharValue")];
+    [v8 appendFormat:objc_msgSend(v19, "unsignedCharValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Received Clock Accuracy: ", indentCopy];
-  v20 = [infoCopy objectForKeyedSubscript:@"ReceivedClockAccuracy"];
+  [v8 appendFormat:indentCopy];
+  v20 = [infoCopy objectForKeyedSubscript:?];
 
   if (v20)
   {
-    [v8 appendFormat:@"%hhu\n", objc_msgSend(v20, "unsignedCharValue")];
+    [v8 appendFormat:objc_msgSend(v20, "unsignedCharValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Received Offset Scaled Log Variance: ", indentCopy];
-  v21 = [infoCopy objectForKeyedSubscript:@"ReceivedOffsetScaledLogVariance"];
+  [v8 appendFormat:indentCopy];
+  v21 = [infoCopy objectForKeyedSubscript:?];
 
   if (v21)
   {
-    [v8 appendFormat:@"%hu\n", objc_msgSend(v21, "unsignedShortValue")];
+    [v8 appendFormat:objc_msgSend(v21, "unsignedShortValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Received Clock Priority 2: ", indentCopy];
-  v22 = [infoCopy objectForKeyedSubscript:@"ReceivedClockPriority2"];
+  [v8 appendFormat:indentCopy];
+  v22 = [infoCopy objectForKeyedSubscript:?];
 
   if (v22)
   {
-    [v8 appendFormat:@"%hhu\n", objc_msgSend(v22, "unsignedCharValue")];
+    [v8 appendFormat:objc_msgSend(v22, "unsignedCharValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Received Grandmaster Identity: ", indentCopy];
-  v23 = [infoCopy objectForKeyedSubscript:@"ReceivedGrandmasterID"];
+  [v8 appendFormat:indentCopy];
+  v23 = [infoCopy objectForKeyedSubscript:?];
 
   if (v23)
   {
-    [v8 appendFormat:@"%016llx\n", objc_msgSend(v23, "unsignedLongLongValue")];
+    [v8 appendFormat:objc_msgSend(v23, "unsignedLongLongValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Received Steps Removed: ", indentCopy];
-  v24 = [infoCopy objectForKeyedSubscript:@"ReceivedStepsRemoved"];
+  [v8 appendFormat:indentCopy];
+  v24 = [infoCopy objectForKeyedSubscript:?];
 
   if (v24)
   {
-    [v8 appendFormat:@"%hu\n", objc_msgSend(v24, "unsignedShortValue")];
+    [v8 appendFormat:objc_msgSend(v24, "unsignedShortValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Received Time Source: ", indentCopy];
-  v25 = [infoCopy objectForKeyedSubscript:@"ReceivedTimeSource"];
+  [v8 appendFormat:indentCopy];
+  v25 = [infoCopy objectForKeyedSubscript:?];
 
   if (v25)
   {
-    [v8 appendFormat:@"%hhu\n", objc_msgSend(v25, "unsignedCharValue")];
+    [v8 appendFormat:objc_msgSend(v25, "unsignedCharValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Battery Powered: ", indentCopy];
-  v26 = [infoCopy objectForKeyedSubscript:@"BatteryPowered"];
+  [v8 appendFormat:indentCopy];
+  v26 = [infoCopy objectForKeyedSubscript:?];
 
   if (v26)
   {
-    if ([v26 BOOLValue])
-    {
-      v27 = @"YES\n";
-    }
-
-    else
-    {
-      v27 = @"NO\n";
-    }
-
-    [v8 appendString:v27];
+    [v26 BOOLValue];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    External Power Connected: ", indentCopy];
-  v28 = [infoCopy objectForKeyedSubscript:@"ExternalPowerConnected"];
+  [v8 appendFormat:indentCopy];
+  v27 = [infoCopy objectForKeyedSubscript:?];
+
+  if (v27)
+  {
+    [v27 BOOLValue];
+    [v8 appendString:?];
+  }
+
+  [v8 appendFormat:indentCopy];
+  v28 = [infoCopy objectForKeyedSubscript:?];
 
   if (v28)
   {
-    if ([v28 BOOLValue])
-    {
-      v29 = @"YES\n";
-    }
-
-    else
-    {
-      v29 = @"NO\n";
-    }
-
-    [v8 appendString:v29];
+    [v28 BOOLValue];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Has Wired Ethernet Link Active: ", indentCopy];
-  v30 = [infoCopy objectForKeyedSubscript:@"HasWiredEthernetLinkActive"];
+  [v8 appendFormat:indentCopy];
+  v29 = [infoCopy objectForKeyedSubscript:?];
+
+  if (v29)
+  {
+    [v29 BOOLValue];
+    [v8 appendString:?];
+  }
+
+  [v8 appendFormat:indentCopy];
+  v30 = [infoCopy objectForKeyedSubscript:?];
 
   if (v30)
   {
-    if ([v30 BOOLValue])
-    {
-      v31 = @"YES\n";
-    }
-
-    else
-    {
-      v31 = @"NO\n";
-    }
-
-    [v8 appendString:v31];
+    [v30 BOOLValue];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Has Ethernet Hardware Timestamping: ", indentCopy];
-  v32 = [infoCopy objectForKeyedSubscript:@"HasEthernetHardwareTimestamping"];
+  [v8 appendFormat:indentCopy];
+  v31 = [infoCopy objectForKeyedSubscript:?];
 
-  if (v32)
+  if (!v31)
   {
-    if ([v32 BOOLValue])
-    {
-      v33 = @"YES\n";
-    }
-
-    else
-    {
-      v33 = @"NO\n";
-    }
-
-    [v8 appendString:v33];
+    goto LABEL_62;
   }
 
-  [v8 appendFormat:@"%@    Has WiFi Hardware Timestamping: ", indentCopy];
-  v34 = [infoCopy objectForKeyedSubscript:@"HasWiFiHardwareTimestamping"];
+  unsignedCharValue = [v31 unsignedCharValue];
+  if (unsignedCharValue > 4)
+  {
+    if (unsignedCharValue <= 9)
+    {
+      goto LABEL_62;
+    }
+  }
+
+  else if (unsignedCharValue >= 0)
+  {
+LABEL_62:
+    [v8 appendString:?];
+    goto LABEL_63;
+  }
+
+  [v8 appendFormat:objc_msgSend(v31, "unsignedCharValue")];
+LABEL_63:
+  [v8 appendFormat:indentCopy];
+  v33 = [infoCopy objectForKeyedSubscript:?];
+
+  if (v33)
+  {
+    [v8 appendFormat:objc_msgSend(v33, "intValue")];
+  }
+
+  else
+  {
+    [v8 appendString:?];
+  }
+
+  [v8 appendFormat:indentCopy];
+  v34 = [infoCopy objectForKeyedSubscript:?];
 
   if (v34)
   {
-    if ([v34 BOOLValue])
-    {
-      v35 = @"YES\n";
-    }
-
-    else
-    {
-      v35 = @"NO\n";
-    }
-
-    [v8 appendString:v35];
-  }
-
-  [v8 appendFormat:@"%@    Local Oscillator Type: ", indentCopy];
-  v36 = [infoCopy objectForKeyedSubscript:@"LocalOscillatorType"];
-
-  if (!v36)
-  {
-    v38 = @"Could not read property\n";
-    goto LABEL_81;
-  }
-
-  unsignedCharValue = [v36 unsignedCharValue];
-  if (unsignedCharValue > 4)
-  {
-    if (unsignedCharValue <= 6)
-    {
-      if (unsignedCharValue == 5)
-      {
-        v38 = @"VCYCXO\n";
-      }
-
-      else
-      {
-        v38 = @"OCXO\n";
-      }
-
-      goto LABEL_81;
-    }
-
-    if (unsignedCharValue == 7)
-    {
-      v38 = @"DOCXO\n";
-      goto LABEL_81;
-    }
-
-    if (unsignedCharValue == 8)
-    {
-      v38 = @"VCOCXO\n";
-      goto LABEL_81;
-    }
-
-    if (unsignedCharValue != 9)
-    {
-      goto LABEL_113;
-    }
-
-    v38 = @"VCDOCXO\n";
-LABEL_81:
-    [v8 appendString:v38];
-    goto LABEL_82;
-  }
-
-  if (unsignedCharValue > 1)
-  {
-    if (unsignedCharValue == 2)
-    {
-      v38 = @"MEMS\n";
-    }
-
-    else if (unsignedCharValue == 3)
-    {
-      v38 = @"TCXO\n";
-    }
-
-    else
-    {
-      v38 = @"VCO\n";
-    }
-
-    goto LABEL_81;
-  }
-
-  if (!unsignedCharValue)
-  {
-    v38 = @"Unknown\n";
-    goto LABEL_81;
-  }
-
-  if (unsignedCharValue == 1)
-  {
-    v38 = @"Crystal\n";
-    goto LABEL_81;
-  }
-
-LABEL_113:
-  [v8 appendFormat:@"Undefined oscillator type %hhu\n", objc_msgSend(v36, "unsignedCharValue")];
-LABEL_82:
-  [v8 appendFormat:@"%@    Local Frequency Tolerance Lower: ", indentCopy];
-  v39 = [infoCopy objectForKeyedSubscript:@"LocalFrequencyToleranceLower"];
-
-  if (v39)
-  {
-    [v8 appendFormat:@"%d ppb\n", objc_msgSend(v39, "intValue")];
+    [v8 appendFormat:objc_msgSend(v34, "intValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Local Frequency Tolerance Upper: ", indentCopy];
-  v40 = [infoCopy objectForKeyedSubscript:@"LocalFrequencyToleranceUpper"];
+  [v8 appendFormat:indentCopy];
+  v35 = [infoCopy objectForKeyedSubscript:?];
 
-  if (v40)
+  if (v35)
   {
-    [v8 appendFormat:@"%d ppb\n", objc_msgSend(v40, "intValue")];
-  }
-
-  else
-  {
-    [v8 appendString:@"Could not read property\n"];
-  }
-
-  [v8 appendFormat:@"%@    Local Frequency Stability Lower: ", indentCopy];
-  v41 = [infoCopy objectForKeyedSubscript:@"LocalFrequencyStabilityLower"];
-
-  if (v41)
-  {
-    [v8 appendFormat:@"%d ppb\n", objc_msgSend(v41, "intValue")];
+    [v8 appendFormat:objc_msgSend(v35, "intValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
-  [v8 appendFormat:@"%@    Local Frequency Stability Upper: ", indentCopy];
-  v42 = [infoCopy objectForKeyedSubscript:@"LocalFrequencyStabilityUpper"];
+  [v8 appendFormat:indentCopy];
+  v36 = [infoCopy objectForKeyedSubscript:?];
 
-  if (v42)
+  if (v36)
   {
-    [v8 appendFormat:@"%d ppb\n", objc_msgSend(v42, "intValue")];
+    [v8 appendFormat:objc_msgSend(v36, "intValue")];
   }
 
   else
   {
-    [v8 appendString:@"Could not read property\n"];
+    [v8 appendString:?];
   }
 
   return v8;
@@ -479,16 +375,15 @@ LABEL_82:
 - (void)initWithImplDC:.cold.1()
 {
   OUTLINED_FUNCTION_2_0();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

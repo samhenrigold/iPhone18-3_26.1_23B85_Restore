@@ -22,7 +22,7 @@
   if (configuration)
   {
     v6 = configuration;
-    [configuration frameAnalysisSpacing];
+    objc_msgSend_frameAnalysisSpacing(configuration);
     configuration = v6;
   }
 
@@ -56,7 +56,7 @@
 - (id)description
 {
   v3 = *MEMORY[0x1E695E480];
-  [(VNStatefulRequest *)self frameAnalysisSpacing];
+  objc_msgSend_frameAnalysisSpacing(self, a2);
   v4 = CMTimeCopyDescription(v3, &time);
   v5 = objc_alloc(MEMORY[0x1E696AEC0]);
   v9.receiver = self;
@@ -70,7 +70,7 @@
 - (id)newDuplicateInstance
 {
   v3 = objc_alloc(objc_opt_class());
-  [(VNStatefulRequest *)self frameAnalysisSpacing];
+  objc_msgSend_frameAnalysisSpacing(self);
   completionHandler = [(VNRequest *)self completionHandler];
   v5 = [v3 initWithFrameAnalysisSpacing:v7 completionHandler:completionHandler];
 

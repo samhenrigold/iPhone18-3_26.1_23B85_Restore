@@ -12,7 +12,7 @@
   v19 = 0u;
   if (intersticeCopy)
   {
-    [intersticeCopy timeRange];
+    objc_msgSend_timeRange(intersticeCopy);
   }
 
   playerInterstitialEvent = [v6 playerInterstitialEvent];
@@ -23,7 +23,7 @@
     v9 = playerInterstitialEvent2;
     if (playerInterstitialEvent2)
     {
-      [playerInterstitialEvent2 plannedDuration];
+      objc_msgSend_plannedDuration(playerInterstitialEvent2);
     }
 
     else

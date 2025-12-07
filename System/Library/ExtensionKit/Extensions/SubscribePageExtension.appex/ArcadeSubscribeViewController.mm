@@ -152,13 +152,13 @@
 
   else
   {
-    memset(v6, 0, sizeof(v6));
+    memset(v7, 0, sizeof(v7));
     selfCopy2 = self;
   }
 
-  sub_1003BF23C();
+  sub_1003BF23C(v5);
 
-  sub_10000C8CC(v6, &unk_100923520);
+  sub_10000C8CC(v7, &unk_100923520, &qword_1007A5A70);
 }
 
 - (_TtC22SubscribePageExtension29ArcadeSubscribeViewController)initWithNibName:(id)name bundle:(id)bundle

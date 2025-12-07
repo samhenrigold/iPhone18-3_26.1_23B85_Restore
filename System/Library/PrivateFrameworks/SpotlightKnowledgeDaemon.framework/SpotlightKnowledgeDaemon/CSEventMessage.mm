@@ -77,7 +77,7 @@
 
 - (id)description
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   bzero(__str, 0x400uLL);
   v3 = snprintf(__str, 0x400uLL, "<CSEventMessage: %p;", self);
   v4 = &__str[v3 + snprintf(&__str[v3], 1024 - v3, " msg: %llu", self->_msg_id)];
@@ -92,50 +92,49 @@
     v6 = self->_event;
   }
 
-  v7 = &v4[snprintf(v4, &v17 - v4, " evt: %s (%d)", si_journal_event_name_s_journal_event_names[v6], event)];
+  v7 = &v4[snprintf(v4, &v16 - v4, " evt: %s (%d)", si_journal_event_name_s_journal_event_names[v6], event)];
   CSIndexTypeShortNameCString = getCSIndexTypeShortNameCString(self->_indexType);
-  v9 = &v7[snprintf(v7, &v17 - v7, " type: %s", CSIndexTypeShortNameCString)];
-  v10 = &v9[snprintf(v9, &v17 - v9, " managed: %d", self->_isManaged)];
+  v9 = &v7[snprintf(v7, &v16 - v7, " type: %s", CSIndexTypeShortNameCString)];
+  v10 = &v9[snprintf(v9, &v16 - v9, " managed: %d", self->_isManaged)];
   journalName = self->_journalName;
   if (journalName && *journalName)
   {
-    v10 += snprintf(v10, &v17 - v10, " name: %s", self->_journalName);
+    v10 += snprintf(v10, &v16 - v10, " name: %s", self->_journalName);
   }
 
   journalCookie = self->_journalCookie;
   if (journalCookie && *journalCookie)
   {
-    v10 += snprintf(v10, &v17 - v10, " cookie: %s", self->_journalCookie);
+    v10 += snprintf(v10, &v16 - v10, " cookie: %s", self->_journalCookie);
   }
 
   if (self->_journalNumber)
   {
-    v10 += snprintf(v10, &v17 - v10, " num: %llu", self->_journalNumber);
+    v10 += snprintf(v10, &v16 - v10, " num: %llu", self->_journalNumber);
   }
 
   if (self->_dev)
   {
-    v10 += snprintf(v10, &v17 - v10, " dev: %u", self->_dev);
+    v10 += snprintf(v10, &v16 - v10, " dev: %u", self->_dev);
   }
 
   if (self->_journalIno)
   {
-    v10 += snprintf(v10, &v17 - v10, " jino: %llu", self->_journalIno);
+    v10 += snprintf(v10, &v16 - v10, " jino: %llu", self->_journalIno);
   }
 
   if (self->_tocIno)
   {
-    v10 += snprintf(v10, &v17 - v10, " tino: %llu", self->_tocIno);
+    v10 += snprintf(v10, &v16 - v10, " tino: %llu", self->_tocIno);
   }
 
   if (self->_toc_size)
   {
-    v10 += snprintf(v10, &v17 - v10, " tocsz: %llu", self->_toc_size);
+    v10 += snprintf(v10, &v16 - v10, " tocsz: %llu", self->_toc_size);
   }
 
-  snprintf(v10, &v17 - v10, ">");
+  snprintf(v10, &v16 - v10, ">");
   v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:__str];
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

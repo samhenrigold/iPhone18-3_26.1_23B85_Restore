@@ -46,7 +46,7 @@
 
 - (void)_doResponseWithBlock:(id)block
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v5 = +[DADAgentManager sharedManager];
   accountID = [(DADREMXPCPerformerDelegate *)self accountID];
@@ -65,21 +65,19 @@
     if (os_log_type_enabled(v9, v10))
     {
       accountID2 = [(DADREMXPCPerformerDelegate *)self accountID];
-      v13 = 138412290;
-      v14 = accountID2;
-      _os_log_impl(&dword_2424DF000, v9, v10, "DADREMShareResponseDelegate: Could not get an account with the ID %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = accountID2;
+      _os_log_impl(&dword_2424DF000, v9, v10, "DADREMShareResponseDelegate: Could not get an account with the ID %@", &v12, 0xCu);
     }
 
     v8 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CF3AB0] code:55 userInfo:0];
     [(DADREMShareResponseDelegate *)self finishWithError:v8];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishWithError:(id)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if ([(DADREMXPCPerformerDelegate *)self finished])
   {
@@ -92,9 +90,9 @@
   v7 = *(MEMORY[0x277CF3AF0] + 5);
   if (os_log_type_enabled(v5, v7))
   {
-    v19 = 138412290;
-    v20 = errorCopy;
-    _os_log_impl(&dword_2424DF000, v5, v7, "DADREMShareResponseDelegate finished with optional error %@", &v19, 0xCu);
+    v18 = 138412290;
+    v19 = errorCopy;
+    _os_log_impl(&dword_2424DF000, v5, v7, "DADREMShareResponseDelegate finished with optional error %@", &v18, 0xCu);
   }
 
   shareID = [(DADREMShareResponseDelegate *)self shareID];
@@ -130,9 +128,9 @@ LABEL_11:
         if (os_log_type_enabled(domain, v14))
         {
           accountID2 = [(DADREMXPCPerformerDelegate *)self accountID];
-          v19 = 138412290;
-          v20 = accountID2;
-          _os_log_impl(&dword_2424DF000, domain, v14, "DADREMShareResponseDelegate finished, but could not find an account with the ID %@", &v19, 0xCu);
+          v18 = 138412290;
+          v19 = accountID2;
+          _os_log_impl(&dword_2424DF000, domain, v14, "DADREMShareResponseDelegate finished, but could not find an account with the ID %@", &v18, 0xCu);
         }
       }
 
@@ -149,7 +147,6 @@ LABEL_12:
   }
 
 LABEL_15:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

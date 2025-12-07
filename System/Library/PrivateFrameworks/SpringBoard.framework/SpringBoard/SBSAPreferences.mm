@@ -335,42 +335,42 @@ uint64_t __27__SBSAPreferences_isEqual___block_invoke_5(uint64_t a1)
   return v2;
 }
 
-BOOL __27__SBSAPreferences_isEqual___block_invoke_6(uint64_t a1)
+BOOL __27__SBSAPreferences_isEqual___block_invoke_6(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 curtainRenderingConfiguration];
+    objc_msgSend_curtainRenderingConfiguration(v3, a2);
   }
 
   else
   {
-    memset(v7, 0, sizeof(v7));
+    memset(v8, 0, sizeof(v8));
   }
 
-  v3 = *(a1 + 40);
-  v5 = *(v3 + 144);
-  v6 = *(v3 + 160);
-  return SBSystemApertureContainerRenderingConfigurationEqualToConfiguration(v7, &v5);
+  v4 = *(a1 + 40);
+  v6 = *(v4 + 144);
+  v7 = *(v4 + 160);
+  return SBSystemApertureContainerRenderingConfigurationEqualToConfiguration(v8, &v6);
 }
 
-BOOL __27__SBSAPreferences_isEqual___block_invoke_7(uint64_t a1)
+BOOL __27__SBSAPreferences_isEqual___block_invoke_7(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 highLevelCurtainRenderingConfiguration];
+    objc_msgSend_highLevelCurtainRenderingConfiguration(v3, a2);
   }
 
   else
   {
-    memset(v7, 0, sizeof(v7));
+    memset(v8, 0, sizeof(v8));
   }
 
-  v3 = *(a1 + 40);
-  v5 = *(v3 + 168);
-  v6 = *(v3 + 184);
-  return SBSystemApertureContainerRenderingConfigurationEqualToConfiguration(v7, &v5);
+  v4 = *(a1 + 40);
+  v6 = *(v4 + 168);
+  v7 = *(v4 + 184);
+  return SBSystemApertureContainerRenderingConfigurationEqualToConfiguration(v8, &v6);
 }
 
 - (unint64_t)hash

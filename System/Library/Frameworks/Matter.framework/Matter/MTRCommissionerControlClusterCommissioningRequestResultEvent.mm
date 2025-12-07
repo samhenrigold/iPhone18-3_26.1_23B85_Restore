@@ -42,8 +42,8 @@
   statusCode = [(MTRCommissionerControlClusterCommissioningRequestResultEvent *)self statusCode];
   [(MTRCommissionerControlClusterCommissioningRequestResultEvent *)v4 setStatusCode:statusCode];
 
-  fabricIndex = [(MTRCommissionerControlClusterCommissioningRequestResultEvent *)self fabricIndex];
-  [(MTRCommissionerControlClusterCommissioningRequestResultEvent *)v4 setFabricIndex:fabricIndex];
+  v8 = objc_msgSend_fabricIndex(self);
+  [(MTRCommissionerControlClusterCommissioningRequestResultEvent *)v4 setFabricIndex:v8];
 
   return v4;
 }

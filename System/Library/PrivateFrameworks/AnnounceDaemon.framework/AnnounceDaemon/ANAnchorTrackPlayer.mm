@@ -8,39 +8,37 @@
 
 - (void)playInternalWithCompletionHandler:(id)handler
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = [(ANTrackPlayer *)self log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v15 = "[ANAnchorTrackPlayer playInternalWithCompletionHandler:]";
+    v14 = "[ANAnchorTrackPlayer playInternalWithCompletionHandler:]";
     _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   queuePlayer = [(ANTrackPlayer *)self queuePlayer];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __57__ANAnchorTrackPlayer_playInternalWithCompletionHandler___block_invoke;
-  v10[3] = &unk_278C86DA0;
-  objc_copyWeak(&v12, buf);
-  v10[4] = self;
-  v13 = 1065353216;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __57__ANAnchorTrackPlayer_playInternalWithCompletionHandler___block_invoke;
+  v9[3] = &unk_278C86DA0;
+  objc_copyWeak(&v11, buf);
+  v9[4] = self;
+  v12 = 1065353216;
   v7 = handlerCopy;
-  v11 = v7;
+  v10 = v7;
   LODWORD(v8) = 1.0;
-  [queuePlayer prerollAtRate:v10 completionHandler:v8];
+  [queuePlayer prerollAtRate:v9 completionHandler:v8];
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(buf);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __57__ANAnchorTrackPlayer_playInternalWithCompletionHandler___block_invoke(uint64_t a1, int a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = [WeakRetained log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -59,49 +57,49 @@ void __57__ANAnchorTrackPlayer_playInternalWithCompletionHandler___block_invoke(
     }
   }
 
-  memset(&v29, 0, sizeof(v29));
+  memset(&v28, 0, sizeof(v28));
   HostTimeClock = CMClockGetHostTimeClock();
-  CMClockGetTime(&v29, HostTimeClock);
-  memset(&v28[1], 0, sizeof(CMTime));
+  CMClockGetTime(&v28, HostTimeClock);
+  memset(&v27[1], 0, sizeof(CMTime));
   if (WeakRetained)
   {
-    [WeakRetained startTime];
+    objc_msgSend_startTime(WeakRetained);
   }
 
-  memset(v28, 0, 24);
+  memset(v27, 0, 24);
   v8 = [WeakRetained queuePlayer];
   v9 = v8;
   if (v8)
   {
-    [v8 currentTime];
+    objc_msgSend_currentTime(v8);
   }
 
   else
   {
-    memset(v28, 0, 24);
+    memset(v27, 0, 24);
   }
 
-  memset(&v27, 0, sizeof(v27));
-  buf = v28[1];
-  v26 = v29;
-  CMTimeSubtract(&v27, &buf, &v26);
+  memset(&v26, 0, sizeof(v26));
+  buf = v27[1];
+  v25 = v28;
+  CMTimeSubtract(&v26, &buf, &v25);
   v10 = [WeakRetained log];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf.value) = 134218752;
-    *(&buf.value + 4) = v28[0].value;
+    *(&buf.value + 4) = v27[0].value;
     LOWORD(buf.flags) = 2048;
-    *(&buf.flags + 2) = v28[1].value;
+    *(&buf.flags + 2) = v27[1].value;
     HIWORD(buf.epoch) = 2048;
-    value = v29.value;
-    v32 = 2048;
-    v33 = v27.value / v27.timescale;
+    value = v28.value;
+    v31 = 2048;
+    v32 = v26.value / v26.timescale;
     _os_log_impl(&dword_23F525000, v10, OS_LOG_TYPE_DEFAULT, "AVQueuePlayer Current Time %lld, Target Host Time: %lld, Now: %lld, Delta(sec): %f", &buf, 0x2Au);
   }
 
-  buf = v29;
-  v26 = v28[1];
-  if (CMTimeCompare(&buf, &v26) == 1)
+  buf = v28;
+  v25 = v27[1];
+  if (CMTimeCompare(&buf, &v25) == 1)
   {
     v11 = [WeakRetained log];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
@@ -137,9 +135,9 @@ void __57__ANAnchorTrackPlayer_playInternalWithCompletionHandler___block_invoke(
 
     v20 = [WeakRetained queuePlayer];
     LODWORD(v21) = *(a1 + 56);
-    buf = v28[0];
-    v26 = v28[1];
-    [v20 setRate:&buf time:&v26 atHostTime:v21];
+    buf = v27[0];
+    v25 = v27[1];
+    [v20 setRate:&buf time:&v25 atHostTime:v21];
 
     v13 = [WeakRetained log];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
@@ -158,12 +156,11 @@ void __57__ANAnchorTrackPlayer_playInternalWithCompletionHandler___block_invoke(
   }
 
   (*(*(a1 + 40) + 16))();
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleInterruptionDelay:(double)delay
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = [(ANTrackPlayer *)self log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -174,26 +171,26 @@ void __57__ANAnchorTrackPlayer_playInternalWithCompletionHandler___block_invoke(
     _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%s: amountOfTimeInterrupted %f", buf, 0x16u);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   playerItems = [(ANTrackPlayer *)self playerItems];
-  v7 = [playerItems countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v7 = [playerItems countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(playerItems);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * i);
+        v11 = *(*(&v20 + 1) + 8 * i);
         playerItem = [v11 playerItem];
         queuePlayer = [(ANTrackPlayer *)self queuePlayer];
         currentItem = [queuePlayer currentItem];
@@ -211,21 +208,21 @@ void __57__ANAnchorTrackPlayer_playInternalWithCompletionHandler___block_invoke(
           else
           {
             currentItem2 = [queuePlayer2 currentItem];
-            v20[0] = MEMORY[0x277D85DD0];
-            v20[1] = 3221225472;
-            v20[2] = __47__ANAnchorTrackPlayer_handleInterruptionDelay___block_invoke;
-            v20[3] = &unk_278C86A38;
-            v20[4] = self;
+            v19[0] = MEMORY[0x277D85DD0];
+            v19[1] = 3221225472;
+            v19[2] = __47__ANAnchorTrackPlayer_handleInterruptionDelay___block_invoke;
+            v19[3] = &unk_278C86A38;
+            v19[4] = self;
             *buf = *MEMORY[0x277CC08F0];
             *&buf[16] = *(MEMORY[0x277CC08F0] + 16);
-            [currentItem2 seekToTime:buf completionHandler:v20];
+            [currentItem2 seekToTime:buf completionHandler:v19];
           }
 
           goto LABEL_16;
         }
       }
 
-      v8 = [playerItems countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v8 = [playerItems countByEnumeratingWithState:&v20 objects:v25 count:16];
       if (v8)
       {
         continue;
@@ -236,13 +233,11 @@ void __57__ANAnchorTrackPlayer_playInternalWithCompletionHandler___block_invoke(
   }
 
 LABEL_16:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __47__ANAnchorTrackPlayer_handleInterruptionDelay___block_invoke(uint64_t a1, int a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 32) log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -252,14 +247,12 @@ void __47__ANAnchorTrackPlayer_handleInterruptionDelay___block_invoke(uint64_t a
       v4 = "successful";
     }
 
-    v6 = 136315394;
-    v7 = "[ANAnchorTrackPlayer handleInterruptionDelay:]_block_invoke";
-    v8 = 2080;
-    v9 = v4;
-    _os_log_impl(&dword_23F525000, v3, OS_LOG_TYPE_INFO, "%s: Attempt to restart announcement after interruption was %s.", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[ANAnchorTrackPlayer handleInterruptionDelay:]_block_invoke";
+    v7 = 2080;
+    v8 = v4;
+    _os_log_impl(&dword_23F525000, v3, OS_LOG_TYPE_INFO, "%s: Attempt to restart announcement after interruption was %s.", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setStartTime:(id *)time

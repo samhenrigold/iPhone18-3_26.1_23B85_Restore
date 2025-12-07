@@ -10,21 +10,19 @@
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v12[3] = *MEMORY[0x277D85DE8];
-  v11[0] = @"latency";
+  v11[3] = *MEMORY[0x277D85DE8];
+  v10[0] = @"latency";
   v3 = MEMORY[0x277CCABB0];
   [(HMDAudioAnalysisNotificationReceivedLogEvent *)self latency];
   v5 = [v3 numberWithInteger:(v4 * 1000.0)];
-  v12[0] = v5;
-  v11[1] = @"reason";
+  v11[0] = v5;
+  v10[1] = @"reason";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDAudioAnalysisNotificationReceivedLogEvent reason](self, "reason")}];
-  v12[1] = v6;
-  v11[2] = @"state";
+  v11[1] = v6;
+  v10[2] = @"state";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDAudioAnalysisNotificationReceivedLogEvent state](self, "state")}];
-  v12[2] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[2] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   return v8;
 }

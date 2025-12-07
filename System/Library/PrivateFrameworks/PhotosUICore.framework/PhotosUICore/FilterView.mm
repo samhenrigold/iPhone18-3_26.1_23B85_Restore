@@ -10,7 +10,7 @@
 - (void)layoutSubviews
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for FilterView();
+  v4.super_class = type metadata accessor for FilterView(self, a2);
   v2 = v4.receiver;
   [(FilterView *)&v4 layoutSubviews];
   [v2 bounds];

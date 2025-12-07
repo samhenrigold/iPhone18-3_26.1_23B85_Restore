@@ -29,16 +29,16 @@
 
 - (SPOwnerSessionState)initWithCoder:(id)coder
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"serviceState"];
   serviceState = self->_serviceState;
   self->_serviceState = v5;
 
   v7 = MEMORY[0x277CBEB98];
-  v16[0] = objc_opt_class();
-  v16[1] = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v15[0] = objc_opt_class();
+  v15[1] = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
   v9 = [v7 setWithArray:v8];
   v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"disabledReasons"];
   disabledReasons = self->_disabledReasons;
@@ -49,7 +49,6 @@
   ownerDataState = self->_ownerDataState;
   self->_ownerDataState = v12;
 
-  v14 = *MEMORY[0x277D85DE8];
   return self;
 }
 

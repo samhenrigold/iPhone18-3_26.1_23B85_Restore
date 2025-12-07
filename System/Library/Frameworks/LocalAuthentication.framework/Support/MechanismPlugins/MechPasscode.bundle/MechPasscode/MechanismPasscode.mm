@@ -11,6 +11,7 @@
 - (void)_startPasscodeMechanismWithHints:(id)hints eventsDelegate:(id)delegate reply:(id)reply;
 - (void)companionStateChanged:(id)changed newState:(BOOL)state;
 - (void)enterPassphrase:(id)passphrase reply:(id)reply;
+- (void)finishRunWithResult:(id)result error:(id)error skipReply:(BOOL)reply;
 - (void)runWithHints:(id)hints eventsDelegate:(id)delegate reply:(id)reply;
 - (void)setCredential:(id)credential credentialType:(int64_t)type reply:(id)reply;
 @end
@@ -65,22 +66,22 @@
       return 0;
     }
 
-    v11 = sub_3208();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_3208(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       request2 = [(MechanismPasscode *)self request];
       *buf = 67109378;
       policy = [request2 policy];
-      v42 = 2082;
-      v43 = "passcode not set";
-      _os_log_impl(&def_13158, v11, OS_LOG_TYPE_DEFAULT, "Policy %d will accept %{public}s.", buf, 0x12u);
+      v43 = 2082;
+      v44 = "passcode not set";
+      _os_log_impl(&def_13158, v12, OS_LOG_TYPE_DEFAULT, "Policy %d will accept %{public}s.", buf, 0x12u);
     }
   }
 
   request3 = [(MechanismPasscode *)self request];
   options = [request3 options];
-  v15 = [options objectForKeyedSubscript:&off_1C8E8];
-  bOOLValue = [v15 BOOLValue];
+  v16 = [options objectForKeyedSubscript:&off_1C8E8];
+  bOOLValue = [v16 BOOLValue];
 
   if (!bOOLValue)
   {
@@ -103,47 +104,47 @@
 
 LABEL_16:
 LABEL_17:
-    v39.receiver = self;
-    v39.super_class = MechanismPasscode;
-    return [(MechanismPasscode *)&v39 isAvailableForPurpose:purpose error:error];
+    v40.receiver = self;
+    v40.super_class = MechanismPasscode;
+    return [(MechanismPasscode *)&v40 isAvailableForPurpose:purpose error:error];
   }
 
-  v38 = featureState2;
+  v39 = featureState2;
   request6 = [(MechanismPasscode *)self request];
   isPurposeApplePay = [request6 isPurposeApplePay];
-  v25 = isPurposeApplePay;
+  v26 = isPurposeApplePay;
   if (isPurposeApplePay)
   {
-    v36 = isPurposeApplePay;
-    v26 = +[BiometryHelper sharedInstance];
+    v37 = isPurposeApplePay;
+    v27 = +[BiometryHelper sharedInstance];
     internalOptions = [(MechanismPasscode *)self internalOptions];
     [internalOptions objectForKeyedSubscript:@"UserId"];
-    v32 = v34 = v26;
-    if (![v26 isBiometryOnForApplePay:?])
+    v33 = v35 = v27;
+    if (![v27 isBiometryOnForApplePay:?])
     {
-      v37 = 0;
+      v38 = 0;
       goto LABEL_19;
     }
 
-    v25 = v36;
+    v26 = v37;
   }
 
   [(MechanismPasscode *)self request];
-  v35 = dtoEnvironment2;
-  v27 = request5;
-  v29 = v28 = request6;
-  v30 = [v29 acl];
-  v37 = v30 == 0;
+  v36 = dtoEnvironment2;
+  v28 = request5;
+  v30 = v29 = request6;
+  v31 = [v30 acl];
+  v38 = v31 == 0;
 
-  request6 = v28;
-  request5 = v27;
-  dtoEnvironment2 = v35;
-  if (v25)
+  request6 = v29;
+  request5 = v28;
+  dtoEnvironment2 = v36;
+  if (v26)
   {
 LABEL_19:
   }
 
-  if (!v37)
+  if (!v38)
   {
     goto LABEL_17;
   }
@@ -409,11 +410,23 @@ LABEL_7:
   return v23 & 1;
 }
 
+- (void)finishRunWithResult:(id)result error:(id)error skipReply:(BOOL)reply
+{
+  v7.receiver = self;
+  v7.super_class = MechanismPasscode;
+  [(MechanismPasscode *)&v7 finishRunWithResult:result error:error skipReply:reply];
+  v6 = *(&self->_beingCanceledByOtherConfirmation + 4);
+  if (v6)
+  {
+    *(&self->_beingCanceledByOtherConfirmation + 4) = 0;
+  }
+}
+
 - (void)enterPassphrase:(id)passphrase reply:(id)reply
 {
   passphraseCopy = passphrase;
   replyCopy = reply;
-  v8 = sub_3208();
+  v8 = sub_3208(replyCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -708,7 +721,7 @@ LABEL_17:
     *(&self->_beingCanceledByOtherConfirmation + 4) = 0;
   }
 
-  [(MechanismPasscode *)self yieldPartialResult:9 value:&__kCFBooleanTrue, *v18];
+  [(MechanismPasscode *)self yieldPartialResult:9 value:&__kCFBooleanTrue, *v18, *&v18[8]];
 LABEL_19:
 }
 

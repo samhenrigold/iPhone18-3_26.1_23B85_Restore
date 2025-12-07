@@ -12,13 +12,13 @@ char *GTMTLSMResourceGroup_processTraceFuncWithMap(char *result, uint64_t a2, ui
     v7 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
     v8 = *a3;
     v9 = *v7;
-    *(v4 + 1) = *(v7 + 1);
-    *(v4 + 2) = v8;
-    *(v4 + 1) = *(a3 + 2);
-    *(v4 + 5) = v9;
+    *(v4 + 8) = *(v7 + 1);
+    *(v4 + 16) = v8;
+    *(v4 + 4) = *(a3 + 2);
+    *(v4 + 40) = v9;
     result = GTTraceFunc_argumentBytesWithMap(a3, v7[24], a2);
-    *(v4 + 6) = result;
-    *(v4 + 14) = *(v7 + 2);
+    *(v4 + 48) = result;
+    *(v4 + 56) = *(v7 + 2);
   }
 
   return result;
@@ -1440,7 +1440,7 @@ char *GTMTLSMVisibleFunctionTable_processTraceFuncWithMap(char *result, uint64_t
       {
         v15 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
         result = GTTraceFunc_argumentBytesWithMap(a3, v15[8], a2);
-        *(v5 + 11) = result;
+        *(v5 + 88) = result;
         return result;
       }
 
@@ -1457,20 +1457,20 @@ char *GTMTLSMVisibleFunctionTable_processTraceFuncWithMap(char *result, uint64_t
 
       v7 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
       v8 = *a3;
-      *(v5 + 1) = *(v7 + 1);
-      *(v5 + 2) = v8;
-      *(v5 + 1) = *(a3 + 2);
+      *(v5 + 8) = *(v7 + 1);
+      *(v5 + 16) = v8;
+      *(v5 + 4) = *(a3 + 2);
       v9 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 14), a2);
-      *(v5 + 15) = v9;
+      *(v5 + 120) = v9;
       if (v9)
       {
-        *(v5 + 4) = vextq_s8(*v9, *v9, 8uLL);
-        *(v5 + 24) = *(v9 + 4);
-        *(v5 + 9) = *(v9 + 24);
-        *(v5 + 10) = *(v9 + 40);
+        *(v5 + 64) = vextq_s8(*v9, *v9, 8uLL);
+        *(v5 + 96) = *(v9 + 4);
+        *(v5 + 144) = *(v9 + 24);
+        *(v5 + 160) = *(v9 + 40);
       }
 
-      *(v5 + 16) = *v7;
+      *(v5 + 128) = *v7;
       goto LABEL_42;
     }
 
@@ -1479,59 +1479,59 @@ char *GTMTLSMVisibleFunctionTable_processTraceFuncWithMap(char *result, uint64_t
       case -15460:
         v16 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
         v17 = *a3;
-        *(v5 + 1) = *(v16 + 1);
-        *(v5 + 2) = v17;
-        *(v5 + 1) = *(a3 + 2);
+        *(v5 + 8) = *(v16 + 1);
+        *(v5 + 16) = v17;
+        *(v5 + 4) = *(a3 + 2);
         v18 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 14), a2);
-        *(v5 + 15) = v18;
+        *(v5 + 120) = v18;
         if (v18)
         {
-          *(v5 + 4) = vextq_s8(*v18, *v18, 8uLL);
-          *(v5 + 24) = *(v18 + 4);
-          *(v5 + 9) = *(v18 + 24);
-          *(v5 + 10) = *(v18 + 40);
+          *(v5 + 64) = vextq_s8(*v18, *v18, 8uLL);
+          *(v5 + 96) = *(v18 + 4);
+          *(v5 + 144) = *(v18 + 24);
+          *(v5 + 160) = *(v18 + 40);
         }
 
-        *(v5 + 17) = *v16;
-        v5[176] = *(v16 + 2);
+        *(v5 + 136) = *v16;
+        *(v5 + 176) = *(v16 + 2);
         v19 = v16[24];
         goto LABEL_43;
       case -15440:
         v7 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
         v20 = *a3;
-        *(v5 + 1) = *(v7 + 1);
-        *(v5 + 2) = v20;
-        *(v5 + 1) = *(a3 + 2);
+        *(v5 + 8) = *(v7 + 1);
+        *(v5 + 16) = v20;
+        *(v5 + 4) = *(a3 + 2);
         v21 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 14), a2);
-        *(v5 + 15) = v21;
+        *(v5 + 120) = v21;
         if (v21)
         {
-          *(v5 + 4) = vextq_s8(*v21, *v21, 8uLL);
-          *(v5 + 24) = *(v21 + 4);
-          *(v5 + 9) = *(v21 + 24);
-          *(v5 + 10) = *(v21 + 40);
+          *(v5 + 64) = vextq_s8(*v21, *v21, 8uLL);
+          *(v5 + 96) = *(v21 + 4);
+          *(v5 + 144) = *(v21 + 24);
+          *(v5 + 160) = *(v21 + 40);
         }
 
-        *(v5 + 17) = *v7;
+        *(v5 + 136) = *v7;
         v12 = 2;
         break;
       case -15439:
         v7 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
         v10 = *a3;
-        *(v5 + 1) = *(v7 + 1);
-        *(v5 + 2) = v10;
-        *(v5 + 1) = *(a3 + 2);
+        *(v5 + 8) = *(v7 + 1);
+        *(v5 + 16) = v10;
+        *(v5 + 4) = *(a3 + 2);
         v11 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 14), a2);
-        *(v5 + 15) = v11;
+        *(v5 + 120) = v11;
         if (v11)
         {
-          *(v5 + 4) = vextq_s8(*v11, *v11, 8uLL);
-          *(v5 + 24) = *(v11 + 4);
-          *(v5 + 9) = *(v11 + 24);
-          *(v5 + 10) = *(v11 + 40);
+          *(v5 + 64) = vextq_s8(*v11, *v11, 8uLL);
+          *(v5 + 96) = *(v11 + 4);
+          *(v5 + 144) = *(v11 + 24);
+          *(v5 + 160) = *(v11 + 40);
         }
 
-        *(v5 + 17) = *v7;
+        *(v5 + 136) = *v7;
         v12 = 4;
         break;
       default:
@@ -1539,12 +1539,12 @@ char *GTMTLSMVisibleFunctionTable_processTraceFuncWithMap(char *result, uint64_t
     }
 
 LABEL_41:
-    v5[176] = v12;
+    *(v5 + 176) = v12;
 LABEL_42:
     v19 = v7[16];
 LABEL_43:
     result = GTTraceFunc_argumentBytesWithMap(a3, v19, a2);
-    *(v5 + 14) = result;
+    *(v5 + 112) = result;
     return result;
   }
 
@@ -1555,26 +1555,26 @@ LABEL_43:
       if (v6 == -10160)
       {
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 20) = *(result + 1);
+        *(v5 + 160) = *(result + 1);
       }
 
       else if (v6 == -10153)
       {
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 21) = *(result + 1);
+        *(v5 + 168) = *(result + 1);
       }
     }
 
     else if (v6 == -10177)
     {
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 9) = *(result + 1);
+      *(v5 + 72) = *(result + 1);
     }
 
     else if (v6 == -10174)
     {
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 8) = *(result + 1);
+      *(v5 + 64) = *(result + 1);
     }
 
     return result;
@@ -1585,29 +1585,29 @@ LABEL_43:
     case -15438:
       v7 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
       v13 = *a3;
-      *(v5 + 1) = *(v7 + 1);
-      *(v5 + 2) = v13;
-      *(v5 + 1) = *(a3 + 2);
+      *(v5 + 8) = *(v7 + 1);
+      *(v5 + 16) = v13;
+      *(v5 + 4) = *(a3 + 2);
       v14 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 14), a2);
-      *(v5 + 15) = v14;
+      *(v5 + 120) = v14;
       if (v14)
       {
-        *(v5 + 4) = vextq_s8(*v14, *v14, 8uLL);
-        *(v5 + 24) = *(v14 + 4);
-        *(v5 + 9) = *(v14 + 24);
-        *(v5 + 10) = *(v14 + 40);
+        *(v5 + 64) = vextq_s8(*v14, *v14, 8uLL);
+        *(v5 + 96) = *(v14 + 4);
+        *(v5 + 144) = *(v14 + 24);
+        *(v5 + 160) = *(v14 + 40);
       }
 
-      *(v5 + 17) = *v7;
+      *(v5 + 136) = *v7;
       v12 = 1;
       goto LABEL_41;
     case -10193:
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 18) = *(result + 1);
+      *(v5 + 144) = *(result + 1);
       break;
     case -10178:
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 10) = *(result + 1);
+      *(v5 + 80) = *(result + 1);
       break;
   }
 
@@ -1850,32 +1850,32 @@ char *GTMTLFXSMFrameInterpolator_processTraceFuncWithMap(char *result, uint64_t 
         if (v6 == -20336)
         {
           result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-          *(v5 + 36) = *(result + 2);
+          *(v5 + 144) = *(result + 2);
         }
 
         else
         {
           result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-          *(v5 + 35) = *(result + 2);
+          *(v5 + 140) = *(result + 2);
         }
       }
 
       else if (v6 == -20334)
       {
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 31) = *(result + 2);
+        *(v5 + 124) = *(result + 2);
       }
 
       else if (v6 == -20333)
       {
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 34) = *(result + 2);
+        *(v5 + 136) = *(result + 2);
       }
 
       else
       {
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 32) = *(result + 2);
+        *(v5 + 128) = *(result + 2);
       }
     }
 
@@ -1885,24 +1885,24 @@ char *GTMTLFXSMFrameInterpolator_processTraceFuncWithMap(char *result, uint64_t 
       {
         case -20328:
           result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-          *(v5 + 13) = *(result + 1);
+          *(v5 + 104) = *(result + 1);
           break;
         case -20316:
           result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-          v5[148] = *(result + 2);
+          *(v5 + 148) = *(result + 2);
           break;
         case -18429:
           v7 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
           v8 = *a3;
           v9 = *v7;
-          *(v5 + 1) = *(v7 + 1);
-          *(v5 + 2) = v8;
-          *(v5 + 1) = *(a3 + 2);
-          *(v5 + 5) = v9;
+          *(v5 + 8) = *(v7 + 1);
+          *(v5 + 16) = v8;
+          *(v5 + 4) = *(a3 + 2);
+          *(v5 + 40) = v9;
           result = GTTraceFunc_argumentBytesWithMap(a3, v7[16], a2);
-          *(v5 + 6) = result;
-          v5[148] = 1;
-          *(v5 + 14) = 0;
+          *(v5 + 48) = result;
+          *(v5 + 148) = 1;
+          *(v5 + 112) = 0;
           break;
       }
     }
@@ -1910,19 +1910,19 @@ char *GTMTLFXSMFrameInterpolator_processTraceFuncWithMap(char *result, uint64_t 
     else if (v6 == -20331)
     {
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 33) = *(result + 2);
+      *(v5 + 132) = *(result + 2);
     }
 
     else if (v6 == -20330)
     {
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 30) = *(result + 2);
+      *(v5 + 120) = *(result + 2);
     }
 
     else
     {
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      v5[149] = *(result + 2);
+      *(v5 + 149) = *(result + 2);
     }
   }
 
@@ -1933,32 +1933,32 @@ char *GTMTLFXSMFrameInterpolator_processTraceFuncWithMap(char *result, uint64_t 
       if (v6 == -20455)
       {
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 8) = *(result + 1);
+        *(v5 + 64) = *(result + 1);
       }
 
       else if (v6 == -20454)
       {
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 10) = *(result + 1);
+        *(v5 + 80) = *(result + 1);
       }
     }
 
     else if (v6 == -20453)
     {
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 7) = *(result + 1);
+      *(v5 + 56) = *(result + 1);
     }
 
     else if (v6 == -20452)
     {
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 11) = *(result + 1);
+      *(v5 + 88) = *(result + 1);
     }
 
     else
     {
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 28) = *(result + 2);
+      *(v5 + 112) = *(result + 2);
     }
   }
 
@@ -1974,7 +1974,7 @@ char *GTMTLFXSMFrameInterpolator_processTraceFuncWithMap(char *result, uint64_t 
         break;
       case -20350:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        v5[150] = *(result + 2);
+        *(v5 + 150) = *(result + 2);
         break;
     }
   }
@@ -1985,15 +1985,15 @@ char *GTMTLFXSMFrameInterpolator_processTraceFuncWithMap(char *result, uint64_t 
     {
       case -20450:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 29) = *(result + 2);
+        *(v5 + 116) = *(result + 2);
         break;
       case -20449:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 12) = *(result + 1);
+        *(v5 + 96) = *(result + 1);
         break;
       case -20448:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 9) = *(result + 1);
+        *(v5 + 72) = *(result + 1);
         break;
     }
   }
@@ -2012,13 +2012,13 @@ char *GTMTLFXSMTemporalDenoisedScaler_processTraceFuncWithMap(char *result, uint
       if (v6 == -20348)
       {
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 16) = *(result + 1);
+        *(v5 + 128) = *(result + 1);
       }
 
       else if (v6 == -20315)
       {
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        v5[333] = *(result + 2);
+        *(v5 + 333) = *(result + 2);
       }
     }
 
@@ -2028,29 +2028,29 @@ char *GTMTLFXSMTemporalDenoisedScaler_processTraceFuncWithMap(char *result, uint
       {
         case -20314:
           result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-          *(v5 + 20) = *(result + 1);
+          *(v5 + 160) = *(result + 1);
           break;
         case -18422:
           result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-          v5[334] = *(result + 1);
+          *(v5 + 334) = *(result + 1);
           break;
         case -18428:
           v7 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
           v8 = *a3;
           v9 = *v7;
-          *(v5 + 1) = *(v7 + 1);
-          *(v5 + 2) = v8;
-          *(v5 + 1) = *(a3 + 2);
-          *(v5 + 5) = v9;
+          *(v5 + 8) = *(v7 + 1);
+          *(v5 + 16) = v8;
+          *(v5 + 4) = *(a3 + 2);
+          *(v5 + 40) = v9;
           result = GTTraceFunc_argumentBytesWithMap(a3, v7[16], a2);
           v10 = 0;
-          *(v5 + 6) = result;
-          *(v5 + 23) = 0;
+          *(v5 + 48) = result;
+          *(v5 + 184) = 0;
           v11 = *(result + 24);
           *(v5 + 168) = v11;
-          *(v5 + 24) = vneg_f32(vcvt_f32_f64(vcvtq_f64_u64(v11)));
-          *(v5 + 50) = 1065353216;
-          *(v5 + 166) = 257;
+          *(v5 + 192) = vneg_f32(vcvt_f32_f64(vcvtq_f64_u64(v11)));
+          *(v5 + 200) = 1065353216;
+          *(v5 + 332) = 257;
           do
           {
             if (v10 > 0xA || (v12 = 1.0, ((1 << v10) & 0x421) == 0))
@@ -2066,7 +2066,7 @@ char *GTMTLFXSMTemporalDenoisedScaler_processTraceFuncWithMap(char *result, uint
               }
             }
 
-            *&v5[4 * v10++ + 204] = v12;
+            *(v5 + 204 + 4 * v10++) = v12;
           }
 
           while (v10 != 16);
@@ -2085,7 +2085,7 @@ char *GTMTLFXSMTemporalDenoisedScaler_processTraceFuncWithMap(char *result, uint
               }
             }
 
-            *&v5[4 * i + 268] = v14;
+            *(v5 + 268 + 4 * i) = v14;
           }
 
           break;
@@ -2099,83 +2099,83 @@ char *GTMTLFXSMTemporalDenoisedScaler_processTraceFuncWithMap(char *result, uint
     {
       case -20444:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 8) = *(result + 1);
+        *(v5 + 64) = *(result + 1);
         break;
       case -20443:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        v5[332] = *(result + 2);
+        *(v5 + 332) = *(result + 2);
         break;
       case -20442:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 9) = *(result + 1);
+        *(v5 + 72) = *(result + 1);
         break;
       case -20441:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 11) = *(result + 1);
+        *(v5 + 88) = *(result + 1);
         break;
       case -20440:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 17) = *(result + 1);
+        *(v5 + 136) = *(result + 1);
         break;
       case -20439:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 7) = *(result + 1);
+        *(v5 + 56) = *(result + 1);
         break;
       case -20438:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 22) = *(result + 1);
+        *(v5 + 176) = *(result + 1);
         break;
       case -20437:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 21) = *(result + 1);
+        *(v5 + 168) = *(result + 1);
         break;
       case -20436:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 46) = *(result + 2);
+        *(v5 + 184) = *(result + 2);
         break;
       case -20435:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 47) = *(result + 2);
+        *(v5 + 188) = *(result + 2);
         break;
       case -20434:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 10) = *(result + 1);
+        *(v5 + 80) = *(result + 1);
         break;
       case -20433:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 48) = *(result + 2);
+        *(v5 + 192) = *(result + 2);
         break;
       case -20432:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 49) = *(result + 2);
+        *(v5 + 196) = *(result + 2);
         break;
       case -20431:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 13) = *(result + 1);
+        *(v5 + 104) = *(result + 1);
         break;
       case -20430:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 18) = *(result + 1);
+        *(v5 + 144) = *(result + 1);
         break;
       case -20429:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 50) = *(result + 2);
+        *(v5 + 200) = *(result + 2);
         break;
       case -20428:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 19) = *(result + 1);
+        *(v5 + 152) = *(result + 1);
         break;
       case -20426:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 14) = *(result + 1);
+        *(v5 + 112) = *(result + 1);
         break;
       case -20425:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 12) = *(result + 1);
+        *(v5 + 96) = *(result + 1);
         break;
       case -20424:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 15) = *(result + 1);
+        *(v5 + 120) = *(result + 1);
         break;
       case -20423:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
@@ -2318,55 +2318,55 @@ char *GTMTL4FXSMTemporalScaler_processTraceFuncWithMap(char *result, uint64_t a2
   {
     case -20369:
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 9) = *(result + 1);
+      *(v5 + 72) = *(result + 1);
       break;
     case -20368:
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      v5[164] = *(result + 2);
+      *(v5 + 164) = *(result + 2);
       break;
     case -20367:
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 10) = *(result + 1);
+      *(v5 + 80) = *(result + 1);
       break;
     case -20366:
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 12) = *(result + 1);
+      *(v5 + 96) = *(result + 1);
       break;
     case -20365:
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 8) = *(result + 1);
+      *(v5 + 64) = *(result + 1);
       break;
     case -20364:
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 16) = *(result + 1);
+      *(v5 + 128) = *(result + 1);
       break;
     case -20363:
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 15) = *(result + 1);
+      *(v5 + 120) = *(result + 1);
       break;
     case -20362:
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 36) = *(result + 2);
+      *(v5 + 144) = *(result + 2);
       break;
     case -20361:
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 37) = *(result + 2);
+      *(v5 + 148) = *(result + 2);
       break;
     case -20360:
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 11) = *(result + 1);
+      *(v5 + 88) = *(result + 1);
       break;
     case -20359:
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 38) = *(result + 2);
+      *(v5 + 152) = *(result + 2);
       break;
     case -20358:
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 39) = *(result + 2);
+      *(v5 + 156) = *(result + 2);
       break;
     case -20357:
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 13) = *(result + 1);
+      *(v5 + 104) = *(result + 1);
       break;
     case -20356:
     case -20350:
@@ -2398,15 +2398,15 @@ char *GTMTL4FXSMTemporalScaler_processTraceFuncWithMap(char *result, uint64_t a2
       return result;
     case -20355:
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 40) = *(result + 2);
+      *(v5 + 160) = *(result + 2);
       break;
     case -20354:
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 14) = *(result + 1);
+      *(v5 + 112) = *(result + 1);
       break;
     case -20353:
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      v5[165] = *(result + 2);
+      *(v5 + 165) = *(result + 2);
       break;
     case -20352:
       *(result + 3) = *a3;
@@ -2416,13 +2416,13 @@ char *GTMTL4FXSMTemporalScaler_processTraceFuncWithMap(char *result, uint64_t a2
       break;
     case -20324:
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 17) = *(result + 1);
+      *(v5 + 136) = *(result + 1);
       break;
     default:
       if (v6 == -18423)
       {
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        v5[166] = *(result + 1);
+        *(v5 + 166) = *(result + 1);
       }
 
       else if (v6 == -18426)
@@ -2430,20 +2430,20 @@ char *GTMTL4FXSMTemporalScaler_processTraceFuncWithMap(char *result, uint64_t a2
         v7 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
         v8 = *a3;
         v9 = *v7;
-        *(v5 + 1) = *(v7 + 1);
-        *(v5 + 2) = v8;
-        *(v5 + 1) = *(a3 + 2);
+        *(v5 + 8) = *(v7 + 1);
+        *(v5 + 16) = v8;
+        *(v5 + 4) = *(a3 + 2);
         v10 = *(v7 + 2);
-        *(v5 + 5) = v9;
-        *(v5 + 6) = v10;
+        *(v5 + 40) = v9;
+        *(v5 + 48) = v10;
         result = GTTraceFunc_argumentBytesWithMap(a3, v7[24], a2);
-        *(v5 + 7) = result;
-        *(v5 + 18) = 0;
+        *(v5 + 56) = result;
+        *(v5 + 144) = 0;
         v11 = *(result + 1);
         *(v5 + 120) = v11;
-        *(v5 + 19) = vneg_f32(vcvt_f32_f64(vcvtq_f64_u64(v11)));
-        *(v5 + 40) = 1065353216;
-        *(v5 + 82) = 257;
+        *(v5 + 152) = vneg_f32(vcvt_f32_f64(vcvtq_f64_u64(v11)));
+        *(v5 + 160) = 1065353216;
+        *(v5 + 164) = 257;
       }
 
       break;
@@ -2465,13 +2465,13 @@ char *GTMTL4FXSMFrameInterpolator_processTraceFuncWithMap(char *result, uint64_t
         if (v6 == -20419)
         {
           result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-          *(v5 + 9) = *(result + 1);
+          *(v5 + 72) = *(result + 1);
         }
 
         else if (v6 == -20418)
         {
           result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-          v5[166] = *(result + 2);
+          *(v5 + 166) = *(result + 2);
         }
       }
 
@@ -2481,15 +2481,15 @@ char *GTMTL4FXSMFrameInterpolator_processTraceFuncWithMap(char *result, uint64_t
         {
           case -20417:
             result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-            *(v5 + 11) = *(result + 1);
+            *(v5 + 88) = *(result + 1);
             break;
           case -20416:
             result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-            *(v5 + 8) = *(result + 1);
+            *(v5 + 64) = *(result + 1);
             break;
           case -20414:
             result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-            *(v5 + 12) = *(result + 1);
+            *(v5 + 96) = *(result + 1);
             break;
         }
       }
@@ -2501,7 +2501,7 @@ char *GTMTL4FXSMFrameInterpolator_processTraceFuncWithMap(char *result, uint64_t
       {
         case -20409:
           result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-          *(v5 + 10) = *(result + 1);
+          *(v5 + 80) = *(result + 1);
           break;
         case -20407:
           *(result + 3) = *a3;
@@ -2518,15 +2518,15 @@ char *GTMTL4FXSMFrameInterpolator_processTraceFuncWithMap(char *result, uint64_t
       {
         case -20413:
           result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-          *(v5 + 32) = *(result + 2);
+          *(v5 + 128) = *(result + 2);
           break;
         case -20412:
           result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-          *(v5 + 33) = *(result + 2);
+          *(v5 + 132) = *(result + 2);
           break;
         case -20411:
           result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-          *(v5 + 13) = *(result + 1);
+          *(v5 + 104) = *(result + 1);
           break;
       }
     }
@@ -2540,26 +2540,26 @@ char *GTMTL4FXSMFrameInterpolator_processTraceFuncWithMap(char *result, uint64_t
       {
         case -20327:
           result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-          *(v5 + 15) = *(result + 1);
+          *(v5 + 120) = *(result + 1);
           break;
         case -20319:
           result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-          v5[164] = *(result + 2);
+          *(v5 + 164) = *(result + 2);
           break;
         case -18425:
           v7 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
           v8 = *a3;
           v9 = *v7;
-          *(v5 + 1) = *(v7 + 1);
-          *(v5 + 2) = v8;
-          *(v5 + 1) = *(a3 + 2);
+          *(v5 + 8) = *(v7 + 1);
+          *(v5 + 16) = v8;
+          *(v5 + 4) = *(a3 + 2);
           v10 = *(v7 + 2);
-          *(v5 + 5) = v9;
-          *(v5 + 6) = v10;
+          *(v5 + 40) = v9;
+          *(v5 + 48) = v10;
           result = GTTraceFunc_argumentBytesWithMap(a3, v7[24], a2);
-          *(v5 + 7) = result;
-          v5[164] = 1;
-          *(v5 + 16) = 0;
+          *(v5 + 56) = result;
+          *(v5 + 164) = 1;
+          *(v5 + 128) = 0;
           break;
       }
     }
@@ -2570,15 +2570,15 @@ char *GTMTL4FXSMFrameInterpolator_processTraceFuncWithMap(char *result, uint64_t
       {
         case -20339:
           result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-          *(v5 + 34) = *(result + 2);
+          *(v5 + 136) = *(result + 2);
           break;
         case -20338:
           result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-          v5[165] = *(result + 2);
+          *(v5 + 165) = *(result + 2);
           break;
         case -20337:
           result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-          *(v5 + 14) = *(result + 1);
+          *(v5 + 112) = *(result + 1);
           break;
       }
     }
@@ -2589,38 +2589,38 @@ char *GTMTL4FXSMFrameInterpolator_processTraceFuncWithMap(char *result, uint64_t
     if (v6 == -20342)
     {
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 38) = *(result + 2);
+      *(v5 + 152) = *(result + 2);
     }
 
     else if (v6 == -20341)
     {
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 36) = *(result + 2);
+      *(v5 + 144) = *(result + 2);
     }
 
     else
     {
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 37) = *(result + 2);
+      *(v5 + 148) = *(result + 2);
     }
   }
 
   else if (v6 == -20345)
   {
     result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-    *(v5 + 40) = *(result + 2);
+    *(v5 + 160) = *(result + 2);
   }
 
   else if (v6 == -20344)
   {
     result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-    *(v5 + 39) = *(result + 2);
+    *(v5 + 156) = *(result + 2);
   }
 
   else
   {
     result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-    *(v5 + 35) = *(result + 2);
+    *(v5 + 140) = *(result + 2);
   }
 
   return result;
@@ -2637,7 +2637,7 @@ char *GTMTL4FXSMTemporalDenoisedScaler_processTraceFuncWithMap(char *result, uin
       if (v6 == -20317)
       {
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 24) = *(result + 1);
+        *(v5 + 192) = *(result + 1);
       }
 
       else if (v6 == -18424)
@@ -2645,21 +2645,21 @@ char *GTMTL4FXSMTemporalDenoisedScaler_processTraceFuncWithMap(char *result, uin
         v7 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
         v8 = *a3;
         v9 = *v7;
-        *(v5 + 1) = *(v7 + 1);
-        *(v5 + 2) = v8;
-        *(v5 + 1) = *(a3 + 2);
+        *(v5 + 8) = *(v7 + 1);
+        *(v5 + 16) = v8;
+        *(v5 + 4) = *(a3 + 2);
         v10 = *(v7 + 2);
-        *(v5 + 5) = v9;
-        *(v5 + 6) = v10;
+        *(v5 + 40) = v9;
+        *(v5 + 48) = v10;
         result = GTTraceFunc_argumentBytesWithMap(a3, v7[24], a2);
         v11 = 0;
-        *(v5 + 7) = result;
-        *(v5 + 25) = 0;
+        *(v5 + 56) = result;
+        *(v5 + 200) = 0;
         v12 = *(result + 24);
         *(v5 + 168) = v12;
-        *(v5 + 26) = vneg_f32(vcvt_f32_f64(vcvtq_f64_u64(v12)));
-        *(v5 + 54) = 1065353216;
-        *(v5 + 174) = 257;
+        *(v5 + 208) = vneg_f32(vcvt_f32_f64(vcvtq_f64_u64(v12)));
+        *(v5 + 216) = 1065353216;
+        *(v5 + 348) = 257;
         do
         {
           if (v11 > 0xA || (v13 = 1.0, ((1 << v11) & 0x421) == 0))
@@ -2675,7 +2675,7 @@ char *GTMTL4FXSMTemporalDenoisedScaler_processTraceFuncWithMap(char *result, uin
             }
           }
 
-          *&v5[4 * v11++ + 220] = v13;
+          *(v5 + 220 + 4 * v11++) = v13;
         }
 
         while (v11 != 16);
@@ -2694,7 +2694,7 @@ char *GTMTL4FXSMTemporalDenoisedScaler_processTraceFuncWithMap(char *result, uin
             }
           }
 
-          *&v5[4 * i + 284] = v15;
+          *(v5 + 284 + 4 * i) = v15;
         }
       }
     }
@@ -2702,13 +2702,13 @@ char *GTMTL4FXSMTemporalDenoisedScaler_processTraceFuncWithMap(char *result, uin
     else if (v6 == -20325)
     {
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 23) = *(result + 1);
+      *(v5 + 184) = *(result + 1);
     }
 
     else if (v6 == -20318)
     {
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      v5[349] = *(result + 2);
+      *(v5 + 349) = *(result + 2);
     }
   }
 
@@ -2718,87 +2718,87 @@ char *GTMTL4FXSMTemporalDenoisedScaler_processTraceFuncWithMap(char *result, uin
     {
       case -20397:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 9) = *(result + 1);
+        *(v5 + 72) = *(result + 1);
         break;
       case -20396:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 20) = *(result + 1);
+        *(v5 + 160) = *(result + 1);
         break;
       case -20395:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        v5[348] = *(result + 2);
+        *(v5 + 348) = *(result + 2);
         break;
       case -20394:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 10) = *(result + 1);
+        *(v5 + 80) = *(result + 1);
         break;
       case -20393:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 12) = *(result + 1);
+        *(v5 + 96) = *(result + 1);
         break;
       case -20392:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 17) = *(result + 1);
+        *(v5 + 136) = *(result + 1);
         break;
       case -20391:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 8) = *(result + 1);
+        *(v5 + 64) = *(result + 1);
         break;
       case -20390:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 22) = *(result + 1);
+        *(v5 + 176) = *(result + 1);
         break;
       case -20389:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 21) = *(result + 1);
+        *(v5 + 168) = *(result + 1);
         break;
       case -20388:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 50) = *(result + 2);
+        *(v5 + 200) = *(result + 2);
         break;
       case -20387:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 51) = *(result + 2);
+        *(v5 + 204) = *(result + 2);
         break;
       case -20386:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 11) = *(result + 1);
+        *(v5 + 88) = *(result + 1);
         break;
       case -20385:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 52) = *(result + 2);
+        *(v5 + 208) = *(result + 2);
         break;
       case -20384:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 53) = *(result + 2);
+        *(v5 + 212) = *(result + 2);
         break;
       case -20383:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 14) = *(result + 1);
+        *(v5 + 112) = *(result + 1);
         break;
       case -20382:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 18) = *(result + 1);
+        *(v5 + 144) = *(result + 1);
         break;
       case -20380:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 54) = *(result + 2);
+        *(v5 + 216) = *(result + 2);
         break;
       case -20378:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 19) = *(result + 1);
+        *(v5 + 152) = *(result + 1);
         break;
       case -20376:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 15) = *(result + 1);
+        *(v5 + 120) = *(result + 1);
         break;
       case -20375:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 13) = *(result + 1);
+        *(v5 + 104) = *(result + 1);
         break;
       case -20374:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 16) = *(result + 1);
+        *(v5 + 128) = *(result + 1);
         break;
       case -20373:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
@@ -2841,12 +2841,12 @@ char *GTMTLSMResidencySet_processTraceFuncWithMap(char *result, uint64_t a2, uin
     v5 = result;
     v6 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
     v7 = *a3;
-    *(v5 + 1) = *(v6 + 1);
-    *(v5 + 2) = v7;
-    *(v5 + 1) = *(a3 + 2);
+    *(v5 + 8) = *(v6 + 1);
+    *(v5 + 16) = v7;
+    *(v5 + 4) = *(a3 + 2);
     result = GTTraceFunc_argumentBytesWithMap(a3, v6[24], a2);
-    *(v5 + 5) = *v6;
-    *(v5 + 6) = result;
+    *(v5 + 40) = *v6;
+    *(v5 + 48) = result;
   }
 
   return result;
@@ -2986,10 +2986,10 @@ LABEL_11:
   return result;
 }
 
-char *GTMTLSMBuffer_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTLSMBuffer_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   if (v6 <= -15915)
   {
     if (v6 > -16314)
@@ -3003,7 +3003,7 @@ char *GTMTLSMBuffer_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t
             v22 = *a3;
             *(v5 + 1) = *(v16 + 1);
             *(v5 + 2) = v22;
-            *(v5 + 1) = *(a3 + 8);
+            *(v5 + 1) = *(a3 + 2);
             v23 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
             *(v5 + 20) = v23;
             if (v23)
@@ -3037,7 +3037,7 @@ char *GTMTLSMBuffer_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t
             v10 = *(v8 + 2);
             *(v5 + 1) = *(v8 + 1);
             *(v5 + 2) = v9;
-            *(v5 + 1) = *(a3 + 8);
+            *(v5 + 1) = *(a3 + 2);
             *(v5 + 52) = *(v8 + 3);
             *(v5 + 14) = v10;
             result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
@@ -3065,7 +3065,7 @@ LABEL_40:
         v18 = *(v16 + 2);
         *(v5 + 1) = *(v16 + 1);
         *(v5 + 2) = v17;
-        *(v5 + 1) = *(a3 + 8);
+        *(v5 + 1) = *(a3 + 2);
         *(v5 + 52) = *(v16 + 3);
         *(v5 + 14) = v18;
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
@@ -3192,7 +3192,7 @@ LABEL_44:
       v20 = *a3;
       *(v5 + 1) = *(v19 + 1);
       *(v5 + 2) = v20;
-      *(v5 + 1) = *(a3 + 8);
+      *(v5 + 1) = *(a3 + 2);
       v21 = GTTraceFunc_argumentBytesWithPool(a3, v19[16], a2);
       *(v5 + 52) = *(v21 + 16);
       *(v5 + 14) = *v21;
@@ -3231,7 +3231,7 @@ LABEL_44:
     v27 = *v25;
     *(v5 + 1) = *(v25 + 1);
     *(v5 + 2) = v26;
-    *(v5 + 1) = *(a3 + 8);
+    *(v5 + 1) = *(a3 + 2);
     *(v5 + 5) = *(v25 + 2);
     *(v5 + 16) = v27;
     result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
@@ -3247,7 +3247,7 @@ LABEL_44:
     v14 = *(v12 + 2);
     *(v5 + 1) = *(v12 + 1);
     *(v5 + 2) = v13;
-    *(v5 + 1) = *(a3 + 8);
+    *(v5 + 1) = *(a3 + 2);
     *(v5 + 52) = *(v12 + 3);
     *(v5 + 14) = v14;
     result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
@@ -3268,10 +3268,10 @@ LABEL_44:
   return result;
 }
 
-char *GTMTLSMTensor_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTLSMTensor_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   if (v6 <= -14841)
   {
     if (v6 > -14949)
@@ -3289,7 +3289,7 @@ char *GTMTLSMTensor_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t
           v7 = *(result + 2);
           if (v7 != 1)
           {
-            *(v5 + 53) = v7;
+            *(v5 + 106) = v7;
           }
 
           break;
@@ -3303,30 +3303,30 @@ char *GTMTLSMTensor_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t
         case -14959:
           v12 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
           v13 = *a3;
-          *(v5 + 1) = *(v12 + 1);
-          *(v5 + 2) = v13;
-          *(v5 + 1) = *(a3 + 8);
+          *(v5 + 8) = *(v12 + 1);
+          *(v5 + 16) = v13;
+          *(v5 + 4) = *(a3 + 2);
           v14 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
-          *(v5 + 15) = v14;
+          *(v5 + 120) = v14;
           if (v14)
           {
-            *(v5 + 4) = vextq_s8(*v14, *v14, 8uLL);
-            *(v5 + 24) = *(v14 + 4);
-            *(v5 + 39) = *(v14 + 5);
+            *(v5 + 64) = vextq_s8(*v14, *v14, 8uLL);
+            *(v5 + 96) = *(v14 + 4);
+            *(v5 + 312) = *(v14 + 5);
             *(v5 + 296) = *(v14 + 24);
           }
 
           result = GTTraceFunc_argumentBytesWithPool(a3, v12[24], a2);
-          *(v5 + 14) = result;
+          *(v5 + 112) = result;
           break;
         case -14950:
           v15 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
           result = GTTraceFunc_argumentBytesWithPool(a3, v15[8], a2);
-          *(v5 + 11) = result;
+          *(v5 + 88) = result;
           break;
         case -14949:
           result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-          *(v5 + 24) = *(result + 2);
+          *(v5 + 96) = *(result + 2);
           break;
       }
     }
@@ -3339,32 +3339,32 @@ char *GTMTLSMTensor_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t
       case -14840:
         v8 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
         v9 = *a3;
-        *(v5 + 1) = *(v8 + 1);
-        *(v5 + 2) = v9;
-        *(v5 + 1) = *(a3 + 8);
+        *(v5 + 8) = *(v8 + 1);
+        *(v5 + 16) = v9;
+        *(v5 + 4) = *(a3 + 2);
         v10 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
-        *(v5 + 15) = v10;
+        *(v5 + 120) = v10;
         if (v10)
         {
-          *(v5 + 4) = vextq_s8(*v10, *v10, 8uLL);
-          *(v5 + 24) = *(v10 + 4);
-          *(v5 + 39) = *(v10 + 5);
+          *(v5 + 64) = vextq_s8(*v10, *v10, 8uLL);
+          *(v5 + 96) = *(v10 + 4);
+          *(v5 + 312) = *(v10 + 5);
           *(v5 + 296) = *(v10 + 24);
         }
 
         result = GTTraceFunc_argumentBytesWithPool(a3, v8[32], a2);
-        *(v5 + 14) = result;
+        *(v5 + 112) = result;
         v11 = *(v8 + 2);
-        *(v5 + 16) = *v8;
-        *(v5 + 17) = v11;
+        *(v5 + 128) = *v8;
+        *(v5 + 136) = v11;
         break;
       case -10148:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 8) = *(result + 2);
+        *(v5 + 64) = *(result + 2);
         break;
       case -10147:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 9) = *(result + 1);
+        *(v5 + 72) = *(result + 1);
         break;
     }
   }
@@ -3374,26 +3374,26 @@ char *GTMTLSMTensor_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t
     if (v6 == -10144)
     {
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 39) = *(result + 1);
+      *(v5 + 312) = *(result + 1);
     }
 
     else if (v6 == -10143)
     {
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 10) = *(result + 1);
+      *(v5 + 80) = *(result + 1);
     }
   }
 
   else if (v6 == -10146)
   {
     result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-    *(v5 + 37) = *(result + 1);
+    *(v5 + 296) = *(result + 1);
   }
 
   else
   {
     result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-    *(v5 + 38) = *(result + 1);
+    *(v5 + 304) = *(result + 1);
   }
 
   return result;
@@ -4365,10 +4365,10 @@ int8x16_t *GTMTLSMIndirectCommandBuffer_processTraceFuncWithPool(int8x16_t *resu
   return result;
 }
 
-char *GTMTLSMHeap_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTLSMHeap_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   if (v6 <= -16116)
   {
     switch(v6)
@@ -4379,7 +4379,7 @@ char *GTMTLSMHeap_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a
         v9 = *v7;
         *(v5 + 1) = *(v7 + 1);
         *(v5 + 2) = v8;
-        *(v5 + 1) = *(a3 + 8);
+        *(v5 + 1) = *(a3 + 2);
         *(v5 + 5) = v9;
         result = GTTraceFunc_argumentBytesWithPool(a3, v7[16], a2);
         *(v5 + 6) = result;
@@ -4429,22 +4429,22 @@ char *GTMTLSMHeap_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a
   return result;
 }
 
-char *GTMTLSMDepthStencilState_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTLSMDepthStencilState_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   if (v6 > -10151)
   {
     if (v6 == -10150)
     {
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 8) = *(result + 1);
+      *(v5 + 64) = *(result + 1);
     }
 
     else if (v6 == -10149)
     {
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 9) = *(result + 1);
+      *(v5 + 72) = *(result + 1);
     }
   }
 
@@ -4457,40 +4457,40 @@ char *GTMTLSMDepthStencilState_processTraceFuncWithPool(char *result, uint64_t a
   {
     v7 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
     v8 = *a3;
-    *(v5 + 1) = *(v7 + 1);
-    *(v5 + 2) = v8;
-    *(v5 + 1) = *(a3 + 8);
+    *(v5 + 8) = *(v7 + 1);
+    *(v5 + 16) = v8;
+    *(v5 + 4) = *(a3 + 2);
     v9 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
-    *(v5 + 7) = v9;
+    *(v5 + 56) = v9;
     if (v9)
     {
-      *(v5 + 4) = *v9;
+      *(v5 + 64) = *v9;
     }
 
-    *(v5 + 5) = *v7;
+    *(v5 + 40) = *v7;
     result = GTTraceFunc_argumentBytesWithPool(a3, v7[16], a2);
-    *(v5 + 6) = result;
+    *(v5 + 48) = result;
   }
 
   return result;
 }
 
-char *GTMTLSMSamplerState_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTLSMSamplerState_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   if (v6 > -10227)
   {
     if (v6 == -10226)
     {
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 8) = *(result + 1);
+      *(v5 + 64) = *(result + 1);
     }
 
     else if (v6 == -10163)
     {
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 9) = *(result + 1);
+      *(v5 + 72) = *(result + 1);
     }
   }
 
@@ -4498,20 +4498,20 @@ char *GTMTLSMSamplerState_processTraceFuncWithPool(char *result, uint64_t a2, ui
   {
     v7 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
     v8 = *a3;
-    *(v5 + 1) = *(v7 + 1);
-    *(v5 + 2) = v8;
-    *(v5 + 1) = *(a3 + 8);
+    *(v5 + 8) = *(v7 + 1);
+    *(v5 + 16) = v8;
+    *(v5 + 4) = *(a3 + 2);
     v9 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
-    *(v5 + 7) = v9;
+    *(v5 + 56) = v9;
     if (v9)
     {
-      *(v5 + 10) = *(v9 + 2);
-      *(v5 + 4) = *v9;
+      *(v5 + 80) = *(v9 + 2);
+      *(v5 + 64) = *v9;
     }
 
-    *(v5 + 5) = *v7;
+    *(v5 + 40) = *v7;
     result = GTTraceFunc_argumentBytesWithPool(a3, v7[16], a2);
-    *(v5 + 6) = result;
+    *(v5 + 48) = result;
   }
 
   else if (v6 == -16241)
@@ -4522,10 +4522,10 @@ char *GTMTLSMSamplerState_processTraceFuncWithPool(char *result, uint64_t a2, ui
   return result;
 }
 
-char *GTMTLSMEvent_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTLSMEvent_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v4 = result;
-  v5 = *(a3 + 8);
+  v5 = *(a3 + 2);
   switch(v5)
   {
     case -15879:
@@ -4542,7 +4542,7 @@ char *GTMTLSMEvent_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t 
       v8 = *result;
       *(v4 + 1) = *(result + 1);
       *(v4 + 2) = v7;
-      *(v4 + 1) = *(a3 + 8);
+      *(v4 + 1) = *(a3 + 2);
       *(v4 + 5) = v8;
       break;
   }
@@ -4550,10 +4550,10 @@ char *GTMTLSMEvent_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t 
   return result;
 }
 
-char *GTMTLSMSharedEvent_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTLSMSharedEvent_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   if (v6 <= -15974)
   {
     switch(v6)
@@ -4564,7 +4564,7 @@ char *GTMTLSMSharedEvent_processTraceFuncWithPool(char *result, uint64_t a2, uin
         v12 = *result;
         *(v5 + 1) = *(result + 1);
         *(v5 + 2) = v11;
-        *(v5 + 1) = *(a3 + 8);
+        *(v5 + 1) = *(a3 + 2);
         *(v5 + 5) = v12;
         v13 = *(result + 2);
         *(v5 + 18) = *(result + 6);
@@ -4605,7 +4605,7 @@ LABEL_17:
       v8 = *result;
       *(v5 + 1) = *(result + 1);
       *(v5 + 2) = v7;
-      *(v5 + 1) = *(a3 + 8);
+      *(v5 + 1) = *(a3 + 2);
       *(v5 + 5) = v8;
       *(v5 + 18) = *(result + 6);
       v9 = *(result + 2);
@@ -4619,7 +4619,7 @@ LABEL_17:
       v15 = *result;
       *(v5 + 1) = *(result + 1);
       *(v5 + 2) = v14;
-      *(v5 + 1) = *(a3 + 8);
+      *(v5 + 1) = *(a3 + 2);
       *(v5 + 5) = v15;
       *(v5 + 18) = *(result + 8);
       v16 = *(result + 3);
@@ -4637,10 +4637,10 @@ LABEL_17:
   return result;
 }
 
-char *GTMTLSMLateEvalEvent_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTLSMLateEvalEvent_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   if (v6 > -15491)
   {
     if (v6 == -15490)
@@ -4662,7 +4662,7 @@ char *GTMTLSMLateEvalEvent_processTraceFuncWithPool(char *result, uint64_t a2, u
     v9 = *result;
     *(v5 + 1) = *(result + 1);
     *(v5 + 2) = v8;
-    *(v5 + 1) = *(a3 + 8);
+    *(v5 + 1) = *(a3 + 2);
     *(v5 + 5) = v9;
     *(v5 + 8) = 0;
   }
@@ -4677,10 +4677,10 @@ char *GTMTLSMLateEvalEvent_processTraceFuncWithPool(char *result, uint64_t a2, u
   return result;
 }
 
-char *GTMTLSMFence_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTLSMFence_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   switch(v6)
   {
     case -16136:
@@ -4697,7 +4697,7 @@ char *GTMTLSMFence_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t 
       v8 = *result;
       *(v5 + 1) = *(result + 1);
       *(v5 + 2) = v7;
-      *(v5 + 1) = *(a3 + 8);
+      *(v5 + 1) = *(a3 + 2);
       *(v5 + 5) = v8;
       break;
   }
@@ -4705,29 +4705,29 @@ char *GTMTLSMFence_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t 
   return result;
 }
 
-char *GTMTLSMCounterSampleBuffer_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTLSMCounterSampleBuffer_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
-  if (*(a3 + 8) == -15848)
+  if (*(a3 + 2) == -15848)
   {
     v5 = result;
     v6 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
     v7 = *a3;
     v8 = *v6;
-    *(v5 + 1) = *(v6 + 1);
-    *(v5 + 2) = v7;
-    *(v5 + 1) = *(a3 + 8);
-    *(v5 + 5) = v8;
+    *(v5 + 8) = *(v6 + 1);
+    *(v5 + 16) = v7;
+    *(v5 + 4) = *(a3 + 2);
+    *(v5 + 40) = v8;
     result = GTTraceFunc_argumentBytesWithPool(a3, v6[24], a2);
-    *(v5 + 6) = result;
+    *(v5 + 48) = result;
   }
 
   return result;
 }
 
-char *GTMTLSMRenderPipelineState_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTLSMRenderPipelineState_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   if (v6 > -15406)
   {
     if (v6 > -14837)
@@ -4738,15 +4738,15 @@ char *GTMTLSMRenderPipelineState_processTraceFuncWithPool(char *result, uint64_t
         {
           case -10184:
             result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-            *(v5 + 109) = *(result + 1);
+            *(v5 + 436) = *(result + 1);
             break;
           case -10172:
             result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-            *(v5 + 53) = *(result + 1);
+            *(v5 + 424) = *(result + 1);
             break;
           case -10165:
             result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-            *(v5 + 17) = *(result + 1);
+            *(v5 + 136) = *(result + 1);
             break;
         }
 
@@ -4758,13 +4758,13 @@ char *GTMTLSMRenderPipelineState_processTraceFuncWithPool(char *result, uint64_t
         if (v6 == -10220)
         {
           result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-          *(v5 + 15) = *(result + 1);
+          *(v5 + 120) = *(result + 1);
         }
 
         else if (v6 == -10192)
         {
           result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-          *(v5 + 108) = *(result + 2);
+          *(v5 + 432) = *(result + 2);
         }
 
         return result;
@@ -4785,26 +4785,26 @@ char *GTMTLSMRenderPipelineState_processTraceFuncWithPool(char *result, uint64_t
           v13 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
           v14 = *a3;
           v15 = *v13;
-          *(v5 + 1) = *(v13 + 1);
-          *(v5 + 2) = v14;
-          *(v5 + 1) = *(a3 + 8);
-          *(v5 + 5) = v15;
+          *(v5 + 8) = *(v13 + 1);
+          *(v5 + 16) = v14;
+          *(v5 + 4) = *(a3 + 2);
+          *(v5 + 40) = v15;
           v16 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
-          *(v5 + 7) = v16;
+          *(v5 + 56) = v16;
           if (v16)
           {
             v17 = v16;
-            memcpy(v5 + 144, v16 + 216, 0x118uLL);
+            memcpy((v5 + 144), v16 + 216, 0x118uLL);
             *(v5 + 120) = *v17;
-            *(v5 + 108) = *(v17 + 48);
-            *(v5 + 109) = *(v17 + 98);
-            *(v5 + 17) = *(v17 + 2);
+            *(v5 + 432) = *(v17 + 48);
+            *(v5 + 436) = *(v17 + 98);
+            *(v5 + 136) = *(v17 + 2);
           }
 
           v18 = v13[32];
 LABEL_49:
           result = GTTraceFunc_argumentBytesWithPool(a3, v18, a2);
-          *(v5 + 9) = result;
+          *(v5 + 72) = result;
           return result;
         }
 
@@ -4812,20 +4812,20 @@ LABEL_46:
         v36 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
         v37 = *a3;
         v38 = *v36;
-        *(v5 + 1) = *(v36 + 1);
-        *(v5 + 2) = v37;
-        *(v5 + 1) = *(a3 + 8);
-        *(v5 + 5) = v38;
+        *(v5 + 8) = *(v36 + 1);
+        *(v5 + 16) = v37;
+        *(v5 + 4) = *(a3 + 2);
+        *(v5 + 40) = v38;
         v39 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
-        *(v5 + 7) = v39;
+        *(v5 + 56) = v39;
         if (v39)
         {
           v40 = v39;
-          memcpy(v5 + 144, v39 + 216, 0x118uLL);
+          memcpy((v5 + 144), v39 + 216, 0x118uLL);
           *(v5 + 120) = *v40;
-          *(v5 + 108) = *(v40 + 48);
-          *(v5 + 109) = *(v40 + 98);
-          *(v5 + 17) = *(v40 + 2);
+          *(v5 + 432) = *(v40 + 48);
+          *(v5 + 436) = *(v40 + 98);
+          *(v5 + 136) = *(v40 + 2);
         }
 
         v18 = v36[24];
@@ -4837,23 +4837,23 @@ LABEL_46:
         v46 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
         v47 = *a3;
         v48 = *v46;
-        *(v5 + 1) = *(v46 + 1);
-        *(v5 + 2) = v47;
-        *(v5 + 1) = *(a3 + 8);
-        *(v5 + 5) = v48;
+        *(v5 + 8) = *(v46 + 1);
+        *(v5 + 16) = v47;
+        *(v5 + 4) = *(a3 + 2);
+        *(v5 + 40) = v48;
         v49 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
-        *(v5 + 7) = v49;
+        *(v5 + 56) = v49;
         if (v49)
         {
           v50 = v49;
-          memcpy(v5 + 144, v49 + 216, 0x118uLL);
+          memcpy((v5 + 144), v49 + 216, 0x118uLL);
           *(v5 + 120) = *v50;
-          *(v5 + 108) = *(v50 + 48);
-          *(v5 + 109) = *(v50 + 98);
-          *(v5 + 17) = *(v50 + 2);
+          *(v5 + 432) = *(v50 + 48);
+          *(v5 + 436) = *(v50 + 98);
+          *(v5 + 136) = *(v50 + 2);
         }
 
-        *(v5 + 11) = GTTraceFunc_argumentBytesWithPool(a3, v46[24], a2);
+        *(v5 + 88) = GTTraceFunc_argumentBytesWithPool(a3, v46[24], a2);
         v35 = v46[25];
         goto LABEL_61;
       }
@@ -4867,28 +4867,28 @@ LABEL_46:
     v30 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
     v31 = *a3;
     v32 = *v30;
-    *(v5 + 1) = *(v30 + 1);
-    *(v5 + 2) = v31;
-    *(v5 + 1) = *(a3 + 8);
-    *(v5 + 5) = v32;
+    *(v5 + 8) = *(v30 + 1);
+    *(v5 + 16) = v31;
+    *(v5 + 4) = *(a3 + 2);
+    *(v5 + 40) = v32;
     v33 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
-    *(v5 + 7) = v33;
+    *(v5 + 56) = v33;
     if (v33)
     {
       v34 = v33;
-      memcpy(v5 + 144, v33 + 216, 0x118uLL);
+      memcpy((v5 + 144), v33 + 216, 0x118uLL);
       *(v5 + 120) = *v34;
-      *(v5 + 108) = *(v34 + 48);
-      *(v5 + 109) = *(v34 + 98);
-      *(v5 + 17) = *(v34 + 2);
+      *(v5 + 432) = *(v34 + 48);
+      *(v5 + 436) = *(v34 + 98);
+      *(v5 + 136) = *(v34 + 2);
     }
 
-    *(v5 + 11) = GTTraceFunc_argumentBytesWithPool(a3, v30[24], a2);
-    *(v5 + 12) = GTTraceFunc_argumentBytesWithPool(a3, v30[25], a2);
+    *(v5 + 88) = GTTraceFunc_argumentBytesWithPool(a3, v30[24], a2);
+    *(v5 + 96) = GTTraceFunc_argumentBytesWithPool(a3, v30[25], a2);
     v35 = v30[26];
 LABEL_61:
     result = GTTraceFunc_argumentBytesWithPool(a3, v35, a2);
-    *(v5 + 13) = result;
+    *(v5 + 104) = result;
     return result;
   }
 
@@ -4904,26 +4904,26 @@ LABEL_33:
           v25 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
           v26 = *a3;
           v27 = *v25;
-          *(v5 + 1) = *(v25 + 1);
-          *(v5 + 2) = v26;
-          *(v5 + 1) = *(a3 + 8);
-          *(v5 + 5) = v27;
+          *(v5 + 8) = *(v25 + 1);
+          *(v5 + 16) = v26;
+          *(v5 + 4) = *(a3 + 2);
+          *(v5 + 40) = v27;
           v28 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
-          *(v5 + 7) = v28;
+          *(v5 + 56) = v28;
           if (v28)
           {
             v29 = v28;
-            memcpy(v5 + 144, v28 + 216, 0x118uLL);
+            memcpy((v5 + 144), v28 + 216, 0x118uLL);
             *(v5 + 120) = *v29;
-            *(v5 + 108) = *(v29 + 48);
-            *(v5 + 109) = *(v29 + 98);
-            *(v5 + 17) = *(v29 + 2);
+            *(v5 + 432) = *(v29 + 48);
+            *(v5 + 436) = *(v29 + 98);
+            *(v5 + 136) = *(v29 + 2);
           }
 
           v24 = v25[24];
 LABEL_36:
           result = GTTraceFunc_argumentBytesWithPool(a3, v24, a2);
-          *(v5 + 8) = result;
+          *(v5 + 64) = result;
           return result;
         }
 
@@ -4936,20 +4936,20 @@ LABEL_36:
       v19 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
       v20 = *a3;
       v21 = *v19;
-      *(v5 + 1) = *(v19 + 1);
-      *(v5 + 2) = v20;
-      *(v5 + 1) = *(a3 + 8);
-      *(v5 + 5) = v21;
+      *(v5 + 8) = *(v19 + 1);
+      *(v5 + 16) = v20;
+      *(v5 + 4) = *(a3 + 2);
+      *(v5 + 40) = v21;
       v22 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
-      *(v5 + 7) = v22;
+      *(v5 + 56) = v22;
       if (v22)
       {
         v23 = v22;
-        memcpy(v5 + 144, v22 + 216, 0x118uLL);
+        memcpy((v5 + 144), v22 + 216, 0x118uLL);
         *(v5 + 120) = *v23;
-        *(v5 + 108) = *(v23 + 48);
-        *(v5 + 109) = *(v23 + 98);
-        *(v5 + 17) = *(v23 + 2);
+        *(v5 + 432) = *(v23 + 48);
+        *(v5 + 436) = *(v23 + 98);
+        *(v5 + 136) = *(v23 + 2);
       }
 
       v24 = v19[32];
@@ -4961,24 +4961,24 @@ LABEL_36:
       v56 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
       v57 = *a3;
       v58 = *v56;
-      *(v5 + 1) = *(v56 + 1);
-      *(v5 + 2) = v57;
-      *(v5 + 1) = *(a3 + 8);
-      *(v5 + 5) = v58;
+      *(v5 + 8) = *(v56 + 1);
+      *(v5 + 16) = v57;
+      *(v5 + 4) = *(a3 + 2);
+      *(v5 + 40) = v58;
       v59 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
-      *(v5 + 7) = v59;
+      *(v5 + 56) = v59;
       if (v59)
       {
         v60 = v59;
-        memcpy(v5 + 144, v59 + 216, 0x118uLL);
+        memcpy((v5 + 144), v59 + 216, 0x118uLL);
         *(v5 + 120) = *v60;
-        *(v5 + 108) = *(v60 + 48);
-        *(v5 + 109) = *(v60 + 98);
-        *(v5 + 17) = *(v60 + 2);
+        *(v5 + 432) = *(v60 + 48);
+        *(v5 + 436) = *(v60 + 98);
+        *(v5 + 136) = *(v60 + 2);
       }
 
       result = GTTraceFunc_argumentBytesWithPool(a3, v56[32], a2);
-      *(v5 + 14) = result;
+      *(v5 + 112) = result;
       return result;
     }
 
@@ -4987,24 +4987,24 @@ LABEL_36:
       v51 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
       v52 = *a3;
       v53 = *v51;
-      *(v5 + 1) = *(v51 + 1);
-      *(v5 + 2) = v52;
-      *(v5 + 1) = *(a3 + 8);
-      *(v5 + 5) = v53;
+      *(v5 + 8) = *(v51 + 1);
+      *(v5 + 16) = v52;
+      *(v5 + 4) = *(a3 + 2);
+      *(v5 + 40) = v53;
       v54 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
-      *(v5 + 7) = v54;
+      *(v5 + 56) = v54;
       if (v54)
       {
         v55 = v54;
-        memcpy(v5 + 144, v54 + 216, 0x118uLL);
+        memcpy((v5 + 144), v54 + 216, 0x118uLL);
         *(v5 + 120) = *v55;
-        *(v5 + 108) = *(v55 + 48);
-        *(v5 + 109) = *(v55 + 98);
-        *(v5 + 17) = *(v55 + 2);
+        *(v5 + 432) = *(v55 + 48);
+        *(v5 + 436) = *(v55 + 98);
+        *(v5 + 136) = *(v55 + 2);
       }
 
       result = GTTraceFunc_argumentBytesWithPool(a3, v51[24], a2);
-      *(v5 + 10) = result;
+      *(v5 + 80) = result;
       return result;
     }
 
@@ -5024,26 +5024,26 @@ LABEL_7:
       v7 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
       v8 = *a3;
       v9 = *v7;
-      *(v5 + 1) = *(v7 + 1);
-      *(v5 + 2) = v8;
-      *(v5 + 1) = *(a3 + 8);
-      *(v5 + 5) = v9;
+      *(v5 + 8) = *(v7 + 1);
+      *(v5 + 16) = v8;
+      *(v5 + 4) = *(a3 + 2);
+      *(v5 + 40) = v9;
       v10 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
-      *(v5 + 7) = v10;
+      *(v5 + 56) = v10;
       if (v10)
       {
         v11 = v10;
-        memcpy(v5 + 144, v10 + 216, 0x118uLL);
+        memcpy((v5 + 144), v10 + 216, 0x118uLL);
         *(v5 + 120) = *v11;
-        *(v5 + 108) = *(v11 + 48);
-        *(v5 + 109) = *(v11 + 98);
-        *(v5 + 17) = *(v11 + 2);
+        *(v5 + 432) = *(v11 + 48);
+        *(v5 + 436) = *(v11 + 98);
+        *(v5 + 136) = *(v11 + 2);
       }
 
       v12 = v7[24];
 LABEL_57:
       result = GTTraceFunc_argumentBytesWithPool(a3, v12, a2);
-      *(v5 + 6) = result;
+      *(v5 + 48) = result;
       return result;
     }
 
@@ -5061,20 +5061,20 @@ LABEL_54:
     v41 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
     v42 = *a3;
     v43 = *v41;
-    *(v5 + 1) = *(v41 + 1);
-    *(v5 + 2) = v42;
-    *(v5 + 1) = *(a3 + 8);
-    *(v5 + 5) = v43;
+    *(v5 + 8) = *(v41 + 1);
+    *(v5 + 16) = v42;
+    *(v5 + 4) = *(a3 + 2);
+    *(v5 + 40) = v43;
     v44 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
-    *(v5 + 7) = v44;
+    *(v5 + 56) = v44;
     if (v44)
     {
       v45 = v44;
-      memcpy(v5 + 144, v44 + 216, 0x118uLL);
+      memcpy((v5 + 144), v44 + 216, 0x118uLL);
       *(v5 + 120) = *v45;
-      *(v5 + 108) = *(v45 + 48);
-      *(v5 + 109) = *(v45 + 98);
-      *(v5 + 17) = *(v45 + 2);
+      *(v5 + 432) = *(v45 + 48);
+      *(v5 + 436) = *(v45 + 98);
+      *(v5 + 136) = *(v45 + 2);
     }
 
     v12 = v41[32];
@@ -5095,10 +5095,10 @@ LABEL_54:
   return result;
 }
 
-char *GTMTLSMComputePipelineState_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTLSMComputePipelineState_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   if (v6 <= -15990)
   {
     if (v6 <= -16201)
@@ -5124,7 +5124,7 @@ LABEL_39:
           v32 = *v30;
           *(v5 + 1) = *(v30 + 1);
           *(v5 + 2) = v31;
-          *(v5 + 1) = *(a3 + 8);
+          *(v5 + 1) = *(a3 + 2);
           *(v5 + 5) = v32;
           result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
           *(v5 + 8) = result;
@@ -5167,7 +5167,7 @@ LABEL_43:
         v38 = *v36;
         *(v5 + 1) = *(v36 + 1);
         *(v5 + 2) = v37;
-        *(v5 + 1) = *(a3 + 8);
+        *(v5 + 1) = *(a3 + 2);
         *(v5 + 5) = v38;
         v39 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
         *(v5 + 8) = v39;
@@ -5205,7 +5205,7 @@ LABEL_53:
           v18 = *v16;
           *(v5 + 1) = *(v16 + 1);
           *(v5 + 2) = v17;
-          *(v5 + 1) = *(a3 + 8);
+          *(v5 + 1) = *(a3 + 2);
           *(v5 + 5) = v18;
           v19 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
           *(v5 + 8) = v19;
@@ -5239,7 +5239,7 @@ LABEL_53:
     v53 = *v51;
     *(v5 + 1) = *(v51 + 1);
     *(v5 + 2) = v52;
-    *(v5 + 1) = *(a3 + 8);
+    *(v5 + 1) = *(a3 + 2);
     *(v5 + 5) = v53;
     v54 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
     *(v5 + 8) = v54;
@@ -5278,7 +5278,7 @@ LABEL_53:
         v25 = *v23;
         *(v5 + 1) = *(v23 + 1);
         *(v5 + 2) = v24;
-        *(v5 + 1) = *(a3 + 8);
+        *(v5 + 1) = *(a3 + 2);
         *(v5 + 5) = v25;
         v26 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
         *(v5 + 8) = v26;
@@ -5308,7 +5308,7 @@ LABEL_53:
       v60 = *v58;
       *(v5 + 1) = *(v58 + 1);
       *(v5 + 2) = v59;
-      *(v5 + 1) = *(a3 + 8);
+      *(v5 + 1) = *(a3 + 2);
       *(v5 + 5) = v60;
       v61 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
       *(v5 + 8) = v61;
@@ -5337,7 +5337,7 @@ LABEL_53:
       v10 = *v8;
       *(v5 + 1) = *(v8 + 1);
       *(v5 + 2) = v9;
-      *(v5 + 1) = *(a3 + 8);
+      *(v5 + 1) = *(a3 + 2);
       *(v5 + 5) = v10;
       v11 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
       *(v5 + 8) = v11;
@@ -5381,7 +5381,7 @@ LABEL_53:
       v46 = *v44;
       *(v5 + 1) = *(v44 + 1);
       *(v5 + 2) = v45;
-      *(v5 + 1) = *(a3 + 8);
+      *(v5 + 1) = *(a3 + 2);
       *(v5 + 5) = v46;
       v47 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
       *(v5 + 8) = v47;
@@ -5428,23 +5428,23 @@ LABEL_49:
   return result;
 }
 
-char *GTMTL4SMMachineLearningPipelineState_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTL4SMMachineLearningPipelineState_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   if (v6 == -14869)
   {
 LABEL_4:
     v7 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
     v8 = *a3;
     v9 = *v7;
-    *(v5 + 1) = *(v7 + 1);
-    *(v5 + 2) = v8;
-    *(v5 + 1) = *(a3 + 8);
-    *(v5 + 5) = v9;
-    *(v5 + 7) = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
+    *(v5 + 8) = *(v7 + 1);
+    *(v5 + 16) = v8;
+    *(v5 + 4) = *(a3 + 2);
+    *(v5 + 40) = v9;
+    *(v5 + 56) = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
     result = GTTraceFunc_argumentBytesWithPool(a3, v7[24], a2);
-    *(v5 + 6) = result;
+    *(v5 + 48) = result;
     return result;
   }
 
@@ -5462,10 +5462,10 @@ LABEL_4:
   return result;
 }
 
-char *GTMTLSMMotionEstimationPipelineState_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTLSMMotionEstimationPipelineState_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v4 = result;
-  v5 = *(a3 + 8);
+  v5 = *(a3 + 2);
   if (v5 == -15893)
   {
     *(result + 3) = *a3;
@@ -5476,21 +5476,21 @@ char *GTMTLSMMotionEstimationPipelineState_processTraceFuncWithPool(char *result
     v7 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
     v8 = *a3;
     v9 = *v7;
-    *(v4 + 1) = *(v7 + 1);
-    *(v4 + 2) = v8;
-    *(v4 + 1) = *(a3 + 8);
-    *(v4 + 5) = v9;
+    *(v4 + 8) = *(v7 + 1);
+    *(v4 + 16) = v8;
+    *(v4 + 4) = *(a3 + 2);
+    *(v4 + 40) = v9;
     result = GTTraceFunc_argumentBytesWithPool(a3, v7[16], a2);
-    *(v4 + 6) = result;
+    *(v4 + 48) = result;
   }
 
   return result;
 }
 
-uint64_t GTMTLSMFunction_processTraceFuncWithPool(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t GTMTLSMFunction_processTraceFuncWithPool(uint64_t result, uint64_t a2, void *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   if (v6 > -15731)
   {
     if (v6 <= -15431)
@@ -5506,7 +5506,7 @@ uint64_t GTMTLSMFunction_processTraceFuncWithPool(uint64_t result, uint64_t a2, 
             v47 = *v45;
             *(v5 + 8) = *(v45 + 1);
             *(v5 + 16) = v46;
-            *(v5 + 4) = *(a3 + 8);
+            *(v5 + 4) = *(a3 + 2);
             *(v5 + 40) = v47;
             v48 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
             *(v5 + 80) = v48;
@@ -5536,7 +5536,7 @@ uint64_t GTMTLSMFunction_processTraceFuncWithPool(uint64_t result, uint64_t a2, 
             v14 = *v12;
             *(v5 + 8) = *(v12 + 1);
             *(v5 + 16) = v13;
-            *(v5 + 4) = *(a3 + 8);
+            *(v5 + 4) = *(a3 + 2);
             *(v5 + 40) = v14;
             v15 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
             *(v5 + 80) = v15;
@@ -5575,7 +5575,7 @@ LABEL_32:
         v25 = *v23;
         *(v5 + 8) = *(v23 + 1);
         *(v5 + 16) = v24;
-        *(v5 + 4) = *(a3 + 8);
+        *(v5 + 4) = *(a3 + 2);
         *(v5 + 40) = v25;
         v26 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
         *(v5 + 80) = v26;
@@ -5603,7 +5603,7 @@ LABEL_39:
       v35 = *v33;
       *(v5 + 8) = *(v33 + 1);
       *(v5 + 16) = v34;
-      *(v5 + 4) = *(a3 + 8);
+      *(v5 + 4) = *(a3 + 2);
       *(v5 + 40) = v35;
       v36 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
       *(v5 + 80) = v36;
@@ -5692,7 +5692,7 @@ LABEL_41:
     v39 = *v33;
     *(v5 + 8) = *(v33 + 1);
     *(v5 + 16) = v38;
-    *(v5 + 4) = *(a3 + 8);
+    *(v5 + 4) = *(a3 + 2);
     *(v5 + 40) = v39;
     v40 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
     *(v5 + 80) = v40;
@@ -5749,7 +5749,7 @@ LABEL_72:
         v20 = *v18;
         *(v5 + 8) = *(v18 + 1);
         *(v5 + 16) = v19;
-        *(v5 + 4) = *(a3 + 8);
+        *(v5 + 4) = *(a3 + 2);
         *(v5 + 40) = v20;
         v21 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
         *(v5 + 80) = v21;
@@ -5783,7 +5783,7 @@ LABEL_72:
       v9 = *v7;
       *(v5 + 8) = *(v7 + 1);
       *(v5 + 16) = v8;
-      *(v5 + 4) = *(a3 + 8);
+      *(v5 + 4) = *(a3 + 2);
       *(v5 + 40) = v9;
       v10 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
       *(v5 + 80) = v10;
@@ -5815,7 +5815,7 @@ LABEL_72:
       v58 = *v56;
       *(v5 + 8) = *(v56 + 1);
       *(v5 + 16) = v57;
-      *(v5 + 4) = *(a3 + 8);
+      *(v5 + 4) = *(a3 + 2);
       *(v5 + 40) = v58;
       v59 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
       *(v5 + 80) = v59;
@@ -5843,7 +5843,7 @@ LABEL_72:
       v52 = *v50;
       *(v5 + 8) = *(v50 + 1);
       *(v5 + 16) = v51;
-      *(v5 + 4) = *(a3 + 8);
+      *(v5 + 4) = *(a3 + 2);
       *(v5 + 40) = v52;
       v53 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
       *(v5 + 80) = v53;
@@ -5899,7 +5899,7 @@ LABEL_72:
     v30 = *v28;
     *(v5 + 8) = *(v28 + 1);
     *(v5 + 16) = v29;
-    *(v5 + 4) = *(a3 + 8);
+    *(v5 + 4) = *(a3 + 2);
     *(v5 + 40) = v30;
     v31 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
     *(v5 + 80) = v31;
@@ -5987,29 +5987,29 @@ char *GTMTLSMIndirectRenderCommand_processTraceFuncWithPool(char *result, uint64
   return result;
 }
 
-char *GTMTL4SMCompiler_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTL4SMCompiler_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
-  if (*(a3 + 8) == -15194)
+  if (*(a3 + 2) == -15194)
   {
     v5 = result;
     v6 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
     v7 = *a3;
     v8 = *v6;
-    *(v5 + 1) = *(v6 + 1);
-    *(v5 + 2) = v7;
-    *(v5 + 1) = *(a3 + 8);
-    *(v5 + 5) = v8;
+    *(v5 + 8) = *(v6 + 1);
+    *(v5 + 16) = v7;
+    *(v5 + 4) = *(a3 + 2);
+    *(v5 + 40) = v8;
     result = GTTraceFunc_argumentBytesWithPool(a3, v6[24], a2);
-    *(v5 + 6) = result;
+    *(v5 + 48) = result;
   }
 
   return result;
 }
 
-uint64_t GTMTLSMLibrary_processTraceFuncWithPool(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t GTMTLSMLibrary_processTraceFuncWithPool(uint64_t result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   if (v6 <= -16019)
   {
     if (v6 <= -16293)
@@ -6023,7 +6023,7 @@ uint64_t GTMTLSMLibrary_processTraceFuncWithPool(uint64_t result, uint64_t a2, u
           v47 = *v45;
           *(v5 + 8) = *(v45 + 1);
           *(v5 + 16) = v46;
-          *(v5 + 4) = *(a3 + 8);
+          *(v5 + 4) = *(a3 + 2);
           *(v5 + 40) = v47;
           v48 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
           *(v5 + 80) = v48;
@@ -6063,7 +6063,7 @@ uint64_t GTMTLSMLibrary_processTraceFuncWithPool(uint64_t result, uint64_t a2, u
           v21 = *v19;
           *(v5 + 8) = *(v19 + 1);
           *(v5 + 16) = v20;
-          *(v5 + 4) = *(a3 + 8);
+          *(v5 + 4) = *(a3 + 2);
           *(v5 + 40) = v21;
           v22 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
           *(v5 + 80) = v22;
@@ -6108,7 +6108,7 @@ uint64_t GTMTLSMLibrary_processTraceFuncWithPool(uint64_t result, uint64_t a2, u
         v57 = *v55;
         *(v5 + 8) = *(v55 + 1);
         *(v5 + 16) = v56;
-        *(v5 + 4) = *(a3 + 8);
+        *(v5 + 4) = *(a3 + 2);
         *(v5 + 40) = v57;
         v58 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
         *(v5 + 80) = v58;
@@ -6143,7 +6143,7 @@ LABEL_73:
       v38 = *v36;
       *(v5 + 8) = *(v36 + 1);
       *(v5 + 16) = v37;
-      *(v5 + 4) = *(a3 + 8);
+      *(v5 + 4) = *(a3 + 2);
       *(v5 + 40) = v38;
       v39 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
       *(v5 + 80) = v39;
@@ -6186,7 +6186,7 @@ LABEL_73:
         v16 = *v14;
         *(v5 + 8) = *(v14 + 1);
         *(v5 + 16) = v15;
-        *(v5 + 4) = *(a3 + 8);
+        *(v5 + 4) = *(a3 + 2);
         *(v5 + 40) = v16;
         v17 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
         *(v5 + 80) = v17;
@@ -6224,7 +6224,7 @@ LABEL_73:
       v62 = *v60;
       *(v5 + 8) = *(v60 + 1);
       *(v5 + 16) = v61;
-      *(v5 + 4) = *(a3 + 8);
+      *(v5 + 4) = *(a3 + 2);
       *(v5 + 40) = v62;
       v63 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
       *(v5 + 80) = v63;
@@ -6278,7 +6278,7 @@ LABEL_73:
           v9 = *v7;
           *(v5 + 8) = *(v7 + 1);
           *(v5 + 16) = v8;
-          *(v5 + 4) = *(a3 + 8);
+          *(v5 + 4) = *(a3 + 2);
           *(v5 + 40) = v9;
           v10 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
           *(v5 + 80) = v10;
@@ -6302,7 +6302,7 @@ LABEL_73:
         v52 = *v50;
         *(v5 + 8) = *(v50 + 1);
         *(v5 + 16) = v51;
-        *(v5 + 4) = *(a3 + 8);
+        *(v5 + 4) = *(a3 + 2);
         *(v5 + 40) = v52;
         v53 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
         *(v5 + 80) = v53;
@@ -6325,7 +6325,7 @@ LABEL_46:
       v31 = *v29;
       *(v5 + 8) = *(v29 + 1);
       *(v5 + 16) = v30;
-      *(v5 + 4) = *(a3 + 8);
+      *(v5 + 4) = *(a3 + 2);
       *(v5 + 40) = v31;
       v32 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
       *(v5 + 80) = v32;
@@ -6359,7 +6359,7 @@ LABEL_35:
       v27 = *v25;
       *(v5 + 8) = *(v25 + 1);
       *(v5 + 16) = v26;
-      *(v5 + 4) = *(a3 + 8);
+      *(v5 + 4) = *(a3 + 2);
       *(v5 + 40) = v27;
       v28 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
       *(v5 + 80) = v28;
@@ -6408,7 +6408,7 @@ LABEL_56:
     v42 = *v40;
     *(v5 + 8) = *(v40 + 1);
     *(v5 + 16) = v41;
-    *(v5 + 4) = *(a3 + 8);
+    *(v5 + 4) = *(a3 + 2);
     *(v5 + 40) = v42;
     v43 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
     *(v5 + 80) = v43;
@@ -6441,10 +6441,10 @@ LABEL_56:
   return result;
 }
 
-char *GTMTLSMDynamicLibrary_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTLSMDynamicLibrary_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   if (v6 <= -15140)
   {
     if (v6 <= -15676)
@@ -6455,7 +6455,7 @@ char *GTMTLSMDynamicLibrary_processTraceFuncWithPool(char *result, uint64_t a2, 
         v17 = *a3;
         *(v5 + 1) = *(v16 + 1);
         *(v5 + 2) = v17;
-        *(v5 + 1) = *(a3 + 8);
+        *(v5 + 1) = *(a3 + 2);
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
         if (result)
         {
@@ -6493,7 +6493,7 @@ char *GTMTLSMDynamicLibrary_processTraceFuncWithPool(char *result, uint64_t a2, 
     v12 = *a3;
     *(v5 + 1) = *(v11 + 1);
     *(v5 + 2) = v12;
-    *(v5 + 1) = *(a3 + 8);
+    *(v5 + 1) = *(a3 + 2);
     v13 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
     if (v13)
     {
@@ -6520,7 +6520,7 @@ LABEL_20:
     v14 = *a3;
     *(v5 + 1) = *(v11 + 1);
     *(v5 + 2) = v14;
-    *(v5 + 1) = *(a3 + 8);
+    *(v5 + 1) = *(a3 + 2);
     v15 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
     if (v15)
     {
@@ -6537,7 +6537,7 @@ LABEL_20:
   v9 = *a3;
   *(v5 + 1) = *(v8 + 1);
   *(v5 + 2) = v9;
-  *(v5 + 1) = *(a3 + 8);
+  *(v5 + 1) = *(a3 + 2);
   result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
   if (result)
   {
@@ -6552,23 +6552,23 @@ LABEL_20:
   return result;
 }
 
-char *GTMTLSMPipelineLibrary_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTLSMPipelineLibrary_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   if (v6 > -15745)
   {
     if (v6 == -15744)
     {
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      v5[82] = *(result + 2);
+      *(v5 + 82) = *(result + 2);
     }
 
     else if (v6 == -15743)
     {
       v10 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
       result = GTTraceFunc_argumentBytesWithPool(a3, v10[8], a2);
-      *(v5 + 7) = result;
+      *(v5 + 56) = result;
     }
   }
 
@@ -6582,26 +6582,26 @@ char *GTMTLSMPipelineLibrary_processTraceFuncWithPool(char *result, uint64_t a2,
     v7 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
     v8 = *a3;
     v9 = *v7;
-    *(v5 + 1) = *(v7 + 1);
-    *(v5 + 2) = v8;
-    *(v5 + 1) = *(a3 + 8);
-    *(v5 + 5) = v9;
-    *(v5 + 6) = GTTraceFunc_argumentBytesWithPool(a3, v7[24], a2);
+    *(v5 + 8) = *(v7 + 1);
+    *(v5 + 16) = v8;
+    *(v5 + 4) = *(a3 + 2);
+    *(v5 + 40) = v9;
+    *(v5 + 48) = GTTraceFunc_argumentBytesWithPool(a3, v7[24], a2);
     result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
     if (result)
     {
-      *(v5 + 40) = *(result + 12);
-      *(v5 + 4) = *(result + 8);
+      *(v5 + 80) = *(result + 12);
+      *(v5 + 64) = *(result + 8);
     }
   }
 
   return result;
 }
 
-char *GTMTLSMIOCommandQueue_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTLSMIOCommandQueue_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v4 = result;
-  v5 = *(a3 + 8);
+  v5 = *(a3 + 2);
   if (v5 == -15332)
   {
     *(result + 3) = *a3;
@@ -6612,21 +6612,21 @@ char *GTMTLSMIOCommandQueue_processTraceFuncWithPool(char *result, uint64_t a2, 
     v7 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
     v8 = *a3;
     v9 = *v7;
-    *(v4 + 1) = *(v7 + 1);
-    *(v4 + 2) = v8;
-    *(v4 + 1) = *(a3 + 8);
-    *(v4 + 5) = v9;
+    *(v4 + 8) = *(v7 + 1);
+    *(v4 + 16) = v8;
+    *(v4 + 4) = *(a3 + 2);
+    *(v4 + 40) = v9;
     result = GTTraceFunc_argumentBytesWithPool(a3, v7[24], a2);
-    *(v4 + 7) = result;
+    *(v4 + 56) = result;
   }
 
   return result;
 }
 
-char *GTMTLSMCommandQueue_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTLSMCommandQueue_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   if (v6 <= -16317)
   {
     if (v6 > -16347)
@@ -6680,7 +6680,7 @@ char *GTMTLSMCommandQueue_processTraceFuncWithPool(char *result, uint64_t a2, ui
           v12 = *result;
           *(v5 + 1) = *(result + 1);
           *(v5 + 2) = v11;
-          *(v5 + 1) = *(a3 + 8);
+          *(v5 + 1) = *(a3 + 2);
           *(v5 + 5) = v12;
           v10 = 64;
           break;
@@ -6690,7 +6690,7 @@ char *GTMTLSMCommandQueue_processTraceFuncWithPool(char *result, uint64_t a2, ui
           v14 = *result;
           *(v5 + 1) = *(result + 1);
           *(v5 + 2) = v13;
-          *(v5 + 1) = *(a3 + 8);
+          *(v5 + 1) = *(a3 + 2);
           *(v5 + 5) = v14;
           *(v5 + 16) = *(result + 2);
           return result;
@@ -6700,7 +6700,7 @@ char *GTMTLSMCommandQueue_processTraceFuncWithPool(char *result, uint64_t a2, ui
           v9 = *v7;
           *(v5 + 1) = *(v7 + 1);
           *(v5 + 2) = v8;
-          *(v5 + 1) = *(a3 + 8);
+          *(v5 + 1) = *(a3 + 2);
           *(v5 + 5) = v9;
           result = GTTraceFunc_argumentBytesWithPool(a3, v7[16], a2);
           *(v5 + 7) = result;
@@ -6733,10 +6733,10 @@ char *GTMTLSMCommandQueue_processTraceFuncWithPool(char *result, uint64_t a2, ui
   return result;
 }
 
-char *GTMTL4SMCommandQueue_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTL4SMCommandQueue_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   switch(v6)
   {
     case -14834:
@@ -6745,7 +6745,7 @@ char *GTMTL4SMCommandQueue_processTraceFuncWithPool(char *result, uint64_t a2, u
       v11 = *v9;
       *(v5 + 1) = *(v9 + 1);
       *(v5 + 2) = v10;
-      *(v5 + 1) = *(a3 + 8);
+      *(v5 + 1) = *(a3 + 2);
       *(v5 + 5) = v11;
       result = GTTraceFunc_argumentBytesWithPool(a3, v9[24], a2);
       *(v5 + 6) = result;
@@ -6759,7 +6759,7 @@ char *GTMTL4SMCommandQueue_processTraceFuncWithPool(char *result, uint64_t a2, u
       v8 = *result;
       *(v5 + 1) = *(result + 1);
       *(v5 + 2) = v7;
-      *(v5 + 1) = *(a3 + 8);
+      *(v5 + 1) = *(a3 + 2);
       *(v5 + 5) = v8;
       break;
   }
@@ -6767,10 +6767,10 @@ char *GTMTL4SMCommandQueue_processTraceFuncWithPool(char *result, uint64_t a2, u
   return result;
 }
 
-char *GTMTL4SMCommandAllocator_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTL4SMCommandAllocator_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v4 = result;
-  v5 = *(a3 + 8);
+  v5 = *(a3 + 2);
   switch(v5)
   {
     case -15175:
@@ -6782,7 +6782,7 @@ char *GTMTL4SMCommandAllocator_processTraceFuncWithPool(char *result, uint64_t a
       v11 = *v9;
       *(v4 + 1) = *(v9 + 1);
       *(v4 + 2) = v10;
-      *(v4 + 1) = *(a3 + 8);
+      *(v4 + 1) = *(a3 + 2);
       *(v4 + 5) = v11;
       result = GTTraceFunc_argumentBytesWithPool(a3, v9[24], a2);
       *(v4 + 6) = result;
@@ -6793,7 +6793,7 @@ char *GTMTL4SMCommandAllocator_processTraceFuncWithPool(char *result, uint64_t a
       v8 = *result;
       *(v4 + 1) = *(result + 1);
       *(v4 + 2) = v7;
-      *(v4 + 1) = *(a3 + 8);
+      *(v4 + 1) = *(a3 + 2);
       *(v4 + 5) = v8;
       break;
   }
@@ -6801,10 +6801,10 @@ char *GTMTL4SMCommandAllocator_processTraceFuncWithPool(char *result, uint64_t a
   return result;
 }
 
-char *GTMTL4SMArgumentTable_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTL4SMArgumentTable_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   if (v6 <= -15181)
   {
     if (v6 == -15200)
@@ -6814,7 +6814,7 @@ char *GTMTL4SMArgumentTable_processTraceFuncWithPool(char *result, uint64_t a2, 
       v13 = *v11;
       *(v5 + 1) = *(v11 + 1);
       *(v5 + 2) = v12;
-      *(v5 + 1) = *(a3 + 8);
+      *(v5 + 1) = *(a3 + 2);
       *(v5 + 5) = v13;
       result = GTTraceFunc_argumentBytesWithPool(a3, v11[24], a2);
       *(v5 + 6) = result;
@@ -6881,10 +6881,10 @@ LABEL_14:
   return result;
 }
 
-char *GTMTLSMRasterizationRateMap_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTLSMRasterizationRateMap_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v4 = result;
-  v5 = *(a3 + 8);
+  v5 = *(a3 + 2);
   switch(v5)
   {
     case -15801:
@@ -6893,20 +6893,20 @@ char *GTMTLSMRasterizationRateMap_processTraceFuncWithPool(char *result, uint64_
     case -15411:
       v10 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
       result = GTTraceFunc_argumentBytesWithPool(a3, v10[8], a2);
-      *(v4 + 6) = result;
+      *(v4 + 48) = result;
       break;
     case -15793:
       v7 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
       v8 = *a3;
       v9 = *v7;
-      *(v4 + 1) = *(v7 + 1);
-      *(v4 + 2) = v8;
-      *(v4 + 1) = *(a3 + 8);
-      *(v4 + 5) = v9;
+      *(v4 + 8) = *(v7 + 1);
+      *(v4 + 16) = v8;
+      *(v4 + 4) = *(a3 + 2);
+      *(v4 + 40) = v9;
       result = GTTraceFunc_argumentBytesWithPool(a3, v7[16], a2);
-      *(v4 + 6) = result;
-      *(v4 + 14) = *(result + 6);
-      v4[60] = result[34];
+      *(v4 + 48) = result;
+      *(v4 + 56) = *(result + 6);
+      *(v4 + 60) = result[34];
       break;
   }
 
@@ -6920,9 +6920,9 @@ char *GTMTLSMDevice_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t
   if (v5 == -10239)
   {
     v7 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-    *(v4 + 1) = *v7;
+    *(v4 + 8) = *v7;
     result = GTTraceFunc_argumentBytesWithPool(a3, v7[8], a2);
-    *(v4 + 5) = result;
+    *(v4 + 40) = result;
   }
 
   else if (v5 == -16317)
@@ -6933,10 +6933,10 @@ char *GTMTLSMDevice_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t
   return result;
 }
 
-uint64_t GTMTLSMFilter_processTraceFuncWithPool(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t *GTMTLSMFilter_processTraceFuncWithPool(uint64_t *result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   if (v6 <= -6123)
   {
     if (v6 > -6135)
@@ -6950,7 +6950,7 @@ uint64_t GTMTLSMFilter_processTraceFuncWithPool(uint64_t result, uint64_t a2, ui
           v35 = *v33;
           *(v5 + 8) = *(v33 + 1);
           *(v5 + 16) = v34;
-          v36 = *(a3 + 8);
+          v36 = *(a3 + 2);
           *(v5 + 4) = v36;
           *(v5 + 40) = v36;
           *(v5 + 48) = v35;
@@ -6967,7 +6967,7 @@ uint64_t GTMTLSMFilter_processTraceFuncWithPool(uint64_t result, uint64_t a2, ui
           v12 = *v10;
           *(v5 + 8) = *(v10 + 1);
           *(v5 + 16) = v11;
-          v13 = *(a3 + 8);
+          v13 = *(a3 + 2);
           *(v5 + 4) = v13;
           *(v5 + 40) = v13;
           *(v5 + 48) = v12;
@@ -7003,17 +7003,17 @@ uint64_t GTMTLSMFilter_processTraceFuncWithPool(uint64_t result, uint64_t a2, ui
           result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
           v29 = *a3;
           v30 = *result;
-          *(v5 + 8) = *(result + 8);
+          *(v5 + 8) = result[1];
           *(v5 + 16) = v29;
-          v31 = *(a3 + 8);
+          v31 = *(a3 + 2);
           *(v5 + 4) = v31;
           *(v5 + 40) = v31;
           *(v5 + 48) = v30;
-          *(v5 + 96) = *(result + 16);
-          *(v5 + 56) = *(result + 24);
-          *(v5 + 64) = *(result + 32);
-          *(v5 + 80) = *(result + 40);
-          v32 = *(result + 48);
+          *(v5 + 96) = *(result + 4);
+          *(v5 + 56) = result[3];
+          *(v5 + 64) = result[4];
+          *(v5 + 80) = result[5];
+          v32 = result[6];
           goto LABEL_36;
         }
 
@@ -7022,16 +7022,16 @@ uint64_t GTMTLSMFilter_processTraceFuncWithPool(uint64_t result, uint64_t a2, ui
           result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
           v7 = *a3;
           v8 = *result;
-          *(v5 + 8) = *(result + 8);
+          *(v5 + 8) = result[1];
           *(v5 + 16) = v7;
-          v9 = *(a3 + 8);
+          v9 = *(a3 + 2);
           *(v5 + 4) = v9;
           *(v5 + 40) = v9;
           *(v5 + 48) = v8;
-          *(v5 + 56) = *(result + 16);
-          *(v5 + 64) = *(result + 20);
-          *(v5 + 68) = *(result + 24);
-          *(v5 + 72) = *(result + 28);
+          *(v5 + 56) = *(result + 4);
+          *(v5 + 64) = *(result + 5);
+          *(v5 + 68) = *(result + 6);
+          *(v5 + 72) = *(result + 7);
         }
       }
 
@@ -7047,7 +7047,7 @@ uint64_t GTMTLSMFilter_processTraceFuncWithPool(uint64_t result, uint64_t a2, ui
     {
       if (v6 == -6139)
       {
-        *(result + 24) = *a3;
+        result[3] = *a3;
       }
 
       return result;
@@ -7057,16 +7057,16 @@ LABEL_31:
     result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
     v23 = *a3;
     v24 = *result;
-    *(v5 + 8) = *(result + 8);
+    *(v5 + 8) = result[1];
     *(v5 + 16) = v23;
-    v25 = *(a3 + 8);
+    v25 = *(a3 + 2);
     *(v5 + 4) = v25;
     *(v5 + 40) = v25;
     *(v5 + 48) = v24;
-    *(v5 + 56) = *(result + 16);
-    *(v5 + 64) = *(result + 24);
-    *(v5 + 72) = *(result + 32);
-    *(v5 + 80) = *(result + 40);
+    *(v5 + 56) = result[2];
+    *(v5 + 64) = result[3];
+    *(v5 + 72) = result[4];
+    *(v5 + 80) = result[5];
     return result;
   }
 
@@ -7085,9 +7085,9 @@ LABEL_32:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
         v26 = *a3;
         v27 = *result;
-        *(v5 + 8) = *(result + 8);
+        *(v5 + 8) = result[1];
         *(v5 + 16) = v26;
-        v28 = *(a3 + 8);
+        v28 = *(a3 + 2);
         *(v5 + 4) = v28;
         *(v5 + 40) = v28;
         *(v5 + 48) = v27;
@@ -7097,19 +7097,19 @@ LABEL_32:
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
       v37 = *a3;
       v38 = *result;
-      *(v5 + 8) = *(result + 8);
+      *(v5 + 8) = result[1];
       *(v5 + 16) = v37;
-      v39 = *(a3 + 8);
+      v39 = *(a3 + 2);
       *(v5 + 4) = v39;
       *(v5 + 40) = v39;
       *(v5 + 48) = v38;
-      *(v5 + 96) = *(result + 16);
-      *(v5 + 97) = *(result + 20);
-      *(v5 + 56) = *(result + 24);
-      *(v5 + 64) = *(result + 32);
-      *(v5 + 72) = *(result + 40);
-      *(v5 + 80) = *(result + 48);
-      v32 = *(result + 56);
+      *(v5 + 96) = *(result + 4);
+      *(v5 + 97) = *(result + 5);
+      *(v5 + 56) = result[3];
+      *(v5 + 64) = result[4];
+      *(v5 + 72) = result[5];
+      *(v5 + 80) = result[6];
+      v32 = result[7];
 LABEL_36:
       *(v5 + 88) = v32;
       return result;
@@ -7120,18 +7120,18 @@ LABEL_36:
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
       v40 = *a3;
       v41 = *result;
-      *(v5 + 8) = *(result + 8);
+      *(v5 + 8) = result[1];
       *(v5 + 16) = v40;
-      v42 = *(a3 + 8);
+      v42 = *(a3 + 2);
       *(v5 + 4) = v42;
       *(v5 + 40) = v42;
       *(v5 + 48) = v41;
-      *(v5 + 56) = *(result + 16);
-      *(v5 + 64) = *(result + 24);
-      *(v5 + 72) = *(result + 32);
-      *(v5 + 80) = *(result + 40);
-      *(v5 + 88) = *(result + 48);
-      *(v5 + 96) = *(result + 56);
+      *(v5 + 56) = result[2];
+      *(v5 + 64) = result[3];
+      *(v5 + 72) = result[4];
+      *(v5 + 80) = result[5];
+      *(v5 + 88) = result[6];
+      *(v5 + 96) = result[7];
       return result;
     }
 
@@ -7146,7 +7146,7 @@ LABEL_27:
     v17 = *v15;
     *(v5 + 8) = *(v15 + 1);
     *(v5 + 16) = v16;
-    v18 = *(a3 + 8);
+    v18 = *(a3 + 2);
     *(v5 + 4) = v18;
     *(v5 + 40) = v18;
     *(v5 + 48) = v17;
@@ -7165,7 +7165,7 @@ LABEL_27:
       v21 = *v19;
       *(v5 + 8) = *(v19 + 1);
       *(v5 + 16) = v20;
-      v22 = *(a3 + 8);
+      v22 = *(a3 + 2);
       *(v5 + 4) = v22;
       *(v5 + 40) = v22;
       *(v5 + 48) = v21;
@@ -7189,10 +7189,10 @@ LABEL_27:
   return result;
 }
 
-char *GTMTLSMResourceGroup_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTLSMResourceGroup_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v4 = result;
-  v5 = *(a3 + 8);
+  v5 = *(a3 + 2);
   if (v5 == -15769)
   {
     *(result + 3) = *a3;
@@ -7203,22 +7203,22 @@ char *GTMTLSMResourceGroup_processTraceFuncWithPool(char *result, uint64_t a2, u
     v7 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
     v8 = *a3;
     v9 = *v7;
-    *(v4 + 1) = *(v7 + 1);
-    *(v4 + 2) = v8;
-    *(v4 + 1) = *(a3 + 8);
-    *(v4 + 5) = v9;
+    *(v4 + 8) = *(v7 + 1);
+    *(v4 + 16) = v8;
+    *(v4 + 4) = *(a3 + 2);
+    *(v4 + 40) = v9;
     result = GTTraceFunc_argumentBytesWithPool(a3, v7[24], a2);
-    *(v4 + 6) = result;
-    *(v4 + 14) = *(v7 + 2);
+    *(v4 + 48) = result;
+    *(v4 + 56) = *(v7 + 2);
   }
 
   return result;
 }
 
-char *GTMTLSMDrawable_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTLSMDrawable_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v4 = result;
-  v5 = *(a3 + 8);
+  v5 = *(a3 + 2);
   if (v5 > -7162)
   {
     if (v5 == -7161)
@@ -7232,7 +7232,7 @@ char *GTMTLSMDrawable_processTraceFuncWithPool(char *result, uint64_t a2, uint64
       v8 = *a3;
       *(v4 + 1) = *(result + 1);
       *(v4 + 2) = v8;
-      *(v4 + 1) = *(a3 + 8);
+      *(v4 + 1) = *(a3 + 2);
     }
   }
 
@@ -7249,17 +7249,17 @@ char *GTMTLSMDrawable_processTraceFuncWithPool(char *result, uint64_t a2, uint64
     v7 = *result;
     *(v4 + 1) = *(result + 1);
     *(v4 + 2) = v6;
-    *(v4 + 1) = *(a3 + 8);
+    *(v4 + 1) = *(a3 + 2);
     *(v4 + 5) = v7;
   }
 
   return result;
 }
 
-uint64_t GTMTLSMLayer_processTraceFuncWithPool(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t GTMTLSMLayer_processTraceFuncWithPool(uint64_t result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   if (v6 <= -7163)
   {
     if (v6 <= -7166)
@@ -7377,10 +7377,10 @@ LABEL_28:
   return result;
 }
 
-char *GTMTLSMAccelerationStructure_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTLSMAccelerationStructure_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   if (v6 > -15354)
   {
     if (v6 <= -10182)
@@ -7427,7 +7427,7 @@ char *GTMTLSMAccelerationStructure_processTraceFuncWithPool(char *result, uint64
         v69 = *a3;
         *(v5 + 1) = *(v68 + 1);
         *(v5 + 2) = v69;
-        *(v5 + 1) = *(a3 + 8);
+        *(v5 + 1) = *(a3 + 2);
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
         *(v5 + 16) = result;
         if (result)
@@ -7465,7 +7465,7 @@ char *GTMTLSMAccelerationStructure_processTraceFuncWithPool(char *result, uint64
         v19 = *a3;
         *(v5 + 1) = *(v7 + 1);
         *(v5 + 2) = v19;
-        *(v5 + 1) = *(a3 + 8);
+        *(v5 + 1) = *(a3 + 2);
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
         *(v5 + 16) = result;
         if (result)
@@ -7492,7 +7492,7 @@ char *GTMTLSMAccelerationStructure_processTraceFuncWithPool(char *result, uint64
       v63 = *a3;
       *(v5 + 1) = *(v62 + 1);
       *(v5 + 2) = v63;
-      *(v5 + 1) = *(a3 + 8);
+      *(v5 + 1) = *(a3 + 2);
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
       *(v5 + 16) = result;
       if (result)
@@ -7656,7 +7656,7 @@ LABEL_72:
       v41 = *a3;
       *(v5 + 1) = *(v40 + 1);
       *(v5 + 2) = v41;
-      *(v5 + 1) = *(a3 + 8);
+      *(v5 + 1) = *(a3 + 2);
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
       *(v5 + 16) = result;
       if (result)
@@ -7692,7 +7692,7 @@ LABEL_72:
     v24 = *a3;
     *(v5 + 1) = *(v23 + 1);
     *(v5 + 2) = v24;
-    *(v5 + 1) = *(a3 + 8);
+    *(v5 + 1) = *(a3 + 2);
     result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
     *(v5 + 16) = result;
     if (result)
@@ -7731,7 +7731,7 @@ LABEL_67:
           v13 = *a3;
           *(v5 + 1) = *(v12 + 1);
           *(v5 + 2) = v13;
-          *(v5 + 1) = *(a3 + 8);
+          *(v5 + 1) = *(a3 + 2);
           result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
           *(v5 + 16) = result;
           if (result)
@@ -7769,7 +7769,7 @@ LABEL_67:
       v56 = *a3;
       *(v5 + 1) = *(v55 + 1);
       *(v5 + 2) = v56;
-      *(v5 + 1) = *(a3 + 8);
+      *(v5 + 1) = *(a3 + 2);
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
       *(v5 + 16) = result;
       if (result)
@@ -7800,7 +7800,7 @@ LABEL_67:
     v36 = *a3;
     *(v5 + 1) = *(v23 + 1);
     *(v5 + 2) = v36;
-    *(v5 + 1) = *(a3 + 8);
+    *(v5 + 1) = *(a3 + 2);
     result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
     *(v5 + 16) = result;
     if (result)
@@ -7833,7 +7833,7 @@ LABEL_67:
       v48 = *a3;
       *(v5 + 1) = *(v47 + 1);
       *(v5 + 2) = v48;
-      *(v5 + 1) = *(a3 + 8);
+      *(v5 + 1) = *(a3 + 2);
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
       *(v5 + 16) = result;
       if (result)
@@ -7867,7 +7867,7 @@ LABEL_67:
       v30 = *a3;
       *(v5 + 1) = *(v29 + 1);
       *(v5 + 2) = v30;
-      *(v5 + 1) = *(a3 + 8);
+      *(v5 + 1) = *(a3 + 2);
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
       *(v5 + 16) = result;
       if (result)
@@ -7909,7 +7909,7 @@ LABEL_67:
       v8 = *a3;
       *(v5 + 1) = *(v7 + 1);
       *(v5 + 2) = v8;
-      *(v5 + 1) = *(a3 + 8);
+      *(v5 + 1) = *(a3 + 2);
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
       *(v5 + 16) = result;
       if (result)
@@ -8627,10 +8627,10 @@ LABEL_54:
   return result;
 }
 
-char *GTMTLSMVisibleFunctionTable_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTLSMVisibleFunctionTable_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   if (v6 <= -15439)
   {
     if (v6 <= -15461)
@@ -8639,7 +8639,7 @@ char *GTMTLSMVisibleFunctionTable_processTraceFuncWithPool(char *result, uint64_
       {
         v15 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
         result = GTTraceFunc_argumentBytesWithPool(a3, v15[8], a2);
-        *(v5 + 11) = result;
+        *(v5 + 88) = result;
         return result;
       }
 
@@ -8656,20 +8656,20 @@ char *GTMTLSMVisibleFunctionTable_processTraceFuncWithPool(char *result, uint64_
 
       v7 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
       v8 = *a3;
-      *(v5 + 1) = *(v7 + 1);
-      *(v5 + 2) = v8;
-      *(v5 + 1) = *(a3 + 8);
+      *(v5 + 8) = *(v7 + 1);
+      *(v5 + 16) = v8;
+      *(v5 + 4) = *(a3 + 2);
       v9 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
-      *(v5 + 15) = v9;
+      *(v5 + 120) = v9;
       if (v9)
       {
-        *(v5 + 4) = vextq_s8(*v9, *v9, 8uLL);
-        *(v5 + 24) = *(v9 + 4);
-        *(v5 + 9) = *(v9 + 24);
-        *(v5 + 10) = *(v9 + 40);
+        *(v5 + 64) = vextq_s8(*v9, *v9, 8uLL);
+        *(v5 + 96) = *(v9 + 4);
+        *(v5 + 144) = *(v9 + 24);
+        *(v5 + 160) = *(v9 + 40);
       }
 
-      *(v5 + 16) = *v7;
+      *(v5 + 128) = *v7;
       goto LABEL_42;
     }
 
@@ -8678,59 +8678,59 @@ char *GTMTLSMVisibleFunctionTable_processTraceFuncWithPool(char *result, uint64_
       case -15460:
         v16 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
         v17 = *a3;
-        *(v5 + 1) = *(v16 + 1);
-        *(v5 + 2) = v17;
-        *(v5 + 1) = *(a3 + 8);
+        *(v5 + 8) = *(v16 + 1);
+        *(v5 + 16) = v17;
+        *(v5 + 4) = *(a3 + 2);
         v18 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
-        *(v5 + 15) = v18;
+        *(v5 + 120) = v18;
         if (v18)
         {
-          *(v5 + 4) = vextq_s8(*v18, *v18, 8uLL);
-          *(v5 + 24) = *(v18 + 4);
-          *(v5 + 9) = *(v18 + 24);
-          *(v5 + 10) = *(v18 + 40);
+          *(v5 + 64) = vextq_s8(*v18, *v18, 8uLL);
+          *(v5 + 96) = *(v18 + 4);
+          *(v5 + 144) = *(v18 + 24);
+          *(v5 + 160) = *(v18 + 40);
         }
 
-        *(v5 + 17) = *v16;
-        v5[176] = *(v16 + 2);
+        *(v5 + 136) = *v16;
+        *(v5 + 176) = *(v16 + 2);
         v19 = v16[24];
         goto LABEL_43;
       case -15440:
         v7 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
         v20 = *a3;
-        *(v5 + 1) = *(v7 + 1);
-        *(v5 + 2) = v20;
-        *(v5 + 1) = *(a3 + 8);
+        *(v5 + 8) = *(v7 + 1);
+        *(v5 + 16) = v20;
+        *(v5 + 4) = *(a3 + 2);
         v21 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
-        *(v5 + 15) = v21;
+        *(v5 + 120) = v21;
         if (v21)
         {
-          *(v5 + 4) = vextq_s8(*v21, *v21, 8uLL);
-          *(v5 + 24) = *(v21 + 4);
-          *(v5 + 9) = *(v21 + 24);
-          *(v5 + 10) = *(v21 + 40);
+          *(v5 + 64) = vextq_s8(*v21, *v21, 8uLL);
+          *(v5 + 96) = *(v21 + 4);
+          *(v5 + 144) = *(v21 + 24);
+          *(v5 + 160) = *(v21 + 40);
         }
 
-        *(v5 + 17) = *v7;
+        *(v5 + 136) = *v7;
         v12 = 2;
         break;
       case -15439:
         v7 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
         v10 = *a3;
-        *(v5 + 1) = *(v7 + 1);
-        *(v5 + 2) = v10;
-        *(v5 + 1) = *(a3 + 8);
+        *(v5 + 8) = *(v7 + 1);
+        *(v5 + 16) = v10;
+        *(v5 + 4) = *(a3 + 2);
         v11 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
-        *(v5 + 15) = v11;
+        *(v5 + 120) = v11;
         if (v11)
         {
-          *(v5 + 4) = vextq_s8(*v11, *v11, 8uLL);
-          *(v5 + 24) = *(v11 + 4);
-          *(v5 + 9) = *(v11 + 24);
-          *(v5 + 10) = *(v11 + 40);
+          *(v5 + 64) = vextq_s8(*v11, *v11, 8uLL);
+          *(v5 + 96) = *(v11 + 4);
+          *(v5 + 144) = *(v11 + 24);
+          *(v5 + 160) = *(v11 + 40);
         }
 
-        *(v5 + 17) = *v7;
+        *(v5 + 136) = *v7;
         v12 = 4;
         break;
       default:
@@ -8738,12 +8738,12 @@ char *GTMTLSMVisibleFunctionTable_processTraceFuncWithPool(char *result, uint64_
     }
 
 LABEL_41:
-    v5[176] = v12;
+    *(v5 + 176) = v12;
 LABEL_42:
     v19 = v7[16];
 LABEL_43:
     result = GTTraceFunc_argumentBytesWithPool(a3, v19, a2);
-    *(v5 + 14) = result;
+    *(v5 + 112) = result;
     return result;
   }
 
@@ -8754,26 +8754,26 @@ LABEL_43:
       if (v6 == -10160)
       {
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 20) = *(result + 1);
+        *(v5 + 160) = *(result + 1);
       }
 
       else if (v6 == -10153)
       {
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 21) = *(result + 1);
+        *(v5 + 168) = *(result + 1);
       }
     }
 
     else if (v6 == -10177)
     {
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 9) = *(result + 1);
+      *(v5 + 72) = *(result + 1);
     }
 
     else if (v6 == -10174)
     {
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 8) = *(result + 1);
+      *(v5 + 64) = *(result + 1);
     }
 
     return result;
@@ -8784,29 +8784,29 @@ LABEL_43:
     case -15438:
       v7 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
       v13 = *a3;
-      *(v5 + 1) = *(v7 + 1);
-      *(v5 + 2) = v13;
-      *(v5 + 1) = *(a3 + 8);
+      *(v5 + 8) = *(v7 + 1);
+      *(v5 + 16) = v13;
+      *(v5 + 4) = *(a3 + 2);
       v14 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 14), a2);
-      *(v5 + 15) = v14;
+      *(v5 + 120) = v14;
       if (v14)
       {
-        *(v5 + 4) = vextq_s8(*v14, *v14, 8uLL);
-        *(v5 + 24) = *(v14 + 4);
-        *(v5 + 9) = *(v14 + 24);
-        *(v5 + 10) = *(v14 + 40);
+        *(v5 + 64) = vextq_s8(*v14, *v14, 8uLL);
+        *(v5 + 96) = *(v14 + 4);
+        *(v5 + 144) = *(v14 + 24);
+        *(v5 + 160) = *(v14 + 40);
       }
 
-      *(v5 + 17) = *v7;
+      *(v5 + 136) = *v7;
       v12 = 1;
       goto LABEL_41;
     case -10193:
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 18) = *(result + 1);
+      *(v5 + 144) = *(result + 1);
       break;
     case -10178:
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 10) = *(result + 1);
+      *(v5 + 80) = *(result + 1);
       break;
   }
 
@@ -8867,7 +8867,7 @@ char *GTMTLFXSMSpatialScaler_processTraceFuncWithPool(char *result, uint64_t a2,
     if (v6 == -20480)
     {
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      v3 = result + 8;
+      v3 = (result + 8);
       v7 = 64;
       goto LABEL_17;
     }
@@ -8875,7 +8875,7 @@ char *GTMTLFXSMSpatialScaler_processTraceFuncWithPool(char *result, uint64_t a2,
     if (v6 == -20479)
     {
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      v3 = result + 8;
+      v3 = (result + 8);
       v7 = 56;
       goto LABEL_17;
     }
@@ -8886,7 +8886,7 @@ char *GTMTLFXSMSpatialScaler_processTraceFuncWithPool(char *result, uint64_t a2,
     }
 
     result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-    v3 = result + 8;
+    v3 = (result + 8);
   }
 
   else
@@ -8896,14 +8896,14 @@ char *GTMTLFXSMSpatialScaler_processTraceFuncWithPool(char *result, uint64_t a2,
       if (v6 == -20477)
       {
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        v3 = result + 8;
+        v3 = (result + 8);
         v7 = 80;
       }
 
       else
       {
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        v3 = result + 8;
+        v3 = (result + 8);
         v7 = 72;
       }
 
@@ -8930,7 +8930,7 @@ char *GTMTLFXSMSpatialScaler_processTraceFuncWithPool(char *result, uint64_t a2,
     *(v5 + 5) = v10;
     result = GTTraceFunc_argumentBytesWithPool(v3, v8[16], a2);
     *(v5 + 6) = result;
-    v3 = result + 8;
+    v3 = (result + 8);
     *(v5 + 10) = *result;
   }
 
@@ -8940,9 +8940,9 @@ LABEL_17:
   return result;
 }
 
-float32_t GTMTLFXSMTemporalScaler_processTraceFuncWithPool(uint64_t a1, uint64_t a2, uint64_t a3)
+float32_t GTMTLFXSMTemporalScaler_processTraceFuncWithPool(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   switch(v6)
   {
     case -20473:
@@ -9017,7 +9017,7 @@ float32_t GTMTLFXSMTemporalScaler_processTraceFuncWithPool(uint64_t a1, uint64_t
         v10 = *v8;
         *(a1 + 8) = *(v8 + 1);
         *(a1 + 16) = v9;
-        *(a1 + 4) = *(a3 + 8);
+        *(a1 + 4) = *(a3 + 2);
         *(a1 + 40) = v10;
         v11 = GTTraceFunc_argumentBytesWithPool(a3, v8[16], a2);
         *(a1 + 48) = v11;
@@ -9036,10 +9036,10 @@ float32_t GTMTLFXSMTemporalScaler_processTraceFuncWithPool(uint64_t a1, uint64_t
   return v7.f32[0];
 }
 
-char *GTMTLFXSMFrameInterpolator_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTLFXSMFrameInterpolator_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   if (v6 > -20337)
   {
     if (v6 <= -20332)
@@ -9049,32 +9049,32 @@ char *GTMTLFXSMFrameInterpolator_processTraceFuncWithPool(char *result, uint64_t
         if (v6 == -20336)
         {
           result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-          *(v5 + 36) = *(result + 2);
+          *(v5 + 144) = *(result + 2);
         }
 
         else
         {
           result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-          *(v5 + 35) = *(result + 2);
+          *(v5 + 140) = *(result + 2);
         }
       }
 
       else if (v6 == -20334)
       {
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 31) = *(result + 2);
+        *(v5 + 124) = *(result + 2);
       }
 
       else if (v6 == -20333)
       {
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 34) = *(result + 2);
+        *(v5 + 136) = *(result + 2);
       }
 
       else
       {
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 32) = *(result + 2);
+        *(v5 + 128) = *(result + 2);
       }
     }
 
@@ -9084,24 +9084,24 @@ char *GTMTLFXSMFrameInterpolator_processTraceFuncWithPool(char *result, uint64_t
       {
         case -20328:
           result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-          *(v5 + 13) = *(result + 1);
+          *(v5 + 104) = *(result + 1);
           break;
         case -20316:
           result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-          v5[148] = *(result + 2);
+          *(v5 + 148) = *(result + 2);
           break;
         case -18429:
           v7 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
           v8 = *a3;
           v9 = *v7;
-          *(v5 + 1) = *(v7 + 1);
-          *(v5 + 2) = v8;
-          *(v5 + 1) = *(a3 + 8);
-          *(v5 + 5) = v9;
+          *(v5 + 8) = *(v7 + 1);
+          *(v5 + 16) = v8;
+          *(v5 + 4) = *(a3 + 2);
+          *(v5 + 40) = v9;
           result = GTTraceFunc_argumentBytesWithPool(a3, v7[16], a2);
-          *(v5 + 6) = result;
-          v5[148] = 1;
-          *(v5 + 14) = 0;
+          *(v5 + 48) = result;
+          *(v5 + 148) = 1;
+          *(v5 + 112) = 0;
           break;
       }
     }
@@ -9109,19 +9109,19 @@ char *GTMTLFXSMFrameInterpolator_processTraceFuncWithPool(char *result, uint64_t
     else if (v6 == -20331)
     {
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 33) = *(result + 2);
+      *(v5 + 132) = *(result + 2);
     }
 
     else if (v6 == -20330)
     {
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 30) = *(result + 2);
+      *(v5 + 120) = *(result + 2);
     }
 
     else
     {
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      v5[149] = *(result + 2);
+      *(v5 + 149) = *(result + 2);
     }
   }
 
@@ -9132,32 +9132,32 @@ char *GTMTLFXSMFrameInterpolator_processTraceFuncWithPool(char *result, uint64_t
       if (v6 == -20455)
       {
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 8) = *(result + 1);
+        *(v5 + 64) = *(result + 1);
       }
 
       else if (v6 == -20454)
       {
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 10) = *(result + 1);
+        *(v5 + 80) = *(result + 1);
       }
     }
 
     else if (v6 == -20453)
     {
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 7) = *(result + 1);
+      *(v5 + 56) = *(result + 1);
     }
 
     else if (v6 == -20452)
     {
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 11) = *(result + 1);
+      *(v5 + 88) = *(result + 1);
     }
 
     else
     {
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 28) = *(result + 2);
+      *(v5 + 112) = *(result + 2);
     }
   }
 
@@ -9173,7 +9173,7 @@ char *GTMTLFXSMFrameInterpolator_processTraceFuncWithPool(char *result, uint64_t
         break;
       case -20350:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        v5[150] = *(result + 2);
+        *(v5 + 150) = *(result + 2);
         break;
     }
   }
@@ -9184,15 +9184,15 @@ char *GTMTLFXSMFrameInterpolator_processTraceFuncWithPool(char *result, uint64_t
     {
       case -20450:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 29) = *(result + 2);
+        *(v5 + 116) = *(result + 2);
         break;
       case -20449:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 12) = *(result + 1);
+        *(v5 + 96) = *(result + 1);
         break;
       case -20448:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 9) = *(result + 1);
+        *(v5 + 72) = *(result + 1);
         break;
     }
   }
@@ -9200,10 +9200,10 @@ char *GTMTLFXSMFrameInterpolator_processTraceFuncWithPool(char *result, uint64_t
   return result;
 }
 
-char *GTMTLFXSMTemporalDenoisedScaler_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTLFXSMTemporalDenoisedScaler_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   if (v6 > -20349)
   {
     if (v6 <= -20315)
@@ -9211,13 +9211,13 @@ char *GTMTLFXSMTemporalDenoisedScaler_processTraceFuncWithPool(char *result, uin
       if (v6 == -20348)
       {
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 16) = *(result + 1);
+        *(v5 + 128) = *(result + 1);
       }
 
       else if (v6 == -20315)
       {
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        v5[333] = *(result + 2);
+        *(v5 + 333) = *(result + 2);
       }
     }
 
@@ -9227,29 +9227,29 @@ char *GTMTLFXSMTemporalDenoisedScaler_processTraceFuncWithPool(char *result, uin
       {
         case -20314:
           result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-          *(v5 + 20) = *(result + 1);
+          *(v5 + 160) = *(result + 1);
           break;
         case -18422:
           result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-          v5[334] = *(result + 1);
+          *(v5 + 334) = *(result + 1);
           break;
         case -18428:
           v7 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
           v8 = *a3;
           v9 = *v7;
-          *(v5 + 1) = *(v7 + 1);
-          *(v5 + 2) = v8;
-          *(v5 + 1) = *(a3 + 8);
-          *(v5 + 5) = v9;
+          *(v5 + 8) = *(v7 + 1);
+          *(v5 + 16) = v8;
+          *(v5 + 4) = *(a3 + 2);
+          *(v5 + 40) = v9;
           result = GTTraceFunc_argumentBytesWithPool(a3, v7[16], a2);
           v10 = 0;
-          *(v5 + 6) = result;
-          *(v5 + 23) = 0;
+          *(v5 + 48) = result;
+          *(v5 + 184) = 0;
           v11 = *(result + 24);
           *(v5 + 168) = v11;
-          *(v5 + 24) = vneg_f32(vcvt_f32_f64(vcvtq_f64_u64(v11)));
-          *(v5 + 50) = 1065353216;
-          *(v5 + 166) = 257;
+          *(v5 + 192) = vneg_f32(vcvt_f32_f64(vcvtq_f64_u64(v11)));
+          *(v5 + 200) = 1065353216;
+          *(v5 + 332) = 257;
           do
           {
             if (v10 > 0xA || (v12 = 1.0, ((1 << v10) & 0x421) == 0))
@@ -9265,7 +9265,7 @@ char *GTMTLFXSMTemporalDenoisedScaler_processTraceFuncWithPool(char *result, uin
               }
             }
 
-            *&v5[4 * v10++ + 204] = v12;
+            *(v5 + 204 + 4 * v10++) = v12;
           }
 
           while (v10 != 16);
@@ -9284,7 +9284,7 @@ char *GTMTLFXSMTemporalDenoisedScaler_processTraceFuncWithPool(char *result, uin
               }
             }
 
-            *&v5[4 * i + 268] = v14;
+            *(v5 + 268 + 4 * i) = v14;
           }
 
           break;
@@ -9298,83 +9298,83 @@ char *GTMTLFXSMTemporalDenoisedScaler_processTraceFuncWithPool(char *result, uin
     {
       case -20444:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 8) = *(result + 1);
+        *(v5 + 64) = *(result + 1);
         break;
       case -20443:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        v5[332] = *(result + 2);
+        *(v5 + 332) = *(result + 2);
         break;
       case -20442:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 9) = *(result + 1);
+        *(v5 + 72) = *(result + 1);
         break;
       case -20441:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 11) = *(result + 1);
+        *(v5 + 88) = *(result + 1);
         break;
       case -20440:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 17) = *(result + 1);
+        *(v5 + 136) = *(result + 1);
         break;
       case -20439:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 7) = *(result + 1);
+        *(v5 + 56) = *(result + 1);
         break;
       case -20438:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 22) = *(result + 1);
+        *(v5 + 176) = *(result + 1);
         break;
       case -20437:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 21) = *(result + 1);
+        *(v5 + 168) = *(result + 1);
         break;
       case -20436:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 46) = *(result + 2);
+        *(v5 + 184) = *(result + 2);
         break;
       case -20435:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 47) = *(result + 2);
+        *(v5 + 188) = *(result + 2);
         break;
       case -20434:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 10) = *(result + 1);
+        *(v5 + 80) = *(result + 1);
         break;
       case -20433:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 48) = *(result + 2);
+        *(v5 + 192) = *(result + 2);
         break;
       case -20432:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 49) = *(result + 2);
+        *(v5 + 196) = *(result + 2);
         break;
       case -20431:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 13) = *(result + 1);
+        *(v5 + 104) = *(result + 1);
         break;
       case -20430:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 18) = *(result + 1);
+        *(v5 + 144) = *(result + 1);
         break;
       case -20429:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 50) = *(result + 2);
+        *(v5 + 200) = *(result + 2);
         break;
       case -20428:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 19) = *(result + 1);
+        *(v5 + 152) = *(result + 1);
         break;
       case -20426:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 14) = *(result + 1);
+        *(v5 + 112) = *(result + 1);
         break;
       case -20425:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 12) = *(result + 1);
+        *(v5 + 96) = *(result + 1);
         break;
       case -20424:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 15) = *(result + 1);
+        *(v5 + 120) = *(result + 1);
         break;
       case -20423:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
@@ -9422,7 +9422,7 @@ char *GTMTL4FXSMSpatialScaler_processTraceFuncWithPool(char *result, uint64_t a2
       if (v6 == -20401)
       {
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        v3 = result + 8;
+        v3 = (result + 8);
         v7 = 80;
       }
 
@@ -9442,7 +9442,7 @@ char *GTMTL4FXSMSpatialScaler_processTraceFuncWithPool(char *result, uint64_t a2
     if (v6 == -20326)
     {
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      v3 = result + 8;
+      v3 = (result + 8);
       v7 = 104;
       goto LABEL_20;
     }
@@ -9463,7 +9463,7 @@ char *GTMTL4FXSMSpatialScaler_processTraceFuncWithPool(char *result, uint64_t a2
     *(v5 + 6) = v11;
     result = GTTraceFunc_argumentBytesWithPool(v3, v8[24], a2);
     *(v5 + 7) = result;
-    v3 = result + 8;
+    v3 = (result + 8);
     *(v5 + 11) = *result;
     goto LABEL_18;
   }
@@ -9473,7 +9473,7 @@ char *GTMTL4FXSMSpatialScaler_processTraceFuncWithPool(char *result, uint64_t a2
     if (v6 == -20405)
     {
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      v3 = result + 8;
+      v3 = (result + 8);
       v7 = 72;
     }
 
@@ -9485,7 +9485,7 @@ char *GTMTL4FXSMSpatialScaler_processTraceFuncWithPool(char *result, uint64_t a2
       }
 
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      v3 = result + 8;
+      v3 = (result + 8);
       v7 = 64;
     }
 
@@ -9495,77 +9495,77 @@ char *GTMTL4FXSMSpatialScaler_processTraceFuncWithPool(char *result, uint64_t a2
   if (v6 == -20403)
   {
     result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-    v3 = result + 8;
+    v3 = (result + 8);
 LABEL_18:
     v7 = 96;
     goto LABEL_20;
   }
 
   result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-  v3 = result + 8;
+  v3 = (result + 8);
   v7 = 88;
 LABEL_20:
   *&v5[v7] = *v3;
   return result;
 }
 
-char *GTMTL4FXSMTemporalScaler_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTL4FXSMTemporalScaler_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   switch(v6)
   {
     case -20369:
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 9) = *(result + 1);
+      *(v5 + 72) = *(result + 1);
       break;
     case -20368:
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      v5[164] = *(result + 2);
+      *(v5 + 164) = *(result + 2);
       break;
     case -20367:
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 10) = *(result + 1);
+      *(v5 + 80) = *(result + 1);
       break;
     case -20366:
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 12) = *(result + 1);
+      *(v5 + 96) = *(result + 1);
       break;
     case -20365:
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 8) = *(result + 1);
+      *(v5 + 64) = *(result + 1);
       break;
     case -20364:
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 16) = *(result + 1);
+      *(v5 + 128) = *(result + 1);
       break;
     case -20363:
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 15) = *(result + 1);
+      *(v5 + 120) = *(result + 1);
       break;
     case -20362:
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 36) = *(result + 2);
+      *(v5 + 144) = *(result + 2);
       break;
     case -20361:
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 37) = *(result + 2);
+      *(v5 + 148) = *(result + 2);
       break;
     case -20360:
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 11) = *(result + 1);
+      *(v5 + 88) = *(result + 1);
       break;
     case -20359:
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 38) = *(result + 2);
+      *(v5 + 152) = *(result + 2);
       break;
     case -20358:
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 39) = *(result + 2);
+      *(v5 + 156) = *(result + 2);
       break;
     case -20357:
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 13) = *(result + 1);
+      *(v5 + 104) = *(result + 1);
       break;
     case -20356:
     case -20350:
@@ -9597,15 +9597,15 @@ char *GTMTL4FXSMTemporalScaler_processTraceFuncWithPool(char *result, uint64_t a
       return result;
     case -20355:
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 40) = *(result + 2);
+      *(v5 + 160) = *(result + 2);
       break;
     case -20354:
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 14) = *(result + 1);
+      *(v5 + 112) = *(result + 1);
       break;
     case -20353:
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      v5[165] = *(result + 2);
+      *(v5 + 165) = *(result + 2);
       break;
     case -20352:
       *(result + 3) = *a3;
@@ -9615,13 +9615,13 @@ char *GTMTL4FXSMTemporalScaler_processTraceFuncWithPool(char *result, uint64_t a
       break;
     case -20324:
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 17) = *(result + 1);
+      *(v5 + 136) = *(result + 1);
       break;
     default:
       if (v6 == -18423)
       {
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        v5[166] = *(result + 1);
+        *(v5 + 166) = *(result + 1);
       }
 
       else if (v6 == -18426)
@@ -9629,20 +9629,20 @@ char *GTMTL4FXSMTemporalScaler_processTraceFuncWithPool(char *result, uint64_t a
         v7 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
         v8 = *a3;
         v9 = *v7;
-        *(v5 + 1) = *(v7 + 1);
-        *(v5 + 2) = v8;
-        *(v5 + 1) = *(a3 + 8);
+        *(v5 + 8) = *(v7 + 1);
+        *(v5 + 16) = v8;
+        *(v5 + 4) = *(a3 + 2);
         v10 = *(v7 + 2);
-        *(v5 + 5) = v9;
-        *(v5 + 6) = v10;
+        *(v5 + 40) = v9;
+        *(v5 + 48) = v10;
         result = GTTraceFunc_argumentBytesWithPool(a3, v7[24], a2);
-        *(v5 + 7) = result;
-        *(v5 + 18) = 0;
+        *(v5 + 56) = result;
+        *(v5 + 144) = 0;
         v11 = *(result + 1);
         *(v5 + 120) = v11;
-        *(v5 + 19) = vneg_f32(vcvt_f32_f64(vcvtq_f64_u64(v11)));
-        *(v5 + 40) = 1065353216;
-        *(v5 + 82) = 257;
+        *(v5 + 152) = vneg_f32(vcvt_f32_f64(vcvtq_f64_u64(v11)));
+        *(v5 + 160) = 1065353216;
+        *(v5 + 164) = 257;
       }
 
       break;
@@ -9651,10 +9651,10 @@ char *GTMTL4FXSMTemporalScaler_processTraceFuncWithPool(char *result, uint64_t a
   return result;
 }
 
-char *GTMTL4FXSMFrameInterpolator_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTL4FXSMFrameInterpolator_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   if (v6 <= -20346)
   {
     if (v6 <= -20414)
@@ -9664,13 +9664,13 @@ char *GTMTL4FXSMFrameInterpolator_processTraceFuncWithPool(char *result, uint64_
         if (v6 == -20419)
         {
           result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-          *(v5 + 9) = *(result + 1);
+          *(v5 + 72) = *(result + 1);
         }
 
         else if (v6 == -20418)
         {
           result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-          v5[166] = *(result + 2);
+          *(v5 + 166) = *(result + 2);
         }
       }
 
@@ -9680,15 +9680,15 @@ char *GTMTL4FXSMFrameInterpolator_processTraceFuncWithPool(char *result, uint64_
         {
           case -20417:
             result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-            *(v5 + 11) = *(result + 1);
+            *(v5 + 88) = *(result + 1);
             break;
           case -20416:
             result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-            *(v5 + 8) = *(result + 1);
+            *(v5 + 64) = *(result + 1);
             break;
           case -20414:
             result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-            *(v5 + 12) = *(result + 1);
+            *(v5 + 96) = *(result + 1);
             break;
         }
       }
@@ -9700,7 +9700,7 @@ char *GTMTL4FXSMFrameInterpolator_processTraceFuncWithPool(char *result, uint64_
       {
         case -20409:
           result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-          *(v5 + 10) = *(result + 1);
+          *(v5 + 80) = *(result + 1);
           break;
         case -20407:
           *(result + 3) = *a3;
@@ -9717,15 +9717,15 @@ char *GTMTL4FXSMFrameInterpolator_processTraceFuncWithPool(char *result, uint64_
       {
         case -20413:
           result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-          *(v5 + 32) = *(result + 2);
+          *(v5 + 128) = *(result + 2);
           break;
         case -20412:
           result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-          *(v5 + 33) = *(result + 2);
+          *(v5 + 132) = *(result + 2);
           break;
         case -20411:
           result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-          *(v5 + 13) = *(result + 1);
+          *(v5 + 104) = *(result + 1);
           break;
       }
     }
@@ -9739,26 +9739,26 @@ char *GTMTL4FXSMFrameInterpolator_processTraceFuncWithPool(char *result, uint64_
       {
         case -20327:
           result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-          *(v5 + 15) = *(result + 1);
+          *(v5 + 120) = *(result + 1);
           break;
         case -20319:
           result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-          v5[164] = *(result + 2);
+          *(v5 + 164) = *(result + 2);
           break;
         case -18425:
           v7 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
           v8 = *a3;
           v9 = *v7;
-          *(v5 + 1) = *(v7 + 1);
-          *(v5 + 2) = v8;
-          *(v5 + 1) = *(a3 + 8);
+          *(v5 + 8) = *(v7 + 1);
+          *(v5 + 16) = v8;
+          *(v5 + 4) = *(a3 + 2);
           v10 = *(v7 + 2);
-          *(v5 + 5) = v9;
-          *(v5 + 6) = v10;
+          *(v5 + 40) = v9;
+          *(v5 + 48) = v10;
           result = GTTraceFunc_argumentBytesWithPool(a3, v7[24], a2);
-          *(v5 + 7) = result;
-          v5[164] = 1;
-          *(v5 + 16) = 0;
+          *(v5 + 56) = result;
+          *(v5 + 164) = 1;
+          *(v5 + 128) = 0;
           break;
       }
     }
@@ -9769,15 +9769,15 @@ char *GTMTL4FXSMFrameInterpolator_processTraceFuncWithPool(char *result, uint64_
       {
         case -20339:
           result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-          *(v5 + 34) = *(result + 2);
+          *(v5 + 136) = *(result + 2);
           break;
         case -20338:
           result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-          v5[165] = *(result + 2);
+          *(v5 + 165) = *(result + 2);
           break;
         case -20337:
           result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-          *(v5 + 14) = *(result + 1);
+          *(v5 + 112) = *(result + 1);
           break;
       }
     }
@@ -9788,47 +9788,47 @@ char *GTMTL4FXSMFrameInterpolator_processTraceFuncWithPool(char *result, uint64_
     if (v6 == -20342)
     {
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 38) = *(result + 2);
+      *(v5 + 152) = *(result + 2);
     }
 
     else if (v6 == -20341)
     {
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 36) = *(result + 2);
+      *(v5 + 144) = *(result + 2);
     }
 
     else
     {
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 37) = *(result + 2);
+      *(v5 + 148) = *(result + 2);
     }
   }
 
   else if (v6 == -20345)
   {
     result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-    *(v5 + 40) = *(result + 2);
+    *(v5 + 160) = *(result + 2);
   }
 
   else if (v6 == -20344)
   {
     result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-    *(v5 + 39) = *(result + 2);
+    *(v5 + 156) = *(result + 2);
   }
 
   else
   {
     result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-    *(v5 + 35) = *(result + 2);
+    *(v5 + 140) = *(result + 2);
   }
 
   return result;
 }
 
-char *GTMTL4FXSMTemporalDenoisedScaler_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t a3)
+char *GTMTL4FXSMTemporalDenoisedScaler_processTraceFuncWithPool(char *result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 2);
   if (v6 > -20326)
   {
     if (v6 > -20318)
@@ -9836,7 +9836,7 @@ char *GTMTL4FXSMTemporalDenoisedScaler_processTraceFuncWithPool(char *result, ui
       if (v6 == -20317)
       {
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 24) = *(result + 1);
+        *(v5 + 192) = *(result + 1);
       }
 
       else if (v6 == -18424)
@@ -9844,21 +9844,21 @@ char *GTMTL4FXSMTemporalDenoisedScaler_processTraceFuncWithPool(char *result, ui
         v7 = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
         v8 = *a3;
         v9 = *v7;
-        *(v5 + 1) = *(v7 + 1);
-        *(v5 + 2) = v8;
-        *(v5 + 1) = *(a3 + 8);
+        *(v5 + 8) = *(v7 + 1);
+        *(v5 + 16) = v8;
+        *(v5 + 4) = *(a3 + 2);
         v10 = *(v7 + 2);
-        *(v5 + 5) = v9;
-        *(v5 + 6) = v10;
+        *(v5 + 40) = v9;
+        *(v5 + 48) = v10;
         result = GTTraceFunc_argumentBytesWithPool(a3, v7[24], a2);
         v11 = 0;
-        *(v5 + 7) = result;
-        *(v5 + 25) = 0;
+        *(v5 + 56) = result;
+        *(v5 + 200) = 0;
         v12 = *(result + 24);
         *(v5 + 168) = v12;
-        *(v5 + 26) = vneg_f32(vcvt_f32_f64(vcvtq_f64_u64(v12)));
-        *(v5 + 54) = 1065353216;
-        *(v5 + 174) = 257;
+        *(v5 + 208) = vneg_f32(vcvt_f32_f64(vcvtq_f64_u64(v12)));
+        *(v5 + 216) = 1065353216;
+        *(v5 + 348) = 257;
         do
         {
           if (v11 > 0xA || (v13 = 1.0, ((1 << v11) & 0x421) == 0))
@@ -9874,7 +9874,7 @@ char *GTMTL4FXSMTemporalDenoisedScaler_processTraceFuncWithPool(char *result, ui
             }
           }
 
-          *&v5[4 * v11++ + 220] = v13;
+          *(v5 + 220 + 4 * v11++) = v13;
         }
 
         while (v11 != 16);
@@ -9893,7 +9893,7 @@ char *GTMTL4FXSMTemporalDenoisedScaler_processTraceFuncWithPool(char *result, ui
             }
           }
 
-          *&v5[4 * i + 284] = v15;
+          *(v5 + 284 + 4 * i) = v15;
         }
       }
     }
@@ -9901,13 +9901,13 @@ char *GTMTL4FXSMTemporalDenoisedScaler_processTraceFuncWithPool(char *result, ui
     else if (v6 == -20325)
     {
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      *(v5 + 23) = *(result + 1);
+      *(v5 + 184) = *(result + 1);
     }
 
     else if (v6 == -20318)
     {
       result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-      v5[349] = *(result + 2);
+      *(v5 + 349) = *(result + 2);
     }
   }
 
@@ -9917,87 +9917,87 @@ char *GTMTL4FXSMTemporalDenoisedScaler_processTraceFuncWithPool(char *result, ui
     {
       case -20397:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 9) = *(result + 1);
+        *(v5 + 72) = *(result + 1);
         break;
       case -20396:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 20) = *(result + 1);
+        *(v5 + 160) = *(result + 1);
         break;
       case -20395:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        v5[348] = *(result + 2);
+        *(v5 + 348) = *(result + 2);
         break;
       case -20394:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 10) = *(result + 1);
+        *(v5 + 80) = *(result + 1);
         break;
       case -20393:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 12) = *(result + 1);
+        *(v5 + 96) = *(result + 1);
         break;
       case -20392:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 17) = *(result + 1);
+        *(v5 + 136) = *(result + 1);
         break;
       case -20391:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 8) = *(result + 1);
+        *(v5 + 64) = *(result + 1);
         break;
       case -20390:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 22) = *(result + 1);
+        *(v5 + 176) = *(result + 1);
         break;
       case -20389:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 21) = *(result + 1);
+        *(v5 + 168) = *(result + 1);
         break;
       case -20388:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 50) = *(result + 2);
+        *(v5 + 200) = *(result + 2);
         break;
       case -20387:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 51) = *(result + 2);
+        *(v5 + 204) = *(result + 2);
         break;
       case -20386:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 11) = *(result + 1);
+        *(v5 + 88) = *(result + 1);
         break;
       case -20385:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 52) = *(result + 2);
+        *(v5 + 208) = *(result + 2);
         break;
       case -20384:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 53) = *(result + 2);
+        *(v5 + 212) = *(result + 2);
         break;
       case -20383:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 14) = *(result + 1);
+        *(v5 + 112) = *(result + 1);
         break;
       case -20382:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 18) = *(result + 1);
+        *(v5 + 144) = *(result + 1);
         break;
       case -20380:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 54) = *(result + 2);
+        *(v5 + 216) = *(result + 2);
         break;
       case -20378:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 19) = *(result + 1);
+        *(v5 + 152) = *(result + 1);
         break;
       case -20376:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 15) = *(result + 1);
+        *(v5 + 120) = *(result + 1);
         break;
       case -20375:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 13) = *(result + 1);
+        *(v5 + 104) = *(result + 1);
         break;
       case -20374:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);
-        *(v5 + 16) = *(result + 1);
+        *(v5 + 128) = *(result + 1);
         break;
       case -20373:
         result = GTTraceFunc_argumentBytesWithPool(a3, *(a3 + 13), a2);

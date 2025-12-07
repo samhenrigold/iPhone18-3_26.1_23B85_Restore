@@ -19,7 +19,7 @@
   v8[3] = self;
   identityCopy = identity;
   selfCopy = self;
-  sub_265FE2014(sub_265FCBE4C, v8);
+  sub_265FE2014(sub_265FCBE4C, v8, "ShellSceneKit/Platform+FBSDisplayMonitor.swift", 46, 2u, 131);
 }
 
 @end

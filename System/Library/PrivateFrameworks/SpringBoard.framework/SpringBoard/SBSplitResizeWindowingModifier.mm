@@ -736,31 +736,30 @@ LABEL_44:
   v19 = v18;
   v20 = [(SBSplitResizeWindowingModifier *)self layoutAttributesForDisplayItem:itemCopy inAppLayout:appLayout];
   windowingConfiguration = [(SBWindowingModifier *)self windowingConfiguration];
-  v22 = [(SBDisplayItemLayoutAttributes *)x normalizedPointForPoint:v13 inBounds:v15, v17, v19];
+  v22 = [SBDisplayItemLayoutAttributes normalizedPointForPoint:y inBounds:v13, v15, v17, v19];
   v24 = [(SBDisplayItemLayoutAttributes *)v20 attributesByModifyingNormalizedCenter:v22, v23];
 
   v25 = [(SBDisplayItemLayoutAttributes *)v24 attributesByModifyingPositionIsSystemManaged:?];
 
   [(SBDisplayItemLayoutAttributes *)v25 tileConfiguration];
-  if (SBDisplayItemTileConfigurationIsValid(v41))
+  if (SBDisplayItemTileConfigurationIsValid(v40))
   {
-    SBDisplayItemTileConfigurationMakeNotTiled(v41);
+    SBDisplayItemTileConfigurationMakeNotTiled(v40);
     v26 = [SBDisplayItemLayoutAttributes attributesByModifyingTileConfiguration:v25];
 
     v25 = v26;
   }
 
-  v42 = 0;
-  memset(v41, 0, sizeof(v41));
+  v41 = 0;
+  memset(v40, 0, sizeof(v40));
   [windowingConfiguration defaultWindowSize];
   [windowingConfiguration screenEdgePadding];
-  v40 = v27;
-  SBDisplayItemAttributedSizeInfer(v41, width, height, v13, v15, v17, v19);
+  SBDisplayItemAttributedSizeInfer(v40, width, height, v13, v15, v17, v19, v27);
   v28 = [SBDisplayItemLayoutAttributes attributesByModifyingAttributedSize:v25];
 
   v29 = [SBDisplayItemLayoutAttributes attributesByModifyingAttributedUserSizeBeforeOverlapping:v28];
 
-  v30 = [(SBSplitResizeWindowingModifier *)self supportedSizingPoliciesForItem:itemCopy inAppLayout:appLayout, v40];
+  v30 = [(SBSplitResizeWindowingModifier *)self supportedSizingPoliciesForItem:itemCopy inAppLayout:appLayout];
   v31 = SBDisplayItemSizingPolicyAllowingLargestSize(v30);
   SBDisplayItemSizingPolicyAllowingSmallestSize(v30);
   if (v31 == 1)
@@ -769,11 +768,11 @@ LABEL_44:
     [windowingConfiguration2 screenEdgePadding];
     v34 = v33;
 
-    v44.origin.x = v13;
-    v44.origin.y = v15;
-    v44.size.width = v17;
-    v44.size.height = v19;
-    CGRectInset(v44, v34, v34);
+    v43.origin.x = v13;
+    v43.origin.y = v15;
+    v43.size.width = v17;
+    v43.size.height = v19;
+    CGRectInset(v43, v34, v34);
     if ((BSFloatEqualToFloat() & 1) == 0)
     {
       BSFloatEqualToFloat();

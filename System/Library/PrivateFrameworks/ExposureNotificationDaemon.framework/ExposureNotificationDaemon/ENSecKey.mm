@@ -45,7 +45,7 @@
 
   else if (error)
   {
-    ENErrorF();
+    ENErrorF(2, "Nil key string");
     *error = v9 = 0;
     goto LABEL_4;
   }

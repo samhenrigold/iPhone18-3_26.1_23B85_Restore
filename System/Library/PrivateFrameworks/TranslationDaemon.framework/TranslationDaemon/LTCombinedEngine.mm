@@ -8,17 +8,18 @@ void __50___LTCombinedEngine_speak_withContext_completion___block_invoke(uint64_
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
+  v9 = WeakRetained;
   if (WeakRetained)
   {
     if (v6)
     {
-      v8 = _LTOSLogTTS();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = _LTOSLogTTS(WeakRetained, v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        __50___LTCombinedEngine_speak_withContext_completion___block_invoke_cold_1(v6, v8);
+        __50___LTCombinedEngine_speak_withContext_completion___block_invoke_cold_1(v6, v10);
       }
 
-      [WeakRetained[3] speak:*(a1 + 32) withContext:*(a1 + 40) completion:*(a1 + 48)];
+      [v9[3] speak:*(a1 + 32) withContext:*(a1 + 40) completion:*(a1 + 48)];
     }
 
     else
@@ -58,18 +59,16 @@ void __70___LTCombinedEngine_translate_withContext_paragraphResult_completion___
     v4 = [a1[5] identifier];
     [v3 removeObject:v4];
 
-    v6 = a1[5];
-    v5 = a1[6];
-    v7 = *(a1[8] + 16);
+    v5 = *(a1[8] + 16);
 
-    v7();
+    v5();
   }
 
   else
   {
-    v8 = a1[7];
-    v9 = [a1[5] identifier];
-    [v8 setObject:v2 forKey:v9];
+    v6 = a1[7];
+    v7 = [a1[5] identifier];
+    [v6 setObject:v2 forKey:v7];
   }
 }
 
@@ -111,11 +110,9 @@ uint64_t __70___LTCombinedEngine_translate_withContext_paragraphResult_completio
     v4 = [*(result + 48) identifier];
     [v3 removeObject:v4];
 
-    v5 = v2[7];
-    v6 = v2[6];
-    v7 = *(v2[8] + 16);
+    v5 = *(*(v2 + 64) + 16);
 
-    return v7();
+    return v5();
   }
 
   return result;
@@ -130,61 +127,54 @@ void __70___LTCombinedEngine_translate_withContext_paragraphResult_completion___
 
 uint64_t __70___LTCombinedEngine_translate_withContext_paragraphResult_completion___block_invoke_7(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (*(*(*(a1 + 64) + 8) + 24) == 1)
   {
-    v2 = *(a1 + 48);
-    v3 = *(*(a1 + 48) + 16);
-    v4 = *MEMORY[0x277D85DE8];
+    v2 = *(*(a1 + 48) + 16);
 LABEL_5:
 
-    return v3();
+    return v2();
   }
 
   if (*(*(*(a1 + 72) + 8) + 40))
   {
-    v5 = *(a1 + 48);
-    v6 = *(*(*(a1 + 80) + 8) + 40);
-    v3 = *(*(a1 + 48) + 16);
-    v7 = *MEMORY[0x277D85DE8];
+    v2 = *(*(a1 + 48) + 16);
     goto LABEL_5;
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v9 = *(a1 + 32);
-  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v10)
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v4 = *(a1 + 32);
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v5)
   {
-    v11 = v10;
-    v12 = *v17;
+    v6 = v5;
+    v7 = *v11;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v12)
+        if (*v11 != v7)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v4);
         }
 
-        v14 = [*(a1 + 40) objectForKeyedSubscript:{*(*(&v16 + 1) + 8 * i), v16}];
-        if (v14)
+        v9 = [*(a1 + 40) objectForKeyedSubscript:{*(*(&v10 + 1) + 8 * i), v10}];
+        if (v9)
         {
           (*(*(a1 + 56) + 16))();
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v11);
+    while (v6);
   }
 
-  result = (*(*(a1 + 48) + 16))();
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 void __62___LTCombinedEngine_translateSentence_withContext_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -205,13 +195,12 @@ void __62___LTCombinedEngine_translateSentence_withContext_completion___block_in
   if (a2 && !a3)
   {
     *(*(a1[6] + 8) + 24) = 1;
-    v4 = a1[5];
     (*(a1[5] + 16))();
   }
 
-  v5 = a1[4];
+  v4 = a1[4];
 
-  dispatch_group_leave(v5);
+  dispatch_group_leave(v4);
 }
 
 void *__62___LTCombinedEngine_translateSentence_withContext_completion___block_invoke_3(void *result)
@@ -236,11 +225,10 @@ void *__62___LTCombinedEngine_translateSentence_withContext_completion___block_i
 
 void __50___LTCombinedEngine_speak_withContext_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_232E53000, a2, OS_LOG_TYPE_ERROR, "Failed online TTS, will fallback to offline: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_232E53000, a2, OS_LOG_TYPE_ERROR, "Failed online TTS, will fallback to offline: %@", &v2, 0xCu);
 }
 
 @end

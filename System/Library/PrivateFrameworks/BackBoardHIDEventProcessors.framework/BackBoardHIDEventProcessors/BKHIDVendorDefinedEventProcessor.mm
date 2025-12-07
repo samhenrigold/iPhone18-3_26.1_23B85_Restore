@@ -6,7 +6,7 @@
 
 - (int64_t)processEvent:(__IOHIDEvent *)event sender:(id)sender dispatcher:(id)dispatcher
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   senderCopy = sender;
   dispatcherCopy = dispatcher;
   v9 = *event;
@@ -21,9 +21,9 @@
     }
 
     *buf = 134218240;
-    v27 = 65292;
-    v28 = 2048;
-    v29 = v11;
+    v26 = 65292;
+    v27 = 2048;
+    v28 = v11;
     v13 = "Motion event usagePage:0x%lX usage:%ld ";
   }
 
@@ -36,9 +36,9 @@
     }
 
     *buf = 134218240;
-    v27 = IntegerValue;
-    v28 = 2048;
-    v29 = v11;
+    v26 = IntegerValue;
+    v27 = 2048;
+    v28 = v11;
     v13 = "VendorDefinedEvent usagePage:0x%lX usage:%ld ";
   }
 
@@ -46,34 +46,33 @@
 LABEL_5:
 
   v14 = [dispatcherCopy destinationsForEvent:v9 fromSender:senderCopy];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v15 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v22;
+    v17 = *v21;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v22 != v17)
+        if (*v21 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        [dispatcherCopy postEvent:v9 toDestination:*(*(&v21 + 1) + 8 * i)];
+        [dispatcherCopy postEvent:v9 toDestination:*(*(&v20 + 1) + 8 * i)];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v16);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

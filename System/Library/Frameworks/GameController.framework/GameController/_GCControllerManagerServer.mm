@@ -55,7 +55,7 @@
 
 - (_GCControllerManagerServer)init
 {
-  v3 = AllControllerProfiles();
+  v3 = AllControllerProfiles(self);
   v4 = [(_GCControllerManagerServer *)self initWithControllerProfiles:v3];
 
   return v4;
@@ -63,19 +63,19 @@
 
 - (_GCControllerManagerServer)initWithControllerProfiles:(id)profiles
 {
-  v82 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   profilesCopy = profiles;
-  v80.receiver = self;
-  v80.super_class = _GCControllerManagerServer;
-  v5 = [(_GCControllerManagerServer *)&v80 init];
+  v79.receiver = self;
+  v79.super_class = _GCControllerManagerServer;
+  v5 = [(_GCControllerManagerServer *)&v79 init];
   if (v5)
   {
     v6 = dispatch_queue_create("GCControllerManager.controllers", 0);
     controllersQueue = v5->_controllersQueue;
     v5->_controllersQueue = v6;
 
-    v71 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, -1);
-    v8 = dispatch_queue_create("com.apple.corecontroller.events", v71);
+    v70 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, -1);
+    v8 = dispatch_queue_create("com.apple.corecontroller.events", v70);
     hidSystemClientQueue = v5->_hidSystemClientQueue;
     v5->_hidSystemClientQueue = v8;
 
@@ -101,27 +101,27 @@
     settingsStore = v5->_settingsStore;
     v5->_settingsStore = v18;
 
-    v78 = 0u;
-    v79 = 0u;
-    v76 = 0u;
     v77 = 0u;
+    v78 = 0u;
+    v75 = 0u;
+    v76 = 0u;
     v20 = profilesCopy;
-    v21 = [v20 countByEnumeratingWithState:&v76 objects:v81 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v75 objects:v80 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v77;
+      v23 = *v76;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v77 != v23)
+          if (*v76 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v76 + 1) + 8 * i);
-          if ([v25 conformsToProtocol:{&unk_1F4E97480, v71}])
+          v25 = *(*(&v75 + 1) + 8 * i);
+          if ([v25 conformsToProtocol:{&unk_1F4E97480, v70}])
           {
             deviceManager = [v25 deviceManager];
             [deviceManager setDeviceRegistry:v5];
@@ -145,7 +145,7 @@
           }
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v76 objects:v81 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v75 objects:v80 count:16];
       }
 
       while (v22);
@@ -225,20 +225,19 @@
     block[2] = __57___GCControllerManagerServer_initWithControllerProfiles___block_invoke;
     block[3] = &unk_1E8418C28;
     v66 = v5;
-    v75 = v66;
+    v74 = v66;
     v67 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, -1, block);
     dispatch_async(MEMORY[0x1E69E96A0], v67);
 
     controllersQueue = [(_GCControllerManagerServer *)v66 controllersQueue];
-    v72[0] = MEMORY[0x1E69E9820];
-    v72[1] = 3221225472;
-    v72[2] = __57___GCControllerManagerServer_initWithControllerProfiles___block_invoke_2;
-    v72[3] = &unk_1E8418C28;
-    v73 = v66;
-    dispatch_async(controllersQueue, v72);
+    v71[0] = MEMORY[0x1E69E9820];
+    v71[1] = 3221225472;
+    v71[2] = __57___GCControllerManagerServer_initWithControllerProfiles___block_invoke_2;
+    v71[3] = &unk_1E8418C28;
+    v72 = v66;
+    dispatch_async(controllersQueue, v71);
   }
 
-  v69 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -295,58 +294,54 @@ LABEL_6:
 
 - (void)_refreshCoPilotSettings
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(self, OS_LOG_TYPE_DEBUG))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_0();
-    _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_onqueue_refreshControllers
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   controllersQueue = [(_GCControllerManagerServer *)self controllersQueue];
   dispatch_assert_queue_V2(controllersQueue);
 
   v4 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{-[NSMutableDictionary count](self->_logicalDevices, "count")}];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   allValues = [(NSMutableDictionary *)self->_logicalDevices allValues];
-  v6 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * i);
+        v10 = *(*(&v11 + 1) + 8 * i);
         if ([v10 conformsToProtocol:&unk_1F4E9B608])
         {
           [v4 addObject:v10];
         }
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
   [(_GCControllerManagerServer *)self setActiveControllerDevices:v4];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_onqueue_refreshLogicalDevices
@@ -513,15 +508,12 @@ LABEL_6:
 
 - (void)_onqueue_signalGameControllerFocusModeEvent
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(self);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 8u);
+    _os_log_impl(v3, v4, v5, v6, v7, 8u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasConfigurationWithIdentifier:(id)identifier
@@ -563,7 +555,7 @@ LABEL_6:
 
   v12 = [configurationCopy copy];
 
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v13, v14))
   {
     [_GCControllerManagerServer addConfiguration:v12 replaceExisting:?];
     if (!v9)
@@ -581,10 +573,10 @@ LABEL_9:
   }
 
 LABEL_10:
-  [(NSMutableSet *)self->_configurations addObject:v12];
-  if (gc_isInternalBuild())
+  v15 = [(NSMutableSet *)self->_configurations addObject:v12];
+  if (gc_isInternalBuild(v15, v16))
   {
-    [_GCControllerManagerServer addConfiguration:replaceExisting:];
+    [_GCControllerManagerServer addConfiguration:v12 replaceExisting:?];
   }
 
   os_unfair_lock_unlock(&self->_configurationsLock);
@@ -608,16 +600,16 @@ LABEL_6:
   {
     v8 = [configurationCopy copy];
 
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v10, v11))
     {
       [_GCControllerManagerServer updateConfiguration:v8];
     }
 
     [(NSMutableSet *)self->_configurations removeObject:v8];
-    [(NSMutableSet *)self->_configurations addObject:v8];
-    if (gc_isInternalBuild())
+    v12 = [(NSMutableSet *)self->_configurations addObject:v8];
+    if (gc_isInternalBuild(v12, v13))
     {
-      [_GCControllerManagerServer updateConfiguration:];
+      [_GCControllerManagerServer updateConfiguration:v8];
     }
 
     os_unfair_lock_unlock(&self->_configurationsLock);
@@ -638,17 +630,18 @@ LABEL_6:
   identifierCopy = identifier;
   os_unfair_lock_lock(&self->_configurationsLock);
   v5 = [(NSMutableSet *)self->_configurations member:identifierCopy];
+  v7 = v5;
   if (v5)
   {
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v5, v6))
     {
-      [_GCControllerManagerServer removeConfigurationWithIdentifier:v5];
+      [_GCControllerManagerServer removeConfigurationWithIdentifier:v7];
     }
 
-    [(NSMutableSet *)self->_configurations removeObject:identifierCopy];
-    if (gc_isInternalBuild())
+    v9 = [(NSMutableSet *)self->_configurations removeObject:identifierCopy];
+    if (gc_isInternalBuild(v9, v10))
     {
-      [_GCControllerManagerServer removeConfigurationWithIdentifier:];
+      [_GCControllerManagerServer removeConfigurationWithIdentifier:v7];
     }
 
     os_unfair_lock_unlock(&self->_configurationsLock);
@@ -660,7 +653,7 @@ LABEL_6:
     os_unfair_lock_unlock(&self->_configurationsLock);
   }
 
-  return v5 != 0;
+  return v7 != 0;
 }
 
 - (void)refreshActiveConfigurationsWithCompletion:(id)completion
@@ -702,34 +695,32 @@ LABEL_6:
 
 - (id)matchingHIDServiceAttributes
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
-  v15[0] = @"DeviceUsagePage";
-  v15[1] = @"DeviceUsage";
-  v16[0] = &unk_1F4E8DEF8;
-  v16[1] = &unk_1F4E8DF10;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v14[0] = @"DeviceUsagePage";
+  v14[1] = @"DeviceUsage";
+  v15[0] = &unk_1F4E8DEF8;
+  v15[1] = &unk_1F4E8DF10;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
   [array addObject:v3];
-  v13[0] = @"DeviceUsagePage";
-  v13[1] = @"DeviceUsage";
-  v14[0] = &unk_1F4E8DEF8;
-  v14[1] = &unk_1F4E8DF28;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v12[0] = @"DeviceUsagePage";
+  v12[1] = @"DeviceUsage";
+  v13[0] = &unk_1F4E8DEF8;
+  v13[1] = &unk_1F4E8DF28;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
   [array addObject:v4];
-  v11[0] = @"DeviceUsagePage";
-  v11[1] = @"DeviceUsage";
-  v12[0] = &unk_1F4E8DEF8;
-  v12[1] = &unk_1F4E8DF40;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v10[0] = @"DeviceUsagePage";
+  v10[1] = @"DeviceUsage";
+  v11[0] = &unk_1F4E8DEF8;
+  v11[1] = &unk_1F4E8DF40;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   [array addObject:v5];
-  v9[0] = @"DeviceUsagePage";
-  v9[1] = @"DeviceUsage";
-  v10[0] = &unk_1F4E8DF58;
-  v10[1] = &unk_1F4E8DF70;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v8[0] = @"DeviceUsagePage";
+  v8[1] = @"DeviceUsage";
+  v9[0] = &unk_1F4E8DF58;
+  v9[1] = &unk_1F4E8DF70;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
   [array addObject:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -781,7 +772,7 @@ LABEL_6:
 
 - (void)onHIDServiceAdded:(id)added
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v99 = *MEMORY[0x1E69E9840];
   addedCopy = added;
   v5 = [(NSMutableSet *)self->_hidServices member:addedCopy];
 
@@ -789,181 +780,189 @@ LABEL_6:
   {
     [(NSMutableSet *)self->_hidServices addObject:addedCopy];
     [(_GCControllerManagerServer *)self registerIPCObject:addedCopy];
-    v7 = *MEMORY[0x1E69A0688];
-    v72 = 0u;
-    v73 = 0u;
-    v74 = 0u;
-    v75 = 0u;
+    v10 = *MEMORY[0x1E69A0688];
+    v86 = 0u;
+    v87 = 0u;
+    v88 = 0u;
+    v89 = 0u;
     allValues = [(NSMutableDictionary *)self->_physicalDeviceManagers allValues];
-    v9 = [allValues countByEnumeratingWithState:&v72 objects:v84 count:16];
-    if (v9)
+    v12 = [allValues countByEnumeratingWithState:&v86 objects:v98 count:16];
+    if (v12)
     {
-      v10 = v9;
-      v11 = *v73;
+      v13 = v12;
+      v14 = *v87;
       while (2)
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v73 != v11)
+          if (*v87 != v14)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v13 = *(*(&v72 + 1) + 8 * i);
-          [(NSMutableDictionary *)self->_hidServiceOwners setObject:v13 forKey:addedCopy];
-          v6 = [v13 matchHIDService:addedCopy];
-          if (v6 > v7)
+          v16 = *(*(&v86 + 1) + 8 * i);
+          [(NSMutableDictionary *)self->_hidServiceOwners setObject:v16 forKey:addedCopy];
+          v9 = [v16 matchHIDService:addedCopy];
+          if (v9 > v10)
           {
 
-            v16 = v13;
-            [v16 claimHIDService:addedCopy];
-            if (gc_isInternalBuild())
+            v21 = v16;
+            v40 = [v21 claimHIDService:addedCopy];
+            if (gc_isInternalBuild(v40, v41))
             {
               [_GCControllerManagerServer onHIDServiceAdded:];
             }
 
             registryID = [addedCopy registryID];
-            v36 = [(_GCControllerManagerServer *)self _hidqueue_popPendingDriverConnectionsForRegistryID:registryID];
+            v43 = [(_GCControllerManagerServer *)self _hidqueue_popPendingDriverConnectionsForRegistryID:registryID];
 
-            v70 = 0u;
-            v71 = 0u;
-            v68 = 0u;
-            v69 = 0u;
-            v34 = v36;
-            v37 = [v34 countByEnumeratingWithState:&v68 objects:v83 count:16];
-            if (v37)
+            v84 = 0u;
+            v85 = 0u;
+            v82 = 0u;
+            v83 = 0u;
+            v39 = v43;
+            v44 = [v39 countByEnumeratingWithState:&v82 objects:v97 count:16];
+            if (v44)
             {
-              v38 = v37;
-              v39 = *v69;
+              v45 = v44;
+              v46 = *v83;
               do
               {
-                v40 = 0;
+                v47 = 0;
                 do
                 {
-                  if (*v69 != v39)
+                  if (*v83 != v46)
                   {
-                    objc_enumerationMutation(v34);
+                    objc_enumerationMutation(v39);
                   }
 
-                  v41 = *(*(&v68 + 1) + 8 * v40);
-                  if ((objc_opt_respondsToSelector() & 1) == 0)
+                  v48 = *(*(&v82 + 1) + 8 * v47);
+                  v49 = objc_opt_respondsToSelector();
+                  if ((v49 & 1) == 0)
                   {
-                    goto LABEL_86;
+                    goto LABEL_50;
                   }
 
-                  if (gc_isInternalBuild())
+                  isInternalBuild = gc_isInternalBuild(v49, v50);
+                  if (isInternalBuild)
                   {
-                    loga = getGCLogger();
+                    loga = getGCLogger(isInternalBuild);
                     if (os_log_type_enabled(loga, OS_LOG_TYPE_DEBUG))
                     {
                       *buf = 138412546;
-                      v80 = v41;
-                      v81 = 2112;
-                      v82 = v16;
+                      v94 = v48;
+                      v95 = 2112;
+                      v96 = v21;
                       _os_log_debug_impl(&dword_1D2CD5000, loga, OS_LOG_TYPE_DEBUG, "Sending previous driver connection %@ to %@", buf, 0x16u);
                     }
                   }
 
-                  if (([v16 acceptDriverConnection:v41 forHIDService:addedCopy] & 1) == 0)
+                  v49 = [v21 acceptDriverConnection:v48 forHIDService:addedCopy];
+                  if ((v49 & 1) == 0)
                   {
-LABEL_86:
-                    if (gc_isInternalBuild())
+LABEL_50:
+                    v52 = gc_isInternalBuild(v49, v50);
+                    if (v52)
                     {
-                      log = getGCLogger();
+                      log = getGCLogger(v52);
                       if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
                       {
                         *buf = 138412546;
-                        v80 = v41;
-                        v81 = 2112;
-                        v82 = v16;
+                        v94 = v48;
+                        v95 = 2112;
+                        v96 = v21;
                         _os_log_impl(&dword_1D2CD5000, log, OS_LOG_TYPE_INFO, "Dropping incoming driver connection %@ because %@ rejected it.", buf, 0x16u);
                       }
                     }
 
-                    [v41 invalidate];
+                    [v48 invalidate];
                   }
 
-                  ++v40;
+                  ++v47;
                 }
 
-                while (v38 != v40);
-                v42 = [v34 countByEnumeratingWithState:&v68 objects:v83 count:16];
-                v38 = v42;
+                while (v45 != v47);
+                v53 = [v39 countByEnumeratingWithState:&v82 objects:v97 count:16];
+                v45 = v53;
               }
 
-              while (v42);
+              while (v53);
             }
 
             registryID2 = [addedCopy registryID];
-            v44 = [(_GCControllerManagerServer *)self _hidqueue_popPendingFilterConnectionsForRegistryID:registryID2];
+            v55 = [(_GCControllerManagerServer *)self _hidqueue_popPendingFilterConnectionsForRegistryID:registryID2];
 
-            v66 = 0u;
-            v67 = 0u;
-            v64 = 0u;
-            v65 = 0u;
-            v26 = v44;
-            v45 = [v26 countByEnumeratingWithState:&v64 objects:v78 count:16];
-            if (v45)
+            v80 = 0u;
+            v81 = 0u;
+            v78 = 0u;
+            v79 = 0u;
+            v31 = v55;
+            v56 = [v31 countByEnumeratingWithState:&v78 objects:v92 count:16];
+            if (v56)
             {
-              v46 = v45;
-              v47 = *v65;
+              v57 = v56;
+              v58 = *v79;
               do
               {
-                v48 = 0;
+                v59 = 0;
                 do
                 {
-                  if (*v65 != v47)
+                  if (*v79 != v58)
                   {
-                    objc_enumerationMutation(v26);
+                    objc_enumerationMutation(v31);
                   }
 
-                  v49 = *(*(&v64 + 1) + 8 * v48);
-                  if ((objc_opt_respondsToSelector() & 1) == 0)
+                  v60 = *(*(&v78 + 1) + 8 * v59);
+                  v61 = objc_opt_respondsToSelector();
+                  if ((v61 & 1) == 0)
                   {
-                    goto LABEL_87;
+                    goto LABEL_69;
                   }
 
-                  if (gc_isInternalBuild())
+                  v63 = gc_isInternalBuild(v61, v62);
+                  if (v63)
                   {
-                    logc = getGCLogger();
+                    logc = getGCLogger(v63);
                     if (os_log_type_enabled(logc, OS_LOG_TYPE_DEBUG))
                     {
                       *buf = 138412546;
-                      v80 = v49;
-                      v81 = 2112;
-                      v82 = v16;
+                      v94 = v60;
+                      v95 = 2112;
+                      v96 = v21;
                       _os_log_debug_impl(&dword_1D2CD5000, logc, OS_LOG_TYPE_DEBUG, "Sending previous filter connection %@ to %@", buf, 0x16u);
                     }
                   }
 
-                  if (([v16 acceptFilterConnection:v49 forHIDService:addedCopy] & 1) == 0)
+                  v61 = [v21 acceptFilterConnection:v60 forHIDService:addedCopy];
+                  if ((v61 & 1) == 0)
                   {
-LABEL_87:
-                    if (gc_isInternalBuild())
+LABEL_69:
+                    v64 = gc_isInternalBuild(v61, v62);
+                    if (v64)
                     {
-                      logb = getGCLogger();
+                      logb = getGCLogger(v64);
                       if (os_log_type_enabled(logb, OS_LOG_TYPE_INFO))
                       {
                         *buf = 138412546;
-                        v80 = v49;
-                        v81 = 2112;
-                        v82 = v16;
+                        v94 = v60;
+                        v95 = 2112;
+                        v96 = v21;
                         _os_log_impl(&dword_1D2CD5000, logb, OS_LOG_TYPE_INFO, "Dropping incoming filter connection %@ because %@ rejected it.", buf, 0x16u);
                       }
                     }
 
-                    [v49 invalidate];
+                    [v60 invalidate];
                   }
 
-                  ++v48;
+                  ++v59;
                 }
 
-                while (v46 != v48);
-                v50 = [v26 countByEnumeratingWithState:&v64 objects:v78 count:16];
-                v46 = v50;
+                while (v57 != v59);
+                v65 = [v31 countByEnumeratingWithState:&v78 objects:v92 count:16];
+                v57 = v65;
               }
 
-              while (v50);
+              while (v65);
             }
 
             goto LABEL_81;
@@ -972,8 +971,8 @@ LABEL_87:
           [(NSMutableDictionary *)self->_hidServiceOwners removeObjectForKey:addedCopy];
         }
 
-        v10 = [allValues countByEnumeratingWithState:&v72 objects:v84 count:16];
-        if (v10)
+        v13 = [allValues countByEnumeratingWithState:&v86 objects:v98 count:16];
+        if (v13)
         {
           continue;
         }
@@ -982,133 +981,134 @@ LABEL_87:
       }
     }
 
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v17, v18))
     {
-      [_GCControllerManagerServer onHIDServiceAdded:];
+      [_GCControllerManagerServer onHIDServiceAdded:addedCopy];
     }
 
     registryID3 = [addedCopy registryID];
-    v15 = [(_GCControllerManagerServer *)self _hidqueue_popPendingDriverConnectionsForRegistryID:registryID3];
+    v20 = [(_GCControllerManagerServer *)self _hidqueue_popPendingDriverConnectionsForRegistryID:registryID3];
 
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
-    v61 = 0u;
-    v16 = v15;
-    v17 = [v16 countByEnumeratingWithState:&v60 objects:v77 count:16];
-    if (v17)
+    v76 = 0u;
+    v77 = 0u;
+    v74 = 0u;
+    v75 = 0u;
+    v21 = v20;
+    v22 = [v21 countByEnumeratingWithState:&v74 objects:v91 count:16];
+    if (v22)
     {
-      v18 = v17;
-      v19 = *v61;
+      v24 = v22;
+      v25 = *v75;
       do
       {
-        v20 = 0;
+        v26 = 0;
         do
         {
-          if (*v61 != v19)
+          if (*v75 != v25)
           {
-            objc_enumerationMutation(v16);
+            objc_enumerationMutation(v21);
           }
 
-          v21 = *(*(&v60 + 1) + 8 * v20);
-          if (gc_isInternalBuild())
+          v27 = *(*(&v74 + 1) + 8 * v26);
+          v22 = gc_isInternalBuild(v22, v23);
+          if (v22)
           {
-            v22 = getGCLogger();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+            v28 = getGCLogger(v22);
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
             {
               *buf = 138412546;
-              v80 = v21;
-              v81 = 2112;
-              v82 = addedCopy;
-              _os_log_impl(&dword_1D2CD5000, v22, OS_LOG_TYPE_INFO, "Ignoring incoming driver connection %@ because it is for unclaimed service %@", buf, 0x16u);
+              v94 = v27;
+              v95 = 2112;
+              v96 = addedCopy;
+              _os_log_impl(&dword_1D2CD5000, v28, OS_LOG_TYPE_INFO, "Ignoring incoming driver connection %@ because it is for unclaimed service %@", buf, 0x16u);
             }
           }
 
-          ++v20;
+          ++v26;
         }
 
-        while (v18 != v20);
-        v23 = [v16 countByEnumeratingWithState:&v60 objects:v77 count:16];
-        v18 = v23;
+        while (v24 != v26);
+        v22 = [v21 countByEnumeratingWithState:&v74 objects:v91 count:16];
+        v24 = v22;
       }
 
-      while (v23);
+      while (v22);
     }
 
     registryID4 = [addedCopy registryID];
-    v25 = [(_GCControllerManagerServer *)self _hidqueue_popPendingFilterConnectionsForRegistryID:registryID4];
+    v30 = [(_GCControllerManagerServer *)self _hidqueue_popPendingFilterConnectionsForRegistryID:registryID4];
 
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
-    v57 = 0u;
-    v26 = v25;
-    v27 = [v26 countByEnumeratingWithState:&v56 objects:v76 count:16];
-    if (v27)
+    v72 = 0u;
+    v73 = 0u;
+    v70 = 0u;
+    v71 = 0u;
+    v31 = v30;
+    v32 = [v31 countByEnumeratingWithState:&v70 objects:v90 count:16];
+    if (v32)
     {
-      v28 = v27;
-      v29 = *v57;
+      v34 = v32;
+      v35 = *v71;
       do
       {
-        v30 = 0;
+        v36 = 0;
         do
         {
-          if (*v57 != v29)
+          if (*v71 != v35)
           {
-            objc_enumerationMutation(v26);
+            objc_enumerationMutation(v31);
           }
 
-          v31 = *(*(&v56 + 1) + 8 * v30);
-          if (gc_isInternalBuild())
+          v37 = *(*(&v70 + 1) + 8 * v36);
+          v32 = gc_isInternalBuild(v32, v33);
+          if (v32)
           {
-            v32 = getGCLogger();
-            if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+            v38 = getGCLogger(v32);
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
             {
               *buf = 138412546;
-              v80 = v31;
-              v81 = 2112;
-              v82 = addedCopy;
-              _os_log_impl(&dword_1D2CD5000, v32, OS_LOG_TYPE_INFO, "Ignoring incoming filter connection %@ because it is for unclaimed service %@", buf, 0x16u);
+              v94 = v37;
+              v95 = 2112;
+              v96 = addedCopy;
+              _os_log_impl(&dword_1D2CD5000, v38, OS_LOG_TYPE_INFO, "Ignoring incoming filter connection %@ because it is for unclaimed service %@", buf, 0x16u);
             }
           }
 
-          ++v30;
+          ++v36;
         }
 
-        while (v28 != v30);
-        v33 = [v26 countByEnumeratingWithState:&v56 objects:v76 count:16];
-        v28 = v33;
+        while (v34 != v36);
+        v32 = [v31 countByEnumeratingWithState:&v70 objects:v90 count:16];
+        v34 = v32;
       }
 
-      while (v33);
+      while (v32);
     }
 
-    v34 = v26;
-    v6 = v7;
+    v39 = v31;
+    v9 = v10;
 LABEL_81:
 
     goto LABEL_82;
   }
 
-  if (gc_isInternalBuild())
+  v8 = gc_isInternalBuild(v6, v7);
+  if (v8)
   {
-    v6 = getGCLogger();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v9 = getGCLogger(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [_GCControllerManagerServer onHIDServiceAdded:];
     }
 
 LABEL_82:
   }
-
-  v51 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onHIDServiceRemoved:(id)removed
 {
   removedCopy = removed;
   v5 = [(NSMutableDictionary *)self->_hidServiceOwners objectForKey:removedCopy];
-  v6 = v5;
+  v7 = v5;
   if (v5)
   {
     [v5 relinquishHIDService:removedCopy];
@@ -1116,48 +1116,46 @@ LABEL_82:
     [(NSMutableSet *)self->_hidServices removeObject:removedCopy];
   }
 
-  else if (gc_isInternalBuild())
+  else if (gc_isInternalBuild(0, v6))
   {
-    [_GCControllerManagerServer onHIDServiceRemoved:];
+    [_GCControllerManagerServer onHIDServiceRemoved:removedCopy];
   }
 }
 
 - (id)_hidqueue_popPendingDriverConnectionsForRegistryID:(id)d
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   dCopy = d;
   dispatch_assert_queue_V2(self->_hidSystemClientQueue);
   v5 = [(NSMutableDictionary *)self->_pendingDriverConnections objectForKey:dCopy];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        objc_setAssociatedObject(*(*(&v12 + 1) + 8 * i), "DriverConnectionInvalidationRegistrationKey", 0, 1);
+        objc_setAssociatedObject(*(*(&v11 + 1) + 8 * i), "DriverConnectionInvalidationRegistrationKey", 0, 1);
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
   [(NSMutableDictionary *)self->_pendingDriverConnections removeObjectForKey:dCopy];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -1196,40 +1194,38 @@ LABEL_82:
 
 - (id)_hidqueue_popPendingFilterConnectionsForRegistryID:(id)d
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   dCopy = d;
   dispatch_assert_queue_V2(self->_hidSystemClientQueue);
   v5 = [(NSMutableDictionary *)self->_pendingFilterConnections objectForKey:dCopy];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        objc_setAssociatedObject(*(*(&v12 + 1) + 8 * i), "FilterConnectionInvalidationRegistrationKey", 0, 1);
+        objc_setAssociatedObject(*(*(&v11 + 1) + 8 * i), "FilterConnectionInvalidationRegistrationKey", 0, 1);
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
   [(NSMutableDictionary *)self->_pendingFilterConnections removeObjectForKey:dCopy];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -1403,111 +1399,113 @@ LABEL_82:
 
 - (void)_rebuildCoPilotConfigurations
 {
-  v82 = *MEMORY[0x1E69E9840];
+  v95 = *MEMORY[0x1E69E9840];
   if (self)
   {
     os_unfair_lock_lock((self + 64));
     [*(self + 72) minusSet:*(self + 104)];
     [*(self + 104) removeAllObjects];
     copilotIdentifier = objc_getProperty(self, sel__rebuildCoPilotConfigurations, 88, 1);
-    v58 = [*(self + 72) mutableCopy];
-    if (gc_isInternalBuild())
+    v71 = [*(self + 72) mutableCopy];
+    isInternalBuild = gc_isInternalBuild(v71, v3);
+    if (isInternalBuild)
     {
-      v54 = getGCLogger();
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
+      v67 = getGCLogger(isInternalBuild);
+      if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v81 = copilotIdentifier;
-        _os_log_debug_impl(&dword_1D2CD5000, v54, OS_LOG_TYPE_DEBUG, "Co-pilot: Rebuild configurations with settings %@", buf, 0xCu);
+        v94 = copilotIdentifier;
+        _os_log_debug_impl(&dword_1D2CD5000, v67, OS_LOG_TYPE_DEBUG, "Co-pilot: Rebuild configurations with settings %@", buf, 0xCu);
       }
     }
 
     selfCopy = self;
-    v75 = 0u;
-    v76 = 0u;
-    v73 = 0u;
-    v74 = 0u;
+    v88 = 0u;
+    v89 = 0u;
+    v86 = 0u;
+    v87 = 0u;
     obj = copilotIdentifier;
-    v3 = [obj countByEnumeratingWithState:&v73 objects:v79 count:16];
-    if (v3)
+    v5 = [obj countByEnumeratingWithState:&v86 objects:v92 count:16];
+    if (v5)
     {
-      v5 = v3;
-      v6 = *v74;
-      *&v4 = 138412290;
-      v55 = v4;
-      v57 = *v74;
+      v8 = v5;
+      v9 = *v87;
+      *&v7 = 138412290;
+      v68 = v7;
+      v70 = *v87;
       do
       {
-        v7 = 0;
-        v59 = v5;
+        v10 = 0;
+        v72 = v8;
         do
         {
-          if (*v74 != v6)
+          if (*v87 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v73 + 1) + 8 * v7);
-          if (gc_isInternalBuild())
+          v11 = *(*(&v86 + 1) + 8 * v10);
+          v12 = gc_isInternalBuild(v5, v6);
+          if (v12)
           {
-            v46 = getGCLogger();
-            if (OUTLINED_FUNCTION_9(v46))
+            v61 = getGCLogger(v12);
+            if (OUTLINED_FUNCTION_9(v61))
             {
-              *buf = v55;
-              v81 = v8;
+              *buf = v68;
+              v94 = v11;
               OUTLINED_FUNCTION_3();
-              _os_log_debug_impl(v48, v49, v50, "  > Check %@", v51, 0xCu);
+              _os_log_debug_impl(v63, v64, v65, "  > Check %@", v66, 0xCu);
             }
           }
 
-          pilotIdentifier = [v8 pilotIdentifier];
-          copilotIdentifier = [v8 copilotIdentifier];
-          fusedControllerIdentifier = [v8 fusedControllerIdentifier];
-          v11 = fusedControllerIdentifier;
+          pilotIdentifier = [v11 pilotIdentifier];
+          copilotIdentifier = [v11 copilotIdentifier];
+          fusedControllerIdentifier = [v11 fusedControllerIdentifier];
+          v16 = fusedControllerIdentifier;
           if (pilotIdentifier && copilotIdentifier && fusedControllerIdentifier)
           {
-            v62 = pilotIdentifier;
-            v63 = copilotIdentifier;
-            v71 = 0u;
-            v72 = 0u;
-            v69 = 0u;
-            v70 = 0u;
-            v12 = v58;
-            v13 = [v12 countByEnumeratingWithState:&v69 objects:v78 count:16];
-            v64 = v11;
-            if (v13)
+            v75 = pilotIdentifier;
+            v76 = copilotIdentifier;
+            v84 = 0u;
+            v85 = 0u;
+            v82 = 0u;
+            v83 = 0u;
+            v17 = v71;
+            v18 = [v17 countByEnumeratingWithState:&v82 objects:v91 count:16];
+            v77 = v16;
+            if (v18)
             {
-              v14 = v13;
-              v15 = *v70;
+              v19 = v18;
+              v20 = *v83;
               while (2)
               {
-                for (i = 0; i != v14; ++i)
+                for (i = 0; i != v19; ++i)
                 {
-                  if (*v70 != v15)
+                  if (*v83 != v20)
                   {
-                    objc_enumerationMutation(v12);
+                    objc_enumerationMutation(v17);
                   }
 
-                  v17 = *(*(&v69 + 1) + 8 * i);
-                  deviceDependencies = [v17 deviceDependencies];
-                  v19 = [deviceDependencies count];
+                  v22 = *(*(&v82 + 1) + 8 * i);
+                  deviceDependencies = [v22 deviceDependencies];
+                  v24 = [deviceDependencies count];
 
-                  if (v19 == 1)
+                  if (v24 == 1)
                   {
-                    deviceIdentifier = [v17 deviceIdentifier];
-                    pilotIdentifier2 = [v8 pilotIdentifier];
-                    v22 = [deviceIdentifier isEqual:pilotIdentifier2];
+                    deviceIdentifier = [v22 deviceIdentifier];
+                    pilotIdentifier2 = [v11 pilotIdentifier];
+                    v27 = [deviceIdentifier isEqual:pilotIdentifier2];
 
-                    if (v22)
+                    if (v27)
                     {
-                      v23 = v17;
+                      v28 = v22;
                       goto LABEL_26;
                     }
                   }
                 }
 
-                v14 = [v12 countByEnumeratingWithState:&v69 objects:v78 count:16];
-                if (v14)
+                v19 = [v17 countByEnumeratingWithState:&v82 objects:v91 count:16];
+                if (v19)
                 {
                   continue;
                 }
@@ -1515,56 +1513,56 @@ LABEL_82:
                 break;
               }
 
-              v23 = 0;
+              v28 = 0;
 LABEL_26:
-              v11 = v64;
+              v16 = v77;
             }
 
             else
             {
-              v23 = 0;
+              v28 = 0;
             }
 
-            v67 = 0u;
-            v68 = 0u;
-            v65 = 0u;
-            v66 = 0u;
-            v25 = v12;
-            v26 = [v25 countByEnumeratingWithState:&v65 objects:v77 count:16];
-            if (v26)
+            v80 = 0u;
+            v81 = 0u;
+            v78 = 0u;
+            v79 = 0u;
+            v31 = v17;
+            v32 = [v31 countByEnumeratingWithState:&v78 objects:v90 count:16];
+            if (v32)
             {
-              v27 = v26;
-              v61 = v23;
-              v28 = *v66;
+              v33 = v32;
+              v74 = v28;
+              v34 = *v79;
               while (2)
               {
-                for (j = 0; j != v27; ++j)
+                for (j = 0; j != v33; ++j)
                 {
-                  if (*v66 != v28)
+                  if (*v79 != v34)
                   {
-                    objc_enumerationMutation(v25);
+                    objc_enumerationMutation(v31);
                   }
 
-                  v30 = *(*(&v65 + 1) + 8 * j);
-                  deviceDependencies2 = [v30 deviceDependencies];
-                  v32 = [deviceDependencies2 count];
+                  v36 = *(*(&v78 + 1) + 8 * j);
+                  deviceDependencies2 = [v36 deviceDependencies];
+                  v38 = [deviceDependencies2 count];
 
-                  if (v32 == 1)
+                  if (v38 == 1)
                   {
-                    deviceIdentifier2 = [v30 deviceIdentifier];
-                    copilotIdentifier2 = [v8 copilotIdentifier];
-                    v35 = [deviceIdentifier2 isEqual:copilotIdentifier2];
+                    deviceIdentifier2 = [v36 deviceIdentifier];
+                    copilotIdentifier2 = [v11 copilotIdentifier];
+                    v41 = [deviceIdentifier2 isEqual:copilotIdentifier2];
 
-                    if (v35)
+                    if (v41)
                     {
-                      v36 = v30;
+                      v42 = v36;
                       goto LABEL_39;
                     }
                   }
                 }
 
-                v27 = [v25 countByEnumeratingWithState:&v65 objects:v77 count:16];
-                if (v27)
+                v33 = [v31 countByEnumeratingWithState:&v78 objects:v90 count:16];
+                if (v33)
                 {
                   continue;
                 }
@@ -1572,65 +1570,68 @@ LABEL_26:
                 break;
               }
 
-              v36 = 0;
+              v42 = 0;
 LABEL_39:
-              v11 = v64;
-              v23 = v61;
+              v16 = v77;
+              v28 = v74;
             }
 
             else
             {
-              v36 = 0;
+              v42 = 0;
             }
 
-            pilotIdentifier = v62;
-            copilotIdentifier = v63;
-            if (v23)
+            pilotIdentifier = v75;
+            copilotIdentifier = v76;
+            if (v28)
             {
-              if (v36)
+              if (v42)
               {
-                if (![v23 isEqual:v36])
+                v45 = [v28 isEqual:v42];
+                if (!v45)
                 {
-                  [v25 removeObject:v23];
-                  [v25 removeObject:v36];
-                  v37 = [v23 mutableCopy];
-                  [v37 setIdentifier:v11];
-                  [v37 setDeviceIdentifier:v11];
-                  deviceDependencies3 = [v37 deviceDependencies];
-                  deviceDependencies4 = [v36 deviceDependencies];
+                  [v31 removeObject:v28];
+                  [v31 removeObject:v42];
+                  v48 = [v28 mutableCopy];
+                  [v48 setIdentifier:v16];
+                  [v48 setDeviceIdentifier:v16];
+                  deviceDependencies3 = [v48 deviceDependencies];
+                  deviceDependencies4 = [v42 deviceDependencies];
                   firstObject = [deviceDependencies4 firstObject];
-                  v44 = [deviceDependencies3 arrayByAddingObject:firstObject];
-                  [v37 setDeviceDependencies:v44];
+                  v57 = [deviceDependencies3 arrayByAddingObject:firstObject];
+                  [v48 setDeviceDependencies:v57];
 
-                  [v37 setTransient:1];
-                  [v37 setPriority:20];
-                  v45 = [v37 copy];
-                  if (gc_isInternalBuild())
+                  [v48 setTransient:1];
+                  [v48 setPriority:20];
+                  v58 = [v48 copy];
+                  v60 = gc_isInternalBuild(v58, v59);
+                  if (v60)
                   {
-                    v47 = getGCLogger();
-                    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
+                    v62 = getGCLogger(v60);
+                    if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
                     {
-                      *buf = v55;
-                      v81 = v45;
-                      _os_log_debug_impl(&dword_1D2CD5000, v47, OS_LOG_TYPE_DEBUG, "  > Register configuration %@", buf, 0xCu);
+                      *buf = v68;
+                      v94 = v58;
+                      _os_log_debug_impl(&dword_1D2CD5000, v62, OS_LOG_TYPE_DEBUG, "  > Register configuration %@", buf, 0xCu);
                     }
                   }
 
-                  [*(selfCopy + 104) addObject:v45];
-                  [*(selfCopy + 72) addObject:v45];
+                  [*(selfCopy + 104) addObject:v58];
+                  [*(selfCopy + 72) addObject:v58];
 
-                  copilotIdentifier = v63;
+                  copilotIdentifier = v76;
                   goto LABEL_56;
                 }
 
-                if (gc_isInternalBuild())
+                v47 = gc_isInternalBuild(v45, v46);
+                if (v47)
                 {
-                  v37 = getGCLogger();
-                  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+                  v48 = getGCLogger(v47);
+                  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
                   {
                     OUTLINED_FUNCTION_14();
-                    v39 = v37;
-                    v40 = "  > (!) Pilot and co-pilot configurations are the same.";
+                    v50 = v48;
+                    v51 = "  > (!) Pilot and co-pilot configurations are the same.";
                     goto LABEL_53;
                   }
 
@@ -1639,80 +1640,81 @@ LABEL_56:
 
 LABEL_57:
 
-                v5 = v59;
-                v6 = v57;
+                v8 = v72;
+                v9 = v70;
                 goto LABEL_58;
               }
 
-              if (!gc_isInternalBuild())
+              v53 = gc_isInternalBuild(v43, v44);
+              if (!v53)
               {
                 goto LABEL_57;
               }
 
-              v37 = getGCLogger();
-              if (!os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+              v48 = getGCLogger(v53);
+              if (!os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
               {
                 goto LABEL_56;
               }
 
               OUTLINED_FUNCTION_14();
-              v39 = v37;
-              v40 = "  > (!) Did not find co-pilot configuration";
+              v50 = v48;
+              v51 = "  > (!) Did not find co-pilot configuration";
             }
 
             else
             {
-              if (!gc_isInternalBuild())
+              v52 = gc_isInternalBuild(v43, v44);
+              if (!v52)
               {
                 goto LABEL_57;
               }
 
-              v37 = getGCLogger();
-              if (!os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+              v48 = getGCLogger(v52);
+              if (!os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
               {
                 goto LABEL_56;
               }
 
               OUTLINED_FUNCTION_14();
-              v39 = v37;
-              v40 = "  > (!) Did not find pilot configuration";
+              v50 = v48;
+              v51 = "  > (!) Did not find pilot configuration";
             }
 
 LABEL_53:
-            _os_log_debug_impl(&dword_1D2CD5000, v39, OS_LOG_TYPE_DEBUG, v40, v38, 2u);
+            _os_log_debug_impl(&dword_1D2CD5000, v50, OS_LOG_TYPE_DEBUG, v51, v49, 2u);
             goto LABEL_56;
           }
 
-          if (!gc_isInternalBuild())
+          v29 = gc_isInternalBuild(fusedControllerIdentifier, v15);
+          if (!v29)
           {
             goto LABEL_59;
           }
 
-          v23 = getGCLogger();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+          v28 = getGCLogger(v29);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
           {
             OUTLINED_FUNCTION_14();
-            _os_log_debug_impl(&dword_1D2CD5000, v23, OS_LOG_TYPE_DEBUG, "  > (!) Missing data", v24, 2u);
+            _os_log_debug_impl(&dword_1D2CD5000, v28, OS_LOG_TYPE_DEBUG, "  > (!) Missing data", v30, 2u);
           }
 
 LABEL_58:
 
 LABEL_59:
-          ++v7;
+          ++v10;
         }
 
-        while (v7 != v5);
-        v52 = [obj countByEnumeratingWithState:&v73 objects:v79 count:16];
-        v5 = v52;
+        while (v10 != v8);
+        v5 = [obj countByEnumeratingWithState:&v86 objects:v92 count:16];
+        v8 = v5;
       }
 
-      while (v52);
+      while (v5);
     }
 
     os_unfair_lock_unlock((selfCopy + 64));
   }
-
-  v53 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_onqueue_registerPhysicalDevice:.cold.1()
@@ -1765,139 +1767,111 @@ LABEL_59:
 
 - (void)addConfiguration:(void *)a1 replaceExisting:.cold.1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
+  v3 = getGCLogger(a1);
   if (OUTLINED_FUNCTION_9(v3))
   {
-    v5 = [a1 debugDescription];
+    v4 = [a1 debugDescription];
     OUTLINED_FUNCTION_13();
     OUTLINED_FUNCTION_0();
-    _os_log_debug_impl(v6, v7, v8, v9, v10, 0xCu);
+    _os_log_debug_impl(v5, v6, v7, v8, v9, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-- (void)addConfiguration:replaceExisting:.cold.2()
+- (void)addConfiguration:(uint64_t)a1 replaceExisting:.cold.2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateConfiguration:(void *)a1 .cold.1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
+  v3 = getGCLogger(a1);
   if (OUTLINED_FUNCTION_9(v3))
   {
-    v5 = [a1 debugDescription];
+    v4 = [a1 debugDescription];
     OUTLINED_FUNCTION_13();
     OUTLINED_FUNCTION_0();
-    _os_log_debug_impl(v6, v7, v8, v9, v10, 0xCu);
+    _os_log_debug_impl(v5, v6, v7, v8, v9, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-- (void)updateConfiguration:.cold.2()
+- (void)updateConfiguration:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeConfigurationWithIdentifier:(void *)a1 .cold.1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
+  v3 = getGCLogger(a1);
   if (OUTLINED_FUNCTION_9(v3))
   {
-    v5 = [a1 debugDescription];
+    v4 = [a1 debugDescription];
     OUTLINED_FUNCTION_13();
     OUTLINED_FUNCTION_0();
-    _os_log_debug_impl(v6, v7, v8, v9, v10, 0xCu);
+    _os_log_debug_impl(v5, v6, v7, v8, v9, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-- (void)removeConfigurationWithIdentifier:.cold.2()
+- (void)removeConfigurationWithIdentifier:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onHIDServiceAdded:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_13();
-  _os_log_debug_impl(&dword_1D2CD5000, v0, OS_LOG_TYPE_DEBUG, "Ignoring added notification for HID service %@, because it is already known.", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1D2CD5000, v0, OS_LOG_TYPE_DEBUG, "Ignoring added notification for HID service %@, because it is already known.", v1, 0xCu);
 }
 
 - (void)onHIDServiceAdded:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(v1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_0();
     _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-- (void)onHIDServiceAdded:.cold.3()
+- (void)onHIDServiceAdded:(uint64_t)a1 .cold.3(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-- (void)onHIDServiceRemoved:.cold.1()
+- (void)onHIDServiceRemoved:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_0();
     _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

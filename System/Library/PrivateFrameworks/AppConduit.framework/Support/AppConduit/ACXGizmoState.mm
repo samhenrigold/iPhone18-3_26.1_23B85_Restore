@@ -86,9 +86,9 @@
   npsDomain = [(ACXGizmoState *)self npsDomain];
   synchronize = [npsDomain synchronize];
 
-  v67 = 0;
+  v68 = 0;
   npsDomain2 = [(ACXGizmoState *)self npsDomain];
-  v6 = [npsDomain2 integerForKey:@"AppStateVersion" keyExistsAndHasValidFormat:&v67];
+  v6 = [npsDomain2 integerForKey:@"AppStateVersion" keyExistsAndHasValidFormat:&v68];
 
   npsDomain3 = [(ACXGizmoState *)self npsDomain];
   self->_needsReunionSync = [npsDomain3 BOOLForKey:@"NeedsReunionSync"];
@@ -125,12 +125,12 @@
 
   if (v13)
   {
-    v66[0] = _NSConcreteStackBlock;
-    v66[1] = 3221225472;
-    v66[2] = sub_100044664;
-    v66[3] = &unk_10008DDB0;
-    v66[4] = self;
-    [v13 enumerateKeysAndObjectsUsingBlock:v66];
+    v67[0] = _NSConcreteStackBlock;
+    v67[1] = 3221225472;
+    v67[2] = sub_100044664;
+    v67[3] = &unk_10008DDB0;
+    v67[4] = self;
+    [v13 enumerateKeysAndObjectsUsingBlock:v67];
   }
 
   else
@@ -152,46 +152,46 @@
     v19 = [v18 mutableCopy];
     if (v19)
     {
-      if (v67 != 1 || v6 <= 1)
+      if (v68 != 1 || v6 <= 1)
       {
-        v64[0] = _NSConcreteStackBlock;
-        v64[1] = 3221225472;
-        v64[2] = sub_1000447AC;
-        v64[3] = &unk_10008DDD8;
+        v65[0] = _NSConcreteStackBlock;
+        v65[1] = 3221225472;
+        v65[2] = sub_1000447AC;
+        v65[3] = &unk_10008DDD8;
         v20 = objc_opt_new();
-        v65 = v20;
-        [v19 enumerateKeysAndObjectsUsingBlock:v64];
-        v62 = 0u;
+        v66 = v20;
+        [v19 enumerateKeysAndObjectsUsingBlock:v65];
         v63 = 0u;
-        v60 = 0u;
+        v64 = 0u;
         v61 = 0u;
+        v62 = 0u;
         v21 = v20;
-        v22 = [v21 countByEnumeratingWithState:&v60 objects:v69 count:16];
+        v22 = [v21 countByEnumeratingWithState:&v61 objects:v70 count:16];
         if (v22)
         {
           v23 = v22;
-          v24 = *v61;
+          v24 = *v62;
           do
           {
             for (i = 0; i != v23; i = i + 1)
             {
-              if (*v61 != v24)
+              if (*v62 != v24)
               {
                 objc_enumerationMutation(v21);
               }
 
-              v26 = *(*(&v60 + 1) + 8 * i);
+              v26 = *(*(&v61 + 1) + 8 * i);
               if (qword_1000A4878 && *(qword_1000A4878 + 44) >= 7)
               {
-                v47 = *(*(&v60 + 1) + 8 * i);
-                v48 = 5;
+                v48 = *(*(&v61 + 1) + 8 * i);
+                v49 = 5;
                 MOLogWrite();
               }
 
-              [v19 setObject:&off_100097860 forKeyedSubscript:{v26, v47, v48}];
+              [v19 setObject:&off_100097860 forKeyedSubscript:{v26, v48, v49}];
             }
 
-            v23 = [v21 countByEnumeratingWithState:&v60 objects:v69 count:16];
+            v23 = [v21 countByEnumeratingWithState:&v61 objects:v70 count:16];
           }
 
           while (v23);
@@ -203,12 +203,12 @@
         MOLogWrite();
       }
 
-      v59[0] = _NSConcreteStackBlock;
-      v59[1] = 3221225472;
-      v59[2] = sub_100044810;
-      v59[3] = &unk_10008DDD8;
-      v59[4] = self;
-      [v19 enumerateKeysAndObjectsUsingBlock:v59];
+      v60[0] = _NSConcreteStackBlock;
+      v60[1] = 3221225472;
+      v60[2] = sub_100044810;
+      v60[3] = &unk_10008DDD8;
+      v60[4] = self;
+      [v19 enumerateKeysAndObjectsUsingBlock:v60];
       npsDomain7 = [(ACXGizmoState *)self npsDomain];
       [npsDomain7 removeObjectForKey:@"ApplicationState"];
 
@@ -231,43 +231,43 @@
   npsDomain8 = [(ACXGizmoState *)self npsDomain];
   v32 = [npsDomain8 objectForKey:@"PendingAppUpdateStates"];
 
-  objc_opt_class();
-  if (sub_100005D2C(v32))
+  v33 = objc_opt_class();
+  if (sub_100005D2C(v32, v33))
   {
-    v50 = v9;
-    v51 = v13;
-    v56 = 0u;
+    v51 = v9;
+    v52 = v13;
     v57 = 0u;
-    v54 = 0u;
+    v58 = 0u;
     v55 = 0u;
-    v49 = v32;
-    v33 = v32;
-    v34 = [v33 countByEnumeratingWithState:&v54 objects:v68 count:16];
-    if (v34)
+    v56 = 0u;
+    v50 = v32;
+    v34 = v32;
+    v35 = [v34 countByEnumeratingWithState:&v55 objects:v69 count:16];
+    if (v35)
     {
-      v35 = v34;
-      v36 = *v55;
+      v36 = v35;
+      v37 = *v56;
       do
       {
-        for (j = 0; j != v35; j = j + 1)
+        for (j = 0; j != v36; j = j + 1)
         {
-          if (*v55 != v36)
+          if (*v56 != v37)
           {
-            objc_enumerationMutation(v33);
+            objc_enumerationMutation(v34);
           }
 
-          v38 = *(*(&v54 + 1) + 8 * j);
-          v39 = [NSKeyedUnarchiver alloc];
-          v53 = 0;
-          v40 = [v39 initForReadingFromData:v38 error:&v53];
-          v41 = v53;
-          if (v40)
+          v39 = *(*(&v55 + 1) + 8 * j);
+          v40 = [NSKeyedUnarchiver alloc];
+          v54 = 0;
+          v41 = [v40 initForReadingFromData:v39 error:&v54];
+          v42 = v54;
+          if (v41)
           {
-            v42 = [[ACXPendingAppUpdateState alloc] initWithCoder:v40];
-            if (v42)
+            v43 = [[ACXPendingAppUpdateState alloc] initWithCoder:v41];
+            if (v43)
             {
               pendingAppUpdateStates = [(ACXGizmoState *)self pendingAppUpdateStates];
-              [pendingAppUpdateStates addObject:v42];
+              [pendingAppUpdateStates addObject:v43];
             }
 
             else if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
@@ -278,34 +278,34 @@
 
           else if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
           {
-            v47 = v41;
+            v48 = v42;
             MOLogWrite();
           }
         }
 
-        v35 = [v33 countByEnumeratingWithState:&v54 objects:v68 count:16];
+        v36 = [v34 countByEnumeratingWithState:&v55 objects:v69 count:16];
       }
 
-      while (v35);
+      while (v36);
     }
 
-    v9 = v50;
-    v13 = v51;
-    v32 = v49;
+    v9 = v51;
+    v13 = v52;
+    v32 = v50;
   }
 
   pendingAppUpdateStates2 = [(ACXGizmoState *)self pendingAppUpdateStates];
-  v45 = [pendingAppUpdateStates2 count];
+  v46 = [pendingAppUpdateStates2 count];
 
-  if (v45)
+  if (v46)
   {
     stateQueue2 = [(ACXGizmoState *)self stateQueue];
-    v52[0] = _NSConcreteStackBlock;
-    v52[1] = 3221225472;
-    v52[2] = sub_1000448D0;
-    v52[3] = &unk_10008CD40;
-    v52[4] = self;
-    sub_100005828(stateQueue2, v52);
+    v53[0] = _NSConcreteStackBlock;
+    v53[1] = 3221225472;
+    v53[2] = sub_1000448D0;
+    v53[3] = &unk_10008CD40;
+    v53[4] = self;
+    sub_100005828(stateQueue2, v53);
   }
 }
 

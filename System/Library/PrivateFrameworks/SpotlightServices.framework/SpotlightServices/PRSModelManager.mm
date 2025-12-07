@@ -179,13 +179,13 @@ void __23__PRSModelManager_init__block_invoke(uint64_t a1)
 
 - (void)triggerUpdate
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   dispatch_group_enter(self->_modelUpdateGroup);
   v3 = PRSLogCategoryDefault();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v8) = 0;
-    _os_log_impl(&dword_1D9F69000, v3, OS_LOG_TYPE_INFO, "[Model loading] triggerUpdate started", &v8, 2u);
+    LOWORD(v7) = 0;
+    _os_log_impl(&dword_1D9F69000, v3, OS_LOG_TYPE_INFO, "[Model loading] triggerUpdate started", &v7, 2u);
   }
 
   v4 = self->_models;
@@ -194,9 +194,9 @@ void __23__PRSModelManager_init__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     activeCount = self->_activeCount;
-    v8 = 134217984;
-    v9 = activeCount;
-    _os_log_impl(&dword_1D9F69000, v5, OS_LOG_TYPE_INFO, "[Model loading] triggerUpdate with activeCount %lu", &v8, 0xCu);
+    v7 = 134217984;
+    v8 = activeCount;
+    _os_log_impl(&dword_1D9F69000, v5, OS_LOG_TYPE_INFO, "[Model loading] triggerUpdate with activeCount %lu", &v7, 0xCu);
   }
 
   if (!self->_activeCount)
@@ -207,27 +207,26 @@ void __23__PRSModelManager_init__block_invoke(uint64_t a1)
   objc_sync_exit(v4);
 
   dispatch_group_leave(self->_modelUpdateGroup);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)loadCannedModelWithType:(unint64_t)type error:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
+  v20 = 0;
   v21 = 0;
-  v22 = 0;
-  [objc_opt_class() cannedInfoForType:type directivesPath:&v22 modelName:&v21];
-  v7 = v22;
-  v8 = v21;
+  [objc_opt_class() cannedInfoForType:type directivesPath:&v21 modelName:&v20];
+  v7 = v21;
+  v8 = v20;
   v9 = PRSLogCategoryDefault();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:type];
     *buf = 138412802;
-    v24 = v10;
-    v25 = 2112;
-    v26 = v8;
-    v27 = 2112;
-    v28 = v7;
+    v23 = v10;
+    v24 = 2112;
+    v25 = v8;
+    v26 = 2112;
+    v27 = v7;
     _os_log_impl(&dword_1D9F69000, v9, OS_LOG_TYPE_DEFAULT, "[Model loading] loading canned model type %@ model name %@ directive path %@", buf, 0x20u);
   }
 
@@ -239,7 +238,7 @@ void __23__PRSModelManager_init__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v24 = v13;
+    v23 = v13;
     _os_log_impl(&dword_1D9F69000, v14, OS_LOG_TYPE_INFO, "[Model loading] model is %@", buf, 0xCu);
   }
 
@@ -248,9 +247,9 @@ void __23__PRSModelManager_init__block_invoke(uint64_t a1)
   {
     getVersionString = [v13 getVersionString];
     *buf = 138412546;
-    v24 = v8;
-    v25 = 2112;
-    v26 = getVersionString;
+    v23 = v8;
+    v24 = 2112;
+    v25 = getVersionString;
     _os_log_impl(&dword_1D9F69000, v15, OS_LOG_TYPE_INFO, "[Model loading] loaded model name %@ version %@", buf, 0x16u);
   }
 
@@ -270,8 +269,6 @@ void __23__PRSModelManager_init__block_invoke(uint64_t a1)
     v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:type];
     [(NSMutableDictionary *)models setObject:v17 forKeyedSubscript:v19];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 + (id)directivesFromFilePath:(id)path
@@ -290,25 +287,24 @@ void __23__PRSModelManager_init__block_invoke(uint64_t a1)
   if ([v4 length])
   {
     v5 = v4;
-    v6 = *MEMORY[0x1E695E480];
     [v5 bytes];
     [v5 length];
-    v7 = _MDPlistContainerCreateWithBytesAndDeallocator();
-    v8 = _MDPlistContainerCopyRootObject();
-    CFRelease(v7);
+    v6 = _MDPlistContainerCreateWithBytesAndDeallocator();
+    v7 = _MDPlistContainerCopyRootObject();
+    CFRelease(v6);
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  return v8;
+  return v7;
 }
 
 + (BOOL)loadModelsWithDirectory:(id)directory intoModelDict:(id)dict
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   directoryCopy = directory;
   dictCopy = dict;
   v6 = objc_opt_new();
@@ -329,16 +325,16 @@ void __23__PRSModelManager_init__block_invoke(uint64_t a1)
       goto LABEL_7;
     }
 
-    v24 = v7;
-    v25 = v8;
-    [PRSModelManager pathsFor:0 withParentPath:directoryCopy modelPath:&v25 directivesPath:&v24];
-    v11 = v25;
+    v23 = v7;
+    v24 = v8;
+    [PRSModelManager pathsFor:0 withParentPath:directoryCopy modelPath:&v24 directivesPath:&v23];
+    v11 = v24;
 
-    v12 = v24;
+    v12 = v23;
     v13 = [MEMORY[0x1E695DFF8] fileURLWithPath:v11];
-    v23 = 0;
-    [PRSModelManager loadModelWithURL:v13 type:0 directivesPath:v12 intoModelDict:v6 error:&v23];
-    v14 = v23;
+    v22 = 0;
+    [PRSModelManager loadModelWithURL:v13 type:0 directivesPath:v12 intoModelDict:v6 error:&v22];
+    v14 = v22;
 
     v9 = 0;
     v7 = v12;
@@ -350,28 +346,28 @@ void __23__PRSModelManager_init__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     code = [v14 code];
-    v20 = @"nil";
+    v19 = @"nil";
     if (v11)
     {
-      v21 = v11;
+      v20 = v11;
     }
 
     else
     {
-      v21 = @"nil";
+      v20 = @"nil";
     }
 
     *buf = 134218498;
-    v27 = code;
-    v28 = 2112;
+    v26 = code;
+    v27 = 2112;
     if (v12)
     {
-      v20 = v12;
+      v19 = v12;
     }
 
-    v29 = v21;
-    v30 = 2112;
-    v31 = v20;
+    v28 = v20;
+    v29 = 2112;
+    v30 = v19;
     _os_log_error_impl(&dword_1D9F69000, v15, OS_LOG_TYPE_ERROR, "[Model loading] model loading failed with err %ld for model path %@ and directives path %@", buf, 0x20u);
   }
 
@@ -379,20 +375,19 @@ void __23__PRSModelManager_init__block_invoke(uint64_t a1)
   v16 = dictCopy;
 LABEL_7:
 
-  v17 = *MEMORY[0x1E69E9840];
   return (v10 & 1) == 0;
 }
 
 + (void)loadModelWithURL:(id)l type:(unint64_t)type directivesPath:(id)path intoModelDict:(id)dict error:(id *)error
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   pathCopy = path;
   dictCopy = dict;
   if (lCopy && [pathCopy length])
   {
     v14 = [objc_opt_class() directivesFromFilePath:pathCopy];
-    if ([v14 count])
+    if (objc_msgSend_count(v14))
     {
       v15 = objc_opt_new();
       [v15 processDirectives:v14];
@@ -409,13 +404,13 @@ LABEL_7:
 
         else
         {
-          v25 = PRSModelErrorDomain;
-          v28 = MEMORY[0x1E696ABC0];
-          v29 = @"type";
-          v26 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:type];
-          v30 = v26;
-          v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-          *error = [v28 errorWithDomain:v25 code:-1 userInfo:v27];
+          v24 = PRSModelErrorDomain;
+          v27 = MEMORY[0x1E696ABC0];
+          v28 = @"type";
+          v25 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:type];
+          v29 = v25;
+          v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+          *error = [v27 errorWithDomain:v24 code:-1 userInfo:v26];
         }
       }
     }
@@ -424,10 +419,10 @@ LABEL_7:
     {
       v22 = MEMORY[0x1E696ABC0];
       v23 = PRSModelErrorDomain;
-      v31 = @"type";
+      v30 = @"type";
       v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:type];
-      v32 = v15;
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+      v31 = v15;
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
       *error = [v22 errorWithDomain:v23 code:-1000 userInfo:v17];
     }
   }
@@ -436,14 +431,12 @@ LABEL_7:
   {
     v20 = MEMORY[0x1E696ABC0];
     v21 = PRSModelErrorDomain;
-    v33 = @"type";
+    v32 = @"type";
     v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:type];
-    v34[0] = v14;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v33[0] = v14;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     *error = [v20 errorWithDomain:v21 code:-1001 userInfo:v15];
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)loadCannedModels
@@ -538,7 +531,7 @@ LABEL_5:
     dispatch_group_wait(v11, 0xFFFFFFFFFFFFFFFFLL);
   }
 
-  if (enabledCopy && ([(NSMutableDictionary *)self->_models count]== 0) | hasPendingUpdates & 1 && ![(PRSModelManager *)self loadModels])
+  if (enabledCopy && (objc_msgSend_count(self->_models) == 0) | hasPendingUpdates & 1 && ![(PRSModelManager *)self loadModels])
   {
     v13 = PRSLogCategoryDefault();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
@@ -562,7 +555,7 @@ LABEL_5:
 
 - (float)computeL2ScoresForVectors:(id)vectors secondVector:(id)vector withServerFeatures:(id)features withBundleFeatures:(id)bundleFeatures experimentalWeight1:(double)weight1 experimentalWeight2:(double)weight2 shouldCancel:(BOOL *)cancel clientBundle:(id)self0
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   vectorsCopy = vectors;
   vectorCopy = vector;
   featuresCopy = features;
@@ -579,12 +572,12 @@ LABEL_5:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
       LODWORD(buf) = 134217984;
-      *(&buf + 4) = [vectorsCopy count];
+      *(&buf + 4) = objc_msgSend_count(vectorsCopy);
       _os_log_impl(&dword_1D9F69000, v24, OS_LOG_TYPE_INFO, "computing L2 scores for %lu items", &buf, 0xCu);
     }
 
     models = [(PRSModelManager *)self models];
-    if (![models count])
+    if (!objc_msgSend_count(models))
     {
       v25 = PRSLogCategoryDefault();
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
@@ -613,8 +606,8 @@ LABEL_5:
       v29 = dispatch_group_create();
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v59 = 0x2020000000;
-      v60 = 0;
+      v58 = 0x2020000000;
+      v59 = 0;
       v30 = dispatch_get_global_queue(33, 0);
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
@@ -623,12 +616,12 @@ LABEL_5:
       p_buf = &buf;
       block[4] = self;
       v31 = vectorsCopy;
-      v49 = v31;
-      v50 = bundleFeaturesCopy;
-      v51 = featuresCopy;
+      v48 = v31;
+      v49 = bundleFeaturesCopy;
+      v50 = featuresCopy;
       v32 = models;
-      v55 = 33;
-      v52 = v32;
+      v54 = 33;
+      v51 = v32;
       cancelCopy = cancel;
       dispatch_group_async(v29, v30, block);
 
@@ -653,7 +646,7 @@ LABEL_5:
           [PRSModelManager computeL2ScoresForVectors:v37 secondVector:weight1 withServerFeatures:weight2 withBundleFeatures:? experimentalWeight1:? experimentalWeight2:? shouldCancel:? clientBundle:?];
         }
 
-        v38 = [v31 count];
+        v38 = objc_msgSend_count(v31);
         if (v38)
         {
           v39 = 0;
@@ -673,10 +666,10 @@ LABEL_5:
         v43 = PRSLogCategoryDefault();
         if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
         {
-          v44 = [v31 count];
-          *v56 = 134217984;
-          v57 = v44;
-          _os_log_impl(&dword_1D9F69000, v43, OS_LOG_TYPE_INFO, "finished computing L2 scores for %lu items", v56, 0xCu);
+          v44 = objc_msgSend_count(v31);
+          *v55 = 134217984;
+          v56 = v44;
+          _os_log_impl(&dword_1D9F69000, v43, OS_LOG_TYPE_INFO, "finished computing L2 scores for %lu items", v55, 0xCu);
         }
 
         v23 = *(*(&buf + 1) + 24);
@@ -691,7 +684,6 @@ LABEL_5:
     }
   }
 
-  v45 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
@@ -712,7 +704,7 @@ void __162__PRSModelManager_computeL2ScoresForVectors_secondVector_withServerFea
   serverBundleFeaturesCopy = serverBundleFeatures;
   contextCopy = context;
   bundleCopy = bundle;
-  v19 = [featuresCopy count];
+  v19 = objc_msgSend_count(featuresCopy);
   v20 = 0;
   if (contextCopy && v19)
   {
@@ -723,51 +715,52 @@ void __162__PRSModelManager_computeL2ScoresForVectors_secondVector_withServerFea
 
     else
     {
-      v20 = malloc_type_calloc([featuresCopy count], 4uLL, 0x100004052888210uLL);
+      v21 = objc_msgSend_count(featuresCopy);
+      v20 = malloc_type_calloc(v21, 4uLL, 0x100004052888210uLL);
       directivesManager = [contextCopy directivesManager];
-      v22 = [featuresCopy count];
-      v23 = v22 / 0x1E;
-      if (v22 % 0x1E)
+      v23 = objc_msgSend_count(featuresCopy);
+      v24 = v23 / 0x1E;
+      if (v23 % 0x1E)
       {
-        ++v23;
+        ++v24;
       }
 
-      iterations = v23;
-      v33 = serverBundleFeaturesCopy;
-      v34 = bundleFeaturesCopy;
+      iterations = v24;
+      v35 = serverBundleFeaturesCopy;
+      v36 = bundleFeaturesCopy;
       [directivesManager processResultSetValuesWithMap:bundleFeaturesCopy serverFeatures:serverBundleFeaturesCopy];
       processingContext = [directivesManager processingContext];
       expandedFeatureCount = [processingContext expandedFeatureCount];
 
       model = [contextCopy model];
-      v31 = (PRSRankingSDEnabledFlagState() >> 1) & 1;
-      v27 = dispatch_get_global_queue(qos, 0);
+      v33 = (PRSRankingSDEnabledFlagState(model, v28) >> 1) & 1;
+      v29 = dispatch_get_global_queue(qos, 0);
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __132__PRSModelManager_computeScoresForFeatures_withBundleFeatures_serverBundleFeatures_usingModelContext_qos_shouldCancel_filterBundle___block_invoke;
       block[3] = &unk_1E8596938;
-      v41 = expandedFeatureCount;
+      v43 = expandedFeatureCount;
       cancelCopy = cancel;
-      v36 = featuresCopy;
-      v37 = bundleCopy;
-      v28 = directivesManager;
-      v38 = v28;
-      v39 = model;
-      v43 = v20;
-      v44 = v31;
-      v40 = contextCopy;
-      v29 = model;
-      dispatch_apply(iterations, v27, block);
+      v38 = featuresCopy;
+      v39 = bundleCopy;
+      v30 = directivesManager;
+      v40 = v30;
+      v41 = model;
+      v45 = v20;
+      v46 = v33;
+      v42 = contextCopy;
+      v31 = model;
+      dispatch_apply(iterations, v29, block);
 
-      [v28 cleanup];
+      [v30 cleanup];
       if (cancel && *cancel)
       {
         free(v20);
         v20 = 0;
       }
 
-      serverBundleFeaturesCopy = v33;
-      bundleFeaturesCopy = v34;
+      serverBundleFeaturesCopy = v35;
+      bundleFeaturesCopy = v36;
     }
   }
 
@@ -776,18 +769,18 @@ void __162__PRSModelManager_computeL2ScoresForVectors_secondVector_withServerFea
 
 void __132__PRSModelManager_computeScoresForFeatures_withBundleFeatures_serverBundleFeatures_usingModelContext_qos_shouldCancel_filterBundle___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v42[2] = *MEMORY[0x1E69E9840];
+  v41[2] = *MEMORY[0x1E69E9840];
   context = objc_autoreleasePoolPush();
   v4 = objc_alloc(MEMORY[0x1E695FED0]);
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 72)];
-  v42[0] = v5;
-  v42[1] = &unk_1F55B4428;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:2];
+  v41[0] = v5;
+  v41[1] = &unk_1F55B4428;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:2];
   v7 = [v4 initForFloat32TypeWithShape:v6];
 
   v8 = 0;
   v9 = 30 * a2;
-  memset(v41, 0, sizeof(v41));
+  memset(v40, 0, sizeof(v40));
   do
   {
     v10 = *(a1 + 80);
@@ -799,7 +792,7 @@ void __132__PRSModelManager_computeScoresForFeatures_withBundleFeatures_serverBu
       }
     }
 
-    if (v9 + v8 >= [*(a1 + 32) count])
+    if (v9 + v8 >= objc_msgSend_count(*(a1 + 32)))
     {
       break;
     }
@@ -817,15 +810,15 @@ void __132__PRSModelManager_computeScoresForFeatures_withBundleFeatures_serverBu
           v18 = v16 >> i;
         }
 
-        *(v41 + i) = v18 & 1;
+        *(v40 + i) = v18 & 1;
       }
 
-      [*(a1 + 48) processL2FeatureVector:v12 populatingValues:objc_msgSend(v7 scoreValue:"floatPointer") count:{v41, 95}];
+      [*(a1 + 48) processL2FeatureVector:v12 populatingValues:objc_msgSend(v7 scoreValue:"floatPointer") count:{v40, 95}];
       v19 = *(a1 + 56);
-      v40 = 0;
-      [v19 predict:v7 error:&v40];
+      v39 = 0;
+      [v19 predict:v7 error:&v39];
       v21 = v20;
-      v22 = v40;
+      v22 = v39;
       if (v22)
       {
         v33 = v22;
@@ -846,7 +839,7 @@ void __132__PRSModelManager_computeScoresForFeatures_withBundleFeatures_serverBu
         if (v23)
         {
           object = v23;
-          v38 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:*(a1 + 72)];
+          v37 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:*(a1 + 72)];
           if (*(a1 + 72))
           {
             v25 = 0;
@@ -855,7 +848,7 @@ void __132__PRSModelManager_computeScoresForFeatures_withBundleFeatures_serverBu
               v26 = MEMORY[0x1E696AD98];
               LODWORD(v27) = *([v7 floatPointer] + 4 * v25);
               v28 = [v26 numberWithFloat:v27];
-              [v38 addObject:v28];
+              [v37 addObject:v28];
 
               ++v25;
             }
@@ -867,7 +860,7 @@ void __132__PRSModelManager_computeScoresForFeatures_withBundleFeatures_serverBu
           v24 = objecta;
           if (!v29)
           {
-            objc_setAssociatedObject(objecta, "_l2FeaturesObjectKey", v38, 1);
+            objc_setAssociatedObject(objecta, "_l2FeaturesObjectKey", v37, 1);
             v30 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 72)];
             objc_setAssociatedObject(objecta, "_l2FeatureCountObjectKey", v30, 1);
 
@@ -886,7 +879,6 @@ void __132__PRSModelManager_computeScoresForFeatures_withBundleFeatures_serverBu
   while (v8 != 30);
 
   objc_autoreleasePoolPop(context);
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (double)testL2WithData:(id)data experimental:(BOOL)experimental

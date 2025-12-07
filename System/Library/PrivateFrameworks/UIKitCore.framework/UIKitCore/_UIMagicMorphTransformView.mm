@@ -29,9 +29,10 @@
   {
     height = fits.height;
     width = fits.width;
-    v9.receiver = self;
-    v9.super_class = type metadata accessor for _UIMagicMorphTransformView();
-    [(UIView *)&v9 sizeThatFits:width, height];
+    type metadata accessor for _UIMagicMorphTransformView();
+    v10.receiver = self;
+    v10.super_class = v9;
+    [(UIView *)&v10 sizeThatFits:width, height];
   }
 
   result.height = v6;
@@ -41,10 +42,11 @@
 
 - (void)didMoveToWindow
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for _UIMagicMorphTransformView();
-  v2 = v3.receiver;
-  [(UIView *)&v3 didMoveToWindow];
+  type metadata accessor for _UIMagicMorphTransformView();
+  v5.receiver = self;
+  v5.super_class = v3;
+  selfCopy = self;
+  [(UIView *)&v5 didMoveToWindow];
   sub_188D797E4();
 }
 
@@ -64,9 +66,10 @@
 
 - (BOOL)isUserInteractionEnabled
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for _UIMagicMorphTransformView();
-  return [(UIView *)&v3 isUserInteractionEnabled];
+  v3 = type metadata accessor for _UIMagicMorphTransformView();
+  v6.receiver = self;
+  v6.super_class = v4;
+  return [(UIView *)&v6 isUserInteractionEnabled];
 }
 
 - (_TtC5UIKit26_UIMagicMorphTransformView)initWithCoder:(id)coder

@@ -582,11 +582,11 @@ LABEL_59:
 
 - (SFTextColumnsCardSection)initWithProtobuf:(id)protobuf
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v45.receiver = self;
-  v45.super_class = SFTextColumnsCardSection;
-  v5 = [(SFCardSection *)&v45 init];
+  v44.receiver = self;
+  v44.super_class = SFTextColumnsCardSection;
+  v5 = [(SFCardSection *)&v44 init];
   if (v5)
   {
     punchoutOptions = [protobufCopy punchoutOptions];
@@ -600,33 +600,33 @@ LABEL_59:
       v7 = 0;
     }
 
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     punchoutOptions2 = [protobufCopy punchoutOptions];
-    v9 = [punchoutOptions2 countByEnumeratingWithState:&v41 objects:v47 count:16];
+    v9 = [punchoutOptions2 countByEnumeratingWithState:&v40 objects:v46 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v42;
+      v11 = *v41;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v42 != v11)
+          if (*v41 != v11)
           {
             objc_enumerationMutation(punchoutOptions2);
           }
 
-          v13 = [[SFPunchout alloc] initWithProtobuf:*(*(&v41 + 1) + 8 * i)];
+          v13 = [[SFPunchout alloc] initWithProtobuf:*(*(&v40 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [punchoutOptions2 countByEnumeratingWithState:&v41 objects:v47 count:16];
+        v10 = [punchoutOptions2 countByEnumeratingWithState:&v40 objects:v46 count:16];
       }
 
       while (v10);
@@ -711,33 +711,33 @@ LABEL_59:
       v27 = 0;
     }
 
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     columns2 = [protobufCopy columns];
-    v29 = [columns2 countByEnumeratingWithState:&v37 objects:v46 count:16];
+    v29 = [columns2 countByEnumeratingWithState:&v36 objects:v45 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v38;
+      v31 = *v37;
       do
       {
         for (j = 0; j != v30; ++j)
         {
-          if (*v38 != v31)
+          if (*v37 != v31)
           {
             objc_enumerationMutation(columns2);
           }
 
-          v33 = [[SFTextColumn alloc] initWithProtobuf:*(*(&v37 + 1) + 8 * j)];
+          v33 = [[SFTextColumn alloc] initWithProtobuf:*(*(&v36 + 1) + 8 * j)];
           if (v33)
           {
             [v27 addObject:v33];
           }
         }
 
-        v30 = [columns2 countByEnumeratingWithState:&v37 objects:v46 count:16];
+        v30 = [columns2 countByEnumeratingWithState:&v36 objects:v45 count:16];
       }
 
       while (v30);
@@ -747,7 +747,6 @@ LABEL_59:
     v34 = v5;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

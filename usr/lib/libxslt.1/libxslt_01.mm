@@ -19,25 +19,24 @@ int xsltAddTemplate(xsltStylesheetPtr style, xsltTemplatePtr cur, const xmlChar 
     {
       if (xmlHashLookup2(namedTemplates, name, cur->nameURI))
       {
-        v11 = cur->name;
         xsltTransformError(0, style, cur->elem, "xsl:template: error duplicate name '%s'\n");
         goto LABEL_75;
       }
 
-      v12 = style->namedTemplates;
+      v11 = style->namedTemplates;
     }
 
     else
     {
-      v12 = xmlHashCreate(10);
-      style->namedTemplates = v12;
-      if (!v12)
+      v11 = xmlHashCreate(10);
+      style->namedTemplates = v11;
+      if (!v11)
       {
         return -1;
       }
     }
 
-    xmlHashAddEntry2(v12, cur->name, cur->nameURI, cur);
+    xmlHashAddEntry2(v11, cur->name, cur->nameURI, cur);
   }
 
   match = cur->match;
@@ -55,55 +54,55 @@ LABEL_75:
   }
 
   priority = cur->priority;
-  v15 = xsltCompilePatternInternal(match, style->doc, cur->elem, style, 0, 1);
-  if (!v15)
+  v14 = xsltCompilePatternInternal(match, style->doc, cur->elem, style, 0, 1u);
+  if (!v14)
   {
     return -1;
   }
 
-  v22 = v15;
-  v23 = 0;
+  v15 = v14;
+  v16 = 0;
   p_elemMatch = &style->elemMatch;
-  v25 = &xsltGenericDebug;
-  v26 = &xsltGenericDebugContext;
+  v18 = &xsltGenericDebug;
+  v19 = &xsltGenericDebugContext;
   while (1)
   {
-    v27 = *v22;
-    *v22 = 0;
-    *(v22 + 5) = cur;
+    v20 = *v15;
+    *v15 = 0;
+    *(v15 + 5) = cur;
     if (mode)
     {
-      *(v22 + 3) = xmlDictLookup(style->dict, mode, -1);
+      *(v15 + 3) = xmlDictLookup(style->dict, mode, -1);
     }
 
     if (modeURI)
     {
-      *(v22 + 4) = xmlDictLookup(style->dict, modeURI, -1);
+      *(v15 + 4) = xmlDictLookup(style->dict, modeURI, -1);
     }
 
     if (priority != -12346000.0)
     {
-      *(v22 + 2) = priority;
+      *(v15 + 2) = priority;
     }
 
-    v28 = *(v22 + 11);
-    v29 = *v28;
-    if (*v28 > 7)
+    v21 = *(v15 + 11);
+    v22 = *v21;
+    if (*v21 > 7)
     {
       break;
     }
 
-    if (v29 <= 2)
+    if (v22 <= 2)
     {
       p_rootMatch = &style->rootMatch;
-      if (v29 == 1)
+      if (v22 == 1)
       {
         goto LABEL_50;
       }
 
-      if (v29 != 2)
+      if (v22 != 2)
       {
-        if (!v29)
+        if (!v22)
         {
           goto LABEL_70;
         }
@@ -117,64 +116,64 @@ LABEL_40:
     }
 
     p_rootMatch = p_elemMatch;
-    if ((v29 - 4) < 3)
+    if ((v22 - 4) < 3)
     {
       goto LABEL_50;
     }
 
     p_attrMatch = &style->attrMatch;
-    if (v29 != 3)
+    if (v22 != 3)
     {
       p_rootMatch = &style->keyMatch;
-      if (v29 != 7)
+      if (v22 != 7)
       {
         goto LABEL_49;
       }
 
 LABEL_50:
-      v39 = *p_rootMatch;
+      v32 = *p_rootMatch;
       if (*p_rootMatch)
       {
-        v40 = *(v22 + 2);
-        if (*(v39 + 2) <= v40)
+        v33 = *(v15 + 2);
+        if (*(v32 + 2) <= v33)
         {
-          *v22 = v39;
-          *p_rootMatch = v22;
+          *v15 = v32;
+          *p_rootMatch = v15;
         }
 
         else
         {
           do
           {
-            v41 = v39;
-            v39 = *v39;
+            v34 = v32;
+            v32 = *v32;
           }
 
-          while (v39 && *(v39 + 2) > v40);
-          *v22 = v39;
-          *v41 = v22;
+          while (v32 && *(v32 + 2) > v33);
+          *v15 = v32;
+          *v34 = v15;
         }
       }
 
       else
       {
-        *p_rootMatch = v22;
-        *v22 = 0;
+        *p_rootMatch = v15;
+        *v15 = 0;
       }
 
-      v23 = p_rootMatch;
+      v16 = p_rootMatch;
       goto LABEL_58;
     }
 
 LABEL_41:
-    v32 = v26;
-    v33 = v25;
-    v34 = *(v28 + 8);
-    if (!v34)
+    v25 = v19;
+    v26 = v18;
+    v27 = *(v21 + 8);
+    if (!v27)
     {
-      v23 = p_attrMatch;
-      v25 = v33;
-      v26 = v32;
+      v16 = p_attrMatch;
+      v18 = v26;
+      v19 = v25;
       p_elemMatch = &style->elemMatch;
       goto LABEL_49;
     }
@@ -182,84 +181,80 @@ LABEL_41:
     templatesHash = style->templatesHash;
     if (templatesHash)
     {
-      v36 = xmlHashLookup3(templatesHash, *(v28 + 8), mode, modeURI);
-      if (v36)
+      v29 = xmlHashLookup3(templatesHash, *(v21 + 8), mode, modeURI);
+      if (v29)
       {
-        v37 = *(v22 + 2);
-        if (*(v36 + 2) <= v37)
+        v30 = *(v15 + 2);
+        if (*(v29 + 2) <= v30)
         {
-          *v22 = v36;
-          xmlHashUpdateEntry3(style->templatesHash, v34, mode, modeURI, v22, 0);
+          *v15 = v29;
+          xmlHashUpdateEntry3(style->templatesHash, v27, mode, modeURI, v15, 0);
         }
 
         else
         {
           do
           {
-            v38 = v36;
-            v36 = *v36;
+            v31 = v29;
+            v29 = *v29;
           }
 
-          while (v36 && *(v36 + 2) > v37);
-          *v22 = v36;
-          *v38 = v22;
+          while (v29 && *(v29 + 2) > v30);
+          *v15 = v29;
+          *v31 = v15;
         }
 
         goto LABEL_68;
       }
 
-      v45 = style->templatesHash;
+      v37 = style->templatesHash;
     }
 
     else
     {
-      v45 = xmlHashCreate(1024);
-      style->templatesHash = v45;
-      if (!v45)
+      v37 = xmlHashCreate(1024);
+      style->templatesHash = v37;
+      if (!v37)
       {
         goto LABEL_71;
       }
     }
 
-    xmlHashAddEntry3(v45, v34, mode, modeURI, v22);
+    xmlHashAddEntry3(v37, v27, mode, modeURI, v15);
 LABEL_68:
-    v25 = v33;
-    v26 = v32;
+    v18 = v26;
+    v19 = v25;
     p_elemMatch = &style->elemMatch;
 LABEL_58:
-    v42 = *v25;
-    v43 = *v26;
-    v44 = *(v22 + 2);
+    v35 = *v18;
+    v36 = *v19;
     if (mode)
     {
-      v48 = *(v22 + 2);
-      v46 = *(v22 + 3);
-      v42(v43, "added pattern : '%s' mode '%s' priority %f\n", v16, v17, v18, v19, v20, v21, v44);
+      v35(v36, "added pattern : '%s' mode '%s' priority %f\n");
     }
 
     else
     {
-      v47 = *(v22 + 2);
-      v42(v43, "added pattern : '%s' priority %f\n", v16, v17, v18, v19, v20, v21, v44);
+      v35(v36, "added pattern : '%s' priority %f\n");
     }
 
-    v22 = v27;
-    if (!v27)
+    v15 = v20;
+    if (!v20)
     {
       return 0;
     }
   }
 
-  if (v29 <= 10)
+  if (v22 <= 10)
   {
     p_rootMatch = p_elemMatch;
-    if ((v29 - 8) < 2)
+    if ((v22 - 8) < 2)
     {
       goto LABEL_50;
     }
 
     p_attrMatch = &style->piMatch;
-    if (v29 != 10)
+    if (v22 != 10)
     {
       goto LABEL_49;
     }
@@ -267,10 +262,10 @@ LABEL_58:
     goto LABEL_41;
   }
 
-  if (v29 <= 12)
+  if (v22 <= 12)
   {
     p_rootMatch = &style->commentMatch;
-    if (v29 != 11)
+    if (v22 != 11)
     {
       p_rootMatch = &style->textMatch;
     }
@@ -278,16 +273,16 @@ LABEL_58:
     goto LABEL_50;
   }
 
-  if (v29 == 13)
+  if (v22 == 13)
   {
     goto LABEL_40;
   }
 
-  if (v29 != 14)
+  if (v22 != 14)
   {
 LABEL_49:
-    p_rootMatch = v23;
-    if (!v23)
+    p_rootMatch = v16;
+    if (!v16)
     {
       goto LABEL_70;
     }
@@ -298,7 +293,7 @@ LABEL_49:
 LABEL_70:
   xsltTransformError(0, style, 0, "xsltAddTemplate: invalid compiled pattern\n");
 LABEL_71:
-  xsltFreeCompMatch(v22);
+  xsltFreeCompMatch(v15);
   return -1;
 }
 
@@ -351,40 +346,46 @@ LABEL_108:
       }
     }
 
-    if (name && (v12 = xmlHashLookup3(templatesHash, name, ctxt->mode, ctxt->modeURI)) != 0)
+    if (name && (templatesHash = xmlHashLookup3(templatesHash, name, ctxt->mode, ctxt->modeURI)) != 0)
     {
-      v13 = v12;
-      while (xsltTestCompMatch(ctxt, v13, node, ctxt->mode, ctxt->modeURI) != 1)
+      v12 = templatesHash;
+      while (1)
       {
-        v13 = *v13;
-        if (!v13)
+        templatesHash = xsltTestCompMatch(ctxt, v12, node, ctxt->mode, ctxt->modeURI);
+        if (templatesHash == 1)
+        {
+          break;
+        }
+
+        v12 = *v12;
+        if (!v12)
         {
           goto LABEL_17;
         }
       }
 
-      v3 = *(v13 + 40);
-      v14 = *(v13 + 8);
+      v3 = *(v12 + 40);
+      v13 = *(v12 + 8);
     }
 
     else
     {
 LABEL_17:
       v3 = 0;
-      v14 = -12346000.0;
+      v13 = -12346000.0;
     }
 
-    v15 = node->type;
-    if (v15 > XML_ENTITY_NODE)
+    v14 = node->type;
+    if (v14 > XML_ENTITY_NODE)
     {
-      if (v15 > XML_COMMENT_NODE)
+      if (v14 > XML_COMMENT_NODE)
       {
-        if (v15 == XML_DOCUMENT_NODE || v15 == XML_HTML_DOCUMENT_NODE)
+        if (v14 == XML_DOCUMENT_NODE || v14 == XML_HTML_DOCUMENT_NODE)
         {
           rootMatch = v7->rootMatch;
-          v19 = linkedOnOrAfterFall2023OSVersions();
+          templatesHash = linkedOnOrAfterFall2023OSVersions(templatesHash, node);
           p_parent = &node[1].parent;
-          if (v19)
+          if (templatesHash)
           {
             goto LABEL_40;
           }
@@ -395,7 +396,7 @@ LABEL_17:
         goto LABEL_50;
       }
 
-      if (v15 == XML_PI_NODE)
+      if (v14 == XML_PI_NODE)
       {
         rootMatch = v7->piMatch;
       }
@@ -406,33 +407,34 @@ LABEL_17:
       }
 
 LABEL_37:
-      v21 = linkedOnOrAfterFall2023OSVersions();
+      templatesHash = linkedOnOrAfterFall2023OSVersions(templatesHash, node);
       p_parent = &node->psvi;
-      if (v21)
+      if (templatesHash)
       {
 LABEL_40:
         while (rootMatch)
         {
           if (v3)
           {
-            v22 = *(rootMatch + 8);
-            if (v22 <= v14 && (v22 != v14 || *(*(rootMatch + 40) + 144) <= v3->position))
+            v18 = *(rootMatch + 8);
+            if (v18 <= v13 && (v18 != v13 || *(*(rootMatch + 40) + 144) <= v3->position))
             {
               break;
             }
           }
 
-          if (xsltTestCompMatch(ctxt, rootMatch, node, ctxt->mode, ctxt->modeURI) == 1)
+          templatesHash = xsltTestCompMatch(ctxt, rootMatch, node, ctxt->mode, ctxt->modeURI);
+          if (templatesHash == 1)
           {
             v3 = *(rootMatch + 40);
-            v14 = *(rootMatch + 8);
+            v13 = *(rootMatch + 8);
             break;
           }
 
           rootMatch = *rootMatch;
         }
 
-        v15 = node->type;
+        v14 = node->type;
         goto LABEL_50;
       }
 
@@ -445,30 +447,30 @@ LABEL_38:
       goto LABEL_40;
     }
 
-    if (v15 - 3 < 2)
+    if (v14 - 3 < 2)
     {
       rootMatch = v7->textMatch;
       goto LABEL_37;
     }
 
-    if (v15 == XML_ELEMENT_NODE)
+    if (v14 == XML_ELEMENT_NODE)
     {
-      v20 = 104;
+      v17 = 104;
       if (*node->name == 32)
       {
-        v20 = 88;
+        v17 = 88;
       }
 
-      rootMatch = *(&v7->parent + v20);
+      rootMatch = *(&v7->parent + v17);
       goto LABEL_37;
     }
 
-    if (v15 == XML_ATTRIBUTE_NODE)
+    if (v14 == XML_ATTRIBUTE_NODE)
     {
       rootMatch = v7->attrMatch;
-      v17 = linkedOnOrAfterFall2023OSVersions();
+      templatesHash = linkedOnOrAfterFall2023OSVersions(templatesHash, node);
       p_parent = &node->properties;
-      if (v17)
+      if (templatesHash)
       {
         goto LABEL_40;
       }
@@ -477,43 +479,43 @@ LABEL_38:
     }
 
 LABEL_50:
-    if (v15 > XML_HTML_DOCUMENT_NODE)
+    if (v14 > XML_HTML_DOCUMENT_NODE)
     {
       goto LABEL_69;
     }
 
-    v23 = 1 << v15;
-    if ((v23 & 0x2208) != 0)
+    v19 = 1 << v14;
+    if ((v19 & 0x2208) != 0)
     {
       p_elemMatch = &v7->elemMatch;
       do
       {
         p_elemMatch = *p_elemMatch;
-        if (p_elemMatch)
+        if (!p_elemMatch)
         {
-          if (!v3)
-          {
-            continue;
-          }
+          goto LABEL_69;
+        }
 
-          v25 = *(p_elemMatch + 8);
-          if (v25 > v14 || v25 == v14 && *(*(p_elemMatch + 40) + 144) > v3->position)
+        if (v3)
+        {
+          v21 = *(p_elemMatch + 8);
+          if (v21 <= v13 && (v21 != v13 || *(*(p_elemMatch + 40) + 144) <= v3->position))
           {
-            continue;
+            goto LABEL_69;
           }
         }
 
-        goto LABEL_69;
+        templatesHash = xsltTestCompMatch(ctxt, p_elemMatch, node, ctxt->mode, ctxt->modeURI);
       }
 
-      while (xsltTestCompMatch(ctxt, p_elemMatch, node, ctxt->mode, ctxt->modeURI) != 1);
+      while (templatesHash != 1);
 LABEL_68:
       v3 = *(p_elemMatch + 40);
-      v14 = *(p_elemMatch + 8);
+      v13 = *(p_elemMatch + 8);
       goto LABEL_69;
     }
 
-    if ((v23 & 0x180) == 0)
+    if ((v19 & 0x180) == 0)
     {
       goto LABEL_69;
     }
@@ -529,14 +531,15 @@ LABEL_68:
 
       if (v3)
       {
-        v26 = *(p_elemMatch + 8);
-        if (v26 <= v14 && (v26 != v14 || *(*(p_elemMatch + 40) + 144) <= v3->position))
+        v22 = *(p_elemMatch + 8);
+        if (v22 <= v13 && (v22 != v13 || *(*(p_elemMatch + 40) + 144) <= v3->position))
         {
           break;
         }
       }
 
-      if (xsltTestCompMatch(ctxt, p_elemMatch, node, ctxt->mode, ctxt->modeURI) == 1)
+      templatesHash = xsltTestCompMatch(ctxt, p_elemMatch, node, ctxt->mode, ctxt->modeURI);
+      if (templatesHash == 1)
       {
         goto LABEL_68;
       }
@@ -547,7 +550,7 @@ LABEL_68:
       while (1)
       {
 LABEL_69:
-        if (linkedOnOrAfterFall2023OSVersions())
+        if (linkedOnOrAfterFall2023OSVersions(templatesHash, node))
         {
           v8 = xsltGetSourceNodeFlags(node) & 1;
         }
@@ -565,8 +568,8 @@ LABEL_69:
 
             if (v3)
             {
-              v34 = *(p_keyMatch + 8);
-              if (v34 <= v14 && (v34 != v14 || *(*(p_keyMatch + 40) + 144) <= v3->position))
+              v32 = *(p_keyMatch + 8);
+              if (v32 <= v13 && (v32 != v13 || *(*(p_keyMatch + 40) + 144) <= v3->position))
               {
                 return v3;
               }
@@ -613,38 +616,41 @@ LABEL_69:
             return v3;
           }
 
-          v29 = xsltNewDocument(ctxt, doc);
-          ctxt->document = v29;
-          if (!v29)
+          v25 = xsltNewDocument(ctxt, doc);
+          ctxt->document = v25;
+          if (!v25)
           {
             return 0;
           }
         }
 
-        if (xsltInitAllDocKeys(ctxt) == -1)
+        inited = xsltInitAllDocKeys(ctxt);
+        if (inited == -1)
         {
           return 0;
         }
 
-        if (!linkedOnOrAfterFall2023OSVersions())
+        templatesHash = linkedOnOrAfterFall2023OSVersions(inited, v27);
+        if (!templatesHash)
         {
           break;
         }
 
+        templatesHash = xsltGetSourceNodeFlags(node);
         v8 = 1;
-        if ((xsltGetSourceNodeFlags(node) & 1) == 0)
+        if ((templatesHash & 1) == 0)
         {
           goto LABEL_93;
         }
       }
 
-      v30 = node->type;
-      if (v30 > XML_HTML_DOCUMENT_NODE)
+      v28 = node->type;
+      if (v28 > XML_HTML_DOCUMENT_NODE)
       {
         goto LABEL_92;
       }
 
-      if (((1 << v30) & 0x198) == 0)
+      if (((1 << v28) & 0x198) == 0)
       {
         break;
       }
@@ -659,7 +665,7 @@ LABEL_90:
       }
     }
 
-    if (((1 << v30) & 0x2200) != 0)
+    if (((1 << v28) & 0x2200) != 0)
     {
       p_properties = &node[1].parent;
 LABEL_89:
@@ -667,14 +673,14 @@ LABEL_89:
       goto LABEL_90;
     }
 
-    if (v30 == XML_ATTRIBUTE_NODE)
+    if (v28 == XML_ATTRIBUTE_NODE)
     {
       p_properties = &node->properties;
       goto LABEL_89;
     }
 
 LABEL_92:
-    if (v30 == XML_ELEMENT_NODE)
+    if (v28 == XML_ELEMENT_NODE)
     {
       goto LABEL_84;
     }
@@ -1231,8 +1237,9 @@ LABEL_59:
   return result;
 }
 
-void xsltCompileRelativePathPattern(uint64_t a1, xmlChar *a2, int a3)
+void xsltCompileRelativePathPattern(uint64_t a1, xmlChar *a2, uint64_t a3)
 {
+  v3 = a3;
   xsltCompileStepPattern(a1, a2, a3);
   if (*(a1 + 48))
   {
@@ -1256,7 +1263,7 @@ void xsltCompileRelativePathPattern(uint64_t a1, xmlChar *a2, int a3)
     v9 = *(a1 + 56);
     if (i[1] != 47)
     {
-      if (xsltCompMatchAdd(a1, v9, 4, 0, 0, a3))
+      if (xsltCompMatchAdd(a1, v9, 4, 0, 0, v3))
       {
         return;
       }
@@ -1282,7 +1289,7 @@ LABEL_24:
       }
     }
 
-    if (xsltCompMatchAdd(a1, v9, 5, 0, 0, a3))
+    if (xsltCompMatchAdd(a1, v9, 5, 0, 0, v3))
     {
       return;
     }
@@ -1316,7 +1323,7 @@ LABEL_30:
     }
 
 LABEL_31:
-    xsltCompileStepPattern(a1, 0, a3);
+    xsltCompileStepPattern(a1, 0, v3);
     if (*(a1 + 48))
     {
       return;
@@ -1521,14 +1528,15 @@ LABEL_43:
   return result;
 }
 
-void xsltCompileIdKeyPattern(uint64_t a1, xmlChar *str1, int a3, int a4, int a5)
+void xsltCompileIdKeyPattern(uint64_t a1, xmlChar *str1, int a3, int a4, uint64_t a5)
 {
   if (**(a1 + 16) != 40)
   {
-    xsltTransformError(0, 0, 0, "xsltCompileIdKeyPattern :(expected\n");
+    xsltTransformError(0, 0, 0, "xsltCompileIdKeyPattern :(expected\n", a5);
     goto LABEL_11;
   }
 
+  v6 = a5;
   if (!a3)
   {
 LABEL_12:
@@ -1542,24 +1550,24 @@ LABEL_12:
 
       while (1)
       {
-        v41 = *i;
-        if (v41 > 0x29)
+        v43 = *i;
+        if (v43 > 0x29)
         {
           break;
         }
 
-        if (((1 << v41) & 0x100002600) == 0)
+        if (((1 << v43) & 0x100002600) == 0)
         {
-          if (v41 == 41)
+          if (v43 == 41)
           {
-            v20 = 0;
+            v22 = 0;
 LABEL_85:
             *(a1 + 16) = i + 1;
-            v23 = *(a1 + 56);
-            v24 = a1;
-            v25 = 10;
+            v25 = *(a1 + 56);
+            v26 = a1;
+            v27 = 10;
 LABEL_49:
-            v27 = v20;
+            v29 = v22;
             goto LABEL_50;
           }
 
@@ -1570,7 +1578,7 @@ LABEL_80:
         *(a1 + 16) = ++i;
       }
 
-      v20 = xsltScanLiteral(a1);
+      v22 = xsltScanLiteral(a1);
       if (*(a1 + 48))
       {
         goto LABEL_45;
@@ -1578,15 +1586,15 @@ LABEL_80:
 
       for (i = *(a1 + 16); ; *(a1 + 16) = i)
       {
-        v42 = *i;
-        if (v42 > 0x29)
+        v44 = *i;
+        if (v44 > 0x29)
         {
           break;
         }
 
-        if (((1 << v42) & 0x100002600) == 0)
+        if (((1 << v44) & 0x100002600) == 0)
         {
-          if (v42 == 41)
+          if (v44 == 41)
           {
             goto LABEL_85;
           }
@@ -1604,100 +1612,15 @@ LABEL_80:
 
     if (xmlStrEqual(str1, "text"))
     {
-      v12 = *(a1 + 16);
-      if (*v12)
+      v14 = *(a1 + 16);
+      if (*v14)
       {
         goto LABEL_93;
       }
 
       while (1)
       {
-        v43 = *v12;
-        if (v43 > 0x29)
-        {
-          break;
-        }
-
-        if (((1 << v43) & 0x100002600) == 0)
-        {
-          if (v43 != 41)
-          {
-            break;
-          }
-
-          *(a1 + 16) = v12 + 1;
-          v23 = *(a1 + 56);
-          v24 = a1;
-          v25 = 12;
-          goto LABEL_104;
-        }
-
-LABEL_93:
-        *(a1 + 16) = ++v12;
-      }
-    }
-
-    else if (xmlStrEqual(str1, "comment"))
-    {
-      v13 = *(a1 + 16);
-      if (*v13)
-      {
-        goto LABEL_99;
-      }
-
-      while (1)
-      {
-        v44 = *v13;
-        if (v44 > 0x29)
-        {
-          break;
-        }
-
-        if (((1 << v44) & 0x100002600) == 0)
-        {
-          if (v44 != 41)
-          {
-            break;
-          }
-
-          *(a1 + 16) = v13 + 1;
-          v23 = *(a1 + 56);
-          v24 = a1;
-          v25 = 11;
-          goto LABEL_104;
-        }
-
-LABEL_99:
-        *(a1 + 16) = ++v13;
-      }
-    }
-
-    else
-    {
-      if (!xmlStrEqual(str1, "node"))
-      {
-        if (a3)
-        {
-          xsltTransformError(0, 0, 0, "xsltCompileIdKeyPattern : expecting 'key' or 'id' or node type\n");
-        }
-
-        else
-        {
-          xsltTransformError(0, 0, 0, "xsltCompileIdKeyPattern : node type\n");
-        }
-
-        goto LABEL_11;
-      }
-
-      v15 = *(a1 + 16);
-      if (*v15)
-      {
-        goto LABEL_105;
-      }
-
-      while (1)
-      {
-        v45 = *v15;
+        v45 = *v14;
         if (v45 > 0x29)
         {
           break;
@@ -1710,35 +1633,120 @@ LABEL_99:
             break;
           }
 
-          *(a1 + 16) = v15 + 1;
-          v23 = *(a1 + 56);
-          v24 = a1;
-          if (a5 == 2)
-          {
-            v25 = 3;
-          }
-
-          else
-          {
-            v25 = 13;
-          }
-
-LABEL_104:
-          v27 = 0;
-LABEL_50:
-          v28 = 0;
-LABEL_51:
-
-          xsltCompMatchAdd(v24, v23, v25, v27, v28, a4);
-          return;
+          *(a1 + 16) = v14 + 1;
+          v25 = *(a1 + 56);
+          v26 = a1;
+          v27 = 12;
+          goto LABEL_104;
         }
 
-LABEL_105:
+LABEL_93:
+        *(a1 + 16) = ++v14;
+      }
+    }
+
+    else if (xmlStrEqual(str1, "comment"))
+    {
+      v15 = *(a1 + 16);
+      if (*v15)
+      {
+        goto LABEL_99;
+      }
+
+      while (1)
+      {
+        v46 = *v15;
+        if (v46 > 0x29)
+        {
+          break;
+        }
+
+        if (((1 << v46) & 0x100002600) == 0)
+        {
+          if (v46 != 41)
+          {
+            break;
+          }
+
+          *(a1 + 16) = v15 + 1;
+          v25 = *(a1 + 56);
+          v26 = a1;
+          v27 = 11;
+          goto LABEL_104;
+        }
+
+LABEL_99:
         *(a1 + 16) = ++v15;
       }
     }
 
-    xsltTransformError(0, 0, 0, "xsltCompileIdKeyPattern :) expected\n");
+    else
+    {
+      if (!xmlStrEqual(str1, "node"))
+      {
+        if (a3)
+        {
+          xsltTransformError(0, 0, 0, "xsltCompileIdKeyPattern : expecting 'key' or 'id' or node type\n", v13);
+        }
+
+        else
+        {
+          xsltTransformError(0, 0, 0, "xsltCompileIdKeyPattern : node type\n", v13);
+        }
+
+        goto LABEL_11;
+      }
+
+      v17 = *(a1 + 16);
+      if (*v17)
+      {
+        goto LABEL_105;
+      }
+
+      while (1)
+      {
+        v47 = *v17;
+        if (v47 > 0x29)
+        {
+          break;
+        }
+
+        if (((1 << v47) & 0x100002600) == 0)
+        {
+          if (v47 != 41)
+          {
+            break;
+          }
+
+          *(a1 + 16) = v17 + 1;
+          v25 = *(a1 + 56);
+          v26 = a1;
+          if (v6 == 2)
+          {
+            v27 = 3;
+          }
+
+          else
+          {
+            v27 = 13;
+          }
+
+LABEL_104:
+          v29 = 0;
+LABEL_50:
+          v30 = 0;
+LABEL_51:
+
+          xsltCompMatchAdd(v26, v25, v27, v29, v30, a4);
+          return;
+        }
+
+LABEL_105:
+        *(a1 + 16) = ++v17;
+      }
+    }
+
+    xsltTransformError(0, 0, 0, "xsltCompileIdKeyPattern :) expected\n", v13);
 LABEL_11:
     *(a1 + 48) = 1;
     return;
@@ -1748,40 +1756,40 @@ LABEL_11:
   {
     if (xmlStrEqual(str1, "key"))
     {
-      if (!a5)
+      if (!v6)
       {
-        v14 = *(a1 + 16);
-        if (*v14)
+        v16 = *(a1 + 16);
+        if (*v16)
         {
           goto LABEL_54;
         }
 
         while (1)
         {
-          v29 = *v14;
-          v17 = v29 > 0x20;
-          v30 = (1 << v29) & 0x100002600;
-          if (v17 || v30 == 0)
+          v31 = *v16;
+          v19 = v31 > 0x20;
+          v32 = (1 << v31) & 0x100002600;
+          if (v19 || v32 == 0)
           {
             break;
           }
 
 LABEL_54:
-          *(a1 + 16) = ++v14;
+          *(a1 + 16) = ++v16;
         }
 
-        v20 = xsltScanLiteral(a1);
+        v22 = xsltScanLiteral(a1);
         if (!*(a1 + 48))
         {
           for (j = (*(a1 + 16) + 1); ; ++j)
           {
-            v33 = *(j - 1);
-            if (v33 > 0x2C)
+            v35 = *(j - 1);
+            if (v35 > 0x2C)
             {
               goto LABEL_76;
             }
 
-            if (((1 << v33) & 0x100002600) == 0)
+            if (((1 << v35) & 0x100002600) == 0)
             {
               break;
             }
@@ -1789,7 +1797,7 @@ LABEL_54:
             *(a1 + 16) = j;
           }
 
-          if (v33 != 44)
+          if (v35 != 44)
           {
 LABEL_76:
             xsltTransformError(0, 0, 0, "xsltCompileIdKeyPattern : , expected\n");
@@ -1799,33 +1807,33 @@ LABEL_76:
           do
           {
             *(a1 + 16) = j;
-            v34 = *j++;
-            v35 = (1 << v34) & 0x100002600;
+            v36 = *j++;
+            v37 = (1 << v36) & 0x100002600;
           }
 
-          while (v34 <= 0x20 && v35 != 0);
-          v37 = xsltScanLiteral(a1);
+          while (v36 <= 0x20 && v37 != 0);
+          v39 = xsltScanLiteral(a1);
           if (!*(a1 + 48))
           {
-            v38 = v37;
+            v40 = v39;
             for (k = *(a1 + 16) + 1; ; ++k)
             {
-              v40 = *(k - 1);
-              if (v40 > 0x29)
+              v42 = *(k - 1);
+              if (v42 > 0x29)
               {
                 break;
               }
 
-              if (((1 << v40) & 0x100002600) == 0)
+              if (((1 << v42) & 0x100002600) == 0)
               {
-                if (v40 == 41)
+                if (v42 == 41)
                 {
                   *(a1 + 16) = k;
-                  v23 = *(a1 + 56);
-                  v24 = a1;
-                  v25 = 7;
-                  v27 = v20;
-                  v28 = v38;
+                  v25 = *(a1 + 56);
+                  v26 = a1;
+                  v27 = 7;
+                  v29 = v22;
+                  v30 = v40;
                   goto LABEL_51;
                 }
 
@@ -1836,10 +1844,10 @@ LABEL_76:
             }
 
             xsltTransformError(0, 0, 0, "xsltCompileIdKeyPattern :) expected\n");
-            free(v20);
-            v26 = v38;
+            free(v22);
+            v28 = v40;
 LABEL_44:
-            free(v26);
+            free(v28);
             goto LABEL_11;
           }
         }
@@ -1853,52 +1861,52 @@ LABEL_44:
     goto LABEL_12;
   }
 
-  if (a5)
+  if (v6)
   {
 LABEL_10:
-    xsltTransformError(0, 0, 0, "xsltCompileIdKeyPattern : NodeTest expected\n");
+    xsltTransformError(0, 0, 0, "xsltCompileIdKeyPattern : NodeTest expected\n", v10);
     goto LABEL_11;
   }
 
-  v10 = *(a1 + 16);
-  if (*v10)
+  v11 = *(a1 + 16);
+  if (*v11)
   {
     goto LABEL_29;
   }
 
   while (1)
   {
-    v16 = *v10;
-    v17 = v16 > 0x20;
-    v18 = (1 << v16) & 0x100002600;
-    if (v17 || v18 == 0)
+    v18 = *v11;
+    v19 = v18 > 0x20;
+    v20 = (1 << v18) & 0x100002600;
+    if (v19 || v20 == 0)
     {
       break;
     }
 
 LABEL_29:
-    *(a1 + 16) = ++v10;
+    *(a1 + 16) = ++v11;
   }
 
-  v20 = xsltScanLiteral(a1);
+  v22 = xsltScanLiteral(a1);
   if (!*(a1 + 48))
   {
     for (m = *(a1 + 16) + 1; ; ++m)
     {
-      v22 = *(m - 1);
-      if (v22 > 0x29)
+      v24 = *(m - 1);
+      if (v24 > 0x29)
       {
         break;
       }
 
-      if (((1 << v22) & 0x100002600) == 0)
+      if (((1 << v24) & 0x100002600) == 0)
       {
-        if (v22 == 41)
+        if (v24 == 41)
         {
           *(a1 + 16) = m;
-          v23 = *(a1 + 56);
-          v24 = a1;
-          v25 = 6;
+          v25 = *(a1 + 56);
+          v26 = a1;
+          v27 = 6;
           goto LABEL_49;
         }
 
@@ -1910,7 +1918,7 @@ LABEL_29:
 
     xsltTransformError(0, 0, 0, "xsltCompileIdKeyPattern :) expected\n");
 LABEL_43:
-    v26 = v20;
+    v28 = v22;
     goto LABEL_44;
   }
 
@@ -1918,7 +1926,7 @@ LABEL_45:
   xsltTransformError(0, 0, 0, "xsltCompileIdKeyPattern : Literal expected\n");
 LABEL_46:
 
-  free(v20);
+  free(v22);
 }
 
 void xsltCompileStepPattern(uint64_t a1, xmlChar *str1, int a3)
@@ -3004,7 +3012,6 @@ void xsltCheckInstructionElement(xsltStylesheetPtr style, xmlNodePtr node)
       }
 
       while (parent);
-      name = node->name;
       xsltTransformError(0, style, node, "element %s only allowed within a template, variable or param\n");
     }
 
@@ -3056,7 +3063,6 @@ LABEL_17:
             }
           }
 
-          name = node->name;
           xsltTransformError(0, style, node, "element %s is not allowed within that context\n");
           goto LABEL_17;
         }
@@ -3145,7 +3151,6 @@ void xsltValueOfComp(xsltStylesheet *a1, uint64_t a2)
             return;
           }
 
-          keys = v5->keys;
           xsltTransformError(0, a1, a2, "xsl:value-of : could not compile select expression '%s'\n");
         }
 
@@ -3203,7 +3208,6 @@ void xsltCopyOfComp(xsltStylesheet *a1, uint64_t a2)
             return;
           }
 
-          keys = v5->keys;
           xsltTransformError(0, a1, a2, "xsl:copy-of : could not compile select expression '%s'\n");
         }
 
@@ -3241,7 +3245,6 @@ void xsltIfComp(xsltStylesheet *a1, uint64_t a2)
             return;
           }
 
-          nsHash = v5->nsHash;
           xsltTransformError(0, a1, a2, "xsl:if : could not compile test expression '%s'\n");
         }
 
@@ -3279,7 +3282,6 @@ void xsltWhenComp(xsltStylesheet *a1, uint64_t a2)
             return;
           }
 
-          nsHash = v5->nsHash;
           xsltTransformError(0, a1, a2, "xsl:when : could not compile test expression '%s'\n");
         }
 
@@ -3332,7 +3334,6 @@ void xsltForEachComp(xsltStylesheet *a1, uint64_t a2)
             return;
           }
 
-          keys = v5->keys;
           xsltTransformError(0, a1, a2, "xsl:for-each : could not compile select expression '%s'\n");
         }
 
@@ -3390,10 +3391,10 @@ void xsltAttributeComp(xsltStylesheet *a1, uint64_t a2)
 
         if (xmlValidateQName(parentMatch, 0))
         {
-          v10 = v5->parentMatch;
+          v9 = v5->parentMatch;
           v7 = "xsl:attribute: The value '%s' of the attribute 'name' is not a valid QName.\n";
 LABEL_9:
-          xsltTransformError(0, a1, a2, v7, v10);
+          xsltTransformError(0, a1, a2, v7, v9);
 LABEL_10:
           ++a1->errors;
           return;
@@ -3417,7 +3418,6 @@ LABEL_10:
             return;
           }
 
-          v9 = v5->parentMatch;
           xsltTransformError(0, a1, a2, "xsl:attribute: The prefixed QName '%s' has no namespace binding in scope in the stylesheet; this is an error, since the namespace was not specified by the instruction itself.\n");
           goto LABEL_10;
         }
@@ -3712,40 +3712,40 @@ xsltStylesheet *xsltNumberComp(xsltStylesheet *result, uint64_t a2)
         if (xsltGetCNsProp(v3, a2, "lang", "http://www.w3.org/1999/XSL/Transform"))
         {
           xsltTransformError(0, v3, a2, "xsl:number : lang attribute not implemented\n");
-          xsltGenericError(xsltGenericErrorContext, "Unimplemented block at %s:%d\n", v10, v11, v12, v13, v14, v15, "/Library/Caches/com.apple.xbs/Sources/libxslt/libxslt/libxslt/preproc.c");
+          xsltGenericError(xsltGenericErrorContext, "Unimplemented block at %s:%d\n", "/Library/Caches/com.apple.xbs/Sources/libxslt/libxslt/libxslt/preproc.c", 1469);
         }
 
-        v16 = xsltGetCNsProp(v3, a2, "letter-value", "http://www.w3.org/1999/XSL/Transform");
-        if (v16)
+        v10 = xsltGetCNsProp(v3, a2, "letter-value", "http://www.w3.org/1999/XSL/Transform");
+        if (v10)
         {
-          v17 = v16;
-          if (xmlStrEqual(v16, "alphabetic"))
+          v11 = v10;
+          if (xmlStrEqual(v10, "alphabetic"))
           {
             xsltTransformError(0, v3, a2, "xsl:number : letter-value 'alphabetic' not implemented\n");
             ++v3->warnings;
-            xsltGenericError(xsltGenericErrorContext, "Unimplemented block at %s:%d\n", v18, v19, v20, v21, v22, v23, "/Library/Caches/com.apple.xbs/Sources/libxslt/libxslt/libxslt/preproc.c");
+            xsltGenericError(xsltGenericErrorContext, "Unimplemented block at %s:%d\n", "/Library/Caches/com.apple.xbs/Sources/libxslt/libxslt/libxslt/preproc.c", 1478);
           }
 
-          else if (xmlStrEqual(v17, "traditional"))
+          else if (xmlStrEqual(v11, "traditional"))
           {
             xsltTransformError(0, v3, a2, "xsl:number : letter-value 'traditional' not implemented\n");
             ++v3->warnings;
-            xsltGenericError(xsltGenericErrorContext, "Unimplemented block at %s:%d\n", v24, v25, v26, v27, v28, v29, "/Library/Caches/com.apple.xbs/Sources/libxslt/libxslt/libxslt/preproc.c");
+            xsltGenericError(xsltGenericErrorContext, "Unimplemented block at %s:%d\n", "/Library/Caches/com.apple.xbs/Sources/libxslt/libxslt/libxslt/preproc.c", 1483);
           }
 
           else
           {
-            xsltTransformError(0, v3, a2, "xsl:number : invalid value %s for letter-value\n", v17);
+            xsltTransformError(0, v3, a2, "xsl:number : invalid value %s for letter-value\n", v11);
             ++v3->warnings;
           }
         }
 
-        v30 = xsltGetCNsProp(v3, a2, "grouping-separator", "http://www.w3.org/1999/XSL/Transform");
-        if (v30)
+        v12 = xsltGetCNsProp(v3, a2, "grouping-separator", "http://www.w3.org/1999/XSL/Transform");
+        if (v12)
         {
-          v31 = v30;
-          *(&v4->indent + 1) = xmlStrlen(v30);
-          UTF8Char = xsltGetUTF8Char(v31, &v4->indent + 1);
+          v13 = v12;
+          *(&v4->indent + 1) = xmlStrlen(v12);
+          UTF8Char = xsltGetUTF8Char(v13, &v4->indent + 1);
           v4->indent = UTF8Char & ~(UTF8Char >> 31);
         }
 
@@ -3791,19 +3791,19 @@ void *xsltProcessingInstructionComp(void *result, uint64_t a2)
   return result;
 }
 
-void xsltCallTemplateComp(xsltStylesheet *a1, uint64_t a2)
+void xsltCallTemplateComp(xsltStylesheet *result, uint64_t a2)
 {
-  if (a1)
+  if (result)
   {
     if (*(a2 + 8) == 1)
     {
-      v4 = xsltNewStylePreComp(a1, 12);
+      v4 = xsltNewStylePreComp(result, 12);
       if (v4)
       {
         v5 = v4;
         *(a2 + 104) = v4;
         v4->docList = a2;
-        xsltGetQNameProperty(a1, a2, "name", 1, &v4->textMatch, &v4->piMatch, &v4->parentMatch);
+        xsltGetQNameProperty(result, a2, "name", 1, &v4->textMatch, &v4->piMatch, &v4->parentMatch);
         if (v5->piMatch)
         {
           LODWORD(v5->commentMatch) = 1;
@@ -3837,7 +3837,6 @@ uint64_t xsltCheckTopLevelElement(xsltStylesheetPtr style, xmlNodePtr node, int 
 
     if (a3)
     {
-      name = node->name;
       xsltTransformError(0, style, node, "element %s only allowed as child of stylesheet\n");
 LABEL_17:
       result = 0;
@@ -4776,8 +4775,8 @@ LABEL_15:
       xmlFreeNodeList(properties->children);
       properties->children = 0;
       properties->last = 0;
-      v22 = properties->ns;
-      if (v22 && !xmlStrEqual(v22->prefix, attr->ns->prefix))
+      v20 = properties->ns;
+      if (v20 && !xmlStrEqual(v20->prefix, attr->ns->prefix))
       {
         properties->ns = xsltGetNamespace(ctxt, attr->parent, attr->ns, target);
       }
@@ -4800,18 +4799,14 @@ LABEL_22:
       properties = xmlNewNsProp(target, Namespace, attr->name, 0);
       if (!properties)
       {
-        v20 = attr->ns;
         parent = attr->parent;
-        if (v20)
+        if (attr->ns)
         {
-          href = v20->href;
-          name = attr->name;
           xsltTransformError(ctxt, 0, parent, "Internal error: Failed to create attribute '{%s}%s'.\n");
         }
 
         else
         {
-          v26 = attr->name;
           xsltTransformError(ctxt, 0, parent, "Internal error: Failed to create attribute '%s'.\n");
         }
 
@@ -4841,22 +4836,18 @@ LABEL_44:
         return properties;
       }
 
-      v18 = attr->ns;
-      v19 = attr->parent;
-      if (v18)
+      v18 = attr->parent;
+      if (attr->ns)
       {
-        v28 = v18->href;
-        v30 = attr->name;
-        xsltTransformError(ctxt, 0, v19, "Internal error: Failed to evaluate the AVT of attribute '{%s}%s'.\n");
+        xsltTransformError(ctxt, 0, v18, "Internal error: Failed to evaluate the AVT of attribute '{%s}%s'.\n");
       }
 
       else
       {
-        v27 = attr->name;
-        xsltTransformError(ctxt, 0, v19, "Internal error: Failed to evaluate the AVT of attribute '%s'.\n");
+        xsltTransformError(ctxt, 0, v18, "Internal error: Failed to evaluate the AVT of attribute '%s'.\n");
       }
 
-      v25 = &unk_2999B6B5E;
+      v23 = &unk_2999B6B5E;
     }
 
     else
@@ -4878,10 +4869,10 @@ LABEL_44:
         }
       }
 
-      v25 = content;
+      v23 = content;
     }
 
-    v17 = xmlStrdup(v25);
+    v17 = xmlStrdup(v23);
     goto LABEL_44;
   }
 
@@ -4999,18 +4990,14 @@ LABEL_26:
     if (!v16)
     {
 LABEL_47:
-      v22 = v6->ns;
       parent = v6->parent;
-      if (v22)
+      if (v6->ns)
       {
-        href = v22->href;
-        name = v6->name;
         xsltTransformError(ctxt, 0, parent, "Internal error: Failed to create attribute '{%s}%s'.\n");
       }
 
       else
       {
-        v26 = v6->name;
         xsltTransformError(ctxt, 0, parent, "Internal error: Failed to create attribute '%s'.\n");
       }
 
@@ -5077,19 +5064,15 @@ LABEL_39:
     goto LABEL_41;
   }
 
-  v24 = v6->ns;
-  v25 = v6->parent;
-  if (v24)
+  v23 = v6->parent;
+  if (v6->ns)
   {
-    v29 = v24->href;
-    v31 = v6->name;
-    xsltTransformError(ctxt, 0, v25, "Internal error: Failed to evaluate the AVT of attribute '{%s}%s'.\n");
+    xsltTransformError(ctxt, 0, v23, "Internal error: Failed to evaluate the AVT of attribute '{%s}%s'.\n");
   }
 
   else
   {
-    v27 = v6->name;
-    xsltTransformError(ctxt, 0, v25, "Internal error: Failed to evaluate the AVT of attribute '%s'.\n");
+    xsltTransformError(ctxt, 0, v23, "Internal error: Failed to evaluate the AVT of attribute '%s'.\n");
   }
 
   v18->content = xmlStrdup(&unk_2999B6B5E);
@@ -5713,7 +5696,7 @@ void xsltProcessOneNode(xsltTransformContextPtr ctxt, xmlNodePtr node, xsltStack
   type = node->type;
   if (Template)
   {
-    v14 = Template;
+    v8 = Template;
     currentTemplateRule = ctxt->currentTemplateRule;
     ctxt->currentTemplateRule = Template;
     traceCode = ctxt->traceCode;
@@ -5721,7 +5704,7 @@ void xsltProcessOneNode(xsltTransformContextPtr ctxt, xmlNodePtr node, xsltStack
     {
       if (traceCode && (*traceCode & 2) != 0)
       {
-        xsltGenericDebug(xsltGenericDebugContext, "xsltProcessOneNode: applying template '%s' for /\n", v7, v8, v9, v10, v11, v12, Template->match);
+        xsltGenericDebug(xsltGenericDebugContext, "xsltProcessOneNode: applying template '%s' for /\n");
       }
     }
 
@@ -5731,79 +5714,75 @@ void xsltProcessOneNode(xsltTransformContextPtr ctxt, xmlNodePtr node, xsltStack
       {
         if ((*traceCode & 2) != 0)
         {
-          match = Template->match;
-          name = node->name;
-          xsltGenericDebug(xsltGenericDebugContext, "xsltProcessOneNode: applying template '%s' for attribute %s\n", v7, v8, v9, v10, v11, v12, match);
+          xsltGenericDebug(xsltGenericDebugContext, "xsltProcessOneNode: applying template '%s' for attribute %s\n");
         }
       }
     }
 
     else if (traceCode && (*traceCode & 2) != 0)
     {
-      v19 = Template->match;
-      v23 = node->name;
-      xsltGenericDebug(xsltGenericDebugContext, "xsltProcessOneNode: applying template '%s' for %s\n", v7, v8, v9, v10, v11, v12, v19);
+      xsltGenericDebug(xsltGenericDebugContext, "xsltProcessOneNode: applying template '%s' for %s\n");
     }
 
-    xsltApplyXSLTTemplate(ctxt, node, v14->content, v14, params);
+    xsltApplyXSLTTemplate(ctxt, node, v8->content, v8, params);
     ctxt->currentTemplateRule = currentTemplateRule;
   }
 
   else
   {
-    v18 = ctxt->traceCode;
+    v11 = ctxt->traceCode;
     switch(type)
     {
       case XML_ATTRIBUTE_NODE:
-        if (v18 && (*v18 & 2) != 0)
+        if (v11 && (*v11 & 2) != 0)
         {
-          xsltGenericDebug(xsltGenericDebugContext, "xsltProcessOneNode: no template found for attribute %s\n", v7, v8, v9, v10, v11, v12, node->name);
+          xsltGenericDebug(xsltGenericDebugContext, "xsltProcessOneNode: no template found for attribute %s\n");
         }
 
         break;
       case XML_CDATA_SECTION_NODE:
-        if (v18 && (*v18 & 2) != 0)
+        if (v11 && (*v11 & 2) != 0)
         {
-          xsltGenericDebug(xsltGenericDebugContext, "xsltProcessOneNode: no template found for CDATA\n", v7, v8, v9, v10, v11, v12, v21);
+          xsltGenericDebug(xsltGenericDebugContext, "xsltProcessOneNode: no template found for CDATA\n");
         }
 
         break;
       case XML_DOCUMENT_NODE:
-        if (v18 && (*v18 & 2) != 0)
+        if (v11 && (*v11 & 2) != 0)
         {
-          xsltGenericDebug(xsltGenericDebugContext, "xsltProcessOneNode: no template found for /\n", v7, v8, v9, v10, v11, v12, v21);
+          xsltGenericDebug(xsltGenericDebugContext, "xsltProcessOneNode: no template found for /\n");
         }
 
         break;
       default:
-        if (v18 && (*v18 & 2) != 0)
+        if (v11 && (*v11 & 2) != 0)
         {
-          xsltGenericDebug(xsltGenericDebugContext, "xsltProcessOneNode: no template found for %s\n", v7, v8, v9, v10, v11, v12, node->name);
+          xsltGenericDebug(xsltGenericDebugContext, "xsltProcessOneNode: no template found for %s\n");
         }
 
         break;
     }
 
-    v20 = ctxt->node;
+    v12 = ctxt->node;
     ctxt->node = node;
     xsltDefaultProcessOneNode(ctxt, node, params);
-    ctxt->node = v20;
+    ctxt->node = v12;
   }
 }
 
-void xsltDefaultProcessOneNode(xsltTransformContextPtr ctxt, uint64_t a2, xsltStackElemPtr params, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void xsltDefaultProcessOneNode(xsltTransformContextPtr ctxt, uint64_t a2, xsltStackElemPtr params)
 {
   if (ctxt->state == XSLT_STATE_STOPPED)
   {
     return;
   }
 
-  v12 = *(a2 + 8);
-  if (v12 > 3)
+  v6 = *(a2 + 8);
+  if (v6 > 3)
   {
-    if (v12 != 13 && v12 != 9)
+    if (v6 != 13 && v6 != 9)
     {
-      if (v12 != 4)
+      if (v6 != 4)
       {
         return;
       }
@@ -5819,118 +5798,118 @@ void xsltDefaultProcessOneNode(xsltTransformContextPtr ctxt, uint64_t a2, xsltSt
         return;
       }
 
-      v60 = "xsltDefaultProcessOneNode: cdata copy failed\n";
+      v36 = "xsltDefaultProcessOneNode: cdata copy failed\n";
 LABEL_99:
 
-      xsltTransformError(ctxt, 0, a2, v60);
+      xsltTransformError(ctxt, 0, a2, v36);
       return;
     }
 
     goto LABEL_16;
   }
 
-  if (v12 == 1)
+  if (v6 == 1)
   {
 LABEL_16:
-    v18 = *(a2 + 24);
-    if (!v18)
+    v12 = *(a2 + 24);
+    if (!v12)
     {
       xpathCtxt = ctxt->xpathCtxt;
-      v25 = *&xpathCtxt->contextSize;
+      v19 = *&xpathCtxt->contextSize;
 LABEL_78:
-      *&xpathCtxt->contextSize = v25;
+      *&xpathCtxt->contextSize = v19;
       return;
     }
 
-    v19 = 0;
-    v20 = *(a2 + 24);
+    v13 = 0;
+    v14 = *(a2 + 24);
     do
     {
-      v21 = *(v20 + 8);
-      v22 = v21 > 0xD;
-      v23 = (1 << v21) & 0x239E;
-      if (!v22 && v23 != 0)
+      v15 = *(v14 + 8);
+      v16 = v15 > 0xD;
+      v17 = (1 << v15) & 0x239E;
+      if (!v16 && v17 != 0)
       {
-        ++v19;
+        ++v13;
       }
 
-      v20 = *(v20 + 48);
+      v14 = *(v14 + 48);
     }
 
-    while (v20);
-    v25 = *&ctxt->xpathCtxt->contextSize;
-    v26 = 1;
+    while (v14);
+    v19 = *&ctxt->xpathCtxt->contextSize;
+    v20 = 1;
     while (1)
     {
-      v27 = *(v18 + 8);
-      if (v27 <= 6)
+      v21 = *(v12 + 8);
+      if (v21 <= 6)
       {
-        switch(v27)
+        switch(v21)
         {
           case 1:
             goto LABEL_39;
           case 3:
-            Template = xsltGetTemplate(ctxt, v18, 0);
+            Template = xsltGetTemplate(ctxt, v12, 0);
             if (!Template)
             {
-              v58 = ctxt->traceCode;
-              if (*(v18 + 80))
+              v34 = ctxt->traceCode;
+              if (*(v12 + 80))
               {
-                if (v58 && (*v58 & 2) != 0)
+                if (v34 && (*v34 & 2) != 0)
                 {
-                  xsltGenericDebug(xsltGenericDebugContext, "xsltDefaultProcessOneNode: copy text %s\n", v49, v50, v51, v52, v53, v54, *(v18 + 80));
+                  xsltGenericDebug(xsltGenericDebugContext, "xsltDefaultProcessOneNode: copy text %s\n", *(v12 + 80));
                 }
               }
 
-              else if (v58 && (*v58 & 2) != 0)
+              else if (v34 && (*v34 & 2) != 0)
               {
                 xsltGenericDebug(xsltGenericDebugContext, "xsltDefaultProcessOneNode: copy empty text\n");
               }
 
-              if (!xsltCopyText(ctxt, ctxt->insert, v18, 0))
+              if (!xsltCopyText(ctxt, ctxt->insert, v12, 0))
               {
-                xsltTransformError(ctxt, 0, v18, "xsltDefaultProcessOneNode: text copy failed\n");
+                xsltTransformError(ctxt, 0, v12, "xsltDefaultProcessOneNode: text copy failed\n");
               }
 
               break;
             }
 
-            v37 = Template;
-            v55 = ctxt->traceCode;
-            if (v55 && (*v55 & 2) != 0)
+            v25 = Template;
+            v31 = ctxt->traceCode;
+            if (v31 && (*v31 & 2) != 0)
             {
-              xsltGenericDebug(xsltGenericDebugContext, "xsltDefaultProcessOneNode: applying template for text %s\n", v49, v50, v51, v52, v53, v54, *(v18 + 80));
+              xsltGenericDebug(xsltGenericDebugContext, "xsltDefaultProcessOneNode: applying template for text %s\n");
             }
 
 LABEL_53:
-            v57 = ctxt->xpathCtxt;
-            v57->contextSize = v19;
-            v57->proximityPosition = v26;
+            v33 = ctxt->xpathCtxt;
+            v33->contextSize = v13;
+            v33->proximityPosition = v20;
 LABEL_54:
-            xsltApplyXSLTTemplate(ctxt, v18, v37->content, v37, params);
+            xsltApplyXSLTTemplate(ctxt, v12, v25->content, v25, params);
             break;
           case 4:
-            v29 = xsltGetTemplate(ctxt, v18, 0);
-            v36 = ctxt->traceCode;
-            if (!v29)
+            v23 = xsltGetTemplate(ctxt, v12, 0);
+            v24 = ctxt->traceCode;
+            if (!v23)
             {
-              if (v36 && (*v36 & 2) != 0)
+              if (v24 && (*v24 & 2) != 0)
               {
-                xsltGenericDebug(xsltGenericDebugContext, "xsltDefaultProcessOneNode: copy CDATA %s\n", v30, v31, v32, v33, v34, v35, *(v18 + 80));
+                xsltGenericDebug(xsltGenericDebugContext, "xsltDefaultProcessOneNode: copy CDATA %s\n", *(v12 + 80));
               }
 
-              if (!xsltCopyText(ctxt, ctxt->insert, v18, 0))
+              if (!xsltCopyText(ctxt, ctxt->insert, v12, 0))
               {
-                xsltTransformError(ctxt, 0, v18, "xsltDefaultProcessOneNode: cdata copy failed\n");
+                xsltTransformError(ctxt, 0, v12, "xsltDefaultProcessOneNode: cdata copy failed\n");
               }
 
               break;
             }
 
-            v37 = v29;
-            if (v36 && (*v36 & 2) != 0)
+            v25 = v23;
+            if (v24 && (*v24 & 2) != 0)
             {
-              xsltGenericDebug(xsltGenericDebugContext, "xsltDefaultProcessOneNode: applying template for CDATA %s\n", v30, v31, v32, v33, v34, v35, *(v18 + 80));
+              xsltGenericDebug(xsltGenericDebugContext, "xsltDefaultProcessOneNode: applying template for CDATA %s\n", *(v12 + 80));
             }
 
             goto LABEL_54;
@@ -5939,43 +5918,43 @@ LABEL_54:
 
       else
       {
-        if ((v27 - 7) >= 2)
+        if ((v21 - 7) >= 2)
         {
-          if (v27 != 13 && v27 != 9)
+          if (v21 != 13 && v21 != 9)
           {
             goto LABEL_55;
           }
 
 LABEL_39:
-          v38 = ctxt->xpathCtxt;
-          v38->contextSize = v19;
-          v38->proximityPosition = v26;
-          xsltProcessOneNode(ctxt, v18, params);
+          v26 = ctxt->xpathCtxt;
+          v26->contextSize = v13;
+          v26->proximityPosition = v20;
+          xsltProcessOneNode(ctxt, v12, params);
           goto LABEL_55;
         }
 
-        v39 = xsltGetTemplate(ctxt, v18, 0);
-        if (v39)
+        v27 = xsltGetTemplate(ctxt, v12, 0);
+        if (v27)
         {
-          v37 = v39;
-          v46 = *(v18 + 8);
-          if (v46 == 8)
+          v25 = v27;
+          v28 = *(v12 + 8);
+          if (v28 == 8)
           {
-            v56 = ctxt->traceCode;
-            if (v56 && (*v56 & 2) != 0)
+            v32 = ctxt->traceCode;
+            if (v32 && (*v32 & 2) != 0)
             {
-              xsltGenericDebug(xsltGenericDebugContext, "xsltDefaultProcessOneNode: template found for comment\n", v40, v41, v42, v43, v44, v45, v66);
+              xsltGenericDebug(xsltGenericDebugContext, "xsltDefaultProcessOneNode: template found for comment\n");
             }
           }
 
-          else if (v46 == 7)
+          else if (v28 == 7)
           {
-            v47 = ctxt->traceCode;
-            if (v47)
+            v29 = ctxt->traceCode;
+            if (v29)
             {
-              if ((*v47 & 2) != 0)
+              if ((*v29 & 2) != 0)
               {
-                xsltGenericDebug(xsltGenericDebugContext, "xsltDefaultProcessOneNode: template found for PI %s\n", v40, v41, v42, v43, v44, v45, *(v18 + 16));
+                xsltGenericDebug(xsltGenericDebugContext, "xsltDefaultProcessOneNode: template found for PI %s\n");
               }
             }
           }
@@ -5985,9 +5964,9 @@ LABEL_39:
       }
 
 LABEL_55:
-      v18 = *(v18 + 48);
-      ++v26;
-      if (!v18)
+      v12 = *(v12 + 48);
+      ++v20;
+      if (!v12)
       {
         xpathCtxt = ctxt->xpathCtxt;
         goto LABEL_78;
@@ -5995,77 +5974,77 @@ LABEL_55:
     }
   }
 
-  if (v12 == 2)
+  if (v6 == 2)
   {
-    v62 = *(a2 + 24);
-    if (v62)
+    v38 = *(a2 + 24);
+    if (v38)
     {
-      while (*(v62 + 8) != 3)
+      while (*(v38 + 8) != 3)
       {
-        v62 = *(v62 + 48);
-        if (!v62)
+        v38 = *(v38 + 48);
+        if (!v38)
         {
           goto LABEL_83;
         }
       }
 
-      v65 = ctxt->traceCode;
-      if (*(v62 + 80))
+      v41 = ctxt->traceCode;
+      if (*(v38 + 80))
       {
-        if (v65 && (*v65 & 2) != 0)
+        if (v41 && (*v41 & 2) != 0)
         {
-          xsltGenericDebug(xsltGenericDebugContext, "xsltDefaultProcessOneNode: copy text %s\n", *(v62 + 80));
+          xsltGenericDebug(xsltGenericDebugContext, "xsltDefaultProcessOneNode: copy text %s\n", *(v38 + 80));
         }
       }
 
-      else if (v65 && (*v65 & 2) != 0)
+      else if (v41 && (*v41 & 2) != 0)
       {
         xsltGenericDebug(xsltGenericDebugContext, "xsltDefaultProcessOneNode: copy empty text\n");
       }
 
       insert = ctxt->insert;
-      v15 = ctxt;
-      v16 = v62;
+      v9 = ctxt;
+      v10 = v38;
       goto LABEL_97;
     }
 
 LABEL_83:
-    v60 = "xsltDefaultProcessOneNode: no text for attribute\n";
+    v36 = "xsltDefaultProcessOneNode: no text for attribute\n";
     goto LABEL_99;
   }
 
-  if (v12 != 3)
+  if (v6 != 3)
   {
     return;
   }
 
-  v13 = ctxt->traceCode;
+  v7 = ctxt->traceCode;
   if (*(a2 + 80))
   {
-    if (v13 && (*v13 & 2) != 0)
+    if (v7 && (*v7 & 2) != 0)
     {
       xsltGenericDebug(xsltGenericDebugContext, "xsltDefaultProcessOneNode: copy text %s\n", *(a2 + 80));
     }
 
     insert = ctxt->insert;
-    v15 = ctxt;
-    v16 = a2;
+    v9 = ctxt;
+    v10 = a2;
 LABEL_97:
-    if (xsltCopyText(v15, insert, v16, 0))
+    if (xsltCopyText(v9, insert, v10, 0))
     {
       return;
     }
 
-    v60 = "xsltDefaultProcessOneNode: text copy failed\n";
+    v36 = "xsltDefaultProcessOneNode: text copy failed\n";
     goto LABEL_99;
   }
 
-  if (v13 && (*v13 & 2) != 0)
+  if (v7 && (*v7 & 2) != 0)
   {
-    v63 = xsltGenericDebug;
-    v64 = xsltGenericDebugContext;
+    v39 = xsltGenericDebug;
+    v40 = xsltGenericDebugContext;
 
-    v63(v64, "xsltDefaultProcessOneNode: copy empty text\n", v63, a4, a5, a6, a7, a8, a9);
+    v39(v40, "xsltDefaultProcessOneNode: copy empty text\n");
   }
 }
 
@@ -6463,7 +6442,7 @@ LABEL_70:
     goto LABEL_25;
   }
 
-  xsltTransformError(a1, 0, source, "xsltApplyXSLTTemplate: Bad arguments; @templ is mandatory.\n");
+  xsltTransformError(a1, 0, source, "xsltApplyXSLTTemplate: Bad arguments; @templ is mandatory.\n", a5);
 }
 
 int xsltLocalVariablePush(xsltTransformContextPtr ctxt, xsltStackElemPtr variable, int level)
@@ -6546,17 +6525,20 @@ void xsltApplyOneTemplate(xsltTransformContextPtr ctxt, xmlNodePtr node, xmlNode
 
 void xsltApplySequenceConstructor(uint64_t a1, xmlNode *a2, xmlNode *a3, xsltTemplate *a4)
 {
-  v63 = 0;
+  v62 = 0;
   if (!a1)
   {
     return;
   }
 
   v4 = a4;
+  v6 = a2;
+  v7 = a1;
   if (*(a1 + 344))
   {
-    started = xsltDebuggerStartSequenceConstructor(a1, a2, a3, a4, &v63);
-    if (!started || !a3)
+    a1 = xsltDebuggerStartSequenceConstructor(a1, a2, a3, a4, &v62);
+    v8 = a1;
+    if (!a1 || !a3)
     {
       return;
     }
@@ -6564,39 +6546,39 @@ void xsltApplySequenceConstructor(uint64_t a1, xmlNode *a2, xmlNode *a3, xsltTem
 
   else
   {
-    started = 0;
+    v8 = 0;
     if (!a3)
     {
       return;
     }
   }
 
-  if (*(a1 + 168) == 2)
+  if (*(v7 + 168) == 2)
   {
     return;
   }
 
-  v9 = *(a1 + 460);
-  if (v9 >= *(a1 + 464))
+  v9 = *(v7 + 460);
+  if (v9 >= *(v7 + 464))
   {
-    xsltTransformError(a1, 0, a3, "xsltApplySequenceConstructor: A potential infinite template recursion was detected.\nYou can adjust xsltMaxDepth (--maxdepth) in order to raise the maximum number of nested template calls and variables/params (currently set to %d).\n", *(a1 + 464));
-    xsltDebug(a1, a2, a3, 0);
-    *(a1 + 168) = 2;
+    xsltTransformError(v7, 0, a3, "xsltApplySequenceConstructor: A potential infinite template recursion was detected.\nYou can adjust xsltMaxDepth (--maxdepth) in order to raise the maximum number of nested template calls and variables/params (currently set to %d).\n", *(v7 + 464));
+    xsltDebug(v7, v6, a3, 0);
+    *(v7 + 168) = 2;
     return;
   }
 
   node = 0;
-  v54 = 0;
-  *(a1 + 460) = v9 + 1;
-  v10 = *(a1 + 152);
-  v57 = *(a1 + 184);
-  v55 = *(a1 + 440);
-  v56 = *(a1 + 128);
-  limitNr = *(a1 + 48);
+  v53 = 0;
+  *(v7 + 460) = v9 + 1;
+  v10 = *(v7 + 152);
+  v56 = *(v7 + 184);
+  v54 = *(v7 + 440);
+  v55 = *(v7 + 128);
+  limitNr = *(v7 + 48);
   v11 = a3;
   v12 = v10;
-  v59 = started;
-  v60 = v10;
+  v58 = v8;
+  v59 = v10;
 LABEL_10:
   if (v4)
   {
@@ -6609,32 +6591,33 @@ LABEL_10:
   }
 
   v14 = v13;
-  v61 = v14;
+  v60 = v14;
   while (v11)
   {
     v15 = v11;
-    if (linkedOnOrAfterFall2022OSVersions())
+    a1 = linkedOnOrAfterFall2022OSVersions(a1, a2);
+    if (a1)
     {
-      v16 = *(a1 + 472);
+      v16 = *(v7 + 472);
       if (v16)
       {
-        v17 = *(a1 + 480);
+        v17 = *(v7 + 480);
         if (v17 >= v16)
         {
-          xsltTransformError(a1, 0, v15, "xsltApplySequenceConstructor: Operation limit exceeded\n");
-          *(a1 + 168) = 2;
+          xsltTransformError(v7, 0, v15, "xsltApplySequenceConstructor: Operation limit exceeded\n");
+          *(v7 + 168) = 2;
           break;
         }
 
-        *(a1 + 480) = v17 + 1;
+        *(v7 + 480) = v17 + 1;
       }
     }
 
-    *(a1 + 184) = v15;
+    *(v7 + 184) = v15;
     if (!v12)
     {
-      v51 = *(a1 + 352);
-      if (v51 && (*v51 & 4) != 0)
+      v50 = *(v7 + 352);
+      if (v50 && (*v50 & 4) != 0)
       {
         xsltGenericDebug(xsltGenericDebugContext, "xsltApplySequenceConstructor: insert == NULL !\n");
       }
@@ -6642,9 +6625,9 @@ LABEL_10:
       break;
     }
 
-    if (started != v15 && *(a1 + 344))
+    if (v8 != v15 && *(v7 + 344))
     {
-      xslHandleDebugger(v15, a2, v4, a1);
+      xslHandleDebugger(v15, v6, v4, v7);
     }
 
     v18 = *(v15 + 8);
@@ -6659,7 +6642,8 @@ LABEL_10:
       goto LABEL_42;
     }
 
-    if (!xmlStrEqual(*(v19 + 16), "http://www.w3.org/1999/XSL/Transform"))
+    a1 = xmlStrEqual(*(v19 + 16), "http://www.w3.org/1999/XSL/Transform");
+    if (!a1)
     {
       v18 = *(v15 + 8);
 LABEL_36:
@@ -6667,23 +6651,23 @@ LABEL_36:
       {
         if (v18 == 3)
         {
-          v41 = *(a1 + 352);
+          v40 = *(v7 + 352);
           if (*(v15 + 16) == MEMORY[0x29EDC97C0])
           {
-            if (v41)
+            if (v40)
             {
               v24 = "xsltApplySequenceConstructor: copy unescaped text %s\n";
-              if ((*v41 & 4) != 0)
+              if ((*v40 & 4) != 0)
               {
                 goto LABEL_87;
               }
             }
           }
 
-          else if (v41)
+          else if (v40)
           {
             v24 = "xsltApplySequenceConstructor: copy text %s\n";
-            if ((*v41 & 4) != 0)
+            if ((*v40 & 4) != 0)
             {
               goto LABEL_87;
             }
@@ -6697,7 +6681,7 @@ LABEL_36:
             goto LABEL_89;
           }
 
-          v23 = *(a1 + 352);
+          v23 = *(v7 + 352);
           if (!v23)
           {
             goto LABEL_88;
@@ -6714,7 +6698,8 @@ LABEL_87:
         }
 
 LABEL_88:
-        if (!xsltCopyText(a1, v12, v15, *(a1 + 384)))
+        a1 = xsltCopyText(v7, v12, v15, *(v7 + 384));
+        if (!a1)
         {
           break;
         }
@@ -6726,110 +6711,113 @@ LABEL_42:
       v25 = *(v15 + 72);
       if (!v25 || (v26 = *(v15 + 104)) == 0)
       {
-        v29 = *(a1 + 352);
+        v29 = *(v7 + 352);
         if (v29 && (*v29 & 4) != 0)
         {
           xsltGenericDebug(xsltGenericDebugContext, "xsltApplySequenceConstructor: copy node %s\n", *(v15 + 16));
         }
 
-        v30 = *(a1 + 184);
-        *(a1 + 184) = v15;
-        node = xsltShallowCopyElem(a1, v15, v12, 1);
-        if (!node)
+        v30 = *(v7 + 184);
+        *(v7 + 184) = v15;
+        a1 = xsltShallowCopyElem(v7, v15, v12, 1);
+        node = a1;
+        if (!a1)
         {
           break;
         }
 
-        if (v61)
+        if (v60)
         {
-          v31 = *(a1 + 16);
+          v31 = *(v7 + 16);
           if (v31)
           {
             if (*(v31 + 88))
             {
-              v53 = v4;
+              v52 = v4;
               if (*(v31 + 80) >= 1)
               {
                 v32 = 0;
                 do
                 {
                   v33 = *(*(v31 + 88) + 8 * v32);
-                  Import = *a1;
-                  if (*a1)
+                  v34 = *v7;
+                  if (*v7)
                   {
                     while (1)
                     {
-                      nsAliases = Import->nsAliases;
+                      nsAliases = v34->nsAliases;
                       if (nsAliases)
                       {
-                        v36 = xmlHashLookup(nsAliases, *(v33 + 16));
-                        if (v36)
+                        a1 = xmlHashLookup(nsAliases, *(v33 + 16));
+                        if (a1)
                         {
                           break;
                         }
                       }
 
-                      Import = xsltNextImport(Import);
-                      if (!Import)
+                      a1 = xsltNextImport(v34);
+                      v34 = a1;
+                      if (!a1)
                       {
                         goto LABEL_59;
                       }
                     }
 
-                    v37 = v36;
+                    v36 = a1;
                   }
 
                   else
                   {
 LABEL_59:
-                    v37 = 0;
+                    v36 = 0;
                   }
 
-                  if (v37 != -1)
+                  if (v36 != -1)
                   {
-                    if (!v37)
+                    if (!v36)
                     {
-                      v37 = *(v33 + 16);
+                      v36 = *(v33 + 16);
                     }
 
-                    v38 = xmlSearchNs(node->doc, node, *(v33 + 24));
-                    if (!v38 || !xmlStrEqual(v38->href, v37))
+                    v37 = xmlSearchNs(node->doc, node, *(v33 + 24));
+                    if (!v37 || (a1 = xmlStrEqual(v37->href, v36), !a1))
                     {
-                      xmlNewNs(node, v37, *(v33 + 24));
+                      a1 = xmlNewNs(node, v36, *(v33 + 24));
                     }
                   }
 
                   ++v32;
-                  v31 = *(a1 + 16);
+                  v31 = *(v7 + 16);
                 }
 
                 while (v32 < *(v31 + 80));
               }
 
               ns = node->ns;
-              v4 = v53;
-              started = v59;
-              v10 = v60;
+              v4 = v52;
+              v8 = v58;
+              v10 = v59;
               if (ns)
               {
-                node->ns = xsltGetNamespace(a1, v15, ns, node);
+                a1 = xsltGetNamespace(v7, v15, ns, node);
+                node->ns = a1;
               }
             }
           }
         }
 
-        v40 = *(v15 + 88);
-        if (v40)
+        v39 = *(v15 + 88);
+        if (v39)
         {
-          xsltAttrListTemplateProcess(a1, node, v40);
+          a1 = xsltAttrListTemplateProcess(v7, node, v39);
         }
 
-        *(a1 + 184) = v30;
+        *(v7 + 184) = v30;
 LABEL_89:
         v11 = *(v15 + 24);
         if (v11 && v11->type != XML_ENTITY_DECL)
         {
-          ++v54;
+          ++v53;
           if (node)
           {
             v12 = node;
@@ -6841,11 +6829,12 @@ LABEL_89:
         goto LABEL_122;
       }
 
-      v27 = *(a1 + 184);
-      *(a1 + 184) = v15;
+      v27 = *(v7 + 184);
+      *(v7 + 184) = v15;
       if (v26 == xsltExtMarker)
       {
-        v28 = xsltExtElementLookup(a1, *(v15 + 16), *(v25 + 16));
+        a1 = xsltExtElementLookup(v7, *(v15 + 16), *(v25 + 16));
+        v28 = a1;
       }
 
       else
@@ -6853,71 +6842,84 @@ LABEL_89:
         v28 = *(v26 + 16);
       }
 
-      v45 = *(a1 + 352);
+      v44 = *(v7 + 352);
       if (v28)
       {
-        if (v45 && (*v45 & 4) != 0)
+        if (v44 && (*v44 & 4) != 0)
         {
           xsltGenericDebug(xsltGenericDebugContext, "xsltApplySequenceConstructor: extension construct %s\n", *(v15 + 16));
         }
 
         if (*(v15 + 104) == xsltExtMarker)
         {
-          *(a1 + 328) = 0;
+          *(v7 + 328) = 0;
         }
 
-        *(a1 + 152) = v12;
-        (v28)(a1, a2, v15);
-        if (v55 != *(a1 + 440))
+        *(v7 + 152) = v12;
+        a1 = v28(v7, v6, v15);
+        a2 = v54;
+        if (v54 != *(v7 + 440))
         {
-          xsltReleaseLocalRVTs(a1, v55);
+          xsltReleaseLocalRVTs(v7, v54);
         }
 
-        v10 = v60;
-        *(a1 + 152) = v60;
+        v10 = v59;
+        *(v7 + 152) = v59;
       }
 
       else
       {
-        if (v45 && (*v45 & 4) != 0)
+        if (v44 && (*v44 & 4) != 0)
         {
           xsltGenericDebug(xsltGenericDebugContext, "xsltApplySequenceConstructor: unknown extension %s\n", *(v15 + 16));
         }
 
-        *(a1 + 152) = v12;
-        v46 = *(v15 + 24);
-        v10 = v60;
-        if (v46)
+        *(v7 + 152) = v12;
+        v45 = *(v15 + 24);
+        v10 = v59;
+        if (v45)
         {
-          v47 = 1;
+          v46 = 1;
           do
           {
-            while (*(v46 + 8) == 1)
+            while (*(v45 + 8) == 1)
             {
-              v48 = *(v46 + 72);
-              if (!v48 || !xmlStrEqual(*(v48 + 16), "http://www.w3.org/1999/XSL/Transform") || !xmlStrEqual(*(v46 + 16), "fallback"))
+              v47 = *(v45 + 72);
+              if (!v47)
               {
                 break;
               }
 
-              xsltApplySequenceConstructor(a1, a2, *(v46 + 24), 0);
-              v47 = 0;
-              v46 = *(v46 + 48);
-              if (!v46)
+              a1 = xmlStrEqual(*(v47 + 16), "http://www.w3.org/1999/XSL/Transform");
+              if (!a1)
               {
-                *(a1 + 152) = v60;
-                started = v59;
+                break;
+              }
+
+              a1 = xmlStrEqual(*(v45 + 16), "fallback");
+              if (!a1)
+              {
+                break;
+              }
+
+              xsltApplySequenceConstructor(v7, v6, *(v45 + 24), 0);
+              v46 = 0;
+              v45 = *(v45 + 48);
+              if (!v45)
+              {
+                *(v7 + 152) = v59;
+                v8 = v58;
                 goto LABEL_121;
               }
             }
 
-            v46 = *(v46 + 48);
+            v45 = *(v45 + 48);
           }
 
-          while (v46);
-          *(a1 + 152) = v60;
-          started = v59;
-          if ((v47 & 1) == 0)
+          while (v45);
+          *(v7 + 152) = v59;
+          v8 = v58;
+          if ((v46 & 1) == 0)
           {
             goto LABEL_121;
           }
@@ -6925,15 +6927,15 @@ LABEL_89:
 
         else
         {
-          *(a1 + 152) = v60;
-          started = v59;
+          *(v7 + 152) = v59;
+          v8 = v58;
         }
 
-        xsltTransformError(a1, 0, v15, "xsltApplySequenceConstructor: failed to find extension %s\n", *(v15 + 16));
+        xsltTransformError(v7, 0, v15, "xsltApplySequenceConstructor: failed to find extension %s\n", *(v15 + 16));
       }
 
 LABEL_121:
-      *(a1 + 184) = v27;
+      *(v7 + 184) = v27;
       goto LABEL_122;
     }
 
@@ -6942,18 +6944,19 @@ LABEL_121:
     {
       if (!xmlStrEqual(*(v15 + 16), "message"))
       {
-        *(a1 + 152) = v12;
-        if (!xsltApplyFallbacks(a1, a2, v15))
+        *(v7 + 152) = v12;
+        a1 = xsltApplyFallbacks(v7, v6, v15);
+        if (!a1)
         {
           xsltGenericError(xsltGenericErrorContext, "xsltApplySequenceConstructor: %s was not compiled\n", *(v15 + 16));
         }
 
-        *(a1 + 152) = v10;
+        *(v7 + 152) = v10;
         goto LABEL_122;
       }
 
 LABEL_116:
-      xsltMessage(a1, a2, v15);
+      xsltMessage(v7, v6, v15);
       goto LABEL_122;
     }
 
@@ -6963,43 +6966,44 @@ LABEL_116:
       {
         if (!xmlStrEqual(*(v15 + 16), "message"))
         {
-          xsltTransformError(a1, 0, v15, "Unexpected XSLT element '%s'.\n", *(v15 + 16));
+          xsltTransformError(v7, 0, v15, "Unexpected XSLT element '%s'.\n", *(v15 + 16));
           goto LABEL_122;
         }
 
         goto LABEL_116;
       }
 
-      v42 = *(a1 + 40);
-      v43 = *(a1 + 184);
-      *(a1 + 184) = v15;
-      xsltParseStylesheetVariable(a1, v15);
-      *(a1 + 184) = v43;
-      v44 = *(a1 + 40);
-      if (v42 != v44)
+      v41 = *(v7 + 40);
+      v42 = *(v7 + 184);
+      *(v7 + 184) = v15;
+      xsltParseStylesheetVariable(v7, v15);
+      *(v7 + 184) = v42;
+      v43 = *(v7 + 40);
+      if (v41 != v43)
       {
-        *(v44 + 72) = v54;
+        *(v43 + 72) = v53;
       }
     }
 
     else
     {
-      v22 = *(a1 + 184);
-      *(a1 + 184) = v15;
-      *(a1 + 152) = v12;
-      v21(a1, a2, v15, v20);
-      if (v55 != *(a1 + 440))
+      v22 = *(v7 + 184);
+      *(v7 + 184) = v15;
+      *(v7 + 152) = v12;
+      a1 = v21(v7, v6, v15, v20);
+      a2 = v54;
+      if (v54 != *(v7 + 440))
       {
-        xsltReleaseLocalRVTs(a1, v55);
+        xsltReleaseLocalRVTs(v7, v54);
       }
 
-      *(a1 + 152) = v10;
-      *(a1 + 184) = v22;
+      *(v7 + 152) = v10;
+      *(v7 + 184) = v22;
     }
 
-    started = v59;
+    v8 = v58;
 LABEL_122:
-    if (*(a1 + 168) == 2)
+    if (*(v7 + 168) == 2)
     {
       break;
     }
@@ -7007,14 +7011,14 @@ LABEL_122:
     v11 = *(v15 + 48);
     if (!v11)
     {
-      v49 = v54;
+      v48 = v53;
       while (1)
       {
         v15 = *(v15 + 40);
-        v50 = v49 - 1;
-        if (*(a1 + 48) > limitNr && *(*(a1 + 40) + 72) >= v49)
+        v49 = v48 - 1;
+        if (*(v7 + 48) > limitNr && *(*(v7 + 40) + 72) >= v48)
         {
-          xsltLocalVariablePop(a1, limitNr, v49 - 1);
+          xsltLocalVariablePop(v7, limitNr, v48 - 1);
         }
 
         v12 = *(v12 + 40);
@@ -7024,7 +7028,7 @@ LABEL_122:
         }
 
         v11 = *(v15 + 48);
-        v49 = v50;
+        v48 = v49;
         if (v11)
         {
           goto LABEL_134;
@@ -7033,32 +7037,32 @@ LABEL_122:
 
       v11 = 0;
 LABEL_134:
-      v54 = v50;
-      v10 = v60;
+      v53 = v49;
+      v10 = v59;
       goto LABEL_10;
     }
   }
 
-  if (*(a1 + 48) > limitNr)
+  if (*(v7 + 48) > limitNr)
   {
-    xsltLocalVariablePop(a1, limitNr, -1);
+    xsltLocalVariablePop(v7, limitNr, -1);
   }
 
-  *(a1 + 128) = v56;
-  *(a1 + 184) = v57;
-  *(a1 + 152) = v10;
-  --*(a1 + 460);
-  if (*(a1 + 344))
+  *(v7 + 128) = v55;
+  *(v7 + 184) = v56;
+  *(v7 + 152) = v10;
+  --*(v7 + 460);
+  if (*(v7 + 344))
   {
-    v52 = v63 == 0;
+    v51 = v62 == 0;
   }
 
   else
   {
-    v52 = 1;
+    v51 = 1;
   }
 
-  if (!v52)
+  if (!v51)
   {
 
     xslDropCall();
@@ -8287,8 +8291,7 @@ xmlAttrPtr xsltShallowCopyAttr(xsltTransformContextPtr ctxt, xmlNodePtr node, ui
     SpecialNamespace = xsltGetSpecialNamespace(ctxt, node, *(v11 + 16), *(v11 + 24), a3);
     if (!SpecialNamespace)
     {
-      v13 = *(*(a4 + 72) + 16);
-      xsltTransformError(ctxt, 0, node, "Namespace fixup error: Failed to acquire an in-scope namespace binding of the copied attribute '{%s}%s'.\n", v13, *(a4 + 16));
+      xsltTransformError(ctxt, 0, node, "Namespace fixup error: Failed to acquire an in-scope namespace binding of the copied attribute '{%s}%s'.\n", *(*(a4 + 72) + 16), *(a4 + 16));
     }
   }
 
@@ -8649,17 +8652,17 @@ void xsltProcessingInstruction(xsltTransformContextPtr ctxt, xmlNodePtr node, xm
         {
           if (traceCode && (*traceCode & 0x20) != 0)
           {
-            xsltGenericDebug(xsltGenericDebugContext, "xsltProcessingInstruction: %s content %s\n", v10, v11, v12, v13, v14, v15, next);
+            xsltGenericDebug(xsltGenericDebugContext, "xsltProcessingInstruction: %s content %s\n");
           }
         }
 
         else if (traceCode && (*traceCode & 0x20) != 0)
         {
-          xsltGenericDebug(xsltGenericDebugContext, "xsltProcessingInstruction: %s empty\n", v10, v11, v12, v13, v14, v15, next);
+          xsltGenericDebug(xsltGenericDebugContext, "xsltProcessingInstruction: %s empty\n");
         }
 
-        v17 = xmlNewDocPI(ctxt->insert->doc, next, v9);
-        xsltAddChild(ctxt->insert, v17);
+        v11 = xmlNewDocPI(ctxt->insert->doc, next, v9);
+        xsltAddChild(ctxt->insert, v11);
       }
 
       if (next != comp[3].next)
@@ -8841,7 +8844,7 @@ xmlXPathObjectPtr xsltPreCompEval(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-xmlAttrPtr xsltCopyTreeList(xmlAttrPtr result, xmlNode *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+xmlNode *xsltCopyTreeList(xmlNode *result, xmlNode *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (a3)
   {
@@ -8875,7 +8878,7 @@ xmlAttrPtr xsltCopyTreeList(xmlAttrPtr result, xmlNode *a2, uint64_t a3, uint64_
   return result;
 }
 
-xmlAttrPtr xsltCopyTree(xsltTransformContext *a1, xmlNode *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+xmlNode *xsltCopyTree(xsltTransformContext *a1, xmlNode *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v10 = *(a3 + 8);
   if (v10 > 8)
@@ -8947,7 +8950,7 @@ LABEL_33:
           v21[1].next = 0;
           if (*(a3 + 8) == 1)
           {
-            if (a5 || (v26 = *(a3 + 40)) == 0 || (*(v26 + 8) | 4) == 0xD)
+            if (a5 || (v25 = *(a3 + 40)) == 0 || (*(v25 + 8) | 4) == 0xD)
             {
               v23 = *(a3 + 96);
               if (v23)
@@ -8961,29 +8964,29 @@ LABEL_33:
               NsList = xmlGetNsList(*(a3 + 64), a3);
               if (NsList)
               {
-                v28 = NsList;
-                v29 = *NsList;
-                v30 = NsList;
+                v27 = NsList;
+                v28 = *NsList;
+                v29 = NsList;
                 do
                 {
-                  v31 = xmlSearchNs(*(a4 + 64), a4, v29->prefix);
-                  if (!v31 || (v32 = v31, !xmlStrEqual(v31->href, (*v30)->href)))
+                  v30 = xmlSearchNs(*(a4 + 64), a4, v28->prefix);
+                  if (!v30 || (v31 = v30, !xmlStrEqual(v30->href, (*v29)->href)))
                   {
-                    v32 = xmlNewNs(v22, (*v30)->href, (*v30)->prefix);
+                    v31 = xmlNewNs(v22, (*v29)->href, (*v29)->prefix);
                   }
 
-                  if (*(a3 + 72) == *v30)
+                  if (*(a3 + 72) == *v29)
                   {
-                    v22->ns = v32;
+                    v22->ns = v31;
                   }
 
-                  v33 = v30[1];
-                  ++v30;
-                  v29 = v33;
+                  v32 = v29[1];
+                  ++v29;
+                  v28 = v32;
                 }
 
-                while (v33);
-                free(v28);
+                while (v32);
+                free(v27);
               }
             }
 
@@ -9001,10 +9004,10 @@ LABEL_33:
               xsltGetSpecialNamespace(a1, a2, 0, 0, v22);
             }
 
-            v34 = *(a3 + 88);
-            if (v34)
+            v33 = *(a3 + 88);
+            if (v33)
             {
-              xsltCopyAttrListNoOverwrite(a1, a2, v22, v34);
+              xsltCopyAttrListNoOverwrite(a1, a2, v22, v33);
             }
 
             if (a5 <= 1)
@@ -9030,7 +9033,6 @@ LABEL_33:
       }
     }
 
-    v25 = *(a3 + 16);
     xsltTransformError(a1, 0, a2, "xsltCopyTree: Copying of '%s' failed.\n");
     return 0;
   }
@@ -9168,30 +9170,30 @@ void xsltApplyImports(xsltTransformContextPtr ctxt, xmlNodePtr node, xmlNodePtr 
       Template = xsltGetTemplate(ctxt, node, currentTemplateRule->style);
       if (Template)
       {
-        v13 = ctxt->currentTemplateRule;
+        v8 = ctxt->currentTemplateRule;
         ctxt->currentTemplateRule = Template;
         xsltApplyXSLTTemplate(ctxt, node, Template->content, Template, 0);
-        ctxt->currentTemplateRule = v13;
+        ctxt->currentTemplateRule = v8;
       }
 
       else
       {
 
-        xsltDefaultProcessOneNode(ctxt, node, 0, v8, v9, v10, v11, v12, v16);
+        xsltDefaultProcessOneNode(ctxt, node, 0);
       }
 
       return;
     }
 
-    v14 = "It is an error to call 'apply-imports' when there's no current template rule.\n";
+    v9 = "It is an error to call 'apply-imports' when there's no current template rule.\n";
   }
 
   else
   {
-    v14 = "Internal error in xsltApplyImports(): The XSLT 'apply-imports' instruction was not compiled.\n";
+    v9 = "Internal error in xsltApplyImports(): The XSLT 'apply-imports' instruction was not compiled.\n";
   }
 
-  xsltTransformError(ctxt, 0, inst, v14);
+  xsltTransformError(ctxt, 0, inst, v9);
 }
 
 void xsltCallTemplate(xsltTransformContextPtr ctxt, xmlNodePtr node, xmlNodePtr inst, xsltElemPreCompPtr comp)
@@ -9217,7 +9219,7 @@ void xsltCallTemplate(xsltTransformContextPtr ctxt, xmlNodePtr node, xmlNodePtr 
         children = inst->children;
         if (children)
         {
-          v15 = 0;
+          v11 = 0;
           do
           {
             if (ctxt->debugStatus)
@@ -9234,23 +9236,23 @@ void xsltCallTemplate(xsltTransformContextPtr ctxt, xmlNodePtr node, xmlNodePtr 
             {
               if (xmlStrEqual(children->name, "with-param"))
               {
-                v23 = xsltParseStylesheetCallerParam(ctxt, children);
-                if (v23)
+                v13 = xsltParseStylesheetCallerParam(ctxt, children);
+                if (v13)
                 {
-                  v23->next = v15;
-                  v15 = v23;
+                  v13->next = v11;
+                  v11 = v13;
                 }
               }
 
               else
               {
-                xsltGenericError(xsltGenericErrorContext, "xsl:call-template: misplaced xsl:%s\n", v17, v18, v19, v20, v21, v22, children->name);
+                xsltGenericError(xsltGenericErrorContext, "xsl:call-template: misplaced xsl:%s\n");
               }
             }
 
             else
             {
-              xsltGenericError(xsltGenericErrorContext, "xsl:call-template: misplaced %s element\n", inst, comp, v4, v5, v6, v7, children->name);
+              xsltGenericError(xsltGenericErrorContext, "xsl:call-template: misplaced %s element\n");
             }
 
             children = children->next;
@@ -9261,21 +9263,21 @@ void xsltCallTemplate(xsltTransformContextPtr ctxt, xmlNodePtr node, xmlNodePtr 
 
         else
         {
-          v15 = 0;
+          v11 = 0;
         }
 
-        xsltApplyXSLTTemplate(ctxt, node, *(comp[4].func + 8), comp[4].func, v15);
-        if (v15)
+        xsltApplyXSLTTemplate(ctxt, node, *(comp[4].func + 8), comp[4].func, v11);
+        if (v11)
         {
-          xsltFreeStackElemList(v15);
+          xsltFreeStackElemList(v11);
         }
 
         if (comp[3].next)
         {
-          v24 = ctxt->traceCode;
-          if (v24)
+          v14 = ctxt->traceCode;
+          if (v14)
           {
-            if (*(v24 + 1))
+            if (*(v14 + 1))
             {
               xsltGenericDebug(xsltGenericDebugContext, "call-template returned: name %s\n", comp[3].next);
             }
@@ -9283,20 +9285,14 @@ void xsltCallTemplate(xsltTransformContextPtr ctxt, xmlNodePtr node, xmlNodePtr 
         }
       }
 
+      else if (comp[3].func)
+      {
+        xsltTransformError(ctxt, 0, inst, "The called template '{%s}%s' was not found.\n");
+      }
+
       else
       {
-        next = comp[3].next;
-        if (comp[3].func)
-        {
-          func = comp[3].func;
-          xsltTransformError(ctxt, 0, inst, "The called template '{%s}%s' was not found.\n");
-        }
-
-        else
-        {
-          v27 = comp[3].next;
-          xsltTransformError(ctxt, 0, inst, "The called template '%s' was not found.\n");
-        }
+        xsltTransformError(ctxt, 0, inst, "The called template '%s' was not found.\n");
       }
     }
 
@@ -9310,300 +9306,297 @@ void xsltCallTemplate(xsltTransformContextPtr ctxt, xmlNodePtr node, xmlNodePtr 
 
 void xsltApplyTemplates(xsltTransformContextPtr ctxt, xmlNodePtr node, xmlNodePtr inst, xsltElemPreCompPtr comp)
 {
-  v52 = *MEMORY[0x29EDCA608];
+  v50 = *MEMORY[0x29EDCA608];
   if (comp)
   {
-    if (!ctxt || !node || !inst)
+    if (ctxt && node && inst)
     {
-      goto LABEL_82;
-    }
-
-    if (node->name)
-    {
-      traceCode = ctxt->traceCode;
-      if (traceCode)
+      if (node->name)
       {
-        if ((*(traceCode + 1) & 2) != 0)
+        traceCode = ctxt->traceCode;
+        if (traceCode)
         {
-          xsltGenericDebug(xsltGenericDebugContext, "xsltApplyTemplates: node: '%s'\n", node->name);
+          if ((*(traceCode + 1) & 2) != 0)
+          {
+            xsltGenericDebug(xsltGenericDebugContext, "xsltApplyTemplates: node: '%s'\n", node->name);
+          }
         }
       }
-    }
 
-    xpathCtxt = ctxt->xpathCtxt;
-    v42 = *&ctxt->document;
-    v43 = *&ctxt->mode;
-    nodeList = ctxt->nodeList;
-    v11 = *&xpathCtxt->contextSize;
-    doc = xpathCtxt->doc;
-    *&ctxt->mode = *&comp[3].free;
-    if (comp[4].inst)
-    {
-      if (comp[7].inst)
+      xpathCtxt = ctxt->xpathCtxt;
+      v40 = *&ctxt->document;
+      v41 = *&ctxt->mode;
+      nodeList = ctxt->nodeList;
+      v11 = *&xpathCtxt->contextSize;
+      doc = xpathCtxt->doc;
+      *&ctxt->mode = *&comp[3].free;
+      if (comp[4].inst)
       {
-        v13 = ctxt->traceCode;
-        if (v13 && (*(v13 + 1) & 2) != 0)
+        if (comp[7].inst)
         {
-          xsltGenericDebug(xsltGenericDebugContext, "xsltApplyTemplates: select %s\n", comp[4].inst);
-        }
-
-        v14 = xsltPreCompEval(ctxt, node, comp);
-        if (v14)
-        {
-          v15 = v14;
-          if (v14->type == XPATH_NODESET)
+          v13 = ctxt->traceCode;
+          if (v13 && (*(v13 + 1) & 2) != 0)
           {
-            nodesetval = v14->nodesetval;
-            v14->nodesetval = 0;
-            xmlXPathFreeObject(v14);
-            if (!nodesetval)
+            xsltGenericDebug(xsltGenericDebugContext, "xsltApplyTemplates: select %s\n", comp[4].inst);
+          }
+
+          v14 = xsltPreCompEval(ctxt, node, comp);
+          if (v14)
+          {
+            v15 = v14;
+            if (v14->type == XPATH_NODESET)
             {
-              v17 = ctxt->traceCode;
-              if (v17)
+              nodesetval = v14->nodesetval;
+              v14->nodesetval = 0;
+              xmlXPathFreeObject(v14);
+              if (!nodesetval)
               {
-                if ((*(v17 + 1) & 2) != 0)
+                v17 = ctxt->traceCode;
+                if (v17)
                 {
-                  xsltGenericDebug(xsltGenericDebugContext, "xsltApplyTemplates: select didn't evaluate to a node list\n");
+                  if ((*(v17 + 1) & 2) != 0)
+                  {
+                    xsltGenericDebug(xsltGenericDebugContext, "xsltApplyTemplates: select didn't evaluate to a node list\n");
+                  }
                 }
+
+                goto LABEL_81;
               }
 
-              goto LABEL_81;
-            }
-
 LABEL_32:
-            v25 = ctxt->traceCode;
-            if (v25 && (*(v25 + 1) & 2) != 0)
-            {
-              xsltGenericDebug(xsltGenericDebugContext, "xsltApplyTemplates: list of %d nodes\n", nodesetval->nodeNr);
-            }
-
-            if (nodesetval->nodeNr)
-            {
-              ctxt->nodeList = nodesetval;
-              children = inst->children;
-              if (children)
+              v24 = ctxt->traceCode;
+              if (v24 && (*(v24 + 1) & 2) != 0)
               {
-                v27 = 0;
-                do
+                xsltGenericDebug(xsltGenericDebugContext, "xsltApplyTemplates: list of %d nodes\n", nodesetval->nodeNr);
+              }
+
+              if (nodesetval->nodeNr)
+              {
+                ctxt->nodeList = nodesetval;
+                children = inst->children;
+                if (children)
                 {
-                  if (ctxt->debugStatus)
+                  v26 = 0;
+                  do
                   {
-                    xslHandleDebugger(children, node, 0, ctxt);
-                  }
+                    if (ctxt->debugStatus)
+                    {
+                      xslHandleDebugger(children, node, 0, ctxt);
+                    }
 
-                  if (ctxt->state == XSLT_STATE_STOPPED)
-                  {
-                    break;
-                  }
-
-                  type = children->type;
-                  if (type != XML_TEXT_NODE)
-                  {
-                    if (type != XML_ELEMENT_NODE)
+                    if (ctxt->state == XSLT_STATE_STOPPED)
                     {
                       break;
                     }
 
-                    ns = children->ns;
-                    if (!ns || !xmlStrEqual(ns->href, "http://www.w3.org/1999/XSL/Transform"))
+                    type = children->type;
+                    if (type != XML_TEXT_NODE)
                     {
-                      break;
-                    }
-
-                    if (xmlStrEqual(children->name, "with-param"))
-                    {
-                      v30 = xsltParseStylesheetCallerParam(ctxt, children);
-                      if (v30)
+                      if (type != XML_ELEMENT_NODE)
                       {
-                        v30->next = v27;
-                        v27 = v30;
+                        break;
                       }
-                    }
 
-                    if (xmlStrEqual(children->name, "sort"))
-                    {
-                      currentTemplateRule = ctxt->currentTemplateRule;
-                      v50 = 0u;
-                      v51 = 0u;
-                      v48 = 0u;
-                      v49 = 0u;
-                      v46 = 0u;
-                      v47 = 0u;
-                      v45 = 0u;
-                      sorts = children;
-                      next = children->next;
-                      if (next)
+                      ns = children->ns;
+                      if (!ns || !xmlStrEqual(ns->href, "http://www.w3.org/1999/XSL/Transform"))
                       {
-                        v33 = 1;
-                        do
+                        break;
+                      }
+
+                      if (xmlStrEqual(children->name, "with-param"))
+                      {
+                        v29 = xsltParseStylesheetCallerParam(ctxt, children);
+                        if (v29)
                         {
-                          if (ctxt->debugStatus)
-                          {
-                            xslHandleDebugger(next, node, 0, ctxt);
-                          }
+                          v29->next = v26;
+                          v26 = v29;
+                        }
+                      }
 
-                          if (ctxt->state == XSLT_STATE_STOPPED)
+                      if (xmlStrEqual(children->name, "sort"))
+                      {
+                        currentTemplateRule = ctxt->currentTemplateRule;
+                        v48 = 0u;
+                        v49 = 0u;
+                        v46 = 0u;
+                        v47 = 0u;
+                        v44 = 0u;
+                        v45 = 0u;
+                        v43 = 0u;
+                        sorts = children;
+                        next = children->next;
+                        if (next)
+                        {
+                          v32 = 1;
+                          do
                           {
-                            break;
-                          }
+                            if (ctxt->debugStatus)
+                            {
+                              xslHandleDebugger(next, node, 0, ctxt);
+                            }
 
-                          v34 = next->type;
-                          if (v34 != XML_TEXT_NODE)
-                          {
-                            if (v34 != XML_ELEMENT_NODE)
+                            if (ctxt->state == XSLT_STATE_STOPPED)
                             {
                               break;
                             }
 
-                            v35 = next->ns;
-                            if (!v35 || !xmlStrEqual(v35->href, "http://www.w3.org/1999/XSL/Transform"))
+                            v33 = next->type;
+                            if (v33 != XML_TEXT_NODE)
                             {
-                              break;
-                            }
-
-                            if (xmlStrEqual(next->name, "with-param"))
-                            {
-                              v36 = xsltParseStylesheetCallerParam(ctxt, next);
-                              if (v36)
+                              if (v33 != XML_ELEMENT_NODE)
                               {
-                                v36->next = v27;
-                                v27 = v36;
-                              }
-                            }
-
-                            if (xmlStrEqual(next->name, "sort"))
-                            {
-                              if (v33 >= 15)
-                              {
-                                xsltTransformError(ctxt, 0, next, "The number (%d) of xsl:sort instructions exceeds the maximum allowed by this processor's settings.\n", v33);
-                                ctxt->state = XSLT_STATE_STOPPED;
                                 break;
                               }
 
-                              *(&sorts + v33++) = next;
+                              v34 = next->ns;
+                              if (!v34 || !xmlStrEqual(v34->href, "http://www.w3.org/1999/XSL/Transform"))
+                              {
+                                break;
+                              }
+
+                              if (xmlStrEqual(next->name, "with-param"))
+                              {
+                                v35 = xsltParseStylesheetCallerParam(ctxt, next);
+                                if (v35)
+                                {
+                                  v35->next = v26;
+                                  v26 = v35;
+                                }
+                              }
+
+                              if (xmlStrEqual(next->name, "sort"))
+                              {
+                                if (v32 >= 15)
+                                {
+                                  xsltTransformError(ctxt, 0, next, "The number (%d) of xsl:sort instructions exceeds the maximum allowed by this processor's settings.\n", v32);
+                                  ctxt->state = XSLT_STATE_STOPPED;
+                                  break;
+                                }
+
+                                *(&sorts + v32++) = next;
+                              }
                             }
+
+                            next = next->next;
                           }
 
-                          next = next->next;
+                          while (next);
                         }
 
-                        while (next);
-                      }
+                        else
+                        {
+                          v32 = 1;
+                        }
 
-                      else
-                      {
-                        v33 = 1;
+                        ctxt->currentTemplateRule = 0;
+                        xsltDoSortFunction(ctxt, &sorts, v32);
+                        ctxt->currentTemplateRule = currentTemplateRule;
+                        break;
                       }
-
-                      ctxt->currentTemplateRule = 0;
-                      xsltDoSortFunction(ctxt, &sorts, v33);
-                      ctxt->currentTemplateRule = currentTemplateRule;
-                      break;
                     }
+
+                    children = children->next;
                   }
 
-                  children = children->next;
+                  while (children);
                 }
 
-                while (children);
-              }
-
-              else
-              {
-                v27 = 0;
-              }
-
-              nodeNr = nodesetval->nodeNr;
-              xpathCtxt->contextSize = nodesetval->nodeNr;
-              if (nodeNr >= 1)
-              {
-                v38 = 0;
-                do
+                else
                 {
-                  v39 = nodesetval->nodeTab[v38];
-                  ctxt->node = v39;
-                  if (v39->type != XML_NAMESPACE_DECL)
-                  {
-                    v40 = v39->doc;
-                    if (v40)
-                    {
-                      xpathCtxt->doc = v40;
-                    }
-                  }
-
-                  xpathCtxt->proximityPosition = ++v38;
-                  xsltProcessOneNode(ctxt, v39, v27);
+                  v26 = 0;
                 }
 
-                while (v38 < nodesetval->nodeNr);
+                nodeNr = nodesetval->nodeNr;
+                xpathCtxt->contextSize = nodesetval->nodeNr;
+                if (nodeNr >= 1)
+                {
+                  v37 = 0;
+                  do
+                  {
+                    v38 = nodesetval->nodeTab[v37];
+                    ctxt->node = v38;
+                    if (v38->type != XML_NAMESPACE_DECL)
+                    {
+                      v39 = v38->doc;
+                      if (v39)
+                      {
+                        xpathCtxt->doc = v39;
+                      }
+                    }
+
+                    xpathCtxt->proximityPosition = ++v37;
+                    xsltProcessOneNode(ctxt, v38, v26);
+                  }
+
+                  while (v37 < nodesetval->nodeNr);
+                }
+
+                if (v26)
+                {
+                  xsltFreeStackElemList(v26);
+                }
               }
 
-              if (v27)
-              {
-                xsltFreeStackElemList(v27);
-              }
+              xmlXPathFreeNodeSet(nodesetval);
+              goto LABEL_81;
             }
 
-            xmlXPathFreeNodeSet(nodesetval);
-            goto LABEL_81;
+            xsltTransformError(ctxt, 0, inst, "The 'select' expression did not evaluate to a node set.\n");
+            ctxt->state = XSLT_STATE_STOPPED;
+            xmlXPathFreeObject(v15);
           }
 
-          xsltTransformError(ctxt, 0, inst, "The 'select' expression did not evaluate to a node set.\n");
-          ctxt->state = XSLT_STATE_STOPPED;
-          xmlXPathFreeObject(v15);
+          else
+          {
+            xsltTransformError(ctxt, 0, inst, "Failed to evaluate the 'select' expression.\n");
+            ctxt->state = XSLT_STATE_STOPPED;
+          }
         }
 
         else
         {
-          xsltTransformError(ctxt, 0, inst, "Failed to evaluate the 'select' expression.\n");
-          ctxt->state = XSLT_STATE_STOPPED;
+          xsltTransformError(ctxt, 0, inst, "xsl:apply-templates : compilation failed\n");
         }
       }
 
       else
       {
-        xsltTransformError(ctxt, 0, inst, "xsl:apply-templates : compilation failed\n");
-      }
-    }
-
-    else
-    {
-      v19 = xmlXPathNodeSetCreate(0);
-      if (v19)
-      {
-        nodesetval = v19;
-        if (node->type != XML_NAMESPACE_DECL)
+        v18 = xmlXPathNodeSetCreate(0);
+        if (v18)
         {
-          for (i = node->children; i; i = i->next)
+          nodesetval = v18;
+          if (node->type != XML_NAMESPACE_DECL)
           {
-            v21 = i->type;
-            v22 = v21 > 0xD;
-            v23 = (1 << v21) & 0x239E;
-            if (!v22 && v23 != 0)
+            for (i = node->children; i; i = i->next)
             {
-              xmlXPathNodeSetAddUnique(nodesetval, i);
+              v20 = i->type;
+              v21 = v20 > 0xD;
+              v22 = (1 << v20) & 0x239E;
+              if (!v21 && v22 != 0)
+              {
+                xmlXPathNodeSetAddUnique(nodesetval, i);
+              }
             }
           }
-        }
 
-        goto LABEL_32;
+          goto LABEL_32;
+        }
       }
-    }
 
 LABEL_81:
-    xpathCtxt->doc = doc;
-    *&xpathCtxt->contextSize = v11;
-    ctxt->nodeList = nodeList;
-    *&ctxt->document = v42;
-    *&ctxt->mode = v43;
-LABEL_82:
-    v41 = *MEMORY[0x29EDCA608];
-    return;
+      xpathCtxt->doc = doc;
+      *&xpathCtxt->contextSize = v11;
+      ctxt->nodeList = nodeList;
+      *&ctxt->document = v40;
+      *&ctxt->mode = v41;
+    }
   }
 
-  v18 = *MEMORY[0x29EDCA608];
+  else
+  {
 
-  xsltTransformError(ctxt, 0, inst, "xsl:apply-templates : compilation failed\n");
+    xsltTransformError(ctxt, 0, inst, "xsl:apply-templates : compilation failed\n");
+  }
 }
 
 void xsltChoose(xsltTransformContextPtr ctxt, xmlNodePtr node, xmlNodePtr inst, xsltElemPreCompPtr comp)
@@ -9616,19 +9609,19 @@ void xsltChoose(xsltTransformContextPtr ctxt, xmlNodePtr node, xmlNodePtr inst, 
   children = inst->children;
   if (!children)
   {
-    v27 = "xsl:choose: The instruction has no content.\n";
+    v15 = "xsl:choose: The instruction has no content.\n";
 LABEL_30:
-    v28 = ctxt;
-    v29 = inst;
+    v16 = ctxt;
+    v17 = inst;
 LABEL_31:
 
-    xsltTransformError(v28, 0, v29, v27);
+    xsltTransformError(v16, 0, v17, v15);
     return;
   }
 
   if (children->type != XML_ELEMENT_NODE || (ns = children->ns) == 0 || !xmlStrEqual(ns->href, "http://www.w3.org/1999/XSL/Transform") || !xmlStrEqual(children->name, "when"))
   {
-    v27 = "xsl:choose: xsl:when expected first\n";
+    v15 = "xsl:choose: xsl:when expected first\n";
     goto LABEL_30;
   }
 
@@ -9642,8 +9635,8 @@ LABEL_31:
         return;
       }
 
-      v30 = children->ns;
-      if (!v30 || !xmlStrEqual(v30->href, "http://www.w3.org/1999/XSL/Transform") || !xmlStrEqual(children->name, "otherwise"))
+      v18 = children->ns;
+      if (!v18 || !xmlStrEqual(v18->href, "http://www.w3.org/1999/XSL/Transform") || !xmlStrEqual(children->name, "otherwise"))
       {
         return;
       }
@@ -9660,19 +9653,19 @@ LABEL_31:
       }
 
 LABEL_43:
-      v32 = ctxt->node;
-      v33 = children->children;
+      v20 = ctxt->node;
+      v21 = children->children;
 
-      xsltApplySequenceConstructor(ctxt, v32, v33, 0);
+      xsltApplySequenceConstructor(ctxt, v20, v21, 0);
       return;
     }
 
     psvi = children->psvi;
     if (!psvi || !*(psvi + 168) || !*(psvi + 304))
     {
-      v27 = "Internal error in xsltChoose(): The XSLT 'when' instruction was not compiled.\n";
-      v28 = ctxt;
-      v29 = children;
+      v15 = "Internal error in xsltChoose(): The XSLT 'when' instruction was not compiled.\n";
+      v16 = ctxt;
+      v17 = children;
       goto LABEL_31;
     }
 
@@ -9681,27 +9674,27 @@ LABEL_43:
       xslHandleDebugger(children, node, 0, ctxt);
     }
 
-    v17 = ctxt->traceCode;
-    if (v17 && (*(v17 + 1) & 4) != 0)
+    v11 = ctxt->traceCode;
+    if (v11 && (*(v11 + 1) & 4) != 0)
     {
-      xsltGenericDebug(xsltGenericDebugContext, "xsltChoose: test %s\n", v10, v11, v12, v13, v14, v15, *(psvi + 168));
+      xsltGenericDebug(xsltGenericDebugContext, "xsltChoose: test %s\n", *(psvi + 168));
     }
 
-    v18 = xsltPreCompEvalToBoolean(ctxt, node, psvi);
-    if (v18 == -1)
+    v12 = xsltPreCompEvalToBoolean(ctxt, node, psvi);
+    if (v12 == -1)
     {
       ctxt->state = XSLT_STATE_STOPPED;
       return;
     }
 
-    v25 = v18;
-    v26 = ctxt->traceCode;
-    if (v26 && (*(v26 + 1) & 4) != 0)
+    v13 = v12;
+    v14 = ctxt->traceCode;
+    if (v14 && (*(v14 + 1) & 4) != 0)
     {
-      xsltGenericDebug(xsltGenericDebugContext, "xsltChoose: test evaluate to %d\n", v19, v20, v21, v22, v23, v24, v18 == 1);
+      xsltGenericDebug(xsltGenericDebugContext, "xsltChoose: test evaluate to %d\n", v12 == 1);
     }
 
-    if (v25 == 1)
+    if (v13 == 1)
     {
       goto LABEL_43;
     }

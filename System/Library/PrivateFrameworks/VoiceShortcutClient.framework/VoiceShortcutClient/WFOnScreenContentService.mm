@@ -20,9 +20,11 @@
 
 uint64_t __41__WFOnScreenContentService_sharedService__block_invoke()
 {
-  sharedService_service = objc_alloc_init(WFOnScreenContentService);
+  v0 = objc_alloc_init(WFOnScreenContentService);
+  v1 = sharedService_service;
+  sharedService_service = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)getOnScreenContentWithOptions:(id)options completionHandler:(id)handler

@@ -85,7 +85,7 @@
 - (void)_fillRowFromIndex:(int64_t *)index withCount:(int64_t)count
 {
   metrics = [(PXLayoutGenerator *)self metrics];
-  [(PXAspectFitLayoutGenerator *)self _lastGeometry];
+  objc_msgSend__lastGeometry(self);
   v8 = *index;
   if (*index < 1)
   {
@@ -113,14 +113,14 @@
   self->_currentRowFinalHeight = v16;
   if (count < 1)
   {
-    v28 = 0;
+    v27 = 0;
 LABEL_16:
-    if (v28 <= 1)
+    if (v27 <= 1)
     {
-      v28 = 1;
+      v27 = 1;
     }
 
-    *index = (v8 + v28 - 1) & ~((v8 + v28 - 1) >> 63);
+    *index = (v8 + v27 - 1) & ~((v8 + v27 - 1) >> 63);
   }
 
   else
@@ -136,44 +136,43 @@ LABEL_16:
       if (v17)
       {
         [metrics interTileSpacing];
-        v24 = v23;
+        objc_msgSend__geometryForItemAtIndex_atPosition_withHorizontalGap_(self, v21, v19, v23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
       }
 
       else
       {
         [metrics contentInsets];
-        v24 = v25;
+        objc_msgSend__geometryForItemAtIndex_atPosition_withHorizontalGap_(self, v21, v19, v24, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
       }
 
-      [(PXAspectFitLayoutGenerator *)self _geometryForItemAtIndex:v22 atPosition:v21 withHorizontalGap:v19, v24, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-      v26 = &self->_geometries[v20];
-      *&v26->var0 = v29;
-      *&v26->var1.y = v30;
-      *&v26->var3.d = v33;
-      *&v26->var3.ty = v34;
-      *&v26->var2.height = v31;
-      *&v26->var3.b = v32;
-      v26->var7.height = v38;
-      *&v26->var6.origin.y = v36;
-      *&v26->var6.size.height = v37;
-      *&v26->var5 = v35;
-      v21 = *(&v29 + 1) + *(&v30 + 1) * -0.5 + *(&v30 + 1);
+      v25 = &self->_geometries[v20];
+      *&v25->var0 = v28;
+      *&v25->var1.y = v29;
+      *&v25->var3.d = v32;
+      *&v25->var3.ty = v33;
+      *&v25->var2.height = v30;
+      *&v25->var3.b = v31;
+      v25->var7.height = v37;
+      *&v25->var6.origin.y = v35;
+      *&v25->var6.size.height = v36;
+      *&v25->var5 = v34;
+      v21 = *(&v28 + 1) + *(&v29 + 1) * -0.5 + *(&v29 + 1);
       [metrics referenceSize];
       if (v17)
       {
-        if (v21 + -1.0 > v27)
+        if (v21 + -1.0 > v26)
         {
           break;
         }
       }
 
-      v19 = *&v30 + *&v31 * -0.5;
+      v19 = *&v29 + *&v30 * -0.5;
       ++v22;
       --v17;
       ++v20;
       if (v22 >= v18)
       {
-        v28 = -v17;
+        v27 = -v17;
         goto LABEL_16;
       }
     }
@@ -244,7 +243,7 @@ LABEL_16:
     v21 = 0u;
     v18 = 0u;
     v19 = 0u;
-    [(PXAspectFitLayoutGenerator *)self _lastGeometry:0];
+    objc_msgSend__lastGeometry(self, 0, 0);
     [metrics referenceSize];
     p_contentSize = &self->_contentSize;
     p_contentSize->width = v14;

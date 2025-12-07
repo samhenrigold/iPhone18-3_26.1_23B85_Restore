@@ -309,37 +309,37 @@ void __154__PXActivityUtilities_requestPersonImageWithTargetSize_displayScale_is
   px_dispatch_on_main_queue();
 }
 
-uint64_t __154__PXActivityUtilities_requestPersonImageWithTargetSize_displayScale_isRTL_matchingEmail_orPhone_withFirstName_lastName_prefersPhotosImage_withCompletion___block_invoke_2_234(uint64_t a1)
+uint64_t __154__PXActivityUtilities_requestPersonImageWithTargetSize_displayScale_isRTL_matchingEmail_orPhone_withFirstName_lastName_prefersPhotosImage_withCompletion___block_invoke_2_234(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = PLUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = PLUIGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v3 = *(a1 + 32) != 0;
-    v5[0] = 67109120;
-    v5[1] = v3;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_DEBUG, "[PXAvatarUtilities] Placeholder monogram created: %{BOOL}d", v5, 8u);
+    v4 = *(a1 + 32) != 0;
+    v6[0] = 67109120;
+    v6[1] = v4;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_DEBUG, "[PXAvatarUtilities] Placeholder monogram created: %{BOOL}d", v6, 8u);
   }
 
   return (*(*(a1 + 40) + 16))(*off_1E77221F8, *(off_1E77221F8 + 1), *(off_1E77221F8 + 2), *(off_1E77221F8 + 3));
 }
 
-uint64_t __154__PXActivityUtilities_requestPersonImageWithTargetSize_displayScale_isRTL_matchingEmail_orPhone_withFirstName_lastName_prefersPhotosImage_withCompletion___block_invoke_2_231(uint64_t a1)
+uint64_t __154__PXActivityUtilities_requestPersonImageWithTargetSize_displayScale_isRTL_matchingEmail_orPhone_withFirstName_lastName_prefersPhotosImage_withCompletion___block_invoke_2_231(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = PLUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v13 = *MEMORY[0x1E69E9840];
+  v3 = PLUIGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v3 = *(a1 + 40);
-    v4 = *(a1 + 32) != 0;
-    v5 = [*(a1 + 48) identifier];
-    v7[0] = 67109634;
-    v7[1] = v4;
-    v8 = 2112;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v5;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_DEBUG, "[PXAvatarUtilities] Contacts image image found = %{BOOL}d (isDegraded: %@) for contact identifier: %@. ", v7, 0x1Cu);
+    v4 = *(a1 + 40);
+    v5 = *(a1 + 32) != 0;
+    v6 = [*(a1 + 48) identifier];
+    v8[0] = 67109634;
+    v8[1] = v5;
+    v9 = 2112;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_DEBUG, "[PXAvatarUtilities] Contacts image image found = %{BOOL}d (isDegraded: %@) for contact identifier: %@. ", v8, 0x1Cu);
   }
 
   return (*(*(a1 + 56) + 16))(*off_1E77221F8, *(off_1E77221F8 + 1), *(off_1E77221F8 + 2), *(off_1E77221F8 + 3));

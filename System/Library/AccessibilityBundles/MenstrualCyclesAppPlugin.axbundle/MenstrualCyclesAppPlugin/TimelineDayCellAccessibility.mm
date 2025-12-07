@@ -41,7 +41,7 @@
 
   else
   {
-    _AXGetStringForDayAndYear();
+    _AXGetStringForDayAndYear(v4);
   }
   v10 = ;
 

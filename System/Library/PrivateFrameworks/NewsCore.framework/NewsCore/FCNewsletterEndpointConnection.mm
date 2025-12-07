@@ -68,7 +68,7 @@ void __82__FCNewsletterEndpointConnection_initWithEndpointConnection_configurati
 
 void __82__FCNewsletterEndpointConnection_initWithEndpointConnection_configurationManager___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -76,16 +76,14 @@ void __82__FCNewsletterEndpointConnection_initWithEndpointConnection_configurati
     v7 = FCDefaultLog;
     if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "Failed to fetch endpoint configuration with error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "Failed to fetch endpoint configuration with error: %{public}@", &v8, 0xCu);
     }
   }
 
   [*(a1 + 32) updateBaseURL:v5];
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getNewsletterSubscriptionWithCallbackQueue:(id)queue completion:(id)completion
@@ -150,7 +148,7 @@ LABEL_7:
 
 void __88__FCNewsletterEndpointConnection_getNewsletterSubscriptionWithCallbackQueue_completion___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -195,33 +193,33 @@ void __88__FCNewsletterEndpointConnection_getNewsletterSubscriptionWithCallbackQ
 
       if (v16 != v18)
       {
-        v41 = v15;
-        v42 = v10;
-        v43 = a1;
-        v44 = v9;
-        v45 = v8;
-        v46 = v7;
-        v51 = 0u;
-        v52 = 0u;
-        v49 = 0u;
+        v40 = v15;
+        v41 = v10;
+        v42 = a1;
+        v43 = v9;
+        v44 = v8;
+        v45 = v7;
         v50 = 0u;
-        v40 = v16;
+        v51 = 0u;
+        v48 = 0u;
+        v49 = 0u;
+        v39 = v16;
         obj = v16;
-        v19 = [obj countByEnumeratingWithState:&v49 objects:v59 count:16];
+        v19 = [obj countByEnumeratingWithState:&v48 objects:v58 count:16];
         if (v19)
         {
           v20 = v19;
-          v21 = *v50;
+          v21 = *v49;
           do
           {
             for (i = 0; i != v20; ++i)
             {
-              if (*v50 != v21)
+              if (*v49 != v21)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v23 = *(*(&v49 + 1) + 8 * i);
+              v23 = *(*(&v48 + 1) + 8 * i);
               v24 = [FCNewsletter alloc];
               v25 = [v23 objectForKeyedSubscript:@"newsletterId"];
               v26 = [v23 objectForKeyedSubscript:@"newsletterStatus"];
@@ -240,24 +238,24 @@ void __88__FCNewsletterEndpointConnection_getNewsletterSubscriptionWithCallbackQ
                 v27 = 0;
               }
 
-              v28 = [(FCNewsletter *)v24 initWithIdentifier:v25 enrollment:v27, v40, v41, v42, v43, v44, v45];
+              v28 = [(FCNewsletter *)v24 initWithIdentifier:v25 enrollment:v27, v39, v40, v41, v42, v43, v44];
 
               [v17 addObject:v28];
             }
 
-            v20 = [obj countByEnumeratingWithState:&v49 objects:v59 count:16];
+            v20 = [obj countByEnumeratingWithState:&v48 objects:v58 count:16];
           }
 
           while (v20);
         }
 
-        v8 = v45;
-        v7 = v46;
-        a1 = v43;
-        v9 = v44;
-        v15 = v41;
-        v10 = v42;
-        v16 = v40;
+        v8 = v44;
+        v7 = v45;
+        a1 = v42;
+        v9 = v43;
+        v15 = v40;
+        v10 = v41;
+        v16 = v39;
       }
     }
 
@@ -267,20 +265,20 @@ void __88__FCNewsletterEndpointConnection_getNewsletterSubscriptionWithCallbackQ
       v30 = v29;
       v31 = [v15 objectForKeyedSubscript:@"enrolledTo"];
       [v15 objectForKeyedSubscript:@"include"];
-      v47 = v7;
+      v46 = v7;
       v32 = v10;
       v34 = v33 = v9;
       *buf = 138543874;
-      v54 = v31;
-      v55 = 2114;
-      v56 = v34;
-      v57 = 2114;
-      v58 = v17;
+      v53 = v31;
+      v54 = 2114;
+      v55 = v34;
+      v56 = 2114;
+      v57 = v17;
       _os_log_impl(&dword_1B63EF000, v30, OS_LOG_TYPE_INFO, "fetched newsletters with enrolledTo: %{public}@ include: %{public}@ newsletters: %{public}@", buf, 0x20u);
 
       v9 = v33;
       v10 = v32;
-      v7 = v47;
+      v7 = v46;
     }
 
     v35 = *(a1 + 40);
@@ -301,7 +299,7 @@ void __88__FCNewsletterEndpointConnection_getNewsletterSubscriptionWithCallbackQ
     if (os_log_type_enabled(FCNewsletterLog, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v54 = v9;
+      v53 = v9;
       _os_log_error_impl(&dword_1B63EF000, v13, OS_LOG_TYPE_ERROR, "failed to fetch newsletters with error: %{public}@", buf, 0xCu);
     }
 
@@ -311,8 +309,6 @@ void __88__FCNewsletterEndpointConnection_getNewsletterSubscriptionWithCallbackQ
       (*(v14 + 16))(v14, 0, 0, 0, v9);
     }
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (void)newsletterSubscribeTo:(id)to includeArray:(id)array callbackQueue:(id)queue completion:(id)completion
@@ -340,7 +336,7 @@ void __88__FCNewsletterEndpointConnection_getNewsletterSubscriptionWithCallbackQ
 
 void __94__FCNewsletterEndpointConnection_newsletterSubscribeTo_includeArray_callbackQueue_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v22[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   (*(a2 + 16))(a2);
   v3 = [*(a1 + 32) baseURL];
 
@@ -349,50 +345,46 @@ void __94__FCNewsletterEndpointConnection_newsletterSubscribeTo_includeArray_cal
     v4 = [*(a1 + 32) baseURL];
     v5 = [v4 URLByAppendingPathComponent:@"v1/subscriptions"];
 
-    v21[0] = @"enrollment";
-    v21[1] = @"include";
+    v19[0] = @"enrollment";
+    v19[1] = @"include";
     v6 = *(a1 + 48);
     if (!v6)
     {
       v6 = MEMORY[0x1E695E0F0];
     }
 
-    v22[0] = *(a1 + 40);
-    v22[1] = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
+    v20[0] = *(a1 + 40);
+    v20[1] = v6;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
     v8 = [*(a1 + 32) endpointConnection];
     v9 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v7 options:0 error:0];
     v10 = *MEMORY[0x1E695ABC0];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __94__FCNewsletterEndpointConnection_newsletterSubscribeTo_includeArray_callbackQueue_completion___block_invoke_2;
-    v18[3] = &unk_1E7C3EDE0;
-    v19 = v5;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __94__FCNewsletterEndpointConnection_newsletterSubscribeTo_includeArray_callbackQueue_completion___block_invoke_2;
+    v16[3] = &unk_1E7C3EDE0;
+    v17 = v5;
     v11 = *(a1 + 56);
-    v20 = *(a1 + 64);
+    v18 = *(a1 + 64);
     v12 = v5;
     LODWORD(v13) = v10;
-    [v8 performAuthenticatedHTTPRequestWithURL:v12 valuesByHTTPHeaderField:0 method:@"POST" data:v9 contentType:@"application/json" priority:1 reauthenticateIfNeeded:v13 callbackQueue:v11 completion:v18];
-
-    goto LABEL_5;
+    [v8 performAuthenticatedHTTPRequestWithURL:v12 valuesByHTTPHeaderField:0 method:@"POST" data:v9 contentType:@"application/json" priority:1 reauthenticateIfNeeded:v13 callbackQueue:v11 completion:v16];
   }
 
-  v15 = *(a1 + 64);
-  if (!v15)
+  else
   {
-LABEL_5:
-    v14 = *MEMORY[0x1E69E9840];
-    return;
+    v14 = *(a1 + 64);
+    if (v14)
+    {
+      v15 = [FCEndpointConnection errorForStatus:-2000 url:0];
+      (*(v14 + 16))(v14, 0, 0, 0);
+    }
   }
-
-  v17 = [FCEndpointConnection errorForStatus:-2000 url:0];
-  (*(v15 + 16))(v15, 0, 0, 0);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __94__FCNewsletterEndpointConnection_newsletterSubscribeTo_includeArray_callbackQueue_completion___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -408,33 +400,33 @@ void __94__FCNewsletterEndpointConnection_newsletterSubscribeTo_includeArray_cal
 
       if (v12 != v14)
       {
-        v31 = v11;
-        v32 = a1;
-        v33 = v10;
-        v34 = v9;
-        v35 = v8;
-        v36 = v7;
-        v40 = 0u;
-        v41 = 0u;
-        v38 = 0u;
+        v30 = v11;
+        v31 = a1;
+        v32 = v10;
+        v33 = v9;
+        v34 = v8;
+        v35 = v7;
         v39 = 0u;
-        v30 = v12;
+        v40 = 0u;
+        v37 = 0u;
+        v38 = 0u;
+        v29 = v12;
         obj = v12;
-        v15 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+        v15 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v39;
+          v17 = *v38;
           do
           {
             for (i = 0; i != v16; ++i)
             {
-              if (*v39 != v17)
+              if (*v38 != v17)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v19 = *(*(&v38 + 1) + 8 * i);
+              v19 = *(*(&v37 + 1) + 8 * i);
               v20 = [FCNewsletter alloc];
               v21 = [v19 objectForKeyedSubscript:@"newsletterId"];
               v22 = [v19 objectForKeyedSubscript:@"newsletterStatus"];
@@ -453,24 +445,24 @@ void __94__FCNewsletterEndpointConnection_newsletterSubscribeTo_includeArray_cal
                 v23 = 0;
               }
 
-              v24 = [(FCNewsletter *)v20 initWithIdentifier:v21 enrollment:v23, v30, v31, v32, v33, v34, v35, v36];
+              v24 = [(FCNewsletter *)v20 initWithIdentifier:v21 enrollment:v23, v29, v30, v31, v32, v33, v34, v35];
 
               [v13 addObject:v24];
             }
 
-            v16 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+            v16 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
           }
 
           while (v16);
         }
 
-        v8 = v35;
-        v7 = v36;
-        v10 = v33;
-        v9 = v34;
-        v11 = v31;
-        a1 = v32;
-        v12 = v30;
+        v8 = v34;
+        v7 = v35;
+        v10 = v32;
+        v9 = v33;
+        v11 = v30;
+        a1 = v31;
+        v12 = v29;
       }
     }
 
@@ -491,8 +483,6 @@ void __94__FCNewsletterEndpointConnection_newsletterSubscribeTo_includeArray_cal
       (*(v28 + 16))(v28, 0, 0, 0, v9);
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)submitPersonalizationVector:(id)vector withCallbackQueue:(id)queue completion:(id)completion
@@ -549,7 +539,7 @@ uint64_t __91__FCNewsletterEndpointConnection_submitPersonalizationVector_withCa
 
 void __91__FCNewsletterEndpointConnection_submitPersonalizationVector_withCallbackQueue_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   (*(a2 + 16))(a2);
   v3 = [*(a1 + 32) baseURL];
 
@@ -559,42 +549,38 @@ void __91__FCNewsletterEndpointConnection_submitPersonalizationVector_withCallba
     v5 = [v4 URLByAppendingPathComponent:@"v1/vectors"];
 
     v6 = *(a1 + 40);
-    v21 = @"vector";
-    v22[0] = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v19 = @"vector";
+    v20[0] = v6;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     v8 = [*(a1 + 32) endpointConnection];
     v9 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v7 options:0 error:0];
     v10 = *MEMORY[0x1E695ABC0];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __91__FCNewsletterEndpointConnection_submitPersonalizationVector_withCallbackQueue_completion___block_invoke_3;
-    v18[3] = &unk_1E7C3EDE0;
-    v19 = v5;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __91__FCNewsletterEndpointConnection_submitPersonalizationVector_withCallbackQueue_completion___block_invoke_3;
+    v16[3] = &unk_1E7C3EDE0;
+    v17 = v5;
     v11 = *(a1 + 48);
-    v20 = *(a1 + 56);
+    v18 = *(a1 + 56);
     v12 = v5;
     LODWORD(v13) = v10;
-    [v8 performAuthenticatedHTTPRequestWithURL:v12 valuesByHTTPHeaderField:0 method:@"POST" data:v9 contentType:@"application/json" priority:1 reauthenticateIfNeeded:v13 callbackQueue:v11 completion:v18];
-
-LABEL_3:
-    v14 = *MEMORY[0x1E69E9840];
-    return;
+    [v8 performAuthenticatedHTTPRequestWithURL:v12 valuesByHTTPHeaderField:0 method:@"POST" data:v9 contentType:@"application/json" priority:1 reauthenticateIfNeeded:v13 callbackQueue:v11 completion:v16];
   }
 
-  v15 = *(a1 + 56);
-  if (!v15)
+  else
   {
-    goto LABEL_3;
+    v14 = *(a1 + 56);
+    if (v14)
+    {
+      v15 = [FCEndpointConnection errorForStatus:-2000 url:0];
+      (*(v14 + 16))(v14, 0, 0, 0, 0);
+    }
   }
-
-  v17 = [FCEndpointConnection errorForStatus:-2000 url:0];
-  (*(v15 + 16))(v15, 0, 0, 0, 0);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __91__FCNewsletterEndpointConnection_submitPersonalizationVector_withCallbackQueue_completion___block_invoke_3(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -604,39 +590,39 @@ void __91__FCNewsletterEndpointConnection_submitPersonalizationVector_withCallba
     v11 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:0 error:0];
     v12 = [v11 objectForKeyedSubscript:@"newsletters"];
     v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v37 = v12;
+    v36 = v12;
     if (v12)
     {
       v14 = [MEMORY[0x1E695DFB0] null];
 
       if (v12 != v14)
       {
-        v31 = a1;
-        v32 = v11;
-        v33 = v10;
-        v34 = v9;
-        v35 = v8;
-        v36 = v7;
-        v41 = 0u;
-        v42 = 0u;
-        v39 = 0u;
+        v30 = a1;
+        v31 = v11;
+        v32 = v10;
+        v33 = v9;
+        v34 = v8;
+        v35 = v7;
         v40 = 0u;
+        v41 = 0u;
+        v38 = 0u;
+        v39 = 0u;
         obj = v12;
-        v15 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+        v15 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v40;
+          v17 = *v39;
           do
           {
             for (i = 0; i != v16; ++i)
             {
-              if (*v40 != v17)
+              if (*v39 != v17)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v19 = *(*(&v39 + 1) + 8 * i);
+              v19 = *(*(&v38 + 1) + 8 * i);
               v20 = [FCNewsletter alloc];
               v21 = [v19 objectForKeyedSubscript:@"newsletterId"];
               v22 = [v19 objectForKeyedSubscript:@"newsletterStatus"];
@@ -655,24 +641,24 @@ void __91__FCNewsletterEndpointConnection_submitPersonalizationVector_withCallba
                 v23 = 0;
               }
 
-              v24 = [(FCNewsletter *)v20 initWithIdentifier:v21 enrollment:v23, v31, v32, v33, v34, v35, v36];
+              v24 = [(FCNewsletter *)v20 initWithIdentifier:v21 enrollment:v23, v30, v31, v32, v33, v34, v35];
 
               [v13 addObject:v24];
             }
 
-            v16 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+            v16 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
           }
 
           while (v16);
         }
 
-        v8 = v35;
-        v7 = v36;
-        v10 = v33;
-        v9 = v34;
-        a1 = v31;
-        v11 = v32;
-        v12 = v37;
+        v8 = v34;
+        v7 = v35;
+        v10 = v32;
+        v9 = v33;
+        a1 = v30;
+        v11 = v31;
+        v12 = v36;
       }
     }
 
@@ -682,7 +668,7 @@ void __91__FCNewsletterEndpointConnection_submitPersonalizationVector_withCallba
       v26 = [v11 objectForKeyedSubscript:@"enrolledTo"];
       [v11 objectForKeyedSubscript:@"include"];
       v28 = v27 = v9;
-      v12 = v37;
+      v12 = v36;
       (*(v25 + 16))(v25, v10 == 0, v26, v28, v13, v10);
 
       v9 = v27;
@@ -697,8 +683,6 @@ void __91__FCNewsletterEndpointConnection_submitPersonalizationVector_withCallba
       (*(v29 + 16))(v29, 0, 0, 0, 0, v9);
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deletePersonalizationVectorWithCallbackQueue:(id)queue completion:(id)completion
@@ -832,7 +816,7 @@ void __74__FCNewsletterEndpointConnection_getWebTokenWithCallbackQueue_completio
 
 void __74__FCNewsletterEndpointConnection_getWebTokenWithCallbackQueue_completion___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -845,9 +829,9 @@ void __74__FCNewsletterEndpointConnection_getWebTokenWithCallbackQueue_completio
       v12 = FCDefaultLog;
       if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
       {
-        v20 = 138543362;
-        v21 = v10;
-        _os_log_error_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_ERROR, "Failed to fetch web token with error: %{public}@", &v20, 0xCu);
+        v19 = 138543362;
+        v20 = v10;
+        _os_log_error_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_ERROR, "Failed to fetch web token with error: %{public}@", &v19, 0xCu);
       }
     }
 
@@ -861,9 +845,9 @@ void __74__FCNewsletterEndpointConnection_getWebTokenWithCallbackQueue_completio
         v15 = FCDefaultLog;
         if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
         {
-          v20 = 138543362;
-          v21 = v13;
-          _os_log_error_impl(&dword_1B63EF000, v15, OS_LOG_TYPE_ERROR, "Fetch web token returned diagnostics: %{public}@", &v20, 0xCu);
+          v19 = 138543362;
+          v20 = v13;
+          _os_log_error_impl(&dword_1B63EF000, v15, OS_LOG_TYPE_ERROR, "Fetch web token returned diagnostics: %{public}@", &v19, 0xCu);
         }
       }
     }
@@ -884,8 +868,6 @@ void __74__FCNewsletterEndpointConnection_getWebTokenWithCallbackQueue_completio
       (*(v18 + 16))(v18, 0, v9);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateBaseURL:(id)l

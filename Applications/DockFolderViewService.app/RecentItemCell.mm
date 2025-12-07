@@ -156,13 +156,13 @@
   interactionCopy = interaction;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_10007C650();
+  sub_10007C650(session);
 
   swift_unknownObjectRelease();
   sub_10001A2A8(0, &qword_1000BC468, UIDragItem_ptr);
-  v7.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v8.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v7.super.isa;
+  return v8.super.isa;
 }
 
 - (id)dragInteraction:(id)interaction itemsForAddingToSession:(id)session withTouchAtPoint:(CGPoint)point
@@ -170,13 +170,13 @@
   interactionCopy = interaction;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_10007C8AC();
+  sub_10007C8AC(session);
 
   swift_unknownObjectRelease();
   sub_10001A2A8(0, &qword_1000BC468, UIDragItem_ptr);
-  v8.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v9.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v8.super.isa;
+  return v9.super.isa;
 }
 
 - (id)dragInteraction:(id)interaction previewForLiftingItem:(id)item session:(id)session

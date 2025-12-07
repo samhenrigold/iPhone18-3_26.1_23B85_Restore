@@ -25,7 +25,7 @@
 {
   if (!buffer)
   {
-    [BWDeferredBufferIntermediate initWithBuffer:tag:bufferType:captureFrameFlags:metadataTag:rawThumbnailsBufferTag:rawThumbnailsMetadataTag:mainRawThumbnailBufferTag:mainRawThumbnailMetadataTag:sifrRawThumbnailBufferTag:sifrRawThumbnailMetadataTag:portType:compressionProfile:URL:];
+    [BWDeferredBufferIntermediate initWithBuffer:a2 tag:0 bufferType:tag captureFrameFlags:type metadataTag:flags rawThumbnailsBufferTag:metadataTag rawThumbnailsMetadataTag:bufferTag mainRawThumbnailBufferTag:? mainRawThumbnailMetadataTag:? sifrRawThumbnailBufferTag:? sifrRawThumbnailMetadataTag:? portType:? compressionProfile:? URL:?];
 LABEL_10:
 
     return 0;
@@ -33,13 +33,13 @@ LABEL_10:
 
   if (!type)
   {
-    [BWDeferredBufferIntermediate initWithBuffer:tag:bufferType:captureFrameFlags:metadataTag:rawThumbnailsBufferTag:rawThumbnailsMetadataTag:mainRawThumbnailBufferTag:mainRawThumbnailMetadataTag:sifrRawThumbnailBufferTag:sifrRawThumbnailMetadataTag:portType:compressionProfile:URL:];
+    [BWDeferredBufferIntermediate initWithBuffer:a2 tag:? bufferType:? captureFrameFlags:? metadataTag:? rawThumbnailsBufferTag:? rawThumbnailsMetadataTag:? mainRawThumbnailBufferTag:? mainRawThumbnailMetadataTag:? sifrRawThumbnailBufferTag:? sifrRawThumbnailMetadataTag:? portType:? compressionProfile:? URL:?];
     goto LABEL_10;
   }
 
   if (!profile)
   {
-    [BWDeferredBufferIntermediate initWithBuffer:tag:bufferType:captureFrameFlags:metadataTag:rawThumbnailsBufferTag:rawThumbnailsMetadataTag:mainRawThumbnailBufferTag:mainRawThumbnailMetadataTag:sifrRawThumbnailBufferTag:sifrRawThumbnailMetadataTag:portType:compressionProfile:URL:];
+    [BWDeferredBufferIntermediate initWithBuffer:a2 tag:? bufferType:? captureFrameFlags:? metadataTag:? rawThumbnailsBufferTag:? rawThumbnailsMetadataTag:? mainRawThumbnailBufferTag:? mainRawThumbnailMetadataTag:? sifrRawThumbnailBufferTag:? sifrRawThumbnailMetadataTag:? portType:? compressionProfile:? URL:?];
     goto LABEL_10;
   }
 
@@ -142,26 +142,26 @@ LABEL_10:
 
 - (int)setURL:(id)l prefetchQueue:(id)queue
 {
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
-  v15 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
   pthread_mutex_lock(&self->super._lock);
   if (!l)
   {
-    FigDebugAssert3();
-    v9 = v13;
-    v10 = -16134;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v4, block, v13, v14, v15, selfCopy, v17);
+    v10 = v19;
+    v11 = -16134;
 LABEL_9:
-    *(v9 + 6) = v10;
+    *(v10 + 6) = v11;
     goto LABEL_6;
   }
 
   if (self->_buffer || self->super._URL)
   {
-    FigDebugAssert3();
-    v9 = v13;
-    v10 = -16135;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v4, block, v13, v14, v15, selfCopy, v17);
+    v10 = v19;
+    v11 = -16135;
     goto LABEL_9;
   }
 
@@ -169,20 +169,20 @@ LABEL_9:
   if (queue)
   {
     self->super._prefetching = 1;
-    block[0] = MEMORY[0x1E69E9820];
-    block[1] = 3221225472;
-    block[2] = __53__BWDeferredBufferIntermediate_setURL_prefetchQueue___block_invoke;
-    block[3] = &unk_1E79904A0;
-    block[4] = self;
-    block[5] = &v12;
-    dispatch_async(queue, block);
+    block = MEMORY[0x1E69E9820];
+    v13 = 3221225472;
+    v14 = __53__BWDeferredBufferIntermediate_setURL_prefetchQueue___block_invoke;
+    v15 = &unk_1E79904A0;
+    selfCopy = self;
+    v17 = &v18;
+    dispatch_async(queue, &block);
   }
 
 LABEL_6:
   pthread_mutex_unlock(&self->super._lock);
-  v7 = *(v13 + 6);
-  _Block_object_dispose(&v12, 8);
-  return v7;
+  v8 = *(v19 + 6);
+  _Block_object_dispose(&v18, 8);
+  return v8;
 }
 
 uint64_t __53__BWDeferredBufferIntermediate_setURL_prefetchQueue___block_invoke(uint64_t a1)
@@ -216,27 +216,27 @@ uint64_t __53__BWDeferredBufferIntermediate_setURL_prefetchQueue___block_invoke(
 
 - (int)setBuffer:(__CVBuffer *)buffer
 {
-  pthread_mutex_lock(&self->super._lock);
+  v5 = pthread_mutex_lock(&self->super._lock);
   if (self->_buffer)
   {
-    [BWDeferredBufferIntermediate setBuffer:];
+    [BWDeferredBufferIntermediate setBuffer:v5];
 LABEL_7:
-    v5 = -16135;
+    v6 = -16135;
     goto LABEL_4;
   }
 
   if (self->super._URL)
   {
-    [BWDeferredBufferIntermediate setBuffer:];
+    [BWDeferredBufferIntermediate setBuffer:v5];
     goto LABEL_7;
   }
 
   self->_buffer = buffer;
   CFRetain(buffer);
-  v5 = 0;
+  v6 = 0;
 LABEL_4:
   pthread_mutex_unlock(&self->super._lock);
-  return v5;
+  return v6;
 }
 
 - (void)releaseBuffer
@@ -331,13 +331,14 @@ LABEL_5:
 
 - (int)flush
 {
-  pthread_mutex_lock(&self->super._lock);
+  v3 = pthread_mutex_lock(&self->super._lock);
   if (!self->super._URL)
   {
-    [BWDeferredBufferIntermediate flush];
+    [(BWDeferredBufferIntermediate *)v3 flush];
     goto LABEL_10;
   }
 
+  p_dirty = &self->super._dirty;
   if (!self->_buffer)
   {
     if (!self->super._dirty)
@@ -345,24 +346,24 @@ LABEL_5:
       goto LABEL_6;
     }
 
-    [BWDeferredBufferIntermediate flush];
+    [(BWDeferredBufferIntermediate *)v3 flush];
 LABEL_10:
-    v3 = -16136;
+    v5 = -16136;
     goto LABEL_7;
   }
 
   if (!self->super._dirty)
   {
 LABEL_6:
-    v3 = 0;
+    v5 = 0;
     goto LABEL_7;
   }
 
   [(BWDeferredBufferIntermediate *)self flush];
-  v3 = v5;
+  v5 = v7;
 LABEL_7:
   pthread_mutex_unlock(&self->super._lock);
-  return v3;
+  return v5;
 }
 
 - (id)description
@@ -405,93 +406,94 @@ LABEL_7:
 
   v4 = result;
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v22 = 0;
-  v23 = 0;
-  v21 = 0;
-  FigGetUpTimeNanoseconds();
-  v6 = MEMORY[0x1E695FF58];
-  if (!*(v4 + 128) || *(v4 + 152))
+  v38 = 0;
+  v39[0] = 0;
+  v37 = 0;
+  UpTimeNanoseconds = FigGetUpTimeNanoseconds();
+  v7 = MEMORY[0x1E695FF58];
+  v31 = UpTimeNanoseconds;
+  if (!*(v4 + 16) || *(v4 + 19))
   {
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
-    v7 = 0;
-    v17 = -16135;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+    v8 = 0;
+    v18 = -16135;
     goto LABEL_20;
   }
 
-  if (!*(v4 + 160))
+  if (!*(v4 + 20))
   {
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
-    v7 = 0;
-    v17 = -16132;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v27, v29, v30, v31, v32, v33, v34, v35);
+    v8 = 0;
+    v18 = -16132;
     goto LABEL_20;
   }
 
   if (*MEMORY[0x1E695FF58] == 1)
   {
-    OUTLINED_FUNCTION_5_7();
+    OUTLINED_FUNCTION_5_7(822150861, 150);
   }
 
-  v20 = 0;
-  v7 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfURL:*(v4 + 128) options:0 error:&v20];
-  if (!v7)
+  v36 = 0;
+  v8 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfURL:*(v4 + 16) options:0 error:&v36];
+  if (!v8)
   {
-    LODWORD(v19) = 0;
-    FigDebugAssert3();
-    [v20 code];
-    v17 = FigSignalErrorAtGM();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v2, v30, v31, v32, v33, v34, v35);
+    v20 = qword_1EB58E478;
+    code = [v36 code];
+    v18 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v20, code, "<<<< BWDeferredContainerIntermediate >>>>", 0x26D, v2, v22, v23, v28);
     goto LABEL_19;
   }
 
-  v8 = CMPhotoDecompressionSessionCreate();
-  if (v8)
+  v9 = CMPhotoDecompressionSessionCreate();
+  if (v9)
   {
     goto LABEL_38;
   }
 
-  v9 = v6;
-  v10 = [objc_msgSend(OUTLINED_FUNCTION_5_80() objectForKeyedSubscript:{*MEMORY[0x1E6966208]), "unsignedIntValue"}];
-  v11 = [objc_msgSend(OUTLINED_FUNCTION_5_80() objectForKeyedSubscript:{*MEMORY[0x1E69660B8]), "unsignedIntValue"}];
+  v10 = v7;
+  v11 = [objc_msgSend(OUTLINED_FUNCTION_5_80() objectForKeyedSubscript:{*MEMORY[0x1E6966208]), "unsignedIntValue"}];
+  v12 = [objc_msgSend(OUTLINED_FUNCTION_5_80() objectForKeyedSubscript:{*MEMORY[0x1E69660B8]), "unsignedIntValue"}];
   Container = CMPhotoDecompressionSessionCreateContainer();
   if (Container)
   {
-    v17 = Container;
+    v18 = Container;
     OUTLINED_FUNCTION_1_119();
-    FigDebugAssert3();
-    v6 = v9;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v25, v29, v30, v31, v32, v33, v34, v35);
+    v7 = v10;
     goto LABEL_20;
   }
 
-  if (*(v4 + 248) != 1 || (v13 = [objc_msgSend(OUTLINED_FUNCTION_5_80() objectForKeyedSubscript:{*MEMORY[0x1E6966090]), "unsignedIntValue"}] + v10, v14 = objc_msgSend(objc_msgSend(OUTLINED_FUNCTION_5_80(), "objectForKeyedSubscript:", *MEMORY[0x1E6966078]), "unsignedIntValue") + v11, ((v13 | v14) & 7) != 0) && v13 & 0xF | v14 & 3)
+  if (*(v4 + 62) != 1 || (v14 = [objc_msgSend(OUTLINED_FUNCTION_5_80() objectForKeyedSubscript:{*MEMORY[0x1E6966090]), "unsignedIntValue"}] + v11, v15 = objc_msgSend(objc_msgSend(OUTLINED_FUNCTION_5_80(), "objectForKeyedSubscript:", *MEMORY[0x1E6966078]), "unsignedIntValue") + v12, ((v14 | v15) & 7) != 0) && v14 & 0xF | v15 & 3)
   {
-    v15 = 0;
-    v6 = v9;
+    v16 = 0;
+    v7 = v10;
     goto LABEL_14;
   }
 
-  FigCapturePixelFormatEquivalentRegroupedLayoutPixelFormat([v4 pixelFormat]);
-  v8 = -[BWDeferredBufferIntermediate _createCVPixelBufferFromAttributes:pixelFormat:pixelBuffer:](v4, *(v4 + 160), [v4 pixelFormat], &v21);
-  v6 = v9;
-  if (v8)
+  FigCapturePixelFormatEquivalentRegroupedLayoutPixelFormat([(__CVBuffer *)v4 pixelFormat]);
+  v9 = [(BWDeferredBufferIntermediate *)v4 _createCVPixelBufferFromAttributes:[(__CVBuffer *)v4 pixelFormat] pixelFormat:&v37 pixelBuffer:?];
+  v7 = v10;
+  if (v9)
   {
 LABEL_38:
-    v17 = v8;
+    v18 = v9;
     OUTLINED_FUNCTION_1_119();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24);
     goto LABEL_20;
   }
 
-  [v5 setObject:v21 forKeyedSubscript:*MEMORY[0x1E6991B20]];
-  v15 = 1;
+  [v5 setObject:v37 forKeyedSubscript:*MEMORY[0x1E6991B20]];
+  v16 = 1;
 LABEL_14:
   [v5 setObject:&unk_1F2249978 forKeyedSubscript:*MEMORY[0x1E6991AB0]];
-  if (v22 && (ImageForIndex = CMPhotoDecompressionContainerCreateImageForIndex()) != 0)
+  if (v38 && (ImageForIndex = CMPhotoDecompressionContainerCreateImageForIndex()) != 0)
   {
-    v17 = ImageForIndex;
+    v18 = ImageForIndex;
     OUTLINED_FUNCTION_1_119();
-    FigDebugAssert3();
-    if ((v15 & 1) == 0)
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v26, v29, v30, v31, v32, v33, v34, v35);
+    if ((v16 & 1) == 0)
     {
       goto LABEL_20;
     }
@@ -499,40 +501,40 @@ LABEL_14:
 
   else
   {
-    v17 = 0;
-    if (!v15)
+    v18 = 0;
+    if (!v16)
     {
       goto LABEL_21;
     }
   }
 
-  if (v21)
+  if (v37)
   {
-    CFRelease(v21);
+    CFRelease(v37);
   }
 
 LABEL_19:
-  if (v17)
+  if (v18)
   {
 LABEL_20:
-    v21 = 0;
+    v37 = 0;
   }
 
 LABEL_21:
 
-  if (v22)
+  if (v38)
   {
-    CFRelease(v22);
+    CFRelease(v38);
   }
 
-  if (v23)
+  if (v39[0])
   {
-    CFRelease(v23);
+    CFRelease(v39[0]);
   }
 
   if (a2)
   {
-    *a2 = v17;
+    *a2 = v18;
   }
 
   FigGetUpTimeNanoseconds();
@@ -543,12 +545,12 @@ LABEL_21:
     OUTLINED_FUNCTION_1_104();
   }
 
-  if (*v6 == 1)
+  if (*v7 == 1)
   {
-    OUTLINED_FUNCTION_5_7();
+    OUTLINED_FUNCTION_5_7(822150862, 150);
   }
 
-  return v21;
+  return v37;
 }
 
 - (uint64_t)_compressionSettingsForProfile:(int)profile pixelFormat:(int *)format containerFormat:(uint64_t *)containerFormat options:
@@ -600,7 +602,7 @@ LABEL_9:
     else
     {
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
 
     return 4294951162;
@@ -614,23 +616,24 @@ LABEL_9:
   if (result)
   {
     pixelBufferOut = 0;
-    v7 = [objc_msgSend(a2 objectForKeyedSubscript:{*MEMORY[0x1E6966208]), "unsignedLongValue"}];
-    v8 = [objc_msgSend(a2 objectForKeyedSubscript:{*MEMORY[0x1E69660B8]), "unsignedLongValue"}];
+    v8 = [objc_msgSend(a2 objectForKeyedSubscript:{*MEMORY[0x1E6966208]), "unsignedLongValue"}];
+    v9 = [objc_msgSend(a2 objectForKeyedSubscript:{*MEMORY[0x1E69660B8]), "unsignedLongValue"}];
     HasRegroupedLayoutDownscale = FigCapturePixelFormatHasRegroupedLayoutDownscale(attributes);
     if (attributes)
     {
-      result = CVPixelBufferCreate(0, v7 >> HasRegroupedLayoutDownscale, v8 >> HasRegroupedLayoutDownscale, attributes, a2, &pixelBufferOut);
+      result = CVPixelBufferCreate(0, v8 >> HasRegroupedLayoutDownscale, v9 >> HasRegroupedLayoutDownscale, attributes, a2, &pixelBufferOut);
       if (result)
       {
-        FigDebugAssert3();
-        result = FigSignalErrorAtGM();
+        v11 = result;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v4, v17, pixelBufferOut, v19, v20, v21, v22);
+        result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EB58E478, v11, "<<<< BWDeferredContainerIntermediate >>>>", 0x245, v4, v12, v13, v15);
       }
     }
 
     else
     {
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v14, v16, v17, pixelBufferOut, v19, v20, v21, v22);
       result = 4294954516;
     }
 
@@ -655,7 +658,7 @@ LABEL_9:
   v3 = MEMORY[0x1E695FF58];
   if (*MEMORY[0x1E695FF58] == 1)
   {
-    OUTLINED_FUNCTION_5_7();
+    OUTLINED_FUNCTION_5_7(822150861, 120);
   }
 
   v17 = 0;
@@ -666,6 +669,7 @@ LABEL_9:
     if (CMPhotoCompressionSessionCreate())
     {
       OUTLINED_FUNCTION_2_111();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
 
     else
@@ -674,6 +678,7 @@ LABEL_9:
       if ([(BWDeferredBufferIntermediate *)self _compressionSettingsForProfile:PixelFormatType pixelFormat:&v16 containerFormat:&v15 options:?])
       {
         OUTLINED_FUNCTION_2_111();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
       }
 
       else
@@ -694,7 +699,13 @@ LABEL_9:
         v13[4] = v9;
         v14[4] = MEMORY[0x1E695E118];
         [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:5];
-        if (!CMPhotoCompressionSessionOpenEmptyContainer() && !CMPhotoCompressionSessionAddImage())
+        if (CMPhotoCompressionSessionOpenEmptyContainer() || CMPhotoCompressionSessionAddImage())
+        {
+          OUTLINED_FUNCTION_2_111();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+        }
+
+        else
         {
           v10 = *(self + 152);
           if (v10)
@@ -708,25 +719,18 @@ LABEL_9:
           {
             v1 = 0;
           }
-
-          goto LABEL_13;
         }
-
-        OUTLINED_FUNCTION_2_111();
       }
     }
-
-    FigDebugAssert3();
   }
 
   else
   {
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     v1 = 4294951160;
   }
 
-LABEL_13:
   if (v17)
   {
     v1 = CMPhotoCompressionSessionCloseContainer();
@@ -738,7 +742,7 @@ LABEL_13:
 
   if (*v3 == 1)
   {
-    OUTLINED_FUNCTION_5_7();
+    OUTLINED_FUNCTION_5_7(822150862, 120);
   }
 
   FigGetUpTimeNanoseconds();
@@ -758,7 +762,8 @@ LABEL_13:
   *a3 = result;
   if (result)
   {
-    result = FigDebugAssert3();
+    v7 = result;
+    result = FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v3, v8, v9, v10, v11, vars0, vars8);
   }
 
   *a2 = 0;

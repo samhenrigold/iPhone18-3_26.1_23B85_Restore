@@ -14,7 +14,7 @@
   parserCopy = parser;
   occurredCopy = occurred;
   selfCopy = self;
-  sub_24F26DEF8();
+  sub_24F26DEF8(occurredCopy);
 }
 
 - (void)parser:(id)parser didStartElement:(unint64_t)element attributes:(id)attributes

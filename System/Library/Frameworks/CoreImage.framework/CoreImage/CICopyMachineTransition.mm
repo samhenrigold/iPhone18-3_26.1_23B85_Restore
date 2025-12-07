@@ -89,134 +89,135 @@
 
 - (id)outputImage
 {
-  v88 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   if (!self->inputImage || !self->inputTargetImage)
   {
     return 0;
   }
 
   [(CIVector *)self->inputExtent CGRectValue];
-  if (CGRectIsEmpty(v89))
+  IsEmpty = CGRectIsEmpty(v91);
+  if (IsEmpty)
   {
-    v3 = ci_logger_filter();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v5 = ci_logger_filter(IsEmpty, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v87 = [objc_opt_class() description];
-      _os_log_impl(&dword_19CC36000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: inputExtent is nil or empty.\n", buf, 0xCu);
+      v89 = [objc_opt_class() description];
+      _os_log_impl(&dword_19CC36000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: inputExtent is nil or empty.\n", buf, 0xCu);
     }
   }
 
   [(NSNumber *)self->inputAngle floatValue];
-  v5 = v4;
+  v7 = v6;
   [(NSNumber *)self->inputWidth floatValue];
-  *&v7 = fmax(v6, 0.1);
-  *v7.i32 = *v7.i32;
-  v76 = v7;
+  *&v9 = fmax(v8, 0.1);
+  *v9.i32 = *v9.i32;
+  v78 = v9;
   [(NSNumber *)self->inputOpacity floatValue];
-  v78 = v8;
+  v80 = v10;
   [(NSNumber *)self->inputTime floatValue];
-  v10 = v9;
+  v12 = v11;
   [(CIVector *)self->inputExtent X];
-  *&v11 = v11;
-  v82 = *&v11;
+  *&v13 = v13;
+  v84 = *&v13;
   [(CIVector *)self->inputExtent X];
-  *&v13 = v12;
-  v70 = *&v13;
-  v74 = __PAIR64__(v13, LODWORD(v82));
+  *&v15 = v14;
+  v72 = *&v15;
+  v76 = __PAIR64__(v15, LODWORD(v84));
   [(CIVector *)self->inputExtent Z];
-  v14.f32[0] = *&v14 + v82;
-  v79 = v14.i32[0];
-  v14.f32[1] = v70;
-  v72 = v14;
+  v16.f32[0] = *&v16 + v84;
+  v81 = v16.i32[0];
+  v16.f32[1] = v72;
+  v74 = v16;
   [(CIVector *)self->inputExtent W];
-  *&v15 = v15 + v70;
-  v83 = __PAIR64__(LODWORD(v15), LODWORD(v82));
-  v80 = __PAIR64__(LODWORD(v15), v79);
-  v16 = __sincosf_stret(v5);
-  v17 = vdiv_f32(__PAIR64__(LODWORD(v16.__sinval), LODWORD(v16.__cosval)), vdup_lane_s32(v76, 0));
-  v18 = vaddv_f32(vmul_f32(v17, v74));
-  v19 = vaddv_f32(vmul_f32(v17, v72));
-  v20 = fminf(v18, v19);
-  v21 = fmaxf(v18, v19);
-  v22 = vaddv_f32(vmul_f32(v17, v83));
-  v23 = fminf(v20, v22);
-  v24 = fmaxf(v21, v22);
-  v77 = v17;
-  v25 = vaddv_f32(vmul_f32(v17, v80));
-  v75 = fminf(v23, v25);
-  v73 = (v75 - fmaxf(v24, v25)) + -1.0;
-  if (v10 >= 0.65)
+  *&v17 = v17 + v72;
+  v85 = __PAIR64__(LODWORD(v17), LODWORD(v84));
+  v82 = __PAIR64__(LODWORD(v17), v81);
+  v18 = __sincosf_stret(v7);
+  v19 = vdiv_f32(__PAIR64__(LODWORD(v18.__sinval), LODWORD(v18.__cosval)), vdup_lane_s32(v78, 0));
+  v20 = vaddv_f32(vmul_f32(v19, v76));
+  v21 = vaddv_f32(vmul_f32(v19, v74));
+  v22 = fminf(v20, v21);
+  v23 = fmaxf(v20, v21);
+  v24 = vaddv_f32(vmul_f32(v19, v85));
+  v25 = fminf(v22, v24);
+  v26 = fmaxf(v23, v24);
+  v79 = v19;
+  v27 = vaddv_f32(vmul_f32(v19, v82));
+  v77 = fminf(v25, v27);
+  v75 = (v77 - fmaxf(v26, v27)) + -1.0;
+  if (v12 >= 0.65)
   {
-    v81 = 1.0 - (((v10 + -0.65) / 0.35) * ((v10 + -0.65) / 0.35));
-    v84 = 1.0;
-    v71 = -5.88235235;
+    v83 = 1.0 - (((v12 + -0.65) / 0.35) * ((v12 + -0.65) / 0.35));
+    v86 = 1.0;
+    v73 = -5.88235235;
     [(CIVector *)self->inputExtent X:0x3FF346F0A0000000];
   }
 
   else
   {
-    v84 = 0.0;
-    v71 = -1.20481932;
-    v81 = v10 / 0.65;
+    v86 = 0.0;
+    v73 = -1.20481932;
+    v83 = v12 / 0.65;
     [(CIVector *)self->inputExtent X:0x4017878760000000];
   }
 
-  v28 = v26;
+  v30 = v28;
   [(CIVector *)self->inputExtent Y];
-  v30 = v29;
-  [(CIVector *)self->inputExtent Z];
   v32 = v31;
-  [(CIVector *)self->inputExtent W];
+  [(CIVector *)self->inputExtent Z];
   v34 = v33;
-  [(CIImage *)self->inputImage extent];
+  [(CIVector *)self->inputExtent W];
   v36 = v35;
+  [(CIImage *)self->inputImage extent];
   v38 = v37;
   v40 = v39;
   v42 = v41;
+  v44 = v43;
   [(CIImage *)self->inputTargetImage extent];
-  v93.origin.x = v43;
-  v93.origin.y = v44;
-  v93.size.width = v45;
-  v93.size.height = v46;
-  v90.origin.x = v36;
-  v90.origin.y = v38;
-  v90.size.width = v40;
-  v90.size.height = v42;
-  v91 = CGRectUnion(v90, v93);
-  v94.origin.x = v28;
-  v94.origin.y = v30;
-  v94.size.width = v32;
-  v94.size.height = v34;
-  v92 = CGRectUnion(v91, v94);
-  x = v92.origin.x;
-  y = v92.origin.y;
-  width = v92.size.width;
-  height = v92.size.height;
-  v51 = [CIVector vectorWithX:v71 Y:v69 Z:v68];
-  v52 = [CIVector vectorWithX:-*v77.i32 Y:-*&v77.i32[1] Z:-v73 W:((v75 + -1.0) + 1.0)];
+  v95.origin.x = v45;
+  v95.origin.y = v46;
+  v95.size.width = v47;
+  v95.size.height = v48;
+  v92.origin.x = v38;
+  v92.origin.y = v40;
+  v92.size.width = v42;
+  v92.size.height = v44;
+  v93 = CGRectUnion(v92, v95);
+  v96.origin.x = v30;
+  v96.origin.y = v32;
+  v96.size.width = v34;
+  v96.size.height = v36;
+  v94 = CGRectUnion(v93, v96);
+  x = v94.origin.x;
+  y = v94.origin.y;
+  width = v94.size.width;
+  height = v94.size.height;
+  v53 = [CIVector vectorWithX:v73 Y:v71 Z:v70];
+  v54 = [CIVector vectorWithX:-v79.f32[0] Y:-v79.f32[1] Z:-v75 W:((v77 + -1.0) + 1.0)];
   [(CIColor *)self->inputColor red];
-  v54 = v53;
-  [(CIColor *)self->inputColor green];
   v56 = v55;
-  [(CIColor *)self->inputColor blue];
+  [(CIColor *)self->inputColor green];
   v58 = v57;
+  [(CIColor *)self->inputColor blue];
+  v60 = v59;
   [(CIColor *)self->inputColor alpha];
-  v60 = [CIVector vectorWithX:v54 Y:v56 Z:v58 W:v59];
-  v61 = [CIVector vectorWithX:v81 Y:v78 Z:v84];
+  v62 = [CIVector vectorWithX:v56 Y:v58 Z:v60 W:v61];
+  v63 = [CIVector vectorWithX:v83 Y:v80 Z:v86];
   _kernel = [(CICopyMachineTransition *)self _kernel];
-  v63 = *MEMORY[0x1E695F040];
-  v64 = *(MEMORY[0x1E695F040] + 8);
-  v65 = *(MEMORY[0x1E695F040] + 16);
-  v66 = *(MEMORY[0x1E695F040] + 24);
+  v65 = *MEMORY[0x1E695F040];
+  v66 = *(MEMORY[0x1E695F040] + 8);
+  v67 = *(MEMORY[0x1E695F040] + 16);
+  v68 = *(MEMORY[0x1E695F040] + 24);
   inputTargetImage = self->inputTargetImage;
-  v85[0] = self->inputImage;
-  v85[1] = inputTargetImage;
-  v85[2] = v51;
-  v85[3] = v52;
-  v85[4] = v60;
-  v85[5] = v61;
-  return [objc_msgSend(_kernel applyWithExtent:objc_msgSend(MEMORY[0x1E695DEC8] arguments:{"arrayWithObjects:count:", v85, 6), v63, v64, v65, v66), "imageByCroppingToRect:", x, y, width, height}];
+  v87[0] = self->inputImage;
+  v87[1] = inputTargetImage;
+  v87[2] = v53;
+  v87[3] = v54;
+  v87[4] = v62;
+  v87[5] = v63;
+  return [objc_msgSend(_kernel applyWithExtent:objc_msgSend(MEMORY[0x1E695DEC8] arguments:{"arrayWithObjects:count:", v87, 6), v65, v66, v67, v68), "imageByCroppingToRect:", x, y, width, height}];
 }
 
 @end

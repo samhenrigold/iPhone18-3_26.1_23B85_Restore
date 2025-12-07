@@ -25,83 +25,84 @@
 - (CARAnnounceNotificationsPanel)initWithPanelController:(id)controller
 {
   controllerCopy = controller;
-  v17.receiver = self;
-  v17.super_class = CARAnnounceNotificationsPanel;
-  v5 = [(CARSettingsPanel *)&v17 initWithPanelController:controllerCopy];
+  v19.receiver = self;
+  v19.super_class = CARAnnounceNotificationsPanel;
+  v5 = [(CARSettingsPanel *)&v19 initWithPanelController:controllerCopy];
+  v6 = v5;
   if (v5)
   {
-    v6 = sub_10001C784();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = sub_10001C784(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       sub_10009082C();
     }
 
-    panelController = [(CARSettingsPanel *)v5 panelController];
-    [panelController addSiriPreferencesObserver:v5];
+    panelController = [(CARSettingsPanel *)v6 panelController];
+    [panelController addSiriPreferencesObserver:v6];
 
-    panelController2 = [(CARSettingsPanel *)v5 panelController];
-    [panelController2 addNotificationSettingsObserver:v5];
+    panelController2 = [(CARSettingsPanel *)v6 panelController];
+    [panelController2 addNotificationSettingsObserver:v6];
 
-    v5->_siriCallbackInvocationCount = 0;
-    v5->_userNotificationsCallbackInvocationCount = 0;
-    v9 = sub_10001C784();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v6->_siriCallbackInvocationCount = 0;
+    v6->_userNotificationsCallbackInvocationCount = 0;
+    v11 = sub_10001C784(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000908A0(&v5->_siriCallbackInvocationCount, &v5->_userNotificationsCallbackInvocationCount, v9);
+      sub_1000908A0(&v6->_siriCallbackInvocationCount, &v6->_userNotificationsCallbackInvocationCount, v11);
     }
 
-    v10 = [DNDStateService serviceForClientIdentifier:@"com.apple.carplay.settings"];
-    dndStateService = v5->_dndStateService;
-    v5->_dndStateService = v10;
+    v12 = [DNDStateService serviceForClientIdentifier:@"com.apple.carplay.settings"];
+    dndStateService = v6->_dndStateService;
+    v6->_dndStateService = v12;
 
-    [(DNDStateService *)v5->_dndStateService addStateUpdateListener:v5 withCompletionHandler:&stru_1000DADF0];
-    objc_initWeak(&location, v5);
-    v12 = v5->_dndStateService;
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100004BB0;
-    v14[3] = &unk_1000DAE18;
-    objc_copyWeak(&v15, &location);
-    [(DNDStateService *)v12 queryCurrentStateWithCompletionHandler:v14];
-    objc_destroyWeak(&v15);
+    [(DNDStateService *)v6->_dndStateService addStateUpdateListener:v6 withCompletionHandler:&stru_1000DADF0];
+    objc_initWeak(&location, v6);
+    v14 = v6->_dndStateService;
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_100004BB0;
+    v16[3] = &unk_1000DAE18;
+    objc_copyWeak(&v17, &location);
+    [(DNDStateService *)v14 queryCurrentStateWithCompletionHandler:v16];
+    objc_destroyWeak(&v17);
     objc_destroyWeak(&location);
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)invalidate
 {
-  v3 = sub_10001C784();
+  v3 = sub_10001C784(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    *v14 = self;
+    *v16 = self;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "[Settings] #DEBUG [LIFECYCLE] CARAnnounceNotificationsPanel Invalidate - Object %p being invalidated", buf, 0xCu);
   }
 
-  v4 = sub_10001C784();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_10001C784(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     siriCallbackInvocationCount = self->_siriCallbackInvocationCount;
     userNotificationsCallbackInvocationCount = self->_userNotificationsCallbackInvocationCount;
     *buf = 134349312;
-    *v14 = siriCallbackInvocationCount;
-    *&v14[8] = 2050;
-    v15 = userNotificationsCallbackInvocationCount;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[Settings] #DEBUG [LIFECYCLE] CARAnnounceNotificationsPanel Invalidate - Final counters: siri=%{public}ld, userNotifications=%{public}ld", buf, 0x16u);
+    *v16 = siriCallbackInvocationCount;
+    *&v16[8] = 2050;
+    v17 = userNotificationsCallbackInvocationCount;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[Settings] #DEBUG [LIFECYCLE] CARAnnounceNotificationsPanel Invalidate - Final counters: siri=%{public}ld, userNotifications=%{public}ld", buf, 0x16u);
   }
 
-  v7 = sub_10001C784();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_10001C784(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     pendingAnnounceEnablementChangeFromSiri = self->_pendingAnnounceEnablementChangeFromSiri;
     pendingAnnounceEnablementChangeFromUserNotifications = self->_pendingAnnounceEnablementChangeFromUserNotifications;
     *buf = 67240448;
-    *v14 = pendingAnnounceEnablementChangeFromSiri;
-    *&v14[4] = 1026;
-    *&v14[6] = pendingAnnounceEnablementChangeFromUserNotifications;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[Settings] #DEBUG [LIFECYCLE] CARAnnounceNotificationsPanel Invalidate - Final flags: pendingFromSiri=%{public}d, pendingFromUserNotifications=%{public}d", buf, 0xEu);
+    *v16 = pendingAnnounceEnablementChangeFromSiri;
+    *&v16[4] = 1026;
+    *&v16[6] = pendingAnnounceEnablementChangeFromUserNotifications;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[Settings] #DEBUG [LIFECYCLE] CARAnnounceNotificationsPanel Invalidate - Final flags: pendingFromSiri=%{public}d, pendingFromUserNotifications=%{public}d", buf, 0xEu);
   }
 
   panelController = [(CARSettingsPanel *)self panelController];
@@ -111,14 +112,14 @@
   [panelController2 removeNotificationSettingsObserver:self];
 
   [(DNDStateService *)self->_dndStateService removeStateUpdateListener:self];
-  v12.receiver = self;
-  v12.super_class = CARAnnounceNotificationsPanel;
-  [(CARSettingsPanel *)&v12 invalidate];
+  v14.receiver = self;
+  v14.super_class = CARAnnounceNotificationsPanel;
+  [(CARSettingsPanel *)&v14 invalidate];
 }
 
 - (void)dealloc
 {
-  v3 = sub_10001C784();
+  v3 = sub_10001C784(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -163,7 +164,7 @@
 - (id)specifierSections
 {
   v3 = [NSMutableArray arrayWithCapacity:2];
-  v4 = sub_10001C784();
+  v4 = sub_10001C784(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     _isAnnounceEnabled = [(CARAnnounceNotificationsPanel *)self _isAnnounceEnabled];
@@ -329,15 +330,14 @@ LABEL_9:
 
 - (void)announceCarPlaySettingUpdated:(int64_t)updated
 {
-  [(CARAnnounceNotificationsPanel *)self setUserNotificationsCallbackInvocationCount:[(CARAnnounceNotificationsPanel *)self userNotificationsCallbackInvocationCount]+ 1];
-  v4 = sub_10001C784();
+  v4 = sub_10001C784([(CARAnnounceNotificationsPanel *)self setUserNotificationsCallbackInvocationCount:[(CARAnnounceNotificationsPanel *)self userNotificationsCallbackInvocationCount]+ 1]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     sub_1000909F0();
   }
 
-  v5 = sub_10001C784();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = sub_10001C784(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     sub_100090A64();
   }
@@ -352,15 +352,14 @@ LABEL_9:
 
 - (void)preferences:(id)preferences carPlayAnnounceEnablementTypeChanged:(int64_t)changed
 {
-  [(CARAnnounceNotificationsPanel *)self setSiriCallbackInvocationCount:[(CARAnnounceNotificationsPanel *)self siriCallbackInvocationCount]+ 1];
-  v5 = sub_10001C784();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = sub_10001C784([(CARAnnounceNotificationsPanel *)self setSiriCallbackInvocationCount:[(CARAnnounceNotificationsPanel *)self siriCallbackInvocationCount]+ 1]);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    sub_100090CB4();
+    sub_100090CB4(changed);
   }
 
-  v6 = sub_10001C784();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v8 = sub_10001C784(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_100090D40();
   }
@@ -376,7 +375,7 @@ LABEL_9:
 - (void)preferences:(id)preferences announceNotificationsInCarPlayTemporarilyDisabledChanged:(BOOL)changed
 {
   changedCopy = changed;
-  v6 = sub_10001C784();
+  v6 = sub_10001C784(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67240192;
@@ -395,7 +394,7 @@ LABEL_9:
 - (void)stateService:(id)service didReceiveDoNotDisturbStateUpdate:(id)update
 {
   updateCopy = update;
-  v6 = sub_10001C784();
+  v6 = sub_10001C784(updateCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     state = [updateCopy state];
@@ -420,31 +419,29 @@ LABEL_9:
 - (void)_updateAnnounceEnabled:(BOOL)enabled
 {
   [(CARAnnounceNotificationsPanel *)self siriCallbackInvocationCount];
-  [(CARAnnounceNotificationsPanel *)self userNotificationsCallbackInvocationCount];
-  v5 = sub_10001C784();
+  v5 = sub_10001C784([(CARAnnounceNotificationsPanel *)self userNotificationsCallbackInvocationCount]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_100090F90(enabled, v5);
   }
 
-  v6 = sub_10001C784();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = sub_10001C784(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     sub_10009100C();
   }
 
   [(CARAnnounceNotificationsPanel *)self setSiriCallbackInvocationCount:0];
-  [(CARAnnounceNotificationsPanel *)self setUserNotificationsCallbackInvocationCount:0];
-  v7 = sub_10001C784();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = sub_10001C784([(CARAnnounceNotificationsPanel *)self setUserNotificationsCallbackInvocationCount:0]);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_100091080();
   }
 
   if (enabled)
   {
-    v8 = 4;
-    v9 = 3;
+    v10 = 4;
+    v11 = 3;
   }
 
   else
@@ -452,35 +449,35 @@ LABEL_9:
     siriPreferences = [(CARAnnounceNotificationsPanel *)self siriPreferences];
     [siriPreferences clearAnnounceNotificationsInCarPlayTemporarilyDisabled];
 
-    v9 = 1;
-    v8 = 1;
+    v11 = 1;
+    v10 = 1;
   }
 
-  v11 = sub_10001C784();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v13 = sub_10001C784(v9);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     sub_100091124();
   }
 
-  v12 = +[UNNotificationSettingsCenter currentNotificationSettingsCenter];
-  notificationSystemSettings = [v12 notificationSystemSettings];
+  v14 = +[UNNotificationSettingsCenter currentNotificationSettingsCenter];
+  notificationSystemSettings = [v14 notificationSystemSettings];
   announcementCarPlaySetting = [notificationSystemSettings announcementCarPlaySetting];
 
-  v15 = sub_10001C784();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v18 = sub_10001C784(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v33 = 134349312;
-    v34 = announcementCarPlaySetting;
-    v35 = 2050;
-    v36 = v9;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[Settings] Current announcementCarPlaySetting:  %{public}li New announcementCarPlaySetting: %{public}li", &v33, 0x16u);
+    v43 = 134349312;
+    v44 = announcementCarPlaySetting;
+    v45 = 2050;
+    v46 = v11;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "[Settings] Current announcementCarPlaySetting:  %{public}li New announcementCarPlaySetting: %{public}li", &v43, 0x16u);
   }
 
-  v16 = sub_10001C784();
-  v17 = v16;
-  if (announcementCarPlaySetting == v9)
+  v20 = sub_10001C784(v19);
+  v21 = v20;
+  if (announcementCarPlaySetting == v11)
   {
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       sub_100091270();
     }
@@ -490,37 +487,36 @@ LABEL_9:
 
   else
   {
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v33 = 134349312;
-      v34 = announcementCarPlaySetting;
-      v35 = 2050;
-      v36 = v9;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[Settings] Updating announcementCarPlaySetting from %{public}li to %{public}li", &v33, 0x16u);
+      v43 = 134349312;
+      v44 = announcementCarPlaySetting;
+      v45 = 2050;
+      v46 = v11;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "[Settings] Updating announcementCarPlaySetting from %{public}li to %{public}li", &v43, 0x16u);
     }
 
-    v18 = sub_10001C784();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v23 = sub_10001C784(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       sub_1000911B0();
     }
 
     [(CARAnnounceNotificationsPanel *)self setPendingAnnounceEnablementChangeFromUserNotifications:1];
-    notificationSystemSettings2 = [v12 notificationSystemSettings];
-    v20 = [notificationSystemSettings2 mutableCopy];
+    notificationSystemSettings2 = [v14 notificationSystemSettings];
+    v25 = [notificationSystemSettings2 mutableCopy];
 
-    [v20 setAnnouncementCarPlaySetting:v9];
-    notificationSystemSettings3 = [v12 notificationSystemSettings];
+    [v25 setAnnouncementCarPlaySetting:v11];
+    notificationSystemSettings3 = [v14 notificationSystemSettings];
     announcementSetting = [notificationSystemSettings3 announcementSetting];
 
     if (announcementSetting != 2)
     {
-      [v20 setAnnouncementSetting:2];
+      [v25 setAnnouncementSetting:2];
     }
 
-    [v12 setNotificationSystemSettings:v20];
-    v23 = sub_10001C784();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    v28 = sub_10001C784([v14 setNotificationSystemSettings:v25]);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
       sub_1000911E4();
     }
@@ -529,59 +525,59 @@ LABEL_9:
   siriPreferences2 = [(CARAnnounceNotificationsPanel *)self siriPreferences];
   carPlayAnnounceEnablementType = [siriPreferences2 carPlayAnnounceEnablementType];
 
-  v26 = sub_10001C784();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v32 = sub_10001C784(v31);
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
-    v33 = 134349312;
-    v34 = carPlayAnnounceEnablementType;
-    v35 = 2050;
-    v36 = v8;
-    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "[Settings] Current carPlayAnnounceEnablementType: %{public}li New carPlayAnnounceEnablementType %{public}li", &v33, 0x16u);
+    v43 = 134349312;
+    v44 = carPlayAnnounceEnablementType;
+    v45 = 2050;
+    v46 = v10;
+    _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "[Settings] Current carPlayAnnounceEnablementType: %{public}li New carPlayAnnounceEnablementType %{public}li", &v43, 0x16u);
   }
 
-  v27 = sub_10001C784();
-  v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
-  if (carPlayAnnounceEnablementType == v8)
+  v34 = sub_10001C784(v33);
+  v35 = os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT);
+  if (carPlayAnnounceEnablementType == v10)
   {
-    if (v28)
+    if (v35)
     {
-      LOWORD(v33) = 0;
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "[Settings] #DEBUG updating carPlayAnnounceEnablementType to NO", &v33, 2u);
+      LOWORD(v43) = 0;
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "[Settings] #DEBUG updating carPlayAnnounceEnablementType to NO", &v43, 2u);
     }
 
-    [(CARAnnounceNotificationsPanel *)self setPendingAnnounceEnablementChangeFromSiri:0];
+    v36 = [(CARAnnounceNotificationsPanel *)self setPendingAnnounceEnablementChangeFromSiri:0];
   }
 
   else
   {
-    if (v28)
+    if (v35)
     {
-      v33 = 134349312;
-      v34 = carPlayAnnounceEnablementType;
-      v35 = 2050;
-      v36 = v8;
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "[Settings] Updating carPlayAnnounceEnablementType from %{public}li to %{public}li", &v33, 0x16u);
+      v43 = 134349312;
+      v44 = carPlayAnnounceEnablementType;
+      v45 = 2050;
+      v46 = v10;
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "[Settings] Updating carPlayAnnounceEnablementType from %{public}li to %{public}li", &v43, 0x16u);
     }
 
-    v29 = sub_10001C784();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+    v38 = sub_10001C784(v37);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
     {
       sub_1000912A4();
     }
 
     [(CARAnnounceNotificationsPanel *)self setPendingAnnounceEnablementChangeFromSiri:1];
     siriPreferences3 = [(CARAnnounceNotificationsPanel *)self siriPreferences];
-    [siriPreferences3 setCarPlayAnnounceEnablementType:v8];
+    [siriPreferences3 setCarPlayAnnounceEnablementType:v10];
 
-    v31 = sub_10001C784();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+    v41 = sub_10001C784(v40);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
     {
       sub_1000912D8();
     }
   }
 
-  v32 = sub_10001C784();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+  v42 = sub_10001C784(v36);
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
   {
     sub_100091364();
   }
@@ -626,8 +622,8 @@ LABEL_9:
   {
     if (carPlayAnnounceEnablementType >= 2)
     {
-      v8 = sub_10001C784();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = sub_10001C784(v5);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_1000913F0();
       }
@@ -648,7 +644,7 @@ LABEL_9:
 - (void)_updateAnnounceMuted:(BOOL)muted
 {
   mutedCopy = muted;
-  v5 = sub_10001C784();
+  v5 = sub_10001C784(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7[0] = 67240192;
@@ -666,7 +662,7 @@ LABEL_9:
 {
   if (type < 2)
   {
-    v5 = sub_10001C784();
+    v5 = sub_10001C784(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_100091458();

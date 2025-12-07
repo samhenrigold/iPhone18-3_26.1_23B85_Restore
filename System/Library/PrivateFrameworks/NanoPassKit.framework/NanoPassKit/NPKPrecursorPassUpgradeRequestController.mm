@@ -77,27 +77,27 @@ void __79__NPKPrecursorPassUpgradeRequestController_fetchUpgradeRequestsWithComp
 
 - (void)precursorPassUpgradeRequestDidChange
 {
-  v3 = pk_General_log();
+  v3 = pk_General_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: NPKPrecursorPassUpgradeRequestController: Received precursor pass upgrade request did change.", buf, 2u);
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: NPKPrecursorPassUpgradeRequestController: Received precursor pass upgrade request did change.", buf, 2u);
     }
   }
 
   objc_initWeak(buf, self);
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __80__NPKPrecursorPassUpgradeRequestController_precursorPassUpgradeRequestDidChange__block_invoke;
-  v6[3] = &unk_279947410;
-  objc_copyWeak(&v7, buf);
-  [(NPKPrecursorPassUpgradeRequestController *)self fetchUpgradeRequestsWithCompletion:v6];
-  objc_destroyWeak(&v7);
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __80__NPKPrecursorPassUpgradeRequestController_precursorPassUpgradeRequestDidChange__block_invoke;
+  v7[3] = &unk_279947410;
+  objc_copyWeak(&v8, buf);
+  [(NPKPrecursorPassUpgradeRequestController *)self fetchUpgradeRequestsWithCompletion:v7];
+  objc_destroyWeak(&v8);
   objc_destroyWeak(buf);
 }
 

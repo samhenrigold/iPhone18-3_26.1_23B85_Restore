@@ -183,7 +183,7 @@ uint64_t __57__AVCAnsweringMachine_registerDidStartBlockWithInstance___block_inv
     v18 = 0xAAAAAAAAAAAAAAAALL;
     v19 = -1;
     v20 = -1;
-    [VCFileUtil statsOfFile:l];
+    objc_msgSend_statsOfFile_(VCFileUtil, a2, l);
     v17 = 0;
     v9 = VCUtil_BinaryPrefix(v18, &v17);
     MEMORY[0x1E128B580](&dword_1DB56E000, "@:@ AVCAnsweringMachine-didStop");
@@ -515,7 +515,7 @@ LABEL_23:
   [v4 UTF8String];
   v5 = sandbox_extension_consume();
 LABEL_24:
-  [*(a1 + 48) printDidStop:v2 messageRecordingURL:v3 error:{*(a1 + 56), *v21, *&v21[16], v22, v23}];
+  [*(a1 + 48) printDidStop:v2 messageRecordingURL:v3 error:{*(a1 + 56), *v21, *&v21[8], v22, v23}];
   [*(a1 + 64) answeringMachine:*(a1 + 48) didStop:v2 messageRecordingURL:v3 error:*(a1 + 56)];
   return [AVCAnsweringMachine cleanUpMessageRecordingURL:v3 messageRecordingURLSandboxExtensionHandle:v5];
 }
@@ -1018,100 +1018,98 @@ LABEL_52:
 
 - (void)printInitConfiguration
 {
-  v35 = *MEMORY[0x1E69E9840];
-  announcementAsset = [(AVCAnsweringMachineConfiguration *)self->_configuration announcementAsset];
-  if (announcementAsset)
+  v33 = *MEMORY[0x1E69E9840];
+  if ([(AVCAnsweringMachineConfiguration *)self->_configuration announcementAsset])
   {
-    v4 = announcementAsset;
     [(AVCAnsweringMachine *)self setIsAnnouncementInProgress:1];
-    v21 = 0xAAAAAAAAAAAAAAAALL;
-    v22 = NAN;
-    v23 = NAN;
-    [VCFileUtil statsOfFile:v4];
-    v24 = 0;
-    v5 = VCUtil_BinaryPrefix(0xAAAAAAAAAAAAAAAALL, &v24);
+    v19 = 0xAAAAAAAAAAAAAAAALL;
+    v20 = NAN;
+    v21 = NAN;
+    objc_msgSend_statsOfFile_(VCFileUtil);
+    v22 = 0;
+    v3 = VCUtil_BinaryPrefix(0xAAAAAAAAAAAAAAAALL, &v22);
     if (VRTraceGetErrorLogLevelForModule() >= 6)
     {
       __str = 0;
       configuration = self->_configuration;
-      v7 = configuration ? [-[AVCAnsweringMachineConfiguration description](configuration "description")] : "<nil>";
-      asprintf(&__str, "configuration=%s assetSize=%.2f%cB assetLength=%.2fs, assetAudioLength=%.2fs", v7, *&v24, v5, v22, v23);
+      v5 = configuration ? [-[AVCAnsweringMachineConfiguration description](configuration "description")] : "<nil>";
+      asprintf(&__str, "configuration=%s assetSize=%.2f%cB assetLength=%.2fs, assetAudioLength=%.2fs", v5, *&v22, v3, v20, v21);
       if (__str)
       {
         __lasts = 0;
-        v10 = strtok_r(__str, "\n", &__lasts);
-        v11 = MEMORY[0x1E6986650];
+        v8 = strtok_r(__str, "\n", &__lasts);
+        v9 = MEMORY[0x1E6986650];
         do
         {
           if (VRTraceGetErrorLogLevelForModule() >= 6)
           {
-            v12 = VRTraceErrorLogLevelToCSTR();
-            v13 = *v11;
-            if (os_log_type_enabled(*v11, OS_LOG_TYPE_DEFAULT))
+            v10 = VRTraceErrorLogLevelToCSTR();
+            v11 = *v9;
+            if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136316162;
-              v26 = v12;
-              v27 = 2080;
-              v28 = "[AVCAnsweringMachine printInitConfiguration]";
-              v29 = 1024;
-              v30 = 328;
+              v24 = v10;
+              v25 = 2080;
+              v26 = "[AVCAnsweringMachine printInitConfiguration]";
+              v27 = 1024;
+              v28 = 328;
+              v29 = 2080;
+              v30 = "AVCAnsweringMachine-init";
               v31 = 2080;
-              v32 = "AVCAnsweringMachine-init";
-              v33 = 2080;
-              v34 = v10;
-              _os_log_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s %s", buf, 0x30u);
+              v32 = v8;
+              _os_log_impl(&dword_1DB56E000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s %s", buf, 0x30u);
             }
           }
 
-          v10 = strtok_r(0, "\n", &__lasts);
+          v8 = strtok_r(0, "\n", &__lasts);
         }
 
-        while (v10);
-        v14 = __str;
+        while (v8);
+        v12 = __str;
 LABEL_24:
-        free(v14);
+        free(v12);
       }
     }
   }
 
   else if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
-    v21 = 0;
-    v8 = self->_configuration;
-    v9 = v8 ? [-[AVCAnsweringMachineConfiguration description](v8 "description")] : "<nil>";
-    asprintf(&v21, "configuration=%s", v9);
-    if (v21)
+    v19 = 0;
+    v6 = self->_configuration;
+    v7 = v6 ? [-[AVCAnsweringMachineConfiguration description](v6 "description")] : "<nil>";
+    asprintf(&v19, "configuration=%s", v7);
+    if (v19)
     {
-      v24 = 0;
-      v15 = strtok_r(v21, "\n", &v24);
-      v16 = MEMORY[0x1E6986650];
+      v22 = 0;
+      v13 = strtok_r(v19, "\n", &v22);
+      v14 = MEMORY[0x1E6986650];
       do
       {
         if (VRTraceGetErrorLogLevelForModule() >= 6)
         {
-          v17 = VRTraceErrorLogLevelToCSTR();
-          v18 = *v16;
-          if (os_log_type_enabled(*v16, OS_LOG_TYPE_DEFAULT))
+          v15 = VRTraceErrorLogLevelToCSTR();
+          v16 = *v14;
+          if (os_log_type_enabled(*v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136316162;
-            v26 = v17;
-            v27 = 2080;
-            v28 = "[AVCAnsweringMachine printInitConfiguration]";
-            v29 = 1024;
-            v30 = 321;
+            v24 = v15;
+            v25 = 2080;
+            v26 = "[AVCAnsweringMachine printInitConfiguration]";
+            v27 = 1024;
+            v28 = 321;
+            v29 = 2080;
+            v30 = "AVCAnsweringMachine-init";
             v31 = 2080;
-            v32 = "AVCAnsweringMachine-init";
-            v33 = 2080;
-            v34 = v15;
-            _os_log_impl(&dword_1DB56E000, v18, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s %s", buf, 0x30u);
+            v32 = v13;
+            _os_log_impl(&dword_1DB56E000, v16, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s %s", buf, 0x30u);
           }
         }
 
-        v15 = strtok_r(0, "\n", &v24);
+        v13 = strtok_r(0, "\n", &v22);
       }
 
-      while (v15);
-      v14 = v21;
+      while (v13);
+      v12 = v19;
       goto LABEL_24;
     }
   }
@@ -1412,7 +1410,7 @@ LABEL_11:
   }
 
 LABEL_12:
-  [*(*(a1 + 32) + 16) sendMessageAsync:{"vcAnsweringMachineStart", *v15, *&v15[16], v16, v17, v18}];
+  [*(*(a1 + 32) + 16) sendMessageAsync:{"vcAnsweringMachineStart", *v15, *&v15[8], v16, v17, v18}];
   MEMORY[0x1E128B580](&dword_1DB56E000, "@:@ AVCAnsweringMachine-start");
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
@@ -1516,7 +1514,7 @@ LABEL_11:
   }
 
 LABEL_12:
-  [*(*(a1 + 32) + 16) sendMessageAsync:{"vcAnsweringMachineStop", *v15, *&v15[16], v16, v17, v18}];
+  [*(*(a1 + 32) + 16) sendMessageAsync:{"vcAnsweringMachineStop", *v15, *&v15[8], v16, v17, v18}];
   MEMORY[0x1E128B580](&dword_1DB56E000, "@:@ AVCAnsweringMachine-stop");
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {

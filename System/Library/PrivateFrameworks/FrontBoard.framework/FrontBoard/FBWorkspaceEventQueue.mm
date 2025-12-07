@@ -52,26 +52,24 @@ void __39__FBWorkspaceEventQueue_sharedInstance__block_invoke()
 
 - (void)executeOrAppendEvent:(id)event
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v4 = MEMORY[0x1E695DEC8];
   eventCopy2 = event;
   v6 = [v4 arrayWithObjects:&eventCopy count:1];
 
-  [(BSEventQueue *)self executeOrInsertEvents:v6 atPosition:1, eventCopy, v9];
-  v7 = *MEMORY[0x1E69E9840];
+  [(BSEventQueue *)self executeOrInsertEvents:v6 atPosition:1, eventCopy, v8];
 }
 
 - (void)executeOrPrependEvent:(id)event
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v4 = MEMORY[0x1E695DEC8];
   eventCopy2 = event;
   v6 = [v4 arrayWithObjects:&eventCopy count:1];
 
-  [(FBWorkspaceEventQueue *)self executeOrPrependEvents:v6, eventCopy, v9];
-  v7 = *MEMORY[0x1E69E9840];
+  [(FBWorkspaceEventQueue *)self executeOrPrependEvents:v6, eventCopy, v8];
 }
 
 - (BOOL)_shouldProcessEvent:(id)event enqueuedDuringExecutionOfEvent:(id)ofEvent
@@ -130,19 +128,17 @@ void __39__FBWorkspaceEventQueue_sharedInstance__block_invoke()
 
 - (void)_shouldProcessEvent:(void *)a1 enqueuedDuringExecutionOfEvent:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 name];
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_error_impl(&dword_1A89DD000, a2, OS_LOG_TYPE_ERROR, "Event %{public}@ queued an identically named event while still executing. Dropping it.", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_error_impl(&dword_1A89DD000, a2, OS_LOG_TYPE_ERROR, "Event %{public}@ queued an identically named event while still executing. Dropping it.", &v4, 0xCu);
 }
 
 - (void)_noteWillPendEvents:(NSObject *)a3 atPosition:.cold.1(void *a1, int a2, NSObject *a3)
 {
   v5 = a1;
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v6 = [a1 count];
   if (v6 == 1)
   {
@@ -155,36 +151,32 @@ void __39__FBWorkspaceEventQueue_sharedInstance__block_invoke()
     v7 = @"back";
   }
 
-  v9 = 138543618;
-  v10 = v5;
-  v11 = 2112;
-  v12 = v7;
-  _os_log_debug_impl(&dword_1A89DD000, a3, OS_LOG_TYPE_DEBUG, "Pending: %{public}@; queue position: %@", &v9, 0x16u);
+  v8 = 138543618;
+  v9 = v5;
+  v10 = 2112;
+  v11 = v7;
+  _os_log_debug_impl(&dword_1A89DD000, a3, OS_LOG_TYPE_DEBUG, "Pending: %{public}@; queue position: %@", &v8, 0x16u);
   if (v6 == 1)
   {
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_noteWillCancelEventsWithName:(os_log_t)log count:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 134218242;
-  v5 = a2;
-  v6 = 2114;
-  v7 = a1;
-  _os_log_debug_impl(&dword_1A89DD000, log, OS_LOG_TYPE_DEBUG, "Removing %lu event(s) named %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 134218242;
+  v4 = a2;
+  v5 = 2114;
+  v6 = a1;
+  _os_log_debug_impl(&dword_1A89DD000, log, OS_LOG_TYPE_DEBUG, "Removing %lu event(s) named %{public}@", &v3, 0x16u);
 }
 
 - (void)_noteWillExecuteEvent:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1A89DD000, a2, OS_LOG_TYPE_DEBUG, "Executing: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1A89DD000, a2, OS_LOG_TYPE_DEBUG, "Executing: %{public}@", &v2, 0xCu);
 }
 
 @end

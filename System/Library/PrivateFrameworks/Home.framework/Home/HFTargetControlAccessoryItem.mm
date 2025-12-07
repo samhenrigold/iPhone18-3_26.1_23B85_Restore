@@ -90,7 +90,7 @@ LABEL_8:
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v6 = [HFServiceLikeItemUpdateRequest alloc];
   accessory = [(HFTargetControlAccessoryItem *)self accessory];
@@ -101,12 +101,12 @@ LABEL_8:
   if (v10)
   {
     v11 = [(HFServiceLikeItemUpdateRequest *)v10 updateWithOptions:optionsCopy];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __60__HFTargetControlAccessoryItem__subclass_updateWithOptions___block_invoke;
-    v20[3] = &unk_277DF2828;
-    v20[4] = self;
-    v12 = [v11 flatMap:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __60__HFTargetControlAccessoryItem__subclass_updateWithOptions___block_invoke;
+    v19[3] = &unk_277DF2828;
+    v19[4] = self;
+    v12 = [v11 flatMap:v19];
   }
 
   else
@@ -114,14 +114,14 @@ LABEL_8:
     v13 = HFLogForCategory(0x2CuLL);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v18 = NSStringFromSelector(a2);
+      v17 = NSStringFromSelector(a2);
       accessory2 = [(HFTargetControlAccessoryItem *)self accessory];
       *buf = 138412802;
       selfCopy = self;
-      v23 = 2112;
-      v24 = v18;
-      v25 = 2112;
-      v26 = accessory2;
+      v22 = 2112;
+      v23 = v17;
+      v24 = 2112;
+      v25 = accessory2;
       _os_log_error_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_ERROR, "%@:%@ Failed to create HFServiceLikeItemUpdateRequest. Accessory: %@ ", buf, 0x20u);
     }
 
@@ -131,8 +131,6 @@ LABEL_8:
   }
 
   v15 = v12;
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -231,9 +229,9 @@ id __60__HFTargetControlAccessoryItem__subclass_updateWithOptions___block_invoke
 - (HMHome)home
 {
   accessory = [(HFTargetControlAccessoryItem *)self accessory];
-  home = [accessory home];
+  v3 = objc_msgSend_home(accessory);
 
-  return home;
+  return v3;
 }
 
 - (id)accessories

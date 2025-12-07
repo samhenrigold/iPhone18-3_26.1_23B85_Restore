@@ -295,9 +295,9 @@ LABEL_3:
 
   serviceClientAuthenticator = self->_serviceClientAuthenticator;
   remoteProcess = [connectionCopy remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v10 = objc_msgSend_auditToken(remoteProcess);
   v17 = 0;
-  v11 = [(FBServiceClientAuthenticator *)serviceClientAuthenticator authenticateAuditToken:auditToken error:&v17];
+  v11 = [(FBServiceClientAuthenticator *)serviceClientAuthenticator authenticateAuditToken:v10 error:&v17];
   v12 = v17;
 
   if ((v11 & 1) == 0)

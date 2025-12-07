@@ -84,22 +84,20 @@ uint64_t __52__NPHCarrierInfoCompanionReplication_sharedInstance__block_invoke()
   mEMORY[0x277D79778] = [MEMORY[0x277D79778] shared];
   isSubscribed = [mEMORY[0x277D79778] isSubscribed];
 
-  v5 = nph_general_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = nph_general_log(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315394;
     v10 = "[NPHCarrierInfoCompanionReplication _updateIsVisualVoicemailServiceSubscribed]";
     v11 = 1024;
     v12 = isSubscribed;
-    _os_log_impl(&dword_26D269000, v5, OS_LOG_TYPE_DEFAULT, "%s: %d", &v9, 0x12u);
+    _os_log_impl(&dword_26D269000, v6, OS_LOG_TYPE_DEFAULT, "%s: %d", &v9, 0x12u);
   }
 
   [(NSUserDefaults *)self->_mobilePhoneUserDefaults setBool:isSubscribed forKey:@"NPHIsVisualVoicemailServiceSubscribedKey"];
   npsManager = self->_npsManager;
-  v7 = [MEMORY[0x277CBEB98] setWithObject:@"NPHIsVisualVoicemailServiceSubscribedKey"];
-  [(NPSManager *)npsManager synchronizeUserDefaultsDomain:@"com.apple.mobilephone" keys:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = [MEMORY[0x277CBEB98] setWithObject:@"NPHIsVisualVoicemailServiceSubscribedKey"];
+  [(NPSManager *)npsManager synchronizeUserDefaultsDomain:@"com.apple.mobilephone" keys:v8];
 }
 
 - (void)_updateHasCarrierVoicemailAccountsKey
@@ -109,22 +107,20 @@ uint64_t __52__NPHCarrierInfoCompanionReplication_sharedInstance__block_invoke()
   accounts = [mEMORY[0x277D79778] accounts];
   v5 = [accounts count];
 
-  v6 = nph_general_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = nph_general_log(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 136315394;
     v11 = "[NPHCarrierInfoCompanionReplication _updateHasCarrierVoicemailAccountsKey]";
     v12 = 1024;
     v13 = v5 != 0;
-    _os_log_impl(&dword_26D269000, v6, OS_LOG_TYPE_DEFAULT, "%s: %d", &v10, 0x12u);
+    _os_log_impl(&dword_26D269000, v7, OS_LOG_TYPE_DEFAULT, "%s: %d", &v10, 0x12u);
   }
 
   [(NSUserDefaults *)self->_mobilePhoneUserDefaults setBool:v5 != 0 forKey:@"NPHHasCarrierVoicemailAccountsKey"];
   npsManager = self->_npsManager;
-  v8 = [MEMORY[0x277CBEB98] setWithObject:@"NPHHasCarrierVoicemailAccountsKey"];
-  [(NPSManager *)npsManager synchronizeUserDefaultsDomain:@"com.apple.mobilephone" keys:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = [MEMORY[0x277CBEB98] setWithObject:@"NPHHasCarrierVoicemailAccountsKey"];
+  [(NPSManager *)npsManager synchronizeUserDefaultsDomain:@"com.apple.mobilephone" keys:v9];
 }
 
 @end

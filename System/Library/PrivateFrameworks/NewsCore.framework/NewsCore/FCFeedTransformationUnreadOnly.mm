@@ -16,36 +16,34 @@
 
 - (id)transformFeedItems:(id)items
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   history = [(FCFeedTransformationUnreadOnly *)self history];
 
   if (!history && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't filter read articles without history"];
+    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't filter read articles without history"];
     *buf = 136315906;
-    v16 = "[FCFeedTransformationUnreadOnly transformFeedItems:]";
-    v17 = 2080;
-    v18 = "FCFeedTransformationUnreadOnly.m";
-    v19 = 1024;
-    v20 = 31;
-    v21 = 2114;
-    v22 = v12;
+    v15 = "[FCFeedTransformationUnreadOnly transformFeedItems:]";
+    v16 = 2080;
+    v17 = "FCFeedTransformationUnreadOnly.m";
+    v18 = 1024;
+    v19 = 31;
+    v20 = 2114;
+    v21 = v11;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   history2 = [(FCFeedTransformationUnreadOnly *)self history];
   allReadArticleIDs = [history2 allReadArticleIDs];
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __53__FCFeedTransformationUnreadOnly_transformFeedItems___block_invoke;
-  v13[3] = &unk_1E7C37898;
-  v14 = allReadArticleIDs;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __53__FCFeedTransformationUnreadOnly_transformFeedItems___block_invoke;
+  v12[3] = &unk_1E7C37898;
+  v13 = allReadArticleIDs;
   v8 = allReadArticleIDs;
-  v9 = [itemsCopy fc_arrayOfObjectsPassingTest:v13];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = [itemsCopy fc_arrayOfObjectsPassingTest:v12];
 
   return v9;
 }

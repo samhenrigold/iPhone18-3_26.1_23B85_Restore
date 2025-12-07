@@ -1,6 +1,6 @@
-void sub_1000313FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000313FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -72,9 +72,9 @@ LABEL_8:
   }
 }
 
-void sub_100031508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100031508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -231,9 +231,9 @@ LABEL_13:
   }
 }
 
-void sub_1000316D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000316D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -323,9 +323,9 @@ LABEL_9:
   return result;
 }
 
-void sub_100031804(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100031804(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -821,9 +821,9 @@ LABEL_7:
   return result;
 }
 
-void sub_1000322C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000322C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1489,7 +1489,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v7 = *(v5 + 16);
   this = wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteString();
   v6 = *(v5 + 52);
   if ((v6 & 4) == 0)
@@ -1504,13 +1503,13 @@ LABEL_4:
   }
 
 LABEL_9:
-  v8 = *(v5 + 24);
-  if (!v8)
+  v7 = *(v5 + 24);
+  if (!v7)
   {
-    v8 = *(proto::gpsd::LogEntry::default_instance_ + 24);
+    v7 = *(proto::gpsd::LogEntry::default_instance_ + 24);
   }
 
-  this = wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteMessage(5, v8, a2, a4);
+  this = wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteMessage(5, v7, a2, a4);
   v6 = *(v5 + 52);
   if ((v6 & 8) == 0)
   {
@@ -1524,23 +1523,23 @@ LABEL_5:
   }
 
 LABEL_12:
-  v9 = *(v5 + 32);
-  if (!v9)
+  v8 = *(v5 + 32);
+  if (!v8)
   {
-    v9 = *(proto::gpsd::LogEntry::default_instance_ + 32);
+    v8 = *(proto::gpsd::LogEntry::default_instance_ + 32);
   }
 
-  this = wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteMessage(6, v9, a2, a4);
+  this = wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteMessage(6, v8, a2, a4);
   if ((*(v5 + 52) & 0x10) != 0)
   {
 LABEL_15:
-    v10 = *(v5 + 40);
-    if (!v10)
+    v9 = *(v5 + 40);
+    if (!v9)
     {
-      v10 = *(proto::gpsd::LogEntry::default_instance_ + 40);
+      v9 = *(proto::gpsd::LogEntry::default_instance_ + 40);
     }
 
-    return wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteMessage(7, v10, a2, a4);
+    return wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteMessage(7, v9, a2, a4);
   }
 
   return this;
@@ -1635,7 +1634,7 @@ void GpsdInterfaceTelemeter::appendIndication(uint64_t a1, int a2, uint64_t a3)
   std::mutex::lock((a1 + 120));
   v7 = a2;
   v8 = &v7;
-  v6 = std::__hash_table<std::__hash_value_type<int,GpsdInterfaceTelemeter::MessageTypeData>,std::__unordered_map_hasher<int,std::__hash_value_type<int,GpsdInterfaceTelemeter::MessageTypeData>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,GpsdInterfaceTelemeter::MessageTypeData>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,GpsdInterfaceTelemeter::MessageTypeData>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>((a1 + 80), &v7);
+  v6 = std::__hash_table<std::__hash_value_type<int,GpsdInterfaceTelemeter::MessageTypeData>,std::__unordered_map_hasher<int,std::__hash_value_type<int,GpsdInterfaceTelemeter::MessageTypeData>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,GpsdInterfaceTelemeter::MessageTypeData>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,GpsdInterfaceTelemeter::MessageTypeData>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>((a1 + 80), &v7, &std::piecewise_construct, &v8);
   ++*(v6 + 6);
   v6[4] += a3;
   *(a1 + 200) = 1;
@@ -3423,7 +3422,6 @@ LABEL_15:
   }
 
 LABEL_42:
-  v12 = *(v5 + 80);
   this = wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteBytes();
   if ((*(v5 + 116) & 0x4000) != 0)
   {
@@ -3944,9 +3942,9 @@ uint64_t GpsdGnssDeviceManager::setAssistanceDem(uint64_t a1, uint64_t a2, uint6
   }
 }
 
-void sub_100034B9C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100034B9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4205,9 +4203,9 @@ BOOL gpsd::util::getCurrentMachContinuousMinusMachAbsoluteTicks(gpsd::util *this
   return result;
 }
 
-void sub_1000354E8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1000354E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4352,49 +4350,42 @@ void std::__function::__func<GnssDeviceCommon::setTimeTransferPulseHelper(std::f
 {
   v3 = *a2;
   v4 = *a3;
-  LODWORD(v14) = *(a3 + 1);
-  *(&v14 + 3) = *(a3 + 1);
   v5 = *(a3 + 1);
   v6 = *(a3 + 4);
-  v17 = *(a3 + 20);
-  v18 = *(a3 + 7);
   v7 = *(a3 + 4);
   v8 = *(a3 + 8);
-  v16 = *(a3 + 7);
-  v15 = *(a3 + 40);
   v9 = *(a3 + 9);
-  v10 = *(a1 + 8);
-  v11 = GpsdLogObjectGeneral;
-  v12 = 16 * (*a2 != 1);
-  v13 = os_log_type_enabled(GpsdLogObjectGeneral, v12);
-  if (v13)
+  v10 = GpsdLogObjectGeneral;
+  v11 = 16 * (*a2 != 1);
+  v12 = os_log_type_enabled(GpsdLogObjectGeneral, v11);
+  if (v12)
   {
     *buf = 67241984;
-    v20 = v3 == 1;
-    v21 = 1026;
-    v22 = v4;
+    v14 = v3 == 1;
+    v15 = 1026;
+    v16 = v4;
+    v17 = 2050;
+    v18 = v5;
+    v19 = 2050;
+    v20 = v6;
+    v21 = 2050;
+    v22 = v7;
     v23 = 2050;
-    v24 = v5;
+    v24 = v8;
     v25 = 2050;
-    v26 = v6;
-    v27 = 2050;
-    v28 = v7;
-    v29 = 2050;
-    v30 = v8;
-    v31 = 2050;
-    v32 = v9;
-    v33 = 1026;
-    v34 = v3;
-    _os_log_impl(&_mh_execute_header, v11, v12, "#tt,success,%{public}d,isGpsWeekVld,%{public}d,towNs,%{public}llu,unc,%{public}.3f,rxNs,%{public}llu,bbSystemNs,%{public}llu,unc,%{public}llu,code,%{public}d", buf, 0x46u);
+    v26 = v9;
+    v27 = 1026;
+    v28 = v3;
+    _os_log_impl(&_mh_execute_header, v10, v11, "#tt,success,%{public}d,isGpsWeekVld,%{public}d,towNs,%{public}llu,unc,%{public}.3f,rxNs,%{public}llu,bbSystemNs,%{public}llu,unc,%{public}llu,code,%{public}d", buf, 0x46u);
   }
 
-  GpsdRuntime::instance(v13);
+  GpsdRuntime::instance(v12);
   operator new();
 }
 
-void sub_100035B90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100035B90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4629,70 +4620,30 @@ LABEL_19:
   }
 }
 
-void GpsdIndicationHandler::send()
+void GpsdIndicationHandler::send(uint64_t a1, uint64_t a2, unint64_t *a3)
 {
-  v0 = off_100179D00;
-  v1 = 0u;
-  v2 = 0u;
-  v3 = 0u;
+  v3 = off_100179D00;
   v4 = 0u;
   v5 = 0u;
   v6 = 0u;
   v7 = 0u;
-  v8 = 0;
-  v9 = &wireless_diagnostics::google::protobuf::internal::kEmptyString;
+  v8 = 0u;
+  v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  memset(v13, 0, sizeof(v13));
-  LODWORD(v1) = 9;
-  v14 = 0x8100000000;
+  v11 = 0;
+  v12 = &wireless_diagnostics::google::protobuf::internal::kEmptyString;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  memset(v16, 0, sizeof(v16));
+  LODWORD(v4) = 9;
+  v17 = 0x8100000000;
   operator new();
 }
 
+void sub_1000364A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  v0 = off_100179D00;
-  v1 = 0u;
-  v2 = 0u;
-  v3 = 0u;
-  v4 = 0u;
-  v5 = 0u;
-  v6 = 0u;
-  v7 = 0u;
-  v8 = 0;
-  v9 = &wireless_diagnostics::google::protobuf::internal::kEmptyString;
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  memset(v13, 0, sizeof(v13));
-  LODWORD(v1) = 4;
-  v14 = 0x10100000000;
-  operator new();
-}
-
-{
-  v0 = off_100179D00;
-  v1 = 0u;
-  v2 = 0u;
-  v3 = 0u;
-  v4 = 0u;
-  v5 = 0u;
-  v6 = 0u;
-  v7 = 0u;
-  v8 = 0;
-  v9 = &wireless_diagnostics::google::protobuf::internal::kEmptyString;
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  memset(v13, 0, sizeof(v13));
-  LODWORD(v1) = 5;
-  v14 = 0x20100000000;
-  operator new();
-}
-
-void sub_1000364A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
+  va_start(va, a5);
   proto::gpsd::Indication::~Indication(va);
   _Unwind_Resume(a1);
 }
@@ -5112,27 +5063,27 @@ void GpsdPerformanceSummary::analyzeTimeTransferData(GpsdPerformanceSummary *thi
           *&buf[4] = v17;
           *&buf[12] = 2050;
           *&buf[14] = v12;
+          v42 = 2050;
+          v43 = v18;
           v44 = 2050;
-          v45 = v18;
+          v45 = v20;
           v46 = 2050;
-          v47 = v20;
-          v48 = 2050;
-          v49 = v14;
+          v47 = v14;
           _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "PerfTimeAssist,measuredErrorMs,%{public}.3f,assistAgeSec,%{public}.3f,assistUncMs,%{public}.3f,gpsUncMs,%{public}.3f,timeBetweenGnssSessions,%{public}f", buf, 0x34u);
         }
 
-        v36 = _NSConcreteStackBlock;
-        v37 = 3221225472;
-        v38 = ___ZN22GpsdPerformanceSummary23analyzeTimeTransferDataERKN5proto4gnss22TimeTransferDataExtendE_block_invoke;
-        v39 = &__block_descriptor_56_e19___NSDictionary_8__0l;
-        v40 = this;
-        v41 = v12;
-        v42 = v14;
+        v34 = _NSConcreteStackBlock;
+        v35 = 3221225472;
+        v36 = ___ZN22GpsdPerformanceSummary23analyzeTimeTransferDataERKN5proto4gnss22TimeTransferDataExtendE_block_invoke;
+        v37 = &__block_descriptor_56_e19___NSDictionary_8__0l;
+        v38 = this;
+        v39 = v12;
+        v40 = v14;
         AnalyticsSendEventLazy();
         if ((atomic_load_explicit(&qword_100180FA0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_100180FA0))
         {
-          v34 = GpsdPreferences::instance(0);
-          _MergedGlobals_3 = GpsdPreferences::genericTestCase(v34) == 116;
+          v32 = GpsdPreferences::instance(0);
+          _MergedGlobals_3 = GpsdPreferences::genericTestCase(v32) == 116;
           __cxa_guard_release(&qword_100180FA0);
         }
 
@@ -5144,7 +5095,7 @@ void GpsdPerformanceSummary::analyzeTimeTransferData(GpsdPerformanceSummary *thi
             operator new();
           }
 
-          if (v44 >= 0)
+          if (v42 >= 0)
           {
             v21 = buf;
           }
@@ -5154,9 +5105,9 @@ void GpsdPerformanceSummary::analyzeTimeTransferData(GpsdPerformanceSummary *thi
             v21 = *buf;
           }
 
-          if (v44 >= 0)
+          if (v42 >= 0)
           {
-            v22 = HIBYTE(v44);
+            v22 = HIBYTE(v42);
           }
 
           else
@@ -5174,26 +5125,24 @@ void GpsdPerformanceSummary::analyzeTimeTransferData(GpsdPerformanceSummary *thi
             std::__throw_bad_optional_access[abi:ne200100]();
           }
 
-          v26 = *(this + 17);
-          v27 = std::ostream::operator<<();
-          v28 = *v27;
-          *(v27 + *(*v27 - 24) + 16) = 1;
-          *(v27 + *(v28 - 24) + 8) = *(v27 + *(v28 - 24) + 8) & 0xFFFFFEFB | 4;
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, ",assistAgeSec,", 14);
+          v26 = std::ostream::operator<<();
+          v27 = *v26;
+          *(v26 + *(*v26 - 24) + 16) = 1;
+          *(v26 + *(v27 - 24) + 8) = *(v26 + *(v27 - 24) + 8) & 0xFFFFFEFB | 4;
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, ",assistAgeSec,", 14);
+          v28 = std::ostream::operator<<();
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, ",assistUncMs,", 13);
           v29 = std::ostream::operator<<();
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, ",assistUncMs,", 13);
-          v30 = *(this + 32);
-          v31 = std::ostream::operator<<();
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, ",timeBetweenGnssSessionsSec,", 28);
-          v32 = std::ostream::operator<<();
-          std::ios_base::getloc((v32 + *(*v32 - 24)));
-          v33 = std::locale::use_facet(__p, &std::ctype<char>::id);
-          (v33->__vftable[2].~facet_0)(v33, 10);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, ",timeBetweenGnssSessionsSec,", 28);
+          v30 = std::ostream::operator<<();
+          std::ios_base::getloc((v30 + *(*v30 - 24)));
+          v31 = std::locale::use_facet(__p, &std::ctype<char>::id);
+          (v31->__vftable[2].~facet_0)(v31, 10);
           std::locale::~locale(__p);
           std::ostream::put();
           std::ostream::flush();
           std::ostream::flush();
-          if (SHIBYTE(v44) < 0)
+          if (SHIBYTE(v42) < 0)
           {
             operator delete(*buf);
           }
@@ -5297,9 +5246,9 @@ LABEL_9:
   }
 }
 
-void sub_100036E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100036E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5419,9 +5368,9 @@ LABEL_10:
   }
 }
 
-void sub_100037018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100037018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5834,20 +5783,18 @@ uint64_t sub_1000375A8()
 
 uint64_t sub_1000375E8()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
 
 uint64_t GPSDaemon._cm.setter(uint64_t a1)
 {
-  v3 = *(v1 + 8);
 
   *(v1 + 8) = a1;
   return result;
 }
 
-uint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = specialized _StringGuts._deconstructUTF8<A>(scratch:)(v11, 0, 0, 1, a1, a2);
@@ -5947,11 +5894,9 @@ LABEL_8:
 
 void *_StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
 {
-  v4 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
+  v3 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
   specialized Array.append<A>(contentsOf:)(&outlined read-only object #0 of _StringGuts._allocateForDeconstruct());
-  result = v4;
-  v3 = v4[2] - 1;
-  return result;
+  return v3;
 }
 
 void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
@@ -6051,7 +5996,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -6065,15 +6009,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v12, 1, v3);
+  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -6088,15 +6032,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -6105,12 +6049,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -6221,44 +6165,43 @@ id specialized GPSDaemon.init()()
 {
   v0 = type metadata accessor for Logger();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  __chkstk_darwin();
-  v4 = &v19 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = [objc_opt_self() mainBundle];
-  v6 = [v5 bundleIdentifier];
+  __chkstk_darwin(v0);
+  v3 = &v15 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = [objc_opt_self() mainBundle];
+  v5 = [v4 bundleIdentifier];
 
-  if (v6)
+  if (v5)
   {
-    v7 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v9 = v8;
+    v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v8 = v7;
   }
 
   else
   {
-    v9 = 0xE100000000000000;
-    v7 = 95;
+    v8 = 0xE100000000000000;
+    v6 = 95;
   }
 
-  corelog.getter(v4);
+  corelog.getter(v3);
 
-  v10 = Logger.logObject.getter();
-  v11 = static os_log_type_t.info.getter();
+  v9 = Logger.logObject.getter();
+  v10 = static os_log_type_t.info.getter();
 
-  if (os_log_type_enabled(v10, v11))
+  if (os_log_type_enabled(v9, v10))
   {
+    v11 = swift_slowAlloc();
     v12 = swift_slowAlloc();
-    v13 = swift_slowAlloc();
-    v19 = v13;
-    *v12 = 136315138;
-    *(v12 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v7, v9, &v19);
-    _os_log_impl(&_mh_execute_header, v10, v11, "GpsdDaemon,init,%s", v12, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v13);
+    v15 = v12;
+    *v11 = 136315138;
+    *(v11 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v6, v8, &v15);
+    _os_log_impl(&_mh_execute_header, v9, v10, "GpsdDaemon,init,%s", v11, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v12);
   }
 
-  (*(v1 + 8))(v4, v0);
-  v22 = 0;
-  GpsdDaemonProxy::GpsdDaemonProxy(&v22);
-  if (GpsdDaemonProxy::useLegacyLibXpc(&v21))
+  (*(v1 + 8))(v3, v0);
+  v18 = 0;
+  GpsdDaemonProxy::GpsdDaemonProxy(&v18);
+  if (GpsdDaemonProxy::useLegacyLibXpc(&v17))
   {
 
     return 0;
@@ -6266,16 +6209,14 @@ id specialized GPSDaemon.init()()
 
   else
   {
-    result = GpsdDaemonProxy::deviceQueue(&v20);
+    result = GpsdDaemonProxy::deviceQueue(&v16);
     if (result)
     {
-      v15 = result;
+      v14 = result;
 
-      v16 = type metadata accessor for GpsdClientManagerSingleton();
-      v17 = *(v16 + 48);
-      v18 = *(v16 + 52);
+      type metadata accessor for GpsdClientManagerSingleton();
       swift_allocObject();
-      return GpsdClientManagerSingleton.init(requestCallbackUnsafe:clientsCountCallback:queue:)(partial apply for implicit closure #4 in implicit closure #3 in GPSDaemon.init(), 0, partial apply for implicit closure #6 in implicit closure #5 in GPSDaemon.init(), 0, v15);
+      return GpsdClientManagerSingleton.init(requestCallbackUnsafe:clientsCountCallback:queue:)(partial apply for implicit closure #4 in implicit closure #3 in GPSDaemon.init(), 0, partial apply for implicit closure #6 in implicit closure #5 in GPSDaemon.init(), 0, v14);
     }
 
     else
@@ -6291,53 +6232,52 @@ uint64_t specialized static gpsd.main()()
 {
   v0 = type metadata accessor for Logger();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  v3 = (__chkstk_darwin)();
-  v5 = &v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __chkstk_darwin(v3);
-  v8 = &v22 - v7;
-  __chkstk_darwin(v6);
-  v10 = &v22 - v9;
-  corelog.getter(&v22 - v9);
-  v11 = Logger.logObject.getter();
-  v12 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v11, v12))
+  v2 = __chkstk_darwin(v0);
+  v4 = &v21 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = __chkstk_darwin(v2);
+  v7 = &v21 - v6;
+  __chkstk_darwin(v5);
+  v9 = &v21 - v8;
+  corelog.getter(&v21 - v8);
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v10, v11))
   {
-    v13 = swift_slowAlloc();
-    *v13 = 0;
-    _os_log_impl(&_mh_execute_header, v11, v12, "Starting in RELEASE", v13, 2u);
+    v12 = swift_slowAlloc();
+    *v12 = 0;
+    _os_log_impl(&_mh_execute_header, v10, v11, "Starting in RELEASE", v12, 2u);
   }
 
-  v14 = *(v1 + 8);
-  v14(v10, v0);
+  v13 = *(v1 + 8);
+  v13(v9, v0);
   specialized GPSDaemon.init()();
-  if (GpsdDaemonProxy::isEnabled(&v23))
+  if (GpsdDaemonProxy::isEnabled(&v22))
   {
-    corelog.getter(v8);
-    v19 = Logger.logObject.getter();
-    v20 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v19, v20))
+    corelog.getter(v7);
+    v18 = Logger.logObject.getter();
+    v19 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v18, v19))
     {
-      v21 = swift_slowAlloc();
-      *v21 = 0;
-      _os_log_impl(&_mh_execute_header, v19, v20, "Enabled", v21, 2u);
+      v20 = swift_slowAlloc();
+      *v20 = 0;
+      _os_log_impl(&_mh_execute_header, v18, v19, "Enabled", v20, 2u);
     }
 
-    v14(v8, v0);
+    v13(v7, v0);
     dispatch_main();
   }
 
-  corelog.getter(v5);
-  v15 = Logger.logObject.getter();
-  v16 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v15, v16))
+  corelog.getter(v4);
+  v14 = Logger.logObject.getter();
+  v15 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v14, v15))
   {
-    v17 = swift_slowAlloc();
-    *v17 = 0;
-    _os_log_impl(&_mh_execute_header, v15, v16, "Disabled,exiting", v17, 2u);
+    v16 = swift_slowAlloc();
+    *v16 = 0;
+    _os_log_impl(&_mh_execute_header, v14, v15, "Disabled,exiting", v16, 2u);
   }
 
-  return (v14)(v5, v0);
+  return (v13)(v4, v0);
 }
 
 __n128 __swift_memcpy16_8(__n128 *a1, __n128 *a2)
@@ -6553,7 +6493,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -6599,16 +6538,16 @@ uint64_t one-time initialization function for xpclog()
   return v3(v1, v2, v0);
 }
 
-uint64_t GPSXPCLogger.xpc.unsafeMutableAddressor(void *a1, uint64_t a2)
+uint64_t GPSXPCLogger.xpc.unsafeMutableAddressor(void *a1, uint64_t a2, uint64_t a3)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v3 = type metadata accessor for Logger();
+  v4 = type metadata accessor for Logger();
 
-  return __swift_project_value_buffer(v3, a2);
+  return __swift_project_value_buffer(v4, a2);
 }
 
 uint64_t xpclog.getter@<X0>(uint64_t a1@<X8>)
@@ -6648,32 +6587,32 @@ uint64_t vxpclog.getter@<X0>(uint64_t a1@<X8>)
   return outlined init with copy of Logger?(v3, a1, &_s2os6LoggerVSgMd, &_s2os6LoggerVSgMR);
 }
 
-void partial apply for implicit closure #2 in implicit closure #1 in NSXPCConnection.onData(_:)()
+void partial apply for implicit closure #2 in implicit closure #1 in NSXPCConnection.onData(_:)(uint64_t a1)
 {
   if (one-time initialization token for xpclog != -1)
   {
     swift_once();
   }
 
-  v0 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v0, xpclog);
+  v1 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v1, xpclog);
   swift_errorRetain();
   oslog = Logger.logObject.getter();
-  v1 = static os_log_type_t.fault.getter();
+  v2 = static os_log_type_t.fault.getter();
 
-  if (os_log_type_enabled(oslog, v1))
+  if (os_log_type_enabled(oslog, v2))
   {
-    v2 = swift_slowAlloc();
     v3 = swift_slowAlloc();
-    v8 = v3;
-    *v2 = 136315138;
+    v4 = swift_slowAlloc();
+    v9 = v4;
+    *v3 = 136315138;
     swift_getErrorValue();
-    v4 = Error.localizedDescription.getter();
-    v6 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v4, v5, &v8);
+    v5 = Error.localizedDescription.getter();
+    v7 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v5, v6, &v9);
 
-    *(v2 + 4) = v6;
-    _os_log_impl(&_mh_execute_header, oslog, v1, "proxyErrorHandler: %s", v2, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v3);
+    *(v3 + 4) = v7;
+    _os_log_impl(&_mh_execute_header, oslog, v2, "proxyErrorHandler: %s", v3, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v4);
   }
 
   else
@@ -6683,11 +6622,10 @@ void partial apply for implicit closure #2 in implicit closure #1 in NSXPCConnec
 
 void thunk for @escaping @callee_guaranteed (@guaranteed Error) -> ()(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v4();
+  v4 = a2;
+  v3();
 }
 
 uint64_t ALServiceDelegate._dataService.setter(__int128 *a1)
@@ -6699,7 +6637,7 @@ uint64_t ALServiceDelegate._dataService.setter(__int128 *a1)
   return swift_endAccess();
 }
 
-char *ALServiceDelegate.init(queue:dataService:)(void *a1, uint64_t *a2)
+char *ALServiceDelegate.init(queue:dataService:)(void *a1, void *a2)
 {
   *&v2[OBJC_IVAR____TtC6GPSXPC17ALServiceDelegate__queue] = a1;
   outlined init with copy of GPSXPCDataService(a2, &v2[OBJC_IVAR____TtC6GPSXPC17ALServiceDelegate__dataService]);
@@ -6863,7 +6801,7 @@ Swift::Void __swiftcall ALServiceDelegate.onInterrupt()()
   }
 }
 
-void ALServiceDelegate.interruptionHandler(_:)(void *a1, const char *a2)
+void ALServiceDelegate.interruptionHandler(_:)(void *a1, const char *a2, ...)
 {
   if (one-time initialization token for xpclog != -1)
   {
@@ -7101,15 +7039,12 @@ uint64_t outlined destroy of Any?(uint64_t a1, uint64_t *a2, uint64_t *a3)
 
 uint64_t objectdestroy_10Tm()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
 
 void partial apply for closure #1 in ALServiceDelegate.listener(_:shouldAcceptNewConnection:)(void (*a1)(void))
 {
-  v4 = *(v1 + 16);
-  v3 = *(v1 + 24);
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   a1();
@@ -7117,14 +7052,11 @@ void partial apply for closure #1 in ALServiceDelegate.listener(_:shouldAcceptNe
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -7196,17 +7128,16 @@ void DataClient._client.setter(void *a1)
   swift_unknownObjectWeakAssign();
 }
 
-void (*DataClient._client.modify(uint64_t *a1))(uint64_t a1)
+void (*DataClient._client.modify(uint64_t *a1))(id *a1)
 {
   a1[1] = v1;
   *a1 = swift_unknownObjectWeakLoadStrong();
   return DataClient._client.modify;
 }
 
-void DataClient._client.modify(uint64_t a1)
+void DataClient._client.modify(id *a1)
 {
-  v1 = *(a1 + 8);
-  v2 = *a1;
+  v1 = *a1;
   swift_unknownObjectWeakAssign();
 }
 
@@ -7259,25 +7190,22 @@ uint64_t key path getter for GpsdClientManager._clientsIndication : GpsdClientMa
   return result;
 }
 
-uint64_t key path setter for GpsdClientManager._clientsIndication : GpsdClientManager(uint64_t *a1, uint64_t a2)
+uint64_t key path setter for GpsdClientManager._clientsIndication : GpsdClientManager(void *a1, uint64_t a2)
 {
-  v2 = *a1;
-  v3 = *(**a2 + 120);
+  v2 = *(**a2 + 120);
 
-  return v3(v4);
+  return v2(v3);
 }
 
 uint64_t GpsdClientManager._clientsIndication.setter(uint64_t a1)
 {
   swift_beginAccess();
-  v3 = *(v1 + 16);
   *(v1 + 16) = a1;
 }
 
 uint64_t GpsdClientManager._clientsCountCallback.getter()
 {
   v1 = *(v0 + 24);
-  v2 = *(v0 + 32);
 
   return v1;
 }
@@ -7315,7 +7243,6 @@ void GpsdClientManager._delegate.setter(uint64_t a1)
 uint64_t GpsdClientManager._requestCallback.getter()
 {
   v1 = *(v0 + 48);
-  v2 = *(v0 + 56);
 
   return v1;
 }
@@ -7483,7 +7410,7 @@ Swift::Void __swiftcall GpsdClientManager.remove(client:)(NSXPCConnection client
 Swift::Void __swiftcall GpsdClientManager.refreshClients()()
 {
   v1 = v0;
-  v2 = (*(*v0 + 128))(v53);
+  v2 = (*(*v0 + 128))(v52);
   v4 = v3;
   v5 = *v3;
   v6 = *(*v3 + 16);
@@ -7500,9 +7427,9 @@ Swift::Void __swiftcall GpsdClientManager.refreshClients()()
         goto LABEL_44;
       }
 
-      outlined init with copy of DataClient(v8, &v52);
+      outlined init with copy of DataClient(v8, &v51);
       Strong = swift_unknownObjectWeakLoadStrong();
-      outlined destroy of DataClient(&v52);
+      outlined destroy of DataClient(&v51);
       if (!Strong)
       {
         break;
@@ -7530,9 +7457,9 @@ Swift::Void __swiftcall GpsdClientManager.refreshClients()()
     v14 = -v9;
     while (v11 < v13)
     {
-      outlined init with copy of DataClient(v12 + v14, &v52);
+      outlined init with copy of DataClient(v12 + v14, &v51);
       v15 = swift_unknownObjectWeakLoadStrong();
-      outlined destroy of DataClient(&v52);
+      outlined destroy of DataClient(&v51);
       if (v15)
       {
 
@@ -7550,13 +7477,13 @@ Swift::Void __swiftcall GpsdClientManager.refreshClients()()
             goto LABEL_46;
           }
 
-          outlined init with copy of DataClient(&v16[v7 + 4], &v52);
+          outlined init with copy of DataClient(&v16[v7 + 4], &v51);
           if (v11 >= v17)
           {
             goto LABEL_47;
           }
 
-          outlined init with copy of DataClient(v16 + v14, v51);
+          outlined init with copy of DataClient(v16 + v14, v50);
           isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
           *v4 = v16;
           if ((isUniquelyReferenced_nonNull_native & 1) == 0)
@@ -7570,7 +7497,7 @@ Swift::Void __swiftcall GpsdClientManager.refreshClients()()
             goto LABEL_48;
           }
 
-          outlined assign with take of DataClient(v51, &v16[v7 + 4]);
+          outlined assign with take of DataClient(v50, &v16[v7 + 4]);
           v19 = *v4;
           *v4 = *v4;
           if (v11 >= *(v19 + 16))
@@ -7578,7 +7505,7 @@ Swift::Void __swiftcall GpsdClientManager.refreshClients()()
             goto LABEL_49;
           }
 
-          outlined assign with take of DataClient(&v52, v19 + v14);
+          outlined assign with take of DataClient(&v51, v19 + v14);
         }
 
         ++v7;
@@ -7620,7 +7547,7 @@ LABEL_50:
   v11 = 0;
 LABEL_25:
   specialized Array.replaceSubrange<A>(_:with:)(v7, v11);
-  v2(v53, 0);
+  v2(v52, 0);
   if (one-time initialization token for corelog != -1)
   {
 LABEL_51:
@@ -7654,21 +7581,21 @@ LABEL_51:
   {
     v27 = swift_slowAlloc();
     v28 = swift_slowAlloc();
-    v53[0] = v28;
+    v52[0] = v28;
     *v27 = 136446210;
     v29 = (*(*v1 + 112))();
     v30 = *(v29 + 16);
     if (v30)
     {
-      v49 = v28;
-      v50 = v26;
-      v52 = &_swiftEmptyArrayStorage;
+      v48 = v28;
+      v49 = v26;
+      v51 = &_swiftEmptyArrayStorage;
       specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v30, 0);
-      v31 = v52;
+      v31 = v51;
       v32 = v29 + 32;
       do
       {
-        outlined init with copy of DataClient(v32, v51);
+        outlined init with copy of DataClient(v32, v50);
         v33 = swift_unknownObjectWeakLoadStrong();
         if (v33)
         {
@@ -7684,14 +7611,14 @@ LABEL_51:
           v36 = 7104878;
         }
 
-        outlined destroy of DataClient(v51);
-        v52 = v31;
+        outlined destroy of DataClient(v50);
+        v51 = v31;
         v40 = v31[2];
         v39 = v31[3];
         if (v40 >= v39 >> 1)
         {
           specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v39 > 1), v40 + 1, 1);
-          v31 = v52;
+          v31 = v51;
         }
 
         v31[2] = v40 + 1;
@@ -7704,8 +7631,8 @@ LABEL_51:
 
       while (v30);
 
-      v26 = v50;
-      v28 = v49;
+      v26 = v49;
+      v28 = v48;
     }
 
     else
@@ -7715,46 +7642,35 @@ LABEL_51:
     v42 = Array.description.getter();
     v44 = v43;
 
-    v45 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v42, v44, v53);
+    v45 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v42, v44, v52);
 
     *(v27 + 4) = v45;
     _os_log_impl(&_mh_execute_header, v25, v26, "#cm,refreshClients,%{public}s", v27, 0xCu);
     __swift_destroy_boxed_opaque_existential_0(v28);
   }
 
-  v47 = v1[3];
-  v46 = v1[4];
-  v48 = *((*(*v1 + 112))() + 16);
+  v46 = v1[3];
+  v47 = *((*(*v1 + 112))() + 16);
 
-  if (HIDWORD(v48))
+  if (HIDWORD(v47))
   {
     __break(1u);
   }
 
   else
   {
-    v47(v48);
+    v46(v47);
   }
 }
 
 uint64_t GpsdClientManager.deinit()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 32);
-
-  v3 = *(v0 + 56);
 
   return v0;
 }
 
 uint64_t GpsdClientManager.__deallocating_deinit()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 32);
-
-  v3 = *(v0 + 56);
 
   return _swift_deallocClassInstance(v0, 64, 7);
 }
@@ -7778,16 +7694,9 @@ uint64_t key path setter for static GpsdClientManagerSingleton._instance : GpsdC
   static GpsdClientManagerSingleton._instance = v1;
 }
 
-uint64_t GpsdClientManagerSingleton._cm.getter()
-{
-  swift_beginAccess();
-  v1 = *(v0 + 24);
-}
-
 uint64_t GpsdClientManagerSingleton._cm.setter(uint64_t a1)
 {
   swift_beginAccess();
-  v3 = *(v1 + 24);
   *(v1 + 24) = a1;
 }
 
@@ -7849,16 +7758,8 @@ LABEL_11:
   }
 }
 
-uint64_t GpsdClientManagerSingleton.deinit()
-{
-  v1 = *(v0 + 24);
-
-  return v0;
-}
-
 uint64_t GpsdClientManagerSingleton.__deallocating_deinit()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocClassInstance(v0, 32, 7);
 }
@@ -7952,7 +7853,7 @@ uint64_t outlined destroy of NSObject?(uint64_t a1)
   return a1;
 }
 
-char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, int64_t a2, char a3)
+char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
@@ -8038,51 +7939,51 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
   return v10;
 }
 
-uint64_t specialized Data._Representation.withUnsafeBytes<A>(_:)(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, void (*a5)(void))
+uint64_t specialized Data._Representation.withUnsafeBytes<A>(_:)(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, void (*a5)(void), uint64_t a6)
 {
-  v7 = BYTE5(a2);
-  v8 = a2 >> 62;
+  v8 = BYTE5(a2);
+  v9 = a2 >> 62;
   if ((a2 >> 62) <= 1)
   {
-    if (!v8)
+    if (!v9)
     {
-      v26[0] = a1;
-      LOWORD(v26[1]) = a2;
-      BYTE2(v26[1]) = BYTE2(a2);
-      BYTE3(v26[1]) = BYTE3(a2);
-      BYTE4(v26[1]) = BYTE4(a2);
-      v9 = BYTE6(a2);
-      BYTE5(v26[1]) = v7;
+      v27[0] = a1;
+      LOWORD(v27[1]) = a2;
+      BYTE2(v27[1]) = BYTE2(a2);
+      BYTE3(v27[1]) = BYTE3(a2);
+      BYTE4(v27[1]) = BYTE4(a2);
+      v10 = BYTE6(a2);
+      BYTE5(v27[1]) = v8;
 LABEL_24:
-      (a5)(v26, v9);
+      (a5)(v27, v10);
       goto LABEL_25;
     }
 
-    v18 = a1;
-    v19 = (a1 >> 32) - a1;
+    v19 = a1;
+    v20 = (a1 >> 32) - a1;
     if (a1 >> 32 >= a1)
     {
-      v25 = a5;
-      v12 = __DataStorage._bytes.getter();
-      if (!v12)
+      v26 = a5;
+      v13 = __DataStorage._bytes.getter();
+      if (!v13)
       {
         goto LABEL_16;
       }
 
-      v20 = __DataStorage._offset.getter();
-      if (!__OFSUB__(v18, v20))
+      v21 = __DataStorage._offset.getter();
+      if (!__OFSUB__(v19, v21))
       {
-        v12 += v18 - v20;
+        v13 += v19 - v21;
 LABEL_16:
-        v21 = __DataStorage._length.getter();
-        if (v21 >= v19)
+        v22 = __DataStorage._length.getter();
+        if (v22 >= v20)
         {
-          v17 = v19;
+          v18 = v20;
         }
 
         else
         {
-          v17 = v21;
+          v18 = v22;
         }
 
         goto LABEL_19;
@@ -8096,63 +7997,63 @@ LABEL_29:
     goto LABEL_27;
   }
 
-  if (v8 != 2)
+  if (v9 != 2)
   {
-    memset(v26, 0, 14);
-    v9 = 0;
+    memset(v27, 0, 14);
+    v10 = 0;
     goto LABEL_24;
   }
 
-  v25 = a5;
-  v11 = *(a1 + 16);
-  v10 = *(a1 + 24);
-  v12 = __DataStorage._bytes.getter();
-  if (v12)
+  v26 = a5;
+  v12 = *(a1 + 16);
+  v11 = *(a1 + 24);
+  v13 = __DataStorage._bytes.getter();
+  if (v13)
   {
-    v13 = __DataStorage._offset.getter();
-    if (__OFSUB__(v11, v13))
+    v14 = __DataStorage._offset.getter();
+    if (__OFSUB__(v12, v14))
     {
 LABEL_28:
       __break(1u);
       goto LABEL_29;
     }
 
-    v12 += v11 - v13;
+    v13 += v12 - v14;
   }
 
-  v14 = __OFSUB__(v10, v11);
-  v15 = v10 - v11;
-  if (v14)
+  v15 = __OFSUB__(v11, v12);
+  v16 = v11 - v12;
+  if (v15)
   {
 LABEL_27:
     __break(1u);
     goto LABEL_28;
   }
 
-  v16 = __DataStorage._length.getter();
-  if (v16 >= v15)
+  v17 = __DataStorage._length.getter();
+  if (v17 >= v16)
   {
-    v17 = v15;
+    v18 = v16;
   }
 
   else
   {
-    v17 = v16;
+    v18 = v17;
   }
 
 LABEL_19:
-  v22 = v17 + v12;
-  if (v12)
+  v23 = v18 + v13;
+  if (v13)
   {
-    v23 = v22;
+    v24 = v23;
   }
 
   else
   {
-    v23 = 0;
+    v24 = 0;
   }
 
-  closure #1 in closure #1 in GpsdClientManagerSingleton.init(requestCallbackUnsafe:clientsCountCallback:queue:)(v12, v23, a3, a4, v25);
+  closure #1 in closure #1 in GpsdClientManagerSingleton.init(requestCallbackUnsafe:clientsCountCallback:queue:)(v13, v24, a3, a4, v26);
 LABEL_25:
   outlined consume of Data._Representation(a3, a4);
 }
@@ -8265,22 +8166,21 @@ LABEL_17:
     return result;
   }
 
-  v9 = *v2;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
   *v2 = v4;
   if (!isUniquelyReferenced_nonNull_native || v8 > v4[3] >> 1)
   {
     if (v5 <= v8)
     {
-      v11 = v8;
+      v10 = v8;
     }
 
     else
     {
-      v11 = v5;
+      v10 = v5;
     }
 
-    v4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v11, 1, v4);
+    v4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v10, 1, v4);
     *v2 = v4;
   }
 
@@ -8294,138 +8194,132 @@ void specialized MutableCollection._halfStablePartition(isSuffixElement:)(void *
   v2 = *a1;
   v4 = (*a1 + 16);
   v3 = *v4;
-  if (!*v4)
+  if (*v4)
   {
-LABEL_24:
-    v19 = *v4;
-    return;
-  }
-
-  v5 = 0;
-  v6 = 5;
-  while (1)
-  {
-    v7 = v2;
-    Strong = swift_unknownObjectWeakLoadStrong();
-    if (Strong)
+    v5 = 0;
+    for (i = 5; ; ++i)
     {
-      v9 = Strong;
-      type metadata accessor for NSXPCConnection();
-      v10 = a2;
-      v11 = static NSObject.== infix(_:_:)();
-
-      if (v11)
+      v7 = v2;
+      Strong = swift_unknownObjectWeakLoadStrong();
+      if (Strong)
       {
-        break;
-      }
-    }
+        v9 = Strong;
+        type metadata accessor for NSXPCConnection();
+        v10 = a2;
+        v11 = static NSObject.== infix(_:_:)();
 
-    ++v5;
-    ++v6;
-    v2 = v7;
-    if (v3 == v5)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  v12 = v5 + 1;
-  if (__OFADD__(v5, 1))
-  {
-    goto LABEL_31;
-  }
-
-  v13 = *v4;
-  if (v12 != *v4)
-  {
-    v14 = v7;
-    do
-    {
-      if (v12 >= v13)
-      {
-        __break(1u);
-LABEL_27:
-        __break(1u);
-LABEL_28:
-        __break(1u);
-LABEL_29:
-        __break(1u);
-LABEL_30:
-        __break(1u);
-LABEL_31:
-        __break(1u);
-        return;
-      }
-
-      outlined init with copy of DataClient(&v14[v6], v24);
-      v15 = swift_unknownObjectWeakLoadStrong();
-      if (v15)
-      {
-        v16 = v15;
-        v17 = v10;
-        v22 = static NSObject.== infix(_:_:)();
-
-        outlined destroy of DataClient(v24);
-        if (v22)
+        if (v11)
         {
-          goto LABEL_10;
-        }
-
-        if (v12 != v5)
-        {
-LABEL_17:
-          if ((v5 & 0x8000000000000000) != 0)
-          {
-            goto LABEL_27;
-          }
-
-          v18 = *v4;
-          if (v5 >= v18)
-          {
-            goto LABEL_28;
-          }
-
-          outlined init with copy of DataClient(&v14[v5 + 4], v24);
-          if (v12 >= v18)
-          {
-            goto LABEL_29;
-          }
-
-          outlined init with copy of DataClient(&v14[v6], v23);
-          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-          {
-            v14 = specialized _ArrayBuffer._consumeAndCreateNew()(v14);
-          }
-
-          outlined assign with take of DataClient(v23, &v14[v5 + 4]);
-          if (v12 >= v14[2])
-          {
-            goto LABEL_30;
-          }
-
-          outlined assign with take of DataClient(v24, &v14[v6]);
-          *a1 = v14;
-        }
-      }
-
-      else
-      {
-        outlined destroy of DataClient(v24);
-        if (v12 != v5)
-        {
-          goto LABEL_17;
+          break;
         }
       }
 
       ++v5;
-LABEL_10:
-      ++v12;
-      v4 = v14 + 2;
-      v13 = v14[2];
-      ++v6;
+      v2 = v7;
+      if (v3 == v5)
+      {
+        return;
+      }
     }
 
-    while (v12 != v13);
+    v12 = v5 + 1;
+    if (__OFADD__(v5, 1))
+    {
+      goto LABEL_30;
+    }
+
+    v13 = *v4;
+    if (v12 != *v4)
+    {
+      v14 = v7;
+      do
+      {
+        if (v12 >= v13)
+        {
+          __break(1u);
+LABEL_26:
+          __break(1u);
+LABEL_27:
+          __break(1u);
+LABEL_28:
+          __break(1u);
+LABEL_29:
+          __break(1u);
+LABEL_30:
+          __break(1u);
+          return;
+        }
+
+        outlined init with copy of DataClient(&v14[i], v23);
+        v15 = swift_unknownObjectWeakLoadStrong();
+        if (v15)
+        {
+          v16 = v15;
+          v17 = v10;
+          v21 = static NSObject.== infix(_:_:)();
+
+          outlined destroy of DataClient(v23);
+          if (v21)
+          {
+            goto LABEL_10;
+          }
+
+          if (v12 != v5)
+          {
+LABEL_17:
+            if ((v5 & 0x8000000000000000) != 0)
+            {
+              goto LABEL_26;
+            }
+
+            v18 = *v4;
+            if (v5 >= v18)
+            {
+              goto LABEL_27;
+            }
+
+            outlined init with copy of DataClient(&v14[v5 + 4], v23);
+            if (v12 >= v18)
+            {
+              goto LABEL_28;
+            }
+
+            outlined init with copy of DataClient(&v14[i], v22);
+            if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+            {
+              v14 = specialized _ArrayBuffer._consumeAndCreateNew()(v14);
+            }
+
+            outlined assign with take of DataClient(v22, &v14[v5 + 4]);
+            if (v12 >= v14[2])
+            {
+              goto LABEL_29;
+            }
+
+            outlined assign with take of DataClient(v23, &v14[i]);
+            *a1 = v14;
+          }
+        }
+
+        else
+        {
+          outlined destroy of DataClient(v23);
+          if (v12 != v5)
+          {
+            goto LABEL_17;
+          }
+        }
+
+        ++v5;
+LABEL_10:
+        ++v12;
+        v4 = v14 + 2;
+        v13 = v14[2];
+        ++i;
+      }
+
+      while (v12 != v13);
+    }
   }
 }
 
@@ -8443,7 +8337,6 @@ uint64_t specialized GpsdClientManagerSingleton.init(requestCallbackUnsafe:clien
 
   GpsdClientManager.init(requestCallback:clientsCountCallback:queue:)(partial apply for closure #1 in GpsdClientManagerSingleton.init(requestCallbackUnsafe:clientsCountCallback:queue:), v12, a3, a4, v14);
   swift_beginAccess();
-  v15 = *(v6 + 24);
   *(v6 + 24) = v13;
 
   swift_beginAccess();
@@ -8460,15 +8353,15 @@ uint64_t specialized GpsdClientManagerSingleton.init(requestCallbackUnsafe:clien
       swift_once();
     }
 
-    v16 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v16, corelog);
-    v17 = Logger.logObject.getter();
-    v18 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v17, v18))
+    v15 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v15, corelog);
+    v16 = Logger.logObject.getter();
+    v17 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v16, v17))
     {
-      v19 = swift_slowAlloc();
-      *v19 = 0;
-      _os_log_impl(&_mh_execute_header, v17, v18, "GpsdClientManagerSingleton,instance", v19, 2u);
+      v18 = swift_slowAlloc();
+      *v18 = 0;
+      _os_log_impl(&_mh_execute_header, v16, v17, "GpsdClientManagerSingleton,instance", v18, 2u);
     }
 
     static GpsdClientManagerSingleton._instance = v6;
@@ -8525,7 +8418,7 @@ uint64_t partial apply for closure #1 in GpsdClientManagerSingleton.init(request
   v5 = *(v2 + 24);
   outlined copy of Data._Representation(a1, a2);
 
-  return specialized Data._Representation.withUnsafeBytes<A>(_:)(a1, a2, a1, a2, v6);
+  return specialized Data._Representation.withUnsafeBytes<A>(_:)(a1, a2, a1, a2, v6, v5);
 }
 
 unint64_t type metadata accessor for NSXPCConnection()
@@ -8547,92 +8440,91 @@ uint64_t GnssDeviceHelper::handleRequest(gnss::Exception *a1, uint64_t a2, uint6
   if (!v5)
   {
     v9 = gnss::Exception::instance(a1);
-    v10 = *(a2 + 12);
-    gnss::Exception::set(v9, 10);
+    gnss::Exception::set(v9, 10, *(a2 + 12));
   }
 
   v6 = *(a2 + 12);
   switch(v6)
   {
     case 3:
-      std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v26, a3);
-      (*(*v5 + 24))(v5, v26);
-      v8 = v26;
-      goto LABEL_18;
-    case 4:
       std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v25, a3);
-      (*(*v5 + 32))(v5, v25);
+      (*(*v5 + 24))(v5, v25);
       v8 = v25;
       goto LABEL_18;
-    case 5:
+    case 4:
       std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v24, a3);
-      GnssDeviceHelper::deleteGnssData(a1, a2, v24);
+      (*(*v5 + 32))(v5, v24);
       v8 = v24;
       goto LABEL_18;
-    case 16:
+    case 5:
       std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v23, a3);
-      GnssDeviceHelper::setAssistanceDem(a1, a2, v23);
+      GnssDeviceHelper::deleteGnssData(a1, a2, v23);
       v8 = v23;
       goto LABEL_18;
-    case 17:
+    case 16:
       std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v22, a3);
-      GnssDeviceHelper::setAssistanceMapVector(a1, a2, v22);
+      GnssDeviceHelper::setAssistanceDem(a1, a2, v22);
       v8 = v22;
       goto LABEL_18;
-    case 18:
+    case 17:
       std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v21, a3);
-      GnssDeviceHelper::setAssistanceMotionActivityContext(a1, a2, v21);
+      GnssDeviceHelper::setAssistanceMapVector(a1, a2, v21);
       v8 = v21;
       goto LABEL_18;
-    case 19:
+    case 18:
       std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v20, a3);
-      GnssDeviceHelper::setAssistanceMountState(a1, a2, v20);
+      GnssDeviceHelper::setAssistanceMotionActivityContext(a1, a2, v20);
       v8 = v20;
       goto LABEL_18;
-    case 20:
+    case 19:
       std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v19, a3);
-      GnssDeviceHelper::setAssistanceSignalEnvironment(a1, a2, v19);
+      GnssDeviceHelper::setAssistanceMountState(a1, a2, v19);
       v8 = v19;
       goto LABEL_18;
-    case 21:
+    case 20:
       std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v18, a3);
-      GnssDeviceHelper::setAssistanceSpeedConstraint(a1, a2, v18);
+      GnssDeviceHelper::setAssistanceSignalEnvironment(a1, a2, v18);
       v8 = v18;
       goto LABEL_18;
-    case 22:
+    case 21:
       std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v17, a3);
-      GnssDeviceHelper::setAssistanceAlongTrackVelocity(a1, a2, v17);
+      GnssDeviceHelper::setAssistanceSpeedConstraint(a1, a2, v17);
       v8 = v17;
       goto LABEL_18;
-    case 24:
+    case 22:
       std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v16, a3);
-      GnssDeviceHelper::setConfigSimulatorMode(a1, a2, v16);
+      GnssDeviceHelper::setAssistanceAlongTrackVelocity(a1, a2, v16);
       v8 = v16;
       goto LABEL_18;
-    case 25:
+    case 24:
       std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v15, a3);
-      GnssDeviceHelper::setConfigEnableGnssConstellations(a1, a2, v15);
+      GnssDeviceHelper::setConfigSimulatorMode(a1, a2, v15);
       v8 = v15;
       goto LABEL_18;
-    case 26:
+    case 25:
       std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v14, a3);
-      GnssDeviceHelper::setConfigDutyCycling(a1, a2, v14);
+      GnssDeviceHelper::setConfigEnableGnssConstellations(a1, a2, v14);
       v8 = v14;
       goto LABEL_18;
-    case 31:
+    case 26:
       std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v13, a3);
-      GnssDeviceHelper::setThermalRiskState(a1, a2, v13);
+      GnssDeviceHelper::setConfigDutyCycling(a1, a2, v13);
       v8 = v13;
+      goto LABEL_18;
+    case 31:
+      std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v12, a3);
+      GnssDeviceHelper::setThermalRiskState(a1, a2, v12);
+      v8 = v12;
 LABEL_18:
       result = std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v8);
       break;
     default:
-      v12 = GpsdLogObjectGeneral;
+      v11 = GpsdLogObjectGeneral;
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
       {
         *buf = 67240192;
-        v28 = v6;
-        _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "#gdm,handleRequest type %{public}d not supported!", buf, 8u);
+        LODWORD(v27) = v6;
+        _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "#gdm,handleRequest type %{public}d not supported!", buf, 8u);
       }
 
       result = std::function<void ()(gnss::Result)>::operator()(a3, 7);
@@ -8663,9 +8555,9 @@ uint64_t GnssDeviceHelper::deleteGnssData(uint64_t **a1, uint64_t a2, uint64_t a
   return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v6);
 }
 
-void sub_10003DDB8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10003DDB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8681,9 +8573,9 @@ uint64_t GnssDeviceHelper::setAssistanceDem(uint64_t **a1, double *a2, uint64_t 
   return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v8);
 }
 
-void sub_10003DE88(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10003DE88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8709,9 +8601,9 @@ uint64_t GnssDeviceHelper::setAssistanceMapVector(uint64_t **a1, uint64_t a2, ui
   return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v18);
 }
 
-void sub_10003DFD4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10003DFD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8742,9 +8634,9 @@ void GnssDeviceHelper::setAssistanceMotionActivityContext(uint64_t **a1, uint64_
   }
 }
 
-void sub_10003E128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_10003E128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8759,9 +8651,9 @@ uint64_t GnssDeviceHelper::setAssistanceMountState(uint64_t **a1, uint64_t a2, u
   return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v7);
 }
 
-void sub_10003E1F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10003E1F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8775,9 +8667,9 @@ uint64_t GnssDeviceHelper::setAssistanceSignalEnvironment(uint64_t **a1, uint64_
   return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v6);
 }
 
-void sub_10003E2B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10003E2B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8794,9 +8686,9 @@ uint64_t GnssDeviceHelper::setAssistanceSpeedConstraint(uint64_t **a1, double *a
   return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v9);
 }
 
-void sub_10003E390(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10003E390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8812,9 +8704,9 @@ uint64_t GnssDeviceHelper::setAssistanceAlongTrackVelocity(uint64_t **a1, double
   return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v8);
 }
 
-void sub_10003E460(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10003E460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8848,9 +8740,9 @@ LABEL_7:
   return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v14);
 }
 
-void sub_10003E5B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10003E5B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8890,9 +8782,9 @@ uint64_t GnssDeviceHelper::setConfigDutyCycling(uint64_t **a1, uint64_t a2, uint
   return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v6);
 }
 
-void sub_10003E7D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10003E7D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8938,12 +8830,12 @@ uint64_t GnssHal::ExtensionsFireImpl::submitSoftwareRecoveryStatistics(uint64_t 
   return result;
 }
 
-uint64_t GnssHal::ExtensionsFireImpl::factoryTestXml@<X0>(GnssHal::ExtensionsFireImpl *this@<X0>, void *a2@<X8>)
+void GnssHal::ExtensionsFireImpl::factoryTestXml(GnssHal::ExtensionsFireImpl *this@<X0>, std::string **a2@<X8>)
 {
-  result = *(this + 11);
-  if (result)
+  v2 = *(this + 11);
+  if (v2)
   {
-    (*(*result + 48))(__p);
+    (*(*v2 + 48))(__p);
     v3 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
     {
@@ -8962,15 +8854,14 @@ uint64_t GnssHal::ExtensionsFireImpl::factoryTestXml@<X0>(GnssHal::ExtensionsFir
   }
 
   *a2 = 0;
-  return result;
 }
 
-uint64_t GnssHal::ExtensionsFireImpl::factoryTestJob@<X0>(GnssHal::ExtensionsFireImpl *this@<X0>, void *a2@<X8>)
+void GnssHal::ExtensionsFireImpl::factoryTestJob(GnssHal::ExtensionsFireImpl *this@<X0>, std::string **a2@<X8>)
 {
-  result = *(this + 15);
-  if (result)
+  v2 = *(this + 15);
+  if (v2)
   {
-    (*(*result + 48))(__p);
+    (*(*v2 + 48))(__p);
     v3 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
     {
@@ -8989,10 +8880,9 @@ uint64_t GnssHal::ExtensionsFireImpl::factoryTestJob@<X0>(GnssHal::ExtensionsFir
   }
 
   *a2 = 0;
-  return result;
 }
 
-void GnssHal::ExtensionsFireImpl::bundleName(GnssHal::ExtensionsFireImpl *this)
+void GnssHal::ExtensionsFireImpl::bundleName()
 {
   v1 = GpsdPreferences::instance(0);
   GpsdPreferences::bundleName(v1, &v2);
@@ -9009,10 +8899,10 @@ void sub_10003EDA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void GnssHal::ExtensionsFireImpl::nvStorePath(GnssHal::ExtensionsFireImpl *this)
+void GnssHal::ExtensionsFireImpl::nvStorePath()
 {
   v1 = GpsdPreferences::instance(0);
-  GpsdPreferences::nvStorePath(v1, &v2);
+  GpsdPreferences::nvStorePath(&v2, v1);
   operator new();
 }
 
@@ -9085,7 +8975,7 @@ uint64_t GnssHal::ExtensionsFireImpl::updateBeiDouConsistencyStats(uint64_t a1)
   return result;
 }
 
-void GnssHal::ExtensionsFireImpl::debugSettingsString(_BYTE *a1@<X8>)
+void GnssHal::ExtensionsFireImpl::debugSettingsString(void *a1@<X8>)
 {
   GpsdPreferences::instance(0);
 
@@ -9369,20 +9259,11 @@ uint64_t GnssHal::ExtensionsOlafImpl::platformSpecificFeaturesBitmask(GnssHal::E
   return GpsdPreferences::platformSpecificFeaturesBitmask(v1);
 }
 
-void GnssHal::ExtensionsOlafImpl::debugSettingsString(_BYTE *a1@<X8>)
+void GnssHal::ExtensionsOlafImpl::debugSettingsString(void *a1@<X8>)
 {
   GpsdPreferences::instance(0);
 
   GpsdPreferences::debugSettingsString(a1);
-}
-
-double GnssHal::ExtensionsOlafImpl::crossCorrelationSettings(GnssHal::ExtensionsOlafImpl *this)
-{
-  result = *(this + 12);
-  v2 = *(this + 13);
-  v3 = *(this + 14);
-  v4 = *(this + 15);
-  return result;
 }
 
 uint64_t std::__function::__value_func<void ()(int,std::string)>::~__value_func[abi:ne200100](uint64_t a1)
@@ -9653,7 +9534,7 @@ void *GpsdIndicationHandler::GpsdIndicationHandler(void *a1, uint64_t a2, uint64
   return a1;
 }
 
-void GpsdIndicationHandler::send(uint64_t a1, int *a2)
+void GpsdIndicationHandler::send(uint64_t a1, unsigned int *a2)
 {
   v4 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
@@ -9750,9 +9631,9 @@ LABEL_20:
   __assert_rtn(v14, "GpsdProtocol.pb.h", v13, v12);
 }
 
-void sub_1000407F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000407F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   proto::gpsd::Indication::~Indication(va);
   _Unwind_Resume(a1);
 }
@@ -9767,7 +9648,49 @@ void GpsdIndicationHandler::send(gpsd::util *a1, void *a2)
   operator new();
 }
 
-void GpsdIndicationHandler::send(uint64_t a1, uint64_t a2, double a3)
+void GpsdIndicationHandler::send(uint64_t a1, uint64_t a2)
+{
+  v2 = off_100179D00;
+  v3 = 0u;
+  v4 = 0u;
+  v5 = 0u;
+  v6 = 0u;
+  v7 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v10 = 0;
+  v11 = &wireless_diagnostics::google::protobuf::internal::kEmptyString;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  memset(v15, 0, sizeof(v15));
+  LODWORD(v3) = 4;
+  v16 = 0x10100000000;
+  operator new();
+}
+
+void GpsdIndicationHandler::send(uint64_t a1, _DWORD *a2)
+{
+  v2 = off_100179D00;
+  v3 = 0u;
+  v4 = 0u;
+  v5 = 0u;
+  v6 = 0u;
+  v7 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v10 = 0;
+  v11 = &wireless_diagnostics::google::protobuf::internal::kEmptyString;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  memset(v15, 0, sizeof(v15));
+  LODWORD(v3) = 5;
+  v16 = 0x20100000000;
+  operator new();
+}
+
+void GpsdIndicationHandler::send(uint64_t a1, uint64_t *a2, double a3)
 {
   v3 = *(a1 + 16);
   v4 = *(a2 + 8);
@@ -9790,4 +9713,171 @@ void GpsdIndicationHandler::send(uint64_t a1, uint64_t a2, double a3)
   LODWORD(v6) = 19;
   v19 = 0x80100000000;
   operator new();
+}
+
+uint64_t GpsdProtobufHandler::GpsdProtobufHandler(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  *a1 = off_100171BA8;
+  v7 = a1 + 96;
+  std::__function::__value_func<void ()(proto::gpsd::Indication &&)>::__value_func[abi:ne200100](v34, a3);
+  GpsdIndicationHandler::GpsdIndicationHandler((a1 + 8), v7, v34, a4);
+  v8 = std::__function::__value_func<void ()(proto::gpsd::Indication &&)>::~__value_func[abi:ne200100](v34);
+  v9 = 0;
+  *(a1 + 88) = a4;
+  *(a1 + 256) = 0;
+  *(a1 + 272) = 0;
+  *v7 = 0u;
+  *(v7 + 16) = 0u;
+  *(v7 + 32) = 0;
+  *(a1 + 136) = 0u;
+  *(a1 + 152) = 0u;
+  *(a1 + 168) = 0;
+  __asm { FMOV            V1.2D, #-1.0 }
+
+  *(a1 + 176) = _Q1;
+  *(a1 + 192) = 0;
+  *(a1 + 196) = 0;
+  *(a1 + 203) = 0;
+  *(a1 + 208) = 0u;
+  *(a1 + 224) = 0u;
+  *(a1 + 328) = 0u;
+  *(a1 + 344) = 0u;
+  *(a1 + 296) = 0u;
+  *(a1 + 312) = 0u;
+  *(a1 + 280) = 0u;
+  *(a1 + 368) = -1082130432;
+  *(a1 + 384) = -1;
+  *(a1 + 392) = 0u;
+  *(a1 + 408) = 0u;
+  *(a1 + 424) = 0u;
+  *(a1 + 240) = 0;
+  *(a1 + 248) = 0xBFF0000000000000;
+  *(a1 + 360) = 0;
+  *(a1 + 372) = 0;
+  *(a1 + 376) = 0;
+  *(a1 + 440) = 0xBFF0000000000000;
+  *(a1 + 448) = _Q1;
+  *(a1 + 488) = 0;
+  *(a1 + 464) = 0xBFF0000000000000;
+  *(a1 + 472) = 0;
+  *(a1 + 480) = 0;
+  *(a1 + 496) = _Q1;
+  *(a1 + 512) = xmmword_100142B80;
+  *(a1 + 528) = _Q1;
+  *(a1 + 544) = 0;
+  *(a1 + 552) = 0;
+  *(a1 + 640) = 0;
+  *(a1 + 608) = 0u;
+  *(a1 + 624) = 0u;
+  *(a1 + 576) = 0u;
+  *(a1 + 592) = 0u;
+  *(a1 + 560) = 0u;
+  do
+  {
+    v15 = a1 + v9;
+    *(v15 + 720) = 0;
+    *(v15 + 728) = 0;
+    v9 += 16;
+  }
+
+  while (v9 != 112);
+  *(a1 + 712) = 0;
+  *(a1 + 680) = 0u;
+  *(a1 + 696) = 0u;
+  *(a1 + 648) = 0u;
+  *(a1 + 664) = 0u;
+  for (i = 720; i != 832; i += 16)
+  {
+    v17 = a1 + i;
+    *v17 = 0;
+    *(v17 + 8) = 0;
+  }
+
+  *(a1 + 896) = 0;
+  *(a1 + 864) = 0u;
+  *(a1 + 880) = 0u;
+  *(a1 + 832) = 0u;
+  *(a1 + 848) = 0u;
+  *(a1 + 280) = gpsd::util::getMachContinuousTimeNs(v8) * 0.000000001;
+  *(a1 + 560) = 0u;
+  *(a1 + 576) = 0u;
+  *(a1 + 592) = 0u;
+  *(a1 + 608) = 0u;
+  *(a1 + 624) = 0u;
+  *(a1 + 640) = 0;
+  *(a1 + 648) = 0u;
+  *(a1 + 664) = 0u;
+  *(a1 + 680) = 0u;
+  *(a1 + 696) = 0u;
+  *(a1 + 712) = 0;
+  *(a1 + 288) = 0u;
+  *(a1 + 304) = 0u;
+  *(a1 + 320) = 0u;
+  *(a1 + 336) = 0u;
+  *(a1 + 352) = 0;
+  for (j = 720; j != 832; j += 16)
+  {
+    v19 = a1 + j;
+    *v19 = 0;
+    *(v19 + 8) = 0;
+  }
+
+  *(a1 + 896) = 0;
+  *(a1 + 864) = 0u;
+  *(a1 + 880) = 0u;
+  *(a1 + 832) = 0u;
+  *(a1 + 848) = 0u;
+  *(a1 + 904) = 0xBFF0000000000000;
+  *(a1 + 912) = 0xBFF0000000000000;
+  *(a1 + 920) = 0;
+  *(a1 + 928) = 850045863;
+  *(a1 + 984) = 0;
+  *(a1 + 936) = 0u;
+  *(a1 + 952) = 0u;
+  *(a1 + 968) = 0u;
+  std::__function::__value_func<void ()(proto::gpsd::Response &&)>::__value_func[abi:ne200100](a1 + 992, a2);
+  if (!*(a2 + 24))
+  {
+    v21 = GpsdLogObjectGeneral;
+    if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "responseCallback,nullptr", buf, 2u);
+      v21 = GpsdLogObjectGeneral;
+    }
+
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446722;
+      v29 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Daemon/GpsdProtobufHandler.cpp";
+      v30 = 1026;
+      v31 = 177;
+      v32 = 2082;
+      v33 = "GpsdProtobufHandler";
+      _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+    }
+
+    std::string::basic_string[abi:ne200100]<0>(v26, "assert");
+    std::string::basic_string[abi:ne200100]<0>(v24, "GpsdProtobufHandler");
+    std::string::basic_string[abi:ne200100]<0>(__p, "responseCallback,nullptr");
+    gpsd::util::triggerDiagnosticReport(v26, v24, __p);
+    if (v23 < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    if (v25 < 0)
+    {
+      operator delete(v24[0]);
+    }
+
+    if (v27 < 0)
+    {
+      operator delete(v26[0]);
+    }
+
+    __assert_rtn("GpsdProtobufHandler", "GpsdProtobufHandler.cpp", 177, "false && responseCallback,nullptr");
+  }
+
+  return a1;
 }

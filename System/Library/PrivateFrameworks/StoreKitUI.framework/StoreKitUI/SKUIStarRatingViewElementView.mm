@@ -225,86 +225,87 @@
 
 - (void)drawRect:(CGRect)rect
 {
-  [(SKUIStarRatingViewElementView *)self bounds:rect.origin.x];
-  v5 = v4;
-  v7 = v6;
-  v8 = MEMORY[0x277CBF3A0];
-  v10 = *(MEMORY[0x277CBF3A0] + 8);
-  v9 = *(MEMORY[0x277CBF3A0] + 16);
-  v11 = *(MEMORY[0x277CBF3A0] + 24);
-  ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection();
+  v4 = [(SKUIStarRatingViewElementView *)self bounds:rect.origin.x];
+  v6 = v5;
+  v8 = v7;
+  v9 = MEMORY[0x277CBF3A0];
+  v11 = *(MEMORY[0x277CBF3A0] + 8);
+  v10 = *(MEMORY[0x277CBF3A0] + 16);
+  v12 = *(MEMORY[0x277CBF3A0] + 24);
+  ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection(v4, v13);
   starRatingImage = self->_starRatingImage;
-  v14 = v11;
-  v15 = v9;
-  v16 = v10;
+  v16 = v12;
+  v17 = v10;
+  v18 = v11;
   if (starRatingImage)
   {
     [(UIImage *)starRatingImage size];
-    v14 = v17;
-    *&v17 = (v7 - v17 + 2.0) * 0.5;
-    v16 = floorf(*&v17);
+    v16 = v19;
+    *&v19 = (v8 - v19 + 2.0) * 0.5;
+    v18 = floorf(*&v19);
   }
 
-  rect = v15;
-  v18 = *v8;
+  rect = v17;
+  v20 = *v9;
   textLayout = self->_textLayout;
-  if (textLayout && ([(SKUIAttributedStringLayout *)textLayout boundingSize], v9 = v20, v11 = v21, *&v20 = (v7 - v21) * 0.5, v10 = floorf(*&v20), self->_starRatingImage))
+  if (textLayout && ([(SKUIAttributedStringLayout *)textLayout boundingSize], v10 = v22, v12 = v23, *&v22 = (v8 - v23) * 0.5, v11 = floorf(*&v22), self->_starRatingImage))
   {
-    v22 = v18;
+    v24 = v20;
     if ((ShouldReverseLayoutDirection & 1) == 0)
     {
-      v33.origin.x = v18;
-      v33.origin.y = v16;
-      v33.size.width = rect;
-      v33.size.height = v14;
-      v22 = CGRectGetMaxX(v33) + self->_elementSpacing;
+      v37.origin.x = v20;
+      v37.origin.y = v18;
+      v37.size.width = rect;
+      v37.size.height = v16;
+      v24 = CGRectGetMaxX(v37) + self->_elementSpacing;
     }
 
-    if (v9 >= v5 - v22)
+    if (v10 >= v6 - v24)
     {
-      v9 = v5 - v22;
+      v10 = v6 - v24;
     }
 
-    if (v14 < v11)
+    if (v16 < v12)
     {
       [(SKUIAttributedStringLayout *)self->_textLayout baselineOffset];
-      *&v23 = v23 + v10 - v14 + 2.0;
-      v16 = ceilf(*&v23);
+      *&v25 = v25 + v11 - v16 + 2.0;
+      v18 = ceilf(*&v25);
     }
   }
 
   else
   {
-    v22 = v18;
+    v24 = v20;
   }
 
   if (ShouldReverseLayoutDirection && self->_starRatingImage)
   {
-    v34.origin.x = v22;
-    v34.origin.y = v10;
-    v34.size.width = v9;
-    v34.size.height = v11;
-    v18 = CGRectGetMaxX(v34) + self->_elementSpacing;
+    v38.origin.x = v24;
+    v38.origin.y = v11;
+    v38.size.width = v10;
+    v38.size.height = v12;
+    v20 = CGRectGetMaxX(v38) + self->_elementSpacing;
   }
 
   attributedString = [(SKUIAttributedStringLayout *)self->_textLayout attributedString];
+  v35 = attributedString;
   if (attributedString)
   {
     stringDrawingContext = [(SKUIAttributedStringLayout *)self->_textLayout stringDrawingContext];
-    [attributedString drawWithRect:33 options:stringDrawingContext context:{v22, v10, v9, v11}];
+    [v35 drawWithRect:33 options:stringDrawingContext context:{v24, v11, v10, v12}];
   }
 
-  if (storeShouldReverseLayoutDirection())
+  if (storeShouldReverseLayoutDirection(attributedString, v27))
   {
-    v25 = MEMORY[0x277D755B8];
+    v29 = MEMORY[0x277D755B8];
     cGImage = [(UIImage *)self->_starRatingImage CGImage];
     [(UIImage *)self->_starRatingImage scale];
-    v27 = [v25 imageWithCGImage:cGImage scale:4 orientation:?];
-    v28 = self->_starRatingImage;
-    self->_starRatingImage = v27;
+    v31 = [v29 imageWithCGImage:cGImage scale:4 orientation:?];
+    v32 = self->_starRatingImage;
+    self->_starRatingImage = v31;
   }
 
-  [(UIImage *)self->_starRatingImage drawInRect:0 blendMode:v18 alpha:v16, recta, v14, 1.0];
+  [(UIImage *)self->_starRatingImage drawInRect:0 blendMode:v20 alpha:v18, recta, v16, 1.0];
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
@@ -369,29 +370,35 @@
     containerViewElementType = [contextCopy containerViewElementType];
     if (containerViewElementType == 134 || containerViewElementType == 104)
     {
-      v10 = SKUIFontPreferredFontForTextStyle(21);
+      v11 = SKUIFontPreferredFontForTextStyle(21, v10);
     }
 
     else
     {
-      v10 = SKUIFontForTextStyle(10);
+      v11 = SKUIFontForTextStyle(10, v10);
     }
 
-    v8 = v10;
+    v8 = v11;
   }
 
   tintColor = [contextCopy tintColor];
-  v12 = SKUIViewElementPlainColorWithStyle(style, tintColor);
+  v13 = SKUIViewElementPlainColorWithStyle(style, tintColor);
 
-  if (!v12)
+  if (!v13)
   {
-    v12 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.6];
+    v13 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.6];
   }
 
   text = [elementCopy text];
-  v14 = [text attributedStringWithDefaultFont:v8 foregroundColor:v12 style:style];
+  v15 = [text attributedStringWithDefaultFont:v8 foregroundColor:v13 style:style];
 
-  return v14;
+  return v15;
+}
+
+- (void)initWithFrame:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStarRatingViewElementView initWithFrame:]";
 }
 
 + (void)prefetchResourcesForViewElement:reason:context:.cold.1()
@@ -406,6 +413,24 @@
   v2 = *MEMORY[0x277D85DE8];
   v0 = 136446210;
   v1 = "+[SKUIStarRatingViewElementView preferredSizeForViewElement:context:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIStarRatingViewElementView requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIStarRatingViewElementView sizeThatFitsWidth:viewElement:context:]";
+}
+
++ (void)textPropertiesForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIStarRatingViewElementView textPropertiesForViewElement:width:context:]";
 }
 
 @end

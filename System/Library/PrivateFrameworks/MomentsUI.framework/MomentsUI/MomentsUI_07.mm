@@ -1,4 +1,277 @@
-uint64_t type metadata accessor for VideoCollectionViewCell()
+id InterstitialCollectionViewCell.__deallocating_deinit()
+{
+  v2.receiver = v0;
+  v2.super_class = type metadata accessor for InterstitialCollectionViewCell();
+  return objc_msgSendSuper2(&v2, sel_dealloc);
+}
+
+uint64_t outlined destroy of NSObject?(uint64_t a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+  (*(*(v2 - 8) + 8))(a1, v2);
+  return a1;
+}
+
+uint64_t static VideoCollectionViewCell.registration.getter@<X0>(uint64_t a1@<X8>)
+{
+  if (one-time initialization token for registration != -1)
+  {
+    swift_once();
+  }
+
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16UICollectionViewC5UIKitE16CellRegistrationVy_9MomentsUI015VideoCollectionbD0CAF06ClienthB5ModelCGMd, &_sSo16UICollectionViewC5UIKitE16CellRegistrationVy_9MomentsUI015VideoCollectionbD0CAF06ClienthB5ModelCGMR);
+  v3 = __swift_project_value_buffer(v2, static VideoCollectionViewCell.registration);
+  v4 = *(*(v2 - 8) + 16);
+
+  return v4(a1, v3, v2);
+}
+
+void *VideoCollectionViewCell.videoView.getter()
+{
+  v1 = *(v0 + OBJC_IVAR____TtC9MomentsUI23VideoCollectionViewCell_videoView);
+  v2 = v1;
+  return v1;
+}
+
+id VideoCollectionViewCell.__allocating_init(frame:)(double a1, double a2, double a3, double a4)
+{
+  v9 = objc_allocWithZone(v4);
+
+  return [v9 initWithFrame_];
+}
+
+id VideoCollectionViewCell.__allocating_init(coder:)(void *a1)
+{
+  v3 = [objc_allocWithZone(v1) initWithCoder_];
+
+  return v3;
+}
+
+void VideoCollectionViewCell.init(coder:)()
+{
+  if (one-time initialization token for empty != -1)
+  {
+    swift_once();
+  }
+
+  v0 = static MutableVideoViewModel.empty;
+  v1 = objc_allocWithZone(type metadata accessor for VideoView(0));
+  v2 = OBJC_IVAR____TtC9MomentsUI9VideoView_videoStaticView;
+  v3 = objc_allocWithZone(type metadata accessor for VideoStaticView());
+  v4 = v0;
+  *&v1[v2] = [v3 init];
+  v5 = OBJC_IVAR____TtC9MomentsUI9VideoView_videoPlayerView;
+  *&v1[v5] = [objc_allocWithZone(type metadata accessor for VideoPlayerView()) init];
+  v6 = *MEMORY[0x277D76560];
+  if (one-time initialization token for accessibilityString != -1)
+  {
+    swift_once();
+  }
+
+  v7 = static VideoView.Constants.accessibilityString;
+  v8 = OBJC_IVAR____TtC9MomentsUI9AssetView_fallbackImageView;
+  v9 = objc_allocWithZone(MEMORY[0x277D755E8]);
+  v10 = v4;
+  *&v1[v8] = [v9 init];
+  swift_unknownObjectWeakInit();
+  v11 = OBJC_IVAR____TtC9MomentsUI9AssetView_suggestionID;
+  v12 = type metadata accessor for UUID();
+  (*(*(v12 - 8) + 56))(&v1[v11], 1, 1, v12);
+  swift_beginAccess();
+  swift_unknownObjectWeakAssign();
+  v1[OBJC_IVAR____TtC9MomentsUI9AssetView_viewStyle] = 3;
+  v30.receiver = v1;
+  v30.super_class = type metadata accessor for AssetView(0);
+  v13 = objc_msgSendSuper2(&v30, sel_initWithFrame_, 0.0, 0.0, 0.0, 0.0);
+  v14 = *((*MEMORY[0x277D85000] & *v13) + 0xE8);
+  v15 = v13;
+  v14();
+  AssetView.setFallBackView()();
+  [v15 setIsAccessibilityElement_];
+  v16 = [v15 accessibilityTraits];
+  if ((v6 & ~v16) != 0)
+  {
+    v17 = v6;
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  v18 = OBJC_IVAR____TtC9MomentsUI23VideoCollectionViewCell_videoView;
+  [v15 setAccessibilityTraits_];
+  v19 = MEMORY[0x21CE91FC0](v7, *(&v7 + 1));
+  [v15 setAccessibilityLabel_];
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy5UIKit17UITraitDefinition_pXpGMd, &_ss23_ContiguousArrayStorageCy5UIKit17UITraitDefinition_pXpGMR);
+  v20 = swift_allocObject();
+  *(v20 + 16) = xmmword_21658CA50;
+  v21 = type metadata accessor for UITraitUserInterfaceStyle();
+  v22 = MEMORY[0x277D74BF0];
+  *(v20 + 32) = v21;
+  *(v20 + 40) = v22;
+  v23 = v15;
+  MEMORY[0x21CE92C30](v20, sel_handleTraitChange);
+  swift_unknownObjectRelease();
+
+  [v23 handleTraitChange];
+  [v23 setTranslatesAutoresizingMaskIntoConstraints_];
+
+  [v23 setClipsToBounds_];
+  v24 = *&v23[OBJC_IVAR____TtC9MomentsUI9VideoView_videoStaticView];
+  v25 = v23;
+  [v25 addSubview_];
+  [v25 addSubview_];
+  UIView.fillSuper(horizontalMargin:verticalMargin:)(0.0, 0.0);
+
+  UIView.fillSuper(horizontalMargin:verticalMargin:)(0.0, 0.0);
+
+  v26 = *&v25[OBJC_IVAR____TtC9MomentsUI9AssetView_fallbackImageView];
+  v27 = MEMORY[0x21CE91FC0](0x6F65646976, 0xE500000000000000);
+  v28 = [objc_opt_self() systemImageNamed_];
+
+  [v26 setImage_];
+  *(v29 + v18) = v13;
+  _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+}
+
+Swift::Void __swiftcall VideoCollectionViewCell.releaseResources()()
+{
+  v1 = v0;
+  if (one-time initialization token for views != -1)
+  {
+    swift_once();
+  }
+
+  v2 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v2, static CommonLogger.views);
+  v3 = Logger.logObject.getter();
+  v4 = static os_log_type_t.debug.getter();
+  if (os_log_type_enabled(v3, v4))
+  {
+    v5 = swift_slowAlloc();
+    *v5 = 0;
+    _os_log_impl(&dword_21607C000, v3, v4, "[PhotoCollectionViewCell] release resources", v5, 2u);
+    MEMORY[0x21CE94770](v5, -1, -1);
+  }
+
+  v6 = *(v1 + OBJC_IVAR____TtC9MomentsUI23VideoCollectionViewCell_videoView);
+  if (v6)
+  {
+    (*((*MEMORY[0x277D85000] & *v6) + 0x120))();
+  }
+}
+
+id VideoCollectionViewCell.__deallocating_deinit()
+{
+  v2.receiver = v0;
+  v2.super_class = type metadata accessor for VideoCollectionViewCell(0);
+  return objc_msgSendSuper2(&v2, sel_dealloc);
+}
+
+char *specialized VideoCollectionViewCell.init(frame:)()
+{
+  v1 = v0;
+  if (one-time initialization token for empty != -1)
+  {
+    swift_once();
+  }
+
+  v2 = static MutableVideoViewModel.empty;
+  v3 = objc_allocWithZone(type metadata accessor for VideoView(0));
+  v4 = OBJC_IVAR____TtC9MomentsUI9VideoView_videoStaticView;
+  v5 = objc_allocWithZone(type metadata accessor for VideoStaticView());
+  v6 = v2;
+  *&v3[v4] = [v5 init];
+  v7 = OBJC_IVAR____TtC9MomentsUI9VideoView_videoPlayerView;
+  *&v3[v7] = [objc_allocWithZone(type metadata accessor for VideoPlayerView()) init];
+  v8 = *MEMORY[0x277D76560];
+  if (one-time initialization token for accessibilityString != -1)
+  {
+    swift_once();
+  }
+
+  v9 = static VideoView.Constants.accessibilityString;
+  v10 = OBJC_IVAR____TtC9MomentsUI9AssetView_fallbackImageView;
+  v11 = objc_allocWithZone(MEMORY[0x277D755E8]);
+  v12 = v6;
+  *&v3[v10] = [v11 init];
+  swift_unknownObjectWeakInit();
+  v13 = OBJC_IVAR____TtC9MomentsUI9AssetView_suggestionID;
+  v14 = type metadata accessor for UUID();
+  (*(*(v14 - 8) + 56))(&v3[v13], 1, 1, v14);
+  swift_beginAccess();
+  swift_unknownObjectWeakAssign();
+  v3[OBJC_IVAR____TtC9MomentsUI9AssetView_viewStyle] = 3;
+  v38.receiver = v3;
+  v38.super_class = type metadata accessor for AssetView(0);
+  v15 = objc_msgSendSuper2(&v38, sel_initWithFrame_, 0.0, 0.0, 0.0, 0.0);
+  v16 = MEMORY[0x277D85000];
+  v17 = *((*MEMORY[0x277D85000] & *v15) + 0xE8);
+  v18 = v15;
+  v17();
+  AssetView.setFallBackView()();
+  [v18 setIsAccessibilityElement_];
+  v19 = [v18 accessibilityTraits];
+  if ((v8 & ~v19) != 0)
+  {
+    v20 = v8;
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  v21 = OBJC_IVAR____TtC9MomentsUI23VideoCollectionViewCell_videoView;
+  [v18 setAccessibilityTraits_];
+  v22 = MEMORY[0x21CE91FC0](v9, *(&v9 + 1));
+  [v18 setAccessibilityLabel_];
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy5UIKit17UITraitDefinition_pXpGMd, &_ss23_ContiguousArrayStorageCy5UIKit17UITraitDefinition_pXpGMR);
+  v23 = swift_allocObject();
+  *(v23 + 16) = xmmword_21658CA50;
+  v24 = type metadata accessor for UITraitUserInterfaceStyle();
+  v25 = MEMORY[0x277D74BF0];
+  *(v23 + 32) = v24;
+  *(v23 + 40) = v25;
+  v26 = v18;
+  MEMORY[0x21CE92C30](v23, sel_handleTraitChange);
+  swift_unknownObjectRelease();
+
+  [v26 handleTraitChange];
+  [v26 setTranslatesAutoresizingMaskIntoConstraints_];
+
+  [v26 setClipsToBounds_];
+  v27 = *&v26[OBJC_IVAR____TtC9MomentsUI9VideoView_videoStaticView];
+  v28 = v26;
+  [v28 addSubview_];
+  [v28 addSubview_];
+  UIView.fillSuper(horizontalMargin:verticalMargin:)(0.0, 0.0);
+
+  UIView.fillSuper(horizontalMargin:verticalMargin:)(0.0, 0.0);
+
+  v29 = *&v28[OBJC_IVAR____TtC9MomentsUI9AssetView_fallbackImageView];
+  v30 = MEMORY[0x21CE91FC0](0x6F65646976, 0xE500000000000000);
+  v31 = [objc_opt_self() systemImageNamed_];
+
+  [v29 setImage_];
+  *(v1 + v21) = v15;
+  v32 = v28;
+  v33 = CollectionViewAssetCell.init(assetView:)(v32);
+  v34 = *((*v16 & *v33) + 0x90);
+  v35 = v33;
+  v36 = v34();
+  [v36 addSubview_];
+
+  UIView.fillSuper(horizontalMargin:verticalMargin:)(0.0, 0.0);
+
+  return v35;
+}
+
+uint64_t type metadata accessor for VideoCollectionViewCell(uint64_t a1)
 {
   result = type metadata singleton initialization cache for VideoCollectionViewCell;
   if (!type metadata singleton initialization cache for VideoCollectionViewCell)
@@ -18,14 +291,14 @@ uint64_t EngagementEvent.clientBundleID.getter()
 
 uint64_t EngagementEvent.suggestionID.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = *(type metadata accessor for EngagementEvent() + 24);
+  v3 = *(type metadata accessor for EngagementEvent(0) + 24);
   v4 = type metadata accessor for UUID();
   v5 = *(*(v4 - 8) + 16);
 
   return v5(a1, v1 + v3, v4);
 }
 
-uint64_t type metadata accessor for EngagementEvent()
+uint64_t type metadata accessor for EngagementEvent(uint64_t a1)
 {
   result = type metadata singleton initialization cache for EngagementEvent;
   if (!type metadata singleton initialization cache for EngagementEvent)
@@ -38,21 +311,21 @@ uint64_t type metadata accessor for EngagementEvent()
 
 uint64_t EngagementEvent.suggestionSubType.getter@<X0>(_BYTE *a1@<X8>)
 {
-  result = type metadata accessor for EngagementEvent();
+  result = type metadata accessor for EngagementEvent(0);
   *a1 = *(v1 + *(result + 28));
   return result;
 }
 
 uint64_t EngagementEvent.type.getter@<X0>(_BYTE *a1@<X8>)
 {
-  result = type metadata accessor for EngagementEvent();
+  result = type metadata accessor for EngagementEvent(0);
   *a1 = *(v1 + *(result + 32));
   return result;
 }
 
 uint64_t EngagementEvent.uiContainer.getter@<X0>(_BYTE *a1@<X8>)
 {
-  result = type metadata accessor for EngagementEvent();
+  result = type metadata accessor for EngagementEvent(0);
   *a1 = *(v1 + *(result + 36));
   return result;
 }
@@ -65,7 +338,7 @@ uint64_t EngagementEvent.init(clientBundleID:ranking:suggestionID:suggestionSubT
   *a8 = a1;
   *(a8 + 1) = a2;
   *(a8 + 2) = a3;
-  v13 = type metadata accessor for EngagementEvent();
+  v13 = type metadata accessor for EngagementEvent(0);
   v14 = v13[6];
   v15 = type metadata accessor for UUID();
   result = (*(*(v15 - 8) + 32))(&a8[v14], a4, v15);
@@ -75,13 +348,13 @@ uint64_t EngagementEvent.init(clientBundleID:ranking:suggestionID:suggestionSubT
   return result;
 }
 
-uint64_t type metadata completion function for EngagementEvent()
+uint64_t type metadata completion function for EngagementEvent(uint64_t a1)
 {
   result = type metadata accessor for SuggestionRanking();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for UUID();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
@@ -113,7 +386,7 @@ id RouteSpotlightView.currentStyle.setter(unsigned __int8 *a1)
   return result;
 }
 
-void (*RouteSpotlightView.currentStyle.modify(uint64_t *a1))(void **a1, char a2)
+uint64_t (*RouteSpotlightView.currentStyle.modify(uint64_t *a1))()
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -133,7 +406,7 @@ void (*RouteSpotlightView.currentStyle.modify(uint64_t *a1))(void **a1, char a2)
   return RouteSpotlightView.currentStyle.modify;
 }
 
-void RouteSpotlightView.currentStyle.modify(void **a1, char a2)
+void RouteSpotlightView.currentStyle.modify(void *a1, char a2)
 {
   v3 = *a1;
   swift_endAccess();
@@ -426,7 +699,7 @@ id Suggestion.__allocating_init(suggestionID:title:subtitle:dateRange:ranking:as
   v48 = a10;
   v46 = a6;
   v47 = a9;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   MEMORY[0x28223BE20](v17 - 8);
   v19 = &v42 - v18;
   v20 = type metadata accessor for UUID();
@@ -547,11 +820,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Suggest
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SuggestionType()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SuggestionType(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x21CE937C0](v1 - 1);
+  MEMORY[0x21CE937C0](v2 - 1);
   return Hasher._finalize()();
 }
 
@@ -1284,11 +1557,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Suggest
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SuggestionSubType()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SuggestionSubType(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x21CE937C0](qword_216590EE0[v1]);
+  MEMORY[0x21CE937C0](qword_216590EE0[v2]);
   return Hasher._finalize()();
 }
 
@@ -1348,7 +1621,7 @@ id Suggestion.init(suggestionID:title:subtitle:dateRange:ranking:assets:suggesti
   v41 = a3;
   v42 = a11;
   v39 = a10;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   MEMORY[0x28223BE20](v16 - 8);
   v18 = &v36 - v17;
   v19 = type metadata accessor for UUID();
@@ -1365,7 +1638,7 @@ id Suggestion.init(suggestionID:title:subtitle:dateRange:ranking:assets:suggesti
     outlined destroy of UUID?(v39);
     (*(v20 + 8))(a1, v19);
 
-    type metadata accessor for Suggestion();
+    type metadata accessor for Suggestion(0);
     swift_deallocPartialClassInstance();
     return 0;
   }
@@ -1419,7 +1692,7 @@ id Suggestion.init(suggestionID:title:subtitle:dateRange:ranking:assets:suggesti
     }
 
     (*(v20 + 32))(&v11[OBJC_IVAR____TtC9MomentsUI10Suggestion_id], v32, v19);
-    v34 = type metadata accessor for Suggestion();
+    v34 = type metadata accessor for Suggestion(0);
     v45.receiver = v11;
     v45.super_class = v34;
     v35 = objc_msgSendSuper2(&v45, sel_init);
@@ -1431,7 +1704,7 @@ id Suggestion.init(suggestionID:title:subtitle:dateRange:ranking:assets:suggesti
   }
 }
 
-uint64_t type metadata accessor for Suggestion()
+uint64_t type metadata accessor for Suggestion(uint64_t a1)
 {
   result = type metadata singleton initialization cache for Suggestion;
   if (!type metadata singleton initialization cache for Suggestion)
@@ -1506,45 +1779,44 @@ unint64_t Suggestion.CodingKeys.rawValue.getter(unsigned __int8 a1)
   }
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Suggestion.CodingKeys(unsigned __int8 *a1, unsigned __int8 *a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Suggestion.CodingKeys()
 {
-  v2 = *a2;
-  v3 = Suggestion.CodingKeys.stringValue.getter(*a1);
-  v5 = v4;
-  if (v3 == Suggestion.CodingKeys.stringValue.getter(v2) && v5 == v6)
+  v0 = Suggestion.CodingKeys.stringValue.getter();
+  v2 = v1;
+  if (v0 == Suggestion.CodingKeys.stringValue.getter() && v2 == v3)
   {
-    v8 = 1;
+    v5 = 1;
   }
 
   else
   {
-    v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v8 & 1;
+  return v5 & 1;
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance Suggestion.CodingKeys()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
-  Suggestion.CodingKeys.stringValue.getter(v1);
+  Suggestion.CodingKeys.stringValue.getter();
   String.hash(into:)();
 
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Suggestion.CodingKeys()
+double protocol witness for Hashable.hash(into:) in conformance Suggestion.CodingKeys(uint64_t a1)
 {
-  Suggestion.CodingKeys.stringValue.getter(*v0);
+  Suggestion.CodingKeys.stringValue.getter();
   String.hash(into:)();
+
+  return result;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Suggestion.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Suggestion.CodingKeys(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
-  Suggestion.CodingKeys.stringValue.getter(v1);
+  Suggestion.CodingKeys.stringValue.getter();
   String.hash(into:)();
 
   return Hasher._finalize()();
@@ -1559,9 +1831,9 @@ unint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance S
 
 uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance Suggestion.CodingKeys@<X0>(uint64_t *a1@<X8>)
 {
-  result = Suggestion.CodingKeys.stringValue.getter(*v1);
+  result = Suggestion.CodingKeys.stringValue.getter();
   *a1 = result;
-  a1[1] = v4;
+  a1[1] = v3;
   return result;
 }
 
@@ -1589,7 +1861,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 Swift::Void __swiftcall Suggestion.encode(with:)(NSCoder with)
 {
   v2 = v1;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v30 - v5;
   isa = UUID._bridgeToObjectiveC()().super.isa;
@@ -1629,7 +1901,7 @@ Swift::Void __swiftcall Suggestion.encode(with:)(NSCoder with)
   v21 = *(v2 + OBJC_IVAR____TtC9MomentsUI10Suggestion_assets);
   if (v21)
   {
-    type metadata accessor for Asset();
+    type metadata accessor for Asset(0);
     v21 = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -1657,7 +1929,7 @@ Swift::Void __swiftcall Suggestion.encode(with:)(NSCoder with)
 id Suggestion.init(coder:)(void *a1)
 {
   v2 = v1;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   v5 = MEMORY[0x28223BE20](v4 - 8);
   v50 = v47 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = MEMORY[0x28223BE20](v5);
@@ -1678,7 +1950,7 @@ id Suggestion.init(coder:)(void *a1)
   v20 = OBJC_IVAR____TtC9MomentsUI10Suggestion_id;
   v53 = *(v12 + 32);
   v53(&v2[OBJC_IVAR____TtC9MomentsUI10Suggestion_id], v19, v11);
-  v51 = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSUUID);
+  v51 = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSUUID, 0x277CCAD78);
   v21 = NSCoder.decodeObject<A>(of:forKey:)();
   if (!v21)
   {
@@ -1704,7 +1976,7 @@ id Suggestion.init(coder:)(void *a1)
   v53(v15, v10, v11);
   v25 = v54;
   v24(v54, v15, v11);
-  type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber);
+  type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0);
   v26 = NSCoder.decodeObject<A>(of:forKey:)();
   if (!v26)
   {
@@ -1717,22 +1989,22 @@ id Suggestion.init(coder:)(void *a1)
   v28 = [v26 integerValue];
 
   SuggestionType.init(rawValue:)(v28);
-  if (v57 == 13)
+  if (v57[0] == 13)
   {
     (*(v12 + 8))(v54, v11);
 LABEL_6:
 
 LABEL_7:
     (*(v12 + 8))(&v2[v20], v11);
-    type metadata accessor for Suggestion();
+    type metadata accessor for Suggestion(0);
     swift_deallocPartialClassInstance();
     return 0;
   }
 
-  v2[OBJC_IVAR____TtC9MomentsUI10Suggestion_suggestionType] = v57;
+  v2[OBJC_IVAR____TtC9MomentsUI10Suggestion_suggestionType] = v57[0];
   v30 = a1;
   v31 = NSCoder.decodeObject<A>(of:forKey:)();
-  if (!v31 || (v32 = v31, v33 = [v31 integerValue], v32, v30 = a1, SuggestionSubType.init(rawValue:)(v33), v34 = v57, v57 == 65))
+  if (!v31 || (v32 = v31, v33 = [v31 integerValue], v32, v30 = a1, SuggestionSubType.init(rawValue:)(v33), v34 = v57[0], v57[0] == 65))
   {
     v34 = 65;
   }
@@ -1740,12 +2012,12 @@ LABEL_7:
   v2[OBJC_IVAR____TtC9MomentsUI10Suggestion_suggestionSubType] = v34;
   v35 = v54;
   (*(v12 + 16))(&v2[OBJC_IVAR____TtC9MomentsUI10Suggestion_suggestionID], v54, v11);
-  type metadata accessor for Asset();
+  type metadata accessor for Asset(0);
   *&v2[OBJC_IVAR____TtC9MomentsUI10Suggestion_assets] = NSCoder.decodeArrayOfObjects<A>(ofClass:forKey:)();
   type metadata accessor for TemplatedString();
   *&v2[OBJC_IVAR____TtC9MomentsUI10Suggestion_title] = NSCoder.decodeObject<A>(of:forKey:)();
   *&v2[OBJC_IVAR____TtC9MomentsUI10Suggestion_subtitle] = NSCoder.decodeObject<A>(of:forKey:)();
-  type metadata accessor for DateRange();
+  type metadata accessor for DateRange(0);
   *&v2[OBJC_IVAR____TtC9MomentsUI10Suggestion_dateRange] = NSCoder.decodeObject<A>(of:forKey:)();
   type metadata accessor for SuggestionRanking();
   v36 = NSCoder.decodeObject<A>(of:forKey:)();
@@ -1783,7 +2055,7 @@ LABEL_7:
 
   v42(v44, v37, 1, v11);
   outlined init with take of UUID?(v44, &v2[OBJC_IVAR____TtC9MomentsUI10Suggestion_transferID]);
-  v45 = type metadata accessor for Suggestion();
+  v45 = type metadata accessor for Suggestion(0);
   v56.receiver = v2;
   v56.super_class = v45;
   v46 = objc_msgSendSuper2(&v56, sel_init);
@@ -1801,7 +2073,7 @@ id Suggestion.__allocating_init()()
 id Suggestion.__deallocating_deinit()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for Suggestion();
+  v2.super_class = type metadata accessor for Suggestion(0);
   return objc_msgSendSuper2(&v2, sel_dealloc);
 }
 
@@ -1926,7 +2198,7 @@ unint64_t specialized Suggestion.CodingKeys.init(rawValue:)(Swift::String string
 
 uint64_t outlined init with take of UUID?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -2531,28 +2803,28 @@ LABEL_20:
   return result;
 }
 
-void type metadata completion function for Suggestion()
+void type metadata completion function for Suggestion(uint64_t a1)
 {
   type metadata accessor for UUID();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for UUID?();
-    if (v1 <= 0x3F)
+    type metadata accessor for UUID?(319);
+    if (v2 <= 0x3F)
     {
       swift_updateClassMetadata2();
     }
   }
 }
 
-void type metadata accessor for UUID?()
+void type metadata accessor for UUID?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for UUID?)
   {
     type metadata accessor for UUID();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for UUID?);
+      atomic_store(v1, &lazy cache variable for type metadata for UUID?);
     }
   }
 }
@@ -2726,7 +2998,7 @@ uint64_t static MediaThirdPartyCollectionViewCell.registration.getter@<X0>(uint6
     swift_once();
   }
 
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16UICollectionViewC5UIKitE16CellRegistrationVy_9MomentsUI025MediaThirdPartyCollectionbD0CAF06ClienthijB5ModelCGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16UICollectionViewC5UIKitE16CellRegistrationVy_9MomentsUI025MediaThirdPartyCollectionbD0CAF06ClienthijB5ModelCGMd, &_sSo16UICollectionViewC5UIKitE16CellRegistrationVy_9MomentsUI025MediaThirdPartyCollectionbD0CAF06ClienthijB5ModelCGMR);
   v3 = __swift_project_value_buffer(v2, static MediaThirdPartyCollectionViewCell.registration);
   v4 = *(*(v2 - 8) + 16);
 
@@ -2750,7 +3022,7 @@ id MediaThirdPartyCollectionViewCell.__allocating_init(coder:)(void *a1)
 id MediaThirdPartyCollectionViewCell.__deallocating_deinit()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for MediaThirdPartyCollectionViewCell();
+  v2.super_class = type metadata accessor for MediaThirdPartyCollectionViewCell(0);
   return objc_msgSendSuper2(&v2, sel_dealloc);
 }
 
@@ -2763,7 +3035,7 @@ char *specialized MediaThirdPartyCollectionViewCell.init(frame:)()
 
   v0 = static MutableMediaThirdPartyViewModel.empty;
   v10 = 2;
-  v1 = objc_allocWithZone(type metadata accessor for MediaThirdPartyView());
+  v1 = objc_allocWithZone(type metadata accessor for MediaThirdPartyView(0));
   v2 = MediaThirdPartyView.init(viewModel:style:)(v0, &v10);
   if (v2)
   {
@@ -2781,13 +3053,13 @@ char *specialized MediaThirdPartyCollectionViewCell.init(frame:)()
 
   else
   {
-    v9 = [objc_allocWithZone(type metadata accessor for AssetView()) init];
+    v9 = [objc_allocWithZone(type metadata accessor for AssetView(0)) init];
 
     return CollectionViewAssetCell.init(assetView:)(v9);
   }
 }
 
-uint64_t type metadata accessor for MediaThirdPartyCollectionViewCell()
+uint64_t type metadata accessor for MediaThirdPartyCollectionViewCell(uint64_t a1)
 {
   result = type metadata singleton initialization cache for MediaThirdPartyCollectionViewCell;
   if (!type metadata singleton initialization cache for MediaThirdPartyCollectionViewCell)
@@ -3024,10 +3296,10 @@ uint64_t DBSuggestion.renderAssets(qos:)(uint64_t a1)
   v2[14] = v3;
   v2[15] = *(v3 - 8);
   v2[16] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v2[17] = swift_task_alloc();
   v2[18] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   v2[19] = swift_task_alloc();
   v4 = type metadata accessor for UUID();
   v2[20] = v4;
@@ -3044,8 +3316,8 @@ uint64_t DBSuggestion.renderAssets(qos:)()
 {
   v136 = v0;
   v1 = *(v0 + 104);
-  type metadata accessor for DBSuggestion();
-  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion);
+  type metadata accessor for DBSuggestion(0);
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
   v2 = PersistentModel.modelContext.getter();
   *(v0 + 208) = v2;
   v3 = (*(*v1 + 1112))();
@@ -3078,7 +3350,7 @@ LABEL_6:
   {
     v10 = *(v0 + 152);
 
-    outlined destroy of UTType?(v10, &_s10Foundation4UUIDVSgMd);
+    outlined destroy of UTType?(v10, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
     goto LABEL_6;
   }
 
@@ -3151,8 +3423,8 @@ LABEL_10:
           }
         }
 
-        type metadata accessor for DBAssetData();
-        lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBAssetData and conformance DBAssetData, type metadata accessor for DBAssetData);
+        type metadata accessor for DBAssetData(0);
+        lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBAssetData and conformance DBAssetData, type metadata accessor for DBAssetData, &protocol conformance descriptor for DBAssetData);
         v20 = PersistentModel.modelContext.getter();
         if (v20)
         {
@@ -3185,7 +3457,7 @@ LABEL_31:
 
           *(v0 + 88) = v2;
           type metadata accessor for ModelContext();
-          lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type ModelContext and conformance ModelContext, MEMORY[0x277CDD490]);
+          lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type ModelContext and conformance ModelContext, MEMORY[0x277CDD490], MEMORY[0x277CDD498]);
           v21 = dispatch thunk of static Equatable.== infix(_:_:)();
 
           if ((v21 & 1) == 0)
@@ -3277,7 +3549,7 @@ LABEL_54:
       v125 = *(v0 + 160);
       v39 = *v124;
       (*v124)(v38, v131 + OBJC_IVAR____TtC9MomentsUI7DBAsset_universalUUID);
-      v40 = type metadata accessor for Asset();
+      v40 = type metadata accessor for Asset(0);
       v41 = objc_allocWithZone(v40);
       v42 = OBJC_IVAR____TtC9MomentsUI5Asset_styleDict;
       *&v41[v42] = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC9MomentsUI14AssetViewModelC5StyleO_AETt0g5Tf4g_n(MEMORY[0x277D84F90]);
@@ -3431,7 +3703,7 @@ LABEL_82:
       *(v60 + 14) = 2080;
       *(v0 + 72) = v59;
       swift_getKeyPath();
-      lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion);
+      lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
       ObservationRegistrar.access<A, B>(_:keyPath:)();
 
       swift_getKeyPath();
@@ -3443,7 +3715,7 @@ LABEL_82:
       if (v61)
       {
         v63 = 7104878;
-        outlined destroy of UTType?(v62, &_s10Foundation4DateVSgMd);
+        outlined destroy of UTType?(v62, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
         v64 = 0xE300000000000000;
       }
 
@@ -3453,7 +3725,7 @@ LABEL_82:
         v110 = *(v0 + 128);
         v111 = *(v0 + 112);
         (*(v109 + 16))(v110, v62, v111);
-        outlined destroy of UTType?(v62, &_s10Foundation4DateVSgMd);
+        outlined destroy of UTType?(v62, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
         v63 = Date.debugDescription.getter();
         v64 = v112;
         (*(v109 + 8))(v110, v111);
@@ -3527,7 +3799,7 @@ LABEL_89:
     *(v75 + 14) = 2080;
     *(v0 + 64) = v74;
     swift_getKeyPath();
-    lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion);
+    lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
     ObservationRegistrar.access<A, B>(_:keyPath:)();
 
     swift_getKeyPath();
@@ -3539,7 +3811,7 @@ LABEL_89:
     if (v76)
     {
       v78 = 7104878;
-      outlined destroy of UTType?(*(v0 + 144), &_s10Foundation4DateVSgMd);
+      outlined destroy of UTType?(*(v0 + 144), &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
       v79 = 0xE300000000000000;
     }
 
@@ -3549,7 +3821,7 @@ LABEL_89:
       v90 = *(v0 + 128);
       v92 = *(v0 + 112);
       (*(v91 + 16))(v90, *(v0 + 144), v92);
-      outlined destroy of UTType?(v77, &_s10Foundation4DateVSgMd);
+      outlined destroy of UTType?(v77, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
       v78 = Date.debugDescription.getter();
       v79 = v93;
       (*(v91 + 8))(v90, v92);
@@ -3593,8 +3865,8 @@ LABEL_89:
   *(v0 + 232) = v83;
   v103 = *(v0 + 200);
   v104 = *(v0 + 96);
-  v105 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI7DBAssetCSgMd);
-  v106 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MomentsUI7DBAssetCGMd);
+  v105 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI7DBAssetCSgMd, &_s9MomentsUI7DBAssetCSgMR);
+  v106 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MomentsUI7DBAssetCGMd, &_sSay9MomentsUI7DBAssetCGMR);
   v107 = swift_task_alloc();
   *(v0 + 240) = v107;
   v107[2] = v127;
@@ -3629,7 +3901,7 @@ LABEL_89:
 
 BOOL DBSuggestion.isFresh.getter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   MEMORY[0x28223BE20](v1 - 8);
   v3 = &v16 - v2;
   v4 = type metadata accessor for Date();
@@ -3640,17 +3912,17 @@ BOOL DBSuggestion.isFresh.getter()
   v10 = &v16 - v9;
   v17 = v0;
   swift_getKeyPath();
-  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion);
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   swift_getKeyPath();
-  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion);
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
   lazy protocol witness table accessor for type Date? and conformance <A> A?();
   PersistentModel.getValue<A>(forKey:)();
 
   if ((*(v5 + 48))(v3, 1, v4) == 1)
   {
-    outlined destroy of UTType?(v3, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v3, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     return 0;
   }
 
@@ -3682,9 +3954,9 @@ uint64_t closure #2 in DBSuggestion.renderAssets(qos:)(uint64_t a1, uint64_t a2,
   v5[11] = *(v7 + 64);
   v5[12] = swift_task_alloc();
   v5[13] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   v5[14] = swift_task_alloc();
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScG8IteratorVy9MomentsUI7DBAssetCSg_GMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScG8IteratorVy9MomentsUI7DBAssetCSg_GMd, &_sScG8IteratorVy9MomentsUI7DBAssetCSg_GMR);
   v5[15] = v8;
   v5[16] = *(v8 - 8);
   v5[17] = swift_task_alloc();
@@ -3692,7 +3964,7 @@ uint64_t closure #2 in DBSuggestion.renderAssets(qos:)(uint64_t a1, uint64_t a2,
   return MEMORY[0x2822009F8](closure #2 in DBSuggestion.renderAssets(qos:), 0, 0);
 }
 
-uint64_t closure #2 in DBSuggestion.renderAssets(qos:)(uint64_t a1, uint64_t a2, unint64_t a3)
+uint64_t closure #2 in DBSuggestion.renderAssets(qos:)(void *a1, uint64_t a2, unint64_t a3)
 {
   v65 = v3;
   v4 = v3[6];
@@ -3733,7 +4005,7 @@ uint64_t closure #2 in DBSuggestion.renderAssets(qos:)(uint64_t a1, uint64_t a2,
   {
     if (v62)
     {
-      v21 = MEMORY[0x21CE93180](v5, v3[6]);
+      v21 = MEMORY[0x21CE93180](v5, v3[6], a3);
     }
 
     else
@@ -3770,7 +4042,7 @@ uint64_t closure #2 in DBSuggestion.renderAssets(qos:)(uint64_t a1, uint64_t a2,
         v64 = v60;
         *v31 = 136315650;
         v26(v29, v21 + OBJC_IVAR____TtC9MomentsUI7DBAsset_id, v30);
-        lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
+        lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC9628]);
         v32 = dispatch thunk of CustomStringConvertible.description.getter();
         v34 = v33;
         v35 = *v55;
@@ -3856,14 +4128,14 @@ uint64_t closure #2 in DBSuggestion.renderAssets(qos:)(uint64_t a1, uint64_t a2,
 
     _sScG7addTask8priority9operationyScPSg_xyYaYAcntF9MomentsUI7DBAssetCSg_Tg5(v19, v18, v20);
     ++v5;
-    outlined destroy of UTType?(v3[14], &_sScPSgMd);
+    outlined destroy of UTType?(v3[14], &_sScPSgMd, &_sScPSgMR);
   }
 
   while (v63 != v5);
 LABEL_21:
   v50 = MEMORY[0x277D84F90];
   v3[2] = MEMORY[0x277D84F90];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI7DBAssetCSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI7DBAssetCSgMd, &_s9MomentsUI7DBAssetCSgMR);
   TaskGroup.makeAsyncIterator()();
   v3[18] = v50;
   v3[19] = v50;
@@ -3873,7 +4145,7 @@ LABEL_21:
   *v52 = v3;
   v52[1] = closure #2 in DBSuggestion.renderAssets(qos:);
   a2 = v3[15];
-  a1 = (v3 + 3);
+  a1 = v3 + 3;
   a3 = v51;
 
   return MEMORY[0x282200308](a1, a2, a3);
@@ -3902,51 +4174,52 @@ uint64_t closure #2 in DBSuggestion.renderAssets(qos:)()
   return MEMORY[0x2822009F8](v6, 0, 0);
 }
 
+uint64_t closure #2 in DBSuggestion.renderAssets(qos:)(uint64_t a1)
 {
-  v1 = *&v0[1].f64[1];
-  if (v1 == 1)
+  v2 = *&v1[1].f64[1];
+  if (v2 == 1)
   {
-    v2 = v0[9].f64[0];
-    v3 = v0[2].f64[0];
-    (*(*&v0[8].f64[0] + 8))(*&v0[8].f64[1], *&v0[7].f64[1]);
-    **&v3 = v2;
+    v3 = v1[9].f64[0];
+    v4 = v1[2].f64[0];
+    (*(*&v1[8].f64[0] + 8))(*&v1[8].f64[1], *&v1[7].f64[1]);
+    **&v4 = v3;
 
-    v4 = *&v0->f64[1];
+    v5 = *&v1->f64[1];
 
-    return v4();
+    return v5();
   }
 
   else
   {
-    if (v1)
+    if (v2)
     {
-      f64 = v0[1].f64;
+      f64 = v1[1].f64;
 
-      MEMORY[0x21CE92260](v7);
+      MEMORY[0x21CE92260](v8);
       if (*((*f64 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*f64 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
         specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
       }
 
       specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-      outlined consume of DBManager??(v1);
-      v8 = vld1q_dup_f64(f64);
+      outlined consume of DBManager??(v2);
+      v9 = vld1q_dup_f64(f64);
     }
 
     else
     {
-      v8 = v0[9];
+      v9 = v1[9];
     }
 
-    v0[9] = v8;
-    v9 = lazy protocol witness table accessor for type TaskGroup<DBAsset?>.Iterator and conformance TaskGroup<A>.Iterator();
-    v10 = swift_task_alloc();
-    *&v0[10].f64[0] = v10;
-    *v10 = v0;
-    v10[1] = closure #2 in DBSuggestion.renderAssets(qos:);
-    v11 = v0[7].f64[1];
+    v1[9] = v9;
+    v10 = lazy protocol witness table accessor for type TaskGroup<DBAsset?>.Iterator and conformance TaskGroup<A>.Iterator();
+    v11 = swift_task_alloc();
+    *&v1[10].f64[0] = v11;
+    *v11 = v1;
+    v11[1] = closure #2 in DBSuggestion.renderAssets(qos:);
+    v12 = v1[7].f64[1];
 
-    return MEMORY[0x282200308](&v0[1].f64[1], *&v11, v9);
+    return MEMORY[0x282200308](&v1[1].f64[1], *&v12, v10);
   }
 }
 
@@ -3978,7 +4251,7 @@ uint64_t closure #2 in closure #2 in DBSuggestion.renderAssets(qos:)(uint64_t a1
   v5[9] = swift_task_alloc();
   v5[10] = swift_task_alloc();
   v5[11] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v5[12] = swift_task_alloc();
   v7 = type metadata accessor for Date();
   v5[13] = v7;
@@ -4007,7 +4280,7 @@ uint64_t closure #2 in closure #2 in DBSuggestion.renderAssets(qos:)()
 }
 
 {
-  v130 = v0;
+  v131 = v0;
   v1 = *(v0 + 168);
   if (v1)
   {
@@ -4016,27 +4289,27 @@ uint64_t closure #2 in closure #2 in DBSuggestion.renderAssets(qos:)()
       v2 = *(v0 + 104);
       v3 = *(v0 + 112);
       v4 = *(v0 + 96);
-      DBAsset.modifiedDate.getter(v4);
-      if ((*(v3 + 48))(v4, 1, v2) == 1)
+      v5 = DBAsset.modifiedDate.getter(v4);
+      if ((*(v3 + 48))(v4, 1, v2, v5) == 1)
       {
-        outlined destroy of UTType?(*(v0 + 96), &_s10Foundation4DateVSgMd);
+        outlined destroy of UTType?(*(v0 + 96), &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
       }
 
       else
       {
-        v52 = *(v0 + 120);
-        v53 = *(v0 + 128);
-        v54 = *(v0 + 104);
-        v55 = *(v0 + 112);
-        (*(v55 + 32))(v53, *(v0 + 96), v54);
+        v53 = *(v0 + 120);
+        v54 = *(v0 + 128);
+        v55 = *(v0 + 104);
+        v56 = *(v0 + 112);
+        (*(v56 + 32))(v54, *(v0 + 96), v55);
         static Date.now.getter();
         Date.timeIntervalSince(_:)();
-        v57 = v56;
-        v58 = *(v55 + 8);
-        v58(v52, v54);
-        v59 = specialized static DefaultsManager.Processing.assetRenderFreshnessTolerance.getter();
-        v58(v53, v54);
-        if (v57 < v59)
+        v58 = v57;
+        v59 = *(v56 + 8);
+        v59(v53, v55);
+        v60 = specialized static DefaultsManager.Processing.assetRenderFreshnessTolerance.getter();
+        v59(v54, v55);
+        if (v58 < v60)
         {
 LABEL_37:
           if (one-time initialization token for processing != -1)
@@ -4044,82 +4317,82 @@ LABEL_37:
             swift_once();
           }
 
-          v85 = *(v0 + 80);
-          v86 = *(v0 + 40);
-          v87 = *(v0 + 48);
-          v88 = *(v0 + 32);
-          v89 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v89, static CommonLogger.processing);
-          v90 = *(v87 + 16);
-          v90(v85, v88, v86);
+          v86 = *(v0 + 80);
+          v87 = *(v0 + 40);
+          v88 = *(v0 + 48);
+          v89 = *(v0 + 32);
+          v90 = type metadata accessor for Logger();
+          __swift_project_value_buffer(v90, static CommonLogger.processing);
+          v91 = *(v88 + 16);
+          v91(v86, v89, v87);
 
-          v91 = Logger.logObject.getter();
-          v92 = static os_log_type_t.info.getter();
+          v92 = Logger.logObject.getter();
+          v93 = static os_log_type_t.info.getter();
 
-          v93 = os_log_type_enabled(v91, v92);
-          v94 = *(v0 + 80);
-          if (v93)
+          v94 = os_log_type_enabled(v92, v93);
+          v95 = *(v0 + 80);
+          if (v94)
           {
-            v124 = v92;
-            v95 = *(v0 + 72);
-            logc = v91;
-            v97 = *(v0 + 40);
-            v96 = *(v0 + 48);
-            v98 = swift_slowAlloc();
-            v121 = swift_slowAlloc();
-            v129 = v121;
-            *v98 = 136315906;
-            v90(v95, v1 + OBJC_IVAR____TtC9MomentsUI7DBAsset_id, v97);
-            lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
-            v99 = dispatch thunk of CustomStringConvertible.description.getter();
-            v120 = v94;
-            v101 = v100;
-            v102 = *(v96 + 8);
-            v102(v95, v97);
-            v103 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v99, v101, &v129);
+            v125 = v93;
+            v96 = *(v0 + 72);
+            logc = v92;
+            v98 = *(v0 + 40);
+            v97 = *(v0 + 48);
+            v99 = swift_slowAlloc();
+            v122 = swift_slowAlloc();
+            v130 = v122;
+            *v99 = 136315906;
+            v91(v96, v1 + OBJC_IVAR____TtC9MomentsUI7DBAsset_id, v98);
+            lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC9628]);
+            v100 = dispatch thunk of CustomStringConvertible.description.getter();
+            v121 = v95;
+            v102 = v101;
+            v103 = *(v97 + 8);
+            v103(v96, v98);
+            v104 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v100, v102, &v130);
 
-            *(v98 + 4) = v103;
-            *(v98 + 12) = 2080;
-            v104 = dispatch thunk of CustomStringConvertible.description.getter();
-            v106 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v104, v105, &v129);
+            *(v99 + 4) = v104;
+            *(v99 + 12) = 2080;
+            v105 = dispatch thunk of CustomStringConvertible.description.getter();
+            v107 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v105, v106, &v130);
 
-            *(v98 + 14) = v106;
-            *(v98 + 22) = 2080;
+            *(v99 + 14) = v107;
+            *(v99 + 22) = 2080;
             if (*(v1 + OBJC_IVAR____TtC9MomentsUI7DBAsset__representations))
             {
-              v107 = *(v1 + OBJC_IVAR____TtC9MomentsUI7DBAsset__representations);
+              v108 = *(v1 + OBJC_IVAR____TtC9MomentsUI7DBAsset__representations);
             }
 
             else
             {
-              v107 = MEMORY[0x277D84F90];
+              v108 = MEMORY[0x277D84F90];
             }
 
-            v108 = MEMORY[0x21CE922D0](v107, &type metadata for DBAssetModelType);
-            v110 = v109;
+            v109 = MEMORY[0x21CE922D0](v108, &type metadata for DBAssetModelType);
+            v111 = v110;
 
-            v111 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v108, v110, &v129);
+            v112 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v109, v111, &v130);
 
-            *(v98 + 24) = v111;
-            *(v98 + 32) = 2080;
-            v112 = UUID.uuidString.getter();
-            v114 = v113;
-            v102(v120, v97);
-            v115 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v112, v114, &v129);
+            *(v99 + 24) = v112;
+            *(v99 + 32) = 2080;
+            v113 = UUID.uuidString.getter();
+            v115 = v114;
+            v103(v121, v98);
+            v116 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v113, v115, &v130);
 
-            *(v98 + 34) = v115;
-            _os_log_impl(&dword_21607C000, logc, v124, "[DBSuggestion.render] hash changed, using new asset %s, old %s representations=%s, suggestionID=%s", v98, 0x2Au);
+            *(v99 + 34) = v116;
+            _os_log_impl(&dword_21607C000, logc, v125, "[DBSuggestion.render] hash changed, using new asset %s, old %s representations=%s, suggestionID=%s", v99, 0x2Au);
             swift_arrayDestroy();
-            MEMORY[0x21CE94770](v121, -1, -1);
-            MEMORY[0x21CE94770](v98, -1, -1);
+            MEMORY[0x21CE94770](v122, -1, -1);
+            MEMORY[0x21CE94770](v99, -1, -1);
           }
 
           else
           {
-            v117 = *(v0 + 40);
-            v116 = *(v0 + 48);
+            v118 = *(v0 + 40);
+            v117 = *(v0 + 48);
 
-            (*(v116 + 8))(v94, v117);
+            (*(v117 + 8))(v95, v118);
           }
 
           **(v0 + 16) = *(v0 + 168);
@@ -4127,75 +4400,75 @@ LABEL_37:
         }
       }
 
-      if (DBAsset.fullyRendered.getter() & 1) != 0 && (DBAsset.isDeeplyTheSameAs(_:)(v1))
+      if (DBAsset.fullyRendered.getter() && (DBAsset.isDeeplyTheSameAs(_:)(v1) & 1) != 0)
       {
         if (one-time initialization token for processing != -1)
         {
           swift_once();
         }
 
-        v60 = *(v0 + 88);
-        v61 = *(v0 + 40);
-        v62 = *(v0 + 48);
-        v63 = *(v0 + 32);
-        v64 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v64, static CommonLogger.processing);
-        (*(v62 + 16))(v60, v63, v61);
+        v61 = *(v0 + 88);
+        v62 = *(v0 + 40);
+        v63 = *(v0 + 48);
+        v64 = *(v0 + 32);
+        v65 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v65, static CommonLogger.processing);
+        (*(v63 + 16))(v61, v64, v62);
 
-        v65 = Logger.logObject.getter();
-        v66 = static os_log_type_t.info.getter();
+        v66 = Logger.logObject.getter();
+        v67 = static os_log_type_t.info.getter();
 
-        v67 = os_log_type_enabled(v65, v66);
-        v68 = *(v0 + 88);
-        v70 = *(v0 + 40);
-        v69 = *(v0 + 48);
-        if (v67)
+        v68 = os_log_type_enabled(v66, v67);
+        v69 = *(v0 + 88);
+        v71 = *(v0 + 40);
+        v70 = *(v0 + 48);
+        if (v68)
         {
-          v71 = *(v0 + 24);
-          v72 = swift_slowAlloc();
+          v72 = *(v0 + 24);
+          v73 = swift_slowAlloc();
           logb = swift_slowAlloc();
-          v129 = logb;
-          *v72 = 136315650;
-          v123 = v66;
-          lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
-          v73 = dispatch thunk of CustomStringConvertible.description.getter();
-          v75 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v73, v74, &v129);
+          v130 = logb;
+          *v73 = 136315650;
+          v124 = v67;
+          lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC9628]);
+          v74 = dispatch thunk of CustomStringConvertible.description.getter();
+          v76 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v74, v75, &v130);
 
-          *(v72 + 4) = v75;
-          *(v72 + 12) = 2080;
-          if (*(v71 + OBJC_IVAR____TtC9MomentsUI7DBAsset__representations))
+          *(v73 + 4) = v76;
+          *(v73 + 12) = 2080;
+          if (*(v72 + OBJC_IVAR____TtC9MomentsUI7DBAsset__representations))
           {
-            v76 = *(v71 + OBJC_IVAR____TtC9MomentsUI7DBAsset__representations);
+            v77 = *(v72 + OBJC_IVAR____TtC9MomentsUI7DBAsset__representations);
           }
 
           else
           {
-            v76 = MEMORY[0x277D84F90];
+            v77 = MEMORY[0x277D84F90];
           }
 
-          v77 = MEMORY[0x21CE922D0](v76, &type metadata for DBAssetModelType);
-          v79 = v78;
+          v78 = MEMORY[0x21CE922D0](v77, &type metadata for DBAssetModelType);
+          v80 = v79;
 
-          v80 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v77, v79, &v129);
+          v81 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v78, v80, &v130);
 
-          *(v72 + 14) = v80;
-          *(v72 + 22) = 2080;
-          v81 = UUID.uuidString.getter();
-          v83 = v82;
-          (*(v69 + 8))(v68, v70);
-          v84 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v81, v83, &v129);
+          *(v73 + 14) = v81;
+          *(v73 + 22) = 2080;
+          v82 = UUID.uuidString.getter();
+          v84 = v83;
+          (*(v70 + 8))(v69, v71);
+          v85 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v82, v84, &v130);
 
-          *(v72 + 24) = v84;
-          _os_log_impl(&dword_21607C000, v65, v123, "[DBSuggestion.render] same asset hash, reusing %s, representations=%s, suggestionID=%s", v72, 0x20u);
+          *(v73 + 24) = v85;
+          _os_log_impl(&dword_21607C000, v66, v124, "[DBSuggestion.render] same asset hash, reusing %s, representations=%s, suggestionID=%s", v73, 0x20u);
           swift_arrayDestroy();
           MEMORY[0x21CE94770](logb, -1, -1);
-          MEMORY[0x21CE94770](v72, -1, -1);
+          MEMORY[0x21CE94770](v73, -1, -1);
         }
 
         else
         {
 
-          (*(v69 + 8))(v68, v70);
+          (*(v70 + 8))(v69, v71);
         }
 
 LABEL_48:
@@ -4215,65 +4488,65 @@ LABEL_48:
 
   if ((*((*MEMORY[0x277D85000] & *static MomentsUIManager.shared) + 0x60))())
   {
-    v6 = v5;
+    v7 = v6;
     ObjectType = swift_getObjectType();
-    if ((*(v6 + 88))(ObjectType, v6))
+    if ((*(v7 + 88))(ObjectType, v7))
     {
       if (one-time initialization token for processing != -1)
       {
         swift_once();
       }
 
-      v8 = *(v0 + 64);
-      v9 = *(v0 + 40);
-      v10 = *(v0 + 48);
-      v11 = *(v0 + 32);
-      v12 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v12, static CommonLogger.processing);
-      (*(v10 + 16))(v8, v11, v9);
+      v9 = *(v0 + 64);
+      v10 = *(v0 + 40);
+      v11 = *(v0 + 48);
+      v12 = *(v0 + 32);
+      v13 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v13, static CommonLogger.processing);
+      (*(v11 + 16))(v9, v12, v10);
 
-      v13 = Logger.logObject.getter();
-      v14 = static os_log_type_t.info.getter();
+      v14 = Logger.logObject.getter();
+      v15 = static os_log_type_t.info.getter();
 
-      v15 = os_log_type_enabled(v13, v14);
-      v16 = *(v0 + 64);
-      v17 = *(v0 + 40);
-      v18 = *(v0 + 48);
-      if (v15)
+      v16 = os_log_type_enabled(v14, v15);
+      v17 = *(v0 + 64);
+      v18 = *(v0 + 40);
+      v19 = *(v0 + 48);
+      if (v16)
       {
-        v19 = *(v0 + 24);
-        v122 = *(v0 + 40);
-        v20 = swift_slowAlloc();
+        v20 = *(v0 + 24);
+        v123 = *(v0 + 40);
+        v21 = swift_slowAlloc();
         log = swift_slowAlloc();
-        v129 = log;
-        *v20 = 136315394;
-        if (*(v19 + OBJC_IVAR____TtC9MomentsUI7DBAsset__representations))
+        v130 = log;
+        *v21 = 136315394;
+        if (*(v20 + OBJC_IVAR____TtC9MomentsUI7DBAsset__representations))
         {
-          v21 = *(v19 + OBJC_IVAR____TtC9MomentsUI7DBAsset__representations);
+          v22 = *(v20 + OBJC_IVAR____TtC9MomentsUI7DBAsset__representations);
         }
 
         else
         {
-          v21 = MEMORY[0x277D84F90];
+          v22 = MEMORY[0x277D84F90];
         }
 
-        v22 = MEMORY[0x21CE922D0](v21, &type metadata for DBAssetModelType);
-        v24 = v23;
+        v23 = MEMORY[0x21CE922D0](v22, &type metadata for DBAssetModelType);
+        v25 = v24;
 
-        v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v24, &v129);
+        v26 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v23, v25, &v130);
 
-        *(v20 + 4) = v25;
-        *(v20 + 12) = 2080;
-        v26 = UUID.uuidString.getter();
-        v28 = v27;
-        (*(v18 + 8))(v16, v122);
-        v29 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v26, v28, &v129);
+        *(v21 + 4) = v26;
+        *(v21 + 12) = 2080;
+        v27 = UUID.uuidString.getter();
+        v29 = v28;
+        (*(v19 + 8))(v17, v123);
+        v30 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v27, v29, &v130);
 
-        *(v20 + 14) = v29;
-        _os_log_impl(&dword_21607C000, v13, v14, "[DBSuggestion.render] device locked, reusing previously rendered asset, representations=%s, suggestionID=%s", v20, 0x16u);
+        *(v21 + 14) = v30;
+        _os_log_impl(&dword_21607C000, v14, v15, "[DBSuggestion.render] device locked, reusing previously rendered asset, representations=%s, suggestionID=%s", v21, 0x16u);
         swift_arrayDestroy();
         MEMORY[0x21CE94770](log, -1, -1);
-        MEMORY[0x21CE94770](v20, -1, -1);
+        MEMORY[0x21CE94770](v21, -1, -1);
 
         swift_unknownObjectRelease();
       }
@@ -4282,7 +4555,7 @@ LABEL_48:
       {
         swift_unknownObjectRelease();
 
-        (*(v18 + 8))(v16, v17);
+        (*(v19 + 8))(v17, v18);
       }
 
       goto LABEL_48;
@@ -4296,69 +4569,69 @@ LABEL_48:
     swift_once();
   }
 
-  v31 = *(v0 + 48);
-  v30 = *(v0 + 56);
-  v33 = *(v0 + 32);
-  v32 = *(v0 + 40);
-  v34 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v34, static CommonLogger.processing);
-  (*(v31 + 16))(v30, v33, v32);
+  v32 = *(v0 + 48);
+  v31 = *(v0 + 56);
+  v34 = *(v0 + 32);
+  v33 = *(v0 + 40);
+  v35 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v35, static CommonLogger.processing);
+  (*(v32 + 16))(v31, v34, v33);
 
-  v35 = Logger.logObject.getter();
-  v36 = static os_log_type_t.info.getter();
+  v36 = Logger.logObject.getter();
+  v37 = static os_log_type_t.info.getter();
 
-  v37 = os_log_type_enabled(v35, v36);
-  v39 = *(v0 + 48);
-  v38 = *(v0 + 56);
-  v40 = *(v0 + 40);
-  if (v37)
+  v38 = os_log_type_enabled(v36, v37);
+  v40 = *(v0 + 48);
+  v39 = *(v0 + 56);
+  v41 = *(v0 + 40);
+  if (v38)
   {
-    v41 = *(v0 + 24);
-    v42 = swift_slowAlloc();
+    v42 = *(v0 + 24);
+    v43 = swift_slowAlloc();
     loga = swift_slowAlloc();
-    v129 = loga;
-    *v42 = 136315394;
-    if (*(v41 + OBJC_IVAR____TtC9MomentsUI7DBAsset__representations))
+    v130 = loga;
+    *v43 = 136315394;
+    if (*(v42 + OBJC_IVAR____TtC9MomentsUI7DBAsset__representations))
     {
-      v43 = *(v41 + OBJC_IVAR____TtC9MomentsUI7DBAsset__representations);
+      v44 = *(v42 + OBJC_IVAR____TtC9MomentsUI7DBAsset__representations);
     }
 
     else
     {
-      v43 = MEMORY[0x277D84F90];
+      v44 = MEMORY[0x277D84F90];
     }
 
-    v44 = MEMORY[0x21CE922D0](v43, &type metadata for DBAssetModelType);
-    v46 = v45;
+    v45 = MEMORY[0x21CE922D0](v44, &type metadata for DBAssetModelType);
+    v47 = v46;
 
-    v47 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v44, v46, &v129);
+    v48 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v45, v47, &v130);
 
-    *(v42 + 4) = v47;
-    *(v42 + 12) = 2080;
-    v48 = UUID.uuidString.getter();
-    v50 = v49;
-    (*(v39 + 8))(v38, v40);
-    v51 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v48, v50, &v129);
+    *(v43 + 4) = v48;
+    *(v43 + 12) = 2080;
+    v49 = UUID.uuidString.getter();
+    v51 = v50;
+    (*(v40 + 8))(v39, v41);
+    v52 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v49, v51, &v130);
 
-    *(v42 + 14) = v51;
-    _os_log_impl(&dword_21607C000, v35, v36, "[DBSuggestion.render] deleting previously rendered asset, representations=%s, suggestionID=%s", v42, 0x16u);
+    *(v43 + 14) = v52;
+    _os_log_impl(&dword_21607C000, v36, v37, "[DBSuggestion.render] deleting previously rendered asset, representations=%s, suggestionID=%s", v43, 0x16u);
     swift_arrayDestroy();
     MEMORY[0x21CE94770](loga, -1, -1);
-    MEMORY[0x21CE94770](v42, -1, -1);
+    MEMORY[0x21CE94770](v43, -1, -1);
   }
 
   else
   {
 
-    (*(v39 + 8))(v38, v40);
+    (*(v40 + 8))(v39, v41);
   }
 
   **(v0 + 16) = 0;
 LABEL_49:
 
-  v118 = *(v0 + 8);
+  v119 = *(v0 + 8);
 
-  return v118();
+  return v119();
 }
 
 uint64_t closure #2 in closure #2 in DBSuggestion.renderAssets(qos:)(uint64_t a1)
@@ -4376,18 +4649,18 @@ uint64_t closure #2 in closure #2 in DBSuggestion.renderAssets(qos:)(uint64_t a1
 uint64_t key path getter for DBSuggestion._modifiedDate : DBSuggestion()
 {
   swift_getKeyPath();
-  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion);
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   swift_getKeyPath();
-  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion);
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
   lazy protocol witness table accessor for type Date? and conformance <A> A?();
   PersistentModel.getValue<A>(forKey:)();
 }
 
 uint64_t key path setter for DBSuggestion._modifiedDate : DBSuggestion(uint64_t a1, uint64_t *a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v9[-v5];
   outlined init with copy of Date?(a1, &v9[-v5]);
@@ -4396,10 +4669,10 @@ uint64_t key path setter for DBSuggestion._modifiedDate : DBSuggestion(uint64_t 
   swift_getKeyPath();
   v10 = v7;
   v11 = v6;
-  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion);
+  lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type DBSuggestion and conformance DBSuggestion, type metadata accessor for DBSuggestion, &protocol conformance descriptor for DBSuggestion);
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-  return outlined destroy of UTType?(v6, &_s10Foundation4DateVSgMd);
+  return outlined destroy of UTType?(v6, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
 }
 
 uint64_t partial apply for closure #2 in DBSuggestion.renderAssets(qos:)(uint64_t a1, uint64_t a2)
@@ -4420,8 +4693,8 @@ unint64_t lazy protocol witness table accessor for type Date? and conformance <A
   result = lazy protocol witness table cache variable for type Date? and conformance <A> A?;
   if (!lazy protocol witness table cache variable for type Date? and conformance <A> A?)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10Foundation4DateVSgMd);
-    lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC95A0]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type Date? and conformance <A> A?);
   }
@@ -4433,8 +4706,8 @@ unint64_t lazy protocol witness table accessor for type Date? and conformance <A
   result = lazy protocol witness table cache variable for type Date? and conformance <A> A?;
   if (!lazy protocol witness table cache variable for type Date? and conformance <A> A?)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10Foundation4DateVSgMd);
-    lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9580]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type Date? and conformance <A> A?);
   }
@@ -4462,7 +4735,7 @@ unint64_t lazy protocol witness table accessor for type TaskGroup<DBAsset?>.Iter
   result = lazy protocol witness table cache variable for type TaskGroup<DBAsset?>.Iterator and conformance TaskGroup<A>.Iterator;
   if (!lazy protocol witness table cache variable for type TaskGroup<DBAsset?>.Iterator and conformance TaskGroup<A>.Iterator)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sScG8IteratorVy9MomentsUI7DBAssetCSg_GMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sScG8IteratorVy9MomentsUI7DBAssetCSg_GMd, &_sScG8IteratorVy9MomentsUI7DBAssetCSg_GMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type TaskGroup<DBAsset?>.Iterator and conformance TaskGroup<A>.Iterator);
   }
@@ -4483,7 +4756,7 @@ uint64_t partial apply for closure #1 in closure #2 in DBSuggestion.renderAssets
   return closure #1 in closure #2 in DBSuggestion.renderAssets(qos:)(a1, v4, v5, v6);
 }
 
-uint64_t lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type DBSuggestion and conformance DBSuggestion(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -4533,7 +4806,7 @@ uint64_t MapItem.geoMapItem()()
       *(v0 + 56) = v0 + 144;
       *(v0 + 24) = MapItem.geoMapItem();
       v8 = swift_continuation_init();
-      *(v0 + 136) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo10GEOMapItem_pSgs5Error_pGMd);
+      *(v0 + 136) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo10GEOMapItem_pSgs5Error_pGMd, &_sSccySo10GEOMapItem_pSgs5Error_pGMR);
       *(v0 + 80) = MEMORY[0x277D85DD0];
       *(v0 + 88) = 1107296256;
       *(v0 + 96) = @objc completion handler block implementation for @escaping @callee_unowned @convention(block) @Sendable (@unowned GEOMapItem?, @unowned NSError?) -> () with result type GEOMapItem?;
@@ -4579,18 +4852,19 @@ uint64_t MapItem.geoMapItem()()
   return v4(v3);
 }
 
+uint64_t MapItem.geoMapItem()(uint64_t a1)
 {
-  v2 = v0[23];
-  v1 = v0[24];
-  v3 = v0[21];
-  v4 = v0[22];
-  v5 = v0[20];
+  v3 = v1[23];
+  v2 = v1[24];
+  v4 = v1[21];
+  v5 = v1[22];
+  v6 = v1[20];
   swift_willThrow();
-  outlined consume of Data?(v5, v3);
+  outlined consume of Data?(v6, v4);
 
-  v6 = v0[1];
+  v7 = v1[1];
 
-  return v6(0);
+  return v7(0);
 }
 
 uint64_t @objc completion handler block implementation for @escaping @callee_unowned @convention(block) @Sendable (@unowned GEOMapItem?, @unowned NSError?) -> () with result type GEOMapItem?(uint64_t a1, uint64_t a2, void *a3)
@@ -4598,7 +4872,7 @@ uint64_t @objc completion handler block implementation for @escaping @callee_uno
   v5 = *__swift_project_boxed_opaque_existential_1((a1 + 32), *(a1 + 56));
   if (a3)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
     v6 = swift_allocError();
     *v7 = a3;
     v8 = a3;
@@ -4622,12 +4896,12 @@ id SnowGlobeView.__allocating_init()()
   return [v1 init];
 }
 
-id SnowGlobeView.init()()
+id SnowGlobeView.init()(uint64_t a1)
 {
-  *&v0[OBJC_IVAR____TtC9MomentsUI13SnowGlobeView_roundViews] = MEMORY[0x277D84F90];
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for SnowGlobeView();
-  return objc_msgSendSuper2(&v2, sel_initWithFrame_, 0.0, 0.0, 0.0, 0.0);
+  *&v1[OBJC_IVAR____TtC9MomentsUI13SnowGlobeView_roundViews] = MEMORY[0x277D84F90];
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for SnowGlobeView();
+  return objc_msgSendSuper2(&v3, sel_initWithFrame_, 0.0, 0.0, 0.0, 0.0);
 }
 
 Swift::Void __swiftcall SnowGlobeView.update(images:)(Swift::OpaquePointer images)
@@ -5105,12 +5379,14 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance DBMapMo
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance DBMapModel.AssetDataKeys()
+double protocol witness for Hashable.hash(into:) in conformance DBMapModel.AssetDataKeys(uint64_t a1)
 {
   String.hash(into:)();
+
+  return result;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance DBMapModel.AssetDataKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance DBMapModel.AssetDataKeys(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -5118,27 +5394,26 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance DBM
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance DBMapModel.AssetDataKeys@<X0>(Swift::String *a1@<X0>, char *a2@<X8>)
+void protocol witness for RawRepresentable.init(rawValue:) in conformance DBMapModel.AssetDataKeys(Swift::String *a1@<X0>, char *a2@<X8>)
 {
   v3 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of DBMapModel.AssetDataKeys.init(rawValue:), *a1);
 
   if (v3 == 1)
   {
-    v5 = 1;
+    v4 = 1;
   }
 
   else
   {
-    v5 = 2;
+    v4 = 2;
   }
 
   if (!v3)
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  *a2 = v5;
-  return result;
+  *a2 = v4;
 }
 
 void protocol witness for RawRepresentable.rawValue.getter in conformance DBMapModel.AssetDataKeys(void *a1@<X8>)
@@ -5210,45 +5485,44 @@ unint64_t DBMapModel.CodingKeys.rawValue.getter(char a1)
   return result;
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance DBMapModel.CodingKeys(unsigned __int8 *a1, unsigned __int8 *a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance DBMapModel.CodingKeys()
 {
-  v2 = *a2;
-  v3 = DBMapModel.CodingKeys.stringValue.getter(*a1);
-  v5 = v4;
-  if (v3 == DBMapModel.CodingKeys.stringValue.getter(v2) && v5 == v6)
+  v0 = DBMapModel.CodingKeys.stringValue.getter();
+  v2 = v1;
+  if (v0 == DBMapModel.CodingKeys.stringValue.getter() && v2 == v3)
   {
-    v8 = 1;
+    v5 = 1;
   }
 
   else
   {
-    v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v8 & 1;
+  return v5 & 1;
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance DBMapModel.CodingKeys()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
-  DBMapModel.CodingKeys.stringValue.getter(v1);
+  DBMapModel.CodingKeys.stringValue.getter();
   String.hash(into:)();
 
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance DBMapModel.CodingKeys()
+double protocol witness for Hashable.hash(into:) in conformance DBMapModel.CodingKeys(uint64_t a1)
 {
-  DBMapModel.CodingKeys.stringValue.getter(*v0);
+  DBMapModel.CodingKeys.stringValue.getter();
   String.hash(into:)();
+
+  return result;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance DBMapModel.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance DBMapModel.CodingKeys(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
-  DBMapModel.CodingKeys.stringValue.getter(v1);
+  DBMapModel.CodingKeys.stringValue.getter();
   String.hash(into:)();
 
   return Hasher._finalize()();
@@ -5263,9 +5537,9 @@ unint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance D
 
 uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance DBMapModel.CodingKeys@<X0>(uint64_t *a1@<X8>)
 {
-  result = DBMapModel.CodingKeys.stringValue.getter(*v1);
+  result = DBMapModel.CodingKeys.stringValue.getter();
   *a1 = result;
-  a1[1] = v4;
+  a1[1] = v3;
   return result;
 }
 
@@ -5357,7 +5631,7 @@ uint64_t DBMapModel.singularLocation.getter()
   v26 = v7;
   v13 = *(v2 + 16);
   v13(v4, v0 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_baseDateInterval, v1);
-  type metadata accessor for MapLocation();
+  type metadata accessor for MapLocation(0);
   v14 = swift_allocObject();
 
   UUID.init()();
@@ -5522,7 +5796,7 @@ id DBMapModel.pinGlyph.getter()
   {
     v34 = *(v1 + OBJC_IVAR____TtC9MomentsUI10DBMapModel_pinImageIsGlyph);
     v35 = *(v1 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_assetClass);
-    v13 = type metadata accessor for Image();
+    v13 = type metadata accessor for Image(0);
     v14 = objc_allocWithZone(v13);
     UUID.init()();
     v15 = OBJC_IVAR____TtC9MomentsUI5Image__primaryURL;
@@ -5557,7 +5831,7 @@ id DBMapModel.pinGlyph.getter()
 
     v23 = *(v1 + OBJC_IVAR____TtC9MomentsUI10DBMapModel_pinImageIsGlyph);
     v24 = *(v1 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_assetClass);
-    v13 = type metadata accessor for Image();
+    v13 = type metadata accessor for Image(0);
     v25 = objc_allocWithZone(v13);
 
     UUID.init()();
@@ -5604,7 +5878,7 @@ double DBMapModel.pinColor.getter@<D0>(uint64_t a1@<X8>)
 uint64_t DBMapModel.init(from:)(void *a1)
 {
   v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9MomentsUI10DBMapModelC10CodingKeysOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9MomentsUI10DBMapModelC10CodingKeysOGMd, &_ss22KeyedDecodingContainerVy9MomentsUI10DBMapModelC10CodingKeysOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v28[-1] - v7;
@@ -5614,7 +5888,7 @@ uint64_t DBMapModel.init(from:)(void *a1)
   if (v2)
   {
     __swift_destroy_boxed_opaque_existential_1(a1);
-    type metadata accessor for DBMapModel();
+    type metadata accessor for DBMapModel(0);
     swift_deallocPartialClassInstance();
   }
 
@@ -5646,7 +5920,7 @@ uint64_t DBMapModel.init(from:)(void *a1)
     v20[1] = v21;
     type metadata accessor for MapItem();
     v29 = 6;
-    lazy protocol witness table accessor for type MapItem and conformance MapItem(&lazy protocol witness table cache variable for type MapItem and conformance MapItem, type metadata accessor for MapItem);
+    lazy protocol witness table accessor for type MapItem and conformance MapItem(&lazy protocol witness table cache variable for type MapItem and conformance MapItem, type metadata accessor for MapItem, &protocol conformance descriptor for MapItem);
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
     *(v1 + OBJC_IVAR____TtC9MomentsUI10DBMapModel_mapItem) = v28[0];
     LOBYTE(v28[0]) = 7;
@@ -5672,7 +5946,7 @@ uint64_t DBMapModel.init(from:)(void *a1)
     LOBYTE(v28[0]) = 14;
     KeyedDecodingContainer.decode(_:forKey:)();
     *(v1 + OBJC_IVAR____TtC9MomentsUI10DBMapModel_pinColorA) = v26;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS10Foundation4UUIDVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS10Foundation4UUIDVGMd, &_sSDySS10Foundation4UUIDVGMR);
     v29 = 15;
     lazy protocol witness table accessor for type [String : UUID] and conformance <> [A : B]();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
@@ -5689,7 +5963,7 @@ uint64_t DBMapModel.init(from:)(void *a1)
 uint64_t DBMapModel.encode(to:)(void *a1)
 {
   v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI10DBMapModelC10CodingKeysOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI10DBMapModelC10CodingKeysOGMd, &_ss22KeyedEncodingContainerVy9MomentsUI10DBMapModelC10CodingKeysOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = v10 - v7;
@@ -5713,7 +5987,7 @@ uint64_t DBMapModel.encode(to:)(void *a1)
     v10[0] = *(v3 + OBJC_IVAR____TtC9MomentsUI10DBMapModel_mapItem);
     v11 = 6;
     type metadata accessor for MapItem();
-    lazy protocol witness table accessor for type MapItem and conformance MapItem(&lazy protocol witness table cache variable for type MapItem and conformance MapItem, type metadata accessor for MapItem);
+    lazy protocol witness table accessor for type MapItem and conformance MapItem(&lazy protocol witness table cache variable for type MapItem and conformance MapItem, type metadata accessor for MapItem, &protocol conformance descriptor for MapItem);
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
     LOBYTE(v10[0]) = 7;
     KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
@@ -5735,7 +6009,7 @@ uint64_t DBMapModel.encode(to:)(void *a1)
     KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
     v10[0] = *(v3 + OBJC_IVAR____TtC9MomentsUI10DBMapModel_mapAssetDataIDs);
     v11 = 15;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS10Foundation4UUIDVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS10Foundation4UUIDVGMd, &_sSDySS10Foundation4UUIDVGMR);
     lazy protocol witness table accessor for type [String : UUID] and conformance <> [A : B]();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
     KeyedEncodingContainer.superEncoder()();
@@ -5746,7 +6020,7 @@ uint64_t DBMapModel.encode(to:)(void *a1)
   return (*(v6 + 8))(v8, v5);
 }
 
-uint64_t DBMapModel.__allocating_init(id:assetID:maximumSupportedViewport:supportedStyles:baseTitle:baseDateInterval:assetData:subMaps:subtitle:latitude:longitude:horizontalUncertainty:locationName:city:mapItem:confidenceLevel:pinType:pinImageIsGlyph:clusterCount:pinColorR:pinColorG:pinColorB:pinColorA:mapAssetDataIDs:renderState:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16, unint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void (**a23)(void, void, void), uint64_t a24, char *a25, unsigned __int8 a26, unsigned int (**a27)(uint64_t, uint64_t, uint64_t), uint64_t a28, unsigned __int8 *a29)
+void **DBMapModel.__allocating_init(id:assetID:maximumSupportedViewport:supportedStyles:baseTitle:baseDateInterval:assetData:subMaps:subtitle:latitude:longitude:horizontalUncertainty:locationName:city:mapItem:confidenceLevel:pinType:pinImageIsGlyph:clusterCount:pinColorR:pinColorG:pinColorB:pinColorA:mapAssetDataIDs:renderState:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16, unint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void (**a23)(char *, uint64_t, uint64_t), void *a24, char *a25, unsigned __int8 a26, unsigned int (**a27)(uint64_t, uint64_t, uint64_t), uint64_t a28, unsigned __int8 *a29)
 {
   swift_allocObject();
   v42 = specialized DBMapModel.init(id:assetID:maximumSupportedViewport:supportedStyles:baseTitle:baseDateInterval:assetData:subMaps:subtitle:latitude:longitude:horizontalUncertainty:locationName:city:mapItem:confidenceLevel:pinType:pinImageIsGlyph:clusterCount:pinColorR:pinColorG:pinColorB:pinColorA:mapAssetDataIDs:renderState:)(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29);
@@ -5754,7 +6028,7 @@ uint64_t DBMapModel.__allocating_init(id:assetID:maximumSupportedViewport:suppor
   return v42;
 }
 
-uint64_t DBMapModel.init(id:assetID:maximumSupportedViewport:supportedStyles:baseTitle:baseDateInterval:assetData:subMaps:subtitle:latitude:longitude:horizontalUncertainty:locationName:city:mapItem:confidenceLevel:pinType:pinImageIsGlyph:clusterCount:pinColorR:pinColorG:pinColorB:pinColorA:mapAssetDataIDs:renderState:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16, unint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void (**a23)(void, void, void), uint64_t a24, char *a25, unsigned __int8 a26, unsigned int (**a27)(uint64_t, uint64_t, uint64_t), uint64_t a28, unsigned __int8 *a29)
+void **DBMapModel.init(id:assetID:maximumSupportedViewport:supportedStyles:baseTitle:baseDateInterval:assetData:subMaps:subtitle:latitude:longitude:horizontalUncertainty:locationName:city:mapItem:confidenceLevel:pinType:pinImageIsGlyph:clusterCount:pinColorR:pinColorG:pinColorB:pinColorA:mapAssetDataIDs:renderState:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16, unint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void (**a23)(char *, uint64_t, uint64_t), void *a24, char *a25, unsigned __int8 a26, unsigned int (**a27)(uint64_t, uint64_t, uint64_t), uint64_t a28, unsigned __int8 *a29)
 {
   v30 = specialized DBMapModel.init(id:assetID:maximumSupportedViewport:supportedStyles:baseTitle:baseDateInterval:assetData:subMaps:subtitle:latitude:longitude:horizontalUncertainty:locationName:city:mapItem:confidenceLevel:pinType:pinImageIsGlyph:clusterCount:pinColorR:pinColorG:pinColorB:pinColorA:mapAssetDataIDs:renderState:)(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29);
 
@@ -5768,7 +6042,7 @@ uint64_t DBMapModel.__allocating_init(id:assetID:maximumSupportedViewport:suppor
   v100 = a5;
   v107 = a3;
   v110 = a2;
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12DateIntervalVSgMd);
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12DateIntervalVSgMd, &_s10Foundation12DateIntervalVSgMR);
   MEMORY[0x28223BE20](v18 - 8);
   v91 = &v88 - v19;
   v90 = type metadata accessor for DateInterval();
@@ -5900,7 +6174,7 @@ LABEL_20:
   DateInterval.init()();
   if (v51(v49, 1, v40) != 1)
   {
-    outlined destroy of UTType?(v49, &_s10Foundation12DateIntervalVSgMd);
+    outlined destroy of UTType?(v49, &_s10Foundation12DateIntervalVSgMd, &_s10Foundation12DateIntervalVSgMR);
   }
 
   if (!a12)
@@ -6025,7 +6299,7 @@ LABEL_30:
   v111[0] = v94;
   v84 = (*(v103 + 568))(v97, v98, v92, v43, v83, v82, v109, v95, v60, v63, v70, v69, v54, v55, v56, v57, a9, a10, v80, v67, v71, v66, v68, v65, v112, v72, v73, v96, v111);
 
-  outlined destroy of UTType?(v39, &_s10Foundation12DateIntervalVSgMd);
+  outlined destroy of UTType?(v39, &_s10Foundation12DateIntervalVSgMd, &_s10Foundation12DateIntervalVSgMR);
   v85 = v102;
   v86 = *(v101 + 8);
   v86(v110, v102);
@@ -6033,8 +6307,10 @@ LABEL_30:
   return v84;
 }
 
-uint64_t DBMapModel.__ivar_destroyer()
+double DBMapModel.__ivar_destroyer()
 {
+
+  return result;
 }
 
 uint64_t DBMapModel.deinit()
@@ -6157,7 +6433,7 @@ unint64_t lazy protocol witness table accessor for type DBMapModel.CodingKeys an
   return result;
 }
 
-uint64_t type metadata accessor for DBMapModel()
+uint64_t type metadata accessor for DBMapModel(uint64_t a1)
 {
   result = type metadata singleton initialization cache for DBMapModel;
   if (!type metadata singleton initialization cache for DBMapModel)
@@ -6213,7 +6489,7 @@ unint64_t lazy protocol witness table accessor for type DBMapModel.MapUserPlaceT
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type MapItem and conformance MapItem(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type MapItem and conformance MapItem(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -6226,7 +6502,7 @@ uint64_t lazy protocol witness table accessor for type MapItem and conformance M
   return result;
 }
 
-uint64_t specialized DBMapModel.init(id:assetID:maximumSupportedViewport:supportedStyles:baseTitle:baseDateInterval:assetData:subMaps:subtitle:latitude:longitude:horizontalUncertainty:locationName:city:mapItem:confidenceLevel:pinType:pinImageIsGlyph:clusterCount:pinColorR:pinColorG:pinColorB:pinColorA:mapAssetDataIDs:renderState:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16, unint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void (**a23)(void, void, void), uint64_t a24, char *a25, unsigned __int8 a26, unsigned int (**a27)(uint64_t, uint64_t, uint64_t), uint64_t a28, unsigned __int8 *a29)
+void **specialized DBMapModel.init(id:assetID:maximumSupportedViewport:supportedStyles:baseTitle:baseDateInterval:assetData:subMaps:subtitle:latitude:longitude:horizontalUncertainty:locationName:city:mapItem:confidenceLevel:pinType:pinImageIsGlyph:clusterCount:pinColorR:pinColorG:pinColorB:pinColorA:mapAssetDataIDs:renderState:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16, unint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void (**a23)(char *, uint64_t, uint64_t), void *a24, char *a25, unsigned __int8 a26, unsigned int (**a27)(uint64_t, uint64_t, uint64_t), uint64_t a28, unsigned __int8 *a29)
 {
   *&v160 = a8;
   v148 = a7;
@@ -6246,13 +6522,13 @@ uint64_t specialized DBMapModel.init(id:assetID:maximumSupportedViewport:support
   v134 = *(v135 - 8);
   MEMORY[0x28223BE20](v135);
   v133 = &v130 - ((v39 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   MEMORY[0x28223BE20](v40 - 8);
   v159 = &v130 - v41;
-  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtSgMd);
+  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtSgMd, &_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtSgMR);
   MEMORY[0x28223BE20](v42 - 8);
   v158 = &v130 - v43;
-  v157 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtMd);
+  v157 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtMd, &_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtMR);
   v139 = *(v157 - 8);
   v44 = MEMORY[0x28223BE20](v157);
   v132 = &v130 - ((v45 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -6383,7 +6659,7 @@ LABEL_20:
   v66(v141, v147, v161);
   v69 = v142;
   v66(v142, v146, v68);
-  v152 = type metadata accessor for DBAssetModel();
+  v152 = type metadata accessor for DBAssetModel(0);
   static DBAssetModel.subscript.getter(v151, &v164);
   LODWORD(v155) = v164;
   v156 = *(v144 + 16);
@@ -6392,27 +6668,27 @@ LABEL_20:
   (v156)(v143, v148, v145);
   v72 = v149;
   v73 = v149;
-  *(v149 + 16) = 0;
-  *&v162 = v73 + 2;
+  v149[16] = 0;
+  *&v162 = v73 + 16;
   v151 = OBJC_IVAR____TtC9MomentsUI12DBAssetModel_id;
-  v66(v72 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_id, v67, v68);
-  v66(v72 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_assetID, v69, v68);
-  *(v72 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_assetClass) = v155;
+  v66(&v72[OBJC_IVAR____TtC9MomentsUI12DBAssetModel_id], v67, v68);
+  v66(&v72[OBJC_IVAR____TtC9MomentsUI12DBAssetModel_assetID], v69, v68);
+  v72[OBJC_IVAR____TtC9MomentsUI12DBAssetModel_assetClass] = v155;
   v74 = v150;
-  *(v72 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_maximumSupportedViewport) = v150;
+  *&v72[OBJC_IVAR____TtC9MomentsUI12DBAssetModel_maximumSupportedViewport] = v150;
   v155 = OBJC_IVAR____TtC9MomentsUI12DBAssetModel_supportedStyles;
-  *(v72 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_supportedStyles) = v137;
-  v75 = (v72 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_baseTitle);
+  *&v72[OBJC_IVAR____TtC9MomentsUI12DBAssetModel_supportedStyles] = v137;
+  v75 = &v72[OBJC_IVAR____TtC9MomentsUI12DBAssetModel_baseTitle];
   v76 = v140;
   *v75 = v138;
   v75[1] = v76;
-  (v156)(v72 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_baseDateInterval, v70, v71);
+  (v156)(&v72[OBJC_IVAR____TtC9MomentsUI12DBAssetModel_baseDateInterval], v70, v71);
   v77 = v74;
   v78 = v160;
-  v79 = specialized Dictionary.compactMapValues<A>(_:)(v160);
+  specialized Dictionary.compactMapValues<A>(_:)(v160);
   v137 = 0;
   v80 = MEMORY[0x277D84F90];
-  *(v72 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel__assetDataID) = v79;
+  *&v72[OBJC_IVAR____TtC9MomentsUI12DBAssetModel__assetDataID] = v79;
   v140 = v80;
   if (v61)
   {
@@ -6424,10 +6700,10 @@ LABEL_20:
     v81 = v80;
   }
 
-  *(v72 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_children) = v81;
+  *&v72[OBJC_IVAR____TtC9MomentsUI12DBAssetModel_children] = v81;
   v82 = v79;
   swift_beginAccess();
-  *(v72 + 16) = v136;
+  v72[16] = v136;
   v83 = v78 + 64;
   v84 = 1 << *(v78 + 32);
   v85 = -1;
@@ -6437,7 +6713,7 @@ LABEL_20:
   }
 
   v58 = v85 & *(v78 + 64);
-  v86 = (v84 + 63) >> 6;
+  v86 = ((v84 + 63) >> 6);
   v87 = (v154 + 48);
   v152 = (v154 + 32);
   v88 = (v139 + 56);
@@ -6462,7 +6738,7 @@ LABEL_32:
     v95 = v161;
     if ((*v87)(v94, 1, v161) == 1)
     {
-      outlined destroy of UTType?(v94, &_s10Foundation4UUIDVSgMd);
+      outlined destroy of UTType?(v94, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
       v96 = v158;
       v97 = v157;
       (*v88)(v158, 1, 1, v157);
@@ -6491,7 +6767,7 @@ LABEL_32:
 
     if ((*v155)(v96, 1, v97) == 1)
     {
-      outlined destroy of UTType?(v96, &_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtSgMd);
+      outlined destroy of UTType?(v96, &_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtSgMd, &_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtSgMR);
       v89 = v38;
       v87 = v156;
       v78 = v160;
@@ -6514,7 +6790,7 @@ LABEL_32:
       v106 = v140[3];
       if (v107 >= v106 >> 1)
       {
-        v140 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v106 > 1, v107 + 1, 1, v140);
+        v140 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v106 > 1), v107 + 1, 1, v140);
       }
 
       v108 = v140;
@@ -6550,7 +6826,7 @@ LABEL_32:
   v109 = v149;
   if (v140[2])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDV9MomentsUI11DBAssetDataCGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDV9MomentsUI11DBAssetDataCGMd, &_ss18_DictionaryStorageCy10Foundation4UUIDV9MomentsUI11DBAssetDataCGMR);
     v110 = static _DictionaryStorage.allocate(capacity:)();
   }
 
@@ -6629,7 +6905,7 @@ unint64_t specialized static DBMapModel.pinGlyph2DB(_:)(void *a1)
   v3 = *(v2 - 8);
   MEMORY[0x28223BE20](v2);
   v5 = &v36 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   v7 = MEMORY[0x28223BE20](v6 - 8);
   v9 = &v36 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = MEMORY[0x28223BE20](v7);
@@ -6660,9 +6936,9 @@ unint64_t specialized static DBMapModel.pinGlyph2DB(_:)(void *a1)
   v36 = v3;
   if (v23 == 1)
   {
-    outlined destroy of UTType?(v14, &_s10Foundation4UUIDVSgMd);
+    outlined destroy of UTType?(v14, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
     specialized Dictionary._Variant.removeValue(forKey:)(0x6870796C476E6970, 0xED0000746867694CLL, v12);
-    outlined destroy of UTType?(v12, &_s10Foundation4UUIDVSgMd);
+    outlined destroy of UTType?(v12, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
     v24 = v39;
     if (!*(v15 + 16))
     {
@@ -6704,10 +6980,10 @@ LABEL_11:
   (*(*v29 + 192))(v31);
   if (v38(v32, 1, v2) == 1)
   {
-    outlined destroy of UTType?(v32, &_s10Foundation4UUIDVSgMd);
+    outlined destroy of UTType?(v32, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
     specialized Dictionary._Variant.removeValue(forKey:)(0x6870796C476E6970, 0xEC0000006B726144, v12);
 
-    outlined destroy of UTType?(v12, &_s10Foundation4UUIDVSgMd);
+    outlined destroy of UTType?(v12, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   }
 
   else
@@ -6741,7 +7017,7 @@ unint64_t lazy protocol witness table accessor for type [DBMapModel.AssetDataKey
   result = lazy protocol witness table cache variable for type [DBMapModel.AssetDataKeys] and conformance [A];
   if (!lazy protocol witness table cache variable for type [DBMapModel.AssetDataKeys] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay9MomentsUI10DBMapModelC13AssetDataKeysOGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay9MomentsUI10DBMapModelC13AssetDataKeysOGMd, &_sSay9MomentsUI10DBMapModelC13AssetDataKeysOGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [DBMapModel.AssetDataKeys] and conformance [A]);
   }
@@ -6913,7 +7189,7 @@ LABEL_20:
 
 uint64_t outlined init with take of (UUID, DBAssetData)(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtMd, &_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtMR);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -7082,7 +7358,7 @@ uint64_t closure #1 in PhotoMemoryBanner.initBannerView()(void *a1, uint64_t a2,
   static DispatchQoS.unspecified.getter();
   aBlock[0] = MEMORY[0x277D84F90];
   lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
   dispatch thunk of SetAlgebra.init<A>(_:)();
   MEMORY[0x21CE92A50](0, v13, v10, v16);
@@ -7092,7 +7368,7 @@ uint64_t closure #1 in PhotoMemoryBanner.initBannerView()(void *a1, uint64_t a2,
   return (*(v11 + 8))(v13, v20);
 }
 
-void closure #1 in closure #1 in PhotoMemoryBanner.initBannerView()(void *a1, uint64_t a2, void *a3)
+void closure #1 in closure #1 in PhotoMemoryBanner.initBannerView()(void *a1, uint64_t a2, void *a3, uint64_t a4)
 {
   if (a1)
   {
@@ -7100,173 +7376,173 @@ void closure #1 in closure #1 in PhotoMemoryBanner.initBannerView()(void *a1, ui
     Strong = swift_unknownObjectWeakLoadStrong();
     if (Strong)
     {
-      v6 = Strong;
-      v63 = a1;
+      v7 = Strong;
+      v64 = a1;
       [a3 setImage_];
       [a3 setContentMode_];
       [a3 setClipsToBounds_];
       [a3 _setCornerRadius_];
-      [v6 addSubview_];
-      v7 = [a3 superview];
-      if (v7)
+      [v7 addSubview_];
+      v8 = [a3 superview];
+      if (v8)
       {
-        v8 = v7;
+        v9 = v8;
         [a3 setTranslatesAutoresizingMaskIntoConstraints_];
-        v9 = [a3 leadingAnchor];
-        v10 = [v8 leadingAnchor];
-        v11 = [v9 constraintEqualToAnchor_];
+        v10 = [a3 leadingAnchor];
+        v11 = [v9 leadingAnchor];
+        v12 = [v10 constraintEqualToAnchor_];
 
-        [v11 setConstant_];
-        [v11 setActive_];
+        [v12 setConstant_];
+        [v12 setActive_];
       }
 
-      v12 = [a3 superview];
-      if (v12)
+      v13 = [a3 superview];
+      if (v13)
       {
-        v13 = v12;
+        v14 = v13;
         [a3 setTranslatesAutoresizingMaskIntoConstraints_];
-        v14 = [a3 centerYAnchor];
-        v15 = [v13 centerYAnchor];
-        v16 = [v14 constraintEqualToAnchor_];
+        v15 = [a3 centerYAnchor];
+        v16 = [v14 centerYAnchor];
+        v17 = [v15 constraintEqualToAnchor_];
 
-        [v16 setConstant_];
-        [v16 setActive_];
+        [v17 setConstant_];
+        [v17 setActive_];
       }
 
-      v17 = [a3 heightAnchor];
+      v18 = [a3 heightAnchor];
       if (one-time initialization token for LABEL_HEIGHT != -1)
       {
         swift_once();
       }
 
-      v18 = *&static Constants.LABEL_HEIGHT;
-      v19 = [v17 constraintEqualToConstant_];
+      v19 = *&static Constants.LABEL_HEIGHT;
+      v20 = [v18 constraintEqualToConstant_];
 
-      [v19 setActive_];
-      v20 = [a3 widthAnchor];
-      v21 = [v20 constraintEqualToConstant_];
+      [v20 setActive_];
+      v21 = [a3 widthAnchor];
+      v22 = [v21 constraintEqualToConstant_];
 
-      [v21 setActive_];
-      v22 = *((*MEMORY[0x277D85000] & *v6) + 0x58);
-      v23 = v22();
-      v24 = [objc_opt_self() preferredFontForTextStyle_];
+      [v22 setActive_];
+      v23 = *((*MEMORY[0x277D85000] & *v7) + 0x58);
+      v24 = v23();
+      v25 = [objc_opt_self() preferredFontForTextStyle_];
       isa = UIFont.withWeight(_:)(*MEMORY[0x277D74420]).super.isa;
 
-      [v23 setFont_];
-      v26 = v22();
-      v27 = [objc_opt_self() labelColor];
-      [v26 setTextColor_];
+      [v24 setFont_];
+      v27 = v23();
+      v28 = [objc_opt_self() labelColor];
+      [v27 setTextColor_];
 
-      v28 = v22();
-      [v28 setNumberOfLines_];
+      v29 = v23();
+      [v29 setNumberOfLines_];
 
-      v29 = v22();
+      v30 = v23();
       ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-      v31 = [objc_opt_self() bundleForClass_];
-      v64._object = 0x800000021657A6D0;
-      v32._countAndFlagsBits = 0xD00000000000001ELL;
-      v32._object = 0x800000021657A6B0;
-      v33._countAndFlagsBits = 0;
-      v33._object = 0xE000000000000000;
-      v64._countAndFlagsBits = 0xD00000000000001BLL;
-      v34 = NSLocalizedString(_:tableName:bundle:value:comment:)(v32, 0, v31, v33, v64);
+      v32 = [objc_opt_self() bundleForClass_];
+      v65._object = 0x800000021657A6D0;
+      v33._countAndFlagsBits = 0xD00000000000001ELL;
+      v33._object = 0x800000021657A6B0;
+      v34._countAndFlagsBits = 0;
+      v34._object = 0xE000000000000000;
+      v65._countAndFlagsBits = 0xD00000000000001BLL;
+      v35 = NSLocalizedString(_:tableName:bundle:value:comment:)(v33, 0, v32, v34, v65);
 
-      MEMORY[0x21CE92100](v34._countAndFlagsBits, v34._object);
+      MEMORY[0x21CE92100](v35._countAndFlagsBits, v35._object);
 
-      v35 = MEMORY[0x21CE91FC0](32, 0xE100000000000000);
+      v36 = MEMORY[0x21CE91FC0](32, 0xE100000000000000);
 
-      [v29 setText_];
+      [v30 setText_];
 
-      v36 = v22();
-      [v36 setAdjustsFontSizeToFitWidth_];
+      v37 = v23();
+      [v37 setAdjustsFontSizeToFitWidth_];
 
-      v37 = v22();
-      [v37 setAdjustsFontForContentSizeCategory_];
+      v38 = v23();
+      [v38 setAdjustsFontForContentSizeCategory_];
 
-      v38 = v22();
-      [v38 setMaximumContentSizeCategory_];
+      v39 = v23();
+      [v39 setMaximumContentSizeCategory_];
 
-      v39 = v22();
-      [v6 addSubview_];
+      v40 = v23();
+      [v7 addSubview_];
 
-      v40 = v22();
-      [v40 setTranslatesAutoresizingMaskIntoConstraints_];
-      v41 = [v40 leadingAnchor];
-      v42 = [a3 trailingAnchor];
-      v43 = [v41 constraintEqualToAnchor_];
+      v41 = v23();
+      [v41 setTranslatesAutoresizingMaskIntoConstraints_];
+      v42 = [v41 leadingAnchor];
+      v43 = [a3 trailingAnchor];
+      v44 = [v42 constraintEqualToAnchor_];
 
-      [v43 setConstant_];
-      [v43 &selRef:1 setPrefetchDataSource:?];
+      [v44 setConstant_];
+      [v44 &selRef:1 setPrefetchDataSource:?];
 
-      v44 = v22();
-      v45 = [v44 superview];
-      if (v45)
+      v45 = v23();
+      v46 = [v45 superview];
+      if (v46)
       {
-        v46 = v45;
-        [v44 setTranslatesAutoresizingMaskIntoConstraints_];
-        v47 = [v44 topAnchor];
-        v48 = [v46 topAnchor];
-        v49 = [v47 &selRef_safeAreaLayoutGuide + 5];
+        v47 = v46;
+        [v45 setTranslatesAutoresizingMaskIntoConstraints_];
+        v48 = [v45 topAnchor];
+        v49 = [v47 topAnchor];
+        v50 = [v48 &selRef_safeAreaLayoutGuide + 5];
 
-        [v49 setConstant_];
-        if (v49)
+        [v50 setConstant_];
+        if (v50)
         {
-          [v49 setActive_];
+          [v50 setActive_];
         }
 
-        v50 = &selRef_setDeliversTouchesForGesturesToSuperview_;
+        v51 = &selRef_setDeliversTouchesForGesturesToSuperview_;
       }
 
       else
       {
-        v49 = 0;
-        v46 = v44;
-        v50 = &selRef_setDeliversTouchesForGesturesToSuperview_;
+        v50 = 0;
+        v47 = v45;
+        v51 = &selRef_setDeliversTouchesForGesturesToSuperview_;
       }
 
-      v51 = v22();
-      v52 = [v51 superview];
-      if (v52)
+      v52 = v23();
+      v53 = [v52 superview];
+      if (v53)
       {
-        v53 = v52;
-        [v51 setTranslatesAutoresizingMaskIntoConstraints_];
-        v54 = [v51 bottomAnchor];
-        v55 = [v53 bottomAnchor];
-        v56 = [v54 v50[11]];
+        v54 = v53;
+        [v52 setTranslatesAutoresizingMaskIntoConstraints_];
+        v55 = [v52 bottomAnchor];
+        v56 = [v54 bottomAnchor];
+        v57 = [v55 v51[11]];
 
-        if (v56)
+        if (v57)
         {
-          [v56 setConstant_];
-          [v56 setActive_];
+          [v57 setConstant_];
+          [v57 setActive_];
         }
       }
 
       else
       {
-        v56 = 0;
-        v53 = v51;
+        v57 = 0;
+        v54 = v52;
       }
 
-      v57 = v22();
-      v58 = [v57 superview];
-      if (v58)
+      v58 = v23();
+      v59 = [v58 superview];
+      if (v59)
       {
-        v59 = v58;
-        [v57 setTranslatesAutoresizingMaskIntoConstraints_];
-        v60 = [v57 trailingAnchor];
-        v61 = [v59 trailingAnchor];
-        v62 = [v60 v50[11]];
+        v60 = v59;
+        [v58 setTranslatesAutoresizingMaskIntoConstraints_];
+        v61 = [v58 trailingAnchor];
+        v62 = [v60 trailingAnchor];
+        v63 = [v61 v51[11]];
 
-        [v62 setConstant_];
-        [v62 setActive_];
+        [v63 setConstant_];
+        [v63 setActive_];
 
-        v6 = v57;
-        v57 = v59;
+        v7 = v58;
+        v58 = v60;
       }
 
       else
       {
-        v62 = v63;
+        v63 = v64;
       }
     }
   }
@@ -7304,7 +7580,7 @@ unint64_t lazy protocol witness table accessor for type [DispatchWorkItemFlags] 
   result = lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A];
   if (!lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A]);
   }
@@ -7436,7 +7712,7 @@ uint64_t DBAssetModel.assetData.getter@<X0>(_OWORD *a1@<X8>)
 
 uint64_t DBAssetModel.init(from:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   MEMORY[0x28223BE20](v3 - 8);
   v53 = v50 - v4;
   v54 = type metadata accessor for Date();
@@ -7455,7 +7731,7 @@ uint64_t DBAssetModel.init(from:)(void *a1)
   v12 = v50 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v10);
   v59 = v50 - v13;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9MomentsUI12DBAssetModelC10CodingKeysOGMd);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9MomentsUI12DBAssetModelC10CodingKeysOGMd, &_ss22KeyedDecodingContainerVy9MomentsUI12DBAssetModelC10CodingKeysOGMR);
   *&v60 = *(v14 - 8);
   MEMORY[0x28223BE20](v14);
   v16 = v50 - v15;
@@ -7470,15 +7746,15 @@ uint64_t DBAssetModel.init(from:)(void *a1)
   if (v18)
   {
     v19 = v65;
-    type metadata accessor for DBAssetModel();
+    type metadata accessor for DBAssetModel(0);
     swift_deallocPartialClassInstance();
   }
 
   else
   {
     *&v61 = v1 + 16;
-    LOBYTE(v64) = 0;
-    lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
+    v64[0] = 0;
+    lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC9618]);
     v20 = v59;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v21 = v16;
@@ -7487,7 +7763,7 @@ uint64_t DBAssetModel.init(from:)(void *a1)
     v50[1] = OBJC_IVAR____TtC9MomentsUI12DBAssetModel_id;
     v59 = v22;
     (v22)(v65 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_id, v20, v9);
-    LOBYTE(v64) = 1;
+    v64[0] = 1;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v50[2] = v9;
     (v59)(v23 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_assetID, v12, v9);
@@ -7495,52 +7771,52 @@ uint64_t DBAssetModel.init(from:)(void *a1)
     lazy protocol witness table accessor for type DBAssetData.AssetClass and conformance DBAssetData.AssetClass();
     v50[0] = 0;
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    if (v64 == 2)
+    if (v64[0] == 2)
     {
       v24 = 1;
     }
 
     else
     {
-      v24 = v64 & 1;
+      v24 = v64[0] & 1;
     }
 
     *(v23 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_assetClass) = v24;
     type metadata accessor for ScreenSize();
     v63 = 3;
-    lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type ScreenSize and conformance ScreenSize, type metadata accessor for ScreenSize);
+    lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type ScreenSize and conformance ScreenSize, type metadata accessor for ScreenSize, &protocol conformance descriptor for ScreenSize);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    *(v23 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_maximumSupportedViewport) = v64;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MomentsUI12DBAssetModelC5StyleOGMd);
+    *(v23 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_maximumSupportedViewport) = *v64;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MomentsUI12DBAssetModelC5StyleOGMd, &_sSay9MomentsUI12DBAssetModelC5StyleOGMR);
     v63 = 4;
-    lazy protocol witness table accessor for type [DBAssetModel.Style] and conformance <A> [A](&lazy protocol witness table cache variable for type [DBAssetModel.Style] and conformance <A> [A], lazy protocol witness table accessor for type DBAssetModel.Style and conformance DBAssetModel.Style);
+    lazy protocol witness table accessor for type [DBAssetModel.Style] and conformance <A> [A](&lazy protocol witness table cache variable for type [DBAssetModel.Style] and conformance <A> [A], lazy protocol witness table accessor for type DBAssetModel.Style and conformance DBAssetModel.Style, MEMORY[0x277D83978]);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    *(v23 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_supportedStyles) = v64;
-    LOBYTE(v64) = 5;
+    *(v23 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_supportedStyles) = *v64;
+    v64[0] = 5;
     v26 = KeyedDecodingContainer.decode(_:forKey:)();
     v27 = (v23 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_baseTitle);
     *v27 = v26;
     v27[1] = v28;
-    LOBYTE(v64) = 6;
-    lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DateInterval and conformance DateInterval, MEMORY[0x277CC88A8]);
+    v64[0] = 6;
+    lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DateInterval and conformance DateInterval, MEMORY[0x277CC88A8], MEMORY[0x277CC88D0]);
     v29 = v55;
     v30 = v14;
     v31 = v56;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v57 + 32))(v23 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_baseDateInterval, v29, v31);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS10Foundation4UUIDVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS10Foundation4UUIDVGMd, &_sSDySS10Foundation4UUIDVGMR);
     v63 = 7;
     lazy protocol witness table accessor for type [String : UUID] and conformance <> [A : B]();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v32 = v64;
-    *(v23 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel__assetDataID) = v64;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MomentsUI16DBAssetModelTypeOGMd);
+    v32 = *v64;
+    *(v23 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel__assetDataID) = *v64;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MomentsUI16DBAssetModelTypeOGMd, &_sSay9MomentsUI16DBAssetModelTypeOGMR);
     v63 = 8;
-    lazy protocol witness table accessor for type [DBAssetModelType] and conformance <A> [A](&lazy protocol witness table cache variable for type [DBAssetModelType] and conformance <A> [A], lazy protocol witness table accessor for type DBAssetModelType and conformance DBAssetModelType);
+    lazy protocol witness table accessor for type [DBAssetModelType] and conformance <A> [A](&lazy protocol witness table cache variable for type [DBAssetModelType] and conformance <A> [A], lazy protocol witness table accessor for type DBAssetModelType and conformance DBAssetModelType, MEMORY[0x277D83978]);
 
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v33 = v64;
-    if (!v64)
+    v33 = *v64;
+    if (!*v64)
     {
       v33 = MEMORY[0x277D84F90];
     }
@@ -7551,12 +7827,12 @@ uint64_t DBAssetModel.init(from:)(void *a1)
     v34 = v30;
     v35 = v21;
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v36 = v64;
+    v36 = v64[0];
     v37 = v61;
     swift_beginAccess();
     *v37 = v36 & 1;
     v63 = 10;
-    lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+    lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC95A0]);
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
     v38 = *(v52 + 48);
     if (v38(v53, 1, v54) == 1)
@@ -7564,7 +7840,7 @@ uint64_t DBAssetModel.init(from:)(void *a1)
       static Date.distantPast.getter();
       if (v38(v53, 1, v54) != 1)
       {
-        outlined destroy of UTType?(v53, &_s10Foundation4DateVSgMd);
+        outlined destroy of UTType?(v53, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
       }
     }
 
@@ -7616,7 +7892,7 @@ uint64_t DBAssetModel.init(from:)(void *a1)
 uint64_t DBAssetModel.encode(to:)(void *a1)
 {
   v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI12DBAssetModelC10CodingKeysOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI12DBAssetModelC10CodingKeysOGMd, &_ss22KeyedEncodingContainerVy9MomentsUI12DBAssetModelC10CodingKeysOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v11[-v7];
@@ -7625,7 +7901,7 @@ uint64_t DBAssetModel.encode(to:)(void *a1)
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   LOBYTE(v12) = 0;
   type metadata accessor for UUID();
-  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
+  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC95F8]);
   KeyedEncodingContainer.encode<A>(_:forKey:)();
   if (!v2)
   {
@@ -7638,28 +7914,28 @@ uint64_t DBAssetModel.encode(to:)(void *a1)
     v12 = *(v3 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_maximumSupportedViewport);
     v13 = 3;
     type metadata accessor for ScreenSize();
-    lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type ScreenSize and conformance ScreenSize, type metadata accessor for ScreenSize);
+    lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type ScreenSize and conformance ScreenSize, type metadata accessor for ScreenSize, &protocol conformance descriptor for ScreenSize);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     v12 = *(v3 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_supportedStyles);
     v13 = 4;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MomentsUI12DBAssetModelC5StyleOGMd);
-    lazy protocol witness table accessor for type [DBAssetModel.Style] and conformance <A> [A](&lazy protocol witness table cache variable for type [DBAssetModel.Style] and conformance <A> [A], lazy protocol witness table accessor for type DBAssetModel.Style and conformance DBAssetModel.Style);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MomentsUI12DBAssetModelC5StyleOGMd, &_sSay9MomentsUI12DBAssetModelC5StyleOGMR);
+    lazy protocol witness table accessor for type [DBAssetModel.Style] and conformance <A> [A](&lazy protocol witness table cache variable for type [DBAssetModel.Style] and conformance <A> [A], lazy protocol witness table accessor for type DBAssetModel.Style and conformance DBAssetModel.Style, MEMORY[0x277D83948]);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     LOBYTE(v12) = 5;
     KeyedEncodingContainer.encode(_:forKey:)();
     LOBYTE(v12) = 6;
     type metadata accessor for DateInterval();
-    lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DateInterval and conformance DateInterval, MEMORY[0x277CC88A8]);
+    lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DateInterval and conformance DateInterval, MEMORY[0x277CC88A8], MEMORY[0x277CC88B0]);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     v12 = *(v3 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel__assetDataID);
     v13 = 7;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS10Foundation4UUIDVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS10Foundation4UUIDVGMd, &_sSDySS10Foundation4UUIDVGMR);
     lazy protocol witness table accessor for type [String : UUID] and conformance <> [A : B]();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     v12 = *(v3 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_children);
     v13 = 8;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MomentsUI16DBAssetModelTypeOGMd);
-    lazy protocol witness table accessor for type [DBAssetModelType] and conformance <A> [A](&lazy protocol witness table cache variable for type [DBAssetModelType] and conformance <A> [A], lazy protocol witness table accessor for type DBAssetModelType and conformance DBAssetModelType);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MomentsUI16DBAssetModelTypeOGMd, &_sSay9MomentsUI16DBAssetModelTypeOGMR);
+    lazy protocol witness table accessor for type [DBAssetModelType] and conformance <A> [A](&lazy protocol witness table cache variable for type [DBAssetModelType] and conformance <A> [A], lazy protocol witness table accessor for type DBAssetModelType and conformance DBAssetModelType, MEMORY[0x277D83948]);
     v9 = KeyedEncodingContainer.encode<A>(_:forKey:)();
     (*(*v3 + 200))(&v12, v9);
     v13 = v12;
@@ -7668,7 +7944,7 @@ uint64_t DBAssetModel.encode(to:)(void *a1)
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     LOBYTE(v12) = 10;
     type metadata accessor for Date();
-    lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+    lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9580]);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
   }
 
@@ -7677,7 +7953,7 @@ uint64_t DBAssetModel.encode(to:)(void *a1)
 
 uint64_t static DBAssetModelType.subscript.getter@<X0>(unint64_t a1@<X0>, unint64_t *a2@<X8>)
 {
-  type metadata accessor for DBContactModel();
+  type metadata accessor for DBContactModel(0);
   v4 = swift_dynamicCastClass();
   if (v4)
   {
@@ -7686,7 +7962,7 @@ uint64_t static DBAssetModelType.subscript.getter@<X0>(unint64_t a1@<X0>, unint6
 
   else
   {
-    type metadata accessor for DBLivePhotoModel();
+    type metadata accessor for DBLivePhotoModel(0);
     v6 = swift_dynamicCastClass();
     if (v6)
     {
@@ -7695,7 +7971,7 @@ uint64_t static DBAssetModelType.subscript.getter@<X0>(unint64_t a1@<X0>, unint6
 
     else
     {
-      type metadata accessor for DBMapModel();
+      type metadata accessor for DBMapModel(0);
       v7 = swift_dynamicCastClass();
       if (v7)
       {
@@ -7704,7 +7980,7 @@ uint64_t static DBAssetModelType.subscript.getter@<X0>(unint64_t a1@<X0>, unint6
 
       else
       {
-        type metadata accessor for DBMediaFirstPartyModel();
+        type metadata accessor for DBMediaFirstPartyModel(0);
         v8 = swift_dynamicCastClass();
         if (v8)
         {
@@ -7713,7 +7989,7 @@ uint64_t static DBAssetModelType.subscript.getter@<X0>(unint64_t a1@<X0>, unint6
 
         else
         {
-          type metadata accessor for DBMediaThirdPartyModel();
+          type metadata accessor for DBMediaThirdPartyModel(0);
           v9 = swift_dynamicCastClass();
           if (v9)
           {
@@ -7722,7 +7998,7 @@ uint64_t static DBAssetModelType.subscript.getter@<X0>(unint64_t a1@<X0>, unint6
 
           else
           {
-            type metadata accessor for DBMotionActivityModel();
+            type metadata accessor for DBMotionActivityModel(0);
             v10 = swift_dynamicCastClass();
             if (v10)
             {
@@ -7731,7 +8007,7 @@ uint64_t static DBAssetModelType.subscript.getter@<X0>(unint64_t a1@<X0>, unint6
 
             else
             {
-              type metadata accessor for DBPhotoModel();
+              type metadata accessor for DBPhotoModel(0);
               v11 = swift_dynamicCastClass();
               if (v11)
               {
@@ -7740,7 +8016,7 @@ uint64_t static DBAssetModelType.subscript.getter@<X0>(unint64_t a1@<X0>, unint6
 
               else
               {
-                type metadata accessor for DBReflectionModel();
+                type metadata accessor for DBReflectionModel(0);
                 v12 = swift_dynamicCastClass();
                 if (v12)
                 {
@@ -7749,7 +8025,7 @@ uint64_t static DBAssetModelType.subscript.getter@<X0>(unint64_t a1@<X0>, unint6
 
                 else
                 {
-                  type metadata accessor for DBPosterModel();
+                  type metadata accessor for DBPosterModel(0);
                   v13 = swift_dynamicCastClass();
                   if (v13)
                   {
@@ -7758,7 +8034,7 @@ uint64_t static DBAssetModelType.subscript.getter@<X0>(unint64_t a1@<X0>, unint6
 
                   else
                   {
-                    type metadata accessor for DBStateOfMindModel();
+                    type metadata accessor for DBStateOfMindModel(0);
                     v14 = swift_dynamicCastClass();
                     if (v14)
                     {
@@ -7767,7 +8043,7 @@ uint64_t static DBAssetModelType.subscript.getter@<X0>(unint64_t a1@<X0>, unint6
 
                     else
                     {
-                      type metadata accessor for DBVideoModel();
+                      type metadata accessor for DBVideoModel(0);
                       v15 = swift_dynamicCastClass();
                       if (v15)
                       {
@@ -7776,7 +8052,7 @@ uint64_t static DBAssetModelType.subscript.getter@<X0>(unint64_t a1@<X0>, unint6
 
                       else
                       {
-                        type metadata accessor for DBWorkoutModel();
+                        type metadata accessor for DBWorkoutModel(0);
                         v16 = swift_dynamicCastClass();
                         if (v16)
                         {
@@ -7802,267 +8078,267 @@ uint64_t static DBAssetModelType.subscript.getter@<X0>(unint64_t a1@<X0>, unint6
   *a2 = v5;
 }
 
-uint64_t DBAssetModel.init(id:assetID:assetClass:maximumSupportedViewport:supportedStyles:baseTitle:baseDateInterval:assetData:children:renderState:renderableContentHash:)(uint64_t a1, uint64_t a2, char *a3, unsigned int (**a4)(uint64_t, uint64_t, uint64_t), void (**a5)(uint64_t, uint64_t, uint64_t, uint64_t), unsigned int (**a6)(char *, uint64_t, uint64_t), uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, unsigned __int8 *a11)
+uint64_t DBAssetModel.init(id:assetID:assetClass:maximumSupportedViewport:supportedStyles:baseTitle:baseDateInterval:assetData:children:renderState:renderableContentHash:)(uint64_t a1, uint64_t a2, char *a3, unsigned int (**a4)(uint64_t, uint64_t, uint64_t, __n128), void (**a5)(uint64_t, uint64_t, uint64_t, uint64_t), unsigned int (**a6)(char *, uint64_t, uint64_t), uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, unsigned __int8 *a11, uint64_t a12, uint64_t a13)
 {
-  v12 = v11;
-  v101 = a8;
-  v110 = a7;
-  v109 = a6;
-  v108 = a5;
-  v107 = a4;
-  v102 = a2;
-  v106 = a9;
-  v98 = type metadata accessor for Date();
-  v96 = *(v98 - 8);
-  MEMORY[0x28223BE20](v98);
-  v95 = &v85 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
-  MEMORY[0x28223BE20](v16 - 8);
-  v18 = &v85 - v17;
-  v19 = type metadata accessor for UUID();
-  v20 = *(v19 - 8);
-  MEMORY[0x28223BE20](v19);
-  v105 = &v85 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtSgMd);
-  MEMORY[0x28223BE20](v22 - 8);
-  *&v113 = &v85 - v23;
-  *&v111 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtMd);
-  v24 = *(v111 - 8);
-  v25 = MEMORY[0x28223BE20](v111);
-  v88 = &v85 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v25);
-  v86 = &v85 - v27;
+  v14 = v13;
+  v103 = a8;
+  v112 = a7;
+  v111 = a6;
+  v110 = a5;
+  v109 = a4;
+  v104 = a2;
+  v108 = a9;
+  v100 = type metadata accessor for Date();
+  v98 = *(v100 - 8);
+  MEMORY[0x28223BE20](v100);
+  v97 = &v87 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  MEMORY[0x28223BE20](v18 - 8);
+  v20 = &v87 - v19;
+  v21 = type metadata accessor for UUID();
+  v22 = *(v21 - 8);
+  MEMORY[0x28223BE20](v21);
+  v107 = &v87 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtSgMd, &_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtSgMR);
+  MEMORY[0x28223BE20](v24 - 8);
+  *&v115 = &v87 - v25;
+  *&v113 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtMd, &_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtMR);
+  v26 = *(v113 - 8);
+  v27 = MEMORY[0x28223BE20](v113);
+  v90 = &v87 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v27);
+  v88 = &v87 - v29;
 
-  v28 = *a3;
-  *(v12 + 16) = 0;
-  LODWORD(v104) = *a11;
-  v29 = *(v20 + 16);
-  v103 = OBJC_IVAR____TtC9MomentsUI12DBAssetModel_id;
-  v97 = a1;
-  v29(v12 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_id, a1, v19);
-  v100 = OBJC_IVAR____TtC9MomentsUI12DBAssetModel_assetID;
-  v112 = v19;
-  v29(v12 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_assetID, v102, v19);
-  *(v12 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_assetClass) = v28;
-  v30 = v107;
-  *(v12 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_maximumSupportedViewport) = v107;
-  *(v12 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_supportedStyles) = v108;
-  v31 = (v12 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_baseTitle);
-  v32 = v110;
-  *v31 = v109;
-  v31[1] = v32;
-  v33 = OBJC_IVAR____TtC9MomentsUI12DBAssetModel_baseDateInterval;
-  v34 = type metadata accessor for DateInterval();
-  v92 = *(v34 - 8);
-  v35 = *(v92 + 16);
-  v110 = v33;
-  v93 = v34;
-  v35(v12 + v33, v101);
-  v91 = v30;
-  v36 = v106;
-  v37 = specialized Dictionary.compactMapValues<A>(_:)(v106);
-  v89 = 0;
-  *(v12 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel__assetDataID) = v37;
-  *(v12 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_children) = a10;
-  v38 = 1;
-  v39 = v37;
+  v30 = *a3;
+  *(v14 + 16) = 0;
+  LODWORD(v106) = *a11;
+  v31 = *(v22 + 16);
+  v105 = OBJC_IVAR____TtC9MomentsUI12DBAssetModel_id;
+  v99 = a1;
+  v31(v14 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_id, a1, v21);
+  v102 = OBJC_IVAR____TtC9MomentsUI12DBAssetModel_assetID;
+  v114 = v21;
+  v31(v14 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_assetID, v104, v21);
+  *(v14 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_assetClass) = v30;
+  v32 = v109;
+  *(v14 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_maximumSupportedViewport) = v109;
+  *(v14 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_supportedStyles) = v110;
+  v33 = (v14 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_baseTitle);
+  v34 = v112;
+  *v33 = v111;
+  v33[1] = v34;
+  v35 = OBJC_IVAR____TtC9MomentsUI12DBAssetModel_baseDateInterval;
+  v36 = type metadata accessor for DateInterval();
+  v94 = *(v36 - 8);
+  v37 = *(v94 + 16);
+  v112 = v35;
+  v95 = v36;
+  v37(v14 + v35, v103);
+  v93 = v32;
+  v38 = v108;
+  specialized Dictionary.compactMapValues<A>(_:)(v108);
+  v91 = 0;
+  *(v14 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel__assetDataID) = v39;
+  *(v14 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_children) = a10;
+  v40 = 1;
+  v41 = v39;
   swift_beginAccess();
-  v99 = v12;
-  *(v12 + 16) = v104;
-  v40 = v36 + 64;
-  v41 = 1 << *(v36 + 32);
-  v42 = -1;
-  if (v41 < 64)
+  v101 = v14;
+  *(v14 + 16) = v106;
+  v42 = v38 + 64;
+  v43 = 1 << *(v38 + 32);
+  v44 = -1;
+  if (v43 < 64)
   {
-    v42 = ~(-1 << v41);
+    v44 = ~(-1 << v43);
   }
 
-  v43 = v42 & *(v36 + 64);
-  v44 = (v41 + 63) >> 6;
-  v109 = (v20 + 48);
-  v94 = v20;
-  v104 = (v20 + 32);
-  v108 = (v24 + 56);
-  v87 = v24;
-  v107 = (v24 + 48);
-  v90 = v39;
+  v45 = v44 & *(v38 + 64);
+  v46 = (v43 + 63) >> 6;
+  v111 = (v22 + 48);
+  v96 = v22;
+  v106 = (v22 + 32);
+  v110 = (v26 + 56);
+  v89 = v26;
+  v109 = (v26 + 48);
+  v92 = v41;
 
-  v45 = 0;
-  v100 = MEMORY[0x277D84F90];
-  v46 = v113;
-  v110 = v36 + 64;
-  v103 = v44;
+  v47 = 0;
+  v102 = MEMORY[0x277D84F90];
+  v48 = v115;
+  v112 = v38 + 64;
+  v105 = v46;
 LABEL_4:
-  v47 = v45;
-  if (!v43)
+  v49 = v47;
+  if (!v45)
   {
     goto LABEL_6;
   }
 
   do
   {
-    v45 = v47;
+    v47 = v49;
 LABEL_9:
-    v38 = *(*(v36 + 56) + 8 * (__clz(__rbit64(v43)) | (v45 << 6)));
-    v48 = *(*v38 + 192);
+    v40 = *(*(v38 + 56) + 8 * (__clz(__rbit64(v45)) | (v47 << 6)));
+    v50 = *(*v40 + 192);
 
-    v48(v49);
-    v50 = v112;
-    if ((*v109)(v18, 1, v112) == 1)
+    v50(v51);
+    v52 = v114;
+    if ((*v111)(v20, 1, v114) == 1)
     {
-      outlined destroy of UTType?(v18, &_s10Foundation4UUIDVSgMd);
-      v51 = v111;
-      (*v108)(v46, 1, 1, v111);
+      outlined destroy of UTType?(v20, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+      v53 = v113;
+      (*v110)(v48, 1, 1, v113);
     }
 
     else
     {
-      v52 = *v104;
-      v53 = v105;
-      (*v104)(v105, v18, v50);
-      v54 = *(v111 + 48);
-      v55 = v53;
-      v46 = v113;
-      v56 = v50;
-      v51 = v111;
-      v52(v113, v55, v56);
-      v44 = v103;
-      v36 = v106;
-      *(v46 + v54) = v38;
-      (*v108)(v46, 0, 1, v51);
+      v54 = *v106;
+      v55 = v107;
+      (*v106)(v107, v20, v52);
+      v56 = *(v113 + 48);
+      v57 = v55;
+      v48 = v115;
+      v58 = v52;
+      v53 = v113;
+      v54(v115, v57, v58);
+      v46 = v105;
+      v38 = v108;
+      *(v48 + v56) = v40;
+      (*v110)(v48, 0, 1, v53);
     }
 
-    v43 &= v43 - 1;
+    v45 &= v45 - 1;
 
-    if ((*v107)(v46, 1, v51) != 1)
+    if ((*v109)(v48, 1, v53) != 1)
     {
-      v57 = v86;
-      outlined init with take of (UUID, DBAssetData)(v46, v86);
-      outlined init with take of (UUID, DBAssetData)(v57, v88);
+      v59 = v88;
+      outlined init with take of (UUID, DBAssetData)(v48, v88);
+      outlined init with take of (UUID, DBAssetData)(v59, v90);
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v100 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v100[2] + 1, 1, v100);
+        v102 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v102[2] + 1, 1, v102);
       }
 
-      v59 = v100[2];
-      v58 = v100[3];
-      v38 = v59 + 1;
-      v60 = v87;
-      v40 = v110;
-      if (v59 >= v58 >> 1)
+      v61 = v102[2];
+      v60 = v102[3];
+      v40 = v61 + 1;
+      v62 = v89;
+      v42 = v112;
+      if (v61 >= v60 >> 1)
       {
-        v62 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v58 > 1, v59 + 1, 1, v100);
-        v60 = v87;
-        v100 = v62;
+        v64 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v60 > 1), v61 + 1, 1, v102);
+        v62 = v89;
+        v102 = v64;
       }
 
-      v61 = v100;
-      v100[2] = v38;
-      outlined init with take of (UUID, DBAssetData)(v88, v61 + ((*(v60 + 80) + 32) & ~*(v60 + 80)) + *(v60 + 72) * v59);
+      v63 = v102;
+      v102[2] = v40;
+      outlined init with take of (UUID, DBAssetData)(v90, v63 + ((*(v62 + 80) + 32) & ~*(v62 + 80)) + *(v62 + 72) * v61);
       goto LABEL_4;
     }
 
-    outlined destroy of UTType?(v46, &_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtSgMd);
-    v47 = v45;
-    v40 = v110;
+    outlined destroy of UTType?(v48, &_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtSgMd, &_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtSgMR);
+    v49 = v47;
+    v42 = v112;
   }
 
-  while (v43);
+  while (v45);
   while (1)
   {
 LABEL_6:
-    v45 = v47 + 1;
-    if (__OFADD__(v47, 1))
+    v47 = v49 + 1;
+    if (__OFADD__(v49, 1))
     {
       __break(1u);
 
-      v83 = *(v45 + 8);
-      v84 = v112;
-      v83(v44 + v103, v112);
-      v83(v100 + v44, v84);
+      v85 = *(v47 + 8);
+      v86 = v114;
+      v85(v46 + v105, v114);
+      v85(v102 + v46, v86);
 
-      (*(v92 + 8))(v44 + v110, v93);
-      type metadata accessor for DBAssetModel();
+      (*(v94 + 8))(v46 + v112, v95);
+      type metadata accessor for DBAssetModel(0);
       swift_deallocPartialClassInstance();
       __break(1u);
       goto LABEL_26;
     }
 
-    if (v45 >= v44)
+    if (v47 >= v46)
     {
       break;
     }
 
-    v43 = *(v40 + 8 * v45);
-    ++v47;
-    if (v43)
+    v45 = *(v42 + 8 * v47);
+    ++v49;
+    if (v45)
     {
       goto LABEL_9;
     }
   }
 
-  if (v100[2])
+  if (v102[2])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDV9MomentsUI11DBAssetDataCGMd);
-    v63 = static _DictionaryStorage.allocate(capacity:)();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDV9MomentsUI11DBAssetDataCGMd, &_ss18_DictionaryStorageCy10Foundation4UUIDV9MomentsUI11DBAssetDataCGMR);
+    v65 = static _DictionaryStorage.allocate(capacity:)();
   }
 
   else
   {
-    v63 = MEMORY[0x277D84F98];
+    v65 = MEMORY[0x277D84F98];
   }
 
-  v64 = v99;
-  v65 = v94;
-  v114 = v63;
+  v66 = v101;
+  v67 = v96;
+  v116 = v65;
 
-  v67 = v89;
-  specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(v66, 1, &v114);
-  if (!v67)
+  v69 = v91;
+  specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(v68, 1, &v116);
+  if (!v69)
   {
 
-    v68 = v114;
-    v69 = swift_allocObject();
-    *(v69 + 16) = v68;
-    v70 = (v64 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_assetDataLookup);
-    *v70 = _s9MomentsUI12DBAssetModelC2id7assetID0F5Class24maximumSupportedViewport15supportedStyles9baseTitle0N12DateInterval0F4Data8children11renderState21renderableContentHashAC10Foundation4UUIDV_AqA0cR0C05AssetH0OAA10ScreenSizeCSayAC5StyleOGSSAO0pQ0VSDySSASGSayAA0cD4TypeOGAC06RenderU0OSSSgtcfcASSgAQcfU1_TA_0;
-    v70[1] = v69;
+    v70 = v116;
     v71 = swift_allocObject();
-    *(v71 + 16) = v68;
-    v72 = (v64 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_assetDataGet);
-    *v72 = _s9MomentsUI12DBAssetModelC2id7assetID0F5Class24maximumSupportedViewport15supportedStyles9baseTitle0N12DateInterval0F4Data8children11renderState21renderableContentHashAC10Foundation4UUIDV_AqA0cR0C05AssetH0OAA10ScreenSizeCSayAC5StyleOGSSAO0pQ0VSDySSASGSayAA0cD4TypeOGAC06RenderU0OSSSgtcfcAO0R0VSgAQcfU2_TA_0;
+    *(v71 + 16) = v70;
+    v72 = (v66 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_assetDataLookup);
+    *v72 = _s9MomentsUI12DBAssetModelC2id7assetID0F5Class24maximumSupportedViewport15supportedStyles9baseTitle0N12DateInterval0F4Data8children11renderState21renderableContentHashAC10Foundation4UUIDV_AqA0cR0C05AssetH0OAA10ScreenSizeCSayAC5StyleOGSSAO0pQ0VSDySSASGSayAA0cD4TypeOGAC06RenderU0OSSSgtcfcASSgAQcfU1_TA_0;
     v72[1] = v71;
-    v73 = (v64 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_assetURLGet);
-    *v73 = closure #3 in DBAssetModel.init(from:);
-    v73[1] = 0;
-    v74 = swift_allocObject();
-    *(v74 + 16) = v90;
+    v73 = swift_allocObject();
+    *(v73 + 16) = v70;
+    v74 = (v66 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_assetDataGet);
+    *v74 = _s9MomentsUI12DBAssetModelC2id7assetID0F5Class24maximumSupportedViewport15supportedStyles9baseTitle0N12DateInterval0F4Data8children11renderState21renderableContentHashAC10Foundation4UUIDV_AqA0cR0C05AssetH0OAA10ScreenSizeCSayAC5StyleOGSSAO0pQ0VSDySSASGSayAA0cD4TypeOGAC06RenderU0OSSSgtcfcAO0R0VSgAQcfU2_TA_0;
+    v74[1] = v73;
+    v75 = (v66 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_assetURLGet);
+    *v75 = closure #3 in DBAssetModel.init(from:);
+    v75[1] = 0;
+    v76 = swift_allocObject();
+    *(v76 + 16) = v92;
     swift_beginAccess();
-    v113 = *v70;
+    v115 = *v72;
     swift_beginAccess();
-    v111 = *v72;
+    v113 = *v74;
     swift_beginAccess();
-    v75 = *v73;
-    v76 = v73[1];
-    v77 = v64 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_assetData;
-    *v77 = partial apply for closure #4 in DBAssetModel.init(from:);
-    *(v77 + 8) = v74;
-    v78 = v111;
-    *(v77 + 16) = v113;
-    *(v77 + 32) = v78;
-    *(v77 + 48) = v75;
-    *(v77 + 56) = v76;
+    v77 = *v75;
+    v78 = v75[1];
+    v79 = v66 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_assetData;
+    *v79 = partial apply for closure #4 in DBAssetModel.init(from:);
+    *(v79 + 8) = v76;
+    v80 = v113;
+    *(v79 + 16) = v115;
+    *(v79 + 32) = v80;
+    *(v79 + 48) = v77;
+    *(v79 + 56) = v78;
 
-    v79 = v95;
+    v81 = v97;
     static Date.now.getter();
 
-    (*(v92 + 8))(v101, v93);
-    v80 = *(v65 + 8);
-    v81 = v112;
-    v80(v102, v112);
-    v80(v97, v81);
-    (*(v96 + 32))(v64 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_creationDate, v79, v98);
-    return v64;
+    (*(v94 + 8))(v103, v95);
+    v82 = *(v67 + 8);
+    v83 = v114;
+    v82(v104, v114);
+    v82(v99, v83);
+    (*(v98 + 32))(v66 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_creationDate, v81, v100);
+    return v66;
   }
 
 LABEL_26:
@@ -8139,14 +8415,14 @@ uint64_t DBAssetModel.supportedViewStyles.getter()
   return result;
 }
 
-uint64_t (*DBAssetModel.assetDataLookup.modify(uint64_t a1))(uint64_t a1, char a2)
+uint64_t (*DBAssetModel.assetDataLookup.modify(uint64_t a1))(uint64_t a1, uint64_t a2)
 {
   *(a1 + 24) = v1;
   swift_beginAccess();
   return DBAssetModel.assetDataLookup.modify;
 }
 
-uint64_t (*DBAssetModel.assetDataGet.modify(uint64_t a1))(uint64_t a1, char a2)
+uint64_t (*DBAssetModel.assetDataGet.modify(uint64_t a1))(uint64_t a1, uint64_t a2)
 {
   *(a1 + 24) = v1;
   swift_beginAccess();
@@ -8172,7 +8448,7 @@ uint64_t DBAssetModel.assetDataLookup.setter(uint64_t a1, uint64_t a2, void *a3,
   a4(v9);
 }
 
-uint64_t (*DBAssetModel.assetURLGet.modify(uint64_t a1))(uint64_t a1, char a2)
+uint64_t (*DBAssetModel.assetURLGet.modify(uint64_t a1))(uint64_t a1, uint64_t a2)
 {
   *(a1 + 24) = v1;
   swift_beginAccess();
@@ -8198,9 +8474,9 @@ char *DBAssetModel.dumpAssetData()()
   if (v2)
   {
     v4 = v0;
-    *&v19[0] = MEMORY[0x277D84F90];
+    *&v20[0] = MEMORY[0x277D84F90];
     specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v2, 0);
-    v3 = *&v19[0];
+    v3 = *&v20[0];
     v5 = (v1 + 32);
     do
     {
@@ -8231,13 +8507,13 @@ char *DBAssetModel.dumpAssetData()()
 
       v11 = v9(v10);
 
-      *&v19[0] = v3;
+      *&v20[0] = v3;
       v13 = *(v3 + 16);
       v12 = *(v3 + 24);
       if (v13 >= v12 >> 1)
       {
         specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v12 > 1), v13 + 1, 1);
-        v3 = *&v19[0];
+        v3 = *&v20[0];
       }
 
       *(v3 + 16) = v13 + 1;
@@ -8249,68 +8525,69 @@ char *DBAssetModel.dumpAssetData()()
     v0 = v4;
   }
 
-  (*(*v0 + 232))(v18);
-  v14 = DBAssetModel.AssetDataHelper.dumpAssetData()();
-  v19[0] = v18[0];
-  v19[1] = v18[1];
-  v19[2] = v18[2];
-  v19[3] = v18[3];
-  outlined destroy of DBAssetModel.AssetDataHelper(v19);
-  *&v18[0] = v14;
+  (*(*v0 + 232))(v19);
+  DBAssetModel.AssetDataHelper.dumpAssetData()();
+  v15 = v14;
+  v20[0] = v19[0];
+  v20[1] = v19[1];
+  v20[2] = v19[2];
+  v20[3] = v19[3];
+  outlined destroy of DBAssetModel.AssetDataHelper(v20);
+  *&v19[0] = v15;
   specialized Array.append<A>(contentsOf:)(v3);
-  v15 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC9MomentsUI11DBAssetDataC_SayAFGTt0g5Tf4g_n(*&v18[0]);
+  v16 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC9MomentsUI11DBAssetDataC_SayAFGTt0g5Tf4g_n(*&v19[0]);
 
-  v16 = specialized _copyCollectionToContiguousArray<A>(_:)(v15, _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSo15PHAssetResourceC_Tt1g5, specialized Sequence._copySequenceContents(initializing:));
+  v17 = specialized _copyCollectionToContiguousArray<A>(_:)(v16, _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSo15PHAssetResourceC_Tt1g5, specialized Sequence._copySequenceContents(initializing:));
 
-  return v16;
+  return v17;
 }
 
 id DBAssetModel.baseImage.getter()
 {
   v1 = *(*v0 + 232);
-  v1(v53);
-  v56 = v53[0];
-  v57 = v53[1];
-  v58 = v53[2];
-  v59 = v53[3];
+  v1(v57);
+  v60 = v57[0];
+  v61 = v57[1];
+  v62 = v57[2];
+  v63 = v57[3];
   v2 = DBAssetModel.AssetDataHelper.dataFutureFor(_:)(0x746867696C2D2DLL, 0xE700000000000000);
-  v44 = v3;
-  v4 = outlined destroy of DBAssetModel.AssetDataHelper(v53);
-  (v1)(v54, v4);
-  v56 = v54[0];
-  v57 = v54[1];
-  v58 = v54[2];
-  v59 = v54[3];
+  v47 = v3;
+  v4 = outlined destroy of DBAssetModel.AssetDataHelper(v57);
+  (v1)(v58, v4);
+  v60 = v58[0];
+  v61 = v58[1];
+  v62 = v58[2];
+  v63 = v58[3];
   v5 = DBAssetModel.AssetDataHelper.dataFutureFor(_:)(0x6B7261642D2DLL, 0xE600000000000000);
   v7 = v6;
-  v8 = outlined destroy of DBAssetModel.AssetDataHelper(v54);
-  (v1)(v55, v8);
-  v56 = v55[0];
-  v57 = v55[1];
-  v58 = v55[2];
-  v59 = v55[3];
+  v8 = outlined destroy of DBAssetModel.AssetDataHelper(v58);
+  (v1)(v59, v8);
+  v60 = v59[0];
+  v61 = v59[1];
+  v62 = v59[2];
+  v63 = v59[3];
   v9 = DBAssetModel.AssetDataHelper.urlFutureFor(_:)(0x746867696C2D2DLL, 0xE700000000000000);
   v11 = v10;
-  v12 = outlined destroy of DBAssetModel.AssetDataHelper(v55);
-  (v1)(&v56, v12);
-  v49 = v56;
-  v50 = v57;
-  v51 = v58;
-  v52 = v59;
+  v12 = outlined destroy of DBAssetModel.AssetDataHelper(v59);
+  (v1)(&v60, v12);
+  v53 = v60;
+  v54 = v61;
+  v55 = v62;
+  v56 = v63;
   v13 = DBAssetModel.AssetDataHelper.urlFutureFor(_:)(0x6B7261642D2DLL, 0xE600000000000000);
   v15 = v14;
-  outlined destroy of DBAssetModel.AssetDataHelper(&v56);
-  v42 = v2;
+  outlined destroy of DBAssetModel.AssetDataHelper(&v60);
+  v45 = v2;
   if (v2)
   {
     v16 = *(v0 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_assetClass);
-    v17 = type metadata accessor for Image();
+    v17 = type metadata accessor for Image(0);
     v18 = objc_allocWithZone(v17);
     UUID.init()();
-    v46 = v9;
+    v49 = v9;
     v19 = OBJC_IVAR____TtC9MomentsUI5Image__primaryURL;
-    v40 = v15;
-    v41 = v13;
+    v43 = v15;
+    v44 = v13;
     v20 = v11;
     v21 = type metadata accessor for URL();
     v22 = v5;
@@ -8318,70 +8595,74 @@ id DBAssetModel.baseImage.getter()
     v23(&v18[v19], 1, 1, v21);
     v23(&v18[OBJC_IVAR____TtC9MomentsUI5Image__secondaryURL], 1, 1, v21);
     v24 = &v18[OBJC_IVAR____TtC9MomentsUI5Image__primaryDataFuture];
-    *v24 = v42;
-    v24[1] = v44;
+    *v24 = v45;
+    v24[1] = v47;
     v25 = &v18[OBJC_IVAR____TtC9MomentsUI5Image__secondaryDataFuture];
     *v25 = v22;
     v25[1] = v7;
     v26 = &v18[OBJC_IVAR____TtC9MomentsUI5Image__primaryURLFuture];
-    *v26 = v46;
+    *v26 = v49;
     v26[1] = v20;
     v27 = &v18[OBJC_IVAR____TtC9MomentsUI5Image__secondaryURLFuture];
-    *v27 = v41;
-    v27[1] = v40;
+    *v27 = v44;
+    v27[1] = v43;
     v18[OBJC_IVAR____TtC9MomentsUI5Image_isGlyph] = 0;
     v18[OBJC_IVAR____TtC9MomentsUI5Image__assetClass] = v16;
-    v47.receiver = v18;
-    v47.super_class = v17;
-    return objc_msgSendSuper2(&v47, sel_init);
+    v51.receiver = v18;
+    v51.super_class = v17;
+    return objc_msgSendSuper2(&v51, sel_init);
   }
 
   else if (v5)
   {
-    v43 = *(v0 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_assetClass);
-    v45 = type metadata accessor for Image();
-    v29 = objc_allocWithZone(v45);
+    v46 = *(v0 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_assetClass);
+    v48 = type metadata accessor for Image(0);
+    v50 = v9;
+    v29 = objc_allocWithZone(v48);
     v30 = v5;
-    _sSuSgIegd_SgWOy_0(v13);
-    _sSuSgIegd_SgWOy_0(v5);
+    _sSuSgIegd_SgWOy_0(v13, v15);
+    _sSuSgIegd_SgWOy_0(v5, v7);
     UUID.init()();
     v31 = OBJC_IVAR____TtC9MomentsUI5Image__primaryURL;
-    v32 = type metadata accessor for URL();
-    v33 = v7;
-    v34 = *(*(v32 - 8) + 56);
-    v34(&v29[v31], 1, 1, v32);
-    v34(&v29[OBJC_IVAR____TtC9MomentsUI5Image__secondaryURL], 1, 1, v32);
-    v35 = &v29[OBJC_IVAR____TtC9MomentsUI5Image__primaryDataFuture];
-    *v35 = v30;
-    v35[1] = v33;
-    v36 = &v29[OBJC_IVAR____TtC9MomentsUI5Image__secondaryDataFuture];
-    *v36 = v30;
-    v36[1] = v33;
-    v37 = &v29[OBJC_IVAR____TtC9MomentsUI5Image__primaryURLFuture];
-    *v37 = v13;
-    v37[1] = v15;
-    v38 = &v29[OBJC_IVAR____TtC9MomentsUI5Image__secondaryURLFuture];
-    *v38 = v13;
-    v38[1] = v15;
+    v32 = v13;
+    v33 = v15;
+    v34 = v11;
+    v35 = type metadata accessor for URL();
+    v36 = v7;
+    v37 = *(*(v35 - 8) + 56);
+    v37(&v29[v31], 1, 1, v35);
+    v37(&v29[OBJC_IVAR____TtC9MomentsUI5Image__secondaryURL], 1, 1, v35);
+    v38 = &v29[OBJC_IVAR____TtC9MomentsUI5Image__primaryDataFuture];
+    *v38 = v30;
+    v38[1] = v36;
+    v39 = &v29[OBJC_IVAR____TtC9MomentsUI5Image__secondaryDataFuture];
+    *v39 = v30;
+    v39[1] = v36;
+    v40 = &v29[OBJC_IVAR____TtC9MomentsUI5Image__primaryURLFuture];
+    *v40 = v32;
+    v40[1] = v33;
+    v41 = &v29[OBJC_IVAR____TtC9MomentsUI5Image__secondaryURLFuture];
+    *v41 = v32;
+    v41[1] = v33;
     v29[OBJC_IVAR____TtC9MomentsUI5Image_isGlyph] = 0;
-    v29[OBJC_IVAR____TtC9MomentsUI5Image__assetClass] = v43;
-    _sSuSgIegd_SgWOy_0(v30);
-    _sSuSgIegd_SgWOy_0(v13);
-    _sSuSgIegd_SgWOy_0(v30);
-    v48.receiver = v29;
-    v48.super_class = v45;
-    v39 = objc_msgSendSuper2(&v48, sel_init);
-    outlined consume of (@escaping @callee_guaranteed () -> ())?(v9);
-    outlined consume of (@escaping @callee_guaranteed () -> ())?(v30);
-    outlined consume of (@escaping @callee_guaranteed () -> ())?(v13);
-    outlined consume of (@escaping @callee_guaranteed () -> ())?(v30);
-    return v39;
+    v29[OBJC_IVAR____TtC9MomentsUI5Image__assetClass] = v46;
+    _sSuSgIegd_SgWOy_0(v30, v36);
+    _sSuSgIegd_SgWOy_0(v32, v33);
+    _sSuSgIegd_SgWOy_0(v30, v36);
+    v52.receiver = v29;
+    v52.super_class = v48;
+    v42 = objc_msgSendSuper2(&v52, sel_init);
+    outlined consume of (@escaping @callee_guaranteed () -> ())?(v50, v34);
+    outlined consume of (@escaping @callee_guaranteed () -> ())?(v30, v36);
+    outlined consume of (@escaping @callee_guaranteed () -> ())?(v32, v33);
+    outlined consume of (@escaping @callee_guaranteed () -> ())?(v30, v36);
+    return v42;
   }
 
   else
   {
-    outlined consume of (@escaping @callee_guaranteed () -> ())?(v13);
-    outlined consume of (@escaping @callee_guaranteed () -> ())?(v9);
+    outlined consume of (@escaping @callee_guaranteed () -> ())?(v13, v15);
+    outlined consume of (@escaping @callee_guaranteed () -> ())?(v9, v11);
     return 0;
   }
 }
@@ -8510,10 +8791,10 @@ uint64_t DBAssetModelType.CodingKeys.stringValue.getter(char a1)
   return result;
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance DBAssetModelType.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance DBAssetModelType.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized DBAssetModelType.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized DBAssetModelType.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -8715,59 +8996,59 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t DBAssetModelType.encode(to:)(void *a1)
 {
-  v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO16PosterCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd);
+  v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO16PosterCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd, &_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO16PosterCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMR);
   v31[9] = *(v56 - 8);
   MEMORY[0x28223BE20](v56);
   v55 = v31 - v3;
-  v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO17ContactCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd);
+  v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO17ContactCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd, &_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO17ContactCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMR);
   v31[8] = *(v54 - 8);
   MEMORY[0x28223BE20](v54);
   v53 = v31 - v4;
-  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO15VideoCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd);
+  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO15VideoCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd, &_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO15VideoCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMR);
   v31[7] = *(v52 - 8);
   MEMORY[0x28223BE20](v52);
   v51 = v31 - v5;
-  v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO19LivePhotoCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd);
+  v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO19LivePhotoCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd, &_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO19LivePhotoCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMR);
   v31[6] = *(v50 - 8);
   MEMORY[0x28223BE20](v50);
   v49 = v31 - v6;
-  v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO20ReflectionCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd);
+  v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO20ReflectionCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd, &_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO20ReflectionCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMR);
   v31[5] = *(v48 - 8);
   MEMORY[0x28223BE20](v48);
   v47 = v31 - v7;
-  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO15PhotoCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd);
+  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO15PhotoCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd, &_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO15PhotoCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMR);
   v31[4] = *(v46 - 8);
   MEMORY[0x28223BE20](v46);
   v45 = v31 - v8;
-  v44 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO25MediaThirdPartyCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd);
+  v44 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO25MediaThirdPartyCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd, &_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO25MediaThirdPartyCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMR);
   v31[3] = *(v44 - 8);
   MEMORY[0x28223BE20](v44);
   v43 = v31 - v9;
-  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO25MediaFirstPartyCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd);
+  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO25MediaFirstPartyCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd, &_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO25MediaFirstPartyCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMR);
   v31[2] = *(v42 - 8);
   MEMORY[0x28223BE20](v42);
   v41 = v31 - v10;
-  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO21StateOfMindCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd);
+  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO21StateOfMindCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd, &_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO21StateOfMindCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMR);
   v31[1] = *(v40 - 8);
   MEMORY[0x28223BE20](v40);
   v39 = v31 - v11;
-  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO17WorkoutCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd);
+  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO17WorkoutCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd, &_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO17WorkoutCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMR);
   v31[0] = *(v38 - 8);
   MEMORY[0x28223BE20](v38);
   v37 = v31 - v12;
-  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO24MotionActivityCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd);
+  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO24MotionActivityCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd, &_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO24MotionActivityCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMR);
   v35 = *(v36 - 8);
   MEMORY[0x28223BE20](v36);
   v34 = v31 - v13;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO13MapCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO13MapCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd, &_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO13MapCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMR);
   v33 = *(v14 - 8);
   MEMORY[0x28223BE20](v14);
   v16 = v31 - v15;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO17UnknownCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO17UnknownCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd, &_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO17UnknownCodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMR);
   v32 = *(v17 - 8);
   MEMORY[0x28223BE20](v17);
   v19 = v31 - v18;
-  v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO10CodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd);
+  v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO10CodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd, &_ss22KeyedEncodingContainerVy9MomentsUI16DBAssetModelTypeO10CodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMR);
   v57 = *(v59 - 8);
   MEMORY[0x28223BE20](v59);
   v21 = v31 - v20;
@@ -8785,8 +9066,8 @@ uint64_t DBAssetModelType.encode(to:)(void *a1)
       v28 = v59;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
       v63 = v22 & 0xFFFFFFFFFFFFFFFLL;
-      type metadata accessor for DBMapModel();
-      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBMapModel and conformance DBAssetModel, type metadata accessor for DBMapModel);
+      type metadata accessor for DBMapModel(0);
+      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBMapModel and conformance DBAssetModel, type metadata accessor for DBMapModel, &protocol conformance descriptor for DBAssetModel);
       KeyedEncodingContainer.encode<A>(_:forKey:)();
       (*(v33 + 8))(v16, v14);
       return (*(v57 + 8))(v29, v28);
@@ -8798,8 +9079,8 @@ uint64_t DBAssetModelType.encode(to:)(void *a1)
       v23 = v59;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
       v63 = v22 & 0xFFFFFFFFFFFFFFFLL;
-      type metadata accessor for DBMotionActivityModel();
-      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBMotionActivityModel and conformance DBAssetModel, type metadata accessor for DBMotionActivityModel);
+      type metadata accessor for DBMotionActivityModel(0);
+      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBMotionActivityModel and conformance DBAssetModel, type metadata accessor for DBMotionActivityModel, &protocol conformance descriptor for DBAssetModel);
       v26 = v36;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
       v27 = &v64;
@@ -8812,8 +9093,8 @@ uint64_t DBAssetModelType.encode(to:)(void *a1)
       v23 = v59;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
       v63 = v22 & 0xFFFFFFFFFFFFFFFLL;
-      type metadata accessor for DBWorkoutModel();
-      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBWorkoutModel and conformance DBAssetModel, type metadata accessor for DBWorkoutModel);
+      type metadata accessor for DBWorkoutModel(0);
+      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBWorkoutModel and conformance DBAssetModel, type metadata accessor for DBWorkoutModel, &protocol conformance descriptor for DBAssetModel);
       v26 = v38;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
       v27 = &v54;
@@ -8826,8 +9107,8 @@ uint64_t DBAssetModelType.encode(to:)(void *a1)
       v23 = v59;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
       v63 = v22 & 0xFFFFFFFFFFFFFFFLL;
-      type metadata accessor for DBStateOfMindModel();
-      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBStateOfMindModel and conformance DBAssetModel, type metadata accessor for DBStateOfMindModel);
+      type metadata accessor for DBStateOfMindModel(0);
+      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBStateOfMindModel and conformance DBAssetModel, type metadata accessor for DBStateOfMindModel, &protocol conformance descriptor for DBAssetModel);
       v26 = v40;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
       v27 = &v55;
@@ -8840,8 +9121,8 @@ uint64_t DBAssetModelType.encode(to:)(void *a1)
       v23 = v59;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
       v63 = v22 & 0xFFFFFFFFFFFFFFFLL;
-      type metadata accessor for DBMediaFirstPartyModel();
-      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBMediaFirstPartyModel and conformance DBAssetModel, type metadata accessor for DBMediaFirstPartyModel);
+      type metadata accessor for DBMediaFirstPartyModel(0);
+      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBMediaFirstPartyModel and conformance DBAssetModel, type metadata accessor for DBMediaFirstPartyModel, &protocol conformance descriptor for DBAssetModel);
       v26 = v42;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
       v27 = &v56;
@@ -8854,8 +9135,8 @@ uint64_t DBAssetModelType.encode(to:)(void *a1)
       v23 = v59;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
       v63 = v22 & 0xFFFFFFFFFFFFFFFLL;
-      type metadata accessor for DBMediaThirdPartyModel();
-      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBMediaThirdPartyModel and conformance DBAssetModel, type metadata accessor for DBMediaThirdPartyModel);
+      type metadata accessor for DBMediaThirdPartyModel(0);
+      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBMediaThirdPartyModel and conformance DBAssetModel, type metadata accessor for DBMediaThirdPartyModel, &protocol conformance descriptor for DBAssetModel);
       v26 = v44;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
       v27 = &v57;
@@ -8868,8 +9149,8 @@ uint64_t DBAssetModelType.encode(to:)(void *a1)
       v23 = v59;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
       v63 = v22 & 0xFFFFFFFFFFFFFFFLL;
-      type metadata accessor for DBPhotoModel();
-      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBPhotoModel and conformance DBAssetModel, type metadata accessor for DBPhotoModel);
+      type metadata accessor for DBPhotoModel(0);
+      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBPhotoModel and conformance DBAssetModel, type metadata accessor for DBPhotoModel, &protocol conformance descriptor for DBAssetModel);
       v26 = v46;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
       v27 = &v58;
@@ -8882,8 +9163,8 @@ uint64_t DBAssetModelType.encode(to:)(void *a1)
       v23 = v59;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
       v63 = v22 & 0xFFFFFFFFFFFFFFFLL;
-      type metadata accessor for DBReflectionModel();
-      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBReflectionModel and conformance DBAssetModel, type metadata accessor for DBReflectionModel);
+      type metadata accessor for DBReflectionModel(0);
+      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBReflectionModel and conformance DBAssetModel, type metadata accessor for DBReflectionModel, &protocol conformance descriptor for DBAssetModel);
       v26 = v48;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
       v27 = &v59;
@@ -8896,8 +9177,8 @@ uint64_t DBAssetModelType.encode(to:)(void *a1)
       v23 = v59;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
       v63 = v22 & 0xFFFFFFFFFFFFFFFLL;
-      type metadata accessor for DBLivePhotoModel();
-      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBLivePhotoModel and conformance DBAssetModel, type metadata accessor for DBLivePhotoModel);
+      type metadata accessor for DBLivePhotoModel(0);
+      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBLivePhotoModel and conformance DBAssetModel, type metadata accessor for DBLivePhotoModel, &protocol conformance descriptor for DBAssetModel);
       v26 = v50;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
       v27 = &v60;
@@ -8910,8 +9191,8 @@ uint64_t DBAssetModelType.encode(to:)(void *a1)
       v23 = v59;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
       v63 = v22 & 0xFFFFFFFFFFFFFFFLL;
-      type metadata accessor for DBVideoModel();
-      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBVideoModel and conformance DBAssetModel, type metadata accessor for DBVideoModel);
+      type metadata accessor for DBVideoModel(0);
+      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBVideoModel and conformance DBAssetModel, type metadata accessor for DBVideoModel, &protocol conformance descriptor for DBAssetModel);
       v26 = v52;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
       v27 = &v61;
@@ -8924,8 +9205,8 @@ uint64_t DBAssetModelType.encode(to:)(void *a1)
       v23 = v59;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
       v63 = v22 & 0xFFFFFFFFFFFFFFFLL;
-      type metadata accessor for DBContactModel();
-      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBContactModel and conformance DBAssetModel, type metadata accessor for DBContactModel);
+      type metadata accessor for DBContactModel(0);
+      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBContactModel and conformance DBAssetModel, type metadata accessor for DBContactModel, &protocol conformance descriptor for DBAssetModel);
       v26 = v54;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
       v27 = &v62;
@@ -8938,8 +9219,8 @@ uint64_t DBAssetModelType.encode(to:)(void *a1)
       v23 = v59;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
       v63 = v22 & 0xFFFFFFFFFFFFFFFLL;
-      type metadata accessor for DBPosterModel();
-      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBPosterModel and conformance DBAssetModel, type metadata accessor for DBPosterModel);
+      type metadata accessor for DBPosterModel(0);
+      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBPosterModel and conformance DBAssetModel, type metadata accessor for DBPosterModel, &protocol conformance descriptor for DBAssetModel);
       v26 = v56;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
       v27 = &v63;
@@ -8953,8 +9234,8 @@ LABEL_15:
       v23 = v59;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
       v63 = v22;
-      type metadata accessor for DBAssetModel();
-      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBAssetModel and conformance DBAssetModel, type metadata accessor for DBAssetModel);
+      type metadata accessor for DBAssetModel(0);
+      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBAssetModel and conformance DBAssetModel, type metadata accessor for DBAssetModel, &protocol conformance descriptor for DBAssetModel);
       KeyedEncodingContainer.encode<A>(_:forKey:)();
       (*(v32 + 8))(v19, v17);
       break;
@@ -8966,7 +9247,7 @@ LABEL_15:
 uint64_t DBAssetModelType.init(from:)@<X0>(void *a1@<X0>, unint64_t *a2@<X8>)
 {
   v163 = a2;
-  v187 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9MomentsUI16DBAssetModelTypeO16UnknownCodingKey33_FD191C5A56C656085764A699ABC762EBLLVGMd);
+  v187 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9MomentsUI16DBAssetModelTypeO16UnknownCodingKey33_FD191C5A56C656085764A699ABC762EBLLVGMd, &_ss22KeyedDecodingContainerVy9MomentsUI16DBAssetModelTypeO16UnknownCodingKey33_FD191C5A56C656085764A699ABC762EBLLVGMR);
   v168 = *(v187 - 8);
   MEMORY[0x28223BE20](v187);
   *&v188 = &v154 - v3;
@@ -8974,13 +9255,13 @@ uint64_t DBAssetModelType.init(from:)@<X0>(void *a1@<X0>, unint64_t *a2@<X8>)
   v161 = *(v162 - 8);
   MEMORY[0x28223BE20](v162);
   v160 = &v154 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   MEMORY[0x28223BE20](v5 - 8);
   v185 = &v154 - v6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtSgMd, &_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtSgMR);
   MEMORY[0x28223BE20](v7 - 8);
   v184 = &v154 - v8;
-  v183 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtMd);
+  v183 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtMd, &_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtMR);
   v164 = *(v183 - 8);
   v9 = MEMORY[0x28223BE20](v183);
   v156 = &v154 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -8990,7 +9271,7 @@ uint64_t DBAssetModelType.init(from:)@<X0>(void *a1@<X0>, unint64_t *a2@<X8>)
   v177 = *(v178 - 8);
   MEMORY[0x28223BE20](v178);
   v166 = &v154 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12DateIntervalVSgMd);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12DateIntervalVSgMd, &_s10Foundation12DateIntervalVSgMR);
   v14 = MEMORY[0x28223BE20](v13 - 8);
   v169 = &v154 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v14);
@@ -9011,13 +9292,13 @@ uint64_t DBAssetModelType.init(from:)@<X0>(void *a1@<X0>, unint64_t *a2@<X8>)
   v179 = *(v26 - 8);
   MEMORY[0x28223BE20](v26);
   v28 = &v154 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v181 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9MomentsUI16DBAssetModelTypeO11_0CodingKey33_FD191C5A56C656085764A699ABC762EBLLOGMd);
+  v181 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9MomentsUI16DBAssetModelTypeO11_0CodingKey33_FD191C5A56C656085764A699ABC762EBLLOGMd, &_ss22KeyedDecodingContainerVy9MomentsUI16DBAssetModelTypeO11_0CodingKey33_FD191C5A56C656085764A699ABC762EBLLOGMR);
   v167 = *(v181 - 1);
   v29 = MEMORY[0x28223BE20](v181);
   *&v186 = &v154 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v29);
   v32 = (&v154 - v31);
-  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9MomentsUI16DBAssetModelTypeO10CodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd);
+  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9MomentsUI16DBAssetModelTypeO10CodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMd, &_ss22KeyedDecodingContainerVy9MomentsUI16DBAssetModelTypeO10CodingKeys33_FD191C5A56C656085764A699ABC762EBLLOGMR);
   v34 = *(v33 - 8);
   MEMORY[0x28223BE20](v33);
   v36 = &v154 - v35;
@@ -9053,8 +9334,8 @@ uint64_t DBAssetModelType.init(from:)@<X0>(void *a1@<X0>, unint64_t *a2@<X8>)
         switch(v43)
         {
           case 1:
-            type metadata accessor for DBMapModel();
-            lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBMapModel and conformance DBAssetModel, type metadata accessor for DBMapModel);
+            type metadata accessor for DBMapModel(0);
+            lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBMapModel and conformance DBAssetModel, type metadata accessor for DBMapModel, &protocol conformance descriptor for DBAssetModel);
             v148 = v180;
             KeyedDecodingContainer.decode<A>(_:forKey:)();
             (*(v167 + 8))(v148, v49);
@@ -9062,8 +9343,8 @@ uint64_t DBAssetModelType.init(from:)@<X0>(void *a1@<X0>, unint64_t *a2@<X8>)
             v136 = v190 | 0x1000000000000000;
             goto LABEL_46;
           case 2:
-            type metadata accessor for DBMotionActivityModel();
-            lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBMotionActivityModel and conformance DBAssetModel, type metadata accessor for DBMotionActivityModel);
+            type metadata accessor for DBMotionActivityModel(0);
+            lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBMotionActivityModel and conformance DBAssetModel, type metadata accessor for DBMotionActivityModel, &protocol conformance descriptor for DBAssetModel);
             v145 = v180;
             KeyedDecodingContainer.decode<A>(_:forKey:)();
             (*(v167 + 8))(v145, v49);
@@ -9071,8 +9352,8 @@ uint64_t DBAssetModelType.init(from:)@<X0>(void *a1@<X0>, unint64_t *a2@<X8>)
             v136 = v190 | 0x2000000000000000;
             goto LABEL_46;
           case 3:
-            type metadata accessor for DBWorkoutModel();
-            lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBWorkoutModel and conformance DBAssetModel, type metadata accessor for DBWorkoutModel);
+            type metadata accessor for DBWorkoutModel(0);
+            lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBWorkoutModel and conformance DBAssetModel, type metadata accessor for DBWorkoutModel, &protocol conformance descriptor for DBAssetModel);
             v146 = v180;
             KeyedDecodingContainer.decode<A>(_:forKey:)();
             (*(v167 + 8))(v146, v49);
@@ -9080,8 +9361,8 @@ uint64_t DBAssetModelType.init(from:)@<X0>(void *a1@<X0>, unint64_t *a2@<X8>)
             v136 = v190 | 0x3000000000000000;
             goto LABEL_46;
           case 4:
-            type metadata accessor for DBStateOfMindModel();
-            lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBStateOfMindModel and conformance DBAssetModel, type metadata accessor for DBStateOfMindModel);
+            type metadata accessor for DBStateOfMindModel(0);
+            lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBStateOfMindModel and conformance DBAssetModel, type metadata accessor for DBStateOfMindModel, &protocol conformance descriptor for DBAssetModel);
             v142 = v180;
             KeyedDecodingContainer.decode<A>(_:forKey:)();
             (*(v167 + 8))(v142, v49);
@@ -9089,8 +9370,8 @@ uint64_t DBAssetModelType.init(from:)@<X0>(void *a1@<X0>, unint64_t *a2@<X8>)
             v136 = v190 | 0x4000000000000000;
             goto LABEL_46;
           case 5:
-            type metadata accessor for DBMediaFirstPartyModel();
-            lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBMediaFirstPartyModel and conformance DBAssetModel, type metadata accessor for DBMediaFirstPartyModel);
+            type metadata accessor for DBMediaFirstPartyModel(0);
+            lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBMediaFirstPartyModel and conformance DBAssetModel, type metadata accessor for DBMediaFirstPartyModel, &protocol conformance descriptor for DBAssetModel);
             v149 = v180;
             KeyedDecodingContainer.decode<A>(_:forKey:)();
             (*(v167 + 8))(v149, v49);
@@ -9099,8 +9380,8 @@ uint64_t DBAssetModelType.init(from:)@<X0>(void *a1@<X0>, unint64_t *a2@<X8>)
             v141 = 0x5000000000000000;
             goto LABEL_63;
           case 6:
-            type metadata accessor for DBMediaThirdPartyModel();
-            lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBMediaThirdPartyModel and conformance DBAssetModel, type metadata accessor for DBMediaThirdPartyModel);
+            type metadata accessor for DBMediaThirdPartyModel(0);
+            lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBMediaThirdPartyModel and conformance DBAssetModel, type metadata accessor for DBMediaThirdPartyModel, &protocol conformance descriptor for DBAssetModel);
             v150 = v180;
             KeyedDecodingContainer.decode<A>(_:forKey:)();
             (*(v167 + 8))(v150, v49);
@@ -9108,8 +9389,8 @@ uint64_t DBAssetModelType.init(from:)@<X0>(void *a1@<X0>, unint64_t *a2@<X8>)
             v136 = v190 | 0x6000000000000000;
             goto LABEL_46;
           case 7:
-            type metadata accessor for DBPhotoModel();
-            lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBPhotoModel and conformance DBAssetModel, type metadata accessor for DBPhotoModel);
+            type metadata accessor for DBPhotoModel(0);
+            lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBPhotoModel and conformance DBAssetModel, type metadata accessor for DBPhotoModel, &protocol conformance descriptor for DBAssetModel);
             v147 = v180;
             KeyedDecodingContainer.decode<A>(_:forKey:)();
             (*(v167 + 8))(v147, v49);
@@ -9117,14 +9398,14 @@ uint64_t DBAssetModelType.init(from:)@<X0>(void *a1@<X0>, unint64_t *a2@<X8>)
             v136 = v190 | 0x7000000000000000;
             goto LABEL_46;
           case 8:
-            type metadata accessor for DBReflectionModel();
-            lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBReflectionModel and conformance DBAssetModel, type metadata accessor for DBReflectionModel);
+            type metadata accessor for DBReflectionModel(0);
+            lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBReflectionModel and conformance DBAssetModel, type metadata accessor for DBReflectionModel, &protocol conformance descriptor for DBAssetModel);
             v60 = v180;
             KeyedDecodingContainer.decode<A>(_:forKey:)();
             goto LABEL_67;
           case 9:
-            type metadata accessor for DBLivePhotoModel();
-            lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBLivePhotoModel and conformance DBAssetModel, type metadata accessor for DBLivePhotoModel);
+            type metadata accessor for DBLivePhotoModel(0);
+            lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBLivePhotoModel and conformance DBAssetModel, type metadata accessor for DBLivePhotoModel, &protocol conformance descriptor for DBAssetModel);
             v144 = v180;
             KeyedDecodingContainer.decode<A>(_:forKey:)();
             (*(v167 + 8))(v144, v49);
@@ -9133,8 +9414,8 @@ uint64_t DBAssetModelType.init(from:)@<X0>(void *a1@<X0>, unint64_t *a2@<X8>)
             v141 = 0x9000000000000000;
             goto LABEL_63;
           case 10:
-            type metadata accessor for DBVideoModel();
-            lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBVideoModel and conformance DBAssetModel, type metadata accessor for DBVideoModel);
+            type metadata accessor for DBVideoModel(0);
+            lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBVideoModel and conformance DBAssetModel, type metadata accessor for DBVideoModel, &protocol conformance descriptor for DBAssetModel);
             v151 = v180;
             KeyedDecodingContainer.decode<A>(_:forKey:)();
             (*(v167 + 8))(v151, v49);
@@ -9145,8 +9426,8 @@ uint64_t DBAssetModelType.init(from:)@<X0>(void *a1@<X0>, unint64_t *a2@<X8>)
           case 11:
             goto LABEL_51;
           case 12:
-            type metadata accessor for DBPosterModel();
-            lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBPosterModel and conformance DBAssetModel, type metadata accessor for DBPosterModel);
+            type metadata accessor for DBPosterModel(0);
+            lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBPosterModel and conformance DBAssetModel, type metadata accessor for DBPosterModel, &protocol conformance descriptor for DBAssetModel);
             v143 = v180;
             KeyedDecodingContainer.decode<A>(_:forKey:)();
             (*(v167 + 8))(v143, v49);
@@ -9154,8 +9435,8 @@ uint64_t DBAssetModelType.init(from:)@<X0>(void *a1@<X0>, unint64_t *a2@<X8>)
             v136 = v190 | 0xC000000000000000;
             goto LABEL_46;
           default:
-            type metadata accessor for DBAssetModel();
-            lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBAssetModel and conformance DBAssetModel, type metadata accessor for DBAssetModel);
+            type metadata accessor for DBAssetModel(0);
+            lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBAssetModel and conformance DBAssetModel, type metadata accessor for DBAssetModel, &protocol conformance descriptor for DBAssetModel);
             v138 = v180;
             KeyedDecodingContainer.decode<A>(_:forKey:)();
             (*(v167 + 8))(v138, v49);
@@ -9171,7 +9452,7 @@ uint64_t DBAssetModelType.init(from:)@<X0>(void *a1@<X0>, unint64_t *a2@<X8>)
     v45 = type metadata accessor for DecodingError();
     v39 = swift_allocError();
     v47 = v46;
-    v48 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd) + 48);
+    v48 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR) + 48);
     *v47 = &type metadata for DBAssetModelType;
     (*(v41 + 16))(&v47[v48], v28, v26);
     (*(*(v45 - 8) + 104))(v47, *MEMORY[0x277D84160], v45);
@@ -9206,7 +9487,7 @@ uint64_t DBAssetModelType.init(from:)@<X0>(void *a1@<X0>, unint64_t *a2@<X8>)
       *(v56 + 4) = v59;
       *v57 = v59;
       _os_log_impl(&dword_21607C000, v54, v55, "Failed to decode DBAssetModel, error=%@", v56, 0xCu);
-      outlined destroy of UTType?(v57, &_sSo8NSObjectCSgMd);
+      outlined destroy of UTType?(v57, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       MEMORY[0x21CE94770](v57, -1, -1);
       MEMORY[0x21CE94770](v56, -1, -1);
     }
@@ -9240,8 +9521,8 @@ uint64_t DBAssetModelType.init(from:)@<X0>(void *a1@<X0>, unint64_t *a2@<X8>)
         v193 = v66;
         lazy protocol witness table accessor for type DBAssetModelType._0CodingKey and conformance DBAssetModelType._0CodingKey();
         KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-        type metadata accessor for DBAssetModel();
-        lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBAssetModel and conformance DBAssetModel, type metadata accessor for DBAssetModel);
+        type metadata accessor for DBAssetModel(0);
+        lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBAssetModel and conformance DBAssetModel, type metadata accessor for DBAssetModel, &protocol conformance descriptor for DBAssetModel);
         v69 = v181;
         KeyedDecodingContainer.decode<A>(_:forKey:)();
 
@@ -9269,7 +9550,7 @@ LABEL_46:
     v70 = v189;
     v71 = v172;
     UUID.init()();
-    v72 = type metadata accessor for DBAssetModel();
+    v72 = type metadata accessor for DBAssetModel(0);
     static DBAssetModel.subscript.getter(v72, &v195);
     LODWORD(v188) = v195;
     v73 = v177;
@@ -9297,7 +9578,7 @@ LABEL_46:
 
     v81 = static ScreenSize.zero;
     v82 = v169;
-    outlined init with copy of DateInterval?(v175, v169, &_s10Foundation12DateIntervalVSgMd);
+    outlined init with copy of DateInterval?(v175, v169, &_s10Foundation12DateIntervalVSgMd, &_s10Foundation12DateIntervalVSgMR);
     v83 = *(v73 + 48);
     if (v83(v82, 1, v74) == 1)
     {
@@ -9306,7 +9587,7 @@ LABEL_46:
       DateInterval.init()();
       if (v83(v82, 1, v74) != 1)
       {
-        outlined destroy of UTType?(v82, &_s10Foundation12DateIntervalVSgMd);
+        outlined destroy of UTType?(v82, &_s10Foundation12DateIntervalVSgMd, &_s10Foundation12DateIntervalVSgMR);
       }
     }
 
@@ -9337,7 +9618,7 @@ LABEL_46:
     v159 = v81;
     v92 = v179;
     v93 = v187;
-    v94 = specialized Dictionary.compactMapValues<A>(_:)(v179);
+    specialized Dictionary.compactMapValues<A>(_:)(v179);
     v157 = v93;
     if (!v93)
     {
@@ -9382,7 +9663,7 @@ LABEL_31:
         v102(v103);
         if ((*v181)(v104, 1, v62) == 1)
         {
-          outlined destroy of UTType?(v104, &_s10Foundation4UUIDVSgMd);
+          outlined destroy of UTType?(v104, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
           v105 = v184;
           v64 = v183;
           (*v34)(v184, 1, 1, v183);
@@ -9410,7 +9691,7 @@ LABEL_31:
 
         if ((*v180)(v105, 1, v64) == 1)
         {
-          outlined destroy of UTType?(v105, &_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtSgMd);
+          outlined destroy of UTType?(v105, &_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtSgMd, &_s10Foundation4UUIDV_9MomentsUI11DBAssetDataCtSgMR);
           v99 = v51;
           v98 = v186;
         }
@@ -9431,7 +9712,7 @@ LABEL_31:
           v113 = v165[3];
           if (v114 >= v113 >> 1)
           {
-            v165 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v113 > 1, v114 + 1, 1, v165);
+            v165 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v113 > 1), v114 + 1, 1, v165);
           }
 
           v115 = v165;
@@ -9456,7 +9737,7 @@ LABEL_31:
 
           if (v165[2])
           {
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDV9MomentsUI11DBAssetDataCGMd);
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4UUIDV9MomentsUI11DBAssetDataCGMd, &_ss18_DictionaryStorageCy10Foundation4UUIDV9MomentsUI11DBAssetDataCGMR);
             v116 = static _DictionaryStorage.allocate(capacity:)();
           }
 
@@ -9516,7 +9797,7 @@ LABEL_31:
             v133(v174, v189);
             v133(v173, v134);
             v133(v182, v134);
-            outlined destroy of UTType?(v175, &_s10Foundation12DateIntervalVSgMd);
+            outlined destroy of UTType?(v175, &_s10Foundation12DateIntervalVSgMd, &_s10Foundation12DateIntervalVSgMR);
             v133(v172, v134);
             v136 = v187;
             (*(v161 + 32))(v187 + OBJC_IVAR____TtC9MomentsUI12DBAssetModel_creationDate, v132, v162);
@@ -9536,8 +9817,8 @@ LABEL_31:
 
       __break(1u);
 LABEL_51:
-      type metadata accessor for DBContactModel();
-      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBContactModel and conformance DBAssetModel, type metadata accessor for DBContactModel);
+      type metadata accessor for DBContactModel(0);
+      lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type DBContactModel and conformance DBAssetModel, type metadata accessor for DBContactModel, &protocol conformance descriptor for DBAssetModel);
       v139 = v180;
       KeyedDecodingContainer.decode<A>(_:forKey:)();
       if (v39)
@@ -9602,288 +9883,4 @@ uint64_t protocol witness for Identifiable.id.getter in conformance DBAssetModel
   v6 = *(*(v5 - 8) + 16);
 
   return v6(a1, v2 + v4, v5);
-}
-
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance DBAssetModelType.ContactCodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
-{
-  if (a1 == 12383 && a2 == 0xE200000000000000)
-  {
-
-    v7 = 0;
-  }
-
-  else
-  {
-    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    v7 = v5 ^ 1;
-  }
-
-  *a3 = v7 & 1;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance DBAssetModelType._0CodingKey(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type DBAssetModelType._0CodingKey and conformance DBAssetModelType._0CodingKey();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance DBAssetModelType._0CodingKey(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type DBAssetModelType._0CodingKey and conformance DBAssetModelType._0CodingKey();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-uint64_t protocol witness for CodingKey.stringValue.getter in conformance DBAssetModelType.UnknownCodingKey()
-{
-  v1 = *(v0 + 16);
-
-  return v1;
-}
-
-double protocol witness for CodingKey.init(stringValue:) in conformance DBAssetModelType.UnknownCodingKey@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  result = 0.0;
-  *a3 = xmmword_2165916F0;
-  *(a3 + 16) = a1;
-  *(a3 + 24) = a2;
-  return result;
-}
-
-double protocol witness for CodingKey.init(intValue:) in conformance DBAssetModelType.UnknownCodingKey@<D0>(_OWORD *a1@<X8>)
-{
-  result = 0.0;
-  *a1 = 0u;
-  a1[1] = 0u;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance DBAssetModelType.UnknownCodingKey(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type DBAssetModelType.UnknownCodingKey and conformance DBAssetModelType.UnknownCodingKey();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance DBAssetModelType.UnknownCodingKey(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type DBAssetModelType.UnknownCodingKey and conformance DBAssetModelType.UnknownCodingKey();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-uint64_t DBAssetModel.__allocating_init(id:assetID:assetClass:maximumSupportedViewport:supportedStyles:baseTitle:baseDateInterval:baseImage:previousAssetData:children:renderState:)(uint64_t a1, uint64_t a2, unsigned __int8 *a3, void *a4, uint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, unsigned __int8 *a12)
-{
-  v66 = a8;
-  v63 = a7;
-  v64 = a6;
-  v71 = a4;
-  v72 = a2;
-  v69 = a1;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12DateIntervalVSgMd);
-  MEMORY[0x28223BE20](v14 - 8);
-  v70 = &v53 - v15;
-  v59 = type metadata accessor for DateInterval();
-  v68 = *(v59 - 8);
-  MEMORY[0x28223BE20](v59);
-  v62 = &v53 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = type metadata accessor for UUID();
-  v18 = *(v17 - 8);
-  v19 = MEMORY[0x28223BE20](v17);
-  v21 = &v53 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v19);
-  v23 = &v53 - v22;
-  LODWORD(v54) = *a3;
-  v56 = *a12;
-  v65 = a9;
-  v24 = specialized static DBAssetModel.baseImage2DB(_:)(a9);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v74[0] = a10;
-  specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(v24, specialized thunk for @escaping @callee_guaranteed (@in_guaranteed A, @in_guaranteed B) -> (@out A, @out B), 0, isUniquelyReferenced_nonNull_native, v74);
-
-  v26 = v74[0];
-  v27 = *(v18 + 16);
-  v28 = v69;
-  v27(v23, v69, v17);
-  v27(v21, v72, v17);
-  v73[0] = v54;
-  v29 = v71;
-  v30 = v28;
-  v60 = v21;
-  v61 = v18;
-  v57 = v17;
-  v58 = v23;
-  v55 = v26;
-  if (!v71)
-  {
-    v32 = v70;
-    v33 = v68;
-    if (one-time initialization token for zero != -1)
-    {
-      swift_once();
-    }
-
-    v31 = v30;
-    v54 = static ScreenSize.zero;
-    v34 = *(a5 + 16);
-    if (v34)
-    {
-      goto LABEL_3;
-    }
-
-LABEL_11:
-    v41 = v29;
-
-    v36 = MEMORY[0x277D84F90];
-    goto LABEL_12;
-  }
-
-  v31 = v28;
-  v54 = v71;
-  v32 = v70;
-  v33 = v68;
-  v34 = *(a5 + 16);
-  if (!v34)
-  {
-    goto LABEL_11;
-  }
-
-LABEL_3:
-  v74[0] = MEMORY[0x277D84F90];
-  v35 = v29;
-  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v34, 0);
-  v32 = v70;
-  v36 = v74[0];
-  v37 = *(v74[0] + 16);
-  v38 = 32;
-  do
-  {
-    v39 = *(a5 + v38);
-    v74[0] = v36;
-    v40 = *(v36 + 24);
-    if (v37 >= v40 >> 1)
-    {
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v40 > 1), v37 + 1, 1);
-      v32 = v70;
-      v36 = v74[0];
-    }
-
-    *(v36 + 16) = v37 + 1;
-    *(v36 + v37 + 32) = v39;
-    ++v38;
-    ++v37;
-    --v34;
-  }
-
-  while (v34);
-
-  v33 = v68;
-  v31 = v69;
-LABEL_12:
-  v42 = v66;
-  outlined init with copy of DateInterval?(v66, v32, &_s10Foundation12DateIntervalVSgMd);
-  v43 = *(v33 + 48);
-  v44 = v59;
-  v45 = v43(v32, 1, v59);
-  v46 = v62;
-  if (v45 == 1)
-  {
-    DateInterval.init()();
-    if (v43(v32, 1, v44) != 1)
-    {
-      outlined destroy of UTType?(v32, &_s10Foundation12DateIntervalVSgMd);
-    }
-  }
-
-  else
-  {
-    (*(v33 + 32))(v62, v32, v44);
-  }
-
-  if (v63)
-  {
-    v47 = v63;
-  }
-
-  else
-  {
-    v47 = 0xE000000000000000;
-  }
-
-  if (v63)
-  {
-    v48 = v64;
-  }
-
-  else
-  {
-    v48 = 0;
-  }
-
-  LOBYTE(v74[0]) = v56;
-  v49 = (*(v67 + 360))(v58, v60, v73, v54, v36, v48, v47, v46, v55, a11, v74, 0, 0);
-
-  outlined destroy of UTType?(v42, &_s10Foundation12DateIntervalVSgMd);
-  v50 = *(v61 + 8);
-  v51 = v57;
-  v50(v72, v57);
-  v50(v31, v51);
-  return v49;
-}
-
-uint64_t DBAssetModelEnum.rawValue.getter(char a1)
-{
-  result = 0x746361746E6F63;
-  switch(a1)
-  {
-    case 1:
-      result = 0x746F68506576696CLL;
-      break;
-    case 2:
-      result = 7364973;
-      break;
-    case 3:
-      result = 0x69746C754D70616DLL;
-      break;
-    case 4:
-      result = 0x726946616964656DLL;
-      break;
-    case 5:
-      result = 0x696854616964656DLL;
-      break;
-    case 6:
-      result = 0x63416E6F69746F6DLL;
-      break;
-    case 7:
-      result = 0x6F746F6870;
-      break;
-    case 8:
-      result = 0x697463656C666572;
-      break;
-    case 9:
-      result = 0x726574736F70;
-      break;
-    case 10:
-      result = 0x4D664F6574617473;
-      break;
-    case 11:
-      result = 0x6F65646976;
-      break;
-    case 12:
-      result = 0x74756F6B726F77;
-      break;
-    case 13:
-      result = 0x4774756F6B726F77;
-      break;
-    case 14:
-      result = 0x6E776F6E6B6E75;
-      break;
-    default:
-      return result;
-  }
-
-  return result;
 }

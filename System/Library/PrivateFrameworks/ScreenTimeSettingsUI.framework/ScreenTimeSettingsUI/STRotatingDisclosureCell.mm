@@ -70,7 +70,7 @@
   v8 = editingAccessoryView;
   if (editingAccessoryView)
   {
-    [editingAccessoryView transform];
+    objc_msgSend_transform(editingAccessoryView);
   }
 
   else

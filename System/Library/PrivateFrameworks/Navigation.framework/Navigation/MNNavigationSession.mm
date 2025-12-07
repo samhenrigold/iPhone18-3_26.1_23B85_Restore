@@ -4,11 +4,13 @@
 - (BOOL)wantsETAUpdates;
 - (MNNavigationSession)init;
 - (MNNavigationSession)initWithRouteManager:(id)manager auditToken:(id)token traceManager:(id)traceManager;
+- (id)_locationTrackerForTransportType:(int)type navigationType:(int64_t)navigationType;
 - (id)routeInfoForUpdateManager:(id)manager reason:(unint64_t)reason;
 - (void)_addProbeCrumbLocation:(id)location;
 - (void)_closeTileLoader;
 - (void)_openTileLoader;
 - (void)_startAudioSessionWithGuidanceLevelOverride:(unint64_t)override;
+- (void)_startGuidanceAllowMidRouteStart:(BOOL)start announcementsToIgnore:(id)ignore;
 - (void)_startIdleTimerUpdates;
 - (void)_startLocationTrackingWithInitialLocation:(id)location targetLegIndex:(unint64_t)index;
 - (void)_startMotionUpdates;
@@ -22,13 +24,16 @@
 - (void)_stopVirtualGarageUpdates;
 - (void)_updateNavigationSessionState:(id)state;
 - (void)_updateResumeRouteInfoFrom:(id)from;
+- (void)acceptReroute:(BOOL)reroute forTrafficIncidentAlert:(id)alert;
 - (void)audioManager:(id)manager didChangeVoiceGuidanceLevel:(unint64_t)level;
 - (void)dealloc;
 - (void)guidanceManager:(id)manager announce:(id)announce isImportant:(BOOL)important shortPromptType:(unint64_t)type stage:(unint64_t)stage completionBlock:(id)block;
 - (void)guidanceManager:(id)manager didUpdateNavTrayGuidance:(id)guidance;
+- (void)idleTimerUpdater:(id)updater shouldEnableIdleTimer:(BOOL)timer;
 - (void)insertWaypoint:(id)waypoint;
 - (void)locationManager:(id)manager didUpdateHeading:(id)heading;
 - (void)locationManager:(id)manager didUpdateLocation:(id)location;
+- (void)locationTracker:(id)tracker didChangeState:(int)state;
 - (void)locationTracker:(id)tracker didEnterPreArrivalStateForWaypoint:(id)waypoint endOfLegIndex:(unint64_t)index;
 - (void)locationTracker:(id)tracker didFailRerouteWithError:(id)error;
 - (void)locationTracker:(id)tracker didReroute:(id)reroute newAlternateRoutes:(id)routes rerouteReason:(unint64_t)reason request:(id)request response:(id)response;
@@ -48,6 +53,8 @@
 - (void)removeWaypointAtIndex:(unint64_t)index;
 - (void)rerouteWithWaypoints:(id)waypoints;
 - (void)resumeOriginalDestination;
+- (void)setGuidancePromptsEnabled:(BOOL)enabled;
+- (void)setIsDisplayingNavigationTray:(BOOL)tray;
 - (void)startArrivalInfoUpdates;
 - (void)startLocationUpdates;
 - (void)startNavigationSessionWithDetails:(id)details;
@@ -228,17 +235,17 @@
 
 - (void)updateManager:(id)manager willSendETARequest:(id)request
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v6 = MNGetMNNavigationSessionLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     serverSessionStateInfo = self->_serverSessionStateInfo;
-    v15 = 134218242;
-    v16 = requestCopy;
-    v17 = 2112;
-    v18 = serverSessionStateInfo;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "willSendETARequest - Request: %p | %@", &v15, 0x16u);
+    v14 = 134218242;
+    v15 = requestCopy;
+    v16 = 2112;
+    v17 = serverSessionStateInfo;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "willSendETARequest - Request: %p | %@", &v14, 0x16u);
   }
 
   sessionState = [(MNServerSessionStateInfo *)self->_serverSessionStateInfo sessionState];
@@ -256,7 +263,6 @@
   [tripInfo setHasVisitedFirstStop:hasVisitedFirstStop];
 
   [(MNLocationTracker *)self->_locationTracker updateRequestForETAUpdate:requestCopy];
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)audioManager:(id)manager didChangeVoiceGuidanceLevel:(unint64_t)level
@@ -273,7 +279,7 @@
 
 - (void)vehicleMonitorDidDisconnectFromVehicle:(id)vehicle
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   BOOL = GEOConfigGetBOOL();
   v5 = MNGetMNNavigationSessionLog();
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
@@ -293,9 +299,9 @@
         v9 = off_1E84301C8[arrivalState];
       }
 
-      v20 = 138412290;
-      v21 = v9;
-      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "Received vehicle monitor disconnect notification. Current arrival state: %@", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = v9;
+      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "Received vehicle monitor disconnect notification. Current arrival state: %@", &v19, 0xCu);
     }
 
     arrivalInfo2 = [(MNLocationTracker *)self->_locationTracker arrivalInfo];
@@ -310,8 +316,8 @@
       {
         if (v14)
         {
-          LOWORD(v20) = 0;
-          _os_log_impl(&dword_1D311E000, v13, OS_LOG_TYPE_DEFAULT, "Trying to end navigation because we are on last leg.", &v20, 2u);
+          LOWORD(v19) = 0;
+          _os_log_impl(&dword_1D311E000, v13, OS_LOG_TYPE_DEFAULT, "Trying to end navigation because we are on last leg.", &v19, 2u);
         }
 
         observers = self->_observers;
@@ -323,8 +329,8 @@
       {
         if (v14)
         {
-          LOWORD(v20) = 0;
-          _os_log_impl(&dword_1D311E000, v13, OS_LOG_TYPE_DEFAULT, "Trying to pause navigation because we are not on last leg.", &v20, 2u);
+          LOWORD(v19) = 0;
+          _os_log_impl(&dword_1D311E000, v13, OS_LOG_TYPE_DEFAULT, "Trying to pause navigation because we are not on last leg.", &v19, 2u);
         }
 
         observers = self->_observers;
@@ -340,8 +346,8 @@
       v18 = MNGetMNNavigationSessionLog();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v20) = 0;
-        _os_log_impl(&dword_1D311E000, v18, OS_LOG_TYPE_DEFAULT, "Not ending navigation because not in arrival state.", &v20, 2u);
+        LOWORD(v19) = 0;
+        _os_log_impl(&dword_1D311E000, v18, OS_LOG_TYPE_DEFAULT, "Not ending navigation because not in arrival state.", &v19, 2u);
       }
     }
   }
@@ -350,11 +356,9 @@
   {
     if (v6)
     {
-      LOWORD(v20) = 0;
+      LOWORD(v19) = 0;
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)tracePlayer:(id)player didUpdateCurrentRoute:(id)route reason:(unint64_t)reason
@@ -405,6 +409,14 @@
   self->_destination = lastObject;
 
   [(MNLocationTracker *)self->_locationTracker reroute:mainRouteInfo reason:0];
+}
+
+- (void)idleTimerUpdater:(id)updater shouldEnableIdleTimer:(BOOL)timer
+{
+  timerCopy = timer;
+  v6 = objc_alloc_init(MNNavigationServiceCallback_ShouldEnableIdleTimer);
+  [(MNNavigationServiceCallback_ShouldEnableIdleTimer *)v6 setShouldEnable:timerCopy];
+  [(GEOObserverHashTable *)self->_observers navigationSession:self didSendNavigationServiceCallback:v6];
 }
 
 - (void)guidanceManager:(id)manager didUpdateNavTrayGuidance:(id)guidance
@@ -496,7 +508,7 @@
 
 - (void)locationTracker:(id)tracker didSwitchToNewTransportTypeWithRoute:(id)route rerouteReason:(unint64_t)reason request:(id)request response:(id)response
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   routeCopy = route;
   responseCopy = response;
   requestCopy = request;
@@ -529,9 +541,9 @@
         v22 = off_1E84301A0[source - 1];
       }
 
-      v36 = 138412290;
-      v37 = v22;
-      _os_log_impl(&dword_1D311E000, v19, OS_LOG_TYPE_DEFAULT, "Updating initial route source to %@.", &v36, 0xCu);
+      v35 = 138412290;
+      v36 = v22;
+      _os_log_impl(&dword_1D311E000, v19, OS_LOG_TYPE_DEFAULT, "Updating initial route source to %@.", &v35, 0xCu);
     }
 
     route4 = [routeCopy route];
@@ -577,7 +589,6 @@ LABEL_12:
   [(GEOProbeCrumbs *)probeCrumbs resetStateWithRoute:route6];
 
   [(MNNavigationSession *)self _startGuidanceAllowMidRouteStart:1 announcementsToIgnore:0];
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)locationTracker:(id)tracker didUpdateAlternateRoutes:(id)routes
@@ -610,7 +621,7 @@ LABEL_12:
 
 - (void)locationTracker:(id)tracker didReroute:(id)reroute newAlternateRoutes:(id)routes rerouteReason:(unint64_t)reason request:(id)request response:(id)response
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   trackerCopy = tracker;
   rerouteCopy = reroute;
   routesCopy = routes;
@@ -649,7 +660,7 @@ LABEL_12:
       }
 
       *buf = 138412290;
-      v38 = v24;
+      v37 = v24;
       _os_log_impl(&dword_1D311E000, v21, OS_LOG_TYPE_DEFAULT, "Updating initial route source to %@.", buf, 0xCu);
     }
 
@@ -676,8 +687,6 @@ LABEL_12:
   probeCrumbs = self->_probeCrumbs;
   route5 = [rerouteCopy route];
   [(GEOProbeCrumbs *)probeCrumbs resetStateWithRoute:route5];
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)locationTracker:(id)tracker didUpdateETAForRoute:(id)route
@@ -775,6 +784,15 @@ LABEL_12:
 LABEL_5:
 }
 
+- (void)locationTracker:(id)tracker didChangeState:(int)state
+{
+  v4 = *&state;
+  [(MNNavigationSessionState *)self->_navigationSessionState setNavigationState:*&state];
+  observers = self->_observers;
+
+  [(GEOObserverHashTable *)observers navigationSession:self didChangeNavigationState:v4];
+}
+
 - (void)motionContextDidUpdateMotion:(id)motion
 {
   observers = self->_observers;
@@ -825,39 +843,37 @@ LABEL_5:
 
 - (void)_updateNavigationSessionState:(id)state
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   stateCopy = state;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_navigationSessionStateListeners;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) setNavigationSessionState:{stateCopy, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) setNavigationSessionState:{stateCopy, v10}];
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateResumeRouteInfoFrom:(id)from
@@ -945,6 +961,30 @@ LABEL_5:
     v9 = self->_timeAndDistanceUpdater;
 
     [(MNTimeAndDistanceUpdater *)v9 startUpdating];
+  }
+}
+
+- (void)_startGuidanceAllowMidRouteStart:(BOOL)start announcementsToIgnore:(id)ignore
+{
+  startCopy = start;
+  ignoreCopy = ignore;
+  [(MNNavigationSession *)self _stopGuidance];
+  guidanceManager = self->_guidanceManager;
+  if (guidanceManager)
+  {
+    [(MNGuidanceManager *)guidanceManager reset];
+  }
+
+  else
+  {
+    v7 = [[MNGuidanceManager alloc] initWithNavigationSessionState:self->_navigationSessionState audioManager:self->_audioManager isReconnecting:startCopy announcementsToIgnore:ignoreCopy];
+    v8 = self->_guidanceManager;
+    self->_guidanceManager = v7;
+
+    [(MNGuidanceManager *)self->_guidanceManager setDelegate:self];
+    [(MNGuidanceManager *)self->_guidanceManager setPreferredGuidanceLevel:[(MNAudioManager *)self->_audioManager voiceGuidanceLevel]];
+    [(MNGuidanceManager *)self->_guidanceManager setNavigationSessionState:self->_navigationSessionState];
+    [(NSMutableArray *)self->_navigationSessionStateListeners addObject:self->_guidanceManager];
   }
 }
 
@@ -1047,6 +1087,223 @@ LABEL_5:
   [v11 setLocationCorrector:v12];
 }
 
+- (id)_locationTrackerForTransportType:(int)type navigationType:(int64_t)navigationType
+{
+  v5 = 0;
+  v19 = *MEMORY[0x1E69E9840];
+  if (navigationType <= 1)
+  {
+    if (navigationType)
+    {
+      if (navigationType != 1)
+      {
+        goto LABEL_33;
+      }
+
+      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot start navigation session with planning type."];
+      v10 = GEOFindOrCreateLog();
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *v16 = 136316162;
+      *&v16[4] = "[MNNavigationSession _locationTrackerForTransportType:navigationType:]";
+      *&v16[12] = 2080;
+      *&v16[14] = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSession.m";
+      *&v16[22] = 1024;
+      LODWORD(v17) = 732;
+      WORD2(v17) = 2080;
+      *(&v17 + 6) = "NO";
+      HIWORD(v17) = 2112;
+      v18 = v9;
+      goto LABEL_22;
+    }
+
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Attempting to create location tracker before specifying navigation type."];
+    v10 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      *v16 = 136316162;
+      *&v16[4] = "[MNNavigationSession _locationTrackerForTransportType:navigationType:]";
+      *&v16[12] = 2080;
+      *&v16[14] = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSession.m";
+      *&v16[22] = 1024;
+      LODWORD(v17) = 736;
+      WORD2(v17) = 2080;
+      *(&v17 + 6) = "NO";
+      HIWORD(v17) = 2112;
+      v18 = v9;
+      goto LABEL_22;
+    }
+
+    goto LABEL_23;
+  }
+
+  if (navigationType == 4)
+  {
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Should not attempt to create a location tracker when navigation type is SteppingNoTracking."];
+    v10 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      *v16 = 136316162;
+      *&v16[4] = "[MNNavigationSession _locationTrackerForTransportType:navigationType:]";
+      *&v16[12] = 2080;
+      *&v16[14] = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSession.m";
+      *&v16[22] = 1024;
+      LODWORD(v17) = 728;
+      WORD2(v17) = 2080;
+      *(&v17 + 6) = "NO";
+      HIWORD(v17) = 2112;
+      v18 = v9;
+LABEL_22:
+      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", v16, 0x30u);
+    }
+
+LABEL_23:
+
+    v5 = 0;
+    goto LABEL_33;
+  }
+
+  if (navigationType == 3)
+  {
+    currentRoute = [(MNRouteManager *)self->_routeManager currentRoute];
+    transportType = [currentRoute transportType];
+
+    if (transportType > 1)
+    {
+      if (transportType == 2)
+      {
+        v8 = MNWalkingTurnByTurnLocationTracker;
+        goto LABEL_32;
+      }
+
+      if (transportType == 3)
+      {
+        v8 = MNCyclingTurnByTurnLocationTracker;
+        goto LABEL_32;
+      }
+    }
+
+    else
+    {
+      if (!transportType)
+      {
+        v8 = MNDrivingTurnByTurnLocationTracker;
+        goto LABEL_32;
+      }
+
+      if (transportType == 1)
+      {
+        v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Only stepping navigation supported for transit routes."];
+        v10 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        {
+          *v16 = 136316162;
+          *&v16[4] = "[MNNavigationSession _locationTrackerForTransportType:navigationType:]";
+          *&v16[12] = 2080;
+          *&v16[14] = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSession.m";
+          *&v16[22] = 1024;
+          LODWORD(v17) = 717;
+          WORD2(v17) = 2080;
+          *(&v17 + 6) = "NO";
+          HIWORD(v17) = 2112;
+          v18 = v9;
+          goto LABEL_22;
+        }
+
+        goto LABEL_23;
+      }
+    }
+
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unsupported transport type for turn by turn navigation."];
+    v10 = GEOFindOrCreateLog();
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_23;
+    }
+
+    *v16 = 136316162;
+    *&v16[4] = "[MNNavigationSession _locationTrackerForTransportType:navigationType:]";
+    *&v16[12] = 2080;
+    *&v16[14] = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSession.m";
+    *&v16[22] = 1024;
+    LODWORD(v17) = 721;
+    WORD2(v17) = 2080;
+    *(&v17 + 6) = "NO";
+    HIWORD(v17) = 2112;
+    v18 = v9;
+    goto LABEL_22;
+  }
+
+  if (navigationType != 2)
+  {
+    goto LABEL_33;
+  }
+
+  currentRoute2 = [(MNRouteManager *)self->_routeManager currentRoute];
+  transportType2 = [currentRoute2 transportType];
+
+  if ((transportType2 - 2) >= 2)
+  {
+    if (transportType2 == 1)
+    {
+      v8 = MNTransitLocationTracker;
+      goto LABEL_32;
+    }
+
+    if (transportType2)
+    {
+      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unsupported transport type for stepping navigation."];
+      v10 = GEOFindOrCreateLog();
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      *v16 = 136316162;
+      *&v16[4] = "[MNNavigationSession _locationTrackerForTransportType:navigationType:]";
+      *&v16[12] = 2080;
+      *&v16[14] = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSession.m";
+      *&v16[22] = 1024;
+      LODWORD(v17) = 696;
+      WORD2(v17) = 2080;
+      *(&v17 + 6) = "NO";
+      HIWORD(v17) = 2112;
+      v18 = v9;
+      goto LABEL_22;
+    }
+  }
+
+  v8 = MNSteppingLocationTracker;
+LABEL_32:
+  v5 = [[v8 alloc] initWithNavigationSession:self];
+LABEL_33:
+  v13 = [(MNNavigationSession *)self auditToken:*v16];
+  [v5 _setAuditToken:v13];
+
+  [v5 setNavigationCapabilities:self->_navigationCapabilities];
+  if (!v5)
+  {
+    v15 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      *v16 = 136315906;
+      *&v16[4] = "[MNNavigationSession _locationTrackerForTransportType:navigationType:]";
+      *&v16[12] = 2080;
+      *&v16[14] = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSession.m";
+      *&v16[22] = 1024;
+      LODWORD(v17) = 743;
+      WORD2(v17) = 2080;
+      *(&v17 + 6) = "locationTracker != nil";
+      _os_log_impl(&dword_1D311E000, v15, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s)", v16, 0x26u);
+    }
+  }
+
+  return v5;
+}
+
 - (void)_closeTileLoader
 {
   if (self->_tileLoaderClient)
@@ -1074,6 +1331,73 @@ LABEL_5:
 
     modernManager = [MEMORY[0x1E69A2478] modernManager];
     [modernManager openServerConnection];
+  }
+}
+
+- (void)setGuidancePromptsEnabled:(BOOL)enabled
+{
+  if (self->_guidancePromptsEnabled != enabled)
+  {
+    enabledCopy = enabled;
+    self->_guidancePromptsEnabled = enabled;
+    if (enabled)
+    {
+      [(MNNavigationSession *)self _startGuidanceAllowMidRouteStart:1 announcementsToIgnore:0];
+    }
+
+    else
+    {
+      [(MNNavigationSession *)self _stopGuidance];
+    }
+
+    observers = self->_observers;
+
+    [(GEOObserverHashTable *)observers navigationSession:self didEnableGuidancePrompts:enabledCopy];
+  }
+}
+
+- (void)acceptReroute:(BOOL)reroute forTrafficIncidentAlert:(id)alert
+{
+  rerouteCopy = reroute;
+  v25 = *MEMORY[0x1E69E9840];
+  alertCopy = alert;
+  trafficIncidentAlertCallbacks = self->_trafficIncidentAlertCallbacks;
+  alertID = [alertCopy alertID];
+  v9 = [(NSMutableDictionary *)trafficIncidentAlertCallbacks objectForKey:alertID];
+
+  if (v9)
+  {
+    v10 = self->_trafficIncidentAlertCallbacks;
+    alertID2 = [alertCopy alertID];
+    [(NSMutableDictionary *)v10 removeObjectForKey:alertID2];
+
+    if (![(NSMutableDictionary *)self->_trafficIncidentAlertCallbacks count])
+    {
+      v12 = self->_trafficIncidentAlertCallbacks;
+      self->_trafficIncidentAlertCallbacks = 0;
+    }
+
+    v9[2](v9, rerouteCopy);
+  }
+
+  else
+  {
+    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Did not find traffic incident alert handler"];
+    v14 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      v15 = 136316162;
+      v16 = "[MNNavigationSession acceptReroute:forTrafficIncidentAlert:]";
+      v17 = 2080;
+      v18 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSession.m";
+      v19 = 1024;
+      v20 = 618;
+      v21 = 2080;
+      v22 = "(responseHandler != nil)";
+      v23 = 2112;
+      v24 = v13;
+      _os_log_impl(&dword_1D311E000, v14, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v15, 0x30u);
+    }
   }
 }
 
@@ -1118,9 +1442,21 @@ LABEL_5:
   return self;
 }
 
+- (void)setIsDisplayingNavigationTray:(BOOL)tray
+{
+  trayCopy = tray;
+  if ([(MNNavigationSessionState *)self->_navigationSessionState isDisplayingNavigationTray]!= tray)
+  {
+    [(MNNavigationSessionState *)self->_navigationSessionState setIsDisplayingNavigationTray:trayCopy];
+    navigationSessionState = self->_navigationSessionState;
+
+    [(MNNavigationSession *)self _updateNavigationSessionState:navigationSessionState];
+  }
+}
+
 - (void)switchToRoute:(id)route
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   routeCopy = route;
   route = [routeCopy route];
   if ([route transportType] != 1)
@@ -1131,26 +1467,26 @@ LABEL_5:
 
     if (routeID)
     {
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
       v31 = 0u;
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
       alternateRoutes = [(MNRouteManager *)self->_routeManager alternateRoutes];
-      v12 = [alternateRoutes countByEnumeratingWithState:&v30 objects:v44 count:16];
+      v12 = [alternateRoutes countByEnumeratingWithState:&v29 objects:v43 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v31;
+        v14 = *v30;
 LABEL_8:
         v15 = 0;
         while (1)
         {
-          if (*v31 != v14)
+          if (*v30 != v14)
           {
             objc_enumerationMutation(alternateRoutes);
           }
 
-          v16 = *(*(&v30 + 1) + 8 * v15);
+          v16 = *(*(&v29 + 1) + 8 * v15);
           routeID2 = [routeCopy routeID];
           routeID3 = [v16 routeID];
           v19 = [routeID2 isEqual:routeID3];
@@ -1162,7 +1498,7 @@ LABEL_8:
 
           if (v13 == ++v15)
           {
-            v13 = [alternateRoutes countByEnumeratingWithState:&v30 objects:v44 count:16];
+            v13 = [alternateRoutes countByEnumeratingWithState:&v29 objects:v43 count:16];
             if (v13)
             {
               goto LABEL_8;
@@ -1191,15 +1527,15 @@ LABEL_15:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v35 = "[MNNavigationSession switchToRoute:]";
-      v36 = 2080;
-      v37 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSession.m";
-      v38 = 1024;
-      v39 = 502;
-      v40 = 2080;
-      v41 = "validAlternateRoute != nil";
-      v42 = 2112;
-      v43 = v20;
+      v34 = "[MNNavigationSession switchToRoute:]";
+      v35 = 2080;
+      v36 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSession.m";
+      v37 = 1024;
+      v38 = 502;
+      v39 = 2080;
+      v40 = "validAlternateRoute != nil";
+      v41 = 2112;
+      v42 = v20;
       _os_log_impl(&dword_1D311E000, v21, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
     }
 
@@ -1210,9 +1546,9 @@ LABEL_15:
       name = [route2 name];
       routeID4 = [routeCopy routeID];
       *buf = 138412546;
-      v35 = name;
-      v36 = 2112;
-      v37 = routeID4;
+      v34 = name;
+      v35 = 2112;
+      v36 = routeID4;
       _os_log_impl(&dword_1D311E000, v22, OS_LOG_TYPE_ERROR, "switchToRoute: was called but no valid alternate route was found for %@ (%@)", buf, 0x16u);
     }
 
@@ -1238,8 +1574,6 @@ LABEL_22:
   probeCrumbs = self->_probeCrumbs;
   route3 = [routeCopy route];
   [(GEOProbeCrumbs *)probeCrumbs resetStateWithRoute:route3];
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resumeOriginalDestination
@@ -1384,24 +1718,24 @@ void __44__MNNavigationSession_rerouteWithWaypoints___block_invoke(uint64_t a1)
 
 - (void)stopNavigationSessionWithReason:(unint64_t)reason
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (!self->_navigationType)
   {
-    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Trying to stop navigation session that hasn't been started"];
-    v20 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Trying to stop navigation session that hasn't been started"];
+    v19 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = 136316162;
-      v22 = "[MNNavigationSession stopNavigationSessionWithReason:]";
-      v23 = 2080;
-      v24 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSession.m";
-      v25 = 1024;
-      v26 = 367;
-      v27 = 2080;
-      v28 = "_navigationType != MNNavigationType_None";
-      v29 = 2112;
-      v30 = v19;
-      _os_log_impl(&dword_1D311E000, v20, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v21, 0x30u);
+      v20 = 136316162;
+      v21 = "[MNNavigationSession stopNavigationSessionWithReason:]";
+      v22 = 2080;
+      v23 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSession.m";
+      v24 = 1024;
+      v25 = 367;
+      v26 = 2080;
+      v27 = "_navigationType != MNNavigationType_None";
+      v28 = 2112;
+      v29 = v18;
+      _os_log_impl(&dword_1D311E000, v19, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v20, 0x30u);
     }
   }
 
@@ -1465,8 +1799,6 @@ void __44__MNNavigationSession_rerouteWithWaypoints___block_invoke(uint64_t a1)
   [(MNNavigationSession *)self unregisterObserver:self->_logger];
   logger = self->_logger;
   self->_logger = 0;
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateWithInitialLocation:(id)location
@@ -1518,7 +1850,7 @@ void __44__MNNavigationSession_rerouteWithWaypoints___block_invoke(uint64_t a1)
 
 - (void)startNavigationSessionWithDetails:(id)details
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   detailsCopy = details;
   if (self->_navigationType)
   {
@@ -1527,15 +1859,15 @@ void __44__MNNavigationSession_rerouteWithWaypoints___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v68 = "[MNNavigationSession startNavigationSessionWithDetails:]";
-      v69 = 2080;
-      v70 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSession.m";
-      v71 = 1024;
-      v72 = 239;
-      v73 = 2080;
-      v74 = "_navigationType == MNNavigationType_None";
-      v75 = 2112;
-      v76 = v5;
+      v67 = "[MNNavigationSession startNavigationSessionWithDetails:]";
+      v68 = 2080;
+      v69 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSession.m";
+      v70 = 1024;
+      v71 = 239;
+      v72 = 2080;
+      v73 = "_navigationType == MNNavigationType_None";
+      v74 = 2112;
+      v75 = v5;
       _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
     }
 
@@ -1547,26 +1879,26 @@ void __44__MNNavigationSession_rerouteWithWaypoints___block_invoke(uint64_t a1)
   {
     v5 = currentRoute;
     origin = [currentRoute origin];
-    if (!origin || (v10 = origin, [v5 destination], v11 = objc_claimAutoreleasedReturnValue(), v11, v10, !v11))
+    if (!origin || (v9 = origin, [v5 destination], v10 = objc_claimAutoreleasedReturnValue(), v10, v9, !v10))
     {
       origin2 = [v5 origin];
-      if (!origin2 || (v13 = origin2, [v5 destination], v14 = objc_claimAutoreleasedReturnValue(), v14, v13, !v14))
+      if (!origin2 || (v12 = origin2, [v5 destination], v13 = objc_claimAutoreleasedReturnValue(), v13, v12, !v13))
       {
-        v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Starting navigation session without origin or destination"];
-        v16 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Starting navigation session without origin or destination"];
+        v15 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           *buf = 136316162;
-          v68 = "[MNNavigationSession startNavigationSessionWithDetails:]";
-          v69 = 2080;
-          v70 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSession.m";
-          v71 = 1024;
-          v72 = 250;
-          v73 = 2080;
-          v74 = "currentRoute.origin != nil && currentRoute.destination != nil";
-          v75 = 2112;
-          v76 = v15;
-          _os_log_impl(&dword_1D311E000, v16, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
+          v67 = "[MNNavigationSession startNavigationSessionWithDetails:]";
+          v68 = 2080;
+          v69 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSession.m";
+          v70 = 1024;
+          v71 = 250;
+          v72 = 2080;
+          v73 = "currentRoute.origin != nil && currentRoute.destination != nil";
+          v74 = 2112;
+          v75 = v14;
+          _os_log_impl(&dword_1D311E000, v15, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
         }
       }
     }
@@ -1580,9 +1912,9 @@ void __44__MNNavigationSession_rerouteWithWaypoints___block_invoke(uint64_t a1)
     navigationSessionStateListeners = self->_navigationSessionStateListeners;
     self->_navigationSessionStateListeners = array;
 
-    v21 = objc_alloc_init(MNNavigationSessionState);
+    v20 = objc_alloc_init(MNNavigationSessionState);
     navigationSessionState = self->_navigationSessionState;
-    self->_navigationSessionState = v21;
+    self->_navigationSessionState = v20;
 
     [(MNNavigationSessionState *)self->_navigationSessionState setAuditToken:self->_auditToken];
     requestingAppIdentifier = [detailsCopy requestingAppIdentifier];
@@ -1591,9 +1923,9 @@ void __44__MNNavigationSession_rerouteWithWaypoints___block_invoke(uint64_t a1)
     traits = [detailsCopy traits];
     [(MNNavigationSessionState *)self->_navigationSessionState setTraits:traits];
 
-    v25 = self->_navigationSessionState;
+    v24 = self->_navigationSessionState;
     currentRouteInfo = [(MNRouteManager *)self->_routeManager currentRouteInfo];
-    [(MNNavigationSessionState *)v25 updateCurrentRouteInfo:currentRouteInfo rerouteReason:0];
+    [(MNNavigationSessionState *)v24 updateCurrentRouteInfo:currentRouteInfo rerouteReason:0];
 
     reconnectionDetails = [detailsCopy reconnectionDetails];
 
@@ -1615,16 +1947,16 @@ void __44__MNNavigationSession_rerouteWithWaypoints___block_invoke(uint64_t a1)
     [(MNNavigationSession *)self _openTileLoader];
     if (GEOConfigGetBOOL())
     {
-      v32 = objc_alloc(MEMORY[0x1E69A2480]);
-      v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.Navigation.active-session.%p", self];
-      v34 = [v32 initWithReason:v33];
+      v31 = objc_alloc(MEMORY[0x1E69A2480]);
+      v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.Navigation.active-session.%p", self];
+      v33 = [v31 initWithReason:v32];
       manifestUpdateAssertion = self->_manifestUpdateAssertion;
-      self->_manifestUpdateAssertion = v34;
+      self->_manifestUpdateAssertion = v33;
     }
 
-    v36 = objc_alloc_init(MNNavigationSessionLogger);
+    v35 = objc_alloc_init(MNNavigationSessionLogger);
     logger = self->_logger;
-    self->_logger = v36;
+    self->_logger = v35;
 
     [(MNNavigationSession *)self registerObserver:self->_logger];
     [(NSMutableArray *)self->_navigationSessionStateListeners addObject:self->_logger];
@@ -1632,22 +1964,22 @@ void __44__MNNavigationSession_rerouteWithWaypoints___block_invoke(uint64_t a1)
 
     if (traceRecorder)
     {
-      v39 = [MNTraceNavigationEventRecorder alloc];
+      v38 = [MNTraceNavigationEventRecorder alloc];
       traceRecorder2 = [(MNNavigationTraceManager *)self->_traceManager traceRecorder];
-      v41 = [(MNTraceNavigationEventRecorder *)v39 initWithTraceRecorder:traceRecorder2];
+      v40 = [(MNTraceNavigationEventRecorder *)v38 initWithTraceRecorder:traceRecorder2];
       navigationEventRecorder = self->_navigationEventRecorder;
-      self->_navigationEventRecorder = v41;
+      self->_navigationEventRecorder = v40;
 
       if (self->_navigationEventRecorder)
       {
         [(MNNavigationSession *)self registerObserver:?];
       }
 
-      v43 = [MNTraceNavigationUpdateRecorder alloc];
+      v42 = [MNTraceNavigationUpdateRecorder alloc];
       traceRecorder3 = [(MNNavigationTraceManager *)self->_traceManager traceRecorder];
-      v45 = [(MNTraceNavigationUpdateRecorder *)v43 initWithTraceRecorder:traceRecorder3];
+      v44 = [(MNTraceNavigationUpdateRecorder *)v42 initWithTraceRecorder:traceRecorder3];
       navigationUpdateRecorder = self->_navigationUpdateRecorder;
-      self->_navigationUpdateRecorder = v45;
+      self->_navigationUpdateRecorder = v44;
 
       if (self->_navigationUpdateRecorder)
       {
@@ -1655,9 +1987,9 @@ void __44__MNNavigationSession_rerouteWithWaypoints___block_invoke(uint64_t a1)
       }
     }
 
-    v47 = [MNMapMatcher mapMatcherFor:v5];
+    v46 = [MNMapMatcher mapMatcherFor:v5];
     mapMatcher = self->_mapMatcher;
-    self->_mapMatcher = v47;
+    self->_mapMatcher = v46;
 
     [(MNNavigationSession *)self startLocationUpdates];
     origin3 = [v5 origin];
@@ -1674,9 +2006,9 @@ void __44__MNNavigationSession_rerouteWithWaypoints___block_invoke(uint64_t a1)
 LABEL_31:
         if (self->_navigationType == 3)
         {
-          v51 = objc_alloc_init(MNServerSessionStateInfo);
+          v50 = objc_alloc_init(MNServerSessionStateInfo);
           serverSessionStateInfo = self->_serverSessionStateInfo;
-          self->_serverSessionStateInfo = v51;
+          self->_serverSessionStateInfo = v50;
 
           [(MNServerSessionStateInfo *)self->_serverSessionStateInfo updateWithRoute:v5];
           reconnectionDetails4 = [detailsCopy reconnectionDetails];
@@ -1684,10 +2016,10 @@ LABEL_31:
 
           if (serverSessionState)
           {
-            v55 = self->_serverSessionStateInfo;
+            v54 = self->_serverSessionStateInfo;
             reconnectionDetails5 = [detailsCopy reconnectionDetails];
             serverSessionState2 = [reconnectionDetails5 serverSessionState];
-            [(MNServerSessionStateInfo *)v55 updateWithSessionState:serverSessionState2];
+            [(MNServerSessionStateInfo *)v54 updateWithSessionState:serverSessionState2];
           }
 
           self->_guidancePromptsEnabled = [detailsCopy guidanceType] == 0;
@@ -1701,16 +2033,16 @@ LABEL_31:
           spokenAnnouncements = [reconnectionDetails6 spokenAnnouncements];
           [(MNNavigationSession *)self _startGuidanceAllowMidRouteStart:isReconnecting announcementsToIgnore:spokenAnnouncements];
 
-          v61 = objc_alloc_init(MNVehicleMonitor);
+          v60 = objc_alloc_init(MNVehicleMonitor);
           vehicleMonitor = self->_vehicleMonitor;
-          self->_vehicleMonitor = v61;
+          self->_vehicleMonitor = v60;
 
           [(MNVehicleMonitor *)self->_vehicleMonitor setDelegate:self];
           [(MNVehicleMonitor *)self->_vehicleMonitor startMonitoring];
           [(MNNavigationSession *)self _startVirtualGarageUpdates];
-          v63 = [objc_alloc(MEMORY[0x1E69A23C0]) initWithRoute:v5];
+          v62 = [objc_alloc(MEMORY[0x1E69A23C0]) initWithRoute:v5];
           probeCrumbs = self->_probeCrumbs;
-          self->_probeCrumbs = v63;
+          self->_probeCrumbs = v62;
         }
 
         if (-[MNAudioManager voiceGuidanceEnabled](self->_audioManager, "voiceGuidanceEnabled") && [v5 hasInitialPromptType:1])
@@ -1735,27 +2067,25 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Starting a navigation session without a route"];
-  v31 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+  v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Starting a navigation session without a route"];
+  v30 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
     *buf = 136316162;
-    v68 = "[MNNavigationSession startNavigationSessionWithDetails:]";
-    v69 = 2080;
-    v70 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSession.m";
-    v71 = 1024;
-    v72 = 245;
-    v73 = 2080;
-    v74 = "currentRoute != nil";
-    v75 = 2112;
-    v76 = v30;
-    _os_log_impl(&dword_1D311E000, v31, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
+    v67 = "[MNNavigationSession startNavigationSessionWithDetails:]";
+    v68 = 2080;
+    v69 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSession.m";
+    v70 = 1024;
+    v71 = 245;
+    v72 = 2080;
+    v73 = "currentRoute != nil";
+    v74 = 2112;
+    v75 = v29;
+    _os_log_impl(&dword_1D311E000, v30, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
   }
 
   v5 = 0;
 LABEL_5:
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -1835,7 +2165,7 @@ LABEL_5:
 
 - (void)updateForLocation:(id)location
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   v5 = locationCopy;
   if (locationCopy)
@@ -1859,21 +2189,21 @@ LABEL_5:
         stepIndex = [v8 stepIndex];
         if (stepIndex != [v9 stepIndex])
         {
-          v36 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Propagating location shouldn't change step index"];
-          v37 = GEOFindOrCreateLog();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+          v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Propagating location shouldn't change step index"];
+          v36 = GEOFindOrCreateLog();
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
           {
-            v38 = 136316162;
-            v39 = "[MNNavigationSession(ForSwift) updateForLocation:]";
-            v40 = 2080;
-            v41 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSession.m";
-            v42 = 1024;
-            v43 = 1661;
-            v44 = 2080;
-            v45 = "location.stepIndex == propagatedLocation.stepIndex";
-            v46 = 2112;
-            v47 = v36;
-            _os_log_impl(&dword_1D311E000, v37, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v38, 0x30u);
+            v37 = 136316162;
+            v38 = "[MNNavigationSession(ForSwift) updateForLocation:]";
+            v39 = 2080;
+            v40 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSession.m";
+            v41 = 1024;
+            v42 = 1661;
+            v43 = 2080;
+            v44 = "location.stepIndex == propagatedLocation.stepIndex";
+            v45 = 2112;
+            v46 = v35;
+            _os_log_impl(&dword_1D311E000, v36, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v37, 0x30u);
           }
         }
       }
@@ -1941,8 +2271,6 @@ LABEL_5:
 
     [(GEOObserverHashTable *)self->_observers navigationSessionDidFinishLocationUpdate:self];
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 @end

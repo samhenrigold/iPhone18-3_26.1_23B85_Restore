@@ -3,6 +3,8 @@
 - (_INPBImageValue)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)renderingModeAsString:(int)string;
+- (id)typeAsString:(int)string;
 - (int)StringAsRenderingMode:(id)mode;
 - (int)StringAsType:(id)type;
 - (unint64_t)hash;
@@ -447,13 +449,11 @@ LABEL_35:
 
   if (data)
   {
-    data = self->_data;
     PBDataWriterWriteDataField();
   }
 
   if ([(_INPBImageValue *)self hasHeight])
   {
-    height = self->_height;
     PBDataWriterWriteDoubleField();
   }
 
@@ -461,27 +461,23 @@ LABEL_35:
 
   if (proxyServiceIdentifier)
   {
-    proxyServiceIdentifier = self->_proxyServiceIdentifier;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBImageValue *)self hasRenderingMode])
   {
-    renderingMode = self->_renderingMode;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBImageValue *)self hasType])
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 
-  v11 = [(_INPBImageValue *)self uri];
+  v6 = [(_INPBImageValue *)self uri];
 
-  if (v11)
+  if (v6)
   {
-    uri = self->_uri;
     PBDataWriterWriteStringField();
   }
 
@@ -495,7 +491,6 @@ LABEL_35:
 
   if ([(_INPBImageValue *)self hasWidth])
   {
-    width = self->_width;
     PBDataWriterWriteDoubleField();
   }
 }
@@ -560,6 +555,21 @@ LABEL_35:
   return v4;
 }
 
+- (id)typeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7283BE8[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasType:(BOOL)type
 {
   if (type)
@@ -611,6 +621,21 @@ LABEL_35:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)renderingModeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7283BD0[string];
   }
 
   return v4;

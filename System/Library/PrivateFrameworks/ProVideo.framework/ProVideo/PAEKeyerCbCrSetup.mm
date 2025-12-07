@@ -241,12 +241,12 @@
   v23 = 0;
   v25 = v13 == 1 && weight > 0.5;
   v26 = v13 != 2 || weight > 0.5;
-  v54 = weight + weight;
+  v50 = weight + weight;
   v27 = (weight + -0.5) + (weight + -0.5);
   v28 = !v26;
-  v55 = v25 | v28;
+  v51 = v25 | v28;
   HIDWORD(v29) = 1075388923;
-  v53 = 6.28318531;
+  v49 = 6.28318531;
   v30 = -3;
   do
   {
@@ -261,18 +261,18 @@
         *&v29 = v27;
         if (weight <= 0.5)
         {
-          v50 = polarCopy2->var0[1];
-          v63[0] = 0;
-          *&v63[1] = v50;
+          v46 = polarCopy2->var0[1];
+          v57[0] = 0;
+          *&v57[1] = v46;
           if (self)
           {
-            v36 = v63;
-            goto LABEL_43;
+            objc_msgSend_polarToCartesian_(self, a2, v57, *&v49);
+            goto LABEL_42;
           }
 
-LABEL_54:
+LABEL_53:
           v29 = 0.0;
-          goto LABEL_55;
+          goto LABEL_54;
         }
       }
 
@@ -284,24 +284,23 @@ LABEL_54:
         {
           v31 = 0.0;
           v32 = *(v16 + 12);
-          *&v29 = v54;
+          *&v29 = v50;
           if (weight > 0.5)
           {
             v35 = polarCopy2->var0[1];
-            v64[0] = 0;
-            *&v64[1] = v35;
+            v58[0] = 0;
+            *&v58[1] = v35;
             if (self)
             {
-              v36 = v64;
-LABEL_43:
-              [(PAEKeyerCbCrSetup *)self polarToCartesian:v36, *&v53];
-              v29 = *v65;
-LABEL_55:
+              objc_msgSend_polarToCartesian_(self, a2, v58, *&v49);
+LABEL_42:
+              v29 = *v59;
+LABEL_54:
               *(*(*&nextCenter + 48) + 8) = v29;
-              goto LABEL_56;
+              goto LABEL_55;
             }
 
-            goto LABEL_54;
+            goto LABEL_53;
           }
         }
 
@@ -311,45 +310,44 @@ LABEL_55:
         }
       }
 
-      v51 = vabds_f32(v32, v34);
-      v52 = v51 >= 3.14159265;
+      v47 = vabds_f32(v32, v34);
+      v48 = v47 >= 3.14159265;
       if (v32 >= v34)
       {
-        v52 = v51 < 3.14159265;
+        v48 = v47 < 3.14159265;
       }
 
-      if (v52)
+      if (v48)
       {
         if (v32 < v34)
         {
-          v32 = v32 + v53;
+          v32 = v32 + v49;
         }
       }
 
       else if (v34 < v32)
       {
-        v34 = v34 + v53;
+        v34 = v34 + v49;
       }
 
-      *&v62 = COERCE_DOUBLE(__PAIR64__(LODWORD(v34), v33));
-      v60 = v31;
-      v61 = v32;
-      [(PAEKeyerCbCrSetup *)self interpVec2f:&v62 left:&v60 right:v65 interpolated:v29, *&v53];
-      v59 = v65[0];
+      *&v56 = COERCE_DOUBLE(__PAIR64__(LODWORD(v34), v33));
+      v54 = v31;
+      v55 = v32;
+      [(PAEKeyerCbCrSetup *)self interpVec2f:&v56 left:&v54 right:v59 interpolated:v29, *&v49];
       if (self)
       {
-        [(PAEKeyerCbCrSetup *)self polarToCartesian:&v59];
-        v29 = *&v62;
-        goto LABEL_55;
+        objc_msgSend_polarToCartesian_(self);
+        v29 = *&v56;
+        goto LABEL_54;
       }
 
-      goto LABEL_54;
+      goto LABEL_53;
     }
 
-    v38 = *(v15 + v23);
-    v37 = *(v15 + v23 + 4);
-    v40 = *(v16 + v23);
-    v39 = *(v16 + v23 + 4);
+    v37 = *(v15 + v23);
+    v36 = *(v15 + v23 + 4);
+    v39 = *(v16 + v23);
+    v38 = *(v16 + v23 + 4);
     if (v14 == 1)
     {
       if (weight <= 0.5 || v30 > 1)
@@ -357,67 +355,57 @@ LABEL_55:
         goto LABEL_32;
       }
 
-      v39 = *(v16 + 16 * (v23 != 24) + 4);
-      v40 = 0.0;
+      v38 = *(v16 + 16 * (v23 != 24) + 4);
+      v39 = 0.0;
       *&v29 = v27;
     }
 
     else
     {
-      if (v14 != 2 || (weight <= 0.5 ? (v42 = v30 > 1) : (v42 = 1), v42))
+      if (v14 != 2 || (weight <= 0.5 ? (v41 = v30 > 1) : (v41 = 1), v41))
       {
 LABEL_32:
         *&v29 = weight;
         goto LABEL_33;
       }
 
-      v37 = *(v15 + 16 * (v23 != 24) + 4);
-      v38 = 0.0;
-      *&v29 = v54;
+      v36 = *(v15 + 16 * (v23 != 24) + 4);
+      v37 = 0.0;
+      *&v29 = v50;
     }
 
 LABEL_33:
-    v43 = nextPolar->var0[1] - v39;
-    v44 = *(pie + 1);
-    v45 = *pie - v38;
-    *&v62 = nextPolar->var0[0] - v40;
-    *(&v62 + 1) = v43 - correction;
-    v60 = v45;
-    v61 = (v44 - v37) - directionCorrection;
-    [(PAEKeyerCbCrSetup *)self interpVec2f:&v62 left:&v60 right:v65 interpolated:v29];
+    v42 = nextPolar->var0[1] - v38;
+    v43 = *(pie + 1);
+    v44 = *pie - v37;
+    *&v56 = nextPolar->var0[0] - v39;
+    *(&v56 + 1) = v42 - correction;
+    v54 = v44;
+    v55 = (v43 - v36) - directionCorrection;
+    [(PAEKeyerCbCrSetup *)self interpVec2f:&v56 left:&v54 right:v59 interpolated:v29];
     polarCopy2 = polar;
-    v46 = polar->var0[0];
-    v47 = *v65;
-    if (v30 > 1 || (v55 & 1) == 0)
+    if (v30 <= 1 && (v51 & 1) != 0)
     {
-      v48 = polar->var0[1] - *(v65 + 1);
+      v56 = *(*(*&nextCenter + 48) + 16 * (v23 != 24));
+      [(PAEKeyerCbCrSetup *)self toPolar:&v56 polar:&v54];
     }
 
-    else
-    {
-      v62 = *(*(*&nextCenter + 48) + 16 * (v23 != 24));
-      [(PAEKeyerCbCrSetup *)self toPolar:&v62 polar:&v60];
-      v48 = v61;
-    }
-
-    v58[0] = v46 - v47;
-    v58[1] = v48;
     if (self)
     {
-      [(PAEKeyerCbCrSetup *)self polarToCartesian:v58];
-      LODWORD(v29) = v62;
+      objc_msgSend_polarToCartesian_(self);
+      LODWORD(v29) = v56;
     }
 
     else
     {
-      *&v62 = 0.0;
+      *&v56 = 0.0;
       v29 = 0.0;
     }
 
-    v49 = (*(*&nextCenter + 48) + v23);
-    *v49 = LODWORD(v29);
-    v49[1] = HIDWORD(v62);
-LABEL_56:
+    v45 = (*(*&nextCenter + 48) + v23);
+    *v45 = LODWORD(v29);
+    v45[1] = HIDWORD(v56);
+LABEL_55:
     ++v30;
     v23 += 8;
   }

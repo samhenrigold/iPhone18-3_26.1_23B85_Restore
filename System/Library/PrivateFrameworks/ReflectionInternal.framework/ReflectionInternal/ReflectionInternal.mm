@@ -106,11 +106,12 @@ LABEL_51:
   v6 = *a3;
   if (*a3)
   {
-    v7 = (a3 + 4);
+    v7 = a3 + 4;
     v8 = MEMORY[0x1E69E7CC0];
     do
     {
-      v12 = *v7++;
+      v12 = *v7;
+      v7 = (v7 + 1);
       v11 = v12;
       if (v12 < 0)
       {
@@ -182,8 +183,8 @@ LABEL_54:
 LABEL_55:
     _StringGuts.grow(_:)(25);
 
-    v43 = dispatch thunk of CustomStringConvertible.description.getter();
-    MEMORY[0x1B27070E0](v43);
+    v41 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x1B27070E0](v41);
 
     MEMORY[0x1B27070E0](0x6B636170206E6920, 0xE900000000000073);
     result = _assertionFailure(_:_:file:line:flags:)();
@@ -222,68 +223,66 @@ LABEL_48:
   }
 
   while (v18 != v23);
-  v24 = *v22;
-  v25 = *(a2 + 8 * v24);
-  if ((v25 & 0x8000000000000000) != 0)
+  v24 = *(a2 + 8 * *v22);
+  if ((v24 & 0x8000000000000000) != 0)
   {
     goto LABEL_54;
   }
 
-  if (v25)
+  if (v24)
   {
-    v26 = *(a2 + 8 * v18) & 0xFFFFFFFFFFFFFFFELL;
-    v27 = *(a2 + 8 * v24);
+    v25 = *(a2 + 8 * v18) & 0xFFFFFFFFFFFFFFFELL;
     result = static Array._allocateBufferUninitialized(minimumCapacity:)();
-    *(result + 16) = v25;
-    v29 = v25 - 1;
-    if (v25 - 1 >= 0x1000000000000000)
+    *(result + 16) = v24;
+    v27 = v24 - 1;
+    if (v24 - 1 >= 0x1000000000000000)
     {
-      v29 = 0x1000000000000000;
+      v27 = 0x1000000000000000;
     }
 
-    if (v25 >= 5 && result - v26 < 0xFFFFFFFFFFFFFFE0)
+    if (v24 >= 5 && result - v25 < 0xFFFFFFFFFFFFFFE0)
     {
-      v31 = v29 + 1;
-      v32 = v31 & 3;
-      if ((v31 & 3) == 0)
+      v29 = v27 + 1;
+      v30 = v29 & 3;
+      if ((v29 & 3) == 0)
       {
-        v32 = 4;
+        v30 = 4;
       }
 
-      v30 = v31 - v32;
-      v33 = (v26 + 16);
-      v34 = (result + 48);
-      v35 = v30;
+      v28 = v29 - v30;
+      v31 = (v25 + 16);
+      v32 = (result + 48);
+      v33 = v28;
       do
       {
-        v36 = *v33;
-        *(v34 - 1) = *(v33 - 1);
-        *v34 = v36;
-        v33 += 2;
-        v34 += 2;
-        v35 -= 4;
+        v34 = *v31;
+        *(v32 - 1) = *(v31 - 1);
+        *v32 = v34;
+        v31 += 2;
+        v32 += 2;
+        v33 -= 4;
       }
 
-      while (v35);
+      while (v33);
     }
 
     else
     {
-      v30 = 0;
+      v28 = 0;
     }
 
-    v37 = v30 - 0x1000000000000000;
-    v38 = 8 * v30;
-    v39 = (v26 + 8 * v30);
-    v40 = v25 - v30;
-    v41 = v38 + 32;
-    while (v37)
+    v35 = v28 - 0x1000000000000000;
+    v36 = 8 * v28;
+    v37 = (v25 + 8 * v28);
+    v38 = v24 - v28;
+    v39 = v36 + 32;
+    while (v35)
     {
-      v42 = *v39++;
-      *(result + v41) = v42;
-      ++v37;
-      v41 += 8;
-      if (!--v40)
+      v40 = *v37++;
+      *(result + v39) = v40;
+      ++v35;
+      v39 += 8;
+      if (!--v38)
       {
         goto LABEL_45;
       }
@@ -294,7 +293,7 @@ LABEL_48:
 
   result = MEMORY[0x1E69E7CC0];
 LABEL_45:
-  *(result + 16) = v25;
+  *(result + 16) = v24;
   return result;
 }
 
@@ -374,10 +373,27 @@ uint64_t PartialType.create2(with:)(uint64_t a1, _DWORD *a2)
     v16 = *(v14 - 1);
     if (*v14)
     {
-      v17 = *(v16 + 16);
-      v18 = *(v14 - 1);
 
       MetadataPack = swift_allocateMetadataPack();
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        v15 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v15 + 2) + 1, 1, v15);
+      }
+
+      v19 = *(v15 + 2);
+      v18 = *(v15 + 3);
+      if (v19 >= v18 >> 1)
+      {
+        v15 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v18 > 1), v19 + 1, 1, v15);
+      }
+
+      *(v15 + 2) = v19 + 1;
+      *&v15[8 * v19 + 32] = MetadataPack;
+      outlined consume of GenericArgument(v16, 1);
+    }
+
+    else
+    {
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
         v15 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v15 + 2) + 1, 1, v15);
@@ -391,26 +407,7 @@ uint64_t PartialType.create2(with:)(uint64_t a1, _DWORD *a2)
       }
 
       *(v15 + 2) = v21 + 1;
-      *&v15[8 * v21 + 32] = MetadataPack;
-      outlined consume of GenericArgument(v16, 1);
-    }
-
-    else
-    {
-      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-      {
-        v15 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v15 + 2) + 1, 1, v15);
-      }
-
-      v23 = *(v15 + 2);
-      v22 = *(v15 + 3);
-      if (v23 >= v22 >> 1)
-      {
-        v15 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v22 > 1), v23 + 1, 1, v15);
-      }
-
-      *(v15 + 2) = v23 + 1;
-      *&v15[8 * v23 + 32] = v16;
+      *&v15[8 * v21 + 32] = v16;
     }
 
     v14 += 16;
@@ -418,10 +415,9 @@ uint64_t PartialType.create2(with:)(uint64_t a1, _DWORD *a2)
   }
 
   while (v13);
-  v25 = *(v15 + 2);
-  v26 = _swift_instantiateCheckedGenericMetadata();
+  v23 = _swift_instantiateCheckedGenericMetadata();
 
-  return v26;
+  return v23;
 }
 
 char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(char *result, int64_t a2, char a3, char *a4)
@@ -503,15 +499,13 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
   return v10;
 }
 
-unint64_t static KeyPath.create(for:)(uint64_t a1, unint64_t *a2)
+uint64_t static KeyPath.create(for:)(uint64_t a1, unint64_t *a2)
 {
-  v5 = (*(v2 + 48) + 3) & 0x1FFFFFFFCLL;
-  v6 = *(v2 + 52) | 3;
-  v7 = swift_allocObject();
+  v5 = swift_allocObject();
   if (*a2 - 2048 >= 0xFFFFFFFFFFFFF801)
   {
     result = Field.offset.getter(a1, a2);
-    v10 = -result;
+    v8 = -result;
     if (__OFSUB__(0, result))
     {
       __break(1u);
@@ -520,9 +514,9 @@ LABEL_18:
       goto LABEL_19;
     }
 
-    v11 = __OFSUB__(v10, 1);
-    v8 = v10 - 1;
-    if (v11)
+    v9 = __OFSUB__(v8, 1);
+    v6 = v8 - 1;
+    if (v9)
     {
 LABEL_19:
       __break(1u);
@@ -532,11 +526,11 @@ LABEL_19:
 
   else
   {
-    v8 = 0;
+    v6 = 0;
   }
 
-  *(v7 + 16) = v8;
-  *(v7 + 24) = -1610612732;
+  *(v5 + 16) = v6;
+  *(v5 + 24) = -1610612732;
   LODWORD(result) = Field.offset.getter(a1, a2);
   if (*a2 - 2048 < 0xFFFFFFFFFFFFF801)
   {
@@ -554,7 +548,7 @@ LABEL_19:
           }
 
 LABEL_13:
-          v12 = result | 0x3000000;
+          v10 = result | 0x3000000;
           goto LABEL_14;
         }
 
@@ -577,22 +571,22 @@ LABEL_20:
   }
 
 LABEL_11:
-  v12 = result | 0x1000000;
+  v10 = result | 0x1000000;
 LABEL_14:
-  v13 = (v2 + *MEMORY[0x1E69E77B0]);
-  v15 = *v13;
-  v14 = v13[1];
-  v16 = *(v15 - 8);
-  *(v7 + 32) = v12;
-  v17 = *(v16 + 64);
-  v18 = *(v14 - 8);
-  if (*(v18 + 64) > v17)
+  v11 = (v2 + *MEMORY[0x1E69E77B0]);
+  v13 = *v11;
+  v12 = v11[1];
+  v14 = *(v13 - 8);
+  *(v5 + 32) = v10;
+  v15 = *(v14 + 64);
+  v16 = *(v12 - 8);
+  if (*(v16 + 64) > v15)
   {
-    v17 = *(v18 + 64);
+    v15 = *(v16 + 64);
   }
 
-  *(v7 + 40) = v17;
-  return v7;
+  *(v5 + 40) = v15;
+  return v5;
 }
 
 uint64_t Field.offset.getter(uint64_t a1, unint64_t *a2)
@@ -638,17 +632,17 @@ uint64_t Field.offset.getter(uint64_t a1, unint64_t *a2)
   return MEMORY[0x1EEE32B20](v4);
 }
 
-int64_t _s18ReflectionInternal5CasesVSkAASk5index_8offsetBy5IndexQzAG_SitFTW_0@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, int64_t *a3@<X8>)
+uint64_t _s18ReflectionInternal5CasesVSkAASk5index_8offsetBy5IndexQzAG_SitFTW_0@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   result = specialized RandomAccessCollection<>.index(_:offsetBy:)(*a1, a2, *v3);
   *a3 = result;
   return result;
 }
 
-uint64_t _s18ReflectionInternal17GenericArguments2VSlAASl5index_8offsetBy5IndexQzAG_SitFTW_0@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+uint64_t _s18ReflectionInternal17GenericArguments2VSlAASl5index_8offsetBy5IndexQzAG_SitFTW_0@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>, uint64_t a3@<X1>)
 {
-  result = specialized BidirectionalCollection.index(_:offsetBy:)(*a1, a2);
-  *a3 = result;
+  result = specialized BidirectionalCollection.index(_:offsetBy:)(*a1, a3);
+  *a2 = result;
   return result;
 }
 
@@ -671,29 +665,23 @@ uint64_t _s18ReflectionInternal16GenericArgumentsVSlAASl5countSivgTW_0()
   return result;
 }
 
-void *Case.init(from:)(uint64_t *a1)
+void *Case.init(from:)(__int128 *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  __swift_project_boxed_opaque_existential_0(a1, a1[3]);
+  __swift_project_boxed_opaque_existential_0(a1, *(a1 + 3));
   DynamicType = swift_getDynamicType();
   if ((*DynamicType - 513) > 1)
   {
     __swift_destroy_boxed_opaque_existential_0(a1);
-    result = 0;
+    return 0;
   }
 
   else
   {
-    v3 = *a1;
-    v7 = a1[2];
-    v4 = DynamicType;
+    v3 = DynamicType;
     EnumValueWitnessTable.getEnumTag(_:)();
     __swift_destroy_boxed_opaque_existential_0(a1);
-    result = v4;
+    return v3;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 void *__swift_project_boxed_opaque_existential_0(void *result, uint64_t a2)
@@ -706,125 +694,120 @@ void *__swift_project_boxed_opaque_existential_0(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
-uint64_t Case.name.getter(uint64_t a1)
+uint64_t Case.name.getter(uint64_t a1, uint64_t a2)
 {
-  v1 = *(*(a1 + 8) + 16);
-  v2 = FieldDescriptor.subscript.getter();
-  v3 = v2 + 8 + *(v2 + 8);
+  FieldDescriptor.subscript.getter();
 
   return String.init(cString:)();
 }
 
-uint64_t Case.payloadType.getter(uint64_t a1)
+uint64_t Case.payloadType.getter(uint64_t a1, uint64_t a2)
 {
-  v2 = a1 + 8;
-  v3 = *(*(a1 + 8) + 16);
   if (!*(FieldDescriptor.subscript.getter() + 4))
   {
     return 0;
   }
 
-  v4 = *(*v2 + 16);
-  v5 = (FieldDescriptor.subscript.getter() + 4);
-  v6 = *v5;
+  v3 = (FieldDescriptor.subscript.getter() + 4);
+  v4 = *v3;
   result = MangledTypeReference.standardSubstitution.getter();
   if (!result)
   {
-    return MEMORY[0x1B2706F10](v5 + v6, a1);
+    return MEMORY[0x1B2706F10](v3 + v4, a1);
   }
 
   return result;
 }
 
-uint64_t Case.get(from:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _OWORD *a4@<X8>)
+uint64_t Case.get(from:)@<X0>(__int128 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _OWORD *a4@<X8>)
 {
-  v30 = *MEMORY[0x1E69E9840];
-  outlined init with copy of Any(a1, &v27);
-  __swift_project_boxed_opaque_existential_0(&v27, v29);
+  v23 = *MEMORY[0x1E69E9840];
+  outlined init with copy of Any(a1, &v20);
+  __swift_project_boxed_opaque_existential_0(&v20, v22);
   DynamicType = swift_getDynamicType();
-  result = __swift_destroy_boxed_opaque_existential_0(&v27);
-  if (DynamicType != a2 || (v10 = *(a1 + 16), v11 = *(a1 + 24), v27 = *a1, v28 = v10, v29 = v11, *(*(v11 - 8) + 80), result = EnumValueWitnessTable.getEnumTag(_:)(), result != a3))
+  result = __swift_destroy_boxed_opaque_existential_0(&v20);
+  if (DynamicType != a2 || (v10 = *(a1 + 2), v11 = *(a1 + 3), v20 = *a1, v21 = v10, v22 = v11, result = EnumValueWitnessTable.getEnumTag(_:)(), result != a3))
   {
     *a4 = 0u;
     a4[1] = 0u;
-LABEL_6:
-    v13 = *MEMORY[0x1E69E9840];
     return result;
   }
 
-  memset(v25, 0, sizeof(v25));
-  v26 = a2;
-  if ((*(*(v29 - 8) + 80) & 0x20000) != 0)
+  memset(v19, 0, 24);
+  v19[3] = a2;
+  if ((*(*(v22 - 8) + 80) & 0x20000) != 0)
   {
-    v12 = (v27 + ((*(*(v29 - 8) + 80) + 16) & ~*(*(v29 - 8) + 80)));
+    v12 = (v20 + ((*(*(v22 - 8) + 80) + 16) & ~*(*(v22 - 8) + 80)));
   }
 
   else
   {
-    v12 = &v27;
+    v12 = &v20;
   }
 
-  closure #2 in Case.get(from:)(v12, v25);
-  v14 = *(*(a2 + 8) + 16);
-  if ((*FieldDescriptor.subscript.getter() & 1) != 0 || (result = Case.payloadType.getter(a2)) != 0)
+  closure #2 in Case.get(from:)(v12, v19, a2);
+  if ((*FieldDescriptor.subscript.getter() & 1) == 0)
   {
-    swift_allocBox();
-    v16 = v15;
-    *(*(v26 - 8) + 80);
-    EnumValueWitnessTable.destructiveProjectEnumData(_:)();
-    ValueWitnessTable.initializeWithTake(_:_:)();
-    v17 = *(*(a2 + 8) + 16);
-    if (*FieldDescriptor.subscript.getter())
+    result = Case.payloadType.getter(a2, a3);
+    if (!result)
     {
-      v18 = *v16;
-      result = swift_projectBox();
-      if (!result)
-      {
-        goto LABEL_18;
-      }
+      goto LABEL_16;
     }
-
-    result = Case.payloadType.getter(a2);
-    if (result)
-    {
-      v22 = 0uLL;
-      v23 = 0;
-      v24 = result;
-      if ((*(*(result - 8) + 82) & 2) != 0)
-      {
-        *&v22 = swift_allocBox();
-      }
-
-      ValueWitnessTable.initializeWithCopy(_:_:)();
-      swift_deallocBox();
-      v19 = v22;
-      v20 = v23;
-      v21 = v24;
-      result = outlined init with copy of Any(&v19, a4);
-      goto LABEL_6;
-    }
-
-    __break(1u);
   }
 
-  __break(1u);
-LABEL_18:
-  __break(1u);
-  return result;
+  swift_allocBox();
+  EnumValueWitnessTable.destructiveProjectEnumData(_:)();
+  ValueWitnessTable.initializeWithTake(_:_:)();
+  if (*FieldDescriptor.subscript.getter())
+  {
+    result = swift_projectBox();
+    if (!result)
+    {
+      goto LABEL_17;
+    }
+  }
+
+  result = Case.payloadType.getter(a2, a3);
+  if (!result)
+  {
+    __break(1u);
+LABEL_16:
+    __break(1u);
+LABEL_17:
+    __break(1u);
+    return result;
+  }
+
+  v16 = 0uLL;
+  v17 = 0;
+  v18 = result;
+  if ((*(*(result - 8) + 82) & 2) != 0)
+  {
+    *&v16 = swift_allocBox();
+  }
+
+  ValueWitnessTable.initializeWithCopy(_:_:)();
+  swift_deallocBox();
+  v13 = v16;
+  v14 = v17;
+  v15 = v18;
+  return outlined init with copy of Any(&v13, a4);
 }
 
-uint64_t closure #2 in Case.get(from:)(uint64_t a1, uint64_t *a2)
+uint64_t closure #2 in Case.get(from:)(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   if ((*(*(a2[3] - 8) + 82) & 2) != 0)
   {
@@ -859,39 +842,37 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance Case()
   return MEMORY[0x1B2707190](v1);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Case()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Case(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
+  v2 = *v1;
+  v3 = v1[1];
   Hasher.init(_seed:)();
-  MEMORY[0x1B2707190](v1);
   MEMORY[0x1B2707190](v2);
+  MEMORY[0x1B2707190](v3);
   return Hasher._finalize()();
 }
 
-unint64_t *Case.description.getter(uint64_t a1)
+unint64_t *Case.description.getter(uint64_t a1, uint64_t a2)
 {
-  v12 = _typeName(_:qualified:)();
+  v11 = _typeName(_:qualified:)();
   MEMORY[0x1B27070E0](46, 0xE100000000000000);
-  v2 = *(*(a1 + 8) + 16);
-  v3 = *(FieldDescriptor.subscript.getter() + 8);
+  FieldDescriptor.subscript.getter();
   v4 = String.init(cString:)();
   MEMORY[0x1B27070E0](v4);
 
-  v5 = *(*(a1 + 8) + 16);
   if (!*(FieldDescriptor.subscript.getter() + 4))
   {
-    return v12;
+    return v11;
   }
 
-  result = Case.payloadType.getter(a1);
+  result = Case.payloadType.getter(a1, a2);
   if (result)
   {
-    v7 = *result;
-    v8 = static Metadata.Kind.tuple.getter();
-    if (v7 > 0x7FF)
+    v6 = *result;
+    v7 = static Metadata.Kind.tuple.getter();
+    if (v6 > 0x7FF)
     {
-      if (v8 - 2048 < 0xFFFFFFFFFFFFF801)
+      if (v7 - 2048 < 0xFFFFFFFFFFFFF801)
       {
         goto LABEL_8;
       }
@@ -899,34 +880,34 @@ unint64_t *Case.description.getter(uint64_t a1)
 
     else
     {
-      if (v8 < 0x800)
+      if (v7 < 0x800)
       {
-        if (v7 != v8)
+        if (v6 != v7)
         {
           goto LABEL_10;
         }
 
 LABEL_8:
-        v9 = _typeName(_:qualified:)();
+        v8 = _typeName(_:qualified:)();
 LABEL_11:
-        MEMORY[0x1B27070E0](v9, v10);
+        MEMORY[0x1B27070E0](v8, v9);
 
-        return v12;
+        return v11;
       }
 
-      if (!v7)
+      if (!v6)
       {
         goto LABEL_8;
       }
     }
 
 LABEL_10:
-    v11 = _typeName(_:qualified:)();
-    MEMORY[0x1B27070E0](v11);
+    v10 = _typeName(_:qualified:)();
+    MEMORY[0x1B27070E0](v10);
 
     MEMORY[0x1B27070E0](41, 0xE100000000000000);
-    v9 = 40;
-    v10 = 0xE100000000000000;
+    v8 = 40;
+    v9 = 0xE100000000000000;
     goto LABEL_11;
   }
 
@@ -1024,7 +1005,7 @@ unint64_t protocol witness for Collection.endIndex.getter in conformance Cases@<
   return result;
 }
 
-uint64_t (*protocol witness for Collection.subscript.read in conformance Cases(unint64_t *a1, unint64_t *a2))()
+void (*protocol witness for Collection.subscript.read in conformance Cases(unint64_t *a1, unint64_t *a2))()
 {
   *a1 = Cases.subscript.getter(*a2, *v2);
   a1[1] = v4;
@@ -1069,23 +1050,13 @@ LABEL_8:
 
 uint64_t protocol witness for Collection.indices.getter in conformance Cases@<X0>(uint64_t *a1@<X8>)
 {
-  result = specialized RandomAccessCollection<>.indices.getter(*v1);
+  result = specialized RandomAccessCollection<>.indices.getter();
   *a1 = result;
-  a1[1] = v4;
+  a1[1] = v3;
   return result;
 }
 
-uint64_t specialized RandomAccessCollection<>.indices.getter(void *a1)
-{
-  if ((*a1 - 513) <= 1)
-  {
-    v1 = (*(a1[1] + 20) & 0xFFFFFF) + *(a1[1] + 24);
-  }
-
-  return 0;
-}
-
-int64_t protocol witness for RandomAccessCollection.index(_:offsetBy:limitedBy:) in conformance Cases@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, int64_t *a3@<X2>, uint64_t a4@<X8>)
+uint64_t protocol witness for RandomAccessCollection.index(_:offsetBy:limitedBy:) in conformance Cases@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, int64_t *a3@<X2>, uint64_t a4@<X8>)
 {
   result = specialized RandomAccessCollection.index(_:offsetBy:limitedBy:)(*a1, a2, *a3, *v4);
   *a4 = result;
@@ -1255,7 +1226,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -1275,7 +1245,7 @@ unint64_t lazy protocol witness table accessor for type Int and conformance Int(
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<Cases> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void))
+uint64_t lazy protocol witness table accessor for type Slice<Cases> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1289,7 +1259,7 @@ uint64_t lazy protocol witness table accessor for type Slice<Cases> and conforma
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -1303,7 +1273,7 @@ uint64_t lazy protocol witness table accessor for type Range<Int> and conformanc
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<Cases> and conformance Slice<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t lazy protocol witness table accessor for type Slice<Cases> and conformance Slice<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -1435,7 +1405,7 @@ uint64_t Field.isVar.getter(uint64_t a1, void *a2)
     return 0;
   }
 
-  v2 = *(TypeMetadata.descriptor.getter() + 16);
+  TypeMetadata.descriptor.getter();
   return (*FieldDescriptor.subscript.getter() >> 1) & 1;
 }
 
@@ -1469,7 +1439,7 @@ BOOL Field.isWeakOrUnowned.getter(uint64_t a1, unint64_t *a2)
   }
 
 LABEL_8:
-  v5 = *(TypeMetadata.descriptor.getter() + 16);
+  TypeMetadata.descriptor.getter();
   FieldDescriptor.subscript.getter();
   return FieldDescriptor.Element.referenceOwnership.getter() != 0;
 }
@@ -1486,9 +1456,8 @@ uint64_t Field.name.getter(uint64_t a1, unint64_t *a2)
     }
 
 LABEL_10:
-    v5 = *(TypeMetadata.descriptor.getter() + 16);
-    v6 = FieldDescriptor.subscript.getter();
-    v7 = v6 + 8 + *(v6 + 8);
+    TypeMetadata.descriptor.getter();
+    FieldDescriptor.subscript.getter();
 
     return String.init(cString:)();
   }
@@ -1538,13 +1507,13 @@ uint64_t Field.type.getter(uint64_t a1, unint64_t *a2)
   else if (v3 != v4)
   {
 LABEL_10:
-    v6 = *(TypeMetadata.descriptor.getter() + 16);
-    v7 = (FieldDescriptor.subscript.getter() + 4);
-    v8 = *v7;
+    TypeMetadata.descriptor.getter();
+    v6 = (FieldDescriptor.subscript.getter() + 4);
+    v7 = *v6;
     result = MangledTypeReference.standardSubstitution.getter();
     if (!result)
     {
-      return MEMORY[0x1B2706F10](v7 + v8, a2);
+      return MEMORY[0x1B2706F10](v6 + v7, a2);
     }
 
     return result;
@@ -1556,19 +1525,19 @@ LABEL_10:
   return MEMORY[0x1EEE32B28](v5);
 }
 
-unint64_t Field.keyPath.getter(uint64_t a1, unint64_t *a2)
+uint64_t Field.keyPath.getter(uint64_t a1, unint64_t *a2)
 {
   v4 = Field.type.getter(a1, a2);
 
-  return openedValue #1 <A><A1>(_:) in openedRoot #1 <A>(_:) in Field.keyPath.getter(v4, a1, a2);
+  return openedValue #1 <A><A1>(_:) in openedRoot #1 <A>(_:) in Field.keyPath.getter(v4, a1, a2, a2, v4);
 }
 
-unint64_t openedValue #1 <A><A1>(_:) in openedRoot #1 <A>(_:) in Field.keyPath.getter(uint64_t a1, uint64_t a2, unint64_t *a3)
+uint64_t openedValue #1 <A><A1>(_:) in openedRoot #1 <A>(_:) in Field.keyPath.getter(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t a4, uint64_t a5)
 {
   if (Field.isVar.getter(a2, a3))
   {
-    v5 = *a3;
-    if (*a3 - 2048 >= 0xFFFFFFFFFFFFF801 && ((v6 = static Metadata.Kind.objcClassWrapper.getter(), v6 < 0x800) ? (v7 = v6 == v5) : (v7 = 0), !v7 ? (v8 = 0) : (v8 = 1), v5 - 515 >= 2 ? (v9 = v8 == 0) : (v9 = 0), v9))
+    v7 = *a3;
+    if (*a3 - 2048 >= 0xFFFFFFFFFFFFF801 && ((v8 = static Metadata.Kind.objcClassWrapper.getter(), v8 < 0x800) ? (v9 = v8 == v7) : (v9 = 0), !v9 ? (v10 = 0) : (v10 = 1), v7 - 515 >= 2 ? (v11 = v10 == 0) : (v11 = 0), v11))
     {
       type metadata accessor for WritableKeyPath();
     }
@@ -1591,10 +1560,10 @@ unint64_t Field._optionalKeyPath.getter(uint64_t a1, unint64_t *a2)
 {
   v4 = Field.type.getter(a1, a2);
 
-  return openedValue #1 <A><A1>(_:) in openedRoot #1 <A>(_:) in Field._optionalKeyPath.getter(v4, a1, a2);
+  return openedValue #1 <A><A1>(_:) in openedRoot #1 <A>(_:) in Field._optionalKeyPath.getter(v4, a1, a2, a2, v4);
 }
 
-unint64_t openedValue #1 <A><A1>(_:) in openedRoot #1 <A>(_:) in Field._optionalKeyPath.getter(uint64_t a1, uint64_t a2, unint64_t *a3)
+unint64_t openedValue #1 <A><A1>(_:) in openedRoot #1 <A>(_:) in Field._optionalKeyPath.getter(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t a4, uint64_t a5)
 {
   isOptionalType = swift_isOptionalType();
   type metadata accessor for Optional();
@@ -1632,13 +1601,13 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance Field()
   return MEMORY[0x1B2707190](v1);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Field()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Field(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
+  v2 = *v1;
+  v3 = v1[1];
   Hasher.init(_seed:)();
+  MEMORY[0x1B2707190](v3);
   MEMORY[0x1B2707190](v2);
-  MEMORY[0x1B2707190](v1);
   return Hasher._finalize()();
 }
 
@@ -1667,53 +1636,53 @@ uint64_t Field.description.getter(uint64_t a1, unint64_t *a2)
     goto LABEL_15;
   }
 
-  v6 = *(TypeMetadata.descriptor.getter() + 16);
+  TypeMetadata.descriptor.getter();
   FieldDescriptor.subscript.getter();
-  v7 = FieldDescriptor.Element.referenceOwnership.getter();
-  switch(v7)
+  v6 = FieldDescriptor.Element.referenceOwnership.getter();
+  switch(v6)
   {
     case 4:
-      v9 = 0x80000001AE7E1120;
-      v8 = 0xD000000000000010;
+      v8 = 0x80000001AE7E1120;
+      v7 = 0xD000000000000010;
       break;
     case 2:
-      v8 = 0x2064656E776F6E75;
-      v9 = 0xE800000000000000;
+      v7 = 0x2064656E776F6E75;
+      v8 = 0xE800000000000000;
       break;
     case 1:
-      v8 = 0x206B616577;
-      v9 = 0xE500000000000000;
+      v7 = 0x206B616577;
+      v8 = 0xE500000000000000;
       break;
     default:
       goto LABEL_15;
   }
 
-  MEMORY[0x1B27070E0](v8, v9);
+  MEMORY[0x1B27070E0](v7, v8);
 LABEL_15:
   if (Field.isVar.getter(a1, a2))
   {
-    v10 = 544366966;
+    v9 = 544366966;
   }
 
   else
   {
-    v10 = 544499052;
+    v9 = 544499052;
   }
 
-  MEMORY[0x1B27070E0](v10, 0xE400000000000000);
-  v14 = Field.name.getter(a1, a2);
-  v15 = v11;
+  MEMORY[0x1B27070E0](v9, 0xE400000000000000);
+  v13 = Field.name.getter(a1, a2);
+  v14 = v10;
   MEMORY[0x1B27070E0](8250, 0xE200000000000000);
   Field.type.getter(a1, a2);
-  v12 = _typeName(_:qualified:)();
-  MEMORY[0x1B27070E0](v12);
+  v11 = _typeName(_:qualified:)();
+  MEMORY[0x1B27070E0](v11);
 
-  MEMORY[0x1B27070E0](v14, v15);
+  MEMORY[0x1B27070E0](v13, v14);
 
   return 0;
 }
 
-uint64_t Fields.endIndex.getter(uint64_t *a1)
+uint64_t Fields.endIndex.getter(unint64_t *a1)
 {
   v1 = *a1;
   if (*a1 > 0x7FF || !v1)
@@ -1778,7 +1747,7 @@ Swift::Int __swiftcall Fields.index(before:)(Swift::Int before)
   return result;
 }
 
-uint64_t Fields.subscript.getter(uint64_t result, uint64_t *a2)
+uint64_t Fields.subscript.getter(uint64_t result, unint64_t *a2)
 {
   if (result < 0)
   {
@@ -1806,7 +1775,7 @@ uint64_t protocol witness for Collection.endIndex.getter in conformance Fields@<
   return result;
 }
 
-uint64_t (*protocol witness for Collection.subscript.read in conformance Fields(uint64_t (*result)(), uint64_t *a2))()
+void (*protocol witness for Collection.subscript.read in conformance Fields(void (*result)(), uint64_t *a2))()
 {
   v3 = *a2;
   if (*a2 < 0)
@@ -2014,7 +1983,7 @@ unint64_t lazy protocol witness table accessor for type Fields and conformance F
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<Fields> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void))
+uint64_t lazy protocol witness table accessor for type Slice<Fields> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2270,7 +2239,7 @@ LABEL_55:
           return v6;
         }
 
-        v16 = (a2 + 3);
+        v16 = a2 + 3;
         v15 = 1;
         while (1)
         {
@@ -2494,7 +2463,7 @@ int64_t specialized RandomAccessCollection.index(_:offsetBy:limitedBy:)(uint64_t
   return result;
 }
 
-uint64_t specialized RandomAccessCollection.index(_:offsetBy:limitedBy:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t specialized RandomAccessCollection.index(_:offsetBy:limitedBy:)(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4)
 {
   result = Fields.endIndex.getter(a4);
   if (a1 < 0 || result < a1)
@@ -2805,8 +2774,7 @@ __n128 protocol witness for Collection.indices.getter in conformance GenericArgu
   v2 = v1[1].n128_u64[0];
   result = *v1;
   *a1 = *v1;
-  a1[1].n128_u64[0] = v2;
-  a1[1].n128_u64[1] = 0;
+  a1[1] = v2;
   a1[2].n128_u64[0] = v2;
   return result;
 }
@@ -2816,8 +2784,7 @@ __n128 protocol witness for Sequence.makeIterator() in conformance GenericArgume
   v2 = v1[1].n128_u64[0];
   result = *v1;
   *a1 = *v1;
-  a1[1].n128_u64[0] = v2;
-  a1[1].n128_u64[1] = 0;
+  a1[1] = v2;
   return result;
 }
 
@@ -2845,9 +2812,9 @@ Swift::Int __swiftcall GenericArguments.index(before:)(Swift::Int before)
   return result;
 }
 
-unint64_t GenericArguments.subscript.getter(unint64_t result, uint64_t a2, uint64_t a3)
+uint64_t GenericArguments.subscript.getter(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  if ((result & 0x8000000000000000) != 0 || result >= a3)
+  if (result < 0 || result >= a3)
   {
     __break(1u);
   }
@@ -2861,7 +2828,7 @@ unint64_t GenericArguments.subscript.getter(unint64_t result, uint64_t a2, uint6
   return result;
 }
 
-uint64_t (*protocol witness for Collection.subscript.read in conformance GenericArguments(uint64_t (*result)(), unint64_t *a2))()
+void (*protocol witness for Collection.subscript.read in conformance GenericArguments(void (*result)(), unint64_t *a2))()
 {
   v3 = *a2;
   if ((*a2 & 0x8000000000000000) != 0 || v3 >= v2[1])
@@ -3011,7 +2978,7 @@ unsigned __int16 *Type.genericArguments.getter(uint64_t *a1)
     }
 
     v6 = *result;
-    v4 = (result + 4);
+    v4 = result + 4;
     v5 = v6;
     if (!v6)
     {
@@ -3021,7 +2988,8 @@ unsigned __int16 *Type.genericArguments.getter(uint64_t *a1)
     v2 = 0;
     while (1)
     {
-      v7 = *v4++;
+      v7 = *v4;
+      v4 = (v4 + 1);
       if (v7 < 0 && __OFADD__(v2++, 1))
       {
         break;
@@ -3046,13 +3014,13 @@ LABEL_10:
   return result;
 }
 
-_WORD *Type.genericArguments2.getter(uint64_t *a1)
+_WORD *Type.genericArguments2.getter(unint64_t *a1)
 {
   v1 = *a1;
-  if (*a1 <= 0x7FF && (v1 - 512) >= 3 && v1 != 0)
+  if (*a1 <= 0x7FF && v1 - 512 >= 3 && v1 != 0)
   {
     v9 = static Metadata.Kind.objcClassWrapper.getter();
-    if ((v1 - 515) >= 2 && v9 != v1)
+    if (v1 - 515 >= 2 && v9 != v1)
     {
       return 0;
     }
@@ -3062,14 +3030,15 @@ _WORD *Type.genericArguments2.getter(uint64_t *a1)
   result = TypeDescriptor.genericSignature.getter();
   if (result)
   {
-    v4 = (result + 4);
+    v4 = result + 4;
     v5 = *result;
     if (*result)
     {
       v6 = 0;
       while (1)
       {
-        v7 = *v4++;
+        v7 = *v4;
+        v4 = (v4 + 1);
         if (v7 < 0 && __OFADD__(v6++, 1))
         {
           break;
@@ -3102,10 +3071,10 @@ uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1)
   return specialized _copyCollectionToContiguousArray<A>(_:)(a1, Fields.endIndex.getter, &_ss23_ContiguousArrayStorageCy18ReflectionInternal5FieldVGMd, &_ss23_ContiguousArrayStorageCy18ReflectionInternal5FieldVGMR, specialized Sequence._copySequenceContents(initializing:));
 }
 
-uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, uint64_t (*a2)(void), uint64_t *a3, uint64_t *a4, uint64_t (*a5)(uint64_t *, void *, uint64_t, uint64_t))
+uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, uint64_t (*a2)(uint64_t), uint64_t *a3, uint64_t *a4, uint64_t (*a5)(uint64_t *, uint64_t, uint64_t, uint64_t))
 {
-  v10 = a2();
-  result = (a2)(a1);
+  v10 = (a2)();
+  result = a2(a1);
   if (result < 0)
   {
     __break(1u);
@@ -3113,13 +3082,13 @@ uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, uint64
 
   else
   {
-    result = (a2)(a1);
+    result = a2(a1);
     if ((v10 & 0x8000000000000000) == 0 && result >= v10)
     {
       if (v10)
       {
         v12 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC18ReflectionInternal4CaseV_Tt1gq5Tm(v10, 0, a3, a4);
-        if (a5(&v13, v12 + 4, v10, a1) == v10)
+        if (a5(&v13, (v12 + 4), v10, a1) == v10)
         {
           return v12;
         }
@@ -3321,7 +3290,7 @@ unint64_t lazy protocol witness table accessor for type GenericArguments2 and co
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type DefaultIndices<GenericArguments2> and conformance <> DefaultIndices<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t lazy protocol witness table accessor for type DefaultIndices<GenericArguments2> and conformance <> DefaultIndices<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -3380,7 +3349,7 @@ unint64_t lazy protocol witness table accessor for type GenericArguments and con
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<GenericArguments> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void))
+uint64_t lazy protocol witness table accessor for type Slice<GenericArguments> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3552,7 +3521,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -3671,46 +3639,44 @@ uint64_t specialized BidirectionalCollection.index(_:offsetBy:limitedBy:)(uint64
   return result;
 }
 
-uint64_t outlined consume of GenericArgument(uint64_t a1, char a2)
+uint64_t outlined consume of GenericArgument(uint64_t result, char a2)
 {
   if (a2)
   {
   }
 
-  return result;
+  return v2;
 }
 
 unint64_t static KeyPath.createOptional(for:wrap:)(uint64_t a1, unint64_t *a2, char a3)
 {
-  v7 = (*(v3 + 48) + 3) & 0x1FFFFFFFCLL;
-  v8 = *(v3 + 52) | 3;
-  v9 = swift_allocObject();
-  v10 = v9;
-  *(v9 + 16) = 0;
+  v7 = swift_allocObject();
+  v8 = v7;
+  *(v7 + 16) = 0;
   if (a3)
   {
-    v11 = -2147483612;
+    v9 = -2147483612;
   }
 
   else
   {
-    v11 = -2147483628;
+    v9 = -2147483628;
   }
 
-  v12 = MEMORY[0x1E69E77B0];
-  *(v9 + 24) = v11;
-  v13 = *(*(*(v3 + *v12) - 8) + 64);
-  *(v9 + 32) = 0x4000000;
-  *(v9 + 40) = a2;
-  v14 = *(a2 - 1);
-  if (*(v14 + 64) <= v13)
+  v10 = MEMORY[0x1E69E77B0];
+  *(v7 + 24) = v9;
+  v11 = *(*(*(v3 + *v10) - 8) + 64);
+  *(v7 + 32) = 0x4000000;
+  *(v7 + 40) = a2;
+  v12 = *(a2 - 1);
+  if (*(v12 + 64) <= v11)
   {
-    v15 = v13;
+    v13 = v11;
   }
 
   else
   {
-    v15 = *(v14 + 64);
+    v13 = *(v12 + 64);
   }
 
   LODWORD(result) = Field.offset.getter(a1, a2);
@@ -3722,14 +3688,14 @@ unint64_t static KeyPath.createOptional(for:wrap:)(uint64_t a1, unint64_t *a2, c
     }
 
 LABEL_16:
-    v10[12] = result | 0x3000000;
+    v8[12] = result | 0x3000000;
     if (a3)
     {
       goto LABEL_14;
     }
 
 LABEL_17:
-    v17 = v10 + 14;
+    v15 = v8 + 14;
     goto LABEL_18;
   }
 
@@ -3761,35 +3727,35 @@ LABEL_26:
   }
 
 LABEL_13:
-  v10[12] = result | 0x1000000;
+  v8[12] = result | 0x1000000;
   if ((a3 & 1) == 0)
   {
     goto LABEL_17;
   }
 
 LABEL_14:
-  *(v10 + 7) = Field.type.getter(a1, a2);
-  v17 = v10 + 16;
+  *(v8 + 7) = Field.type.getter(a1, a2);
+  v15 = v8 + 16;
 LABEL_18:
-  v18 = *(*(Field.type.getter(a1, a2) - 8) + 64);
-  if (v18 <= v15)
+  v16 = *(*(Field.type.getter(a1, a2) - 8) + 64);
+  if (v16 <= v13)
   {
-    v18 = v15;
+    v16 = v13;
   }
 
   if (a3)
   {
-    *v17 = 67108865;
-    v17 += 2;
-    v19 = *(*(v3 + *v12 + 8) - 8);
-    if (*(v19 + 64) > v18)
+    *v15 = 67108865;
+    v15 += 2;
+    v17 = *(*(v3 + *v10 + 8) - 8);
+    if (*(v17 + 64) > v16)
     {
-      v18 = *(v19 + 64);
+      v16 = *(v17 + 64);
     }
   }
 
-  *v17 = v18;
-  return v10;
+  *v15 = v16;
+  return v8;
 }
 
 uint64_t _typesThatConform(to:)(unint64_t *a1)
@@ -3832,9 +3798,7 @@ uint64_t _typesThatConform(to:)(unint64_t *a1)
 
 uint64_t partial apply for closure #1 in _typesThatConform(to:)(uint64_t a1)
 {
-  v2 = *(v1 + 16);
-  v3 = *v2;
-  *v2 = a1;
+  **(v1 + 16) = a1;
 }
 
 uint64_t PartialType.hasParameterPacks.getter(_DWORD *a1)
@@ -4069,11 +4033,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Partial
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PartialType()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PartialType(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x1B2707190](v1);
+  MEMORY[0x1B2707190](v2);
   return Hasher._finalize()();
 }
 
@@ -4125,7 +4089,7 @@ unint64_t lazy protocol witness table accessor for type PartialType and conforma
   return result;
 }
 
-BOOL Type.isEnum.getter(uint64_t *a1)
+BOOL Type.isEnum.getter(unint64_t *a1)
 {
   v1 = *a1;
   if (*a1 > 0x7FF)
@@ -4141,7 +4105,7 @@ BOOL Type.isEnum.getter(uint64_t *a1)
   return v1 == 514;
 }
 
-uint64_t Type.init(_:)(uint64_t *a1)
+uint64_t Type.init(_:)(void *a1)
 {
   __swift_project_boxed_opaque_existential_0(a1, a1[3]);
   DynamicType = swift_getDynamicType();

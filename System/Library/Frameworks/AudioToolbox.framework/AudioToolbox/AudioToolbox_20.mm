@@ -6690,11 +6690,11 @@ uint64_t IR::FixedIntegerDelay<float>::FixedIntegerDelay(uint64_t a1, uint64_t a
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
   *(a1 + 24) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 8, *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 8), *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 2);
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 32, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 32), *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 2);
   return a1;
 }
 

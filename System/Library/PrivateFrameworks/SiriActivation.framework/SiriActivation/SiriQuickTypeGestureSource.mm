@@ -85,22 +85,20 @@ void __49__SiriQuickTypeGestureSource_configureConnection__block_invoke(uint64_t
 
 void __49__SiriQuickTypeGestureSource_configureConnection__block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[SiriQuickTypeGestureSource configureConnection]_block_invoke_2";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_DEFAULT, "%s #activation BSServiceConnection Invalidated %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SiriQuickTypeGestureSource configureConnection]_block_invoke_2";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_DEFAULT, "%s #activation BSServiceConnection Invalidated %@", &v6, 0x16u);
   }
 
   v5 = [v3 remoteTarget];
   [v5 unregisterNonButtonSourceWithType:&unk_1F47D16B0 withUUID:*(a1 + 32)];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __49__SiriQuickTypeGestureSource_configureConnection__block_invoke_24(uint64_t a1, void *a2)
@@ -117,7 +115,7 @@ void __49__SiriQuickTypeGestureSource_configureConnection__block_invoke_24(uint6
 
 void __49__SiriQuickTypeGestureSource_configureConnection__block_invoke_26(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
@@ -127,11 +125,11 @@ void __49__SiriQuickTypeGestureSource_configureConnection__block_invoke_26(uint6
     v6 = *MEMORY[0x1E698D0A0];
     if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315394;
-      v10 = "[SiriQuickTypeGestureSource configureConnection]_block_invoke";
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation BSServiceConnection Activated %@", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[SiriQuickTypeGestureSource configureConnection]_block_invoke";
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation BSServiceConnection Activated %@", &v8, 0x16u);
     }
 
     v7 = [v3 remoteTarget];
@@ -139,8 +137,6 @@ void __49__SiriQuickTypeGestureSource_configureConnection__block_invoke_26(uint6
 
     os_unfair_lock_unlock(v5 + 4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)prewarm
@@ -195,13 +191,12 @@ void __37__SiriQuickTypeGestureSource_prewarm__block_invoke(uint64_t a1)
 
 void __49__SiriQuickTypeGestureSource_configureConnection__block_invoke_24_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136315394;
-  v4 = "[SiriQuickTypeGestureSource configureConnection]_block_invoke";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_1C8137000, a2, OS_LOG_TYPE_ERROR, "%s #activation BSServiceConnection Interrupted, re-activating %@", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136315394;
+  v3 = "[SiriQuickTypeGestureSource configureConnection]_block_invoke";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_1C8137000, a2, OS_LOG_TYPE_ERROR, "%s #activation BSServiceConnection Interrupted, re-activating %@", &v2, 0x16u);
 }
 
 @end

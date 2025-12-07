@@ -65,7 +65,7 @@ LABEL_9:
 
 void __68__FLContainerStorePathManager_performXPCForContainerPathForStoreId___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -81,10 +81,10 @@ LABEL_8:
       goto LABEL_9;
     }
 
-    *v22 = 0;
+    *v21 = 0;
     v20 = "Unable to obtain group container sandbox extension.";
 LABEL_11:
-    _os_log_error_impl(&dword_24AB3F000, v19, OS_LOG_TYPE_ERROR, v20, v22, 2u);
+    _os_log_error_impl(&dword_24AB3F000, v19, OS_LOG_TYPE_ERROR, v20, v21, 2u);
     goto LABEL_8;
   }
 
@@ -99,7 +99,7 @@ LABEL_11:
       goto LABEL_8;
     }
 
-    *v22 = 0;
+    *v21 = 0;
     v20 = "Unable to consume group container sandbox extension.";
     goto LABEL_11;
   }
@@ -109,9 +109,9 @@ LABEL_11:
   [v10 addObject:v11];
 
   v12 = MEMORY[0x277CCACA8];
-  v23[0] = v7;
-  v23[1] = @"data.sqlite";
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+  v22[0] = v7;
+  v22[1] = @"data.sqlite";
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
   v14 = [v12 pathWithComponents:v13];
   v15 = *(*(a1 + 48) + 8);
   v16 = *(v15 + 40);
@@ -121,27 +121,25 @@ LABEL_11:
   v18 = [*(a1 + 32) storeIdToContainerPathMap];
   [v18 setObject:v17 forKeyedSubscript:*(a1 + 40)];
 LABEL_9:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)containerPathForStoreId:(id)id
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v5 = [(FLContainerStorePathManager *)self performXPCForContainerPathForStoreId:idCopy];
   if (!v5)
   {
     v7 = 0;
     *&v6 = 134217984;
-    v12 = v6;
+    v11 = v6;
     do
     {
       v8 = [(FLContainerStorePathManager *)self log];
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *buf = v12;
-        v14 = v7 + 1;
+        *buf = v11;
+        v13 = v7 + 1;
         _os_log_impl(&dword_24AB3F000, v8, OS_LOG_TYPE_DEFAULT, "Retrying xpc (%ld attempt) sandbox extension.", buf, 0xCu);
       }
 
@@ -158,50 +156,47 @@ LABEL_9:
     while (!v9);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   sandboxExtensionTokens = [(FLContainerStorePathManager *)self sandboxExtensionTokens];
-  v4 = [sandboxExtensionTokens countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [sandboxExtensionTokens countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(sandboxExtensionTokens);
         }
 
-        [*(*(&v10 + 1) + 8 * v7) intValue];
+        [*(*(&v9 + 1) + 8 * v7) intValue];
         sandbox_extension_release();
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [sandboxExtensionTokens countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [sandboxExtensionTokens countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
-  v9.receiver = self;
-  v9.super_class = FLContainerStorePathManager;
-  [(FLContainerStorePathManager *)&v9 dealloc];
-  v8 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = FLContainerStorePathManager;
+  [(FLContainerStorePathManager *)&v8 dealloc];
 }
 
 - (FLContainerStorePathManager)init

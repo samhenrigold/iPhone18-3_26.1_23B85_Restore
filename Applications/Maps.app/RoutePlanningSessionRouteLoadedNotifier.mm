@@ -203,8 +203,8 @@
     v8 = sub_100C07318();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      configuration = [self->_observedRoutePlanningSession configuration];
-      originalHistoryEntryIdentifier = [configuration originalHistoryEntryIdentifier];
+      v9 = objc_msgSend_configuration(self->_observedRoutePlanningSession);
+      originalHistoryEntryIdentifier = [v9 originalHistoryEntryIdentifier];
       historyEntry = [(HistoryEntryRecentsItem *)entryCopy historyEntry];
       storageIdentifier = [historyEntry storageIdentifier];
       v16 = 138412546;
@@ -216,8 +216,8 @@
 
     historyEntry2 = [(HistoryEntryRecentsItem *)entryCopy historyEntry];
     storageIdentifier2 = [historyEntry2 storageIdentifier];
-    configuration2 = [self->_observedRoutePlanningSession configuration];
-    [configuration2 setOriginalHistoryEntryIdentifier:storageIdentifier2];
+    v15 = objc_msgSend_configuration(self->_observedRoutePlanningSession);
+    [v15 setOriginalHistoryEntryIdentifier:storageIdentifier2];
   }
 }
 
@@ -354,15 +354,15 @@ LABEL_4:
     v10 = sub_100C07318();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      configuration = [sessionCopy configuration];
-      originalHistoryEntryIdentifier = [configuration originalHistoryEntryIdentifier];
+      v11 = objc_msgSend_configuration(sessionCopy);
+      originalHistoryEntryIdentifier = [v11 originalHistoryEntryIdentifier];
       v51 = 138412290;
       v52 = originalHistoryEntryIdentifier;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Saving route as recent using identifier: %@", &v51, 0xCu);
     }
 
-    configuration2 = [sessionCopy configuration];
-    originalHistoryEntryIdentifier2 = [configuration2 originalHistoryEntryIdentifier];
+    v13 = objc_msgSend_configuration(sessionCopy);
+    originalHistoryEntryIdentifier2 = [v13 originalHistoryEntryIdentifier];
     v15 = [HistoryEntryRecentsItem saveRoute:currentRoute withOriginalHistoryIdentifier:originalHistoryEntryIdentifier2 editBlock:0 completionBlock:&stru_10164DA20];
 
     v16 = sub_100C07318();
@@ -377,15 +377,15 @@ LABEL_4:
 
     if (v15)
     {
-      configuration3 = [sessionCopy configuration];
-      originalHistoryEntryIdentifier3 = [configuration3 originalHistoryEntryIdentifier];
+      v17 = objc_msgSend_configuration(sessionCopy);
+      originalHistoryEntryIdentifier3 = [v17 originalHistoryEntryIdentifier];
 
       if (!originalHistoryEntryIdentifier3)
       {
         historyEntry = [v15 historyEntry];
         storageIdentifier = [historyEntry storageIdentifier];
-        configuration4 = [sessionCopy configuration];
-        [configuration4 setOriginalHistoryEntryIdentifier:storageIdentifier];
+        v21 = objc_msgSend_configuration(sessionCopy);
+        [v21 setOriginalHistoryEntryIdentifier:storageIdentifier];
       }
 
       reportAProblemRecorder = [sessionCopy reportAProblemRecorder];
@@ -462,8 +462,8 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  configuration5 = [sessionCopy configuration];
-  isNavigationTracePlayback = [configuration5 isNavigationTracePlayback];
+  v46 = objc_msgSend_configuration(sessionCopy);
+  isNavigationTracePlayback = [v46 isNavigationTracePlayback];
 
   if ((isNavigationTracePlayback & 1) == 0)
   {

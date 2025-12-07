@@ -7,7 +7,7 @@
 
 + (id)schemaFromBoatReservation:()schema
 {
-  v65[2] = *MEMORY[0x277D85DE8];
+  v64[2] = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = [MEMORY[0x277CD3F90] schemaFromReservation:v3];
   v5 = [v4 mutableCopy];
@@ -88,7 +88,7 @@
     [v29 setObject:schema3 forKeyedSubscript:@"address"];
   }
 
-  if ([v29 count] >= 2)
+  if (objc_msgSend_count(v29) >= 2)
   {
     [v6 setObject:v29 forKeyedSubscript:@"departureBoatTerminal"];
   }
@@ -120,7 +120,7 @@
     [v43 setObject:schema4 forKeyedSubscript:@"address"];
   }
 
-  if ([v43 count] >= 2)
+  if (objc_msgSend_count(v43) >= 2)
   {
     [v6 setObject:v43 forKeyedSubscript:@"arrivalBoatTerminal"];
   }
@@ -130,22 +130,20 @@
 
   if (provider)
   {
-    v64[0] = @"@type";
-    v64[1] = @"name";
-    v65[0] = @"http://schema.org/Organization";
+    v63[0] = @"@type";
+    v63[1] = @"name";
+    v64[0] = @"http://schema.org/Organization";
     boatTrip18 = [v3 boatTrip];
     provider2 = [boatTrip18 provider];
-    v65[1] = provider2;
-    v61 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:2];
+    v64[1] = provider2;
+    v61 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:v63 count:2];
     [v6 setObject:v61 forKeyedSubscript:@"provider"];
   }
 
-  if ([v6 count] >= 2)
+  if (objc_msgSend_count(v6) >= 2)
   {
     [v5 setObject:v6 forKeyedSubscript:@"reservationFor"];
   }
-
-  v62 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

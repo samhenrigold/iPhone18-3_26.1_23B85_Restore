@@ -57,13 +57,13 @@
   return v10;
 }
 
-void __40__WLKConsentServiceReporter__connection__block_invoke()
+void __40__WLKConsentServiceReporter__connection__block_invoke(uint64_t a1)
 {
-  v0 = WLKSystemLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = WLKSystemLogObject(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_272A0F000, v0, OS_LOG_TYPE_DEFAULT, "WLKConsentServiceReporter - Connection interrupted.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_272A0F000, v1, OS_LOG_TYPE_DEFAULT, "WLKConsentServiceReporter - Connection interrupted.", v2, 2u);
   }
 }
 
@@ -75,7 +75,7 @@ void __40__WLKConsentServiceReporter__connection__block_invoke_2(uint64_t a1)
 
 - (void)_invalidationHandler
 {
-  v3 = WLKSystemLogObject();
+  v3 = WLKSystemLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

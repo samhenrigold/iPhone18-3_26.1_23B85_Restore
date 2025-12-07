@@ -60,7 +60,7 @@ void __40__ASUSQLiteSchema_column_existsInTable___block_invoke(uint64_t a1, void
   [a2 enumerateRowsUsingBlock:v5];
 }
 
-void __40__ASUSQLiteSchema_column_existsInTable___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void __40__ASUSQLiteSchema_column_existsInTable___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, unsigned __int8 *a4)
 {
   v7 = [a2 stringForColumnName:@"name"];
   v6 = [v7 isEqualToString:*(a1 + 32)];
@@ -86,7 +86,7 @@ void __40__ASUSQLiteSchema_column_existsInTable___block_invoke_2(uint64_t a1, vo
   return v3;
 }
 
-uint64_t __37__ASUSQLiteSchema_currentUserVersion__block_invoke(uint64_t a1, void *a2)
+void *__37__ASUSQLiteSchema_currentUserVersion__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 firstInt64Value];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -112,7 +112,7 @@ uint64_t __37__ASUSQLiteSchema_currentUserVersion__block_invoke(uint64_t a1, voi
 
 uint64_t __47__ASUSQLiteSchema_migrateToVersion_usingBlock___block_invoke(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [[ASUSQLiteSchemaMigration alloc] initWithConnection:*(a1[4] + 8)];
   v3 = ASULogHandleForCategory(1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -121,9 +121,9 @@ uint64_t __47__ASUSQLiteSchema_migrateToVersion_usingBlock___block_invoke(void *
     v5 = [v4 databasePath];
     v6 = a1[6];
     *buf = 138543618;
-    v16 = v5;
-    v17 = 2048;
-    v18 = v6;
+    v15 = v5;
+    v16 = 2048;
+    v17 = v6;
     _os_log_impl(&dword_2400F8000, v3, OS_LOG_TYPE_DEFAULT, "Migrating %{public}@ to %llu", buf, 0x16u);
   }
 
@@ -134,13 +134,13 @@ uint64_t __47__ASUSQLiteSchema_migrateToVersion_usingBlock___block_invoke(void *
     v9 = ASULogHandleForCategory(1);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = [*(a1[4] + 8) options];
-      v13 = [v12 databasePath];
-      v14 = a1[6];
+      v11 = [*(a1[4] + 8) options];
+      v12 = [v11 databasePath];
+      v13 = a1[6];
       *buf = 138543618;
-      v16 = v13;
-      v17 = 2048;
-      v18 = v14;
+      v15 = v12;
+      v16 = 2048;
+      v17 = v13;
       _os_log_error_impl(&dword_2400F8000, v9, OS_LOG_TYPE_ERROR, "Migrating %{public}@ to %llu failed!", buf, 0x16u);
     }
 
@@ -155,7 +155,6 @@ uint64_t __47__ASUSQLiteSchema_migrateToVersion_usingBlock___block_invoke(void *
 LABEL_8:
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -181,7 +180,7 @@ LABEL_8:
   return connection;
 }
 
-uint64_t __31__ASUSQLiteSchema_tableExists___block_invoke(uint64_t a1, void *a2)
+void *__31__ASUSQLiteSchema_tableExists___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 hasRows];
   *(*(*(a1 + 32) + 8) + 24) = result;

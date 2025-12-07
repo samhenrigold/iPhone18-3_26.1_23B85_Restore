@@ -16,15 +16,15 @@ void ___CFPrefsProcessPathRequiresDirectMode_block_invoke()
     goto LABEL_12;
   }
 
-  v1 = v0;
-  v2 = 0;
+  v2 = v0;
+  v3 = 0;
   do
   {
-    v3 = strlen(off_1E6DD20D8[v2]);
-    v4 = strncmp(off_1E6DD20D8[v2], v1, v3);
-    if (v4)
+    v4 = strlen(off_1E6DD20D8[v3]);
+    v0 = strncmp(off_1E6DD20D8[v3], v2, v4);
+    if (v0)
     {
-      v5 = v2 >= 9;
+      v5 = v3 >= 9;
     }
 
     else
@@ -32,15 +32,15 @@ void ___CFPrefsProcessPathRequiresDirectMode_block_invoke()
       v5 = 1;
     }
 
-    ++v2;
+    ++v3;
   }
 
   while (!v5);
-  _CFPrefsProcessPathRequiresDirectMode_onBlacklist = v4 == 0;
-  if (!v4)
+  _CFPrefsProcessPathRequiresDirectMode_onBlacklist = v0 == 0;
+  if (!v0)
   {
 LABEL_12:
-    v6 = _CFPrefsClientLog();
+    v6 = _CFPrefsClientLog(v0, v1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       ___CFPrefsProcessPathRequiresDirectMode_block_invoke_cold_1(v6);
@@ -50,10 +50,9 @@ LABEL_12:
 
 void ___CFPrefsProcessPathRequiresDirectMode_block_invoke_cold_1(os_log_t log)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  *v2 = 0;
-  _os_log_debug_impl(&dword_1830E6000, log, OS_LOG_TYPE_DEBUG, "NSUserDefaults/CFPreferences is doing direct file access for this process", v2, 2u);
-  v1 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  *v1 = 0;
+  _os_log_debug_impl(&dword_1830E6000, log, OS_LOG_TYPE_DEBUG, "NSUserDefaults/CFPreferences is doing direct file access for this process", v1, 2u);
 }
 
 @end

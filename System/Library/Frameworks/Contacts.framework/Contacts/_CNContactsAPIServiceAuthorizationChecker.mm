@@ -72,7 +72,7 @@ LABEL_3:
     connection = self->_connection;
     if (connection)
     {
-      [(NSXPCConnection *)connection auditToken];
+      objc_msgSend_auditToken(connection, a2);
     }
 
     else
@@ -114,7 +114,7 @@ LABEL_3:
   connection = self->_connection;
   if (connection)
   {
-    [(NSXPCConnection *)connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   else
@@ -202,7 +202,7 @@ LABEL_3:
   v3 = MEMORY[0x1E6996638];
   if (connection)
   {
-    [connection auditToken];
+    objc_msgSend_auditToken(connection, a2);
   }
 
   else

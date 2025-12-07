@@ -106,14 +106,14 @@
 
   if (IsNavigating)
   {
-    configuration = +[MNNavigationService sharedService];
-    -[DirectionsPlan setShouldRestoreLowGuidance:](buildDirectionsPlan, "setShouldRestoreLowGuidance:", [configuration state] == 5);
+    v29 = +[MNNavigationService sharedService];
+    -[DirectionsPlan setShouldRestoreLowGuidance:](buildDirectionsPlan, "setShouldRestoreLowGuidance:", [v29 state] == 5);
   }
 
   else
   {
-    configuration = [(NavigationSession *)self->_session configuration];
-    startNavigationDetails = [configuration startNavigationDetails];
+    v29 = objc_msgSend_configuration(self->_session);
+    startNavigationDetails = [v29 startNavigationDetails];
     -[DirectionsPlan setShouldRestoreLowGuidance:](buildDirectionsPlan, "setShouldRestoreLowGuidance:", [startNavigationDetails guidanceType] == 1);
   }
 

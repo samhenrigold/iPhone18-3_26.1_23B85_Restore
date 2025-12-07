@@ -128,7 +128,7 @@
   controllerCopy = controller;
   selfCopy = self;
   sub_1D11CE638(controllerCopy, animated, v8, v9);
-  sub_1D1138F60(v8);
+  sub_1D1138F60(v8, v9);
 }
 
 - (void)traitCollectionDidChange:(id)change

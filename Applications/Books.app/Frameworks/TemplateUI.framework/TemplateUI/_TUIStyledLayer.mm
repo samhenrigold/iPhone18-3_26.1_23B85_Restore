@@ -16,7 +16,7 @@
   v5 = [(_TUIStyledLayer *)&v7 implicitAnimationForKeyPath:pathCopy];
   if (!v5)
   {
-    if ([pathCopy isEqualToString:@"shadowPath"])
+    if (objc_msgSend_isEqualToString_(pathCopy))
     {
       v5 = [CABasicAnimation animationWithKeyPath:pathCopy];
     }

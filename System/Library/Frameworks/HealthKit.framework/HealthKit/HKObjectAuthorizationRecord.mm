@@ -84,11 +84,11 @@
 
 - (HKObjectAuthorizationRecord)initWithCoder:(id)coder
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v23.receiver = self;
-  v23.super_class = HKObjectAuthorizationRecord;
-  v5 = [(HKObjectAuthorizationRecord *)&v23 init];
+  v29.receiver = self;
+  v29.super_class = HKObjectAuthorizationRecord;
+  v5 = [(HKObjectAuthorizationRecord *)&v29 init];
   if (!v5)
   {
     goto LABEL_5;
@@ -110,48 +110,47 @@
 
   if (!v5->_sourceUUID || !v5->_objectUUID)
   {
-    _HKInitializeLogging();
-    v15 = HKLogAuthorization();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(v13, v14);
+    v20 = HKLogAuthorization(v18, v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v19 = objc_opt_class();
-      v21 = v5->_objectUUID;
-      v20 = v5->_sourceUUID;
+      v25 = objc_opt_class();
+      v27 = v5->_objectUUID;
+      v26 = v5->_sourceUUID;
       *buf = 138543874;
-      v25 = v19;
-      v26 = 2114;
-      v27 = v20;
-      v28 = 2114;
-      v29 = v21;
-      v22 = v19;
-      _os_log_error_impl(&dword_19197B000, v15, OS_LOG_TYPE_ERROR, "Decoded %{public}@ has incomplete source and object IDs: %{public}@, %{public}@", buf, 0x20u);
+      v31 = v25;
+      v32 = 2114;
+      v33 = v26;
+      v34 = 2114;
+      v35 = v27;
+      v28 = v25;
+      _os_log_error_impl(&dword_19197B000, v20, OS_LOG_TYPE_ERROR, "Decoded %{public}@ has incomplete source and object IDs: %{public}@, %{public}@", buf, 0x20u);
     }
 
     goto LABEL_12;
   }
 
-  v13 = [coderCopy decodeIntegerForKey:@"stat"];
-  v5->_status = v13;
-  if (v13 >= 3)
+  v15 = [coderCopy decodeIntegerForKey:@"stat"];
+  v5->_status = v15;
+  if (v15 >= 3)
   {
-    _HKInitializeLogging();
-    v16 = HKLogAuthorization();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(v15, v16);
+    v23 = HKLogAuthorization(v21, v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      [(HKObjectAuthorizationRecord *)v5 initWithCoder:v16];
+      [(HKObjectAuthorizationRecord *)v5 initWithCoder:v23];
     }
 
 LABEL_12:
-    v14 = 0;
+    v17 = 0;
     goto LABEL_13;
   }
 
 LABEL_5:
-  v14 = v5;
+  v17 = v5;
 LABEL_13:
 
-  v17 = *MEMORY[0x1E69E9840];
-  return v14;
+  return v17;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -167,17 +166,15 @@ LABEL_13:
 
 - (void)initWithCoder:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t *a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = objc_opt_class();
   v6 = *a2;
-  v9 = 138543618;
-  v10 = v5;
-  v11 = 2048;
-  v12 = v6;
+  v8 = 138543618;
+  v9 = v5;
+  v10 = 2048;
+  v11 = v6;
   v7 = v5;
-  _os_log_error_impl(&dword_19197B000, a3, OS_LOG_TYPE_ERROR, "Decoded %{public}@ has invalid authorization status: %ld", &v9, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_19197B000, a3, OS_LOG_TYPE_ERROR, "Decoded %{public}@ has invalid authorization status: %ld", &v8, 0x16u);
 }
 
 @end

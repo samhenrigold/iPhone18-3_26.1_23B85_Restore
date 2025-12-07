@@ -3,9 +3,7 @@
 - (BOOL)_removeObserver;
 - (CalDarwinNotificationListener)initWithNotificationName:(id)name callback:(id)callback queue:(id)queue;
 - (id)description;
-- (void)_addObserver;
 - (void)_notificationWithNameReceived:(id)received;
-- (void)_removeObserver;
 - (void)activate;
 - (void)deactivate;
 - (void)dealloc;
@@ -63,10 +61,18 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_4(&dword_1B990D000, v0, v1, "The listener has been stopped.  Listener: [%@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  if ([(CalDarwinNotificationListener *)self listening]&& [(CalDarwinNotificationListener *)self _removeObserver])
+  {
+    v3 = +[CalFoundationLogSubsystem defaultCategory];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    {
+      [CalDarwinNotificationListener dealloc];
+    }
+  }
+
+  v4.receiver = self;
+  v4.super_class = CalDarwinNotificationListener;
+  [(CalDarwinNotificationListener *)&v4 dealloc];
 }
 
 - (id)description
@@ -105,7 +111,7 @@ void __41__CalDarwinNotificationListener_activate__block_invoke(uint64_t a1)
     v2 = +[CalFoundationLogSubsystem defaultCategory];
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      __41__CalDarwinNotificationListener_activate__block_invoke_cold_2(v1);
+      __41__CalDarwinNotificationListener_activate__block_invoke_cold_2();
     }
   }
 
@@ -114,7 +120,7 @@ void __41__CalDarwinNotificationListener_activate__block_invoke(uint64_t a1)
     v3 = +[CalFoundationLogSubsystem defaultCategory];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      __41__CalDarwinNotificationListener_activate__block_invoke_cold_1(v1);
+      __41__CalDarwinNotificationListener_activate__block_invoke_cold_1();
     }
 
     [*v1 setListening:1];
@@ -142,7 +148,7 @@ void __43__CalDarwinNotificationListener_deactivate__block_invoke(uint64_t a1)
       v2 = +[CalFoundationLogSubsystem defaultCategory];
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
       {
-        __43__CalDarwinNotificationListener_deactivate__block_invoke_cold_2(v1);
+        __43__CalDarwinNotificationListener_deactivate__block_invoke_cold_2();
       }
 
       [*v1 setListening:0];
@@ -154,7 +160,7 @@ void __43__CalDarwinNotificationListener_deactivate__block_invoke(uint64_t a1)
     v3 = +[CalFoundationLogSubsystem defaultCategory];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __43__CalDarwinNotificationListener_deactivate__block_invoke_cold_1(v1);
+      __43__CalDarwinNotificationListener_deactivate__block_invoke_cold_1();
     }
   }
 }
@@ -237,62 +243,41 @@ void __63__CalDarwinNotificationListener__notificationWithNameReceived___block_i
   return notificationName != 0;
 }
 
-void __41__CalDarwinNotificationListener_activate__block_invoke_cold_1(uint64_t *a1)
+void __41__CalDarwinNotificationListener_activate__block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_7_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_4(&dword_1B990D000, v1, v2, "The listener has been started.  Listener: [%@]", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1B990D000, v0, v1, "The listener has been started.  Listener: [%@]", v2, v3, v4, v5);
 }
 
-void __41__CalDarwinNotificationListener_activate__block_invoke_cold_2(uint64_t *a1)
+void __41__CalDarwinNotificationListener_activate__block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_7_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_1(&dword_1B990D000, v1, v2, "The listener is already listening.  Will not start listening.  Listener: [%@]", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B990D000, v0, v1, "The listener is already listening.  Will not start listening.  Listener: [%@]", v2, v3, v4, v5);
 }
 
-void __43__CalDarwinNotificationListener_deactivate__block_invoke_cold_1(uint64_t *a1)
+void __43__CalDarwinNotificationListener_deactivate__block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_7_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_1(&dword_1B990D000, v1, v2, "The listener is not listening.  Will not stop listening.  Listener: [%@]", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1(&dword_1B990D000, v0, v1, "The listener is not listening.  Will not stop listening.  Listener: [%@]", v2, v3, v4, v5);
 }
 
-void __43__CalDarwinNotificationListener_deactivate__block_invoke_cold_2(uint64_t *a1)
+void __43__CalDarwinNotificationListener_deactivate__block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_7_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_4(&dword_1B990D000, v1, v2, "The listener has been stopped.  Listener: [%@]", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1B990D000, v0, v1, "The listener has been stopped.  Listener: [%@]", v2, v3, v4, v5);
 }
 
 - (void)_notificationWithNameReceived:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_1B990D000, v1, OS_LOG_TYPE_DEBUG, "Received notification with name: [%@].  Listener: [%@]", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_addObserver
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_1B990D000, v0, v1, "The listener was given a 'nil' notification name.  Will not add it as an observer.  Listener: [%@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_removeObserver
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_1B990D000, v0, v1, "The listener was given a 'nil' notification name.  Will not remove it as an observer.  Listener: [%@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1B990D000, v1, OS_LOG_TYPE_DEBUG, "Received notification with name: [%@].  Listener: [%@]", v2, 0x16u);
 }
 
 @end

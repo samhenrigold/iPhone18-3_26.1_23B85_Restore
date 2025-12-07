@@ -38,7 +38,7 @@ flatbuffers::DetachedBuffer *__47__QSSSpeechTranslationAudioPacket_flatbuffData_
 
 - (Offset<siri::speech::schema_fb::SpeechTranslationAudioPacket>)addObjectToBuffer:(void *)buffer
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   audio_frames = [(QSSSpeechTranslationAudioPacket *)self audio_frames];
   v6 = [audio_frames count];
   if (v6)
@@ -51,16 +51,11 @@ flatbuffers::DetachedBuffer *__47__QSSSpeechTranslationAudioPacket_flatbuffData_
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
+  memset(v14, 0, sizeof(v14));
   obj = [(QSSSpeechTranslationAudioPacket *)self audio_frames];
-  if ([obj countByEnumeratingWithState:&v16 objects:v20 count:16])
+  if ([obj countByEnumeratingWithState:v14 objects:v15 count:16])
   {
-    *v17;
-    *v17;
-    [**(&v16 + 1) addObjectToBuffer:buffer];
+    [**(&v14[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -77,9 +72,7 @@ flatbuffers::DetachedBuffer *__47__QSSSpeechTranslationAudioPacket_flatbuffData_
     flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 4, v11);
   }
 
-  v12.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, v10 - v9 + v8);
-  v13 = *MEMORY[0x277D85DE8];
-  return v12;
+  return flatbuffers::FlatBufferBuilder::EndTable(buffer, v10 - v9 + v8);
 }
 
 - (NSArray)audio_frames

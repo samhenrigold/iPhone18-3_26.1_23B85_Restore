@@ -68,7 +68,7 @@
 
 + (id)wk_imageWithLightAppearanceImage:()WKAdditions darkAppearanceImage:
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   v8 = v7;
@@ -81,11 +81,11 @@
         currentTraitCollection = [MEMORY[0x1E69DD1B8] currentTraitCollection];
         v10 = [currentTraitCollection traitCollectionByModifyingTraits:&__block_literal_global_12];
         v11 = [currentTraitCollection traitCollectionByModifyingTraits:&__block_literal_global_5_3];
-        v17[0] = v10;
-        v17[1] = v11;
-        v18[0] = v6;
-        v18[1] = v8;
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+        v16[0] = v10;
+        v16[1] = v11;
+        v17[0] = v6;
+        v17[1] = v8;
+        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
         v13 = [self wk_dynamicImageWithTraitCollectionToImageMap:v12 baseImage:v6];
 
         goto LABEL_9;
@@ -107,8 +107,6 @@
 
   v13 = v14;
 LABEL_9:
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -234,30 +232,30 @@ LABEL_9:
 
 + (id)wk_dynamicImageWithTraitCollectionToImageMap:()WKAdditions baseImage:
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a4;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   v8 = v6;
   if (v7)
   {
     v9 = v7;
-    v10 = *v19;
+    v10 = *v18;
     v8 = v6;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         v13 = [v5 objectForKeyedSubscript:v12];
         v14 = v13;
         if (!v8)
@@ -269,13 +267,11 @@ LABEL_9:
         [imageAsset registerImage:v14 withTraitCollection:v12];
       }
 
-      v9 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

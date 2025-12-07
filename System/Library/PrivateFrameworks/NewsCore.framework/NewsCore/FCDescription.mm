@@ -127,10 +127,7 @@
 {
   if (self->_object)
   {
-    v3 = MEMORY[0x1E696AEC0];
-    Name = class_getName(self->_class);
-    object = self->_object;
-    v6 = [v3 stringWithFormat:@"(%s*)%p%@", Name, object, self->_header];
+    v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%s*)%p%@", class_getName(self->_class), self->_object, self->_header];
   }
 
   else
@@ -138,19 +135,19 @@
     cfType = self->_cfType;
     if (cfType)
     {
-      v8 = CFGetTypeID(cfType);
-      v9 = CFCopyTypeIDDescription(v8);
-      v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%@Ref)%p%@", v9, self->_cfType, self->_header];
-      CFRelease(v9);
+      v5 = CFGetTypeID(cfType);
+      v6 = CFCopyTypeIDDescription(v5);
+      v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%@Ref)%p%@", v6, self->_cfType, self->_header];
+      CFRelease(v6);
     }
 
     else
     {
-      v6 = @"(void*)nil";
+      v3 = @"(void*)nil";
     }
   }
 
-  return v6;
+  return v3;
 }
 
 - (void)addField:(id)field value:(id)value
@@ -227,7 +224,7 @@
 
 - (id)descriptionString
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   if (!self->_fields)
   {
     goto LABEL_5;
@@ -236,12 +233,11 @@
   v3 = atomic_load(&FCDescriptionDepth);
   if (v3 >= 5)
   {
-    object = self->_object;
     if (objc_opt_respondsToSelector())
     {
       shortDescription = [self->_object shortDescription];
 LABEL_6:
-      v6 = shortDescription;
+      v5 = shortDescription;
       goto LABEL_31;
     }
 
@@ -250,121 +246,120 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  v7 = MEMORY[0x1E696AD60];
+  v6 = MEMORY[0x1E696AD60];
   p_header = [(FCDescription *)self p_header];
-  v6 = [v7 stringWithFormat:@"%@ {", p_header];
+  v5 = [v6 stringWithFormat:@"%@ {", p_header];
 
-  v32 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  v30 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  v31 = 0u;
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  v9 = self->_fieldOrder;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v33 objects:v37 count:16];
-  if (v10)
+  v8 = self->_fieldOrder;
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  if (v9)
   {
-    v11 = v10;
-    v28 = v6;
+    v10 = v9;
+    v26 = v5;
+    v11 = 0;
     v12 = 0;
-    v13 = 0;
-    v14 = &stru_1F2DC7DC0;
-    v15 = *v34;
-    v30 = *v34;
+    v13 = &stru_1F2DC7DC0;
+    v14 = *v32;
+    v28 = *v32;
     do
     {
-      v16 = 0;
-      v29 = v13;
-      v17 = v13 + 1;
-      v18 = v14;
-      v31 = v11;
+      v15 = 0;
+      v27 = v12;
+      v16 = v12 + 1;
+      v17 = v13;
+      v29 = v10;
       do
       {
-        if (*v34 != v15)
+        if (*v32 != v14)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v8);
         }
 
-        if (v17 > 0x63)
+        if (v16 > 0x63)
         {
-          ++v12;
+          ++v11;
         }
 
         else
         {
-          v19 = v9;
-          v20 = *(*(&v33 + 1) + 8 * v16);
-          v21 = [(NSMutableDictionary *)self->_fields objectForKey:v20];
-          v22 = [v21 mutableCopy];
+          v18 = v8;
+          v19 = *(*(&v31 + 1) + 8 * v15);
+          v20 = [(NSMutableDictionary *)self->_fields objectForKey:v19];
+          v21 = [v20 mutableCopy];
 
-          v23 = v20;
-          [v22 indentBy:self->_fieldNameWidth];
-          if ([(__CFString *)v23 hasPrefix:@"$$$"])
+          v22 = v19;
+          [v21 indentBy:self->_fieldNameWidth];
+          if ([(__CFString *)v22 hasPrefix:@"$$$"])
           {
 
-            v23 = &stru_1F2DC7DC0;
+            v22 = &stru_1F2DC7DC0;
           }
 
-          [v22 replaceCharactersInRange:0 withString:{-[__CFString length](v23, "length"), v23}];
-          [v32 appendFormat:@"%@%@", v18, v22];
+          [v21 replaceCharactersInRange:0 withString:{-[__CFString length](v22, "length"), v22}];
+          [v30 appendFormat:@"%@%@", v17, v21];
 
-          v9 = v19;
-          v15 = v30;
-          v11 = v31;
+          v8 = v18;
+          v14 = v28;
+          v10 = v29;
         }
 
-        v24 = @",\n";
+        v23 = @",\n";
         if (!self->_commaSeparated)
         {
-          v24 = @"\n";
+          v23 = @"\n";
         }
 
-        v14 = v24;
+        v13 = v23;
 
+        ++v15;
         ++v16;
-        ++v17;
-        v18 = v14;
+        v17 = v13;
       }
 
-      while (v11 != v16);
-      v13 = v11 + v29;
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      while (v10 != v15);
+      v12 = v10 + v27;
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
-    while (v11);
+    while (v10);
 
-    if (v12)
+    if (v11)
     {
-      v25 = "";
-      if (v12 != 1)
+      v24 = "";
+      if (v11 != 1)
       {
-        v25 = "s";
+        v24 = "s";
       }
 
-      [v32 appendFormat:@"%@...omitting %lu field%s (set to truncate after %lu field%s)", v14, v12, v25, 99, "s"];
+      [v30 appendFormat:@"%@...omitting %lu field%s (set to truncate after %lu field%s)", v13, v11, v24, 99, "s"];
     }
 
-    v6 = v28;
+    v5 = v26;
   }
 
   else
   {
 
-    v14 = &stru_1F2DC7DC0;
+    v13 = &stru_1F2DC7DC0;
   }
 
-  while (([v32 hasSuffix:@"\n"] & 1) != 0 || objc_msgSend(v32, "hasSuffix:", @" "))
+  while (([v30 hasSuffix:@"\n"] & 1) != 0 || objc_msgSend(v30, "hasSuffix:", @" "))
   {
-    [v32 deleteCharactersInRange:{objc_msgSend(v32, "length") - 1, 1}];
+    [v30 deleteCharactersInRange:{objc_msgSend(v30, "length") - 1, 1}];
   }
 
-  [v32 indentBy:2];
-  [v6 appendFormat:@"\n%@\n}", v32];
+  [v30 indentBy:2];
+  [v5 appendFormat:@"\n%@\n}", v30];
 
 LABEL_31:
   atomic_fetch_add(&FCDescriptionDepth, 0xFFFFFFFFFFFFFFFFLL);
-  v26 = *MEMORY[0x1E69E9840];
 
-  return v6;
+  return v5;
 }
 
 @end

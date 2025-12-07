@@ -15,6 +15,7 @@
 - (void)main;
 - (void)produceNewDependentOperation:(id)operation forRollback:(BOOL)rollback;
 - (void)setRetryable:(BOOL)retryable;
+- (void)setSkipped:(BOOL)skipped;
 @end
 
 @implementation MSDOperation
@@ -32,8 +33,7 @@
     [(MSDOperation *)v6 setComponent:0];
     [(MSDOperation *)v6 setFlag:0];
     [(MSDOperation *)v6 setCheckpointBarrier:0];
-    [(MSDOperation *)v6 setObserver:0];
-    v7 = sub_100063BEC();
+    v7 = sub_100063BEC([(MSDOperation *)v6 setObserver:0]);
     [(MSDOperation *)v6 setSignpostId:os_signpost_id_generate(v7)];
 
     v8 = objc_alloc_init(NSMutableSet);
@@ -65,18 +65,25 @@
   return skipped;
 }
 
+- (void)setSkipped:(BOOL)skipped
+{
+  skippedCopy = skipped;
+  context = [(MSDOperation *)self context];
+  [context setSkipped:skippedCopy];
+}
+
 - (void)main
 {
   v3 = _os_activity_create(&_mh_execute_header, "Perform Operation", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-  v17.opaque[0] = 0;
-  v17.opaque[1] = 0;
-  os_activity_scope_enter(v3, &v17);
-  v4 = sub_100063A54();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v20.opaque[0] = 0;
+  v20.opaque[1] = 0;
+  os_activity_scope_enter(v3, &v20);
+  v5 = sub_100063A54(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     selfCopy4 = self;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: entered.", buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: entered.", buf, 0xCu);
   }
 
   observer = [(MSDOperation *)self observer];
@@ -87,33 +94,32 @@
     [observer2 operationDidStart:self];
   }
 
-  v7 = sub_100063BEC();
+  v9 = sub_100063BEC(v7);
   signpostId = [(MSDOperation *)self signpostId];
   if (signpostId - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v9 = signpostId;
-    if (os_signpost_enabled(v7))
+    v11 = signpostId;
+    if (os_signpost_enabled(v9))
     {
       *buf = 138412290;
       selfCopy4 = self;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v7, OS_SIGNPOST_INTERVAL_BEGIN, v9, "Perform Operation", "Operation name: %{xcode:string}@", buf, 0xCu);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v9, OS_SIGNPOST_INTERVAL_BEGIN, v11, "Perform Operation", "Operation name: %{xcode:string}@", buf, 0xCu);
     }
   }
 
-  [(MSDOperation *)self execute];
-  v10 = sub_100063BEC();
+  v12 = sub_100063BEC([(MSDOperation *)self execute]);
   signpostId2 = [(MSDOperation *)self signpostId];
   if (signpostId2 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v12 = signpostId2;
-    if (os_signpost_enabled(v10))
+    v14 = signpostId2;
+    if (os_signpost_enabled(v12))
     {
       result = [(MSDOperation *)self result];
       *buf = 138412546;
       selfCopy4 = self;
-      v20 = 1024;
-      v21 = result;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, OS_SIGNPOST_INTERVAL_END, v12, "Perform Operation", "Operation name: %{xcode:string}@ result: %{xcode:BOOLean}d", buf, 0x12u);
+      v23 = 1024;
+      v24 = result;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v12, OS_SIGNPOST_INTERVAL_END, v14, "Perform Operation", "Operation name: %{xcode:string}@ result: %{xcode:BOOLean}d", buf, 0x12u);
     }
   }
 
@@ -125,15 +131,15 @@
     [observer4 operationWillFinish:self];
   }
 
-  v16 = sub_100063A54();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v19 = sub_100063A54(v17);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     selfCopy4 = self;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: will return.", buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{public}@: will return.", buf, 0xCu);
   }
 
-  os_activity_scope_leave(&v17);
+  os_activity_scope_leave(&v20);
 }
 
 - (void)addObserver:(id)observer
@@ -149,35 +155,37 @@
 
 - (BOOL)canPassCheckpoint
 {
-  if ([(MSDOperation *)self isCancelled])
+  isCancelled = [(MSDOperation *)self isCancelled];
+  if (isCancelled)
   {
-    v3 = sub_100063A54();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100063A54(isCancelled);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138543362;
+      v23 = 138543362;
       selfCopy5 = self;
-      v4 = "%{public}@ is cancelled.";
+      v5 = "%{public}@ is cancelled.";
 LABEL_7:
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, v4, &v17, 0xCu);
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, v5, &v23, 0xCu);
       goto LABEL_8;
     }
 
     goto LABEL_8;
   }
 
-  if ([(MSDOperation *)self skipped])
+  skipped = [(MSDOperation *)self skipped];
+  if (skipped)
   {
-    v3 = sub_100063A54();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100063A54(skipped);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138543362;
+      v23 = 138543362;
       selfCopy5 = self;
-      v4 = "%{public}@ is skipped.";
+      v5 = "%{public}@ is skipped.";
       goto LABEL_7;
     }
 
 LABEL_8:
-    v5 = 0;
+    v7 = 0;
     goto LABEL_9;
   }
 
@@ -189,54 +197,54 @@ LABEL_8:
     return 1;
   }
 
-  v9 = sub_100063A54();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_100063A54(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138543362;
+    v23 = 138543362;
     selfCopy5 = self;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ is halted by checkpoint barrier.", &v17, 0xCu);
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ is halted by checkpoint barrier.", &v23, 0xCu);
   }
 
-  v10 = sub_100063BEC();
+  v14 = sub_100063BEC(v13);
   signpostId = [(MSDOperation *)self signpostId];
   if (signpostId - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v12 = signpostId;
-    if (os_signpost_enabled(v10))
+    v16 = signpostId;
+    if (os_signpost_enabled(v14))
     {
-      v17 = 138412290;
+      v23 = 138412290;
       selfCopy5 = self;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, OS_SIGNPOST_INTERVAL_BEGIN, v12, "Encounter Checkpoint Barrier", "Operation name: %{xcode:string}@", &v17, 0xCu);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_INTERVAL_BEGIN, v16, "Encounter Checkpoint Barrier", "Operation name: %{xcode:string}@", &v23, 0xCu);
     }
   }
 
   checkpointBarrier2 = [(MSDOperation *)self checkpointBarrier];
   [checkpointBarrier2 waitUntilClear];
 
-  v14 = sub_100063BEC();
+  v19 = sub_100063BEC(v18);
   signpostId2 = [(MSDOperation *)self signpostId];
   if (signpostId2 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v16 = signpostId2;
-    if (os_signpost_enabled(v14))
+    v21 = signpostId2;
+    if (os_signpost_enabled(v19))
     {
-      LOWORD(v17) = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_INTERVAL_END, v16, "Encounter Checkpoint Barrier", "", &v17, 2u);
+      LOWORD(v23) = 0;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v19, OS_SIGNPOST_INTERVAL_END, v21, "Encounter Checkpoint Barrier", "", &v23, 2u);
     }
   }
 
-  v3 = sub_100063A54();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = sub_100063A54(v22);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138543362;
+    v23 = 138543362;
     selfCopy5 = self;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ is free of checkpoint barrier.", &v17, 0xCu);
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ is free of checkpoint barrier.", &v23, 0xCu);
   }
 
-  v5 = 1;
+  v7 = 1;
 LABEL_9:
 
-  return v5;
+  return v7;
 }
 
 - (BOOL)isRoot
@@ -318,7 +326,7 @@ LABEL_12:
 {
   rollbackCopy = rollback;
   operationCopy = operation;
-  v7 = sub_100063A54();
+  v7 = sub_100063A54(operationCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
@@ -427,33 +435,33 @@ LABEL_12:
 {
   if ([(MSDOperation *)self canPassCheckpoint])
   {
+    v29 = 0u;
+    v30 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v25 = 0u;
-    v26 = 0u;
     obj = [(MSDOperation *)self methodSelectors];
-    v3 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
+    v3 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
     if (v3)
     {
       v5 = v3;
-      v6 = *v26;
+      v6 = *v28;
       *&v4 = 67109120;
-      v23 = v4;
+      v25 = v4;
       while (2)
       {
         for (i = 0; i != v5; i = i + 1)
         {
-          if (*v26 != v6)
+          if (*v28 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v25 + 1) + 8 * i);
+          v8 = *(*(&v27 + 1) + 8 * i);
           v9 = objc_autoreleasePoolPush();
           pointerValue = [v8 pointerValue];
           v11 = NSStringFromSelector(pointerValue);
           v12 = [(MSDOperation *)self methodForSelector:pointerValue];
-          v13 = sub_100063BEC();
+          v13 = sub_100063BEC(v12);
           signpostId = [(MSDOperation *)self signpostId];
           if (signpostId - 1 <= 0xFFFFFFFFFFFFFFFDLL)
           {
@@ -461,38 +469,39 @@ LABEL_12:
             if (os_signpost_enabled(v13))
             {
               *buf = 138412290;
-              v30 = v11;
+              v32 = v11;
               _os_signpost_emit_with_name_impl(&_mh_execute_header, v13, OS_SIGNPOST_INTERVAL_BEGIN, v15, "Execute Method Selector", "Selector name: %{xcode:string}@", buf, 0xCu);
             }
           }
 
           v16 = v12(self, pointerValue);
-          v17 = sub_100063BEC();
+          v17 = v16;
+          v18 = sub_100063BEC(v16);
           signpostId2 = [(MSDOperation *)self signpostId];
           if (signpostId2 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
           {
-            v19 = signpostId2;
-            if (os_signpost_enabled(v17))
+            v20 = signpostId2;
+            if (os_signpost_enabled(v18))
             {
-              *buf = v23;
-              LODWORD(v30) = v16;
-              _os_signpost_emit_with_name_impl(&_mh_execute_header, v17, OS_SIGNPOST_INTERVAL_END, v19, "Execute Method Selector", "Selector result: %{xcode:BOOLean}d", buf, 8u);
+              *buf = v25;
+              LODWORD(v32) = v17;
+              _os_signpost_emit_with_name_impl(&_mh_execute_header, v18, OS_SIGNPOST_INTERVAL_END, v20, "Execute Method Selector", "Selector result: %{xcode:BOOLean}d", buf, 8u);
             }
           }
 
-          if ((v16 & 1) == 0)
+          if ((v17 & 1) == 0)
           {
-            v22 = sub_100063A54();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+            v24 = sub_100063A54(v21);
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v30 = v11;
-              _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Execution error detected in method selector: %{public}@", buf, 0xCu);
+              v32 = v11;
+              _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Execution error detected in method selector: %{public}@", buf, 0xCu);
             }
 
             objc_autoreleasePoolPop(v9);
 LABEL_21:
-            v21 = 0;
+            v23 = 0;
             goto LABEL_22;
           }
 
@@ -505,7 +514,7 @@ LABEL_21:
           }
         }
 
-        v5 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
+        v5 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
         if (v5)
         {
           continue;
@@ -515,16 +524,16 @@ LABEL_21:
       }
     }
 
-    v21 = 1;
+    v23 = 1;
 LABEL_22:
   }
 
   else
   {
-    v21 = 0;
+    v23 = 0;
   }
 
-  [(MSDOperation *)self setResult:v21, v23];
+  [(MSDOperation *)self setResult:v23, v25];
 }
 
 @end

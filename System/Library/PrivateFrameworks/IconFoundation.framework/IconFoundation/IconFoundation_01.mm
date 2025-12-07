@@ -1,20 +1,20 @@
-_DWORD *BOMTreeIteratorSet(uint64_t a1, void *a2, unint64_t a3, BOOL *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+_DWORD *BOMTreeIteratorSet(void *a1, void *a2, size_t a3, BOOL *a4)
 {
   *(a1 + 57) &= 0xF6u;
-  result = _findPagesForKey(*a1, 0, a2, a3, a5, a6, a7, a8);
-  *(a1 + 8) = result;
+  result = _findPagesForKey(*a1, 0, a2, a3);
+  a1[1] = result;
   if (result)
   {
-    *(a1 + 16) = *result;
-    result = _findIndexForKey(*a1, result, a2, a3, a4, v13, v14, v15);
-    *(a1 + 20) = result;
+    *(a1 + 4) = *result;
+    result = _findIndexForKey(*a1, result, a2, a3, a4);
+    *(a1 + 5) = result;
     *(a1 + 56) = 1;
-    v22 = *(a1 + 8);
-    if (result >= *(v22 + 16))
+    v9 = a1[1];
+    if (result >= *(v9 + 16))
     {
-      *(a1 + 20) = 0;
-      v23 = *(v22 + 8);
-      if (!v23 || (*(a1 + 16) = v23, result = _findPage(*a1, v23, v16, v17, v18, v19, v20, v21), (*(a1 + 8) = result) == 0))
+      *(a1 + 5) = 0;
+      v10 = *(v9 + 8);
+      if (!v10 || (*(a1 + 4) = v10, result = _findPage(*a1, v10), (a1[1] = result) == 0))
       {
         *(a1 + 57) |= 8u;
       }
@@ -30,26 +30,27 @@ _DWORD *BOMTreeIteratorSet(uint64_t a1, void *a2, unint64_t a3, BOOL *a4, uint64
   return result;
 }
 
-void *_findPage(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unsigned int *_findPage(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
+    v2 = a2;
     if (a1)
     {
-      v10 = 0;
+      v4 = 0;
       while (1)
       {
-        v11 = *(a1 + 32 + v10);
-        if (v11)
+        v5 = *(a1 + 32 + v4);
+        if (v5)
         {
-          if (*v11 == a2)
+          if (*v5 == a2)
           {
             break;
           }
         }
 
-        v10 += 8;
-        if (v10 == 256)
+        v4 += 8;
+        if (v4 == 256)
         {
           goto LABEL_7;
         }
@@ -59,120 +60,120 @@ void *_findPage(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint
     else
     {
 LABEL_7:
-      v11 = 0;
+      v5 = 0;
     }
 
-    v12 = 0;
-    v13 = a1 + 32;
+    v6 = 0;
+    v7 = a1 + 32;
     while (1)
     {
-      if (v11)
+      if (v5)
       {
-        return v11;
+        return v5;
       }
 
-      v14 = *(a1 + 288);
-      v11 = *(v13 + 8 * v14);
-      if (!v11)
+      v8 = *(a1 + 288);
+      v5 = *(v7 + 8 * v8);
+      if (!v5)
       {
-        v11 = _NewPage(a1, a2);
-        if (!v11)
+        v5 = _NewPage(a1, v2);
+        if (!v5)
         {
-          return v11;
+          return v5;
         }
 
-        if (_ReadPage(a1, v11, v19, v20, v21, v22, v23, v24))
+        if (_ReadPage(a1, v5))
         {
           return 0;
         }
 
-        v14 = *(a1 + 288);
-        *(v13 + 8 * v14) = v11;
+        v8 = *(a1 + 288);
+        *(v7 + 8 * v8) = v5;
         goto LABEL_26;
       }
 
-      v15 = *(v11 + 2);
-      if ((v15 & 0xC) == 4)
+      v9 = *(v5 + 2);
+      if ((v9 & 0xC) == 4)
       {
         break;
       }
 
-      if ((v15 & 4) != 0)
+      if ((v9 & 4) != 0)
       {
-        v11 = 0;
+        v5 = 0;
 LABEL_26:
-        v25 = v12;
+        v13 = v6;
         goto LABEL_27;
       }
 
-      v25 = 0;
-      *(v11 + 2) = v15 | 4;
-      LODWORD(v14) = *(a1 + 288);
-      v11 = 0;
+      v13 = 0;
+      *(v5 + 2) = v9 | 4;
+      LODWORD(v8) = *(a1 + 288);
+      v5 = 0;
 LABEL_27:
-      v26 = v14 + 1;
-      v27 = -v26 < 0;
-      v28 = -v26 & 0x1F;
-      v29 = v26 & 0x1F;
-      if (!v27)
+      v14 = v8 + 1;
+      v15 = -v14 < 0;
+      v16 = -v14 & 0x1F;
+      v17 = v14 & 0x1F;
+      if (!v15)
       {
-        v29 = -v28;
+        v17 = -v16;
       }
 
-      *(a1 + 288) = v29;
-      v12 = v25 + 1;
-      if (!v11 && v25 >= 32)
+      *(a1 + 288) = v17;
+      v6 = v13 + 1;
+      if (!v5 && v13 >= 32)
       {
-        v30 = __error();
-        _BOMExceptionHandlerCall("btree cache is deadlocked", 0, "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMTree.c", 2356, *v30);
+        v18 = __error();
+        _BOMExceptionHandlerCall("btree cache is deadlocked", 0, "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMTree.c", 2356, *v18);
         return 0;
       }
     }
 
-    if ((v15 & 2) != 0)
+    if ((v9 & 2) != 0)
     {
-      _WritePage(a1, *(v13 + 8 * v14));
+      _WritePage(a1, *(v7 + 8 * v8));
     }
 
-    v16 = 0;
-    v17 = v11[3];
-    v11[4] = 0;
-    *v11 = 0u;
-    *(v11 + 1) = 0u;
+    v10 = 0;
+    v11 = *(v5 + 3);
+    *(v5 + 4) = 0;
+    *v5 = 0u;
+    *(v5 + 1) = 0u;
     if ((*(a1 + 356) & 0x40) == 0)
     {
-      v18 = *(a1 + 308);
-      if (v18 <= *(a1 + 312))
+      v12 = *(a1 + 308);
+      if (v12 <= *(a1 + 312))
       {
-        v18 = *(a1 + 312);
+        v12 = *(a1 + 312);
       }
 
-      bzero(v17, 8 * v18);
-      v16 = v17;
+      bzero(v11, 8 * v12);
+      v10 = v11;
     }
 
-    *v11 = a2;
-    v11[1] = -1;
-    v11[3] = v16;
-    v11[4] = 0;
-    if (_ReadPage(a1, v11, a3, a4, a5, a6, a7, a8))
+    *v5 = v2;
+    *(v5 + 1) = -1;
+    *(v5 + 3) = v10;
+    *(v5 + 4) = 0;
+    if (_ReadPage(a1, v5))
     {
       return 0;
     }
 
-    v14 = *(a1 + 288);
-    *(v13 + 8 * v14) = v11;
+    v8 = *(a1 + 288);
+    *(v7 + 8 * v8) = v5;
     goto LABEL_26;
   }
 
   return 0;
 }
 
-uint64_t _revalidateIterator(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _revalidateIterator(uint64_t a1)
 {
   if (*(a1 + 57))
   {
-    PagesForKey = _findPagesForKey(*a1, 0, *(a1 + 24), *(a1 + 32), a5, a6, a7, a8);
+    PagesForKey = _findPagesForKey(*a1, 0, *(a1 + 24), *(a1 + 32));
     *(a1 + 8) = PagesForKey;
     if (!PagesForKey)
     {
@@ -180,7 +181,7 @@ uint64_t _revalidateIterator(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
       goto LABEL_12;
     }
 
-    IndexForKey = _findIndexForKey(*a1, PagesForKey, *(a1 + 24), *(a1 + 32), (a1 + 56), v12, v13, v14);
+    IndexForKey = _findIndexForKey(*a1, PagesForKey, *(a1 + 24), *(a1 + 32), (a1 + 56));
     Page = *(a1 + 8);
     *(a1 + 16) = *Page;
     *(a1 + 20) = IndexForKey;
@@ -191,9 +192,9 @@ uint64_t _revalidateIterator(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
   Page = *(a1 + 8);
   if (!Page)
   {
-    v10 = *(a1 + 16);
+    v3 = *(a1 + 16);
 LABEL_8:
-    Page = _findPage(*a1, v10, a3, a4, a5, a6, a7, a8);
+    Page = _findPage(*a1, v3);
     *(a1 + 8) = Page;
     if (!Page)
     {
@@ -203,8 +204,8 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v10 = *(a1 + 16);
-  if (*Page != v10)
+  v3 = *(a1 + 16);
+  if (*Page != v3)
   {
     goto LABEL_8;
   }
@@ -221,18 +222,18 @@ LABEL_12:
   return result;
 }
 
-uint64_t BOMTreeIteratorValueSize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t BOMTreeIteratorValueSize(uint64_t a1)
 {
   if (!a1 || (*(a1 + 57) & 8) != 0)
   {
     return 0;
   }
 
-  if ((*(a1 + 57) & 1) != 0 || (v9 = *(a1 + 8)) == 0 || *v9 != *(a1 + 16))
+  if ((*(a1 + 57) & 1) != 0 || (v2 = *(a1 + 8)) == 0 || *v2 != *(a1 + 16))
   {
-    if (_revalidateIterator(a1, a2, a3, a4, a5, a6, a7, a8))
+    if (_revalidateIterator(a1))
     {
-      v9 = *(a1 + 8);
+      v2 = *(a1 + 8);
       goto LABEL_8;
     }
 
@@ -241,205 +242,205 @@ uint64_t BOMTreeIteratorValueSize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
   }
 
 LABEL_8:
-  v10 = **a1;
-  v11 = *(*(v9 + 24) + 8 * *(a1 + 20));
-  v12 = bswap32(v11);
+  v3 = **a1;
+  v4 = *(*(v2 + 24) + 8 * *(a1 + 20));
+  v5 = bswap32(v4);
   if ((*(*a1 + 356) & 0x40) != 0)
   {
-    v13 = v12;
+    v6 = v5;
   }
 
   else
   {
-    v13 = v11;
+    v6 = v4;
   }
 
-  return BOMStorageSizeOfBlock(v10, v13, a3, a4, a5, a6, a7, a8);
+  return BOMStorageSizeOfBlock(v3, v6);
 }
 
-uint64_t BOMTreeIteratorValue(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t BOMTreeIteratorValue(uint64_t result)
 {
   if (result)
   {
-    v8 = result;
-    v9 = *(result + 57);
-    if ((v9 & 8) != 0)
+    v1 = result;
+    v2 = *(result + 57);
+    if ((v2 & 8) != 0)
     {
       return 0;
     }
 
-    if ((*(result + 57) & 1) == 0 && (v10 = *(result + 8)) != 0 && *v10 == *(result + 16) || (v11 = _revalidateIterator(result, a2, a3, a4, a5, a6, a7, a8), v9 = *(v8 + 57), v11))
+    if ((*(result + 57) & 1) == 0 && (v3 = *(result + 8)) != 0 && *v3 == *(result + 16) || (v4 = _revalidateIterator(result), v2 = *(v1 + 57), v4))
     {
-      if ((v9 & 4) == 0)
+      if ((v2 & 4) == 0)
       {
-        v12 = bswap32(*(*(*(v8 + 8) + 24) + 8 * *(v8 + 20)));
-        if ((*(*v8 + 356) & 0x40) != 0)
+        v5 = bswap32(*(*(*(v1 + 8) + 24) + 8 * *(v1 + 20)));
+        if ((*(*v1 + 356) & 0x40) != 0)
+        {
+          v6 = v5;
+        }
+
+        else
+        {
+          v6 = *(*(*(v1 + 8) + 24) + 8 * *(v1 + 20));
+        }
+
+        v7 = BOMStorageSizeOfBlock(**v1, v6);
+        v8 = *(v1 + 48);
+        if (v7 > v8)
+        {
+          v9 = v7;
+          v10 = *(v1 + 40);
+          if (v10)
+          {
+            free(v10);
+            *(v1 + 40) = 0;
+            v8 = *(v1 + 48);
+          }
+
+          if (v9 <= 2 * v8)
+          {
+            v11 = 2 * v8;
+          }
+
+          else
+          {
+            v11 = v9;
+          }
+
+          *(v1 + 48) = v11;
+          *(v1 + 40) = malloc_type_malloc(v11, 0x6CF44FC8uLL);
+        }
+
+        v12 = bswap32(*(*(*(v1 + 8) + 24) + 8 * *(v1 + 20)));
+        if ((*(*v1 + 356) & 0x40) != 0)
         {
           v13 = v12;
         }
 
         else
         {
-          v13 = *(*(*(v8 + 8) + 24) + 8 * *(v8 + 20));
+          v13 = *(*(*(v1 + 8) + 24) + 8 * *(v1 + 20));
         }
 
-        v14 = BOMStorageSizeOfBlock(**v8, v13, a3, a4, a5, a6, a7, a8);
-        v20 = *(v8 + 48);
-        if (v14 > v20)
-        {
-          v21 = v14;
-          v22 = *(v8 + 40);
-          if (v22)
-          {
-            free(v22);
-            *(v8 + 40) = 0;
-            v20 = *(v8 + 48);
-          }
-
-          if (v21 <= 2 * v20)
-          {
-            v23 = 2 * v20;
-          }
-
-          else
-          {
-            v23 = v21;
-          }
-
-          *(v8 + 48) = v23;
-          *(v8 + 40) = malloc_type_malloc(v23, 0x6CF44FC8uLL);
-        }
-
-        v24 = bswap32(*(*(*(v8 + 8) + 24) + 8 * *(v8 + 20)));
-        if ((*(*v8 + 356) & 0x40) != 0)
-        {
-          v25 = v24;
-        }
-
-        else
-        {
-          v25 = *(*(*(v8 + 8) + 24) + 8 * *(v8 + 20));
-        }
-
-        if (BOMStorageCopyFromBlock(**v8, v25, *(v8 + 40), v15, v16, v17, v18, v19))
+        if (BOMStorageCopyFromBlock(**v1, v13, *(v1 + 40)))
         {
           return 0;
         }
 
-        *(v8 + 57) |= 4u;
+        *(v1 + 57) |= 4u;
       }
 
-      return *(v8 + 40);
+      return *(v1 + 40);
     }
 
     else
     {
       result = 0;
-      *(v8 + 57) = v9 | 8;
+      *(v1 + 57) = v2 | 8;
     }
   }
 
   return result;
 }
 
-uint64_t _BOMTreeDiagnosticTraverse(uint64_t a1, uint64_t a2, _DWORD *a3, _DWORD *a4, _DWORD *a5, void *a6, void *a7, uint64_t a8)
+BOOL _BOMTreeDiagnosticTraverse(uint64_t a1, uint64_t a2, _DWORD *a3, _DWORD *a4, _DWORD *a5, void *a6, void *a7)
 {
   if (!a1)
   {
     return 1;
   }
 
-  v13 = a2;
+  v12 = a2;
   if (!a2)
   {
-    v13 = *(a1 + 24);
+    v12 = *(a1 + 24);
   }
 
-  *a3 = BOMStorageSizeOfBlock(*a1, *v13, a3, a4, a5, a6, a7, a8);
-  if (*(v13 + 4))
+  *a3 = BOMStorageSizeOfBlock(*a1, *v12);
+  if (*(v12 + 4))
   {
     if (a4)
     {
       ++*a4;
     }
 
-    if (*(v13 + 16))
+    if (*(v12 + 16))
     {
-      v28 = 0;
-      v29 = 0;
+      v22 = 0;
+      v23 = 0;
       do
       {
         if (a6)
         {
-          v30 = *(a1 + 356);
-          if ((v30 & 4) == 0)
+          v24 = *(a1 + 356);
+          if ((v24 & 4) == 0)
           {
-            v31 = bswap32(*(*(v13 + 24) + v28 + 4));
-            if ((v30 & 0x40) != 0)
+            v25 = bswap32(*(*(v12 + 24) + v22 + 4));
+            if ((v24 & 0x40) != 0)
             {
-              v32 = v31;
+              v26 = v25;
             }
 
             else
             {
-              v32 = *(*(v13 + 24) + v28 + 4);
+              v26 = *(*(v12 + 24) + v22 + 4);
             }
 
-            *a6 += BOMStorageSizeOfBlock(*a1, v32, v15, v16, v17, v18, v19, v20);
+            *a6 += BOMStorageSizeOfBlock(*a1, v26);
           }
         }
 
         if (a7)
         {
-          v33 = bswap32(*(*(v13 + 24) + v28));
+          v27 = bswap32(*(*(v12 + 24) + v22));
           if ((*(a1 + 356) & 0x40) != 0)
           {
-            v34 = v33;
+            v28 = v27;
           }
 
           else
           {
-            v34 = *(*(v13 + 24) + v28);
+            v28 = *(*(v12 + 24) + v22);
           }
 
-          *a7 += BOMStorageSizeOfBlock(*a1, v34, v15, v16, v17, v18, v19, v20);
+          *a7 += BOMStorageSizeOfBlock(*a1, v28);
         }
 
-        ++v29;
-        v28 += 8;
+        ++v23;
+        v22 += 8;
       }
 
-      while (v29 < *(v13 + 16));
+      while (v23 < *(v12 + 16));
     }
 
     else
     {
-      v29 = 0;
+      v23 = 0;
     }
 
-    v37 = *(*(v13 + 24) + 8 * v29);
+    v31 = *(*(v12 + 24) + 8 * v23);
     if ((*(a1 + 356) & 0x40) != 0)
     {
-      v23 = 0;
-      if (!a7 || !v37)
+      v16 = 0;
+      if (!a7 || !v31)
       {
-        return v23 != 0;
+        return v16 != 0;
       }
 
-      v37 = bswap32(v37);
+      v31 = bswap32(v31);
     }
 
     else
     {
-      v23 = 0;
-      if (!a7 || !v37)
+      v16 = 0;
+      if (!a7 || !v31)
       {
-        return v23 != 0;
+        return v16 != 0;
       }
     }
 
-    v23 = 0;
-    *a7 += BOMStorageSizeOfBlock(*a1, v37, v15, v16, v17, v18, v19, v20);
+    v16 = 0;
+    *a7 += BOMStorageSizeOfBlock(*a1, v31);
   }
 
   else
@@ -449,84 +450,85 @@ uint64_t _BOMTreeDiagnosticTraverse(uint64_t a1, uint64_t a2, _DWORD *a3, _DWORD
       ++*a5;
     }
 
-    if (*(v13 + 16))
+    if (*(v12 + 16))
     {
-      v21 = 0;
-      v22 = 0;
-      v23 = 0;
+      v14 = 0;
+      v15 = 0;
+      v16 = 0;
       do
       {
-        v24 = bswap32(*(*(v13 + 24) + v21));
+        v17 = *(*(v12 + 24) + v14);
+        v18 = bswap32(v17);
         if ((*(a1 + 356) & 0x40) != 0)
         {
-          v25 = v24;
+          v19 = v18;
         }
 
         else
         {
-          v25 = *(*(v13 + 24) + v21);
+          v19 = v17;
         }
 
-        Page = _findPage(a1, v25, v15, v16, v17, v18, v19, v20);
-        v23 += _BOMTreeDiagnosticTraverse(a1, Page, a3, a4, a5, a6, a7);
-        ++v22;
-        v21 += 8;
+        Page = _findPage(a1, v19);
+        v16 += _BOMTreeDiagnosticTraverse(a1, Page, a3, a4, a5, a6, a7);
+        ++v15;
+        v14 += 8;
       }
 
-      while (v22 < *(v13 + 16));
+      while (v15 < *(v12 + 16));
     }
 
     else
     {
-      v22 = 0;
-      v23 = 0;
+      v15 = 0;
+      v16 = 0;
     }
 
-    v35 = *(*(v13 + 24) + 8 * v22);
+    v29 = *(*(v12 + 24) + 8 * v15);
     if ((*(a1 + 356) & 0x40) == 0)
     {
-      if (!v35)
+      if (!v29)
       {
-        return v23 != 0;
+        return v16 != 0;
       }
 
       goto LABEL_38;
     }
 
-    if (v35)
+    if (v29)
     {
-      v35 = bswap32(v35);
+      v29 = bswap32(v29);
 LABEL_38:
-      v36 = _findPage(a1, v35, v15, v16, v17, v18, v19, v20);
-      v23 += _BOMTreeDiagnosticTraverse(a1, v36, a3, a4, a5, a6, a7);
+      v30 = _findPage(a1, v29);
+      v16 += _BOMTreeDiagnosticTraverse(a1, v30, a3, a4, a5, a6, a7);
     }
   }
 
-  return v23 != 0;
+  return v16 != 0;
 }
 
-uint64_t _BOMTreePrintDiagnostics(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _BOMTreePrintDiagnostics(uint64_t result)
 {
-  v15 = 0;
-  v13 = 0;
-  v14 = 0;
-  v11 = 0;
-  v12 = 0;
+  v8 = 0;
+  v6 = 0;
+  v7 = 0;
+  v4 = 0;
+  v5 = 0;
   if (result)
   {
-    v8 = result;
-    result = _BOMTreeDiagnosticTraverse(result, 0, &v14, &v15, &v13, &v12, &v11, a8);
+    v1 = result;
+    result = _BOMTreeDiagnosticTraverse(result, 0, &v7, &v8, &v6, &v5, &v4);
     if (!result)
     {
-      v9 = v13 + v15;
-      v10 = MEMORY[0x1E69E9858];
-      fprintf(*MEMORY[0x1E69E9858], "           # records: %d\n", *(v8 + 20));
-      fprintf(*v10, "           page size: %d (%d)\n", *(v8 + 304), v14);
-      fprintf(*v10, "           # pages  : %d (%d)\n", v9, *(v8 + 304) * v9);
-      fprintf(*v10, "             leaf   : %d (%d)\n", v15, *(v8 + 304) * v15);
-      fprintf(*v10, "             branch : %d (%d)\n", v13, *(v8 + 304) * v13);
-      fprintf(*v10, "           key size : %zd\n", v12);
-      return fprintf(*v10, "           data size: %zd\n", v11);
+      v2 = v6 + v8;
+      v3 = MEMORY[0x1E69E9858];
+      fprintf(*MEMORY[0x1E69E9858], "           # records: %d\n", *(v1 + 20));
+      fprintf(*v3, "           page size: %d (%d)\n", *(v1 + 304), v7);
+      fprintf(*v3, "           # pages  : %d (%d)\n", v2, *(v1 + 304) * v2);
+      fprintf(*v3, "             leaf   : %d (%d)\n", v8, *(v1 + 304) * v8);
+      fprintf(*v3, "             branch : %d (%d)\n", v6, *(v1 + 304) * v6);
+      fprintf(*v3, "           key size : %zd\n", v5);
+      return fprintf(*v3, "           data size: %zd\n", v4);
     }
   }
 
@@ -677,7 +679,7 @@ LABEL_28:
   return v3;
 }
 
-size_t BOMValueDump(size_t result, unint64_t a2, const char *a3, unsigned int a4)
+uint64_t BOMValueDump(uint64_t result, unint64_t a2, const char *a3, unsigned int a4)
 {
   v4 = a4;
   v6 = a2;
@@ -797,7 +799,7 @@ uint64_t BOMPathKeyDump(uint64_t a1, unint64_t a2, const char *a3)
   return BOMMemoryDump(a1, a2, a3);
 }
 
-uint64_t BOMStorageDumpTree(uint64_t a1, const char *a2, unsigned int a3)
+uint64_t BOMStorageDumpTree(uint64_t a1, char *a2, unsigned int a3)
 {
   v5 = BOMTreeOpenWithName(a1, a2, 0);
   if (v5)
@@ -805,46 +807,46 @@ uint64_t BOMStorageDumpTree(uint64_t a1, const char *a2, unsigned int a3)
     v6 = v5;
     v7 = MEMORY[0x1E69E9858];
     fprintf(*MEMORY[0x1E69E9858], "        %s (%u entries) (%d localkeysize)\n", a2, *(v6 + 20), *(v6 + 348));
-    _BOMTreePrintDiagnostics(v6, v8, v9, v10, v11, v12, v13, v14);
-    v15 = BOMTreeIteratorNew(v6, 0, 0, 0);
-    if (!BOMTreeIteratorIsAtEnd(v15, v16, v17, v18, v19, v20, v21, v22))
+    _BOMTreePrintDiagnostics(v6);
+    v8 = BOMTreeIteratorNew(v6, 0, 0, 0);
+    if (!BOMTreeIteratorIsAtEnd(v8))
     {
-      v23 = HIWORD(a3) & 0xF;
+      v9 = HIWORD(a3) & 0xF;
       do
       {
         fprintf(*v7, "        %s   Key ", a2);
-        v31 = BOMTreeIteratorKey(v15, v24, v25, v26, v27, v28, v29, v30);
-        v39 = BOMTreeIteratorKeySize(v15, v32, v33, v34, v35, v36, v37, v38);
-        switch(v23)
+        v10 = BOMTreeIteratorKey(v8);
+        v11 = BOMTreeIteratorKeySize(v8);
+        switch(v9)
         {
-          case 3:
-            BOMPathKeyDump(v31, v39, "        ");
+          case 3u:
+            BOMPathKeyDump(v10, v11, "        ");
             break;
-          case 2:
-            BOMPathIdDump(v31, v39, "        ");
+          case 2u:
+            BOMPathIdDump(v10, v11, "        ");
             break;
-          case 1:
-            BOMPathDump(v31);
+          case 1u:
+            BOMPathDump(v10);
             break;
           default:
-            BOMMemoryDump(v31, v39, "        ");
+            BOMMemoryDump(v10, v11, "        ");
             break;
         }
 
         fprintf(*v7, "        %s Value ", a2);
-        v47 = BOMTreeIteratorValue(v15, v40, v41, v42, v43, v44, v45, v46);
-        v55 = BOMTreeIteratorValueSize(v15, v48, v49, v50, v51, v52, v53, v54);
-        BOMValueDump(v47, v55, "        ", a3);
-        BOMTreeIteratorNext(v15, v56, v57, v58, v59, v60, v61, v62);
+        v12 = BOMTreeIteratorValue(v8);
+        v13 = BOMTreeIteratorValueSize(v8);
+        BOMValueDump(v12, v13, "        ", a3);
+        BOMTreeIteratorNext(v8);
       }
 
-      while (!BOMTreeIteratorIsAtEnd(v15, v63, v64, v65, v66, v67, v68, v69));
+      while (!BOMTreeIteratorIsAtEnd(v8));
     }
 
     fputc(10, *v7);
-    if (v15)
+    if (v8)
     {
-      BOMTreeIteratorFree(v15);
+      BOMTreeIteratorFree(v8);
     }
 
     BOMTreeFree(v6);
@@ -858,18 +860,18 @@ uint64_t BOMStorageDumpTree(uint64_t a1, const char *a2, unsigned int a3)
   }
 }
 
-uint64_t BOMTreePrint(uint64_t a1, const char *a2, FILE *a3, uint64_t a4)
+uint64_t BOMTreePrint(uint64_t a1, char *a2, FILE *a3, uint64_t a4)
 {
   v7 = BOMTreeOpenWithName(a1, a2, 0);
   if (v7)
   {
     v8 = v7;
     fprintf(a3, "        %s (%u entries)\n", a2, *(v7 + 20));
-    _BOMTreePrintDiagnostics(v8, v9, v10, v11, v12, v13, v14, v15);
+    _BOMTreePrintDiagnostics(v8);
     fputc(10, a3);
-    v16 = *(v8 + 24);
-    v18 = 0;
-    _BOMTreePrintPage(v8, v16, a3, a4, 0, 0, &v18);
+    v9 = *(v8 + 24);
+    v11 = 0;
+    _BOMTreePrintPage(v8, v9, a3, a4, 0, 0, &v11);
     fputc(10, a3);
     BOMTreeFree(v8);
     return 0;
@@ -882,7 +884,7 @@ uint64_t BOMTreePrint(uint64_t a1, const char *a2, FILE *a3, uint64_t a4)
   }
 }
 
-_DWORD *_newBOMTree(uint64_t a1, const char *a2)
+_DWORD *_newBOMTree(uint64_t a1, char *a2)
 {
   v4 = malloc_type_calloc(1uLL, 0x168uLL, 0x10B0040E869A47AuLL);
   if (v4)
@@ -899,21 +901,21 @@ _DWORD *_newBOMTree(uint64_t a1, const char *a2)
       v5 = 0;
     }
 
-    v13 = v4[89] & 0xFFFFFFBF | v5;
-    v4[89] = v13;
+    v8 = v4[89] & 0xFFFFFFBF | v5;
+    v4[89] = v8;
     if (a2)
     {
-      v14 = strdup(a2);
-      *(v4 + 1) = v14;
-      v4[89] = v13 & 0xFFFFFFDF | (32 * (v14 != a2));
+      v9 = strdup(a2);
+      *(v4 + 1) = v9;
+      v4[89] = v8 & 0xFFFFFFDF | (32 * (v9 != a2));
     }
   }
 
   else
   {
     v6 = __error();
-    strerror(*v6);
-    _CUILog(4, "%s: calloc: %s creating tree '%s'", v7, v8, v9, v10, v11, v12, "BOMTree _newBOMTree(BOMStorage, const char *)");
+    v7 = strerror(*v6);
+    _CUILog(4, "%s: calloc: %s creating tree '%s'", "BOMTree _newBOMTree(BOMStorage, const char *)", v7, a2);
   }
 
   return v4;
@@ -967,21 +969,21 @@ void *_NewPage(uint64_t a1, int a2)
   return v7;
 }
 
-uint64_t _ReadPage(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _ReadPage(uint64_t a1, unsigned int *a2)
 {
-  v10 = *a2;
-  v17 = BOMStorageSizeOfBlock(*a1, *a2, a3, a4, a5, a6, a7, a8);
-  v18 = *a1;
+  v4 = *a2;
+  v5 = BOMStorageSizeOfBlock(*a1, *a2);
+  v6 = *a1;
   if ((*(a1 + 356) & 0x40) != 0)
   {
-    v27 = BOMStorageReadFromBlock(v18, v10, v11, v12, v13, v14, v15, v16);
-    if (v27)
+    v8 = BOMStorageReadFromBlock(v6, v4);
+    if (v8)
     {
-      v28 = v27;
-      v26 = BOMStreamWithAddress(v27, v17, 0);
+      v9 = v8;
+      v7 = BOMStreamWithAddress(v8, v5, 0);
       if (BOMStorageInRam(*a1))
       {
-        if (v26)
+        if (v7)
         {
           goto LABEL_7;
         }
@@ -989,8 +991,8 @@ uint64_t _ReadPage(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
       else
       {
-        madvise(v28, v17, 3);
-        if (v26)
+        madvise(v9, v5, 3);
+        if (v7)
         {
           goto LABEL_7;
         }
@@ -1000,60 +1002,61 @@ uint64_t _ReadPage(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     return 1;
   }
 
-  v26 = BOMStreamWithBlockID(v18, v10, v17, 0);
-  if (!v26)
+  v7 = BOMStreamWithBlockID(v6, v4, v5, 0);
+  if (!v7)
   {
     return 1;
   }
 
 LABEL_7:
-  UInt16 = BOMStreamReadUInt16(v26, v19, v20, v21, v22, v23, v24, v25);
-  v37 = *(a2 + 4) & 0xFFFE;
+  UInt16 = BOMStreamReadUInt16(v7);
+  v11 = a2[1] & 0xFFFE;
   if (UInt16)
   {
-    ++v37;
+    ++v11;
   }
 
-  *(a2 + 4) = v37;
-  *(a2 + 16) = BOMStreamReadUInt16(v26, v30, v31, v32, v33, v34, v35, v36);
-  *(a2 + 8) = BOMStreamReadUInt32(v26, v38, v39, v40, v41, v42, v43, v44);
-  *(a2 + 12) = BOMStreamReadUInt32(v26, v45, v46, v47, v48, v49, v50, v51);
-  v59 = *(a2 + 16);
-  if (*(a1 + 308) < v59)
+  *(a2 + 2) = v11;
+  *(a2 + 8) = BOMStreamReadUInt16(v7);
+  a2[2] = BOMStreamReadUInt32(v7);
+  a2[3] = BOMStreamReadUInt32(v7);
+  v12 = *(a2 + 8);
+  v13 = *(a1 + 308);
+  if (v13 < v12)
   {
-    v79 = BOMExceptionHandlerMessage("(tree (%s) page->numKeys(%d) > tree->maxKeys(%d)", v52, v53, v54, v55, v56, v57, v58, *(a1 + 8));
-    v80 = __error();
-    _BOMFatalException(v79, "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMTree.c", 1338, *v80);
+    v19 = BOMExceptionHandlerMessage("(tree (%s) page->numKeys(%d) > tree->maxKeys(%d)", *(a1 + 8), *(a2 + 8), v13);
+    v20 = __error();
+    _BOMFatalException(v19, "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMTree.c", 1338, *v20);
   }
 
   if ((*(a1 + 356) & 0x40) != 0)
   {
-    *(a2 + 24) = BOMStreamGetDataPointer(v26, (8 * v59) | 4);
+    *(a2 + 3) = BOMStreamGetDataPointer(v7, (8 * v12) | 4);
   }
 
   else
   {
-    if (*(a2 + 16))
+    if (*(a2 + 8))
     {
-      v60 = 0;
-      v61 = 0;
+      v14 = 0;
+      v15 = 0;
       do
       {
-        *(*(a2 + 24) + v60) = BOMStreamReadUInt32(v26, v52, v53, v54, v55, v56, v57, v58);
-        *(*(a2 + 24) + v60 + 4) = BOMStreamReadUInt32(v26, v62, v63, v64, v65, v66, v67, v68);
-        ++v61;
-        v60 += 8;
+        *(*(a2 + 3) + v14) = BOMStreamReadUInt32(v7);
+        *(*(a2 + 3) + v14 + 4) = BOMStreamReadUInt32(v7);
+        ++v15;
+        v14 += 8;
       }
 
-      while (v61 < *(a2 + 16));
+      while (v15 < *(a2 + 8));
     }
 
-    *(*(a2 + 24) + 8 * *(a2 + 16)) = BOMStreamReadUInt32(v26, v52, v53, v54, v55, v56, v57, v58);
+    *(*(a2 + 3) + 8 * *(a2 + 8)) = BOMStreamReadUInt32(v7);
   }
 
-  if ((*(a1 + 356) & 0x44) == 0x40 && (v76 = *(a1 + 348), v76 >= 1))
+  if ((*(a1 + 356) & 0x44) == 0x40 && (v16 = *(a1 + 348), v16 >= 1))
   {
-    DataPointer = BOMStreamGetDataPointer(v26, v76 * *(a2 + 16));
+    DataPointer = BOMStreamGetDataPointer(v7, v16 * *(a2 + 8));
   }
 
   else
@@ -1061,8 +1064,8 @@ LABEL_7:
     DataPointer = 0;
   }
 
-  *(a2 + 32) = DataPointer;
-  BOMStreamFree(v26, v69, v70, v71, v72, v73, v74, v75);
+  *(a2 + 4) = DataPointer;
+  BOMStreamFree(v7);
   return 0;
 }
 
@@ -1090,13 +1093,13 @@ void _addPageToCache(uint64_t a1, uint64_t a2)
   {
     while (1)
     {
-      v7 = v5[2];
+      v7 = *(v5 + 4);
       if ((v7 & 0xC) == 4)
       {
         break;
       }
 
-      v5[2] = v7 | 4;
+      *(v5 + 4) = v7 | 4;
       v8 = *(a1 + 288) + 1;
       v9 = -v8 < 0;
       v10 = -v8 & 0x1F;
@@ -1128,115 +1131,115 @@ LABEL_10:
   *(v3 + 8 * v4) = a2;
 }
 
-uint64_t _invalidateIterator(uint64_t result, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _invalidateIterator(uint64_t result, uint64_t a2)
 {
   if (result)
   {
-    v8 = result;
+    v2 = result;
     if (*(result + 16) == a2 && (*(result + 57) & 9) == 0)
     {
       result = *(result + 8);
       if (!result || *result != a2)
       {
-        result = _findPage(*v8, a2, a3, a4, a5, a6, a7, a8);
-        *(v8 + 8) = result;
+        result = _findPage(*v2, a2);
+        *(v2 + 8) = result;
         if (!result)
         {
           goto LABEL_27;
         }
       }
 
-      v9 = *v8;
-      v10 = *(*v8 + 356);
-      if ((v10 & 4) != 0)
+      v3 = *v2;
+      v4 = *(*v2 + 356);
+      if ((v4 & 4) != 0)
       {
-        v12 = *(*(result + 24) + 8 * *(v8 + 20) + 4);
-        v13 = bswap32(v12);
-        if ((v10 & 0x40) != 0)
+        v6 = *(*(result + 24) + 8 * *(v2 + 20) + 4);
+        v7 = bswap32(v6);
+        if ((v4 & 0x40) != 0)
         {
-          v14 = v13;
+          v8 = v7;
         }
 
         else
         {
-          v14 = v12;
+          v8 = v6;
         }
 
-        *(v8 + 24) = v14;
-        *(v8 + 32) = 0;
+        *(v2 + 24) = v8;
+        *(v2 + 32) = 0;
         goto LABEL_27;
       }
 
-      if ((v10 & 0x40) != 0)
+      if ((v4 & 0x40) != 0)
       {
-        v15 = *(v9 + 348);
-        if (v15 >= 1)
+        v9 = *(v3 + 348);
+        if (v9 >= 1)
         {
 LABEL_17:
-          *(v8 + 32) = v15;
-          v16 = *(v8 + 24);
-          if (v16)
+          *(v2 + 32) = v9;
+          v10 = *(v2 + 24);
+          if (v10)
           {
-            free(v16);
-            *(v8 + 24) = 0;
-            v15 = *(v8 + 32);
+            free(v10);
+            *(v2 + 24) = 0;
+            v9 = *(v2 + 32);
           }
 
-          v17 = malloc_type_malloc(v15, 0x7AC53727uLL);
-          *(v8 + 24) = v17;
-          if (!v17)
+          v11 = malloc_type_malloc(v9, 0x7AC53727uLL);
+          *(v2 + 24) = v11;
+          if (!v11)
           {
-            v28 = __error();
-            _BOMFatalException("BOMTree iterator cannot cache keys. This is a fatal error (!it->key).", "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMTree.c", 2782, *v28);
+            v17 = __error();
+            _BOMFatalException("BOMTree iterator cannot cache keys. This is a fatal error (!it->key).", "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMTree.c", 2782, *v17);
           }
 
-          v23 = *v8;
-          if ((*(*v8 + 356) & 0x40) != 0)
+          v12 = *v2;
+          if ((*(*v2 + 356) & 0x40) != 0)
           {
-            v25 = *(v23 + 348);
-            v26 = *(v8 + 8);
-            if (v25 >= 1)
+            v14 = *(v12 + 348);
+            v15 = *(v2 + 8);
+            if (v14 >= 1)
             {
-              v27 = *(v26 + 32);
-              if (!v27)
+              v16 = *(v15 + 32);
+              if (!v16)
               {
-                v30 = __error();
-                _BOMFatalException("BOMTree iterator cannot cache keys. This is a fatal error (__getKeyIDValuePTR return 0).", "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMTree.c", 2790, *v30);
+                v19 = __error();
+                _BOMFatalException("BOMTree iterator cannot cache keys. This is a fatal error (__getKeyIDValuePTR return 0).", "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMTree.c", 2790, *v19);
               }
 
-              result = memcpy(v17, (v27 + *(v8 + 20) * v25), v25);
+              result = memcpy(v11, (v16 + *(v2 + 20) * v14), v14);
               goto LABEL_27;
             }
 
-            v24 = bswap32(*(*(v26 + 24) + 8 * *(v8 + 20) + 4));
+            v13 = bswap32(*(*(v15 + 24) + 8 * *(v2 + 20) + 4));
           }
 
           else
           {
-            v24 = *(*(*(v8 + 8) + 24) + 8 * *(v8 + 20) + 4);
+            v13 = *(*(*(v2 + 8) + 24) + 8 * *(v2 + 20) + 4);
           }
 
-          result = BOMStorageCopyFromBlock(*v23, v24, v17, v18, v19, v20, v21, v22);
+          result = BOMStorageCopyFromBlock(*v12, v13, v11);
           if (result)
           {
-            v29 = __error();
-            _BOMFatalException("BOMTree iterator cannot cache keys. This is a fatal error (BOMStorageCopyFromBlock returned an error).", "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMTree.c", 2795, *v29);
+            v18 = __error();
+            _BOMFatalException("BOMTree iterator cannot cache keys. This is a fatal error (BOMStorageCopyFromBlock returned an error).", "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMTree.c", 2795, *v18);
           }
 
 LABEL_27:
-          *(v8 + 57) |= 1u;
+          *(v2 + 57) |= 1u;
           return result;
         }
 
-        v11 = bswap32(*(*(result + 24) + 8 * *(v8 + 20) + 4));
+        v5 = bswap32(*(*(result + 24) + 8 * *(v2 + 20) + 4));
       }
 
       else
       {
-        v11 = *(*(result + 24) + 8 * *(v8 + 20) + 4);
+        v5 = *(*(result + 24) + 8 * *(v2 + 20) + 4);
       }
 
-      v15 = BOMStorageSizeOfBlock(*v9, v11, a3, a4, a5, a6, a7, a8);
+      v9 = BOMStorageSizeOfBlock(*v3, v5);
       goto LABEL_17;
     }
   }
@@ -1418,37 +1421,37 @@ LABEL_15:
   return result;
 }
 
-uint64_t _findPagesForKey(uint64_t a1, uint64_t a2, void *__s1, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _findPagesForKey(uint64_t a1, uint64_t a2, void *__s1, size_t a4)
 {
   if (!a1)
   {
     return 0;
   }
 
-  v12 = *(a1 + 24);
+  v8 = *(a1 + 24);
   if (a2)
   {
-    BOMStackPush(a2, v12, __s1, a4, a5, a6, a7, a8);
+    BOMStackPush(a2, v8);
   }
 
-  if ((*(v12 + 4) & 1) == 0)
+  if ((*(v8 + 4) & 1) == 0)
   {
     do
     {
-      v19 = *(*(v12 + 24) + 8 * _findIndexForKey(a1, v12, __s1, a4, 0, a6, a7, a8));
-      v20 = bswap32(v19);
+      v9 = *(*(v8 + 24) + 8 * _findIndexForKey(a1, v8, __s1, a4, 0));
+      v10 = bswap32(v9);
       if ((*(a1 + 356) & 0x40) != 0)
       {
-        v21 = v20;
+        v11 = v10;
       }
 
       else
       {
-        v21 = v19;
+        v11 = v9;
       }
 
-      Page = _findPage(a1, v21, v13, v14, v15, v16, v17, v18);
-      v12 = Page;
+      Page = _findPage(a1, v11);
+      v8 = Page;
       if (!Page)
       {
         break;
@@ -1456,22 +1459,22 @@ uint64_t _findPagesForKey(uint64_t a1, uint64_t a2, void *__s1, unint64_t a4, ui
 
       if (a2)
       {
-        BOMStackPush(a2, Page, v23, v24, v25, a6, a7, a8);
-        v26 = *(v12 + 4) | 8;
+        BOMStackPush(a2, Page);
+        v13 = *(v8 + 4) | 8;
       }
 
       else
       {
-        v26 = *(Page + 2);
+        v13 = *(Page + 2);
       }
 
-      *(v12 + 4) = v26 & 0xFFFB;
+      *(v8 + 4) = v13 & 0xFFFB;
     }
 
-    while ((v26 & 1) == 0);
+    while ((v13 & 1) == 0);
   }
 
-  return v12;
+  return v8;
 }
 
 uint64_t _BOMTreePrintPage(uint64_t a1, unsigned int *a2, FILE *a3, uint64_t a4, int a5, int a6, _DWORD *a7)
@@ -1519,43 +1522,43 @@ uint64_t _BOMTreePrintPage(uint64_t a1, unsigned int *a2, FILE *a3, uint64_t a4,
   else
   {
 LABEL_10:
-    v22 = (*a7)++;
-    fprintf(a3, "| node #          : %*u\n", 8, v22);
+    v16 = (*a7)++;
+    fprintf(a3, "| node #          : %*u\n", 8, v16);
     fprintf(a3, "| bid             : %*u\n", 8, *a2);
   }
 
-  v23 = BOMStorageSizeOfBlock(*a1, *a2, v16, v17, v18, v19, v20, v21);
-  fprintf(a3, "| psize           : %*u\n", 8, v23);
+  v17 = BOMStorageSizeOfBlock(*a1, *a2);
+  fprintf(a3, "| psize           : %*u\n", 8, v17);
   if (v8)
   {
-    v24 = v8;
+    v18 = v8;
     do
     {
       fwrite("                             ", 0x1DuLL, 1uLL, a3);
-      --v24;
+      --v18;
     }
 
-    while (v24);
+    while (v18);
     fwrite("   ", 3uLL, 1uLL, a3);
     fprintf(a3, "| prev            : %*u\n", 8, a2[3]);
-    v25 = v8;
+    v19 = v8;
     do
     {
       fwrite("                             ", 0x1DuLL, 1uLL, a3);
-      --v25;
+      --v19;
     }
 
-    while (v25);
+    while (v19);
     fwrite("   ", 3uLL, 1uLL, a3);
     fprintf(a3, "| next            : %*u\n", 8, a2[2]);
-    v26 = v8;
+    v20 = v8;
     do
     {
       fwrite("                             ", 0x1DuLL, 1uLL, a3);
-      --v26;
+      --v20;
     }
 
-    while (v26);
+    while (v20);
     fwrite("   ", 3uLL, 1uLL, a3);
   }
 
@@ -1575,53 +1578,53 @@ LABEL_10:
   fputc(10, a3);
   if (v8)
   {
-    v27 = v8;
+    v21 = v8;
     do
     {
       fwrite("                             ", 0x1DuLL, 1uLL, a3);
-      --v27;
+      --v21;
     }
 
-    while (v27);
+    while (v21);
   }
 
   fwrite("   ", 3uLL, 1uLL, a3);
   if (*(a2 + 8))
   {
-    v34 = 0;
-    v35 = 0;
-    v36 = 0;
+    v22 = 0;
+    v23 = 0;
+    v24 = 0;
     do
     {
-      v37 = bswap32(*(*(a2 + 3) + v34));
+      v25 = bswap32(*(*(a2 + 3) + v22));
       if ((*(a1 + 356) & 0x40) != 0)
       {
-        v38 = v37;
+        v26 = v25;
       }
 
       else
       {
-        v38 = *(*(a2 + 3) + v34);
+        v26 = *(*(a2 + 3) + v22);
       }
 
-      v36 += BOMStorageSizeOfBlock(*a1, v38, v28, v29, v30, v31, v32, v33);
-      ++v35;
-      v34 += 8;
+      v24 += BOMStorageSizeOfBlock(*a1, v26);
+      ++v23;
+      v22 += 8;
     }
 
-    while (v35 < *(a2 + 8));
+    while (v23 < *(a2 + 8));
   }
 
   else
   {
-    v36 = 0;
-    v35 = 0;
+    v24 = 0;
+    v23 = 0;
   }
 
-  v39 = *(*(a2 + 3) + 8 * v35);
+  v27 = *(*(a2 + 3) + 8 * v23);
   if ((*(a1 + 356) & 0x40) == 0)
   {
-    if (!v39)
+    if (!v27)
     {
       goto LABEL_39;
     }
@@ -1629,194 +1632,194 @@ LABEL_10:
     goto LABEL_38;
   }
 
-  if (v39)
+  if (v27)
   {
-    v39 = bswap32(v39);
+    v27 = bswap32(v27);
 LABEL_38:
-    v36 += BOMStorageSizeOfBlock(*a1, v39, v28, v29, v30, v31, v32, v33);
+    v24 += BOMStorageSizeOfBlock(*a1, v27);
   }
 
 LABEL_39:
-  fprintf(a3, "| data size       : %*lu", 8, v36);
+  fprintf(a3, "| data size       : %*lu", 8, v24);
 LABEL_40:
   fputc(10, a3);
-  v46 = *(a2 + 2);
-  if (v46)
+  v28 = *(a2 + 2);
+  if (v28)
   {
-    v94 = v8;
-    v95 = a6;
-    v53 = malloc_type_calloc(*(a2 + 8), 8uLL, 0x10040436913F5uLL);
+    v70 = v8;
+    v71 = a6;
+    v29 = malloc_type_calloc(*(a2 + 8), 8uLL, 0x10040436913F5uLL);
     if (*(a2 + 8))
     {
-      v54 = 0;
-      v55 = 0;
-      v56 = 0;
-      v57 = 0xFFFFFFFFLL;
+      v30 = 0;
+      v31 = 0;
+      v32 = 0;
+      v33 = 0xFFFFFFFFLL;
       do
       {
-        v58 = bswap32(*(*(a2 + 3) + v54));
+        v34 = bswap32(*(*(a2 + 3) + v30));
         if ((*(a1 + 356) & 0x40) != 0)
         {
-          v59 = v58;
+          v35 = v34;
         }
 
         else
         {
-          v59 = *(*(a2 + 3) + v54);
+          v35 = *(*(a2 + 3) + v30);
         }
 
-        if (v59)
+        if (v35)
         {
-          v60 = BOMStorageSizeOfBlock(*a1, v59, v47, v48, v49, v50, v51, v52);
-          if (v57 >= v60)
+          v36 = BOMStorageSizeOfBlock(*a1, v35);
+          if (v33 >= v36)
           {
-            v57 = v60;
+            v33 = v36;
           }
 
-          v61 = malloc_type_malloc(v60, 0x8D99FF12uLL);
-          if (v61)
+          v37 = malloc_type_malloc(v36, 0x8D99FF12uLL);
+          if (v37)
           {
-            v62 = v61;
-            if (!BOMStorageCopyFromBlock(*a1, v59, v61, v48, v49, v50, v51, v52))
+            v38 = v37;
+            if (!BOMStorageCopyFromBlock(*a1, v35, v37))
             {
-              v53[v56++] = v62;
+              v29[v32++] = v38;
             }
           }
         }
 
-        ++v55;
-        v54 += 8;
+        ++v31;
+        v30 += 8;
       }
 
-      while (v55 < *(a2 + 8));
-      v63 = malloc_type_malloc(v57, 0x61131849uLL);
-      v96 = v63;
-      if ((v57 & 0x80000000) == 0)
+      while (v31 < *(a2 + 8));
+      v39 = malloc_type_malloc(v33, 0x61131849uLL);
+      v72 = v39;
+      if ((v33 & 0x80000000) == 0)
       {
-        v64 = 0;
-        v65 = 0;
-        v93 = v53;
+        v40 = 0;
+        v41 = 0;
+        v69 = v29;
         do
         {
-          v66 = 0;
-          v67 = v65 + (v57 - v65) / 2;
-          v68 = *v53;
-          while (v65 > v67)
+          v42 = 0;
+          v43 = v41 + (v33 - v41) / 2;
+          v44 = *v29;
+          while (v41 > v43)
           {
 LABEL_60:
-            if (++v66 > (v56 - 1))
+            if (++v42 > (v32 - 1))
             {
-              v70 = v67 - v65 + 1;
-              v71 = v63;
-              memcpy(&v63[v64], &v68[v65], v70);
-              v63 = v71;
-              v53 = v93;
-              v64 += v70;
-              v65 = v67 + 1;
+              v46 = v43 - v41 + 1;
+              v47 = v39;
+              memcpy(&v39[v40], &v44[v41], v46);
+              v39 = v47;
+              v29 = v69;
+              v40 += v46;
+              v41 = v43 + 1;
               goto LABEL_63;
             }
           }
 
-          v69 = v65;
-          while (*(v53[v66] + v69) == v68[v69])
+          v45 = v41;
+          while (*(v29[v42] + v45) == v44[v45])
           {
-            if (++v69 > v67)
+            if (++v45 > v43)
             {
               goto LABEL_60;
             }
           }
 
-          LODWORD(v57) = v67 - 1;
+          LODWORD(v33) = v43 - 1;
 LABEL_63:
           ;
         }
 
-        while (v65 <= v57);
+        while (v41 <= v33);
         goto LABEL_67;
       }
     }
 
     else
     {
-      v96 = malloc_type_malloc(0xFFFFFFFFuLL, 0x61131849uLL);
-      v56 = 0;
+      v72 = malloc_type_malloc(0xFFFFFFFFuLL, 0x61131849uLL);
+      v32 = 0;
     }
 
-    v64 = 0;
+    v40 = 0;
 LABEL_67:
-    v72 = malloc_type_malloc((2 * v64) | 1, 0x4F74F9F0uLL);
-    v73 = v72;
-    v98 = v64;
-    if (v64)
+    v48 = malloc_type_malloc((2 * v40) | 1, 0x4F74F9F0uLL);
+    v49 = v48;
+    v74 = v40;
+    if (v40)
     {
-      v74 = v96;
-      v75 = v72;
+      v50 = v72;
+      v51 = v48;
       do
       {
-        v76 = *v74++;
-        v75 += sprintf(v75, "%02X", v76);
-        --v64;
+        v52 = *v50++;
+        v51 += sprintf(v51, "%02X", v52);
+        --v40;
       }
 
-      while (v64);
+      while (v40);
     }
 
-    v8 = v94;
-    if (v94)
+    v8 = v70;
+    if (v70)
     {
-      v77 = v94;
+      v53 = v70;
       do
       {
         fwrite("                             ", 0x1DuLL, 1uLL, a3);
-        --v77;
+        --v53;
       }
 
-      while (v77);
+      while (v53);
     }
 
     fwrite("   ", 3uLL, 1uLL, a3);
-    fprintf(a3, "| common key part : %s (%lu bytes)\n", v73, v98);
-    if (a4 && v98)
+    fprintf(a3, "| common key part : %s (%lu bytes)\n", v49, v74);
+    if (a4 && v74)
     {
-      if (v94)
+      if (v70)
       {
-        v78 = v94;
+        v54 = v70;
         do
         {
           fwrite("                             ", 0x1DuLL, 1uLL, a3);
-          --v78;
+          --v54;
         }
 
-        while (v78);
+        while (v54);
       }
 
       fwrite("   ", 3uLL, 1uLL, a3);
       fwrite("|                 : ", 0x14uLL, 1uLL, a3);
-      (*(a4 + 16))(a4, v96, v98, a3);
+      (*(a4 + 16))(a4, v72, v74, a3);
       fputc(10, a3);
     }
 
-    free(v73);
-    free(v96);
-    if (v56)
+    free(v49);
+    free(v72);
+    if (v32)
     {
-      v79 = v53;
+      v55 = v29;
       do
       {
-        v80 = *v79++;
-        free(v80);
-        --v56;
+        v56 = *v55++;
+        free(v56);
+        --v32;
       }
 
-      while (v56);
+      while (v32);
     }
 
-    free(v53);
-    v46 = *(a2 + 2);
-    a6 = v95;
+    free(v29);
+    v28 = *(a2 + 2);
+    a6 = v71;
   }
 
-  if (v46)
+  if (v28)
   {
     return a6;
   }
@@ -1826,63 +1829,63 @@ LABEL_67:
     goto LABEL_99;
   }
 
-  v97 = *(a2 + 8);
-  v81 = 0;
-  v82 = v8 + 1;
-  v83 = (v97 + 1);
+  v73 = *(a2 + 8);
+  v57 = 0;
+  v58 = v8 + 1;
+  v59 = (v73 + 1);
   do
   {
-    v84 = *(*(a2 + 3) + 8 * v81);
+    v60 = *(*(a2 + 3) + 8 * v57);
     if ((*(a1 + 356) & 0x40) != 0)
     {
-      if (!v84)
+      if (!v60)
       {
         goto LABEL_97;
       }
 
-      v84 = bswap32(v84);
+      v60 = bswap32(v60);
     }
 
-    else if (!v84)
+    else if (!v60)
     {
       goto LABEL_97;
     }
 
-    Page = _findPage(a1, v84, v40, v41, v42, v43, v44, v45);
+    Page = _findPage(a1, v60);
     if (Page)
     {
-      v86 = Page;
-      v87 = a2;
-      v88 = a6;
-      v89 = 1;
+      v62 = Page;
+      v63 = a2;
+      v64 = a6;
+      v65 = 1;
       do
       {
-        v90 = v89;
-        v91 = v82;
+        v66 = v65;
+        v67 = v58;
         do
         {
           fwrite("                             ", 0x1DuLL, 1uLL, a3);
-          --v91;
+          --v67;
         }
 
-        while (v91);
+        while (v67);
         fputc(124, a3);
         fputc(10, a3);
-        v89 = 0;
+        v65 = 0;
       }
 
-      while ((v90 & 1) != 0);
-      a6 = _BOMTreePrintPage(a1, v86, a3, a4, v82, (v88 + 2), a7) + v88 + 2;
-      a2 = v87;
-      v83 = (v97 + 1);
+      while ((v66 & 1) != 0);
+      a6 = _BOMTreePrintPage(a1, v62, a3, a4, v58, (v64 + 2), a7) + v64 + 2;
+      a2 = v63;
+      v59 = (v73 + 1);
     }
 
 LABEL_97:
-    ++v81;
+    ++v57;
   }
 
-  while (v81 < v83);
-  if (v97)
+  while (v57 < v59);
+  if (v73)
   {
 LABEL_99:
     LOWORD(a6) = a6 + 3;
@@ -1891,76 +1894,75 @@ LABEL_99:
   return a6;
 }
 
-_DWORD *BOMStreamWithBlockID(uint64_t a1, unsigned int a2, size_t a3, int a4)
+void *BOMStreamWithBlockID(uint64_t a1, unsigned int a2, size_t a3, int a4)
 {
   v8 = malloc_type_calloc(1uLL, 0x58uLL, 0x1030040879040B4uLL);
   if (!v8)
   {
-    v27 = __error();
-    strerror(*v27);
-    _CUILog(4, "%s: malloc: %s", v28, v29, v30, v31, v32, v33, "BOMStreamWithBlockID");
+    v14 = __error();
+    v15 = strerror(*v14);
+    _CUILog(4, "%s: malloc: %s", "BOMStreamWithBlockID", v15);
     return v8;
   }
 
   __CFSetLastAllocationEventName();
   v8[1] = 1;
-  v15 = BOMStorageSizeOfBlock(a1, a2, v9, v10, v11, v12, v13, v14);
+  v9 = BOMStorageSizeOfBlock(a1, a2);
   *(v8 + 9) = BOMStorageGetSys(a1);
   *v8 = 0;
   *(v8 + 1) = a1;
   v8[4] = a2;
   if (a3)
   {
-    v16 = a3;
+    v10 = a3;
   }
 
   else
   {
-    v16 = v15;
+    v10 = v9;
   }
 
-  *(v8 + 4) = v16;
+  *(v8 + 4) = v10;
   v8[10] = a4;
-  if (v15 <= a3)
+  if (v9 <= a3)
   {
-    v17 = a3;
+    v11 = a3;
   }
 
   else
   {
-    v17 = v15;
+    v11 = v9;
   }
 
-  v18 = malloc_type_calloc(1uLL, v17, 0x74A48935uLL);
-  *(v8 + 6) = v18;
-  if (!v18)
+  v12 = malloc_type_calloc(1uLL, v11, 0x74A48935uLL);
+  *(v8 + 6) = v12;
+  if (!v12)
   {
-    v34 = __error();
-    strerror(*v34);
-    _CUILog(4, "%s: malloc: %s", v35, v36, v37, v38, v39, v40, "BOMStreamWithBlockID");
+    v16 = __error();
+    v17 = strerror(*v16);
+    _CUILog(4, "%s: malloc: %s", "BOMStreamWithBlockID", v17);
     goto LABEL_16;
   }
 
-  v25 = v18;
   *(v8 + 80) |= 1u;
-  v26 = *(v8 + 4);
-  *(v8 + 7) = v18;
-  *(v8 + 8) = &v18[v26];
+  v13 = *(v8 + 4);
+  *(v8 + 7) = v12;
+  *(v8 + 8) = &v12[v13];
   if ((v8[10] | 2) != 2)
   {
     goto LABEL_12;
   }
 
-  if (BOMStorageCopyFromBlock(a1, a2, v18, v20, v21, v22, v23, v24))
+  if (BOMStorageCopyFromBlock(a1, a2, v12))
   {
 LABEL_16:
-    BOMStreamFree(v8, v19, v25, v20, v21, v22, v23, v24);
+    BOMStreamFree(v8);
     return 0;
   }
 
-  v26 = *(v8 + 4);
+  v13 = *(v8 + 4);
 LABEL_12:
-  if (!v26)
+  if (!v13)
   {
     goto LABEL_16;
   }
@@ -1968,28 +1970,28 @@ LABEL_12:
   return v8;
 }
 
-uint64_t BOMStreamFree(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t BOMStreamFree(uint64_t result)
 {
   if (result)
   {
-    v8 = result;
-    if ((*(result + 80) & 2) != 0 && BOMStreamFlush(result, a2, a3, a4, a5, a6, a7, a8))
+    v1 = result;
+    if ((*(result + 80) & 2) != 0 && BOMStreamFlush(result))
     {
       return 1;
     }
 
     else
     {
-      v9 = *(v8 + 48);
-      if (v9)
+      v2 = *(v1 + 48);
+      if (v2)
       {
-        if (*(v8 + 80))
+        if (*(v1 + 80))
         {
-          free(v9);
+          free(v2);
         }
       }
 
-      free(v8);
+      free(v1);
       return 0;
     }
   }
@@ -2021,9 +2023,9 @@ void *BOMStreamWithFileAndSys(int a1, uint64_t a2, size_t a3, int a4, char *a5, 
       if ((a3 & 0x8000000000000000) != 0)
       {
 LABEL_15:
-        v21 = __error();
-        strerror(*v21);
-        _CUILog(4, "%s: malloc: %s", v22, v23, v24, v25, v26, v27, "BOMStreamWithFileAndSys");
+        v16 = __error();
+        strerror(*v16);
+        _CUILog(4, "%s: malloc: %s");
 LABEL_18:
         BOMStreamFree(v12);
         return 0;
@@ -2032,14 +2034,14 @@ LABEL_18:
 
     else
     {
-      v20 = malloc_type_calloc(1uLL, a3, 0x22400796uLL);
-      v12[6] = v20;
-      if (!v20)
+      v15 = malloc_type_calloc(1uLL, a3, 0x22400796uLL);
+      v12[6] = v15;
+      if (!v15)
       {
         goto LABEL_15;
       }
 
-      a5 = v20;
+      a5 = v15;
       *(v12 + 80) |= 1u;
       a3 = v12[4];
       if ((a3 & 0x8000000000000000) != 0)
@@ -2054,18 +2056,18 @@ LABEL_18:
     {
       if ((*(a6 + 7))(*(a6 + 1), *(v12 + 5), v12[3], 0) == -1)
       {
-        v28 = __error();
-        strerror(*v28);
-        _CUILog(4, "%s: lseek: %s", v29, v30, v31, v32, v33, v34, "BOMStreamWithFileAndSys");
+        v17 = __error();
+        strerror(*v17);
+        _CUILog(4, "%s: lseek: %s");
         goto LABEL_18;
       }
 
       a3 = (*(a6 + 5))(*(a6 + 1), *(v12 + 5), v12[6], v12[4]);
       if (a3 != v12[4])
       {
-        v35 = __error();
-        strerror(*v35);
-        _CUILog(4, "%s: read: %s", v36, v37, v38, v39, v40, v41, "BOMStreamWithFileAndSys");
+        v18 = __error();
+        strerror(*v18);
+        _CUILog(4, "%s: read: %s");
         goto LABEL_18;
       }
     }
@@ -2079,8 +2081,8 @@ LABEL_18:
   else
   {
     v13 = __error();
-    strerror(*v13);
-    _CUILog(4, "%s: malloc: %s", v14, v15, v16, v17, v18, v19, "BOMStreamWithFileAndSys");
+    v14 = strerror(*v13);
+    _CUILog(4, "%s: malloc: %s", "BOMStreamWithFileAndSys", v14);
   }
 
   return v12;
@@ -2099,9 +2101,9 @@ void *BOMStreamWithAddress(uint64_t a1, uint64_t a2, int a3)
     *(v6 + 80) &= ~1u;
     if (a2 < 0)
     {
-      _CUILog(4, "%s: stream invalid: overflow", v8, v9, v10, v11, v12, v13, "BOMStreamWithAddress");
+      _CUILog(4, "%s: stream invalid: overflow", "BOMStreamWithAddress");
 LABEL_7:
-      BOMStreamFree(v6, v7, v8, v9, v10, v11, v12, v13);
+      BOMStreamFree(v6);
       return 0;
     }
 
@@ -2115,19 +2117,19 @@ LABEL_7:
 
   else
   {
-    v14 = __error();
-    strerror(*v14);
-    _CUILog(4, "%s malloc: %s", v15, v16, v17, v18, v19, v20, "BOMStreamWithAddress");
+    v7 = __error();
+    v8 = strerror(*v7);
+    _CUILog(4, "%s malloc: %s", "BOMStreamWithAddress", v8);
   }
 
   return v6;
 }
 
-uint64_t BOMStreamFlush(int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t BOMStreamFlush(int *a1)
 {
   if (!a1)
   {
-    _CUILog(4, "%s: bad stream!", a3, a4, a5, a6, a7, a8, "BOMStreamFlush");
+    _CUILog(4, "%s: bad stream!");
     return 1;
   }
 
@@ -2136,19 +2138,19 @@ uint64_t BOMStreamFlush(int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
     goto LABEL_13;
   }
 
-  v9 = *a1;
+  v2 = *a1;
   if (*a1 == 2)
   {
     goto LABEL_13;
   }
 
-  if (v9 == 1)
+  if (v2 == 1)
   {
     if ((*(*(a1 + 9) + 56))(*(*(a1 + 9) + 8), a1[5], *(a1 + 3), 0) == -1)
     {
-      v18 = __error();
-      strerror(*v18);
-      _CUILog(4, "%s: lseek: %s", v19, v20, v21, v22, v23, v24, "BOMStreamFlush");
+      v5 = __error();
+      strerror(*v5);
+      _CUILog(4, "%s: lseek: %s");
     }
 
     else
@@ -2160,21 +2162,21 @@ LABEL_13:
         goto LABEL_14;
       }
 
-      v11 = __error();
-      strerror(*v11);
-      _CUILog(4, "%s: write: %s", v12, v13, v14, v15, v16, v17, "BOMStreamFlush");
+      v4 = __error();
+      strerror(*v4);
+      _CUILog(4, "%s: write: %s");
     }
 
     return 1;
   }
 
-  if (v9)
+  if (v2)
   {
-    _CUILog(4, "%s: unknown stream type: %d", a3, a4, a5, a6, a7, a8, "BOMStreamFlush");
+    _CUILog(4, "%s: unknown stream type: %d", "BOMStreamFlush", v2);
     goto LABEL_13;
   }
 
-  result = BOMStorageCopyToBlock(*(a1 + 1), a1[4], *(a1 + 6), *(a1 + 4), a5, a6, a7, a8);
+  result = BOMStorageCopyToBlock(*(a1 + 1), a1[4], *(a1 + 6), *(a1 + 4));
 LABEL_14:
   *(a1 + 80) &= ~2u;
   return result;
@@ -2190,319 +2192,319 @@ uint64_t BOMStreamGetByteOrder(uint64_t result)
   return result;
 }
 
-uint64_t BOMStreamReadUInt32(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t BOMStreamReadUInt32(uint64_t a1)
 {
   if (*(a1 + 40) == 1)
   {
-    v9 = BOMExceptionHandlerMessage("%s read called on read-only buffer", a2, a3, a4, a5, a6, a7, a8, "BOMStreamReadUInt32");
-    v10 = *__error();
-    v11 = v9;
-    v12 = 0;
-    v13 = 278;
+    v2 = BOMExceptionHandlerMessage("%s read called on read-only buffer", "BOMStreamReadUInt32");
+    v3 = *__error();
+    v4 = v2;
+    v5 = 0;
+    v6 = 278;
 LABEL_5:
-    _BOMExceptionHandlerCall(v11, v12, "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMStream.c", v13, v10);
-    v17 = 0;
+    _BOMExceptionHandlerCall(v4, v5, "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMStream.c", v6, v3);
+    v10 = 0;
     goto LABEL_7;
   }
 
-  v14 = *(a1 + 56);
-  v15 = v14 + 1;
-  if ((v14 + 1) > *(a1 + 64))
+  v7 = *(a1 + 56);
+  v8 = v7 + 1;
+  if ((v7 + 1) > *(a1 + 64))
   {
-    v16 = BOMExceptionHandlerMessage("%s buffer overflow", a2, a3, a4, a5, a6, a7, a8, "BOMStreamReadUInt32");
-    v10 = *__error();
-    v11 = v16;
-    v12 = 1;
-    v13 = 280;
+    v9 = BOMExceptionHandlerMessage("%s buffer overflow", "BOMStreamReadUInt32");
+    v3 = *__error();
+    v4 = v9;
+    v5 = 1;
+    v6 = 280;
     goto LABEL_5;
   }
 
-  v17 = *v14;
-  *(a1 + 56) = v15;
+  v10 = *v7;
+  *(a1 + 56) = v8;
 LABEL_7:
-  v18 = bswap32(v17);
+  v11 = bswap32(v10);
   if (*(a1 + 4) == 2)
   {
-    return v17;
+    return v10;
   }
 
   else
   {
-    return v18;
+    return v11;
   }
 }
 
-uint64_t BOMStreamReadUInt16(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t BOMStreamReadUInt16(uint64_t a1)
 {
   if (*(a1 + 40) == 1)
   {
-    v9 = BOMExceptionHandlerMessage("%s read called on read-only buffer", a2, a3, a4, a5, a6, a7, a8, "BOMStreamReadUInt16");
-    v10 = *__error();
-    v11 = v9;
-    v12 = 0;
-    v13 = 298;
+    v2 = BOMExceptionHandlerMessage("%s read called on read-only buffer", "BOMStreamReadUInt16");
+    v3 = *__error();
+    v4 = v2;
+    v5 = 0;
+    v6 = 298;
 LABEL_5:
-    _BOMExceptionHandlerCall(v11, v12, "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMStream.c", v13, v10);
-    v17 = 0;
+    _BOMExceptionHandlerCall(v4, v5, "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMStream.c", v6, v3);
+    v10 = 0;
     goto LABEL_7;
   }
 
-  v14 = *(a1 + 56);
-  v15 = v14 + 1;
-  if ((v14 + 1) > *(a1 + 64))
+  v7 = *(a1 + 56);
+  v8 = v7 + 1;
+  if ((v7 + 1) > *(a1 + 64))
   {
-    v16 = BOMExceptionHandlerMessage("%s buffer overflow", a2, a3, a4, a5, a6, a7, a8, "BOMStreamReadUInt16");
-    v10 = *__error();
-    v11 = v16;
-    v12 = 1;
-    v13 = 300;
+    v9 = BOMExceptionHandlerMessage("%s buffer overflow", "BOMStreamReadUInt16");
+    v3 = *__error();
+    v4 = v9;
+    v5 = 1;
+    v6 = 300;
     goto LABEL_5;
   }
 
-  v17 = *v14;
-  *(a1 + 56) = v15;
+  v10 = *v7;
+  *(a1 + 56) = v8;
 LABEL_7:
-  v18 = __rev16(v17);
+  v11 = __rev16(v10);
   if (*(a1 + 4) == 2)
   {
-    return v17;
+    return v10;
   }
 
   else
   {
-    return v18;
+    return v11;
   }
 }
 
-uint64_t BOMStreamReadUInt8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t BOMStreamReadUInt8(uint64_t a1)
 {
   if (*(a1 + 40) == 1)
   {
-    v8 = BOMExceptionHandlerMessage("%s read called on read-only buffer", a2, a3, a4, a5, a6, a7, a8, "BOMStreamReadUInt8");
-    v9 = *__error();
-    v10 = v8;
-    v11 = 0;
-    v12 = 318;
+    v1 = BOMExceptionHandlerMessage("%s read called on read-only buffer", "BOMStreamReadUInt8");
+    v2 = *__error();
+    v3 = v1;
+    v4 = 0;
+    v5 = 318;
   }
 
   else
   {
-    v13 = *(a1 + 56);
-    v14 = v13 + 1;
-    if ((v13 + 1) <= *(a1 + 64))
+    v6 = *(a1 + 56);
+    v7 = v6 + 1;
+    if ((v6 + 1) <= *(a1 + 64))
     {
-      v16 = *v13;
-      *(a1 + 56) = v14;
-      return v16;
+      v9 = *v6;
+      *(a1 + 56) = v7;
+      return v9;
     }
 
-    v15 = BOMExceptionHandlerMessage("%s buffer overflow", a2, a3, a4, a5, a6, a7, a8, "BOMStreamReadUInt8");
-    v9 = *__error();
-    v10 = v15;
-    v11 = 1;
-    v12 = 320;
+    v8 = BOMExceptionHandlerMessage("%s buffer overflow", "BOMStreamReadUInt8");
+    v2 = *__error();
+    v3 = v8;
+    v4 = 1;
+    v5 = 320;
   }
 
-  _BOMExceptionHandlerCall(v10, v11, "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMStream.c", v12, v9);
+  _BOMExceptionHandlerCall(v3, v4, "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMStream.c", v5, v2);
   return 0;
 }
 
-uint64_t (*BOMStreamReadBuffer(uint64_t a1, void *__dst, size_t __len, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8))(void *)
+uint64_t (*BOMStreamReadBuffer(uint64_t a1, void *__dst, size_t __len))(void *)
 {
   if (*(a1 + 40) == 1)
   {
-    v8 = BOMExceptionHandlerMessage("%s read called on read-only buffer", __dst, __len, a4, a5, a6, a7, a8, "BOMStreamReadBuffer");
-    v9 = *__error();
-    v10 = v8;
-    v11 = 0;
-    v12 = 332;
+    v3 = BOMExceptionHandlerMessage("%s read called on read-only buffer", "BOMStreamReadBuffer");
+    v4 = *__error();
+    v5 = v3;
+    v6 = 0;
+    v7 = 332;
   }
 
   else
   {
-    v15 = *(a1 + 56);
-    if (__CFADD__(__len, v15))
+    v10 = *(a1 + 56);
+    if (__CFADD__(__len, v10))
     {
-      return BOMStreamReadBuffer_cold_1(a1, __dst, __len, a4, a5, a6, a7, a8);
+      return BOMStreamReadBuffer_cold_1();
     }
 
-    if (v15 + __len <= *(a1 + 64))
+    if (v10 + __len <= *(a1 + 64))
     {
-      result = memmove(__dst, v15, __len);
+      result = memmove(__dst, v10, __len);
       *(a1 + 56) += __len;
       return result;
     }
 
-    v16 = BOMExceptionHandlerMessage("%s buffer overflow", __dst, __len, a4, a5, a6, a7, a8, "BOMStreamReadBuffer");
-    v9 = *__error();
-    v10 = v16;
-    v11 = 1;
-    v12 = 347;
+    v11 = BOMExceptionHandlerMessage("%s buffer overflow", "BOMStreamReadBuffer");
+    v4 = *__error();
+    v5 = v11;
+    v6 = 1;
+    v7 = 347;
   }
 
-  return _BOMExceptionHandlerCall(v10, v11, "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMStream.c", v12, v9);
+  return _BOMExceptionHandlerCall(v5, v6, "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMStream.c", v7, v4);
 }
 
-BOOL BOMStreamAtEOF(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL BOMStreamAtEOF(uint64_t a1)
 {
   if (*(a1 + 40))
   {
-    v9 = BOMExceptionHandlerMessage("%s Can't check EOF on a writeable stream", a2, a3, a4, a5, a6, a7, a8, "BOMStreamAtEOF");
-    v10 = __error();
-    _BOMExceptionHandlerCall(v9, 1u, "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMStream.c", 359, *v10);
+    v2 = BOMExceptionHandlerMessage("%s Can't check EOF on a writeable stream", "BOMStreamAtEOF");
+    v3 = __error();
+    _BOMExceptionHandlerCall(v2, 1u, "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMStream.c", 359, *v3);
   }
 
   return *(a1 + 56) == *(a1 + 64);
 }
 
-uint64_t (*BOMStreamWriteUInt32(uint64_t (*result)(void *), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8))(void *)
+uint64_t (*BOMStreamWriteUInt32(uint64_t (*result)(void *), unsigned int a2))(void *)
 {
-  v8 = bswap32(a2);
+  v2 = bswap32(a2);
   if (*(result + 1) == 2)
   {
-    v9 = a2;
+    v3 = a2;
   }
 
   else
   {
-    v9 = v8;
+    v3 = v2;
   }
 
   if (*(result + 10))
   {
-    v10 = *(result + 7);
-    if ((v10 + 1) <= *(result + 8))
+    v4 = *(result + 7);
+    if ((v4 + 1) <= *(result + 8))
     {
-      *v10 = v9;
+      *v4 = v3;
       *(result + 7) += 4;
       *(result + 80) |= 2u;
       return result;
     }
 
-    v11 = BOMExceptionHandlerMessage("%s buffer overflow", a2, a3, a4, a5, a6, a7, a8, "BOMStreamWriteUInt32");
-    v12 = *__error();
-    v13 = v11;
-    v14 = 1;
-    v15 = 379;
+    v5 = BOMExceptionHandlerMessage("%s buffer overflow", "BOMStreamWriteUInt32");
+    v6 = *__error();
+    v7 = v5;
+    v8 = 1;
+    v9 = 379;
   }
 
   else
   {
-    v16 = BOMExceptionHandlerMessage("%s write called on read-only buffer", a2, a3, a4, a5, a6, a7, a8, "BOMStreamWriteUInt32");
-    v12 = *__error();
-    v13 = v16;
-    v14 = 0;
-    v15 = 377;
+    v10 = BOMExceptionHandlerMessage("%s write called on read-only buffer", "BOMStreamWriteUInt32");
+    v6 = *__error();
+    v7 = v10;
+    v8 = 0;
+    v9 = 377;
   }
 
-  return _BOMExceptionHandlerCall(v13, v14, "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMStream.c", v15, v12);
+  return _BOMExceptionHandlerCall(v7, v8, "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMStream.c", v9, v6);
 }
 
-uint64_t (*BOMStreamWriteUInt16(uint64_t (*result)(void *), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8))(void *)
+uint64_t (*BOMStreamWriteUInt16(uint64_t (*result)(void *), __int16 a2))(void *)
 {
-  v8 = __rev16(a2);
+  v2 = __rev16(a2);
   if (*(result + 1) == 2)
   {
-    v9 = a2;
+    v3 = a2;
   }
 
   else
   {
-    v9 = v8;
+    v3 = v2;
   }
 
   if (*(result + 10))
   {
-    v10 = *(result + 7);
-    if ((v10 + 1) <= *(result + 8))
+    v4 = *(result + 7);
+    if ((v4 + 1) <= *(result + 8))
     {
-      *v10 = v9;
+      *v4 = v3;
       *(result + 7) += 2;
       *(result + 80) |= 2u;
       return result;
     }
 
-    v11 = BOMExceptionHandlerMessage("%s buffer overflow", a2, a3, a4, a5, a6, a7, a8, "BOMStreamWriteUInt16");
-    v12 = *__error();
-    v13 = v11;
-    v14 = 1;
-    v15 = 398;
+    v5 = BOMExceptionHandlerMessage("%s buffer overflow", "BOMStreamWriteUInt16");
+    v6 = *__error();
+    v7 = v5;
+    v8 = 1;
+    v9 = 398;
   }
 
   else
   {
-    v16 = BOMExceptionHandlerMessage("%s write called on read-only buffer", a2, a3, a4, a5, a6, a7, a8, "BOMStreamWriteUInt16");
-    v12 = *__error();
-    v13 = v16;
-    v14 = 0;
-    v15 = 396;
+    v10 = BOMExceptionHandlerMessage("%s write called on read-only buffer", "BOMStreamWriteUInt16");
+    v6 = *__error();
+    v7 = v10;
+    v8 = 0;
+    v9 = 396;
   }
 
-  return _BOMExceptionHandlerCall(v13, v14, "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMStream.c", v15, v12);
+  return _BOMExceptionHandlerCall(v7, v8, "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMStream.c", v9, v6);
 }
 
-uint64_t (*BOMStreamWriteUInt8(uint64_t (*result)(void *), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8))(void *)
+uint64_t (*BOMStreamWriteUInt8(uint64_t (*result)(void *), char a2))(void *)
 {
   if (*(result + 10))
   {
-    v8 = *(result + 7);
-    if ((v8 + 1) <= *(result + 8))
+    v2 = *(result + 7);
+    if ((v2 + 1) <= *(result + 8))
     {
-      *v8 = a2;
+      *v2 = a2;
       ++*(result + 7);
       *(result + 80) |= 2u;
       return result;
     }
 
-    v9 = BOMExceptionHandlerMessage("%s buffer overflow", a2, a3, a4, a5, a6, a7, a8, "BOMStreamWriteUInt8");
-    v10 = *__error();
-    v11 = v9;
-    v12 = 1;
-    v13 = 411;
+    v3 = BOMExceptionHandlerMessage("%s buffer overflow", "BOMStreamWriteUInt8");
+    v4 = *__error();
+    v5 = v3;
+    v6 = 1;
+    v7 = 411;
   }
 
   else
   {
-    v14 = BOMExceptionHandlerMessage("%s write called on read-only buffer", a2, a3, a4, a5, a6, a7, a8, "BOMStreamWriteUInt8");
-    v10 = *__error();
-    v11 = v14;
-    v12 = 0;
-    v13 = 409;
+    v8 = BOMExceptionHandlerMessage("%s write called on read-only buffer", "BOMStreamWriteUInt8");
+    v4 = *__error();
+    v5 = v8;
+    v6 = 0;
+    v7 = 409;
   }
 
-  return _BOMExceptionHandlerCall(v11, v12, "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMStream.c", v13, v10);
+  return _BOMExceptionHandlerCall(v5, v6, "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMStream.c", v7, v4);
 }
 
-uint64_t (*BOMStreamWriteBuffer(uint64_t a1, const void *a2, size_t __len, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8))(void *)
+uint64_t (*BOMStreamWriteBuffer(uint64_t a1, const void *a2, size_t __len))(void *)
 {
   if (*(a1 + 40))
   {
-    v10 = *(a1 + 56);
-    if (v10 + __len <= *(a1 + 64))
+    v5 = *(a1 + 56);
+    if (v5 + __len <= *(a1 + 64))
     {
-      result = memmove(v10, a2, __len);
+      result = memmove(v5, a2, __len);
       *(a1 + 56) += __len;
       *(a1 + 80) |= 2u;
       return result;
     }
 
-    v11 = BOMExceptionHandlerMessage("%s buffer overflow", a2, __len, a4, a5, a6, a7, a8, "BOMStreamWriteBuffer");
-    v12 = *__error();
-    v13 = v11;
-    v14 = 1;
-    v15 = 424;
+    v6 = BOMExceptionHandlerMessage("%s buffer overflow", "BOMStreamWriteBuffer");
+    v7 = *__error();
+    v8 = v6;
+    v9 = 1;
+    v10 = 424;
   }
 
   else
   {
-    v16 = BOMExceptionHandlerMessage("%s write called on read-only buffer", a2, __len, a4, a5, a6, a7, a8, "BOMStreamWriteBuffer");
-    v12 = *__error();
-    v13 = v16;
-    v14 = 0;
-    v15 = 422;
+    v11 = BOMExceptionHandlerMessage("%s write called on read-only buffer", "BOMStreamWriteBuffer");
+    v7 = *__error();
+    v8 = v11;
+    v9 = 0;
+    v10 = 422;
   }
 
-  return _BOMExceptionHandlerCall(v13, v14, "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMStream.c", v15, v12);
+  return _BOMExceptionHandlerCall(v8, v9, "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMStream.c", v10, v7);
 }
 
 uint64_t BOMStreamGetDataPointer(uint64_t a1, uint64_t a2)
@@ -2838,29 +2840,29 @@ uint64_t get_highest_sdk_version_for_any_slice(const char *a1)
   return v2;
 }
 
-uint64_t __get_highest_sdk_version_for_any_slice_block_invoke(uint64_t a1)
+uint64_t __get_highest_sdk_version_for_any_slice_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2000000000;
-  v9 = 0;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2000000000;
+  v11 = 0;
   dyld_get_image_versions();
-  v2 = *(v7 + 6);
-  if (!v2)
+  v4 = *(v9 + 6);
+  if (!v4)
   {
     syslog(3, "Failed to get SDK version from slice in %s", *(a1 + 40));
-    v2 = *(v7 + 6);
+    v4 = *(v9 + 6);
   }
 
-  syslog(7, "Slice had version 0x%08x", v2);
-  v3 = *(v7 + 6);
-  v4 = *(*(a1 + 32) + 8);
-  if (v3 > *(v4 + 24))
+  syslog(7, "Slice had version 0x%08x", v4);
+  v5 = *(v9 + 6);
+  v6 = *(*(a1 + 32) + 8);
+  if (v5 > *(v6 + 24))
   {
-    *(v4 + 24) = v3;
+    *(v6 + 24) = v5;
   }
 
-  _Block_object_dispose(&v6, 8);
+  _Block_object_dispose(&v8, 8);
   return 1;
 }
 
@@ -3202,10 +3204,10 @@ void logAndSetError_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
   _os_log_error_impl(&dword_1B9DEC000, log, OS_LOG_TYPE_ERROR, "%@ (%ld)", &v3, 0x16u);
 }
 
-void __CUISubtypeFromIndex_cold_1(uint64_t a1)
+void __CUISubtypeFromIndex_cold_1(uint64_t a1, uint64_t a2)
 {
-  CUIPlatformNameForPlatform(a1);
-  _CUILog(4, "CoreUI: %s got a index %d that doesn't map to a known device subtype in platform %d:'%@'", v1, v2, v3, v4, v5, v6, "int32_t __CUISubtypeFromIndex(CUIThemeSchemaPlatform, u_int32_t)");
+  v4 = CUIPlatformNameForPlatform(a1);
+  _CUILog(4, "CoreUI: %s got a index %d that doesn't map to a known device subtype in platform %d:'%@'", "int32_t __CUISubtypeFromIndex(CUIThemeSchemaPlatform, u_int32_t)", a2, a1, v4);
   abort();
 }
 
@@ -3356,61 +3358,61 @@ uint64_t _CUICopySortedKeySignature(char *__dst, unint64_t a2, uint64_t a3, uint
   return result;
 }
 
-void _CUIRenditionKeySetIntegerValueForAttribute_cold_1(unsigned __int16 a1)
+void _CUIRenditionKeySetIntegerValueForAttribute_cold_1(unsigned __int16 a1, int a2)
 {
-  v1 = CUIThemeAttributeNameToString(a1);
-  _CUILog(4, "CoreUI: Value passed for rendition key attribute out of bounds for u_int16_t identifier:'%s:%d' value:'%d'", v2, v3, v4, v5, v6, v7, v1);
+  v4 = CUIThemeAttributeNameToString(a1);
+  _CUILog(4, "CoreUI: Value passed for rendition key attribute out of bounds for u_int16_t identifier:'%s:%d' value:'%d'", v4, a1, a2);
   __assert_rtn("_CUIRenditionKeySetIntegerValueForAttribute", "CUIRenditionKey.m", 28, "0");
 }
 
 uint64_t (*BOMStorageCopyToBlockRange_cold_1())(void *)
 {
   OUTLINED_FUNCTION_1_2();
-  BOMExceptionHandlerMessage("ERROR in %s: %s [%s:%d]", v0, v1, v2, v3, v4, v5, v6, v12);
+  BOMExceptionHandlerMessage("ERROR in %s: %s [%s:%d]", v5, v6, v7, v8);
   __error();
-  v7 = OUTLINED_FUNCTION_0_3();
+  v0 = OUTLINED_FUNCTION_0_3();
 
-  return _BOMExceptionHandlerCall(v7, v8, v9, 933, v10);
+  return _BOMExceptionHandlerCall(v0, v1, v2, 933, v3);
 }
 
 uint64_t (*BOMStorageCopyToBlockRange_cold_2())(void *)
 {
   OUTLINED_FUNCTION_1_2();
-  BOMExceptionHandlerMessage("ERROR in %s: %s [%s:%d]", v0, v1, v2, v3, v4, v5, v6, v12);
+  BOMExceptionHandlerMessage("ERROR in %s: %s [%s:%d]", v5, v6, v7, v8);
   __error();
-  v7 = OUTLINED_FUNCTION_0_3();
+  v0 = OUTLINED_FUNCTION_0_3();
 
-  return _BOMExceptionHandlerCall(v7, v8, v9, 961, v10);
+  return _BOMExceptionHandlerCall(v0, v1, v2, 961, v3);
 }
 
 uint64_t (*BOMStorageCopyToBlockRange_cold_3())(void *)
 {
   OUTLINED_FUNCTION_1_2();
-  BOMExceptionHandlerMessage("ERROR in %s: %s [%s:%d]", v0, v1, v2, v3, v4, v5, v6, v12);
+  BOMExceptionHandlerMessage("ERROR in %s: %s [%s:%d]", v5, v6, v7, v8);
   __error();
-  v7 = OUTLINED_FUNCTION_0_3();
+  v0 = OUTLINED_FUNCTION_0_3();
 
-  return _BOMExceptionHandlerCall(v7, v8, v9, 921, v10);
+  return _BOMExceptionHandlerCall(v0, v1, v2, 921, v3);
 }
 
 uint64_t (*BOMStorageCopyToBlockRange_cold_4())(void *)
 {
   OUTLINED_FUNCTION_1_2();
-  BOMExceptionHandlerMessage("ERROR in %s: %s [%s:%d]", v0, v1, v2, v3, v4, v5, v6, v12);
+  BOMExceptionHandlerMessage("ERROR in %s: %s [%s:%d]", v5, v6, v7, v8);
   __error();
-  v7 = OUTLINED_FUNCTION_0_3();
+  v0 = OUTLINED_FUNCTION_0_3();
 
-  return _BOMExceptionHandlerCall(v7, v8, v9, 898, v10);
+  return _BOMExceptionHandlerCall(v0, v1, v2, 898, v3);
 }
 
 uint64_t (*BOMStorageCopyToBlockRange_cold_5())(void *)
 {
   OUTLINED_FUNCTION_1_2();
-  BOMExceptionHandlerMessage("ERROR in %s: %s [%s:%d]", v0, v1, v2, v3, v4, v5, v6, v12);
+  BOMExceptionHandlerMessage("ERROR in %s: %s [%s:%d]", v5, v6, v7, v8);
   __error();
-  v7 = OUTLINED_FUNCTION_0_3();
+  v0 = OUTLINED_FUNCTION_0_3();
 
-  return _BOMExceptionHandlerCall(v7, v8, v9, 861, v10);
+  return _BOMExceptionHandlerCall(v0, v1, v2, 861, v3);
 }
 
 uint64_t (*BOMStorageCopyFromBlockRange_cold_1())(void *)
@@ -3420,12 +3422,12 @@ uint64_t (*BOMStorageCopyFromBlockRange_cold_1())(void *)
   return _BOMExceptionHandlerCall("BOMStorageCopyRangeFromBlockRange: length extends beyond block size overflow", 0, "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMStorage.c", 1152, v0);
 }
 
-uint64_t (*BOMStreamReadBuffer_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8))(void *)
+uint64_t (*BOMStreamReadBuffer_cold_1())(void *)
 {
-  v8 = BOMExceptionHandlerMessage("%s buffer overflow", a2, a3, a4, a5, a6, a7, a8, "BOMStreamReadBuffer");
-  v9 = *__error();
+  v0 = BOMExceptionHandlerMessage("%s buffer overflow", "BOMStreamReadBuffer");
+  v1 = *__error();
 
-  return _BOMExceptionHandlerCall(v8, 1u, "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMStream.c", 344, v9);
+  return _BOMExceptionHandlerCall(v0, 1u, "/Library/Caches/com.apple.xbs/Sources/CoreUI/Bom/Storage/BOMStream.c", 344, v1);
 }
 
 CGRect CGContextGetClipBoundingBox(CGContextRef c)

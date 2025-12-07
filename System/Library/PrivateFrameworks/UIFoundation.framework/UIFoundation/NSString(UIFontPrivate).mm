@@ -1,10 +1,10 @@
 @interface NSString(UIFontPrivate)
-- (uint64_t)stringByStrippingLeadingAndTrailingWhitespaceAndQuotes;
+- (void)stringByStrippingLeadingAndTrailingWhitespaceAndQuotes;
 @end
 
 @implementation NSString(UIFontPrivate)
 
-- (uint64_t)stringByStrippingLeadingAndTrailingWhitespaceAndQuotes
+- (void)stringByStrippingLeadingAndTrailingWhitespaceAndQuotes
 {
   if (stringByStrippingLeadingAndTrailingWhitespaceAndQuotes_onceToken != -1)
   {

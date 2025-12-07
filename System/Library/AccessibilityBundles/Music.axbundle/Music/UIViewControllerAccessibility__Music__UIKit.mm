@@ -58,33 +58,8 @@
 - (BOOL)_axIsViewControllerInLibrary
 {
   MEMORY[0x29C2E2910](@"Music.LibraryAlbumsViewController", a2);
-  if (objc_opt_isKindOfClass())
+  if (objc_opt_isKindOfClass() & 1) != 0 || (MEMORY[0x29C2E2910](@"Music.LibraryArtistsListViewController"), (objc_opt_isKindOfClass()) || (MEMORY[0x29C2E2910](@"Music.LibraryArtistDetailViewController"), (objc_opt_isKindOfClass()) || (MEMORY[0x29C2E2910](@"Music.LibraryGenresViewController"), (objc_opt_isKindOfClass()) || (MEMORY[0x29C2E2910](@"Music.LibraryComposersViewController"), (objc_opt_isKindOfClass()) || (MEMORY[0x29C2E2910](@"Music.LibraryPlaylistsViewController"), (objc_opt_isKindOfClass()) || (MEMORY[0x29C2E2910](@"Music.LibraryMusicVideosViewController"), (objc_opt_isKindOfClass()) || (MEMORY[0x29C2E2910](@"Music.LibraryMainViewController"), (objc_opt_isKindOfClass()) || (MEMORY[0x29C2E2910](@"Music.LibraryRecentlyAddedViewController"), (objc_opt_isKindOfClass()) || (MEMORY[0x29C2E2910](@"Music.LibrarySongsViewController"), (objc_opt_isKindOfClass()) || (MEMORY[0x29C2E2910](@"Music.LibraryTVShowsMoviesViewController"), (objc_opt_isKindOfClass()) || (MEMORY[0x29C2E2910](@"Music.LibraryTVEpisodesViewController"), (objc_opt_isKindOfClass()))
   {
-    goto LABEL_13;
-  }
-
-  MEMORY[0x29C2E2910](@"Music.LibraryArtistsListViewController");
-  if (objc_opt_isKindOfClass())
-  {
-    goto LABEL_13;
-  }
-
-  MEMORY[0x29C2E2910](@"Music.LibraryArtistDetailViewController");
-  if (objc_opt_isKindOfClass())
-  {
-    goto LABEL_13;
-  }
-
-  MEMORY[0x29C2E2910](@"Music.LibraryGenresViewController");
-  if (objc_opt_isKindOfClass())
-  {
-    goto LABEL_13;
-  }
-
-  MEMORY[0x29C2E2910](@"Music.LibraryComposersViewController");
-  if (objc_opt_isKindOfClass() & 1) != 0 || (MEMORY[0x29C2E2910](@"Music.LibraryPlaylistsViewController"), (objc_opt_isKindOfClass()) || (MEMORY[0x29C2E2910](@"Music.LibraryMusicVideosViewController"), (objc_opt_isKindOfClass()) || (MEMORY[0x29C2E2910](@"Music.LibraryMainViewController"), (objc_opt_isKindOfClass()) || (MEMORY[0x29C2E2910](@"Music.LibraryRecentlyAddedViewController"), (objc_opt_isKindOfClass()) || (MEMORY[0x29C2E2910](@"Music.LibrarySongsViewController"), (objc_opt_isKindOfClass()) || (MEMORY[0x29C2E2910](@"Music.LibraryTVShowsMoviesViewController"), (objc_opt_isKindOfClass()) || (MEMORY[0x29C2E2910](@"Music.LibraryTVEpisodesViewController"), (objc_opt_isKindOfClass()))
-  {
-LABEL_13:
     isKindOfClass = 1;
   }
 

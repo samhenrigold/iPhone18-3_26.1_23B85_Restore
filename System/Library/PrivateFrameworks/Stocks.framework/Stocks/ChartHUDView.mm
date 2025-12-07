@@ -563,7 +563,7 @@ LABEL_13:
             graphView = self->_graphView;
             if (graphView)
             {
-              [(StockGraphView *)graphView plottedPointNearestToPoint:&v181];
+              objc_msgSend_plottedPointNearestToPoint_(graphView);
             }
 
             else
@@ -645,7 +645,7 @@ LABEL_13:
           v73 = anyObject;
           if (anyObject)
           {
-            [anyObject stockValue];
+            objc_msgSend_stockValue(anyObject);
             v74 = *(&v177 + 1);
             v75 = *&v177;
 
@@ -714,7 +714,7 @@ LABEL_13:
           v75 = 0.0;
           if (v86)
           {
-            [v86 stockValue];
+            objc_msgSend_stockValue(v86);
             v89 = *(&v177 + 1);
             v75 = *&v177;
           }
@@ -724,7 +724,7 @@ LABEL_13:
           v92 = 0.0;
           if (v90)
           {
-            [v90 stockValue];
+            objc_msgSend_stockValue(v90);
             v88 = *(&v177 + 1);
             v92 = *&v177;
           }

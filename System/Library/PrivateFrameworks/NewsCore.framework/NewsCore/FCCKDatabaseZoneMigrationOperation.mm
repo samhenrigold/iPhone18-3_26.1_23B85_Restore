@@ -15,7 +15,7 @@
 
 - (BOOL)validateOperation
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (self && self->_database)
   {
     v3 = 1;
@@ -25,16 +25,16 @@
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't migrate a zone without a database"];
-      v11 = 136315906;
-      v12 = "[FCCKDatabaseZoneMigrationOperation validateOperation]";
-      v13 = 2080;
-      v14 = "FCCKDatabaseZoneMigrationOperation.m";
-      v15 = 1024;
-      v16 = 41;
-      v17 = 2114;
-      v18 = v8;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
+      v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't migrate a zone without a database"];
+      v10 = 136315906;
+      v11 = "[FCCKDatabaseZoneMigrationOperation validateOperation]";
+      v12 = 2080;
+      v13 = "FCCKDatabaseZoneMigrationOperation.m";
+      v14 = 1024;
+      v15 = 41;
+      v16 = 2114;
+      v17 = v7;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
     }
 
     v3 = 0;
@@ -43,16 +43,16 @@
 LABEL_9:
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't migrate a zone without a migrator"];
-        v11 = 136315906;
-        v12 = "[FCCKDatabaseZoneMigrationOperation validateOperation]";
-        v13 = 2080;
-        v14 = "FCCKDatabaseZoneMigrationOperation.m";
-        v15 = 1024;
-        v16 = 45;
-        v17 = 2114;
-        v18 = v9;
-        _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
+        v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't migrate a zone without a migrator"];
+        v10 = 136315906;
+        v11 = "[FCCKDatabaseZoneMigrationOperation validateOperation]";
+        v12 = 2080;
+        v13 = "FCCKDatabaseZoneMigrationOperation.m";
+        v14 = 1024;
+        v15 = 45;
+        v16 = 2114;
+        v17 = v8;
+        _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
       }
 
       v4 = 0;
@@ -75,27 +75,25 @@ LABEL_12:
   if (self->_recordZoneID)
   {
     v5 = 1;
-    goto LABEL_17;
+    return v5 & v4 & v3;
   }
 
 LABEL_14:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't migrate a zone without a record zone ID"];
-    v11 = 136315906;
-    v12 = "[FCCKDatabaseZoneMigrationOperation validateOperation]";
-    v13 = 2080;
-    v14 = "FCCKDatabaseZoneMigrationOperation.m";
-    v15 = 1024;
-    v16 = 49;
-    v17 = 2114;
-    v18 = v10;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't migrate a zone without a record zone ID"];
+    v10 = 136315906;
+    v11 = "[FCCKDatabaseZoneMigrationOperation validateOperation]";
+    v12 = 2080;
+    v13 = "FCCKDatabaseZoneMigrationOperation.m";
+    v14 = 1024;
+    v15 = 49;
+    v16 = 2114;
+    v17 = v9;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
   }
 
   v5 = 0;
-LABEL_17:
-  v6 = *MEMORY[0x1E69E9840];
   return v5 & v4 & v3;
 }
 
@@ -127,7 +125,7 @@ LABEL_17:
 
 - (void)performOperation
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v3 = FCPrivateDataEncryptionLog;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -151,7 +149,7 @@ LABEL_17:
     *&buf[12] = 2114;
     *&buf[14] = v5;
     *&buf[22] = 2114;
-    v47 = recordZoneID;
+    v46 = recordZoneID;
     _os_log_impl(&dword_1B63EF000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ will migrate with database: %{public}@, zone ID: %{public}@", buf, 0x20u);
   }
 
@@ -183,21 +181,21 @@ LABEL_17:
     v15 = v14;
     if (self)
     {
-      v38 = MEMORY[0x1E69E9820];
-      v39 = 3221225472;
-      v40 = __78__FCCKDatabaseZoneMigrationOperation__migrateEntireZoneWithCompletionHandler___block_invoke;
-      v41 = &unk_1E7C3C498;
+      v37 = MEMORY[0x1E69E9820];
+      v38 = 3221225472;
+      v39 = __78__FCCKDatabaseZoneMigrationOperation__migrateEntireZoneWithCompletionHandler___block_invoke;
+      v40 = &unk_1E7C3C498;
       v16 = v14;
       selfCopy3 = self;
-      v43 = v16;
-      v17 = &v38;
+      v42 = v16;
+      v17 = &v37;
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __83__FCCKDatabaseZoneMigrationOperation__gatherRecordsToMigrateWithCompletionHandler___block_invoke;
-      v47 = &unk_1E7C40A70;
+      v46 = &unk_1E7C40A70;
       selfCopy4 = self;
       v18 = v17;
-      v49 = v18;
+      v48 = v18;
       [(FCCKDatabaseZoneMigrationOperation *)self _continueGatheringRecordsWithPreviousServerChangeToken:0 recordsAlreadyFetched:buf completionHandler:?];
     }
   }
@@ -237,21 +235,21 @@ LABEL_17:
 
       v29 = [(FCCKDatabaseMigrator *)v21 databaseMigrationRecordNamesToMigrateInZone:zoneName2 fromVersion:migratingFromVersion toVersion:currentVersion];
 
-      v45[0] = MEMORY[0x1E69E9820];
-      v45[1] = 3221225472;
-      v45[2] = __85__FCCKDatabaseZoneMigrationOperation__migrateIndividualRecordsWithCompletionHandler___block_invoke;
-      v45[3] = &unk_1E7C38D38;
-      v45[4] = self;
-      v30 = [v29 fc_arrayByTransformingWithBlock:v45];
-      v38 = MEMORY[0x1E69E9820];
-      v39 = 3221225472;
-      v40 = __85__FCCKDatabaseZoneMigrationOperation__migrateIndividualRecordsWithCompletionHandler___block_invoke_2;
-      v41 = &unk_1E7C40A48;
+      v44[0] = MEMORY[0x1E69E9820];
+      v44[1] = 3221225472;
+      v44[2] = __85__FCCKDatabaseZoneMigrationOperation__migrateIndividualRecordsWithCompletionHandler___block_invoke;
+      v44[3] = &unk_1E7C38D38;
+      v44[4] = self;
+      v30 = [v29 fc_arrayByTransformingWithBlock:v44];
+      v37 = MEMORY[0x1E69E9820];
+      v38 = 3221225472;
+      v39 = __85__FCCKDatabaseZoneMigrationOperation__migrateIndividualRecordsWithCompletionHandler___block_invoke_2;
+      v40 = &unk_1E7C40A48;
       selfCopy3 = self;
-      v43 = v30;
-      v44 = v15;
+      v42 = v30;
+      v43 = v15;
       v31 = v30;
-      v32 = &v38;
+      v32 = &v37;
       v33 = objc_alloc_init(FCCKPrivateFetchRecordsOperation);
       [(FCCKPrivateFetchRecordsOperation *)v33 setRecordIDs:v31];
       [(FCCKPrivateDatabaseOperation *)v33 setSkipPreflight:1];
@@ -259,19 +257,17 @@ LABEL_17:
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __74__FCCKDatabaseZoneMigrationOperation__migrateRecordIDs_completionHandler___block_invoke;
-      v47 = &unk_1E7C378E8;
+      v46 = &unk_1E7C378E8;
       selfCopy4 = self;
       v34 = v31;
-      v49 = v34;
+      v48 = v34;
       v35 = v32;
-      v50 = v35;
+      v49 = v35;
       [(FCCKPrivateFetchRecordsOperation *)v33 setFetchRecordsCompletionBlock:buf];
       [(FCOperation *)self associateChildOperation:v33];
       [(FCCKPrivateDatabase *)self->_database addOperation:v33];
     }
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)operationWillFinishWithError:(id)error
@@ -349,7 +345,7 @@ void __78__FCCKDatabaseZoneMigrationOperation__migrateEntireZoneWithCompletionHa
 
 - (void)_migrateAndUpdateRecords:(void *)records completion:
 {
-  v94[2] = *MEMORY[0x1E69E9840];
+  v93[2] = *MEMORY[0x1E69E9840];
   v5 = a2;
   recordsCopy = records;
   selfCopy = self;
@@ -369,59 +365,59 @@ void __78__FCCKDatabaseZoneMigrationOperation__migrateEntireZoneWithCompletionHa
       shortOperationDescription = [selfCopy shortOperationDescription];
       v12 = [v5 count];
       *buf = 138543618;
-      v86 = shortOperationDescription;
-      v87 = 2048;
-      v88 = v12 - [v7 count];
+      v85 = shortOperationDescription;
+      v86 = 2048;
+      v87 = v12 - [v7 count];
       _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ removed %lu duplicates before migration", buf, 0x16u);
     }
   }
 
-  v74[0] = MEMORY[0x1E69E9820];
-  v74[1] = 3221225472;
-  v75 = __74__FCCKDatabaseZoneMigrationOperation__migrateAndUpdateRecords_completion___block_invoke_32;
-  v76 = &unk_1E7C3FEB8;
-  v77 = selfCopy;
-  v78 = v7;
-  v79 = recordsCopy;
+  v73[0] = MEMORY[0x1E69E9820];
+  v73[1] = 3221225472;
+  v74 = __74__FCCKDatabaseZoneMigrationOperation__migrateAndUpdateRecords_completion___block_invoke_32;
+  v75 = &unk_1E7C3FEB8;
+  v76 = selfCopy;
+  v77 = v7;
+  v78 = recordsCopy;
   v13 = v7;
-  v67 = v74;
-  v72 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v66 = v73;
+  v71 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v79 = 0u;
   v80 = 0u;
   v81 = 0u;
   v82 = 0u;
-  v83 = 0u;
   obj = v13;
-  v71 = [obj countByEnumeratingWithState:&v80 objects:buf count:16];
-  if (!v71)
+  v70 = [obj countByEnumeratingWithState:&v79 objects:buf count:16];
+  if (!v70)
   {
     v56 = 0;
     goto LABEL_28;
   }
 
-  v65 = recordsCopy;
-  v66 = v5;
-  v70 = *v81;
-  v68 = *MEMORY[0x1E696A578];
+  v64 = recordsCopy;
+  v65 = v5;
+  v69 = *v80;
+  v67 = *MEMORY[0x1E696A578];
   *&v14 = 138543874;
-  v64 = v14;
+  v63 = v14;
   do
   {
     v15 = 0;
     do
     {
-      if (*v81 != v70)
+      if (*v80 != v69)
       {
         objc_enumerationMutation(obj);
       }
 
-      v16 = *(*(&v80 + 1) + 8 * v15);
+      v16 = *(*(&v79 + 1) + 8 * v15);
       v17 = *(selfCopy + 384);
       v18 = *(selfCopy + 368);
-      v84 = 0;
+      v83 = 0;
       v19 = v18;
       v20 = v17;
-      v21 = [v20 databaseMigrationMigrateRecord:v16 database:v19 error:&v84];
-      v22 = v84;
+      v21 = [v20 databaseMigrationMigrateRecord:v16 database:v19 error:&v83];
+      v22 = v83;
 
       recordID = [v21 recordID];
       recordID2 = [v16 recordID];
@@ -430,15 +426,15 @@ void __78__FCCKDatabaseZoneMigrationOperation__migrateEntireZoneWithCompletionHa
       if (v25 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         v53 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"we currently only support migrations that produce an entirely new record"];
-        *v90 = 136315906;
-        *&v90[4] = "[FCCKDatabaseZoneMigrationOperation _migratedRecord:error:]";
-        v91 = 2080;
-        v92 = "FCCKDatabaseZoneMigrationOperation.m";
-        v93 = 1024;
-        LODWORD(v94[0]) = 396;
-        WORD2(v94[0]) = 2114;
-        *(v94 + 6) = v53;
-        _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v90, 0x26u);
+        *v89 = 136315906;
+        *&v89[4] = "[FCCKDatabaseZoneMigrationOperation _migratedRecord:error:]";
+        v90 = 2080;
+        v91 = "FCCKDatabaseZoneMigrationOperation.m";
+        v92 = 1024;
+        LODWORD(v93[0]) = 396;
+        WORD2(v93[0]) = 2114;
+        *(v93 + 6) = v53;
+        _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v89, 0x26u);
 
         if (v21)
         {
@@ -505,13 +501,13 @@ LABEL_13:
         shortOperationDescription2 = [selfCopy shortOperationDescription];
         v59 = *(selfCopy + 384);
         v60 = objc_opt_class();
-        *v90 = v64;
-        *&v90[4] = shortOperationDescription2;
-        v91 = 2112;
-        v92 = v60;
-        v93 = 2112;
-        v94[0] = v16;
-        _os_log_error_impl(&dword_1B63EF000, v57, OS_LOG_TYPE_ERROR, "%{public}@ migrator %@ failed to migrate record %@", v90, 0x20u);
+        *v89 = v63;
+        *&v89[4] = shortOperationDescription2;
+        v90 = 2112;
+        v91 = v60;
+        v92 = 2112;
+        v93[0] = v16;
+        _os_log_error_impl(&dword_1B63EF000, v57, OS_LOG_TYPE_ERROR, "%{public}@ migrator %@ failed to migrate record %@", v89, 0x20u);
 
         if (v22)
         {
@@ -520,9 +516,9 @@ LABEL_13:
 
 LABEL_23:
         v61 = MEMORY[0x1E696ABC0];
-        v89 = v68;
-        *v90 = @"Failed to migrate record but received no error";
-        v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v90 forKeys:&v89 count:{1, v64}];
+        v88 = v67;
+        *v89 = @"Failed to migrate record but received no error";
+        v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v89 forKeys:&v88 count:{1, v63}];
         v22 = [v61 errorWithDomain:@"FCErrorDomain" code:16 userInfo:v21];
         v29 = 0;
 LABEL_14:
@@ -546,27 +542,25 @@ LABEL_19:
         goto LABEL_26;
       }
 
-      [v72 addObject:v29];
+      [v71 addObject:v29];
 
       ++v15;
     }
 
-    while (v71 != v15);
-    v62 = [obj countByEnumeratingWithState:&v80 objects:buf count:16];
-    v71 = v62;
+    while (v70 != v15);
+    v62 = [obj countByEnumeratingWithState:&v79 objects:buf count:16];
+    v70 = v62;
   }
 
   while (v62);
   v56 = 0;
 LABEL_26:
-  recordsCopy = v65;
-  v5 = v66;
+  recordsCopy = v64;
+  v5 = v65;
 LABEL_28:
 
-  v75(v67, v72, v56);
+  v74(v66, v71, v56);
 LABEL_29:
-
-  v63 = *MEMORY[0x1E69E9840];
 }
 
 id __85__FCCKDatabaseZoneMigrationOperation__migrateIndividualRecordsWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -614,7 +608,7 @@ void __85__FCCKDatabaseZoneMigrationOperation__migrateIndividualRecordsWithCompl
 
 void __83__FCCKDatabaseZoneMigrationOperation__gatherRecordsToMigrateWithCompletionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   if (a3)
@@ -629,12 +623,12 @@ void __83__FCCKDatabaseZoneMigrationOperation__gatherRecordsToMigrateWithComplet
     v9 = v8;
     if (v7)
     {
-      *v24 = MEMORY[0x1E69E9820];
-      *&v24[8] = 3221225472;
-      *&v24[16] = __52__FCCKDatabaseZoneMigrationOperation__pruneRecords___block_invoke;
-      v25 = &unk_1E7C38030;
-      v26 = v7;
-      v10 = [v8 fc_arrayByRemovingObjectsPassingTest:v24];
+      *v23 = MEMORY[0x1E69E9820];
+      *&v23[8] = 3221225472;
+      *&v23[16] = __52__FCCKDatabaseZoneMigrationOperation__pruneRecords___block_invoke;
+      v24 = &unk_1E7C38030;
+      v25 = v7;
+      v10 = [v8 fc_arrayByRemovingObjectsPassingTest:v23];
       v11 = *(v7 + 392);
       if (v11)
       {
@@ -663,20 +657,18 @@ void __83__FCCKDatabaseZoneMigrationOperation__gatherRecordsToMigrateWithComplet
         v20 = [v18 shortOperationDescription];
         v21 = [v9 count];
         v22 = [v10 count];
-        *v24 = 138543874;
-        *&v24[4] = v20;
-        *&v24[12] = 2048;
-        *&v24[14] = v21;
-        *&v24[22] = 2048;
-        v25 = v22;
-        _os_log_impl(&dword_1B63EF000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ pruned %lu records down to %lu", v24, 0x20u);
+        *v23 = 138543874;
+        *&v23[4] = v20;
+        *&v23[12] = 2048;
+        *&v23[14] = v21;
+        *&v23[22] = 2048;
+        v24 = v22;
+        _os_log_impl(&dword_1B63EF000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ pruned %lu records down to %lu", v23, 0x20u);
       }
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_continueGatheringRecordsWithPreviousServerChangeToken:(void *)token recordsAlreadyFetched:(void *)fetched completionHandler:
@@ -708,7 +700,7 @@ void __83__FCCKDatabaseZoneMigrationOperation__gatherRecordsToMigrateWithComplet
 
 void __133__FCCKDatabaseZoneMigrationOperation__continueGatheringRecordsWithPreviousServerChangeToken_recordsAlreadyFetched_completionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4, int a5, void *a6)
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   v10 = a2;
   v11 = a4;
   v12 = a6;
@@ -716,103 +708,103 @@ void __133__FCCKDatabaseZoneMigrationOperation__continueGatheringRecordsWithPrev
   {
     if (v12)
     {
-      v51[0] = MEMORY[0x1E69E9820];
-      v51[1] = 3221225472;
-      v51[2] = __133__FCCKDatabaseZoneMigrationOperation__continueGatheringRecordsWithPreviousServerChangeToken_recordsAlreadyFetched_completionHandler___block_invoke_16;
-      v51[3] = &unk_1E7C38FF0;
-      v51[4] = *(a1 + 32);
-      v52 = v12;
-      v53 = *(a1 + 48);
-      __133__FCCKDatabaseZoneMigrationOperation__continueGatheringRecordsWithPreviousServerChangeToken_recordsAlreadyFetched_completionHandler___block_invoke_16(v51);
+      v50[0] = MEMORY[0x1E69E9820];
+      v50[1] = 3221225472;
+      v50[2] = __133__FCCKDatabaseZoneMigrationOperation__continueGatheringRecordsWithPreviousServerChangeToken_recordsAlreadyFetched_completionHandler___block_invoke_16;
+      v50[3] = &unk_1E7C38FF0;
+      v50[4] = *(a1 + 32);
+      v51 = v12;
+      v52 = *(a1 + 48);
+      __133__FCCKDatabaseZoneMigrationOperation__continueGatheringRecordsWithPreviousServerChangeToken_recordsAlreadyFetched_completionHandler___block_invoke_16(v50);
 
-      v13 = v52;
+      v13 = v51;
       goto LABEL_5;
     }
 
-    v15 = FCPrivateDataEncryptionLog;
+    v14 = FCPrivateDataEncryptionLog;
     if (os_log_type_enabled(FCPrivateDataEncryptionLog, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = *(a1 + 32);
-      v17 = v15;
-      v18 = [v16 shortOperationDescription];
-      v19 = [v10 count];
-      v20 = @"no";
+      v15 = *(a1 + 32);
+      v16 = v14;
+      v17 = [v15 shortOperationDescription];
+      v18 = [v10 count];
+      v19 = @"no";
       *buf = 138544130;
       *&buf[12] = 2048;
-      *&buf[4] = v18;
+      *&buf[4] = v17;
       if (a5)
       {
-        v20 = @"yes";
+        v19 = @"yes";
       }
 
-      *&buf[14] = v19;
+      *&buf[14] = v18;
       *&buf[22] = 2112;
-      v57 = v11;
-      LOWORD(v58) = 2112;
-      *(&v58 + 2) = v20;
-      _os_log_impl(&dword_1B63EF000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ fetch-changes returned %lu records, token %@, more coming %@", buf, 0x2Au);
+      v56 = v11;
+      LOWORD(v57) = 2112;
+      *(&v57 + 2) = v19;
+      _os_log_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ fetch-changes returned %lu records, token %@, more coming %@", buf, 0x2Au);
     }
 
-    v21 = [MEMORY[0x1E695DEC8] fc_arrayByAddingObjectsFromArray:v10 toArray:*(a1 + 40)];
+    v20 = [MEMORY[0x1E695DEC8] fc_arrayByAddingObjectsFromArray:v10 toArray:*(a1 + 40)];
     if ((a5 & 1) == 0)
     {
-      v45 = MEMORY[0x1E69E9820];
-      v46 = 3221225472;
-      v47 = __133__FCCKDatabaseZoneMigrationOperation__continueGatheringRecordsWithPreviousServerChangeToken_recordsAlreadyFetched_completionHandler___block_invoke_24;
-      v48 = &unk_1E7C37778;
-      v50 = *(a1 + 48);
-      v49 = v21;
-      v50[2](v50, v49, 0);
+      v44 = MEMORY[0x1E69E9820];
+      v45 = 3221225472;
+      v46 = __133__FCCKDatabaseZoneMigrationOperation__continueGatheringRecordsWithPreviousServerChangeToken_recordsAlreadyFetched_completionHandler___block_invoke_24;
+      v47 = &unk_1E7C37778;
+      v49 = *(a1 + 48);
+      v48 = v20;
+      v49[2](v49, v48, 0);
 
-      v32 = v50;
+      v31 = v49;
 LABEL_22:
 
 LABEL_25:
       goto LABEL_6;
     }
 
-    v22 = *(a1 + 32);
-    v41 = v10;
-    v40 = v21;
-    if (v22)
+    v21 = *(a1 + 32);
+    v40 = v10;
+    v39 = v20;
+    if (v21)
     {
-      v23 = *(v22 + 392);
-      v24 = *(v22 + 376);
-      v25 = v23;
-      v26 = [v24 zoneName];
-      [v25 softMaxRecordAgeWhenMigratingZoneName:v26];
-      v28 = v27;
+      v22 = *(v21 + 392);
+      v23 = *(v21 + 376);
+      v24 = v22;
+      v25 = [v23 zoneName];
+      [v24 softMaxRecordAgeWhenMigratingZoneName:v25];
+      v27 = v26;
 
-      if (v28 == 0.0)
+      if (v27 == 0.0)
       {
-        v31 = 0;
+        v30 = 0;
       }
 
       else
       {
-        v29 = [MEMORY[0x1E695DF00] date];
+        v28 = [MEMORY[0x1E695DF00] date];
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __97__FCCKDatabaseZoneMigrationOperation__shouldStopGatheringAfterFetchingRecords_cumulativeRecords___block_invoke;
-        v57 = &unk_1E7C40AC0;
-        *&v58 = v29;
-        *(&v58 + 1) = v28;
-        v30 = v29;
-        v31 = [v41 fc_containsObjectPassingTest:buf];
+        v56 = &unk_1E7C40AC0;
+        *&v57 = v28;
+        *(&v57 + 1) = v27;
+        v29 = v28;
+        v30 = [v40 fc_containsObjectPassingTest:buf];
       }
 
-      v33 = *(v22 + 392);
-      v34 = *(v22 + 376);
-      v35 = v33;
-      v36 = [v34 zoneName];
-      v37 = [v35 softMaxRecordCountWhenMigratingZoneName:v36];
+      v32 = *(v21 + 392);
+      v33 = *(v21 + 376);
+      v34 = v32;
+      v35 = [v33 zoneName];
+      v36 = [v34 softMaxRecordCountWhenMigratingZoneName:v35];
 
-      if (v37)
+      if (v36)
       {
-        v38 = v40;
-        v39 = ([v40 count] >= v37) | v31;
+        v37 = v39;
+        v38 = ([v39 count] >= v36) | v30;
 
-        if ((v39 & 1) == 0)
+        if ((v38 & 1) == 0)
         {
           goto LABEL_24;
         }
@@ -820,52 +812,51 @@ LABEL_25:
         goto LABEL_21;
       }
 
-      v38 = v40;
+      v37 = v39;
 
-      if (v31)
+      if (v30)
       {
 LABEL_21:
-        v42[0] = MEMORY[0x1E69E9820];
-        v42[1] = 3221225472;
-        v42[2] = __133__FCCKDatabaseZoneMigrationOperation__continueGatheringRecordsWithPreviousServerChangeToken_recordsAlreadyFetched_completionHandler___block_invoke_2_25;
-        v42[3] = &unk_1E7C38FF0;
-        v42[4] = *(a1 + 32);
-        v43 = v38;
-        v44 = *(a1 + 48);
-        __133__FCCKDatabaseZoneMigrationOperation__continueGatheringRecordsWithPreviousServerChangeToken_recordsAlreadyFetched_completionHandler___block_invoke_2_25(v42);
+        v41[0] = MEMORY[0x1E69E9820];
+        v41[1] = 3221225472;
+        v41[2] = __133__FCCKDatabaseZoneMigrationOperation__continueGatheringRecordsWithPreviousServerChangeToken_recordsAlreadyFetched_completionHandler___block_invoke_2_25;
+        v41[3] = &unk_1E7C38FF0;
+        v41[4] = *(a1 + 32);
+        v42 = v37;
+        v43 = *(a1 + 48);
+        __133__FCCKDatabaseZoneMigrationOperation__continueGatheringRecordsWithPreviousServerChangeToken_recordsAlreadyFetched_completionHandler___block_invoke_2_25(v41);
 
-        v32 = v43;
+        v31 = v42;
         goto LABEL_22;
       }
     }
 
     else
     {
-      v38 = v40;
+      v37 = v39;
     }
 
 LABEL_24:
-    [(FCCKDatabaseZoneMigrationOperation *)*(a1 + 32) _continueGatheringRecordsWithPreviousServerChangeToken:v11 recordsAlreadyFetched:v38 completionHandler:*(a1 + 48)];
+    [(FCCKDatabaseZoneMigrationOperation *)*(a1 + 32) _continueGatheringRecordsWithPreviousServerChangeToken:v11 recordsAlreadyFetched:v37 completionHandler:*(a1 + 48)];
     goto LABEL_25;
   }
 
-  v54[0] = MEMORY[0x1E69E9820];
-  v54[1] = 3221225472;
-  v54[2] = __133__FCCKDatabaseZoneMigrationOperation__continueGatheringRecordsWithPreviousServerChangeToken_recordsAlreadyFetched_completionHandler___block_invoke_2;
-  v54[3] = &unk_1E7C37BC0;
-  v54[4] = *(a1 + 32);
-  v55 = *(a1 + 48);
-  __133__FCCKDatabaseZoneMigrationOperation__continueGatheringRecordsWithPreviousServerChangeToken_recordsAlreadyFetched_completionHandler___block_invoke_2(v54);
-  v13 = v55;
+  v53[0] = MEMORY[0x1E69E9820];
+  v53[1] = 3221225472;
+  v53[2] = __133__FCCKDatabaseZoneMigrationOperation__continueGatheringRecordsWithPreviousServerChangeToken_recordsAlreadyFetched_completionHandler___block_invoke_2;
+  v53[3] = &unk_1E7C37BC0;
+  v53[4] = *(a1 + 32);
+  v54 = *(a1 + 48);
+  __133__FCCKDatabaseZoneMigrationOperation__continueGatheringRecordsWithPreviousServerChangeToken_recordsAlreadyFetched_completionHandler___block_invoke_2(v53);
+  v13 = v54;
 LABEL_5:
 
 LABEL_6:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __133__FCCKDatabaseZoneMigrationOperation__continueGatheringRecordsWithPreviousServerChangeToken_recordsAlreadyFetched_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = FCPrivateDataEncryptionLog;
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -878,44 +869,39 @@ uint64_t __133__FCCKDatabaseZoneMigrationOperation__continueGatheringRecordsWith
 
     v5 = v4;
     v6 = [v5 zoneName];
-    v9 = 138543618;
-    v10 = v3;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ fetch-changes returned empty because zone '%@' doesn't exist", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v3;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ fetch-changes returned empty because zone '%@' doesn't exist", &v8, 0x16u);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 uint64_t __133__FCCKDatabaseZoneMigrationOperation__continueGatheringRecordsWithPreviousServerChangeToken_recordsAlreadyFetched_completionHandler___block_invoke_16(void *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = FCPrivateDataEncryptionLog;
   if (os_log_type_enabled(FCPrivateDataEncryptionLog, OS_LOG_TYPE_ERROR))
   {
-    v6 = a1[4];
-    v7 = v2;
-    v8 = [v6 shortOperationDescription];
-    v9 = a1[5];
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2112;
-    v13 = v9;
-    _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "%{public}@ fetch-changes failed with error %@", &v10, 0x16u);
+    v4 = a1[4];
+    v5 = v2;
+    v6 = [v4 shortOperationDescription];
+    v7 = a1[5];
+    v8 = 138543618;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
+    _os_log_error_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_ERROR, "%{public}@ fetch-changes failed with error %@", &v8, 0x16u);
   }
 
-  v3 = a1[5];
-  result = (*(a1[6] + 16))();
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 uint64_t __133__FCCKDatabaseZoneMigrationOperation__continueGatheringRecordsWithPreviousServerChangeToken_recordsAlreadyFetched_completionHandler___block_invoke_2_25(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = FCPrivateDataEncryptionLog;
   if (os_log_type_enabled(FCPrivateDataEncryptionLog, OS_LOG_TYPE_DEFAULT))
   {
@@ -923,17 +909,14 @@ uint64_t __133__FCCKDatabaseZoneMigrationOperation__continueGatheringRecordsWith
     v4 = v2;
     v5 = [v3 shortOperationDescription];
     v6 = [*(a1 + 40) count];
-    v10 = 138543618;
-    v11 = v5;
-    v12 = 2048;
-    v13 = v6;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ fetch-changes is stopping early with %lu records because we've reached our soft limits", &v10, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2048;
+    v11 = v6;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ fetch-changes is stopping early with %lu records because we've reached our soft limits", &v8, 0x16u);
   }
 
-  v7 = *(a1 + 40);
-  result = (*(*(a1 + 48) + 16))();
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 BOOL __97__FCCKDatabaseZoneMigrationOperation__shouldStopGatheringAfterFetchingRecords_cumulativeRecords___block_invoke(uint64_t a1, void *a2)
@@ -948,7 +931,7 @@ BOOL __97__FCCKDatabaseZoneMigrationOperation__shouldStopGatheringAfterFetchingR
 
 void __74__FCCKDatabaseZoneMigrationOperation__migrateRecordIDs_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -957,14 +940,14 @@ void __74__FCCKDatabaseZoneMigrationOperation__migrateRecordIDs_completionHandle
     v16 = FCPrivateDataEncryptionLog;
     if (os_log_type_enabled(FCPrivateDataEncryptionLog, OS_LOG_TYPE_ERROR))
     {
-      v18 = *(a1 + 32);
-      v19 = v16;
-      v20 = [v18 shortOperationDescription];
-      v21 = 138543618;
-      v22 = v20;
-      v23 = 2112;
-      v24 = v7;
-      _os_log_error_impl(&dword_1B63EF000, v19, OS_LOG_TYPE_ERROR, "%{public}@ fetch failed with error %@", &v21, 0x16u);
+      v17 = *(a1 + 32);
+      v18 = v16;
+      v19 = [v17 shortOperationDescription];
+      v20 = 138543618;
+      v21 = v19;
+      v22 = 2112;
+      v23 = v7;
+      _os_log_error_impl(&dword_1B63EF000, v18, OS_LOG_TYPE_ERROR, "%{public}@ fetch failed with error %@", &v20, 0x16u);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -980,21 +963,19 @@ void __74__FCCKDatabaseZoneMigrationOperation__migrateRecordIDs_completionHandle
       v11 = [v9 shortOperationDescription];
       v12 = [v5 count];
       v13 = [*(a1 + 40) count];
-      v21 = 138543874;
-      v22 = v11;
-      v23 = 2048;
-      v24 = v12;
-      v25 = 2048;
-      v26 = v13;
-      _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ fetch returned %lu of %lu records", &v21, 0x20u);
+      v20 = 138543874;
+      v21 = v11;
+      v22 = 2048;
+      v23 = v12;
+      v24 = 2048;
+      v25 = v13;
+      _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ fetch returned %lu of %lu records", &v20, 0x20u);
     }
 
     v14 = *(a1 + 32);
     v15 = [v5 allValues];
     [(FCCKDatabaseZoneMigrationOperation *)v14 _migrateAndUpdateRecords:v15 completion:*(a1 + 48)];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __52__FCCKDatabaseZoneMigrationOperation__pruneRecords___block_invoke(uint64_t a1, uint64_t a2)
@@ -1020,7 +1001,7 @@ uint64_t __52__FCCKDatabaseZoneMigrationOperation__pruneRecords___block_invoke(u
 
 void __74__FCCKDatabaseZoneMigrationOperation__migrateAndUpdateRecords_completion___block_invoke_32(uint64_t a1, void *a2, void *a3)
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = FCPrivateDataEncryptionLog;
@@ -1031,11 +1012,11 @@ void __74__FCCKDatabaseZoneMigrationOperation__migrateAndUpdateRecords_completio
     v10 = [v8 shortOperationDescription];
     v11 = [*(a1 + 40) count];
     *buf = 138543874;
-    v53 = v10;
-    v54 = 2048;
-    v55 = v11;
-    v56 = 2048;
-    v57 = [v5 count];
+    v52 = v10;
+    v53 = 2048;
+    v54 = v11;
+    v55 = 2048;
+    v56 = [v5 count];
     _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ migration of %lu records produced %lu records to save", buf, 0x20u);
   }
 
@@ -1046,36 +1027,36 @@ void __74__FCCKDatabaseZoneMigrationOperation__migrateAndUpdateRecords_completio
 
   else
   {
-    v42 = v5;
+    v41 = v5;
     v12 = *(a1 + 32);
     v13 = v5;
-    v40 = v13;
+    v39 = v13;
     if (v12)
     {
       v14 = v13;
       v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
       v16 = *(v12 + 408);
+      v47 = 0u;
       v48 = 0u;
       v49 = 0u;
       v50 = 0u;
-      v51 = 0u;
       v17 = v14;
-      v18 = [v17 countByEnumeratingWithState:&v48 objects:buf count:16];
+      v18 = [v17 countByEnumeratingWithState:&v47 objects:buf count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v49;
+        v20 = *v48;
         v21 = *MEMORY[0x1E695B800];
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v49 != v20)
+            if (*v48 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            v23 = [*(*(&v48 + 1) + 8 * i) recordID];
+            v23 = [*(*(&v47 + 1) + 8 * i) recordID];
             v24 = [v23 zoneID];
 
             v25 = [v24 zoneName];
@@ -1086,7 +1067,7 @@ void __74__FCCKDatabaseZoneMigrationOperation__migrateAndUpdateRecords_completio
             }
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v48 objects:buf count:16];
+          v19 = [v17 countByEnumeratingWithState:&v47 objects:buf count:16];
         }
 
         while (v19);
@@ -1103,44 +1084,44 @@ void __74__FCCKDatabaseZoneMigrationOperation__migrateAndUpdateRecords_completio
     v6 = 0;
     if (v26)
     {
-      v43[0] = MEMORY[0x1E69E9820];
-      v43[1] = 3221225472;
-      v43[2] = __74__FCCKDatabaseZoneMigrationOperation__migrateAndUpdateRecords_completion___block_invoke_33;
-      v43[3] = &unk_1E7C40A48;
-      v43[4] = v27;
-      v44 = v40;
-      v45 = *(a1 + 48);
+      v42[0] = MEMORY[0x1E69E9820];
+      v42[1] = 3221225472;
+      v42[2] = __74__FCCKDatabaseZoneMigrationOperation__migrateAndUpdateRecords_completion___block_invoke_33;
+      v42[3] = &unk_1E7C40A48;
+      v42[4] = v27;
+      v43 = v39;
+      v44 = *(a1 + 48);
       v28 = v15;
-      v29 = v43;
+      v29 = v42;
       v30 = v29;
       if (v27)
       {
-        v41 = v29;
+        v40 = v29;
         v31 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v28, "count")}];
+        v47 = 0u;
         v48 = 0u;
         v49 = 0u;
         v50 = 0u;
-        v51 = 0u;
         v32 = v28;
-        v33 = [v32 countByEnumeratingWithState:&v48 objects:buf count:16];
+        v33 = [v32 countByEnumeratingWithState:&v47 objects:buf count:16];
         if (v33)
         {
           v34 = v33;
-          v35 = *v49;
+          v35 = *v48;
           do
           {
             for (j = 0; j != v34; ++j)
             {
-              if (*v49 != v35)
+              if (*v48 != v35)
               {
                 objc_enumerationMutation(v32);
               }
 
-              v37 = [objc_alloc(MEMORY[0x1E695BA80]) initWithZoneID:*(*(&v48 + 1) + 8 * j)];
+              v37 = [objc_alloc(MEMORY[0x1E695BA80]) initWithZoneID:*(*(&v47 + 1) + 8 * j)];
               [v31 addObject:v37];
             }
 
-            v34 = [v32 countByEnumeratingWithState:&v48 objects:buf count:16];
+            v34 = [v32 countByEnumeratingWithState:&v47 objects:buf count:16];
           }
 
           while (v34);
@@ -1150,13 +1131,13 @@ void __74__FCCKDatabaseZoneMigrationOperation__migrateAndUpdateRecords_completio
         [(FCCKPrivateSaveRecordZonesOperation *)v38 setRecordZonesToSave:v31];
         [(FCCKPrivateDatabaseOperation *)v38 setSkipPreflight:1];
         [(FCCKPrivateDatabaseOperation *)v38 setIdentityLossResponse:2];
-        v46[0] = MEMORY[0x1E69E9820];
-        v46[1] = 3221225472;
-        v46[2] = __62__FCCKDatabaseZoneMigrationOperation__createZones_completion___block_invoke;
-        v46[3] = &unk_1E7C40AE8;
-        v30 = v41;
-        v47 = v41;
-        [(FCCKPrivateSaveRecordZonesOperation *)v38 setSaveRecordZonesCompletionBlock:v46];
+        v45[0] = MEMORY[0x1E69E9820];
+        v45[1] = 3221225472;
+        v45[2] = __62__FCCKDatabaseZoneMigrationOperation__createZones_completion___block_invoke;
+        v45[3] = &unk_1E7C40AE8;
+        v30 = v40;
+        v46 = v40;
+        [(FCCKPrivateSaveRecordZonesOperation *)v38 setSaveRecordZonesCompletionBlock:v45];
         [v27 associateChildOperation:v38];
         [(FCCKPrivateDatabase *)v27[46] addOperation:v38];
       }
@@ -1166,31 +1147,29 @@ void __74__FCCKDatabaseZoneMigrationOperation__migrateAndUpdateRecords_completio
 
     else
     {
-      [(FCCKDatabaseZoneMigrationOperation *)*(a1 + 32) _saveMigratedRecords:v40 completion:*(a1 + 48)];
+      [(FCCKDatabaseZoneMigrationOperation *)*(a1 + 32) _saveMigratedRecords:v39 completion:*(a1 + 48)];
     }
 
-    v5 = v42;
+    v5 = v41;
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
-void __74__FCCKDatabaseZoneMigrationOperation__migrateAndUpdateRecords_completion___block_invoke_33(uint64_t a1, uint64_t a2)
+void __74__FCCKDatabaseZoneMigrationOperation__migrateAndUpdateRecords_completion___block_invoke_33(void *a1, uint64_t a2)
 {
   if (a2)
   {
-    (*(*(a1 + 48) + 16))();
+    (*(a1[6] + 16))();
   }
 
   else
   {
-    [(FCCKDatabaseZoneMigrationOperation *)*(a1 + 32) _saveMigratedRecords:*(a1 + 48) completion:?];
+    [(FCCKDatabaseZoneMigrationOperation *)a1[4] _saveMigratedRecords:a1[6] completion:?];
   }
 }
 
 - (void)_saveMigratedRecords:(void *)records completion:
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a2;
   recordsCopy = records;
   if (self)
@@ -1203,9 +1182,9 @@ void __74__FCCKDatabaseZoneMigrationOperation__migrateAndUpdateRecords_completio
         v8 = v7;
         shortOperationDescription = [self shortOperationDescription];
         *buf = 138543618;
-        v25 = shortOperationDescription;
-        v26 = 2048;
-        v27 = [v5 count];
+        v24 = shortOperationDescription;
+        v25 = 2048;
+        v26 = [v5 count];
         _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ attempting to write %lu records", buf, 0x16u);
       }
 
@@ -1215,36 +1194,34 @@ void __74__FCCKDatabaseZoneMigrationOperation__migrateAndUpdateRecords_completio
       [(FCCKPrivateBatchedSaveRecordsOperation *)v10 setSavePolicy:0];
       [(FCCKPrivateBatchedSaveRecordsOperation *)v10 setSkipPreflight:1];
       [(FCCKPrivateBatchedSaveRecordsOperation *)v10 setIdentityLossResponse:2];
-      v12 = MEMORY[0x1E69E9820];
-      v13 = 3221225472;
-      v14 = __70__FCCKDatabaseZoneMigrationOperation__saveMigratedRecords_completion___block_invoke_35;
-      v15 = &unk_1E7C3FEB8;
+      v11 = MEMORY[0x1E69E9820];
+      v12 = 3221225472;
+      v13 = __70__FCCKDatabaseZoneMigrationOperation__saveMigratedRecords_completion___block_invoke_35;
+      v14 = &unk_1E7C3FEB8;
       selfCopy = self;
-      v17 = v5;
-      v18 = recordsCopy;
-      [(FCCKPrivateBatchedSaveRecordsOperation *)v10 setSaveRecordsCompletionBlock:&v12];
-      [self associateChildOperation:{v10, v12, v13, v14, v15, selfCopy}];
+      v16 = v5;
+      v17 = recordsCopy;
+      [(FCCKPrivateBatchedSaveRecordsOperation *)v10 setSaveRecordsCompletionBlock:&v11];
+      [self associateChildOperation:{v10, v11, v12, v13, v14, selfCopy}];
       [(FCOperation *)v10 start];
     }
 
     else
     {
-      v19 = MEMORY[0x1E69E9820];
-      v20 = 3221225472;
-      v21 = __70__FCCKDatabaseZoneMigrationOperation__saveMigratedRecords_completion___block_invoke;
-      v22 = &unk_1E7C379C8;
-      v23 = recordsCopy;
-      (v23->super.super._iop.__nextOp)(v23, 0);
-      v10 = v23;
+      v18 = MEMORY[0x1E69E9820];
+      v19 = 3221225472;
+      v20 = __70__FCCKDatabaseZoneMigrationOperation__saveMigratedRecords_completion___block_invoke;
+      v21 = &unk_1E7C379C8;
+      v22 = recordsCopy;
+      (v22->super.super._iop.__nextOp)(v22, 0);
+      v10 = v22;
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __70__FCCKDatabaseZoneMigrationOperation__saveMigratedRecords_completion___block_invoke_35(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -1253,14 +1230,14 @@ void __70__FCCKDatabaseZoneMigrationOperation__saveMigratedRecords_completion___
     v15 = FCPrivateDataEncryptionLog;
     if (os_log_type_enabled(FCPrivateDataEncryptionLog, OS_LOG_TYPE_ERROR))
     {
-      v17 = *(a1 + 32);
-      v18 = v15;
-      v19 = [v17 shortOperationDescription];
-      v20 = 138543618;
-      v21 = v19;
-      v22 = 2112;
-      v23 = v7;
-      _os_log_error_impl(&dword_1B63EF000, v18, OS_LOG_TYPE_ERROR, "%{public}@ save failed with error %@", &v20, 0x16u);
+      v16 = *(a1 + 32);
+      v17 = v15;
+      v18 = [v16 shortOperationDescription];
+      v19 = 138543618;
+      v20 = v18;
+      v21 = 2112;
+      v22 = v7;
+      _os_log_error_impl(&dword_1B63EF000, v17, OS_LOG_TYPE_ERROR, "%{public}@ save failed with error %@", &v19, 0x16u);
     }
 
     v14 = *(*(a1 + 48) + 16);
@@ -1276,21 +1253,19 @@ void __70__FCCKDatabaseZoneMigrationOperation__saveMigratedRecords_completion___
       v11 = [v9 shortOperationDescription];
       v12 = [v5 count];
       v13 = [*(a1 + 40) count];
-      v20 = 138543874;
-      v21 = v11;
-      v22 = 2048;
-      v23 = v12;
-      v24 = 2048;
-      v25 = v13;
-      _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ successfully wrote %lu of %lu records", &v20, 0x20u);
+      v19 = 138543874;
+      v20 = v11;
+      v21 = 2048;
+      v22 = v12;
+      v23 = 2048;
+      v24 = v13;
+      _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ successfully wrote %lu of %lu records", &v19, 0x20u);
     }
 
     v14 = *(*(a1 + 48) + 16);
   }
 
   v14();
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDatabase:(uint64_t)database

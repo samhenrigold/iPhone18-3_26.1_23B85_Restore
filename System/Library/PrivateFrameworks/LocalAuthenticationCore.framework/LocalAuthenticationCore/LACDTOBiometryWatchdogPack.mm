@@ -135,22 +135,20 @@ LABEL_12:
 
 - (id)description
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = MEMORY[0x1E696AEC0];
   biometryWatchdogGlobal = [(LACDTOBiometryWatchdogPack *)self biometryWatchdogGlobal];
   v7 = [v5 stringWithFormat:@"biometryWatchdogGlobal: %@", biometryWatchdogGlobal];
-  v16[0] = v7;
+  v15[0] = v7;
   v8 = MEMORY[0x1E696AEC0];
   biometryWatchdogDTO = [(LACDTOBiometryWatchdogPack *)self biometryWatchdogDTO];
   v10 = [v8 stringWithFormat:@"biometryWatchdogDTO: %@", biometryWatchdogDTO];
-  v16[1] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+  v15[1] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
   v12 = [v11 componentsJoinedByString:@" "];;
   v13 = [v3 stringWithFormat:@"<%@ %p %@>", v4, self, v12];;
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

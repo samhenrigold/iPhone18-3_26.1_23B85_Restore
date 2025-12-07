@@ -13,7 +13,7 @@
   if (v5)
   {
     v6 = swift_allocObject();
-    *(v6 + 16) = v5;
+    v6[2] = v5;
     v5 = sub_1BD1B6FEC;
   }
 
@@ -35,7 +35,7 @@
 - (void)loadView
 {
   selfCopy = self;
-  sub_1BD1A5D34();
+  sub_1BD1A5D34(selfCopy);
 }
 
 - (_PKAccountSavingsDetailsViewController)initWithNibName:(id)name bundle:(id)bundle

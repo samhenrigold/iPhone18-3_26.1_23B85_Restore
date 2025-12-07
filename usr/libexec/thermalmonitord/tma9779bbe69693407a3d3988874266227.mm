@@ -118,7 +118,7 @@
   v27 = [(CommonProduct *)self findComponent:20];
   *&v28 = v25;
   [v27 calculateControlEffort:v28];
-  v29 = SHIDWORD(qword_1000AB904);
+  v29 = xmmword_1000AB908;
   v30 = [(CommonProduct *)self findComponent:21];
   v31 = v29 / 100.0;
   *&v32 = v31;
@@ -126,7 +126,7 @@
   v33 = [(CommonProduct *)self findComponent:23];
   *&v34 = v31;
   [v33 calculateControlEffort:v34];
-  v35 = dword_1000AB914;
+  v35 = SHIDWORD(xmmword_1000AB908);
   v36 = [(CommonProduct *)self findComponent:22];
   *&v37 = v35 / 100.0;
   [v36 calculateControlEffort:v37];

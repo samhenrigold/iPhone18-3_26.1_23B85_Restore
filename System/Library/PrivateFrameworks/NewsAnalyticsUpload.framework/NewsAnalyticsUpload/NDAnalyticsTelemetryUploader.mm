@@ -25,7 +25,7 @@
 
   selfCopy = self;
   TelemetryUploader.uploadEnvelopes(_:completion:)(v6, v8, v7);
-  sub_25BE10744(v8);
+  sub_25BE10744(v8, v7);
 }
 
 - (NDAnalyticsTelemetryUploader)init

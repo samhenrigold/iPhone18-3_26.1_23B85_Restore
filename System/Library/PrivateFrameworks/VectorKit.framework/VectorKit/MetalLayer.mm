@@ -185,7 +185,7 @@ LABEL_9:
 {
   [(MetalLayer *)self contentsScale];
   v4 = v3;
-  [(MetalLayer *)self bounds];
+  objc_msgSend_bounds(self);
   v6 = (v5 * v4);
   v8 = (v7 * v4);
   p_texture = &self->_texture;

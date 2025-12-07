@@ -127,21 +127,21 @@ void __43__SmartPLMemoryTracking_startWithOperator___block_invoke(uint64_t a1, v
   }
 }
 
-uint64_t __46__SmartPLMemoryTracking_handleMemoryTracking___block_invoke(uint64_t a1)
+void *__46__SmartPLMemoryTracking_handleMemoryTracking___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] doubleForKey:*(a1 + 32) ifNotSet:*(a1 + 40)];
   handleMemoryTracking__objectForKey = v2;
   return result;
 }
 
-uint64_t __46__SmartPLMemoryTracking_handleMemoryTracking___block_invoke_2(uint64_t a1)
+void *__46__SmartPLMemoryTracking_handleMemoryTracking___block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] doubleForKey:*(a1 + 32) ifNotSet:*(a1 + 40)];
   handleMemoryTracking__objectForKey_35 = v2;
   return result;
 }
 
-uint64_t __46__SmartPLMemoryTracking_handleMemoryTracking___block_invoke_3(uint64_t a1)
+void *__46__SmartPLMemoryTracking_handleMemoryTracking___block_invoke_3(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] doubleForKey:*(a1 + 32) ifNotSet:*(a1 + 40)];
   handleMemoryTracking__objectForKey_37 = v2;

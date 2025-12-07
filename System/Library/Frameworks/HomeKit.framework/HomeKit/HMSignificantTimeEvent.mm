@@ -120,29 +120,29 @@
 
 - (void)updateOffset:(id)offset completionHandler:(id)handler
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   offsetCopy = offset;
   handlerCopy = handler;
   context = [(HMEvent *)self context];
   if (!handlerCopy)
   {
-    v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMSignificantTimeEvent updateOffset:completionHandler:]", @"completion"];
-    v27 = objc_autoreleasePoolPush();
+    v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMSignificantTimeEvent updateOffset:completionHandler:]", @"completion"];
+    v26 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v29 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v28 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      v30 = HMFGetLogIdentifier();
+      v29 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v35 = v30;
-      v36 = 2112;
-      v37 = v26;
-      _os_log_impl(&dword_19BB39000, v29, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v34 = v29;
+      v35 = 2112;
+      v36 = v25;
+      _os_log_impl(&dword_19BB39000, v28, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v27);
-    v31 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v26 userInfo:0];
-    objc_exception_throw(v31);
+    objc_autoreleasePoolPop(v26);
+    v30 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v25 userInfo:0];
+    objc_exception_throw(v30);
   }
 
   v9 = context;
@@ -160,9 +160,9 @@
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v35 = v15;
-        v36 = 2112;
-        v37 = offsetCopy;
+        v34 = v15;
+        v35 = 2112;
+        v36 = offsetCopy;
         _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_INFO, "%{public}@Offset is already %@", buf, 0x16u);
       }
 
@@ -177,9 +177,9 @@
       if (v21)
       {
         delegateCaller = v21;
-        v32 = @"kSignificantTimeEventOffset";
-        v33 = v21;
-        v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+        v31 = @"kSignificantTimeEventOffset";
+        v32 = v21;
+        v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
         [(HMEvent *)self _updateEventWithPayload:v22 completionHandler:handlerCopy];
       }
 
@@ -203,9 +203,9 @@
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v35 = v20;
-      v36 = 2080;
-      v37 = "[HMSignificantTimeEvent updateOffset:completionHandler:]";
+      v34 = v20;
+      v35 = 2080;
+      v36 = "[HMSignificantTimeEvent updateOffset:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -213,35 +213,33 @@
     delegateCaller = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     handlerCopy[2](handlerCopy, delegateCaller);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateSignificantEvent:(id)event completionHandler:(id)handler
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   handlerCopy = handler;
   context = [(HMEvent *)self context];
   if (!handlerCopy)
   {
-    v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMSignificantTimeEvent updateSignificantEvent:completionHandler:]", @"completion"];
-    v23 = objc_autoreleasePoolPush();
+    v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMSignificantTimeEvent updateSignificantEvent:completionHandler:]", @"completion"];
+    v22 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v25 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v24 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v26 = HMFGetLogIdentifier();
+      v25 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v31 = v26;
-      v32 = 2112;
-      v33 = v22;
-      _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v30 = v25;
+      v31 = 2112;
+      v32 = v21;
+      _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v23);
-    v27 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v22 userInfo:0];
-    objc_exception_throw(v27);
+    objc_autoreleasePoolPop(v22);
+    v26 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v21 userInfo:0];
+    objc_exception_throw(v26);
   }
 
   v9 = context;
@@ -259,9 +257,9 @@
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v31 = v15;
-        v32 = 2112;
-        v33 = eventCopy;
+        v30 = v15;
+        v31 = 2112;
+        v32 = eventCopy;
         _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_INFO, "%{public}@Significant event is already %@", buf, 0x16u);
       }
 
@@ -272,9 +270,9 @@
 
     else
     {
-      v28 = @"kSignificantTimeEventSignificantEvent";
-      v29 = eventCopy;
-      delegateCaller = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+      v27 = @"kSignificantTimeEventSignificantEvent";
+      v28 = eventCopy;
+      delegateCaller = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
       [(HMEvent *)self _updateEventWithPayload:delegateCaller completionHandler:handlerCopy];
     }
   }
@@ -288,9 +286,9 @@
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v31 = v20;
-      v32 = 2080;
-      v33 = "[HMSignificantTimeEvent updateSignificantEvent:completionHandler:]";
+      v30 = v20;
+      v31 = 2080;
+      v32 = "[HMSignificantTimeEvent updateSignificantEvent:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -298,8 +296,6 @@
     delegateCaller = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     handlerCopy[2](handlerCopy, delegateCaller);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateFromDictionary:(id)dictionary
@@ -402,17 +398,16 @@
 
 - (HMSignificantTimeEvent)initWithSignificantEvent:(HMSignificantEvent)significantEvent offset:(NSDateComponents *)offset
 {
-  v15[1] = *MEMORY[0x1E69E9840];
-  v14 = @"kEventUUIDKey";
+  v14[1] = *MEMORY[0x1E69E9840];
+  v13 = @"kEventUUIDKey";
   v6 = MEMORY[0x1E696AFB0];
   v7 = offset;
   v8 = significantEvent;
   uUID = [v6 UUID];
-  v15[0] = uUID;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v14[0] = uUID;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   v11 = [(HMSignificantTimeEvent *)self initWithDict:v10 significantEvent:v8 offset:v7];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

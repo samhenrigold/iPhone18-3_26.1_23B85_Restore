@@ -1,380 +1,3 @@
-void SEUpdater::CommandGetLogStatus::~CommandGetLogStatus(SEUpdater::CommandGetLogStatus *this)
-{
-  *this = &unk_2A2026DD8;
-  v1 = *(this + 2);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-{
-  *this = &unk_2A2026DD8;
-  v1 = *(this + 2);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x29C2B5F30);
-}
-
-unint64_t SERestoreInfo::RApdu::getDataSize(SERestoreInfo::RApdu *this)
-{
-  v1 = *(*(this + 1) + 8) - **(this + 1);
-  if (v1 <= 1)
-  {
-    __assert_rtn("getDataSize", "Apdu.hpp", 383, "len >= 2");
-  }
-
-  return v1 - 2;
-}
-
-void SEUpdater::CommandMarkForDeleteAll::~CommandMarkForDeleteAll(SEUpdater::CommandMarkForDeleteAll *this)
-{
-  *this = &unk_2A2026DD8;
-  v1 = *(this + 2);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-{
-  *this = &unk_2A2026DD8;
-  v1 = *(this + 2);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x29C2B5F30);
-}
-
-void SEUpdater::CommandSelectSeshat::~CommandSelectSeshat(SEUpdater::CommandSelectSeshat *this)
-{
-  *this = &unk_2A2026DD8;
-  v1 = *(this + 2);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-{
-  *this = &unk_2A2026DD8;
-  v1 = *(this + 2);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x29C2B5F30);
-}
-
-void SEUpdater::CommandSeshatKillAllSlots::~CommandSeshatKillAllSlots(SEUpdater::CommandSeshatKillAllSlots *this)
-{
-  *this = &unk_2A2026DD8;
-  v1 = *(this + 2);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-{
-  *this = &unk_2A2026DD8;
-  v1 = *(this + 2);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x29C2B5F30);
-}
-
-void sub_299EFB514(_Unwind_Exception *a1)
-{
-  pthread_mutex_unlock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-  *(v1 - 64) = &unk_2A2026DD8;
-  v3 = *(v1 - 48);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void SEUpdater::CommandCRSDeactivateAll::~CommandCRSDeactivateAll(SEUpdater::CommandCRSDeactivateAll *this)
-{
-  *this = &unk_2A2026DD8;
-  v1 = *(this + 2);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-{
-  *this = &unk_2A2026DD8;
-  v1 = *(this + 2);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x29C2B5F30);
-}
-
-const void **ctu::cf::CFSharedRef<__CFString const>::~CFSharedRef(const void **a1)
-{
-  v2 = *a1;
-  if (v2)
-  {
-    CFRelease(v2);
-  }
-
-  return a1;
-}
-
-void SEUpdater::CommandCRSGetDataPersoState::~CommandCRSGetDataPersoState(SEUpdater::CommandCRSGetDataPersoState *this)
-{
-  *this = &unk_2A2026DD8;
-  v1 = *(this + 2);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-{
-  *this = &unk_2A2026DD8;
-  v1 = *(this + 2);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x29C2B5F30);
-}
-
-void SEUpdater::P73BaseUpdateController::localSign(SEUpdater::P73BaseUpdateController *this)
-{
-  v74 = *MEMORY[0x29EDCA608];
-  Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-  v43[4] = Mutable;
-  if (!Mutable)
-  {
-    exception = __cxa_allocate_exception(0x48uLL);
-    std::string::basic_string[abi:ne200100]<0>(&valuePtr, "Fail to create dictionary for request");
-    v33 = SERestoreInfo::SEException::SEException(exception, &valuePtr, 3, @"SEUpdaterErrorDomain");
-  }
-
-  v3 = Mutable;
-  v4 = (*(**(this + 16) + 32))(*(this + 16));
-  v5 = kSETagRequestTicket;
-  if (v4 <= 199)
-  {
-    if (v4 != 100 && v4 != 115)
-    {
-LABEL_11:
-      v5 = kSETagRequestTicketEC384;
-    }
-  }
-
-  else if (v4 != 200 && v4 != 210 && v4 != 131601)
-  {
-    goto LABEL_11;
-  }
-
-  CFDictionaryAddValue(v3, *v5, *MEMORY[0x29EDB8F00]);
-  LODWORD(valuePtr) = *(*(this + 16) + 56);
-  v7 = CFNumberCreate(*MEMORY[0x29EDB8ED8], kCFNumberSInt32Type, &valuePtr);
-  if (v7)
-  {
-    CFDictionarySetValue(v3, @"SE,ChipID", v7);
-    CFRelease(v7);
-    v8 = CFDataCreate(0, *(*(this + 16) + 32), *(*(this + 16) + 40) - *(*(this + 16) + 32));
-    if (v8)
-    {
-      CFDictionarySetValue(v3, @"SE,ID", v8);
-      CFRelease(v8);
-      v9 = CFDataCreate(0, *(*(this + 16) + 64), *(*(this + 16) + 72) - *(*(this + 16) + 64));
-      if (v9)
-      {
-        CFDictionarySetValue(v3, @"SE,Nonce", v9);
-        CFRelease(v9);
-        v10 = CFDataCreate(0, *(*(this + 16) + 88), *(*(this + 16) + 96) - *(*(this + 16) + 88));
-        if (v10)
-        {
-          CFDictionarySetValue(v3, @"SE,RootKeyIdentifier", v10);
-          CFRelease(v10);
-          v11 = CFDictionaryCreateMutable(0, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-          v43[3] = v11;
-          if (!v11)
-          {
-            v34 = __cxa_allocate_exception(0x48uLL);
-            std::string::basic_string[abi:ne200100]<0>(&valuePtr, "Fail to create dictionary for request image properties");
-            v35 = SERestoreInfo::SEException::SEException(v34, &valuePtr, 3, @"SEUpdaterErrorDomain");
-          }
-
-          CFDictionarySetValue(v3, @"SE,UpdatePayload", v11);
-          v12 = *(this + 18);
-          v13 = ccsha256_di();
-          if (*v13)
-          {
-            if ((*v13 & 0x8000000000000000) == 0)
-            {
-              v14 = *v13;
-              operator new();
-            }
-
-            std::vector<SEUpdater::PackageInfo>::__throw_length_error[abi:ne200100]();
-          }
-
-          v16 = *(v12 + 40);
-          v15 = *(v12 + 48);
-          ccdigest();
-          v17 = CFDataCreate(0, 0, 0);
-          v43[2] = v17;
-          if (!v17)
-          {
-            v36 = __cxa_allocate_exception(0x48uLL);
-            std::string::basic_string[abi:ne200100]<0>(&valuePtr, "Fail to create data for SEDH in request");
-            v37 = SERestoreInfo::SEException::SEException(v36, &valuePtr, 3, @"SEUpdaterErrorDomain");
-          }
-
-          CFDictionarySetValue(v11, @"DevelopmentUpdatePayloadHash", v17);
-          ctu::cf::CFSharedRef<__CFDictionary const>::CFSharedRef(&theDict, this + 9);
-          v18 = (*(**(this + 16) + 32))(*(this + 16));
-          v21 = kSETagResponseTicket;
-          if (v18 <= 199)
-          {
-            if (v18 != 100 && v18 != 115)
-            {
-              goto LABEL_28;
-            }
-          }
-
-          else if (v18 != 200 && v18 != 210 && v18 != 131601)
-          {
-LABEL_28:
-            v21 = kSETagResponseTicketEC384;
-          }
-
-          SEUpdaterUtil::getDataFromDict<SERestoreInfo::BLOB>(v43, theDict, *v21, v19, v20);
-          ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(&theDict);
-          if (v43[0])
-          {
-            v73 = 0;
-            v71 = 0u;
-            v72 = 0u;
-            v69 = 0u;
-            v70 = 0u;
-            v67 = 0u;
-            v68 = 0u;
-            v65 = 0u;
-            v66 = 0u;
-            v63 = 0u;
-            v64 = 0u;
-            v61 = 0u;
-            v62 = 0u;
-            v59 = 0u;
-            v60 = 0u;
-            v57 = 0u;
-            v58 = 0u;
-            v55 = 0u;
-            v56 = 0u;
-            v53 = 0u;
-            v54 = 0u;
-            v51 = 0u;
-            v52 = 0u;
-            v49 = 0u;
-            v50 = 0u;
-            v47 = 0u;
-            v48 = 0u;
-            valuePtr = 0u;
-            v46 = 0u;
-            v22 = *(v43[0] + 8);
-            v23 = *(v43[0] + 16);
-            if (!Img4DecodeInitManifest())
-            {
-              SEUpdater::getOBJPOctetString(&value);
-              v24 = value.__r_.__value_.__r.__words[0];
-              if (value.__r_.__value_.__r.__words[0])
-              {
-                v25 = CFDictionaryCreateMutable(0, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-                v41 = v25;
-                CFDictionaryAddValue(v25, @"Digest", v24);
-                CFDictionaryAddValue(v3, @"SE,RapRTKitOS", v25);
-                if (v25)
-                {
-                  CFRelease(v25);
-                }
-              }
-
-              SEUpdater::getOBJPOctetString(&v41);
-              v26 = v41;
-              if (v41)
-              {
-                v27 = CFDictionaryCreateMutable(0, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-                CFDictionaryAddValue(v27, @"Digest", v26);
-                CFDictionaryAddValue(v3, @"SE,RapSwBinDsp", v27);
-                if (v27)
-                {
-                  CFRelease(v27);
-                }
-
-                CFRelease(v26);
-              }
-
-              if (v24)
-              {
-                CFRelease(v24);
-              }
-            }
-          }
-
-          v28 = *(*(this + 16) + 56);
-          if (v28 != 56)
-          {
-            if (v28 == 54)
-            {
-              operator new();
-            }
-
-            v38 = __cxa_allocate_exception(0x48uLL);
-            std::to_string(&value, v28);
-            v39 = std::string::insert(&value, 0, "Can't retrieve Image4 signer; unknown ChipID: ");
-            valuePtr = *&v39->__r_.__value_.__l.__data_;
-            *&v46 = *(&v39->__r_.__value_.__l + 2);
-            v39->__r_.__value_.__l.__size_ = 0;
-            v39->__r_.__value_.__r.__words[2] = 0;
-            v39->__r_.__value_.__r.__words[0] = 0;
-            v40 = SERestoreInfo::SEException::SEException(v38, &valuePtr, 30, @"SEUpdaterErrorDomain");
-          }
-
-          operator new();
-        }
-      }
-    }
-
-    v29 = "tmpData";
-    v30 = 59;
-    v31 = "_CFDictionarySetData";
-  }
-
-  else
-  {
-    v29 = "num != nullptr";
-    v30 = 42;
-    v31 = "_CFDictionarySetInteger32";
-  }
-
-  __assert_rtn(v31, "SERestoreInfoHelpers.hpp", v30, v29);
-}
-
 void sub_299EFBFD4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, int a11, __int16 a12, char a13, char a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, char a21, int a22, __int16 a23, char a24, char a25, int a26, __int16 a27, char a28, char a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, void *__p, uint64_t a37, int a38, __int16 a39, char a40, char a41)
 {
   if (a2)
@@ -406,7 +29,7 @@ uint64_t SEUpdater::getForceUpdateLoop(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(&__p, "forceUpdate");
   v9[0] = &__p;
-  v4 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, &__p);
+  v4 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, &__p, &std::piecewise_construct, v9);
   v5 = *(v4 + 79);
   if (v5 < 0)
   {
@@ -432,7 +55,7 @@ uint64_t SEUpdater::getForceUpdateLoop(uint64_t a1)
 LABEL_9:
   std::string::basic_string[abi:ne200100]<0>(v9, "forceUpdate");
   v12 = v9;
-  v6 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v9);
+  v6 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v9, &std::piecewise_construct, &v12);
   v7 = (v6 + 56);
   if (*(v6 + 79) < 0)
   {
@@ -456,9 +79,7 @@ LABEL_9:
 
 void SEUpdater::P73BaseUpdateController::PerformSLAMMigrations(SEUpdater::P73BaseUpdateController *this)
 {
-  v3 = *MEMORY[0x29EDCA608];
   v1 = *(this + 21);
-  v2 = *(this + 20);
   if (v1)
   {
     atomic_fetch_add_explicit((v1 + 8), 1uLL, memory_order_relaxed);
@@ -491,6 +112,14 @@ void sub_299EFE0C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   STACK[0x7B0] = &a45;
   std::vector<SEUpdater::PackageInfo>::__destroy_vector::operator()[abi:ne200100](&STACK[0x7B0]);
   _Unwind_Resume(a1);
+}
+
+void SEUpdater::P73BaseUpdateController::doPerform(void)::CommandGetDataOBKG::CommandGetDataOBKG(void *a1)
+{
+  v1 = -33502592;
+  v2 = -8446;
+  v3 = 48;
+  SERestoreInfo::CApdu::CApdu(a1, &v1, 7, 0);
 }
 
 void *SEUpdater::P73BaseUpdateController::doPerform(void)::CommandGetDataOBKG::~CommandGetDataOBKG(void *a1)
@@ -685,7 +314,7 @@ void SEUpdater::CommandDumpSENVM::~CommandDumpSENVM(SEUpdater::CommandDumpSENVM 
   JUMPOUT(0x29C2B5F30);
 }
 
-void std::vector<unsigned char>::push_back[abi:ne200100](uint64_t a1, _BYTE *a2)
+void std::vector<unsigned char>::push_back[abi:ne200100](uint64_t a1, char *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -830,7 +459,7 @@ void SEUpdater::CommandGetConfigID::~CommandGetConfigID(SEUpdater::CommandGetCon
   JUMPOUT(0x29C2B5F30);
 }
 
-uint64_t SEUpdater::getOBJPOctetString(void *a1)
+CFDataRef SEUpdater::getOBJPOctetString(CFDataRef *a1, uint64_t a2, uint64_t a3)
 {
   Img4DecodeGetObjectPropertyData();
   result = 0;
@@ -973,7 +602,7 @@ void ___ZN13SEUpdaterUtil8SELogObj13dumpLogBufferEv_block_invoke(uint64_t a1)
         v10 = v9;
       }
 
-      std::vector<unsigned char>::__vallocate[abi:ne200100]((v3 + 5), v10);
+      std::vector<unsigned char>::__vallocate[abi:ne200100](v3 + 5, v10);
     }
 
 LABEL_62:
@@ -1025,7 +654,7 @@ LABEL_36:
         v31 = v2[10];
       }
 
-      if (v31 - *v4 < v8 - v11)
+      if (v31 - *v4 < &v8[-v11])
       {
         v12 = v12 - *v4 + v2[8];
       }
@@ -1192,6 +821,13 @@ void sub_299EFF390(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
+void SEUpdater::CommandMQ::CommandMQ(SEUpdater::CommandMQ *this)
+{
+  v1[1] = *MEMORY[0x29EDCA608];
+  v1[0] = 0x3FFF02FE00CA80;
+  SERestoreInfo::CApdu::CApdu(this, v1, 8, 0);
+}
+
 const void **ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(const void **a1)
 {
   v2 = *a1;
@@ -1203,15 +839,47 @@ const void **ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, void *a2)
+void SEUpdater::CommandTriggerImg4::CommandTriggerImg4(SEUpdater::CommandTriggerImg4 *this)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *MEMORY[0x29EDCA608];
+  v1 = 0x474D49041380704FLL;
+  v2 = 52;
+  SERestoreInfo::CApdu::CApdu(this, &v1, 10, 0);
+}
+
+void SEUpdater::CommandSelectCRS::CommandSelectCRS(SEUpdater::CommandSelectCRS *this)
+{
+  v4 = *MEMORY[0x29EDCA608];
+  v1 = 0xA0080004A400;
+  v2 = 1380143361;
+  v3 = 83;
+  SERestoreInfo::CApdu::CApdu(this, &v1, 14, 0);
+}
+
+void SEUpdater::CommandGetLogStatus::CommandGetLogStatus(SEUpdater::CommandGetLogStatus *this)
+{
+  v1[1] = *MEMORY[0x29EDCA608];
+  v1[0] = 0x4ADF02FE00CA00;
+  SERestoreInfo::CApdu::CApdu(this, v1, 8, 0);
+}
+
+void SEUpdater::CommandSelectSeshat::CommandSelectSeshat(SEUpdater::CommandSelectSeshat *this)
+{
+  v3 = *MEMORY[0x29EDCA608];
+  v1 = 0x444548080004A400;
+  strcpy(v2, "S_APP");
+  SERestoreInfo::CApdu::CApdu(this, &v1, 14, 0);
+}
+
+uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, void *a2, uint64_t a3, _OWORD **a4)
+{
+  v4 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(uint64_t a1, void *a2, void *a3)
@@ -1260,7 +928,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -1497,7 +1165,7 @@ void sub_299F007B0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void SERestoreInfo::Apdu::Apdu(SERestoreInfo::Apdu *this, const unsigned __int8 *a2, unint64_t a3)
+void SERestoreInfo::Apdu::Apdu(SERestoreInfo::Apdu *this, char *a2, unint64_t a3)
 {
   *this = &unk_2A2026DD8;
   *(this + 1) = 0;
@@ -1625,7 +1293,7 @@ void SLAM::Migration::AppletInfo::~AppletInfo(SLAM::Migration::AppletInfo *this)
   }
 }
 
-void std::vector<SLAM::Migration::AppletInfo>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<SLAM::Migration::AppletInfo>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x38E38E38E38E38FLL)
   {
@@ -1771,13 +1439,13 @@ void std::vector<unsigned char>::__insert_with_size[abi:ne200100]<unsigned char 
 
   v10 = *(a1 + 8);
   v9 = *(a1 + 16);
-  if (v9 - v10 >= a5)
+  if ((v9 - v10) >= a5)
   {
     v16 = v10 - __dst;
-    if (v10 - __dst >= a5)
+    if ((v10 - __dst) >= a5)
     {
       v21 = __dst + a5;
-      v22 = &v10[-a5];
+      v22 = (v10 - a5);
       v23 = *(a1 + 8);
       if (v10 >= a5)
       {
@@ -1812,7 +1480,7 @@ void std::vector<unsigned char>::__insert_with_size[abi:ne200100]<unsigned char 
 
       else
       {
-        v18 = &a4[__dst] - __src;
+        v18 = (&a4[__dst] - __src);
         v19 = *(a1 + 8);
         do
         {
@@ -1830,9 +1498,9 @@ void std::vector<unsigned char>::__insert_with_size[abi:ne200100]<unsigned char 
       }
 
       v32 = __dst + a5;
-      v33 = (v18 - a5);
+      v33 = &v18[-a5];
       v34 = v18;
-      if (v18 - a5 < v10)
+      if (&v18[-a5] < v10)
       {
         do
         {
@@ -1860,7 +1528,7 @@ void std::vector<unsigned char>::__insert_with_size[abi:ne200100]<unsigned char 
   else
   {
     v11 = *a1;
-    v12 = &v10[a5 - *a1];
+    v12 = v10 - *a1 + a5;
     if (v12 < 0)
     {
       std::vector<SEUpdater::PackageInfo>::__throw_length_error[abi:ne200100]();
@@ -2042,22 +1710,22 @@ void std::__shared_ptr_emplace<SERestoreInfo::SN300V3DeviceInfo>::~__shared_ptr_
   JUMPOUT(0x29C2B5F30);
 }
 
-void SEUpdaterUtil::_AddError(SEUpdaterUtil *this, int a2, uint64_t a3, SEUpdaterUtil::SELogObj *a4, const char *a5, ...)
+void SEUpdaterUtil::_AddError(SEUpdaterUtil *this, int a2, const char *a3, SEUpdaterUtil::SELogObj *a4, const char *a5, BOOL a6, ...)
 {
-  va_start(va, a5);
+  va_start(va, a6);
   if (!a4)
   {
     __assert_rtn("_AddError", "Error.hpp", 66, "fmt");
   }
 
-  v6 = this;
-  va_copy(v17, va);
-  SEUpdaterUtil::SELogToStrv(0, a4, va, 0, a3, __p);
-  v7 = pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::Error,SEUpdaterUtil::Error,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::Error>>::sInstance);
+  v7 = this;
+  va_copy(v16, va);
+  SEUpdaterUtil::SELogToStrv(__p, 0, a4, va, 0, a3);
+  pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::Error,SEUpdaterUtil::Error,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::Error>>::sInstance);
   v8 = xmmword_2A14F23B0;
   if (!xmmword_2A14F23B0)
   {
-    SEUpdaterUtil::Error::create_default_global(v7);
+    SEUpdaterUtil::Error::create_default_global();
   }
 
   v9 = *(&xmmword_2A14F23B0 + 1);
@@ -2067,7 +1735,7 @@ void SEUpdaterUtil::_AddError(SEUpdaterUtil *this, int a2, uint64_t a3, SEUpdate
   }
 
   pthread_mutex_unlock(&ctu::Singleton<SEUpdaterUtil::Error,SEUpdaterUtil::Error,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::Error>>::sInstance);
-  SEUpdaterUtil::Error::addError(v8, __p, v6);
+  SEUpdaterUtil::Error::addError(v8, __p, v7);
   if (v9)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v9);
@@ -2075,43 +1743,43 @@ void SEUpdaterUtil::_AddError(SEUpdaterUtil *this, int a2, uint64_t a3, SEUpdate
 
   if (a2)
   {
-    v10 = v16;
-    if ((v16 & 0x80u) != 0)
+    v10 = v15;
+    if ((v15 & 0x80u) != 0)
     {
       v10 = __p[1];
     }
 
     if (v10)
     {
-      v11 = pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-      v12 = off_2A14F2360;
+      pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
+      v11 = off_2A14F2360;
       if (!off_2A14F2360)
       {
-        SEUpdaterUtil::SELogObj::create_default_global(v11);
+        SEUpdaterUtil::SELogObj::create_default_global();
       }
 
-      v13 = *(&off_2A14F2360 + 1);
+      v12 = *(&off_2A14F2360 + 1);
       if (*(&off_2A14F2360 + 1))
       {
         atomic_fetch_add_explicit((*(&off_2A14F2360 + 1) + 8), 1uLL, memory_order_relaxed);
       }
 
       pthread_mutex_unlock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-      v14 = __p;
-      if ((v16 & 0x80u) != 0)
+      v13 = __p;
+      if ((v15 & 0x80u) != 0)
       {
-        v14 = __p[0];
+        v13 = __p[0];
       }
 
-      SEUpdaterUtil::SELogObj::printLog(v12, 0, 0, 0, 0, "%s\n", v14);
-      if (v13)
+      SEUpdaterUtil::SELogObj::printLog(v11, 0, 0, 0, 0, "%s\n", v13);
+      if (v12)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v12);
       }
     }
   }
 
-  if (v16 < 0)
+  if (v15 < 0)
   {
     operator delete(__p[0]);
   }
@@ -2140,60 +1808,58 @@ void ctu::cf::CFSharedRef<__CFData const>::reset<void const,void>(const void **a
   }
 }
 
-uint64_t SEUpdaterUtil::SELogToStrv@<X0>(SEUpdaterUtil *this@<X0>, SEUpdaterUtil::SELogObj *a2@<X2>, va_list a3@<X3>, char *a4@<X4>, uint64_t a5@<X1>, uint64_t a6@<X8>)
+uint64_t *SEUpdaterUtil::SELogToStrv@<X0>(uint64_t *__return_ptr a1@<X8>, SEUpdaterUtil *this@<X0>, SEUpdaterUtil::SELogObj *a3@<X2>, va_list a4@<X3>, char *a5@<X4>, const char *a6@<X1>)
 {
-  v17[4] = *MEMORY[0x29EDCA608];
-  SEUpdaterUtil::SELogObj::FormatMsgv(a2, a3, &v16);
-  if (!v16)
+  v15[4] = *MEMORY[0x29EDCA608];
+  SEUpdaterUtil::SELogObj::FormatMsgv(&v14, a3, a4);
+  if (!v14)
   {
     goto LABEL_11;
   }
 
-  v10 = pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
+  pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
   if (!off_2A14F2360)
   {
-    SEUpdaterUtil::SELogObj::create_default_global(v10);
+    SEUpdaterUtil::SELogObj::create_default_global();
   }
 
-  v11 = *(&off_2A14F2360 + 1);
+  v10 = *(&off_2A14F2360 + 1);
   if (*(&off_2A14F2360 + 1))
   {
     atomic_fetch_add_explicit((*(&off_2A14F2360 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
   pthread_mutex_unlock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-  SEUpdaterUtil::SELogObj::createVerboseLogString(this, v16, a4, a5, &__s);
-  if (v11)
+  SEUpdaterUtil::SELogObj::createVerboseLogString(this, a6, v14, a5, &__s);
+  if (v10)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
   }
 
   if (!__s)
   {
     std::unique_ptr<char const,std::function<void ()(char const*)>>::reset[abi:ne200100](&__s, 0);
-    std::__function::__value_func<void ()(char const*)>::~__value_func[abi:ne200100](v15);
+    std::__function::__value_func<void ()(char const*)>::~__value_func[abi:ne200100](v13);
 LABEL_11:
-    *a6 = 0;
-    *(a6 + 8) = 0;
-    *(a6 + 16) = 0;
+    *a1 = 0;
+    a1[1] = 0;
+    a1[2] = 0;
     goto LABEL_12;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(a6, __s);
+  std::string::basic_string[abi:ne200100]<0>(a1, __s);
   std::unique_ptr<char const,std::function<void ()(char const*)>>::reset[abi:ne200100](&__s, 0);
-  std::__function::__value_func<void ()(char const*)>::~__value_func[abi:ne200100](v15);
+  std::__function::__value_func<void ()(char const*)>::~__value_func[abi:ne200100](v13);
 LABEL_12:
-  std::unique_ptr<char const,std::function<void ()(char const*)>>::reset[abi:ne200100](&v16, 0);
-  result = std::__function::__value_func<void ()(char const*)>::~__value_func[abi:ne200100](v17);
-  v13 = *MEMORY[0x29EDCA608];
-  return result;
+  std::unique_ptr<char const,std::function<void ()(char const*)>>::reset[abi:ne200100](&v14, 0);
+  return std::__function::__value_func<void ()(char const*)>::~__value_func[abi:ne200100](v15);
 }
 
-void sub_299F01C60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_299F01C60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
   pthread_mutex_unlock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
   std::unique_ptr<char const,std::function<void ()(char const*)>>::reset[abi:ne200100](va, 0);
   std::__function::__value_func<void ()(char const*)>::~__value_func[abi:ne200100](va1);
@@ -2389,14 +2055,14 @@ void std::__shared_ptr_emplace<SEUpdater::LogSinkShim>::~__shared_ptr_emplace(st
 
 void SEUpdater::LogSinkShim::Log(uint64_t a1, uint64_t a2)
 {
-  v3 = pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-  v4 = off_2A14F2360;
+  pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
+  v3 = off_2A14F2360;
   if (!off_2A14F2360)
   {
-    SEUpdaterUtil::SELogObj::create_default_global(v3);
+    SEUpdaterUtil::SELogObj::create_default_global();
   }
 
-  v5 = *(&off_2A14F2360 + 1);
+  v4 = *(&off_2A14F2360 + 1);
   if (*(&off_2A14F2360 + 1))
   {
     atomic_fetch_add_explicit((*(&off_2A14F2360 + 1) + 8), 1uLL, memory_order_relaxed);
@@ -2405,18 +2071,18 @@ void SEUpdater::LogSinkShim::Log(uint64_t a1, uint64_t a2)
   pthread_mutex_unlock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
   if (*(a2 + 23) >= 0)
   {
-    v6 = a2;
+    v5 = a2;
   }
 
   else
   {
-    v6 = *a2;
+    v5 = *a2;
   }
 
-  SEUpdaterUtil::SELogObj::printLog(v4, 2, 0, 0, 0, "%s\n", v6);
-  if (v5)
+  SEUpdaterUtil::SELogObj::printLog(v3, 2, 0, 0, 0, "%s\n", v5);
+  if (v4)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
   }
 }
 
@@ -2534,8 +2200,8 @@ void std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_it
     v20 = &v10[v17];
     if (&v18[-v5] < v10)
     {
-      v21 = a4 - &v6[v5];
-      v22 = a4 - v6;
+      v21 = (a4 - &v6[v5]);
+      v22 = (a4 - v6);
       do
       {
         __dst[v22++] = __dst[v21++];
@@ -2571,13 +2237,13 @@ void std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_it
   v6 = __src;
   v9 = *(a1 + 8);
   v10 = *(a1 + 16);
-  if (v10 - v9 >= a5)
+  if ((v10 - v9) >= a5)
   {
     v15 = v9 - __dst;
-    if (v9 - __dst >= a5)
+    if ((v9 - __dst) >= a5)
     {
       v19 = &__dst[a5];
-      v20 = &v9[-a5];
+      v20 = (v9 - a5);
       v21 = *(a1 + 8);
       if (v9 >= a5)
       {
@@ -2612,7 +2278,7 @@ void std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_it
 
       else
       {
-        v17 = (&v9[a4] - v16);
+        v17 = (&a4[v9] - v16);
         v18 = *(a1 + 8);
         do
         {
@@ -2660,7 +2326,7 @@ void std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_it
   else
   {
     v11 = *a1;
-    v12 = &v9[a5 - *a1];
+    v12 = v9 - *a1 + a5;
     if (v12 < 0)
     {
       std::vector<SEUpdater::PackageInfo>::__throw_length_error[abi:ne200100]();
@@ -2719,19 +2385,19 @@ void std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_it
 void _GLOBAL__sub_I_P73BaseUpdateController_cpp()
 {
   v12 = *MEMORY[0x29EDCA608];
-  std::string::basic_string[abi:ne200100]<0>(byte_2A197E688, "4143_WeakPullDown");
-  std::string::basic_string[abi:ne200100]<0>(&byte_2A197E688[24], "4143_HiZ");
-  std::string::basic_string[abi:ne200100]<0>(&byte_2A197E688[48], "412A_Default");
-  std::string::basic_string[abi:ne200100]<0>(&byte_2A197E688[72], "415E_Value0C");
-  std::string::basic_string[abi:ne200100]<0>(&byte_2A197E688[96], "415E_Value00");
-  std::string::basic_string[abi:ne200100]<0>(&byte_2A197E688[120], "40BD_EnableInFPM_EnableLogging");
-  std::string::basic_string[abi:ne200100]<0>(&byte_2A197E688[144], "40BD_DisableInFPM_EnableLogging");
-  std::string::basic_string[abi:ne200100]<0>(&byte_2A197E688[168], "4108_EnableInFPM_EnableLogging");
-  std::string::basic_string[abi:ne200100]<0>(&byte_2A197E688[192], "4108_DisableInFPM_EnableLogging");
-  std::string::basic_string[abi:ne200100]<0>(&byte_2A197E688[216], "40D0_Disable");
-  std::string::basic_string[abi:ne200100]<0>(&byte_2A197E688[240], "40D0_Enable_WithFilters_SW");
-  std::string::basic_string[abi:ne200100]<0>(&byte_2A197E688[264], "40D0_Enable_WithFilters_SW_ISO");
-  std::string::basic_string[abi:ne200100]<0>(&byte_2A197E688[288], "40D0_Enable_WithFilters_SW_ISO_Type");
+  std::string::basic_string[abi:ne200100]<0>(qword_2A197E688, "4143_WeakPullDown");
+  std::string::basic_string[abi:ne200100]<0>(&qword_2A197E688[3], "4143_HiZ");
+  std::string::basic_string[abi:ne200100]<0>(&qword_2A197E688[6], "412A_Default");
+  std::string::basic_string[abi:ne200100]<0>(&qword_2A197E688[9], "415E_Value0C");
+  std::string::basic_string[abi:ne200100]<0>(&qword_2A197E688[12], "415E_Value00");
+  std::string::basic_string[abi:ne200100]<0>(&qword_2A197E688[15], "40BD_EnableInFPM_EnableLogging");
+  std::string::basic_string[abi:ne200100]<0>(&qword_2A197E688[18], "40BD_DisableInFPM_EnableLogging");
+  std::string::basic_string[abi:ne200100]<0>(&qword_2A197E688[21], "4108_EnableInFPM_EnableLogging");
+  std::string::basic_string[abi:ne200100]<0>(&qword_2A197E688[24], "4108_DisableInFPM_EnableLogging");
+  std::string::basic_string[abi:ne200100]<0>(&qword_2A197E688[27], "40D0_Disable");
+  std::string::basic_string[abi:ne200100]<0>(&qword_2A197E688[30], "40D0_Enable_WithFilters_SW");
+  std::string::basic_string[abi:ne200100]<0>(&qword_2A197E688[33], "40D0_Enable_WithFilters_SW_ISO");
+  std::string::basic_string[abi:ne200100]<0>(&qword_2A197E688[36], "40D0_Enable_WithFilters_SW_ISO_Type");
   LODWORD(v1) = 0;
   WORD2(v1) = -28672;
   BYTE6(v1) = 0;
@@ -2859,7 +2525,7 @@ void _GLOBAL__sub_I_P73BaseUpdateController_cpp()
   *&v4[16] = xmmword_299F2AA18;
   v3 = xmmword_299F2A9F8;
   v11 = -57;
-  SERestoreInfo::CApdu::CApdu(&v0);
+  SERestoreInfo::CApdu::CApdu(&v0, &v1, 177, 0);
 }
 
 id DERDecodeData(NSData *a1, uint64_t a2)
@@ -2951,7 +2617,7 @@ unint64_t *DERParseSequenceSpecContent(void *a1, uint64_t a2, unint64_t a3, size
   return v9;
 }
 
-id encodeSequence(uint64_t a1, unint64_t a2, unsigned int a3, uint64_t a4)
+id encodeSequence(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   v12 = DERLengthOfEncodedSequence(a1, a2, a3, a4);
   v8 = [MEMORY[0x29EDB8DF8] dataWithLength:v12];
@@ -3118,20 +2784,20 @@ void SERestoreInfo::SN210VDeviceInfo::~SN210VDeviceInfo(SERestoreInfo::SN210VDev
   JUMPOUT(0x29C2B5F30);
 }
 
-uint64_t SEUpdaterUtil::SN300V2Image4Signer::getSigningKey@<X0>(void *a1@<X8>)
+uint64_t *SEUpdaterUtil::SN300V2Image4Signer::getSigningKey@<X0>(uint64_t *a1@<X8>)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(a1, &SEUpdaterUtil::SN300V2Image4Signer::getSigningKey(void)const::signingKey, &SEUpdaterUtil::SN300V2Image4Signer::getSigningCert(void)const::signingCert, 167);
+  return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(a1, SEUpdaterUtil::SN300V2Image4Signer::getSigningKey(void)const::signingKey, SEUpdaterUtil::SN300V2Image4Signer::getSigningCert(void)const::signingCert, 167);
 }
 
-uint64_t SEUpdaterUtil::SN300V2Image4Signer::getSigningCert@<X0>(void *a1@<X8>)
+uint64_t *SEUpdaterUtil::SN300V2Image4Signer::getSigningCert@<X0>(uint64_t *a1@<X8>)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(a1, &SEUpdaterUtil::SN300V2Image4Signer::getSigningCert(void)const::signingCert, "N13SEUpdaterUtil19SN300V2Image4SignerE", 739);
+  return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(a1, SEUpdaterUtil::SN300V2Image4Signer::getSigningCert(void)const::signingCert, "N13SEUpdaterUtil19SN300V2Image4SignerE", 739);
 }
 
 void SEUpdaterUtil::SN300V2Image4Signer::~SN300V2Image4Signer(SEUpdaterUtil::SN300V2Image4Signer *this)
@@ -3171,7 +2837,7 @@ BOOL SERestoreInfo::isDummyRootCaKeyId(uint64_t a1)
   v7 = 0;
   v8 = 0;
   v9 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&v7, &SERestoreInfo::isDummyRootCaKeyId(std::vector<unsigned char> const&)::dummyRootCaKeyIdArray, &SERestoreInfo::isProdCometIm4KeyId(std::vector<unsigned char> const&)::prodCometIm4KeyIdArray, 32);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&v7, SERestoreInfo::isDummyRootCaKeyId(std::vector<unsigned char> const&)::dummyRootCaKeyIdArray, SERestoreInfo::isProdCometIm4KeyId(std::vector<unsigned char> const&)::prodCometIm4KeyIdArray, 32);
   v2 = *a1;
   v3 = *(a1 + 8) - *a1;
   v4 = v7;
@@ -3202,7 +2868,7 @@ void SERestoreInfo::fixRootCaKeyId(void **a1, uint64_t a2)
   v10 = 0;
   v11 = 0;
   v12 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&v10, &SERestoreInfo::isProdCometIm4KeyId(std::vector<unsigned char> const&)::prodCometIm4KeyIdArray, &xmmword_299F2BE60, 32);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&v10, SERestoreInfo::isProdCometIm4KeyId(std::vector<unsigned char> const&)::prodCometIm4KeyIdArray, &xmmword_299F2BE60, 32);
   v4 = *a2;
   v5 = *(a2 + 8) - *a2;
   v6 = v10;
@@ -3342,7 +3008,7 @@ void SERestoreInfo::P73DeviceInfo::~P73DeviceInfo(SERestoreInfo::P73DeviceInfo *
 
 void PTCUtil::deletePTCKeysWithNoStoredPK(uint64_t *a1, uint64_t *a2)
 {
-  v47[2] = *MEMORY[0x29EDCA608];
+  v46[2] = *MEMORY[0x29EDCA608];
   v3 = *a2;
   v4 = *(*a2 + 56);
   if (v4 == 100)
@@ -3354,7 +3020,7 @@ void PTCUtil::deletePTCKeysWithNoStoredPK(uint64_t *a1, uint64_t *a2)
   {
     if (v4 != 115)
     {
-      goto LABEL_33;
+      return;
     }
 
     v5 = *(v3 + 12) - 2451;
@@ -3365,84 +3031,84 @@ void PTCUtil::deletePTCKeysWithNoStoredPK(uint64_t *a1, uint64_t *a2)
     _ObjCLog(2, "deletePTCKeysWithNoStoredPK", &cfstr_PerformingClea.isa);
     v6 = [SETransceiveHelper alloc];
     v7 = a1[1];
-    v43 = *a1;
-    v44 = v7;
+    v42 = *a1;
+    v43 = v7;
     if (v7)
     {
       atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v26 = [(SETransceiveHelper *)v6 initWithSEController:&v43];
-    if (v44)
+    v25 = [(SETransceiveHelper *)v6 initWithSEController:&v42];
+    if (v43)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v44);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v43);
     }
 
-    v47[0] = @"A000000704C0000000000001";
-    v47[1] = @"A000000704C0000000000002";
-    [MEMORY[0x29EDB8D80] arrayWithObjects:v47 count:2];
+    v46[0] = @"A000000704C0000000000001";
+    v46[1] = @"A000000704C0000000000002";
+    [MEMORY[0x29EDB8D80] arrayWithObjects:v46 count:2];
+    v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
-    obj = v40 = 0u;
-    v24 = [obj countByEnumeratingWithState:&v39 objects:v46 count:16];
-    if (v24)
+    v38 = 0u;
+    obj = v39 = 0u;
+    v23 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
+    if (v23)
     {
-      v23 = *v40;
+      v22 = *v39;
       do
       {
-        for (i = 0; i != v24; ++i)
+        for (i = 0; i != v23; ++i)
         {
-          if (*v40 != v23)
+          if (*v39 != v22)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v39 + 1) + 8 * i);
-          v8 = [(SETransceiveHelper *)v26 selectWithAID:?];
+          v26 = *(*(&v38 + 1) + 8 * i);
+          v8 = [(SETransceiveHelper *)v25 selectWithAID:?];
           if (v8)
           {
-            _ObjCLog(0, "deletePTCKeysWithNoStoredPK", &cfstr_FailedToSelect_8.isa, v27);
+            _ObjCLog(0, "deletePTCKeysWithNoStoredPK", &cfstr_FailedToSelect_8.isa, v26);
           }
 
           else
           {
-            v38 = 0;
-            v9 = PTCCommand::ptc_listKeys(v26, v27, &v38);
-            v8 = v38;
+            v37 = 0;
+            v9 = PTCCommand::ptc_listKeys(v25, v26, &v37);
+            v8 = v37;
             if (!v9)
             {
               exception = __cxa_allocate_exception(0x48uLL);
-              std::string::basic_string[abi:ne200100]<0>(&v28, "While listing keys");
-              v21 = SERestoreInfo::SEException::SEException(exception, &v28, 1, @"SEUpdaterErrorDomain");
+              std::string::basic_string[abi:ne200100]<0>(&v27, "While listing keys");
+              v20 = SERestoreInfo::SEException::SEException(exception, &v27, 1, @"SEUpdaterErrorDomain");
             }
 
-            v36 = 0u;
-            v37 = 0u;
-            v34 = 0u;
             v35 = 0u;
+            v36 = 0u;
+            v33 = 0u;
+            v34 = 0u;
             v10 = v9;
-            v11 = [v10 countByEnumeratingWithState:&v34 objects:v45 count:16];
+            v11 = [v10 countByEnumeratingWithState:&v33 objects:v44 count:16];
             if (v11)
             {
-              v12 = *v35;
+              v12 = *v34;
               do
               {
                 for (j = 0; j != v11; ++j)
                 {
-                  if (*v35 != v12)
+                  if (*v34 != v12)
                   {
                     objc_enumerationMutation(v10);
                   }
 
-                  v14 = *(*(&v34 + 1) + 8 * j);
-                  v32 = 0u;
-                  v33 = 0u;
-                  v30 = 0u;
+                  v14 = *(*(&v33 + 1) + 8 * j);
                   v31 = 0u;
-                  v28 = 0u;
+                  v32 = 0u;
                   v29 = 0u;
-                  v15 = DERParseSequenceSpecContent(v14, &PTKeyInSlotSpec, &v28, 0x60uLL);
+                  v30 = 0u;
+                  v27 = 0u;
+                  v28 = 0u;
+                  v15 = DERParseSequenceSpecContent(v14, &PTKeyInSlotSpec, &v27, 0x60uLL);
                   if (v15)
                   {
                     v16 = [v14 asHexString];
@@ -3451,11 +3117,11 @@ void PTCUtil::deletePTCKeysWithNoStoredPK(uint64_t *a1, uint64_t *a2)
 
                   else
                   {
-                    v17 = (bswap32(*v29) >> 16);
-                    _ObjCLog(2, "deletePTCKeysWithNoStoredPK", &cfstr_PtcKeyInSlotDT.isa, v17, *(&v32 + 1) == 0);
-                    if (!*(&v32 + 1))
+                    v17 = (bswap32(*v28) >> 16);
+                    _ObjCLog(2, "deletePTCKeysWithNoStoredPK", &cfstr_PtcKeyInSlotDT.isa, v17, *(&v31 + 1) == 0);
+                    if (!*(&v31 + 1))
                     {
-                      v18 = PTCCommand::ptc_DeleteKey(v26, v27, v17);
+                      v18 = PTCCommand::ptc_DeleteKey(v25, v26, v17);
 
                       v8 = v18;
                       _ObjCLog(2, "deletePTCKeysWithNoStoredPK", &cfstr_PtcKeyDeletedW.isa, v18);
@@ -3463,7 +3129,7 @@ void PTCUtil::deletePTCKeysWithNoStoredPK(uint64_t *a1, uint64_t *a2)
                   }
                 }
 
-                v11 = [v10 countByEnumeratingWithState:&v34 objects:v45 count:16];
+                v11 = [v10 countByEnumeratingWithState:&v33 objects:v44 count:16];
               }
 
               while (v11);
@@ -3471,30 +3137,25 @@ void PTCUtil::deletePTCKeysWithNoStoredPK(uint64_t *a1, uint64_t *a2)
           }
         }
 
-        v24 = [obj countByEnumeratingWithState:&v39 objects:v46 count:16];
+        v23 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
       }
 
-      while (v24);
+      while (v23);
     }
 
     _ObjCLog(2, "deletePTCKeysWithNoStoredPK", &cfstr_CleanupComplet.isa);
   }
-
-LABEL_33:
-  v19 = *MEMORY[0x29EDCA608];
 }
 
-void PTCUtil::workaroundForPTCExport(uint64_t a1, uint64_t *a2)
+void PTCUtil::workaroundForPTCExport(uint64_t *a1, uint64_t *a2)
 {
-  v5[6] = *MEMORY[0x29EDCA608];
+  v4[6] = *MEMORY[0x29EDCA608];
   v2 = *a2;
   v3 = *(*a2 + 12);
   if (v3 == *(*a2 + 24) && v3 == *(v2 + 20) && *(v2 + 28) == 23195)
   {
-    SERestoreInfo::Apdu::Apdu(v5);
+    SERestoreInfo::Apdu::Apdu(v4, 0x2037uLL);
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void sub_299F04B74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, std::__shared_weak_count *a22, uint64_t a23, uint64_t a24, std::__shared_weak_count *a25)
@@ -3567,18 +3228,18 @@ void _GLOBAL__sub_I_PTCUtil_m()
   v13 = *MEMORY[0x29EDCA608];
   v0 = objc_autoreleasePoolPush();
   std::string::basic_string[abi:ne200100]<0>(_MergedGlobals_5, "4143_WeakPullDown");
-  std::string::basic_string[abi:ne200100]<0>(&_MergedGlobals_5[24], "4143_HiZ");
-  std::string::basic_string[abi:ne200100]<0>(&_MergedGlobals_5[48], "412A_Default");
-  std::string::basic_string[abi:ne200100]<0>(&_MergedGlobals_5[72], "415E_Value0C");
-  std::string::basic_string[abi:ne200100]<0>(&_MergedGlobals_5[96], "415E_Value00");
-  std::string::basic_string[abi:ne200100]<0>(&_MergedGlobals_5[120], "40BD_EnableInFPM_EnableLogging");
-  std::string::basic_string[abi:ne200100]<0>(&_MergedGlobals_5[144], "40BD_DisableInFPM_EnableLogging");
-  std::string::basic_string[abi:ne200100]<0>(&_MergedGlobals_5[168], "4108_EnableInFPM_EnableLogging");
-  std::string::basic_string[abi:ne200100]<0>(&_MergedGlobals_5[192], "4108_DisableInFPM_EnableLogging");
-  std::string::basic_string[abi:ne200100]<0>(&_MergedGlobals_5[216], "40D0_Disable");
-  std::string::basic_string[abi:ne200100]<0>(&_MergedGlobals_5[240], "40D0_Enable_WithFilters_SW");
-  std::string::basic_string[abi:ne200100]<0>(&_MergedGlobals_5[264], "40D0_Enable_WithFilters_SW_ISO");
-  std::string::basic_string[abi:ne200100]<0>(&_MergedGlobals_5[288], "40D0_Enable_WithFilters_SW_ISO_Type");
+  std::string::basic_string[abi:ne200100]<0>(&_MergedGlobals_5[3], "4143_HiZ");
+  std::string::basic_string[abi:ne200100]<0>(&_MergedGlobals_5[6], "412A_Default");
+  std::string::basic_string[abi:ne200100]<0>(&_MergedGlobals_5[9], "415E_Value0C");
+  std::string::basic_string[abi:ne200100]<0>(&_MergedGlobals_5[12], "415E_Value00");
+  std::string::basic_string[abi:ne200100]<0>(&_MergedGlobals_5[15], "40BD_EnableInFPM_EnableLogging");
+  std::string::basic_string[abi:ne200100]<0>(&_MergedGlobals_5[18], "40BD_DisableInFPM_EnableLogging");
+  std::string::basic_string[abi:ne200100]<0>(&_MergedGlobals_5[21], "4108_EnableInFPM_EnableLogging");
+  std::string::basic_string[abi:ne200100]<0>(&_MergedGlobals_5[24], "4108_DisableInFPM_EnableLogging");
+  std::string::basic_string[abi:ne200100]<0>(&_MergedGlobals_5[27], "40D0_Disable");
+  std::string::basic_string[abi:ne200100]<0>(&_MergedGlobals_5[30], "40D0_Enable_WithFilters_SW");
+  std::string::basic_string[abi:ne200100]<0>(&_MergedGlobals_5[33], "40D0_Enable_WithFilters_SW_ISO");
+  std::string::basic_string[abi:ne200100]<0>(&_MergedGlobals_5[36], "40D0_Enable_WithFilters_SW_ISO_Type");
   LODWORD(v2) = 0;
   WORD2(v2) = -28672;
   BYTE6(v2) = 0;
@@ -3706,23 +3367,23 @@ void _GLOBAL__sub_I_PTCUtil_m()
   *&v5[16] = xmmword_299F2BF72;
   v4 = xmmword_299F2BF52;
   v12 = -57;
-  SERestoreInfo::CApdu::CApdu(&v1);
+  SERestoreInfo::CApdu::CApdu(&v1, &v2, 177, 0);
 }
 
-uint64_t SEUpdaterUtil::SN100VImage4Signer::getSigningKey@<X0>(void *a1@<X8>)
+uint64_t *SEUpdaterUtil::SN100VImage4Signer::getSigningKey@<X0>(uint64_t *a1@<X8>)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(a1, &SEUpdaterUtil::SN100VImage4Signer::getSigningKey(void)const::signingKey, &SEUpdaterUtil::SN100VImage4Signer::getSigningCert(void)const::signingCert, 121);
+  return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(a1, SEUpdaterUtil::SN100VImage4Signer::getSigningKey(void)const::signingKey, SEUpdaterUtil::SN100VImage4Signer::getSigningCert(void)const::signingCert, 121);
 }
 
-uint64_t SEUpdaterUtil::SN100VImage4Signer::getSigningCert@<X0>(void *a1@<X8>)
+uint64_t *SEUpdaterUtil::SN100VImage4Signer::getSigningCert@<X0>(uint64_t *a1@<X8>)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(a1, &SEUpdaterUtil::SN100VImage4Signer::getSigningCert(void)const::signingCert, "N13SEUpdaterUtil18SN100VImage4SignerE", 628);
+  return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(a1, SEUpdaterUtil::SN100VImage4Signer::getSigningCert(void)const::signingCert, "N13SEUpdaterUtil18SN100VImage4SignerE", 628);
 }
 
 void SEUpdaterUtil::SN100VImage4Signer::~SN100VImage4Signer(SEUpdaterUtil::SN100VImage4Signer *this)
@@ -3734,38 +3395,38 @@ void SEUpdaterUtil::SN100VImage4Signer::~SN100VImage4Signer(SEUpdaterUtil::SN100
 
 void WriteEvent(uint64_t a1, void *a2)
 {
-  v43[2] = *MEMORY[0x29EDCA608];
+  v37[2] = *MEMORY[0x29EDCA608];
   v3 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%@%@", *a2, @"SEUpdaterEventsLog.plist"];
   if (v3)
   {
-    v38 = [MEMORY[0x29EDB8DA0] dataWithContentsOfFile:v3];
+    v32 = [MEMORY[0x29EDB8DA0] dataWithContentsOfFile:v3];
     v4 = objc_opt_new();
-    if (v38)
+    if (v32)
     {
-      v41 = 0;
-      v5 = [MEMORY[0x29EDBA0C0] propertyListWithData:v38 options:2 format:0 error:&v41];
-      v6 = v41;
+      v35 = 0;
+      v5 = [MEMORY[0x29EDBA0C0] propertyListWithData:v32 options:2 format:0 error:&v35];
+      v6 = v35;
       v7 = v6;
       if (!v5 || v6)
       {
-        v12 = pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-        v13 = off_2A14F2360;
+        pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
+        v11 = off_2A14F2360;
         if (!off_2A14F2360)
         {
-          SEUpdaterUtil::SELogObj::create_default_global(v12);
+          SEUpdaterUtil::SELogObj::create_default_global();
         }
 
-        v14 = *(&off_2A14F2360 + 1);
+        v12 = *(&off_2A14F2360 + 1);
         if (*(&off_2A14F2360 + 1))
         {
           atomic_fetch_add_explicit((*(&off_2A14F2360 + 1) + 8), 1uLL, memory_order_relaxed);
         }
 
         pthread_mutex_unlock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-        SEUpdaterUtil::SELogObj::printLog(v13, 2, 0, 1, "WriteEvent", "EVENT LOGGING: Could not recreate log events properties from file - Defaulting to empty file\n");
-        if (v14)
+        SEUpdaterUtil::SELogObj::printLog(v11, 2, 0, 1, "WriteEvent", "EVENT LOGGING: Could not recreate log events properties from file - Defaulting to empty file\n");
+        if (v12)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v12);
         }
       }
 
@@ -3784,127 +3445,125 @@ void WriteEvent(uint64_t a1, void *a2)
       v7 = 0;
     }
 
-    v15 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:a1];
-    if (([v4 containsObject:v15] & 1) == 0)
+    v13 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:a1];
+    if (([v4 containsObject:v13] & 1) == 0)
     {
-      [v4 addObject:v15];
+      [v4 addObject:v13];
     }
 
-    v42[0] = @"version";
-    v16 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:1];
-    v42[1] = @"events";
-    v43[0] = v16;
-    v43[1] = v4;
-    v17 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v43 forKeys:v42 count:2];
+    v36[0] = @"version";
+    v14 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:1];
+    v36[1] = @"events";
+    v37[0] = v14;
+    v37[1] = v4;
+    v15 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
 
-    v40 = 0;
-    v18 = [MEMORY[0x29EDBA0C0] dataWithPropertyList:v17 format:200 options:0 error:&v40];
-    v19 = v40;
+    v34 = 0;
+    v16 = [MEMORY[0x29EDBA0C0] dataWithPropertyList:v15 format:200 options:0 error:&v34];
+    v17 = v34;
 
-    if (!v18 || v19)
+    if (!v16 || v17)
     {
-      v29 = pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-      v30 = off_2A14F2360;
+      pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
+      v26 = off_2A14F2360;
       if (!off_2A14F2360)
       {
-        SEUpdaterUtil::SELogObj::create_default_global(v29);
+        SEUpdaterUtil::SELogObj::create_default_global();
       }
 
-      v23 = *(&off_2A14F2360 + 1);
+      v20 = *(&off_2A14F2360 + 1);
       if (*(&off_2A14F2360 + 1))
       {
         atomic_fetch_add_explicit((*(&off_2A14F2360 + 1) + 8), 1uLL, memory_order_relaxed);
       }
 
       pthread_mutex_unlock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-      v31 = [v19 description];
-      v32 = v31;
-      SEUpdaterUtil::SELogObj::printLog(v30, 2, 0, 1, "WriteEvent", "EVENT LOGGING: Unable to serialize data - %s\n", [v31 UTF8String]);
-      v28 = v23 == 0;
+      v27 = [v17 description];
+      v28 = v27;
+      SEUpdaterUtil::SELogObj::printLog(v26, 2, 0, 1, "WriteEvent", "EVENT LOGGING: Unable to serialize data - %s\n", [v27 UTF8String]);
+      v25 = v20 == 0;
     }
 
     else
     {
-      v39 = 0;
-      v20 = [v18 writeToFile:v3 options:0 error:&v39];
-      v19 = v39;
-      if (v20)
+      v33 = 0;
+      v18 = [v16 writeToFile:v3 options:0 error:&v33];
+      v17 = v33;
+      if (v18)
       {
-        v21 = pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-        v22 = off_2A14F2360;
+        pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
+        v19 = off_2A14F2360;
         if (!off_2A14F2360)
         {
-          SEUpdaterUtil::SELogObj::create_default_global(v21);
+          SEUpdaterUtil::SELogObj::create_default_global();
         }
 
-        v23 = *(&off_2A14F2360 + 1);
+        v20 = *(&off_2A14F2360 + 1);
         if (*(&off_2A14F2360 + 1))
         {
           atomic_fetch_add_explicit((*(&off_2A14F2360 + 1) + 8), 1uLL, memory_order_relaxed);
         }
 
         pthread_mutex_unlock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-        v24 = v3;
-        v25 = [v3 UTF8String];
-        v26 = [v4 description];
-        v27 = v26;
-        SEUpdaterUtil::SELogObj::printLog(v22, 2, 0, 1, "WriteEvent", "EVENT LOGGING: Successfully wrote to file %s with events %s:\n", v25, [v26 UTF8String]);
-        v28 = v23 == 0;
+        v21 = v3;
+        v22 = [v3 UTF8String];
+        v23 = [v4 description];
+        v24 = v23;
+        SEUpdaterUtil::SELogObj::printLog(v19, 2, 0, 1, "WriteEvent", "EVENT LOGGING: Successfully wrote to file %s with events %s:\n", v22, [v23 UTF8String]);
+        v25 = v20 == 0;
       }
 
       else
       {
-        v33 = pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-        v34 = off_2A14F2360;
+        pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
+        v29 = off_2A14F2360;
         if (!off_2A14F2360)
         {
-          SEUpdaterUtil::SELogObj::create_default_global(v33);
+          SEUpdaterUtil::SELogObj::create_default_global();
         }
 
-        v23 = *(&off_2A14F2360 + 1);
+        v20 = *(&off_2A14F2360 + 1);
         if (*(&off_2A14F2360 + 1))
         {
           atomic_fetch_add_explicit((*(&off_2A14F2360 + 1) + 8), 1uLL, memory_order_relaxed);
         }
 
         pthread_mutex_unlock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-        v35 = [v19 description];
-        v36 = v35;
-        SEUpdaterUtil::SELogObj::printLog(v34, 2, 0, 1, "WriteEvent", "EVENT LOGGING: Error writing to file - %s\n", [v35 UTF8String]);
-        v28 = v23 == 0;
+        v30 = [v17 description];
+        v31 = v30;
+        SEUpdaterUtil::SELogObj::printLog(v29, 2, 0, 1, "WriteEvent", "EVENT LOGGING: Error writing to file - %s\n", [v30 UTF8String]);
+        v25 = v20 == 0;
       }
     }
 
-    if (!v28)
+    if (!v25)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v20);
     }
   }
 
   else
   {
-    v9 = pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-    v10 = off_2A14F2360;
+    pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
+    v9 = off_2A14F2360;
     if (!off_2A14F2360)
     {
-      SEUpdaterUtil::SELogObj::create_default_global(v9);
+      SEUpdaterUtil::SELogObj::create_default_global();
     }
 
-    v11 = *(&off_2A14F2360 + 1);
+    v10 = *(&off_2A14F2360 + 1);
     if (*(&off_2A14F2360 + 1))
     {
       atomic_fetch_add_explicit((*(&off_2A14F2360 + 1) + 8), 1uLL, memory_order_relaxed);
     }
 
     pthread_mutex_unlock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-    SEUpdaterUtil::SELogObj::printLog(v10, 2, 0, 1, "WriteEvent", "EVENT LOGGING: Unable to recreate full file name with path\n");
-    if (v11)
+    SEUpdaterUtil::SELogObj::printLog(v9, 2, 0, 1, "WriteEvent", "EVENT LOGGING: Unable to recreate full file name with path\n");
+    if (v10)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v10);
     }
   }
-
-  v37 = *MEMORY[0x29EDCA608];
 }
 
 void sub_299F0610C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11)
@@ -3916,24 +3575,24 @@ void sub_299F0610C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 const void *SEUpdater::SEControllerBase::shutdown(const void **this)
 {
-  v2 = pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-  v3 = off_2A14F2360;
+  pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
+  v2 = off_2A14F2360;
   if (!off_2A14F2360)
   {
-    SEUpdaterUtil::SELogObj::create_default_global(v2);
+    SEUpdaterUtil::SELogObj::create_default_global();
   }
 
-  v4 = *(&off_2A14F2360 + 1);
+  v3 = *(&off_2A14F2360 + 1);
   if (*(&off_2A14F2360 + 1))
   {
     atomic_fetch_add_explicit((*(&off_2A14F2360 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
   pthread_mutex_unlock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-  SEUpdaterUtil::SELogObj::printLog(v3, 2, 0, 1, "shutdown", "Shutdown fSeHandle %p\n", this[1]);
-  if (v4)
+  SEUpdaterUtil::SELogObj::printLog(v2, 2, 0, 1, "shutdown", "Shutdown fSeHandle %p\n", this[1]);
+  if (v3)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 
   result = this[1];
@@ -3946,74 +3605,73 @@ const void *SEUpdater::SEControllerBase::shutdown(const void **this)
   return result;
 }
 
-uint64_t SEUpdater::SEControllerBase::transceiveInternal(SEUpdater::SEControllerBase *this, const unsigned __int8 *a2, unint64_t a3, unsigned __int8 *a4, unint64_t *a5)
+uint64_t SEUpdater::SEControllerBase::transceiveInternal(SEUpdater::SEControllerBase *this, const unsigned __int8 *a2, uint64_t a3, unsigned __int8 *a4, unint64_t *a5)
 {
-  v5 = *(this + 1);
-  v6 = NfRestoreSETransceive();
-  if (!v6)
+  v5 = NfRestoreSETransceive();
+  if (!v5)
   {
     return 0;
   }
 
   v8 = 25;
-  SEUpdaterUtil::_AddError(0x19, 1, "transceiveInternal", "NfRestoreSETransceive returns %d", v7, v6);
+  SEUpdaterUtil::_AddError(0x19, 1, "transceiveInternal", "NfRestoreSETransceive returns %d", v6, v7, v5);
   return v8;
 }
 
-void SEUpdater::SEControllerBase::transceive(SEUpdater::SEControllerBase *this, const unsigned __int8 *a2, const unsigned __int8 *a3, unsigned __int8 *a4, unint64_t *a5, SEUpdaterUtil::SELogObj *a6)
+void SEUpdater::SEControllerBase::transceive(SEUpdater::SEControllerBase *this, const unsigned __int8 *a2, const unsigned __int8 *a3, unsigned __int8 *a4, unint64_t *a5, SEUpdaterUtil *a6, unint64_t a7)
 {
   if (*(this + 1))
   {
-    v8 = a2;
-    v9 = pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-    v10 = off_2A14F2360;
+    v7 = a7;
+    pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
+    v11 = off_2A14F2360;
     if (!off_2A14F2360)
     {
-      SEUpdaterUtil::SELogObj::create_default_global(v9);
+      SEUpdaterUtil::SELogObj::create_default_global();
     }
 
-    v11 = *(&off_2A14F2360 + 1);
+    v12 = *(&off_2A14F2360 + 1);
     if (*(&off_2A14F2360 + 1))
     {
       atomic_fetch_add_explicit((*(&off_2A14F2360 + 1) + 8), 1uLL, memory_order_relaxed);
     }
 
     pthread_mutex_unlock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-    SEUpdaterUtil::SELogObj::printLog(v10, a6, 0, 1, "transceive", "transmitting C-APDU: %zu \n", a3);
-    if (v11)
+    SEUpdaterUtil::SELogObj::printLog(v11, a6, 0, 1, "transceive", "transmitting C-APDU: %zu \n", a3);
+    if (v12)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v12);
     }
 
-    SEUpdaterUtil::SELogPrintBinary(a6, v8, a3);
+    SEUpdaterUtil::SELogPrintBinary(a6, a2, a3, v7);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
-  std::string::basic_string[abi:ne200100]<0>(&v15, "Assertion: ");
-  v13 = std::string::append(&v15, "fSeHandle");
-  v14 = *&v13->__r_.__value_.__l.__data_;
-  v17 = v13->__r_.__value_.__r.__words[2];
-  v16 = v14;
-  v13->__r_.__value_.__l.__size_ = 0;
-  v13->__r_.__value_.__r.__words[2] = 0;
-  v13->__r_.__value_.__r.__words[0] = 0;
-  MEMORY[0x29C2B5B50](exception, &v16);
+  std::string::basic_string[abi:ne200100]<0>(&v16, "Assertion: ");
+  v14 = std::string::append(&v16, "fSeHandle");
+  v15 = *&v14->__r_.__value_.__l.__data_;
+  v18 = v14->__r_.__value_.__r.__words[2];
+  v17 = v15;
+  v14->__r_.__value_.__l.__size_ = 0;
+  v14->__r_.__value_.__r.__words[2] = 0;
+  v14->__r_.__value_.__r.__words[0] = 0;
+  MEMORY[0x29C2B5B50](exception, &v17);
 }
 
-void SEUpdater::SEControllerBase::transceive(SEUpdater::SEControllerBase *this, const SERestoreInfo::CApdu *a2, SERestoreInfo::RApdu *a3, SEUpdaterUtil::SELogObj *a4)
+void SEUpdater::SEControllerBase::transceive(SEUpdater::SEControllerBase *this, const SERestoreInfo::CApdu *a2, SERestoreInfo::RApdu *a3, SEUpdaterUtil *a4, unint64_t a5)
 {
   if (*(this + 1))
   {
-    v7 = *(a3 + 1);
-    v8 = *(v7 + 16) - *v7;
+    v8 = *(a3 + 1);
+    v9 = v8[2] - *v8;
     LOBYTE(v17) = 0;
-    std::vector<unsigned char>::assign(v7, v8, &v17);
+    std::vector<unsigned char>::assign(v8, v9, &v17);
     v16.__r_.__value_.__r.__words[0] = *(*(a3 + 1) + 8) - **(a3 + 1);
-    v9 = pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
+    pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
     v10 = off_2A14F2360;
     if (!off_2A14F2360)
     {
-      SEUpdaterUtil::SELogObj::create_default_global(v9);
+      SEUpdaterUtil::SELogObj::create_default_global();
     }
 
     v11 = *(&off_2A14F2360 + 1);
@@ -4039,7 +3697,7 @@ void SEUpdater::SEControllerBase::transceive(SEUpdater::SEControllerBase *this, 
       v12 = *(*(a2 + 1) + 8) - **(a2 + 1);
     }
 
-    SEUpdaterUtil::SELogPrintBinary(a4, *(a2 + 3), v12);
+    SEUpdaterUtil::SELogPrintBinary(a4, *(a2 + 3), v12, 0);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -4109,7 +3767,7 @@ id PTCCommand::CreateCommand(unsigned int a1, unint64_t a2, uint64_t a3)
     v7[3] = 2;
     v7[4] = [v3 DERItem];
     v7[5] = v4;
-    v5 = encodeSequence(0x2000000000000010, v7, 3u, &PTCommandSpecItems);
+    v5 = encodeSequence(0x2000000000000010, v7, 3, &PTCommandSpecItems);
   }
 
   return v5;
@@ -4126,7 +3784,7 @@ id PTCCommand::ExecuteCommand(void *a1, void *a2, void *a3, void *a4)
   {
     v13 = v7;
     v14 = v9;
-    SERestoreInfo::Apdu::Apdu(&v16);
+    SERestoreInfo::Apdu::Apdu(&v16, 0x2037uLL);
   }
 
   if (a4)
@@ -4228,7 +3886,7 @@ LABEL_9:
   return v18;
 }
 
-void sub_299F077BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_299F077BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -4256,13 +3914,13 @@ uint64_t SEUpdater::PreflightUpdateController::doCommand(SEUpdater::PreflightUpd
   if (CFStringCompare(theString1, @"queryInfo", 0))
   {
     exception = __cxa_allocate_exception(0x48uLL);
-    ctu::cf::show(&v46, theString1, v31);
-    v32 = std::string::insert(&v46, 0, "Unknown command: ");
-    v41 = *v32;
-    v32->__r_.__value_.__l.__size_ = 0;
-    v32->__r_.__value_.__r.__words[2] = 0;
-    v32->__r_.__value_.__r.__words[0] = 0;
-    v33 = SERestoreInfo::SEException::SEException(exception, &v41, 2, @"SEUpdaterErrorDomain");
+    ctu::cf::show(&v40, theString1, v26);
+    v27 = std::string::insert(&v40, 0, "Unknown command: ");
+    v35 = *v27;
+    v27->__r_.__value_.__l.__size_ = 0;
+    v27->__r_.__value_.__r.__words[2] = 0;
+    v27->__r_.__value_.__r.__words[0] = 0;
+    v28 = SERestoreInfo::SEException::SEException(exception, &v35, 2, @"SEUpdaterErrorDomain");
   }
 
   v4 = objc_autoreleasePoolPush();
@@ -4272,36 +3930,36 @@ uint64_t SEUpdater::PreflightUpdateController::doCommand(SEUpdater::PreflightUpd
     v6 = v5;
     if (!v5)
     {
-      v34 = __cxa_allocate_exception(0x48uLL);
-      std::string::basic_string[abi:ne200100]<0>(&v41, "Couldn't get sharedHardwareManager");
-      v35 = SERestoreInfo::SEException::SEException(v34, &v41, 31, @"SEUpdaterErrorDomain");
+      v29 = __cxa_allocate_exception(0x48uLL);
+      std::string::basic_string[abi:ne200100]<0>(&v35, "Couldn't get sharedHardwareManager");
+      v30 = SERestoreInfo::SEException::SEException(v29, &v35, 31, @"SEUpdaterErrorDomain");
     }
 
-    v38 = v4;
+    v33 = v4;
     v7 = [v5 getHwSupport];
     v8 = v7;
     if (v7 != 2)
     {
       if (v7 == 4)
       {
-        v9 = pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-        v10 = off_2A14F2360;
+        pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
+        v9 = off_2A14F2360;
         if (!off_2A14F2360)
         {
-          SEUpdaterUtil::SELogObj::create_default_global(v9);
+          SEUpdaterUtil::SELogObj::create_default_global();
         }
 
-        v11 = *(&off_2A14F2360 + 1);
+        v10 = *(&off_2A14F2360 + 1);
         if (*(&off_2A14F2360 + 1))
         {
           atomic_fetch_add_explicit((*(&off_2A14F2360 + 1) + 8), 1uLL, memory_order_relaxed);
         }
 
         pthread_mutex_unlock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-        SEUpdaterUtil::SELogObj::printLog(v10, 2, 0, 1, "doCommand", "HWState returns UnSupported, bailing out\n");
-        if (v11)
+        SEUpdaterUtil::SELogObj::printLog(v9, 2, 0, 1, "doCommand", "HWState returns UnSupported, bailing out\n");
+        if (v10)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v10);
         }
 
 LABEL_46:
@@ -4309,144 +3967,143 @@ LABEL_46:
         goto LABEL_47;
       }
 
-      v15 = 1;
+      v13 = 1;
       do
       {
-        if (v15 == 11)
+        if (v13 == 11)
         {
-          v27 = __cxa_allocate_exception(0x48uLL);
-          std::to_string(&v46, v8);
-          v28 = std::string::insert(&v46, 0, "Hardware still not in a valid state: ");
-          v41 = *v28;
-          v28->__r_.__value_.__l.__size_ = 0;
-          v28->__r_.__value_.__r.__words[2] = 0;
-          v28->__r_.__value_.__r.__words[0] = 0;
-          v29 = SERestoreInfo::SEException::SEException(v27, &v41, 31, @"SEUpdaterErrorDomain");
+          v22 = __cxa_allocate_exception(0x48uLL);
+          std::to_string(&v40, v8);
+          v23 = std::string::insert(&v40, 0, "Hardware still not in a valid state: ");
+          v35 = *v23;
+          v23->__r_.__value_.__l.__size_ = 0;
+          v23->__r_.__value_.__r.__words[2] = 0;
+          v23->__r_.__value_.__r.__words[0] = 0;
+          v24 = SERestoreInfo::SEException::SEException(v22, &v35, 31, @"SEUpdaterErrorDomain");
         }
 
-        v16 = pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-        v17 = off_2A14F2360;
+        pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
+        v14 = off_2A14F2360;
         if (!off_2A14F2360)
         {
-          SEUpdaterUtil::SELogObj::create_default_global(v16);
+          SEUpdaterUtil::SELogObj::create_default_global();
         }
 
-        v18 = *(&off_2A14F2360 + 1);
+        v15 = *(&off_2A14F2360 + 1);
         if (*(&off_2A14F2360 + 1))
         {
           atomic_fetch_add_explicit((*(&off_2A14F2360 + 1) + 8), 1uLL, memory_order_relaxed);
         }
 
         pthread_mutex_unlock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-        SEUpdaterUtil::SELogObj::printLog(v17, 1, 0, 1, "doCommand", "Attempt %d state %d is not yet ready, sleeping a bit\n", v15, v8);
-        if (v18)
+        SEUpdaterUtil::SELogObj::printLog(v14, 1, 0, 1, "doCommand", "Attempt %d state %d is not yet ready, sleeping a bit\n", v13, v8);
+        if (v15)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v15);
         }
 
         usleep(0xF4240u);
         v8 = [v6 queryHardwareSupport:0];
-        v19 = pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-        v20 = off_2A14F2360;
+        pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
+        v16 = off_2A14F2360;
         if (!off_2A14F2360)
         {
-          SEUpdaterUtil::SELogObj::create_default_global(v19);
+          SEUpdaterUtil::SELogObj::create_default_global();
         }
 
-        v21 = *(&off_2A14F2360 + 1);
+        v17 = *(&off_2A14F2360 + 1);
         if (*(&off_2A14F2360 + 1))
         {
           atomic_fetch_add_explicit((*(&off_2A14F2360 + 1) + 8), 1uLL, memory_order_relaxed);
         }
 
         pthread_mutex_unlock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-        SEUpdaterUtil::SELogObj::printLog(v20, 1, 0, 1, "doCommand", "new state --> %d\n", v8);
-        if (v21)
+        SEUpdaterUtil::SELogObj::printLog(v16, 1, 0, 1, "doCommand", "new state --> %d\n", v8);
+        if (v17)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v17);
         }
 
-        ++v15;
+        ++v13;
       }
 
       while (v8 != 2);
     }
 
-    v22 = [v6 secureElements];
-    if (![v22 count])
+    v18 = [v6 secureElements];
+    if (![v18 count])
     {
-      v36 = __cxa_allocate_exception(0x48uLL);
-      std::string::basic_string[abi:ne200100]<0>(&v41, "Error getting secure element array");
-      v37 = SERestoreInfo::SEException::SEException(v36, &v41, 31, @"SEUpdaterErrorDomain");
+      v31 = __cxa_allocate_exception(0x48uLL);
+      std::string::basic_string[abi:ne200100]<0>(&v35, "Error getting secure element array");
+      v32 = SERestoreInfo::SEException::SEException(v31, &v35, 31, @"SEUpdaterErrorDomain");
     }
 
-    v41.__r_.__value_.__r.__words[0] = 0;
-    v41.__r_.__value_.__l.__size_ = &v41;
-    v41.__r_.__value_.__r.__words[2] = 0x3812000000;
-    v42 = __Block_byref_object_copy__4;
-    v43 = __Block_byref_object_dispose__4;
-    v44 = 0;
+    v35.__r_.__value_.__r.__words[0] = 0;
+    v35.__r_.__value_.__l.__size_ = &v35;
+    v35.__r_.__value_.__r.__words[2] = 0x3812000000;
+    v36 = __Block_byref_object_copy__4;
+    v37 = __Block_byref_object_dispose__4;
+    v38 = 0;
     cf = 0;
-    v40[0] = MEMORY[0x29EDCA5F8];
-    v40[1] = 3221225472;
-    v40[2] = ___ZN9SEUpdater25PreflightUpdateController9doCommandEPK10__CFStringPPK14__CFDictionary_block_invoke;
-    v40[3] = &unk_29F290FA8;
-    v40[4] = &v41;
-    [v22 enumerateObjectsUsingBlock:v40];
-    if (*(v41.__r_.__value_.__l.__size_ + 48))
+    v34[0] = MEMORY[0x29EDCA5F8];
+    v34[1] = 3221225472;
+    v34[2] = ___ZN9SEUpdater25PreflightUpdateController9doCommandEPK10__CFStringPPK14__CFDictionary_block_invoke;
+    v34[3] = &unk_29F290FA8;
+    v34[4] = &v35;
+    [v18 enumerateObjectsUsingBlock:v34];
+    if (*(v35.__r_.__value_.__l.__size_ + 48))
     {
-      v39 = *(v41.__r_.__value_.__l.__size_ + 48);
       operator new();
     }
 
-    v23 = pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-    v24 = off_2A14F2360;
+    pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
+    v19 = off_2A14F2360;
     if (!off_2A14F2360)
     {
-      SEUpdaterUtil::SELogObj::create_default_global(v23);
+      SEUpdaterUtil::SELogObj::create_default_global();
     }
 
-    v25 = *(&off_2A14F2360 + 1);
+    v20 = *(&off_2A14F2360 + 1);
     if (*(&off_2A14F2360 + 1))
     {
       atomic_fetch_add_explicit((*(&off_2A14F2360 + 1) + 8), 1uLL, memory_order_relaxed);
     }
 
     pthread_mutex_unlock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-    SEUpdaterUtil::SELogObj::printLog(v24, 2, 0, 1, "doCommand", "No personalisable SEs found\n");
-    if (v25)
+    SEUpdaterUtil::SELogObj::printLog(v19, 2, 0, 1, "doCommand", "No personalisable SEs found\n");
+    if (v20)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v20);
     }
 
-    _Block_object_dispose(&v41, 8);
+    _Block_object_dispose(&v35, 8);
     if (cf)
     {
       CFRelease(cf);
     }
 
-    v4 = v38;
+    v4 = v33;
     goto LABEL_46;
   }
 
-  v12 = pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-  v13 = off_2A14F2360;
+  pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
+  v11 = off_2A14F2360;
   if (!off_2A14F2360)
   {
-    SEUpdaterUtil::SELogObj::create_default_global(v12);
+    SEUpdaterUtil::SELogObj::create_default_global();
   }
 
-  v14 = *(&off_2A14F2360 + 1);
+  v12 = *(&off_2A14F2360 + 1);
   if (*(&off_2A14F2360 + 1))
   {
     atomic_fetch_add_explicit((*(&off_2A14F2360 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
   pthread_mutex_unlock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-  SEUpdaterUtil::SELogObj::printLog(v13, 2, 0, 1, "doCommand", "Can't get weakly linked NFHM class, nothing to personalize\n");
-  if (v14)
+  SEUpdaterUtil::SELogObj::printLog(v11, 2, 0, 1, "doCommand", "Can't get weakly linked NFHM class, nothing to personalize\n");
+  if (v12)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
   }
 
 LABEL_47:
@@ -4454,17 +4111,17 @@ LABEL_47:
   return 1;
 }
 
-void sub_299F080D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_299F080D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   pthread_mutex_unlock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-  if (v13)
+  if (v20)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
   }
 
   _Block_object_dispose(va, 8);
-  ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef((v14 + 48));
+  ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef((v21 + 48));
 
   _Unwind_Resume(a1);
 }
@@ -4496,21 +4153,21 @@ void sub_299F0815C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_299F08174(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_299F08174(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a10);
-  if (v11)
+  va_start(va, a18);
+  if (v19)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
   }
 
-  if (v12)
+  if (v20)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
   }
 
   _Block_object_dispose(va, 8);
-  ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef((v13 + 48));
+  ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef((v21 + 48));
 
   JUMPOUT(0x299F086D0);
 }
@@ -4533,17 +4190,17 @@ void sub_299F08324(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   JUMPOUT(0x299F086D0);
 }
 
-void sub_299F0833C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_299F0833C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a10);
-  __cxa_free_exception(v11);
-  if (v12)
+  va_start(va, a18);
+  __cxa_free_exception(v19);
+  if (v20)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
   }
 
   _Block_object_dispose(va, 8);
-  ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef((v13 + 48));
+  ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef((v21 + 48));
 
   JUMPOUT(0x299F086D0);
 }
@@ -4571,17 +4228,17 @@ void sub_299F0834C(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   JUMPOUT(0x299F08180);
 }
 
-void sub_299F08374(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_299F08374(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a10);
+  va_start(va, a18);
   pthread_mutex_unlock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-  if (v11)
+  if (v19)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
   }
 
   _Block_object_dispose(va, 8);
-  ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef((v12 + 48));
+  ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef((v20 + 48));
 
   JUMPOUT(0x299F086D0);
 }
@@ -4651,7 +4308,6 @@ void sub_299F08624(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
   if (*(v25 - 105) < 0)
   {
-    v27 = *(v25 - 128);
     JUMPOUT(0x299F08644);
   }
 
@@ -4719,54 +4375,54 @@ void __Block_byref_object_dispose__4(uint64_t a1)
 void ___ZN9SEUpdater25PreflightUpdateController9doCommandEPK10__CFStringPPK14__CFDictionary_block_invoke(uint64_t a1, void *a2, int a3, _BYTE *a4)
 {
   v7 = a2;
-  v8 = pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-  v9 = off_2A14F2360;
+  pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
+  v8 = off_2A14F2360;
   if (!off_2A14F2360)
   {
-    SEUpdaterUtil::SELogObj::create_default_global(v8);
+    SEUpdaterUtil::SELogObj::create_default_global();
   }
 
-  v10 = *(&off_2A14F2360 + 1);
+  v9 = *(&off_2A14F2360 + 1);
   if (*(&off_2A14F2360 + 1))
   {
     atomic_fetch_add_explicit((*(&off_2A14F2360 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
   pthread_mutex_unlock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-  v11 = [v7 info];
-  SEUpdaterUtil::SELogObj::printLog(v9, 2, 0, 1, "doCommand_block_invoke", "SE %u personalisable %d\n", a3, [v11 personalisable]);
+  v10 = [v7 info];
+  SEUpdaterUtil::SELogObj::printLog(v8, 2, 0, 1, "doCommand_block_invoke", "SE %u personalisable %d\n", a3, [v10 personalisable]);
 
-  if (v10)
+  if (v9)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
 
-  v12 = [v7 info];
-  v13 = [v12 personalisable];
+  v11 = [v7 info];
+  v12 = [v11 personalisable];
 
-  if (v13)
+  if (v12)
   {
-    v14 = [v7 info];
-    v15 = [v14 manifestQuery];
-    v16 = v15;
-    v17 = *(*(a1 + 32) + 8);
-    if (v15)
+    v13 = [v7 info];
+    v14 = [v13 manifestQuery];
+    v15 = v14;
+    v16 = *(*(a1 + 32) + 8);
+    if (v14)
     {
-      CFRetain(v15);
+      CFRetain(v14);
     }
 
-    v18 = *(v17 + 48);
-    *(v17 + 48) = v16;
-    if (v18)
+    v17 = *(v16 + 48);
+    *(v16 + 48) = v15;
+    if (v17)
     {
-      CFRelease(v18);
+      CFRelease(v17);
     }
 
     if (!*(*(*(a1 + 32) + 8) + 48))
     {
       exception = __cxa_allocate_exception(0x48uLL);
-      std::string::basic_string[abi:ne200100]<0>(v21, "Got personalisable SE with nil manifestQuery?!");
-      v20 = SERestoreInfo::SEException::SEException(exception, v21, 31, @"SEUpdaterErrorDomain");
+      std::string::basic_string[abi:ne200100]<0>(v20, "Got personalisable SE with nil manifestQuery?!");
+      v19 = SERestoreInfo::SEException::SEException(exception, v20, 31, @"SEUpdaterErrorDomain");
     }
 
     *a4 = 1;
@@ -4938,7 +4594,7 @@ LABEL_17:
 
 uint64_t SERestoreInfo::SEException::SEException(uint64_t a1, __int128 *a2, int a3, CFTypeRef cf)
 {
-  v27[2] = *MEMORY[0x29EDCA608];
+  v26[2] = *MEMORY[0x29EDCA608];
   *a1 = &unk_2A2028748;
   *(a1 + 8) = 0;
   v7 = (a1 + 8);
@@ -4970,18 +4626,18 @@ uint64_t SERestoreInfo::SEException::SEException(uint64_t a1, __int128 *a2, int 
   }
 
   *(a1 + 56) = v10;
-  std::to_string(&v24, a3);
-  v11 = std::string::insert(&v24, 0, "(");
+  std::to_string(&v23, a3);
+  v11 = std::string::insert(&v23, 0, "(");
   v12 = *&v11->__r_.__value_.__l.__data_;
-  v25.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
-  *&v25.__r_.__value_.__l.__data_ = v12;
+  v24.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
+  *&v24.__r_.__value_.__l.__data_ = v12;
   v11->__r_.__value_.__l.__size_ = 0;
   v11->__r_.__value_.__r.__words[2] = 0;
   v11->__r_.__value_.__r.__words[0] = 0;
-  v13 = std::string::append(&v25, ") ");
+  v13 = std::string::append(&v24, ") ");
   v14 = *&v13->__r_.__value_.__l.__data_;
-  v26.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
-  *&v26.__r_.__value_.__l.__data_ = v14;
+  v25.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
+  *&v25.__r_.__value_.__l.__data_ = v14;
   v13->__r_.__value_.__l.__size_ = 0;
   v13->__r_.__value_.__r.__words[2] = 0;
   v13->__r_.__value_.__r.__words[0] = 0;
@@ -5006,10 +4662,10 @@ uint64_t SERestoreInfo::SEException::SEException(uint64_t a1, __int128 *a2, int 
     v17 = *(a1 + 40);
   }
 
-  v18 = std::string::append(&v26, v16, v17);
+  v18 = std::string::append(&v25, v16, v17);
   v19 = v18->__r_.__value_.__r.__words[0];
-  v27[0] = v18->__r_.__value_.__l.__size_;
-  *(v27 + 7) = *(&v18->__r_.__value_.__r.__words[1] + 7);
+  v26[0] = v18->__r_.__value_.__l.__size_;
+  *(v26 + 7) = *(&v18->__r_.__value_.__r.__words[1] + 7);
   v20 = HIBYTE(v18->__r_.__value_.__r.__words[2]);
   v18->__r_.__value_.__l.__size_ = 0;
   v18->__r_.__value_.__r.__words[2] = 0;
@@ -5019,16 +4675,11 @@ uint64_t SERestoreInfo::SEException::SEException(uint64_t a1, __int128 *a2, int 
     operator delete(*v7);
   }
 
-  v21 = v27[0];
+  v21 = v26[0];
   *(a1 + 8) = v19;
   *(a1 + 16) = v21;
-  *(a1 + 23) = *(v27 + 7);
+  *(a1 + 23) = *(v26 + 7);
   *(a1 + 31) = v20;
-  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v26.__r_.__value_.__l.__data_);
-  }
-
   if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v25.__r_.__value_.__l.__data_);
@@ -5039,7 +4690,11 @@ uint64_t SERestoreInfo::SEException::SEException(uint64_t a1, __int128 *a2, int 
     operator delete(v24.__r_.__value_.__l.__data_);
   }
 
-  v22 = *MEMORY[0x29EDCA608];
+  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v23.__r_.__value_.__l.__data_);
+  }
+
   return a1;
 }
 
@@ -5055,7 +4710,7 @@ void sub_299F094E8(_Unwind_Exception *a1, int a2)
 
 SERestoreInfo::SEException *SERestoreInfo::SEException::SEException(SERestoreInfo::SEException *this, CFErrorRef err)
 {
-  v34[2] = *MEMORY[0x29EDCA608];
+  v33[2] = *MEMORY[0x29EDCA608];
   *this = &unk_2A2028748;
   *(this + 8) = 0u;
   v4 = (this + 8);
@@ -5067,9 +4722,9 @@ SERestoreInfo::SEException *SERestoreInfo::SEException::SEException(SERestoreInf
   {
     Length = CFStringGetLength(v5);
     usedBufLen.__r_.__value_.__r.__words[0] = 0;
-    v35.location = 0;
-    v35.length = Length;
-    Bytes = CFStringGetBytes(v6, v35, 0x8000100u, 0, 0, 0, 0, &usedBufLen);
+    v34.location = 0;
+    v34.length = Length;
+    Bytes = CFStringGetBytes(v6, v34, 0x8000100u, 0, 0, 0, 0, &usedBufLen);
     if (!usedBufLen.__r_.__value_.__r.__words[0] || !Bytes)
     {
 LABEL_21:
@@ -5078,9 +4733,9 @@ LABEL_21:
     }
 
     std::vector<unsigned char>::vector[abi:ne200100](&__p, usedBufLen.__r_.__value_.__l.__data_);
-    v36.location = 0;
-    v36.length = Length;
-    if (!CFStringGetBytes(v6, v36, 0x8000100u, 0, 0, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_ - __p.__r_.__value_.__r.__words[0], 0))
+    v35.location = 0;
+    v35.length = Length;
+    if (!CFStringGetBytes(v6, v35, 0x8000100u, 0, 0, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_ - __p.__r_.__value_.__r.__words[0], 0))
     {
 LABEL_19:
       if (__p.__r_.__value_.__r.__words[0])
@@ -5164,8 +4819,8 @@ LABEL_22:
   }
 
   *(this + 7) = Domain;
-  std::to_string(&v31, *(this + 16));
-  v18 = std::string::insert(&v31, 0, "CF=(");
+  std::to_string(&v30, *(this + 16));
+  v18 = std::string::insert(&v30, 0, "CF=(");
   v19 = *&v18->__r_.__value_.__l.__data_;
   usedBufLen.__r_.__value_.__r.__words[2] = v18->__r_.__value_.__r.__words[2];
   *&usedBufLen.__r_.__value_.__l.__data_ = v19;
@@ -5202,8 +4857,8 @@ LABEL_22:
 
   v25 = std::string::append(&__p, v23, v24);
   v26 = v25->__r_.__value_.__r.__words[0];
-  v34[0] = v25->__r_.__value_.__l.__size_;
-  *(v34 + 7) = *(&v25->__r_.__value_.__r.__words[1] + 7);
+  v33[0] = v25->__r_.__value_.__l.__size_;
+  *(v33 + 7) = *(&v25->__r_.__value_.__r.__words[1] + 7);
   v27 = HIBYTE(v25->__r_.__value_.__r.__words[2]);
   v25->__r_.__value_.__l.__size_ = 0;
   v25->__r_.__value_.__r.__words[2] = 0;
@@ -5213,10 +4868,10 @@ LABEL_22:
     operator delete(*v4);
   }
 
-  v28 = v34[0];
+  v28 = v33[0];
   *(this + 1) = v26;
   *(this + 2) = v28;
-  *(this + 23) = *(v34 + 7);
+  *(this + 23) = *(v33 + 7);
   *(this + 31) = v27;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -5228,12 +4883,11 @@ LABEL_22:
     operator delete(usedBufLen.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v31.__r_.__value_.__l.__data_);
+    operator delete(v30.__r_.__value_.__l.__data_);
   }
 
-  v29 = *MEMORY[0x29EDCA608];
   return this;
 }
 
@@ -5276,7 +4930,7 @@ void SERestoreInfo::SEException::~SEException(std::exception *this)
   JUMPOUT(0x29C2B5F30);
 }
 
-uint64_t SERestoreInfo::SEFirmwareBase::get(SERestoreInfo::SEFirmwareBase *this, unsigned int a2)
+uint64_t *SERestoreInfo::SEFirmwareBase::get(SERestoreInfo::SEFirmwareBase *this, unsigned int a2)
 {
   if ((a2 & 0x80000000) != 0 || (v2 = *(this + 2), a2 >= ((*(this + 3) - v2) >> 5)))
   {
@@ -5646,20 +5300,20 @@ void sub_299F0A6CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t SEUpdaterUtil::SN300VImage4Signer::getSigningKey@<X0>(void *a1@<X8>)
+uint64_t *SEUpdaterUtil::SN300VImage4Signer::getSigningKey@<X0>(uint64_t *a1@<X8>)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(a1, &SEUpdaterUtil::SN300VImage4Signer::getSigningKey(void)const::signingKey, &SEUpdaterUtil::SN300VImage4Signer::getSigningCert(void)const::signingCert, 167);
+  return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(a1, SEUpdaterUtil::SN300VImage4Signer::getSigningKey(void)const::signingKey, SEUpdaterUtil::SN300VImage4Signer::getSigningCert(void)const::signingCert, 167);
 }
 
-uint64_t SEUpdaterUtil::SN300VImage4Signer::getSigningCert@<X0>(void *a1@<X8>)
+uint64_t *SEUpdaterUtil::SN300VImage4Signer::getSigningCert@<X0>(uint64_t *a1@<X8>)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(a1, &SEUpdaterUtil::SN300VImage4Signer::getSigningCert(void)const::signingCert, "N13SEUpdaterUtil18SN300VImage4SignerE", 798);
+  return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(a1, SEUpdaterUtil::SN300VImage4Signer::getSigningCert(void)const::signingCert, "N13SEUpdaterUtil18SN300VImage4SignerE", 798);
 }
 
 void SEUpdaterUtil::SN300VImage4Signer::~SN300VImage4Signer(SEUpdaterUtil::SN300VImage4Signer *this)
@@ -5734,12 +5388,12 @@ uint64_t SEUpdaterUtil::SEImage4Signer::sign@<X0>(const __CFDictionary **a1@<X0>
   return MEMORY[0x29C2B5A30](v5);
 }
 
-void sub_299F0AC20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_299F0AC20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(va);
-  std::unique_ptr<SEUpdaterUtil::P73Image4Signer>::~unique_ptr[abi:ne200100]((v6 - 40));
-  MEMORY[0x29C2B5A30](v6 - 56);
+  std::unique_ptr<SEUpdaterUtil::P73Image4Signer>::~unique_ptr[abi:ne200100]((v11 - 40));
+  MEMORY[0x29C2B5A30](v11 - 56);
   _Unwind_Resume(a1);
 }
 
@@ -5749,22 +5403,22 @@ void SEUpdaterUtil::SEImage4Signer::signInternal(CFDataRef *a1, void **a2, CFDic
   if (!*a3)
   {
     exception = __cxa_allocate_exception(0x10uLL);
-    v24 = std::string::basic_string[abi:ne200100]<0>(v45, "Assertion: ");
-    v25 = std::string::append(v24, "requestDict");
-    v26 = *&v25->__r_.__value_.__l.__data_;
-    v38 = v25->__r_.__value_.__r.__words[2];
-    *__p = v26;
-    v25->__r_.__value_.__l.__size_ = 0;
-    v25->__r_.__value_.__r.__words[2] = 0;
-    v25->__r_.__value_.__r.__words[0] = 0;
+    v26 = std::string::basic_string[abi:ne200100]<0>(v48, "Assertion: ");
+    v27 = std::string::append(v26, "requestDict");
+    v28 = *&v27->__r_.__value_.__l.__data_;
+    v41 = v27->__r_.__value_.__r.__words[2];
+    *__p = v28;
+    v27->__r_.__value_.__l.__size_ = 0;
+    v27->__r_.__value_.__r.__words[2] = 0;
+    v27->__r_.__value_.__r.__words[0] = 0;
     MEMORY[0x29C2B5B50](exception, __p);
   }
 
   *a1 = 0;
   valuePtr = 0;
-  v44 = 0;
+  v47 = 0;
   v7 = a2 + 1;
-  v42 = 0;
+  v45 = 0;
   if (a2 + 1 != a3)
   {
     CFRetain(v3);
@@ -5775,140 +5429,140 @@ void SEUpdaterUtil::SEImage4Signer::signInternal(CFDataRef *a1, void **a2, CFDic
   }
 
   v9 = (*(*a2 + 4))(a2);
-  (*(*a2 + 5))(v45, a2);
-  (*(*a2 + 6))(&v40, a2);
+  (*(*a2 + 5))(v48, a2);
+  (*(*a2 + 6))(&v43, a2);
   LODWORD(__p[0]) = v9;
-  v38 = 0;
-  v39 = 0;
+  v41 = 0;
+  v42 = 0;
   __p[1] = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p[1], v40, v41, v41 - v40);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p[1], v43, v44, v44 - v43);
   Value = CFDictionaryGetValue(*a3, @"SE,ChipID");
   if (!Value)
   {
-    v12 = 0;
-    SEUpdaterUtil::_AddError(0x1D, 1, "signInternal", "Missing SE,ChipID in request dictionary", v11);
+    v13 = 0;
+    SEUpdaterUtil::_AddError(0x1D, 1, "signInternal", "Missing SE,ChipID in request dictionary", v11, v12);
     goto LABEL_15;
   }
 
   if (!CFNumberGetValue(Value, kCFNumberSInt32Type, &valuePtr))
   {
-    v27 = __cxa_allocate_exception(0x10uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v34, "Assertion: ");
-    v28 = std::string::append(&v34, "CFNumberGetValue(tmp, kCFNumberSInt32Type, (void *)&chipID)");
-    v29 = *&v28->__r_.__value_.__l.__data_;
-    v36 = v28->__r_.__value_.__r.__words[2];
-    *v35 = v29;
-    v28->__r_.__value_.__l.__size_ = 0;
-    v28->__r_.__value_.__r.__words[2] = 0;
-    v28->__r_.__value_.__r.__words[0] = 0;
-    MEMORY[0x29C2B5B50](v27, v35);
+    v29 = __cxa_allocate_exception(0x10uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v37, "Assertion: ");
+    v30 = std::string::append(&v37, "CFNumberGetValue(tmp, kCFNumberSInt32Type, (void *)&chipID)");
+    v31 = *&v30->__r_.__value_.__l.__data_;
+    v39 = v30->__r_.__value_.__r.__words[2];
+    *v38 = v31;
+    v30->__r_.__value_.__l.__size_ = 0;
+    v30->__r_.__value_.__r.__words[2] = 0;
+    v30->__r_.__value_.__r.__words[0] = 0;
+    MEMORY[0x29C2B5B50](v29, v38);
   }
 
-  RootCA::getRootKeyId(0, valuePtr, v35);
-  v12 = v35[0];
-  v13 = v35[1];
-  v34.__r_.__value_.__r.__words[0] = CFDictionaryGetValue(*a3, @"SE,RootKeyIdentifier");
-  ctu::cf::CFSharedRef<__CFData const>::CFSharedRef<void const,void>(v35, &v34.__r_.__value_.__l.__data_);
-  v15 = v42;
-  v16 = v35[0];
-  v42 = v35[0];
-  v35[0] = v15;
-  if (v15)
+  RootCA::getRootKeyId(0, valuePtr, v38);
+  v13 = v38[0];
+  v14 = v38[1];
+  v37.__r_.__value_.__r.__words[0] = CFDictionaryGetValue(*a3, @"SE,RootKeyIdentifier");
+  ctu::cf::CFSharedRef<__CFData const>::CFSharedRef<void const,void>(v38, &v37.__r_.__value_.__l.__data_);
+  v17 = v45;
+  v18 = v38[0];
+  v45 = v38[0];
+  v38[0] = v17;
+  if (v17)
   {
-    CFRelease(v15);
-    v16 = v42;
+    CFRelease(v17);
+    v18 = v45;
   }
 
-  if (!v16)
+  if (!v18)
   {
-    v21 = "Missing SE,RootKeyIdentifier in request dictionary";
+    v23 = "Missing SE,RootKeyIdentifier in request dictionary";
 LABEL_39:
-    SEUpdaterUtil::_AddError(0x1D, 1, "signInternal", v21, v14, v32, v33);
+    SEUpdaterUtil::_AddError(0x1D, 1, "signInternal", v23, v15, v16, v35, v36);
     goto LABEL_15;
   }
 
-  BytePtr = CFDataGetBytePtr(v16);
-  v18 = CFDataGetBytePtr(v42);
-  Length = CFDataGetLength(v42);
-  v20 = (v13 - v12);
-  if (v13 - v12 == &v18[Length] - BytePtr && !memcmp(v12, BytePtr, v20))
+  BytePtr = CFDataGetBytePtr(v18);
+  v20 = CFDataGetBytePtr(v45);
+  Length = CFDataGetLength(v45);
+  v22 = (v14 - v13);
+  if (v14 - v13 == &v20[Length] - BytePtr && !memcmp(v13, BytePtr, v22))
   {
-    v32 = a2;
-    v33 = __p;
+    v35 = a2;
+    v36 = __p;
     if (Img4EncodeCreateManifest() == 100)
     {
-      v21 = "manifest is null or zero manifesetLen";
-      if (v44 && HIDWORD(valuePtr))
+      v23 = "manifest is null or zero manifesetLen";
+      if (v47 && HIDWORD(valuePtr))
       {
-        v22 = CFDataCreate(0, v44, HIDWORD(valuePtr));
-        *a1 = v22;
-        if (v22)
+        v24 = CFDataCreate(0, v47, HIDWORD(valuePtr));
+        *a1 = v24;
+        if (v24)
         {
           goto LABEL_15;
         }
 
-        v21 = "failed to CFDataCreate for manifest data";
+        v23 = "failed to CFDataCreate for manifest data";
       }
     }
 
     else
     {
-      v21 = "failed to Img4EncodeCreateManifest";
+      v23 = "failed to Img4EncodeCreateManifest";
     }
 
     goto LABEL_39;
   }
 
-  ctu::cf::show(1, v42, v20);
-  if (v36 >= 0)
+  ctu::cf::show(v38, 1, v22, v45);
+  if (v39 >= 0)
   {
-    v31 = v35;
+    v34 = v38;
   }
 
   else
   {
-    v31 = v35[0];
+    v34 = v38[0];
   }
 
-  SEUpdaterUtil::_AddError(0x1D, 1, "signInternal", "KeyID %s is not localCA!", v30, v31);
-  if (SHIBYTE(v36) < 0)
+  SEUpdaterUtil::_AddError(0x1D, 1, "signInternal", "KeyID %s is not localCA!", v32, v33, v34);
+  if (SHIBYTE(v39) < 0)
   {
-    operator delete(v35[0]);
+    operator delete(v38[0]);
   }
 
 LABEL_15:
-  if (v44)
+  if (v47)
   {
-    free(v44);
-    v44 = 0;
+    free(v47);
+    v47 = 0;
   }
 
   if (__p[1])
   {
-    v38 = __p[1];
+    v41 = __p[1];
     operator delete(__p[1]);
   }
 
-  if (v40)
+  if (v43)
   {
-    v41 = v40;
-    operator delete(v40);
+    v44 = v43;
+    operator delete(v43);
   }
 
-  if (v45[0])
+  if (v48[0])
   {
-    v45[1] = v45[0];
-    operator delete(v45[0]);
+    v48[1] = v48[0];
+    operator delete(v48[0]);
   }
 
-  if (v42)
+  if (v45)
   {
-    CFRelease(v42);
+    CFRelease(v45);
   }
 
-  if (v12)
+  if (v13)
   {
-    operator delete(v12);
+    operator delete(v13);
   }
 }
 
@@ -6057,57 +5711,53 @@ uint64_t SEUpdaterUtil::_createDataSignature(SEUpdaterUtil *this, uint64_t a2, c
   if (!a6)
   {
     exception = __cxa_allocate_exception(0x10uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v34, "Assertion: ");
-    v21 = std::string::append(&v34, "context");
-    v22 = *&v21->__r_.__value_.__l.__data_;
-    v35.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
-    *&v35.__r_.__value_.__l.__data_ = v22;
-    v21->__r_.__value_.__l.__size_ = 0;
-    v21->__r_.__value_.__r.__words[2] = 0;
-    v21->__r_.__value_.__r.__words[0] = 0;
-    MEMORY[0x29C2B5B50](exception, &v35);
+    std::string::basic_string[abi:ne200100]<0>(&v29, "Assertion: ");
+    v16 = std::string::append(&v29, "context");
+    v17 = *&v16->__r_.__value_.__l.__data_;
+    v30.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
+    *&v30.__r_.__value_.__l.__data_ = v17;
+    v16->__r_.__value_.__l.__size_ = 0;
+    v16->__r_.__value_.__r.__words[2] = 0;
+    v16->__r_.__value_.__r.__words[0] = 0;
+    MEMORY[0x29C2B5B50](exception, &v30);
   }
 
   if (!a4 || !a5)
   {
-    v23 = __cxa_allocate_exception(0x10uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v34, "Assertion: ");
-    v24 = std::string::append(&v34, "outDataSignature && outDataSignatureLength");
-    v25 = *&v24->__r_.__value_.__l.__data_;
-    v35.__r_.__value_.__r.__words[2] = v24->__r_.__value_.__r.__words[2];
-    *&v35.__r_.__value_.__l.__data_ = v25;
-    v24->__r_.__value_.__l.__size_ = 0;
-    v24->__r_.__value_.__r.__words[2] = 0;
-    v24->__r_.__value_.__r.__words[0] = 0;
-    MEMORY[0x29C2B5B50](v23, &v35);
+    v18 = __cxa_allocate_exception(0x10uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v29, "Assertion: ");
+    v19 = std::string::append(&v29, "outDataSignature && outDataSignatureLength");
+    v20 = *&v19->__r_.__value_.__l.__data_;
+    v30.__r_.__value_.__r.__words[2] = v19->__r_.__value_.__r.__words[2];
+    *&v30.__r_.__value_.__l.__data_ = v20;
+    v19->__r_.__value_.__l.__size_ = 0;
+    v19->__r_.__value_.__r.__words[2] = 0;
+    v19->__r_.__value_.__r.__words[0] = 0;
+    MEMORY[0x29C2B5B50](v18, &v30);
   }
 
   if (!a2 || !a3)
   {
-    v26 = __cxa_allocate_exception(0x10uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v34, "Assertion: ");
-    v27 = std::string::append(&v34, "dataToSign && dataToSignLength");
-    v28 = *&v27->__r_.__value_.__l.__data_;
-    v35.__r_.__value_.__r.__words[2] = v27->__r_.__value_.__r.__words[2];
-    *&v35.__r_.__value_.__l.__data_ = v28;
-    v27->__r_.__value_.__l.__size_ = 0;
-    v27->__r_.__value_.__r.__words[2] = 0;
-    v27->__r_.__value_.__r.__words[0] = 0;
-    MEMORY[0x29C2B5B50](v26, &v35);
+    v21 = __cxa_allocate_exception(0x10uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v29, "Assertion: ");
+    v22 = std::string::append(&v29, "dataToSign && dataToSignLength");
+    v23 = *&v22->__r_.__value_.__l.__data_;
+    v30.__r_.__value_.__r.__words[2] = v22->__r_.__value_.__r.__words[2];
+    *&v30.__r_.__value_.__l.__data_ = v23;
+    v22->__r_.__value_.__l.__size_ = 0;
+    v22->__r_.__value_.__r.__words[2] = 0;
+    v22->__r_.__value_.__r.__words[0] = 0;
+    MEMORY[0x29C2B5B50](v21, &v30);
   }
 
   v9 = *a6;
   if (*a6 == 2)
   {
-    v16 = a6[1];
-    v17 = a6[2];
     SignatureSha512 = AMSupportEcDsaCreateSignatureSha512();
   }
 
   else if (v9 == 1)
   {
-    v14 = a6[1];
-    v15 = a6[2];
     SignatureSha512 = AMSupportEcDsaCreateSignatureSha384();
   }
 
@@ -6115,39 +5765,37 @@ uint64_t SEUpdaterUtil::_createDataSignature(SEUpdaterUtil *this, uint64_t a2, c
   {
     if (v9)
     {
-      v31 = __cxa_allocate_exception(0x48uLL);
-      std::to_string(&v34, *a6);
-      v32 = std::string::insert(&v34, 0, "Unknown algorithm ");
-      v35 = *v32;
-      v32->__r_.__value_.__l.__size_ = 0;
-      v32->__r_.__value_.__r.__words[2] = 0;
-      v32->__r_.__value_.__r.__words[0] = 0;
-      v33 = SERestoreInfo::SEException::SEException(v31, &v35, 29, @"SEUpdaterErrorDomain");
+      v26 = __cxa_allocate_exception(0x48uLL);
+      std::to_string(&v29, *a6);
+      v27 = std::string::insert(&v29, 0, "Unknown algorithm ");
+      v30 = *v27;
+      v27->__r_.__value_.__l.__size_ = 0;
+      v27->__r_.__value_.__r.__words[2] = 0;
+      v27->__r_.__value_.__r.__words[0] = 0;
+      v28 = SERestoreInfo::SEException::SEException(v26, &v30, 29, @"SEUpdaterErrorDomain");
     }
 
-    v10 = a6[1];
-    v11 = a6[2];
     SignatureSha512 = AMSupportEcDsaCreateSignatureSha256();
   }
 
-  v18 = SignatureSha512;
+  v13 = SignatureSha512;
   if (SignatureSha512)
   {
-    SEUpdaterUtil::_AddError(0x1D, 1, "_createDataSignature", "Failed to sign: %d", v13, SignatureSha512);
-    return v18;
+    SEUpdaterUtil::_AddError(0x1D, 1, "_createDataSignature", "Failed to sign: %d", v11, v12, SignatureSha512);
+    return v13;
   }
 
   if (!*a4)
   {
-    v29 = "*outDataSignature is nullptr";
+    v24 = "*outDataSignature is nullptr";
 LABEL_23:
-    SEUpdaterUtil::_AddError(0x1D, 1, "_createDataSignature", v29, v13);
+    SEUpdaterUtil::_AddError(0x1D, 1, "_createDataSignature", v24, v11, v12);
     return 0;
   }
 
   if (!*a5)
   {
-    v29 = "*outDataSignatureLength is 0";
+    v24 = "*outDataSignatureLength is 0";
     goto LABEL_23;
   }
 
@@ -6288,7 +5936,7 @@ void SEUpdaterUtil::SEImage4Signer::doManifestPropertiesCB(CFDictionaryRef *this
   SEUpdaterUtil::SEImg4EncodeContext::~SEImg4EncodeContext(&v42);
 }
 
-void sub_299F0C014(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_299F0C014(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   if (a23 < 0)
   {
@@ -6299,12 +5947,12 @@ void sub_299F0C014(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_299F0C260(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_299F0C260(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = SETransceiveHelper;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -6498,23 +6146,21 @@ void sub_299F0EC68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t SEUpdaterUtil::P73Image4Signer::getSigningKey@<X0>(void *a1@<X8>)
+uint64_t *SEUpdaterUtil::P73Image4Signer::getSigningKey@<X0>(uint64_t *a1@<X8>)
 {
-  *&v6[15] = *MEMORY[0x29EDCA608];
-  v4[4] = xmmword_299F2CE71;
-  v4[5] = unk_299F2CE81;
-  *v5 = xmmword_299F2CE91;
-  *&v5[9] = *(&xmmword_299F2CE91 + 9);
-  v4[0] = xmmword_299F2CE31;
-  v4[1] = unk_299F2CE41;
-  v4[2] = xmmword_299F2CE51;
-  v4[3] = unk_299F2CE61;
+  v5 = *MEMORY[0x29EDCA608];
+  v2[4] = xmmword_299F2CE71;
+  v2[5] = unk_299F2CE81;
+  *v3 = xmmword_299F2CE91;
+  *&v3[9] = *(&xmmword_299F2CE91 + 9);
+  v2[0] = xmmword_299F2CE31;
+  v2[1] = unk_299F2CE41;
+  v2[2] = xmmword_299F2CE51;
+  v2[3] = unk_299F2CE61;
   a1[1] = 0;
   a1[2] = 0;
   *a1 = 0;
-  result = std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(a1, v4, v6, 121);
-  v3 = *MEMORY[0x29EDCA608];
-  return result;
+  return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(a1, v2, v4, 121);
 }
 
 void sub_299F0EEFC(_Unwind_Exception *a1, int a2)
@@ -6527,16 +6173,14 @@ void sub_299F0EEFC(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-uint64_t SEUpdaterUtil::P73Image4Signer::getSigningCert@<X0>(void *a1@<X8>)
+uint64_t *SEUpdaterUtil::P73Image4Signer::getSigningCert@<X0>(uint64_t *a1@<X8>)
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
   memcpy(__dst, &unk_299F2CEAA, sizeof(__dst));
   a1[1] = 0;
   a1[2] = 0;
   *a1 = 0;
-  result = std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(a1, __dst, &v6, 622);
-  v4 = *MEMORY[0x29EDCA608];
-  return result;
+  return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(a1, __dst, &v4, 622);
 }
 
 void sub_299F0EF98(_Unwind_Exception *a1, int a2)
@@ -6663,16 +6307,16 @@ void sub_299F0F1A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void SEUpdaterUtil::JCOPConfigManager::performOSUJCOPConfigs(SEUpdaterUtil::JCOPConfigManager *this)
 {
-  *&v15[4] = *MEMORY[0x29EDCA608];
-  v13 = 0x412A00004143;
-  v14 = 16734;
-  v11 = 0;
-  v12 = 0;
+  v15 = *MEMORY[0x29EDCA608];
+  v12 = 0x412A00004143;
+  v13 = 16734;
   v10 = 0;
-  std::vector<SEUpdaterUtil::JCOPConfigItem>::__init_with_size[abi:ne200100]<SEUpdaterUtil::JCOPConfigItem const*,SEUpdaterUtil::JCOPConfigItem const*>(&v10, &v13, v15, 3uLL);
-  v2 = v10;
-  v3 = v11;
-  if (v10 != v11)
+  v11 = 0;
+  v9 = 0;
+  std::vector<SEUpdaterUtil::JCOPConfigItem>::__init_with_size[abi:ne200100]<SEUpdaterUtil::JCOPConfigItem const*,SEUpdaterUtil::JCOPConfigItem const*>(&v9, &v12, &v14, 3uLL);
+  v2 = v9;
+  v3 = v10;
+  if (v9 != v10)
   {
     v4 = 0;
     do
@@ -6680,7 +6324,7 @@ void SEUpdaterUtil::JCOPConfigManager::performOSUJCOPConfigs(SEUpdaterUtil::JCOP
       v5 = *v2;
       std::string::basic_string[abi:ne200100]<0>(__p, &str_50);
       v6 = SEUpdaterUtil::JCOPConfigManager::performJCOPConfig(this, v5, __p);
-      if (v9 < 0)
+      if (v8 < 0)
       {
         operator delete(__p[0]);
       }
@@ -6696,13 +6340,11 @@ void SEUpdaterUtil::JCOPConfigManager::performOSUJCOPConfigs(SEUpdaterUtil::JCOP
     }
   }
 
-  if (v10)
+  if (v9)
   {
-    v11 = v10;
-    operator delete(v10);
+    v10 = v9;
+    operator delete(v9);
   }
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void sub_299F0F340(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17)
@@ -6717,7 +6359,7 @@ void sub_299F0F340(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t SEUpdaterUtil::JCOPConfigManager::performJCOPConfig(uint64_t a1, unsigned int a2, uint64_t a3)
 {
-  v50[5] = *MEMORY[0x29EDCA608];
+  v46[5] = *MEMORY[0x29EDCA608];
   SEUpdaterUtil::JCOPConfig::Triggers(&__p);
   if (!__p.__r_.__value_.__l.__size_)
   {
@@ -6745,8 +6387,8 @@ uint64_t SEUpdaterUtil::JCOPConfigManager::performJCOPConfig(uint64_t a1, unsign
   {
 LABEL_17:
     exception = __cxa_allocate_exception(0x48uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v36, "Failed to get JCOP Config Trigger, invalid item type");
-    v12 = SERestoreInfo::SEException::SEException(exception, &v36, 2, @"SEUpdaterErrorDomain");
+    std::string::basic_string[abi:ne200100]<0>(&v32, "Failed to get JCOP Config Trigger, invalid item type");
+    v12 = SERestoreInfo::SEException::SEException(exception, &v32, 2, @"SEUpdaterErrorDomain");
   }
 
   while (1)
@@ -6788,7 +6430,7 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  SEUpdaterUtil::JCOPConfig::Trigger::Trigger(v37, (v9 + 3));
+  SEUpdaterUtil::JCOPConfig::Trigger::Trigger(&v33, (v9 + 3));
   std::__hash_table<std::__hash_value_type<SEUpdaterUtil::JCOPConfigItem,SEUpdaterUtil::JCOPConfig::Trigger>,std::__unordered_map_hasher<SEUpdaterUtil::JCOPConfigItem,std::__hash_value_type<SEUpdaterUtil::JCOPConfigItem,SEUpdaterUtil::JCOPConfig::Trigger>,std::hash<SEUpdaterUtil::JCOPConfigItem>,std::equal_to<SEUpdaterUtil::JCOPConfigItem>,true>,std::__unordered_map_equal<SEUpdaterUtil::JCOPConfigItem,std::__hash_value_type<SEUpdaterUtil::JCOPConfigItem,SEUpdaterUtil::JCOPConfig::Trigger>,std::equal_to<SEUpdaterUtil::JCOPConfigItem>,std::hash<SEUpdaterUtil::JCOPConfigItem>,true>,std::allocator<std::__hash_value_type<SEUpdaterUtil::JCOPConfigItem,SEUpdaterUtil::JCOPConfig::Trigger>>>::__deallocate_node(__p.__r_.__value_.__r.__words[2]);
   v13 = __p.__r_.__value_.__r.__words[0];
   __p.__r_.__value_.__r.__words[0] = 0;
@@ -6831,20 +6473,20 @@ LABEL_24:
 LABEL_29:
       v15 = *(*(a1 + 24) + 56);
       v16 = *(a1 + 48);
-      v34 = *(a1 + 40);
-      v35 = v16;
+      v30 = *(a1 + 40);
+      v31 = v16;
       if (v16)
       {
         atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      LODWORD(v36) = v15;
-      if (!v45)
+      LODWORD(v32) = v15;
+      if (!v41)
       {
         std::__throw_bad_function_call[abi:ne200100]();
       }
 
-      (*(*v45 + 48))(&__p);
+      (*(*v41 + 48))(&__p);
       v14 = 1;
     }
 
@@ -6867,151 +6509,150 @@ LABEL_33:
       }
 
 LABEL_37:
-      if (v35)
+      if (v31)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v35);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v31);
       }
     }
   }
 
-  if ((v40 & *(a1 + 58)) == 0)
+  if ((v36 & *(a1 + 58)) == 0)
   {
     goto LABEL_50;
   }
 
 LABEL_39:
-  v17 = v47;
-  if (!v47)
+  v17 = v43;
+  if (!v43)
   {
     goto LABEL_46;
   }
 
   v18 = *(a1 + 32);
-  *&v36 = *(a1 + 24);
-  *(&v36 + 1) = v18;
+  *&v32 = *(a1 + 24);
+  *(&v32 + 1) = v18;
   if (v18)
   {
     atomic_fetch_add_explicit((v18 + 8), 1uLL, memory_order_relaxed);
-    v17 = v47;
-    if (!v47)
+    v17 = v43;
+    if (!v43)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
   }
 
-  v19 = (*(*v17 + 48))(v17, &v36);
-  if (*(&v36 + 1))
+  v19 = (*(*v17 + 48))(v17, &v32);
+  if (*(&v32 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v36 + 1));
+    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v32 + 1));
   }
 
   if (v19)
   {
 LABEL_46:
-    if ((v41 & *(a1 + 56)) != 0)
+    if ((v37 & *(a1 + 56)) != 0)
     {
       v20 = *(*(a1 + 24) + 184);
-      if (v42 <= v20 && v20 != -1)
+      if (v38 <= v20 && v20 != -1)
       {
-        SEUpdaterUtil::JCOPConfigManager::checkIsConfigured(a1, v37);
+        SEUpdaterUtil::JCOPConfigManager::checkIsConfigured(a1, &v33, a3);
       }
 
-      v28 = pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-      v29 = off_2A14F2360;
+      pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
+      v26 = off_2A14F2360;
       if (!off_2A14F2360)
       {
-        SEUpdaterUtil::SELogObj::create_default_global(v28);
+        SEUpdaterUtil::SELogObj::create_default_global();
       }
 
-      v23 = *(&off_2A14F2360 + 1);
+      v22 = *(&off_2A14F2360 + 1);
       if (*(&off_2A14F2360 + 1))
       {
         atomic_fetch_add_explicit((*(&off_2A14F2360 + 1) + 8), 1uLL, memory_order_relaxed);
       }
 
       pthread_mutex_unlock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-      v30 = v38;
-      if (v39 < 0)
+      v27 = v34;
+      if (v35 < 0)
       {
-        v30 = v38[0];
+        v27 = v34[0];
       }
 
-      SEUpdaterUtil::SELogObj::printLog(v29, 1, 0, 1, "checkPreCondition", "Skip configuring %s: Train not supported, JCOP version low\n", v30);
+      SEUpdaterUtil::SELogObj::printLog(v26, 1, 0, 1, "checkPreCondition", "Skip configuring %s: Train not supported, JCOP version low\n", v27);
     }
 
     else
     {
-      v25 = pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-      v26 = off_2A14F2360;
+      pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
+      v24 = off_2A14F2360;
       if (!off_2A14F2360)
       {
-        SEUpdaterUtil::SELogObj::create_default_global(v25);
+        SEUpdaterUtil::SELogObj::create_default_global();
       }
 
-      v23 = *(&off_2A14F2360 + 1);
+      v22 = *(&off_2A14F2360 + 1);
       if (*(&off_2A14F2360 + 1))
       {
         atomic_fetch_add_explicit((*(&off_2A14F2360 + 1) + 8), 1uLL, memory_order_relaxed);
       }
 
       pthread_mutex_unlock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-      v27 = v38;
-      if (v39 < 0)
+      v25 = v34;
+      if (v35 < 0)
       {
-        v27 = v38[0];
+        v25 = v34[0];
       }
 
-      SEUpdaterUtil::SELogObj::printLog(v26, 1, 0, 1, "checkPreCondition", "Skip configuring %s: SE key not supported\n", v27);
+      SEUpdaterUtil::SELogObj::printLog(v24, 1, 0, 1, "checkPreCondition", "Skip configuring %s: SE key not supported\n", v25);
     }
   }
 
   else
   {
 LABEL_50:
-    v21 = pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-    v22 = off_2A14F2360;
+    pthread_mutex_lock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
+    v21 = off_2A14F2360;
     if (!off_2A14F2360)
     {
-      SEUpdaterUtil::SELogObj::create_default_global(v21);
+      SEUpdaterUtil::SELogObj::create_default_global();
     }
 
-    v23 = *(&off_2A14F2360 + 1);
+    v22 = *(&off_2A14F2360 + 1);
     if (*(&off_2A14F2360 + 1))
     {
       atomic_fetch_add_explicit((*(&off_2A14F2360 + 1) + 8), 1uLL, memory_order_relaxed);
     }
 
     pthread_mutex_unlock(&ctu::Singleton<SEUpdaterUtil::SELogObj,SEUpdaterUtil::SELogObj,ctu::PthreadMutexGuardPolicy<SEUpdaterUtil::SELogObj>>::sInstance);
-    v24 = v38;
-    if (v39 < 0)
+    v23 = v34;
+    if (v35 < 0)
     {
-      v24 = v38[0];
+      v23 = v34[0];
     }
 
-    SEUpdaterUtil::SELogObj::printLog(v22, 1, 0, 1, "checkPreCondition", "Skip configuring %s: JCOP platform not supported\n", v24);
+    SEUpdaterUtil::SELogObj::printLog(v21, 1, 0, 1, "checkPreCondition", "Skip configuring %s: JCOP platform not supported\n", v23);
   }
 
-  if (v23)
+  if (v22)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v22);
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>>>::~__hash_table(v50);
-  std::__hash_table<std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>>>::~__hash_table(&v49);
-  std::__hash_table<std::__hash_value_type<std::string,std::vector<unsigned char>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<unsigned char>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<unsigned char>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<unsigned char>>>>::~__hash_table(&v48);
-  std::__function::__value_func<BOOL ()(std::shared_ptr<SERestoreInfo::P73BaseDeviceInfo>)>::~__value_func[abi:ne200100](&v46);
-  std::__function::__value_func<std::string ()(unsigned int,std::shared_ptr<std::map<std::string,std::string>>)>::~__value_func[abi:ne200100](&v44);
+  std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>>>::~__hash_table(v46);
+  std::__hash_table<std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>>>::~__hash_table(&v45);
+  std::__hash_table<std::__hash_value_type<std::string,std::vector<unsigned char>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<unsigned char>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<unsigned char>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<unsigned char>>>>::~__hash_table(&v44);
+  std::__function::__value_func<BOOL ()(std::shared_ptr<SERestoreInfo::P73BaseDeviceInfo>)>::~__value_func[abi:ne200100](&v42);
+  std::__function::__value_func<std::string ()(unsigned int,std::shared_ptr<std::map<std::string,std::string>>)>::~__value_func[abi:ne200100](&v40);
   if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__s.__r_.__value_.__l.__data_);
   }
 
-  if (v39 < 0)
+  if (v35 < 0)
   {
-    operator delete(v38[0]);
+    operator delete(v34[0]);
   }
 
-  v31 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
@@ -7036,29 +6677,29 @@ void sub_299F0FE60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void SEUpdaterUtil::JCOPConfigManager::checkIsConfigured(uint64_t a1, uint64_t a2)
+void SEUpdaterUtil::JCOPConfigManager::checkIsConfigured(uint64_t a1, int8x8_t *a2, uint64_t a3)
 {
-  v2 = std::__hash_table<std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>>>::find<unsigned char>((a2 + 176), *(a1 + 56));
-  if (v2)
+  v3 = std::__hash_table<std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>>>::find<unsigned char>(&a2[22], *(a1 + 56));
+  if (v3)
   {
-    v3 = v2[5];
-    v9 = v2[4];
-    v10 = v3;
-    if (v3)
+    v4 = v3[5];
+    v10 = v3[4];
+    v11 = v4;
+    if (v4)
     {
-      atomic_fetch_add_explicit(v3 + 1, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(v4 + 1, 1uLL, memory_order_relaxed);
     }
 
-    v8 = &unk_2A2026FC0;
-    v4 = *(v2 + 4);
-    v11 = *(v2 + 3);
-    v12 = v4;
-    SERestoreInfo::Apdu::Apdu(&v7);
+    v9 = &unk_2A2026FC0;
+    v5 = *(v3 + 4);
+    v12 = *(v3 + 3);
+    v13 = v5;
+    SERestoreInfo::Apdu::Apdu(&v8, 0x2037uLL);
   }
 
   exception = __cxa_allocate_exception(0x48uLL);
-  std::string::basic_string[abi:ne200100]<0>(&v13, "Failed to get commnand get-config, invalid se key");
-  v6 = SERestoreInfo::SEException::SEException(exception, &v13, 2, @"SEUpdaterErrorDomain");
+  std::string::basic_string[abi:ne200100]<0>(&v14, "Failed to get commnand get-config, invalid se key");
+  v7 = SERestoreInfo::SEException::SEException(exception, &v14, 2, @"SEUpdaterErrorDomain");
 }
 
 void sub_299F104B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, std::__shared_weak_count *a21)
@@ -7107,54 +6748,52 @@ void SEUpdaterUtil::JCOPConfig::Trigger::~Trigger(void **this)
 void SEUpdaterUtil::JCOPConfig::Triggers(SEUpdaterUtil::JCOPConfig *this)
 {
   v1 = MEMORY[0x2A1C7C4A8](this);
-  v25[228] = *MEMORY[0x29EDCA608];
+  v20[228] = *MEMORY[0x29EDCA608];
   if ((atomic_load_explicit(&qword_2A197EED0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A197EED0))
   {
     xmmword_2A197F1B0 = 0u;
-    *&qword_2A197F1C0 = 0u;
+    xmmword_2A197F1C0 = 0u;
     dword_2A197F1D0 = 1065353216;
     __cxa_guard_release(&qword_2A197EED0);
   }
 
-  if (!qword_2A197F1C8)
+  if (!*(&xmmword_2A197F1C0 + 1))
   {
-    v13 = 16707;
-    std::string::basic_string[abi:ne200100]<0>(&v14, "SIMDetectGPIO_4143");
-    v15 = 257;
-    v16 = 1;
-    v17 = 80;
-    v18 = 5;
-    v19 = 0;
-    v22 = 0;
-    v20 = 0;
-    v21 = 0;
-    v23[0] = &unk_2A20289A0;
-    v23[3] = v23;
-    v24[0] = &unk_2A2028A30;
-    v24[3] = v24;
-    std::pair<std::string const,std::vector<unsigned char>>::pair[abi:ne200100]<true,0>(v11, &xmmword_2A197EEE0, &qword_2A197F030);
-    std::pair<std::string const,std::vector<unsigned char>>::pair[abi:ne200100]<true,0>(v12, &xmmword_2A197EEF8, &qword_2A197F048);
-    std::unordered_map<std::string,std::vector<unsigned char>>::unordered_map(v25, v11, 2);
-    v8 = unk_299F2D93D;
-    v9 = xmmword_299F2D94D;
-    *v10 = unk_299F2D95D;
-    *&v10[15] = unk_299F2D96C;
-    v5 = xmmword_299F2D90D;
-    v6 = unk_299F2D91D;
-    v7 = xmmword_299F2D92D;
-    SERestoreInfo::CApdu::CApdu(&v4);
+    v8 = 16707;
+    std::string::basic_string[abi:ne200100]<0>(&v9, "SIMDetectGPIO_4143");
+    v10 = 257;
+    v11 = 1;
+    v12 = 80;
+    v13 = 5;
+    v14 = 0;
+    v17 = 0;
+    v15 = 0;
+    v16 = 0;
+    v18[0] = &unk_2A20289A0;
+    v18[3] = v18;
+    v19[0] = &unk_2A2028A30;
+    v19[3] = v19;
+    std::pair<std::string const,std::vector<unsigned char>>::pair[abi:ne200100]<true,0>(v6, &xmmword_2A197EEE0, &qword_2A197F030);
+    std::pair<std::string const,std::vector<unsigned char>>::pair[abi:ne200100]<true,0>(v7, &xmmword_2A197EEF8, &qword_2A197F048);
+    std::unordered_map<std::string,std::vector<unsigned char>>::unordered_map(v20, v6, 2);
+    v4[3] = unk_299F2D93D;
+    v4[4] = xmmword_299F2D94D;
+    *v5 = unk_299F2D95D;
+    *&v5[15] = unk_299F2D96C;
+    v4[0] = xmmword_299F2D90D;
+    v4[1] = unk_299F2D91D;
+    v4[2] = xmmword_299F2D92D;
+    SERestoreInfo::CApdu::CApdu(&v3, v4, 111, 0);
   }
 
   *v1 = 0u;
   *(v1 + 16) = 0u;
   *(v1 + 32) = dword_2A197F1D0;
   std::__hash_table<std::__hash_value_type<std::string,std::vector<unsigned char>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<unsigned char>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<unsigned char>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<unsigned char>>>>::__rehash<true>(v1, *(&xmmword_2A197F1B0 + 1));
-  for (i = qword_2A197F1C0; i; i = *i)
+  for (i = xmmword_2A197F1C0; i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<SEUpdaterUtil::JCOPConfigItem,SEUpdaterUtil::JCOPConfig::Trigger>,std::__unordered_map_hasher<SEUpdaterUtil::JCOPConfigItem,std::__hash_value_type<SEUpdaterUtil::JCOPConfigItem,SEUpdaterUtil::JCOPConfig::Trigger>,std::hash<SEUpdaterUtil::JCOPConfigItem>,std::equal_to<SEUpdaterUtil::JCOPConfigItem>,true>,std::__unordered_map_equal<SEUpdaterUtil::JCOPConfigItem,std::__hash_value_type<SEUpdaterUtil::JCOPConfigItem,SEUpdaterUtil::JCOPConfig::Trigger>,std::equal_to<SEUpdaterUtil::JCOPConfigItem>,std::hash<SEUpdaterUtil::JCOPConfigItem>,true>,std::allocator<std::__hash_value_type<SEUpdaterUtil::JCOPConfigItem,SEUpdaterUtil::JCOPConfig::Trigger>>>::__emplace_unique_key_args<SEUpdaterUtil::JCOPConfigItem,std::pair<SEUpdaterUtil::JCOPConfigItem const,SEUpdaterUtil::JCOPConfig::Trigger> const&>(v1, *(i + 16));
+    std::__hash_table<std::__hash_value_type<SEUpdaterUtil::JCOPConfigItem,SEUpdaterUtil::JCOPConfig::Trigger>,std::__unordered_map_hasher<SEUpdaterUtil::JCOPConfigItem,std::__hash_value_type<SEUpdaterUtil::JCOPConfigItem,SEUpdaterUtil::JCOPConfig::Trigger>,std::hash<SEUpdaterUtil::JCOPConfigItem>,std::equal_to<SEUpdaterUtil::JCOPConfigItem>,true>,std::__unordered_map_equal<SEUpdaterUtil::JCOPConfigItem,std::__hash_value_type<SEUpdaterUtil::JCOPConfigItem,SEUpdaterUtil::JCOPConfig::Trigger>,std::equal_to<SEUpdaterUtil::JCOPConfigItem>,std::hash<SEUpdaterUtil::JCOPConfigItem>,true>,std::allocator<std::__hash_value_type<SEUpdaterUtil::JCOPConfigItem,SEUpdaterUtil::JCOPConfig::Trigger>>>::__emplace_unique_key_args<SEUpdaterUtil::JCOPConfigItem,std::pair<SEUpdaterUtil::JCOPConfigItem const,SEUpdaterUtil::JCOPConfig::Trigger> const&>(v1, *(i + 4), i + 4);
   }
-
-  v3 = *MEMORY[0x29EDCA608];
 }
 
 void sub_299F14984(_Unwind_Exception *a1)
@@ -7698,12 +7337,12 @@ uint64_t SEUpdaterUtil::JCOPConfig::IsUICCConnected(SEUpdaterUtil::JCOPConfig *t
     v2 = __cxa_guard_acquire(&qword_2A197EED8);
     if (v2)
     {
-      _MergedGlobals_6 = capabilities::euicc::shouldEnableEUICCDetectPullDown(v2) ^ 1;
+      _MergedGlobals_6[0] = capabilities::euicc::shouldEnableEUICCDetectPullDown(v2) ^ 1;
       __cxa_guard_release(&qword_2A197EED8);
     }
   }
 
-  return _MergedGlobals_6;
+  return _MergedGlobals_6[0];
 }
 
 uint64_t std::pair<SEUpdaterUtil::JCOPConfigItem const,SEUpdaterUtil::JCOPConfig::Trigger>::~pair(uint64_t a1)
@@ -8721,7 +8360,7 @@ uint64_t std::__function::__func<SEUpdaterUtil::JCOPConfig::Triggers(void)::$_0,
   }
 }
 
-std::string *std::pair<std::string const,std::vector<unsigned char>>::pair[abi:ne200100]<true,0>(std::string *this, __int128 *a2, uint64_t *a3)
+std::string *std::pair<std::string const,std::vector<unsigned char>>::pair[abi:ne200100]<true,0>(std::string *this, __int128 *a2, uint64_t a3)
 {
   if (*(a2 + 23) < 0)
   {
@@ -8738,7 +8377,7 @@ std::string *std::pair<std::string const,std::vector<unsigned char>>::pair[abi:n
   this[1].__r_.__value_.__r.__words[0] = 0;
   this[1].__r_.__value_.__l.__size_ = 0;
   this[1].__r_.__value_.__r.__words[2] = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&this[1], *a3, a3[1], a3[1] - *a3);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&this[1], *a3, *(a3 + 8), *(a3 + 8) - *a3);
   return this;
 }
 
@@ -8762,7 +8401,7 @@ uint64_t std::unordered_map<std::string,std::vector<unsigned char>>::unordered_m
     v5 = 48 * a3;
     do
     {
-      std::__hash_table<std::__hash_value_type<std::string,std::vector<unsigned char>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<unsigned char>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<unsigned char>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<unsigned char>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::vector<unsigned char>> const&>(a1, a2);
+      std::__hash_table<std::__hash_value_type<std::string,std::vector<unsigned char>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<unsigned char>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<unsigned char>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<unsigned char>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::vector<unsigned char>> const&>(a1, a2, a2);
       a2 += 6;
       v5 -= 48;
     }
@@ -8773,35 +8412,35 @@ uint64_t std::unordered_map<std::string,std::vector<unsigned char>>::unordered_m
   return a1;
 }
 
-BOOL std::__hash_table<std::__hash_value_type<std::string,std::vector<unsigned char>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<unsigned char>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<unsigned char>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<unsigned char>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::vector<unsigned char>> const&>(void *a1, void *a2)
+BOOL std::__hash_table<std::__hash_value_type<std::string,std::vector<unsigned char>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<unsigned char>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<unsigned char>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<unsigned char>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::vector<unsigned char>> const&>(float *a1, void *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a2);
+  v6 = v5;
+  v7 = *(a1 + 2);
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -8809,39 +8448,39 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  result = std::equal_to<std::string>::operator()[abi:ne200100](v11 + 2, a2);
+  result = std::equal_to<std::string>::operator()[abi:ne200100](v12 + 2, a2);
   if (!result)
   {
     goto LABEL_17;
@@ -8850,14 +8489,14 @@ LABEL_17:
   return result;
 }
 
-void sub_299F17D68(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_299F17D68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::vector<unsigned char>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::vector<unsigned char>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::vector<unsigned char>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::vector<unsigned char>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::vector<unsigned char>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::vector<unsigned char>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -9062,7 +8701,6 @@ BOOL std::equal_to<std::string>::operator()[abi:ne200100](void *a1, void *a2)
     a1 = *a1;
   }
 
-  v6 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -9193,7 +8831,7 @@ uint64_t std::unordered_map<unsigned char,SERestoreInfo::CApdu>::unordered_map(u
     v5 = a3 << 6;
     do
     {
-      std::__hash_table<std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char const,SERestoreInfo::CApdu> const&>(a1, *a2);
+      std::__hash_table<std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char const,SERestoreInfo::CApdu> const&>(a1, *a2, a2);
       a2 += 64;
       v5 -= 64;
     }
@@ -9204,32 +8842,32 @@ uint64_t std::unordered_map<unsigned char,SERestoreInfo::CApdu>::unordered_map(u
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char const,SERestoreInfo::CApdu> const&>(void *result, unsigned __int8 a2)
+void std::__hash_table<std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char const,SERestoreInfo::CApdu> const&>(void *a1, unsigned __int8 a2, uint64_t a3)
 {
-  v2 = result[1];
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % result[1];
+      v5 = a2 % a1[1];
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*result + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -9237,44 +8875,42 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 16) != a2)
+  if (*(v7 + 16) != a2)
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
 void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,void *>>>::operator()[abi:ne200100](char a1, void *__p)
@@ -9360,7 +8996,7 @@ uint64_t std::unordered_map<unsigned char,SERestoreInfo::CApdu>::unordered_map(u
   std::__hash_table<std::__hash_value_type<std::string,std::vector<unsigned char>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<unsigned char>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<unsigned char>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<unsigned char>>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char const,SERestoreInfo::CApdu> const&>(a1, *(i + 16));
+    std::__hash_table<std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>>>::__emplace_unique_key_args<unsigned char,std::pair<unsigned char const,SERestoreInfo::CApdu> const&>(a1, *(i + 16), (i + 2));
   }
 
   return a1;
@@ -9376,7 +9012,7 @@ uint64_t std::unordered_map<std::string,std::unordered_map<unsigned char,SEResto
     v5 = a3 << 6;
     do
     {
-      std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::unordered_map<unsigned char,SERestoreInfo::CApdu>> const&>(a1, a2);
+      std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::unordered_map<unsigned char,SERestoreInfo::CApdu>> const&>(a1, a2, a2);
       a2 += 8;
       v5 -= 64;
     }
@@ -9387,35 +9023,35 @@ uint64_t std::unordered_map<std::string,std::unordered_map<unsigned char,SEResto
   return a1;
 }
 
-BOOL std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::unordered_map<unsigned char,SERestoreInfo::CApdu>> const&>(void *a1, void *a2)
+BOOL std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::unordered_map<unsigned char,SERestoreInfo::CApdu>> const&>(void *a1, void *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -9423,39 +9059,39 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  result = std::equal_to<std::string>::operator()[abi:ne200100](v11 + 2, a2);
+  result = std::equal_to<std::string>::operator()[abi:ne200100](v12 + 2, a2);
   if (!result)
   {
     goto LABEL_17;
@@ -9464,14 +9100,14 @@ LABEL_17:
   return result;
 }
 
-void sub_299F18FC0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_299F18FC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -9574,32 +9210,32 @@ uint64_t std::__function::__func<SEUpdaterUtil::JCOPConfig::Triggers(void)::$_2,
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<SEUpdaterUtil::JCOPConfigItem,SEUpdaterUtil::JCOPConfig::Trigger>,std::__unordered_map_hasher<SEUpdaterUtil::JCOPConfigItem,std::__hash_value_type<SEUpdaterUtil::JCOPConfigItem,SEUpdaterUtil::JCOPConfig::Trigger>,std::hash<SEUpdaterUtil::JCOPConfigItem>,std::equal_to<SEUpdaterUtil::JCOPConfigItem>,true>,std::__unordered_map_equal<SEUpdaterUtil::JCOPConfigItem,std::__hash_value_type<SEUpdaterUtil::JCOPConfigItem,SEUpdaterUtil::JCOPConfig::Trigger>,std::equal_to<SEUpdaterUtil::JCOPConfigItem>,std::hash<SEUpdaterUtil::JCOPConfigItem>,true>,std::allocator<std::__hash_value_type<SEUpdaterUtil::JCOPConfigItem,SEUpdaterUtil::JCOPConfig::Trigger>>>::__emplace_unique_key_args<SEUpdaterUtil::JCOPConfigItem,std::pair<SEUpdaterUtil::JCOPConfigItem const,SEUpdaterUtil::JCOPConfig::Trigger> const&>(void *result, unsigned int a2)
+void std::__hash_table<std::__hash_value_type<SEUpdaterUtil::JCOPConfigItem,SEUpdaterUtil::JCOPConfig::Trigger>,std::__unordered_map_hasher<SEUpdaterUtil::JCOPConfigItem,std::__hash_value_type<SEUpdaterUtil::JCOPConfigItem,SEUpdaterUtil::JCOPConfig::Trigger>,std::hash<SEUpdaterUtil::JCOPConfigItem>,std::equal_to<SEUpdaterUtil::JCOPConfigItem>,true>,std::__unordered_map_equal<SEUpdaterUtil::JCOPConfigItem,std::__hash_value_type<SEUpdaterUtil::JCOPConfigItem,SEUpdaterUtil::JCOPConfig::Trigger>,std::equal_to<SEUpdaterUtil::JCOPConfigItem>,std::hash<SEUpdaterUtil::JCOPConfigItem>,true>,std::allocator<std::__hash_value_type<SEUpdaterUtil::JCOPConfigItem,SEUpdaterUtil::JCOPConfig::Trigger>>>::__emplace_unique_key_args<SEUpdaterUtil::JCOPConfigItem,std::pair<SEUpdaterUtil::JCOPConfigItem const,SEUpdaterUtil::JCOPConfig::Trigger> const&>(void *a1, unsigned int a2, _DWORD *a3)
 {
-  v2 = result[1];
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*result + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -9607,44 +9243,42 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
 void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<SEUpdaterUtil::JCOPConfigItem,SEUpdaterUtil::JCOPConfig::Trigger>,void *>>>::operator()[abi:ne200100](char a1, uint64_t a2)
@@ -9821,7 +9455,7 @@ LABEL_17:
   std::__hash_table<std::__hash_value_type<std::string,std::vector<unsigned char>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<unsigned char>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<unsigned char>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<unsigned char>>>>::__rehash<true>(this + 136, *(a2 + 18));
   for (i = *(a2 + 19); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<std::string,std::vector<unsigned char>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<unsigned char>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<unsigned char>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<unsigned char>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::vector<unsigned char>> const&>(this + 17, i + 2);
+    std::__hash_table<std::__hash_value_type<std::string,std::vector<unsigned char>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<unsigned char>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<unsigned char>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<unsigned char>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::vector<unsigned char>> const&>(this + 34, i + 2, (i + 2));
   }
 
   std::unordered_map<unsigned char,SERestoreInfo::CApdu>::unordered_map(this + 176, a2 + 176);
@@ -9831,8 +9465,295 @@ LABEL_17:
   std::__hash_table<std::__hash_value_type<std::string,std::vector<unsigned char>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<unsigned char>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<unsigned char>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<unsigned char>>>>::__rehash<true>(this + 216, *(a2 + 28));
   for (j = *(a2 + 29); j; j = *j)
   {
-    std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::unordered_map<unsigned char,SERestoreInfo::CApdu>> const&>(this + 27, j + 2);
+    std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<unsigned char,SERestoreInfo::CApdu>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::unordered_map<unsigned char,SERestoreInfo::CApdu>> const&>(this + 27, j + 2, (j + 2));
   }
 
   return this;
+}
+
+void sub_299F1A760(_Unwind_Exception *exception_object)
+{
+  if (*(v2 + 31) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t ***std::__hash_table<std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,SERestoreInfo::CApdu>>>::find<unsigned char>(void *a1, unsigned __int8 a2)
+{
+  v2 = a1[1];
+  if (!v2)
+  {
+    return 0;
+  }
+
+  v3 = vcnt_s8(v2);
+  v3.i16[0] = vaddlv_u8(v3);
+  if (v3.u32[0] > 1uLL)
+  {
+    v4 = a2;
+    if (v2 <= a2)
+    {
+      v4 = a2 % a1[1];
+    }
+  }
+
+  else
+  {
+    v4 = (v2 - 1) & a2;
+  }
+
+  v5 = *(*a1 + 8 * v4);
+  if (!v5)
+  {
+    return 0;
+  }
+
+  for (result = *v5; result; result = *result)
+  {
+    v7 = result[1];
+    if (v7 == a2)
+    {
+      if (*(result + 16) == a2)
+      {
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v3.u32[0] > 1uLL)
+      {
+        if (v7 >= v2)
+        {
+          v7 %= v2;
+        }
+      }
+
+      else
+      {
+        v7 &= v2 - 1;
+      }
+
+      if (v7 != v4)
+      {
+        return 0;
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t *std::vector<SEUpdaterUtil::JCOPConfigItem>::__init_with_size[abi:ne200100]<SEUpdaterUtil::JCOPConfigItem const*,SEUpdaterUtil::JCOPConfigItem const*>(uint64_t *result, int *a2, int *a3, unint64_t a4)
+{
+  if (a4)
+  {
+    std::vector<SEUpdaterUtil::JCOPConfigItem>::__vallocate[abi:ne200100](result, a4);
+  }
+
+  return result;
+}
+
+void sub_299F1A8F0(_Unwind_Exception *exception_object)
+{
+  v3 = *v1;
+  if (*v1)
+  {
+    *(v1 + 8) = v3;
+    operator delete(v3);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::vector<SEUpdaterUtil::JCOPConfigItem>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
+{
+  if (!(a2 >> 62))
+  {
+    std::__allocate_at_least[abi:ne200100]<std::allocator<SEUpdaterUtil::JCOPConfigItem>>(a1, a2);
+  }
+
+  std::vector<SEUpdaterUtil::JCOPConfigItem>::__throw_length_error[abi:ne200100]();
+}
+
+void std::__allocate_at_least[abi:ne200100]<std::allocator<SEUpdaterUtil::JCOPConfigItem>>(uint64_t a1, unint64_t a2)
+{
+  if (!(a2 >> 62))
+  {
+    operator new();
+  }
+
+  std::__throw_bad_array_new_length[abi:ne200100]();
+}
+
+void _GLOBAL__sub_I_JCOPConfigManager_cpp()
+{
+  v12 = *MEMORY[0x29EDCA608];
+  std::string::basic_string[abi:ne200100]<0>(&xmmword_2A197EEE0, "4143_WeakPullDown");
+  std::string::basic_string[abi:ne200100]<0>(&xmmword_2A197EEF8, "4143_HiZ");
+  std::string::basic_string[abi:ne200100]<0>(&xmmword_2A197EF10, "412A_Default");
+  std::string::basic_string[abi:ne200100]<0>(&xmmword_2A197EF28, "415E_Value0C");
+  std::string::basic_string[abi:ne200100]<0>(qword_2A197EF40, "415E_Value00");
+  std::string::basic_string[abi:ne200100]<0>(&xmmword_2A197EF58, "40BD_EnableInFPM_EnableLogging");
+  std::string::basic_string[abi:ne200100]<0>(qword_2A197EF70, "40BD_DisableInFPM_EnableLogging");
+  std::string::basic_string[abi:ne200100]<0>(&xmmword_2A197EF88, "4108_EnableInFPM_EnableLogging");
+  std::string::basic_string[abi:ne200100]<0>(qword_2A197EFA0, "4108_DisableInFPM_EnableLogging");
+  std::string::basic_string[abi:ne200100]<0>(&xmmword_2A197EFB8, "40D0_Disable");
+  std::string::basic_string[abi:ne200100]<0>(qword_2A197EFD0, "40D0_Enable_WithFilters_SW");
+  std::string::basic_string[abi:ne200100]<0>(qword_2A197EFE8, "40D0_Enable_WithFilters_SW_ISO");
+  std::string::basic_string[abi:ne200100]<0>(qword_2A197F000, "40D0_Enable_WithFilters_SW_ISO_Type");
+  LODWORD(v1) = 0;
+  WORD2(v1) = -28672;
+  BYTE6(v1) = 0;
+  qword_2A197F020 = 0;
+  unk_2A197F028 = 0;
+  qword_2A197F018 = 0;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&qword_2A197F018, &v1, &v1 + 7, 7);
+  LODWORD(v1) = 21185023;
+  WORD2(v1) = -28670;
+  BYTE6(v1) = 0;
+  qword_2A197F038 = 0;
+  unk_2A197F040 = 0;
+  qword_2A197F030 = 0;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&qword_2A197F030, &v1, &v1 + 7, 7);
+  LODWORD(v1) = 21185023;
+  WORD2(v1) = -28671;
+  BYTE6(v1) = 0;
+  qword_2A197F050 = 0;
+  unk_2A197F058 = 0;
+  qword_2A197F048 = 0;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&qword_2A197F048, &v1, &v1 + 7, 7);
+  v3 = xmmword_299F2D168;
+  *v4 = unk_299F2D178;
+  *&v4[14] = 0x90000000000000;
+  v1 = xmmword_299F2D148;
+  v2 = unk_299F2D158;
+  qword_2A197F068 = 0;
+  unk_2A197F070 = 0;
+  qword_2A197F060 = 0;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&qword_2A197F060, &v1, &v4[22], 70);
+  v3 = xmmword_299F2D1AE;
+  *v4 = unk_299F2D1BE;
+  *&v4[14] = 0x90000000000000;
+  v1 = xmmword_299F2D18E;
+  v2 = unk_299F2D19E;
+  qword_2A197F080 = 0;
+  unk_2A197F088 = 0;
+  qword_2A197F078 = 0;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&qword_2A197F078, &v1, &v4[22], 70);
+  v3 = xmmword_299F2D1F4;
+  *v4 = unk_299F2D204;
+  *&v4[14] = 0x90000000000000;
+  v1 = xmmword_299F2D1D4;
+  v2 = unk_299F2D1E4;
+  qword_2A197F098 = 0;
+  unk_2A197F0A0 = 0;
+  qword_2A197F090 = 0;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&qword_2A197F090, &v1, &v4[22], 70);
+  *&v1 = 0x90000000000000;
+  qword_2A197F0B0 = 0;
+  unk_2A197F0B8 = 0;
+  qword_2A197F0A8 = 0;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&qword_2A197F0A8, &v1, &v1 + 8, 8);
+  *&v1 = 0x900000025E4103;
+  qword_2A197F0C8 = 0;
+  unk_2A197F0D0 = 0;
+  qword_2A197F0C0 = 0;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&qword_2A197F0C0, &v1, &v1 + 8, 8);
+  *&v1 = 0x900C00025E4103;
+  qword_2A197F0E8 = 0;
+  qword_2A197F0D8 = 0;
+  unk_2A197F0E0 = 0;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&qword_2A197F0D8, &v1, &v1 + 8, 8);
+  *&v1 = 0xA5A5A5A504BD40FFLL;
+  WORD4(v1) = 144;
+  qword_2A197F0F0 = 0;
+  qword_2A197F100 = 0;
+  qword_2A197F0F8 = 0;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&qword_2A197F0F0, &v1, &v1 + 10, 10);
+  *&v1 = 0x5AA5A5A504BD40FFLL;
+  WORD4(v1) = 144;
+  qword_2A197F108 = 0;
+  qword_2A197F118 = 0;
+  qword_2A197F110 = 0;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&qword_2A197F108, &v1, &v1 + 10, 10);
+  *&v1 = 0xA5A5A5A5040841FFLL;
+  WORD4(v1) = 144;
+  qword_2A197F120 = 0;
+  qword_2A197F130 = 0;
+  qword_2A197F128 = 0;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&qword_2A197F120, &v1, &v1 + 10, 10);
+  *&v1 = 0x5AA5A5A5040841FFLL;
+  WORD4(v1) = 144;
+  qword_2A197F138 = 0;
+  qword_2A197F148 = 0;
+  qword_2A197F140 = 0;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&qword_2A197F138, &v1, &v1 + 10, 10);
+  *&v1 = 0x5A5A5A5A05D04003;
+  WORD4(v1) = -28664;
+  BYTE10(v1) = 0;
+  qword_2A197F150 = 0;
+  qword_2A197F160 = 0;
+  qword_2A197F158 = 0;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&qword_2A197F150, &v1, &v1 + 11, 11);
+  *&v1 = 0x5A5AA5A505D04003;
+  WORD4(v1) = -28664;
+  BYTE10(v1) = 0;
+  qword_2A197F168 = 0;
+  qword_2A197F178 = 0;
+  qword_2A197F170 = 0;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&qword_2A197F168, &v1, &v1 + 11, 11);
+  *&v1 = 0x5AA5A5A505D04003;
+  WORD4(v1) = -28664;
+  BYTE10(v1) = 0;
+  qword_2A197F180 = 0;
+  qword_2A197F190 = 0;
+  qword_2A197F188 = 0;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&qword_2A197F180, &v1, &v1 + 11, 11);
+  *&v1 = 0xA5A5A5A505D04003;
+  WORD4(v1) = -28664;
+  BYTE10(v1) = 0;
+  qword_2A197F198 = 0;
+  qword_2A197F1A8 = 0;
+  qword_2A197F1A0 = 0;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&qword_2A197F198, &v1, &v1 + 11, 11);
+  v7 = unk_299F2D28A;
+  v8 = xmmword_299F2D29A;
+  v9 = unk_299F2D2AA;
+  v10 = xmmword_299F2D2BA;
+  v5 = unk_299F2D26A;
+  v6 = xmmword_299F2D27A;
+  v1 = xmmword_299F2D21A;
+  v2 = unk_299F2D22A;
+  *v4 = unk_299F2D24A;
+  *&v4[16] = xmmword_299F2D25A;
+  v3 = xmmword_299F2D23A;
+  v11 = -57;
+  SERestoreInfo::CApdu::CApdu(&v0, &v1, 177, 0);
+}
+
+uint64_t *SEUpdaterUtil::SN300V3Image4Signer::getSigningKey@<X0>(uint64_t *a1@<X8>)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(a1, SEUpdaterUtil::SN300V3Image4Signer::getSigningKey(void)const::signingKey, SEUpdaterUtil::SN300V3Image4Signer::getSigningCert(void)const::signingCert, 167);
+}
+
+uint64_t *SEUpdaterUtil::SN300V3Image4Signer::getSigningCert@<X0>(uint64_t *a1@<X8>)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(a1, SEUpdaterUtil::SN300V3Image4Signer::getSigningCert(void)const::signingCert, "N13SEUpdaterUtil19SN300V3Image4SignerE", 736);
+}
+
+void SEUpdaterUtil::SN300V3Image4Signer::~SN300V3Image4Signer(SEUpdaterUtil::SN300V3Image4Signer *this)
+{
+  SEUpdaterUtil::SEImage4Signer::~SEImage4Signer(this);
+
+  JUMPOUT(0x29C2B5F30);
 }

@@ -8,6 +8,7 @@
 - (BOOL)readFixedUInt32:(unsigned int *)int32 error:(id *)error;
 - (BOOL)readFixedUInt64:(unint64_t *)int64 error:(id *)error;
 - (BOOL)readType:(char *)type tag:(unint64_t *)tag eofOkay:(BOOL)okay error:(id *)error;
+- (BOOL)readVarInt:(unint64_t *)int eofOkay:(BOOL)okay error:(id *)error;
 - (BOOL)readVarIntBoolean:(BOOL *)boolean error:(id *)error;
 - (BOOL)readVarIntInt32:(int *)int32 error:(id *)error;
 - (BOOL)readVarIntSInt32:(int *)int32 error:(id *)error;
@@ -242,9 +243,8 @@
           return readSrc;
         }
 
-        v18 = *MEMORY[0x277CCA590];
-        v19 = NSErrorF();
-        *error = v19;
+        v18 = NSErrorF(*MEMORY[0x277CCA590], 4294960546, "read memory underrun");
+        *error = v18;
       }
 
       return 0;
@@ -263,7 +263,7 @@
       goto LABEL_24;
     }
 
-    v11 = *MEMORY[0x277CCA590];
+    NSErrorF(*MEMORY[0x277CCA590], 4294960551, "read, no input sources");
     goto LABEL_14;
   }
 
@@ -274,9 +274,8 @@
       goto LABEL_24;
     }
 
-    v20 = *MEMORY[0x277CCA590];
+    NSErrorF(*MEMORY[0x277CCA590], 4294960553, "read too big: %zu");
 LABEL_14:
-    NSErrorF();
     *error = readSrc = 0;
     goto LABEL_25;
   }
@@ -301,9 +300,9 @@ LABEL_19:
           goto LABEL_25;
         }
 
-        v15 = *MEMORY[0x277CCA590];
-        v25 = *__error();
-        v16 = NSErrorF();
+        v14 = *MEMORY[0x277CCA590];
+        v15 = __error();
+        v16 = NSErrorF(v14, 4294960550, "read failed: %#m", *v15);
         *error = v16;
       }
 
@@ -316,21 +315,21 @@ LABEL_25:
     return readSrc;
   }
 
-  v12 = self->_bufferData;
-  if (v12)
+  v11 = self->_bufferData;
+  if (v11)
   {
-    v13 = v12;
-    [(NSMutableData *)v12 setLength:length];
+    v12 = v11;
+    [(NSMutableData *)v11 setLength:length];
   }
 
   else
   {
-    v13 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:length];
+    v12 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:length];
     bufferData = self->_bufferData;
-    self->_bufferData = v13;
+    self->_bufferData = v12;
   }
 
-  readSrc = [(NSMutableData *)v13 mutableBytes];
+  readSrc = [(NSMutableData *)v12 mutableBytes];
 
   if (fileHandle)
   {
@@ -348,8 +347,8 @@ LABEL_8:
     goto LABEL_25;
   }
 
-  v21 = FatalErrorF();
-  return [(ENProtobufCoder *)v21 _skipLength:v22 error:v23, v24];
+  v19 = FatalErrorF();
+  return [(ENProtobufCoder *)v19 _skipLength:v20 error:v21, v22];
 }
 
 - (BOOL)_skipLength:(unint64_t)length error:(id *)error
@@ -365,8 +364,8 @@ LABEL_8:
 
     if (error)
     {
-      v13 = *MEMORY[0x277CCA590];
-      goto LABEL_14;
+      NSErrorF(*MEMORY[0x277CCA590], 4294960546, "read memory underrun");
+      goto LABEL_15;
     }
 
     return 0;
@@ -375,41 +374,52 @@ LABEL_8:
   if (self->_fileHandle)
   {
     v7 = 1;
-    if (fseeko(self->_fileHandle, length, 1) && (!*__error() || *__error()))
+    if (!fseeko(self->_fileHandle, length, 1))
     {
-      if (error)
+      return v7;
+    }
+
+    if (*__error())
+    {
+      v9 = *__error();
+      if (!v9)
       {
-        v11 = *MEMORY[0x277CCA590];
-LABEL_14:
-        NSErrorF();
-        *error = v7 = 0;
         return v7;
       }
-
-      return 0;
-    }
-  }
-
-  else
-  {
-    v9 = self->_readArchive;
-    v10 = v9;
-    if (v9)
-    {
-      v7 = [(ENArchive *)v9 skipBytes:length error:error];
-    }
-
-    else if (error)
-    {
-      v12 = *MEMORY[0x277CCA590];
-      NSErrorF();
-      *error = v7 = 0;
     }
 
     else
     {
-      v7 = 0;
+      v9 = 4294960596;
     }
+
+    if (error)
+    {
+      NSErrorF(*MEMORY[0x277CCA590], v9, "fseek failed: %zu bytes");
+LABEL_15:
+      *error = v7 = 0;
+      return v7;
+    }
+
+    return 0;
+  }
+
+  v10 = self->_readArchive;
+  v11 = v10;
+  if (v10)
+  {
+    v7 = [(ENArchive *)v10 skipBytes:length error:error];
+  }
+
+  else if (error)
+  {
+    NSErrorF(*MEMORY[0x277CCA590], 4294960551, "skip, no input sources");
+    *error = v7 = 0;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   return v7;
@@ -424,8 +434,7 @@ LABEL_14:
     {
       if (error)
       {
-        v15 = *MEMORY[0x277CCA590];
-        NSErrorF();
+        NSErrorF(*MEMORY[0x277CCA590], 4294960545, "write memory overrun");
         *error = v10 = 0;
       }
 
@@ -464,16 +473,15 @@ LABEL_19:
 
       if (error)
       {
-        v16 = *MEMORY[0x277CCA590];
+        NSErrorF(*MEMORY[0x277CCA590], 4294960545, "write buffer overrun");
         goto LABEL_12;
       }
     }
 
     else if (error)
     {
-      v14 = *MEMORY[0x277CCA590];
+      NSErrorF(*MEMORY[0x277CCA590], 4294960551, "write no output sources");
 LABEL_12:
-      NSErrorF();
       *error = v10 = 0;
       goto LABEL_19;
     }
@@ -485,8 +493,8 @@ LABEL_12:
   v10 = 1;
   if (fwrite(bytes, 1uLL, length, fileHandle) != length)
   {
-    [ENProtobufCoder _writeBytes:error length:&v18 error:?];
-    return v18;
+    [ENProtobufCoder _writeBytes:error length:&v15 error:?];
+    return v15;
   }
 
   return v10;
@@ -587,8 +595,7 @@ LABEL_12:
         goto LABEL_12;
       }
 
-      v10 = *MEMORY[0x277CCA590];
-      v11 = NSErrorF();
+      v10 = NSErrorF(*MEMORY[0x277CCA590], 4294960564, "Unsupported protobuf type: %d", type);
       LOBYTE(v8) = OUTLINED_FUNCTION_11_0();
       break;
   }
@@ -606,12 +613,11 @@ LABEL_12:
     goto LABEL_7;
   }
 
-  if (v14 == -1)
+  if (v12 == -1)
   {
     if (error)
     {
-      v12 = *MEMORY[0x277CCA590];
-      NSErrorF();
+      NSErrorF(*MEMORY[0x277CCA590], 4294960553, "Data too big: %llu bytes", -1);
       *error = v8 = 0;
       goto LABEL_7;
     }
@@ -624,7 +630,7 @@ LABEL_12:
   v8 = [v7 _readLength:? eofOkay:? error:?];
   if (v8)
   {
-    v9 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v8 length:v14];
+    v9 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v8 length:v12];
     v8 = v9;
     if (v9)
     {
@@ -633,8 +639,7 @@ LABEL_12:
 
     else if (error)
     {
-      v13 = *MEMORY[0x277CCA590];
-      *error = NSErrorF();
+      *error = NSErrorF(*MEMORY[0x277CCA590], 4294960553, "Create NSData failed: %llu", v12);
     }
   }
 
@@ -653,12 +658,11 @@ LABEL_12:
     goto LABEL_7;
   }
 
-  if (v14 == -1)
+  if (v12 == -1)
   {
     if (error)
     {
-      v12 = *MEMORY[0x277CCA590];
-      NSErrorF();
+      NSErrorF(*MEMORY[0x277CCA590], 4294960553, "String too big: %llu bytes", -1);
       *error = v8 = 0;
       goto LABEL_7;
     }
@@ -671,7 +675,7 @@ LABEL_12:
   v8 = [v7 _readLength:? eofOkay:? error:?];
   if (v8)
   {
-    v9 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v8 length:v14 encoding:4];
+    v9 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v8 length:v12 encoding:4];
     v8 = v9;
     if (v9)
     {
@@ -680,14 +684,66 @@ LABEL_12:
 
     else if (error)
     {
-      v13 = *MEMORY[0x277CCA590];
-      *error = NSErrorF();
+      *error = NSErrorF(*MEMORY[0x277CCA590], 4294960553, "Bad UTF-8 string");
     }
   }
 
 LABEL_7:
 
   return v8;
+}
+
+- (BOOL)readVarInt:(unint64_t *)int eofOkay:(BOOL)okay error:(id *)error
+{
+  okayCopy = okay;
+  v9 = 0;
+  v10 = -7;
+  while (1)
+  {
+    v11 = [(ENProtobufCoder *)self _readLength:1 eofOkay:okayCopy error:error];
+    if (!v11)
+    {
+      return v11;
+    }
+
+    v12 = (*v11 & 0x7F) << (v10 + 7);
+    if (v12 >> (v10 + 7) != (*v11 & 0x7F))
+    {
+      break;
+    }
+
+    v9 |= v12;
+    if ((*v11 & 0x80000000) == 0)
+    {
+      *int = v9;
+      LOBYTE(v11) = 1;
+      return v11;
+    }
+
+    v10 += 7;
+    if (v10 >= 0x39)
+    {
+      if (error)
+      {
+        NSErrorF(*MEMORY[0x277CCA590], 4294960545, "readVarInt overrun");
+        v13 = LABEL_12:;
+        LOBYTE(v11) = OUTLINED_FUNCTION_11_0();
+        return v11;
+      }
+
+      goto LABEL_13;
+    }
+  }
+
+  if (error)
+  {
+    NSErrorF(*MEMORY[0x277CCA590], 4294960586, "readVarInt shift overflow");
+    goto LABEL_12;
+  }
+
+LABEL_13:
+  LOBYTE(v11) = 0;
+  return v11;
 }
 
 - (BOOL)readVarIntSInt32:(int *)int32 error:(id *)error
@@ -722,16 +778,15 @@ LABEL_7:
   v7 = [v6 readVarInt:? eofOkay:? error:?];
   if (v7)
   {
-    if (v11 == v11)
+    if (v10 == v10)
     {
-      *int32 = v11;
+      *int32 = v10;
       LOBYTE(v7) = 1;
     }
 
     else if (error)
     {
-      v8 = *MEMORY[0x277CCA590];
-      v9 = NSErrorF();
+      v8 = NSErrorF(*MEMORY[0x277CCA590], 4294960586, "Out-of-range Int32: %lld", v10);
       LOBYTE(v7) = OUTLINED_FUNCTION_11_0();
     }
 
@@ -750,12 +805,11 @@ LABEL_7:
   v7 = [v6 readVarInt:? eofOkay:? error:?];
   if (v7)
   {
-    if (HIDWORD(v11))
+    if (HIDWORD(v10))
     {
       if (error)
       {
-        v8 = *MEMORY[0x277CCA590];
-        v9 = NSErrorF();
+        v8 = NSErrorF(*MEMORY[0x277CCA590], 4294960586, "Out-of-range UInt32: %llu", v10);
         LOBYTE(v7) = OUTLINED_FUNCTION_11_0();
       }
 
@@ -767,7 +821,7 @@ LABEL_7:
 
     else
     {
-      *int32 = v11;
+      *int32 = v10;
       LOBYTE(v7) = 1;
     }
   }
@@ -959,14 +1013,12 @@ LABEL_7:
 
 - (BOOL)writeFixedDouble:(double)double tag:(unint64_t)tag error:(id *)error
 {
-  v16 = *MEMORY[0x277D85DE8];
   v6 = [(ENProtobufCoder *)self writeVarInt:(8 * tag) | 1 error:?];
   if (v6)
   {
     LOBYTE(v6) = OUTLINED_FUNCTION_5_2(v6, v7, v8, v9, v10, v11, v12, v13, *&double);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -987,15 +1039,13 @@ LABEL_7:
 - (BOOL)writeFixedSInt64:(int64_t)int64 tag:(unint64_t)tag error:(id *)error
 {
   OUTLINED_FUNCTION_1_3();
-  v6 = *MEMORY[0x277D85DE8];
-  v12 = OUTLINED_FUNCTION_12_0(v7, v8, v9, v10, v11);
-  if (v12)
+  v11 = OUTLINED_FUNCTION_12_0(v6, v7, v8, v9, v10);
+  if (v11)
   {
-    LOBYTE(v12) = OUTLINED_FUNCTION_5_2(v12, v13, v14, v15, v16, v17, v18, v19, v5);
+    LOBYTE(v11) = OUTLINED_FUNCTION_5_2(v11, v12, v13, v14, v15, v16, v17, v18, v5);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v11;
 }
 
 - (BOOL)readFixedUInt64:(unint64_t *)int64 error:(id *)error
@@ -1015,15 +1065,13 @@ LABEL_7:
 - (BOOL)writeFixedUInt64:(unint64_t)int64 tag:(unint64_t)tag error:(id *)error
 {
   OUTLINED_FUNCTION_1_3();
-  v6 = *MEMORY[0x277D85DE8];
-  v12 = OUTLINED_FUNCTION_12_0(v7, v8, v9, v10, v11);
-  if (v12)
+  v11 = OUTLINED_FUNCTION_12_0(v6, v7, v8, v9, v10);
+  if (v11)
   {
-    LOBYTE(v12) = OUTLINED_FUNCTION_5_2(v12, v13, v14, v15, v16, v17, v18, v19, v5);
+    LOBYTE(v11) = OUTLINED_FUNCTION_5_2(v11, v12, v13, v14, v15, v16, v17, v18, v5);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v11;
 }
 
 - (void)_writeBytes:(void *)result length:(_BYTE *)a2 error:.cold.1(void *result, _BYTE *a2)
@@ -1032,8 +1080,8 @@ LABEL_7:
   {
     v3 = result;
     v4 = *MEMORY[0x277CCA590];
-    v5 = *__error();
-    result = NSErrorF();
+    v5 = __error();
+    result = NSErrorF(v4, 4294960549, "write failed: %#m", *v5);
     *v3 = result;
   }
 

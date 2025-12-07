@@ -25,14 +25,14 @@
 
   else
   {
-    memset(v9, 0, sizeof(v9));
+    memset(v10, 0, sizeof(v10));
     selfCopy2 = self;
   }
 
-  v7 = MenuManager.canPerformAction(_:withSender:)();
+  v8 = MenuManager.canPerformAction(_:withSender:)(action);
 
-  sub_1D7E7BAAC(v9);
-  return v7 & 1;
+  sub_1D7E7BAAC(v10);
+  return v8 & 1;
 }
 
 @end

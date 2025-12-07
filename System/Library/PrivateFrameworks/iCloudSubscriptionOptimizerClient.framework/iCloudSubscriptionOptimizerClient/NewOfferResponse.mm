@@ -11,14 +11,13 @@
 
 - (id)toContext
 {
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_280A23B18, &qword_275A3E720) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280A23B18, &qword_275A3E720);
+  MEMORY[0x28223BE20](v3 - 8);
   v5 = &v14 - v4;
   v6 = sub_275A3D794();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20]();
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_275A33260(self + OBJC_IVAR____TtC33iCloudSubscriptionOptimizerClient16NewOfferResponse_context, v5);
   if ((*(v7 + 48))(v5, 1, v6) == 1)
   {
@@ -32,9 +31,9 @@
 
   else
   {
-    sub_275A33338(v5, v10);
+    sub_275A33338(v5, v9);
     _s33iCloudSubscriptionOptimizerClient19QuotaServerProtocolV02toF14RefreshDetailsySDys11AnyHashableVypG01iabC4Core0iJ7ContextVFZ_0();
-    sub_275A2EEFC(v10);
+    sub_275A2EEFC(v9, v11);
   }
 
   v12 = sub_275A3D8E4();

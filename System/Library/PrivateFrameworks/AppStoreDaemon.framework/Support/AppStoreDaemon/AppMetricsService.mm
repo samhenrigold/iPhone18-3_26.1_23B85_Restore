@@ -39,7 +39,7 @@
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[%@] getMetricsEventsForType for client: %{public}@", buf, 0x16u);
   }
 
-  v10 = sub_1002B5560();
+  v10 = sub_1002B5560(MetricsCoordinator);
   v14[0] = _NSConcreteStackBlock;
   v14[1] = 3221225472;
   v14[2] = sub_100274A8C;
@@ -68,7 +68,7 @@
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[%@] postMetricsEventsForType for client: %{public}@", buf, 0x16u);
   }
 
-  v10 = sub_1002B5560();
+  v10 = sub_1002B5560(MetricsCoordinator);
   v12[0] = _NSConcreteStackBlock;
   v12[1] = 3221225472;
   v12[2] = sub_100274D04;
@@ -93,7 +93,7 @@
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[%@] recordMetricsEventsForType for client: %{public}@", buf, 0x16u);
   }
 
-  v10 = sub_1002B5560();
+  v10 = sub_1002B5560(MetricsCoordinator);
   v12[0] = _NSConcreteStackBlock;
   v12[1] = 3221225472;
   v12[2] = sub_100274E9C;
@@ -118,7 +118,7 @@
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[%@] resetMetricsEventsForType for client: %{public}@", buf, 0x16u);
   }
 
-  v10 = sub_1002B5560();
+  v10 = sub_1002B5560(MetricsCoordinator);
   v12[0] = _NSConcreteStackBlock;
   v12[1] = 3221225472;
   v12[2] = sub_100275034;

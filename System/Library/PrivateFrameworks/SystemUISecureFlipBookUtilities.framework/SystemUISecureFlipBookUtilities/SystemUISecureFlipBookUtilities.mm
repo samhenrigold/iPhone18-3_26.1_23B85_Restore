@@ -122,16 +122,16 @@ uint64_t FlipBookFramePool::alloc(FlipBookFramePool *this, int a2)
   return handle;
 }
 
-FlipBookFramePool *FlipBookFramePool::free(FlipBookFramePool *this, FlipBookFrameHandle a2)
+FlipBookFramePool *FlipBookFramePool::free(FlipBookFramePool *this, uint64_t a2)
 {
-  if (!a2.handle || (v2 = this->entries.__begin_ + 96 * a2.handle, (*(v2 - 96) & 1) == 0))
+  if (!a2 || (v2 = this->entries.__begin_ + 96 * a2, (*(v2 - 96) & 1) == 0))
   {
     FlipBookFramePool::free();
   }
 
   *(v2 - 96) = 0;
   *(v2 - 47) = this->free_list.handle;
-  this->free_list = a2;
+  this->free_list.handle = a2;
   return this;
 }
 
@@ -191,7 +191,7 @@ void FlipBookFramePool::all_frames(FlipBookFramePool *this@<X0>, const void **a2
           }
 
           *(2 * v14) = v8;
-          v11 = 2 * v14 + 2;
+          v11 = (2 * v14 + 2);
           memcpy(0, v12, v13);
           v18 = *a2;
           *a2 = 0;
@@ -206,7 +206,7 @@ void FlipBookFramePool::all_frames(FlipBookFramePool *this@<X0>, const void **a2
         else
         {
           *v10 = v8;
-          v11 = (v10 + 2);
+          v11 = v10 + 2;
         }
 
         a2[1] = v11;
@@ -233,19 +233,17 @@ void sub_26C634138(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<FlipBookFrameHandle>::reserve(void *result, unint64_t a2)
+void std::vector<FlipBookFrameHandle>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 1)
+  if (a2 > (a1[2] - *a1) >> 1)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<FlipBookFrameHandle>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<FlipBookFrameHandle>>(a1, a2);
     }
 
     std::vector<FlipBookFramePool::PoolEntry>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void FlipBookFramePool::~FlipBookFramePool(FlipBookFramePool *this)
@@ -271,16 +269,16 @@ void FlipBookFramePool::~FlipBookFramePool(FlipBookFramePool *this)
   }
 }
 
-id os_log_get(void)
+id os_log_get(uint64_t a1)
 {
   if (os_log_get(void)::once != -1)
   {
     os_log_get();
   }
 
-  v1 = os_log_get(void)::log;
+  v2 = os_log_get(void)::log;
 
-  return v1;
+  return v2;
 }
 
 void sub_26C634AE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
@@ -293,10 +291,10 @@ void sub_26C634AE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_26C634CA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_26C634CA4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = SFUSecureFlipBookRecording;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -317,7 +315,7 @@ void sub_26C635318(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -331,13 +329,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -443,10 +441,10 @@ void std::unique_lock<std::mutex>::lock[abi:ne200100](uint64_t a1)
   }
 
   std::__throw_system_error(11, "unique_lock::lock: already locked");
-  std::vector<FlipBookFrameHandle>::push_back[abi:ne200100]();
+  std::vector<FlipBookFrameHandle>::push_back[abi:ne200100](v3, v4);
 }
 
-void std::vector<FlipBookFrameHandle>::push_back[abi:ne200100](const void **a1, _WORD *a2)
+void std::vector<FlipBookFrameHandle>::push_back[abi:ne200100](const void **a1, unsigned __int16 *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -530,7 +528,7 @@ void sub_26C636F44(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_26C6392BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, std::mutex *a32, uint64_t a33, uint64_t a34, uint64_t a35, void *__p, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44)
+void sub_26C6392BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, std::mutex *a32, char *a33, void *a34, uint64_t a35, void *__p, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44)
 {
   std::__hash_table<FlipBookFrameHandle,FlipBookFrameHandleHasher,std::equal_to<FlipBookFrameHandle>,std::allocator<FlipBookFrameHandle>>::~__hash_table(&a39);
   if (__p)
@@ -928,9 +926,9 @@ uint64_t std::vector<FlipBookTransitionPoint>::__emplace_back_slow_path<FlipBook
   return v14;
 }
 
-void sub_26C63BF00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_26C63BF00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<FlipBookTransitionPoint>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1054,7 +1052,7 @@ void std::__split_buffer<FlipBookTransitionPoint>::__destruct_at_end[abi:ne20010
   }
 }
 
-void *std::vector<CGRect>::__assign_with_size[abi:ne200100]<CGRect const*,CGRect const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<CGRect>::__assign_with_size[abi:ne200100]<CGRect const*,CGRect const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -1143,7 +1141,7 @@ void *std::vector<CGRect>::__assign_with_size[abi:ne200100]<CGRect const*,CGRect
   return result;
 }
 
-void std::vector<CGRect>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<CGRect>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -1194,20 +1192,20 @@ std::__split_buffer<std::string>::pointer std::vector<std::string>::push_back[ab
   return result;
 }
 
-void resolve_transition(const void **a1, void *a2, void *a3, uint64_t a4, void *a5, void *a6)
+void resolve_transition(uint64_t *a1, void *a2, void *a3, _DWORD *a4, void *a5, void *a6)
 {
   if (!std::__hash_table<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>>>::find<std::string>(a5, a1) && !std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(a6, a1))
   {
     if (std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(a2, a1))
     {
       v21 = a1;
-      v12 = std::__hash_table<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a5, a1);
+      v12 = std::__hash_table<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a5, a1, &std::piecewise_construct, &v21, &v17);
       std::vector<FlipBookTransitionPoint>::push_back[abi:ne200100](v12 + 5, a4);
     }
 
     else
     {
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a6, a1);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a6, a1, a1);
       v13 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(a3, a1);
       if (v13)
       {
@@ -1216,7 +1214,7 @@ void resolve_transition(const void **a1, void *a2, void *a3, uint64_t a4, void *
         v23 = 0;
         v24 = 0;
         v22 = 0;
-        std::vector<FlipBookFrameHandle>::__init_with_size[abi:ne200100]<FlipBookFrameHandle*,FlipBookFrameHandle*>(&v22, *(a4 + 8), *(a4 + 16), (*(a4 + 16) - *(a4 + 8)) >> 1);
+        std::vector<FlipBookFrameHandle>::__init_with_size[abi:ne200100]<FlipBookFrameHandle*,FlipBookFrameHandle*>(&v22, *(a4 + 1), *(a4 + 2), (*(a4 + 2) - *(a4 + 1)) >> 1);
         for (i = v14[7]; i; i = *i)
         {
           if (i[6] - i[5] != 32)
@@ -1244,7 +1242,7 @@ void resolve_transition(const void **a1, void *a2, void *a3, uint64_t a4, void *
             std::vector<FlipBookFrameHandle>::__insert_with_size[abi:ne200100]<std::__wrap_iter<FlipBookFrameHandle const*>,std::__wrap_iter<FlipBookFrameHandle const*>>(&__p, __dst, *(i[5] + 8), *(i[5] + 16), (*(i[5] + 16) - *(i[5] + 8)) >> 1);
           }
 
-          resolve_transition(i + 2, a2, a3, &v17, a5, a6);
+          resolve_transition((i + 2), a2, a3, &v17, a5, a6);
           if (__p)
           {
             __dst = __p;
@@ -1423,35 +1421,35 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
   memmove(this, __s, v3);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>>(float *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = *(a1 + 2);
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -1459,54 +1457,54 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_26C63CBCC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C63CBCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -1523,9 +1521,9 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std
   return a1;
 }
 
-unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -1762,7 +1760,7 @@ uint64_t std::__hash_table<std::__hash_value_type<std::string,std::vector<FlipBo
   return result;
 }
 
-void std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -1778,7 +1776,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -1786,7 +1784,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -1810,7 +1808,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -1987,7 +1985,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t std::vector<FlipBookTransitionPoint>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+uint64_t std::vector<FlipBookTransitionPoint>::push_back[abi:ne200100](uint64_t *a1, _DWORD *a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -2005,7 +2003,7 @@ uint64_t std::vector<FlipBookTransitionPoint>::push_back[abi:ne200100](uint64_t 
   return result;
 }
 
-const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -2074,19 +2072,19 @@ const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<
   return i;
 }
 
-uint64_t std::vector<FlipBookTransitionPoint>::__construct_one_at_end[abi:ne200100]<FlipBookTransitionPoint const&>(uint64_t a1, uint64_t a2)
+uint64_t *std::vector<FlipBookTransitionPoint>::__construct_one_at_end[abi:ne200100]<FlipBookTransitionPoint const&>(uint64_t a1, _DWORD *a2)
 {
   v3 = *(a1 + 8);
   *v3 = *a2;
   *(v3 + 16) = 0;
   *(v3 + 24) = 0;
   *(v3 + 8) = 0;
-  result = std::vector<FlipBookFrameHandle>::__init_with_size[abi:ne200100]<FlipBookFrameHandle*,FlipBookFrameHandle*>(v3 + 8, *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 1);
+  result = std::vector<FlipBookFrameHandle>::__init_with_size[abi:ne200100]<FlipBookFrameHandle*,FlipBookFrameHandle*>((v3 + 8), *(a2 + 1), *(a2 + 2), (*(a2 + 2) - *(a2 + 1)) >> 1);
   *(a1 + 8) = v3 + 32;
   return result;
 }
 
-uint64_t std::vector<FlipBookTransitionPoint>::__emplace_back_slow_path<FlipBookTransitionPoint const&>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<FlipBookTransitionPoint>::__emplace_back_slow_path<FlipBookTransitionPoint const&>(uint64_t *a1, _DWORD *a2)
 {
   v2 = (a1[1] - *a1) >> 5;
   v3 = v2 + 1;
@@ -2125,7 +2123,7 @@ uint64_t std::vector<FlipBookTransitionPoint>::__emplace_back_slow_path<FlipBook
   *(v8 + 16) = 0;
   *(v8 + 24) = 0;
   *(v8 + 8) = 0;
-  std::vector<FlipBookFrameHandle>::__init_with_size[abi:ne200100]<FlipBookFrameHandle*,FlipBookFrameHandle*>(32 * v2 + 8, *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 1);
+  std::vector<FlipBookFrameHandle>::__init_with_size[abi:ne200100]<FlipBookFrameHandle*,FlipBookFrameHandle*>((32 * v2 + 8), *(a2 + 1), *(a2 + 2), (*(a2 + 2) - *(a2 + 1)) >> 1);
   *&v17 = v17 + 32;
   v9 = a1[1];
   v10 = v16 + *a1 - v9;
@@ -2143,42 +2141,42 @@ uint64_t std::vector<FlipBookTransitionPoint>::__emplace_back_slow_path<FlipBook
   return v14;
 }
 
-void sub_26C63D8E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_26C63D8E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<FlipBookTransitionPoint>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__construct_node_hash<std::string const&>();
@@ -2186,44 +2184,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 void sub_26C63DB38(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -2261,7 +2259,7 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::string,voi
   operator delete(__p);
 }
 
-uint64_t std::vector<FlipBookFrameHandle>::__init_with_size[abi:ne200100]<FlipBookFrameHandle*,FlipBookFrameHandle*>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<FlipBookFrameHandle>::__init_with_size[abi:ne200100]<FlipBookFrameHandle*,FlipBookFrameHandle*>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -2283,7 +2281,7 @@ void sub_26C63DCD8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<FlipBookFrameHandle>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<FlipBookFrameHandle>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -2293,7 +2291,7 @@ void std::vector<FlipBookFrameHandle>::__vallocate[abi:ne200100](uint64_t a1, ui
   std::vector<FlipBookFramePool::PoolEntry>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::vector<FlipBookFrameHandle>::__assign_with_size[abi:ne200100]<FlipBookFrameHandle*,FlipBookFrameHandle*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<FlipBookFrameHandle>::__assign_with_size[abi:ne200100]<FlipBookFrameHandle*,FlipBookFrameHandle*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -2425,7 +2423,8 @@ char *std::vector<FlipBookFrameHandle>::__insert_with_size[abi:ne200100]<std::__
     v36 = v33;
     do
     {
-      v37 = *v7++;
+      v37 = *v7;
+      v7 += 2;
       *v36++ = v37;
       v35 -= 2;
     }
@@ -2520,22 +2519,22 @@ LABEL_35:
   return v5;
 }
 
-void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::clear(uint64_t a1)
+void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::clear(uint64_t result)
 {
-  if (*(a1 + 24))
+  if (*(result + 24))
   {
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__deallocate_node(a1, *(a1 + 16));
-    *(a1 + 16) = 0;
-    v2 = *(a1 + 8);
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__deallocate_node(result, *(result + 16));
+    *(result + 16) = 0;
+    v2 = *(result + 8);
     if (v2)
     {
       for (i = 0; i != v2; ++i)
       {
-        *(*a1 + 8 * i) = 0;
+        *(*result + 8 * i) = 0;
       }
     }
 
-    *(a1 + 24) = 0;
+    *(result + 24) = 0;
   }
 }
 
@@ -2568,41 +2567,41 @@ uint64_t std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>::u
   std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::vector<FlipBookTransitionPoint>> const&>(a1, i + 2);
+    std::__hash_table<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::vector<FlipBookTransitionPoint>> const&>(a1, i + 2, (i + 2));
   }
 
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::vector<FlipBookTransitionPoint>> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::vector<FlipBookTransitionPoint>> const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>>>::__construct_node_hash<std::pair<std::string const,std::vector<FlipBookTransitionPoint>> const&>();
@@ -2610,54 +2609,54 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_26C63E3B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C63E3B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -2705,7 +2704,7 @@ void sub_26C63E4F8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<FlipBookTransitionPoint>::__init_with_size[abi:ne200100]<FlipBookTransitionPoint*,FlipBookTransitionPoint*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<FlipBookTransitionPoint>::__init_with_size[abi:ne200100]<FlipBookTransitionPoint*,FlipBookTransitionPoint*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2715,14 +2714,14 @@ uint64_t std::vector<FlipBookTransitionPoint>::__init_with_size[abi:ne200100]<Fl
   return result;
 }
 
-void sub_26C63E57C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_26C63E57C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<FlipBookTransitionPoint>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<FlipBookTransitionPoint>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<FlipBookTransitionPoint>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -2750,7 +2749,7 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<F
       *(v4 + 16) = 0;
       *(v4 + 24) = 0;
       *(v4 + 8) = 0;
-      std::vector<FlipBookFrameHandle>::__init_with_size[abi:ne200100]<FlipBookFrameHandle*,FlipBookFrameHandle*>(v4 + 8, *(v6 + 8), *(v6 + 16), (*(v6 + 16) - *(v6 + 8)) >> 1);
+      std::vector<FlipBookFrameHandle>::__init_with_size[abi:ne200100]<FlipBookFrameHandle*,FlipBookFrameHandle*>((v4 + 8), *(v6 + 8), *(v6 + 16), (*(v6 + 16) - *(v6 + 8)) >> 1);
       v6 += 32;
       v4 = v11 + 32;
       v11 += 32;
@@ -2832,7 +2831,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::vector<FlipBookTr
   }
 }
 
-char *std::vector<FlipBookFrameHandle>::__insert_with_size[abi:ne200100]<std::__wrap_iter<FlipBookFrameHandle*>,std::__wrap_iter<FlipBookFrameHandle*>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<FlipBookFrameHandle>::__insert_with_size[abi:ne200100]<std::__wrap_iter<FlipBookFrameHandle*>,std::__wrap_iter<FlipBookFrameHandle*>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -2841,8 +2840,8 @@ char *std::vector<FlipBookFrameHandle>::__insert_with_size[abi:ne200100]<std::__
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 1)
   {
     v11 = *a1;
@@ -2884,23 +2883,24 @@ char *std::vector<FlipBookFrameHandle>::__insert_with_size[abi:ne200100]<std::__
     v35 = (2 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 2;
       *v35++ = v36;
       v34 -= 2;
     }
 
     while (v34);
-    memcpy((v33 + 2 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 2 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 2 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 2 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -2915,14 +2915,14 @@ char *std::vector<FlipBookFrameHandle>::__insert_with_size[abi:ne200100]<std::__
   {
     v29 = &__dst[2 * a5];
     v30 = (v10 - 2 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[2 * a5], __dst, v10 - v29);
@@ -2937,11 +2937,11 @@ char *std::vector<FlipBookFrameHandle>::__insert_with_size[abi:ne200100]<std::__
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[2 * a5];
@@ -2961,7 +2961,7 @@ char *std::vector<FlipBookFrameHandle>::__insert_with_size[abi:ne200100]<std::__
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[2 * a5], v5, v21 - v22);
@@ -2993,33 +2993,33 @@ uint64_t std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std:
   return a1;
 }
 
-uint64_t **std::__hash_table<FlipBookFrameHandle,FlipBookFrameHandleHasher,std::equal_to<FlipBookFrameHandle>,std::allocator<FlipBookFrameHandle>>::__emplace_unique_key_args<FlipBookFrameHandle,FlipBookFrameHandle const&>(void *a1, unsigned __int16 *a2)
+uint64_t **std::__hash_table<FlipBookFrameHandle,FlipBookFrameHandleHasher,std::equal_to<FlipBookFrameHandle>,std::allocator<FlipBookFrameHandle>>::__emplace_unique_key_args<FlipBookFrameHandle,FlipBookFrameHandle const&>(void *a1, unsigned __int16 *a2, _WORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % a1[1];
+      v6 = v3 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v6 = (v4.i32[0] - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -3027,47 +3027,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 8) != v2)
+  if (*(v8 + 8) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-uint64_t **std::__hash_table<FlipBookFrameHandle,FlipBookFrameHandleHasher,std::equal_to<FlipBookFrameHandle>,std::allocator<FlipBookFrameHandle>>::find<FlipBookFrameHandle>(void *a1, unsigned __int16 *a2)
+uint64_t ***std::__hash_table<FlipBookFrameHandle,FlipBookFrameHandleHasher,std::equal_to<FlipBookFrameHandle>,std::allocator<FlipBookFrameHandle>>::find<FlipBookFrameHandle>(void *a1, unsigned __int16 *a2)
 {
   v2 = a1[1];
   if (!*&v2)
@@ -4242,17 +4242,17 @@ LABEL_24:
   return v12 + 1 == a2;
 }
 
-void *std::vector<ExportedFlipBookFrame>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<ExportedFlipBookFrame>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<ExportedFlipBookFrame>::__vallocate[abi:ne200100](result, a2);
+    std::vector<ExportedFlipBookFrame>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_26C63FD18(_Unwind_Exception *exception_object)
@@ -4267,7 +4267,7 @@ void sub_26C63FD18(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<ExportedFlipBookFrame>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ExportedFlipBookFrame>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -4417,17 +4417,17 @@ uint64_t rgba_swizzle_from_cgimage(CGImage *a1)
   return v8 | v7 | v9 | v10;
 }
 
-void *std::vector<unsigned char>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<unsigned char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_26C63FF18(_Unwind_Exception *exception_object)
@@ -4442,7 +4442,7 @@ void sub_26C63FF18(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -4512,33 +4512,33 @@ void std::vector<unsigned char>::__append(char **a1, size_t a2)
   }
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<FlipBookFrameHandle,unsigned int>,std::__unordered_map_hasher<FlipBookFrameHandle,std::__hash_value_type<FlipBookFrameHandle,unsigned int>,FlipBookFrameHandleHasher,std::equal_to<FlipBookFrameHandle>,true>,std::__unordered_map_equal<FlipBookFrameHandle,std::__hash_value_type<FlipBookFrameHandle,unsigned int>,std::equal_to<FlipBookFrameHandle>,FlipBookFrameHandleHasher,true>,std::allocator<std::__hash_value_type<FlipBookFrameHandle,unsigned int>>>::__emplace_unique_key_args<FlipBookFrameHandle,std::piecewise_construct_t const&,std::tuple<FlipBookFrameHandle const&>,std::tuple<>>(void *a1, unsigned __int16 *a2)
+uint64_t **std::__hash_table<std::__hash_value_type<FlipBookFrameHandle,unsigned int>,std::__unordered_map_hasher<FlipBookFrameHandle,std::__hash_value_type<FlipBookFrameHandle,unsigned int>,FlipBookFrameHandleHasher,std::equal_to<FlipBookFrameHandle>,true>,std::__unordered_map_equal<FlipBookFrameHandle,std::__hash_value_type<FlipBookFrameHandle,unsigned int>,std::equal_to<FlipBookFrameHandle>,FlipBookFrameHandleHasher,true>,std::allocator<std::__hash_value_type<FlipBookFrameHandle,unsigned int>>>::__emplace_unique_key_args<FlipBookFrameHandle,std::piecewise_construct_t const&,std::tuple<FlipBookFrameHandle const&>,std::tuple<>>(void *a1, unsigned __int16 *a2, uint64_t a3, _WORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % a1[1];
+      v7 = v4 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -4546,44 +4546,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 8) != v2)
+  if (*(v9 + 8) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void std::vector<FlipBookTransitionPoint>::__append(uint64_t a1, unint64_t a2)
@@ -4652,9 +4652,9 @@ void std::vector<FlipBookTransitionPoint>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void sub_26C64040C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C64040C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<FlipBookTransitionPoint>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4721,19 +4721,17 @@ void sub_26C640534(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<FlipBookFramePool::PoolEntry>::reserve(void *result, unint64_t a2)
+void std::vector<FlipBookFramePool::PoolEntry>::reserve(void *a1, unint64_t a2)
 {
-  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 5) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 5) < a2)
   {
     if (a2 < 0x2AAAAAAAAAAAAABLL)
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<FlipBookFramePool::PoolEntry>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<FlipBookFramePool::PoolEntry>>(a1, a2);
     }
 
     std::vector<FlipBookFramePool::PoolEntry>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void ___ZL11compare_dicP12NSDictionaryS0_P5NSSet_block_invoke(uint64_t a1, void *a2, void *a3)
@@ -4788,35 +4786,35 @@ void ___ZL11compare_dicP12NSDictionaryS0_P5NSSet_block_invoke_2(id *a1, void *a2
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -4824,82 +4822,82 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
-void sub_26C640AD8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C640AD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::string,std::vector<FlipBookTransitionPoint>>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -4907,54 +4905,54 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
-void sub_26C640E0C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C640E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<FlipBookTransitionPoint>>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -5092,77 +5090,77 @@ uint64_t sub_26C641230()
   return v1;
 }
 
-uint64_t sub_26C64126C()
+uint64_t sub_26C64126C(uint64_t a1)
 {
   sub_26C64D9F8();
   sub_26C64DA08();
 }
 
-uint64_t sub_26C6412C0()
+uint64_t sub_26C6412C0(uint64_t a1)
 {
   sub_26C64D9F8();
   sub_26C64DC38();
   sub_26C64DA08();
-  v0 = sub_26C64DC48();
+  v1 = sub_26C64DC48();
 
-  return v0;
+  return v1;
 }
 
 uint64_t sub_26C641334(uint64_t a1)
 {
-  v2 = sub_26C641968(&qword_2804A73D8, type metadata accessor for CaptureCoordinatorError);
+  v2 = sub_26C641968(&qword_2804A73D8, type metadata accessor for CaptureCoordinatorError, &unk_26C64F1D0);
 
   return MEMORY[0x28211F4B8](a1, v2);
 }
 
 uint64_t sub_26C6413A0(uint64_t a1)
 {
-  v2 = sub_26C641968(&qword_2804A73D8, type metadata accessor for CaptureCoordinatorError);
+  v2 = sub_26C641968(&qword_2804A73D8, type metadata accessor for CaptureCoordinatorError, &unk_26C64F1D0);
 
   return MEMORY[0x28211F4A8](a1, v2);
 }
 
 uint64_t sub_26C641410(uint64_t a1)
 {
-  v2 = sub_26C641968(&qword_2804A7410, type metadata accessor for CaptureCoordinatorError);
+  v2 = sub_26C641968(&qword_2804A7410, type metadata accessor for CaptureCoordinatorError, &unk_26C64F214);
 
   return MEMORY[0x28211CA68](a1, v2);
 }
 
-uint64_t sub_26C64148C()
+uint64_t sub_26C64148C(void *a1, uint64_t *a2)
 {
-  v0 = sub_26C64D9F8();
-  v2 = v1;
-  if (v0 == sub_26C64D9F8() && v2 == v3)
+  v2 = sub_26C64D9F8();
+  v4 = v3;
+  if (v2 == sub_26C64D9F8() && v4 == v5)
   {
-    v5 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v5 = sub_26C64DBE8();
+    v7 = sub_26C64DBE8();
   }
 
-  return v5 & 1;
+  return v7 & 1;
 }
 
 uint64_t sub_26C641524(uint64_t a1)
 {
-  v2 = sub_26C641968(&qword_2804A7410, type metadata accessor for CaptureCoordinatorError);
+  v2 = sub_26C641968(&qword_2804A7410, type metadata accessor for CaptureCoordinatorError, &unk_26C64F214);
 
   return MEMORY[0x28211CAD0](a1, v2);
 }
 
 uint64_t sub_26C641590(uint64_t a1)
 {
-  v2 = sub_26C641968(&qword_2804A7410, type metadata accessor for CaptureCoordinatorError);
+  v2 = sub_26C641968(&qword_2804A7410, type metadata accessor for CaptureCoordinatorError, &unk_26C64F214);
 
   return MEMORY[0x28211CA88](a1, v2);
 }
 
 uint64_t sub_26C6415FC(void *a1, uint64_t a2)
 {
-  v4 = sub_26C641968(&qword_2804A7410, type metadata accessor for CaptureCoordinatorError);
+  v4 = sub_26C641968(&qword_2804A7410, type metadata accessor for CaptureCoordinatorError, &unk_26C64F214);
   v5 = a1;
 
   return MEMORY[0x28211CA70](v5, a2, v4);
@@ -5170,12 +5168,12 @@ uint64_t sub_26C6415FC(void *a1, uint64_t a2)
 
 uint64_t sub_26C6416B0(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_26C641968(&qword_2804A7410, type metadata accessor for CaptureCoordinatorError);
+  v4 = sub_26C641968(&qword_2804A7410, type metadata accessor for CaptureCoordinatorError, &unk_26C64F214);
 
   return MEMORY[0x28211CAB8](a1, a2, v4);
 }
 
-uint64_t sub_26C64172C()
+uint64_t sub_26C64172C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   sub_26C64DC38();
   sub_26C64D9B8();
@@ -5189,11 +5187,11 @@ void *sub_26C64178C@<X0>(void *result@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_26C6417A8@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_26C6417A8@<X0>(uint64_t *a2@<X8>)
 {
-  v2 = sub_26C64D9C8();
+  v3 = sub_26C64D9C8();
 
-  *a1 = v2;
+  *a2 = v3;
   return result;
 }
 
@@ -5207,14 +5205,14 @@ uint64_t sub_26C6417F0@<X0>(uint64_t *a1@<X8>)
 
 uint64_t sub_26C64181C(uint64_t a1)
 {
-  v2 = sub_26C641968(&qword_2804A73A8, type metadata accessor for CaptureCoordinatorOption);
-  v3 = sub_26C641968(&qword_2804A73B0, type metadata accessor for CaptureCoordinatorOption);
+  v2 = sub_26C641968(&qword_2804A73A8, type metadata accessor for CaptureCoordinatorOption, &unk_26C64EFC8);
+  v3 = sub_26C641968(&qword_2804A73B0, type metadata accessor for CaptureCoordinatorOption, &unk_26C64EF68);
   v4 = MEMORY[0x277D837E0];
 
   return MEMORY[0x2821FD8C8](a1, v2, v3, v4);
 }
 
-uint64_t sub_26C641968(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_26C641968(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -5303,7 +5301,7 @@ uint64_t sub_26C641AD8(uint64_t result, int a2, int a3)
 
 uint64_t sub_26C641B18(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = sub_26C641968(&qword_2804A7410, type metadata accessor for CaptureCoordinatorError);
+  v6 = sub_26C641968(&qword_2804A7410, type metadata accessor for CaptureCoordinatorError, &unk_26C64F214);
 
   return MEMORY[0x28211CA98](a1, a2, a3, v6);
 }
@@ -5368,12 +5366,12 @@ uint64_t sub_26C641ED0(uint64_t result, int a2, int a3)
   return result;
 }
 
-void sub_26C641F20(uint64_t a1, unint64_t *a2)
+void sub_26C641F20(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -5446,11 +5444,11 @@ id sub_26C64264C(void *a1)
   v2 = v1;
   v4 = sub_26C64D938();
   v5 = *(v4 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v4);
   v7 = v23 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = sub_26C64D958();
   v9 = *(v8 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v8);
   v11 = v23 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   [a1 timestamp];
   v13 = v12;
@@ -5475,7 +5473,7 @@ id sub_26C64264C(void *a1)
       v23[1] = MEMORY[0x277D84F90];
       sub_26C6432B4();
       v23[0] = v8;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A75A8);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A75A8, &qword_26C64F440);
       sub_26C643354();
       sub_26C64DB08();
       MEMORY[0x26D6A5370](0, v11, v7, v19);
@@ -5522,8 +5520,8 @@ void SFUDisplayLinkDrivenTimer.schedule(withFireInterval:queue:handler:)(uint64_
 {
   v5 = v4;
   [v4 set:CACurrentMediaTime() + a4 fireDate:?];
-  sub_26C6431E0(0, &qword_2804A7448);
-  sub_26C6431E0(0, &qword_2804A7450);
+  sub_26C6431E0(0, &qword_2804A7448, 0x277D82BB8);
+  sub_26C6431E0(0, &qword_2804A7450, 0x277D85C78);
   v9 = sub_26C64DAC8();
   v10 = sub_26C64DAE8();
 
@@ -5613,7 +5611,7 @@ Swift::Void __swiftcall SFUDisplayLinkDrivenTimer.invalidate()()
   [v0 set:0 valid:?];
 }
 
-uint64_t sub_26C6431E0(uint64_t a1, unint64_t *a2)
+uint64_t sub_26C6431E0(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -5652,7 +5650,7 @@ unint64_t sub_26C6432B4()
   return result;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -5669,7 +5667,7 @@ unint64_t sub_26C643354()
   result = qword_2804A75B0;
   if (!qword_2804A75B0)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_2804A75A8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_2804A75A8, &qword_26C64F440);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_2804A75B0);
   }
@@ -5677,7 +5675,7 @@ unint64_t sub_26C643354()
   return result;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -5689,7 +5687,7 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1)
   return result;
 }
 
-uint64_t sub_26C643400(uint64_t result)
+uint64_t sub_26C643400(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -5705,7 +5703,6 @@ id SFUCaptureCoordinator.init()()
   return [v0 init];
 }
 
-uint64_t SFUCaptureCoordinator.init()()
 {
   *&v0[OBJC_IVAR___SFUCaptureCoordinator_currentRecording] = 0;
   *&v0[OBJC_IVAR___SFUCaptureCoordinator_loopStateSingleLoopDuration] = MEMORY[0x277D84F98];
@@ -5736,7 +5733,7 @@ void SFUCaptureCoordinator.generateFlipBook(from:userInfo:options:constraintBoun
 {
   v7 = v6;
   v13 = a1;
-  v70 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   *&aBlock = 0;
   if (![v7 _validateDescription_error_])
   {
@@ -5750,7 +5747,7 @@ void SFUCaptureCoordinator.generateFlipBook(from:userInfo:options:constraintBoun
     return;
   }
 
-  v64 = a4;
+  v65 = a4;
   v14 = aBlock;
   if (a3)
   {
@@ -5767,96 +5764,96 @@ void SFUCaptureCoordinator.generateFlipBook(from:userInfo:options:constraintBoun
   if (v19 && (v20 = sub_26C648170(@"recordingName"), (v21 & 1) != 0))
   {
     sub_26C64AA4C(*(v15 + 56) + 32 * v20, &aBlock);
-    sub_26C64CEC0(&aBlock, &qword_2804A7638);
+    sub_26C64CEC0(&aBlock, &qword_2804A7638, &qword_26C64F3C0);
   }
 
   else
   {
     aBlock = 0u;
-    v66 = 0u;
-    sub_26C64CEC0(&aBlock, &qword_2804A7638);
+    v67 = 0u;
+    sub_26C64CEC0(&aBlock, &qword_2804A7638, &qword_26C64F3C0);
     v22 = [v13 flipBookName];
     v23 = sub_26C64D9F8();
     v25 = v24;
 
-    *(&v66 + 1) = MEMORY[0x277D837D0];
+    *(&v67 + 1) = MEMORY[0x277D837D0];
     *&aBlock = v23;
     *(&aBlock + 1) = v25;
-    sub_26C649920(&aBlock, v69);
+    sub_26C649920(&aBlock, v70);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    sub_26C648D1C(v69, @"recordingName", isUniquelyReferenced_nonNull_native);
+    sub_26C648D1C(v70, @"recordingName", isUniquelyReferenced_nonNull_native);
   }
 
-  swift_getKeyPath();
+  KeyPath = swift_getKeyPath();
 
-  sub_26C64A5E4(v15, sub_26C64D044);
+  sub_26C64A5E4(v15, sub_26C64D044, KeyPath);
 
-  v27 = objc_allocWithZone(SFUSecureFlipBookRecording);
-  v28 = sub_26C64D998();
+  v28 = objc_allocWithZone(SFUSecureFlipBookRecording);
+  v29 = sub_26C64D998();
 
-  v29 = [v27 initWithOptions_];
+  v30 = [v28 initWithOptions_];
 
   [v7 setCurrentRecording_];
   if (a2)
   {
-    v30 = [v7 currentRecording];
-    if (v30)
+    v31 = [v7 currentRecording];
+    if (v31)
     {
-      v31 = v30;
-      v32 = sub_26C64D998();
-      [v31 setUserInfo_];
+      v32 = v31;
+      v33 = sub_26C64D998();
+      [v32 setUserInfo_];
     }
   }
 
-  v33 = v64;
-  if (v64)
+  v34 = v65;
+  if (v65)
   {
-    v63 = a5;
-    if (v64 >> 62)
+    v64 = a5;
+    if (v65 >> 62)
     {
-      v58 = sub_26C64DB98();
-      v33 = v64;
-      v34 = v58;
+      v59 = sub_26C64DB98();
+      v34 = v65;
+      v35 = v59;
     }
 
     else
     {
-      v34 = *((v64 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      v35 = *((v65 & 0xFFFFFFFFFFFFFF8) + 0x10);
     }
 
-    v35 = MEMORY[0x277D84F90];
-    if (v34)
+    v36 = MEMORY[0x277D84F90];
+    if (v35)
     {
-      v36 = v33;
-      v59 = v15;
-      v60 = v7;
-      v61 = v13;
-      v62 = a6;
+      v37 = v34;
+      v60 = v15;
+      v61 = v7;
+      v62 = v13;
+      v63 = a6;
       *&aBlock = MEMORY[0x277D84F90];
-      sub_26C6494FC(0, v34 & ~(v34 >> 63), 0);
-      if (v34 < 0)
+      sub_26C6494FC(0, v35 & ~(v35 >> 63), 0);
+      if (v35 < 0)
       {
         __break(1u);
         goto LABEL_39;
       }
 
-      v35 = aBlock;
+      v36 = aBlock;
       sub_26C64DA88();
-      v37 = 0;
-      v38 = v36;
+      v38 = 0;
+      v39 = v37;
       do
       {
-        if ((v36 & 0xC000000000000001) != 0)
+        if ((v37 & 0xC000000000000001) != 0)
         {
-          v39 = MEMORY[0x26D6A5400](v37, v38);
+          v40 = MEMORY[0x26D6A5400](v38, v39);
         }
 
         else
         {
-          v39 = *(v38 + 8 * v37 + 32);
+          v40 = *(v39 + 8 * v38 + 32);
         }
 
-        v40 = v39;
+        v41 = v40;
         sub_26C64DA78();
         sub_26C64DA68();
         if ((swift_task_isCurrentExecutor() & 1) == 0)
@@ -5864,57 +5861,57 @@ void SFUCaptureCoordinator.generateFlipBook(from:userInfo:options:constraintBoun
           swift_task_reportUnexpectedExecutor();
         }
 
-        [v40 bs_CGRectValue];
-        v42 = v41;
-        v44 = v43;
-        v46 = v45;
-        v48 = v47;
+        [v41 bs_CGRectValue];
+        v43 = v42;
+        v45 = v44;
+        v47 = v46;
+        v49 = v48;
 
-        *&aBlock = v35;
-        v50 = *(v35 + 16);
-        v49 = *(v35 + 24);
-        if (v50 >= v49 >> 1)
+        *&aBlock = v36;
+        v51 = *(v36 + 16);
+        v50 = *(v36 + 24);
+        if (v51 >= v50 >> 1)
         {
-          sub_26C6494FC((v49 > 1), v50 + 1, 1);
-          v35 = aBlock;
+          sub_26C6494FC((v50 > 1), v51 + 1, 1);
+          v36 = aBlock;
         }
 
-        ++v37;
-        *(v35 + 16) = v50 + 1;
-        v51 = (v35 + 32 * v50);
-        v51[4] = v42;
-        v51[5] = v44;
-        v51[6] = v46;
-        v51[7] = v48;
-        v38 = v64;
+        ++v38;
+        *(v36 + 16) = v51 + 1;
+        v52 = (v36 + 32 * v51);
+        v52[4] = v43;
+        v52[5] = v45;
+        v52[6] = v47;
+        v52[7] = v49;
+        v39 = v65;
       }
 
-      while (v34 != v37);
-      v13 = v61;
-      a6 = v62;
-      v7 = v60;
+      while (v35 != v38);
+      v13 = v62;
+      a6 = v63;
+      v7 = v61;
     }
 
     sub_26C64DA88();
     sub_26C64DA78();
     sub_26C64DA68();
-    a5 = v63;
+    a5 = v64;
     if ((swift_task_isCurrentExecutor() & 1) == 0)
     {
       swift_task_reportUnexpectedExecutor();
     }
 
-    v52 = [v7 currentRecording];
-    if (!v52)
+    v53 = [v7 currentRecording];
+    if (!v53)
     {
 
       goto LABEL_34;
     }
 
-    if (!HIDWORD(*(v35 + 16)))
+    if (!HIDWORD(*(v36 + 16)))
     {
-      v53 = v52;
-      [v52 setConstraintBoundingBoxes:v35 + 32 count:?];
+      v54 = v53;
+      [v53 setConstraintBoundingBoxes:v36 + 32 count:?];
 
       goto LABEL_34;
     }
@@ -5924,157 +5921,157 @@ LABEL_39:
   }
 
 LABEL_34:
-  v54 = [v13 states];
-  if (!v54)
+  v55 = [v13 states];
+  if (!v55)
   {
     sub_26C64DA58();
-    v54 = sub_26C64DA48();
+    v55 = sub_26C64DA48();
   }
 
-  v55 = swift_allocObject();
-  v55[2] = v7;
-  v55[3] = a5;
-  v55[4] = a6;
-  v67 = sub_26C64AA28;
-  v68 = v55;
+  v56 = swift_allocObject();
+  v56[2] = v7;
+  v56[3] = a5;
+  v56[4] = a6;
+  v68 = sub_26C64AA28;
+  v69 = v56;
   *&aBlock = MEMORY[0x277D85DD0];
   *(&aBlock + 1) = 1107296256;
-  *&v66 = sub_26C64CFF0;
-  *(&v66 + 1) = &block_descriptor_0;
-  v56 = _Block_copy(&aBlock);
-  v57 = v7;
+  *&v67 = sub_26C64CFF0;
+  *(&v67 + 1) = &block_descriptor_0;
+  v57 = _Block_copy(&aBlock);
+  v58 = v7;
 
-  [v57 _captureWithStates_for_completion_];
-  _Block_release(v56);
+  [v58 _captureWithStates_for_completion_];
+  _Block_release(v57);
 }
 
-uint64_t sub_26C643D04()
+uint64_t sub_26C643D04(__CFString *a1)
 {
-  v0 = sub_26C64D9F8();
-  v2 = v1;
-  if (v0 == sub_26C64D9F8() && v2 == v3)
+  v1 = sub_26C64D9F8();
+  v3 = v2;
+  if (v1 == sub_26C64D9F8() && v3 == v4)
   {
     goto LABEL_13;
   }
 
-  v5 = sub_26C64DBE8();
+  v6 = sub_26C64DBE8();
 
-  if (v5)
+  if (v6)
   {
     goto LABEL_14;
   }
 
-  v6 = sub_26C64D9F8();
-  v8 = v7;
-  if (v6 == sub_26C64D9F8() && v8 == v9)
+  v7 = sub_26C64D9F8();
+  v9 = v8;
+  if (v7 == sub_26C64D9F8() && v9 == v10)
   {
     goto LABEL_13;
   }
 
-  v11 = sub_26C64DBE8();
+  v12 = sub_26C64DBE8();
 
-  if (v11)
+  if (v12)
   {
     goto LABEL_14;
   }
 
-  v12 = sub_26C64D9F8();
-  v14 = v13;
-  if (v12 == sub_26C64D9F8() && v14 == v15)
+  v13 = sub_26C64D9F8();
+  v15 = v14;
+  if (v13 == sub_26C64D9F8() && v15 == v16)
   {
     goto LABEL_13;
   }
 
-  v17 = sub_26C64DBE8();
+  v18 = sub_26C64DBE8();
 
-  if ((v17 & 1) == 0)
+  if ((v18 & 1) == 0)
   {
-    v18 = sub_26C64D9F8();
-    v20 = v19;
-    if (v18 == sub_26C64D9F8() && v20 == v21)
+    v19 = sub_26C64D9F8();
+    v21 = v20;
+    if (v19 == sub_26C64D9F8() && v21 == v22)
     {
       goto LABEL_13;
     }
 
-    v22 = sub_26C64DBE8();
+    v23 = sub_26C64DBE8();
 
-    if ((v22 & 1) == 0)
+    if ((v23 & 1) == 0)
     {
-      v23 = sub_26C64D9F8();
-      v25 = v24;
-      if (v23 == sub_26C64D9F8() && v25 == v26)
+      v24 = sub_26C64D9F8();
+      v26 = v25;
+      if (v24 == sub_26C64D9F8() && v26 == v27)
       {
         goto LABEL_13;
       }
 
-      v27 = sub_26C64DBE8();
+      v28 = sub_26C64DBE8();
 
-      if ((v27 & 1) == 0)
+      if ((v28 & 1) == 0)
       {
-        v28 = sub_26C64D9F8();
-        v30 = v29;
-        if (v28 == sub_26C64D9F8() && v30 == v31)
+        v29 = sub_26C64D9F8();
+        v31 = v30;
+        if (v29 == sub_26C64D9F8() && v31 == v32)
         {
           goto LABEL_13;
         }
 
-        v32 = sub_26C64DBE8();
+        v33 = sub_26C64DBE8();
 
-        if ((v32 & 1) == 0)
+        if ((v33 & 1) == 0)
         {
-          v33 = sub_26C64D9F8();
-          v35 = v34;
-          if (v33 == sub_26C64D9F8() && v35 == v36)
+          v34 = sub_26C64D9F8();
+          v36 = v35;
+          if (v34 == sub_26C64D9F8() && v36 == v37)
           {
             goto LABEL_13;
           }
 
-          v37 = sub_26C64DBE8();
+          v38 = sub_26C64DBE8();
 
-          if ((v37 & 1) == 0)
+          if ((v38 & 1) == 0)
           {
-            v38 = sub_26C64D9F8();
-            v40 = v39;
-            if (v38 == sub_26C64D9F8() && v40 == v41)
+            v39 = sub_26C64D9F8();
+            v41 = v40;
+            if (v39 == sub_26C64D9F8() && v41 == v42)
             {
               goto LABEL_13;
             }
 
-            v42 = sub_26C64DBE8();
+            v43 = sub_26C64DBE8();
 
-            if ((v42 & 1) == 0)
+            if ((v43 & 1) == 0)
             {
-              v43 = sub_26C64D9F8();
-              v45 = v44;
-              if (v43 == sub_26C64D9F8() && v45 == v46)
+              v44 = sub_26C64D9F8();
+              v46 = v45;
+              if (v44 == sub_26C64D9F8() && v46 == v47)
               {
                 goto LABEL_13;
               }
 
-              v47 = sub_26C64DBE8();
+              v48 = sub_26C64DBE8();
 
-              if (v47)
+              if (v48)
               {
                 goto LABEL_14;
               }
 
-              v48 = sub_26C64D9F8();
-              v50 = v49;
-              if (v48 == sub_26C64D9F8() && v50 == v51)
+              v49 = sub_26C64D9F8();
+              v51 = v50;
+              if (v49 == sub_26C64D9F8() && v51 == v52)
               {
                 goto LABEL_13;
               }
 
-              v52 = sub_26C64DBE8();
+              v53 = sub_26C64DBE8();
 
-              if (v52)
+              if (v53)
               {
                 goto LABEL_14;
               }
 
-              v53 = sub_26C64D9F8();
-              v55 = v54;
-              if (v53 == sub_26C64D9F8() && v55 == v56)
+              v54 = sub_26C64D9F8();
+              v56 = v55;
+              if (v54 == sub_26C64D9F8() && v56 == v57)
               {
 LABEL_13:
 
@@ -6224,7 +6221,7 @@ uint64_t sub_26C644B80(uint64_t a1, void *a2, void (*a3)(uint64_t))
       *(v11 + 4) = v14;
       *v12 = v14;
       _os_log_impl(&dword_26C632000, v9, v10, "Failed to create flip book with error: %@", v11, 0xCu);
-      sub_26C64CEC0(v12, &qword_2804A7740);
+      sub_26C64CEC0(v12, &qword_2804A7740, &qword_26C64F480);
       MEMORY[0x26D6A5F50](v12, -1, -1);
       MEMORY[0x26D6A5F50](v11, -1, -1);
     }
@@ -6268,11 +6265,11 @@ void sub_26C6452F8(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5)
   v8 = a3;
 }
 
-id sub_26C645428()
+id sub_26C645428(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = _s18CurrentCaptureDataCMa();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v4.receiver = v2;
+  v4.super_class = _s18CurrentCaptureDataCMa();
+  return objc_msgSendSuper2(&v4, sel_dealloc);
 }
 
 void sub_26C645460(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -6344,21 +6341,21 @@ void sub_26C6456CC(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5,
   }
 }
 
-void sub_26C645984(void *a1, double a2, double a3, double a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void (*a11)(void), uint64_t a12)
+void sub_26C645984(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void (*a8)(void), double a9, double a10, double a11, uint64_t a12)
 {
   v17 = sub_26C64D9C8();
   v18 = sub_26C64D9C8();
   [a1 _secureFlipBookRecordingEndCaptureFromState_toState_];
 
-  v19 = a2 + a3;
-  if (v19 <= a4)
+  v19 = a9 + a10;
+  if (v19 <= a11)
   {
     v20 = sub_26C64D9C8();
     v21 = sub_26C64D9C8();
     type metadata accessor for CaptureCoordinatorOption(0);
-    sub_26C64CD48(&qword_2804A73A8, type metadata accessor for CaptureCoordinatorOption);
+    sub_26C64CD48(&qword_2804A73A8, type metadata accessor for CaptureCoordinatorOption, &unk_26C64EFC8);
     v22 = sub_26C64D998();
-    aBlock[4] = a11;
+    aBlock[4] = a8;
     aBlock[5] = a12;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 1107296256;
@@ -6372,57 +6369,57 @@ void sub_26C645984(void *a1, double a2, double a3, double a4, uint64_t a5, uint6
 
   else
   {
-    a11();
+    a8();
   }
 }
 
-uint64_t sub_26C645B90(void *a1, double a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+void sub_26C645B90(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, uint64_t a10)
 {
+  v41 = a7;
   v42 = a8;
-  v43 = a9;
-  v38[0] = a5;
-  v38[1] = a7;
-  v39 = a1;
-  v41 = a10;
-  v45 = sub_26C64D938();
-  v48 = *(v45 - 8);
-  (MEMORY[0x28223BE20])();
-  v44 = v38 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v37[0] = a4;
+  v37[1] = a6;
+  v38 = a1;
+  v40 = a10;
+  v44 = sub_26C64D938();
+  v47 = *(v44 - 8);
+  MEMORY[0x28223BE20](v44);
+  v43 = v37 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   v13 = sub_26C64D958();
-  v46 = *(v13 - 8);
-  v47 = v13;
-  (MEMORY[0x28223BE20])();
-  v15 = v38 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v45 = *(v13 - 8);
+  v46 = v13;
+  MEMORY[0x28223BE20](v13);
+  v15 = v37 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   v16 = sub_26C64D978();
-  v40 = v16;
+  v39 = v16;
   v17 = *(v16 - 8);
-  v18 = (MEMORY[0x28223BE20])();
-  v20 = v38 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = MEMORY[0x28223BE20](v16);
+  v20 = v37 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v18);
-  v22 = v38 - v21;
+  v22 = v37 - v21;
   v23 = sub_26C64D9C8();
   v24 = sub_26C64D9C8();
   type metadata accessor for CaptureCoordinatorOption(0);
-  sub_26C64CD48(&qword_2804A73A8, type metadata accessor for CaptureCoordinatorOption);
+  sub_26C64CD48(&qword_2804A73A8, type metadata accessor for CaptureCoordinatorOption, &unk_26C64EFC8);
   v25 = sub_26C64D998();
-  v26 = v39;
-  [v39 _secureFlipBookRecordingBeginCaptureFromState_toState_options_];
+  v26 = v38;
+  [v38 _secureFlipBookRecordingBeginCaptureFromState_toState_options_];
 
-  sub_26C6431E0(0, &qword_2804A7450);
+  sub_26C6431E0(0, &qword_2804A7450, 0x277D85C78);
   v27 = sub_26C64DAC8();
   sub_26C64D968();
   sub_26C64D988();
   v28 = *(v17 + 8);
   v28(v20, v16);
   v29 = swift_allocObject();
-  *(v29 + 16) = v38[0];
-  *(v29 + 24) = a6;
-  *(v29 + 32) = a2;
-  v31 = v42;
-  v30 = v43;
+  *(v29 + 16) = v37[0];
+  *(v29 + 24) = a5;
+  *(v29 + 32) = a9;
+  v31 = v41;
+  v30 = v42;
   *(v29 + 40) = v26;
   *(v29 + 48) = v31;
-  v32 = v41;
+  v32 = v40;
   *(v29 + 56) = v30;
   *(v29 + 64) = v32;
   aBlock[4] = sub_26C64CC48;
@@ -6437,19 +6434,19 @@ uint64_t sub_26C645B90(void *a1, double a2, uint64_t a3, uint64_t a4, uint64_t a
   swift_unknownObjectRetain();
 
   sub_26C64D948();
-  v49 = MEMORY[0x277D84F90];
-  sub_26C64CD48(&qword_2804A75A0, MEMORY[0x277D85198]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A75A8);
+  v48 = MEMORY[0x277D84F90];
+  sub_26C64CD48(&qword_2804A75A0, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A75A8, &qword_26C64F440);
   sub_26C643354();
-  v35 = v44;
-  v36 = v45;
+  v35 = v43;
+  v36 = v44;
   sub_26C64DB08();
   MEMORY[0x26D6A5350](v22, v15, v35, v33);
   _Block_release(v33);
 
-  (*(v48 + 8))(v35, v36);
-  (*(v46 + 8))(v15, v47);
-  v28(v22, v40);
+  (*(v47 + 8))(v35, v36);
+  (*(v45 + 8))(v15, v46);
+  v28(v22, v39);
 }
 
 void sub_26C646040(uint64_t a1, unint64_t a2, void *a3, void *a4, uint64_t a5, uint64_t a6, double a7)
@@ -6475,7 +6472,7 @@ void sub_26C646040(uint64_t a1, unint64_t a2, void *a3, void *a4, uint64_t a5, u
 
   if (os_log_type_enabled(v15, v16))
   {
-    v28 = a5;
+    v29 = a5;
     v17 = a4;
     v18 = swift_slowAlloc();
     v19 = a3;
@@ -6486,35 +6483,35 @@ void sub_26C646040(uint64_t a1, unint64_t a2, void *a3, void *a4, uint64_t a5, u
     *(v18 + 12) = 2048;
     *(v18 + 14) = a7;
     _os_log_impl(&dword_26C632000, v15, v16, "Start transition for: '%s' at: %f", v18, 0x16u);
-    __swift_destroy_boxed_opaque_existential_0(v20);
-    v21 = v20;
+    v21 = __swift_destroy_boxed_opaque_existential_0(v20);
+    v22 = v20;
     a3 = v19;
-    MEMORY[0x26D6A5F50](v21, -1, -1);
-    v22 = v18;
+    MEMORY[0x26D6A5F50](v22, -1, -1, v21);
+    v23 = v18;
     a4 = v17;
-    a5 = v28;
-    MEMORY[0x26D6A5F50](v22, -1, -1);
+    a5 = v29;
+    MEMORY[0x26D6A5F50](v23, -1, -1);
   }
 
-  v23 = [a3 currentRecording];
-  if (v23)
+  v24 = [a3 currentRecording];
+  if (v24)
   {
-    v24 = v23;
-    v25 = sub_26C64D9C8();
-    [v24 startTransitionTo_];
+    v25 = v24;
+    v26 = sub_26C64D9C8();
+    [v25 startTransitionTo_];
   }
 
-  v26 = sub_26C64D9C8();
+  v27 = sub_26C64D9C8();
   aBlock[4] = a5;
   aBlock[5] = a6;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = sub_26C64CFF0;
   aBlock[3] = &block_descriptor_59;
-  v27 = _Block_copy(aBlock);
+  v28 = _Block_copy(aBlock);
 
-  [a4 transitionToState:v26 completion:v27];
-  _Block_release(v27);
+  [a4 transitionToState:v27 completion:v28];
+  _Block_release(v28);
 }
 
 void sub_26C646510(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -6571,7 +6568,7 @@ void sub_26C646760(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
   v12 = sub_26C64D9C8();
   v13 = sub_26C64D9C8();
   type metadata accessor for CaptureCoordinatorOption(0);
-  sub_26C64CD48(&qword_2804A73A8, type metadata accessor for CaptureCoordinatorOption);
+  sub_26C64CD48(&qword_2804A73A8, type metadata accessor for CaptureCoordinatorOption, &unk_26C64EFC8);
   v14 = sub_26C64D998();
   [a1 _secureFlipBookRecordingBeginCaptureFromState_toState_options_];
 
@@ -6594,8 +6591,8 @@ void sub_26C646AE4(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t
   v12 = [v5 currentCaptureData];
   if (!v12)
   {
-    v22 = [objc_allocWithZone(_s18CurrentCaptureDataCMa()) init];
-    *&v22[OBJC_IVAR____TtCE31SystemUISecureFlipBookUtilitiesCSo21SFUCaptureCoordinatorP33_9773103F5CDE8D35EE70D2357E21529718CurrentCaptureData_beginTime] = CACurrentMediaTime();
+    v24 = [objc_allocWithZone(_s18CurrentCaptureDataCMa()) init];
+    *&v24[OBJC_IVAR____TtCE31SystemUISecureFlipBookUtilitiesCSo21SFUCaptureCoordinatorP33_9773103F5CDE8D35EE70D2357E21529718CurrentCaptureData_beginTime] = CACurrentMediaTime();
     [v5 setCurrentCaptureData_];
     if (a1 == a3 && a2 == a4 || (sub_26C64DBE8() & 1) != 0)
     {
@@ -6603,8 +6600,8 @@ void sub_26C646AE4(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t
 
     else
     {
-      v23[0] = a1;
-      v23[1] = a2;
+      v25[0] = a1;
+      v25[1] = a2;
 
       MEMORY[0x26D6A52B0](540945696, 0xE400000000000000);
       MEMORY[0x26D6A52B0](a3, a4);
@@ -6625,14 +6622,14 @@ void sub_26C646AE4(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t
     {
       v16 = swift_slowAlloc();
       v17 = swift_slowAlloc();
-      v23[0] = v17;
+      v25[0] = v17;
       *v16 = 136315138;
-      v18 = sub_26C647B84(a1, a2, v23);
+      v18 = sub_26C647B84(a1, a2, v25);
 
       *(v16 + 4) = v18;
       _os_log_impl(&dword_26C632000, v14, v15, "Beginning capture for: '%s'", v16, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v17);
-      MEMORY[0x26D6A5F50](v17, -1, -1);
+      v19 = __swift_destroy_boxed_opaque_existential_0(v17);
+      MEMORY[0x26D6A5F50](v17, -1, -1, v19);
       MEMORY[0x26D6A5F50](v16, -1, -1);
     }
 
@@ -6640,29 +6637,29 @@ void sub_26C646AE4(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t
     {
     }
 
-    v19 = [v6 currentRecording];
-    if (v19)
+    v20 = [v6 currentRecording];
+    if (v20)
     {
-      v20 = v19;
-      swift_getKeyPath();
+      v21 = v20;
+      KeyPath = swift_getKeyPath();
 
-      sub_26C64A5E4(a5, sub_26C64C990);
+      sub_26C64A5E4(a5, sub_26C64C990, KeyPath);
 
-      v21 = sub_26C64D998();
+      v23 = sub_26C64D998();
 
-      [v20 beginCaptureWithOptions_];
+      [v21 beginCaptureWithOptions_];
     }
 
-    v12 = v22;
+    v12 = v24;
   }
 }
 
-uint64_t sub_26C646DE4(void *a1)
+uint64_t sub_26C646DE4(void *a1, uint64_t a2)
 {
-  v1 = a1;
+  v2 = a1;
   swift_getAtKeyPath();
 
-  return v3;
+  return v4;
 }
 
 void sub_26C646FA4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -6671,28 +6668,28 @@ void sub_26C646FA4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v10 = [v4 currentCaptureData];
   if (v10)
   {
-    v33 = v10;
+    v34 = v10;
     v11 = CACurrentMediaTime();
     v12 = OBJC_IVAR____TtCE31SystemUISecureFlipBookUtilitiesCSo21SFUCaptureCoordinatorP33_9773103F5CDE8D35EE70D2357E21529718CurrentCaptureData_endTime;
-    *&v33[OBJC_IVAR____TtCE31SystemUISecureFlipBookUtilitiesCSo21SFUCaptureCoordinatorP33_9773103F5CDE8D35EE70D2357E21529718CurrentCaptureData_endTime] = v11;
+    *&v34[OBJC_IVAR____TtCE31SystemUISecureFlipBookUtilitiesCSo21SFUCaptureCoordinatorP33_9773103F5CDE8D35EE70D2357E21529718CurrentCaptureData_endTime] = v11;
     v13 = a1 == a3 && a2 == a4;
     v14 = v13;
     if (v13 || (sub_26C64DBE8() & 1) != 0)
     {
 
-      v32 = a1;
+      v33 = a1;
       v15 = a2;
     }
 
     else
     {
-      v34[0] = a1;
-      v34[1] = a2;
+      v35[0] = a1;
+      v35[1] = a2;
 
       MEMORY[0x26D6A52B0](540945696, 0xE400000000000000);
       MEMORY[0x26D6A52B0](a3, a4);
       v15 = a2;
-      v32 = a1;
+      v33 = a1;
     }
 
     if (qword_2804A7380 != -1)
@@ -6708,42 +6705,42 @@ void sub_26C646FA4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
     if (os_log_type_enabled(v17, v18))
     {
-      v30 = v14;
+      v31 = v14;
       v19 = swift_slowAlloc();
-      v31 = v12;
+      v32 = v12;
       v20 = swift_slowAlloc();
-      v34[0] = v20;
+      v35[0] = v20;
       *v19 = 136315138;
-      v21 = sub_26C647B84(v32, v15, v34);
+      v21 = sub_26C647B84(v33, v15, v35);
 
       *(v19 + 4) = v21;
       _os_log_impl(&dword_26C632000, v17, v18, "Finished capture for: '%s'", v19, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v20);
-      v22 = v20;
-      v12 = v31;
-      MEMORY[0x26D6A5F50](v22, -1, -1);
-      v23 = v19;
-      v14 = v30;
-      MEMORY[0x26D6A5F50](v23, -1, -1);
+      v22 = __swift_destroy_boxed_opaque_existential_0(v20);
+      v23 = v20;
+      v12 = v32;
+      MEMORY[0x26D6A5F50](v23, -1, -1, v22);
+      v24 = v19;
+      v14 = v31;
+      MEMORY[0x26D6A5F50](v24, -1, -1);
     }
 
     else
     {
     }
 
-    v24 = [v5 currentRecording];
-    [v24 endCapture];
+    v25 = [v5 currentRecording];
+    [v25 endCapture];
 
     if (v14 & 1) != 0 || (sub_26C64DBE8())
     {
-      v25 = *&v33[v12] - *&v33[OBJC_IVAR____TtCE31SystemUISecureFlipBookUtilitiesCSo21SFUCaptureCoordinatorP33_9773103F5CDE8D35EE70D2357E21529718CurrentCaptureData_beginTime];
-      v26 = [v5 loopStateSingleLoopDuration];
-      v27 = sub_26C64D9A8();
+      v26 = *&v34[v12] - *&v34[OBJC_IVAR____TtCE31SystemUISecureFlipBookUtilitiesCSo21SFUCaptureCoordinatorP33_9773103F5CDE8D35EE70D2357E21529718CurrentCaptureData_beginTime];
+      v27 = [v5 loopStateSingleLoopDuration];
+      v28 = sub_26C64D9A8();
 
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      v34[0] = v27;
-      sub_26C648E5C(a1, a2, isUniquelyReferenced_nonNull_native, v25);
-      v29 = sub_26C64D998();
+      v35[0] = v28;
+      sub_26C648E5C(a1, a2, isUniquelyReferenced_nonNull_native, v26);
+      v30 = sub_26C64D998();
 
       [v5 setLoopStateSingleLoopDuration_];
     }
@@ -6837,7 +6834,7 @@ char *sub_26C647A78(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_2804A7700);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_2804A7700, &qword_26C64F450);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -6973,14 +6970,14 @@ LABEL_8:
   }
 }
 
-uint64_t sub_26C647D5C(uint64_t a1, unint64_t a2)
+void *sub_26C647D5C(uint64_t a1, unint64_t a2)
 {
   v3 = sub_26C647DA8(a1, a2);
   sub_26C647ED8(&unk_287D25878);
   return v3;
 }
 
-uint64_t sub_26C647DA8(uint64_t a1, unint64_t a2)
+void *sub_26C647DA8(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -7161,7 +7158,7 @@ void *sub_26C647FC4(uint64_t a1, uint64_t a2)
     return MEMORY[0x277D84F90];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A7688);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A7688, &qword_26C64F428);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   result = v4;
@@ -7211,7 +7208,7 @@ char *sub_26C648038(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A7688);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A7688, &qword_26C64F428);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -7300,16 +7297,17 @@ double sub_26C648288@<D0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
   return result;
 }
 
-uint64_t sub_26C648328(uint64_t a1, char a2)
+void sub_26C648328(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A7730);
-  result = sub_26C64DBB8();
-  v7 = result;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A7730, &qword_26C64F470);
+  v6 = sub_26C64DBB8();
+  v7 = v6;
   if (*(v5 + 16))
   {
-    v34 = v2;
+    v35 = v2;
     v8 = 0;
     v9 = (v5 + 64);
     v10 = 1 << *(v5 + 32);
@@ -7325,7 +7323,7 @@ uint64_t sub_26C648328(uint64_t a1, char a2)
 
     v12 = v11 & *(v5 + 64);
     v13 = (v10 + 63) >> 6;
-    v14 = result + 64;
+    v14 = v6 + 64;
     while (v12)
     {
       v19 = __clz(__rbit64(v12));
@@ -7333,62 +7331,62 @@ uint64_t sub_26C648328(uint64_t a1, char a2)
 LABEL_15:
       v22 = v19 | (v8 << 6);
       v23 = *(v5 + 48) + 40 * v22;
-      if (a2)
+      if (v4)
       {
         v24 = *v23;
         v25 = *(v23 + 16);
-        v38 = *(v23 + 32);
-        v36 = v24;
-        v37 = v25;
-        sub_26C649920((*(v5 + 56) + 32 * v22), v35);
+        v39 = *(v23 + 32);
+        v37 = v24;
+        v38 = v25;
+        sub_26C649920((*(v5 + 56) + 32 * v22), v36);
       }
 
       else
       {
-        sub_26C64CE10(v23, &v36);
-        sub_26C64AA4C(*(v5 + 56) + 32 * v22, v35);
+        sub_26C64CE10(v23, &v37);
+        sub_26C64AA4C(*(v5 + 56) + 32 * v22, v36);
       }
 
-      result = sub_26C64DB28();
-      v26 = -1 << *(v7 + 32);
-      v27 = result & ~v26;
-      v28 = v27 >> 6;
-      if (((-1 << v27) & ~*(v14 + 8 * (v27 >> 6))) == 0)
+      v26 = sub_26C64DB28();
+      v27 = -1 << *(v7 + 32);
+      v28 = v26 & ~v27;
+      v29 = v28 >> 6;
+      if (((-1 << v28) & ~*(v14 + 8 * (v28 >> 6))) == 0)
       {
-        v29 = 0;
-        v30 = (63 - v26) >> 6;
-        while (++v28 != v30 || (v29 & 1) == 0)
+        v30 = 0;
+        v31 = (63 - v27) >> 6;
+        while (++v29 != v31 || (v30 & 1) == 0)
         {
-          v31 = v28 == v30;
-          if (v28 == v30)
+          v32 = v29 == v31;
+          if (v29 == v31)
           {
-            v28 = 0;
+            v29 = 0;
           }
 
-          v29 |= v31;
-          v32 = *(v14 + 8 * v28);
-          if (v32 != -1)
+          v30 |= v32;
+          v33 = *(v14 + 8 * v29);
+          if (v33 != -1)
           {
-            v15 = __clz(__rbit64(~v32)) + (v28 << 6);
+            v15 = __clz(__rbit64(~v33)) + (v29 << 6);
             goto LABEL_7;
           }
         }
 
 LABEL_36:
         __break(1u);
-        return result;
+        return;
       }
 
-      v15 = __clz(__rbit64((-1 << v27) & ~*(v14 + 8 * (v27 >> 6)))) | v27 & 0x7FFFFFFFFFFFFFC0;
+      v15 = __clz(__rbit64((-1 << v28) & ~*(v14 + 8 * (v28 >> 6)))) | v28 & 0x7FFFFFFFFFFFFFC0;
 LABEL_7:
       *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
       v16 = *(v7 + 48) + 40 * v15;
-      v17 = v36;
-      v18 = v37;
-      *(v16 + 32) = v38;
+      v17 = v37;
+      v18 = v38;
+      *(v16 + 32) = v39;
       *v16 = v17;
       *(v16 + 16) = v18;
-      result = sub_26C649920(v35, (*(v7 + 56) + 32 * v15));
+      sub_26C649920(v36, (*(v7 + 56) + 32 * v15));
       ++*(v7 + 16);
     }
 
@@ -7417,23 +7415,23 @@ LABEL_7:
       }
     }
 
-    if (a2)
+    if (v4)
     {
-      v33 = 1 << *(v5 + 32);
-      if (v33 >= 64)
+      v34 = 1 << *(v5 + 32);
+      if (v34 >= 64)
       {
-        bzero((v5 + 64), ((v33 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+        bzero((v5 + 64), ((v34 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
       }
 
       else
       {
-        *v9 = -1 << v33;
+        *v9 = -1 << v34;
       }
 
       *(v5 + 16) = 0;
     }
 
-    v3 = v34;
+    v3 = v35;
   }
 
   else
@@ -7441,17 +7439,17 @@ LABEL_7:
   }
 
   *v3 = v7;
-  return result;
 }
 
-uint64_t sub_26C6485E0(uint64_t a1, char a2)
+void sub_26C6485E0(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A76F8);
-  v35 = a2;
-  result = sub_26C64DBB8();
-  v7 = result;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A76F8, &qword_26C64F448);
+  v35 = v4;
+  v6 = sub_26C64DBB8();
+  v7 = v6;
   if (*(v5 + 16))
   {
     v33 = v2;
@@ -7471,7 +7469,7 @@ uint64_t sub_26C6485E0(uint64_t a1, char a2)
 
     v12 = v11 & *(v5 + 64);
     v13 = (v10 + 63) >> 6;
-    v14 = result + 64;
+    v14 = v6 + 64;
     while (v12)
     {
       v16 = __clz(__rbit64(v12));
@@ -7523,14 +7521,14 @@ LABEL_15:
 
 LABEL_36:
         __break(1u);
-        return result;
+        return;
       }
 
       v15 = __clz(__rbit64((-1 << v26) & ~*(v14 + 8 * (v26 >> 6)))) | v26 & 0x7FFFFFFFFFFFFFC0;
 LABEL_7:
       *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
       *(*(v7 + 48) + 8 * v15) = v21;
-      result = sub_26C649920(v36, (*(v7 + 56) + 32 * v15));
+      sub_26C649920(v36, (*(v7 + 56) + 32 * v15));
       ++*(v7 + 16);
       v5 = v34;
     }
@@ -7584,17 +7582,17 @@ LABEL_7:
 
 LABEL_34:
   *v3 = v7;
-  return result;
 }
 
-uint64_t sub_26C6488B0(uint64_t a1, char a2)
+void sub_26C6488B0(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A7690);
-  v33 = a2;
-  result = sub_26C64DBB8();
-  v7 = result;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A7690, &unk_26C64F430);
+  v34 = v4;
+  v6 = sub_26C64DBB8();
+  v7 = v6;
   if (*(v5 + 16))
   {
     v8 = 0;
@@ -7612,7 +7610,7 @@ uint64_t sub_26C6488B0(uint64_t a1, char a2)
 
     v12 = v11 & *(v5 + 64);
     v13 = (v10 + 63) >> 6;
-    v14 = result + 64;
+    v14 = v6 + 64;
     while (v12)
     {
       v17 = __clz(__rbit64(v12));
@@ -7623,43 +7621,43 @@ LABEL_15:
       v22 = *v21;
       v23 = v21[1];
       v24 = *(*(v5 + 56) + 8 * v20);
-      if ((v33 & 1) == 0)
+      if ((v34 & 1) == 0)
       {
       }
 
       sub_26C64DC38();
       sub_26C64DA08();
-      result = sub_26C64DC48();
-      v25 = -1 << *(v7 + 32);
-      v26 = result & ~v25;
-      v27 = v26 >> 6;
-      if (((-1 << v26) & ~*(v14 + 8 * (v26 >> 6))) == 0)
+      v25 = sub_26C64DC48();
+      v26 = -1 << *(v7 + 32);
+      v27 = v25 & ~v26;
+      v28 = v27 >> 6;
+      if (((-1 << v27) & ~*(v14 + 8 * (v27 >> 6))) == 0)
       {
-        v28 = 0;
-        v29 = (63 - v25) >> 6;
-        while (++v27 != v29 || (v28 & 1) == 0)
+        v29 = 0;
+        v30 = (63 - v26) >> 6;
+        while (++v28 != v30 || (v29 & 1) == 0)
         {
-          v30 = v27 == v29;
-          if (v27 == v29)
+          v31 = v28 == v30;
+          if (v28 == v30)
           {
-            v27 = 0;
+            v28 = 0;
           }
 
-          v28 |= v30;
-          v31 = *(v14 + 8 * v27);
-          if (v31 != -1)
+          v29 |= v31;
+          v32 = *(v14 + 8 * v28);
+          if (v32 != -1)
           {
-            v15 = __clz(__rbit64(~v31)) + (v27 << 6);
+            v15 = __clz(__rbit64(~v32)) + (v28 << 6);
             goto LABEL_7;
           }
         }
 
 LABEL_35:
         __break(1u);
-        return result;
+        return;
       }
 
-      v15 = __clz(__rbit64((-1 << v26) & ~*(v14 + 8 * (v26 >> 6)))) | v26 & 0x7FFFFFFFFFFFFFC0;
+      v15 = __clz(__rbit64((-1 << v27) & ~*(v14 + 8 * (v27 >> 6)))) | v27 & 0x7FFFFFFFFFFFFFC0;
 LABEL_7:
       *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
       v16 = (*(v7 + 48) + 16 * v15);
@@ -7694,23 +7692,23 @@ LABEL_7:
       }
     }
 
-    if ((v33 & 1) == 0)
+    if ((v34 & 1) == 0)
     {
 
       v3 = v2;
       goto LABEL_33;
     }
 
-    v32 = 1 << *(v5 + 32);
+    v33 = 1 << *(v5 + 32);
     v3 = v2;
-    if (v32 >= 64)
+    if (v33 >= 64)
     {
-      bzero((v5 + 64), ((v32 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      bzero((v5 + 64), ((v33 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      *v9 = -1 << v32;
+      *v9 = -1 << v33;
     }
 
     *(v5 + 16) = 0;
@@ -7718,7 +7716,6 @@ LABEL_7:
 
 LABEL_33:
   *v3 = v7;
-  return result;
 }
 
 void sub_26C648B54(int64_t a1, uint64_t a2)
@@ -8003,20 +8000,20 @@ unint64_t sub_26C649110(uint64_t a1, uint64_t a2)
   return v4;
 }
 
-id sub_26C649214()
+void sub_26C649214()
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A76F8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A76F8, &qword_26C64F448);
   v2 = *v0;
   v3 = sub_26C64DBA8();
   v4 = v3;
   if (*(v2 + 16))
   {
-    result = (v3 + 64);
+    v5 = (v3 + 64);
     v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 64 + 8 * v6)
+    if (v4 != v2 || v5 >= v2 + 64 + 8 * v6)
     {
-      result = memmove(result, (v2 + 64), 8 * v6);
+      memmove(v5, (v2 + 64), 8 * v6);
     }
 
     v8 = 0;
@@ -8040,10 +8037,10 @@ id sub_26C649214()
 LABEL_17:
         v17 = v14 | (v8 << 6);
         v18 = *(*(v2 + 48) + 8 * v17);
-        sub_26C64AA4C(*(v2 + 56) + 32 * v17, v19);
+        sub_26C64AA4C(*(v2 + 56) + 32 * v17, v20);
         *(*(v4 + 48) + 8 * v17) = v18;
-        sub_26C649920(v19, (*(v4 + 56) + 32 * v17));
-        result = v18;
+        sub_26C649920(v20, (*(v4 + 56) + 32 * v17));
+        v19 = v18;
       }
 
       while (v12);
@@ -8082,24 +8079,22 @@ LABEL_19:
 
     *v1 = v4;
   }
-
-  return result;
 }
 
-void *sub_26C649394()
+void sub_26C649394()
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A7690);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A7690, &unk_26C64F430);
   v2 = *v0;
   v3 = sub_26C64DBA8();
   v4 = v3;
   if (*(v2 + 16))
   {
-    result = (v3 + 64);
+    v5 = (v3 + 64);
     v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 64 + 8 * v6)
+    if (v4 != v2 || v5 >= v2 + 64 + 8 * v6)
     {
-      result = memmove(result, (v2 + 64), 8 * v6);
+      memmove(v5, (v2 + 64), 8 * v6);
     }
 
     v8 = 0;
@@ -8167,18 +8162,16 @@ LABEL_19:
 
     *v1 = v4;
   }
-
-  return result;
 }
 
-char *sub_26C6494FC(char *a1, int64_t a2, char a3)
+char *sub_26C6494FC(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_26C64953C(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-char *sub_26C64951C(char *a1, int64_t a2, char a3)
+char *sub_26C64951C(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_26C649640(a1, a2, a3, *v3);
   *v3 = result;
@@ -8226,7 +8219,7 @@ char *sub_26C64953C(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A7748);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A7748, &qword_26C64F488);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -8305,7 +8298,7 @@ char *sub_26C649640(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_2804A7700);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_2804A7700, &qword_26C64F450);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -8383,13 +8376,13 @@ unint64_t sub_26C6497F8(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A76F8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A76F8, &qword_26C64F448);
     v3 = sub_26C64DBC8();
     v4 = a1 + 32;
 
     while (1)
     {
-      sub_26C64CF20(v4, &v11, &qword_2804A7678);
+      sub_26C64CF20(v4, &v11, &qword_2804A7678, &qword_26C64F420);
       v5 = v11;
       result = sub_26C648170(v11);
       if (v7)
@@ -8438,11 +8431,11 @@ _OWORD *sub_26C649920(_OWORD *a1, _OWORD *a2)
   return a2;
 }
 
-uint64_t sub_26C649930@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_26C649930@<X0>(__CFString **a1@<X0>, uint64_t *a2@<X8>)
 {
-  result = sub_26C643D04();
-  *a1 = result;
-  a1[1] = v3;
+  result = sub_26C643D04(*a1);
+  *a2 = result;
+  a2[1] = v4;
   return result;
 }
 
@@ -8451,13 +8444,13 @@ unint64_t sub_26C64995C(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A7730);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A7730, &qword_26C64F470);
     v3 = sub_26C64DBC8();
     v4 = a1 + 32;
 
     while (1)
     {
-      sub_26C64CF20(v4, v13, &qword_2804A7738);
+      sub_26C64CF20(v4, v13, &qword_2804A7738, &qword_26C64F478);
       result = sub_26C64812C(v13);
       if (v6)
       {
@@ -8502,460 +8495,9 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_26C649A98(uint64_t a1)
+unint64_t sub_26C649A98(uint64_t a1, uint64_t a2)
 {
 
-  v2 = sub_26C64995C(MEMORY[0x277D84F90]);
-  v3 = a1 + 64;
-  v4 = 1 << *(a1 + 32);
-  if (v4 < 64)
-  {
-    v5 = ~(-1 << v4);
-  }
-
-  else
-  {
-    v5 = -1;
-  }
-
-  v6 = v5 & *(a1 + 64);
-  v7 = (v4 + 63) >> 6;
-  v50 = a1;
-
-  v8 = 0;
-  v9 = &unk_2804A7728;
-  while (1)
-  {
-    if (!v6)
-    {
-      while (1)
-      {
-        v11 = v8 + 1;
-        if (__OFADD__(v8, 1))
-        {
-          break;
-        }
-
-        if (v11 >= v7)
-        {
-
-          return v2;
-        }
-
-        v6 = *(v3 + 8 * v11);
-        ++v8;
-        if (v6)
-        {
-          v8 = v11;
-          goto LABEL_12;
-        }
-      }
-
-      __break(1u);
-LABEL_41:
-      __break(1u);
-LABEL_42:
-      __break(1u);
-      goto LABEL_43;
-    }
-
-LABEL_12:
-    v12 = __clz(__rbit64(v6)) | (v8 << 6);
-    v13 = *(*(v50 + 48) + 8 * v12);
-    sub_26C64AA4C(*(v50 + 56) + 32 * v12, &v60);
-    v59 = v13;
-    v56 = v13;
-    v14 = v13;
-
-    v15 = v14;
-    swift_getAtKeyPath();
-
-    v56 = v58[0];
-    *&v57 = v58[1];
-    sub_26C64DB48();
-
-    v16 = v9;
-    sub_26C64CF20(&v59, &v56, v9);
-    sub_26C649920(&v57, v55);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v54 = v2;
-    v19 = sub_26C64812C(v58);
-    v20 = *(v2 + 16);
-    v21 = (v18 & 1) == 0;
-    v22 = v20 + v21;
-    if (__OFADD__(v20, v21))
-    {
-      goto LABEL_41;
-    }
-
-    v23 = v18;
-    if (*(v2 + 24) >= v22)
-    {
-      break;
-    }
-
-    sub_26C648328(v22, isUniquelyReferenced_nonNull_native);
-    v24 = v54;
-    v25 = sub_26C64812C(v58);
-    if ((v23 & 1) != (v26 & 1))
-    {
-      goto LABEL_44;
-    }
-
-    v19 = v25;
-    if (v23)
-    {
-LABEL_5:
-      v10 = (*(v24 + 56) + 32 * v19);
-      __swift_destroy_boxed_opaque_existential_0(v10);
-      sub_26C649920(v55, v10);
-      goto LABEL_6;
-    }
-
-LABEL_19:
-    *(v24 + 8 * (v19 >> 6) + 64) |= 1 << v19;
-    sub_26C64CE10(v58, *(v24 + 48) + 40 * v19);
-    sub_26C649920(v55, (*(v24 + 56) + 32 * v19));
-    v27 = *(v24 + 16);
-    v28 = __OFADD__(v27, 1);
-    v29 = v27 + 1;
-    if (v28)
-    {
-      goto LABEL_42;
-    }
-
-    *(v24 + 16) = v29;
-LABEL_6:
-    v6 &= v6 - 1;
-    sub_26C64CE6C(v58);
-
-    v9 = v16;
-    sub_26C64CEC0(&v59, v16);
-    v2 = v24;
-  }
-
-  if (isUniquelyReferenced_nonNull_native)
-  {
-    v24 = v2;
-    if (v18)
-    {
-      goto LABEL_5;
-    }
-
-    goto LABEL_19;
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A7730);
-  v30 = sub_26C64DBA8();
-  v24 = v30;
-  if (!*(v2 + 16))
-  {
-LABEL_37:
-
-    if (v23)
-    {
-      goto LABEL_5;
-    }
-
-    goto LABEL_19;
-  }
-
-  v31 = (v30 + 64);
-  v32 = (v2 + 64);
-  v33 = ((1 << *(v24 + 32)) + 63) >> 6;
-  if (v24 != v2 || v31 >= &v32[8 * v33])
-  {
-    memmove(v31, v32, 8 * v33);
-  }
-
-  v34 = 0;
-  *(v24 + 16) = *(v2 + 16);
-  v35 = 1 << *(v2 + 32);
-  if (v35 < 64)
-  {
-    v36 = ~(-1 << v35);
-  }
-
-  else
-  {
-    v36 = -1;
-  }
-
-  v37 = v36 & *(v2 + 64);
-  v38 = (v35 + 63) >> 6;
-  v46 = v38;
-  if (v37)
-  {
-    do
-    {
-      v39 = __clz(__rbit64(v37));
-      v49 = (v37 - 1) & v37;
-LABEL_35:
-      v48 = v39 | (v34 << 6);
-      v47 = 40 * v48;
-      sub_26C64CE10(*(v2 + 48) + 40 * v48, v52);
-      v48 *= 32;
-      sub_26C64AA4C(*(v2 + 56) + v48, v51);
-      v42 = *(v24 + 48) + v47;
-      v43 = v52[0];
-      v44 = v52[1];
-      *(v42 + 32) = v53;
-      *v42 = v43;
-      *(v42 + 16) = v44;
-      sub_26C649920(v51, (*(v24 + 56) + v48));
-      v38 = v46;
-      v37 = v49;
-    }
-
-    while (v49);
-  }
-
-  v40 = v34;
-  while (1)
-  {
-    v34 = v40 + 1;
-    if (__OFADD__(v40, 1))
-    {
-      break;
-    }
-
-    if (v34 >= v38)
-    {
-      goto LABEL_37;
-    }
-
-    v41 = *(v2 + 64 + 8 * v34);
-    ++v40;
-    if (v41)
-    {
-      v39 = __clz(__rbit64(v41));
-      v49 = (v41 - 1) & v41;
-      goto LABEL_35;
-    }
-  }
-
-LABEL_43:
-  __break(1u);
-LABEL_44:
-
-  result = sub_26C64DBF8();
-  __break(1u);
-  return result;
-}
-
-void sub_26C649F1C(void *a1, uint64_t a2, unint64_t a3, unint64_t a4, void *a5, void (**a6)(void, void, void))
-{
-  v65 = *MEMORY[0x277D85DE8];
-  v12 = swift_allocObject();
-  *(v12 + 16) = a6;
-  *&aBlock = 0;
-  _Block_copy(a6);
-  if (![a5 _validateDescription_error_])
-  {
-    v15 = aBlock;
-    v16 = sub_26C64D8F8();
-
-    swift_willThrow();
-    v17 = v16;
-    v18 = sub_26C64D8E8();
-    (a6)[2](a6, 0, v18);
-
-    return;
-  }
-
-  v13 = aBlock;
-  if (a3)
-  {
-    v14 = a3;
-  }
-
-  else
-  {
-    v14 = sub_26C6497F8(MEMORY[0x277D84F90]);
-  }
-
-  v19 = *(v14 + 16);
-
-  v59 = a4;
-  if (v19 && (v20 = sub_26C648170(@"recordingName"), (v21 & 1) != 0))
-  {
-    sub_26C64AA4C(*(v14 + 56) + 32 * v20, &aBlock);
-    sub_26C64CEC0(&aBlock, &qword_2804A7638);
-  }
-
-  else
-  {
-    v22 = MEMORY[0x277D837D0];
-    aBlock = 0u;
-    v61 = 0u;
-    sub_26C64CEC0(&aBlock, &qword_2804A7638);
-    v23 = [a1 flipBookName];
-    v24 = sub_26C64D9F8();
-    v26 = v25;
-
-    *(&v61 + 1) = v22;
-    a4 = v59;
-    *&aBlock = v24;
-    *(&aBlock + 1) = v26;
-    sub_26C649920(&aBlock, v64);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    sub_26C648D1C(v64, @"recordingName", isUniquelyReferenced_nonNull_native);
-  }
-
-  swift_getKeyPath();
-
-  sub_26C649A98(v14);
-
-  v28 = objc_allocWithZone(SFUSecureFlipBookRecording);
-  v29 = sub_26C64D998();
-
-  v30 = [v28 initWithOptions_];
-
-  [a5 setCurrentRecording_];
-  if (a2)
-  {
-    v31 = [a5 currentRecording];
-    if (v31)
-    {
-      v32 = v31;
-      v33 = sub_26C64D998();
-      [v32 setUserInfo_];
-    }
-  }
-
-  if (a4)
-  {
-    if (a4 >> 62)
-    {
-      v34 = sub_26C64DB98();
-    }
-
-    else
-    {
-      v34 = *((a4 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    }
-
-    v35 = MEMORY[0x277D84F90];
-    if (v34)
-    {
-      v57 = a5;
-      v58 = v12;
-      *&aBlock = MEMORY[0x277D84F90];
-      sub_26C6494FC(0, v34 & ~(v34 >> 63), 0);
-      if (v34 < 0)
-      {
-        __break(1u);
-        goto LABEL_39;
-      }
-
-      v35 = aBlock;
-      sub_26C64DA88();
-      v36 = 0;
-      v37 = a4 & 0xC000000000000001;
-      do
-      {
-        if (v37)
-        {
-          v38 = MEMORY[0x26D6A5400](v36, a4);
-        }
-
-        else
-        {
-          v38 = *(a4 + 8 * v36 + 32);
-        }
-
-        v39 = v38;
-        sub_26C64DA78();
-        sub_26C64DA68();
-        if ((swift_task_isCurrentExecutor() & 1) == 0)
-        {
-          swift_task_reportUnexpectedExecutor();
-        }
-
-        [v39 bs_CGRectValue];
-        v41 = v40;
-        v43 = v42;
-        v45 = v44;
-        v47 = v46;
-
-        *&aBlock = v35;
-        v49 = *(v35 + 16);
-        v48 = *(v35 + 24);
-        if (v49 >= v48 >> 1)
-        {
-          sub_26C6494FC((v48 > 1), v49 + 1, 1);
-          v35 = aBlock;
-        }
-
-        ++v36;
-        *(v35 + 16) = v49 + 1;
-        v50 = (v35 + 32 * v49);
-        v50[4] = v41;
-        v50[5] = v43;
-        v50[6] = v45;
-        v50[7] = v47;
-        a4 = v59;
-      }
-
-      while (v34 != v36);
-      v12 = v58;
-      a5 = v57;
-    }
-
-    sub_26C64DA88();
-    sub_26C64DA78();
-    sub_26C64DA68();
-    if ((swift_task_isCurrentExecutor() & 1) == 0)
-    {
-      swift_task_reportUnexpectedExecutor();
-    }
-
-    v51 = [a5 currentRecording];
-    if (!v51)
-    {
-
-      goto LABEL_34;
-    }
-
-    if (!HIDWORD(*(v35 + 16)))
-    {
-      v52 = v51;
-      [v51 setConstraintBoundingBoxes:v35 + 32 count:?];
-
-      goto LABEL_34;
-    }
-
-LABEL_39:
-    __break(1u);
-  }
-
-LABEL_34:
-  v53 = [a1 states];
-  if (!v53)
-  {
-    sub_26C64DA58();
-    v53 = sub_26C64DA48();
-  }
-
-  v54 = swift_allocObject();
-  v54[2] = a5;
-  v54[3] = sub_26C64CFF8;
-  v54[4] = v12;
-  v62 = sub_26C64D048;
-  v63 = v54;
-  *&aBlock = MEMORY[0x277D85DD0];
-  *(&aBlock + 1) = 1107296256;
-  *&v61 = sub_26C64CFF0;
-  *(&v61 + 1) = &block_descriptor_122;
-  v55 = _Block_copy(&aBlock);
-  v56 = a5;
-
-  [v56 _captureWithStates_for_completion_];
-  _Block_release(v55);
-}
-
-uint64_t sub_26C64A5E4(uint64_t a1, uint64_t (*a2)(void *))
-{
   v3 = sub_26C64995C(MEMORY[0x277D84F90]);
   v4 = a1 + 64;
   v5 = 1 << *(a1 + 32);
@@ -9015,73 +8557,80 @@ LABEL_12:
     v14 = *(*(v51 + 48) + 8 * v13);
     sub_26C64AA4C(*(v51 + 56) + 32 * v13, &v61);
     v60 = v14;
-    v57 = a2(v14);
-    *&v58 = v15;
+    v57 = v14;
+    v15 = v14;
+
+    v16 = v15;
+    swift_getAtKeyPath();
+
+    v57 = v59[0];
+    *&v58 = v59[1];
     sub_26C64DB48();
-    v16 = v10;
-    sub_26C64CF20(&v60, &v57, v10);
+
+    v17 = v10;
+    sub_26C64CF20(&v60, &v57, v10, &qword_26C64F468);
     sub_26C649920(&v58, v56);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
     v55 = v3;
-    v19 = sub_26C64812C(v59);
-    v20 = *(v3 + 16);
-    v21 = (v18 & 1) == 0;
-    v22 = v20 + v21;
-    if (__OFADD__(v20, v21))
+    v20 = sub_26C64812C(v59);
+    v21 = *(v3 + 16);
+    v22 = (v19 & 1) == 0;
+    v23 = v21 + v22;
+    if (__OFADD__(v21, v22))
     {
       goto LABEL_41;
     }
 
-    v23 = v18;
-    if (*(v3 + 24) >= v22)
+    v24 = v19;
+    if (*(v3 + 24) >= v23)
     {
       break;
     }
 
-    sub_26C648328(v22, isUniquelyReferenced_nonNull_native);
-    v24 = v55;
-    v25 = sub_26C64812C(v59);
-    if ((v23 & 1) != (v26 & 1))
+    sub_26C648328(v23, isUniquelyReferenced_nonNull_native);
+    v25 = v55;
+    v26 = sub_26C64812C(v59);
+    if ((v24 & 1) != (v27 & 1))
     {
       goto LABEL_44;
     }
 
-    v19 = v25;
-    if (v23)
+    v20 = v26;
+    if (v24)
     {
 LABEL_5:
-      v11 = (*(v24 + 56) + 32 * v19);
+      v11 = (*(v25 + 56) + 32 * v20);
       __swift_destroy_boxed_opaque_existential_0(v11);
       sub_26C649920(v56, v11);
       goto LABEL_6;
     }
 
 LABEL_19:
-    *(v24 + 8 * (v19 >> 6) + 64) |= 1 << v19;
-    sub_26C64CE10(v59, *(v24 + 48) + 40 * v19);
-    sub_26C649920(v56, (*(v24 + 56) + 32 * v19));
-    v27 = *(v24 + 16);
-    v28 = __OFADD__(v27, 1);
-    v29 = v27 + 1;
-    if (v28)
+    *(v25 + 8 * (v20 >> 6) + 64) |= 1 << v20;
+    sub_26C64CE10(v59, *(v25 + 48) + 40 * v20);
+    sub_26C649920(v56, (*(v25 + 56) + 32 * v20));
+    v28 = *(v25 + 16);
+    v29 = __OFADD__(v28, 1);
+    v30 = v28 + 1;
+    if (v29)
     {
       goto LABEL_42;
     }
 
-    *(v24 + 16) = v29;
+    *(v25 + 16) = v30;
 LABEL_6:
     v7 &= v7 - 1;
     sub_26C64CE6C(v59);
 
-    v10 = v16;
-    sub_26C64CEC0(&v60, v16);
-    v3 = v24;
+    v10 = v17;
+    sub_26C64CEC0(&v60, v17, &qword_26C64F468);
+    v3 = v25;
   }
 
   if (isUniquelyReferenced_nonNull_native)
   {
-    v24 = v3;
-    if (v18)
+    v25 = v3;
+    if (v19)
     {
       goto LABEL_5;
     }
@@ -9089,14 +8638,14 @@ LABEL_6:
     goto LABEL_19;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A7730);
-  v30 = sub_26C64DBA8();
-  v24 = v30;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A7730, &qword_26C64F470);
+  v31 = sub_26C64DBA8();
+  v25 = v31;
   if (!*(v3 + 16))
   {
 LABEL_37:
 
-    if (v23)
+    if (v24)
     {
       goto LABEL_5;
     }
@@ -9104,76 +8653,520 @@ LABEL_37:
     goto LABEL_19;
   }
 
-  v31 = (v30 + 64);
-  v32 = (v3 + 64);
-  v33 = ((1 << *(v24 + 32)) + 63) >> 6;
-  if (v24 != v3 || v31 >= &v32[8 * v33])
+  v32 = (v31 + 64);
+  v33 = (v3 + 64);
+  v34 = ((1 << *(v25 + 32)) + 63) >> 6;
+  if (v25 != v3 || v32 >= &v33[8 * v34])
   {
-    memmove(v31, v32, 8 * v33);
+    memmove(v32, v33, 8 * v34);
   }
 
-  v34 = 0;
-  *(v24 + 16) = *(v3 + 16);
-  v35 = 1 << *(v3 + 32);
-  if (v35 < 64)
+  v35 = 0;
+  *(v25 + 16) = *(v3 + 16);
+  v36 = 1 << *(v3 + 32);
+  if (v36 < 64)
   {
-    v36 = ~(-1 << v35);
+    v37 = ~(-1 << v36);
   }
 
   else
   {
-    v36 = -1;
+    v37 = -1;
   }
 
-  v37 = v36 & *(v3 + 64);
-  v38 = (v35 + 63) >> 6;
-  v46 = v38;
-  if (v37)
+  v38 = v37 & *(v3 + 64);
+  v39 = (v36 + 63) >> 6;
+  v47 = v39;
+  if (v38)
   {
     do
     {
-      v39 = __clz(__rbit64(v37));
-      v49 = (v37 - 1) & v37;
+      v40 = __clz(__rbit64(v38));
+      v50 = (v38 - 1) & v38;
 LABEL_35:
-      v48 = v39 | (v34 << 6);
-      v47 = 40 * v48;
-      sub_26C64CE10(*(v3 + 48) + 40 * v48, v53);
-      v48 *= 32;
-      sub_26C64AA4C(*(v3 + 56) + v48, v52);
-      v42 = *(v24 + 48) + v47;
-      v43 = v53[0];
-      v44 = v53[1];
-      *(v42 + 32) = v54;
-      *v42 = v43;
-      *(v42 + 16) = v44;
-      sub_26C649920(v52, (*(v24 + 56) + v48));
-      v38 = v46;
-      v37 = v49;
+      v49 = v40 | (v35 << 6);
+      v48 = 40 * v49;
+      sub_26C64CE10(*(v3 + 48) + 40 * v49, v53);
+      v49 *= 32;
+      sub_26C64AA4C(*(v3 + 56) + v49, v52);
+      v43 = *(v25 + 48) + v48;
+      v44 = v53[0];
+      v45 = v53[1];
+      *(v43 + 32) = v54;
+      *v43 = v44;
+      *(v43 + 16) = v45;
+      sub_26C649920(v52, (*(v25 + 56) + v49));
+      v39 = v47;
+      v38 = v50;
     }
 
-    while (v49);
+    while (v50);
   }
 
-  v40 = v34;
+  v41 = v35;
   while (1)
   {
-    v34 = v40 + 1;
-    if (__OFADD__(v40, 1))
+    v35 = v41 + 1;
+    if (__OFADD__(v41, 1))
     {
       break;
     }
 
-    if (v34 >= v38)
+    if (v35 >= v39)
     {
       goto LABEL_37;
     }
 
-    v41 = *(v3 + 64 + 8 * v34);
-    ++v40;
-    if (v41)
+    v42 = *(v3 + 64 + 8 * v35);
+    ++v41;
+    if (v42)
     {
-      v39 = __clz(__rbit64(v41));
-      v49 = (v41 - 1) & v41;
+      v40 = __clz(__rbit64(v42));
+      v50 = (v42 - 1) & v42;
+      goto LABEL_35;
+    }
+  }
+
+LABEL_43:
+  __break(1u);
+LABEL_44:
+
+  result = sub_26C64DBF8();
+  __break(1u);
+  return result;
+}
+
+void sub_26C649F1C(void *a1, uint64_t a2, unint64_t a3, unint64_t a4, void *a5, void (**a6)(void, void, void))
+{
+  v66 = *MEMORY[0x277D85DE8];
+  v12 = swift_allocObject();
+  *(v12 + 16) = a6;
+  *&aBlock = 0;
+  _Block_copy(a6);
+  if (![a5 _validateDescription_error_])
+  {
+    v15 = aBlock;
+    v16 = sub_26C64D8F8();
+
+    swift_willThrow();
+    v17 = v16;
+    v18 = sub_26C64D8E8();
+    (a6)[2](a6, 0, v18);
+
+    return;
+  }
+
+  v13 = aBlock;
+  if (a3)
+  {
+    v14 = a3;
+  }
+
+  else
+  {
+    v14 = sub_26C6497F8(MEMORY[0x277D84F90]);
+  }
+
+  v19 = *(v14 + 16);
+
+  v60 = a4;
+  if (v19 && (v20 = sub_26C648170(@"recordingName"), (v21 & 1) != 0))
+  {
+    sub_26C64AA4C(*(v14 + 56) + 32 * v20, &aBlock);
+    sub_26C64CEC0(&aBlock, &qword_2804A7638, &qword_26C64F3C0);
+  }
+
+  else
+  {
+    v22 = MEMORY[0x277D837D0];
+    aBlock = 0u;
+    v62 = 0u;
+    sub_26C64CEC0(&aBlock, &qword_2804A7638, &qword_26C64F3C0);
+    v23 = [a1 flipBookName];
+    v24 = sub_26C64D9F8();
+    v26 = v25;
+
+    *(&v62 + 1) = v22;
+    a4 = v60;
+    *&aBlock = v24;
+    *(&aBlock + 1) = v26;
+    sub_26C649920(&aBlock, v65);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    sub_26C648D1C(v65, @"recordingName", isUniquelyReferenced_nonNull_native);
+  }
+
+  KeyPath = swift_getKeyPath();
+
+  sub_26C649A98(v14, KeyPath);
+
+  v29 = objc_allocWithZone(SFUSecureFlipBookRecording);
+  v30 = sub_26C64D998();
+
+  v31 = [v29 initWithOptions_];
+
+  [a5 setCurrentRecording_];
+  if (a2)
+  {
+    v32 = [a5 currentRecording];
+    if (v32)
+    {
+      v33 = v32;
+      v34 = sub_26C64D998();
+      [v33 setUserInfo_];
+    }
+  }
+
+  if (a4)
+  {
+    if (a4 >> 62)
+    {
+      v35 = sub_26C64DB98();
+    }
+
+    else
+    {
+      v35 = *((a4 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    }
+
+    v36 = MEMORY[0x277D84F90];
+    if (v35)
+    {
+      v58 = a5;
+      v59 = v12;
+      *&aBlock = MEMORY[0x277D84F90];
+      sub_26C6494FC(0, v35 & ~(v35 >> 63), 0);
+      if (v35 < 0)
+      {
+        __break(1u);
+        goto LABEL_39;
+      }
+
+      v36 = aBlock;
+      sub_26C64DA88();
+      v37 = 0;
+      v38 = a4 & 0xC000000000000001;
+      do
+      {
+        if (v38)
+        {
+          v39 = MEMORY[0x26D6A5400](v37, a4);
+        }
+
+        else
+        {
+          v39 = *(a4 + 8 * v37 + 32);
+        }
+
+        v40 = v39;
+        sub_26C64DA78();
+        sub_26C64DA68();
+        if ((swift_task_isCurrentExecutor() & 1) == 0)
+        {
+          swift_task_reportUnexpectedExecutor();
+        }
+
+        [v40 bs_CGRectValue];
+        v42 = v41;
+        v44 = v43;
+        v46 = v45;
+        v48 = v47;
+
+        *&aBlock = v36;
+        v50 = *(v36 + 16);
+        v49 = *(v36 + 24);
+        if (v50 >= v49 >> 1)
+        {
+          sub_26C6494FC((v49 > 1), v50 + 1, 1);
+          v36 = aBlock;
+        }
+
+        ++v37;
+        *(v36 + 16) = v50 + 1;
+        v51 = (v36 + 32 * v50);
+        v51[4] = v42;
+        v51[5] = v44;
+        v51[6] = v46;
+        v51[7] = v48;
+        a4 = v60;
+      }
+
+      while (v35 != v37);
+      v12 = v59;
+      a5 = v58;
+    }
+
+    sub_26C64DA88();
+    sub_26C64DA78();
+    sub_26C64DA68();
+    if ((swift_task_isCurrentExecutor() & 1) == 0)
+    {
+      swift_task_reportUnexpectedExecutor();
+    }
+
+    v52 = [a5 currentRecording];
+    if (!v52)
+    {
+
+      goto LABEL_34;
+    }
+
+    if (!HIDWORD(*(v36 + 16)))
+    {
+      v53 = v52;
+      [v52 setConstraintBoundingBoxes:v36 + 32 count:?];
+
+      goto LABEL_34;
+    }
+
+LABEL_39:
+    __break(1u);
+  }
+
+LABEL_34:
+  v54 = [a1 states];
+  if (!v54)
+  {
+    sub_26C64DA58();
+    v54 = sub_26C64DA48();
+  }
+
+  v55 = swift_allocObject();
+  v55[2] = a5;
+  v55[3] = sub_26C64CFF8;
+  v55[4] = v12;
+  v63 = sub_26C64D048;
+  v64 = v55;
+  *&aBlock = MEMORY[0x277D85DD0];
+  *(&aBlock + 1) = 1107296256;
+  *&v62 = sub_26C64CFF0;
+  *(&v62 + 1) = &block_descriptor_122;
+  v56 = _Block_copy(&aBlock);
+  v57 = a5;
+
+  [v57 _captureWithStates_for_completion_];
+  _Block_release(v56);
+}
+
+unint64_t sub_26C64A5E4(uint64_t a1, uint64_t (*a2)(void *), uint64_t a3)
+{
+  v4 = sub_26C64995C(MEMORY[0x277D84F90]);
+  v5 = a1 + 64;
+  v6 = 1 << *(a1 + 32);
+  if (v6 < 64)
+  {
+    v7 = ~(-1 << v6);
+  }
+
+  else
+  {
+    v7 = -1;
+  }
+
+  v8 = v7 & *(a1 + 64);
+  v9 = (v6 + 63) >> 6;
+  v52 = a1;
+
+  v10 = 0;
+  v11 = &unk_2804A7728;
+  while (1)
+  {
+    if (!v8)
+    {
+      while (1)
+      {
+        v13 = v10 + 1;
+        if (__OFADD__(v10, 1))
+        {
+          break;
+        }
+
+        if (v13 >= v9)
+        {
+
+          return v4;
+        }
+
+        v8 = *(v5 + 8 * v13);
+        ++v10;
+        if (v8)
+        {
+          v10 = v13;
+          goto LABEL_12;
+        }
+      }
+
+      __break(1u);
+LABEL_41:
+      __break(1u);
+LABEL_42:
+      __break(1u);
+      goto LABEL_43;
+    }
+
+LABEL_12:
+    v14 = __clz(__rbit64(v8)) | (v10 << 6);
+    v15 = *(*(v52 + 48) + 8 * v14);
+    sub_26C64AA4C(*(v52 + 56) + 32 * v14, &v62);
+    v61 = v15;
+    v58 = a2(v15);
+    *&v59 = v16;
+    sub_26C64DB48();
+    v17 = v11;
+    sub_26C64CF20(&v61, &v58, v11, &qword_26C64F468);
+    sub_26C649920(&v59, v57);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v56 = v4;
+    v20 = sub_26C64812C(v60);
+    v21 = *(v4 + 16);
+    v22 = (v19 & 1) == 0;
+    v23 = v21 + v22;
+    if (__OFADD__(v21, v22))
+    {
+      goto LABEL_41;
+    }
+
+    v24 = v19;
+    if (*(v4 + 24) >= v23)
+    {
+      break;
+    }
+
+    sub_26C648328(v23, isUniquelyReferenced_nonNull_native);
+    v25 = v56;
+    v26 = sub_26C64812C(v60);
+    if ((v24 & 1) != (v27 & 1))
+    {
+      goto LABEL_44;
+    }
+
+    v20 = v26;
+    if (v24)
+    {
+LABEL_5:
+      v12 = (*(v25 + 56) + 32 * v20);
+      __swift_destroy_boxed_opaque_existential_0(v12);
+      sub_26C649920(v57, v12);
+      goto LABEL_6;
+    }
+
+LABEL_19:
+    *(v25 + 8 * (v20 >> 6) + 64) |= 1 << v20;
+    sub_26C64CE10(v60, *(v25 + 48) + 40 * v20);
+    sub_26C649920(v57, (*(v25 + 56) + 32 * v20));
+    v28 = *(v25 + 16);
+    v29 = __OFADD__(v28, 1);
+    v30 = v28 + 1;
+    if (v29)
+    {
+      goto LABEL_42;
+    }
+
+    *(v25 + 16) = v30;
+LABEL_6:
+    v8 &= v8 - 1;
+    sub_26C64CE6C(v60);
+
+    v11 = v17;
+    sub_26C64CEC0(&v61, v17, &qword_26C64F468);
+    v4 = v25;
+  }
+
+  if (isUniquelyReferenced_nonNull_native)
+  {
+    v25 = v4;
+    if (v19)
+    {
+      goto LABEL_5;
+    }
+
+    goto LABEL_19;
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A7730, &qword_26C64F470);
+  v31 = sub_26C64DBA8();
+  v25 = v31;
+  if (!*(v4 + 16))
+  {
+LABEL_37:
+
+    if (v24)
+    {
+      goto LABEL_5;
+    }
+
+    goto LABEL_19;
+  }
+
+  v32 = (v31 + 64);
+  v33 = (v4 + 64);
+  v34 = ((1 << *(v25 + 32)) + 63) >> 6;
+  if (v25 != v4 || v32 >= &v33[8 * v34])
+  {
+    memmove(v32, v33, 8 * v34);
+  }
+
+  v35 = 0;
+  *(v25 + 16) = *(v4 + 16);
+  v36 = 1 << *(v4 + 32);
+  if (v36 < 64)
+  {
+    v37 = ~(-1 << v36);
+  }
+
+  else
+  {
+    v37 = -1;
+  }
+
+  v38 = v37 & *(v4 + 64);
+  v39 = (v36 + 63) >> 6;
+  v47 = v39;
+  if (v38)
+  {
+    do
+    {
+      v40 = __clz(__rbit64(v38));
+      v50 = (v38 - 1) & v38;
+LABEL_35:
+      v49 = v40 | (v35 << 6);
+      v48 = 40 * v49;
+      sub_26C64CE10(*(v4 + 48) + 40 * v49, v54);
+      v49 *= 32;
+      sub_26C64AA4C(*(v4 + 56) + v49, v53);
+      v43 = *(v25 + 48) + v48;
+      v44 = v54[0];
+      v45 = v54[1];
+      *(v43 + 32) = v55;
+      *v43 = v44;
+      *(v43 + 16) = v45;
+      sub_26C649920(v53, (*(v25 + 56) + v49));
+      v39 = v47;
+      v38 = v50;
+    }
+
+    while (v50);
+  }
+
+  v41 = v35;
+  while (1)
+  {
+    v35 = v41 + 1;
+    if (__OFADD__(v41, 1))
+    {
+      break;
+    }
+
+    if (v35 >= v39)
+    {
+      goto LABEL_37;
+    }
+
+    v42 = *(v4 + 64 + 8 * v35);
+    ++v41;
+    if (v42)
+    {
+      v40 = __clz(__rbit64(v42));
+      v50 = (v42 - 1) & v42;
       goto LABEL_35;
     }
   }
@@ -9232,7 +9225,7 @@ uint64_t sub_26C64ABB8()
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
-uint64_t sub_26C64AC30(void *a1)
+uint64_t sub_26C64AC30(uint64_t *a1)
 {
   v2 = *(v1 + 16);
   if (*a1 == *v2 && a1[1] == v2[1])
@@ -9251,13 +9244,13 @@ unint64_t sub_26C64AC88(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A7710);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804A7710, &qword_26C64F458);
     v3 = sub_26C64DBC8();
     v4 = a1 + 32;
 
     while (1)
     {
-      sub_26C64CF20(v4, &v13, &qword_2804A7718);
+      sub_26C64CF20(v4, &v13, &qword_2804A7718, &qword_26C64F460);
       v5 = v13;
       v6 = v14;
       result = sub_26C648204(v13, v14, sub_26C6479C0);
@@ -9313,7 +9306,7 @@ void sub_26C64ADCC(void *a1)
     {
       type metadata accessor for CaptureCoordinatorError(0);
       sub_26C64AC88(MEMORY[0x277D84F90]);
-      sub_26C64CD48(&qword_2804A7410, type metadata accessor for CaptureCoordinatorError);
+      sub_26C64CD48(&qword_2804A7410, type metadata accessor for CaptureCoordinatorError, &unk_26C64F214);
       sub_26C64D8D8();
       swift_willThrow();
     }
@@ -9335,7 +9328,7 @@ void sub_26C64ADCC(void *a1)
     {
       type metadata accessor for CaptureCoordinatorError(0);
       sub_26C64AC88(MEMORY[0x277D84F90]);
-      sub_26C64CD48(&qword_2804A7410, type metadata accessor for CaptureCoordinatorError);
+      sub_26C64CD48(&qword_2804A7410, type metadata accessor for CaptureCoordinatorError, &unk_26C64F214);
       sub_26C64D8D8();
       swift_willThrow();
     }
@@ -9418,13 +9411,13 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_26C64B0B8(void *a1, void *a2, void *a3, char *a4)
+double sub_26C64B0B8(void *a1, void *a2, void *a3, char *a4)
 {
-  v53 = a3;
+  v54 = a3;
   v7 = sub_26C64D928();
   v8 = *(v7 - 8);
-  MEMORY[0x28223BE20]();
-  v10 = &v44 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v10 = &v45 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = swift_allocObject();
   *(v11 + 16) = a4;
   _Block_copy(a4);
@@ -9450,42 +9443,43 @@ LABEL_36:
 
     (*(a4 + 2))(a4);
     (*(v8 + 8))(v10, v7);
+    goto LABEL_34;
   }
 
-  v51 = v11;
+  v52 = v11;
   v13 = a1[4];
   v14 = a1[5];
-  v49 = a1;
+  v50 = a1;
 
   v15 = sub_26C64D9C8();
   v16 = [a2 allowedNextStatesForState_];
 
   v17 = sub_26C64DA58();
-  v54 = v13;
+  v55 = v13;
   a1 = sub_26C64D9C8();
-  v50 = a2;
-  LOBYTE(v16) = [v53 _isLoopingState_forDescription_];
+  v51 = a2;
+  LOBYTE(v16) = [v54 _isLoopingState_forDescription_];
 
-  v52 = v7;
+  v53 = v7;
   if ((v16 & 1) == 0)
   {
     goto LABEL_31;
   }
 
-  v47 = v10;
+  v48 = v10;
   v10 = *(v17 + 16);
   if (!v10)
   {
-    v48 = MEMORY[0x277D84F90];
+    v49 = MEMORY[0x277D84F90];
     goto LABEL_27;
   }
 
   v18 = 0;
   v19 = v17 + 40;
-  v44 = v10 - 1;
-  v48 = MEMORY[0x277D84F90];
-  v45 = v17 + 40;
-  v46 = v8;
+  v45 = v10 - 1;
+  v49 = MEMORY[0x277D84F90];
+  v46 = v17 + 40;
+  v47 = v8;
   do
   {
     v8 = v19 + 16 * v18;
@@ -9510,7 +9504,7 @@ LABEL_36:
         swift_task_reportUnexpectedExecutor();
       }
 
-      if (a2 != v54 || a1 != v14)
+      if (a2 != v55 || a1 != v14)
       {
         break;
       }
@@ -9520,7 +9514,7 @@ LABEL_8:
       v8 += 16;
       if (v10 == a4)
       {
-        v8 = v46;
+        v8 = v47;
         goto LABEL_27;
       }
     }
@@ -9533,7 +9527,7 @@ LABEL_8:
       goto LABEL_8;
     }
 
-    v21 = v48;
+    v21 = v49;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
     aBlock[0] = v21;
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
@@ -9542,42 +9536,42 @@ LABEL_8:
       v21 = aBlock[0];
     }
 
-    v8 = v46;
+    v8 = v47;
     v11 = *(v21 + 16);
     v23 = *(v21 + 24);
     v24 = v11 + 1;
     if (v11 >= v23 >> 1)
     {
-      v48 = v11 + 1;
+      v49 = v11 + 1;
       sub_26C64951C((v23 > 1), v11 + 1, 1);
-      v24 = v48;
+      v24 = v49;
       v21 = aBlock[0];
     }
 
     v18 = a4 + 1;
     *(v21 + 16) = v24;
-    v48 = v21;
+    v49 = v21;
     v25 = v21 + 16 * v11;
     *(v25 + 32) = a2;
     *(v25 + 40) = a1;
-    v19 = v45;
+    v19 = v46;
   }
 
-  while (v44 != a4);
+  while (v45 != a4);
 LABEL_27:
 
-  v29 = v48;
-  v30 = *(v48 + 16);
+  v29 = v49;
+  v30 = *(v49 + 16);
 
   v31 = swift_isUniquelyReferenced_nonNull_native();
-  v56 = v29;
+  v57 = v29;
   if (!v31 || v30 >= *(v29 + 24) >> 1)
   {
-    v56 = sub_26C647A78(v31, v30 + 1, 1, v29);
+    v57 = sub_26C647A78(v31, v30 + 1, 1, v29);
   }
 
-  v10 = v47;
-  sub_26C64AFD4(0, 0, 1, v54, v14);
+  v10 = v48;
+  sub_26C64AFD4(0, 0, 1, v55, v14);
 
 LABEL_31:
 
@@ -9590,40 +9584,43 @@ LABEL_31:
     v35 = swift_slowAlloc();
     aBlock[0] = v35;
     *v34 = 136315138;
-    *(v34 + 4) = sub_26C647B84(v54, v14, aBlock);
+    *(v34 + 4) = sub_26C647B84(v55, v14, aBlock);
     _os_log_impl(&dword_26C632000, v32, v33, "Beginning capturing transitions from state: %s", v34, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v35);
-    MEMORY[0x26D6A5F50](v35, -1, -1);
+    v36 = __swift_destroy_boxed_opaque_existential_0(v35);
+    MEMORY[0x26D6A5F50](v35, -1, -1, v36);
     MEMORY[0x26D6A5F50](v34, -1, -1);
   }
 
-  v36 = sub_26C64D9C8();
+  v37 = sub_26C64D9C8();
 
-  v37 = sub_26C64DA48();
+  v38 = sub_26C64DA48();
 
-  v38 = swift_allocObject();
-  v39 = v50;
-  v40 = v53;
-  v38[2] = v49;
-  v38[3] = v40;
-  v38[4] = v39;
-  v38[5] = sub_26C64CFFC;
-  v38[6] = v51;
+  v39 = swift_allocObject();
+  v40 = v51;
+  v41 = v54;
+  v39[2] = v50;
+  v39[3] = v41;
+  v39[4] = v40;
+  v39[5] = sub_26C64CFFC;
+  v39[6] = v52;
   aBlock[4] = sub_26C64CD38;
-  aBlock[5] = v38;
+  aBlock[5] = v39;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = sub_26C64CFF0;
   aBlock[3] = &block_descriptor_88;
-  v41 = _Block_copy(aBlock);
+  v42 = _Block_copy(aBlock);
 
-  v42 = v40;
+  v43 = v41;
   swift_unknownObjectRetain();
 
-  [v42 _captureFromState_toStates_forDescription_completion_];
-  _Block_release(v41);
+  [v43 _captureFromState_toStates_forDescription_completion_];
+  _Block_release(v42);
 
-  (*(v8 + 8))(v10, v52);
+  (*(v8 + 8))(v10, v53);
+LABEL_34:
+
+  return result;
 }
 
 unint64_t sub_26C64B7A0(unint64_t result, uint64_t a2, uint64_t a3)
@@ -9690,11 +9687,11 @@ LABEL_19:
   return result;
 }
 
-uint64_t sub_26C64B860(uint64_t a1, unint64_t a2, void *a3, uint64_t a4, void *a5, void (**a6)(void))
+void sub_26C64B860(uint64_t a1, unint64_t a2, void *a3, uint64_t a4, void *a5, void (**a6)(void))
 {
   v12 = sub_26C64D928();
   v13 = *(v12 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v12);
   v15 = &v52 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   v16 = swift_allocObject();
   *(v16 + 16) = a6;
@@ -9737,7 +9734,7 @@ uint64_t sub_26C64B860(uint64_t a1, unint64_t a2, void *a3, uint64_t a4, void *a
 
     type metadata accessor for CaptureCoordinatorOption(0);
     v28 = v27;
-    sub_26C64CD48(&qword_2804A73A8, type metadata accessor for CaptureCoordinatorOption);
+    sub_26C64CD48(&qword_2804A73A8, type metadata accessor for CaptureCoordinatorOption, &unk_26C64EFC8);
     v53 = v28;
     v29 = sub_26C64D9A8();
 
@@ -9783,7 +9780,7 @@ uint64_t sub_26C64B860(uint64_t a1, unint64_t a2, void *a3, uint64_t a4, void *a
       v48 = @"captureToState";
       sub_26C648288(v48, &aBlock);
 
-      sub_26C64CEC0(&aBlock, &qword_2804A7638);
+      sub_26C64CEC0(&aBlock, &qword_2804A7638, &qword_26C64F3C0);
       v49 = sub_26C64D9C8();
       v50 = sub_26C64D9C8();
 
@@ -9820,8 +9817,8 @@ uint64_t sub_26C64B860(uint64_t a1, unint64_t a2, void *a3, uint64_t a4, void *a
       *v45 = 136315138;
       *(v45 + 4) = sub_26C647B84(a1, a2, &aBlock);
       _os_log_impl(&dword_26C632000, v42, v43, "Finished capturing transitions from state: '%s'", v45, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v46);
-      MEMORY[0x26D6A5F50](v46, -1, -1);
+      v47 = __swift_destroy_boxed_opaque_existential_0(v46);
+      MEMORY[0x26D6A5F50](v46, -1, -1, v47);
       MEMORY[0x26D6A5F50](v45, -1, -1);
     }
 

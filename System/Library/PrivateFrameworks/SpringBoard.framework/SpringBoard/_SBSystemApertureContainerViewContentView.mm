@@ -51,7 +51,7 @@
   memset(&v17, 0, sizeof(v17));
   if (contentView)
   {
-    [contentView transform];
+    objc_msgSend_transform(contentView);
   }
 
   BSRectWithSize();

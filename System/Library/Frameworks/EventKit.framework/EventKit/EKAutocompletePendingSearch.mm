@@ -48,9 +48,11 @@
 
 uint64_t __37__EKAutocompletePendingSearch__queue__block_invoke()
 {
-  _queue_queue = dispatch_queue_create("com.apple.mobilecal.autocompletesearchcontroller.internalqueue", 0);
+  v0 = dispatch_queue_create("com.apple.mobilecal.autocompletesearchcontroller.internalqueue", 0);
+  v1 = _queue_queue;
+  _queue_queue = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)_eventKitQueue
@@ -67,9 +69,11 @@ uint64_t __37__EKAutocompletePendingSearch__queue__block_invoke()
 
 uint64_t __45__EKAutocompletePendingSearch__eventKitQueue__block_invoke()
 {
-  _eventKitQueue_queue = dispatch_queue_create("com.apple.mobilecal.autocompletesearchcontroller.eventkitqueue", 0);
+  v0 = dispatch_queue_create("com.apple.mobilecal.autocompletesearchcontroller.eventkitqueue", 0);
+  v1 = _eventKitQueue_queue;
+  _eventKitQueue_queue = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)firstNaturalLanguageResultWithSearchString:(id)string
@@ -210,31 +214,30 @@ uint64_t __66__EKAutocompletePendingSearch_searchWithString_completionHandler___
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 void __66__EKAutocompletePendingSearch_searchWithString_completionHandler___block_invoke_20(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
   v6 = [a2 mutableCopy];
-  v7 = *(a1 + 32);
-  v8 = [objc_opt_class() _queue];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __66__EKAutocompletePendingSearch_searchWithString_completionHandler___block_invoke_2;
-  v14[3] = &unk_1E77FDB68;
-  v9 = *(a1 + 40);
-  v14[4] = *(a1 + 32);
-  v15 = v5;
-  v16 = v9;
-  v10 = *(a1 + 48);
-  v11 = *(a1 + 56);
+  v7 = [objc_opt_class() _queue];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __66__EKAutocompletePendingSearch_searchWithString_completionHandler___block_invoke_2;
+  v13[3] = &unk_1E77FDB68;
+  v8 = *(a1 + 40);
+  v13[4] = *(a1 + 32);
+  v14 = v5;
+  v15 = v8;
+  v9 = *(a1 + 48);
+  v10 = *(a1 + 56);
+  v17 = v9;
   v18 = v10;
-  v19 = v11;
-  v17 = v6;
-  v12 = v6;
-  v13 = v5;
-  dispatch_async(v8, v14);
+  v16 = v6;
+  v11 = v6;
+  v12 = v5;
+  dispatch_async(v7, v13);
 }
 
 void __66__EKAutocompletePendingSearch_searchWithString_completionHandler___block_invoke_2(uint64_t a1)
@@ -258,29 +261,28 @@ void __66__EKAutocompletePendingSearch_searchWithString_completionHandler___bloc
       v4 = *(v3 + 48);
       *(v3 + 48) = 0;
 
-      v5 = *(a1 + 40);
       (*(*(a1 + 64) + 16))();
     }
 
     else
     {
-      v6 = [objc_opt_class() _eventKitQueue];
+      v5 = [objc_opt_class() _eventKitQueue];
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __66__EKAutocompletePendingSearch_searchWithString_completionHandler___block_invoke_21;
       block[3] = &unk_1E77FDB40;
-      v16 = *(a1 + 72);
-      *&v7 = *(a1 + 56);
-      *(&v7 + 1) = *(a1 + 32);
-      v11 = v7;
-      v8 = *(a1 + 48);
-      v15 = *(a1 + 64);
-      v9 = *(a1 + 40);
-      *&v10 = v8;
-      *(&v10 + 1) = v9;
-      v13 = v11;
-      v14 = v10;
-      dispatch_async(v6, block);
+      v15 = *(a1 + 72);
+      *&v6 = *(a1 + 56);
+      *(&v6 + 1) = *(a1 + 32);
+      v10 = v6;
+      v7 = *(a1 + 48);
+      v14 = *(a1 + 64);
+      v8 = *(a1 + 40);
+      *&v9 = v7;
+      *(&v9 + 1) = v8;
+      v12 = v10;
+      v13 = v9;
+      dispatch_async(v5, block);
     }
   }
 
@@ -292,87 +294,86 @@ void __66__EKAutocompletePendingSearch_searchWithString_completionHandler___bloc
 
 void __66__EKAutocompletePendingSearch_searchWithString_completionHandler___block_invoke_21(uint64_t a1)
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG))
   {
     __66__EKAutocompletePendingSearch_searchWithString_completionHandler___block_invoke_21_cold_1();
   }
 
-  v41 = objc_opt_new();
-  v45 = objc_opt_new();
-  v44 = [MEMORY[0x1E695DF00] date];
+  v38 = objc_opt_new();
+  v42 = objc_opt_new();
+  v41 = [MEMORY[0x1E695DF00] date];
   v2 = *(*(*(a1 + 72) + 8) + 40);
   if (v2)
   {
     [*(a1 + 32) insertObject:v2 atIndex:0];
   }
 
-  v61 = 0u;
-  v62 = 0u;
+  v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   obj = *(a1 + 32);
-  v3 = [obj countByEnumeratingWithState:&v59 objects:v64 count:16];
+  v3 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
   if (v3)
   {
     v4 = 0;
-    v43 = *v60;
+    v40 = *v57;
 LABEL_7:
     v5 = 0;
     while (1)
     {
-      if (*v60 != v43)
+      if (*v57 != v40)
       {
         objc_enumerationMutation(obj);
       }
 
-      v6 = *(*(&v59 + 1) + 8 * v5);
+      v6 = *(*(&v56 + 1) + 8 * v5);
+      v52 = 0;
+      v53 = &v52;
+      v54 = 0x2020000000;
       v55 = 0;
-      v56 = &v55;
-      v57 = 0x2020000000;
-      v58 = 0;
-      v7 = *(a1 + 40);
-      v8 = [objc_opt_class() _queue];
+      v7 = [objc_opt_class() _queue];
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __66__EKAutocompletePendingSearch_searchWithString_completionHandler___block_invoke_25;
       block[3] = &unk_1E77FD530;
       block[4] = *(a1 + 40);
-      block[5] = &v55;
-      dispatch_sync(v8, block);
+      block[5] = &v52;
+      dispatch_sync(v7, block);
 
-      if (*(v56 + 24) == 1)
+      if (*(v53 + 24) == 1)
       {
         if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG))
         {
           __66__EKAutocompletePendingSearch_searchWithString_completionHandler___block_invoke_21_cold_3();
         }
 
-        _Block_object_dispose(&v55, 8);
+        _Block_object_dispose(&v52, 8);
 
         goto LABEL_56;
       }
 
-      v9 = [MEMORY[0x1E695DF00] date];
-      [v9 timeIntervalSinceDate:v44];
-      if (v10 >= 0.5)
+      v8 = [MEMORY[0x1E695DF00] date];
+      [v8 timeIntervalSinceDate:v41];
+      if (v9 >= 0.5)
       {
         if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG))
         {
           __66__EKAutocompletePendingSearch_searchWithString_completionHandler___block_invoke_21_cold_2();
         }
 
-        _Block_object_dispose(&v55, 8);
+        _Block_object_dispose(&v52, 8);
         goto LABEL_37;
       }
 
-      v11 = [v6 title];
-      v12 = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
-      v13 = [v11 stringByTrimmingCharactersInSet:v12];
-      v14 = [v13 lowercaseString];
+      v10 = [v6 title];
+      v11 = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
+      v12 = [v10 stringByTrimmingCharactersInSet:v11];
+      v13 = [v12 lowercaseString];
 
-      v15 = [v45 objectForKey:v14];
-      if (!v4 || v15 != 0)
+      v14 = [v42 objectForKey:v13];
+      if (!v4 || v14 != 0)
       {
         break;
       }
@@ -380,10 +381,10 @@ LABEL_7:
       v4 = 1;
 LABEL_28:
 
-      _Block_object_dispose(&v55, 8);
+      _Block_object_dispose(&v52, 8);
       if (v3 == ++v5)
       {
-        v3 = [obj countByEnumeratingWithState:&v59 objects:v64 count:16];
+        v3 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
         if (v3)
         {
           goto LABEL_7;
@@ -393,25 +394,25 @@ LABEL_28:
       }
     }
 
-    v16 = *(*(a1 + 40) + 8);
-    v17 = [v6 identifier];
-    v18 = [v16 eventWithUniqueId:v17];
+    v15 = *(*(a1 + 40) + 8);
+    v16 = [v6 identifier];
+    v17 = [v15 eventWithUniqueId:v16];
 
-    if (([*(a1 + 40) _shouldReturnResultForEvent:v18 considerReadonlyEvents:0] & 1) == 0)
+    if (([*(a1 + 40) _shouldReturnResultForEvent:v17 considerReadonlyEvents:0] & 1) == 0)
     {
 LABEL_27:
 
       goto LABEL_28;
     }
 
-    if (v15)
+    if (v14)
     {
-      if ([(EKAutocompleteSearchResult *)v15 source]== 2)
+      if ([(EKAutocompleteSearchResult *)v14 source]== 2)
       {
 LABEL_24:
         if (*(*(a1 + 40) + 16))
         {
-          v4 = [v41 count] >= *(*(a1 + 40) + 16);
+          v4 = [v38 count] >= *(*(a1 + 40) + 16);
         }
 
         else
@@ -425,97 +426,97 @@ LABEL_24:
 
     else
     {
-      v19 = [v6 isNaturalLanguageSuggestedEvent];
-      v20 = [EKAutocompleteSearchResult alloc];
-      if (v19)
+      v18 = [v6 isNaturalLanguageSuggestedEvent];
+      v19 = [EKAutocompleteSearchResult alloc];
+      if (v18)
       {
-        v21 = 2;
+        v20 = 2;
       }
 
       else
       {
-        v21 = 0;
+        v20 = 0;
       }
 
-      v15 = [(EKAutocompleteSearchResult *)v20 initWithSource:v21, v41];
-      [v45 setObject:v15 forKey:v14];
-      [v41 addObject:v15];
-      -[EKAutocompleteSearchResult setAllDay:](v15, "setAllDay:", [v18 isAllDay]);
+      v14 = [(EKAutocompleteSearchResult *)v19 initWithSource:v20, v38];
+      [v42 setObject:v14 forKey:v13];
+      [v38 addObject:v14];
+      -[EKAutocompleteSearchResult setAllDay:](v14, "setAllDay:", [v17 isAllDay]);
     }
 
-    [(EKAutocompleteSearchResult *)v15 updateSelfFromEvent:v18, v41];
+    [(EKAutocompleteSearchResult *)v14 updateSelfFromEvent:v17, v38];
     goto LABEL_24;
   }
 
 LABEL_37:
 
-  v22 = *(*(a1 + 40) + 40);
-  if (v22)
+  v21 = *(*(a1 + 40) + 40);
+  if (v21)
   {
-    v23 = [v22 eventsFromPasteboard];
-    v24 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v23, "count")}];
-    v52 = 0u;
-    v53 = 0u;
+    v22 = [v21 eventsFromPasteboard];
+    v23 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v22, "count")}];
+    v49 = 0u;
     v50 = 0u;
-    v51 = 0u;
-    v25 = v23;
-    v26 = 0;
-    v27 = [v25 countByEnumeratingWithState:&v50 objects:v63 count:16];
-    if (v27)
+    v47 = 0u;
+    v48 = 0u;
+    v24 = v22;
+    v25 = 0;
+    v26 = [v24 countByEnumeratingWithState:&v47 objects:v60 count:16];
+    if (v26)
     {
-      v28 = *v51;
+      v27 = *v48;
       do
       {
-        for (i = 0; i != v27; ++i)
+        for (i = 0; i != v26; ++i)
         {
-          if (*v51 != v28)
+          if (*v48 != v27)
           {
-            objc_enumerationMutation(v25);
+            objc_enumerationMutation(v24);
           }
 
-          v30 = *(*(&v50 + 1) + 8 * i);
-          if ([*(a1 + 40) _shouldReturnResultForEvent:v30 considerReadonlyEvents:{1, v41}])
+          v29 = *(*(&v47 + 1) + 8 * i);
+          if ([*(a1 + 40) _shouldReturnResultForEvent:v29 considerReadonlyEvents:{1, v38}])
           {
             if ([*(a1 + 48) length])
             {
-              v31 = [v30 title];
-              v32 = [v31 containsCaseAndDiacriticInsensitive:*(a1 + 48)];
+              v30 = [v29 title];
+              v31 = [v30 containsCaseAndDiacriticInsensitive:*(a1 + 48)];
 
-              v26 |= v32;
+              v25 |= v31;
             }
 
             else
             {
-              v26 = 1;
+              v25 = 1;
             }
 
-            v33 = [[EKAutocompleteSearchResult alloc] initWithSource:3];
-            -[EKAutocompleteSearchResult setAllDay:](v33, "setAllDay:", [v30 isAllDay]);
-            [v30 travelTime];
-            [(EKAutocompleteSearchResult *)v33 setTravelTime:?];
-            v34 = [v30 travelStartLocation];
-            [(EKAutocompleteSearchResult *)v33 setTravelStartLocation:v34];
+            v32 = [[EKAutocompleteSearchResult alloc] initWithSource:3];
+            -[EKAutocompleteSearchResult setAllDay:](v32, "setAllDay:", [v29 isAllDay]);
+            [v29 travelTime];
+            [(EKAutocompleteSearchResult *)v32 setTravelTime:?];
+            v33 = [v29 travelStartLocation];
+            [(EKAutocompleteSearchResult *)v32 setTravelStartLocation:v33];
 
-            [(EKAutocompleteSearchResult *)v33 updateSelfFromEvent:v30];
-            -[EKAutocompleteSearchResult setCalendarColor:](v33, "setCalendarColor:", [*(*(a1 + 40) + 40) colorOfCalendarToPasteTo]);
-            [v24 addObject:v33];
+            [(EKAutocompleteSearchResult *)v32 updateSelfFromEvent:v29];
+            -[EKAutocompleteSearchResult setCalendarColor:](v32, "setCalendarColor:", [*(*(a1 + 40) + 40) colorOfCalendarToPasteTo]);
+            [v23 addObject:v32];
           }
         }
 
-        v27 = [v25 countByEnumeratingWithState:&v50 objects:v63 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v47 objects:v60 count:16];
       }
 
-      while (v27);
+      while (v26);
     }
 
-    if ((([v24 count] != 0) & v26) == 1)
+    if ((([v23 count] != 0) & v25) == 1)
     {
-      v35 = [[EKAutocompleteSearchResult alloc] initWithSource:4];
-      [(EKAutocompleteSearchResult *)v35 setPasteboardResults:v24];
-      v36 = [v41 firstObject];
-      v37 = [v36 source] == 2;
+      v34 = [[EKAutocompleteSearchResult alloc] initWithSource:4];
+      [(EKAutocompleteSearchResult *)v34 setPasteboardResults:v23];
+      v35 = [v38 firstObject];
+      v36 = [v35 source] == 2;
 
-      [v41 insertObject:v35 atIndex:v37];
+      [v38 insertObject:v34 atIndex:v36];
     }
   }
 
@@ -524,25 +525,23 @@ LABEL_37:
     __66__EKAutocompletePendingSearch_searchWithString_completionHandler___block_invoke_21_cold_4();
   }
 
-  v38 = *(a1 + 40);
-  v39 = [objc_opt_class() _queue];
-  v46[0] = MEMORY[0x1E69E9820];
-  v46[1] = 3221225472;
-  v46[2] = __66__EKAutocompletePendingSearch_searchWithString_completionHandler___block_invoke_28;
-  v46[3] = &unk_1E77FDB18;
-  v46[4] = *(a1 + 40);
-  v49 = *(a1 + 64);
-  v47 = v41;
-  v48 = *(a1 + 56);
-  dispatch_async(v39, v46);
+  v37 = [objc_opt_class() _queue];
+  v43[0] = MEMORY[0x1E69E9820];
+  v43[1] = 3221225472;
+  v43[2] = __66__EKAutocompletePendingSearch_searchWithString_completionHandler___block_invoke_28;
+  v43[3] = &unk_1E77FDB18;
+  v43[4] = *(a1 + 40);
+  v46 = *(a1 + 64);
+  v44 = v38;
+  v45 = *(a1 + 56);
+  dispatch_async(v37, v43);
 
 LABEL_56:
-  v40 = *MEMORY[0x1E69E9840];
 }
 
-void __66__EKAutocompletePendingSearch_searchWithString_completionHandler___block_invoke_28(void *a1)
+void __66__EKAutocompletePendingSearch_searchWithString_completionHandler___block_invoke_28(uint64_t a1)
 {
-  v2 = *(a1[4] + 48);
+  v2 = *(*(a1 + 32) + 48);
   v3 = os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG);
   if (v2)
   {
@@ -551,13 +550,11 @@ void __66__EKAutocompletePendingSearch_searchWithString_completionHandler___bloc
       __66__EKAutocompletePendingSearch_searchWithString_completionHandler___block_invoke_28_cold_1();
     }
 
-    v4 = a1[4];
+    v4 = *(a1 + 32);
     v5 = *(v4 + 48);
     *(v4 + 48) = 0;
 
-    v6 = a1[6];
-    v7 = a1[5];
-    (*(a1[7] + 16))();
+    (*(*(a1 + 56) + 16))();
   }
 
   else if (v3)
@@ -597,15 +594,14 @@ void __37__EKAutocompletePendingSearch_cancel__block_invoke(uint64_t a1)
 
 void __66__EKAutocompletePendingSearch_searchWithString_completionHandler___block_invoke_2_cold_2(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 48);
   v4 = *a2;
-  v6 = 138412546;
-  v7 = v3;
-  v8 = 2112;
-  v9 = v4;
-  _os_log_error_impl(&dword_1A805E000, log, OS_LOG_TYPE_ERROR, "Spotlight query controller returned an error when searching for string (%@), error: %@", &v6, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412546;
+  v6 = v3;
+  v7 = 2112;
+  v8 = v4;
+  _os_log_error_impl(&dword_1A805E000, log, OS_LOG_TYPE_ERROR, "Spotlight query controller returned an error when searching for string (%@), error: %@", &v5, 0x16u);
 }
 
 @end

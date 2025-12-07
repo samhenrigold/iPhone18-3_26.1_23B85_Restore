@@ -6,7 +6,7 @@
 
 - (id)initWithDataFileName:()DemoData
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (!v5)
   {
@@ -31,8 +31,8 @@
     {
       absoluteString = [v7 absoluteString];
       *buf = 138543618;
-      v17 = absoluteString;
-      v18 = 2114;
+      v16 = absoluteString;
+      v17 = 2114;
       selfCopy = self;
       _os_log_fault_impl(&dword_228986000, v10, OS_LOG_TYPE_FAULT, "Bad EADFFile %{public}@,  %{public}@", buf, 0x16u);
     }
@@ -41,7 +41,6 @@
     v9 = [self initWithData:v11];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

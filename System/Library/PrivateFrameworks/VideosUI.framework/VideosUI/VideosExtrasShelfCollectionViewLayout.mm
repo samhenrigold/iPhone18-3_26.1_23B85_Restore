@@ -3,20 +3,20 @@
 
 @implementation VideosExtrasShelfCollectionViewLayout
 
-uint64_t __57___VideosExtrasShelfCollectionViewLayout__calculateSizes__block_invoke(uint64_t result, uint64_t a2)
+id *__57___VideosExtrasShelfCollectionViewLayout__calculateSizes__block_invoke(id *result, uint64_t a2)
 {
   v2 = result;
   if (*(result + 96) == 1)
   {
-    result = [*(result + 32) collectionView:*(result + 40) layout:*(result + 48) insetForSectionAtIndex:a2];
+    result = [result[4] collectionView:result[5] layout:result[6] insetForSectionAtIndex:a2];
   }
 
   else
   {
-    v3 = *(result + 72);
+    v3 = result[9];
   }
 
-  *(*(*(v2 + 56) + 8) + 32) = v3;
+  *(*(v2[7] + 1) + 32) = v3;
   return result;
 }
 

@@ -153,11 +153,11 @@ uint64_t __33__MSVBloomFilter_containsObject___block_invoke(uint64_t a1, CFIndex
 
 - (MSVBloomFilter)initWithCoder:(id)coder
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v17.receiver = self;
-  v17.super_class = MSVBloomFilter;
-  v5 = [(MSVBloomFilter *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = MSVBloomFilter;
+  v5 = [(MSVBloomFilter *)&v16 init];
   if (!v5)
   {
     goto LABEL_6;
@@ -179,20 +179,20 @@ uint64_t __33__MSVBloomFilter_containsObject___block_invoke(uint64_t a1, CFIndex
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
     {
-      v14 = [v7 length];
+      v13 = [v7 length];
       vectorCapacity = v5->_vectorCapacity;
-      v16 = vectorCapacity + 7;
+      v15 = vectorCapacity + 7;
       if (vectorCapacity >= 0)
       {
-        v16 = v5->_vectorCapacity;
+        v15 = v5->_vectorCapacity;
       }
 
       *buf = 134218496;
-      v19 = v14;
-      v20 = 2048;
-      v21 = vectorCapacity;
-      v22 = 2048;
-      v23 = v16 >> 3;
+      v18 = v13;
+      v19 = 2048;
+      v20 = vectorCapacity;
+      v21 = 2048;
+      v22 = v15 >> 3;
       _os_log_fault_impl(&dword_1AC81F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "MSVBloomFilter encoded data length does not match vector capacity: %lld != (%lld / 8) [%lld]", buf, 0x20u);
     }
 
@@ -217,7 +217,6 @@ LABEL_6:
   v11 = v5;
 LABEL_9:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

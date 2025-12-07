@@ -58,15 +58,12 @@
         return -1;
       }
 
-      v26 = *MEMORY[0x1E696A768];
-      v25 = "No path";
-      v24 = 4294960592;
+      NSErrorF_safe(*MEMORY[0x1E696A768], 4294960592, "No path");
       goto LABEL_18;
     }
 
-    v28 = 384;
-    v13 = open(uTF8String, 513);
-    if (v13 < 0)
+    v8 = open(uTF8String, 513);
+    if (v8 < 0)
     {
       if (*__error() != 2)
       {
@@ -81,39 +78,36 @@
           return -1;
         }
 
-        v26 = *MEMORY[0x1E696A768];
-        v25 = "Get parent URL failed";
-        v24 = 4294960596;
+        NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "Get parent URL failed");
         goto LABEL_18;
       }
 
-      v15 = uRLByDeletingLastPathComponent;
+      v10 = uRLByDeletingLastPathComponent;
       defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-      v30 = 0;
-      v17 = [defaultManager createDirectoryAtURL:v15 withIntermediateDirectories:1 attributes:0 error:&v30];
-      v18 = v30;
+      v23 = 0;
+      v12 = [defaultManager createDirectoryAtURL:v10 withIntermediateDirectories:1 attributes:0 error:&v23];
+      v13 = v23;
 
-      if ((v17 & 1) == 0)
+      if ((v12 & 1) == 0)
       {
         if (error)
         {
-          *error = NSErrorNestedF_safe(*MEMORY[0x1E696A768], 4294960592, v18, "Create parent failed", v19, v20, v21, v22, 384);
+          *error = NSErrorNestedF_safe(*MEMORY[0x1E696A768], 4294960592, v13, "Create parent failed", v14, v15, v16, v17, 384);
         }
 
         return -1;
       }
 
-      v28 = 384;
-      fd = open(uTF8String, 513);
+      fd = open(uTF8String, 513, 384);
 
       if (fd < 0)
       {
 LABEL_15:
         if (error)
         {
-          v23 = *MEMORY[0x1E696A798];
-          v24 = *__error();
-          v25 = "open failed";
+          v18 = *MEMORY[0x1E696A798];
+          v19 = *__error();
+          v20 = "open failed";
           goto LABEL_17;
         }
 
@@ -123,7 +117,7 @@ LABEL_15:
 
     else
     {
-      fd = v13;
+      fd = v8;
     }
 
     self->_fd = fd;
@@ -134,44 +128,41 @@ LABEL_15:
         return -1;
       }
 
-      v23 = *MEMORY[0x1E696A798];
-      v24 = *__error();
-      v25 = "F_NOCACHE failed";
+      v18 = *MEMORY[0x1E696A798];
+      v19 = *__error();
+      v20 = "F_NOCACHE failed";
       goto LABEL_17;
     }
 
-    v28 = 1;
-    if (fcntl(fd, 76))
+    if (fcntl(fd, 76, 1))
     {
       if (!error)
       {
         return -1;
       }
 
-      v23 = *MEMORY[0x1E696A798];
-      v24 = *__error();
-      v25 = "F_SINGLE_WRITER failed";
+      v18 = *MEMORY[0x1E696A798];
+      v19 = *__error();
+      v20 = "F_SINGLE_WRITER failed";
       goto LABEL_17;
     }
 
     if (self->_totalLength)
     {
-      v29[2] = self->_totalLength;
-      v29[3] = 0;
-      v29[0] = 0x300000002;
-      v29[1] = 0;
-      v28 = v29;
-      if (fcntl(fd, 42))
+      v22[2] = self->_totalLength;
+      v22[3] = 0;
+      v22[0] = 0x300000002;
+      v22[1] = 0;
+      if (fcntl(fd, 42, v22))
       {
         if (error)
         {
-          v23 = *MEMORY[0x1E696A798];
-          v24 = *__error();
-          v25 = "F_PREALLOCATE failed";
+          v18 = *MEMORY[0x1E696A798];
+          v19 = *__error();
+          v20 = "F_PREALLOCATE failed";
 LABEL_17:
-          v26 = v23;
-LABEL_18:
-          *error = NSErrorF_safe(v26, v24, v25, v8, v9, v10, v11, v12, v28);
+          NSErrorF_safe(v18, v19, v20);
+          *error = LABEL_18:;
           return -1;
         }
 
@@ -189,25 +180,25 @@ LABEL_18:
   fd = self->_fd;
   if (fd < 0)
   {
-    v31 = 0;
-    fd = [(CUFile *)self _openForWritingAndReturnError:&v31];
-    v6 = v31;
+    v20 = 0;
+    fd = [(CUFile *)self _openForWritingAndReturnError:&v20];
+    v6 = v20;
     data = v6;
     if (fd < 0)
     {
 LABEL_15:
       selfCopy2 = self;
-      v18 = writeCopy;
-      v19 = data;
+      v13 = writeCopy;
+      v14 = data;
       goto LABEL_16;
     }
   }
 
   if ([writeCopy offset] != -1 && lseek(fd, objc_msgSend(writeCopy, "offset"), 0) == -1)
   {
-    v20 = *MEMORY[0x1E696A798];
-    v21 = __error();
-    data = NSErrorF_safe(v20, *v21, "lseek failed", v22, v23, v24, v25, v26, v30);
+    v15 = *MEMORY[0x1E696A798];
+    v16 = __error();
+    data = NSErrorF_safe(v15, *v16, "lseek failed");
     goto LABEL_15;
   }
 
@@ -218,10 +209,10 @@ LABEL_15:
   {
 LABEL_13:
     selfCopy2 = self;
-    v18 = writeCopy;
-    v19 = 0;
+    v13 = writeCopy;
+    v14 = 0;
 LABEL_16:
-    [(CUFile *)selfCopy2 _completeWriteRequest:v18 error:v19];
+    [(CUFile *)selfCopy2 _completeWriteRequest:v13 error:v14];
     goto LABEL_20;
   }
 
@@ -236,8 +227,8 @@ LABEL_16:
 
     if (!v11)
     {
-      v27 = *MEMORY[0x1E696A798];
-      v28 = 34;
+      v17 = *MEMORY[0x1E696A798];
+      v18 = 34;
       goto LABEL_19;
     }
 
@@ -254,11 +245,11 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v27 = *MEMORY[0x1E696A798];
-  v28 = *__error();
+  v17 = *MEMORY[0x1E696A798];
+  v18 = *__error();
 LABEL_19:
-  v29 = NSErrorF_safe(v27, v28, "write failed", v12, v13, v14, v15, v16, v30);
-  [(CUFile *)self _completeWriteRequest:writeCopy error:v29];
+  v19 = NSErrorF_safe(v17, v18, "write failed");
+  [(CUFile *)self _completeWriteRequest:writeCopy error:v19];
 
 LABEL_20:
 }
@@ -295,8 +286,8 @@ LABEL_20:
   {
     v6 = *MEMORY[0x1E696A768];
     requestCopy2 = request;
-    v14 = NSErrorF_safe(v6, 4294960551, "not prepared for writing", v8, v9, v10, v11, v12, v13);
-    [(CUFile *)self _completeWriteRequest:requestCopy2 error:v14];
+    v8 = NSErrorF_safe(v6, 4294960551, "not prepared for writing");
+    [(CUFile *)self _completeWriteRequest:requestCopy2 error:v8];
   }
 }
 
@@ -364,37 +355,35 @@ LABEL_20:
 
     if (uTF8String)
     {
-      v13 = open(uTF8String, 0);
-      if (v13 < 0)
+      v8 = open(uTF8String, 0);
+      if (v8 < 0)
       {
         if (!error)
         {
           return -1;
         }
 
-        v18 = *MEMORY[0x1E696A798];
-        v17 = *__error();
-        v16 = "open failed";
+        v10 = *MEMORY[0x1E696A798];
+        v11 = *__error();
+        v12 = "open failed";
       }
 
       else
       {
-        fd = v13;
-        self->_fd = v13;
-        v19 = 1;
-        if (!fcntl(v13, 48))
+        fd = v8;
+        self->_fd = v8;
+        if (!fcntl(v8, 48, 1))
         {
-          v19 = 1;
-          if (!fcntl(fd, 45))
+          if (!fcntl(fd, 45, 1))
           {
             return fd;
           }
 
           if (error)
           {
-            v18 = *MEMORY[0x1E696A798];
-            v17 = *__error();
-            v16 = "F_RDAHEAD failed";
+            v10 = *MEMORY[0x1E696A798];
+            v11 = *__error();
+            v12 = "F_RDAHEAD failed";
             goto LABEL_15;
           }
 
@@ -406,23 +395,20 @@ LABEL_20:
           return -1;
         }
 
-        v18 = *MEMORY[0x1E696A798];
-        v17 = *__error();
-        v16 = "F_NOCACHE failed";
+        v10 = *MEMORY[0x1E696A798];
+        v11 = *__error();
+        v12 = "F_NOCACHE failed";
       }
 
 LABEL_15:
-      v15 = v18;
+      NSErrorF_safe(v10, v11, v12);
       goto LABEL_16;
     }
 
     if (error)
     {
-      v15 = *MEMORY[0x1E696A768];
-      v16 = "No path";
-      v17 = 4294960592;
-LABEL_16:
-      *error = NSErrorF_safe(v15, v17, v16, v8, v9, v10, v11, v12, v19);
+      NSErrorF_safe(*MEMORY[0x1E696A768], 4294960592, "No path");
+      *error = LABEL_16:;
       return -1;
     }
 
@@ -438,9 +424,9 @@ LABEL_16:
   fd = self->_fd;
   if (fd < 0)
   {
-    v33 = 0;
-    fd = [(CUFile *)self _openForReadingAndReturnError:&v33];
-    v6 = v33;
+    v22 = 0;
+    fd = [(CUFile *)self _openForReadingAndReturnError:&v22];
+    v6 = v22;
     v7 = v6;
     if (fd < 0)
     {
@@ -450,9 +436,9 @@ LABEL_16:
 
   if ([readCopy offset] != -1 && lseek(fd, objc_msgSend(readCopy, "offset"), 0) == -1)
   {
-    v24 = *MEMORY[0x1E696A798];
-    v25 = *__error();
-    v31 = "lseek failed";
+    v19 = *MEMORY[0x1E696A798];
+    v20 = *__error();
+    v21 = "lseek failed";
     goto LABEL_22;
   }
 
@@ -466,43 +452,43 @@ LABEL_16:
   v10 = malloc_type_malloc(v8, 0x6F17144CuLL);
   if (!v10)
   {
-    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960568, "malloc failed: %zu bytes", v11, v12, v13, v14, v15, v9);
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960568, "malloc failed: %zu bytes");
     goto LABEL_23;
   }
 
-  v16 = v10;
+  v11 = v10;
   if (v9 < 1)
   {
 LABEL_16:
-    v7 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:v16 length:v9];
+    v7 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:v11 length:v9];
     selfCopy2 = self;
-    v21 = readCopy;
-    v22 = v7;
-    v23 = 0;
+    v16 = readCopy;
+    v17 = v7;
+    v18 = 0;
     goto LABEL_25;
   }
 
-  v17 = &v10[v9];
-  v18 = v10;
+  v12 = &v10[v9];
+  v13 = v10;
   while (1)
   {
-    v19 = read(fd, v18, v17 - v18);
-    if (v19 < 0)
+    v14 = read(fd, v13, v12 - v13);
+    if (v14 < 0)
     {
       break;
     }
 
-    if (!v19)
+    if (!v14)
     {
-      free(v16);
-      v24 = *MEMORY[0x1E696A798];
-      v25 = 34;
+      free(v11);
+      v19 = *MEMORY[0x1E696A798];
+      v20 = 34;
       goto LABEL_21;
     }
 
-    v18 += v19;
+    v13 += v14;
 LABEL_15:
-    if (v18 >= v17)
+    if (v13 >= v12)
     {
       goto LABEL_16;
     }
@@ -513,21 +499,21 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  free(v16);
-  v24 = *MEMORY[0x1E696A798];
-  v25 = *__error();
+  free(v11);
+  v19 = *MEMORY[0x1E696A798];
+  v20 = *__error();
 LABEL_21:
-  v31 = "read failed";
+  v21 = "read failed";
 LABEL_22:
-  NSErrorF_safe(v24, v25, v31, v26, v27, v28, v29, v30, v32);
+  NSErrorF_safe(v19, v20, v21);
   v7 = LABEL_23:;
 LABEL_24:
   selfCopy2 = self;
-  v21 = readCopy;
-  v22 = 0;
-  v23 = v7;
+  v16 = readCopy;
+  v17 = 0;
+  v18 = v7;
 LABEL_25:
-  [(CUFile *)selfCopy2 _completeReadRequest:v21 data:v22 error:v23];
+  [(CUFile *)selfCopy2 _completeReadRequest:v16 data:v17 error:v18];
 }
 
 - (void)_processReads
@@ -562,8 +548,8 @@ LABEL_25:
   {
     v6 = *MEMORY[0x1E696A768];
     requestCopy2 = request;
-    v14 = NSErrorF_safe(v6, 4294960551, "not prepared for reading", v8, v9, v10, v11, v12, v13);
-    [(CUFile *)self _completeReadRequest:requestCopy2 data:0 error:v14];
+    v8 = NSErrorF_safe(v6, 4294960551, "not prepared for reading");
+    [(CUFile *)self _completeReadRequest:requestCopy2 data:0 error:v8];
   }
 }
 
@@ -613,25 +599,25 @@ LABEL_25:
 
   if (uTF8String)
   {
-    memset(&v20.st_blksize, 0, 32);
-    memset(&v20, 0, 96);
-    *&v20.st_size = 0xFFFFFFFFFFFFFFFFLL;
-    if (!stat(uTF8String, &v20))
+    memset(&v10.st_blksize, 0, 32);
+    memset(&v10, 0, 96);
+    *&v10.st_size = 0xFFFFFFFFFFFFFFFFLL;
+    if (!stat(uTF8String, &v10))
     {
-      handlerCopy[2](handlerCopy, v20.st_size, 0);
+      handlerCopy[2](handlerCopy, v10.st_size, 0);
       goto LABEL_7;
     }
 
-    v12 = *MEMORY[0x1E696A798];
-    v13 = __error();
-    v19 = NSErrorF_safe(v12, *v13, "stat failed", v14, v15, v16, v17, v18, *&v20.st_dev);
-    (handlerCopy)[2](handlerCopy, 0, v19);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = __error();
+    v9 = NSErrorF_safe(v7, *v8, "stat failed");
+    (handlerCopy)[2](handlerCopy, 0, v9);
   }
 
   else
   {
-    v19 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960592, "No path", v7, v8, v9, v10, v11, *&v20.st_dev);
-    (handlerCopy)[2](handlerCopy, 0, v19);
+    v9 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960592, "No path");
+    (handlerCopy)[2](handlerCopy, 0, v9);
   }
 
 LABEL_7:
@@ -667,7 +653,7 @@ LABEL_7:
 
 void __37__CUFile_closeWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(v2 + 16);
   *(v2 + 16) = -1;
@@ -686,78 +672,78 @@ void __37__CUFile_closeWithCompletionHandler___block_invoke(uint64_t a1)
     close(v3);
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
-  v45 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v10 = v4;
-  v11 = [v10 countByEnumeratingWithState:&v44 objects:v49 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v45;
+    v13 = *v35;
     v14 = *MEMORY[0x1E696A768];
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v45 != v13)
+        if (*v35 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v44 + 1) + 8 * i);
+        v16 = *(*(&v34 + 1) + 8 * i);
         v17 = [v16 completionHandler];
 
         if (v17)
         {
           v18 = [v16 completionHandler];
-          v24 = NSErrorF_safe(v14, 4294960573, "CUFile closed", v19, v20, v21, v22, v23, v40);
-          (v18)[2](v18, 0, v24);
+          v19 = NSErrorF_safe(v14, 4294960573, "CUFile closed");
+          (v18)[2](v18, 0, v19);
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v44 objects:v49 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v12);
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v25 = v7;
-  v26 = [v25 countByEnumeratingWithState:&v40 objects:v48 count:16];
-  if (v26)
+  v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v20 = v7;
+  v21 = [v20 countByEnumeratingWithState:&v30 objects:v38 count:16];
+  if (v21)
   {
-    v27 = v26;
-    v28 = *v41;
-    v29 = *MEMORY[0x1E696A768];
+    v22 = v21;
+    v23 = *v31;
+    v24 = *MEMORY[0x1E696A768];
     do
     {
-      for (j = 0; j != v27; ++j)
+      for (j = 0; j != v22; ++j)
       {
-        if (*v41 != v28)
+        if (*v31 != v23)
         {
-          objc_enumerationMutation(v25);
+          objc_enumerationMutation(v20);
         }
 
-        v31 = *(*(&v40 + 1) + 8 * j);
-        v32 = [v31 completionHandler];
+        v26 = *(*(&v30 + 1) + 8 * j);
+        v27 = [v26 completionHandler];
 
-        if (v32)
+        if (v27)
         {
-          v33 = [v31 completionHandler];
-          v39 = NSErrorF_safe(v29, 4294960573, "CUFile closed", v34, v35, v36, v37, v38, v40);
-          (v33)[2](v33, v39);
+          v28 = [v26 completionHandler];
+          v29 = NSErrorF_safe(v24, 4294960573, "CUFile closed");
+          (v28)[2](v28, v29);
         }
       }
 
-      v27 = [v25 countByEnumeratingWithState:&v40 objects:v48 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
-    while (v27);
+    while (v22);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -777,32 +763,32 @@ void __37__CUFile_closeWithCompletionHandler___block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, v7);
 }
 
-void __36__CUFile_openWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void __36__CUFile_openWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v9 = *(a1 + 32);
-  if (v9[3])
+  v2 = *(a1 + 32);
+  if (v2[3])
   {
-    v16 = 0;
-    [v9 _openForReadingAndReturnError:&v16];
-    v10 = v16;
+    v8 = 0;
+    [v2 _openForReadingAndReturnError:&v8];
+    v3 = v8;
 LABEL_5:
-    v11 = v10;
+    v4 = v3;
     (*(*(a1 + 40) + 16))();
 
     return;
   }
 
-  if (v9[4])
+  if (v2[4])
   {
-    v15 = 0;
-    [v9 _openForWritingAndReturnError:&v15];
-    v10 = v15;
+    v7 = 0;
+    [v2 _openForWritingAndReturnError:&v7];
+    v3 = v7;
     goto LABEL_5;
   }
 
-  v12 = *(a1 + 40);
-  v14 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960587, "re-open after close not allowed", a4, a5, a6, a7, a8, v13);
-  (*(v12 + 16))(v12, v14);
+  v5 = *(a1 + 40);
+  v6 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960587, "re-open after close not allowed");
+  (*(v5 + 16))(v5, v6);
 }
 
 - (void)dealloc
@@ -837,86 +823,86 @@ LABEL_5:
 
 void __17__CUFile_dealloc__block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 48);
   if ((v2 & 0x80000000) == 0)
   {
     close(v2);
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
-  v39 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v28 objects:v33 count:16];
   v5 = MEMORY[0x1E696A768];
   if (v4)
   {
     v6 = v4;
-    v7 = *v39;
+    v7 = *v29;
     v8 = *MEMORY[0x1E696A768];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v39 != v7)
+        if (*v29 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v10 = *(*(&v38 + 1) + 8 * i);
+        v10 = *(*(&v28 + 1) + 8 * i);
         v11 = [v10 completionHandler];
 
         if (v11)
         {
           v12 = [v10 completionHandler];
-          v18 = NSErrorF_safe(v8, 4294960570, "CUFile deleted", v13, v14, v15, v16, v17, v34);
-          (v12)[2](v12, 0, v18);
+          v13 = NSErrorF_safe(v8, 4294960570, "CUFile deleted");
+          (v12)[2](v12, 0, v13);
         }
       }
 
-      v6 = [v3 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v6 = [v3 countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v6);
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v19 = *(a1 + 40);
-  v20 = [v19 countByEnumeratingWithState:&v34 objects:v42 count:16];
-  if (v20)
+  v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v14 = *(a1 + 40);
+  v15 = [v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  if (v15)
   {
-    v21 = v20;
-    v22 = *v35;
-    v23 = *v5;
+    v16 = v15;
+    v17 = *v25;
+    v18 = *v5;
     do
     {
-      for (j = 0; j != v21; ++j)
+      for (j = 0; j != v16; ++j)
       {
-        if (*v35 != v22)
+        if (*v25 != v17)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v14);
         }
 
-        v25 = *(*(&v34 + 1) + 8 * j);
-        v26 = [v25 completionHandler];
+        v20 = *(*(&v24 + 1) + 8 * j);
+        v21 = [v20 completionHandler];
 
-        if (v26)
+        if (v21)
         {
-          v27 = [v25 completionHandler];
-          v33 = NSErrorF_safe(v23, 4294960570, "CUFile deleted", v28, v29, v30, v31, v32, v34);
-          (v27)[2](v27, v33);
+          v22 = [v20 completionHandler];
+          v23 = NSErrorF_safe(v18, 4294960570, "CUFile deleted");
+          (v22)[2](v22, v23);
         }
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
-    while (v21);
+    while (v16);
   }
 }
 
@@ -1039,10 +1025,10 @@ void __71__CUFile_resolveRelativePath_rootPath_dispatchQueue_completionHandler__
     {
       if ([v13 hasPrefix:v10])
       {
-        v20 = [v14 length];
-        if (v20 > [v10 length])
+        v15 = [v14 length];
+        if (v15 > [v10 length])
         {
-          v21 = v14;
+          v16 = v14;
 LABEL_8:
 
           goto LABEL_9;
@@ -1050,31 +1036,28 @@ LABEL_8:
 
         if (error)
         {
-          v23 = *MEMORY[0x1E696A768];
-          v24 = "Path matches root";
+          NSErrorF_safe(*MEMORY[0x1E696A768], 4294960592, "Path matches root");
           goto LABEL_17;
         }
       }
 
       else if (error)
       {
-        v23 = *MEMORY[0x1E696A768];
-        v24 = "Path outside root";
+        NSErrorF_safe(*MEMORY[0x1E696A768], 4294960592, "Path outside root");
 LABEL_17:
-        NSErrorF_safe(v23, 4294960592, v24, v15, v16, v17, v18, v19, v25);
-        *error = v21 = 0;
+        *error = v16 = 0;
         goto LABEL_8;
       }
     }
 
-    v21 = 0;
+    v16 = 0;
     goto LABEL_8;
   }
 
-  v21 = 0;
+  v16 = 0;
 LABEL_9:
 
-  return v21;
+  return v16;
 }
 
 + (void)realPath:(id)path dispatchQueue:(id)queue completionHandler:(id)handler
@@ -1108,63 +1091,63 @@ void __51__CUFile_realPath_dispatchQueue_completionHandler___block_invoke(uint64
   {
     if (error)
     {
-      v23 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "No UTF8 path", v6, v7, v8, v9, v10, v32);
+      v13 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "No UTF8 path");
 LABEL_18:
-      v15 = 0;
-      *error = v23;
+      v10 = 0;
+      *error = v13;
       goto LABEL_8;
     }
 
 LABEL_19:
-    v15 = 0;
+    v10 = 0;
     goto LABEL_8;
   }
 
-  v11 = uTF8String;
-  v12 = realpath_DARWIN_EXTSN(uTF8String, 0);
-  if (!v12)
+  v6 = uTF8String;
+  v7 = realpath_DARWIN_EXTSN(uTF8String, 0);
+  if (!v7)
   {
     if (error)
     {
-      v24 = *MEMORY[0x1E696A798];
-      v30 = *__error();
-      if (v30)
+      v14 = *MEMORY[0x1E696A798];
+      v20 = *__error();
+      if (v20)
       {
-        v31 = v30;
+        v21 = v20;
       }
 
       else
       {
-        v31 = 22;
+        v21 = 22;
       }
 
-      v23 = NSErrorF(v24, v31, "realpath failed: path=%s", v25, v26, v27, v28, v29, v11);
+      v13 = NSErrorF(v14, v21, "realpath failed: path=%s", v15, v16, v17, v18, v19, v6);
       goto LABEL_18;
     }
 
     goto LABEL_19;
   }
 
-  v13 = v12;
-  v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytesNoCopy:v13 length:strlen(v13) encoding:4 freeWhenDone:1];
-  v15 = v14;
-  if (v14)
+  v8 = v7;
+  v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytesNoCopy:v8 length:strlen(v8) encoding:4 freeWhenDone:1];
+  v10 = v9;
+  if (v9)
   {
-    v21 = v14;
+    v11 = v9;
   }
 
   else
   {
-    free(v13);
+    free(v8);
     if (error)
     {
-      *error = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "Create path string failed", v16, v17, v18, v19, v20, v32);
+      *error = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "Create path string failed");
     }
   }
 
 LABEL_8:
 
-  return v15;
+  return v10;
 }
 
 + (OS_dispatch_queue)fileIODispatchQueue

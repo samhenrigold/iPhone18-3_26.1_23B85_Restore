@@ -46,16 +46,7 @@ LABEL_4:
     v17 = objc_msgSend_URLForDirectory_inDomain_appropriateForURL_create_error_(v10, v11, 13, 1, 0, 1, &v34);
     v18 = v34;
 
-    if (!v17)
-    {
-      goto LABEL_10;
-    }
-
-    v21 = objc_msgSend_UUID(MEMORY[0x277CCAD78], v19, v20);
-    v24 = objc_msgSend_UUIDString(v21, v22, v23);
-    v13 = objc_msgSend_URLByAppendingPathComponent_(v17, v25, v24);
-
-    if (v13)
+    if (v17 && (objc_msgSend_UUID(MEMORY[0x277CCAD78], v19, v20), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend_UUIDString(v21, v22, v23), v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend_URLByAppendingPathComponent_(v17, v25, v24), v13 = objc_claimAutoreleasedReturnValue(), v17, v24, v21, v13))
     {
       v28 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v26, v27);
       v33 = v18;
@@ -70,7 +61,6 @@ LABEL_4:
 
     else
     {
-LABEL_10:
       v14 = v18;
     }
   }

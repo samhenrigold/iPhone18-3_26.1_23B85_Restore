@@ -3,7 +3,7 @@
 
 @implementation AXSAutomationLocalizedStringLookupInfoEnabled
 
-uint64_t ___AXSAutomationLocalizedStringLookupInfoEnabled_block_invoke()
+void *___AXSAutomationLocalizedStringLookupInfoEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

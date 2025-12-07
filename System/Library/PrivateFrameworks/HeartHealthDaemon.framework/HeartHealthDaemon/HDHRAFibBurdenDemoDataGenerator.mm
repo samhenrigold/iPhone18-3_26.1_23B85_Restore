@@ -117,7 +117,7 @@
 
 - (void)_generateAFibBurdenSamplesForDemoPerson:(id)person lastTime:(double)time atTime:(double)atTime sampleDate:(id)date objectCollection:(id)collection
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   collectionCopy = collection;
   if (self->_nextAFibBurdenSampleTime <= atTime)
   {
@@ -133,17 +133,17 @@
     if (v17)
     {
       v18 = HKHRAFibBurdenPreviousWeekDayIndexRange();
-      v40 = collectionCopy;
+      v39 = collectionCopy;
       v20 = v19;
       [MEMORY[0x277CBEAA8] hk_dateOnDayIndex:v18 atHour:0 calendar:hk_gregorianCalendar];
-      v21 = v39 = v15;
+      v21 = v38 = v15;
       v22 = [MEMORY[0x277CBEAA8] hk_dateOnDayIndex:v18 + v20 atHour:0 calendar:hk_gregorianCalendar];
       [(HDHRAFibBurdenDemoDataGenerator *)self _randomlySelectedGaussianWithMean:self->_percentAFibChance deviation:0.03];
       v24 = v23;
       v25 = MEMORY[0x277CCD7E8];
       percentUnit = [MEMORY[0x277CCDAB0] percentUnit];
       [v25 quantityWithUnit:percentUnit doubleValue:v24];
-      v38 = v13;
+      v37 = v13;
       v28 = v27 = v12;
 
       v29 = MEMORY[0x277CCD800];
@@ -152,16 +152,16 @@
       v32 = [(HDHRAFibBurdenDemoDataGenerator *)self _metadataForSampleWithPercentage:v24];
       v33 = [v29 quantitySampleWithType:v30 quantity:v28 startDate:v21 endDate:v22 device:localDevice metadata:v32];
 
-      collectionCopy = v40;
-      [v40 addObjectFromPhone:v33];
+      collectionCopy = v39;
+      [v39 addObjectFromPhone:v33];
       v34 = [hk_gregorianCalendar dateByAddingUnit:16 value:7 toDate:v27 options:0];
       [v34 timeIntervalSinceDate:v27];
       self->_nextAFibBurdenSampleTime = time + v35 * 0.0000115740741;
 
       v12 = v27;
-      v13 = v38;
+      v13 = v37;
 
-      v15 = v39;
+      v15 = v38;
     }
 
     else
@@ -172,23 +172,21 @@
       {
         *buf = 138544130;
         selfCopy = self;
-        v43 = 2114;
-        v44 = v15;
-        v45 = 2114;
-        v46 = v12;
-        v47 = 2114;
-        v48 = v13;
+        v42 = 2114;
+        v43 = v15;
+        v44 = 2114;
+        v45 = v12;
+        v46 = 2114;
+        v47 = v13;
         _os_log_impl(&dword_229486000, v36, OS_LOG_TYPE_DEFAULT, "[%{public}@] Target date %{public}@ not included in date range from %{public}@ to %{public}@", buf, 0x2Au);
       }
     }
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_generateTachogramSamplesForDemoPerson:(id)person lastTime:(double)time atTime:(double)atTime sampleDate:(id)date objectCollection:(id)collection
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   personCopy = person;
   dateCopy = date;
   collectionCopy = collection;
@@ -208,8 +206,8 @@
 
     else
     {
-      v24 = dateCopy;
-      v25 = personCopy;
+      v23 = dateCopy;
+      v24 = personCopy;
       nextHeartbeatSeriesSampleTime = self->_nextHeartbeatSeriesSampleTime;
       if (nextHeartbeatSeriesSampleTime <= atTime)
       {
@@ -217,12 +215,12 @@
         v18 = *MEMORY[0x277CCDFA0];
         do
         {
-          v19 = [(HDHRAFibBurdenDemoDataGenerator *)self _currentDateFromCurrentTime:nextHeartbeatSeriesSampleTime, v24, v25];
-          v26[0] = v17;
-          v26[1] = v18;
-          v27[0] = &unk_283CD2A70;
-          v27[1] = &unk_283CD2A88;
-          v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+          v19 = [(HDHRAFibBurdenDemoDataGenerator *)self _currentDateFromCurrentTime:nextHeartbeatSeriesSampleTime, v23, v24];
+          v25[0] = v17;
+          v25[1] = v18;
+          v26[0] = &unk_283CD2A70;
+          v26[1] = &unk_283CD2A88;
+          v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
           localDevice = [MEMORY[0x277CCD2E8] localDevice];
           if (arc4random_uniform(0x64u) / 100.0 >= self->_percentAFibChance)
           {
@@ -242,17 +240,15 @@
       }
 
       self->_nextHeartbeatSeriesSampleTime = nextHeartbeatSeriesSampleTime;
-      dateCopy = v24;
-      personCopy = v25;
+      dateCopy = v23;
+      personCopy = v24;
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_completeAFibHistoryOnboardingIfNecessaryForDemoPerson:(id)person date:(id)date
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   v7 = [WeakRetained featureAvailabilityProvidingForFeatureIdentifier:*MEMORY[0x277CCBFF0]];
@@ -264,19 +260,19 @@
 
     v10 = objc_alloc(MEMORY[0x277CCD450]);
     v11 = *MEMORY[0x277D12EF8];
-    v16[0] = *MEMORY[0x277CCC120];
-    v16[1] = v11;
-    v17[0] = MEMORY[0x277CBEC38];
-    v17[1] = MEMORY[0x277CBEC38];
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v15[0] = *MEMORY[0x277CCC120];
+    v15[1] = v11;
+    v16[0] = MEMORY[0x277CBEC38];
+    v16[1] = MEMORY[0x277CBEC38];
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
     v13 = [v10 initWithDictionary:v12];
 
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __95__HDHRAFibBurdenDemoDataGenerator__completeAFibHistoryOnboardingIfNecessaryForDemoPerson_date___block_invoke;
-    v15[3] = &unk_278660408;
-    v15[4] = self;
-    [v7 setCurrentOnboardingVersionCompletedForCountryCode:countryCode countryCodeProvenance:102 date:dateCopy settings:v13 completion:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __95__HDHRAFibBurdenDemoDataGenerator__completeAFibHistoryOnboardingIfNecessaryForDemoPerson_date___block_invoke;
+    v14[3] = &unk_278660408;
+    v14[4] = self;
+    [v7 setCurrentOnboardingVersionCompletedForCountryCode:countryCode countryCodeProvenance:102 date:dateCopy settings:v13 completion:v14];
   }
 
   else
@@ -290,13 +286,11 @@
       _os_log_impl(&dword_229486000, countryCode, OS_LOG_TYPE_DEFAULT, "[%{public}@] Unable to find AFib History Feature Availability Provider", buf, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __95__HDHRAFibBurdenDemoDataGenerator__completeAFibHistoryOnboardingIfNecessaryForDemoPerson_date___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = HKHRAFibBurdenLogForCategory();
@@ -306,9 +300,9 @@ void __95__HDHRAFibBurdenDemoDataGenerator__completeAFibHistoryOnboardingIfNeces
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Completed AFib History onboarding", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Completed AFib History onboarding", &v9, 0xCu);
     }
 
     [*(a1 + 32) setAFibHistoryFeatureOnboarded:1];
@@ -322,17 +316,16 @@ void __95__HDHRAFibBurdenDemoDataGenerator__completeAFibHistoryOnboardingIfNeces
       __95__HDHRAFibBurdenDemoDataGenerator__completeAFibHistoryOnboardingIfNecessaryForDemoPerson_date___block_invoke_cold_1(a1, v5);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setDataTypeAsFavorite
 {
-  v10 = *MEMORY[0x277D85DE8];
   localizedDescription = [a2 localizedDescription];
-  OUTLINED_FUNCTION_1_7(&dword_229486000, v2, v3, "[%{public}@] Error setting favorites: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  *v10 = 138543618;
+  *&v10[4] = self;
+  *&v10[12] = 2112;
+  *&v10[14] = localizedDescription;
+  OUTLINED_FUNCTION_1_7(&dword_229486000, v4, v5, "[%{public}@] Error setting favorites: %@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 - (double)_randomlySelectedGaussianWithMean:(double)mean deviation:(double)deviation
@@ -353,22 +346,22 @@ void __95__HDHRAFibBurdenDemoDataGenerator__completeAFibHistoryOnboardingIfNeces
 
 - (id)_metadataForSampleWithPercentage:(double)percentage
 {
-  v17[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   v4 = HKHRAFibBurdenLocalFeatureAttributes();
   v5 = objc_alloc(MEMORY[0x277CBEB38]);
-  v16[0] = *MEMORY[0x277CCE0D0];
+  v15[0] = *MEMORY[0x277CCE0D0];
   updateVersion = [v4 updateVersion];
-  v17[0] = updateVersion;
-  v16[1] = *MEMORY[0x277CCC428];
+  v16[0] = updateVersion;
+  v15[1] = *MEMORY[0x277CCC428];
   v7 = MEMORY[0x277CCABB0];
   featureVersion = [v4 featureVersion];
   v9 = [v7 numberWithInteger:{objc_msgSend(featureVersion, "integerValue")}];
-  v17[1] = v9;
-  v16[2] = *MEMORY[0x277CCC530];
+  v16[1] = v9;
+  v15[2] = *MEMORY[0x277CCC530];
   localTimeZone = [MEMORY[0x277CBEBB0] localTimeZone];
   name = [localTimeZone name];
-  v17[2] = name;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
+  v16[2] = name;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
   v13 = [v5 initWithDictionary:v12];
 
   if (percentage <= 0.02)
@@ -376,28 +369,26 @@ void __95__HDHRAFibBurdenDemoDataGenerator__completeAFibHistoryOnboardingIfNeces
     [v13 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277CCC4F8]];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (void)generateObjectsForDemoPerson:(uint64_t)a1 fromTime:(NSObject *)a2 toTime:currentDate:objectCollection:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_229486000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] AFib profile selected but AFib History not onboarded.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_229486000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] AFib profile selected but AFib History not onboarded.", &v2, 0xCu);
 }
 
 void __95__HDHRAFibBurdenDemoDataGenerator__completeAFibHistoryOnboardingIfNecessaryForDemoPerson_date___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v10 = [a2 localizedDescription];
-  OUTLINED_FUNCTION_1_7(&dword_229486000, v3, v4, "[%{public}@] Unable to complete AFib History onboarding: %@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v3 = [a2 localizedDescription];
+  *v10 = 138543618;
+  *&v10[4] = v2;
+  *&v10[12] = 2112;
+  *&v10[14] = v3;
+  OUTLINED_FUNCTION_1_7(&dword_229486000, v4, v5, "[%{public}@] Unable to complete AFib History onboarding: %@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 @end

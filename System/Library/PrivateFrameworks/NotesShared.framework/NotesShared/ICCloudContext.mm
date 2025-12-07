@@ -717,20 +717,20 @@ void __33__ICCloudContext_clearContainers__block_invoke(uint64_t a1)
   return v7;
 }
 
-void __40__ICCloudContext_containerForAccountID___block_invoke(void *a1)
+void __40__ICCloudContext_containerForAccountID___block_invoke(void *a1, uint64_t a2)
 {
   if (!*(*(a1[6] + 8) + 40))
   {
-    v3 = [objc_opt_class() newNotesContainerForAccountID:a1[5]];
-    v4 = *(a1[6] + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    v4 = [objc_opt_class() newNotesContainerForAccountID:a1[5]];
+    v5 = *(a1[6] + 8);
+    v6 = *(v5 + 40);
+    *(v5 + 40) = v4;
 
-    v6 = [*(a1[4] + 128) mutableCopy];
-    [v6 setObject:*(*(a1[6] + 8) + 40) forKeyedSubscript:a1[5]];
-    v7 = a1[4];
-    v8 = *(v7 + 128);
-    *(v7 + 128) = v6;
+    v7 = [*(a1[4] + 128) mutableCopy];
+    [v7 setObject:*(*(a1[6] + 8) + 40) forKeyedSubscript:a1[5]];
+    v8 = a1[4];
+    v9 = *(v8 + 128);
+    *(v8 + 128) = v7;
   }
 }
 
@@ -1176,11 +1176,11 @@ uint64_t __41__ICCloudContext_cloudKitAccountChanged___block_invoke(uint64_t a1)
   return [v4 updateAccountStatusWithCompletionHandler:v6];
 }
 
-uint64_t __41__ICCloudContext_cloudKitAccountChanged___block_invoke_160(uint64_t result, uint64_t a2)
+id *__41__ICCloudContext_cloudKitAccountChanged___block_invoke_160(id *result, id a2)
 {
-  if (*(result + 40) != a2)
+  if (result[5] != a2)
   {
-    return [*(result + 32) updateCloudContextState];
+    return [result[4] updateCloudContextState];
   }
 
   return result;
@@ -1670,19 +1670,19 @@ void __74__ICCloudContext__syncWithReason_uploadUnsyncedChanges_completionHandle
   dispatch_group_leave(*(a1 + 40));
 }
 
-uint64_t __74__ICCloudContext__syncWithReason_uploadUnsyncedChanges_completionHandler___block_invoke_192(void *a1)
+uint64_t __74__ICCloudContext__syncWithReason_uploadUnsyncedChanges_completionHandler___block_invoke_192(void *a1, uint64_t a2)
 {
   if (a1[7])
   {
-    v2 = [objc_opt_class() errorFromErrors:a1[5]];
+    v3 = [objc_opt_class() errorFromErrors:a1[5]];
     (*(a1[7] + 16))();
   }
 
-  v4 = a1[5];
-  v3 = a1[6];
-  v5 = a1[4];
+  v5 = a1[5];
+  v4 = a1[6];
+  v6 = a1[4];
 
-  return [v5 syncForSession:v3 completedWithErrors:v4];
+  return [v6 syncForSession:v4 completedWithErrors:v5];
 }
 
 - (void)syncForSession:(id)session completedWithErrors:(id)errors
@@ -1739,11 +1739,11 @@ uint64_t __74__ICCloudContext__syncWithReason_uploadUnsyncedChanges_completionHa
   }
 }
 
-void __53__ICCloudContext_syncForSession_completedWithErrors___block_invoke(uint64_t a1)
+void __53__ICCloudContext_syncForSession_completedWithErrors___block_invoke(void *a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = [objc_opt_class() errorFromErrors:*(a1 + 48)];
-  [v1 sessionEndedWithError:v2];
+  v2 = a1[4];
+  v3 = [objc_opt_class() errorFromErrors:a1[6]];
+  [v2 sessionEndedWithError:v3];
 }
 
 uint64_t __53__ICCloudContext_syncForSession_completedWithErrors___block_invoke_2(uint64_t a1)
@@ -3626,18 +3626,18 @@ void __145__ICCloudContext_addFetchOperationsForRecordIDs_forSession_accountID_q
   dispatch_async(v2, block);
 }
 
-void __145__ICCloudContext_addFetchOperationsForRecordIDs_forSession_accountID_qualityOfService_operationGroupName_shouldDownloadAssets_completionHandler___block_invoke_2(uint64_t a1)
+void __145__ICCloudContext_addFetchOperationsForRecordIDs_forSession_accountID_qualityOfService_operationGroupName_shouldDownloadAssets_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = [objc_opt_class() errorFromOperations:*(a1 + 40)];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __145__ICCloudContext_addFetchOperationsForRecordIDs_forSession_accountID_qualityOfService_operationGroupName_shouldDownloadAssets_completionHandler___block_invoke_3;
-  v5[3] = &unk_278195F50;
-  v3 = *(a1 + 48);
-  v6 = v2;
+  v3 = [objc_opt_class() errorFromOperations:*(a1 + 40)];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __145__ICCloudContext_addFetchOperationsForRecordIDs_forSession_accountID_qualityOfService_operationGroupName_shouldDownloadAssets_completionHandler___block_invoke_3;
+  v6[3] = &unk_278195F50;
+  v4 = *(a1 + 48);
   v7 = v3;
-  v4 = v2;
-  dispatch_async(MEMORY[0x277D85CD0], v5);
+  v8 = v4;
+  v5 = v3;
+  dispatch_async(MEMORY[0x277D85CD0], v6);
 }
 
 - (id)operationsToFetchRecordIDs:(id)ds forSession:(id)session shouldDownloadAssets:(BOOL)assets qualityOfService:(int64_t)service operationGroupName:(id)name accountID:(id)d
@@ -4856,10 +4856,10 @@ void __80__ICCloudContext_deleteSharesForObjects_forSession_accountID_completion
   dispatch_async(v2, block);
 }
 
-void __80__ICCloudContext_deleteSharesForObjects_forSession_accountID_completionHandler___block_invoke_7(uint64_t a1)
+void __80__ICCloudContext_deleteSharesForObjects_forSession_accountID_completionHandler___block_invoke_7(void *a1, uint64_t a2)
 {
-  v2 = [objc_opt_class() errorFromOperations:*(a1 + 40)];
-  (*(*(a1 + 48) + 16))();
+  v3 = [objc_opt_class() errorFromOperations:a1[5]];
+  (*(a1[6] + 16))();
 }
 
 - (void)addModifyRecordsOperationsWithCloudObjectsToSave:(id)save delete:(id)delete accountID:(id)d forSession:(id)session operationGroupName:(id)name waitForDependencies:(BOOL)dependencies completionHandler:(id)handler
@@ -5005,10 +5005,10 @@ void __153__ICCloudContext__addModifyRecordsOperationsWithCloudObjectsToSave_del
   dispatch_async(v2, block);
 }
 
-void __153__ICCloudContext__addModifyRecordsOperationsWithCloudObjectsToSave_delete_accountID_forSession_operationGroupName_waitForDependencies_completionHandler___block_invoke_2(uint64_t a1)
+void __153__ICCloudContext__addModifyRecordsOperationsWithCloudObjectsToSave_delete_accountID_forSession_operationGroupName_waitForDependencies_completionHandler___block_invoke_2(void *a1, uint64_t a2)
 {
-  v2 = [objc_opt_class() errorFromOperations:*(a1 + 40)];
-  (*(*(a1 + 48) + 16))();
+  v3 = [objc_opt_class() errorFromOperations:a1[5]];
+  (*(a1[6] + 16))();
 }
 
 - (id)operationsToModifyRecordsForCloudObjectsToSave:(id)save delete:(id)delete deleteShares:(id)shares saveUserSpecificRecords:(id)records forSession:(id)session operationGroupName:(id)name addDependencies:(BOOL)dependencies accountID:(id)self0
@@ -6643,128 +6643,128 @@ LABEL_49:
   dispatch_async(processingQueue, v15);
 }
 
-void __73__ICCloudContext_modifyRecordsOperation_forSession_didCompleteWithError___block_invoke(uint64_t a1)
+void __73__ICCloudContext_modifyRecordsOperation_forSession_didCompleteWithError___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = (a1 + 40);
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
-  v6 = (a1 + 48);
-  [v2 incrementOrClearRetryCountForOperationType:v5 error:*(a1 + 48)];
+  v40 = *MEMORY[0x277D85DE8];
+  v3 = *(a1 + 32);
+  v4 = (a1 + 40);
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  v7 = (a1 + 48);
+  [v3 incrementOrClearRetryCountForOperationType:v6 error:*(a1 + 48)];
 
   if (!*(a1 + 48))
   {
     goto LABEL_25;
   }
 
-  v7 = os_log_create("com.apple.notes", "Cloud");
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = os_log_create("com.apple.notes", "Cloud");
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v8 = [*v3 ic_loggingDescription];
+    v9 = [*v4 ic_loggingDescription];
     *buf = 138412290;
-    v36 = v8;
-    _os_log_impl(&dword_214D51000, v7, OS_LOG_TYPE_INFO, "Error modifying records, canceling dependent operations: %@", buf, 0xCu);
+    v37 = v9;
+    _os_log_impl(&dword_214D51000, v8, OS_LOG_TYPE_INFO, "Error modifying records, canceling dependent operations: %@", buf, 0xCu);
   }
 
-  v9 = [*(a1 + 32) operationQueue];
-  v10 = [v9 iterativelyCancelDependentOperations:*(a1 + 40)];
+  v10 = [*(a1 + 32) operationQueue];
+  v11 = [v10 iterativelyCancelDependentOperations:*(a1 + 40)];
 
-  v11 = [*(a1 + 48) code];
-  if ((v11 - 3) < 2)
+  v12 = [*(a1 + 48) code];
+  if ((v12 - 3) < 2)
   {
     goto LABEL_7;
   }
 
-  if (v11 == 2)
+  if (v12 == 2)
   {
-    v15 = os_log_create("com.apple.notes", "Cloud");
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = os_log_create("com.apple.notes", "Cloud");
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = [*v3 ic_loggingDescription];
-      v17 = *v6;
+      v17 = [*v4 ic_loggingDescription];
+      v18 = *v7;
       *buf = 138412546;
-      v36 = v16;
-      v37 = 2112;
-      v38 = v17;
-      _os_log_impl(&dword_214D51000, v15, OS_LOG_TYPE_DEFAULT, "Partial error for modify operation %@: %@", buf, 0x16u);
+      v37 = v17;
+      v38 = 2112;
+      v39 = v18;
+      _os_log_impl(&dword_214D51000, v16, OS_LOG_TYPE_DEFAULT, "Partial error for modify operation %@: %@", buf, 0x16u);
     }
 
     [*(a1 + 32) handleGenericPartialFailuresForError:*(a1 + 48) operation:*(a1 + 40)];
     goto LABEL_15;
   }
 
-  if (v11 == 20)
+  if (v12 == 20)
   {
 LABEL_7:
-    v12 = os_log_create("com.apple.notes", "Cloud");
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = os_log_create("com.apple.notes", "Cloud");
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v13 = [*v3 ic_loggingDescription];
-      v14 = *v6;
+      v14 = [*v4 ic_loggingDescription];
+      v15 = *v7;
       *buf = 138412546;
-      v36 = v13;
-      v37 = 2112;
-      v38 = v14;
-      _os_log_impl(&dword_214D51000, v12, OS_LOG_TYPE_INFO, "Error modifying records %@: %@", buf, 0x16u);
+      v37 = v14;
+      v38 = 2112;
+      v39 = v15;
+      _os_log_impl(&dword_214D51000, v13, OS_LOG_TYPE_INFO, "Error modifying records %@: %@", buf, 0x16u);
     }
   }
 
   else
   {
-    v12 = os_log_create("com.apple.notes", "Cloud");
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = os_log_create("com.apple.notes", "Cloud");
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       __73__ICCloudContext_modifyRecordsOperation_forSession_didCompleteWithError___block_invoke_cold_1();
     }
   }
 
 LABEL_15:
-  if ([*v6 code] != 2)
+  if ([*v7 code] != 2)
   {
-    v32 = 0u;
     v33 = 0u;
-    v30 = 0u;
+    v34 = 0u;
     v31 = 0u;
-    v18 = [*v3 recordsToSave];
-    v19 = [v18 countByEnumeratingWithState:&v30 objects:v34 count:16];
-    if (v19)
+    v32 = 0u;
+    v19 = [*v4 recordsToSave];
+    v20 = [v19 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    if (v20)
     {
-      v20 = v19;
-      v21 = *v31;
+      v21 = v20;
+      v22 = *v32;
       do
       {
-        for (i = 0; i != v20; ++i)
+        for (i = 0; i != v21; ++i)
         {
-          if (*v31 != v21)
+          if (*v32 != v22)
           {
-            objc_enumerationMutation(v18);
+            objc_enumerationMutation(v19);
           }
 
-          v23 = *(*(&v30 + 1) + 8 * i);
-          v24 = *(a1 + 32);
-          v25 = *(a1 + 40);
-          v26 = [v23 recordID];
-          [v24 modifyRecordsOperation:v25 recordWasSavedWithRecordID:v26 record:v23 session:*(a1 + 56) error:*(a1 + 48)];
+          v24 = *(*(&v31 + 1) + 8 * i);
+          v25 = *(a1 + 32);
+          v26 = *(a1 + 40);
+          v27 = [v24 recordID];
+          [v25 modifyRecordsOperation:v26 recordWasSavedWithRecordID:v27 record:v24 session:*(a1 + 56) error:*(a1 + 48)];
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
-      while (v20);
+      while (v21);
     }
   }
 
   [*(a1 + 32) startRetryTimerIfNecessaryWithError:*(a1 + 48)];
 LABEL_25:
-  v27 = *(a1 + 56);
-  v28 = [*(a1 + 40) metrics];
-  [v27 operationEndedForPhase:3 metrics:v28 error:*(a1 + 48)];
+  v28 = *(a1 + 56);
+  v29 = [*(a1 + 40) metrics];
+  [v28 operationEndedForPhase:3 metrics:v29 error:*(a1 + 48)];
 
-  v29 = os_log_create("com.apple.notes", "Cloud");
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+  v30 = os_log_create("com.apple.notes", "Cloud");
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
   {
-    __73__ICCloudContext_modifyRecordsOperation_forSession_didCompleteWithError___block_invoke_cold_2(v3);
+    __73__ICCloudContext_modifyRecordsOperation_forSession_didCompleteWithError___block_invoke_cold_2(v4);
   }
 }
 
@@ -7256,10 +7256,10 @@ void __35__ICCloudContext_objectsByAccount___block_invoke(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void __35__ICCloudContext_objectsByAccount___block_invoke_2()
+void __35__ICCloudContext_objectsByAccount___block_invoke_2(uint64_t a1)
 {
-  v0 = os_log_create("com.apple.notes", "Cloud");
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = os_log_create("com.apple.notes", "Cloud");
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __35__ICCloudContext_objectsByAccount___block_invoke_2_cold_1();
   }
@@ -7448,7 +7448,7 @@ void __45__ICCloudContext_allZoneIDsInAccountZoneIDs___block_invoke(uint64_t a1,
   return v4;
 }
 
-uint64_t __46__ICCloudContext_haveZoneIDsInAccountZoneIDs___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__46__ICCloudContext_haveZoneIDsInAccountZoneIDs___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 count];
   if (result)
@@ -9575,7 +9575,7 @@ uint64_t __66__ICCloudContext_handleRemoteNotificationWithUserInfo_completion___
   v11 = os_log_create("com.apple.notes", "Cloud");
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    [ICCloudContext handleCloudKitNotification:notificationCopy completionHandler:?];
+    [ICCloudContext handleCloudKitNotification:notificationCopy completionHandler:v11];
   }
 
   if (![(ICCloudContext *)self isReadyToSync]|| [(ICCloudContext *)self isDisabled]|| [(ICCloudContext *)self isDisabledInternal])
@@ -9613,7 +9613,7 @@ uint64_t __66__ICCloudContext_handleRemoteNotificationWithUserInfo_completion___
       subscriptionOwnerUserRecordID = os_log_create("com.apple.notes", "Cloud");
       if (os_log_type_enabled(subscriptionOwnerUserRecordID, OS_LOG_TYPE_ERROR))
       {
-        [ICCloudContext handleCloudKitNotification:completionHandler:];
+        [ICCloudContext handleCloudKitNotification:notificationCopy completionHandler:subscriptionOwnerUserRecordID];
       }
 
       recordName = 0;
@@ -14204,7 +14204,7 @@ void __54__ICCloudContext_startRetryTimerIfNecessaryWithError___block_invoke(uin
   }
 }
 
-unint64_t __54__ICCloudContext_startRetryTimerIfNecessaryWithError___block_invoke_683(uint64_t a1, uint64_t a2, void *a3)
+void *__54__ICCloudContext_startRetryTimerIfNecessaryWithError___block_invoke_683(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = *(*(*(a1 + 32) + 8) + 24);
   result = [a3 unsignedIntegerValue];
@@ -15468,22 +15468,22 @@ void __77__ICCloudContext__processPendingCloudObjectsInSession_withCompletionHan
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)handleCloudKitNotification:(void *)a1 completionHandler:.cold.1(void *a1)
+- (void)handleCloudKitNotification:(void *)a1 completionHandler:(uint64_t)a2 .cold.1(void *a1, uint64_t a2)
 {
-  v2 = objc_opt_class();
-  v3 = [a1 subscriptionID];
+  v3 = objc_opt_class();
+  v4 = [a1 subscriptionID];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_4();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
+  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
-- (void)handleCloudKitNotification:completionHandler:.cold.2()
+- (void)handleCloudKitNotification:(uint64_t)a1 completionHandler:(uint64_t)a2 .cold.2(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
 void __84__ICCloudContext_fetchRecordZoneChangesForAccountZoneIDs_session_completionHandler___block_invoke_cold_1()

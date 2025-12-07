@@ -26,7 +26,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_20C0D8850();
+  sub_20C0D8850(selfCopy);
 }
 
 - (void)panGestureRecognized:(id)recognized

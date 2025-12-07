@@ -21,33 +21,31 @@
 {
   contextCopy = context;
   v4 = [KNLiveVideoSource alloc];
-  v5 = sub_275DC204C();
-  v7 = objc_msgSend_localizedStringForKey_value_table_(v5, v6, @"Default Camera", &stru_2884D8E20, @"Keynote");
-  isDefaultSource = objc_msgSend_initWithContext_name_isDefaultSource_(v4, v8, contextCopy, v7, 1);
+  v5 = sub_275DC204C(v4);
+  v6 = [v5 localizedStringForKey:@"Default Camera" value:&stru_2884D8E20 table:@"Keynote"];
+  v7 = [(KNLiveVideoSource *)v4 initWithContext:contextCopy name:v6 isDefaultSource:1];
 
-  v10 = objc_alloc(MEMORY[0x277CCAD78]);
-  v12 = objc_msgSend_initWithUUIDString_(v10, v11, @"6EC43BD2-3B70-4836-AE07-3FBCAFFAA581");
-  objc_msgSend_setObjectUUID_(isDefaultSource, v13, v12);
+  v8 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"6EC43BD2-3B70-4836-AE07-3FBCAFFAA581"];
+  [(KNLiveVideoSource *)v7 setObjectUUID:v8];
 
-  return isDefaultSource;
+  return v7;
 }
 
 - (KNLiveVideoSourceCollection)initWithContext:(id)context
 {
   contextCopy = context;
-  v13.receiver = self;
-  v13.super_class = KNLiveVideoSourceCollection;
-  v5 = [(KNLiveVideoSourceCollection *)&v13 initWithContext:contextCopy];
+  v11.receiver = self;
+  v11.super_class = KNLiveVideoSourceCollection;
+  v5 = [(KNLiveVideoSourceCollection *)&v11 initWithContext:contextCopy];
   if (v5)
   {
-    v6 = objc_opt_class();
-    v8 = objc_msgSend_p_makeDefaultSourceWithContext_(v6, v7, contextCopy);
+    v6 = [objc_opt_class() p_makeDefaultSourceWithContext:contextCopy];
     defaultSource = v5->_defaultSource;
-    v5->_defaultSource = v8;
+    v5->_defaultSource = v6;
 
-    v10 = objc_alloc_init(MEMORY[0x277CBEA60]);
+    v8 = objc_alloc_init(MEMORY[0x277CBEA60]);
     sources = v5->_sources;
-    v5->_sources = v10;
+    v5->_sources = v8;
   }
 
   return v5;
@@ -55,66 +53,66 @@
 
 - (id)p_orderedSources
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v7[0] = self->_defaultSource;
-  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v7, 1);
-  v5 = objc_msgSend_arrayByAddingObjectsFromArray_(v3, v4, self->_sources);
+  v6[1] = *MEMORY[0x277D85DE8];
+  v6[0] = self->_defaultSource;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v4 = [v3 arrayByAddingObjectsFromArray:self->_sources];
 
-  return v5;
+  return v4;
 }
 
 - (NSSet)sources
 {
   v3 = objc_alloc(MEMORY[0x277CBEB98]);
-  v6 = objc_msgSend_p_orderedSources(self, v4, v5);
-  v8 = objc_msgSend_initWithArray_(v3, v7, v6);
+  p_orderedSources = [(KNLiveVideoSourceCollection *)self p_orderedSources];
+  v5 = [v3 initWithArray:p_orderedSources];
 
-  return v8;
+  return v5;
 }
 
 - (void)addSource:(id)source
 {
   sourceCopy = source;
-  v6 = objc_msgSend_defaultSource(self, v4, v5);
+  defaultSource = [(KNLiveVideoSourceCollection *)self defaultSource];
 
-  if (v6 == sourceCopy)
+  if (defaultSource == sourceCopy)
   {
-    v19 = MEMORY[0x277D81150];
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[KNLiveVideoSourceCollection addSource:]");
-    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSourceCollection.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v23, v20, v22, 71, 0, "Cannot add the default source to the source collection.");
+    v7 = MEMORY[0x277D81150];
+    v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLiveVideoSourceCollection addSource:]"];
+    v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSourceCollection.mm"];
+    [v7 handleFailureInFunction:v8 file:v9 lineNumber:71 isFatal:0 description:"Cannot add the default source to the source collection."];
   }
 
   else
   {
-    if (objc_msgSend_indexOfObjectIdenticalTo_(self->_sources, v7, sourceCopy) == 0x7FFFFFFFFFFFFFFFLL)
+    if ([(NSArray *)self->_sources indexOfObjectIdenticalTo:?]== 0x7FFFFFFFFFFFFFFFLL)
     {
-      objc_msgSend_willModify(self, v8, v9);
-      v12 = objc_msgSend_mutableCopy(self->_sources, v10, v11);
-      objc_msgSend_addObject_(v12, v13, sourceCopy);
-      objc_msgSend_sortUsingComparator_(v12, v14, &unk_2884D8978);
-      objc_storeStrong(&self->_sources, v12);
-      v17 = objc_msgSend_context(self, v15, v16);
-      objc_msgSend_wasAddedToDocumentWithContext_(sourceCopy, v18, v17);
+      [(KNLiveVideoSourceCollection *)self willModify];
+      v5 = [(NSArray *)self->_sources mutableCopy];
+      [v5 addObject:sourceCopy];
+      [v5 sortUsingComparator:&unk_2884D8978];
+      objc_storeStrong(&self->_sources, v5);
+      context = [(KNLiveVideoSourceCollection *)self context];
+      [sourceCopy wasAddedToDocumentWithContext:context];
 
       goto LABEL_7;
     }
 
-    v24 = MEMORY[0x277D81150];
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[KNLiveVideoSourceCollection addSource:]");
-    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSourceCollection.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v24, v26, v20, v22, 75, 0, "Cannot add a source already contained in the source collection.");
+    v10 = MEMORY[0x277D81150];
+    v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLiveVideoSourceCollection addSource:]"];
+    v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSourceCollection.mm"];
+    [v10 handleFailureInFunction:v8 file:v9 lineNumber:75 isFatal:0 description:"Cannot add a source already contained in the source collection."];
   }
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v28);
+  [MEMORY[0x277D81150] logBacktraceThrottled];
 LABEL_7:
 }
 
 - (BOOL)canRemoveSource:(id)source
 {
   sourceCopy = source;
-  v7 = objc_msgSend_defaultSource(self, v5, v6);
-  LOBYTE(self) = v7 != sourceCopy;
+  defaultSource = [(KNLiveVideoSourceCollection *)self defaultSource];
+  LOBYTE(self) = defaultSource != sourceCopy;
 
   return self;
 }
@@ -122,75 +120,75 @@ LABEL_7:
 - (void)removeSource:(id)source
 {
   sourceCopy = source;
-  if ((objc_msgSend_canRemoveSource_(self, v4, sourceCopy) & 1) == 0)
+  if (![(KNLiveVideoSourceCollection *)self canRemoveSource:?])
   {
-    v13 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[KNLiveVideoSourceCollection removeSource:]");
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSourceCollection.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v15, v9, v11, 98, 0, "Cannot remove the default source from the source collection.");
+    v7 = MEMORY[0x277D81150];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLiveVideoSourceCollection removeSource:]"];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSourceCollection.mm"];
+    [v7 handleFailureInFunction:v5 file:v6 lineNumber:98 isFatal:0 description:"Cannot remove the default source from the source collection."];
     goto LABEL_5;
   }
 
-  if (objc_msgSend_indexOfObjectIdenticalTo_(self->_sources, v5, sourceCopy) == 0x7FFFFFFFFFFFFFFFLL)
+  if ([(NSArray *)self->_sources indexOfObjectIdenticalTo:sourceCopy]== 0x7FFFFFFFFFFFFFFFLL)
   {
-    v8 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[KNLiveVideoSourceCollection removeSource:]");
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSourceCollection.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v12, v9, v11, 102, 0, "Cannot remove a source not already contained in the source collection.");
+    v4 = MEMORY[0x277D81150];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLiveVideoSourceCollection removeSource:]"];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSourceCollection.mm"];
+    [v4 handleFailureInFunction:v5 file:v6 lineNumber:102 isFatal:0 description:"Cannot remove a source not already contained in the source collection."];
 LABEL_5:
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
     goto LABEL_7;
   }
 
-  objc_msgSend_willModify(self, v6, v7);
-  v20 = objc_msgSend_context(self, v18, v19);
-  objc_msgSend_willBeRemovedFromDocumentWithContext_(sourceCopy, v21, v20);
+  [(KNLiveVideoSourceCollection *)self willModify];
+  context = [(KNLiveVideoSourceCollection *)self context];
+  [sourceCopy willBeRemovedFromDocumentWithContext:context];
 
-  v24 = objc_msgSend_mutableCopy(self->_sources, v22, v23);
-  objc_msgSend_removeObjectIdenticalTo_(v24, v25, sourceCopy);
-  objc_msgSend_sortUsingComparator_(v24, v26, &unk_2884D8978);
+  v9 = [(NSArray *)self->_sources mutableCopy];
+  [(NSArray *)v9 removeObjectIdenticalTo:sourceCopy];
+  [(NSArray *)v9 sortUsingComparator:&unk_2884D8978];
   sources = self->_sources;
-  self->_sources = v24;
+  self->_sources = v9;
 
 LABEL_7:
 }
 
 - (id)sourceWithObjectUUID:(id)d
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v7 = objc_msgSend_p_orderedSources(self, v5, v6, 0);
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v22, v26, 16);
-  if (v11)
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  p_orderedSources = [(KNLiveVideoSourceCollection *)self p_orderedSources];
+  v6 = [p_orderedSources countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v6)
   {
-    v12 = *v23;
+    v7 = *v15;
 LABEL_3:
-    v13 = 0;
+    v8 = 0;
     while (1)
     {
-      if (*v23 != v12)
+      if (*v15 != v7)
       {
-        objc_enumerationMutation(v7);
+        objc_enumerationMutation(p_orderedSources);
       }
 
-      v14 = *(*(&v22 + 1) + 8 * v13);
-      v15 = objc_msgSend_objectUUID(v14, v9, v10);
-      isEqual = objc_msgSend_isEqual_(v15, v16, dCopy);
+      v9 = *(*(&v14 + 1) + 8 * v8);
+      objectUUID = [v9 objectUUID];
+      v11 = [objectUUID isEqual:dCopy];
 
-      if (isEqual)
+      if (v11)
       {
         break;
       }
 
-      if (v11 == ++v13)
+      if (v6 == ++v8)
       {
-        v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v9, &v22, v26, 16);
-        if (v11)
+        v6 = [p_orderedSources countByEnumeratingWithState:&v14 objects:v18 count:16];
+        if (v6)
         {
           goto LABEL_3;
         }
@@ -199,9 +197,9 @@ LABEL_3:
       }
     }
 
-    v20 = v14;
+    defaultSource = v9;
 
-    if (v20)
+    if (defaultSource)
     {
       goto LABEL_12;
     }
@@ -212,90 +210,88 @@ LABEL_3:
 LABEL_9:
   }
 
-  v20 = objc_msgSend_defaultSource(self, v18, v19);
+  defaultSource = [(KNLiveVideoSourceCollection *)self defaultSource];
 LABEL_12:
 
-  return v20;
+  return defaultSource;
 }
 
 - (id)uniqueNameForSourceWithProposedName:(id)name
 {
-  v3 = objc_msgSend_p_uniqueNameForSource_proposedName_(self, a2, 0, name);
+  v3 = [(KNLiveVideoSourceCollection *)self p_uniqueNameForSource:0 proposedName:name];
 
   return v3;
 }
 
 - (id)uniqueNameForSource:(id)source proposedName:(id)name
 {
-  v4 = objc_msgSend_p_uniqueNameForSource_proposedName_(self, a2, source, name);
+  v4 = [(KNLiveVideoSourceCollection *)self p_uniqueNameForSource:source proposedName:name];
 
   return v4;
 }
 
 - (id)p_uniqueNameForSource:(id)source proposedName:(id)name
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   nameCopy = name;
-  v9 = objc_msgSend_p_orderedSources(self, v7, v8);
-  v10 = objc_alloc(MEMORY[0x277CBEB18]);
-  v13 = objc_msgSend_count(v9, v11, v12);
-  v15 = objc_msgSend_initWithCapacity_(v10, v14, v13);
-  v18 = objc_msgSend_context(self, v16, v17);
-  v21 = objc_msgSend_documentRoot(v18, v19, v20);
-  v24 = objc_msgSend_documentLocale(v21, v22, v23);
+  p_orderedSources = [(KNLiveVideoSourceCollection *)self p_orderedSources];
+  v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(p_orderedSources, "count")}];
+  context = [(KNLiveVideoSourceCollection *)self context];
+  documentRoot = [context documentRoot];
+  documentLocale = [documentRoot documentLocale];
 
-  v47 = v24;
-  v49 = objc_msgSend_locale(v24, v25, v26);
-  v28 = objc_msgSend_stringByFoldingWithOptions_locale_(nameCopy, v27, 1);
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v29 = v9;
-  v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v50, v54, 16);
-  if (v33)
+  v26 = documentLocale;
+  locale = [documentLocale locale];
+  v12 = [nameCopy stringByFoldingWithOptions:1 locale:?];
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v13 = p_orderedSources;
+  v14 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  if (v14)
   {
-    v46 = v9;
-    isEqualToString = 0;
-    v35 = *v51;
+    v25 = p_orderedSources;
+    v15 = 0;
+    v16 = *v30;
     do
     {
-      for (i = 0; i != v33; ++i)
+      for (i = 0; i != v14; ++i)
       {
-        if (*v51 != v35)
+        if (*v30 != v16)
         {
-          objc_enumerationMutation(v29);
+          objc_enumerationMutation(v13);
         }
 
-        v37 = *(*(&v50 + 1) + 8 * i);
-        if (!sourceCopy || v37 != sourceCopy)
+        v18 = *(*(&v29 + 1) + 8 * i);
+        if (!sourceCopy || v18 != sourceCopy)
         {
-          v38 = objc_msgSend_name(v37, v31, v32, v46);
-          v40 = v38;
-          if (isEqualToString)
+          name = [v18 name];
+          v20 = name;
+          if (v15)
           {
-            isEqualToString = 1;
+            v15 = 1;
           }
 
           else
           {
-            v41 = objc_msgSend_stringByFoldingWithOptions_locale_(v38, v39, 1, v49);
-            isEqualToString = objc_msgSend_isEqualToString_(v28, v42, v41);
+            v21 = [name stringByFoldingWithOptions:1 locale:locale];
+            v15 = [v12 isEqualToString:v21];
           }
 
-          objc_msgSend_addObject_(v15, v39, v40);
+          [v8 addObject:v20];
         }
       }
 
-      v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v31, &v50, v54, 16);
+      v14 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
-    while (v33);
+    while (v14);
 
-    if (isEqualToString)
+    if (v15)
     {
-      v43 = TSUNumberFormatterIncreaseTagFromStringWithSeparator();
+      v22 = TSUNumberFormatterIncreaseTagFromStringWithSeparator();
       goto LABEL_18;
     }
   }
@@ -304,16 +300,16 @@ LABEL_12:
   {
   }
 
-  v43 = nameCopy;
+  v22 = nameCopy;
 LABEL_18:
-  v44 = v43;
+  v23 = v22;
 
-  return v44;
+  return v23;
 }
 
 + (id)localizedDefaultSourceNameForLocale:(id)locale
 {
-  v3 = objc_msgSend_localizedStringForKey_value_table_(locale, a2, @"Default Camera", @"Default Camera", @"Keynote");
+  v3 = [locale localizedStringForKey:@"Default Camera" value:@"Default Camera" table:@"Keynote"];
 
   return v3;
 }
@@ -322,68 +318,64 @@ LABEL_18:
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v6 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v5, off_2812EA908[112]);
+  v5 = [unarchiverCopy messageWithDescriptor:off_2812EA908[112]];
 
-  if (*(v6 + 16))
+  if (*(v5 + 16))
   {
-    v16 = *(v6 + 48);
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = sub_275E54DAC;
-    v24[3] = &unk_27A6997E0;
-    v24[4] = self;
-    v17 = unarchiverCopy;
-    v18 = objc_opt_class();
-    objc_msgSend_readReferenceMessage_class_protocol_completion_(v17, v19, v16, v18, 0, v24);
+    v10 = *(v5 + 48);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = sub_275E54DAC;
+    v14[3] = &unk_27A6997E0;
+    v14[4] = self;
+    v11 = unarchiverCopy;
+    [v11 readReferenceMessage:v10 class:objc_opt_class() protocol:0 completion:v14];
   }
 
   else
   {
-    objc_msgSend_willModifyForUpgrade(self, v7, v8);
-    v9 = objc_opt_class();
-    v12 = objc_msgSend_context(self, v10, v11);
-    v14 = objc_msgSend_p_makeDefaultSourceWithContext_(v9, v13, v12);
+    [(KNLiveVideoSourceCollection *)self willModifyForUpgrade];
+    v6 = objc_opt_class();
+    context = [(KNLiveVideoSourceCollection *)self context];
+    v8 = [v6 p_makeDefaultSourceWithContext:context];
     defaultSource = self->_defaultSource;
-    self->_defaultSource = v14;
+    self->_defaultSource = v8;
   }
 
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = sub_275E54DC0;
-  v23[3] = &unk_27A699808;
-  v23[4] = self;
-  v20 = unarchiverCopy;
-  v21 = objc_opt_class();
-  objc_msgSend_readRepeatedReferenceMessage_class_protocol_completion_(v20, v22, v6 + 24, v21, 0, v23);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = sub_275E54DC0;
+  v13[3] = &unk_27A699808;
+  v13[4] = self;
+  v12 = unarchiverCopy;
+  [v12 readRepeatedReferenceMessage:v5 + 24 class:objc_opt_class() protocol:0 completion:v13];
 }
 
 - (void)saveToArchiver:(id)archiver
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_275E5500C, off_2812EA908[112]);
+  v4 = [archiverCopy messageWithNewFunction:sub_275E5500C descriptor:off_2812EA908[112]];
 
   defaultSource = self->_defaultSource;
-  *(v5 + 16) |= 1u;
-  v8 = *(v5 + 48);
-  if (!v8)
+  *(v4 + 16) |= 1u;
+  v6 = *(v4 + 48);
+  if (!v6)
   {
-    v9 = *(v5 + 8);
-    if (v9)
+    v7 = *(v4 + 8);
+    if (v7)
     {
-      v9 = *(v9 & 0xFFFFFFFFFFFFFFFELL);
+      v7 = *(v7 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v8 = MEMORY[0x277C8F050](v9);
-    *(v5 + 48) = v8;
+    v6 = MEMORY[0x277C8F050](v7);
+    *(v4 + 48) = v6;
   }
 
-  objc_msgSend_setStrongReference_message_(archiverCopy, v6, defaultSource, v8);
-  objc_msgSend_setStrongReferenceArray_message_(archiverCopy, v10, self->_sources, v5 + 24);
-  v11 = sub_275E53AE0();
-  objc_msgSend_setMessageVersion_(archiverCopy, v12, v11);
-  v13 = sub_275E53AD0();
-  objc_msgSend_requiresDocumentVersion_(archiverCopy, v14, v13);
+  [archiverCopy setStrongReference:defaultSource message:v6];
+  [archiverCopy setStrongReferenceArray:self->_sources message:v4 + 24];
+  [archiverCopy setMessageVersion:sub_275E53AE0()];
+  [archiverCopy requiresDocumentVersion:sub_275E53AD0()];
 }
 
 @end

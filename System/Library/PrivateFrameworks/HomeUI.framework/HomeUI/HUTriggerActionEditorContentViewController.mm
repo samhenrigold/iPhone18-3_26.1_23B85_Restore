@@ -526,11 +526,11 @@ LABEL_15:
 
 - (void)collectionView:(id)view didSelectItemAtIndexPath:(id)path
 {
-  v55[2] = *MEMORY[0x277D85DE8];
-  v52.receiver = self;
-  v52.super_class = HUTriggerActionEditorContentViewController;
+  v56[2] = *MEMORY[0x277D85DE8];
+  v53.receiver = self;
+  v53.super_class = HUTriggerActionEditorContentViewController;
   pathCopy = path;
-  [(HUSelectableServiceGridViewController *)&v52 collectionView:view didSelectItemAtIndexPath:pathCopy];
+  [(HUSelectableServiceGridViewController *)&v53 collectionView:view didSelectItemAtIndexPath:pathCopy];
   itemManager = [(HUItemCollectionViewController *)self itemManager];
   v8 = [itemManager displayedItemAtIndexPath:pathCopy];
 
@@ -578,29 +578,29 @@ LABEL_32:
 
     if ((v21 & 1) == 0)
     {
+      v50[0] = MEMORY[0x277D85DD0];
+      v50[1] = 3221225472;
+      v50[2] = __86__HUTriggerActionEditorContentViewController_collectionView_didSelectItemAtIndexPath___block_invoke_2;
+      v50[3] = &unk_277DBF770;
+      v51 = v10;
+      v52 = v18;
+      v36 = __86__HUTriggerActionEditorContentViewController_collectionView_didSelectItemAtIndexPath___block_invoke_2(v50, v35);
+      v37 = _HULocalizedStringWithDefaultValue(@"HUTriggerActionEditorConfirmationRequiredButNotPossibleAlertTitle", @"HUTriggerActionEditorConfirmationRequiredButNotPossibleAlertTitle", 1);
+      v38 = MEMORY[0x277D750F8];
+      v39 = _HULocalizedStringWithDefaultValue(@"HUTriggerActionEditorConfirmationRequiredButNotPossibleAlertCancelButton", @"HUTriggerActionEditorConfirmationRequiredButNotPossibleAlertCancelButton", 1);
+      v40 = [v38 actionWithTitle:v39 style:1 handler:0];
+      v56[0] = v40;
+      v41 = MEMORY[0x277D750F8];
+      v42 = _HULocalizedStringWithDefaultValue(@"HUTriggerActionEditorConfirmationRequiredButNotPossibleAlertGoToSettingsButton", @"HUTriggerActionEditorConfirmationRequiredButNotPossibleAlertGoToSettingsButton", 1);
       v49[0] = MEMORY[0x277D85DD0];
       v49[1] = 3221225472;
-      v49[2] = __86__HUTriggerActionEditorContentViewController_collectionView_didSelectItemAtIndexPath___block_invoke_2;
-      v49[3] = &unk_277DBF770;
-      v50 = v10;
-      v51 = v18;
-      v35 = __86__HUTriggerActionEditorContentViewController_collectionView_didSelectItemAtIndexPath___block_invoke_2(v49);
-      v36 = _HULocalizedStringWithDefaultValue(@"HUTriggerActionEditorConfirmationRequiredButNotPossibleAlertTitle", @"HUTriggerActionEditorConfirmationRequiredButNotPossibleAlertTitle", 1);
-      v37 = MEMORY[0x277D750F8];
-      v38 = _HULocalizedStringWithDefaultValue(@"HUTriggerActionEditorConfirmationRequiredButNotPossibleAlertCancelButton", @"HUTriggerActionEditorConfirmationRequiredButNotPossibleAlertCancelButton", 1);
-      v39 = [v37 actionWithTitle:v38 style:1 handler:0];
-      v55[0] = v39;
-      v40 = MEMORY[0x277D750F8];
-      v41 = _HULocalizedStringWithDefaultValue(@"HUTriggerActionEditorConfirmationRequiredButNotPossibleAlertGoToSettingsButton", @"HUTriggerActionEditorConfirmationRequiredButNotPossibleAlertGoToSettingsButton", 1);
-      v48[0] = MEMORY[0x277D85DD0];
-      v48[1] = 3221225472;
-      v48[2] = __86__HUTriggerActionEditorContentViewController_collectionView_didSelectItemAtIndexPath___block_invoke_3;
-      v48[3] = &__block_descriptor_40_e23_v16__0__UIAlertAction_8l;
-      v48[4] = v18;
-      v42 = [v40 actionWithTitle:v41 style:0 handler:v48];
-      v55[1] = v42;
-      v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
-      [(HUTriggerActionEditorContentViewController *)self _popAlertWithLocalizedTitle:v36 localizedMessage:v35 actions:v43];
+      v49[2] = __86__HUTriggerActionEditorContentViewController_collectionView_didSelectItemAtIndexPath___block_invoke_3;
+      v49[3] = &__block_descriptor_40_e23_v16__0__UIAlertAction_8l;
+      v49[4] = v18;
+      v43 = [v41 actionWithTitle:v42 style:0 handler:v49];
+      v56[1] = v43;
+      v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
+      [(HUTriggerActionEditorContentViewController *)self _popAlertWithLocalizedTitle:v37 localizedMessage:v36 actions:v44];
 
       goto LABEL_33;
     }
@@ -679,14 +679,14 @@ LABEL_32:
     }
 
     mediaAccessoryItemType = [v31 mediaAccessoryItemType];
-    v45 = mediaAccessoryItemType;
+    v46 = mediaAccessoryItemType;
     if (mediaAccessoryItemType > 3)
     {
       if ((mediaAccessoryItemType - 5) >= 5)
       {
         if (mediaAccessoryItemType == 4)
         {
-          v46 = @"HUTriggerActionEditorUnsupportedHomePodStereoPairMessage";
+          v47 = @"HUTriggerActionEditorUnsupportedHomePodStereoPairMessage";
           goto LABEL_47;
         }
 
@@ -698,7 +698,7 @@ LABEL_32:
     {
       if ((mediaAccessoryItemType - 2) < 2)
       {
-        v46 = @"HUTriggerActionEditorUnsupportedHomePodMessage";
+        v47 = @"HUTriggerActionEditorUnsupportedHomePodMessage";
         goto LABEL_47;
       }
 
@@ -706,9 +706,9 @@ LABEL_32:
       {
         if (mediaAccessoryItemType == 1)
         {
-          v46 = @"HUTriggerActionEditorUnsupportedAppleTVMessage";
+          v47 = @"HUTriggerActionEditorUnsupportedAppleTVMessage";
 LABEL_47:
-          [(HUTriggerActionEditorContentViewController *)self _presentUnsupportedAlertWithTitle:@"HUAlertSoftwareUpdateRequired" message:v46];
+          [(HUTriggerActionEditorContentViewController *)self _presentUnsupportedAlertWithTitle:@"HUAlertSoftwareUpdateRequired" message:v47];
         }
 
 LABEL_28:
@@ -717,12 +717,12 @@ LABEL_28:
       }
     }
 
-    v47 = HFLogForCategory();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    v48 = HFLogForCategory();
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v54 = v45;
-      _os_log_error_impl(&dword_20CEB6000, v47, OS_LOG_TYPE_ERROR, "Error: got media accessory item type %ld", buf, 0xCu);
+      v55 = v46;
+      _os_log_error_impl(&dword_20CEB6000, v48, OS_LOG_TYPE_ERROR, "Error: got media accessory item type %ld", buf, 0xCu);
     }
 
     goto LABEL_28;
@@ -731,32 +731,32 @@ LABEL_28:
 LABEL_33:
 }
 
-id __86__HUTriggerActionEditorContentViewController_collectionView_didSelectItemAtIndexPath___block_invoke_2(uint64_t a1)
+id __86__HUTriggerActionEditorContentViewController_collectionView_didSelectItemAtIndexPath___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v3 = @"Service";
+  v4 = @"Service";
   if (isKindOfClass)
   {
-    v3 = @"Scene";
+    v4 = @"Scene";
   }
 
   if (*(a1 + 40))
   {
-    v4 = @"MustAllowNotifications";
+    v5 = @"MustAllowNotifications";
   }
 
   else
   {
-    v4 = @"MustAllowAccessWhileLocked";
+    v5 = @"MustAllowAccessWhileLocked";
   }
 
-  v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"HUTriggerActionEditor%@ToUse%@AlertMessageFormat", v4, v3];
-  v6 = [*(a1 + 32) latestResults];
-  v7 = [v6 objectForKeyedSubscript:*MEMORY[0x277D13F60]];
-  v14 = HULocalizedStringWithFormat(v5, @"%@", v8, v9, v10, v11, v12, v13, v7);
+  v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"HUTriggerActionEditor%@ToUse%@AlertMessageFormat", v5, v4];
+  v7 = [*(a1 + 32) latestResults];
+  v8 = [v7 objectForKeyedSubscript:*MEMORY[0x277D13F60]];
+  v15 = HULocalizedStringWithFormat(v6, @"%@", v9, v10, v11, v12, v13, v14, v8);
 
-  return v14;
+  return v15;
 }
 
 void __86__HUTriggerActionEditorContentViewController_collectionView_didSelectItemAtIndexPath___block_invoke_3(uint64_t a1)

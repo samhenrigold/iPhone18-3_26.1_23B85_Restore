@@ -37,7 +37,7 @@
 
 + (void)submitMetricForMethod:(id)method loggedDayIndex:(int64_t)index currentDayIndex:(int64_t)dayIndex
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   methodCopy = method;
   if ([self shouldSubmit])
   {
@@ -62,11 +62,11 @@ LABEL_7:
     v15 = objc_opt_class();
     v16 = v15;
     v17 = HKSensitiveLogItem();
-    v24 = 138543618;
-    v25 = v15;
-    v26 = 2114;
-    v27 = v17;
-    _os_log_impl(&dword_2518FC000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] Submitted metric %{public}@", &v24, 0x16u);
+    v23 = 138543618;
+    v24 = v15;
+    v25 = 2114;
+    v26 = v17;
+    _os_log_impl(&dword_2518FC000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] Submitted metric %{public}@", &v23, 0x16u);
 
 LABEL_6:
     goto LABEL_7;
@@ -82,20 +82,18 @@ LABEL_6:
     v14 = v19;
     v21 = [v20 numberWithBool:{objc_msgSend(self, "_isMetricEnabled")}];
     v22 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(self, "_isAllowed")}];
-    v24 = 138543874;
-    v25 = v19;
-    v26 = 2114;
-    v27 = v21;
-    v28 = 2114;
-    v29 = v22;
-    _os_log_impl(&dword_2518FC000, &v9->super, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping submitting metric. isMetricEnabled: %{public}@, isHealthDataSubmissionAllowed: %{public}@", &v24, 0x20u);
+    v23 = 138543874;
+    v24 = v19;
+    v25 = 2114;
+    v26 = v21;
+    v27 = 2114;
+    v28 = v22;
+    _os_log_impl(&dword_2518FC000, &v9->super, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping submitting metric. isMetricEnabled: %{public}@, isHealthDataSubmissionAllowed: %{public}@", &v23, 0x20u);
 
     goto LABEL_6;
   }
 
 LABEL_8:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 @end

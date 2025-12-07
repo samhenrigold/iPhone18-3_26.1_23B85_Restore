@@ -172,21 +172,21 @@
       goto LABEL_118;
     }
 
-    v78 = v13;
-    v79 = v14;
+    v76 = v13;
+    v77 = v14;
     namespaceIdentifier = [clientCopy namespaceIdentifier];
-    v89 = 0;
-    v16 = [_DPMLRecipeIDValidator checkClientIdentifier:v14 againstNamespaceIdentifier:namespaceIdentifier error:&v89];
-    v77 = v89;
+    v87 = 0;
+    v16 = [_DPMLRecipeIDValidator checkClientIdentifier:v14 againstNamespaceIdentifier:namespaceIdentifier error:&v87];
+    v75 = v87;
 
     v17 = v16;
     if (v16)
     {
-      v76 = v16;
+      v74 = v16;
       if ([v16 BOOLValue])
       {
         v18 = [v7 objectForKey:@"dataRecorderType"];
-        v75 = v18;
+        v73 = v18;
         if (v18 && (v19 = v18, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
           v20 = [_DPMLRuntimeRecipe dataRecorderTypeEnumFromString:v19];
@@ -210,11 +210,11 @@
 
                 if (v28)
                 {
-                  v68 = 0;
+                  v66 = 0;
 LABEL_45:
-                  v14 = v79;
+                  v14 = v77;
 
-                  v21 = v68;
+                  v21 = v66;
                   goto LABEL_46;
                 }
 
@@ -226,8 +226,8 @@ LABEL_45:
 
               else if (error)
               {
-                v43 = [NSString stringWithFormat:@"key %@ missing from recipe", @"dataTypeContent"];
-                *error = [_DPMLRuntimeError errorWithCode:100 description:v43];
+                v42 = [NSString stringWithFormat:@"key %@ missing from recipe", @"dataTypeContent"];
+                *error = [_DPMLRuntimeError errorWithCode:100 description:v42];
               }
 
               goto LABEL_113;
@@ -237,16 +237,16 @@ LABEL_59:
             v28 = [v7 objectForKey:@"numBucket"];
             if (v28 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              v74 = [v7 objectForKey:@"minValue"];
-              if (v74 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+              v72 = [v7 objectForKey:@"minValue"];
+              if (v72 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
               {
-                v39 = [v7 objectForKey:@"maxValue"];
-                if (v39)
+                v38 = [v7 objectForKey:@"maxValue"];
+                if (v38)
                 {
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v68 = [[_DPMLRuntimeLegacyRecordParameters alloc] initWithNumBucket:v28 minValue:v74 maxValue:v39];
+                    v66 = [[_DPMLRuntimeLegacyRecordParameters alloc] initWithNumBucket:v28 minValue:v72 maxValue:v38];
 
                     v22 = 0;
                     goto LABEL_45;
@@ -255,27 +255,27 @@ LABEL_59:
 
                 if (error)
                 {
-                  v51 = [NSString stringWithFormat:@"key %@ missing from recipe", @"maxValue"];
-                  *error = [_DPMLRuntimeError errorWithCode:100 description:v51];
+                  v50 = [NSString stringWithFormat:@"key %@ missing from recipe", @"maxValue"];
+                  *error = [_DPMLRuntimeError errorWithCode:100 description:v50];
                 }
               }
 
               else if (error)
               {
-                v42 = [NSString stringWithFormat:@"key %@ missing from recipe", @"minValue"];
-                *error = [_DPMLRuntimeError errorWithCode:100 description:v42];
+                v41 = [NSString stringWithFormat:@"key %@ missing from recipe", @"minValue"];
+                *error = [_DPMLRuntimeError errorWithCode:100 description:v41];
               }
             }
 
             else if (error)
             {
-              v40 = [NSString stringWithFormat:@"key %@ missing from recipe", @"numBucket"];
-              *error = [_DPMLRuntimeError errorWithCode:100 description:v40];
+              v39 = [NSString stringWithFormat:@"key %@ missing from recipe", @"numBucket"];
+              *error = [_DPMLRuntimeError errorWithCode:100 description:v39];
             }
 
 LABEL_113:
             v10 = 0;
-            v14 = v79;
+            v14 = v77;
             goto LABEL_114;
           }
 
@@ -285,9 +285,9 @@ LABEL_113:
             if (v20)
             {
 LABEL_46:
-              v69 = v21;
+              v67 = v21;
               v29 = [v7 objectForKey:@"cohorts"];
-              v67 = v22;
+              v65 = v22;
               if (v29)
               {
                 objc_opt_class();
@@ -304,31 +304,30 @@ LABEL_46:
                     v10 = 0;
                   }
 
-                  v23 = v77;
+                  v23 = v75;
                   goto LABEL_167;
                 }
 
-                v87 = 0u;
-                v88 = 0u;
                 v85 = 0u;
                 v86 = 0u;
-                v65 = v29;
+                v83 = 0u;
+                v84 = 0u;
+                v63 = v29;
                 obj = v29;
-                v30 = [obj countByEnumeratingWithState:&v85 objects:v95 count:16];
+                v30 = [obj countByEnumeratingWithState:&v83 objects:v93 count:16];
                 if (v30)
                 {
                   v31 = v30;
-                  v72 = *v86;
+                  v70 = *v84;
                   while (2)
                   {
-                    for (i = 0; i != v31; i = i + 1)
+                    for (i = 0; i != v31; ++i)
                     {
-                      if (*v86 != v72)
+                      if (*v84 != v70)
                       {
                         objc_enumerationMutation(obj);
                       }
 
-                      v33 = *(*(&v85 + 1) + 8 * i);
                       objc_opt_class();
                       if ((objc_opt_isKindOfClass() & 1) == 0)
                       {
@@ -338,14 +337,14 @@ LABEL_46:
                         }
 
                         v10 = 0;
-                        v14 = v79;
-                        v23 = v77;
-                        v29 = v65;
+                        v14 = v77;
+                        v23 = v75;
+                        v29 = v63;
                         goto LABEL_167;
                       }
                     }
 
-                    v31 = [obj countByEnumeratingWithState:&v85 objects:v95 count:16];
+                    v31 = [obj countByEnumeratingWithState:&v83 objects:v93 count:16];
                     if (v31)
                     {
                       continue;
@@ -355,45 +354,45 @@ LABEL_46:
                   }
                 }
 
-                v29 = v65;
+                v29 = v63;
               }
 
-              v66 = v29;
-              v34 = kDPMetadataVersionHash;
-              v93 = kDPMetadataVersionHash;
-              v94 = &stru_10002D560;
-              v35 = [NSDictionary dictionaryWithObjects:&v94 forKeys:&v93 count:1];
-              v36 = kDPMetadataDediscoTaskConfig;
-              v37 = [v7 objectForKey:kDPMetadataDediscoTaskConfig];
-              v73 = v37;
-              if (v37)
+              v64 = v29;
+              v33 = kDPMetadataVersionHash;
+              v91 = kDPMetadataVersionHash;
+              v92 = &stru_10002D560;
+              v34 = [NSDictionary dictionaryWithObjects:&v92 forKeys:&v91 count:1];
+              v35 = kDPMetadataDediscoTaskConfig;
+              v36 = [v7 objectForKey:kDPMetadataDediscoTaskConfig];
+              v71 = v36;
+              if (v36)
               {
-                v91[0] = v34;
-                v91[1] = v36;
-                v92[0] = &stru_10002D560;
-                v92[1] = v37;
-                v38 = [NSDictionary dictionaryWithObjects:v92 forKeys:v91 count:2];
+                v89[0] = v33;
+                v89[1] = v35;
+                v90[0] = &stru_10002D560;
+                v90[1] = v36;
+                v37 = [NSDictionary dictionaryWithObjects:v90 forKeys:v89 count:2];
 
-                obja = v38;
+                obja = v37;
               }
 
               else
               {
-                obja = v35;
+                obja = v34;
               }
 
-              v14 = v79;
+              v14 = v77;
               if ([v12 isEqualToString:@"legacy"])
               {
                 if (error)
                 {
-                  v44 = @"DSL is not supported.";
+                  v43 = @"DSL is not supported.";
 LABEL_104:
-                  [_DPMLRuntimeError errorWithCode:100 description:v44];
+                  [_DPMLRuntimeError errorWithCode:100 description:v43];
                   *error = v10 = 0;
 LABEL_166:
-                  v23 = v77;
-                  v29 = v66;
+                  v23 = v75;
+                  v29 = v64;
 
 LABEL_167:
                   goto LABEL_115;
@@ -406,7 +405,7 @@ LABEL_167:
               {
                 if (error)
                 {
-                  v44 = @"Recipe version not supported";
+                  v43 = @"Recipe version not supported";
                   goto LABEL_104;
                 }
 
@@ -415,20 +414,20 @@ LABEL_105:
                 goto LABEL_166;
               }
 
-              if (!v67)
+              if (!v65)
               {
                 if (error)
                 {
-                  v53 = [NSString stringWithFormat:@"key %@ is required for SQL queries", @"dataTypeContent"];
-                  *error = [_DPMLRuntimeError errorWithCode:100 description:v53];
+                  v52 = [NSString stringWithFormat:@"key %@ is required for SQL queries", @"dataTypeContent"];
+                  *error = [_DPMLRuntimeError errorWithCode:100 description:v52];
                 }
 
                 v10 = 0;
                 goto LABEL_165;
               }
 
-              v45 = [v7 objectForKey:@"sqlParameters"];
-              if (!v45 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+              v44 = [v7 objectForKey:@"sqlParameters"];
+              if (!v44 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
               {
                 if (error)
                 {
@@ -444,8 +443,8 @@ LABEL_105:
                 goto LABEL_164;
               }
 
-              v64 = [v45 objectForKey:@"accessControl"];
-              if (!v64 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+              v62 = [v44 objectForKey:@"accessControl"];
+              if (!v62 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
               {
                 if (error)
                 {
@@ -461,38 +460,37 @@ LABEL_105:
                 goto LABEL_163;
               }
 
-              v63 = [v45 objectForKey:@"query"];
-              if (v63)
+              v61 = [v44 objectForKey:@"query"];
+              if (v61)
               {
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v46 = v63;
+                  v45 = v61;
                   goto LABEL_93;
                 }
 
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v83 = 0u;
-                  v84 = 0u;
                   v81 = 0u;
                   v82 = 0u;
-                  v60 = v63;
-                  v62 = [v60 countByEnumeratingWithState:&v81 objects:v90 count:16];
-                  if (v62)
+                  v79 = 0u;
+                  v80 = 0u;
+                  v58 = v61;
+                  v60 = [v58 countByEnumeratingWithState:&v79 objects:v88 count:16];
+                  if (v60)
                   {
-                    v61 = *v82;
+                    v59 = *v80;
                     while (2)
                     {
-                      for (j = 0; j != v62; j = j + 1)
+                      for (j = 0; j != v60; ++j)
                       {
-                        if (*v82 != v61)
+                        if (*v80 != v59)
                         {
-                          objc_enumerationMutation(v60);
+                          objc_enumerationMutation(v58);
                         }
 
-                        v56 = *(*(&v81 + 1) + 8 * j);
                         objc_opt_class();
                         if ((objc_opt_isKindOfClass() & 1) == 0)
                         {
@@ -505,8 +503,8 @@ LABEL_105:
                         }
                       }
 
-                      v62 = [v60 countByEnumeratingWithState:&v81 objects:v90 count:16];
-                      if (v62)
+                      v60 = [v58 countByEnumeratingWithState:&v79 objects:v88 count:16];
+                      if (v60)
                       {
                         continue;
                       }
@@ -515,27 +513,27 @@ LABEL_105:
                     }
                   }
 
-                  v46 = [v60 componentsJoinedByString:@" "];
+                  v45 = [v58 componentsJoinedByString:@" "];
 LABEL_93:
-                  v47 = v46;
-                  v48 = +[_PFLLog extension];
-                  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+                  v46 = v45;
+                  v47 = +[_PFLLog extension];
+                  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
                   {
                     sub_10001CFBC();
                   }
 
-                  v80 = 0;
+                  v78 = 0;
                   namespaceIdentifier3 = [clientCopy namespaceIdentifier];
-                  v50 = [_DPMLSQLQueryValidator isValidSQLQuery:v47 forNamespaceID:namespaceIdentifier3 possibleError:&v80];
+                  v49 = [_DPMLSQLQueryValidator isValidSQLQuery:v46 forNamespaceID:namespaceIdentifier3 possibleError:&v78];
 
-                  if (v50)
+                  if (v49)
                   {
-                    if ([v50 BOOLValue])
+                    if ([v49 BOOLValue])
                     {
-                      if (sub_1000147B8(v47, v79, v73))
+                      if (sub_1000147B8(v46, v77, v71))
                       {
-                        LOBYTE(v59) = v9;
-                        v10 = [[_DPMLRuntimeRecipe alloc] initWithTrialClient:clientCopy recipeIdentifier:v78 clientIdentifier:v79 recordMetadata:obja dataTypeContent:v67 sqlQuery:v47 sqlAccessTable:v64 cohortNameList:v66 isUnknownDictionaryCase:v59];
+                        LOBYTE(v57) = v9;
+                        v10 = [[_DPMLRuntimeRecipe alloc] initWithTrialClient:clientCopy recipeIdentifier:v76 clientIdentifier:v77 recordMetadata:obja dataTypeContent:v65 sqlQuery:v46 sqlAccessTable:v62 cohortNameList:v64 isUnknownDictionaryCase:v57];
 LABEL_161:
 
                         goto LABEL_162;
@@ -543,26 +541,26 @@ LABEL_161:
 
                       if (error)
                       {
-                        v58 = @"Cannot validate recipe for Private Relay usage";
+                        v56 = @"Cannot validate recipe for Private Relay usage";
                         goto LABEL_158;
                       }
                     }
 
                     else if (error)
                     {
-                      v58 = @"SQL query not valid";
+                      v56 = @"SQL query not valid";
 LABEL_158:
-                      v57 = [_DPMLRuntimeError errorWithCode:100 description:v58];
+                      v55 = [_DPMLRuntimeError errorWithCode:100 description:v56];
                       goto LABEL_159;
                     }
                   }
 
                   else if (error)
                   {
-                    v57 = [_DPMLRuntimeError errorWithCode:100 underlyingError:v80 description:@"Cannot validate SQL query"];
+                    v55 = [_DPMLRuntimeError errorWithCode:100 underlyingError:v78 description:@"Cannot validate SQL query"];
 LABEL_159:
                     v10 = 0;
-                    *error = v57;
+                    *error = v55;
                     goto LABEL_161;
                   }
 
@@ -572,16 +570,16 @@ LABEL_159:
 
                 if (error)
                 {
-                  v54 = @"SQL query should either be an array of strings or a single string";
+                  v53 = @"SQL query should either be an array of strings or a single string";
                   goto LABEL_147;
                 }
               }
 
               else if (error)
               {
-                v54 = @"SQL parameters dictionary is missing SQL query";
+                v53 = @"SQL parameters dictionary is missing SQL query";
 LABEL_147:
-                [_DPMLRuntimeError errorWithCode:100 description:v54];
+                [_DPMLRuntimeError errorWithCode:100 description:v53];
                 *error = v10 = 0;
 LABEL_162:
 
@@ -589,7 +587,7 @@ LABEL_163:
 LABEL_164:
 
 LABEL_165:
-                v14 = v79;
+                v14 = v77;
                 goto LABEL_166;
               }
 
@@ -603,8 +601,8 @@ LABEL_155:
 
           if (error)
           {
-            v41 = [NSString stringWithFormat:@"The data recorder type %@ is not supported", v19];
-            *error = [_DPMLRuntimeError errorWithCode:100 description:v41];
+            v40 = [NSString stringWithFormat:@"The data recorder type %@ is not supported", v19];
+            *error = [_DPMLRuntimeError errorWithCode:100 description:v40];
           }
         }
 
@@ -613,10 +611,10 @@ LABEL_155:
           [_DPMLRuntimeError errorWithCode:100 description:@"Recipe is missing data recorder type string"];
           *error = v10 = 0;
 LABEL_114:
-          v23 = v77;
+          v23 = v75;
 LABEL_115:
 
-          v17 = v76;
+          v17 = v74;
           goto LABEL_116;
         }
 
@@ -627,10 +625,10 @@ LABEL_115:
       if (error)
       {
         namespaceIdentifier4 = [clientCopy namespaceIdentifier];
-        v25 = [NSString stringWithFormat:@"The client identifier %@ is not allowed for the Trial namespace %@", v79, namespaceIdentifier4];
+        v25 = [NSString stringWithFormat:@"The client identifier %@ is not allowed for the Trial namespace %@", v77, namespaceIdentifier4];
         *error = [_DPMLRuntimeError errorWithCode:100 description:v25];
 
-        v14 = v79;
+        v14 = v77;
       }
 
       v10 = 0;
@@ -641,20 +639,20 @@ LABEL_115:
     {
       if (error)
       {
-        v23 = v77;
-        [_DPMLRuntimeError errorWithCode:100 underlyingError:v77 description:@"Cannot perform recipe ID check"];
+        v23 = v75;
+        [_DPMLRuntimeError errorWithCode:100 underlyingError:v75 description:@"Cannot perform recipe ID check"];
         *error = v10 = 0;
         v17 = 0;
 LABEL_116:
-        v13 = v78;
+        v13 = v76;
         goto LABEL_117;
       }
 
       v10 = 0;
     }
 
-    v23 = v77;
-    v13 = v78;
+    v23 = v75;
+    v13 = v76;
 LABEL_117:
 
 LABEL_118:

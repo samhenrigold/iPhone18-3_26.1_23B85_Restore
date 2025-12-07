@@ -6,11 +6,12 @@
 
 - (void)setDefaultValues
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for _UIFlexInteractionUltraSmallVariantSpec();
-  v2 = v3.receiver;
-  [(_UIFlexInteractionSmallVariantSpec *)&v3 setDefaultValues];
-  *&v2[OBJC_IVAR____TtC5UIKit29_UIFlexInteractionVariantSpec_scaleDistanceThreshold] = 0x409F400000000000;
+  type metadata accessor for _UIFlexInteractionUltraSmallVariantSpec();
+  v5.receiver = self;
+  v5.super_class = v3;
+  selfCopy = self;
+  [(_UIFlexInteractionSmallVariantSpec *)&v5 setDefaultValues];
+  *(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC5UIKit29_UIFlexInteractionVariantSpec_scaleDistanceThreshold) = 0x409F400000000000;
 }
 
 @end

@@ -13,73 +13,66 @@
 
 - (HKQuantity)lowerBound
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___WOCyclingPowerZone_zone);
   selfCopy = self;
-  v4 = sub_223F4();
+  v3 = sub_223F4();
 
-  return v4;
+  return v3;
 }
 
 - (HKQuantity)upperBound
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___WOCyclingPowerZone_zone);
   selfCopy = self;
-  v4 = sub_22404();
+  v3 = sub_22404();
 
-  return v4;
+  return v3;
 }
 
 - (double)percentageLowerBound
 {
   sub_22714();
-  v3 = *(&self->super.isa + OBJC_IVAR___WOCyclingPowerZone_zone);
   selfCopy = self;
   sub_22414();
   sub_22704();
-  v6 = v5;
+  v5 = v4;
 
-  return v6;
+  return v5;
 }
 
 - (double)percentageUpperBound
 {
   sub_22714();
-  v3 = *(&self->super.isa + OBJC_IVAR___WOCyclingPowerZone_zone);
   selfCopy = self;
   sub_22414();
   sub_22704();
-  v6 = v5;
+  v5 = v4;
 
-  return v6;
+  return v5;
 }
 
 - (int64_t)index
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___WOCyclingPowerZone_zone);
   selfCopy = self;
-  v4 = sub_22734();
+  v3 = sub_22734();
 
-  return v4;
+  return v3;
 }
 
 - (BOOL)isEmpty
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___WOCyclingPowerZone_zone);
   selfCopy = self;
-  LOBYTE(v2) = sub_22424();
+  v3 = sub_22424();
 
-  return v2 & 1;
+  return v3 & 1;
 }
 
 - (BOOL)isFTPRange
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___WOCyclingPowerZone_zone);
   selfCopy = self;
   sub_22414();
-  v5 = v4;
-  v7 = v6;
+  v4 = v3;
+  v6 = v5;
 
-  return v7 > 1.0 && v5 <= 1.0;
+  return v6 > 1.0 && v4 <= 1.0;
 }
 
 - (WOCyclingPowerZone)init

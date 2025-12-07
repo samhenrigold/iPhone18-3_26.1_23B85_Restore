@@ -67,15 +67,14 @@
   {
     stringValue = [value2 stringValue];
 
-    v8 = *MEMORY[0x1E695E480];
     mEMORY[0x1E69A1CD8] = [MEMORY[0x1E69A1CD8] sharedConfiguration];
     countryCode = [mEMORY[0x1E69A1CD8] countryCode];
-    v11 = CFPhoneNumberCreate();
+    v10 = CFPhoneNumberCreate();
 
-    if (v11)
+    if (v10)
     {
       String = CFPhoneNumberCreateString();
-      CFRelease(v11);
+      CFRelease(v10);
     }
 
     else
@@ -87,9 +86,9 @@
   }
 
   objc_opt_class();
-  v13 = objc_opt_isKindOfClass();
+  v12 = objc_opt_isKindOfClass();
 
-  if ((v13 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
     String = &stru_1F44CA030;
     goto LABEL_10;
@@ -97,9 +96,9 @@
 
   if (self->_type == 3)
   {
-    v14 = MEMORY[0x1E696AEC0];
+    v13 = MEMORY[0x1E696AEC0];
     stringValue = [(CNLabeledValue *)self->_labeledValue value];
-    String = [v14 _mapkit_shortenedURLStringForFullURLString:stringValue];
+    String = [v13 _mapkit_shortenedURLStringForFullURLString:stringValue];
 LABEL_9:
 
     goto LABEL_10;

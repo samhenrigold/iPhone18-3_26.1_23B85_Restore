@@ -1,1924 +1,3 @@
-uint64_t AVE_DAL::TerminateRunLoop(AVE_DAL *this)
-{
-  if (AVE_Log_CheckLevel(0x24u, 6))
-  {
-    v2 = AVE_Log_CheckConsole(0x24u);
-    CurrTime = AVE_GetCurrTime();
-    LevelStr = AVE_Log_GetLevelStr(6);
-    if (v2)
-    {
-      printf("%lld %d AVE %s: %s::%s Enter %p %lld\n", CurrTime, 36, LevelStr, "AVE_DAL", "TerminateRunLoop", this, *this);
-      CurrTime = AVE_GetCurrTime();
-      AVE_Log_GetLevelStr(6);
-      v5 = *this;
-    }
-
-    syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld", CurrTime);
-  }
-
-  v6 = *(this + 10);
-  if (v6)
-  {
-    CFRunLoopStop(v6);
-  }
-
-  if (AVE_Log_CheckLevel(0x24u, 6))
-  {
-    v7 = AVE_Log_CheckConsole(0x24u);
-    v8 = AVE_GetCurrTime();
-    v9 = AVE_Log_GetLevelStr(6);
-    v10 = *this;
-    if (v7)
-    {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v8, 36, v9, "AVE_DAL", "TerminateRunLoop", this, *this, 0);
-      v8 = AVE_GetCurrTime();
-      AVE_Log_GetLevelStr(6);
-      v11 = *this;
-    }
-
-    else
-    {
-      v13 = *this;
-    }
-
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v8, 36);
-  }
-
-  return 0;
-}
-
-void AVE_DAL::RecvThread(AVE_DAL *this, void *a2)
-{
-  if (AVE_Log_CheckLevel(0x24u, 7))
-  {
-    v3 = AVE_Log_CheckConsole(0x24u);
-    CurrTime = AVE_GetCurrTime();
-    LevelStr = AVE_Log_GetLevelStr(7);
-    if (v3)
-    {
-      printf("%lld %d AVE %s: %s::%s Enter %p\n", CurrTime, 36, LevelStr, "AVE_DAL", "RecvThread", this);
-      v6 = AVE_GetCurrTime();
-      v34 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s: %s::%s Enter %p", v6, 36, v34, "AVE_DAL", "RecvThread", this);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s::%s Enter %p", CurrTime, 36, LevelStr, "AVE_DAL", "RecvThread", this);
-    }
-  }
-
-  if (this)
-  {
-    v13 = *this;
-    if (*this)
-    {
-      os_retain(*(this + 2));
-      v19 = voucher_adopt();
-      pthread_setname_np("AVE_UCRecv");
-      v20 = AVE_DAL::AdjustThreadPolicy(v13, 0, 0);
-      if (v20)
-      {
-        v21 = v20;
-        if (AVE_Log_CheckLevel(0x24u, 4))
-        {
-          v22 = AVE_Log_CheckConsole(0x24u);
-          v23 = AVE_GetCurrTime();
-          v24 = AVE_Log_GetLevelStr(4);
-          v25 = *v13;
-          if (v22)
-          {
-            printf("%lld %d AVE %s: %s::%s:%d %s | fail to set thread policy %p %lld %d\n", v23, 36, v24, "AVE_DAL", "RecvThread", 1572, "ret == 0", v13, *v13, v21);
-            v23 = AVE_GetCurrTime();
-            v24 = AVE_Log_GetLevelStr(4);
-          }
-
-          v35 = *v13;
-          syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to set thread policy %p %lld %d", v23, 36, v24, "AVE_DAL");
-        }
-      }
-
-      else
-      {
-        v21 = AVE_DAL::SetUpRunLoop(v13);
-        if (v21)
-        {
-          if (AVE_Log_CheckLevel(0x24u, 4))
-          {
-            v26 = AVE_Log_CheckConsole(0x24u);
-            v27 = AVE_GetCurrTime();
-            v28 = AVE_Log_GetLevelStr(4);
-            v29 = *v13;
-            if (v26)
-            {
-              printf("%lld %d AVE %s: %s::%s:%d %s | fail to set up run loop %p %lld %d\n", v27, 36, v28, "AVE_DAL", "RecvThread", 1576, "ret == 0", v13, *v13, v21);
-              v27 = AVE_GetCurrTime();
-              v28 = AVE_Log_GetLevelStr(4);
-            }
-
-            v36 = *v13;
-            syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to set up run loop %p %lld %d", v27, 36, v28, "AVE_DAL");
-          }
-        }
-
-        else
-        {
-          *(this + 2) = 1;
-          CFRunLoopRun();
-          AVE_DAL::TearDownRunLoop(v13);
-        }
-      }
-
-      if (v19 != -1)
-      {
-        v30 = voucher_adopt();
-        os_release(v30);
-      }
-
-      if (v21)
-      {
-        v7 = 4;
-      }
-
-      else
-      {
-        v7 = 7;
-      }
-    }
-
-    else
-    {
-      v7 = 4;
-      if (AVE_Log_CheckLevel(0x24u, 4))
-      {
-        v14 = AVE_Log_CheckConsole(0x24u);
-        v15 = AVE_GetCurrTime();
-        v16 = AVE_Log_GetLevelStr(4);
-        if (v14)
-        {
-          printf("%lld %d AVE %s: %s::%s:%d %s | wrong class %p\n", v15, 36, v16, "AVE_DAL", "RecvThread", 1560, "pDAL != __null", 0);
-          v17 = AVE_GetCurrTime();
-          v7 = 4;
-          v18 = AVE_Log_GetLevelStr(4);
-          syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong class %p", v17, 36, v18, "AVE_DAL", "RecvThread", 1560, "pDAL != __null", 0);
-        }
-
-        else
-        {
-          syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong class %p", v15, 36, v16, "AVE_DAL", "RecvThread", 1560, "pDAL != __null", 0);
-          v7 = 4;
-        }
-      }
-
-      v21 = -1015;
-    }
-  }
-
-  else
-  {
-    v7 = 4;
-    if (AVE_Log_CheckLevel(0x24u, 4))
-    {
-      v8 = AVE_Log_CheckConsole(0x24u);
-      v9 = AVE_GetCurrTime();
-      v10 = AVE_Log_GetLevelStr(4);
-      if (v8)
-      {
-        printf("%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p\n", v9, 36, v10, "AVE_DAL", "RecvThread", 1554, "pArg != __null", 0);
-        v11 = AVE_GetCurrTime();
-        v7 = 4;
-        v12 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p", v11, 36, v12, "AVE_DAL", "RecvThread", 1554, "pArg != __null", 0);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p", v9, 36, v10, "AVE_DAL", "RecvThread", 1554, "pArg != __null", 0);
-        v7 = 4;
-      }
-    }
-
-    v21 = -1001;
-  }
-
-  if (AVE_Log_CheckLevel(0x24u, v7))
-  {
-    v31 = AVE_Log_CheckConsole(0x24u);
-    v32 = AVE_GetCurrTime();
-    v33 = AVE_Log_GetLevelStr(v7);
-    if (v31)
-    {
-      printf("%lld %d AVE %s: %s::%s Exit %p %d\n", v32, 36, v33, "AVE_DAL", "RecvThread", this, v21);
-      v32 = AVE_GetCurrTime();
-      v33 = AVE_Log_GetLevelStr(v7);
-    }
-
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %d", v32, 36, v33, "AVE_DAL", "RecvThread", this, v21);
-  }
-
-  pthread_exit(0);
-}
-
-void *AVE_DLList_Init_Node(void *result)
-{
-  if (!result)
-  {
-    AVE_DLList_Init_Node_cold_1();
-  }
-
-  *result = result;
-  result[1] = result;
-  result[2] = 0;
-  return result;
-}
-
-uint64_t AVE_DLList_Init(uint64_t result)
-{
-  if (!result)
-  {
-    AVE_DLList_Init_cold_1();
-  }
-
-  *result = result;
-  *(result + 8) = result;
-  *(result + 24) = 0;
-  *(result + 16) = result;
-  return result;
-}
-
-uint64_t AVE_DLList_Prev(uint64_t a1)
-{
-  if (!a1)
-  {
-    AVE_DLList_Prev_cold_1();
-  }
-
-  return *a1;
-}
-
-uint64_t AVE_DLList_Next(uint64_t a1)
-{
-  if (!a1)
-  {
-    AVE_DLList_Next_cold_1();
-  }
-
-  return *(a1 + 8);
-}
-
-uint64_t AVE_DLList_Back(void *a1)
-{
-  if (!a1)
-  {
-    AVE_DLList_Back_cold_1();
-  }
-
-  if (AVE_DLList_Empty(a1))
-  {
-    return 0;
-  }
-
-  else
-  {
-    return *a1;
-  }
-}
-
-BOOL AVE_DLList_PopBack(void **a1)
-{
-  if (!a1)
-  {
-    AVE_DLList_PopBack_cold_3();
-  }
-
-  if (!*a1)
-  {
-    AVE_DLList_PopBack_cold_2();
-  }
-
-  if (!a1[1])
-  {
-    AVE_DLList_PopBack_cold_1();
-  }
-
-  result = AVE_DLList_Empty(a1);
-  if (!result)
-  {
-    v3 = *a1;
-    v4 = **a1;
-    *a1 = v4;
-    v4[1] = a1;
-    *v3 = v3;
-    v3[1] = v3;
-    v3[2] = 0;
-    --*(a1 + 6);
-  }
-
-  return result;
-}
-
-uint64_t AVE_DLList_REnd(uint64_t result)
-{
-  if (!result)
-  {
-    AVE_DLList_REnd_cold_1();
-  }
-
-  return result;
-}
-
-uint64_t AVE_DLB_ParseCfg(char *a1, int *a2)
-{
-  if (!a1)
-  {
-    return 4294966288;
-  }
-
-  v3 = a1;
-  v4 = 0;
-  v5 = a2 + 2;
-  v6 = 0xFFFFFFFFLL;
-  v7 = a2 + 2;
-  while (1)
-  {
-    result = *v3;
-    if (*v3 <= 0x53u)
-    {
-      if (*v3 <= 0x4Cu)
-      {
-        if (*v3 <= 0x43u)
-        {
-          if (result == 32)
-          {
-            goto LABEL_59;
-          }
-
-          if (!*v3)
-          {
-            goto LABEL_68;
-          }
-        }
-
-        else
-        {
-          if (result == 68)
-          {
-            goto LABEL_31;
-          }
-
-          if (result == 71)
-          {
-LABEL_32:
-            v4 = 4;
-            goto LABEL_59;
-          }
-        }
-      }
-
-      else if (*v3 > 0x4Fu)
-      {
-        if (result == 80)
-        {
-          goto LABEL_34;
-        }
-
-        if (result == 83)
-        {
-LABEL_30:
-          v4 = 6;
-          goto LABEL_59;
-        }
-      }
-
-      else
-      {
-        if (result == 77)
-        {
-          goto LABEL_24;
-        }
-
-        if (result == 78)
-        {
-LABEL_33:
-          v4 = 3;
-          goto LABEL_59;
-        }
-      }
-    }
-
-    else if (*v3 > 0x6Du)
-    {
-      if (*v3 > 0x72u)
-      {
-        if (result == 115)
-        {
-          goto LABEL_30;
-        }
-
-        if (result == 116)
-        {
-LABEL_27:
-          v4 = 1;
-          goto LABEL_59;
-        }
-      }
-
-      else
-      {
-        if (result == 110)
-        {
-          goto LABEL_33;
-        }
-
-        if (result == 112)
-        {
-LABEL_34:
-          v4 = 5;
-          goto LABEL_59;
-        }
-      }
-    }
-
-    else if (*v3 > 0x66u)
-    {
-      if (result == 103)
-      {
-        goto LABEL_32;
-      }
-
-      if (result == 109)
-      {
-LABEL_24:
-        v4 = 2;
-        goto LABEL_59;
-      }
-    }
-
-    else
-    {
-      if (result == 84)
-      {
-        goto LABEL_27;
-      }
-
-      if (result == 100)
-      {
-LABEL_31:
-        v4 = 0;
-        goto LABEL_59;
-      }
-    }
-
-    if ((result - 48) > 9)
-    {
-      result = 4294966296;
-      if ((v6 & 0x80000000) == 0)
-      {
-        goto LABEL_69;
-      }
-
-      return 4294966288;
-    }
-
-    v9 = atoi(v3);
-    v10 = v9;
-    if (v4 <= 1)
-    {
-      if (v4)
-      {
-        v10 = v6 & ~(v6 >> 31);
-        *v7 = v9 != 0;
-        goto LABEL_57;
-      }
-
-      if (v9 > 5)
-      {
-        result = 4294966290;
-        if ((v6 & 0x80000000) == 0)
-        {
-          goto LABEL_69;
-        }
-
-        return 4294966288;
-      }
-
-      v7 = &v5[12 * v9];
-    }
-
-    else
-    {
-      switch(v4)
-      {
-        case 2:
-          v10 = v6 & ~(v6 >> 31);
-          v7[1] = v9 != 0;
-          break;
-        case 3:
-          if ((v9 - 5) < 0xFFFFFFFC)
-          {
-LABEL_67:
-            result = 4294966278;
-LABEL_68:
-            if ((v6 & 0x80000000) == 0)
-            {
-              goto LABEL_69;
-            }
-
-            return 4294966288;
-          }
-
-          v7[2] = v9;
-          v10 = v6 & ~(v6 >> 31);
-          break;
-        case 4:
-          if (v9 > 3)
-          {
-            goto LABEL_67;
-          }
-
-          v11 = v7[3];
-          v12 = &v7[2 * v11];
-          v12[4] = v9;
-          v12[5] = 1;
-          v7[3] = v11 + 1;
-          v10 = v6 & ~(v6 >> 31);
-          break;
-        default:
-          v13 = v7[3];
-          if (v13 < 1)
-          {
-LABEL_61:
-            result = 4294966274;
-            if ((v6 & 0x80000000) == 0)
-            {
-              goto LABEL_69;
-            }
-
-            return 4294966288;
-          }
-
-          v14 = v7 + 5;
-          while (*(v14 - 1) != v9)
-          {
-            v14 += 2;
-            if (!--v13)
-            {
-              goto LABEL_61;
-            }
-          }
-
-          *v14 = v4 != 5;
-          v10 = v6;
-          break;
-      }
-    }
-
-LABEL_57:
-    result = strchr(v3, 32);
-    if (!result)
-    {
-      break;
-    }
-
-    v3 = result;
-    v6 = v10;
-LABEL_59:
-    ++v3;
-  }
-
-  LODWORD(v6) = v10;
-  if ((v10 & 0x80000000) != 0)
-  {
-    return 4294966288;
-  }
-
-LABEL_69:
-  v15 = *a2;
-  if (*a2 <= v6 + 1)
-  {
-    v15 = v6 + 1;
-  }
-
-  *a2 = v15;
-  return result;
-}
-
-uint64_t AVE_ISP_RetrieveMetadata(CFDictionaryRef theDict, double *a2)
-{
-  v24 = *MEMORY[0x29EDCA608];
-  v21 = 0;
-  *v22 = 0u;
-  v23 = 0u;
-  if (theDict && a2)
-  {
-    a2[10] = 0.0;
-    *a2 = 0uLL;
-    *(a2 + 4) = 0uLL;
-    *(a2 + 3) = 0uLL;
-    *(a2 + 2) = 0uLL;
-    *(a2 + 1) = 0uLL;
-    AVE_CFDict_GetDouble(theDict, *MEMORY[0x29EDC06B0], a2);
-    AVE_CFDict_GetDouble(theDict, *MEMORY[0x29EDC0618], a2 + 1);
-    AVE_CFDict_GetDouble(theDict, *MEMORY[0x29EDC04D0], a2 + 2);
-    AVE_CFDict_GetDouble(theDict, *MEMORY[0x29EDC0368], a2 + 3);
-    AVE_CFDict_GetDouble(theDict, *MEMORY[0x29EDC0758], a2 + 4);
-    AVE_CFDict_GetDouble(theDict, *MEMORY[0x29EDC0770], a2 + 5);
-    AVE_CFDict_GetDouble(theDict, *MEMORY[0x29EDC0760], a2 + 6);
-    AVE_CFDict_GetSInt32(theDict, *MEMORY[0x29EDC06E0], a2 + 16);
-    AVE_CFDict_GetDouble(theDict, *MEMORY[0x29EDC06B8], a2 + 7);
-    AVE_CFDict_GetSInt32(theDict, *MEMORY[0x29EDC05C0], a2 + 17);
-    if (AVE_CFDict_GetSInt32(theDict, *MEMORY[0x29EDC0728], a2 + 18) == -1008)
-    {
-      *(a2 + 18) = -1;
-    }
-
-    Bool = AVE_CFDict_GetBool(theDict, *MEMORY[0x29EDC0730], &v21);
-    v5 = v21;
-    if (Bool == -1008)
-    {
-      v5 = -1;
-    }
-
-    *(a2 + 19) = v5;
-    Value = CFDictionaryGetValue(theDict, *MEMORY[0x29EDC0630]);
-    if (Value)
-    {
-      Str = AVE_CFStr_GetStr(Value, v22, 32);
-      if (Str)
-      {
-        v8 = Str;
-        v9 = &dword_29EDCC0B0;
-        v10 = 5;
-        while (strcmp(v8, *(v9 - 1)))
-        {
-          v9 += 4;
-          if (!--v10)
-          {
-            v11 = 0;
-            goto LABEL_21;
-          }
-        }
-
-        v11 = *v9;
-LABEL_21:
-        *(a2 + 20) = v11;
-        if (AVE_Log_CheckLevel(0x37u, 6))
-        {
-          v17 = AVE_Log_CheckConsole(0x37u);
-          CurrTime = AVE_GetCurrTime();
-          LevelStr = AVE_Log_GetLevelStr(6);
-          if (v17)
-          {
-            printf("%lld %d AVE %s: %s:%d SF: %f Port: %s %d\n", CurrTime, 55, LevelStr, "AVE_ISP_RetrieveMetadata", 120, a2[7], v8, v11);
-            CurrTime = AVE_GetCurrTime();
-            AVE_Log_GetLevelStr(6);
-            v20 = *(a2 + 7);
-          }
-
-          syslog(3, "%lld %d AVE %s: %s:%d SF: %f Port: %s %d", CurrTime);
-        }
-      }
-    }
-  }
-
-  else
-  {
-    if (AVE_Log_CheckLevel(0x37u, 4))
-    {
-      v12 = AVE_Log_CheckConsole(0x37u);
-      v13 = AVE_GetCurrTime();
-      v14 = AVE_Log_GetLevelStr(4);
-      if (v12)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p\n", v13, 55, v14, "AVE_ISP_RetrieveMetadata", 73, "pDict != __null && pData != __null", theDict, a2);
-        v13 = AVE_GetCurrTime();
-        AVE_Log_GetLevelStr(4);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p", v13, 55);
-    }
-
-    Bool = 4294966295;
-  }
-
-  v15 = *MEMORY[0x29EDCA608];
-  return Bool;
-}
-
-uint64_t AVE_ISP_CheckMetadata(__CVBuffer *a1)
-{
-  if (a1)
-  {
-    v1 = AVE_ISP_CopyCFMetadata(a1);
-    v2 = 4294966288;
-    if (v1)
-    {
-      v3 = v1;
-      if (CFDictionaryContainsKey(v1, *MEMORY[0x29EDC06E0]))
-      {
-        v2 = 0;
-      }
-
-      else
-      {
-        v2 = 4294966288;
-      }
-
-      CFRelease(v3);
-    }
-  }
-
-  else
-  {
-    if (AVE_Log_CheckLevel(0x37u, 4))
-    {
-      v4 = AVE_Log_CheckConsole(0x37u);
-      CurrTime = AVE_GetCurrTime();
-      LevelStr = AVE_Log_GetLevelStr(4);
-      if (v4)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p\n", CurrTime, 55, LevelStr, "AVE_ISP_CheckMetadata", 206, "pImgBuf != __null", 0);
-        CurrTime = AVE_GetCurrTime();
-        AVE_Log_GetLevelStr(4);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p", CurrTime);
-    }
-
-    return 4294966295;
-  }
-
-  return v2;
-}
-
-const void *AVE_ISP_CopyCFMetadata(__CVBuffer *a1)
-{
-  v1 = CVBufferCopyAttachments(a1, kCVAttachmentMode_ShouldPropagate);
-  if (!v1)
-  {
-    return 0;
-  }
-
-  v2 = v1;
-  Value = CFDictionaryGetValue(v1, *MEMORY[0x29EDBFF98]);
-  v4 = Value;
-  if (Value)
-  {
-    CFRetain(Value);
-  }
-
-  CFRelease(v2);
-  return v4;
-}
-
-uint64_t AVE_ISP_GetMetadata(__CVBuffer *a1, double *a2)
-{
-  if (a1 && a2)
-  {
-    v4 = AVE_ISP_CopyCFMetadata(a1);
-    if (v4)
-    {
-      v5 = v4;
-      Metadata = AVE_ISP_RetrieveMetadata(v4, a2);
-      CFRelease(v5);
-      return Metadata;
-    }
-
-    else
-    {
-      return 4294966288;
-    }
-  }
-
-  else
-  {
-    if (AVE_Log_CheckLevel(0x37u, 4))
-    {
-      v8 = AVE_Log_CheckConsole(0x37u);
-      CurrTime = AVE_GetCurrTime();
-      LevelStr = AVE_Log_GetLevelStr(4);
-      if (v8)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p\n", CurrTime, 55, LevelStr, "AVE_ISP_GetMetadata", 240, "pImgBuf != __null && pData != __null", a1, a2);
-        CurrTime = AVE_GetCurrTime();
-        AVE_Log_GetLevelStr(4);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p", CurrTime, 55);
-    }
-
-    return 4294966295;
-  }
-}
-
-uint64_t AVE_Log_UpdateConf(unsigned int a1, int a2)
-{
-  if (a1 > 0xFF)
-  {
-    return 4294966295;
-  }
-
-  if (a2)
-  {
-    v4 = a2;
-    v5 = a1;
-    v6 = a2;
-  }
-
-  else
-  {
-    v4 = 0;
-    v5 = a1;
-    v6 = *(&gs_sAVE_Log_Default + a1);
-  }
-
-  gs_sAVE_Log[v5] = v6;
-  if ((byte_2A189AC78 & 0xFu) >= 7)
-  {
-    v7 = byte_2A189AC78;
-    CurrTime = AVE_GetCurrTime();
-    if ((v7 & 0x10) != 0)
-    {
-      printf("%lld %d AVE %s: %s:%d %d 0x%x\n", CurrTime, 64, "VERB", "AVE_Log_UpdateConf", 116, a1, v4);
-      CurrTime = AVE_GetCurrTime();
-    }
-
-    syslog(3, "%lld %d AVE %s: %s:%d %d 0x%x", CurrTime, 64, "VERB", "AVE_Log_UpdateConf", 116, a1, v4);
-  }
-
-  return 0;
-}
-
-uint64_t AVE_Log_CheckConsole(unsigned int a1)
-{
-  if (a1 < 2)
-  {
-    return 1;
-  }
-
-  if (a1 <= 0xFF)
-  {
-    return (gs_sAVE_Log[a1] >> 4) & 1;
-  }
-
-  return 0;
-}
-
-void *AVE_Log_GetLevelStr(int a1)
-{
-  if (a1 >= 0)
-  {
-    LOBYTE(v1) = a1;
-  }
-
-  else
-  {
-    v1 = -a1;
-  }
-
-  v2 = v1 & 0xF;
-  if (v2 > 8)
-  {
-    return &unk_2954B8F4E;
-  }
-
-  else
-  {
-    return *(&gsc_piaAVE_Log_LevelStr + v2);
-  }
-}
-
-uint64_t AVE_Log_Init(void)
-{
-  if (!gs_iAVE_Timestamp)
-  {
-    *&v0 = 0x505050505050505;
-    *(&v0 + 1) = 0x505050505050505;
-    xmmword_2A189AB50 = v0;
-    unk_2A189AB60 = v0;
-    xmmword_2A189AC10 = v0;
-    unk_2A189AC20 = v0;
-    xmmword_2A189ABF0 = v0;
-    unk_2A189AC00 = v0;
-    xmmword_2A189ABD0 = v0;
-    unk_2A189ABE0 = v0;
-    xmmword_2A189ABB0 = v0;
-    unk_2A189ABC0 = v0;
-    xmmword_2A189AB90 = v0;
-    unk_2A189ABA0 = v0;
-    xmmword_2A189AB70 = v0;
-    unk_2A189AB80 = v0;
-    gs_sAVE_Log_Default = v0;
-    unk_2A189AB40 = v0;
-    BYTE4(gs_sAVE_Log_Default) = 6;
-    BYTE12(xmmword_2A189AB50) = 6;
-    byte_2A189AB6D = 6;
-    *(&gs_sAVE_Log_Default + 11) = 1542;
-    BYTE5(xmmword_2A189AB90) = 6;
-    BYTE1(xmmword_2A189AB70) = 6;
-    dword_2A189AC34 = 20000;
-    dword_2A189AC30 = 25;
-    AVE_MemCpyV2V(gs_sAVE_Log, &gs_sAVE_Log_Default, 256);
-    dword_2A189AD3C = dword_2A189AC34;
-    dword_2A189AD38 = dword_2A189AC30;
-    gs_iAVE_Timestamp = 1;
-  }
-
-  return 0;
-}
-
-uint64_t AVE_Log_UpdateConsole(int a1)
-{
-  if ((byte_2A189AC78 & 0xEu) > 5)
-  {
-    v2 = byte_2A189AC78;
-    CurrTime = AVE_GetCurrTime();
-    if ((v2 & 0x10) != 0)
-    {
-      printf("%lld %d AVE %s: %s Enter %d\n", CurrTime, 64, "INFO", "AVE_Log_UpdateConsole", a1);
-      CurrTime = AVE_GetCurrTime();
-    }
-
-    syslog(3, "%lld %d AVE %s: %s Enter %d", CurrTime, 64, "INFO", "AVE_Log_UpdateConsole", a1);
-  }
-
-  for (i = 0; i != 256; ++i)
-  {
-    gs_sAVE_Log[i] = gs_sAVE_Log[i] & 0xEF | (16 * ((gs_sAVE_Log[i] & 0xF) <= a1));
-  }
-
-  gs_iAVE_Timestamp = AVE_GetAbsTime();
-  AVE_Log_Print();
-  if ((byte_2A189AC78 & 0xEu) >= 6)
-  {
-    v5 = byte_2A189AC78;
-    v6 = AVE_GetCurrTime();
-    if ((v5 & 0x10) != 0)
-    {
-      printf("%lld %d AVE %s: %s Exit %d %d\n", v6, 64, "INFO", "AVE_Log_UpdateConsole", a1, 0);
-      v6 = AVE_GetCurrTime();
-    }
-
-    syslog(3, "%lld %d AVE %s: %s Exit %d %d", v6, 64, "INFO", "AVE_Log_UpdateConsole", a1, 0);
-  }
-
-  return 0;
-}
-
-void AVE_Log_Print()
-{
-  if ((byte_2A189AC78 & 0xFu) >= 7)
-  {
-    v0 = byte_2A189AC78;
-    CurrTime = AVE_GetCurrTime();
-    if ((v0 & 0x10) != 0)
-    {
-      printf("%lld %d AVE %s: %s:%d %llu\n", CurrTime, 64, "VERB", "AVE_Log_Print", 85, gs_iAVE_Timestamp);
-      CurrTime = AVE_GetCurrTime();
-    }
-
-    syslog(3, "%lld %d AVE %s: %s:%d %llu", CurrTime, 64, "VERB", "AVE_Log_Print", 85, gs_iAVE_Timestamp);
-  }
-
-  for (i = 0; i != 256; ++i)
-  {
-    if ((byte_2A189AC78 & 0xFu) >= 7)
-    {
-      v3 = byte_2A189AC78;
-      v4 = AVE_GetCurrTime();
-      v5 = gs_sAVE_Log[i];
-      if ((v3 & 0x10) != 0)
-      {
-        printf("%lld %d AVE %s: Log Cfg: %3d = 0x%02x\n", v4, 64, "VERB", i, v5);
-        v4 = AVE_GetCurrTime();
-        v5 = gs_sAVE_Log[i];
-      }
-
-      syslog(3, "%lld %d AVE %s: Log Cfg: %3d = 0x%02x", v4, 64, "VERB", i, v5);
-    }
-  }
-
-  if ((byte_2A189AC78 & 0xFu) >= 7)
-  {
-    v6 = byte_2A189AC78;
-    v7 = AVE_GetCurrTime();
-    if ((v6 & 0x10) != 0)
-    {
-      printf("%lld %d AVE %s: Log Cfg: %d (us) %d%%\n", v7, 64, "VERB", dword_2A189AD3C, dword_2A189AD38);
-      v7 = AVE_GetCurrTime();
-    }
-
-    syslog(3, "%lld %d AVE %s: Log Cfg: %d (us) %d%%", v7, 64, "VERB", dword_2A189AD3C, dword_2A189AD38);
-  }
-}
-
-uint64_t AVE_Log_Load(void *a1, uint64_t a2)
-{
-  result = 4294966295;
-  if (a1)
-  {
-    if (a2)
-    {
-      *a1 = gs_iAVE_Timestamp;
-      AVE_MemCpyV2V(a2, gs_sAVE_Log, 256);
-      result = 0;
-      *(a2 + 256) = dword_2A189AD38;
-      *(a2 + 260) = dword_2A189AD3C;
-    }
-  }
-
-  return result;
-}
-
-uint64_t AVE_Log_PresetConf(unsigned __int8 *a1, int a2, int a3)
-{
-  for (i = 5; i != 256; ++i)
-  {
-    v7 = i >> 3;
-    if (v7 >= a2)
-    {
-      break;
-    }
-
-    if ((a1[v7] >> (i & 7)))
-    {
-      AVE_Log_UpdateConf(i, a3);
-    }
-  }
-
-  return 0;
-}
-
-uint64_t AVE_Log_PresetCfg(unsigned int a1, unint64_t a2)
-{
-  v18 = *MEMORY[0x29EDCA608];
-  *v16 = 0u;
-  v17 = 0u;
-  if ((byte_2A189AC78 & 0xEu) >= 6)
-  {
-    v5 = byte_2A189AC78;
-    CurrTime = AVE_GetCurrTime();
-    if ((v5 & 0x10) != 0)
-    {
-      printf("%lld %d AVE %s: %s Enter 0x%x 0x%llx\n", CurrTime, 64, "INFO", "AVE_Log_PresetCfg", a1, a2);
-      CurrTime = AVE_GetCurrTime();
-    }
-
-    syslog(3, "%lld %d AVE %s: %s Enter 0x%x 0x%llx", CurrTime, 64, "INFO", "AVE_Log_PresetCfg", a1, a2);
-  }
-
-  v7 = (a1 >> 2) & 0x3FFFFFC0;
-  v8 = v7 - 64;
-  if (a2)
-  {
-    for (i = 0; i != 64; ++i)
-    {
-      if ((v8 | i) > 255)
-      {
-        break;
-      }
-
-      v16[(v8 | i) / 8] |= ((a2 >> i) & 1) << ((v8 | i) - (v2 & 0xF8));
-    }
-
-    AVE_Log_PresetConf(v16, 32, a1);
-  }
-
-  else
-  {
-    v10 = 320 - v7;
-    if ((v8 - 192) >= 0xFFFFFFFFFFFFFF00)
-    {
-      v11 = 64;
-    }
-
-    else
-    {
-      v11 = v10;
-    }
-
-    AVE_MemCpyV2V(&gs_sAVE_Log[v8], &gs_sAVE_Log_Default + v8, v11);
-  }
-
-  if ((a1 & 0xFFFFFEFF) != 0)
-  {
-    gs_iAVE_Timestamp = AVE_GetAbsTime();
-  }
-
-  AVE_Log_Print();
-  if ((byte_2A189AC78 & 0xEu) >= 6)
-  {
-    v12 = byte_2A189AC78;
-    v13 = AVE_GetCurrTime();
-    if ((v12 & 0x10) != 0)
-    {
-      printf("%lld %d AVE %s: %s Exit 0x%x 0x%llx %d\n", v13, 64, "INFO", "AVE_Log_PresetCfg", a1, a2, 0);
-      v13 = AVE_GetCurrTime();
-    }
-
-    syslog(3, "%lld %d AVE %s: %s Exit 0x%x 0x%llx %d", v13, 64, "INFO", "AVE_Log_PresetCfg", a1, a2, 0);
-  }
-
-  v14 = *MEMORY[0x29EDCA608];
-  return 0;
-}
-
-uint64_t AVE_Log_ReadCfg(const char *a1)
-{
-  v88 = *MEMORY[0x29EDCA608];
-  v86 = 0u;
-  v87 = 0u;
-  v84 = 0u;
-  v85 = 0u;
-  v82 = 0u;
-  v83 = 0u;
-  v80 = 0u;
-  v81 = 0u;
-  v78 = 0u;
-  v79 = 0u;
-  *v76 = 0u;
-  v77 = 0u;
-  memset(&v75, 0, sizeof(v75));
-  v74 = 0;
-  v73 = 0;
-  gsc_piaAVE_Log_DefaultCfgFilePath[0] = 0;
-  qword_2A189AB18 = 0;
-  if (a1)
-  {
-    gsc_piaAVE_Log_DefaultCfgFilePath[0] = a1;
-  }
-
-  TemporayPath = AVE_GetTemporayPath(v76, 192);
-  if (TemporayPath >= 1)
-  {
-    AVE_SNPrintf(&v76[TemporayPath], 192 - TemporayPath, "%s", v2, v3, v4, v5, v6, "ave_log.cfg");
-    qword_2A189AB18 = v76;
-  }
-
-  for (i = 0; i != 4; ++i)
-  {
-    v8 = gsc_piaAVE_Log_DefaultCfgFilePath[i];
-    if (!v8)
-    {
-      continue;
-    }
-
-    if (stat(gsc_piaAVE_Log_DefaultCfgFilePath[i], &v75))
-    {
-      if ((byte_2A189AC78 & 8) != 0)
-      {
-        v9 = byte_2A189AC78;
-        CurrTime = AVE_GetCurrTime();
-        if ((v9 & 0x10) != 0)
-        {
-          printf("%lld %d AVE %s: %s:%d log config file doesn't exist at %s\n", CurrTime, 64, "DBG", "AVE_Log_ReadCfg", 650, v8);
-          AVE_GetCurrTime();
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d log config file doesn't exist at %s");
-      }
-
-      continue;
-    }
-
-    if ((byte_2A189AC78 & 8) != 0)
-    {
-      v11 = byte_2A189AC78;
-      v12 = AVE_GetCurrTime();
-      if ((v11 & 0x10) != 0)
-      {
-        printf("%lld %d AVE %s: %s:%d log config file is at %s\n", v12, 64, "DBG", "AVE_Log_ReadCfg", 654, v8);
-        v12 = AVE_GetCurrTime();
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d log config file is at %s", v12, 64, "DBG", "AVE_Log_ReadCfg", 654, v8);
-    }
-
-    v13 = v75.st_mtimespec.tv_nsec / 1000 + 1000000 * v75.st_mtimespec.tv_sec;
-    if (v13 == gs_iAVE_Timestamp && gs_iAVE_Timestamp)
-    {
-      if ((byte_2A189AC78 & 8) != 0)
-      {
-        v14 = byte_2A189AC78;
-        v15 = AVE_GetCurrTime();
-        if ((v14 & 0x10) != 0)
-        {
-          printf("%lld %d AVE %s: %s:%d log config file has been updated %s %llu\n", v15, 64, "DBG", "AVE_Log_ReadCfg", 662, v8, gs_iAVE_Timestamp);
-          v15 = AVE_GetCurrTime();
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d log config file has been updated %s %llu", v15, 64, "DBG", "AVE_Log_ReadCfg", 662, v8, gs_iAVE_Timestamp);
-      }
-
-      continue;
-    }
-
-    v16 = fopen(v8, "r");
-    if (v16)
-    {
-      v27 = v16;
-      v28 = malloc_type_malloc(0x108uLL, 0x10000400BDB4DB4uLL);
-      if (v28)
-      {
-        v29 = v28;
-        *(v28 + 32) = 0;
-        *(v28 + 14) = 0u;
-        *(v28 + 15) = 0u;
-        *(v28 + 12) = 0u;
-        *(v28 + 13) = 0u;
-        *(v28 + 10) = 0u;
-        *(v28 + 11) = 0u;
-        *(v28 + 8) = 0u;
-        *(v28 + 9) = 0u;
-        *(v28 + 6) = 0u;
-        *(v28 + 7) = 0u;
-        *(v28 + 4) = 0u;
-        *(v28 + 5) = 0u;
-        *(v28 + 2) = 0u;
-        *(v28 + 3) = 0u;
-        *v28 = 0u;
-        *(v28 + 1) = 0u;
-        if ((byte_2A189AC78 & 0xFu) >= 5)
-        {
-          v30 = byte_2A189AC78;
-          v31 = AVE_GetCurrTime();
-          if ((v30 & 0x10) != 0)
-          {
-            printf("%lld %d AVE %s: %s:%d used log config file is at %s %llu\n", v31, 64, "WARN", "AVE_Log_ReadCfg", 690, v8, v13);
-            v31 = AVE_GetCurrTime();
-          }
-
-          syslog(3, "%lld %d AVE %s: %s:%d used log config file is at %s %llu", v31, 64, "WARN", "AVE_Log_ReadCfg", 690, v8, v13);
-        }
-
-        gs_iAVE_Timestamp = v13;
-        v34 = malloc_type_malloc(0x100uLL, 0x100004077774924uLL);
-        if (v34)
-        {
-          v35 = v34;
-          *(v34 + 14) = 0u;
-          *(v34 + 15) = 0u;
-          *(v34 + 12) = 0u;
-          *(v34 + 13) = 0u;
-          *(v34 + 10) = 0u;
-          *(v34 + 11) = 0u;
-          *(v34 + 8) = 0u;
-          *(v34 + 9) = 0u;
-          *(v34 + 6) = 0u;
-          *(v34 + 7) = 0u;
-          *(v34 + 4) = 0u;
-          *(v34 + 5) = 0u;
-          *(v34 + 2) = 0u;
-          *(v34 + 3) = 0u;
-          *v34 = 0u;
-          *(v34 + 1) = 0u;
-          v72 = 0;
-          v36 = fgetln(v27, &v72);
-          if (v36)
-          {
-            v37 = v36;
-            v38 = (v29 + 256);
-            v39 = (v29 + 260);
-            v40 = 1;
-            while (1)
-            {
-              v41 = *v37;
-              v42 = v41 > 0x23;
-              v43 = (1 << v41) & 0x800002400;
-              if (!v42 && v43 != 0)
-              {
-                goto LABEL_55;
-              }
-
-              if (v72 >= 0x100)
-              {
-                if ((byte_2A189AC78 & 0xFu) >= 5)
-                {
-                  v45 = byte_2A189AC78;
-                  v46 = AVE_GetCurrTime();
-                  if ((v45 & 0x10) != 0)
-                  {
-                    printf("%lld %d AVE %s: %s:%d Line too long, skipping %s:%lld\n", v46, 64, "WARN", "AVE_Log_ReadCfg", 732, v8, v40);
-                    v46 = AVE_GetCurrTime();
-                  }
-
-                  syslog(3, "%lld %d AVE %s: %s:%d Line too long, skipping %s:%lld", v46, 64, "WARN", "AVE_Log_ReadCfg", 732, v8, v40);
-                }
-
-                goto LABEL_55;
-              }
-
-              AVE_StrNCpy(v35, v37, v72 + 1);
-              LODWORD(v74) = 15;
-              v73 = 0;
-              if (sscanf(v35, "LOG_ID_%d=%d%c", &v74 + 4, &v74, &v73) >= 2)
-              {
-                v47 = v74;
-                if ((v73 & 0xDF) == 0x43)
-                {
-                  v47 = v74 | 0x10;
-                }
-
-                v29[SHIDWORD(v74)] = v47;
-                goto LABEL_55;
-              }
-
-              if (sscanf(v35, "THRESHOLD=%d", v38) != 1)
-              {
-                break;
-              }
-
-              v48 = &dword_2A189AC30;
-              if (*v38)
-              {
-                v48 = v38;
-              }
-
-              dword_2A189AD38 = *v48;
-              if ((byte_2A189AC78 & 0xFu) < 7)
-              {
-                goto LABEL_55;
-              }
-
-              v49 = v38;
-              v50 = byte_2A189AC78;
-              v51 = AVE_GetCurrTime();
-              v71 = v49;
-              v52 = *v49;
-              if ((v50 & 0x10) == 0)
-              {
-                v68 = *v49;
-                syslog(3, "%lld %d AVE %s: %s:%d Read threshold %d");
-LABEL_82:
-                v38 = v71;
-                goto LABEL_55;
-              }
-
-              printf("%lld %d AVE %s: %s:%d Read threshold %d\n", v51, 64, "VERB", "AVE_Log_ReadCfg", 757, *v49);
-              v57 = AVE_GetCurrTime();
-              syslog(3, "%lld %d AVE %s: %s:%d Read threshold %d", v57, 64, "VERB", "AVE_Log_ReadCfg", 757, *v49);
-              v38 = v49;
-LABEL_55:
-              v72 = 0;
-              v37 = fgetln(v27, &v72);
-              ++v40;
-              if (!v37)
-              {
-                goto LABEL_83;
-              }
-            }
-
-            if (sscanf(v35, "INTERVAL=%d", v39) != 1)
-            {
-              goto LABEL_55;
-            }
-
-            v53 = &dword_2A189AC34;
-            if (*v39)
-            {
-              v53 = (v29 + 260);
-            }
-
-            dword_2A189AD3C = *v53;
-            if ((byte_2A189AC78 & 0xFu) < 7)
-            {
-              goto LABEL_55;
-            }
-
-            v71 = v38;
-            v54 = byte_2A189AC78;
-            v55 = AVE_GetCurrTime();
-            v56 = *v39;
-            if ((v54 & 0x10) != 0)
-            {
-              printf("%lld %d AVE %s: %s:%d Read interval %d (us)\n", v55, 64, "VERB", "AVE_Log_ReadCfg", 764, *v39);
-              AVE_GetCurrTime();
-            }
-
-            v69 = *v39;
-            syslog(3, "%lld %d AVE %s: %s:%d Read interval %d (us)");
-            goto LABEL_82;
-          }
-
-LABEL_83:
-          if (ferror(v27))
-          {
-            if ((byte_2A189AC78 & 0xC) != 0)
-            {
-              v58 = byte_2A189AC78;
-              v59 = AVE_GetCurrTime();
-              v60 = __error();
-              v61 = strerror(*v60);
-              if ((v58 & 0x10) != 0)
-              {
-                printf("%lld %d AVE %s: %s:%d error while reading config file: %s\n", v59, 64, "ERR", "AVE_Log_ReadCfg", 713, v61);
-                v66 = AVE_GetCurrTime();
-                v67 = __error();
-                v70 = strerror(*v67);
-                syslog(3, "%lld %d AVE %s: %s:%d error while reading config file: %s", v66, 64, "ERR", "AVE_Log_ReadCfg", 713, v70);
-              }
-
-              else
-              {
-                syslog(3, "%lld %d AVE %s: %s:%d error while reading config file: %s", v59, 64, "ERR", "AVE_Log_ReadCfg", 713, v61);
-              }
-            }
-
-            v24 = 4294966284;
-          }
-
-          else
-          {
-            for (j = 0; j != 256; ++j)
-            {
-              v65 = &v29[j];
-              if (!v29[j])
-              {
-                v65 = v29;
-              }
-
-              AVE_Log_UpdateConf(j, *v65);
-            }
-
-            AVE_Log_Print();
-            v24 = 0;
-          }
-
-          free(v35);
-        }
-
-        else
-        {
-          if ((byte_2A189AC78 & 0xC) != 0)
-          {
-            v62 = byte_2A189AC78;
-            v63 = AVE_GetCurrTime();
-            if ((v62 & 0x10) != 0)
-            {
-              printf("%lld %d AVE %s: %s:%d %s | cannot allocate memory for line reader\n", v63, 64, "ERR", "AVE_Log_ReadCfg", 696, "pLineBuf != __null");
-              v63 = AVE_GetCurrTime();
-            }
-
-            syslog(3, "%lld %d AVE %s: %s:%d %s | cannot allocate memory for line reader", v63, 64, "ERR", "AVE_Log_ReadCfg", 696, "pLineBuf != __null");
-          }
-
-          v24 = 4294966293;
-        }
-
-        free(v29);
-      }
-
-      else
-      {
-        if ((byte_2A189AC78 & 0xC) != 0)
-        {
-          v32 = byte_2A189AC78;
-          v33 = AVE_GetCurrTime();
-          if ((v32 & 0x10) != 0)
-          {
-            printf("%lld %d AVE %s: %s:%d %s | cannot allocate memory for log config\n", v33, 64, "ERR", "AVE_Log_ReadCfg", 686, "pTmpLog != __null");
-            v33 = AVE_GetCurrTime();
-          }
-
-          syslog(3, "%lld %d AVE %s: %s:%d %s | cannot allocate memory for log config", v33, 64, "ERR", "AVE_Log_ReadCfg", 686, "pTmpLog != __null");
-        }
-
-        v24 = 4294966293;
-      }
-
-      fclose(v27);
-      goto LABEL_37;
-    }
-
-    if ((byte_2A189AC78 & 8) != 0)
-    {
-      v17 = byte_2A189AC78;
-      v18 = AVE_GetCurrTime();
-      v19 = __error();
-      v20 = strerror(*v19);
-      if ((v17 & 0x10) != 0)
-      {
-        printf("%lld %d AVE %s: %s:%d log config file cannot be opened %s : %s\n", v18, 64, "DBG", "AVE_Log_ReadCfg", 673, v8, v20);
-        v18 = AVE_GetCurrTime();
-        v21 = __error();
-        strerror(*v21);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d log config file cannot be opened %s : %s", v18);
-    }
-  }
-
-  if ((byte_2A189AC78 & 8) != 0)
-  {
-    v22 = byte_2A189AC78;
-    v23 = AVE_GetCurrTime();
-    if ((v22 & 0x10) != 0)
-    {
-      printf("%lld %d AVE %s: %s:%d cannot find available config file\n", v23, 64, "DBG", "AVE_Log_ReadCfg", 679);
-      v23 = AVE_GetCurrTime();
-    }
-
-    syslog(3, "%lld %d AVE %s: %s:%d cannot find available config file", v23, 64, "DBG", "AVE_Log_ReadCfg", 679);
-  }
-
-  v24 = 4294966288;
-LABEL_37:
-  v25 = *MEMORY[0x29EDCA608];
-  return v24;
-}
-
-uint64_t AVE_Log_Config(uint64_t result)
-{
-  if (result)
-  {
-    v1 = result;
-    if (*(result + 44))
-    {
-      v2 = (result + 44);
-    }
-
-    else
-    {
-      v2 = 0;
-    }
-
-    result = AVE_Log_ReadCfg(v2);
-    v3 = 256;
-    for (i = 2; i != 10; i += 2)
-    {
-      if ((*v1 & v3) != 0)
-      {
-        AVE_Log_PresetCfg(v3 + 7, *&v1[i]);
-        result = 0;
-      }
-
-      v3 += 256;
-    }
-
-    v5 = v1[10];
-    if (v5)
-    {
-      AVE_Log_UpdateConsole(v5);
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t AVE_Dump_Create(uint64_t a1, void *a2)
-{
-  if (AVE_Log_CheckLevel(0x3Du, 7))
-  {
-    v4 = AVE_Log_CheckConsole(0x3Du);
-    CurrTime = AVE_GetCurrTime();
-    LevelStr = AVE_Log_GetLevelStr(7);
-    if (v4)
-    {
-      printf("%lld %d AVE %s: %s Enter %lld %p\n", CurrTime, 61, LevelStr, "AVE_Dump_Create", a1, a2);
-      v7 = AVE_GetCurrTime();
-      v20 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s: %s Enter %lld %p", v7, 61, v20, "AVE_Dump_Create", a1, a2);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Enter %lld %p", CurrTime, 61, LevelStr, "AVE_Dump_Create", a1, a2);
-    }
-  }
-
-  if (a2)
-  {
-    v8 = malloc_type_malloc(0xF0uLL, 0x1020040FC94C6CFuLL);
-    if (v8)
-    {
-      v9 = 0;
-      *(v8 + 29) = 0;
-      *(v8 + 216) = 0u;
-      *(v8 + 200) = 0u;
-      *(v8 + 184) = 0u;
-      *(v8 + 168) = 0u;
-      *(v8 + 152) = 0u;
-      *(v8 + 136) = 0u;
-      *(v8 + 120) = 0u;
-      *(v8 + 104) = 0u;
-      *(v8 + 88) = 0u;
-      *(v8 + 72) = 0u;
-      *(v8 + 56) = 0u;
-      *(v8 + 40) = 0u;
-      *(v8 + 24) = 0u;
-      *(v8 + 8) = 0u;
-      *v8 = a1;
-      *a2 = v8;
-    }
-
-    else
-    {
-      if (AVE_Log_CheckLevel(0x3Du, 4))
-      {
-        v13 = AVE_Log_CheckConsole(0x3Du);
-        v14 = AVE_GetCurrTime();
-        v15 = AVE_Log_GetLevelStr(4);
-        if (v13)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create dump %lld %p\n", v14, 61, v15, "AVE_Dump_Create", 89, "pDump != __null", a1, a2);
-          v14 = AVE_GetCurrTime();
-          AVE_Log_GetLevelStr(4);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create dump %lld %p", v14, 61);
-      }
-
-      v9 = 4294966293;
-    }
-  }
-
-  else
-  {
-    if (AVE_Log_CheckLevel(0x3Du, 4))
-    {
-      v10 = AVE_Log_CheckConsole(0x3Du);
-      v11 = AVE_GetCurrTime();
-      v12 = AVE_Log_GetLevelStr(4);
-      if (v10)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameters %lld %p\n", v11, 61, v12, "AVE_Dump_Create", 85, "ppDump != __null", a1, 0);
-        v11 = AVE_GetCurrTime();
-        AVE_Log_GetLevelStr(4);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %lld %p", v11, 61);
-    }
-
-    v9 = 4294966295;
-  }
-
-  if (AVE_Log_CheckLevel(0x3Du, 7))
-  {
-    v16 = AVE_Log_CheckConsole(0x3Du);
-    v17 = AVE_GetCurrTime();
-    v18 = AVE_Log_GetLevelStr(7);
-    if (v16)
-    {
-      printf("%lld %d AVE %s: %s Exit %lld %p %d\n", v17, 61, v18, "AVE_Dump_Create", a1, a2, v9);
-      v17 = AVE_GetCurrTime();
-      AVE_Log_GetLevelStr(7);
-    }
-
-    syslog(3, "%lld %d AVE %s: %s Exit %lld %p %d", v17);
-  }
-
-  return v9;
-}
-
-uint64_t AVE_Dump_Destroy(void *a1)
-{
-  if (AVE_Log_CheckLevel(0x3Du, 7))
-  {
-    v2 = AVE_Log_CheckConsole(0x3Du);
-    CurrTime = AVE_GetCurrTime();
-    LevelStr = AVE_Log_GetLevelStr(7);
-    if (v2)
-    {
-      printf("%lld %d AVE %s: %s Enter %p\n", CurrTime, 61, LevelStr, "AVE_Dump_Destroy", a1);
-      v5 = AVE_GetCurrTime();
-      v11 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s: %s Enter %p", v5, 61, v11, "AVE_Dump_Destroy", a1);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Enter %p", CurrTime, 61, LevelStr, "AVE_Dump_Destroy", a1);
-    }
-  }
-
-  if (a1)
-  {
-    free(a1);
-  }
-
-  if (AVE_Log_CheckLevel(0x3Du, 7))
-  {
-    v6 = AVE_Log_CheckConsole(0x3Du);
-    v7 = AVE_GetCurrTime();
-    v8 = AVE_Log_GetLevelStr(7);
-    if (v6)
-    {
-      printf("%lld %d AVE %s: %s Exit %p %d\n", v7, 61, v8, "AVE_Dump_Destroy", 0, 0);
-      v9 = AVE_GetCurrTime();
-      v12 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v9, 61, v12, "AVE_Dump_Destroy", 0, 0);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v7, 61, v8, "AVE_Dump_Destroy", 0, 0);
-    }
-  }
-
-  return 0;
-}
-
-uint64_t AVE_Dump_ComposeFilePath(uint64_t a1, unsigned int a2, int a3, const char *a4, char *a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = a6;
-  v54 = *MEMORY[0x29EDCA608];
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
-  v49 = 0u;
-  *v46 = 0u;
-  v47 = 0u;
-  v44 = gc_piaAVE_ChromaFmt[*(a1 + 32)];
-  v45 = *(a1 + 36);
-  v41 = *(a1 + 24);
-  v43 = *(a1 + 28);
-  v39 = *(&gc_piaAVE_ClientType + *(a1 + 16));
-  v14 = AVE_SNPrintf(v46, 128, "%lld-%s-%dx%d-%s-%d", a4, a5, a6, a7, a8, *a1);
-  v20 = v14;
-  if ((a3 & 0x80000000) == 0)
-  {
-    v20 = AVE_SNPrintf(&v46[v14], 128 - v14, "-MP%d", v15, v16, v17, v18, v19, a3) + v14;
-  }
-
-  if (*(a1 + 16) == 1)
-  {
-    v40 = *(a1 + 44);
-    v20 += AVE_SNPrintf(&v46[v20], 128 - v20, "-%s-%d", v15, v16, v17, v18, v19, *(&gc_piaAVE_EncType + *(a1 + 20)));
-  }
-
-  v21 = pthread_self();
-  v22 = &gsc_saAVE_DumpInfo[12 * a2];
-  rand();
-  v42 = *v22;
-  v28 = AVE_SNPrintf(&v46[v20], 128 - v20, "-%lu-%d-%s", v23, v24, v25, v26, v27, v21);
-  if (a2 == 1)
-  {
-    v34 = *(a1 + 16);
-    if (v34 == 1)
-    {
-      v35 = &v22[*(a1 + 20)];
-    }
-
-    else
-    {
-      v35 = &v22[v34 + 2];
-    }
-
-    goto LABEL_12;
-  }
-
-  if (((*(a1 + 12) >> a2) & 1) == 0 || (v36 = v22[2]) == 0)
-  {
-    v35 = v22 + 1;
-LABEL_12:
-    v36 = *v35;
-  }
-
-  AVE_SNPrintf(&v46[v20 + v28], 128 - (v20 + v28), ".%s", v29, v30, v31, v32, v33, v36);
-  result = AVE_ComposeFilePath(a4, 0, v46, a5, v8);
-  v38 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t AVE_Dump_OpenFiles(_DWORD *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v55 = *MEMORY[0x29EDCA608];
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  *__filename = 0u;
-  v40 = 0u;
-  if (a1[10] >= 1)
-  {
-    v8 = a2;
-    v10 = 0;
-    v38 = 0;
-    v11 = a1 + 12;
-    while (1)
-    {
-      v12 = 0;
-      v13 = 0;
-      do
-      {
-        if ((a1[2] & (1 << v13)) != 0 && !*&v11[2 * v13])
-        {
-          if (a1[10] <= 1)
-          {
-            v14 = -1;
-          }
-
-          else
-          {
-            v14 = v10;
-          }
-
-          v38 = AVE_Dump_ComposeFilePath(a1, v13, v14, v8, __filename, 256, a7, a8);
-          v15 = (a1[3] & (1 << v13)) != 0 && v12 == 36;
-          v16 = 8;
-          if (v15)
-          {
-            v16 = 9;
-          }
-
-          v17 = (&gsc_saAVE_DumpInfo[v12])[v16];
-          v18 = fopen(__filename, v17);
-          *&v11[2 * v13] = v18;
-          if (v18)
-          {
-            if (!AVE_Log_CheckLevel(0x3Du, 6))
-            {
-              goto LABEL_26;
-            }
-
-            v19 = AVE_Log_CheckConsole(0x3Du);
-            CurrTime = AVE_GetCurrTime();
-            LevelStr = AVE_Log_GetLevelStr(6);
-            if (v19)
-            {
-              printf("%lld %d AVE %s: %s:%d open dump file %p %lld | %d %d %s %s\n", CurrTime, 61, LevelStr, "AVE_Dump_OpenFiles", 262, a1, *a1, v10, v13, __filename, v17);
-              v22 = AVE_GetCurrTime();
-              v23 = AVE_Log_GetLevelStr(6);
-              v35 = *a1;
-              v33 = v23;
-              v31 = v22;
-            }
-
-            else
-            {
-              v33 = LevelStr;
-              v31 = CurrTime;
-            }
-
-            syslog(3, "%lld %d AVE %s: %s:%d open dump file %p %lld | %d %d %s %s", v31, 61, v33, "AVE_Dump_OpenFiles");
-          }
-
-          else
-          {
-            if (!AVE_Log_CheckLevel(0x3Du, 4))
-            {
-              goto LABEL_26;
-            }
-
-            v24 = AVE_Log_CheckConsole(0x3Du);
-            v25 = AVE_GetCurrTime();
-            v26 = AVE_Log_GetLevelStr(4);
-            if (v24)
-            {
-              printf("%lld %d AVE %s: %s:%d fail to open dump file %p %lld | %d %d %s %s\n", v25, 61, v26, "AVE_Dump_OpenFiles", 257, a1, *a1, v10, v13, __filename, v17);
-              v27 = AVE_GetCurrTime();
-              v28 = AVE_Log_GetLevelStr(4);
-              v36 = *a1;
-              v34 = v28;
-              v32 = v27;
-            }
-
-            else
-            {
-              v34 = v26;
-              v32 = v25;
-            }
-
-            syslog(3, "%lld %d AVE %s: %s:%d fail to open dump file %p %lld | %d %d %s %s", v32, 61, v34, "AVE_Dump_OpenFiles");
-          }
-
-          v8 = a2;
-        }
-
-LABEL_26:
-        ++v13;
-        v12 += 12;
-      }
-
-      while (v12 != 144);
-      ++v10;
-      v11 += 24;
-      if (v10 >= a1[10])
-      {
-        goto LABEL_30;
-      }
-    }
-  }
-
-  v38 = 0;
-LABEL_30:
-  v29 = *MEMORY[0x29EDCA608];
-  return v38;
-}
-
 uint64_t AVE_Dump_WriteHeader(uint64_t a1)
 {
   v2 = 0;
@@ -1976,16 +55,16 @@ uint64_t AVE_Dump_Init(uint64_t a1, const char *a2, int a3, int a4, int a5, int 
   v17 = a11;
   if (AVE_Log_CheckLevel(0x3Du, 7))
   {
-    v24 = AVE_Log_CheckConsole(0x3Du);
+    v18 = AVE_Log_CheckConsole(0x3Du);
     CurrTime = AVE_GetCurrTime();
     LevelStr = AVE_Log_GetLevelStr(7);
-    if (v24)
+    if (v18)
     {
       printf("%lld %d AVE %s: %s Enter %p %p %d %d 0x%x 0x%x %p %d %d %d %d\n", CurrTime, 61, LevelStr, "AVE_Dump_Init", a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
-      v46 = AVE_GetCurrTime();
+      v40 = AVE_GetCurrTime();
       v11 = a8;
-      v43 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s: %s Enter %p %p %d %d 0x%x 0x%x %p %d %d %d %d", v46, 61, v43, "AVE_Dump_Init", a1);
+      v37 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s: %s Enter %p %p %d %d 0x%x 0x%x %p %d %d %d %d", v40, 61, v37, "AVE_Dump_Init", a1);
     }
 
     else
@@ -2005,8 +84,8 @@ uint64_t AVE_Dump_Init(uint64_t a1, const char *a2, int a3, int a4, int a5, int 
     *(a1 + 36) = a10;
     *(a1 + 40) = v11;
     *(a1 + 44) = a11;
-    v27 = AVE_Dump_OpenFiles(a1, a2, v18, v19, v20, v21, v22, v23);
-    if (!v27)
+    v21 = AVE_Dump_OpenFiles(a1, a2);
+    if (!v21)
     {
       AVE_Dump_WriteHeader(a1);
       goto LABEL_21;
@@ -2017,53 +96,53 @@ uint64_t AVE_Dump_Init(uint64_t a1, const char *a2, int a3, int a4, int a5, int 
 
   if (AVE_Log_CheckLevel(0x3Du, 4))
   {
-    v28 = AVE_Log_CheckConsole(0x3Du);
-    v29 = AVE_GetCurrTime();
-    v30 = AVE_Log_GetLevelStr(4);
-    if (v28)
+    v22 = AVE_Log_CheckConsole(0x3Du);
+    v23 = AVE_GetCurrTime();
+    v24 = AVE_Log_GetLevelStr(4);
+    if (v22)
     {
-      printf("%lld %d AVE %s: %s:%d %s | wrong parameters %p %p %d %d 0x%x 0x%x %p %d %d %d %d\n", v29, 61, v30, "AVE_Dump_Init", 457, "pDump != __null && pResolution != __null", a1, a2, a3, a4, a5, a6, a7, v11, a9, a10, a11);
-      v45 = AVE_GetCurrTime();
+      printf("%lld %d AVE %s: %s:%d %s | wrong parameters %p %p %d %d 0x%x 0x%x %p %d %d %d %d\n", v23, 61, v24, "AVE_Dump_Init", 457, "pDump != __null && pResolution != __null", a1, a2, a3, a4, a5, a6, a7, v11, a9, a10, a11);
+      v39 = AVE_GetCurrTime();
       v11 = a8;
-      v44 = AVE_Log_GetLevelStr(4);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %p %d %d 0x%x 0x%x %p %d %d %d %d", v45, 61, v44, "AVE_Dump_Init", 457, "pDump != __null && pResolution != __null", a1);
+      v38 = AVE_Log_GetLevelStr(4);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %p %d %d 0x%x 0x%x %p %d %d %d %d", v39, 61, v38, "AVE_Dump_Init", 457, "pDump != __null && pResolution != __null", a1);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %p %d %d 0x%x 0x%x %p %d %d %d %d", v29, 61, v30, "AVE_Dump_Init", 457, "pDump != __null && pResolution != __null", a1);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %p %d %d 0x%x 0x%x %p %d %d %d %d", v23, 61, v24, "AVE_Dump_Init", 457, "pDump != __null && pResolution != __null", a1);
     }
   }
 
-  v27 = 4294966295;
+  v21 = 4294966295;
   if (a1)
   {
 LABEL_14:
-    v31 = 0;
-    v32 = 1;
+    v25 = 0;
+    v26 = 1;
     do
     {
-      v33 = 0;
-      v34 = v32;
-      v35 = a1 + 48 + 96 * v31;
+      v27 = 0;
+      v28 = v26;
+      v29 = a1 + 48 + 96 * v25;
       do
       {
-        v36 = *(v35 + v33);
-        if (v36)
+        v30 = *(v29 + v27);
+        if (v30)
         {
-          fclose(v36);
-          *(v35 + v33) = 0;
+          fclose(v30);
+          *(v29 + v27) = 0;
         }
 
-        v33 += 8;
+        v27 += 8;
       }
 
-      while (v33 != 96);
-      v32 = 0;
-      v31 = 1;
+      while (v27 != 96);
+      v26 = 0;
+      v25 = 1;
     }
 
-    while ((v34 & 1) != 0);
+    while ((v28 & 1) != 0);
     v16 = a10;
     v17 = a11;
     v11 = a8;
@@ -2072,27 +151,27 @@ LABEL_14:
 LABEL_21:
   if (AVE_Log_CheckLevel(0x3Du, 7))
   {
-    v37 = AVE_Log_CheckConsole(0x3Du);
-    v38 = AVE_GetCurrTime();
-    v39 = AVE_Log_GetLevelStr(7);
-    if (v37)
+    v31 = AVE_Log_CheckConsole(0x3Du);
+    v32 = AVE_GetCurrTime();
+    v33 = AVE_Log_GetLevelStr(7);
+    if (v31)
     {
-      printf("%lld %d AVE %s: %s Exit %p %p %d %d 0x%x 0x%x %p %d %d %d %d %d\n", v38, 61, v39, "AVE_Dump_Init", a1, a2, a3, a4, a5, a6, a7, v11, a9, v16, v17, v27);
-      v40 = AVE_GetCurrTime();
-      v41 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s: %s Exit %p %p %d %d 0x%x 0x%x %p %d %d %d %d %d", v40, 61, v41, "AVE_Dump_Init", a1, a2);
+      printf("%lld %d AVE %s: %s Exit %p %p %d %d 0x%x 0x%x %p %d %d %d %d %d\n", v32, 61, v33, "AVE_Dump_Init", a1, a2, a3, a4, a5, a6, a7, v11, a9, v16, v17, v21);
+      v34 = AVE_GetCurrTime();
+      v35 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %p %d %d 0x%x 0x%x %p %d %d %d %d %d", v34, 61, v35, "AVE_Dump_Init", a1, a2);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s Exit %p %p %d %d 0x%x 0x%x %p %d %d %d %d %d", v38, 61, v39, "AVE_Dump_Init", a1, a2);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %p %d %d 0x%x 0x%x %p %d %d %d %d %d", v32, 61, v33, "AVE_Dump_Init", a1, a2);
     }
   }
 
-  return v27;
+  return v21;
 }
 
-uint64_t AVE_Dump_Uninit(const void *a1)
+uint64_t AVE_Dump_Uninit(char *a1)
 {
   if (AVE_Log_CheckLevel(0x3Du, 7))
   {
@@ -2121,14 +200,14 @@ uint64_t AVE_Dump_Uninit(const void *a1)
     {
       v8 = 0;
       v9 = v7;
-      v10 = a1 + 96 * v6 + 48;
+      v10 = &a1[96 * v6 + 48];
       do
       {
-        v11 = *(v10 + v8);
+        v11 = *&v10[v8];
         if (v11)
         {
           fclose(v11);
-          *(v10 + v8) = 0;
+          *&v10[v8] = 0;
         }
 
         v8 += 8;
@@ -2389,7 +468,6 @@ uint64_t AVE_VCP::Uninit(AVE_VCP *this)
           printf("%lld %d AVE %s: %s::%s:%d Unable to find VCP function %p %lld | %s\n", v9, 19, v10, "AVE_VCP", "Uninit", 160, this, v11, v12);
           v9 = AVE_GetCurrTime();
           v10 = AVE_Log_GetLevelStr(5);
-          v13 = *this;
           dlerror();
         }
 
@@ -2408,17 +486,17 @@ uint64_t AVE_VCP::Uninit(AVE_VCP *this)
   kdebug_trace();
   if (AVE_Log_CheckLevel(0x13u, 6))
   {
-    v14 = AVE_Log_CheckConsole(0x13u);
-    v15 = AVE_GetCurrTime();
-    v16 = AVE_Log_GetLevelStr(6);
-    if (v14)
+    v13 = AVE_Log_CheckConsole(0x13u);
+    v14 = AVE_GetCurrTime();
+    v15 = AVE_Log_GetLevelStr(6);
+    if (v13)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v15, 19, v16, "AVE_VCP", "Uninit", this, v2, 0);
-      v15 = AVE_GetCurrTime();
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v14, 19, v15, "AVE_VCP", "Uninit", this, v2, 0);
+      v14 = AVE_GetCurrTime();
       AVE_Log_GetLevelStr(6);
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v15, 19);
+    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v14, 19);
   }
 
   return 0;
@@ -2637,87 +715,81 @@ uint64_t AVE_VCP::AllocDPB(AVE_VCP *this, const __CFDictionary *a2, uint64_t a3,
     if (v8)
     {
       printf("%lld %d AVE %s: %s::%s Enter %p %lld %p 0x%x %p\n", CurrTime, 19, LevelStr, "AVE_VCP", "AllocDPB", this, *this, a2, a3, a4);
-      CurrTime = AVE_GetCurrTime();
-      LevelStr = AVE_Log_GetLevelStr(8);
-      v11 = *this;
+      v11 = AVE_GetCurrTime();
+      v25 = AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p 0x%x %p", v11, 19, v25, "AVE_VCP");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p 0x%x %p", CurrTime, 19, LevelStr, "AVE_VCP");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p 0x%x %p", CurrTime, 19, LevelStr, "AVE_VCP");
+    }
   }
 
-  v12 = *this;
   kdebug_trace();
-  v13 = *(this + 5);
-  if (v13)
+  v12 = *(this + 5);
+  if (v12)
   {
-    v14 = v13(a2, *(this + 5), *(this + 3), *(this + 4), a3);
-    if (v14)
+    v13 = v12(a2, *(this + 5), *(this + 3), *(this + 4), a3);
+    if (v13)
     {
-      v15 = 0;
+      v14 = 0;
     }
 
     else
     {
       if (AVE_Log_CheckLevel(0x13u, 5))
       {
-        v16 = AVE_Log_CheckConsole(0x13u);
-        v17 = AVE_GetCurrTime();
-        v18 = AVE_Log_GetLevelStr(5);
-        v19 = *(this + 4);
-        if (v16)
+        v15 = AVE_Log_CheckConsole(0x13u);
+        v16 = AVE_GetCurrTime();
+        v17 = AVE_Log_GetLevelStr(5);
+        if (v15)
         {
-          printf("%lld %d AVE %s: %s::%s:%d fail to allocate DPB %p %lld %p %d %d %d 0x%x\n", v17, 19, v18, "AVE_VCP", "AllocDPB", 204, this, *this, a2, *(this + 5), *(this + 3), *(this + 4), a3);
-          v17 = AVE_GetCurrTime();
-          v18 = AVE_Log_GetLevelStr(5);
-          v31 = *(this + 4);
-          v29 = *(this + 5);
-          v30 = *(this + 3);
-          v28 = *this;
+          printf("%lld %d AVE %s: %s::%s:%d fail to allocate DPB %p %lld %p %d %d %d 0x%x\n", v16, 19, v17, "AVE_VCP", "AllocDPB", 204, this, *this, a2, *(this + 5), *(this + 3), *(this + 4), a3);
+          v18 = AVE_GetCurrTime();
+          v26 = AVE_Log_GetLevelStr(5);
+          syslog(3, "%lld %d AVE %s: %s::%s:%d fail to allocate DPB %p %lld %p %d %d %d 0x%x", v18, 19, v26, "AVE_VCP", "AllocDPB");
         }
 
         else
         {
-          v32 = *(this + 4);
+          syslog(3, "%lld %d AVE %s: %s::%s:%d fail to allocate DPB %p %lld %p %d %d %d 0x%x", v16, 19, v17, "AVE_VCP", "AllocDPB");
         }
-
-        syslog(3, "%lld %d AVE %s: %s::%s:%d fail to allocate DPB %p %lld %p %d %d %d 0x%x", v17, 19, v18, "AVE_VCP", "AllocDPB");
       }
 
-      v14 = 0;
-      v15 = 4294966293;
+      v13 = 0;
+      v14 = 4294966293;
     }
   }
 
   else
   {
-    v14 = 0;
-    v15 = 4294966294;
+    v13 = 0;
+    v14 = 4294966294;
   }
 
-  *a4 = v14;
-  v20 = *this;
+  *a4 = v13;
   kdebug_trace();
   if (AVE_Log_CheckLevel(0x13u, 8))
   {
-    v21 = AVE_Log_CheckConsole(0x13u);
-    v22 = AVE_GetCurrTime();
-    v23 = AVE_Log_GetLevelStr(8);
-    if (v21)
+    v19 = AVE_Log_CheckConsole(0x13u);
+    v20 = AVE_GetCurrTime();
+    v21 = AVE_Log_GetLevelStr(8);
+    if (v19)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %p 0x%x %p %d\n", v22, 19, v23, "AVE_VCP", "AllocDPB", this, *this, a2, a3, a4, v15);
-      v24 = AVE_GetCurrTime();
-      v25 = AVE_Log_GetLevelStr(8);
-      v27 = *this;
-      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p 0x%x %p %d", v24, 19, v25, "AVE_VCP", "AllocDPB");
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %p 0x%x %p %d\n", v20, 19, v21, "AVE_VCP", "AllocDPB", this, *this, a2, a3, a4, v14);
+      v22 = AVE_GetCurrTime();
+      v23 = AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p 0x%x %p %d", v22, 19, v23, "AVE_VCP", "AllocDPB");
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p 0x%x %p %d", v22, 19, v23, "AVE_VCP", "AllocDPB");
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p 0x%x %p %d", v20, 19, v21, "AVE_VCP", "AllocDPB");
     }
   }
 
-  return v15;
+  return v14;
 }
 
 uint64_t AVE_VCP::ScaleRefFrames(AVE_VCP *this, const __CFDictionary *a2, const __CFArray *a3)
@@ -2730,88 +802,92 @@ uint64_t AVE_VCP::ScaleRefFrames(AVE_VCP *this, const __CFDictionary *a2, const 
     if (v6)
     {
       printf("%lld %d AVE %s: %s::%s Enter %p %lld %p %p\n", CurrTime, 19, LevelStr, "AVE_VCP", "ScaleRefFrames", this, *this, a2, a3);
-      CurrTime = AVE_GetCurrTime();
-      LevelStr = AVE_Log_GetLevelStr(8);
-      v9 = *this;
+      v9 = AVE_GetCurrTime();
+      v26 = AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p", v9, 19, v26);
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p", CurrTime, 19, LevelStr);
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p", CurrTime, 19, LevelStr);
+    }
   }
 
-  v10 = *this;
   kdebug_trace();
-  v11 = *(this + 6);
-  if (v11 && (v12 = *(this + 4)) != 0)
+  v10 = *(this + 6);
+  if (v10 && (v11 = *(this + 4)) != 0)
   {
-    v13 = v11(v12, a2, a3);
+    v12 = v10(v11, a2, a3);
     if (AVE_Log_CheckLevel(0x13u, 8))
     {
-      v14 = AVE_Log_CheckConsole(0x13u);
-      v15 = AVE_GetCurrTime();
-      v16 = AVE_Log_GetLevelStr(8);
-      if (v14)
+      v13 = AVE_Log_CheckConsole(0x13u);
+      v14 = AVE_GetCurrTime();
+      v15 = AVE_Log_GetLevelStr(8);
+      if (v13)
       {
-        printf("%lld %d AVE %s: %s::%s:%d %p %lld %p %p %p %d\n", v15, 19, v16, "AVE_VCP", "ScaleRefFrames", 243, this, *this, *(this + 4), a2, a3, v13);
-        v15 = AVE_GetCurrTime();
-        v16 = AVE_Log_GetLevelStr(8);
-        v17 = *this;
-        v30 = *(this + 4);
+        printf("%lld %d AVE %s: %s::%s:%d %p %lld %p %p %p %d\n", v14, 19, v15, "AVE_VCP", "ScaleRefFrames", 243, this, *this, *(this + 4), a2, a3, v12);
+        v16 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(8);
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %p %p %p %d", v16, 19, v27, "AVE_VCP", "ScaleRefFrames", 243);
       }
 
-      syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %p %p %p %d", v15, 19, v16, "AVE_VCP", "ScaleRefFrames", 243);
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %p %p %p %d", v14, 19, v15, "AVE_VCP", "ScaleRefFrames", 243);
+      }
     }
 
-    if (v13)
+    if (v12)
     {
       if (AVE_Log_CheckLevel(0x13u, 5))
       {
-        v18 = AVE_Log_CheckConsole(0x13u);
-        v19 = AVE_GetCurrTime();
-        v20 = AVE_Log_GetLevelStr(5);
-        if (v18)
+        v17 = AVE_Log_CheckConsole(0x13u);
+        v18 = AVE_GetCurrTime();
+        v19 = AVE_Log_GetLevelStr(5);
+        if (v17)
         {
-          printf("%lld %d AVE %s: %s::%s:%d fail to scale ref frame %p %lld %p %p %p %d\n", v19, 19, v20, "AVE_VCP", "ScaleRefFrames", 249, this, *this, *(this + 4), a2, a3, v13);
-          v21 = AVE_GetCurrTime();
-          v22 = AVE_Log_GetLevelStr(5);
-          v31 = *(this + 4);
-          v29 = *this;
-          syslog(3, "%lld %d AVE %s: %s::%s:%d fail to scale ref frame %p %lld %p %p %p %d", v21, 19, v22, "AVE_VCP", "ScaleRefFrames", 249);
+          printf("%lld %d AVE %s: %s::%s:%d fail to scale ref frame %p %lld %p %p %p %d\n", v18, 19, v19, "AVE_VCP", "ScaleRefFrames", 249, this, *this, *(this + 4), a2, a3, v12);
+          v20 = AVE_GetCurrTime();
+          v28 = AVE_Log_GetLevelStr(5);
+          syslog(3, "%lld %d AVE %s: %s::%s:%d fail to scale ref frame %p %lld %p %p %p %d", v20, 19, v28, "AVE_VCP", "ScaleRefFrames", 249);
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: %s::%s:%d fail to scale ref frame %p %lld %p %p %p %d", v19, 19, v20, "AVE_VCP", "ScaleRefFrames", 249);
+          syslog(3, "%lld %d AVE %s: %s::%s:%d fail to scale ref frame %p %lld %p %p %p %d", v18, 19, v19, "AVE_VCP", "ScaleRefFrames", 249);
         }
       }
 
-      v13 = 4294966296;
+      v12 = 4294966296;
     }
   }
 
   else
   {
-    v13 = 4294966294;
+    v12 = 4294966294;
   }
 
-  v23 = *this;
   kdebug_trace();
   if (AVE_Log_CheckLevel(0x13u, 8))
   {
-    v24 = AVE_Log_CheckConsole(0x13u);
-    v25 = AVE_GetCurrTime();
-    v26 = AVE_Log_GetLevelStr(8);
-    if (v24)
+    v21 = AVE_Log_CheckConsole(0x13u);
+    v22 = AVE_GetCurrTime();
+    v23 = AVE_Log_GetLevelStr(8);
+    if (v21)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %p %d\n", v25, 19, v26, "AVE_VCP", "ScaleRefFrames", this, *this, a2, a3, v13);
-      v25 = AVE_GetCurrTime();
-      v26 = AVE_Log_GetLevelStr(8);
-      v27 = *this;
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %p %d\n", v22, 19, v23, "AVE_VCP", "ScaleRefFrames", this, *this, a2, a3, v12);
+      v24 = AVE_GetCurrTime();
+      v29 = AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %d", v24, 19, v29, "AVE_VCP");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %d", v25, 19, v26, "AVE_VCP");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %d", v22, 19, v23, "AVE_VCP");
+    }
   }
 
-  return v13;
+  return v12;
 }
 
 uint64_t AVE_VCP::ChromaFilter(AVE_VCP *this, const __CFDictionary *a2, uint64_t a3, uint64_t a4)
@@ -2824,38 +900,42 @@ uint64_t AVE_VCP::ChromaFilter(AVE_VCP *this, const __CFDictionary *a2, uint64_t
     if (v8)
     {
       printf("%lld %d AVE %s: %s::%s Enter %p %lld %p %lld %d\n", CurrTime, 19, LevelStr, "AVE_VCP", "ChromaFilter", this, *this, a2, a3, a4);
-      CurrTime = AVE_GetCurrTime();
-      LevelStr = AVE_Log_GetLevelStr(8);
-      v11 = *this;
+      v11 = AVE_GetCurrTime();
+      v29 = AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %lld %d", v11, 19, v29, "AVE_VCP");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %lld %d", CurrTime, 19, LevelStr, "AVE_VCP");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %lld %d", CurrTime, 19, LevelStr, "AVE_VCP");
+    }
   }
 
-  v12 = *this;
   kdebug_trace();
-  v13 = *(this + 7);
-  if (v13 && (v14 = *(this + 4)) != 0)
+  v12 = *(this + 7);
+  if (v12 && (v13 = *(this + 4)) != 0)
   {
-    v15 = v13(v14, a2, a3, a4);
+    v14 = v12(v13, a2, a3, a4);
     if (AVE_Log_CheckLevel(0x13u, 8))
     {
-      v16 = AVE_Log_CheckConsole(0x13u);
-      v17 = AVE_GetCurrTime();
-      v18 = AVE_Log_GetLevelStr(8);
-      if (v16)
+      v15 = AVE_Log_CheckConsole(0x13u);
+      v16 = AVE_GetCurrTime();
+      v17 = AVE_Log_GetLevelStr(8);
+      if (v15)
       {
-        printf("%lld %d AVE %s: %s::%s:%d %p %lld %p %p %lld %d %d\n", v17, 19, v18, "AVE_VCP", "ChromaFilter", 287, this, *this, *(this + 4), a2, a3, a4, v15);
-        v17 = AVE_GetCurrTime();
-        v18 = AVE_Log_GetLevelStr(8);
-        v32 = *this;
-        v34 = *(this + 4);
+        printf("%lld %d AVE %s: %s::%s:%d %p %lld %p %p %lld %d %d\n", v16, 19, v17, "AVE_VCP", "ChromaFilter", 287, this, *this, *(this + 4), a2, a3, a4, v14);
+        v18 = AVE_GetCurrTime();
+        v30 = AVE_Log_GetLevelStr(8);
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %p %p %lld %d %d", v18, 19, v30, "AVE_VCP", "ChromaFilter", 287);
       }
 
-      syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %p %p %lld %d %d", v17, 19, v18, "AVE_VCP", "ChromaFilter", 287);
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %p %p %lld %d %d", v16, 19, v17, "AVE_VCP", "ChromaFilter", 287);
+      }
     }
 
-    if (v15)
+    if (v14)
     {
       if (AVE_Log_CheckLevel(0x13u, 5))
       {
@@ -2864,11 +944,9 @@ uint64_t AVE_VCP::ChromaFilter(AVE_VCP *this, const __CFDictionary *a2, uint64_t
         v21 = AVE_Log_GetLevelStr(5);
         if (v19)
         {
-          printf("%lld %d AVE %s: %s::%s:%d fail to filter chroma %p %lld %p %p %lld %d %d\n", v20, 19, v21, "AVE_VCP", "ChromaFilter", 293, this, *this, *(this + 4), a2, a3, a4, v15);
+          printf("%lld %d AVE %s: %s::%s:%d fail to filter chroma %p %lld %p %p %lld %d %d\n", v20, 19, v21, "AVE_VCP", "ChromaFilter", 293, this, *this, *(this + 4), a2, a3, a4, v14);
           v22 = AVE_GetCurrTime();
           v23 = AVE_Log_GetLevelStr(5);
-          v33 = *this;
-          v35 = *(this + 4);
           syslog(3, "%lld %d AVE %s: %s::%s:%d fail to filter chroma %p %lld %p %p %lld %d %d", v22, 19, v23, "AVE_VCP", "ChromaFilter", 293);
         }
 
@@ -2878,38 +956,36 @@ uint64_t AVE_VCP::ChromaFilter(AVE_VCP *this, const __CFDictionary *a2, uint64_t
         }
       }
 
-      v15 = 4294966296;
+      v14 = 4294966296;
     }
   }
 
   else
   {
-    v15 = 4294966294;
+    v14 = 4294966294;
   }
 
-  v24 = *this;
   kdebug_trace();
   if (AVE_Log_CheckLevel(0x13u, 8))
   {
-    v25 = AVE_Log_CheckConsole(0x13u);
-    v26 = AVE_GetCurrTime();
-    v27 = AVE_Log_GetLevelStr(8);
-    if (v25)
+    v24 = AVE_Log_CheckConsole(0x13u);
+    v25 = AVE_GetCurrTime();
+    v26 = AVE_Log_GetLevelStr(8);
+    if (v24)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %lld %d\n", v26, 19, v27, "AVE_VCP", "ChromaFilter", this, *this, a2, a3, a4);
-      v28 = AVE_GetCurrTime();
-      v29 = AVE_Log_GetLevelStr(8);
-      v30 = *this;
-      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %lld %d", v28, 19, v29, "AVE_VCP");
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %lld %d\n", v25, 19, v26, "AVE_VCP", "ChromaFilter", this, *this, a2, a3, a4);
+      v27 = AVE_GetCurrTime();
+      v31 = AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %lld %d", v27, 19, v31, "AVE_VCP");
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %lld %d", v26, 19, v27, "AVE_VCP");
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %lld %d", v25, 19, v26, "AVE_VCP");
     }
   }
 
-  return v15;
+  return v14;
 }
 
 uint64_t AVE_VCP::CalcChecksum(AVE_VCP *this, const __CFDictionary *a2, uint64_t a3, __CFDictionary *a4)
@@ -2922,41 +998,45 @@ uint64_t AVE_VCP::CalcChecksum(AVE_VCP *this, const __CFDictionary *a2, uint64_t
     if (v8)
     {
       printf("%lld %d AVE %s: %s::%s Enter %p %lld %p %lld %p\n", CurrTime, 19, LevelStr, "AVE_VCP", "CalcChecksum", this, *this, a2, a3, a4);
-      CurrTime = AVE_GetCurrTime();
-      LevelStr = AVE_Log_GetLevelStr(8);
-      v11 = *this;
+      v11 = AVE_GetCurrTime();
+      v32 = AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %lld %p", v11, 19, v32, "AVE_VCP");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %lld %p", CurrTime, 19, LevelStr, "AVE_VCP");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %lld %p", CurrTime, 19, LevelStr, "AVE_VCP");
+    }
   }
 
-  v12 = *this;
   kdebug_trace();
   if (*(this + 8) && *(this + 4))
   {
     Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
     if (Mutable)
     {
-      v14 = Mutable;
-      v15 = (*(this + 8))(*(this + 4), a2, a3, 1, Mutable);
+      v13 = Mutable;
+      v14 = (*(this + 8))(*(this + 4), a2, a3, 1, Mutable);
       if (AVE_Log_CheckLevel(0x13u, 8))
       {
-        v16 = AVE_Log_CheckConsole(0x13u);
-        v17 = AVE_GetCurrTime();
-        v18 = AVE_Log_GetLevelStr(8);
-        if (v16)
+        v15 = AVE_Log_CheckConsole(0x13u);
+        v16 = AVE_GetCurrTime();
+        v17 = AVE_Log_GetLevelStr(8);
+        if (v15)
         {
-          printf("%lld %d AVE %s: %s::%s:%d %p %lld %p %p %lld %p %d\n", v17, 19, v18, "AVE_VCP", "CalcChecksum", 338, this, *this, *(this + 4), a2, a3, v14, v15);
-          v17 = AVE_GetCurrTime();
-          v18 = AVE_Log_GetLevelStr(8);
-          v33 = *this;
-          v35 = *(this + 4);
+          printf("%lld %d AVE %s: %s::%s:%d %p %lld %p %p %lld %p %d\n", v16, 19, v17, "AVE_VCP", "CalcChecksum", 338, this, *this, *(this + 4), a2, a3, v13, v14);
+          v18 = AVE_GetCurrTime();
+          v33 = AVE_Log_GetLevelStr(8);
+          syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %p %p %lld %p %d", v18, 19, v33, "AVE_VCP", "CalcChecksum", 338, this);
         }
 
-        syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %p %p %lld %p %d", v17, 19, v18, "AVE_VCP", "CalcChecksum", 338, this);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %p %p %lld %p %d", v16, 19, v17, "AVE_VCP", "CalcChecksum", 338, this);
+        }
       }
 
-      if (v15)
+      if (v14)
       {
         if (AVE_Log_CheckLevel(0x13u, 5))
         {
@@ -2965,11 +1045,9 @@ uint64_t AVE_VCP::CalcChecksum(AVE_VCP *this, const __CFDictionary *a2, uint64_t
           v24 = AVE_Log_GetLevelStr(5);
           if (v22)
           {
-            printf("%lld %d AVE %s: %s::%s:%d fail to calculate checksum %p %lld %p %p %lld %p %d\n", v23, 19, v24, "AVE_VCP", "CalcChecksum", 345, this, *this, *(this + 4), a2, a3, v14, v15);
+            printf("%lld %d AVE %s: %s::%s:%d fail to calculate checksum %p %lld %p %p %lld %p %d\n", v23, 19, v24, "AVE_VCP", "CalcChecksum", 345, this, *this, *(this + 4), a2, a3, v13, v14);
             v25 = AVE_GetCurrTime();
             v26 = AVE_Log_GetLevelStr(5);
-            v34 = *this;
-            v36 = *(this + 4);
             syslog(3, "%lld %d AVE %s: %s::%s:%d fail to calculate checksum %p %lld %p %p %lld %p %d", v25, 19, v26, "AVE_VCP", "CalcChecksum", 345, this);
           }
 
@@ -2979,15 +1057,15 @@ uint64_t AVE_VCP::CalcChecksum(AVE_VCP *this, const __CFDictionary *a2, uint64_t
           }
         }
 
-        v15 = 4294966296;
+        v14 = 4294966296;
       }
 
       else
       {
-        CFDictionaryApplyFunction(v14, AVE_VCP::CalcChecksum(__CFDictionary const*,long long,__CFDictionary*)::$_0::__invoke, a4);
+        CFDictionaryApplyFunction(v13, AVE_VCP::CalcChecksum(__CFDictionary const*,long long,__CFDictionary*)::$_0::__invoke, a4);
       }
 
-      CFRelease(v14);
+      CFRelease(v13);
     }
 
     else
@@ -3007,34 +1085,36 @@ uint64_t AVE_VCP::CalcChecksum(AVE_VCP *this, const __CFDictionary *a2, uint64_t
         syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to create dictionary", v20);
       }
 
-      v15 = 4294966293;
+      v14 = 4294966293;
     }
   }
 
   else
   {
-    v15 = 4294966294;
+    v14 = 4294966294;
   }
 
-  v27 = *this;
   kdebug_trace();
   if (AVE_Log_CheckLevel(0x13u, 8))
   {
-    v28 = AVE_Log_CheckConsole(0x13u);
-    v29 = AVE_GetCurrTime();
-    v30 = AVE_Log_GetLevelStr(8);
-    if (v28)
+    v27 = AVE_Log_CheckConsole(0x13u);
+    v28 = AVE_GetCurrTime();
+    v29 = AVE_Log_GetLevelStr(8);
+    if (v27)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %lld %p %d\n", v29, 19, v30, "AVE_VCP", "CalcChecksum", this, *this, a2, a3, a4, v15);
-      v29 = AVE_GetCurrTime();
-      v30 = AVE_Log_GetLevelStr(8);
-      v31 = *this;
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %lld %p %d\n", v28, 19, v29, "AVE_VCP", "CalcChecksum", this, *this, a2, a3, a4, v14);
+      v30 = AVE_GetCurrTime();
+      v34 = AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %lld %p %d", v30, 19, v34, "AVE_VCP", "CalcChecksum");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %lld %p %d", v29, 19, v30, "AVE_VCP", "CalcChecksum");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %lld %p %d", v28, 19, v29, "AVE_VCP", "CalcChecksum");
+    }
   }
 
-  return v15;
+  return v14;
 }
 
 uint64_t HEVC_FindProfileIdc(int a1)
@@ -3118,7 +1198,7 @@ uint64_t HEVC_FindLevelIdc(int a1)
   return result;
 }
 
-uint64_t AVE_PixelFmt_AddAll(const unsigned int *a1, int a2, __CFArray *a3)
+uint64_t AVE_PixelFmt_AddAll(const unsigned int *a1, unsigned int a2, __CFArray *a3)
 {
   if (a2 < 1)
   {
@@ -3665,8 +1745,8 @@ void AVE_MultiPass::print_sc_info(AVE_MultiPass *this)
     {
       printf("%lld %d AVE %s: MP: seq_rc_info()\n", CurrTime, 216, LevelStr);
       v6 = AVE_GetCurrTime();
-      v74 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s: MP: seq_rc_info()", v6, 216, v74);
+      v71 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s: MP: seq_rc_info()", v6, 216, v71);
     }
 
     else
@@ -3685,8 +1765,8 @@ void AVE_MultiPass::print_sc_info(AVE_MultiPass *this)
     {
       printf("%lld %d AVE %s:  total_scenes %u\n", v8, 216, v9, v10);
       v11 = AVE_GetCurrTime();
-      v75 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s:  total_scenes %u", v11, 216, v75, *(v2 + 230));
+      v72 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s:  total_scenes %u", v11, 216, v72, *(v2 + 230));
     }
 
     else
@@ -3705,8 +1785,8 @@ void AVE_MultiPass::print_sc_info(AVE_MultiPass *this)
     {
       printf("%lld %d AVE %s:  cnt_All %u\n", v13, 216, v14, v15);
       v16 = AVE_GetCurrTime();
-      v76 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s:  cnt_All %u", v16, 216, v76, *(v2 + 231));
+      v73 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s:  cnt_All %u", v16, 216, v73, *(v2 + 231));
     }
 
     else
@@ -3725,8 +1805,8 @@ void AVE_MultiPass::print_sc_info(AVE_MultiPass *this)
     {
       printf("%lld %d AVE %s:  bits_All %llu\n", v18, 216, v19, v20);
       v21 = AVE_GetCurrTime();
-      v77 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s:  bits_All %llu", v21, 216, v77, *(this + 3188));
+      v74 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s:  bits_All %llu", v21, 216, v74, *(this + 3188));
     }
 
     else
@@ -3745,8 +1825,8 @@ void AVE_MultiPass::print_sc_info(AVE_MultiPass *this)
     {
       printf("%lld %d AVE %s:  cnt_NORMAL %u\n", v23, 216, v24, v25);
       v26 = AVE_GetCurrTime();
-      v78 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s:  cnt_NORMAL %u", v26, 216, v78, *(v2 + 237));
+      v75 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s:  cnt_NORMAL %u", v26, 216, v75, *(v2 + 237));
     }
 
     else
@@ -3765,8 +1845,8 @@ void AVE_MultiPass::print_sc_info(AVE_MultiPass *this)
     {
       printf("%lld %d AVE %s:  bits_NORMAL %llu\n", v28, 216, v29, v30);
       v31 = AVE_GetCurrTime();
-      v79 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s:  bits_NORMAL %llu", v31, 216, v79, *(this + 3191));
+      v76 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s:  bits_NORMAL %llu", v31, 216, v76, *(this + 3191));
     }
 
     else
@@ -3785,8 +1865,8 @@ void AVE_MultiPass::print_sc_info(AVE_MultiPass *this)
     {
       printf("%lld %d AVE %s:  cnt_MIN %u\n", v33, 216, v34, v35);
       v36 = AVE_GetCurrTime();
-      v80 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s:  cnt_MIN %u", v36, 216, v80, *(v2 + 240));
+      v77 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s:  cnt_MIN %u", v36, 216, v77, *(v2 + 240));
     }
 
     else
@@ -3805,8 +1885,8 @@ void AVE_MultiPass::print_sc_info(AVE_MultiPass *this)
     {
       printf("%lld %d AVE %s:  bits_MIN %llu\n", v38, 216, v39, v40);
       v41 = AVE_GetCurrTime();
-      v81 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s:  bits_MIN %llu", v41, 216, v81, *(v2 + 964));
+      v78 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s:  bits_MIN %llu", v41, 216, v78, *(v2 + 964));
     }
 
     else
@@ -3825,8 +1905,8 @@ void AVE_MultiPass::print_sc_info(AVE_MultiPass *this)
     {
       printf("%lld %d AVE %s:  cnt_MAX %u\n", v43, 216, v44, v45);
       v46 = AVE_GetCurrTime();
-      v82 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s:  cnt_MAX %u", v46, 216, v82, *(v2 + 243));
+      v79 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s:  cnt_MAX %u", v46, 216, v79, *(v2 + 243));
     }
 
     else
@@ -3845,8 +1925,8 @@ void AVE_MultiPass::print_sc_info(AVE_MultiPass *this)
     {
       printf("%lld %d AVE %s:  bits_MAX %llu\n", v48, 216, v49, v50);
       v51 = AVE_GetCurrTime();
-      v83 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s:  bits_MAX %llu", v51, 216, v83, *(this + 3194));
+      v80 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s:  bits_MAX %llu", v51, 216, v80, *(this + 3194));
     }
 
     else
@@ -3865,8 +1945,8 @@ void AVE_MultiPass::print_sc_info(AVE_MultiPass *this)
     {
       printf("%lld %d AVE %s:  cnt_BLANK %u\n", v53, 216, v54, v55);
       v56 = AVE_GetCurrTime();
-      v84 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s:  cnt_BLANK %u", v56, 216, v84, *(v2 + 246));
+      v81 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s:  cnt_BLANK %u", v56, 216, v81, *(v2 + 246));
     }
 
     else
@@ -3885,8 +1965,8 @@ void AVE_MultiPass::print_sc_info(AVE_MultiPass *this)
     {
       printf("%lld %d AVE %s:  bits_BLANK %llu\n", v58, 216, v59, v60);
       v61 = AVE_GetCurrTime();
-      v85 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s:  bits_BLANK %llu", v61, 216, v85, *(v2 + 988));
+      v82 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s:  bits_BLANK %llu", v61, 216, v82, *(v2 + 988));
     }
 
     else
@@ -3900,7 +1980,6 @@ void AVE_MultiPass::print_sc_info(AVE_MultiPass *this)
     v62 = AVE_Log_CheckConsole(0xD8u);
     v63 = AVE_GetCurrTime();
     v64 = AVE_Log_GetLevelStr(7);
-    v65 = *(v2 + 249);
     if (v62)
     {
       printf("%lld %d AVE %s:  avg_qscale %f\n", v63, 216, v64, *(v2 + 249));
@@ -3913,40 +1992,38 @@ void AVE_MultiPass::print_sc_info(AVE_MultiPass *this)
 
   if (AVE_Log_CheckLevel(0xD8u, 7))
   {
-    v66 = AVE_Log_CheckConsole(0xD8u);
-    v67 = AVE_GetCurrTime();
-    v68 = AVE_Log_GetLevelStr(7);
-    v69 = *(this + 3198);
-    if (v66)
+    v65 = AVE_Log_CheckConsole(0xD8u);
+    v66 = AVE_GetCurrTime();
+    v67 = AVE_Log_GetLevelStr(7);
+    if (v65)
     {
-      printf("%lld %d AVE %s:  current_complexity %lf\n", v67, 216, v68, *(this + 3198));
-      v67 = AVE_GetCurrTime();
-      v68 = AVE_Log_GetLevelStr(7);
+      printf("%lld %d AVE %s:  current_complexity %lf\n", v66, 216, v67, *(this + 3198));
+      v66 = AVE_GetCurrTime();
+      v67 = AVE_Log_GetLevelStr(7);
     }
 
-    syslog(3, "%lld %d AVE %s:  current_complexity %lf", v67, 216, v68, *(this + 3198));
+    syslog(3, "%lld %d AVE %s:  current_complexity %lf", v66, 216, v67, *(this + 3198));
   }
 
   if (AVE_Log_CheckLevel(0xD8u, 7))
   {
-    v70 = AVE_Log_CheckConsole(0xD8u);
-    v71 = AVE_GetCurrTime();
-    v72 = AVE_Log_GetLevelStr(7);
-    v73 = *(this + 3199);
-    if (v70)
+    v68 = AVE_Log_CheckConsole(0xD8u);
+    v69 = AVE_GetCurrTime();
+    v70 = AVE_Log_GetLevelStr(7);
+    if (v68)
     {
-      printf("%lld %d AVE %s:  totalcplxsum %lf\n", v71, 216, v72, *(this + 3199));
-      v71 = AVE_GetCurrTime();
-      v72 = AVE_Log_GetLevelStr(7);
+      printf("%lld %d AVE %s:  totalcplxsum %lf\n", v69, 216, v70, *(this + 3199));
+      v69 = AVE_GetCurrTime();
+      v70 = AVE_Log_GetLevelStr(7);
     }
 
-    syslog(3, "%lld %d AVE %s:  totalcplxsum %lf", v71, 216, v72, *(this + 3199));
+    syslog(3, "%lld %d AVE %s:  totalcplxsum %lf", v69, 216, v70, *(this + 3199));
   }
 }
 
 _DWORD *AVE_MultiPass::scene_change_pipeline(uint64_t a1, _DWORD *a2)
 {
-  v60 = a2;
+  v59 = a2;
   if (AVE_Log_CheckLevel(0xD8u, 7))
   {
     v4 = AVE_Log_CheckConsole(0xD8u);
@@ -3987,20 +2064,20 @@ LABEL_10:
 
   if (!*(a1 + 25488))
   {
-    v9 = v60;
-    v60[300] = 1;
+    v9 = v59;
+    v59[300] = 1;
     *(a1 + 25488) = v9;
     std::deque<_S_AVE_MultiPassStats *>::push_back((a1 + 25432), (a1 + 25488));
   }
 
-  v10 = std::deque<_S_AVE_MultiPassStats *>::push_back((a1 + 25384), &v60);
+  std::deque<_S_AVE_MultiPassStats *>::push_back((a1 + 25384), &v59);
   v11 = *(a1 + 25424);
-  v12 = v60;
+  v12 = v59;
   if (v11 <= 1)
   {
-    *(v60 + 151) = 0;
+    *(v59 + 151) = 0;
 LABEL_19:
-    v60 = 0;
+    v59 = 0;
     goto LABEL_20;
   }
 
@@ -4012,23 +2089,23 @@ LABEL_19:
   v18 = *(v16 + 8 * (v15 >> 9));
   v19 = v15 & 0x1FF;
   v20 = *(v18 + 8 * v19);
-  if (v60[11] == -1)
+  if (v59[11] == -1)
   {
     v22 = *(v20 + 1208);
   }
 
   else
   {
-    v21 = *(v60 + 304) + *(v20 + 1216);
+    v21 = *(v59 + 304) + *(v20 + 1216);
     if (v21 < 1.0)
     {
       v21 = 1.0;
     }
 
-    v22 = fmaxf(AVE_MultiPass::histogram_diff(v10, (v60 + 40), v20 + 160) / (v21 * 0.0019531), 0.01);
+    v22 = fmaxf(AVE_MultiPass::histogram_diff(v10, (v59 + 40), v20 + 160) / (v21 * 0.0019531), 0.01);
     v14 = *(a1 + 25416);
     v16 = *(a1 + 25392);
-    v12 = v60;
+    v12 = v59;
     v17 = (v14 + v13) >> 9;
     v19 = (v14 + v13) & 0x1FF;
   }
@@ -4055,7 +2132,7 @@ LABEL_19:
 
   v29 = v11 + v14;
   v30 = *(*(v16 + (((v29 - 3) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((v29 - 3) & 0x1FF));
-  v59 = v30;
+  v58 = v30;
   v31 = *(*(*(v16 + (((v29 - 4) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((v29 - 4) & 0x1FF)) + 1212);
   v32 = *(v30 + 1208);
   v33 = *(*(*(v16 + (((v29 - 1) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((v29 - 1) & 0x1FF)) + 1212);
@@ -4087,36 +2164,35 @@ LABEL_19:
     v40 = AVE_GetCurrTime();
     v41 = AVE_Log_GetLevelStr(7);
     v42 = *(v30 + 44);
-    v43 = *(v30 + 80) & 1;
-    v44 = *(v30 + 1200);
+    v43 = *(v30 + 1200);
     if (v39)
     {
-      printf("%lld %d AVE %s: MP: scene_change_pipeline() display_order %d forceKeyFrame %d scene_change %d\n", v40, 216, v41, v42, *(v30 + 80) & 1, v44);
-      v45 = AVE_GetCurrTime();
-      v46 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s: MP: scene_change_pipeline() display_order %d forceKeyFrame %d scene_change %d", v45, 216, v46, *(v30 + 44), *(v30 + 80) & 1, *(v30 + 1200));
+      printf("%lld %d AVE %s: MP: scene_change_pipeline() display_order %d forceKeyFrame %d scene_change %d\n", v40, 216, v41, v42, *(v30 + 80) & 1, v43);
+      v44 = AVE_GetCurrTime();
+      v45 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s: MP: scene_change_pipeline() display_order %d forceKeyFrame %d scene_change %d", v44, 216, v45, *(v30 + 44), *(v30 + 80) & 1, *(v30 + 1200));
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: MP: scene_change_pipeline() display_order %d forceKeyFrame %d scene_change %d", v40, 216, v41, v42, *(v30 + 80) & 1, v44);
+      syslog(3, "%lld %d AVE %s: MP: scene_change_pipeline() display_order %d forceKeyFrame %d scene_change %d", v40, 216, v41, v42, *(v30 + 80) & 1, v43);
     }
   }
 
   if (AVE_Log_CheckLevel(0xD8u, 7))
   {
-    v47 = AVE_Log_CheckConsole(0xD8u);
-    v48 = AVE_GetCurrTime();
-    v49 = AVE_Log_GetLevelStr(7);
-    v50 = v31;
-    v51 = v32;
-    v52 = v33;
-    v53 = v36;
-    v54 = v34;
-    v55 = v35;
-    if (v47)
+    v46 = AVE_Log_CheckConsole(0xD8u);
+    v47 = AVE_GetCurrTime();
+    v48 = AVE_Log_GetLevelStr(7);
+    v49 = v31;
+    v50 = v32;
+    v51 = v33;
+    v52 = v36;
+    v53 = v34;
+    v54 = v35;
+    if (v46)
     {
-      printf("%lld %d AVE %s: MP: scene_change_pipeline() m0 %f m1 %f m2 %f m0m2 %f mdpa_ratio_p %f mdpa_ratio_n %f\n", v48, 216, v49, v50, v51, v52, v53, v54, v55);
+      printf("%lld %d AVE %s: MP: scene_change_pipeline() m0 %f m1 %f m2 %f m0m2 %f mdpa_ratio_p %f mdpa_ratio_n %f\n", v47, 216, v48, v49, v50, v51, v52, v53, v54);
       AVE_GetCurrTime();
       AVE_Log_GetLevelStr(7);
     }
@@ -4126,23 +2202,23 @@ LABEL_19:
 
   if (*(v30 + 1200))
   {
-    std::deque<_S_AVE_MultiPassStats *>::push_back((a1 + 25432), &v59);
-    *(a1 + 25488) = v59;
+    std::deque<_S_AVE_MultiPassStats *>::push_back((a1 + 25432), &v58);
+    *(a1 + 25488) = v58;
   }
 
-  v56 = vaddq_s64(*(a1 + 25416), xmmword_2954F15C0);
-  v60 = *(*(*(a1 + 25392) + ((*(a1 + 25416) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (*(a1 + 25416) & 0x1FFLL));
-  *(a1 + 25416) = v56;
+  v55 = vaddq_s64(*(a1 + 25416), xmmword_2954F15C0);
+  v59 = *(*(*(a1 + 25392) + ((*(a1 + 25416) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (*(a1 + 25416) & 0x1FFLL));
+  *(a1 + 25416) = v55;
   std::deque<_S_AVE_MultiPassStats *>::__maybe_remove_front_spare[abi:ne200100](a1 + 25384, 1);
-  if (v60[300])
+  if (v59[300])
   {
-    v60 = 0;
-    v57 = *(a1 + 25464);
-    if (*(*(*(a1 + 25440) + ((v57 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v57 & 0x1FF)) != *(a1 + 25488))
+    v59 = 0;
+    v56 = *(a1 + 25464);
+    if (*(*(*(a1 + 25440) + ((v56 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v56 & 0x1FF)) != *(a1 + 25488))
     {
-      v60 = *(*(*(a1 + 25440) + ((*(a1 + 25464) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (*(a1 + 25464) & 0x1FFLL));
+      v59 = *(*(*(a1 + 25440) + ((*(a1 + 25464) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (*(a1 + 25464) & 0x1FFLL));
       --*(a1 + 25472);
-      *(a1 + 25464) = v57 + 1;
+      *(a1 + 25464) = v56 + 1;
       std::deque<_S_AVE_MultiPassStats *>::__maybe_remove_front_spare[abi:ne200100](a1 + 25432, 1);
     }
   }
@@ -4155,50 +2231,47 @@ LABEL_20:
     v25 = AVE_Log_GetLevelStr(7);
     if (v23)
     {
-      printf("%lld %d AVE %s: MP: scene_change_pipeline() returns stats %p\n", v24, 216, v25, v60);
+      printf("%lld %d AVE %s: MP: scene_change_pipeline() returns stats %p\n", v24, 216, v25, v59);
       v26 = AVE_GetCurrTime();
-      v58 = AVE_Log_GetLevelStr(7);
-      syslog(3, "%lld %d AVE %s: MP: scene_change_pipeline() returns stats %p", v26, 216, v58, v60);
+      v57 = AVE_Log_GetLevelStr(7);
+      syslog(3, "%lld %d AVE %s: MP: scene_change_pipeline() returns stats %p", v26, 216, v57, v59);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: MP: scene_change_pipeline() returns stats %p", v24, 216, v25, v60);
+      syslog(3, "%lld %d AVE %s: MP: scene_change_pipeline() returns stats %p", v24, 216, v25, v59);
     }
   }
 
-  return v60;
+  return v59;
 }
 
-void *std::deque<_S_AVE_MultiPassStats *>::push_back(void *result, void *a2)
+void std::deque<_S_AVE_MultiPassStats *>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  if (v5 == v6)
+  v4 = result[2];
+  v5 = result[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = ((v5 - v6) << 6) - 1;
+    v6 = ((v4 - v5) << 6) - 1;
   }
 
-  v8 = result[5];
-  v9 = v8 + result[4];
-  if (v7 == v9)
+  v7 = result[5];
+  v8 = v7 + result[4];
+  if (v6 == v8)
   {
-    result = std::deque<_S_AVE_MultiPassStats *>::__add_back_capacity(result);
-    v6 = v3[1];
-    v8 = v3[5];
-    v9 = v3[4] + v8;
+    std::deque<_S_AVE_MultiPassStats *>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
-  *(*(v6 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF)) = *a2;
-  v3[5] = v8 + 1;
-  return result;
+  *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
+  result[5] = v7 + 1;
 }
 
 void AVE_MultiPass::fixup_frame_bits(uint64_t a1, uint64_t a2, int a3)
@@ -4211,13 +2284,12 @@ void AVE_MultiPass::fixup_frame_bits(uint64_t a1, uint64_t a2, int a3)
       CurrTime = AVE_GetCurrTime();
       LevelStr = AVE_Log_GetLevelStr(7);
       v8 = *(a2 + 44);
-      v9 = *(a2 + 64);
       if (v5)
       {
         printf("%lld %d AVE %s: MP: F %d frame_bits %u correction_bits %d\n", CurrTime, 216, LevelStr, v8, *(a2 + 64), a3);
-        v10 = AVE_GetCurrTime();
-        v11 = AVE_Log_GetLevelStr(7);
-        syslog(3, "%lld %d AVE %s: MP: F %d frame_bits %u correction_bits %d", v10, 216, v11, *(a2 + 44), *(a2 + 64), a3);
+        v9 = AVE_GetCurrTime();
+        v10 = AVE_Log_GetLevelStr(7);
+        syslog(3, "%lld %d AVE %s: MP: F %d frame_bits %u correction_bits %d", v9, 216, v10, *(a2 + 44), *(a2 + 64), a3);
       }
 
       else
@@ -4228,86 +2300,85 @@ void AVE_MultiPass::fixup_frame_bits(uint64_t a1, uint64_t a2, int a3)
 
     if (a3)
     {
-      v12 = *(a2 + 64);
-      if (v12 + a3 >= 1)
+      v11 = *(a2 + 64);
+      if (v11 + a3 >= 1)
       {
-        v13 = *(a2 + 68) * a3 / v12;
+        v12 = *(a2 + 68) * a3 / v11;
         if (AVE_Log_CheckLevel(0xD8u, 7))
         {
-          v14 = AVE_Log_CheckConsole(0xD8u);
-          v15 = AVE_GetCurrTime();
-          v16 = AVE_Log_GetLevelStr(7);
-          v17 = *(a2 + 44);
-          v18 = *(a2 + 68);
-          if (v14)
+          v13 = AVE_Log_CheckConsole(0xD8u);
+          v14 = AVE_GetCurrTime();
+          v15 = AVE_Log_GetLevelStr(7);
+          v16 = *(a2 + 44);
+          if (v13)
           {
-            printf("%lld %d AVE %s: MP: F %d hdr_bits %u hdr_correction %d\n", v15, 216, v16, v17, *(a2 + 68), v13);
-            v19 = AVE_GetCurrTime();
-            v20 = AVE_Log_GetLevelStr(7);
-            syslog(3, "%lld %d AVE %s: MP: F %d hdr_bits %u hdr_correction %d", v19, 216, v20, *(a2 + 44), *(a2 + 68), v13);
+            printf("%lld %d AVE %s: MP: F %d hdr_bits %u hdr_correction %d\n", v14, 216, v15, v16, *(a2 + 68), v12);
+            v17 = AVE_GetCurrTime();
+            v18 = AVE_Log_GetLevelStr(7);
+            syslog(3, "%lld %d AVE %s: MP: F %d hdr_bits %u hdr_correction %d", v17, 216, v18, *(a2 + 44), *(a2 + 68), v12);
           }
 
           else
           {
-            syslog(3, "%lld %d AVE %s: MP: F %d hdr_bits %u hdr_correction %d", v15, 216, v16, v17, *(a2 + 68), v13);
+            syslog(3, "%lld %d AVE %s: MP: F %d hdr_bits %u hdr_correction %d", v14, 216, v15, v16, *(a2 + 68), v12);
           }
         }
 
-        v21 = *(a2 + 68);
-        v22 = *(a2 + 64) + a3;
+        v19 = *(a2 + 68);
+        v20 = *(a2 + 64) + a3;
         *(a2 + 1228) += a3;
-        *(a2 + 1244) += v13;
-        *(a2 + 64) = v22;
-        *(a2 + 68) = v21 + v13;
-        v23 = *(a2 + 52);
-        if (v23 == 2)
+        *(a2 + 1244) += v12;
+        *(a2 + 64) = v20;
+        *(a2 + 68) = v19 + v12;
+        v21 = *(a2 + 52);
+        if (v21 == 2)
         {
-          v24 = 1252;
+          v22 = 1252;
         }
 
         else
         {
-          if (v23)
+          if (v21)
           {
 LABEL_17:
-            v25 = *(a2 + 1316);
+            v23 = *(a2 + 1316);
+            if (v23)
+            {
+              *(a2 + 1316) = v23 + a3;
+            }
+
+            v24 = *(a2 + 1324);
+            if (v24)
+            {
+              *(a2 + 1324) = v24 + a3;
+            }
+
+            v25 = *(a2 + 1332);
             if (v25)
             {
-              *(a2 + 1316) = v25 + a3;
+              *(a2 + 1332) = v25 + a3;
             }
 
-            v26 = *(a2 + 1324);
+            v26 = *(a2 + 1340);
             if (v26)
             {
-              *(a2 + 1324) = v26 + a3;
-            }
-
-            v27 = *(a2 + 1332);
-            if (v27)
-            {
-              *(a2 + 1332) = v27 + a3;
-            }
-
-            v28 = *(a2 + 1340);
-            if (v28)
-            {
-              *(a2 + 1340) = v28 + a3;
+              *(a2 + 1340) = v26 + a3;
             }
 
             return;
           }
 
-          v24 = 1260;
+          v22 = 1260;
         }
 
-        *(a2 + v24) += v13;
+        *(a2 + v22) += v12;
         goto LABEL_17;
       }
     }
   }
 }
 
-const void *AVE_MultiPass::enqueue_first_pass(uint64_t *a1, uint64_t a2, int a3)
+const void *AVE_MultiPass::enqueue_first_pass(void *a1, uint64_t a2, int a3)
 {
   v6 = (a1 + 3072);
   v7 = AVE_Log_CheckLevel(0xD8u, 7);
@@ -5034,20 +3105,20 @@ void std::vector<AVE_MultiPass::_S_AVE_MPCluster>::push_back[abi:ne200100](uint6
   *(a1 + 8) = v6;
 }
 
-void std::vector<AVE_MultiPass::_S_AVE_MPCluster>::resize(uint64_t a1, unint64_t a2)
+void std::vector<AVE_MultiPass::_S_AVE_MPCluster>::resize(const void **result, unint64_t a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 4;
+  v2 = (result[1] - *result) >> 4;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      *(a1 + 8) = *a1 + 16 * a2;
+      result[1] = *result + 16 * a2;
     }
   }
 
   else
   {
-    std::vector<AVE_MultiPass::_S_AVE_MPCluster>::__append(a1, a2 - v2);
+    std::vector<AVE_MultiPass::_S_AVE_MPCluster>::__append(result, a2 - v2);
   }
 }
 
@@ -5275,9 +3346,6 @@ LABEL_19:
       {
         Mutable = CFDataCreateMutable(v11, 0);
         CFDataAppendBytes(Mutable, pass, 1574);
-        v26 = *(pass + 4);
-        v27 = *(pass + 12);
-        v28 = *(pass + 20);
         v19 = VTMultiPassStorageSetDataAtTimeStamp();
         if (Mutable)
         {
@@ -5321,19 +3389,19 @@ LABEL_19:
   }
 }
 
-void *std::deque<_S_AVE_MultiPassStats *>::__add_back_capacity(void *a1)
+void std::deque<_S_AVE_MultiPassStats *>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -5341,25 +3409,25 @@ void *std::deque<_S_AVE_MultiPassStats *>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<_S_AVE_MultiPassStats **>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<_S_AVE_MultiPassStats **>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<_S_AVE_MultiPassStats **>::emplace_back<_S_AVE_MultiPassStats **&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<_S_AVE_MultiPassStats **>::emplace_back<_S_AVE_MultiPassStats **&>(a1, &v9);
 }
 
 void sub_2954949C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -5373,27 +3441,26 @@ void sub_2954949C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<_S_AVE_MultiPassStats **>::emplace_back<_S_AVE_MultiPassStats **&>(void *result, void *a2)
+void std::__split_buffer<_S_AVE_MultiPassStats **>::emplace_back<_S_AVE_MultiPassStats **&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<_S_AVE_MultiPassStats **>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<_S_AVE_MultiPassStats **>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -5402,28 +3469,26 @@ void *std::__split_buffer<_S_AVE_MultiPassStats **>::emplace_back<_S_AVE_MultiPa
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<_S_AVE_MultiPassStats **>::emplace_front<_S_AVE_MultiPassStats **>(const void **result, void *a2)
+void std::__split_buffer<_S_AVE_MultiPassStats **>::emplace_front<_S_AVE_MultiPassStats **>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -5436,52 +3501,50 @@ const void **std::__split_buffer<_S_AVE_MultiPassStats **>::emplace_front<_S_AVE
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<_S_AVE_MultiPassStats **>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<_S_AVE_MultiPassStats **>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<_S_AVE_MultiPassStats **>::emplace_back<_S_AVE_MultiPassStats **>(void *result, void *a2)
+void std::__split_buffer<_S_AVE_MultiPassStats **>::emplace_back<_S_AVE_MultiPassStats **>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<_S_AVE_MultiPassStats **>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<_S_AVE_MultiPassStats **>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -5490,28 +3553,26 @@ void *std::__split_buffer<_S_AVE_MultiPassStats **>::emplace_back<_S_AVE_MultiPa
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<_S_AVE_MultiPassStats **>::emplace_front<_S_AVE_MultiPassStats **&>(const void **result, void *a2)
+void std::__split_buffer<_S_AVE_MultiPassStats **>::emplace_front<_S_AVE_MultiPassStats **&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -5524,29 +3585,28 @@ const void **std::__split_buffer<_S_AVE_MultiPassStats **>::emplace_front<_S_AVE
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<_S_AVE_MultiPassStats **>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<_S_AVE_MultiPassStats **>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 void std::__throw_bad_array_new_length[abi:ne200100]()
@@ -5691,12 +3751,12 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<AVE_MultiPass::_S_AVE
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-__n128 std::__introsort<std::_ClassicAlgPolicy,AVE_MultiPass::_S_AVE_MPClusterSortCount &,AVE_MultiPass::_S_AVE_MPCluster *,false>(unsigned int *a1, __n128 *a2, uint64_t a3, uint64_t a4, char a5, __n128 result)
+__n128 std::__introsort<std::_ClassicAlgPolicy,AVE_MultiPass::_S_AVE_MPClusterSortCount &,AVE_MultiPass::_S_AVE_MPCluster *,false>(__n128 *a1, __n128 *a2, uint64_t a3, uint64_t a4, char a5, __n128 result)
 {
 LABEL_1:
-  v9 = a2 - 1;
-  v10 = a2 - 2;
-  v11 = a2 - 3;
+  v9 = &a2[-1];
+  v10 = &a2[-2];
+  v11 = &a2[-3];
   v12 = a1;
 LABEL_2:
   v13 = 1 - a4;
@@ -5704,7 +3764,7 @@ LABEL_2:
   {
     a1 = v12;
     v14 = v13;
-    v15 = (a2 - v12) >> 4;
+    v15 = a2 - v12;
     if (v15 <= 2)
     {
       if (v15 < 2)
@@ -5714,17 +3774,17 @@ LABEL_2:
 
       if (v15 == 2)
       {
-        v48 = a2[-1].n128_u32[0];
-        v46 = a2 - 1;
-        if (v48 <= *v12)
+        v47 = a2[-1].n128_u32[0];
+        v45 = &a2[-1];
+        if (v47 <= v12->n128_u32[0])
         {
           return result;
         }
 
 LABEL_77:
-        v77 = *v12;
-        *v12 = *v46;
-        result = v77;
+        v76 = *v12;
+        *v12 = *v45;
+        result = v76;
         goto LABEL_78;
       }
 
@@ -5733,42 +3793,42 @@ LABEL_77:
 
     if (v15 == 3)
     {
-      v43 = (v12 + 4);
-      v44 = v12[4];
-      v47 = a2[-1].n128_u32[0];
-      v46 = a2 - 1;
-      v45 = v47;
-      if (v44 > *v12)
+      v42 = v12 + 1;
+      v43 = v12[1].n128_u32[0];
+      v46 = a2[-1].n128_u32[0];
+      v45 = &a2[-1];
+      v44 = v46;
+      if (v43 > v12->n128_u32[0])
       {
-        if (v45 > v44)
+        if (v44 > v43)
         {
           goto LABEL_77;
         }
 
-        v76 = *v12;
-        *v12 = *v43;
-        result = v76;
-        *v43 = v76;
-        if (v46->n128_u32[0] <= v12[4])
+        v75 = *v12;
+        *v12 = *v42;
+        result = v75;
+        *v42 = v75;
+        if (*v45 <= v12[1].n128_u32[0])
         {
           return result;
         }
 
-        result = *v43;
-        *v43 = *v46;
+        result = *v42;
+        *v42 = *v45;
 LABEL_78:
-        *v46 = result;
+        *v45 = result;
         return result;
       }
 
-      if (v45 <= v44)
+      if (v44 <= v43)
       {
         return result;
       }
 
-      result = *v43;
-      *v43 = *v46;
-      *v46 = result;
+      result = *v42;
+      *v42 = *v45;
+      *v45 = result;
       goto LABEL_109;
     }
 
@@ -5780,7 +3840,7 @@ LABEL_78:
     if (v15 == 5)
     {
 
-      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,AVE_MultiPass::_S_AVE_MPClusterSortCount &,AVE_MultiPass::_S_AVE_MPCluster *,0>(v12, v12 + 1, v12 + 8, v12 + 3, a2[-1].n128_u64, result).n128_u64[0];
+      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,AVE_MultiPass::_S_AVE_MPClusterSortCount &,AVE_MultiPass::_S_AVE_MPCluster *,0>(v12, v12 + 1, &v12[2], v12[3].n128_u64, a2[-1].n128_u64, result).n128_u64[0];
       return result;
     }
 
@@ -5795,30 +3855,30 @@ LABEL_10:
 
       else if (v12 != a2)
       {
-        v52 = (v12 + 4);
-        while (v52 != a2)
+        v51 = &v12[1];
+        while (v51 != a2)
         {
-          v53 = v52;
-          v54 = *(a1 + 2);
-          if (v54 > *a1)
+          v52 = v51;
+          v53 = a1[1].n128_u64[0];
+          if (v53 > a1->n128_u32[0])
           {
-            v55 = *(a1 + 3);
-            v56 = v53;
+            v54 = a1[1].n128_u64[1];
+            v55 = v52;
             do
             {
-              result = v56[-1];
-              *v56 = result;
-              v57 = v56[-2].n128_u32[0];
-              --v56;
+              result = v55[-1];
+              *v55 = result;
+              v56 = v55[-2].n128_u32[0];
+              --v55;
             }
 
-            while (v54 > v57);
-            v56->n128_u64[0] = v54;
-            v56->n128_u64[1] = v55;
+            while (v53 > v56);
+            v55->n128_u64[0] = v53;
+            v55->n128_u64[1] = v54;
           }
 
-          v52 = v53 + 1;
-          a1 = v53;
+          v51 = &v52[1];
+          a1 = v52;
         }
       }
 
@@ -5836,24 +3896,24 @@ LABEL_10:
       return result;
     }
 
-    v16 = &v12[4 * (v15 >> 1)];
+    v16 = &v12[v15 >> 1];
     v17 = v16;
-    v18 = v9->n128_u32[0];
+    v18 = *v9;
     if (v15 >= 0x81)
     {
-      v19 = *v16;
-      if (*v16 <= *v12)
+      v19 = v16->n128_u32[0];
+      if (v16->n128_u32[0] <= v12->n128_u32[0])
       {
         if (v18 > v19)
         {
-          v61 = *v16;
+          v60 = *v16;
           *v16 = *v9;
-          *v9 = v61;
-          if (*v16 > *v12)
+          *v9 = v60;
+          if (v16->n128_u32[0] > v12->n128_u32[0])
           {
-            v62 = *v12;
+            v61 = *v12;
             *v12 = *v16;
-            *v16 = v62;
+            *v16 = v61;
           }
         }
       }
@@ -5862,39 +3922,39 @@ LABEL_10:
       {
         if (v18 <= v19)
         {
-          v65 = *v12;
+          v64 = *v12;
           *v12 = *v16;
-          *v16 = v65;
-          if (v9->n128_u32[0] <= *v16)
+          *v16 = v64;
+          if (*v9 <= v16->n128_u32[0])
           {
             goto LABEL_28;
           }
 
-          v59 = *v16;
+          v58 = *v16;
           *v16 = *v9;
         }
 
         else
         {
-          v59 = *v12;
+          v58 = *v12;
           *v12 = *v9;
         }
 
-        *v9 = v59;
+        *v9 = v58;
       }
 
 LABEL_28:
-      v21 = (v12 + 4);
-      v22 = (v16 - 4);
-      v23 = *(v16 - 4);
-      v24 = v10->n128_u32[0];
-      if (v23 <= v12[4])
+      v21 = v12 + 1;
+      v22 = v16 - 1;
+      v23 = v16[-1].n128_u32[0];
+      v24 = *v10;
+      if (v23 <= v12[1].n128_u32[0])
       {
         if (v24 > v23)
         {
-          v66 = *v22;
+          v65 = *v22;
           *v22 = *v10;
-          *v10 = v66;
+          *v10 = v65;
           if (v22->n128_u32[0] > v21->n128_u32[0])
           {
             v26 = *v21;
@@ -5911,14 +3971,14 @@ LABEL_28:
           v27 = *v21;
           *v21 = *v22;
           *v22 = v27;
-          if (v10->n128_u32[0] <= v22->n128_u32[0])
+          if (*v10 <= v22->n128_u32[0])
           {
             goto LABEL_40;
           }
 
-          v68 = *v22;
+          v67 = *v22;
           *v22 = *v10;
-          v25 = v68;
+          v25 = v67;
         }
 
         else
@@ -5931,18 +3991,18 @@ LABEL_28:
       }
 
 LABEL_40:
-      v28 = (v12 + 8);
-      v31 = v16[4];
-      v29 = (v16 + 4);
+      v28 = v12 + 2;
+      v31 = v16[1].n128_u32[0];
+      v29 = v16 + 1;
       v30 = v31;
-      v32 = v11->n128_u32[0];
-      if (v31 <= v12[8])
+      v32 = *v11;
+      if (v31 <= v12[2].n128_u32[0])
       {
         if (v32 > v30)
         {
-          v69 = *v29;
+          v68 = *v29;
           *v29 = *v11;
-          *v11 = v69;
+          *v11 = v68;
           if (v29->n128_u32[0] > v28->n128_u32[0])
           {
             v34 = *v28;
@@ -5959,14 +4019,14 @@ LABEL_40:
           v35 = *v28;
           *v28 = *v29;
           *v29 = v35;
-          if (v11->n128_u32[0] <= v29->n128_u32[0])
+          if (*v11 <= v29->n128_u32[0])
           {
             goto LABEL_49;
           }
 
-          v70 = *v29;
+          v69 = *v29;
           *v29 = *v11;
-          v33 = v70;
+          v33 = v69;
         }
 
         else
@@ -5979,20 +4039,20 @@ LABEL_40:
       }
 
 LABEL_49:
-      v36 = *v17;
+      v36 = v17->n128_u32[0];
       v37 = v29->n128_u32[0];
-      if (*v17 <= v22->n128_u32[0])
+      if (v17->n128_u32[0] <= v22->n128_u32[0])
       {
         if (v37 > v36)
         {
-          v72 = *v17;
+          v71 = *v17;
           *v17 = *v29;
-          *v29 = v72;
-          if (*v17 > v22->n128_u32[0])
+          *v29 = v71;
+          if (v17->n128_u32[0] > v22->n128_u32[0])
           {
-            v73 = *v22;
+            v72 = *v22;
             *v22 = *v17;
-            *v17 = v73;
+            *v17 = v72;
           }
         }
 
@@ -6001,45 +4061,45 @@ LABEL_49:
 
       if (v37 <= v36)
       {
-        v74 = *v22;
+        v73 = *v22;
         *v22 = *v17;
-        *v17 = v74;
-        if (v29->n128_u32[0] <= *v17)
+        *v17 = v73;
+        if (v29->n128_u32[0] <= v17->n128_u32[0])
         {
 LABEL_58:
-          v75 = *v12;
+          v74 = *v12;
           *v12 = *v17;
-          *v17 = v75;
+          *v17 = v74;
           goto LABEL_59;
         }
 
-        v71 = *v17;
+        v70 = *v17;
         *v17 = *v29;
       }
 
       else
       {
-        v71 = *v22;
+        v70 = *v22;
         *v22 = *v29;
       }
 
-      *v29 = v71;
+      *v29 = v70;
       goto LABEL_58;
     }
 
-    v20 = *v12;
-    if (*v12 <= *v17)
+    v20 = v12->n128_u32[0];
+    if (v12->n128_u32[0] <= v17->n128_u32[0])
     {
       if (v18 > v20)
       {
-        v63 = *v12;
+        v62 = *v12;
         *v12 = *v9;
-        *v9 = v63;
-        if (*v12 > *v17)
+        *v9 = v62;
+        if (v12->n128_u32[0] > v17->n128_u32[0])
         {
-          v64 = *v17;
+          v63 = *v17;
           *v17 = *v12;
-          *v12 = v64;
+          *v12 = v63;
         }
       }
     }
@@ -6048,44 +4108,44 @@ LABEL_58:
     {
       if (v18 > v20)
       {
-        v60 = *v17;
+        v59 = *v17;
         *v17 = *v9;
 LABEL_36:
-        *v9 = v60;
+        *v9 = v59;
         goto LABEL_59;
       }
 
-      v67 = *v17;
+      v66 = *v17;
       *v17 = *v12;
-      *v12 = v67;
-      if (v9->n128_u32[0] > *v12)
+      *v12 = v66;
+      if (*v9 > v12->n128_u32[0])
       {
-        v60 = *v12;
+        v59 = *v12;
         *v12 = *v9;
         goto LABEL_36;
       }
     }
 
 LABEL_59:
-    if ((a5 & 1) == 0 && *(v12 - 4) <= *v12)
+    if ((a5 & 1) == 0 && v12[-1].n128_u32[0] <= v12->n128_u32[0])
     {
       v12 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,AVE_MultiPass::_S_AVE_MPCluster *,AVE_MultiPass::_S_AVE_MPClusterSortCount &>(v12, a2);
       goto LABEL_66;
     }
 
     v38 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,AVE_MultiPass::_S_AVE_MPCluster *,AVE_MultiPass::_S_AVE_MPClusterSortCount &>(v12, a2);
-    if ((v40 & 1) == 0)
+    if ((v39 & 1) == 0)
     {
       goto LABEL_64;
     }
 
-    v41 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,AVE_MultiPass::_S_AVE_MPClusterSortCount &,AVE_MultiPass::_S_AVE_MPCluster *>(v12, v38, v39);
+    v40 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,AVE_MultiPass::_S_AVE_MPClusterSortCount &,AVE_MultiPass::_S_AVE_MPCluster *>(v12, v38, result);
     v12 = (v38 + 1);
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,AVE_MultiPass::_S_AVE_MPClusterSortCount &,AVE_MultiPass::_S_AVE_MPCluster *>((v38 + 1), a2, v42))
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,AVE_MultiPass::_S_AVE_MPClusterSortCount &,AVE_MultiPass::_S_AVE_MPCluster *>((v38 + 1), a2, v41))
     {
       a4 = -v14;
       a2 = v38;
-      if (v41)
+      if (v40)
       {
         return result;
       }
@@ -6094,10 +4154,10 @@ LABEL_59:
     }
 
     v13 = v14 + 1;
-    if (!v41)
+    if (!v40)
     {
 LABEL_64:
-      std::__introsort<std::_ClassicAlgPolicy,AVE_MultiPass::_S_AVE_MPClusterSortCount &,AVE_MultiPass::_S_AVE_MPCluster *,false>(a1, v38, a3, -v14, a5 & 1);
+      result = std::__introsort<std::_ClassicAlgPolicy,AVE_MultiPass::_S_AVE_MPClusterSortCount &,AVE_MultiPass::_S_AVE_MPCluster *,false>(a1, v38, a3, -v14, a5 & 1, result);
       v12 = (v38 + 1);
 LABEL_66:
       a5 = 0;
@@ -6106,73 +4166,73 @@ LABEL_66:
     }
   }
 
-  v43 = (v12 + 4);
-  v49 = v12[4];
-  v50 = (v12 + 8);
-  v51 = v12[8];
-  if (v49 <= *v12)
+  v42 = v12 + 1;
+  v48 = v12[1].n128_u32[0];
+  v49 = v12 + 2;
+  v50 = v12[2].n128_u32[0];
+  if (v48 <= v12->n128_u32[0])
   {
-    if (v51 > v49)
+    if (v50 > v48)
     {
-      result = *v43;
-      *v43 = *v50;
-      *v50 = result;
-      if (v12[4] > *v12)
+      result = *v42;
+      *v42 = *v49;
+      *v49 = result;
+      if (v12[1].n128_u32[0] > v12->n128_u32[0])
       {
-        v79 = *v12;
-        *v12 = *v43;
-        result = v79;
-        *v43 = v79;
+        v78 = *v12;
+        *v12 = *v42;
+        result = v78;
+        *v42 = v78;
       }
     }
   }
 
   else
   {
-    if (v51 > v49)
+    if (v50 > v48)
     {
-      v78 = *v12;
-      *v12 = *v50;
-      result = v78;
+      v77 = *v12;
+      *v12 = *v49;
+      result = v77;
       goto LABEL_105;
     }
 
-    v80 = *v12;
-    *v12 = *v43;
-    result = v80;
-    *v43 = v80;
-    if (v51 > v12[4])
+    v79 = *v12;
+    *v12 = *v42;
+    result = v79;
+    *v42 = v79;
+    if (v50 > v12[1].n128_u32[0])
     {
-      result = *v43;
-      *v43 = *v50;
+      result = *v42;
+      *v42 = *v49;
 LABEL_105:
-      *v50 = result;
+      *v49 = result;
     }
   }
 
-  if (v9->n128_u32[0] <= v50->n128_u32[0])
+  if (*v9 <= v49->n128_u32[0])
   {
     return result;
   }
 
-  result = *v50;
-  *v50 = *v9;
+  result = *v49;
+  *v49 = *v9;
   *v9 = result;
-  if (v50->n128_u32[0] <= v43->n128_u32[0])
+  if (v49->n128_u32[0] <= v42->n128_u32[0])
   {
     return result;
   }
 
-  result = *v43;
-  *v43 = *v50;
-  *v50 = result;
+  result = *v42;
+  *v42 = *v49;
+  *v49 = result;
 LABEL_109:
-  if (v12[4] > *v12)
+  if (v12[1].n128_u32[0] > v12->n128_u32[0])
   {
-    v81 = *v12;
-    *v12 = *v43;
-    result = v81;
-    *v43 = v81;
+    v80 = *v12;
+    *v12 = *v42;
+    result = v80;
+    *v42 = v80;
   }
 
   return result;
@@ -6932,9 +4992,9 @@ LABEL_2:
         }
 
 LABEL_77:
-        v65 = *v12;
+        v64 = *v12;
         *v12 = *v9;
-        result = v65;
+        result = v64;
         goto LABEL_78;
       }
 
@@ -6948,68 +5008,68 @@ LABEL_77:
 
     if (v15 == 4)
     {
-      v42 = v12 + 1;
-      v43 = v12 + 2;
-      v44 = v12[1].n128_f32[1];
-      v45 = v12[2].n128_f32[1];
-      if (v44 >= v12->n128_f32[1])
+      v41 = v12 + 1;
+      v42 = v12 + 2;
+      v43 = v12[1].n128_f32[1];
+      v44 = v12[2].n128_f32[1];
+      if (v43 >= v12->n128_f32[1])
       {
-        if (v45 < v44)
+        if (v44 < v43)
         {
-          result = *v42;
-          *v42 = *v43;
-          *v43 = result;
+          result = *v41;
+          *v41 = *v42;
+          *v42 = result;
           if (v12[1].n128_f32[1] < v12->n128_f32[1])
           {
-            v68 = *v12;
-            *v12 = *v42;
-            result = v68;
-            *v42 = v68;
+            v67 = *v12;
+            *v12 = *v41;
+            result = v67;
+            *v41 = v67;
           }
         }
       }
 
       else
       {
-        if (v45 < v44)
+        if (v44 < v43)
         {
-          v66 = *v12;
-          *v12 = *v43;
-          result = v66;
+          v65 = *v12;
+          *v12 = *v42;
+          result = v65;
           goto LABEL_101;
         }
 
-        v69 = *v12;
-        *v12 = *v42;
-        *v42 = v69;
-        if (v45 < v12[1].n128_f32[1])
+        v68 = *v12;
+        *v12 = *v41;
+        *v41 = v68;
+        if (v44 < v12[1].n128_f32[1])
         {
-          result = *v42;
-          *v42 = *v43;
+          result = *v41;
+          *v41 = *v42;
 LABEL_101:
-          *v43 = result;
+          *v42 = result;
         }
       }
 
       result.n128_u32[0] = a2[-1].n128_u32[1];
       if (result.n128_f32[0] < v12[2].n128_f32[1])
       {
-        result = *v43;
-        *v43 = *v9;
+        result = *v42;
+        *v42 = *v9;
         *v9 = result;
         result.n128_u32[0] = v12[2].n128_u32[1];
         if (result.n128_f32[0] < v12[1].n128_f32[1])
         {
-          result = *v42;
-          *v42 = *v43;
-          *v43 = result;
+          result = *v41;
+          *v41 = *v42;
+          *v42 = result;
           result.n128_u32[0] = v12[1].n128_u32[1];
           if (result.n128_f32[0] < v12->n128_f32[1])
           {
-            v70 = *v12;
-            *v12 = *v42;
-            result = v70;
-            *v42 = v70;
+            v69 = *v12;
+            *v12 = *v41;
+            result = v69;
+            *v41 = v69;
           }
         }
       }
@@ -7062,14 +5122,14 @@ LABEL_10:
       {
         if (v17 < v18)
         {
-          v49 = *v16;
+          v48 = *v16;
           *v16 = *v9;
-          *v9 = v49;
+          *v9 = v48;
           if (v16->n128_f32[1] < v12->n128_f32[1])
           {
-            v50 = *v12;
+            v49 = *v12;
             *v12 = *v16;
-            *v16 = v50;
+            *v16 = v49;
           }
         }
       }
@@ -7078,20 +5138,20 @@ LABEL_10:
       {
         if (v17 < v18)
         {
-          v47 = *v12;
+          v46 = *v12;
           *v12 = *v9;
           goto LABEL_27;
         }
 
-        v53 = *v12;
+        v52 = *v12;
         *v12 = *v16;
-        *v16 = v53;
+        *v16 = v52;
         if (a2[-1].n128_f32[1] < v16->n128_f32[1])
         {
-          v47 = *v16;
+          v46 = *v16;
           *v16 = *v9;
 LABEL_27:
-          *v9 = v47;
+          *v9 = v46;
         }
       }
 
@@ -7103,9 +5163,9 @@ LABEL_27:
       {
         if (v23 < v22)
         {
-          v54 = *v21;
+          v53 = *v21;
           *v21 = *v10;
-          *v10 = v54;
+          *v10 = v53;
           if (v16[-1].n128_f32[1] < v12[1].n128_f32[1])
           {
             v25 = *v20;
@@ -7129,9 +5189,9 @@ LABEL_27:
         *v21 = v26;
         if (a2[-2].n128_f32[1] < v16[-1].n128_f32[1])
         {
-          v56 = *v21;
+          v55 = *v21;
           *v21 = *v10;
-          v24 = v56;
+          v24 = v55;
 LABEL_39:
           *v10 = v24;
         }
@@ -7145,9 +5205,9 @@ LABEL_39:
       {
         if (v30 < v29)
         {
-          v57 = *v28;
+          v56 = *v28;
           *v28 = *v11;
-          *v11 = v57;
+          *v11 = v56;
           if (v16[1].n128_f32[1] < v12[2].n128_f32[1])
           {
             v32 = *v27;
@@ -7171,9 +5231,9 @@ LABEL_39:
         *v28 = v33;
         if (a2[-3].n128_f32[1] < v16[1].n128_f32[1])
         {
-          v58 = *v28;
+          v57 = *v28;
           *v28 = *v11;
-          v31 = v58;
+          v31 = v57;
 LABEL_48:
           *v11 = v31;
         }
@@ -7185,14 +5245,14 @@ LABEL_48:
       {
         if (v35 < v34)
         {
-          v60 = *v16;
+          v59 = *v16;
           *v16 = *v28;
-          *v28 = v60;
+          *v28 = v59;
           if (v16->n128_f32[1] < v16[-1].n128_f32[1])
           {
-            v61 = *v21;
+            v60 = *v21;
             *v21 = *v16;
-            *v16 = v61;
+            *v16 = v60;
           }
         }
       }
@@ -7201,26 +5261,26 @@ LABEL_48:
       {
         if (v35 < v34)
         {
-          v59 = *v21;
+          v58 = *v21;
           *v21 = *v28;
           goto LABEL_57;
         }
 
-        v62 = *v21;
+        v61 = *v21;
         *v21 = *v16;
-        *v16 = v62;
+        *v16 = v61;
         if (v16[1].n128_f32[1] < v16->n128_f32[1])
         {
-          v59 = *v16;
+          v58 = *v16;
           *v16 = *v28;
 LABEL_57:
-          *v28 = v59;
+          *v28 = v58;
         }
       }
 
-      v63 = *v12;
+      v62 = *v12;
       *v12 = *v16;
-      *v16 = v63;
+      *v16 = v62;
       goto LABEL_59;
     }
 
@@ -7229,14 +5289,14 @@ LABEL_57:
     {
       if (v17 < v19)
       {
-        v51 = *v12;
+        v50 = *v12;
         *v12 = *v9;
-        *v9 = v51;
+        *v9 = v50;
         if (v12->n128_f32[1] < v16->n128_f32[1])
         {
-          v52 = *v16;
+          v51 = *v16;
           *v16 = *v12;
-          *v12 = v52;
+          *v12 = v51;
         }
       }
     }
@@ -7245,19 +5305,19 @@ LABEL_57:
     {
       if (v17 < v19)
       {
-        v48 = *v16;
+        v47 = *v16;
         *v16 = *v9;
 LABEL_36:
-        *v9 = v48;
+        *v9 = v47;
         goto LABEL_59;
       }
 
-      v55 = *v16;
+      v54 = *v16;
       *v16 = *v12;
-      *v12 = v55;
+      *v12 = v54;
       if (a2[-1].n128_f32[1] < v12->n128_f32[1])
       {
-        v48 = *v12;
+        v47 = *v12;
         *v12 = *v9;
         goto LABEL_36;
       }
@@ -7271,18 +5331,18 @@ LABEL_59:
     }
 
     v36 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,AVE_MultiPass::_S_AVE_MPCluster *,AVE_MultiPass::_S_AVE_MPClusterSortCenter &>(v12, a2);
-    if ((v38 & 1) == 0)
+    if ((v37 & 1) == 0)
     {
       goto LABEL_64;
     }
 
-    v39 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,AVE_MultiPass::_S_AVE_MPClusterSortCenter &,AVE_MultiPass::_S_AVE_MPCluster *>(v12, v36, v37);
+    v38 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,AVE_MultiPass::_S_AVE_MPClusterSortCenter &,AVE_MultiPass::_S_AVE_MPCluster *>(v12, v36, result);
     v12 = v36 + 1;
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,AVE_MultiPass::_S_AVE_MPClusterSortCenter &,AVE_MultiPass::_S_AVE_MPCluster *>(v36 + 1, a2, v40))
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,AVE_MultiPass::_S_AVE_MPClusterSortCenter &,AVE_MultiPass::_S_AVE_MPCluster *>(v36 + 1, a2, v39))
     {
       a4 = -v14;
       a2 = v36;
-      if (v39)
+      if (v38)
       {
         return result;
       }
@@ -7291,10 +5351,10 @@ LABEL_59:
     }
 
     v13 = v14 + 1;
-    if (!v39)
+    if (!v38)
     {
 LABEL_64:
-      std::__introsort<std::_ClassicAlgPolicy,AVE_MultiPass::_S_AVE_MPClusterSortCenter &,AVE_MultiPass::_S_AVE_MPCluster *,false>(a1, v36, a3, -v14, a5 & 1);
+      result = std::__introsort<std::_ClassicAlgPolicy,AVE_MultiPass::_S_AVE_MPClusterSortCenter &,AVE_MultiPass::_S_AVE_MPCluster *,false>(a1, v36, a3, -v14, a5 & 1, result);
       v12 = v36 + 1;
 LABEL_66:
       a5 = 0;
@@ -7304,18 +5364,18 @@ LABEL_66:
   }
 
   result.n128_u32[0] = v12[1].n128_u32[1];
-  v41 = a2[-1].n128_f32[1];
+  v40 = a2[-1].n128_f32[1];
   if (result.n128_f32[0] < v12->n128_f32[1])
   {
-    if (v41 < result.n128_f32[0])
+    if (v40 < result.n128_f32[0])
     {
       goto LABEL_77;
     }
 
-    v64 = *v12;
+    v63 = *v12;
     *v12 = v12[1];
-    result = v64;
-    v12[1] = v64;
+    result = v63;
+    v12[1] = v63;
     result.n128_u32[0] = a2[-1].n128_u32[1];
     if (result.n128_f32[0] >= v12[1].n128_f32[1])
     {
@@ -7329,7 +5389,7 @@ LABEL_78:
     return result;
   }
 
-  if (v41 < result.n128_f32[0])
+  if (v40 < result.n128_f32[0])
   {
     result = v12[1];
     v12[1] = *v9;
@@ -7337,10 +5397,10 @@ LABEL_78:
     result.n128_u32[0] = v12[1].n128_u32[1];
     if (result.n128_f32[0] < v12->n128_f32[1])
     {
-      v67 = *v12;
+      v66 = *v12;
       *v12 = v12[1];
-      result = v67;
-      v12[1] = v67;
+      result = v66;
+      v12[1] = v66;
     }
   }
 
@@ -7661,8 +5721,7 @@ LABEL_9:
       *v12 = v13;
       do
       {
-        v14 = *(v11 + 20);
-        v11 += 16;
+        v14 = *(v11++ + 5);
       }
 
       while (v14 < v4);
@@ -7676,7 +5735,7 @@ LABEL_9:
     }
 
     while (v11 < v12);
-    v7 = (v11 - 16);
+    v7 = v11 - 1;
   }
 
   if (v7 != a1)
@@ -7933,7 +5992,7 @@ LABEL_40:
   }
 }
 
-__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,AVE_MultiPass::_S_AVE_MPClusterSortCenter &,AVE_MultiPass::_S_AVE_MPCluster *,AVE_MultiPass::_S_AVE_MPCluster *>(uint64_t a1, __int128 *a2, __int128 *a3, uint64_t a4)
+float *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,AVE_MultiPass::_S_AVE_MPClusterSortCenter &,AVE_MultiPass::_S_AVE_MPCluster *,AVE_MultiPass::_S_AVE_MPCluster *>(float *a1, float *a2, float *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
@@ -7943,7 +6002,7 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,AVE_Mult
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = (a1 + 16 * v9);
+      v11 = &a1[4 * v9];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,AVE_MultiPass::_S_AVE_MPClusterSortCenter &,AVE_MultiPass::_S_AVE_MPCluster *>(a1, a4, v8, v11--);
@@ -7959,7 +6018,7 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,AVE_Mult
       v12 = v6;
       do
       {
-        if (*(v12 + 1) < *(a1 + 4))
+        if (v12[1] < a1[1])
         {
           v13 = *v12;
           *v12 = *a1;
@@ -7967,7 +6026,7 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,AVE_Mult
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,AVE_MultiPass::_S_AVE_MPClusterSortCenter &,AVE_MultiPass::_S_AVE_MPCluster *>(a1, a4, v8, a1);
         }
 
-        ++v12;
+        v12 += 4;
       }
 
       while (v12 != a3);
@@ -7982,8 +6041,8 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,AVE_Mult
         v15 = a1;
         do
         {
-          v16 = &v15[v14];
-          v17 = v16 + 1;
+          v16 = &v15[4 * v14];
+          v17 = v16 + 4;
           v18 = (2 * v14) | 1;
           v14 = 2 * v14 + 2;
           if (v14 >= v8)
@@ -7991,14 +6050,14 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,AVE_Mult
             v14 = v18;
           }
 
-          else if (*(v16 + 5) >= *(v16 + 9))
+          else if (v16[5] >= v16[9])
           {
             v14 = v18;
           }
 
           else
           {
-            v17 = v16 + 2;
+            v17 = v16 + 8;
           }
 
           *v15 = *v17;
@@ -8006,7 +6065,8 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,AVE_Mult
         }
 
         while (v14 <= ((v8 - 2) >> 1));
-        if (v17 == --v6)
+        v6 -= 4;
+        if (v17 == v6)
         {
           *v17 = v21;
         }
@@ -8015,7 +6075,7 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,AVE_Mult
         {
           *v17 = *v6;
           *v6 = v21;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,AVE_MultiPass::_S_AVE_MPClusterSortCenter &,AVE_MultiPass::_S_AVE_MPCluster *>(a1, (v17 + 1), a4, (v17 - a1 + 16) >> 4);
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,AVE_MultiPass::_S_AVE_MPClusterSortCenter &,AVE_MultiPass::_S_AVE_MPCluster *>(a1, (v17 + 4), a4, ((v17 + 4) - a1) >> 4);
         }
       }
 
@@ -8166,7 +6226,7 @@ void std::vector<AVE_MultiPass::_S_AVE_MPCluster>::__append(const void **a1, uni
   }
 }
 
-uint64_t std::vector<AVE_MultiPass::_S_AVE_MPCluster>::__init_with_size[abi:ne200100]<AVE_MultiPass::_S_AVE_MPCluster*,AVE_MultiPass::_S_AVE_MPCluster*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<AVE_MultiPass::_S_AVE_MPCluster>::__init_with_size[abi:ne200100]<AVE_MultiPass::_S_AVE_MPCluster*,AVE_MultiPass::_S_AVE_MPCluster*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8188,7 +6248,7 @@ void sub_295497698(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<AVE_MultiPass::_S_AVE_MPCluster>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<AVE_MultiPass::_S_AVE_MPCluster>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -8372,7 +6432,7 @@ uint64_t AVE_PS_CalcSizeOfavcC(int a1, int *a2, int a3)
     }
   }
 
-  v33 = a3;
+  v32 = a3;
   if (*a2 < 1)
   {
     v17 = 7;
@@ -8381,7 +6441,7 @@ uint64_t AVE_PS_CalcSizeOfavcC(int a1, int *a2, int a3)
   else
   {
     v15 = 0;
-    v16 = (a2 + 4);
+    v16 = a2 + 4;
     v17 = 7;
     do
     {
@@ -8389,13 +6449,12 @@ uint64_t AVE_PS_CalcSizeOfavcC(int a1, int *a2, int a3)
       {
         if (*(v16 - 2) == a1 && (*(v16 - 3) & 0xFFFFFFFE) == 2)
         {
-          v17 = v17 + *v16 - 2;
+          v17 = (v17 + *v16 - 2);
           if (AVE_Log_CheckLevel(0xD4u, 8))
           {
             v18 = AVE_Log_CheckConsole(0xD4u);
             v19 = AVE_GetCurrTime();
             v20 = AVE_Log_GetLevelStr(8);
-            v21 = *v16;
             if (v18)
             {
               printf("%lld %d AVE %s: %s:%d i %d iSize %d size %d\n", v19, 212, v20, "AVE_PS_CalcSizeOfavcC", 92, v15, *v16, v17);
@@ -8415,54 +6474,54 @@ uint64_t AVE_PS_CalcSizeOfavcC(int a1, int *a2, int a3)
     while (v15 < *a2);
   }
 
-  if ((v33 - 6) >= 3)
+  if ((v32 - 6) >= 3)
   {
-    v22 = v17;
+    v21 = v17;
   }
 
   else
   {
-    v22 = (v17 + 4);
+    v21 = (v17 + 4);
     if (AVE_Log_CheckLevel(0xD4u, 8))
     {
-      v23 = AVE_Log_CheckConsole(0xD4u);
-      v24 = AVE_GetCurrTime();
-      v25 = AVE_Log_GetLevelStr(8);
-      if (v23)
+      v22 = AVE_Log_CheckConsole(0xD4u);
+      v23 = AVE_GetCurrTime();
+      v24 = AVE_Log_GetLevelStr(8);
+      if (v22)
       {
-        printf("%lld %d AVE %s: %s:%d size %d\n", v24, 212, v25, "AVE_PS_CalcSizeOfavcC", 101, v17 + 4);
-        v26 = AVE_GetCurrTime();
-        v32 = AVE_Log_GetLevelStr(8);
-        syslog(3, "%lld %d AVE %s: %s:%d size %d", v26, 212, v32, "AVE_PS_CalcSizeOfavcC", 101, v17 + 4);
+        printf("%lld %d AVE %s: %s:%d size %d\n", v23, 212, v24, "AVE_PS_CalcSizeOfavcC", 101, v17 + 4);
+        v25 = AVE_GetCurrTime();
+        v31 = AVE_Log_GetLevelStr(8);
+        syslog(3, "%lld %d AVE %s: %s:%d size %d", v25, 212, v31, "AVE_PS_CalcSizeOfavcC", 101, v17 + 4);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s:%d size %d", v24, 212, v25, "AVE_PS_CalcSizeOfavcC", 101, v17 + 4);
+        syslog(3, "%lld %d AVE %s: %s:%d size %d", v23, 212, v24, "AVE_PS_CalcSizeOfavcC", 101, v17 + 4);
       }
     }
   }
 
   if (AVE_Log_CheckLevel(0xD4u, 8))
   {
-    v27 = AVE_Log_CheckConsole(0xD4u);
-    v28 = AVE_GetCurrTime();
-    v29 = AVE_Log_GetLevelStr(8);
-    if (v27)
+    v26 = AVE_Log_CheckConsole(0xD4u);
+    v27 = AVE_GetCurrTime();
+    v28 = AVE_Log_GetLevelStr(8);
+    if (v26)
     {
-      printf("%lld %d AVE %s: %s Exit %d %p %d %d\n", v28, 212, v29, "AVE_PS_CalcSizeOfavcC", a1, a2, v33, v22);
-      v30 = AVE_GetCurrTime();
+      printf("%lld %d AVE %s: %s Exit %d %p %d %d\n", v27, 212, v28, "AVE_PS_CalcSizeOfavcC", a1, a2, v32, v21);
+      v29 = AVE_GetCurrTime();
       AVE_Log_GetLevelStr(8);
-      syslog(3, "%lld %d AVE %s: %s Exit %d %p %d %d", v30);
+      syslog(3, "%lld %d AVE %s: %s Exit %d %p %d %d", v29);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s Exit %d %p %d %d", v28);
+      syslog(3, "%lld %d AVE %s: %s Exit %d %p %d %d", v27);
     }
   }
 
-  return v22;
+  return v21;
 }
 
 uint64_t AVE_PS_Compose_avcC(int a1, char *a2, unsigned int *a3, int *a4, _BYTE *a5, int a6)
@@ -8476,8 +6535,8 @@ uint64_t AVE_PS_Compose_avcC(int a1, char *a2, unsigned int *a3, int *a4, _BYTE 
     {
       printf("%lld %d AVE %s: %s Enter %d %p %p %p %p %d\n", CurrTime, 212, LevelStr, "AVE_PS_Compose_avcC", a1, a2, a3, a4, a5, a6);
       v13 = AVE_GetCurrTime();
-      v53 = AVE_Log_GetLevelStr(8);
-      syslog(3, "%lld %d AVE %s: %s Enter %d %p %p %p %p %d", v13, 212, v53, "AVE_PS_Compose_avcC");
+      v48 = AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s Enter %d %p %p %p %p %d", v13, 212, v48, "AVE_PS_Compose_avcC");
     }
 
     else
@@ -8488,178 +6547,173 @@ uint64_t AVE_PS_Compose_avcC(int a1, char *a2, unsigned int *a3, int *a4, _BYTE 
 
   *a5 = 1;
   a5[1] = AVC_FindProfileIdc(*a4);
-  v14 = a4[5];
-  v15 = a4[6];
-  v16 = (a4[2] << 6) | (a4[1] << 7) | (32 * a4[3]) | (16 * a4[4]) | (8 * v14) | (4 * v15);
-  a5[2] = (*(a4 + 8) << 6) | (*(a4 + 4) << 7) | (32 * *(a4 + 12)) | (16 * *(a4 + 16)) | (8 * v14) | (4 * v15);
+  a5[2] = (*(a4 + 8) << 6) | (*(a4 + 4) << 7) | (32 * *(a4 + 12)) | (16 * *(a4 + 16)) | (8 * a4[5]) | (4 * a4[6]);
   a5[3] = AVC_FindLevelIdc(a4[7]);
   a5[4] = -1;
-  v17 = *a3;
+  v14 = *a3;
   if (*a3 < 1)
   {
     goto LABEL_43;
   }
 
-  v57 = a4;
-  v18 = 0;
-  v19 = 0;
-  v20 = a2 + 4;
-  v21 = a3 + 2;
-  v22 = 6;
+  v52 = a4;
+  v15 = 0;
+  v16 = 0;
+  v17 = a2 + 4;
+  v18 = a3 + 2;
+  v19 = 6;
   do
   {
-    v23 = v21[2];
-    if (v23 && *v21 == a1 && *(v21 - 1) == 2)
+    v20 = v18[2];
+    if (v20 && *v18 == a1 && *(v18 - 1) == 2)
     {
-      v24 = v23 - 4;
-      *&a5[v22] = bswap32(v23 - 4) >> 16;
-      v25 = v22 + 2;
-      memcpy(&a5[v25], &v20[v21[1]], (v23 - 4));
-      v22 = v25 + v24;
-      ++v19;
-      v17 = *a3;
+      v21 = v20 - 4;
+      *&a5[v19] = bswap32(v20 - 4) >> 16;
+      v22 = v19 + 2;
+      memcpy(&a5[v22], &v17[v18[1]], (v20 - 4));
+      v19 = v22 + v21;
+      ++v16;
+      v14 = *a3;
     }
 
-    ++v18;
-    v21 += 4;
+    ++v15;
+    v18 += 4;
   }
 
-  while (v18 < v17);
-  a4 = v57;
-  if (!v19)
+  while (v15 < v14);
+  a4 = v52;
+  if (!v16)
   {
 LABEL_43:
     if (AVE_Log_CheckLevel(0xD4u, 4))
     {
-      v37 = AVE_Log_CheckConsole(0xD4u);
-      v38 = AVE_GetCurrTime();
-      v39 = AVE_Log_GetLevelStr(4);
-      if (!v37)
+      v34 = AVE_Log_CheckConsole(0xD4u);
+      v35 = AVE_GetCurrTime();
+      v36 = AVE_Log_GetLevelStr(4);
+      if (!v34)
       {
-        v56 = *a3;
-        v55 = 191;
-        v54 = v39;
-        v46 = "%lld %d AVE %s: %s:%d %s | no SPS %d";
+        v51 = *a3;
+        v50 = 191;
+        v49 = v36;
+        v41 = "%lld %d AVE %s: %s:%d %s | no SPS %d";
         goto LABEL_34;
       }
 
-      printf("%lld %d AVE %s: %s:%d %s | no SPS %d\n", v38, 212, v39, "AVE_PS_Compose_avcC", 191, "cnt != 0", *a3);
-      v40 = AVE_GetCurrTime();
+      printf("%lld %d AVE %s: %s:%d %s | no SPS %d\n", v35, 212, v36, "AVE_PS_Compose_avcC", 191, "cnt != 0", *a3);
+      v37 = AVE_GetCurrTime();
       AVE_Log_GetLevelStr(4);
-      v41 = *a3;
-      syslog(3, "%lld %d AVE %s: %s:%d %s | no SPS %d", v40);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | no SPS %d", v37);
     }
 
 LABEL_35:
-    v36 = 4294966295;
+    v33 = 4294966295;
     goto LABEL_36;
   }
 
-  a5[5] = v19 | 0xE0;
-  v26 = *a3;
+  a5[5] = v16 | 0xE0;
+  v23 = *a3;
   if (*a3 < 1)
   {
     goto LABEL_44;
   }
 
-  v27 = 0;
-  v28 = 0;
-  v29 = v22 + 1;
-  v30 = a3 + 2;
+  v24 = 0;
+  v25 = 0;
+  v26 = v19 + 1;
+  v27 = a3 + 2;
   do
   {
-    v31 = v30[2];
-    if (v31 && *v30 == a1 && *(v30 - 1) == 3)
+    v28 = v27[2];
+    if (v28 && *v27 == a1 && *(v27 - 1) == 3)
     {
-      v32 = v31 - 4;
-      *&a5[v29] = bswap32(v31 - 4) >> 16;
-      v33 = a3;
-      v34 = v29 + 2;
-      memcpy(&a5[v34], &v20[v30[1]], (v31 - 4));
-      v29 = v34 + v32;
-      a3 = v33;
-      ++v28;
-      v26 = *v33;
+      v29 = v28 - 4;
+      *&a5[v26] = bswap32(v28 - 4) >> 16;
+      v30 = a3;
+      v31 = v26 + 2;
+      memcpy(&a5[v31], &v17[v27[1]], (v28 - 4));
+      v26 = v31 + v29;
+      a3 = v30;
+      ++v25;
+      v23 = *v30;
     }
 
-    ++v27;
-    v30 += 4;
+    ++v24;
+    v27 += 4;
   }
 
-  while (v27 < v26);
-  a4 = v57;
-  if (!v28)
+  while (v24 < v23);
+  a4 = v52;
+  if (!v25)
   {
 LABEL_44:
     if (AVE_Log_CheckLevel(0xD4u, 4))
     {
-      v42 = AVE_Log_CheckConsole(0xD4u);
-      v38 = AVE_GetCurrTime();
-      v43 = AVE_Log_GetLevelStr(4);
-      if (v42)
+      v38 = AVE_Log_CheckConsole(0xD4u);
+      v35 = AVE_GetCurrTime();
+      v39 = AVE_Log_GetLevelStr(4);
+      if (v38)
       {
-        printf("%lld %d AVE %s: %s:%d %s | no PPS %d\n", v38, 212, v43, "AVE_PS_Compose_avcC", 226, "cnt != 0", *a3);
-        v44 = AVE_GetCurrTime();
+        printf("%lld %d AVE %s: %s:%d %s | no PPS %d\n", v35, 212, v39, "AVE_PS_Compose_avcC", 226, "cnt != 0", *a3);
+        v40 = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(4);
-        v45 = *a3;
-        syslog(3, "%lld %d AVE %s: %s:%d %s | no PPS %d", v44);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | no PPS %d", v40);
         goto LABEL_35;
       }
 
-      v56 = *a3;
-      v55 = 226;
-      v54 = v43;
-      v46 = "%lld %d AVE %s: %s:%d %s | no PPS %d";
+      v51 = *a3;
+      v50 = 226;
+      v49 = v39;
+      v41 = "%lld %d AVE %s: %s:%d %s | no PPS %d";
 LABEL_34:
-      syslog(3, v46, v38, 212, v54, "AVE_PS_Compose_avcC", v55, "cnt != 0", v56);
+      syslog(3, v41, v35, 212, v49, "AVE_PS_Compose_avcC", v50, "cnt != 0", v51);
       goto LABEL_35;
     }
 
     goto LABEL_35;
   }
 
-  a5[v22] = v28;
-  if ((*v57 - 6) <= 2)
+  a5[v19] = v25;
+  if ((*v52 - 6) <= 2)
   {
-    v35 = &a5[v29];
-    *v35 = *(v57 + 36) | 0xFC;
-    v35[1] = *(v57 + 44) | 0xF8;
-    v35[2] = *(v57 + 48) | 0xF8;
-    v35[3] = 0;
-    v29 += 4;
+    v32 = &a5[v26];
+    *v32 = *(v52 + 36) | 0xFC;
+    v32[1] = *(v52 + 44) | 0xF8;
+    v32[2] = *(v52 + 48) | 0xF8;
+    v32[3] = 0;
+    v26 += 4;
   }
 
-  if (v29 <= a6)
+  if (v26 <= a6)
   {
-    v36 = 0;
+    v33 = 0;
   }
 
   else
   {
-    v36 = 4294966277;
+    v33 = 4294966277;
   }
 
 LABEL_36:
   if (AVE_Log_CheckLevel(0xD4u, 8))
   {
-    v47 = AVE_Log_CheckConsole(0xD4u);
-    v48 = AVE_GetCurrTime();
-    v49 = AVE_Log_GetLevelStr(8);
-    if (v47)
+    v42 = AVE_Log_CheckConsole(0xD4u);
+    v43 = AVE_GetCurrTime();
+    v44 = AVE_Log_GetLevelStr(8);
+    if (v42)
     {
-      printf("%lld %d AVE %s: %s Exit %d %p %p %p %p %d %d\n", v48, 212, v49, "AVE_PS_Compose_avcC", a1, a2, a3, a4, a5, a6, v36);
-      v50 = AVE_GetCurrTime();
-      v51 = AVE_Log_GetLevelStr(8);
-      syslog(3, "%lld %d AVE %s: %s Exit %d %p %p %p %p %d %d", v50, 212, v51, "AVE_PS_Compose_avcC");
+      printf("%lld %d AVE %s: %s Exit %d %p %p %p %p %d %d\n", v43, 212, v44, "AVE_PS_Compose_avcC", a1, a2, a3, a4, a5, a6, v33);
+      v45 = AVE_GetCurrTime();
+      v46 = AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s Exit %d %p %p %p %p %d %d", v45, 212, v46, "AVE_PS_Compose_avcC");
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s Exit %d %p %p %p %p %d %d", v48, 212, v49, "AVE_PS_Compose_avcC");
+      syslog(3, "%lld %d AVE %s: %s Exit %d %p %p %p %p %d %d", v43, 212, v44, "AVE_PS_Compose_avcC");
     }
   }
 
-  return v36;
+  return v33;
 }
 
 uint64_t AVE_PS_CalcSizeOfhvcC(int a1, unsigned int *a2, int a3, int a4)
@@ -8757,7 +6811,7 @@ uint64_t AVE_PS_CalcSizeOfhvcC(int a1, unsigned int *a2, int a3, int a4)
   return v18;
 }
 
-uint64_t AVE_PS_ComposeNALUArray(int a1, unsigned int a2, char *a3, unsigned int *a4, _BYTE *a5)
+uint64_t AVE_PS_ComposeNALUArray(int a1, unsigned int a2, char *a3, int *a4, _BYTE *a5)
 {
   if (AVE_Log_CheckLevel(0xD4u, 8))
   {
@@ -8768,8 +6822,8 @@ uint64_t AVE_PS_ComposeNALUArray(int a1, unsigned int a2, char *a3, unsigned int
     {
       printf("%lld %d AVE %s: %s Enter %d %d %p %p %p\n", CurrTime, 212, LevelStr, "AVE_PS_ComposeNALUArray", a1, a2, a3, a4, a5);
       v12 = AVE_GetCurrTime();
-      v43 = AVE_Log_GetLevelStr(8);
-      syslog(3, "%lld %d AVE %s: %s Enter %d %d %p %p %p", v12, 212, v43);
+      v42 = AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s Enter %d %d %p %p %p", v12, 212, v42);
     }
 
     else
@@ -8782,13 +6836,13 @@ uint64_t AVE_PS_ComposeNALUArray(int a1, unsigned int a2, char *a3, unsigned int
   {
     *a5 = (a2 - 1) | 0xA0;
     v13 = *a4;
-    v48 = a4;
+    v46 = a4;
     if (*a4 >= 1)
     {
       v14 = 0;
       v15 = 0;
-      v46 = a3;
-      v47 = a3 + 4;
+      v44 = a3;
+      v45 = a3 + 4;
       v16 = a4 + 1;
       v17 = 3;
       v18 = a1;
@@ -8798,12 +6852,12 @@ uint64_t AVE_PS_ComposeNALUArray(int a1, unsigned int a2, char *a3, unsigned int
         v20 = v19[3];
         if (v20 && *v19 == __PAIR64__(v18, a2))
         {
-          v51 = v15;
+          v49 = v15;
           *&a5[v17] = bswap32(v20 - 4) >> 16;
-          v49 = v17 + 2;
-          v50 = v20 - 4;
+          v47 = v17 + 2;
+          v48 = v20 - 4;
           v21 = (v20 - 4);
-          memcpy(&a5[v49], &v47[v19[2]], v21);
+          memcpy(&a5[v47], &v45[v19[2]], v21);
           if (AVE_Log_CheckLevel(0xD4u, 8))
           {
             v22 = AVE_Log_CheckConsole(0xD4u);
@@ -8826,7 +6880,7 @@ uint64_t AVE_PS_ComposeNALUArray(int a1, unsigned int a2, char *a3, unsigned int
           if (v21)
           {
             v27 = 0;
-            v28 = v46;
+            v28 = v44;
             do
             {
               if (AVE_Log_CheckLevel(0xD4u, 8))
@@ -8855,10 +6909,10 @@ uint64_t AVE_PS_ComposeNALUArray(int a1, unsigned int a2, char *a3, unsigned int
             while (v27 < v21);
           }
 
-          v17 = v49 + v50;
-          v15 = v51 + 1;
-          a4 = v48;
-          v13 = *v48;
+          v17 = v47 + v48;
+          v15 = v49 + 1;
+          a4 = v46;
+          v13 = *v46;
           v18 = a1;
         }
 
@@ -8866,7 +6920,7 @@ uint64_t AVE_PS_ComposeNALUArray(int a1, unsigned int a2, char *a3, unsigned int
       }
 
       while (v14 < v13);
-      a3 = v46;
+      a3 = v44;
       if (v15)
       {
         *(a5 + 1) = BYTE1(v15) | (v15 << 8);
@@ -8884,13 +6938,7 @@ uint64_t AVE_PS_ComposeNALUArray(int a1, unsigned int a2, char *a3, unsigned int
         printf("%lld %d AVE %s: %s:%d %s | no PS %d\n", v35, 212, v36, "AVE_PS_ComposeNALUArray", 489, "cnt != 0", *a4);
         v35 = AVE_GetCurrTime();
         AVE_Log_GetLevelStr(4);
-        v37 = *v48;
-        a4 = v48;
-      }
-
-      else
-      {
-        v45 = *a4;
+        a4 = v46;
       }
 
       syslog(3, "%lld %d AVE %s: %s:%d %s | no PS %d", v35);
@@ -8901,20 +6949,20 @@ uint64_t AVE_PS_ComposeNALUArray(int a1, unsigned int a2, char *a3, unsigned int
 LABEL_31:
   if (AVE_Log_CheckLevel(0xD4u, 8))
   {
-    v38 = AVE_Log_CheckConsole(0xD4u);
-    v39 = AVE_GetCurrTime();
-    v40 = AVE_Log_GetLevelStr(8);
-    if (v38)
+    v37 = AVE_Log_CheckConsole(0xD4u);
+    v38 = AVE_GetCurrTime();
+    v39 = AVE_Log_GetLevelStr(8);
+    if (v37)
     {
-      printf("%lld %d AVE %s: %s Exit %d %d %p %p %p %d\n", v39, 212, v40, "AVE_PS_ComposeNALUArray", a1, a2, a3, a4, a5, v17);
-      v41 = AVE_GetCurrTime();
-      v44 = AVE_Log_GetLevelStr(8);
-      syslog(3, "%lld %d AVE %s: %s Exit %d %d %p %p %p %d", v41, 212, v44, "AVE_PS_ComposeNALUArray");
+      printf("%lld %d AVE %s: %s Exit %d %d %p %p %p %d\n", v38, 212, v39, "AVE_PS_ComposeNALUArray", a1, a2, a3, a4, a5, v17);
+      v40 = AVE_GetCurrTime();
+      v43 = AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s Exit %d %d %p %p %p %d", v40, 212, v43, "AVE_PS_ComposeNALUArray");
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s Exit %d %d %p %p %p %d", v39, 212, v40, "AVE_PS_ComposeNALUArray");
+      syslog(3, "%lld %d AVE %s: %s Exit %d %d %p %p %p %d", v38, 212, v39, "AVE_PS_ComposeNALUArray");
     }
   }
 
@@ -8947,7 +6995,7 @@ uint64_t AVE_PS_Compose_hvcC(uint64_t a1, char *a2, int *a3, uint64_t a4, int a5
   LOBYTE(v18) = (32 * HEVC_FindTierFlag(*(a8 + 24))) | (v18 << 6);
   a9[1] = v18 | HEVC_FindProfileIdc(*(a8 + 28));
   AVE_PS_Compose_general_profile_compatibility_flag(a8, (a9 + 2), 4);
-  AVE_PS_Compose_general_constraint_indicator_flags(a8, a9 + 6, 6);
+  AVE_PS_Compose_general_constraint_indicator_flags(a8, a9 + 6, 6u);
   a9[12] = HEVC_FindLevelIdc(*(a8 + 80));
   *(a9 + 13) = 240;
   a9[15] = -4;
@@ -9239,7 +7287,7 @@ uint64_t AVE_PS_CalcSizeOflhvC(int a1, unsigned int *a2)
               *(&v19 + v12) = 1;
             }
 
-            v10 = (v11 + v10 - 2);
+            v10 = v11 + v10 - 2;
           }
         }
       }
@@ -9375,8 +7423,9 @@ LABEL_19:
   return v19;
 }
 
-uint64_t AVE_PS_Make_avcC(int a1, char *a2, int *a3, int *a4, __CFData **a5)
+uint64_t AVE_PS_Make_avcC(uint64_t a1, char *a2, int *a3, int *a4, __CFData **a5)
 {
+  v9 = a1;
   if (AVE_Log_CheckLevel(0xD4u, 8))
   {
     v10 = AVE_Log_CheckConsole(0xD4u);
@@ -9384,7 +7433,7 @@ uint64_t AVE_PS_Make_avcC(int a1, char *a2, int *a3, int *a4, __CFData **a5)
     LevelStr = AVE_Log_GetLevelStr(8);
     if (v10)
     {
-      printf("%lld %d AVE %s: %s Enter %d %p %p %p %p\n", CurrTime, 212, LevelStr, "AVE_PS_Make_avcC", a1, a2, a3, a4, a5);
+      printf("%lld %d AVE %s: %s Enter %d %p %p %p %p\n", CurrTime, 212, LevelStr, "AVE_PS_Make_avcC", v9, a2, a3, a4, a5);
       v13 = AVE_GetCurrTime();
       v52 = AVE_Log_GetLevelStr(8);
       syslog(3, "%lld %d AVE %s: %s Enter %d %p %p %p %p", v13, 212, v52);
@@ -9405,7 +7454,7 @@ uint64_t AVE_PS_Make_avcC(int a1, char *a2, int *a3, int *a4, __CFData **a5)
       v26 = AVE_Log_GetLevelStr(4);
       if (v24)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %p\n", v25, 212, v26, "AVE_PS_Make_avcC", 835, "pInData != __null && pInfo != __null && pSPS != __null && ppCFData != __null", a1, a2, a3, a4, a5);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %p\n", v25, 212, v26, "AVE_PS_Make_avcC", 835, "pInData != __null && pInfo != __null && pSPS != __null && ppCFData != __null", v9, a2, a3, a4, a5);
         v27 = AVE_GetCurrTime();
         v54 = AVE_Log_GetLevelStr(4);
         syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %p", v27, 212, v54, "AVE_PS_Make_avcC", 835);
@@ -9421,7 +7470,7 @@ uint64_t AVE_PS_Make_avcC(int a1, char *a2, int *a3, int *a4, __CFData **a5)
   }
 
   *a5 = 0;
-  v14 = AVE_PS_CalcSizeOfavcC(a1, a3, *a4);
+  v14 = AVE_PS_CalcSizeOfavcC(v9, a3, *a4);
   if (v14 <= 0)
   {
     if (AVE_Log_CheckLevel(0xD4u, 4))
@@ -9431,7 +7480,7 @@ uint64_t AVE_PS_Make_avcC(int a1, char *a2, int *a3, int *a4, __CFData **a5)
       v30 = AVE_Log_GetLevelStr(4);
       if (v28)
       {
-        printf("%lld %d AVE %s: %s:%d %s | failed to calculate the size %d %p %p %p %d\n", v29, 212, v30, "AVE_PS_Make_avcC", 842, "size > 0", a1, a2, a3, a4, v14);
+        printf("%lld %d AVE %s: %s:%d %s | failed to calculate the size %d %p %p %p %d\n", v29, 212, v30, "AVE_PS_Make_avcC", 842, "size > 0", v9, a2, a3, a4, v14);
         v31 = AVE_GetCurrTime();
         v55 = AVE_Log_GetLevelStr(4);
         syslog(3, "%lld %d AVE %s: %s:%d %s | failed to calculate the size %d %p %p %p %d", v31, 212, v55, "AVE_PS_Make_avcC", 842);
@@ -9459,7 +7508,7 @@ LABEL_29:
     if (MutableBytePtr)
     {
       v18 = MutableBytePtr;
-      v19 = AVE_PS_Compose_avcC(a1, a2, a3, a4, MutableBytePtr, v14);
+      v19 = AVE_PS_Compose_avcC(v9, a2, a3, a4, MutableBytePtr, v14);
       if (AVE_Log_CheckLevel(0xD4u, 8))
       {
         v20 = AVE_Log_CheckConsole(0xD4u);
@@ -9479,7 +7528,7 @@ LABEL_29:
         }
       }
 
-      v58 = a1;
+      v58 = v9;
       for (i = 0; i < v14; i += 2)
       {
         if (AVE_Log_CheckLevel(0xD4u, 8))
@@ -9508,7 +7557,7 @@ LABEL_29:
       v44 = v59;
       a5 = v60;
       *v60 = v59;
-      a1 = v58;
+      v9 = v58;
       if (!v19)
       {
         goto LABEL_30;
@@ -9522,12 +7571,12 @@ LABEL_29:
       v38 = AVE_Log_GetLevelStr(4);
       if (v36)
       {
-        printf("%lld %d AVE %s: %s:%d %s | failed to get memory address %d %p %p %p %p %d\n", v37, 212, v38, "AVE_PS_Make_avcC", 854, "pData != __null", a1, a2, a3, a4, v16, v14);
+        printf("%lld %d AVE %s: %s:%d %s | failed to get memory address %d %p %p %p %p %d\n", v37, 212, v38, "AVE_PS_Make_avcC", 854, "pData != __null", v9, a2, a3, a4, v16, v14);
         v37 = AVE_GetCurrTime();
         v38 = AVE_Log_GetLevelStr(4);
       }
 
-      syslog(3, "%lld %d AVE %s: %s:%d %s | failed to get memory address %d %p %p %p %p %d", v37, 212, v38, "AVE_PS_Make_avcC", 854, "pData != __null", a1, a2, a3, a4, v16, v14);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | failed to get memory address %d %p %p %p %p %d", v37, 212, v38, "AVE_PS_Make_avcC", 854, "pData != __null", v9, a2, a3, a4, v16, v14);
       v44 = v16;
       v19 = 4294966293;
     }
@@ -9549,7 +7598,7 @@ LABEL_29:
     v34 = AVE_Log_GetLevelStr(4);
     if (v32)
     {
-      printf("%lld %d AVE %s: %s:%d %s | failed to allocate memory %d %p %p %p %d\n", v33, 212, v34, "AVE_PS_Make_avcC", 847, "pCFData != __null", a1, a2, a3, a4, v14);
+      printf("%lld %d AVE %s: %s:%d %s | failed to allocate memory %d %p %p %p %d\n", v33, 212, v34, "AVE_PS_Make_avcC", 847, "pCFData != __null", v9, a2, a3, a4, v14);
       v35 = AVE_GetCurrTime();
       v56 = AVE_Log_GetLevelStr(4);
       syslog(3, "%lld %d AVE %s: %s:%d %s | failed to allocate memory %d %p %p %p %d", v35, 212, v56, "AVE_PS_Make_avcC", 847);
@@ -9570,7 +7619,7 @@ LABEL_30:
     v41 = AVE_Log_GetLevelStr(8);
     if (v39)
     {
-      printf("%lld %d AVE %s: %s Exit %d %p %p %p %p %d\n", v40, 212, v41, "AVE_PS_Make_avcC", a1, a2, a3, a4, a5, v19);
+      printf("%lld %d AVE %s: %s Exit %d %p %p %p %p %d\n", v40, 212, v41, "AVE_PS_Make_avcC", v9, a2, a3, a4, a5, v19);
       v42 = AVE_GetCurrTime();
       v57 = AVE_Log_GetLevelStr(8);
       syslog(3, "%lld %d AVE %s: %s Exit %d %p %p %p %p %d", v42, 212, v57, "AVE_PS_Make_avcC");
@@ -9585,7 +7634,7 @@ LABEL_30:
   return v19;
 }
 
-uint64_t AVE_PS_Make_avcC_Dict(int a1, char *a2, int *a3, int *a4, __CFDictionary **a5)
+uint64_t AVE_PS_Make_avcC_Dict(uint64_t a1, char *a2, int *a3, int *a4, __CFDictionary **a5)
 {
   v47 = 0;
   if (AVE_Log_CheckLevel(0xD4u, 8))
@@ -9767,4 +7816,2020 @@ LABEL_33:
   }
 
   return v15;
+}
+
+uint64_t AVE_PS_Make_hvcC(uint64_t a1, char *a2, unsigned int *a3, const void *a4, int a5, const void *a6, int a7, const void *a8, __CFData **a9)
+{
+  v13 = a9;
+  if (AVE_Log_CheckLevel(0xD4u, 8))
+  {
+    v14 = AVE_Log_CheckConsole(0xD4u);
+    CurrTime = AVE_GetCurrTime();
+    LevelStr = AVE_Log_GetLevelStr(8);
+    if (v14)
+    {
+      printf("%lld %d AVE %s: %s Enter %d %p %p %p %d %p %d %p %p\n", CurrTime, 212, LevelStr, "AVE_PS_Make_hvcC", a1, a2, a3, a4, a5, a6, a7, a8, a9);
+      v17 = AVE_GetCurrTime();
+      v54 = AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s Enter %d %p %p %p %d %p %d %p %p", v17, 212, v54, "AVE_PS_Make_hvcC", a1, a2, a3);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Enter %d %p %p %p %d %p %d %p %p", CurrTime, 212, LevelStr, "AVE_PS_Make_hvcC", a1, a2, a3);
+    }
+  }
+
+  if (!a2 || !a3 || !a8 || !a9 || (a4 == 0) != (a5 == 0))
+  {
+    if (AVE_Log_CheckLevel(0xD4u, 4))
+    {
+      v18 = AVE_Log_CheckConsole(0xD4u);
+      v19 = AVE_GetCurrTime();
+      v20 = AVE_Log_GetLevelStr(4);
+      if (v18)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %d %p %p\n", v19, 212, v20, "AVE_PS_Make_hvcC", 1003, "pInData != __null && pInfo != __null && pSPS != __null && ppCFData != __null && !((pSEIData == __null) ^ (SEISize == 0))", a1, a2, a3, a4, a5, a8, a9);
+        v21 = AVE_GetCurrTime();
+        v55 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %d %p %p", v21, 212, v55, "AVE_PS_Make_hvcC", 1003, "pInData != __null && pInfo != __null && pSPS != __null && ppCFData != __null && !((pSEIData == __null) ^ (SEISize == 0))", a1);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %d %p %p", v19, 212, v20, "AVE_PS_Make_hvcC", 1003, "pInData != __null && pInfo != __null && pSPS != __null && ppCFData != __null && !((pSEIData == __null) ^ (SEISize == 0))", a1);
+      }
+    }
+
+    goto LABEL_20;
+  }
+
+  v64 = a4;
+  *a9 = 0;
+  v22 = AVE_PS_CalcSizeOfhvcC(a1, a3, a5, a7);
+  if (v22 <= 0)
+  {
+    if (AVE_Log_CheckLevel(0xD4u, 4))
+    {
+      v37 = AVE_Log_CheckConsole(0xD4u);
+      v38 = AVE_GetCurrTime();
+      v39 = AVE_Log_GetLevelStr(4);
+      if (v37)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | failed to calculate the size %d %p %p %p %d %p %d\n", v38, 212, v39, "AVE_PS_Make_hvcC", 1010, "size > 0", a1, a2, a3, v64, a5, a8, v22);
+        v40 = AVE_GetCurrTime();
+        a4 = v64;
+        v58 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | failed to calculate the size %d %p %p %p %d %p %d", v40, 212, v58, "AVE_PS_Make_hvcC", 1010, "size > 0", a1);
+      }
+
+      else
+      {
+        a4 = v64;
+        syslog(3, "%lld %d AVE %s: %s:%d %s | failed to calculate the size %d %p %p %p %d %p %d", v38, 212, v39, "AVE_PS_Make_hvcC", 1010, "size > 0", a1);
+      }
+
+LABEL_20:
+      v27 = 4294966296;
+      goto LABEL_21;
+    }
+
+    v27 = 4294966296;
+    goto LABEL_37;
+  }
+
+  Mutable = CFDataCreateMutable(0, v22);
+  if (!Mutable)
+  {
+    if (AVE_Log_CheckLevel(0xD4u, 4))
+    {
+      v41 = AVE_Log_CheckConsole(0xD4u);
+      v42 = AVE_GetCurrTime();
+      v43 = AVE_Log_GetLevelStr(4);
+      if (v41)
+      {
+        v61 = v22;
+        a4 = v64;
+        printf("%lld %d AVE %s: %s:%d %s | failed to allocate memory %d %p %p %p %d %p %d\n", v42, 212, v43, "AVE_PS_Make_hvcC", 1015, "pCFData != __null", a1, a2, a3, v64, a5, a8, v61);
+        v44 = AVE_GetCurrTime();
+        v59 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | failed to allocate memory %d %p %p %p %d %p %d", v44, 212, v59, "AVE_PS_Make_hvcC", 1015, "pCFData != __null", a1);
+      }
+
+      else
+      {
+        a4 = v64;
+        syslog(3, "%lld %d AVE %s: %s:%d %s | failed to allocate memory %d %p %p %p %d %p %d", v42, 212, v43, "AVE_PS_Make_hvcC", 1015, "pCFData != __null", a1);
+      }
+
+      v27 = 4294966293;
+      goto LABEL_21;
+    }
+
+    v27 = 4294966293;
+LABEL_37:
+    a4 = v64;
+    goto LABEL_21;
+  }
+
+  v24 = Mutable;
+  CFDataSetLength(Mutable, v22);
+  MutableBytePtr = CFDataGetMutableBytePtr(v24);
+  if (!MutableBytePtr)
+  {
+    if (AVE_Log_CheckLevel(0xD4u, 4))
+    {
+      v45 = AVE_Log_CheckConsole(0xD4u);
+      v46 = AVE_GetCurrTime();
+      v47 = AVE_Log_GetLevelStr(4);
+      if (v45)
+      {
+        v62 = v22;
+        a4 = v64;
+        printf("%lld %d AVE %s: %s:%d %s | failed to get memory address %d %p %p %p %d %p %p %d\n", v46, 212, v47, "AVE_PS_Make_hvcC", 1022, "pData != __null", a1, a2, a3, v64, a5, a8, v24, v62);
+        v48 = AVE_GetCurrTime();
+        v60 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | failed to get memory address %d %p %p %p %d %p %p %d", v48, 212, v60, "AVE_PS_Make_hvcC", 1022, "pData != __null", a1, a2);
+      }
+
+      else
+      {
+        a4 = v64;
+        syslog(3, "%lld %d AVE %s: %s:%d %s | failed to get memory address %d %p %p %p %d %p %p %d", v46, 212, v47, "AVE_PS_Make_hvcC", 1022, "pData != __null", a1, a2);
+      }
+
+      v27 = 4294966293;
+    }
+
+    else
+    {
+      v27 = 4294966293;
+      a4 = v64;
+    }
+
+LABEL_53:
+    CFRelease(v24);
+    goto LABEL_21;
+  }
+
+  v26 = MutableBytePtr;
+  v63 = a8;
+  v27 = AVE_PS_Compose_hvcC(a1, a2, a3, v64, a5, a6, a7, a8, MutableBytePtr, v22);
+  if (AVE_Log_CheckLevel(0xD4u, 8))
+  {
+    v28 = AVE_Log_CheckConsole(0xD4u);
+    v29 = AVE_GetCurrTime();
+    v30 = AVE_Log_GetLevelStr(8);
+    if (v28)
+    {
+      printf("%lld %d AVE %s: %s:%d hvcC data: size %d\n", v29, 212, v30, "AVE_PS_Make_hvcC", 1030, v22);
+      v31 = AVE_GetCurrTime();
+      v56 = AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s:%d hvcC data: size %d", v31, 212, v56, "AVE_PS_Make_hvcC", 1030, v22);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s:%d hvcC data: size %d", v29, 212, v30, "AVE_PS_Make_hvcC", 1030, v22);
+    }
+  }
+
+  for (i = 0; i < v22; i += 2)
+  {
+    if (AVE_Log_CheckLevel(0xD4u, 8))
+    {
+      v50 = AVE_Log_CheckConsole(0xD4u);
+      v51 = AVE_GetCurrTime();
+      v52 = AVE_Log_GetLevelStr(8);
+      v53 = *v26;
+      if (v50)
+      {
+        printf("%lld %d AVE %s: %p: 0x%x\n", v51, 212, v52, v26, v53);
+        v51 = AVE_GetCurrTime();
+        v52 = AVE_Log_GetLevelStr(8);
+        v53 = *v26;
+      }
+
+      syslog(3, "%lld %d AVE %s: %p: 0x%x", v51, 212, v52, v26, v53);
+    }
+
+    ++v26;
+  }
+
+  v13 = a9;
+  *a9 = v24;
+  a4 = v64;
+  a8 = v63;
+  if (v27)
+  {
+    goto LABEL_53;
+  }
+
+LABEL_21:
+  if (AVE_Log_CheckLevel(0xD4u, 8))
+  {
+    v32 = AVE_Log_CheckConsole(0xD4u);
+    v33 = AVE_GetCurrTime();
+    v34 = AVE_Log_GetLevelStr(8);
+    if (v32)
+    {
+      printf("%lld %d AVE %s: %s Exit %d %p %p %p %d %p %d %p %p %d\n", v33, 212, v34, "AVE_PS_Make_hvcC", a1, a2, a3, a4, a5, a6, a7, a8, v13, v27);
+      v35 = AVE_GetCurrTime();
+      v57 = AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s Exit %d %p %p %p %d %p %d %p %p %d", v35, 212, v57, "AVE_PS_Make_hvcC", a1, a2, a3, a4);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Exit %d %p %p %p %d %p %d %p %p %d", v33, 212, v34, "AVE_PS_Make_hvcC", a1, a2, a3, a4);
+    }
+  }
+
+  return v27;
+}
+
+uint64_t AVE_PS_Make_hvcC_Dict(uint64_t a1, char *a2, unsigned int *a3, const void *a4, int a5, const void *a6, int a7, const void *a8, __CFDictionary **a9)
+{
+  v55 = 0;
+  if (AVE_Log_CheckLevel(0xD4u, 8))
+  {
+    v11 = AVE_Log_CheckConsole(0xD4u);
+    CurrTime = AVE_GetCurrTime();
+    LevelStr = AVE_Log_GetLevelStr(8);
+    if (v11)
+    {
+      printf("%lld %d AVE %s: %s Enter %d %p %p %p %d %p %d %p %p\n", CurrTime, 212, LevelStr, "AVE_PS_Make_hvcC_Dict", a1, a2, a3, a4, a5, a6, a7, a8, a9);
+      v14 = AVE_GetCurrTime();
+      v43 = AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s Enter %d %p %p %p %d %p %d %p %p", v14, 212, v43, "AVE_PS_Make_hvcC_Dict", a1, a2, a3);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Enter %d %p %p %p %d %p %d %p %p", CurrTime, 212, LevelStr, "AVE_PS_Make_hvcC_Dict", a1, a2, a3);
+    }
+  }
+
+  if (a2 && a3 && a8 && a9 && (a4 == 0) == (a5 == 0))
+  {
+    *a9 = 0;
+    hvcC = AVE_PS_Make_hvcC(a1, a2, a3, a4, a5, a6, a7, a8, &v55);
+    if (hvcC)
+    {
+      v20 = hvcC;
+      if (AVE_Log_CheckLevel(0xD4u, 4))
+      {
+        v21 = AVE_Log_CheckConsole(0xD4u);
+        v22 = AVE_GetCurrTime();
+        v23 = AVE_Log_GetLevelStr(4);
+        if (v21)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | failed to compose %d %p %p %p %d %p %p %d\n", v22, 212, v23, "AVE_PS_Make_hvcC_Dict", 1095, "ret == 0", a1, a2, a3, a4, a5, a8, a9, v20);
+          v24 = AVE_GetCurrTime();
+          v45 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | failed to compose %d %p %p %p %d %p %p %d", v24, 212, v45, "AVE_PS_Make_hvcC_Dict", 1095, "ret == 0", a1, a2);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | failed to compose %d %p %p %p %d %p %p %d", v22, 212, v23, "AVE_PS_Make_hvcC_Dict", 1095, "ret == 0", a1, a2);
+        }
+      }
+
+      v25 = 0;
+      v26 = 0;
+    }
+
+    else
+    {
+      v32 = *MEMORY[0x29EDB8ED8];
+      Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
+      if (Mutable)
+      {
+        v25 = Mutable;
+        CFDictionaryAddValue(Mutable, @"hvcC", v55);
+        v34 = CFDictionaryCreateMutable(v32, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
+        if (v34)
+        {
+          v26 = v34;
+          CFDictionaryAddValue(v34, *MEMORY[0x29EDB92C8], v25);
+          CFDictionaryAddValue(v26, *MEMORY[0x29EDB92B8], @"HEVC");
+          v20 = 0;
+          *a9 = v26;
+          goto LABEL_19;
+        }
+
+        if (AVE_Log_CheckLevel(0xD4u, 4))
+        {
+          v39 = AVE_Log_CheckConsole(0xD4u);
+          v40 = AVE_GetCurrTime();
+          v41 = AVE_Log_GetLevelStr(4);
+          if (v39)
+          {
+            printf("%lld %d AVE %s: %s:%d %s | failed to create dictionary %d %p %p %p %d %p %p\n", v40, 212, v41, "AVE_PS_Make_hvcC_Dict", 1109, "pDict != __null", a1, a2, a3, a4, a5, a8, v25);
+            v42 = AVE_GetCurrTime();
+            v48 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | failed to create dictionary %d %p %p %p %d %p %p", v42, 212, v48, "AVE_PS_Make_hvcC_Dict", 1109, "pDict != __null", a1);
+          }
+
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | failed to create dictionary %d %p %p %p %d %p %p", v40, 212, v41, "AVE_PS_Make_hvcC_Dict", 1109, "pDict != __null", a1);
+          }
+        }
+      }
+
+      else
+      {
+        if (AVE_Log_CheckLevel(0xD4u, 4))
+        {
+          v35 = AVE_Log_CheckConsole(0xD4u);
+          v36 = AVE_GetCurrTime();
+          v37 = AVE_Log_GetLevelStr(4);
+          if (v35)
+          {
+            printf("%lld %d AVE %s: %s:%d %s | failed to create data dictionary %d %p %p %p %d %p %p\n", v36, 212, v37, "AVE_PS_Make_hvcC_Dict", 1101, "pDataDict != __null", a1, a2, a3, a4, a5, a8, v55);
+            v38 = AVE_GetCurrTime();
+            v47 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | failed to create data dictionary %d %p %p %p %d %p %p", v38, 212, v47, "AVE_PS_Make_hvcC_Dict", 1101, "pDataDict != __null", a1);
+          }
+
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | failed to create data dictionary %d %p %p %p %d %p %p", v36, 212, v37, "AVE_PS_Make_hvcC_Dict", 1101, "pDataDict != __null", a1);
+          }
+        }
+
+        v25 = 0;
+      }
+
+      v26 = 0;
+      v20 = 4294966293;
+    }
+  }
+
+  else
+  {
+    if (AVE_Log_CheckLevel(0xD4u, 4))
+    {
+      v15 = AVE_Log_CheckConsole(0xD4u);
+      v16 = AVE_GetCurrTime();
+      v17 = AVE_Log_GetLevelStr(4);
+      if (v15)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %d %p %p\n", v16, 212, v17, "AVE_PS_Make_hvcC_Dict", 1087, "pInData != __null && pInfo != __null && pSPS != __null && ppCFDict != __null && !((pSEIData == __null) ^ (SEISize == 0))", a1, a2, a3, a4, a5, a8, a9);
+        v18 = AVE_GetCurrTime();
+        v44 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %d %p %p", v18, 212, v44, "AVE_PS_Make_hvcC_Dict", 1087, "pInData != __null && pInfo != __null && pSPS != __null && ppCFDict != __null && !((pSEIData == __null) ^ (SEISize == 0))", a1);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %d %p %p", v16, 212, v17, "AVE_PS_Make_hvcC_Dict", 1087, "pInData != __null && pInfo != __null && pSPS != __null && ppCFDict != __null && !((pSEIData == __null) ^ (SEISize == 0))", a1);
+      }
+    }
+
+    v25 = 0;
+    v26 = 0;
+    v20 = 4294966296;
+  }
+
+LABEL_19:
+  if (v55)
+  {
+    CFRelease(v55);
+    v55 = 0;
+  }
+
+  if (v25)
+  {
+    CFRelease(v25);
+  }
+
+  if (v20 && v26)
+  {
+    CFRelease(v26);
+  }
+
+  if (AVE_Log_CheckLevel(0xD4u, 8))
+  {
+    v27 = AVE_Log_CheckConsole(0xD4u);
+    v28 = AVE_GetCurrTime();
+    v29 = AVE_Log_GetLevelStr(8);
+    if (v27)
+    {
+      printf("%lld %d AVE %s: %s Exit %d %p %p %p %d %p %d %p %p %d\n", v28, 212, v29, "AVE_PS_Make_hvcC_Dict", a1, a2, a3, a4, a5, a6, a7, a8, a9, v20);
+      v30 = AVE_GetCurrTime();
+      v46 = AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s Exit %d %p %p %p %d %p %d %p %p %d", v30, 212, v46, "AVE_PS_Make_hvcC_Dict", a1, a2, a3, a4);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Exit %d %p %p %p %d %p %d %p %p %d", v28, 212, v29, "AVE_PS_Make_hvcC_Dict", a1, a2, a3, a4);
+    }
+  }
+
+  return v20;
+}
+
+uint64_t AVE_PS_Make_lhvC(uint64_t a1, char *a2, unsigned int *a3, const void *a4, __CFData **a5)
+{
+  v9 = a1;
+  if (AVE_Log_CheckLevel(0xD4u, 8))
+  {
+    v10 = AVE_Log_CheckConsole(0xD4u);
+    CurrTime = AVE_GetCurrTime();
+    LevelStr = AVE_Log_GetLevelStr(8);
+    if (v10)
+    {
+      printf("%lld %d AVE %s: %s Enter %d %p %p %p %p\n", CurrTime, 212, LevelStr, "AVE_PS_Make_lhvC", v9, a2, a3, a4, a5);
+      v13 = AVE_GetCurrTime();
+      v52 = AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s Enter %d %p %p %p %p", v13, 212, v52);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Enter %d %p %p %p %p", CurrTime, 212, LevelStr);
+    }
+  }
+
+  if (!a2 || !a3 || !a4 || !a5)
+  {
+    if (AVE_Log_CheckLevel(0xD4u, 4))
+    {
+      v24 = AVE_Log_CheckConsole(0xD4u);
+      v25 = AVE_GetCurrTime();
+      v26 = AVE_Log_GetLevelStr(4);
+      if (v24)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %p\n", v25, 212, v26, "AVE_PS_Make_lhvC", 1172, "pInData != __null && pInfo != __null && pSPS != __null && ppCFData != __null", v9, a2, a3, a4, a5);
+        v27 = AVE_GetCurrTime();
+        v54 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %p", v27, 212, v54, "AVE_PS_Make_lhvC", 1172);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %p", v25, 212, v26, "AVE_PS_Make_lhvC", 1172);
+      }
+    }
+
+    goto LABEL_29;
+  }
+
+  *a5 = 0;
+  v14 = AVE_PS_CalcSizeOflhvC(v9, a3);
+  if (v14 <= 0)
+  {
+    if (AVE_Log_CheckLevel(0xD4u, 4))
+    {
+      v28 = AVE_Log_CheckConsole(0xD4u);
+      v29 = AVE_GetCurrTime();
+      v30 = AVE_Log_GetLevelStr(4);
+      if (v28)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | failed to calculate the size %d %p %p %p %d\n", v29, 212, v30, "AVE_PS_Make_lhvC", 1179, "size > 0", v9, a2, a3, a4, v14);
+        v31 = AVE_GetCurrTime();
+        v55 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | failed to calculate the size %d %p %p %p %d", v31, 212, v55, "AVE_PS_Make_lhvC", 1179);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | failed to calculate the size %d %p %p %p %d", v29, 212, v30, "AVE_PS_Make_lhvC", 1179);
+      }
+    }
+
+LABEL_29:
+    v19 = 4294966296;
+    goto LABEL_30;
+  }
+
+  Mutable = CFDataCreateMutable(0, v14);
+  if (Mutable)
+  {
+    v60 = a4;
+    v16 = Mutable;
+    CFDataSetLength(Mutable, v14);
+    v59 = v16;
+    MutableBytePtr = CFDataGetMutableBytePtr(v16);
+    if (MutableBytePtr)
+    {
+      v18 = MutableBytePtr;
+      v58 = a5;
+      v19 = AVE_PS_Compose_lhvC(v9, a2, a3, v60, MutableBytePtr, v14);
+      if (AVE_Log_CheckLevel(0xD4u, 8))
+      {
+        v20 = AVE_Log_CheckConsole(0xD4u);
+        v21 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(8);
+        if (v20)
+        {
+          printf("%lld %d AVE %s: %s:%d lhvC data: size %d\n", v21, 212, v22, "AVE_PS_Make_lhvC", 1198, v14);
+          v23 = AVE_GetCurrTime();
+          v53 = AVE_Log_GetLevelStr(8);
+          syslog(3, "%lld %d AVE %s: %s:%d lhvC data: size %d", v23, 212, v53, "AVE_PS_Make_lhvC", 1198, v14);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d lhvC data: size %d", v21, 212, v22, "AVE_PS_Make_lhvC", 1198, v14);
+        }
+      }
+
+      for (i = 0; i < v14; i += 2)
+      {
+        if (AVE_Log_CheckLevel(0xD4u, 8))
+        {
+          v46 = AVE_Log_CheckConsole(0xD4u);
+          v47 = AVE_GetCurrTime();
+          v48 = AVE_Log_GetLevelStr(8);
+          v49 = *v18;
+          if (v46)
+          {
+            printf("%lld %d AVE %s: %p: 0x%x\n", v47, 212, v48, v18, v49);
+            v50 = AVE_GetCurrTime();
+            v51 = AVE_Log_GetLevelStr(8);
+            syslog(3, "%lld %d AVE %s: %p: 0x%x", v50, 212, v51, v18, *v18);
+          }
+
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %p: 0x%x", v47, 212, v48, v18, v49);
+          }
+        }
+
+        ++v18;
+      }
+
+      a5 = v58;
+      v44 = v59;
+      *v58 = v59;
+      a4 = v60;
+      if (!v19)
+      {
+        goto LABEL_30;
+      }
+    }
+
+    else if (AVE_Log_CheckLevel(0xD4u, 4))
+    {
+      v36 = AVE_Log_CheckConsole(0xD4u);
+      v37 = AVE_GetCurrTime();
+      v38 = AVE_Log_GetLevelStr(4);
+      if (v36)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | failed to get memory address %d %p %p %p %p %d\n", v37, 212, v38, "AVE_PS_Make_lhvC", 1191, "pData != __null", v9, a2, a3, a4, v16, v14);
+        v37 = AVE_GetCurrTime();
+        v38 = AVE_Log_GetLevelStr(4);
+      }
+
+      syslog(3, "%lld %d AVE %s: %s:%d %s | failed to get memory address %d %p %p %p %p %d", v37, 212, v38, "AVE_PS_Make_lhvC", 1191, "pData != __null", v9, a2, a3, a4, v16, v14);
+      v44 = v16;
+      v19 = 4294966293;
+    }
+
+    else
+    {
+      v19 = 4294966293;
+      v44 = v16;
+    }
+
+    CFRelease(v44);
+    goto LABEL_30;
+  }
+
+  if (AVE_Log_CheckLevel(0xD4u, 4))
+  {
+    v32 = AVE_Log_CheckConsole(0xD4u);
+    v33 = AVE_GetCurrTime();
+    v34 = AVE_Log_GetLevelStr(4);
+    if (v32)
+    {
+      printf("%lld %d AVE %s: %s:%d %s | failed to allocate memory %d %p %p %p %d\n", v33, 212, v34, "AVE_PS_Make_lhvC", 1184, "pCFData != __null", v9, a2, a3, a4, v14);
+      v35 = AVE_GetCurrTime();
+      v56 = AVE_Log_GetLevelStr(4);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | failed to allocate memory %d %p %p %p %d", v35, 212, v56, "AVE_PS_Make_lhvC", 1184);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s:%d %s | failed to allocate memory %d %p %p %p %d", v33, 212, v34, "AVE_PS_Make_lhvC", 1184);
+    }
+  }
+
+  v19 = 4294966293;
+LABEL_30:
+  if (AVE_Log_CheckLevel(0xD4u, 8))
+  {
+    v39 = AVE_Log_CheckConsole(0xD4u);
+    v40 = AVE_GetCurrTime();
+    v41 = AVE_Log_GetLevelStr(8);
+    if (v39)
+    {
+      printf("%lld %d AVE %s: %s Exit %d %p %p %p %p %d\n", v40, 212, v41, "AVE_PS_Make_lhvC", v9, a2, a3, a4, a5, v19);
+      v42 = AVE_GetCurrTime();
+      v57 = AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s Exit %d %p %p %p %p %d", v42, 212, v57, "AVE_PS_Make_lhvC");
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Exit %d %p %p %p %p %d", v40, 212, v41, "AVE_PS_Make_lhvC");
+    }
+  }
+
+  return v19;
+}
+
+uint64_t AVE_PS_Add_lhvC_Dict(uint64_t a1, char *a2, unsigned int *a3, const void *a4, const __CFDictionary *a5)
+{
+  v39 = 0;
+  if (AVE_Log_CheckLevel(0xD4u, 8))
+  {
+    v10 = AVE_Log_CheckConsole(0xD4u);
+    CurrTime = AVE_GetCurrTime();
+    LevelStr = AVE_Log_GetLevelStr(8);
+    if (v10)
+    {
+      printf("%lld %d AVE %s: %s Enter %d %p %p %p %p\n", CurrTime, 212, LevelStr, "AVE_PS_Add_lhvC_Dict", a1, a2, a3, a4, a5);
+      v13 = AVE_GetCurrTime();
+      v34 = AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s Enter %d %p %p %p %p", v13, 212, v34);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Enter %d %p %p %p %p", CurrTime, 212, LevelStr);
+    }
+  }
+
+  if (a2 && a3 && a4 && a5)
+  {
+    lhvC = AVE_PS_Make_lhvC(a1, a2, a3, a4, &v39);
+    if (lhvC)
+    {
+      v15 = lhvC;
+      if (AVE_Log_CheckLevel(0xD4u, 4))
+      {
+        v16 = AVE_Log_CheckConsole(0xD4u);
+        v17 = AVE_GetCurrTime();
+        v18 = AVE_Log_GetLevelStr(4);
+        if (v16)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | failed to compose %d %p %p %p %p %d\n", v17, 212, v18, "AVE_PS_Add_lhvC_Dict", 1336, "ret == 0", a1, a2, a3, a4, a5, v15);
+          v19 = AVE_GetCurrTime();
+          v35 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | failed to compose %d %p %p %p %p %d", v19, 212, v35, "AVE_PS_Add_lhvC_Dict", 1336, "ret == 0");
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | failed to compose %d %p %p %p %p %d", v17, 212, v18, "AVE_PS_Add_lhvC_Dict", 1336, "ret == 0");
+        }
+      }
+    }
+
+    else
+    {
+      Value = CFDictionaryGetValue(a5, *MEMORY[0x29EDB92C8]);
+      if (Value)
+      {
+        CFDictionaryAddValue(Value, @"lhvC", v39);
+        v15 = 0;
+      }
+
+      else
+      {
+        if (AVE_Log_CheckLevel(0xD4u, 4))
+        {
+          v25 = AVE_Log_CheckConsole(0xD4u);
+          v26 = AVE_GetCurrTime();
+          v27 = AVE_Log_GetLevelStr(4);
+          if (v25)
+          {
+            printf("%lld %d AVE %s: %s:%d %s | failed to get data dictionary %d %p %p %p %p\n", v26, 212, v27, "AVE_PS_Add_lhvC_Dict", 1342, "pDataDict != __null", a1, a2, a3, a4, v39);
+            v28 = AVE_GetCurrTime();
+            v37 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | failed to get data dictionary %d %p %p %p %p", v28, 212, v37, "AVE_PS_Add_lhvC_Dict", 1342);
+          }
+
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | failed to get data dictionary %d %p %p %p %p", v26, 212, v27, "AVE_PS_Add_lhvC_Dict", 1342);
+          }
+        }
+
+        v15 = 4294966293;
+      }
+    }
+  }
+
+  else
+  {
+    if (AVE_Log_CheckLevel(0xD4u, 4))
+    {
+      v20 = AVE_Log_CheckConsole(0xD4u);
+      v21 = AVE_GetCurrTime();
+      v22 = AVE_Log_GetLevelStr(4);
+      if (v20)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %p\n", v21, 212, v22, "AVE_PS_Add_lhvC_Dict", 1331, "pInData != __null && pInfo != __null && pSPS != __null && pCFDict != __null", a1, a2, a3, a4, a5);
+        v23 = AVE_GetCurrTime();
+        v36 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %p", v23, 212, v36, "AVE_PS_Add_lhvC_Dict", 1331);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %p", v21, 212, v22, "AVE_PS_Add_lhvC_Dict", 1331);
+      }
+    }
+
+    v15 = 4294966296;
+  }
+
+  if (v39)
+  {
+    CFRelease(v39);
+    v39 = 0;
+  }
+
+  if (AVE_Log_CheckLevel(0xD4u, 8))
+  {
+    v29 = AVE_Log_CheckConsole(0xD4u);
+    v30 = AVE_GetCurrTime();
+    v31 = AVE_Log_GetLevelStr(8);
+    if (v29)
+    {
+      printf("%lld %d AVE %s: %s Exit %d %p %p %p %p %d\n", v30, 212, v31, "AVE_PS_Add_lhvC_Dict", a1, a2, a3, a4, a5, v15);
+      v32 = AVE_GetCurrTime();
+      v38 = AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s Exit %d %p %p %p %p %d", v32, 212, v38, "AVE_PS_Add_lhvC_Dict");
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Exit %d %p %p %p %p %d", v30, 212, v31, "AVE_PS_Add_lhvC_Dict");
+    }
+  }
+
+  return v15;
+}
+
+uint64_t AVE_PixelFmt_GetSupportedListByProfile(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _DWORD *a8)
+{
+  v8 = a8;
+  v9 = 1;
+  v10 = 4294966295;
+  if (a7 && a8)
+  {
+    NumOfTypes = AVE_PixelFmt_GetNumOfTypes();
+    v18 = malloc_type_malloc(4 * NumOfTypes, 0x100004052888210uLL);
+    if (v18)
+    {
+      v19 = v18;
+      if (a4 == 1)
+      {
+        v20 = &gs_sAVE_ProfileMap_AVC;
+        v22 = 9;
+        while (*v20 != a5)
+        {
+          v20 += 8;
+          if (!--v22)
+          {
+            goto LABEL_16;
+          }
+        }
+      }
+
+      else
+      {
+        if (a4 != 2)
+        {
+          goto LABEL_17;
+        }
+
+        v20 = &gs_sAVE_ProfileMap_HEVC;
+        v21 = 9;
+        while (*v20 != a5)
+        {
+          v20 += 8;
+          if (!--v21)
+          {
+            goto LABEL_16;
+          }
+        }
+      }
+
+      v51 = v20;
+      v59[0] = NumOfTypes;
+      if (!AVE_PixelFmt_GetSupportedList(a1, a2, a3, a4, v18, v59))
+      {
+        v45 = v8;
+        if (v59[0] < 1)
+        {
+          LODWORD(v54) = 0;
+        }
+
+        else
+        {
+          v24 = 0;
+          v54 = 0;
+          v25 = 36;
+          if (a4 == 2)
+          {
+            v25 = 40;
+          }
+
+          v50 = v25;
+          v26 = a6;
+          v47 = a5;
+          v46 = a4;
+          v58 = a5;
+          v57 = a4;
+          v49 = a5;
+          v56 = a5;
+          v48 = a4;
+          v55 = a4;
+          do
+          {
+            v52 = v24;
+            v27 = AVE_PixelFmt_FindByType(v19[v24]);
+            v28 = *&v27[v50];
+            v29 = 2;
+            v30 = v54;
+            do
+            {
+              v31 = v51[v29];
+              if (!v31)
+              {
+                break;
+              }
+
+              if (v31 == v28 && (*(v51 + 4) != 1 || *(v27 + 1) == v26))
+              {
+                *(a7 + 4 * v30) = *v27;
+                v30 = (v30 + 1);
+              }
+
+              ++v29;
+            }
+
+            while (v29 != 8);
+            v54 = v30;
+            if (AVE_Log_CheckLevel(0x4Bu, 8))
+            {
+              v32 = AVE_Log_CheckConsole(0x4Bu);
+              CurrTime = AVE_GetCurrTime();
+              LevelStr = AVE_Log_GetLevelStr(8);
+              if (v32)
+              {
+                printf("%lld %d AVE %s: %s:%d number of supported pixel format %d %d 0x%x %d %d %d %d\n", CurrTime, 75, LevelStr, "AVE_PixelFmt_GetSupportedListByProfile", 249, a1, a2, a3, v48, v49, v26, v30);
+                v35 = AVE_GetCurrTime();
+                v44 = AVE_Log_GetLevelStr(8);
+                syslog(3, "%lld %d AVE %s: %s:%d number of supported pixel format %d %d 0x%x %d %d %d %d", v35, 75, v44, "AVE_PixelFmt_GetSupportedListByProfile", 249, a1, a2, a3, v48, v49, v26, v30);
+              }
+
+              else
+              {
+                syslog(3, "%lld %d AVE %s: %s:%d number of supported pixel format %d %d 0x%x %d %d %d %d", CurrTime, 75, LevelStr, "AVE_PixelFmt_GetSupportedListByProfile", 249, a1, a2, a3, v46, v47, a6, v30);
+              }
+            }
+
+            if (v30 >= 1)
+            {
+              v36 = 0;
+              v37 = v30;
+              do
+              {
+                if (AVE_Log_CheckLevel(0x4Bu, 8))
+                {
+                  v38 = AVE_Log_CheckConsole(0x4Bu);
+                  v39 = AVE_GetCurrTime();
+                  v40 = AVE_Log_GetLevelStr(8);
+                  v41 = *(a7 + 4 * v36);
+                  if (v38)
+                  {
+                    printf("%lld %d AVE %s: %s:%d list of supported pixel format %d %d 0x%x %d %d %d [%d] 0x%x\n", v39, 75, v40, "AVE_PixelFmt_GetSupportedListByProfile", 255, a1, a2, a3, v57, v58, a6, v36, v41);
+                    v42 = AVE_GetCurrTime();
+                    v43 = AVE_Log_GetLevelStr(8);
+                    v37 = v30;
+                    syslog(3, "%lld %d AVE %s: %s:%d list of supported pixel format %d %d 0x%x %d %d %d [%d] 0x%x", v42, 75, v43, "AVE_PixelFmt_GetSupportedListByProfile", 255, a1, a2, a3, v57, v58, a6, v36, *(a7 + 4 * v36));
+                  }
+
+                  else
+                  {
+                    syslog(3, "%lld %d AVE %s: %s:%d list of supported pixel format %d %d 0x%x %d %d %d [%d] 0x%x", v39, 75, v40, "AVE_PixelFmt_GetSupportedListByProfile", 255, a1, a2, a3, v55, v56, a6, v36, v41);
+                  }
+                }
+
+                ++v36;
+              }
+
+              while (v37 != v36);
+            }
+
+            v24 = v52 + 1;
+            v26 = a6;
+          }
+
+          while (v52 + 1 < v59[0]);
+        }
+
+        v10 = 0;
+        v9 = 0;
+        v8 = v45;
+        *v45 = v54;
+        goto LABEL_18;
+      }
+
+LABEL_16:
+      v9 = 1;
+LABEL_17:
+      v10 = 4294966288;
+LABEL_18:
+      free(v19);
+      goto LABEL_19;
+    }
+
+    v10 = 4294966293;
+  }
+
+LABEL_19:
+  if (v8 && v9)
+  {
+    *v8 = 0;
+  }
+
+  return v10;
+}
+
+uint64_t AVE_PixelFmt_CheckSupportedType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+{
+  NumOfTypes = AVE_PixelFmt_GetNumOfTypes();
+  v11 = malloc_type_malloc(4 * NumOfTypes, 0x100004052888210uLL);
+  if (!v11)
+  {
+    return 4294966293;
+  }
+
+  v12 = v11;
+  v18 = NumOfTypes;
+  SupportedList = AVE_PixelFmt_GetSupportedList(a1, a2, a3, a4, v11, &v18);
+  if (!SupportedList)
+  {
+    v14 = v18;
+    if (v18 < 1)
+    {
+LABEL_7:
+      SupportedList = 4294966295;
+    }
+
+    else
+    {
+      v15 = v12;
+      while (1)
+      {
+        v16 = *v15++;
+        if (v16 == a5)
+        {
+          break;
+        }
+
+        if (!--v14)
+        {
+          goto LABEL_7;
+        }
+      }
+
+      SupportedList = 0;
+    }
+  }
+
+  free(v12);
+  return SupportedList;
+}
+
+uint64_t AVE_PS_Compose_general_profile_compatibility_flag(uint64_t a1, uint64_t a2, int a3)
+{
+  if (a3 < 4)
+  {
+    return 4294966277;
+  }
+
+  v4 = 0;
+  v5 = 0;
+  do
+  {
+    *(a2 + v5) |= *(a1 + 32 + v4) << (v4 & 7 ^ 7);
+    if ((v4 & 7) == 7)
+    {
+      ++v5;
+    }
+
+    ++v4;
+  }
+
+  while (v4 != 32);
+  return 4;
+}
+
+uint64_t AVE_PS_Compose_general_constraint_indicator_flags(uint64_t a1, _BYTE *a2, unsigned int a3)
+{
+  if (a3 < 6)
+  {
+    return 4294966277;
+  }
+
+  ProfileIdc = HEVC_FindProfileIdc(*(a1 + 28));
+  bzero(a2, a3);
+  v9 = (*(a1 + 65) << 6) | (*(a1 + 64) << 7) | (32 * *(a1 + 66)) | (16 * *(a1 + 67));
+  *a2 = v9;
+  if (ProfileIdc == 4 || ProfileIdc == 5 || (*(a1 + 36) & 1) != 0 || ProfileIdc == 6 || (*(a1 + 37) & 1) != 0 || ProfileIdc == 7 || (*(a1 + 38) & 1) != 0 || ProfileIdc == 8 || (*(a1 + 39) & 1) != 0 || ProfileIdc == 9 || (*(a1 + 40) & 1) != 0 || ProfileIdc == 10 || (*(a1 + 41) & 1) != 0 || ProfileIdc == 11 || (*(a1 + 42) & 1) != 0 || *(a1 + 43) == 1)
+  {
+    *a2 = (8 * *(a1 + 68)) | (4 * *(a1 + 69)) | (2 * *(a1 + 70)) | *(a1 + 71) | v9;
+    v8.i32[0] = *(a1 + 72);
+    v10 = vshl_u16(*&vmovl_u8(v8), 0x4000500060007);
+    v11 = v10.i32[0] | v10.i32[1] | ((*&v10 | HIDWORD(*&v10)) >> 16) | (8 * *(a1 + 76));
+  }
+
+  else
+  {
+    if (ProfileIdc != 2 && *(a1 + 34) != 1)
+    {
+      return 5;
+    }
+
+    LOBYTE(v11) = 16 * *(a1 + 75);
+  }
+
+  a2[1] = v11;
+  return 5;
+}
+
+uint64_t AVE_Ref_MakeArray(char *a1, unsigned int a2, __CFArray *a3)
+{
+  if (a1 && a2 >= 1 && a3)
+  {
+    v6 = a2;
+    v7 = (a1 + 4);
+    v8 = MEMORY[0x29EDB9010];
+    v9 = MEMORY[0x29EDB9020];
+    while (1)
+    {
+      Mutable = CFDictionaryCreateMutable(0, 0, v8, v9);
+      if (!Mutable)
+      {
+        break;
+      }
+
+      v11 = Mutable;
+      AVE_CFDict_AddSInt32(@"ReferenceFrameNumDriver", *(v7 - 1), Mutable);
+      v12 = *v7;
+      v7 += 2;
+      AVE_CFDict_AddSInt32(@"ReferenceRVRAIndex", v12, v11);
+      CFArrayAppendValue(a3, v11);
+      CFRelease(v11);
+      if (!--v6)
+      {
+        return 0;
+      }
+    }
+
+    if (AVE_Log_CheckLevel(0xE1u, 4))
+    {
+      v18 = AVE_Log_CheckConsole(0xE1u);
+      CurrTime = AVE_GetCurrTime();
+      LevelStr = AVE_Log_GetLevelStr(4);
+      if (v18)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | fail to create CFDictionary %p %d %p\n", CurrTime, 225, LevelStr, "AVE_Ref_MakeArray", 73, "pDict != __null", a1, a2, a3);
+        v21 = AVE_GetCurrTime();
+        v23 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFDictionary %p %d %p", v21, 225, v23);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFDictionary %p %d %p", CurrTime, 225, LevelStr);
+      }
+    }
+
+    return 4294966293;
+  }
+
+  else
+  {
+    if (AVE_Log_CheckLevel(0xE1u, 4))
+    {
+      v14 = AVE_Log_CheckConsole(0xE1u);
+      v15 = AVE_GetCurrTime();
+      v16 = AVE_Log_GetLevelStr(4);
+      if (v14)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p\n", v15, 225, v16, "AVE_Ref_MakeArray", 65, "pInfo != __null && iNum > 0 && pArray != __null", a1, a2, a3);
+        v17 = AVE_GetCurrTime();
+        v22 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p", v17, 225, v22);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p", v15, 225, v16);
+      }
+    }
+
+    return 4294966295;
+  }
+}
+
+char *AVE_StrNCpy(char *a1, const char *a2, int a3)
+{
+  result = strncpy(a1, a2, a3);
+  result[a3 - 1] = 0;
+  return result;
+}
+
+_DWORD *AVE_DevCap_SearchRange_Find(unsigned int *a1, int a2)
+{
+  v2 = *a1;
+  if (v2 < 1)
+  {
+    return 0;
+  }
+
+  for (result = a1 + 1; *result != a2; result += 4)
+  {
+    if (!--v2)
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+unsigned int *AVE_DevCap_Perf_Find(unsigned int *a1, int a2, int a3, int a4)
+{
+  v4 = *a1;
+  if (v4 < 1)
+  {
+    return 0;
+  }
+
+  for (i = a1 + 5; *(i - 1) != a2 || *i != a3 || *(i - 2) != a4; i += 6)
+  {
+    if (!--v4)
+    {
+      return 0;
+    }
+  }
+
+  return i - 3;
+}
+
+void AVE_SyntaxWriter::AVE_SyntaxWriter(AVE_SyntaxWriter *this)
+{
+  *this = &unk_2A1C808F8;
+  *(this + 1) = 0;
+  *(this + 4) = this + 40;
+  *(this + 4136) = 1;
+  *(this + 2) = 0x100000000000;
+  *(this + 6) = 0xFFFF;
+}
+
+void AVE_SyntaxWriter::AVE_SyntaxWriter(AVE_SyntaxWriter *this, unsigned __int8 *a2, int a3, char a4)
+{
+  *this = &unk_2A1C808F8;
+  *(this + 1) = 0;
+  *(this + 4) = a2;
+  *(this + 4136) = a4;
+  *(this + 4) = 0;
+  *(this + 5) = a3;
+  *(this + 6) = 0xFFFF;
+}
+
+uint64_t AVE_SyntaxWriter::WriteBit(AVE_SyntaxWriter *this, char a2)
+{
+  v2 = *(this + 6);
+  v3 = a2 & 1 | (2 * v2);
+  *(this + 6) = v3;
+  v4 = *(this + 2) + 1;
+  *(this + 2) = v4;
+  if (v4 != 8)
+  {
+    return 0;
+  }
+
+  v5 = v2 & 0x7FFFFE;
+  if (*(this + 4136) == 1 && v5 == 0)
+  {
+    v7 = *(this + 3);
+    if (v7 >= *(this + 5))
+    {
+      return 4294966277;
+    }
+
+    v8 = *(this + 4);
+    *(this + 3) = v7 + 1;
+    *(v8 + v7) = 3;
+    v3 = *(this + 6) | 0x300;
+    *(this + 6) = v3;
+    *(this + 4) += 8;
+  }
+
+  v9 = *(this + 3);
+  if (v9 >= *(this + 5))
+  {
+    return 4294966277;
+  }
+
+  v10 = 0;
+  v11 = *(this + 4);
+  *(this + 3) = v9 + 1;
+  *(v11 + v9) = v3;
+  *(this + 2) = 0;
+  return v10;
+}
+
+uint64_t AVE_SyntaxWriter::WriteBits(AVE_SyntaxWriter *this, unsigned int a2, int a3)
+{
+  if (!a3)
+  {
+    return 0;
+  }
+
+  v3 = *(this + 2);
+  while (1)
+  {
+    v4 = 8 - v3;
+    if (a3 < 8 - v3)
+    {
+      v4 = a3;
+    }
+
+    v3 += v4;
+    *(this + 2) = v3;
+    a3 -= v4;
+    v5 = (a2 >> a3) & ~(-1 << v4) | (*(this + 6) << v4);
+    *(this + 6) = v5;
+    if (v3 != 8)
+    {
+      goto LABEL_12;
+    }
+
+    if (*(this + 4136) == 1 && (v5 & 0xFFFFFC) == 0)
+    {
+      v6 = *(this + 3);
+      if (v6 >= *(this + 5))
+      {
+        return 4294966277;
+      }
+
+      v7 = *(this + 4);
+      *(this + 3) = v6 + 1;
+      *(v7 + v6) = 3;
+      v5 = *(this + 6) | 0x300;
+      *(this + 6) = v5;
+      *(this + 4) += 8;
+    }
+
+    v8 = *(this + 3);
+    if (v8 >= *(this + 5))
+    {
+      return 4294966277;
+    }
+
+    v3 = 0;
+    v9 = *(this + 4);
+    *(this + 3) = v8 + 1;
+    *(v9 + v8) = v5;
+    *(this + 2) = 0;
+LABEL_12:
+    if (!a3)
+    {
+      return 0;
+    }
+  }
+}
+
+uint64_t AVE_SyntaxWriter::WriteI(AVE_SyntaxWriter *this, signed int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    a2 = 0x80000000 - a2;
+  }
+
+  return AVE_SyntaxWriter::WriteBits(this, a2, a3);
+}
+
+uint64_t AVE_SyntaxWriter::WriteStartCode(AVE_SyntaxWriter *this)
+{
+  v1 = *(this + 3);
+  if (v1 >= *(this + 5))
+  {
+    return 4294966277;
+  }
+
+  v2 = *(this + 4);
+  *(this + 3) = v1 + 1;
+  *(v2 + v1) = 0;
+  v3 = *(this + 3);
+  if (v3 >= *(this + 5))
+  {
+    return 4294966277;
+  }
+
+  v4 = *(this + 4);
+  *(this + 3) = v3 + 1;
+  *(v4 + v3) = 0;
+  v5 = *(this + 3);
+  if (v5 >= *(this + 5))
+  {
+    return 4294966277;
+  }
+
+  v6 = *(this + 4);
+  *(this + 3) = v5 + 1;
+  *(v6 + v5) = 0;
+  v7 = *(this + 3);
+  if (v7 >= *(this + 5))
+  {
+    return 4294966277;
+  }
+
+  v8 = 0;
+  v9 = *(this + 4);
+  *(this + 3) = v7 + 1;
+  *(v9 + v7) = 1;
+  return v8;
+}
+
+uint64_t AVE_SyntaxWriter::WriteBytes(AVE_SyntaxWriter *this, const unsigned __int8 *a2, unsigned int a3)
+{
+  if (a3 < 1)
+  {
+    return 0;
+  }
+
+  v5 = a3;
+  while (1)
+  {
+    v6 = *a2++;
+    result = AVE_SyntaxWriter::WriteBits(this, v6, 8);
+    if (result)
+    {
+      break;
+    }
+
+    if (!--v5)
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t AVE_SyntaxWriter::CopyFromSyntaxWriter(AVE_SyntaxWriter *this, const AVE_SyntaxWriter *a2)
+{
+  if (*(this + 2) | *(a2 + 2))
+  {
+    return 4294966296;
+  }
+
+  v4 = *(this + 3);
+  v5 = *(a2 + 3);
+  if (v5 + v4 > *(this + 5))
+  {
+    return 4294966277;
+  }
+
+  memcpy((*(this + 4) + v4), *(a2 + 4), v5);
+  result = 0;
+  *(this + 3) += *(a2 + 3);
+  return result;
+}
+
+uint64_t AVE_SyntaxWriter::AlignToByte(AVE_SyntaxWriter *this)
+{
+  result = AVE_SyntaxWriter::WriteBit(this, 1);
+  if (!result)
+  {
+    v3 = *(this + 2);
+    if (v3)
+    {
+
+      return AVE_SyntaxWriter::WriteBits(this, 0, 8 - v3);
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t AVE_Crypto_AddInfo(int a1, unsigned int a2, unsigned int *a3)
+{
+  if (AVE_Log_CheckLevel(0x7Bu, 8))
+  {
+    v6 = AVE_Log_CheckConsole(0x7Bu);
+    CurrTime = AVE_GetCurrTime();
+    LevelStr = AVE_Log_GetLevelStr(8);
+    if (v6)
+    {
+      printf("%lld %d AVE %s: %s Enter %d %d %p\n", CurrTime, 123, LevelStr, "AVE_Crypto_AddInfo", a1, a2, a3);
+      CurrTime = AVE_GetCurrTime();
+      AVE_Log_GetLevelStr(8);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Enter %d %d %p", CurrTime);
+  }
+
+  if (((a2 | a1) & 0x80000000) != 0 || !a3)
+  {
+    if (AVE_Log_CheckLevel(0x7Bu, 4))
+    {
+      v15 = AVE_Log_CheckConsole(0x7Bu);
+      v16 = AVE_GetCurrTime();
+      v17 = AVE_Log_GetLevelStr(4);
+      if (v15)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameters %d %d %p\n", v16, 123, v17, "AVE_Crypto_AddInfo", 28, "(iOffset >= 0) && (iSize >= 0) && (psInfo != __null)", a1, a2, a3);
+        v16 = AVE_GetCurrTime();
+        AVE_Log_GetLevelStr(4);
+      }
+
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %d %d %p", v16, 123);
+    }
+  }
+
+  else
+  {
+    v9 = *a3;
+    if (v9 > 0x41)
+    {
+      if (AVE_Log_CheckLevel(0x7Bu, 4))
+      {
+        v18 = AVE_Log_CheckConsole(0x7Bu);
+        v19 = AVE_GetCurrTime();
+        v20 = AVE_Log_GetLevelStr(4);
+        if (v18)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | wrong crypto info %d %d %p %d\n", v19, 123, v20, "AVE_Crypto_AddInfo", 32, "(0 <= psInfo->iNum) && (psInfo->iNum < (((2) < ((63 + 1)) ? (2) : ((63 + 1))) * (((32) < (256) ? (32) : (256)) + 1)))", a1, a2, a3, *a3);
+          v21 = AVE_GetCurrTime();
+          v31 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | wrong crypto info %d %d %p %d", v21, 123, v31);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | wrong crypto info %d %d %p %d", v19, 123, v20);
+        }
+      }
+    }
+
+    else
+    {
+      v10 = 0;
+      if (v9)
+      {
+        v11 = a3 + 2;
+        v12 = *a3;
+        do
+        {
+          v10 += *(v11 - 1) + *v11;
+          v11 += 2;
+          --v12;
+        }
+
+        while (v12);
+      }
+
+      if ((v10 & 0x80000000) == 0 && a1 >= v10)
+      {
+        v13 = 0;
+        v14 = &a3[2 * v9];
+        v14[1] = a1 - v10;
+        v14[2] = a2;
+        *a3 = v9 + 1;
+        goto LABEL_29;
+      }
+
+      if (AVE_Log_CheckLevel(0x7Bu, 4))
+      {
+        v22 = AVE_Log_CheckConsole(0x7Bu);
+        v23 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        if (v22)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | wrong crypto info %d %d %p %d %d\n", v23, 123, v24, "AVE_Crypto_AddInfo", 43, "(0 <= totalSize) && (totalSize <= iOffset)", a1, a2, a3, *a3, v10);
+          v25 = AVE_GetCurrTime();
+          v32 = AVE_Log_GetLevelStr(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | wrong crypto info %d %d %p %d %d", v25, 123, v32);
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | wrong crypto info %d %d %p %d %d", v23, 123, v24);
+        }
+      }
+    }
+  }
+
+  v13 = 4294966295;
+LABEL_29:
+  if (AVE_Log_CheckLevel(0x7Bu, 8))
+  {
+    v26 = AVE_Log_CheckConsole(0x7Bu);
+    v27 = AVE_GetCurrTime();
+    v28 = AVE_Log_GetLevelStr(8);
+    if (v26)
+    {
+      printf("%lld %d AVE %s: %s Exit %d %d %p %d\n", v27, 123, v28, "AVE_Crypto_AddInfo", a1, a2, a3, v13);
+      v29 = AVE_GetCurrTime();
+      AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s Exit %d %d %p %d", v29, 123);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Exit %d %d %p %d", v27, 123);
+    }
+  }
+
+  return v13;
+}
+
+uint64_t AVE_Crypto_PrintInfo(unsigned int *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5)
+{
+  v51 = *MEMORY[0x29EDCA608];
+  v49 = 0u;
+  v50 = 0u;
+  if (!a1)
+  {
+    if (AVE_Log_CheckLevel(a2, 4))
+    {
+      v15 = AVE_Log_CheckConsole(a2);
+      CurrTime = AVE_GetCurrTime();
+      LevelStr = AVE_Log_GetLevelStr(4);
+      if (!v15)
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p", CurrTime);
+        return 4294966295;
+      }
+
+      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p\n", CurrTime, a2, LevelStr, "AVE_Crypto_PrintInfo", 72, "psInfo != __null", 0);
+      v18 = AVE_GetCurrTime();
+      v44 = "psInfo != __null";
+      v45 = 0;
+      v43 = 72;
+      v41 = a2;
+      v42 = AVE_Log_GetLevelStr(4);
+      v19 = "%lld %d AVE %s: %s:%d %s | wrong parameter %p";
+      goto LABEL_13;
+    }
+
+    return 4294966295;
+  }
+
+  v6 = a1;
+  if (*a1 >= 0x43)
+  {
+    if (AVE_Log_CheckLevel(a2, 4))
+    {
+      v20 = AVE_Log_CheckConsole(a2);
+      v21 = AVE_GetCurrTime();
+      v22 = AVE_Log_GetLevelStr(4);
+      if (!v20)
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong Crypto info %p %d", v21, a2);
+        return 4294966295;
+      }
+
+      printf("%lld %d AVE %s: %s:%d %s | wrong Crypto info %p %d\n", v21, a2, v22, "AVE_Crypto_PrintInfo", 74, "(0 <= psInfo->iNum) && (psInfo->iNum <= (((2) < ((63 + 1)) ? (2) : ((63 + 1))) * (((32) < (256) ? (32) : (256)) + 1)))", v6, *v6);
+      v18 = AVE_GetCurrTime();
+      v23 = AVE_Log_GetLevelStr(4);
+      v45 = v6;
+      v46 = *v6;
+      v43 = 74;
+      v44 = "(0 <= psInfo->iNum) && (psInfo->iNum <= (((2) < ((63 + 1)) ? (2) : ((63 + 1))) * (((32) < (256) ? (32) : (256)) + 1)))";
+      v42 = v23;
+      v19 = "%lld %d AVE %s: %s:%d %s | wrong Crypto info %p %d";
+      v41 = a2;
+LABEL_13:
+      syslog(3, v19, v18, v41, v42, "AVE_Crypto_PrintInfo", v43, v44, v45, v46);
+      return 4294966295;
+    }
+
+    return 4294966295;
+  }
+
+  v7 = a5;
+  v8 = a4;
+  AVE_ComposePosStr(a4, a5, &v49, 32);
+  v10 = a3;
+  if (AVE_Log_CheckLevel(a2, a3))
+  {
+    v11 = AVE_Log_CheckConsole(a2);
+    if ((a3 & 0x80000000) != 0)
+    {
+      if (!v11 || (-a3 & 0x20) != 0)
+      {
+        syslog(3, "Crypto %s size %d", &v49, *v6);
+      }
+
+      else
+      {
+        printf("Crypto %s size %d\n", &v49, *v6);
+        syslog(3, "Crypto %s size %d", &v49, *v6);
+      }
+    }
+
+    else
+    {
+      v12 = v11 ^ 1;
+      v13 = AVE_GetCurrTime();
+      v14 = AVE_Log_GetLevelStr(a3);
+      if (((v12 | ((a3 & 0x20) >> 5)) & 1) == 0)
+      {
+        printf("%lld %d AVE %s: Crypto %s size %d\n", v13, a2, v14, &v49, *v6);
+        v13 = AVE_GetCurrTime();
+        v14 = AVE_Log_GetLevelStr(a3);
+      }
+
+      syslog(3, "%lld %d AVE %s: Crypto %s size %d", v13, a2, v14, &v49, *v6);
+      v10 = a3;
+    }
+  }
+
+  if (*v6 >= 1)
+  {
+    v25 = 0;
+    v47 = -a3;
+    v26 = (v6 + 2);
+    v48 = v6;
+    do
+    {
+      v49 = 0u;
+      v50 = 0u;
+      AVE_ComposePosStr(v8, v7, &v49, 32);
+      if (AVE_Log_CheckLevel(a2, v10))
+      {
+        v27 = AVE_Log_CheckConsole(a2);
+        if ((a3 & 0x80000000) != 0)
+        {
+          if ((v47 & 0x20) != 0)
+          {
+            v39 = 0;
+          }
+
+          else
+          {
+            v39 = v27;
+          }
+
+          v40 = *v26;
+          if (v39 == 1)
+          {
+            printf("Crypto %s | %d %d\n", &v49, *(v26 - 1), v40);
+            syslog(3, "Crypto %s | %d %d", &v49, *(v26 - 1), *v26);
+          }
+
+          else
+          {
+            syslog(3, "Crypto %s | %d %d", &v49, *(v26 - 1), v40);
+          }
+        }
+
+        else
+        {
+          v28 = v8;
+          v29 = v7;
+          v30 = a3;
+          v31 = v10;
+          v32 = a3 & 0x20;
+          v33 = v27 ^ 1;
+          v34 = AVE_GetCurrTime();
+          v35 = AVE_Log_GetLevelStr(v31);
+          v36 = *v26;
+          if ((v33 | (v32 >> 5)))
+          {
+            syslog(3, "%lld %d AVE %s: Crypto %s | %d %d", v34, a2, v35, &v49, *(v26 - 1), v36);
+          }
+
+          else
+          {
+            printf("%lld %d AVE %s: Crypto %s | %d %d\n", v34, a2, v35, &v49, *(v26 - 1), v36);
+            v37 = AVE_GetCurrTime();
+            v38 = AVE_Log_GetLevelStr(v31);
+            syslog(3, "%lld %d AVE %s: Crypto %s | %d %d", v37, a2, v38, &v49, *(v26 - 1), *v26);
+          }
+
+          a3 = v30;
+          v7 = v29;
+          v8 = v28;
+          v6 = v48;
+          v10 = v31;
+        }
+      }
+
+      ++v25;
+      v26 += 2;
+    }
+
+    while (v25 < *v6);
+  }
+
+  return 0;
+}
+
+uint64_t AVE_Crypto_Make(const UInt8 *a1, __CFDictionary *a2)
+{
+  if (AVE_Log_CheckLevel(0x7Bu, 8))
+  {
+    v4 = AVE_Log_CheckConsole(0x7Bu);
+    CurrTime = AVE_GetCurrTime();
+    LevelStr = AVE_Log_GetLevelStr(8);
+    if (v4)
+    {
+      printf("%lld %d AVE %s: %s Enter %p %p\n", CurrTime, 123, LevelStr, "AVE_Crypto_Make", a1, a2);
+      v7 = AVE_GetCurrTime();
+      v26 = AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s Enter %p %p", v7, 123, v26, "AVE_Crypto_Make", a1, a2);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Enter %p %p", CurrTime, 123, LevelStr, "AVE_Crypto_Make", a1, a2);
+    }
+  }
+
+  if (!a1 || !a2)
+  {
+    if (AVE_Log_CheckLevel(0x7Bu, 4))
+    {
+      v12 = AVE_Log_CheckConsole(0x7Bu);
+      v13 = AVE_GetCurrTime();
+      v14 = AVE_Log_GetLevelStr(4);
+      if (v12)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p\n", v13, 123, v14, "AVE_Crypto_Make", 151, "psInfo != __null && pDict != __null", a1, a2);
+        v13 = AVE_GetCurrTime();
+        AVE_Log_GetLevelStr(4);
+      }
+
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p", v13, 123);
+    }
+
+    goto LABEL_23;
+  }
+
+  v8 = *a1;
+  if (v8 <= 0)
+  {
+    if (AVE_Log_CheckLevel(0x7Bu, 4))
+    {
+      v15 = AVE_Log_CheckConsole(0x7Bu);
+      v16 = AVE_GetCurrTime();
+      v17 = AVE_Log_GetLevelStr(4);
+      if (v15)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong crypto info %p %d\n", v16, 123, v17, "AVE_Crypto_Make", 154, "psInfo->iNum > 0", a2, *a1);
+        v16 = AVE_GetCurrTime();
+        AVE_Log_GetLevelStr(4);
+      }
+
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong crypto info %p %d", v16, 123);
+    }
+
+LABEL_23:
+    v11 = 4294966295;
+    goto LABEL_24;
+  }
+
+  v9 = CFDataCreate(*MEMORY[0x29EDB8ED8], a1 + 4, 8 * v8);
+  if (v9)
+  {
+    v10 = v9;
+    CFDictionarySetValue(a2, *MEMORY[0x29EDB9350], v9);
+    CFRelease(v10);
+    v11 = 0;
+  }
+
+  else
+  {
+    if (AVE_Log_CheckLevel(0x7Bu, 4))
+    {
+      v18 = AVE_Log_CheckConsole(0x7Bu);
+      v19 = AVE_GetCurrTime();
+      v20 = AVE_Log_GetLevelStr(4);
+      if (v18)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | fail to create CFData %p %d %ld\n", v19, 123, v20, "AVE_Crypto_Make", 160, "pData != __null", a1 + 4, *a1, 8);
+        v21 = AVE_GetCurrTime();
+        v27 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFData %p %d %ld", v21, 123, v27);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFData %p %d %ld", v19, 123, v20);
+      }
+    }
+
+    v11 = 4294966293;
+  }
+
+LABEL_24:
+  if (AVE_Log_CheckLevel(0x7Bu, 8))
+  {
+    v22 = AVE_Log_CheckConsole(0x7Bu);
+    v23 = AVE_GetCurrTime();
+    v24 = AVE_Log_GetLevelStr(8);
+    if (v22)
+    {
+      printf("%lld %d AVE %s: %s Exit %p %p %d\n", v23, 123, v24, "AVE_Crypto_Make", a1, a2, v11);
+      v23 = AVE_GetCurrTime();
+      AVE_Log_GetLevelStr(8);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Exit %p %p %d", v23);
+  }
+
+  return v11;
+}
+
+uint64_t AVE_Crypto_MakeSINF(const void *a1, const void *a2, int a3, const __CFDictionary *a4)
+{
+  v45[2] = *MEMORY[0x29EDCA608];
+  v45[0] = 0;
+  v45[1] = 0;
+  if (AVE_Log_CheckLevel(0x7Bu, 8))
+  {
+    v8 = AVE_Log_CheckConsole(0x7Bu);
+    CurrTime = AVE_GetCurrTime();
+    LevelStr = AVE_Log_GetLevelStr(8);
+    if (v8)
+    {
+      printf("%lld %d AVE %s: %s Enter %p %p %d %p\n", CurrTime, 123, LevelStr, "AVE_Crypto_MakeSINF", a1, a2, a3, a4);
+      CurrTime = AVE_GetCurrTime();
+      AVE_Log_GetLevelStr(8);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Enter %p %p %d %p", CurrTime, 123);
+  }
+
+  if (a1 && a2 && a4)
+  {
+    if ((a3 - 1) >= 3)
+    {
+      if (AVE_Log_CheckLevel(0x7Bu, 4))
+      {
+        v22 = AVE_Log_CheckConsole(0x7Bu);
+        v23 = AVE_GetCurrTime();
+        v24 = AVE_Log_GetLevelStr(4);
+        if (v22)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | encode type %d not recognized.\n", v23, 123, v24, "AVE_Crypto_MakeSINF", 219, "false", a3);
+          v23 = AVE_GetCurrTime();
+          AVE_Log_GetLevelStr(4);
+        }
+
+        syslog(3, "%lld %d AVE %s: %s:%d %s | encode type %d not recognized.", v23);
+      }
+
+      v25 = 4294966281;
+    }
+
+    else
+    {
+      v11 = dword_2954FBFFC[a3 - 1];
+      VideoSecurityInfoExtension = VTEncoderSessionCreateVideoSecurityInfoExtension();
+      if (VideoSecurityInfoExtension)
+      {
+        v13 = VideoSecurityInfoExtension;
+        if (AVE_Log_CheckLevel(0x7Bu, 4))
+        {
+          v14 = AVE_Log_CheckConsole(0x7Bu);
+          v15 = AVE_GetCurrTime();
+          v16 = AVE_Log_GetLevelStr(4);
+          if (v14)
+          {
+            printf("%lld %d AVE %s: %s:%d %s | failed to create crypto SINF %p %d %p %p %p %d\n", v15, 123, v16, "AVE_Crypto_MakeSINF", 228, "res == noErr", a1, v11, v45, a2, 0, v13);
+            v17 = AVE_GetCurrTime();
+            v39 = AVE_Log_GetLevelStr(4);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | failed to create crypto SINF %p %d %p %p %p %d", v17, 123, v39, "AVE_Crypto_MakeSINF", 228, "res == noErr");
+          }
+
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s:%d %s | failed to create crypto SINF %p %d %p %p %p %d", v15, 123, v16, "AVE_Crypto_MakeSINF", 228, "res == noErr");
+          }
+        }
+
+LABEL_28:
+        v25 = 4294966296;
+        goto LABEL_32;
+      }
+
+      v26 = *MEMORY[0x29EDB92C8];
+      Value = CFDictionaryGetValue(a4, *MEMORY[0x29EDB92C8]);
+      v28 = *MEMORY[0x29EDB8ED8];
+      if (Value)
+      {
+        MutableCopy = CFDictionaryCreateMutableCopy(v28, 0, Value);
+      }
+
+      else
+      {
+        MutableCopy = CFDictionaryCreateMutable(v28, 1, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
+      }
+
+      v30 = MutableCopy;
+      if (!MutableCopy)
+      {
+        if (AVE_Log_CheckLevel(0x7Bu, 4))
+        {
+          v36 = AVE_Log_CheckConsole(0x7Bu);
+          v37 = AVE_GetCurrTime();
+          v38 = AVE_Log_GetLevelStr(4);
+          if (v36)
+          {
+            printf("%lld %d AVE %s: %s:%d %s | failed to create mutable sample extension atoms dictionary %p\n", v37, 123, v38, "AVE_Crypto_MakeSINF", 245, "pSampleExtAtomDict != __null", Value);
+            v37 = AVE_GetCurrTime();
+            v43 = Value;
+            v42 = AVE_Log_GetLevelStr(4);
+          }
+
+          else
+          {
+            v43 = Value;
+            v42 = v38;
+          }
+
+          syslog(3, "%lld %d AVE %s: %s:%d %s | failed to create mutable sample extension atoms dictionary %p", v37, 123, v42, "AVE_Crypto_MakeSINF", 245, "pSampleExtAtomDict != __null", v43, v44);
+        }
+
+        goto LABEL_28;
+      }
+
+      CFDictionarySetValue(MutableCopy, @"sinf", 0);
+      CFDictionarySetValue(a4, v26, v30);
+      CFRelease(v30);
+      v25 = 0;
+    }
+  }
+
+  else
+  {
+    if (AVE_Log_CheckLevel(0x7Bu, 4))
+    {
+      v18 = AVE_Log_CheckConsole(0x7Bu);
+      v19 = AVE_GetCurrTime();
+      v20 = AVE_Log_GetLevelStr(4);
+      if (v18)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d %p\n", v19, 123, v20, "AVE_Crypto_MakeSINF", 201, "(pSession != __null) && (piKeyID != __null) && (pDict != __null)", a1, a2, a3, a4);
+        v21 = AVE_GetCurrTime();
+        v40 = AVE_Log_GetLevelStr(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d %p", v21, 123, v40, "AVE_Crypto_MakeSINF");
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d %p", v19, 123, v20, "AVE_Crypto_MakeSINF");
+      }
+    }
+
+    v25 = 4294966295;
+  }
+
+LABEL_32:
+  if (AVE_Log_CheckLevel(0x7Bu, 8))
+  {
+    v31 = AVE_Log_CheckConsole(0x7Bu);
+    v32 = AVE_GetCurrTime();
+    v33 = AVE_Log_GetLevelStr(8);
+    if (v31)
+    {
+      printf("%lld %d AVE %s: %s Exit %p %p %d %p %d\n", v32, 123, v33, "AVE_Crypto_MakeSINF", a1, a2, a3, a4, v25);
+      v34 = AVE_GetCurrTime();
+      v41 = AVE_Log_GetLevelStr(8);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %p %d %p %d", v34, 123, v41);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Exit %p %p %d %p %d", v32, 123, v33);
+    }
+  }
+
+  return v25;
 }

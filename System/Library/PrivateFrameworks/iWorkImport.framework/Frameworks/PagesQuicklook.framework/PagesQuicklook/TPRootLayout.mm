@@ -26,42 +26,42 @@
 
 - (void)setChildren:(id)children
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v21 = 0u;
-  v22 = 0u;
+  v28 = *MEMORY[0x277D85DE8];
   v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   childrenCopy = children;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(childrenCopy, v5, v6, v7, v8, v9, &v21, v25, 16);
-  if (v10)
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(childrenCopy, v5, v7, v8, v9, v10, &v23, v27, 16, v6);
+  if (v11)
   {
-    v11 = v10;
-    v12 = *v22;
+    v12 = v11;
+    v13 = *v24;
     while (2)
     {
-      v13 = 0;
+      v14 = 0;
       do
       {
-        if (*v22 != v12)
+        if (*v24 != v13)
         {
           objc_enumerationMutation(childrenCopy);
         }
 
         objc_opt_class();
-        v14 = TSUCheckedDynamicCast();
-        if (!v14)
+        v15 = TSUCheckedDynamicCast();
+        if (!v15)
         {
           TSULogBacktrace();
 
           goto LABEL_11;
         }
 
-        ++v13;
+        ++v14;
       }
 
-      while (v11 != v13);
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(childrenCopy, v15, v16, v17, v18, v19, &v21, v25, 16);
-      if (v11)
+      while (v12 != v14);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(childrenCopy, v16, v18, v19, v20, v21, &v23, v27, 16, v17);
+      if (v12)
       {
         continue;
       }
@@ -70,9 +70,9 @@
     }
   }
 
-  v20.receiver = self;
-  v20.super_class = TPRootLayout;
-  [(TPRootLayout *)&v20 setChildren:childrenCopy];
+  v22.receiver = self;
+  v22.super_class = TPRootLayout;
+  [(TPRootLayout *)&v22 setChildren:childrenCopy];
 LABEL_11:
 }
 

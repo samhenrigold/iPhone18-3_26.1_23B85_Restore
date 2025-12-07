@@ -35,21 +35,21 @@
 
 - (HMIPersonSourceUUIDPair)initWithUUIDPairString:(id)string
 {
-  v4 = [string componentsSeparatedByString:@"_"];
+  v4 = [string componentsSeparatedByString:?];
   if ([v4 count] == 2)
   {
     v5 = objc_alloc(MEMORY[0x277CCAD78]);
     firstObject = [v4 firstObject];
-    v7 = [v5 initWithUUIDString:firstObject];
+    v7 = [v5 initWithUUIDString:?];
 
     v8 = objc_alloc(MEMORY[0x277CCAD78]);
     lastObject = [v4 lastObject];
-    v10 = [v8 initWithUUIDString:lastObject];
+    v10 = [v8 initWithUUIDString:?];
 
     selfCopy = 0;
     if (v7 && v10)
     {
-      self = [(HMIPersonSourceUUIDPair *)self initWithPersonUUID:v7 sourceUUID:v10];
+      self = [HMIPersonSourceUUIDPair initWithPersonUUID:"initWithPersonUUID:sourceUUID:" sourceUUID:?];
       selfCopy = self;
     }
   }
@@ -64,33 +64,27 @@
 
 - (NSString)UUIDPairString
 {
-  v10[2] = *MEMORY[0x277D85DE8];
   personUUID = [(HMIPersonSourceUUIDPair *)self personUUID];
   uUIDString = [personUUID UUIDString];
-  v10[0] = uUIDString;
   sourceUUID = [(HMIPersonSourceUUIDPair *)self sourceUUID];
   uUIDString2 = [sourceUUID UUIDString];
-  v10[1] = uUIDString2;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
-  v8 = [v7 componentsJoinedByString:@"_"];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v6 = [v5 componentsJoinedByString:?];
 
-  return v8;
+  return v6;
 }
 
 - (id)attributeDescriptions
 {
-  v11[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   personUUID = [(HMIPersonSourceUUIDPair *)self personUUID];
-  v5 = [v3 initWithName:@"personUUID" value:personUUID];
-  v11[0] = v5;
-  v6 = objc_alloc(MEMORY[0x277D0F778]);
+  v9 = [v3 initWithName:? value:?];
+  v5 = objc_alloc(MEMORY[0x277D0F778]);
   sourceUUID = [(HMIPersonSourceUUIDPair *)self sourceUUID];
-  v8 = [v6 initWithName:@"sourceUUID" value:sourceUUID];
-  v11[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10 = [v5 initWithName:? value:?];
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
 
-  return v9;
+  return v7;
 }
 
 + (id)personSourceUUIDPairFromPersonLink:(id)link
@@ -100,7 +94,7 @@
   personUUID = [linkCopy personUUID];
   personManagerUUID = [linkCopy personManagerUUID];
 
-  v7 = [(HMIPersonSourceUUIDPair *)v4 initWithPersonUUID:personUUID sourceUUID:personManagerUUID];
+  v7 = [HMIPersonSourceUUIDPair initWithPersonUUID:v4 sourceUUID:"initWithPersonUUID:sourceUUID:"];
 
   return v7;
 }
@@ -124,11 +118,11 @@
   {
     personUUID = [(HMIPersonSourceUUIDPair *)self personUUID];
     personUUID2 = [v6 personUUID];
-    if ([personUUID isEqual:personUUID2])
+    if ([personUUID isEqual:?])
     {
       sourceUUID = [(HMIPersonSourceUUIDPair *)self sourceUUID];
       sourceUUID2 = [v6 sourceUUID];
-      v11 = [sourceUUID isEqual:sourceUUID2];
+      v11 = [sourceUUID isEqual:?];
     }
 
     else
@@ -157,18 +151,20 @@
 {
   coderCopy = coder;
   personUUID = [(HMIPersonSourceUUIDPair *)self personUUID];
-  [coderCopy encodeObject:personUUID forKey:@"HMIPSUP.ck.p"];
+  [coderCopy encodeObject:? forKey:?];
 
   sourceUUID = [(HMIPersonSourceUUIDPair *)self sourceUUID];
-  [coderCopy encodeObject:sourceUUID forKey:@"HMIPSUP.ck.s"];
+  [coderCopy encodeObject:? forKey:?];
 }
 
 - (HMIPersonSourceUUIDPair)initWithCoder:(id)coder
 {
   v19 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMIPSUP.ck.p"];
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMIPSUP.ck.s"];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:? forKey:?];
+  objc_opt_class();
+  v6 = [coderCopy decodeObjectOfClass:? forKey:?];
   v7 = v6;
   if (!v5)
   {
@@ -213,7 +209,7 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  selfCopy2 = [(HMIPersonSourceUUIDPair *)self initWithPersonUUID:v5 sourceUUID:v6];
+  selfCopy2 = [HMIPersonSourceUUIDPair initWithPersonUUID:"initWithPersonUUID:sourceUUID:" sourceUUID:?];
   v9 = selfCopy2;
 LABEL_10:
 

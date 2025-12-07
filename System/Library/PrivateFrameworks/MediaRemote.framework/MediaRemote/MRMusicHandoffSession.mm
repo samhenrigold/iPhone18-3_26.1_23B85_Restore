@@ -46,7 +46,7 @@
     identifierCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.MediaRemote.MRMusicHandoffSession-%@", identifierCopy];
     uTF8String = [identifierCopy UTF8String];
     v20 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v21 = MRMusicHandoffSessionGetQueue();
+    v21 = MRMusicHandoffSessionGetQueue(v20);
     v22 = dispatch_queue_create_with_target_V2(uTF8String, v20, v21);
     queue = v11->_queue;
     v11->_queue = v22;

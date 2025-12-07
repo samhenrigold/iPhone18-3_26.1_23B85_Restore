@@ -9,8 +9,9 @@
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_269027AD4(appear);
+  sub_269027AD4(appearCopy);
 }
 
 - (void)continueTapped

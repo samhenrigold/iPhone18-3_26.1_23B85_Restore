@@ -8,7 +8,6 @@
 - (uint64_t)atx_isEligibleForWidgets;
 - (uint64_t)atx_supportsBackgroundExecution;
 - (uint64_t)atx_titleLengthWithoutLocalizing;
-- (void)atx_indexingHash;
 - (void)atx_isEligibleForWidgets;
 - (void)atx_subtitleWithEfficientLocalization;
 - (void)atx_supportsBackgroundExecution;
@@ -30,9 +29,9 @@
   {
     v3 = prepareXPCConnection();
     v9 = 0;
-    v10[0] = &v9;
-    v10[1] = 0x2020000000;
-    v10[2] = 0;
+    v10 = &v9;
+    v11 = 0x2020000000;
+    v12 = 0;
     v8[0] = MEMORY[0x277D85DD0];
     v8[1] = 3221225472;
     v8[2] = __43__INIntent_HelperService__atx_indexingHash__block_invoke;
@@ -48,14 +47,13 @@
     v7[5] = &v9;
     [v4 indexingHashForIntent:self withReply:v7];
 
-    [v3 invalidate];
-    v5 = __atxlog_handle_intents_helper();
+    v5 = __atxlog_handle_intents_helper([v3 invalidate]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      [(INIntent(HelperService) *)v10 atx_indexingHash];
+      [INIntent(HelperService) atx_indexingHash];
     }
 
-    v6 = *(v10[0] + 24);
+    v6 = v10[3];
     _Block_object_dispose(&v9, 8);
 
     return v6;
@@ -73,11 +71,11 @@
   {
     v3 = prepareXPCConnection();
     v9 = 0;
-    v10[0] = &v9;
-    v10[1] = 0x3032000000;
-    v10[2] = __Block_byref_object_copy__1;
-    v10[3] = __Block_byref_object_dispose__1;
-    v11 = &stru_28397E650;
+    v10 = &v9;
+    v11 = 0x3032000000;
+    v12 = __Block_byref_object_copy__1;
+    v13 = __Block_byref_object_dispose__1;
+    v14 = &stru_28397E650;
     v8[0] = MEMORY[0x277D85DD0];
     v8[1] = 3221225472;
     v8[2] = __64__INIntent_HelperService__atx_subtitleWithEfficientLocalization__block_invoke;
@@ -93,14 +91,13 @@
     v7[5] = &v9;
     [v4 subtitleForIntent:self withReply:v7];
 
-    [v3 invalidate];
-    v5 = __atxlog_handle_intents_helper();
+    v5 = __atxlog_handle_intents_helper([v3 invalidate]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      [(INIntent(HelperService) *)v10 atx_subtitleWithEfficientLocalization];
+      [INIntent(HelperService) atx_subtitleWithEfficientLocalization];
     }
 
-    _subtitle = *(v10[0] + 40);
+    _subtitle = v10[5];
     _Block_object_dispose(&v9, 8);
   }
 
@@ -134,11 +131,11 @@
   {
     v3 = prepareXPCConnection();
     v11 = 0;
-    v12[0] = &v11;
-    v12[1] = 0x3032000000;
-    v12[2] = __Block_byref_object_copy__1;
-    v12[3] = __Block_byref_object_dispose__1;
-    v13 = &stru_28397E650;
+    v12 = &v11;
+    v13 = 0x3032000000;
+    v14 = __Block_byref_object_copy__1;
+    v15 = __Block_byref_object_dispose__1;
+    v16 = &stru_28397E650;
     v10[0] = MEMORY[0x277D85DD0];
     v10[1] = 3221225472;
     v10[2] = __53__INIntent_HelperService__atx_titleWithoutLocalizing__block_invoke;
@@ -154,14 +151,13 @@
     v9[5] = &v11;
     [v6 titleForIntentNoLocalization:self withReply:v9];
 
-    [v3 invalidate];
-    v7 = __atxlog_handle_intents_helper();
+    v7 = __atxlog_handle_intents_helper([v3 invalidate]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      [(INIntent(HelperService) *)v12 atx_titleWithoutLocalizing];
+      [INIntent(HelperService) atx_titleWithoutLocalizing];
     }
 
-    v5 = *(v12[0] + 40);
+    v5 = v12[5];
     _Block_object_dispose(&v11, 8);
   }
 
@@ -179,11 +175,11 @@
   {
     v3 = prepareXPCConnection();
     v9 = 0;
-    v10[0] = &v9;
-    v10[1] = 0x3032000000;
-    v10[2] = __Block_byref_object_copy__1;
-    v10[3] = __Block_byref_object_dispose__1;
-    v11 = &stru_28397E650;
+    v10 = &v9;
+    v11 = 0x3032000000;
+    v12 = __Block_byref_object_copy__1;
+    v13 = __Block_byref_object_dispose__1;
+    v14 = &stru_28397E650;
     v8[0] = MEMORY[0x277D85DD0];
     v8[1] = 3221225472;
     v8[2] = __61__INIntent_HelperService__atx_titleWithEfficientLocalization__block_invoke;
@@ -199,14 +195,13 @@
     v7[5] = &v9;
     [v4 titleForIntent:self withReply:v7];
 
-    [v3 invalidate];
-    v5 = __atxlog_handle_intents_helper();
+    v5 = __atxlog_handle_intents_helper([v3 invalidate]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      [(INIntent(HelperService) *)v10 atx_titleWithEfficientLocalization];
+      [INIntent(HelperService) atx_titleWithEfficientLocalization];
     }
 
-    _title = *(v10[0] + 40);
+    _title = v10[5];
     _Block_object_dispose(&v9, 8);
   }
 
@@ -243,8 +238,7 @@
     v7[5] = &v9;
     [v4 eligibleForWidgetsForIntent:self withReply:v7];
 
-    [_codableDescription invalidate];
-    v5 = __atxlog_handle_intents_helper();
+    v5 = __atxlog_handle_intents_helper([_codableDescription invalidate]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [(INIntent(HelperService) *)v10 atx_isEligibleForWidgets];
@@ -287,8 +281,7 @@
     v7[5] = &v9;
     [v4 supportsBackgroundExecutionForIntent:self withReply:v7];
 
-    [v3 invalidate];
-    v5 = __atxlog_handle_intents_helper();
+    v5 = __atxlog_handle_intents_helper([v3 invalidate]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [(INIntent(HelperService) *)v10 atx_supportsBackgroundExecution];
@@ -314,11 +307,11 @@
   {
     v8 = prepareXPCConnection();
     v25 = 0;
-    v26[0] = &v25;
-    v26[1] = 0x3032000000;
-    v26[2] = __Block_byref_object_copy__1;
-    v26[3] = __Block_byref_object_dispose__1;
-    v27 = 0;
+    v26 = &v25;
+    v27 = 0x3032000000;
+    v28 = __Block_byref_object_copy__1;
+    v29 = __Block_byref_object_dispose__1;
+    v30 = 0;
     v21[0] = MEMORY[0x277D85DD0];
     v21[1] = 3221225472;
     v21[2] = __69__INIntent_HelperService__atx_createIntentWithIntentType_intentData___block_invoke;
@@ -338,14 +331,13 @@
     v19 = v10;
     [v11 createIntentWithIntentType:v18 intentData:v19 withReply:&v14];
 
-    [v8 invalidate];
-    v12 = __atxlog_handle_intents_helper();
+    v12 = __atxlog_handle_intents_helper([v8 invalidate]);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      [INIntent(HelperService) atx_createIntentWithIntentType:v26 intentData:?];
+      +[INIntent(HelperService) atx_createIntentWithIntentType:intentData:];
     }
 
-    v7 = *(v26[0] + 40);
+    v7 = v26[5];
     _Block_object_dispose(&v25, 8);
   }
 
@@ -365,11 +357,11 @@
   {
     v8 = prepareXPCConnection();
     v13 = 0;
-    v14[0] = &v13;
-    v14[1] = 0x3032000000;
-    v14[2] = __Block_byref_object_copy__1;
-    v14[3] = __Block_byref_object_dispose__1;
-    v15 = 0;
+    v14 = &v13;
+    v15 = 0x3032000000;
+    v16 = __Block_byref_object_copy__1;
+    v17 = __Block_byref_object_dispose__1;
+    v18 = 0;
     v9 = [v8 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_1];
     v12[0] = MEMORY[0x277D85DD0];
     v12[1] = 3221225472;
@@ -378,14 +370,13 @@
     v12[4] = &v13;
     [v9 createEventIntentWithStartDate:v5 endDate:v6 withReply:v12];
 
-    [v8 invalidate];
-    v10 = __atxlog_handle_intents_helper();
+    v10 = __atxlog_handle_intents_helper([v8 invalidate]);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      [INIntent(HelperService) atx_createEventIntentWithStartDate:v14 endDate:?];
+      +[INIntent(HelperService) atx_createEventIntentWithStartDate:endDate:];
     }
 
-    v7 = *(v14[0] + 40);
+    v7 = v14[5];
     _Block_object_dispose(&v13, 8);
   }
 
@@ -394,71 +385,55 @@
 
 - (void)atx_titleWithoutLocalizing
 {
-  OUTLINED_FUNCTION_2_0(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_3_0(&dword_226368000, v1, v2, "atx_titleWithoutLocalizing returning: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_226368000, v0, v1, "atx_titleWithoutLocalizing returning: %@", v2, v3, v4, v5);
 }
 
 - (void)atx_titleWithEfficientLocalization
 {
-  OUTLINED_FUNCTION_2_0(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_3_0(&dword_226368000, v1, v2, "atx_titleWithEfficientLocalization returning: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_226368000, v0, v1, "atx_titleWithEfficientLocalization returning: %@", v2, v3, v4, v5);
 }
 
 - (void)atx_subtitleWithEfficientLocalization
 {
-  OUTLINED_FUNCTION_2_0(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_3_0(&dword_226368000, v1, v2, "atx_subtitleWithEfficientLocalization returning: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)atx_indexingHash
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(*self + 24);
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_3_0(&dword_226368000, v2, v3, "atx_indexingHash returning: %lld", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_226368000, v0, v1, "atx_subtitleWithEfficientLocalization returning: %@", v2, v3, v4, v5);
 }
 
 - (void)atx_isEligibleForWidgets
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = *(*self + 24);
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_debug_impl(&dword_226368000, a2, OS_LOG_TYPE_DEBUG, "atx_isEligibleForWidgets returning: %u", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_debug_impl(&dword_226368000, a2, OS_LOG_TYPE_DEBUG, "atx_isEligibleForWidgets returning: %u", v3, 8u);
 }
 
 - (void)atx_supportsBackgroundExecution
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = *(*self + 24);
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_debug_impl(&dword_226368000, a2, OS_LOG_TYPE_DEBUG, "atx_supportsBackgroundExecution returning: %u", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_debug_impl(&dword_226368000, a2, OS_LOG_TYPE_DEBUG, "atx_supportsBackgroundExecution returning: %u", v3, 8u);
 }
 
-+ (void)atx_createIntentWithIntentType:()HelperService intentData:.cold.1(uint64_t a1)
++ (void)atx_createIntentWithIntentType:()HelperService intentData:.cold.1()
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_3_0(&dword_226368000, v1, v2, "createdIntentWithIntentType returning: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_226368000, v0, v1, "createdIntentWithIntentType returning: %@", v2, v3, v4, v5);
 }
 
-+ (void)atx_createEventIntentWithStartDate:()HelperService endDate:.cold.1(uint64_t a1)
++ (void)atx_createEventIntentWithStartDate:()HelperService endDate:.cold.1()
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_3_0(&dword_226368000, v1, v2, "createEventIntentWithCurrentDate returning: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_226368000, v0, v1, "createEventIntentWithCurrentDate returning: %@", v2, v3, v4, v5);
 }
 
 @end

@@ -1,3 +1,106 @@
+uint64_t ot::Posix::HdlcInterface::airship_open(ot::Posix::HdlcInterface *this)
+{
+  logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
+  if (logging_obg && (syslog_is_the_mask_enabled(6) & 1) != 0)
+  {
+    if (os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
+    {
+      __os_log_helper_16_2_1_8_32(v17, "airship_open");
+      _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "%s: Creating Airship interface...\n", v17, 0xCu);
+    }
+  }
+
+  else if (!logging_obg && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    __os_log_helper_16_2_2_8_32_8_32(v16, "com.apple.wpantund.ncp", "default");
+    _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v16, 0x16u);
+  }
+
+  if (ot::Posix::HdlcInterface::airship_open_rings(thread_ctx))
+  {
+    gPciStatus = 0;
+    v5 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v5 && (syslog_is_the_mask_enabled(6) & 1) != 0)
+    {
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      {
+        __os_log_helper_16_2_2_8_32_4_0(v15, "airship_open", gPciStatus);
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "%s: airship_open_rings() successful gPciStatus=%d\n", v15, 0x12u);
+      }
+    }
+
+    else if (!v5 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      __os_log_helper_16_2_2_8_32_8_32(v14, "com.apple.wpantund.ncp", "default");
+      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v14, 0x16u);
+    }
+
+    if (pthread_create(&g_hci_thread_id, 0, ot::Posix::HdlcInterface::airship_read_thread, 0))
+    {
+      v3 = log_get_logging_obg("com.apple.threadradiod", "default");
+      if (v3 && (syslog_is_the_mask_enabled(6) & 1) != 0)
+      {
+        if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+        {
+          __os_log_helper_16_2_1_8_32(v11, "airship_open");
+          _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "%s: failed to create airship rx thread\n", v11, 0xCu);
+        }
+      }
+
+      else if (!v3 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        __os_log_helper_16_2_2_8_32_8_32(v10, "com.apple.wpantund.ncp", "default");
+        _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v10, 0x16u);
+      }
+
+      return 1;
+    }
+
+    else
+    {
+      v2 = log_get_logging_obg("com.apple.threadradiod", "default");
+      if (v2 && (syslog_is_the_mask_enabled(6) & 1) != 0)
+      {
+        if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+        {
+          __os_log_helper_16_2_1_8_32(v9, "airship_open");
+          _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "%s: created airship rx thread\n", v9, 0xCu);
+        }
+      }
+
+      else if (!v2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        __os_log_helper_16_2_2_8_32_8_32(v8, "com.apple.wpantund.ncp", "default");
+        _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v8, 0x16u);
+      }
+
+      return 0;
+    }
+  }
+
+  else
+  {
+    gPciStatus = 3;
+    v4 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v4 && (syslog_is_the_mask_enabled(6) & 1) != 0)
+    {
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      {
+        __os_log_helper_16_2_2_8_32_4_0(v13, "airship_open", gPciStatus);
+        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "%s: airship_open_rings() failed gPciStatus=%d\n", v13, 0x12u);
+      }
+    }
+
+    else if (!v4 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      __os_log_helper_16_2_2_8_32_8_32(v12, "com.apple.wpantund.ncp", "default");
+      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v12, 0x16u);
+    }
+
+    return 1;
+  }
+}
+
 uint64_t __os_log_helper_16_0_2_4_0_4_0(uint64_t result, int a2, int a3)
 {
   *result = 0;
@@ -164,15 +267,15 @@ void ot::Posix::HdlcInterface::airship_close(uint64_t a1)
     {
       if (os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
       {
-        __os_log_helper_16_2_2_8_32_4_0(v12, "airship_close", gPciStatus);
-        _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "%s, Already Closed Airship channel gPciStatus=[%d]\n", v12, 0x12u);
+        __os_log_helper_16_2_2_8_32_4_0(v10, "airship_close", gPciStatus);
+        _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "%s, Already Closed Airship channel gPciStatus=[%d]\n", v10, 0x12u);
       }
     }
 
     else if (!logging_obg && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      __os_log_helper_16_2_2_8_32_8_32(v11, "com.apple.wpantund.ncp", "default");
-      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v11, 0x16u);
+      __os_log_helper_16_2_2_8_32_8_32(v9, "com.apple.wpantund.ncp", "default");
+      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v9, 0x16u);
     }
   }
 
@@ -181,43 +284,41 @@ void ot::Posix::HdlcInterface::airship_close(uint64_t a1)
     gPciStatus = 3;
     if (*(a1 + 16))
     {
-      v4 = log_get_logging_obg("com.apple.threadradiod", "default");
-      if (v4 && (syslog_is_the_mask_enabled(6) & 1) != 0)
+      v2 = log_get_logging_obg("com.apple.threadradiod", "default");
+      if (v2 && (syslog_is_the_mask_enabled(6) & 1) != 0)
       {
-        if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
         {
-          __os_log_helper_16_2_1_8_32(v10, "airship_close");
-          _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "%s, Closing interface...\n", v10, 0xCu);
+          __os_log_helper_16_2_1_8_32(v8, "airship_close");
+          _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "%s, Closing interface...\n", v8, 0xCu);
         }
       }
 
-      else if (!v4 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      else if (!v2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        __os_log_helper_16_2_2_8_32_8_32(v9, "com.apple.wpantund.ncp", "default");
-        _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v9, 0x16u);
+        __os_log_helper_16_2_2_8_32_8_32(v7, "com.apple.wpantund.ncp", "default");
+        _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v7, 0x16u);
       }
 
-      v1 = *(a1 + 16);
       airship_ch_interface_close();
-      v2 = *(a1 + 16);
       airship_ch_interface_destroy();
       *(a1 + 16) = 0;
     }
 
-    v3 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v3 && (syslog_is_the_mask_enabled(6) & 1) != 0)
+    v1 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v1 && (syslog_is_the_mask_enabled(6) & 1) != 0)
     {
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
       {
-        __os_log_helper_16_2_2_8_32_4_0(v8, "airship_close", gPciStatus);
-        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "%s, Closed Airship channel gPciStatus=[%d]\n", v8, 0x12u);
+        __os_log_helper_16_2_2_8_32_4_0(v6, "airship_close", gPciStatus);
+        _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_INFO, "%s, Closed Airship channel gPciStatus=[%d]\n", v6, 0x12u);
       }
     }
 
-    else if (!v3 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    else if (!v1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      __os_log_helper_16_2_2_8_32_8_32(v7, "com.apple.wpantund.ncp", "default");
-      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v7, 0x16u);
+      __os_log_helper_16_2_2_8_32_8_32(v5, "com.apple.wpantund.ncp", "default");
+      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v5, 0x16u);
     }
   }
 }
@@ -245,10 +346,10 @@ void ot::Posix::HdlcInterface::skywalk_close(ot::Posix::HdlcInterface *this)
 
 uint64_t ot::Posix::HdlcInterface::ForkPty(ot::Posix::HdlcInterface *this, const ot::Url::Url *a2)
 {
-  v52 = this;
-  v51 = -1;
-  v50 = -1;
-  v49 = -1;
+  v30 = this;
+  v29 = -1;
+  v28 = -1;
+  v27 = -1;
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
   if (logging_obg && (syslog_is_the_mask_enabled(6) & 1) != 0)
   {
@@ -257,49 +358,79 @@ uint64_t ot::Posix::HdlcInterface::ForkPty(ot::Posix::HdlcInterface *this, const
     if (os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
     {
       log = oslog;
-      v42 = type;
-      __os_log_helper_16_0_0(v45);
-      _os_log_impl(&_mh_execute_header, log, v42, "Skywalk::ForkPty: \n", v45, 2u);
+      v16 = type;
+      __os_log_helper_16_0_0(v23);
+      _os_log_impl(&_mh_execute_header, log, v16, "Skywalk::ForkPty: \n", v23, 2u);
     }
   }
 
   else if (!logging_obg && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
-    __os_log_helper_16_2_2_8_32_8_32(v55, "com.apple.wpantund.ncp", "default");
-    _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v55, 0x16u);
+    __os_log_helper_16_2_2_8_32_8_32(v33, "com.apple.wpantund.ncp", "default");
+    _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v33, 0x16u);
   }
 
   memset(&__b, 0, sizeof(__b));
   cfmakeraw(&__b);
   __b.c_cflag = 51968;
-  v50 = forkpty(&v51, 0, &__b, 0);
-  if (v50 == -1)
+  v28 = forkpty(&v29, 0, &__b, 0);
+  if (v28 == -1)
   {
-    strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp", 47);
-    otExitCodeToString(5);
-    otLogCritPlat("%s() at %s:%d: %s", v2, v3, v4, v5, v6, v7, v8, "ForkPty");
+    v22 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp", 47);
+    if (v22)
+    {
+      v14 = v22 + 1;
+    }
+
+    else
+    {
+      v14 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp";
+    }
+
+    v2 = otExitCodeToString(5);
+    otLogCritPlat("%s() at %s:%d: %s", "ForkPty", v14, 936, v2);
     handle_daemon_exit();
     exit(5);
   }
 
-  if (v50)
+  if (v28)
   {
-    v49 = fcntl(v51, 3);
-    if (v49 == -1)
+    v27 = fcntl(v29, 3);
+    if (v27 == -1)
     {
-      strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp", 47);
-      otExitCodeToString(5);
-      otLogCritPlat("%s() at %s:%d: %s", v25, v26, v27, v28, v29, v30, v31, "ForkPty");
+      v18 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp", 47);
+      if (v18)
+      {
+        v11 = v18 + 1;
+      }
+
+      else
+      {
+        v11 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp";
+      }
+
+      v7 = otExitCodeToString(5);
+      otLogCritPlat("%s() at %s:%d: %s", "ForkPty", v11, 966, v7);
       handle_daemon_exit();
       exit(5);
     }
 
-    v49 = fcntl(v51, 4, v49 | 0x1000004u);
-    if (v49 == -1)
+    v27 = fcntl(v29, 4, v27 | 0x1000004u);
+    if (v27 == -1)
     {
-      strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp", 47);
-      otExitCodeToString(5);
-      otLogCritPlat("%s() at %s:%d: %s", v32, v33, v34, v35, v36, v37, v38, "ForkPty");
+      v17 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp", 47);
+      if (v17)
+      {
+        v10 = v17 + 1;
+      }
+
+      else
+      {
+        v10 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp";
+      }
+
+      v8 = otExitCodeToString(5);
+      otLogCritPlat("%s() at %s:%d: %s", "ForkPty", v10, 967, v8);
       handle_daemon_exit();
       exit(5);
     }
@@ -308,47 +439,57 @@ uint64_t ot::Posix::HdlcInterface::ForkPty(ot::Posix::HdlcInterface *this, const
   else
   {
     bzero(__file, 0x108uLL);
-    v44 = 1;
-    __file[0] = ot::Url::Url::GetPath(v52);
-    for (i = 0; ; __file[v9] = i)
+    v21 = 1;
+    __file[0] = ot::Url::Url::GetPath(v30);
+    for (i = 0; ; __file[v3] = i)
     {
-      v40 = 0;
-      if (v44 < 0x21)
+      v13 = 0;
+      if (v21 < 0x21)
       {
-        i = ot::Url::Url::GetValue(v52, "forkpty-arg", i);
-        v40 = i != 0;
+        i = ot::Url::Url::GetValue(v30, "forkpty-arg", i);
+        v13 = i != 0;
       }
 
-      if (!v40)
+      if (!v13)
       {
         break;
       }
 
-      v9 = v44++;
+      v3 = v21++;
     }
 
-    if (v44 >= 0x21)
+    if (v21 >= 0x21)
     {
-      otExitCodeToString(2);
-      otLogCritPlat("exit(%d): %s line %d, %s, %s", v10, v11, v12, v13, v14, v15, v16, 2);
+      v4 = otExitCodeToString(2);
+      otLogCritPlat("exit(%d): %s line %d, %s, %s", 2, "ForkPty", 959, "Too many arguments!", v4);
       handle_daemon_exit();
       exit(2);
     }
 
-    __file[v44] = 0;
-    v17 = execvp(__file[0], __file);
-    v49 = v17;
-    if (v17 == -1)
+    __file[v21] = 0;
+    v5 = execvp(__file[0], __file);
+    v27 = v5;
+    if (v5 == -1)
     {
-      strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp", 47);
-      otExitCodeToString(5);
-      otLogCritPlat("%s() at %s:%d: %s", v18, v19, v20, v21, v22, v23, v24, "ForkPty");
+      v19 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp", 47);
+      if (v19)
+      {
+        v12 = v19 + 1;
+      }
+
+      else
+      {
+        v12 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp";
+      }
+
+      v6 = otExitCodeToString(5);
+      otLogCritPlat("%s() at %s:%d: %s", "ForkPty", v12, 962, v6);
       handle_daemon_exit();
       exit(5);
     }
   }
 
-  return v51;
+  return v29;
 }
 
 uint64_t ot::Url::Url::GetPath(ot::Url::Url *this)
@@ -360,13 +501,30 @@ uint64_t ot::Url::Url::GetPath(ot::Url::Url *this)
   return ot::Url::Url::GetPath(this);
 }
 
+void ot::Posix::HdlcInterface::HandleHdlcFrame(uint64_t result, int a2)
+{
+  if (*(result + 8) && *(result + 24))
+  {
+    if (a2)
+    {
+      ot::Spinel::MultiFrameBuffer<(unsigned short)8192>::DiscardFrame(*(result + 24));
+      v2 = otThreadErrorToString(a2);
+      otLogWarnPlat("Error decoding hdlc frame: %s", v2);
+    }
+
+    else
+    {
+      (*(result + 8))(*(result + 16));
+    }
+  }
+}
+
 uint64_t ot::Spinel::MultiFrameBuffer<(unsigned short)8192>::DiscardFrame(uint64_t a1)
 {
   ot::Spinel::MultiFrameBuffer<(unsigned short)8192>::SetSkipLength(a1, 0);
   ot::Spinel::MultiFrameBuffer<(unsigned short)8192>::IgnoreError();
   result = ot::Spinel::MultiFrameBuffer<(unsigned short)8192>::GetFrame(a1, v1);
   *a1 = result;
-  v3 = *a1;
   *(a1 + 8) = a1 + 8202 - *a1;
   return result;
 }
@@ -445,6 +603,10 @@ uint64_t __os_log_helper_16_2_2_4_0_8_32(uint64_t result, int a2, uint64_t a3)
 
 void ot::Posix::handleChipResettingCb(ot::Posix *this)
 {
+  v1 = "com.apple.wpantund.ncp";
+  v2 = "default";
+  v3 = "handleChipResettingCb";
+  v14 = 0;
   pthread_mutex_lock(&lock);
   ot::Posix::HdlcInterface::airship_close(thread_ctx);
   ot::Posix::gErrorCallback(ot::Posix::gErrorContext, 0);
@@ -452,34 +614,48 @@ void ot::Posix::handleChipResettingCb(ot::Posix *this)
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
   if (logging_obg && (syslog_is_the_mask_enabled(6) & 1) != 0)
   {
+    v12 = logging_obg;
+    v11 = OS_LOG_TYPE_INFO;
     if (os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
     {
-      __os_log_helper_16_2_2_8_32_4_0(v6, "handleChipResettingCb", gPciStatus);
-      _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "%s: PCIe Igor gPciStatus=%d\n", v6, 0x12u);
+      __os_log_helper_16_2_2_8_32_4_0(v18, v3, gPciStatus);
+      _os_log_impl(&_mh_execute_header, v12, v11, "%s: PCIe Igor gPciStatus=%d\n", v18, 0x12u);
     }
   }
 
-  else if (!logging_obg && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  else if (!logging_obg)
   {
-    __os_log_helper_16_2_2_8_32_8_32(v5, "com.apple.wpantund.ncp", "default");
-    _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v5, 0x16u);
+    v10 = &_os_log_default;
+    v9 = OS_LOG_TYPE_ERROR;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      __os_log_helper_16_2_2_8_32_8_32(v17, v1, v2);
+      _os_log_error_impl(&_mh_execute_header, v10, v9, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v17, 0x16u);
+    }
   }
 
   pthread_mutex_unlock(&lock);
-  v1 = log_get_logging_obg("com.apple.threadradiod", "default");
-  if (v1 && (syslog_is_the_mask_enabled(3) & 1) != 0)
+  v8 = log_get_logging_obg("com.apple.threadradiod", "default");
+  if (v8 && (syslog_is_the_mask_enabled(3) & 1) != 0)
   {
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v7 = v8;
+    v6 = OS_LOG_TYPE_ERROR;
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __os_log_helper_16_2_1_8_32(v4, "handleChipResettingCb");
-      _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "%s, daemon restart and chip reset exit now", v4, 0xCu);
+      __os_log_helper_16_2_1_8_32(v16, v3);
+      _os_log_error_impl(&_mh_execute_header, v7, v6, "%s, daemon restart and chip reset exit now", v16, 0xCu);
     }
   }
 
-  else if (!v1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  else if (!v8)
   {
-    __os_log_helper_16_2_2_8_32_8_32(v3, "com.apple.wpantund.ncp", "default");
-    _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v3, 0x16u);
+    oslog = &_os_log_default;
+    v4 = OS_LOG_TYPE_ERROR;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      __os_log_helper_16_2_2_8_32_8_32(v15, v1, v2);
+      _os_log_error_impl(&_mh_execute_header, oslog, v4, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v15, 0x16u);
+    }
   }
 
   persist_host_reset_dueto_rcp(1, 0);
@@ -492,196 +668,193 @@ uint64_t ot::Posix::HdlcInterface::airship_open_rings(unsigned __int16 *a1)
   {
     if (os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
     {
-      __os_log_helper_16_2_1_8_32(v38, "airship_open_rings");
-      _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "%s: Airship Open Rings...\n", v38, 0xCu);
+      __os_log_helper_16_2_1_8_32(v35, "airship_open_rings");
+      _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "%s: Airship Open Rings...\n", v35, 0xCu);
     }
   }
 
   else if (!logging_obg && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
-    __os_log_helper_16_2_2_8_32_8_32(v37, "com.apple.wpantund.ncp", "default");
-    _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v37, 0x16u);
+    __os_log_helper_16_2_2_8_32_8_32(v34, "com.apple.wpantund.ncp", "default");
+    _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v34, 0x16u);
   }
 
   *(a1 + 2) = airship_ch_interface_create();
   if (*(a1 + 2))
   {
-    v14 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v14 && (syslog_is_the_mask_enabled(6) & 1) != 0)
+    v11 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v11 && (syslog_is_the_mask_enabled(6) & 1) != 0)
     {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        __os_log_helper_16_2_2_8_32_4_0(v34, "airship_open_rings", *(a1 + 3));
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "%s: airship_ch_interface_create() created Successfully with Interface ID:%d ...\n", v34, 0x12u);
+        __os_log_helper_16_2_2_8_32_4_0(v31, "airship_open_rings", *(a1 + 3));
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "%s: airship_ch_interface_create() created Successfully with Interface ID:%d ...\n", v31, 0x12u);
       }
     }
 
-    else if (!v14 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    else if (!v11 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      __os_log_helper_16_2_2_8_32_8_32(v33, "com.apple.wpantund.ncp", "default");
-      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v33, 0x16u);
+      __os_log_helper_16_2_2_8_32_8_32(v30, "com.apple.wpantund.ncp", "default");
+      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v30, 0x16u);
     }
 
-    v13 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v13 && (syslog_is_the_mask_enabled(6) & 1) != 0)
+    v10 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v10 && (syslog_is_the_mask_enabled(6) & 1) != 0)
     {
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        __os_log_helper_16_2_1_8_32(v32, "airship_open_rings");
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "%s: Register PCIE Listener Callback ...\n", v32, 0xCu);
+        __os_log_helper_16_2_1_8_32(v29, "airship_open_rings");
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%s: Register PCIE Listener Callback ...\n", v29, 0xCu);
       }
     }
 
-    else if (!v13 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    else if (!v10 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      __os_log_helper_16_2_2_8_32_8_32(v31, "com.apple.wpantund.ncp", "default");
-      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v31, 0x16u);
+      __os_log_helper_16_2_2_8_32_8_32(v28, "com.apple.wpantund.ncp", "default");
+      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v28, 0x16u);
     }
 
     ot::Posix::register_pcie_error_listener(a1);
-    v1 = *(a1 + 2);
-    v2 = *(a1 + 3);
-    v12 = airship_ch_interface_open();
-    if (v12)
+    v9 = airship_ch_interface_open();
+    if (v9)
     {
-      v11 = log_get_logging_obg("com.apple.threadradiod", "default");
-      if (v11 && (syslog_is_the_mask_enabled(6) & 1) != 0)
+      v8 = log_get_logging_obg("com.apple.threadradiod", "default");
+      if (v8 && (syslog_is_the_mask_enabled(6) & 1) != 0)
       {
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
-          __os_log_helper_16_0_1_4_0(v30, v12);
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "airship_ch_interface_open() for command failed - returned 0x%08x!\n", v30, 8u);
+          __os_log_helper_16_0_1_4_0(v27, v9);
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "airship_ch_interface_open() for command failed - returned 0x%08x!\n", v27, 8u);
         }
       }
 
-      else if (!v11 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      else if (!v8 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        __os_log_helper_16_2_2_8_32_8_32(v29, "com.apple.wpantund.ncp", "default");
-        _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v29, 0x16u);
+        __os_log_helper_16_2_2_8_32_8_32(v26, "com.apple.wpantund.ncp", "default");
+        _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v26, 0x16u);
       }
 
       ot::Posix::HdlcInterface::airship_close(a1);
-      v18 = 0;
+      v15 = 0;
     }
 
     else
     {
-      v10 = log_get_logging_obg("com.apple.threadradiod", "default");
-      if (v10 && (syslog_is_the_mask_enabled(6) & 1) != 0)
+      v7 = log_get_logging_obg("com.apple.threadradiod", "default");
+      if (v7 && (syslog_is_the_mask_enabled(6) & 1) != 0)
       {
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
-          __os_log_helper_16_2_1_8_32(v28, "airship_open_rings");
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%s: airship_ch_interface_open() Opened Successfully.\n", v28, 0xCu);
+          __os_log_helper_16_2_1_8_32(v25, "airship_open_rings");
+          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%s: airship_ch_interface_open() Opened Successfully.\n", v25, 0xCu);
         }
       }
 
-      else if (!v10 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      else if (!v7 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        __os_log_helper_16_2_2_8_32_8_32(v27, "com.apple.wpantund.ncp", "default");
-        _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v27, 0x16u);
+        __os_log_helper_16_2_2_8_32_8_32(v24, "com.apple.wpantund.ncp", "default");
+        _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v24, 0x16u);
       }
 
-      v9 = log_get_logging_obg("com.apple.threadradiod", "default");
-      if (v9 && (syslog_is_the_mask_enabled(6) & 1) != 0)
+      v6 = log_get_logging_obg("com.apple.threadradiod", "default");
+      if (v6 && (syslog_is_the_mask_enabled(6) & 1) != 0)
       {
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
         {
-          __os_log_helper_16_2_1_8_32(v26, "airship_open_rings");
-          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "%s: Retrieving ring sizes....\n", v26, 0xCu);
+          __os_log_helper_16_2_1_8_32(v23, "airship_open_rings");
+          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "%s: Retrieving ring sizes....\n", v23, 0xCu);
         }
       }
 
-      else if (!v9 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      else if (!v6 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        __os_log_helper_16_2_2_8_32_8_32(v25, "com.apple.wpantund.ncp", "default");
-        _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v25, 0x16u);
+        __os_log_helper_16_2_2_8_32_8_32(v22, "com.apple.wpantund.ncp", "default");
+        _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v22, 0x16u);
       }
 
-      v3 = *(a1 + 2);
       ring_sizes = airship_ch_interface_get_ring_sizes();
       if (ring_sizes)
       {
-        v7 = log_get_logging_obg("com.apple.threadradiod", "default");
-        if (v7 && (syslog_is_the_mask_enabled(6) & 1) != 0)
+        v4 = log_get_logging_obg("com.apple.threadradiod", "default");
+        if (v4 && (syslog_is_the_mask_enabled(6) & 1) != 0)
         {
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
           {
-            __os_log_helper_16_2_2_8_32_4_0(v24, "airship_open_rings", ring_sizes);
-            _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%s: airship_ch_interface_get_ring_sizes() returned 0x%08x!\n", v24, 0x12u);
+            __os_log_helper_16_2_2_8_32_4_0(v21, "airship_open_rings", ring_sizes);
+            _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "%s: airship_ch_interface_get_ring_sizes() returned 0x%08x!\n", v21, 0x12u);
           }
         }
 
-        else if (!v7 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        else if (!v4 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          __os_log_helper_16_2_2_8_32_8_32(v23, "com.apple.wpantund.ncp", "default");
-          _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v23, 0x16u);
+          __os_log_helper_16_2_2_8_32_8_32(v20, "com.apple.wpantund.ncp", "default");
+          _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v20, 0x16u);
         }
 
-        v18 = 0;
+        v15 = 0;
       }
 
       else
       {
-        v6 = log_get_logging_obg("com.apple.threadradiod", "default");
-        if (v6 && (syslog_is_the_mask_enabled(6) & 1) != 0)
+        v3 = log_get_logging_obg("com.apple.threadradiod", "default");
+        if (v3 && (syslog_is_the_mask_enabled(6) & 1) != 0)
         {
-          if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
           {
-            __os_log_helper_16_2_3_8_32_4_0_4_0(v22, "airship_open_rings", *a1, *(a1 + 1));
-            _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "%s: TX: %u * %u\n", v22, 0x18u);
+            __os_log_helper_16_2_3_8_32_4_0_4_0(v19, "airship_open_rings", *a1, *(a1 + 1));
+            _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "%s: TX: %u * %u\n", v19, 0x18u);
           }
         }
 
-        else if (!v6 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        else if (!v3 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          __os_log_helper_16_2_2_8_32_8_32(v21, "com.apple.wpantund.ncp", "default");
-          _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v21, 0x16u);
+          __os_log_helper_16_2_2_8_32_8_32(v18, "com.apple.wpantund.ncp", "default");
+          _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v18, 0x16u);
         }
 
-        v5 = log_get_logging_obg("com.apple.threadradiod", "default");
-        if (v5 && (syslog_is_the_mask_enabled(6) & 1) != 0)
+        v2 = log_get_logging_obg("com.apple.threadradiod", "default");
+        if (v2 && (syslog_is_the_mask_enabled(6) & 1) != 0)
         {
-          if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
           {
-            __os_log_helper_16_2_3_8_32_4_0_4_0(v20, "airship_open_rings", a1[1], *(a1 + 2));
-            _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "%s: RX: %u * %u\n", v20, 0x18u);
+            __os_log_helper_16_2_3_8_32_4_0_4_0(v17, "airship_open_rings", a1[1], *(a1 + 2));
+            _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "%s: RX: %u * %u\n", v17, 0x18u);
           }
         }
 
-        else if (!v5 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        else if (!v2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          __os_log_helper_16_2_2_8_32_8_32(v19, "com.apple.wpantund.ncp", "default");
-          _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v19, 0x16u);
+          __os_log_helper_16_2_2_8_32_8_32(v16, "com.apple.wpantund.ncp", "default");
+          _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v16, 0x16u);
         }
 
-        v18 = 1;
+        v15 = 1;
       }
     }
   }
 
   else
   {
-    v15 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v15 && (syslog_is_the_mask_enabled(6) & 1) != 0)
+    v12 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v12 && (syslog_is_the_mask_enabled(6) & 1) != 0)
     {
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        __os_log_helper_16_2_1_8_32(v36, "airship_open_rings");
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "%s: airship_ch_interface_create() failed!\n", v36, 0xCu);
+        __os_log_helper_16_2_1_8_32(v33, "airship_open_rings");
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "%s: airship_ch_interface_create() failed!\n", v33, 0xCu);
       }
     }
 
-    else if (!v15 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    else if (!v12 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      __os_log_helper_16_2_2_8_32_8_32(v35, "com.apple.wpantund.ncp", "default");
-      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v35, 0x16u);
+      __os_log_helper_16_2_2_8_32_8_32(v32, "com.apple.wpantund.ncp", "default");
+      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v32, 0x16u);
     }
 
-    v18 = 0;
+    v15 = 0;
   }
 
-  return v18 & 1;
+  return v15 & 1;
 }
 
 uint64_t ot::Posix::HdlcInterface::airship_read_thread(ot::Posix::HdlcInterface *this, void *a2)
@@ -704,7 +877,7 @@ uint64_t ot::Posix::HdlcInterface::airship_read_thread(ot::Posix::HdlcInterface 
 
   while (!gPciStatus)
   {
-    bzero(&recv_pkt_loop, 0x4B0uLL);
+    bzero(recv_pkt_loop, 0x4B0uLL);
     recv_pkt_len_loop_airship = 1200;
     buf_index = buf_index % 10;
     if (airship_ch_interface_read())
@@ -747,9 +920,7 @@ void ot::Posix::register_pcie_error_listener(uint64_t a1)
 
   if (eventQueue)
   {
-    v1 = *(a1 + 16);
     airship_ch_interface_set_queue();
-    v2 = *(a1 + 16);
     airship_ch_interface_set_stop_handler();
   }
 
@@ -760,15 +931,15 @@ void ot::Posix::register_pcie_error_listener(uint64_t a1)
     {
       if (os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
       {
-        __os_log_helper_16_2_1_8_32(v6, "register_pcie_error_listener");
-        _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "%s: Event Queue creation failed!\n", v6, 0xCu);
+        __os_log_helper_16_2_1_8_32(v3, "register_pcie_error_listener");
+        _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "%s: Event Queue creation failed!\n", v3, 0xCu);
       }
     }
 
     else if (!logging_obg && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      __os_log_helper_16_2_2_8_32_8_32(v5, "com.apple.wpantund.ncp", "default");
-      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v5, 0x16u);
+      __os_log_helper_16_2_2_8_32_8_32(v2, "com.apple.wpantund.ncp", "default");
+      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v2, 0x16u);
     }
   }
 }
@@ -793,22 +964,21 @@ uint64_t ot::Posix::HdlcInterface::airship_read(ot::Posix::HdlcInterface *this, 
 {
   bzero(this, 0x4B0uLL);
   *a2 = 1200;
-  v3 = *a2;
   airship_ch_interface_read();
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
   if (logging_obg && (syslog_is_the_mask_enabled(6) & 1) != 0)
   {
     if (os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
     {
-      __os_log_helper_16_2_2_8_32_4_0(v8, "airship_read", -1);
-      _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "%s, read failure. return =%d\n", v8, 0x12u);
+      __os_log_helper_16_2_2_8_32_4_0(v7, "airship_read", -1);
+      _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "%s, read failure. return =%d\n", v7, 0x12u);
     }
   }
 
   else if (!logging_obg && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
-    __os_log_helper_16_2_2_8_32_8_32(v7, "com.apple.wpantund.ncp", "default");
-    _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v7, 0x16u);
+    __os_log_helper_16_2_2_8_32_8_32(v6, "com.apple.wpantund.ncp", "default");
+    _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v6, 0x16u);
   }
 
   return printf("%s: read failure. return: 0x%08x\n", "airship_read", -1);
@@ -916,94 +1086,93 @@ uint64_t ot::Posix::HdlcInterface::get_uuid(ot::Posix::HdlcInterface *this, char
 
 void ot::Posix::HdlcInterface::close_channel(ot::Posix::HdlcInterface *this)
 {
-  v24 = &ot::Posix::g_zgb_channel_data;
+  v23 = &ot::Posix::g_zgb_channel_data;
   if (unk_10052D8F0 != -1)
   {
-    close(v24[2]);
+    close(*(v23 + 2));
     logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
     if (logging_obg && (syslog_is_the_mask_enabled(6) & 1) != 0)
     {
-      v22 = logging_obg;
-      v21 = 1;
+      v21 = logging_obg;
+      v20 = 1;
       if (os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
       {
-        log = v22;
-        type = v21;
-        __os_log_helper_16_0_0(v20);
-        _os_log_impl(&_mh_execute_header, log, type, " closed sw_kq_write\n", v20, 2u);
+        log = v21;
+        type = v20;
+        __os_log_helper_16_0_0(v19);
+        _os_log_impl(&_mh_execute_header, log, type, " closed sw_kq_write\n", v19, 2u);
       }
     }
 
     else if (!logging_obg)
     {
-      v19 = &_os_log_default;
-      v18 = OS_LOG_TYPE_ERROR;
-      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-      {
-        __os_log_helper_16_2_2_8_32_8_32(v27, "com.apple.wpantund.ncp", "default");
-        _os_log_error_impl(&_mh_execute_header, v19, v18, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v27, 0x16u);
-      }
-    }
-
-    v24[2] = -1;
-  }
-
-  if (v24[3] != -1)
-  {
-    close(v24[3]);
-    v17 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v17 && (syslog_is_the_mask_enabled(6) & 1) != 0)
-    {
-      v16 = v17;
-      v15 = 1;
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
-      {
-        v4 = v16;
-        v5 = v15;
-        __os_log_helper_16_0_0(v14);
-        _os_log_impl(&_mh_execute_header, v4, v5, " closed sw_kq_read\n", v14, 2u);
-      }
-    }
-
-    else if (!v17)
-    {
-      v13 = &_os_log_default;
-      v12 = OS_LOG_TYPE_ERROR;
+      v18 = &_os_log_default;
+      v17 = OS_LOG_TYPE_ERROR;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         __os_log_helper_16_2_2_8_32_8_32(v26, "com.apple.wpantund.ncp", "default");
-        _os_log_error_impl(&_mh_execute_header, v13, v12, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v26, 0x16u);
+        _os_log_error_impl(&_mh_execute_header, v18, v17, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v26, 0x16u);
       }
     }
 
-    v24[3] = -1;
+    *(v23 + 2) = -1;
   }
 
-  if (*v24)
+  if (*(v23 + 3) != -1)
   {
-    v1 = *v24;
-    os_channel_destroy();
-    v11 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v11 && (syslog_is_the_mask_enabled(6) & 1) != 0)
+    close(*(v23 + 3));
+    v16 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v16 && (syslog_is_the_mask_enabled(6) & 1) != 0)
     {
-      oslog = v11;
-      v9 = OS_LOG_TYPE_INFO;
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v15 = v16;
+      v14 = 1;
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        v2 = oslog;
-        v3 = v9;
-        __os_log_helper_16_0_0(v8);
-        _os_log_impl(&_mh_execute_header, v2, v3, " closed sk_channel\n", v8, 2u);
+        v3 = v15;
+        v4 = v14;
+        __os_log_helper_16_0_0(v13);
+        _os_log_impl(&_mh_execute_header, v3, v4, " closed sw_kq_read\n", v13, 2u);
       }
     }
 
-    else if (!v11 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    else if (!v16)
     {
-      __os_log_helper_16_2_2_8_32_8_32(v25, "com.apple.wpantund.ncp", "default");
-      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v25, 0x16u);
+      v12 = &_os_log_default;
+      v11 = OS_LOG_TYPE_ERROR;
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        __os_log_helper_16_2_2_8_32_8_32(v25, "com.apple.wpantund.ncp", "default");
+        _os_log_error_impl(&_mh_execute_header, v12, v11, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v25, 0x16u);
+      }
     }
 
-    *v24 = 0;
+    *(v23 + 3) = -1;
+  }
+
+  if (*v23)
+  {
+    os_channel_destroy();
+    v10 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v10 && (syslog_is_the_mask_enabled(6) & 1) != 0)
+    {
+      oslog = v10;
+      v8 = OS_LOG_TYPE_INFO;
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      {
+        v1 = oslog;
+        v2 = v8;
+        __os_log_helper_16_0_0(v7);
+        _os_log_impl(&_mh_execute_header, v1, v2, " closed sk_channel\n", v7, 2u);
+      }
+    }
+
+    else if (!v10 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      __os_log_helper_16_2_2_8_32_8_32(v24, "com.apple.wpantund.ncp", "default");
+      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v24, 0x16u);
+    }
+
+    *v23 = 0;
   }
 }
 
@@ -1205,7 +1374,7 @@ LABEL_91:
     goto LABEL_91;
   }
 
-  v88[2] = v84;
+  *(v88 + 2) = v84;
   p_changelist = &changelist;
   changelist.ident = os_channel_get_fd();
   changelist.filter = -2;
@@ -1272,7 +1441,7 @@ LABEL_91:
     goto LABEL_91;
   }
 
-  v88[3] = v83;
+  *(v88 + 3) = v83;
   v37 = &changelist;
   changelist.ident = os_channel_get_fd();
   changelist.filter = -1;
@@ -1537,10 +1706,10 @@ uint64_t ot::Posix::HdlcInterface::read_channel(ot::Posix::HdlcInterface *this, 
   v41 = this;
   v40 = a2;
   v39 = &ot::Posix::g_zgb_channel_data;
-  if (ot::Posix::g_zgb_channel_data && v39[3] != -1)
+  if (ot::Posix::g_zgb_channel_data && *(v39 + 3) != -1)
   {
     v32 = *v39;
-    v31 = v39[3];
+    v31 = *(v39 + 3);
     v30 = 0;
     v29 = os_channel_ring_id();
     v28 = os_channel_rx_ring();
@@ -2028,74 +2197,141 @@ void ot::Posix::driverMetricsCb(int a1, uint64_t a2)
 
 uint64_t ot::Posix::chipResettingCb(ot::Posix *this, const char *a2, BOOL *a3)
 {
+  v40 = &v53;
+  v36 = "com.apple.wpantund.ncp";
+  v37 = "default";
+  v38 = "chipResettingCb";
+  v57 = this;
+  v56 = a2;
+  v39 = 0;
+  v55 = 0;
   v3 = pthread_mutex_lock(&lock);
   ot::Posix::HdlcInterface::skywalk_close(v3);
   ot::Posix::gErrorCallback(ot::Posix::gErrorContext, 0);
   gPciStatus = 2;
-  if ((*a2 & 1) == 0)
+  if ((*v56 & 1) == 0)
   {
     logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (logging_obg && (syslog_is_the_mask_enabled(6) & 1) != 0)
+    v5 = v40;
+    *(v40 + 3) = logging_obg;
+    if (*(v5 + 3) && (syslog_is_the_mask_enabled(6) & 1) != 0)
     {
-      if (os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
+      v6 = v40;
+      *(v40 + 2) = *(v40 + 3);
+      type = OS_LOG_TYPE_INFO;
+      if (os_log_type_enabled(v6[2], OS_LOG_TYPE_INFO))
       {
-        __os_log_helper_16_2_4_8_32_8_32_4_0_4_0(v23, "chipResettingCb", this, gPciStatus, *a2 & 1);
-        _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "%s: PCIe Igor chipResettingCb Update Firmware reset counters reason=[%s], gPciStatus=[%d] fatal=[%d]\n", v23, 0x22u);
+        log = *(v40 + 2);
+        *v34 = type;
+        v7 = *(v40 + 6);
+        v8 = **(v40 + 5) & 1;
+        buf = v63;
+        __os_log_helper_16_2_4_8_32_8_32_4_0_4_0(v63, v38, v7, gPciStatus, v8);
+        _os_log_impl(&_mh_execute_header, log, v34[0], "%s: PCIe Igor chipResettingCb Update Firmware reset counters reason=[%s], gPciStatus=[%d] fatal=[%d]\n", v63, 0x22u);
       }
     }
 
-    else if (!logging_obg && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    else if (!*(v40 + 3))
     {
-      __os_log_helper_16_2_2_8_32_8_32(v22, "com.apple.wpantund.ncp", "default");
-      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v22, 0x16u);
+      v9 = v40;
+      *v40 = &_os_log_default;
+      v52 = OS_LOG_TYPE_ERROR;
+      if (os_log_type_enabled(*v9, OS_LOG_TYPE_ERROR))
+      {
+        v30 = *v40;
+        *v31 = v52;
+        v32 = v62;
+        __os_log_helper_16_2_2_8_32_8_32(v62, v36, v37);
+        _os_log_error_impl(&_mh_execute_header, v30, v52, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v62, 0x16u);
+      }
     }
 
-    persist_host_reset_dueto_rcp(1, this);
+    persist_host_reset_dueto_rcp(1, *(v40 + 6));
   }
 
-  v14 = log_get_logging_obg("com.apple.threadradiod", "default");
-  if (v14 && (syslog_is_the_mask_enabled(6) & 1) != 0)
+  v51 = log_get_logging_obg("com.apple.threadradiod", "default");
+  if (v51 && (syslog_is_the_mask_enabled(6) & 1) != 0)
   {
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    oslog = v51;
+    v49 = OS_LOG_TYPE_INFO;
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
     {
-      __os_log_helper_16_2_4_8_32_8_32_4_0_4_0(v21, "chipResettingCb", this, gPciStatus, *a2 & 1);
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "%s: PCIe Igor chipResettingCb reason=[%s], gPciStatus=[%d] fatal=[%d]\n", v21, 0x22u);
+      v27 = oslog;
+      *v28 = v49;
+      v10 = *(v40 + 6);
+      v11 = **(v40 + 5) & 1;
+      v29 = v61;
+      __os_log_helper_16_2_4_8_32_8_32_4_0_4_0(v61, v38, v10, gPciStatus, v11);
+      _os_log_impl(&_mh_execute_header, oslog, v49, "%s: PCIe Igor chipResettingCb reason=[%s], gPciStatus=[%d] fatal=[%d]\n", v61, 0x22u);
     }
   }
 
-  else if (!v14 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  else if (!v51)
   {
-    __os_log_helper_16_2_2_8_32_8_32(v20, "com.apple.wpantund.ncp", "default");
-    _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v20, 0x16u);
+    v48 = &_os_log_default;
+    v47 = OS_LOG_TYPE_ERROR;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      v24 = v48;
+      *v25 = v47;
+      v26 = v60;
+      __os_log_helper_16_2_2_8_32_8_32(v60, v36, v37);
+      _os_log_error_impl(&_mh_execute_header, v48, v47, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v60, 0x16u);
+    }
   }
 
-  v4 = pthread_mutex_unlock(&lock);
-  result = ot::Posix::HdlcInterface::isPCIeSkywalk(v4);
+  v12 = pthread_mutex_unlock(&lock);
+  result = ot::Posix::HdlcInterface::isPCIeSkywalk(v12);
   if (result)
   {
-    v13 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v13 && (syslog_is_the_mask_enabled(3) & 1) != 0)
+    v46 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v46 && (syslog_is_the_mask_enabled(3) & 1) != 0)
     {
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v45 = v46;
+      v44 = OS_LOG_TYPE_ERROR;
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
-        __os_log_helper_16_2_1_8_32(v19, "chipResettingCb");
-        _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%s: DieNow daemon restart triggered due to chip reset", v19, 0xCu);
+        v21 = v45;
+        *v22 = v44;
+        v23 = v59;
+        __os_log_helper_16_2_1_8_32(v59, v38);
+        _os_log_error_impl(&_mh_execute_header, v45, v44, "%s: DieNow daemon restart triggered due to chip reset", v59, 0xCu);
       }
     }
 
-    else if (!v13 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    else if (!v46)
     {
-      __os_log_helper_16_2_2_8_32_8_32(v18, "com.apple.wpantund.ncp", "default");
-      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v18, 0x16u);
+      v43 = &_os_log_default;
+      v42 = OS_LOG_TYPE_ERROR;
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        v18 = v43;
+        *v19 = v42;
+        v20 = v58;
+        __os_log_helper_16_2_2_8_32_8_32(v58, v36, v37);
+        _os_log_error_impl(&_mh_execute_header, v43, v42, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v58, 0x16u);
+      }
     }
 
     gSystemDieNow = 1;
     usleep(0xC350u);
-    strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp", 47);
-    otExitCodeToString(4);
-    otLogCritPlat("%s() at %s:%d: %s", v6, v7, v8, v9, v10, v11, v12, "chipResettingCb");
+    v41 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp", 47);
+    if (v41)
+    {
+      v17 = v41 + 1;
+    }
+
+    else
+    {
+      v17 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/posix/platform/hdlc_skywalk_interface.cpp";
+    }
+
+    v15 = v17;
+    v16 = 4;
+    v14 = otExitCodeToString(4);
+    otLogCritPlat("%s() at %s:%d: %s", "chipResettingCb", v17, 1777, v14);
     handle_daemon_exit();
-    exit(4);
+    exit(v16);
   }
 
   return result;
@@ -2680,18 +2916,17 @@ void ot::Spinel::MultiFrameBuffer<(unsigned short)8192>::IgnoreError()
 
 uint64_t ot::Spinel::MultiFrameBuffer<(unsigned short)8192>::SetSkipLength(uint64_t a1, unsigned __int16 a2)
 {
-  v8 = 3;
-  v7 = *(a1 + 8208);
-  if (v7 + 4 + a2 <= ot::Spinel::MultiFrameBuffer<(unsigned short)8192>::GetArrayEnd<unsigned char,(unsigned short)8192>(a1, a1 + 10))
+  v7 = 3;
+  v6 = *(a1 + 8208);
+  if (v6 + 4 + a2 <= ot::Spinel::MultiFrameBuffer<(unsigned short)8192>::GetArrayEnd<unsigned char,(unsigned short)8192>(a1, a1 + 10))
   {
     ot::Lib::Utils::LittleEndian::WriteUint16(a2, (*(a1 + 8208) + 2), v2);
     *a1 = ot::Spinel::MultiFrameBuffer<(unsigned short)8192>::GetFrame(a1, v3);
-    v4 = *a1;
     *(a1 + 8) = a1 + 8202 - *a1;
     return 0;
   }
 
-  return v8;
+  return v7;
 }
 
 {
@@ -3002,11 +3237,6 @@ uint64_t ot::Posix::BackboneIPv6Interface::check_valid_read(ot::Posix::BackboneI
             inet_ntop(30, v11 + 24, v22, 0x2Eu);
             std::string::basic_string[abi:dn200100]<0>(&v9, v22);
             v8 = v11 + 24;
-            if (v11 != -24)
-            {
-              *v8;
-            }
-
             ot::Ip6::Address::SetBytes(&v7, (v11 + 24));
             if (ot::Ip6::Address::IsMulticastLargerThanRealmLocal(&v7))
             {
@@ -3066,7 +3296,7 @@ uint64_t ot::Posix::BackboneIPv6Interface::check_valid_read(ot::Posix::BackboneI
   return v19 & 1;
 }
 
-ot::Spinel::SpinelInterface *std::string::basic_string[abi:dn200100]<0>(ot::Spinel::SpinelInterface *a1, const char *a2)
+std::string *std::string::basic_string[abi:dn200100]<0>(std::string *a1, const std::string::value_type *a2)
 {
   std::string::basic_string[abi:dn200100]<0>(a1, a2);
   return a1;
@@ -4734,7 +4964,7 @@ uint64_t ot::Posix::BackboneIPv6Interface::updateBackboneInterfaceInfo(ot::Posix
   if (v24)
   {
     std::string::basic_string[abi:dn200100]<0>(&v15, v24);
-    std::string::operator=[abi:dn200100](this + 1, &v15);
+    std::string::operator=[abi:dn200100]((this + 8), &v15);
     std::string::~string(&v15);
     if (!ot::Posix::BackboneIPv6Interface::update_backbone_ethernet_address(this))
     {
@@ -4819,7 +5049,7 @@ uint64_t ot::Posix::BackboneIPv6Interface::subscribeMulticastAddress(ot::Posix::
 {
   v19 = this;
   v18 = a2;
-  in6_addr_to_string(a2, &v17);
+  in6_addr_to_string(&v17, a2);
   v11 = *(this + 18);
   std::string::c_str[abi:dn200100](this + 1);
   v10 = v2;
@@ -5025,7 +5255,7 @@ uint64_t ot::Posix::BackboneIPv6Interface::unSubscribeMulticastAddress(ot::Posix
 {
   v19 = this;
   v18 = a2;
-  in6_addr_to_string(a2, &v17);
+  in6_addr_to_string(&v17, a2);
   v11 = *(this + 18);
   std::string::c_str[abi:dn200100](this + 1);
   v10 = v2;
@@ -5469,30 +5699,30 @@ uint64_t std::string::__get_long_pointer[abi:dn200100](uint64_t *a1)
   return *a1;
 }
 
-void std::string::__move_assign[abi:dn200100](uint64_t *a1, ot::Spinel::SpinelInterface *a2)
+void std::string::__move_assign[abi:dn200100](ot::Spinel::SpinelInterface *a1, ot::Spinel::SpinelInterface *a2)
 {
-  v9 = a1;
-  v8 = a2;
+  v10 = a1;
+  v9 = a2;
   std::string::__annotate_delete[abi:dn200100]();
   if (std::string::__is_long[abi:dn200100](a1))
   {
-    v4 = std::string::__get_long_pointer[abi:dn200100](a1);
-    std::string::__get_long_cap[abi:dn200100](a1);
-    std::allocator_traits<std::allocator<char>>::deallocate[abi:dn200100](a1, v4);
+    v5 = std::string::__get_long_pointer[abi:dn200100](a1);
+    v2 = std::string::__get_long_cap[abi:dn200100](a1);
+    std::allocator_traits<std::allocator<char>>::deallocate[abi:dn200100](a1, v5, v2);
   }
 
-  v7 = std::string::size[abi:dn200100](v8);
-  v6[1] = !std::string::__is_long[abi:dn200100](v8);
-  std::string::__move_assign_alloc[abi:dn200100]();
-  v2 = v8;
-  *a1 = *v8;
-  a1[2] = *(v2 + 2);
-  std::string::__set_short_size[abi:dn200100](v8, 0);
-  std::string::__get_short_pointer[abi:dn200100](v8);
-  v6[0] = 0;
-  std::char_traits<char>::assign[abi:dn200100](v3, v6);
+  v8 = std::string::size[abi:dn200100](v9);
+  v7[1] = !std::string::__is_long[abi:dn200100](v9);
+  std::string::__move_assign_alloc[abi:dn200100](a1, v9);
+  v3 = v9;
+  *a1 = *v9;
+  *(a1 + 2) = *(v3 + 2);
+  std::string::__set_short_size[abi:dn200100](v9, 0);
+  std::string::__get_short_pointer[abi:dn200100](v9);
+  v7[0] = 0;
+  std::char_traits<char>::assign[abi:dn200100](v4, v7);
   std::string::__annotate_shrink[abi:dn200100]();
-  if (!std::string::__is_long[abi:dn200100](a1) && v8 != a1)
+  if (!std::string::__is_long[abi:dn200100](a1) && v9 != a1)
   {
     std::string::__get_short_size[abi:dn200100](a1);
     std::string::__annotate_shrink[abi:dn200100]();
@@ -5507,15 +5737,6 @@ uint64_t std::string::__get_long_cap[abi:dn200100](uint64_t a1)
   }
 
   return *(a1 + 16) & 0x7FFFFFFFFFFFFFFFLL;
-}
-
-void std::string::__move_assign_alloc[abi:dn200100]()
-{
-  std::string::__move_assign_alloc[abi:dn200100]();
-}
-
-{
-  ;
 }
 
 void std::string::__set_short_size[abi:dn200100](uint64_t a1, unint64_t a2)
@@ -5603,91 +5824,110 @@ ot::Spinel::RadioSpinel *ot::Spinel::RadioSpinel::RadioSpinel(ot::Spinel::RadioS
 
 uint64_t ot::Spinel::RadioSpinel::Init(const char **this, char a2, char a3, ot::Spinel::SpinelDriver *a4, unsigned __int16 a5, char a6)
 {
-  v54 = this;
-  v53 = a2;
-  v52 = a3;
-  v51 = a4;
-  v50 = a5;
-  v49 = a6;
+  v34 = this;
+  v33 = a2;
+  v32 = a3;
+  v31 = a4;
+  v30 = a5;
+  v29 = a6;
   ot::Spinel::Logger::LogInfo1(this, "%s: Init", "Init");
-  v48 = 0;
-  v47 = 0;
-  v46 = 0;
-  *(this + 948) = *(this + 948) & 0xF7 | (8 * (v52 & 1));
-  *(this + 1760) = v49 & 1;
-  this[221] = v51;
+  v28 = 0;
+  v27 = 0;
+  v26 = 0;
+  *(this + 948) = *(this + 948) & 0xF7 | (8 * (v32 & 1));
+  *(this + 1760) = v29 & 1;
+  this[221] = v31;
   ot::Spinel::SpinelDriver::SetFrameHandler(this[221], ot::Spinel::RadioSpinel::HandleReceivedFrame, ot::Spinel::RadioSpinel::HandleSavedFrame, this);
-  result = ot::Spinel::RadioSpinel::Get(this, 8, "E");
-  v48 = result;
+  result = ot::Spinel::RadioSpinel::Get(this, 8u, "E", &ot::Spinel::RadioSpinel::sIeeeEui64);
+  v28 = result;
   if (!result)
   {
-    ot::Spinel::RadioSpinel::InitializeCaps(this, &v47, &v46);
-    if ((ot::Spinel::RadioSpinel::sSupportsLogCrashDump & 1) == 0 || (otLogDebgPlat("RCP supports crash dump logging. Requesting crash dump.", v7, v8, v9, v10, v11, v12, v13, &ot::Spinel::RadioSpinel::sIeeeEui64), result = ot::Spinel::RadioSpinel::Set(this, 178, 0), (v48 = result) == 0))
+    ot::Spinel::RadioSpinel::InitializeCaps(this, &v27, &v26);
+    if ((ot::Spinel::RadioSpinel::sSupportsLogCrashDump & 1) == 0 || (otLogDebgPlat("RCP supports crash dump logging. Requesting crash dump."), result = ot::Spinel::RadioSpinel::Set(this, 0xB2u, 0), (v28 = result) == 0))
     {
-      if ((v53 & 1) == 0)
+      if ((v33 & 1) == 0)
       {
-        v45 = ot::Spinel::RadioSpinel::CheckRcpApiVersion(this, v47, v46);
-        if (v45)
+        v25 = ot::Spinel::RadioSpinel::CheckRcpApiVersion(this, v27, v26);
+        if (v25)
         {
-          strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-          if (v45 == 7)
+          v24 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+          if (v24)
           {
-            v14 = 2;
+            v18 = v24 + 1;
           }
 
           else
           {
-            v14 = 1;
+            v18 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
           }
 
-          otExitCodeToString(v14);
-          otLogCritPlat("%s() at %s:%d: %s", v15, v16, v17, v18, v19, v20, v21, "Init");
+          if (v25 == 7)
+          {
+            v7 = 2;
+          }
+
+          else
+          {
+            v7 = 1;
+          }
+
+          v8 = otExitCodeToString(v7);
+          otLogCritPlat("%s() at %s:%d: %s", "Init", v18, 204, v8);
           handle_daemon_exit();
-          if (v45 == 7)
+          if (v25 == 7)
           {
-            v22 = 2;
+            v9 = 2;
           }
 
           else
           {
-            v22 = 1;
+            v9 = 1;
           }
 
-          exit(v22);
+          exit(v9);
         }
 
-        v44 = ot::Spinel::RadioSpinel::CheckRadioCapabilities(this, v50);
-        if (v44)
+        v23 = ot::Spinel::RadioSpinel::CheckRadioCapabilities(this, v30);
+        if (v23)
         {
-          strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-          if (v44 == 7)
+          v22 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+          if (v22)
           {
-            v23 = 2;
+            v17 = v22 + 1;
           }
 
           else
           {
-            v23 = 1;
+            v17 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
           }
 
-          otExitCodeToString(v23);
-          otLogCritPlat("%s() at %s:%d: %s", v24, v25, v26, v27, v28, v29, v30, "Init");
+          if (v23 == 7)
+          {
+            v10 = 2;
+          }
+
+          else
+          {
+            v10 = 1;
+          }
+
+          v11 = otExitCodeToString(v10);
+          otLogCritPlat("%s() at %s:%d: %s", "Init", v17, 205, v11);
           handle_daemon_exit();
-          if (v44 == 7)
+          if (v23 == 7)
           {
-            v31 = 2;
+            v12 = 2;
           }
 
           else
           {
-            v31 = 1;
+            v12 = 1;
           }
 
-          exit(v31);
+          exit(v12);
         }
       }
 
-      v32 = this[28];
       result = otPlatRadioRcp2GetSpinelVersion();
       this[90] = this + 338;
       this[98] = this + 465;
@@ -5695,40 +5935,50 @@ uint64_t ot::Spinel::RadioSpinel::Init(const char **this, char a2, char a3, ot::
     }
   }
 
-  v43 = v48;
-  if (v48)
+  v21 = v28;
+  if (v28)
   {
-    strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-    if (v43 == 7)
+    v20 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+    if (v20)
     {
-      v33 = 2;
+      v16 = v20 + 1;
     }
 
     else
     {
-      v33 = 1;
+      v16 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
     }
 
-    otExitCodeToString(v33);
-    otLogCritPlat("%s() at %s:%d: %s", v34, v35, v36, v37, v38, v39, v40, "Init");
+    if (v21 == 7)
+    {
+      v13 = 2;
+    }
+
+    else
+    {
+      v13 = 1;
+    }
+
+    v14 = otExitCodeToString(v13);
+    otLogCritPlat("%s() at %s:%d: %s", "Init", v16, 217, v14);
     handle_daemon_exit();
-    if (v43 == 7)
+    if (v21 == 7)
     {
-      v41 = 2;
+      v15 = 2;
     }
 
     else
     {
-      v41 = 1;
+      v15 = 1;
     }
 
-    exit(v41);
+    exit(v15);
   }
 
   return result;
 }
 
-uint64_t ot::Spinel::RadioSpinel::Get(ot::Spinel::RadioSpinel *this, int a2, const char *a3, ...)
+uint64_t ot::Spinel::RadioSpinel::Get(ot::Spinel::RadioSpinel *this, unsigned int a2, const char *a3, ...)
 {
   va_start(va, a3);
   if (pciNotOpen())
@@ -5747,7 +5997,7 @@ uint64_t ot::Spinel::RadioSpinel::Get(ot::Spinel::RadioSpinel *this, int a2, con
     {
       ot::Spinel::RadioSpinel::RecoverFromRcpFailure(this);
       *(this + 40) = va;
-      v5 = ot::Spinel::RadioSpinel::RequestWithPropertyFormatV(this, a3, 2, a2, 0, *(this + 40));
+      v5 = ot::Spinel::RadioSpinel::RequestWithPropertyFormatV(this, a3, 2u, a2, 0, *(this + 40));
     }
 
     while ((*(this + 952) & 7) != 0);
@@ -5755,45 +6005,77 @@ uint64_t ot::Spinel::RadioSpinel::Get(ot::Spinel::RadioSpinel *this, int a2, con
   }
 }
 
-BOOL ot::Spinel::RadioSpinel::InitializeCaps(ot::Spinel::RadioSpinel *this, BOOL *a2, BOOL *a3)
+BOOL ot::Spinel::RadioSpinel::InitializeCaps(const char **this, BOOL *a2, BOOL *a3)
 {
+  v28 = this;
+  v27 = a2;
+  v26 = a3;
+  v23 = this;
   SpinelDriver = ot::Spinel::RadioSpinel::GetSpinelDriver(this);
   if (!ot::Spinel::SpinelDriver::CoprocessorHasCap(SpinelDriver, 34))
   {
-    otLogCritPlat("The co-processor isn't a RCP!", v4, v5, v6, v7, v8, v9, v10, v32);
-    strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-    otExitCodeToString(3);
-    otLogCritPlat("%s() at %s:%d: %s", v11, v12, v13, v14, v15, v16, v17, "InitializeCaps");
+    otLogCritPlat("The co-processor isn't a RCP!");
+    v25 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+    if (v25)
+    {
+      v22 = v25 + 1;
+    }
+
+    else
+    {
+      v22 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+    }
+
+    v20 = v22;
+    v21 = 3;
+    v4 = otExitCodeToString(3);
+    otLogCritPlat("%s() at %s:%d: %s", "InitializeCaps", v22, 262, v4);
     handle_daemon_exit();
-    exit(3);
+    exit(v21);
   }
 
-  v18 = ot::Spinel::RadioSpinel::GetSpinelDriver(this);
-  if (!ot::Spinel::SpinelDriver::CoprocessorHasCap(v18, 513))
+  v5 = ot::Spinel::RadioSpinel::GetSpinelDriver(v23);
+  if (!ot::Spinel::SpinelDriver::CoprocessorHasCap(v5, 513))
   {
-    ot::Spinel::Logger::LogCrit1(this, "RCP capability list does not include support for radio/raw mode");
-    strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-    otExitCodeToString(3);
-    otLogCritPlat("%s() at %s:%d: %s", v19, v20, v21, v22, v23, v24, v25, "InitializeCaps");
+    ot::Spinel::Logger::LogCrit1(v23, "RCP capability list does not include support for radio/raw mode");
+    v24 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+    if (v24)
+    {
+      v19 = v24 + 1;
+    }
+
+    else
+    {
+      v19 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+    }
+
+    v17 = v19;
+    v18 = 3;
+    v6 = otExitCodeToString(3);
+    otLogCritPlat("%s() at %s:%d: %s", "InitializeCaps", v19, 268, v6);
     handle_daemon_exit();
-    exit(3);
+    exit(v18);
   }
 
-  v26 = ot::Spinel::RadioSpinel::GetSpinelDriver(this);
-  ot::Spinel::RadioSpinel::sSupportsLogStream = ot::Spinel::SpinelDriver::CoprocessorHasCap(v26, 518);
-  v27 = ot::Spinel::RadioSpinel::GetSpinelDriver(this);
-  *a2 = ot::Spinel::SpinelDriver::CoprocessorHasCap(v27, 64);
-  v28 = ot::Spinel::RadioSpinel::GetSpinelDriver(this);
-  ot::Spinel::RadioSpinel::sSupportsResetToBootloader = ot::Spinel::SpinelDriver::CoprocessorHasCap(v28, 66);
-  v29 = ot::Spinel::RadioSpinel::GetSpinelDriver(this);
-  *a3 = ot::Spinel::SpinelDriver::CoprocessorHasCap(v29, 65);
-  v30 = ot::Spinel::RadioSpinel::GetSpinelDriver(this);
-  result = ot::Spinel::SpinelDriver::CoprocessorHasCap(v30, 67);
+  v7 = ot::Spinel::RadioSpinel::GetSpinelDriver(v23);
+  ot::Spinel::RadioSpinel::sSupportsLogStream = ot::Spinel::SpinelDriver::CoprocessorHasCap(v7, 518);
+  v8 = ot::Spinel::RadioSpinel::GetSpinelDriver(v23);
+  HasCap = ot::Spinel::SpinelDriver::CoprocessorHasCap(v8, 64);
+  v10 = v23;
+  *v27 = HasCap;
+  v11 = ot::Spinel::RadioSpinel::GetSpinelDriver(v10);
+  ot::Spinel::RadioSpinel::sSupportsResetToBootloader = ot::Spinel::SpinelDriver::CoprocessorHasCap(v11, 66);
+  v12 = ot::Spinel::RadioSpinel::GetSpinelDriver(v23);
+  v13 = ot::Spinel::SpinelDriver::CoprocessorHasCap(v12, 65);
+  v14 = v23;
+  *v26 = v13;
+  v15 = ot::Spinel::RadioSpinel::GetSpinelDriver(v14);
+  result = ot::Spinel::SpinelDriver::CoprocessorHasCap(v15, 67);
   ot::Spinel::RadioSpinel::sSupportsLogCrashDump = result;
   return result;
 }
 
-uint64_t ot::Spinel::RadioSpinel::Set(ot::Spinel::RadioSpinel *this, int a2, char *a3, ...)
+uint64_t ot::Spinel::RadioSpinel::Set(ot::Spinel::RadioSpinel *this, unsigned int a2, char *a3, ...)
 {
   va_start(va, a3);
   if (pciNotOpen())
@@ -5812,7 +6094,7 @@ uint64_t ot::Spinel::RadioSpinel::Set(ot::Spinel::RadioSpinel *this, int a2, cha
     {
       ot::Spinel::RadioSpinel::RecoverFromRcpFailure(this);
       *(this + 40) = va;
-      v5 = ot::Spinel::RadioSpinel::RequestWithExpectedCommandV(this, 6, 3, a2, a3, *(this + 40));
+      v5 = ot::Spinel::RadioSpinel::RequestWithExpectedCommandV(this, 6, 3u, a2, a3, *(this + 40));
     }
 
     while ((*(this + 952) & 7) != 0);
@@ -5822,81 +6104,114 @@ uint64_t ot::Spinel::RadioSpinel::Set(ot::Spinel::RadioSpinel *this, int a2, cha
 
 uint64_t ot::Spinel::RadioSpinel::CheckRcpApiVersion(ot::Spinel::RadioSpinel *this, char a2, char a3)
 {
-  v24 = this;
-  v23 = a2;
-  v22 = a3;
-  v21 = 0;
-  if (a2)
-  {
-    v20 = 0;
-    v21 = ot::Spinel::RadioSpinel::Get(this, 176, "i", &v20);
-    if (v21)
-    {
-      return v21;
-    }
-
-    if (v20 < 4)
-    {
-      ot::Spinel::Logger::LogCrit1(this, "RCP and host are using incompatible API versions");
-      ot::Spinel::Logger::LogCrit1(this, "RCP API Version %u is older than min required by host %u", v20, 4);
-      strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-      otExitCodeToString(3);
-      otLogCritPlat("%s() at %s:%d: %s", v3, v4, v5, v6, v7, v8, v9, "CheckRcpApiVersion");
-      handle_daemon_exit();
-      exit(3);
-    }
-  }
-
-  if (v22)
-  {
-    v19 = 0;
-    v21 = ot::Spinel::RadioSpinel::Get(this, 177, "i", &v19);
-    if (!v21 && v19 > 0xA)
-    {
-      ot::Spinel::Logger::LogCrit1(this, "RCP and host are using incompatible API versions");
-      ot::Spinel::Logger::LogCrit1(this, "RCP requires min host API version %u but host is older and at version %u", v19, 10);
-      strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-      otExitCodeToString(3);
-      otLogCritPlat("%s() at %s:%d: %s", v10, v11, v12, v13, v14, v15, v16, "CheckRcpApiVersion");
-      handle_daemon_exit();
-      exit(3);
-    }
-  }
-
-  return v21;
-}
-
-uint64_t ot::Spinel::RadioSpinel::CheckRadioCapabilities(ot::Spinel::RadioSpinel *this, unsigned __int16 a2)
-{
   v16 = this;
   v15 = a2;
-  v14 = 0;
+  v14 = a3;
   v13 = 0;
-  v14 = ot::Spinel::RadioSpinel::Get(this, 4619, "i", &v13);
-  if (!v14)
+  if (a2)
   {
-    ot::Spinel::RadioSpinel::sRadioCaps = v13;
-    if ((v13 & v15) != v15)
+    v12 = 0;
+    v13 = ot::Spinel::RadioSpinel::Get(this, 0xB0u, "i", &v12);
+    if (v13)
     {
-      v12 = ot::Spinel::RadioSpinel::sRadioCaps & v15 ^ v15;
-      ot::Spinel::Logger::LogCrit1(this, "RCP is missing required capabilities: ");
+      return v13;
+    }
+
+    if (v12 < 4)
+    {
+      ot::Spinel::Logger::LogCrit1(this, "RCP and host are using incompatible API versions");
+      ot::Spinel::Logger::LogCrit1(this, "RCP API Version %u is older than min required by host %u", v12, 4);
+      v11 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+      if (v11)
+      {
+        v7 = v11 + 1;
+      }
+
+      else
+      {
+        v7 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+      }
+
+      v3 = otExitCodeToString(3);
+      otLogCritPlat("%s() at %s:%d: %s", "CheckRcpApiVersion", v7, 331, v3);
+      handle_daemon_exit();
+      exit(3);
+    }
+  }
+
+  if (v14)
+  {
+    v10 = 0;
+    v13 = ot::Spinel::RadioSpinel::Get(this, 0xB1u, "i", &v10);
+    if (!v13 && v10 > 0xA)
+    {
+      ot::Spinel::Logger::LogCrit1(this, "RCP and host are using incompatible API versions");
+      ot::Spinel::Logger::LogCrit1(this, "RCP requires min host API version %u but host is older and at version %u", v10, 10);
+      v9 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+      if (v9)
+      {
+        v6 = v9 + 1;
+      }
+
+      else
+      {
+        v6 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+      }
+
+      v4 = otExitCodeToString(3);
+      otLogCritPlat("%s() at %s:%d: %s", "CheckRcpApiVersion", v6, 351, v4);
+      handle_daemon_exit();
+      exit(3);
+    }
+  }
+
+  return v13;
+}
+
+uint64_t ot::Spinel::RadioSpinel::CheckRadioCapabilities(const char **this, unsigned __int16 a2)
+{
+  v14 = this;
+  v13 = a2;
+  v7 = this;
+  v12 = 0;
+  v11 = 0;
+  v12 = ot::Spinel::RadioSpinel::Get(this, 0x120Bu, "i", &v11);
+  if (!v12)
+  {
+    ot::Spinel::RadioSpinel::sRadioCaps = v11;
+    if ((v11 & v13) != v13)
+    {
+      v10 = ot::Spinel::RadioSpinel::sRadioCaps & v13 ^ v13;
+      ot::Spinel::Logger::LogCrit1(v7, "RCP is missing required capabilities: ");
       for (i = 0; i < 0xA; ++i)
       {
-        if ((v12 & (1 << i)) != 0)
+        if ((v10 & (1 << i)) != 0)
         {
-          ot::Spinel::Logger::LogCrit1(this, "    %s", ot::Spinel::RadioSpinel::CheckRadioCapabilities(unsigned short)::kAllRadioCapsStr[i]);
+          ot::Spinel::Logger::LogCrit1(v7, "    %s", ot::Spinel::RadioSpinel::CheckRadioCapabilities(unsigned short)::kAllRadioCapsStr[i]);
         }
       }
 
-      strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-      otExitCodeToString(3);
-      otLogCritPlat("%s() at %s:%d: %s", v2, v3, v4, v5, v6, v7, v8, "CheckRadioCapabilities");
+      v8 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+      if (v8)
+      {
+        v6 = v8 + 1;
+      }
+
+      else
+      {
+        v6 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+      }
+
+      v4 = v6;
+      v5 = 3;
+      v2 = otExitCodeToString(3);
+      otLogCritPlat("%s() at %s:%d: %s", "CheckRadioCapabilities", v6, 303, v2);
       handle_daemon_exit();
-      exit(3);
+      exit(v5);
     }
   }
 
-  return v14;
+  return v12;
 }
 
 void *ot::Spinel::RadioSpinel::SetCallbacks(uint64_t a1, void *a2)
@@ -5936,22 +6251,35 @@ void *ot::Spinel::RadioSpinel::SetCallbacks(uint64_t a1, void *a2)
 
 uint64_t ot::Spinel::RadioSpinel::CheckSpinelVersion(ot::Spinel::RadioSpinel *this)
 {
-  v19 = this;
-  v18 = 0;
-  v17 = 0;
-  v16 = 0;
-  v18 = ot::Spinel::RadioSpinel::Get(this, 1, "ii", &v17, &v16);
-  if (!v18 && (v17 != 4 || v16 != 3))
+  v11 = this;
+  v6 = this;
+  v10 = 0;
+  v9 = 0;
+  v8 = 0;
+  v10 = ot::Spinel::RadioSpinel::Get(this, 1u, "ii", &v9, &v8);
+  if (!v10 && (v9 != 4 || v8 != 3))
   {
-    otLogCritPlat("Spinel version mismatch - Posix:%d.%d, RCP:%d.%d", v1, v2, v3, v4, v5, v6, v7, 4);
-    strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-    otExitCodeToString(3);
-    otLogCritPlat("%s() at %s:%d: %s", v8, v9, v10, v11, v12, v13, v14, "CheckSpinelVersion");
+    otLogCritPlat("Spinel version mismatch - Posix:%d.%d, RCP:%d.%d", 4, 3, v9, v8);
+    v7 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+    if (v7)
+    {
+      v5 = v7 + 1;
+    }
+
+    else
+    {
+      v5 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+    }
+
+    v3 = v5;
+    v4 = 3;
+    v1 = otExitCodeToString(3);
+    otLogCritPlat("%s() at %s:%d: %s", "CheckSpinelVersion", v5, 249, v1);
     handle_daemon_exit();
-    exit(3);
+    exit(v4);
   }
 
-  return v18;
+  return v10;
 }
 
 uint64_t ot::Spinel::RadioSpinel::GetSpinelDriver(ot::Spinel::RadioSpinel *this)
@@ -6121,7 +6449,7 @@ BOOL ot::Spinel::RadioSpinel::IsSafeToHandleNow(ot::Spinel::RadioSpinel *this, i
   return ot::Spinel::RadioSpinel::IsSafeToHandleNow(this, a2);
 }
 
-void ot::Spinel::RadioSpinel::HandleValueIs(ot::Spinel::RadioSpinel *this, int a2, const unsigned __int8 *a3, __int16 a4)
+void ot::Spinel::RadioSpinel::HandleValueIs(ot::Spinel::RadioSpinel *this, int a2, const unsigned __int8 *a3, unsigned __int16 a4)
 {
   v41 = this;
   v40 = a2;
@@ -6133,7 +6461,7 @@ void ot::Spinel::RadioSpinel::HandleValueIs(ot::Spinel::RadioSpinel *this, int a
   v35 = promiscuous_enabled();
   if (v40 == 117 && (v35 || v36))
   {
-    write_stream_to_pcap(*&v39[1], v39[0]);
+    write_stream_to_pcap(*&v39[1]);
   }
 
   else if (v40 == 15538 || v40 == 15518)
@@ -6176,7 +6504,7 @@ void ot::Spinel::RadioSpinel::HandleValueIs(ot::Spinel::RadioSpinel *this, int a
       ot::Spinel::RadioSpinel::RadioReceive(this);
       if (!v35 && !v36)
       {
-        write_stream_to_pcap(*&v39[1], v39[0]);
+        write_stream_to_pcap(*&v39[1]);
       }
     }
   }
@@ -6377,7 +6705,7 @@ uint64_t ot::Spinel::RadioSpinel::UpdateParseErrorCount(uint64_t result, int a2)
   return ot::Spinel::RadioSpinel::UpdateParseErrorCount(result, a2);
 }
 
-void ot::Spinel::RadioSpinel::HandleNotification(const char **this, const unsigned __int8 *a2, unsigned __int16 a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void ot::Spinel::RadioSpinel::HandleNotification(const char **this, unsigned __int8 *a2, unsigned __int16 a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v18 = this;
   v17 = a2;
@@ -6465,7 +6793,7 @@ uint64_t ot::Spinel::RadioSpinel::updateStreamRawHistogram(ot::Spinel::RadioSpin
   return v5 & 1;
 }
 
-void ot::Spinel::RadioSpinel::HandleResponse(const char **this, const unsigned __int8 *a2, unsigned __int16 a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void ot::Spinel::RadioSpinel::HandleResponse(const char **this, unsigned __int8 *a2, unsigned __int16 a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v14 = this;
   *&v13[1] = a2;
@@ -6607,71 +6935,71 @@ uint64_t ot::Spinel::RadioSpinel::FreeTid(uint64_t this, char a2)
   return ot::Spinel::RadioSpinel::FreeTid(this, a2);
 }
 
-void ot::Spinel::RadioSpinel::HandleTransmitDone(ot::Spinel::RadioSpinel *this, unsigned int a2, unsigned int a3, unsigned __int8 *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void ot::Spinel::RadioSpinel::HandleTransmitDone(ot::Spinel::RadioSpinel *this, unsigned int a2, uint64_t a3, unsigned __int8 *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v46 = this;
-  v45 = a2;
-  v44 = a3;
-  v43 = a4;
-  v42 = a5;
-  v41 = 0;
-  v40 = 0;
-  v39 = 0;
-  v38 = 0;
-  v37 = 0;
-  v36 = 0;
+  v40 = this;
+  v39 = a2;
+  v38 = a3;
+  v37 = a4;
+  v36 = a5;
   v35 = 0;
+  v34 = 0;
+  v33 = 0;
+  v32 = 0;
+  v31 = 0;
+  v30 = 0;
+  v29 = 0;
   if (__PAIR64__(a2, a3) != 0x600000000)
   {
-    v41 = 1;
+    v35 = 1;
     goto LABEL_25;
   }
 
-  v35 = spinel_datatype_unpack(v43, v42, "i", a4, a5, a6, a7, a8, &v40);
-  if (v35 <= 0)
+  v29 = spinel_datatype_unpack(v37, v36, "i", a4, a5, a6, a7, a8, &v34);
+  if (v29 <= 0)
   {
     ot::Spinel::Logger::LogCrit1(this, "OT_ERROR_PARSE <<status>>");
     __assert_rtn("HandleTransmitDone", "radio_spinel.cpp", 2405, "false");
   }
 
-  if (v40 == 4)
+  if (v34 == 4)
   {
     ot::Spinel::Logger::LogCrit1(this, "HandleTransmitDone: Status[%d] SPINEL_STATUS_INVALID_STATE", 4);
-    v41 = 13;
+    v35 = 13;
     goto LABEL_25;
   }
 
-  v43 += v35;
-  v42 -= v35;
-  v35 = spinel_datatype_unpack(v43, v42, "b", v8, v9, v10, v11, v12, &v39);
-  if (v35 <= 0)
+  v37 += v29;
+  v36 -= v29;
+  v29 = spinel_datatype_unpack(v37, v36, "b", v8, v9, v10, v11, v12, &v33);
+  if (v29 <= 0)
   {
     ot::Spinel::Logger::LogCrit1(this, "OT_ERROR_PARSE <<framePending>>");
     __assert_rtn("HandleTransmitDone", "radio_spinel.cpp", 2449, "false");
   }
 
-  v43 += v35;
-  v42 -= v35;
-  v35 = spinel_datatype_unpack(v43, v42, "b", v13, v14, v15, v16, v17, &v38);
-  if (v35 <= 0)
+  v37 += v29;
+  v36 -= v29;
+  v29 = spinel_datatype_unpack(v37, v36, "b", v13, v14, v15, v16, v17, &v32);
+  if (v29 <= 0)
   {
     ot::Spinel::Logger::LogCrit1(this, "OT_ERROR_PARSE <<headerUpdated>>");
     __assert_rtn("HandleTransmitDone", "radio_spinel.cpp", 2462, "false");
   }
 
-  v43 += v35;
-  v42 -= v35;
-  if (v40)
+  v37 += v29;
+  v36 -= v29;
+  if (v34)
   {
-    v41 = ot::Spinel::SpinelStatusToOtError(v40);
-    otLogWarnPlat("Error In Status = %d, Error = %d", v21, v22, v23, v24, v25, v26, v27, v40);
-    if (v41 == 6)
+    v35 = ot::Spinel::SpinelStatusToOtError(v34);
+    otLogWarnPlat("Error In Status = %d, Error = %d", v34, v35);
+    if (v35 == 6)
     {
       ot::Spinel::Logger::LogCrit1(this, "OT_ERROR_PARSE <<status value from RCP>>");
       __assert_rtn("HandleTransmitDone", "radio_spinel.cpp", 2504, "false");
     }
 
-    if (v40 == 11)
+    if (v34 == 11)
     {
       rcp_hard_reset();
     }
@@ -6679,51 +7007,51 @@ void ot::Spinel::RadioSpinel::HandleTransmitDone(ot::Spinel::RadioSpinel *this, 
 
   else
   {
-    v41 = ot::Spinel::RadioSpinel::ParseRadioFrame(this, this + 848, v43, v42, &v35, v18, v19, v20);
-    if (v41)
+    v35 = ot::Spinel::RadioSpinel::ParseRadioFrame(this, this + 848, v37, v36, &v29, v18, v19, v20);
+    if (v35)
     {
       goto LABEL_25;
     }
 
-    v43 += v35;
-    v42 -= v35;
+    v37 += v29;
+    v36 -= v29;
   }
 
-  ot::Mac::TxFrame::SetIsHeaderUpdated(*(this + 114), v38 & 1);
-  if ((ot::Spinel::RadioSpinel::sRadioCaps & 0x20) != 0 && (v38 & 1) != 0 && ot::Mac::Frame::GetSecurityEnabled(*(this + 114)))
+  ot::Mac::TxFrame::SetIsHeaderUpdated(*(this + 114), v32 & 1);
+  if ((ot::Spinel::RadioSpinel::sRadioCaps & 0x20) != 0 && (v32 & 1) != 0 && ot::Mac::Frame::GetSecurityEnabled(*(this + 114), v21))
   {
-    v34 = 0;
-    v35 = spinel_datatype_unpack(v43, v42, "CL", v32, v28, v29, v30, v31, &v34);
-    v43 += v35;
-    v42 -= v35;
-    if (v35 <= 0)
+    v28 = 0;
+    v29 = spinel_datatype_unpack(v37, v36, "CL", v26, v22, v23, v24, v25, &v28);
+    v37 += v29;
+    v36 -= v29;
+    if (v29 <= 0)
     {
       ot::Spinel::Logger::LogCrit1(this, "OT_ERROR_PARSE <<keyId>> <<frameCounter>>");
       __assert_rtn("HandleTransmitDone", "radio_spinel.cpp", 2533, "false");
     }
 
-    ot::Mac::Frame::SetKeyId(*(this + 114), v34);
+    ot::Mac::Frame::SetKeyId(*(this + 114), v28);
     ot::Mac::Frame::SetFrameCounter(*(this + 114), 0);
     *(this + 1655) = *(this + 1655) & 0xFEFF | 0x100;
   }
 
-  ot::Spinel::RadioSpinel::GetVendorTxInfo(this, &v35, &v42, v43, v28, v29, v30, v31);
+  ot::Spinel::RadioSpinel::GetVendorTxInfo(this, &v29, &v36, v37, v22, v23, v24, v25);
 LABEL_25:
-  if (v41 == 6)
+  if (v35 == 6)
   {
-    ot::Spinel::Logger::LogCrit1(this, "OT_ERROR_PARSE <<exit>>");
+    ot::Spinel::Logger::LogCrit1(this, "OT_ERROR_PARSE <<exit>>", a3, a4, a5, a6, a7, a8);
     __assert_rtn("HandleTransmitDone", "radio_spinel.cpp", 2587, "false");
   }
 
   *(this + 236) = 4;
-  if (v41 == 13)
+  if (v35 == 13)
   {
     *(this + 234) = 13;
     *(this + 952) = *(this + 952) & 0xF8 | 3;
     ot::Spinel::RadioSpinel::RecoverFromRcpFailure(this);
   }
 
-  else if (v41 == 6)
+  else if (v35 == 6)
   {
     *(this + 234) = 11;
     ot::Spinel::RadioSpinel::HandleRcpTimeout(this);
@@ -6732,11 +7060,11 @@ LABEL_25:
 
   else
   {
-    *(this + 234) = v41;
+    *(this + 234) = v35;
   }
 
-  ot::Spinel::RadioSpinel::UpdateParseErrorCount(this, v41);
-  ot::Spinel::Logger::LogIfFail1(this, "Handle transmit done failed", v41);
+  ot::Spinel::RadioSpinel::UpdateParseErrorCount(this, v35);
+  ot::Spinel::Logger::LogIfFail1(this, "Handle transmit done failed", v35);
 }
 
 uint64_t ot::Spinel::RadioSpinel::PlatDiagOutput(uint64_t this, const char *a2, ...)
@@ -6750,105 +7078,105 @@ uint64_t ot::Spinel::RadioSpinel::PlatDiagOutput(uint64_t this, const char *a2, 
   return this;
 }
 
-uint64_t ot::Spinel::RadioSpinel::ParseRadioFrame(const char **a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ot::Spinel::RadioSpinel::ParseRadioFrame(const char **a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4, int *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v38 = a1;
-  v37 = a2;
-  v36 = a3;
-  v35 = a4;
-  v34 = a5;
-  v27 = a1;
-  v33 = 0;
-  v32 = 0;
-  v31 = 0x80;
-  v30 = 127;
-  v29 = 0;
-  v28 = 0;
+  v36 = a1;
+  v35 = a2;
+  v34 = a3;
+  v33 = a4;
+  v32 = a5;
+  v25 = a1;
+  v31 = 0;
+  v30 = 0;
+  v29 = 0x80;
+  v28 = 127;
+  v27 = 0;
+  v26 = 0;
   if (!a4)
   {
-    *(v37 + 8) = 0;
+    *(v35 + 8) = 0;
     goto LABEL_19;
   }
 
-  v8 = *v37;
-  v26 = &v17;
-  v18 = &v30;
-  v19 = v37 + 29;
-  v20 = &v31;
-  v21 = &v32;
-  v22 = v37 + 10;
-  v23 = v37 + 30;
-  v24 = v37 + 16;
-  v25 = &v29;
-  v28 = spinel_datatype_unpack_in_place(v36, v35, "dccSt(CCX)t(i)", a4, a5, a6, a7, a8, v8);
-  if (v28 <= 0)
+  v8 = *v35;
+  v24 = &v15;
+  v16 = &v28;
+  v17 = v35 + 29;
+  v18 = &v29;
+  v19 = &v30;
+  v20 = v35 + 10;
+  v21 = v35 + 30;
+  v22 = v35 + 16;
+  v23 = &v27;
+  v26 = spinel_datatype_unpack_in_place(v34, v33, "dccSt(CCX)t(i)", a4, a5, a6, a7, a8, v8);
+  if (v26 <= 0)
   {
-    otLogInfoRcp("%s unpack parse error: Frame ", v9, v10, v11, v12, v13, v14, v15, "ParseRadioFrame");
+    otLogInfoRcp("%s unpack parse error: Frame ", "ParseRadioFrame");
   }
 
-  if (v28 <= 0)
+  if (v26 <= 0)
   {
-    v33 = 6;
+    v31 = 6;
     goto LABEL_19;
   }
 
-  *v34 = v28;
-  v36 += v28;
-  v35 -= v28;
+  *v32 = v26;
+  v34 += v26;
+  v33 -= v26;
   if ((ot::Spinel::RadioSpinel::sRadioCaps & 0x20) != 0)
   {
-    v18 = (v37 + 24);
-    v28 = spinel_datatype_unpack_in_place(v36, v35, "t(CL)", v11, v12, v13, v14, v15, v37 + 28);
-    if (v28 <= 0)
+    v16 = (v35 + 24);
+    v26 = spinel_datatype_unpack_in_place(v34, v33, "t(CL)", v9, v10, v11, v12, v13, v35 + 28);
+    if (v26 <= 0)
     {
-      otLogInfoRcp("%s unpack parse error: MAC-data", v9, v10, v11, v12, v13, v14, v15, "ParseRadioFrame");
+      otLogInfoRcp("%s unpack parse error: MAC-data", "ParseRadioFrame");
     }
 
-    if (v28 <= 0)
+    if (v26 <= 0)
     {
-      v33 = 6;
+      v31 = 6;
       goto LABEL_19;
     }
 
-    *v34 += v28;
-    if ((v32 & 0x20) != 0)
+    *v32 += v26;
+    if ((v30 & 0x20) != 0)
     {
-      *(v27 + 1655) = *(v27 + 1655) & 0xFEFF | 0x100;
+      *(v25 + 1655) = *(v25 + 1655) & 0xFEFF | 0x100;
     }
   }
 
-  if (v29)
+  if (v27)
   {
-    if (v29 >= 0x26)
+    if (v27 >= 0x26)
     {
-      otLogInfoRcp("receiveError > OT_NUM_ERRORS. receiveError[%d]", v9, v10, v11, v12, v13, v14, v15, v29);
-      v33 = 6;
+      otLogInfoRcp("receiveError > OT_NUM_ERRORS. receiveError[%d]", v27);
+      v31 = 6;
     }
 
     else
     {
-      otLogInfoRcp("receiveError < OT_NUM_ERRORS, receiveError[%d]", v9, v10, v11, v12, v13, v14, v15, v29);
-      v33 = v29;
+      otLogInfoRcp("receiveError < OT_NUM_ERRORS, receiveError[%d]", v27);
+      v31 = v27;
     }
   }
 
   else
   {
-    *(v37 + 8) = v30;
-    *(v37 + 31) = *(v37 + 31) & 0xFE | ((v32 & 0x10) != 0);
-    *(v37 + 31) = *(v37 + 31) & 0xFD | (2 * ((v32 & 0x20) != 0));
+    *(v35 + 8) = v28;
+    *(v35 + 31) = *(v35 + 31) & 0xFE | ((v30 & 0x10) != 0);
+    *(v35 + 31) = *(v35 + 31) & 0xFD | (2 * ((v30 & 0x20) != 0));
   }
 
 LABEL_19:
-  ot::Spinel::RadioSpinel::UpdateParseErrorCount(v27, v33);
-  ot::Spinel::Logger::LogIfFail1(v27, "Handle radio frame failed", v33);
-  if (v33 == 6)
+  ot::Spinel::RadioSpinel::UpdateParseErrorCount(v25, v31);
+  ot::Spinel::Logger::LogIfFail1(v25, "Handle radio frame failed", v31);
+  if (v31 == 6)
   {
-    ot::Spinel::Logger::LogDebg1(v27, "%s parse error happen, trigger FLR to help debug", "ParseRadioFrame");
+    ot::Spinel::Logger::LogDebg1(v25, "%s parse error happen, trigger FLR to help debug", "ParseRadioFrame");
     rcp_hard_reset();
   }
 
-  return v33;
+  return v31;
 }
 
 uint64_t ot::Spinel::RadioSpinel::RadioReceive(uint64_t this)
@@ -6940,9 +7268,9 @@ uint64_t ot::Spinel::RadioSpinel::HandleRcpTimeout(uint64_t this)
   return this;
 }
 
-void *ot::Spinel::SpinelDriver::ClearRxFrameBufferSavedFrames(ot::Spinel::SpinelDriver *this)
+char *ot::Spinel::SpinelDriver::ClearRxFrameBufferSavedFrames(ot::Spinel::SpinelDriver *this)
 {
-  return ot::Spinel::MultiFrameBuffer<(unsigned short)8192>::ClearSavedFrames(this + 1);
+  return ot::Spinel::MultiFrameBuffer<(unsigned short)8192>::ClearSavedFrames(this + 8);
 }
 
 {
@@ -6951,7 +7279,7 @@ void *ot::Spinel::SpinelDriver::ClearRxFrameBufferSavedFrames(ot::Spinel::Spinel
 
 uint64_t ot::Spinel::RadioSpinel::SetPromiscuous(ot::Spinel::RadioSpinel *this, char a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Set(this, 56, "C", (a2 & 1) != 0);
+  v4 = ot::Spinel::RadioSpinel::Set(this, 0x38u, "C", (a2 & 1) != 0);
   if (!v4)
   {
     *(this + 948) = *(this + 948) & 0xFE | a2 & 1;
@@ -6965,7 +7293,7 @@ uint64_t ot::Spinel::RadioSpinel::SetRxOnWhenIdle(ot::Spinel::RadioSpinel *this,
   v4 = 0;
   if (((*(this + 948) & 2) != 0) != (a2 & 1))
   {
-    v4 = ot::Spinel::RadioSpinel::Set(this, 59, "b", a2 & 1);
+    v4 = ot::Spinel::RadioSpinel::Set(this, 0x3Bu, "b", a2 & 1);
     if (!v4)
     {
       *(this + 948) = *(this + 948) & 0xFD | (2 * (a2 & 1));
@@ -6995,7 +7323,7 @@ uint64_t ot::Spinel::RadioSpinel::SetAlternateShortAddress(ot::Spinel::RadioSpin
   v3 = 0;
   if ((ot::Spinel::RadioSpinel::sRadioCaps & 0x400) != 0)
   {
-    return ot::Spinel::RadioSpinel::Set(this, 60, "S", a2);
+    return ot::Spinel::RadioSpinel::Set(this, 0x3Cu, "S", a2);
   }
 
   return v3;
@@ -7044,7 +7372,7 @@ uint64_t ot::Spinel::RadioSpinel::SetMacFrameCounter(ot::Spinel::RadioSpinel *th
 
 uint64_t ot::Spinel::RadioSpinel::GetMacFrameCounter(ot::Spinel::RadioSpinel *this, unsigned int *a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Get(this, 2049, "L", a2);
+  v4 = ot::Spinel::RadioSpinel::Get(this, 0x801u, "L", a2);
   ot::Spinel::Logger::LogIfFail1(this, "Get MAC Frame Counter failed", v4);
   return v4;
 }
@@ -7055,7 +7383,7 @@ uint64_t ot::Spinel::RadioSpinel::GetIeeeEui64(const char **this, unsigned __int
   v8 = a2;
   v5 = this;
   v11 = 0;
-  v7 = ot::Spinel::RadioSpinel::Get(this, 15494, "E", &v11);
+  v7 = ot::Spinel::RadioSpinel::Get(this, 0x3C86u, "E", &v11);
   v6 = &v4;
   ot::Spinel::Logger::LogWarn1(v5, "GetIeeeEui64 RCP2=%x%x%x%x%x%x%x%x", v11, BYTE1(v11), BYTE2(v11), BYTE3(v11), BYTE4(v11), BYTE5(v11), BYTE6(v11), HIBYTE(v11));
   if (v7)
@@ -7074,7 +7402,7 @@ uint64_t ot::Spinel::RadioSpinel::GetIeeeEui64(const char **this, unsigned __int
 
 uint64_t ot::Spinel::RadioSpinel::SetExtendedAddress(ot::Spinel::RadioSpinel *a1, void *a2)
 {
-  v5 = ot::Spinel::RadioSpinel::Set(a1, 52, "E", a2);
+  v5 = ot::Spinel::RadioSpinel::Set(a1, 0x34u, "E", a2);
   if (v5)
   {
     v2 = otThreadErrorToString(v5);
@@ -7106,7 +7434,7 @@ uint64_t ot::Spinel::RadioSpinel::SetPanId(ot::Spinel::RadioSpinel *this, unsign
 
 uint64_t ot::Spinel::RadioSpinel::EnableSrcMatch(ot::Spinel::RadioSpinel *this, char a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Set(this, 4867, "b", a2 & 1);
+  v4 = ot::Spinel::RadioSpinel::Set(this, 0x1303u, "b", a2 & 1);
   if (!v4)
   {
     *(this + 1658) = *(this + 1658) & 0xFE | 1;
@@ -7118,7 +7446,7 @@ uint64_t ot::Spinel::RadioSpinel::EnableSrcMatch(ot::Spinel::RadioSpinel *this, 
 
 uint64_t ot::Spinel::RadioSpinel::AddSrcMatchShortEntry(ot::Spinel::RadioSpinel *this, unsigned __int16 a2)
 {
-  v5 = ot::Spinel::RadioSpinel::Insert(this, 4868, "S", a2);
+  v5 = ot::Spinel::RadioSpinel::Insert(this, 0x1304u, "S", a2);
   if (!v5)
   {
     if (*(this + 566) >= 64)
@@ -7140,7 +7468,7 @@ uint64_t ot::Spinel::RadioSpinel::AddSrcMatchShortEntry(ot::Spinel::RadioSpinel 
   return v5;
 }
 
-uint64_t ot::Spinel::RadioSpinel::Insert(ot::Spinel::RadioSpinel *this, int a2, char *a3, ...)
+uint64_t ot::Spinel::RadioSpinel::Insert(ot::Spinel::RadioSpinel *this, unsigned int a2, char *a3, ...)
 {
   va_start(va, a3);
   if (pciNotOpen())
@@ -7159,7 +7487,7 @@ uint64_t ot::Spinel::RadioSpinel::Insert(ot::Spinel::RadioSpinel *this, int a2, 
     {
       ot::Spinel::RadioSpinel::RecoverFromRcpFailure(this);
       *(this + 40) = va;
-      v5 = ot::Spinel::RadioSpinel::RequestWithExpectedCommandV(this, 7, 4, a2, a3, *(this + 40));
+      v5 = ot::Spinel::RadioSpinel::RequestWithExpectedCommandV(this, 7, 4u, a2, a3, *(this + 40));
     }
 
     while ((*(this + 952) & 7) != 0);
@@ -7167,25 +7495,25 @@ uint64_t ot::Spinel::RadioSpinel::Insert(ot::Spinel::RadioSpinel *this, int a2, 
   }
 }
 
-uint64_t ot::Spinel::RadioSpinel::AddSrcMatchExtEntry(__int16 *a1, void *a2)
+uint64_t ot::Spinel::RadioSpinel::AddSrcMatchExtEntry(ot::Spinel::RadioSpinel *a1, void *a2)
 {
-  v5 = ot::Spinel::RadioSpinel::Insert(a1, 4869, "E", a2);
+  v5 = ot::Spinel::RadioSpinel::Insert(a1, 0x1305u, "E", a2);
   if (!v5)
   {
-    if (a1[823] >= 64)
+    if (*(a1 + 823) >= 64)
     {
       __assert_rtn("AddSrcMatchExtEntry", "radio_spinel.cpp", 1630, "mSrcMatchExtEntryCount < OPENTHREAD_CONFIG_MLE_MAX_CHILDREN");
     }
 
-    for (i = 0; i < a1[823]; ++i)
+    for (i = 0; i < *(a1 + 823); ++i)
     {
-      if (!memcmp(a2, &a1[4 * i + 567], 8uLL))
+      if (!memcmp(a2, a1 + 8 * i + 1134, 8uLL))
       {
         return v5;
       }
     }
 
-    *&a1[4 * a1[823]++ + 567] = *a2;
+    *(a1 + 8 * (*(a1 + 823))++ + 1134) = *a2;
   }
 
   return v5;
@@ -7193,7 +7521,7 @@ uint64_t ot::Spinel::RadioSpinel::AddSrcMatchExtEntry(__int16 *a1, void *a2)
 
 uint64_t ot::Spinel::RadioSpinel::ClearSrcMatchShortEntry(ot::Spinel::RadioSpinel *this, unsigned __int16 a2)
 {
-  v5 = ot::Spinel::RadioSpinel::Remove(this, 4868, "S", a2);
+  v5 = ot::Spinel::RadioSpinel::Remove(this, 0x1304u, "S", a2);
   if (!v5)
   {
     for (i = 0; i < *(this + 566); ++i)
@@ -7209,7 +7537,7 @@ uint64_t ot::Spinel::RadioSpinel::ClearSrcMatchShortEntry(ot::Spinel::RadioSpine
   return v5;
 }
 
-uint64_t ot::Spinel::RadioSpinel::Remove(ot::Spinel::RadioSpinel *this, int a2, char *a3, ...)
+uint64_t ot::Spinel::RadioSpinel::Remove(ot::Spinel::RadioSpinel *this, unsigned int a2, char *a3, ...)
 {
   va_start(va, a3);
   if (pciNotOpen())
@@ -7228,7 +7556,7 @@ uint64_t ot::Spinel::RadioSpinel::Remove(ot::Spinel::RadioSpinel *this, int a2, 
     {
       ot::Spinel::RadioSpinel::RecoverFromRcpFailure(this);
       *(this + 40) = va;
-      v5 = ot::Spinel::RadioSpinel::RequestWithExpectedCommandV(this, 8, 5, a2, a3, *(this + 40));
+      v5 = ot::Spinel::RadioSpinel::RequestWithExpectedCommandV(this, 8, 5u, a2, a3, *(this + 40));
     }
 
     while ((*(this + 952) & 7) != 0);
@@ -7238,7 +7566,7 @@ uint64_t ot::Spinel::RadioSpinel::Remove(ot::Spinel::RadioSpinel *this, int a2, 
 
 uint64_t ot::Spinel::RadioSpinel::ClearSrcMatchExtEntry(ot::Spinel::RadioSpinel *a1, const void *a2)
 {
-  v5 = ot::Spinel::RadioSpinel::Remove(a1, 4869, "E", a2);
+  v5 = ot::Spinel::RadioSpinel::Remove(a1, 0x1305u, "E", a2);
   if (!v5)
   {
     for (i = 0; i < *(a1 + 823); ++i)
@@ -7256,7 +7584,7 @@ uint64_t ot::Spinel::RadioSpinel::ClearSrcMatchExtEntry(ot::Spinel::RadioSpinel 
 
 uint64_t ot::Spinel::RadioSpinel::ClearSrcMatchShortEntries(ot::Spinel::RadioSpinel *this)
 {
-  v3 = ot::Spinel::RadioSpinel::Set(this, 4868, 0);
+  v3 = ot::Spinel::RadioSpinel::Set(this, 0x1304u, 0);
   if (!v3)
   {
     *(this + 566) = 0;
@@ -7267,7 +7595,7 @@ uint64_t ot::Spinel::RadioSpinel::ClearSrcMatchShortEntries(ot::Spinel::RadioSpi
 
 uint64_t ot::Spinel::RadioSpinel::ClearSrcMatchExtEntries(ot::Spinel::RadioSpinel *this)
 {
-  v3 = ot::Spinel::RadioSpinel::Set(this, 4869, 0);
+  v3 = ot::Spinel::RadioSpinel::Set(this, 0x1305u, 0);
   if (!v3)
   {
     *(this + 823) = 0;
@@ -7278,42 +7606,42 @@ uint64_t ot::Spinel::RadioSpinel::ClearSrcMatchExtEntries(ot::Spinel::RadioSpine
 
 uint64_t ot::Spinel::RadioSpinel::GetMinInterframeDelay(ot::Spinel::RadioSpinel *this, unsigned int *a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Get(this, 2000016, "L", a2);
+  v4 = ot::Spinel::RadioSpinel::Get(this, 0x1E8490u, "L", a2);
   ot::Spinel::Logger::LogIfFail1(this, "Get min interframe delay", v4);
   return v4;
 }
 
 uint64_t ot::Spinel::RadioSpinel::GetTransmitPower(ot::Spinel::RadioSpinel *this, signed __int8 *a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Get(this, 37, "c", a2);
+  v4 = ot::Spinel::RadioSpinel::Get(this, 0x25u, "c", a2);
   ot::Spinel::Logger::LogIfFail1(this, "Get transmit power failed", v4);
   return v4;
 }
 
 uint64_t ot::Spinel::RadioSpinel::GetRssiOffset(ot::Spinel::RadioSpinel *this, signed __int8 *a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Get(this, 2000001, "c", a2);
+  v4 = ot::Spinel::RadioSpinel::Get(this, 0x1E8481u, "c", a2);
   ot::Spinel::Logger::LogIfFail1(this, "Get RSSI offset failed", v4);
   return v4;
 }
 
 uint64_t ot::Spinel::RadioSpinel::GetRssiOffsetPath1(ot::Spinel::RadioSpinel *this, signed __int8 *a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Get(this, 2000022, "c", a2);
+  v4 = ot::Spinel::RadioSpinel::Get(this, 0x1E8496u, "c", a2);
   ot::Spinel::Logger::LogIfFail1(this, "Get RSSI offset failed", v4);
   return v4;
 }
 
 uint64_t ot::Spinel::RadioSpinel::GetCcaEnergyDetectThreshold(ot::Spinel::RadioSpinel *this, signed __int8 *a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Get(this, 36, "c", a2);
+  v4 = ot::Spinel::RadioSpinel::Get(this, 0x24u, "c", a2);
   ot::Spinel::Logger::LogIfFail1(this, "Get CCA ED threshold failed", v4);
   return v4;
 }
 
 uint64_t ot::Spinel::RadioSpinel::GetFemLnaGain(ot::Spinel::RadioSpinel *this, signed __int8 *a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Get(this, 42, "c", a2);
+  v4 = ot::Spinel::RadioSpinel::Get(this, 0x2Au, "c", a2);
   ot::Spinel::Logger::LogIfFail1(this, "Get FEM LNA gain failed", v4);
   return v4;
 }
@@ -7322,14 +7650,14 @@ uint64_t ot::Spinel::RadioSpinel::GetRssi(ot::Spinel::RadioSpinel *this)
 {
   v5 = this;
   v4 = 127;
-  v3 = ot::Spinel::RadioSpinel::Get(this, 38, "c", &v4);
+  v3 = ot::Spinel::RadioSpinel::Get(this, 0x26u, "c", &v4);
   ot::Spinel::Logger::LogIfFail1(this, "Get RSSI failed", v3);
   return v4;
 }
 
 uint64_t ot::Spinel::RadioSpinel::SetCoexEnabled(ot::Spinel::RadioSpinel *this, char a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Set(this, 4621, "b", a2 & 1);
+  v4 = ot::Spinel::RadioSpinel::Set(this, 0x120Du, "b", a2 & 1);
   if (!v4)
   {
     *(this + 1655) = *(this + 1655) & 0xFFFE | a2 & 1;
@@ -7343,21 +7671,21 @@ uint64_t ot::Spinel::RadioSpinel::IsCoexEnabled(ot::Spinel::RadioSpinel *this)
 {
   v5 = this;
   v4 = 0;
-  v3 = ot::Spinel::RadioSpinel::Get(this, 4621, "b", &v4);
+  v3 = ot::Spinel::RadioSpinel::Get(this, 0x120Du, "b", &v4);
   ot::Spinel::Logger::LogIfFail1(this, "Get Coex State failed", v3);
   return v4 & 1;
 }
 
 uint64_t ot::Spinel::RadioSpinel::GetCoexMetrics(ot::Spinel::RadioSpinel *a1, uint64_t a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Get(a1, 4620, "t(LLLLLLLL)t(LLLLLLLLL)bL", a2 + 4, a2 + 8, a2 + 12, a2 + 16, a2 + 20, a2 + 24, a2 + 28, a2 + 32, a2 + 36, a2 + 40, a2 + 44, a2 + 48, a2 + 52, a2 + 56, a2 + 60, a2 + 64, a2 + 68, a2 + 72, a2);
+  v4 = ot::Spinel::RadioSpinel::Get(a1, 0x120Cu, "t(LLLLLLLL)t(LLLLLLLLL)bL", a2 + 4, a2 + 8, a2 + 12, a2 + 16, a2 + 20, a2 + 24, a2 + 28, a2 + 32, a2 + 36, a2 + 40, a2 + 44, a2 + 48, a2 + 52, a2 + 56, a2 + 60, a2 + 64, a2 + 68, a2 + 72, a2);
   ot::Spinel::Logger::LogIfFail1(a1, "Get Coex Metrics failed", v4);
   return v4;
 }
 
 uint64_t ot::Spinel::RadioSpinel::SetTransmitPower(ot::Spinel::RadioSpinel *this, char a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Set(this, 37, "c", a2);
+  v4 = ot::Spinel::RadioSpinel::Set(this, 0x25u, "c", a2);
   if (!v4)
   {
     *(this + 1653) = a2;
@@ -7370,21 +7698,21 @@ uint64_t ot::Spinel::RadioSpinel::SetTransmitPower(ot::Spinel::RadioSpinel *this
 
 uint64_t ot::Spinel::RadioSpinel::SetRcpLogLevel(ot::Spinel::RadioSpinel *this, unsigned __int8 a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Set(this, 16385, "C", a2);
+  v4 = ot::Spinel::RadioSpinel::Set(this, 0x4001u, "C", a2);
   ot::Spinel::Logger::LogIfFail1(this, "Set RCP Log Level failed", v4);
   return v4;
 }
 
 uint64_t ot::Spinel::RadioSpinel::SetMinInterframeDelay(ot::Spinel::RadioSpinel *this, unsigned int a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Set(this, 2000016, "L", a2);
+  v4 = ot::Spinel::RadioSpinel::Set(this, 0x1E8490u, "L", a2);
   ot::Spinel::Logger::LogIfFail1(this, "Set Interframe delay failed", v4);
   return v4;
 }
 
 uint64_t ot::Spinel::RadioSpinel::SetCcaEnergyDetectThreshold(ot::Spinel::RadioSpinel *this, char a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Set(this, 36, "c", a2);
+  v4 = ot::Spinel::RadioSpinel::Set(this, 0x24u, "c", a2);
   if (!v4)
   {
     *(this + 1652) = a2;
@@ -7397,21 +7725,21 @@ uint64_t ot::Spinel::RadioSpinel::SetCcaEnergyDetectThreshold(ot::Spinel::RadioS
 
 uint64_t ot::Spinel::RadioSpinel::SetRssiOffset(ot::Spinel::RadioSpinel *this, char a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Set(this, 2000001, "c", a2);
+  v4 = ot::Spinel::RadioSpinel::Set(this, 0x1E8481u, "c", a2);
   ot::Spinel::Logger::LogIfFail1(this, "Set RSSI offset failed", v4);
   return v4;
 }
 
 uint64_t ot::Spinel::RadioSpinel::SetRssiOffsetPath1(ot::Spinel::RadioSpinel *this, char a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Set(this, 2000022, "c", a2);
+  v4 = ot::Spinel::RadioSpinel::Set(this, 0x1E8496u, "c", a2);
   ot::Spinel::Logger::LogIfFail1(this, "Set RSSI offset PATH_1 failed", v4);
   return v4;
 }
 
 uint64_t ot::Spinel::RadioSpinel::SetFemLnaGain(ot::Spinel::RadioSpinel *this, char a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Set(this, 42, "c", a2);
+  v4 = ot::Spinel::RadioSpinel::Set(this, 0x2Au, "c", a2);
   if (!v4)
   {
     *(this + 1654) = a2;
@@ -7454,7 +7782,7 @@ uint64_t ot::Spinel::RadioSpinel::EnergyScan(ot::Spinel::RadioSpinel *this, char
   return v5;
 }
 
-uint64_t ot::Spinel::RadioSpinel::RequestWithPropertyFormatV(ot::Spinel::RadioSpinel *this, const char *a2, int a3, int a4, char *a5, char **a6)
+uint64_t ot::Spinel::RadioSpinel::RequestWithPropertyFormatV(ot::Spinel::RadioSpinel *this, const char *a2, unsigned int a3, unsigned int a4, char *a5, const char **a6)
 {
   *(this + 39) = a2;
   LODWORD(result) = ot::Spinel::RadioSpinel::RequestV(this, a3, a4, a5, a6);
@@ -7462,7 +7790,7 @@ uint64_t ot::Spinel::RadioSpinel::RequestWithPropertyFormatV(ot::Spinel::RadioSp
   return result;
 }
 
-uint64_t ot::Spinel::RadioSpinel::GetWithParam(ot::Spinel::RadioSpinel *this, int a2, const unsigned __int8 *a3, unsigned int a4, const char *a5, ...)
+uint64_t ot::Spinel::RadioSpinel::GetWithParam(ot::Spinel::RadioSpinel *this, unsigned int a2, const unsigned __int8 *a3, unsigned int a4, const char *a5, ...)
 {
   va_start(va, a5);
   if (pciNotOpen())
@@ -7481,7 +7809,7 @@ uint64_t ot::Spinel::RadioSpinel::GetWithParam(ot::Spinel::RadioSpinel *this, in
     {
       ot::Spinel::RadioSpinel::RecoverFromRcpFailure(this);
       *(this + 40) = va;
-      v7 = ot::Spinel::RadioSpinel::RequestWithPropertyFormat(this, a5, 2, a2, "D", a3, a4);
+      v7 = ot::Spinel::RadioSpinel::RequestWithPropertyFormat(this, a5, 2u, a2, "D", a3, a4);
     }
 
     while ((*(this + 952) & 7) != 0);
@@ -7489,7 +7817,7 @@ uint64_t ot::Spinel::RadioSpinel::GetWithParam(ot::Spinel::RadioSpinel *this, in
   }
 }
 
-uint64_t ot::Spinel::RadioSpinel::RequestWithExpectedCommandV(ot::Spinel::RadioSpinel *this, int a2, int a3, int a4, char *a5, char **a6)
+uint64_t ot::Spinel::RadioSpinel::RequestWithExpectedCommandV(ot::Spinel::RadioSpinel *this, int a2, unsigned int a3, unsigned int a4, char *a5, const char **a6)
 {
   *(this + 82) = a2;
   LODWORD(result) = ot::Spinel::RadioSpinel::RequestV(this, a3, a4, a5, a6);
@@ -7525,7 +7853,7 @@ uint64_t ot::Spinel::RadioSpinel::MemPeek(ot::Spinel::RadioSpinel *this, unsigne
   }
 }
 
-uint64_t ot::Spinel::RadioSpinel::RequestWithExpectedCommandVNK(ot::Spinel::RadioSpinel *this, int a2, unsigned int a3, char *a4, char **a5)
+uint64_t ot::Spinel::RadioSpinel::RequestWithExpectedCommandVNK(ot::Spinel::RadioSpinel *this, int a2, unsigned int a3, char *a4, const char **a5)
 {
   *(this + 82) = a2;
   LODWORD(result) = ot::Spinel::RadioSpinel::RequestVNK(this, a3, a4, a5);
@@ -7549,21 +7877,21 @@ uint64_t ot::Spinel::RadioSpinel::WaitResponse(ot::Spinel::RadioSpinel *this, ch
     return 28;
   }
 
-  v12 = otPlatTimeGet() + 2000000;
-  v9 = *(this + 300);
+  v11 = otPlatTimeGet() + 2000000;
+  v8 = *(this + 300);
   v2 = ot::ToUlong(*(this + 76));
-  ot::Spinel::Logger::LogDebg1(this, "Wait response: tid=%u key=%lu", v9, v2);
+  ot::Spinel::Logger::LogDebg1(this, "Wait response: tid=%u key=%lu", v8, v2);
   while (1)
   {
-    v11 = otPlatTimeGet();
-    if (v12 <= v11)
+    v10 = otPlatTimeGet();
+    if (v11 <= v10)
     {
       break;
     }
 
     SpinelDriver = ot::Spinel::RadioSpinel::GetSpinelDriver(this);
     SpinelInterface = ot::Spinel::SpinelDriver::GetSpinelInterface(SpinelDriver);
-    if ((*(*SpinelInterface + 32))(SpinelInterface, v12 - v11))
+    if ((*(*SpinelInterface + 32))(SpinelInterface, v11 - v10))
     {
       break;
     }
@@ -7577,12 +7905,11 @@ uint64_t ot::Spinel::RadioSpinel::WaitResponse(ot::Spinel::RadioSpinel *this, ch
   }
 
   ot::Spinel::Logger::LogWarn1(this, "Wait for response timeout gPciStatus=%d", gPciStatus);
-  v5 = *(this + 28);
   if (otPlatRadioGetRcp2Vendor2Enabled() & 1) != 0 && (otPlatRadioGetCoreDumpTXFailureEnabled())
   {
-    v8 = *(this + 300);
-    v6 = ot::ToUlong(*(this + 76));
-    ot::Spinel::Logger::LogDebg1(this, "%s Trigger CoreDump  tid=%u key=%lu", "WaitResponse", v8, v6);
+    v7 = *(this + 300);
+    v5 = ot::ToUlong(*(this + 76));
+    ot::Spinel::Logger::LogDebg1(this, "%s Trigger CoreDump  tid=%u key=%lu", "WaitResponse", v7, v5);
     rcp_hard_reset();
   }
 
@@ -7652,7 +7979,7 @@ uint64_t ot::Spinel::RadioSpinel::GetNextTid(ot::Spinel::RadioSpinel *this)
   return v4;
 }
 
-uint64_t ot::Spinel::RadioSpinel::RequestV(ot::Spinel::RadioSpinel *this, int a2, int a3, char *a4, char **a5)
+uint64_t ot::Spinel::RadioSpinel::RequestV(ot::Spinel::RadioSpinel *this, unsigned int a2, unsigned int a3, char *a4, const char **a5)
 {
   NextTid = ot::Spinel::RadioSpinel::GetNextTid(this);
   if (NextTid)
@@ -7708,7 +8035,7 @@ uint64_t ot::Spinel::RadioSpinel::RequestV(ot::Spinel::RadioSpinel *this, int a2
   return v11;
 }
 
-uint64_t ot::Spinel::RadioSpinel::RequestVNK(ot::Spinel::RadioSpinel *this, unsigned int a2, char *a3, char **a4)
+uint64_t ot::Spinel::RadioSpinel::RequestVNK(ot::Spinel::RadioSpinel *this, unsigned int a2, char *a3, const char **a4)
 {
   NextTid = ot::Spinel::RadioSpinel::GetNextTid(this);
   if (NextTid)
@@ -7740,17 +8067,17 @@ uint64_t ot::Mac::TxFrame::SetIsHeaderUpdated(uint64_t this, char a2)
   return ot::Mac::TxFrame::SetIsHeaderUpdated(this, a2);
 }
 
-BOOL ot::Mac::Frame::GetSecurityEnabled(ot::Mac::Frame *this)
+BOOL ot::Mac::Frame::GetSecurityEnabled(ot::Mac::Frame *this, unsigned __int16 a2)
 {
-  FrameControlField = ot::Mac::Frame::GetFrameControlField(this);
-  return ot::Mac::Frame::IsSecurityEnabled(FrameControlField);
+  FrameControlField = ot::Mac::Frame::GetFrameControlField(this, a2);
+  return ot::Mac::Frame::IsSecurityEnabled(FrameControlField, v3, v4, v5);
 }
 
 {
-  return ot::Mac::Frame::GetSecurityEnabled(this);
+  return ot::Mac::Frame::GetSecurityEnabled(this, a2);
 }
 
-uint64_t ot::Spinel::RadioSpinel::GetVendorTxInfo(uint64_t this, int *a2, unsigned __int16 *a3, const unsigned __int8 *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ot::Spinel::RadioSpinel::GetVendorTxInfo(uint64_t this, int *a2, unsigned __int16 *a3, unsigned __int8 *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v45 = this;
   v44 = a2;
@@ -7849,14 +8176,14 @@ uint64_t ot::Spinel::RadioSpinel::Transmit(ot::Spinel::RadioSpinel *a1, uint64_t
     v13 = *(v21[114] + 8);
     v14 = *(v21[114] + 43);
     v20[13] = v20;
-    v22 = ot::Spinel::RadioSpinel::Request(v21, 3, 113, "dCCCbbbbLLC", v3, v4, v5, v6, v7, v8 & 1, v9 & 1, v10 & 1, v11 & 1, v12, v13, v14);
+    v22 = ot::Spinel::RadioSpinel::Request(v21, 3u, 0x71u, "dCCCbbbbLLC", v3, v4, v5, v6, v7, v8 & 1, v9 & 1, v10 & 1, v11 & 1, v12, v13, v14);
     if (!v22)
     {
       *(v21 + 236) = 3;
       v15 = otPlatTimeGet();
       v16 = v21;
       v21[210] = (v15 + 5000000 * (*(v21[114] + 41) / 16 + 1));
-      v17 = ot::AsCoreType<otInstance>(*(v16 + 28));
+      ot::AsCoreType<otInstance>(*(v16 + 28));
       v18 = ot::Instance::Get<ot::Mle::Mle>(v17);
       if (ot::Mle::Mle::isThreadRegulatoryCertEnabled(v18))
       {
@@ -7935,7 +8262,7 @@ uint64_t ot::Spinel::RadioSpinel::LoadPTB(const char **this)
     v4 = readFromFilePTB(__b, v7, 0x514u);
     if (v4)
     {
-      v5 = ot::Spinel::RadioSpinel::Set(this, 15534, "d", v7, v4);
+      v5 = ot::Spinel::RadioSpinel::Set(this, 0x3CAEu, "d", v7, v4);
       if (v5)
       {
         v1 = otThreadErrorToString(v5);
@@ -7968,12 +8295,12 @@ uint64_t ot::Spinel::RadioSpinel::resetRCP(const char **this)
   return 0;
 }
 
-unsigned __int8 *ot::Spinel::RadioSpinel::FreeTransmitTid(unsigned __int8 *this)
+const char **ot::Spinel::RadioSpinel::FreeTransmitTid(const char **this)
 {
   v1 = this;
-  if (this[299])
+  if (*(this + 299))
   {
-    ot::Spinel::Logger::LogInfo1(this, "Freed Transmit Tid %d", this[299]);
+    ot::Spinel::Logger::LogInfo1(this, "Freed Transmit Tid %d", *(this + 299));
     ot::Spinel::RadioSpinel::FreeTid(v1, *(v1 + 299));
     *(v1 + 299) = 0;
     *(v1 + 236) = 2;
@@ -8015,23 +8342,32 @@ uint64_t ot::Spinel::RadioSpinel::Sleep(ot::Spinel::RadioSpinel *this)
 
 uint64_t ot::Spinel::RadioSpinel::Enable(uint64_t a1, uint64_t a2)
 {
-  v19 = a1;
-  v18 = a2;
+  v14 = a1;
+  v13 = a2;
   PTB = 0;
-  v16 = 0;
+  v11 = 0;
   if (!ot::Spinel::RadioSpinel::IsEnabled(a1))
   {
-    *(a1 + 224) = v18;
+    *(a1 + 224) = v13;
     ot::Spinel::Logger::LogNote1(a1, "RadioSpinel::Enable SIZEOF : sz_Instance[--]");
-    v2 = *(a1 + 224);
     if ((otPlatRadioGetRcp2Vendor2Enabled() & 1) == 0)
     {
       if (!isSupportedPlatform())
       {
         ot::Spinel::Logger::LogWarn1(a1, "Unsupported Platform: Daemon Exiting");
-        strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-        otExitCodeToString(1);
-        otLogCritPlat("%s() at %s:%d: %s", v3, v4, v5, v6, v7, v8, v9, "Enable");
+        v10 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+        if (v10)
+        {
+          v8 = v10 + 1;
+        }
+
+        else
+        {
+          v8 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+        }
+
+        v2 = otExitCodeToString(1);
+        otLogCritPlat("%s() at %s:%d: %s", "Enable", v8, 2936, v2);
         handle_daemon_exit();
         exit(1);
       }
@@ -8039,39 +8375,39 @@ uint64_t ot::Spinel::RadioSpinel::Enable(uint64_t a1, uint64_t a2)
       PTB = ot::Spinel::RadioSpinel::LoadPTB(a1);
       if (PTB)
       {
-        v10 = otThreadErrorToString(PTB);
-        ot::Spinel::Logger::LogWarn1(a1, "RadioSpinel LoadPTB failed : %s", v10);
+        v3 = otThreadErrorToString(PTB);
+        ot::Spinel::Logger::LogWarn1(a1, "RadioSpinel LoadPTB failed : %s", v3);
       }
 
-      PTB = ot::Spinel::RadioSpinel::Get(a1, 15535, "b", &v16);
+      PTB = ot::Spinel::RadioSpinel::Get(a1, 0x3CAFu, "b", &v11);
       if (PTB)
       {
-        v12 = otThreadErrorToString(PTB);
-        ot::Spinel::Logger::LogDebg1(a1, "Failed to read MSF Load status: %s", v12);
+        v5 = otThreadErrorToString(PTB);
+        ot::Spinel::Logger::LogDebg1(a1, "Failed to read MSF Load status: %s", v5);
       }
 
       else
       {
-        v11 = "Success";
-        if ((v16 & 1) == 0)
+        v4 = "Success";
+        if ((v11 & 1) == 0)
         {
-          v11 = "Fail";
+          v4 = "Fail";
         }
 
-        ot::Spinel::Logger::LogDebg1(a1, "MSF File Load status in RCP2 =%s", v11);
+        ot::Spinel::Logger::LogDebg1(a1, "MSF File Load status in RCP2 =%s", v4);
       }
     }
 
-    PTB = ot::Spinel::RadioSpinel::Set(a1, 32, "b", 1);
+    PTB = ot::Spinel::RadioSpinel::Set(a1, 0x20u, "b", 1);
     if (!PTB)
     {
-      PTB = ot::Spinel::RadioSpinel::Set(a1, 54, "S", *(a1 + 930));
+      PTB = ot::Spinel::RadioSpinel::Set(a1, 0x36u, "S", *(a1 + 930));
       if (!PTB)
       {
-        PTB = ot::Spinel::RadioSpinel::Set(a1, 53, "S", *(a1 + 928));
+        PTB = ot::Spinel::RadioSpinel::Set(a1, 0x35u, "S", *(a1 + 928));
         if (!PTB)
         {
-          PTB = ot::Spinel::RadioSpinel::Get(a1, 39, "c", a1 + 933);
+          PTB = ot::Spinel::RadioSpinel::Get(a1, 0x27u, "c", a1 + 933);
           if (!PTB)
           {
             *(a1 + 944) = 1;
@@ -8083,8 +8419,8 @@ uint64_t ot::Spinel::RadioSpinel::Enable(uint64_t a1, uint64_t a2)
 
   if (PTB)
   {
-    v13 = otThreadErrorToString(PTB);
-    ot::Spinel::Logger::LogWarn1(a1, "RadioSpinel enable: %s", v13);
+    v6 = otThreadErrorToString(PTB);
+    ot::Spinel::Logger::LogWarn1(a1, "RadioSpinel enable: %s", v6);
     return 1;
   }
 
@@ -8093,7 +8429,7 @@ uint64_t ot::Spinel::RadioSpinel::Enable(uint64_t a1, uint64_t a2)
 
 uint64_t ot::Spinel::RadioSpinel::Disable(ot::Spinel::RadioSpinel *this)
 {
-  v13 = 0;
+  v9 = 0;
   if (pciNotOpen())
   {
     return 0;
@@ -8105,11 +8441,21 @@ uint64_t ot::Spinel::RadioSpinel::Disable(ot::Spinel::RadioSpinel *this)
     {
       if (*(this + 236) == 1)
       {
-        v12 = ot::Spinel::RadioSpinel::Set(this, 32, "b", 0);
-        if (v12)
+        v8 = ot::Spinel::RadioSpinel::Set(this, 0x20u, "b", 0);
+        if (v8)
         {
-          strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-          if (v12 == 7)
+          v7 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+          if (v7)
+          {
+            v5 = v7 + 1;
+          }
+
+          else
+          {
+            v5 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+          }
+
+          if (v8 == 7)
           {
             v1 = 2;
           }
@@ -8119,20 +8465,20 @@ uint64_t ot::Spinel::RadioSpinel::Disable(ot::Spinel::RadioSpinel *this)
             v1 = 1;
           }
 
-          otExitCodeToString(v1);
-          otLogCritPlat("%s() at %s:%d: %s", v2, v3, v4, v5, v6, v7, v8, "Disable");
+          v2 = otExitCodeToString(v1);
+          otLogCritPlat("%s() at %s:%d: %s", "Disable", v5, 2985, v2);
           handle_daemon_exit();
-          if (v12 == 7)
+          if (v8 == 7)
           {
-            v9 = 2;
+            v3 = 2;
           }
 
           else
           {
-            v9 = 1;
+            v3 = 1;
           }
 
-          exit(v9);
+          exit(v3);
         }
 
         *(this + 236) = 0;
@@ -8145,7 +8491,7 @@ uint64_t ot::Spinel::RadioSpinel::Disable(ot::Spinel::RadioSpinel *this)
       }
     }
 
-    return v13;
+    return v9;
   }
 }
 
@@ -8230,12 +8576,12 @@ uint64_t ot::Spinel::RadioSpinel::SetBusLatency(ot::Spinel::RadioSpinel *this, i
 
 uint64_t ot::Spinel::RadioSpinel::GetRadioChannelMask(ot::Spinel::RadioSpinel *this, char a2)
 {
-  v28 = this;
-  v27 = a2;
-  v26 = 0;
-  v25 = 0;
-  v24 = v29;
-  v23 = 32;
+  v24 = this;
+  v23 = a2;
+  v22 = 0;
+  v21 = 0;
+  v20 = v25;
+  v19 = 32;
   if (a2)
   {
     v2 = 41;
@@ -8246,11 +8592,21 @@ uint64_t ot::Spinel::RadioSpinel::GetRadioChannelMask(ot::Spinel::RadioSpinel *t
     v2 = 34;
   }
 
-  v22 = ot::Spinel::RadioSpinel::Get(this, v2, "D", v29, &v23);
-  if (v22)
+  v18 = ot::Spinel::RadioSpinel::Get(this, v2, "D", v25, &v19);
+  if (v18)
   {
-    strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-    if (v22 == 7)
+    v17 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+    if (v17)
+    {
+      v13 = v17 + 1;
+    }
+
+    else
+    {
+      v13 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+    }
+
+    if (v18 == 7)
     {
       v8 = 2;
     }
@@ -8260,49 +8616,49 @@ uint64_t ot::Spinel::RadioSpinel::GetRadioChannelMask(ot::Spinel::RadioSpinel *t
       v8 = 1;
     }
 
-    otExitCodeToString(v8);
-    otLogCritPlat("%s() at %s:%d: %s", v9, v10, v11, v12, v13, v14, v15, "GetRadioChannelMask");
+    v9 = otExitCodeToString(v8);
+    otLogCritPlat("%s() at %s:%d: %s", "GetRadioChannelMask", v13, 3071, v9);
     handle_daemon_exit();
-    if (v22 == 7)
+    if (v18 == 7)
     {
-      v16 = 2;
+      v10 = 2;
     }
 
     else
     {
-      v16 = 1;
+      v10 = 1;
     }
 
-    exit(v16);
+    exit(v10);
   }
 
-  while (v23)
+  while (v19)
   {
-    v21 = 0;
-    v20 = spinel_datatype_unpack(v24, v23, "C", v3, v4, v5, v6, v7, &v21);
-    if (v20 <= 0)
+    v16 = 0;
+    v15 = spinel_datatype_unpack(v20, v19, "C", v3, v4, v5, v6, v7, &v16);
+    if (v15 <= 0)
     {
-      v26 = 1;
-      goto LABEL_19;
+      v22 = 1;
+      goto LABEL_22;
     }
 
-    if (v21 >= 0x20u)
+    if (v16 >= 0x20u)
     {
-      v26 = 6;
-      goto LABEL_19;
+      v22 = 6;
+      goto LABEL_22;
     }
 
-    v25 |= 1 << v21;
-    v24 += v20;
-    v23 -= v20;
+    v21 |= 1 << v16;
+    v20 += v15;
+    v19 -= v15;
   }
 
   SupportedChannelMask = ot::MaxPowerTable::GetSupportedChannelMask((this + 1704));
-  v25 &= SupportedChannelMask;
-LABEL_19:
-  ot::Spinel::RadioSpinel::UpdateParseErrorCount(this, v26);
-  ot::Spinel::Logger::LogIfFail1(this, "Get radio channel mask failed", v26);
-  return v25;
+  v21 &= SupportedChannelMask;
+LABEL_22:
+  ot::Spinel::RadioSpinel::UpdateParseErrorCount(this, v22);
+  ot::Spinel::Logger::LogIfFail1(this, "Get radio channel mask failed", v22);
+  return v21;
 }
 
 uint64_t ot::MaxPowerTable::GetSupportedChannelMask(ot::MaxPowerTable *this)
@@ -8364,25 +8720,25 @@ uint64_t ot::Spinel::SpinelDriver::MarkRxBufferReset(ot::Spinel::SpinelDriver *t
 
 void ot::Spinel::RadioSpinel::RestoreProperties(ot::Spinel::RadioSpinel *this)
 {
-  v230 = this;
-  v198 = this;
-  v229 = ot::Spinel::RadioSpinel::Set(v198, 0x36u, "S", *(v198 + 465));
-  if (v229)
+  v126 = this;
+  v94 = this;
+  v125 = ot::Spinel::RadioSpinel::Set(v94, 0x36u, "S", *(v94 + 465));
+  if (v125)
   {
-    v228 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-    if (v228)
+    v124 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+    if (v124)
     {
-      v197 = v228 + 1;
+      v93 = v124 + 1;
     }
 
     else
     {
-      v197 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+      v93 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
     }
 
-    v195 = v197;
-    v196 = 2;
-    if (v229 == 7)
+    v91 = v93;
+    v92 = 2;
+    if (v125 == 7)
     {
       v1 = 2;
     }
@@ -8392,14 +8748,96 @@ void ot::Spinel::RadioSpinel::RestoreProperties(ot::Spinel::RadioSpinel *this)
       v1 = 1;
     }
 
-    v149 = v195;
-    v150 = 3524;
-    v151 = otExitCodeToString(v1);
-    otLogCritPlat("%s() at %s:%d: %s", v2, v3, v4, v5, v6, v7, v8, "RestoreProperties");
+    v2 = otExitCodeToString(v1);
+    otLogCritPlat("%s() at %s:%d: %s", "RestoreProperties", v91, 3524, v2);
     handle_daemon_exit();
-    if (v229 == 7)
+    if (v125 == 7)
     {
-      v9 = v196;
+      v3 = v92;
+    }
+
+    else
+    {
+      v3 = 1;
+    }
+
+    exit(v3);
+  }
+
+  v123 = ot::Spinel::RadioSpinel::Set(v94, 0x35u, "S", *(v94 + 464));
+  if (v123)
+  {
+    v122 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+    if (v122)
+    {
+      v90 = v122 + 1;
+    }
+
+    else
+    {
+      v90 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+    }
+
+    v88 = v90;
+    v89 = 2;
+    if (v123 == 7)
+    {
+      v4 = 2;
+    }
+
+    else
+    {
+      v4 = 1;
+    }
+
+    v5 = otExitCodeToString(v4);
+    otLogCritPlat("%s() at %s:%d: %s", "RestoreProperties", v88, 3525, v5);
+    handle_daemon_exit();
+    if (v123 == 7)
+    {
+      v6 = v89;
+    }
+
+    else
+    {
+      v6 = 1;
+    }
+
+    exit(v6);
+  }
+
+  v121 = ot::Spinel::RadioSpinel::Set(v94, 0x34u, "E", v94 + 920);
+  if (v121)
+  {
+    v120 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+    if (v120)
+    {
+      v87 = v120 + 1;
+    }
+
+    else
+    {
+      v87 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+    }
+
+    v85 = v87;
+    v86 = 2;
+    if (v121 == 7)
+    {
+      v7 = 2;
+    }
+
+    else
+    {
+      v7 = 1;
+    }
+
+    v8 = otExitCodeToString(v7);
+    otLogCritPlat("%s() at %s:%d: %s", "RestoreProperties", v85, 3526, v8);
+    handle_daemon_exit();
+    if (v121 == 7)
+    {
+      v9 = v86;
     }
 
     else
@@ -8410,23 +8848,23 @@ void ot::Spinel::RadioSpinel::RestoreProperties(ot::Spinel::RadioSpinel *this)
     exit(v9);
   }
 
-  v227 = ot::Spinel::RadioSpinel::Set(v198, 0x35u, "S", *(v198 + 464));
-  if (v227)
+  v119 = ot::Spinel::RadioSpinel::Set(v94, 0x21u, "C", *(v94 + 932));
+  if (v119)
   {
-    v226 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-    if (v226)
+    v118 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+    if (v118)
     {
-      v194 = v226 + 1;
+      v84 = v118 + 1;
     }
 
     else
     {
-      v194 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+      v84 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
     }
 
-    v192 = v194;
-    v193 = 2;
-    if (v227 == 7)
+    v82 = v84;
+    v83 = 2;
+    if (v119 == 7)
     {
       v10 = 2;
     }
@@ -8436,136 +8874,375 @@ void ot::Spinel::RadioSpinel::RestoreProperties(ot::Spinel::RadioSpinel *this)
       v10 = 1;
     }
 
-    v149 = v192;
-    v150 = 3525;
-    v151 = otExitCodeToString(v10);
-    otLogCritPlat("%s() at %s:%d: %s", v11, v12, v13, v14, v15, v16, v17, "RestoreProperties");
+    v11 = otExitCodeToString(v10);
+    otLogCritPlat("%s() at %s:%d: %s", "RestoreProperties", v82, 3531, v11);
     handle_daemon_exit();
-    if (v227 == 7)
+    if (v119 == 7)
     {
-      v18 = v193;
+      v12 = v83;
     }
 
     else
     {
-      v18 = 1;
+      v12 = 1;
     }
 
-    exit(v18);
+    exit(v12);
   }
 
-  v225 = ot::Spinel::RadioSpinel::Set(v198, 0x34u, "E", v198 + 920);
-  if (v225)
+  if ((*(v94 + 1655) & 4) != 0)
   {
-    v224 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-    if (v224)
+    v13 = *(v94 + 953);
+    v14 = *(v94 + 954);
+    v81 = &v47;
+    v117 = ot::Spinel::RadioSpinel::Set(v94, 0x800u, "CCddd", v13, v14, v94 + 955, 16, v94 + 971, 16, v94 + 987, 16);
+    if (v117)
     {
-      v191 = v224 + 1;
-    }
-
-    else
-    {
-      v191 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
-    }
-
-    v189 = v191;
-    v190 = 2;
-    if (v225 == 7)
-    {
-      v19 = 2;
-    }
-
-    else
-    {
-      v19 = 1;
-    }
-
-    v149 = v189;
-    v150 = 3526;
-    v151 = otExitCodeToString(v19);
-    otLogCritPlat("%s() at %s:%d: %s", v20, v21, v22, v23, v24, v25, v26, "RestoreProperties");
-    handle_daemon_exit();
-    if (v225 == 7)
-    {
-      v27 = v190;
-    }
-
-    else
-    {
-      v27 = 1;
-    }
-
-    exit(v27);
-  }
-
-  v223 = ot::Spinel::RadioSpinel::Set(v198, 0x21u, "C", *(v198 + 932));
-  if (v223)
-  {
-    v222 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-    if (v222)
-    {
-      v188 = v222 + 1;
-    }
-
-    else
-    {
-      v188 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
-    }
-
-    v186 = v188;
-    v187 = 2;
-    if (v223 == 7)
-    {
-      v28 = 2;
-    }
-
-    else
-    {
-      v28 = 1;
-    }
-
-    v149 = v186;
-    v150 = 3531;
-    v151 = otExitCodeToString(v28);
-    otLogCritPlat("%s() at %s:%d: %s", v29, v30, v31, v32, v33, v34, v35, "RestoreProperties");
-    handle_daemon_exit();
-    if (v223 == 7)
-    {
-      v36 = v187;
-    }
-
-    else
-    {
-      v36 = 1;
-    }
-
-    exit(v36);
-  }
-
-  if ((*(v198 + 1655) & 4) != 0)
-  {
-    v37 = *(v198 + 953);
-    v38 = *(v198 + 954);
-    v185 = &v148;
-    v221 = ot::Spinel::RadioSpinel::Set(v198, 0x800u, "CCddd", v37, v38, v198 + 955, 16, v198 + 971, 16, v198 + 987, 16);
-    if (v221)
-    {
-      v220 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-      if (v220)
+      v116 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+      if (v116)
       {
-        v184 = v220 + 1;
+        v80 = v116 + 1;
       }
 
       else
       {
-        v184 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+        v80 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
       }
 
-      v182 = v184;
-      v183 = 2;
-      if (v221 == 7)
+      v78 = v80;
+      v79 = 2;
+      if (v117 == 7)
       {
-        v39 = 2;
+        v15 = 2;
+      }
+
+      else
+      {
+        v15 = 1;
+      }
+
+      v16 = otExitCodeToString(v15);
+      otLogCritPlat("%s() at %s:%d: %s", "RestoreProperties", v78, 3540, v16);
+      handle_daemon_exit();
+      if (v117 == 7)
+      {
+        v17 = v79;
+      }
+
+      else
+      {
+        v17 = 1;
+      }
+
+      exit(v17);
+    }
+  }
+
+  if ((*(v94 + 1655) & 0x100) != 0)
+  {
+    FrameCounter = otLinkGetFrameCounter(*(v94 + 28));
+    v115 = ot::Spinel::RadioSpinel::Set(v94, 0x801u, "L", (FrameCounter + 1000));
+    if (v115)
+    {
+      v114 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+      if (v114)
+      {
+        v77 = v114 + 1;
+      }
+
+      else
+      {
+        v77 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+      }
+
+      v75 = v77;
+      v76 = 2;
+      if (v115 == 7)
+      {
+        v19 = 2;
+      }
+
+      else
+      {
+        v19 = 1;
+      }
+
+      v20 = otExitCodeToString(v19);
+      otLogCritPlat("%s() at %s:%d: %s", "RestoreProperties", v75, 3558, v20);
+      handle_daemon_exit();
+      if (v115 == 7)
+      {
+        v21 = v76;
+      }
+
+      else
+      {
+        v21 = 1;
+      }
+
+      exit(v21);
+    }
+  }
+
+  for (i = 0; i < *(v94 + 566); ++i)
+  {
+    v112 = ot::Spinel::RadioSpinel::Insert(v94, 0x1304u, "S", *(v94 + i + 502));
+    if (v112)
+    {
+      v111 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+      if (v111)
+      {
+        v74 = v111 + 1;
+      }
+
+      else
+      {
+        v74 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+      }
+
+      v72 = v74;
+      v73 = 2;
+      if (v112 == 7)
+      {
+        v22 = 2;
+      }
+
+      else
+      {
+        v22 = 1;
+      }
+
+      v23 = otExitCodeToString(v22);
+      otLogCritPlat("%s() at %s:%d: %s", "RestoreProperties", v72, 3573, v23);
+      handle_daemon_exit();
+      if (v112 == 7)
+      {
+        v24 = v73;
+      }
+
+      else
+      {
+        v24 = 1;
+      }
+
+      exit(v24);
+    }
+  }
+
+  for (j = 0; j < *(v94 + 823); ++j)
+  {
+    v109 = ot::Spinel::RadioSpinel::Insert(v94, 0x1305u, "E", v94 + 8 * j + 1134);
+    if (v109)
+    {
+      v108 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+      if (v108)
+      {
+        v71 = v108 + 1;
+      }
+
+      else
+      {
+        v71 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+      }
+
+      v69 = v71;
+      v70 = 2;
+      if (v109 == 7)
+      {
+        v25 = 2;
+      }
+
+      else
+      {
+        v25 = 1;
+      }
+
+      v26 = otExitCodeToString(v25);
+      otLogCritPlat("%s() at %s:%d: %s", "RestoreProperties", v69, 3579, v26);
+      handle_daemon_exit();
+      if (v109 == 7)
+      {
+        v27 = v70;
+      }
+
+      else
+      {
+        v27 = 1;
+      }
+
+      exit(v27);
+    }
+  }
+
+  if (*(v94 + 1658))
+  {
+    v107 = ot::Spinel::RadioSpinel::Set(v94, 0x1303u, "b", (*(v94 + 1655) & 2) != 0);
+    if (v107)
+    {
+      v106 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+      if (v106)
+      {
+        v68 = v106 + 1;
+      }
+
+      else
+      {
+        v68 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+      }
+
+      v66 = v68;
+      v67 = 2;
+      if (v107 == 7)
+      {
+        v28 = 2;
+      }
+
+      else
+      {
+        v28 = 1;
+      }
+
+      v29 = otExitCodeToString(v28);
+      otLogCritPlat("%s() at %s:%d: %s", "RestoreProperties", v66, 3584, v29);
+      handle_daemon_exit();
+      if (v107 == 7)
+      {
+        v30 = v67;
+      }
+
+      else
+      {
+        v30 = 1;
+      }
+
+      exit(v30);
+    }
+  }
+
+  if ((*(v94 + 1655) & 8) != 0)
+  {
+    v105 = ot::Spinel::RadioSpinel::Set(v94, 0x24u, "c", *(v94 + 1652));
+    if (v105)
+    {
+      v104 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+      if (v104)
+      {
+        v65 = v104 + 1;
+      }
+
+      else
+      {
+        v65 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+      }
+
+      v63 = v65;
+      v64 = 2;
+      if (v105 == 7)
+      {
+        v31 = 2;
+      }
+
+      else
+      {
+        v31 = 1;
+      }
+
+      v32 = otExitCodeToString(v31);
+      otLogCritPlat("%s() at %s:%d: %s", "RestoreProperties", v63, 3589, v32);
+      handle_daemon_exit();
+      if (v105 == 7)
+      {
+        v33 = v64;
+      }
+
+      else
+      {
+        v33 = 1;
+      }
+
+      exit(v33);
+    }
+  }
+
+  if ((*(v94 + 1655) & 0x10) != 0)
+  {
+    v103 = ot::Spinel::RadioSpinel::Set(v94, 0x25u, "c", *(v94 + 1653));
+    if (v103)
+    {
+      v102 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+      if (v102)
+      {
+        v62 = v102 + 1;
+      }
+
+      else
+      {
+        v62 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+      }
+
+      v60 = v62;
+      v61 = 2;
+      if (v103 == 7)
+      {
+        v34 = 2;
+      }
+
+      else
+      {
+        v34 = 1;
+      }
+
+      v35 = otExitCodeToString(v34);
+      otLogCritPlat("%s() at %s:%d: %s", "RestoreProperties", v60, 3594, v35);
+      handle_daemon_exit();
+      if (v103 == 7)
+      {
+        v36 = v61;
+      }
+
+      else
+      {
+        v36 = 1;
+      }
+
+      exit(v36);
+    }
+  }
+
+  if ((*(v94 + 1655) & 0x20) != 0)
+  {
+    v101 = ot::Spinel::RadioSpinel::Set(v94, 0x120Du, "b", *(v94 + 1655) & 1);
+    if (v101)
+    {
+      v100 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+      if (v100)
+      {
+        v59 = v100 + 1;
+      }
+
+      else
+      {
+        v59 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+      }
+
+      v57 = v59;
+      v58 = 2;
+      if (v101 == 7)
+      {
+        v37 = 2;
+      }
+
+      else
+      {
+        v37 = 1;
+      }
+
+      v38 = otExitCodeToString(v37);
+      otLogCritPlat("%s() at %s:%d: %s", "RestoreProperties", v57, 3599, v38);
+      handle_daemon_exit();
+      if (v101 == 7)
+      {
+        v39 = v58;
       }
 
       else
@@ -8573,492 +9250,130 @@ void ot::Spinel::RadioSpinel::RestoreProperties(ot::Spinel::RadioSpinel *this)
         v39 = 1;
       }
 
-      v40 = otExitCodeToString(v39);
-      v149 = v182;
-      v150 = 3540;
-      v151 = v40;
-      otLogCritPlat("%s() at %s:%d: %s", v41, v42, v43, v44, v45, v46, v47, "RestoreProperties");
-      handle_daemon_exit();
-      if (v221 == 7)
-      {
-        v48 = v183;
-      }
-
-      else
-      {
-        v48 = 1;
-      }
-
-      exit(v48);
+      exit(v39);
     }
   }
 
-  if ((*(v198 + 1655) & 0x100) != 0)
+  if ((*(v94 + 1655) & 0x40) != 0)
   {
-    FrameCounter = otLinkGetFrameCounter(*(v198 + 28));
-    v219 = ot::Spinel::RadioSpinel::Set(v198, 0x801u, "L", (FrameCounter + 1000));
-    if (v219)
+    v99 = ot::Spinel::RadioSpinel::Set(v94, 0x2Au, "c", *(v94 + 1654));
+    if (v99)
     {
-      v218 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-      if (v218)
+      v98 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+      if (v98)
       {
-        v181 = v218 + 1;
+        v56 = v98 + 1;
       }
 
       else
       {
-        v181 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+        v56 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
       }
 
-      v179 = v181;
-      v180 = 2;
-      if (v219 == 7)
+      v54 = v56;
+      v55 = 2;
+      if (v99 == 7)
       {
-        v50 = 2;
+        v40 = 2;
       }
 
       else
       {
-        v50 = 1;
+        v40 = 1;
       }
 
-      v51 = otExitCodeToString(v50);
-      v149 = v179;
-      v150 = 3558;
-      v151 = v51;
-      otLogCritPlat("%s() at %s:%d: %s", v52, v53, v54, v55, v56, v57, v58, "RestoreProperties");
+      v41 = otExitCodeToString(v40);
+      otLogCritPlat("%s() at %s:%d: %s", "RestoreProperties", v54, 3604, v41);
       handle_daemon_exit();
-      if (v219 == 7)
+      if (v99 == 7)
       {
-        v59 = v180;
+        v42 = v55;
       }
 
       else
       {
-        v59 = 1;
+        v42 = 1;
       }
 
-      exit(v59);
+      exit(v42);
     }
   }
 
-  for (i = 0; i < *(v198 + 566); ++i)
+  if (!*(v94 + 28))
   {
-    v216 = ot::Spinel::RadioSpinel::Insert(v198, 4868, "S", *(v198 + i + 502));
-    if (v216)
+    ot::Spinel::Logger::LogWarn1(v94, "OT instance is already invalidated, Daemon exiting");
+    v97 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+    if (v97)
     {
-      v215 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-      if (v215)
-      {
-        v178 = v215 + 1;
-      }
-
-      else
-      {
-        v178 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
-      }
-
-      v176 = v178;
-      v177 = 2;
-      if (v216 == 7)
-      {
-        v60 = 2;
-      }
-
-      else
-      {
-        v60 = 1;
-      }
-
-      v61 = otExitCodeToString(v60);
-      v149 = v176;
-      v150 = 3573;
-      v151 = v61;
-      otLogCritPlat("%s() at %s:%d: %s", v62, v63, v64, v65, v66, v67, v68, "RestoreProperties");
-      handle_daemon_exit();
-      if (v216 == 7)
-      {
-        v69 = v177;
-      }
-
-      else
-      {
-        v69 = 1;
-      }
-
-      exit(v69);
-    }
-  }
-
-  for (j = 0; j < *(v198 + 823); ++j)
-  {
-    v213 = ot::Spinel::RadioSpinel::Insert(v198, 4869, "E", v198 + 8 * j + 1134);
-    if (v213)
-    {
-      v212 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-      if (v212)
-      {
-        v175 = v212 + 1;
-      }
-
-      else
-      {
-        v175 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
-      }
-
-      v173 = v175;
-      v174 = 2;
-      if (v213 == 7)
-      {
-        v70 = 2;
-      }
-
-      else
-      {
-        v70 = 1;
-      }
-
-      v71 = otExitCodeToString(v70);
-      v149 = v173;
-      v150 = 3579;
-      v151 = v71;
-      otLogCritPlat("%s() at %s:%d: %s", v72, v73, v74, v75, v76, v77, v78, "RestoreProperties");
-      handle_daemon_exit();
-      if (v213 == 7)
-      {
-        v79 = v174;
-      }
-
-      else
-      {
-        v79 = 1;
-      }
-
-      exit(v79);
-    }
-  }
-
-  if (*(v198 + 1658))
-  {
-    v211 = ot::Spinel::RadioSpinel::Set(v198, 0x1303u, "b", (*(v198 + 1655) & 2) != 0);
-    if (v211)
-    {
-      v210 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-      if (v210)
-      {
-        v172 = v210 + 1;
-      }
-
-      else
-      {
-        v172 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
-      }
-
-      v170 = v172;
-      v171 = 2;
-      if (v211 == 7)
-      {
-        v80 = 2;
-      }
-
-      else
-      {
-        v80 = 1;
-      }
-
-      v81 = otExitCodeToString(v80);
-      v149 = v170;
-      v150 = 3584;
-      v151 = v81;
-      otLogCritPlat("%s() at %s:%d: %s", v82, v83, v84, v85, v86, v87, v88, "RestoreProperties");
-      handle_daemon_exit();
-      if (v211 == 7)
-      {
-        v89 = v171;
-      }
-
-      else
-      {
-        v89 = 1;
-      }
-
-      exit(v89);
-    }
-  }
-
-  if ((*(v198 + 1655) & 8) != 0)
-  {
-    v209 = ot::Spinel::RadioSpinel::Set(v198, 0x24u, "c", *(v198 + 1652));
-    if (v209)
-    {
-      v208 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-      if (v208)
-      {
-        v169 = v208 + 1;
-      }
-
-      else
-      {
-        v169 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
-      }
-
-      v167 = v169;
-      v168 = 2;
-      if (v209 == 7)
-      {
-        v90 = 2;
-      }
-
-      else
-      {
-        v90 = 1;
-      }
-
-      v91 = otExitCodeToString(v90);
-      v149 = v167;
-      v150 = 3589;
-      v151 = v91;
-      otLogCritPlat("%s() at %s:%d: %s", v92, v93, v94, v95, v96, v97, v98, "RestoreProperties");
-      handle_daemon_exit();
-      if (v209 == 7)
-      {
-        v99 = v168;
-      }
-
-      else
-      {
-        v99 = 1;
-      }
-
-      exit(v99);
-    }
-  }
-
-  if ((*(v198 + 1655) & 0x10) != 0)
-  {
-    v207 = ot::Spinel::RadioSpinel::Set(v198, 0x25u, "c", *(v198 + 1653));
-    if (v207)
-    {
-      v206 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-      if (v206)
-      {
-        v166 = v206 + 1;
-      }
-
-      else
-      {
-        v166 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
-      }
-
-      v164 = v166;
-      v165 = 2;
-      if (v207 == 7)
-      {
-        v100 = 2;
-      }
-
-      else
-      {
-        v100 = 1;
-      }
-
-      v101 = otExitCodeToString(v100);
-      v149 = v164;
-      v150 = 3594;
-      v151 = v101;
-      otLogCritPlat("%s() at %s:%d: %s", v102, v103, v104, v105, v106, v107, v108, "RestoreProperties");
-      handle_daemon_exit();
-      if (v207 == 7)
-      {
-        v109 = v165;
-      }
-
-      else
-      {
-        v109 = 1;
-      }
-
-      exit(v109);
-    }
-  }
-
-  if ((*(v198 + 1655) & 0x20) != 0)
-  {
-    v205 = ot::Spinel::RadioSpinel::Set(v198, 0x120Du, "b", *(v198 + 1655) & 1);
-    if (v205)
-    {
-      v204 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-      if (v204)
-      {
-        v163 = v204 + 1;
-      }
-
-      else
-      {
-        v163 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
-      }
-
-      v161 = v163;
-      v162 = 2;
-      if (v205 == 7)
-      {
-        v110 = 2;
-      }
-
-      else
-      {
-        v110 = 1;
-      }
-
-      v111 = otExitCodeToString(v110);
-      v149 = v161;
-      v150 = 3599;
-      v151 = v111;
-      otLogCritPlat("%s() at %s:%d: %s", v112, v113, v114, v115, v116, v117, v118, "RestoreProperties");
-      handle_daemon_exit();
-      if (v205 == 7)
-      {
-        v119 = v162;
-      }
-
-      else
-      {
-        v119 = 1;
-      }
-
-      exit(v119);
-    }
-  }
-
-  if ((*(v198 + 1655) & 0x40) != 0)
-  {
-    v203 = ot::Spinel::RadioSpinel::Set(v198, 0x2Au, "c", *(v198 + 1654));
-    if (v203)
-    {
-      v202 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-      if (v202)
-      {
-        v160 = v202 + 1;
-      }
-
-      else
-      {
-        v160 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
-      }
-
-      v158 = v160;
-      v159 = 2;
-      if (v203 == 7)
-      {
-        v120 = 2;
-      }
-
-      else
-      {
-        v120 = 1;
-      }
-
-      v121 = otExitCodeToString(v120);
-      v149 = v158;
-      v150 = 3604;
-      v151 = v121;
-      otLogCritPlat("%s() at %s:%d: %s", v122, v123, v124, v125, v126, v127, v128, "RestoreProperties");
-      handle_daemon_exit();
-      if (v203 == 7)
-      {
-        v129 = v159;
-      }
-
-      else
-      {
-        v129 = 1;
-      }
-
-      exit(v129);
-    }
-  }
-
-  if (!*(v198 + 28))
-  {
-    ot::Spinel::Logger::LogWarn1(v198, "OT instance is already invalidated, Daemon exiting");
-    v201 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-    if (v201)
-    {
-      v157 = v201 + 1;
+      v53 = v97 + 1;
     }
 
     else
     {
-      v157 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+      v53 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
     }
 
-    v155 = v157;
-    v156 = 1;
-    v130 = otExitCodeToString(1);
-    v149 = v155;
-    v150 = 3632;
-    v151 = v130;
-    otLogCritPlat("%s() at %s:%d: %s", v131, v132, v133, v134, v135, v136, v137, "RestoreProperties");
+    v51 = v53;
+    v52 = 1;
+    v43 = otExitCodeToString(1);
+    otLogCritPlat("%s() at %s:%d: %s", "RestoreProperties", v51, 3632, v43);
     handle_daemon_exit();
-    exit(v156);
+    exit(v52);
   }
 
-  otThreadSetCoexConfigInfo(*(v198 + 28));
+  otThreadSetCoexConfigInfo(*(v94 + 28));
   if ((ot::Spinel::RadioSpinel::sRadioCaps & 0x100) != 0)
   {
-    v200 = ot::Spinel::RadioSpinel::Set(v198, 0x3Bu, "b", (*(v198 + 948) & 2) != 0);
-    if (v200)
+    v96 = ot::Spinel::RadioSpinel::Set(v94, 0x3Bu, "b", (*(v94 + 948) & 2) != 0);
+    if (v96)
     {
-      v199 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
-      if (v199)
+      v95 = strrchr[abi:dn200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp", 47);
+      if (v95)
       {
-        v154 = v199 + 1;
+        v50 = v95 + 1;
       }
 
       else
       {
-        v154 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
+        v50 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread/src/lib/spinel/radio_spinel.cpp";
       }
 
-      v152 = v154;
-      v153 = 2;
-      if (v200 == 7)
+      v48 = v50;
+      v49 = 2;
+      if (v96 == 7)
       {
-        v138 = 2;
+        v44 = 2;
       }
 
       else
       {
-        v138 = 1;
+        v44 = 1;
       }
 
-      v139 = otExitCodeToString(v138);
-      v149 = v152;
-      v150 = 3639;
-      v151 = v139;
-      otLogCritPlat("%s() at %s:%d: %s", v140, v141, v142, v143, v144, v145, v146, "RestoreProperties");
+      v45 = otExitCodeToString(v44);
+      otLogCritPlat("%s() at %s:%d: %s", "RestoreProperties", v48, 3639, v45);
       handle_daemon_exit();
-      if (v200 == 7)
+      if (v96 == 7)
       {
-        v147 = v153;
+        v46 = v49;
       }
 
       else
       {
-        v147 = 1;
+        v46 = 1;
       }
 
-      exit(v147);
+      exit(v46);
     }
   }
 
-  if (*(v198 + 1760))
+  if (*(v94 + 1760))
   {
-    ot::Spinel::RadioSpinel::CalcRcpTimeOffset(v198);
+    ot::Spinel::RadioSpinel::CalcRcpTimeOffset(v94);
   }
 }
 
-void ot::Spinel::RadioSpinel::HandleReceivedFrame(const char **this, const unsigned __int8 *a2, __int16 a3, uint64_t a4, BOOL *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void ot::Spinel::RadioSpinel::HandleReceivedFrame(const char **this, unsigned __int8 *a2, __int16 a3, uint64_t a4, BOOL *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if ((a4 & 0xF) != 0)
   {
@@ -9072,9 +9387,11 @@ void ot::Spinel::RadioSpinel::HandleReceivedFrame(const char **this, const unsig
   }
 }
 
-void ot::Spinel::RadioSpinel::RestoreHostProperties(const char **this)
+void ot::Spinel::RadioSpinel::RestoreHostProperties(ot::Spinel::RadioSpinel *this)
 {
-  v16 = this;
+  v17 = this;
+  v1 = this;
+  v16 = 0;
   v15 = 0;
   v14 = 0;
   v13 = 0;
@@ -9089,27 +9406,26 @@ void ot::Spinel::RadioSpinel::RestoreHostProperties(const char **this)
   v4 = 0;
   v3 = 0;
   v2 = 0;
-  v1 = 0;
   ot::Spinel::Logger::LogWarn1(this, "RestoreHostProperties ..");
-  get_host_rcp_setting_params(&v15, &v14, &v13, &v12, &v11, &v10, &v9, &v8, &v7, &v6, &v5, &v4, &v3, &v2, &v1);
+  get_host_rcp_setting_params(&v16, &v15, &v14, &v13, &v12, &v11, &v10, &v9, &v8, &v7, &v6, &v5, &v4, &v3, &v2);
 }
 
 uint64_t ot::Spinel::RadioSpinel::SetPromiscuousEnable(ot::Spinel::RadioSpinel *this)
 {
   Channel = otLinkGetChannel(*(this + 28));
-  v4 = ot::Spinel::RadioSpinel::Set(this, 32, "b", 1);
+  v4 = ot::Spinel::RadioSpinel::Set(this, 0x20u, "b", 1);
   if (!v4)
   {
-    v4 = ot::Spinel::RadioSpinel::Set(this, 40, "b", 1);
+    v4 = ot::Spinel::RadioSpinel::Set(this, 0x28u, "b", 1);
     if (!v4)
     {
-      v4 = ot::Spinel::RadioSpinel::Set(this, 55, "b", 1);
+      v4 = ot::Spinel::RadioSpinel::Set(this, 0x37u, "b", 1);
       if (!v4)
       {
-        v4 = ot::Spinel::RadioSpinel::Set(this, 56, "C", 2);
+        v4 = ot::Spinel::RadioSpinel::Set(this, 0x38u, "C", 2);
         if (!v4)
         {
-          return ot::Spinel::RadioSpinel::Set(this, 33, "C", Channel);
+          return ot::Spinel::RadioSpinel::Set(this, 0x21u, "C", Channel);
         }
       }
     }
@@ -9120,7 +9436,7 @@ uint64_t ot::Spinel::RadioSpinel::SetPromiscuousEnable(ot::Spinel::RadioSpinel *
 
 uint64_t ot::Spinel::RadioSpinel::GetMultipanActiveInterface(ot::Spinel::RadioSpinel *this, unsigned __int8 *a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Get(this, 2304, "C", a2);
+  v4 = ot::Spinel::RadioSpinel::Get(this, 0x900u, "C", a2);
   ot::Spinel::Logger::LogIfFail1(this, "Get GetMultipanActiveInterface failed", v4);
   return v4;
 }
@@ -9135,7 +9451,7 @@ uint64_t ot::Spinel::RadioSpinel::SetMultipanActiveInterface(ot::Spinel::RadioSp
       v4 = a2 | 0x80;
     }
 
-    return ot::Spinel::RadioSpinel::Set(this, 2304, "C", v4);
+    return ot::Spinel::RadioSpinel::Set(this, 0x900u, "C", v4);
   }
 
   else
@@ -9144,12 +9460,12 @@ uint64_t ot::Spinel::RadioSpinel::SetMultipanActiveInterface(ot::Spinel::RadioSp
   }
 }
 
-uint64_t ot::Spinel::RadioSpinel::SetChannelMaxTransmitPower(ot::Spinel::RadioSpinel *this, unsigned __int8 a2, char a3)
+uint64_t ot::Spinel::RadioSpinel::SetChannelMaxTransmitPower(ot::Spinel::RadioSpinel *this, unsigned __int8 a2, signed __int8 a3)
 {
   if (a2 >= 0xBu && a2 <= 0x19u)
   {
     ot::MaxPowerTable::SetTransmitPower(this + 1704, a2, a3);
-    return ot::Spinel::RadioSpinel::Set(this, 43, "Cc", a2, a3);
+    return ot::Spinel::RadioSpinel::Set(this, 0x2Bu, "Cc", a2, a3);
   }
 
   else
@@ -9170,7 +9486,7 @@ uint64_t ot::MaxPowerTable::SetTransmitPower(uint64_t this, unsigned __int8 a2, 
 
 uint64_t ot::Spinel::RadioSpinel::SetRadioRegion(ot::Spinel::RadioSpinel *this, unsigned __int16 a2)
 {
-  v5 = ot::Spinel::RadioSpinel::Set(this, 44, "S", a2);
+  v5 = ot::Spinel::RadioSpinel::Set(this, 0x2Cu, "S", a2);
   if (v5)
   {
     v2 = otThreadErrorToString(v5);
@@ -9189,7 +9505,7 @@ uint64_t ot::Spinel::RadioSpinel::GetRadioRegion(ot::Spinel::RadioSpinel *this, 
 {
   if (a2)
   {
-    return ot::Spinel::RadioSpinel::Get(this, 44, "S", a2);
+    return ot::Spinel::RadioSpinel::Get(this, 0x2Cu, "S", a2);
   }
 
   else
@@ -9216,1270 +9532,21 @@ uint64_t ot::Spinel::RadioSpinel::ConfigureEnhAckProbing(ot::Spinel::RadioSpinel
     v5 |= 8u;
   }
 
-  return ot::Spinel::RadioSpinel::Set(a1, 2051, "SEC", *a3, a4, v5);
+  return ot::Spinel::RadioSpinel::Set(a1, 0x803u, "SEC", *a3, a4, v5);
 }
 
 uint64_t ot::Spinel::RadioSpinel::EnableCsl(ot::Spinel::RadioSpinel *a1, unsigned int a2, unsigned __int16 a3, uint64_t a4)
 {
-  return ot::Spinel::RadioSpinel::Set(a1, 2055, "LSE", a2, a3, a4, a4);
+  return ot::Spinel::RadioSpinel::Set(a1, 0x807u, "LSE", a2, a3, a4, a4);
 }
 
 {
-  return ot::Spinel::RadioSpinel::Set(a1, 2055, "LSE", a2, a3, a4);
+  return ot::Spinel::RadioSpinel::Set(a1, 0x807u, "LSE", a2, a3, a4);
 }
 
 uint64_t ot::Spinel::RadioSpinel::SetHostPowerState(ot::Spinel::RadioSpinel *this, unsigned __int8 a2)
 {
-  v4 = ot::Spinel::RadioSpinel::Set(this, 12, "C", a2);
+  v4 = ot::Spinel::RadioSpinel::Set(this, 0xCu, "C", a2);
   ot::Spinel::Logger::LogIfFail1(this, "Set host power state failed", v4);
   return v4;
-}
-
-uint64_t ot::Spinel::RadioSpinel::GetPcapEnable(ot::Spinel::RadioSpinel *this)
-{
-  v5 = this;
-  v4 = 0;
-  v3 = ot::Spinel::RadioSpinel::Get(this, 40, "b", &v4);
-  ot::Spinel::Logger::LogIfFail1(this, "Get Pcap Enable failed", v3);
-  return v4 & 1;
-}
-
-uint64_t ot::Spinel::RadioSpinel::SetPromiscuousDisable(ot::Spinel::RadioSpinel *this)
-{
-  v4 = this;
-  v2 = this;
-  v3 = 0;
-  v3 = ot::Spinel::RadioSpinel::Set(this, 56, "C", 0);
-  if (!v3)
-  {
-    return ot::Spinel::RadioSpinel::Set(v2, 40, "b", 0);
-  }
-
-  return v3;
-}
-
-uint64_t ot::Spinel::RadioSpinel::SetRcp2Vendor2Enabled(ot::Spinel::RadioSpinel *this, char a2)
-{
-  result = 0;
-  *(this + 1736) = a2 != 0;
-  return result;
-}
-
-uint64_t ot::Spinel::RadioSpinel::getStreamRawHistogram(ot::Spinel::RadioSpinel *this, unsigned int *a2)
-{
-  if (a2 && this != -24)
-  {
-    for (i = 0; i < 50; ++i)
-    {
-      a2[i] = *(this + i + 6);
-    }
-
-    return 0;
-  }
-
-  else
-  {
-    return 13;
-  }
-}
-
-uint64_t ot::Spinel::RadioSpinel::resetStreamRawHistogram(ot::Spinel::RadioSpinel *this)
-{
-  if (this == -24)
-  {
-    return 13;
-  }
-
-  else
-  {
-    for (i = 0; i < 50; ++i)
-    {
-      *(this + i + 6) = 0;
-    }
-
-    return 0;
-  }
-}
-
-uint64_t ot::Spinel::RadioSpinel::GetFrameTxPowerHistogram(ot::Spinel::RadioSpinel *this, unsigned int *a2, unsigned __int8 *a3)
-{
-  v8 = this;
-  v7 = a2;
-  v6 = a3;
-  v4[19] = this;
-  v5 = 13;
-  v4[18] = v4;
-  v5 = ot::Spinel::RadioSpinel::Get(this, 4645, "t(LLLLLLLLLLLLLLLLL)", v7, v7 + 1, v7 + 2, v7 + 3, v7 + 4, v7 + 5, v7 + 6, v7 + 7, v7 + 8, v7 + 9, v7 + 10, v7 + 11, v7 + 12, v7 + 13, v7 + 14, v7 + 15, v7 + 16);
-  if (!v5)
-  {
-    *v6 = 17;
-  }
-
-  return v5;
-}
-
-uint64_t ot::Spinel::RadioSpinel::ResetFrameTxPowerHistogram(ot::Spinel::RadioSpinel *this)
-{
-  v4 = this;
-  v2 = this;
-  v3 = 13;
-  return ot::Spinel::RadioSpinel::Set(this, 4645, "L", 0);
-}
-
-uint64_t ot::Spinel::RadioSpinel::GetNeighborTxPowerHistogram(ot::Spinel::RadioSpinel *this, unsigned int *a2, unsigned __int8 *a3)
-{
-  v8 = this;
-  v7 = a2;
-  v6 = a3;
-  v4[19] = this;
-  v5 = 13;
-  v4[18] = v4;
-  v5 = ot::Spinel::RadioSpinel::Get(this, 4646, "t(LLLLLLLLLLLLLLLLL)", v7, v7 + 1, v7 + 2, v7 + 3, v7 + 4, v7 + 5, v7 + 6, v7 + 7, v7 + 8, v7 + 9, v7 + 10, v7 + 11, v7 + 12, v7 + 13, v7 + 14, v7 + 15, v7 + 16);
-  if (!v5)
-  {
-    *v6 = 17;
-  }
-
-  return v5;
-}
-
-uint64_t ot::Spinel::RadioSpinel::ResetNeighborTxPowerHistogram(ot::Spinel::RadioSpinel *this)
-{
-  v4 = this;
-  v2 = this;
-  v3 = 13;
-  return ot::Spinel::RadioSpinel::Set(this, 4646, "L", 0);
-}
-
-uint64_t ot::Spinel::RadioSpinel::GetNeighborEnergySavingsFactorHistogram(ot::Spinel::RadioSpinel *this, unsigned int *a2, unsigned __int8 *a3)
-{
-  v8 = this;
-  v7 = a2;
-  v6 = a3;
-  v4[21] = this;
-  v5 = 13;
-  v4[20] = v4;
-  v5 = ot::Spinel::RadioSpinel::Get(this, 4647, "t(LLLLLLLLLLLLLLLLLLL)", v7, v7 + 1, v7 + 2, v7 + 3, v7 + 4, v7 + 5, v7 + 6, v7 + 7, v7 + 8, v7 + 9, v7 + 10, v7 + 11, v7 + 12, v7 + 13, v7 + 14, v7 + 15, v7 + 16, v7 + 17, v7 + 18);
-  if (!v5)
-  {
-    *v6 = 19;
-  }
-
-  return v5;
-}
-
-uint64_t ot::Spinel::RadioSpinel::ResetNeighborEnergySavingsFactorHistogram(ot::Spinel::RadioSpinel *this)
-{
-  v4 = this;
-  v2 = this;
-  v3 = 13;
-  return ot::Spinel::RadioSpinel::Set(this, 4647, "L", 0);
-}
-
-uint64_t ot::Spinel::RadioSpinel::SetWakeupConfiguration(ot::Spinel::RadioSpinel *this, unsigned int a2, unsigned __int8 a3, unsigned __int8 a4)
-{
-  v22 = this;
-  v21 = a2;
-  v20 = a3;
-  v19 = a4;
-  v11 = this;
-  v18 = 0;
-  v17 = 0;
-  v16 = 1;
-  v15 = 60;
-  PrioritizedWindowSize = otLinkGetPrioritizedWindowSize(*(this + 28));
-  v13 = 8;
-  v12 = 0;
-  v4 = *(v11 + 28);
-  if (otPlatRadioGetRcp2Vendor2Enabled())
-  {
-    v18 = ot::Spinel::RadioSpinel::Set(v11, 55, "b", 0);
-  }
-
-  else
-  {
-    v18 = ot::Spinel::RadioSpinel::Set(v11, 15397, "C", 0);
-  }
-
-  v10 = v20;
-  if (v20 == 1)
-  {
-    v12 = 15000;
-    v17 = 1;
-  }
-
-  else if (v10 == 2)
-  {
-    v12 = 7500;
-    v17 = 1;
-  }
-
-  else if (v10 == 3)
-  {
-    v12 = 7500;
-    v17 = 2;
-  }
-
-  else
-  {
-    if (v10 == 4)
-    {
-      v12 = 15000;
-    }
-
-    else
-    {
-      v12 = 7500;
-    }
-
-    v17 = 1;
-  }
-
-  v5 = ot::AsCoreType<otInstance>(*(v11 + 28));
-  v6 = ot::Instance::Get<ot::Mle::Mle>(v5);
-  if (ot::Mle::Mle::isThreadRegulatoryCertEnabled(v6))
-  {
-    v12 = 7500;
-    v17 = v19;
-  }
-
-  v7 = *(v11 + 28);
-  if ((otPlatRadioGetRcp2Vendor2Enabled() & 1) == 0 && !otPlatRadioRcp2SpinelVersionIsSameOrNewer(1u, 1u))
-  {
-    v12 /= 1000;
-  }
-
-  v13 = 8;
-  v9[9] = v9;
-  return ot::Spinel::RadioSpinel::Set(v11, 4353, "LLCLLLLL", v21, v12, v17, 60, 8, v16, v15, PrioritizedWindowSize);
-}
-
-uint64_t ot::Spinel::RadioSpinel::GetCslAccuracy(ot::Spinel::RadioSpinel *this)
-{
-  v5 = this;
-  v4 = -1;
-  v3 = ot::Spinel::RadioSpinel::Get(this, 2052, "C", &v4);
-  ot::Spinel::Logger::LogIfFail1(this, "Get CSL Accuracy failed", v3);
-  return v4;
-}
-
-uint64_t ot::Spinel::RadioSpinel::GetCslUncertainty(ot::Spinel::RadioSpinel *this)
-{
-  v5 = this;
-  v4 = -1;
-  v3 = ot::Spinel::RadioSpinel::Get(this, 2053, "C", &v4);
-  ot::Spinel::Logger::LogIfFail1(this, "Get CSL Uncertainty failed", v3);
-  return v4;
-}
-
-uint64_t ot::Spinel::RadioSpinel::AddCalibratedPower(ot::Spinel::RadioSpinel *this, unsigned __int8 a2, __int16 a3, const unsigned __int8 *a4, unsigned __int16 a5)
-{
-  if (!a4)
-  {
-    __assert_rtn("AddCalibratedPower", "radio_spinel.cpp", 4339, "aRawPowerSetting != nullptr");
-  }
-
-  return ot::Spinel::RadioSpinel::Insert(this, 45, "Csd", a2, a3, a4, a5);
-}
-
-uint64_t ot::Spinel::RadioSpinel::SetChannelTargetPower(ot::Spinel::RadioSpinel *this, unsigned __int8 a2, __int16 a3)
-{
-  if (a2 >= 0xBu && a2 <= 0x19u)
-  {
-    return ot::Spinel::RadioSpinel::Set(this, 46, "Cs", a2, a3);
-  }
-
-  else
-  {
-    return 7;
-  }
-}
-
-uint64_t ot::Spinel::RadioSpinel::SpinelHandleReceivedFrame(char **this, char *a2, unsigned __int16 a3, char *a4, char *a5, char a6)
-{
-  v30 = this;
-  v29 = a2;
-  v28 = a3;
-  v27 = a4;
-  v26 = a5;
-  v25 = a6;
-  v17 = this;
-  v16 = this;
-  this[1] = a4;
-  this[2] = v26;
-  v6 = ot::Spinel::Logger::Snprintf(this, this[1], *(this + 4) - this[1], "\n");
-  v17[1] += v6;
-  v24 = v15;
-  v18 = (v28 + 15) & 0x1FFF0;
-  __chkstk_darwin(v6);
-  v19 = &v15[-v18];
-  v23 = v7;
-  ot::Spinel::parse_string_into_data(&v15[-v18], v28, v29, v8);
-  v22 = 0;
-  v21 = 0;
-  v20 = 0;
-  if (v25)
-  {
-    return ot::Spinel::RadioSpinel::SpinelLogSpinelFrame(v16, v19, v28, 1);
-  }
-
-  else
-  {
-    v22 = ot::Spinel::RadioSpinel::SpinelLogSpinelFrame(v16, v19, v28, 0);
-    if (!v22)
-    {
-      v20 = spinel_datatype_unpack(v19, v28, "C", v9, v10, v11, v12, v13, &v21);
-      if (v20 >= 1 && (v21 & 0x80) != 0 && ((v21 >> 4) & 3) == 0)
-      {
-        if ((v21 & 0xF) != 0)
-        {
-          return ot::Spinel::RadioSpinel::SpinelHandleResponse(v16, v19, v28);
-        }
-
-        else
-        {
-          return ot::Spinel::RadioSpinel::SpinelHandleNotification(v16, v19, v28);
-        }
-      }
-
-      else
-      {
-        return 6;
-      }
-    }
-  }
-
-  return v22;
-}
-
-uint64_t ot::Spinel::RadioSpinel::SpinelLogSpinelFrame(char **this, const unsigned __int8 *a2, unsigned __int16 a3, char a4)
-{
-  v305 = v340;
-  v393 = this;
-  v392 = a2;
-  v391 = a3;
-  v390 = a4;
-  *&__size[1] = this;
-  v4 = ot::Spinel::Logger::Snprintf(this, this[1], this[2] - this[1], "\n");
-  *(*&__size[1] + 8) += v4;
-  v389 = 0;
-  v388 = 0;
-  v387 = 0;
-  v386 = 0;
-  v385 = 0;
-  v384 = 0;
-  v383 = 0;
-  v382 = 0;
-  if (otLoggingGetLevel(v4) < 5)
-  {
-    goto LABEL_209;
-  }
-
-  v12 = v305;
-  v13 = "Sent spinel frame";
-  if ((v390 & 1) == 0)
-  {
-    v13 = "Received spinel frame";
-  }
-
-  *(v305 + 34) = v13;
-  v14 = *(v12 + 40);
-  v263 = &v386;
-  v264 = &v385;
-  v265 = &v384;
-  v266 = &v383;
-  *(v305 + 77) = spinel_datatype_unpack(v14, v391, "CiiD", v7, v8, v9, v10, v11, &v387);
-  if (*(v305 + 77) <= 0)
-  {
-    *(v305 + 78) = 6;
-    goto LABEL_209;
-  }
-
-  __str = *(*&__size[1] + 8);
-  __size[0] = *(*&__size[1] + 16) - *(*&__size[1] + 8);
-  *&v300[1] = *(v305 + 34);
-  v301 = (v387 & 0xC0) >> 6;
-  v302 = v387 & 0xF;
-  v15 = spinel_command_to_cstr(*(v305 + 75));
-  *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(*&__size[1], __str, __size[0], "%s, flg:0x%x, tid:%u, cmd:%s", *&v300[1], v301, v302, v15);
-  if (*(v305 + 75) == 1)
-  {
-    goto LABEL_209;
-  }
-
-  v299 = *(*&__size[1] + 8);
-  v300[0] = *(*&__size[1] + 16) - *(*&__size[1] + 8);
-  v16 = spinel_prop_key_to_cstr(*(v305 + 74));
-  *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(*&__size[1], v299, v300[0], ", key:%s", v16);
-  if (*(v305 + 75) == 2)
-  {
-    goto LABEL_209;
-  }
-
-  v298 = *(v305 + 74);
-  switch(v298)
-  {
-    case 0:
-      v17 = v305;
-      *(v305 + 67) = 0;
-      *(v305 + 77) = spinel_datatype_unpack(*(v17 + 36), *(v17 + 71), "i", v7, v8, v9, v10, v11, v381);
-      if (*(v305 + 77) > 0)
-      {
-        v296 = *(*&__size[1] + 8);
-        v297 = *(*&__size[1] + 16) - *(*&__size[1] + 8);
-        v18 = spinel_status_to_cstr(*(v305 + 67));
-        *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(*&__size[1], v296, v297, ", status:%s", v18);
-      }
-
-      else
-      {
-        *(v305 + 78) = 6;
-      }
-
-      goto LABEL_209;
-    case 1:
-      v41 = v305;
-      *(v305 + 41) = 0;
-      *(v41 + 40) = 0;
-      v42 = *(v41 + 36);
-      v43 = *(v41 + 71);
-      v263 = &v369;
-      *(v305 + 77) = spinel_datatype_unpack(v42, v43, "ii", v7, v8, v9, v10, v11, v370);
-      if (*(v305 + 77) > 0)
-      {
-        *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(*&__size[1], *(*&__size[1] + 8), *(*&__size[1] + 16) - *(*&__size[1] + 8), ", major:%u, minor:%u", *(v305 + 41), *(v305 + 40));
-      }
-
-      else
-      {
-        *(v305 + 78) = 6;
-      }
-
-      goto LABEL_209;
-    case 2:
-      v48 = v305;
-      *(v305 + 16) = 0;
-      *(v305 + 77) = spinel_datatype_unpack(*(v48 + 36), *(v48 + 71), "U", v7, v8, v9, v10, v11, v366);
-      if ((*(v305 + 77) & 0x80000000) != 0)
-      {
-        *(v305 + 78) = 6;
-      }
-
-      else
-      {
-        *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(*&__size[1], *(*&__size[1] + 8), *(*&__size[1] + 16) - *(*&__size[1] + 8), ", version:%s", *(v305 + 16));
-      }
-
-      goto LABEL_209;
-    case 5:
-      v37 = *&__size[1];
-      *(v305 + 42) = 0;
-      *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(v37, *(v37 + 8), *(v37 + 16) - *(v37 + 8), ", caps:");
-      while (*(v305 + 71))
-      {
-        *(v305 + 77) = spinel_datatype_unpack(*(v305 + 36), *(v305 + 71), "i", v7, v8, v9, v10, v11, v371);
-        if (*(v305 + 77) <= 0)
-        {
-          *(v305 + 78) = 6;
-          goto LABEL_209;
-        }
-
-        v38 = *&__size[1];
-        v39 = v305;
-        *(v305 + 36) += *(v305 + 77);
-        v39[71] -= v39[77];
-        v290 = *(v38 + 8);
-        v291 = *(v38 + 16) - *(v38 + 8);
-        v40 = spinel_capability_to_cstr(v39[42]);
-        *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(*&__size[1], v290, v291, "%s ", v40);
-      }
-
-      goto LABEL_209;
-    case 8:
-      goto LABEL_176;
-    case 32:
-      goto LABEL_54;
-    case 33:
-      goto LABEL_71;
-    case 34:
-      goto LABEL_134;
-  }
-
-  if ((v298 - 36) <= 3)
-  {
-    goto LABEL_57;
-  }
-
-  switch(v298)
-  {
-    case 41:
-LABEL_134:
-      v44 = v305;
-      *(v305 + 39) = 0;
-      *(v44 + 18) = v403;
-      *(v44 + 35) = 32;
-      v45 = *(v44 + 36);
-      v46 = *(v44 + 71);
-      v263 = &v368;
-      *(v305 + 77) = spinel_datatype_unpack_in_place(v45, v46, "D", v7, v8, v9, v10, v11, v403);
-      if (*(v305 + 77) > 0)
-      {
-        while (*(v305 + 35))
-        {
-          v367 = 0;
-          *(v305 + 77) = spinel_datatype_unpack(*(v305 + 18), *(v305 + 35), "C", v7, v8, v9, v10, v11, &v367);
-          if (*(v305 + 77) <= 0)
-          {
-            *(v305 + 78) = 6;
-            goto LABEL_209;
-          }
-
-          if (v367 >= 0x20u)
-          {
-            *(v305 + 78) = 6;
-            goto LABEL_209;
-          }
-
-          v47 = v305;
-          *(v305 + 39) |= 1 << v367;
-          *(v47 + 18) += *(v47 + 77);
-          *(v47 + 35) -= *(v47 + 77);
-        }
-
-        *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(*&__size[1], *(*&__size[1] + 8), *(*&__size[1] + 16) - *(*&__size[1] + 8), ", channelMask:0x%08x", *(v305 + 39));
-      }
-
-      else
-      {
-        *(v305 + 78) = 6;
-      }
-
-      goto LABEL_209;
-    case 42:
-LABEL_57:
-      v19 = v305;
-      *(v305 + 32) = 0;
-      v379[0] = 0;
-      *(v305 + 77) = spinel_datatype_unpack(*(v19 + 36), *(v19 + 71), "c", v7, v8, v9, v10, v11, v379);
-      if (*(v305 + 77) > 0)
-      {
-        v295 = *(v305 + 74);
-        switch(v295)
-        {
-          case '$':
-            *(v305 + 32) = "threshold";
-            break;
-          case '%':
-            *(v305 + 32) = "power";
-            break;
-          case '&':
-            *(v305 + 32) = "rssi";
-            break;
-          case '\'':
-            *(v305 + 32) = "sensitivity";
-            break;
-          case '*':
-            *(v305 + 32) = "gain";
-            break;
-        }
-
-        *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(*&__size[1], *(*&__size[1] + 8), *(*&__size[1] + 16) - *(*&__size[1] + 8), ", %s:%d", *(v305 + 32), v379[0]);
-      }
-
-      else
-      {
-        *(v305 + 78) = 6;
-      }
-
-      goto LABEL_209;
-    case 43:
-      goto LABEL_120;
-    case 44:
-      goto LABEL_85;
-    case 45:
-      if (*(v305 + 75) == 4)
-      {
-        v312 = 0;
-        v311 = 0;
-        v310 = 0;
-        v309 = 0;
-        v257 = *(v305 + 36);
-        v258 = *(v305 + 71);
-        v263 = &v311;
-        v264 = &v310;
-        v265 = &v309;
-        *(v305 + 77) = spinel_datatype_unpack(v257, v258, "Csd", v7, v8, v9, v10, v11, &v312);
-        if (*(v305 + 77) > 0)
-        {
-          *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(*&__size[1], *(*&__size[1] + 8), *(*&__size[1] + 16) - *(*&__size[1] + 8), ", ch:%u, actualPower:%d, rawPowerSetting:", v312, v311);
-          for (i = 0; i < v309; ++i)
-          {
-            *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(*&__size[1], *(*&__size[1] + 8), *(*&__size[1] + 16) - *(*&__size[1] + 8), "%02x", *(v310 + i));
-          }
-        }
-
-        else
-        {
-          *(v305 + 78) = 6;
-        }
-      }
-
-      goto LABEL_209;
-    case 46:
-      v307 = 0;
-      v306 = 0;
-      v259 = *(v305 + 36);
-      v260 = *(v305 + 71);
-      v263 = &v306;
-      *(v305 + 77) = spinel_datatype_unpack(v259, v260, "Cs", v7, v8, v9, v10, v11, &v307);
-      if (*(v305 + 77) > 0)
-      {
-        *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(*&__size[1], *(*&__size[1] + 8), *(*&__size[1] + 16) - *(*&__size[1] + 8), ", ch:%u, targetPower:%d", v307, v306);
-      }
-
-      else
-      {
-        *(v305 + 78) = 6;
-      }
-
-      goto LABEL_209;
-    case 48:
-LABEL_71:
-      v20 = v305;
-      *(v305 + 30) = 0;
-      v378[0] = 0;
-      *(v305 + 77) = spinel_datatype_unpack(*(v20 + 36), *(v20 + 71), "C", v7, v8, v9, v10, v11, v378);
-      if (*(v305 + 77) > 0)
-      {
-        v294 = *(v305 + 74);
-        switch(v294)
-        {
-          case 33:
-            *(v305 + 30) = "channel";
-            break;
-          case 48:
-            *(v305 + 30) = "state";
-            break;
-          case 56:
-            *(v305 + 30) = "mode";
-            break;
-          case 2052:
-            *(v305 + 30) = "accuracy";
-            break;
-          case 2053:
-            *(v305 + 30) = "uncertainty";
-            break;
-        }
-
-        *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(*&__size[1], *(*&__size[1] + 8), *(*&__size[1] + 16) - *(*&__size[1] + 8), ", %s:%u", *(v305 + 30), v378[0]);
-      }
-
-      else
-      {
-        *(v305 + 78) = 6;
-      }
-
-      goto LABEL_209;
-    case 49:
-      v317 = 16;
-      v316 = 0;
-      v250 = *(v305 + 36);
-      v251 = *(v305 + 71);
-      v263 = &v316;
-      *(v305 + 77) = spinel_datatype_unpack(v250, v251, "D", v7, v8, v9, v10, v11, v395);
-      if (*(v305 + 77) > 0)
-      {
-        *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(*&__size[1], *(*&__size[1] + 8), *(*&__size[1] + 16) - *(*&__size[1] + 8), ", channels:");
-        for (j = 0; j < v316; ++j)
-        {
-          *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(*&__size[1], *(*&__size[1] + 8), *(*&__size[1] + 16) - *(*&__size[1] + 8), "%u ", v395[j]);
-        }
-      }
-
-      else
-      {
-        *(v305 + 78) = 6;
-      }
-
-      goto LABEL_209;
-    case 50:
-      goto LABEL_85;
-    case 52:
-LABEL_176:
-      v91 = v305;
-      v337 = 0;
-      *(v305 + 46) = 0;
-      *(v305 + 77) = spinel_datatype_unpack_in_place(*(v91 + 36), *(v91 + 71), "E", v7, v8, v9, v10, v11, v397);
-      if (*(v305 + 77) > 0)
-      {
-        if (*(v305 + 74) == 8)
-        {
-          v286 = "eui64";
-        }
-
-        else
-        {
-          v286 = "laddr";
-        }
-
-        v337 = v286;
-        v92 = *(*&__size[1] + 8);
-        v93 = *(*&__size[1] + 16) - v92;
-        v285 = &v262;
-        v94 = ot::Spinel::Logger::Snprintf(*&__size[1], v92, v93, ", %s:%02x%02x%02x%02x%02x%02x%02x%02x", v286, v397[0], v397[1], v397[2], v397[3], v397[4], v397[5], v397[6], v397[7]);
-        *(*&__size[1] + 8) += v94;
-      }
-
-      else
-      {
-        *(v305 + 78) = 6;
-      }
-
-      goto LABEL_209;
-    case 54:
-    case 53:
-LABEL_85:
-      v21 = v305;
-      *(v305 + 28) = 0;
-      v377[0] = 0;
-      *(v305 + 77) = spinel_datatype_unpack(*(v21 + 36), *(v21 + 71), "S", v7, v8, v9, v10, v11, v377);
-      if (*(v305 + 77) > 0)
-      {
-        v293 = *(v305 + 74);
-        switch(v293)
-        {
-          case 44:
-            *(v305 + 28) = "region";
-            break;
-          case 50:
-            *(v305 + 28) = "period";
-            break;
-          case 53:
-            *(v305 + 28) = "saddr";
-            break;
-          case 54:
-            *(v305 + 28) = "panid";
-            break;
-          case 4868:
-            *(v305 + 28) = "saddr";
-            break;
-        }
-
-        *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(*&__size[1], *(*&__size[1] + 8), *(*&__size[1] + 16) - *(*&__size[1] + 8), ", %s:0x%04x", *(v305 + 28), v377[0]);
-      }
-
-      else
-      {
-        *(v305 + 78) = 6;
-      }
-
-      goto LABEL_209;
-    case 55:
-      goto LABEL_54;
-    case 56:
-      goto LABEL_71;
-    case 57:
-LABEL_120:
-      v31 = v305;
-      *(v305 + 22) = 0;
-      v373[0] = 0;
-      v372 = 0;
-      v32 = *(v31 + 36);
-      v33 = *(v31 + 71);
-      v263 = &v372;
-      *(v305 + 77) = spinel_datatype_unpack(v32, v33, "Cc", v7, v8, v9, v10, v11, v373);
-      if (*(v305 + 77) > 0)
-      {
-        v34 = *&__size[1];
-        v35 = v305;
-        v36 = "rssi";
-        if (*(v305 + 74) != 57)
-        {
-          v36 = "power";
-        }
-
-        *(v305 + 22) = v36;
-        *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(v34, *(v34 + 8), *(v34 + 16) - *(v34 + 8), ", channel:%u, %s:%d", v373[0], v35[22], v372);
-      }
-
-      else
-      {
-        *(v305 + 78) = 6;
-      }
-
-      goto LABEL_209;
-    case 112:
-      v75 = v305;
-      *(v305 + 11) = 151;
-      v76 = *(v75 + 36);
-      v77 = *(v75 + 71);
-      v263 = &v347;
-      v78 = spinel_datatype_unpack_in_place(v76, v77, "D", v7, v8, v9, v10, v11, v401);
-      v79 = v305;
-      *(v305 + 77) = v78;
-      if (*(v79 + 11) >= 0x97uLL)
-      {
-        __assert_rtn("SpinelLogSpinelFrame", "spinel_parser_impl.hpp", 1160, "stringLength < sizeof(debugString)");
-      }
-
-      if (*(v305 + 77) > 0)
-      {
-        v80 = *&__size[1];
-        v401[*(v305 + 11)] = 0;
-        *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(v80, *(v80 + 8), *(v80 + 16) - *(v80 + 8), ", debug:%s", v401);
-      }
-
-      else
-      {
-        *(v305 + 78) = 6;
-      }
-
-      goto LABEL_209;
-    case 113:
-      if (*(v305 + 75) == 6)
-      {
-        v49 = v305;
-        v355 = 0;
-        v354 = 0;
-        *(v305 + 14) = 0;
-        v50 = *(v49 + 36);
-        v51 = *(v49 + 71);
-        v289 = &v262;
-        v263 = &v357;
-        v264 = &v360;
-        v265 = &v354;
-        v266 = &v355;
-        v267 = v358;
-        v268 = &v361;
-        v269 = &v359;
-        v270 = &v353;
-        v52 = spinel_datatype_unpack(v50, v51, "dccSt(CCX)t(i)", v7, v8, v9, v10, v11, v356);
-        *(v305 + 77) = v52;
-        if (*(v305 + 77) > 0)
-        {
-          v53 = ot::Spinel::Logger::Snprintf(*&__size[1], *(*&__size[1] + 8), *(*&__size[1] + 16) - *(*&__size[1] + 8), ", len:%u, rssi:%d, ", v357, v360);
-          v54 = v305;
-          v55 = v53;
-          v56 = *&__size[1];
-          *(*&__size[1] + 8) += v55;
-          v57 = ot::Spinel::Logger::Snprintf(v56, *(v56 + 8), *(v56 + 16) - *(v56 + 8), "noise:%d, flags:0x%04x, channel:%u, lqi:%u, timestamp:%lu, rxerr:%u", v354, v355, v358[0], v361, *(v54 + 10), *(v54 + 14));
-          v58 = v305;
-          *(*&__size[1] + 8) += v57;
-          v288 = v402;
-          v402[0] = 0;
-          ot::Spinel::encode_data_into_string(v58[8], v357, v402, 0x401, 0);
-          v59 = ot::Spinel::Logger::Snprintf(*&__size[1], *(*&__size[1] + 8), *(*&__size[1] + 16) - *(*&__size[1] + 8), "\n");
-          v60 = v288;
-          v61 = v59;
-          v62 = *&__size[1];
-          *(*&__size[1] + 8) += v61;
-          v63 = ot::Spinel::Logger::Snprintf(v62, *(v62 + 8), *(v62 + 16) - *(v62 + 8), "Data: %s", v60);
-          *(*&__size[1] + 8) += v63;
-        }
-
-        else
-        {
-          *(v305 + 78) = 6;
-        }
-      }
-
-      else if (*(v305 + 75) == 3)
-      {
-        v352 = 0;
-        v351 = 0;
-        v350 = 0;
-        v349 = 0;
-        v348 = 0;
-        v64 = *(v305 + 36);
-        v65 = *(v305 + 71);
-        v263 = &v352;
-        *(v305 + 77) = spinel_datatype_unpack(v64, v65, "CC", v7, v8, v9, v10, v11, v358);
-        if (*(v305 + 77) == 2)
-        {
-          v66 = v305;
-          *(v305 + 36) += *(v305 + 77);
-          *(v66 + 71) -= *(v66 + 77);
-          v67 = *(v305 + 36);
-          v68 = *(v305 + 71);
-          v263 = &v364;
-          if ((v352 & 0x40) != 0)
-          {
-            v264 = &v362 + 4;
-            v265 = &v362;
-            v266 = &v365;
-            v267 = v356;
-            v268 = &v357;
-            *(v305 + 77) = spinel_datatype_unpack(v67, v68, "CCLLCd", v7, v8, v9, v10, v11, &v363);
-          }
-
-          else
-          {
-            v264 = v356;
-            v265 = &v357;
-            v69 = spinel_datatype_unpack(v67, v68, "CCd", v7, v8, v9, v10, v11, &v363);
-            v70 = v305;
-            *(v305 + 77) = v69;
-            *(v70 + 25) = 0;
-            *(v70 + 24) = 0;
-            v365 = 0;
-          }
-
-          if (*(v305 + 77) == *(v305 + 71))
-          {
-            v351 = (v352 & 4) == 0;
-            v350 = (v352 & 8) != 0;
-            v349 = (v352 & 0x10) != 0;
-            v348 = (v352 & 0x20) != 0;
-            v71 = ot::Spinel::Logger::Snprintf(*&__size[1], *(*&__size[1] + 8), *(*&__size[1] + 16) - *(*&__size[1] + 8), ", len:%u, channel:%u, maxbackoffs:%u, maxretries:%u, ", v357, v358[0], v363, v364);
-            v72 = v305;
-            v73 = v71;
-            v74 = *&__size[1];
-            *(*&__size[1] + 8) += v73;
-            *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(v74, *(v74 + 8), *(v74 + 16) - *(v74 + 8), "csmaCaEnabled:%u, isHeaderUpdated:%u, isARetx:%u, skipAes:%u, txDelay:%u, txDelayBase:%u, rxChannelAfterTxDone:%u", v351, v350, v349, v348, *(v72 + 25), *(v72 + 24), v365);
-          }
-
-          else
-          {
-            *(v305 + 78) = 6;
-          }
-        }
-
-        else
-        {
-          *(v305 + 78) = 6;
-        }
-      }
-
-      goto LABEL_209;
-    case 116:
-      v81 = v305;
-      *(v305 + 4) = 0;
-      v345 = 0;
-      *(v305 + 77) = spinel_datatype_unpack(*(v81 + 36), *(v81 + 71), "U", v7, v8, v9, v10, v11, v346);
-      if ((*(v305 + 77) & 0x80000000) != 0)
-      {
-        *(v305 + 78) = 6;
-      }
-
-      else
-      {
-        v82 = v305;
-        *(v305 + 36) += *(v305 + 77);
-        *(v82 + 71) -= *(v82 + 77);
-        *(v305 + 77) = spinel_datatype_unpack(*(v82 + 36), *(v82 + 71), "C", v7, v8, v9, v10, v11, &v345);
-        if (*(v305 + 77) > 0)
-        {
-          *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(*&__size[1], *(*&__size[1] + 8), *(*&__size[1] + 16) - *(*&__size[1] + 8), ", level:%u, log:%s", v345, *(v305 + 4));
-        }
-
-        else
-        {
-          *(v305 + 78) = 6;
-        }
-      }
-
-      goto LABEL_209;
-    case 177:
-    case 176:
-LABEL_110:
-      v30 = v305;
-      *(v305 + 24) = 0;
-      *(v30 + 47) = 0;
-      *(v305 + 77) = spinel_datatype_unpack(*(v30 + 36), *(v30 + 71), "i", v7, v8, v9, v10, v11, v374);
-      if (*(v305 + 77) > 0)
-      {
-        v292 = *(v305 + 74);
-        switch(v292)
-        {
-          case 176:
-            *(v305 + 24) = "version";
-            break;
-          case 177:
-            *(v305 + 24) = "min-host-version";
-            break;
-          case 4619:
-            *(v305 + 24) = "caps";
-            break;
-          default:
-            *(v305 + 24) = "";
-            break;
-        }
-
-        *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(*&__size[1], *(*&__size[1] + 8), *(*&__size[1] + 16) - *(*&__size[1] + 8), ", %s:%u", *(v305 + 24), *(v305 + 47));
-      }
-
-      else
-      {
-        *(v305 + 78) = 6;
-      }
-
-      goto LABEL_209;
-    case 2048:
-      v86 = v305;
-      v342 = 0;
-      v341 = 0;
-      *v305 = 16;
-      v339 = 16;
-      v338 = 16;
-      v87 = *(v86 + 36);
-      v88 = *(v86 + 71);
-      v287 = &v262;
-      v263 = &v341;
-      v264 = &v400;
-      v265 = v340;
-      v266 = &v399;
-      v267 = &v339;
-      v268 = &v398;
-      v269 = &v338;
-      v89 = spinel_datatype_unpack(v87, v88, "CCddd", v7, v8, v9, v10, v11, &v342);
-      *(v305 + 77) = v89;
-      if (*(v305 + 77) > 0)
-      {
-        v90 = ot::Spinel::Logger::Snprintf(*&__size[1], *(*&__size[1] + 8), *(*&__size[1] + 16) - *(*&__size[1] + 8), ", keyIdMode:%u, keyId:%u, prevKey:***, currKey:***, nextKey:***", v342, v341);
-        *(*&__size[1] + 8) += v90;
-      }
-
-      else
-      {
-        *(v305 + 78) = 6;
-      }
-
-      goto LABEL_209;
-    case 2050:
-    case 2049:
-      v26 = v305;
-      *(v305 + 26) = 0;
-      *(v26 + 51) = 0;
-      *(v305 + 77) = spinel_datatype_unpack(*(v26 + 36), *(v26 + 71), "L", v7, v8, v9, v10, v11, v375);
-      if (*(v305 + 77) > 0)
-      {
-        v27 = *&__size[1];
-        v28 = v305;
-        v29 = "timestamp";
-        if (*(v305 + 74) != 2050)
-        {
-          v29 = "counter";
-        }
-
-        *(v305 + 26) = v29;
-        *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(v27, *(v27 + 8), *(v27 + 16) - *(v27 + 8), ", %s:%u", v28[26], *(v28 + 51));
-      }
-
-      else
-      {
-        *(v305 + 78) = 6;
-      }
-
-      goto LABEL_209;
-    case 2051:
-      v314 = 0;
-      v313 = 0;
-      v252 = *(v305 + 36);
-      v253 = *(v305 + 71);
-      v263 = v394;
-      v264 = &v313;
-      *(v305 + 77) = spinel_datatype_unpack(v252, v253, "SEC", v7, v8, v9, v10, v11, &v314);
-      if (*(v305 + 77) > 0)
-      {
-        v254 = *(*&__size[1] + 8);
-        v255 = *(*&__size[1] + 16) - v254;
-        v281 = &v262;
-        v256 = ot::Spinel::Logger::Snprintf(*&__size[1], v254, v255, ", saddr:%04x, extaddr:%02x%02x%02x%02x%02x%02x%02x%02x, flags:0x%02x", v314, v394[0], v394[1], v394[2], v394[3], v394[4], v394[5], v394[6], v394[7], v313);
-        *(*&__size[1] + 8) += v256;
-      }
-
-      else
-      {
-        *(v305 + 78) = 6;
-      }
-
-      goto LABEL_209;
-    case 2053:
-    case 2052:
-      goto LABEL_71;
-    case 4619:
-      goto LABEL_110;
-    case 4620:
-      v103 = *(v305 + 36);
-      v104 = *(v305 + 71);
-      v282 = &v318;
-      v283 = &v262;
-      v263 = &v320;
-      v264 = &v321;
-      v265 = &v322;
-      v266 = &v323;
-      v267 = &v324;
-      v268 = &v325;
-      v269 = &v326;
-      v270 = &v327;
-      v271 = &v328;
-      v272 = &v329;
-      v273 = &v330;
-      v274 = &v331;
-      v275 = &v332;
-      v276 = &v333;
-      v277 = &v334;
-      v278 = &v335;
-      v279 = &v336;
-      v280 = &v318;
-      v105 = spinel_datatype_unpack(v103, v104, "t(LLLLLLLL)t(LLLLLLLLL)bL", &v327, &v326, &v325, &v324, &v323, &v319);
-      *(v305 + 77) = v105;
-      if (*(v305 + 77) > 0)
-      {
-        v106 = ot::ToUlong(v319);
-        otLogDebgPlat(" txRequest:%lu", v107, v108, v109, v110, v111, v112, v113, v106);
-        v114 = ot::ToUlong(v320);
-        otLogDebgPlat(" txGrantImmediate:%lu", v115, v116, v117, v118, v119, v120, v121, v114);
-        v122 = ot::ToUlong(v321);
-        otLogDebgPlat(" txGrantWait:%lu", v123, v124, v125, v126, v127, v128, v129, v122);
-        v130 = ot::ToUlong(v322);
-        otLogDebgPlat(" txGrantWaitActivated:%lu", v131, v132, v133, v134, v135, v136, v137, v130);
-        v138 = ot::ToUlong(v323);
-        otLogDebgPlat(" txGrantWaitTimeout:%lu", v139, v140, v141, v142, v143, v144, v145, v138);
-        v146 = ot::ToUlong(v324);
-        otLogDebgPlat(" txGrantDeactivatedDuringRequest:%lu", v147, v148, v149, v150, v151, v152, v153, v146);
-        v154 = ot::ToUlong(v325);
-        otLogDebgPlat(" txDelayedGrant:%lu", v155, v156, v157, v158, v159, v160, v161, v154);
-        v162 = ot::ToUlong(v326);
-        otLogDebgPlat(" avgTxRequestToGrantTime:%lu", v163, v164, v165, v166, v167, v168, v169, v162);
-        v170 = ot::ToUlong(v327);
-        otLogDebgPlat(" rxRequest:%lu", v171, v172, v173, v174, v175, v176, v177, v170);
-        v178 = ot::ToUlong(v328);
-        otLogDebgPlat(" rxGrantImmediate:%lu", v179, v180, v181, v182, v183, v184, v185, v178);
-        v186 = ot::ToUlong(v329);
-        otLogDebgPlat(" rxGrantWait:%lu", v187, v188, v189, v190, v191, v192, v193, v186);
-        v194 = ot::ToUlong(v330);
-        otLogDebgPlat(" rxGrantWaitActivated:%lu", v195, v196, v197, v198, v199, v200, v201, v194);
-        v202 = ot::ToUlong(v331);
-        otLogDebgPlat(" rxGrantWaitTimeout:%lu", v203, v204, v205, v206, v207, v208, v209, v202);
-        v210 = ot::ToUlong(v332);
-        otLogDebgPlat(" rxGrantDeactivatedDuringRequest:%lu", v211, v212, v213, v214, v215, v216, v217, v210);
-        v218 = ot::ToUlong(v333);
-        otLogDebgPlat(" rxDelayedGrant:%lu", v219, v220, v221, v222, v223, v224, v225, v218);
-        v226 = ot::ToUlong(v334);
-        otLogDebgPlat(" avgRxRequestToGrantTime:%lu", v227, v228, v229, v230, v231, v232, v233, v226);
-        v234 = ot::ToUlong(v335);
-        otLogDebgPlat(" rxGrantNone:%lu", v235, v236, v237, v238, v239, v240, v241, v234);
-        otLogDebgPlat(" stopped:%u", v242, v243, v244, v245, v246, v247, v248, v336 & 1);
-        v249 = ot::Spinel::Logger::Snprintf(*&__size[1], *(*&__size[1] + 8), *(*&__size[1] + 16) - *(*&__size[1] + 8), " grantGlitch:%u", v318);
-        *(*&__size[1] + 8) += v249;
-      }
-
-      else
-      {
-        *(v305 + 78) = 6;
-      }
-
-      goto LABEL_209;
-    case 4621:
-    case 4867:
-LABEL_54:
-      v380 = 0;
-      *(v305 + 77) = spinel_datatype_unpack(*(v305 + 36), *(v305 + 71), "b", v7, v8, v9, v10, v11, &v380);
-      if (*(v305 + 77) > 0)
-      {
-        *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(*&__size[1], *(*&__size[1] + 8), *(*&__size[1] + 16) - *(*&__size[1] + 8), ", enabled:%u", v380 & 1);
-      }
-
-      else
-      {
-        *(v305 + 78) = 6;
-      }
-
-      goto LABEL_209;
-  }
-
-  if (v298 != 4868)
-  {
-    if (v298 != 4869)
-    {
-      if (v298 == 15296)
-      {
-        v83 = v305;
-        *(v305 + 2) = 0;
-        *(v83 + 1) = 0;
-        v84 = *(v83 + 36);
-        v85 = *(v83 + 71);
-        v263 = &v343;
-        *(v305 + 77) = spinel_datatype_unpack(v84, v85, "U", v7, v8, v9, v10, v11, v344);
-        if (*(v305 + 77) > 0)
-        {
-          *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(*&__size[1], *(*&__size[1] + 8), *(*&__size[1] + 16) - *(*&__size[1] + 8), ", diag:%s", *(v305 + 2));
-        }
-
-        else
-        {
-          *(v305 + 78) = 6;
-        }
-      }
-
-      goto LABEL_209;
-    }
-
-    v95 = ot::Spinel::Logger::Snprintf(*&__size[1], *(*&__size[1] + 8), *(*&__size[1] + 16) - *(*&__size[1] + 8), ", extaddr:");
-    v96 = v305;
-    *(*&__size[1] + 8) += v95;
-    if (*(v96 + 71) >= 8uLL)
-    {
-      while (*(v305 + 71) >= 8uLL)
-      {
-        v97 = spinel_datatype_unpack_in_place(*(v305 + 36), *(v305 + 71), "E", v7, v8, v9, v10, v11, v396);
-        *(v305 + 77) = v97;
-        if (*(v305 + 77) <= 0)
-        {
-          *(v305 + 78) = 6;
-          goto LABEL_209;
-        }
-
-        v98 = *&__size[1];
-        v99 = v305;
-        *(v305 + 36) += *(v305 + 77);
-        *(v99 + 71) -= *(v99 + 77);
-        v100 = *(v98 + 1);
-        v101 = *(v98 + 2) - v100;
-        v284 = &v262;
-        v102 = ot::Spinel::Logger::Snprintf(v98, v100, v101, "%02x%02x%02x%02x%02x%02x%02x%02x ", v396[0], v396[1], v396[2], v396[3], v396[4], v396[5], v396[6], v396[7]);
-        *(*&__size[1] + 8) += v102;
-      }
-
-      goto LABEL_209;
-    }
-
-LABEL_100:
-    *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(*&__size[1], *(*&__size[1] + 8), *(*&__size[1] + 16) - *(*&__size[1] + 8), "none");
-    goto LABEL_209;
-  }
-
-  v376 = 0;
-  v22 = ot::Spinel::Logger::Snprintf(*&__size[1], *(*&__size[1] + 8), *(*&__size[1] + 16) - *(*&__size[1] + 8), ", saddr:");
-  v23 = v305;
-  *(*&__size[1] + 8) += v22;
-  if (*(v23 + 71) < 2uLL)
-  {
-    goto LABEL_100;
-  }
-
-  while (*(v305 + 71) >= 2uLL)
-  {
-    *(v305 + 77) = spinel_datatype_unpack(*(v305 + 36), *(v305 + 71), "S", v7, v8, v9, v10, v11, &v376);
-    if (*(v305 + 77) <= 0)
-    {
-      *(v305 + 78) = 6;
-      break;
-    }
-
-    v24 = *&__size[1];
-    v25 = v305;
-    *(v305 + 36) += *(v305 + 77);
-    *(v25 + 71) -= *(v25 + 77);
-    *(*&__size[1] + 8) += ot::Spinel::Logger::Snprintf(v24, *(v24 + 8), *(v24 + 16) - *(v24 + 8), "0x%04x ", v376);
-  }
-
-LABEL_209:
-  if (*(v305 + 78))
-  {
-    otLogDebgPlat("%s, failed to parse spinel frame !", v5, v6, v7, v8, v9, v10, v11, *(v305 + 34));
-  }
-
-  return *(v305 + 78);
 }

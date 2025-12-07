@@ -12,41 +12,41 @@
 
 - (double)fullDuration
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = 0.0;
   if (self->_type == CHHapticEventTypeHapticTransient)
   {
-    goto LABEL_23;
+    return v3 + self->_duration;
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v4 = self->_eventParams;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (!v5)
   {
 
     v7 = 0.0;
 LABEL_22:
     v3 = v7;
-    goto LABEL_23;
+    return v3 + self->_duration;
   }
 
-  v6 = *v20;
+  v6 = *v19;
   v7 = 0.0;
-  v18 = 1;
+  v17 = 1;
   do
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v20 != v6)
+      if (*v19 != v6)
       {
         objc_enumerationMutation(v4);
       }
 
-      v9 = *(*(&v19 + 1) + 8 * i);
+      v9 = *(*(&v18 + 1) + 8 * i);
       parameterID = [v9 parameterID];
       v11 = [parameterID isEqualToString:CHHapticEventParameterIDReleaseTime];
 
@@ -69,23 +69,21 @@ LABEL_22:
         if (v13)
         {
           [v9 value];
-          v18 = v14 != 0.0;
+          v17 = v14 != 0.0;
         }
       }
     }
 
-    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
   }
 
   while (v5);
 
-  if (v18)
+  if (v17)
   {
     goto LABEL_22;
   }
 
-LABEL_23:
-  v16 = *MEMORY[0x277D85DE8];
   return v3 + self->_duration;
 }
 

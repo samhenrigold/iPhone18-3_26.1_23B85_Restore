@@ -36,68 +36,55 @@ uint64_t __70__SGMailIntelligenceStringHasher_unrotatedHashedStrings_withHashSiz
 
 - (int64_t)unrotatedHashedString:(id)string withHashSize:(unint64_t)size
 {
-  v13 = *MEMORY[0x1E69E9840];
-  if (self->_salt)
+  v12 = *MEMORY[0x1E69E9840];
+  if (!self->_salt)
   {
-    salt = self->_salt;
-    v5 = MEMORY[0x1E695DEC8];
-    stringCopy = string;
-    v7 = [v5 arrayWithObjects:&salt count:1];
-    v8 = [SGMailIntelligenceStringHasher hashedString:stringCopy salts:v7, salt, v13];
-
-    v9 = v8 % size;
+    return 0;
   }
 
-  else
-  {
-    v9 = 0;
-  }
+  salt = self->_salt;
+  v5 = MEMORY[0x1E695DEC8];
+  stringCopy = string;
+  v7 = [v5 arrayWithObjects:&salt count:1];
+  v8 = [SGMailIntelligenceStringHasher hashedString:stringCopy salts:v7, salt, v12];
 
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = v8 % size;
   return v9;
 }
 
 - (int64_t)hashedString:(id)string
 {
-  v10[2] = *MEMORY[0x1E69E9840];
-  if (self->_salt)
+  v9[2] = *MEMORY[0x1E69E9840];
+  if (!self->_salt)
   {
-    v10[0] = self->_salt;
-    stringCopy = string;
-    rotatingSalt = [(SGMailIntelligenceStringHasher *)self rotatingSalt];
-    v10[1] = rotatingSalt;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
-    v7 = [SGMailIntelligenceStringHasher hashedString:stringCopy salts:v6];
+    return 0;
   }
 
-  else
-  {
-    v7 = 0;
-  }
+  v9[0] = self->_salt;
+  stringCopy = string;
+  rotatingSalt = [(SGMailIntelligenceStringHasher *)self rotatingSalt];
+  v9[1] = rotatingSalt;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v7 = [SGMailIntelligenceStringHasher hashedString:stringCopy salts:v6];
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (int64_t)truncatedSHA256:(id)a256
 {
-  v10[2] = *MEMORY[0x1E69E9840];
-  if (self->_salt)
+  v9[2] = *MEMORY[0x1E69E9840];
+  if (!self->_salt)
   {
-    v10[0] = self->_salt;
-    a256Copy = a256;
-    rotatingSalt = [(SGMailIntelligenceStringHasher *)self rotatingSalt];
-    v10[1] = rotatingSalt;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
-    v7 = [SGMailIntelligenceStringHasher truncatedSHA256:a256Copy salts:v6];
+    return 0;
   }
 
-  else
-  {
-    v7 = 0;
-  }
+  v9[0] = self->_salt;
+  a256Copy = a256;
+  rotatingSalt = [(SGMailIntelligenceStringHasher *)self rotatingSalt];
+  v9[1] = rotatingSalt;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v7 = [SGMailIntelligenceStringHasher truncatedSHA256:a256Copy salts:v6];
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -152,39 +139,39 @@ uint64_t __70__SGMailIntelligenceStringHasher_unrotatedHashedStrings_withHashSiz
 
 + (int64_t)truncatedSHA256:(id)a256 salts:(id)salts
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   a256Copy = a256;
   saltsCopy = salts;
   memset(md, 0, sizeof(md));
   memset(&c, 0, sizeof(c));
   CC_SHA256_Init(&c);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v7 = saltsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         if ([v12 length])
         {
           CC_SHA256_Update(&c, [v12 bytes], objc_msgSend(v12, "length"));
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
     while (v9);
@@ -193,11 +180,10 @@ uint64_t __70__SGMailIntelligenceStringHasher_unrotatedHashedStrings_withHashSiz
   CC_SHA256_Update(&c, [a256Copy bytes], objc_msgSend(a256Copy, "length"));
   CC_SHA256_Final(md, &c);
   v13 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:md length:32];
-  v17 = 0;
-  [v13 getBytes:&v17 length:8];
-  v14 = v17;
+  v16 = 0;
+  [v13 getBytes:&v16 length:8];
+  v14 = v16;
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

@@ -502,7 +502,7 @@ void CVDecrementAtomic(atomic_uint *a1)
   while (v3 != v2);
 }
 
-uint64_t CVPixelBufferBacking::finalize(CVPixelBufferBacking *this)
+void CVPixelBufferBacking::finalize(CVPixelBufferBacking *this)
 {
   v2 = *(this + 11);
   if (v2)
@@ -640,10 +640,10 @@ LABEL_27:
 
   *(this + 58) = 0;
 
-  return CVImageBacking::finalize(this);
+  CVImageBacking::finalize(this);
 }
 
-uint64_t CVImageBacking::finalize(CVImageBacking *this)
+void CVImageBacking::finalize(CVImageBacking *this)
 {
   v2 = *(this + 17);
   if (v2)
@@ -651,10 +651,10 @@ uint64_t CVImageBacking::finalize(CVImageBacking *this)
     CFRelease(v2);
   }
 
-  return CVBufferBacking::finalize(this);
+  CVBufferBacking::finalize(this);
 }
 
-uint64_t CVBufferBacking::finalize(CVBufferBacking *this)
+void CVBufferBacking::finalize(CVBufferBacking *this)
 {
   LocalCenter = CFNotificationCenterGetLocalCenter();
   CFNotificationCenterPostNotification(LocalCenter, @"BufferBackingWillDeallocate", *(this + 1), 0, 1u);
@@ -670,7 +670,7 @@ uint64_t CVBufferBacking::finalize(CVBufferBacking *this)
   *(this + 15) = 0;
   pthread_mutex_destroy((this + 24));
 
-  return CVObject::finalize(this);
+  CVObject::finalize(this);
 }
 
 uint64_t CVPixelBuffer::setAttachment(CVPixelBuffer *this, const __CFString *a2, __CFString *a3, unsigned int a4)
@@ -742,13 +742,6 @@ uint64_t OUTLINED_FUNCTION_1_1(uint64_t a1, const void *a2)
 {
 
   return CVDictionaryGetIntValueWithDefault(v2, a2, 0);
-}
-
-uint64_t *OUTLINED_FUNCTION_1_2(uint64_t a1)
-{
-  result = *(a1 + 120);
-  v2 = *result;
-  return result;
 }
 
 void translateIOSurfaceKeyToCoreVideoAttachmentKeyAndStoreIt(const __CFString *a1, const void *a2, __CFDictionary **a3)
@@ -1076,7 +1069,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t CVDataBufferPoolCreate(CVDataBufferPool *this, const __CFAllocator *a2, uint64_t a3, uint64_t a4, uint64_t a5, CVDataBufferPool ***a6)
+uint64_t CVDataBufferPoolCreate(CVDataBufferPool *this, const __CFAllocator *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6)
 {
   v15 = -6660;
   if (!a6)
@@ -1146,8 +1139,9 @@ void CVDataBufferPool::CVDataBufferPool(CVDataBufferPool *this, const void *a2)
   *(this + 15) = malloc_type_calloc(1uLL, 0x100uLL, 0x10C004028F705ECuLL);
 }
 
-CFTypeRef *CVDataBufferPool::initWithSize(CFTypeRef *this, const __CFDictionary *a2, unsigned int a3, uint64_t a4, const __CFDictionary *a5, int *a6)
+CFTypeRef *CVDataBufferPool::initWithSize(CFTypeRef *this, const __CFDictionary *a2, uint64_t a3, uint64_t a4, const __CFDictionary *a5, int *a6)
 {
+  v9 = a3;
   v11 = this;
   valuePtr[7] = *MEMORY[0x1E69E9840];
   v12 = CFGetAllocator(this[1]);
@@ -1155,7 +1149,7 @@ CFTypeRef *CVDataBufferPool::initWithSize(CFTypeRef *this, const __CFDictionary 
   {
     v11 = 0;
     *a6 = -6660;
-    goto LABEL_28;
+    return v11;
   }
 
   (*(*v11 + 16))(v11, 1.0);
@@ -1231,8 +1225,7 @@ LABEL_26:
     *a6 = v28;
 LABEL_27:
     (*(*v11 + 5))(v11);
-    v11 = 0;
-    goto LABEL_28;
+    return 0;
   }
 
   v23 = CFDictionaryGetValue(MutableCopy, @"IOSurfaceProperties");
@@ -1255,27 +1248,27 @@ LABEL_27:
   v27 = v26;
   CFDictionarySetValue(v26, *MEMORY[0x1E696D0F8], *MEMORY[0x1E695E4D0]);
   CVDictionarySetSInt64Value(v27, *MEMORY[0x1E696CE30], a4);
-  CVDictionarySetSInt32Value(v27, *MEMORY[0x1E696CFC0], a3);
+  CVDictionarySetSInt32Value(v27, *MEMORY[0x1E696CFC0], v9);
   CFDictionarySetValue(v11[5], @"IOSurfaceProperties", v27);
   *a6 = 0;
   if (CVTracePools(1))
   {
-    v35 = 0;
-    if (a3 > 0x63)
+    v34 = 0;
+    if (v9 > 0x63)
     {
-      *__str = bswap32(a3);
+      *__str = bswap32(v9);
     }
 
     else
     {
-      snprintf(__str, 5uLL, "%d", a3);
+      snprintf(__str, 5uLL, "%d", v9);
     }
 
     snprintf(valuePtr, 0x32uLL, "CVDataBuffer allocated (%lld, %s)", a4, __str);
-    v31 = (*(*v11 + 3))(v11);
-    v32 = (*(*v11[2] + 96))(v11[2]);
-    v33 = (*(*v11[2] + 104))(v11[2]);
-    CVTracePoolAction(1, v31, 0, valuePtr, v32, v33);
+    v30 = (*(*v11 + 3))(v11);
+    v31 = (*(*v11[2] + 96))(v11[2]);
+    v32 = (*(*v11[2] + 104))(v11[2]);
+    CVTracePoolAction(1, v30, 0, valuePtr, v31, v32);
   }
 
   CFRelease(v27);
@@ -1284,8 +1277,6 @@ LABEL_27:
     goto LABEL_27;
   }
 
-LABEL_28:
-  v29 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -1310,10 +1301,9 @@ CVBunchPair **CVDataBufferPool::initBunchPair(CVDataBufferPool *this, const __CF
   {
     v4 = result[2];
     *(this + 2) = v4;
-    v5 = *(this + 1);
-    v6 = *(*v4 + 272);
+    v5 = *(*v4 + 272);
 
-    return v6();
+    return v5();
   }
 
   else
@@ -1511,106 +1501,102 @@ CFMutableDictionaryRef CVDictionaryCreateMutableCopy(const __CFAllocator *a1, CF
 
 uint64_t CVPixelBufferPool::preallocate(CVPixelBufferPool *this, const __CFAllocator *a2, int a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
+  v22 = 0;
   v23 = 0;
-  v24 = 0;
   v6 = *(this + 2);
-  v22[0] = this;
-  v22[1] = v6;
-  v22[2] = a2;
+  v21[0] = this;
+  v21[1] = v6;
+  v21[2] = a2;
   v7 = (*(*v6 + 232))(v6);
   if (v7 >= (*(**(this + 2) + 224))(*(this + 2)))
+  {
+    return 0;
+  }
+
+  (*(**(this + 2) + 160))(*(this + 2));
+  if (a3 && (v8 = (*(**(this + 2) + 224))(*(this + 2)), v8 > (*(**(this + 2) + 232))(*(this + 2)) + 1))
+  {
+    v24 = 0;
+    __str[0].__sig = 0x300000006;
+    *v25 = 4;
+    v9 = 0;
+    if ((sysctl(__str, 2u, &v24, v25, 0, 0) & 0x80000000) == 0 && v24 >= 2)
+    {
+      v10 = pthread_self();
+      v24 = 0;
+      if (pthread_getschedparam(v10, &v24, v25))
+      {
+        v11 = 0;
+      }
+
+      else
+      {
+        v11 = __str;
+        pthread_attr_init(__str);
+        pthread_attr_setschedparam(__str, v25);
+        pthread_attr_setschedpolicy(__str, v24);
+      }
+
+      v9 = pthread_create(&v23, v11, preAllocateThread, v21) == 0;
+    }
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  do
+  {
+    v13 = (*(*this + 168))(this, a2, 1);
+  }
+
+  while (!v13);
+  v14 = v13;
+  if (v13 == -6699)
   {
     v12 = 0;
   }
 
   else
   {
-    (*(**(this + 2) + 160))(*(this + 2));
-    if (a3 && (v8 = (*(**(this + 2) + 224))(*(this + 2)), v8 > (*(**(this + 2) + 232))(*(this + 2)) + 1))
+    v12 = v13;
+  }
+
+  if (v9)
+  {
+    pthread_join(v23, 0);
+    v15 = v22;
+    if (v22 == -6699)
     {
-      v25 = 0;
-      __str[0].__sig = 0x300000006;
-      *v26 = 4;
-      v9 = 0;
-      if ((sysctl(__str, 2u, &v25, v26, 0, 0) & 0x80000000) == 0 && v25 >= 2)
-      {
-        v10 = pthread_self();
-        v25 = 0;
-        if (pthread_getschedparam(v10, &v25, v26))
-        {
-          v11 = 0;
-        }
+      v15 = 0;
+    }
 
-        else
-        {
-          v11 = __str;
-          pthread_attr_init(__str);
-          pthread_attr_setschedparam(__str, v26);
-          pthread_attr_setschedpolicy(__str, v25);
-        }
-
-        v9 = pthread_create(&v24, v11, preAllocateThread, v22) == 0;
-      }
+    if (v14 == -6699)
+    {
+      v12 = v15;
     }
 
     else
     {
-      v9 = 0;
-    }
-
-    do
-    {
-      v13 = (*(*this + 168))(this, a2, 1);
-    }
-
-    while (!v13);
-    v14 = v13;
-    if (v13 == -6699)
-    {
-      v12 = 0;
-    }
-
-    else
-    {
-      v12 = v13;
-    }
-
-    if (v9)
-    {
-      pthread_join(v24, 0);
-      v15 = v23;
-      if (v23 == -6699)
-      {
-        v15 = 0;
-      }
-
-      if (v14 == -6699)
-      {
-        v12 = v15;
-      }
-
-      else
-      {
-        v12 = v14;
-      }
-    }
-
-    (*(**(this + 2) + 168))(*(this + 2));
-    v16 = (*(*this + 24))(this);
-    v17 = (*(**(this + 2) + 232))(*(this + 2));
-    v18 = (*(**(this + 2) + 224))(*(this + 2));
-    v19 = (*(**(this + 2) + 240))(*(this + 2));
-    snprintf(__str, 0x96uLL, "CVPixelBufferPool::preallocate complete for pool %p, allocated %d requested %d _targetBufferCountsBitfield 0x%x \n", v16, v17, v18, v19);
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-    {
-      *v26 = 136315138;
-      *&v26[4] = __str;
-      _os_log_impl(&dword_19D11B000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s", v26, 0xCu);
+      v12 = v14;
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
+  (*(**(this + 2) + 168))(*(this + 2));
+  v16 = (*(*this + 24))(this);
+  v17 = (*(**(this + 2) + 232))(*(this + 2));
+  v18 = (*(**(this + 2) + 224))(*(this + 2));
+  v19 = (*(**(this + 2) + 240))(*(this + 2));
+  snprintf(__str, 0x96uLL, "CVPixelBufferPool::preallocate complete for pool %p, allocated %d requested %d _targetBufferCountsBitfield 0x%x \n", v16, v17, v18, v19);
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+  {
+    *v25 = 136315138;
+    *&v25[4] = __str;
+    _os_log_impl(&dword_19D11B000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s", v25, 0xCu);
+  }
+
   return v12;
 }
 
@@ -1650,67 +1636,64 @@ uint64_t CVPixelBufferPoolPreAllocate(int a1, __CVPixelBufferPool *a2)
   return v3();
 }
 
-uint64_t CVPixelBufferPool::allocateNewBacking(CVPixelBufferPool *this, const __CFAllocator *a2, uint64_t a3)
+uint64_t CVPixelBufferPool::allocateNewBacking(CVPixelBufferPool *this, const __CFAllocator *a2, uint64_t a3, uint64_t a4, unint64_t a5)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v5 = CVPixelBufferBacking::alloc(a2, a2);
-  if (!v5)
+  v24 = *MEMORY[0x1E69E9840];
+  v7 = CVPixelBufferBacking::alloc(a2, a2, a3, a4, a5);
+  if (!v7)
   {
-    v19 = -6660;
+    v20 = -6660;
 LABEL_14:
-    v13 = (*(*this + 24))(this);
-    v14 = (*(**(this + 2) + 232))(*(this + 2));
-    v15 = (*(**(this + 2) + 224))(*(this + 2));
-    v16 = (*(**(this + 2) + 240))(*(this + 2));
-    snprintf(__str, 0x96uLL, "CVPixelBufferPool::allocateNewBacking return failure for pool %p, allocated %d requested %d _targetBufferCountsBitfield 0x%x \n", v13, v14, v15, v16);
+    v15 = (*(*this + 24))(this);
+    v16 = (*(**(this + 2) + 232))(*(this + 2));
+    v17 = (*(**(this + 2) + 224))(*(this + 2));
+    v18 = (*(**(this + 2) + 240))(*(this + 2));
+    snprintf(__str, 0x96uLL, "CVPixelBufferPool::allocateNewBacking return failure for pool %p, allocated %d requested %d _targetBufferCountsBitfield 0x%x \n", v15, v16, v17, v18);
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v21 = __str;
+      v22 = __str;
       _os_log_impl(&dword_19D11B000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
     }
 
-    v8 = v19;
-    goto LABEL_17;
+    return v20;
   }
 
-  v6 = v5;
-  v7 = (*(**(this + 2) + 112))(*(this + 2), 0, 0, a3);
-  v19 = v7;
-  if (v7)
+  v8 = v7;
+  v9 = (*(**(this + 2) + 112))(*(this + 2), 0, 0, a3);
+  v20 = v9;
+  if (v9)
   {
-    v8 = v7;
-    CFRelease(v6);
+    v10 = v9;
+    CFRelease(v8);
   }
 
   else
   {
-    if ((*(*v6[2] + 248))(v6[2], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, *(this + 5), *(this + 4), 0, 0, 0, 0, &v19))
+    if ((*(*v8[2] + 248))(v8[2], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, *(this + 5), *(this + 4), 0, 0, 0, 0, &v20))
     {
       if (*(this + 136))
       {
-        (*(*v6[2] + 88))(v6[2]);
+        (*(*v8[2] + 88))(v8[2]);
       }
 
-      (*(*v6[2] + 96))(v6[2], *(this + 2));
-      (*(**(this + 2) + 88))(*(this + 2), v6[2]);
-      v9 = (*(*this + 24))(this);
-      v10 = (*(**(this + 2) + 96))(*(this + 2));
-      v11 = (*(**(this + 2) + 104))(*(this + 2));
-      CVTracePoolAction(1, v9, v6, "created", v10 + 1, v11);
+      (*(*v8[2] + 96))(v8[2], *(this + 2));
+      (*(**(this + 2) + 88))(*(this + 2), v8[2]);
+      v11 = (*(*this + 24))(this);
+      v12 = (*(**(this + 2) + 96))(*(this + 2));
+      v13 = (*(**(this + 2) + 104))(*(this + 2));
+      CVTracePoolAction(1, v11, v8, "created", v12 + 1, v13);
     }
 
-    v8 = v19;
+    v10 = v20;
   }
 
-  if (v8 != -6699 && v8 != 0)
+  if (v10 != -6699 && v10 != 0)
   {
     goto LABEL_14;
   }
 
-LABEL_17:
-  v17 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v10;
 }
 
 uint64_t preAllocateThread(_DWORD *a1)
@@ -1927,10 +1910,9 @@ CVLockingBunchPair **CVBufferPool::initBunchPair(CVBufferPool *this, const __CFA
   {
     v4 = result[2];
     *(this + 2) = v4;
-    v5 = *(this + 1);
-    v6 = *(*v4 + 272);
+    v5 = *(*v4 + 272);
 
-    return v6();
+    return v5();
   }
 
   else
@@ -1943,7 +1925,7 @@ CVLockingBunchPair **CVBufferPool::initBunchPair(CVBufferPool *this, const __CFA
 
 CFMutableArrayRef CVLockingBunchPair::init(void *a1, uint64_t a2, const __CFAllocator *a3)
 {
-  (*(*a1 + 152))(a1);
+  (*(*a1 + 152))(a1, a2);
   result = CFArrayCreateMutable(a3, 0, MEMORY[0x1E695E9C0]);
   a1[28] = result;
   if (result)
@@ -2045,20 +2027,20 @@ uint64_t CVPixelBufferPoolCopyIOSurfaceCreationProperties(void *a1, void *a2)
 
 uint64_t CVPixelBufferPool::copyDerivedIOSurfaceCreationProperties(const void **this, const __CFDictionary **a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695E480];
   IntValueWithDefault = CVDictionaryGetIntValueWithDefault(this[5], @"Width", 0);
-  v23 = CVDictionaryGetIntValueWithDefault(this[5], @"Height", 0);
-  v22 = CVDictionaryGetIntValueWithDefault(this[5], @"ExtendedPixelsLeft", 0);
+  v22 = CVDictionaryGetIntValueWithDefault(this[5], @"Height", 0);
+  v21 = CVDictionaryGetIntValueWithDefault(this[5], @"ExtendedPixelsLeft", 0);
   v4 = CVDictionaryGetIntValueWithDefault(this[5], @"ExtendedPixelsTop", 0);
   v5 = CVDictionaryGetIntValueWithDefault(this[5], @"ExtendedPixelsRight", 0);
   v6 = CVDictionaryGetIntValueWithDefault(this[5], @"ExtendedPixelsBottom", 0);
   DefaultBytesPerRowAlignment = CVPixelBufferBacking::getDefaultBytesPerRowAlignment(v6);
-  memset(v29, 0, sizeof(v29));
   memset(v28, 0, sizeof(v28));
-  v27 = 0;
+  memset(v27, 0, sizeof(v27));
   v26 = 0;
-  PixelFormatDescription = CVPixelBufferBacking::getPixelFormatDescription(this[5], &v26, v8);
+  v25 = 0;
+  PixelFormatDescription = CVPixelBufferBacking::getPixelFormatDescription(this[5], &v25, v8);
   v10 = this[4];
   if (v10)
   {
@@ -2118,11 +2100,9 @@ uint64_t CVPixelBufferPool::copyDerivedIOSurfaceCreationProperties(const void **
   }
 
   v18 = CVLowestCommonMultiple(v12, DefaultBytesPerRowAlignment);
-  *&v21 = v22;
-  *(&v21 + 1) = v4;
-  result = CVPixelBufferBacking::performStandardMemoryLayoutAndCopyIOSurfaceCreationProperties(0, 0, v15, this[5], this[4], 0, PixelFormatDescription, IntValueWithDefault, v23, v21, v5, v6, DefaultBytesPerRowAlignment, v18, v13, v14, 0, 0, 0, 0, v29, v28, 0, 0, 0, 0, 0, &v27, a2, v22);
-  v20 = *MEMORY[0x1E69E9840];
-  return result;
+  *&v20 = v21;
+  *(&v20 + 1) = v4;
+  return CVPixelBufferBacking::performStandardMemoryLayoutAndCopyIOSurfaceCreationProperties(0, 0, v15, this[5], this[4], 0, PixelFormatDescription, IntValueWithDefault, v22, v20, v5, v6, DefaultBytesPerRowAlignment, v18, v13, v14, 0, 0, 0, 0, v28, v27, 0, 0, 0, 0, 0, &v26, a2, v21);
 }
 
 uint64_t CVLowestCommonMultiple(int a1, int a2)
@@ -2308,17 +2288,17 @@ IOSurfaceRef CVPixelBufferBacking::getBaseAddress(CVPixelBufferBacking *this, ch
 CFTypeRef *CVPixelBufferPool::initWithOptions(CFTypeRef *this, const __CFDictionary *a2, const __CFDictionary *a3, int *a4)
 {
   v7 = this;
-  v59 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   v8 = CFGetAllocator(this[1]);
-  v54 = 0;
-  v55 = 0;
+  v52 = 0;
   v53 = 0;
+  v51 = 0;
   buffer[0] = 0;
   if (!CVBufferPool::init(v7))
   {
     v7 = 0;
     *a4 = -6660;
-    goto LABEL_70;
+    return v7;
   }
 
   (*(*v7 + 16))(v7, 1.0);
@@ -2423,8 +2403,8 @@ LABEL_18:
     goto LABEL_69;
   }
 
-  CFNumberGetValue(v22, kCFNumberCFIndexType, &v55);
-  if (v55 <= 0)
+  CFNumberGetValue(v22, kCFNumberCFIndexType, &v53);
+  if (v53 <= 0)
   {
     *a4 = -6682;
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -2447,8 +2427,8 @@ LABEL_18:
     goto LABEL_69;
   }
 
-  CFNumberGetValue(v25, kCFNumberCFIndexType, &v54);
-  if (v54 <= 0)
+  CFNumberGetValue(v25, kCFNumberCFIndexType, &v52);
+  if (v52 <= 0)
   {
     *a4 = -6682;
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -2480,7 +2460,7 @@ LABEL_18:
       v34 = CFGetTypeID(ValueAtIndex);
       if (v34 == CFNumberGetTypeID())
       {
-        CFNumberGetValue(ValueAtIndex, kCFNumberSInt32Type, &v53);
+        CFNumberGetValue(ValueAtIndex, kCFNumberSInt32Type, &v51);
       }
     }
   }
@@ -2540,15 +2520,15 @@ LABEL_18:
 
   else if (!forceIOSurfaceBackingByDefault())
   {
-    if (!CVIsPixelFormatCompressed(v53))
+    if (!CVIsPixelFormatCompressed(v51))
     {
       goto LABEL_64;
     }
 
-    v51 = v53;
-    v52 = HIBYTE(v53);
+    v49 = v51;
+    v50 = HIBYTE(v51);
     *a4 = -6662;
-    snprintf(__str, 0x80uLL, "CoreVideo: Error, CVPixelBufferPoolCreate() for non-IOSurface backed compressed format %c%c%c%c is not allowed.", v52, BYTE2(v51), BYTE1(v51), v51);
+    snprintf(__str, 0x80uLL, "CoreVideo: Error, CVPixelBufferPoolCreate() for non-IOSurface backed compressed format %c%c%c%c is not allowed.", v50, BYTE2(v49), BYTE1(v49), v49);
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       *valuePtr = 136315138;
@@ -2558,8 +2538,7 @@ LABEL_18:
 
 LABEL_69:
     (*(*v7 + 5))(v7);
-    v7 = 0;
-    goto LABEL_70;
+    return 0;
   }
 
   Mutable = CFDictionaryCreateMutable(v8, 0, 0, MEMORY[0x1E695E9E8]);
@@ -2578,28 +2557,25 @@ LABEL_64:
   if (CVTracePools(1))
   {
     valuePtr[4] = 0;
-    if (v53 > 0x63)
+    if (v51 > 0x63)
     {
-      *valuePtr = bswap32(v53);
+      *valuePtr = bswap32(v51);
     }
 
     else
     {
-      snprintf(valuePtr, 5uLL, "%d", v53);
+      snprintf(valuePtr, 5uLL, "%d", v51);
     }
 
-    snprintf(__str, 0x32uLL, "allocated (%d x %d, %s)", v55, v54, valuePtr);
-    v47 = (*(*v7 + 3))(v7);
-    v48 = (*(*v7[2] + 96))(v7[2]);
-    v49 = (*(*v7[2] + 104))(v7[2]);
-    CVTracePoolAction(1, v47, 0, __str, v48, v49);
+    snprintf(__str, 0x32uLL, "allocated (%d x %d, %s)", v53, v52, valuePtr);
+    v46 = (*(*v7 + 3))(v7);
+    v47 = (*(*v7[2] + 96))(v7[2]);
+    v48 = (*(*v7[2] + 104))(v7[2]);
+    CVTracePoolAction(1, v46, 0, __str, v47, v48);
   }
 
-  v50 = v7[1];
-  (*(*v7 + 3))(v7, buffer, v53, v55, v54);
+  (*(*v7 + 3))(v7, buffer, v51, v53, v52);
   kdebug_trace();
-LABEL_70:
-  v45 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -2637,8 +2613,9 @@ CVReturn CVPixelBufferLockBaseAddress(CVPixelBufferRef pixelBuffer, CVPixelBuffe
   return result;
 }
 
-uint64_t CVPixelBufferBacking::lockBaseAddress(CVPixelBufferBacking *this, char a2)
+uint64_t CVPixelBufferBacking::lockBaseAddress(CVPixelBufferBacking *this, uint64_t a2)
 {
+  v2 = a2;
   {
     CVPixelBufferBacking::lockBaseAddress(unsigned long long)::ktrace_seed = arc4random();
   }
@@ -2662,49 +2639,47 @@ uint64_t CVPixelBufferBacking::lockBaseAddress(CVPixelBufferBacking *this, char 
       }
     }
 
-    v7 = *(this + 42);
     kdebug_trace();
   }
 
   pthread_mutex_lock((this + 24));
-  v8 = *(this + 57);
-  v9 = *(this + 42);
-  if (v8 && !v9)
+  v7 = *(this + 57);
+  v8 = *(this + 42);
+  if (v7 && !v8)
   {
-    if (IOSurfaceLock(v8, a2 & 1, 0))
+    if (IOSurfaceLock(v7, v2 & 1, 0))
     {
-      v10 = 4294960636;
+      v9 = 4294960636;
       goto LABEL_15;
     }
 
-    v9 = *(this + 42);
+    v8 = *(this + 42);
   }
 
-  v10 = 0;
-  *(this + 42) = v9 + 1;
+  v9 = 0;
+  *(this + 42) = v8 + 1;
 LABEL_15:
   (*(*this + 224))(this);
   pthread_mutex_unlock((this + 24));
   if (gCVKTraceEnabled)
   {
-    v11 = (*(*this + 160))(this);
-    v12 = *this;
-    if (v11)
+    v10 = (*(*this + 160))(this);
+    v11 = *this;
+    if (v10)
     {
-      v13 = (*(v12 + 160))(this);
-      IOOrEXSurfaceGetID(v13);
+      v12 = (*(v11 + 160))(this);
+      IOOrEXSurfaceGetID(v12);
     }
 
     else
     {
-      (*(v12 + 24))(this);
+      (*(v11 + 24))(this);
     }
 
-    v14 = *(this + 42);
     kdebug_trace();
   }
 
-  return v10;
+  return v9;
 }
 
 uint64_t CVImageBacking::flushCachedGLESTexture(CVImageBacking *this)
@@ -5450,25 +5425,25 @@ void *retrievePixelFormat_kCVPixelFormatType_420YpCbCrFloat16BiPlanarFullRange(i
 
 void initCVBufferKeyToIOSurfaceKeyDictionary(void)
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v26 = 0;
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
+  v26 = *MEMORY[0x1E69E9840];
+  v25 = 0;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   *keys = 0u;
-  v10 = 0;
-  memset(v9, 0, sizeof(v9));
+  v9 = 0;
+  memset(v8, 0, sizeof(v8));
   v0 = *MEMORY[0x1E695E480];
   Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
   v2 = 0;
@@ -5478,7 +5453,7 @@ void initCVBufferKeyToIOSurfaceKeyDictionary(void)
     v4 = *(v3 - 1);
     keys[v2] = **(v3 - 2);
     v5 = *v4;
-    *(v9 + v2 * 8) = *v4;
+    *(v8 + v2 * 8) = *v4;
     if (!*v3)
     {
       CFArrayAppendValue(Mutable, v5);
@@ -5491,11 +5466,10 @@ void initCVBufferKeyToIOSurfaceKeyDictionary(void)
   while (v2 != 31);
   v6 = MEMORY[0x1E695E9D8];
   v7 = MEMORY[0x1E695E9E8];
-  cvBufferKeyToIOSurfaceKeyDictionary = CFDictionaryCreate(v0, keys, v9, 31, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  iosurfaceKeyToCVBufferKeyDictionary = CFDictionaryCreate(v0, v9, keys, 31, v6, v7);
+  cvBufferKeyToIOSurfaceKeyDictionary = CFDictionaryCreate(v0, keys, v8, 31, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  iosurfaceKeyToCVBufferKeyDictionary = CFDictionaryCreate(v0, v8, keys, 31, v6, v7);
   IOSurfaceSetCoreVideoBridgedKeys();
   CFRelease(Mutable);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void *retrievePixelFormat_kCVPixelFormatType_Lossy62_OneComponent8(int a1)
@@ -7397,8 +7371,9 @@ CVReturn CVPixelBufferUnlockBaseAddress(CVPixelBufferRef pixelBuffer, CVPixelBuf
   return v3();
 }
 
-uint64_t CVPixelBufferBacking::unlockBaseAddress(CVPixelBufferBacking *this, char a2)
+uint64_t CVPixelBufferBacking::unlockBaseAddress(CVPixelBufferBacking *this, uint64_t a2)
 {
+  v2 = a2;
   pthread_mutex_lock((this + 24));
   v4 = *(this + 42);
   v5 = __OFSUB__(v4, 1);
@@ -7424,7 +7399,7 @@ uint64_t CVPixelBufferBacking::unlockBaseAddress(CVPixelBufferBacking *this, cha
 
     if (v8)
     {
-      if (IOSurfaceUnlock(v7, a2 & 1, 0))
+      if (IOSurfaceUnlock(v7, v2 & 1, 0))
       {
         v9 = 4294960636;
       }
@@ -7457,7 +7432,6 @@ uint64_t CVPixelBufferBacking::unlockBaseAddress(CVPixelBufferBacking *this, cha
       (*(v11 + 24))(this);
     }
 
-    v13 = *(this + 42);
     kdebug_trace();
   }
 
@@ -7556,10 +7530,9 @@ CVBunchPair **CVPixelBufferPool::initBunchPair(CVPixelBufferPool *this, const __
   {
     v4 = result[2];
     *(this + 2) = v4;
-    v5 = *(this + 1);
-    v6 = *(*v4 + 272);
+    v5 = *(*v4 + 272);
 
-    return v6();
+    return v5();
   }
 
   else
@@ -7851,7 +7824,7 @@ void CVBufferPropagateAttachments(CVBufferRef sourceBuffer, CVBufferRef destinat
 
 CGColorSpaceRef CVImageBufferCreateColorSpaceFromAttachments(CFDictionaryRef attachments)
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   if ((CVImageBufferCreateColorSpaceFromAttachments::sDidCheck & 1) == 0)
   {
     CVImageBufferCreateColorSpaceFromAttachments::sForceColorSyncOff = CFPreferencesGetAppBooleanValue(@"force_colorsync_off", @"com.apple.corevideo", 0) != 0;
@@ -7861,18 +7834,18 @@ CGColorSpaceRef CVImageBufferCreateColorSpaceFromAttachments(CFDictionaryRef att
 
   if (CVImageBufferCreateColorSpaceFromAttachments::sForceColorSyncOff)
   {
-    goto LABEL_4;
+    return 0;
   }
 
   Value = CFDictionaryGetValue(attachments, @"CVImageBufferICCProfile");
   if (!Value || (v4 = Value, v5 = CFGetTypeID(Value), v5 != CFDataGetTypeID()) || CFDataGetLength(v4) < 1)
   {
     v11 = CVImageBufferCreateColorSpaceFromAttachments::sUseCGConstColorSpace;
-    v66 = 0;
-    v67[1] = 0;
-    v67[0] = 0x3FFCCCCCCCCCCCCDLL;
-    v67[2] = 0x3FF0000000000000;
-    v67[3] = 0;
+    v65 = 0;
+    v66[1] = 0;
+    v66[0] = 0x3FFCCCCCCCCCCCCDLL;
+    v66[2] = 0x3FF0000000000000;
+    v66[3] = 0;
     valuePtr = 0.0;
     memset(bytes, 0, 32);
     v12 = CFDictionaryGetValue(attachments, @"CVImageBufferGammaLevel");
@@ -7987,51 +7960,51 @@ LABEL_57:
 
         if (CFEqual(v13, @"ITU_R_709_2"))
         {
-          v60 = 1;
-          v26 = &kQTPrimaries_ITU_R709_2_Info;
+          v59 = 1;
+          v25 = &kQTPrimaries_ITU_R709_2_Info;
           goto LABEL_91;
         }
 
         if (CFEqual(v13, @"EBU_3213"))
         {
-          v60 = 5;
-          v26 = &kQTPrimaries_EBU_3213_Info;
+          v59 = 5;
+          v25 = &kQTPrimaries_EBU_3213_Info;
           goto LABEL_91;
         }
 
         if (CFEqual(v13, @"SMPTE_C"))
         {
-          v60 = 6;
-          v26 = &kQTPrimaries_SMPTE_C_Info;
+          v59 = 6;
+          v25 = &kQTPrimaries_SMPTE_C_Info;
           goto LABEL_91;
         }
 
         if (CFEqual(v13, @"P22"))
         {
-          v27 = 22;
+          v26 = 22;
 LABEL_86:
-          v60 = v27;
-          v26 = &kQTPrimaries_GenericRGB_Info;
+          v59 = v26;
+          v25 = &kQTPrimaries_GenericRGB_Info;
           goto LABEL_91;
         }
 
         if (CFEqual(v13, @"ITU_R_2020"))
         {
-          v60 = 9;
-          v26 = &kQTPrimaries_ITU_R_2020_Info;
+          v59 = 9;
+          v25 = &kQTPrimaries_ITU_R_2020_Info;
         }
 
         else if (CFEqual(v13, @"DCI_P3"))
         {
-          v60 = 11;
-          v26 = &kQTPrimaries_DCI_P3_Info;
+          v59 = 11;
+          v25 = &kQTPrimaries_DCI_P3_Info;
         }
 
         else
         {
           if (!CFEqual(v13, @"P3_D65"))
           {
-            v27 = 2;
+            v26 = 2;
             goto LABEL_86;
           }
 
@@ -8040,31 +8013,31 @@ LABEL_86:
             goto LABEL_57;
           }
 
-          v60 = 12;
-          v26 = &kQTPrimaries_P3_D65_Info;
+          v59 = 12;
+          v25 = &kQTPrimaries_P3_D65_Info;
         }
 
 LABEL_91:
-        v62 = v26;
+        v61 = v25;
         if (CFEqual(v14, @"ITU_R_709_2"))
         {
           if (v11)
           {
-            v28 = &kCVCGTransferFunction_CG709_Info;
+            v27 = &kCVCGTransferFunction_CG709_Info;
           }
 
           else
           {
-            v28 = &kQTTransferFunction_ITU_R2020_Info;
+            v27 = &kQTTransferFunction_ITU_R2020_Info;
           }
 
-          v61 = 1;
+          v60 = 1;
           goto LABEL_101;
         }
 
         if (CFEqual(v14, @"SMPTE_240M_1995"))
         {
-          v29 = 7;
+          v28 = 7;
         }
 
         else
@@ -8073,31 +8046,31 @@ LABEL_91:
           {
             if (CFEqual(v14, @"SMPTE_ST_428_1"))
             {
-              v61 = 17;
-              v28 = &kQTTransferFunction_SMPTE_ST_428_1_Info;
+              v60 = 17;
+              v27 = &kQTTransferFunction_SMPTE_ST_428_1_Info;
             }
 
             else if (CFEqual(v14, @"Linear"))
             {
-              v61 = 8;
-              v28 = &kCVTransferFunction_Linear_Info;
+              v60 = 8;
+              v27 = &kCVTransferFunction_Linear_Info;
             }
 
             else if (CFEqual(v14, @"IEC_sRGB") || CFEqual(v14, @"sRGB"))
             {
-              v61 = 13;
-              v28 = &kCVCGTransferFunction_sRGB_Info;
+              v60 = 13;
+              v27 = &kCVCGTransferFunction_sRGB_Info;
             }
 
             else
             {
-              v61 = 2;
-              v28 = &kQTTransferFunction_GenericRGB_Info;
+              v60 = 2;
+              v27 = &kQTTransferFunction_GenericRGB_Info;
               if (CFEqual(v14, @"UseGamma") && v12)
               {
-                CFNumberGetValue(v12, kCFNumberDoubleType, v67);
-                v61 = 2;
-                v28 = &v66;
+                CFNumberGetValue(v12, kCFNumberDoubleType, v66);
+                v60 = 2;
+                v27 = &v65;
               }
             }
 
@@ -8106,195 +8079,195 @@ LABEL_101:
             {
               if (CFEqual(cf1, @"ITU_R_709_2"))
               {
-                v30 = 1;
+                v29 = 1;
               }
 
               else if (CFEqual(cf1, @"ITU_R_601_4"))
               {
-                v30 = 6;
+                v29 = 6;
               }
 
               else if (CFEqual(cf1, @"SMPTE_240M_1995"))
               {
-                v30 = 7;
+                v29 = 7;
               }
 
               else if (CFEqual(cf1, @"DCI_P3"))
               {
-                v30 = 11;
+                v29 = 11;
               }
 
               else if (CFEqual(cf1, @"P3_D65"))
               {
-                v30 = 12;
+                v29 = 12;
               }
 
               else if (CFEqual(cf1, @"ITU_R_2020"))
               {
-                v30 = 9;
+                v29 = 9;
               }
 
               else
               {
-                v30 = 2;
+                v29 = 2;
               }
             }
 
             else
             {
-              v30 = 2;
+              v29 = 2;
             }
 
-            v31 = *(v28 + 1);
-            if (*v28)
+            v30 = *(v27 + 1);
+            if (*v27)
             {
-              v31 = 1.0 / v31;
+              v30 = 1.0 / v30;
             }
 
-            valuePtr = v31;
-            v80 = xmmword_1E75D7D90;
-            v81 = *&off_1E75D7DA0;
-            v82 = xmmword_1E75D7DB0;
+            valuePtr = v30;
+            v79 = xmmword_1E75D7D90;
+            v80 = *&off_1E75D7DA0;
+            v81 = xmmword_1E75D7DB0;
             *range = xmmword_1E75D7D50;
-            v77 = *&off_1E75D7D60;
-            v78 = xmmword_1E75D7D70;
-            v79 = *&off_1E75D7D80;
-            v75 = 0;
-            v74 = 0u;
+            v76 = *&off_1E75D7D60;
+            v77 = xmmword_1E75D7D70;
+            v78 = *&off_1E75D7D80;
+            v74 = 0;
             v73 = 0u;
             v72 = 0u;
             v71 = 0u;
             v70 = 0u;
             v69 = 0u;
+            v68 = 0u;
             values = CFRetain(@"displayRGB");
-            if (CFEqual(v13, @"ITU_R_709_2") && (v32 = CFEqual(v14, @"ITU_R_709_2"), cf1) && v32 && CFEqual(cf1, @"ITU_R_709_2"))
+            if (CFEqual(v13, @"ITU_R_709_2") && (v31 = CFEqual(v14, @"ITU_R_709_2"), cf1) && v31 && CFEqual(cf1, @"ITU_R_709_2"))
             {
-              v33 = @"HDTV";
+              v32 = @"HDTV";
             }
 
-            else if (CFEqual(v13, @"SMPTE_C") && (v34 = CFEqual(v14, @"ITU_R_709_2"), cf1) && v34 && CFEqual(cf1, @"ITU_R_601_4"))
+            else if (CFEqual(v13, @"SMPTE_C") && (v33 = CFEqual(v14, @"ITU_R_709_2"), cf1) && v33 && CFEqual(cf1, @"ITU_R_601_4"))
             {
-              v33 = @"Composite NTSC";
+              v32 = @"Composite NTSC";
             }
 
-            else if (CFEqual(v13, @"EBU_3213") && (v35 = CFEqual(v14, @"ITU_R_709_2"), cf1) && v35 && CFEqual(cf1, @"ITU_R_601_4"))
+            else if (CFEqual(v13, @"EBU_3213") && (v34 = CFEqual(v14, @"ITU_R_709_2"), cf1) && v34 && CFEqual(cf1, @"ITU_R_601_4"))
             {
-              v33 = @"Composite PAL";
+              v32 = @"Composite PAL";
             }
 
-            else if (CFEqual(v13, @"SMPTE_C") && (v36 = CFEqual(v14, @"SMPTE_240M_1995"), cf1) && v36 && CFEqual(cf1, @"SMPTE_240M_1995"))
+            else if (CFEqual(v13, @"SMPTE_C") && (v35 = CFEqual(v14, @"SMPTE_240M_1995"), cf1) && v35 && CFEqual(cf1, @"SMPTE_240M_1995"))
             {
-              v33 = @"HDTV Interim Color Implementation";
+              v32 = @"HDTV Interim Color Implementation";
             }
 
             else if (CFEqual(v13, @"DCI_P3") && CFEqual(v14, @"SMPTE_ST_428_1"))
             {
-              v33 = @"Digital Cinema P3";
+              v32 = @"Digital Cinema P3";
             }
 
             else if (CFEqual(v13, @"P3_D65") && CFEqual(v14, @"ITU_R_709_2"))
             {
-              v33 = @"Apple P3";
+              v32 = @"Apple P3";
             }
 
             else if (CFEqual(v13, @"ITU_R_2020") && CFEqual(v14, @"ITU_R_2020"))
             {
-              v33 = @"UHD";
+              v32 = @"UHD";
             }
 
             else if (CFEqual(v14, @"SMPTE_ST_2084_PQ"))
             {
-              v33 = @"HDR (PQ)";
+              v32 = @"HDR (PQ)";
             }
 
             else
             {
               if (!CFEqual(v14, @"ITU_R_2100_HLG"))
               {
-                v37 = CFStringCreateWithFormat(v17, 0, @"QuickTime 'nclc' Video (%d,%d,%d)", v60, v61, v30);
+                v36 = CFStringCreateWithFormat(v17, 0, @"QuickTime 'nclc' Video (%d,%d,%d)", v59, v60, v29);
                 goto LABEL_159;
               }
 
-              v33 = @"HDR (HLG)";
+              v32 = @"HDR (HLG)";
             }
 
-            v37 = CFRetain(v33);
+            v36 = CFRetain(v32);
 LABEL_159:
-            *&v69 = v37;
-            v38 = 13;
+            *&v68 = v36;
+            v37 = 13;
+            *(&v68 + 1) = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
+            *&v69 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
             *(&v69 + 1) = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
-            *&v70 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
-            *(&v70 + 1) = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
-            *&v71 = CFNumberCreate(0, kCFNumberDoubleType, v62 + 32);
-            *(&v71 + 1) = CFNumberCreate(0, kCFNumberDoubleType, v62 + 40);
-            *&v72 = CFNumberCreate(0, kCFNumberDoubleType, v62);
-            *(&v72 + 1) = CFNumberCreate(0, kCFNumberDoubleType, v62 + 8);
-            *&v73 = CFNumberCreate(0, kCFNumberDoubleType, v62 + 16);
-            *(&v73 + 1) = CFNumberCreate(0, kCFNumberDoubleType, v62 + 24);
-            *&v74 = CFNumberCreate(0, kCFNumberDoubleType, v62 + 48);
-            *(&v74 + 1) = CFNumberCreate(0, kCFNumberDoubleType, v62 + 56);
-            v75 = CFStringCreateWithCString(0, "Copyright 2007 Apple Inc.", 0);
+            *&v70 = CFNumberCreate(0, kCFNumberDoubleType, v61 + 32);
+            *(&v70 + 1) = CFNumberCreate(0, kCFNumberDoubleType, v61 + 40);
+            *&v71 = CFNumberCreate(0, kCFNumberDoubleType, v61);
+            *(&v71 + 1) = CFNumberCreate(0, kCFNumberDoubleType, v61 + 8);
+            *&v72 = CFNumberCreate(0, kCFNumberDoubleType, v61 + 16);
+            *(&v72 + 1) = CFNumberCreate(0, kCFNumberDoubleType, v61 + 24);
+            *&v73 = CFNumberCreate(0, kCFNumberDoubleType, v61 + 48);
+            *(&v73 + 1) = CFNumberCreate(0, kCFNumberDoubleType, v61 + 56);
+            v74 = CFStringCreateWithCString(0, "Copyright 2007 Apple Inc.", 0);
             v20 = CFDictionaryCreate(0, range, &values, 14, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
             do
             {
-              CFRelease(*(&values + v38));
-              v39 = v38-- + 1;
+              CFRelease(*(&values + v37));
+              v38 = v37-- + 1;
             }
 
-            while (v39 > 1);
+            while (v38 > 1);
             if (v20 && (Profile = ColorSyncMakeProfile()) != 0)
             {
-              v41 = Profile;
+              v40 = Profile;
               MutableCopy = ColorSyncProfileCreateMutableCopy(Profile);
-              CFRelease(v41);
-              if (MutableCopy && (v42 = ColorSyncProfileCopyHeader(MutableCopy)) != 0)
+              CFRelease(v40);
+              if (MutableCopy && (v41 = ColorSyncProfileCopyHeader(MutableCopy)) != 0)
               {
-                v43 = v42;
-                v21 = CFDataCreateMutableCopy(0, 128, v42);
-                CFRelease(v43);
+                v42 = v41;
+                v21 = CFDataCreateMutableCopy(0, 128, v41);
+                CFRelease(v42);
                 if (v21)
                 {
                   CFDataSetLength(v21, 128);
                   MutableBytePtr = CFDataGetMutableBytePtr(v21);
                   if (MutableBytePtr)
                   {
-                    v45 = MutableBytePtr;
-                    if (*v28 != 3)
+                    v44 = MutableBytePtr;
+                    if (*v27 != 3)
                     {
 LABEL_170:
-                      *(v45 + 3) = 0x10001000407D5;
-                      *(v45 + 8) = 65537;
+                      *(v44 + 3) = 0x10001000407D5;
+                      *(v44 + 8) = 65537;
                       ColorSyncProfileSetHeader(MutableCopy, v21);
                       ICCBased = CGColorSpaceCreateWithPlatformColorSpace(MutableCopy);
                       goto LABEL_64;
                     }
 
-                    v46 = *(v28 + 3);
-                    v47.f64[0] = *(v28 + 4) + 1.0;
+                    v45 = *(v27 + 3);
+                    v46.f64[0] = *(v27 + 4) + 1.0;
                     __asm { FMOV            V4.2D, #1.0 }
 
-                    v53.f64[0] = *(v28 + 1);
-                    v54 = *(v28 + 2);
-                    v53.f64[1] = v47.f64[0];
-                    v55 = vdivq_f64(_Q4, v53);
-                    _Q4.f64[0] = *(v28 + 4);
+                    v52.f64[0] = *(v27 + 1);
+                    v53 = *(v27 + 2);
+                    v52.f64[1] = v46.f64[0];
+                    v54 = vdivq_f64(_Q4, v52);
+                    _Q4.f64[0] = *(v27 + 4);
                     *bytes = 1634886000;
-                    v47.f64[1] = v46;
-                    v56 = vdupq_n_s64(0x40EFFFE000000000uLL);
+                    v46.f64[1] = v45;
+                    v55 = vdupq_n_s64(0x40EFFFE000000000uLL);
                     __asm { FMOV            V2.2D, #0.5 }
 
                     *&bytes[8] = 768;
-                    *&bytes[12] = vrev32q_s8(vuzp1q_s32(vcvtq_u64_f64(vmlaq_f64(_Q2, v56, v55)), vcvtq_u64_f64(vmlaq_f64(_Q2, v56, vdivq_f64(_Q4, v47)))));
-                    *&bytes[28] = bswap32((v46 * v54 * 65535.0 + 0.5));
-                    v58 = CFDataCreateWithBytesNoCopy(0, bytes, 32, *MEMORY[0x1E695E498]);
-                    if (v58)
+                    *&bytes[12] = vrev32q_s8(vuzp1q_s32(vcvtq_u64_f64(vmlaq_f64(_Q2, v55, v54)), vcvtq_u64_f64(vmlaq_f64(_Q2, v55, vdivq_f64(_Q4, v46)))));
+                    *&bytes[28] = bswap32((v45 * v53 * 65535.0 + 0.5));
+                    v57 = CFDataCreateWithBytesNoCopy(0, bytes, 32, *MEMORY[0x1E695E498]);
+                    if (v57)
                     {
-                      v59 = v58;
-                      ColorSyncProfileSetTag(MutableCopy, @"rTRC", v58);
-                      ColorSyncProfileSetTag(MutableCopy, @"gTRC", v59);
-                      ColorSyncProfileSetTag(MutableCopy, @"bTRC", v59);
-                      CFRelease(v59);
-                      *(v45 + 2) = 0x4000000;
+                      v58 = v57;
+                      ColorSyncProfileSetTag(MutableCopy, @"rTRC", v57);
+                      ColorSyncProfileSetTag(MutableCopy, @"gTRC", v58);
+                      ColorSyncProfileSetTag(MutableCopy, @"bTRC", v58);
+                      CFRelease(v58);
+                      *(v44 + 2) = 0x4000000;
                       goto LABEL_170;
                     }
                   }
@@ -8317,11 +8290,11 @@ LABEL_170:
             goto LABEL_64;
           }
 
-          v29 = 14;
+          v28 = 14;
         }
 
-        v61 = v29;
-        v28 = &kQTTransferFunction_ITU_R2020_Info;
+        v60 = v28;
+        v27 = &kQTTransferFunction_ITU_R2020_Info;
         goto LABEL_101;
       }
     }
@@ -8359,11 +8332,11 @@ LABEL_64:
   }
 
   range[0] = 0.0;
-  *&v77 = 0;
+  *&v76 = 0;
   range[1] = 1.0;
+  *(&v76 + 1) = 0x3FF0000000000000;
+  *&v77 = 0;
   *(&v77 + 1) = 0x3FF0000000000000;
-  *&v78 = 0;
-  *(&v78 + 1) = 0x3FF0000000000000;
   CFRetain(v4);
   BytePtr = CFDataGetBytePtr(v4);
   Length = CFDataGetLength(v4);
@@ -8375,16 +8348,12 @@ LABEL_64:
     v10 = v9;
 LABEL_73:
     CGDataProviderRelease(v10);
-    goto LABEL_74;
+    return ICCBased;
   }
 
   CGDataProviderRelease(0);
   CFRelease(v4);
-LABEL_4:
-  ICCBased = 0;
-LABEL_74:
-  v24 = *MEMORY[0x1E69E9840];
-  return ICCBased;
+  return 0;
 }
 
 void CVBufferRemoveAllAttachments(CVBufferRef buffer)
@@ -8527,26 +8496,25 @@ LABEL_16:
 
     v12 = v11;
     v13 = CFDictionaryGetValue(DescriptionWithPixelFormatType, @"IOSurfaceOpenGLFBOCompatibility");
-    v14 = *MEMORY[0x1E695E4C0];
     if (v13)
     {
-      v15 = v13;
+      v14 = v13;
     }
 
     else
     {
-      v15 = *MEMORY[0x1E695E4C0];
+      v14 = *MEMORY[0x1E695E4C0];
     }
 
-    if (!CFEqual(v12, v15))
+    if (!CFEqual(v12, v14))
     {
       v10 = "pixel format not IOSurfaceOpenGLFBO compatible";
       goto LABEL_167;
     }
   }
 
-  v16 = CFDictionaryGetValue(a2, @"OpenGLESCompatibility");
-  if (v16)
+  v15 = CFDictionaryGetValue(a2, @"OpenGLESCompatibility");
+  if (v15)
   {
     if (!DescriptionWithPixelFormatType)
     {
@@ -8554,28 +8522,27 @@ LABEL_16:
       goto LABEL_167;
     }
 
-    v17 = v16;
-    v18 = CFDictionaryGetValue(DescriptionWithPixelFormatType, @"OpenGLESCompatibility");
-    v19 = *MEMORY[0x1E695E4C0];
-    if (v18)
+    v16 = v15;
+    v17 = CFDictionaryGetValue(DescriptionWithPixelFormatType, @"OpenGLESCompatibility");
+    if (v17)
     {
-      v20 = v18;
+      v18 = v17;
     }
 
     else
     {
-      v20 = *MEMORY[0x1E695E4C0];
+      v18 = *MEMORY[0x1E695E4C0];
     }
 
-    if (!CFEqual(v17, v20))
+    if (!CFEqual(v16, v18))
     {
       v10 = "pixel format not OpenGLES compatible";
       goto LABEL_167;
     }
   }
 
-  v21 = CFDictionaryGetValue(a2, @"IOSurfaceOpenGLESTextureCompatibility");
-  if (v21)
+  v19 = CFDictionaryGetValue(a2, @"IOSurfaceOpenGLESTextureCompatibility");
+  if (v19)
   {
     if (!DescriptionWithPixelFormatType)
     {
@@ -8583,28 +8550,27 @@ LABEL_16:
       goto LABEL_167;
     }
 
-    v22 = v21;
-    v23 = CFDictionaryGetValue(DescriptionWithPixelFormatType, @"IOSurfaceOpenGLESTextureCompatibility");
-    v24 = *MEMORY[0x1E695E4C0];
-    if (v23)
+    v20 = v19;
+    v21 = CFDictionaryGetValue(DescriptionWithPixelFormatType, @"IOSurfaceOpenGLESTextureCompatibility");
+    if (v21)
     {
-      v25 = v23;
+      v22 = v21;
     }
 
     else
     {
-      v25 = *MEMORY[0x1E695E4C0];
+      v22 = *MEMORY[0x1E695E4C0];
     }
 
-    if (!CFEqual(v22, v25))
+    if (!CFEqual(v20, v22))
     {
       v10 = "pixel format not IOSurfaceOpenGLESTexture compatible";
       goto LABEL_167;
     }
   }
 
-  v26 = CFDictionaryGetValue(a2, @"IOSurfaceOpenGLESFBOCompatibility");
-  if (v26)
+  v23 = CFDictionaryGetValue(a2, @"IOSurfaceOpenGLESFBOCompatibility");
+  if (v23)
   {
     if (!DescriptionWithPixelFormatType)
     {
@@ -8612,28 +8578,27 @@ LABEL_16:
       goto LABEL_167;
     }
 
-    v27 = v26;
-    v28 = CFDictionaryGetValue(DescriptionWithPixelFormatType, @"IOSurfaceOpenGLESFBOCompatibility");
-    v29 = *MEMORY[0x1E695E4C0];
-    if (v28)
+    v24 = v23;
+    v25 = CFDictionaryGetValue(DescriptionWithPixelFormatType, @"IOSurfaceOpenGLESFBOCompatibility");
+    if (v25)
     {
-      v30 = v28;
+      v26 = v25;
     }
 
     else
     {
-      v30 = *MEMORY[0x1E695E4C0];
+      v26 = *MEMORY[0x1E695E4C0];
     }
 
-    if (!CFEqual(v27, v30))
+    if (!CFEqual(v24, v26))
     {
       v10 = "pixel format not IOSurfaceOpenGLESFBO compatible";
       goto LABEL_167;
     }
   }
 
-  v31 = CFDictionaryGetValue(a2, @"IOSurfaceCoreAnimationCompatibility");
-  if (v31)
+  v27 = CFDictionaryGetValue(a2, @"IOSurfaceCoreAnimationCompatibility");
+  if (v27)
   {
     if (!DescriptionWithPixelFormatType)
     {
@@ -8641,55 +8606,54 @@ LABEL_16:
       goto LABEL_167;
     }
 
-    v32 = v31;
-    v33 = CFDictionaryGetValue(DescriptionWithPixelFormatType, @"IOSurfaceCoreAnimationCompatibility");
-    v34 = *MEMORY[0x1E695E4C0];
-    if (v33)
+    v28 = v27;
+    v29 = CFDictionaryGetValue(DescriptionWithPixelFormatType, @"IOSurfaceCoreAnimationCompatibility");
+    if (v29)
     {
-      v35 = v33;
+      v30 = v29;
     }
 
     else
     {
-      v35 = *MEMORY[0x1E695E4C0];
+      v30 = *MEMORY[0x1E695E4C0];
     }
 
-    if (!CFEqual(v32, v35))
+    if (!CFEqual(v28, v30))
     {
       v10 = "pixel format not IOSurfaceCoreAnimation compatible";
       goto LABEL_167;
     }
   }
 
-  v36 = CFDictionaryGetValue(a2, @"MemoryAllocator");
-  if (v36)
+  v31 = CFDictionaryGetValue(a2, @"MemoryAllocator");
+  if (v31)
   {
-    v37 = v36;
+    v32 = v31;
     Attributes = CVPixelBufferGetAttributes(a1);
-    v39 = CFDictionaryGetValue(Attributes, @"MemoryAllocator");
-    if (!v39)
+    v34 = CFDictionaryGetValue(Attributes, @"MemoryAllocator");
+    if (!v34)
     {
       v10 = "not using custom memory allocator";
       goto LABEL_167;
     }
 
-    if (!CFEqual(v37, v39))
+    if (!CFEqual(v32, v34))
     {
       v10 = "custom memory allocator mismatch";
       goto LABEL_167;
     }
   }
 
-  v40 = CFDictionaryGetValue(a2, @"PixelFormatType");
-  if (v40)
+  v35 = CFDictionaryGetValue(a2, @"PixelFormatType");
+  if (v35)
   {
-    v41 = v40;
-    v42 = CVPixelBufferGetPixelFormatType(a1);
+    v36 = v35;
+    v37 = CVPixelBufferGetPixelFormatType(a1);
     TypeID = CFNumberGetTypeID();
-    if (TypeID == CFGetTypeID(v41))
+    if (TypeID == CFGetTypeID(v36))
     {
       valuePtr = 0;
-      if (!CFNumberGetValue(v41, kCFNumberLongType, &valuePtr) || valuePtr != v42)
+      if (!CFNumberGetValue(v36, kCFNumberLongType, &valuePtr) || valuePtr != v37)
       {
         v10 = "wrong pixel format";
         goto LABEL_167;
@@ -8698,8 +8662,8 @@ LABEL_16:
 
     else
     {
-      v44 = CFArrayGetTypeID();
-      if (v44 == CFGetTypeID(v41) && !numberIsInCFArrayOfCFNumbers(v42, v41))
+      v39 = CFArrayGetTypeID();
+      if (v39 == CFGetTypeID(v36) && !numberIsInCFArrayOfCFNumbers(v37, v36))
       {
         v10 = "pixel format not in list";
         goto LABEL_167;
@@ -8707,16 +8671,16 @@ LABEL_16:
     }
   }
 
-  v45 = CFDictionaryGetValue(a2, @"Width");
-  v46 = CFDictionaryGetValue(a2, @"Height");
-  if (v45)
+  v40 = CFDictionaryGetValue(a2, @"Width");
+  v41 = CFDictionaryGetValue(a2, @"Height");
+  if (v40)
   {
-    v47 = CFNumberGetTypeID();
-    if (v47 == CFGetTypeID(v45))
+    v42 = CFNumberGetTypeID();
+    if (v42 == CFGetTypeID(v40))
     {
       Width = CVPixelBufferGetWidth(a1);
       valuePtr = 0;
-      if (!CFNumberGetValue(v45, kCFNumberLongType, &valuePtr) || valuePtr != Width)
+      if (!CFNumberGetValue(v40, kCFNumberLongType, &valuePtr) || valuePtr != Width)
       {
         v10 = "wrong width";
         goto LABEL_167;
@@ -8724,14 +8688,14 @@ LABEL_16:
     }
   }
 
-  if (v46)
+  if (v41)
   {
-    v49 = CFNumberGetTypeID();
-    if (v49 == CFGetTypeID(v46))
+    v44 = CFNumberGetTypeID();
+    if (v44 == CFGetTypeID(v41))
     {
       Height = CVPixelBufferGetHeight(a1);
       valuePtr = 0;
-      if (!CFNumberGetValue(v46, kCFNumberLongType, &valuePtr) || valuePtr != Height)
+      if (!CFNumberGetValue(v41, kCFNumberLongType, &valuePtr) || valuePtr != Height)
       {
         v10 = "wrong height";
         goto LABEL_167;
@@ -8739,28 +8703,28 @@ LABEL_16:
     }
   }
 
-  v51 = CFDictionaryGetValue(a2, @"ExtendedPixelsLeft");
-  v52 = CFDictionaryGetValue(a2, @"ExtendedPixelsTop");
-  v53 = CFDictionaryGetValue(a2, @"ExtendedPixelsRight");
-  v54 = CFDictionaryGetValue(a2, @"ExtendedPixelsBottom");
-  v55 = v54;
-  if (v51 || v52 || v53 || v54)
+  v46 = CFDictionaryGetValue(a2, @"ExtendedPixelsLeft");
+  v47 = CFDictionaryGetValue(a2, @"ExtendedPixelsTop");
+  v48 = CFDictionaryGetValue(a2, @"ExtendedPixelsRight");
+  v49 = CFDictionaryGetValue(a2, @"ExtendedPixelsBottom");
+  v50 = v49;
+  if (v46 || v47 || v48 || v49)
   {
     extraRowsOnTop = 0;
     extraColumnsOnLeft = 0;
     extraRowsOnBottom = 0;
     extraColumnsOnRight = 0;
     CVPixelBufferGetExtendedPixels(a1, &extraColumnsOnLeft, &extraColumnsOnRight, &extraRowsOnTop, &extraRowsOnBottom);
-    if (v51)
+    if (v46)
     {
-      v60 = CFNumberGetTypeID();
-      if (v60 == CFGetTypeID(v51))
+      v55 = CFNumberGetTypeID();
+      if (v55 == CFGetTypeID(v46))
       {
-        v61 = extraColumnsOnLeft;
+        v56 = extraColumnsOnLeft;
         valuePtr = 0;
-        if (CFNumberGetValue(v51, kCFNumberLongType, &valuePtr))
+        if (CFNumberGetValue(v46, kCFNumberLongType, &valuePtr))
         {
-          if (valuePtr > v61)
+          if (valuePtr > v56)
           {
             v10 = "insufficient extended-left";
             goto LABEL_167;
@@ -8769,16 +8733,16 @@ LABEL_16:
       }
     }
 
-    if (v52)
+    if (v47)
     {
-      v62 = CFNumberGetTypeID();
-      if (v62 == CFGetTypeID(v52))
+      v57 = CFNumberGetTypeID();
+      if (v57 == CFGetTypeID(v47))
       {
-        v63 = extraRowsOnTop;
+        v58 = extraRowsOnTop;
         valuePtr = 0;
-        if (CFNumberGetValue(v52, kCFNumberLongType, &valuePtr))
+        if (CFNumberGetValue(v47, kCFNumberLongType, &valuePtr))
         {
-          if (valuePtr > v63)
+          if (valuePtr > v58)
           {
             v10 = "insufficient extended-top";
             goto LABEL_167;
@@ -8787,16 +8751,16 @@ LABEL_16:
       }
     }
 
-    if (v53)
+    if (v48)
     {
-      v64 = CFNumberGetTypeID();
-      if (v64 == CFGetTypeID(v53))
+      v59 = CFNumberGetTypeID();
+      if (v59 == CFGetTypeID(v48))
       {
-        v65 = extraColumnsOnRight;
+        v60 = extraColumnsOnRight;
         valuePtr = 0;
-        if (CFNumberGetValue(v53, kCFNumberLongType, &valuePtr))
+        if (CFNumberGetValue(v48, kCFNumberLongType, &valuePtr))
         {
-          if (valuePtr > v65)
+          if (valuePtr > v60)
           {
             v10 = "insufficient extended-right";
             goto LABEL_167;
@@ -8805,16 +8769,16 @@ LABEL_16:
       }
     }
 
-    if (v55)
+    if (v50)
     {
-      v66 = CFNumberGetTypeID();
-      if (v66 == CFGetTypeID(v55))
+      v61 = CFNumberGetTypeID();
+      if (v61 == CFGetTypeID(v50))
       {
-        v67 = extraRowsOnBottom;
+        v62 = extraRowsOnBottom;
         valuePtr = 0;
-        if (CFNumberGetValue(v55, kCFNumberLongType, &valuePtr))
+        if (CFNumberGetValue(v50, kCFNumberLongType, &valuePtr))
         {
-          if (valuePtr > v67)
+          if (valuePtr > v62)
           {
             v10 = "insufficient extended-bottom";
             goto LABEL_167;
@@ -8824,18 +8788,18 @@ LABEL_16:
     }
   }
 
-  v56 = CFDictionaryGetValue(a2, @"ExactBytesPerRow");
-  if (v56)
+  v51 = CFDictionaryGetValue(a2, @"ExactBytesPerRow");
+  if (v51)
   {
-    v57 = v56;
-    v58 = CFNumberGetTypeID();
-    if (v58 == CFGetTypeID(v57))
+    v52 = v51;
+    v53 = CFNumberGetTypeID();
+    if (v53 == CFGetTypeID(v52))
     {
       if (!CVPixelBufferIsPlanar(a1))
       {
         BytesPerRow = CVPixelBufferGetBytesPerRow(a1);
         valuePtr = 0;
-        if (!CFNumberGetValue(v57, kCFNumberLongType, &valuePtr) || valuePtr != BytesPerRow)
+        if (!CFNumberGetValue(v52, kCFNumberLongType, &valuePtr) || valuePtr != BytesPerRow)
         {
           v10 = "exact bytes per row not satisfied";
           goto LABEL_167;
@@ -8845,23 +8809,23 @@ LABEL_16:
 
     else
     {
-      v68 = CFArrayGetTypeID();
-      if (v68 == CFGetTypeID(v57))
+      v63 = CFArrayGetTypeID();
+      if (v63 == CFGetTypeID(v52))
       {
         if (CVPixelBufferIsPlanar(a1))
         {
-          v69 = CVPixelBufferGetPlaneCount(a1);
-          if (CFArrayGetCount(v57) == v69)
+          v64 = CVPixelBufferGetPlaneCount(a1);
+          if (CFArrayGetCount(v52) == v64)
           {
-            if (v69)
+            if (v64)
             {
-              v70 = 0;
+              v65 = 0;
               while (1)
               {
-                ValueAtIndex = CFArrayGetValueAtIndex(v57, v70);
-                BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(a1, v70);
-                v73 = CFNumberGetTypeID();
-                if (v73 == CFGetTypeID(ValueAtIndex))
+                ValueAtIndex = CFArrayGetValueAtIndex(v52, v65);
+                BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(a1, v65);
+                v68 = CFNumberGetTypeID();
+                if (v68 == CFGetTypeID(ValueAtIndex))
                 {
                   valuePtr = 0;
                   if (!CFNumberGetValue(ValueAtIndex, kCFNumberLongType, &valuePtr) || valuePtr != BytesPerRowOfPlane)
@@ -8870,7 +8834,7 @@ LABEL_16:
                   }
                 }
 
-                if (v69 == ++v70)
+                if (v64 == ++v65)
                 {
                   goto LABEL_115;
                 }
@@ -8886,29 +8850,29 @@ LABEL_16:
   }
 
 LABEL_115:
-  v74 = CFDictionaryGetValue(a2, @"BytesPerRowAlignment");
-  if (v74)
+  v69 = CFDictionaryGetValue(a2, @"BytesPerRowAlignment");
+  if (v69)
   {
-    v75 = v74;
-    v76 = CFNumberGetTypeID();
-    if (v76 == CFGetTypeID(v75))
+    v70 = v69;
+    v71 = CFNumberGetTypeID();
+    if (v71 == CFGetTypeID(v70))
     {
       if (CVPixelBufferIsPlanar(a1))
       {
-        v77 = CVPixelBufferGetPlaneCount(a1);
-        if (v77)
+        v72 = CVPixelBufferGetPlaneCount(a1);
+        if (v72)
         {
-          v78 = v77;
-          v79 = 0;
+          v73 = v72;
+          v74 = 0;
           while (1)
           {
-            v80 = CVPixelBufferGetBytesPerRowOfPlane(a1, v79);
-            if (!numberIsMultipleOfCFNumber(v80, v75))
+            v75 = CVPixelBufferGetBytesPerRowOfPlane(a1, v74);
+            if (!numberIsMultipleOfCFNumber(v75, v70))
             {
               break;
             }
 
-            if (v78 == ++v79)
+            if (v73 == ++v74)
             {
               goto LABEL_127;
             }
@@ -8921,8 +8885,8 @@ LABEL_115:
 
       else
       {
-        v81 = CVPixelBufferGetBytesPerRow(a1);
-        if (!numberIsMultipleOfCFNumber(v81, v75))
+        v76 = CVPixelBufferGetBytesPerRow(a1);
+        if (!numberIsMultipleOfCFNumber(v76, v70))
         {
           v10 = "bytes per row alignment not satisfied";
           goto LABEL_167;
@@ -8932,37 +8896,37 @@ LABEL_115:
   }
 
 LABEL_127:
-  v82 = CFDictionaryGetValue(a2, @"PlaneAlignment");
-  if (v82)
+  v77 = CFDictionaryGetValue(a2, @"PlaneAlignment");
+  if (v77)
   {
-    v83 = v82;
-    v84 = CFNumberGetTypeID();
-    if (v84 == CFGetTypeID(v83))
+    v78 = v77;
+    v79 = CFNumberGetTypeID();
+    if (v79 == CFGetTypeID(v78))
     {
       if (CVPixelBufferIsPlanar(a1))
       {
-        v85 = CVPixelBufferGetPlaneCount(a1);
-        if (v85)
+        v80 = CVPixelBufferGetPlaneCount(a1);
+        if (v80)
         {
-          v86 = v85;
-          v87 = 0;
+          v81 = v80;
+          v82 = 0;
           do
           {
-            BaseAddressOfPlaneWithoutLock = getBaseAddressOfPlaneWithoutLock(a1, v87);
-            if (!addressIsMultipleOfCFNumber(BaseAddressOfPlaneWithoutLock, v83))
+            BaseAddressOfPlaneWithoutLock = getBaseAddressOfPlaneWithoutLock(a1, v82);
+            if (!addressIsMultipleOfCFNumber(BaseAddressOfPlaneWithoutLock, v78))
             {
               goto LABEL_155;
             }
           }
 
-          while (v86 != ++v87);
+          while (v81 != ++v82);
         }
       }
 
       else
       {
         BaseAddressWithoutLock = getBaseAddressWithoutLock(a1);
-        if (!addressIsMultipleOfCFNumber(BaseAddressWithoutLock, v83))
+        if (!addressIsMultipleOfCFNumber(BaseAddressWithoutLock, v78))
         {
 LABEL_155:
           v10 = "plane alignment not satisfied";
@@ -8972,40 +8936,19 @@ LABEL_155:
     }
   }
 
-  v90 = CFDictionaryGetValue(a2, @"ExactHeight");
-  if (!v90)
+  v85 = CFDictionaryGetValue(a2, @"ExactHeight");
+  if (!v85 || (v86 = v85, v87 = CFNumberGetTypeID(), v87 != CFGetTypeID(v86)) || ((v88 = CVPixelBufferGetHeight(a1), extraRowsOnTop = 0, extraColumnsOnLeft = 0, extraRowsOnBottom = 0, extraColumnsOnRight = 0, CVPixelBufferGetExtendedPixels(a1, &extraColumnsOnLeft, &extraColumnsOnRight, &extraRowsOnTop, &extraRowsOnBottom), v89 = extraRowsOnTop + v88 + extraRowsOnBottom, valuePtr = 0, CFNumberGetValue(v86, kCFNumberLongType, &valuePtr)) ? (v90 = valuePtr == v89) : (v90 = 0), v90))
   {
-    goto LABEL_143;
-  }
-
-  v91 = v90;
-  v92 = CFNumberGetTypeID();
-  if (v92 != CFGetTypeID(v91))
-  {
-    goto LABEL_143;
-  }
-
-  v93 = CVPixelBufferGetHeight(a1);
-  extraRowsOnTop = 0;
-  extraColumnsOnLeft = 0;
-  extraRowsOnBottom = 0;
-  extraColumnsOnRight = 0;
-  CVPixelBufferGetExtendedPixels(a1, &extraColumnsOnLeft, &extraColumnsOnRight, &extraRowsOnTop, &extraRowsOnBottom);
-  v94 = extraRowsOnTop + v93 + extraRowsOnBottom;
-  valuePtr = 0;
-  if (CFNumberGetValue(v91, kCFNumberLongType, &valuePtr) && valuePtr == v94)
-  {
-LABEL_143:
-    v96 = CFDictionaryGetValue(a2, @"IOSurfaceProperties");
-    v97 = CFDictionaryGetValue(a2, @"CacheMode");
-    if (v96 | v97)
+    v91 = CFDictionaryGetValue(a2, @"IOSurfaceProperties");
+    v92 = CFDictionaryGetValue(a2, @"CacheMode");
+    if (v91 | v92)
     {
-      v98 = v97;
+      v93 = v92;
       IOSurface = CVPixelBufferGetIOSurface(a1);
-      if (v96)
+      if (v91)
       {
-        v100 = CFDictionaryGetTypeID();
-        if (v100 == CFGetTypeID(v96))
+        v95 = CFDictionaryGetTypeID();
+        if (v95 == CFGetTypeID(v91))
         {
           if (!IOSurface)
           {
@@ -9013,16 +8956,16 @@ LABEL_143:
             goto LABEL_167;
           }
 
-          v96 = CFDictionaryGetValue(v96, *MEMORY[0x1E696CE60]);
+          v91 = CFDictionaryGetValue(v91, *MEMORY[0x1E696CE60]);
         }
 
         else
         {
-          v96 = 0;
+          v91 = 0;
         }
       }
 
-      if (v98 | v96)
+      if (v93 | v91)
       {
         if (!IOSurface)
         {
@@ -9031,22 +8974,22 @@ LABEL_143:
         }
 
         CacheMode = IOSurfaceGetCacheMode();
-        if (v98 && (v102 = CFArrayGetTypeID(), v102 == CFGetTypeID(v98)))
+        if (v93 && (v97 = CFArrayGetTypeID(), v97 == CFGetTypeID(v93)))
         {
-          if (!numberIsInCFArrayOfCFNumbers(CacheMode, v98))
+          if (!numberIsInCFArrayOfCFNumbers(CacheMode, v93))
           {
             v10 = "cache mode not in list";
             goto LABEL_167;
           }
         }
 
-        else if (v96)
+        else if (v91)
         {
-          v103 = CFNumberGetTypeID();
-          if (v103 == CFGetTypeID(v96))
+          v98 = CFNumberGetTypeID();
+          if (v98 == CFGetTypeID(v91))
           {
             valuePtr = 0;
-            if (!CFNumberGetValue(v96, kCFNumberLongType, &valuePtr) || valuePtr != CacheMode)
+            if (!CFNumberGetValue(v91, kCFNumberLongType, &valuePtr) || valuePtr != CacheMode)
             {
               v10 = "wrong cache mode";
               goto LABEL_167;
@@ -9164,7 +9107,6 @@ const void *_cvTrackingGetCFAllocator(const void *a1)
 
 uint64_t sub_19D1358E0()
 {
-  v1 = *(v0 + 32);
 
   return MEMORY[0x1EEE6BDD0](v0, 40, 7);
 }
@@ -9178,7 +9120,6 @@ int64x2_t sub_19D135A00@<Q0>(int64x2_t *a1@<X8>)
 
 uint64_t sub_19D135A10()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x1EEE6BDD0](v0, 32, 7);
 }
@@ -9205,11 +9146,10 @@ __n128 sub_19D135A90(__n128 *a1, __n128 *a2)
   return result;
 }
 
-uint64_t sub_19D135AA4@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t sub_19D135AA4@<X0>(uint64_t *a1@<X8>)
 {
-  v4 = *a1;
   result = CVPixelBufferAttributes.pixelFormatTypes.getter();
-  *a2 = result;
+  *a1 = result;
   return result;
 }
 
@@ -9259,7 +9199,7 @@ double sub_19D135B04(_OWORD *a1)
   return result;
 }
 
-uint64_t get_enum_tag_for_layout_string_9CoreVideo31CVPixelBufferCreationAttributesV7BackingO_0(uint64_t *a1)
+uint64_t get_enum_tag_for_layout_string_9CoreVideo31CVPixelBufferCreationAttributesV7BackingO_0(unint64_t *a1)
 {
   v1 = *a1;
   if (*a1 >= 0xFFFFFFFF)
@@ -9581,5 +9521,57 @@ void *retrievePixelFormat_kCVPixelFormatType_HTPC16x8LumaOnly_420YpCbCr10BiPlana
   else
   {
     return &unk_1F108FB10;
+  }
+}
+
+void *retrievePixelFormat_kCVPixelFormatType_HTPC16x8LumaOnly_422YpCbCr10BiPlanarFullRange(int a1)
+{
+  if (a1)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return &unk_1F108FB38;
+  }
+}
+
+void *retrievePixelFormat_kCVPixelFormatType_HTPC16x8LumaOnly_444YpCbCr10BiPlanarFullRange(int a1)
+{
+  if (a1)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return &unk_1F108FB60;
+  }
+}
+
+void *retrievePixelFormat_kCVPixelFormatType_HTPC16x8_420YpCbCr8BiPlanarVideoRange(int a1)
+{
+  if (a1)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return &unk_1F108FB88;
+  }
+}
+
+void *retrievePixelFormat_kCVPixelFormatType_HTPC16x8_422YpCbCr8BiPlanarVideoRange(int a1)
+{
+  if (a1)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return &unk_1F108FBB0;
   }
 }

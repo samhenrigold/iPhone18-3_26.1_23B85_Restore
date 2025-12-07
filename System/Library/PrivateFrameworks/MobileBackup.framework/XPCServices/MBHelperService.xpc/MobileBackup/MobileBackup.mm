@@ -25,7 +25,7 @@ id sub_10000371C(uint64_t a1, void *a2)
   return v6;
 }
 
-uint64_t MBSQLiteJournalSuffixes()
+uint64_t MBSQLiteJournalSuffixes(uint64_t a1, uint64_t a2)
 {
   if (qword_10002A100 != -1)
   {
@@ -91,13 +91,9 @@ id sub_100005A40(uint64_t a1)
   result = [*(*(a1 + 32) + 40) count];
   if (result == 1)
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    class_getName(v4);
-    v5 = os_transaction_create();
-    v6 = *(a1 + 32);
-    v7 = *(v6 + 32);
-    *(v6 + 32) = v5;
+    v3 = objc_opt_class();
+    class_getName(v3);
+    *(*(a1 + 32) + 32) = os_transaction_create();
 
     return _objc_release_x1();
   }
@@ -189,18 +185,18 @@ void sub_10000606C(uint64_t a1)
       v5 = *(v4 + 16);
       if (!v5)
       {
-        v6 = MBGetDefaultLog();
+        v6 = MBGetDefaultLog(0);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Initializing idle timer", buf, 2u);
-          _MBLog(@"I ", "Initializing idle timer", v7, v8, v9, v10, v11, v12, v24);
+          _MBLog(@"I ", "Initializing idle timer");
         }
 
-        v13 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, *(*(a1 + 32) + 8));
-        v14 = *(a1 + 32);
-        v15 = *(v14 + 16);
-        *(v14 + 16) = v13;
+        v7 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, *(*(a1 + 32) + 8));
+        v8 = *(a1 + 32);
+        v9 = *(v8 + 16);
+        *(v8 + 16) = v7;
 
         v4 = *(a1 + 32);
         v5 = *(v4 + 16);
@@ -212,20 +208,20 @@ void sub_10000606C(uint64_t a1)
       handler[3] = &unk_1000248C0;
       handler[4] = v4;
       dispatch_source_set_event_handler(v5, handler);
-      v16 = dispatch_time(0, 300000000000);
-      dispatch_source_set_timer(*(*(a1 + 32) + 16), v16, 0xFFFFFFFFFFFFFFFFLL, 0);
+      v10 = dispatch_time(0, 300000000000);
+      dispatch_source_set_timer(*(*(a1 + 32) + 16), v10, 0xFFFFFFFFFFFFFFFFLL, 0);
       dispatch_resume(*(*(a1 + 32) + 16));
     }
   }
 
   else
   {
-    v17 = MBGetDefaultLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    v11 = MBGetDefaultLog(a1);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_FAULT, "Over-released idle timer", buf, 2u);
-      _MBLog(@"F ", "Over-released idle timer", v18, v19, v20, v21, v22, v23, v24);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_FAULT, "Over-released idle timer", buf, 2u);
+      _MBLog(@"F ", "Over-released idle timer");
     }
   }
 }
@@ -237,31 +233,31 @@ void sub_100006230(uint64_t a1)
   *(v1 + 32) = 0;
 }
 
-id MBTemporaryPath()
+id MBTemporaryPath(uint64_t a1)
 {
   if (qword_10002A158 != -1)
   {
     sub_100014528();
   }
 
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x3032000000;
-  v7 = sub_1000066F8;
-  v8 = sub_100006708;
-  v9 = 0;
-  v0 = sub_100006710();
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x3032000000;
+  v8 = sub_1000066F8;
+  v9 = sub_100006708;
+  v10 = 0;
+  v1 = sub_100006710(a1);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100006754;
   block[3] = &unk_100024908;
-  block[4] = &v4;
-  dispatch_sync(v0, block);
+  block[4] = &v5;
+  dispatch_sync(v1, block);
 
-  v1 = v5[5];
-  _Block_object_dispose(&v4, 8);
+  v2 = v6[5];
+  _Block_object_dispose(&v5, 8);
 
-  return v1;
+  return v2;
 }
 
 void sub_100006638(id a1)
@@ -293,16 +289,16 @@ uint64_t sub_1000066F8(uint64_t result, uint64_t a2)
   return result;
 }
 
-id sub_100006710()
+id sub_100006710(uint64_t a1)
 {
   if (qword_10002A170 != -1)
   {
     sub_10001453C();
   }
 
-  v1 = qword_10002A168;
+  v2 = qword_10002A168;
 
-  return v1;
+  return v2;
 }
 
 void sub_100006754(uint64_t a1)
@@ -323,15 +319,15 @@ void sub_100006754(uint64_t a1)
 
   else
   {
-    v4 = MBGetDefaultLog();
+    v4 = MBGetDefaultLog(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = *__error();
       *buf = 67109120;
-      v14 = v5;
+      v8 = v5;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "mktemp failed: %{errno}d", buf, 8u);
       v6 = __error();
-      _MBLog(@"E ", "mktemp failed: %{errno}d", v7, v8, v9, v10, v11, v12, *v6);
+      _MBLog(@"E ", "mktemp failed: %{errno}d", *v6);
     }
   }
 }
@@ -359,7 +355,7 @@ NSMutableString *MBStringWithArray(void *a1)
         [(NSMutableString *)v2 appendString:@", "];
       }
 
-      [(NSMutableString *)v2 appendString:MBStringWithObject(v5)];
+      [(NSMutableString *)v2 appendString:MBStringWithObject(v5, v6)];
       v5 = [v3 nextObject];
     }
 
@@ -370,7 +366,7 @@ NSMutableString *MBStringWithArray(void *a1)
   return v2;
 }
 
-NSMutableString *MBStringWithObject(void *a1)
+NSMutableString *MBStringWithObject(void *a1, uint64_t a2)
 {
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -384,10 +380,10 @@ NSMutableString *MBStringWithObject(void *a1)
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v3 = [a1 bytes];
-      v4 = 2 * [a1 length];
+      v4 = [a1 bytes];
+      v5 = 2 * [a1 length];
 
-      return MBStringWithNibbles(v3, v4);
+      return MBStringWithNibbles(v4, v5);
     }
 
     else
@@ -470,37 +466,38 @@ id MBStringWithDate(id result)
 NSMutableString *MBStringWithDictionary(void *a1)
 {
   v2 = [NSMutableString stringWithString:@"{"];
-  v9 = 0u;
-  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v3 = [a1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v13 = 0u;
+  v14 = 0u;
+  v3 = [a1 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v12;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(a1);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v11 + 1) + 8 * v6);
         if ([(NSMutableString *)v2 length]!= 1)
         {
           [(NSMutableString *)v2 appendString:@", "];
         }
 
-        -[NSMutableString appendFormat:](v2, "appendFormat:", @"%@: %@", v7, MBStringWithObject([a1 objectForKeyedSubscript:v7]));
+        v8 = [a1 objectForKeyedSubscript:v7];
+        [(NSMutableString *)v2 appendFormat:@"%@: %@", v7, MBStringWithObject(v8, v9)];
         v6 = v6 + 1;
       }
 
       while (v4 != v6);
-      v4 = [a1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [a1 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
@@ -525,7 +522,7 @@ NSMutableString *MBStringWithSet(void *a1)
         [(NSMutableString *)v2 appendString:@", "];
       }
 
-      [(NSMutableString *)v2 appendString:MBStringWithObject(v5)];
+      [(NSMutableString *)v2 appendString:MBStringWithObject(v5, v6)];
       v5 = [v3 nextObject];
     }
 
@@ -536,7 +533,7 @@ NSMutableString *MBStringWithSet(void *a1)
   return v2;
 }
 
-uint64_t MBHTTPDateFormatter()
+uint64_t MBHTTPDateFormatter(uint64_t a1, uint64_t a2)
 {
   if (qword_10002A178 != -1)
   {
@@ -579,23 +576,23 @@ char *sub_100006F8C(const char *a1, void *a2, char *a3)
 
   else
   {
-    v8 = MBGetDefaultLog();
+    v8 = MBGetDefaultLog(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = *__error();
       *buf = 136315394;
-      v20 = __str;
-      v21 = 1024;
-      v22 = v9;
+      v14 = __str;
+      v15 = 1024;
+      v16 = v9;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "=tmpdir= Failed to create %s directory (mkdtemp error: %d)", buf, 0x12u);
-      v18 = *__error();
-      _MBLog(@"E ", "=tmpdir= Failed to create %s directory (mkdtemp error: %d)", v10, v11, v12, v13, v14, v15, __str);
+      v10 = __error();
+      _MBLog(@"E ", "=tmpdir= Failed to create %s directory (mkdtemp error: %d)", __str, *v10);
     }
 
     if (a3)
     {
-      v16 = [NSString mb_stringWithFileSystemRepresentation:__str];
-      *a3 = [MBError posixErrorWithPath:v16 format:@"TempDir: Failed to create directory (mkdtemp error: %d)", *__error()];
+      v11 = [NSString mb_stringWithFileSystemRepresentation:__str];
+      *a3 = [MBError posixErrorWithPath:v11 format:@"TempDir: Failed to create directory (mkdtemp error: %d)", *__error()];
 
       a3 = 0;
     }
@@ -672,12 +669,12 @@ void sub_100007ED4(id a1)
   sub_100007370(v1);
 }
 
-uint64_t MBIsTransientErrorCode(uint64_t a1)
+uint64_t MBIsTransientErrorCode(unint64_t a1)
 {
   result = 1;
   if (a1 > 299)
   {
-    if ((a1 - 300) > 0xA || ((1 << (a1 - 44)) & 0x535) == 0)
+    if (a1 - 300 > 0xA || ((1 << (a1 - 44)) & 0x535) == 0)
     {
       v3 = a1 - 556;
 LABEL_10:
@@ -688,7 +685,7 @@ LABEL_10:
     }
   }
 
-  else if (((a1 - 202) > 0x12 || ((1 << (a1 + 54)) & 0x78041) == 0) && (a1 > 0x14 || ((1 << a1) & 0x1A0000) == 0))
+  else if ((a1 - 202 > 0x12 || ((1 << (a1 + 54)) & 0x78041) == 0) && (a1 > 0x14 || ((1 << a1) & 0x1A0000) == 0))
   {
     v3 = a1 - 105;
     goto LABEL_10;
@@ -697,26 +694,27 @@ LABEL_10:
   return result;
 }
 
-void MBDiagnoseFile(void *a1, int a2, uint64_t a3)
+void MBDiagnoseFile(void *a1, uint64_t a2, uint64_t a3)
 {
   v5 = a1;
   v6 = v5;
   if (atomic_fetch_add_explicit(dword_10002A1B8, 1u, memory_order_relaxed) <= 1)
   {
     sub_10000A6D4(v5);
-    if (MBIsInternalInstall())
+    v9 = MBIsInternalInstall(v7, v8);
+    if (v9)
     {
-      v7 = MBGetDefaultLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v10 = MBGetDefaultLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
         *buf = 136446722;
-        v15 = a3;
-        v16 = 1024;
-        v17 = a2;
-        v18 = 2114;
-        v19 = v6;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_FAULT, "=diag= %{public}s failed with %d at %{public}@", buf, 0x1Cu);
-        _MBLog(@"F ", "=diag= %{public}s failed with %d at %{public}@", v8, v9, v10, v11, v12, v13, a3);
+        v12 = a3;
+        v13 = 1024;
+        v14 = a2;
+        v15 = 2114;
+        v16 = v6;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_FAULT, "=diag= %{public}s failed with %d at %{public}@", buf, 0x1Cu);
+        _MBLog(@"F ", "=diag= %{public}s failed with %d at %{public}@", a3, a2, v6);
       }
     }
   }
@@ -726,7 +724,7 @@ void sub_10000A6D4(void *a1)
 {
   v1 = a1;
   v2 = geteuid();
-  v3 = MBGetDefaultLog();
+  v3 = MBGetDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
@@ -739,1572 +737,1520 @@ void sub_10000A6D4(void *a1)
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "=diag= Dumping diagnostics for %{public}@ (%d)", &buf, 0x12u);
     }
 
-    f_iosize = v2;
-    _MBLog(@"Df", "=diag= Dumping diagnostics for %{public}@ (%d)", v5, v6, v7, v8, v9, v10, v1);
+    _MBLog(@"Df", "=diag= Dumping diagnostics for %{public}@ (%d)", v1, v2);
   }
 
-  v11 = [v1 fileSystemRepresentation];
-  v12 = [v1 lastPathComponent];
-  v13 = [v12 fileSystemRepresentation];
+  v5 = [v1 fileSystemRepresentation];
+  v6 = [v1 lastPathComponent];
+  v7 = [v6 fileSystemRepresentation];
 
-  v14 = [v1 stringByDeletingLastPathComponent];
-  v15 = [v14 fileSystemRepresentation];
+  v8 = [v1 stringByDeletingLastPathComponent];
+  v9 = [v8 fileSystemRepresentation];
 
-  if (v1)
+  if (!v1)
   {
-    if (!v11)
-    {
-      v33 = MBGetDefaultLog();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
-      {
-        LOWORD(buf.f_bsize) = 0;
-        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "=diag= nil path FSR", &buf, 2u);
-        v40 = "=diag= nil path FSR";
-        goto LABEL_215;
-      }
+    goto LABEL_216;
+  }
 
-      goto LABEL_216;
+  if (!v5)
+  {
+    v20 = MBGetDefaultLog(v10);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(buf.f_bsize) = 0;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "=diag= nil path FSR", &buf, 2u);
+      _MBLog(@"Df", "=diag= nil path FSR", v247);
     }
 
-    if (!v13)
-    {
-      v33 = MBGetDefaultLog();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
-      {
-        LOWORD(buf.f_bsize) = 0;
-        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "=diag= nil name FSR", &buf, 2u);
-        v40 = "=diag= nil name FSR";
-        goto LABEL_215;
-      }
+    goto LABEL_215;
+  }
 
-      goto LABEL_216;
+  if (!v7)
+  {
+    v20 = MBGetDefaultLog(v10);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(buf.f_bsize) = 0;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "=diag= nil name FSR", &buf, 2u);
+      _MBLog(@"Df", "=diag= nil name FSR", v247);
     }
 
-    if (v15)
+    goto LABEL_215;
+  }
+
+  if (!v9)
+  {
+    v20 = MBGetDefaultLog(v10);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      if (access(v11, 4))
+      LOWORD(buf.f_bsize) = 0;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "=diag= nil dir path FSR", &buf, 2u);
+      _MBLog(@"Df", "=diag= nil dir path FSR", v247);
+    }
+
+    goto LABEL_215;
+  }
+
+  v11 = access(v5, 4);
+  if (v11)
+  {
+    v12 = __error();
+    v13 = *v12;
+    v14 = MBGetDefaultLog(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = v14;
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = *__error();
-        v17 = MBGetDefaultLog();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
-        {
-          v18 = v17;
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
-          {
-            buf.f_bsize = 67109120;
-            buf.f_iosize = v16;
-            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "=diag= access(R_OK) failed: %{errno}d", &buf, 8u);
-          }
+        buf.f_bsize = 67109120;
+        buf.f_iosize = v13;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "=diag= access(R_OK) failed: %{errno}d", &buf, 8u);
+      }
 
-          _MBLog(@"Df", "=diag= access(R_OK) failed: %{errno}d", v19, v20, v21, v22, v23, v24, v16);
+      _MBLog(@"Df", "=diag= access(R_OK) failed: %{errno}d", v13);
+    }
+
+    v16 = access(v5, 0);
+    if (v16)
+    {
+      v17 = __error();
+      v18 = *v17;
+      v19 = MBGetDefaultLog(v17);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      {
+        v19 = v19;
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        {
+          buf.f_bsize = 67109120;
+          buf.f_iosize = v18;
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "=diag= access(F_OK) failed: %{errno}d", &buf, 8u);
         }
 
-        if (access(v11, 0))
-        {
-          v25 = *__error();
-          v26 = MBGetDefaultLog();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
-          {
-            v26 = v26;
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
-            {
-              buf.f_bsize = 67109120;
-              buf.f_iosize = v25;
-              _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "=diag= access(F_OK) failed: %{errno}d", &buf, 8u);
-            }
+        _MBLog(@"Df", "=diag= access(F_OK) failed: %{errno}d", v18);
+      }
+    }
 
-            _MBLog(@"Df", "=diag= access(F_OK) failed: %{errno}d", v27, v28, v29, v30, v31, v32, v25);
-          }
+    else
+    {
+      v19 = MBGetDefaultLog(v16);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      {
+        v19 = v19;
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        {
+          buf.f_bsize = 67109120;
+          buf.f_iosize = 0;
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "=diag= access(F_OK): %d", &buf, 8u);
         }
 
-        else
-        {
-          v26 = MBGetDefaultLog();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
-          {
-            v26 = v26;
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
-            {
-              buf.f_bsize = 67109120;
-              buf.f_iosize = 0;
-              _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "=diag= access(F_OK): %d", &buf, 8u);
-            }
+        _MBLog(@"Df", "=diag= access(F_OK): %d");
+      }
+    }
+  }
 
-            _MBLog(@"Df", "=diag= access(F_OK): %d", v47, v48, v49, v50, v51, v52, 0);
-          }
-        }
+  else
+  {
+    v19 = MBGetDefaultLog(v11);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      v19 = v19;
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      {
+        buf.f_bsize = 67109120;
+        buf.f_iosize = 0;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "=diag= access(R_OK): %d", &buf, 8u);
+      }
+
+      _MBLog(@"Df", "=diag= access(R_OK): %d");
+    }
+  }
+
+  memset(&v284, 0, sizeof(v284));
+  v21 = stat(v5, &v284);
+  if (v21)
+  {
+    v22 = __error();
+    v23 = *v22;
+    v24 = MBGetDefaultLog(v22);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    {
+      v24 = v24;
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      {
+        buf.f_bsize = 67109120;
+        buf.f_iosize = v23;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "=diag= stat failed: %{errno}d", &buf, 8u);
+      }
+
+      _MBLog(@"Df", "=diag= stat failed: %{errno}d", v23);
+    }
+
+    st_ino = 0;
+  }
+
+  else
+  {
+    st_ino = v284.st_ino;
+    v24 = MBGetDefaultLog(v21);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    {
+      v24 = v24;
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      {
+        buf.f_bsize = 67113472;
+        buf.f_iosize = v284.st_dev;
+        LOWORD(buf.f_blocks) = 2048;
+        *(&buf.f_blocks + 2) = v284.st_ino;
+        WORD1(buf.f_bfree) = 1024;
+        HIDWORD(buf.f_bfree) = v284.st_mode;
+        LOWORD(buf.f_bavail) = 1024;
+        *(&buf.f_bavail + 2) = v284.st_nlink;
+        HIWORD(buf.f_bavail) = 1024;
+        LODWORD(buf.f_files) = v284.st_uid;
+        WORD2(buf.f_files) = 1024;
+        *(&buf.f_files + 6) = v284.st_gid;
+        WORD1(buf.f_ffree) = 1024;
+        HIDWORD(buf.f_ffree) = v284.st_rdev;
+        LOWORD(buf.f_fsid.val[0]) = 2048;
+        *(&buf.f_fsid + 2) = v284.st_atimespec.tv_sec;
+        HIWORD(buf.f_owner) = 2048;
+        *&buf.f_type = v284.st_atimespec.tv_nsec;
+        LOWORD(buf.f_fssubtype) = 2048;
+        *(&buf.f_fssubtype + 2) = v284.st_mtimespec.tv_sec;
+        *&buf.f_fstypename[6] = 2048;
+        *&buf.f_fstypename[8] = v284.st_mtimespec.tv_nsec;
+        *buf.f_mntonname = 2048;
+        *&buf.f_mntonname[2] = v284.st_ctimespec.tv_sec;
+        *&buf.f_mntonname[10] = 2048;
+        *&buf.f_mntonname[12] = v284.st_ctimespec.tv_nsec;
+        *&buf.f_mntonname[20] = 2048;
+        *&buf.f_mntonname[22] = v284.st_size;
+        *&buf.f_mntonname[30] = 2048;
+        *&buf.f_mntonname[32] = v284.st_blocks << 9;
+        *&buf.f_mntonname[40] = 1024;
+        *&buf.f_mntonname[42] = v284.st_blksize;
+        *&buf.f_mntonname[46] = 1024;
+        *&buf.f_mntonname[48] = v284.st_flags;
+        *&buf.f_mntonname[52] = 1024;
+        *&buf.f_mntonname[54] = v284.st_gen;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "=diag= stat: dev %d, ino %llu, mode 0%o, nlink %u, uid %u, gid %u, rdev %d, atime %lu.%ld, mtime %lu.%ld, ctime %lu.%ld, lgsize %lld, physize %lld, blksize %d, flags %u, gen %u", &buf, 0x92u);
+      }
+
+      _MBLog(@"Df", "=diag= stat: dev %d, ino %llu, mode 0%o, nlink %u, uid %u, gid %u, rdev %d, atime %lu.%ld, mtime %lu.%ld, ctime %lu.%ld, lgsize %lld, physize %lld, blksize %d, flags %u, gen %u", v284.st_dev, v284.st_ino, v284.st_mode, v284.st_nlink, v284.st_uid, v284.st_gid, v284.st_rdev, v284.st_atimespec.tv_sec, v284.st_atimespec.tv_nsec, v284.st_mtimespec.tv_sec, v284.st_mtimespec.tv_nsec, v284.st_ctimespec.tv_sec, v284.st_ctimespec.tv_nsec, v284.st_size, v284.st_blocks << 9, v284.st_blksize, v284.st_flags, v284.st_gen);
+    }
+  }
+
+  v282 = xmmword_100018EA0;
+  v283 = 0x1800000403;
+  memset(v281, 0, sizeof(v281));
+  v279 = 0u;
+  v280 = 0u;
+  v278 = 0u;
+  v277 = 0u;
+  v26 = getattrlist(v5, &v282, &v277, 0x64uLL, 0x29u);
+  v262 = v5;
+  if (v26)
+  {
+    v27 = __error();
+    v28 = *v27;
+    v29 = MBGetDefaultLog(v27);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    {
+      v29 = v29;
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      {
+        buf.f_bsize = 67109120;
+        buf.f_iosize = v28;
+        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "=diag= getattrlist failed: %{errno}d", &buf, 8u);
+      }
+
+      _MBLog(@"Df", "=diag= getattrlist failed: %{errno}d", v28);
+    }
+  }
+
+  else
+  {
+    if (!st_ino)
+    {
+      if ((BYTE7(v277) & 2) != 0)
+      {
+        st_ino = *(&v280 + 4);
       }
 
       else
       {
-        v26 = MBGetDefaultLog();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
-        {
-          v26 = v26;
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
-          {
-            buf.f_bsize = 67109120;
-            buf.f_iosize = 0;
-            _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "=diag= access(R_OK): %d", &buf, 8u);
-          }
-
-          _MBLog(@"Df", "=diag= access(R_OK): %d", v41, v42, v43, v44, v45, v46, 0);
-        }
-      }
-
-      memset(&v624, 0, sizeof(v624));
-      if (stat(v11, &v624))
-      {
-        v53 = *__error();
-        v54 = MBGetDefaultLog();
-        if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
-        {
-          v54 = v54;
-          if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
-          {
-            buf.f_bsize = 67109120;
-            buf.f_iosize = v53;
-            _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "=diag= stat failed: %{errno}d", &buf, 8u);
-          }
-
-          _MBLog(@"Df", "=diag= stat failed: %{errno}d", v55, v56, v57, v58, v59, v60, v53);
-        }
-
         st_ino = 0;
       }
+    }
 
-      else
+    if (HIDWORD(v278) != 1)
+    {
+      v30 = MBGetDefaultLog(v26);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
-        st_ino = v624.st_ino;
-        v54 = MBGetDefaultLog();
-        if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+        v31 = st_ino;
+        v32 = v30;
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
-          v54 = v54;
-          if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
-          {
-            buf.f_bsize = 67113472;
-            buf.f_iosize = v624.st_dev;
-            LOWORD(buf.f_blocks) = 2048;
-            *(&buf.f_blocks + 2) = v624.st_ino;
-            WORD1(buf.f_bfree) = 1024;
-            HIDWORD(buf.f_bfree) = v624.st_mode;
-            LOWORD(buf.f_bavail) = 1024;
-            *(&buf.f_bavail + 2) = v624.st_nlink;
-            HIWORD(buf.f_bavail) = 1024;
-            LODWORD(buf.f_files) = v624.st_uid;
-            WORD2(buf.f_files) = 1024;
-            *(&buf.f_files + 6) = v624.st_gid;
-            WORD1(buf.f_ffree) = 1024;
-            HIDWORD(buf.f_ffree) = v624.st_rdev;
-            LOWORD(buf.f_fsid.val[0]) = 2048;
-            *(&buf.f_fsid + 2) = v624.st_atimespec.tv_sec;
-            HIWORD(buf.f_owner) = 2048;
-            *&buf.f_type = v624.st_atimespec.tv_nsec;
-            LOWORD(buf.f_fssubtype) = 2048;
-            *(&buf.f_fssubtype + 2) = v624.st_mtimespec.tv_sec;
-            *&buf.f_fstypename[6] = 2048;
-            *&buf.f_fstypename[8] = v624.st_mtimespec.tv_nsec;
-            *buf.f_mntonname = 2048;
-            *&buf.f_mntonname[2] = v624.st_ctimespec.tv_sec;
-            *&buf.f_mntonname[10] = 2048;
-            *&buf.f_mntonname[12] = v624.st_ctimespec.tv_nsec;
-            *&buf.f_mntonname[20] = 2048;
-            *&buf.f_mntonname[22] = v624.st_size;
-            *&buf.f_mntonname[30] = 2048;
-            *&buf.f_mntonname[32] = v624.st_blocks << 9;
-            *&buf.f_mntonname[40] = 1024;
-            *&buf.f_mntonname[42] = v624.st_blksize;
-            *&buf.f_mntonname[46] = 1024;
-            *&buf.f_mntonname[48] = v624.st_flags;
-            *&buf.f_mntonname[52] = 1024;
-            *&buf.f_mntonname[54] = v624.st_gen;
-            _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "=diag= stat: dev %d, ino %llu, mode 0%o, nlink %u, uid %u, gid %u, rdev %d, atime %lu.%ld, mtime %lu.%ld, ctime %lu.%ld, lgsize %lld, physize %lld, blksize %d, flags %u, gen %u", &buf, 0x92u);
-          }
-
-          st_flags = v624.st_flags;
-          st_gen = v624.st_gen;
-          v586 = v624.st_blocks << 9;
-          st_blksize = v624.st_blksize;
-          st_size = v624.st_size;
-          st_ctimespec = v624.st_ctimespec;
-          st_mtimespec = v624.st_mtimespec;
-          st_atimespec = v624.st_atimespec;
-          *(&v580 + 1) = v624.st_gid;
-          st_rdev = v624.st_rdev;
-          *(&v578 + 1) = v624.st_nlink;
-          *&v580 = v624.st_uid;
-          f_iosize = v624.st_ino;
-          *&v578 = v624.st_mode;
-          _MBLog(@"Df", "=diag= stat: dev %d, ino %llu, mode 0%o, nlink %u, uid %u, gid %u, rdev %d, atime %lu.%ld, mtime %lu.%ld, ctime %lu.%ld, lgsize %lld, physize %lld, blksize %d, flags %u, gen %u", v62, v63, v64, v65, v66, v67, v624.st_dev);
+          LOWORD(buf.f_bsize) = 0;
+          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "=diag= warning: not a regular file, link info and sizes will be garbage", &buf, 2u);
         }
+
+        _MBLog(@"Df", "=diag= warning: not a regular file, link info and sizes will be garbage");
+        st_ino = v31;
+      }
+    }
+
+    v29 = MBGetDefaultLog(v26);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    {
+      v29 = v29;
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      {
+        buf.f_iosize = v277;
+        *(&buf.f_blocks + 2) = (DWORD1(v277) >> 1) & 1;
+        LODWORD(buf.f_bfree) = DWORD2(v278);
+        *(&buf.f_bfree + 6) = (DWORD1(v277) >> 3) & 1;
+        HIDWORD(buf.f_bavail) = HIDWORD(v278);
+        *(&buf.f_files + 2) = (DWORD1(v277) >> 25) & 1;
+        buf.f_ffree = *(&v280 + 4);
+        *(buf.f_fsid.val + 2) = (DWORD1(v277) >> 15) & 1;
+        buf.f_owner = v279;
+        *(&buf.f_type + 2) = HIWORD(DWORD1(v277)) & 1;
+        buf.f_fssubtype = DWORD1(v279);
+        *&buf.f_fstypename[2] = (DWORD1(v277) >> 17) & 1;
+        *&buf.f_fstypename[8] = DWORD2(v279);
+        *&buf.f_fstypename[14] = (DWORD1(v277) >> 18) & 1;
+        *&buf.f_mntonname[4] = HIDWORD(v279);
+        *&buf.f_mntonname[10] = (DWORD1(v277) >> 19) & 1;
+        *&buf.f_mntonname[16] = v280;
+        *&buf.f_mntonname[22] = (DWORD1(v277) >> 30) & 1;
+        *&buf.f_mntonname[28] = HIDWORD(v280);
+        *&buf.f_mntonname[34] = v278 & 1;
+        *&buf.f_mntonname[40] = v281[0];
+        *&buf.f_mntonname[46] = (v278 >> 1) & 1;
+        *&buf.f_mntonname[52] = *&v281[1];
+        *&buf.f_mntonname[62] = (v278 >> 10) & 1;
+        *&buf.f_mntonname[68] = *&v281[3];
+        *&buf.f_mntonname[78] = (DWORD1(v278) >> 3) & 1;
+        *&buf.f_mntonname[84] = *&v281[5];
+        LOWORD(buf.f_blocks) = 1024;
+        HIWORD(buf.f_blocks) = 1024;
+        WORD2(buf.f_bfree) = 1024;
+        WORD1(buf.f_bavail) = 1024;
+        LOWORD(buf.f_files) = 1024;
+        LOWORD(buf.f_fsid.val[0]) = 1024;
+        HIWORD(buf.f_fsid.val[1]) = 1024;
+        LOWORD(buf.f_type) = 1024;
+        HIWORD(buf.f_flags) = 1024;
+        *buf.f_fstypename = 1024;
+        *&buf.f_fstypename[6] = 1024;
+        *&buf.f_fstypename[12] = 1024;
+        *&buf.f_mntonname[2] = 1024;
+        *&buf.f_mntonname[8] = 1024;
+        *&buf.f_mntonname[14] = 1024;
+        *&buf.f_mntonname[20] = 1024;
+        *&buf.f_mntonname[26] = 1024;
+        *&buf.f_mntonname[32] = 1024;
+        *&buf.f_mntonname[38] = 1024;
+        *&buf.f_mntonname[44] = 1024;
+        *&buf.f_mntonname[60] = 1024;
+        *&buf.f_mntonname[76] = 1024;
+        *&buf.f_mntonname[92] = 1024;
+        *&buf.f_mntonname[94] = (DWORD1(v278) >> 4) & 1;
+        HIWORD(buf.f_files) = 2048;
+        *&buf.f_mntonname[50] = 2048;
+        *&buf.f_mntonname[66] = 2048;
+        *&buf.f_mntonname[82] = 2048;
+        *&buf.f_mntonname[98] = 2048;
+        *&buf.f_mntonname[100] = *&v281[7];
+        buf.f_bsize = 67116288;
+        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "=diag= getattrlist: len %u, dev (%d)%d, type (%d)%u, fileId (%d)%llu, uid (%d)%u, gid (%d)%u, access (%d)0%o, flags (%d)0x%x, gencount (%d)%u, protclass (%d)%u, nlink (%d)%u, lgsize (%d)%lld, physize (%d)%lld, realsize (%d)%lld, linkid (%d)%llu", &buf, 0xC4u);
       }
 
-      v622 = xmmword_100018EA0;
-      v623 = 0x1800000403;
-      memset(v621, 0, sizeof(v621));
-      v619 = 0u;
-      v620 = 0u;
-      v618 = 0u;
-      v617 = 0u;
-      v602 = v11;
-      if (getattrlist(v11, &v622, &v617, 0x64uLL, 0x29u))
-      {
-        v68 = *__error();
-        v69 = MBGetDefaultLog();
-        if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
-        {
-          v69 = v69;
-          if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
-          {
-            buf.f_bsize = 67109120;
-            buf.f_iosize = v68;
-            _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_DEFAULT, "=diag= getattrlist failed: %{errno}d", &buf, 8u);
-          }
+      _MBLog(@"Df", "=diag= getattrlist: len %u, dev (%d)%d, type (%d)%u, fileId (%d)%llu, uid (%d)%u, gid (%d)%u, access (%d)0%o, flags (%d)0x%x, gencount (%d)%u, protclass (%d)%u, nlink (%d)%u, lgsize (%d)%lld, physize (%d)%lld, realsize (%d)%lld, linkid (%d)%llu", v277, (DWORD1(v277) >> 1) & 1, DWORD2(v278), (DWORD1(v277) >> 3) & 1, HIDWORD(v278), (DWORD1(v277) >> 25) & 1, *(&v280 + 4), (DWORD1(v277) >> 15) & 1, v279, HIWORD(DWORD1(v277)) & 1, DWORD1(v279), (DWORD1(v277) >> 17) & 1, DWORD2(v279), (DWORD1(v277) >> 18) & 1, HIDWORD(v279), (DWORD1(v277) >> 19) & 1, v280, (DWORD1(v277) >> 30) & 1, HIDWORD(v280), v278 & 1, v281[0], (v278 >> 1) & 1, *&v281[1], (v278 >> 10) & 1, *&v281[3], (DWORD1(v278) >> 3) & 1, *&v281[5], (DWORD1(v278) >> 4) & 1, *&v281[7]);
+    }
+  }
 
-          _MBLog(@"Df", "=diag= getattrlist failed: %{errno}d", v70, v71, v72, v73, v74, v75, v68);
-        }
+  f_fsid = 0;
+  v33 = open(v9, 256);
+  if (v33 == -1)
+  {
+    v39 = __error();
+    v40 = *v39;
+    v41 = MBGetDefaultLog(v39);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+    {
+      v42 = v41;
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+      {
+        buf.f_bsize = 136446466;
+        *&buf.f_iosize = v9;
+        WORD2(buf.f_blocks) = 1024;
+        *(&buf.f_blocks + 6) = v40;
+        _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "=diag= open failed at %{public}s: %{errno}d", &buf, 0x12u);
       }
 
-      else
-      {
-        if (!st_ino)
-        {
-          if ((BYTE7(v617) & 2) != 0)
-          {
-            st_ino = *(&v620 + 4);
-          }
-
-          else
-          {
-            st_ino = 0;
-          }
-        }
-
-        if (HIDWORD(v618) != 1)
-        {
-          v76 = MBGetDefaultLog();
-          if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
-          {
-            v77 = st_ino;
-            v78 = v76;
-            if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
-            {
-              LOWORD(buf.f_bsize) = 0;
-              _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "=diag= warning: not a regular file, link info and sizes will be garbage", &buf, 2u);
-            }
-
-            _MBLog(@"Df", "=diag= warning: not a regular file, link info and sizes will be garbage", v79, v80, v81, v82, v83, v84, v568);
-            st_ino = v77;
-          }
-        }
-
-        v69 = MBGetDefaultLog();
-        if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
-        {
-          v69 = v69;
-          if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
-          {
-            buf.f_iosize = v617;
-            *(&buf.f_blocks + 2) = (DWORD1(v617) >> 1) & 1;
-            LODWORD(buf.f_bfree) = DWORD2(v618);
-            *(&buf.f_bfree + 6) = (DWORD1(v617) >> 3) & 1;
-            HIDWORD(buf.f_bavail) = HIDWORD(v618);
-            *(&buf.f_files + 2) = (DWORD1(v617) >> 25) & 1;
-            buf.f_ffree = *(&v620 + 4);
-            *(buf.f_fsid.val + 2) = (DWORD1(v617) >> 15) & 1;
-            buf.f_owner = v619;
-            *(&buf.f_type + 2) = HIWORD(DWORD1(v617)) & 1;
-            buf.f_fssubtype = DWORD1(v619);
-            *&buf.f_fstypename[2] = (DWORD1(v617) >> 17) & 1;
-            *&buf.f_fstypename[8] = DWORD2(v619);
-            *&buf.f_fstypename[14] = (DWORD1(v617) >> 18) & 1;
-            *&buf.f_mntonname[4] = HIDWORD(v619);
-            *&buf.f_mntonname[10] = (DWORD1(v617) >> 19) & 1;
-            *&buf.f_mntonname[16] = v620;
-            *&buf.f_mntonname[22] = (DWORD1(v617) >> 30) & 1;
-            *&buf.f_mntonname[28] = HIDWORD(v620);
-            *&buf.f_mntonname[34] = v618 & 1;
-            *&buf.f_mntonname[40] = v621[0];
-            *&buf.f_mntonname[46] = (v618 >> 1) & 1;
-            *&buf.f_mntonname[52] = *&v621[1];
-            *&buf.f_mntonname[62] = (v618 >> 10) & 1;
-            *&buf.f_mntonname[68] = *&v621[3];
-            *&buf.f_mntonname[78] = (DWORD1(v618) >> 3) & 1;
-            *&buf.f_mntonname[84] = *&v621[5];
-            LOWORD(buf.f_blocks) = 1024;
-            HIWORD(buf.f_blocks) = 1024;
-            WORD2(buf.f_bfree) = 1024;
-            WORD1(buf.f_bavail) = 1024;
-            LOWORD(buf.f_files) = 1024;
-            LOWORD(buf.f_fsid.val[0]) = 1024;
-            HIWORD(buf.f_fsid.val[1]) = 1024;
-            LOWORD(buf.f_type) = 1024;
-            HIWORD(buf.f_flags) = 1024;
-            *buf.f_fstypename = 1024;
-            *&buf.f_fstypename[6] = 1024;
-            *&buf.f_fstypename[12] = 1024;
-            *&buf.f_mntonname[2] = 1024;
-            *&buf.f_mntonname[8] = 1024;
-            *&buf.f_mntonname[14] = 1024;
-            *&buf.f_mntonname[20] = 1024;
-            *&buf.f_mntonname[26] = 1024;
-            *&buf.f_mntonname[32] = 1024;
-            *&buf.f_mntonname[38] = 1024;
-            *&buf.f_mntonname[44] = 1024;
-            *&buf.f_mntonname[60] = 1024;
-            *&buf.f_mntonname[76] = 1024;
-            *&buf.f_mntonname[92] = 1024;
-            *&buf.f_mntonname[94] = (DWORD1(v618) >> 4) & 1;
-            HIWORD(buf.f_files) = 2048;
-            *&buf.f_mntonname[50] = 2048;
-            *&buf.f_mntonname[66] = 2048;
-            *&buf.f_mntonname[82] = 2048;
-            *&buf.f_mntonname[98] = 2048;
-            *&buf.f_mntonname[100] = *&v621[7];
-            buf.f_bsize = 67116288;
-            _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_DEFAULT, "=diag= getattrlist: len %u, dev (%d)%d, type (%d)%u, fileId (%d)%llu, uid (%d)%u, gid (%d)%u, access (%d)0%o, flags (%d)0x%x, gencount (%d)%u, protclass (%d)%u, nlink (%d)%u, lgsize (%d)%lld, physize (%d)%lld, realsize (%d)%lld, linkid (%d)%llu", &buf, 0xC4u);
-          }
-
-          v599 = (DWORD1(v618) >> 4) & 1;
-          v600 = *&v621[7];
-          v597 = (DWORD1(v618) >> 3) & 1;
-          v598 = *&v621[5];
-          v595 = (v618 >> 10) & 1;
-          v596 = *&v621[3];
-          v593 = (v618 >> 1) & 1;
-          v594 = *&v621[1];
-          v591 = v618 & 1;
-          v592 = v621[0];
-          st_gen = (DWORD1(v617) >> 30) & 1;
-          v590 = HIDWORD(v620);
-          st_blksize = (DWORD1(v617) >> 19) & 1;
-          st_flags = v620;
-          st_size = (DWORD1(v617) >> 18) & 1;
-          v586 = HIDWORD(v619);
-          st_ctimespec.tv_sec = (DWORD1(v617) >> 17) & 1;
-          st_ctimespec.tv_nsec = DWORD2(v619);
-          st_mtimespec.tv_sec = HIWORD(DWORD1(v617)) & 1;
-          st_mtimespec.tv_nsec = DWORD1(v619);
-          st_atimespec.tv_sec = (DWORD1(v617) >> 15) & 1;
-          st_atimespec.tv_nsec = v619;
-          *(&v580 + 1) = (DWORD1(v617) >> 25) & 1;
-          st_rdev = *(&v620 + 4);
-          *(&v578 + 1) = (DWORD1(v617) >> 3) & 1;
-          *&v580 = HIDWORD(v618);
-          f_iosize = (DWORD1(v617) >> 1) & 1;
-          *&v578 = DWORD2(v618);
-          _MBLog(@"Df", "=diag= getattrlist: len %u, dev (%d)%d, type (%d)%u, fileId (%d)%llu, uid (%d)%u, gid (%d)%u, access (%d)0%o, flags (%d)0x%x, gencount (%d)%u, protclass (%d)%u, nlink (%d)%u, lgsize (%d)%lld, physize (%d)%lld, realsize (%d)%lld, linkid (%d)%llu", v599, st_size, *&v621[5], st_blksize, *&v621[7], st_gen, v617);
-        }
-      }
-
-      f_fsid = 0;
-      v85 = open(v15, 256);
-      if (v85 == -1)
-      {
-        v95 = *__error();
-        v96 = MBGetDefaultLog();
-        if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
-        {
-          v97 = v96;
-          if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
-          {
-            buf.f_bsize = 136446466;
-            *&buf.f_iosize = v15;
-            WORD2(buf.f_blocks) = 1024;
-            *(&buf.f_blocks + 6) = v95;
-            _os_log_impl(&_mh_execute_header, v97, OS_LOG_TYPE_DEFAULT, "=diag= open failed at %{public}s: %{errno}d", &buf, 0x12u);
-          }
-
-          f_iosize = v95;
-          _MBLog(@"Df", "=diag= open failed at %{public}s: %{errno}d", v98, v99, v100, v101, v102, v103, v15);
-        }
-
-        if (!st_ino)
-        {
-          goto LABEL_125;
-        }
-      }
-
-      else
-      {
-        v86 = v85;
-        *v603 = st_ino;
-        bzero(&buf, 0x878uLL);
-        if (fstatfs(v86, &buf))
-        {
-          v87 = *__error();
-          v88 = MBGetDefaultLog();
-          if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
-          {
-            v88 = v88;
-            if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
-            {
-              LODWORD(v631.d_ino) = 136446466;
-              *(&v631.d_ino + 4) = v15;
-              WORD2(v631.d_seekoff) = 1024;
-              *(&v631.d_seekoff + 6) = v87;
-              _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_DEFAULT, "=diag= fstatfs failed at %{public}s: %{errno}d", &v631, 0x12u);
-            }
-
-            f_iosize = v87;
-            _MBLog(@"Df", "=diag= fstatfs failed at %{public}s: %{errno}d", v89, v90, v91, v92, v93, v94, v15);
-          }
-        }
-
-        else
-        {
-          f_fsid = buf.f_fsid;
-          v88 = MBGetDefaultLog();
-          if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
-          {
-            v88 = v88;
-            if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
-            {
-              LODWORD(v631.d_ino) = 67112448;
-              HIDWORD(v631.d_ino) = buf.f_bsize;
-              LOWORD(v631.d_seekoff) = 1024;
-              *(&v631.d_seekoff + 2) = buf.f_iosize;
-              HIWORD(v631.d_seekoff) = 2048;
-              *&v631.d_reclen = buf.f_blocks;
-              *&v631.d_name[3] = 2048;
-              *&v631.d_name[5] = buf.f_bfree;
-              *&v631.d_name[13] = 2048;
-              *&v631.d_name[15] = buf.f_bavail;
-              *&v631.d_name[23] = 2048;
-              *&v631.d_name[25] = buf.f_files;
-              *&v631.d_name[33] = 2048;
-              *&v631.d_name[35] = buf.f_ffree;
-              *&v631.d_name[43] = 1024;
-              *&v631.d_name[45] = buf.f_fsid.val[0];
-              *&v631.d_name[49] = 1024;
-              *&v631.d_name[51] = buf.f_fsid.val[1];
-              *&v631.d_name[55] = 1024;
-              *&v631.d_name[57] = buf.f_owner;
-              *&v631.d_name[61] = 1024;
-              *&v631.d_name[63] = buf.f_type;
-              *&v631.d_name[67] = 1024;
-              *&v631.d_name[69] = buf.f_flags;
-              *&v631.d_name[73] = 1024;
-              *&v631.d_name[75] = buf.f_fssubtype;
-              *&v631.d_name[79] = 1024;
-              *&v631.d_name[81] = buf.f_flags_ext;
-              _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_DEFAULT, "=diag= fstatfs: bsize %u, iosize %d, blocks %llu, bfree %llu, bavail %llu, files %llu, ffree %llu, fsid {%d, %d}, owner %d, type %d, flags 0x%x, fssubtype %d, flags_ext 0x%x", &v631, 0x6Au);
-            }
-
-            st_ctimespec.tv_nsec = buf.f_fssubtype;
-            st_size = buf.f_flags_ext;
-            st_mtimespec.tv_nsec = buf.f_type;
-            st_ctimespec.tv_sec = buf.f_flags;
-            st_atimespec.tv_nsec = buf.f_fsid.val[1];
-            st_mtimespec.tv_sec = buf.f_owner;
-            st_rdev = buf.f_ffree;
-            st_atimespec.tv_sec = buf.f_fsid.val[0];
-            v578 = *&buf.f_blocks;
-            v580 = *&buf.f_bavail;
-            f_iosize = buf.f_iosize;
-            _MBLog(@"Df", "=diag= fstatfs: bsize %u, iosize %d, blocks %llu, bfree %llu, bavail %llu, files %llu, ffree %llu, fsid {%d, %d}, owner %d, type %d, flags 0x%x, fssubtype %d, flags_ext 0x%x", v104, v105, v106, v107, v108, v109, buf.f_bsize);
-          }
-        }
-
-        v110 = fdopendir(v86);
-        if (v110)
-        {
-          v111 = v110;
-          v112 = 0;
-          while (1)
-          {
-            bzero(&v631, 0x418uLL);
-            v615 = 0;
-            v113 = readdir_r(v111, &v631, &v615);
-            if (v113)
-            {
-              break;
-            }
-
-            if (!v615)
-            {
-              goto LABEL_99;
-            }
-
-            if (*v631.d_name != 46 && *v631.d_name ^ 0x2E2E | v631.d_name[2] && !strcmp(v631.d_name, v13))
-            {
-              d_ino = *v603;
-              if (!*v603)
-              {
-                d_ino = v631.d_ino;
-              }
-
-              v560 = MBGetDefaultLog();
-              if (os_log_type_enabled(v560, OS_LOG_TYPE_DEFAULT))
-              {
-                v561 = v560;
-                if (os_log_type_enabled(v561, OS_LOG_TYPE_DEFAULT))
-                {
-                  LODWORD(v625) = 67110144;
-                  DWORD1(v625) = v112;
-                  WORD4(v625) = 1024;
-                  *(&v625 + 10) = v631.d_type;
-                  HIWORD(v625) = 2048;
-                  v626 = v631.d_ino;
-                  v627 = 1024;
-                  d_namlen = v631.d_namlen;
-                  v629 = 1024;
-                  d_reclen = v631.d_reclen;
-                  _os_log_impl(&_mh_execute_header, v561, OS_LOG_TYPE_DEFAULT, "=diag= readdir_r found file entry (%u), type %d, ino %llu, namelen %d, reclen %d", &v625, 0x24u);
-                }
-
-                *(&v578 + 1) = v631.d_namlen;
-                *&v580 = v631.d_reclen;
-                f_iosize = v631.d_type;
-                *&v578 = v631.d_ino;
-                _MBLog(@"Df", "=diag= readdir_r found file entry (%u), type %d, ino %llu, namelen %d, reclen %d", v562, v563, v564, v565, v566, v567, v112);
-              }
-
-              closedir(v111);
-              st_ino = d_ino;
-              if (d_ino)
-              {
-                goto LABEL_104;
-              }
-
-LABEL_125:
-              v625 = 0uLL;
-              if (fsctl(v11, 0x40104A0EuLL, &v625, 0))
-              {
-                v176 = *__error();
-                v177 = MBGetDefaultLog();
-                if (os_log_type_enabled(v177, OS_LOG_TYPE_DEFAULT))
-                {
-                  v177 = v177;
-                  if (os_log_type_enabled(v177, OS_LOG_TYPE_DEFAULT))
-                  {
-                    buf.f_bsize = 67109120;
-                    buf.f_iosize = v176;
-                    _os_log_impl(&_mh_execute_header, v177, OS_LOG_TYPE_DEFAULT, "=diag= fsctl(APFSIOC_GET_CLONE_INFO) failed: %{errno}d", &buf, 8u);
-                  }
-
-                  _MBLog(@"Df", "=diag= fsctl(APFSIOC_GET_CLONE_INFO) failed: %{errno}d", v178, v179, v180, v181, v182, v183, v176);
-                }
-              }
-
-              else
-              {
-                v177 = MBGetDefaultLog();
-                if (os_log_type_enabled(v177, OS_LOG_TYPE_DEFAULT))
-                {
-                  v177 = v177;
-                  if (os_log_type_enabled(v177, OS_LOG_TYPE_DEFAULT))
-                  {
-                    buf.f_bsize = 134218240;
-                    *&buf.f_iosize = v625;
-                    WORD2(buf.f_blocks) = 2048;
-                    *(&buf.f_blocks + 6) = *(&v625 + 1);
-                    _os_log_impl(&_mh_execute_header, v177, OS_LOG_TYPE_DEFAULT, "=diag= fsctl(APFSIOC_GET_CLONE_INFO): flags 0x%llx, private_id %llu", &buf, 0x16u);
-                  }
-
-                  f_iosize = *(&v625 + 1);
-                  _MBLog(@"Df", "=diag= fsctl(APFSIOC_GET_CLONE_INFO): flags 0x%llx, private_id %llu", v184, v185, v186, v187, v188, v189, v625);
-                }
-              }
-
-              v569 = 0;
-              v604 = open_dprotected_np(v11, 0, 0, 1);
-              if (v604 == -1)
-              {
-                v198 = *__error();
-                v199 = MBGetDefaultLog();
-                if (os_log_type_enabled(v199, OS_LOG_TYPE_DEFAULT))
-                {
-                  buf.f_bsize = 67109120;
-                  buf.f_iosize = v198;
-                  _os_log_impl(&_mh_execute_header, v199, OS_LOG_TYPE_DEFAULT, "=diag= Failed to open the file raw encrypted: %{errno}d", &buf, 8u);
-                  _MBLog(@"Df", "=diag= Failed to open the file raw encrypted: %{errno}d", v200, v201, v202, v203, v204, v205, v198);
-                }
-              }
-
-              else
-              {
-                v614 = 0;
-                if (fsctl(v11, 0x40084A25uLL, &v614, 8u))
-                {
-                  v190 = *__error();
-                  v191 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v191, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v191 = v191;
-                    if (os_log_type_enabled(v191, OS_LOG_TYPE_DEFAULT))
-                    {
-                      buf.f_bsize = 67109120;
-                      buf.f_iosize = v190;
-                      _os_log_impl(&_mh_execute_header, v191, OS_LOG_TYPE_DEFAULT, "=diag= fsctl(APFSIOC_GET_INTERNAL_FLAGS) failed: %{errno}d", &buf, 8u);
-                    }
-
-                    _MBLog(@"Df", "=diag= fsctl(APFSIOC_GET_INTERNAL_FLAGS) failed: %{errno}d", v192, v193, v194, v195, v196, v197, v190);
-                  }
-                }
-
-                else
-                {
-                  v191 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v191, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v191 = v191;
-                    if (os_log_type_enabled(v191, OS_LOG_TYPE_DEFAULT))
-                    {
-                      buf.f_bsize = 134217984;
-                      *&buf.f_iosize = v614;
-                      _os_log_impl(&_mh_execute_header, v191, OS_LOG_TYPE_DEFAULT, "=diag= fsctl(APFSIOC_GET_INTERNAL_FLAGS): flags 0x%llx", &buf, 0xCu);
-                    }
-
-                    _MBLog(@"Df", "=diag= fsctl(APFSIOC_GET_INTERNAL_FLAGS): flags 0x%llx", v206, v207, v208, v209, v210, v211, v614);
-                  }
-                }
-
-                v612 = 0u;
-                v613 = 0u;
-                v611 = 0u;
-                if (fsctl(v11, 0x40304A6DuLL, &v611, 0))
-                {
-                  v212 = *__error();
-                  v213 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v213, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v213 = v213;
-                    if (os_log_type_enabled(v213, OS_LOG_TYPE_DEFAULT))
-                    {
-                      buf.f_bsize = 67109120;
-                      buf.f_iosize = v212;
-                      _os_log_impl(&_mh_execute_header, v213, OS_LOG_TYPE_DEFAULT, "=diag= fsctl(APFSIOC_PURGEABLE_GET_FILE_INFO) failed: %{errno}d", &buf, 8u);
-                    }
-
-                    _MBLog(@"Df", "=diag= fsctl(APFSIOC_PURGEABLE_GET_FILE_INFO) failed: %{errno}d", v214, v215, v216, v217, v218, v219, v212);
-                  }
-                }
-
-                else
-                {
-                  v213 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v213, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v213 = v213;
-                    if (os_log_type_enabled(v213, OS_LOG_TYPE_DEFAULT))
-                    {
-                      buf.f_bsize = 134219264;
-                      *&buf.f_iosize = v611;
-                      WORD2(buf.f_blocks) = 2048;
-                      *(&buf.f_blocks + 6) = *(&v611 + 1);
-                      HIWORD(buf.f_bfree) = 2048;
-                      buf.f_bavail = v612;
-                      LOWORD(buf.f_files) = 2048;
-                      *(&buf.f_files + 2) = *(&v612 + 1);
-                      WORD1(buf.f_ffree) = 2048;
-                      *(&buf.f_ffree + 4) = v613;
-                      LOWORD(buf.f_fsid.val[1]) = 2048;
-                      *(&buf.f_fsid + 6) = *(&v613 + 1);
-                      _os_log_impl(&_mh_execute_header, v213, OS_LOG_TYPE_DEFAULT, "=diag= fsctl(APFSIOC_PURGEABLE_GET_FILE_INFO): file flags: 0x%llx related flags: 0x%llx, file acctime: %llu\n gen count: %llu sync root id: %llu size: %llu", &buf, 0x3Eu);
-                    }
-
-                    v580 = v613;
-                    f_iosize = *(&v611 + 1);
-                    v578 = v612;
-                    _MBLog(@"Df", "=diag= fsctl(APFSIOC_PURGEABLE_GET_FILE_INFO): file flags: 0x%llx related flags: 0x%llx, file acctime: %llu\n gen count: %llu sync root id: %llu size: %llu", v220, v221, v222, v223, v224, v225, v611);
-                  }
-                }
-
-                v226 = MBGetDefaultLog();
-                if (os_log_type_enabled(v226, OS_LOG_TYPE_DEFAULT))
-                {
-                  v227 = v226;
-                  if (os_log_type_enabled(v227, OS_LOG_TYPE_DEFAULT))
-                  {
-                    LOWORD(buf.f_bsize) = 0;
-                    _os_log_impl(&_mh_execute_header, v227, OS_LOG_TYPE_DEFAULT, "=diag= Dumping extent information", &buf, 2u);
-                  }
-
-                  _MBLog(@"Df", "=diag= Dumping extent information", v228, v229, v230, v231, v232, v233, v569);
-                }
-
-                v601 = v1;
-
-                v234 = 0;
-                v235 = 0;
-                while (1)
-                {
-                  LODWORD(v631.d_ino) = 0;
-                  *(&v631.d_ino + 4) = 0x7FFFFFFFFFFFFFFFLL;
-                  *(&v631.d_seekoff + 4) = v234;
-                  if (fcntl(v604, 65, &v631, f_iosize, v578, v580, st_rdev, st_atimespec, st_mtimespec, st_ctimespec, st_size, v586, st_blksize, st_flags, st_gen, v590, v591, v592, v593, v594, v595, v596, v597, v598, v599, v600))
-                  {
-                    break;
-                  }
-
-                  v236 = *(&v631.d_ino + 4);
-                  v237 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v237, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v238 = v237;
-                    if (os_log_type_enabled(v238, OS_LOG_TYPE_DEFAULT))
-                    {
-                      buf.f_bsize = 134218496;
-                      *&buf.f_iosize = v234;
-                      WORD2(buf.f_blocks) = 2048;
-                      *(&buf.f_blocks + 6) = v236;
-                      HIWORD(buf.f_bfree) = 2048;
-                      buf.f_bavail = *(&v631.d_seekoff + 4);
-                      _os_log_impl(&_mh_execute_header, v238, OS_LOG_TYPE_DEFAULT, "=diag= 0x%llx:+%lld @ 0x%llx", &buf, 0x20u);
-                    }
-
-                    f_iosize = v236;
-                    *&v578 = *(&v631.d_seekoff + 4);
-                    _MBLog(@"Df", "=diag= 0x%llx:+%lld @ 0x%llx", v239, v240, v241, v242, v243, v244, v234);
-                  }
-
-                  if (v236 < 1 || (v236 ^ 0x7FFFFFFFFFFFFFFFLL) < v234)
-                  {
-                    goto LABEL_176;
-                  }
-
-                  v234 += v236;
-                  v235 = (v235 + 1);
-                  if (v235 == 10000)
-                  {
-                    v235 = 10000;
-                    goto LABEL_176;
-                  }
-                }
-
-                v245 = *__error();
-                if (v245 != 34)
-                {
-                  v246 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v246, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v247 = v246;
-                    if (os_log_type_enabled(v247, OS_LOG_TYPE_DEFAULT))
-                    {
-                      buf.f_bsize = 134218240;
-                      *&buf.f_iosize = v234;
-                      WORD2(buf.f_blocks) = 1024;
-                      *(&buf.f_blocks + 6) = v245;
-                      _os_log_impl(&_mh_execute_header, v247, OS_LOG_TYPE_DEFAULT, "=diag= log2phys failed at 0x%llx: %{errno}d", &buf, 0x12u);
-                    }
-
-                    _MBLog(@"Df", "=diag= log2phys failed at 0x%llx: %{errno}d", v248, v249, v250, v251, v252, v253, v234);
-                  }
-                }
-
-LABEL_176:
-                v254 = MBGetDefaultLog();
-                if (os_log_type_enabled(v254, OS_LOG_TYPE_DEFAULT))
-                {
-                  v255 = v254;
-                  if (os_log_type_enabled(v255, OS_LOG_TYPE_DEFAULT))
-                  {
-                    buf.f_bsize = 67109120;
-                    buf.f_iosize = v235;
-                    _os_log_impl(&_mh_execute_header, v255, OS_LOG_TYPE_DEFAULT, "=diag= Found %u extents", &buf, 8u);
-                  }
-
-                  _MBLog(@"Df", "=diag= Found %u extents", v256, v257, v258, v259, v260, v261, v235);
-                }
-
-                v262 = malloc_type_malloc(0x4000uLL, 0x3F4D6170uLL);
-                if (!v262)
-                {
-                  sub_100014808();
-                }
-
-                v263 = v262;
-                v264 = MBGetDefaultLog();
-                if (os_log_type_enabled(v264, OS_LOG_TYPE_DEFAULT))
-                {
-                  v265 = v264;
-                  if (os_log_type_enabled(v265, OS_LOG_TYPE_DEFAULT))
-                  {
-                    LOWORD(buf.f_bsize) = 0;
-                    _os_log_impl(&_mh_execute_header, v265, OS_LOG_TYPE_DEFAULT, "=diag= Dumping crypto file info", &buf, 2u);
-                  }
-
-                  _MBLog(@"Df", "=diag= Dumping crypto file info", v266, v267, v268, v269, v270, v271, v570);
-                }
-
-                v605 = 1;
-                v607 = 0;
-                v606 = 0;
-                v608 = 0;
-                v609 = 0x4000;
-                v610 = v263;
-                if (ffsctl(v604, 0x80284A7FuLL, &v605, 0))
-                {
-                  v272 = *__error();
-                  v273 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v273, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v273 = v273;
-                    if (os_log_type_enabled(v273, OS_LOG_TYPE_DEFAULT))
-                    {
-                      buf.f_bsize = 67109120;
-                      buf.f_iosize = v272;
-                      _os_log_impl(&_mh_execute_header, v273, OS_LOG_TYPE_DEFAULT, "=diag= Failed to get the crypto file infos: %{errno}d", &buf, 8u);
-                    }
-
-                    _MBLog(@"Df", "=diag= Failed to get the crypto file infos: %{errno}d", v274, v275, v276, v277, v278, v279, v272);
-                  }
-
-                  goto LABEL_203;
-                }
-
-                v280 = MBGetDefaultLog();
-                if (os_log_type_enabled(v280, OS_LOG_TYPE_DEFAULT))
-                {
-                  v281 = v280;
-                  if (os_log_type_enabled(v281, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v282 = *v263;
-                    buf.f_bsize = 134217984;
-                    *&buf.f_iosize = v282;
-                    _os_log_impl(&_mh_execute_header, v281, OS_LOG_TYPE_DEFAULT, "=diag= private_id: %llu", &buf, 0xCu);
-                  }
-
-                  _MBLog(@"Df", "=diag= private_id: %llu", v283, v284, v285, v286, v287, v288, *v263);
-                }
-
-                v289 = MBGetDefaultLog();
-                if (os_log_type_enabled(v289, OS_LOG_TYPE_DEFAULT))
-                {
-                  v290 = v289;
-                  if (os_log_type_enabled(v290, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v291 = *(v263 + 1);
-                    v292 = v263[4] & 1;
-                    buf.f_bsize = 134218240;
-                    *&buf.f_iosize = v291;
-                    WORD2(buf.f_blocks) = 1024;
-                    *(&buf.f_blocks + 6) = v292;
-                    _os_log_impl(&_mh_execute_header, v290, OS_LOG_TYPE_DEFAULT, "=diag= prot_class: %llu (explicit? %d)", &buf, 0x12u);
-                  }
-
-                  v572 = v263[4] & 1;
-                  _MBLog(@"Df", "=diag= prot_class: %llu (explicit? %d)", v293, v294, v295, v296, v297, v298, *(v263 + 1));
-                }
-
-                if ((*(v263 + 2) & 0x8000000000000000) != 0)
-                {
-                  v315 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v315, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v316 = v315;
-                    if (os_log_type_enabled(v316, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v317 = v263[85];
-                      v318 = *(v263 + 3);
-                      buf.f_bsize = 67109376;
-                      buf.f_iosize = v317;
-                      LOWORD(buf.f_blocks) = 2048;
-                      *(&buf.f_blocks + 2) = v318;
-                      _os_log_impl(&_mh_execute_header, v316, OS_LOG_TYPE_DEFAULT, "=diag= Found %u crypto ids for filesize %lld", &buf, 0x12u);
-                    }
-
-                    v573 = *(v263 + 3);
-                    _MBLog(@"Df", "=diag= Found %u crypto ids for filesize %lld", v319, v320, v321, v322, v323, v324, v263[85]);
-                  }
-
-                  v325 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v325, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v326 = v325;
-                    if (os_log_type_enabled(v326, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v327 = *(v263 + 3);
-                      buf.f_bsize = 134217984;
-                      *&buf.f_iosize = v327;
-                      _os_log_impl(&_mh_execute_header, v326, OS_LOG_TYPE_DEFAULT, "=diag=   size:         %llu", &buf, 0xCu);
-                    }
-
-                    _MBLog(@"Df", "=diag=   size:         %llu", v328, v329, v330, v331, v332, v333, *(v263 + 3));
-                  }
-
-                  v334 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v334, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v335 = v334;
-                    if (os_log_type_enabled(v335, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v336 = *(v263 + 4);
-                      buf.f_bsize = 134217984;
-                      *&buf.f_iosize = v336;
-                      _os_log_impl(&_mh_execute_header, v335, OS_LOG_TYPE_DEFAULT, "=diag=   alloced_size: %llu", &buf, 0xCu);
-                    }
-
-                    _MBLog(@"Df", "=diag=   alloced_size: %llu", v337, v338, v339, v340, v341, v342, *(v263 + 4));
-                  }
-
-                  v343 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v343, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v344 = v343;
-                    if (os_log_type_enabled(v344, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v345 = *(v263 + 5);
-                      buf.f_bsize = 134217984;
-                      *&buf.f_iosize = v345;
-                      _os_log_impl(&_mh_execute_header, v344, OS_LOG_TYPE_DEFAULT, "=diag=   default_crid: %llu", &buf, 0xCu);
-                    }
-
-                    _MBLog(@"Df", "=diag=   default_crid: %llu", v346, v347, v348, v349, v350, v351, *(v263 + 5));
-                  }
-
-                  v352 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v352, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v353 = v352;
-                    if (os_log_type_enabled(v353, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v354 = (*(v263 + 24) >> 14) & 1;
-                      buf.f_bsize = 67109120;
-                      buf.f_iosize = v354;
-                      _os_log_impl(&_mh_execute_header, v353, OS_LOG_TYPE_DEFAULT, "=diag=     exists?  %u", &buf, 8u);
-                    }
-
-                    _MBLog(@"Df", "=diag=     exists?  %u", v355, v356, v357, v358, v359, v360, (*(v263 + 24) >> 14) & 1);
-                  }
-
-                  v361 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v361, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v362 = v361;
-                    if (os_log_type_enabled(v362, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v363 = *(v263 + 25);
-                      v364 = *(v263 + 24) >> 15;
-                      buf.f_bsize = 67109376;
-                      buf.f_iosize = v363;
-                      LOWORD(buf.f_blocks) = 1024;
-                      *(&buf.f_blocks + 2) = v364;
-                      _os_log_impl(&_mh_execute_header, v362, OS_LOG_TYPE_DEFAULT, "=diag=     payload: %u (trunc? %d)", &buf, 0xEu);
-                    }
-
-                    v574 = *(v263 + 24) >> 15;
-                    _MBLog(@"Df", "=diag=     payload: %u (trunc? %d)", v365, v366, v367, v368, v369, v370, *(v263 + 25));
-                  }
-
-                  v371 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v371, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v372 = v371;
-                    if (os_log_type_enabled(v372, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v373 = v263[13];
-                      buf.f_bsize = 67109120;
-                      buf.f_iosize = v373;
-                      _os_log_impl(&_mh_execute_header, v372, OS_LOG_TYPE_DEFAULT, "=diag=     refcnt:  %u", &buf, 8u);
-                    }
-
-                    _MBLog(@"Df", "=diag=     refcnt:  %u", v374, v375, v376, v377, v378, v379, v263[13]);
-                  }
-
-                  v380 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v380, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v381 = v380;
-                    if (os_log_type_enabled(v381, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v382 = *(v263 + 28);
-                      v383 = *(v263 + 29);
-                      buf.f_bsize = 67109376;
-                      buf.f_iosize = v382;
-                      LOWORD(buf.f_blocks) = 1024;
-                      *(&buf.f_blocks + 2) = v383;
-                      _os_log_impl(&_mh_execute_header, v381, OS_LOG_TYPE_DEFAULT, "=diag=     version: %u.%u", &buf, 0xEu);
-                    }
-
-                    v575 = *(v263 + 29);
-                    _MBLog(@"Df", "=diag=     version: %u.%u", v384, v385, v386, v387, v388, v389, *(v263 + 28));
-                  }
-
-                  v390 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v390, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v391 = v390;
-                    if (os_log_type_enabled(v391, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v392 = v263[15];
-                      buf.f_bsize = 67109120;
-                      buf.f_iosize = v392;
-                      _os_log_impl(&_mh_execute_header, v391, OS_LOG_TYPE_DEFAULT, "=diag=     flags:   %#x", &buf, 8u);
-                    }
-
-                    _MBLog(@"Df", "=diag=     flags:   %#x", v393, v394, v395, v396, v397, v398, v263[15]);
-                  }
-
-                  v399 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v399, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v400 = v399;
-                    if (os_log_type_enabled(v400, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v401 = v263[16];
-                      buf.f_bsize = 67109120;
-                      buf.f_iosize = v401;
-                      _os_log_impl(&_mh_execute_header, v400, OS_LOG_TYPE_DEFAULT, "=diag=     class:   %#x", &buf, 8u);
-                    }
-
-                    _MBLog(@"Df", "=diag=     class:   %#x", v402, v403, v404, v405, v406, v407, v263[16]);
-                  }
-
-                  v408 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v408, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v409 = v408;
-                    if (os_log_type_enabled(v409, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v410 = sub_10000D644(v263[17]);
-                      buf.f_bsize = 138412290;
-                      *&buf.f_iosize = v410;
-                      _os_log_impl(&_mh_execute_header, v409, OS_LOG_TYPE_DEFAULT, "=diag=     os:      %@", &buf, 0xCu);
-                    }
-
-                    v411 = sub_10000D644(v263[17]);
-                    _MBLog(@"Df", "=diag=     os:      %@", v412, v413, v414, v415, v416, v417, v411);
-                  }
-
-                  v418 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v418, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v419 = v418;
-                    if (os_log_type_enabled(v419, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v420 = *(v263 + 36);
-                      buf.f_bsize = 67109120;
-                      buf.f_iosize = v420;
-                      _os_log_impl(&_mh_execute_header, v419, OS_LOG_TYPE_DEFAULT, "=diag=     rev:     %u", &buf, 8u);
-                    }
-
-                    _MBLog(@"Df", "=diag=     rev:     %u", v421, v422, v423, v424, v425, v426, *(v263 + 36));
-                  }
-
-                  v427 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v427, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v428 = v427;
-                    if (os_log_type_enabled(v428, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v429 = *(v263 + 37);
-                      buf.f_bsize = 67109120;
-                      buf.f_iosize = v429;
-                      _os_log_impl(&_mh_execute_header, v428, OS_LOG_TYPE_DEFAULT, "=diag=     len:     %u", &buf, 8u);
-                    }
-
-                    _MBLog(@"Df", "=diag=     len:     %u", v430, v431, v432, v433, v434, v435, *(v263 + 37));
-                  }
-
-                  v436 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v436, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v437 = v436;
-                    if (os_log_type_enabled(v437, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v438 = v263[83];
-                      buf.f_bsize = 67109120;
-                      buf.f_iosize = v438;
-                      _os_log_impl(&_mh_execute_header, v437, OS_LOG_TYPE_DEFAULT, "=diag=   refcnt:       %u", &buf, 8u);
-                    }
-
-                    _MBLog(@"Df", "=diag=   refcnt:       %u", v439, v440, v441, v442, v443, v444, v263[83]);
-                  }
-
-                  v445 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v445, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v446 = v445;
-                    if (os_log_type_enabled(v446, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v447 = v263[85];
-                      buf.f_bsize = 67109120;
-                      buf.f_iosize = v447;
-                      _os_log_impl(&_mh_execute_header, v446, OS_LOG_TYPE_DEFAULT, "=diag=   num extents:  %u", &buf, 8u);
-                    }
-
-                    _MBLog(@"Df", "=diag=   num extents:  %u", v448, v449, v450, v451, v452, v453, v263[85]);
-                  }
-
-                  if (v263[85])
-                  {
-                    v454 = 0;
-                    v455 = v263 + 197;
-                    do
-                    {
-                      v456 = MBGetDefaultLog();
-                      if (os_log_type_enabled(v456, OS_LOG_TYPE_DEFAULT))
-                      {
-                        v457 = v456;
-                        if (os_log_type_enabled(v457, OS_LOG_TYPE_DEFAULT))
-                        {
-                          v458 = *(v455 - 25);
-                          v459 = *(v455 - 21);
-                          v460 = *(v455 - 17);
-                          buf.f_bsize = 134218496;
-                          *&buf.f_iosize = v458;
-                          WORD2(buf.f_blocks) = 2048;
-                          *(&buf.f_blocks + 6) = v459;
-                          HIWORD(buf.f_bfree) = 2048;
-                          buf.f_bavail = v460;
-                          _os_log_impl(&_mh_execute_header, v457, OS_LOG_TYPE_DEFAULT, "=diag=       0x%llx:+%lld (crid %llu)", &buf, 0x20u);
-                        }
-
-                        v579 = *(v455 - 17);
-                        _MBLog(@"Df", "=diag=       0x%llx:+%lld (crid %llu)", v461, v462, v463, v464, v465, v466, *(v455 - 25));
-                      }
-
-                      v467 = MBGetDefaultLog();
-                      if (os_log_type_enabled(v467, OS_LOG_TYPE_DEFAULT))
-                      {
-                        v468 = v467;
-                        if (os_log_type_enabled(v468, OS_LOG_TYPE_DEFAULT))
-                        {
-                          v469 = (*(v455 - 13) >> 14) & 1;
-                          buf.f_bsize = 67109120;
-                          buf.f_iosize = v469;
-                          _os_log_impl(&_mh_execute_header, v468, OS_LOG_TYPE_DEFAULT, "=diag=       exists?  %u", &buf, 8u);
-                        }
-
-                        _MBLog(@"Df", "=diag=       exists?  %u", v470, v471, v472, v473, v474, v475, (*(v455 - 13) >> 14) & 1);
-                      }
-
-                      v476 = MBGetDefaultLog();
-                      if (os_log_type_enabled(v476, OS_LOG_TYPE_DEFAULT))
-                      {
-                        v477 = v476;
-                        if (os_log_type_enabled(v477, OS_LOG_TYPE_DEFAULT))
-                        {
-                          v478 = *(v455 - 12);
-                          v479 = *(v455 - 13) >> 15;
-                          buf.f_bsize = 67109376;
-                          buf.f_iosize = v478;
-                          LOWORD(buf.f_blocks) = 1024;
-                          *(&buf.f_blocks + 2) = v479;
-                          _os_log_impl(&_mh_execute_header, v477, OS_LOG_TYPE_DEFAULT, "=diag=       payload: %u (trunc? %d)", &buf, 0xEu);
-                        }
-
-                        v576 = *(v455 - 13) >> 15;
-                        _MBLog(@"Df", "=diag=       payload: %u (trunc? %d)", v480, v481, v482, v483, v484, v485, *(v455 - 12));
-                      }
-
-                      v486 = MBGetDefaultLog();
-                      if (os_log_type_enabled(v486, OS_LOG_TYPE_DEFAULT))
-                      {
-                        v487 = v486;
-                        if (os_log_type_enabled(v487, OS_LOG_TYPE_DEFAULT))
-                        {
-                          v488 = *(v455 - 11);
-                          buf.f_bsize = 67109120;
-                          buf.f_iosize = v488;
-                          _os_log_impl(&_mh_execute_header, v487, OS_LOG_TYPE_DEFAULT, "=diag=       refcnt:  %u", &buf, 8u);
-                        }
-
-                        _MBLog(@"Df", "=diag=       refcnt:  %u", v489, v490, v491, v492, v493, v494, *(v455 - 11));
-                      }
-
-                      v495 = MBGetDefaultLog();
-                      if (os_log_type_enabled(v495, OS_LOG_TYPE_DEFAULT))
-                      {
-                        v496 = v495;
-                        if (os_log_type_enabled(v496, OS_LOG_TYPE_DEFAULT))
-                        {
-                          v497 = *(v455 - 9);
-                          v498 = *(v455 - 8);
-                          buf.f_bsize = 67109376;
-                          buf.f_iosize = v497;
-                          LOWORD(buf.f_blocks) = 1024;
-                          *(&buf.f_blocks + 2) = v498;
-                          _os_log_impl(&_mh_execute_header, v496, OS_LOG_TYPE_DEFAULT, "=diag=       version: %u.%u", &buf, 0xEu);
-                        }
-
-                        v577 = *(v455 - 8);
-                        _MBLog(@"Df", "=diag=       version: %u.%u", v499, v500, v501, v502, v503, v504, *(v455 - 9));
-                      }
-
-                      v505 = MBGetDefaultLog();
-                      if (os_log_type_enabled(v505, OS_LOG_TYPE_DEFAULT))
-                      {
-                        v506 = v505;
-                        if (os_log_type_enabled(v506, OS_LOG_TYPE_DEFAULT))
-                        {
-                          v507 = *(v455 - 7);
-                          buf.f_bsize = 67109120;
-                          buf.f_iosize = v507;
-                          _os_log_impl(&_mh_execute_header, v506, OS_LOG_TYPE_DEFAULT, "=diag=       flags:   %#x", &buf, 8u);
-                        }
-
-                        _MBLog(@"Df", "=diag=       flags:   %#x", v508, v509, v510, v511, v512, v513, *(v455 - 7));
-                      }
-
-                      v514 = MBGetDefaultLog();
-                      if (os_log_type_enabled(v514, OS_LOG_TYPE_DEFAULT))
-                      {
-                        v515 = v514;
-                        if (os_log_type_enabled(v515, OS_LOG_TYPE_DEFAULT))
-                        {
-                          v516 = *(v455 - 5);
-                          buf.f_bsize = 67109120;
-                          buf.f_iosize = v516;
-                          _os_log_impl(&_mh_execute_header, v515, OS_LOG_TYPE_DEFAULT, "=diag=       class:   %#x", &buf, 8u);
-                        }
-
-                        _MBLog(@"Df", "=diag=       class:   %#x", v517, v518, v519, v520, v521, v522, *(v455 - 5));
-                      }
-
-                      v523 = MBGetDefaultLog();
-                      if (os_log_type_enabled(v523, OS_LOG_TYPE_DEFAULT))
-                      {
-                        v524 = v523;
-                        if (os_log_type_enabled(v524, OS_LOG_TYPE_DEFAULT))
-                        {
-                          v525 = *(v455 - 3);
-                          v526 = (v525 << 8) >> 24;
-                          if (v526 > 0x7F)
-                          {
-                            v527 = __maskrune((v525 << 8) >> 24, 0x100uLL);
-                          }
-
-                          else
-                          {
-                            v527 = _DefaultRuneLocale.__runetype[v526] & 0x100;
-                          }
-
-                          if (v527)
-                          {
-                            v528 = @"%u%c%u";
-                          }
-
-                          else
-                          {
-                            v528 = @"%u-%c-%u";
-                          }
-
-                          v529 = [NSString stringWithFormat:v528, HIBYTE(v525), ((v525 << 8) >> 24), v525];
-                          buf.f_bsize = 138412290;
-                          *&buf.f_iosize = v529;
-                          _os_log_impl(&_mh_execute_header, v524, OS_LOG_TYPE_DEFAULT, "=diag=       os:      %@", &buf, 0xCu);
-                        }
-
-                        v530 = *(v455 - 3);
-                        v531 = (v530 << 8) >> 24;
-                        if (v531 > 0x7F)
-                        {
-                          v532 = __maskrune((v530 << 8) >> 24, 0x100uLL);
-                        }
-
-                        else
-                        {
-                          v532 = _DefaultRuneLocale.__runetype[v531] & 0x100;
-                        }
-
-                        if (v532)
-                        {
-                          v533 = @"%u%c%u";
-                        }
-
-                        else
-                        {
-                          v533 = @"%u-%c-%u";
-                        }
-
-                        v534 = [NSString stringWithFormat:v533, HIBYTE(v530), ((v530 << 8) >> 24), v530];
-                        _MBLog(@"Df", "=diag=       os:      %@", v535, v536, v537, v538, v539, v540, v534);
-                      }
-
-                      v541 = MBGetDefaultLog();
-                      if (os_log_type_enabled(v541, OS_LOG_TYPE_DEFAULT))
-                      {
-                        v542 = v541;
-                        if (os_log_type_enabled(v542, OS_LOG_TYPE_DEFAULT))
-                        {
-                          v543 = *(v455 - 1);
-                          buf.f_bsize = 67109120;
-                          buf.f_iosize = v543;
-                          _os_log_impl(&_mh_execute_header, v542, OS_LOG_TYPE_DEFAULT, "=diag=       rev:     %u", &buf, 8u);
-                        }
-
-                        _MBLog(@"Df", "=diag=       rev:     %u", v544, v545, v546, v547, v548, v549, *(v455 - 1));
-                      }
-
-                      v550 = MBGetDefaultLog();
-                      if (os_log_type_enabled(v550, OS_LOG_TYPE_DEFAULT))
-                      {
-                        v551 = v550;
-                        if (os_log_type_enabled(v551, OS_LOG_TYPE_DEFAULT))
-                        {
-                          v552 = *v455;
-                          buf.f_bsize = 67109120;
-                          buf.f_iosize = v552;
-                          _os_log_impl(&_mh_execute_header, v551, OS_LOG_TYPE_DEFAULT, "=diag=       len:     %u", &buf, 8u);
-                        }
-
-                        _MBLog(@"Df", "=diag=       len:     %u", v553, v554, v555, v556, v557, v558, *v455);
-                      }
-
-                      ++v454;
-                      v455 += 156;
-                    }
-
-                    while (v454 < v263[85]);
-                  }
-                }
-
-                else
-                {
-                  v273 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v273, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v273 = v273;
-                    if (os_log_type_enabled(v273, OS_LOG_TYPE_DEFAULT))
-                    {
-                      buf.f_bsize = 136315138;
-                      *&buf.f_iosize = v602;
-                      _os_log_impl(&_mh_execute_header, v273, OS_LOG_TYPE_DEFAULT, "=diag= %s does not have associated crypto dstreams", &buf, 0xCu);
-                    }
-
-                    _MBLog(@"Df", "=diag= %s does not have associated crypto dstreams", v299, v300, v301, v302, v303, v304, v602);
-                  }
-
-LABEL_203:
-                }
-
-                free(v263);
-                sub_10000D6E8(v602);
-                v1 = v601;
-                if (getxattr(v602, "com.apple.ResourceFork", 0, 0, 0, 0) != -1)
-                {
-                  v305 = MBGetDefaultLog();
-                  if (os_log_type_enabled(v305, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v306 = v305;
-                    if (os_log_type_enabled(v306, OS_LOG_TYPE_DEFAULT))
-                    {
-                      buf.f_bsize = 136315138;
-                      *&buf.f_iosize = v602;
-                      _os_log_impl(&_mh_execute_header, v306, OS_LOG_TYPE_DEFAULT, "=diag= %s is a compressed file", &buf, 0xCu);
-                    }
-
-                    _MBLog(@"Df", "=diag= %s is a compressed file", v307, v308, v309, v310, v311, v312, v602);
-                  }
-
-                  v313 = [v601 stringByAppendingPathComponent:@"/..namedfork/rsrc"];
-                  sub_10000D6E8([v313 fileSystemRepresentation]);
-                }
-
-                close(v604);
-              }
-
-              v33 = MBGetDefaultLog();
-              if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
-              {
-                v314 = v33;
-                if (os_log_type_enabled(v314, OS_LOG_TYPE_DEFAULT))
-                {
-                  buf.f_bsize = 138543362;
-                  *&buf.f_iosize = v1;
-                  _os_log_impl(&_mh_execute_header, v314, OS_LOG_TYPE_DEFAULT, "=diag= Finished dumping diagnostics for %{public}@", &buf, 0xCu);
-                }
-
-                v568 = v1;
-                v40 = "=diag= Finished dumping diagnostics for %{public}@";
-LABEL_215:
-                _MBLog(@"Df", v40, v34, v35, v36, v37, v38, v39, v568);
-              }
-
-              goto LABEL_216;
-            }
-
-            v112 = (v112 + 1);
-            if (v112 == 500000)
-            {
-              v112 = 500000;
-              goto LABEL_99;
-            }
-          }
-
-          v123 = v113;
-          v124 = *__error();
-          v125 = MBGetDefaultLog();
-          if (os_log_type_enabled(v125, OS_LOG_TYPE_DEFAULT))
-          {
-            v126 = v125;
-            if (os_log_type_enabled(v126, OS_LOG_TYPE_DEFAULT))
-            {
-              LODWORD(v625) = 67109376;
-              DWORD1(v625) = v123;
-              WORD4(v625) = 1024;
-              *(&v625 + 10) = v124;
-              _os_log_impl(&_mh_execute_header, v126, OS_LOG_TYPE_DEFAULT, "=diag= readdir_r failed: %d (%{errno}d)", &v625, 0xEu);
-            }
-
-            f_iosize = v124;
-            _MBLog(@"Df", "=diag= readdir_r failed: %d (%{errno}d)", v127, v128, v129, v130, v131, v132, v123);
-          }
-
-LABEL_99:
-          closedir(v111);
-          v133 = MBGetDefaultLog();
-          st_ino = *v603;
-          if (os_log_type_enabled(v133, OS_LOG_TYPE_DEFAULT))
-          {
-            v134 = v133;
-            if (os_log_type_enabled(v134, OS_LOG_TYPE_DEFAULT))
-            {
-              LODWORD(v631.d_ino) = 67109120;
-              HIDWORD(v631.d_ino) = v112;
-              _os_log_impl(&_mh_execute_header, v134, OS_LOG_TYPE_DEFAULT, "=diag= Failed to find the file using readdir_r (%u)", &v631, 8u);
-            }
-
-            _MBLog(@"Df", "=diag= Failed to find the file using readdir_r (%u)", v135, v136, v137, v138, v139, v140, v112);
-          }
-
-          if (!*v603)
-          {
-            goto LABEL_125;
-          }
-
-          goto LABEL_104;
-        }
-
-        v114 = *__error();
-        v115 = MBGetDefaultLog();
-        if (os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
-        {
-          v116 = v115;
-          if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
-          {
-            LODWORD(v631.d_ino) = 136446466;
-            *(&v631.d_ino + 4) = v15;
-            WORD2(v631.d_seekoff) = 1024;
-            *(&v631.d_seekoff + 6) = v114;
-            _os_log_impl(&_mh_execute_header, v116, OS_LOG_TYPE_DEFAULT, "=diag= fdopendir failed at %{public}s: %{errno}d", &v631, 0x12u);
-          }
-
-          f_iosize = v114;
-          _MBLog(@"Df", "=diag= fdopendir failed at %{public}s: %{errno}d", v117, v118, v119, v120, v121, v122, v15);
-        }
-
-        close(v86);
-        st_ino = *v603;
-        if (!*v603)
-        {
-          goto LABEL_125;
-        }
-      }
-
-LABEL_104:
-      if (f_fsid.val[0])
-      {
-        *&v625 = st_ino;
-        v141 = openbyid_np();
-        if (v141 == -1)
-        {
-          v160 = *__error();
-          v161 = MBGetDefaultLog();
-          if (os_log_type_enabled(v161, OS_LOG_TYPE_DEFAULT))
-          {
-            v162 = v161;
-            if (os_log_type_enabled(v162, OS_LOG_TYPE_DEFAULT))
-            {
-              buf.f_bsize = 67109888;
-              buf.f_iosize = f_fsid.val[0];
-              LOWORD(buf.f_blocks) = 1024;
-              *(&buf.f_blocks + 2) = f_fsid.val[1];
-              HIWORD(buf.f_blocks) = 2048;
-              buf.f_bfree = st_ino;
-              LOWORD(buf.f_bavail) = 1024;
-              *(&buf.f_bavail + 2) = v160;
-              _os_log_impl(&_mh_execute_header, v162, OS_LOG_TYPE_DEFAULT, "=diag= openbyid_np({%d, %d}, %llu) failed: %{errno}d", &buf, 0x1Eu);
-            }
-
-            *&v578 = st_ino;
-            *(&v578 + 1) = v160;
-            f_iosize = f_fsid.val[1];
-            _MBLog(@"Df", "=diag= openbyid_np({%d, %d}, %llu) failed: %{errno}d", v163, v164, v165, v166, v167, v168, f_fsid.val[0]);
-          }
-        }
-
-        else
-        {
-          v142 = v141;
-          v143 = MBGetDefaultLog();
-          if (os_log_type_enabled(v143, OS_LOG_TYPE_DEFAULT))
-          {
-            v144 = v143;
-            if (os_log_type_enabled(v144, OS_LOG_TYPE_DEFAULT))
-            {
-              buf.f_bsize = 67109632;
-              buf.f_iosize = f_fsid.val[0];
-              LOWORD(buf.f_blocks) = 1024;
-              *(&buf.f_blocks + 2) = f_fsid.val[1];
-              HIWORD(buf.f_blocks) = 2048;
-              buf.f_bfree = st_ino;
-              _os_log_impl(&_mh_execute_header, v144, OS_LOG_TYPE_DEFAULT, "=diag= openbyid_np({%d, %d}, %llu) succeeded", &buf, 0x18u);
-            }
-
-            f_iosize = f_fsid.val[1];
-            *&v578 = st_ino;
-            _MBLog(@"Df", "=diag= openbyid_np({%d, %d}, %llu) succeeded", v145, v146, v147, v148, v149, v150, f_fsid.val[0]);
-          }
-
-          v151 = pread(v142, &buf, 0x10uLL, 0);
-          if (v151 == -1)
-          {
-            v169 = *__error();
-            v153 = MBGetDefaultLog();
-            if (os_log_type_enabled(v153, OS_LOG_TYPE_DEFAULT))
-            {
-              v153 = v153;
-              if (os_log_type_enabled(v153, OS_LOG_TYPE_DEFAULT))
-              {
-                LODWORD(v631.d_ino) = 67109120;
-                HIDWORD(v631.d_ino) = v169;
-                _os_log_impl(&_mh_execute_header, v153, OS_LOG_TYPE_DEFAULT, "=diag= pread failed: %d", &v631, 8u);
-              }
-
-              _MBLog(@"Df", "=diag= pread failed: %d", v170, v171, v172, v173, v174, v175, v169);
-            }
-          }
-
-          else
-          {
-            v152 = v151;
-            v153 = MBGetDefaultLog();
-            if (os_log_type_enabled(v153, OS_LOG_TYPE_DEFAULT))
-            {
-              v153 = v153;
-              if (os_log_type_enabled(v153, OS_LOG_TYPE_DEFAULT))
-              {
-                LODWORD(v631.d_ino) = 134217984;
-                *(&v631.d_ino + 4) = v152;
-                _os_log_impl(&_mh_execute_header, v153, OS_LOG_TYPE_DEFAULT, "=diag= pread returned %ld bytes", &v631, 0xCu);
-              }
-
-              _MBLog(@"Df", "=diag= pread returned %ld bytes", v154, v155, v156, v157, v158, v159, v152);
-            }
-          }
-
-          close(v142);
-        }
-      }
-
+      _MBLog(@"Df", "=diag= open failed at %{public}s: %{errno}d", v9, v40);
+    }
+
+    if (!st_ino)
+    {
       goto LABEL_125;
     }
 
-    v33 = MBGetDefaultLog();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+LABEL_104:
+    if (f_fsid.val[0])
     {
-      LOWORD(buf.f_bsize) = 0;
-      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "=diag= nil dir path FSR", &buf, 2u);
-      v40 = "=diag= nil dir path FSR";
-      goto LABEL_215;
+      *&v285 = st_ino;
+      v60 = openbyid_np();
+      if (v60 == -1)
+      {
+        v67 = __error();
+        v68 = *v67;
+        v69 = MBGetDefaultLog(v67);
+        if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+        {
+          v70 = v69;
+          if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+          {
+            buf.f_bsize = 67109888;
+            buf.f_iosize = f_fsid.val[0];
+            LOWORD(buf.f_blocks) = 1024;
+            *(&buf.f_blocks + 2) = f_fsid.val[1];
+            HIWORD(buf.f_blocks) = 2048;
+            buf.f_bfree = st_ino;
+            LOWORD(buf.f_bavail) = 1024;
+            *(&buf.f_bavail + 2) = v68;
+            _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEFAULT, "=diag= openbyid_np({%d, %d}, %llu) failed: %{errno}d", &buf, 0x1Eu);
+          }
+
+          _MBLog(@"Df", "=diag= openbyid_np({%d, %d}, %llu) failed: %{errno}d", f_fsid.val[0], f_fsid.val[1], st_ino, v68);
+        }
+      }
+
+      else
+      {
+        v61 = v60;
+        v62 = MBGetDefaultLog(v60);
+        if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
+        {
+          v63 = v62;
+          if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+          {
+            buf.f_bsize = 67109632;
+            buf.f_iosize = f_fsid.val[0];
+            LOWORD(buf.f_blocks) = 1024;
+            *(&buf.f_blocks + 2) = f_fsid.val[1];
+            HIWORD(buf.f_blocks) = 2048;
+            buf.f_bfree = st_ino;
+            _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "=diag= openbyid_np({%d, %d}, %llu) succeeded", &buf, 0x18u);
+          }
+
+          _MBLog(@"Df", "=diag= openbyid_np({%d, %d}, %llu) succeeded", f_fsid.val[0], f_fsid.val[1], st_ino);
+        }
+
+        v64 = pread(v61, &buf, 0x10uLL, 0);
+        if (v64 == -1)
+        {
+          v71 = __error();
+          v72 = *v71;
+          v66 = MBGetDefaultLog(v71);
+          if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+          {
+            v66 = v66;
+            if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+            {
+              LODWORD(v291.d_ino) = 67109120;
+              HIDWORD(v291.d_ino) = v72;
+              _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_DEFAULT, "=diag= pread failed: %d", &v291, 8u);
+            }
+
+            _MBLog(@"Df", "=diag= pread failed: %d");
+          }
+        }
+
+        else
+        {
+          v65 = v64;
+          v66 = MBGetDefaultLog(v64);
+          if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+          {
+            v66 = v66;
+            if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+            {
+              LODWORD(v291.d_ino) = 134217984;
+              *(&v291.d_ino + 4) = v65;
+              _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_DEFAULT, "=diag= pread returned %ld bytes", &v291, 0xCu);
+            }
+
+            _MBLog(@"Df", "=diag= pread returned %ld bytes");
+          }
+        }
+
+        close(v61);
+      }
     }
 
-LABEL_216:
+    goto LABEL_125;
   }
+
+  v34 = v33;
+  *v263 = st_ino;
+  bzero(&buf, 0x878uLL);
+  v35 = fstatfs(v34, &buf);
+  if (v35)
+  {
+    v36 = __error();
+    v37 = *v36;
+    v38 = MBGetDefaultLog(v36);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+    {
+      v38 = v38;
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+      {
+        LODWORD(v291.d_ino) = 136446466;
+        *(&v291.d_ino + 4) = v9;
+        WORD2(v291.d_seekoff) = 1024;
+        *(&v291.d_seekoff + 6) = v37;
+        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "=diag= fstatfs failed at %{public}s: %{errno}d", &v291, 0x12u);
+      }
+
+      _MBLog(@"Df", "=diag= fstatfs failed at %{public}s: %{errno}d", v9, v37, v249, v250, v251, v252, v253, v254, v255, v256, v257, v258, v259, v260);
+    }
+  }
+
+  else
+  {
+    f_fsid = buf.f_fsid;
+    v38 = MBGetDefaultLog(v35);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+    {
+      v38 = v38;
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+      {
+        LODWORD(v291.d_ino) = 67112448;
+        HIDWORD(v291.d_ino) = buf.f_bsize;
+        LOWORD(v291.d_seekoff) = 1024;
+        *(&v291.d_seekoff + 2) = buf.f_iosize;
+        HIWORD(v291.d_seekoff) = 2048;
+        *&v291.d_reclen = buf.f_blocks;
+        *&v291.d_name[3] = 2048;
+        *&v291.d_name[5] = buf.f_bfree;
+        *&v291.d_name[13] = 2048;
+        *&v291.d_name[15] = buf.f_bavail;
+        *&v291.d_name[23] = 2048;
+        *&v291.d_name[25] = buf.f_files;
+        *&v291.d_name[33] = 2048;
+        *&v291.d_name[35] = buf.f_ffree;
+        *&v291.d_name[43] = 1024;
+        *&v291.d_name[45] = buf.f_fsid.val[0];
+        *&v291.d_name[49] = 1024;
+        *&v291.d_name[51] = buf.f_fsid.val[1];
+        *&v291.d_name[55] = 1024;
+        *&v291.d_name[57] = buf.f_owner;
+        *&v291.d_name[61] = 1024;
+        *&v291.d_name[63] = buf.f_type;
+        *&v291.d_name[67] = 1024;
+        *&v291.d_name[69] = buf.f_flags;
+        *&v291.d_name[73] = 1024;
+        *&v291.d_name[75] = buf.f_fssubtype;
+        *&v291.d_name[79] = 1024;
+        *&v291.d_name[81] = buf.f_flags_ext;
+        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "=diag= fstatfs: bsize %u, iosize %d, blocks %llu, bfree %llu, bavail %llu, files %llu, ffree %llu, fsid {%d, %d}, owner %d, type %d, flags 0x%x, fssubtype %d, flags_ext 0x%x", &v291, 0x6Au);
+      }
+
+      _MBLog(@"Df", "=diag= fstatfs: bsize %u, iosize %d, blocks %llu, bfree %llu, bavail %llu, files %llu, ffree %llu, fsid {%d, %d}, owner %d, type %d, flags 0x%x, fssubtype %d, flags_ext 0x%x", buf.f_bsize, buf.f_iosize, buf.f_blocks, buf.f_bfree, buf.f_bavail);
+    }
+  }
+
+  v43 = fdopendir(v34);
+  if (!v43)
+  {
+    v48 = __error();
+    v49 = *v48;
+    v50 = MBGetDefaultLog(v48);
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+    {
+      v51 = v50;
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+      {
+        LODWORD(v291.d_ino) = 136446466;
+        *(&v291.d_ino + 4) = v9;
+        WORD2(v291.d_seekoff) = 1024;
+        *(&v291.d_seekoff + 6) = v49;
+        _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "=diag= fdopendir failed at %{public}s: %{errno}d", &v291, 0x12u);
+      }
+
+      _MBLog(@"Df", "=diag= fdopendir failed at %{public}s: %{errno}d", v9, v49);
+    }
+
+    close(v34);
+    st_ino = *v263;
+    if (!*v263)
+    {
+      goto LABEL_125;
+    }
+
+    goto LABEL_104;
+  }
+
+  v44 = v43;
+  v45 = 0;
+  while (1)
+  {
+    bzero(&v291, 0x418uLL);
+    v275 = 0;
+    v46 = readdir_r(v44, &v291, &v275);
+    if (v46)
+    {
+      v52 = v46;
+      v53 = __error();
+      v54 = *v53;
+      v55 = MBGetDefaultLog(v53);
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+      {
+        v56 = v55;
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+        {
+          LODWORD(v285) = 67109376;
+          DWORD1(v285) = v52;
+          WORD4(v285) = 1024;
+          *(&v285 + 10) = v54;
+          _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "=diag= readdir_r failed: %d (%{errno}d)", &v285, 0xEu);
+        }
+
+        _MBLog(@"Df", "=diag= readdir_r failed: %d (%{errno}d)", v52, v54);
+      }
+
+LABEL_99:
+      v57 = closedir(v44);
+      v58 = MBGetDefaultLog(v57);
+      st_ino = *v263;
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+      {
+        v59 = v58;
+        if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+        {
+          LODWORD(v291.d_ino) = 67109120;
+          HIDWORD(v291.d_ino) = v45;
+          _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "=diag= Failed to find the file using readdir_r (%u)", &v291, 8u);
+        }
+
+        _MBLog(@"Df", "=diag= Failed to find the file using readdir_r (%u)", v45);
+      }
+
+      if (!*v263)
+      {
+        goto LABEL_125;
+      }
+
+      goto LABEL_104;
+    }
+
+    if (!v275)
+    {
+      goto LABEL_99;
+    }
+
+    if (*v291.d_name != 46)
+    {
+      if (*v291.d_name ^ 0x2E2E | v291.d_name[2])
+      {
+        v47 = strcmp(v291.d_name, v7);
+        if (!v47)
+        {
+          break;
+        }
+      }
+    }
+
+    if (++v45 == 500000)
+    {
+      v45 = 500000;
+      goto LABEL_99;
+    }
+  }
+
+  d_ino = *v263;
+  if (!*v263)
+  {
+    d_ino = v291.d_ino;
+  }
+
+  v245 = MBGetDefaultLog(v47);
+  if (os_log_type_enabled(v245, OS_LOG_TYPE_DEFAULT))
+  {
+    v246 = v245;
+    if (os_log_type_enabled(v246, OS_LOG_TYPE_DEFAULT))
+    {
+      LODWORD(v285) = 67110144;
+      DWORD1(v285) = v45;
+      WORD4(v285) = 1024;
+      *(&v285 + 10) = v291.d_type;
+      HIWORD(v285) = 2048;
+      v286 = v291.d_ino;
+      v287 = 1024;
+      d_namlen = v291.d_namlen;
+      v289 = 1024;
+      d_reclen = v291.d_reclen;
+      _os_log_impl(&_mh_execute_header, v246, OS_LOG_TYPE_DEFAULT, "=diag= readdir_r found file entry (%u), type %d, ino %llu, namelen %d, reclen %d", &v285, 0x24u);
+    }
+
+    _MBLog(@"Df", "=diag= readdir_r found file entry (%u), type %d, ino %llu, namelen %d, reclen %d", v45, v291.d_type, v291.d_ino, v291.d_namlen, v291.d_reclen);
+  }
+
+  closedir(v44);
+  st_ino = d_ino;
+  if (d_ino)
+  {
+    goto LABEL_104;
+  }
+
+LABEL_125:
+  v285 = 0uLL;
+  v73 = fsctl(v5, 0x40104A0EuLL, &v285, 0);
+  if (v73)
+  {
+    v74 = __error();
+    v75 = *v74;
+    v76 = MBGetDefaultLog(v74);
+    if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
+    {
+      v76 = v76;
+      if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
+      {
+        buf.f_bsize = 67109120;
+        buf.f_iosize = v75;
+        _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, "=diag= fsctl(APFSIOC_GET_CLONE_INFO) failed: %{errno}d", &buf, 8u);
+      }
+
+      _MBLog(@"Df", "=diag= fsctl(APFSIOC_GET_CLONE_INFO) failed: %{errno}d", v75, v248);
+    }
+  }
+
+  else
+  {
+    v76 = MBGetDefaultLog(v73);
+    if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
+    {
+      v76 = v76;
+      if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
+      {
+        buf.f_bsize = 134218240;
+        *&buf.f_iosize = v285;
+        WORD2(buf.f_blocks) = 2048;
+        *(&buf.f_blocks + 6) = *(&v285 + 1);
+        _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, "=diag= fsctl(APFSIOC_GET_CLONE_INFO): flags 0x%llx, private_id %llu", &buf, 0x16u);
+      }
+
+      _MBLog(@"Df", "=diag= fsctl(APFSIOC_GET_CLONE_INFO): flags 0x%llx, private_id %llu");
+    }
+  }
+
+  v264 = open_dprotected_np(v5, 0, 0, 1, 0);
+  if (v264 == -1)
+  {
+    v81 = __error();
+    v82 = *v81;
+    v83 = MBGetDefaultLog(v81);
+    if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
+    {
+      buf.f_bsize = 67109120;
+      buf.f_iosize = v82;
+      _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_DEFAULT, "=diag= Failed to open the file raw encrypted: %{errno}d", &buf, 8u);
+      _MBLog(@"Df", "=diag= Failed to open the file raw encrypted: %{errno}d", v82);
+    }
+  }
+
+  else
+  {
+    v274 = 0;
+    v77 = fsctl(v5, 0x40084A25uLL, &v274, 8u);
+    if (v77)
+    {
+      v78 = __error();
+      v79 = *v78;
+      v80 = MBGetDefaultLog(v78);
+      if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
+      {
+        v80 = v80;
+        if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
+        {
+          buf.f_bsize = 67109120;
+          buf.f_iosize = v79;
+          _os_log_impl(&_mh_execute_header, v80, OS_LOG_TYPE_DEFAULT, "=diag= fsctl(APFSIOC_GET_INTERNAL_FLAGS) failed: %{errno}d", &buf, 8u);
+        }
+
+        _MBLog(@"Df", "=diag= fsctl(APFSIOC_GET_INTERNAL_FLAGS) failed: %{errno}d", v79);
+      }
+    }
+
+    else
+    {
+      v80 = MBGetDefaultLog(v77);
+      if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
+      {
+        v80 = v80;
+        if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
+        {
+          buf.f_bsize = 134217984;
+          *&buf.f_iosize = v274;
+          _os_log_impl(&_mh_execute_header, v80, OS_LOG_TYPE_DEFAULT, "=diag= fsctl(APFSIOC_GET_INTERNAL_FLAGS): flags 0x%llx", &buf, 0xCu);
+        }
+
+        _MBLog(@"Df", "=diag= fsctl(APFSIOC_GET_INTERNAL_FLAGS): flags 0x%llx");
+      }
+    }
+
+    v272 = 0u;
+    v273 = 0u;
+    v271 = 0u;
+    v85 = fsctl(v5, 0x40304A6DuLL, &v271, 0);
+    if (v85)
+    {
+      v86 = __error();
+      v87 = *v86;
+      v88 = MBGetDefaultLog(v86);
+      if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
+      {
+        v88 = v88;
+        if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
+        {
+          buf.f_bsize = 67109120;
+          buf.f_iosize = v87;
+          _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_DEFAULT, "=diag= fsctl(APFSIOC_PURGEABLE_GET_FILE_INFO) failed: %{errno}d", &buf, 8u);
+        }
+
+        _MBLog(@"Df", "=diag= fsctl(APFSIOC_PURGEABLE_GET_FILE_INFO) failed: %{errno}d", v87, v248, v249, v250, v251, v252);
+      }
+    }
+
+    else
+    {
+      v88 = MBGetDefaultLog(v85);
+      if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
+      {
+        v88 = v88;
+        if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
+        {
+          buf.f_bsize = 134219264;
+          *&buf.f_iosize = v271;
+          WORD2(buf.f_blocks) = 2048;
+          *(&buf.f_blocks + 6) = *(&v271 + 1);
+          HIWORD(buf.f_bfree) = 2048;
+          buf.f_bavail = v272;
+          LOWORD(buf.f_files) = 2048;
+          *(&buf.f_files + 2) = *(&v272 + 1);
+          WORD1(buf.f_ffree) = 2048;
+          *(&buf.f_ffree + 4) = v273;
+          LOWORD(buf.f_fsid.val[1]) = 2048;
+          *(&buf.f_fsid + 6) = *(&v273 + 1);
+          _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_DEFAULT, "=diag= fsctl(APFSIOC_PURGEABLE_GET_FILE_INFO): file flags: 0x%llx related flags: 0x%llx, file acctime: %llu\n gen count: %llu sync root id: %llu size: %llu", &buf, 0x3Eu);
+        }
+
+        _MBLog(@"Df", "=diag= fsctl(APFSIOC_PURGEABLE_GET_FILE_INFO): file flags: 0x%llx related flags: 0x%llx, file acctime: %llu\n gen count: %llu sync root id: %llu size: %llu");
+      }
+    }
+
+    v90 = MBGetDefaultLog(v89);
+    if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
+    {
+      v91 = v90;
+      if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
+      {
+        LOWORD(buf.f_bsize) = 0;
+        _os_log_impl(&_mh_execute_header, v91, OS_LOG_TYPE_DEFAULT, "=diag= Dumping extent information", &buf, 2u);
+      }
+
+      _MBLog(@"Df", "=diag= Dumping extent information");
+    }
+
+    v261 = v1;
+
+    v92 = 0;
+    v93 = 0;
+    while (1)
+    {
+      LODWORD(v291.d_ino) = 0;
+      *(&v291.d_ino + 4) = 0x7FFFFFFFFFFFFFFFLL;
+      *(&v291.d_seekoff + 4) = v92;
+      v94 = fcntl(v264, 65, &v291);
+      if (v94)
+      {
+        break;
+      }
+
+      v95 = *(&v291.d_ino + 4);
+      v96 = MBGetDefaultLog(v94);
+      if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
+      {
+        v97 = v96;
+        if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
+        {
+          buf.f_bsize = 134218496;
+          *&buf.f_iosize = v92;
+          WORD2(buf.f_blocks) = 2048;
+          *(&buf.f_blocks + 6) = v95;
+          HIWORD(buf.f_bfree) = 2048;
+          buf.f_bavail = *(&v291.d_seekoff + 4);
+          _os_log_impl(&_mh_execute_header, v97, OS_LOG_TYPE_DEFAULT, "=diag= 0x%llx:+%lld @ 0x%llx", &buf, 0x20u);
+        }
+
+        _MBLog(@"Df", "=diag= 0x%llx:+%lld @ 0x%llx", v92, v95, *(&v291.d_seekoff + 4));
+      }
+
+      if (v95 < 1 || (v95 ^ 0x7FFFFFFFFFFFFFFFLL) < v92)
+      {
+        goto LABEL_176;
+      }
+
+      v92 += v95;
+      if (++v93 == 10000)
+      {
+        v93 = 10000;
+        goto LABEL_176;
+      }
+    }
+
+    v98 = __error();
+    v99 = *v98;
+    if (v99 != 34)
+    {
+      v100 = MBGetDefaultLog(v98);
+      if (os_log_type_enabled(v100, OS_LOG_TYPE_DEFAULT))
+      {
+        v101 = v100;
+        if (os_log_type_enabled(v101, OS_LOG_TYPE_DEFAULT))
+        {
+          buf.f_bsize = 134218240;
+          *&buf.f_iosize = v92;
+          WORD2(buf.f_blocks) = 1024;
+          *(&buf.f_blocks + 6) = v99;
+          _os_log_impl(&_mh_execute_header, v101, OS_LOG_TYPE_DEFAULT, "=diag= log2phys failed at 0x%llx: %{errno}d", &buf, 0x12u);
+        }
+
+        _MBLog(@"Df", "=diag= log2phys failed at 0x%llx: %{errno}d", v92, v99);
+      }
+    }
+
+LABEL_176:
+    v102 = MBGetDefaultLog(v98);
+    if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
+    {
+      v103 = v102;
+      if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
+      {
+        buf.f_bsize = 67109120;
+        buf.f_iosize = v93;
+        _os_log_impl(&_mh_execute_header, v103, OS_LOG_TYPE_DEFAULT, "=diag= Found %u extents", &buf, 8u);
+      }
+
+      _MBLog(@"Df", "=diag= Found %u extents", v93);
+    }
+
+    v104 = malloc_type_malloc(0x4000uLL, 0x3F4D6170uLL);
+    if (!v104)
+    {
+      sub_100014808();
+    }
+
+    v105 = v104;
+    v106 = MBGetDefaultLog(v104);
+    if (os_log_type_enabled(v106, OS_LOG_TYPE_DEFAULT))
+    {
+      v107 = v106;
+      if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
+      {
+        LOWORD(buf.f_bsize) = 0;
+        _os_log_impl(&_mh_execute_header, v107, OS_LOG_TYPE_DEFAULT, "=diag= Dumping crypto file info", &buf, 2u);
+      }
+
+      _MBLog(@"Df", "=diag= Dumping crypto file info");
+    }
+
+    v265 = 1;
+    v267 = 0;
+    v266 = 0;
+    v268 = 0;
+    v269 = 0x4000;
+    v270 = v105;
+    v108 = ffsctl(v264, 0x80284A7FuLL, &v265, 0);
+    if (v108)
+    {
+      v109 = __error();
+      v110 = *v109;
+      v111 = MBGetDefaultLog(v109);
+      if (os_log_type_enabled(v111, OS_LOG_TYPE_DEFAULT))
+      {
+        v111 = v111;
+        if (os_log_type_enabled(v111, OS_LOG_TYPE_DEFAULT))
+        {
+          buf.f_bsize = 67109120;
+          buf.f_iosize = v110;
+          _os_log_impl(&_mh_execute_header, v111, OS_LOG_TYPE_DEFAULT, "=diag= Failed to get the crypto file infos: %{errno}d", &buf, 8u);
+        }
+
+        _MBLog(@"Df", "=diag= Failed to get the crypto file infos: %{errno}d", v110);
+      }
+
+      goto LABEL_203;
+    }
+
+    v112 = MBGetDefaultLog(v108);
+    if (os_log_type_enabled(v112, OS_LOG_TYPE_DEFAULT))
+    {
+      v113 = v112;
+      if (os_log_type_enabled(v113, OS_LOG_TYPE_DEFAULT))
+      {
+        v114 = *v105;
+        buf.f_bsize = 134217984;
+        *&buf.f_iosize = v114;
+        _os_log_impl(&_mh_execute_header, v113, OS_LOG_TYPE_DEFAULT, "=diag= private_id: %llu", &buf, 0xCu);
+      }
+
+      _MBLog(@"Df", "=diag= private_id: %llu", *v105);
+    }
+
+    v116 = MBGetDefaultLog(v115);
+    if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
+    {
+      v117 = v116;
+      if (os_log_type_enabled(v117, OS_LOG_TYPE_DEFAULT))
+      {
+        v118 = v105[1];
+        v119 = v105[2] & 1;
+        buf.f_bsize = 134218240;
+        *&buf.f_iosize = v118;
+        WORD2(buf.f_blocks) = 1024;
+        *(&buf.f_blocks + 6) = v119;
+        _os_log_impl(&_mh_execute_header, v117, OS_LOG_TYPE_DEFAULT, "=diag= prot_class: %llu (explicit? %d)", &buf, 0x12u);
+      }
+
+      _MBLog(@"Df", "=diag= prot_class: %llu (explicit? %d)", v105[1], v105[2] & 1);
+    }
+
+    if ((v105[2] & 0x8000000000000000) != 0)
+    {
+      v126 = MBGetDefaultLog(v120);
+      if (os_log_type_enabled(v126, OS_LOG_TYPE_DEFAULT))
+      {
+        v127 = v126;
+        if (os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
+        {
+          v128 = *(v105 + 85);
+          v129 = v105[3];
+          buf.f_bsize = 67109376;
+          buf.f_iosize = v128;
+          LOWORD(buf.f_blocks) = 2048;
+          *(&buf.f_blocks + 2) = v129;
+          _os_log_impl(&_mh_execute_header, v127, OS_LOG_TYPE_DEFAULT, "=diag= Found %u crypto ids for filesize %lld", &buf, 0x12u);
+        }
+
+        _MBLog(@"Df", "=diag= Found %u crypto ids for filesize %lld", *(v105 + 85), v105[3]);
+      }
+
+      v131 = MBGetDefaultLog(v130);
+      if (os_log_type_enabled(v131, OS_LOG_TYPE_DEFAULT))
+      {
+        v132 = v131;
+        if (os_log_type_enabled(v132, OS_LOG_TYPE_DEFAULT))
+        {
+          v133 = v105[3];
+          buf.f_bsize = 134217984;
+          *&buf.f_iosize = v133;
+          _os_log_impl(&_mh_execute_header, v132, OS_LOG_TYPE_DEFAULT, "=diag=   size:         %llu", &buf, 0xCu);
+        }
+
+        _MBLog(@"Df", "=diag=   size:         %llu", v105[3]);
+      }
+
+      v135 = MBGetDefaultLog(v134);
+      if (os_log_type_enabled(v135, OS_LOG_TYPE_DEFAULT))
+      {
+        v136 = v135;
+        if (os_log_type_enabled(v136, OS_LOG_TYPE_DEFAULT))
+        {
+          v137 = v105[4];
+          buf.f_bsize = 134217984;
+          *&buf.f_iosize = v137;
+          _os_log_impl(&_mh_execute_header, v136, OS_LOG_TYPE_DEFAULT, "=diag=   alloced_size: %llu", &buf, 0xCu);
+        }
+
+        _MBLog(@"Df", "=diag=   alloced_size: %llu", v105[4]);
+      }
+
+      v139 = MBGetDefaultLog(v138);
+      if (os_log_type_enabled(v139, OS_LOG_TYPE_DEFAULT))
+      {
+        v140 = v139;
+        if (os_log_type_enabled(v140, OS_LOG_TYPE_DEFAULT))
+        {
+          v141 = v105[5];
+          buf.f_bsize = 134217984;
+          *&buf.f_iosize = v141;
+          _os_log_impl(&_mh_execute_header, v140, OS_LOG_TYPE_DEFAULT, "=diag=   default_crid: %llu", &buf, 0xCu);
+        }
+
+        _MBLog(@"Df", "=diag=   default_crid: %llu", v105[5]);
+      }
+
+      v143 = MBGetDefaultLog(v142);
+      if (os_log_type_enabled(v143, OS_LOG_TYPE_DEFAULT))
+      {
+        v144 = v143;
+        if (os_log_type_enabled(v144, OS_LOG_TYPE_DEFAULT))
+        {
+          v145 = (*(v105 + 24) >> 14) & 1;
+          buf.f_bsize = 67109120;
+          buf.f_iosize = v145;
+          _os_log_impl(&_mh_execute_header, v144, OS_LOG_TYPE_DEFAULT, "=diag=     exists?  %u", &buf, 8u);
+        }
+
+        _MBLog(@"Df", "=diag=     exists?  %u", (*(v105 + 24) >> 14) & 1);
+      }
+
+      v147 = MBGetDefaultLog(v146);
+      if (os_log_type_enabled(v147, OS_LOG_TYPE_DEFAULT))
+      {
+        v148 = v147;
+        if (os_log_type_enabled(v148, OS_LOG_TYPE_DEFAULT))
+        {
+          v149 = *(v105 + 25);
+          v150 = *(v105 + 24) >> 15;
+          buf.f_bsize = 67109376;
+          buf.f_iosize = v149;
+          LOWORD(buf.f_blocks) = 1024;
+          *(&buf.f_blocks + 2) = v150;
+          _os_log_impl(&_mh_execute_header, v148, OS_LOG_TYPE_DEFAULT, "=diag=     payload: %u (trunc? %d)", &buf, 0xEu);
+        }
+
+        _MBLog(@"Df", "=diag=     payload: %u (trunc? %d)", *(v105 + 25), *(v105 + 24) >> 15);
+      }
+
+      v152 = MBGetDefaultLog(v151);
+      if (os_log_type_enabled(v152, OS_LOG_TYPE_DEFAULT))
+      {
+        v153 = v152;
+        if (os_log_type_enabled(v153, OS_LOG_TYPE_DEFAULT))
+        {
+          v154 = *(v105 + 13);
+          buf.f_bsize = 67109120;
+          buf.f_iosize = v154;
+          _os_log_impl(&_mh_execute_header, v153, OS_LOG_TYPE_DEFAULT, "=diag=     refcnt:  %u", &buf, 8u);
+        }
+
+        _MBLog(@"Df", "=diag=     refcnt:  %u", *(v105 + 13));
+      }
+
+      v156 = MBGetDefaultLog(v155);
+      if (os_log_type_enabled(v156, OS_LOG_TYPE_DEFAULT))
+      {
+        v157 = v156;
+        if (os_log_type_enabled(v157, OS_LOG_TYPE_DEFAULT))
+        {
+          v158 = *(v105 + 28);
+          v159 = *(v105 + 29);
+          buf.f_bsize = 67109376;
+          buf.f_iosize = v158;
+          LOWORD(buf.f_blocks) = 1024;
+          *(&buf.f_blocks + 2) = v159;
+          _os_log_impl(&_mh_execute_header, v157, OS_LOG_TYPE_DEFAULT, "=diag=     version: %u.%u", &buf, 0xEu);
+        }
+
+        _MBLog(@"Df", "=diag=     version: %u.%u", *(v105 + 28), *(v105 + 29));
+      }
+
+      v161 = MBGetDefaultLog(v160);
+      if (os_log_type_enabled(v161, OS_LOG_TYPE_DEFAULT))
+      {
+        v162 = v161;
+        if (os_log_type_enabled(v162, OS_LOG_TYPE_DEFAULT))
+        {
+          v163 = *(v105 + 15);
+          buf.f_bsize = 67109120;
+          buf.f_iosize = v163;
+          _os_log_impl(&_mh_execute_header, v162, OS_LOG_TYPE_DEFAULT, "=diag=     flags:   %#x", &buf, 8u);
+        }
+
+        _MBLog(@"Df", "=diag=     flags:   %#x", *(v105 + 15));
+      }
+
+      v165 = MBGetDefaultLog(v164);
+      if (os_log_type_enabled(v165, OS_LOG_TYPE_DEFAULT))
+      {
+        v166 = v165;
+        if (os_log_type_enabled(v166, OS_LOG_TYPE_DEFAULT))
+        {
+          v167 = *(v105 + 16);
+          buf.f_bsize = 67109120;
+          buf.f_iosize = v167;
+          _os_log_impl(&_mh_execute_header, v166, OS_LOG_TYPE_DEFAULT, "=diag=     class:   %#x", &buf, 8u);
+        }
+
+        _MBLog(@"Df", "=diag=     class:   %#x", *(v105 + 16));
+      }
+
+      v169 = MBGetDefaultLog(v168);
+      if (os_log_type_enabled(v169, OS_LOG_TYPE_DEFAULT))
+      {
+        v170 = v169;
+        if (os_log_type_enabled(v170, OS_LOG_TYPE_DEFAULT))
+        {
+          v171 = sub_10000D644(*(v105 + 17));
+          buf.f_bsize = 138412290;
+          *&buf.f_iosize = v171;
+          _os_log_impl(&_mh_execute_header, v170, OS_LOG_TYPE_DEFAULT, "=diag=     os:      %@", &buf, 0xCu);
+        }
+
+        v172 = sub_10000D644(*(v105 + 17));
+        _MBLog(@"Df", "=diag=     os:      %@", v172);
+      }
+
+      v174 = MBGetDefaultLog(v173);
+      if (os_log_type_enabled(v174, OS_LOG_TYPE_DEFAULT))
+      {
+        v175 = v174;
+        if (os_log_type_enabled(v175, OS_LOG_TYPE_DEFAULT))
+        {
+          v176 = *(v105 + 36);
+          buf.f_bsize = 67109120;
+          buf.f_iosize = v176;
+          _os_log_impl(&_mh_execute_header, v175, OS_LOG_TYPE_DEFAULT, "=diag=     rev:     %u", &buf, 8u);
+        }
+
+        _MBLog(@"Df", "=diag=     rev:     %u", *(v105 + 36));
+      }
+
+      v178 = MBGetDefaultLog(v177);
+      if (os_log_type_enabled(v178, OS_LOG_TYPE_DEFAULT))
+      {
+        v179 = v178;
+        if (os_log_type_enabled(v179, OS_LOG_TYPE_DEFAULT))
+        {
+          v180 = *(v105 + 37);
+          buf.f_bsize = 67109120;
+          buf.f_iosize = v180;
+          _os_log_impl(&_mh_execute_header, v179, OS_LOG_TYPE_DEFAULT, "=diag=     len:     %u", &buf, 8u);
+        }
+
+        _MBLog(@"Df", "=diag=     len:     %u", *(v105 + 37));
+      }
+
+      v182 = MBGetDefaultLog(v181);
+      if (os_log_type_enabled(v182, OS_LOG_TYPE_DEFAULT))
+      {
+        v183 = v182;
+        if (os_log_type_enabled(v183, OS_LOG_TYPE_DEFAULT))
+        {
+          v184 = *(v105 + 83);
+          buf.f_bsize = 67109120;
+          buf.f_iosize = v184;
+          _os_log_impl(&_mh_execute_header, v183, OS_LOG_TYPE_DEFAULT, "=diag=   refcnt:       %u", &buf, 8u);
+        }
+
+        _MBLog(@"Df", "=diag=   refcnt:       %u", *(v105 + 83));
+      }
+
+      v186 = MBGetDefaultLog(v185);
+      if (os_log_type_enabled(v186, OS_LOG_TYPE_DEFAULT))
+      {
+        v187 = v186;
+        if (os_log_type_enabled(v187, OS_LOG_TYPE_DEFAULT))
+        {
+          v188 = *(v105 + 85);
+          buf.f_bsize = 67109120;
+          buf.f_iosize = v188;
+          _os_log_impl(&_mh_execute_header, v187, OS_LOG_TYPE_DEFAULT, "=diag=   num extents:  %u", &buf, 8u);
+        }
+
+        _MBLog(@"Df", "=diag=   num extents:  %u", *(v105 + 85));
+      }
+
+      if (*(v105 + 85))
+      {
+        v190 = 0;
+        v191 = v105 + 197;
+        do
+        {
+          v192 = MBGetDefaultLog(v189);
+          if (os_log_type_enabled(v192, OS_LOG_TYPE_DEFAULT))
+          {
+            v193 = v192;
+            if (os_log_type_enabled(v193, OS_LOG_TYPE_DEFAULT))
+            {
+              v194 = *(v191 - 25);
+              v195 = *(v191 - 21);
+              v196 = *(v191 - 17);
+              buf.f_bsize = 134218496;
+              *&buf.f_iosize = v194;
+              WORD2(buf.f_blocks) = 2048;
+              *(&buf.f_blocks + 6) = v195;
+              HIWORD(buf.f_bfree) = 2048;
+              buf.f_bavail = v196;
+              _os_log_impl(&_mh_execute_header, v193, OS_LOG_TYPE_DEFAULT, "=diag=       0x%llx:+%lld (crid %llu)", &buf, 0x20u);
+            }
+
+            _MBLog(@"Df", "=diag=       0x%llx:+%lld (crid %llu)", *(v191 - 25), *(v191 - 21), *(v191 - 17));
+          }
+
+          v198 = MBGetDefaultLog(v197);
+          if (os_log_type_enabled(v198, OS_LOG_TYPE_DEFAULT))
+          {
+            v199 = v198;
+            if (os_log_type_enabled(v199, OS_LOG_TYPE_DEFAULT))
+            {
+              v200 = (*(v191 - 13) >> 14) & 1;
+              buf.f_bsize = 67109120;
+              buf.f_iosize = v200;
+              _os_log_impl(&_mh_execute_header, v199, OS_LOG_TYPE_DEFAULT, "=diag=       exists?  %u", &buf, 8u);
+            }
+
+            _MBLog(@"Df", "=diag=       exists?  %u", (*(v191 - 13) >> 14) & 1);
+          }
+
+          v202 = MBGetDefaultLog(v201);
+          if (os_log_type_enabled(v202, OS_LOG_TYPE_DEFAULT))
+          {
+            v203 = v202;
+            if (os_log_type_enabled(v203, OS_LOG_TYPE_DEFAULT))
+            {
+              v204 = *(v191 - 12);
+              v205 = *(v191 - 13) >> 15;
+              buf.f_bsize = 67109376;
+              buf.f_iosize = v204;
+              LOWORD(buf.f_blocks) = 1024;
+              *(&buf.f_blocks + 2) = v205;
+              _os_log_impl(&_mh_execute_header, v203, OS_LOG_TYPE_DEFAULT, "=diag=       payload: %u (trunc? %d)", &buf, 0xEu);
+            }
+
+            _MBLog(@"Df", "=diag=       payload: %u (trunc? %d)", *(v191 - 12), *(v191 - 13) >> 15);
+          }
+
+          v207 = MBGetDefaultLog(v206);
+          if (os_log_type_enabled(v207, OS_LOG_TYPE_DEFAULT))
+          {
+            v208 = v207;
+            if (os_log_type_enabled(v208, OS_LOG_TYPE_DEFAULT))
+            {
+              v209 = *(v191 - 11);
+              buf.f_bsize = 67109120;
+              buf.f_iosize = v209;
+              _os_log_impl(&_mh_execute_header, v208, OS_LOG_TYPE_DEFAULT, "=diag=       refcnt:  %u", &buf, 8u);
+            }
+
+            _MBLog(@"Df", "=diag=       refcnt:  %u", *(v191 - 11));
+          }
+
+          v211 = MBGetDefaultLog(v210);
+          if (os_log_type_enabled(v211, OS_LOG_TYPE_DEFAULT))
+          {
+            v212 = v211;
+            if (os_log_type_enabled(v212, OS_LOG_TYPE_DEFAULT))
+            {
+              v213 = *(v191 - 9);
+              v214 = *(v191 - 8);
+              buf.f_bsize = 67109376;
+              buf.f_iosize = v213;
+              LOWORD(buf.f_blocks) = 1024;
+              *(&buf.f_blocks + 2) = v214;
+              _os_log_impl(&_mh_execute_header, v212, OS_LOG_TYPE_DEFAULT, "=diag=       version: %u.%u", &buf, 0xEu);
+            }
+
+            _MBLog(@"Df", "=diag=       version: %u.%u", *(v191 - 9), *(v191 - 8));
+          }
+
+          v216 = MBGetDefaultLog(v215);
+          if (os_log_type_enabled(v216, OS_LOG_TYPE_DEFAULT))
+          {
+            v217 = v216;
+            if (os_log_type_enabled(v217, OS_LOG_TYPE_DEFAULT))
+            {
+              v218 = *(v191 - 7);
+              buf.f_bsize = 67109120;
+              buf.f_iosize = v218;
+              _os_log_impl(&_mh_execute_header, v217, OS_LOG_TYPE_DEFAULT, "=diag=       flags:   %#x", &buf, 8u);
+            }
+
+            _MBLog(@"Df", "=diag=       flags:   %#x", *(v191 - 7));
+          }
+
+          v220 = MBGetDefaultLog(v219);
+          if (os_log_type_enabled(v220, OS_LOG_TYPE_DEFAULT))
+          {
+            v221 = v220;
+            if (os_log_type_enabled(v221, OS_LOG_TYPE_DEFAULT))
+            {
+              v222 = *(v191 - 5);
+              buf.f_bsize = 67109120;
+              buf.f_iosize = v222;
+              _os_log_impl(&_mh_execute_header, v221, OS_LOG_TYPE_DEFAULT, "=diag=       class:   %#x", &buf, 8u);
+            }
+
+            _MBLog(@"Df", "=diag=       class:   %#x", *(v191 - 5));
+          }
+
+          v224 = MBGetDefaultLog(v223);
+          if (os_log_type_enabled(v224, OS_LOG_TYPE_DEFAULT))
+          {
+            v225 = v224;
+            if (os_log_type_enabled(v225, OS_LOG_TYPE_DEFAULT))
+            {
+              v226 = *(v191 - 3);
+              v227 = (v226 << 8) >> 24;
+              if (v227 > 0x7F)
+              {
+                v228 = __maskrune((v226 << 8) >> 24, 0x100uLL);
+              }
+
+              else
+              {
+                v228 = _DefaultRuneLocale.__runetype[v227] & 0x100;
+              }
+
+              if (v228)
+              {
+                v229 = @"%u%c%u";
+              }
+
+              else
+              {
+                v229 = @"%u-%c-%u";
+              }
+
+              v230 = [NSString stringWithFormat:v229, HIBYTE(v226), ((v226 << 8) >> 24), v226];
+              buf.f_bsize = 138412290;
+              *&buf.f_iosize = v230;
+              _os_log_impl(&_mh_execute_header, v225, OS_LOG_TYPE_DEFAULT, "=diag=       os:      %@", &buf, 0xCu);
+            }
+
+            v231 = *(v191 - 3);
+            v232 = (v231 << 8) >> 24;
+            if (v232 > 0x7F)
+            {
+              v233 = __maskrune((v231 << 8) >> 24, 0x100uLL);
+            }
+
+            else
+            {
+              v233 = _DefaultRuneLocale.__runetype[v232] & 0x100;
+            }
+
+            if (v233)
+            {
+              v234 = @"%u%c%u";
+            }
+
+            else
+            {
+              v234 = @"%u-%c-%u";
+            }
+
+            v235 = [NSString stringWithFormat:v234, HIBYTE(v231), ((v231 << 8) >> 24), v231];
+            _MBLog(@"Df", "=diag=       os:      %@", v235);
+          }
+
+          v237 = MBGetDefaultLog(v236);
+          if (os_log_type_enabled(v237, OS_LOG_TYPE_DEFAULT))
+          {
+            v238 = v237;
+            if (os_log_type_enabled(v238, OS_LOG_TYPE_DEFAULT))
+            {
+              v239 = *(v191 - 1);
+              buf.f_bsize = 67109120;
+              buf.f_iosize = v239;
+              _os_log_impl(&_mh_execute_header, v238, OS_LOG_TYPE_DEFAULT, "=diag=       rev:     %u", &buf, 8u);
+            }
+
+            _MBLog(@"Df", "=diag=       rev:     %u", *(v191 - 1));
+          }
+
+          v241 = MBGetDefaultLog(v240);
+          if (os_log_type_enabled(v241, OS_LOG_TYPE_DEFAULT))
+          {
+            v242 = v241;
+            if (os_log_type_enabled(v242, OS_LOG_TYPE_DEFAULT))
+            {
+              v243 = *v191;
+              buf.f_bsize = 67109120;
+              buf.f_iosize = v243;
+              _os_log_impl(&_mh_execute_header, v242, OS_LOG_TYPE_DEFAULT, "=diag=       len:     %u", &buf, 8u);
+            }
+
+            _MBLog(@"Df", "=diag=       len:     %u", *v191);
+          }
+
+          ++v190;
+          v191 += 156;
+        }
+
+        while (v190 < *(v105 + 85));
+      }
+    }
+
+    else
+    {
+      v111 = MBGetDefaultLog(v120);
+      if (os_log_type_enabled(v111, OS_LOG_TYPE_DEFAULT))
+      {
+        v111 = v111;
+        if (os_log_type_enabled(v111, OS_LOG_TYPE_DEFAULT))
+        {
+          buf.f_bsize = 136315138;
+          *&buf.f_iosize = v262;
+          _os_log_impl(&_mh_execute_header, v111, OS_LOG_TYPE_DEFAULT, "=diag= %s does not have associated crypto dstreams", &buf, 0xCu);
+        }
+
+        _MBLog(@"Df", "=diag= %s does not have associated crypto dstreams");
+      }
+
+LABEL_203:
+    }
+
+    free(v105);
+    sub_10000D6E8(v262);
+    v121 = getxattr(v262, "com.apple.ResourceFork", 0, 0, 0, 0);
+    v1 = v261;
+    if (v121 != -1)
+    {
+      v122 = MBGetDefaultLog(v121);
+      if (os_log_type_enabled(v122, OS_LOG_TYPE_DEFAULT))
+      {
+        v123 = v122;
+        if (os_log_type_enabled(v123, OS_LOG_TYPE_DEFAULT))
+        {
+          buf.f_bsize = 136315138;
+          *&buf.f_iosize = v262;
+          _os_log_impl(&_mh_execute_header, v123, OS_LOG_TYPE_DEFAULT, "=diag= %s is a compressed file", &buf, 0xCu);
+        }
+
+        _MBLog(@"Df", "=diag= %s is a compressed file", v262);
+      }
+
+      v124 = [v261 stringByAppendingPathComponent:@"/..namedfork/rsrc"];
+      sub_10000D6E8([v124 fileSystemRepresentation]);
+    }
+
+    v84 = close(v264);
+  }
+
+  v20 = MBGetDefaultLog(v84);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  {
+    v125 = v20;
+    if (os_log_type_enabled(v125, OS_LOG_TYPE_DEFAULT))
+    {
+      buf.f_bsize = 138543362;
+      *&buf.f_iosize = v1;
+      _os_log_impl(&_mh_execute_header, v125, OS_LOG_TYPE_DEFAULT, "=diag= Finished dumping diagnostics for %{public}@", &buf, 0xCu);
+    }
+
+    _MBLog(@"Df", "=diag= Finished dumping diagnostics for %{public}@", v1);
+  }
+
+LABEL_215:
+
+LABEL_216:
 }
 
 id sub_10000D644(unsigned int a1)
@@ -2346,133 +2292,128 @@ void sub_10000D6E8(const char *a1)
   v3 = v2;
   *v2 = 0;
   v2[1] = 0;
-  v60 = 0u;
-  v59 = 0u;
-  v53 = xmmword_100018E80;
-  v54 = 0;
-  v55 = v2;
-  v57 = 0;
-  v58 = 0;
-  v56 = 16;
-  if (fsctl(a1, 0xC0584A1EuLL, &v53, 0))
+  v30 = 0u;
+  v29 = 0u;
+  v23 = xmmword_100018E80;
+  v24 = 0;
+  v25 = v2;
+  v27 = 0;
+  v28 = 0;
+  v26 = 16;
+  if (fsctl(a1, 0xC0584A1EuLL, &v23, 0))
   {
     free(v3);
-    v4 = MBGetDefaultLog();
-    if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = MBGetDefaultLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-LABEL_6:
-
-      return;
+      v6 = *__error();
+      *buf = 67109120;
+      *&buf[4] = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "=diag= fsctl(APFSIOC_DEBUG_STATS) failed: %{errno}d", buf, 8u);
+      v21 = *__error();
+      _MBLog(@"Df", "=diag= fsctl(APFSIOC_DEBUG_STATS) failed: %{errno}d", v21);
     }
 
-    v5 = *__error();
-    *buf = 67109120;
-    *&buf[4] = v5;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "=diag= fsctl(APFSIOC_DEBUG_STATS) failed: %{errno}d", buf, 8u);
-    v49 = *__error();
-    v12 = "=diag= fsctl(APFSIOC_DEBUG_STATS) failed: %{errno}d";
 LABEL_5:
-    _MBLog(@"Df", v12, v6, v7, v8, v9, v10, v11, v49);
-    goto LABEL_6;
+
+    return;
   }
 
-  if (!v58)
+  if (!v28)
   {
     free(v3);
-    v4 = MBGetDefaultLog();
-    if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = MBGetDefaultLog(v18);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_6;
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "=diag= fsctl(APFSIOC_DEBUG_STATS) returned zero buffer entries", buf, 2u);
+      _MBLog(@"Df", "=diag= fsctl(APFSIOC_DEBUG_STATS) returned zero buffer entries");
     }
 
-    *buf = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "=diag= fsctl(APFSIOC_DEBUG_STATS) returned zero buffer entries", buf, 2u);
-    v12 = "=diag= fsctl(APFSIOC_DEBUG_STATS) returned zero buffer entries";
     goto LABEL_5;
   }
 
-  v13 = malloc_type_malloc(0x4E200uLL, 0x100004071F2C783uLL);
-  if (v13)
+  v7 = malloc_type_malloc(0x4E200uLL, 0x100004071F2C783uLL);
+  if (v7)
   {
-    v14 = v13;
-    v15 = MBGetDefaultLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v8 = v7;
+    v9 = MBGetDefaultLog(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = *v3;
-      v17 = v3[1];
+      v10 = *v3;
+      v11 = v3[1];
       *buf = 134218240;
-      *&buf[4] = v16;
+      *&buf[4] = v10;
       *&buf[12] = 2048;
-      *&buf[14] = v17;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "=diag= Dstream id %llu, dstream size %llu bytes", buf, 0x16u);
-      v51 = v3[1];
-      _MBLog(@"Df", "=diag= Dstream id %llu, dstream size %llu bytes", v18, v19, v20, v21, v22, v23, *v3);
+      *&buf[14] = v11;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "=diag= Dstream id %llu, dstream size %llu bytes", buf, 0x16u);
+      _MBLog(@"Df", "=diag= Dstream id %llu, dstream size %llu bytes", *v3, v3[1]);
     }
 
-    for (i = 0; ; i = *(v25 - 7) + *(v25 - 8))
+    for (i = 0; ; i = *(v14 - 7) + *(v14 - 8))
     {
-      bzero(v14, 0x4E200uLL);
-      v69 = 0;
-      v70 = 0;
-      v71 = 0;
+      bzero(v8, 0x4E200uLL);
+      v39 = 0;
+      v40 = 0;
+      v41 = 0;
       *buf = xmmword_100018E90;
       *&buf[16] = 10;
-      v64 = v14;
-      v65 = 320000;
-      v66 = i;
-      v67 = *v3;
-      v68 = 0;
-      if (fsctl(a1, 0xC0584A1EuLL, buf, 0))
+      v34 = v8;
+      v35 = 320000;
+      v36 = i;
+      v37 = *v3;
+      v38 = 0;
+      v13 = fsctl(a1, 0xC0584A1EuLL, buf, 0);
+      if (v13)
       {
         break;
       }
 
-      if (!v68)
+      if (!v38)
       {
-        v35 = MBGetDefaultLog();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+        v19 = MBGetDefaultLog(v13);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          *v61 = 134217984;
-          *v62 = i;
-          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "=diag= fsctl(APFSIOC_DEBUG_STATS) for FUSION_DEBUG_STATS_PURE_FEXTS_ONLY returned zero buffer entries at offset %lld", v61, 0xCu);
-          _MBLog(@"Df", "=diag= fsctl(APFSIOC_DEBUG_STATS) for FUSION_DEBUG_STATS_PURE_FEXTS_ONLY returned zero buffer entries at offset %lld", v43, v44, v45, v46, v47, v48, i);
+          *v31 = 134217984;
+          *v32 = i;
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "=diag= fsctl(APFSIOC_DEBUG_STATS) for FUSION_DEBUG_STATS_PURE_FEXTS_ONLY returned zero buffer entries at offset %lld", v31, 0xCu);
+          _MBLog(@"Df", "=diag= fsctl(APFSIOC_DEBUG_STATS) for FUSION_DEBUG_STATS_PURE_FEXTS_ONLY returned zero buffer entries at offset %lld");
         }
 
-        goto LABEL_23;
+        goto LABEL_22;
       }
 
-      v25 = &v14[64 * v68];
-      v26 = MBGetDefaultLog();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v14 = &v8[64 * v38];
+      v15 = MBGetDefaultLog(v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = *(v25 - 8);
-        v28 = *(v25 - 7);
-        *v61 = 134218240;
-        *v62 = v27;
-        *&v62[8] = 2048;
-        *&v62[10] = v28;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "=diag= Extent offset %lld and length %lld", v61, 0x16u);
-        v52 = *(v25 - 7);
-        _MBLog(@"Df", "=diag= Extent offset %lld and length %lld", v29, v30, v31, v32, v33, v34, *(v25 - 8));
+        v16 = *(v14 - 8);
+        v17 = *(v14 - 7);
+        *v31 = 134218240;
+        *v32 = v16;
+        *&v32[8] = 2048;
+        *&v32[10] = v17;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "=diag= Extent offset %lld and length %lld", v31, 0x16u);
+        _MBLog(@"Df", "=diag= Extent offset %lld and length %lld", *(v14 - 8), *(v14 - 7));
       }
     }
 
-    v35 = MBGetDefaultLog();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v19 = MBGetDefaultLog(v13);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v36 = *__error();
-      *v61 = 67109376;
-      *v62 = v36;
-      *&v62[4] = 2048;
-      *&v62[6] = i;
-      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "=diag= fsctl(APFSIOC_DEBUG_STATS) failed: %{errno}d, cannot get extents at offset %lld", v61, 0x12u);
-      v50 = *__error();
-      _MBLog(@"Df", "=diag= fsctl(APFSIOC_DEBUG_STATS) failed: %{errno}d, cannot get extents at offset %lld", v37, v38, v39, v40, v41, v42, v50);
+      v20 = *__error();
+      *v31 = 67109376;
+      *v32 = v20;
+      *&v32[4] = 2048;
+      *&v32[6] = i;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "=diag= fsctl(APFSIOC_DEBUG_STATS) failed: %{errno}d, cannot get extents at offset %lld", v31, 0x12u);
+      v22 = *__error();
+      _MBLog(@"Df", "=diag= fsctl(APFSIOC_DEBUG_STATS) failed: %{errno}d, cannot get extents at offset %lld", v22, i);
     }
 
-LABEL_23:
+LABEL_22:
 
-    free(v14);
+    free(v8);
   }
 
   free(v3);
@@ -2527,16 +2468,16 @@ uint64_t MBSimpleChecksumForString(void *a1)
   return v3;
 }
 
-id MBGetDefaultLog()
+id MBGetDefaultLog(uint64_t a1)
 {
   if (qword_10002A1C8 != -1)
   {
     sub_1000148E4();
   }
 
-  v1 = qword_10002A1C0;
+  v2 = qword_10002A1C0;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000E638(id a1)
@@ -2546,16 +2487,16 @@ void sub_10000E638(id a1)
   _objc_release_x1();
 }
 
-id MBGetLogDateFormatter()
+id MBGetLogDateFormatter(uint64_t a1)
 {
   if (qword_10002A1D8 != -1)
   {
     sub_1000148F8();
   }
 
-  v1 = qword_10002A1D0;
+  v2 = qword_10002A1D0;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000E6C0(id a1)
@@ -2570,9 +2511,9 @@ void sub_10000E6C0(id a1)
   [v3 setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
 }
 
-const __CFString *MBGetLogDir()
+const __CFString *MBGetLogDir(uint64_t a1, uint64_t a2)
 {
-  if (MBIsInternalInstall())
+  if (MBIsInternalInstall(a1, a2))
   {
     return @"/var/mobile/Library/Logs/MobileBackup";
   }
@@ -2713,19 +2654,20 @@ LABEL_29:
   return v3;
 }
 
-void _MBLog(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void _MBLog(void *a1, const char *a2, ...)
 {
-  v10 = a1;
+  va_start(va, a2);
+  v3 = a1;
   if (sFileLoggingEnabled == 1)
   {
-    v11 = objc_autoreleasePoolPush();
-    v12 = [NSString stringWithCString:a2 encoding:4];
-    v13 = [NSString alloc];
-    v14 = sub_10000E750(v12);
-    v15 = [v13 initWithFormat:v14 arguments:&a9];
+    v4 = objc_autoreleasePoolPush();
+    v5 = [NSString stringWithCString:a2 encoding:4];
+    v6 = [NSString alloc];
+    v7 = sub_10000E750(v5);
+    v8 = [v6 initWithFormat:v7 arguments:va];
 
-    sub_10000EA64(v10, v15);
-    objc_autoreleasePoolPop(v11);
+    sub_10000EA64(v3, v8);
+    objc_autoreleasePoolPop(v4);
   }
 }
 
@@ -2733,31 +2675,32 @@ void sub_10000EA64(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
+  v5 = v4;
   if (qword_10002A1F8 != -1)
   {
     sub_10001490C();
   }
 
-  v5 = MBGetLogDateFormatter();
-  v6 = +[NSDate date];
-  v7 = [v5 stringFromDate:v6];
+  v6 = MBGetLogDateFormatter(v4);
+  v7 = +[NSDate date];
+  v8 = [v6 stringFromDate:v7];
 
-  v74 = 0;
-  if (pthread_threadid_np(0, &v74))
+  v77 = 0;
+  if (pthread_threadid_np(0, &v77))
   {
-    v8 = 0;
-    v74 = 0;
+    v9 = 0;
+    v77 = 0;
   }
 
   else
   {
-    v8 = v74;
+    v9 = v77;
   }
 
-  v9 = [NSString stringWithFormat:@"%@ %d.%llx %@: %@\n", v7, dword_10002A1F0, v8, v3, v4];
-  v10 = [v9 UTF8String];
-  v11 = strlen(v10);
-  pthread_mutex_lock(&stru_100029FF0);
+  v10 = [NSString stringWithFormat:@"%@ %d.%llx %@: %@\n", v8, dword_10002A1F0, v9, v3, v5];
+  v11 = [v10 UTF8String];
+  v12 = strlen(v11);
+  v13 = pthread_mutex_lock(&stru_100029FF0);
   if (qword_10002A1E8)
   {
     if (qword_10002A210 != -1)
@@ -2770,9 +2713,10 @@ void sub_10000EA64(void *a1, void *a2)
       goto LABEL_79;
     }
 
+    v13 = qword_10002A1E8;
     if (qword_10002A1E8)
     {
-      fclose(qword_10002A1E8);
+      v13 = fclose(qword_10002A1E8);
     }
   }
 
@@ -2783,9 +2727,9 @@ void sub_10000EA64(void *a1, void *a2)
 
   if (byte_10002A218 == 1)
   {
-    v12 = MBGetLogDir();
-    v13 = [v12 fileSystemRepresentation];
-    if (mkdir(v13, 0x1C0u) && *__error() != 17)
+    v15 = MBGetLogDir(v13, v14);
+    v16 = [v15 fileSystemRepresentation];
+    if (mkdir(v16, 0x1C0u) && *__error() != 17)
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
@@ -2795,8 +2739,8 @@ void sub_10000EA64(void *a1, void *a2)
 
     else if (!geteuid())
     {
-      memset(&v82, 0, sizeof(v82));
-      if (lstat(v13, &v82))
+      memset(&v85, 0, sizeof(v85));
+      if (lstat(v16, &v85))
       {
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
@@ -2806,10 +2750,10 @@ void sub_10000EA64(void *a1, void *a2)
 
       else
       {
-        v55 = MBMobileUID();
-        if (v82.st_uid == v55 && v82.st_gid == v55 || !lchown(v13, v55, v55))
+        v58 = MBMobileUID();
+        if (v85.st_uid == v58 && v85.st_gid == v58 || !lchown(v16, v58, v58))
         {
-          if ((~v82.st_mode & 0x1C0) != 0 && lchmod(v13, 0x1C0u) && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+          if ((~v85.st_mode & 0x1C0) != 0 && lchmod(v16, 0x1C0u) && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
             sub_100014AFC();
           }
@@ -2834,31 +2778,31 @@ void sub_10000EA64(void *a1, void *a2)
     goto LABEL_81;
   }
 
-  v14 = MBGetLogDir();
-  v66 = sub_10000F390();
-  v15 = [v14 stringByAppendingPathComponent:?];
+  v17 = MBGetLogDir(v13, v14);
+  v69 = sub_10000F390();
+  v18 = [v17 stringByAppendingPathComponent:?];
   qword_10002A200 = 0;
-  memset(&v82, 0, sizeof(v82));
-  v67 = v14;
-  if (!lstat([v15 fileSystemRepresentation], &v82))
+  memset(&v85, 0, sizeof(v85));
+  v70 = v17;
+  if (!lstat([v18 fileSystemRepresentation], &v85))
   {
     if (qword_10002A210 != -1)
     {
       sub_100014920();
     }
 
-    v68 = qword_10002A208;
+    v71 = qword_10002A208;
     if (qword_10002A258 != -1)
     {
       sub_100014BA8();
     }
 
-    v72 = qword_10002A250;
-    v69 = time(0);
-    st_size = v82.st_size;
-    if (v68 < v82.st_size || (qword_10002A200 = v82.st_size, v69 > v82.st_birthtimespec.tv_sec) && v69 - v82.st_birthtimespec.tv_sec >= 86401)
+    v75 = qword_10002A250;
+    v72 = time(0);
+    st_size = v85.st_size;
+    if (v71 < v85.st_size || (qword_10002A200 = v85.st_size, v72 > v85.st_birthtimespec.tv_sec) && v72 - v85.st_birthtimespec.tv_sec >= 86401)
     {
-      v16 = +[NSFileManager defaultManager];
+      v19 = +[NSFileManager defaultManager];
       if (qword_10002A248 != -1)
       {
         sub_100014BD0();
@@ -2866,98 +2810,98 @@ void sub_10000EA64(void *a1, void *a2)
 
       if (byte_10002A240)
       {
-        v59 = v15;
-        v60 = v11;
-        v61 = v10;
-        v62 = v9;
-        v63 = v7;
-        v64 = v4;
-        v65 = v3;
-        v70 = v16;
-        v17 = [v16 contentsOfDirectoryAtPath:v14 error:0];
-        v80[0] = _NSConcreteStackBlock;
-        v80[1] = 3221225472;
-        v80[2] = sub_10000F648;
-        v80[3] = &unk_100024A10;
-        v18 = v66;
-        v81 = v18;
-        v57 = [NSPredicate predicateWithBlock:v80];
-        v58 = v17;
-        v56 = [v17 filteredArrayUsingPredicate:?];
-        v19 = [v56 sortedArrayUsingComparator:&stru_100024AB0];
-        v76 = 0u;
-        v77 = 0u;
-        v78 = 0u;
+        v62 = v18;
+        v63 = v12;
+        v64 = v11;
+        v65 = v10;
+        v66 = v8;
+        v67 = v5;
+        v68 = v3;
+        v73 = v19;
+        v20 = [v19 contentsOfDirectoryAtPath:v17 error:0];
+        v83[0] = _NSConcreteStackBlock;
+        v83[1] = 3221225472;
+        v83[2] = sub_10000F648;
+        v83[3] = &unk_100024A10;
+        v21 = v69;
+        v84 = v21;
+        v60 = [NSPredicate predicateWithBlock:v83];
+        v61 = v20;
+        v59 = [v20 filteredArrayUsingPredicate:?];
+        v22 = [v59 sortedArrayUsingComparator:&stru_100024AB0];
         v79 = 0u;
-        v20 = v19;
-        v21 = [v19 countByEnumeratingWithState:&v76 objects:v83 count:16];
-        v22 = v68;
-        if (!v21)
+        v80 = 0u;
+        v81 = 0u;
+        v82 = 0u;
+        v23 = v22;
+        v24 = [v22 countByEnumeratingWithState:&v79 objects:v86 count:16];
+        v25 = v71;
+        if (!v24)
         {
           goto LABEL_65;
         }
 
-        v23 = v21;
-        v24 = *v77;
+        v26 = v24;
+        v27 = *v80;
         while (1)
         {
-          for (i = 0; i != v23; i = i + 1)
+          for (i = 0; i != v26; i = i + 1)
           {
-            if (*v77 != v24)
+            if (*v80 != v27)
             {
-              objc_enumerationMutation(v20);
+              objc_enumerationMutation(v23);
             }
 
-            v26 = *(*(&v76 + 1) + 8 * i);
-            v27 = [v26 stringByDeletingPathExtension];
-            v28 = [v27 isEqualToString:v18];
+            v29 = *(*(&v79 + 1) + 8 * i);
+            v30 = [v29 stringByDeletingPathExtension];
+            v31 = [v30 isEqualToString:v21];
 
-            if ((v28 & 1) == 0)
+            if ((v31 & 1) == 0)
             {
-              if (([v26 isEqualToString:v18] & 1) == 0)
+              if (([v29 isEqualToString:v21] & 1) == 0)
               {
                 continue;
               }
 
-              v30 = 0;
+              v33 = 0;
 LABEL_48:
-              v31 = [v14 stringByAppendingPathComponent:v26];
-              v32 = v31;
-              if (v72 <= v30)
+              v34 = [v17 stringByAppendingPathComponent:v29];
+              v35 = v34;
+              if (v75 <= v33)
               {
-                if (!lstat([v31 fileSystemRepresentation], &v82) && v69 > v82.st_mtimespec.tv_sec && v69 - v82.st_mtimespec.tv_sec >= 864001)
+                if (!lstat([v34 fileSystemRepresentation], &v85) && v72 > v85.st_mtimespec.tv_sec && v72 - v85.st_mtimespec.tv_sec >= 864001)
                 {
                   goto LABEL_59;
                 }
               }
 
-              else if (v22 < st_size)
+              else if (v25 < st_size)
               {
-                if (v72 > (v30 + 1))
+                if (v75 > (v33 + 1))
                 {
-                  v33 = [NSNumber numberWithInt:?];
-                  [v33 description];
-                  v35 = v34 = v14;
-                  v36 = [v18 stringByAppendingPathExtension:v35];
-                  v37 = [v34 stringByAppendingPathComponent:v36];
+                  v36 = [NSNumber numberWithInt:?];
+                  [v36 description];
+                  v38 = v37 = v17;
+                  v39 = [v21 stringByAppendingPathExtension:v38];
+                  v40 = [v37 stringByAppendingPathComponent:v39];
 
-                  v22 = v68;
-                  v75 = 0;
-                  LOBYTE(v33) = [v70 moveItemAtPath:v32 toPath:v37 error:&v75];
-                  v38 = v75;
-                  v39 = v38;
-                  if ((v33 & 1) == 0)
+                  v25 = v71;
+                  v78 = 0;
+                  LOBYTE(v36) = [v73 moveItemAtPath:v35 toPath:v40 error:&v78];
+                  v41 = v78;
+                  v42 = v41;
+                  if ((v36 & 1) == 0)
                   {
-                    v40 = [v38 domain];
-                    if ([v40 isEqualToString:NSCocoaErrorDomain])
+                    v43 = [v41 domain];
+                    if ([v43 isEqualToString:NSCocoaErrorDomain])
                     {
-                      v41 = [v39 code];
+                      v44 = [v42 code];
 
-                      v42 = v41 == 513;
-                      v22 = v68;
-                      if (v42)
+                      v45 = v44 == 513;
+                      v25 = v71;
+                      if (v45)
                       {
-                        [v70 removeItemAtPath:v32 error:0];
+                        [v73 removeItemAtPath:v35 error:0];
                       }
                     }
 
@@ -2966,12 +2910,12 @@ LABEL_48:
                     }
                   }
 
-                  v14 = v67;
+                  v17 = v70;
                   goto LABEL_62;
                 }
 
 LABEL_59:
-                [v70 removeItemAtPath:v32 error:0];
+                [v73 removeItemAtPath:v35 error:0];
               }
 
 LABEL_62:
@@ -2979,56 +2923,56 @@ LABEL_62:
               continue;
             }
 
-            v29 = [v26 pathExtension];
-            v30 = [v29 intValue];
+            v32 = [v29 pathExtension];
+            v33 = [v32 intValue];
 
-            if ((v30 & 0x80000000) == 0)
+            if ((v33 & 0x80000000) == 0)
             {
               goto LABEL_48;
             }
           }
 
-          v23 = [v20 countByEnumeratingWithState:&v76 objects:v83 count:16];
-          if (!v23)
+          v26 = [v23 countByEnumeratingWithState:&v79 objects:v86 count:16];
+          if (!v26)
           {
 LABEL_65:
 
-            v4 = v64;
-            v3 = v65;
-            v9 = v62;
-            v7 = v63;
-            v11 = v60;
-            v10 = v61;
-            v15 = v59;
-            v16 = v70;
+            v5 = v67;
+            v3 = v68;
+            v10 = v65;
+            v8 = v66;
+            v12 = v63;
+            v11 = v64;
+            v18 = v62;
+            v19 = v73;
             goto LABEL_68;
           }
         }
       }
 
-      [v16 removeItemAtPath:v15 error:0];
+      [v19 removeItemAtPath:v18 error:0];
 LABEL_68:
     }
   }
 
-  v43 = v9;
-  v44 = v7;
-  v45 = v4;
-  v46 = v3;
-  v47 = v11;
-  v48 = v10;
-  v49 = v15;
-  v50 = fopen([v15 fileSystemRepresentation], "a");
-  if (v50)
+  v46 = v10;
+  v47 = v8;
+  v48 = v5;
+  v49 = v3;
+  v50 = v12;
+  v51 = v11;
+  v52 = v18;
+  v53 = fopen([v18 fileSystemRepresentation], "a");
+  if (v53)
   {
-    v73 = MBMobileUID();
-    v51 = fileno(v50);
-    if (!fstat(v51, &v82))
+    v76 = MBMobileUID();
+    v54 = fileno(v53);
+    if (!fstat(v54, &v85))
     {
-      st_uid = v82.st_uid;
-      if (v82.st_uid != v73 && st_uid == geteuid())
+      st_uid = v85.st_uid;
+      if (v85.st_uid != v76 && st_uid == geteuid())
       {
-        fchown(v51, v73, 0xFFFFFFFF);
+        fchown(v54, v76, 0xFFFFFFFF);
       }
     }
   }
@@ -3038,16 +2982,16 @@ LABEL_68:
     sub_100014BF8();
   }
 
-  qword_10002A1E8 = v50;
-  v3 = v46;
-  v4 = v45;
-  v7 = v44;
-  v9 = v43;
-  if (v50)
+  qword_10002A1E8 = v53;
+  v3 = v49;
+  v5 = v48;
+  v8 = v47;
+  v10 = v46;
+  if (v53)
   {
-    v10 = v48;
-    v11 = v47;
-    if (ftello(v50))
+    v11 = v51;
+    v12 = v50;
+    if (ftello(v53))
     {
       fputs("\n", qword_10002A1E8);
       ++qword_10002A200;
@@ -3056,11 +3000,11 @@ LABEL_68:
 LABEL_79:
     if (qword_10002A1E8)
     {
-      qword_10002A200 += v11;
-      fputs(v10, qword_10002A1E8);
-      v53 = qword_10002A1E0;
-      v54 = dispatch_time(0, 3000000000);
-      dispatch_source_set_timer(v53, v54, 0xFFFFFFFFFFFFFFFFLL, 0);
+      qword_10002A200 += v12;
+      fputs(v11, qword_10002A1E8);
+      v56 = qword_10002A1E0;
+      v57 = dispatch_time(0, 3000000000);
+      dispatch_source_set_timer(v56, v57, 0xFFFFFFFFFFFFFFFFLL, 0);
     }
   }
 
@@ -3148,16 +3092,16 @@ void sub_10000F56C(id a1)
 
 void sub_10000F660(id a1)
 {
-  v1 = MBGetLogDir();
-  v5 = [v1 stringByDeletingLastPathComponent];
+  v2 = MBGetLogDir(a1, v1);
+  v6 = [v2 stringByDeletingLastPathComponent];
 
   getpid();
-  v2 = v5;
-  [v5 fileSystemRepresentation];
+  v3 = v6;
+  [v6 fileSystemRepresentation];
   byte_10002A218 = sandbox_check() == 0;
-  v3 = os_log_set_hook();
-  v4 = qword_10002A228;
-  qword_10002A228 = v3;
+  v4 = os_log_set_hook();
+  v5 = qword_10002A228;
+  qword_10002A228 = v4;
 }
 
 void sub_10000F724(id a1, unsigned __int8 a2, os_log_message_s *a3)
@@ -3222,37 +3166,37 @@ LABEL_19:
 
 void sub_10000F854(id a1)
 {
-  v2 = MBGetLogDir();
+  v3 = MBGetLogDir(a1, v1);
   getpid();
-  v1 = v2;
-  [v2 fileSystemRepresentation];
+  v2 = v3;
+  [v3 fileSystemRepresentation];
   byte_10002A230 = sandbox_check() == 0;
 }
 
 void sub_10000F8E4(id a1)
 {
-  v1 = MBGetLogDir();
-  if (v1)
+  v2 = MBGetLogDir(a1, v1);
+  if (v2)
   {
-    v7 = v1;
+    v8 = v2;
     getpid();
-    v2 = v7;
-    v6 = [v7 fileSystemRepresentation];
+    v3 = v8;
+    v7 = [v8 fileSystemRepresentation];
     if (sandbox_check())
     {
-      v3 = 0;
+      v4 = 0;
     }
 
     else
     {
-      v4 = +[NSProcessInfo processInfo];
-      v5 = [v4 processName];
+      v5 = +[NSProcessInfo processInfo];
+      v6 = [v5 processName];
 
-      v3 = ([v5 isEqualToString:@"healthd"] & 1) == 0 && !objc_msgSend(v5, "isEqualToString:", @"imagent");
+      v4 = ([v6 isEqualToString:@"healthd"] & 1) == 0 && !objc_msgSend(v6, "isEqualToString:", @"imagent");
     }
 
-    byte_10002A240 = v3;
-    v1 = v7;
+    byte_10002A240 = v4;
+    v2 = v8;
   }
 }
 
@@ -3279,13 +3223,14 @@ void sub_10000F9D8(id a1)
   qword_10002A250 = v2;
 }
 
-void sub_10000FAC4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000FAC4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
-uint64_t MBIsInternalInstall()
+uint64_t MBIsInternalInstall(uint64_t a1, uint64_t a2)
 {
   if (qword_10002A268 != -1)
   {
@@ -3542,20 +3487,20 @@ void sub_100013C08(uint64_t a1)
   v4 = [*(a1 + 40) error];
   (*(v3 + 16))(v3, v4);
 
-  v5 = MBGetDefaultLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = MBGetDefaultLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v6 = *(a1 + 40);
-    v7 = [v6 error];
+    v7 = *(a1 + 40);
+    v8 = [v7 error];
     *buf = 138412546;
-    v17 = v6;
-    v18 = 2112;
-    v19 = v7;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Finished task:%@, error:%@", buf, 0x16u);
+    v12 = v7;
+    v13 = 2112;
+    v14 = v8;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Finished task:%@, error:%@", buf, 0x16u);
 
-    v8 = *(a1 + 40);
-    v15 = [v8 error];
-    _MBLog(@"I ", "Finished task:%@, error:%@", v9, v10, v11, v12, v13, v14, v8);
+    v9 = *(a1 + 40);
+    v10 = [v9 error];
+    _MBLog(@"I ", "Finished task:%@, error:%@", v9, v10);
   }
 
   [*(a1 + 48) idle];
@@ -3564,35 +3509,35 @@ void sub_100013C08(uint64_t a1)
 
 void sub_100014970()
 {
-  v0 = *__error();
+  __error();
   sub_10000FAAC();
-  sub_10000FAC4(&_mh_execute_header, &_os_log_default, v1, "mkdir failed at %s: %{errno}d", v2, v3, v4, v5, v6);
+  sub_10000FAC4(&_mh_execute_header, &_os_log_default, v0, "mkdir failed at %s: %{errno}d", v1, v2, v3, v4);
 }
 
 void sub_1000149F4()
 {
-  v0 = *__error();
+  __error();
   sub_10000FAAC();
-  sub_10000FAC4(&_mh_execute_header, &_os_log_default, v1, "lstat failed at %s: %{errno}d", v2, v3, v4, v5, v6);
+  sub_10000FAC4(&_mh_execute_header, &_os_log_default, v0, "lstat failed at %s: %{errno}d", v1, v2, v3, v4);
 }
 
 void sub_100014A78()
 {
-  v0 = *__error();
+  __error();
   sub_10000FAAC();
-  sub_10000FAC4(&_mh_execute_header, &_os_log_default, v1, "lchown failed at %s: %{errno}d", v2, v3, v4, v5, v6);
+  sub_10000FAC4(&_mh_execute_header, &_os_log_default, v0, "lchown failed at %s: %{errno}d", v1, v2, v3, v4);
 }
 
 void sub_100014AFC()
 {
-  v0 = *__error();
+  __error();
   sub_10000FAAC();
-  sub_10000FAC4(&_mh_execute_header, &_os_log_default, v1, "lchmod failed at %s: %{errno}d", v2, v3, v4, v5, v6);
+  sub_10000FAC4(&_mh_execute_header, &_os_log_default, v0, "lchmod failed at %s: %{errno}d", v1, v2, v3, v4);
 }
 
 void sub_100014BF8()
 {
-  v0 = *__error();
+  __error();
   sub_10000FAAC();
-  sub_10000FAC4(&_mh_execute_header, &_os_log_default, v1, "Failed to open MobileBackup log file at %@: %{errno}d", v2, v3, v4, v5, v6);
+  sub_10000FAC4(&_mh_execute_header, &_os_log_default, v0, "Failed to open MobileBackup log file at %@: %{errno}d", v1, v2, v3, v4);
 }

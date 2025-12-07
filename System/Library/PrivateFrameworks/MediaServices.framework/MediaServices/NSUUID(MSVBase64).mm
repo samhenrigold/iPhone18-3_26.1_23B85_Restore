@@ -20,12 +20,11 @@
 
 - (id)msv_UUIDData
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
-  v4[1] = 0;
-  [self getUUIDBytes:v4];
-  v1 = [MEMORY[0x1E695DEF0] dataWithBytes:v4 length:16];
-  v2 = *MEMORY[0x1E69E9840];
+  v3[2] = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
+  v3[1] = 0;
+  [self getUUIDBytes:v3];
+  v1 = [MEMORY[0x1E695DEF0] dataWithBytes:v3 length:16];
 
   return v1;
 }

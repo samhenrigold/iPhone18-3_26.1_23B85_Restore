@@ -31,12 +31,12 @@
 
 - (SPUISSuggestionResultBuilder)initWithResult:(id)result queryContext:(id)context
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   resultCopy = result;
   contextCopy = context;
-  v24.receiver = self;
-  v24.super_class = SPUISSuggestionResultBuilder;
-  v8 = [(SPUISSuggestionResultBuilder *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = SPUISSuggestionResultBuilder;
+  v8 = [(SPUISSuggestionResultBuilder *)&v23 init];
   v9 = v8;
   if (v8)
   {
@@ -61,13 +61,12 @@
       [(SPUISSuggestionResultBuilder *)v9 setSuggestionString:completion2];
 
       suggestionString = [(SPUISSuggestionResultBuilder *)v9 suggestionString];
-      v25[0] = suggestionString;
-      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+      v24[0] = suggestionString;
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
       [(SPUISResultBuilder *)v9 setMatchedStrings:v21];
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -85,12 +84,12 @@
 
 - (SPUISSuggestionResultBuilder)initWithSuggestion:(id)suggestion queryContext:(id)context
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
   contextCopy = context;
-  v26.receiver = self;
-  v26.super_class = SPUISSuggestionResultBuilder;
-  v8 = [(SPUISSuggestionResultBuilder *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = SPUISSuggestionResultBuilder;
+  v8 = [(SPUISSuggestionResultBuilder *)&v25 init];
   v9 = v8;
   if (v8)
   {
@@ -129,12 +128,11 @@
 
     [(SPUISSuggestionResultBuilder *)v9 setSuggestion:suggestionCopy];
     suggestionString = [(SPUISSuggestionResultBuilder *)v9 suggestionString];
-    v27[0] = suggestionString;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+    v26[0] = suggestionString;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
     [(SPUISResultBuilder *)v9 setMatchedStrings:v23];
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -158,7 +156,7 @@
 
 + (id)buildResultsWithCompletionsData:(id)data queryContext:(id)context
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   contextCopy = context;
   if (dataCopy)
@@ -181,33 +179,33 @@
 
     v13 = MEMORY[0x277CC34D8];
     searchString2 = [contextCopy searchString];
-    v34 = @"photosBundleIDs";
-    v35[0] = v7;
-    v28 = v7;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
-    v27 = v12;
+    v33 = @"photosBundleIDs";
+    v34[0] = v7;
+    v27 = v7;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v26 = v12;
     v16 = [v13 suggestionsWithCurrentSuggestion:v12 userQueryString:searchString2 completionData:dataCopy options:v15];
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v17 = v16;
-    v18 = [v17 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v30;
+      v20 = *v29;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v30 != v20)
+          if (*v29 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v29 + 1) + 8 * i);
+          v22 = *(*(&v28 + 1) + 8 * i);
           if ([v22 suggestionKind] == 2)
           {
             v23 = [[SPUISSuggestionResultBuilder alloc] initWithSpotlightSuggestion:v22 queryContext:contextCopy];
@@ -219,7 +217,7 @@
           }
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v19);
@@ -231,17 +229,15 @@
     v8 = MEMORY[0x277CBEBF8];
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 + (id)buildResultsWithSuggestionsData:(id)data queryContext:(id)context
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   contextCopy = context;
-  if ([dataCopy count])
+  if (objc_msgSend_count(dataCopy))
   {
     v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v8 = MEMORY[0x277CC34D8];
@@ -251,29 +247,29 @@
 
     v12 = MEMORY[0x277CC34D8];
     searchString2 = [contextCopy searchString];
-    v25 = v11;
+    v24 = v11;
     v14 = [v12 suggestionsWithCurrentSuggestion:v11 userQueryString:searchString2 suggestionData:dataCopy options:MEMORY[0x277CBEC10]];
 
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v15 = v14;
-    v16 = [v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v27;
+      v18 = *v26;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v27 != v18)
+          if (*v26 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v26 + 1) + 8 * i);
+          v20 = *(*(&v25 + 1) + 8 * i);
           if ([v20 suggestionKind] == 2)
           {
             v21 = [[SPUISSuggestionResultBuilder alloc] initWithSpotlightSuggestion:v20 queryContext:contextCopy];
@@ -285,7 +281,7 @@
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v17);
@@ -297,19 +293,17 @@
     v7 = MEMORY[0x277CBEBF8];
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (SPUISSuggestionResultBuilder)initWithSpotlightSuggestion:(id)suggestion queryContext:(id)context
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
   contextCopy = context;
-  v22.receiver = self;
-  v22.super_class = SPUISSuggestionResultBuilder;
-  v8 = [(SPUISSuggestionResultBuilder *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = SPUISSuggestionResultBuilder;
+  v8 = [(SPUISSuggestionResultBuilder *)&v21 init];
   v9 = v8;
   if (v8)
   {
@@ -330,12 +324,11 @@
     [(SPUISSuggestionResultBuilder *)v9 setSpotlightSuggestion:suggestionCopy];
     result2 = [(SPUISResultBuilder *)v9 result];
     completion = [result2 completion];
-    v23[0] = completion;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+    v22[0] = completion;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
     [(SPUISResultBuilder *)v9 setMatchedStrings:v19];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -436,7 +429,7 @@ LABEL_17:
 
 - (id)buildInlineCardSections
 {
-  v67[1] = *MEMORY[0x277D85DE8];
+  v66[1] = *MEMORY[0x277D85DE8];
   result = [(SPUISResultBuilder *)self result];
   if ([result type] == 32)
   {
@@ -505,8 +498,8 @@ LABEL_17:
       v29 = [v27 textWithString:detailText];
       [(SPUISContactResultBuilder *)inlineCard2 setDetailText:v29];
 
-      v66 = result8;
-      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
+      v65 = result8;
+      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v65 count:1];
       [(SPUISContactResultBuilder *)inlineCard2 setPunchoutOptions:v30];
 
       buildSymbolImage = [(SPUISSuggestionResultBuilder *)self buildSymbolImage];
@@ -515,8 +508,8 @@ LABEL_17:
       buildCommand = [(SPUISSuggestionResultBuilder *)self buildCommand];
       [(SPUISContactResultBuilder *)inlineCard2 setCommand:buildCommand];
 
-      v65 = inlineCard2;
-      cardSections2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v65 count:1];
+      v64 = inlineCard2;
+      cardSections2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v64 count:1];
       goto LABEL_18;
     }
 
@@ -546,8 +539,8 @@ LABEL_17:
       inlineCard2 = [(SPUISContactResultBuilder *)v57 initWithResult:result4 contactEntity:suggestion2 contact:contact];
 
       buildCompactCardSection = [(SPUISResultBuilder *)inlineCard2 buildCompactCardSection];
-      v64 = buildCompactCardSection;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v64 count:1];
+      v63 = buildCompactCardSection;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v63 count:1];
 LABEL_31:
 
       goto LABEL_32;
@@ -600,10 +593,10 @@ LABEL_31:
         v49 = MEMORY[0x277D4C598];
         suggestionString = [(SPUISSuggestionResultBuilder *)self suggestionString];
         v51 = [v49 textWithString:suggestionString];
-        [buildCompactCardSection setTitle:v51];
+        objc_msgSend_setTitle_(buildCompactCardSection);
 
-        title = [buildCompactCardSection title];
-        [title setMaxLines:1];
+        v52 = objc_msgSend_title(buildCompactCardSection);
+        [v52 setMaxLines:1];
 
         v53 = objc_opt_new();
         suggestionString2 = [(SPUISSuggestionResultBuilder *)self suggestionString];
@@ -611,8 +604,8 @@ LABEL_31:
 
         [v53 setQuerySource:1];
         [buildCompactCardSection setCommand:v53];
-        v63 = buildCompactCardSection;
-        v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v63 count:1];
+        v62 = buildCompactCardSection;
+        v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v62 count:1];
 
         goto LABEL_31;
       }
@@ -644,18 +637,16 @@ LABEL_32:
     result8 = v12;
   }
 
-  [suggestion2 setTitle:result8];
-  title2 = [suggestion2 title];
-  [title2 setMaxLines:1];
+  objc_msgSend_setTitle_(suggestion2);
+  v13 = objc_msgSend_title(suggestion2);
+  [v13 setMaxLines:1];
 
   buildCommand3 = [(SPUISSuggestionResultBuilder *)self buildCommand];
   [suggestion2 setCommand:buildCommand3];
 
-  v67[0] = suggestion2;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:1];
+  v66[0] = suggestion2;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:1];
 LABEL_33:
-
-  v60 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -752,8 +743,8 @@ LABEL_9:
 
     command = objc_opt_new();
     result2 = [(SPUISResultBuilder *)self result];
-    title = [(__CFString *)result2 title];
-    text = [title text];
+    text3 = objc_msgSend_title(result2);
+    text = [text3 text];
     if (text)
     {
       [command setSearchString:text];
@@ -829,8 +820,8 @@ LABEL_9:
     {
       command = objc_opt_new();
       result4 = [(SPUISResultBuilder *)self result];
-      title2 = [result4 title];
-      text2 = [title2 text];
+      v39 = objc_msgSend_title(result4);
+      text2 = [v39 text];
       if (text2)
       {
         [command setSearchString:text2];
@@ -848,11 +839,11 @@ LABEL_9:
 
     command = objc_opt_new();
     suggestion2 = [(SPUISResultBuilder *)self result];
-    result2 = [suggestion2 title];
-    title = [(__CFString *)result2 text];
-    if (title)
+    result2 = objc_msgSend_title(suggestion2);
+    text3 = [(__CFString *)result2 text];
+    if (text3)
     {
-      [command setSearchString:title];
+      [command setSearchString:text3];
     }
 
     else
@@ -872,13 +863,13 @@ LABEL_25:
 
 - (id)buildHighlightedTextForSuggestion
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   matchedStrings = [(SPUISResultBuilder *)self matchedStrings];
   firstObject = [matchedStrings firstObject];
 
   queryContext = [(SPUISResultBuilder *)self queryContext];
   searchEntities = [queryContext searchEntities];
-  v7 = [searchEntities count];
+  v7 = objc_msgSend_count(searchEntities);
   queryContext2 = [(SPUISResultBuilder *)self queryContext];
   v9 = queryContext2;
   if (v7)
@@ -896,8 +887,8 @@ LABEL_25:
   v13 = objc_opt_new();
   [v13 setText:firstObject];
   [v13 setIsEmphasized:1];
-  v33[0] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+  v32[0] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
   v15 = objc_opt_new();
   [v15 setFormattedTextPieces:v14];
   if (([firstObject isEqual:displayString] & 1) == 0)
@@ -968,8 +959,6 @@ LABEL_25:
 
 LABEL_18:
 
-  v31 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
@@ -988,7 +977,7 @@ LABEL_18:
   v34 = v6;
   v8 = [v6 componentsSeparatedByString:@"<query>"];
   v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:3];
-  if ([v8 count])
+  if (objc_msgSend_count(v8))
   {
     v10 = 0;
     do
@@ -1002,7 +991,7 @@ LABEL_18:
         [v9 addObject:v13];
       }
 
-      if (v10 < [v8 count] - 1)
+      if (v10 < objc_msgSend_count(v8) - 1)
       {
         [v9 addObjectsFromArray:formattedTextPieces];
       }
@@ -1010,11 +999,11 @@ LABEL_18:
       ++v10;
     }
 
-    while (v10 < [v8 count]);
+    while (v10 < objc_msgSend_count(v8));
   }
 
   v36 = suggestionCopy;
-  if ([v9 count])
+  if (objc_msgSend_count(v9))
   {
     v14 = 0;
     while (1)
@@ -1038,7 +1027,7 @@ LABEL_18:
       {
         v18 = [v20 componentsSeparatedByString:@"<photo-icon>"];
 
-        if ([v18 count])
+        if (objc_msgSend_count(v18))
         {
           v25 = 0;
           do
@@ -1054,7 +1043,7 @@ LABEL_18:
               [v7 addObject:v30];
             }
 
-            if (v25 < [v18 count] - 1)
+            if (v25 < objc_msgSend_count(v18) - 1)
             {
               [v7 addObject:v5];
             }
@@ -1062,7 +1051,7 @@ LABEL_18:
             ++v25;
           }
 
-          while (v25 < [v18 count]);
+          while (v25 < objc_msgSend_count(v18));
         }
 
         goto LABEL_22;
@@ -1080,7 +1069,7 @@ LABEL_18:
 LABEL_22:
       }
 
-      if (++v14 >= [v9 count])
+      if (++v14 >= objc_msgSend_count(v9))
       {
         goto LABEL_24;
       }
@@ -1091,7 +1080,7 @@ LABEL_22:
   }
 
 LABEL_24:
-  if ([v7 count])
+  if (objc_msgSend_count(v7))
   {
     v31 = objc_opt_new();
     [v31 setFormattedTextPieces:v7];

@@ -3,6 +3,7 @@
 + (BOOL)unsignedIntegerForKey:(id)key defaultValue:(unint64_t)value;
 + (id)stringForKey:(id)key;
 + (void)_synchronizeKey:(id)key;
++ (void)setBool:(BOOL)bool forKey:(id)key;
 + (void)setString:(id)string forKey:(id)key;
 + (void)setUnsignedInteger:(unint64_t)integer forKey:(id)key;
 @end
@@ -35,6 +36,15 @@
   }
 
   return value;
+}
+
++ (void)setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  keyCopy = key;
+  v7 = +[NPSDomainAccessor nanoMapsDomainAccessor];
+  [v7 setBool:boolCopy forKey:keyCopy];
+  [self _synchronizeKey:keyCopy];
 }
 
 + (BOOL)unsignedIntegerForKey:(id)key defaultValue:(unint64_t)value

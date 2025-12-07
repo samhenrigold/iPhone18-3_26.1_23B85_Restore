@@ -59,28 +59,29 @@
 
 void __48__WFUserInfoManager_readUserIdentifierAndNotify__block_invoke(uint64_t a1)
 {
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2020000000;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
   v2 = getMKBDeviceUnlockedSinceBootSymbolLoc_ptr;
-  v14 = getMKBDeviceUnlockedSinceBootSymbolLoc_ptr;
+  v15 = getMKBDeviceUnlockedSinceBootSymbolLoc_ptr;
   if (!getMKBDeviceUnlockedSinceBootSymbolLoc_ptr)
   {
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __getMKBDeviceUnlockedSinceBootSymbolLoc_block_invoke;
-    v10[3] = &unk_279E6EA68;
-    v10[4] = &v11;
-    __getMKBDeviceUnlockedSinceBootSymbolLoc_block_invoke(v10);
-    v2 = v12[3];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __getMKBDeviceUnlockedSinceBootSymbolLoc_block_invoke;
+    v11[3] = &unk_279E6EA68;
+    v11[4] = &v12;
+    __getMKBDeviceUnlockedSinceBootSymbolLoc_block_invoke(v11);
+    v2 = v13[3];
   }
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v12, 8);
   if (!v2)
   {
-    v7 = __48__WFUserInfoManager_readUserIdentifierAndNotify__block_invoke_cold_1();
-    _Block_object_dispose(&v11, 8);
-    _Unwind_Resume(v7);
+    __48__WFUserInfoManager_readUserIdentifierAndNotify__block_invoke_cold_1();
+    v8 = v7;
+    _Block_object_dispose(&v12, 8);
+    _Unwind_Resume(v8);
   }
 
   if (v2() == 1)
@@ -101,7 +102,7 @@ void __48__WFUserInfoManager_readUserIdentifierAndNotify__block_invoke(uint64_t 
   block[2] = __48__WFUserInfoManager_readUserIdentifierAndNotify__block_invoke_2;
   block[3] = &unk_279E6EA40;
   block[4] = *(a1 + 32);
-  v9 = v4;
+  v10 = v4;
   v6 = v4;
   dispatch_async(v5, block);
 }
@@ -112,11 +113,11 @@ void __48__WFUserInfoManager_readUserIdentifierAndNotify__block_invoke_2(uint64_
   [v2 userInfoManager:*(a1 + 32) didSynchronizeUserIdentifier:*(a1 + 40)];
 }
 
-uint64_t __48__WFUserInfoManager_readUserIdentifierAndNotify__block_invoke_cold_1()
+void __48__WFUserInfoManager_readUserIdentifierAndNotify__block_invoke_cold_1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return [WFWeatherAlmanacParserV3 parseForecastData:v0 types:? location:? locale:? date:? error:? rules:?];
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  [WFWeatherAlmanacParserV3 parseForecastData:v1 types:? location:? locale:? date:? error:? rules:?];
 }
 
 @end

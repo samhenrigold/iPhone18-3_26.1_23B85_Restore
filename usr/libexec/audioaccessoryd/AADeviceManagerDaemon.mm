@@ -86,16 +86,20 @@
 {
   if (self->_headGestureManager)
   {
-    if (dword_1002F62E0 <= 30 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1002F62E0 <= 30)
     {
-      sub_1001D63E4();
+      if (dword_1002F62E0 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001D63E4(self, a2, v2);
+      }
     }
 
-    [(HGManager *)self->_headGestureManager stop];
-    headGestureManager = self->_headGestureManager;
-    self->_headGestureManager = 0;
+    [(HGManager *)selfCopy->_headGestureManager stop];
+    headGestureManager = selfCopy->_headGestureManager;
+    selfCopy->_headGestureManager = 0;
 
-    self->_headGestureUpdateFlags = 0;
+    selfCopy->_headGestureUpdateFlags = 0;
   }
 }
 
@@ -140,47 +144,45 @@
 
 - (id)descriptionWithLevel:(int)level
 {
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = sub_1000038F8;
-  v23 = sub_100003828;
-  v24 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = sub_1000038F8;
+  v21 = sub_100003828;
+  v22 = 0;
   obj = 0;
-  NSAppendPrintF_safe();
-  objc_storeStrong(&v24, 0);
+  NSAppendPrintF_safe(&obj, "-- AADeviceManagerDaemon --\n", *&level);
+  objc_storeStrong(&v22, obj);
   availableDevices = [(AADeviceManagerDaemon *)self availableDevices];
-  v5 = v20;
-  v17 = v20[5];
-  v11 = [availableDevices count];
-  bluetoothDeviceDiscovery = self->_bluetoothDeviceDiscovery;
-  NSAppendPrintF();
-  objc_storeStrong(v5 + 5, v17);
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_10001B920;
-  v16[3] = &unk_1002B6CC8;
-  v16[4] = &v19;
-  [availableDevices enumerateKeysAndObjectsUsingBlock:{v16, v11, bluetoothDeviceDiscovery}];
-  v6 = v20;
-  v15 = v20[5];
-  NSAppendPrintF();
-  objc_storeStrong(v6 + 5, v15);
+  v5 = v18;
+  v15 = v18[5];
+  NSAppendPrintF(&v15, "Connected Accessories: %d, %@\n", [availableDevices count], self->_bluetoothDeviceDiscovery);
+  objc_storeStrong(v5 + 5, v15);
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_10001B920;
+  v14[3] = &unk_1002B6CC8;
+  v14[4] = &v17;
+  [availableDevices enumerateKeysAndObjectsUsingBlock:v14];
+  v6 = v18;
+  v13 = v18[5];
+  NSAppendPrintF(&v13, "\n");
+  objc_storeStrong(v6 + 5, v13);
   if (self->_hRTFDownloadOTATriggered)
   {
-    v7 = v20;
-    v14 = v20[5];
-    NSAppendPrintF_safe();
-    objc_storeStrong(v7 + 5, v14);
+    v7 = v18;
+    v12 = v18[5];
+    NSAppendPrintF_safe(&v12, "HRTF Asset Download triggered: %s", "yes");
+    objc_storeStrong(v7 + 5, v12);
   }
 
-  v8 = v20;
-  v13 = v20[5];
-  NSAppendPrintF();
-  objc_storeStrong(v8 + 5, v13);
-  v9 = v20[5];
+  v8 = v18;
+  v11 = v18[5];
+  NSAppendPrintF(&v11, "\n");
+  objc_storeStrong(v8 + 5, v11);
+  v9 = v18[5];
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v17, 8);
 
   return v9;
 }
@@ -209,64 +211,72 @@
 
 - (void)_invalidate
 {
-  if (dword_1002F62E0 <= 30 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F62E0 <= 30)
   {
-    sub_1001D5860();
+    if (dword_1002F62E0 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001D5860(self, a2, v2);
+    }
   }
 
   if (_os_feature_enabled_impl())
   {
-    [(AADeviceManagerDaemon *)self _aaBatteryMonitorEnsureStopped];
+    [(AADeviceManagerDaemon *)selfCopy _aaBatteryMonitorEnsureStopped];
   }
 
-  [(AADeviceManagerDaemon *)self _aaPairedDeviceDiscoveryEnsureStopped];
-  [(AADeviceManagerDaemon *)self _aaControllerEnsureStopped];
-  [(AADeviceManagerDaemon *)self _cbDiscoveryEnsureStopped];
-  [(AADeviceManagerDaemon *)self _cbControllerEnsureStopped];
-  [(AADeviceManagerDaemon *)self _languageChangeMonitoringEnsureStopped];
-  prefsChangedNotifyToken = self->_prefsChangedNotifyToken;
+  [(AADeviceManagerDaemon *)selfCopy _aaPairedDeviceDiscoveryEnsureStopped];
+  [(AADeviceManagerDaemon *)selfCopy _aaControllerEnsureStopped];
+  [(AADeviceManagerDaemon *)selfCopy _cbDiscoveryEnsureStopped];
+  [(AADeviceManagerDaemon *)selfCopy _cbControllerEnsureStopped];
+  [(AADeviceManagerDaemon *)selfCopy _languageChangeMonitoringEnsureStopped];
+  prefsChangedNotifyToken = selfCopy->_prefsChangedNotifyToken;
   if (prefsChangedNotifyToken != -1)
   {
     notify_cancel(prefsChangedNotifyToken);
-    self->_prefsChangedNotifyToken = -1;
+    selfCopy->_prefsChangedNotifyToken = -1;
   }
 
-  [(AADeviceManagerDaemon *)self stopHeadGestureManager];
-  self->_activateCalled = 0;
+  [(AADeviceManagerDaemon *)selfCopy stopHeadGestureManager];
+  selfCopy->_activateCalled = 0;
 }
 
 - (void)_activate
 {
   if (!self->_activateCalled)
   {
+    selfCopy = self;
     self->_activateCalled = 1;
-    if (dword_1002F62E0 <= 30 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F62E0 <= 30)
     {
-      sub_1001D587C();
+      if (dword_1002F62E0 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001D587C(self, a2, v2);
+      }
     }
 
-    if (self->_prefsChangedNotifyToken == -1)
+    if (selfCopy->_prefsChangedNotifyToken == -1)
     {
-      dispatchQueue = self->_dispatchQueue;
+      dispatchQueue = selfCopy->_dispatchQueue;
       handler[0] = _NSConcreteStackBlock;
       handler[1] = 3221225472;
       handler[2] = sub_10001BC54;
       handler[3] = &unk_1002B6DF0;
-      handler[4] = self;
-      notify_register_dispatch("com.apple.AudioAccessory.prefsChanged", &self->_prefsChangedNotifyToken, dispatchQueue, handler);
+      handler[4] = selfCopy;
+      notify_register_dispatch("com.apple.AudioAccessory.prefsChanged", &selfCopy->_prefsChangedNotifyToken, dispatchQueue, handler);
     }
 
-    [(AADeviceManagerDaemon *)self _prefsChanged];
+    [(AADeviceManagerDaemon *)selfCopy _prefsChanged];
     if (_os_feature_enabled_impl())
     {
-      [(AADeviceManagerDaemon *)self _aaBatteryMonitorEnsureStarted];
+      [(AADeviceManagerDaemon *)selfCopy _aaBatteryMonitorEnsureStarted];
     }
 
-    [(AADeviceManagerDaemon *)self _aaPairedDeviceDiscoveryEnsureStarted];
-    [(AADeviceManagerDaemon *)self _aaControllerEnsureStarted];
-    [(AADeviceManagerDaemon *)self _cbDiscoveryEnsureStarted];
-    [(AADeviceManagerDaemon *)self _cbControllerEnsureStarted];
-    [(AADeviceManagerDaemon *)self _languageChangeMonitoringEnsureStarted];
+    [(AADeviceManagerDaemon *)selfCopy _aaPairedDeviceDiscoveryEnsureStarted];
+    [(AADeviceManagerDaemon *)selfCopy _aaControllerEnsureStarted];
+    [(AADeviceManagerDaemon *)selfCopy _cbDiscoveryEnsureStarted];
+    [(AADeviceManagerDaemon *)selfCopy _cbControllerEnsureStarted];
+    [(AADeviceManagerDaemon *)selfCopy _languageChangeMonitoringEnsureStarted];
   }
 }
 
@@ -276,13 +286,16 @@
 
   if (!transaction)
   {
-    if (dword_1002F62E0 <= 30 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F62E0 <= 30)
     {
-      sub_1001D58B4();
+      if (dword_1002F62E0 != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        sub_1001D58B4(v4, v5, v6);
+      }
     }
 
-    v4 = os_transaction_create();
-    [(AADeviceManagerDaemon *)self setTransaction:v4];
+    v7 = os_transaction_create();
+    [(AADeviceManagerDaemon *)self setTransaction:v7];
 
     transaction2 = [(AADeviceManagerDaemon *)self transaction];
 
@@ -299,10 +312,13 @@
 
   if (transaction)
   {
-    [(AADeviceManagerDaemon *)self setTransaction:0];
-    if (dword_1002F62E0 <= 30 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
+    v4 = [(AADeviceManagerDaemon *)self setTransaction:0];
+    if (dword_1002F62E0 <= 30)
     {
-      sub_1001D58F0();
+      if (dword_1002F62E0 != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        sub_1001D58F0(v4, v5, v6);
+      }
     }
   }
 }
@@ -325,7 +341,7 @@
     [(AAController *)v5 setDeviceInfoChangeHandler:v9];
     if (dword_1002F62E0 <= 30 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001D590C();
+      sub_1001D590C(v5);
     }
 
     v6[0] = _NSConcreteStackBlock;
@@ -355,11 +371,12 @@
   controllerCopy = controller;
   deviceCopy = device;
   completionCopy = completion;
-  if (([controllerCopy needsUpdateToAAController] & 1) == 0)
+  needsUpdateToAAController = [controllerCopy needsUpdateToAAController];
+  if ((needsUpdateToAAController & 1) == 0)
   {
-    if (dword_1002F62E0 <= 10 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F62E0 <= 10 && (dword_1002F62E0 != -1 || (needsUpdateToAAController = _LogCategory_Initialize(), needsUpdateToAAController)))
     {
-      sub_1001D59C4();
+      sub_1001D59C4(needsUpdateToAAController, v12, v13);
       if (!completionCopy)
       {
         goto LABEL_21;
@@ -375,65 +392,65 @@
     goto LABEL_21;
   }
 
-  v11 = objc_alloc_init(AudioAccessoryDeviceConfig);
-  -[AudioAccessoryDeviceConfig setAutoANCStrength:](v11, "setAutoANCStrength:", [controllerCopy autoANCStrength]);
-  -[AudioAccessoryDeviceConfig setEnableSiriMultitone:](v11, "setEnableSiriMultitone:", [controllerCopy enableSiriMultitone]);
+  v14 = objc_alloc_init(AudioAccessoryDeviceConfig);
+  -[AudioAccessoryDeviceConfig setAutoANCStrength:](v14, "setAutoANCStrength:", [controllerCopy autoANCStrength]);
+  -[AudioAccessoryDeviceConfig setEnableSiriMultitone:](v14, "setEnableSiriMultitone:", [controllerCopy enableSiriMultitone]);
   if (_os_feature_enabled_impl())
   {
-    -[AudioAccessoryDeviceConfig setEnableHearingAidGainSwipe:](v11, "setEnableHearingAidGainSwipe:", [controllerCopy enableHearingAidGainSwipe]);
-    -[AudioAccessoryDeviceConfig setHearingAidToggle:](v11, "setHearingAidToggle:", [controllerCopy hearingAidToggle]);
-    -[AudioAccessoryDeviceConfig setHearingAidEnrolled:](v11, "setHearingAidEnrolled:", [controllerCopy hearingAidEnrolled]);
-    -[AudioAccessoryDeviceConfig setEnableHearingAssist:](v11, "setEnableHearingAssist:", [controllerCopy enableHearingAssist]);
-    -[AudioAccessoryDeviceConfig setAllowOffListeningMode:](v11, "setAllowOffListeningMode:", [controllerCopy listeningModeOffAllowed]);
+    -[AudioAccessoryDeviceConfig setEnableHearingAidGainSwipe:](v14, "setEnableHearingAidGainSwipe:", [controllerCopy enableHearingAidGainSwipe]);
+    -[AudioAccessoryDeviceConfig setHearingAidToggle:](v14, "setHearingAidToggle:", [controllerCopy hearingAidToggle]);
+    -[AudioAccessoryDeviceConfig setHearingAidEnrolled:](v14, "setHearingAidEnrolled:", [controllerCopy hearingAidEnrolled]);
+    -[AudioAccessoryDeviceConfig setEnableHearingAssist:](v14, "setEnableHearingAssist:", [controllerCopy enableHearingAssist]);
+    -[AudioAccessoryDeviceConfig setAllowOffListeningMode:](v14, "setAllowOffListeningMode:", [controllerCopy listeningModeOffAllowed]);
   }
 
   if (_os_feature_enabled_impl())
   {
-    -[AudioAccessoryDeviceConfig setEnableHearingProtectionPPE:](v11, "setEnableHearingProtectionPPE:", [controllerCopy enableHearingProtectionPPE]);
+    -[AudioAccessoryDeviceConfig setEnableHearingProtectionPPE:](v14, "setEnableHearingProtectionPPE:", [controllerCopy enableHearingProtectionPPE]);
   }
 
-  -[AudioAccessoryDeviceConfig setEnableHeartRateMonitor:](v11, "setEnableHeartRateMonitor:", [controllerCopy enableHeartRateMonitor]);
-  -[AudioAccessoryDeviceConfig setEnableSleepDetection:](v11, "setEnableSleepDetection:", [controllerCopy enableSleepDetection]);
+  -[AudioAccessoryDeviceConfig setEnableHeartRateMonitor:](v14, "setEnableHeartRateMonitor:", [controllerCopy enableHeartRateMonitor]);
+  -[AudioAccessoryDeviceConfig setEnableSleepDetection:](v14, "setEnableSleepDetection:", [controllerCopy enableSleepDetection]);
   if (_os_feature_enabled_impl())
   {
-    -[AudioAccessoryDeviceConfig setAllowTemporaryManagedPairing:](v11, "setAllowTemporaryManagedPairing:", [controllerCopy allowTemporaryManagedPairing]);
+    -[AudioAccessoryDeviceConfig setAllowTemporaryManagedPairing:](v14, "setAllowTemporaryManagedPairing:", [controllerCopy allowTemporaryManagedPairing]);
   }
 
-  -[AudioAccessoryDeviceConfig setRawGesturesConfigFlags:](v11, "setRawGesturesConfigFlags:", [controllerCopy rawGesturesConfigFlags]);
+  -[AudioAccessoryDeviceConfig setRawGesturesConfigFlags:](v14, "setRawGesturesConfigFlags:", [controllerCopy rawGesturesConfigFlags]);
   changeDynamicEndOfChargeState = [controllerCopy changeDynamicEndOfChargeState];
   if ((changeDynamicEndOfChargeState & 0xFFFFFFFD) == 1)
   {
-    v13 = 1;
+    v16 = 1;
 LABEL_17:
-    [(AudioAccessoryDeviceConfig *)v11 setEnableDynamicEndOfCharge:v13];
+    [(AudioAccessoryDeviceConfig *)v14 setEnableDynamicEndOfCharge:v16];
     goto LABEL_18;
   }
 
   if (changeDynamicEndOfChargeState == 2)
   {
-    v13 = 2;
+    v16 = 2;
     goto LABEL_17;
   }
 
 LABEL_18:
   if (_os_feature_enabled_impl())
   {
-    -[AudioAccessoryDeviceConfig setHearingAidV2SourceRegionSupport:](v11, "setHearingAidV2SourceRegionSupport:", [controllerCopy hearingAidV2SourceRegionSupport]);
+    -[AudioAccessoryDeviceConfig setHearingAidV2SourceRegionSupport:](v14, "setHearingAidV2SourceRegionSupport:", [controllerCopy hearingAidV2SourceRegionSupport]);
   }
 
   [(AADeviceManagerDaemon *)self _aaControllerEnsureStarted];
   aaController = self->_aaController;
-  xpcObjectRepresentation = [(AudioAccessoryDeviceConfig *)v11 xpcObjectRepresentation];
+  xpcObjectRepresentation = [(AudioAccessoryDeviceConfig *)v14 xpcObjectRepresentation];
   identifier = [deviceCopy identifier];
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_10001C430;
-  v18[3] = &unk_1002B6E60;
-  v19 = deviceCopy;
-  v20 = v11;
-  v21 = completionCopy;
-  v17 = v11;
-  [(AAController *)aaController sendDeviceConfig:xpcObjectRepresentation destinationIdentifier:identifier completionHandler:v18];
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = sub_10001C430;
+  v21[3] = &unk_1002B6E60;
+  v22 = deviceCopy;
+  v23 = v14;
+  v24 = completionCopy;
+  v20 = v14;
+  [(AAController *)aaController sendDeviceConfig:xpcObjectRepresentation destinationIdentifier:identifier completionHandler:v21];
 
 LABEL_21:
 }
@@ -446,7 +463,7 @@ LABEL_21:
   {
     if (dword_1002F62E0 != -1 || (v5 = _LogCategory_Initialize(), lostCopy = v8, v5))
     {
-      sub_1001D5AAC();
+      sub_1001D5AAC(lostCopy);
       lostCopy = v8;
     }
   }
@@ -471,7 +488,7 @@ LABEL_21:
     if (identifier)
     {
       [updatedCopy setConnected:1];
-      if ([updatedCopy paired] & 1) != 0 || (-[AADeviceManagerDaemon _loadPairedDeviceInfo:](self, "_loadPairedDeviceInfo:", updatedCopy), (objc_msgSend(updatedCopy, "paired")))
+      if ([updatedCopy paired] & 1) != 0 || (-[AADeviceManagerDaemon _loadPairedDeviceInfo:](self, "_loadPairedDeviceInfo:", updatedCopy), v10 = objc_msgSend(updatedCopy, "paired"), (v10))
       {
         if ([updatedCopy connectedInfoComplete] && (objc_msgSend(updatedCopy, "onConnectionActionsCalled") & 1) == 0)
         {
@@ -480,43 +497,43 @@ LABEL_21:
 
         if (dword_1002F62E0 <= 30 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
         {
-          sub_1001D5B4C();
+          sub_1001D5B4C(updatedCopy);
         }
 
         [(AADeviceManagerDaemon *)self _accessoryDevicePerformActionsOnChange:updatedCopy];
-        v6 = +[AAServicesDaemon sharedAAServicesDaemon];
-        [v6 reportDeviceFound:updatedCopy];
+        v13 = +[AAServicesDaemon sharedAAServicesDaemon];
+        [v13 reportDeviceFound:updatedCopy];
       }
 
       else
       {
-        sub_1001D5AEC();
+        sub_1001D5AEC(v10, v11, v12);
       }
     }
 
     else
     {
-      sub_1001D5B8C();
+      sub_1001D5B8C(0, v7, v8);
     }
   }
 
   else
   {
-    sub_1001D5BEC();
+    sub_1001D5BEC(0, v4, v5);
   }
 }
 
 - (void)_accessoryDeviceInfoChanged:(id)changed
 {
   changedCopy = changed;
-  v16 = 0;
-  v5 = [[AudioAccessoryDeviceInfo alloc] initWithXPCObject:changedCopy error:&v16];
+  v13 = 0;
+  v5 = [[AudioAccessoryDeviceInfo alloc] initWithXPCObject:changedCopy error:&v13];
 
-  v6 = v16;
+  v6 = v13;
   v7 = v6;
   if (v6)
   {
-    if (sub_1001D5C4C(v6, &v17))
+    if (sub_1001D5C4C(v6, &v14))
     {
       goto LABEL_17;
     }
@@ -527,15 +544,15 @@ LABEL_21:
   identifier = [(AudioAccessoryDeviceInfo *)v5 identifier];
   if (!identifier)
   {
-    sub_1001D5D74(0, &v17);
+    sub_1001D5D74(0, &v14);
 LABEL_22:
-    identifier = v17;
+    identifier = v14;
     goto LABEL_16;
   }
 
   if (([(AudioAccessoryDeviceInfo *)v5 discoveryFlags]& 0x200000) == 0)
   {
-    sub_1001D5CF0(identifier, &v17);
+    sub_1001D5CF0(identifier, &v14);
     goto LABEL_22;
   }
 
@@ -547,12 +564,6 @@ LABEL_22:
     v11 = [[AudioAccessoryDevice alloc] initWithIdentifier:identifier];
     [(AADeviceManagerDaemon *)self _addDeviceToMap:v11];
     [v11 updateWithConnectedAADeviceInfo:v5];
-    goto LABEL_8;
-  }
-
-  v11 = v9;
-  if ([v9 updateWithConnectedAADeviceInfo:v5])
-  {
 LABEL_8:
     if (dword_1002F62E0 <= 30 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
     {
@@ -562,16 +573,20 @@ LABEL_8:
         v12 = "found";
       }
 
-      v14 = v12;
-      LogPrintF();
-      [(AADeviceManagerDaemon *)self _accessoryDeviceUpdated:v11, v14, v5];
+      LogPrintF(&dword_1002F62E0, "[AADeviceManagerDaemon _accessoryDeviceInfoChanged:]", 30, "Connected AADevice %s from AADeviceInfo dictionary: %@", v12, v5);
     }
 
-    else
-    {
-      [(AADeviceManagerDaemon *)self _accessoryDeviceUpdated:v11, v13, v15];
-    }
+    [(AADeviceManagerDaemon *)self _accessoryDeviceUpdated:v11];
+    goto LABEL_15;
   }
+
+  v11 = v9;
+  if ([v9 updateWithConnectedAADeviceInfo:v5])
+  {
+    goto LABEL_8;
+  }
+
+LABEL_15:
 
 LABEL_16:
 LABEL_17:
@@ -644,7 +659,7 @@ LABEL_17:
     {
       if (dword_1002F62E0 <= 30 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001D5E48();
+        sub_1001D5E48(actionsCopy);
       }
 
       [(AADeviceManagerDaemon *)self _sendDEOCTempDisableIntervalIfNeeded:actionsCopy];
@@ -668,16 +683,20 @@ LABEL_17:
   enableHeartRateMonitor = [configCopy enableHeartRateMonitor];
   if ([actionsCopy heartRateMonitorEnabled] != enableHeartRateMonitor)
   {
-    if ([actionsCopy productID] == 8221)
+    productID = [actionsCopy productID];
+    if (productID == 8221)
     {
-      v14 = +[BTSmartRoutingDaemon sharedBTSmartRoutingDaemon];
+      v17 = +[BTSmartRoutingDaemon sharedBTSmartRoutingDaemon];
       bluetoothAddress2 = [actionsCopy bluetoothAddress];
-      [v14 handleHealthKitDataWritePropertyToggled:bluetoothAddress2];
+      [v17 handleHealthKitDataWritePropertyToggled:bluetoothAddress2];
     }
 
-    else if (dword_1002F62E0 <= 90 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
+    else if (dword_1002F62E0 <= 90)
     {
-      sub_1001D5E88();
+      if (dword_1002F62E0 != -1 || (productID = _LogCategory_Initialize(), productID))
+      {
+        sub_1001D5E88(productID, v15, v16);
+      }
     }
   }
 }
@@ -707,88 +726,86 @@ LABEL_17:
   configCopy = config;
   identifierCopy = identifier;
   completionCopy = completion;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = sub_1000038F8;
-  v39 = sub_100003828;
-  v40 = 0;
-  v31[0] = _NSConcreteStackBlock;
-  v31[1] = 3221225472;
-  v31[2] = sub_10001D15C;
-  v31[3] = &unk_1002B7120;
-  v34 = &v35;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x3032000000;
+  v36 = sub_1000038F8;
+  v37 = sub_100003828;
+  v38 = 0;
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = sub_10001D15C;
+  v29[3] = &unk_1002B7120;
+  v32 = &v33;
   v11 = identifierCopy;
-  v32 = v11;
+  v30 = v11;
   v12 = completionCopy;
-  v33 = v12;
-  v13 = objc_retainBlock(v31);
+  v31 = v12;
+  v13 = objc_retainBlock(v29);
   v14 = v11;
   if (v14)
   {
     if (dword_1002F62E0 <= 30 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
     {
-      v25 = configCopy;
-      v26 = v14;
-      LogPrintF();
+      LogPrintF(&dword_1002F62E0, "[AADeviceManagerDaemon _sendDeviceConfig:identifier:completion:]", 30, "Config received: %@ for identifier: %@", configCopy, v14);
     }
 
-    v17 = [(AADeviceManagerDaemon *)self pairedDeviceDaemon:v25];
-    v16 = [v17 deviceWithIdentifier:v14];
+    pairedDeviceDaemon = [(AADeviceManagerDaemon *)self pairedDeviceDaemon];
+    v16 = [pairedDeviceDaemon deviceWithIdentifier:v14];
 
     if (v16)
     {
       if ([configCopy needsUpdateToPairedDevice])
       {
-        pairedDeviceDaemon = [(AADeviceManagerDaemon *)self pairedDeviceDaemon];
-        [pairedDeviceDaemon updatePairedDeviceWithIdentifier:v14 withConfig:configCopy];
+        pairedDeviceDaemon2 = [(AADeviceManagerDaemon *)self pairedDeviceDaemon];
+        [pairedDeviceDaemon2 updatePairedDeviceWithIdentifier:v14 withConfig:configCopy];
       }
 
       v19 = [(AADeviceManagerDaemon *)self _deviceWithIdentifier:v14];
       if (v19)
       {
         [(AADeviceManagerDaemon *)self _accessoryDevicePerformActions:v19 withConfig:configCopy];
-        v27[0] = _NSConcreteStackBlock;
-        v27[1] = 3221225472;
-        v27[2] = sub_10001D254;
-        v27[3] = &unk_1002B7148;
-        v30 = v12;
-        v27[4] = self;
+        v25[0] = _NSConcreteStackBlock;
+        v25[1] = 3221225472;
+        v25[2] = sub_10001D254;
+        v25[3] = &unk_1002B7148;
+        v28 = v12;
+        v25[4] = self;
         v20 = configCopy;
-        v28 = v20;
-        v29 = v19;
-        [(AADeviceManagerDaemon *)self _sendConfigOverCBController:v20 device:v19 completion:v27];
+        v26 = v20;
+        v27 = v19;
+        [(AADeviceManagerDaemon *)self _sendConfigOverCBController:v20 device:v19 completion:v25];
         v21 = +[AASettingsTelemetry sharedInstance];
         [v21 sendSettingsChanges:v20 device:v19];
 
-        v22 = v30;
+        v22 = v28;
       }
 
       else
       {
-        v24 = NSErrorF();
-        v22 = v36[5];
-        v36[5] = v24;
+        v24 = NSErrorF(NSOSStatusErrorDomain, 4294960591, "Connected AADevice not found");
+        v22 = v34[5];
+        v34[5] = v24;
       }
     }
 
     else
     {
-      v23 = NSErrorF();
-      v19 = v36[5];
-      v36[5] = v23;
+      v23 = NSErrorF(NSOSStatusErrorDomain, 4294960591, "Paired AADevice not found");
+      v19 = v34[5];
+      v34[5] = v23;
     }
   }
 
   else
   {
-    v15 = NSErrorF();
-    v16 = v36[5];
-    v36[5] = v15;
+    v15 = NSErrorF(NSOSStatusErrorDomain, 4294960591, "AADevice identifier not set");
+    v16 = v34[5];
+    v34[5] = v15;
   }
 
   (v13[2])(v13);
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v33, 8);
 }
 
 - (void)_submitHeadphoneFeaturesMetricsFor:(id)for
@@ -934,7 +951,7 @@ LABEL_17:
   {
     if (dword_1002F62E0 <= 10 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1002F62E0, "[AADeviceManagerDaemon _addDeviceToMap:]", 10, "First connected device found.");
     }
 
     v7 = objc_alloc_init(NSMutableDictionary);
@@ -1068,7 +1085,7 @@ LABEL_4:
     {
       if (dword_1002F62E0 <= 10 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1002F62E0, "[AADeviceManagerDaemon _removeDeviceFromMap:]", 10, "Last connected device lost.");
       }
 
       v6 = selfCopy->_devicesMap;
@@ -1123,7 +1140,7 @@ LABEL_4:
         [deviceCopy setBatteryInfo:v6];
         if (dword_1002F62E0 <= 30 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
         {
-          sub_1001D5EFC();
+          sub_1001D5EFC(v6);
         }
       }
     }
@@ -1173,7 +1190,7 @@ LABEL_4:
     [v5 setInvalidationHandler:&stru_1002B71B8];
     if (dword_1002F62E0 <= 30 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001D5F80();
+      sub_1001D5F80(v5);
     }
 
     v6[0] = _NSConcreteStackBlock;
@@ -1280,7 +1297,7 @@ LABEL_4:
 
   else
   {
-    sub_1001D6080();
+    sub_1001D6080(lostCopy);
   }
 }
 
@@ -1474,14 +1491,16 @@ LABEL_17:
     return 0;
   }
 
-  if (((changed >> 2) & 1) == ((headGestureUpdateFlags >> 2) & 1))
+  v5 = (changed >> 2) & 1;
+  v6 = (headGestureUpdateFlags >> 2) & 1;
+  if (v5 == v6)
   {
     return 0;
   }
 
   if (dword_1002F62E0 <= 30 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1002F62E0, "[AADeviceManagerDaemon _onlyMuteAudioFeedbackFlagChanged:]", 30, "Only Mute Audio Feedback flag has changed newHeadGestureDetectionFlag %d and previous headGestureDetectionMuteAudioFeedbackFlag %d", v5, v6);
   }
 
   return 1;
@@ -1504,7 +1523,7 @@ LABEL_17:
 
   if (dword_1002F62E0 <= 30 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001D6354();
+    sub_1001D6354((detection & 3) == 0);
     if ((detection & 3) != 0)
     {
       goto LABEL_10;
@@ -1519,28 +1538,31 @@ LABEL_10:
       [(AADeviceManagerDaemon *)self stopHeadGestureManager];
     }
 
-    v11 = objc_alloc_init(HGConfiguration);
+    v14 = objc_alloc_init(HGConfiguration);
     if (detection)
     {
       v7 = objc_alloc_init(HGAudioFeedbackConfiguration);
-      [v11 setAudioFeedbackConfig:v7];
+      [v14 setAudioFeedbackConfig:v7];
 
-      [v11 setRequestPartGestures:1];
+      [v14 setRequestPartGestures:1];
     }
 
     if ((detection & 2) != 0)
     {
-      audioFeedbackConfig = [v11 audioFeedbackConfig];
+      audioFeedbackConfig = [v14 audioFeedbackConfig];
       [audioFeedbackConfig setEnableAudioFeedback:1];
     }
 
-    v9 = [[HGManager alloc] initWithDelegate:self config:v11];
+    v9 = [[HGManager alloc] initWithDelegate:self config:v14];
     v10 = self->_headGestureManager;
     self->_headGestureManager = v9;
 
-    if (dword_1002F62E0 <= 30 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F62E0 <= 30)
     {
-      sub_1001D63AC();
+      if (dword_1002F62E0 != -1 || (v11 = _LogCategory_Initialize(), v11))
+      {
+        sub_1001D63AC(v11, v12, v13);
+      }
     }
 
     [(HGManager *)self->_headGestureManager start];
@@ -1556,9 +1578,12 @@ LABEL_10:
 {
   if (self->_headGestureUpdateFlags == flags)
   {
-    if (dword_1002F62E0 <= 10 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F62E0 <= 10)
     {
-      sub_1001D63C8();
+      if (dword_1002F62E0 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001D63C8(self, a2, *&flags);
+      }
     }
   }
 
@@ -1686,57 +1711,47 @@ LABEL_10:
   identifier = [foundCopy identifier];
   if (identifier)
   {
-    if ([foundCopy vendorID] != 76)
+    if ([foundCopy vendorID] == 76)
     {
-      goto LABEL_21;
-    }
-
-    v5 = [foundCopy productID] - 8194;
-    if (v5 > 0x2D || ((1 << v5) & 0x207C7BB7FF9BLL) == 0)
-    {
-      goto LABEL_21;
-    }
-
-    v6 = [(AADeviceManagerDaemon *)self _deviceWithIdentifier:identifier];
-    if (!v6)
-    {
-      [(AADeviceManagerDaemon *)self _ensureOSTransaction];
-      [[AudioAccessoryDevice alloc] initWithIdentifier:identifier];
-      [sub_100020838() _addDeviceToMap:?];
-    }
-
-    coreBluetoothDevice = [v6 coreBluetoothDevice];
-
-    v8 = [v6 updateWithConnectedCBDevice:foundCopy];
-    if (v6)
-    {
-      if (coreBluetoothDevice || dword_1002F62E0 > 30 || dword_1002F62E0 == -1 && !_LogCategory_Initialize())
+      v5 = [foundCopy productID] - 8194;
+      if (v5 <= 0x2D && ((1 << v5) & 0x207C7BB7FF9BLL) != 0)
       {
-        goto LABEL_18;
+        v6 = [(AADeviceManagerDaemon *)self _deviceWithIdentifier:identifier];
+        if (!v6)
+        {
+          [(AADeviceManagerDaemon *)self _ensureOSTransaction];
+          [[AudioAccessoryDevice alloc] initWithIdentifier:identifier];
+          [sub_100020838() _addDeviceToMap:?];
+        }
+
+        coreBluetoothDevice = [v6 coreBluetoothDevice];
+
+        v8 = [v6 updateWithConnectedCBDevice:foundCopy];
+        if (v6)
+        {
+          if (!coreBluetoothDevice && dword_1002F62E0 <= 30 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
+          {
+            LogPrintF(&dword_1002F62E0, "[AADeviceManagerDaemon _coreBluetoothDeviceFound:]", 30, "Connected AADevice updated from CBDiscovery: %@", foundCopy);
+          }
+        }
+
+        else if (dword_1002F62E0 <= 30 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF(&dword_1002F62E0, "[AADeviceManagerDaemon _coreBluetoothDeviceFound:]", 30, "Connected AADevice found from CBDiscovery: %@", foundCopy);
+        }
+
+        if (v8)
+        {
+          [(AADeviceManagerDaemon *)self _accessoryDeviceUpdated:v6];
+        }
       }
     }
-
-    else if (dword_1002F62E0 > 30 || dword_1002F62E0 == -1 && !_LogCategory_Initialize())
-    {
-      goto LABEL_18;
-    }
-
-    LogPrintF();
-LABEL_18:
-    if (v8)
-    {
-      [(AADeviceManagerDaemon *)self _accessoryDeviceUpdated:v6];
-    }
-
-    goto LABEL_21;
   }
 
-  if (dword_1002F62E0 <= 90 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
+  else if (dword_1002F62E0 <= 90 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1002F62E0, "[AADeviceManagerDaemon _coreBluetoothDeviceFound:]", 90, "CBDevice identifier not found, %@", foundCopy);
   }
-
-LABEL_21:
 }
 
 - (void)_markTemporaryManagedPairedIfNeeded:(id)needed
@@ -1747,12 +1762,12 @@ LABEL_21:
     if (dword_1002F62E0 <= 30 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
     {
       identifier = [neededCopy identifier];
-      LogPrintF();
+      LogPrintF(&dword_1002F62E0, "[AADeviceManagerDaemon _markTemporaryManagedPairedIfNeeded:]", 30, "Sending update to %@ to indicate Temporary Managed Pairing", identifier);
     }
 
-    v4 = objc_alloc_init(AADeviceConfig);
-    [v4 setAllowTemporaryManagedPairing:{objc_msgSend(neededCopy, "temporaryManagedPairedStatus")}];
-    [(AADeviceManagerDaemon *)self _sendConfigOverAAController:v4 device:neededCopy completion:0];
+    v5 = objc_alloc_init(AADeviceConfig);
+    [v5 setAllowTemporaryManagedPairing:{objc_msgSend(neededCopy, "temporaryManagedPairedStatus")}];
+    [(AADeviceManagerDaemon *)self _sendConfigOverAAController:v5 device:neededCopy completion:0];
   }
 }
 
@@ -1781,7 +1796,7 @@ LABEL_21:
   {
     if (dword_1002F62E0 <= 30 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1002F62E0, "[AADeviceManagerDaemon _sendEnableDEOCIfNeeded:]", 30, "Enabling DEOC on first connection after paring device: %@", neededCopy);
     }
 
     v5 = objc_alloc_init(AADeviceConfig);
@@ -1810,19 +1825,15 @@ LABEL_21:
     {
       if (dword_1002F62E0 <= 30 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
-        [infoCopy updateWithPairedAADevice:{v6, v6}];
+        LogPrintF(&dword_1002F62E0, "[AADeviceManagerDaemon _loadPairedDeviceInfo:]", 30, "Updating connected AADevice with paired device: %@", v6);
       }
 
-      else
-      {
-        [infoCopy updateWithPairedAADevice:{v6, v7}];
-      }
+      [infoCopy updateWithPairedAADevice:v6];
     }
 
     else if (dword_1002F62E0 <= 30 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1002F62E0, "[AADeviceManagerDaemon _loadPairedDeviceInfo:]", 30, "Paired device not found for connected device: %@", infoCopy);
     }
   }
 }
@@ -1843,8 +1854,7 @@ LABEL_10:
         if (dword_1002F62E0 <= 30 && (dword_1002F62E0 != -1 || _LogCategory_Initialize()))
         {
           identifier = [neededCopy identifier];
-          v9 = v4;
-          LogPrintF();
+          LogPrintF(&dword_1002F62E0, "[AADeviceManagerDaemon _accessoryDeviceRemoveOffListeningModeIfNeeded:]", 30, "Overriding listening mode for device identifier %@, config <%@>", identifier, v4);
         }
 
         identifier2 = [neededCopy identifier];

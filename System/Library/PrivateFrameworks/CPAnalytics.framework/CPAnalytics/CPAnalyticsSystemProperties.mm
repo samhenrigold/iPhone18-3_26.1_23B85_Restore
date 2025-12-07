@@ -83,37 +83,35 @@
 
 + (NSArray)dynamicPhotoLibraryProperties
 {
-  v5[15] = *MEMORY[0x277D85DE8];
-  v5[0] = @"cpa_common_icpl_enabled";
-  v5[1] = @"cpa_common_icpl_exceedingQuota";
-  v5[2] = @"cpa_common_icpl_lowDiskSpace";
-  v5[3] = @"cpa_common_icpl_veryLowDiskSpace";
-  v5[4] = @"cpa_common_icpl_hasChangesToProcess";
-  v5[5] = @"cpa_media_type";
-  v5[6] = @"cpa_media_subType";
-  v5[7] = @"cpa_media_age";
-  v5[8] = @"cpa_media_duration";
-  v5[9] = @"cpa_media_localIdentifier";
-  v5[10] = @"cpa_media_ageInMinutes";
-  v5[11] = @"cpa_media_sceneType";
-  v5[12] = @"cpa_media_subject";
-  v5[13] = @"cpa_media_uuid";
-  v5[14] = @"cpa_common_sharedLibraryEnabled";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:15];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[15] = *MEMORY[0x277D85DE8];
+  v4[0] = @"cpa_common_icpl_enabled";
+  v4[1] = @"cpa_common_icpl_exceedingQuota";
+  v4[2] = @"cpa_common_icpl_lowDiskSpace";
+  v4[3] = @"cpa_common_icpl_veryLowDiskSpace";
+  v4[4] = @"cpa_common_icpl_hasChangesToProcess";
+  v4[5] = @"cpa_media_type";
+  v4[6] = @"cpa_media_subType";
+  v4[7] = @"cpa_media_age";
+  v4[8] = @"cpa_media_duration";
+  v4[9] = @"cpa_media_localIdentifier";
+  v4[10] = @"cpa_media_ageInMinutes";
+  v4[11] = @"cpa_media_sceneType";
+  v4[12] = @"cpa_media_subject";
+  v4[13] = @"cpa_media_uuid";
+  v4[14] = @"cpa_common_sharedLibraryEnabled";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:15];
 
   return v2;
 }
 
 + (NSArray)staticPhotoLibraryProperties
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  v5[0] = @"cpa_common_photoCount";
-  v5[1] = @"cpa_common_videoCount";
-  v5[2] = @"cpa_common_collectionCount";
-  v5[3] = @"cpa_common_librarySizeRange";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:4];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  v4[0] = @"cpa_common_photoCount";
+  v4[1] = @"cpa_common_videoCount";
+  v4[2] = @"cpa_common_collectionCount";
+  v4[3] = @"cpa_common_librarySizeRange";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:4];
 
   return v2;
 }

@@ -2,9 +2,9 @@
 - (BOOL)_isCompact;
 - (NSString)debugDescription;
 - (OS_dispatch_data)initWithBytes:(void *)bytes length:(unint64_t)length copy:(BOOL)copy freeWhenDone:(BOOL)done bytesAreVM:(BOOL)m;
-- (uint64_t)debugDescription;
 - (void)_setFinalizer:(void *)finalizer;
 - (void)dealloc;
+- (void)debugDescription;
 @end
 
 @implementation OS_dispatch_data
@@ -114,15 +114,14 @@
   if (self[7].super.isa == 1)
   {
     self = self[8].super.isa;
-    isa = self[7].super.isa;
   }
 
   return self[4].super.isa != 0;
 }
 
-- (uint64_t)debugDescription
+- (void)debugDescription
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   _dispatch_data_debug(self, __str, 0x800uLL);
   result = [a2 stringWithUTF8String:"<%s: %s>"];
   if (result)
@@ -131,7 +130,6 @@
   }
 
   *a3 = result;
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 

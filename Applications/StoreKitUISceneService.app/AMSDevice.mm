@@ -8,16 +8,15 @@
 + (id)sk_bootSession
 {
   v2 = sub_100012634(&qword_1000D2800, qword_100099E20);
-  v3 = *(*(v2 - 8) + 64);
   __chkstk_darwin(v2 - 8);
-  v5 = &v9 - v4;
-  sub_100083BE0(&v9 - v4);
-  v6 = type metadata accessor for UUID();
+  v4 = &v8 - v3;
+  sub_100083BE0(&v8 - v3);
+  v5 = type metadata accessor for UUID();
   isa = 0;
-  if (sub_100012898(v5, 1, v6) != 1)
+  if (sub_100012898(v4, 1, v5) != 1)
   {
     isa = UUID._bridgeToObjectiveC()().super.isa;
-    (*(*(v6 - 8) + 8))(v5, v6);
+    (*(*(v5 - 8) + 8))(v4, v5);
   }
 
   return isa;

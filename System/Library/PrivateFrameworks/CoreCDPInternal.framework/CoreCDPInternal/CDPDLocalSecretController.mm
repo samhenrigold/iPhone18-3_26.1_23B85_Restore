@@ -9,6 +9,7 @@
 - (void)_handleCompletionStatus:(BOOL)status preRecord:(BOOL)record;
 - (void)_localSecretChangedTo:(id)to secretType:(unint64_t)type completion:(id)completion;
 - (void)_repairWithStateMachine:(id)machine completion:(id)completion;
+- (void)_sendiCSCUpdateFinishEvent:(id)event didUpdate:(BOOL)update error:(id)error;
 - (void)_sendiCSCUpdateStartEvent;
 - (void)_setContextWithAuthResults:(id)results;
 - (void)_wrappedLocalSecretChangedTo:(id)to secretType:(unint64_t)type completion:(id)completion;
@@ -24,7 +25,7 @@
 
 - (CDPDLocalSecretController)initWithContext:(id)context
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = [(CDPDLocalSecretController *)self init];
   if (v5)
@@ -35,11 +36,11 @@
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         altDSID = [contextCopy altDSID];
-        v18 = 141558274;
-        v19 = 1752392040;
-        v20 = 2112;
-        v21 = altDSID;
-        _os_log_impl(&dword_24510B000, v6, OS_LOG_TYPE_DEFAULT, "MUM: CDPDLocalSecretFollowUpProviderImpl init'ed with altDSID %{mask.hash}@", &v18, 0x16u);
+        v17 = 141558274;
+        v18 = 1752392040;
+        v19 = 2112;
+        v20 = altDSID;
+        _os_log_impl(&dword_24510B000, v6, OS_LOG_TYPE_DEFAULT, "MUM: CDPDLocalSecretFollowUpProviderImpl init'ed with altDSID %{mask.hash}@", &v17, 0x16u);
       }
 
       v8 = [CDPDLocalSecretFollowUpProviderImpl alloc];
@@ -62,7 +63,6 @@
     [(CDPDLocalSecretController *)v5 setContext:contextCopy];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -81,13 +81,13 @@
 
 - (void)setContext:(id)context
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v6 = _CDPLogSystem();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v38) = 0;
-    _os_log_impl(&dword_24510B000, v6, OS_LOG_TYPE_DEFAULT, "Updating context for local secret change", &v38, 2u);
+    LOWORD(v37) = 0;
+    _os_log_impl(&dword_24510B000, v6, OS_LOG_TYPE_DEFAULT, "Updating context for local secret change", &v37, 2u);
   }
 
   objc_storeStrong(&self->_context, context);
@@ -98,21 +98,21 @@
     appleID = [(CDPContext *)self->_context appleID];
     dsid = [(CDPContext *)self->_context dsid];
     altDSID = [(CDPContext *)self->_context altDSID];
-    v38 = 134219522;
-    v39 = type;
-    v40 = 2160;
-    v41 = 1752392040;
-    v42 = 2112;
-    v43 = appleID;
-    v44 = 2160;
-    v45 = 1752392040;
-    v46 = 2112;
-    v47 = dsid;
-    v48 = 2160;
-    v49 = 1752392040;
-    v50 = 2112;
-    v51 = altDSID;
-    _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "CDPDLocalSecretController: updated context with context type: %ld, appleID: %{mask.hash}@, dsid: %{mask.hash}@, adsid: %{mask.hash}@", &v38, 0x48u);
+    v37 = 134219522;
+    v38 = type;
+    v39 = 2160;
+    v40 = 1752392040;
+    v41 = 2112;
+    v42 = appleID;
+    v43 = 2160;
+    v44 = 1752392040;
+    v45 = 2112;
+    v46 = dsid;
+    v47 = 2160;
+    v48 = 1752392040;
+    v49 = 2112;
+    v50 = altDSID;
+    _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "CDPDLocalSecretController: updated context with context type: %ld, appleID: %{mask.hash}@, dsid: %{mask.hash}@, adsid: %{mask.hash}@", &v37, 0x48u);
   }
 
   context = self->_context;
@@ -181,8 +181,6 @@ LABEL_13:
     circleController = self->_circleController;
     self->_circleController = v35;
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)attemptToEscrowPreRecord:(id)record completion:(id)completion
@@ -394,16 +392,16 @@ void __80__CDPDLocalSecretController__wrappedLocalSecretChangedTo_secretType_com
 
 void __80__CDPDLocalSecretController__wrappedLocalSecretChangedTo_secretType_completion___block_invoke_28(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = _CDPLogSystem();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9[0] = 67109378;
-    v9[1] = a2;
-    v10 = 2112;
-    v11 = v5;
-    _os_log_impl(&dword_24510B000, v6, OS_LOG_TYPE_DEFAULT, "repair completed with result: %{BOOL}d error: %@", v9, 0x12u);
+    v8[0] = 67109378;
+    v8[1] = a2;
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&dword_24510B000, v6, OS_LOG_TYPE_DEFAULT, "repair completed with result: %{BOOL}d error: %@", v8, 0x12u);
   }
 
   [*(a1 + 32) _handleCompletionStatus:a2 preRecord:0];
@@ -412,8 +410,6 @@ void __80__CDPDLocalSecretController__wrappedLocalSecretChangedTo_secretType_com
   {
     (*(v7 + 16))(v7, a2, v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __80__CDPDLocalSecretController__wrappedLocalSecretChangedTo_secretType_completion___block_invoke_29(uint64_t a1, uint64_t a2, void *a3)
@@ -457,6 +453,32 @@ void __80__CDPDLocalSecretController__wrappedLocalSecretChangedTo_secretType_com
   [v2 setObject:aaf_processName forKeyedSubscript:*MEMORY[0x277CFD8F8]];
 
   return v2;
+}
+
+- (void)_sendiCSCUpdateFinishEvent:(id)event didUpdate:(BOOL)update error:(id)error
+{
+  updateCopy = update;
+  v8 = MEMORY[0x277CCABB0];
+  circleController = self->_circleController;
+  errorCopy = error;
+  eventCopy = event;
+  v12 = [v8 numberWithInteger:{-[CDPDCircleController cliqueStatus](circleController, "cliqueStatus")}];
+  [eventCopy setObject:v12 forKeyedSubscript:*MEMORY[0x277CFD6A0]];
+
+  v19 = objc_alloc_init(CDPDAccount);
+  dsid = [(CDPContext *)self->_context dsid];
+  stringValue = [dsid stringValue];
+  v15 = [(CDPDAccount *)v19 isICDPEnabledForDSID:stringValue checkWithServer:0];
+
+  v16 = [MEMORY[0x277CCABB0] numberWithBool:v15];
+  [eventCopy setObject:v16 forKeyedSubscript:*MEMORY[0x277CFD670]];
+
+  v17 = [MEMORY[0x277CCABB0] numberWithBool:updateCopy];
+  [eventCopy setObject:v17 forKeyedSubscript:*MEMORY[0x277CFD6C0]];
+
+  [eventCopy populateUnderlyingErrorsStartingWithRootError:errorCopy];
+  rtcAnalyticsReporter = [MEMORY[0x277CFD490] rtcAnalyticsReporter];
+  [rtcAnalyticsReporter sendEvent:eventCopy];
 }
 
 - (void)finishOfflineLocalSecretChangeWithCompletion:(id)completion
@@ -567,7 +589,7 @@ void __74__CDPDLocalSecretController_finishOfflineLocalSecretChangeWithCompletio
 
 - (void)_attemptToEscrowPreRecord:(id)record completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   completionCopy = completion;
   if (recordCopy)
@@ -580,20 +602,20 @@ void __74__CDPDLocalSecretController_finishOfflineLocalSecretChangeWithCompletio
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = recordCopy;
+      v18 = recordCopy;
       _os_log_impl(&dword_24510B000, v10, OS_LOG_TYPE_DEFAULT, "Have EscrowPreRecord, attempting to enable secure backup: %@", buf, 0xCu);
     }
 
     v11 = +[CDPDLockAssertion lock];
     secureBackupController = self->_secureBackupController;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __66__CDPDLocalSecretController__attemptToEscrowPreRecord_completion___block_invoke;
-    v15[3] = &unk_278E24AE8;
-    v16 = v11;
-    v17 = completionCopy;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __66__CDPDLocalSecretController__attemptToEscrowPreRecord_completion___block_invoke;
+    v14[3] = &unk_278E24AE8;
+    v15 = v11;
+    v16 = completionCopy;
     v13 = v11;
-    [(CDPDSecureBackupController *)secureBackupController checkAndRemoveExistingThenEnableSecureBackupRecordWithContext:v8 completion:v15];
+    [(CDPDSecureBackupController *)secureBackupController checkAndRemoveExistingThenEnableSecureBackupRecordWithContext:v8 completion:v14];
   }
 
   else
@@ -601,8 +623,6 @@ void __74__CDPDLocalSecretController_finishOfflineLocalSecretChangeWithCompletio
     v8 = _CDPStateError();
     (*(completionCopy + 2))(completionCopy, 0, v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __66__CDPDLocalSecretController__attemptToEscrowPreRecord_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -667,36 +687,14 @@ void __73__CDPDLocalSecretController__localSecretChangedTo_secretType_completion
 
 - (void)_handleCompletionStatus:(BOOL)status preRecord:(BOOL)record
 {
-  v19 = *MEMORY[0x277D85DE8];
-  if (status)
+  v18 = *MEMORY[0x277D85DE8];
+  if (!status)
   {
-    v5 = _CDPLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    if (record)
     {
-      type = [(CDPContext *)self->_context type];
-      v17 = 134217984;
-      v18 = type;
-      _os_log_impl(&dword_24510B000, v5, OS_LOG_TYPE_DEFAULT, "Successfully updated local secret by re-enabling SecureBackup with context type: %ld", &v17, 0xCu);
+      return;
     }
 
-    type2 = [(CDPContext *)self->_context type];
-    followUpProvider = [(CDPDLocalSecretController *)self followUpProvider];
-    v9 = followUpProvider;
-    if (type2 == 7)
-    {
-      [followUpProvider deleteConfirmExistingSecretFollowUp];
-LABEL_16:
-
-      goto LABEL_17;
-    }
-
-LABEL_15:
-    [followUpProvider deleteLocalSecretChangeFollowUp];
-    goto LABEL_16;
-  }
-
-  if (!record)
-  {
     mEMORY[0x277CFD4F8] = [MEMORY[0x277CFD4F8] sharedInstance];
     hasLocalSecret = [mEMORY[0x277CFD4F8] hasLocalSecret];
 
@@ -706,21 +704,21 @@ LABEL_15:
     {
       if (v13)
       {
-        LOWORD(v17) = 0;
-        _os_log_impl(&dword_24510B000, v12, OS_LOG_TYPE_DEFAULT, "Failed to update local secret by re-enabling SecureBackup", &v17, 2u);
+        LOWORD(v16) = 0;
+        _os_log_impl(&dword_24510B000, v12, OS_LOG_TYPE_DEFAULT, "Failed to update local secret by re-enabling SecureBackup", &v16, 2u);
       }
 
-      type3 = [(CDPContext *)self->_context type];
-      followUpProvider2 = [(CDPDLocalSecretController *)self followUpProvider];
-      v9 = followUpProvider2;
-      if (type3 == 7)
+      type = [(CDPContext *)self->_context type];
+      followUpProvider = [(CDPDLocalSecretController *)self followUpProvider];
+      v9 = followUpProvider;
+      if (type == 7)
       {
-        [followUpProvider2 postConfirmExistingSecretFollowUp];
+        [followUpProvider postConfirmExistingSecretFollowUp];
       }
 
       else
       {
-        [followUpProvider2 postLocalSecretChangeFollowUp];
+        [followUpProvider postLocalSecretChangeFollowUp];
       }
 
       goto LABEL_16;
@@ -728,17 +726,36 @@ LABEL_15:
 
     if (v13)
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_24510B000, v12, OS_LOG_TYPE_DEFAULT, "No secret, no follow up", &v17, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_24510B000, v12, OS_LOG_TYPE_DEFAULT, "No secret, no follow up", &v16, 2u);
     }
 
-    followUpProvider = [(CDPDLocalSecretController *)self followUpProvider];
-    v9 = followUpProvider;
+    followUpProvider2 = [(CDPDLocalSecretController *)self followUpProvider];
+    v9 = followUpProvider2;
     goto LABEL_15;
   }
 
-LABEL_17:
-  v16 = *MEMORY[0x277D85DE8];
+  v5 = _CDPLogSystem();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    type2 = [(CDPContext *)self->_context type];
+    v16 = 134217984;
+    v17 = type2;
+    _os_log_impl(&dword_24510B000, v5, OS_LOG_TYPE_DEFAULT, "Successfully updated local secret by re-enabling SecureBackup with context type: %ld", &v16, 0xCu);
+  }
+
+  type3 = [(CDPContext *)self->_context type];
+  followUpProvider2 = [(CDPDLocalSecretController *)self followUpProvider];
+  v9 = followUpProvider2;
+  if (type3 != 7)
+  {
+LABEL_15:
+    [followUpProvider2 deleteLocalSecretChangeFollowUp];
+    goto LABEL_16;
+  }
+
+  [followUpProvider2 deleteConfirmExistingSecretFollowUp];
+LABEL_16:
 }
 
 - (void)_repairWithStateMachine:(id)machine completion:(id)completion
@@ -758,13 +775,13 @@ LABEL_17:
 
 - (void)_setContextWithAuthResults:(id)results
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   v5 = _CDPLogSystem();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v10) = 0;
-    _os_log_impl(&dword_24510B000, v5, OS_LOG_TYPE_DEFAULT, "Creating new CDPContext with the auth results", &v10, 2u);
+    LOWORD(v9) = 0;
+    _os_log_impl(&dword_24510B000, v5, OS_LOG_TYPE_DEFAULT, "Creating new CDPContext with the auth results", &v9, 2u);
   }
 
   v6 = [objc_alloc(MEMORY[0x277CFD4A8]) initWithAuthenticationResults:resultsCopy];
@@ -773,28 +790,27 @@ LABEL_17:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     type = [v6 type];
-    v10 = 134217984;
-    v11 = type;
-    _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "Context type set to %ld", &v10, 0xCu);
+    v9 = 134217984;
+    v10 = type;
+    _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "Context type set to %ld", &v9, 0xCu);
   }
 
   [(CDPDLocalSecretController *)self setContext:v6];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createContextForSecret:(BOOL)secret withCompletion:(id)completion
 {
   secretCopy = secret;
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __68__CDPDLocalSecretController__createContextForSecret_withCompletion___block_invoke;
-  v21 = &unk_278E25460;
+  v17 = MEMORY[0x277D85DD0];
+  v18 = 3221225472;
+  v19 = __68__CDPDLocalSecretController__createContextForSecret_withCompletion___block_invoke;
+  v20 = &unk_278E25460;
   v7 = completionCopy;
   selfCopy = self;
-  v23 = v7;
-  v8 = _Block_copy(&v18);
+  v22 = v7;
+  v8 = _Block_copy(&v17);
   v9 = _CDPLogSystem();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
@@ -802,21 +818,21 @@ LABEL_17:
     mEMORY[0x277CFD480] = [MEMORY[0x277CFD480] sharedInstance];
     primaryAccountStashedPRK = [mEMORY[0x277CFD480] primaryAccountStashedPRK];
     *buf = 138412802;
-    v25 = uiProvider;
-    v26 = 1024;
-    v27 = secretCopy;
-    v28 = 2112;
-    v29 = primaryAccountStashedPRK;
+    v24 = uiProvider;
+    v25 = 1024;
+    v26 = secretCopy;
+    v27 = 2112;
+    v28 = primaryAccountStashedPRK;
     _os_log_impl(&dword_24510B000, v9, OS_LOG_TYPE_DEFAULT, "Refreshing context for input: (%@) - %{BOOL}d - %@", buf, 0x1Cu);
   }
 
   if (-[CDPContext type](self->_context, "type") == 6 && secretCopy && self->_uiProvider && ([MEMORY[0x277CFD480] sharedInstance], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "primaryAccountStashedPRK"), v14 = objc_claimAutoreleasedReturnValue(), v14, v13, !v14))
   {
-    v17 = _CDPLogSystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v16 = _CDPLogSystem();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_24510B000, v17, OS_LOG_TYPE_DEFAULT, "Enabling backup, but we are missing a PRK, force interaction to get one", buf, 2u);
+      _os_log_impl(&dword_24510B000, v16, OS_LOG_TYPE_DEFAULT, "Enabling backup, but we are missing a PRK, force interaction to get one", buf, 2u);
     }
 
     [(CDPStateUIProviderInternal *)self->_uiProvider cdpContext:self->_context promptForInteractiveAuthenticationWithCompletion:v8];
@@ -833,8 +849,6 @@ LABEL_17:
 
     [CDPAuthenticationHelper silentAuthenticationForPrimaryAccountWithCompletion:v8];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __68__CDPDLocalSecretController__createContextForSecret_withCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -893,11 +907,6 @@ uint64_t __68__CDPDLocalSecretController__createContextForSecret_withCompletion_
     [*(a1 + 32) _setContextWithAuthResults:a2];
   }
 
-  else
-  {
-    v4 = *(a1 + 40);
-  }
-
   v3 = *(*(a1 + 40) + 16);
 
   return v3();
@@ -945,32 +954,29 @@ uint64_t __68__CDPDLocalSecretController__createContextForSecret_withCompletion_
 
 - (void)_wrappedLocalSecretChangedTo:(os_log_t)log secretType:completion:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[CDPDLocalSecretController _wrappedLocalSecretChangedTo:secretType:completion:]";
-  _os_log_error_impl(&dword_24510B000, log, OS_LOG_TYPE_ERROR, "No primary account found in %s. Aborting", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[CDPDLocalSecretController _wrappedLocalSecretChangedTo:secretType:completion:]";
+  _os_log_error_impl(&dword_24510B000, log, OS_LOG_TYPE_ERROR, "No primary account found in %s. Aborting", &v1, 0xCu);
 }
 
 - (void)_wrappedLocalSecretChangedTo:(os_log_t)log secretType:completion:.cold.2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[CDPDLocalSecretController _wrappedLocalSecretChangedTo:secretType:completion:]";
-  _os_log_error_impl(&dword_24510B000, log, OS_LOG_TYPE_ERROR, "No local secret passed in, nothing to update %s. Aborting", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[CDPDLocalSecretController _wrappedLocalSecretChangedTo:secretType:completion:]";
+  _os_log_error_impl(&dword_24510B000, log, OS_LOG_TYPE_ERROR, "No local secret passed in, nothing to update %s. Aborting", &v1, 0xCu);
 }
 
 - (void)circlePeerIDForSecureBackupController:(os_log_t)log .cold.1(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a2;
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_debug_impl(&dword_24510B000, log, OS_LOG_TYPE_DEBUG, "Got peer id: %@ from %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_debug_impl(&dword_24510B000, log, OS_LOG_TYPE_DEBUG, "Got peer id: %@ from %@", &v4, 0x16u);
 }
 
 @end

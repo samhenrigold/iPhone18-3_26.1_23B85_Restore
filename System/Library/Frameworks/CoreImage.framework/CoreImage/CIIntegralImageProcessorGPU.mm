@@ -9,121 +9,121 @@
   metalCommandBuffer = [output metalCommandBuffer];
   if (!metalCommandBuffer)
   {
-    v19 = ci_logger_api();
-    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
-    if (!v20)
+    v21 = ci_logger_api(0, v9);
+    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
+    if (!v22)
     {
-      return v20;
+      return v22;
     }
 
     +[CIIntegralImageProcessorGPU processWithInputs:arguments:output:error:];
 LABEL_9:
-    LOBYTE(v20) = 0;
-    return v20;
+    LOBYTE(v22) = 0;
+    return v22;
   }
 
-  v9 = metalCommandBuffer;
-  v10 = [objc_alloc(MEMORY[0x1E69745E8]) initWithDevice:{objc_msgSend(metalCommandBuffer, "device")}];
-  if (!v10)
+  v10 = metalCommandBuffer;
+  v11 = [objc_alloc(MEMORY[0x1E69745E8]) initWithDevice:{objc_msgSend(metalCommandBuffer, "device")}];
+  if (!v11)
   {
-    v21 = ci_logger_api();
-    v20 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
-    if (!v20)
+    v23 = ci_logger_api(0, v12);
+    v22 = os_log_type_enabled(v23, OS_LOG_TYPE_ERROR);
+    if (!v22)
     {
-      return v20;
+      return v22;
     }
 
     +[CIIntegralImageProcessorGPU processWithInputs:arguments:output:error:];
     goto LABEL_9;
   }
 
-  v11 = v10;
+  v13 = v11;
   [objc_msgSend(inputs objectAtIndexedSubscript:{0), "region"}];
-  x = v31.origin.x;
-  y = v31.origin.y;
-  width = v31.size.width;
-  height = v31.size.height;
-  if (CGRectIsNull(v31))
+  x = v33.origin.x;
+  y = v33.origin.y;
+  width = v33.size.width;
+  height = v33.size.height;
+  if (CGRectIsNull(v33))
   {
-    LODWORD(v16) = 0;
-    v17 = 0x7FFFFFFF;
-    v18 = 0x7FFFFFFF;
+    LODWORD(v18) = 0;
+    v19 = 0x7FFFFFFF;
+    v20 = 0x7FFFFFFF;
   }
 
   else
   {
-    v32.origin.x = x;
-    v32.origin.y = y;
-    v32.size.width = width;
-    v32.size.height = height;
-    if (CGRectIsInfinite(v32))
+    v34.origin.x = x;
+    v34.origin.y = y;
+    v34.size.width = width;
+    v34.size.height = height;
+    if (CGRectIsInfinite(v34))
     {
-      v17 = -2147483647;
-      LODWORD(v16) = -1;
-      v18 = -2147483647;
+      v19 = -2147483647;
+      LODWORD(v18) = -1;
+      v20 = -2147483647;
     }
 
     else
     {
-      v33.origin.x = x;
-      v33.origin.y = y;
-      v33.size.width = width;
-      v33.size.height = height;
-      v34 = CGRectInset(v33, 0.000001, 0.000001);
-      v35 = CGRectIntegral(v34);
-      v18 = v35.origin.x;
-      v17 = v35.origin.y;
-      v16 = v35.size.height;
+      v35.origin.x = x;
+      v35.origin.y = y;
+      v35.size.width = width;
+      v35.size.height = height;
+      v36 = CGRectInset(v35, 0.000001, 0.000001);
+      v37 = CGRectIntegral(v36);
+      v20 = v37.origin.x;
+      v19 = v37.origin.y;
+      v18 = v37.size.height;
     }
   }
 
   [output region];
-  v22 = v36.origin.x;
-  v23 = v36.origin.y;
-  v24 = v36.size.width;
-  v25 = v36.size.height;
-  if (CGRectIsNull(v36))
+  v24 = v38.origin.x;
+  v25 = v38.origin.y;
+  v26 = v38.size.width;
+  v27 = v38.size.height;
+  if (CGRectIsNull(v38))
   {
-    LODWORD(v26) = 0;
-    v27 = 0x7FFFFFFF;
-    v28 = 0x7FFFFFFF;
+    LODWORD(v28) = 0;
+    v29 = 0x7FFFFFFF;
+    v30 = 0x7FFFFFFF;
   }
 
   else
   {
-    v37.origin.x = v22;
-    v37.origin.y = v23;
-    v37.size.width = v24;
-    v37.size.height = v25;
-    if (CGRectIsInfinite(v37))
+    v39.origin.x = v24;
+    v39.origin.y = v25;
+    v39.size.width = v26;
+    v39.size.height = v27;
+    if (CGRectIsInfinite(v39))
     {
-      v27 = -2147483647;
-      LODWORD(v26) = -1;
-      v28 = -2147483647;
+      v29 = -2147483647;
+      LODWORD(v28) = -1;
+      v30 = -2147483647;
     }
 
     else
     {
-      v38.origin.x = v22;
-      v38.origin.y = v23;
-      v38.size.width = v24;
-      v38.size.height = v25;
-      v39 = CGRectInset(v38, 0.000001, 0.000001);
-      v40 = CGRectIntegral(v39);
-      v28 = v40.origin.x;
-      v27 = v40.origin.y;
-      v26 = v40.size.height;
+      v40.origin.x = v24;
+      v40.origin.y = v25;
+      v40.size.width = v26;
+      v40.size.height = v27;
+      v41 = CGRectInset(v40, 0.000001, 0.000001);
+      v42 = CGRectIntegral(v41);
+      v30 = v42.origin.x;
+      v29 = v42.origin.y;
+      v28 = v42.size.height;
     }
   }
 
-  v30[0] = v28 - v18;
-  v30[1] = v17 + v16 - (v26 + v27);
-  v30[2] = 0;
-  [v11 setOffset:v30];
-  [v11 encodeToCommandBuffer:v9 sourceTexture:objc_msgSend(objc_msgSend(inputs destinationTexture:{"objectAtIndexedSubscript:", 0), "metalTexture"), objc_msgSend(output, "metalTexture")}];
+  v32[0] = v30 - v20;
+  v32[1] = v19 + v18 - (v28 + v29);
+  v32[2] = 0;
+  [v13 setOffset:v32];
+  [v13 encodeToCommandBuffer:v10 sourceTexture:objc_msgSend(objc_msgSend(inputs destinationTexture:{"objectAtIndexedSubscript:", 0), "metalTexture"), objc_msgSend(output, "metalTexture")}];
 
-  LOBYTE(v20) = 1;
-  return v20;
+  LOBYTE(v22) = 1;
+  return v22;
 }
 
 + (void)processWithInputs:arguments:output:error:.cold.1()

@@ -12,10 +12,11 @@
   v4 = v3();
   if (v4)
   {
-    v5 = v4;
+    v6 = v5;
+    v7 = v4;
     v4();
 
-    outlined consume of (@escaping @callee_guaranteed () -> ())?(v5);
+    outlined consume of (@escaping @callee_guaranteed () -> ())?(v7, v6);
   }
 
   else

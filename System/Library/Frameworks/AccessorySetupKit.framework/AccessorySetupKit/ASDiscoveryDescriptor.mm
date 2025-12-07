@@ -269,31 +269,31 @@
   {
     if (MEMORY[0x2383B4C90](objectCopy) == MEMORY[0x277D86468])
     {
-      v17 = 0;
+      v10 = 0;
       if (CUXPCDecodeUInt64RangedEx() == 6)
       {
-        v7->_supportedOptions = v17;
+        v7->_supportedOptions = v10;
       }
 
-      v17 = 0;
+      v10 = 0;
       if (CUXPCDecodeUInt64RangedEx() == 6)
       {
-        v7->_bluetoothCompanyIdentifier = v17;
+        v7->_bluetoothCompanyIdentifier = v10;
       }
 
       CUXPCDecodeNSData();
       CUXPCDecodeNSData();
-      v17 = 0;
+      v10 = 0;
       if (CUXPCDecodeUInt64RangedEx() == 6)
       {
-        v7->_bluetoothNameSubstringCompareOptions = v17;
+        v7->_bluetoothNameSubstringCompareOptions = v10;
       }
 
       CUXPCDecodeNSString();
-      v17 = 0;
+      v10 = 0;
       if (CUXPCDecodeSInt64RangedEx() == 6)
       {
-        v7->_bluetoothRange = v17;
+        v7->_bluetoothRange = v10;
       }
 
       CUXPCDecodeNSData();
@@ -305,38 +305,38 @@
       CUXPCDecodeNSString();
       CUXPCDecodeNSString();
       CUXPCDecodeNSString();
-      v17 = 0;
+      v10 = 0;
       if (CUXPCDecodeSInt64RangedEx() == 6)
       {
-        v7->_wifiAwareServiceRole = v17;
+        v7->_wifiAwareServiceRole = v10;
       }
 
       objc_opt_class();
       CUXPCDecodeObject();
       objc_opt_class();
       CUXPCDecodeObject();
-      v14 = v7;
+      v8 = v7;
     }
 
     else if (error)
     {
-      ASErrorF(-6756, "XPC non-dict", v8, v9, v10, v11, v12, v13, v16);
-      *error = v14 = 0;
+      ASErrorF(-6756, "XPC non-dict");
+      *error = v8 = 0;
     }
 
     else
     {
-      v14 = 0;
+      v8 = 0;
     }
   }
 
   else
   {
-    [ASAccessory initWithXPCObject:error error:&v17];
-    v14 = v17;
+    [ASAccessory initWithXPCObject:error error:&v10];
+    v8 = v10;
   }
 
-  return v14;
+  return v8;
 }
 
 - (void)encodeWithXPCObject:(id)object
@@ -550,9 +550,7 @@
     xpc_dictionary_set_int64(xdict, "wASt", wifiAwareServiceRole);
   }
 
-  wifiAwareModelNameMatch = self->_wifiAwareModelNameMatch;
   CUXPCEncodeObject();
-  wifiAwareVendorNameMatch = self->_wifiAwareVendorNameMatch;
   CUXPCEncodeObject();
 }
 
@@ -1113,210 +1111,269 @@ LABEL_12:
 {
   if ((level & 0x8000000) != 0)
   {
-    v4 = 0;
+    v4 = 8;
   }
 
   else
   {
-    objc_opt_class();
-    CUAppendF();
-    v4 = 0;
+    v4 = 12;
+  }
+
+  v87 = v4;
+  if ((level & 0x8000000) != 0)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v86 = 0;
+    v5 = objc_opt_class();
+    CUAppendF(&v86, &v87, "%@", v5);
+    v6 = v86;
   }
 
   if (self->_supportedOptions)
   {
-    v43 = CUPrintFlags64();
-    CUAppendF();
-    v5 = v4;
+    v85 = v6;
+    v7 = CUPrintFlags64();
+    CUAppendF(&v85, &v87, "Supports %@", v7);
+    v8 = v85;
 
-    v4 = v5;
+    v6 = v8;
   }
 
+  bluetoothCompanyIdentifier = self->_bluetoothCompanyIdentifier;
   if (self->_bluetoothCompanyIdentifier)
   {
-    bluetoothCompanyIdentifier = self->_bluetoothCompanyIdentifier;
-    CUAppendF();
-    v6 = v4;
+    v84 = v6;
+    CUAppendF(&v84, &v87, "CompanyID %x", bluetoothCompanyIdentifier);
+    v10 = v84;
 
-    v4 = v6;
+    v6 = v10;
   }
 
   bluetoothManufacturerDataBlob = self->_bluetoothManufacturerDataBlob;
   if (bluetoothManufacturerDataBlob)
   {
-    v45 = bluetoothManufacturerDataBlob;
-    CUAppendF();
-    v8 = v4;
+    v83 = v6;
+    v12 = bluetoothManufacturerDataBlob;
+    CUAppendF(&v83, &v87, "Blob %@", v12);
+    v13 = v83;
 
-    v4 = v8;
+    v6 = v13;
   }
 
   bluetoothManufacturerDataMask = self->_bluetoothManufacturerDataMask;
   if (bluetoothManufacturerDataMask)
   {
-    v46 = bluetoothManufacturerDataMask;
-    CUAppendF();
-    v10 = v4;
+    v82 = v6;
+    v15 = bluetoothManufacturerDataMask;
+    CUAppendF(&v82, &v87, "Mask %@", v15);
+    v16 = v82;
 
-    v4 = v10;
+    v6 = v16;
   }
 
-  if (self->_bluetoothNameSubstringCompareOptions)
+  bluetoothNameSubstringCompareOptions = self->_bluetoothNameSubstringCompareOptions;
+  if (bluetoothNameSubstringCompareOptions)
   {
-    bluetoothNameSubstringCompareOptions = self->_bluetoothNameSubstringCompareOptions;
-    CUAppendF();
-    v11 = v4;
+    v81 = v6;
+    CUAppendF(&v81, &v87, "NameCompare %lu", bluetoothNameSubstringCompareOptions);
+    v18 = v81;
 
-    v4 = v11;
+    v6 = v18;
   }
 
   bluetoothNameSubstring = self->_bluetoothNameSubstring;
   if (bluetoothNameSubstring)
   {
-    v48 = bluetoothNameSubstring;
-    CUAppendF();
-    v13 = v4;
+    v80 = v6;
+    v20 = bluetoothNameSubstring;
+    CUAppendF(&v80, &v87, "LocalName %@", v20);
+    v21 = v80;
 
-    v4 = v13;
+    v6 = v21;
   }
 
-  if (self->_bluetoothRange)
+  bluetoothRange = self->_bluetoothRange;
+  if (bluetoothRange)
   {
-    CUAppendF();
-    v14 = v4;
+    if (bluetoothRange == 10)
+    {
+      v23 = @"Immediate";
+    }
 
-    v4 = v14;
+    else
+    {
+      v23 = @"?";
+    }
+
+    v79 = v6;
+    CUAppendF(&v79, &v87, "BluetoothRange %@", v23);
+    v24 = v79;
+
+    v6 = v24;
   }
 
   bluetoothServiceUUID = self->_bluetoothServiceUUID;
   if (bluetoothServiceUUID)
   {
-    v49 = bluetoothServiceUUID;
-    CUAppendF();
-    v16 = v4;
+    v78 = v6;
+    v26 = bluetoothServiceUUID;
+    CUAppendF(&v78, &v87, "ServiceUUID %@", v26);
+    v27 = v78;
 
-    v4 = v16;
+    v6 = v27;
   }
 
   bluetoothServiceDataBlob = self->_bluetoothServiceDataBlob;
   if (bluetoothServiceDataBlob)
   {
-    v50 = bluetoothServiceDataBlob;
-    CUAppendF();
-    v18 = v4;
+    v77 = v6;
+    v29 = bluetoothServiceDataBlob;
+    CUAppendF(&v77, &v87, "ServiceBlob %@", v29);
+    v30 = v77;
 
-    v4 = v18;
+    v6 = v30;
   }
 
   bluetoothServiceDataMask = self->_bluetoothServiceDataMask;
   if (bluetoothServiceDataMask)
   {
-    v51 = bluetoothServiceDataMask;
-    CUAppendF();
-    v20 = v4;
+    v76 = v6;
+    v32 = bluetoothServiceDataMask;
+    CUAppendF(&v76, &v87, "ServiceMask %@", v32);
+    v33 = v76;
 
-    v4 = v20;
+    v6 = v33;
   }
 
   bonjourServiceName = self->_bonjourServiceName;
   if (bonjourServiceName)
   {
-    v52 = bonjourServiceName;
-    CUAppendF();
-    v22 = v4;
+    v75 = v6;
+    v35 = bonjourServiceName;
+    CUAppendF(&v75, &v87, "Bonjour %@", v35);
+    v36 = v75;
 
-    v4 = v22;
+    v6 = v36;
   }
 
   bonjourServiceType = self->_bonjourServiceType;
   if (bonjourServiceType)
   {
-    v53 = bonjourServiceType;
-    CUAppendF();
-    v24 = v4;
+    v74 = v6;
+    v38 = bonjourServiceType;
+    CUAppendF(&v74, &v87, " %@", v38);
+    v39 = v74;
 
-    v4 = v24;
+    v6 = v39;
   }
 
   bonjourTXTRecordData = self->_bonjourTXTRecordData;
   if (bonjourTXTRecordData)
   {
-    v26 = MEMORY[0x277CCABB0];
-    v27 = bonjourTXTRecordData;
-    v54 = [v26 numberWithUnsignedInteger:{-[NSData length](v27, "length")}];
-    CUAppendF();
-    v28 = v4;
+    v73 = v6;
+    v41 = MEMORY[0x277CCABB0];
+    v42 = bonjourTXTRecordData;
+    v43 = [v41 numberWithUnsignedInteger:{-[NSData length](v42, "length")}];
+    CUAppendF(&v73, &v87, " %@", v43);
+    v44 = v73;
 
-    v4 = v28;
+    v6 = v44;
   }
 
   SSID = self->_SSID;
   if (SSID)
   {
-    v55 = SSID;
-    CUAppendF();
-    v30 = v4;
+    v72 = v6;
+    v46 = SSID;
+    CUAppendF(&v72, &v87, "SSID %@", v46);
+    v47 = v72;
 
-    v4 = v30;
+    v6 = v47;
   }
 
   SSIDPrefix = self->_SSIDPrefix;
   if (SSIDPrefix)
   {
-    v56 = SSIDPrefix;
-    CUAppendF();
-    v32 = v4;
+    v71 = v6;
+    v49 = SSIDPrefix;
+    CUAppendF(&v71, &v87, "SSIDPrefix %@", v49);
+    v50 = v71;
 
-    v4 = v32;
+    v6 = v50;
   }
 
   wifiAwareServiceName = self->_wifiAwareServiceName;
   if (wifiAwareServiceName)
   {
-    v57 = wifiAwareServiceName;
-    CUAppendF();
-    v34 = v4;
+    v70 = v6;
+    v52 = wifiAwareServiceName;
+    CUAppendF(&v70, &v87, "WiFiAware %@", v52);
+    v53 = v70;
 
-    v4 = v34;
+    v6 = v53;
   }
 
-  if (self->_wifiAwareServiceRole)
+  wifiAwareServiceRole = self->_wifiAwareServiceRole;
+  if (wifiAwareServiceRole)
   {
-    CUAppendF();
-    v35 = v4;
+    v55 = @"Publisher";
+    if (wifiAwareServiceRole != 20)
+    {
+      v55 = @"?";
+    }
 
-    v4 = v35;
+    if (wifiAwareServiceRole == 10)
+    {
+      v56 = @"Subscriber";
+    }
+
+    else
+    {
+      v56 = v55;
+    }
+
+    v69 = v6;
+    CUAppendF(&v69, &v87, "Role %@", v56);
+    v57 = v69;
+
+    v6 = v57;
   }
 
   wifiAwareModelNameMatch = self->_wifiAwareModelNameMatch;
   if (wifiAwareModelNameMatch)
   {
-    v58 = wifiAwareModelNameMatch;
-    CUAppendF();
-    v37 = v4;
+    v68 = v6;
+    v59 = wifiAwareModelNameMatch;
+    CUAppendF(&v68, &v87, "Model %@", v59);
+    v60 = v68;
 
-    v4 = v37;
+    v6 = v60;
   }
 
   wifiAwareVendorNameMatch = self->_wifiAwareVendorNameMatch;
   if (wifiAwareVendorNameMatch)
   {
-    v59 = wifiAwareVendorNameMatch;
-    CUAppendF();
-    v39 = v4;
+    v67 = v6;
+    v62 = wifiAwareVendorNameMatch;
+    CUAppendF(&v67, &v87, "Vendor %@", v62);
+    v63 = v67;
 
-    v4 = v39;
+    v6 = v63;
   }
 
-  v40 = &stru_28499D698;
-  if (v4)
+  v64 = &stru_28499D698;
+  if (v6)
   {
-    v40 = v4;
+    v64 = v6;
   }
 
-  v41 = v40;
+  v65 = v64;
 
-  return v41;
+  return v65;
 }
 
 - (unint64_t)hash

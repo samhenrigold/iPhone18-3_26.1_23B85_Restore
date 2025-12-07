@@ -52,8 +52,7 @@
     v5 = "N";
   }
 
-  recordIDBlockingSave = self->_recordIDBlockingSave;
-  return [v3 stringWithFormat:@"<%@ id:%@ hr:%s xattr:%@ rtf:%@ bs:%@ type:%ld>", v4, self->_recordID, v5, self->_xattrSignature, self->_recordIDNeedingFetch, recordIDBlockingSave, self->_recordType];
+  return [v3 stringWithFormat:@"<%@ id:%@ hr:%s xattr:%@ rtf:%@ bs:%@ type:%ld>", v4, self->_recordID, v5, self->_xattrSignature, self->_recordIDNeedingFetch, self->_recordIDBlockingSave, self->_recordType];
 }
 
 - (BOOL)isWaitingOnShareIDFetch
@@ -113,7 +112,7 @@
     v11 = brc_default_log();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      [BRCFetchSubResourceRecord initWithRecordIDNeedingFetch:? recordType:?];
+      [BRCFetchSubResourceRecord initWithRecordIDNeedingFetch:recordType:];
     }
   }
 

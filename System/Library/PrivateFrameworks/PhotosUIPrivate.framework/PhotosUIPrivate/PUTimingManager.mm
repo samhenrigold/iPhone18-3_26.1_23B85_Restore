@@ -48,13 +48,13 @@
   return v3;
 }
 
-uint64_t __33__PUTimingManager_defaultManager__block_invoke()
+uint64_t __33__PUTimingManager_defaultManager__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = defaultManager___default;
-  defaultManager___default = v0;
+  v2 = objc_opt_new();
+  v3 = defaultManager___default;
+  defaultManager___default = v2;
 
-  return MEMORY[0x1EEE66BB8](v0, v1);
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 @end

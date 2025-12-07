@@ -18,77 +18,7 @@
 {
   namesCopy = names;
   v7 = objc_alloc_init(HKPIIRedactor);
-  if (!v7)
-  {
-    goto LABEL_10;
-  }
-
-  v8 = [MEMORY[0x1E696AB60] dataDetectorWithTypes:2104 error:error];
-  dataDetectorAll = v7->_dataDetectorAll;
-  v7->_dataDetectorAll = v8;
-
-  dataDetectorAll = [(HKPIIRedactor *)v7 dataDetectorAll];
-
-  if (!dataDetectorAll)
-  {
-    goto LABEL_10;
-  }
-
-  v11 = [MEMORY[0x1E696AB60] dataDetectorWithTypes:2072 error:error];
-  dataDetectorSkipLink = v7->_dataDetectorSkipLink;
-  v7->_dataDetectorSkipLink = v11;
-
-  dataDetectorSkipLink = [(HKPIIRedactor *)v7 dataDetectorSkipLink];
-
-  if (!dataDetectorSkipLink)
-  {
-    goto LABEL_10;
-  }
-
-  v14 = [MEMORY[0x1E696AB60] dataDetectorWithTypes:56 error:error];
-  dataDetectorSkipPhoneNumbers = v7->_dataDetectorSkipPhoneNumbers;
-  v7->_dataDetectorSkipPhoneNumbers = v14;
-
-  dataDetectorSkipPhoneNumbers = [(HKPIIRedactor *)v7 dataDetectorSkipPhoneNumbers];
-
-  if (!dataDetectorSkipPhoneNumbers)
-  {
-    goto LABEL_10;
-  }
-
-  v17 = [MEMORY[0x1E696AB60] dataDetectorWithTypes:24 error:error];
-  dataDetectorSkipLinkSkipPhoneNumbers = v7->_dataDetectorSkipLinkSkipPhoneNumbers;
-  v7->_dataDetectorSkipLinkSkipPhoneNumbers = v17;
-
-  dataDetectorSkipLinkSkipPhoneNumbers = [(HKPIIRedactor *)v7 dataDetectorSkipLinkSkipPhoneNumbers];
-
-  if (!dataDetectorSkipLinkSkipPhoneNumbers)
-  {
-    goto LABEL_10;
-  }
-
-  v20 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:namesCopy];
-  names = v7->_names;
-  v7->_names = v20;
-
-  v22 = [self _redactFullWordRegexWithError:error];
-  fullWordRegex = v7->_fullWordRegex;
-  v7->_fullWordRegex = v22;
-
-  fullWordRegex = [(HKPIIRedactor *)v7 fullWordRegex];
-
-  if (!fullWordRegex)
-  {
-    goto LABEL_10;
-  }
-
-  v25 = [self _SSNRegularExpressionWithError:error];
-  SSNRegex = v7->_SSNRegex;
-  v7->_SSNRegex = v25;
-
-  sSNRegex = [(HKPIIRedactor *)v7 SSNRegex];
-
-  if (sSNRegex)
+  if (v7 && ([MEMORY[0x1E696AB60] dataDetectorWithTypes:2104 error:error], v8 = objc_claimAutoreleasedReturnValue(), dataDetectorAll = v7->_dataDetectorAll, v7->_dataDetectorAll = v8, dataDetectorAll, -[HKPIIRedactor dataDetectorAll](v7, "dataDetectorAll"), v10 = objc_claimAutoreleasedReturnValue(), v10, v10) && (objc_msgSend(MEMORY[0x1E696AB60], "dataDetectorWithTypes:error:", 2072, error), v11 = objc_claimAutoreleasedReturnValue(), dataDetectorSkipLink = v7->_dataDetectorSkipLink, v7->_dataDetectorSkipLink = v11, dataDetectorSkipLink, -[HKPIIRedactor dataDetectorSkipLink](v7, "dataDetectorSkipLink"), v13 = objc_claimAutoreleasedReturnValue(), v13, v13) && (objc_msgSend(MEMORY[0x1E696AB60], "dataDetectorWithTypes:error:", 56, error), v14 = objc_claimAutoreleasedReturnValue(), dataDetectorSkipPhoneNumbers = v7->_dataDetectorSkipPhoneNumbers, v7->_dataDetectorSkipPhoneNumbers = v14, dataDetectorSkipPhoneNumbers, -[HKPIIRedactor dataDetectorSkipPhoneNumbers](v7, "dataDetectorSkipPhoneNumbers"), v16 = objc_claimAutoreleasedReturnValue(), v16, v16) && (objc_msgSend(MEMORY[0x1E696AB60], "dataDetectorWithTypes:error:", 24, error), v17 = objc_claimAutoreleasedReturnValue(), dataDetectorSkipLinkSkipPhoneNumbers = v7->_dataDetectorSkipLinkSkipPhoneNumbers, v7->_dataDetectorSkipLinkSkipPhoneNumbers = v17, dataDetectorSkipLinkSkipPhoneNumbers, -[HKPIIRedactor dataDetectorSkipLinkSkipPhoneNumbers](v7, "dataDetectorSkipLinkSkipPhoneNumbers"), v19 = objc_claimAutoreleasedReturnValue(), v19, v19) && (v20 = objc_msgSend(objc_alloc(MEMORY[0x1E695DFD8]), "initWithArray:", namesCopy), names = v7->_names, v7->_names = v20, names, objc_msgSend(self, "_redactFullWordRegexWithError:", error), v22 = objc_claimAutoreleasedReturnValue(), fullWordRegex = v7->_fullWordRegex, v7->_fullWordRegex = v22, fullWordRegex, -[HKPIIRedactor fullWordRegex](v7, "fullWordRegex"), v24 = objc_claimAutoreleasedReturnValue(), v24, v24) && (objc_msgSend(self, "_SSNRegularExpressionWithError:", error), v25 = objc_claimAutoreleasedReturnValue(), SSNRegex = v7->_SSNRegex, v7->_SSNRegex = v25, SSNRegex, -[HKPIIRedactor SSNRegex](v7, "SSNRegex"), v27 = objc_claimAutoreleasedReturnValue(), v27, v27))
   {
     v28 = [self _longNumberRegexWithError:error];
     longNumberRegex = v7->_longNumberRegex;
@@ -104,7 +34,6 @@
 
   else
   {
-LABEL_10:
     longNumberRegex = 0;
   }
 
@@ -239,18 +168,18 @@ LABEL_10:
 
 - (unint64_t)_redactNamesFromString:(id)string
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   names = [(HKPIIRedactor *)self names];
 
   if (names)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     names2 = [(HKPIIRedactor *)self names];
-    v7 = [names2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v7 = [names2 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (!v7)
     {
       v13 = 0;
@@ -259,24 +188,24 @@ LABEL_10:
 
     v8 = v7;
     v9 = 0;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(names2);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         if ([v12 length] >= 2)
         {
           v9 += [stringCopy replaceOccurrencesOfString:v12 withString:@"xxREPLACExx" options:385 range:{0, objc_msgSend(stringCopy, "length")}];
         }
       }
 
-      v8 = [names2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [names2 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -294,7 +223,6 @@ LABEL_15:
   v13 = 0;
 LABEL_16:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -313,49 +241,49 @@ LABEL_16:
 
 - (unint64_t)_redactLongNumbersFromString:(id)string
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   longNumberRegex = [(HKPIIRedactor *)self longNumberRegex];
 
   if (longNumberRegex)
   {
     v6 = objc_opt_new();
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2020000000;
-    v31 = 0;
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x2020000000;
+    v30 = 0;
     longNumberRegex2 = [(HKPIIRedactor *)self longNumberRegex];
     v8 = [stringCopy length];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __46__HKPIIRedactor__redactLongNumbersFromString___block_invoke;
-    v25[3] = &unk_1E737D448;
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __46__HKPIIRedactor__redactLongNumbersFromString___block_invoke;
+    v24[3] = &unk_1E737D448;
     v9 = v6;
-    v26 = v9;
-    v27 = &v28;
-    [longNumberRegex2 enumerateMatchesInString:stringCopy options:0 range:0 usingBlock:{v8, v25}];
+    v25 = v9;
+    v26 = &v27;
+    [longNumberRegex2 enumerateMatchesInString:stringCopy options:0 range:0 usingBlock:{v8, v24}];
 
-    v20 = v29[3];
+    v19 = v28[3];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v21 objects:v32 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v20 objects:v31 count:16];
     if (v11)
     {
-      v12 = *v22;
+      v12 = *v21;
       do
       {
         v13 = 0;
         do
         {
-          if (*v22 != v12)
+          if (*v21 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          rangeValue = [*(*(&v21 + 1) + 8 * v13) rangeValue];
+          rangeValue = [*(*(&v20 + 1) + 8 * v13) rangeValue];
           v16 = v15;
           v17 = [&stru_1F05FF230 stringByPaddingToLength:v15 withString:@"█" startingAtIndex:0];
           [stringCopy replaceCharactersInRange:rangeValue withString:{v16, v17}];
@@ -364,22 +292,21 @@ LABEL_16:
         }
 
         while (v11 != v13);
-        v11 = [v10 countByEnumeratingWithState:&v21 objects:v32 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v20 objects:v31 count:16];
       }
 
       while (v11);
     }
 
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v27, 8);
   }
 
   else
   {
-    v20 = 0;
+    v19 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-  return v20;
+  return v19;
 }
 
 void __46__HKPIIRedactor__redactLongNumbersFromString___block_invoke(uint64_t a1, void *a2)
@@ -455,11 +382,11 @@ LABEL_12:
 
 - (HKPIIRedactor)initWithCoder:(id)coder
 {
-  v28[2] = *MEMORY[0x1E69E9840];
+  v27[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v27.receiver = self;
-  v27.super_class = HKPIIRedactor;
-  v5 = [(HKPIIRedactor *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = HKPIIRedactor;
+  v5 = [(HKPIIRedactor *)&v26 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"DataDetectorAll"];
@@ -479,9 +406,9 @@ LABEL_12:
     v5->_dataDetectorSkipLinkSkipPhoneNumbers = v12;
 
     v14 = MEMORY[0x1E695DFD8];
-    v28[0] = objc_opt_class();
-    v28[1] = objc_opt_class();
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
+    v27[0] = objc_opt_class();
+    v27[1] = objc_opt_class();
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
     v16 = [v14 setWithArray:v15];
     v17 = [coderCopy decodeObjectOfClasses:v16 forKey:@"Names"];
     names = v5->_names;
@@ -500,7 +427,6 @@ LABEL_12:
     v5->_longNumberRegex = v23;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

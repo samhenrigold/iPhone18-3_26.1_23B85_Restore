@@ -6,11 +6,12 @@
 
 - (BOOL)shouldBlockCallWithBundleIdentifier:(id)identifier
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = v5;
   selfCopy = self;
-  v5 = sub_1000271D8();
+  LOBYTE(v4) = sub_1000271D8(v4, v6);
 
-  return v5;
+  return v4 & 1;
 }
 
 @end

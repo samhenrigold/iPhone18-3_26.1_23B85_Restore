@@ -116,47 +116,45 @@ id __63__AMSUIAgeVerificationTask__performTaskWithVerificationResult___block_inv
   v6 = [v5 ams_accountFlagValueForAccountFlag:*MEMORY[0x1E698C498]];
 
   v7 = [AMSUIAgeVerificationCore _timestampOfExpiryFrom:v6];
-  v8 = *(a1 + 32);
-  v9 = objc_opt_class();
-  v10 = *(a1 + 40);
-  v11 = [*(a1 + 32) bag];
-  v12 = *(a1 + 32);
-  v13 = [objc_opt_class() _dateFormatter];
-  v14 = [v9 _dialogForResult:v10 withBag:v11 expiration:v7 dateFormatter:v13];
+  v8 = objc_opt_class();
+  v9 = *(a1 + 40);
+  v10 = [*(a1 + 32) bag];
+  v11 = [objc_opt_class() _dateFormatter];
+  v12 = [v8 _dialogForResult:v9 withBag:v10 expiration:v7 dateFormatter:v11];
 
-  v15 = [AMSUIAlertDialogTask alloc];
-  v16 = [*(a1 + 32) viewController];
-  v17 = [(AMSUIAlertDialogTask *)v15 initWithRequest:v14 presentingViewController:v16];
+  v13 = [AMSUIAlertDialogTask alloc];
+  v14 = [*(a1 + 32) viewController];
+  v15 = [(AMSUIAlertDialogTask *)v13 initWithRequest:v12 presentingViewController:v14];
 
-  v18 = [(AMSUIAlertDialogTask *)v17 present];
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __63__AMSUIAgeVerificationTask__performTaskWithVerificationResult___block_invoke_2;
-  v26[3] = &unk_1E7F24320;
-  v27 = v14;
-  v28 = *(a1 + 40);
-  v19 = v4;
-  v20 = *(a1 + 32);
-  v29 = v19;
-  v30 = v20;
-  v31 = v3;
-  v21 = v3;
-  v22 = v14;
-  [v18 addFinishBlock:v26];
+  v16 = [(AMSUIAlertDialogTask *)v15 present];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __63__AMSUIAgeVerificationTask__performTaskWithVerificationResult___block_invoke_2;
+  v24[3] = &unk_1E7F24320;
+  v25 = v12;
+  v26 = *(a1 + 40);
+  v17 = v4;
+  v18 = *(a1 + 32);
+  v27 = v17;
+  v28 = v18;
+  v29 = v3;
+  v19 = v3;
+  v20 = v12;
+  [v16 addFinishBlock:v24];
 
-  v23 = v31;
-  v24 = v19;
+  v21 = v29;
+  v22 = v17;
 
-  return v19;
+  return v17;
 }
 
 void __63__AMSUIAgeVerificationTask__performTaskWithVerificationResult___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
   v4 = [a2 selectedActionIdentifier];
-  v10 = [v3 locateActionWithIdentifier:v4];
+  v9 = [v3 locateActionWithIdentifier:v4];
 
-  if ([v10 style] == 2)
+  if ([v9 style] == 2)
   {
     v5 = [AMSUIAgeVerificationCore _promiseResultForCancelWithVerificationResult:*(a1 + 40)];
     [*(a1 + 48) finishWithPromiseResult:v5];
@@ -168,9 +166,8 @@ void __63__AMSUIAgeVerificationTask__performTaskWithVerificationResult___block_i
     v7 = [v6 objectForKey:@"clientFields"];
     v5 = [AMSUIAgeVerificationCore _appendClientFields:v7 asQueryParametersToURL:*(a1 + 64)];
 
-    v8 = *(a1 + 56);
-    v9 = [objc_opt_class() _promiseResultForOpeningURL:v5];
-    [*(a1 + 48) finishWithPromiseResult:v9];
+    v8 = [objc_opt_class() _promiseResultForOpeningURL:v5];
+    [*(a1 + 48) finishWithPromiseResult:v8];
   }
 }
 
@@ -243,7 +240,6 @@ void __63__AMSUIAgeVerificationTask__performTaskWithVerificationResult___block_i
 
   else
   {
-    v9 = *MEMORY[0x1E698C548];
     v8 = AMSCustomError();
   }
 

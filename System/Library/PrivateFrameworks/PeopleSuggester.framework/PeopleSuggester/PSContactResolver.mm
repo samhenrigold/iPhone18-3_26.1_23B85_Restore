@@ -5,49 +5,49 @@
 
 void __48___PSContactResolver_handlesForContactFavorites__block_invoke(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = a2;
-  v3 = [obj countByEnumeratingWithState:&v21 objects:v34 count:16];
+  v3 = [obj countByEnumeratingWithState:&v20 objects:v33 count:16];
   if (v3)
   {
-    v4 = *v22;
+    v4 = *v21;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v22 != v4)
+        if (*v21 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v21 + 1) + 8 * i);
+        v6 = *(*(&v20 + 1) + 8 * i);
         v7 = [v6 contactProperty];
         v8 = [v7 key];
 
-        v30 = 0;
-        v31 = &v30;
-        v32 = 0x2020000000;
+        v29 = 0;
+        v30 = &v29;
+        v31 = 0x2020000000;
         v9 = getCNContactPhoneNumbersKeySymbolLoc_ptr_1;
-        v33 = getCNContactPhoneNumbersKeySymbolLoc_ptr_1;
+        v32 = getCNContactPhoneNumbersKeySymbolLoc_ptr_1;
         if (!getCNContactPhoneNumbersKeySymbolLoc_ptr_1)
         {
-          v25 = MEMORY[0x1E69E9820];
-          v26 = 3221225472;
-          v27 = __getCNContactPhoneNumbersKeySymbolLoc_block_invoke_1;
-          v28 = &unk_1E7C23BF0;
-          v29 = &v30;
+          v24 = MEMORY[0x1E69E9820];
+          v25 = 3221225472;
+          v26 = __getCNContactPhoneNumbersKeySymbolLoc_block_invoke_1;
+          v27 = &unk_1E7C23BF0;
+          v28 = &v29;
           v10 = ContactsLibrary_2();
           v11 = dlsym(v10, "CNContactPhoneNumbersKey");
-          *(v29[1] + 24) = v11;
-          getCNContactPhoneNumbersKeySymbolLoc_ptr_1 = *(v29[1] + 24);
-          v9 = v31[3];
+          *(v28[1] + 24) = v11;
+          getCNContactPhoneNumbersKeySymbolLoc_ptr_1 = *(v28[1] + 24);
+          v9 = v30[3];
         }
 
-        _Block_object_dispose(&v30, 8);
+        _Block_object_dispose(&v29, 8);
         if (!v9)
         {
 LABEL_23:
@@ -67,26 +67,26 @@ LABEL_16:
           goto LABEL_18;
         }
 
-        v30 = 0;
-        v31 = &v30;
-        v32 = 0x2020000000;
+        v29 = 0;
+        v30 = &v29;
+        v31 = 0x2020000000;
         v15 = getCNContactEmailAddressesKeySymbolLoc_ptr_1;
-        v33 = getCNContactEmailAddressesKeySymbolLoc_ptr_1;
+        v32 = getCNContactEmailAddressesKeySymbolLoc_ptr_1;
         if (!getCNContactEmailAddressesKeySymbolLoc_ptr_1)
         {
-          v25 = MEMORY[0x1E69E9820];
-          v26 = 3221225472;
-          v27 = __getCNContactEmailAddressesKeySymbolLoc_block_invoke_1;
-          v28 = &unk_1E7C23BF0;
-          v29 = &v30;
+          v24 = MEMORY[0x1E69E9820];
+          v25 = 3221225472;
+          v26 = __getCNContactEmailAddressesKeySymbolLoc_block_invoke_1;
+          v27 = &unk_1E7C23BF0;
+          v28 = &v29;
           v16 = ContactsLibrary_2();
           v17 = dlsym(v16, "CNContactEmailAddressesKey");
-          *(v29[1] + 24) = v17;
-          getCNContactEmailAddressesKeySymbolLoc_ptr_1 = *(v29[1] + 24);
-          v15 = v31[3];
+          *(v28[1] + 24) = v17;
+          getCNContactEmailAddressesKeySymbolLoc_ptr_1 = *(v28[1] + 24);
+          v15 = v30[3];
         }
 
-        _Block_object_dispose(&v30, 8);
+        _Block_object_dispose(&v29, 8);
         if (!v15)
         {
           goto LABEL_23;
@@ -107,13 +107,11 @@ LABEL_18:
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v21 objects:v34 count:16];
+      v3 = [obj countByEnumeratingWithState:&v20 objects:v33 count:16];
     }
 
     while (v3);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 @end

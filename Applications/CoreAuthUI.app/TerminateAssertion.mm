@@ -25,14 +25,14 @@
   {
     v6 = v4[1];
     selfCopy = self;
-    sub_1000299DC(v5);
+    sub_1000299DC(v5, v6);
     v5(selfCopy);
-    sub_10002AA04(v5);
+    sub_10002AA04(v5, v6);
     v8 = *v4;
     v9 = v4[1];
     *v4 = 0;
     v4[1] = 0;
-    sub_10002AA04(v8);
+    sub_10002AA04(v8, v9);
   }
 
   else

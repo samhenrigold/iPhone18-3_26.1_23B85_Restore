@@ -3,6 +3,7 @@
 - (AcwgM2MsgStruct)toStruct;
 - (NIAcwgM2Msg)initWithCoder:(id)coder;
 - (NIAcwgM2Msg)initWithSelectedUwbConfigId:(unsigned __int16)id selectedPulseShapeCombo:(unsigned __int8)combo selectedChannelBitmask:(unsigned __int8)bitmask supportedSyncCodeIndexBitmask:(unsigned int)indexBitmask minRanMultiplier:(unsigned __int8)multiplier supportedSlotBitmask:(unsigned __int8)slotBitmask supportedHoppingConfigBitmask:(unsigned __int8)configBitmask;
+- (NIAcwgM2Msg)initWithSelectedUwbConfigId:(unsigned __int16)id selectedPulseShapeCombo:(unsigned __int8)combo selectedChannelBitmask:(unsigned __int8)bitmask supportedSyncCodeIndexBitmask:(unsigned int)indexBitmask minRanMultiplier:(unsigned __int8)multiplier supportedSlotBitmask:(unsigned __int8)slotBitmask supportedHoppingConfigBitmask:(unsigned __int8)configBitmask selectedFinalData2Bitmask:(unsigned __int8)self0;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
@@ -24,6 +25,18 @@
     result->_minRanMultiplier = multiplier;
     result->_supportedSlotBitmask = slotBitmask;
     *&result->_supportedHoppingConfigBitmask = configBitmask;
+  }
+
+  return result;
+}
+
+- (NIAcwgM2Msg)initWithSelectedUwbConfigId:(unsigned __int16)id selectedPulseShapeCombo:(unsigned __int8)combo selectedChannelBitmask:(unsigned __int8)bitmask supportedSyncCodeIndexBitmask:(unsigned int)indexBitmask minRanMultiplier:(unsigned __int8)multiplier supportedSlotBitmask:(unsigned __int8)slotBitmask supportedHoppingConfigBitmask:(unsigned __int8)configBitmask selectedFinalData2Bitmask:(unsigned __int8)self0
+{
+  LOBYTE(v11) = configBitmask;
+  result = [(NIAcwgM2Msg *)self initWithSelectedUwbConfigId:id selectedPulseShapeCombo:combo selectedChannelBitmask:bitmask supportedSyncCodeIndexBitmask:*&indexBitmask minRanMultiplier:multiplier supportedSlotBitmask:slotBitmask supportedHoppingConfigBitmask:v11];
+  if (result)
+  {
+    result->_selectedFinalData2Bitmask = data2Bitmask;
   }
 
   return result;

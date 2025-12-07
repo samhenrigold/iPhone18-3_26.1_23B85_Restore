@@ -11,6 +11,7 @@
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)updateFileSize;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TVUsageTableViewController
@@ -46,6 +47,18 @@
   }
 
   return v4;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = TVUsageTableViewController;
+  [(TVUsageTableViewController *)&v6 viewWillAppear:appear];
+  usageTitle = [(TVUsageTableViewController *)self usageTitle];
+  [(TVUsageTableViewController *)self setTitle:usageTitle];
+
+  table = [(TVUsageTableViewController *)self table];
+  [table reloadData];
 }
 
 - (double)tableView:(id)view heightForHeaderInSection:(int64_t)section

@@ -7,6 +7,7 @@
 - (void)alternateButtonPressed:(id)pressed;
 - (void)suggestedButtonPressed:(id)pressed;
 - (void)switchToggled:(id)toggled;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -158,6 +159,17 @@
 
   tableView13 = [(AccessibilitySettingsViewController *)self tableView];
   [tableView13 reloadData];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = AccessibilitySettingsViewController;
+  [(AccessibilitySettingsViewController *)&v7 viewDidAppear:appear];
+  tableView = [(AccessibilitySettingsViewController *)self tableView];
+  tableView2 = [(AccessibilitySettingsViewController *)self tableView];
+  indexPathForSelectedRow = [tableView2 indexPathForSelectedRow];
+  [tableView deselectRowAtIndexPath:indexPathForSelectedRow animated:1];
 }
 
 - (void)suggestedButtonPressed:(id)pressed

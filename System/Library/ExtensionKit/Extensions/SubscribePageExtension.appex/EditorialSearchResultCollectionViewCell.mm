@@ -14,7 +14,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_1004D5CFC();
+  sub_1004D5CFC(selfCopy);
 }
 
 @end

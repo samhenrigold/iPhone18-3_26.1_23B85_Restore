@@ -250,7 +250,7 @@ uint64_t __45__MKSmallCalloutView_setDetailView_animated___block_invoke_2(uint64
   return [v2 _mapkit_layoutIfNeeded];
 }
 
-uint64_t __45__MKSmallCalloutView_setDetailView_animated___block_invoke_3(uint64_t a1)
+void *__45__MKSmallCalloutView_setDetailView_animated___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) _mapkit_isDescendantOfView:*(a1 + 40)];
   if (result)
@@ -504,7 +504,7 @@ uint64_t __44__MKSmallCalloutView_setRightView_animated___block_invoke(uint64_t 
   return [v4 _mapkit_layoutIfNeeded];
 }
 
-uint64_t __44__MKSmallCalloutView_setRightView_animated___block_invoke_2(uint64_t a1)
+void *__44__MKSmallCalloutView_setRightView_animated___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) _mapkit_isDescendantOfView:*(a1 + 40)];
   if (result)
@@ -776,7 +776,7 @@ uint64_t __43__MKSmallCalloutView_setLeftView_animated___block_invoke(uint64_t a
   return [v4 _mapkit_layoutIfNeeded];
 }
 
-uint64_t __43__MKSmallCalloutView_setLeftView_animated___block_invoke_2(uint64_t a1)
+void *__43__MKSmallCalloutView_setLeftView_animated___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) _mapkit_isDescendantOfView:*(a1 + 40)];
   if (result)

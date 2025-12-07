@@ -64,9 +64,9 @@ void __42__VUIAuthenticationManager_sharedInstance__block_invoke()
 
 - (VUIAuthenticationManager)init
 {
-  v12.receiver = self;
-  v12.super_class = VUIAuthenticationManager;
-  v2 = [(VUIAuthenticationManager *)&v12 init];
+  v14.receiver = self;
+  v14.super_class = VUIAuthenticationManager;
+  v2 = [(VUIAuthenticationManager *)&v14 init];
   if (v2)
   {
     activeAccount = [MEMORY[0x1E69D5920] activeAccount];
@@ -81,25 +81,26 @@ void __42__VUIAuthenticationManager_sharedInstance__block_invoke()
     }
 
     [(VUIAuthenticationManager *)v2 _setUpProfileImageStoreAndFetchProfileImage];
-    if ([objc_opt_class() allowsAccountModification])
+    allowsAccountModification = [objc_opt_class() allowsAccountModification];
+    if (allowsAccountModification)
     {
       defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
       [defaultCenter addObserver:v2 selector:sel__accountStoreDidChange_ name:*MEMORY[0x1E6959968] object:0];
 
-      v8 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v10 = VUIDefaultLogObject(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        *v11 = 0;
-        _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_INFO, "VUIAuthenticationManager: added observer to ACDAccountStoreDidChangeNotification", v11, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_INFO, "VUIAuthenticationManager: added observer to ACDAccountStoreDidChangeNotification", v13, 2u);
       }
     }
 
     *&v2->__isLibraryOnlyCountry = 0;
-    v9 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v11 = VUIDefaultLogObject(allowsAccountModification);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_INFO, "VUIAuthenticationManager: resolving is library only country", v11, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_INFO, "VUIAuthenticationManager: resolving is library only country", v13, 2u);
     }
 
     [(VUIAuthenticationManager *)v2 _determineIfLibraryOnlyCountry];
@@ -142,19 +143,19 @@ void __42__VUIAuthenticationManager_sharedInstance__block_invoke()
   {
     username = [activeAccount username];
     username2 = [activeiCloudAccount username];
-    v13 = [username isEqualToString:username2];
+    v14 = [username isEqualToString:username2];
 
-    if (v13)
+    if (v14)
     {
       objc_initWeak(buf, self);
       profilePictureStore = self->__profilePictureStore;
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __46__VUIAuthenticationManager__fetchProfileImage__block_invoke;
-      v16[3] = &unk_1E872F780;
-      objc_copyWeak(&v17, buf);
-      [(AAUIProfilePictureStore *)profilePictureStore profilePictureForAccountOwnerWithCompletion:v16];
-      objc_destroyWeak(&v17);
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __46__VUIAuthenticationManager__fetchProfileImage__block_invoke;
+      v17[3] = &unk_1E872F780;
+      objc_copyWeak(&v18, buf);
+      [(AAUIProfilePictureStore *)profilePictureStore profilePictureForAccountOwnerWithCompletion:v17];
+      objc_destroyWeak(&v18);
       objc_destroyWeak(buf);
     }
 
@@ -171,11 +172,11 @@ void __42__VUIAuthenticationManager_sharedInstance__block_invoke()
     v8 = self->__profileImage;
     self->__profileImage = v7;
 
-    v9 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = VUIDefaultLogObject(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_INFO, "VUIAuthenticationManager: used fallback profile image for China region without iCloud signed in, posting VUIAuthenticationManagerProfileImageDidChangeNotification", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_INFO, "VUIAuthenticationManager: used fallback profile image for China region without iCloud signed in, posting VUIAuthenticationManagerProfileImageDidChangeNotification", buf, 2u);
     }
 
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
@@ -231,7 +232,7 @@ void __58__VUIAuthenticationManager__determineIfLibraryOnlyCountry__block_invoke
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   WeakRetained[8] = *(a1 + 40) ^ 1;
   WeakRetained[9] = 1;
-  v3 = VUIDefaultLogObject();
+  v3 = VUIDefaultLogObject(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = *(a1 + 40) ^ 1;
@@ -335,7 +336,7 @@ void __58__VUIAuthenticationManager__determineIfLibraryOnlyCountry__block_invoke
   promptCopy = prompt;
   v18 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  v7 = VUIDefaultLogObject();
+  v7 = VUIDefaultLogObject(handlerCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v17[0] = 67109120;
@@ -369,7 +370,7 @@ void __58__VUIAuthenticationManager__determineIfLibraryOnlyCountry__block_invoke
   dCopy = d;
   handlerCopy = handler;
   passwordCopy = password;
-  v11 = VUIDefaultLogObject();
+  v11 = VUIDefaultLogObject(passwordCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v18 = 138412290;
@@ -398,7 +399,7 @@ void __58__VUIAuthenticationManager__determineIfLibraryOnlyCountry__block_invoke
 + (void)signOutUserWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -468,7 +469,7 @@ uint64_t __61__VUIAuthenticationManager_signOutUserWithCompletionHandler___block
 {
   if ((*(a1 + 56) & 1) == 0)
   {
-    v2 = VUIDefaultLogObject();
+    v2 = VUIDefaultLogObject(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __61__VUIAuthenticationManager_signOutUserWithCompletionHandler___block_invoke_2_cold_1(a1, v2);
@@ -523,7 +524,7 @@ uint64_t __61__VUIAuthenticationManager_signOutUserWithCompletionHandler___block
 
   else
   {
-    v13 = VUIDefaultLogObject();
+    v13 = VUIDefaultLogObject(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [VUIAuthenticationManager _performAuthenticationTask:v13 isSilent:? completionHandler:?];
@@ -566,34 +567,34 @@ void __82__VUIAuthenticationManager__performAuthenticationTask_isSilent_completi
 
 uint64_t __82__VUIAuthenticationManager__performAuthenticationTask_isSilent_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2 && ([v2 account], (v3 = objc_claimAutoreleasedReturnValue()) != 0) && (v4 = *(a1 + 40), v3, !v4))
   {
-    v5 = 1;
+    v6 = 1;
   }
 
   else
   {
-    [*(a1 + 56) _recordLog:*(a1 + 40) isSignOut:0 isSilent:*(a1 + 64)];
-    v5 = 0;
+    v5 = [*(a1 + 56) _recordLog:*(a1 + 40) isSignOut:0 isSilent:*(a1 + 64)];
+    v6 = 0;
   }
 
-  v6 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = VUIDefaultLogObject(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v7 = *(a1 + 40);
-    v9[0] = 67109378;
-    v9[1] = v5;
-    v10 = 2112;
-    v11 = v7;
-    _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_INFO, "VUIAuthenticationManager: finished auth with success %d, error: %@", v9, 0x12u);
+    v8 = *(a1 + 40);
+    v10[0] = 67109378;
+    v10[1] = v6;
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_INFO, "VUIAuthenticationManager: finished auth with success %d, error: %@", v10, 0x12u);
   }
 
   result = *(a1 + 48);
   if (result)
   {
-    return (*(result + 16))(result, v5, *(a1 + 40));
+    return (*(result + 16))(result, v6, *(a1 + 40));
   }
 
   return result;
@@ -603,7 +604,7 @@ uint64_t __82__VUIAuthenticationManager__performAuthenticationTask_isSilent_comp
 {
   v19 = *MEMORY[0x1E69E9840];
   changeCopy = change;
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -620,7 +621,7 @@ uint64_t __82__VUIAuthenticationManager__performAuthenticationTask_isSilent_comp
     selfCopy = self;
     objc_sync_enter(selfCopy);
     activeAccount = [MEMORY[0x1E69D5920] activeAccount];
-    v11 = VUIDefaultLogObject();
+    v11 = VUIDefaultLogObject(activeAccount);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
@@ -661,7 +662,7 @@ uint64_t __82__VUIAuthenticationManager__performAuthenticationTask_isSilent_comp
 
 void __51__VUIAuthenticationManager__accountStoreDidChange___block_invoke(uint64_t a1)
 {
-  v2 = VUIDefaultLogObject();
+  v2 = VUIDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -679,12 +680,12 @@ void __51__VUIAuthenticationManager__accountStoreDidChange___block_invoke(uint64
   v7 = accountCopy;
   if (changeCopy && !accountCopy)
   {
-    v8 = VUIDefaultLogObject();
+    v8 = VUIDefaultLogObject(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v18 = 0;
+      v19 = 0;
       v9 = "User logged out";
-      v10 = &v18;
+      v10 = &v19;
 LABEL_9:
       _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_INFO, v9, v10, 2u);
       goto LABEL_10;
@@ -695,7 +696,7 @@ LABEL_9:
 
   if (!changeCopy && accountCopy)
   {
-    v8 = VUIDefaultLogObject();
+    v8 = VUIDefaultLogObject(accountCopy);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -723,15 +724,15 @@ LABEL_10:
       goto LABEL_11;
     }
 
-    v8 = VUIDefaultLogObject();
+    v8 = VUIDefaultLogObject(v16);
     if (!os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       goto LABEL_10;
     }
 
-    v16 = 0;
+    v17 = 0;
     v9 = "Account changed";
-    v10 = &v16;
+    v10 = &v17;
     goto LABEL_9;
   }
 
@@ -743,36 +744,36 @@ LABEL_11:
 void __58__VUIAuthenticationManager__determineIfLibraryOnlyCountry__block_invoke(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
-  objc_initWeak(&location, *(a1 + 32));
+  inited = objc_initWeak(&location, *(a1 + 32));
   if (v5)
   {
-    v6 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = VUIDefaultLogObject(inited);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __58__VUIAuthenticationManager__determineIfLibraryOnlyCountry__block_invoke_cold_1(a2, v5, v6);
+      __58__VUIAuthenticationManager__determineIfLibraryOnlyCountry__block_invoke_cold_1(a2, v5, v7);
     }
   }
 
-  v9 = MEMORY[0x1E69E9820];
-  v10 = 3221225472;
-  v11 = __58__VUIAuthenticationManager__determineIfLibraryOnlyCountry__block_invoke_66;
-  v12 = &unk_1E872F708;
-  objc_copyWeak(&v14, &location);
-  v15 = a2;
-  v7 = v5;
-  v13 = v7;
-  v8 = &v9;
+  v10 = MEMORY[0x1E69E9820];
+  v11 = 3221225472;
+  v12 = __58__VUIAuthenticationManager__determineIfLibraryOnlyCountry__block_invoke_66;
+  v13 = &unk_1E872F708;
+  objc_copyWeak(&v15, &location);
+  v16 = a2;
+  v8 = v5;
+  v14 = v8;
+  v9 = &v10;
   if ([MEMORY[0x1E696AF00] isMainThread])
   {
-    v11(v8);
+    v12(v9);
   }
 
   else
   {
-    dispatch_async(MEMORY[0x1E69E96A0], v8);
+    dispatch_async(MEMORY[0x1E69E96A0], v9);
   }
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
 }
 
@@ -782,7 +783,7 @@ void __58__VUIAuthenticationManager__determineIfLibraryOnlyCountry__block_invoke
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   WeakRetained[8] = *(a1 + 48) ^ 1;
   WeakRetained[9] = 1;
-  v3 = VUIDefaultLogObject();
+  v3 = VUIDefaultLogObject(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = *(a1 + 48) ^ 1;
@@ -846,15 +847,15 @@ void __46__VUIAuthenticationManager__fetchProfileImage__block_invoke_2(uint64_t 
     objc_storeStrong(WeakRetained + 7, *(a1 + 32));
     if (*(a1 + 32))
     {
-      v4 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v5 = VUIDefaultLogObject(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v6[0] = 0;
-        _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_INFO, "VUIAuthenticationManager: recieved profile image, posting VUIAuthenticationManagerProfileImageDidChangeNotification", v6, 2u);
+        v7[0] = 0;
+        _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_INFO, "VUIAuthenticationManager: recieved profile image, posting VUIAuthenticationManagerProfileImageDidChangeNotification", v7, 2u);
       }
 
-      v5 = [MEMORY[0x1E696AD88] defaultCenter];
-      [v5 postNotificationName:@"VUIAuthenticationManagerProfileImageDidChangeNotification" object:v3 userInfo:0];
+      v6 = [MEMORY[0x1E696AD88] defaultCenter];
+      [v6 postNotificationName:@"VUIAuthenticationManagerProfileImageDidChangeNotification" object:v3 userInfo:0];
     }
   }
 }

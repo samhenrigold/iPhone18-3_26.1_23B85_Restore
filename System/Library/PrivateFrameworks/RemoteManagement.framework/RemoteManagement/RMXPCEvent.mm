@@ -24,29 +24,27 @@
 
 + (id)newXPCEventForDarwinNotification:(id)notification
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   v4 = [RMXPCEvent alloc];
-  v9 = @"Notification";
-  v10[0] = notificationCopy;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"Notification";
+  v9[0] = notificationCopy;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [(RMXPCEvent *)v4 initWithStreamName:@"com.apple.notifyd.matching" notificationName:notificationCopy descriptor:v5];
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 + (id)newXPCEventForDistributedNotification:(id)notification
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   v4 = [RMXPCEvent alloc];
-  v9 = @"Name";
-  v10[0] = notificationCopy;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"Name";
+  v9[0] = notificationCopy;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [(RMXPCEvent *)v4 initWithStreamName:@"com.apple.distnoted.matching" notificationName:notificationCopy descriptor:v5];
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

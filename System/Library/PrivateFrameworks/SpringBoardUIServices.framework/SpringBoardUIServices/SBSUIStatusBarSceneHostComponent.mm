@@ -32,7 +32,7 @@
   settingsCopy = settings;
   sceneCopy = scene;
   previousSettings = [settingsCopy previousSettings];
-  transitionContext = [settingsCopy transitionContext];
+  v8 = objc_msgSend_transitionContext(settingsCopy);
 
   clientSettings = [sceneCopy clientSettings];
 
@@ -65,7 +65,7 @@
     if (statusBarHidden != [v14 statusBarHidden])
     {
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
-      animationSettings = [transitionContext animationSettings];
+      animationSettings = [v8 animationSettings];
       [WeakRetained statusBarSceneHostComponent:self didChangePreferredStatusBarVisibilityWithAnimationSettings:animationSettings];
     }
   }

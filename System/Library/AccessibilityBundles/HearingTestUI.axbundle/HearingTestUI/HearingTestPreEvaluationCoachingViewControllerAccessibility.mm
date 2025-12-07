@@ -10,6 +10,8 @@
 - (void)_axStopPlayingTones;
 - (void)cleanUp;
 - (void)didTapPlaySample;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation HearingTestPreEvaluationCoachingViewControllerAccessibility
@@ -27,10 +29,62 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v8 = *MEMORY[0x29EDCA608];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_3_0(&dword_29BE6E000, v0, v1, "Coaching: supportsSampleTone %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x29EDCA608];
+  v8.receiver = self;
+  v8.super_class = HearingTestPreEvaluationCoachingViewControllerAccessibility;
+  [(HearingTestPreEvaluationCoachingViewControllerAccessibility *)&v8 _accessibilityLoadAccessibilityInformation];
+  v3 = [(HearingTestPreEvaluationCoachingViewControllerAccessibility *)self safeSwiftBoolForKey:@"supportsSampleTone"];
+  v4 = AXLogHearingTest();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    [HearingTestPreEvaluationCoachingViewControllerAccessibility _accessibilityLoadAccessibilityInformation];
+  }
+
+  if (v3)
+  {
+    defaultCenter = [MEMORY[0x29EDBA068] defaultCenter];
+    [defaultCenter addObserver:self selector:sel__axAnnouncementFinished name:*MEMORY[0x29EDC7E98] object:0];
+
+    defaultCenter2 = [MEMORY[0x29EDBA068] defaultCenter];
+    [defaultCenter2 addObserver:self selector:sel__axHandleElementFocusedNotification_ name:*MEMORY[0x29EDC7EB8] object:0];
+
+    v7 = AXLogHearingTest();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      [HearingTestPreEvaluationCoachingViewControllerAccessibility _accessibilityLoadAccessibilityInformation];
+    }
+  }
+
+  [(HearingTestPreEvaluationCoachingViewControllerAccessibility *)self _axSetupSubviews];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = HearingTestPreEvaluationCoachingViewControllerAccessibility;
+  [(HearingTestPreEvaluationCoachingViewControllerAccessibility *)&v4 viewWillAppear:appear];
+  [(HearingTestPreEvaluationCoachingViewControllerAccessibility *)self _axSetupSubviews];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v7.receiver = self;
+  v7.super_class = HearingTestPreEvaluationCoachingViewControllerAccessibility;
+  [(HearingTestPreEvaluationCoachingViewControllerAccessibility *)&v7 viewWillDisappear:disappear];
+  if ([(HearingTestPreEvaluationCoachingViewControllerAccessibility *)self safeSwiftBoolForKey:@"supportsSampleTone"])
+  {
+    [(HearingTestPreEvaluationCoachingViewControllerAccessibility *)self _axStopPlayingTones];
+    defaultCenter = [MEMORY[0x29EDBA068] defaultCenter];
+    [defaultCenter removeObserver:self name:*MEMORY[0x29EDC7EB8] object:0];
+
+    defaultCenter2 = [MEMORY[0x29EDBA068] defaultCenter];
+    [defaultCenter2 removeObserver:self name:*MEMORY[0x29EDC7E98] object:0];
+
+    v6 = AXLogHearingTest();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    {
+      [HearingTestPreEvaluationCoachingViewControllerAccessibility viewWillDisappear:];
+    }
+  }
 }
 
 - (void)didTapPlaySample
@@ -77,7 +131,7 @@
 
 - (void)_axStartAnnouncement
 {
-  v12[1] = *MEMORY[0x29EDCA608];
+  v11[1] = *MEMORY[0x29EDCA608];
   if (![(HearingTestPreEvaluationCoachingViewControllerAccessibility *)self _axAnnouncementState])
   {
     v3 = AXLogHearingTest();
@@ -91,24 +145,36 @@
     text = [titleLabel text];
 
     v7 = objc_alloc(MEMORY[0x29EDB9F30]);
-    v11 = *MEMORY[0x29EDC7F20];
-    v12[0] = *MEMORY[0x29EDC7F00];
-    v8 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x29EDC7F20];
+    v11[0] = *MEMORY[0x29EDC7F00];
+    v8 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v9 = [v7 initWithString:text attributes:v8];
 
     UIAccessibilityPostNotification(*MEMORY[0x29EDC7EA8], v9);
     [(HearingTestPreEvaluationCoachingViewControllerAccessibility *)self _axSetAnnouncementState:1];
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_axAnnouncementFinished
 {
-  v8 = *MEMORY[0x29EDCA608];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_3_0(&dword_29BE6E000, v0, v1, "Coaching: AnnouncementFinished isPlayingTones: %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x29EDCA608];
+  if ([(HearingTestPreEvaluationCoachingViewControllerAccessibility *)self _axAnnouncementState]== 1)
+  {
+    [(HearingTestPreEvaluationCoachingViewControllerAccessibility *)self _axSetAnnouncementState:2];
+    _axIsPlayingTones = [(HearingTestPreEvaluationCoachingViewControllerAccessibility *)self _axIsPlayingTones];
+    v4 = AXLogHearingTest();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    {
+      [HearingTestPreEvaluationCoachingViewControllerAccessibility _axAnnouncementFinished];
+    }
+
+    if (_axIsPlayingTones)
+    {
+      [(HearingTestPreEvaluationCoachingViewControllerAccessibility *)self _axBeforePlayingTones];
+      v5.receiver = self;
+      v5.super_class = HearingTestPreEvaluationCoachingViewControllerAccessibility;
+      [(HearingTestPreEvaluationCoachingViewControllerAccessibility *)&v5 didTapPlaySample];
+    }
+  }
 }
 
 - (void)_axHandleElementFocusedNotification:(id)notification
@@ -218,20 +284,18 @@ LABEL_18:
 
 - (void)_axSetupSubviews
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   titleLabel = [self titleLabel];
   text = [titleLabel text];
-  v6 = 138412290;
-  v7 = text;
-  _os_log_debug_impl(&dword_29BE6E000, a2, OS_LOG_TYPE_DEBUG, "Coaching setup playToneButton: %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x29EDCA608];
+  v5 = 138412290;
+  v6 = text;
+  _os_log_debug_impl(&dword_29BE6E000, a2, OS_LOG_TYPE_DEBUG, "Coaching setup playToneButton: %@", &v5, 0xCu);
 }
 
 - (id)_axPlayToneButton
 {
-  v32 = *MEMORY[0x29EDCA608];
-  v30 = 0;
+  v30 = *MEMORY[0x29EDCA608];
+  v28 = 0;
   objc_opt_class();
   v4 = [(HearingTestPreEvaluationCoachingViewControllerAccessibility *)self safeValueForKey:@"secondaryContentView"];
   v5 = __UIAccessibilityCastAsClass();
@@ -242,39 +306,38 @@ LABEL_18:
   if (v7)
   {
     v8 = [(HearingTestPreEvaluationCoachingViewControllerAccessibility *)self safeSwiftValueForKey:@"playToneImageView"];
+    v24 = 0u;
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v24 = v5;
+    v22 = v5;
     obj = [v5 subviews];
-    v9 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v9 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v27;
+      v11 = *v25;
 LABEL_4:
       v12 = 0;
       while (1)
       {
-        if (*v27 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v26 + 1) + 8 * v12);
-        v30 = 0;
+        v28 = 0;
         objc_opt_class();
-        v14 = __UIAccessibilityCastAsClass();
-        if (v30 == 1)
+        v13 = __UIAccessibilityCastAsClass();
+        if (v28 == 1)
         {
           abort();
         }
 
-        v15 = v14;
+        v14 = v13;
         if (v8)
         {
-          imageView = [v14 imageView];
+          imageView = [v13 imageView];
           v2 = imageView;
           if (imageView == v8)
           {
@@ -284,21 +347,21 @@ LABEL_4:
 
         titleLabel = [0 titleLabel];
         text = [titleLabel text];
-        v19 = accessibilityLocalizedString(@"HEARING_TEST_COACHING_PLAY_SAMPLE");
-        v20 = [text isEqualToString:v19];
+        v18 = accessibilityLocalizedString(@"HEARING_TEST_COACHING_PLAY_SAMPLE");
+        v19 = [text isEqualToString:v18];
 
         if (v8)
         {
         }
 
-        if (v20)
+        if (v19)
         {
           goto LABEL_18;
         }
 
         if (v10 == ++v12)
         {
-          v10 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+          v10 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
           if (v10)
           {
             goto LABEL_4;
@@ -309,8 +372,8 @@ LABEL_4:
       }
 
 LABEL_18:
-      v5 = v24;
-      if (v15)
+      v5 = v22;
+      if (v14)
       {
         goto LABEL_22;
       }
@@ -320,49 +383,37 @@ LABEL_18:
     {
 LABEL_15:
 
-      v5 = v24;
+      v5 = v22;
     }
 
-    v21 = AXLogHearingTest();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = AXLogHearingTest();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [HearingTestPreEvaluationCoachingViewControllerAccessibility _axPlayToneButton];
     }
 
-    v15 = 0;
+    v14 = 0;
 LABEL_22:
   }
 
   else
   {
-    v15 = 0;
+    v14 = 0;
   }
 
-  v22 = *MEMORY[0x29EDCA608];
-
-  return v15;
+  return v14;
 }
 
 - (void)_axHandleElementFocusedNotification:(NSObject *)a3 .cold.1(void *a1, void *a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   v5 = [a1 accessibilityLabel];
   v6 = [a2 accessibilityLabel];
-  v8 = 138412546;
-  v9 = v5;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_debug_impl(&dword_29BE6E000, a3, OS_LOG_TYPE_DEBUG, "Coaching: focused notification, element focused: %@, unfocused: %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x29EDCA608];
-}
-
-- (void)_axHandleElementFocusedNotification:.cold.3()
-{
-  v8 = *MEMORY[0x29EDCA608];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_3_0(&dword_29BE6E000, v0, v1, "Coaching: Focused element is playToneButton: %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x29EDCA608];
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_debug_impl(&dword_29BE6E000, a3, OS_LOG_TYPE_DEBUG, "Coaching: focused notification, element focused: %@, unfocused: %@", &v7, 0x16u);
 }
 
 @end

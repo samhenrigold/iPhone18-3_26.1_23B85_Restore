@@ -57,14 +57,12 @@
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    version = self->_version;
 
     PBDataWriterWriteUint32Field();
   }

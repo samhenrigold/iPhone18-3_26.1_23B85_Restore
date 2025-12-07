@@ -14,46 +14,8 @@
   v16.receiver = self;
   v16.super_class = WiFiUserInteractionMonitorNetworkAgent;
   v8 = [(WiFiUserInteractionMonitorNetworkAgent *)&v16 init];
-  if (!v8)
+  if (!v8 || (v9 = [[NSUUID alloc] initWithUUIDString:dCopy], -[WiFiUserInteractionMonitorNetworkAgent setAgentUUID:](v8, "setAgentUUID:", v9), v9, -[WiFiUserInteractionMonitorNetworkAgent agentUUID](v8, "agentUUID"), v10 = objc_claimAutoreleasedReturnValue(), v10, !v10) || (v11 = objc_msgSend([NWNetworkAgentRegistration alloc], "initWithNetworkAgentClass:", objc_opt_class()), -[WiFiUserInteractionMonitorNetworkAgent setRegistration:](v8, "setRegistration:", v11), v11, -[WiFiUserInteractionMonitorNetworkAgent registration](v8, "registration"), v12 = objc_claimAutoreleasedReturnValue(), v12, !v12) || (-[WiFiUserInteractionMonitorNetworkAgent setAgentDescription:](v8, "setAgentDescription:", descriptionCopy), -[WiFiUserInteractionMonitorNetworkAgent setActive:](v8, "setActive:", 0), -[WiFiUserInteractionMonitorNetworkAgent setKernelActivated:](v8, "setKernelActivated:", 1), -[WiFiUserInteractionMonitorNetworkAgent setUserActivated:](v8, "setUserActivated:", 1), -[WiFiUserInteractionMonitorNetworkAgent setVoluntary:](v8, "setVoluntary:", 1), -[WiFiUserInteractionMonitorNetworkAgent setSpecificUseOnly:](v8, "setSpecificUseOnly:", 1), -[WiFiUserInteractionMonitorNetworkAgent setNetworkProvider:](v8, "setNetworkProvider:", 0), -[WiFiUserInteractionMonitorNetworkAgent setAssertCount:](v8, "setAssertCount:", 0), -[WiFiUserInteractionMonitorNetworkAgent setAvcMinJB:](v8, "setAvcMinJB:", 0), -[WiFiUserInteractionMonitorNetworkAgent registration](v8, "registration"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "registerNetworkAgent:", v8), v13, (v14 & 1) == 0))
   {
-    goto LABEL_5;
-  }
-
-  v9 = [[NSUUID alloc] initWithUUIDString:dCopy];
-  [(WiFiUserInteractionMonitorNetworkAgent *)v8 setAgentUUID:v9];
-
-  agentUUID = [(WiFiUserInteractionMonitorNetworkAgent *)v8 agentUUID];
-
-  if (!agentUUID)
-  {
-    goto LABEL_5;
-  }
-
-  v11 = [[NWNetworkAgentRegistration alloc] initWithNetworkAgentClass:objc_opt_class()];
-  [(WiFiUserInteractionMonitorNetworkAgent *)v8 setRegistration:v11];
-
-  registration = [(WiFiUserInteractionMonitorNetworkAgent *)v8 registration];
-
-  if (!registration)
-  {
-    goto LABEL_5;
-  }
-
-  [(WiFiUserInteractionMonitorNetworkAgent *)v8 setAgentDescription:descriptionCopy];
-  [(WiFiUserInteractionMonitorNetworkAgent *)v8 setActive:0];
-  [(WiFiUserInteractionMonitorNetworkAgent *)v8 setKernelActivated:1];
-  [(WiFiUserInteractionMonitorNetworkAgent *)v8 setUserActivated:1];
-  [(WiFiUserInteractionMonitorNetworkAgent *)v8 setVoluntary:1];
-  [(WiFiUserInteractionMonitorNetworkAgent *)v8 setSpecificUseOnly:1];
-  [(WiFiUserInteractionMonitorNetworkAgent *)v8 setNetworkProvider:0];
-  [(WiFiUserInteractionMonitorNetworkAgent *)v8 setAssertCount:0];
-  [(WiFiUserInteractionMonitorNetworkAgent *)v8 setAvcMinJB:0];
-  registration2 = [(WiFiUserInteractionMonitorNetworkAgent *)v8 registration];
-  v14 = [registration2 registerNetworkAgent:v8];
-
-  if ((v14 & 1) == 0)
-  {
-LABEL_5:
 
     v8 = 0;
   }

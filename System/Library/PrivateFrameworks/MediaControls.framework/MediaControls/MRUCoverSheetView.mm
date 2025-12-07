@@ -17,8 +17,7 @@
   v6 = v5;
   v8 = v7;
   v10 = v9;
-  [(UIView *)self->_contentView setFrame:?];
-  v11 = MCLogCategoryDefault();
+  v11 = MCLogCategoryDefault([(UIView *)self->_contentView setFrame:?]);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = objc_opt_class();

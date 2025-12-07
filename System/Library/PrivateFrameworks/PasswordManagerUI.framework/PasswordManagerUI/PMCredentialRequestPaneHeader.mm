@@ -7,7 +7,6 @@
 
 - (void)updateWithConfiguration:(id)configuration
 {
-  v4 = *(&self->super.super.isa + OBJC_IVAR___PMCredentialRequestPaneHeader_model);
   configurationCopy = configuration;
   selfCopy = self;
   sub_21C815F84(configurationCopy);

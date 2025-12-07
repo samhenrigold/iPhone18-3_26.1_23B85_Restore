@@ -1,805 +1,4 @@
-void dyld4::RuntimeState::notifyUnload(uint64_t a1, uint64_t *a2)
-{
-  v4 = *(a1 + 112);
-  v137[0] = _NSConcreteStackBlock;
-  v137[1] = 0x40000000;
-  v137[2] = ___ZN5dyld412RuntimeState12notifyUnloadERKNSt3__14spanIPKNS_6LoaderELm18446744073709551615EEE_block_invoke;
-  v137[3] = &__block_descriptor_tmp_101_0;
-  v137[4] = a1;
-  v137[5] = a2;
-  dyld4::RuntimeLocks::withNotifiersReadLock(v4, v137);
-  if (*(a1 + 712))
-  {
-    v12 = a2[1];
-    if (v12)
-    {
-      v13 = *a2;
-      v14 = 8 * v12;
-      do
-      {
-        v15 = *v13;
-        if ((*(*v13 + 2) & 4) != 0)
-        {
-          *&v136.st_dev = dyld4::Loader::path(*v13, a1);
-          Address = dyld4::Loader::loadAddress(v15, a1);
-          dyld4::ReadOnlyCallback<void (*)(char const*,mach_header const*)>::operator()<char const*,dyld3::MachOLoaded const*>((a1 + 712), &v136, &Address);
-          if (*(*(a1 + 8) + 325) == 1)
-          {
-            v16 = dyld4::Loader::loadAddress(v15, a1);
-            v17 = dyld4::Loader::path(v15, a1);
-            dyld4::RuntimeState::log(a1, "objc-unmapped-notifier called with image %p %s\n", v16, v17);
-          }
-        }
-
-        ++v13;
-        v14 -= 8;
-      }
-
-      while (v14);
-    }
-  }
-
-  if (kdebug_is_enabled(0x1F050000u, v5, v6, v7, v8, v9, v10, v11))
-  {
-    v18 = a2[1];
-    if (v18)
-    {
-      v19 = *a2;
-      v20 = 8 * v18;
-      do
-      {
-        v22 = *v19++;
-        v21 = v22;
-        v23 = dyld4::Loader::path(v22, a1);
-        v25 = dyld3::stat(v23, &v136, v24);
-        if (v25)
-        {
-          st_ino = 0;
-        }
-
-        else
-        {
-          st_ino = v136.st_ino;
-        }
-
-        if (v25)
-        {
-          st_dev = 0;
-        }
-
-        else
-        {
-          st_dev = v136.st_dev;
-        }
-
-        v28 = dyld4::Loader::path(v21, a1);
-        v29 = dyld4::Loader::loadAddress(v21, a1);
-        v30 = st_dev;
-        dyld3::kdebug_trace_dyld_image((&dword_4 + 1), v28, v21 + 1, st_ino, v30, v29, *(v21 + 6), v31, v134);
-        v20 -= 8;
-      }
-
-      while (v20);
-    }
-  }
-
-  if (dyld4::SyscallDelegate::dtraceUserProbesEnabled(*(a1 + 8)))
-  {
-    v32 = a2[1];
-    if (v32)
-    {
-      v33 = *a2;
-      v34 = *a2 + 8 * v32;
-      v35 = *(a1 + 856);
-      v36 = *(a1 + 864);
-      do
-      {
-        v37 = *v33;
-        v38 = v35;
-        if (v36)
-        {
-          v39 = 16 * v36;
-          v38 = v35;
-          while (*v38 != v37)
-          {
-            v38 += 16;
-            v39 -= 16;
-            if (!v39)
-            {
-              goto LABEL_27;
-            }
-          }
-
-          dyld4::SyscallDelegate::dtraceUnregisterUserProbe(*(a1 + 8), *(v38 + 8));
-        }
-
-LABEL_27:
-        v40 = v35 + 16 * v36;
-        v41 = v38 + 16;
-        if (v38 != v40 && v41 != v40)
-        {
-          do
-          {
-            if (*v41 == v37)
-            {
-              dyld4::SyscallDelegate::dtraceUnregisterUserProbe(*(a1 + 8), *(v41 + 8));
-            }
-
-            else
-            {
-              *v38 = *v41;
-              v38 += 16;
-            }
-
-            v41 += 16;
-          }
-
-          while (v41 != v40);
-        }
-
-        v35 = *(a1 + 856);
-        v36 = *(a1 + 864);
-        v43 = v35 + 16 * v36;
-        if (v38 != v43)
-        {
-          v36 -= (v43 - v38) >> 4;
-          *(a1 + 864) = v36;
-        }
-
-        ++v33;
-      }
-
-      while (v33 != v34);
-    }
-  }
-
-  v44 = dyld4::RuntimeState::removeMissingFlatLazySymbols(a1, a2);
-  v45 = *(a1 + 112);
-  v135[0] = _NSConcreteStackBlock;
-  v135[1] = 0x40000000;
-  v135[2] = ___ZN5dyld412RuntimeState12notifyUnloadERKNSt3__14spanIPKNS_6LoaderELm18446744073709551615EEE_block_invoke_2;
-  v135[3] = &__block_descriptor_tmp_103;
-  v135[4] = a1;
-  v135[5] = a2;
-  Address = v135;
-  v46 = lsl::MemoryManager::memoryManager(v44);
-  v47 = *(v46 + 6);
-  if (v47 && lsl::ProtectedStack::onStackInAnyFrameInThisThread(v47))
-  {
-    if (!MEMORY[0xFFFFFC10C])
-    {
-      goto LABEL_195;
-    }
-
-    if ((MEMORY[0xFFFFFC10C] & 0xFE) != 2)
-    {
-      goto LABEL_195;
-    }
-
-    v54 = MEMORY[0xFFFFFC10C];
-    __dmb(0xAu);
-    if ((v54 & 0xFE) != 2)
-    {
-      goto LABEL_195;
-    }
-
-    _WriteStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5), MEMORY[0xFFFFFC0D0]);
-    __isb(0xFu);
-    v55 = MEMORY[0xFFFFFC0D0];
-    if (v55 != _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
-    {
-      goto LABEL_195;
-    }
-
-    v56 = *(v46 + 6);
-    *&v136.st_dev = _NSConcreteStackBlock;
-    v136.st_ino = 0x40000000;
-    *&v136.st_uid = ___ZN3lsl13MemoryManager26withWritableMemoryInternalIZN5dyld412RuntimeLocks20withLoadersWriteLockIU13block_pointerFvvEEEvT_EUlvE_EEvS7__block_invoke;
-    *&v136.st_rdev = &__block_descriptor_tmp_180;
-    v136.st_atimespec.tv_sec = v45;
-    v136.st_atimespec.tv_nsec = &Address;
-    lsl::ProtectedStack::withNestedProtectedStack(v56, &v136, v48, v49, v50, v51, v52, v53, v134);
-    if (!MEMORY[0xFFFFFC10C])
-    {
-      goto LABEL_195;
-    }
-
-    if ((MEMORY[0xFFFFFC10C] & 0xFE) != 2)
-    {
-      goto LABEL_195;
-    }
-
-    v57 = MEMORY[0xFFFFFC10C];
-    __dmb(0xAu);
-    if ((v57 & 0xFE) != 2)
-    {
-      goto LABEL_195;
-    }
-
-    v58 = MEMORY[0xFFFFFC0D8];
-    _WriteStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5), MEMORY[0xFFFFFC0D8]);
-    __isb(0xFu);
-    v59 = MEMORY[0xFFFFFC0D8];
-    if (v59 != _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
-    {
-      goto LABEL_195;
-    }
-  }
-
-  else if (*(v46 + 33) == 1)
-  {
-    if (!MEMORY[0xFFFFFC10C] || (MEMORY[0xFFFFFC10C] & 0xFE) != 2)
-    {
-      goto LABEL_195;
-    }
-
-    if ((_ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)) & 0x1000000000) != 0)
-    {
-      if (*v45)
-      {
-        (*(**v45 + 96))(*v45, v45 + 2, 0);
-        (Address[2])();
-        v58 = (*(**v45 + 104))(*v45, v45 + 2);
-      }
-
-      else
-      {
-        v58 = (Address[2])();
-      }
-    }
-
-    else
-    {
-      if (!MEMORY[0xFFFFFC10C])
-      {
-        goto LABEL_195;
-      }
-
-      if ((MEMORY[0xFFFFFC10C] & 0xFE) != 2)
-      {
-        goto LABEL_195;
-      }
-
-      v60 = MEMORY[0xFFFFFC10C];
-      __dmb(0xAu);
-      if ((v60 & 0xFE) != 2)
-      {
-        goto LABEL_195;
-      }
-
-      _WriteStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5), MEMORY[0xFFFFFC0D0]);
-      __isb(0xFu);
-      v61 = MEMORY[0xFFFFFC0D0];
-      if (v61 != _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
-      {
-        goto LABEL_195;
-      }
-
-      if (*v45)
-      {
-        (*(**v45 + 96))(*v45, v45 + 2, 0);
-        (Address[2])();
-        (*(**v45 + 104))(*v45, v45 + 2);
-      }
-
-      else
-      {
-        (Address[2])();
-      }
-
-      if (!MEMORY[0xFFFFFC10C])
-      {
-        goto LABEL_195;
-      }
-
-      if ((MEMORY[0xFFFFFC10C] & 0xFE) != 2)
-      {
-        goto LABEL_195;
-      }
-
-      v64 = MEMORY[0xFFFFFC10C];
-      __dmb(0xAu);
-      if ((v64 & 0xFE) != 2)
-      {
-        goto LABEL_195;
-      }
-
-      v58 = MEMORY[0xFFFFFC0D8];
-      _WriteStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5), MEMORY[0xFFFFFC0D8]);
-      __isb(0xFu);
-      v65 = MEMORY[0xFFFFFC0D8];
-      if (v65 != _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
-      {
-        goto LABEL_195;
-      }
-    }
-  }
-
-  else
-  {
-    lsl::MemoryManager::lockGuard(v46, &v136);
-    v62 = *(v46 + 3);
-    if (!v62)
-    {
-      lsl::MemoryManager::writeProtect(v46, 0);
-      v62 = *(v46 + 3);
-    }
-
-    *(v46 + 3) = v62 + 1;
-    lsl::Lock::unlock(*&v136.st_dev);
-    if (*v45)
-    {
-      (*(**v45 + 96))(*v45, v45 + 2, 0);
-      (Address[2])();
-      (*(**v45 + 104))(*v45, v45 + 2);
-    }
-
-    else
-    {
-      (Address[2])();
-    }
-
-    lsl::MemoryManager::lockGuard(v46, &v136);
-    v63 = *(v46 + 3) - 1;
-    *(v46 + 3) = v63;
-    if (!v63)
-    {
-      lsl::MemoryManager::writeProtect(v46, 1);
-    }
-
-    v58 = lsl::Lock::unlock(*&v136.st_dev);
-  }
-
-  v66 = *(a1 + 112);
-  Address = a2;
-  v67 = lsl::MemoryManager::memoryManager(v58);
-  v68 = *(v67 + 6);
-  if (v68 && lsl::ProtectedStack::onStackInAnyFrameInThisThread(v68))
-  {
-    if (MEMORY[0xFFFFFC10C])
-    {
-      if ((MEMORY[0xFFFFFC10C] & 0xFE) == 2)
-      {
-        v75 = MEMORY[0xFFFFFC10C];
-        __dmb(0xAu);
-        if ((v75 & 0xFE) == 2)
-        {
-          _WriteStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5), MEMORY[0xFFFFFC0D0]);
-          __isb(0xFu);
-          v76 = MEMORY[0xFFFFFC0D0];
-          if (v76 == _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
-          {
-            v77 = *(v67 + 6);
-            *&v136.st_dev = _NSConcreteStackBlock;
-            v136.st_ino = 0x40000000;
-            *&v136.st_uid = ___ZN3lsl13MemoryManager26withWritableMemoryInternalIZN5dyld412RuntimeLocks20withLoadersWriteLockIZNS2_12RuntimeState12notifyUnloadERKNSt3__14spanIPKNS2_6LoaderELm18446744073709551615EEEE3__1EEvT_EUlvE_EEvSF__block_invoke;
-            *&v136.st_rdev = &__block_descriptor_tmp_198;
-            v136.st_atimespec.tv_sec = v66;
-            v136.st_atimespec.tv_nsec = &Address;
-            lsl::ProtectedStack::withNestedProtectedStack(v77, &v136, v69, v70, v71, v72, v73, v74, v134);
-            if (MEMORY[0xFFFFFC10C])
-            {
-              if ((MEMORY[0xFFFFFC10C] & 0xFE) == 2)
-              {
-                v78 = MEMORY[0xFFFFFC10C];
-                __dmb(0xAu);
-                if ((v78 & 0xFE) == 2)
-                {
-                  _WriteStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5), MEMORY[0xFFFFFC0D8]);
-                  __isb(0xFu);
-                  v79 = MEMORY[0xFFFFFC0D8];
-                  if (v79 == _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
-                  {
-                    goto LABEL_194;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  else
-  {
-    if (*(v67 + 33) != 1)
-    {
-      lsl::MemoryManager::lockGuard(v67, &v136);
-      v90 = *(v67 + 3);
-      if (!v90)
-      {
-        lsl::MemoryManager::writeProtect(v67, 0);
-        v90 = *(v67 + 3);
-      }
-
-      *(v67 + 3) = v90 + 1;
-      lsl::Lock::unlock(*&v136.st_dev);
-      if (*v66)
-      {
-        (*(**v66 + 96))(*v66, v66 + 2, 0);
-        v91 = a2[1];
-        if (v91)
-        {
-          v92 = *a2;
-          v93 = 8 * v91;
-          do
-          {
-            if (*v92)
-            {
-              v94 = (*(*v92 + 4) & 1) == 0;
-            }
-
-            else
-            {
-              v94 = 0;
-            }
-
-            if (v94)
-            {
-              v95 = *(*v92 + 104);
-              if (v95)
-              {
-                v96 = (v95 + 2);
-                v97 = dyld4::ReadOnlyCallback<char * (*)(void *,void const*)>::operator()<void * const&,void * const&>((v95[2] + 16), v95 + 3, v95);
-                if (v97)
-                {
-                  *&v136.st_dev = v97;
-                  if (*v96)
-                  {
-                    v98 = *v96;
-                  }
-
-                  else
-                  {
-                    v98 = 0;
-                  }
-
-                  dyld4::ReadOnlyCallback<void (*)(char *)>::operator()<char *&>(v98, &v136);
-                }
-              }
-            }
-
-            v92 += 8;
-            v93 -= 8;
-          }
-
-          while (v93);
-        }
-
-        (*(**v66 + 104))(*v66, v66 + 2);
-      }
-
-      else
-      {
-        v107 = a2[1];
-        if (v107)
-        {
-          v108 = *a2;
-          v109 = 8 * v107;
-          do
-          {
-            if (*v108)
-            {
-              v110 = (*(*v108 + 4) & 1) == 0;
-            }
-
-            else
-            {
-              v110 = 0;
-            }
-
-            if (v110)
-            {
-              v111 = *(*v108 + 104);
-              if (v111)
-              {
-                v112 = (v111 + 2);
-                v113 = dyld4::ReadOnlyCallback<char * (*)(void *,void const*)>::operator()<void * const&,void * const&>((v111[2] + 16), v111 + 3, v111);
-                if (v113)
-                {
-                  *&v136.st_dev = v113;
-                  if (*v112)
-                  {
-                    v114 = *v112;
-                  }
-
-                  else
-                  {
-                    v114 = 0;
-                  }
-
-                  dyld4::ReadOnlyCallback<void (*)(char *)>::operator()<char *&>(v114, &v136);
-                }
-              }
-            }
-
-            v108 += 8;
-            v109 -= 8;
-          }
-
-          while (v109);
-        }
-      }
-
-      lsl::MemoryManager::lockGuard(v67, &v136);
-      v115 = *(v67 + 3) - 1;
-      *(v67 + 3) = v115;
-      if (!v115)
-      {
-        lsl::MemoryManager::writeProtect(v67, 1);
-      }
-
-      lsl::Lock::unlock(*&v136.st_dev);
-      goto LABEL_194;
-    }
-
-    if (MEMORY[0xFFFFFC10C] && (MEMORY[0xFFFFFC10C] & 0xFE) == 2)
-    {
-      if ((_ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)) & 0x1000000000) != 0)
-      {
-        if (*v66)
-        {
-          (*(**v66 + 96))(*v66, v66 + 2, 0);
-          v99 = a2[1];
-          if (v99)
-          {
-            v100 = *a2;
-            v101 = 8 * v99;
-            do
-            {
-              if (*v100)
-              {
-                v102 = (*(*v100 + 4) & 1) == 0;
-              }
-
-              else
-              {
-                v102 = 0;
-              }
-
-              if (v102)
-              {
-                v103 = *(*v100 + 104);
-                if (v103)
-                {
-                  v104 = (v103 + 2);
-                  v105 = dyld4::ReadOnlyCallback<char * (*)(void *,void const*)>::operator()<void * const&,void * const&>((v103[2] + 16), v103 + 3, v103);
-                  if (v105)
-                  {
-                    *&v136.st_dev = v105;
-                    if (*v104)
-                    {
-                      v106 = *v104;
-                    }
-
-                    else
-                    {
-                      v106 = 0;
-                    }
-
-                    dyld4::ReadOnlyCallback<void (*)(char *)>::operator()<char *&>(v106, &v136);
-                  }
-                }
-              }
-
-              v100 += 8;
-              v101 -= 8;
-            }
-
-            while (v101);
-          }
-
-          (*(**v66 + 104))(*v66, v66 + 2);
-        }
-
-        else
-        {
-          v116 = a2[1];
-          if (v116)
-          {
-            v117 = *a2;
-            v118 = 8 * v116;
-            do
-            {
-              if (*v117)
-              {
-                v119 = (*(*v117 + 4) & 1) == 0;
-              }
-
-              else
-              {
-                v119 = 0;
-              }
-
-              if (v119)
-              {
-                v120 = *(*v117 + 104);
-                if (v120)
-                {
-                  v121 = (v120 + 2);
-                  v122 = dyld4::ReadOnlyCallback<char * (*)(void *,void const*)>::operator()<void * const&,void * const&>((v120[2] + 16), v120 + 3, v120);
-                  if (v122)
-                  {
-                    *&v136.st_dev = v122;
-                    if (*v121)
-                    {
-                      v123 = *v121;
-                    }
-
-                    else
-                    {
-                      v123 = 0;
-                    }
-
-                    dyld4::ReadOnlyCallback<void (*)(char *)>::operator()<char *&>(v123, &v136);
-                  }
-                }
-              }
-
-              v117 += 8;
-              v118 -= 8;
-            }
-
-            while (v118);
-          }
-        }
-
-        goto LABEL_194;
-      }
-
-      if (MEMORY[0xFFFFFC10C])
-      {
-        if ((MEMORY[0xFFFFFC10C] & 0xFE) == 2)
-        {
-          v80 = MEMORY[0xFFFFFC10C];
-          __dmb(0xAu);
-          if ((v80 & 0xFE) == 2)
-          {
-            _WriteStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5), MEMORY[0xFFFFFC0D0]);
-            __isb(0xFu);
-            v81 = MEMORY[0xFFFFFC0D0];
-            if (v81 == _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
-            {
-              if (*v66)
-              {
-                (*(**v66 + 96))(*v66, v66 + 2, 0);
-                v82 = a2[1];
-                if (v82)
-                {
-                  v83 = *a2;
-                  v84 = 8 * v82;
-                  do
-                  {
-                    if (*v83)
-                    {
-                      v85 = (*(*v83 + 4) & 1) == 0;
-                    }
-
-                    else
-                    {
-                      v85 = 0;
-                    }
-
-                    if (v85)
-                    {
-                      v86 = *(*v83 + 104);
-                      if (v86)
-                      {
-                        v87 = (v86 + 2);
-                        v88 = dyld4::ReadOnlyCallback<char * (*)(void *,void const*)>::operator()<void * const&,void * const&>((v86[2] + 16), v86 + 3, v86);
-                        if (v88)
-                        {
-                          *&v136.st_dev = v88;
-                          if (*v87)
-                          {
-                            v89 = *v87;
-                          }
-
-                          else
-                          {
-                            v89 = 0;
-                          }
-
-                          dyld4::ReadOnlyCallback<void (*)(char *)>::operator()<char *&>(v89, &v136);
-                        }
-                      }
-                    }
-
-                    v83 += 8;
-                    v84 -= 8;
-                  }
-
-                  while (v84);
-                }
-
-                (*(**v66 + 104))(*v66, v66 + 2);
-              }
-
-              else
-              {
-                v124 = a2[1];
-                if (v124)
-                {
-                  v125 = *a2;
-                  v126 = 8 * v124;
-                  do
-                  {
-                    if (*v125)
-                    {
-                      v127 = (*(*v125 + 4) & 1) == 0;
-                    }
-
-                    else
-                    {
-                      v127 = 0;
-                    }
-
-                    if (v127)
-                    {
-                      v128 = *(*v125 + 104);
-                      if (v128)
-                      {
-                        v129 = (v128 + 2);
-                        v130 = dyld4::ReadOnlyCallback<char * (*)(void *,void const*)>::operator()<void * const&,void * const&>((v128[2] + 16), v128 + 3, v128);
-                        if (v130)
-                        {
-                          *&v136.st_dev = v130;
-                          if (*v129)
-                          {
-                            v131 = *v129;
-                          }
-
-                          else
-                          {
-                            v131 = 0;
-                          }
-
-                          dyld4::ReadOnlyCallback<void (*)(char *)>::operator()<char *&>(v131, &v136);
-                        }
-                      }
-                    }
-
-                    v125 += 8;
-                    v126 -= 8;
-                  }
-
-                  while (v126);
-                }
-              }
-
-              if (MEMORY[0xFFFFFC10C])
-              {
-                if ((MEMORY[0xFFFFFC10C] & 0xFE) == 2)
-                {
-                  v132 = MEMORY[0xFFFFFC10C];
-                  __dmb(0xAu);
-                  if ((v132 & 0xFE) == 2)
-                  {
-                    _WriteStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5), MEMORY[0xFFFFFC0D8]);
-                    __isb(0xFu);
-                    v133 = MEMORY[0xFFFFFC0D8];
-                    if (v133 == _ReadStatusReg(ARM64_SYSREG(3, 6, 15, 1, 5)))
-                    {
-LABEL_194:
-                      dyld4::RuntimeState::notifyDebuggerUnload(a1, a2);
-                      return;
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-LABEL_195:
-  __break(1u);
-}
-
-void dyld4::RuntimeState::removeLoaders(uint64_t *a1, uint64_t a2)
+void dyld4::RuntimeState::removeLoaders(uint64_t *result, uint64_t a2)
 {
   v2 = *(a2 + 8);
   if (v2)
@@ -814,14 +13,14 @@ void dyld4::RuntimeState::removeLoaders(uint64_t *a1, uint64_t a2)
       {
         if (v7)
         {
-          dyld4::Loader::unmap(*v4, a1, 0);
+          dyld4::Loader::unmap(*v4, result, 0);
         }
 
         else if ((*(v6 + 42) & 0x20) == 0)
         {
-          dyld4::Loader::unmap(*v4, a1, 0);
+          dyld4::Loader::unmap(*v4, result, 0);
           *v6 = 2053923954;
-          lsl::Allocator::free(a1[2], v6);
+          lsl::Allocator::free(result[2], v6);
         }
       }
 
@@ -855,40 +54,39 @@ size_t ___ZN5dyld412RuntimeState12notifyDtraceERKNSt3__14spanIPKNS_6LoaderELm184
 
 void dyld4::RuntimeState::notifyDebuggerUnload(const dyld4::RuntimeState *a1, uint64_t *a2)
 {
-  memset(v22, 0, sizeof(v22));
-  v4 = __stackAllocatorInternal(v22, 272);
-  v5 = 8 * a2[1];
-  __chkstk_darwin(v4, v6, v7, v8, v9, v10, v11, v12, v21[0]);
-  v14 = v21 - ((v13 + 23) & 0xFFFFFFFFFFFFFFF0);
-  v15 = a2[1];
-  if (!v15)
+  memset(v21, 0, sizeof(v21));
+  v4 = __stackAllocatorInternal(v21, 272);
+  __chkstk_darwin(v4, v5, v6, v7, v8, v9, v10, v11, v20[0]);
+  v13 = v20 - ((v12 + 23) & 0xFFFFFFFFFFFFFFF0);
+  v14 = a2[1];
+  if (!v14)
   {
     ___ZN5dyld412RuntimeState23appendInterposingTuplesEPKNS_6LoaderEPKhj_block_invoke_2_cold_1();
   }
 
-  v16 = 0;
-  v17 = *a2;
-  v18 = 8 * v15;
+  v15 = 0;
+  v16 = *a2;
+  v17 = 8 * v14;
   do
   {
-    Address = dyld4::Loader::loadAddress(*(v17 + 8 * v16), a1);
-    if (v15 == v16)
+    Address = dyld4::Loader::loadAddress(*(v16 + 8 * v15), a1);
+    if (v14 == v15)
     {
       ___ZN5dyld4L17handleDyldInCacheERN3lsl9AllocatorEPKN6mach_o6HeaderEPKNS_10KernelArgsES6__block_invoke_cold_1();
     }
 
-    v20 = v16 + 1;
-    *&v14[8 * v16++] = Address;
-    v18 -= 8;
+    v19 = v15 + 1;
+    *&v13[8 * v15++] = Address;
+    v17 -= 8;
   }
 
-  while (v18);
-  v21[0] = v14;
-  v21[1] = v20;
-  dyld4::ExternallyViewableState::removeImages(*(a1 + 77), *(a1 + 2), v4, v21);
+  while (v17);
+  v20[0] = v13;
+  v20[1] = v19;
+  dyld4::ExternallyViewableState::removeImages(*(a1 + 77), *(a1 + 2), v4, v20);
   if (*(*(a1 + 1) + 220))
   {
-    dyld4::ExternallyViewableState::removeRosettaImages(*(a1 + 77), v21);
+    dyld4::ExternallyViewableState::removeRosettaImages(*(a1 + 77), v20);
   }
 
   lsl::Allocator::~Allocator(v4);
@@ -905,7 +103,7 @@ uint64_t ___ZN5dyld412RuntimeState12notifyUnloadERKNSt3__14spanIPKNS_6LoaderELm1
     v5 = &v4[v2];
     do
     {
-      v29[0] = *v4;
+      v26[0] = *v4;
       v6 = *(v3 + 40);
       v7 = *(v6 + 8);
       if (v7)
@@ -916,33 +114,33 @@ uint64_t ___ZN5dyld412RuntimeState12notifyUnloadERKNSt3__14spanIPKNS_6LoaderELm1
         {
           v10 = *v8;
           Address = dyld4::Loader::loadAddress(*v8, v1);
-          v19 = 520552476;
-          v20 = Address;
-          v21 = 0;
-          v22 = v29[0] != 0;
+          LODWORD(v19[0]) = 520552476;
+          v19[1] = Address;
+          v19[2] = 0;
+          v19[3] = (v26[0] != 0);
+          v20 = 0u;
+          v21 = 0u;
+          v22 = 0u;
           v23 = 0u;
           v24 = 0u;
-          v25 = 0u;
-          v26 = 0u;
-          v27 = 0u;
-          dyld3::ScopedTimer::startTimer(&v19, v11, v12, v13, v14, v15, v16, v17);
+          dyld3::ScopedTimer::startTimer(v19, v11, v12, v13, v14, v15, v16, v17);
           if (*(*(v1 + 1) + 325) == 1)
           {
-            dyld4::RuntimeState::log(v1, "remove notifier %p called with mh=%p\n", v29[0], Address);
+            dyld4::RuntimeState::log(v1, "remove notifier %p called with mh=%p\n", v26[0], Address);
           }
 
           if ((*(v10 + 2) & 2) != 0)
           {
-            dyld4::ReadOnlyCallback<void (*)(mach_header const*,long)>::operator()<dyld3::MachOLoaded const*&,unsigned long const&>(v29, &Address, (*(v1 + 1) + 392));
+            dyld4::ReadOnlyCallback<void (*)(mach_header const*,long)>::operator()<dyld3::MachOLoaded const*&,unsigned long const&>(v26, &Address, (*(v1 + 1) + 392));
           }
 
           else
           {
             Slide = dyld3::MachOLoaded::getSlide(Address);
-            dyld4::ReadOnlyCallback<void (*)(mach_header const*,long)>::operator()<dyld3::MachOLoaded const*&,long>(v29, &Address, &Slide);
+            dyld4::ReadOnlyCallback<void (*)(mach_header const*,long)>::operator()<dyld3::MachOLoaded const*&,long>(v26, &Address, &Slide);
           }
 
-          result = dyld3::ScopedTimer::endTimer(&v19);
+          result = dyld3::ScopedTimer::endTimer(v19);
           ++v8;
           v9 -= 8;
         }
@@ -962,13 +160,13 @@ uint64_t ___ZN5dyld412RuntimeState12notifyUnloadERKNSt3__14spanIPKNS_6LoaderELm1
 uint64_t dyld4::ReadOnlyCallback<void (*)(char const*,mach_header const*)>::operator()<char const*,dyld3::MachOLoaded const*>(lsl::MemoryManager *a1, void *a2, void *a3)
 {
   v13 = lsl::MemoryManager::memoryManager(a1);
-  result = v13[6];
+  result = *(v13 + 6);
   if (result)
   {
     result = lsl::ProtectedStack::onStackInCurrentFrame(result, v6, v7, v8, v9, v10, v11, v12, v29);
     if (result)
     {
-      v21 = v13[6];
+      v21 = *(v13 + 6);
       v31[0] = _NSConcreteStackBlock;
       v31[1] = 0x40000000;
       v31[2] = ___ZN3lsl13MemoryManager22withReadOnlyTPROMemoryIZNK5dyld416ReadOnlyCallbackIPFvPKcPK11mach_headerEEclIJS5_PKN5dyld311MachOLoadedEEEEvDpOT_EUlvE_EEN13callback_impl11return_typeIDTadsrT_onclEE4typeESN__block_invoke;
@@ -1044,22 +242,22 @@ LABEL_8:
   return v22(v23, v24);
 }
 
-void *___ZN5dyld412RuntimeState12notifyUnloadERKNSt3__14spanIPKNS_6LoaderELm18446744073709551615EEE_block_invoke_2(void *result)
+const dyld4::RuntimeState *___ZN5dyld412RuntimeState12notifyUnloadERKNSt3__14spanIPKNS_6LoaderELm18446744073709551615EEE_block_invoke_2(const dyld4::RuntimeState *result)
 {
-  v1 = result[5];
+  v1 = *(result + 5);
   v2 = *(v1 + 8);
   if (v2)
   {
-    v3 = result[4];
+    v3 = *(result + 4);
     v4 = *v1;
     v5 = *v1 + 8 * v2;
     do
     {
       v6 = *v4;
-      v7 = v3[6];
+      v7 = *(v3 + 6);
       if (v7)
       {
-        v8 = v3[5];
+        v8 = *(v3 + 5);
         v9 = 8 * v7;
         v10 = v8;
         while (v6 != *v10)
@@ -1073,7 +271,7 @@ void *___ZN5dyld412RuntimeState12notifyUnloadERKNSt3__14spanIPKNS_6LoaderELm1844
           }
         }
 
-        lsl::Vector<AuthenticatedValue<dyld4::Loader const*>>::erase((v3 + 4), v10);
+        lsl::Vector<AuthenticatedValue<dyld4::Loader const*>>::erase(v3 + 32, v10);
       }
 
 LABEL_9:
@@ -1087,17 +285,17 @@ LABEL_9:
   return result;
 }
 
-void *dyld4::RuntimeState::removeDynamicDependencies(void *this, const dyld4::Loader *a2)
+const dyld4::RuntimeState *dyld4::RuntimeState::removeDynamicDependencies(const dyld4::RuntimeState *this, const dyld4::Loader *a2)
 {
   v3 = this;
-  v4 = this[115];
-  v5 = this[116];
+  v4 = *(this + 115);
+  v5 = *(this + 116);
   v6 = v4 + 16 * v5;
   v7 = v4;
   if (v5)
   {
     v8 = 16 * v5;
-    v7 = this[115];
+    v7 = *(this + 115);
     while (*v7 != a2 && *(v7 + 8) != a2)
     {
       v7 += 16;
@@ -1125,24 +323,24 @@ void *dyld4::RuntimeState::removeDynamicDependencies(void *this, const dyld4::Lo
     }
 
     while (v10 != v6);
-    v4 = this[115];
-    v5 = this[116];
+    v4 = *(this + 115);
+    v5 = *(this + 116);
   }
 
 LABEL_20:
   v13 = v4 + 16 * v5;
   if (v7 != v13)
   {
-    this[116] = v5 - ((v13 - v7) >> 4);
+    *(this + 116) = v5 - ((v13 - v7) >> 4);
   }
 
-  if (this[52])
+  if (*(this + 52))
   {
     v14 = dyld4::Loader::analyzer(a2, this);
     if ((dyld3::MachOFile::hasWeakDefs(v14) & 1) != 0 || (this = dyld3::MachOFile::usesWeakDefs(v14), this))
     {
       this = dyld3::MachOFile::mappedSize(v14);
-      v15 = v3[52];
+      v15 = *(v3 + 52);
       v16 = *(v15 + 72);
       if (v16)
       {
@@ -1159,7 +357,7 @@ LABEL_20:
           v20 = *(v18 - 1);
           if (v20 >= v14 && v20 < v17)
           {
-            this = lsl::Allocator::strdup(v3[2], v20);
+            this = lsl::Allocator::strdup(*(v3 + 2), v20);
             *(v18 - 1) = this;
           }
 
@@ -1194,13 +392,13 @@ unint64_t dyld4::RuntimeState::setDyldPatchedObjCClasses(unint64_t this)
 uint64_t dyld4::ReadOnlyCallback<void (*)(mach_header const*,void *,mach_header const*,void const*)>::operator()<mach_header const* const&,void *,mach_header const* const&,void const*>(lsl::MemoryManager *a1, void *a2, void *a3, void *a4, void *a5)
 {
   v17 = lsl::MemoryManager::memoryManager(a1);
-  result = v17[6];
+  result = *(v17 + 6);
   if (result)
   {
     result = lsl::ProtectedStack::onStackInCurrentFrame(result, v10, v11, v12, v13, v14, v15, v16, v35);
     if (result)
     {
-      v25 = v17[6];
+      v25 = *(v17 + 6);
       v37[0] = _NSConcreteStackBlock;
       v37[1] = 0x40000000;
       v37[2] = ___ZN3lsl13MemoryManager22withReadOnlyTPROMemoryIZNK5dyld416ReadOnlyCallbackIPFvPK11mach_headerPvS6_PKvEEclIJRKS6_S7_SF_S9_EEEvDpOT_EUlvE_EEN13callback_impl11return_typeIDTadsrT_onclEE4typeESM__block_invoke;
@@ -1304,37 +502,34 @@ uint64_t dyld4::RuntimeState::addNotifyLoadImage(void *a1, uint64_t a2, uint64_t
 
 uint64_t dyld4::RuntimeState::saveAppPrebuiltLoaderSet(dyld4::RuntimeState *this, const dyld4::PrebuiltLoaderSet *a2)
 {
-  v19 = &v21;
-  v20 = xmmword_8C8F0;
-  if (dyld4::RuntimeState::buildBootToken(this, &v19))
+  v15 = &v17;
+  v16 = xmmword_8C8F0;
+  if (dyld4::RuntimeState::buildBootToken(this, &v15))
   {
     if (*(this + 121))
     {
-      Diagnostics::Diagnostics(v18);
-      Only = dyld4::SyscallDelegate::mapFileReadOnly(*(this + 1), v18, *(this + 121), 0, 0, 0, 0, 0);
+      Diagnostics::Diagnostics(v14);
+      Only = dyld4::SyscallDelegate::mapFileReadOnly(*(this + 1), v14, *(this + 121), 0, 0, 0, 0, 0);
       if (!Only)
       {
 LABEL_9:
-        Diagnostics::Diagnostics(v17);
-        v8 = dyld4::SyscallDelegate::saveFileWithAttribute(*(this + 1), v17, *(this + 121), a2, *(a2 + 2), "com.apple.dyld", &v19);
-        v9 = *(*(this + 1) + 327);
+        Diagnostics::Diagnostics(v13);
+        v8 = dyld4::SyscallDelegate::saveFileWithAttribute(*(this + 1), v13, *(this + 121), a2, *(a2 + 2), "com.apple.dyld", &v15);
         if (v8)
         {
           if (*(*(this + 1) + 327))
           {
-            v10 = *(this + 121);
             dyld4::RuntimeState::log(this, "wrote PrebuiltLoaderSet to file '%s'\n");
           }
         }
 
         else if (*(*(this + 1) + 327))
         {
-          Diagnostics::errorMessage(v17);
-          v11 = *(this + 121);
+          Diagnostics::errorMessage(v13);
           dyld4::RuntimeState::log(this, "tried but failed (%s) to write PrebuiltLoaderSet to file '%s'\n");
         }
 
-        Diagnostics::~Diagnostics(v17);
+        Diagnostics::~Diagnostics(v13);
         goto LABEL_20;
       }
 
@@ -1353,31 +548,30 @@ LABEL_7:
         goto LABEL_9;
       }
 
-      HasBootToken = dyld4::RuntimeState::fileAlreadyHasBootToken(this, v7, &v19);
-      v14 = *(this + 1);
-      v15 = v14[327];
+      HasBootToken = dyld4::RuntimeState::fileAlreadyHasBootToken(this, v7, &v15);
+      v11 = *(this + 1);
       if (HasBootToken)
       {
-        if (v14[327])
+        if (*(v11 + 327))
         {
           dyld4::RuntimeState::log(this, "PrebuiltLoaderSet already saved as file '%s'\n", *(this + 121));
-          v14 = *(this + 1);
+          v11 = *(this + 1);
         }
 
-        dyld4::SyscallDelegate::unmapFile(v14, v5, v5[2]);
+        dyld4::SyscallDelegate::unmapFile(v11, v5, v5[2]);
       }
 
       else
       {
-        if (v14[327])
+        if (*(v11 + 327))
         {
           dyld4::RuntimeState::log(this, "updating boot attribute on existing PrebuiltLoaderSet file '%s'\n", *(this + 121));
-          v14 = *(this + 1);
+          v11 = *(this + 1);
         }
 
-        v16 = dyld4::SyscallDelegate::setFileAttribute(v14, *(this + 121), "com.apple.dyld", &v19);
+        v12 = dyld4::SyscallDelegate::setFileAttribute(v11, *(this + 121), "com.apple.dyld", &v15);
         dyld4::SyscallDelegate::unmapFile(*(this + 1), v5, v5[2]);
-        if (!v16)
+        if (!v12)
         {
           goto LABEL_7;
         }
@@ -1385,7 +579,7 @@ LABEL_7:
 
       v8 = 1;
 LABEL_20:
-      Diagnostics::~Diagnostics(v18);
+      Diagnostics::~Diagnostics(v14);
       return v8;
     }
 
@@ -1406,13 +600,13 @@ LABEL_20:
 uint64_t dyld4::LibSystemHelpersWrapper::setDyldPatchedObjCClasses(dyld4::LibSystemHelpersWrapper *this)
 {
   v9 = lsl::MemoryManager::memoryManager(this);
-  result = v9[6];
+  result = *(v9 + 6);
   if (result)
   {
     result = lsl::ProtectedStack::onStackInCurrentFrame(result, v2, v3, v4, v5, v6, v7, v8, v23);
     if (result)
     {
-      v17 = v9[6];
+      v17 = *(v9 + 6);
       v25[0] = _NSConcreteStackBlock;
       v25[1] = 0x40000000;
       v25[2] = ___ZN3lsl13MemoryManager22withReadOnlyTPROMemoryIZNK5dyld423LibSystemHelpersWrapper25setDyldPatchedObjCClassesEvEUlvE_EEN13callback_impl11return_typeIDTadsrT_onclEE4typeES7__block_invoke;
@@ -1798,7 +992,7 @@ uint64_t dyld4::RuntimeState::rebindMissingFlatLazySymbols(std::span<dyld4::Load
     v9 = *v7;
     if ((dyld4::Loader::hiddenFromFlat(*v7, 0) & 1) == 0)
     {
-      if (dyld4::Loader::hasExportedSymbol(v9, a1[1], v2, *(a2 + 8), 1, 1, v14, 0))
+      if (dyld4::Loader::hasExportedSymbol(v9, a1[1], v2, *(a2 + 8), 1, 1u, v14, 0))
       {
         break;
       }
@@ -1813,7 +1007,7 @@ uint64_t dyld4::RuntimeState::rebindMissingFlatLazySymbols(std::span<dyld4::Load
   }
 
   v11 = dyld4::Loader::resolvedAddress(v2, v14);
-  if (*(*(v2 + 1) + 322) == 1)
+  if (*(v2[1] + 322) == 1)
   {
     v12 = *(a2 + 16);
     v13 = dyld4::Loader::leafName(v9, v2);
@@ -2143,13 +1337,13 @@ LABEL_20:
 uint64_t dyld4::LibSystemHelpersWrapper::isLaunchdOwned(dyld4::LibSystemHelpersWrapper *this)
 {
   v9 = lsl::MemoryManager::memoryManager(this);
-  result = v9[6];
+  result = *(v9 + 6);
   if (result)
   {
     result = lsl::ProtectedStack::onStackInCurrentFrame(result, v2, v3, v4, v5, v6, v7, v8, v24);
     if (result)
     {
-      v17 = v9[6];
+      v17 = *(v9 + 6);
       v26[0] = _NSConcreteStackBlock;
       v26[1] = 0x40000000;
       v26[2] = ___ZN3lsl13MemoryManager22withReadOnlyTPROMemoryIZNK5dyld423LibSystemHelpersWrapper14isLaunchdOwnedEvEUlvE_EEN13callback_impl11return_typeIDTadsrT_onclEE4typeES7__block_invoke;
@@ -3311,9 +2505,9 @@ void ___ZN5dyld413PrebuiltSwift24findProtocolConformancesER11DiagnosticsRNS_12Pr
     return;
   }
 
-  metadata_visitor::SwiftConformance::getTypeRef(a2, (*(*(a1 + 48) + 8) + 40), v62);
-  metadata_visitor::SwiftConformance::getProtocolConformanceFlags(a2, (*(*(a1 + 48) + 8) + 40), v61);
-  metadata_visitor::SwiftConformance::SwiftTypeRefPointer::getTargetPointer(v62, (*(*(a1 + 48) + 8) + 40), v60);
+  metadata_visitor::SwiftConformance::getTypeRef(v62, a2, (*(*(a1 + 48) + 8) + 40));
+  metadata_visitor::SwiftConformance::getProtocolConformanceFlags(v61, a2, (*(*(a1 + 48) + 8) + 40));
+  metadata_visitor::SwiftConformance::SwiftTypeRefPointer::getTargetPointer(v60, v62, (*(*(a1 + 48) + 8) + 40));
   if ((*(*(a1 + 32) + 16))())
   {
     return;
@@ -3391,7 +2585,7 @@ void ___ZN5dyld413PrebuiltSwift24findProtocolConformancesER11DiagnosticsRNS_12Pr
         v17 = *(*(a1 + 48) + 8);
         v18 = &v51;
 LABEL_27:
-        metadata_visitor::SwiftConformance::TypeContextDescriptor::getName(v18, (v17 + 40), &v54);
+        metadata_visitor::SwiftConformance::TypeContextDescriptor::getName(&v54, v18, (v17 + 40));
         v55 = 1;
         v24 = lsl::Allocator::Pool::allocator(&v54);
         v25 = metadata_visitor::ResolvedValue::vmAddress(&v54);
@@ -3435,7 +2629,7 @@ LABEL_27:
             goto LABEL_39;
           }
 
-          dyld4::PrebuiltLoader::BindTargetRef::BindTargetRef((&v50 + 8), &v56);
+          dyld4::PrebuiltLoader::BindTargetRef::BindTargetRef(&v50 + 1, &v56);
           v53.var0 = *(a1 + 88);
           v53.var1 = v9;
           dyld4::PrebuiltLoader::BindTargetRef::BindTargetRef(&v48, &v53);
@@ -3734,14 +2928,14 @@ uint64_t dyld3::MultiMap<SwiftTypeProtocolConformanceDiskLocationKey,SwiftTypePr
     v7 = 2 * *(a1 + 32);
     *a1 = 2 * v6;
     size = 0;
-    memset(v33, 0, sizeof(v33));
+    memset(v30, 0, sizeof(v30));
     if (v7)
     {
-      dyld3::OverflowSafeArray<dyld4::Loader *,4294967295ull>::growTo(v33, v7);
+      dyld3::OverflowSafeArray<dyld4::Loader *,4294967295ull>::growTo(v30, v7);
       do
       {
-        v32 = -1;
-        dyld3::OverflowSafeArray<dyld4::Loader *,4294967295ull>::push_back(v33, &v32);
+        v29 = -1;
+        dyld3::OverflowSafeArray<dyld4::Loader *,4294967295ull>::push_back(v30, &v29);
         --v7;
       }
 
@@ -3756,21 +2950,20 @@ uint64_t dyld3::MultiMap<SwiftTypeProtocolConformanceDiskLocationKey,SwiftTypePr
         if ((*(dyld3::OverflowSafeArray<dyld3::MultiMapBase<SwiftTypeProtocolConformanceDiskLocationKey,SwiftTypeProtocolConformanceDiskLocation,dyld4::HashTypeConformanceKey,dyld4::EqualTypeConformanceKey>::NodeEntryT,4294967295ull>::operator[]((a1 + 56), v8) + 24) & 6) == 0)
         {
           v9 = dyld3::OverflowSafeArray<dyld3::MultiMapBase<SwiftTypeProtocolConformanceDiskLocationKey,SwiftTypeProtocolConformanceDiskLocation,dyld4::HashTypeConformanceKey,dyld4::EqualTypeConformanceKey>::NodeEntryT,4294967295ull>::operator[]((a1 + 56), v8);
-          v10 = *(a1 + 96);
-          v11 = dyld4::HashTypeConformanceKey::hash(v9);
-          v12 = (v33[2] - 1) & v11;
-          if (*dyld3::OverflowSafeArray<void const*,4294967295ull>::operator[](v33, v12) != -1)
+          v10 = dyld4::HashTypeConformanceKey::hash(v9);
+          v11 = (v30[2] - 1) & v10;
+          if (*dyld3::OverflowSafeArray<void const*,4294967295ull>::operator[](v30, v11) != -1)
           {
-            v13 = 1;
+            v12 = 1;
             do
             {
-              v12 = (v33[2] - 1) & (v12 + v13++);
+              v11 = (v30[2] - 1) & (v11 + v12++);
             }
 
-            while (*dyld3::OverflowSafeArray<void const*,4294967295ull>::operator[](v33, v12) != -1);
+            while (*dyld3::OverflowSafeArray<void const*,4294967295ull>::operator[](v30, v11) != -1);
           }
 
-          *dyld3::OverflowSafeArray<void const*,4294967295ull>::operator[](v33, v12) = v8;
+          *dyld3::OverflowSafeArray<void const*,4294967295ull>::operator[](v30, v11) = v8;
         }
 
         ++v8;
@@ -3779,48 +2972,47 @@ uint64_t dyld3::MultiMap<SwiftTypeProtocolConformanceDiskLocationKey,SwiftTypePr
       while (v8 != *(a1 + 72));
     }
 
-    if ((a1 + 16) == v33)
+    if ((a1 + 16) == v30)
     {
-      v33[2] = 0;
-      if (v33[3])
+      v30[2] = 0;
+      if (v30[3])
       {
-        vm_deallocate(mach_task_self_, v33[3], size);
+        vm_deallocate(mach_task_self_, v30[3], size);
       }
     }
 
     else
     {
-      v14 = *(a1 + 40);
-      if (v14)
+      v13 = *(a1 + 40);
+      if (v13)
       {
-        vm_deallocate(mach_task_self_, v14, *(a1 + 48));
+        vm_deallocate(mach_task_self_, v13, *(a1 + 48));
       }
 
-      *(a1 + 16) = v33[0];
-      *(a1 + 24) = *&v33[1];
-      v15 = size;
-      *(a1 + 40) = v33[3];
-      *(a1 + 48) = v15;
+      *(a1 + 16) = v30[0];
+      *(a1 + 24) = *&v30[1];
+      v14 = size;
+      *(a1 + 40) = v30[3];
+      *(a1 + 48) = v14;
     }
   }
 
-  v16 = *(a1 + 96);
-  v17 = (*(a1 + 32) - 1) & dyld4::HashTypeConformanceKey::hash(a2);
-  v18 = *dyld3::OverflowSafeArray<void const*,4294967295ull>::operator[]((a1 + 16), v17);
-  if (v18 == -1)
+  v15 = (*(a1 + 32) - 1) & dyld4::HashTypeConformanceKey::hash(a2);
+  v16 = *dyld3::OverflowSafeArray<void const*,4294967295ull>::operator[]((a1 + 16), v15);
+  if (v16 == -1)
   {
 LABEL_23:
-    v19 = (a1 + 56);
-    v23 = *(a1 + 72);
-    *dyld3::OverflowSafeArray<void const*,4294967295ull>::operator[]((a1 + 16), v17) = v23;
+    v17 = (a1 + 56);
+    v20 = *(a1 + 72);
+    *dyld3::OverflowSafeArray<void const*,4294967295ull>::operator[]((a1 + 16), v15) = v20;
     ++*(a1 + 8);
-    *v33 = *a2;
-    v33[2] = *(a2 + 16);
-    v33[3] = 0;
-    dyld3::OverflowSafeArray<dyld4::RuntimeState::PermanentRanges::Range,4294967295ull>::push_back((a1 + 56), v33);
+    *v30 = *a2;
+    v30[2] = *(a2 + 16);
+    v30[3] = 0;
+    dyld3::OverflowSafeArray<dyld4::RuntimeState::PermanentRanges::Range,4294967295ull>::push_back((a1 + 56), v30);
     *a3 = 0;
-    v24 = *(a1 + 72);
-    if (!v24)
+    v21 = *(a1 + 72);
+    if (!v21)
     {
       ___ZN5dyld412RuntimeState23appendInterposingTuplesEPKNS_6LoaderEPKhj_block_invoke_66_cold_1();
     }
@@ -3828,20 +3020,19 @@ LABEL_23:
 
   else
   {
-    v19 = (a1 + 56);
-    v20 = 1;
+    v17 = (a1 + 56);
+    v18 = 1;
     while (1)
     {
-      v21 = dyld3::OverflowSafeArray<dyld3::MultiMapBase<SwiftTypeProtocolConformanceDiskLocationKey,SwiftTypeProtocolConformanceDiskLocation,dyld4::HashTypeConformanceKey,dyld4::EqualTypeConformanceKey>::NodeEntryT,4294967295ull>::operator[]((a1 + 56), v18);
-      v22 = *(a1 + 96);
-      if (dyld4::EqualTypeConformanceKey::equal(v21, a2))
+      v19 = dyld3::OverflowSafeArray<dyld3::MultiMapBase<SwiftTypeProtocolConformanceDiskLocationKey,SwiftTypeProtocolConformanceDiskLocation,dyld4::HashTypeConformanceKey,dyld4::EqualTypeConformanceKey>::NodeEntryT,4294967295ull>::operator[]((a1 + 56), v16);
+      if (dyld4::EqualTypeConformanceKey::equal(v19, a2))
       {
         break;
       }
 
-      v17 = (*(a1 + 32) - 1) & (v17 + v20++);
-      v18 = *dyld3::OverflowSafeArray<void const*,4294967295ull>::operator[]((a1 + 16), v17);
-      if (v18 == -1)
+      v15 = (*(a1 + 32) - 1) & (v15 + v18++);
+      v16 = *dyld3::OverflowSafeArray<void const*,4294967295ull>::operator[]((a1 + 16), v15);
+      if (v16 == -1)
       {
         goto LABEL_23;
       }
@@ -3849,50 +3040,50 @@ LABEL_23:
 
     while (1)
     {
-      v25 = *(dyld3::OverflowSafeArray<dyld3::MultiMapBase<SwiftTypeProtocolConformanceDiskLocationKey,SwiftTypeProtocolConformanceDiskLocation,dyld4::HashTypeConformanceKey,dyld4::EqualTypeConformanceKey>::NodeEntryT,4294967295ull>::operator[]((a1 + 56), v18) + 24);
-      v26 = (a1 + 56);
-      if ((v25 & 3) == 0)
+      v22 = *(dyld3::OverflowSafeArray<dyld3::MultiMapBase<SwiftTypeProtocolConformanceDiskLocationKey,SwiftTypeProtocolConformanceDiskLocation,dyld4::HashTypeConformanceKey,dyld4::EqualTypeConformanceKey>::NodeEntryT,4294967295ull>::operator[]((a1 + 56), v16) + 24);
+      v23 = (a1 + 56);
+      if ((v22 & 3) == 0)
       {
         break;
       }
 
-      v18 = *(dyld3::OverflowSafeArray<dyld3::MultiMapBase<SwiftTypeProtocolConformanceDiskLocationKey,SwiftTypeProtocolConformanceDiskLocation,dyld4::HashTypeConformanceKey,dyld4::EqualTypeConformanceKey>::NodeEntryT,4294967295ull>::operator[](v26, v18) + 24) >> 3;
+      v16 = *(dyld3::OverflowSafeArray<dyld3::MultiMapBase<SwiftTypeProtocolConformanceDiskLocationKey,SwiftTypeProtocolConformanceDiskLocation,dyld4::HashTypeConformanceKey,dyld4::EqualTypeConformanceKey>::NodeEntryT,4294967295ull>::operator[](v23, v16) + 24) >> 3;
     }
 
-    v27 = dyld3::OverflowSafeArray<dyld3::MultiMapBase<SwiftTypeProtocolConformanceDiskLocationKey,SwiftTypeProtocolConformanceDiskLocation,dyld4::HashTypeConformanceKey,dyld4::EqualTypeConformanceKey>::NodeEntryT,4294967295ull>::operator[](v26, v18);
-    v28 = *(v27 + 24);
-    if ((v28 & 7) != 0)
+    v24 = dyld3::OverflowSafeArray<dyld3::MultiMapBase<SwiftTypeProtocolConformanceDiskLocationKey,SwiftTypeProtocolConformanceDiskLocation,dyld4::HashTypeConformanceKey,dyld4::EqualTypeConformanceKey>::NodeEntryT,4294967295ull>::operator[](v23, v16);
+    v25 = *(v24 + 24);
+    if ((v25 & 7) != 0)
     {
-      if ((v28 & 4) == 0)
+      if ((v25 & 4) == 0)
       {
         dyld3::MultiMap<SwiftForeignTypeProtocolConformanceDiskLocationKey,SwiftForeignTypeProtocolConformanceDiskLocation,dyld4::HashForeignConformanceKey,dyld4::EqualForeignConformanceKey>::insert();
       }
 
-      v29 = v28 & 0xFFFFFFFFFFFFFFF9 | 2;
-      *(v27 + 24) = v29;
-      v30 = v29 & 3 | (8 * *(a1 + 72));
+      v26 = v25 & 0xFFFFFFFFFFFFFFF9 | 2;
+      *(v24 + 24) = v26;
+      v27 = v26 & 3 | (8 * *(a1 + 72));
     }
 
     else
     {
-      *(v27 + 24) = v28 | 1;
-      v30 = (8 * *(a1 + 72)) | 1;
+      *(v24 + 24) = v25 | 1;
+      v27 = (8 * *(a1 + 72)) | 1;
     }
 
-    *(v27 + 24) = v30;
-    *v33 = *a2;
-    v33[2] = *(a2 + 16);
-    v33[3] = 4;
-    dyld3::OverflowSafeArray<dyld4::RuntimeState::PermanentRanges::Range,4294967295ull>::push_back((a1 + 56), v33);
+    *(v24 + 24) = v27;
+    *v30 = *a2;
+    v30[2] = *(a2 + 16);
+    v30[3] = 4;
+    dyld3::OverflowSafeArray<dyld4::RuntimeState::PermanentRanges::Range,4294967295ull>::push_back((a1 + 56), v30);
     *a3 = 1;
-    v24 = *(a1 + 72);
-    if (!v24)
+    v21 = *(a1 + 72);
+    if (!v21)
     {
       ___ZN5dyld412RuntimeState23appendInterposingTuplesEPKNS_6LoaderEPKhj_block_invoke_66_cold_1();
     }
   }
 
-  return *v19 + 32 * v24 - 32;
+  return *v17 + 32 * v21 - 32;
 }
 
 uint64_t ___ZN5dyld413PrebuiltSwift24findProtocolConformancesER11DiagnosticsRNS_12PrebuiltObjCERNS_12RuntimeStateE_block_invoke_2_11(uint64_t result, uint64_t a2)
@@ -3914,7 +3105,7 @@ uint64_t ___ZN5dyld413PrebuiltSwift24findProtocolConformancesER11DiagnosticsRNS_
         std::__throw_bad_optional_access[abi:nn200100]();
       }
 
-      dyld4::PrebuiltLoader::BindTargetRef::BindTargetRef((&v11 + 8), (v3 + 48));
+      dyld4::PrebuiltLoader::BindTargetRef::BindTargetRef(&v11 + 1, (v3 + 48));
       v10 = 0;
       v8 = v11;
       v9 = *(v3 + 72);
@@ -3929,7 +3120,7 @@ uint64_t ___ZN5dyld413PrebuiltSwift24findProtocolConformancesER11DiagnosticsRNS_
   return result;
 }
 
-unint64_t ___ZN5dyld413PrebuiltSwift24findProtocolConformancesER11DiagnosticsRNS_12PrebuiltObjCERNS_12RuntimeStateE_block_invoke_3(unint64_t result, uint64_t a2)
+uint64_t ___ZN5dyld413PrebuiltSwift24findProtocolConformancesER11DiagnosticsRNS_12PrebuiltObjCERNS_12RuntimeStateE_block_invoke_3(uint64_t result, uint64_t a2)
 {
   if ((*(result + 56) & 1) == 0)
   {
@@ -3979,7 +3170,7 @@ LABEL_13:
     std::__throw_bad_optional_access[abi:nn200100]();
   }
 
-  dyld4::PrebuiltLoader::BindTargetRef::BindTargetRef((&v17 + 8), (v2 + 72));
+  dyld4::PrebuiltLoader::BindTargetRef::BindTargetRef(&v17 + 1, (v2 + 72));
   v16 = 0;
   v14 = v17;
   v15 = *(v2 + 96);
@@ -4021,8 +3212,8 @@ __n128 dyld3::OverflowSafeArray<dyld3::MultiMapBase<SwiftForeignTypeProtocolConf
 
 void dyld3::MultiMapBase<prebuilt_objc::ObjCStringKey,prebuilt_objc::ObjCObjectLocation,prebuilt_objc::HashObjCStringKey,prebuilt_objc::EqualObjCStringKey>::forEachEntry<prebuilt_objc::ObjCStringKey>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4, const void **a5, uint64_t a6)
 {
-  v37 = a6;
-  v38 = a3;
+  v36 = a6;
+  v37 = a3;
   if (a3[2])
   {
     v8 = prebuilt_objc::hashStringKey(a5);
@@ -4035,8 +3226,8 @@ LABEL_9:
     }
 
     v11 = *a2;
-    v12 = v38[2];
-    v13 = *v38;
+    v12 = v37[2];
+    v13 = *v37;
     v14 = 1;
     v17 = a5;
     v16 = *a5;
@@ -4055,97 +3246,93 @@ LABEL_9:
       }
 
       v19 = v13 + 56 * v18;
-      if (*(v19 + 8) == v15)
+      if (*(v19 + 8) == v15 && !_platform_memcmp(*v19, v16, v15))
       {
-        v20 = _platform_memcmp(*v19, v16, v15);
-        if (!v20)
+        v20 = *(v19 + 48);
+        if ((v20 & 7) != 0)
         {
-          v21 = *(v19 + 48);
-          if ((v21 & 7) != 0)
+          if (v12 <= v20 >> 3)
           {
-            if (v12 <= v21 >> 3)
-            {
 LABEL_15:
-              dyld3::MultiMapBase<prebuilt_objc::ObjCStringKey,prebuilt_objc::ObjCObjectLocation,prebuilt_objc::HashObjCStringKey,prebuilt_objc::EqualObjCStringKey>::forEachEntry<prebuilt_objc::ObjCStringKey>();
-            }
+            dyld3::MultiMapBase<prebuilt_objc::ObjCStringKey,prebuilt_objc::ObjCObjectLocation,prebuilt_objc::HashObjCStringKey,prebuilt_objc::EqualObjCStringKey>::forEachEntry<prebuilt_objc::ObjCStringKey>();
+          }
 
-            v22 = v21 >> 3;
-            v23 = 2;
-            while (1)
+          v21 = v20 >> 3;
+          v22 = 2;
+          while (1)
+          {
+            v23 = *(v13 + 56 * v21 + 48);
+            if ((v23 & 3) == 0)
             {
-              v24 = *(v13 + 56 * v22 + 48);
-              if ((v24 & 3) == 0)
-              {
-                break;
-              }
-
-              v22 = v24 >> 3;
-              ++v23;
-              if (v12 <= v24 >> 3)
-              {
-                goto LABEL_15;
-              }
+              break;
             }
 
-            __chkstk_darwin(v20);
-            v27 = (&v36 - v26);
-            if (v25 >= 0x200)
+            v21 = v23 >> 3;
+            ++v22;
+            if (v12 <= v23 >> 3)
             {
-              v28 = 512;
+              goto LABEL_15;
             }
+          }
 
-            else
-            {
-              v28 = v25;
-            }
-
-            bzero(&v36 - v26, v28);
-            *v27 = v19 + 16;
-            v29 = v38[2];
-            v30 = *(v19 + 48);
-            if (v29 <= v30 >> 3)
-            {
-LABEL_23:
-              dyld3::MultiMapBase<prebuilt_objc::ObjCStringKey,prebuilt_objc::ObjCObjectLocation,prebuilt_objc::HashObjCStringKey,prebuilt_objc::EqualObjCStringKey>::forEachEntry<prebuilt_objc::ObjCStringKey>();
-            }
-
-            v31 = v30 >> 3;
-            v32 = *v38;
-            v33 = 2;
-            while (1)
-            {
-              v34 = v32 + 56 * v31;
-              v35 = *(v34 + 48);
-              v27[v33 - 1] = v34 + 16;
-              if ((v35 & 3) == 0)
-              {
-                break;
-              }
-
-              v31 = v35 >> 3;
-              ++v33;
-              if (v29 <= v35 >> 3)
-              {
-                goto LABEL_23;
-              }
-            }
-
-            v39 = v27;
-            v40.i64[0] = v33;
-            v40.i64[1] = v33;
-            (*(v37 + 16))(v37, &v39);
+          __chkstk_darwin();
+          v26 = (&v35 - v25);
+          if (v24 >= 0x200)
+          {
+            v27 = 512;
           }
 
           else
           {
-            v41 = v19 + 16;
-            v39 = &v41;
-            v40 = vdupq_n_s64(1uLL);
-            (*(v37 + 16))(v37, &v39);
+            v27 = v24;
           }
 
-          return;
+          bzero(&v35 - v25, v27);
+          *v26 = v19 + 16;
+          v28 = v37[2];
+          v29 = *(v19 + 48);
+          if (v28 <= v29 >> 3)
+          {
+LABEL_23:
+            dyld3::MultiMapBase<prebuilt_objc::ObjCStringKey,prebuilt_objc::ObjCObjectLocation,prebuilt_objc::HashObjCStringKey,prebuilt_objc::EqualObjCStringKey>::forEachEntry<prebuilt_objc::ObjCStringKey>();
+          }
+
+          v30 = v29 >> 3;
+          v31 = *v37;
+          v32 = 2;
+          while (1)
+          {
+            v33 = v31 + 56 * v30;
+            v34 = *(v33 + 48);
+            v26[v32 - 1] = v33 + 16;
+            if ((v34 & 3) == 0)
+            {
+              break;
+            }
+
+            v30 = v34 >> 3;
+            ++v32;
+            if (v28 <= v34 >> 3)
+            {
+              goto LABEL_23;
+            }
+          }
+
+          v38 = v26;
+          v39.i64[0] = v32;
+          v39.i64[1] = v32;
+          (*(v36 + 16))(v36, &v38);
         }
+
+        else
+        {
+          v40 = v19 + 16;
+          v38 = &v40;
+          v39 = vdupq_n_s64(1uLL);
+          (*(v36 + 16))(v36, &v38);
+        }
+
+        return;
       }
 
       v10 = (v9 - 1) & (v10 + v14++);
@@ -4325,7 +3512,7 @@ char *dyld4::Loader::expandAndNormalizeAtExecutablePath(dyld4::Loader *this, con
     {
       while (v9[1] == 46 && v9[2] == 46)
       {
-        v12 = (result - 1);
+        v12 = result - 1;
         do
         {
           v13 = v12;
@@ -4381,32 +3568,16 @@ char *___ZN5dyld46Loader24forEachResolvedAtPathVarERNS_12RuntimeStateEPKcRKNS0_1
   if ((dyld4::Loader::expandAtLoaderPath(v6, __s1, *(a1 + 56), *(*(a1 + 48) + 8), 1, *(a1 + 64)) & 1) != 0 || (result = dyld4::Loader::expandAtExecutablePath(*(a1 + 40), __s1, v8, 0, *(a1 + 64)), result))
   {
     dyld4::Utils::concatenatePaths(*(a1 + 64), *(a1 + 72), &stru_3C8.reloff);
-    v10 = *(a1 + 64);
-    v11 = *(a1 + 88);
     result = (*(*(a1 + 32) + 16))();
     goto LABEL_6;
   }
 
-  if (*__s1 != 47)
+  if (*__s1 != 47 || (strlcpy(*(a1 + 64), __s1, 0x400uLL), dyld4::Utils::concatenatePaths(*(a1 + 64), *(a1 + 72), &stru_3C8.reloff), result = (*(*(a1 + 32) + 16))(), (*a3 & 1) == 0) && ((v10 = *(*(*(a1 + 40) + 8) + 720)) == 0 || (strlcpy(*(a1 + 64), v10, 0x400uLL), strlcat(*(a1 + 64), __s1, 0x400uLL), dyld4::Utils::concatenatePaths(*(a1 + 64), *(a1 + 72), &stru_3C8.reloff), result = (*(*(a1 + 32) + 16))(), (*a3 & 1) == 0)))
   {
-    goto LABEL_6;
-  }
-
-  strlcpy(*(a1 + 64), __s1, 0x400uLL);
-  dyld4::Utils::concatenatePaths(*(a1 + 64), *(a1 + 72), &stru_3C8.reloff);
-  v12 = *(a1 + 64);
-  v13 = *(a1 + 88);
-  result = (*(*(a1 + 32) + 16))();
-  if ((*a3 & 1) == 0)
-  {
-    v14 = *(*(*(a1 + 40) + 8) + 720);
-    if (!v14 || (strlcpy(*(a1 + 64), v14, 0x400uLL), strlcat(*(a1 + 64), __s1, 0x400uLL), dyld4::Utils::concatenatePaths(*(a1 + 64), *(a1 + 72), &stru_3C8.reloff), v15 = *(a1 + 64), v16 = *(a1 + 88), result = (*(*(a1 + 32) + 16))(), (*a3 & 1) == 0))
-    {
 LABEL_6:
-      if (*a3 != 1)
-      {
-        return result;
-      }
+    if (*a3 != 1)
+    {
+      return result;
     }
   }
 
@@ -4460,8 +3631,10 @@ uint64_t (***___ZNK5dyld46Loader18applyFixupsGenericER11DiagnosticsRNS_12Runtime
   return mach_o::ChainedFixups::forEachFixupChainStartLocation(v6, a2, a3, v9);
 }
 
-uint64_t ___ZNK5dyld46Loader18applyFixupsGenericER11DiagnosticsRNS_12RuntimeStateEyRKN5dyld35ArrayIPKvEESB_bRKNS6_INS0_21MissingFlatLazySymbolEEE_block_invoke_2(void *a1, unint64_t a2, unsigned int a3, int a4, unsigned int a5, uint64_t a6, uint64_t a7)
+uint64_t ___ZNK5dyld46Loader18applyFixupsGenericER11DiagnosticsRNS_12RuntimeStateEyRKN5dyld35ArrayIPKvEESB_bRKNS6_INS0_21MissingFlatLazySymbolEEE_block_invoke_2(void *a1, unint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
+  v9 = a5;
+  v10 = a4;
   v13 = a1[4];
   v14 = a1[5] + 56 * a3;
   v17[0] = _NSConcreteStackBlock;
@@ -4474,7 +3647,7 @@ uint64_t ___ZNK5dyld46Loader18applyFixupsGenericER11DiagnosticsRNS_12RuntimeStat
   v18[54] = a1[62];
   v18[55] = a7;
   v18[56] = v15;
-  return mach_o::ChainedFixups::PointerFormat::forEachFixupLocationInChain(a6, a2, v13, v14, 0, 0, a4, a5, v17);
+  return mach_o::ChainedFixups::PointerFormat::forEachFixupLocationInChain(a6, a2, v13, v14, 0, 0, v10, v9, v17);
 }
 
 void ___ZNK5dyld46Loader18applyFixupsGenericER11DiagnosticsRNS_12RuntimeStateEyRKN5dyld35ArrayIPKvEESB_bRKNS6_INS0_21MissingFlatLazySymbolEEE_block_invoke_3(uint64_t a1, uint64_t a2, _BYTE *a3)
@@ -4635,20 +3808,18 @@ LABEL_9:
   *v7 = v8;
 }
 
-void ___ZNK5dyld46Loader18applyFixupsGenericER11DiagnosticsRNS_12RuntimeStateEyRKN5dyld35ArrayIPKvEESB_bRKNS6_INS0_21MissingFlatLazySymbolEEE_block_invoke_9(uint64_t a1, uint64_t a2, unsigned int a3)
+void ___ZNK5dyld46Loader18applyFixupsGenericER11DiagnosticsRNS_12RuntimeStateEyRKN5dyld35ArrayIPKvEESB_bRKNS6_INS0_21MissingFlatLazySymbolEEE_block_invoke_9(void *a1, uint64_t a2, unsigned int a3)
 {
-  v3 = *(a1 + 48);
+  v3 = a1[6];
   if (v3[2] <= a3)
   {
     dyld3::MultiMapBase<prebuilt_objc::ObjCStringKey,prebuilt_objc::ObjCObjectLocation,prebuilt_objc::HashObjCStringKey,prebuilt_objc::EqualObjCStringKey>::forEachEntry<prebuilt_objc::ObjCStringKey>();
   }
 
-  v5 = a1;
-  v6 = *(a1 + 32);
-  v7 = (*(v5 + 40) + a2);
+  v6 = a1[4];
+  v7 = (a1[5] + a2);
   v8 = *(*v3 + 8 * a3);
-  v9 = *(v5 + 56);
-  LODWORD(v5) = *(*(v9 + 1) + 322);
+  v9 = a1[7];
   if (v8 == -1)
   {
     if (*(*(v9 + 1) + 322))
@@ -4701,7 +3872,7 @@ void ___ZNK5dyld46Loader26applyFunctionVariantFixupsER11DiagnosticsRKNS_12Runtim
   v8 = (v6 + v7);
   if ((v4 & 0x1000) != 0)
   {
-    v5 = signPointer(v5, (v6 + v7), (v4 & 0x2000) != 0, HIWORD(a2), v4 >> 14);
+    v5 = signPointer(v5, v6 + v7, (v4 & 0x2000) != 0, HIWORD(a2), v4 >> 14);
   }
 
   v9 = *(a1 + 48);
@@ -4737,7 +3908,7 @@ uint64_t dyld4::Loader::selectFromFunctionVariants(dyld4::Loader *this, Diagnost
   return 0;
 }
 
-void ___ZNK5dyld46Loader25findAndRunAllInitializersERNS_12RuntimeStateE_block_invoke_2(void *a1, int a2)
+void ___ZNK5dyld46Loader25findAndRunAllInitializersERNS_12RuntimeStateE_block_invoke_2(void *a1, unsigned int a2)
 {
   v4 = a1[4];
   v3 = a1[5];
@@ -4757,13 +3928,13 @@ uint64_t dyld4::LibSystemHelpersWrapper::__cxa_atexit(dyld4::LibSystemHelpersWra
   v33 = a2;
   v31 = a4;
   v15 = lsl::MemoryManager::memoryManager(this);
-  result = v15[6];
+  result = *(v15 + 6);
   if (result)
   {
     result = lsl::ProtectedStack::onStackInCurrentFrame(result, v8, v9, v10, v11, v12, v13, v14, v29);
     if (result)
     {
-      v23 = v15[6];
+      v23 = *(v15 + 6);
       v34[0] = _NSConcreteStackBlock;
       v34[1] = 0x40000000;
       v34[2] = ___ZN3lsl13MemoryManager22withReadOnlyTPROMemoryIZNK5dyld423LibSystemHelpersWrapper12__cxa_atexitEPFvPvES4_S4_EUlvE_EEN13callback_impl11return_typeIDTadsrT_onclEE4typeESA__block_invoke;
@@ -4956,7 +4127,7 @@ void dyld4::Loader::addWeakDefsToMap(dyld4::RuntimeState *a1, uint64_t a2)
   }
 }
 
-void *___ZN5dyld46Loader16addWeakDefsToMapERNS_12RuntimeStateERKNSt3__14spanIPKS0_Lm18446744073709551615EEE_block_invoke(void *result, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
+void *___ZN5dyld46Loader16addWeakDefsToMapERNS_12RuntimeStateERKNSt3__14spanIPKS0_Lm18446744073709551615EEE_block_invoke(void *result, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
 {
   v11 = a2;
   if (a6 < 0)
@@ -4990,7 +4161,7 @@ __n128 __Block_byref_object_copy__134(uint64_t a1, uint64_t a2)
   return result;
 }
 
-unint64_t ___ZNK5dyld46Loader13resolveSymbolER11DiagnosticsRNS_12RuntimeStateEiPKcbbU13block_pointerFvjjRKNS0_14ResolvedSymbolEEb_block_invoke(unint64_t result)
+uint64_t ___ZNK5dyld46Loader13resolveSymbolER11DiagnosticsRNS_12RuntimeStateEiPKcbbU13block_pointerFvjjRKNS0_14ResolvedSymbolEEb_block_invoke(uint64_t result)
 {
   v1 = result;
   v2 = 0;
@@ -5023,7 +4194,7 @@ LABEL_11:
     result = dyld4::Loader::hiddenFromFlat(*v9, 0);
     if (!result || v4 == v10)
     {
-      result = dyld4::Loader::hasExportedSymbol(v10, *(v1 + 64), *(v1 + 56), *(v1 + 72), 1, 1, (*(*(v1 + 32) + 8) + 40), 0);
+      result = dyld4::Loader::hasExportedSymbol(v10, *(v1 + 64), *(v1 + 56), *(v1 + 72), 1, 1u, (*(*(v1 + 32) + 8) + 40), 0);
       if (result)
       {
         break;
@@ -5062,23 +4233,23 @@ void ___ZNK5dyld46Loader13resolveSymbolER11DiagnosticsRNS_12RuntimeStateEiPKcbbU
   }
 
   v6 = *(v3 + 416);
-  if (v6 && (v6 = dyld3::MapBase<char const*,dyld4::WeakDefMapValue,dyld3::HashCString,dyld3::EqualCString>::find<char const*>(v6, v6 + 2, v6 + 7, 0, (a1 + 72)), v3 = *(a1 + 64), v6 != (*(*(v3 + 416) + 56) + 24 * *(*(v3 + 416) + 72))) && (v7 = v6[1]) != 0)
+  if (v6 && (v7 = dyld3::MapBase<char const*,dyld4::WeakDefMapValue,dyld3::HashCString,dyld3::EqualCString>::find<char const*>(v6, (v6 + 16), (v6 + 56), 0, (a1 + 72)), v7 != (*(*(*(a1 + 64) + 416) + 56) + 24 * *(*(*(a1 + 64) + 416) + 72))) && (v8 = v7[1]) != 0)
   {
-    *(*(*(a1 + 40) + 8) + 40) = v7;
-    v8 = *(a1 + 72);
-    *(*(*(a1 + 40) + 8) + 48) = v8;
-    *(*(*(a1 + 40) + 8) + 56) = v6[2] & 0x3FFFFFFFFFFFFFFFLL;
+    *(*(*(a1 + 40) + 8) + 40) = v8;
+    v9 = *(a1 + 72);
+    *(*(*(a1 + 40) + 8) + 48) = v9;
+    *(*(*(a1 + 40) + 8) + 56) = v7[2] & 0x3FFFFFFFFFFFFFFFLL;
     *(*(*(a1 + 40) + 8) + 64) = 0;
     *(*(*(a1 + 40) + 8) + 72) = 1;
-    *(*(*(a1 + 40) + 8) + 76) = (v6[2] & 0x4000000000000000) != 0;
-    *(*(*(a1 + 40) + 8) + 77) = v6[2] < 0;
+    *(*(*(a1 + 40) + 8) + 76) = (v7[2] & 0x4000000000000000) != 0;
+    *(*(*(a1 + 40) + 8) + 77) = v7[2] < 0;
     *(*(*(a1 + 40) + 8) + 78) = 0;
     *(*(*(a1 + 40) + 8) + 79) = 0;
     if (*(a1 + 88) == 1)
     {
-      v9 = *(a1 + 64);
-      v10 = dyld4::Loader::path(*(*(*(a1 + 40) + 8) + 40), v9);
-      dyld4::RuntimeState::log(v9, "  found %s in map, using impl from %s\n", v8, v10);
+      v10 = *(a1 + 64);
+      v11 = dyld4::Loader::path(*(*(*(a1 + 40) + 8) + 40), v10);
+      dyld4::RuntimeState::log(v10, "  found %s in map, using impl from %s\n", v9, v11);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 1;
@@ -5086,15 +4257,14 @@ void ___ZNK5dyld46Loader13resolveSymbolER11DiagnosticsRNS_12RuntimeStateEiPKcbbU
 
   else
   {
-    v11 = *(v3 + 48);
-    __chkstk_darwin(v6);
-    v63 = v61 - ((v12 + 23) & 0xFFFFFFFFFFFFFFF0);
-    v64 = v2;
+    __chkstk_darwin();
+    v61 = v59 - ((v12 + 23) & 0xFFFFFFFFFFFFFFF0);
+    v62 = v2;
     v13 = *(a1 + 64);
     v14 = *(v13 + 6);
-    v61[1] = v15;
-    v62 = v14;
-    if ((*(v2 + 2) & 2) != 0)
+    v59[1] = v15;
+    v60 = v14;
+    if ((*(v2 + 4) & 2) != 0)
     {
       hasOpcodeFixups = 0;
     }
@@ -5108,11 +4278,11 @@ void ___ZNK5dyld46Loader13resolveSymbolER11DiagnosticsRNS_12RuntimeStateEiPKcbbU
 
     v18 = 0;
     v19 = 0;
-    v67[0] = v13 + 32;
-    v67[1] = v13 + 64;
+    v65[0] = v13 + 32;
+    v65[1] = v13 + 64;
     while (1)
     {
-      v20 = v67[v18];
+      v20 = v65[v18];
       v21 = *(v20 + 16);
       if (v21)
       {
@@ -5125,21 +4295,21 @@ void ___ZNK5dyld46Loader13resolveSymbolER11DiagnosticsRNS_12RuntimeStateEiPKcbbU
           if ((*(*v24 + 2) & 0x800) != 0)
           {
             v26 = *v24;
-            *&v66[26] = 0;
-            *&v66[20] = 0;
-            v66[24] = 0;
-            if ((dyld4::Loader::hiddenFromFlat(v25, 0) & 1) == 0 && dyld4::Loader::hasExportedSymbol(v26, *(a1 + 80), *(a1 + 64), *(a1 + 72), 1, 1, v65, 0) && (!hasOpcodeFixups || (v66[21] & 1) != 0 || (*(v26 + 2) & 2) == 0))
+            *&v64[26] = 0;
+            *&v64[20] = 0;
+            v64[24] = 0;
+            if ((dyld4::Loader::hiddenFromFlat(v25, 0) & 1) == 0 && dyld4::Loader::hasExportedSymbol(v26, *(a1 + 80), *(a1 + 64), *(a1 + 72), 1, 1u, v63, 0) && (!hasOpcodeFixups || (v64[21] & 1) != 0 || (*(v26 + 2) & 2) == 0))
             {
-              if ((*(*v65 + 4) & 2) != 0 && (dyld4::Loader::hasBeenFixedUp(v26, *(a1 + 64)) & 1) == 0)
+              if ((*(*v63 + 4) & 2) != 0 && (dyld4::Loader::hasBeenFixedUp(v26, *(a1 + 64)) & 1) == 0)
               {
-                if (v19 >= v62)
+                if (v19 >= v60)
                 {
                   ___ZN5dyld4L17handleDyldInCacheERN3lsl9AllocatorEPKN6mach_o6HeaderEPKNS_10KernelArgsES6__block_invoke_cold_1();
                 }
 
-                v27 = *v66;
-                v28 = &v63[16 * v19++];
-                *v28 = *v65;
+                v27 = *v64;
+                v28 = &v61[16 * v19++];
+                *v28 = *v63;
                 *(v28 + 1) = v27;
               }
 
@@ -5148,35 +4318,35 @@ void ___ZNK5dyld46Loader13resolveSymbolER11DiagnosticsRNS_12RuntimeStateEiPKcbbU
               {
                 *(v29 + 24) = 1;
                 v30 = *(*(a1 + 40) + 8);
-                v31 = *&v66[12];
-                v32 = *v66;
-                *(v30 + 40) = *v65;
+                v31 = *&v64[12];
+                v32 = *v64;
+                *(v30 + 40) = *v63;
                 *(v30 + 56) = v32;
                 *(v30 + 68) = v31;
                 if (*(a1 + 88) == 1)
                 {
                   v34 = *(a1 + 64);
                   v33 = *(a1 + 72);
-                  v35 = dyld4::Loader::path(*v65, v34);
+                  v35 = dyld4::Loader::path(*v63, v34);
                   dyld4::RuntimeState::log(v34, "  using '%s' in %s\n", v33, v35);
                 }
               }
 
-              if ((v66[21] & 1) == 0)
+              if ((v64[21] & 1) == 0)
               {
                 v36 = *(*(a1 + 40) + 8);
                 if (*(v36 + 77) == 1)
                 {
-                  v37 = *&v66[12];
-                  v38 = *v66;
-                  *(v36 + 40) = *v65;
+                  v37 = *&v64[12];
+                  v38 = *v64;
+                  *(v36 + 40) = *v63;
                   *(v36 + 56) = v38;
                   *(v36 + 68) = v37;
                   if (*(a1 + 88) == 1)
                   {
                     v40 = *(a1 + 64);
                     v39 = *(a1 + 72);
-                    v41 = dyld4::Loader::path(*v65, v40);
+                    v41 = dyld4::Loader::path(*v63, v40);
                     dyld4::RuntimeState::log(v40, "  using non-weak '%s' in %s\n", v39, v41);
                   }
                 }
@@ -5192,13 +4362,13 @@ void ___ZNK5dyld46Loader13resolveSymbolER11DiagnosticsRNS_12RuntimeStateEiPKcbbU
         while (v23);
       }
 
-      if ((*(*(*(a1 + 48) + 8) + 24) & 1) == 0 && dyld4::Loader::hiddenFromFlat(v64, 0))
+      if ((*(*(*(a1 + 48) + 8) + 24) & 1) == 0 && dyld4::Loader::hiddenFromFlat(v62, 0))
       {
         if (*(a1 + 88) == 1)
         {
           v43 = *(a1 + 64);
           v42 = *(a1 + 72);
-          v44 = dyld4::Loader::path(v64, v43);
+          v44 = dyld4::Loader::path(v62, v43);
           v45 = strrchr(v44, 47);
           if (v45)
           {
@@ -5213,16 +4383,16 @@ void ___ZNK5dyld46Loader13resolveSymbolER11DiagnosticsRNS_12RuntimeStateEiPKcbbU
           dyld4::RuntimeState::log(v43, "  did not find unhidden '%s', trying self (%s)\n", v42, v46);
         }
 
-        *&v66[26] = 0;
-        *&v66[20] = 0;
-        v66[24] = 0;
-        if (dyld4::Loader::hasExportedSymbol(v64, *(a1 + 80), *(a1 + 64), *(a1 + 72), 1, 1, v65, 0))
+        *&v64[26] = 0;
+        *&v64[20] = 0;
+        v64[24] = 0;
+        if (dyld4::Loader::hasExportedSymbol(v62, *(a1 + 80), *(a1 + 64), *(a1 + 72), 1, 1u, v63, 0))
         {
           *(*(*(a1 + 48) + 8) + 24) = 1;
           v47 = *(*(a1 + 40) + 8);
-          v48 = *&v66[12];
-          v49 = *v66;
-          *(v47 + 40) = *v65;
+          v48 = *&v64[12];
+          v49 = *v64;
+          *(v47 + 40) = *v63;
           *(v47 + 56) = v49;
           *(v47 + 68) = v48;
         }
@@ -5242,13 +4412,13 @@ void ___ZNK5dyld46Loader13resolveSymbolER11DiagnosticsRNS_12RuntimeStateEiPKcbbU
     if (v19 && (*(*(*(*(a1 + 40) + 8) + 40) + 4) & 2) == 0 && *(a1 + 32))
     {
       v50 = 0;
-      v51 = (v63 + 8);
+      v51 = v61 + 8;
       v52 = 16 * v19;
       do
       {
         v53 = dyld4::Loader::mf(*(v51 - 1), *(a1 + 64));
-        v65[0] = 0;
-        if (dyld4::ProcessConfig::DyldCache::findMachHeaderImageIndex((*(*(a1 + 64) + 8) + 368), v53, v65))
+        v63[0] = 0;
+        if (dyld4::ProcessConfig::DyldCache::findMachHeaderImageIndex((*(*(a1 + 64) + 8) + 368), v53, v63))
         {
           Address = mach_o::Header::preferredLoadAddress(v53);
           v55 = *(a1 + 64);
@@ -5260,10 +4430,8 @@ void ___ZNK5dyld46Loader13resolveSymbolER11DiagnosticsRNS_12RuntimeStateEiPKcbbU
               v57 = *(a1 + 72);
               v58 = dyld4::Loader::path(*(v51 - 1), *(a1 + 64));
               dyld4::RuntimeState::log(v55, "  found use of '%s' in cache, need to override: %s\n", v57, v58);
-              v59 = *v51;
             }
 
-            v60 = *(*(a1 + 40) + 8);
             (*(*(a1 + 32) + 16))();
             v50 = v56;
           }
@@ -5280,9 +4448,9 @@ void ___ZNK5dyld46Loader13resolveSymbolER11DiagnosticsRNS_12RuntimeStateEiPKcbbU
 
 uint64_t dyld4::Loader::tooNewErrorAddendum(dyld4::Loader *this, Diagnostics *a2, dyld4::RuntimeState *a3)
 {
-  mach_o::Header::platformAndVersions(&dword_0, &v13);
+  mach_o::Header::platformAndVersions(&v13, &dword_0);
   v6 = dyld4::Loader::mf(this, a3);
-  mach_o::Header::platformAndVersions(v6, v12);
+  mach_o::Header::platformAndVersions(v12, v6);
   v8[0] = _NSConcreteStackBlock;
   v8[1] = 1174405120;
   v8[2] = ___ZNK5dyld46Loader19tooNewErrorAddendumER11DiagnosticsRNS_12RuntimeStateE_block_invoke;
@@ -5303,8 +4471,8 @@ uint64_t ___ZNK5dyld46Loader19tooNewErrorAddendumER11DiagnosticsRNS_12RuntimeSta
     {
       v3 = *(this + 64);
       v4 = mach_o::Platform::name((this + 32));
-      v5 = mach_o::Version32::toString(v2, v6);
-      return Diagnostics::error(v3, " (built for %s %s which is newer than running OS)", v4, v5);
+      v6 = mach_o::Version32::toString(v2, v7, v5);
+      return Diagnostics::error(v3, " (built for %s %s which is newer than running OS)", v4, v6);
     }
   }
 
@@ -5347,22 +4515,22 @@ dyld4::RuntimeState *___ZNK5dyld46Loader17hasExportedSymbolER11DiagnosticsRNS_12
     result = _platform_strcmp(__s1, *(result + 6));
     if (!result)
     {
-      v12 = *(v10 + 64);
-      **(v10 + 56) = v11;
-      *(*(v10 + 56) + 8) = *(v10 + 48);
+      v12 = *(v10 + 8);
+      **(v10 + 7) = v11;
+      *(*(v10 + 7) + 8) = *(v10 + 6);
       Address = mach_o::Header::preferredLoadAddress(v12);
-      v14 = *(v10 + 56);
+      v14 = *(v10 + 7);
       *(v14 + 16) = a3 - Address;
       *(v14 + 32) = 1;
       *(v14 + 36) = 0;
       *(v14 + 37) = a6 < 0;
       *(v14 + 38) = 0;
-      v15 = dyld4::Loader::resolvedAddress(*(v10 + 72), v14);
-      *(*(v10 + 56) + 24) = v15;
-      result = dyld4::Loader::interpose(*(v10 + 72), v15, 0, v16);
-      *(*(v10 + 56) + 24) = result;
+      v15 = dyld4::Loader::resolvedAddress(*(v10 + 9), v14);
+      *(*(v10 + 7) + 24) = v15;
+      result = dyld4::Loader::interpose(*(v10 + 9), v15, 0, v16);
+      *(*(v10 + 7) + 24) = result;
       *a7 = 1;
-      *(*(*(v10 + 32) + 8) + 24) = 1;
+      *(*(*(v10 + 4) + 8) + 24) = 1;
     }
   }
 
@@ -5498,14 +4666,15 @@ void dyld4::Loader::applyInterposingToDyldCache(dyld4::Loader *this, dyld4::Runt
   }
 }
 
-mach_o::Header *___ZN5dyld46Loader27applyInterposingToDyldCacheERNS_12RuntimeStateE_block_invoke(mach_o::Header *result, unsigned int a2, uint64_t a3)
+int **___ZN5dyld46Loader27applyInterposingToDyldCacheERNS_12RuntimeStateE_block_invoke(int **result, uint64_t a2, uint64_t a3)
 {
   if (*(result + 14) == a2)
   {
     v9[8] = v3;
     v9[9] = v4;
-    v6 = *(result + 5);
-    v7 = **(result + 4);
+    v5 = a2;
+    v6 = result[5];
+    v7 = *result[4];
     v8 = *(result + 15);
     v9[0] = _NSConcreteStackBlock;
     v9[1] = 0x40000000;
@@ -5513,15 +4682,15 @@ mach_o::Header *___ZN5dyld46Loader27applyInterposingToDyldCacheERNS_12RuntimeSta
     v9[3] = &__block_descriptor_tmp_171;
     v9[4] = v6;
     v9[5] = v7;
-    v9[6] = *(result + 6);
+    v9[6] = result[6];
     v9[7] = a3;
-    return DyldSharedCache::forEachPatchableUseOfExport(v6, v8, a2, v9);
+    return DyldSharedCache::forEachPatchableUseOfExport(v6, v8, v5, v9);
   }
 
   return result;
 }
 
-void ___ZN5dyld46Loader27applyInterposingToDyldCacheERNS_12RuntimeStateE_block_invoke_2(uint64_t a1, uint64_t a2, _BOOL4 a3, uint64_t a4)
+void ___ZN5dyld46Loader27applyInterposingToDyldCacheERNS_12RuntimeStateE_block_invoke_2(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4)
 {
   v6 = *(a1 + 32);
   v7 = (v6 + a2);
@@ -5531,11 +4700,11 @@ void ___ZN5dyld46Loader27applyInterposingToDyldCacheERNS_12RuntimeStateE_block_i
     v10 = mach_o::ChainedFixupPointerOnDisk::Arm64e::signPointer(v8, v6 + a2, ((a3 >> 27) & 1), a3, (a3 >> 25) & 3);
     *v7 = v10;
     dyld4::RuntimeState::recordInDataConstBitmap(*(a1 + 48), v7);
-    v11 = *(a1 + 48);
-    if (*(*(v11 + 1) + 326) == 1)
+    v12 = *(a1 + 48);
+    if (*(*(v12 + 1) + 326) == 1)
     {
-      v12 = mach_o::ChainedFixupPointerOnDisk::Arm64e::keyName(((a3 >> 25) & 3));
-      dyld4::RuntimeState::log(v11, "interpose: *%p = %p (JOP: diversity 0x%04X, addr-div=%d, key=%s)\n", v7, v10, a3, (a3 >> 27) & 1, v12);
+      v13 = mach_o::ChainedFixupPointerOnDisk::Arm64e::keyName(((a3 >> 25) & 3), v11);
+      dyld4::RuntimeState::log(v12, "interpose: *%p = %p (JOP: diversity 0x%04X, addr-div=%d, key=%s)\n", v7, v10, a3, (a3 >> 27) & 1, v13);
     }
   }
 
@@ -5607,11 +4776,12 @@ void dyld4::Loader::applyCachePatchesToOverride(uint64_t a1, const dyld4::Runtim
   }
 }
 
-void ___ZNK5dyld46Loader27applyCachePatchesToOverrideERNS_12RuntimeStateEPKS0_tPKNS0_10DylibPatchERNS_34DyldCacheDataConstLazyScopedWriterE_block_invoke(uint64_t a1, int a2, uint64_t a3, int a4)
+void ___ZNK5dyld46Loader27applyCachePatchesToOverrideERNS_12RuntimeStateEPKS0_tPKNS0_10DylibPatchERNS_34DyldCacheDataConstLazyScopedWriterE_block_invoke(uint64_t result, uint64_t a2, uint64_t a3, int a4)
 {
+  v5 = a2;
   v7 = 195903495;
-  v8 = *(a1 + 48);
-  v9 = *(*(a1 + 32) + 8);
+  v8 = *(result + 48);
+  v9 = *(*(result + 32) + 8);
   v10 = *(v9 + 24);
   v11 = *v10;
   *(v9 + 24) = v10 + 1;
@@ -5644,33 +4814,33 @@ void ___ZNK5dyld46Loader27applyCachePatchesToOverrideERNS_12RuntimeStateEPKS0_tP
   else if (v11)
   {
 LABEL_10:
-    v7 = *v10 + dyld4::Loader::loadAddress(v8, *(a1 + 56));
+    v7 = *v10 + dyld4::Loader::loadAddress(v8, *(result + 56));
   }
 
-  v12 = *(a1 + 100);
-  v13 = *(a1 + 96);
+  v12 = *(result + 100);
+  v13 = *(result + 96);
   v17[0] = _NSConcreteStackBlock;
   v17[1] = 0x40000000;
   v17[2] = ___ZNK5dyld46Loader27applyCachePatchesToOverrideERNS_12RuntimeStateEPKS0_tPKNS0_10DylibPatchERNS_34DyldCacheDataConstLazyScopedWriterE_block_invoke_2;
   v17[3] = &unk_A1958;
-  v17[4] = *(a1 + 40);
+  v17[4] = *(result + 40);
   v17[5] = v8;
-  v15 = *(a1 + 56);
-  v14 = *(a1 + 64);
-  v16 = *(a1 + 80);
-  v17[6] = *(a1 + 72);
+  v15 = *(result + 56);
+  v14 = *(result + 64);
+  v16 = *(result + 80);
+  v17[6] = *(result + 72);
   v17[7] = v15;
   v17[8] = v16;
   v17[9] = v7;
   v18 = v12;
   v17[10] = v14;
   v17[11] = a3;
-  v17[12] = *(a1 + 88);
+  v17[12] = *(result + 88);
   v17[13] = v10;
-  DyldSharedCache::forEachPatchableUseOfExportInImage(v14, v12, a2, v13, v17);
+  DyldSharedCache::forEachPatchableUseOfExportInImage(v14, v12, v5, v13, v17);
 }
 
-void ___ZNK5dyld46Loader27applyCachePatchesToOverrideERNS_12RuntimeStateEPKS0_tPKNS0_10DylibPatchERNS_34DyldCacheDataConstLazyScopedWriterE_block_invoke_2(uint64_t a1, unsigned int a2, _BOOL4 a3, uint64_t a4, unsigned __int8 a5)
+void ___ZNK5dyld46Loader27applyCachePatchesToOverrideERNS_12RuntimeStateEPKS0_tPKNS0_10DylibPatchERNS_34DyldCacheDataConstLazyScopedWriterE_block_invoke_2(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t a4, unsigned __int8 a5)
 {
   v10 = *(a1 + 40);
   dyld4::DyldCacheDataConstLazyScopedWriter::makeWriteable(*(a1 + 48));
@@ -5737,8 +4907,7 @@ void ___ZNK5dyld46Loader27applyCachePatchesToOverrideERNS_12RuntimeStateEPKS0_tP
         strrchr(v26, 47);
         v27 = dyld4::Loader::path(v10, *(a1 + 56));
         strrchr(v27, 47);
-        v28 = **(a1 + 104);
-        mach_o::ChainedFixupPointerOnDisk::Arm64e::keyName(v22);
+        mach_o::ChainedFixupPointerOnDisk::Arm64e::keyName(v22, v28);
         dyld4::RuntimeState::log(v25, "cache fixup: *0x%010lX = 0x%016lX (*%s+0x%010lX = %s+0x%010lX) (JOP: diversity=0x%04X, addr-div=%d, key=%s)\n", v17, v24);
       }
     }
@@ -5755,7 +4924,6 @@ void ___ZNK5dyld46Loader27applyCachePatchesToOverrideERNS_12RuntimeStateEPKS0_tP
       strrchr(v30, 47);
       v31 = dyld4::Loader::path(v10, *(a1 + 56));
       strrchr(v31, 47);
-      v32 = **(a1 + 104);
       dyld4::RuntimeState::log(v29, "cache fixup: *0x%010lX = 0x%016lX (*%s+0x%010lX = %s+0x%016lX)\n");
     }
   }
@@ -5826,12 +4994,13 @@ uint64_t dyld4::Loader::indexOfUnzipperedTwin(dyld4::Loader *this, const dyld4::
   return v5[30];
 }
 
-uint64_t ___ZNK5dyld46Loader17applyCachePatchesERNS_12RuntimeStateERNS_34DyldCacheDataConstLazyScopedWriterE_block_invoke(uint64_t result, unsigned int a2, uint64_t a3, int a4)
+int **___ZNK5dyld46Loader17applyCachePatchesERNS_12RuntimeStateERNS_34DyldCacheDataConstLazyScopedWriterE_block_invoke(int **result, uint64_t a2, uint64_t a3, int a4)
 {
+  v5 = a2;
   v6 = result;
   v7 = 195903495;
-  v8 = *(result + 48);
-  v9 = *(*(result + 32) + 8);
+  v8 = result[6];
+  v9 = *(result[4] + 1);
   v10 = *(v9 + 24);
   v11 = *v10;
   *(v9 + 24) = v10 + 1;
@@ -5864,19 +5033,19 @@ uint64_t ___ZNK5dyld46Loader17applyCachePatchesERNS_12RuntimeStateERNS_34DyldCac
   else if (v11)
   {
 LABEL_10:
-    v7 = *v10 + dyld4::Loader::loadAddress(v8, *(result + 56));
+    v7 = *v10 + dyld4::Loader::loadAddress(v8, result[7]);
   }
 
-  v12 = *(v6 + 80);
+  v12 = *(v6 + 40);
   v16[0] = _NSConcreteStackBlock;
   v16[1] = 0x40000000;
   v16[2] = ___ZNK5dyld46Loader17applyCachePatchesERNS_12RuntimeStateERNS_34DyldCacheDataConstLazyScopedWriterE_block_invoke_2;
   v16[3] = &unk_A19A8;
-  v13 = *(v6 + 64);
-  v14 = *(v6 + 72);
-  v16[4] = *(v6 + 40);
+  v13 = v6[8];
+  v14 = v6[9];
+  v16[4] = v6[5];
   v16[5] = v8;
-  v15 = *(v6 + 56);
+  v15 = v6[7];
   v16[6] = v14;
   v16[7] = v15;
   v16[8] = v13;
@@ -5884,10 +5053,10 @@ LABEL_10:
   v17 = v12;
   v16[10] = a3;
   v16[11] = v10;
-  return DyldSharedCache::forEachPatchableGOTUseOfExport(v13, v12, a2, v16);
+  return DyldSharedCache::forEachPatchableGOTUseOfExport(v13, v12, v5, v16);
 }
 
-void ___ZNK5dyld46Loader17applyCachePatchesERNS_12RuntimeStateERNS_34DyldCacheDataConstLazyScopedWriterE_block_invoke_2(uint64_t a1, uint64_t a2, _BOOL4 a3, uint64_t a4, unsigned __int8 a5)
+void ___ZNK5dyld46Loader17applyCachePatchesERNS_12RuntimeStateERNS_34DyldCacheDataConstLazyScopedWriterE_block_invoke_2(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, unsigned __int8 a5)
 {
   v10 = *(a1 + 40);
   dyld4::DyldCacheDataConstLazyScopedWriter::makeWriteable(*(a1 + 48));
@@ -5929,8 +5098,7 @@ void ___ZNK5dyld46Loader17applyCachePatchesERNS_12RuntimeStateERNS_34DyldCacheDa
       {
         v19 = dyld4::Loader::path(v10, *(a1 + 56));
         strrchr(v19, 47);
-        v20 = **(a1 + 88);
-        mach_o::ChainedFixupPointerOnDisk::Arm64e::keyName(((a3 >> 25) & 3));
+        mach_o::ChainedFixupPointerOnDisk::Arm64e::keyName(((a3 >> 25) & 3), v20);
         dyld4::RuntimeState::log(v18, "cache GOT fixup: *0x%010lX = 0x%016lX (*cache+0x%010lX = %s+0x%016lX) (JOP: diversity=0x%04X, addr-div=%d, key=%s)\n", v13, v17);
       }
     }
@@ -5945,7 +5113,6 @@ void ___ZNK5dyld46Loader17applyCachePatchesERNS_12RuntimeStateERNS_34DyldCacheDa
     {
       v22 = dyld4::Loader::path(v10, *(a1 + 56));
       strrchr(v22, 47);
-      v23 = **(a1 + 88);
       dyld4::RuntimeState::log(v21, "cache GOT fixup: *0x%010lX = 0x%016lX (*cache+0x%010lX = %s+0x%016lX)\n");
     }
   }
@@ -5963,7 +5130,7 @@ uint64_t ___ZN5dyld46Loader26getOnDiskBinarySliceOffsetERNS_12RuntimeStateEPKN5d
   return result;
 }
 
-void dyld4::Loader::recursivelyLogChainToLinksWith(dyld4::Loader *a1, dyld4::RuntimeState *a2, const char *a3, dyld4::Loader *a4, uint64_t *a5, void *a6, uint64_t *a7)
+void dyld4::Loader::recursivelyLogChainToLinksWith(dyld4::Loader *a1, dyld4::RuntimeState *a2, const char *a3, dyld4::Loader *a4, uint64_t *a5, void *a6, dyld4::Loader ***a7)
 {
   if (a1 == a4)
   {
@@ -5992,23 +5159,23 @@ void dyld4::Loader::recursivelyLogChainToLinksWith(dyld4::Loader *a1, dyld4::Run
     else
     {
 LABEL_6:
-      v21[0] = a1;
-      dyld3::Array<dyld4::Loader const*>::push_back(a7, v21);
-      v17 = dyld4::Loader::dependentCount(a1);
-      if (v17)
+      v22[0] = a1;
+      dyld3::Array<dyld4::Loader const*>::push_back(a7, v22);
+      v18 = dyld4::Loader::dependentCount(a1, v17);
+      if (v18)
       {
-        v18 = v17;
-        for (i = 0; i != v18; ++i)
+        v19 = v18;
+        for (i = 0; i != v19; ++i)
         {
-          v23 = 0;
-          v20 = dyld4::Loader::dependent(a1, a2, i, &v23);
-          if (v20)
+          v24 = 0;
+          v21 = dyld4::Loader::dependent(a1, a2, i, &v24);
+          if (v21)
           {
-            v21[0] = 0;
-            v21[1] = v20;
-            v22 = v23;
-            *a6 = v21;
-            dyld4::Loader::recursivelyLogChainToLinksWith(v20, a2, a3, a4, a5, v21, a7);
+            v22[0] = 0;
+            v22[1] = v21;
+            v23 = v24;
+            *a6 = v22;
+            dyld4::Loader::recursivelyLogChainToLinksWith(v21, a2, a3, a4, a5, v22, a7);
             *a6 = 0;
           }
         }
@@ -6038,13 +5205,9 @@ void dyld4::Loader::logChainToLinksWith(dyld4::Loader *this, dyld4::RuntimeState
         v14 = v15 + 1;
       }
 
-      if (v11 == _platform_strlen(v14))
+      if (v11 == _platform_strlen(v14) && !_platform_memcmp(v12, v14, v11))
       {
-        v16 = _platform_memcmp(v12, v14, v11);
-        if (!v16)
-        {
-          break;
-        }
+        break;
       }
 
       ++v9;
@@ -6063,38 +5226,34 @@ void dyld4::Loader::logChainToLinksWith(dyld4::Loader *this, dyld4::RuntimeState
   }
 
 LABEL_8:
-  v17 = *(a2 + 10);
-  if (v17)
+  v16 = *(a2 + 10);
+  if (v16)
   {
-    v18 = *(a2 + 9);
-    v19 = 8 * v17;
-    v20 = v18;
+    v17 = *(a2 + 9);
+    v18 = 8 * v16;
+    v19 = v17;
     while (1)
     {
-      v21 = *(a2 + 1);
-      v23 = *(v21 + 344);
-      v22 = *(v21 + 352);
-      v13 = *v20;
-      v24 = dyld4::Loader::path(*v20, a2);
-      v25 = strrchr(v24, 47);
-      if (v25)
+      v20 = *(a2 + 1);
+      v22 = *(v20 + 344);
+      v21 = *(v20 + 352);
+      v13 = *v19;
+      v23 = dyld4::Loader::path(*v19, a2);
+      v24 = strrchr(v23, 47);
+      if (v24)
       {
-        v24 = v25 + 1;
+        v23 = v24 + 1;
       }
 
-      if (v22 == _platform_strlen(v24))
+      if (v21 == _platform_strlen(v23) && !_platform_memcmp(v22, v23, v21))
       {
-        v16 = _platform_memcmp(v23, v24, v22);
-        if (!v16)
-        {
-          break;
-        }
+        break;
       }
 
-      ++v20;
-      ++v18;
-      v19 -= 8;
-      if (!v19)
+      ++v19;
+      ++v17;
+      v18 -= 8;
+      if (!v18)
       {
         return;
       }
@@ -6103,16 +5262,15 @@ LABEL_8:
     if (v13)
     {
 LABEL_19:
-      v26 = 8 * (*(a2 + 10) + *(a2 + 6));
-      __chkstk_darwin(v16);
-      v27 = *(a2 + 10) + *(a2 + 6);
-      v32[0] = &v30[-1] - v28;
-      v32[1] = v27;
-      v32[2] = 0;
-      v30[0] = 0;
-      v30[1] = this;
-      v31 = mach_o::LinkedDylibAttributes::regular;
-      dyld4::Loader::recursivelyLogChainToLinksWith(this, a2, a3, v13, v30, v30, v32);
+      __chkstk_darwin();
+      v25 = (*(a2 + 10) + *(a2 + 6));
+      v30[0] = (&v28[-1] - v26);
+      v30[1] = v25;
+      v30[2] = 0;
+      v28[0] = 0;
+      v28[1] = this;
+      v29 = mach_o::LinkedDylibAttributes::regular;
+      dyld4::Loader::recursivelyLogChainToLinksWith(this, a2, a3, v13, v28, v28, v30);
     }
   }
 }
@@ -6338,7 +5496,7 @@ uint64_t ___ZN3lsl13MemoryManager26withReadOnlyMemoryInternalIZZNK5dyld46Loader2
   return result;
 }
 
-const char **dyld3::MapBase<char const*,dyld4::WeakDefMapValue,dyld3::HashCString,dyld3::EqualCString>::find<char const*>(uint64_t a1, uint64_t *a2, void *a3, uint64_t a4, const char **a5)
+const char **dyld3::MapBase<char const*,dyld4::WeakDefMapValue,dyld3::HashCString,dyld3::EqualCString>::find<char const*>(uint64_t a1, uint64_t *a2, void *a3, uint64_t a4, char **a5)
 {
   if (!a3[2])
   {
@@ -6390,7 +5548,7 @@ LABEL_8:
   }
 }
 
-vm_address_t dyld3::Map<char const*,dyld4::WeakDefMapValue,dyld3::HashCString,dyld3::EqualCString>::insert(uint64_t a1, const char **a2)
+vm_address_t dyld3::Map<char const*,dyld4::WeakDefMapValue,dyld3::HashCString,dyld3::EqualCString>::insert(uint64_t a1, char **a2)
 {
   v4 = *(a1 + 8);
   if (v4 == *a1)
@@ -6558,7 +5716,7 @@ __n128 dyld3::OverflowSafeArray<dyld3::MapBase<char const*,dyld4::WeakDefMapValu
   return result;
 }
 
-lsl::Allocator::Pool *dyld4::JustInTimeLoader::makePatchTable(dyld4::JustInTimeLoader *this, dyld4::RuntimeState *a2, unsigned int a3)
+lsl::Allocator::Pool *dyld4::JustInTimeLoader::makePatchTable(dyld3::MachOFile **this, dyld4::RuntimeState *a2, uint64_t a3)
 {
   v3 = *(a2 + 1);
   if (!*(v3 + 496))
@@ -6566,6 +5724,7 @@ lsl::Allocator::Pool *dyld4::JustInTimeLoader::makePatchTable(dyld4::JustInTimeL
     dyld4::JustInTimeLoader::makePatchTable();
   }
 
+  v4 = a3;
   v7 = PatchTable::patchableExportCount((v3 + 496), a3);
   if (!v7)
   {
@@ -6577,15 +5736,15 @@ lsl::Allocator::Pool *dyld4::JustInTimeLoader::makePatchTable(dyld4::JustInTimeL
   v44 = &v43;
   v45 = 0x2000000000;
   v46 = 0;
-  v9 = *(this + 4);
-  IndexedImageEntry = DyldSharedCache::getIndexedImageEntry(*(*(a2 + 1) + 368), a3);
+  v9 = this[4];
+  IndexedImageEntry = DyldSharedCache::getIndexedImageEntry(*(*(a2 + 1) + 368), v4);
   v32 = 0;
   v33 = &v32;
   v34 = 0x8802000000;
   v35 = __Block_byref_object_copy__3;
   v36 = __Block_byref_object_dispose__3;
   dyld3::Map<void const*,BOOL,dyld4::HashPointer,dyld4::EqualPointer>::Map(v37);
-  IndexedImagePath = DyldSharedCache::getIndexedImagePath(*(*(a2 + 1) + 368), a3);
+  IndexedImagePath = DyldSharedCache::getIndexedImagePath(*(*(a2 + 1) + 368), v4);
   if (IndexedImagePath)
   {
     v12 = IndexedImagePath;
@@ -6595,7 +5754,7 @@ lsl::Allocator::Pool *dyld4::JustInTimeLoader::makePatchTable(dyld4::JustInTimeL
       {
         if (_platform_strcmp(v12, "/usr/lib/log/liblog_odtypes.dylib"))
         {
-          v15 = *(this + 4);
+          v15 = this[4];
           v29 = v33;
           if (dyld3::MachOFile::hasChainedFixups(v15))
           {
@@ -6757,7 +5916,7 @@ lsl::Allocator::Pool *dyld4::JustInTimeLoader::makePatchTable(dyld4::JustInTimeL
   v72 = __Block_byref_object_copy__3;
   v73 = __Block_byref_object_dispose__3;
   dyld3::Map<void const*,BOOL,dyld4::HashPointer,dyld4::EqualPointer>::Map(v74);
-  v13 = *(this + 4);
+  v13 = this[4];
   v53 = _NSConcreteStackBlock;
   v54 = 0x40000000;
   v55 = ___ZN5dyld4L19getSingletonPatchesEPKN6mach_o6HeaderERN5dyld33MapIPKvbNS_11HashPointerENS_12EqualPointerEEE_block_invoke;
@@ -6777,7 +5936,7 @@ lsl::Allocator::Pool *dyld4::JustInTimeLoader::makePatchTable(dyld4::JustInTimeL
   v31[7] = this;
   v31[10] = v8;
   v31[11] = v9;
-  PatchTable::forEachPatchableExport((v3 + 496), a3, v31);
+  PatchTable::forEachPatchableExport((v3 + 496), v4, v31);
   *(v8 + *(v44 + 6)) = -1;
   _Block_object_dispose(&v69, 8);
   v77 = 0;
@@ -6868,7 +6027,7 @@ void ___ZNK5dyld416JustInTimeLoader14makePatchTableERNS_12RuntimeStateEj_block_i
   v35 = 0;
   v33 = 0;
   v34 = 0;
-  hasExportedSymbol = dyld4::Loader::hasExportedSymbol(v8, v36, *(a1 + 64), a3, 0, 1, v32, 0);
+  hasExportedSymbol = dyld4::Loader::hasExportedSymbol(v8, v36, *(a1 + 64), a3, 0, 1u, v32, 0);
   v10 = 0;
   if (hasExportedSymbol)
   {
@@ -6946,7 +6105,7 @@ LABEL_13:
   Diagnostics::~Diagnostics(v36);
 }
 
-mach_o::Header *___ZN5dyld416JustInTimeLoader28handleStrongWeakDefOverridesERNS_12RuntimeStateERNS_34DyldCacheDataConstLazyScopedWriterE_block_invoke(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t a4)
+int **___ZN5dyld416JustInTimeLoader28handleStrongWeakDefOverridesERNS_12RuntimeStateERNS_34DyldCacheDataConstLazyScopedWriterE_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
@@ -6962,14 +6121,14 @@ mach_o::Header *___ZN5dyld416JustInTimeLoader28handleStrongWeakDefOverridesERNS_
   return DyldSharedCache::forEachPatchableUseOfExport(v6, a2, a3, v8);
 }
 
-void ___ZN5dyld416JustInTimeLoader28handleStrongWeakDefOverridesERNS_12RuntimeStateERNS_34DyldCacheDataConstLazyScopedWriterE_block_invoke_2(uint64_t a1, const char *a2)
+void ___ZN5dyld416JustInTimeLoader28handleStrongWeakDefOverridesERNS_12RuntimeStateERNS_34DyldCacheDataConstLazyScopedWriterE_block_invoke_2(uint64_t a1, char *a2)
 {
   Diagnostics::Diagnostics(v5);
   dyld4::Loader::resolveSymbol(*(a1 + 40), *(a1 + 48), v5, -3, a2, 1, 0, *(a1 + 32), v4);
   Diagnostics::~Diagnostics(v5);
 }
 
-void ___ZN5dyld416JustInTimeLoader17cacheWeakDefFixupERNS_12RuntimeStateERNS_34DyldCacheDataConstLazyScopedWriterEjjRKNS_6Loader14ResolvedSymbolE_block_invoke(uint64_t a1, uint64_t a2, _BOOL4 a3, uint64_t a4)
+void ___ZN5dyld416JustInTimeLoader17cacheWeakDefFixupERNS_12RuntimeStateERNS_34DyldCacheDataConstLazyScopedWriterEjjRKNS_6Loader14ResolvedSymbolE_block_invoke(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4)
 {
   v6 = (*(a1 + 32) + a2);
   v7 = dyld4::Loader::resolvedAddress(*(a1 + 40), *(a1 + 48)) + a4;
@@ -6991,7 +6150,7 @@ void ___ZN5dyld416JustInTimeLoader17cacheWeakDefFixupERNS_12RuntimeStateERNS_34D
   }
 }
 
-mach_o::Header *___ZNK5dyld416JustInTimeLoader11applyFixupsER11DiagnosticsRNS_12RuntimeStateERNS_34DyldCacheDataConstLazyScopedWriterEbPN3lsl6VectorINSt3__14pairIPKNS_6LoaderEPKcEEEE_block_invoke(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t a4)
+int **___ZNK5dyld416JustInTimeLoader11applyFixupsER11DiagnosticsRNS_12RuntimeStateERNS_34DyldCacheDataConstLazyScopedWriterEbPN3lsl6VectorINSt3__14pairIPKNS_6LoaderEPKcEEEE_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
@@ -7074,13 +6233,12 @@ vm_address_t *___ZNK5dyld416JustInTimeLoader11applyFixupsER11DiagnosticsRNS_12Ru
     if (*(*(v13 + 1) + 322) == 1)
     {
       v14 = dyld4::Loader::leafName(*(a1 + 48), *(a1 + 56));
-      v15 = *(*(*(a1 + 32) + 8) + 56);
-      dyld4::RuntimeState::log(v13, "<%s/bind#%llu> -> missing-weak-bind (%s)\n", v14, v15, *(a2 + 8));
+      dyld4::RuntimeState::log(v13, "<%s/bind#%llu> -> missing-weak-bind (%s)\n", v14, *(*(*(a1 + 32) + 8) + 56), *(a2 + 8));
     }
 
-    v16 = *(*(a1 + 32) + 8);
-    v21.n128_u64[0] = -1;
-    return dyld3::OverflowSafeArray<dyld4::Loader *,4294967295ull>::push_back((v16 + 40), &v21);
+    v15 = *(*(a1 + 32) + 8);
+    v20.n128_u64[0] = -1;
+    return dyld3::OverflowSafeArray<dyld4::Loader *,4294967295ull>::push_back((v15 + 40), &v20);
   }
 
   else
@@ -7088,7 +6246,7 @@ vm_address_t *___ZNK5dyld416JustInTimeLoader11applyFixupsER11DiagnosticsRNS_12Ru
     v6 = *(a1 + 56);
     v7 = dyld4::Loader::resolvedAddress(v6, a2);
     v9 = dyld4::Loader::interpose(v6, v7, v4, v8);
-    v22 = v9;
+    v21 = v9;
     v10 = *(a1 + 56);
     if (*(*(v10 + 1) + 322) == 1)
     {
@@ -7104,20 +6262,20 @@ vm_address_t *___ZNK5dyld416JustInTimeLoader11applyFixupsER11DiagnosticsRNS_12Ru
         v12 = "<none>";
       }
 
-      v18 = dyld4::Loader::leafName(v4, v10);
-      dyld4::RuntimeState::log(v10, "<%s/bind#%llu> -> %p (%s/%s)\n", v18, *(*(*(a1 + 32) + 8) + 56), v11, v12, *(a2 + 8));
+      v17 = dyld4::Loader::leafName(v4, v10);
+      dyld4::RuntimeState::log(v10, "<%s/bind#%llu> -> %p (%s/%s)\n", v17, *(*(*(a1 + 32) + 8) + 56), v11, v12, *(a2 + 8));
     }
 
     if (*(a2 + 38) == 1)
     {
-      v19 = *(a1 + 32);
-      v20 = *(*(a1 + 40) + 8);
-      v21.n128_u64[0] = *(a2 + 8);
-      v21.n128_u32[2] = *(*(v19 + 8) + 56);
-      dyld3::OverflowSafeArray<dyld4::RuntimeState::HiddenCacheAddr,4294967295ull>::push_back((v20 + 40), &v21);
+      v18 = *(a1 + 32);
+      v19 = *(*(a1 + 40) + 8);
+      v20.n128_u64[0] = *(a2 + 8);
+      v20.n128_u32[2] = *(*(v18 + 8) + 56);
+      dyld3::OverflowSafeArray<dyld4::RuntimeState::HiddenCacheAddr,4294967295ull>::push_back((v19 + 40), &v20);
     }
 
-    return dyld3::OverflowSafeArray<dyld4::Loader *,4294967295ull>::push_back((*(*(a1 + 32) + 8) + 40), &v22);
+    return dyld3::OverflowSafeArray<dyld4::Loader *,4294967295ull>::push_back((*(*(a1 + 32) + 8) + 40), &v21);
   }
 }
 
@@ -7158,47 +6316,47 @@ void dyld4::JustInTimeLoader::unmap(dyld4::JustInTimeLoader *this, dyld4::Syscal
 
 void dyld4::JustInTimeLoader::getFileValidationInfo(dyld4::JustInTimeLoader *this@<X0>, uint64_t a2@<X8>)
 {
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x6002000000;
-  v15 = __Block_byref_object_copy__70;
-  v16 = __Block_byref_object_dispose__71;
-  bzero(&v17, 0x38uLL);
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x6002000000;
+  v14 = __Block_byref_object_copy__70;
+  v15 = __Block_byref_object_dispose__71;
+  bzero(&v16, 0x38uLL);
   if (*(this + 80) == 1)
   {
-    v5 = v13;
-    *(v13 + 92) = 1;
-    v6 = *(this + 7);
-    v5[5] = *(this + 6);
-    v7 = *(this + 9);
-    v5[7] = v6;
-    v5[8] = v7;
+    v4 = v12;
+    *(v12 + 92) = 1;
+    v5 = *(this + 7);
+    v4[5] = *(this + 6);
+    v6 = *(this + 9);
+    v4[7] = v5;
+    v4[8] = v6;
   }
 
   if ((*(this + 2) & 2) != 0)
   {
-    v9 = v13;
+    v8 = v12;
   }
 
   else
   {
-    v8 = *(this + 4);
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 0x40000000;
-    v11[2] = ___ZNK5dyld416JustInTimeLoader21getFileValidationInfoERNS_12RuntimeStateE_block_invoke;
-    v11[3] = &unk_A1C40;
-    v11[4] = &v12;
-    dyld3::MachOAnalyzer::forEachCDHash(v8, v11);
-    v9 = v13;
-    v13[6] = *(this + 8);
+    v7 = *(this + 4);
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 0x40000000;
+    v10[2] = ___ZNK5dyld416JustInTimeLoader21getFileValidationInfoERNS_12RuntimeStateE_block_invoke;
+    v10[3] = &unk_A1C40;
+    v10[4] = &v11;
+    dyld3::MachOAnalyzer::forEachCDHash(v7, v10);
+    v8 = v12;
+    v12[6] = *(this + 8);
   }
 
-  v10 = *(v9 + 7);
-  *a2 = *(v9 + 5);
-  *(a2 + 16) = v10;
-  *(a2 + 32) = *(v9 + 9);
-  *(a2 + 48) = v9[11];
-  _Block_object_dispose(&v12, 8);
+  v9 = *(v8 + 7);
+  *a2 = *(v8 + 5);
+  *(a2 + 16) = v9;
+  *(a2 + 32) = *(v8 + 9);
+  *(a2 + 48) = v8[11];
+  _Block_object_dispose(&v11, 8);
 }
 
 __n128 __Block_byref_object_copy__70(uint64_t a1, uint64_t a2)
@@ -7234,16 +6392,16 @@ __n128 __Block_byref_object_copy__74(uint64_t a1, uint64_t a2)
 dyld4::Loader *dyld4::JustInTimeLoader::makeJustInTimeLoaderDyldCache(Diagnostics *a1, dyld4::RuntimeState *a2, char *a3, int a4, int a5)
 {
   v5 = a5;
-  v26 = 0;
   v25 = 0;
-  IndexedImageEntry = dyld4::ProcessConfig::DyldCache::getIndexedImageEntry((*(a2 + 1) + 368), a5, &v26, &v25);
+  v24 = 0;
+  IndexedImageEntry = dyld4::ProcessConfig::DyldCache::getIndexedImageEntry((*(a2 + 1) + 368), a5, &v25, &v24);
   v10 = *(a2 + 1);
   v11 = *(v10 + 537);
+  v21 = v24;
   v22 = v25;
-  v23 = v26;
-  v24 = v11;
-  *v20 = *(v10 + 112);
-  v21 = *(v10 + 120);
+  v23 = v11;
+  *v19 = *(v10 + 112);
+  v20 = *(v10 + 120);
   if (a3)
   {
     v12 = _platform_strlen(a3);
@@ -7254,39 +6412,38 @@ dyld4::Loader *dyld4::JustInTimeLoader::makeJustInTimeLoaderDyldCache(Diagnostic
     v12 = 0;
   }
 
-  v13 = *(v10 + 288);
-  if (mach_o::Header::loadableIntoProcess(IndexedImageEntry, v20, a3, v12))
+  if (mach_o::Header::loadableIntoProcess(IndexedImageEntry, v19, a3, v12))
   {
     if (_platform_strncmp(a3, "/System/iOSSupport/", 0x13uLL))
     {
+      v13 = 0;
       v14 = 0;
-      v15 = 0;
     }
 
     else
     {
-      v20[0] = 0;
-      v14 = dyld4::ProcessConfig::DyldCache::indexOfPath((*(a2 + 1) + 368), a3 + 18, v20);
-      v15 = v20[0];
-      if (!v14)
+      v19[0] = 0;
+      v13 = dyld4::ProcessConfig::DyldCache::indexOfPath((*(a2 + 1) + 368), a3 + 18, v19);
+      v14 = v19[0];
+      if (!v13)
       {
-        v15 = 0;
+        v14 = 0;
       }
     }
 
-    v17 = dyld4::JustInTimeLoader::make(a2, IndexedImageEntry, a3, &v22, 0, 1, 0, v14, v15);
-    v16 = v17;
-    *(v17 + 3) = *(v17 + 3) & 0x8000 | v5 & 0x7FFF;
-    v18 = *(a2 + 1);
-    if (*(v18 + 321) == 1)
+    v16 = dyld4::JustInTimeLoader::make(a2, IndexedImageEntry, a3, &v21, 0, 1, 0, v13, v14);
+    v15 = v16;
+    *(v16 + 3) = *(v16 + 3) & 0x8000 | v5 & 0x7FFF;
+    v17 = *(a2 + 1);
+    if (*(v17 + 321) == 1)
     {
-      dyld4::Loader::logSegmentsFromSharedCache(v17, a2);
-      v18 = *(a2 + 1);
+      dyld4::Loader::logSegmentsFromSharedCache(v16, a2);
+      v17 = *(a2 + 1);
     }
 
-    if (*(v18 + 320) == 1)
+    if (*(v17 + 320) == 1)
     {
-      dyld4::Loader::logLoad(v16, a2, a3);
+      dyld4::Loader::logLoad(v15, a2, a3);
     }
   }
 
@@ -7296,7 +6453,7 @@ dyld4::Loader *dyld4::JustInTimeLoader::makeJustInTimeLoaderDyldCache(Diagnostic
     return 0;
   }
 
-  return v16;
+  return v15;
 }
 
 lsl::Allocator::Pool *dyld4::JustInTimeLoader::makePseudoDylibLoader(Diagnostics *a1, uint64_t a2, char *__s, uint64_t a4, mach_o::Header **a5)
@@ -7331,9 +6488,9 @@ lsl::Allocator::Pool *dyld4::JustInTimeLoader::makePseudoDylibLoader(Diagnostics
   return result;
 }
 
-vm_address_t *___ZN5dyld4L19getObjCPatchClassesEPKN5dyld313MachOAnalyzerERNS0_3MapIPKvbNS_11HashPointerENS_12EqualPointerEEE_block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+vm_address_t *___ZN5dyld4L19getObjCPatchClassesEPKN5dyld313MachOAnalyzerERNS0_3MapIPKvbNS_11HashPointerENS_12EqualPointerEEE_block_invoke(void *a1, uint64_t a2, _BYTE *a3)
 {
-  result = Diagnostics::hasError((*(*(a1 + 32) + 8) + 40));
+  result = Diagnostics::hasError((*(a1[4] + 8) + 40));
   if (result)
   {
     *a3 = 1;
@@ -7342,7 +6499,7 @@ vm_address_t *___ZN5dyld4L19getObjCPatchClassesEPKN5dyld313MachOAnalyzerERNS0_3M
 
   if (*(a2 + 4))
   {
-    v7 = *(*(a1 + 40) + 8);
+    v7 = *(a1[5] + 8);
     v14 = 0;
     v8 = (v7 + 40);
     v9 = &v14;
@@ -7352,8 +6509,8 @@ vm_address_t *___ZN5dyld4L19getObjCPatchClassesEPKN5dyld313MachOAnalyzerERNS0_3M
   {
     v14 = 0;
     v13 = 0;
-    hasExportedSymbol = dyld3::MachOLoaded::hasExportedSymbol(*(a1 + 48), *(a2 + 8), 0, &v14, &v13);
-    v11 = *(*(a1 + 40) + 8);
+    hasExportedSymbol = dyld3::MachOLoaded::hasExportedSymbol(a1[6], *(a2 + 8), 0, &v14, &v13);
+    v11 = *(a1[5] + 8);
     if (hasExportedSymbol)
     {
       return dyld3::OverflowSafeArray<dyld4::Loader *,4294967295ull>::push_back((v11 + 40), &v14);
@@ -7858,7 +7015,7 @@ void ___ZNK5dyld414PrebuiltLoader15applyObjCFixupsERNS_12RuntimeStateE_block_inv
 
 void dyld4::PrebuiltLoader::serialize(Diagnostics *a1, const dyld4::RuntimeState *a2, const dyld4::Loader *a3, __int16 a4, uint64_t a5, dyld4::PrebuiltObjC *a6, int a7, dyld4::BumpAllocator *this)
 {
-  v98 = a1;
+  v97 = a1;
   v14 = *(this + 2) - *this;
   dyld4::BumpAllocator::zeroFill(this, 0x1C0uLL);
   dyld4::PrebuiltLoader::PrebuiltLoader((*this + v14), a3);
@@ -7869,7 +7026,7 @@ void dyld4::PrebuiltLoader::serialize(Diagnostics *a1, const dyld4::RuntimeState
   v18 = *this + v14;
   *(v18 + 38) = FixupsLoadCommandFileOffset;
   *(v18 + 32) = *(this + 4) - v17 - v14;
-  v100 = a2;
+  v99 = a2;
   v19 = dyld4::JustInTimeLoader::path(a3, a2);
   v20 = _platform_strlen(v19);
   v21 = *(this + 2) - *this;
@@ -7890,7 +7047,7 @@ void dyld4::PrebuiltLoader::serialize(Diagnostics *a1, const dyld4::RuntimeState
 
   if ((*(a3 + 2) & 2) != 0)
   {
-    if (dyld4::ProcessConfig::DyldCache::isOverridablePath((*(v100 + 1) + 368), __s2))
+    if (dyld4::ProcessConfig::DyldCache::isOverridablePath((*(v99 + 1) + 368), __s2))
     {
       v26 = 2;
     }
@@ -7911,8 +7068,8 @@ void dyld4::PrebuiltLoader::serialize(Diagnostics *a1, const dyld4::RuntimeState
   v28 = *this;
   *(*this + v14 + 48) = v27;
   v29 = *(this + 2);
-  v94 = a5;
-  v95 = a6;
+  v93 = a5;
+  v94 = a6;
   if ((v29 - v28))
   {
     dyld4::BumpAllocator::zeroFill(this, 2 - ((v29 - v28) & 1));
@@ -7923,77 +7080,77 @@ void dyld4::PrebuiltLoader::serialize(Diagnostics *a1, const dyld4::RuntimeState
   v30 = v29 - v28;
   v31 = v30 - v14;
   *(v28 + v14 + 34) = v30 - v14;
-  v32 = dyld4::BumpAllocator::zeroFill(this, 2 * v27);
-  __chkstk_darwin(v32);
-  v34 = &v93 - ((v33 + 15) & 0x1FFFFFFF0);
-  if ((v35 & 1) != 0 || (bzero(&v93 - ((v33 + 15) & 0x1FFFFFFF0), v33), v27))
+  dyld4::BumpAllocator::zeroFill(this, 2 * v27);
+  __chkstk_darwin();
+  v33 = &v92 - ((v32 + 15) & 0x1FFFFFFF0);
+  if ((v34 & 1) != 0 || (bzero(&v92 - ((v32 + 15) & 0x1FFFFFFF0), v32), v27))
   {
-    v96 = v15;
+    v95 = v15;
+    v35 = 0;
     v36 = 0;
-    v37 = 0;
-    v97 = v14;
-    v38 = v14 + v31;
+    v96 = v14;
+    v37 = v14 + v31;
     do
     {
-      v39 = dyld4::JustInTimeLoader::dependent(a3, v100, v36, &v34[v36]);
-      v40 = v34[v36];
-      if (v39)
+      v38 = dyld4::JustInTimeLoader::dependent(a3, v99, v35, &v33[v35]);
+      v39 = v33[v35];
+      if (v38)
       {
-        *(*this + v38 + 2 * v36) = *(v39 + 6);
+        *(*this + v37 + 2 * v35) = *(v38 + 6);
       }
 
       else
       {
-        if ((v40 & 1) == 0)
+        if ((v39 & 1) == 0)
         {
           dyld4::PrebuiltLoader::serialize();
         }
 
-        *(*this + v38 + 2 * v36) = 0x7FFF;
+        *(*this + v37 + 2 * v35) = 0x7FFF;
       }
 
-      v37 |= v40 != mach_o::LinkedDylibAttributes::regular;
-      ++v36;
+      v36 |= v39 != mach_o::LinkedDylibAttributes::regular;
+      ++v35;
     }
 
-    while (v27 != v36);
-    v41 = *this;
-    v15 = v96;
-    v14 = v97;
-    v42 = *this + v97;
-    *(v42 + 36) = 0;
-    if (v37)
+    while (v27 != v35);
+    v40 = *this;
+    v15 = v95;
+    v14 = v96;
+    v41 = *this + v96;
+    *(v41 + 36) = 0;
+    if (v36)
     {
-      v43 = *(this + 2) - (v14 + v41);
-      *(v42 + 36) = v43;
+      v42 = *(this + 2) - (v14 + v40);
+      *(v41 + 36) = v42;
       dyld4::BumpAllocator::zeroFill(this, v27);
-      memmove((*this + v14 + v43), v34, v27);
-      v41 = *this;
+      memmove((*this + v14 + v42), v33, v27);
+      v40 = *this;
     }
   }
 
   else
   {
-    v41 = *this;
+    v40 = *this;
     *(*this + v14 + 36) = 0;
   }
 
-  v44 = a3;
-  dyld4::JustInTimeLoader::getExportsTrie(a3, (v41 + v14 + 64), (v41 + v14 + 72));
-  v45 = v98;
-  *(*this + v14 + 44) = *(*this + v14 + 44) & 0xFFFE | dyld3::MachOFile::hasInitializer(v15, v98);
-  if (!Diagnostics::hasError(v45))
+  v43 = a3;
+  dyld4::JustInTimeLoader::getExportsTrie(a3, (v40 + v14 + 64), (v40 + v14 + 72));
+  v44 = v97;
+  *(*this + v14 + 44) = *(*this + v14 + 44) & 0xFFFE | dyld3::MachOFile::hasInitializer(v15, v97);
+  if (!Diagnostics::hasError(v44))
   {
     *(*this + v14 + 80) = 0;
     if ((*(a3 + 4) & 2) == 0)
     {
-      LODWORD(v116[0]) = 0;
-      LODWORD(v105) = 0;
-      if (mach_o::Header::hasCodeSignature(v15, v116, &v105))
+      LODWORD(v115[0]) = 0;
+      LODWORD(v104) = 0;
+      if (mach_o::Header::hasCodeSignature(v15, v115, &v104))
       {
-        v46 = *this + v14;
-        *(v46 + 80) = v116[0];
-        *(v46 + 84) = v105;
+        v45 = *this + v14;
+        *(v45 + 80) = v115[0];
+        *(v45 + 84) = v104;
       }
 
       if ((*(a3 + 2) & 2) == 0)
@@ -8002,7 +7159,7 @@ void dyld4::PrebuiltLoader::serialize(Diagnostics *a1, const dyld4::RuntimeState
       }
     }
 
-    if (*(*(v100 + 1) + 537) == 1)
+    if (*(*(v99 + 1) + 537) == 1)
     {
 LABEL_28:
       if (((*(this + 4) - *this) & 7) != 0)
@@ -8010,308 +7167,308 @@ LABEL_28:
         dyld4::BumpAllocator::zeroFill(this, 8 - ((*(this + 4) - *this) & 7));
       }
 
-      v118 = 0;
-      v117 = 0u;
-      memset(v116, 0, sizeof(v116));
-      dyld4::JustInTimeLoader::getFileValidationInfo(a3, v116);
-      v47 = *(this + 2) - *this;
-      *(*this + v14 + 42) = v47 - v14;
-      if ((v47 - v14) >= 0x10000)
+      v117 = 0;
+      v116 = 0u;
+      memset(v115, 0, sizeof(v115));
+      dyld4::JustInTimeLoader::getFileValidationInfo(a3, v115);
+      v46 = *(this + 2) - *this;
+      *(*this + v14 + 42) = v46 - v14;
+      if ((v46 - v14) >= 0x10000)
       {
         dyld4::PrebuiltLoader::serialize();
       }
 
       dyld4::BumpAllocator::zeroFill(this, 0x38uLL);
-      v48 = *this + v47;
-      v49 = v116[0];
-      v50 = v116[1];
-      v51 = v117;
-      *(v48 + 48) = v118;
-      *(v48 + 16) = v50;
-      *(v48 + 32) = v51;
-      *v48 = v49;
+      v47 = *this + v46;
+      v48 = v115[0];
+      v49 = v115[1];
+      v50 = v116;
+      *(v47 + 48) = v117;
+      *(v47 + 16) = v49;
+      *(v47 + 32) = v50;
+      *v47 = v48;
     }
 
     *(*this + v14 + 76) = dyld3::MachOFile::mappedSize(v15);
-    v115[0] = _NSConcreteStackBlock;
-    v115[1] = 0x40000000;
-    v115[2] = ___ZN5dyld414PrebuiltLoader9serializeER11DiagnosticsRNS_12RuntimeStateERKNS_16JustInTimeLoaderENS_6Loader9LoaderRefEU13block_pointerFvjjRKNS8_14ResolvedSymbolEERNS_12PrebuiltObjCERKNS_13PrebuiltSwiftERNS_13BumpAllocatorE_block_invoke;
-    v115[3] = &__block_descriptor_tmp_57;
-    v115[4] = this;
-    v115[5] = v14;
-    v115[6] = this;
-    v115[7] = v14;
-    dyld4::JustInTimeLoader::withRegions(v15, v115);
+    v114[0] = _NSConcreteStackBlock;
+    v114[1] = 0x40000000;
+    v114[2] = ___ZN5dyld414PrebuiltLoader9serializeER11DiagnosticsRNS_12RuntimeStateERKNS_16JustInTimeLoaderENS_6Loader9LoaderRefEU13block_pointerFvjjRKNS8_14ResolvedSymbolEERNS_12PrebuiltObjCERKNS_13PrebuiltSwiftERNS_13BumpAllocatorE_block_invoke;
+    v114[3] = &__block_descriptor_tmp_57;
+    v114[4] = this;
+    v114[5] = v14;
+    v114[6] = this;
+    v114[7] = v14;
+    dyld4::JustInTimeLoader::withRegions(v15, v114);
     SectionLocations = dyld4::JustInTimeLoader::getSectionLocations(a3);
     memmove((*this + v14 + 104), SectionLocations, 0x158uLL);
-    v53 = *(v100 + 1);
-    v54 = *(v53 + 96);
-    if (v54 != &mach_o::PlatformInfo_macOS::singleton || *(v53 + 104))
+    v52 = *(v99 + 1);
+    v53 = *(v52 + 96);
+    if (v53 != &mach_o::PlatformInfo_macOS::singleton || *(v52 + 104))
     {
-      if (v54 != &mach_o::PlatformInfo_macCatalyst::singleton)
+      if (v53 != &mach_o::PlatformInfo_macCatalyst::singleton)
       {
+        v55 = 0;
         v56 = 0;
-        v57 = 0;
         goto LABEL_45;
       }
 
-      v55 = *(v53 + 104) == 0;
+      v54 = *(v52 + 104) == 0;
     }
 
     else
     {
-      v55 = 1;
+      v54 = 1;
     }
 
-    v56 = 0;
+    v55 = 0;
     if ((*(a3 + 2) & 2) != 0)
     {
-      v57 = 0;
-      if (v55)
+      v56 = 0;
+      if (v54)
       {
-        *&v116[0] = &mach_o::PlatformInfo_macCatalyst::singleton;
-        DWORD2(v116[0]) = 0;
-        if (mach_o::Header::builtForPlatform(v15, v116, 0))
+        *&v115[0] = &mach_o::PlatformInfo_macCatalyst::singleton;
+        DWORD2(v115[0]) = 0;
+        if (mach_o::Header::builtForPlatform(v15, v115, 0))
         {
-          v57 = 4;
+          v56 = 4;
         }
 
         else
         {
-          v57 = 0;
+          v56 = 0;
         }
 
-        v56 = 1;
+        v55 = 1;
       }
     }
 
     else
     {
-      v57 = 0;
+      v56 = 0;
     }
 
 LABEL_45:
-    *(*this + v14 + 44) = *(*this + v14 + 44) & 0xFFFB | v57;
+    *(*this + v14 + 44) = *(*this + v14 + 44) & 0xFFFB | v56;
     *(*this + v14 + 44) &= ~8u;
-    v58 = *this + v14;
-    *(v58 + 60) = 0xFFFF;
-    if (v56)
+    v57 = *this + v14;
+    *(v57 + 60) = 0xFFFF;
+    if (v55)
     {
-      if ((*(v58 + 44) & 4) != 0)
+      if ((*(v57 + 44) & 4) != 0)
       {
         if (!_platform_strncmp(__s2, "/System/iOSSupport/", 0x13uLL))
         {
-          v64 = *(v100 + 6);
-          if (v64)
+          v63 = *(v99 + 6);
+          if (v63)
           {
-            v65 = *(v100 + 5);
-            v66 = 8 * v64;
-            v67 = v65;
+            v64 = *(v99 + 5);
+            v65 = 8 * v63;
+            v66 = v64;
             while (1)
             {
-              v68 = *v67;
-              if (dyld4::Loader::matchesPath(*v67, v100, __s2 + 18))
+              v67 = *v66;
+              if (dyld4::Loader::matchesPath(*v66, v99, __s2 + 18))
               {
                 break;
               }
 
-              ++v67;
-              ++v65;
-              v66 -= 8;
-              if (!v66)
+              ++v66;
+              ++v64;
+              v65 -= 8;
+              if (!v65)
               {
                 goto LABEL_60;
               }
             }
 
-            v69 = *this + v14;
-            *(v69 + 60) = *(v68 + 3) & 0x7FFF;
-            *(v69 + 44) |= 8u;
+            v68 = *this + v14;
+            *(v68 + 60) = *(v67 + 3) & 0x7FFF;
+            *(v68 + 44) |= 8u;
           }
         }
       }
 
       else
       {
-        strcpy(v116, "/System/iOSSupport");
-        strlcat(v116, __s2, 0x400uLL);
-        v59 = *(v100 + 6);
-        if (v59)
+        strcpy(v115, "/System/iOSSupport");
+        strlcat(v115, __s2, 0x400uLL);
+        v58 = *(v99 + 6);
+        if (v58)
         {
-          v60 = *(v100 + 5);
-          v61 = 8 * v59;
-          v62 = v60;
+          v59 = *(v99 + 5);
+          v60 = 8 * v58;
+          v61 = v59;
           while (1)
           {
-            v63 = *v62;
-            if (dyld4::Loader::matchesPath(*v62, v100, v116))
+            v62 = *v61;
+            if (dyld4::Loader::matchesPath(*v61, v99, v115))
             {
               break;
             }
 
-            ++v62;
-            ++v60;
-            v61 -= 8;
-            if (!v61)
+            ++v61;
+            ++v59;
+            v60 -= 8;
+            if (!v60)
             {
               goto LABEL_60;
             }
           }
 
-          *(*this + v14 + 60) = *(v63 + 3) & 0x7FFF;
+          *(*this + v14 + 60) = *(v62 + 3) & 0x7FFF;
         }
       }
     }
 
 LABEL_60:
-    v105 = 0;
-    v106 = &v105;
-    v107 = 0x5002000000;
-    v108 = __Block_byref_object_copy__4;
-    v109 = __Block_byref_object_dispose__4;
-    v110 = v116;
-    v111 = 16;
+    v104 = 0;
+    v105 = &v104;
+    v106 = 0x5002000000;
+    v107 = __Block_byref_object_copy__4;
+    v108 = __Block_byref_object_dispose__4;
+    v109 = v115;
+    v110 = 16;
+    v111 = 0;
     v112 = 0;
     v113 = 0;
-    v114 = 0;
-    if ((*(v44 + 4) & 2) == 0)
+    if ((*(v43 + 4) & 2) == 0)
     {
-      v70 = *(this + 2);
-      v71 = *this;
-      if (((v70 - *this) & 7) != 0)
+      v69 = *(this + 2);
+      v70 = *this;
+      if (((v69 - *this) & 7) != 0)
       {
-        dyld4::BumpAllocator::zeroFill(this, 8 - ((v70 - *this) & 7));
-        v70 = *(this + 2);
-        v71 = *this;
+        dyld4::BumpAllocator::zeroFill(this, 8 - ((v69 - *this) & 7));
+        v69 = *(this + 2);
+        v70 = *this;
       }
 
-      v72 = v70 - (v14 + v71);
-      *(v71 + v14 + 50) = v72;
-      if (v72 >= 0x10000)
+      v71 = v69 - (v14 + v70);
+      *(v70 + v14 + 50) = v71;
+      if (v71 >= 0x10000)
       {
         dyld4::PrebuiltLoader::serialize();
       }
 
-      *(v71 + v14 + 52) = 0;
-      v104[0] = _NSConcreteStackBlock;
-      v104[1] = 0x40000000;
-      v104[2] = ___ZN5dyld414PrebuiltLoader9serializeER11DiagnosticsRNS_12RuntimeStateERKNS_16JustInTimeLoaderENS_6Loader9LoaderRefEU13block_pointerFvjjRKNS8_14ResolvedSymbolEERNS_12PrebuiltObjCERKNS_13PrebuiltSwiftERNS_13BumpAllocatorE_block_invoke_62;
-      v104[3] = &__block_descriptor_tmp_66;
-      v73 = v98;
-      v104[4] = v98;
-      v104[5] = v100;
-      v104[6] = this;
-      v104[7] = this;
-      v104[8] = v14;
+      *(v70 + v14 + 52) = 0;
       v103[0] = _NSConcreteStackBlock;
       v103[1] = 0x40000000;
-      v103[2] = ___ZN5dyld414PrebuiltLoader9serializeER11DiagnosticsRNS_12RuntimeStateERKNS_16JustInTimeLoaderENS_6Loader9LoaderRefEU13block_pointerFvjjRKNS8_14ResolvedSymbolEERNS_12PrebuiltObjCERKNS_13PrebuiltSwiftERNS_13BumpAllocatorE_block_invoke_2;
-      v103[3] = &unk_A1EC8;
-      v103[5] = v98;
-      v103[6] = v100;
-      v103[4] = &v105;
-      dyld4::Loader::forEachBindTarget(v44, v98, v100, v94, 1, v104, v103);
-      if (Diagnostics::hasError(v73))
+      v103[2] = ___ZN5dyld414PrebuiltLoader9serializeER11DiagnosticsRNS_12RuntimeStateERKNS_16JustInTimeLoaderENS_6Loader9LoaderRefEU13block_pointerFvjjRKNS8_14ResolvedSymbolEERNS_12PrebuiltObjCERKNS_13PrebuiltSwiftERNS_13BumpAllocatorE_block_invoke_62;
+      v103[3] = &__block_descriptor_tmp_66;
+      v72 = v97;
+      v103[4] = v97;
+      v103[5] = v99;
+      v103[6] = this;
+      v103[7] = this;
+      v103[8] = v14;
+      v102[0] = _NSConcreteStackBlock;
+      v102[1] = 0x40000000;
+      v102[2] = ___ZN5dyld414PrebuiltLoader9serializeER11DiagnosticsRNS_12RuntimeStateERKNS_16JustInTimeLoaderENS_6Loader9LoaderRefEU13block_pointerFvjjRKNS8_14ResolvedSymbolEERNS_12PrebuiltObjCERKNS_13PrebuiltSwiftERNS_13BumpAllocatorE_block_invoke_2;
+      v102[3] = &unk_A1EC8;
+      v102[5] = v97;
+      v102[6] = v99;
+      v102[4] = &v104;
+      dyld4::Loader::forEachBindTarget(v43, v97, v99, v93, 1, v103, v102);
+      if (Diagnostics::hasError(v72))
       {
         goto LABEL_84;
       }
 
-      if (v106[7])
+      if (v105[7])
       {
-        v74 = *(this + 2);
-        v75 = *this;
-        if (((v74 - *this) & 7) != 0)
+        v73 = *(this + 2);
+        v74 = *this;
+        if (((v73 - *this) & 7) != 0)
         {
-          dyld4::BumpAllocator::zeroFill(this, 8 - ((v74 - *this) & 7));
-          v74 = *(this + 2);
-          v75 = *this;
+          dyld4::BumpAllocator::zeroFill(this, 8 - ((v73 - *this) & 7));
+          v73 = *(this + 2);
+          v74 = *this;
         }
 
-        v76 = v75 + v14;
-        *(v76 + 92) = v74 - (v14 + v75);
-        *(v76 + 96) = v106[7];
-        v77 = v106;
-        v78 = v106[7];
-        if (v78)
+        v75 = v74 + v14;
+        *(v75 + 92) = v73 - (v14 + v74);
+        *(v75 + 96) = v105[7];
+        v76 = v105;
+        v77 = v105[7];
+        if (v77)
         {
-          v79 = v44;
+          v78 = v43;
         }
 
         else
         {
-          v80 = v106;
-          if (!v106[6])
+          v79 = v105;
+          if (!v105[6])
           {
-            dyld3::OverflowSafeArray<dyld4::Loader *,4294967295ull>::growTo(v106 + 5, 1uLL);
-            v80 = v106;
-            v74 = *(this + 2);
-            v75 = *this;
+            dyld3::OverflowSafeArray<dyld4::Loader *,4294967295ull>::growTo(v105 + 5, 1uLL);
+            v79 = v105;
+            v73 = *(this + 2);
+            v74 = *this;
           }
 
-          v79 = v44;
-          v77[7] = 1;
-          v78 = v80[7];
+          v78 = v43;
+          v76[7] = 1;
+          v77 = v79[7];
         }
 
-        v81 = v77[5];
-        v82 = 8 * v78;
-        v83 = v74 - v75;
-        dyld4::BumpAllocator::zeroFill(this, 8 * v78);
-        memmove((*this + v83), v81, v82);
-        v44 = v79;
+        v80 = v76[5];
+        v81 = 8 * v77;
+        v82 = v73 - v74;
+        dyld4::BumpAllocator::zeroFill(this, 8 * v77);
+        memmove((*this + v82), v80, v81);
+        v43 = v78;
       }
     }
 
-    v84 = dyld4::PrebuiltObjC::serializeFixups(v95, v44, this);
-    v85 = v84 - v14;
-    if (!v84)
+    v83 = dyld4::PrebuiltObjC::serializeFixups(v94, v43, this);
+    v84 = v83 - v14;
+    if (!v83)
     {
-      v85 = 0;
+      v84 = 0;
     }
 
+    v85 = *this + v14;
+    *(v85 + 56) = v84;
+    *(v85 + 8) = *(v43 + 8);
     v86 = *this + v14;
-    *(v86 + 56) = v85;
-    *(v86 + 8) = *(v44 + 8);
-    v87 = *this + v14;
-    *(v87 + 24) = *(v15 + 2);
-    *(v87 + 88) = 0;
-    v102 = 0;
+    *(v86 + 24) = *(v15 + 2);
+    *(v86 + 88) = 0;
     v101 = 0;
-    if (dyld4::JustInTimeLoader::overridesDylibInCache(v44, &v102, &v101))
+    v100 = 0;
+    if (dyld4::JustInTimeLoader::overridesDylibInCache(v43, &v101, &v100))
     {
-      v88 = v102;
-      if (v102)
+      v87 = v101;
+      if (v101)
       {
-        v89 = *(this + 2) - *this;
-        *(*this + v14 + 88) = v89 - v14;
-        if (*v88 == -1)
+        v88 = *(this + 2) - *this;
+        *(*this + v14 + 88) = v88 - v14;
+        if (*v87 == -1)
         {
-          v92 = 8;
+          v91 = 8;
         }
 
         else
         {
-          v90 = 1;
+          v89 = 1;
           do
           {
-            v91 = v88[v90++];
+            v90 = v87[v89++];
           }
 
-          while (v91 != -1);
-          v92 = (v90 * 8);
+          while (v90 != -1);
+          v91 = (v89 * 8);
         }
 
-        dyld4::BumpAllocator::zeroFill(this, v92);
-        memmove((*this + v89), v88, v92);
+        dyld4::BumpAllocator::zeroFill(this, v91);
+        memmove((*this + v88), v87, v91);
       }
     }
 
 LABEL_84:
-    _Block_object_dispose(&v105, 8);
-    v112 = 0;
-    if (v113)
+    _Block_object_dispose(&v104, 8);
+    v111 = 0;
+    if (v112)
     {
-      vm_deallocate(mach_task_self_, v113, v114);
+      vm_deallocate(mach_task_self_, v112, v113);
     }
   }
 }
@@ -8572,7 +7729,7 @@ uint64_t __Block_byref_object_dispose__76(uint64_t result)
   return result;
 }
 
-vm_address_t ___ZNK5dyld417PrebuiltLoaderSet23logDuplicateObjCClassesERNS_12RuntimeStateE_block_invoke(uint64_t a1, const char *a2)
+vm_address_t ___ZNK5dyld417PrebuiltLoaderSet23logDuplicateObjCClassesERNS_12RuntimeStateE_block_invoke(uint64_t a1, char *a2)
 {
   v2 = *(*(a1 + 32) + 8);
   v4 = a2;
@@ -8697,378 +7854,376 @@ vm_address_t dyld4::PrebuiltLoaderSet::makeLaunchSet(dyld4::PrebuiltLoaderSet *t
     return 0;
   }
 
-  hasMissingFlatLazySymbols = dyld4::RuntimeState::hasMissingFlatLazySymbols(a2);
-  if (hasMissingFlatLazySymbols)
+  if (dyld4::RuntimeState::hasMissingFlatLazySymbols(a2))
   {
-    Diagnostics::error(this, "cannot make PrebuiltLoaderSet for program that has missing flat lazy symbols", v12, v13);
+    Diagnostics::error(this, "cannot make PrebuiltLoaderSet for program that has missing flat lazy symbols", v11, v12);
     return 0;
   }
 
-  v16 = 8 * *(a2 + 6);
-  __chkstk_darwin(hasMissingFlatLazySymbols);
-  v18 = v78 - ((v17 + 23) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v16 = v76 - ((v15 + 23) & 0xFFFFFFFFFFFFFFF0);
+  v17 = 0;
+  v18 = 0;
   v19 = 0;
-  v20 = 0;
-  v21 = 0;
-  v22 = *(a2 + 6);
-  v119[0] = v23;
-  v119[1] = a2 + 64;
-  v24 = "cannot make PrebuiltLoader for dylib that is in dyld cache (%s)";
+  v20 = *(a2 + 6);
+  v117[0] = v21;
+  v117[1] = a2 + 64;
+  v22 = "cannot make PrebuiltLoader for dylib that is in dyld cache (%s)";
   while (1)
   {
-    v25 = v119[v20];
-    v26 = *(v25 + 16);
-    if (v26)
+    v23 = v117[v18];
+    v24 = *(v23 + 16);
+    if (v24)
     {
       break;
     }
 
 LABEL_28:
-    if (++v20 == 2)
+    if (++v18 == 2)
     {
-      dyld4::PrebuiltObjC::PrebuiltObjC(v119);
-      dyld4::PrebuiltSwift::PrebuiltSwift(v98);
-      Diagnostics::Diagnostics(v118);
-      dyld4::PrebuiltObjC::make(v119, v118, a2);
-      if (!Diagnostics::hasError(v118))
+      dyld4::PrebuiltObjC::PrebuiltObjC(v117);
+      dyld4::PrebuiltSwift::PrebuiltSwift(v96);
+      Diagnostics::Diagnostics(v116);
+      dyld4::PrebuiltObjC::make(v117, v116, a2);
+      if (!Diagnostics::hasError(v116))
       {
-        Diagnostics::Diagnostics(&v80);
-        dyld4::PrebuiltSwift::make(v98, &v80, v119, a2);
-        Diagnostics::~Diagnostics(&v80);
+        Diagnostics::Diagnostics(&v78);
+        dyld4::PrebuiltSwift::make(v96, &v78, v117, a2);
+        Diagnostics::~Diagnostics(&v78);
       }
 
-      Diagnostics::~Diagnostics(v118);
-      v90 = 0;
-      v91 = &v90;
-      v92 = 0x4002000000;
-      v93 = __Block_byref_object_copy__87;
-      v94 = __Block_byref_object_dispose__88;
-      v95 = 0;
-      v96 = 0;
-      v97 = 0;
-      dyld4::BumpAllocator::zeroFill(&v95, 0x50uLL);
-      v35 = v91[5];
-      v34 = v91 + 5;
-      *v35 = 0x2FA25B4373703464;
-      *(v35 + 12) = v21;
-      *(v35 + 16) = xmmword_8C9C0;
-      *(v35 + 40) = 0u;
-      *(v35 + 56) = 0u;
-      *(v35 + 72) = 0;
-      dyld4::BumpAllocator::zeroFill((v91 + 5), 4 * v21);
-      v37 = *(*(a2 + 1) + 368);
-      if (v37)
-      {
-        *(*v34 + 28) = *(v91 + 14) - *(v91 + 10);
-        v118[0] = 0uLL;
-        DyldSharedCache::getUUID(v37, v118);
-        v38 = v91 + 5;
-        v39 = v91[7] - v91[5];
-        dyld4::BumpAllocator::zeroFill((v91 + 5), 0x10uLL);
-        *(*v38 + v39) = v118[0];
-      }
-
-      v80 = 0;
-      v81 = &v80;
-      v82 = 0x5002000000;
-      v83 = __Block_byref_object_copy__89_0;
-      v84 = __Block_byref_object_dispose__90_0;
-      v85 = v118;
-      v86 = 16;
-      v87 = 0;
+      Diagnostics::~Diagnostics(v116);
       v88 = 0;
-      v89 = 0;
-      v79[0] = _NSConcreteStackBlock;
-      v79[1] = 0x40000000;
-      v79[2] = ___ZN5dyld417PrebuiltLoaderSet13makeLaunchSetER11DiagnosticsRNS_12RuntimeStateERKNS_12MissingPathsE_block_invoke;
-      v79[3] = &unk_A1F68;
-      v79[5] = this;
-      v79[6] = a2;
-      v79[4] = &v80;
-      if (v21)
+      v89 = &v88;
+      v90 = 0x4002000000;
+      v91 = __Block_byref_object_copy__87;
+      v92 = __Block_byref_object_dispose__88;
+      v93 = 0;
+      v94 = 0;
+      v95 = 0;
+      dyld4::BumpAllocator::zeroFill(&v93, 0x50uLL);
+      v33 = v89[5];
+      v32 = v89 + 5;
+      *v33 = 0x2FA25B4373703464;
+      *(v33 + 12) = v19;
+      *(v33 + 16) = xmmword_8C9C0;
+      *(v33 + 40) = 0u;
+      *(v33 + 56) = 0u;
+      *(v33 + 72) = 0;
+      dyld4::BumpAllocator::zeroFill((v89 + 5), 4 * v19);
+      v35 = *(*(a2 + 1) + 368);
+      if (v35)
       {
-        v40 = 0;
+        *(*v32 + 28) = *(v89 + 14) - *(v89 + 10);
+        v116[0] = 0uLL;
+        DyldSharedCache::getUUID(v35, v116);
+        v36 = v89 + 5;
+        v37 = v89[7] - v89[5];
+        dyld4::BumpAllocator::zeroFill((v89 + 5), 0x10uLL);
+        *(*v36 + v37) = v116[0];
+      }
+
+      v78 = 0;
+      v79 = &v78;
+      v80 = 0x5002000000;
+      v81 = __Block_byref_object_copy__89_0;
+      v82 = __Block_byref_object_dispose__90_0;
+      v83 = v116;
+      v84 = 16;
+      v85 = 0;
+      v86 = 0;
+      v87 = 0;
+      v77[0] = _NSConcreteStackBlock;
+      v77[1] = 0x40000000;
+      v77[2] = ___ZN5dyld417PrebuiltLoaderSet13makeLaunchSetER11DiagnosticsRNS_12RuntimeStateERKNS_12MissingPathsE_block_invoke;
+      v77[3] = &unk_A1F68;
+      v77[5] = this;
+      v77[6] = a2;
+      v77[4] = &v78;
+      if (v19)
+      {
+        v38 = 0;
         while (1)
         {
-          *(*v34 + *(*v34 + 16) + 4 * v40) = *(v91 + 14) - *(v91 + 10);
-          dyld4::PrebuiltLoader::serialize(this, a2, *&v18[8 * v40], v40 & 0x7FFF | 0x8000, v79, v119, v36, (v91 + 5));
+          *(*v32 + *(*v32 + 16) + 4 * v38) = *(v89 + 14) - *(v89 + 10);
+          dyld4::PrebuiltLoader::serialize(this, a2, *&v16[8 * v38], v38 & 0x7FFF | 0x8000, v77, v117, v34, (v89 + 5));
           if (Diagnostics::hasError(this))
           {
             break;
           }
 
-          if (v21 == ++v40)
+          if (v19 == ++v38)
           {
             goto LABEL_37;
           }
         }
 
-        v14 = 0;
+        v13 = 0;
       }
 
       else
       {
 LABEL_37:
-        if (v121 == 1)
+        if (v119 == 1)
         {
-          if (v119[14])
+          if (v117[14])
           {
-            *(*v34 + 40) = dyld4::PrebuiltObjC::serializeSelectorMap(v119, (v91 + 5));
-            v41 = *(v91 + 10);
-            v42 = *(v91 + 14);
-            v43 = (v42 - v41) & 7;
-            if (((v42 - v41) & 7) != 0)
+            *(*v32 + 40) = dyld4::PrebuiltObjC::serializeSelectorMap(v117, (v89 + 5));
+            v39 = *(v89 + 10);
+            v40 = *(v89 + 14);
+            v41 = (v40 - v39) & 7;
+            if (((v40 - v39) & 7) != 0)
             {
-              dyld4::BumpAllocator::zeroFill((v91 + 5), 8 - v43);
+              dyld4::BumpAllocator::zeroFill((v89 + 5), 8 - v41);
             }
           }
 
-          if (v119[26])
+          if (v117[26])
           {
-            *(*v34 + 44) = dyld4::PrebuiltObjC::serializeClassMap(v119, (v91 + 5));
-            v44 = *(v91 + 10);
-            v45 = *(v91 + 14);
-            v46 = (v45 - v44) & 7;
-            if (((v45 - v44) & 7) != 0)
+            *(*v32 + 44) = dyld4::PrebuiltObjC::serializeClassMap(v117, (v89 + 5));
+            v42 = *(v89 + 10);
+            v43 = *(v89 + 14);
+            v44 = (v43 - v42) & 7;
+            if (((v43 - v42) & 7) != 0)
             {
-              dyld4::BumpAllocator::zeroFill((v91 + 5), 8 - v46);
+              dyld4::BumpAllocator::zeroFill((v89 + 5), 8 - v44);
             }
           }
 
-          if (v119[39])
+          if (v117[39])
           {
-            *(*v34 + 48) = dyld4::PrebuiltObjC::serializeProtocolMap(v119, (v91 + 5));
-            v47 = *(v91 + 10);
-            v48 = *(v91 + 14);
-            v49 = (v48 - v47) & 7;
-            if (((v48 - v47) & 7) != 0)
+            *(*v32 + 48) = dyld4::PrebuiltObjC::serializeProtocolMap(v117, (v89 + 5));
+            v45 = *(v89 + 10);
+            v46 = *(v89 + 14);
+            v47 = (v46 - v45) & 7;
+            if (((v46 - v45) & 7) != 0)
             {
-              dyld4::BumpAllocator::zeroFill((v91 + 5), 8 - v49);
+              dyld4::BumpAllocator::zeroFill((v89 + 5), 8 - v47);
             }
           }
 
-          if ((v123 & 1) == 0)
+          if ((v121 & 1) == 0)
           {
             std::__throw_bad_optional_access[abi:nn200100]();
           }
 
-          v50 = *v34;
-          *(*v34 + 56) = v122;
-          if (v120 == 1)
+          v48 = *v32;
+          *(*v32 + 56) = v120;
+          if (v118 == 1)
           {
-            *(v50 + 52) |= 1u;
+            *(v48 + 52) |= 1u;
           }
         }
 
-        if (v117 == 1)
+        if (v115 == 1)
         {
-          if (v101)
+          if (v99)
           {
-            v51 = (v91 + 5);
-            *(*v34 + 64) = *(v91 + 14) - *(v91 + 10);
-            dyld3::MultiMap<SwiftTypeProtocolConformanceDiskLocationKey,SwiftTypeProtocolConformanceDiskLocation,dyld4::HashTypeConformanceKey,dyld4::EqualTypeConformanceKey>::serialize(v98, v51);
-            v52 = *(v91 + 10);
-            v53 = *(v91 + 14);
-            v54 = (v53 - v52) & 7;
-            if (((v53 - v52) & 7) != 0)
+            v49 = (v89 + 5);
+            *(*v32 + 64) = *(v89 + 14) - *(v89 + 10);
+            dyld3::MultiMap<SwiftTypeProtocolConformanceDiskLocationKey,SwiftTypeProtocolConformanceDiskLocation,dyld4::HashTypeConformanceKey,dyld4::EqualTypeConformanceKey>::serialize(v96, v49);
+            v50 = *(v89 + 10);
+            v51 = *(v89 + 14);
+            v52 = (v51 - v50) & 7;
+            if (((v51 - v50) & 7) != 0)
             {
-              dyld4::BumpAllocator::zeroFill((v91 + 5), 8 - v54);
+              dyld4::BumpAllocator::zeroFill((v89 + 5), 8 - v52);
             }
           }
 
-          if (v107)
+          if (v105)
           {
-            v55 = (v91 + 5);
-            *(*v34 + 68) = *(v91 + 14) - *(v91 + 10);
-            dyld3::MultiMap<SwiftTypeProtocolConformanceDiskLocationKey,SwiftTypeProtocolConformanceDiskLocation,dyld4::HashTypeConformanceKey,dyld4::EqualTypeConformanceKey>::serialize(v104, v55);
-            v56 = *(v91 + 10);
-            v57 = *(v91 + 14);
-            v58 = (v57 - v56) & 7;
-            if (((v57 - v56) & 7) != 0)
+            v53 = (v89 + 5);
+            *(*v32 + 68) = *(v89 + 14) - *(v89 + 10);
+            dyld3::MultiMap<SwiftTypeProtocolConformanceDiskLocationKey,SwiftTypeProtocolConformanceDiskLocation,dyld4::HashTypeConformanceKey,dyld4::EqualTypeConformanceKey>::serialize(v102, v53);
+            v54 = *(v89 + 10);
+            v55 = *(v89 + 14);
+            v56 = (v55 - v54) & 7;
+            if (((v55 - v54) & 7) != 0)
             {
-              dyld4::BumpAllocator::zeroFill((v91 + 5), 8 - v58);
+              dyld4::BumpAllocator::zeroFill((v89 + 5), 8 - v56);
             }
           }
 
-          if (v114)
+          if (v112)
           {
-            v59 = 0;
-            v60 = v113;
-            v61 = 48 * v114 - 48;
-            v62 = vdupq_n_s64(v61 / 0x30);
+            v57 = 0;
+            v58 = v111;
+            v59 = 48 * v112 - 48;
+            v60 = vdupq_n_s64(v59 / 0x30);
             do
             {
-              v63 = vmovn_s64(vcgeq_u64(v62, vorrq_s8(vdupq_n_s64(v59), xmmword_8C9A0)));
-              if (v63.i8[0])
+              v61 = vmovn_s64(vcgeq_u64(v60, vorrq_s8(vdupq_n_s64(v57), xmmword_8C9A0)));
+              if (v61.i8[0])
               {
-                *v60 = 0;
+                *v58 = 0;
               }
 
-              if (v63.i8[4])
+              if (v61.i8[4])
               {
-                v60[6] = 0;
+                v58[6] = 0;
               }
 
-              v59 += 2;
-              v60 += 12;
+              v57 += 2;
+              v58 += 12;
             }
 
-            while (((v61 / 0x30 + 2) & 0xFFFFFFFFFFFFFFELL) != v59);
-            v64 = (v91 + 5);
-            *(*v34 + 72) = *(v91 + 14) - *(v91 + 10);
-            dyld3::MultiMap<SwiftForeignTypeProtocolConformanceDiskLocationKey,SwiftForeignTypeProtocolConformanceDiskLocation,dyld4::HashForeignConformanceKey,dyld4::EqualForeignConformanceKey>::serialize(v110, v64);
-            v65 = *(v91 + 10);
-            v66 = *(v91 + 14);
-            v67 = (v66 - v65) & 7;
-            if (((v66 - v65) & 7) != 0)
+            while (((v59 / 0x30 + 2) & 0xFFFFFFFFFFFFFFELL) != v57);
+            v62 = (v89 + 5);
+            *(*v32 + 72) = *(v89 + 14) - *(v89 + 10);
+            dyld3::MultiMap<SwiftForeignTypeProtocolConformanceDiskLocationKey,SwiftForeignTypeProtocolConformanceDiskLocation,dyld4::HashForeignConformanceKey,dyld4::EqualForeignConformanceKey>::serialize(v108, v62);
+            v63 = *(v89 + 10);
+            v64 = *(v89 + 14);
+            v65 = (v64 - v63) & 7;
+            if (((v64 - v63) & 7) != 0)
             {
-              dyld4::BumpAllocator::zeroFill((v91 + 5), 8 - v67);
+              dyld4::BumpAllocator::zeroFill((v89 + 5), 8 - v65);
             }
           }
         }
 
-        v68 = v81;
-        v69 = v81[7];
-        v70 = v91;
-        v71 = *v34;
-        if (v69)
+        v66 = v79;
+        v67 = v79[7];
+        v68 = v89;
+        v69 = *v32;
+        if (v67)
         {
-          v71[6] = *(v91 + 14) - *(v91 + 10);
-          v72 = v68[5];
-          v73 = 16 * v69;
+          v69[6] = *(v89 + 14) - *(v89 + 10);
+          v70 = v66[5];
+          v71 = 16 * v67;
           do
           {
-            v74 = v91 + 5;
-            v75 = v91[7] - v91[5];
-            dyld4::BumpAllocator::zeroFill((v91 + 5), 0x10uLL);
-            v76 = *v72++;
-            *(*v74 + v75) = v76;
-            v71 = *v34;
-            ++*(*v34 + 20);
-            v73 -= 16;
+            v72 = v89 + 5;
+            v73 = v89[7] - v89[5];
+            dyld4::BumpAllocator::zeroFill((v89 + 5), 0x10uLL);
+            v74 = *v70++;
+            *(*v72 + v73) = v74;
+            v69 = *v32;
+            ++*(*v32 + 20);
+            v71 -= 16;
           }
 
-          while (v73);
-          v70 = v91;
+          while (v71);
+          v68 = v89;
         }
 
         if (*(a3 + 2) != *a3)
         {
-          v71[9] = *(v70 + 14) - *(v70 + 10);
-          v78[0] = _NSConcreteStackBlock;
-          v78[1] = 0x40000000;
-          v78[2] = ___ZN5dyld417PrebuiltLoaderSet13makeLaunchSetER11DiagnosticsRNS_12RuntimeStateERKNS_12MissingPathsE_block_invoke_3;
-          v78[3] = &unk_A1F90;
-          v78[4] = &v90;
-          v78[5] = v34;
-          v78[6] = 0;
-          dyld4::MissingPaths::forEachPath(a3, v78);
-          v70 = v91;
-          v71 = *v34;
+          v69[9] = *(v68 + 14) - *(v68 + 10);
+          v76[0] = _NSConcreteStackBlock;
+          v76[1] = 0x40000000;
+          v76[2] = ___ZN5dyld417PrebuiltLoaderSet13makeLaunchSetER11DiagnosticsRNS_12RuntimeStateERKNS_12MissingPathsE_block_invoke_3;
+          v76[3] = &unk_A1F90;
+          v76[4] = &v88;
+          v76[5] = v32;
+          v76[6] = 0;
+          dyld4::MissingPaths::forEachPath(a3, v76);
+          v68 = v89;
+          v69 = *v32;
         }
 
-        v71[2] = *(v70 + 14) - *(v70 + 10);
-        v14 = dyld4::BumpAllocator::finalize((v91 + 5));
+        v69[2] = *(v68 + 14) - *(v68 + 10);
+        v13 = dyld4::BumpAllocator::finalize((v89 + 5));
       }
 
-      _Block_object_dispose(&v80, 8);
-      v87 = 0;
-      if (v88)
+      _Block_object_dispose(&v78, 8);
+      v85 = 0;
+      if (v86)
       {
-        vm_deallocate(mach_task_self_, v88, v89);
+        vm_deallocate(mach_task_self_, v86, v87);
       }
 
-      _Block_object_dispose(&v90, 8);
-      if (v95)
+      _Block_object_dispose(&v88, 8);
+      if (v93)
       {
-        vm_deallocate(mach_task_self_, v95, v96);
+        vm_deallocate(mach_task_self_, v93, v94);
       }
 
-      v114 = 0;
-      if (v115)
+      v112 = 0;
+      if (v113)
       {
-        vm_deallocate(mach_task_self_, v115, v116);
+        vm_deallocate(mach_task_self_, v113, v114);
       }
 
-      v110[4] = 0;
-      if (v111)
+      v108[4] = 0;
+      if (v109)
       {
-        vm_deallocate(mach_task_self_, v111, v112);
+        vm_deallocate(mach_task_self_, v109, v110);
       }
 
-      v107 = 0;
-      if (v108)
+      v105 = 0;
+      if (v106)
       {
-        vm_deallocate(mach_task_self_, v108, v109);
+        vm_deallocate(mach_task_self_, v106, v107);
       }
 
-      v104[4] = 0;
-      if (v105)
+      v102[4] = 0;
+      if (v103)
       {
-        vm_deallocate(mach_task_self_, v105, v106);
+        vm_deallocate(mach_task_self_, v103, v104);
       }
 
-      v101 = 0;
-      if (v102)
+      v99 = 0;
+      if (v100)
       {
-        vm_deallocate(mach_task_self_, v102, v103);
+        vm_deallocate(mach_task_self_, v100, v101);
       }
 
-      v98[4] = 0;
-      if (v99)
+      v96[4] = 0;
+      if (v97)
       {
-        vm_deallocate(mach_task_self_, v99, v100);
+        vm_deallocate(mach_task_self_, v97, v98);
       }
 
-      dyld4::PrebuiltObjC::~PrebuiltObjC(v119);
-      return v14;
+      dyld4::PrebuiltObjC::~PrebuiltObjC(v117);
+      return v13;
     }
   }
 
-  v27 = *(v25 + 8);
-  v28 = 8 * v26;
-  v29 = v27;
+  v25 = *(v23 + 8);
+  v26 = 8 * v24;
+  v27 = v25;
   while (1)
   {
-    v30 = *v29;
-    v31 = *(*v29 + 4);
-    if (*v29 && (v31 & 1) == 0)
+    v28 = *v27;
+    v29 = *(*v27 + 4);
+    if (*v27 && (v29 & 1) == 0)
     {
       break;
     }
 
 LABEL_27:
-    ++v29;
     ++v27;
-    v28 -= 8;
-    if (!v28)
+    ++v25;
+    v26 -= 8;
+    if (!v26)
     {
       goto LABEL_28;
     }
   }
 
-  if ((v31 & 2) != 0)
+  if ((v29 & 2) != 0)
   {
     goto LABEL_74;
   }
 
-  if ((*(v30 + 42) & 0x40) == 0)
+  if ((*(v28 + 42) & 0x40) == 0)
   {
-    if (v21 >= v22)
+    if (v19 >= v20)
     {
       ___ZN5dyld4L17handleDyldInCacheERN3lsl9AllocatorEPKN6mach_o6HeaderEPKNS_10KernelArgsES6__block_invoke_cold_1();
     }
 
-    *&v18[8 * v21++] = v30;
-    v33 = v19++ | 0x8000;
-    *(v30 + 6) = v33;
+    *&v16[8 * v19++] = v28;
+    v31 = v17++ | 0x8000;
+    *(v28 + 6) = v31;
     goto LABEL_27;
   }
 
-  v24 = "cannot make PrebuiltLoader for dylib that overrides dylib in dyld cache (%s)";
+  v22 = "cannot make PrebuiltLoader for dylib that overrides dylib in dyld cache (%s)";
 LABEL_74:
-  v77 = dyld4::JustInTimeLoader::path(v30, a2);
-  Diagnostics::error(this, v24, v77);
+  v75 = dyld4::JustInTimeLoader::path(v28, a2);
+  Diagnostics::error(this, v22, v75);
   return 0;
 }
 
@@ -9593,4 +8748,833 @@ void dyld4::PrebuiltObjC::ObjCOptimizerImage::~ObjCOptimizerImage(dyld4::Prebuil
   }
 
   Diagnostics::~Diagnostics((this + 32));
+}
+
+vm_address_t dyld3::Map<char const*,BOOL,dyld3::HashCString,dyld3::EqualCString>::insert(uint64_t a1, char **a2)
+{
+  v4 = *(a1 + 8);
+  if (v4 == *a1)
+  {
+    v5 = 2 * *(a1 + 32);
+    *a1 = 2 * v4;
+    size = 0;
+    memset(v24, 0, sizeof(v24));
+    if (v5)
+    {
+      dyld3::OverflowSafeArray<unsigned int,4294967295ull>::growTo(v24, v5);
+      do
+      {
+        v23 = -1;
+        dyld3::OverflowSafeArray<unsigned int,4294967295ull>::push_back(v24, &v23);
+        --v5;
+      }
+
+      while (v5);
+    }
+
+    if (*(a1 + 72))
+    {
+      v6 = 0;
+      do
+      {
+        v7 = *dyld3::OverflowSafeArray<dyld3::MapBase<void const*,BOOL,dyld4::HashPointer,dyld4::EqualPointer>::NodeImplT<false>,4294967295ull>::operator[]((a1 + 56), v6);
+        v8 = _platform_strlen(v7);
+        v9 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](&v23, v7, v8);
+        v10 = (v24[2] - 1) & v9;
+        if (*dyld3::OverflowSafeArray<unsigned int,4294967295ull>::operator[](v24, v10) != -1)
+        {
+          v11 = 1;
+          do
+          {
+            v10 = (v24[2] - 1) & (v10 + v11++);
+          }
+
+          while (*dyld3::OverflowSafeArray<unsigned int,4294967295ull>::operator[](v24, v10) != -1);
+        }
+
+        *dyld3::OverflowSafeArray<unsigned int,4294967295ull>::operator[](v24, v10) = v6++;
+      }
+
+      while (v6 != *(a1 + 72));
+    }
+
+    if ((a1 + 16) == v24)
+    {
+      v24[2] = 0;
+      if (v24[3])
+      {
+        vm_deallocate(mach_task_self_, v24[3], size);
+      }
+    }
+
+    else
+    {
+      v12 = *(a1 + 40);
+      if (v12)
+      {
+        vm_deallocate(mach_task_self_, v12, *(a1 + 48));
+      }
+
+      *(a1 + 16) = v24[0];
+      *(a1 + 24) = *&v24[1];
+      v13 = size;
+      *(a1 + 40) = v24[3];
+      *(a1 + 48) = v13;
+    }
+  }
+
+  v14 = *a2;
+  v15 = _platform_strlen(*a2);
+  v16 = (*(a1 + 32) - 1) & std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v24, v14, v15);
+  v17 = *dyld3::OverflowSafeArray<unsigned int,4294967295ull>::operator[]((a1 + 16), v16);
+  if (v17 == -1)
+  {
+LABEL_21:
+    v20 = *(a1 + 72);
+    *dyld3::OverflowSafeArray<unsigned int,4294967295ull>::operator[]((a1 + 16), v16) = v20;
+    ++*(a1 + 8);
+    dyld3::OverflowSafeArray<dyld4::RuntimeState::HiddenCacheAddr,4294967295ull>::push_back((a1 + 56), a2);
+    v21 = *(a1 + 72);
+    if (!v21)
+    {
+      ___ZN5dyld412RuntimeState23appendInterposingTuplesEPKNS_6LoaderEPKhj_block_invoke_66_cold_1();
+    }
+
+    return *(a1 + 56) + 16 * v21 - 16;
+  }
+
+  else
+  {
+    v18 = 1;
+    while (1)
+    {
+      v19 = dyld3::OverflowSafeArray<dyld3::MapBase<void const*,BOOL,dyld4::HashPointer,dyld4::EqualPointer>::NodeImplT<false>,4294967295ull>::operator[]((a1 + 56), v17);
+      if (!_platform_strcmp(*v19, *a2))
+      {
+        return dyld3::OverflowSafeArray<dyld3::MapBase<void const*,BOOL,dyld4::HashPointer,dyld4::EqualPointer>::NodeImplT<false>,4294967295ull>::operator[]((a1 + 56), v17);
+      }
+
+      v16 = (*(a1 + 32) - 1) & (v16 + v18++);
+      v17 = *dyld3::OverflowSafeArray<unsigned int,4294967295ull>::operator[]((a1 + 16), v16);
+      if (v17 == -1)
+      {
+        goto LABEL_21;
+      }
+    }
+  }
+}
+
+uint64_t dyld3::MapBase<char const*,BOOL,dyld3::HashCString,dyld3::EqualCString>::find<char const*>(uint64_t a1, uint64_t *a2, void *a3, uint64_t a4, char **a5)
+{
+  if (!a3[2])
+  {
+    return *a3;
+  }
+
+  v8 = *a5;
+  v9 = _platform_strlen(*a5);
+  v10 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](&v22, v8, v9);
+  v11 = a2[2];
+  v12 = v11 - 1;
+  v13 = v10 & (v11 - 1);
+  if (v11 <= v13)
+  {
+LABEL_8:
+    dyld3::MultiMapBase<prebuilt_objc::ObjCStringKey,prebuilt_objc::ObjCObjectLocation,prebuilt_objc::HashObjCStringKey,prebuilt_objc::EqualObjCStringKey>::forEachEntry<prebuilt_objc::ObjCStringKey>();
+  }
+
+  v14 = *a2;
+  v15 = a3[2];
+  v16 = *a3;
+  v17 = 1;
+  v18 = *a5;
+  while (1)
+  {
+    v19 = *(v14 + 4 * v13);
+    if (v19 == -1)
+    {
+      return v16 + 16 * v15;
+    }
+
+    if (v15 <= v19)
+    {
+      ___ZN5dyld412RuntimeState23appendInterposingTuplesEPKNS_6LoaderEPKhj_block_invoke_2_cold_1();
+    }
+
+    if (!_platform_strcmp(*(v16 + 16 * v19), v18))
+    {
+      return v16 + 16 * v19;
+    }
+
+    v20 = v13 + v17++;
+    v13 = v20 & v12;
+    if (v11 <= (v20 & v12))
+    {
+      goto LABEL_8;
+    }
+  }
+}
+
+BOOL dyld4::SyscallDelegate::getCWD(dyld4::SyscallDelegate *this, char *a2)
+{
+  v3 = open(".", 0x100000, 0);
+  if (v3 == -1)
+  {
+    return 0;
+  }
+
+  v4 = v3;
+  v5 = fcntl(v3, 50, a2);
+  close(v4);
+  return v5 != -1;
+}
+
+uint64_t dyld4::SyscallDelegate::dtraceRegisterUserProbes(dyld4::SyscallDelegate *this, dof_ioctl_data *a2)
+{
+  result = open("/dev/dtracehelper", 2);
+  if (result != -1)
+  {
+    v4 = result;
+    v5 = a2;
+    ioctl(result, 0x80086804uLL, &v5);
+    return close(v4);
+  }
+
+  return result;
+}
+
+uint64_t dyld4::SyscallDelegate::dtraceUnregisterUserProbe(dyld4::SyscallDelegate *this, uint64_t a2)
+{
+  result = open("/dev/dtracehelper", 2, 0);
+  if (result != -1)
+  {
+    v4 = result;
+    ioctl(result, 0x20006802uLL, a2);
+
+    return close(v4);
+  }
+
+  return result;
+}
+
+uint64_t dyld4::SyscallDelegate::forEachInDirectory(int a1, char *a2, int a3, uint64_t a4)
+{
+  result = open(a2, 0x100000, 0);
+  if (result != -1)
+  {
+    v8 = result;
+    bzero(v15, 0x18uLL);
+    v15[0] = 5;
+    v16 = -2147483639;
+    v9 = getattrlistbulk(v8, v15, v18, 0x200uLL, 0);
+    if (v9 < 1)
+    {
+      return close(v8);
+    }
+
+    v10 = v9;
+    while (1)
+    {
+      v11 = v18;
+      do
+      {
+        v12 = v11 + 6;
+        v13 = v11[6];
+        if ((v11[1] & 8) == 0)
+        {
+          goto LABEL_15;
+        }
+
+        v14 = v11[8];
+        if (v14 == 2)
+        {
+          if (!a3)
+          {
+            goto LABEL_15;
+          }
+        }
+
+        else if (v14 != 1 || (a3 & 1) != 0)
+        {
+          goto LABEL_15;
+        }
+
+        v17[0] = 0;
+        if (dyld4::Utils::concatenatePaths(v17, a2, &stru_3C8.reloff) > 0x3FF || dyld4::Utils::concatenatePaths(v17, "/", &stru_3C8.reloff) > 0x3FF || dyld4::Utils::concatenatePaths(v17, v12 + v13, &stru_3C8.reloff) > 0x3FF)
+        {
+          return close(v8);
+        }
+
+        (*(a4 + 16))(a4, v17, v12 + v13);
+LABEL_15:
+        v11 = (v11 + *v11);
+        --v10;
+      }
+
+      while (v10);
+      v10 = getattrlistbulk(v8, v15, v18, 0x200uLL, 0);
+      if (v10 <= 0)
+      {
+        return close(v8);
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t dyld4::SyscallDelegate::getDylibInfo(int a1, dyld3 *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  Diagnostics::Diagnostics(v24);
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2000000000;
+  v23 = 0;
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 1174405120;
+  v15[2] = ___ZNK5dyld415SyscallDelegate12getDylibInfoEPKcN6mach_o8PlatformERKNS3_19GradedArchitecturesERjPc_block_invoke;
+  v15[3] = &unk_A1FB8;
+  v12 = *a3;
+  v15[5] = a4;
+  v15[6] = v12;
+  v16 = *(a3 + 2);
+  v17 = a2;
+  v18 = a5;
+  v19 = a6;
+  v15[4] = &v20;
+  dyld4::SyscallDelegate::withReadOnlyMappedFile(a1, v24, a2, 0, v15);
+  v13 = *(v21 + 24);
+  _Block_object_dispose(&v20, 8);
+  Diagnostics::~Diagnostics(v24);
+  return v13;
+}
+
+uint64_t ___ZNK5dyld415SyscallDelegate12getDylibInfoEPKcN6mach_o8PlatformERKNS3_19GradedArchitecturesERjPc_block_invoke(uint64_t a1, _DWORD *a2, unint64_t a3, uint64_t a4)
+{
+  v4 = a4;
+  v8 = mach_o::Universal::isUniversal(a2, a3);
+  if (v8)
+  {
+    __source = 0;
+    v16 = 0;
+    v17 = 0;
+    result = mach_o::Universal::bestSlice(v8, *(a1 + 40), v4, &__source);
+    if ((result & 1) == 0)
+    {
+      return result;
+    }
+
+    v10 = v16;
+    if (!v16)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    result = mach_o::Header::isMachO(a2, a3);
+    v10 = result;
+    if (!result)
+    {
+      return result;
+    }
+  }
+
+  result = dyld3::MachOFile::isDylib(v10);
+  if (result)
+  {
+    __source = *(a1 + 48);
+    LODWORD(v16) = *(a1 + 56);
+    v11 = *(a1 + 64);
+    if (v11)
+    {
+      v12 = _platform_strlen(*(a1 + 64));
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+
+    result = mach_o::Header::loadableIntoProcess(v10, &__source, v11, v12);
+    if (result)
+    {
+      __source = 0;
+      v13 = 0x10000;
+      v14 = 0x10000;
+      result = mach_o::Header::getDylibInstallName(v10, &__source, &v14, &v13);
+      if (result)
+      {
+        **(a1 + 72) = v13;
+        result = strlcpy(*(a1 + 80), __source, 0x400uLL);
+        *(*(*(a1 + 32) + 8) + 24) = 1;
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t __copy_helper_block_8_48c22_ZTSN6mach_o8PlatformE(uint64_t result, uint64_t a2)
+{
+  *(result + 48) = *(a2 + 48);
+  *(result + 56) = *(a2 + 56);
+  return result;
+}
+
+BOOL dyld4::SyscallDelegate::mkdirs(dyld4::SyscallDelegate *this, const char *__s)
+{
+  _platform_strlen(__s);
+  v3 = &v12[-((__chkstk_darwin() + 16) & 0xFFFFFFFFFFFFFFF0) - 8];
+  v4 = strcpy(v3, __s);
+  v5 = strrchr(v4, 47);
+  v7 = v5;
+  if (v5)
+  {
+    v5[1] = 0;
+    if (dyld3::stat(v3, v12, v6))
+    {
+      v8 = _platform_strchr(v3 + 1, 47);
+      if (v8)
+      {
+        v9 = v8;
+        do
+        {
+          *v9 = 0;
+          mkdir(v3, 0x1EDu);
+          *v9 = 47;
+          v9 = _platform_strchr(v9 + 1, 47);
+        }
+
+        while (v9);
+      }
+    }
+  }
+
+  return v7 != 0;
+}
+
+BOOL dyld4::SyscallDelegate::sandboxBlockedStat(dyld4::SyscallDelegate *this, const char *a2)
+{
+  v2 = a2;
+  v3 = getpid();
+  return sandbox_check(v3, "file-read-metadata", 1073741825, v4, v5, v6, v7, v8, v2) > 0;
+}
+
+uint64_t ___ZNK5dyld415SyscallDelegate15mapFileReadOnlyER11DiagnosticsPKcPiPmPNS_6FileIDEPbPc_block_invoke(uint64_t result, int a2, int a3, dyld3::MachOAnalyzer *a4, unint64_t a5)
+{
+  if (a2 == 16777228 && (a3 & 0xFFFFFF) == 2)
+  {
+    v6 = result;
+    result = dyld3::MachOAnalyzer::isOSBinary(a4, *(result + 48), a4 - *(result + 32));
+    if (result)
+    {
+      **(v6 + 40) = 1;
+    }
+  }
+
+  return result;
+}
+
+BOOL dyld4::SyscallDelegate::setFileAttribute(int a1, char *a2, const char *a3, uint64_t a4)
+{
+  if (chmod(a2, 0x180u))
+  {
+    return 0;
+  }
+
+  if (setxattr(a2, a3, *a4, *(a4 + 16), 0, 4))
+  {
+    v8 = setxattr(a2, a3, *a4, *(a4 + 16), 0, 0) == 0;
+  }
+
+  else
+  {
+    v8 = 1;
+  }
+
+  return !chmod(a2, 0x100u) && v8;
+}
+
+uint64_t dyld4::SyscallDelegate::saveFileWithAttribute(int a1, Diagnostics *a2, const std::__fs::filesystem::path *__source, const void *a4, size_t a5, const char *a6, uint64_t a7)
+{
+  strlcpy(__dst, __source, 0x400uLL);
+  v13 = getpid();
+  __sourcea[0] = 46;
+  v14 = (v13 >> 28) + 55;
+  if (v13 >> 29 < 5)
+  {
+    LOBYTE(v14) = (v13 >> 28) | 0x30;
+  }
+
+  __sourcea[1] = v14;
+  v15 = HIBYTE(v13) & 0xF;
+  if (v15 >= 0xA)
+  {
+    v16 = v15 + 55;
+  }
+
+  else
+  {
+    v16 = v15 | 0x30;
+  }
+
+  __sourcea[2] = v16;
+  if (BYTE2(v13) >= 0xA0u)
+  {
+    v17 = ((v13 >> 20) & 0xF) + 55;
+  }
+
+  else
+  {
+    v17 = (v13 >> 20) & 0xF | 0x30;
+  }
+
+  __sourcea[3] = v17;
+  if ((HIWORD(v13) & 0xF) >= 0xAu)
+  {
+    v18 = (BYTE2(v13) & 0xF) + 55;
+  }
+
+  else
+  {
+    v18 = BYTE2(v13) & 0xF | 0x30;
+  }
+
+  __sourcea[4] = v18;
+  if (BYTE1(v13) >= 0xA0u)
+  {
+    v19 = (v13 >> 12) + 55;
+  }
+
+  else
+  {
+    v19 = (v13 >> 12) | 0x30;
+  }
+
+  __sourcea[5] = v19;
+  v20 = (v13 >> 8) & 0xF;
+  if (v20 >= 0xA)
+  {
+    v21 = v20 + 55;
+  }
+
+  else
+  {
+    v21 = v20 | 0x30;
+  }
+
+  __sourcea[6] = v21;
+  if (v13 >= 0xA0u)
+  {
+    v22 = (v13 >> 4) + 55;
+  }
+
+  else
+  {
+    v22 = (v13 >> 4) | 0x30;
+  }
+
+  __sourcea[7] = v22;
+  if ((v13 & 0xF) >= 0xA)
+  {
+    v23 = (v13 & 0xF) + 55;
+  }
+
+  else
+  {
+    v23 = v13 & 0xF | 0x30;
+  }
+
+  __sourcea[8] = v23;
+  __sourcea[9] = 0;
+  strlcat(__dst, __sourcea, 0x400uLL);
+  v24 = open_dprotected_np(__dst, 513, 4, 0, 384);
+  if (v24 == -1)
+  {
+    __error();
+    Diagnostics::error(a2, "open/open_dprotected_np(%s) failed, errno=%d");
+  }
+
+  else
+  {
+    v25 = v24;
+    if (ftruncate(v24, a5) == -1)
+    {
+      __error();
+      Diagnostics::error(a2, "ftruncate(%lu) failed, errno=%d");
+    }
+
+    else if (write(v25, a4, a5) == a5)
+    {
+      if (fsetxattr(v25, a6, *a7, *(a7 + 16), 0, 0) == -1)
+      {
+        __error();
+        Diagnostics::error(a2, "fsetxattr(%s) failed, errno=%d");
+      }
+
+      else if (fchmod(v25, 0x100u) == -1)
+      {
+        __error();
+        Diagnostics::error(a2, "fchmod(S_IRUSR) failed, errno=%d");
+      }
+
+      else if (close(v25) == -1)
+      {
+        __error();
+        Diagnostics::error(a2, "close() failed, errno=%d");
+      }
+
+      else
+      {
+        rename(__dst, __source, v26);
+        if (v27 != -1)
+        {
+          return 1;
+        }
+
+        __error();
+        Diagnostics::error(a2, "rename(%s, %s) failed, errno=%d");
+      }
+    }
+
+    else
+    {
+      __error();
+      Diagnostics::error(a2, "write() failed, errno=%d");
+    }
+  }
+
+  return 0;
+}
+
+BOOL dyld4::SyscallDelegate::sandboxBlockedMmap(dyld4::SyscallDelegate *this, const char *a2)
+{
+  v2 = a2;
+  v3 = getpid();
+  return sandbox_check(v3, "file-map-executable", 1073741825, v4, v5, v6, v7, v8, v2) > 0;
+}
+
+uint64_t PatchTable::patchableExportCount(int **this, unsigned int a2)
+{
+  v2 = *this;
+  v3 = **this;
+  if ((v3 == 4 || v3 == 3 || v3 == 2) && *(v2 + 2) > a2)
+  {
+    return *(&v2[4 * a2 + 3] + *(v2 + 1) - this[1]);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+BOOL PatchTableV2::imageHasClient(PatchTableV2 *this, unsigned int a2, int a3)
+{
+  v3 = *this;
+  if (*(*this + 16) <= a2)
+  {
+    return 0;
+  }
+
+  v4 = *(this + 1);
+  v5 = (v3 + *(v3 + 8) - v4 + 16 * a2);
+  v6 = v5[1];
+  if (!v6)
+  {
+    return 0;
+  }
+
+  v7 = (v3 + *(v3 + 40) - v4 + 12 * *v5);
+  v8 = 12 * v6 - 12;
+  do
+  {
+    v9 = *v7;
+    v7 += 3;
+    result = v9 == a3;
+    v11 = v9 == a3 || v8 == 0;
+    v8 -= 12;
+  }
+
+  while (!v11);
+  return result;
+}
+
+_DWORD **PatchTable::forEachPatchableExport(_DWORD **result, unsigned int a2, uint64_t a3)
+{
+  if ((**result - 2) <= 2)
+  {
+    return PatchTableV2::forEachPatchableExport(result, a2, a3);
+  }
+
+  return result;
+}
+
+void *PatchTableV2::forEachPatchableExport(void *result, unsigned int a2, uint64_t a3)
+{
+  v3 = *result;
+  if (*(*result + 16) > a2)
+  {
+    v4 = result[1];
+    v5 = &v3[2 * a2] + v3[1] - v4;
+    v6 = *(v5 + 12);
+    if (v6)
+    {
+      v8 = v3[12];
+      v9 = v3 + v3[11] - v4;
+      v10 = v3 + v3[3] + 8 * *(v5 + 8) - v4 + 4;
+      v11 = 8 * v6;
+      v12 = v10;
+      do
+      {
+        v14 = *v12;
+        v12 += 2;
+        v13 = v14;
+        v15 = v14 & 0xFFFFFFF;
+        if (v8 < v15)
+        {
+          abort();
+        }
+
+        result = (*(a3 + 16))(a3, *(v10 - 4), &v9[v15], v13 >> 28);
+        v10 = v12;
+        v11 -= 8;
+      }
+
+      while (v11);
+    }
+  }
+
+  return result;
+}
+
+int **PatchTable::forEachPatchableUseOfExportInImage(int **result, unsigned int a2, int a3, int a4, uint64_t a5)
+{
+  v5 = **result;
+  if (v5 == 4)
+  {
+    return PatchTableV4::forEachPatchableUseOfExportInImage(result, a2, a3, a4, a5);
+  }
+
+  if (v5 == 3 || v5 == 2)
+  {
+    return PatchTableV2::forEachPatchableUseOfExportInImage(result, a2, a3, a4, a5);
+  }
+
+  return result;
+}
+
+char *PatchTableV2::forEachPatchableUseOfExportInImage(PatchTableV2 *a1, unsigned int a2, int a3, int a4, uint64_t a5)
+{
+  v7 = *a1;
+  v8 = *(a1 + 1);
+  v9 = *(*a1 + 24);
+  v10 = *(*a1 + 72);
+  result = PatchTableV2::clientsExportsForImageAndClient(a1, a2, a4);
+  if (v12)
+  {
+    v13 = (result + 4);
+    v14 = 12 * v12;
+    while (*(v7 + v9 - v8 + 8 * *(v13 - 1)) != a3)
+    {
+      v13 += 3;
+      v14 -= 12;
+      if (!v14)
+      {
+        return result;
+      }
+    }
+
+    v15 = v13[1];
+    if (v15)
+    {
+      v16 = (v10 + 8 * *v13 - v8 + v7 + 4);
+      v17 = 8 * v15;
+      do
+      {
+        dyld3::MachOFile::PointerMetaData::PointerMetaData(&v19);
+        v18 = vandq_s8(vshlq_u32(vdupq_n_s32(*v16), xmmword_8C9D0), xmmword_8C9E0);
+        *v18.i8 = vorr_s8(*v18.i8, *&vextq_s8(v18, v18, 8uLL));
+        v19 = v18.i32[0] | v19 & 0xF0000000 | v18.i32[1] | HIWORD(*v16);
+        result = (*(a5 + 16))(a5, *(v16 - 1));
+        v16 += 2;
+        v17 -= 8;
+      }
+
+      while (v17);
+    }
+  }
+
+  return result;
+}
+
+char *PatchTableV4::forEachPatchableUseOfExportInImage(PatchTableV2 *a1, unsigned int a2, int a3, int a4, uint64_t a5)
+{
+  v7 = *a1;
+  v8 = *(a1 + 1);
+  v9 = *(*a1 + 24);
+  v10 = *(*a1 + 72);
+  result = PatchTableV2::clientsExportsForImageAndClient(a1, a2, a4);
+  if (v12)
+  {
+    v13 = (result + 4);
+    v14 = 12 * v12;
+    while (*(v7 + v9 - v8 + 8 * *(v13 - 1)) != a3)
+    {
+      v13 += 3;
+      v14 -= 12;
+      if (!v14)
+      {
+        return result;
+      }
+    }
+
+    v15 = v13[1];
+    if (v15)
+    {
+      v16 = (v7 + v10 - v8 + 8 * *v13);
+      v17 = &v16[2 * v15];
+      do
+      {
+        dyld3::MachOFile::PointerMetaData::PointerMetaData(&v21);
+        dyld_cache_patchable_location_v4::getPMD(v16, &v21);
+        v18 = *v16;
+        v19 = v16[1];
+        v16 += 2;
+        if (v19)
+        {
+          v20 = (v19 >> 9) & 0x1F;
+        }
+
+        else
+        {
+          v20 = v19 >> 9;
+        }
+
+        result = (*(a5 + 16))(a5, v18, v21, v20, (v19 >> 8) & 1);
+      }
+
+      while (v16 != v17);
+    }
+  }
+
+  return result;
+}
+
+int **PatchTable::forEachPatchableCacheUseOfExport(int **result, unsigned int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v6 = **result;
+  if (v6 == 4)
+  {
+    return PatchTableV4::forEachPatchableCacheUseOfExport(result, a2, a3, a4, a5, a6);
+  }
+
+  if (v6 == 3 || v6 == 2)
+  {
+    return PatchTableV2::forEachPatchableCacheUseOfExport(result, a2, a3, a4, a5, a6);
+  }
+
+  return result;
 }

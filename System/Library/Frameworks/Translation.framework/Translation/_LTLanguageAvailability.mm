@@ -206,29 +206,29 @@
 
 - (id)_uniqueLocalesFromSupportedPairs:(id)pairs
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   pairsCopy = pairs;
   v4 = [MEMORY[0x277CBEB58] set];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = pairsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         sourceLocale = [v10 sourceLocale];
         [v4 addObject:sourceLocale];
 
@@ -236,15 +236,13 @@
         [v4 addObject:targetLocale];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
 
   allObjects = [v4 allObjects];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return allObjects;
 }
@@ -420,26 +418,27 @@
   checkerCopy = checker;
   configurationCopy = configuration;
   completionCopy = completion;
+  v13 = completionCopy;
   if (step == 2)
   {
-    v14 = _LTOSLogTextAPI();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = _LTOSLogTextAPI(completionCopy, v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [_LTLanguageAvailability preflightChecker:continueCheckingFromStep:forConfiguration:completion:];
     }
 
-    v15 = MEMORY[0x277CCA9B8];
+    v17 = MEMORY[0x277CCA9B8];
     effectiveSourceLocale = [configurationCopy effectiveSourceLocale];
     effectiveTargetLocale = [configurationCopy effectiveTargetLocale];
-    v13 = [v15 lt_unsupportedPairingErrorWithSource:effectiveSourceLocale target:effectiveTargetLocale];
+    v15 = [v17 lt_unsupportedPairingErrorWithSource:effectiveSourceLocale target:effectiveTargetLocale];
 
-    if (v13)
+    if (v15)
     {
       goto LABEL_6;
     }
 
 LABEL_10:
-    completionCopy[2](completionCopy, configurationCopy, 0);
+    (v13)[2](v13, configurationCopy, 0);
     goto LABEL_11;
   }
 
@@ -448,20 +447,20 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v12 = _LTOSLogTextAPI();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v14 = _LTOSLogTextAPI(completionCopy, v12);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     [_LTLanguageAvailability preflightChecker:continueCheckingFromStep:forConfiguration:completion:];
   }
 
-  v13 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TranslationErrorDomain" code:21 userInfo:0];
-  if (!v13)
+  v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TranslationErrorDomain" code:21 userInfo:0];
+  if (!v15)
   {
     goto LABEL_10;
   }
 
 LABEL_6:
-  (completionCopy)[2](completionCopy, 0, v13);
+  (v13)[2](v13, 0, v15);
 
 LABEL_11:
 }

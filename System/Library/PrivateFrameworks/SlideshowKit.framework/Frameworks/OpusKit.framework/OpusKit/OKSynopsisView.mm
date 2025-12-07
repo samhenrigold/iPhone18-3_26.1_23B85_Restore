@@ -365,7 +365,7 @@ uint64_t __86__OKSynopsisView_animateView_forKeyPath_fromValue_toValue_delay_dur
   layer = [(UICollectionView *)self->_collectionView layer];
   if (layer)
   {
-    [layer transform];
+    objc_msgSend_transform(layer);
   }
 
   else

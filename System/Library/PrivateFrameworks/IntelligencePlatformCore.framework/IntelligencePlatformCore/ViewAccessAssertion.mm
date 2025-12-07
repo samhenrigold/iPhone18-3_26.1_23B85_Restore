@@ -18,14 +18,13 @@
 {
   v2 = sub_1C4EF98F8();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x1EEE9AC00](v2);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1C4BA95AC(v6);
-  v7 = sub_1C4EF9868();
-  (*(v3 + 8))(v6, v2);
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1C4BA95AC(v5);
+  v6 = sub_1C4EF9868();
+  (*(v3 + 8))(v5, v2);
 
-  return v7;
+  return v6;
 }
 
 - (NSString)viewArtifactTableName

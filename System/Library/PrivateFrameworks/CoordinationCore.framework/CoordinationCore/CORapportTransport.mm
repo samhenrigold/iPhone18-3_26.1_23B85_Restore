@@ -139,17 +139,17 @@
 
 - (void)setAsSink:(id)sink
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   sinkCopy = sink;
   v5 = COCoreLogForCategory(17);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     shortDescription = [(CORapportTransport *)self shortDescription];
-    v14 = 138543618;
-    v15 = shortDescription;
-    v16 = 2112;
-    v17 = sinkCopy;
-    _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ setting sink for transport %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = shortDescription;
+    v15 = 2112;
+    v16 = sinkCopy;
+    _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ setting sink for transport %@", &v13, 0x16u);
   }
 
   record = [(CORapportTransport *)self record];
@@ -167,23 +167,21 @@
     sinks = [(CORapportTransport *)self sinks];
     [sinks setObject:sinkCopy forKey:iDSIdentifier];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAsSink:(id)sink
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   sinkCopy = sink;
   v5 = COCoreLogForCategory(17);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     shortDescription = [(CORapportTransport *)self shortDescription];
-    v14 = 138543618;
-    v15 = shortDescription;
-    v16 = 2112;
-    v17 = sinkCopy;
-    _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ removing sink for transport %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = shortDescription;
+    v15 = 2112;
+    v16 = sinkCopy;
+    _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ removing sink for transport %@", &v13, 0x16u);
   }
 
   record = [(CORapportTransport *)self record];
@@ -201,8 +199,6 @@
     sinks = [(CORapportTransport *)self sinks];
     [sinks removeObjectForKey:iDSIdentifier];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)supportsLeaderElection
@@ -215,12 +211,11 @@
 
 - (void)sourceHasBeenActivated
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   record = [(CORapportTransport *)self record];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v3 = *MEMORY[0x277D85DE8];
   }
 
   else
@@ -233,13 +228,13 @@
 
       if (activationHandler)
       {
-        v6 = COCoreLogForCategory(17);
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v5 = COCoreLogForCategory(17);
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
           shortDescription = [(CORapportTransport *)self shortDescription];
           *buf = 138543362;
-          v12 = shortDescription;
-          _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ completing deferred activation", buf, 0xCu);
+          v10 = shortDescription;
+          _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ completing deferred activation", buf, 0xCu);
         }
 
         activationHandler2 = [(CORapportTransport *)self activationHandler];
@@ -247,14 +242,12 @@
         [(CORapportTransport *)self setActivationHandler:0];
       }
     }
-
-    v9 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)activateWithCompletion:(id)completion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   executionContext = [(CORapportTransport *)self executionContext];
   [executionContext assertDispatchQueue];
@@ -266,7 +259,7 @@
     {
       shortDescription = [(CORapportTransport *)self shortDescription];
       *buf = 138543362;
-      v32 = shortDescription;
+      v31 = shortDescription;
       _os_log_impl(&dword_244378000, sinks, OS_LOG_TYPE_DEFAULT, "%{public}@ Rapport Transport is already active", buf, 0xCu);
     }
   }
@@ -289,32 +282,32 @@
       }
 
       completionCopy[2](completionCopy, 0);
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
       v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       sinks = [(CORapportTransport *)self sinks];
-      v12 = [sinks countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v12 = [sinks countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v12)
       {
-        v13 = *v27;
+        v13 = *v26;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v27 != v13)
+            if (*v26 != v13)
             {
               objc_enumerationMutation(sinks);
             }
 
-            v15 = *(*(&v26 + 1) + 8 * i);
+            v15 = *(*(&v25 + 1) + 8 * i);
             sinks2 = [(CORapportTransport *)self sinks];
             v17 = [sinks2 objectForKey:v15];
 
             [v17 sourceHasBeenActivated];
           }
 
-          v12 = [sinks countByEnumeratingWithState:&v26 objects:v30 count:16];
+          v12 = [sinks countByEnumeratingWithState:&v25 objects:v29 count:16];
         }
 
         while (v12);
@@ -329,15 +322,15 @@
       {
         objc_initWeak(buf, self);
         client = [(CORapportTransport *)self client];
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __45__CORapportTransport_activateWithCompletion___block_invoke;
-        v23[3] = &unk_278E15C10;
-        objc_copyWeak(&v25, buf);
-        v24 = completionCopy;
-        [client activateWithCompletion:v23];
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __45__CORapportTransport_activateWithCompletion___block_invoke;
+        v22[3] = &unk_278E15C10;
+        objc_copyWeak(&v24, buf);
+        v23 = completionCopy;
+        [client activateWithCompletion:v22];
 
-        objc_destroyWeak(&v25);
+        objc_destroyWeak(&v24);
         objc_destroyWeak(buf);
       }
 
@@ -348,7 +341,7 @@
         {
           shortDescription2 = [(CORapportTransport *)self shortDescription];
           *buf = 138543362;
-          v32 = shortDescription2;
+          v31 = shortDescription2;
           _os_log_impl(&dword_244378000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@ deferring activation since source transport is not yet active", buf, 0xCu);
         }
 
@@ -356,8 +349,6 @@
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __45__CORapportTransport_activateWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -384,7 +375,7 @@ void __45__CORapportTransport_activateWithCompletion___block_invoke(uint64_t a1,
 
 void __45__CORapportTransport_activateWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
@@ -403,22 +394,19 @@ void __45__CORapportTransport_activateWithCompletion___block_invoke_2(uint64_t a
       {
         v6 = [WeakRetained shortDescription];
         v7 = [WeakRetained client];
-        v10 = 138543618;
-        v11 = v6;
-        v12 = 2112;
-        v13 = v7;
-        _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ activated transport with client %@", &v10, 0x16u);
+        v8 = 138543618;
+        v9 = v6;
+        v10 = 2112;
+        v11 = v7;
+        _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ activated transport with client %@", &v8, 0x16u);
       }
 
       WeakRetained[8] = 1;
-      v8 = *(a1 + 32);
     }
 
     (*(*(a1 + 48) + 16))();
     [WeakRetained _handleOnDemanNodeCreationRequest];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateWithError:(id)error
@@ -734,7 +722,7 @@ void __58__CORapportTransport__setUpRegistrationCompletionHandlers__block_invoke
 
 void __58__CORapportTransport__setUpRegistrationCompletionHandlers__block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) registrationCompletions];
   v3 = [v2 objectForKey:*(a1 + 40)];
 
@@ -745,17 +733,15 @@ void __58__CORapportTransport__setUpRegistrationCompletionHandlers__block_invoke
     {
       v5 = [*(a1 + 32) shortDescription];
       v6 = *(a1 + 40);
-      v8 = 138543618;
-      v9 = v5;
-      v10 = 2114;
-      v11 = v6;
-      _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ successfully registered request ID %{public}@", &v8, 0x16u);
+      v7 = 138543618;
+      v8 = v5;
+      v9 = 2114;
+      v10 = v6;
+      _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ successfully registered request ID %{public}@", &v7, 0x16u);
     }
 
     v3[2](v3);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __58__CORapportTransport__setUpRegistrationCompletionHandlers__block_invoke_99(uint64_t a1, void *a2)
@@ -778,7 +764,7 @@ void __58__CORapportTransport__setUpRegistrationCompletionHandlers__block_invoke
 
 void __58__CORapportTransport__setUpRegistrationCompletionHandlers__block_invoke_2_100(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) registrationCompletions];
   v3 = [v2 objectForKey:*(a1 + 40)];
 
@@ -789,22 +775,20 @@ void __58__CORapportTransport__setUpRegistrationCompletionHandlers__block_invoke
     {
       v5 = [*(a1 + 32) shortDescription];
       v6 = *(a1 + 40);
-      v8 = 138543618;
-      v9 = v5;
-      v10 = 2114;
-      v11 = v6;
-      _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ successfully registered event ID %{public}@", &v8, 0x16u);
+      v7 = 138543618;
+      v8 = v5;
+      v9 = 2114;
+      v10 = v6;
+      _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ successfully registered event ID %{public}@", &v7, 0x16u);
     }
 
     v3[2](v3);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendCommand:(id)command withCompletionHandler:(id)handler
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   handlerCopy = handler;
   executionContext = [(CORapportTransport *)self executionContext];
@@ -816,9 +800,9 @@ void __58__CORapportTransport__setUpRegistrationCompletionHandlers__block_invoke
   {
     shortDescription = [(CORapportTransport *)self shortDescription];
     *buf = 138543618;
-    v32 = shortDescription;
-    v33 = 2112;
-    v34 = v9;
+    v31 = shortDescription;
+    v32 = 2112;
+    v33 = v9;
     _os_log_impl(&dword_244378000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ sending %@", buf, 0x16u);
   }
 
@@ -838,9 +822,9 @@ void __58__CORapportTransport__setUpRegistrationCompletionHandlers__block_invoke
     {
       shortDescription2 = [(CORapportTransport *)self shortDescription];
       *buf = 138543618;
-      v32 = shortDescription2;
-      v33 = 2114;
-      v34 = commandCopy;
+      v31 = shortDescription2;
+      v32 = 2114;
+      v33 = commandCopy;
       _os_log_impl(&dword_244378000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ Got a command %{public}@", buf, 0x16u);
     }
 
@@ -858,29 +842,27 @@ void __58__CORapportTransport__setUpRegistrationCompletionHandlers__block_invoke
     executionContext3 = [(CORapportTransport *)self executionContext];
     constituentForMe2 = [executionContext3 constituentForMe];
 
-    v29[0] = @"source";
+    v28[0] = @"source";
     v21 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:constituentForMe2 requiringSecureCoding:1 error:0];
-    v29[1] = @"command";
-    v30[0] = v21;
-    v30[1] = delegate;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
+    v28[1] = @"command";
+    v29[0] = v21;
+    v29[1] = delegate;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
 
     objc_initWeak(buf, self);
     client = [(CORapportTransport *)self client];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __56__CORapportTransport_sendCommand_withCompletionHandler___block_invoke;
-    v25[3] = &unk_278E15D28;
-    objc_copyWeak(&v28, buf);
-    v26 = v9;
-    v27 = handlerCopy;
-    [client sendEventID:v26 event:v22 options:0 completion:v25];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __56__CORapportTransport_sendCommand_withCompletionHandler___block_invoke;
+    v24[3] = &unk_278E15D28;
+    objc_copyWeak(&v27, buf);
+    v25 = v9;
+    v26 = handlerCopy;
+    [client sendEventID:v25 event:v22 options:0 completion:v24];
 
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(buf);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __56__CORapportTransport_sendCommand_withCompletionHandler___block_invoke(id *a1, void *a2)
@@ -911,13 +893,12 @@ uint64_t __56__CORapportTransport_sendCommand_withCompletionHandler___block_invo
     __56__CORapportTransport_sendCommand_withCompletionHandler___block_invoke_2_cold_1(a1);
   }
 
-  v3 = *(a1 + 48);
   return (*(*(a1 + 56) + 16))();
 }
 
 - (void)sendRequest:(id)request withResponseHandler:(id)handler
 {
-  v53[2] = *MEMORY[0x277D85DE8];
+  v52[2] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   handlerCopy = handler;
   executionContext = [(CORapportTransport *)self executionContext];
@@ -939,25 +920,25 @@ uint64_t __56__CORapportTransport_sendCommand_withCompletionHandler___block_invo
     {
       shortDescription = [(CORapportTransport *)self shortDescription];
       *buf = 138543618;
-      v47 = shortDescription;
-      v48 = 2114;
-      v49 = requestCopy;
+      v46 = shortDescription;
+      v47 = 2114;
+      v48 = requestCopy;
       _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ Got a request %{public}@", buf, 0x16u);
     }
 
     delegate = [(CORapportTransport *)self delegate];
     if (objc_opt_respondsToSelector())
     {
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __54__CORapportTransport_sendRequest_withResponseHandler___block_invoke;
-      v41[3] = &unk_278E15D78;
-      objc_copyWeak(&v44, &location);
-      v43 = handlerCopy;
-      v42 = requestCopy;
-      [delegate transport:self didReceiveRequest:v42 callback:v41];
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __54__CORapportTransport_sendRequest_withResponseHandler___block_invoke;
+      v40[3] = &unk_278E15D78;
+      objc_copyWeak(&v43, &location);
+      v42 = handlerCopy;
+      v41 = requestCopy;
+      [delegate transport:self didReceiveRequest:v41 callback:v40];
 
-      objc_destroyWeak(&v44);
+      objc_destroyWeak(&v43);
     }
   }
 
@@ -967,12 +948,12 @@ uint64_t __56__CORapportTransport_sendCommand_withCompletionHandler___block_invo
     executionContext3 = [(CORapportTransport *)self executionContext];
     constituentForMe2 = [executionContext3 constituentForMe];
 
-    v52[0] = @"source";
+    v51[0] = @"source";
     v15 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:constituentForMe2 requiringSecureCoding:1 error:0];
-    v52[1] = @"command";
-    v53[0] = v15;
-    v53[1] = delegate;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:2];
+    v51[1] = @"command";
+    v52[0] = v15;
+    v52[1] = delegate;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:2];
 
     v17 = [(CORapportTransport *)self _eventIDForClass:objc_opt_class()];
     client = [(CORapportTransport *)self client];
@@ -994,9 +975,9 @@ uint64_t __56__CORapportTransport_sendCommand_withCompletionHandler___block_invo
       {
         shortDescription2 = [(CORapportTransport *)self shortDescription];
         *buf = 138543618;
-        v47 = shortDescription2;
-        v48 = 2114;
-        v49 = v17;
+        v46 = shortDescription2;
+        v47 = 2114;
+        v48 = v17;
         _os_log_impl(&dword_244378000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@ requesting %{public}@", buf, 0x16u);
       }
 
@@ -1014,11 +995,11 @@ uint64_t __56__CORapportTransport_sendCommand_withCompletionHandler___block_invo
       {
         shortDescription3 = [(CORapportTransport *)self shortDescription];
         *buf = 138543874;
-        v47 = shortDescription3;
-        v48 = 2114;
-        v49 = v17;
-        v50 = 2048;
-        v51 = v20;
+        v46 = shortDescription3;
+        v47 = 2114;
+        v48 = v17;
+        v49 = 2048;
+        v50 = v20;
         _os_log_impl(&dword_244378000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@ requesting %{public}@ with timeout of %g", buf, 0x20u);
       }
     }
@@ -1034,23 +1015,22 @@ uint64_t __56__CORapportTransport_sendCommand_withCompletionHandler___block_invo
     }
 
     v31 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __54__CORapportTransport_sendRequest_withResponseHandler___block_invoke_109;
-    v36[3] = &unk_278E15DC8;
-    objc_copyWeak(v40, &location);
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __54__CORapportTransport_sendRequest_withResponseHandler___block_invoke_109;
+    v35[3] = &unk_278E15DC8;
+    objc_copyWeak(v39, &location);
     v32 = v30;
-    v37 = v32;
-    v38 = requestCopy;
-    v39 = handlerCopy;
-    v40[1] = v31;
-    [client sendRequestID:v17 request:v16 options:v23 responseHandler:v36];
+    v36 = v32;
+    v37 = requestCopy;
+    v38 = handlerCopy;
+    v39[1] = v31;
+    [client sendRequestID:v17 request:v16 options:v23 responseHandler:v35];
 
-    objc_destroyWeak(v40);
+    objc_destroyWeak(v39);
   }
 
   objc_destroyWeak(&location);
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __54__CORapportTransport_sendRequest_withResponseHandler___block_invoke(id *a1, void *a2, void *a3)
@@ -1106,34 +1086,31 @@ uint64_t __54__CORapportTransport_sendRequest_withResponseHandler___block_invoke
 {
   if (a1[4])
   {
-    a1[5];
     v2 = xpc_dictionary_create(0, 0, 0);
     v3 = v2;
     if (v2)
     {
       xpc_dictionary_set_uint64(v2, "transport_type", 1uLL);
-      v4 = a1[4];
       nw_activity_submit_metrics();
     }
 
-    v5 = a1[4];
     nw_activity_complete_with_reason();
   }
 
-  v6 = a1[7];
-  v7 = a1[8];
-  v9 = a1[5];
-  v8 = a1[6];
-  v10 = a1[9];
-  v11 = a1[10];
-  v12 = a1[11];
+  v4 = a1[7];
+  v5 = a1[8];
+  v7 = a1[5];
+  v6 = a1[6];
+  v8 = a1[9];
+  v9 = a1[10];
+  v10 = a1[11];
 
-  return [v8 handleResponseToRequest:v6 rapportRepresentation:v7 options:v10 error:v9 responseHandler:v11 at:v12];
+  return [v6 handleResponseToRequest:v4 rapportRepresentation:v5 options:v8 error:v7 responseHandler:v9 at:v10];
 }
 
 - (void)_handleOnDemanNodeCreationRequest
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   executionContext = [(CORapportTransport *)self executionContext];
   [executionContext assertDispatchQueue];
 
@@ -1149,9 +1126,9 @@ uint64_t __54__CORapportTransport_sendRequest_withResponseHandler___block_invoke
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         shortDescription = [(CORapportTransport *)self shortDescription];
-        v14 = 138543362;
-        v15 = shortDescription;
-        _os_log_impl(&dword_244378000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Found an outstanding on demand node creation request", &v14, 0xCu);
+        v13 = 138543362;
+        v14 = shortDescription;
+        _os_log_impl(&dword_244378000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Found an outstanding on demand node creation request", &v13, 0xCu);
       }
 
       identifier = [v6 identifier];
@@ -1161,8 +1138,6 @@ uint64_t __54__CORapportTransport_sendRequest_withResponseHandler___block_invoke
       -[CORapportTransport handleRequestIdentifier:rapportRepresentation:options:responseHandler:at:](self, "handleRequestIdentifier:rapportRepresentation:options:responseHandler:at:", identifier, data, options, handler, [v6 timestamp]);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_commandForIdentifier:(id)identifier fromData:(id)data result:(id)result
@@ -1221,7 +1196,7 @@ LABEL_11:
 
 - (void)handleRequestFromUnknownNodeWithIdentifier:(id)identifier rapportRepresentation:(id)representation options:(id)options responseHandler:(id)handler at:(unint64_t)at
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   representationCopy = representation;
   optionsCopy = options;
@@ -1229,52 +1204,52 @@ LABEL_11:
   executionContext = [(CORapportTransport *)self executionContext];
   [executionContext assertDispatchQueue];
 
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x3032000000;
-  v49 = __Block_byref_object_copy__4;
-  v50 = __Block_byref_object_dispose__4;
-  v51 = 0;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x3032000000;
-  v43 = __Block_byref_object_copy__4;
-  v44 = __Block_byref_object_dispose__4;
   v45 = 0;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = __Block_byref_object_copy__4;
-  v38 = __Block_byref_object_dispose__4;
+  v46 = &v45;
+  v47 = 0x3032000000;
+  v48 = __Block_byref_object_copy__4;
+  v49 = __Block_byref_object_dispose__4;
+  v50 = 0;
   v39 = 0;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__4;
-  v32 = __Block_byref_object_dispose__4;
+  v40 = &v39;
+  v41 = 0x3032000000;
+  v42 = __Block_byref_object_copy__4;
+  v43 = __Block_byref_object_dispose__4;
+  v44 = 0;
   v33 = 0;
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __114__CORapportTransport_handleRequestFromUnknownNodeWithIdentifier_rapportRepresentation_options_responseHandler_at___block_invoke;
-  v27[3] = &unk_278E15DF0;
-  v27[4] = &v28;
-  v27[5] = &v34;
-  [CORapportTransport _commandPayloadFromRapportRepresentation:representationCopy result:v27];
-  v17 = v35[5];
+  v34 = &v33;
+  v35 = 0x3032000000;
+  v36 = __Block_byref_object_copy__4;
+  v37 = __Block_byref_object_dispose__4;
+  v38 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__4;
+  v31 = __Block_byref_object_dispose__4;
+  v32 = 0;
   v26[0] = MEMORY[0x277D85DD0];
   v26[1] = 3221225472;
-  v26[2] = __114__CORapportTransport_handleRequestFromUnknownNodeWithIdentifier_rapportRepresentation_options_responseHandler_at___block_invoke_2;
-  v26[3] = &unk_278E15E18;
-  v26[4] = &v46;
-  v26[5] = &v40;
-  [(CORapportTransport *)self _commandForIdentifier:identifierCopy fromData:v17 result:v26];
-  if (v29[5])
+  v26[2] = __114__CORapportTransport_handleRequestFromUnknownNodeWithIdentifier_rapportRepresentation_options_responseHandler_at___block_invoke;
+  v26[3] = &unk_278E15DF0;
+  v26[4] = &v27;
+  v26[5] = &v33;
+  [CORapportTransport _commandPayloadFromRapportRepresentation:representationCopy result:v26];
+  v17 = v34[5];
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __114__CORapportTransport_handleRequestFromUnknownNodeWithIdentifier_rapportRepresentation_options_responseHandler_at___block_invoke_2;
+  v25[3] = &unk_278E15E18;
+  v25[4] = &v45;
+  v25[5] = &v39;
+  [(CORapportTransport *)self _commandForIdentifier:identifierCopy fromData:v17 result:v25];
+  if (v28[5])
   {
-    [v41[5] _setSendingConstituent:?];
+    [v40[5] _setSendingConstituent:?];
   }
 
-  [v41[5] _setRapportOptions:optionsCopy];
-  if (v47[5])
+  [v40[5] _setRapportOptions:optionsCopy];
+  if (v46[5])
   {
     (*(handlerCopy + 2))(handlerCopy, 0, 0);
   }
@@ -1289,32 +1264,31 @@ LABEL_11:
       {
         shortDescription = [(CORapportTransport *)self shortDescription];
         *buf = 138543362;
-        v53 = shortDescription;
+        v52 = shortDescription;
         _os_log_impl(&dword_244378000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ received request for unknown node. Informing delegate", buf, 0xCu);
       }
 
       v21 = [COUnhandledRapportRequest alloc];
-      v22 = [(COUnhandledRapportRequest *)v21 initWithRequest:v41[5] identifier:identifierCopy data:representationCopy options:optionsCopy handler:handlerCopy at:at];
+      v22 = [(COUnhandledRapportRequest *)v21 initWithRequest:v40[5] identifier:identifierCopy data:representationCopy options:optionsCopy handler:handlerCopy at:at];
       [delegate transport:self didReceiveUnhandledRequest:v22];
     }
 
     else
     {
       v23 = [MEMORY[0x277CCA9B8] errorWithDomain:@"COMeshNodeErrorDomain" code:-4001 userInfo:0];
-      v24 = v47[5];
-      v47[5] = v23;
+      v24 = v46[5];
+      v46[5] = v23;
 
-      (*(handlerCopy + 2))(handlerCopy, 0, 0, v47[5]);
+      (*(handlerCopy + 2))(handlerCopy, 0, 0, v46[5]);
     }
   }
 
-  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v27, 8);
 
-  _Block_object_dispose(&v34, 8);
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v39, 8);
 
-  _Block_object_dispose(&v46, 8);
-  v25 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v45, 8);
 }
 
 void __114__CORapportTransport_handleRequestFromUnknownNodeWithIdentifier_rapportRepresentation_options_responseHandler_at___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1355,7 +1329,7 @@ void __114__CORapportTransport_handleRequestFromUnknownNodeWithIdentifier_rappor
 
 - (void)handleRequestIdentifier:(id)identifier rapportRepresentation:(id)representation options:(id)options responseHandler:(id)handler at:(unint64_t)at
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   representationCopy = representation;
   optionsCopy = options;
@@ -1363,52 +1337,52 @@ void __114__CORapportTransport_handleRequestFromUnknownNodeWithIdentifier_rappor
   executionContext = [(CORapportTransport *)self executionContext];
   [executionContext assertDispatchQueue];
 
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x3032000000;
-  v61 = __Block_byref_object_copy__4;
-  v62 = __Block_byref_object_dispose__4;
-  v63 = 0;
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x3032000000;
-  v55 = __Block_byref_object_copy__4;
-  v56 = __Block_byref_object_dispose__4;
   v57 = 0;
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x3032000000;
-  v49 = __Block_byref_object_copy__4;
-  v50 = __Block_byref_object_dispose__4;
+  v58 = &v57;
+  v59 = 0x3032000000;
+  v60 = __Block_byref_object_copy__4;
+  v61 = __Block_byref_object_dispose__4;
+  v62 = 0;
   v51 = 0;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x3032000000;
-  v43 = __Block_byref_object_copy__4;
-  v44 = __Block_byref_object_dispose__4;
+  v52 = &v51;
+  v53 = 0x3032000000;
+  v54 = __Block_byref_object_copy__4;
+  v55 = __Block_byref_object_dispose__4;
+  v56 = 0;
   v45 = 0;
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __95__CORapportTransport_handleRequestIdentifier_rapportRepresentation_options_responseHandler_at___block_invoke;
-  v39[3] = &unk_278E15DF0;
-  v39[4] = &v40;
-  v39[5] = &v46;
-  [CORapportTransport _commandPayloadFromRapportRepresentation:representationCopy result:v39];
-  v17 = v47[5];
+  v46 = &v45;
+  v47 = 0x3032000000;
+  v48 = __Block_byref_object_copy__4;
+  v49 = __Block_byref_object_dispose__4;
+  v50 = 0;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x3032000000;
+  v42 = __Block_byref_object_copy__4;
+  v43 = __Block_byref_object_dispose__4;
+  v44 = 0;
   v38[0] = MEMORY[0x277D85DD0];
   v38[1] = 3221225472;
-  v38[2] = __95__CORapportTransport_handleRequestIdentifier_rapportRepresentation_options_responseHandler_at___block_invoke_2;
-  v38[3] = &unk_278E15E18;
-  v38[4] = &v58;
-  v38[5] = &v52;
-  [(CORapportTransport *)self _commandForIdentifier:identifierCopy fromData:v17 result:v38];
-  v18 = v53[5];
+  v38[2] = __95__CORapportTransport_handleRequestIdentifier_rapportRepresentation_options_responseHandler_at___block_invoke;
+  v38[3] = &unk_278E15DF0;
+  v38[4] = &v39;
+  v38[5] = &v45;
+  [CORapportTransport _commandPayloadFromRapportRepresentation:representationCopy result:v38];
+  v17 = v46[5];
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __95__CORapportTransport_handleRequestIdentifier_rapportRepresentation_options_responseHandler_at___block_invoke_2;
+  v37[3] = &unk_278E15E18;
+  v37[4] = &v57;
+  v37[5] = &v51;
+  [(CORapportTransport *)self _commandForIdentifier:identifierCopy fromData:v17 result:v37];
+  v18 = v52[5];
   if (v18)
   {
-    if (v41[5])
+    if (v40[5])
     {
       [v18 _setSendingConstituent:?];
-      v18 = v53[5];
+      v18 = v52[5];
     }
 
     [v18 _setRapportOptions:optionsCopy];
@@ -1420,7 +1394,7 @@ void __114__CORapportTransport_handleRequestFromUnknownNodeWithIdentifier_rappor
       [CORapportTransport handleRequestIdentifier:rapportRepresentation:options:responseHandler:at:];
     }
 
-    if (![(CORapportTransport *)self _validateSource:v41[5] options:optionsCopy])
+    if (![(CORapportTransport *)self _validateSource:v40[5] options:optionsCopy])
     {
       v20 = COCoreLogForCategory(17);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -1433,28 +1407,28 @@ void __114__CORapportTransport_handleRequestFromUnknownNodeWithIdentifier_rappor
       delegate = [(CORapportTransport *)self delegate];
       location = 0;
       p_location = &location;
-      v36 = 0x2020000000;
-      v37 = 0;
-      if (v41[5] && (objc_opt_respondsToSelector() & 1) != 0)
+      v35 = 0x2020000000;
+      v36 = 0;
+      if (v40[5] && (objc_opt_respondsToSelector() & 1) != 0)
       {
         remote = [(CORapportTransport *)self remote];
-        v23 = v41[5];
-        v24 = v53[5];
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __95__CORapportTransport_handleRequestIdentifier_rapportRepresentation_options_responseHandler_at___block_invoke_123;
-        v33[3] = &unk_278E15E40;
-        v33[4] = &location;
-        [delegate transport:self shouldUpdateRemoteConstituent:remote to:v23 forCommand:v24 completionHandler:v33];
+        v23 = v40[5];
+        v24 = v52[5];
+        v32[0] = MEMORY[0x277D85DD0];
+        v32[1] = 3221225472;
+        v32[2] = __95__CORapportTransport_handleRequestIdentifier_rapportRepresentation_options_responseHandler_at___block_invoke_123;
+        v32[3] = &unk_278E15E40;
+        v32[4] = &location;
+        [delegate transport:self shouldUpdateRemoteConstituent:remote to:v23 forCommand:v24 completionHandler:v32];
       }
 
       if ((p_location[3] & 1) == 0)
       {
         v27 = [MEMORY[0x277CCA9B8] errorWithDomain:@"COMeshNodeErrorDomain" code:-4000 userInfo:0];
-        v28 = v59[5];
-        v59[5] = v27;
+        v28 = v58[5];
+        v58[5] = v27;
 
-        (*(handlerCopy + 2))(handlerCopy, 0, 0, v59[5]);
+        (*(handlerCopy + 2))(handlerCopy, 0, 0, v58[5]);
         _Block_object_dispose(&location, 8);
 LABEL_21:
 
@@ -1462,10 +1436,10 @@ LABEL_21:
       }
 
       remote2 = [(CORapportTransport *)self remote];
-      [(CORapportTransport *)self setRemote:v41[5]];
+      [(CORapportTransport *)self setRemote:v40[5]];
       if (objc_opt_respondsToSelector())
       {
-        [delegate transport:self didUpdateRemoteConstituent:remote2 to:v41[5]];
+        [delegate transport:self didUpdateRemoteConstituent:remote2 to:v40[5]];
       }
 
       _Block_object_dispose(&location, 8);
@@ -1475,32 +1449,31 @@ LABEL_21:
     objc_initWeak(&location, self);
     if (objc_opt_respondsToSelector())
     {
-      v26 = v53[5];
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __95__CORapportTransport_handleRequestIdentifier_rapportRepresentation_options_responseHandler_at___block_invoke_2_127;
-      v30[3] = &unk_278E15E90;
-      objc_copyWeak(v32, &location);
-      v32[1] = at;
-      v31 = handlerCopy;
-      [delegate transport:self didReceiveRequest:v26 callback:v30];
+      v26 = v52[5];
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __95__CORapportTransport_handleRequestIdentifier_rapportRepresentation_options_responseHandler_at___block_invoke_2_127;
+      v29[3] = &unk_278E15E90;
+      objc_copyWeak(v31, &location);
+      v31[1] = at;
+      v30 = handlerCopy;
+      [delegate transport:self didReceiveRequest:v26 callback:v29];
 
-      objc_destroyWeak(v32);
+      objc_destroyWeak(v31);
     }
 
     objc_destroyWeak(&location);
     goto LABEL_21;
   }
 
-  (*(handlerCopy + 2))(handlerCopy, 0, 0, v59[5]);
+  (*(handlerCopy + 2))(handlerCopy, 0, 0, v58[5]);
 LABEL_22:
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v39, 8);
 
-  _Block_object_dispose(&v46, 8);
-  _Block_object_dispose(&v52, 8);
+  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(&v51, 8);
 
-  _Block_object_dispose(&v58, 8);
-  v29 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v57, 8);
 }
 
 void __95__CORapportTransport_handleRequestIdentifier_rapportRepresentation_options_responseHandler_at___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1565,7 +1538,7 @@ void __95__CORapportTransport_handleRequestIdentifier_rapportRepresentation_opti
 
 void __95__CORapportTransport_handleRequestIdentifier_rapportRepresentation_options_responseHandler_at___block_invoke_3(uint64_t a1)
 {
-  v14[4] = *MEMORY[0x277D85DE8];
+  v11[4] = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = COCoreLogForCategory(17);
@@ -1580,86 +1553,82 @@ void __95__CORapportTransport_handleRequestIdentifier_rapportRepresentation_opti
   else
   {
     v2 = [*(a1 + 40) _serializedDataForCommand:*(a1 + 48)];
-    v4 = *(a1 + 48);
-    v5 = [*(a1 + 40) _eventIDForClass:objc_opt_class()];
-    v6 = [*(a1 + 40) executionContext];
-    v7 = [v6 constituentForMe];
+    v4 = [*(a1 + 40) _eventIDForClass:objc_opt_class()];
+    v5 = [*(a1 + 40) executionContext];
+    v6 = [v5 constituentForMe];
 
-    v8 = COCoreLogForCategory(17);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v7 = COCoreLogForCategory(17);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       __95__CORapportTransport_handleRequestIdentifier_rapportRepresentation_options_responseHandler_at___block_invoke_3_cold_2();
     }
 
-    v13[0] = @"source";
-    v9 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v7 requiringSecureCoding:1 error:0];
-    v14[0] = v9;
-    v14[1] = v2;
-    v13[1] = @"command";
-    v13[2] = @"response";
-    v14[2] = v5;
-    v13[3] = @"overhead";
-    v10 = [MEMORY[0x277CCABB0] numberWithDouble:(clock_gettime_nsec_np(_CLOCK_UPTIME_RAW) - *(a1 + 64))];
-    v14[3] = v10;
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
+    v10[0] = @"source";
+    v8 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v6 requiringSecureCoding:1 error:0];
+    v11[0] = v8;
+    v11[1] = v2;
+    v10[1] = @"command";
+    v10[2] = @"response";
+    v11[2] = v4;
+    v10[3] = @"overhead";
+    v9 = [MEMORY[0x277CCABB0] numberWithDouble:(clock_gettime_nsec_np(_CLOCK_UPTIME_RAW) - *(a1 + 64))];
+    v11[3] = v9;
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:4];
   }
 
-  v11 = *(a1 + 32);
   (*(*(a1 + 56) + 16))();
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleResponseToRequest:(id)request rapportRepresentation:(id)representation options:(id)options error:(id)error responseHandler:(id)handler at:(unint64_t)at
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   representationCopy = representation;
   optionsCopy = options;
   errorCopy = error;
   handlerCopy = handler;
   v17 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
-  v73 = 0;
-  v74 = &v73;
-  v75 = 0x3032000000;
-  v76 = __Block_byref_object_copy__4;
-  v77 = __Block_byref_object_dispose__4;
+  v72 = 0;
+  v73 = &v72;
+  v74 = 0x3032000000;
+  v75 = __Block_byref_object_copy__4;
+  v76 = __Block_byref_object_dispose__4;
   v18 = errorCopy;
-  v78 = v18;
+  v77 = v18;
   executionContext = [(CORapportTransport *)self executionContext];
   [executionContext assertDispatchQueue];
 
   v20 = [representationCopy objectForKey:@"response"];
   objc_initWeak(&location, self);
-  v67[0] = MEMORY[0x277D85DD0];
-  v67[1] = 3221225472;
-  v67[2] = __101__CORapportTransport_handleResponseToRequest_rapportRepresentation_options_error_responseHandler_at___block_invoke;
-  v67[3] = &unk_278E15EB8;
-  objc_copyWeak(&v71, &location);
-  v70 = &v73;
+  v66[0] = MEMORY[0x277D85DD0];
+  v66[1] = 3221225472;
+  v66[2] = __101__CORapportTransport_handleResponseToRequest_rapportRepresentation_options_error_responseHandler_at___block_invoke;
+  v66[3] = &unk_278E15EB8;
+  objc_copyWeak(&v70, &location);
+  v69 = &v72;
   v21 = requestCopy;
-  v68 = v21;
+  v67 = v21;
   v22 = handlerCopy;
-  v69 = v22;
-  v23 = MEMORY[0x245D5FF10](v67);
-  if (!v74[5])
+  v68 = v22;
+  v23 = MEMORY[0x245D5FF10](v66);
+  if (!v73[5])
   {
     acceptableResponses = [objc_opt_class() acceptableResponses];
-    v65[0] = MEMORY[0x277D85DD0];
-    v65[1] = 3221225472;
-    v65[2] = __101__CORapportTransport_handleResponseToRequest_rapportRepresentation_options_error_responseHandler_at___block_invoke_128;
-    v65[3] = &unk_278E15EE0;
-    v65[4] = self;
-    v66 = v20;
-    v50 = acceptableResponses;
-    v26 = [acceptableResponses objectsPassingTest:v65];
+    v64[0] = MEMORY[0x277D85DD0];
+    v64[1] = 3221225472;
+    v64[2] = __101__CORapportTransport_handleResponseToRequest_rapportRepresentation_options_error_responseHandler_at___block_invoke_128;
+    v64[3] = &unk_278E15EE0;
+    v64[4] = self;
+    v65 = v20;
+    v49 = acceptableResponses;
+    v26 = [acceptableResponses objectsPassingTest:v64];
     anyObject = [v26 anyObject];
 
     if (!anyObject)
     {
       v33 = [MEMORY[0x277CCA9B8] errorWithDomain:@"COMeshNodeErrorDomain" code:-4001 userInfo:0];
-      v34 = v74[5];
-      v74[5] = v33;
+      v34 = v73[5];
+      v73[5] = v33;
 
       v23[2](v23);
 LABEL_36:
@@ -1667,44 +1636,44 @@ LABEL_36:
       goto LABEL_37;
     }
 
-    v87 = 0;
-    v88 = &v87;
-    v89 = 0x3032000000;
-    v90 = __Block_byref_object_copy__4;
-    v91 = __Block_byref_object_dispose__4;
-    v92 = 0;
-    v59 = 0;
-    v60 = &v59;
-    v61 = 0x3032000000;
-    v62 = __Block_byref_object_copy__4;
-    v63 = __Block_byref_object_dispose__4;
-    v64 = 0;
-    v55 = 0;
-    v56 = &v55;
-    v57 = 0x2020000000;
+    v86 = 0;
+    v87 = &v86;
+    v88 = 0x3032000000;
+    v89 = __Block_byref_object_copy__4;
+    v90 = __Block_byref_object_dispose__4;
+    v91 = 0;
     v58 = 0;
-    v54[0] = MEMORY[0x277D85DD0];
-    v54[1] = 3221225472;
-    v54[2] = __101__CORapportTransport_handleResponseToRequest_rapportRepresentation_options_error_responseHandler_at___block_invoke_2;
-    v54[3] = &unk_278E15F08;
-    v54[4] = &v87;
-    v54[5] = &v59;
-    v54[6] = &v55;
-    [(CORapportTransport *)self _commandPayloadFromRapportRepresentationWithValidation:representationCopy result:v54];
-    if (v60[5])
+    v59 = &v58;
+    v60 = 0x3032000000;
+    v61 = __Block_byref_object_copy__4;
+    v62 = __Block_byref_object_dispose__4;
+    v63 = 0;
+    v54 = 0;
+    v55 = &v54;
+    v56 = 0x2020000000;
+    v57 = 0;
+    v53[0] = MEMORY[0x277D85DD0];
+    v53[1] = 3221225472;
+    v53[2] = __101__CORapportTransport_handleResponseToRequest_rapportRepresentation_options_error_responseHandler_at___block_invoke_2;
+    v53[3] = &unk_278E15F08;
+    v53[4] = &v86;
+    v53[5] = &v58;
+    v53[6] = &v54;
+    [(CORapportTransport *)self _commandPayloadFromRapportRepresentationWithValidation:representationCopy result:v53];
+    if (v59[5])
     {
-      v28 = v88[5];
+      v28 = v87[5];
       if (v28)
       {
-        v53 = 0;
-        v29 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:anyObject fromData:v28 error:&v53];
-        v49 = v53;
+        v52 = 0;
+        v29 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:anyObject fromData:v28 error:&v52];
+        v48 = v52;
         if (v29)
         {
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            if ((v56[3] & 1) == 0)
+            if ((v55[3] & 1) == 0)
             {
               v30 = COCoreLogForCategory(17);
               if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
@@ -1718,14 +1687,14 @@ LABEL_36:
               if (objc_opt_respondsToSelector())
               {
                 remote = [(CORapportTransport *)self remote];
-                [delegate transport:self willUpdateRemoteConstituent:remote to:v60[5]];
+                [delegate transport:self willUpdateRemoteConstituent:remote to:v59[5]];
               }
 
-              [(CORapportTransport *)self setRemote:v60[5], delegate];
+              [(CORapportTransport *)self setRemote:v59[5], delegate];
               if (objc_opt_respondsToSelector())
               {
                 remote2 = [(CORapportTransport *)self remote];
-                [v48 transport:self didUpdateRemoteConstituent:remote2 to:v60[5]];
+                [v47 transport:self didUpdateRemoteConstituent:remote2 to:v59[5]];
               }
             }
 
@@ -1737,8 +1706,8 @@ LABEL_36:
           else
           {
             v41 = [MEMORY[0x277CCA9B8] errorWithDomain:@"COMeshNodeErrorDomain" code:-4001 userInfo:0];
-            v42 = v74[5];
-            v74[5] = v41;
+            v42 = v73[5];
+            v73[5] = v41;
 
             v23[2](v23);
           }
@@ -1751,19 +1720,19 @@ LABEL_36:
           {
             shortDescription = [(CORapportTransport *)self shortDescription];
             *buf = 138543874;
-            v82 = shortDescription;
-            v83 = 2114;
-            v84 = v21;
-            v85 = 2114;
-            v86 = v49;
+            v81 = shortDescription;
+            v82 = 2114;
+            v83 = v21;
+            v84 = 2114;
+            v85 = v48;
             _os_log_error_impl(&dword_244378000, v39, OS_LOG_TYPE_ERROR, "%{public}@ failed to unarchive response for request %{public}@ with error = %{public}@", buf, 0x20u);
           }
 
-          if (v49)
+          if (v48)
           {
-            v79 = *MEMORY[0x277CCA7E8];
-            v80 = v49;
-            v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
+            v78 = *MEMORY[0x277CCA7E8];
+            v79 = v48;
+            v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
           }
 
           else
@@ -1772,8 +1741,8 @@ LABEL_36:
           }
 
           v43 = [MEMORY[0x277CCA9B8] errorWithDomain:@"COMeshNodeErrorDomain" code:-4001 userInfo:v40];
-          v44 = v74[5];
-          v74[5] = v43;
+          v44 = v73[5];
+          v73[5] = v43;
 
           v23[2](v23);
         }
@@ -1806,15 +1775,15 @@ LABEL_36:
     }
 
     v37 = [MEMORY[0x277CCA9B8] errorWithDomain:@"COMeshNodeErrorDomain" code:v36 userInfo:0];
-    v38 = v74[5];
-    v74[5] = v37;
+    v38 = v73[5];
+    v73[5] = v37;
 
     v23[2](v23);
 LABEL_35:
-    _Block_object_dispose(&v55, 8);
-    _Block_object_dispose(&v59, 8);
+    _Block_object_dispose(&v54, 8);
+    _Block_object_dispose(&v58, 8);
 
-    _Block_object_dispose(&v87, 8);
+    _Block_object_dispose(&v86, 8);
     goto LABEL_36;
   }
 
@@ -1829,11 +1798,10 @@ LABEL_35:
   v23[2](v23);
 LABEL_37:
 
-  objc_destroyWeak(&v71);
+  objc_destroyWeak(&v70);
   objc_destroyWeak(&location);
 
-  _Block_object_dispose(&v73, 8);
-  v45 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v72, 8);
 }
 
 void __101__CORapportTransport_handleResponseToRequest_rapportRepresentation_options_error_responseHandler_at___block_invoke(uint64_t a1)
@@ -1855,8 +1823,6 @@ void __101__CORapportTransport_handleResponseToRequest_rapportRepresentation_opt
       if (v6)
       {
 LABEL_10:
-        v8 = *(a1 + 32);
-        v9 = *(*(*(a1 + 48) + 8) + 40);
         (*(*(a1 + 40) + 16))();
         goto LABEL_11;
       }
@@ -1980,78 +1946,74 @@ LABEL_12:
 
 id __77__CORapportTransport__updateRequestTimesFromRapportRepresentation_start_end___block_invoke(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  v8[0] = 0x2857B5FE8;
+  v8[3] = *MEMORY[0x277D85DE8];
+  v7[0] = 0x2857B5FE8;
   v2 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 40)];
-  v9[0] = v2;
-  v8[1] = 0x2857B5FC8;
+  v8[0] = v2;
+  v7[1] = 0x2857B5FC8;
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(a1 + 48)];
-  v8[2] = 0x2857B5DC8;
+  v7[2] = 0x2857B5DC8;
   v4 = *(a1 + 32);
-  v9[1] = v3;
-  v9[2] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = v3;
+  v8[2] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   return v5;
 }
 
 id __77__CORapportTransport__updateRequestTimesFromRapportRepresentation_start_end___block_invoke_135(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  v8[0] = 0x2857B5FE8;
+  v8[3] = *MEMORY[0x277D85DE8];
+  v7[0] = 0x2857B5FE8;
   v2 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 40)];
-  v9[0] = v2;
-  v8[1] = 0x2857B5FC8;
+  v8[0] = v2;
+  v7[1] = 0x2857B5FC8;
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(a1 + 48)];
-  v8[2] = 0x2857B5DC8;
+  v7[2] = 0x2857B5DC8;
   v4 = *(a1 + 32);
-  v9[1] = v3;
-  v9[2] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = v3;
+  v8[2] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   return v5;
 }
 
 - (void)handleEventIdentifier:(id)identifier rapportRepresentation:(id)representation options:(id)options
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   representationCopy = representation;
   optionsCopy = options;
   executionContext = [(CORapportTransport *)self executionContext];
   [executionContext assertDispatchQueue];
 
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__4;
-  v35 = __Block_byref_object_dispose__4;
-  v36 = 0;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__4;
-  v29 = __Block_byref_object_dispose__4;
   v30 = 0;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __74__CORapportTransport_handleEventIdentifier_rapportRepresentation_options___block_invoke;
-  v24[3] = &unk_278E15DF0;
-  v24[4] = &v25;
-  v24[5] = &v31;
-  [CORapportTransport _commandPayloadFromRapportRepresentation:representationCopy result:v24];
-  if (v32[5])
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__4;
+  v34 = __Block_byref_object_dispose__4;
+  v35 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__4;
+  v28 = __Block_byref_object_dispose__4;
+  v29 = 0;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __74__CORapportTransport_handleEventIdentifier_rapportRepresentation_options___block_invoke;
+  v23[3] = &unk_278E15DF0;
+  v23[4] = &v24;
+  v23[5] = &v30;
+  [CORapportTransport _commandPayloadFromRapportRepresentation:representationCopy result:v23];
+  if (v31[5])
   {
     commands = [(CORapportTransport *)self commands];
     v13 = [commands objectForKey:identifierCopy];
 
     if (v13)
     {
-      v14 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:v13 fromData:v32[5] error:0];
+      v14 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:v13 fromData:v31[5] error:0];
       v15 = 0;
       goto LABEL_9;
     }
@@ -2075,7 +2037,7 @@ id __77__CORapportTransport__updateRequestTimesFromRapportRepresentation_start_e
   v15 = v17;
   v14 = 0;
 LABEL_9:
-  if (v26[5])
+  if (v25[5])
   {
     if (!v15)
     {
@@ -2101,7 +2063,7 @@ LABEL_9:
 LABEL_15:
       if (v14)
       {
-        if (v26[5])
+        if (v25[5])
         {
           [v14 _setSendingConstituent:?];
         }
@@ -2117,7 +2079,7 @@ LABEL_15:
         [CORapportTransport handleEventIdentifier:rapportRepresentation:options:];
       }
 
-      if ([(CORapportTransport *)self _validateSource:v26[5] options:optionsCopy])
+      if ([(CORapportTransport *)self _validateSource:v25[5] options:optionsCopy])
       {
         delegate = [(CORapportTransport *)self delegate];
         if (v14)
@@ -2160,10 +2122,8 @@ LABEL_32:
     }
   }
 
-  _Block_object_dispose(&v25, 8);
-  _Block_object_dispose(&v31, 8);
-
-  v23 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v30, 8);
 }
 
 void __74__CORapportTransport_handleEventIdentifier_rapportRepresentation_options___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2429,44 +2389,40 @@ LABEL_16:
 
 id __48__CORapportTransport__serializedDataForCommand___block_invoke(void *a1)
 {
-  v10[4] = *MEMORY[0x277D85DE8];
-  v9[0] = 0x2857B6008;
+  v9[4] = *MEMORY[0x277D85DE8];
+  v8[0] = 0x2857B6008;
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:a1[6]];
-  v10[0] = v2;
-  v9[1] = 0x2857B5FC8;
+  v9[0] = v2;
+  v8[1] = 0x2857B5FC8;
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:a1[7]];
   v4 = a1[4];
   v5 = a1[5];
-  v10[1] = v3;
-  v10[2] = v4;
-  v9[2] = 0x2857B6028;
-  v9[3] = 0x2857B5DC8;
-  v10[3] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[1] = v3;
+  v9[2] = v4;
+  v8[2] = 0x2857B6028;
+  v8[3] = 0x2857B5DC8;
+  v9[3] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
 
   return v6;
 }
 
 id __48__CORapportTransport__serializedDataForCommand___block_invoke_2(uint64_t a1)
 {
-  v10[4] = *MEMORY[0x277D85DE8];
-  v9[0] = 0x2857B6008;
+  v9[4] = *MEMORY[0x277D85DE8];
+  v8[0] = 0x2857B6008;
   v2 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 48)];
-  v10[0] = v2;
-  v9[1] = 0x2857B5FC8;
+  v9[0] = v2;
+  v8[1] = 0x2857B5FC8;
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(a1 + 56)];
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
-  v10[1] = v3;
-  v10[2] = v4;
-  v9[2] = 0x2857B6028;
-  v9[3] = 0x2857B5DC8;
-  v10[3] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[1] = v3;
+  v9[2] = v4;
+  v8[2] = 0x2857B6028;
+  v8[3] = 0x2857B5DC8;
+  v9[3] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
 
   return v6;
 }
@@ -2484,7 +2440,7 @@ id __48__CORapportTransport__serializedDataForCommand___block_invoke_2(uint64_t 
 
 - (BOOL)_validateSource:(id)source options:(id)options
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   optionsCopy = options;
   remote = [(CORapportTransport *)self remote];
@@ -2514,13 +2470,13 @@ id __48__CORapportTransport__serializedDataForCommand___block_invoke_2(uint64_t 
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       shortDescription = [(CORapportTransport *)self shortDescription];
-      v21 = 138543874;
-      v22 = shortDescription;
-      v23 = 2112;
-      v24 = v11;
-      v25 = 2112;
-      v26 = iDSIdentifier;
-      _os_log_error_impl(&dword_244378000, v14, OS_LOG_TYPE_ERROR, "%{public}@ validation failed. IDS ID received %@ does not match record %@", &v21, 0x20u);
+      v20 = 138543874;
+      v21 = shortDescription;
+      v22 = 2112;
+      v23 = v11;
+      v24 = 2112;
+      v25 = iDSIdentifier;
+      _os_log_error_impl(&dword_244378000, v14, OS_LOG_TYPE_ERROR, "%{public}@ validation failed. IDS ID received %@ does not match record %@", &v20, 0x20u);
     }
 
 LABEL_15:
@@ -2543,15 +2499,15 @@ LABEL_5:
 
   if (!remote)
   {
-    v18 = COCoreLogForCategory(17);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v17 = COCoreLogForCategory(17);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       shortDescription2 = [(CORapportTransport *)self shortDescription];
-      v21 = 138543618;
-      v22 = shortDescription2;
-      v23 = 2112;
-      v24 = sourceCopy;
-      _os_log_impl(&dword_244378000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ Setting remote %@", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = shortDescription2;
+      v22 = 2112;
+      v23 = sourceCopy;
+      _os_log_impl(&dword_244378000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ Setting remote %@", &v20, 0x16u);
     }
 
     iDSIdentifier = [(CORapportTransport *)self delegate];
@@ -2577,13 +2533,13 @@ LABEL_9:
     if (os_log_type_enabled(iDSIdentifier, OS_LOG_TYPE_ERROR))
     {
       shortDescription3 = [(CORapportTransport *)self shortDescription];
-      v21 = 138543874;
-      v22 = shortDescription3;
-      v23 = 2114;
-      v24 = remote;
-      v25 = 2114;
-      v26 = sourceCopy;
-      _os_log_error_impl(&dword_244378000, iDSIdentifier, OS_LOG_TYPE_ERROR, "%{public}@ validation failed. Remote = %{public}@ and source = %{public}@", &v21, 0x20u);
+      v20 = 138543874;
+      v21 = shortDescription3;
+      v22 = 2114;
+      v23 = remote;
+      v24 = 2114;
+      v25 = sourceCopy;
+      _os_log_error_impl(&dword_244378000, iDSIdentifier, OS_LOG_TYPE_ERROR, "%{public}@ validation failed. Remote = %{public}@ and source = %{public}@", &v20, 0x20u);
     }
 
     goto LABEL_16;
@@ -2592,7 +2548,6 @@ LABEL_9:
   v12 = 1;
 LABEL_18:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -2656,15 +2611,15 @@ void __47__CORapportTransport__registerHandlersOnClient__block_invoke(uint64_t a
 
 void __47__CORapportTransport__registerHandlersOnClient__block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 8) = 0;
   v2 = COCoreLogForCategory(17);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) shortDescription];
-    v8 = 138543362;
-    v9 = v3;
-    _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ invalidated connection", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v3;
+    _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ invalidated connection", &v7, 0xCu);
   }
 
   v4 = [*(a1 + 32) delegate];
@@ -2674,8 +2629,6 @@ void __47__CORapportTransport__registerHandlersOnClient__block_invoke_2(uint64_t
     v6 = [MEMORY[0x277CCA9B8] errorWithDomain:0x2857B6328 code:-5003 userInfo:0];
     [v4 transport:v5 didInvalidateWithError:v6];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __47__CORapportTransport__registerHandlersOnClient__block_invoke_149(uint64_t a1)
@@ -2696,15 +2649,15 @@ void __47__CORapportTransport__registerHandlersOnClient__block_invoke_149(uint64
 
 void __47__CORapportTransport__registerHandlersOnClient__block_invoke_2_150(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 8) = 0;
   v2 = COCoreLogForCategory(17);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) shortDescription];
-    v8 = 138543362;
-    v9 = v3;
-    _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ interrupted connection", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v3;
+    _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ interrupted connection", &v7, 0xCu);
   }
 
   v4 = [*(a1 + 32) delegate];
@@ -2714,8 +2667,6 @@ void __47__CORapportTransport__registerHandlersOnClient__block_invoke_2_150(uint
     v6 = [MEMORY[0x277CCA9B8] errorWithDomain:0x2857B6328 code:-5003 userInfo:0];
     [v4 transport:v5 didInvalidateWithError:v6];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __47__CORapportTransport__registerHandlersOnClient__block_invoke_151(uint64_t a1)
@@ -2798,7 +2749,7 @@ void __47__CORapportTransport__registerHandlersOnClient__block_invoke_2_155(uint
 
 - (void)_handleRPIsUsingOnDemandConnection
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   executionContext = [(CORapportTransport *)self executionContext];
   [executionContext assertDispatchQueue];
 
@@ -2806,9 +2757,9 @@ void __47__CORapportTransport__registerHandlersOnClient__block_invoke_2_155(uint
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     shortDescription = [(CORapportTransport *)self shortDescription];
-    v9 = 138543362;
-    v10 = shortDescription;
-    _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ link (IP) connected", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = shortDescription;
+    _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ link (IP) connected", &v8, 0xCu);
   }
 
   clientIsUsingOnDemandConnection = [(CORapportTransport *)self clientIsUsingOnDemandConnection];
@@ -2817,8 +2768,6 @@ void __47__CORapportTransport__registerHandlersOnClient__block_invoke_2_155(uint
   {
     (*(clientIsUsingOnDemandConnection + 16))(clientIsUsingOnDemandConnection);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleRPErrorFlagsUpdate
@@ -2838,13 +2787,10 @@ void __47__CORapportTransport__registerHandlersOnClient__block_invoke_2_155(uint
 
 - (void)_handleDisconnect
 {
-  v8 = *MEMORY[0x277D85DE8];
   shortDescription = [self shortDescription];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pingWithCallback:(id)callback
@@ -2871,49 +2817,37 @@ void __47__CORapportTransport__registerHandlersOnClient__block_invoke_2_155(uint
 void __61__CORapportTransport_registerRequestForClass_withCompletion___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_9();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*(v0 + 40) sinks];
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __61__CORapportTransport_registerCommandForClass_withCompletion___block_invoke_2_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 40);
-  v5 = 134218242;
-  v6 = v1;
+  v4 = 134218242;
+  v5 = v1;
   OUTLINED_FUNCTION_10();
-  v7 = v2;
-  _os_log_error_impl(&dword_244378000, v3, OS_LOG_TYPE_ERROR, "%p command from unknown node with IDS %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v6 = v2;
+  _os_log_error_impl(&dword_244378000, v3, OS_LOG_TYPE_ERROR, "%p command from unknown node with IDS %@", &v4, 0x16u);
 }
 
 void __56__CORapportTransport_sendCommand_withCompletionHandler___block_invoke_2_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = [*(a1 + 32) shortDescription];
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 48);
+  v1 = [*(a1 + 32) shortDescription];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 - (void)_commandForIdentifier:(void *)a1 fromData:result:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 shortDescription];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRequestIdentifier:rapportRepresentation:options:responseHandler:at:.cold.1()
@@ -2933,27 +2867,20 @@ void __56__CORapportTransport_sendCommand_withCompletionHandler___block_invoke_2
 void __95__CORapportTransport_handleRequestIdentifier_rapportRepresentation_options_responseHandler_at___block_invoke_3_cold_1()
 {
   OUTLINED_FUNCTION_9();
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = [*(v1 + 40) shortDescription];
-  v3 = *v0;
+  v1 = [*(v0 + 40) shortDescription];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void __95__CORapportTransport_handleRequestIdentifier_rapportRepresentation_options_responseHandler_at___block_invoke_3_cold_2()
 {
   OUTLINED_FUNCTION_9();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*v0 shortDescription];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleResponseToRequest:rapportRepresentation:options:error:responseHandler:at:.cold.1()
@@ -2990,28 +2917,20 @@ void __95__CORapportTransport_handleRequestIdentifier_rapportRepresentation_opti
 void __101__CORapportTransport_handleResponseToRequest_rapportRepresentation_options_error_responseHandler_at___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_9();
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = [v1 shortDescription];
-  v3 = *(*(*(v0 + 48) + 8) + 40);
-  v4 = *(v0 + 32);
+  v1 = [v0 shortDescription];
   objc_opt_class();
   OUTLINED_FUNCTION_10();
-  v6 = v5;
+  v3 = v2;
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v7, v8, v9, v10, v11, 0x20u);
-
-  v12 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
 }
 
 - (void)_updateRequestTimesFromRapportRepresentation:(void *)a1 start:end:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 shortDescription];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleEventIdentifier:rapportRepresentation:options:.cold.1()
@@ -3051,75 +2970,57 @@ void __101__CORapportTransport_handleResponseToRequest_rapportRepresentation_opt
 
 - (void)_serializedDataForCommand:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  _os_log_fault_impl(&dword_244378000, v0, OS_LOG_TYPE_FAULT, "Failed to properly archive for sending: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_244378000, v0, OS_LOG_TYPE_FAULT, "Failed to properly archive for sending: %{public}@", v1, 0xCu);
 }
 
 - (void)_serializedDataForCommand:(objc_class *)a1 .cold.2(objc_class *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromClass(a1);
   OUTLINED_FUNCTION_3();
-  _os_log_fault_impl(&dword_244378000, a2, OS_LOG_TYPE_FAULT, "%{public}@ does not appear to properly support secure coding which is required for all commands!", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_244378000, a2, OS_LOG_TYPE_FAULT, "%{public}@ does not appear to properly support secure coding which is required for all commands!", v4, 0xCu);
 }
 
 - (void)_validateSource:(void *)a1 options:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 shortDescription];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __47__CORapportTransport__registerHandlersOnClient__block_invoke_151_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 shortDescription];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __47__CORapportTransport__registerHandlersOnClient__block_invoke_2_153_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 shortDescription];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __47__CORapportTransport__registerHandlersOnClient__block_invoke_2_155_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 shortDescription];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pingWithCallback:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 shortDescription];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

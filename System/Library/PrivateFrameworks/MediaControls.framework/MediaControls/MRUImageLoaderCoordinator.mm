@@ -75,31 +75,31 @@ uint64_t __46__MRUImageLoaderCoordinator_sharedCoordinator__block_invoke()
 
 - (void)recalculateArtworkIdentifiers
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   loaders = [(MRUImageLoaderCoordinator *)self loaders];
   allObjects = [loaders allObjects];
 
   v5 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(allObjects, "count")}];
-  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
   v6 = allObjects;
-  v7 = [v6 countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v24;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
+        v11 = *(*(&v23 + 1) + 8 * i);
         lastVendedArtworkIdentifier = [v11 lastVendedArtworkIdentifier];
 
         if (lastVendedArtworkIdentifier)
@@ -110,7 +110,7 @@ uint64_t __46__MRUImageLoaderCoordinator_sharedCoordinator__block_invoke()
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v23 objects:v29 count:16];
     }
 
     while (v8);
@@ -127,13 +127,13 @@ uint64_t __46__MRUImageLoaderCoordinator_sharedCoordinator__block_invoke()
 
     if (verboseImageLoadingLogging)
     {
-      v19 = MCLogCategoryImageLoading();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v20 = MCLogCategoryImageLoading(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         registeredLoaderArtworkIdentifiers2 = [(MRUImageLoaderCoordinator *)self registeredLoaderArtworkIdentifiers];
         *buf = 138412290;
-        v27 = registeredLoaderArtworkIdentifiers2;
-        _os_log_impl(&dword_1A20FC000, v19, OS_LOG_TYPE_DEFAULT, "[MRUImageLoaderCoordinator] [MRUImageLoaderCoordinator] artwork identifiers changed: %@.", buf, 0xCu);
+        v28 = registeredLoaderArtworkIdentifiers2;
+        _os_log_impl(&dword_1A20FC000, v20, OS_LOG_TYPE_DEFAULT, "[MRUImageLoaderCoordinator] [MRUImageLoaderCoordinator] artwork identifiers changed: %@.", buf, 0xCu);
       }
     }
 
@@ -144,29 +144,29 @@ uint64_t __46__MRUImageLoaderCoordinator_sharedCoordinator__block_invoke()
 
 - (void)recalculateRequestSize
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v20 = 0u;
+  v28 = *MEMORY[0x1E69E9840];
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
   loaders = [(MRUImageLoaderCoordinator *)self loaders];
-  v4 = [loaders countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v4 = [loaders countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
     v7 = 0;
-    v8 = *v21;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v21 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(loaders);
         }
 
-        [*(*(&v20 + 1) + 8 * i) scaledFittingSize];
+        [*(*(&v21 + 1) + 8 * i) scaledFittingSize];
         if (v10 < v6)
         {
           v10 = v6;
@@ -182,7 +182,7 @@ uint64_t __46__MRUImageLoaderCoordinator_sharedCoordinator__block_invoke()
         v7 = v12;
       }
 
-      v5 = [loaders countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v5 = [loaders countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v5);
@@ -196,18 +196,18 @@ uint64_t __46__MRUImageLoaderCoordinator_sharedCoordinator__block_invoke()
     v14 = 0.0;
   }
 
-  [(MRUImageLoaderCoordinator *)self requestSize];
-  if (v16 != v13 || v15 != v14)
+  requestSize = [(MRUImageLoaderCoordinator *)self requestSize];
+  if (v17 != v13 || v16 != v14)
   {
-    v18 = MCLogCategoryImageLoading();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = MCLogCategoryImageLoading(requestSize);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v28.width = v13;
-      v28.height = v14;
-      v19 = NSStringFromCGSize(v28);
+      v29.width = v13;
+      v29.height = v14;
+      v20 = NSStringFromCGSize(v29);
       *buf = 138412290;
-      v25 = v19;
-      _os_log_impl(&dword_1A20FC000, v18, OS_LOG_TYPE_DEFAULT, "[MRUImageLoaderCoordinator] [MRUImageLoaderCoordinator] coordinated size changed to %@.", buf, 0xCu);
+      v26 = v20;
+      _os_log_impl(&dword_1A20FC000, v19, OS_LOG_TYPE_DEFAULT, "[MRUImageLoaderCoordinator] [MRUImageLoaderCoordinator] coordinated size changed to %@.", buf, 0xCu);
     }
 
     [(MRUImageLoaderCoordinator *)self setRequestSize:v13, v14];

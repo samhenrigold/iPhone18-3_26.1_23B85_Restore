@@ -2,10 +2,63 @@
 - (BOOL)checkValidityAndCollectErrors:(id)errors;
 - (NEFilterProviderConfiguration)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation NEFilterProviderConfiguration
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  pluginType = [(NEFilterProviderConfiguration *)self pluginType];
+  [v7 appendPrettyObject:pluginType withName:@"pluginType" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  dataProviderDesignatedRequirement = [(NEFilterProviderConfiguration *)self dataProviderDesignatedRequirement];
+  [v7 appendPrettyObject:dataProviderDesignatedRequirement withName:@"dataProviderDesignatedRequirement" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  packetProviderDesignatedRequirement = [(NEFilterProviderConfiguration *)self packetProviderDesignatedRequirement];
+  [v7 appendPrettyObject:packetProviderDesignatedRequirement withName:@"packetProviderDesignatedRequirement" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  filterDataProviderBundleIdentifier = [(NEFilterProviderConfiguration *)self filterDataProviderBundleIdentifier];
+  [v7 appendPrettyObject:filterDataProviderBundleIdentifier withName:@"dataProviderBundleIdentifier" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  filterPacketProviderBundleIdentifier = [(NEFilterProviderConfiguration *)self filterPacketProviderBundleIdentifier];
+  [v7 appendPrettyObject:filterPacketProviderBundleIdentifier withName:@"packetProviderBundleIdentifier" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  dataProviderURL = [(NEFilterProviderConfiguration *)self dataProviderURL];
+  [v7 appendPrettyObject:dataProviderURL withName:@"dataProviderURL" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  packetProviderURL = [(NEFilterProviderConfiguration *)self packetProviderURL];
+  [v7 appendPrettyObject:packetProviderURL withName:@"packetProviderURL" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  vendorConfiguration = [(NEFilterProviderConfiguration *)self vendorConfiguration];
+  [v7 appendPrettyObject:vendorConfiguration withName:@"vendorConfiguration" andIndent:v5 options:options | 8];
+
+  serverAddress = [(NEFilterProviderConfiguration *)self serverAddress];
+  [v7 appendPrettyObject:serverAddress withName:@"serverAddress" andIndent:v5 options:options | 9];
+
+  username = [(NEFilterProviderConfiguration *)self username];
+  [v7 appendPrettyObject:username withName:@"username" andIndent:v5 options:options | 9];
+
+  organization = [(NEFilterProviderConfiguration *)self organization];
+  [v7 appendPrettyObject:organization withName:@"organization" andIndent:v5 options:options | 9];
+
+  passwordReference = [(NEFilterProviderConfiguration *)self passwordReference];
+  [v7 appendPrettyObject:passwordReference withName:@"passwordReference" andIndent:v5 options:options | 8];
+
+  identityReference = [(NEFilterProviderConfiguration *)self identityReference];
+  [v7 appendPrettyObject:identityReference withName:@"identityReference" andIndent:v5 options:options | 8];
+
+  [v7 appendPrettyBOOL:-[NEFilterProviderConfiguration filterBrowsers](self withName:"filterBrowsers") andIndent:@"filterBrowsers" options:{v5, options | 8}];
+  [v7 appendPrettyBOOL:-[NEFilterProviderConfiguration filterPackets](self withName:"filterPackets") andIndent:@"filterPackets" options:{v5, options | 8}];
+  [v7 appendPrettyBOOL:-[NEFilterProviderConfiguration filterSockets](self withName:"filterSockets") andIndent:@"filterSockets" options:{v5, options | 8}];
+  [v7 appendPrettyBOOL:-[NEFilterProviderConfiguration disableDefaultDrop](self withName:"disableDefaultDrop") andIndent:@"disableDefaultDrop" options:{v5, options | 8}];
+  [v7 appendPrettyBOOL:-[NEFilterProviderConfiguration preserveExistingConnections](self withName:"preserveExistingConnections") andIndent:@"preserveExistingConnections" options:{v5, options | 8}];
+
+  return v7;
+}
 
 - (BOOL)checkValidityAndCollectErrors:(id)errors
 {

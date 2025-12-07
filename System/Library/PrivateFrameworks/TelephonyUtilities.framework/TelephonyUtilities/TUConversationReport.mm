@@ -180,16 +180,15 @@
 
 - (unint64_t)hashForParticipantIdentifier:(unint64_t)identifier
 {
-  v8[2] = *MEMORY[0x1E69E9840];
-  v8[0] = 0;
-  v8[1] = 0;
+  v7[2] = *MEMORY[0x1E69E9840];
+  v7[0] = 0;
+  v7[1] = 0;
   paddingForHashedValue = [(TUConversationReport *)self paddingForHashedValue];
-  [paddingForHashedValue getUUIDBytes:v8];
+  [paddingForHashedValue getUUIDBytes:v7];
 
-  v4 = [MEMORY[0x1E695DEF0] dataWithBytes:v8 length:16];
+  v4 = [MEMORY[0x1E695DEF0] dataWithBytes:v7 length:16];
   v5 = IDSIDAliasHashUInt64();
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

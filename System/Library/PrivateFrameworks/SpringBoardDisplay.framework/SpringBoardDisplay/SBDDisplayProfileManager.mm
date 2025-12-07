@@ -18,40 +18,34 @@
 
 - (NSSet)fbScenes
 {
-  v2 = *(self + OBJC_IVAR___SBDDisplayProfileManager_storage);
-  v3 = OBJC_IVAR____TtCE18SpringBoardDisplayCSo24SBDDisplayProfileManagerP33_67B6F4CBBB8F3EFDDC9EE8BF2586BB557Storage_scenes;
   swift_beginAccess();
-  v4 = *(v2 + v3);
   sub_26B9DE3A4(0, &qword_280433F48, 0x277D0AAC8);
   sub_26B9DDFCC();
   sub_26B9DFE14();
-  v5 = sub_26B9DFF94();
+  v2 = sub_26B9DFF94();
 
-  return v5;
+  return v2;
 }
 
 - (CAContext)rootWindowCAContext
 {
-  v3 = *(self + OBJC_IVAR___SBDDisplayProfileManager_storage);
-  v4 = OBJC_IVAR____TtCE18SpringBoardDisplayCSo24SBDDisplayProfileManagerP33_67B6F4CBBB8F3EFDDC9EE8BF2586BB557Storage_scenes;
   swift_beginAccess();
-  v5 = *(v3 + v4);
   selfCopy = self;
-  v7 = sub_26B9DFE14();
-  v8 = sub_26B9D99B8(v7);
+  v4 = sub_26B9DFE14();
+  v5 = sub_26B9D99B8(v4);
 
-  if (v8)
+  if (v5)
   {
-    v9 = sub_26B9DFFD4();
+    v6 = sub_26B9DFFD4();
   }
 
   else
   {
 
-    v9 = 0;
+    v6 = 0;
   }
 
-  return v9;
+  return v6;
 }
 
 - (void)start

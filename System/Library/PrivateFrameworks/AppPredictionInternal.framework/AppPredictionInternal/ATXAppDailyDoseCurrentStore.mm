@@ -65,11 +65,4 @@ void __51___ATXAppDailyDoseCurrentStore_increaseDoseFor_by___block_invoke(uint64
   dispatch_async(v8, v9);
 }
 
-id __51___ATXAppDailyDoseCurrentStore_increaseDoseFor_by___block_invoke_2(uint64_t a1)
-{
-  [*(a1 + 32) _overwrite];
-  v2 = *(a1 + 40);
-  return objc_opt_self();
-}
-
 @end

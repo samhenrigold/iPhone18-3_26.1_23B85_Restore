@@ -1,6 +1,7 @@
 @interface _INPBSetTemporalSettingIntent
 - (BOOL)isEqual:(id)equal;
 - (_INPBSetTemporalSettingIntent)initWithCoder:(id)coder;
+- (id)actionAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (int)StringAsAction:(id)action;
@@ -257,7 +258,6 @@ LABEL_27:
   toCopy = to;
   if ([(_INPBSetTemporalSettingIntent *)self hasAction])
   {
-    action = self->_action;
     PBDataWriterWriteInt32Field();
   }
 
@@ -287,13 +287,13 @@ LABEL_27:
 
   timeValue = [(_INPBSetTemporalSettingIntent *)self timeValue];
 
-  v12 = toCopy;
+  v11 = toCopy;
   if (timeValue)
   {
     timeValue2 = [(_INPBSetTemporalSettingIntent *)self timeValue];
     PBDataWriterWriteSubmessage();
 
-    v12 = toCopy;
+    v11 = toCopy;
   }
 }
 
@@ -318,6 +318,21 @@ LABEL_27:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)actionAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E7287D58 + (string - 1));
   }
 
   return v4;

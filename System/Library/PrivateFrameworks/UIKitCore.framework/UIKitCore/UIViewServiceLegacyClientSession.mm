@@ -32,15 +32,15 @@ void __71___UIViewServiceLegacyClientSession__registerSessionForDefaultDeputies_
   }
 }
 
-uint64_t __59___UIViewServiceLegacyClientSession_setTerminationHandler___block_invoke(uint64_t result)
+void *__59___UIViewServiceLegacyClientSession_setTerminationHandler___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 48);
-  if (*(result + 40) != v1)
+  v1 = *(result[4] + 48);
+  if (result[5] != v1)
   {
     v2 = result;
 
-    result = [*(v2 + 40) copy];
-    *(*(v2 + 32) + 48) = result;
+    result = [v2[5] copy];
+    *(v2[4] + 48) = result;
   }
 
   return result;
@@ -90,7 +90,7 @@ void __79___UIViewServiceLegacyClientSession_registerDeputyClass_withConnectionH
     v9 = v7[2];
     if (v9)
     {
-      [v7[2] auditToken];
+      objc_msgSend_auditToken(v7[2]);
     }
 
     else
@@ -105,7 +105,7 @@ void __79___UIViewServiceLegacyClientSession_registerDeputyClass_withConnectionH
     v13 = v7[2];
     if (v13)
     {
-      [v13 auditToken];
+      objc_msgSend_auditToken(v13);
     }
 
     else

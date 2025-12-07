@@ -39,9 +39,11 @@
 
 uint64_t __60__WFWeatherDataServiceParserV1_ParseNextHour__dateFormatter__block_invoke()
 {
-  dateFormatter_dateFormatter = objc_alloc_init(MEMORY[0x277CCAA68]);
+  v0 = objc_alloc_init(MEMORY[0x277CCAA68]);
+  v1 = dateFormatter_dateFormatter;
+  dateFormatter_dateFormatter = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)parseNextHourPrecipitationFromData:(id)data withUnit:(int)unit
@@ -568,9 +570,11 @@ uint64_t __60__WFWeatherDataServiceParserV1_ParseNextHour__dateFormatter__block_
 
 uint64_t __65__WFWeatherDataServiceParserV1_ParseSevereWeather__dateFormatter__block_invoke()
 {
-  dateFormatter_dateFormatter_0 = objc_alloc_init(MEMORY[0x277CCAA68]);
+  v0 = objc_alloc_init(MEMORY[0x277CCAA68]);
+  v1 = dateFormatter_dateFormatter_0;
+  dateFormatter_dateFormatter_0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)parseSevereWeatherEventsFromData:(id)data withUnit:(int)unit

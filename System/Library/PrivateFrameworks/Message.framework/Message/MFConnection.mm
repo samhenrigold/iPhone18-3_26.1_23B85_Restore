@@ -28,6 +28,7 @@
 - (NSString)description;
 - (NSString)securityProtocol;
 - (id)copyDiagnosticInformation;
+- (void)_setCertificateIsTrusted:(BOOL)trusted forAccount:(id)account;
 - (void)_setupSocketWithSettings:(id)settings;
 - (void)clearBuffer;
 - (void)dealloc;
@@ -147,11 +148,11 @@ void __26__MFConnection_initialize__block_invoke()
 
 + (void)logConnection:(id)connection type:(int64_t)type data:(id)data
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   dataCopy = data;
-  v25 = dataCopy;
-  bytes = [v25 bytes];
+  v24 = dataCopy;
+  bytes = [v24 bytes];
   v9 = [dataCopy length];
   v10 = v9;
   if (v9 >= 0x400)
@@ -174,7 +175,7 @@ void __26__MFConnection_initialize__block_invoke()
     v12 = off_1E7AA23C8[type - 1];
   }
 
-  v26 = v12;
+  v25 = v12;
   v13 = connectionCopy[2];
   securityProtocol = [connectionCopy[3] securityProtocol];
   if (securityProtocol)
@@ -204,17 +205,17 @@ void __26__MFConnection_initialize__block_invoke()
     v18 = objc_opt_class();
     hostname = [v13 hostname];
     *buf = 136447490;
-    v29 = v26;
-    v30 = 2114;
-    v31 = v18;
-    v32 = 2048;
-    v33 = connectionCopy;
-    v34 = 2112;
-    v35 = hostname;
-    v36 = 1024;
+    v28 = v25;
+    v29 = 2114;
+    v30 = v18;
+    v31 = 2048;
+    v32 = connectionCopy;
+    v33 = 2112;
+    v34 = hostname;
+    v35 = 1024;
     portNumber = [v13 portNumber];
-    v38 = 2114;
-    v39 = v16;
+    v37 = 2114;
+    v38 = v16;
     _os_log_impl(&dword_1B0389000, v17, OS_LOG_TYPE_INFO, "%{public}s <%{public}@:%p> [%@:%u%{public}@]", buf, 0x3Au);
   }
 
@@ -228,21 +229,21 @@ LABEL_16:
       hostname2 = [v13 hostname];
       portNumber2 = [v13 portNumber];
       *buf = 136448002;
-      v29 = v26;
-      v30 = 2114;
-      v31 = v21;
-      v32 = 2048;
-      v33 = connectionCopy;
-      v34 = 2112;
-      v35 = hostname2;
-      v36 = 1024;
+      v28 = v25;
+      v29 = 2114;
+      v30 = v21;
+      v31 = 2048;
+      v32 = connectionCopy;
+      v33 = 2112;
+      v34 = hostname2;
+      v35 = 1024;
       portNumber = portNumber2;
-      v38 = 2114;
-      v39 = v16;
-      v40 = 1040;
-      v41 = v11;
-      v42 = 2096;
-      v43 = bytes;
+      v37 = 2114;
+      v38 = v16;
+      v39 = 1040;
+      v40 = v11;
+      v41 = 2096;
+      v42 = bytes;
       _os_log_impl(&dword_1B0389000, v20, OS_LOG_TYPE_INFO, "%{public}s <%{public}@:%p> [%@:%u%{public}@] %{mobilemail:networkData}.*P", buf, 0x4Au);
     }
 
@@ -260,8 +261,6 @@ LABEL_16:
   }
 
 LABEL_22:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 + (id)logClasses
@@ -366,39 +365,37 @@ void __37__MFConnection_certUIPromptScheduler__block_invoke()
 
 - (BOOL)isCellularConnection
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   [(MFConnection *)self mf_lock];
   isCellularConnection = [(MFNWConnectionWrapper *)self->_socket isCellularConnection];
   [(MFConnection *)self mf_unlock];
   v4 = MFLogGeneral();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v7[0] = 67109378;
-    v7[1] = isCellularConnection;
-    v8 = 2112;
+    v6[0] = 67109378;
+    v6[1] = isCellularConnection;
+    v7 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_1B0389000, v4, OS_LOG_TYPE_INFO, "#Network %d for %@", v7, 0x12u);
+    _os_log_impl(&dword_1B0389000, v4, OS_LOG_TYPE_INFO, "#Network %d for %@", v6, 0x12u);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return isCellularConnection;
 }
 
 - (BOOL)isConstrained
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   [(MFConnection *)self mf_lock];
   isConstrained = [(MFNWConnectionWrapper *)self->_socket isConstrained];
   [(MFConnection *)self mf_unlock];
   v4 = MFLogGeneral();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v7[0] = 67109120;
-    v7[1] = isConstrained;
-    _os_log_impl(&dword_1B0389000, v4, OS_LOG_TYPE_INFO, "#Network low data mode (constrained): %d", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = isConstrained;
+    _os_log_impl(&dword_1B0389000, v4, OS_LOG_TYPE_INFO, "#Network low data mode (constrained): %d", v6, 8u);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return isConstrained;
 }
 
@@ -883,28 +880,28 @@ LABEL_9:
 
 - (NSArray)authenticationMechanisms
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   [(MFConnection *)self capabilities];
+  v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v2 = v16 = 0u;
+  v14 = 0u;
+  v2 = v15 = 0u;
   array = 0;
-  v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
-    v5 = *v16;
+    v5 = *v15;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * i);
-        v9 = [v7 rangeOfString:@"AUTH=" options:9 range:{0, objc_msgSend(v7, "length", v15)}];
+        v7 = *(*(&v14 + 1) + 8 * i);
+        v9 = [v7 rangeOfString:@"AUTH=" options:9 range:{0, objc_msgSend(v7, "length", v14)}];
         if (v9 != 0x7FFFFFFFFFFFFFFFLL)
         {
           v10 = v8;
@@ -919,13 +916,11 @@ LABEL_9:
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v4);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -1386,7 +1381,7 @@ LABEL_12:
 
 - (void)clearBuffer
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   p_bufferRemainingBytes = &self->_bufferRemainingBytes;
   if (self->_bufferRemainingBytes >= 1)
   {
@@ -1394,16 +1389,14 @@ LABEL_12:
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *p_bufferRemainingBytes;
-      v6 = 134217984;
-      v7 = v4;
-      _os_log_impl(&dword_1B0389000, v3, OS_LOG_TYPE_DEFAULT, "Making sure buffer is empty, currently has %lu bytes", &v6, 0xCu);
+      v5 = 134217984;
+      v6 = v4;
+      _os_log_impl(&dword_1B0389000, v3, OS_LOG_TYPE_DEFAULT, "Making sure buffer is empty, currently has %lu bytes", &v5, 0xCu);
     }
 
     *p_bufferRemainingBytes = 0;
     p_bufferRemainingBytes[1] = 0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)securityProtocol
@@ -1540,181 +1533,179 @@ LABEL_9:
   return bOOLValue;
 }
 
+- (void)_setCertificateIsTrusted:(BOOL)trusted forAccount:(id)account
+{
+  trustedCopy = trusted;
+  accountCopy = account;
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:trustedCopy];
+  [accountCopy setValueInAccountProperties:v5 forKey:@"MFServerSSLCertificateIsTrusted"];
+
+  [accountCopy savePersistentAccount];
+}
+
 - (BOOL)_evaluateTrust:(__SecTrust *)trust errorPtr:(id *)ptr
 {
-  v62 = *MEMORY[0x1E69E9840];
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x3032000000;
-  v49 = __Block_byref_object_copy__0;
-  v50 = __Block_byref_object_dispose__0;
-  v51 = 0;
+  v59 = *MEMORY[0x1E69E9840];
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x3032000000;
+  v46 = __Block_byref_object_copy__0;
+  v47 = __Block_byref_object_dispose__0;
+  v48 = 0;
   service = [(MFNWConnectionWrapper *)self->_socket service];
-  if (service == *MEMORY[0x1E6993C38])
-  {
-    v8 = off_1E7A9F150;
-  }
-
-  else
-  {
-    v8 = off_1E7A9F748;
-  }
-
-  v9 = *v8;
-  v10 = objc_opt_class();
+  v8 = objc_opt_class();
 
   accountIdentifier = [(MFNWConnectionWrapper *)self->_socket accountIdentifier];
-  v12 = [v10 existingAccountForUniqueID:accountIdentifier];
+  v10 = [v8 existingAccountForUniqueID:accountIdentifier];
 
-  v13 = [(MFConnection *)self _certificateIsTrustedForAccount:v12];
+  v11 = [(MFConnection *)self _certificateIsTrustedForAccount:v10];
   defaultTrustManager = [MEMORY[0x1E6993C28] defaultTrustManager];
   remoteHostname = [(MFNWConnectionWrapper *)self->_socket remoteHostname];
   service2 = [(MFNWConnectionWrapper *)self->_socket service];
-  v17 = [defaultTrustManager rawTrustResultForSSLTrust:trust hostname:remoteHostname service:service2];
+  v15 = [defaultTrustManager rawTrustResultForSSLTrust:trust hostname:remoteHostname service:service2];
 
-  v18 = MFLogNetwork();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v16 = MFLogNetwork();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = objc_opt_class();
+    v17 = objc_opt_class();
     *buf = 138544130;
-    *&buf[4] = v19;
+    *&buf[4] = v17;
     *&buf[12] = 2048;
     *&buf[14] = self;
     *&buf[22] = 1024;
-    v59 = v17;
-    v60 = 2112;
-    v61 = v12;
-    _os_log_impl(&dword_1B0389000, v18, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> Got SecTrustResultType %u for %@", buf, 0x26u);
+    v56 = v15;
+    v57 = 2112;
+    v58 = v10;
+    _os_log_impl(&dword_1B0389000, v16, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> Got SecTrustResultType %u for %@", buf, 0x26u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  LOBYTE(v59) = 0;
-  switch(v17)
+  LOBYTE(v56) = 0;
+  switch(v15)
   {
     case 1:
-      LOBYTE(v59) = 1;
+      LOBYTE(v56) = 1;
       break;
     case 5:
       if ([(MFNWConnectionWrapper *)self->_socket allowsTrustPrompt])
       {
-        v21 = objc_alloc_init(MEMORY[0x1E6993C20]);
+        v19 = objc_alloc_init(MEMORY[0x1E6993C20]);
         remoteHostname2 = [(MFNWConnectionWrapper *)self->_socket remoteHostname];
-        [v21 setHost:remoteHostname2];
+        [v19 setHost:remoteHostname2];
 
         service3 = [(MFNWConnectionWrapper *)self->_socket service];
-        [v21 setService:service3];
+        [v19 setService:service3];
 
-        [v21 setTrust:trust];
-        if (v13)
+        [v19 setTrust:trust];
+        if (v11)
         {
-          v24 = *MEMORY[0x1E6993C40];
-          v52[0] = *MEMORY[0x1E6993C48];
-          v52[1] = v24;
-          v53[0] = MEMORY[0x1E695E110];
-          v53[1] = MEMORY[0x1E695E110];
-          v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:v52 count:2];
+          v22 = *MEMORY[0x1E6993C40];
+          v49[0] = *MEMORY[0x1E6993C48];
+          v49[1] = v22;
+          v50[0] = MEMORY[0x1E695E110];
+          v50[1] = MEMORY[0x1E695E110];
+          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:v49 count:2];
         }
 
         else
         {
-          v25 = 0;
+          v23 = 0;
         }
 
-        v31 = +[MFConnection certUIPromptScheduler];
-        v38[0] = MEMORY[0x1E69E9820];
-        v38[1] = 3221225472;
-        v38[2] = __40__MFConnection__evaluateTrust_errorPtr___block_invoke;
-        v38[3] = &unk_1E7AA23A8;
-        v39 = v12;
+        v29 = +[MFConnection certUIPromptScheduler];
+        v35[0] = MEMORY[0x1E69E9820];
+        v35[1] = 3221225472;
+        v35[2] = __40__MFConnection__evaluateTrust_errorPtr___block_invoke;
+        v35[3] = &unk_1E7AA23A8;
+        v36 = v10;
         selfCopy = self;
-        v43 = &v46;
-        v44 = buf;
-        v32 = v21;
-        v41 = v32;
-        v33 = v25;
-        v42 = v33;
+        v40 = &v43;
+        v41 = buf;
+        v30 = v19;
+        v38 = v30;
+        v31 = v23;
+        v39 = v31;
         trustCopy = trust;
-        [v31 performSyncBlock:v38];
+        [v29 performSyncBlock:v35];
 
         if (ptr)
         {
-          v34 = v47[5];
-          if (v34)
+          v32 = v44[5];
+          if (v32)
           {
-            *ptr = v34;
+            *ptr = v32;
           }
         }
       }
 
       break;
     case 4:
-      if (v13)
+      if (v11)
       {
-        v20 = buf;
+        v18 = buf;
       }
 
       else
       {
-        [(MFConnection *)self _setCertificateIsTrusted:1 forAccount:v12];
-        v20 = *&buf[8];
+        [(MFConnection *)self _setCertificateIsTrusted:1 forAccount:v10];
+        v18 = *&buf[8];
       }
 
-      v20[24] = 1;
+      v18[24] = 1;
       break;
     default:
-      v26 = [MFError errorWithDomain:*MEMORY[0x1E696A8B8] code:-9825 localizedDescription:0];
-      v27 = v47[5];
-      v47[5] = v26;
+      v24 = [MFError errorWithDomain:*MEMORY[0x1E696A8B8] code:-9825 localizedDescription:0];
+      v25 = v44[5];
+      v44[5] = v24;
 
-      v28 = MFLogNetwork();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v26 = MFLogNetwork();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
         socket = self->_socket;
-        v30 = v47[5];
-        *v54 = 134218242;
-        v55 = socket;
-        v56 = 2112;
-        v57 = v30;
-        _os_log_impl(&dword_1B0389000, v28, OS_LOG_TYPE_DEFAULT, "trust manager said DENY for connection %p (error: %@)", v54, 0x16u);
+        v28 = v44[5];
+        *v51 = 134218242;
+        v52 = socket;
+        v53 = 2112;
+        v54 = v28;
+        _os_log_impl(&dword_1B0389000, v26, OS_LOG_TYPE_DEFAULT, "trust manager said DENY for connection %p (error: %@)", v51, 0x16u);
       }
 
       break;
   }
 
-  v35 = *(*&buf[8] + 24);
+  v33 = *(*&buf[8] + 24);
   _Block_object_dispose(buf, 8);
 
-  _Block_object_dispose(&v46, 8);
-  v36 = *MEMORY[0x1E69E9840];
-  return v35 & 1;
+  _Block_object_dispose(&v43, 8);
+  return v33 & 1;
 }
 
 void __40__MFConnection__evaluateTrust_errorPtr___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) allowsTrustPrompt])
   {
     v2 = dispatch_semaphore_create(0);
     v3 = *(a1 + 48);
     v4 = *(a1 + 56);
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __40__MFConnection__evaluateTrust_errorPtr___block_invoke_96;
-    v14[3] = &unk_1E7AA2380;
-    v18 = *(a1 + 72);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __40__MFConnection__evaluateTrust_errorPtr___block_invoke_96;
+    v13[3] = &unk_1E7AA2380;
+    v17 = *(a1 + 72);
     v5 = *(a1 + 32);
     v6 = *(a1 + 64);
     v7 = *(a1 + 40);
-    v15 = v5;
-    v16 = v7;
+    v14 = v5;
+    v15 = v7;
     v8 = *(a1 + 80);
-    v19 = v6;
-    v20 = v8;
-    v17 = v2;
+    v18 = v6;
+    v19 = v8;
+    v16 = v2;
     v9 = v2;
-    [v3 showPromptWithOptions:v4 responseBlock:v14];
+    [v3 showPromptWithOptions:v4 responseBlock:v13];
     dispatch_semaphore_wait(v9, 0xFFFFFFFFFFFFFFFFLL);
   }
 
@@ -1726,21 +1717,19 @@ void __40__MFConnection__evaluateTrust_errorPtr___block_invoke(uint64_t a1)
       v11 = *(*(a1 + 40) + 24);
       v12 = *(*(*(a1 + 64) + 8) + 40);
       *buf = 134218242;
-      v22 = v11;
-      v23 = 2112;
-      v24 = v12;
+      v21 = v11;
+      v22 = 2112;
+      v23 = v12;
       _os_log_impl(&dword_1B0389000, v10, OS_LOG_TYPE_DEFAULT, "Supressing trust prompt as user denied earlier for connection %p (error: %@).", buf, 0x16u);
     }
 
     *(*(*(a1 + 72) + 8) + 24) = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 intptr_t __40__MFConnection__evaluateTrust_errorPtr___block_invoke_96(uint64_t a1, int a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   switch(a2)
   {
     case 2:
@@ -1770,19 +1759,17 @@ intptr_t __40__MFConnection__evaluateTrust_errorPtr___block_invoke_96(uint64_t a
       {
         v7 = *(*(a1 + 40) + 24);
         v8 = *(*(*(a1 + 64) + 8) + 40);
-        v16 = 134218242;
-        v17 = v7;
-        v18 = 2112;
-        v19 = v8;
-        _os_log_impl(&dword_1B0389000, v6, OS_LOG_TYPE_DEFAULT, "user said DENY for connection %p (error: %@). Supressing trust prompt till maild restarts", &v16, 0x16u);
+        v15 = 134218242;
+        v16 = v7;
+        v17 = 2112;
+        v18 = v8;
+        _os_log_impl(&dword_1B0389000, v6, OS_LOG_TYPE_DEFAULT, "user said DENY for connection %p (error: %@). Supressing trust prompt till maild restarts", &v15, 0x16u);
       }
 
       break;
   }
 
-  result = dispatch_semaphore_signal(*(a1 + 48));
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 48));
 }
 
 - (id)copyDiagnosticInformation
@@ -1807,11 +1794,10 @@ intptr_t __40__MFConnection__evaluateTrust_errorPtr___block_invoke_96(uint64_t a
 
 - (void)startCompression
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_error_impl(&dword_1B0389000, a2, OS_LOG_TYPE_ERROR, "inflateInit2 failed with error %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_error_impl(&dword_1B0389000, a2, OS_LOG_TYPE_ERROR, "inflateInit2 failed with error %d", v2, 8u);
 }
 
 @end

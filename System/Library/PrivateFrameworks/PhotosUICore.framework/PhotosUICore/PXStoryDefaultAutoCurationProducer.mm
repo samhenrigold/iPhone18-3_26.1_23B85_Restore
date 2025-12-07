@@ -49,7 +49,7 @@
   v13 = info->var1.var2.var3;
   v30 = info->var1.var1.var3;
   v31 = v13;
-  sub_1A3DB4F20();
+  sub_1A3DB4F20(0);
   MEMORY[0x1EEE9AC00](v14 - 8);
   v16 = &v30 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   v17 = *&info->var1.var2.var1;

@@ -108,11 +108,11 @@
   x = point.x;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1C3C95AAC(x, y);
-  v10 = v9;
+  sub_1C3C95AAC(coordinate, x, y);
+  v11 = v10;
   swift_unknownObjectRelease();
 
-  return v10;
+  return v11;
 }
 
 - (double)xAxisDistanceFromPoint:(CGPoint)point blockCoordinate:(id)coordinate chartRect:(CGRect)rect
@@ -136,15 +136,15 @@
   y = point.y;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v8 = sub_1C3C95C08(y);
+  v9 = sub_1C3C95C08(coordinate, y);
   swift_unknownObjectRelease();
 
-  return v8;
+  return v9;
 }
 
 - (id)findAxisLabelsInModelRange:(id)range zoomScale:(double)scale
 {
-  sub_1C3C27CB4(0, &qword_1EC086E80);
+  sub_1C3C27CB4(0, &qword_1EC086E80, off_1E81B21B8);
 
   v4 = sub_1C3D202A4();
 

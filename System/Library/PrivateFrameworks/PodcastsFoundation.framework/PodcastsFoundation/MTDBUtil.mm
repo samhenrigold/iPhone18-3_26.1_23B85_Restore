@@ -6,7 +6,7 @@
 
 + (BOOL)isSupportedUrlString:(id)string
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   if (![stringCopy length])
   {
@@ -73,30 +73,30 @@ LABEL_26:
     infoDictionary = [mainBundle infoDictionary];
 
     v13 = objc_opt_new();
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v14 = [infoDictionary objectForKey:{@"CFBundleURLTypes", 0}];
-    v15 = [v14 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v29;
+      v17 = *v28;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v29 != v17)
+          if (*v28 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = [*(*(&v28 + 1) + 8 * i) objectForKey:@"CFBundleURLSchemes"];
+          v19 = [*(*(&v27 + 1) + 8 * i) objectForKey:@"CFBundleURLSchemes"];
           [v13 addObjectsFromArray:v19];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v16);
@@ -123,7 +123,6 @@ LABEL_26:
   }
 
 LABEL_29:
-  v26 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

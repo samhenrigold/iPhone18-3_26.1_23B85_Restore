@@ -60,7 +60,7 @@
     if (!responses)
     {
       self->_responseCache = 0;
-      _objc_release_x1();
+      _objc_release_x1(self);
     }
   }
 }

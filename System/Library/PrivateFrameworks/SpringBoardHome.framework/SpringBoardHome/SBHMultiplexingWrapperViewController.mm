@@ -111,7 +111,7 @@
   [(SBHMultiplexingWrapperViewController *)&v7 loadView];
   view = [(SBHMultiplexingWrapperViewController *)self view];
   v4 = objc_alloc(MEMORY[0x1E69DD250]);
-  [view bounds];
+  objc_msgSend_bounds(view);
   v5 = [v4 initWithFrame:?];
   containerView = self->_containerView;
   self->_containerView = v5;
@@ -136,7 +136,7 @@
   v38.super_class = SBHMultiplexingWrapperViewController;
   [(SBHMultiplexingWrapperViewController *)&v38 viewWillLayoutSubviews];
   view = [(SBHMultiplexingWrapperViewController *)self view];
-  [view bounds];
+  objc_msgSend_bounds(view);
   v5 = v4;
   v7 = v6;
   v9 = v8;
@@ -169,7 +169,7 @@
   v39.size.height = v11;
   v40 = CGRectInset(v39, v18, v18);
   [(UIView *)self->_containerView setFrame:v40.origin.x, v40.origin.y, v40.size.width, v40.size.height];
-  [(UIView *)self->_containerView bounds];
+  objc_msgSend_bounds(self->_containerView);
   [(UIView *)self->_backgroundView setFrame:?];
   BSRectWithSize();
   v20 = v19;
@@ -555,7 +555,7 @@
 
 - (CGRect)visibleBounds
 {
-  [(SBHMultiplexingWrapperViewController *)self iconImageInfo];
+  objc_msgSend_iconImageInfo(self, a2);
   v3 = v2;
   v5 = v4;
   v6 = 0.0;

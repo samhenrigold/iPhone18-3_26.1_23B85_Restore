@@ -13,6 +13,7 @@
 - (void)setSpecifier:(id)specifier;
 - (void)sharePlayController:(id)controller didChangeProvider:(id)provider;
 - (void)sharePlayController:(id)controller didRemoveProvider:(id)provider;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation SharePlaySettingsListController
@@ -114,18 +115,18 @@
 - (void)setMainSwitchOn:(id)on specifier:(id)specifier
 {
   bOOLValue = [on BOOLValue];
-  v6 = SharePlaySettingsLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = SharePlaySettingsLog(bOOLValue, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = @"DISABLED";
+    v8 = @"DISABLED";
     if (bOOLValue)
     {
-      v7 = @"ENABLED";
+      v8 = @"ENABLED";
     }
 
-    v9 = 138412290;
-    v10 = v7;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Setting SharePlay service to %@.", &v9, 0xCu);
+    v10 = 138412290;
+    v11 = v8;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Setting SharePlay service to %@.", &v10, 0xCu);
   }
 
   providerController = [(SharePlaySettingsListController *)self providerController];
@@ -139,33 +140,33 @@
   if (v3)
   {
     isEnabled = [v3 isEnabled];
-    v6 = SharePlaySettingsLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = SharePlaySettingsLog(isEnabled, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       localizedName = [v4 localizedName];
-      v8 = localizedName;
-      v9 = @"DISABLED";
+      v9 = localizedName;
+      v10 = @"DISABLED";
       if (isEnabled)
       {
-        v9 = @"ENABLED";
+        v10 = @"ENABLED";
       }
 
-      v12 = 138412546;
-      v13 = localizedName;
-      v14 = 2112;
-      v15 = v9;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Getting SharePlay provider %@ as %@", &v12, 0x16u);
+      v13 = 138412546;
+      v14 = localizedName;
+      v15 = 2112;
+      v16 = v10;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Getting SharePlay provider %@ as %@", &v13, 0x16u);
     }
 
-    v10 = [NSNumber numberWithBool:isEnabled];
+    v11 = [NSNumber numberWithBool:isEnabled];
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (void)setPreferenceValue:(id)value specifier:(id)specifier
@@ -175,36 +176,54 @@
   if (v7)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      bOOLValue = [valueCopy BOOLValue];
+      isKindOfClass = [valueCopy BOOLValue];
+      v10 = isKindOfClass;
     }
 
     else
     {
-      bOOLValue = 0;
+      v10 = 0;
     }
 
-    v9 = SharePlaySettingsLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = SharePlaySettingsLog(isKindOfClass, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       bundleIdentifier = [v7 bundleIdentifier];
-      v11 = bundleIdentifier;
-      v12 = @"DISABLED";
-      if (bOOLValue)
+      v13 = bundleIdentifier;
+      v14 = @"DISABLED";
+      if (v10)
       {
-        v12 = @"ENABLED";
+        v14 = @"ENABLED";
       }
 
-      v14 = 138412546;
-      v15 = bundleIdentifier;
-      v16 = 2112;
-      v17 = v12;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Setting SharePlay provider %@ to %@", &v14, 0x16u);
+      v16 = 138412546;
+      v17 = bundleIdentifier;
+      v18 = 2112;
+      v19 = v14;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Setting SharePlay provider %@ to %@", &v16, 0x16u);
     }
 
     providerController = [(SharePlaySettingsListController *)self providerController];
-    [providerController setSharePlayEnabled:bOOLValue forProvider:v7];
+    [providerController setSharePlayEnabled:v10 forProvider:v7];
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = SharePlaySettingsListController;
+  [(SharePlaySettingsListController *)&v7 viewDidAppear:appear];
+  specifier = [(SharePlaySettingsListController *)self specifier];
+  target = [specifier target];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if (isKindOfClass)
+  {
+    [(SharePlaySettingsListController *)self emitNavigationEvent];
   }
 }
 

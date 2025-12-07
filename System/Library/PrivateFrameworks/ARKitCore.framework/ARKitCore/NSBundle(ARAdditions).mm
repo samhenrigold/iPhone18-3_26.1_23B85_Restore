@@ -16,7 +16,7 @@
 
   else
   {
-    v10 = ARKitCoreBundle();
+    v10 = ARKitCoreBundle(0);
     bundlePath = [v10 bundlePath];
     stringByDeletingLastPathComponent = [bundlePath stringByDeletingLastPathComponent];
     v13 = [stringByDeletingLastPathComponent stringByAppendingPathComponent:@"ARKitInternalExtras.bundle"];

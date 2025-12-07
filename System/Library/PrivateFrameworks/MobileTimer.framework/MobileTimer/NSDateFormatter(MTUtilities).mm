@@ -11,9 +11,9 @@
     +[NSDateFormatter(MTUtilities) mtTimeOnlyFormatter];
   }
 
-  v1 = mtTimeOnlyFormatter__timeOnlyFormatter;
+  v2 = mtTimeOnlyFormatter__timeOnlyFormatter;
 
-  return v1;
+  return v2;
 }
 
 @end

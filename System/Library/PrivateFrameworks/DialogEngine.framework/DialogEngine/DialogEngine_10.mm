@@ -1,8 +1,8 @@
 void siri::dialogengine::GetVisualElementId(std::string *this, const google::protobuf::Message *a2)
 {
-  siri::dialogengine::GetStoredItems(&v12, a2);
-  v3 = v12;
-  if (v12 == v13)
+  siri::dialogengine::GetStoredItems(&v11, a2);
+  v3 = v11;
+  if (v11 == v12)
   {
 LABEL_9:
     std::string::basic_string[abi:ne200100]<0>(this, "");
@@ -12,14 +12,13 @@ LABEL_9:
   {
     while (1)
     {
-      v8 = *(v3 + 8);
-      siri::dialogengine::CatBinary::vcat_item::vcat_item(v9, (v3 + 5));
-      if (v11 == 5)
+      siri::dialogengine::CatBinary::vcat_item::vcat_item(v8, (v3 + 5));
+      if (v10 == 5)
       {
         break;
       }
 
-      siri::dialogengine::CatBinary::vcat_item::~vcat_item(v9);
+      siri::dialogengine::CatBinary::vcat_item::~vcat_item(v8);
       v4 = v3[1];
       if (v4)
       {
@@ -45,28 +44,28 @@ LABEL_9:
       }
 
       v3 = v5;
-      if (v5 == v13)
+      if (v5 == v12)
       {
         goto LABEL_9;
       }
     }
 
-    if (*(v10 + 23) < 0)
+    if (*(v9 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(this, *v10, *(v10 + 1));
+      std::string::__init_copy_ctor_external(this, *v9, *(v9 + 1));
     }
 
     else
     {
-      v7 = *v10;
-      this->__r_.__value_.__r.__words[2] = *(v10 + 2);
+      v7 = *v9;
+      this->__r_.__value_.__r.__words[2] = *(v9 + 2);
       *&this->__r_.__value_.__l.__data_ = v7;
     }
 
-    siri::dialogengine::CatBinary::vcat_item::~vcat_item(v9);
+    siri::dialogengine::CatBinary::vcat_item::~vcat_item(v8);
   }
 
-  std::__tree<std::__value_type<int,siri::dialogengine::CatBinary::vcat_item>,std::__map_value_compare<int,std::__value_type<int,siri::dialogengine::CatBinary::vcat_item>,std::less<int>,true>,std::allocator<std::__value_type<int,siri::dialogengine::CatBinary::vcat_item>>>::destroy(v13[0]);
+  std::__tree<std::__value_type<int,siri::dialogengine::CatBinary::vcat_item>,std::__map_value_compare<int,std::__value_type<int,siri::dialogengine::CatBinary::vcat_item>,std::less<int>,true>,std::allocator<std::__value_type<int,siri::dialogengine::CatBinary::vcat_item>>>::destroy(v12[0]);
 }
 
 void sub_1BFBF90F8(_Unwind_Exception *a1)
@@ -76,9 +75,9 @@ void sub_1BFBF90F8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::string>>(uint64_t a1, const void **a2)
+char **std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::string>>(char *a1, const void **a2, uint64_t a3)
 {
-  result = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v3, a2);
+  result = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v4, a2);
   if (!*result)
   {
     operator new();
@@ -100,23 +99,23 @@ void rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAlloc
   operator new();
 }
 
-uint64_t rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::ParseStream<0u,rapidjson::UTF8<char>,rapidjson::GenericStringStream<rapidjson::UTF8<char>>>(uint64_t a1, uint64_t a2)
+uint64_t rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::ParseStream<0u,rapidjson::UTF8<char>,rapidjson::GenericStringStream<rapidjson::UTF8<char>>>(uint64_t a1, uint64_t a2, double a3, __n128 a4)
 {
-  v4 = *(a1 + 40);
-  v19 = a1;
-  v20 = v4;
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 256;
-  v25 = 2;
-  LODWORD(v24) = 0;
-  *(&v24 + 1) = 0;
+  v6 = *(a1 + 40);
+  v21 = a1;
+  v22 = v6;
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 256;
+  v27 = 2;
+  LODWORD(v26) = 0;
+  *(&v26 + 1) = 0;
   for (i = *a2; ; ++i)
   {
-    v6 = *i;
-    v7 = v6 > 0x20;
-    v8 = (1 << v6) & 0x100002600;
-    if (v7 || v8 == 0)
+    v8 = *i;
+    v9 = v8 > 0x20;
+    v10 = (1 << v8) & 0x100002600;
+    if (v9 || v10 == 0)
     {
       break;
     }
@@ -125,23 +124,23 @@ uint64_t rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolA
   *a2 = i;
   if (!*i)
   {
-    v17 = 1;
+    v19 = 1;
 LABEL_23:
-    v18 = &i[-*(a2 + 8)];
-    LODWORD(v24) = v17;
-    *(&v24 + 1) = v18;
+    v20 = &i[-*(a2 + 8)];
+    LODWORD(v26) = v19;
+    *(&v26 + 1) = v20;
     goto LABEL_16;
   }
 
-  rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::ParseValue<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>>(&v20, a2, a1);
-  if (!v24)
+  rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::ParseValue<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>>(&v22, a2, a1, 0, a4);
+  if (!v26)
   {
     for (i = *a2; ; ++i)
     {
-      v10 = *i;
-      v7 = v10 > 0x20;
-      v11 = (1 << v10) & 0x100002600;
-      if (v7 || v11 == 0)
+      v12 = *i;
+      v9 = v12 > 0x20;
+      v13 = (1 << v12) & 0x100002600;
+      if (v9 || v13 == 0)
       {
         break;
       }
@@ -150,39 +149,39 @@ LABEL_23:
     *a2 = i;
     if (*i)
     {
-      v17 = 2;
+      v19 = 2;
       goto LABEL_23;
     }
   }
 
 LABEL_16:
-  *&v22 = *(&v21 + 1);
-  v13 = v24;
-  *(a1 + 88) = v24;
-  if (!v13)
+  *&v24 = *(&v23 + 1);
+  v15 = v26;
+  *(a1 + 88) = v26;
+  if (!v15)
   {
-    v14 = *(a1 + 64);
-    if (v14 - *(a1 + 56) != 24)
+    v16 = *(a1 + 64);
+    if (v16 - *(a1 + 56) != 24)
     {
       __assert_rtn("ParseStream", "document.h", 2259, "stack_.GetSize() == sizeof(ValueType)");
     }
 
-    *(a1 + 64) = v14 - 24;
-    if (v14 - 24 != a1)
+    *(a1 + 64) = v16 - 24;
+    if (v16 - 24 != a1)
     {
-      v15 = *(v14 - 24);
-      *(a1 + 16) = *(v14 - 8);
-      *a1 = v15;
-      *(v14 - 2) = 0;
+      v17 = *(v16 - 24);
+      *(a1 + 16) = *(v16 - 8);
+      *a1 = v17;
+      *(v16 - 2) = 0;
     }
   }
 
-  rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::ClearStackOnExit::~ClearStackOnExit(&v19);
-  rapidjson::internal::Stack<rapidjson::CrtAllocator>::Destroy(&v20);
+  rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::ClearStackOnExit::~ClearStackOnExit(&v21);
+  rapidjson::internal::Stack<rapidjson::CrtAllocator>::Destroy(&v22);
   return a1;
 }
 
-void sub_1BFBF941C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13)
+void sub_1BFBF941C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
   a13 = a12;
   rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::ClearStackOnExit::~ClearStackOnExit(&a9);
@@ -190,7 +189,7 @@ void sub_1BFBF941C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t rapidjson::internal::Stack<rapidjson::CrtAllocator>::Push<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>(void *a1)
+uint64_t rapidjson::internal::Stack<rapidjson::CrtAllocator>::Push<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>(uint64_t *a1)
 {
   v3 = a1 + 3;
   result = a1[3];
@@ -222,40 +221,40 @@ LABEL_3:
   return result;
 }
 
-void rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::ParseValue<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>>(uint64_t a1, unsigned __int8 **a2, uint64_t a3)
+void rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::ParseValue<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>>(uint64_t result, unsigned __int8 **a2, void *a3, __n128 a4, __n128 a5)
 {
-  v6 = *a2;
-  v7 = **a2;
-  if (v7 > 0x6D)
+  v8 = *a2;
+  v9 = **a2;
+  if (v9 > 0x6D)
   {
-    if (v7 != 123)
+    if (v9 != 123)
     {
-      if (v7 == 116)
+      if (v9 == 116)
       {
-        v8 = v6 + 1;
-        *a2 = v6 + 1;
-        if (v6[1] == 114)
+        v10 = v8 + 1;
+        *a2 = v8 + 1;
+        if (v8[1] == 114)
         {
-          v8 = v6 + 2;
-          *a2 = v6 + 2;
-          if (v6[2] == 117)
+          v10 = v8 + 2;
+          *a2 = v8 + 2;
+          if (v8[2] == 117)
           {
-            v8 = v6 + 3;
-            *a2 = v6 + 3;
-            if (v6[3] == 101)
+            v10 = v8 + 3;
+            *a2 = v8 + 3;
+            if (v8[3] == 101)
             {
-              *a2 = v6 + 4;
-              v9 = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Push<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>((a3 + 40));
-              *(v9 + 8) = 0;
-              *(v9 + 16) = 0;
-              *v9 = 0;
-              v10 = 10;
+              *a2 = v8 + 4;
+              v11 = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Push<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>(a3 + 5);
+              *(v11 + 8) = 0;
+              *(v11 + 16) = 0;
+              *v11 = 0;
+              v12 = 10;
               goto LABEL_55;
             }
           }
         }
 
-        if (*(a1 + 48))
+        if (*(result + 48))
         {
           __assert_rtn("ParseTrue", "reader.h", 876, "!HasParseError()");
         }
@@ -263,130 +262,130 @@ void rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidj
         goto LABEL_144;
       }
 
-      if (v7 == 110)
+      if (v9 == 110)
       {
-        v8 = v6 + 1;
-        *a2 = v6 + 1;
-        if (v6[1] == 117)
+        v10 = v8 + 1;
+        *a2 = v8 + 1;
+        if (v8[1] == 117)
         {
-          v8 = v6 + 2;
-          *a2 = v6 + 2;
-          if (v6[2] == 108)
+          v10 = v8 + 2;
+          *a2 = v8 + 2;
+          if (v8[2] == 108)
           {
-            v8 = v6 + 3;
-            *a2 = v6 + 3;
-            if (v6[3] == 108)
+            v10 = v8 + 3;
+            *a2 = v8 + 3;
+            if (v8[3] == 108)
             {
-              *a2 = v6 + 4;
-              v11 = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Push<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>((a3 + 40));
-              v11[1] = 0;
-              v11[2] = 0;
-              *v11 = 0;
+              *a2 = v8 + 4;
+              v13 = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Push<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>(a3 + 5);
+              v13[1] = 0;
+              v13[2] = 0;
+              *v13 = 0;
               return;
             }
           }
         }
 
-        if (*(a1 + 48))
+        if (*(result + 48))
         {
           __assert_rtn("ParseNull", "reader.h", 863, "!HasParseError()");
         }
 
 LABEL_144:
-        v64 = v8 - a2[1];
-        v65 = 3;
+        v67 = v10 - a2[1];
+        v68 = 3;
 LABEL_145:
-        *(a1 + 48) = v65;
-        *(a1 + 56) = v64;
+        *(result + 48) = v68;
+        *(result + 56) = v67;
         return;
       }
 
 LABEL_32:
-      v20 = a2[1];
-      if (v7 == 45)
+      v22 = a2[1];
+      if (v9 == 45)
       {
-        v22 = v6 + 1;
-        v21 = v6[1];
+        v24 = v8 + 1;
+        v23 = v8[1];
       }
 
       else
       {
-        v21 = **a2;
-        v22 = *a2;
+        v23 = **a2;
+        v24 = *a2;
       }
 
-      v23 = v21 - 48;
-      if (v21 == 48)
+      v25 = v23 - 48;
+      if (v23 == 48)
       {
-        v40 = 0;
-        v42 = 0;
-        v28 = 0;
         v43 = 0;
-        v27 = 0.0;
-        v66 = *++v22;
-        v24 = v66;
+        v45 = 0;
+        v30 = 0;
+        v46 = 0;
+        v29 = 0.0;
+        v69 = *++v24;
+        v26 = v69;
         goto LABEL_88;
       }
 
-      if ((v21 - 49) > 8)
+      if ((v23 - 49) > 8)
       {
-        if (*(a1 + 48))
+        if (*(result + 48))
         {
           __assert_rtn("ParseNumber", "reader.h", 1532, "!HasParseError()");
         }
 
-        v46 = (v22 - v20);
-        v60 = 3;
+        v49 = v24 - v22;
+        v63 = 3;
         goto LABEL_131;
       }
 
-      v25 = *++v22;
-      v24 = v25;
-      v26 = v25 - 48;
-      v27 = 0.0;
-      if (v7 == 45)
+      v27 = *++v24;
+      v26 = v27;
+      v28 = v27 - 48;
+      v29 = 0.0;
+      if (v9 == 45)
       {
-        if (v26 <= 9)
+        if (v28 <= 9)
         {
-          v28 = 0;
-          v29 = 214748364;
+          v30 = 0;
+          v31 = 214748364;
           while (1)
           {
-            if (v23 > 0xCCCCCCB)
+            if (v25 > 0xCCCCCCB)
             {
-              if (v23 != 214748364)
+              if (v25 != 214748364)
               {
                 goto LABEL_138;
               }
 
-              if (v24 > 0x38)
+              if (v26 > 0x38)
               {
                 break;
               }
             }
 
-            v30 = *++v22;
-            v23 = v24 + 10 * v23 - 48;
-            ++v28;
-            v24 = v30;
-            if (v30 - 48 >= 0xA)
+            v32 = *++v24;
+            v25 = v26 + 10 * v25 - 48;
+            ++v30;
+            v26 = v32;
+            if (v32 - 48 >= 0xA)
             {
               goto LABEL_76;
             }
           }
 
-          v24 = 57;
+          v26 = 57;
 LABEL_69:
-          v40 = v29;
-          if (v7 == 45)
+          v43 = v31;
+          if (v9 == 45)
           {
-            while (v40 <= 0xCCCCCCCCCCCCCCBLL || v40 == 0xCCCCCCCCCCCCCCCLL && v24 <= 0x38)
+            while (v43 <= 0xCCCCCCCCCCCCCCBLL || v43 == 0xCCCCCCCCCCCCCCCLL && v26 <= 0x38)
             {
-              v41 = *++v22;
-              v40 = (v24 & 0xF) + 10 * v40;
-              ++v28;
-              v24 = v41;
-              if (v41 - 48 >= 0xA)
+              v44 = *++v24;
+              v43 = (v26 & 0xF) + 10 * v43;
+              ++v30;
+              v26 = v44;
+              if (v44 - 48 >= 0xA)
               {
                 goto LABEL_86;
               }
@@ -395,180 +394,180 @@ LABEL_69:
 
           else
           {
-            while (v40 <= 0x1999999999999998 || v40 == 0x1999999999999999 && v24 <= 0x35)
+            while (v43 <= 0x1999999999999998 || v43 == 0x1999999999999999 && v26 <= 0x35)
             {
-              v44 = *++v22;
-              v40 = (v24 & 0xF) + 10 * v40;
-              ++v28;
-              v24 = v44;
-              if (v44 - 48 >= 0xA)
+              v47 = *++v24;
+              v43 = (v26 & 0xF) + 10 * v43;
+              ++v30;
+              v26 = v47;
+              if (v47 - 48 >= 0xA)
               {
 LABEL_86:
-                v42 = 0;
-                v27 = 0.0;
+                v45 = 0;
+                v29 = 0.0;
                 goto LABEL_87;
               }
             }
           }
 
-          v27 = v40;
+          v29 = v43;
           do
           {
-            v45 = *++v22;
-            v27 = (v24 - 48) + v27 * 10.0;
-            v24 = v45;
+            v48 = *++v24;
+            v29 = (v26 - 48) + v29 * 10.0;
+            v26 = v48;
           }
 
-          while (v45 - 48 < 0xA);
-          v42 = 1;
+          while (v48 - 48 < 0xA);
+          v45 = 1;
 LABEL_87:
-          v43 = 1;
-          v23 = v29;
+          v46 = 1;
+          v25 = v31;
 LABEL_88:
-          v46 = (v6 - v20);
-          if (v24 == 46)
+          v49 = v8 - v22;
+          if (v26 == 46)
           {
-            v47 = *++v22;
-            v24 = v47;
-            if (v47 - 58 <= 0xFFFFFFF5)
+            v50 = *++v24;
+            v26 = v50;
+            if (v50 - 58 <= 0xFFFFFFF5)
             {
-              if (*(a1 + 48))
+              if (*(result + 48))
               {
                 __assert_rtn("ParseNumber", "reader.h", 1575, "!HasParseError()");
               }
 
-              v46 = (v22 - v20);
-              v60 = 14;
+              v49 = v24 - v22;
+              v63 = 14;
               goto LABEL_131;
             }
 
-            v48 = 0;
-            if (v42)
+            v51 = 0;
+            if (v45)
             {
               goto LABEL_100;
             }
 
-            if (!v43)
+            if (!v46)
             {
-              v40 = v23;
+              v43 = v25;
             }
 
-            while (v24 <= 0x39 && !(v40 >> 53))
+            while (v26 <= 0x39 && !(v43 >> 53))
             {
-              v50 = *++v22;
-              v49 = v50;
-              v40 = v24 - 48 + 10 * v40;
-              --v48;
-              if (v40)
+              v53 = *++v24;
+              v52 = v53;
+              v43 = v26 - 48 + 10 * v43;
+              --v51;
+              if (v43)
               {
-                ++v28;
+                ++v30;
               }
 
-              v24 = v49;
-              if (v49 <= 47)
+              v26 = v52;
+              if (v52 <= 47)
               {
-                v51 = 0;
-                v27 = v40;
+                v54 = 0;
+                v29 = v43;
                 goto LABEL_106;
               }
             }
 
-            v27 = v40;
+            v29 = v43;
 LABEL_100:
-            while (v24 <= 0x39)
+            while (v26 <= 0x39)
             {
-              if (v28 <= 16)
+              if (v30 <= 16)
               {
-                v27 = (v24 - 48) + v27 * 10.0;
-                --v48;
-                if (v27 > 0.0)
+                v29 = (v26 - 48) + v29 * 10.0;
+                --v51;
+                if (v29 > 0.0)
                 {
-                  ++v28;
+                  ++v30;
                 }
               }
 
-              v52 = *++v22;
-              v24 = v52;
-              if (v52 <= 47)
+              v55 = *++v24;
+              v26 = v55;
+              if (v55 <= 47)
               {
                 goto LABEL_105;
               }
             }
 
-            v42 = 1;
+            v45 = 1;
           }
 
           else
           {
-            v48 = 0;
+            v51 = 0;
           }
 
-          if (v24 != 101 && v24 != 69)
+          if (v26 != 101 && v26 != 69)
           {
-            v104 = v23;
-            v103 = v40;
-            if ((v42 & 1) == 0)
+            v108 = v25;
+            v107 = v43;
+            if ((v45 & 1) == 0)
             {
-              if (v43)
+              if (v46)
               {
-                if (v7 == 45)
+                if (v9 == 45)
                 {
-                  rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::Int64(a3, -v40);
+                  rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::Int64(a3, -v43);
                   goto LABEL_136;
                 }
 
-                v61 = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Push<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>((a3 + 40));
-                *(v61 + 8) = 0;
-                *(v61 + 16) = 0;
-                *v61 = v103;
-                if (v103 < 0)
+                v64 = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Push<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>(a3 + 5);
+                *(v64 + 8) = 0;
+                *(v64 + 16) = 0;
+                *v64 = v107;
+                if (v107 < 0)
                 {
-                  v101 = 278;
+                  v105 = 278;
                 }
 
                 else
                 {
-                  v101 = 406;
+                  v105 = 406;
                 }
 
-                if (v103 >> 31)
+                if (v107 >> 31)
                 {
-                  v63 = 470;
+                  v66 = 470;
                 }
 
                 else
                 {
-                  v63 = 502;
+                  v66 = 502;
                 }
 
-                if (HIDWORD(v103))
+                if (HIDWORD(v107))
                 {
-                  v63 = v101;
+                  v66 = v105;
                 }
               }
 
               else
               {
-                v61 = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Push<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>((a3 + 40));
-                *(v61 + 8) = 0;
-                *(v61 + 16) = 0;
-                if (v7 == 45)
+                v64 = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Push<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>(a3 + 5);
+                *(v64 + 8) = 0;
+                *(v64 + 16) = 0;
+                if (v9 == 45)
                 {
-                  *v61 = -v104;
-                  v102 = -v104 < 0;
-                  v63 = 182;
+                  *v64 = -v108;
+                  v106 = -v108 < 0;
+                  v66 = 182;
                 }
 
                 else
                 {
-                  *v61 = v104;
-                  v102 = v104 < 0;
-                  v63 = 470;
+                  *v64 = v108;
+                  v106 = v108 < 0;
+                  v66 = 470;
                 }
 
-                if (!v102)
+                if (!v106)
                 {
-                  v63 = 502;
+                  v66 = 502;
                 }
               }
 
@@ -576,132 +575,132 @@ LABEL_100:
             }
 
 LABEL_105:
-            v51 = 0;
+            v54 = 0;
 LABEL_106:
-            v53 = v48 + v51;
-            if (v53 > -309)
+            v56 = v51 + v54;
+            if (v56 > -309)
             {
-              if ((v53 & 0x80000000) == 0)
+              if ((v56 & 0x80000000) == 0)
               {
-                if (v53 >= 0x135)
+                if (v56 >= 0x135)
                 {
-                  v96 = "n >= 0 && n <= 308";
-                  v97 = 48;
-                  v98 = "pow10.h";
-                  v99 = "Pow10";
+                  v100 = "n >= 0 && n <= 308";
+                  v101 = 48;
+                  v102 = "pow10.h";
+                  v103 = "Pow10";
                   goto LABEL_219;
                 }
 
-                v54 = v27 * rapidjson::internal::Pow10(int)::e[v53];
+                v57 = v29 * rapidjson::internal::Pow10(int)::e[v56];
                 goto LABEL_128;
               }
 
-              v55 = -v53;
+              v58 = -v56;
             }
 
             else
             {
-              v54 = 0.0;
-              if (v53 < 0xFFFFFD98)
+              v57 = 0.0;
+              if (v56 < 0xFFFFFD98)
               {
                 goto LABEL_132;
               }
 
-              v27 = v27 / 1.0e308;
-              v55 = -308 - v53;
+              v29 = v29 / 1.0e308;
+              v58 = -308 - v56;
             }
 
-            v54 = v27 / rapidjson::internal::Pow10(int)::e[v55];
+            v57 = v29 / rapidjson::internal::Pow10(int)::e[v58];
 LABEL_128:
-            if (v54 > 1.79769313e308)
+            if (v57 > 1.79769313e308)
             {
-              if (!*(a1 + 48))
+              if (!*(result + 48))
               {
 LABEL_130:
-                v60 = 13;
+                v63 = 13;
 LABEL_131:
-                *(a1 + 48) = v60;
-                *(a1 + 56) = v46;
+                *(result + 48) = v63;
+                *(result + 56) = v49;
 LABEL_136:
-                *a2 = v22;
-                a2[1] = v20;
+                *a2 = v24;
+                a2[1] = v22;
                 return;
               }
 
-              v96 = "!HasParseError()";
-              v97 = 1707;
-              v98 = "reader.h";
-              v99 = "ParseNumber";
+              v100 = "!HasParseError()";
+              v101 = 1707;
+              v102 = "reader.h";
+              v103 = "ParseNumber";
 LABEL_219:
-              __assert_rtn(v99, v98, v97, v96);
+              __assert_rtn(v103, v102, v101, v100);
             }
 
 LABEL_132:
-            v61 = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Push<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>((a3 + 40));
-            v62 = -v54;
-            if (v7 != 45)
+            v64 = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Push<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>(a3 + 5);
+            v65 = -v57;
+            if (v9 != 45)
             {
-              v62 = v54;
+              v65 = v57;
             }
 
-            *(v61 + 8) = 0;
-            *(v61 + 16) = 0;
-            *v61 = v62;
-            v63 = 534;
+            *(v64 + 8) = 0;
+            *(v64 + 16) = 0;
+            *v64 = v65;
+            v66 = 534;
 LABEL_135:
-            *(v61 + 22) = v63;
+            *(v64 + 22) = v66;
             goto LABEL_136;
           }
 
-          v57 = v22 + 1;
-          v56 = v22[1];
-          if (!v43)
+          v60 = v24 + 1;
+          v59 = v24[1];
+          if (!v46)
           {
-            v40 = v23;
+            v43 = v25;
           }
 
-          if (!v42)
+          if (!v45)
           {
-            v27 = v40;
+            v29 = v43;
           }
 
-          if (v56 == 43)
+          if (v59 == 43)
           {
-            v57 = v22 + 2;
-            v56 = v22[2];
-            if ((v56 - 48) < 0xA)
+            v60 = v24 + 2;
+            v59 = v24[2];
+            if ((v59 - 48) < 0xA)
             {
-              v58 = 3;
+              v61 = 3;
               goto LABEL_118;
             }
           }
 
-          else if (v56 == 45)
+          else if (v59 == 45)
           {
-            v57 = v22 + 2;
-            v93 = v22[2] - 48;
-            if (v93 < 0xA)
+            v60 = v24 + 2;
+            v97 = v24[2] - 48;
+            if (v97 < 0xA)
             {
-              v22 += 3;
-              if (v48 >= 1)
+              v24 += 3;
+              if (v51 >= 1)
               {
                 __assert_rtn("ParseNumber", "reader.h", 1639, "expFrac <= 0");
               }
 
-              v94 = *v22;
-              if ((v94 - 48) <= 9)
+              v98 = *v24;
+              if ((v98 - 48) <= 9)
               {
                 while (1)
                 {
-                  v93 = v94 + 10 * v93 - 48;
-                  if (v93 > (v48 + 2147483639) / 10)
+                  v97 = v98 + 10 * v97 - 48;
+                  if (v97 > (v51 + 2147483639) / 10)
                   {
                     break;
                   }
 
-                  v95 = *++v22;
-                  v94 = v95;
-                  if ((v95 - 48) >= 0xA)
+                  v99 = *++v24;
+                  v98 = v99;
+                  if ((v99 - 48) >= 0xA)
                   {
                     goto LABEL_217;
                   }
@@ -709,38 +708,38 @@ LABEL_135:
 
                 do
                 {
-                  v100 = *++v22;
+                  v104 = *++v24;
                 }
 
-                while ((v100 - 48) < 0xA);
+                while ((v104 - 48) < 0xA);
               }
 
 LABEL_217:
-              v51 = -v93;
+              v54 = -v97;
               goto LABEL_106;
             }
           }
 
-          else if ((v56 - 48) < 0xA)
+          else if ((v59 - 48) < 0xA)
           {
-            v58 = 2;
+            v61 = 2;
 LABEL_118:
-            v22 += v58;
-            v51 = v56 - 48;
+            v24 += v61;
+            v54 = v59 - 48;
             do
             {
-              v59 = *v22;
-              if ((v59 - 48) > 9)
+              v62 = *v24;
+              if ((v62 - 48) > 9)
               {
                 goto LABEL_106;
               }
 
-              ++v22;
-              v51 = v59 + 10 * v51 - 48;
+              ++v24;
+              v54 = v62 + 10 * v54 - 48;
             }
 
-            while (v51 <= 308 - v48);
-            if (*(a1 + 48))
+            while (v54 <= 308 - v51);
+            if (*(result + 48))
             {
               __assert_rtn("ParseNumber", "reader.h", 1655, "!HasParseError()");
             }
@@ -748,118 +747,118 @@ LABEL_118:
             goto LABEL_130;
           }
 
-          v22 = v57;
-          if (*(a1 + 48))
+          v24 = v60;
+          if (*(result + 48))
           {
             __assert_rtn("ParseNumber", "reader.h", 1660, "!HasParseError()");
           }
 
-          v46 = (v57 - v20);
-          v60 = 15;
+          v49 = v60 - v22;
+          v63 = 15;
           goto LABEL_131;
         }
       }
 
-      else if (v26 <= 9)
+      else if (v28 <= 9)
       {
-        v28 = 0;
-        v29 = 429496729;
+        v30 = 0;
+        v31 = 429496729;
         while (1)
         {
-          if (v23 > 0x19999998)
+          if (v25 > 0x19999998)
           {
-            if (v23 != 429496729)
+            if (v25 != 429496729)
             {
 LABEL_138:
-              v29 = v23;
+              v31 = v25;
               goto LABEL_69;
             }
 
-            if (v24 > 0x35)
+            if (v26 > 0x35)
             {
               goto LABEL_69;
             }
           }
 
-          v39 = *++v22;
-          v23 = v24 + 10 * v23 - 48;
-          ++v28;
-          v24 = v39;
-          if (v39 - 48 >= 0xA)
+          v42 = *++v24;
+          v25 = v26 + 10 * v25 - 48;
+          ++v30;
+          v26 = v42;
+          if (v42 - 48 >= 0xA)
           {
 LABEL_76:
-            v40 = 0;
-            v42 = 0;
+            v43 = 0;
+            v45 = 0;
             goto LABEL_77;
           }
         }
       }
 
-      v40 = 0;
-      v42 = 0;
-      v28 = 0;
-LABEL_77:
       v43 = 0;
+      v45 = 0;
+      v30 = 0;
+LABEL_77:
+      v46 = 0;
       goto LABEL_88;
     }
 
-    *a2 = v6 + 1;
-    v12 = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Push<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>((a3 + 40));
-    *(v12 + 8) = 0;
-    *(v12 + 16) = 0;
-    *v12 = 0;
-    *(v12 + 22) = 3;
+    *a2 = v8 + 1;
+    v14 = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Push<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>(a3 + 5);
+    *(v14 + 8) = 0;
+    *(v14 + 16) = 0;
+    *v14 = 0;
+    *(v14 + 22) = 3;
     for (i = *a2; ; ++i)
     {
-      v14 = *i;
-      v102 = v14 > 0x20;
-      v15 = (1 << v14) & 0x100002600;
-      if (v102 || v15 == 0)
+      v16 = *i;
+      v106 = v16 > 0x20;
+      v17 = (1 << v16) & 0x100002600;
+      if (v106 || v17 == 0)
       {
         break;
       }
     }
 
     *a2 = i;
-    if (!*(a1 + 48))
+    if (!*(result + 48))
     {
-      v17 = *i;
-      if (v17 == 125)
+      v19 = *i;
+      if (v19 == 125)
       {
         *a2 = i + 1;
-        v18 = a3;
-        v19 = 0;
+        v20 = a3;
+        v21 = 0;
 LABEL_29:
 
-        rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::EndObject(v18, v19);
+        rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::EndObject(v20, v21);
       }
 
       else
       {
-        if (v17 != 34)
+        if (v19 != 34)
         {
 LABEL_183:
-          v65 = 4;
+          v68 = 4;
 LABEL_214:
-          v64 = i - a2[1];
+          v67 = i - a2[1];
           goto LABEL_145;
         }
 
-        v67 = 0;
+        v70 = 0;
         while (1)
         {
-          v68.n128_f64[0] = rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::ParseString<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>>(a1, a2, a3);
-          if (*(a1 + 48))
+          v71.n128_f64[0] = rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::ParseString<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>>(result, a2, a3);
+          if (*(result + 48))
           {
             break;
           }
 
           for (i = *a2; ; ++i)
           {
-            v69 = *i;
-            v102 = v69 > 0x20;
-            v70 = (1 << v69) & 0x100002600;
-            if (v102 || v70 == 0)
+            v73 = *i;
+            v106 = v73 > 0x20;
+            v74 = (1 << v73) & 0x100002600;
+            if (v106 || v74 == 0)
             {
               break;
             }
@@ -868,67 +867,67 @@ LABEL_214:
           *a2 = i;
           if (*i != 58)
           {
-            v65 = 5;
+            v68 = 5;
             goto LABEL_214;
           }
 
-          v72 = i + 1;
-          *a2 = v72;
+          v76 = i + 1;
+          *a2 = v76;
           while (1)
           {
-            v73 = *v72;
-            v102 = v73 > 0x20;
-            v74 = (1 << v73) & 0x100002600;
-            if (v102 || v74 == 0)
+            v77 = *v76;
+            v106 = v77 > 0x20;
+            v78 = (1 << v77) & 0x100002600;
+            if (v106 || v78 == 0)
             {
               break;
             }
 
-            ++v72;
+            ++v76;
           }
 
-          *a2 = v72;
-          rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::ParseValue<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>>(a1, a2, a3, v68);
-          if (*(a1 + 48))
+          *a2 = v76;
+          rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::ParseValue<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>>(result, a2, a3, v71, v72);
+          if (*(result + 48))
           {
             return;
           }
 
           for (i = *a2; ; ++i)
           {
-            v76 = *i;
-            v102 = v76 > 0x20;
-            v77 = (1 << v76) & 0x100002600;
-            if (v102 || v77 == 0)
+            v80 = *i;
+            v106 = v80 > 0x20;
+            v81 = (1 << v80) & 0x100002600;
+            if (v106 || v81 == 0)
             {
               break;
             }
           }
 
           *a2 = i;
-          ++v67;
-          v79 = *i;
-          if (v79 != 44)
+          ++v70;
+          v83 = *i;
+          if (v83 != 44)
           {
-            if (v79 == 125)
+            if (v83 == 125)
             {
               *a2 = i + 1;
-              v18 = a3;
-              v19 = v67;
+              v20 = a3;
+              v21 = v70;
               goto LABEL_29;
             }
 
-            v65 = 6;
+            v68 = 6;
             goto LABEL_214;
           }
 
           *a2 = ++i;
           while (1)
           {
-            v80 = *i;
-            v102 = v80 > 0x20;
-            v81 = (1 << v80) & 0x100002600;
-            if (v102 || v81 == 0)
+            v84 = *i;
+            v106 = v84 > 0x20;
+            v85 = (1 << v84) & 0x100002600;
+            if (v106 || v85 == 0)
             {
               break;
             }
@@ -948,136 +947,136 @@ LABEL_214:
 
   else
   {
-    switch(v7)
+    switch(v9)
     {
       case '""':
 
-        rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::ParseString<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>>(a1, a2, a3);
+        rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::ParseString<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>>(result, a2, a3);
         break;
       case '[':
-        *a2 = v6 + 1;
-        v31 = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Push<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>((a3 + 40));
-        *(v31 + 8) = 0;
-        *(v31 + 16) = 0;
-        *v31 = 0;
-        *(v31 + 22) = 4;
+        *a2 = v8 + 1;
+        v33 = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Push<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>(a3 + 5);
+        *(v33 + 8) = 0;
+        *(v33 + 16) = 0;
+        *v33 = 0;
+        *(v33 + 22) = 4;
         for (j = *a2; ; ++j)
         {
-          v34 = *j;
-          v102 = v34 > 0x20;
-          v35 = (1 << v34) & 0x100002600;
-          if (v102 || v35 == 0)
+          v37 = *j;
+          v106 = v37 > 0x20;
+          v38 = (1 << v37) & 0x100002600;
+          if (v106 || v38 == 0)
           {
             break;
           }
         }
 
         *a2 = j;
-        if (!*(a1 + 48))
+        if (!*(result + 48))
         {
           if (*j == 93)
           {
             *a2 = j + 1;
-            v37 = a3;
-            v38 = 0;
+            v40 = a3;
+            v41 = 0;
 LABEL_59:
 
-            rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::EndArray(v37, v38);
+            rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>::EndArray(v40, v41);
           }
 
           else
           {
-            v83 = 0;
+            v87 = 0;
             while (1)
             {
-              rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::ParseValue<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>>(a1, a2, a3, v32);
-              if (*(a1 + 48))
+              rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator>::ParseValue<0u,rapidjson::GenericStringStream<rapidjson::UTF8<char>>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>,rapidjson::CrtAllocator>>(result, a2, a3, v34, v35);
+              if (*(result + 48))
               {
                 break;
               }
 
               for (k = *a2; ; ++k)
               {
-                v85 = *k;
-                v102 = v85 > 0x20;
-                v86 = (1 << v85) & 0x100002600;
-                if (v102 || v86 == 0)
+                v89 = *k;
+                v106 = v89 > 0x20;
+                v90 = (1 << v89) & 0x100002600;
+                if (v106 || v90 == 0)
                 {
                   break;
                 }
               }
 
-              ++v83;
+              ++v87;
               *a2 = k;
-              v88 = *k;
-              if (v88 != 44)
+              v92 = *k;
+              if (v92 != 44)
               {
-                if (v88 == 93)
+                if (v92 == 93)
                 {
                   *a2 = k + 1;
-                  v37 = a3;
-                  v38 = v83;
+                  v40 = a3;
+                  v41 = v87;
                   goto LABEL_59;
                 }
 
-                v64 = k - a2[1];
-                v65 = 7;
+                v67 = k - a2[1];
+                v68 = 7;
                 goto LABEL_145;
               }
 
-              v89 = k + 1;
-              *a2 = v89;
+              v93 = k + 1;
+              *a2 = v93;
               while (1)
               {
-                v90 = *v89;
-                v102 = v90 > 0x20;
-                v91 = (1 << v90) & 0x100002600;
-                if (v102 || v91 == 0)
+                v94 = *v93;
+                v106 = v94 > 0x20;
+                v95 = (1 << v94) & 0x100002600;
+                if (v106 || v95 == 0)
                 {
                   break;
                 }
 
-                ++v89;
+                ++v93;
               }
 
-              *a2 = v89;
+              *a2 = v93;
             }
           }
         }
 
         break;
       case 'f':
-        v8 = v6 + 1;
-        *a2 = v6 + 1;
-        if (v6[1] == 97)
+        v10 = v8 + 1;
+        *a2 = v8 + 1;
+        if (v8[1] == 97)
         {
-          v8 = v6 + 2;
-          *a2 = v6 + 2;
-          if (v6[2] == 108)
+          v10 = v8 + 2;
+          *a2 = v8 + 2;
+          if (v8[2] == 108)
           {
-            v8 = v6 + 3;
-            *a2 = v6 + 3;
-            if (v6[3] == 115)
+            v10 = v8 + 3;
+            *a2 = v8 + 3;
+            if (v8[3] == 115)
             {
-              v8 = v6 + 4;
-              *a2 = v6 + 4;
-              if (v6[4] == 101)
+              v10 = v8 + 4;
+              *a2 = v8 + 4;
+              if (v8[4] == 101)
               {
-                *a2 = v6 + 5;
-                v9 = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Push<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>((a3 + 40));
-                *(v9 + 8) = 0;
-                *(v9 + 16) = 0;
-                *v9 = 0;
-                v10 = 9;
+                *a2 = v8 + 5;
+                v11 = rapidjson::internal::Stack<rapidjson::CrtAllocator>::Push<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>(a3 + 5);
+                *(v11 + 8) = 0;
+                *(v11 + 16) = 0;
+                *v11 = 0;
+                v12 = 9;
 LABEL_55:
-                *(v9 + 22) = v10;
+                *(v11 + 22) = v12;
                 return;
               }
             }
           }
         }
 
-        if (*(a1 + 48))
+        if (*(result + 48))
         {
           __assert_rtn("ParseFalse", "reader.h", 889, "!HasParseError()");
         }
@@ -1096,7 +1095,7 @@ void sub_1BFBFA1A0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-char *rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>(void *a1)
+char *rapidjson::internal::Stack<rapidjson::CrtAllocator>::Expand<rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>>(uint64_t *a1)
 {
   v1 = a1[2];
   if (v1)
@@ -1491,7 +1490,7 @@ uint64_t rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolA
   return a1;
 }
 
-_BYTE *siri::dialogengine::ParseJSONString@<X0>(unsigned int *a1@<X0>, const char *a2@<X1>, _BYTE *a3@<X8>)
+void *siri::dialogengine::ParseJSONString@<X0>(unsigned int *a1@<X0>, const char *a2@<X1>, void *a3@<X8>)
 {
   v3 = a2;
   if (a2[23] < 0)
@@ -1525,7 +1524,7 @@ _BYTE *siri::dialogengine::ParseJSONString@<X0>(unsigned int *a1@<X0>, const cha
     v8->__r_.__value_.__l.__size_ = 0;
     v8->__r_.__value_.__r.__words[2] = 0;
     v8->__r_.__value_.__r.__words[0] = 0;
-    siri::dialogengine::Log::LogWithLevel(__p, 3u);
+    siri::dialogengine::Log::LogWithLevel(__p, 3);
     if (SHIBYTE(v14) < 0)
     {
       operator delete(__p[0]);
@@ -1561,19 +1560,17 @@ void sub_1BFBFAA90(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 BOOL rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::HasMember(unsigned int *a1, const char *a2)
 {
-  v6[3] = *MEMORY[0x1E69E9840];
-  v6[1] = a2;
-  v6[2] = 0x405000000000000;
-  v6[0] = rapidjson::GenericStringRef<char>::NotNullStrLen(a2);
-  rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::FindMember<rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>(&v5, a1, v6);
+  v5[3] = *MEMORY[0x1E69E9840];
+  v5[1] = a2;
+  v5[2] = 0x405000000000000;
+  v5[0] = rapidjson::GenericStringRef<char>::NotNullStrLen(a2);
+  rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::FindMember<rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>(&v4, a1, v5);
   if (*(a1 + 11) != 3)
   {
     __assert_rtn("MemberEnd", "document.h", 1158, "IsObject()");
   }
 
-  result = v5 != *(a1 + 1) + 48 * *a1;
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return v4 != *(a1 + 1) + 48 * *a1;
 }
 
 size_t rapidjson::GenericStringRef<char>::NotNullStrLen(const char *a1)
@@ -1588,23 +1585,22 @@ size_t rapidjson::GenericStringRef<char>::NotNullStrLen(const char *a1)
 
 uint64_t rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::operator[]<char const>(unsigned int *a1, const char *a2)
 {
-  v6[3] = *MEMORY[0x1E69E9840];
-  v6[1] = a2;
-  v6[2] = 0x405000000000000;
-  v6[0] = rapidjson::GenericStringRef<char>::NotNullStrLen(a2);
-  rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::FindMember<rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>(&v5, a1, v6);
+  v5[3] = *MEMORY[0x1E69E9840];
+  v5[1] = a2;
+  v5[2] = 0x405000000000000;
+  v5[0] = rapidjson::GenericStringRef<char>::NotNullStrLen(a2);
+  rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::FindMember<rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>(&v4, a1, v5);
   if (*(a1 + 11) != 3)
   {
     __assert_rtn("MemberEnd", "document.h", 1164, "IsObject()");
   }
 
-  if (v5 == *(a1 + 1) + 48 * *a1)
+  if (v4 == *(a1 + 1) + 48 * *a1)
   {
     __assert_rtn("operator[]", "document.h", 1133, "false");
   }
 
-  v3 = *MEMORY[0x1E69E9840];
-  return v5 + 24;
+  return v4 + 24;
 }
 
 uint64_t rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>::FindMember<rapidjson::MemoryPoolAllocator<rapidjson::CrtAllocator>>(uint64_t result, unsigned int *a2, uint64_t a3)
@@ -1733,7 +1729,7 @@ LABEL_7:
   return a1;
 }
 
-void std::vector<CATResult * {__strong}>::push_back[abi:ne200100](void ***a1, uint64_t *a2)
+void std::vector<CATResult * {__strong}>::push_back[abi:ne200100](void ***a1, void **a2)
 {
   v4 = a1[1];
   v3 = a1[2];
@@ -1772,7 +1768,7 @@ void std::vector<CATResult * {__strong}>::push_back[abi:ne200100](void ***a1, ui
       std::__throw_bad_array_new_length[abi:ne200100]();
     }
 
-    v11 = (8 * v7);
+    v11 = 8 * v7;
     v12 = *a2;
     *a2 = 0;
     v13 = *a1;
@@ -1780,7 +1776,7 @@ void std::vector<CATResult * {__strong}>::push_back[abi:ne200100](void ***a1, ui
     v15 = *a1 == v14;
     v16 = (v11 + *a1 - v14);
     *v11 = v12;
-    v6 = (v11 + 1);
+    v6 = (v11 + 8);
     if (!v15)
     {
       v17 = v13;
@@ -1822,47 +1818,45 @@ void std::vector<CATResult * {__strong}>::push_back[abi:ne200100](void ***a1, ui
   a1[1] = v6;
 }
 
-void siri::dialogengine::PatternFile::LoadFromPath(std::string *a1@<X1>, void *a2@<X8>)
+void siri::dialogengine::PatternFile::LoadFromPath(std::string *a2@<X1>, __n128 *a4@<X8>)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  if ((a1->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v19 = *MEMORY[0x1E69E9840];
+  if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v3 = a1;
+    v5 = a2;
   }
 
   else
   {
-    v3 = a1->__r_.__value_.__r.__words[0];
+    v5 = a2->__r_.__value_.__r.__words[0];
   }
 
-  siri::dialogengine::Log::Debug("Attempting to load a pattern file from path '%s'", a1, v3);
-  if (siri::dialogengine::HasPatternExtension(a1, 0))
+  siri::dialogengine::Log::Debug("Attempting to load a pattern file from path '%s'", a2, v5);
+  if (siri::dialogengine::HasPatternExtension(a2, 0))
   {
-    siri::dialogengine::ParsePatternXmlFile(a1, &v8);
+    siri::dialogengine::ParsePatternXmlFile(a2, &v16);
   }
 
   else
   {
-    siri::dialogengine::ParsePatternBinaryFile(&v8);
+    siri::dialogengine::ParsePatternBinaryFile(a2, &v16, v6, v7, v8, v9, v10, v11, v12);
   }
 
-  size = v8.__r_.__value_.__l.__size_;
-  if (v8.__r_.__value_.__r.__words[0])
+  size = v16.__r_.__value_.__l.__size_;
+  if (v16.__r_.__value_.__r.__words[0])
   {
-    std::string::basic_string[abi:ne200100]<0>(&v8, "printSupportingDialogInDisplayOnly");
-    std::string::basic_string[abi:ne200100]<0>(&v9, "printSupportingDialogInDisplayModes");
-    memset(&v7, 0, sizeof(v7));
-    std::vector<std::pair<std::string,std::string>>::__init_with_size[abi:ne200100]<std::pair<std::string,std::string> const*,std::pair<std::string,std::string> const*>(&v7, &v8, &v10, 1uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v16, "printSupportingDialogInDisplayOnly");
+    std::string::basic_string[abi:ne200100]<0>(&v17, "printSupportingDialogInDisplayModes");
+    memset(&v15, 0, sizeof(v15));
+    std::vector<std::pair<std::string,std::string>>::__init_with_size[abi:ne200100]<std::pair<std::string,std::string> const*,std::pair<std::string,std::string> const*>(&v15, &v16, &v18, 1uLL);
   }
 
-  *a2 = 0;
-  a2[1] = 0;
+  a4->n128_u64[0] = 0;
+  a4->n128_u64[1] = 0;
   if (size)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](size);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BFBFBF90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, __int128 a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *a25, std::__shared_weak_count *a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37, uint64_t a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, uint64_t a45, void *__p, uint64_t a47, int a48, __int16 a49, char a50, char a51)
@@ -1872,7 +1866,7 @@ void sub_1BFBFBF90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(*(v52 - 128));
   }
 
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v52 - 176);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((v52 - 176));
   if (a51 < 0)
   {
     operator delete(__p);
@@ -1979,21 +1973,21 @@ void sub_1BFBFC408(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void siri::dialogengine::ParsePatternBinaryFile(void *a1@<X8>)
+void siri::dialogengine::ParsePatternBinaryFile(const std::string *a1@<X0>, uint64_t *a2@<X8>, uint64_t a3@<X1>, uint64_t a4@<X2>, uint64_t a5@<X3>, uint64_t a6@<X4>, uint64_t a7@<X5>, uint64_t a8@<X6>, uint64_t a9@<X7>)
 {
-  siri::dialogengine::ParseGzippedFile();
-  v2 = v12;
-  v3 = v12;
-  if ((v12 & 0x80u) != 0)
+  siri::dialogengine::ParseGzippedFile(a1, a3, a4, a5, a6, a7, a8, a9);
+  v10 = v20;
+  v11 = v20;
+  if ((v20 & 0x80u) != 0)
   {
-    v2 = __p[1];
+    v10 = __p[1];
   }
 
-  if (!v2)
+  if (!v10)
   {
-    *a1 = 0;
-    a1[1] = 0;
-    if ((v3 & 0x80) == 0)
+    *a2 = 0;
+    a2[1] = 0;
+    if ((v11 & 0x80) == 0)
     {
       return;
     }
@@ -2001,29 +1995,29 @@ void siri::dialogengine::ParsePatternBinaryFile(void *a1@<X8>)
     goto LABEL_20;
   }
 
-  siri::dialogengine::PatternBinary::Pattern::Pattern(v9);
-  if (google::protobuf::MessageLite::ParseFromString(v9, __p))
+  siri::dialogengine::PatternBinary::Pattern::Pattern(v17);
+  if (google::protobuf::MessageLite::ParseFromString(v17, __p))
   {
-    v4 = v10;
-    v5 = *(v10 + 23);
-    if (v5 < 0)
+    v12 = v18;
+    v13 = *(v18 + 23);
+    if (v13 < 0)
     {
-      if (v10[1] != 5)
+      if (v18[1] != 5)
       {
         goto LABEL_17;
       }
 
-      v4 = *v10;
+      v12 = *v18;
     }
 
-    else if (v5 != 5)
+    else if (v13 != 5)
     {
       goto LABEL_17;
     }
 
-    v6 = *v4;
-    v7 = *(v4 + 4);
-    if (v6 == 1347699024 && v7 == 66)
+    v14 = *v12;
+    v15 = *(v12 + 4);
+    if (v14 == 1347699024 && v15 == 66)
     {
       operator new();
     }
@@ -2031,23 +2025,23 @@ void siri::dialogengine::ParsePatternBinaryFile(void *a1@<X8>)
 
 LABEL_17:
   std::operator+<char>();
-  siri::dialogengine::Log::LogWithLevel(&v13, 3u);
-  if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
+  siri::dialogengine::Log::LogWithLevel(&v21, 3);
+  if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v13.__r_.__value_.__l.__data_);
+    operator delete(v21.__r_.__value_.__l.__data_);
   }
 
-  *a1 = 0;
-  a1[1] = 0;
-  siri::dialogengine::PatternBinary::Pattern::~Pattern(v9);
-  if ((v12 & 0x80) != 0)
+  *a2 = 0;
+  a2[1] = 0;
+  siri::dialogengine::PatternBinary::Pattern::~Pattern(v17);
+  if ((v20 & 0x80) != 0)
   {
 LABEL_20:
     operator delete(__p[0]);
   }
 }
 
-void sub_1BFBFC8F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34)
+void sub_1BFBFC8F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34)
 {
   std::__shared_weak_count::__release_shared[abi:ne200100](a10);
   siri::dialogengine::PatternBinary::Pattern::~Pattern(&a13);
@@ -2096,7 +2090,7 @@ void siri::dialogengine::PatternBinary::Pattern::Clear(siri::dialogengine::Patte
   {
     google::protobuf::internal::LogMessage::LogMessage(v22, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1613);
     v5 = google::protobuf::internal::LogMessage::operator<<(v22, "CHECK failed: (n) >= (0): ");
-    google::protobuf::internal::LogFinisher::operator=(&v21, v5);
+    google::protobuf::internal::LogFinisher::operator=(&v21, &v5->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v22[0].__r_.__value_.__l.__data_);
   }
 
@@ -2119,7 +2113,7 @@ void siri::dialogengine::PatternBinary::Pattern::Clear(siri::dialogengine::Patte
   {
     google::protobuf::internal::LogMessage::LogMessage(v22, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1613);
     v9 = google::protobuf::internal::LogMessage::operator<<(v22, "CHECK failed: (n) >= (0): ");
-    google::protobuf::internal::LogFinisher::operator=(&v21, v9);
+    google::protobuf::internal::LogFinisher::operator=(&v21, &v9->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v22[0].__r_.__value_.__l.__data_);
   }
 
@@ -2142,7 +2136,7 @@ void siri::dialogengine::PatternBinary::Pattern::Clear(siri::dialogengine::Patte
   {
     google::protobuf::internal::LogMessage::LogMessage(v22, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1613);
     v13 = google::protobuf::internal::LogMessage::operator<<(v22, "CHECK failed: (n) >= (0): ");
-    google::protobuf::internal::LogFinisher::operator=(&v21, v13);
+    google::protobuf::internal::LogFinisher::operator=(&v21, &v13->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v22[0].__r_.__value_.__l.__data_);
   }
 
@@ -2269,7 +2263,7 @@ LABEL_33:
 
 LABEL_40:
   v20 = *(this + 8);
-  v19 = this + 8;
+  v19 = (this + 8);
   *(v19 + 2) = 0;
   if (v20)
   {
@@ -2278,9 +2272,9 @@ LABEL_40:
   }
 }
 
-void sub_1BFBFCD64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1BFBFCD64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2417,7 +2411,7 @@ LABEL_20:
 
             v12 = *(this + 9);
 LABEL_18:
-            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 6, v12 + 1);
+            google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 24), v12 + 1);
             v10 = *(this + 5);
             v12 = *v10;
             goto LABEL_19;
@@ -2432,7 +2426,7 @@ LABEL_18:
           v27 = *(this + 15);
           if (v27 == &google::protobuf::internal::fixed_address_empty_string)
           {
-            google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 120, &google::protobuf::internal::fixed_address_empty_string);
+            google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 15, &google::protobuf::internal::fixed_address_empty_string);
           }
 
 LABEL_90:
@@ -2537,7 +2531,7 @@ LABEL_50:
 
         v32 = *(this + 21);
 LABEL_48:
-        google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 18, v32 + 1);
+        google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 72), v32 + 1);
         v30 = *(this + 11);
         v32 = *v30;
         goto LABEL_49;
@@ -2635,7 +2629,7 @@ LABEL_77:
 
       v50 = *(this + 15);
 LABEL_75:
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 12, v50 + 1);
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 48), v50 + 1);
       v48 = *(this + 8);
       v50 = *v48;
       goto LABEL_76;
@@ -2649,7 +2643,7 @@ LABEL_75:
         v27 = *(this + 12);
         if (v27 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 96, &google::protobuf::internal::fixed_address_empty_string);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 12, &google::protobuf::internal::fixed_address_empty_string);
         }
 
         goto LABEL_90;
@@ -2664,7 +2658,7 @@ LABEL_75:
         v27 = *(this + 13);
         if (v27 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 104, &google::protobuf::internal::fixed_address_empty_string);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 13, &google::protobuf::internal::fixed_address_empty_string);
         }
 
         goto LABEL_90;
@@ -2677,7 +2671,7 @@ LABEL_75:
       v27 = *(this + 14);
       if (v27 == &google::protobuf::internal::fixed_address_empty_string)
       {
-        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 112, &google::protobuf::internal::fixed_address_empty_string);
+        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 14, &google::protobuf::internal::fixed_address_empty_string);
       }
 
       goto LABEL_90;
@@ -2797,7 +2791,7 @@ LABEL_29:
     v10 = *(this + 4);
     if (v10 == &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 32, &google::protobuf::internal::fixed_address_empty_string);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 4, &google::protobuf::internal::fixed_address_empty_string);
     }
 
 LABEL_24:
@@ -2821,7 +2815,7 @@ LABEL_35:
     v10 = *(this + 3);
     if (v10 == &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 24, &google::protobuf::internal::fixed_address_empty_string);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 3, &google::protobuf::internal::fixed_address_empty_string);
     }
 
     goto LABEL_24;
@@ -2912,7 +2906,7 @@ siri::dialogengine::PatternBinary::Component *siri::dialogengine::PatternBinary:
 
 void sub_1BFBFD840(_Unwind_Exception *a1)
 {
-  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField(v1 + 24);
+  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField((v1 + 24));
   google::protobuf::internal::InternalMetadataWithArenaBase<std::string,google::protobuf::internal::InternalMetadataWithArenaLite>::~InternalMetadataWithArenaBase(v2);
   _Unwind_Resume(a1);
 }
@@ -3022,7 +3016,7 @@ LABEL_19:
         if (v14 == *(this + 9))
         {
 LABEL_24:
-          google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 6, v14 + 1);
+          google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 24), v14 + 1);
           v12 = *(this + 5);
           v14 = *v12;
         }
@@ -3073,7 +3067,7 @@ LABEL_30:
       v19 = *(this + 6);
       if (v19 == &google::protobuf::internal::fixed_address_empty_string)
       {
-        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 48, &google::protobuf::internal::fixed_address_empty_string);
+        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 6, &google::protobuf::internal::fixed_address_empty_string);
       }
 
       v9 = google::protobuf::internal::InlineGreedyStringParser(v19, TagFallback, a3);
@@ -3121,7 +3115,7 @@ siri::dialogengine::PatternFile *siri::dialogengine::PatternFile::PatternFile(si
   *(this + 6) = 0u;
   *(this + 7) = 0u;
   *(this + 16) = 0;
-  std::string::basic_string[abi:ne200100]<0>(this + 136, "1.0");
+  std::string::basic_string[abi:ne200100]<0>(this + 17, "1.0");
   *(this + 21) = 0;
   *(this + 20) = this + 168;
   *(this + 24) = 0;
@@ -3155,39 +3149,40 @@ void sub_1BFBFDC50(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void siri::dialogengine::PatternGroup::SetDialogIdWithComponent(uint64_t a1, uint64_t a2)
+void siri::dialogengine::PatternGroup::SetDialogIdWithComponent(uint64_t a1, std::string *a2)
 {
-  v2 = *(a2 + 23);
-  if ((v2 & 0x80u) == 0)
+  size = HIBYTE(a2->__r_.__value_.__r.__words[2]);
+  if ((size & 0x80u) == 0)
   {
     v3 = a2;
   }
 
   else
   {
-    v3 = *a2;
+    v3 = a2->__r_.__value_.__r.__words[0];
   }
 
-  if ((v2 & 0x80u) != 0)
+  if ((size & 0x80u) != 0)
   {
-    v2 = *(a2 + 8);
+    size = a2->__r_.__value_.__l.__size_;
   }
 
-  if (v2)
+  if (size)
   {
     v4 = 0;
     do
     {
-      v5 = *v3++;
+      v5 = v3->__r_.__value_.__s.__data_[0];
+      v3 = (v3 + 1);
       if (v5 == 35)
       {
         ++v4;
       }
 
-      --v2;
+      --size;
     }
 
-    while (v2);
+    while (size);
     if (v4 > 1)
     {
       siri::dialogengine::StringSplit(a2, "#");
@@ -3211,39 +3206,40 @@ void sub_1BFBFDDD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void siri::dialogengine::PatternGroup::SetVisualIdWithComponent(uint64_t a1, uint64_t a2)
+void siri::dialogengine::PatternGroup::SetVisualIdWithComponent(uint64_t a1, std::string *a2)
 {
-  v2 = *(a2 + 23);
-  if ((v2 & 0x80u) == 0)
+  size = HIBYTE(a2->__r_.__value_.__r.__words[2]);
+  if ((size & 0x80u) == 0)
   {
     v3 = a2;
   }
 
   else
   {
-    v3 = *a2;
+    v3 = a2->__r_.__value_.__r.__words[0];
   }
 
-  if ((v2 & 0x80u) != 0)
+  if ((size & 0x80u) != 0)
   {
-    v2 = *(a2 + 8);
+    size = a2->__r_.__value_.__l.__size_;
   }
 
-  if (v2)
+  if (size)
   {
     v4 = 0;
     do
     {
-      v5 = *v3++;
+      v5 = v3->__r_.__value_.__s.__data_[0];
+      v3 = (v3 + 1);
       if (v5 == 35)
       {
         ++v4;
       }
 
-      --v2;
+      --size;
     }
 
-    while (v2);
+    while (size);
     if (v4 > 1)
     {
       siri::dialogengine::StringSplit(a2, "#");
@@ -3437,7 +3433,7 @@ void siri::dialogengine::PatternBinary::Component::~Component(siri::dialogengine
     MEMORY[0x1C68D4E80](v2, 0x1012C40EC159624);
   }
 
-  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField(this + 24);
+  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField(this + 3);
   google::protobuf::internal::InternalMetadataWithArenaBase<std::string,google::protobuf::internal::InternalMetadataWithArenaLite>::~InternalMetadataWithArenaBase(this + 1);
 }
 
@@ -3457,7 +3453,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<siri::dialogengine::D
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::vector<siri::dialogengine::DatabaseField>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<siri::dialogengine::DatabaseField>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x555555555555556)
   {
@@ -3794,28 +3790,28 @@ uint64_t *std::__tree<std::__value_type<std::string,std::shared_ptr<siri::dialog
   return v5;
 }
 
-uint64_t siri::dialogengine::PatternSchema::GetSettings@<X0>(uint64_t this@<X0>, void *a2@<X8>)
+uint64_t *siri::dialogengine::PatternSchema::GetSettings@<X0>(const void ***__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  a2[1] = 0;
-  v2 = a2 + 1;
-  a2[2] = 0;
-  *a2 = a2 + 1;
-  v3 = *(this + 120);
-  v4 = (this + 128);
-  if (v3 != (this + 128))
+  a1[1] = 0;
+  v2 = (a1 + 1);
+  a1[2] = 0;
+  *a1 = (a1 + 1);
+  v3 = this[15];
+  v4 = this + 16;
+  if (v3 != this + 16)
   {
     do
     {
-      v6 = a2[1];
-      if (*a2 == v2)
+      v6 = a1[1];
+      if (*a1 == v2)
       {
         v8 = v2;
         if (!v6)
         {
 LABEL_9:
-          v13 = v2;
+          v14 = v2;
 LABEL_14:
-          std::__tree<std::__value_type<std::string,std::shared_ptr<siri::dialogengine::PatternSetting>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<siri::dialogengine::PatternSetting>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<siri::dialogengine::PatternSetting>>>>::__construct_node<std::pair<std::string const,std::shared_ptr<siri::dialogengine::PatternSetting>> const&>();
+          std::__tree<std::__value_type<std::string,std::shared_ptr<siri::dialogengine::PatternSetting>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<siri::dialogengine::PatternSetting>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<siri::dialogengine::PatternSetting>>>>::__construct_node<std::pair<std::string const,std::shared_ptr<siri::dialogengine::PatternSetting>> const&>(v13, a1, (v3 + 32));
         }
       }
 
@@ -3827,7 +3823,7 @@ LABEL_14:
           do
           {
             v8 = v6;
-            v6 = *(v6 + 8);
+            v6 = v6[1];
           }
 
           while (v6);
@@ -3845,10 +3841,10 @@ LABEL_14:
           while (v9);
         }
 
-        this = std::less<std::string>::operator()[abi:ne200100](a2, (v8 + 32), v3 + 4);
+        this = std::less<std::string>::operator()[abi:ne200100](a1, v8 + 4, (v3 + 32));
         if (!this)
         {
-          this = std::__tree<std::__value_type<std::string,std::shared_ptr<siri::dialogengine::PatternSetting>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<siri::dialogengine::PatternSetting>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<siri::dialogengine::PatternSetting>>>>::__find_equal<std::string>(a2, &v13, v3 + 4);
+          this = std::__tree<std::__value_type<std::string,std::shared_ptr<siri::dialogengine::PatternSetting>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<siri::dialogengine::PatternSetting>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<siri::dialogengine::PatternSetting>>>>::__find_equal<std::string>(a1, &v14, (v3 + 32));
           v10 = this;
           goto LABEL_13;
         }
@@ -3859,15 +3855,15 @@ LABEL_14:
         }
       }
 
-      v13 = v8;
-      v10 = (v8 + 8);
+      v14 = v8;
+      v10 = (v8 + 1);
 LABEL_13:
       if (!*v10)
       {
         goto LABEL_14;
       }
 
-      v11 = v3[1];
+      v11 = *(v3 + 8);
       if (v11)
       {
         do
@@ -3883,7 +3879,7 @@ LABEL_13:
       {
         do
         {
-          v12 = v3[2];
+          v12 = *(v3 + 16);
           v9 = *v12 == v3;
           v3 = v12;
         }
@@ -3900,18 +3896,16 @@ LABEL_13:
   return this;
 }
 
-void VariableFromNSDictionary(void *a1, uint64_t a2, void *a3)
+void VariableFromNSDictionary(void *a1, const std::string *a2, void *a3)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = a3;
+  __p[27] = *MEMORY[0x1E69E9840];
+  v5 = a3;
   *a1 = 0;
   a1[1] = 0;
-  if (v4)
+  if (v5)
   {
-    std::allocate_shared[abi:ne200100]<siri::dialogengine::VariableObject,std::allocator<siri::dialogengine::VariableObject>,std::string const&,0>();
+    std::allocate_shared[abi:ne200100]<siri::dialogengine::VariableObject,std::allocator<siri::dialogengine::VariableObject>,std::string const&,0>(__p, a2);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BFBFEFC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -4040,7 +4034,7 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   {
     google::protobuf::internal::LogMessage::LogMessage(v8, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1538);
     v4 = google::protobuf::internal::LogMessage::operator<<(v8, "CHECK failed: (index) >= (0): ");
-    google::protobuf::internal::LogFinisher::operator=(&v7, v4);
+    google::protobuf::internal::LogFinisher::operator=(&v7, &v4->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v8[0].__r_.__value_.__l.__data_);
   }
 
@@ -4048,16 +4042,16 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   {
     google::protobuf::internal::LogMessage::LogMessage(v8, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1539);
     v5 = google::protobuf::internal::LogMessage::operator<<(v8, "CHECK failed: (index) < (current_size_): ");
-    google::protobuf::internal::LogFinisher::operator=(&v7, v5);
+    google::protobuf::internal::LogFinisher::operator=(&v7, &v5->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v8[0].__r_.__value_.__l.__data_);
   }
 
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_1BFBFF4D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1BFBFF4D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4068,7 +4062,7 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   {
     google::protobuf::internal::LogMessage::LogMessage(v8, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1538);
     v4 = google::protobuf::internal::LogMessage::operator<<(v8, "CHECK failed: (index) >= (0): ");
-    google::protobuf::internal::LogFinisher::operator=(&v7, v4);
+    google::protobuf::internal::LogFinisher::operator=(&v7, &v4->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v8[0].__r_.__value_.__l.__data_);
   }
 
@@ -4076,56 +4070,56 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   {
     google::protobuf::internal::LogMessage::LogMessage(v8, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1539);
     v5 = google::protobuf::internal::LogMessage::operator<<(v8, "CHECK failed: (index) < (current_size_): ");
-    google::protobuf::internal::LogFinisher::operator=(&v7, v5);
+    google::protobuf::internal::LogFinisher::operator=(&v7, &v5->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v8[0].__r_.__value_.__l.__data_);
   }
 
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_1BFBFF5B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1BFBFF5B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
 void siri::dialogengine::FindPatternFile(__int128 **a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   siri::dialogengine::GetBaseDir(a1, &__p);
-  v1 = siri::dialogengine::PreferXMLFiles(&__p);
-  v2 = v1;
+  v3 = siri::dialogengine::PreferXMLFiles(&__p);
+  v4 = v3;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if (v2)
+    if (v4)
     {
 LABEL_3:
       std::string::basic_string[abi:ne200100]<0>(&__p, ".patternxml");
-      std::string::basic_string[abi:ne200100]<0>(v7, ".patternbin");
-      std::string::basic_string[abi:ne200100]<0>(v8, ".pattern.xml");
-      std::string::basic_string[abi:ne200100]<0>(v9, ".pattern.bin");
-      v3 = 0;
-      v4 = 0;
+      std::string::basic_string[abi:ne200100]<0>(v9, ".patternbin");
+      std::string::basic_string[abi:ne200100]<0>(v10, ".pattern.xml");
+      std::string::basic_string[abi:ne200100]<0>(v11, ".pattern.bin");
       v5 = 0;
-      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v3, &__p, &v10, 4uLL);
+      v6 = 0;
+      v7 = 0;
+      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v5, &__p, &v12, 4uLL);
     }
   }
 
-  else if (v1)
+  else if (v3)
   {
     goto LABEL_3;
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__p, ".patternbin");
-  std::string::basic_string[abi:ne200100]<0>(v7, ".patternxml");
-  std::string::basic_string[abi:ne200100]<0>(v8, ".pattern.bin");
-  std::string::basic_string[abi:ne200100]<0>(v9, ".pattern.xml");
-  v3 = 0;
-  v4 = 0;
+  std::string::basic_string[abi:ne200100]<0>(v9, ".patternxml");
+  std::string::basic_string[abi:ne200100]<0>(v10, ".pattern.bin");
+  std::string::basic_string[abi:ne200100]<0>(v11, ".pattern.xml");
   v5 = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v3, &__p, &v10, 4uLL);
+  v6 = 0;
+  v7 = 0;
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v5, &__p, &v12, 4uLL);
 }
 
 void sub_1BFBFF848(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
@@ -4151,19 +4145,19 @@ void sub_1BFBFF848(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 }
 
-void siri::dialogengine::PatternIdToPath(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+void siri::dialogengine::PatternIdToPath(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
-  std::string::basic_string[abi:ne200100]<0>(&v6, "pattern");
-  std::string::basic_string[abi:ne200100]<0>(&__p, ".patternfamily");
-  siri::dialogengine::CatIdToPath(a2, a1);
-  if (v5 < 0)
-  {
-    operator delete(__p);
-  }
-
+  std::string::basic_string[abi:ne200100]<0>(v8, "pattern");
+  std::string::basic_string[abi:ne200100]<0>(__p, ".patternfamily");
+  siri::dialogengine::CatIdToPath(a3, a1, v8, __p, a2);
   if (v7 < 0)
   {
-    operator delete(v6);
+    operator delete(__p[0]);
+  }
+
+  if (v9 < 0)
+  {
+    operator delete(v8[0]);
   }
 }
 
@@ -4300,7 +4294,7 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   {
     google::protobuf::internal::LogMessage::LogMessage(v8, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1538);
     v4 = google::protobuf::internal::LogMessage::operator<<(v8, "CHECK failed: (index) >= (0): ");
-    google::protobuf::internal::LogFinisher::operator=(&v7, v4);
+    google::protobuf::internal::LogFinisher::operator=(&v7, &v4->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v8[0].__r_.__value_.__l.__data_);
   }
 
@@ -4308,16 +4302,16 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   {
     google::protobuf::internal::LogMessage::LogMessage(v8, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1539);
     v5 = google::protobuf::internal::LogMessage::operator<<(v8, "CHECK failed: (index) < (current_size_): ");
-    google::protobuf::internal::LogFinisher::operator=(&v7, v5);
+    google::protobuf::internal::LogFinisher::operator=(&v7, &v5->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v8[0].__r_.__value_.__l.__data_);
   }
 
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_1BFBFFCD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1BFBFFCD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4343,7 +4337,7 @@ void siri::dialogengine::VisualResponse::~VisualResponse(siri::dialogengine::Vis
 {
   *this = &unk_1F3F16DF0;
   *(this + 8) = &unk_1F3F16E48;
-  SnippetUI::Response::~Response((this + 208));
+  SnippetUI::Response::~Response(this + 26);
   *this = &unk_1F3F21D30;
   *(this + 8) = &unk_1F3F21D88;
   if (*(this + 191) < 0)
@@ -4411,7 +4405,7 @@ uint64_t google::protobuf::internal::ArenaStringPtr::DestroyNoArena(uint64_t res
 
 id NSErrorFromString(uint64_t *a1, uint64_t *a2)
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   v3 = *(a2 + 23);
   if (v3 < 0)
   {
@@ -4457,15 +4451,15 @@ LABEL_17:
     }
 
     v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v9];
-    v18[0] = *MEMORY[0x1E696A578];
+    v17[0] = *MEMORY[0x1E696A578];
     v11 = [MEMORY[0x1E696AAE8] mainBundle];
     v12 = [v11 localizedStringForKey:v8 value:&stru_1F3F22360 table:0];
-    v19[0] = v12;
-    v18[1] = *MEMORY[0x1E696A588];
+    v18[0] = v12;
+    v17[1] = *MEMORY[0x1E696A588];
     v13 = [MEMORY[0x1E696AAE8] mainBundle];
     v14 = [v13 localizedStringForKey:v10 value:&stru_1F3F22360 table:0];
-    v19[1] = v14;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
+    v18[1] = v14;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
 
     v6 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.siri.DialogEngine" code:0 userInfo:v15];
 
@@ -4475,7 +4469,6 @@ LABEL_17:
 LABEL_15:
   v6 = 0;
 LABEL_24:
-  v16 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -4537,27 +4530,27 @@ uint64_t std::vector<siri::dialogengine::SpeakableString>::__emplace_back_slow_p
   return v11;
 }
 
-void sub_1BFC00240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1BFC00240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<siri::dialogengine::SpeakableString>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
 void LogPatternExecutionResult(PatternExecutionResult *a1)
 {
-  v280 = *MEMORY[0x1E69E9840];
-  v207 = a1;
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v270);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v271, "PatternExecutionResult...\n", 26);
-  if (v207)
+  v279 = *MEMORY[0x1E69E9840];
+  v206 = a1;
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v269);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v270, "PatternExecutionResult...\n", 26);
+  if (v206)
   {
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v271, "\n", 1);
-    v1 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v271, "patternId: ", 11);
-    v2 = [(PatternExecutionResult *)v207 patternId];
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v270, "\n", 1);
+    v1 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v270, "patternId: ", 11);
+    v2 = [(PatternExecutionResult *)v206 patternId];
     p_p = &__p;
     PrintStringOrNil(&__p, v2, 1);
-    if ((v269 & 0x80u) == 0)
+    if ((v268 & 0x80u) == 0)
     {
       v4 = &__p;
     }
@@ -4567,29 +4560,29 @@ void LogPatternExecutionResult(PatternExecutionResult *a1)
       v4 = __p;
     }
 
-    if ((v269 & 0x80u) == 0)
-    {
-      v5 = v269;
-    }
-
-    else
+    if ((v268 & 0x80u) == 0)
     {
       v5 = v268;
     }
 
+    else
+    {
+      v5 = v267;
+    }
+
     v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v1, v4, v5);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "\n", 1);
-    if (v269 < 0)
+    if (v268 < 0)
     {
       operator delete(__p);
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v271, "\n", 1);
-    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v271, "meta (count = ", 14);
-    v8 = [(PatternExecutionResult *)v207 meta];
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v270, "\n", 1);
+    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v270, "meta (count = ", 14);
+    v8 = [(PatternExecutionResult *)v206 meta];
     if (v8)
     {
-      p_p = [(PatternExecutionResult *)v207 meta];
+      p_p = [(PatternExecutionResult *)v206 meta];
       v9 = [p_p count];
     }
 
@@ -4604,33 +4597,33 @@ void LogPatternExecutionResult(PatternExecutionResult *a1)
     {
     }
 
-    v11 = [(PatternExecutionResult *)v207 meta];
+    v11 = [(PatternExecutionResult *)v206 meta];
     v12 = v11 == 0;
 
     if (!v12)
     {
-      v265 = 0u;
-      v266 = 0u;
-      v263 = 0u;
       v264 = 0u;
-      obj = [(PatternExecutionResult *)v207 meta];
-      p_p = [obj countByEnumeratingWithState:&v263 objects:v279 count:16];
+      v265 = 0u;
+      v262 = 0u;
+      v263 = 0u;
+      obj = [(PatternExecutionResult *)v206 meta];
+      p_p = [obj countByEnumeratingWithState:&v262 objects:v278 count:16];
       if (p_p)
       {
-        v13 = *v264;
+        v13 = *v263;
         do
         {
           for (i = 0; i != p_p; i = i + 1)
           {
-            if (*v264 != v13)
+            if (*v263 != v13)
             {
               objc_enumerationMutation(obj);
             }
 
-            v15 = *(*(&v263 + 1) + 8 * i);
-            v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v271, "    ", 4);
+            v15 = *(*(&v262 + 1) + 8 * i);
+            v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v270, "    ", 4);
             PrintStringOrNil(&__p, v15, 1);
-            if ((v269 & 0x80u) == 0)
+            if ((v268 & 0x80u) == 0)
             {
               v17 = &__p;
             }
@@ -4640,67 +4633,67 @@ void LogPatternExecutionResult(PatternExecutionResult *a1)
               v17 = __p;
             }
 
-            if ((v269 & 0x80u) == 0)
-            {
-              v18 = v269;
-            }
-
-            else
+            if ((v268 & 0x80u) == 0)
             {
               v18 = v268;
             }
 
+            else
+            {
+              v18 = v267;
+            }
+
             v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, v17, v18);
             v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, " = ", 3);
-            v21 = [(PatternExecutionResult *)v207 meta];
+            v21 = [(PatternExecutionResult *)v206 meta];
             v22 = [v21 objectForKeyedSubscript:v15];
-            PrintStringOrNil(&v260, v22, 1);
-            if ((v262 & 0x80u) == 0)
+            PrintStringOrNil(&v259, v22, 1);
+            if ((v261 & 0x80u) == 0)
             {
-              v23 = &v260;
+              v23 = &v259;
             }
 
             else
             {
-              v23 = v260;
+              v23 = v259;
             }
 
-            if ((v262 & 0x80u) == 0)
-            {
-              v24 = v262;
-            }
-
-            else
+            if ((v261 & 0x80u) == 0)
             {
               v24 = v261;
             }
 
-            v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, v23, v24);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, "\n", 1);
-            if (v262 < 0)
+            else
             {
-              operator delete(v260);
+              v24 = v260;
             }
 
-            if (v269 < 0)
+            v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, v23, v24);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, "\n", 1);
+            if (v261 < 0)
+            {
+              operator delete(v259);
+            }
+
+            if (v268 < 0)
             {
               operator delete(__p);
             }
           }
 
-          p_p = [obj countByEnumeratingWithState:&v263 objects:v279 count:16];
+          p_p = [obj countByEnumeratingWithState:&v262 objects:v278 count:16];
         }
 
         while (p_p);
       }
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v271, "\n", 1);
-    v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v271, "dialog (count = ", 16);
-    v27 = [(PatternExecutionResult *)v207 dialog];
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v270, "\n", 1);
+    v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v270, "dialog (count = ", 16);
+    v27 = [(PatternExecutionResult *)v206 dialog];
     if (v27)
     {
-      p_p = [(PatternExecutionResult *)v207 dialog];
+      p_p = [(PatternExecutionResult *)v206 dialog];
       v28 = [p_p count];
     }
 
@@ -4715,46 +4708,46 @@ void LogPatternExecutionResult(PatternExecutionResult *a1)
     {
     }
 
-    v30 = [(PatternExecutionResult *)v207 dialog];
+    v30 = [(PatternExecutionResult *)v206 dialog];
     v31 = v30 == 0;
 
     if (!v31)
     {
-      v32 = [(PatternExecutionResult *)v207 dialog];
+      v32 = [(PatternExecutionResult *)v206 dialog];
       v33 = [v32 count] == 0;
 
       if (!v33)
       {
-        v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v271, "    ", 4);
+        v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v270, "    ", 4);
         v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, "----", 4);
         LOBYTE(__p) = 10;
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v35, &__p, 1);
       }
 
-      v258 = 0u;
-      v259 = 0u;
-      v256 = 0u;
       v257 = 0u;
-      v204 = [(PatternExecutionResult *)v207 dialog];
-      v206 = [v204 countByEnumeratingWithState:&v256 objects:v278 count:16];
-      if (v206)
+      v258 = 0u;
+      v255 = 0u;
+      v256 = 0u;
+      v203 = [(PatternExecutionResult *)v206 dialog];
+      v205 = [v203 countByEnumeratingWithState:&v255 objects:v277 count:16];
+      if (v205)
       {
-        v205 = *v257;
+        v204 = *v256;
         do
         {
-          for (obja = 0; obja != v206; obja = obja + 1)
+          for (obja = 0; obja != v205; obja = obja + 1)
           {
-            if (*v257 != v205)
+            if (*v256 != v204)
             {
-              objc_enumerationMutation(v204);
+              objc_enumerationMutation(v203);
             }
 
-            v36 = *(*(&v256 + 1) + 8 * obja);
-            v37 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v271, "    ", 4);
+            v36 = *(*(&v255 + 1) + 8 * obja);
+            v37 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v270, "    ", 4);
             v38 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v37, "dialogId: ", 10);
-            v217 = [v36 dialogId];
-            PrintStringOrNil(&__p, v217, 1);
-            if ((v269 & 0x80u) == 0)
+            v216 = [v36 dialogId];
+            PrintStringOrNil(&__p, v216, 1);
+            if ((v268 & 0x80u) == 0)
             {
               v39 = &__p;
             }
@@ -4764,248 +4757,248 @@ void LogPatternExecutionResult(PatternExecutionResult *a1)
               v39 = __p;
             }
 
-            if ((v269 & 0x80u) == 0)
+            if ((v268 & 0x80u) == 0)
             {
-              v40 = v269;
+              v40 = v268;
             }
 
             else
             {
-              v40 = v268;
+              v40 = v267;
             }
 
             v41 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, v39, v40);
             v42 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v41, "\n", 1);
             v43 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v42, "    ", 4);
             v44 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v43, "groupName: ", 11);
-            v216 = [v36 groupName];
-            PrintStringOrNil(&v260, v216, 1);
-            if ((v262 & 0x80u) == 0)
+            v215 = [v36 groupName];
+            PrintStringOrNil(&v259, v215, 1);
+            if ((v261 & 0x80u) == 0)
             {
-              v45 = &v260;
+              v45 = &v259;
             }
 
             else
             {
-              v45 = v260;
+              v45 = v259;
             }
 
-            if ((v262 & 0x80u) == 0)
-            {
-              v46 = v262;
-            }
-
-            else
+            if ((v261 & 0x80u) == 0)
             {
               v46 = v261;
+            }
+
+            else
+            {
+              v46 = v260;
             }
 
             v47 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v44, v45, v46);
             v48 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v47, "\n", 1);
             v49 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v48, "    ", 4);
             v50 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v49, "fullPrint: ", 11);
-            v215 = [v36 fullPrint];
-            PrintStringOrNil(v254, v215, 1);
-            if ((v255 & 0x80u) == 0)
+            v214 = [v36 fullPrint];
+            PrintStringOrNil(v253, v214, 1);
+            if ((v254 & 0x80u) == 0)
             {
-              v51 = v254;
+              v51 = v253;
             }
 
             else
             {
-              v51 = v254[0];
+              v51 = v253[0];
             }
 
-            if ((v255 & 0x80u) == 0)
+            if ((v254 & 0x80u) == 0)
             {
-              v52 = v255;
+              v52 = v254;
             }
 
             else
             {
-              v52 = v254[1];
+              v52 = v253[1];
             }
 
             v53 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v50, v51, v52);
             v54 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v53, "\n", 1);
             v55 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v54, "    ", 4);
             v56 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v55, "fullSpeak: ", 11);
-            v214 = [v36 fullSpeak];
-            PrintStringOrNil(v252, v214, 1);
-            if ((v253 & 0x80u) == 0)
+            v213 = [v36 fullSpeak];
+            PrintStringOrNil(v251, v213, 1);
+            if ((v252 & 0x80u) == 0)
             {
-              v57 = v252;
+              v57 = v251;
             }
 
             else
             {
-              v57 = v252[0];
+              v57 = v251[0];
             }
 
-            if ((v253 & 0x80u) == 0)
+            if ((v252 & 0x80u) == 0)
             {
-              v58 = v253;
+              v58 = v252;
             }
 
             else
             {
-              v58 = v252[1];
+              v58 = v251[1];
             }
 
             v59 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v56, v57, v58);
             v60 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v59, "\n", 1);
             v61 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v60, "    ", 4);
             v62 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v61, "supportingPrint: ", 17);
-            v213 = [v36 supportingPrint];
-            PrintStringOrNil(v250, v213, 1);
-            if ((v251 & 0x80u) == 0)
+            v212 = [v36 supportingPrint];
+            PrintStringOrNil(v249, v212, 1);
+            if ((v250 & 0x80u) == 0)
             {
-              v63 = v250;
+              v63 = v249;
             }
 
             else
             {
-              v63 = v250[0];
+              v63 = v249[0];
             }
 
-            if ((v251 & 0x80u) == 0)
+            if ((v250 & 0x80u) == 0)
             {
-              v64 = v251;
+              v64 = v250;
             }
 
             else
             {
-              v64 = v250[1];
+              v64 = v249[1];
             }
 
             v65 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v62, v63, v64);
             v66 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v65, "\n", 1);
             v67 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v66, "    ", 4);
             v68 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v67, "supportingSpeak: ", 17);
-            v212 = [v36 supportingSpeak];
-            PrintStringOrNil(v248, v212, 1);
-            if ((v249 & 0x80u) == 0)
+            v211 = [v36 supportingSpeak];
+            PrintStringOrNil(v247, v211, 1);
+            if ((v248 & 0x80u) == 0)
             {
-              v69 = v248;
+              v69 = v247;
             }
 
             else
             {
-              v69 = v248[0];
+              v69 = v247[0];
             }
 
-            if ((v249 & 0x80u) == 0)
+            if ((v248 & 0x80u) == 0)
             {
-              v70 = v249;
+              v70 = v248;
             }
 
             else
             {
-              v70 = v248[1];
+              v70 = v247[1];
             }
 
             v71 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v68, v69, v70);
             v72 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v71, "\n", 1);
             v73 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v72, "    ", 4);
             v74 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v73, "printOnly: ", 11);
-            v211 = [v36 printOnly];
-            PrintBoolOrNil(&v245, v211);
-            if ((v247 & 0x80u) == 0)
+            v210 = [v36 printOnly];
+            PrintBoolOrNil(&v244, v210);
+            if ((v246 & 0x80u) == 0)
             {
-              isa = &v245;
+              isa = &v244;
             }
 
             else
             {
-              isa = v245.super.super.isa;
+              isa = v244.super.super.isa;
             }
 
-            if ((v247 & 0x80u) == 0)
-            {
-              v76 = v247;
-            }
-
-            else
+            if ((v246 & 0x80u) == 0)
             {
               v76 = v246;
+            }
+
+            else
+            {
+              v76 = v245;
             }
 
             v77 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v74, isa, v76);
             v78 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v77, "\n", 1);
             v79 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v78, "    ", 4);
             v80 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v79, "spokenOnly: ", 12);
-            v210 = [v36 spokenOnly];
-            PrintBoolOrNil(&v242, v210);
-            if ((v244 & 0x80u) == 0)
+            v209 = [v36 spokenOnly];
+            PrintBoolOrNil(&v241, v209);
+            if ((v243 & 0x80u) == 0)
             {
-              v81 = &v242;
+              v81 = &v241;
             }
 
             else
             {
-              v81 = v242.super.super.isa;
+              v81 = v241.super.super.isa;
             }
 
-            if ((v244 & 0x80u) == 0)
-            {
-              v82 = v244;
-            }
-
-            else
+            if ((v243 & 0x80u) == 0)
             {
               v82 = v243;
+            }
+
+            else
+            {
+              v82 = v242;
             }
 
             v83 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v80, v81, v82);
             v84 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v83, "\n", 1);
             v85 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v84, "    ", 4);
             v86 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v85, "unfilteredFullPrint: ", 21);
-            v209 = [v36 unfilteredFullPrint];
-            PrintStringOrNil(v240, v209, 1);
-            if ((v241 & 0x80u) == 0)
+            v208 = [v36 unfilteredFullPrint];
+            PrintStringOrNil(v239, v208, 1);
+            if ((v240 & 0x80u) == 0)
             {
-              v87 = v240;
+              v87 = v239;
             }
 
             else
             {
-              v87 = v240[0];
+              v87 = v239[0];
             }
 
-            if ((v241 & 0x80u) == 0)
+            if ((v240 & 0x80u) == 0)
             {
-              v88 = v241;
+              v88 = v240;
             }
 
             else
             {
-              v88 = v240[1];
+              v88 = v239[1];
             }
 
             v89 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v86, v87, v88);
             v90 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v89, "\n", 1);
             v91 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v90, "    ", 4);
             v92 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v91, "unfilteredFullSpeak: ", 21);
-            v208 = [v36 unfilteredFullSpeak];
-            PrintStringOrNil(v238, v208, 1);
-            if ((v239 & 0x80u) == 0)
+            v207 = [v36 unfilteredFullSpeak];
+            PrintStringOrNil(v237, v207, 1);
+            if ((v238 & 0x80u) == 0)
             {
-              v93 = v238;
+              v93 = v237;
             }
 
             else
             {
-              v93 = v238[0];
+              v93 = v237[0];
             }
 
-            if ((v239 & 0x80u) == 0)
+            if ((v238 & 0x80u) == 0)
             {
-              v94 = v239;
+              v94 = v238;
             }
 
             else
             {
-              v94 = v238[1];
+              v94 = v237[1];
             }
 
             v95 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v92, v93, v94);
@@ -5013,25 +5006,25 @@ void LogPatternExecutionResult(PatternExecutionResult *a1)
             v97 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v96, "    ", 4);
             v98 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v97, "unfilteredSupportingPrint: ", 27);
             v99 = [v36 unfilteredSupportingPrint];
-            PrintStringOrNil(v236, v99, 1);
-            if ((v237 & 0x80u) == 0)
+            PrintStringOrNil(v235, v99, 1);
+            if ((v236 & 0x80u) == 0)
             {
-              v100 = v236;
+              v100 = v235;
             }
 
             else
             {
-              v100 = v236[0];
+              v100 = v235[0];
             }
 
-            if ((v237 & 0x80u) == 0)
+            if ((v236 & 0x80u) == 0)
             {
-              v101 = v237;
+              v101 = v236;
             }
 
             else
             {
-              v101 = v236[1];
+              v101 = v235[1];
             }
 
             v102 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v98, v100, v101);
@@ -5039,25 +5032,25 @@ void LogPatternExecutionResult(PatternExecutionResult *a1)
             v104 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v103, "    ", 4);
             v105 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v104, "unfilteredSupportingSpeak: ", 27);
             v106 = [v36 unfilteredSupportingSpeak];
-            PrintStringOrNil(v234, v106, 1);
-            if ((v235 & 0x80u) == 0)
+            PrintStringOrNil(v233, v106, 1);
+            if ((v234 & 0x80u) == 0)
             {
-              v107 = v234;
+              v107 = v233;
             }
 
             else
             {
-              v107 = v234[0];
+              v107 = v233[0];
             }
 
-            if ((v235 & 0x80u) == 0)
+            if ((v234 & 0x80u) == 0)
             {
-              v108 = v235;
+              v108 = v234;
             }
 
             else
             {
-              v108 = v234[1];
+              v108 = v233[1];
             }
 
             v109 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v105, v107, v108);
@@ -5065,25 +5058,25 @@ void LogPatternExecutionResult(PatternExecutionResult *a1)
             v111 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v110, "    ", 4);
             v112 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v111, "redactedFullPrint: ", 19);
             v113 = [v36 redactedFullPrint];
-            PrintStringOrNil(v232, v113, 1);
-            if ((v233 & 0x80u) == 0)
+            PrintStringOrNil(v231, v113, 1);
+            if ((v232 & 0x80u) == 0)
             {
-              v114 = v232;
+              v114 = v231;
             }
 
             else
             {
-              v114 = v232[0];
+              v114 = v231[0];
             }
 
-            if ((v233 & 0x80u) == 0)
+            if ((v232 & 0x80u) == 0)
             {
-              v115 = v233;
+              v115 = v232;
             }
 
             else
             {
-              v115 = v232[1];
+              v115 = v231[1];
             }
 
             v116 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v112, v114, v115);
@@ -5091,25 +5084,25 @@ void LogPatternExecutionResult(PatternExecutionResult *a1)
             v118 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v117, "    ", 4);
             v119 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v118, "redactedFullSpeak: ", 19);
             v120 = [v36 redactedFullSpeak];
-            PrintStringOrNil(v230, v120, 1);
-            if ((v231 & 0x80u) == 0)
+            PrintStringOrNil(v229, v120, 1);
+            if ((v230 & 0x80u) == 0)
             {
-              v121 = v230;
+              v121 = v229;
             }
 
             else
             {
-              v121 = v230[0];
+              v121 = v229[0];
             }
 
-            if ((v231 & 0x80u) == 0)
+            if ((v230 & 0x80u) == 0)
             {
-              v122 = v231;
+              v122 = v230;
             }
 
             else
             {
-              v122 = v230[1];
+              v122 = v229[1];
             }
 
             v123 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v119, v121, v122);
@@ -5117,25 +5110,25 @@ void LogPatternExecutionResult(PatternExecutionResult *a1)
             v125 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v124, "    ", 4);
             v126 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v125, "redactedSupportingPrint: ", 25);
             v127 = [v36 redactedSupportingPrint];
-            PrintStringOrNil(v228, v127, 1);
-            if ((v229 & 0x80u) == 0)
+            PrintStringOrNil(v227, v127, 1);
+            if ((v228 & 0x80u) == 0)
             {
-              v128 = v228;
+              v128 = v227;
             }
 
             else
             {
-              v128 = v228[0];
+              v128 = v227[0];
             }
 
-            if ((v229 & 0x80u) == 0)
+            if ((v228 & 0x80u) == 0)
             {
-              v129 = v229;
+              v129 = v228;
             }
 
             else
             {
-              v129 = v228[1];
+              v129 = v227[1];
             }
 
             v130 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v126, v128, v129);
@@ -5143,25 +5136,25 @@ void LogPatternExecutionResult(PatternExecutionResult *a1)
             v132 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v131, "    ", 4);
             v133 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v132, "redactedSupportingSpeak: ", 25);
             v134 = [v36 redactedSupportingSpeak];
-            PrintStringOrNil(v226, v134, 1);
-            if ((v227 & 0x80u) == 0)
+            PrintStringOrNil(v225, v134, 1);
+            if ((v226 & 0x80u) == 0)
             {
-              v135 = v226;
+              v135 = v225;
             }
 
             else
             {
-              v135 = v226[0];
+              v135 = v225[0];
             }
 
-            if ((v227 & 0x80u) == 0)
+            if ((v226 & 0x80u) == 0)
             {
-              v136 = v227;
+              v136 = v226;
             }
 
             else
             {
-              v136 = v226[1];
+              v136 = v225[1];
             }
 
             v137 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v133, v135, v136);
@@ -5178,132 +5171,132 @@ void LogPatternExecutionResult(PatternExecutionResult *a1)
               v141 = "false";
             }
 
-            std::string::basic_string[abi:ne200100]<0>(v224, v141);
-            if ((v225 & 0x80u) == 0)
+            std::string::basic_string[abi:ne200100]<0>(v223, v141);
+            if ((v224 & 0x80u) == 0)
             {
-              v142 = v224;
+              v142 = v223;
             }
 
             else
             {
-              v142 = v224[0];
+              v142 = v223[0];
             }
 
-            if ((v225 & 0x80u) == 0)
+            if ((v224 & 0x80u) == 0)
             {
-              v143 = v225;
+              v143 = v224;
             }
 
             else
             {
-              v143 = v224[1];
+              v143 = v223[1];
             }
 
             v144 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v140, v142, v143);
             v145 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v144, "\n", 1);
             v146 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v145, "    ", 4);
             v147 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v146, "----", 4);
-            v276 = 10;
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v147, &v276, 1);
-            if (v225 < 0)
+            v275 = 10;
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v147, &v275, 1);
+            if (v224 < 0)
             {
-              operator delete(v224[0]);
+              operator delete(v223[0]);
             }
 
-            if (v227 < 0)
+            if (v226 < 0)
             {
-              operator delete(v226[0]);
+              operator delete(v225[0]);
             }
 
-            if (v229 < 0)
+            if (v228 < 0)
             {
-              operator delete(v228[0]);
+              operator delete(v227[0]);
             }
 
-            if (v231 < 0)
+            if (v230 < 0)
             {
-              operator delete(v230[0]);
+              operator delete(v229[0]);
             }
 
-            if (v233 < 0)
+            if (v232 < 0)
             {
-              operator delete(v232[0]);
+              operator delete(v231[0]);
             }
 
-            if (v235 < 0)
+            if (v234 < 0)
             {
-              operator delete(v234[0]);
+              operator delete(v233[0]);
             }
 
-            if (v237 < 0)
+            if (v236 < 0)
             {
-              operator delete(v236[0]);
+              operator delete(v235[0]);
             }
 
-            if (v239 < 0)
+            if (v238 < 0)
             {
-              operator delete(v238[0]);
+              operator delete(v237[0]);
             }
 
-            if (v241 < 0)
+            if (v240 < 0)
             {
-              operator delete(v240[0]);
+              operator delete(v239[0]);
             }
 
-            if (v244 < 0)
+            if (v243 < 0)
             {
-              operator delete(v242.super.super.isa);
+              operator delete(v241.super.super.isa);
             }
 
-            if (v247 < 0)
+            if (v246 < 0)
             {
-              operator delete(v245.super.super.isa);
+              operator delete(v244.super.super.isa);
             }
 
-            if (v249 < 0)
+            if (v248 < 0)
             {
-              operator delete(v248[0]);
+              operator delete(v247[0]);
             }
 
-            if (v251 < 0)
+            if (v250 < 0)
             {
-              operator delete(v250[0]);
+              operator delete(v249[0]);
             }
 
-            if (v253 < 0)
+            if (v252 < 0)
             {
-              operator delete(v252[0]);
+              operator delete(v251[0]);
             }
 
-            if (v255 < 0)
+            if (v254 < 0)
             {
-              operator delete(v254[0]);
+              operator delete(v253[0]);
             }
 
-            if (v262 < 0)
+            if (v261 < 0)
             {
-              operator delete(v260);
+              operator delete(v259);
             }
 
-            if (v269 < 0)
+            if (v268 < 0)
             {
               operator delete(__p);
             }
           }
 
-          v206 = [v204 countByEnumeratingWithState:&v256 objects:v278 count:16];
+          v205 = [v203 countByEnumeratingWithState:&v255 objects:v277 count:16];
         }
 
-        while (v206);
+        while (v205);
       }
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v271, "\n", 1);
-    v148 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v271, "visual: ", 8);
-    v149 = [(PatternExecutionResult *)v207 visual];
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v270, "\n", 1);
+    v148 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v270, "visual: ", 8);
+    v149 = [(PatternExecutionResult *)v206 visual];
     v150 = [v149 base64EncodedStringWithOptions:0];
     PrintStringOrNil(&__p, v150, 0);
-    if ((v269 & 0x80u) == 0)
+    if ((v268 & 0x80u) == 0)
     {
       v151 = &__p;
     }
@@ -5313,28 +5306,28 @@ void LogPatternExecutionResult(PatternExecutionResult *a1)
       v151 = __p;
     }
 
-    if ((v269 & 0x80u) == 0)
-    {
-      v152 = v269;
-    }
-
-    else
+    if ((v268 & 0x80u) == 0)
     {
       v152 = v268;
     }
 
+    else
+    {
+      v152 = v267;
+    }
+
     v153 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v148, v151, v152);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v153, "\n", 1);
-    if (v269 < 0)
+    if (v268 < 0)
     {
       operator delete(__p);
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v271, "\n", 1);
-    v154 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v271, "responseMode: ", 14);
-    v155 = [(PatternExecutionResult *)v207 responseMode];
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v270, "\n", 1);
+    v154 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v270, "responseMode: ", 14);
+    v155 = [(PatternExecutionResult *)v206 responseMode];
     PrintStringOrNil(&__p, v155, 1);
-    if ((v269 & 0x80u) == 0)
+    if ((v268 & 0x80u) == 0)
     {
       v156 = &__p;
     }
@@ -5344,28 +5337,28 @@ void LogPatternExecutionResult(PatternExecutionResult *a1)
       v156 = __p;
     }
 
-    if ((v269 & 0x80u) == 0)
-    {
-      v157 = v269;
-    }
-
-    else
+    if ((v268 & 0x80u) == 0)
     {
       v157 = v268;
     }
 
+    else
+    {
+      v157 = v267;
+    }
+
     v158 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v154, v156, v157);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v158, "\n", 1);
-    if (v269 < 0)
+    if (v268 < 0)
     {
       operator delete(__p);
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v271, "\n", 1);
-    v159 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v271, "printSupportingDialog: ", 23);
-    v160 = [(PatternExecutionResult *)v207 printSupportingDialog];
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v270, "\n", 1);
+    v159 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v270, "printSupportingDialog: ", 23);
+    v160 = [(PatternExecutionResult *)v206 printSupportingDialog];
     PrintBoolOrNil(&__p, v160);
-    if ((v269 & 0x80u) == 0)
+    if ((v268 & 0x80u) == 0)
     {
       v161 = &__p;
     }
@@ -5375,28 +5368,28 @@ void LogPatternExecutionResult(PatternExecutionResult *a1)
       v161 = __p;
     }
 
-    if ((v269 & 0x80u) == 0)
-    {
-      v162 = v269;
-    }
-
-    else
+    if ((v268 & 0x80u) == 0)
     {
       v162 = v268;
     }
 
+    else
+    {
+      v162 = v267;
+    }
+
     v163 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v159, v161, v162);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v163, "\n", 1);
-    if (v269 < 0)
+    if (v268 < 0)
     {
       operator delete(__p);
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v271, "\n", 1);
-    v164 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v271, "patternType: ", 13);
-    v165 = MEMORY[0x1C68D4C40](v164, [(PatternExecutionResult *)v207 patternType]);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v270, "\n", 1);
+    v164 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v270, "patternType: ", 13);
+    v165 = MEMORY[0x1C68D4C40](v164, [(PatternExecutionResult *)v206 patternType]);
     v166 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v165, " (", 2);
-    v167 = [(PatternExecutionResult *)v207 patternType];
+    v167 = [(PatternExecutionResult *)v206 patternType];
     if (v167 > 0x12)
     {
       v168 = "UNKNOWN_PATTERN";
@@ -5408,7 +5401,7 @@ void LogPatternExecutionResult(PatternExecutionResult *a1)
     }
 
     std::string::basic_string[abi:ne200100]<0>(&__p, v168);
-    if ((v269 & 0x80u) == 0)
+    if ((v268 & 0x80u) == 0)
     {
       v169 = &__p;
     }
@@ -5418,31 +5411,31 @@ void LogPatternExecutionResult(PatternExecutionResult *a1)
       v169 = __p;
     }
 
-    if ((v269 & 0x80u) == 0)
-    {
-      v170 = v269;
-    }
-
-    else
+    if ((v268 & 0x80u) == 0)
     {
       v170 = v268;
     }
 
+    else
+    {
+      v170 = v267;
+    }
+
     v171 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v166, v169, v170);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v171, ")\n", 2);
-    if (v269 < 0)
+    if (v268 < 0)
     {
       operator delete(__p);
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v271, "\n", 1);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v271, "visualInfo:\n", 12);
-    v172 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v271, "    ", 4);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v270, "\n", 1);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v270, "visualInfo:\n", 12);
+    v172 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v270, "    ", 4);
     v173 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v172, "visualLocation: ", 16);
-    v174 = [(PatternExecutionResult *)v207 visualInfo];
+    v174 = [(PatternExecutionResult *)v206 visualInfo];
     v175 = MEMORY[0x1C68D4C40](v173, [v174 visualLocation]);
     v176 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v175, " (", 2);
-    v177 = [(PatternExecutionResult *)v207 visualInfo];
+    v177 = [(PatternExecutionResult *)v206 visualInfo];
     v178 = [v177 visualLocation];
     v179 = "Invalid";
     if (!v178)
@@ -5461,7 +5454,7 @@ void LogPatternExecutionResult(PatternExecutionResult *a1)
     }
 
     std::string::basic_string[abi:ne200100]<0>(&__p, v180);
-    if ((v269 & 0x80u) == 0)
+    if ((v268 & 0x80u) == 0)
     {
       v181 = &__p;
     }
@@ -5471,61 +5464,61 @@ void LogPatternExecutionResult(PatternExecutionResult *a1)
       v181 = __p;
     }
 
-    if ((v269 & 0x80u) == 0)
-    {
-      v182 = v269;
-    }
-
-    else
+    if ((v268 & 0x80u) == 0)
     {
       v182 = v268;
     }
 
+    else
+    {
+      v182 = v267;
+    }
+
     v183 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v176, v181, v182);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v183, ")\n", 2);
-    if (v269 < 0)
+    if (v268 < 0)
     {
       operator delete(__p);
     }
 
-    v184 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v271, "    ", 4);
+    v184 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v270, "    ", 4);
     v185 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v184, "sectionIds (count = ", 20);
-    v186 = [(PatternExecutionResult *)v207 visualInfo];
+    v186 = [(PatternExecutionResult *)v206 visualInfo];
     v187 = [v186 sectionIds];
     v188 = MEMORY[0x1C68D4C40](v185, [v187 count]);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v188, "):\n", 3);
 
-    v189 = [(PatternExecutionResult *)v207 visualInfo];
+    v189 = [(PatternExecutionResult *)v206 visualInfo];
     v190 = [v189 sectionIds];
     LOBYTE(v185) = v190 == 0;
 
     if ((v185 & 1) == 0)
     {
-      v222 = 0u;
-      v223 = 0u;
-      v220 = 0u;
       v221 = 0u;
-      v191 = [(PatternExecutionResult *)v207 visualInfo];
+      v222 = 0u;
+      v219 = 0u;
+      v220 = 0u;
+      v191 = [(PatternExecutionResult *)v206 visualInfo];
       v192 = [v191 sectionIds];
 
-      v193 = [v192 countByEnumeratingWithState:&v220 objects:v277 count:16];
+      v193 = [v192 countByEnumeratingWithState:&v219 objects:v276 count:16];
       if (v193)
       {
-        v194 = *v221;
+        v194 = *v220;
         do
         {
           for (j = 0; j != v193; ++j)
           {
-            if (*v221 != v194)
+            if (*v220 != v194)
             {
               objc_enumerationMutation(v192);
             }
 
-            v196 = *(*(&v220 + 1) + 8 * j);
-            v197 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v271, "    ", 4);
+            v196 = *(*(&v219 + 1) + 8 * j);
+            v197 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v270, "    ", 4);
             v198 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v197, "    ", 4);
             PrintStringOrNil(&__p, v196, 1);
-            if ((v269 & 0x80u) == 0)
+            if ((v268 & 0x80u) == 0)
             {
               v199 = &__p;
             }
@@ -5535,25 +5528,25 @@ void LogPatternExecutionResult(PatternExecutionResult *a1)
               v199 = __p;
             }
 
-            if ((v269 & 0x80u) == 0)
-            {
-              v200 = v269;
-            }
-
-            else
+            if ((v268 & 0x80u) == 0)
             {
               v200 = v268;
             }
 
+            else
+            {
+              v200 = v267;
+            }
+
             v201 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v198, v199, v200);
             std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v201, "\n", 1);
-            if (v269 < 0)
+            if (v268 < 0)
             {
               operator delete(__p);
             }
           }
 
-          v193 = [v192 countByEnumeratingWithState:&v220 objects:v277 count:16];
+          v193 = [v192 countByEnumeratingWithState:&v219 objects:v276 count:16];
         }
 
         while (v193);
@@ -5563,32 +5556,30 @@ void LogPatternExecutionResult(PatternExecutionResult *a1)
 
   else
   {
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v271, "nil", 3);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v270, "nil", 3);
   }
 
   std::stringbuf::str();
   siri::dialogengine::Log::LogWithLevel(&__p, 0);
-  if (v269 < 0)
+  if (v268 < 0)
   {
     operator delete(__p);
   }
 
-  v270[0] = *MEMORY[0x1E69E54D8];
+  v269[0] = *MEMORY[0x1E69E54D8];
   v202 = *(MEMORY[0x1E69E54D8] + 72);
-  *(v270 + *(v270[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
-  v271 = v202;
-  v272 = MEMORY[0x1E69E5548] + 16;
-  if (v274 < 0)
+  *(v269 + *(v269[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
+  v270 = v202;
+  v271 = MEMORY[0x1E69E5548] + 16;
+  if (v273 < 0)
   {
-    operator delete(v273[7].__locale_);
+    operator delete(v272[7].__locale_);
   }
 
-  v272 = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v273);
+  v271 = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v272);
   std::iostream::~basic_iostream();
-  MEMORY[0x1C68D4DC0](&v275);
-
-  v203 = *MEMORY[0x1E69E9840];
+  MEMORY[0x1C68D4DC0](&v274);
 }
 
 void sub_1BFC017DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12)
@@ -5910,14 +5901,14 @@ void PrintBoolOrNil(NSNumber *a1, void *a2)
   std::string::basic_string[abi:ne200100]<0>(a1, v4);
 }
 
-void siri::dialogengine::Context::UpdatePatternState(siri::dialogengine::Context *this, uint64_t a2, char a3)
+void siri::dialogengine::Context::UpdatePatternState(__n128 *this, uint64_t a2, char a3)
 {
   if ((a3 & 1) == 0)
   {
-    siri::dialogengine::Context::GetPatternState(this, &v3);
+    siri::dialogengine::Context::GetPatternState(v3, this);
   }
 
-  siri::dialogengine::DialogStateBase::Get(this);
+  siri::dialogengine::DialogStateBase::Get();
 }
 
 void sub_1BFC02618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9)
@@ -5934,7 +5925,7 @@ void sub_1BFC02618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void siri::dialogengine::DialogStateClient::PatternUpdate(double a1, uint64_t a2, const void ***a3, char *a4, _OWORD *a5)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v9 = os_log_create("com.apple.siri.DialogEngine", "DialogState");
   v10 = os_signpost_id_generate(v9);
   v11 = v9;
@@ -5967,11 +5958,11 @@ void siri::dialogengine::DialogStateClient::PatternUpdate(double a1, uint64_t a2
     v15 = *(a4 + 1);
   }
 
-  v16 = v32;
-  std::string::basic_string[abi:ne200100](v32, v15 + 8);
-  if (v33 < 0)
+  v16 = v31;
+  std::string::basic_string[abi:ne200100](v31, v15 + 8);
+  if (v32 < 0)
   {
-    v16 = v32[0];
+    v16 = v31[0];
   }
 
   if (v15)
@@ -5990,28 +5981,28 @@ void siri::dialogengine::DialogStateClient::PatternUpdate(double a1, uint64_t a2
   }
 
   strcpy(v16 + v15, "#pattern");
-  if (v33 >= 0)
+  if (v32 >= 0)
   {
-    v18 = v32;
+    v18 = v31;
   }
 
   else
   {
-    v18 = v32[0];
+    v18 = v31[0];
   }
 
   v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v18];
   v20 = [v14 dictionaryForKey:v19];
   siri::dialogengine::DialogStatePatternFromNSDictionary(v20, buf);
 
-  v31 = 0;
+  v30 = 0;
   LOBYTE(__p[0]) = 0;
-  v29[0] = 0;
-  v29[1] = 0;
-  v28 = v29;
-  siri::dialogengine::DialogStateBase::UpdateStats(v21, a3, a1, __p, &v28, 0, 0, buf);
-  std::__tree<std::string>::destroy(&v28, v29[0]);
-  if (v31 < 0)
+  v28[0] = 0;
+  v28[1] = 0;
+  v27 = v28;
+  siri::dialogengine::DialogStateBase::UpdateStats(v21, a3, a1, __p, &v27, 0, 0, buf);
+  std::__tree<std::string>::destroy(&v27, v28[0]);
+  if (v30 < 0)
   {
     operator delete(__p[0]);
   }
@@ -6021,7 +6012,7 @@ void siri::dialogengine::DialogStateClient::PatternUpdate(double a1, uint64_t a2
 
   if (a5)
   {
-    v24 = v35;
+    v24 = v34;
     *a5 = *buf;
     a5[1] = v24;
   }
@@ -6034,12 +6025,10 @@ void siri::dialogengine::DialogStateClient::PatternUpdate(double a1, uint64_t a2
     _os_signpost_emit_with_name_impl(&dword_1BFB68000, v26, OS_SIGNPOST_INTERVAL_END, v10, "UpdatePatternState", "", __p, 2u);
   }
 
-  if (v33 < 0)
+  if (v32 < 0)
   {
-    operator delete(v32[0]);
+    operator delete(v31[0]);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BFC02938(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
@@ -6052,7 +6041,7 @@ void sub_1BFC02938(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void VariableFromNSObject(uint64_t a1, uint64_t a2, void *a3)
+void VariableFromNSObject(uint64_t a1, const std::string *a2, void *a3)
 {
   v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
@@ -6090,11 +6079,11 @@ void VariableFromNSObject(uint64_t a1, uint64_t a2, void *a3)
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      std::allocate_shared[abi:ne200100]<siri::dialogengine::VariableArray,std::allocator<siri::dialogengine::VariableArray>,std::string const&,0>();
+      std::allocate_shared[abi:ne200100]<siri::dialogengine::VariableArray,std::allocator<siri::dialogengine::VariableArray>,std::string const&,0>(&v7, a2);
     }
 
     std::operator+<char>();
-    siri::dialogengine::Log::LogWithLevel(__p, 1u);
+    siri::dialogengine::Log::LogWithLevel(__p, 1);
     if (v9 < 0)
     {
       operator delete(__p[0]);
@@ -6103,8 +6092,6 @@ void VariableFromNSObject(uint64_t a1, uint64_t a2, void *a3)
     *a1 = 0;
     *(a1 + 8) = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BFC02EC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
@@ -6141,15 +6128,15 @@ void SnippetUI::Response_Group::~Response_Group(SnippetUI::Response_Group *this)
   JUMPOUT(0x1C68D4E80);
 }
 
-void SnippetUI::Response::~Response(SnippetUI::Response *this)
+void SnippetUI::Response::~Response(google::protobuf::internal::ArenaImpl **this)
 {
   *this = &unk_1F3F1F1F8;
-  v2 = (this + 8);
-  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField(this + 112);
-  google::protobuf::RepeatedPtrField<siri::dialogengine::SchemaBinary::Input>::~RepeatedPtrField((this + 88));
-  google::protobuf::RepeatedPtrField<siri::dialogengine::SchemaBinary::Input>::~RepeatedPtrField((this + 64));
-  google::protobuf::RepeatedPtrField<siri::dialogengine::SchemaBinary::Input>::~RepeatedPtrField((this + 40));
-  google::protobuf::RepeatedPtrField<siri::dialogengine::SchemaBinary::Input>::~RepeatedPtrField((this + 16));
+  v2 = (this + 1);
+  google::protobuf::RepeatedPtrField<std::string>::~RepeatedPtrField(this + 14);
+  google::protobuf::RepeatedPtrField<siri::dialogengine::SchemaBinary::Input>::~RepeatedPtrField((this + 11));
+  google::protobuf::RepeatedPtrField<siri::dialogengine::SchemaBinary::Input>::~RepeatedPtrField((this + 8));
+  google::protobuf::RepeatedPtrField<siri::dialogengine::SchemaBinary::Input>::~RepeatedPtrField((this + 5));
+  google::protobuf::RepeatedPtrField<siri::dialogengine::SchemaBinary::Input>::~RepeatedPtrField((this + 2));
   google::protobuf::internal::InternalMetadataWithArenaBase<google::protobuf::UnknownFieldSet,google::protobuf::internal::InternalMetadataWithArena>::~InternalMetadataWithArenaBase(v2);
 }
 
@@ -6210,9 +6197,9 @@ void sub_1BFC031A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t PatternTypeFromName(uint64_t a1)
+uint64_t PatternTypeFromName(uint64_t *a1)
 {
-  v1 = *(a1 + 8);
+  v1 = a1[1];
   if (*(a1 + 23) >= 0)
   {
     v2 = *(a1 + 23);
@@ -6224,7 +6211,7 @@ uint64_t PatternTypeFromName(uint64_t a1)
     v2 = v1;
   }
 
-  siri::dialogengine::StringToLower(a1, v2, &__p);
+  siri::dialogengine::StringToLower(&__p, a1, v2);
   if (v30 < 0)
   {
     v5 = *v29;
@@ -6466,10 +6453,10 @@ void sub_1BFC038E8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void siri::dialogengine::PatternFactory::Create(uint64_t a1@<X0>, void *a2@<X8>)
+void siri::dialogengine::PatternFactory::Create(uint64_t *a1@<X0>, void *a2@<X8>)
 {
-  v68 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 8);
+  v67 = *MEMORY[0x1E69E9840];
+  v3 = a1[1];
   if (*(a1 + 23) >= 0)
   {
     v4 = *(a1 + 23);
@@ -6481,13 +6468,13 @@ void siri::dialogengine::PatternFactory::Create(uint64_t a1@<X0>, void *a2@<X8>)
     v4 = v3;
   }
 
-  siri::dialogengine::StringToLower(a1, v4, &__s1);
-  v5 = v61[15];
-  if ((v61[15] & 0x80000000) != 0)
+  siri::dialogengine::StringToLower(&__s1, a1, v4);
+  v5 = v60[15];
+  if ((v60[15] & 0x80000000) != 0)
   {
-    if (*v61 > 19)
+    if (*v60 > 19)
     {
-      switch(*v61)
+      switch(*v60)
       {
         case 0x14:
           if (*__s1 == 0x2E6E726574746170 && __s1[1] == 0x6572656C706D6973 && *(__s1 + 4) == 1953265011)
@@ -6516,7 +6503,7 @@ void siri::dialogengine::PatternFactory::Create(uint64_t a1@<X0>, void *a2@<X8>)
 
     else
     {
-      switch(*v61)
+      switch(*v60)
       {
         case 0x10:
           if (*__s1 == 0x2E6E726574746170 && __s1[1] == 0x746573656C626174)
@@ -6538,7 +6525,7 @@ void siri::dialogengine::PatternFactory::Create(uint64_t a1@<X0>, void *a2@<X8>)
             goto LABEL_167;
           }
 
-          if ((v61[15] & 0x80) == 0)
+          if ((v60[15] & 0x80) == 0)
           {
             goto LABEL_196;
           }
@@ -6547,7 +6534,7 @@ void siri::dialogengine::PatternFactory::Create(uint64_t a1@<X0>, void *a2@<X8>)
       }
     }
 
-    if (*v61 != 23)
+    if (*v60 != 23)
     {
       goto LABEL_141;
     }
@@ -6557,23 +6544,23 @@ void siri::dialogengine::PatternFactory::Create(uint64_t a1@<X0>, void *a2@<X8>)
       goto LABEL_167;
     }
 
-    if ((v61[15] & 0x80) != 0)
+    if ((v60[15] & 0x80) != 0)
     {
 LABEL_141:
-      if (*v61 == 22)
+      if (*v60 == 22)
       {
         if (*__s1 == 0x2E6E726574746170 && __s1[1] == 0x73736572676F7270 && *(__s1 + 14) == 0x7375746174737373)
         {
           goto LABEL_167;
         }
 
-        if ((v61[15] & 0x80) == 0)
+        if ((v60[15] & 0x80) == 0)
         {
           goto LABEL_196;
         }
       }
 
-      if (*v61 == 41)
+      if (*v60 == 41)
       {
         if (!memcmp(__s1, "pattern.simpledisambiguationclarification", 0x29uLL))
         {
@@ -6590,7 +6577,7 @@ LABEL_141:
             }
 
 LABEL_155:
-            if (__s1 != 0x2E6E726574746170 || *v61 != 0x65646E656E65706FLL || *&v61[8] != 0x69666972616C6364 || *&v61[14] != 0x6E6F697461636966)
+            if (__s1 != 0x2E6E726574746170 || *v60 != 0x65646E656E65706FLL || *&v60[8] != 0x69666972616C6364 || *&v60[14] != 0x6E6F697461636966)
             {
               goto LABEL_196;
             }
@@ -6602,7 +6589,7 @@ LABEL_155:
         }
       }
 
-      if (*v61 != 30)
+      if (*v60 != 30)
       {
         goto LABEL_194;
       }
@@ -6615,7 +6602,7 @@ LABEL_155:
       if ((v5 & 0x80) != 0)
       {
 LABEL_194:
-        if (*v61 != 26)
+        if (*v60 != 26)
         {
           goto LABEL_196;
         }
@@ -6632,26 +6619,26 @@ LABEL_182:
         }
 
 LABEL_193:
-        std::string::basic_string[abi:ne200100]<0>(v62, "Sash");
-        std::string::basic_string[abi:ne200100]<0>(v63, "Preview");
-        std::string::basic_string[abi:ne200100]<0>(v64, "Attribution");
-        std::string::basic_string[abi:ne200100]<0>(v65, "Reference");
-        std::string::basic_string[abi:ne200100]<0>(v66, "Prompt");
+        std::string::basic_string[abi:ne200100]<0>(v61, "Sash");
+        std::string::basic_string[abi:ne200100]<0>(v62, "Preview");
+        std::string::basic_string[abi:ne200100]<0>(v63, "Attribution");
+        std::string::basic_string[abi:ne200100]<0>(v64, "Reference");
+        std::string::basic_string[abi:ne200100]<0>(v65, "Prompt");
+        v56 = 0;
         v57 = 0;
         v58 = 0;
-        v59 = 0;
-        std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v57, v62, v67, 5uLL);
+        std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v56, v61, v66, 5uLL);
       }
     }
 
     else
     {
-      if (v61[15] > 0x1Du)
+      if (v60[15] > 0x1Du)
       {
 LABEL_25:
-        if (v61[15] != 30)
+        if (v60[15] != 30)
         {
-          if (v61[15] != 41 || memcmp(&__s1, "pattern.simpledisambiguationclarification", 0x29uLL))
+          if (v60[15] != 41 || memcmp(&__s1, "pattern.simpledisambiguationclarification", 0x29uLL))
           {
             goto LABEL_196;
           }
@@ -6662,7 +6649,7 @@ LABEL_25:
         goto LABEL_155;
       }
 
-      if (v61[15] == 22)
+      if (v60[15] == 22)
       {
         goto LABEL_131;
       }
@@ -6678,11 +6665,11 @@ LABEL_181:
     goto LABEL_182;
   }
 
-  if (v61[15] > 0x15u)
+  if (v60[15] > 0x15u)
   {
-    if (v61[15] > 0x19u)
+    if (v60[15] > 0x19u)
     {
-      if (v61[15] != 26)
+      if (v60[15] != 26)
       {
         goto LABEL_25;
       }
@@ -6690,15 +6677,15 @@ LABEL_181:
       goto LABEL_181;
     }
 
-    if (v61[15] != 22)
+    if (v60[15] != 22)
     {
-      if (v61[15] != 23)
+      if (v60[15] != 23)
       {
         goto LABEL_196;
       }
 
-      v16 = *v61;
-      v17 = *&v61[7];
+      v16 = *v60;
+      v17 = *&v60[7];
       v18 = 0x7375746174736465;
       v19 = __s1 == 0x2E6E726574746170;
       v20 = 0x656C6C65636E6163;
@@ -6711,11 +6698,11 @@ LABEL_71:
       goto LABEL_196;
     }
 
-    if (__s1 != 0x2E6E726574746170 || *v61 != 0x64656C6961746564 || *&v61[6] != 0x746C757365726465)
+    if (__s1 != 0x2E6E726574746170 || *v60 != 0x64656C6961746564 || *&v60[6] != 0x746C757365726465)
     {
 LABEL_131:
-      v6 = *v61;
-      v7 = *&v61[6];
+      v6 = *v60;
+      v7 = *&v60[6];
       v8 = __s1 == 0x2E6E726574746170;
       v9 = 0x6572676F7270;
 LABEL_132:
@@ -6726,33 +6713,33 @@ LABEL_132:
       }
 
 LABEL_167:
-      std::string::basic_string[abi:ne200100]<0>(v62, "Sash");
-      std::string::basic_string[abi:ne200100]<0>(v63, "Preview");
-      std::string::basic_string[abi:ne200100]<0>(v64, "Attribution");
-      std::string::basic_string[abi:ne200100]<0>(v65, "Reference");
-      std::string::basic_string[abi:ne200100]<0>(v66, "Status");
-      std::string::basic_string[abi:ne200100]<0>(v67, "Prompt");
+      std::string::basic_string[abi:ne200100]<0>(v61, "Sash");
+      std::string::basic_string[abi:ne200100]<0>(v62, "Preview");
+      std::string::basic_string[abi:ne200100]<0>(v63, "Attribution");
+      std::string::basic_string[abi:ne200100]<0>(v64, "Reference");
+      std::string::basic_string[abi:ne200100]<0>(v65, "Status");
+      std::string::basic_string[abi:ne200100]<0>(v66, "Prompt");
+      v56 = 0;
       v57 = 0;
       v58 = 0;
-      v59 = 0;
-      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v57, v62, &v68, 6uLL);
+      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v56, v61, &v67, 6uLL);
     }
 
 LABEL_69:
     operator new();
   }
 
-  if (v61[15] <= 0x12u)
+  if (v60[15] <= 0x12u)
   {
-    if (v61[15] != 16)
+    if (v60[15] != 16)
     {
-      if (v61[15] != 17)
+      if (v60[15] != 17)
       {
         goto LABEL_196;
       }
 
-      v14 = __s1 == 0x2E6E726574746170 && *v61 == 0x6573746C75736572;
-      if (!v14 || v61[8] != 116)
+      v14 = __s1 == 0x2E6E726574746170 && *v60 == 0x6573746C75736572;
+      if (!v14 || v60[8] != 116)
       {
         goto LABEL_196;
       }
@@ -6761,7 +6748,7 @@ LABEL_112:
       operator new();
     }
 
-    if (__s1 != 0x2E6E726574746170 || *v61 != 0x746573656C626174)
+    if (__s1 != 0x2E6E726574746170 || *v60 != 0x746573656C626174)
     {
       goto LABEL_196;
     }
@@ -6770,37 +6757,37 @@ LABEL_94:
     operator new();
   }
 
-  if (v61[15] == 19)
+  if (v60[15] == 19)
   {
-    v16 = *v61;
-    v17 = *&v61[3];
+    v16 = *v60;
+    v17 = *&v60[3];
     v18 = 0x737574617473726FLL;
     v19 = __s1 == 0x2E6E726574746170;
     v20 = 0x617473726F727265;
     goto LABEL_71;
   }
 
-  if (v61[15] != 20)
+  if (v60[15] != 20)
   {
-    v6 = *v61;
-    v7 = *&v61[5];
+    v6 = *v60;
+    v7 = *&v60[5];
     v8 = __s1 == 0x2E6E726574746170;
     v9 = 0x736563637573;
     goto LABEL_132;
   }
 
-  if (__s1 == 0x2E6E726574746170 && *v61 == 0x6572656C706D6973 && *&v61[8] == 1953265011)
+  if (__s1 == 0x2E6E726574746170 && *v60 == 0x6572656C706D6973 && *&v60[8] == 1953265011)
   {
 LABEL_103:
-    std::string::basic_string[abi:ne200100]<0>(v62, "Sash");
-    std::string::basic_string[abi:ne200100]<0>(v63, "Item");
-    std::string::basic_string[abi:ne200100]<0>(v64, "Attribution");
-    std::string::basic_string[abi:ne200100]<0>(v65, "Reference");
-    std::string::basic_string[abi:ne200100]<0>(v66, "Prompt");
+    std::string::basic_string[abi:ne200100]<0>(v61, "Sash");
+    std::string::basic_string[abi:ne200100]<0>(v62, "Item");
+    std::string::basic_string[abi:ne200100]<0>(v63, "Attribution");
+    std::string::basic_string[abi:ne200100]<0>(v64, "Reference");
+    std::string::basic_string[abi:ne200100]<0>(v65, "Prompt");
+    v56 = 0;
     v57 = 0;
     v58 = 0;
-    v59 = 0;
-    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v57, v62, v67, 5uLL);
+    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v56, v61, v66, 5uLL);
   }
 
 LABEL_196:
@@ -6821,34 +6808,32 @@ LABEL_196:
 
   if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__s1, "prompt.simpledisambiguationprompt") || std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__s1, "prompt.openendedprompt") || std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__s1, "prompt.yesnoprompt"))
   {
-    std::string::basic_string[abi:ne200100]<0>(v62, "Sash");
-    std::string::basic_string[abi:ne200100]<0>(v63, "Prompt");
+    std::string::basic_string[abi:ne200100]<0>(v61, "Sash");
+    std::string::basic_string[abi:ne200100]<0>(v62, "Prompt");
+    v56 = 0;
     v57 = 0;
     v58 = 0;
-    v59 = 0;
-    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v57, v62, v64, 2uLL);
+    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v56, v61, v63, 2uLL);
   }
 
   if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__s1, "pattern.disambiguationclarification"))
   {
-    std::string::basic_string[abi:ne200100]<0>(v62, "Sash");
-    std::string::basic_string[abi:ne200100]<0>(v63, "Preview");
-    std::string::basic_string[abi:ne200100]<0>(v64, "Attribution");
-    std::string::basic_string[abi:ne200100]<0>(v65, "Prompt");
+    std::string::basic_string[abi:ne200100]<0>(v61, "Sash");
+    std::string::basic_string[abi:ne200100]<0>(v62, "Preview");
+    std::string::basic_string[abi:ne200100]<0>(v63, "Attribution");
+    std::string::basic_string[abi:ne200100]<0>(v64, "Prompt");
+    v56 = 0;
     v57 = 0;
     v58 = 0;
-    v59 = 0;
-    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v57, v62, v66, 4uLL);
+    std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v56, v61, v65, 4uLL);
   }
 
   *a2 = 0;
   a2[1] = 0;
-  if ((v61[15] & 0x80000000) != 0)
+  if ((v60[15] & 0x80000000) != 0)
   {
     operator delete(__s1);
   }
-
-  v56 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BFC04690(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, int a37, __int16 a38, char a39, char a40)
@@ -6887,7 +6872,7 @@ void sub_1BFC04970(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t siri::dialogengine::ExecutePatternSimple::ExecutePatternSimple(uint64_t a1, uint64_t *a2)
+uint64_t siri::dialogengine::ExecutePatternSimple::ExecutePatternSimple(uint64_t a1, void *a2)
 {
   *(a1 + 88) = 0u;
   *(a1 + 72) = 0u;
@@ -6899,7 +6884,7 @@ uint64_t siri::dialogengine::ExecutePatternSimple::ExecutePatternSimple(uint64_t
   *(a1 + 112) = 0;
   *(a1 + 120) = 0;
   *(a1 + 104) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a1 + 104, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a1 + 104), *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
   return a1;
 }
 
@@ -7138,7 +7123,7 @@ LABEL_31:
         {
           v27 = google::protobuf::internal::LogMessage::LogMessage(&v56, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1561);
           v28 = google::protobuf::internal::LogMessage::operator<<(v27, "CHECK failed: (index) < (current_size_): ");
-          google::protobuf::internal::LogFinisher::operator=(&v50, v28);
+          google::protobuf::internal::LogFinisher::operator=(&v50, &v28->__r_.__value_.__l.__data_);
           google::protobuf::internal::LogMessage::~LogMessage(&v56);
         }
 
@@ -7211,7 +7196,7 @@ LABEL_31:
         {
           v39 = google::protobuf::internal::LogMessage::LogMessage(&v56, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1561);
           v40 = google::protobuf::internal::LogMessage::operator<<(v39, "CHECK failed: (index) < (current_size_): ");
-          google::protobuf::internal::LogFinisher::operator=(&v50, v40);
+          google::protobuf::internal::LogFinisher::operator=(&v50, &v40->__r_.__value_.__l.__data_);
           google::protobuf::internal::LogMessage::~LogMessage(&v56);
         }
 
@@ -7285,7 +7270,7 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   {
     google::protobuf::internal::LogMessage::LogMessage(v8, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1538);
     v4 = google::protobuf::internal::LogMessage::operator<<(v8, "CHECK failed: (index) >= (0): ");
-    google::protobuf::internal::LogFinisher::operator=(&v7, v4);
+    google::protobuf::internal::LogFinisher::operator=(&v7, &v4->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v8[0].__r_.__value_.__l.__data_);
   }
 
@@ -7293,24 +7278,24 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   {
     google::protobuf::internal::LogMessage::LogMessage(v8, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1539);
     v5 = google::protobuf::internal::LogMessage::operator<<(v8, "CHECK failed: (index) < (current_size_): ");
-    google::protobuf::internal::LogFinisher::operator=(&v7, v5);
+    google::protobuf::internal::LogFinisher::operator=(&v7, &v5->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v8[0].__r_.__value_.__l.__data_);
   }
 
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_1BFC051CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1BFC051CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void siri::dialogengine::VisualResponse::GetResponseBase64Protobuf(siri::dialogengine::VisualResponse *this@<X0>, std::string *a2@<X8>)
+void siri::dialogengine::VisualResponse::GetResponseBase64Protobuf(std::string *__return_ptr a1@<X8>, siri::dialogengine::VisualResponse *this@<X0>)
 {
   google::protobuf::MessageLite::SerializeAsString((this + 208), __p);
-  siri::dialogengine::EncodeBase64(__p, a2);
+  siri::dialogengine::EncodeBase64(__p, a1);
   if (v4 < 0)
   {
     operator delete(__p[0]);
@@ -7850,7 +7835,7 @@ uint64_t google::protobuf::RepeatedField<int>::RepeatedField(uint64_t a1, int *a
     {
       google::protobuf::internal::LogMessage::LogMessage(v11, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1198);
       v5 = google::protobuf::internal::LogMessage::operator<<(v11, "CHECK failed: (index) < (current_size_): ");
-      google::protobuf::internal::LogFinisher::operator=(&v10, v5);
+      google::protobuf::internal::LogFinisher::operator=(&v10, &v5->__r_.__value_.__l.__data_);
       google::protobuf::internal::LogMessage::~LogMessage(&v11[0].__r_.__value_.__l.__data_);
     }
 
@@ -7859,7 +7844,7 @@ uint64_t google::protobuf::RepeatedField<int>::RepeatedField(uint64_t a1, int *a
     {
       google::protobuf::internal::LogMessage::LogMessage(v11, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/repeated_field.h", 1177);
       v7 = google::protobuf::internal::LogMessage::operator<<(v11, "CHECK failed: (index) < (current_size_): ");
-      google::protobuf::internal::LogFinisher::operator=(&v10, v7);
+      google::protobuf::internal::LogFinisher::operator=(&v10, &v7->__r_.__value_.__l.__data_);
       google::protobuf::internal::LogMessage::~LogMessage(&v11[0].__r_.__value_.__l.__data_);
     }
 
@@ -7870,9 +7855,9 @@ uint64_t google::protobuf::RepeatedField<int>::RepeatedField(uint64_t a1, int *a
   return a1;
 }
 
-void sub_1BFC05C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1BFC05C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -7952,9 +7937,9 @@ siri::dialogengine::CATResultDialogFilterAdapter *siri::dialogengine::CATResultD
 
 void siri::dialogengine::FilterDialogForModeAndSettings(uint64_t *a1, uint64_t a2, int a3, int a4, int a5, uint64_t a6)
 {
-  v136 = *MEMORY[0x1E69E9840];
-  v132 = 0;
-  v133 = 0uLL;
+  v135 = *MEMORY[0x1E69E9840];
+  v131 = 0;
+  v132 = 0uLL;
   v11 = *(a6 + 23);
   if ((v11 & 0x80u) != 0)
   {
@@ -7964,26 +7949,26 @@ void siri::dialogengine::FilterDialogForModeAndSettings(uint64_t *a1, uint64_t a
   if (v11)
   {
     std::operator+<char>();
-    v12 = std::string::append(&v131, "'");
+    v12 = std::string::append(&v130, "'");
     v13 = v12->__r_.__value_.__r.__words[0];
-    *v134 = v12->__r_.__value_.__l.__size_;
-    *&v134[7] = *(&v12->__r_.__value_.__r.__words[1] + 7);
+    *v133 = v12->__r_.__value_.__l.__size_;
+    *&v133[7] = *(&v12->__r_.__value_.__r.__words[1] + 7);
     v14 = HIBYTE(v12->__r_.__value_.__r.__words[2]);
     v12->__r_.__value_.__l.__size_ = 0;
     v12->__r_.__value_.__r.__words[2] = 0;
     v12->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(v133) < 0)
+    if (SHIBYTE(v132) < 0)
     {
-      operator delete(v132);
+      operator delete(v131);
     }
 
-    v132 = v13;
-    *&v133 = *v134;
-    *(&v133 + 7) = *&v134[7];
-    HIBYTE(v133) = v14;
-    if (SHIBYTE(v131.__r_.__value_.__r.__words[2]) < 0)
+    v131 = v13;
+    *&v132 = *v133;
+    *(&v132 + 7) = *&v133[7];
+    HIBYTE(v132) = v14;
+    if (SHIBYTE(v130.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v131.__r_.__value_.__l.__data_);
+      operator delete(v130.__r_.__value_.__l.__data_);
     }
   }
 
@@ -7997,21 +7982,21 @@ void siri::dialogengine::FilterDialogForModeAndSettings(uint64_t *a1, uint64_t a
     v15 = off_1E80FCA08[(a2 - 1)];
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v131, v15);
-  v17 = &v132;
-  if (v133 < 0)
+  std::string::basic_string[abi:ne200100]<0>(&v130, v15);
+  v17 = &v131;
+  if (v132 < 0)
   {
-    v17 = v132;
+    v17 = v131;
   }
 
-  if ((v131.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v130.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v18 = &v131;
+    v18 = &v130;
   }
 
   else
   {
-    v18 = v131.__r_.__value_.__r.__words[0];
+    v18 = v130.__r_.__value_.__r.__words[0];
   }
 
   siri::dialogengine::Log::Info("Filtering dialog%s according to response mode '%s'", v16, v17, v18);
@@ -8027,21 +8012,21 @@ void siri::dialogengine::FilterDialogForModeAndSettings(uint64_t *a1, uint64_t a
       v20 = "false";
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v134, v20);
-    if (v135 >= 0)
+    std::string::basic_string[abi:ne200100]<0>(v133, v20);
+    if (v134 >= 0)
     {
-      v22 = v134;
+      v22 = v133;
     }
 
     else
     {
-      v22 = *v134;
+      v22 = *v133;
     }
 
     siri::dialogengine::Log::Info("alwaysDisplayDialog = %s", v21, v22);
-    if (v135 < 0)
+    if (v134 < 0)
     {
-      operator delete(*v134);
+      operator delete(*v133);
     }
 
     if (a4)
@@ -8054,21 +8039,21 @@ void siri::dialogengine::FilterDialogForModeAndSettings(uint64_t *a1, uint64_t a
       v23 = "false";
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v134, v23);
-    if (v135 >= 0)
+    std::string::basic_string[abi:ne200100]<0>(v133, v23);
+    if (v134 >= 0)
     {
-      v25 = v134;
+      v25 = v133;
     }
 
     else
     {
-      v25 = *v134;
+      v25 = *v133;
     }
 
     siri::dialogengine::Log::Info("printSupportingDialogInDisplayModes = %s", v24, v25);
-    if (v135 < 0)
+    if (v134 < 0)
     {
-      operator delete(*v134);
+      operator delete(*v133);
     }
 
     if (a5)
@@ -8081,21 +8066,21 @@ void siri::dialogengine::FilterDialogForModeAndSettings(uint64_t *a1, uint64_t a
       v26 = "false";
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v134, v26);
-    if (v135 >= 0)
+    std::string::basic_string[abi:ne200100]<0>(v133, v26);
+    if (v134 >= 0)
     {
-      v28 = v134;
+      v28 = v133;
     }
 
     else
     {
-      v28 = *v134;
+      v28 = *v133;
     }
 
     siri::dialogengine::Log::Info("containsVisual = %s", v27, v28);
-    if (v135 < 0)
+    if (v134 < 0)
     {
-      operator delete(*v134);
+      operator delete(*v133);
     }
 
     v29 = 0;
@@ -8106,10 +8091,10 @@ void siri::dialogengine::FilterDialogForModeAndSettings(uint64_t *a1, uint64_t a
       if (v29 >= (*(*a1 + 16))(a1))
       {
         (*(*a1 + 152))(a1);
-        v82 = &v132;
-        if (v133 < 0)
+        v82 = &v131;
+        if (v132 < 0)
         {
-          v82 = v132;
+          v82 = v131;
         }
 
         siri::dialogengine::Log::Info("Done filtering dialog%s", v81, v82);
@@ -8117,59 +8102,59 @@ void siri::dialogengine::FilterDialogForModeAndSettings(uint64_t *a1, uint64_t a
         {
           for (i = 0; i < (*(*a1 + 16))(a1); ++i)
           {
-            (*(*a1 + 24))(v134, a1, i);
-            if (v135 >= 0)
+            (*(*a1 + 24))(v133, a1, i);
+            if (v134 >= 0)
             {
-              v85 = v134;
+              v85 = v133;
             }
 
             else
             {
-              v85 = *v134;
+              v85 = *v133;
             }
 
-            (*(*a1 + 32))(v129, a1, i);
-            if (v130 >= 0)
+            (*(*a1 + 32))(v128, a1, i);
+            if (v129 >= 0)
             {
-              v86 = v129;
-            }
-
-            else
-            {
-              v86 = v129[0];
-            }
-
-            (*(*a1 + 40))(v127, a1, i);
-            if (v128 >= 0)
-            {
-              v87 = v127;
+              v86 = v128;
             }
 
             else
             {
-              v87 = v127[0];
+              v86 = v128[0];
             }
 
-            (*(*a1 + 48))(v125, a1, i);
-            if (v126 >= 0)
+            (*(*a1 + 40))(v126, a1, i);
+            if (v127 >= 0)
             {
-              v88 = v125;
-            }
-
-            else
-            {
-              v88 = v125[0];
-            }
-
-            (*(*a1 + 56))(v123, a1, i);
-            if (v124 >= 0)
-            {
-              v89 = v123;
+              v87 = v126;
             }
 
             else
             {
-              v89 = v123[0];
+              v87 = v126[0];
+            }
+
+            (*(*a1 + 48))(v124, a1, i);
+            if (v125 >= 0)
+            {
+              v88 = v124;
+            }
+
+            else
+            {
+              v88 = v124[0];
+            }
+
+            (*(*a1 + 56))(v122, a1, i);
+            if (v123 >= 0)
+            {
+              v89 = v122;
+            }
+
+            else
+            {
+              v89 = v122[0];
             }
 
             v90 = (*(*a1 + 64))(a1, i);
@@ -8189,15 +8174,15 @@ void siri::dialogengine::FilterDialogForModeAndSettings(uint64_t *a1, uint64_t a
               v92 = "unset";
             }
 
-            std::string::basic_string[abi:ne200100]<0>(v121, v92);
-            if (v122 >= 0)
+            std::string::basic_string[abi:ne200100]<0>(v120, v92);
+            if (v121 >= 0)
             {
-              v93 = v121;
+              v93 = v120;
             }
 
             else
             {
-              v93 = v121[0];
+              v93 = v120[0];
             }
 
             v94 = (*(*a1 + 72))(a1, i);
@@ -8217,113 +8202,113 @@ void siri::dialogengine::FilterDialogForModeAndSettings(uint64_t *a1, uint64_t a
               v96 = "unset";
             }
 
-            std::string::basic_string[abi:ne200100]<0>(v119, v96);
-            if (v120 >= 0)
+            std::string::basic_string[abi:ne200100]<0>(v118, v96);
+            if (v119 >= 0)
             {
-              v97 = v119;
+              v97 = v118;
             }
 
             else
             {
-              v97 = v119[0];
+              v97 = v118[0];
             }
 
-            (*(*a1 + 80))(v117, a1, i);
-            v109 = v87;
-            v110 = v86;
-            if (v118 >= 0)
+            (*(*a1 + 80))(v116, a1, i);
+            v108 = v87;
+            v109 = v86;
+            if (v117 >= 0)
             {
-              v98 = v117;
+              v98 = v116;
             }
 
             else
             {
-              v98 = v117[0];
+              v98 = v116[0];
             }
 
-            (*(*a1 + 88))(v115, a1, i);
-            v107 = v88;
-            v108 = v85;
-            if (v116 >= 0)
+            (*(*a1 + 88))(v114, a1, i);
+            v106 = v88;
+            v107 = v85;
+            if (v115 >= 0)
             {
-              v99 = v115;
+              v99 = v114;
             }
 
             else
             {
-              v99 = v115[0];
+              v99 = v114[0];
             }
 
-            (*(*a1 + 96))(v113, a1, i);
-            v100 = v114;
-            v101 = v113[0];
+            (*(*a1 + 96))(v112, a1, i);
+            v100 = v113;
+            v101 = v112[0];
             (*(*a1 + 104))(__p, a1, i);
-            v103 = v113;
+            v103 = v112;
             if (v100 < 0)
             {
               v103 = v101;
             }
 
             v104 = __p;
-            if (v112 < 0)
+            if (v111 < 0)
             {
               v104 = __p[0];
             }
 
-            siri::dialogengine::Log::Info("Dialog ID: '%s'\nFull print: '%s'\nFull speak: '%s'\nSupporting print: '%s'\nSupporting speak: '%s'\nspokenOnly: %s\nprintOnly: %s\nRedacted full print: '%s'\nRedacted full speak: '%s'\nRedacted supporting print: '%s'\nRedacted supporting speak: '%s'", v102, v108, v110, v109, v107, v89, v93, v97, v98, v99, v103, v104);
-            if (v112 < 0)
+            siri::dialogengine::Log::Info("Dialog ID: '%s'\nFull print: '%s'\nFull speak: '%s'\nSupporting print: '%s'\nSupporting speak: '%s'\nspokenOnly: %s\nprintOnly: %s\nRedacted full print: '%s'\nRedacted full speak: '%s'\nRedacted supporting print: '%s'\nRedacted supporting speak: '%s'", v102, v107, v109, v108, v106, v89, v93, v97, v98, v99, v103, v104);
+            if (v111 < 0)
             {
               operator delete(__p[0]);
             }
 
-            if (v114 < 0)
+            if (v113 < 0)
             {
-              operator delete(v113[0]);
+              operator delete(v112[0]);
             }
 
-            if (v116 < 0)
+            if (v115 < 0)
             {
-              operator delete(v115[0]);
+              operator delete(v114[0]);
             }
 
-            if (v118 < 0)
+            if (v117 < 0)
             {
-              operator delete(v117[0]);
+              operator delete(v116[0]);
             }
 
-            if (v120 < 0)
+            if (v119 < 0)
             {
-              operator delete(v119[0]);
+              operator delete(v118[0]);
             }
 
-            if (v122 < 0)
+            if (v121 < 0)
             {
-              operator delete(v121[0]);
+              operator delete(v120[0]);
             }
 
-            if (v124 < 0)
+            if (v123 < 0)
             {
-              operator delete(v123[0]);
+              operator delete(v122[0]);
             }
 
-            if (v126 < 0)
+            if (v125 < 0)
             {
-              operator delete(v125[0]);
+              operator delete(v124[0]);
             }
 
-            if (v128 < 0)
+            if (v127 < 0)
             {
-              operator delete(v127[0]);
+              operator delete(v126[0]);
             }
 
-            if (v130 < 0)
+            if (v129 < 0)
             {
-              operator delete(v129[0]);
+              operator delete(v128[0]);
             }
 
-            if (v135 < 0)
+            if (v134 < 0)
             {
-              operator delete(*v134);
+              operator delete(*v133);
             }
           }
         }
@@ -8341,12 +8326,12 @@ void siri::dialogengine::FilterDialogForModeAndSettings(uint64_t *a1, uint64_t a
         if (a2 == 1)
         {
           (*(*a1 + 120))(a1, v29);
-          v54 = SHIBYTE(v131.__r_.__value_.__r.__words[2]);
-          v55 = v131.__r_.__value_.__r.__words[0];
-          (*(*a1 + 24))(v134, a1, v29);
+          v54 = SHIBYTE(v130.__r_.__value_.__r.__words[2]);
+          v55 = v130.__r_.__value_.__r.__words[0];
+          (*(*a1 + 24))(v133, a1, v29);
           if (v54 >= 0)
           {
-            v57 = &v131;
+            v57 = &v130;
           }
 
           else
@@ -8354,29 +8339,29 @@ void siri::dialogengine::FilterDialogForModeAndSettings(uint64_t *a1, uint64_t a
             v57 = v55;
           }
 
-          if (v135 >= 0)
+          if (v134 >= 0)
           {
-            v58 = v134;
+            v58 = v133;
           }
 
           else
           {
-            v58 = *v134;
+            v58 = *v133;
           }
 
           siri::dialogengine::Log::Info("Response mode '%s' filtering removed SUPPORTING dialog with id '%s'", v56, v57, v58);
-          if (v135 < 0)
+          if (v134 < 0)
           {
-            operator delete(*v134);
+            operator delete(*v133);
           }
 
           (*(*a1 + 136))(a1, v29, 1);
-          v59 = SHIBYTE(v131.__r_.__value_.__r.__words[2]);
-          v60 = v131.__r_.__value_.__r.__words[0];
-          (*(*a1 + 24))(v134, a1, v29);
+          v59 = SHIBYTE(v130.__r_.__value_.__r.__words[2]);
+          v60 = v130.__r_.__value_.__r.__words[0];
+          (*(*a1 + 24))(v133, a1, v29);
           if (v59 >= 0)
           {
-            v62 = &v131;
+            v62 = &v130;
           }
 
           else
@@ -8384,14 +8369,14 @@ void siri::dialogengine::FilterDialogForModeAndSettings(uint64_t *a1, uint64_t a
             v62 = v60;
           }
 
-          if (v135 >= 0)
+          if (v134 >= 0)
           {
-            v63 = v134;
+            v63 = v133;
           }
 
           else
           {
-            v63 = *v134;
+            v63 = *v133;
           }
 
           siri::dialogengine::Log::Info("Response mode '%s' filtering disallowed printing dialog with id '%s' due to mode (set spokenOnly = true)", v61, v62, v63);
@@ -8405,12 +8390,12 @@ void siri::dialogengine::FilterDialogForModeAndSettings(uint64_t *a1, uint64_t a
           }
 
           (*(*a1 + 120))(a1, v29);
-          v33 = SHIBYTE(v131.__r_.__value_.__r.__words[2]);
-          v34 = v131.__r_.__value_.__r.__words[0];
-          (*(*a1 + 24))(v134, a1, v29);
+          v33 = SHIBYTE(v130.__r_.__value_.__r.__words[2]);
+          v34 = v130.__r_.__value_.__r.__words[0];
+          (*(*a1 + 24))(v133, a1, v29);
           if (v33 >= 0)
           {
-            v36 = &v131;
+            v36 = &v130;
           }
 
           else
@@ -8418,20 +8403,20 @@ void siri::dialogengine::FilterDialogForModeAndSettings(uint64_t *a1, uint64_t a
             v36 = v34;
           }
 
-          if (v135 >= 0)
+          if (v134 >= 0)
           {
-            v37 = v134;
+            v37 = v133;
           }
 
           else
           {
-            v37 = *v134;
+            v37 = *v133;
           }
 
           siri::dialogengine::Log::Info("Response mode '%s' filtering removed SUPPORTING dialog with id '%s'", v35, v36, v37);
-          if (v135 < 0)
+          if (v134 < 0)
           {
-            operator delete(*v134);
+            operator delete(*v133);
             if (!v30)
             {
               goto LABEL_130;
@@ -8444,12 +8429,12 @@ void siri::dialogengine::FilterDialogForModeAndSettings(uint64_t *a1, uint64_t a
           }
 
           (*(*a1 + 136))(a1, v29, 0);
-          v74 = SHIBYTE(v131.__r_.__value_.__r.__words[2]);
-          v75 = v131.__r_.__value_.__r.__words[0];
-          (*(*a1 + 24))(v134, a1, v29);
+          v74 = SHIBYTE(v130.__r_.__value_.__r.__words[2]);
+          v75 = v130.__r_.__value_.__r.__words[0];
+          (*(*a1 + 24))(v133, a1, v29);
           if (v74 >= 0)
           {
-            v77 = &v131;
+            v77 = &v130;
           }
 
           else
@@ -8457,14 +8442,14 @@ void siri::dialogengine::FilterDialogForModeAndSettings(uint64_t *a1, uint64_t a
             v77 = v75;
           }
 
-          if (v135 >= 0)
+          if (v134 >= 0)
           {
-            v78 = v134;
+            v78 = v133;
           }
 
           else
           {
-            v78 = *v134;
+            v78 = *v133;
           }
 
           siri::dialogengine::Log::Info("Response mode '%s' filtering allowed printing dialog with id '%s' due to user setting (set spokenOnly = false)", v76, v77, v78);
@@ -8476,12 +8461,12 @@ void siri::dialogengine::FilterDialogForModeAndSettings(uint64_t *a1, uint64_t a
       if (a2 == 3)
       {
         (*(*a1 + 112))(a1, v29);
-        v64 = SHIBYTE(v131.__r_.__value_.__r.__words[2]);
-        v65 = v131.__r_.__value_.__r.__words[0];
-        (*(*a1 + 24))(v134, a1, v29);
+        v64 = SHIBYTE(v130.__r_.__value_.__r.__words[2]);
+        v65 = v130.__r_.__value_.__r.__words[0];
+        (*(*a1 + 24))(v133, a1, v29);
         if (v64 >= 0)
         {
-          v67 = &v131;
+          v67 = &v130;
         }
 
         else
@@ -8489,20 +8474,20 @@ void siri::dialogengine::FilterDialogForModeAndSettings(uint64_t *a1, uint64_t a
           v67 = v65;
         }
 
-        if (v135 >= 0)
+        if (v134 >= 0)
         {
-          v68 = v134;
+          v68 = v133;
         }
 
         else
         {
-          v68 = *v134;
+          v68 = *v133;
         }
 
         siri::dialogengine::Log::Info("Response mode '%s' filtering removed FULL dialog with id '%s'", v66, v67, v68);
-        if (v135 < 0)
+        if (v134 < 0)
         {
-          operator delete(*v134);
+          operator delete(*v133);
           if (!v31)
           {
             goto LABEL_130;
@@ -8515,12 +8500,12 @@ void siri::dialogengine::FilterDialogForModeAndSettings(uint64_t *a1, uint64_t a
         }
 
         (*(*a1 + 136))(a1, v29, 0);
-        v79 = SHIBYTE(v131.__r_.__value_.__r.__words[2]);
-        v80 = v131.__r_.__value_.__r.__words[0];
-        (*(*a1 + 24))(v134, a1, v29);
+        v79 = SHIBYTE(v130.__r_.__value_.__r.__words[2]);
+        v80 = v130.__r_.__value_.__r.__words[0];
+        (*(*a1 + 24))(v133, a1, v29);
         if (v79 >= 0)
         {
-          v52 = &v131;
+          v52 = &v130;
         }
 
         else
@@ -8528,14 +8513,14 @@ void siri::dialogengine::FilterDialogForModeAndSettings(uint64_t *a1, uint64_t a
           v52 = v80;
         }
 
-        if (v135 >= 0)
+        if (v134 >= 0)
         {
-          v53 = v134;
+          v53 = v133;
         }
 
         else
         {
-          v53 = *v134;
+          v53 = *v133;
         }
       }
 
@@ -8552,12 +8537,12 @@ LABEL_80:
         if (!v31)
         {
           (*(v38 + 144))(a1, v29);
-          v69 = SHIBYTE(v131.__r_.__value_.__r.__words[2]);
-          v70 = v131.__r_.__value_.__r.__words[0];
-          (*(*a1 + 24))(v134, a1, v29);
+          v69 = SHIBYTE(v130.__r_.__value_.__r.__words[2]);
+          v70 = v130.__r_.__value_.__r.__words[0];
+          (*(*a1 + 24))(v133, a1, v29);
           if (v69 >= 0)
           {
-            v72 = &v131;
+            v72 = &v130;
           }
 
           else
@@ -8565,14 +8550,14 @@ LABEL_80:
             v72 = v70;
           }
 
-          if (v135 >= 0)
+          if (v134 >= 0)
           {
-            v73 = v134;
+            v73 = v133;
           }
 
           else
           {
-            v73 = *v134;
+            v73 = *v133;
           }
 
           siri::dialogengine::Log::Info("Response mode '%s' filtering completely removed dialog with id '%s'", v71, v72, v73);
@@ -8580,12 +8565,12 @@ LABEL_80:
         }
 
         (*(v38 + 112))(a1, v29);
-        v39 = SHIBYTE(v131.__r_.__value_.__r.__words[2]);
-        v40 = v131.__r_.__value_.__r.__words[0];
-        (*(*a1 + 24))(v134, a1, v29);
+        v39 = SHIBYTE(v130.__r_.__value_.__r.__words[2]);
+        v40 = v130.__r_.__value_.__r.__words[0];
+        (*(*a1 + 24))(v133, a1, v29);
         if (v39 >= 0)
         {
-          v42 = &v131;
+          v42 = &v130;
         }
 
         else
@@ -8593,29 +8578,29 @@ LABEL_80:
           v42 = v40;
         }
 
-        if (v135 >= 0)
+        if (v134 >= 0)
         {
-          v43 = v134;
+          v43 = v133;
         }
 
         else
         {
-          v43 = *v134;
+          v43 = *v133;
         }
 
         siri::dialogengine::Log::Info("Response mode '%s' filtering removed FULL dialog with id '%s' due to pattern setting, user setting and/or lack of visual", v41, v42, v43);
-        if (v135 < 0)
+        if (v134 < 0)
         {
-          operator delete(*v134);
+          operator delete(*v133);
         }
 
         (*(*a1 + 128))(a1, v29, 1);
-        v44 = SHIBYTE(v131.__r_.__value_.__r.__words[2]);
-        v45 = v131.__r_.__value_.__r.__words[0];
-        (*(*a1 + 24))(v134, a1, v29);
+        v44 = SHIBYTE(v130.__r_.__value_.__r.__words[2]);
+        v45 = v130.__r_.__value_.__r.__words[0];
+        (*(*a1 + 24))(v133, a1, v29);
         if (v44 >= 0)
         {
-          v47 = &v131;
+          v47 = &v130;
         }
 
         else
@@ -8623,29 +8608,29 @@ LABEL_80:
           v47 = v45;
         }
 
-        if (v135 >= 0)
+        if (v134 >= 0)
         {
-          v48 = v134;
+          v48 = v133;
         }
 
         else
         {
-          v48 = *v134;
+          v48 = *v133;
         }
 
         siri::dialogengine::Log::Info("Response mode '%s' filtering disallowed speaking for dialog with id '%s' due to pattern setting, user setting and/or lack of visual (set printOnly = true)", v46, v47, v48);
-        if (v135 < 0)
+        if (v134 < 0)
         {
-          operator delete(*v134);
+          operator delete(*v133);
         }
 
         (*(*a1 + 136))(a1, v29, 0);
-        v49 = SHIBYTE(v131.__r_.__value_.__r.__words[2]);
-        v50 = v131.__r_.__value_.__r.__words[0];
-        (*(*a1 + 24))(v134, a1, v29);
+        v49 = SHIBYTE(v130.__r_.__value_.__r.__words[2]);
+        v50 = v130.__r_.__value_.__r.__words[0];
+        (*(*a1 + 24))(v133, a1, v29);
         if (v49 >= 0)
         {
-          v52 = &v131;
+          v52 = &v130;
         }
 
         else
@@ -8653,22 +8638,22 @@ LABEL_80:
           v52 = v50;
         }
 
-        if (v135 >= 0)
+        if (v134 >= 0)
         {
-          v53 = v134;
+          v53 = v133;
         }
 
         else
         {
-          v53 = *v134;
+          v53 = *v133;
         }
       }
 
       siri::dialogengine::Log::Info("Response mode '%s' filtering allowed printing dialog with id '%s' due to pattern setting, user setting and/or lack of visual (set spokenOnly = false)", v51, v52, v53);
 LABEL_128:
-      if (v135 < 0)
+      if (v134 < 0)
       {
-        operator delete(*v134);
+        operator delete(*v133);
       }
 
 LABEL_130:
@@ -8676,25 +8661,23 @@ LABEL_130:
     }
   }
 
-  v105 = &v132;
-  if (v133 < 0)
+  v105 = &v131;
+  if (v132 < 0)
   {
-    v105 = v132;
+    v105 = v131;
   }
 
   siri::dialogengine::Log::Info("There is no dialog to filter%s", v19, v105);
 LABEL_204:
-  if (SHIBYTE(v131.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v130.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v131.__r_.__value_.__l.__data_);
+    operator delete(v130.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v133) < 0)
+  if (SHIBYTE(v132) < 0)
   {
-    operator delete(v132);
+    operator delete(v131);
   }
-
-  v106 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BFC06DAC(_Unwind_Exception *a1)
@@ -8741,29 +8724,29 @@ uint64_t siri::dialogengine::CATResultDialogFilterAdapter::ClearSupportingDialog
   return [v4 setObject:&stru_1F3F22360 atIndexedSubscript:a2];
 }
 
-void siri::dialogengine::CATResultDialogFilterAdapter::GetId(id *this@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void siri::dialogengine::CATResultDialogFilterAdapter::GetId(id *this@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   v4 = [this[2] objectAtIndexedSubscript:a2];
   std::string::basic_string[abi:ne200100]<0>(a3, [v4 UTF8String]);
 }
 
-uint64_t siri::dialogengine::CATResultDialogFilterAdapter::RemoveMarkedDialogs(uint64_t this)
+id *siri::dialogengine::CATResultDialogFilterAdapter::RemoveMarkedDialogs(id *this)
 {
-  if (*(this + 8))
+  if (this[1])
   {
     v1 = this;
-    this = [*(this + 112) count];
+    this = [this[14] count];
     if (this)
     {
-      [*(v1 + 16) removeObjectsAtIndexes:*(v1 + 112)];
-      [*(v1 + 24) removeObjectsAtIndexes:*(v1 + 112)];
-      [*(v1 + 32) removeObjectsAtIndexes:*(v1 + 112)];
-      [*(v1 + 40) removeObjectsAtIndexes:*(v1 + 112)];
-      [*(v1 + 48) removeObjectsAtIndexes:*(v1 + 112)];
-      [*(v1 + 56) removeObjectsAtIndexes:*(v1 + 112)];
-      [*(v1 + 64) removeObjectsAtIndexes:*(v1 + 112)];
-      [*(v1 + 72) removeObjectsAtIndexes:*(v1 + 112)];
-      v2 = *(v1 + 112);
+      [v1[2] removeObjectsAtIndexes:v1[14]];
+      [v1[3] removeObjectsAtIndexes:v1[14]];
+      [v1[4] removeObjectsAtIndexes:v1[14]];
+      [v1[5] removeObjectsAtIndexes:v1[14]];
+      [v1[6] removeObjectsAtIndexes:v1[14]];
+      [v1[7] removeObjectsAtIndexes:v1[14]];
+      [v1[8] removeObjectsAtIndexes:v1[14]];
+      [v1[9] removeObjectsAtIndexes:v1[14]];
+      v2 = v1[14];
 
       return [v2 removeAllIndexes];
     }
@@ -8772,25 +8755,25 @@ uint64_t siri::dialogengine::CATResultDialogFilterAdapter::RemoveMarkedDialogs(u
   return this;
 }
 
-void siri::dialogengine::CATResultDialogFilterAdapter::GetFullPrint(id *this@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void siri::dialogengine::CATResultDialogFilterAdapter::GetFullPrint(id *this@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   v4 = [this[4] objectAtIndexedSubscript:a2];
   std::string::basic_string[abi:ne200100]<0>(a3, [v4 UTF8String]);
 }
 
-void siri::dialogengine::CATResultDialogFilterAdapter::GetFullSpeak(id *this@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void siri::dialogengine::CATResultDialogFilterAdapter::GetFullSpeak(id *this@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   v4 = [this[3] objectAtIndexedSubscript:a2];
   std::string::basic_string[abi:ne200100]<0>(a3, [v4 UTF8String]);
 }
 
-void siri::dialogengine::CATResultDialogFilterAdapter::GetSupportingPrint(id *this@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void siri::dialogengine::CATResultDialogFilterAdapter::GetSupportingPrint(id *this@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   v4 = [this[6] objectAtIndexedSubscript:a2];
   std::string::basic_string[abi:ne200100]<0>(a3, [v4 UTF8String]);
 }
 
-void siri::dialogengine::CATResultDialogFilterAdapter::GetSupportingSpeak(id *this@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void siri::dialogengine::CATResultDialogFilterAdapter::GetSupportingSpeak(id *this@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   v4 = [this[5] objectAtIndexedSubscript:a2];
   std::string::basic_string[abi:ne200100]<0>(a3, [v4 UTF8String]);
@@ -8826,25 +8809,25 @@ uint64_t siri::dialogengine::CATResultDialogFilterAdapter::GetPrintOnly(id *this
   return v3 | 0x100u;
 }
 
-void siri::dialogengine::CATResultDialogFilterAdapter::GetRedactedFullPrint(id *this@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void siri::dialogengine::CATResultDialogFilterAdapter::GetRedactedFullPrint(id *this@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   v4 = [this[11] objectAtIndexedSubscript:a2];
   std::string::basic_string[abi:ne200100]<0>(a3, [v4 UTF8String]);
 }
 
-void siri::dialogengine::CATResultDialogFilterAdapter::GetRedactedFullSpeak(id *this@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void siri::dialogengine::CATResultDialogFilterAdapter::GetRedactedFullSpeak(id *this@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   v4 = [this[10] objectAtIndexedSubscript:a2];
   std::string::basic_string[abi:ne200100]<0>(a3, [v4 UTF8String]);
 }
 
-void siri::dialogengine::CATResultDialogFilterAdapter::GetRedactedSupportingPrint(id *this@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void siri::dialogengine::CATResultDialogFilterAdapter::GetRedactedSupportingPrint(id *this@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   v4 = [this[13] objectAtIndexedSubscript:a2];
   std::string::basic_string[abi:ne200100]<0>(a3, [v4 UTF8String]);
 }
 
-void siri::dialogengine::CATResultDialogFilterAdapter::GetRedactedSupportingSpeak(id *this@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void siri::dialogengine::CATResultDialogFilterAdapter::GetRedactedSupportingSpeak(id *this@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   v4 = [this[12] objectAtIndexedSubscript:a2];
   std::string::basic_string[abi:ne200100]<0>(a3, [v4 UTF8String]);
@@ -9064,7 +9047,7 @@ void sub_1BFC07C94(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-google::protobuf::internal *SnippetUI::CustomElement::_InternalParse(atomic_ullong **this, google::protobuf::internal *a2, google::protobuf::internal::ParseContext *a3)
+google::protobuf::internal *SnippetUI::CustomElement::_InternalParse(SnippetUI::CustomElement *this, google::protobuf::internal *a2, google::protobuf::internal::ParseContext *a3)
 {
   v14 = a2;
   while (1)
@@ -9129,11 +9112,11 @@ LABEL_12:
         goto LABEL_22;
       }
 
-      v11 = this[5];
+      v11 = *(this + 5);
       if (!v11)
       {
         v11 = google::protobuf::Arena::CreateMaybeMessage<SnippetUI::CustomCanvas>(0);
-        this[5] = v11;
+        *(this + 5) = v11;
         TagFallback = v14;
       }
 
@@ -9148,7 +9131,7 @@ LABEL_22:
 
     if (v7 == 18)
     {
-      v10 = google::protobuf::internal::PackedInt32Parser((this + 2), TagFallback, a3, v5);
+      v10 = google::protobuf::internal::PackedInt32Parser((this + 16), TagFallback, a3, v5);
       goto LABEL_22;
     }
 
@@ -9311,31 +9294,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -9344,173 +9326,173 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
@@ -9520,14 +9502,14 @@ void SnippetUI::CustomElement::MergeFrom(SnippetUI::CustomElement *this, const S
   {
     google::protobuf::internal::LogMessage::LogMessage(v10, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/engine/visual/CustomElement.pb.cc", 298);
     v4 = google::protobuf::internal::LogMessage::operator<<(v10, "CHECK failed: (&from) != (this): ");
-    google::protobuf::internal::LogFinisher::operator=(&v9, v4);
+    google::protobuf::internal::LogFinisher::operator=(&v9, &v4->__r_.__value_.__l.__data_);
     google::protobuf::internal::LogMessage::~LogMessage(&v10[0].__r_.__value_.__l.__data_);
   }
 
   v5 = *(a2 + 1);
   if (v5)
   {
-    google::protobuf::internal::InternalMetadataWithArena::DoMergeFrom(this + 1, (v5 & 0xFFFFFFFFFFFFFFFELL));
+    google::protobuf::internal::InternalMetadataWithArena::DoMergeFrom((this + 8), (v5 & 0xFFFFFFFFFFFFFFFELL));
   }
 
   google::protobuf::RepeatedField<int>::MergeFrom(this + 4, a2 + 4);
@@ -9559,9 +9541,9 @@ void SnippetUI::CustomElement::MergeFrom(SnippetUI::CustomElement *this, const S
   }
 }
 
-void sub_1BFC08354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1BFC08354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9621,17 +9603,17 @@ void google::protobuf::util::anonymous namespace::DescriptorPoolTypeResolver::~D
 
 void google::protobuf::util::anonymous namespace::DescriptorPoolTypeResolver::ResolveMessageType(uint64_t a1@<X0>, std::string *a2@<X1>, uint64_t a3@<X2>, google::protobuf::util::Status *a4@<X8>)
 {
-  v95 = *MEMORY[0x1E69E9840];
-  v88[0] = 0;
-  v88[1] = 0;
-  v89 = 0;
-  if (v85)
+  v94 = *MEMORY[0x1E69E9840];
+  v87[0] = 0;
+  v87[1] = 0;
+  v88 = 0;
+  if (v84)
   {
-    google::protobuf::util::Status::Status(a4, &v85);
+    google::protobuf::util::Status::Status(a4, &v84);
     goto LABEL_168;
   }
 
-  MessageTypeByName = google::protobuf::DescriptorPool::FindMessageTypeByName(*(a1 + 32), v88);
+  MessageTypeByName = google::protobuf::DescriptorPool::FindMessageTypeByName(*(a1 + 32), v87);
   if (MessageTypeByName)
   {
     google::protobuf::Type::Clear(a3);
@@ -9652,12 +9634,12 @@ void google::protobuf::util::anonymous namespace::DescriptorPoolTypeResolver::Re
       std::string::operator=(v8, *(MessageTypeByName + 8));
     }
 
-    v82 = a4;
+    v81 = a4;
     if (*(MessageTypeByName + 104) >= 1)
     {
       v10 = 0;
       v11 = 0;
-      v83 = MessageTypeByName;
+      v82 = MessageTypeByName;
       while (1)
       {
         v12 = *(MessageTypeByName + 40);
@@ -9695,13 +9677,13 @@ LABEL_20:
         v20 = *(v12 + v10 + 48);
         if (v20)
         {
-          v92 = (v12 + v10);
-          v93 = google::protobuf::FieldDescriptor::TypeOnceInit;
+          v91 = (v12 + v10);
+          v92 = google::protobuf::FieldDescriptor::TypeOnceInit;
           if (atomic_load_explicit(v20, memory_order_acquire) != -1)
           {
-            v94.__r_.__value_.__r.__words[0] = &v93;
-            v94.__r_.__value_.__l.__size_ = &v92;
-            __dst.__r_.__value_.__r.__words[0] = &v94;
+            v93.__r_.__value_.__r.__words[0] = &v92;
+            v93.__r_.__value_.__l.__size_ = &v91;
+            __dst.__r_.__value_.__r.__words[0] = &v93;
             std::__call_once(v20, &__dst, std::__call_once_proxy[abi:ne200100]<std::tuple<void (*&&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*&&>>);
           }
         }
@@ -9753,14 +9735,14 @@ LABEL_20:
           v28 = *(v19 + 48);
           if (v28)
           {
-            v91 = v12 + v10;
-            v92 = google::protobuf::FieldDescriptor::TypeOnceInit;
+            v90 = v12 + v10;
+            v91 = google::protobuf::FieldDescriptor::TypeOnceInit;
             if (atomic_load_explicit(v28, memory_order_acquire) != -1)
             {
-              v94.__r_.__value_.__r.__words[0] = &v92;
-              v94.__r_.__value_.__l.__size_ = &v91;
-              v93 = &v94;
-              std::__call_once(v28, &v93, std::__call_once_proxy[abi:ne200100]<std::tuple<void (*&&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*&&>>);
+              v93.__r_.__value_.__r.__words[0] = &v91;
+              v93.__r_.__value_.__l.__size_ = &v90;
+              v92 = &v93;
+              std::__call_once(v28, &v92, std::__call_once_proxy[abi:ne200100]<std::tuple<void (*&&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*&&>>);
             }
           }
 
@@ -9773,16 +9755,16 @@ LABEL_20:
               if (v30 == 3)
               {
                 v39 = *(v12 + v10 + 144);
-                v94.__r_.__value_.__r.__words[0] = &v94.__r_.__value_.__r.__words[2];
-                v35 = google::protobuf::FastUInt32ToBufferLeft(v39, &v94.__r_.__value_.__s.__data_[16], v27);
-                v36 = v35 - &v94.__r_.__value_.__r.__words[2];
-                v94.__r_.__value_.__l.__size_ = v35 - &v94.__r_.__value_.__r.__words[2];
-                if ((v35 - &v94.__r_.__value_.__r.__words[2]) > 0x7FFFFFFFFFFFFFF7)
+                v93.__r_.__value_.__r.__words[0] = &v93.__r_.__value_.__r.__words[2];
+                v35 = google::protobuf::FastUInt32ToBufferLeft(v39, &v93.__r_.__value_.__s.__data_[16], v27);
+                v36 = v35 - &v93.__r_.__value_.__r.__words[2];
+                v93.__r_.__value_.__l.__size_ = v35 - &v93.__r_.__value_.__r.__words[2];
+                if ((v35 - &v93.__r_.__value_.__r.__words[2]) > 0x7FFFFFFFFFFFFFF7)
                 {
                   goto LABEL_173;
                 }
 
-                v37 = v94.__r_.__value_.__r.__words[0];
+                v37 = v93.__r_.__value_.__r.__words[0];
                 if (v36 >= 0x17)
                 {
                   operator new();
@@ -9793,7 +9775,7 @@ LABEL_20:
               {
                 if (v30 != 4)
                 {
-                  google::protobuf::SimpleDtoa(*(v12 + v10 + 144), "", &__dst);
+                  google::protobuf::SimpleDtoa(&__dst, *(v12 + v10 + 144), "");
 LABEL_83:
                   v44 = *(v16 + 1);
                   if (v44)
@@ -9821,17 +9803,17 @@ LABEL_83:
                 }
 
                 v41 = *(v12 + v10 + 144);
-                v94.__r_.__value_.__r.__words[0] = &v94.__r_.__value_.__r.__words[2];
-                v35 = google::protobuf::FastUInt64ToBufferLeft(v41, &v94.__r_.__value_.__s.__data_[16], v27);
-                v36 = v35 - &v94.__r_.__value_.__r.__words[2];
-                v94.__r_.__value_.__l.__size_ = v35 - &v94.__r_.__value_.__r.__words[2];
-                if ((v35 - &v94.__r_.__value_.__r.__words[2]) > 0x7FFFFFFFFFFFFFF7)
+                v93.__r_.__value_.__r.__words[0] = &v93.__r_.__value_.__r.__words[2];
+                v35 = google::protobuf::FastUInt64ToBufferLeft(v41, &v93.__r_.__value_.__s.__data_[16], v27);
+                v36 = v35 - &v93.__r_.__value_.__r.__words[2];
+                v93.__r_.__value_.__l.__size_ = v35 - &v93.__r_.__value_.__r.__words[2];
+                if ((v35 - &v93.__r_.__value_.__r.__words[2]) > 0x7FFFFFFFFFFFFFF7)
                 {
 LABEL_173:
                   std::basic_string<char32_t>::__throw_length_error[abi:ne200100]();
                 }
 
-                v37 = v94.__r_.__value_.__r.__words[0];
+                v37 = v93.__r_.__value_.__r.__words[0];
                 if (v36 >= 0x17)
                 {
                   operator new();
@@ -9840,7 +9822,7 @@ LABEL_173:
 
 LABEL_69:
               *(&__dst.__r_.__value_.__s + 23) = v36;
-              if (v35 != &v94.__r_.__value_.__r.__words[2])
+              if (v35 != &v93.__r_.__value_.__r.__words[2])
               {
                 memmove(&__dst, v37, v36);
               }
@@ -9852,16 +9834,16 @@ LABEL_69:
             if (v30 == 1)
             {
               v38 = *(v12 + v10 + 144);
-              v94.__r_.__value_.__r.__words[0] = &v94.__r_.__value_.__r.__words[2];
-              v35 = google::protobuf::FastInt32ToBufferLeft(v38, &v94.__r_.__value_.__s.__data_[16], v27);
-              v36 = v35 - &v94.__r_.__value_.__r.__words[2];
-              v94.__r_.__value_.__l.__size_ = v35 - &v94.__r_.__value_.__r.__words[2];
-              if ((v35 - &v94.__r_.__value_.__r.__words[2]) > 0x7FFFFFFFFFFFFFF7)
+              v93.__r_.__value_.__r.__words[0] = &v93.__r_.__value_.__r.__words[2];
+              v35 = google::protobuf::FastInt32ToBufferLeft(v38, &v93.__r_.__value_.__s.__data_[16], v27);
+              v36 = v35 - &v93.__r_.__value_.__r.__words[2];
+              v93.__r_.__value_.__l.__size_ = v35 - &v93.__r_.__value_.__r.__words[2];
+              if ((v35 - &v93.__r_.__value_.__r.__words[2]) > 0x7FFFFFFFFFFFFFF7)
               {
                 goto LABEL_173;
               }
 
-              v37 = v94.__r_.__value_.__r.__words[0];
+              v37 = v93.__r_.__value_.__r.__words[0];
               if (v36 >= 0x17)
               {
                 operator new();
@@ -9874,16 +9856,16 @@ LABEL_69:
             if (v30 == 2)
             {
               v34 = *(v12 + v10 + 144);
-              v94.__r_.__value_.__r.__words[0] = &v94.__r_.__value_.__r.__words[2];
-              v35 = google::protobuf::FastInt64ToBufferLeft(v34, &v94.__r_.__value_.__s.__data_[16], v27);
-              v36 = v35 - &v94.__r_.__value_.__r.__words[2];
-              v94.__r_.__value_.__l.__size_ = v35 - &v94.__r_.__value_.__r.__words[2];
-              if ((v35 - &v94.__r_.__value_.__r.__words[2]) > 0x7FFFFFFFFFFFFFF7)
+              v93.__r_.__value_.__r.__words[0] = &v93.__r_.__value_.__r.__words[2];
+              v35 = google::protobuf::FastInt64ToBufferLeft(v34, &v93.__r_.__value_.__s.__data_[16], v27);
+              v36 = v35 - &v93.__r_.__value_.__r.__words[2];
+              v93.__r_.__value_.__l.__size_ = v35 - &v93.__r_.__value_.__r.__words[2];
+              if ((v35 - &v93.__r_.__value_.__r.__words[2]) > 0x7FFFFFFFFFFFFFF7)
               {
                 goto LABEL_173;
               }
 
-              v37 = v94.__r_.__value_.__r.__words[0];
+              v37 = v93.__r_.__value_.__r.__words[0];
               if (v36 >= 0x17)
               {
                 operator new();
@@ -9901,7 +9883,7 @@ LABEL_58:
           {
             if (v30 == 6)
             {
-              google::protobuf::SimpleFtoa(*(v12 + v10 + 144), v26, &__dst);
+              google::protobuf::SimpleFtoa(&__dst, *(v12 + v10 + 144), v26);
               goto LABEL_83;
             }
 
@@ -9930,10 +9912,10 @@ LABEL_58:
               v31 = "";
               if (v30 == 10)
               {
-                v32 = google::protobuf::internal::LogMessage::LogMessage(&v94, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/util/type_resolver_util.cc", 353);
+                v32 = google::protobuf::internal::LogMessage::LogMessage(&v93, 3, "/Library/Caches/com.apple.xbs/Sources/DialogEngine/protobuf/src/google/protobuf/util/type_resolver_util.cc", 353);
                 v33 = google::protobuf::internal::LogMessage::operator<<(v32, "Messages can't have default values!");
-                google::protobuf::internal::LogFinisher::operator=(&v93, v33);
-                google::protobuf::internal::LogMessage::~LogMessage(&v94.__r_.__value_.__l.__data_);
+                google::protobuf::internal::LogFinisher::operator=(&v92, &v33->__r_.__value_.__l.__data_);
+                google::protobuf::internal::LogMessage::~LogMessage(&v93.__r_.__value_.__l.__data_);
                 v31 = "";
               }
 
@@ -9943,14 +9925,14 @@ LABEL_58:
             v42 = *(v19 + 48);
             if (v42)
             {
-              v91 = v12 + v10;
-              v92 = google::protobuf::FieldDescriptor::TypeOnceInit;
+              v90 = v12 + v10;
+              v91 = google::protobuf::FieldDescriptor::TypeOnceInit;
               if (atomic_load_explicit(v42, memory_order_acquire) != -1)
               {
-                v94.__r_.__value_.__r.__words[0] = &v92;
-                v94.__r_.__value_.__l.__size_ = &v91;
-                v93 = &v94;
-                std::__call_once(v42, &v93, std::__call_once_proxy[abi:ne200100]<std::tuple<void (*&&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*&&>>);
+                v93.__r_.__value_.__r.__words[0] = &v91;
+                v93.__r_.__value_.__l.__size_ = &v90;
+                v92 = &v93;
+                std::__call_once(v42, &v92, std::__call_once_proxy[abi:ne200100]<std::tuple<void (*&&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*&&>>);
               }
 
               LODWORD(v29) = *(v19 + 56);
@@ -9983,13 +9965,13 @@ LABEL_90:
         v46 = *(v19 + 48);
         if (v46)
         {
-          v92 = (v12 + v10);
-          v93 = google::protobuf::FieldDescriptor::TypeOnceInit;
+          v91 = (v12 + v10);
+          v92 = google::protobuf::FieldDescriptor::TypeOnceInit;
           if (atomic_load_explicit(v46, memory_order_acquire) != -1)
           {
-            v94.__r_.__value_.__r.__words[0] = &v93;
-            v94.__r_.__value_.__l.__size_ = &v92;
-            __dst.__r_.__value_.__r.__words[0] = &v94;
+            v93.__r_.__value_.__r.__words[0] = &v92;
+            v93.__r_.__value_.__l.__size_ = &v91;
+            __dst.__r_.__value_.__r.__words[0] = &v93;
             std::__call_once(v46, &__dst, std::__call_once_proxy[abi:ne200100]<std::tuple<void (*&&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*&&>>);
           }
         }
@@ -10003,13 +9985,13 @@ LABEL_90:
         v48 = *(v19 + 48);
         if (v48)
         {
-          v92 = (v12 + v10);
-          v93 = google::protobuf::FieldDescriptor::TypeOnceInit;
+          v91 = (v12 + v10);
+          v92 = google::protobuf::FieldDescriptor::TypeOnceInit;
           if (atomic_load_explicit(v48, memory_order_acquire) != -1)
           {
-            v94.__r_.__value_.__r.__words[0] = &v93;
-            v94.__r_.__value_.__l.__size_ = &v92;
-            __dst.__r_.__value_.__r.__words[0] = &v94;
+            v93.__r_.__value_.__r.__words[0] = &v92;
+            v93.__r_.__value_.__l.__size_ = &v91;
+            __dst.__r_.__value_.__r.__words[0] = &v93;
             std::__call_once(v48, &__dst, std::__call_once_proxy[abi:ne200100]<std::tuple<void (*&&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*&&>>);
           }
 
@@ -10030,15 +10012,15 @@ LABEL_99:
             v50 = *(a1 + 16);
           }
 
-          std::string::basic_string[abi:ne200100](&v94, v50 + 1);
-          if ((v94.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          std::string::basic_string[abi:ne200100](&v93, v50 + 1);
+          if ((v93.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v51 = &v94;
+            v51 = &v93;
           }
 
           else
           {
-            v51 = v94.__r_.__value_.__r.__words[0];
+            v51 = v93.__r_.__value_.__r.__words[0];
           }
 
           if (v50)
@@ -10079,16 +10061,16 @@ LABEL_99:
             v56 = *(v53 + 8);
           }
 
-          v57 = std::string::append(&v94, v55, v56);
+          v57 = std::string::append(&v93, v55, v56);
           v58 = *&v57->__r_.__value_.__l.__data_;
           __dst.__r_.__value_.__r.__words[2] = v57->__r_.__value_.__r.__words[2];
           *&__dst.__r_.__value_.__l.__data_ = v58;
           v57->__r_.__value_.__l.__size_ = 0;
           v57->__r_.__value_.__r.__words[2] = 0;
           v57->__r_.__value_.__r.__words[0] = 0;
-          if (SHIBYTE(v94.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v94.__r_.__value_.__l.__data_);
+            operator delete(v93.__r_.__value_.__l.__data_);
           }
 
           v59 = *(v16 + 1);
@@ -10109,13 +10091,13 @@ LABEL_99:
           v61 = *(v19 + 48);
           if (v61)
           {
-            v92 = (v12 + v10);
-            v93 = google::protobuf::FieldDescriptor::TypeOnceInit;
+            v91 = (v12 + v10);
+            v92 = google::protobuf::FieldDescriptor::TypeOnceInit;
             if (atomic_load_explicit(v61, memory_order_acquire) != -1)
             {
-              v94.__r_.__value_.__r.__words[0] = &v93;
-              v94.__r_.__value_.__l.__size_ = &v92;
-              __dst.__r_.__value_.__r.__words[0] = &v94;
+              v93.__r_.__value_.__r.__words[0] = &v92;
+              v93.__r_.__value_.__l.__size_ = &v91;
+              __dst.__r_.__value_.__r.__words[0] = &v93;
               std::__call_once(v61, &__dst, std::__call_once_proxy[abi:ne200100]<std::tuple<void (*&&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*&&>>);
             }
 
@@ -10138,15 +10120,15 @@ LABEL_99:
             v63 = *(a1 + 16);
           }
 
-          std::string::basic_string[abi:ne200100](&v94, v63 + 1);
-          if ((v94.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          std::string::basic_string[abi:ne200100](&v93, v63 + 1);
+          if ((v93.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v64 = &v94;
+            v64 = &v93;
           }
 
           else
           {
-            v64 = v94.__r_.__value_.__r.__words[0];
+            v64 = v93.__r_.__value_.__r.__words[0];
           }
 
           if (v63)
@@ -10187,16 +10169,16 @@ LABEL_99:
             v69 = *(v66 + 8);
           }
 
-          v70 = std::string::append(&v94, v68, v69);
+          v70 = std::string::append(&v93, v68, v69);
           v71 = *&v70->__r_.__value_.__l.__data_;
           __dst.__r_.__value_.__r.__words[2] = v70->__r_.__value_.__r.__words[2];
           *&__dst.__r_.__value_.__l.__data_ = v71;
           v70->__r_.__value_.__l.__size_ = 0;
           v70->__r_.__value_.__r.__words[2] = 0;
           v70->__r_.__value_.__r.__words[0] = 0;
-          if (SHIBYTE(v94.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v94.__r_.__value_.__l.__data_);
+            operator delete(v93.__r_.__value_.__l.__data_);
           }
 
           v59 = *(v16 + 1);
@@ -10234,9 +10216,9 @@ LABEL_153:
         }
 
         ++v11;
-        MessageTypeByName = v83;
+        MessageTypeByName = v82;
         v10 += 152;
-        if (v11 >= *(v83 + 104))
+        if (v11 >= *(v82 + 104))
         {
           goto LABEL_158;
         }
@@ -10276,7 +10258,7 @@ LABEL_158:
 
     v77 = **(MessageTypeByName + 16);
     v80 = *(v75 + 2);
-    v78 = v75 + 16;
+    v78 = (v75 + 16);
     v79 = v80;
     if (v80 == &google::protobuf::internal::fixed_address_empty_string)
     {
@@ -10284,30 +10266,28 @@ LABEL_158:
     }
 
     std::string::operator=(v79, v77);
-    google::protobuf::util::Status::Status(v82);
+    google::protobuf::util::Status::Status(v81);
   }
 
   else
   {
     std::operator+<char>();
-    google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__dst, &v94, v9);
-    google::protobuf::util::Status::Status(a4, 5, __dst.__r_.__value_.__r.__words[0], __dst.__r_.__value_.__l.__size_);
-    if (SHIBYTE(v94.__r_.__value_.__r.__words[2]) < 0)
+    google::protobuf::StringPiece::StringPiece<std::allocator<char>>(&__dst, &v93, v9);
+    google::protobuf::util::Status::Status(a4, 5, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
+    if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v94.__r_.__value_.__l.__data_);
+      operator delete(v93.__r_.__value_.__l.__data_);
     }
   }
 
 LABEL_168:
-  if (v87 < 0)
+  if (v86 < 0)
   {
     operator delete(__p);
   }
 
-  if (SHIBYTE(v89) < 0)
+  if (SHIBYTE(v88) < 0)
   {
-    operator delete(v88[0]);
+    operator delete(v87[0]);
   }
-
-  v81 = *MEMORY[0x1E69E9840];
 }

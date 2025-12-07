@@ -212,7 +212,7 @@
   v31 = 0u;
   v32 = 0u;
   v30 = 0u;
-  [(CRLPKStrokeGenerator *)self rulerTransform];
+  objc_msgSend_rulerTransform(self, a2);
   [(CRLPKStrokeGenerator *)self rulerWidth];
   v8 = v7 * 0.5;
   if ([(CRLPKStrokeGenerator *)self isSnappedToRuler])
@@ -266,7 +266,7 @@
 {
   y = center.y;
   x = center.x;
-  [(CRLPKStrokeGenerator *)self rulerTransform];
+  objc_msgSend_rulerTransform(self, a2);
   *&v16 = *&vaddq_f64(0, vmlaq_n_f64(vmulq_n_f64(0, CGPointZero.y), 0, CGPointZero.x));
   [(CRLPKStrokeGenerator *)self rulerWidth];
   v15 = vaddq_f64(0, vmlaq_f64(vmulq_n_f64(0, v6 * 0.5), 0, 0));
@@ -296,7 +296,7 @@
 
     [(CRLPKStrokeGenerator *)self rulerWidth];
     v9 = v8 * 0.5 + v7;
-    [(CRLPKStrokeGenerator *)self rulerTransform];
+    objc_msgSend_rulerTransform(self);
     v10 = v9 * sub_100139A00(&v13);
     [(CRLPKStrokeGenerator *)self distanceToRulerCenter:x, y];
     LOBYTE(useRuler) = fabs(v11) < v10;
@@ -365,7 +365,7 @@
       {
         v5 = sub_10011F31C(*(end - 11), *(end - 10), *begin);
         v7 = v6;
-        [(CRLPKStrokeGenerator *)self rulerTransform];
+        objc_msgSend_rulerTransform(self);
         v8 = sub_10012119C(v17, 1.0, 0.0);
         v10 = v9;
         if (sub_100120084(v5, v7) > self->_inputScale * (self->_inputScale * 225.0))
@@ -411,7 +411,7 @@
     v8 = v7;
     [(CRLPKStrokeGenerator *)self rulerWidth];
     v10 = v9 * 0.5;
-    [(CRLPKStrokeGenerator *)self rulerTransform];
+    objc_msgSend_rulerTransform(self);
     v11 = v10 * sub_100139A00(&v12);
     if ([(CRLPKStrokeGenerator *)self isSnappedToRulerTopSide])
     {
@@ -487,7 +487,7 @@
   currentStroke = self->_currentStroke;
   if (currentStroke)
   {
-    [(CRLPKStroke *)currentStroke _baseValues];
+    objc_msgSend__baseValues(currentStroke, point);
   }
 
   else
@@ -516,7 +516,7 @@
   v7 = *&values->var1;
   v9[0] = values->var0;
   v9[1] = v7;
-  return [CRLPKStrokeGenerator outputPointFromInputPoint:v9, a5];
+  return objc_msgSend_outputPointFromInputPoint_(CRLPKStrokeGenerator, point, v9, a5);
 }
 
 - (int64_t)fetchFilteredPointsFromIndex:(int64_t)index intoVector:(void *)vector
@@ -927,57 +927,57 @@
 
 - (id)strokeFromPath:(CGPath *)path inputScale:(double)scale
 {
-  v7 = objc_opt_class();
-  if (v7)
+  v6 = objc_opt_class();
+  if (v6)
   {
-    [v7 inputPointsFromPath:path];
+    objc_msgSend_inputPointsFromPath_(v6);
   }
 
   else
   {
+    v23 = 0;
     v24 = 0;
     v25 = 0;
-    v26 = 0;
   }
 
-  v8 = dispatch_semaphore_create(0);
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = sub_100226328;
-  v22 = sub_100226338;
-  v23 = objc_alloc_init(CRLPKStroke);
-  [(CRLPKStrokeGenerator *)self drawingBeganWithStroke:v19[5] inputType:0 inputScale:0 start:scale];
-  __p = 0;
-  v16 = 0;
+  v7 = dispatch_semaphore_create(0);
   v17 = 0;
-  sub_10022BB30(&__p, v24, v25, 0x2E8BA2E8BA2E8BA3 * ((v25 - v24) >> 3));
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = sub_100226328;
+  v21 = sub_100226338;
+  v22 = objc_alloc_init(CRLPKStroke);
+  [(CRLPKStrokeGenerator *)self drawingBeganWithStroke:v18[5] inputType:0 inputScale:0 start:scale];
+  __p = 0;
+  v15 = 0;
+  v16 = 0;
+  sub_10022BB30(&__p, v23, v24, 0x2E8BA2E8BA2E8BA3 * ((v24 - v23) >> 3));
   [(CRLPKStrokeGenerator *)self addPoints:&__p];
   if (__p)
   {
-    v16 = __p;
+    v15 = __p;
     operator delete(__p);
   }
 
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_100226340;
-  v12[3] = &unk_10184A580;
-  v14 = &v18;
-  v9 = v8;
-  v13 = v9;
-  [(CRLPKStrokeGenerator *)self drawingEndedWithCompletion:v12];
-  dispatch_semaphore_wait(v9, 0xFFFFFFFFFFFFFFFFLL);
-  v10 = v19[5];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100226340;
+  v11[3] = &unk_10184A580;
+  v13 = &v17;
+  v8 = v7;
+  v12 = v8;
+  [(CRLPKStrokeGenerator *)self drawingEndedWithCompletion:v11];
+  dispatch_semaphore_wait(v8, 0xFFFFFFFFFFFFFFFFLL);
+  v9 = v18[5];
 
-  _Block_object_dispose(&v18, 8);
-  if (v24)
+  _Block_object_dispose(&v17, 8);
+  if (v23)
   {
-    v25 = v24;
-    operator delete(v24);
+    v24 = v23;
+    operator delete(v23);
   }
 
-  return v10;
+  return v9;
 }
 
 - (void)whenFinishedProcessingPointsCallCompletion:(id)completion

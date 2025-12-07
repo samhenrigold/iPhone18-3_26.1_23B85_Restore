@@ -130,14 +130,12 @@
 
 - (void)_connect
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_locationConnection)
   {
     operator new();
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleMessage:(shared_ptr<CLConnectionMessage>)message

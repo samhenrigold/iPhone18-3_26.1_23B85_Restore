@@ -20,12 +20,10 @@
 
 - (MXMInstrument)instrument
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = self;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = self;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   v3 = [MXMInstrument instrumentWithInstrumentals:v2];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -217,7 +215,7 @@
 
 - (void)willStartAtEstimatedTime:(unint64_t)time
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if ((([(MXMMetric *)self _sampleMode]& 1) != 0 || ([(MXMMetric *)self _sampleMode]& 4) != 0) && [(MXMMetric *)self _shouldConstructProbe])
   {
     _getProbe = [(MXMMetric *)self _getProbe];
@@ -245,37 +243,39 @@
           v5 = [_getProbe sampleWithTimeout:60.0];
         }
 
-        if (![v5 numberOfSets] && !-[MXMMetric _shouldNeverWrapInProxy](self, "_shouldNeverWrapInProxy"))
+        if (![v5 numberOfSets])
         {
-          v6 = _MXMGetLog();
-          if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+          _shouldNeverWrapInProxy = [(MXMMetric *)self _shouldNeverWrapInProxy];
+          if ((_shouldNeverWrapInProxy & 1) == 0)
           {
-            identifier = [(MXMMetric *)self identifier];
-            v12 = 138412546;
-            v13 = identifier;
-            v14 = 2048;
-            selfCopy = self;
-            _os_log_impl(&dword_258DAA000, v6, OS_LOG_TYPE_DEFAULT, "Metric: %@(%p) is being wrapped in a proxy in willStartAtEstimatedTime:", &v12, 0x16u);
+            v8 = _MXMGetLog(_shouldNeverWrapInProxy, v7);
+            if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+            {
+              identifier = [(MXMMetric *)self identifier];
+              v13 = 138412546;
+              v14 = identifier;
+              v15 = 2048;
+              selfCopy = self;
+              _os_log_impl(&dword_258DAA000, v8, OS_LOG_TYPE_DEFAULT, "Metric: %@(%p) is being wrapped in a proxy in willStartAtEstimatedTime:", &v13, 0x16u);
+            }
+
+            v10 = +[MXMProxyServiceManager shared];
+            v11 = [[MXMProxyMetric alloc] initWithMetric:self];
+            v12 = [v10 _sampleWithProxyMetric:v11 timeout:0 stopReason:60.0];
+
+            v5 = v12;
           }
-
-          v8 = +[MXMProxyServiceManager shared];
-          v9 = [[MXMProxyMetric alloc] initWithMetric:self];
-          v10 = [v8 _sampleWithProxyMetric:v9 timeout:0 stopReason:60.0];
-
-          v5 = v10;
         }
 
         [(MXMMutableSampleData *)self->_data appendData:v5];
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didStopAtTime:(unint64_t)time stopDate:(id)date
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if ((([(MXMMetric *)self _sampleMode:time]& 2) != 0 || ([(MXMMetric *)self _sampleMode]& 4) != 0) && [(MXMMetric *)self _shouldConstructProbe])
   {
     _getProbe = [(MXMMetric *)self _getProbe];
@@ -305,56 +305,58 @@
           v6 = [_getProbe sampleWithTimeout:60.0];
         }
 
-        if (![v6 numberOfSets] && !-[MXMMetric _shouldNeverWrapInProxy](self, "_shouldNeverWrapInProxy"))
+        if (![v6 numberOfSets])
         {
-          v7 = _MXMGetLog();
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+          _shouldNeverWrapInProxy = [(MXMMetric *)self _shouldNeverWrapInProxy];
+          if ((_shouldNeverWrapInProxy & 1) == 0)
           {
-            identifier = [(MXMMetric *)self identifier];
-            v23 = 138412546;
-            v24 = identifier;
-            v25 = 2048;
-            selfCopy = self;
-            _os_log_impl(&dword_258DAA000, v7, OS_LOG_TYPE_DEFAULT, "Metric: %@(%p) is being wrapped in a proxy in didStopAtTime:stopDate:", &v23, 0x16u);
+            v9 = _MXMGetLog(_shouldNeverWrapInProxy, v8);
+            if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+            {
+              identifier = [(MXMMetric *)self identifier];
+              v24 = 138412546;
+              v25 = identifier;
+              v26 = 2048;
+              selfCopy = self;
+              _os_log_impl(&dword_258DAA000, v9, OS_LOG_TYPE_DEFAULT, "Metric: %@(%p) is being wrapped in a proxy in didStopAtTime:stopDate:", &v24, 0x16u);
+            }
+
+            v11 = +[MXMProxyServiceManager shared];
+            v12 = [[MXMProxyMetric alloc] initWithMetric:self];
+            v13 = [v11 _sampleWithProxyMetric:v12 timeout:0 stopReason:60.0];
+
+            v6 = v13;
           }
-
-          v9 = +[MXMProxyServiceManager shared];
-          v10 = [[MXMProxyMetric alloc] initWithMetric:self];
-          v11 = [v9 _sampleWithProxyMetric:v10 timeout:0 stopReason:60.0];
-
-          v6 = v11;
         }
 
-        if (v6 && ([v6 samples], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "count"), v12, v13))
+        if (v6 && ([v6 samples], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "count"), v14, v15))
         {
-          v14 = [MXMSampleAttributeFilter alloc];
+          v16 = [MXMSampleAttributeFilter alloc];
           samples = [v6 samples];
           lastObject = [samples lastObject];
-          v17 = [lastObject attributeWithName:@"Process Identifier"];
-          numericValue = [v17 numericValue];
-          v19 = [(MXMSampleAttributeFilter *)v14 initWithAttributeName:@"Process Identifier" numericValue:numericValue];
+          v19 = [lastObject attributeWithName:@"Process Identifier"];
+          numericValue = [v19 numericValue];
+          v21 = [(MXMSampleAttributeFilter *)v16 initWithAttributeName:@"Process Identifier" numericValue:numericValue];
         }
 
         else
         {
-          v19 = [[MXMSampleAttributeFilter alloc] initWithAttributeName:@"Process Identifier" numericValue:&unk_286A26070];
+          v21 = [[MXMSampleAttributeFilter alloc] initWithAttributeName:@"Process Identifier" numericValue:&unk_286A26070];
         }
 
         filter = [(MXMMetric *)self filter];
-        v21 = [MEMORY[0x277CBEB98] setWithObject:v19];
-        [filter addAttributeFilters:v21];
+        v23 = [MEMORY[0x277CBEB98] setWithObject:v21];
+        [filter addAttributeFilters:v23];
 
         [(MXMMutableSampleData *)self->_data appendData:v6];
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didStopAtContinuousTime:(unint64_t)time absoluteTime:(unint64_t)absoluteTime stopDate:(id)date
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if ((([(MXMMetric *)self _sampleMode:time]& 2) != 0 || ([(MXMMetric *)self _sampleMode]& 4) != 0) && [(MXMMetric *)self _shouldConstructProbe])
   {
     _getProbe = [(MXMMetric *)self _getProbe];
@@ -384,32 +386,34 @@
           v7 = [_getProbe sampleWithTimeout:60.0];
         }
 
-        if (![v7 numberOfSets] && !-[MXMMetric _shouldNeverWrapInProxy](self, "_shouldNeverWrapInProxy"))
+        if (![v7 numberOfSets])
         {
-          v8 = _MXMGetLog();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+          _shouldNeverWrapInProxy = [(MXMMetric *)self _shouldNeverWrapInProxy];
+          if ((_shouldNeverWrapInProxy & 1) == 0)
           {
-            identifier = [(MXMMetric *)self identifier];
-            v14 = 138412546;
-            v15 = identifier;
-            v16 = 2048;
-            selfCopy = self;
-            _os_log_impl(&dword_258DAA000, v8, OS_LOG_TYPE_DEFAULT, "Metric: %@(%p) is being wrapped in a proxy in didStopAtTime:stopDate:", &v14, 0x16u);
+            v10 = _MXMGetLog(_shouldNeverWrapInProxy, v9);
+            if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+            {
+              identifier = [(MXMMetric *)self identifier];
+              v15 = 138412546;
+              v16 = identifier;
+              v17 = 2048;
+              selfCopy = self;
+              _os_log_impl(&dword_258DAA000, v10, OS_LOG_TYPE_DEFAULT, "Metric: %@(%p) is being wrapped in a proxy in didStopAtTime:stopDate:", &v15, 0x16u);
+            }
+
+            v12 = +[MXMProxyServiceManager shared];
+            v13 = [[MXMProxyMetric alloc] initWithMetric:self];
+            v14 = [v12 _sampleWithProxyMetric:v13 timeout:0 stopReason:60.0];
+
+            v7 = v14;
           }
-
-          v10 = +[MXMProxyServiceManager shared];
-          v11 = [[MXMProxyMetric alloc] initWithMetric:self];
-          v12 = [v10 _sampleWithProxyMetric:v11 timeout:0 stopReason:60.0];
-
-          v7 = v12;
         }
 
         [(MXMMutableSampleData *)self->_data appendData:v7];
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)harvestData:(id *)data error:(id *)error

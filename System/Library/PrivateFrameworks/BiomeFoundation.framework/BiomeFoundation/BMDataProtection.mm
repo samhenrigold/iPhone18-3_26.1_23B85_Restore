@@ -16,7 +16,6 @@
 
 + (BOOL)isClassCXUnlocked
 {
-  v7 = *MEMORY[0x1E69E9840];
   extended_device_state = aks_get_extended_device_state();
   if (extended_device_state)
   {
@@ -28,9 +27,7 @@
     }
   }
 
-  result = 0;
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 + (id)sharedInstance
@@ -117,41 +114,39 @@ void __49__BMDataProtection__registerForLockStateChanges___block_invoke(uint64_t
 
 - (void)handleState:(int)state
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   v4 = [(NSMutableOrderedSet *)self->_callbacks copy];
   os_unfair_lock_unlock(&self->_lock);
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v6)
   {
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        (*(*(*(&v10 + 1) + 8 * v8) + 16))(*(*(&v10 + 1) + 8 * v8));
+        (*(*(*(&v9 + 1) + 8 * v8) + 16))(*(*(&v9 + 1) + 8 * v8));
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (void)unregister:(id)unregister
@@ -251,24 +246,21 @@ LABEL_9:
 
 + (void)isClassCXUnlocked
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_error_impl(&dword_1AC15D000, a2, OS_LOG_TYPE_ERROR, "aks_get_extended_device_state failed with error: %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_error_impl(&dword_1AC15D000, a2, OS_LOG_TYPE_ERROR, "aks_get_extended_device_state failed with error: %d", v2, 8u);
 }
 
 + (void)canOpenFilesForProtectionClass:(NSObject *)a3 createNewFile:.cold.1(const char *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = NSStringFromSelector(a1);
-  v7 = 134218242;
-  v8 = a2;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_1AC15D000, a3, OS_LOG_TYPE_ERROR, "Invalid protection class (%ld) sent to %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 134218242;
+  v7 = a2;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_1AC15D000, a3, OS_LOG_TYPE_ERROR, "Invalid protection class (%ld) sent to %@", &v6, 0x16u);
 }
 
 @end

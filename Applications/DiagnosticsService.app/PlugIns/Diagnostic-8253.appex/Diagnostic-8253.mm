@@ -30,11 +30,11 @@ JasDiagnosticInteractor *JasDiagnosticInteractor::setIsJasperSuperWideframeArriv
   return this;
 }
 
-void JasDiagnosticInteractor::pointCloudHxISPFrameAvailableCallback(uint64_t a1, CVBufferRef buffer, uint64_t a3, int a4)
+void JasDiagnosticInteractor::pointCloudHxISPFrameAvailableCallback(JasDiagnosticInteractor *a1, CVBufferRef buffer, uint64_t a3, int a4)
 {
   if (buffer)
   {
-    ++*(a1 + 92);
+    ++a1->m_currentSubframeCount;
     CVBufferRetain(buffer);
     v17 = CVBufferCopyAttachments(buffer, kCVAttachmentMode_ShouldPropagate);
     v16 = [(__CFDictionary *)v17 objectForKey:@"MetadataDictionary"];
@@ -44,10 +44,10 @@ void JasDiagnosticInteractor::pointCloudHxISPFrameAvailableCallback(uint64_t a1,
     v10 = [v7 bankIds];
     if (!*v10)
     {
-      sub_100001878(a1 + 64, *(a1 + 72));
-      *(a1 + 72) = 0;
-      *(a1 + 80) = 0;
-      *(a1 + 64) = a1 + 72;
+      sub_100001878(&a1->m_banksIdDictionary, a1->m_banksIdDictionary.__tree_.__end_node_.__left_);
+      a1->m_banksIdDictionary.__tree_.__end_node_.__left_ = 0;
+      a1->m_banksIdDictionary.__tree_.__size_ = 0;
+      a1->m_banksIdDictionary.__tree_.__begin_node_ = &a1->m_banksIdDictionary.__tree_.__end_node_;
     }
 
     if (v8 >= 1)
@@ -58,10 +58,10 @@ void JasDiagnosticInteractor::pointCloudHxISPFrameAvailableCallback(uint64_t a1,
         v12 = *v10++;
         v18 = v12;
         v19 = &v18;
-        *(sub_1000018CC(a1 + 64, &v18) + 8) = 1;
+        *(sub_1000018CC(&a1->m_banksIdDictionary, &v18, &unk_10001730C, &v19) + 8) = 1;
         if (*v9 >= 0.5)
         {
-          ++*(a1 + 88);
+          ++a1->m_goodPointsCount;
         }
 
         ++v9;
@@ -72,18 +72,18 @@ void JasDiagnosticInteractor::pointCloudHxISPFrameAvailableCallback(uint64_t a1,
     }
 
     CVBufferRelease(buffer);
-    if (a4 == 4 && *(a1 + 80) == *(a1 + 48))
+    if (a4 == 4 && a1->m_banksIdDictionary.__tree_.__size_ == a1->m_maxBanksNumberForFrame)
     {
       v13 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/DepthDiagnostics/Diagnostic-8253/JasDiagnosticInteractor.mm"];
       v14 = [v13 lastPathComponent];
-      v15 = [NSString stringWithFormat:@"BankDict size %zu point count %d frame %d", *(a1 + 80), *(a1 + 88), *(a1 + 8)];
+      v15 = [NSString stringWithFormat:@"BankDict size %zu point count %d frame %d", a1->m_banksIdDictionary.__tree_.__size_, a1->m_goodPointsCount, a1->m_jasperFramesCount];
       NSLog(@"<%@: %@:%d> %@", @"Diagnostic_FW_Status_iOS", v14, 83, v15);
 
-      JasDiagnosticInteractor::setIsJasperFrameArrived(a1, 1, *(a1 + 88), *(a1 + 92));
-      sub_100001878(a1 + 64, *(a1 + 72));
-      *(a1 + 64) = a1 + 72;
-      *(a1 + 72) = 0u;
-      *(a1 + 88) = 0;
+      JasDiagnosticInteractor::setIsJasperFrameArrived(a1, 1, a1->m_goodPointsCount, a1->m_currentSubframeCount);
+      sub_100001878(&a1->m_banksIdDictionary, a1->m_banksIdDictionary.__tree_.__end_node_.__left_);
+      a1->m_banksIdDictionary.__tree_.__begin_node_ = &a1->m_banksIdDictionary.__tree_.__end_node_;
+      *&a1->m_banksIdDictionary.__tree_.__end_node_.__left_ = 0u;
+      *&a1->m_goodPointsCount = 0;
     }
   }
 }
@@ -230,48 +230,48 @@ void sub_100001878(uint64_t a1, void *a2)
   }
 }
 
-uint64_t *sub_1000018CC(uint64_t a1, int *a2)
+uint64_t *sub_1000018CC(uint64_t a1, int *a2, uint64_t a3, unsigned int **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 28);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *sub_10000199C(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *sub_10000199C(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -297,12 +297,12 @@ uint64_t *sub_1000019F4(uint64_t *result, uint64_t *a2)
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -316,22 +316,22 @@ uint64_t *sub_1000019F4(uint64_t *result, uint64_t *a2)
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -365,13 +365,13 @@ uint64_t *sub_1000019F4(uint64_t *result, uint64_t *a2)
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -413,7 +413,7 @@ uint64_t *sub_1000019F4(uint64_t *result, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_100002070(uint64_t a1, _DWORD *a2)
+int *sub_100002070(uint64_t a1, _DWORD *a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -426,7 +426,7 @@ uint64_t sub_100002070(uint64_t a1, _DWORD *a2)
     v4 = a2[1];
     *v3 = *a2;
     v3[1] = v4;
-    result = (v3 + 2);
+    result = v3 + 2;
   }
 
   *(a1 + 8) = result;
@@ -440,7 +440,7 @@ void sub_1000021C0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100003184(uint64_t a1)
+BOOL sub_100003184(uint64_t a1)
 {
   v2 = *(a1 + 8);
   v1 = *(a1 + 16);
@@ -647,7 +647,7 @@ uint64_t sub_100005A88(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_100005ADC(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_100005ADC(uint64_t *result, void **a2, void **a3, unint64_t a4)
 {
   if (a4)
   {
@@ -657,7 +657,7 @@ uint64_t sub_100005ADC(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
   return result;
 }
 
-void sub_100005B5C(uint64_t a1, unint64_t a2)
+void sub_100005B5C(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -693,16 +693,16 @@ void sub_100005B98(void ***a1)
   }
 }
 
-uint64_t sub_100005C18(uint64_t a1, _DWORD *a2)
+int *sub_100005C18(int **a1, _DWORD *a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 3;
+  v2 = (a1[1] - *a1) >> 3;
   v3 = v2 + 1;
   if ((v2 + 1) >> 61)
   {
     sub_100005950();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 2 > v3)
   {
     v3 = v6 >> 2;
@@ -733,7 +733,7 @@ uint64_t sub_100005C18(uint64_t a1, _DWORD *a2)
   v8[1] = v9;
   v14 = 8 * v2 + 8;
   sub_100005D38(a1, &__p);
-  v10 = *(a1 + 8);
+  v10 = a1[1];
   if (v14 != v13)
   {
     v14 += (v13 - v14 + 7) & 0xFFFFFFFFFFFFFFF8;
@@ -804,28 +804,28 @@ void sub_100005DA4(uint64_t a1, unint64_t a2)
   sub_100005A54();
 }
 
-uint64_t sub_100005DEC(uint64_t a1, uint64_t a2)
+uint64_t *sub_100005DEC(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 8);
   *v4 = *a2;
   v4[2] = 0;
   v4[3] = 0;
   v4[1] = 0;
-  result = sub_100005ADC((v4 + 1), *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 3);
+  result = sub_100005ADC(v4 + 1, *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 3);
   *(a1 + 8) = v4 + 4;
   return result;
 }
 
-uint64_t sub_100005E64(uint64_t a1, uint64_t a2)
+uint64_t sub_100005E64(uint64_t **a1, uint64_t a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 5;
+  v2 = (a1[1] - *a1) >> 5;
   v3 = v2 + 1;
   if ((v2 + 1) >> 59)
   {
     sub_100005950();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 4 > v3)
   {
     v3 = v6 >> 4;
@@ -841,41 +841,41 @@ uint64_t sub_100005E64(uint64_t a1, uint64_t a2)
     v7 = v3;
   }
 
-  v18 = a1;
+  v20 = a1;
   if (v7)
   {
     sub_100005FA0(a1, v7);
   }
 
   v8 = (32 * v2);
-  v15 = 0;
-  v16 = v8;
-  v17 = v8;
+  v17 = 0;
+  v18 = v8;
+  v19 = v8;
   *v8 = *a2;
   v8[2] = 0;
   v8[3] = 0;
   v8[1] = 0;
-  sub_100005ADC((v8 + 1), *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 3);
-  *&v17 = v17 + 32;
-  v9 = *(a1 + 8);
-  v10 = (v16 + *a1 - v9);
-  sub_100005FE8(a1, *a1, v9, v10);
-  v11 = *a1;
+  sub_100005ADC(v8 + 1, *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 3);
+  *&v19 = v19 + 32;
+  v9 = a1[1];
+  v10 = (v18 + *a1 - v9);
+  sub_100005FE8(a1, *a1, v9, v10, v11, v12);
+  v13 = *a1;
   *a1 = v10;
-  v12 = *(a1 + 16);
-  v14 = v17;
-  *(a1 + 8) = v17;
-  *&v17 = v11;
-  *(&v17 + 1) = v12;
-  v15 = v11;
-  v16 = v11;
-  sub_100006190(&v15);
-  return v14;
+  v14 = a1[2];
+  v16 = v19;
+  *(a1 + 1) = v19;
+  *&v19 = v13;
+  *(&v19 + 1) = v14;
+  v17 = v13;
+  v18 = v13;
+  sub_100006190(&v17);
+  return v16;
 }
 
-void sub_100005F7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_100005F7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_100006190(va);
   _Unwind_Resume(a1);
 }
@@ -890,40 +890,40 @@ void sub_100005FA0(uint64_t a1, unint64_t a2)
   sub_100005A54();
 }
 
-uint64_t sub_100005FE8(uint64_t a1, void **a2, void **a3, void *a4)
+uint64_t sub_100005FE8(uint64_t a1, void **a2, void **a3, uint64_t *a4, uint64_t a5, uint64_t a6)
 {
-  v10 = a4;
-  v9 = a4;
-  v7[0] = a1;
-  v7[1] = &v9;
-  v7[2] = &v10;
+  v12 = a4;
+  v11 = a4;
+  v9[0] = a1;
+  v9[1] = &v11;
+  v9[2] = &v12;
   if (a2 != a3)
   {
-    v4 = a2;
+    v6 = a2;
     do
     {
-      v5 = *v4;
-      *v4 = 0;
-      *a4 = v5;
+      v7 = *v6;
+      *v6 = 0;
+      *a4 = v7;
       a4[1] = 0;
       a4[2] = 0;
       a4[3] = 0;
-      *(a4 + 1) = *(v4 + 1);
-      a4[3] = v4[3];
-      v4[1] = 0;
-      v4[2] = 0;
-      v4[3] = 0;
-      v4 += 4;
+      *(a4 + 1) = *(v6 + 1);
+      a4[3] = v6[3];
+      v6[1] = 0;
+      v6[2] = 0;
+      v6[3] = 0;
+      v6 += 4;
       a4 += 4;
     }
 
-    while (v4 != a3);
-    v10 = a4;
+    while (v6 != a3);
+    v12 = a4;
   }
 
-  v8 = 1;
+  v10 = 1;
   sub_100006094(a1, a2, a3);
-  return sub_1000060EC(v7);
+  return sub_1000060EC(v9);
 }
 
 void sub_100006094(uint64_t a1, void **a2, void **a3)
@@ -1103,7 +1103,7 @@ HxISPCaptureDeviceController *DeviceCMInterface::releaseInterface(DeviceCMInterf
   return result;
 }
 
-uint64_t DeviceCMInterface::setRgbConfiguration(uint64_t a1, uint64_t a2, uint64_t a3)
+DeviceCMInterface *DeviceCMInterface::setRgbConfiguration(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if ((a2 & 0x80000000) != 0 || (v3 = *(a1 + 16)) == 0)
   {
@@ -2744,13 +2744,13 @@ LABEL_17:
   return v7;
 }
 
-uint64_t DeviceCMInterface::setPearlDepthConfiguration(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
+uint64_t DeviceCMInterface::setPearlDepthConfiguration(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v23 = a3;
   valuePtr = a2;
   if (!*(a1 + 16))
   {
-    v19 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/DepthDiagnostics/Common/DeviceCMInterface.mm"];
+    v19 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/DepthDiagnostics/Common/DeviceCMInterface.mm", a4, a5];
     v20 = [v19 lastPathComponent];
     v21 = [NSString stringWithFormat:@"plugin CM controller is nil"];
     NSLog(@"<ERROR %@: %@:%d> %@", @"Diagnostic_FW_Status_iOS", v20, 1049, v21, v23, valuePtr);
@@ -2759,6 +2759,7 @@ uint64_t DeviceCMInterface::setPearlDepthConfiguration(uint64_t a1, uint64_t a2,
     return v14;
   }
 
+  v6 = a4;
   Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   v9 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr);
   v10 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &v23);
@@ -2767,7 +2768,7 @@ uint64_t DeviceCMInterface::setPearlDepthConfiguration(uint64_t a1, uint64_t a2,
   CFRelease(v9);
   CFRelease(v10);
   v11 = &kFigCapturePortType_FrontFacingCamera;
-  if (!a4)
+  if (!v6)
   {
     v11 = &kFigCapturePortType_FrontFacingInfraredCamera;
   }
@@ -3437,7 +3438,7 @@ uint64_t DeviceCMInterface::enableDefaultDepthStream(DeviceCMInterface *this)
   return v1;
 }
 
-DeviceCMInterface *DeviceCMInterface::setPearlMultiCam(DeviceCMInterface *this)
+uint64_t DeviceCMInterface::setPearlMultiCam(DeviceCMInterface *this)
 {
   v2 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/DepthDiagnostics/Common/DeviceCMInterface.mm"];
   v3 = [v2 lastPathComponent];
@@ -3495,7 +3496,7 @@ DeviceCMInterface *DeviceCMInterface::setPearlMultiCam(DeviceCMInterface *this)
   return v11;
 }
 
-uint64_t DeviceCMInterface::enableSyncForEnumeratedStreams(DeviceCMInterface *this, int a2)
+uint64_t DeviceCMInterface::enableSyncForEnumeratedStreams(DeviceCMInterface *this, unsigned int a2)
 {
   if (!this->m_captureDeviceController || this->m_streamIdsInfo.rgbPearlStreamId < 0 || this->m_streamIdsInfo.irPearlStreamId < 0)
   {
@@ -4218,7 +4219,7 @@ DeviceCMInterface *DeviceCMInterface::getJasperResistance(DeviceCMInterface *thi
   return v4;
 }
 
-DeviceCMInterface *DeviceCMInterface::getPearlFloodProjectorFault(DeviceCMInterface *this, unint64_t *a2)
+uint64_t DeviceCMInterface::getPearlFloodProjectorFault(DeviceCMInterface *this, unint64_t *a2)
 {
   number = 0;
   valuePtr = 0;
@@ -4265,7 +4266,7 @@ DeviceCMInterface *DeviceCMInterface::getPearlFloodProjectorFault(DeviceCMInterf
   return v6;
 }
 
-DeviceCMInterface *DeviceCMInterface::getStructuredProjectorFault(DeviceCMInterface *this, unint64_t *a2)
+uint64_t DeviceCMInterface::getStructuredProjectorFault(DeviceCMInterface *this, unint64_t *a2)
 {
   valuePtr = 0;
   number = 0;
@@ -4400,10 +4401,10 @@ DeviceCMInterface *DeviceCMInterface::forceSaveWideJasperCalib(DeviceCMInterface
   return v2;
 }
 
-DeviceCMInterface *DeviceCMInterface::setRgbjConfiguration(DeviceCMInterface *this, unsigned int a2, unsigned int a3, uint64_t a4)
+DeviceCMInterface *DeviceCMInterface::setRgbjConfiguration(DeviceCMInterface *this, unsigned int a2, uint64_t a3, uint64_t a4)
 {
   v16[0] = @"RgbjConfigurationFeatureVectorSize";
-  v6 = [NSNumber numberWithUnsignedInt:?];
+  v6 = [NSNumber numberWithUnsignedInt:a3];
   v16[1] = @"RgbjConfigurationDilutionRate";
   v17[0] = v6;
   v7 = [NSNumber numberWithUnsignedInt:a4];
@@ -4501,7 +4502,7 @@ void sub_10000FE1C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t DeviceCMInterface::getPearlRigelSerialNumber(uint64_t a1, void *a2)
+DeviceCMInterface *DeviceCMInterface::getPearlRigelSerialNumber(uint64_t a1, void *a2)
 {
   v15 = 0;
   v3 = *(a1 + 16);
@@ -4672,7 +4673,7 @@ LABEL_14:
   }
 }
 
-uint64_t HxISPCaptureDeviceController::FindGroup(HxISPCaptureDeviceController *this, int a2)
+uint64_t HxISPCaptureDeviceController::FindGroup(HxISPCaptureDeviceController *this, unsigned int a2)
 {
   if (!*(this + 536))
   {

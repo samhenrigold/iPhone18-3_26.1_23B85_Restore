@@ -26,7 +26,7 @@
   executeOnce = [(HMDEventTriggerModel *)self executeOnce];
   [v6 setObject:executeOnce forKeyedSubscript:*MEMORY[0x277CD22B8]];
 
-  v10 = [v6 copy];
+  v10 = objc_msgSend_copy(v6);
 
   return v10;
 }
@@ -57,7 +57,7 @@
   executeOnce = [(HMDEventTriggerModel *)self executeOnce];
   [v4 setObject:executeOnce forKeyedSubscript:*MEMORY[0x277CD22B8]];
 
-  v10 = [v4 copy];
+  v10 = objc_msgSend_copy(v4);
 
   return v10;
 }
@@ -81,29 +81,27 @@
 
 void __34__HMDEventTriggerModel_properties__block_invoke(uint64_t a1)
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CBEB38];
-  v11.receiver = *(a1 + 32);
-  v11.super_class = &OBJC_METACLASS___HMDEventTriggerModel;
-  v2 = objc_msgSendSuper2(&v11, sel_properties);
+  v10.receiver = *(a1 + 32);
+  v10.super_class = &OBJC_METACLASS___HMDEventTriggerModel;
+  v2 = objc_msgSendSuper2(&v10, sel_properties);
   v3 = [v1 dictionaryWithDictionary:v2];
   v4 = properties__properties_31470;
   properties__properties_31470 = v3;
 
   v5 = properties__properties_31470;
-  v12[0] = @"evaluationCondition";
+  v11[0] = @"evaluationCondition";
   v6 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v13[0] = v6;
-  v12[1] = @"recurrences";
+  v12[0] = v6;
+  v11[1] = @"recurrences";
   v7 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v13[1] = v7;
-  v12[2] = @"executeOnce";
+  v12[1] = v7;
+  v11[2] = @"executeOnce";
   v8 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v13[2] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v12[2] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
   [v5 addEntriesFromDictionary:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

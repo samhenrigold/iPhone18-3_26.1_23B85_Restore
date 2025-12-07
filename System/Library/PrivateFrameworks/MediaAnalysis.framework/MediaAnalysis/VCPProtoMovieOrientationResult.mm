@@ -52,11 +52,11 @@
 - (id)exportToLegacyDictionary
 {
   v13[1] = *MEMORY[0x1E69E9840];
-  timeRange = [(VCPProtoMovieOrientationResult *)self timeRange];
-  v4 = timeRange;
-  if (timeRange)
+  v3 = objc_msgSend_timeRange(self, a2);
+  v4 = v3;
+  if (v3)
   {
-    [timeRange timeRangeValue];
+    objc_msgSend_timeRangeValue(v3);
   }
 
   else

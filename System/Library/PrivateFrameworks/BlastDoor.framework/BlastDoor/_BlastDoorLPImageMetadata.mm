@@ -11,10 +11,10 @@
 
 - (_BlastDoorLPImageMetadata)init
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = _BlastDoorLPImageMetadata;
-  v2 = [(_BlastDoorLPImageMetadata *)&v7 init];
+  v7 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = _BlastDoorLPImageMetadata;
+  v2 = [(_BlastDoorLPImageMetadata *)&v6 init];
   v3 = v2;
   if (v2)
   {
@@ -22,7 +22,6 @@
     v4 = v2;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -65,11 +64,11 @@
 
 - (_BlastDoorLPImageMetadata)initWithCoder:(id)coder
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v17.receiver = self;
-  v17.super_class = _BlastDoorLPImageMetadata;
-  v5 = [(_BlastDoorLPImageMetadata *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = _BlastDoorLPImageMetadata;
+  v5 = [(_BlastDoorLPImageMetadata *)&v16 init];
   if (v5)
   {
     v5->_version = [coderCopy decodeInt32ForKey:@"version"];
@@ -91,7 +90,6 @@
     v14 = v5;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -108,11 +106,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v14.receiver = self;
-  v14.super_class = _BlastDoorLPImageMetadata;
-  if ([(_BlastDoorLPImageMetadata *)&v14 isEqual:equalCopy])
+  v13.receiver = self;
+  v13.super_class = _BlastDoorLPImageMetadata;
+  if ([(_BlastDoorLPImageMetadata *)&v13 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -126,10 +124,10 @@
       v7 = v6;
       if (*(v6 + 2) == self->_version && ((v8 = v6[2], !(v8 | self->_URL)) || [v8 isEqual:?]) && ((v9 = *(v7 + 3), !(v9 | self->_type)) || objc_msgSend(v9, "isEqual:")) && (v7[5] == self->_size.width ? (v10 = v7[6] == self->_size.height) : (v10 = 0), v10))
       {
-        v13 = *(v7 + 4);
-        if (v13 | self->_accessibilityText)
+        v12 = *(v7 + 4);
+        if (v12 | self->_accessibilityText)
         {
-          v5 = [v13 isEqual:?];
+          v5 = [v12 isEqual:?];
         }
 
         else
@@ -150,7 +148,6 @@
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

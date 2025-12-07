@@ -36,8 +36,8 @@
   groupKeySetID = [(MTRGroupKeyManagementClusterGroupKeyMapStruct *)self groupKeySetID];
   [(MTRGroupKeyManagementClusterGroupKeyMapStruct *)v4 setGroupKeySetID:groupKeySetID];
 
-  fabricIndex = [(MTRGroupKeyManagementClusterGroupKeyMapStruct *)self fabricIndex];
-  [(MTRGroupKeyManagementClusterGroupKeyMapStruct *)v4 setFabricIndex:fabricIndex];
+  v7 = objc_msgSend_fabricIndex(self);
+  [(MTRGroupKeyManagementClusterGroupKeyMapStruct *)v4 setFabricIndex:v7];
 
   return v4;
 }

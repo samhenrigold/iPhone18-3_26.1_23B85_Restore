@@ -7,21 +7,19 @@
 
 - (id)af_dialogIdentifiersForAnalyticsContext
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   dialogIdentifier = [self dialogIdentifier];
   v2 = dialogIdentifier;
   if (dialogIdentifier)
   {
-    v6[0] = dialogIdentifier;
-    v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
+    v5[0] = dialogIdentifier;
+    v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
   }
 
   else
   {
     v3 = 0;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

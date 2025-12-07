@@ -228,22 +228,20 @@ void __67__BMComputePublisherClient_initializeSharedClientWithQueue_domain___blo
 
 void __38__BMComputePublisherClient_connection__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = __biome_log_for_category();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v5 = 138412290;
-    v6 = WeakRetained;
-    _os_log_impl(&dword_1848EE000, v2, OS_LOG_TYPE_DEFAULT, "BMComputePublisherServiceClient connection %@ interrupted", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = WeakRetained;
+    _os_log_impl(&dword_1848EE000, v2, OS_LOG_TYPE_DEFAULT, "BMComputePublisherServiceClient connection %@ interrupted", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __38__BMComputePublisherClient_connection__block_invoke_34(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = objc_loadWeakRetained((a1 + 40));
   v4 = v3;
@@ -279,35 +277,35 @@ void __38__BMComputePublisherClient_connection__block_invoke_34(uint64_t a1)
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v24 = v4;
-    v25 = 2114;
-    v26 = v5;
+    v23 = v4;
+    v24 = 2114;
+    v25 = v5;
     _os_log_impl(&dword_1848EE000, v8, OS_LOG_TYPE_INFO, "BMComputePublisherServiceClient connection %@ invalidated because %{public}@", buf, 0x16u);
   }
 
   if (WeakRetained)
   {
     os_unfair_lock_lock(WeakRetained + 2);
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v9 = [*(WeakRetained + 8) copy];
-    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v18 + 1) + 8 * i);
+          v14 = *(*(&v17 + 1) + 8 * i);
           v15 = [*(WeakRetained + 8) objectForKeyedSubscript:v14];
           if (([v15 waking] & 1) == 0)
           {
@@ -315,7 +313,7 @@ void __38__BMComputePublisherClient_connection__block_invoke_34(uint64_t a1)
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v11);
@@ -326,8 +324,6 @@ void __38__BMComputePublisherClient_connection__block_invoke_34(uint64_t a1)
 
     os_unfair_lock_unlock(WeakRetained + 2);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)computePublisherObjectWithErrorHandler:(id)handler
@@ -351,7 +347,7 @@ void __38__BMComputePublisherClient_connection__block_invoke_34(uint64_t a1)
 
 - (void)registerBiomeLaunchNotification
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner(&self->_lock);
   if (![(BMComputePublisherClient *)self isRegisteredForRelaunchNotification])
   {
@@ -363,7 +359,7 @@ void __38__BMComputePublisherClient_connection__block_invoke_34(uint64_t a1)
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v17 = biomeLaunchNotification;
+        v16 = biomeLaunchNotification;
         _os_log_impl(&dword_1848EE000, v4, OS_LOG_TYPE_INFO, "Registering for biome re-launch notification %@", buf, 0xCu);
       }
 
@@ -375,7 +371,7 @@ void __38__BMComputePublisherClient_connection__block_invoke_34(uint64_t a1)
       handler[1] = 3221225472;
       handler[2] = __59__BMComputePublisherClient_registerBiomeLaunchNotification__block_invoke;
       handler[3] = &unk_1E6E546C0;
-      objc_copyWeak(&v13, &location);
+      objc_copyWeak(&v12, &location);
       v8 = notify_register_dispatch(uTF8String, &out_token, queue, handler);
 
       if (v8)
@@ -393,12 +389,10 @@ void __38__BMComputePublisherClient_connection__block_invoke_34(uint64_t a1)
         self->_token = out_token;
       }
 
-      objc_destroyWeak(&v13);
+      objc_destroyWeak(&v12);
       objc_destroyWeak(&location);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __59__BMComputePublisherClient_registerBiomeLaunchNotification__block_invoke(uint64_t a1, int a2)
@@ -447,7 +441,7 @@ void __59__BMComputePublisherClient_registerBiomeLaunchNotification__block_invok
 
 - (void)handleBiomeRelaunch
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   queue = [(BMComputePublisherClient *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -465,50 +459,49 @@ void __59__BMComputePublisherClient_registerBiomeLaunchNotification__block_invok
   v7 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_20];
   v8 = [allValues filteredArrayUsingPredicate:v7];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * i);
+        v14 = *(*(&v16 + 1) + 8 * i);
         v15 = __biome_log_for_category();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v22 = v14;
+          v21 = v14;
           _os_log_impl(&dword_1848EE000, v15, OS_LOG_TYPE_DEFAULT, "re-subscribing subscription after biomed re-launch %@", buf, 0xCu);
         }
 
         [(BMComputePublisherClient *)self subscribeViaNSXPC:v14];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v11);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)subscribe:(id)subscribe
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   subscribeCopy = subscribe;
   os_unfair_lock_assert_not_owner(&self->_lock);
   v5 = __biome_log_for_category();
@@ -517,15 +510,15 @@ void __59__BMComputePublisherClient_registerBiomeLaunchNotification__block_invok
     machServiceName = [(BMComputePublisherClientDomainConfiguration *)self->_configuration machServiceName];
     xPCPublisherStreamName = [(BMComputePublisherClientDomainConfiguration *)self->_configuration XPCPublisherStreamName];
     localComputePublisher = self->_localComputePublisher;
-    v14 = 138413058;
-    v15 = machServiceName;
-    v16 = 2112;
-    v17 = xPCPublisherStreamName;
-    v18 = 2112;
-    v19 = localComputePublisher;
-    v20 = 2112;
-    v21 = subscribeCopy;
-    _os_log_impl(&dword_1848EE000, v5, OS_LOG_TYPE_INFO, "BMComputePublisherClient subscribe with connection name: %@, publisher stream name: %@, localPublisher: %@, subscription: %@", &v14, 0x2Au);
+    v13 = 138413058;
+    v14 = machServiceName;
+    v15 = 2112;
+    v16 = xPCPublisherStreamName;
+    v17 = 2112;
+    v18 = localComputePublisher;
+    v19 = 2112;
+    v20 = subscribeCopy;
+    _os_log_impl(&dword_1848EE000, v5, OS_LOG_TYPE_INFO, "BMComputePublisherClient subscribe with connection name: %@, publisher stream name: %@, localPublisher: %@, subscription: %@", &v13, 0x2Au);
   }
 
   if (subscribeCopy)
@@ -558,8 +551,6 @@ void __59__BMComputePublisherClient_registerBiomeLaunchNotification__block_invok
       os_unfair_lock_unlock(&self->_lock);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)subscribeViaXPCEvent:(id)event
@@ -654,7 +645,7 @@ void __46__BMComputePublisherClient_subscribeViaNSXPC___block_invoke(uint64_t a1
 
 - (void)unsubscribeWithIdentifier:(id)identifier
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   os_unfair_lock_assert_not_owner(&self->_lock);
   os_unfair_lock_lock(&self->_lock);
@@ -665,13 +656,13 @@ void __46__BMComputePublisherClient_subscribeViaNSXPC___block_invoke(uint64_t a1
     xPCPublisherStreamName = [(BMComputePublisherClientDomainConfiguration *)self->_configuration XPCPublisherStreamName];
     localComputePublisher = self->_localComputePublisher;
     *buf = 138413058;
-    v20 = machServiceName;
-    v21 = 2112;
-    v22 = xPCPublisherStreamName;
-    v23 = 2112;
-    v24 = localComputePublisher;
-    v25 = 2112;
-    v26 = identifierCopy;
+    v19 = machServiceName;
+    v20 = 2112;
+    v21 = xPCPublisherStreamName;
+    v22 = 2112;
+    v23 = localComputePublisher;
+    v24 = 2112;
+    v25 = identifierCopy;
     _os_log_impl(&dword_1848EE000, v5, OS_LOG_TYPE_INFO, "BMComputePublisherClient unsubscribe with connection name: %@, publisher stream name: %@, localPublisher: %@, identifier: %@", buf, 0x2Au);
   }
 
@@ -699,16 +690,16 @@ void __46__BMComputePublisherClient_subscribeViaNSXPC___block_invoke(uint64_t a1
       [(BMComputePublisherClient *)self unregisterBiomeLaunchNotification];
     }
 
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __54__BMComputePublisherClient_unsubscribeWithIdentifier___block_invoke;
-    v17[3] = &unk_1E6E53620;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __54__BMComputePublisherClient_unsubscribeWithIdentifier___block_invoke;
+    v16[3] = &unk_1E6E53620;
     v14 = identifierCopy;
-    v18 = v14;
-    v15 = [(BMComputePublisherClient *)self computePublisherObjectWithErrorHandler:v17];
+    v17 = v14;
+    v15 = [(BMComputePublisherClient *)self computePublisherObjectWithErrorHandler:v16];
     [v15 unsubscribeWithIdentifier:v14];
 
-    v13 = v18;
+    v13 = v17;
 LABEL_11:
 
     goto LABEL_12;
@@ -721,7 +712,6 @@ LABEL_11:
 LABEL_12:
 
   os_unfair_lock_unlock(&self->_lock);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __54__BMComputePublisherClient_unsubscribeWithIdentifier___block_invoke(uint64_t a1, void *a2)
@@ -786,7 +776,7 @@ void __54__BMComputePublisherClient_unsubscribeWithIdentifier___block_invoke(uin
 
 - (void)_handleEventWithPayload:(id)payload
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   queue = [(BMComputePublisherClient *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -798,7 +788,7 @@ void __54__BMComputePublisherClient_unsubscribeWithIdentifier___block_invoke(uin
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v30 = v6;
+    v29 = v6;
     _os_log_impl(&dword_1848EE000, v7, OS_LOG_TYPE_INFO, "BMComputePublisherClient handle event for subscription with identifier %@", buf, 0xCu);
   }
 
@@ -819,9 +809,9 @@ void __54__BMComputePublisherClient_unsubscribeWithIdentifier___block_invoke(uin
     {
       v12 = objc_alloc(MEMORY[0x1E695DEF0]);
       v13 = [v12 initWithBytes:data length:length];
-      v27 = 0;
-      data = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v13 error:&v27];
-      v14 = v27;
+      v26 = 0;
+      data = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v13 error:&v26];
+      v14 = v26;
       if (v14)
       {
         v15 = MEMORY[0x1865F7C40](payloadCopy);
@@ -841,14 +831,14 @@ void __54__BMComputePublisherClient_unsubscribeWithIdentifier___block_invoke(uin
         {
           v19 = MEMORY[0x1E696AD98];
           [data timestamp];
-          v26 = [v19 numberWithDouble:?];
+          v25 = [v19 numberWithDouble:?];
           eventBody = [data eventBody];
           *buf = 138412802;
-          v30 = data;
-          v31 = 2112;
-          v32 = v26;
-          v33 = 2112;
-          v34 = eventBody;
+          v29 = data;
+          v30 = 2112;
+          v31 = v25;
+          v32 = 2112;
+          v33 = eventBody;
           v21 = eventBody;
           _os_log_impl(&dword_1848EE000, v18, OS_LOG_TYPE_INFO, "Handling store event from xpc_event publisher %@ %@ %@", buf, 0x20u);
         }
@@ -874,13 +864,11 @@ void __54__BMComputePublisherClient_unsubscribeWithIdentifier___block_invoke(uin
 
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setXPCEvent:(id)event identifier:(id)identifier
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   identifierCopy = identifier;
   os_unfair_lock_assert_owner(&self->_lock);
@@ -919,13 +907,13 @@ void __54__BMComputePublisherClient_unsubscribeWithIdentifier___block_invoke(uin
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         xPCPublisherStreamName = [(BMComputePublisherClientDomainConfiguration *)self->_configuration XPCPublisherStreamName];
-        v20 = 138412802;
-        v21 = identifierCopy;
-        v22 = 2112;
-        v23 = v9;
-        v24 = 2112;
-        v25 = xPCPublisherStreamName;
-        _os_log_impl(&dword_1848EE000, v11, OS_LOG_TYPE_DEFAULT, "Cancelled existing xpc event subscription: %@ to stream: %@ because of new subscription to stream: %@", &v20, 0x20u);
+        v19 = 138412802;
+        v20 = identifierCopy;
+        v21 = 2112;
+        v22 = v9;
+        v23 = 2112;
+        v24 = xPCPublisherStreamName;
+        _os_log_impl(&dword_1848EE000, v11, OS_LOG_TYPE_DEFAULT, "Cancelled existing xpc event subscription: %@ to stream: %@ because of new subscription to stream: %@", &v19, 0x20u);
       }
     }
   }
@@ -963,8 +951,6 @@ LABEL_12:
     [identifierCopy UTF8String];
     xpc_set_event();
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 @end

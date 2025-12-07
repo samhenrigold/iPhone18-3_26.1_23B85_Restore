@@ -3597,7 +3597,7 @@ LABEL_12:
 
 - (BOOL)hasWeatherConditionForWorkout:(id)workout workoutActivity:(id)activity
 {
-  v7 = sub_100140278(&qword_1008EABB8);
+  v7 = sub_100140278(&qword_1008EABB8, &qword_1006F76B0);
   __chkstk_darwin(v7 - 8);
   v9 = &v15 - v8;
   workoutCopy = workout;

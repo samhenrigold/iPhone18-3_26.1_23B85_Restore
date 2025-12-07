@@ -20,6 +20,7 @@
 - (void)siriDidDeactivate;
 - (void)viewDidLayoutSubviews;
 - (void)viewWantsDefaultTapAction:(id)action;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation SiriIntentsSnippetViewController
@@ -63,6 +64,65 @@
   [v3 setDataSource:self];
   [v3 setDelegate:self];
   [(SiriIntentsSnippetViewController *)self setView:v3];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v18.receiver = self;
+  v18.super_class = SiriIntentsSnippetViewController;
+  [(SiriIntentsSnippetViewController *)&v18 viewWillDisappear:disappear];
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v4 = self->_templateViewControllers;
+  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v15;
+    do
+    {
+      v8 = 0;
+      do
+      {
+        if (*v15 != v7)
+        {
+          objc_enumerationMutation(v4);
+        }
+
+        [*(*(&v14 + 1) + 8 * v8) prepareForDismissal];
+        v8 = v8 + 1;
+      }
+
+      while (v6 != v8);
+      v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v14 objects:v19 count:16];
+    }
+
+    while (v6);
+  }
+
+  processSynapseFlowCommand = [(SAIntentGroupSnippet *)self->_snippet processSynapseFlowCommand];
+  if ([(NSMutableDictionary *)self->_pendingServerBoundCommandsForTemplateModelIdentifiers count])
+  {
+    v10 = processSynapseFlowCommand == 0;
+  }
+
+  else
+  {
+    v10 = 1;
+  }
+
+  if (!v10)
+  {
+    allValues = [(NSMutableDictionary *)self->_pendingServerBoundCommandsForTemplateModelIdentifiers allValues];
+    v12 = [allValues arrayByAddingObject:processSynapseFlowCommand];
+
+    delegate = [(SiriIntentsSnippetViewController *)self delegate];
+    [delegate siriViewController:self performAceCommands:v12];
+
+    [(NSMutableDictionary *)self->_pendingServerBoundCommandsForTemplateModelIdentifiers removeAllObjects];
+  }
 }
 
 - (void)didMoveToParentViewController:(id)controller

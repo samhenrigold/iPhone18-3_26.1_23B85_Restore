@@ -1,1296 +1,3 @@
-void sub_1001DB414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1001DB438(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = *(*(a1 + 48) + 8);
-  obj = *(v3 + 40);
-  v4 = [v2 persistWithError:&obj];
-  objc_storeStrong((v3 + 40), obj);
-  if (v4)
-  {
-    v5 = [NSPredicate predicateWithFormat:@"verificationResult == %d && application = %@", 2, *(a1 + 40)];
-    v6 = [NSFetchRequest fetchRequestWithEntityName:@"IDSKTVerification"];
-    v23 = v5;
-    [v6 setPredicate:v5];
-    [v6 setPropertiesToFetch:&off_10033D838];
-    [v6 setReturnsDistinctResults:1];
-    [v6 setResultType:2];
-    if (*(a1 + 64))
-    {
-      [v6 setFetchLimit:?];
-    }
-
-    v7 = [*(a1 + 32) context];
-    v8 = *(*(a1 + 48) + 8);
-    v29 = *(v8 + 40);
-    v9 = [v7 executeFetchRequest:v6 error:&v29];
-    objc_storeStrong((v8 + 40), v29);
-
-    if (v9 && [v9 count])
-    {
-      v10 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v9 count]);
-      v11 = *(*(a1 + 56) + 8);
-      v12 = *(v11 + 40);
-      *(v11 + 40) = v10;
-    }
-
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v13 = [v9 reverseObjectEnumerator];
-    v14 = [v13 countByEnumeratingWithState:&v25 objects:v31 count:16];
-    if (v14)
-    {
-      v15 = v14;
-      v16 = *v26;
-      do
-      {
-        v17 = 0;
-        do
-        {
-          if (*v26 != v16)
-          {
-            objc_enumerationMutation(v13);
-          }
-
-          v18 = *(*(*(a1 + 56) + 8) + 40);
-          v19 = [*(*(&v25 + 1) + 8 * v17) objectForKeyedSubscript:@"uri"];
-          [v18 addObject:v19];
-
-          v17 = v17 + 1;
-        }
-
-        while (v15 != v17);
-        v15 = [v13 countByEnumeratingWithState:&v25 objects:v31 count:16];
-      }
-
-      while (v15);
-    }
-  }
-
-  v20 = *(a1 + 32);
-  v21 = objc_opt_class();
-  v22 = *(*(a1 + 48) + 8);
-  v24 = *(v22 + 40);
-  [v21 cleanseError:&v24];
-  objc_storeStrong((v22 + 40), v24);
-}
-
-void sub_1001DB940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 128), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1001DB964(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  v6 = *(a1 + 48);
-  v7 = [*(a1 + 56) accountKey];
-  v8 = +[NSPredicate predicateWithFormat:](NSPredicate, "predicateWithFormat:", @"application == %@ && type == %d && uri == %@ && creationTime > %@ && accountKey == %@ && allowCacheHit == YES && idsOptedIn == %d", v4, 0, v5, v6, v7, [*(a1 + 56) optedIn]);
-
-  v9 = +[IDSKTVerification fetchRequest];
-  [v9 setPredicate:v8];
-  v10 = [NSSortDescriptor sortDescriptorWithKey:@"creationTime" ascending:0];
-  v36 = v10;
-  v11 = [NSArray arrayWithObjects:&v36 count:1];
-  [v9 setSortDescriptors:v11];
-
-  v12 = *(*(a1 + 80) + 8);
-  obj = *(v12 + 40);
-  v28 = v3;
-  v13 = [v3 executeFetchRequest:v9 error:&obj];
-  objc_storeStrong((v12 + 40), obj);
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v14 = v13;
-  v15 = [v14 countByEnumeratingWithState:&v30 objects:v35 count:16];
-  if (v15)
-  {
-    v16 = v15;
-    v17 = *v31;
-    while (2)
-    {
-      for (i = 0; i != v16; i = i + 1)
-      {
-        if (*v31 != v17)
-        {
-          objc_enumerationMutation(v14);
-        }
-
-        v19 = *(*(&v30 + 1) + 8 * i);
-        v20 = [v19 serverLoggableDatas];
-        v21 = [v20 isInputsEqual:*(a1 + 64)];
-
-        if (v21)
-        {
-          v22 = [v19 verificationId];
-          v23 = *(*(a1 + 88) + 8);
-          v24 = *(v23 + 40);
-          *(v23 + 40) = v22;
-
-          goto LABEL_11;
-        }
-      }
-
-      v16 = [v14 countByEnumeratingWithState:&v30 objects:v35 count:16];
-      if (v16)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
-LABEL_11:
-
-  v25 = *(a1 + 72);
-  v26 = objc_opt_class();
-  v27 = *(*(a1 + 80) + 8);
-  v29 = *(v27 + 40);
-  [v26 cleanseError:&v29];
-  objc_storeStrong((v27 + 40), v29);
-}
-
-void sub_1001DBF64(id a1)
-{
-  qword_10039C9E8 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001DBFA8(id a1)
-{
-  qword_10039C9E8 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001DBFEC(id a1)
-{
-  qword_10039C9E8 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001DC228(id a1)
-{
-  qword_10039C9E8 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001DC3A0(id a1)
-{
-  qword_10039C9E8 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001DC708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1001DC728(id a1)
-{
-  qword_10039C9E8 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001DC76C(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = *(*(a1 + 56) + 8);
-  obj = *(v3 + 40);
-  v4 = [v2 persistWithError:&obj];
-  objc_storeStrong((v3 + 40), obj);
-  if (v4)
-  {
-    v5 = [NSBatchUpdateRequest batchUpdateRequestWithEntityName:@"IDSKTVerification"];
-    v6 = [NSPredicate predicateWithFormat:@"uri IN %@ && application == %@", *(a1 + 40), *(a1 + 48)];
-    [v5 setPredicate:v6];
-
-    [v5 setPropertiesToUpdate:&off_10033D6B0];
-    [v5 setResultType:1];
-    v7 = [*(a1 + 32) context];
-    v8 = *(*(a1 + 56) + 8);
-    v19 = *(v8 + 40);
-    v9 = [v7 executeRequest:v5 error:&v19];
-    objc_storeStrong((v8 + 40), v19);
-
-    v10 = *(a1 + 32);
-    v11 = *(*(a1 + 56) + 8);
-    v18 = *(v11 + 40);
-    [v10 persistWithError:&v18];
-    objc_storeStrong((v11 + 40), v18);
-    if (!v9)
-    {
-      if (qword_10039C9E0 != -1)
-      {
-        sub_10025C85C();
-      }
-
-      v12 = qword_10039C9E8;
-      if (os_log_type_enabled(qword_10039C9E8, OS_LOG_TYPE_ERROR))
-      {
-        v13 = *(*(*(a1 + 56) + 8) + 40);
-        *buf = 138412290;
-        v22 = v13;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "disableCacheHitsForUris: %@", buf, 0xCu);
-      }
-    }
-  }
-
-  v14 = *(a1 + 32);
-  v15 = objc_opt_class();
-  v16 = *(*(a1 + 56) + 8);
-  v17 = *(v16 + 40);
-  [v15 cleanseError:&v17];
-  objc_storeStrong((v16 + 40), v17);
-}
-
-void sub_1001DC980(id a1)
-{
-  qword_10039C9E8 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001DC9C4(id a1)
-{
-  qword_10039C9E8 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001DCDD0(id a1)
-{
-  qword_10039C9E8 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001DCE14(id a1)
-{
-  qword_10039C9E8 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001DD140(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_1001DD164(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_1001DD17C(uint64_t a1)
-{
-  v2 = [NSFetchRequest fetchRequestWithEntityName:@"KTDeviceRecord"];
-  v3 = [NSPredicate predicateWithFormat:@"deviceId == %@ && (application == %@ || request.application == %@)", *(a1 + 32), *(a1 + 40), *(a1 + 40)];
-  [v2 setPredicate:v3];
-
-  v4 = [*(a1 + 48) context];
-  v5 = *(*(a1 + 64) + 8);
-  obj = *(v5 + 40);
-  v6 = [v4 executeFetchRequest:v2 error:&obj];
-  objc_storeStrong((v5 + 40), obj);
-
-  if (v6 && [v6 count] == 1)
-  {
-    v7 = [v6 objectAtIndexedSubscript:0];
-    v8 = [v7 loggableData];
-    v9 = *(*(a1 + 64) + 8);
-    v27 = *(v9 + 40);
-    v10 = [TransparencyManagedDataStore deserializeLoggableDatas:v8 error:&v27];
-    objc_storeStrong((v9 + 40), v27);
-
-    if (!*(*(*(a1 + 64) + 8) + 40) && v10 && [v10 count] == 1)
-    {
-      v11 = [v10 objectAtIndexedSubscript:0];
-      (*(*(a1 + 56) + 16))();
-      *(*(*(a1 + 72) + 8) + 24) = 1;
-    }
-
-    else
-    {
-      if (qword_10039C9F0 != -1)
-      {
-        sub_10025C8D4();
-      }
-
-      v19 = qword_10039C9F8;
-      if (os_log_type_enabled(qword_10039C9F8, OS_LOG_TYPE_ERROR))
-      {
-        v20 = *(a1 + 32);
-        *buf = 138412290;
-        v31 = v20;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "failed to decode loggable data for %@", buf, 0xCu);
-      }
-
-      v21 = [TransparencyError errorWithDomain:kTransparencyErrorDatabase code:-303 underlyingError:*(*(*(a1 + 64) + 8) + 40) description:@"failed to decode loggable data for %@", *(a1 + 32)];
-      v22 = *(*(a1 + 64) + 8);
-      v23 = *(v22 + 40);
-      *(v22 + 40) = v21;
-
-      v24 = *(*(a1 + 64) + 8);
-      v26 = *(v24 + 40);
-      [TransparencyManagedDataStore cleanseError:&v26];
-      v25 = v26;
-      v11 = *(v24 + 40);
-      *(v24 + 40) = v25;
-    }
-  }
-
-  else
-  {
-    if (qword_10039C9F0 != -1)
-    {
-      sub_10025C8FC();
-    }
-
-    v12 = qword_10039C9F8;
-    if (os_log_type_enabled(qword_10039C9F8, OS_LOG_TYPE_ERROR))
-    {
-      v13 = *(a1 + 32);
-      *buf = 138412290;
-      v31 = v13;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "failed to find device record for %@", buf, 0xCu);
-    }
-
-    v14 = [TransparencyError errorWithDomain:kTransparencyErrorDatabase code:-302 underlyingError:*(*(*(a1 + 64) + 8) + 40) description:@"failed to find device record for %@", *(a1 + 32)];
-    v15 = *(*(a1 + 64) + 8);
-    v16 = *(v15 + 40);
-    *(v15 + 40) = v14;
-
-    v17 = *(*(a1 + 64) + 8);
-    v28 = *(v17 + 40);
-    [TransparencyManagedDataStore cleanseError:&v28];
-    v18 = v28;
-    v7 = *(v17 + 40);
-    *(v17 + 40) = v18;
-  }
-}
-
-void sub_1001DD538(id a1)
-{
-  qword_10039C9F8 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001DD57C(id a1)
-{
-  qword_10039C9F8 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001DDAE8(_Unwind_Exception *a1)
-{
-  _Block_object_dispose((v1 - 184), 8);
-  _Block_object_dispose((v1 - 136), 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_1001DDB0C(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_1001DDB24(uint64_t a1)
-{
-  v2 = [*(a1 + 32) createRequest];
-  v3 = v2;
-  if (v2)
-  {
-    [v2 setUri:*(a1 + 40)];
-    [v3 setApplication:*(a1 + 48)];
-    [v3 setAccountKey:*(a1 + 56)];
-    if (*(a1 + 64))
-    {
-      [v3 setRequestId:?];
-    }
-
-    else
-    {
-      v8 = objc_opt_new();
-      [v3 setRequestId:v8];
-    }
-
-    [v3 setQueryRequest:*(a1 + 72)];
-    [v3 setQueryResponse:*(a1 + 80)];
-    if (*(a1 + 80))
-    {
-      if (*(a1 + 88))
-      {
-        [v3 setResponseTime:?];
-      }
-
-      else
-      {
-        v9 = +[NSDate date];
-        [v3 setResponseTime:v9];
-      }
-    }
-
-    [v3 setIdsResponseTime:*(a1 + 96)];
-    [v3 setClientLoggableDatas:*(a1 + 104)];
-    [v3 setServerLoggableDatas:*(a1 + 112)];
-    v10 = [*(a1 + 32) controller];
-    atomic_fetch_add([v10 sequenceId], 1uLL);
-    [v3 setSequenceId:?];
-
-    [v3 setUnsigned:"type" value:*(a1 + 136)];
-    [v3 setRequestTime:CFAbsoluteTimeGetCurrent()];
-    [v3 setServerHint:0];
-    v11 = *(a1 + 32);
-    v12 = [v3 requestId];
-    [v11 createKTRequestID:v12 request:v3];
-
-    v13 = *(a1 + 32);
-    v14 = *(*(a1 + 120) + 8);
-    obj = *(v14 + 40);
-    LODWORD(v12) = [v13 persistWithError:&obj];
-    objc_storeStrong((v14 + 40), obj);
-    if (v12)
-    {
-      v15 = [v3 requestId];
-      v16 = *(*(a1 + 128) + 8);
-      v17 = *(v16 + 40);
-      *(v16 + 40) = v15;
-    }
-
-    v18 = *(*(a1 + 120) + 8);
-    v19 = *(v18 + 40);
-    [TransparencyManagedDataStore cleanseError:&v19];
-    objc_storeStrong((v18 + 40), v19);
-  }
-
-  else
-  {
-    v4 = [TransparencyError errorWithDomain:kTransparencyErrorAlloc code:-56 description:@"failed to create KTRequest entity"];
-    v5 = *(*(a1 + 120) + 8);
-    v6 = *(v5 + 40);
-    *(v5 + 40) = v4;
-
-    [*(a1 + 32) reportCoreDataEventForEntity:@"KTRequest" write:1 code:-56 underlyingError:0];
-    if (qword_10039CA00 != -1)
-    {
-      sub_10025C924();
-    }
-
-    v7 = qword_10039CA08;
-    if (os_log_type_enabled(qword_10039CA08, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "failed to create KTRequest entity", buf, 2u);
-    }
-  }
-}
-
-void sub_1001DDDEC(id a1)
-{
-  qword_10039CA08 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001DE27C(id a1)
-{
-  qword_10039CA08 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001DE2C0(id a1)
-{
-  qword_10039CA08 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001DE864(id a1)
-{
-  qword_10039CA08 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001DEA0C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
-{
-  v6 = a2;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v7)
-  {
-    v8 = v7;
-    v9 = *v15;
-    do
-    {
-      for (i = 0; i != v8; i = i + 1)
-      {
-        if (*v15 != v9)
-        {
-          objc_enumerationMutation(v6);
-        }
-
-        v11 = *(*(&v14 + 1) + 8 * i);
-        v12 = *(a1 + 32);
-        v13 = [v11 requestId];
-        [v12 createKTRequestID:v13 request:v11];
-      }
-
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
-    }
-
-    while (v8);
-  }
-
-  [*(a1 + 32) persistAndRefaultObjects:v6 error:a4];
-}
-
-void sub_1001DEB40(uint64_t a1)
-{
-  if (qword_10039CA00 != -1)
-  {
-    sub_10025C988();
-  }
-
-  v2 = qword_10039CA08;
-  if (os_log_type_enabled(qword_10039CA08, OS_LOG_TYPE_ERROR))
-  {
-    v3 = *(a1 + 32);
-    v4 = 138412290;
-    v5 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "failed to populate KTRequests to KTRequestID lookup table: %@", &v4, 0xCu);
-  }
-}
-
-void sub_1001DEBFC(id a1)
-{
-  qword_10039CA08 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001DEE58(uint64_t a1, void *a2, _BYTE *a3, uint64_t a4)
-{
-  v6 = a2;
-  v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v7)
-  {
-    v8 = v7;
-    v9 = *v20;
-    do
-    {
-      for (i = 0; i != v8; i = i + 1)
-      {
-        if (*v20 != v9)
-        {
-          objc_enumerationMutation(v6);
-        }
-
-        v11 = *(*(&v19 + 1) + 8 * i);
-        [v11 setQueryResponse:0];
-        [v11 setQueryRequest:0];
-        [v11 setResponseTime:0];
-        v12 = *(a1 + 32);
-        v13 = [v11 failures];
-        v14 = [v13 allObjects];
-        [v12 deleteObjectSet:v14];
-
-        v15 = [v11 failureEvent];
-
-        if (v15)
-        {
-          v16 = *(a1 + 32);
-          v17 = [v11 failureEvent];
-          [v16 deleteObject:v17];
-        }
-
-        [v11 setServerHint:0];
-      }
-
-      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
-    }
-
-    while (v8);
-  }
-
-  if (([*(a1 + 32) persistWithError:a4] & 1) == 0)
-  {
-    *a3 = 1;
-  }
-}
-
-void sub_1001DF3E8(id a1)
-{
-  qword_10039CA08 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001DF42C(id a1)
-{
-  qword_10039CA08 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001DF600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1001DF624(void *a1)
-{
-  v2 = a1[4];
-  v3 = a1[5];
-  v4 = *(a1[7] + 8);
-  obj = *(v4 + 40);
-  v5 = [v2 fetchRequestForUUID:v3 error:&obj];
-  objc_storeStrong((v4 + 40), obj);
-  v6 = [SecXPCHelper cleanseErrorForXPC:*(*(a1[7] + 8) + 40)];
-  v7 = *(a1[7] + 8);
-  v8 = *(v7 + 40);
-  *(v7 + 40) = v6;
-
-  if (v5)
-  {
-    (*(a1[6] + 16))();
-    *(*(a1[8] + 8) + 24) = 1;
-  }
-}
-
-void sub_1001DF7C4(uint64_t a1)
-{
-  +[TransparencySettings defaultQueryCacheTimeout];
-  v3 = [NSDate dateWithTimeIntervalSinceNow:-v2];
-  v4 = +[KTRequest fetchRequest];
-  v5 = [NSSortDescriptor sortDescriptorWithKey:@"responseTime" ascending:0];
-  v16 = v5;
-  v6 = [NSArray arrayWithObjects:&v16 count:1];
-  [v4 setSortDescriptors:v6];
-
-  v7 = [NSPredicate predicateWithFormat:@"application == %@ && type == %d && accountKey == %@ && responseTime > %@", *(a1 + 32), 1, *(a1 + 40), v3];
-  [v4 setPredicate:v7];
-
-  [v4 setFetchLimit:1];
-  v8 = [*(a1 + 48) context];
-  v15 = 0;
-  v9 = [v8 executeFetchRequest:v4 error:&v15];
-  v10 = v15;
-
-  if (v9 && [v9 count])
-  {
-    v11 = *(a1 + 56);
-    v12 = [v9 objectAtIndexedSubscript:0];
-    (*(v11 + 16))(v11, v12, 0);
-  }
-
-  else
-  {
-    v14 = v10;
-    [TransparencyManagedDataStore cleanseError:&v14];
-    v13 = v14;
-
-    (*(*(a1 + 56) + 16))();
-    v10 = v13;
-  }
-}
-
-void sub_1001E042C(id a1)
-{
-  qword_10039CA18 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001E0470(id a1)
-{
-  qword_10039CA18 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001E0678(id a1)
-{
-  qword_10039CA18 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001E06BC(id a1)
-{
-  qword_10039CA18 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001E0954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 128), 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_1001E0980(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_1001E0998(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = *(*(a1 + 64) + 8);
-  obj = *(v3 + 40);
-  v4 = [v2 persistWithError:&obj];
-  objc_storeStrong((v3 + 40), obj);
-  if (v4)
-  {
-    v5 = [NSPredicate predicateWithFormat:@"uri == %@ && signatureResult == %d && mergeResult == %d && application == %@", *(a1 + 40), 1, 2, *(a1 + 48)];
-    v6 = +[KTMutation fetchRequest];
-    [v6 setPredicate:v5];
-    [v6 setFetchBatchSize:*(a1 + 80)];
-    v7 = [NSSortDescriptor sortDescriptorWithKey:@"mutationMs" ascending:1];
-    v18 = v7;
-    v8 = [NSArray arrayWithObjects:&v18 count:1];
-    [v6 setSortDescriptors:v8];
-
-    v9 = [*(a1 + 32) context];
-    v10 = *(*(a1 + 64) + 8);
-    v16 = *(v10 + 40);
-    v11 = [v9 executeFetchRequest:v6 error:&v16];
-    objc_storeStrong((v10 + 40), v16);
-
-    if ([v11 count])
-    {
-      (*(*(a1 + 56) + 16))();
-      *(*(*(a1 + 72) + 8) + 24) = 1;
-    }
-  }
-
-  v12 = *(a1 + 32);
-  v13 = objc_opt_class();
-  v14 = *(*(a1 + 64) + 8);
-  v15 = *(v14 + 40);
-  [v13 cleanseError:&v15];
-  objc_storeStrong((v14 + 40), v15);
-}
-
-void sub_1001E0B88(id a1)
-{
-  qword_10039CA18 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001E0D58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1001E0D7C(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = *(*(a1 + 48) + 8);
-  obj = *(v3 + 40);
-  v4 = [v2 persistWithError:&obj];
-  objc_storeStrong((v3 + 40), obj);
-  if (v4)
-  {
-    v5 = [NSPredicate predicateWithFormat:@"signatureResult == %d && mergeResult == %d && application == %@", 1, 2, *(a1 + 40)];
-    v6 = +[KTMutation fetchRequest];
-    v23 = v5;
-    [v6 setPredicate:v5];
-    [v6 setPropertiesToFetch:&off_10033D880];
-    [v6 setReturnsDistinctResults:1];
-    [v6 setResultType:2];
-    if (*(a1 + 64))
-    {
-      [v6 setFetchLimit:?];
-    }
-
-    v7 = [*(a1 + 32) context];
-    v8 = *(*(a1 + 48) + 8);
-    v29 = *(v8 + 40);
-    v9 = [v7 executeFetchRequest:v6 error:&v29];
-    objc_storeStrong((v8 + 40), v29);
-
-    if (v9 && [v9 count])
-    {
-      v10 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v9 count]);
-      v11 = *(*(a1 + 56) + 8);
-      v12 = *(v11 + 40);
-      *(v11 + 40) = v10;
-    }
-
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v13 = [v9 reverseObjectEnumerator];
-    v14 = [v13 countByEnumeratingWithState:&v25 objects:v31 count:16];
-    if (v14)
-    {
-      v15 = v14;
-      v16 = *v26;
-      do
-      {
-        v17 = 0;
-        do
-        {
-          if (*v26 != v16)
-          {
-            objc_enumerationMutation(v13);
-          }
-
-          v18 = *(*(*(a1 + 56) + 8) + 40);
-          v19 = [*(*(&v25 + 1) + 8 * v17) objectForKeyedSubscript:@"uri"];
-          [v18 addObject:v19];
-
-          v17 = v17 + 1;
-        }
-
-        while (v15 != v17);
-        v15 = [v13 countByEnumeratingWithState:&v25 objects:v31 count:16];
-      }
-
-      while (v15);
-    }
-  }
-
-  v20 = *(a1 + 32);
-  v21 = objc_opt_class();
-  v22 = *(*(a1 + 48) + 8);
-  v24 = *(v22 + 40);
-  [v21 cleanseError:&v24];
-  objc_storeStrong((v22 + 40), v24);
-}
-
-void sub_1001E1158(id a1)
-{
-  qword_10039CA18 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001E14C0(uint64_t a1)
-{
-  v2 = [*(a1 + 32) copyManagedObject:0];
-  if (v2)
-  {
-    v3 = [*(a1 + 32) dataStore];
-    [v3 onMocSetMapHead:v2 inclusionResult:*(a1 + 48) inclusionError:*(a1 + 40)];
-
-    v4 = [*(a1 + 32) dataStore];
-    v16 = 0;
-    v5 = [v4 persistWithError:&v16];
-    v6 = v16;
-
-    if ((v5 & 1) == 0)
-    {
-      if (qword_10039CA20 != -1)
-      {
-        sub_10025CAB4();
-      }
-
-      v7 = qword_10039CA28;
-      if (os_log_type_enabled(qword_10039CA28, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 138412290;
-        v18 = v6;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "failed to save inclusion state for map head: %@", buf, 0xCu);
-      }
-
-      v8 = [*(a1 + 32) dataStore];
-      [v8 reportCoreDataPersistEventForLocation:@"mapHeadIncusionState" underlyingError:v6];
-    }
-
-    Current = CFAbsoluteTimeGetCurrent();
-    [v2 receiptTime];
-    v11 = Current - v10;
-    v12 = [v2 application];
-    v13 = [TransparencyAnalytics formatEventName:@"PatInclusionProofTime" application:v12];
-
-    v14 = +[TransparencyAnalytics logger];
-    v15 = [NSNumber numberWithDouble:v11];
-    [v14 logMetric:v15 withName:v13];
-  }
-}
-
-void sub_1001E16B4(id a1)
-{
-  qword_10039CA28 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001E1974(id a1)
-{
-  qword_10039CA28 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-uint64_t sub_1001E19B8(id *a1, void *a2, void *a3)
-{
-  if (+[TransparencyAnalytics hasInternalDiagnostics])
-  {
-    v6 = +[NSMutableDictionary dictionary];
-    v7 = [a1[4] metadata];
-    v8 = kTransparencyResponseMetadataKeyServerHint;
-    v9 = [v7 objectForKeyedSubscript:kTransparencyResponseMetadataKeyServerHint];
-
-    if (v9)
-    {
-      v10 = [a1[4] metadata];
-      v11 = [v10 objectForKeyedSubscript:v8];
-      [v6 setObject:v11 forKeyedSubscript:v8];
-    }
-
-    if ([v6 count])
-    {
-      v12 = v6;
-      *a3 = v6;
-    }
-  }
-
-  v13 = a1[4];
-  v32 = 0;
-  v14 = [v13 verifyWithError:&v32];
-  v15 = v32;
-  if (v14 == 1)
-  {
-    v16 = [a1[4] nodeBytes];
-    v31 = v15;
-    v17 = [(TransparencyGPBMessage *)PerApplicationTreeNode parseFromData:v16 error:&v31];
-    v18 = v31;
-
-    if (v17)
-    {
-      if (![v17 hasObjectMapHead])
-      {
-        goto LABEL_19;
-      }
-
-      v19 = [v17 objectMapHead];
-      v20 = [v19 object];
-      v21 = [a1[5] mapHead];
-      v22 = [v20 isEqualToData:v21];
-
-      if (v22)
-      {
-        v14 = 1;
-        [a1[6] setInclusionResult:1 mapHead:a1[5] failure:0];
-        v23 = v18;
-      }
-
-      else
-      {
-LABEL_19:
-        v23 = [TransparencyError errorWithDomain:@"TransparencyErrorVerify" code:-62 description:@"per-app tree entry does not contain the SMH in the map entry"];
-
-        if (a2 && v23)
-        {
-          v26 = v23;
-          *a2 = v23;
-        }
-
-        if (qword_10039CA20 != -1)
-        {
-          sub_10025CB40();
-        }
-
-        v27 = qword_10039CA28;
-        if (os_log_type_enabled(qword_10039CA28, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 0;
-          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "per-app tree entry does not contain the SMH in the map entry", buf, 2u);
-        }
-
-        [a1[6] setInclusionResult:0 mapHead:a1[5] failure:v23];
-        v14 = 0;
-      }
-    }
-
-    else
-    {
-      v23 = [TransparencyError errorWithDomain:kTransparencyErrorDecode code:-140 underlyingError:v18 description:@"failed to decode per-app tree node: %@", v18];
-
-      if (qword_10039CA20 != -1)
-      {
-        sub_10025CB68();
-      }
-
-      v28 = qword_10039CA28;
-      if (os_log_type_enabled(qword_10039CA28, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 138412290;
-        v34 = v23;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "failed to decode per-app tree node: %@", buf, 0xCu);
-      }
-
-      v14 = 0;
-      if (a2 && v23)
-      {
-        v29 = v23;
-        v14 = 0;
-        *a2 = v23;
-      }
-    }
-  }
-
-  else
-  {
-    v23 = [TransparencyError errorWithDomain:@"TransparencyErrorVerify" code:-13 underlyingError:v15 description:@"per-app tree verification failed"];
-
-    if (a2 && v23)
-    {
-      v24 = v23;
-      *a2 = v23;
-    }
-
-    if (qword_10039CA20 != -1)
-    {
-      sub_10025CB18();
-    }
-
-    v25 = qword_10039CA28;
-    if (os_log_type_enabled(qword_10039CA28, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "per-app tree verification failed", buf, 2u);
-    }
-  }
-
-  return v14;
-}
-
-void sub_1001E1DE0(id a1)
-{
-  qword_10039CA28 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001E1E24(id a1)
-{
-  qword_10039CA28 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001E1E68(id a1)
-{
-  qword_10039CA28 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001E1EAC(id a1)
-{
-  qword_10039CA28 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-id sub_1001E21AC(uint64_t a1, uint64_t a2, void *a3)
-{
-  v5 = [*(a1 + 32) verifyWithError:a2];
-  if (!v5 && +[TransparencyAnalytics hasInternalDiagnostics])
-  {
-    v6 = +[NSMutableDictionary dictionary];
-    v7 = [*(a1 + 32) metadata];
-    v8 = kTransparencyResponseMetadataKeyServerHint;
-    v9 = [v7 objectForKeyedSubscript:kTransparencyResponseMetadataKeyServerHint];
-
-    if (v9)
-    {
-      v10 = [*(a1 + 32) metadata];
-      v11 = [v10 objectForKeyedSubscript:v8];
-      [v6 setObject:v11 forKeyedSubscript:v8];
-    }
-
-    if ([v6 count])
-    {
-      v12 = v6;
-      *a3 = v6;
-    }
-  }
-
-  return v5;
-}
-
-void sub_1001E22B0(id a1)
-{
-  qword_10039CA28 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-id sub_1001E2564(uint64_t a1, void *a2, void *a3)
-{
-  if (+[TransparencyAnalytics hasInternalDiagnostics])
-  {
-    v6 = +[NSMutableDictionary dictionary];
-    v7 = [*(a1 + 32) metadata];
-    v8 = kTransparencyResponseMetadataKeyServerHint;
-    v9 = [v7 objectForKeyedSubscript:kTransparencyResponseMetadataKeyServerHint];
-
-    if (v9)
-    {
-      v10 = [*(a1 + 32) metadata];
-      v11 = [v10 objectForKeyedSubscript:v8];
-      [v6 setObject:v11 forKeyedSubscript:v8];
-    }
-
-    if ([v6 count])
-    {
-      v12 = v6;
-      *a3 = v6;
-    }
-  }
-
-  v13 = [*(a1 + 32) verifyWithError:a2];
-  if (v13 != 1)
-  {
-    if (a2)
-    {
-      *a2 = [TransparencyError errorWithDomain:@"TransparencyErrorVerify" code:-13 underlyingError:*a2 description:@"per-app tree verification failed"];
-    }
-
-    if (qword_10039CA30 != -1)
-    {
-      sub_10025CBB8();
-    }
-
-    v14 = qword_10039CA38;
-    if (os_log_type_enabled(qword_10039CA38, OS_LOG_TYPE_ERROR))
-    {
-      *v16 = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "per-app tree verification failed", v16, 2u);
-    }
-  }
-
-  return v13;
-}
-
-void sub_1001E2708(id a1)
-{
-  qword_10039CA38 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-int64_t sub_1001E3240(id a1, OptInOut *a2, OptInOut *a3)
-{
-  v4 = a2;
-  v5 = a3;
-  v6 = [(OptInOut *)v4 timestampMs];
-  if (v6 <= [(OptInOut *)v5 timestampMs])
-  {
-    v8 = [(OptInOut *)v4 timestampMs];
-    if (v8 == [(OptInOut *)v5 timestampMs])
-    {
-      v7 = 0;
-    }
-
-    else
-    {
-      v7 = -1;
-    }
-  }
-
-  else
-  {
-    v7 = 1;
-  }
-
-  return v7;
-}
-
-void sub_1001E4080(id a1)
-{
-  qword_10039CA48 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001E4B40(id a1)
-{
-  qword_10039CA58 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001E4B84(id a1)
-{
-  qword_10039CA58 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001E4BC8(id a1)
-{
-  qword_10039CA58 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
-void sub_1001E4C0C(id a1)
-{
-  qword_10039CA58 = os_log_create("com.apple.Transparency", "default");
-
-  _objc_release_x1();
-}
-
 void sub_1001E4C50(id a1)
 {
   qword_10039CA58 = os_log_create("com.apple.Transparency", "default");
@@ -1351,7 +58,7 @@ void sub_1001E5060(uint64_t a1, void *a2)
   [v4 addOperation:v5];
 }
 
-void sub_1001E65B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55, uint64_t a56, uint64_t a57, uint64_t a58, char a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_1001E65B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a55, 8);
   _Block_object_dispose(&a59, 8);
@@ -1406,9 +113,7 @@ uint64_t sub_1001E6774(uint64_t a1, void *a2)
     v3 = +[NSMutableDictionary dictionary];
   }
 
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = v3;
 
   return _objc_release_x1();
 }
@@ -1462,9 +167,9 @@ void sub_1001E6BA4(uint64_t a1, uint64_t a2, void *a3)
   v7 = [v3 addDevice:v8 registationData:v5 app:v6];
 }
 
-void sub_1001E6D2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001E6D2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1481,11 +186,11 @@ id *sub_1001E6D44(id *result, uint64_t a2)
   return result;
 }
 
-void sub_1001E7044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001E7044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1596,9 +301,9 @@ void sub_1001E772C(uint64_t a1)
   [WeakRetained _onqueueRecheck];
 }
 
-void sub_1001E7984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001E7984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1614,25 +319,22 @@ id sub_1001E79B4(uint64_t a1)
 {
   if ([*(a1 + 32) queueIsLocked])
   {
-    v2 = [*(a1 + 32) lastUnlockedTime];
-    v3 = *(*(a1 + 40) + 8);
-    v4 = *(v3 + 40);
-    *(v3 + 40) = v2;
+    *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) lastUnlockedTime];
 
     return _objc_release_x1();
   }
 
   else
   {
-    v5 = +[NSDate date];
-    v6 = *(*(a1 + 40) + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v5;
+    v2 = +[NSDate date];
+    v3 = *(*(a1 + 40) + 8);
+    v4 = *(v3 + 40);
+    *(v3 + 40) = v2;
 
-    v8 = *(a1 + 32);
-    v9 = *(*(*(a1 + 40) + 8) + 40);
+    v5 = *(a1 + 32);
+    v6 = *(*(*(a1 + 40) + 8) + 40);
 
-    return [v8 setLastUnlockedTime:v9];
+    return [v5 setLastUnlockedTime:v6];
   }
 }
 
@@ -2264,27 +966,26 @@ void sub_1001EF3CC(uint64_t a1, const void *a2, void *a3)
   v5 = a3;
   if (a2)
   {
-    v6 = *(a1 + 48);
     [*(a1 + 32) service];
-    v7 = PCSIdentitySetCopyCurrentIdentityPointer();
-    v8 = v7;
-    if (v7 && [v7 identity] && CFEqual(a2, objc_msgSend(v8, "identity")))
+    v6 = PCSIdentitySetCopyCurrentIdentityPointer();
+    v7 = v6;
+    if (v6 && [v6 identity] && CFEqual(a2, objc_msgSend(v7, "identity")))
     {
       (*(*(a1 + 40) + 16))();
     }
 
     else
     {
-      v9 = *(a1 + 40);
-      v10 = +[TransparencyError errorWithDomain:code:errorLevel:underlyingError:description:](TransparencyError, "errorWithDomain:code:errorLevel:underlyingError:description:", kTransparencyErrorInternal, -352, 4, 0, @"Identity created %@ is not current %@", a2, [v8 identity]);
-      (*(v9 + 16))(v9, 0, v10);
+      v8 = *(a1 + 40);
+      v9 = +[TransparencyError errorWithDomain:code:errorLevel:underlyingError:description:](TransparencyError, "errorWithDomain:code:errorLevel:underlyingError:description:", kTransparencyErrorInternal, -352, 4, 0, @"Identity created %@ is not current %@", a2, [v7 identity]);
+      (*(v8 + 16))(v8, 0, v9);
     }
   }
 
   else
   {
     (*(*(a1 + 40) + 16))();
-    v8 = 0;
+    v7 = 0;
   }
 }
 
@@ -2323,9 +1024,9 @@ void sub_1001EFD88(id a1)
   _objc_release_x1();
 }
 
-void sub_1001EFF70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001EFF70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2429,13 +1130,13 @@ void sub_1001F05E8(uint64_t a1, void *a2, void *a3)
   v6 = a3;
   if (v5)
   {
-    v26 = 0;
-    v7 = +[KTAccountKeyServer publicKeyInfoFromIdentity:error:](KTAccountKeyServer, "publicKeyInfoFromIdentity:error:", [v5 identity], &v26);
-    v8 = v26;
+    v25 = 0;
+    v7 = +[KTAccountKeyServer publicKeyInfoFromIdentity:error:](KTAccountKeyServer, "publicKeyInfoFromIdentity:error:", [v5 identity], &v25);
+    v8 = v25;
     if (!v7)
     {
-      v19 = +[TransparencyAnalytics logger];
-      [v19 logResultForEvent:@"KTAccountKeySign" hardFailure:1 result:v8];
+      v18 = +[TransparencyAnalytics logger];
+      [v18 logResultForEvent:@"KTAccountKeySign" hardFailure:1 result:v8];
 
       (*(*(a1 + 40) + 16))();
 LABEL_23:
@@ -2446,7 +1147,6 @@ LABEL_23:
     if (*(a1 + 32))
     {
       [v5 identity];
-      v9 = *(a1 + 32);
       Signature = PCSIdentityCreateSignature();
       if (!Signature)
       {
@@ -2455,20 +1155,20 @@ LABEL_23:
           sub_10025D39C();
         }
 
-        v23 = qword_10039CB00;
+        v22 = qword_10039CB00;
         if (os_log_type_enabled(qword_10039CB00, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v28 = 0;
-          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "failed to sign data with account key: %@", buf, 0xCu);
+          v27 = 0;
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "failed to sign data with account key: %@", buf, 0xCu);
         }
 
-        v24 = [TransparencyError errorWithDomain:kTransparencyErrorInternal code:-266 description:@"failed to sign data with account key"];
-        v25 = +[TransparencyAnalytics logger];
-        [v25 logResultForEvent:@"KTAccountKeySign" hardFailure:1 result:v24];
+        v23 = [TransparencyError errorWithDomain:kTransparencyErrorInternal code:-266 description:@"failed to sign data with account key"];
+        v24 = +[TransparencyAnalytics logger];
+        [v24 logResultForEvent:@"KTAccountKeySign" hardFailure:1 result:v23];
 
         (*(*(a1 + 40) + 16))();
-        v8 = v24;
+        v8 = v23;
         goto LABEL_22;
       }
 
@@ -2477,21 +1177,21 @@ LABEL_23:
         sub_10025D374();
       }
 
-      v11 = qword_10039CB00;
+      v10 = qword_10039CB00;
       if (os_log_type_enabled(qword_10039CB00, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = *(a1 + 32);
-        v13 = v11;
-        v14 = [v12 length];
-        v15 = [v7 kt_hexString];
-        v16 = [v5 currentItemPointerModificationTime];
+        v11 = *(a1 + 32);
+        v12 = v10;
+        v13 = [v11 length];
+        v14 = [v7 kt_hexString];
+        v15 = [v5 currentItemPointerModificationTime];
         *buf = 134218498;
-        v28 = v14;
-        v29 = 2114;
-        v30 = v15;
-        v31 = 2114;
-        v32 = v16;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Successfully signed %lu bytes with account key: %{public}@ CIPmTime: %{public}@", buf, 0x20u);
+        v27 = v13;
+        v28 = 2114;
+        v29 = v14;
+        v30 = 2114;
+        v31 = v15;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Successfully signed %lu bytes with account key: %{public}@ CIPmTime: %{public}@", buf, 0x20u);
       }
     }
 
@@ -2500,31 +1200,31 @@ LABEL_23:
       Signature = 0;
     }
 
-    v20 = +[TransparencyAnalytics logger];
-    [v20 logSuccessForEventNamed:@"KTAccountKeySign"];
+    v19 = +[TransparencyAnalytics logger];
+    [v19 logSuccessForEventNamed:@"KTAccountKeySign"];
 
-    v21 = *(a1 + 40);
-    v22 = [v5 currentItemPointerModificationTime];
-    (*(v21 + 16))(v21, v7, Signature, v22, 0);
+    v20 = *(a1 + 40);
+    v21 = [v5 currentItemPointerModificationTime];
+    (*(v20 + 16))(v20, v7, Signature, v21, 0);
 
 LABEL_22:
     goto LABEL_23;
   }
 
-  v17 = +[TransparencyAnalytics logger];
-  [v17 logResultForEvent:@"KTAccountKeySign" hardFailure:1 result:v6];
+  v16 = +[TransparencyAnalytics logger];
+  [v16 logResultForEvent:@"KTAccountKeySign" hardFailure:1 result:v6];
 
   if (qword_10039CAF8 != -1)
   {
     sub_10025D3C4();
   }
 
-  v18 = qword_10039CB00;
+  v17 = qword_10039CB00;
   if (os_log_type_enabled(qword_10039CB00, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v28 = v6;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "failed to get PCS identity: %@", buf, 0xCu);
+    v27 = v6;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "failed to get PCS identity: %@", buf, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -2552,11 +1252,11 @@ void sub_1001F0A90(id a1)
   _objc_release_x1();
 }
 
-void sub_1001F0C20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001F0C20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 64), 8);
+  _Block_object_dispose((v13 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2685,6 +1385,13 @@ void sub_1001F20B0(id a1)
   qword_10039CB48 = os_log_create("com.apple.Transparency", "default");
 
   _objc_release_x1();
+}
+
+void sub_1001F2850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t sub_1001F2870(uint64_t result, uint64_t a2)
@@ -3064,9 +1771,9 @@ void sub_1001F7F6C(uint64_t a1)
   [v1 trigger];
 }
 
-void sub_1001F823C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001F823C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3084,9 +1791,9 @@ void sub_1001F82A0(uint64_t a1)
   *(*(*(a1 + 48) + 8) + 24) = [v2 containsObject:*(a1 + 40)];
 }
 
-void sub_1001F847C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001F847C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3167,9 +1874,9 @@ void sub_1001F8B38(id a1)
   _objc_release_x1();
 }
 
-void sub_1001F8E68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1001F8E68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3294,9 +2001,9 @@ void sub_1001F9478(id a1)
   _objc_release_x1();
 }
 
-void sub_1001F9700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1001F9700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3387,9 +2094,9 @@ void sub_1001F9DC8(id a1)
   _objc_release_x1();
 }
 
-void sub_1001F9FD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1001F9FD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3480,35 +2187,34 @@ void sub_1001FB3B8(id *a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = a1[6];
-    v4 = *(a1[6] + 2);
+    v3 = *(a1[6] + 2);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [a1[4] application]);
-    v6 = [TransparencyApplication applicationIdentifierForValue:v5];
+    v4 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [a1[4] application]);
+    v5 = [TransparencyApplication applicationIdentifierForValue:v4];
 
-    v7 = +[KTMachTime currentMachTime];
-    v8 = [KTLogNetworkRequest alloc];
-    v9 = [a1[5] publicKeysURI];
-    v10 = [(KTLogNetworkRequest *)v8 initGETWithURL:v9 application:v6];
+    v6 = +[KTMachTime currentMachTime];
+    v7 = [KTLogNetworkRequest alloc];
+    v8 = [a1[5] publicKeysURI];
+    v9 = [(KTLogNetworkRequest *)v7 initGETWithURL:v8 application:v5];
 
-    [v10 setAuthenticated:0];
-    [v10 setUseReversePush:0];
-    v11 = a1[5];
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_1001FB560;
-    v13[3] = &unk_1003295A8;
-    v13[4] = v11;
-    v14 = v6;
-    v16 = v7;
-    v15 = a1[6];
-    v12 = v6;
-    [v11 fetchRequest:v10 completionHandler:v13];
+    [v9 setAuthenticated:0];
+    [v9 setUseReversePush:0];
+    v10 = a1[5];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_1001FB560;
+    v12[3] = &unk_1003295A8;
+    v12[4] = v10;
+    v13 = v5;
+    v15 = v6;
+    v14 = a1[6];
+    v11 = v5;
+    [v10 fetchRequest:v9 completionHandler:v12];
   }
 }
 
@@ -3620,29 +2326,28 @@ void sub_1001FBB50(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = *(a1 + 64);
-    v4 = *(*(a1 + 64) + 16);
+    v3 = *(*(a1 + 64) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = [KTLogNetworkRequest alloc];
-    v6 = [*(a1 + 32) reportToAppleURI];
-    v7 = [(KTLogNetworkRequest *)v5 initPOSTWithURL:v6 data:*(a1 + 40) uuid:*(a1 + 48) application:*(a1 + 56)];
+    v4 = [KTLogNetworkRequest alloc];
+    v5 = [*(a1 + 32) reportToAppleURI];
+    v6 = [(KTLogNetworkRequest *)v4 initPOSTWithURL:v5 data:*(a1 + 40) uuid:*(a1 + 48) application:*(a1 + 56)];
 
-    [v7 setAdditionalHeaders:&off_10033D6D8];
-    [v7 setAllowEmptyData:1];
-    [v7 setAuthenticated:1];
-    [v7 setUseReversePush:{objc_msgSend(*(a1 + 32), "shouldUseReversePush:", 1)}];
-    v8 = *(a1 + 32);
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_1001FBCA0;
-    v9[3] = &unk_1003295F8;
-    v10 = *(a1 + 64);
-    [v8 fetchRequest:v7 completionHandler:v9];
+    [v6 setAdditionalHeaders:&off_10033D6D8];
+    [v6 setAllowEmptyData:1];
+    [v6 setAuthenticated:1];
+    [v6 setUseReversePush:{objc_msgSend(*(a1 + 32), "shouldUseReversePush:", 1)}];
+    v7 = *(a1 + 32);
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_1001FBCA0;
+    v8[3] = &unk_1003295F8;
+    v9 = *(a1 + 64);
+    [v7 fetchRequest:v6 completionHandler:v8];
   }
 }
 
@@ -3757,53 +2462,52 @@ uint64_t sub_1001FC23C(uint64_t a1, void *a2, void *a3)
       sub_10025DA40();
     }
 
-    v20 = qword_10039CBD0;
+    v19 = qword_10039CBD0;
     if (os_log_type_enabled(qword_10039CBD0, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = *(a1 + 48);
-      v22 = *(a1 + 32);
-      v23 = v20;
-      v24 = [v22 request];
-      if ([v24 useReversePush])
+      v20 = *(a1 + 48);
+      v21 = *(a1 + 32);
+      v22 = v19;
+      v23 = [v21 request];
+      if ([v23 useReversePush])
       {
-        v25 = @" with reverse push";
+        v24 = @" with reverse push";
       }
 
       else
       {
-        v25 = &stru_10032E8E8;
+        v24 = &stru_10032E8E8;
       }
 
-      v26 = [*(a1 + 32) serverHint];
-      v36 = 138543874;
-      v37 = v21;
+      v25 = [*(a1 + 32) serverHint];
+      v34 = 138543874;
+      v35 = v20;
+      v36 = 2114;
+      v37 = v24;
       v38 = 2114;
       v39 = v25;
-      v40 = 2114;
-      v41 = v26;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "fetchId %{public}@%{public}@ succeeded with ServerHint %{public}@", &v36, 0x20u);
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "fetchId %{public}@%{public}@ succeeded with ServerHint %{public}@", &v34, 0x20u);
     }
 
-    v27 = [*(a1 + 56) transparencyAnalytics];
-    v28 = [objc_opt_class() logger];
-    v29 = [*(a1 + 32) data];
-    v30 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v29 length]);
-    v31 = [*(a1 + 56) transparencyAnalytics];
-    v32 = objc_opt_class();
+    v26 = [*(a1 + 56) transparencyAnalytics];
+    v27 = [objc_opt_class() logger];
+    v28 = [*(a1 + 32) data];
+    v29 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v28 length]);
+    v30 = [*(a1 + 56) transparencyAnalytics];
+    v31 = objc_opt_class();
     if (*(a1 + 80))
     {
-      v33 = @"ReversePushFetchSize";
+      v32 = @"ReversePushFetchSize";
     }
 
     else
     {
-      v33 = @"NetworkFetchSize";
+      v32 = @"NetworkFetchSize";
     }
 
-    v34 = [v32 formatEventName:v33 application:*(a1 + 64)];
-    [v28 logMetric:v30 withName:v34];
+    v33 = [v31 formatEventName:v32 application:*(a1 + 64)];
+    [v27 logMetric:v29 withName:v33];
 
-    v35 = *(a1 + 32);
     (*(*(a1 + 72) + 16))();
     return 1;
   }
@@ -3812,10 +2516,10 @@ uint64_t sub_1001FC23C(uint64_t a1, void *a2, void *a3)
   {
     if (a3)
     {
-      v44 = @"requestUUID";
+      v42 = @"requestUUID";
       v9 = [*(a1 + 48) UUIDString];
-      v45 = v9;
-      *a3 = [NSDictionary dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+      v43 = v9;
+      *a3 = [NSDictionary dictionaryWithObjects:&v43 forKeys:&v42 count:1];
     }
 
     if (qword_10039CBC8 != -1)
@@ -3842,15 +2546,15 @@ uint64_t sub_1001FC23C(uint64_t a1, void *a2, void *a3)
 
       v16 = [*(a1 + 32) serverHint];
       v17 = *(a1 + 40);
-      v36 = 138544130;
-      v37 = v11;
+      v34 = 138544130;
+      v35 = v11;
+      v36 = 2114;
+      v37 = v15;
       v38 = 2114;
-      v39 = v15;
-      v40 = 2114;
-      v41 = v16;
-      v42 = 2112;
-      v43 = v17;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "fetchId %{public}@%{public}@ failed with ServerHint %{public}@: %@", &v36, 0x2Au);
+      v39 = v16;
+      v40 = 2112;
+      v41 = v17;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "fetchId %{public}@%{public}@ failed with ServerHint %{public}@: %@", &v34, 0x2Au);
     }
 
     if (a2)
@@ -3858,7 +2562,6 @@ uint64_t sub_1001FC23C(uint64_t a1, void *a2, void *a3)
       *a2 = *(a1 + 40);
     }
 
-    v18 = *(a1 + 40);
     (*(*(a1 + 72) + 16))();
     return 0;
   }
@@ -3882,30 +2585,28 @@ void sub_1001FC74C(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = *(a1 + 56);
-    v4 = *(a1 + 32);
-    v5 = *(*(a1 + 56) + 16);
+    v3 = *(*(a1 + 56) + 16);
 
-    v5();
+    v3();
   }
 
   else
   {
-    v6 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [*(a1 + 32) application]);
-    v7 = [TransparencyApplication applicationIdentifierForValue:v6];
+    v4 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [*(a1 + 32) application]);
+    v5 = [TransparencyApplication applicationIdentifierForValue:v4];
 
-    v9 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v10 = [v8 batchQueryURI];
-    v11 = *(a1 + 64);
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_1001FC8C4;
-    v13[3] = &unk_1003296D8;
-    v12 = *(a1 + 48);
-    v15 = *(a1 + 56);
-    v14 = *(a1 + 32);
-    [v8 fetchMessage:v9 uri:v10 uuid:v12 application:v7 userInitiated:v11 completionHandler:v13];
+    v7 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    v8 = [v6 batchQueryURI];
+    v9 = *(a1 + 64);
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_1001FC8C4;
+    v11[3] = &unk_1003296D8;
+    v10 = *(a1 + 48);
+    v13 = *(a1 + 56);
+    v12 = *(a1 + 32);
+    [v6 fetchMessage:v7 uri:v8 uuid:v10 application:v5 userInitiated:v9 completionHandler:v11];
   }
 }
 
@@ -3916,9 +2617,9 @@ void sub_1001FC8C4(uint64_t a1, void *a2, void *a3)
   if (v5 && ([v5 data], v7 = objc_claimAutoreleasedReturnValue(), v7, !v6) && v7)
   {
     v8 = [v5 data];
-    v17 = 0;
-    v9 = [(TransparencyGPBMessage *)BatchQueryResponse parseFromData:v8 error:&v17];
-    v10 = v17;
+    v15 = 0;
+    v9 = [(TransparencyGPBMessage *)BatchQueryResponse parseFromData:v8 error:&v15];
+    v10 = v15;
 
     v11 = [v5 serverHint];
     [v9 setMetadataValue:v11 key:kTransparencyResponseMetadataKeyServerHint];
@@ -3934,13 +2635,11 @@ void sub_1001FC8C4(uint64_t a1, void *a2, void *a3)
       [v9 setMetadataValue:@"YES" key:@"APS"];
     }
 
-    v15 = *(a1 + 32);
     (*(*(a1 + 40) + 16))();
   }
 
   else
   {
-    v16 = *(a1 + 32);
     (*(*(a1 + 40) + 16))();
   }
 }
@@ -3952,41 +2651,39 @@ void sub_1001FCDEC(id a1)
   _objc_release_x1();
 }
 
-void sub_1001FCE30(void *a1)
+void sub_1001FCE30(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  dispatch_group_leave(v3);
+  dispatch_group_leave(v2);
 }
 
 void sub_1001FCF8C(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = *(a1 + 56);
-    v4 = *(*(a1 + 56) + 16);
+    v3 = *(*(a1 + 56) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [*(a1 + 32) application]);
-    v6 = [TransparencyApplication applicationIdentifierForValue:v5];
+    v4 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [*(a1 + 32) application]);
+    v5 = [TransparencyApplication applicationIdentifierForValue:v4];
 
-    v8 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v9 = [v7 queryURI];
-    v10 = *(a1 + 64);
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_1001FD0EC;
-    v12[3] = &unk_1003295F8;
-    v11 = *(a1 + 48);
-    v13 = *(a1 + 56);
-    [v7 fetchMessage:v8 uri:v9 uuid:v11 application:v6 userInitiated:v10 completionHandler:v12];
+    v7 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    v8 = [v6 queryURI];
+    v9 = *(a1 + 64);
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_1001FD0EC;
+    v11[3] = &unk_1003295F8;
+    v10 = *(a1 + 48);
+    v12 = *(a1 + 56);
+    [v6 fetchMessage:v7 uri:v8 uuid:v10 application:v5 userInitiated:v9 completionHandler:v11];
   }
 }
 
@@ -4028,24 +2725,23 @@ void sub_1001FD380(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = *(a1 + 56);
-    v4 = *(*(a1 + 56) + 16);
+    v3 = *(*(a1 + 56) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v7 = [v5 consistencyProofURI];
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_1001FD488;
-    v9[3] = &unk_1003295F8;
-    v8 = *(a1 + 48);
-    v10 = *(a1 + 56);
-    [v5 fetchMessage:v6 uri:v7 uuid:v8 application:0 userInitiated:0 completionHandler:v9];
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v6 = [v4 consistencyProofURI];
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_1001FD488;
+    v8[3] = &unk_1003295F8;
+    v7 = *(a1 + 48);
+    v9 = *(a1 + 56);
+    [v4 fetchMessage:v5 uri:v6 uuid:v7 application:0 userInitiated:0 completionHandler:v8];
   }
 }
 
@@ -4087,24 +2783,23 @@ void sub_1001FD710(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = *(a1 + 56);
-    v4 = *(*(a1 + 56) + 16);
+    v3 = *(*(a1 + 56) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v7 = [v5 revisionLogProofURI];
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_1001FD818;
-    v9[3] = &unk_1003295F8;
-    v8 = *(a1 + 48);
-    v10 = *(a1 + 56);
-    [v5 fetchMessage:v6 uri:v7 uuid:v8 application:0 userInitiated:0 completionHandler:v9];
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v6 = [v4 revisionLogProofURI];
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_1001FD818;
+    v8[3] = &unk_1003295F8;
+    v7 = *(a1 + 48);
+    v9 = *(a1 + 56);
+    [v4 fetchMessage:v5 uri:v6 uuid:v7 application:0 userInitiated:0 completionHandler:v8];
   }
 }
 
@@ -4149,9 +2844,9 @@ void sub_1001FDC60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1001FDDAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001FDDAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4696,9 +3391,9 @@ void sub_100203F68(id a1)
   _objc_release_x1();
 }
 
-void sub_100204154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100204154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5204,9 +3899,9 @@ void sub_10020869C(id a1)
   _objc_release_x1();
 }
 
-void sub_100208D90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100208D90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5216,6 +3911,13 @@ uint64_t sub_100208DA8(uint64_t result, uint64_t a2)
   *(result + 40) = *(a2 + 40);
   *(a2 + 40) = 0;
   return result;
+}
+
+void sub_1002096D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
+{
+  va_start(va, a37);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_10020970C(uint64_t a1, uint64_t a2)
@@ -5540,16 +4242,16 @@ void sub_10020B3CC(uint64_t a1)
   }
 }
 
-void sub_10020BB4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10020BB4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10020BC40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10020BC40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6024,11 +4726,11 @@ void sub_100211EB0(id a1)
   _objc_release_x1();
 }
 
-void sub_100212174(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100212174(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6212,11 +4914,11 @@ void sub_100214A40(id a1)
   _objc_release_x1();
 }
 
-void sub_100214C10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100214C10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6497,11 +5199,11 @@ void sub_100215660(id a1)
   _objc_release_x1();
 }
 
-void sub_100215814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100215814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6719,10 +5421,11 @@ void sub_1002163C8(id a1)
   _objc_release_x1();
 }
 
-void sub_10021683C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_10021683C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
+  va_start(va, a40);
   _Block_object_dispose(&a35, 8);
-  _Block_object_dispose(&a41, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -6970,11 +5673,11 @@ void sub_10021A6B0(id a1)
   _objc_release_x1();
 }
 
-void sub_10021A9BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10021A9BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6996,8 +5699,8 @@ void sub_10021A9F8(uint64_t a1)
   [v2 setResultType:2];
   [v2 setFetchLimit:1];
   v4 = [NSSortDescriptor sortDescriptorWithKey:@"revision" ascending:0];
-  v41 = v4;
-  v5 = [NSArray arrayWithObjects:&v41 count:1];
+  v40 = v4;
+  v5 = [NSArray arrayWithObjects:&v40 count:1];
   [v2 setSortDescriptors:v5];
 
   v6 = [*(a1 + 40) context];
@@ -7007,9 +5710,9 @@ void sub_10021A9F8(uint64_t a1)
   objc_storeStrong((v7 + 40), obj);
 
   v9 = *(*(a1 + 48) + 8);
-  v34 = *(v9 + 40);
-  [TransparencyManagedDataStore cleanseError:&v34];
-  objc_storeStrong((v9 + 40), v34);
+  v33 = *(v9 + 40);
+  [TransparencyManagedDataStore cleanseError:&v33];
+  objc_storeStrong((v9 + 40), v33);
   if (v8 && [v8 count])
   {
     v10 = [v8 objectAtIndexedSubscript:0];
@@ -7029,9 +5732,9 @@ void sub_10021A9F8(uint64_t a1)
       v15 = *(*(*(a1 + 56) + 8) + 40);
       v16 = *(a1 + 32);
       *buf = 138412546;
-      v38 = v15;
-      v39 = 2112;
-      v40 = v16;
+      v37 = v15;
+      v38 = 2112;
+      v39 = v16;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "latest verified revision %@ for %@", buf, 0x16u);
     }
 
@@ -7040,51 +5743,50 @@ void sub_10021A9F8(uint64_t a1)
 
   else
   {
-    v18 = *(a1 + 32);
-    v19 = [NSPredicate predicateWithFormat:@"isMapHead == NO && application == %@ && logBeginTime == %llu && signatureVerified == %d && consistencyVerified == %d", v18, *(a1 + 64), 1, 2];
-    [v2 setPredicate:v19];
+    v18 = [NSPredicate predicateWithFormat:@"isMapHead == NO && application == %@ && logBeginTime == %llu && signatureVerified == %d && consistencyVerified == %d", *(a1 + 32), *(a1 + 64), 1, 2];
+    [v2 setPredicate:v18];
 
-    v20 = [NSSortDescriptor sortDescriptorWithKey:@"revision" ascending:1];
-    v36 = v20;
-    v21 = [NSArray arrayWithObjects:&v36 count:1];
-    [v2 setSortDescriptors:v21];
+    v19 = [NSSortDescriptor sortDescriptorWithKey:@"revision" ascending:1];
+    v35 = v19;
+    v20 = [NSArray arrayWithObjects:&v35 count:1];
+    [v2 setSortDescriptors:v20];
 
-    v22 = [*(a1 + 40) context];
-    v23 = *(*(a1 + 48) + 8);
-    v33 = *(v23 + 40);
-    v17 = [v22 executeFetchRequest:v2 error:&v33];
-    objc_storeStrong((v23 + 40), v33);
+    v21 = [*(a1 + 40) context];
+    v22 = *(*(a1 + 48) + 8);
+    v32 = *(v22 + 40);
+    v17 = [v21 executeFetchRequest:v2 error:&v32];
+    objc_storeStrong((v22 + 40), v32);
 
     if (v17 && [v17 count])
     {
-      v24 = [v17 objectAtIndexedSubscript:0];
-      v25 = [v24 objectForKeyedSubscript:@"revision"];
-      v26 = *(*(a1 + 56) + 8);
-      v27 = *(v26 + 40);
-      *(v26 + 40) = v25;
+      v23 = [v17 objectAtIndexedSubscript:0];
+      v24 = [v23 objectForKeyedSubscript:@"revision"];
+      v25 = *(*(a1 + 56) + 8);
+      v26 = *(v25 + 40);
+      *(v25 + 40) = v24;
 
       if (qword_10039CCD8 != -1)
       {
         sub_10025ED64();
       }
 
-      v28 = qword_10039CCE0;
+      v27 = qword_10039CCE0;
       if (os_log_type_enabled(qword_10039CCE0, OS_LOG_TYPE_INFO))
       {
-        v29 = *(*(*(a1 + 56) + 8) + 40);
-        v30 = *(a1 + 32);
+        v28 = *(*(*(a1 + 56) + 8) + 40);
+        v29 = *(a1 + 32);
         *buf = 138412546;
-        v38 = v29;
-        v39 = 2112;
-        v40 = v30;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "earliest pending revision %@ for %@", buf, 0x16u);
+        v37 = v28;
+        v38 = 2112;
+        v39 = v29;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "earliest pending revision %@ for %@", buf, 0x16u);
       }
     }
 
-    v31 = *(*(a1 + 48) + 8);
-    v32 = *(v31 + 40);
-    [TransparencyManagedDataStore cleanseError:&v32];
-    objc_storeStrong((v31 + 40), v32);
+    v30 = *(*(a1 + 48) + 8);
+    v31 = *(v30 + 40);
+    [TransparencyManagedDataStore cleanseError:&v31];
+    objc_storeStrong((v30 + 40), v31);
   }
 }
 
@@ -7102,11 +5804,11 @@ void sub_10021AEA8(id a1)
   _objc_release_x1();
 }
 
-void sub_10021B07C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10021B07C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7120,103 +5822,101 @@ void sub_10021B0A0(uint64_t a1)
   if (v4)
   {
     v5 = [NSFetchRequest fetchRequestWithEntityName:@"KTTreeHead"];
-    v6 = *(a1 + 40);
-    v7 = [NSPredicate predicateWithFormat:@"isMapHead == NO && application == %@ && logBeginTime == %llu && signatureVerified == %d && consistencyVerified == %d", v6, *(a1 + 64), 1, 1];
-    [v5 setPredicate:v7];
+    v6 = [NSPredicate predicateWithFormat:@"isMapHead == NO && application == %@ && logBeginTime == %llu && signatureVerified == %d && consistencyVerified == %d", *(a1 + 40), *(a1 + 64), 1, 1];
+    [v5 setPredicate:v6];
 
     [v5 setPropertiesToFetch:&off_10033D910];
     [v5 setReturnsDistinctResults:1];
     [v5 setResultType:2];
     [v5 setFetchLimit:1];
-    v8 = [NSSortDescriptor sortDescriptorWithKey:@"revision" ascending:0];
-    v46 = v8;
-    v9 = [NSArray arrayWithObjects:&v46 count:1];
-    [v5 setSortDescriptors:v9];
+    v7 = [NSSortDescriptor sortDescriptorWithKey:@"revision" ascending:0];
+    v44 = v7;
+    v8 = [NSArray arrayWithObjects:&v44 count:1];
+    [v5 setSortDescriptors:v8];
 
-    v10 = [*(a1 + 32) context];
-    v11 = *(*(a1 + 48) + 8);
-    v39 = *(v11 + 40);
-    v12 = [v10 executeFetchRequest:v5 error:&v39];
-    objc_storeStrong((v11 + 40), v39);
+    v9 = [*(a1 + 32) context];
+    v10 = *(*(a1 + 48) + 8);
+    v37 = *(v10 + 40);
+    v11 = [v9 executeFetchRequest:v5 error:&v37];
+    objc_storeStrong((v10 + 40), v37);
 
-    v13 = *(*(a1 + 48) + 8);
-    v38 = *(v13 + 40);
-    [TransparencyManagedDataStore cleanseError:&v38];
-    objc_storeStrong((v13 + 40), v38);
-    if (v12 && [v12 count])
+    v12 = *(*(a1 + 48) + 8);
+    v36 = *(v12 + 40);
+    [TransparencyManagedDataStore cleanseError:&v36];
+    objc_storeStrong((v12 + 40), v36);
+    if (v11 && [v11 count])
     {
-      v14 = [v12 objectAtIndexedSubscript:0];
-      v15 = [v14 objectForKeyedSubscript:@"sth"];
-      v16 = *(*(a1 + 56) + 8);
-      v17 = *(v16 + 40);
-      *(v16 + 40) = v15;
+      v13 = [v11 objectAtIndexedSubscript:0];
+      v14 = [v13 objectForKeyedSubscript:@"sth"];
+      v15 = *(*(a1 + 56) + 8);
+      v16 = *(v15 + 40);
+      *(v15 + 40) = v14;
 
       if (qword_10039CCD8 != -1)
       {
         sub_10025EDB4();
       }
 
-      v18 = qword_10039CCE0;
+      v17 = qword_10039CCE0;
       if (os_log_type_enabled(qword_10039CCE0, OS_LOG_TYPE_INFO))
       {
-        v19 = *(*(*(a1 + 56) + 8) + 40);
-        v20 = *(a1 + 40);
+        v18 = *(*(*(a1 + 56) + 8) + 40);
+        v19 = *(a1 + 40);
         *buf = 138412546;
+        v41 = v18;
+        v42 = 2112;
         v43 = v19;
-        v44 = 2112;
-        v45 = v20;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "latest verified STH %@ for %@", buf, 0x16u);
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "latest verified STH %@ for %@", buf, 0x16u);
       }
 
-      v21 = v12;
+      v20 = v11;
     }
 
     else
     {
-      v23 = *(a1 + 40);
-      v24 = [NSPredicate predicateWithFormat:@"isMapHead == NO && application == %@ && logBeginTime == %llu && signatureVerified == %d && consistencyVerified == %d", v23, *(a1 + 64), 1, 2];
-      [v5 setPredicate:v24];
+      v22 = [NSPredicate predicateWithFormat:@"isMapHead == NO && application == %@ && logBeginTime == %llu && signatureVerified == %d && consistencyVerified == %d", *(a1 + 40), *(a1 + 64), 1, 2];
+      [v5 setPredicate:v22];
 
-      v25 = [NSSortDescriptor sortDescriptorWithKey:@"revision" ascending:1];
-      v41 = v25;
-      v26 = [NSArray arrayWithObjects:&v41 count:1];
-      [v5 setSortDescriptors:v26];
+      v23 = [NSSortDescriptor sortDescriptorWithKey:@"revision" ascending:1];
+      v39 = v23;
+      v24 = [NSArray arrayWithObjects:&v39 count:1];
+      [v5 setSortDescriptors:v24];
 
-      v27 = [*(a1 + 32) context];
-      v21 = [v27 executeFetchRequest:v5 error:*(a1 + 72)];
+      v25 = [*(a1 + 32) context];
+      v20 = [v25 executeFetchRequest:v5 error:*(a1 + 72)];
 
-      if (v21 && [v21 count])
+      if (v20 && [v20 count])
       {
-        v28 = [v21 objectAtIndexedSubscript:0];
-        v29 = [v28 objectForKeyedSubscript:@"sth"];
-        v30 = *(*(a1 + 56) + 8);
-        v31 = *(v30 + 40);
-        *(v30 + 40) = v29;
+        v26 = [v20 objectAtIndexedSubscript:0];
+        v27 = [v26 objectForKeyedSubscript:@"sth"];
+        v28 = *(*(a1 + 56) + 8);
+        v29 = *(v28 + 40);
+        *(v28 + 40) = v27;
 
         if (qword_10039CCD8 != -1)
         {
           sub_10025EDDC();
         }
 
-        v32 = qword_10039CCE0;
+        v30 = qword_10039CCE0;
         if (os_log_type_enabled(qword_10039CCE0, OS_LOG_TYPE_INFO))
         {
-          v33 = *(*(*(a1 + 56) + 8) + 40);
-          v34 = *(a1 + 40);
+          v31 = *(*(*(a1 + 56) + 8) + 40);
+          v32 = *(a1 + 40);
           *buf = 138412546;
-          v43 = v33;
-          v44 = 2112;
-          v45 = v34;
-          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "latest verified STH %@ for %@", buf, 0x16u);
+          v41 = v31;
+          v42 = 2112;
+          v43 = v32;
+          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "latest verified STH %@ for %@", buf, 0x16u);
         }
       }
 
       else
       {
-        v35 = [TransparencyError errorWithDomain:kTransparencyErrorGossip code:-226 description:@"TLT STH doesn't exist in local database"];
-        v36 = *(*(a1 + 48) + 8);
-        v37 = *(v36 + 40);
-        *(v36 + 40) = v35;
+        v33 = [TransparencyError errorWithDomain:kTransparencyErrorGossip code:-226 description:@"TLT STH doesn't exist in local database"];
+        v34 = *(*(a1 + 48) + 8);
+        v35 = *(v34 + 40);
+        *(v34 + 40) = v33;
       }
     }
   }
@@ -7228,11 +5928,11 @@ void sub_10021B0A0(uint64_t a1)
       sub_10025ED8C();
     }
 
-    v22 = qword_10039CCE0;
+    v21 = qword_10039CCE0;
     if (os_log_type_enabled(qword_10039CCE0, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "failed to get latest tree head STH", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "failed to get latest tree head STH", buf, 2u);
     }
   }
 }
@@ -7258,11 +5958,11 @@ void sub_10021B614(id a1)
   _objc_release_x1();
 }
 
-void sub_10021B7F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10021B7F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 112), 8);
+  _Block_object_dispose((v18 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7278,65 +5978,68 @@ void sub_10021B81C(uint64_t a1)
 
   else
   {
-    v5 = *(a1 + 32);
-    v3 = [NSPredicate predicateWithFormat:@"isMapHead == NO && application == %@ && logBeginTime == %llu && signatureVerified == %d && consistencyVerified == %d", v5, *(a1 + 64), 1, 2];
+    v3 = [NSPredicate predicateWithFormat:@"isMapHead == NO && application == %@ && logBeginTime == %llu && signatureVerified == %d && consistencyVerified == %d", *(a1 + 32), *(a1 + 64), 1, 2];
     [v2 setPredicate:v3];
   }
 
   [v2 setPropertiesToFetch:&off_10033D928];
   [v2 setReturnsDistinctResults:1];
   [v2 setResultType:2];
-  v6 = [NSSortDescriptor sortDescriptorWithKey:@"revision" ascending:1];
-  v29 = v6;
-  v7 = [NSArray arrayWithObjects:&v29 count:1];
-  [v2 setSortDescriptors:v7];
+  v5 = [NSSortDescriptor sortDescriptorWithKey:@"revision" ascending:1];
+  v28 = v5;
+  v6 = [NSArray arrayWithObjects:&v28 count:1];
+  [v2 setSortDescriptors:v6];
 
-  v8 = [*(a1 + 40) context];
-  v9 = *(*(a1 + 48) + 8);
-  obj = *(v9 + 40);
-  v10 = [v8 executeFetchRequest:v2 error:&obj];
-  objc_storeStrong((v9 + 40), obj);
+  v7 = [*(a1 + 40) context];
+  v8 = *(*(a1 + 48) + 8);
+  obj = *(v8 + 40);
+  v9 = [v7 executeFetchRequest:v2 error:&obj];
+  objc_storeStrong((v8 + 40), obj);
 
-  v11 = *(*(a1 + 48) + 8);
-  v26 = *(v11 + 40);
-  [TransparencyManagedDataStore cleanseError:&v26];
-  objc_storeStrong((v11 + 40), v26);
-  if (v10 && [v10 count])
+  v10 = *(*(a1 + 48) + 8);
+  v25 = *(v10 + 40);
+  [TransparencyManagedDataStore cleanseError:&v25];
+  objc_storeStrong((v10 + 40), v25);
+  if (v9 && [v9 count])
   {
-    v12 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v10 count]);
-    v13 = *(*(a1 + 56) + 8);
-    v14 = *(v13 + 40);
-    *(v13 + 40) = v12;
+    v11 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v9 count]);
+    v12 = *(*(a1 + 56) + 8);
+    v13 = *(v12 + 40);
+    *(v12 + 40) = v11;
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
-  v15 = v10;
-  v16 = [v15 countByEnumeratingWithState:&v22 objects:v28 count:16];
-  if (v16)
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v14 = v9;
+  v15 = [v14 countByEnumeratingWithState:&v21 objects:v27 count:16];
+  if (v15)
   {
-    v17 = v16;
-    v18 = *v23;
+    v16 = v15;
+    v17 = *v22;
     do
     {
-      for (i = 0; i != v17; i = i + 1)
+      v18 = 0;
+      do
       {
-        if (*v23 != v18)
+        if (*v22 != v17)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v14);
         }
 
-        v20 = *(*(*(a1 + 56) + 8) + 40);
-        v21 = [*(*(&v22 + 1) + 8 * i) objectForKeyedSubscript:@"revision"];
-        [v20 addObject:v21];
+        v19 = *(*(*(a1 + 56) + 8) + 40);
+        v20 = [*(*(&v21 + 1) + 8 * v18) objectForKeyedSubscript:@"revision"];
+        [v19 addObject:v20];
+
+        v18 = v18 + 1;
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v22 objects:v28 count:16];
+      while (v16 != v18);
+      v16 = [v14 countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
-    while (v17);
+    while (v16);
   }
 }
 
@@ -7433,9 +6136,9 @@ void sub_10021BFC0(id a1)
   _objc_release_x1();
 }
 
-void sub_10021C74C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10021C74C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7783,9 +6486,9 @@ void sub_10021DB30(id a1)
   _objc_release_x1();
 }
 
-void sub_10021DCAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10021DCAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7850,11 +6553,11 @@ void sub_10021DCC4(uint64_t a1)
   }
 }
 
-void sub_10021E5B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10021E5B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7887,11 +6590,11 @@ void sub_10021E5F0(void *a1)
   objc_storeStrong((v8 + 40), v9);
 }
 
-void sub_10021E820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10021E820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7974,11 +6677,11 @@ void sub_10021EAB8(id a1)
   _objc_release_x1();
 }
 
-void sub_10021ECDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10021ECDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 96), 8);
+  _Block_object_dispose((v22 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8034,11 +6737,11 @@ void sub_10021EEAC(id a1)
   _objc_release_x1();
 }
 
-void sub_10021F0C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10021F0C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 96), 8);
+  _Block_object_dispose((v22 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8094,11 +6797,11 @@ void sub_10021F2F8(id a1)
   _objc_release_x1();
 }
 
-void sub_10021F51C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_10021F51C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 96), 8);
+  _Block_object_dispose((v24 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8155,11 +6858,11 @@ void sub_10021F6EC(id a1)
   _objc_release_x1();
 }
 
-void sub_10021F8A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10021F8A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8189,11 +6892,11 @@ void sub_10021F8C8(void *a1)
   }
 }
 
-void sub_10021FD88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10021FD88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8259,9 +6962,9 @@ void sub_10021FF84(id a1)
   _objc_release_x1();
 }
 
-void sub_100220544(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100220544(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8528,10 +7231,11 @@ void sub_100221A2C(id a1)
   _objc_release_x1();
 }
 
-void sub_100221F74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_100221F74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose((v27 - 160), 8);
-  _Block_object_dispose(&a27, 8);
+  va_start(va, a26);
+  _Block_object_dispose((v26 - 160), 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -8685,16 +7389,16 @@ void sub_1002225B8(id a1)
   _objc_release_x1();
 }
 
-void sub_100222A70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100222A70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v15 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v22 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 160), 8);
+  _Block_object_dispose((v20 - 160), 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
@@ -8906,9 +7610,9 @@ void sub_1002239E8(id a1)
   _objc_release_x1();
 }
 
-void sub_100223FEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_100223FEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9149,4 +7853,1296 @@ void sub_100226E3C(id a1)
   qword_10039CD50 = os_log_create("com.apple.Transparency", "default");
 
   _objc_release_x1();
+}
+
+void sub_100226E80(id a1)
+{
+  qword_10039CD50 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_100227098(id a1)
+{
+  qword_10039CD50 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_100227260(id a1)
+{
+  qword_10039CD60 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_100227388(id a1)
+{
+  qword_10039CD60 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_1002277E4(id a1)
+{
+  qword_10039CD60 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_100227828(id a1)
+{
+  qword_10039CD60 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_100227ABC(id a1)
+{
+  qword_10039CD70 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_100227B00(id a1)
+{
+  qword_10039CD70 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_100228310(id a1)
+{
+  qword_10039CD70 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_1002289F0(id a1)
+{
+  qword_10039CD80 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_10022900C(id a1)
+{
+  qword_10039CD80 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+uint64_t sub_1002291B8(uint64_t a1, void *a2, void *a3)
+{
+  if (![*(a1 + 32) hasStartSlh] || (objc_msgSend(*(a1 + 32), "startSlh"), v6 = objc_claimAutoreleasedReturnValue(), v6, !v6))
+  {
+    v36 = -181;
+    if (!a2)
+    {
+      goto LABEL_20;
+    }
+
+    goto LABEL_19;
+  }
+
+  if (![*(a1 + 32) hasEndSlh] || (objc_msgSend(*(a1 + 32), "endSlh"), v7 = objc_claimAutoreleasedReturnValue(), v7, !v7))
+  {
+    v36 = -182;
+    if (!a2)
+    {
+      goto LABEL_20;
+    }
+
+    goto LABEL_19;
+  }
+
+  v8 = [*(a1 + 32) proofHashesArray];
+  if (v8)
+  {
+    v9 = [*(a1 + 32) proofHashesArray_Count];
+
+    if (v9)
+    {
+      v10 = [*(a1 + 32) startSlh];
+      v11 = [*(a1 + 32) verifier];
+      v12 = [v11 trustedKeyStore];
+      v13 = [v12 signatureVerifier];
+      v14 = [*(a1 + 32) dataStore];
+      v39 = [SignedLogHead signedTypeWithObject:v10 verifier:v13 dataStore:v14];
+
+      v15 = [*(a1 + 32) endSlh];
+      v16 = [*(a1 + 32) verifier];
+      v17 = [v16 trustedKeyStore];
+      v18 = [v17 signatureVerifier];
+      v19 = [*(a1 + 32) dataStore];
+      v20 = [SignedLogHead signedTypeWithObject:v15 verifier:v18 dataStore:v19];
+
+      *&buf = 0;
+      *(&buf + 1) = &buf;
+      v51 = 0x3032000000;
+      v52 = sub_100229720;
+      v53 = sub_100229730;
+      v54 = 0;
+      v46 = 0;
+      v47 = &v46;
+      v48 = 0x2020000000;
+      v21 = [*(a1 + 32) verifier];
+      v22 = [*(a1 + 32) proofHashesArray];
+      v23 = (*(&buf + 1) + 40);
+      obj = *(*(&buf + 1) + 40);
+      v24 = [v21 verifyConsistencyProof:v22 startLogHead:v39 endLogHead:v20 error:&obj];
+      objc_storeStrong(v23, obj);
+
+      v49 = v24;
+      v25 = [*(a1 + 32) dataStore];
+      v40[0] = _NSConcreteStackBlock;
+      v40[1] = 3221225472;
+      v40[2] = sub_100229738;
+      v40[3] = &unk_10031A230;
+      v40[4] = *(a1 + 32);
+      v26 = v39;
+      v41 = v26;
+      p_buf = &buf;
+      v27 = v20;
+      v42 = v27;
+      v44 = &v46;
+      [v25 performBlockAndWait:v40];
+
+      v28 = +[NSMutableDictionary dictionary];
+      v29 = [*(a1 + 32) metadata];
+      v30 = kTransparencyResponseMetadataKeyServerHint;
+      v31 = [v29 objectForKeyedSubscript:kTransparencyResponseMetadataKeyServerHint];
+
+      if (v31)
+      {
+        v32 = [*(a1 + 32) metadata];
+        v33 = [v32 objectForKeyedSubscript:v30];
+        [v28 setObject:v33 forKeyedSubscript:v30];
+      }
+
+      if ([v28 count])
+      {
+        v34 = v28;
+        *a3 = v28;
+      }
+
+      if (a2)
+      {
+        *a2 = *(*(&buf + 1) + 40);
+      }
+
+      v35 = v47[3];
+
+      _Block_object_dispose(&v46, 8);
+      _Block_object_dispose(&buf, 8);
+
+      return v35;
+    }
+  }
+
+  v36 = -183;
+  if (a2)
+  {
+LABEL_19:
+    *a2 = [TransparencyError errorWithDomain:kTransparencyErrorDecode code:v36 description:@"log consistency response missing data required for verification"];
+  }
+
+LABEL_20:
+  if (qword_10039CD78 != -1)
+  {
+    sub_10025F638();
+  }
+
+  v37 = qword_10039CD80;
+  if (os_log_type_enabled(qword_10039CD80, OS_LOG_TYPE_ERROR))
+  {
+    LODWORD(buf) = 134217984;
+    *(&buf + 4) = v36;
+    _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "log consistency response missing data required for verification: %ld", &buf, 0xCu);
+  }
+
+  return 0;
+}
+
+void sub_1002296A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va1, a20);
+  va_start(va, a20);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1002296DC(id a1)
+{
+  qword_10039CD80 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+uint64_t sub_100229720(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_100229738(uint64_t a1)
+{
+  v2 = [*(a1 + 32) forwards];
+  v3 = *(*(a1 + 56) + 8);
+  v6 = *(v3 + 40);
+  v5 = (v3 + 40);
+  v4 = v6;
+  if (v2)
+  {
+    v7 = *(a1 + 40);
+    obj = v4;
+    v8 = [v7 copyManagedObject:&obj];
+    objc_storeStrong(v5, obj);
+    v9 = *(a1 + 48);
+    v10 = *(*(a1 + 56) + 8);
+    v12 = *(v10 + 40);
+    v11 = (v10 + 40);
+    v35 = v12;
+    v13 = [v9 copyManagedObject:&v35];
+    v14 = v35;
+  }
+
+  else
+  {
+    v15 = *(a1 + 48);
+    v34 = v4;
+    v8 = [v15 copyManagedObject:&v34];
+    objc_storeStrong(v5, v34);
+    v16 = *(a1 + 40);
+    v17 = *(*(a1 + 56) + 8);
+    v18 = *(v17 + 40);
+    v11 = (v17 + 40);
+    v33 = v18;
+    v13 = [v16 copyManagedObject:&v33];
+    v14 = v33;
+  }
+
+  v19 = v14;
+  v20 = *v11;
+  *v11 = v19;
+
+  if (!v8 || !v13)
+  {
+    if (qword_10039CD78 != -1)
+    {
+      sub_10025F64C();
+    }
+
+    v21 = qword_10039CD80;
+    if (os_log_type_enabled(qword_10039CD80, OS_LOG_TYPE_ERROR))
+    {
+      v22 = *(*(*(a1 + 56) + 8) + 40);
+      *buf = 138412290;
+      v38 = v22;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "failed to get SLHs from data store: %@", buf, 0xCu);
+    }
+  }
+
+  if ([*(a1 + 32) forwards])
+  {
+    if ([v8 consistencyVerified] == 2)
+    {
+      v23 = [v8 revision];
+      v24 = [*(a1 + 32) startRevision];
+      v25 = [v24 longLongValue];
+
+      if (v23 == v25)
+      {
+        [*(a1 + 32) setResult:*(*(*(a1 + 64) + 8) + 24) treeHead:v8 error:*(*(*(a1 + 56) + 8) + 40)];
+      }
+    }
+  }
+
+  if ([v8 consistencyVerified] == 1)
+  {
+    [*(a1 + 32) setResult:*(*(*(a1 + 64) + 8) + 24) treeHead:v13 error:*(*(*(a1 + 56) + 8) + 40)];
+  }
+
+  if (*(*(*(a1 + 64) + 8) + 24) == 1)
+  {
+    [*(a1 + 32) checkSplitsFor:v13];
+  }
+
+  v26 = [*(a1 + 32) dataStore];
+  v27 = *(*(a1 + 56) + 8);
+  v32 = *(v27 + 40);
+  v28 = [v26 persistWithError:&v32];
+  objc_storeStrong((v27 + 40), v32);
+
+  if ((v28 & 1) == 0)
+  {
+    if (qword_10039CD78 != -1)
+    {
+      sub_10025F674();
+    }
+
+    v29 = qword_10039CD80;
+    if (os_log_type_enabled(qword_10039CD80, OS_LOG_TYPE_ERROR))
+    {
+      v30 = *(*(*(a1 + 56) + 8) + 40);
+      *buf = 138412290;
+      v38 = v30;
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "failed to save consistency results: %@", buf, 0xCu);
+    }
+
+    v31 = [*(a1 + 32) dataStore];
+    [v31 reportCoreDataPersistEventForLocation:@"verifyConsistency" underlyingError:*(*(*(a1 + 56) + 8) + 40)];
+  }
+}
+
+void sub_100229A64(id a1)
+{
+  qword_10039CD80 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_100229AA8(id a1)
+{
+  qword_10039CD80 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_10022A2B0(id a1)
+{
+  qword_10039CD90 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_10022A47C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v18 - 80), 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_10022A4A8(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_10022A4C0(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  v42 = 0;
+  v3 = [v2 copyManagedObject:&v42];
+  v4 = v42;
+  if (!v3)
+  {
+    if (qword_10039CD88 != -1)
+    {
+      sub_10025F700();
+    }
+
+    v9 = qword_10039CD90;
+    if (os_log_type_enabled(qword_10039CD90, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v44 = v4;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "failed to find tree head after inclusion verification: %@", buf, 0xCu);
+    }
+
+    *(*(*(a1 + 48) + 8) + 24) = 0;
+    v10 = [SecXPCHelper cleanseErrorForXPC:v4];
+    v11 = *(*(a1 + 56) + 8);
+    v12 = *(v11 + 40);
+    *(v11 + 40) = v10;
+    v13 = v4;
+    goto LABEL_31;
+  }
+
+  [v3 setUnsigned:"inclusionVerified" value:*(a1 + 64)];
+  if (*(a1 + 64) != 1)
+  {
+    v5 = [*(a1 + 40) dataStore];
+    v6 = [v5 createSignedTreeHeadFailure];
+
+    v7 = *(a1 + 72);
+    if (v7 && *v7)
+    {
+      v8 = [*v7 code];
+    }
+
+    else
+    {
+      v8 = -120;
+    }
+
+    [v6 setErrorCode:v8];
+    v14 = *(a1 + 72);
+    if (v14 && *v14)
+    {
+      v15 = [*v14 domain];
+      [v6 setErrorDomain:v15];
+    }
+
+    else
+    {
+      [v6 setErrorDomain:kTransparencyErrorUnknown];
+    }
+
+    [v6 setSth:v3];
+    [v6 setVerificationType:1];
+    if (!*(a1 + 64))
+    {
+      v16 = [*(a1 + 40) dataStore];
+      v17 = [v3 application];
+      v18 = [*(a1 + 40) optInServer];
+      v19 = [v16 createFailureEvent:v4 application:v17 optInServer:v18];
+
+      [v3 setFailureEvent:v19];
+      v20 = [*(a1 + 40) optInServer];
+      v21 = [v20 getAggregateOptInState:0];
+
+      if (qword_10039CD88 != -1)
+      {
+        sub_10025F6B0();
+      }
+
+      v22 = qword_10039CD90;
+      if (os_log_type_enabled(qword_10039CD90, OS_LOG_TYPE_DEFAULT))
+      {
+        v23 = v22;
+        v24 = [v19 eventId];
+        *buf = 138543362;
+        v44 = v24;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Created failure eventId %{public}@ for STH inclusion validation", buf, 0xCu);
+      }
+
+      v25 = [*(a1 + 40) followUp];
+      v26 = [v3 application];
+      v27 = [v19 eventId];
+      [v25 postFollowup:v26 type:2 eventId:v27 errorCode:objc_msgSend(v4 optInState:"code") infoLink:v21 additionalInfo:0 error:{0, 0}];
+    }
+  }
+
+  v28 = [*(a1 + 40) dataStore];
+  v41 = v4;
+  v29 = [v28 persistWithError:&v41];
+  v13 = v41;
+
+  if ((v29 & 1) == 0)
+  {
+    if (qword_10039CD88 != -1)
+    {
+      sub_10025F6D8();
+    }
+
+    v30 = qword_10039CD90;
+    if (os_log_type_enabled(qword_10039CD90, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v44 = v13;
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "failed to save inclusion verification state to PAT head after TLT entry verification: %@", buf, 0xCu);
+    }
+
+    v31 = [*(a1 + 40) dataStore];
+    [v31 reportCoreDataPersistEventForLocation:@"verifyPatHeadInclusion" underlyingError:v13];
+
+    *(*(*(a1 + 48) + 8) + 24) = 0;
+    v32 = [SecXPCHelper cleanseErrorForXPC:v13];
+    v33 = *(*(a1 + 56) + 8);
+    v34 = *(v33 + 40);
+    *(v33 + 40) = v32;
+  }
+
+  Current = CFAbsoluteTimeGetCurrent();
+  [v3 receiptTime];
+  if (Current - v36 > 1.0)
+  {
+    v37 = CFAbsoluteTimeGetCurrent();
+    [v3 receiptTime];
+    v39 = v37 - v38;
+    v12 = +[TransparencyAnalytics logger];
+    v40 = [NSNumber numberWithDouble:v39];
+    [v12 logMetric:v40 withName:@"ktTLTInclusionProofTime"];
+
+LABEL_31:
+  }
+}
+
+void sub_10022A9C0(id a1)
+{
+  qword_10039CD90 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_10022AA04(id a1)
+{
+  qword_10039CD90 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_10022AA48(id a1)
+{
+  qword_10039CD90 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+id sub_10022AB58(uint64_t a1, void *a2, void *a3)
+{
+  if (+[TransparencyAnalytics hasInternalDiagnostics])
+  {
+    v6 = +[NSMutableDictionary dictionary];
+    v7 = [*(a1 + 32) metadata];
+    v8 = kTransparencyResponseMetadataKeyServerHint;
+    v9 = [v7 objectForKeyedSubscript:kTransparencyResponseMetadataKeyServerHint];
+
+    if (v9)
+    {
+      v10 = [*(a1 + 32) metadata];
+      v11 = [v10 objectForKeyedSubscript:v8];
+      [v6 setObject:v11 forKeyedSubscript:v8];
+    }
+
+    if ([v6 count])
+    {
+      v12 = v6;
+      *a3 = v6;
+    }
+  }
+
+  v13 = [*(a1 + 32) verifyWithError:a2];
+  if (v13 == 1)
+  {
+    v14 = [*(a1 + 32) nodeBytes];
+    v15 = [(TransparencyGPBMessage *)TopLevelTreeNode parseFromData:v14 error:a2];
+
+    if (v15)
+    {
+      if ([v15 hasPatHead])
+      {
+        v16 = [v15 patHead];
+        v17 = [v16 object];
+        v18 = [*(a1 + 40) logHead];
+        v19 = [v17 isEqualToData:v18];
+
+        if (v19)
+        {
+          v20 = 1;
+LABEL_36:
+          v23 = [*(a1 + 32) setInclusionResult:v20 signedLogHead:*(a1 + 40) error:a2];
+
+          return v23;
+        }
+      }
+
+      if (a2)
+      {
+        *a2 = [TransparencyError errorWithDomain:@"TransparencyErrorVerify" code:-63 description:@"top-level tree entry does not contain the SLH in the per-app tree entry"];
+      }
+
+      if (qword_10039CD88 != -1)
+      {
+        sub_10025F73C();
+      }
+
+      v24 = qword_10039CD90;
+      if (!os_log_type_enabled(qword_10039CD90, OS_LOG_TYPE_ERROR))
+      {
+LABEL_35:
+        v20 = 0;
+        goto LABEL_36;
+      }
+
+      *buf = 0;
+      v25 = "top-level tree entry does not contain the SLH in the per-app tree entry";
+      v26 = v24;
+      v27 = 2;
+    }
+
+    else
+    {
+      if (a2)
+      {
+        *a2 = [TransparencyError errorWithDomain:kTransparencyErrorDecode code:-141 underlyingError:*a2 description:?];
+      }
+
+      if (qword_10039CD88 != -1)
+      {
+        sub_10025F750();
+      }
+
+      v28 = qword_10039CD90;
+      if (!os_log_type_enabled(qword_10039CD90, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_35;
+      }
+
+      if (a2)
+      {
+        v29 = *a2;
+      }
+
+      else
+      {
+        v29 = 0;
+      }
+
+      *buf = 138412290;
+      v32 = v29;
+      v25 = "failed to decode top-level tree node: %@";
+      v26 = v28;
+      v27 = 12;
+    }
+
+    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, v25, buf, v27);
+    goto LABEL_35;
+  }
+
+  v21 = v13;
+  if (a2)
+  {
+    *a2 = [TransparencyError errorWithDomain:@"TransparencyErrorVerify" code:-14 underlyingError:*a2 description:@"top-level tree verification failed"];
+  }
+
+  if (qword_10039CD88 != -1)
+  {
+    sub_10025F728();
+  }
+
+  v22 = qword_10039CD90;
+  if (os_log_type_enabled(qword_10039CD90, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "top level tree verification failed", buf, 2u);
+  }
+
+  return [*(a1 + 32) setInclusionResult:v21 signedLogHead:*(a1 + 40) error:a2];
+}
+
+void sub_10022AF2C(id a1)
+{
+  qword_10039CD90 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_10022AF70(id a1)
+{
+  qword_10039CD90 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_10022AFB4(id a1)
+{
+  qword_10039CD90 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_10022B3E0(id a1)
+{
+  qword_10039CDA0 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_10022BA40(id a1)
+{
+  qword_10039CDB0 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_10022BA84(id a1)
+{
+  qword_10039CDB0 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_10022BE44(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  v17 = 0;
+  v3 = [v2 createManagedObjectWithError:&v17];
+  v4 = v17;
+  [v3 getUnsigned:"signatureVerified"];
+  [v3 setUnsigned:"signatureVerified" value:*(a1 + 40)];
+  [v3 setGossip:{objc_msgSend(*(a1 + 32), "gossip")}];
+  if (!*(a1 + 40))
+  {
+    v5 = [*(a1 + 32) dataStore];
+    v6 = [v5 createSignedTreeHeadFailure];
+
+    v7 = *(a1 + 48);
+    if (v7 && *v7)
+    {
+      v8 = [*v7 code];
+    }
+
+    else
+    {
+      v8 = -120;
+    }
+
+    [v6 setErrorCode:v8];
+    v9 = *(a1 + 48);
+    if (v9 && *v9)
+    {
+      v10 = [*v9 domain];
+      [v6 setErrorDomain:v10];
+    }
+
+    else
+    {
+      [v6 setErrorDomain:kTransparencyErrorUnknown];
+    }
+
+    [v6 setSth:v3];
+    [v6 setVerificationType:0];
+  }
+
+  v11 = [*(a1 + 32) dataStore];
+  v16 = v4;
+  v12 = [v11 persistWithError:&v16];
+  v13 = v16;
+
+  if ((v12 & 1) == 0)
+  {
+    if (qword_10039CDA8 != -1)
+    {
+      sub_10025F7B4();
+    }
+
+    v14 = qword_10039CDB0;
+    if (os_log_type_enabled(qword_10039CDB0, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v19 = v13;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "failed to save signature result for STH: %@", buf, 0xCu);
+    }
+
+    v15 = [*(a1 + 32) dataStore];
+    [v15 reportCoreDataPersistEventForLocation:@"verifySTHSignature" underlyingError:v13];
+  }
+}
+
+void sub_10022C07C(id a1)
+{
+  qword_10039CDB0 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+uint64_t sub_10022C1F4(uint64_t a1, uint64_t *a2)
+{
+  v4 = [*(a1 + 32) logHead];
+  v5 = [(TransparencyGPBMessage *)LogHead parseFromData:v4 error:a2];
+
+  if (![*(a1 + 32) hasSignature] || (objc_msgSend(*(a1 + 32), "signature"), v6 = objc_claimAutoreleasedReturnValue(), v6, !v6))
+  {
+    v37 = -27;
+    goto LABEL_24;
+  }
+
+  v7 = [*(a1 + 32) logHead];
+  if (!v7 || (v8 = v7, [*(a1 + 32) logHead], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "length"), v9, v8, !v10))
+  {
+    v37 = -26;
+    goto LABEL_24;
+  }
+
+  if (!v5)
+  {
+    v37 = -208;
+    goto LABEL_24;
+  }
+
+  v11 = [*(a1 + 32) signature];
+  v12 = [v11 signature];
+  if (!v12)
+  {
+    v37 = -46;
+LABEL_36:
+
+    goto LABEL_24;
+  }
+
+  v13 = v12;
+  v14 = [*(a1 + 32) signature];
+  v15 = [v14 signature];
+  v16 = [v15 length];
+
+  if (!v16)
+  {
+    v37 = -46;
+    goto LABEL_24;
+  }
+
+  v11 = [*(a1 + 32) signature];
+  v17 = [v11 signingKeySpkihash];
+  if (!v17)
+  {
+    v37 = -47;
+    goto LABEL_36;
+  }
+
+  v18 = v17;
+  v19 = [*(a1 + 32) signature];
+  v20 = [v19 signingKeySpkihash];
+  v21 = [v20 length];
+
+  if (v21)
+  {
+    v42 = [*(a1 + 32) verifier];
+    v22 = [*(a1 + 32) logHead];
+    v43 = [*(a1 + 32) signature];
+    v23 = [v43 signature];
+    v24 = [*(a1 + 32) signature];
+    v25 = [v24 signingKeySpkihash];
+    v26 = [*(a1 + 32) signature];
+    v44 = 0;
+    v27 = [v42 verifyMessage:v22 signature:v23 spkiHash:v25 algorithm:+[TransparencySignatureVerifier secKeyAlgorithmForProtoAlgorithm:](TransparencySignatureVerifier error:{"secKeyAlgorithmForProtoAlgorithm:", objc_msgSend(v26, "algorithm")), &v44}];
+    v28 = v44;
+
+    v29 = v27;
+    v30 = [TransparencyError hasUnknownSPKIHashError:v28];
+    if (v30)
+    {
+      v29 = 2;
+    }
+
+    if (a2 && v28)
+    {
+      v31 = v28;
+      *a2 = v28;
+    }
+
+    if (![*(a1 + 32) gossip] || v29)
+    {
+      [*(a1 + 32) storeSignatureResult:v29 signatureError:a2];
+      if (((v30 ^ 1) & v27 & 1) == 0)
+      {
+        if (a2)
+        {
+          *a2 = [TransparencyError errorWithDomain:@"TransparencyErrorVerify" code:-139 underlyingError:*a2 description:?];
+        }
+
+        if (qword_10039CDA8 != -1)
+        {
+          sub_10025F7DC();
+        }
+
+        v40 = qword_10039CDB0;
+        if (os_log_type_enabled(qword_10039CDB0, OS_LOG_TYPE_ERROR))
+        {
+          if (a2)
+          {
+            v41 = *a2;
+          }
+
+          else
+          {
+            v41 = 0;
+          }
+
+          *buf = 138412290;
+          v46 = v41;
+          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "Signed log head signature verification failed: %@", buf, 0xCu);
+        }
+      }
+    }
+
+    else
+    {
+      if (qword_10039CDA8 != -1)
+      {
+        sub_10025F804();
+      }
+
+      v32 = qword_10039CDB0;
+      if (os_log_type_enabled(qword_10039CDB0, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "gossiped signed log head failed signature validation, will not store result", buf, 2u);
+      }
+
+      v33 = [TransparencyError errorWithDomain:@"TransparencyErrorVerify" code:-139 underlyingError:*a2 description:?];
+      v34 = [TransparencyAnalytics formatEventName:@"GossipSignatureVerificationFailed" application:kKTApplicationIdentifierTLT];
+      v35 = +[TransparencyAnalytics logger];
+      [v35 logResultForEvent:v34 hardFailure:1 result:v33];
+
+      v36 = v33;
+      *a2 = v33;
+    }
+
+    goto LABEL_31;
+  }
+
+  v37 = -47;
+LABEL_24:
+  if (a2)
+  {
+    *a2 = [TransparencyError errorWithDomain:kTransparencyErrorDecode code:v37 underlyingError:*a2 description:@"SLH missing data required for verification"];
+  }
+
+  if (qword_10039CDA8 != -1)
+  {
+    sub_10025F82C();
+  }
+
+  v38 = qword_10039CDB0;
+  if (os_log_type_enabled(qword_10039CDB0, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 134217984;
+    v46 = v37;
+    _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "SLH missing data required for verification: %ld", buf, 0xCu);
+  }
+
+  v29 = 0;
+LABEL_31:
+
+  return v29;
+}
+
+void sub_10022C76C(id a1)
+{
+  qword_10039CDB0 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_10022C7B0(id a1)
+{
+  qword_10039CDB0 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_10022C7F4(id a1)
+{
+  qword_10039CDB0 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_10022D268(id a1)
+{
+  qword_10039CDC0 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_10022D2AC(id a1)
+{
+  qword_10039CDC0 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+uint64_t sub_10022D424(uint64_t a1, uint64_t *a2)
+{
+  v4 = [*(a1 + 32) mapHead];
+  v5 = [(TransparencyGPBMessage *)MapHead parseFromData:v4 error:a2];
+
+  if (![*(a1 + 32) hasSignature] || (objc_msgSend(*(a1 + 32), "signature"), v6 = objc_claimAutoreleasedReturnValue(), v6, !v6))
+  {
+    v41 = -22;
+    goto LABEL_36;
+  }
+
+  v7 = [*(a1 + 32) mapHead];
+  if (!v7 || (v8 = v7, [*(a1 + 32) mapHead], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "length"), v9, v8, !v10))
+  {
+    v41 = -21;
+    goto LABEL_36;
+  }
+
+  v11 = [*(a1 + 32) signature];
+  v12 = [v11 signature];
+  if (!v12)
+  {
+    v41 = -51;
+LABEL_35:
+
+    goto LABEL_36;
+  }
+
+  v13 = v12;
+  v14 = [*(a1 + 32) signature];
+  v15 = [v14 signature];
+  v16 = [v15 length];
+
+  if (!v16)
+  {
+    v41 = -51;
+    goto LABEL_36;
+  }
+
+  v11 = [*(a1 + 32) signature];
+  v17 = [v11 signingKeySpkihash];
+  if (!v17)
+  {
+    v41 = -52;
+    goto LABEL_35;
+  }
+
+  v18 = v17;
+  v19 = [*(a1 + 32) signature];
+  v20 = [v19 signingKeySpkihash];
+  v21 = [v20 length];
+
+  if (v21)
+  {
+    if (v5)
+    {
+      v22 = [v5 mapHeadHash];
+      if (v22 && (v23 = v22, [v5 mapHeadHash], v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "length"), v24, v23, v25))
+      {
+        if ([v5 application] && objc_msgSend(v5, "application"))
+        {
+          if ([v5 hasChangeLogHead] && (objc_msgSend(v5, "changeLogHead"), v26 = objc_claimAutoreleasedReturnValue(), v26, v26))
+          {
+            if ([v5 timestampMs])
+            {
+              v27 = [*(a1 + 32) verifier];
+              v28 = [*(a1 + 32) mapHead];
+              v44 = [*(a1 + 32) signature];
+              v29 = [v44 signature];
+              v30 = [*(a1 + 32) signature];
+              v31 = [v30 signingKeySpkihash];
+              v32 = [*(a1 + 32) signature];
+              v45 = 0;
+              v33 = v28;
+              v34 = [v27 verifyMessage:v28 signature:v29 spkiHash:v31 algorithm:+[TransparencySignatureVerifier secKeyAlgorithmForProtoAlgorithm:](TransparencySignatureVerifier error:{"secKeyAlgorithmForProtoAlgorithm:", objc_msgSend(v32, "algorithm")), &v45}];
+              v35 = v45;
+
+              v36 = v34;
+              v37 = [TransparencyError hasUnknownSPKIHashError:v35];
+              if (v37)
+              {
+                v36 = 2;
+              }
+
+              if (a2 && v35)
+              {
+                v38 = v35;
+                *a2 = v35;
+              }
+
+              if (((v37 ^ 1) & v34 & 1) == 0)
+              {
+                if (a2)
+                {
+                  *a2 = [TransparencyError errorWithDomain:@"TransparencyErrorVerify" code:-138 underlyingError:*a2 description:?];
+                }
+
+                if (qword_10039CDB8 != -1)
+                {
+                  sub_10025F87C();
+                }
+
+                v39 = qword_10039CDC0;
+                if (os_log_type_enabled(qword_10039CDC0, OS_LOG_TYPE_ERROR))
+                {
+                  if (a2)
+                  {
+                    v40 = *a2;
+                  }
+
+                  else
+                  {
+                    v40 = 0;
+                  }
+
+                  *buf = 138412290;
+                  v47 = v40;
+                  _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "SMH signature verification failed: %@", buf, 0xCu);
+                }
+              }
+
+              goto LABEL_43;
+            }
+
+            v41 = -227;
+          }
+
+          else
+          {
+            v41 = -25;
+          }
+        }
+
+        else
+        {
+          v41 = -24;
+        }
+      }
+
+      else
+      {
+        v41 = -23;
+      }
+    }
+
+    else
+    {
+      v41 = -207;
+    }
+  }
+
+  else
+  {
+    v41 = -52;
+  }
+
+LABEL_36:
+  if (a2)
+  {
+    *a2 = [TransparencyError errorWithDomain:kTransparencyErrorDecode code:v41 underlyingError:*a2 description:@"SMH missing data required for verification"];
+  }
+
+  if (qword_10039CDB8 != -1)
+  {
+    sub_10025F8A4();
+  }
+
+  v42 = qword_10039CDC0;
+  if (os_log_type_enabled(qword_10039CDC0, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 134217984;
+    v47 = v41;
+    _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, "SMH missing data required for verification: %ld", buf, 0xCu);
+  }
+
+  v36 = 0;
+LABEL_43:
+
+  return v36;
+}
+
+void sub_10022D930(id a1)
+{
+  qword_10039CDC0 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_10022D974(id a1)
+{
+  qword_10039CDC0 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+void sub_10022DA74(uint64_t a1)
+{
+  v2 = [*(a1 + 32) copyManagedObject:0];
+  if (v2)
+  {
+    v3 = [*(a1 + 32) dataStore];
+    [v3 onMocSetMapHead:v2 mmdResult:*(a1 + 48) mmdError:*(a1 + 40)];
+
+    v4 = [*(a1 + 32) dataStore];
+    v9 = 0;
+    v5 = [v4 persistWithError:&v9];
+    v6 = v9;
+
+    if ((v5 & 1) == 0)
+    {
+      if (qword_10039CDB8 != -1)
+      {
+        sub_10025F8B8();
+      }
+
+      v7 = qword_10039CDC0;
+      if (os_log_type_enabled(qword_10039CDC0, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        v11 = v6;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "failed to save inclusion state for map head: %@", buf, 0xCu);
+      }
+
+      v8 = [*(a1 + 32) dataStore];
+      [v8 reportCoreDataPersistEventForLocation:@"mapHeadMMDState" underlyingError:v6];
+    }
+  }
+}
+
+void sub_10022DBD0(id a1)
+{
+  qword_10039CDC0 = os_log_create("com.apple.Transparency", "default");
+
+  _objc_release_x1();
+}
+
+uint64_t sub_10022DDA8(uint64_t a1, void *a2)
+{
+  v4 = [*(a1 + 32) mapHead];
+  v5 = [(TransparencyGPBMessage *)MapHead parseFromData:v4 error:a2];
+
+  v6 = [NSDate dateWithTimeIntervalSinceReferenceDate:*(a1 + 40)];
+  [v6 timeIntervalSince1970];
+  v8 = (v7 * 1000.0);
+
+  v9 = [v5 timestampMs];
+  if (v9 + kKTMaximumMergeDelayMs >= v8)
+  {
+    if (qword_10039CDB8 != -1)
+    {
+      sub_10025F8E0();
+    }
+
+    v15 = qword_10039CDC0;
+    if (os_log_type_enabled(qword_10039CDC0, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "SMH MMD verified", buf, 2u);
+    }
+
+    v16 = *(a1 + 32);
+    v14 = 1;
+    [v16 setMMDVerifiedForMapHead:1 mmdError:0];
+  }
+
+  else
+  {
+    if (qword_10039CDB8 != -1)
+    {
+      sub_10025F8F4();
+    }
+
+    v10 = qword_10039CDC0;
+    if (os_log_type_enabled(qword_10039CDC0, OS_LOG_TYPE_ERROR))
+    {
+      v11 = v10;
+      *buf = 134217984;
+      v19 = [v5 timestampMs];
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "SMH timestamp exceeds MMD: %lld", buf, 0xCu);
+    }
+
+    v12 = +[TransparencyError errorWithDomain:code:underlyingError:description:](TransparencyError, "errorWithDomain:code:underlyingError:description:", @"TransparencyErrorVerify", -228, *a2, @"SMH timestamp exceeds MMD: %lld", [v5 timestampMs]);
+    [*(a1 + 32) setMMDVerifiedForMapHead:0 mmdError:v12];
+    if (v12)
+    {
+      v13 = v12;
+      *a2 = v12;
+    }
+
+    v14 = 0;
+  }
+
+  return v14;
 }

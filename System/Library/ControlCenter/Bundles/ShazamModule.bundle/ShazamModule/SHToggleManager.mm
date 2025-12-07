@@ -30,7 +30,7 @@
 
 - (void)toggleRecognitionState
 {
-  v11[1] = *MEMORY[0x29EDCA608];
+  v10[1] = *MEMORY[0x29EDCA608];
   [(SHToggleManager *)self setToggleState:[(SHToggleManager *)self isToggleOn]];
   if ([(SHToggleManager *)self isToggleOn])
   {
@@ -47,16 +47,14 @@
 
   v4 = MEMORY[0x29EDC66B0];
   v5 = *MEMORY[0x29EDC66C0];
-  v10 = *MEMORY[0x29EDC66C8];
+  v9 = *MEMORY[0x29EDC66C8];
   v6 = [MEMORY[0x29EDBA070] numberWithBool:{-[SHToggleManager isToggleOn](self, "isToggleOn")}];
-  v11[0] = v6;
-  v7 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v6;
+  v7 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   [v4 sendEvent:v5 withPayload:v7];
 
   delegate = [(SHToggleManager *)self delegate];
   [delegate toggleManager:self didToggleToState:{-[SHToggleManager toggleState](self, "toggleState")}];
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 - (void)toggleToState:(int64_t)state
@@ -127,37 +125,35 @@
 
 - (void)session:(id)session didFindMatch:(id)match
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   matchCopy = match;
   v6 = shcore_log_object();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v8 = 138412290;
-    v9 = matchCopy;
-    _os_log_impl(&dword_29C9E7000, v6, OS_LOG_TYPE_DEBUG, "SHToggleManager session didFindMatch %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = matchCopy;
+    _os_log_impl(&dword_29C9E7000, v6, OS_LOG_TYPE_DEBUG, "SHToggleManager session didFindMatch %@", &v7, 0xCu);
   }
 
   [(SHToggleManager *)self recognitionDidFinish];
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 - (void)session:(id)session didNotFindMatchForSignature:(id)signature error:(id)error
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   signatureCopy = signature;
   errorCopy = error;
   v9 = shcore_log_object();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 138412546;
-    v12 = signatureCopy;
-    v13 = 2112;
-    v14 = errorCopy;
-    _os_log_impl(&dword_29C9E7000, v9, OS_LOG_TYPE_DEBUG, "SHToggleManager session didNotFindMatchForSignature %@ error %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = signatureCopy;
+    v12 = 2112;
+    v13 = errorCopy;
+    _os_log_impl(&dword_29C9E7000, v9, OS_LOG_TYPE_DEBUG, "SHToggleManager session didNotFindMatchForSignature %@ error %@", &v10, 0x16u);
   }
 
   [(SHToggleManager *)self recognitionDidFinish];
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 - (void)finishedManagedSession:(id)session

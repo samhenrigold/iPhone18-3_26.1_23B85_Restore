@@ -298,7 +298,7 @@ LABEL_17:
 
 void __27__FCAVAsset_contentArchive__block_invoke(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   if (v4)
@@ -317,10 +317,10 @@ void __27__FCAVAsset_contentArchive__block_invoke(uint64_t a1, void *a2)
   v8 = [WeakRetained contentArchiveForAssetIdentifier:v7];
   [v3 fc_safelyAddObject:v8];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v9 = *(a1 + 32);
   if (v9)
   {
@@ -337,22 +337,22 @@ void __27__FCAVAsset_contentArchive__block_invoke(uint64_t a1, void *a2)
   v12 = [v11 identifier];
   v13 = [v10 contentKeyIdentifiersForAssetIdentifier:v12];
 
-  v14 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v27;
+    v16 = *v26;
     do
     {
       v17 = 0;
       do
       {
-        if (*v27 != v16)
+        if (*v26 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v26 + 1) + 8 * v17);
+        v18 = *(*(&v25 + 1) + 8 * v17);
         v19 = *(a1 + 32);
         if (v19)
         {
@@ -374,23 +374,21 @@ void __27__FCAVAsset_contentArchive__block_invoke(uint64_t a1, void *a2)
       }
 
       while (v15 != v17);
-      v24 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v24 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
       v15 = v24;
     }
 
     while (v24);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (FCContentManifest)contentManifest
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v3 = [FCContentManifest alloc];
   identifier = [(FCAVAsset *)self identifier];
-  v12[0] = identifier;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[0] = identifier;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   if (self)
   {
     WeakRetained = objc_loadWeakRetained(&self->_assetCache);
@@ -404,8 +402,6 @@ void __27__FCAVAsset_contentArchive__block_invoke(uint64_t a1, void *a2)
   identifier2 = [(FCAVAsset *)self identifier];
   v8 = [WeakRetained contentKeyIdentifiersForAssetIdentifier:identifier2];
   v9 = [(FCContentManifest *)v3 initWithAVAssetIDs:v5 avAssetKeyIDs:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

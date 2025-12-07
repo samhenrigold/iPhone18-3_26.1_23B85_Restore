@@ -228,7 +228,7 @@
 
 - (CGPath)path
 {
-  [(CRNormalizedPolyline *)self _pathRef];
+  objc_msgSend__pathRef(self, a2);
   if (v8)
   {
     CFRelease(v8);
@@ -250,7 +250,7 @@
     }
   }
 
-  [(CRNormalizedPolyline *)self _pathRef];
+  objc_msgSend__pathRef(self);
   v4 = v8;
   if (v8)
   {

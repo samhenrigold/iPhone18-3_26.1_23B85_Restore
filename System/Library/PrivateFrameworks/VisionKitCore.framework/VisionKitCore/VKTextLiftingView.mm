@@ -150,7 +150,7 @@
   v10 = v9;
   _imageView = [(VKTextLiftingView *)self _imageView];
   [_imageView setCenter:{VKMCenterOfRect(v4, v6, v8, v10)}];
-  [(VKTextLiftingView *)self _imageTransformInBounds:v4, v6, v8, v10];
+  objc_msgSend__imageTransformInBounds_(self, v4, v6, v8, v10);
   v12[0] = v12[3];
   v12[1] = v12[4];
   v12[2] = v12[5];
@@ -340,7 +340,7 @@ void __41__VKTextLiftingView_performLiftAnimation__block_invoke_2(uint64_t a1)
         [v7 _contentBounds];
         if (v7)
         {
-          [v7 _imageTransformInBounds:?];
+          objc_msgSend__imageTransformInBounds_(v7);
         }
 
         else
@@ -502,8 +502,7 @@ void __50__VKTextLiftingView_fadeOutAndRemoveFromSuperview__block_invoke_2(uint6
     {
       [imageInteraction setActionInfoLiveTextButtonDisabled:1];
       [imageInteraction setActionInfoViewHidden:0];
-      v5 = [imageInteraction setDeriveQuickActionsVisibilityFromState:0];
-      [imageInteraction setWantsTranslucentActionInfoButtons:{vk_solariumEnabled(v5, v6)}];
+      [imageInteraction setWantsTranslucentActionInfoButtons:{vk_solariumEnabled(objc_msgSend(imageInteraction, "setDeriveQuickActionsVisibilityFromState:", 0))}];
       [(VKTextLiftingView *)self preferredQuickActionButtonHeight];
       [imageInteraction setPreferredQuickActionButtonHeight:?];
     }

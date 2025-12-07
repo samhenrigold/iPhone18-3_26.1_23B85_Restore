@@ -8,7 +8,7 @@
 + (uint64_t)runTaskWithLaunchPath:()WiFiVelocity arguments:reply:;
 + (uint64_t)runTaskWithLaunchPath:()WiFiVelocity arguments:timeout:outputData:errorData:launchHandler:reply:;
 + (uint64_t)runTaskWithLaunchPath:()WiFiVelocity arguments:timeout:outputFileHandle:errorFileHandle:launchHandler:reply:;
-+ (uint64_t)runTaskWithLaunchPath:()WiFiVelocity arguments:timeout:outputFilePath:errorFilePath:redirectErrorToOutput:launchHandler:reply:;
++ (void)runTaskWithLaunchPath:()WiFiVelocity arguments:timeout:outputFilePath:errorFilePath:redirectErrorToOutput:launchHandler:reply:;
 + (void)runTaskWithLaunchPath:()WiFiVelocity arguments:timeout:startBlock:updateBlock:endBlock:;
 @end
 
@@ -66,9 +66,9 @@
   return [MEMORY[0x277CCACB0] runTaskWithLaunchPath:a3 arguments:a4 timeout:a5 outputFilePath:0 errorFilePath:0 redirectErrorToOutput:0 launchHandler:10.0 reply:v7];
 }
 
-+ (uint64_t)runTaskWithLaunchPath:()WiFiVelocity arguments:timeout:outputFilePath:errorFilePath:redirectErrorToOutput:launchHandler:reply:
++ (void)runTaskWithLaunchPath:()WiFiVelocity arguments:timeout:outputFilePath:errorFilePath:redirectErrorToOutput:launchHandler:reply:
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   if (a6 | a7)
   {
     v16 = a6;
@@ -92,24 +92,22 @@
       OSLog = W5GetOSLog();
       if (os_log_type_enabled(OSLog, OS_LOG_TYPE_DEFAULT))
       {
-        v35 = 136316162;
-        v36 = "+[NSTask(WiFiVelocity) runTaskWithLaunchPath:arguments:timeout:outputFilePath:errorFilePath:redirectErrorToOutput:launchHandler:reply:]";
-        v37 = 2080;
-        v38 = "W5TaskUtil.m";
-        v39 = 1024;
-        v40 = 146;
-        v41 = 2114;
+        v32 = 136316162;
+        v33 = "+[NSTask(WiFiVelocity) runTaskWithLaunchPath:arguments:timeout:outputFilePath:errorFilePath:redirectErrorToOutput:launchHandler:reply:]";
+        v34 = 2080;
+        v35 = "W5TaskUtil.m";
+        v36 = 1024;
+        v37 = 146;
+        v38 = 2114;
         lastPathComponent = [a4 lastPathComponent];
-        v43 = 2114;
-        v44 = v16;
-        LODWORD(v29) = 48;
-        v28 = &v35;
-        _os_log_send_and_compose_impl();
+        v40 = 2114;
+        v41 = v16;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, OSLog, 0, "[wifivelocity] %s (%s:%u) <%{public}@> FAILED to create file handle for output path '%{public}@'", &v32, 48);
       }
 
-      v33 = *MEMORY[0x277CCA470];
-      v34 = @"W5ResourceErr";
-      v16 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.wifivelocity.error" code:7 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v34, &v33, 1, v28, v29)}];
+      v30 = *MEMORY[0x277CCA470];
+      v31 = @"W5ResourceErr";
+      v16 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.wifivelocity.error" code:7 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v31, &v30, 1)}];
     }
 
     v18 = 0;
@@ -121,80 +119,75 @@
 LABEL_13:
     [objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")];
     [objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")];
-    v23 = [MEMORY[0x277CCA9F8] fileHandleForUpdatingAtPath:a7];
-    if (v23)
+    v22 = [MEMORY[0x277CCA9F8] fileHandleForUpdatingAtPath:a7];
+    if (v22)
     {
       if (!v16)
       {
 LABEL_21:
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __135__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_outputFilePath_errorFilePath_redirectErrorToOutput_launchHandler_reply___block_invoke;
-        v30[3] = &unk_279ECD278;
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __135__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_outputFilePath_errorFilePath_redirectErrorToOutput_launchHandler_reply___block_invoke;
+        v27[3] = &unk_279ECD278;
         if (a8)
         {
-          v26 = v18;
+          v25 = v18;
         }
 
         else
         {
-          v26 = v23;
+          v25 = v22;
         }
 
-        v30[4] = v18;
-        v30[5] = v23;
-        v30[6] = a10;
-        result = [MEMORY[0x277CCACB0] runTaskWithLaunchPath:a4 arguments:a5 timeout:v18 outputFileHandle:v26 errorFileHandle:a9 launchHandler:v30 reply:self];
-LABEL_25:
-        v27 = *MEMORY[0x277D85DE8];
-        return result;
+        v27[4] = v18;
+        v27[5] = v22;
+        v27[6] = a10;
+        return [MEMORY[0x277CCACB0] runTaskWithLaunchPath:a4 arguments:a5 timeout:v18 outputFileHandle:v25 errorFileHandle:a9 launchHandler:v27 reply:self];
       }
 
-LABEL_15:
-      [v18 closeFile];
-      result = [v23 closeFile];
-      if (a10)
-      {
-        result = (*(a10 + 16))(a10, v16, 0);
-      }
-
-      goto LABEL_25;
+      goto LABEL_15;
     }
 
-    v24 = W5GetOSLog();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v23 = W5GetOSLog();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       lastPathComponent2 = [a4 lastPathComponent];
-      v35 = 136316162;
-      v36 = "+[NSTask(WiFiVelocity) runTaskWithLaunchPath:arguments:timeout:outputFilePath:errorFilePath:redirectErrorToOutput:launchHandler:reply:]";
-      v37 = 2080;
-      v38 = "W5TaskUtil.m";
-      v39 = 1024;
-      v40 = 160;
-      v41 = 2114;
+      v32 = 136316162;
+      v33 = "+[NSTask(WiFiVelocity) runTaskWithLaunchPath:arguments:timeout:outputFilePath:errorFilePath:redirectErrorToOutput:launchHandler:reply:]";
+      v34 = 2080;
+      v35 = "W5TaskUtil.m";
+      v36 = 1024;
+      v37 = 160;
+      v38 = 2114;
       lastPathComponent = lastPathComponent2;
-      v43 = 2114;
-      v44 = a7;
-      LODWORD(v29) = 48;
-      v28 = &v35;
-      _os_log_send_and_compose_impl();
+      v40 = 2114;
+      v41 = a7;
+      LODWORD(v26) = 48;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, v23, 0, "[wifivelocity] %s (%s:%u) <%{public}@> FAILED to create file handle for error path '%{public}@'", &v32, v26);
     }
 
-    v31 = *MEMORY[0x277CCA470];
-    v32 = @"W5ResourceErr";
-    v16 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.wifivelocity.error" code:7 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v32, &v31, 1, v28, v29)}];
+    v28 = *MEMORY[0x277CCA470];
+    v29 = @"W5ResourceErr";
+    v16 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.wifivelocity.error" code:7 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v29, &v28, 1)}];
 LABEL_20:
-    v23 = 0;
+    v22 = 0;
     if (!v16)
     {
       goto LABEL_21;
     }
 
-    goto LABEL_15;
+LABEL_15:
+    [v18 closeFile];
+    result = [v22 closeFile];
+    if (a10)
+    {
+      return (*(a10 + 16))(a10, v16, 0);
+    }
+
+    return result;
   }
 
   v19 = MEMORY[0x277CCACB0];
-  v20 = *MEMORY[0x277D85DE8];
 
   return [v19 runTaskWithLaunchPath:a4 arguments:a5 timeout:0 outputData:0 errorData:a9 launchHandler:a10 reply:?];
 }
@@ -245,50 +238,50 @@ LABEL_20:
 
 + (void)runTaskWithLaunchPath:()WiFiVelocity arguments:timeout:startBlock:updateBlock:endBlock:
 {
-  v99[1] = *MEMORY[0x277D85DE8];
+  v98[1] = *MEMORY[0x277D85DE8];
   v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.wifivelocity.task.%@", objc_msgSend(a4, "lastPathComponent")];
-  v76[0] = 0;
-  v76[1] = v76;
-  v76[2] = 0x3052000000;
-  v76[3] = __Block_byref_object_copy_;
-  v76[4] = __Block_byref_object_dispose_;
+  v75[0] = 0;
+  v75[1] = v75;
+  v75[2] = 0x3052000000;
+  v75[3] = __Block_byref_object_copy_;
+  v75[4] = __Block_byref_object_dispose_;
   [v13 UTF8String];
   v14 = os_transaction_create();
   [+[W5ActivityManager sharedActivityManager](W5ActivityManager "sharedActivityManager")];
-  v76[5] = v14;
-  v74[0] = 0;
-  v74[1] = v74;
-  v74[2] = 0x2020000000;
-  v75 = 0;
-  v72[0] = 0;
-  v72[1] = v72;
-  v72[2] = 0x2020000000;
-  v73 = 0;
-  v66 = 0;
-  v67 = &v66;
-  v68 = 0x3052000000;
-  v69 = __Block_byref_object_copy_;
-  v70 = __Block_byref_object_dispose_;
-  v71 = 0;
+  v75[5] = v14;
+  v73[0] = 0;
+  v73[1] = v73;
+  v73[2] = 0x2020000000;
+  v74 = 0;
+  v71[0] = 0;
+  v71[1] = v71;
+  v71[2] = 0x2020000000;
+  v72 = 0;
+  v65 = 0;
+  v66 = &v65;
+  v67 = 0x3052000000;
+  v68 = __Block_byref_object_copy_;
+  v69 = __Block_byref_object_dispose_;
+  v70 = 0;
   v15 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
   v16 = "op Discoverable Mode: %@\n";
   identifier = dispatch_queue_create(0, v15);
   if (!identifier)
   {
-    v37 = MEMORY[0x277CCA9B8];
-    v98 = *MEMORY[0x277CCA470];
-    v99[0] = @"W5NoMemErr";
-    v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v99 forKeys:&v98 count:1];
-    v38 = 2;
-LABEL_33:
-    v42 = [v37 errorWithDomain:@"com.apple.wifivelocity.error" code:v38 userInfo:v39];
+    v36 = MEMORY[0x277CCA9B8];
+    v97 = *MEMORY[0x277CCA470];
+    v98[0] = @"W5NoMemErr";
+    v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v98 forKeys:&v97 count:1];
+    v37 = 2;
+LABEL_32:
+    v41 = [v36 errorWithDomain:@"com.apple.wifivelocity.error" code:v37 userInfo:v38];
     v26 = 0;
     v24 = 0;
-    v52 = 0;
+    v51 = 0;
     v21 = 0;
     v30 = 0;
-    v55 = 0;
-    goto LABEL_34;
+    v54 = 0;
+    goto LABEL_33;
   }
 
   firstObject = a4;
@@ -303,16 +296,16 @@ LABEL_33:
     {
       uTF8String = [firstObject UTF8String];
       *buf = 136446210;
-      v84 = uTF8String;
+      v83 = uTF8String;
       _os_log_error_impl(&dword_274216000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[wifivelocity] '%{public}s' not allowed on non-internal install variants, will not run task", buf, 0xCu);
     }
 
-    v37 = MEMORY[0x277CCA9B8];
-    v96 = *MEMORY[0x277CCA470];
-    v97 = @"W5NotPermittedErr";
-    v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v97 forKeys:&v96 count:1];
-    v38 = 5;
-    goto LABEL_33;
+    v36 = MEMORY[0x277CCA9B8];
+    v95 = *MEMORY[0x277CCA470];
+    v96 = @"W5NotPermittedErr";
+    v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v96 forKeys:&v95 count:1];
+    v37 = 5;
+    goto LABEL_32;
   }
 
   if (!a4 || ([objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")] & 1) == 0)
@@ -321,111 +314,110 @@ LABEL_33:
     {
       uTF8String2 = [a4 UTF8String];
       *buf = 136446210;
-      v84 = uTF8String2;
+      v83 = uTF8String2;
       _os_log_error_impl(&dword_274216000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[wifivelocity] '%{public}s' does not exist, will not run task", buf, 0xCu);
     }
 
-    v37 = MEMORY[0x277CCA9B8];
-    v94 = *MEMORY[0x277CCA470];
-    v95 = @"W5ParamErr";
-    v38 = 1;
-    v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
-    goto LABEL_33;
+    v36 = MEMORY[0x277CCA9B8];
+    v93 = *MEMORY[0x277CCA470];
+    v94 = @"W5ParamErr";
+    v37 = 1;
+    v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
+    goto LABEL_32;
   }
 
-  v55 = objc_alloc_init(MEMORY[0x277CCACB0]);
-  [v55 setLaunchPath:a4];
+  v54 = objc_alloc_init(MEMORY[0x277CCACB0]);
+  [v54 setLaunchPath:a4];
   if (a5)
   {
-    [v55 setArguments:a5];
+    [v54 setArguments:a5];
   }
 
-  *v65 = 0;
+  *v64 = 0;
   handle = 0;
-  memset(&v93, 0, sizeof(v93));
-  v18 = openpty(&v65[1], v65, 0, &v93, 0);
+  memset(&v92, 0, sizeof(v92));
+  v18 = openpty(&v64[1], v64, 0, &v92, 0);
   if (v18)
   {
-    v40 = MEMORY[0x277CCA9B8];
-    v91 = *MEMORY[0x277CCA470];
-    v92 = @"err";
-    v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v92 forKeys:&v91 count:1];
-    v42 = [v40 errorWithDomain:*MEMORY[0x277CCA5B8] code:v18 userInfo:v41];
+    v39 = MEMORY[0x277CCA9B8];
+    v90 = *MEMORY[0x277CCA470];
+    v91 = @"err";
+    v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v91 forKeys:&v90 count:1];
+    v41 = [v39 errorWithDomain:*MEMORY[0x277CCA5B8] code:v18 userInfo:v40];
     OSLog = W5GetOSLog();
     if (os_log_type_enabled(OSLog, OS_LOG_TYPE_DEFAULT))
     {
-      v44 = *__error();
+      v43 = *__error();
       *buf = 136315906;
-      v84 = "+[NSTask(WiFiVelocity) runTaskWithLaunchPath:arguments:timeout:startBlock:updateBlock:endBlock:]";
-      v85 = 2080;
-      v86 = "W5TaskUtil.m";
-      v87 = 1024;
-      v88 = 335;
-      v89 = 1024;
-      v90 = v44;
-LABEL_25:
-      _os_log_send_and_compose_impl();
+      v83 = "+[NSTask(WiFiVelocity) runTaskWithLaunchPath:arguments:timeout:startBlock:updateBlock:endBlock:]";
+      v84 = 2080;
+      v85 = "W5TaskUtil.m";
+      v86 = 1024;
+      v87 = 335;
+      v88 = 1024;
+      v89 = v43;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, OSLog, 0, "[wifivelocity] %s (%s:%u) Failed to open pseduo-terminal for stdout, returned error %d", buf, 34);
     }
 
-LABEL_26:
-    v26 = 0;
-    v24 = 0;
-    v52 = 0;
-    v21 = 0;
-LABEL_28:
-    v30 = 0;
-    goto LABEL_34;
+    goto LABEL_25;
   }
 
-  memset(&v93, 0, sizeof(v93));
-  v19 = openpty(&handle + 1, &handle, 0, &v93, 0);
+  memset(&v92, 0, sizeof(v92));
+  v19 = openpty(&handle + 1, &handle, 0, &v92, 0);
   if (v19)
   {
-    v45 = MEMORY[0x277CCA9B8];
-    v81 = *MEMORY[0x277CCA470];
-    v82 = @"err";
-    v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
-    v42 = [v45 errorWithDomain:*MEMORY[0x277CCA5B8] code:v19 userInfo:v46];
-    v47 = W5GetOSLog();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    v44 = MEMORY[0x277CCA9B8];
+    v80 = *MEMORY[0x277CCA470];
+    v81 = @"err";
+    v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
+    v41 = [v44 errorWithDomain:*MEMORY[0x277CCA5B8] code:v19 userInfo:v45];
+    v46 = W5GetOSLog();
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
     {
-      v48 = *__error();
+      v47 = *__error();
       *buf = 136315906;
-      v84 = "+[NSTask(WiFiVelocity) runTaskWithLaunchPath:arguments:timeout:startBlock:updateBlock:endBlock:]";
-      v85 = 2080;
-      v86 = "W5TaskUtil.m";
-      v87 = 1024;
-      v88 = 339;
-      v89 = 1024;
-      v90 = v48;
-      goto LABEL_25;
+      v83 = "+[NSTask(WiFiVelocity) runTaskWithLaunchPath:arguments:timeout:startBlock:updateBlock:endBlock:]";
+      v84 = 2080;
+      v85 = "W5TaskUtil.m";
+      v86 = 1024;
+      v87 = 339;
+      v88 = 1024;
+      v89 = v47;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, v46, 0, "[wifivelocity] %s (%s:%u) Failed to open pseduo-terminal for stderr, returned error %d", buf, 34);
     }
 
-    goto LABEL_26;
+LABEL_25:
+    v26 = 0;
+    v24 = 0;
+    v51 = 0;
+    v21 = 0;
+LABEL_27:
+    v30 = 0;
+    goto LABEL_33;
   }
 
   v20 = objc_alloc(MEMORY[0x277CCA9F8]);
-  v21 = [v20 initWithFileDescriptor:v65[1] closeOnDealloc:1];
+  v21 = [v20 initWithFileDescriptor:v64[1] closeOnDealloc:1];
   v22 = objc_alloc(MEMORY[0x277CCA9F8]);
-  v52 = [v22 initWithFileDescriptor:v65[0] closeOnDealloc:1];
+  v51 = [v22 initWithFileDescriptor:v64[0] closeOnDealloc:1];
   v23 = objc_alloc(MEMORY[0x277CCA9F8]);
   v24 = [v23 initWithFileDescriptor:HIDWORD(handle) closeOnDealloc:1];
   v25 = objc_alloc(MEMORY[0x277CCA9F8]);
   v26 = [v25 initWithFileDescriptor:handle closeOnDealloc:1];
-  [v55 setStandardOutput:v52];
-  [v55 setStandardError:v26];
-  [v55 setStandardInput:0];
-  fcntl(v65[1], 4, 4);
+  [v54 setStandardOutput:v51];
+  [v54 setStandardError:v26];
+  [v54 setStandardInput:0];
+  fcntl(v64[1], 4, 4);
   fcntl(SHIDWORD(handle), 4, 4);
-  v27 = v65[1];
+  v27 = v64[1];
   global_queue = dispatch_get_global_queue(0, 0);
   v29 = dispatch_source_create(MEMORY[0x277D85D28], v27, 0, global_queue);
   if (!v29)
   {
-    v79 = *MEMORY[0x277CCA470];
-    v80 = @"W5NoMemErr";
-    v42 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.wifivelocity.error" code:2 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v80, &v79, 1)}];
-    goto LABEL_28;
+    v78 = *MEMORY[0x277CCA470];
+    v79 = @"W5NoMemErr";
+    v41 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.wifivelocity.error" code:2 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v79, &v78, 1)}];
+    goto LABEL_27;
   }
 
   v30 = v29;
@@ -433,43 +425,43 @@ LABEL_28:
   handler[1] = 3221225472;
   handler[2] = __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke;
   handler[3] = &unk_279ECD2C8;
-  v63 = v65[1];
-  handler[7] = v72;
+  v62 = v64[1];
+  handler[7] = v71;
   handler[6] = a7;
   handler[4] = identifier;
-  handler[5] = v55;
+  handler[5] = v54;
   dispatch_source_set_event_handler(v29, handler);
-  v61[0] = MEMORY[0x277D85DD0];
-  v61[1] = 3221225472;
-  v61[2] = __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_3;
-  v61[3] = &unk_279ECD2F0;
-  v61[4] = v52;
-  v61[5] = v21;
-  v61[6] = v30;
-  dispatch_source_set_cancel_handler(v30, v61);
+  v60[0] = MEMORY[0x277D85DD0];
+  v60[1] = 3221225472;
+  v60[2] = __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_3;
+  v60[3] = &unk_279ECD2F0;
+  v60[4] = v51;
+  v60[5] = v21;
+  v60[6] = v30;
+  dispatch_source_set_cancel_handler(v30, v60);
   dispatch_resume(v30);
   v31 = dispatch_source_create(MEMORY[0x277D85D28], SHIDWORD(handle), 0, global_queue);
   if (v31)
   {
     v32 = v31;
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_4;
-    v59[3] = &unk_279ECD2C8;
-    v60 = HIDWORD(handle);
-    v59[6] = a7;
-    v59[7] = v72;
-    v59[4] = identifier;
-    v59[5] = v55;
-    dispatch_source_set_event_handler(v31, v59);
     v58[0] = MEMORY[0x277D85DD0];
     v58[1] = 3221225472;
-    v58[2] = __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_6;
-    v58[3] = &unk_279ECD2F0;
-    v58[4] = v26;
-    v58[5] = v24;
-    v58[6] = v32;
-    dispatch_source_set_cancel_handler(v32, v58);
+    v58[2] = __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_4;
+    v58[3] = &unk_279ECD2C8;
+    v59 = HIDWORD(handle);
+    v58[6] = a7;
+    v58[7] = v71;
+    v58[4] = identifier;
+    v58[5] = v54;
+    dispatch_source_set_event_handler(v31, v58);
+    v57[0] = MEMORY[0x277D85DD0];
+    v57[1] = 3221225472;
+    v57[2] = __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_6;
+    v57[3] = &unk_279ECD2F0;
+    v57[4] = v26;
+    v57[5] = v24;
+    v57[6] = v32;
+    dispatch_source_set_cancel_handler(v32, v57);
     dispatch_resume(v32);
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [MEMORY[0x277CCABD8] mainQueue];
@@ -478,24 +470,24 @@ LABEL_28:
     block[16] = 3221225472;
     block[17] = __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_7;
     block[18] = &unk_279ECD340;
-    block[27] = v72;
-    block[28] = v74;
+    block[27] = v71;
+    block[28] = v73;
     block[19] = identifier;
-    block[20] = v55;
+    block[20] = v54;
     block[21] = a4;
     block[22] = a5;
     block[25] = a8;
-    block[26] = &v66;
-    block[29] = v76;
+    block[26] = &v65;
+    block[29] = v75;
     block[23] = v32;
     block[24] = v30;
     v35 = [defaultCenter addObserverForName:v34 object:? queue:? usingBlock:?];
-    v67[5] = v35;
+    v66[5] = v35;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_62;
     block[3] = &unk_279ECD3E0;
-    block[4] = v55;
+    block[4] = v54;
     block[5] = a4;
     block[6] = v32;
     block[7] = v30;
@@ -504,17 +496,17 @@ LABEL_28:
     block[10] = 0;
     block[11] = a6;
     *&block[14] = self;
-    block[12] = v76;
-    block[13] = v74;
+    block[12] = v75;
+    block[13] = v73;
     dispatch_async(MEMORY[0x277D85CD0], block);
     goto LABEL_16;
   }
 
-  v77 = *MEMORY[0x277CCA470];
-  v78 = @"W5NoMemErr";
+  v76 = *MEMORY[0x277CCA470];
+  v77 = @"W5NoMemErr";
   v16 = "AirDrop Discoverable Mode: %@\n" + 5;
-  v42 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.wifivelocity.error" code:2 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v78, &v77, 1)}];
-LABEL_34:
+  v41 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.wifivelocity.error" code:2 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v77, &v76, 1)}];
+LABEL_33:
 
   if (v30)
   {
@@ -525,37 +517,88 @@ LABEL_34:
   {
   }
 
-  v49 = identifier;
+  v48 = identifier;
   if (!identifier)
   {
-    v49 = dispatch_get_global_queue(0, 0);
+    v48 = dispatch_get_global_queue(0, 0);
   }
 
-  v56[0] = MEMORY[0x277D85DD0];
-  v56[1] = *(v16 + 44);
-  v56[2] = __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_2_66;
-  v56[3] = &unk_279ECD368;
-  v56[4] = a4;
-  v56[5] = v42;
-  v56[6] = a5;
-  v56[7] = v55;
-  v56[8] = a6;
-  v56[9] = v76;
-  dispatch_async(v49, v56);
+  v55[0] = MEMORY[0x277D85DD0];
+  v55[1] = *(v16 + 44);
+  v55[2] = __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_2_66;
+  v55[3] = &unk_279ECD368;
+  v55[4] = a4;
+  v55[5] = v41;
+  v55[6] = a5;
+  v55[7] = v54;
+  v55[8] = a6;
+  v55[9] = v75;
+  dispatch_async(v48, v55);
   if (identifier)
   {
     dispatch_release(identifier);
   }
 
 LABEL_16:
-  _Block_object_dispose(&v66, 8);
-  _Block_object_dispose(v72, 8);
-  _Block_object_dispose(v74, 8);
-  _Block_object_dispose(v76, 8);
-  v36 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v65, 8);
+  _Block_object_dispose(v71, 8);
+  _Block_object_dispose(v73, 8);
+  _Block_object_dispose(v75, 8);
 }
 
 + (BOOL)runTaskWithLaunchPath:()WiFiVelocity arguments:timeout:outputData:errorData:launchHandler:didLaunch:error:
+{
+  v37 = *MEMORY[0x277D85DE8];
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3052000000;
+  v32 = __Block_byref_object_copy_;
+  v33 = __Block_byref_object_dispose_;
+  v34 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
+  v17 = dispatch_semaphore_create(0);
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __115__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_outputData_errorData_launchHandler_didLaunch_error___block_invoke;
+  v24[3] = &unk_279ECD408;
+  v24[5] = &v29;
+  v24[6] = &v25;
+  v24[4] = v17;
+  [MEMORY[0x277CCACB0] runTaskWithLaunchPath:a4 arguments:a5 timeout:a6 outputData:a7 errorData:a8 launchHandler:v24 reply:self];
+  v18 = dispatch_time(0, 600000000000);
+  if (dispatch_semaphore_wait(v17, v18) >= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    *buf = 134349056;
+    v36 = 0x4082C00000000000;
+    _os_log_error_impl(&dword_274216000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[wifivelocity] FAILED to complete operation within %{public}.1fs, continuing", buf, 0xCu);
+  }
+
+  v19 = v30[5];
+  if (a9)
+  {
+    *a9 = *(v26 + 24);
+  }
+
+  v20 = v30;
+  if (a10)
+  {
+    v21 = v30[5];
+    if (v21)
+    {
+      *a10 = v21;
+    }
+  }
+
+  v22 = v20[5] == 0;
+  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v29, 8);
+  return v22;
+}
+
++ (BOOL)runTaskWithLaunchPath:()WiFiVelocity arguments:timeout:outputFilePath:errorFilePath:redirectErrorToOutput:launchHandler:didLaunch:error:
 {
   v38 = *MEMORY[0x277D85DE8];
   v30 = 0;
@@ -568,86 +611,33 @@ LABEL_16:
   v27 = &v26;
   v28 = 0x2020000000;
   v29 = 0;
-  v17 = dispatch_semaphore_create(0);
+  v18 = dispatch_semaphore_create(0);
   v25[0] = MEMORY[0x277D85DD0];
   v25[1] = 3221225472;
-  v25[2] = __115__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_outputData_errorData_launchHandler_didLaunch_error___block_invoke;
+  v25[2] = __145__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_outputFilePath_errorFilePath_redirectErrorToOutput_launchHandler_didLaunch_error___block_invoke;
   v25[3] = &unk_279ECD408;
   v25[5] = &v30;
   v25[6] = &v26;
-  v25[4] = v17;
-  [MEMORY[0x277CCACB0] runTaskWithLaunchPath:a4 arguments:a5 timeout:a6 outputData:a7 errorData:a8 launchHandler:v25 reply:self];
-  v18 = dispatch_time(0, 600000000000);
-  if (dispatch_semaphore_wait(v17, v18) >= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  v25[4] = v18;
+  [MEMORY[0x277CCACB0] runTaskWithLaunchPath:a4 arguments:a5 timeout:a6 outputFilePath:a7 errorFilePath:a8 redirectErrorToOutput:a9 launchHandler:self reply:v25];
+  v19 = dispatch_time(0, 600000000000);
+  if (dispatch_semaphore_wait(v18, v19) >= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 134349056;
     v37 = 0x4082C00000000000;
     _os_log_error_impl(&dword_274216000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[wifivelocity] FAILED to complete operation within %{public}.1fs, continuing", buf, 0xCu);
   }
 
-  v19 = v31[5];
-  if (a9)
-  {
-    *a9 = *(v27 + 24);
-  }
-
-  v20 = v31;
+  v20 = v31[5];
   if (a10)
   {
-    v21 = v31[5];
-    if (v21)
-    {
-      *a10 = v21;
-    }
+    *a10 = *(v27 + 24);
   }
 
-  v22 = v20[5] == 0;
-  _Block_object_dispose(&v26, 8);
-  _Block_object_dispose(&v30, 8);
-  v23 = *MEMORY[0x277D85DE8];
-  return v22;
-}
-
-+ (BOOL)runTaskWithLaunchPath:()WiFiVelocity arguments:timeout:outputFilePath:errorFilePath:redirectErrorToOutput:launchHandler:didLaunch:error:
-{
-  v39 = *MEMORY[0x277D85DE8];
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3052000000;
-  v34 = __Block_byref_object_copy_;
-  v35 = __Block_byref_object_dispose_;
-  v36 = 0;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 0;
-  v18 = dispatch_semaphore_create(0);
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __145__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_outputFilePath_errorFilePath_redirectErrorToOutput_launchHandler_didLaunch_error___block_invoke;
-  v26[3] = &unk_279ECD408;
-  v26[5] = &v31;
-  v26[6] = &v27;
-  v26[4] = v18;
-  [MEMORY[0x277CCACB0] runTaskWithLaunchPath:a4 arguments:a5 timeout:a6 outputFilePath:a7 errorFilePath:a8 redirectErrorToOutput:a9 launchHandler:self reply:v26];
-  v19 = dispatch_time(0, 600000000000);
-  if (dispatch_semaphore_wait(v18, v19) >= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
-    *buf = 134349056;
-    v38 = 0x4082C00000000000;
-    _os_log_error_impl(&dword_274216000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[wifivelocity] FAILED to complete operation within %{public}.1fs, continuing", buf, 0xCu);
-  }
-
-  v20 = v32[5];
-  if (a10)
-  {
-    *a10 = *(v28 + 24);
-  }
-
-  v21 = v32;
+  v21 = v31;
   if (a11)
   {
-    v22 = v32[5];
+    v22 = v31[5];
     if (v22)
     {
       *a11 = v22;
@@ -655,52 +645,51 @@ LABEL_16:
   }
 
   v23 = v21[5] == 0;
-  _Block_object_dispose(&v27, 8);
-  _Block_object_dispose(&v31, 8);
-  v24 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v30, 8);
   return v23;
 }
 
 + (BOOL)runTaskWithLaunchPath:()WiFiVelocity arguments:timeout:outputFileHandle:errorFileHandle:launchHandler:didLaunch:error:
 {
-  v38 = *MEMORY[0x277D85DE8];
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3052000000;
-  v33 = __Block_byref_object_copy_;
-  v34 = __Block_byref_object_dispose_;
-  v35 = 0;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
+  v37 = *MEMORY[0x277D85DE8];
   v29 = 0;
+  v30 = &v29;
+  v31 = 0x3052000000;
+  v32 = __Block_byref_object_copy_;
+  v33 = __Block_byref_object_dispose_;
+  v34 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
   v17 = dispatch_semaphore_create(0);
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __127__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_outputFileHandle_errorFileHandle_launchHandler_didLaunch_error___block_invoke;
-  v25[3] = &unk_279ECD408;
-  v25[5] = &v30;
-  v25[6] = &v26;
-  v25[4] = v17;
-  [MEMORY[0x277CCACB0] runTaskWithLaunchPath:a4 arguments:a5 timeout:a6 outputFileHandle:a7 errorFileHandle:a8 launchHandler:v25 reply:self];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __127__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_outputFileHandle_errorFileHandle_launchHandler_didLaunch_error___block_invoke;
+  v24[3] = &unk_279ECD408;
+  v24[5] = &v29;
+  v24[6] = &v25;
+  v24[4] = v17;
+  [MEMORY[0x277CCACB0] runTaskWithLaunchPath:a4 arguments:a5 timeout:a6 outputFileHandle:a7 errorFileHandle:a8 launchHandler:v24 reply:self];
   v18 = dispatch_time(0, 600000000000);
   if (dispatch_semaphore_wait(v17, v18) >= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 134349056;
-    v37 = 0x4082C00000000000;
+    v36 = 0x4082C00000000000;
     _os_log_error_impl(&dword_274216000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[wifivelocity] FAILED to complete operation within %{public}.1fs, continuing", buf, 0xCu);
   }
 
-  v19 = v31[5];
+  v19 = v30[5];
   if (a9)
   {
-    *a9 = *(v27 + 24);
+    *a9 = *(v26 + 24);
   }
 
-  v20 = v31;
+  v20 = v30;
   if (a10)
   {
-    v21 = v31[5];
+    v21 = v30[5];
     if (v21)
     {
       *a10 = v21;
@@ -708,9 +697,8 @@ LABEL_16:
   }
 
   v22 = v20[5] == 0;
-  _Block_object_dispose(&v26, 8);
-  _Block_object_dispose(&v30, 8);
-  v23 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v29, 8);
   return v22;
 }
 

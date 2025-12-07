@@ -364,29 +364,29 @@
 
 + (id)extractContactIdentifiers:(id)identifiers
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(identifiersCopy, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = identifiersCopy;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -399,25 +399,23 @@
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [v4 addObject:{v10, v14}];
+            [v4 addObject:{v10, v13}];
           }
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (id)interactionPredicate
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   constrainMechanisms = self->_constrainMechanisms;
   if (constrainMechanisms && [(NSSet *)constrainMechanisms count])
@@ -452,30 +450,30 @@
   if (constrainDomainIdentifiers && [(NSSet *)constrainDomainIdentifiers count])
   {
     v14 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSSet count](self->_constrainDomainIdentifiers, "count")}];
+    v61 = 0u;
     v62 = 0u;
     v63 = 0u;
     v64 = 0u;
-    v65 = 0u;
     v15 = self->_constrainDomainIdentifiers;
-    v16 = [(NSSet *)v15 countByEnumeratingWithState:&v62 objects:v69 count:16];
+    v16 = [(NSSet *)v15 countByEnumeratingWithState:&v61 objects:v68 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v63;
+      v18 = *v62;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v63 != v18)
+          if (*v62 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(domainIdentifier BEGINSWITH %@)", *(*(&v62 + 1) + 8 * i)];
+          v20 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(domainIdentifier BEGINSWITH %@)", *(*(&v61 + 1) + 8 * i)];
           [v14 addObject:v20];
         }
 
-        v17 = [(NSSet *)v15 countByEnumeratingWithState:&v62 objects:v69 count:16];
+        v17 = [(NSSet *)v15 countByEnumeratingWithState:&v61 objects:v68 count:16];
       }
 
       while (v17);
@@ -516,9 +514,9 @@
     v32 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(sender.personId IN %@)", self->_constrainPersonIds];
     v33 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(ANY recipients.personId IN %@)", self->_constrainPersonIds];
     v34 = *(v13 + 2856);
-    v68[0] = v32;
-    v68[1] = v33;
-    v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v68 count:2];
+    v67[0] = v32;
+    v67[1] = v33;
+    v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v67 count:2];
     v36 = [v34 orPredicateWithSubpredicates:v35];
     [array addObject:v36];
   }
@@ -528,9 +526,9 @@
     v37 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(sender.personIdType IN %@)", self->_constrainPersonIdType];
     v38 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(ANY recipients.personIdType IN %@)", self->_constrainPersonIdType];
     v39 = *(v13 + 2856);
-    v67[0] = v37;
-    v67[1] = v38;
-    v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v67 count:2];
+    v66[0] = v37;
+    v66[1] = v38;
+    v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:2];
     v41 = [v39 orPredicateWithSubpredicates:v40];
     [array addObject:v41];
   }
@@ -564,9 +562,9 @@
     v55 = [v53 predicateWithFormat:@"(recipientCount == nil AND recipients.@count <= %@)", v54];
 
     v56 = *(v13 + 2856);
-    v66[0] = v52;
-    v66[1] = v55;
-    v57 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:2];
+    v65[0] = v52;
+    v65[1] = v55;
+    v57 = [MEMORY[0x1E695DEC8] arrayWithObjects:v65 count:2];
     v58 = [v56 orPredicateWithSubpredicates:v57];
     [array addObject:v58];
   }
@@ -582,14 +580,12 @@
   }
   v59 = ;
 
-  v60 = *MEMORY[0x1E69E9840];
-
   return v59;
 }
 
 - (id)contactPredicate
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   if ([(NSString *)self->_contactPrefix length])
   {
     v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@" %@", self->_contactPrefix];
@@ -597,10 +593,10 @@
     v5 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(displayName BEGINSWITH[cd] %@)", self->_contactPrefix];
     v6 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(displayName CONTAINS[cd] %@)", v3];
     v7 = MEMORY[0x1E696AB28];
-    v12[0] = v4;
-    v12[1] = v5;
-    v12[2] = v6;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:3];
+    v11[0] = v4;
+    v11[1] = v5;
+    v11[2] = v6;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:3];
     v9 = [v7 orPredicateWithSubpredicates:v8];
   }
 
@@ -608,8 +604,6 @@
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

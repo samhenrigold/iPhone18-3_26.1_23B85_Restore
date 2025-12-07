@@ -48,12 +48,11 @@
 
 uint64_t __32__SDEventMonitor_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = [objc_alloc(objc_opt_class()) _init];
-  v3 = sharedInstance_sharedInstance_0;
-  sharedInstance_sharedInstance_0 = v2;
+  v1 = [objc_alloc(objc_opt_class()) _init];
+  v2 = sharedInstance_sharedInstance_0;
+  sharedInstance_sharedInstance_0 = v1;
 
-  return MEMORY[0x2821F96F8](v2, v3);
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (void)startMonitoringEvents
@@ -81,7 +80,7 @@ uint64_t __32__SDEventMonitor_sharedInstance__block_invoke(uint64_t a1)
     v6 = "com.apple.notifyd.matching";
   }
 
-  v7 = logForCSLogCategoryDefault();
+  v7 = logForCSLogCategoryDefault(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [(SDEventMonitor *)v6 _startMonitoringEventsForStream:v7];
@@ -100,17 +99,17 @@ uint64_t __32__SDEventMonitor_sharedInstance__block_invoke(uint64_t a1)
 
 void __50__SDEventMonitor__startMonitoringEventsForStream___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277CCACA8] stringWithCString:xpc_dictionary_get_string(v3 encoding:{*MEMORY[0x277D86430]), 4}];
-  v5 = logForCSLogCategoryDefault();
+  v5 = logForCSLogCategoryDefault(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 40);
     *buf = 136315394;
-    v22 = v6;
-    v23 = 2112;
-    v24 = v4;
+    v21 = v6;
+    v22 = 2112;
+    v23 = v4;
     _os_log_impl(&dword_231A35000, v5, OS_LOG_TYPE_DEFAULT, "Received %s notification for keyName:%@", buf, 0x16u);
   }
 
@@ -119,12 +118,12 @@ void __50__SDEventMonitor__startMonitoringEventsForStream___block_invoke(uint64_
 
   if (v8)
   {
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __50__SDEventMonitor__startMonitoringEventsForStream___block_invoke_6;
-    v19[3] = &unk_278937460;
-    v20 = v8;
-    v9 = MEMORY[0x2383760E0](v19);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __50__SDEventMonitor__startMonitoringEventsForStream___block_invoke_6;
+    v18[3] = &unk_278937460;
+    v19 = v8;
+    v9 = MEMORY[0x2383760E0](v18);
     v10 = v9;
     v11 = *(a1 + 48);
     if (v11 != 1)
@@ -173,49 +172,47 @@ void __50__SDEventMonitor__startMonitoringEventsForStream___block_invoke(uint64_
 LABEL_16:
 LABEL_17:
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __50__SDEventMonitor__startMonitoringEventsForStream___block_invoke_6(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   v11 = a4;
   v12 = a5;
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = *(a1 + 32);
-  v13 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v13 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v30;
+    v15 = *v29;
     do
     {
       v16 = 0;
       do
       {
-        if (*v30 != v15)
+        if (*v29 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v29 + 1) + 8 * v16);
+        v17 = *(*(&v28 + 1) + 8 * v16);
         v18 = SDTransactionCreate(&unk_2846C9440);
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __50__SDEventMonitor__startMonitoringEventsForStream___block_invoke_2;
         block[3] = &unk_278937438;
-        v28 = v17;
-        v23 = v9;
-        v24 = v10;
-        v25 = v11;
-        v26 = v12;
-        v27 = v18;
+        v27 = v17;
+        v22 = v9;
+        v23 = v10;
+        v24 = v11;
+        v25 = v12;
+        v26 = v18;
         v19 = v18;
         dispatch_async(MEMORY[0x277D85CD0], block);
 
@@ -223,32 +220,26 @@ void __50__SDEventMonitor__startMonitoringEventsForStream___block_invoke_6(uint6
       }
 
       while (v14 != v16);
-      v14 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v14 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v14);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
-void __50__SDEventMonitor__startMonitoringEventsForStream___block_invoke_2(void *a1)
+void __50__SDEventMonitor__startMonitoringEventsForStream___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  v4 = a1[6];
-  v5 = a1[7];
-  (*(a1[9] + 16))();
-  v6 = a1[8];
+  (*(*(a1 + 72) + 16))();
+  v2 = *(a1 + 64);
 
-  SDTransactionDone(v6);
+  SDTransactionDone(v2);
 }
 
 - (void)registerHandler:(id)handler forEventName:(id)name
 {
   handlerCopy = handler;
   nameCopy = name;
-  v8 = logForCSLogCategoryDefault();
+  v8 = logForCSLogCategoryDefault(nameCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [SDEventMonitor registerHandler:nameCopy forEventName:v8];
@@ -310,20 +301,18 @@ void __49__SDEventMonitor_unregisterHandler_forEventName___block_invoke(uint64_t
 
 - (void)_startMonitoringEventsForStream:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 136315138;
-  v4 = a1;
-  _os_log_debug_impl(&dword_231A35000, a2, OS_LOG_TYPE_DEBUG, "Monitoring notifications for %s", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 136315138;
+  v3 = a1;
+  _os_log_debug_impl(&dword_231A35000, a2, OS_LOG_TYPE_DEBUG, "Monitoring notifications for %s", &v2, 0xCu);
 }
 
 - (void)registerHandler:(uint64_t)a1 forEventName:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_231A35000, a2, OS_LOG_TYPE_DEBUG, "Registering handler for %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_231A35000, a2, OS_LOG_TYPE_DEBUG, "Registering handler for %@", &v2, 0xCu);
 }
 
 @end

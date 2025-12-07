@@ -125,66 +125,60 @@ LABEL_8:
 
 + (id)Search
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForSearch = [self configurationForSearch];
   v3 = +[BMWalletPaymentsCommerceSearch columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"WalletPaymentsCommerce.FinancialInsights.Search" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"WalletPaymentsCommerce.FinancialInsights.Search" schema:v9 configuration:configurationForSearch];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)RecurringSendSuggestions
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForRecurringSendSuggestions = [self configurationForRecurringSendSuggestions];
   v3 = +[BMWalletPaymentsCommerceRecurringSendSuggestions columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"WalletPaymentsCommerce.FinancialInsights.RecurringSendSuggestions" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"WalletPaymentsCommerce.FinancialInsights.RecurringSendSuggestions" schema:v9 configuration:configurationForRecurringSendSuggestions];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)PaymentRingSuggestions
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForPaymentRingSuggestions = [self configurationForPaymentRingSuggestions];
   v3 = +[BMWalletPaymentsCommercePaymentRingSuggestions columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"WalletPaymentsCommerce.FinancialInsights.PaymentRingSuggestions" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"WalletPaymentsCommerce.FinancialInsights.PaymentRingSuggestions" schema:v9 configuration:configurationForPaymentRingSuggestions];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

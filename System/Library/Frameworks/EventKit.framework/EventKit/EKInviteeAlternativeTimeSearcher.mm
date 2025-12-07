@@ -132,7 +132,7 @@ uint64_t __53__EKInviteeAlternativeTimeSearcher_originalStartDate__block_invoke(
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSDate)originalEndDate
@@ -165,7 +165,7 @@ uint64_t __51__EKInviteeAlternativeTimeSearcher_originalEndDate__block_invoke(ui
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSArray)originalConflictedParticipants
@@ -317,7 +317,7 @@ void __49__EKInviteeAlternativeTimeSearcher_proposedTimes__block_invoke(uint64_t
   return selfCopy;
 }
 
-uint64_t __82__EKInviteeAlternativeTimeSearcher_searchingForMoreTimesWhenAllAttendeesCanAttend__block_invoke(uint64_t a1)
+void *__82__EKInviteeAlternativeTimeSearcher_searchingForMoreTimesWhenAllAttendeesCanAttend__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) internalSearchingForMoreTimesWhenAllAttendeesCanAttend];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -345,7 +345,7 @@ uint64_t __82__EKInviteeAlternativeTimeSearcher_searchingForMoreTimesWhenAllAtte
   return selfCopy;
 }
 
-uint64_t __83__EKInviteeAlternativeTimeSearcher_searchingForMoreTimesWhenSomeAttendeesCanAttend__block_invoke(uint64_t a1)
+void *__83__EKInviteeAlternativeTimeSearcher_searchingForMoreTimesWhenSomeAttendeesCanAttend__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) internalSearchingForMoreTimesWhenSomeAttendeesCanAttend];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -403,13 +403,13 @@ uint64_t __80__EKInviteeAlternativeTimeSearcher_searchForMoreTimesWhenSomeAttend
 
 void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke(uint64_t a1)
 {
-  v135 = *MEMORY[0x1E69E9840];
+  v133 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) availabilityRequestsQueue];
   [v1 cancelAllOperations];
 
   if (os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_DEBUG))
   {
-    __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_1(a1);
+    __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_1();
   }
 
   [*(a1 + 32) setAvailabilityRequestInProgress:0];
@@ -461,7 +461,7 @@ void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNe
           __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_15();
         }
 
-        goto LABEL_89;
+        return;
       }
 
       if ([*v8 isAllDay])
@@ -471,7 +471,7 @@ void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNe
           __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_14();
         }
 
-        goto LABEL_89;
+        return;
       }
 
       v14 = [*v8 isDetached];
@@ -479,12 +479,12 @@ void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNe
       if (v14)
       {
         v16 = [v15 originalItem];
-        v90 = [v16 uniqueId];
+        v88 = [v16 uniqueId];
       }
 
       else
       {
-        v90 = [v15 uniqueId];
+        v88 = [v15 uniqueId];
       }
 
       v17 = EKUIAvailabilitySearchHandle;
@@ -493,26 +493,17 @@ void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNe
         __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_3(v8, v17);
       }
 
-      v86 = objc_opt_new();
+      v84 = objc_opt_new();
       v18 = [*(a1 + 40) startDate];
       [*(a1 + 32) setInternalOriginalStartDate:v18];
 
       v19 = [*(a1 + 40) endDateUnadjustedForLegacyClients];
       [*(a1 + 32) setInternalOriginalEndDate:v19];
 
-      v89 = objc_opt_new();
+      v87 = objc_opt_new();
       v20 = [MEMORY[0x1E695DEE8] currentCalendar];
       v21 = [*(a1 + 40) timeZone];
-      if (!v21)
-      {
-        goto LABEL_22;
-      }
-
-      v22 = [v20 timeZone];
-      v23 = [*v8 timeZone];
-      v24 = [v22 isEqualToTimeZone:v23];
-
-      if ((v24 & 1) == 0)
+      if (v21 && ([v20 timeZone], v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*v8, "timeZone"), v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v22, "isEqualToTimeZone:", v23), v23, v22, v21, (v24 & 1) == 0))
       {
         v26 = [v20 copy];
 
@@ -524,60 +515,59 @@ void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNe
 
       else
       {
-LABEL_22:
         v25 = v20;
       }
 
-      v88 = v25;
-      v28 = [v89 dateByAddingHours:1 inCalendar:?];
-      v87 = [v28 dateRoundedToNearestFifteenMinutesInCalendar:v88];
+      v86 = v25;
+      v28 = [v87 dateByAddingHours:1 inCalendar:?];
+      v85 = [v28 dateRoundedToNearestFifteenMinutesInCalendar:v86];
 
-      [*(a1 + 32) setOriginalRangeStartDate:v87];
+      [*(a1 + 32) setOriginalRangeStartDate:v85];
       v29 = [*(a1 + 32) originalRangeStartDate];
       [*(a1 + 32) setNextAvailabilityRangeStartDate:v29];
 
-      [*(a1 + 32) setIgnoredEventID:v90];
+      [*(a1 + 32) setIgnoredEventID:v88];
       v30 = [*(a1 + 40) calendar];
       v31 = [v30 source];
       [*(a1 + 32) setSource:v31];
 
       if ([*(a1 + 40) isStartDateDirty])
       {
-        v99 = 1;
+        v97 = 1;
       }
 
       else
       {
-        v99 = [*v8 isEndDateDirty];
+        v97 = [*v8 isEndDateDirty];
       }
 
-      v93 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v98 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v91 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v96 = objc_alloc_init(MEMORY[0x1E695DF70]);
       if (os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_DEBUG))
       {
         __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_4();
       }
 
-      v94 = [*v8 organizer];
-      v127 = 0u;
-      v128 = 0u;
+      v92 = [*v8 organizer];
       v125 = 0u;
       v126 = 0u;
+      v123 = 0u;
+      v124 = 0u;
       v32 = [*v8 attendees];
-      v33 = [v32 countByEnumeratingWithState:&v125 objects:v134 count:16];
+      v33 = [v32 countByEnumeratingWithState:&v123 objects:v132 count:16];
       if (v33)
       {
-        v34 = *v126;
+        v34 = *v124;
         do
         {
           for (i = 0; i != v33; ++i)
           {
-            if (*v126 != v34)
+            if (*v124 != v34)
             {
               objc_enumerationMutation(v32);
             }
 
-            v36 = *(*(&v125 + 1) + 8 * i);
+            v36 = *(*(&v123 + 1) + 8 * i);
             if ([v36 participantType] != 2)
             {
               v38 = [v36 URL];
@@ -585,15 +575,15 @@ LABEL_22:
 
               if (v39)
               {
-                if (([v36 isEqualToParticipant:v94] & 1) == 0)
+                if (([v36 isEqualToParticipant:v92] & 1) == 0)
                 {
-                  if (v99)
+                  if (v97)
                   {
                     v40 = EKUIAvailabilitySearchHandle;
                     if (os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_DEBUG))
                     {
                       *buf = 138412290;
-                      v131 = v36;
+                      v129 = v36;
                       _os_log_debug_impl(&dword_1A805E000, v40, OS_LOG_TYPE_DEBUG, "The event has a dirty date property, so we'll forcibly request availability for this participant: [%@]", buf, 0xCu);
                     }
 
@@ -606,11 +596,11 @@ LABEL_22:
                     if (os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_DEBUG))
                     {
                       *buf = 138412290;
-                      v131 = v36;
+                      v129 = v36;
                       _os_log_debug_impl(&dword_1A805E000, v42, OS_LOG_TYPE_DEBUG, "Attendee has declined: [%@]", buf, 0xCu);
                     }
 
-                    [v93 addObject:v36];
+                    [v91 addObject:v36];
                   }
 
                   else if (!EKUIAttendeeUtils_AttendeeHasResponded(v36))
@@ -619,21 +609,21 @@ LABEL_22:
                     if (os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_DEBUG))
                     {
                       *buf = 138412290;
-                      v131 = v36;
+                      v129 = v36;
                       _os_log_debug_impl(&dword_1A805E000, v43, OS_LOG_TYPE_DEBUG, "Attendee needs to respond: [%@]", buf, 0xCu);
                     }
 
 LABEL_52:
-                    [v98 addObject:v39];
+                    [v96 addObject:v39];
                   }
 
                   v44 = EKUIAvailabilitySearchHandle;
                   if (os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138412546;
-                    v131 = v39;
-                    v132 = 2112;
-                    v133 = v36;
+                    v129 = v39;
+                    v130 = 2112;
+                    v131 = v36;
                     _os_log_debug_impl(&dword_1A805E000, v44, OS_LOG_TYPE_DEBUG, "Adding participant with address [%@] to the list of attendees to be included in conflict resolution.  Participant: [%@]", buf, 0x16u);
                   }
 
@@ -648,7 +638,7 @@ LABEL_52:
                 if (os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v131 = v36;
+                  v129 = v36;
                   _os_log_error_impl(&dword_1A805E000, v41, OS_LOG_TYPE_ERROR, "No participant address found for participant: [%@].  Will not search use this participant to search for alternative times.", buf, 0xCu);
                 }
               }
@@ -660,7 +650,7 @@ LABEL_52:
             if (os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v131 = v36;
+              v129 = v36;
               _os_log_debug_impl(&dword_1A805E000, v37, OS_LOG_TYPE_DEBUG, "Will not consider attendee for conflict detection because it is a room: [%@]", buf, 0xCu);
             }
 
@@ -678,26 +668,26 @@ LABEL_57:
             }
           }
 
-          v33 = [v32 countByEnumeratingWithState:&v125 objects:v134 count:16];
+          v33 = [v32 countByEnumeratingWithState:&v123 objects:v132 count:16];
         }
 
         while (v33);
       }
 
-      v49 = [v94 URL];
-      v92 = [v49 absoluteString];
+      v49 = [v92 URL];
+      v90 = [v49 absoluteString];
 
       v50 = os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_DEBUG);
-      if (v92)
+      if (v90)
       {
         if (v50)
         {
           __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_5();
         }
 
-        [*(a1 + 32) setOrganizerAddress:v92];
+        [*(a1 + 32) setOrganizerAddress:v90];
         v51 = [*(a1 + 32) participantAddressesToParticipants];
-        [v51 setObject:v94 forKey:v92];
+        [v51 setObject:v92 forKey:v90];
       }
 
       else
@@ -711,10 +701,9 @@ LABEL_57:
         if (*(a1 + 48))
         {
           [*(a1 + 32) setOrganizerAddress:?];
-          v53 = *(a1 + 32);
-          v54 = [objc_opt_class() _selfOrganizerForNewlyScheduledEventWithAddress:*(a1 + 48)];
-          v55 = [*(a1 + 32) participantAddressesToParticipants];
-          [v55 setObject:v54 forKey:*(a1 + 48)];
+          v53 = [objc_opt_class() _selfOrganizerForNewlyScheduledEventWithAddress:*(a1 + 48)];
+          v54 = [*(a1 + 32) participantAddressesToParticipants];
+          [v54 setObject:v53 forKey:*(a1 + 48)];
         }
 
         else
@@ -730,119 +719,119 @@ LABEL_57:
 
       v52 = a1;
 LABEL_74:
-      if ((v99 & 1) != 0 || (v52 = a1, [v98 count]))
+      if ((v97 & 1) != 0 || (v52 = a1, [v96 count]))
       {
         objc_initWeak(buf, *(v52 + 32));
-        v56 = objc_alloc_init(MEMORY[0x1E695DF90]);
+        v55 = objc_alloc_init(MEMORY[0x1E695DF90]);
         aBlock[0] = MEMORY[0x1E69E9820];
         aBlock[1] = 3221225472;
         aBlock[2] = __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_19;
         aBlock[3] = &unk_1E77FDED0;
-        objc_copyWeak(&v124, buf);
-        v57 = v56;
-        v123 = v57;
-        v97 = _Block_copy(aBlock);
+        objc_copyWeak(&v122, buf);
+        v56 = v55;
+        v121 = v56;
+        v95 = _Block_copy(aBlock);
         if (os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_DEBUG))
         {
           __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_12();
         }
 
-        v58 = [EKRequestAvailabilityOperation alloc];
-        v59 = [*(a1 + 32) source];
-        v60 = [*(a1 + 32) internalOriginalStartDate];
-        v61 = [*(a1 + 32) internalOriginalEndDate];
-        v62 = [*(a1 + 32) ignoredEventID];
-        val = [(EKRequestAvailabilityOperation *)v58 initWithSource:v59 startDate:v60 endDate:v61 ignoredEventID:v62 addresses:v98 resultsBlock:v97];
+        v57 = [EKRequestAvailabilityOperation alloc];
+        v58 = [*(a1 + 32) source];
+        v59 = [*(a1 + 32) internalOriginalStartDate];
+        v60 = [*(a1 + 32) internalOriginalEndDate];
+        v61 = [*(a1 + 32) ignoredEventID];
+        val = [(EKRequestAvailabilityOperation *)v57 initWithSource:v58 startDate:v59 endDate:v60 ignoredEventID:v61 addresses:v96 resultsBlock:v95];
 
         objc_initWeak(&location, val);
-        v114[0] = MEMORY[0x1E69E9820];
-        v114[1] = 3221225472;
-        v114[2] = __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_22;
-        v114[3] = &unk_1E77FDF20;
-        objc_copyWeak(&v118, buf);
-        objc_copyWeak(&v119, &location);
-        v96 = v57;
-        v115 = v96;
-        v120 = v99;
-        v63 = v93;
-        v64 = a1;
-        v65 = *(a1 + 32);
-        v116 = v63;
-        v117 = v65;
-        [(EKRequestAvailabilityOperation *)val setCompletionBlock:v114];
+        v112[0] = MEMORY[0x1E69E9820];
+        v112[1] = 3221225472;
+        v112[2] = __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_22;
+        v112[3] = &unk_1E77FDF20;
+        objc_copyWeak(&v116, buf);
+        objc_copyWeak(&v117, &location);
+        v94 = v56;
+        v113 = v94;
+        v118 = v97;
+        v62 = v91;
+        v63 = a1;
+        v64 = *(a1 + 32);
+        v114 = v62;
+        v115 = v64;
+        [(EKRequestAvailabilityOperation *)val setCompletionBlock:v112];
         if (os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_DEBUG))
         {
           __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_13();
-          v64 = a1;
+          v63 = a1;
         }
 
-        [*(v64 + 32) setAvailabilityRequestInProgress:1];
-        v66 = [*(v64 + 32) availabilityRequestsQueue];
-        [v66 addOperation:val];
+        [*(v63 + 32) setAvailabilityRequestInProgress:1];
+        v65 = [*(v63 + 32) availabilityRequestsQueue];
+        [v65 addOperation:val];
 
-        v67 = [*(a1 + 32) internalOriginalEndDate];
-        v68 = [*(a1 + 32) internalOriginalStartDate];
-        [v67 timeIntervalSinceDate:v68];
-        v70 = v69;
+        v66 = [*(a1 + 32) internalOriginalEndDate];
+        v67 = [*(a1 + 32) internalOriginalStartDate];
+        [v66 timeIntervalSinceDate:v67];
+        v69 = v68;
 
-        v112 = 0u;
-        v113 = 0u;
         v110 = 0u;
         v111 = 0u;
-        obj = v86;
-        v71 = [obj countByEnumeratingWithState:&v110 objects:v129 count:16];
-        if (v71)
+        v108 = 0u;
+        v109 = 0u;
+        obj = v84;
+        v70 = [obj countByEnumeratingWithState:&v108 objects:v127 count:16];
+        if (v70)
         {
-          v72 = *v111;
+          v71 = *v109;
           do
           {
-            for (j = 0; j != v71; ++j)
+            for (j = 0; j != v70; ++j)
             {
-              if (*v111 != v72)
+              if (*v109 != v71)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v74 = *(*(&v110 + 1) + 8 * j);
-              v75 = [EKRequestAvailabilityOperation alloc];
-              v76 = [*(a1 + 32) source];
-              v77 = [v74 dateByAddingTimeInterval:*&v70];
-              v78 = [*(a1 + 32) ignoredEventID];
-              v79 = [(EKRequestAvailabilityOperation *)v75 initWithSource:v76 startDate:v74 endDate:v77 ignoredEventID:v78 addresses:v98 resultsBlock:v97];
+              v73 = *(*(&v108 + 1) + 8 * j);
+              v74 = [EKRequestAvailabilityOperation alloc];
+              v75 = [*(a1 + 32) source];
+              v76 = [v73 dateByAddingTimeInterval:*&v69];
+              v77 = [*(a1 + 32) ignoredEventID];
+              v78 = [(EKRequestAvailabilityOperation *)v74 initWithSource:v75 startDate:v73 endDate:v76 ignoredEventID:v77 addresses:v96 resultsBlock:v95];
 
-              objc_initWeak(&from, v79);
-              v101[0] = MEMORY[0x1E69E9820];
-              v101[1] = 3221225472;
-              v101[2] = __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_27;
-              v101[3] = &unk_1E77FDF70;
-              objc_copyWeak(&v106, buf);
-              objc_copyWeak(v107, &from);
-              v102 = v96;
-              v108 = v99;
-              v103 = v63;
-              v104 = v74;
-              v107[1] = v70;
-              v105 = *(a1 + 32);
-              [(EKRequestAvailabilityOperation *)v79 setCompletionBlock:v101];
-              v80 = [*(a1 + 32) availabilityRequestsQueue];
-              [v80 addOperation:v79];
+              objc_initWeak(&from, v78);
+              v99[0] = MEMORY[0x1E69E9820];
+              v99[1] = 3221225472;
+              v99[2] = __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_27;
+              v99[3] = &unk_1E77FDF70;
+              objc_copyWeak(&v104, buf);
+              objc_copyWeak(v105, &from);
+              v100 = v94;
+              v106 = v97;
+              v101 = v62;
+              v102 = v73;
+              v105[1] = v69;
+              v103 = *(a1 + 32);
+              [(EKRequestAvailabilityOperation *)v78 setCompletionBlock:v99];
+              v79 = [*(a1 + 32) availabilityRequestsQueue];
+              [v79 addOperation:v78];
 
-              objc_destroyWeak(v107);
-              objc_destroyWeak(&v106);
+              objc_destroyWeak(v105);
+              objc_destroyWeak(&v104);
               objc_destroyWeak(&from);
             }
 
-            v71 = [obj countByEnumeratingWithState:&v110 objects:v129 count:16];
+            v70 = [obj countByEnumeratingWithState:&v108 objects:v127 count:16];
           }
 
-          while (v71);
+          while (v70);
         }
 
-        objc_destroyWeak(&v119);
-        objc_destroyWeak(&v118);
+        objc_destroyWeak(&v117);
+        objc_destroyWeak(&v116);
         objc_destroyWeak(&location);
 
-        objc_destroyWeak(&v124);
+        objc_destroyWeak(&v122);
         objc_destroyWeak(buf);
       }
 
@@ -853,27 +842,27 @@ LABEL_74:
           __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_8();
         }
 
-        if ([v93 count])
+        if ([v91 count])
         {
-          v82 = EKUIAvailabilitySearchHandle;
+          v80 = EKUIAvailabilitySearchHandle;
           if (os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_DEBUG))
           {
-            __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_9(v82, v93);
+            __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_9(v80, v91);
           }
 
-          v83 = [*(a1 + 32) internalOriginalConflictedParticipants];
-          [v83 addObjectsFromArray:v93];
+          v81 = [*(a1 + 32) internalOriginalConflictedParticipants];
+          [v81 addObjectsFromArray:v91];
 
           [*(a1 + 32) _transitionToConflictFoundStateAndSearch];
         }
 
         else
         {
-          v84 = [*(a1 + 32) noConflictRequired];
-          v85 = os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_DEBUG);
-          if (v84)
+          v82 = [*(a1 + 32) noConflictRequired];
+          v83 = os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_DEBUG);
+          if (v82)
           {
-            if (v85)
+            if (v83)
             {
               __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_11();
             }
@@ -881,14 +870,14 @@ LABEL_74:
             [*(a1 + 32) _transitionToConflictFoundStateAndSearch];
           }
 
-          else if (v85)
+          else if (v83)
           {
             __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_10();
           }
         }
       }
 
-      goto LABEL_89;
+      return;
     }
 
     if (os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_DEBUG))
@@ -901,9 +890,6 @@ LABEL_74:
   {
     __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_16();
   }
-
-LABEL_89:
-  v81 = *MEMORY[0x1E69E9840];
 }
 
 void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_19(uint64_t a1, void *a2)
@@ -968,12 +954,11 @@ void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNe
 
 void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_23(uint64_t a1)
 {
-  v2 = (a1 + 32);
   if (*(a1 + 32))
   {
     if (os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_DEBUG))
     {
-      __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_23_cold_1(v2);
+      __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_23_cold_1();
     }
 
     [*(a1 + 40) setAvailabilityRequestInProgress:0];
@@ -982,18 +967,18 @@ void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNe
 
   else
   {
-    v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v12 = MEMORY[0x1E69E9820];
-    v13 = 3221225472;
-    v14 = __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_24;
-    v15 = &unk_1E77FD298;
-    v4 = *(a1 + 48);
-    v16 = *(a1 + 40);
-    v5 = v3;
-    v17 = v5;
-    [v4 enumerateKeysAndObjectsUsingBlock:&v12];
-    v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    [v6 addObjectsFromArray:{v5, v12, v13, v14, v15, v16}];
+    v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v11 = MEMORY[0x1E69E9820];
+    v12 = 3221225472;
+    v13 = __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_24;
+    v14 = &unk_1E77FD298;
+    v3 = *(a1 + 48);
+    v15 = *(a1 + 40);
+    v4 = v2;
+    v16 = v4;
+    [v3 enumerateKeysAndObjectsUsingBlock:&v11];
+    v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    [v5 addObjectsFromArray:{v4, v11, v12, v13, v14, v15}];
     if ((*(a1 + 72) & 1) == 0)
     {
       if (os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_DEBUG))
@@ -1001,7 +986,7 @@ void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNe
         __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_23_cold_2();
       }
 
-      [v6 addObjectsFromArray:*(a1 + 56)];
+      [v5 addObjectsFromArray:*(a1 + 56)];
     }
 
     if (os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_DEBUG))
@@ -1009,19 +994,19 @@ void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNe
       __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_23_cold_3();
     }
 
-    v7 = [*(a1 + 40) internalOriginalConflictedParticipants];
-    [v7 addObjectsFromArray:v6];
+    v6 = [*(a1 + 40) internalOriginalConflictedParticipants];
+    [v6 addObjectsFromArray:v5];
 
-    v8 = [*(a1 + 40) originalRangeStartDate];
-    [*(a1 + 40) setNextAvailabilityRangeStartDate:v8];
+    v7 = [*(a1 + 40) originalRangeStartDate];
+    [*(a1 + 40) setNextAvailabilityRangeStartDate:v7];
 
     [*(a1 + 40) setAvailabilityRequestInProgress:0];
-    v9 = [v6 count];
-    v10 = [*(a1 + 64) noConflictRequired];
-    v11 = os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_DEBUG);
-    if ((v10 & 1) != 0 || v9)
+    v8 = [v5 count];
+    v9 = [*(a1 + 64) noConflictRequired];
+    v10 = os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_DEBUG);
+    if ((v9 & 1) != 0 || v8)
     {
-      if (v11)
+      if (v10)
       {
         __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_23_cold_5();
       }
@@ -1029,7 +1014,7 @@ void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNe
       [*(a1 + 40) _transitionToConflictFoundStateAndSearch];
     }
 
-    else if (v11)
+    else if (v10)
     {
       __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_23_cold_4();
     }
@@ -1107,12 +1092,11 @@ void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNe
 
 void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_28(uint64_t a1)
 {
-  v2 = (a1 + 32);
   if (*(a1 + 32))
   {
     if (os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_DEBUG))
     {
-      __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_23_cold_1(v2);
+      __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_23_cold_1();
     }
 
     [*(a1 + 40) setAvailabilityRequestInProgress:0];
@@ -1121,18 +1105,18 @@ void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNe
 
   else
   {
-    v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v12 = MEMORY[0x1E69E9820];
-    v13 = 3221225472;
-    v14 = __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_29;
-    v15 = &unk_1E77FD298;
-    v4 = *(a1 + 48);
-    v16 = *(a1 + 40);
-    v5 = v3;
-    v17 = v5;
-    [v4 enumerateKeysAndObjectsUsingBlock:&v12];
-    v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    [v6 addObjectsFromArray:{v5, v12, v13, v14, v15, v16}];
+    v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v11 = MEMORY[0x1E69E9820];
+    v12 = 3221225472;
+    v13 = __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_29;
+    v14 = &unk_1E77FD298;
+    v3 = *(a1 + 48);
+    v15 = *(a1 + 40);
+    v4 = v2;
+    v16 = v4;
+    [v3 enumerateKeysAndObjectsUsingBlock:&v11];
+    v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    [v5 addObjectsFromArray:{v4, v11, v12, v13, v14, v15}];
     if ((*(a1 + 88) & 1) == 0)
     {
       if (os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_DEBUG))
@@ -1140,7 +1124,7 @@ void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNe
         __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_23_cold_2();
       }
 
-      [v6 addObjectsFromArray:*(a1 + 56)];
+      [v5 addObjectsFromArray:*(a1 + 56)];
     }
 
     if (os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_DEBUG))
@@ -1148,13 +1132,13 @@ void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNe
       __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_23_cold_3();
     }
 
-    v7 = [EKInviteeAlternativeTime alloc];
-    v8 = *(a1 + 64);
-    v9 = [v8 dateByAddingTimeInterval:*(a1 + 80)];
-    v10 = [(EKInviteeAlternativeTime *)v7 initWithStartDate:v8 endDate:v9 conflictedParticipants:v6];
+    v6 = [EKInviteeAlternativeTime alloc];
+    v7 = *(a1 + 64);
+    v8 = [v7 dateByAddingTimeInterval:*(a1 + 80)];
+    v9 = [(EKInviteeAlternativeTime *)v6 initWithStartDate:v7 endDate:v8 conflictedParticipants:v5];
 
-    v11 = [*(a1 + 72) internalProposedTimes];
-    [v11 addObject:v10];
+    v10 = [*(a1 + 72) internalProposedTimes];
+    [v10 addObject:v9];
 
     [*(a1 + 72) _sendStateChange:2];
     [*(a1 + 40) setAvailabilityRequestInProgress:0];
@@ -1280,7 +1264,7 @@ uint64_t __50__EKInviteeAlternativeTimeSearcher__attemptSearch__block_invoke_46(
   {
     if (os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_DEBUG))
     {
-      __50__EKInviteeAlternativeTimeSearcher__attemptSearch__block_invoke_46_cold_1((a1 + 40));
+      __50__EKInviteeAlternativeTimeSearcher__attemptSearch__block_invoke_46_cold_1();
     }
 
     return [*(a1 + 32) _attemptSearch];
@@ -1300,7 +1284,6 @@ uint64_t __50__EKInviteeAlternativeTimeSearcher__attemptSearch__block_invoke_46(
 
 - (void)_resetSearchFallbackNumbers
 {
-  v14 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AD98];
   selfCopy = self;
   v5 = [v3 numberWithUnsignedInteger:{objc_msgSend(a2, "remainingSearchAttempts")}];
@@ -1310,8 +1293,6 @@ uint64_t __50__EKInviteeAlternativeTimeSearcher__attemptSearch__block_invoke_46(
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v8, v9, v10, v11, v12, 0x16u);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendStateChange:(int64_t)change
@@ -1353,11 +1334,9 @@ void __53__EKInviteeAlternativeTimeSearcher__sendStateChange___block_invoke(uint
 {
   v5 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v2 = [objc_opt_class() stateAsString:1];
+  v3 = [objc_opt_class() stateAsString:1];
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(&dword_1A805E000, selfCopy, OS_LOG_TYPE_DEBUG, "Transitioning to the [%@] state and attempting a search.", v4, 0xCu);
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_participantforParticipantAddress:(id)address
@@ -1378,7 +1357,7 @@ void __53__EKInviteeAlternativeTimeSearcher__sendStateChange___block_invoke(uint
 
 - (void)_processResults:(id)results betweenStartDate:(id)date endDate:(id)endDate
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   dateCopy = date;
   endDateCopy = endDate;
@@ -1386,28 +1365,28 @@ void __53__EKInviteeAlternativeTimeSearcher__sendStateChange___block_invoke(uint
   if (os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v40 = dateCopy;
-    v41 = 2112;
-    v42 = endDateCopy;
-    v43 = 2112;
-    v44 = resultsCopy;
+    v39 = dateCopy;
+    v40 = 2112;
+    v41 = endDateCopy;
+    v42 = 2112;
+    v43 = resultsCopy;
     _os_log_debug_impl(&dword_1A805E000, v11, OS_LOG_TYPE_DEBUG, "Processing results - start date: [%@] end date: [%@] results: [%@]", buf, 0x20u);
   }
 
-  v36 = dateCopy;
-  v37 = resultsCopy;
-  v35 = endDateCopy;
+  v35 = dateCopy;
+  v36 = resultsCopy;
+  v34 = endDateCopy;
   v12 = [(EKInviteeAlternativeTimeSearcher *)self _generateTimeSpansForResults:resultsCopy betweenStartDate:dateCopy endDate:endDateCopy];
   leftoverSpans = [(EKInviteeAlternativeTimeSearcher *)self leftoverSpans];
   v14 = [(EKInviteeAlternativeTimeSearcher *)self _spliceLeftTimeSpans:leftoverSpans andNewTimeSpans:v12];
 
-  v34 = v14;
+  v33 = v14;
   v15 = [(EKInviteeAlternativeTimeSearcher *)self _mergeAdjacentSpansWithSameConflictedParticipants:v14];
   v16 = [(EKInviteeAlternativeTimeSearcher *)self _generateOpenFreeTimesFromTimeSpans:v15];
   v17 = [(EKInviteeAlternativeTimeSearcher *)self _generateNonOptimalTimesFromTimeSpans:v15];
   v18 = [objc_opt_class() _findLeftoverSpans:v12 usingFreeTimes:v16 andNonOptimalTimes:v17];
   leftoverSpans2 = [(EKInviteeAlternativeTimeSearcher *)self leftoverSpans];
-  v33 = v18;
+  v32 = v18;
   [leftoverSpans2 setArray:v18];
 
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -1492,8 +1471,6 @@ LABEL_25:
 
   [(EKInviteeAlternativeTimeSearcher *)self _attemptSearch];
 LABEL_26:
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __77__EKInviteeAlternativeTimeSearcher__processResults_betweenStartDate_endDate___block_invoke(uint64_t a1, void *a2)
@@ -1602,31 +1579,31 @@ LABEL_12:
 
 + (id)_addressesForParticipants:(id)participants
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   participantsCopy = participants;
   v4 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   if (participantsCopy && [participantsCopy count])
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v5 = participantsCopy;
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          participant = [*(*(&v15 + 1) + 8 * i) participant];
+          participant = [*(*(&v14 + 1) + 8 * i) participant];
           v11 = [participant URL];
           absoluteString = [v11 absoluteString];
 
@@ -1636,14 +1613,12 @@ LABEL_12:
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -1829,33 +1804,33 @@ LABEL_14:
 
 - (id)_mergeAdjacentSpansWithSameConflictedParticipants:(id)participants
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   participantsCopy = participants;
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (participantsCopy && [participantsCopy count])
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v5 = participantsCopy;
-    v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v6)
     {
       v7 = v6;
       v8 = 0;
-      v9 = *v19;
+      v9 = *v18;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v19 != v9)
+          if (*v18 != v9)
           {
             objc_enumerationMutation(v5);
           }
 
-          v11 = *(*(&v18 + 1) + 8 * i);
-          if (v8 && [objc_opt_class() _span:v11 hasSameConflictedParticipantsAsSpan:{v8, v18}])
+          v11 = *(*(&v17 + 1) + 8 * i);
+          if (v8 && [objc_opt_class() _span:v11 hasSameConflictedParticipantsAsSpan:{v8, v17}])
           {
             endDate = [v11 endDate];
             [v8 setEndDate:endDate];
@@ -1870,7 +1845,7 @@ LABEL_14:
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v7);
@@ -1890,14 +1865,12 @@ LABEL_14:
     [objc_opt_class() _validateSpans:v4];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (id)_generateOpenFreeTimesFromTimeSpans:(id)spans
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   spansCopy = spans;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   internalOriginalEndDate = [(EKInviteeAlternativeTimeSearcher *)self internalOriginalEndDate];
@@ -1905,28 +1878,28 @@ LABEL_14:
   [internalOriginalEndDate timeIntervalSinceDate:internalOriginalStartDate];
   v9 = v8;
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v10 = spansCopy;
-  v11 = [v10 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v33;
-    v30 = *v33;
-    v31 = v10;
+    v13 = *v32;
+    v29 = *v32;
+    v30 = v10;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v33 != v13)
+        if (*v32 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v32 + 1) + 8 * i);
+        v15 = *(*(&v31 + 1) + 8 * i);
         conflictedParticipants = [v15 conflictedParticipants];
         v17 = [conflictedParticipants count];
 
@@ -1951,49 +1924,47 @@ LABEL_14:
               j = v24;
             }
 
-            v13 = v30;
-            v10 = v31;
+            v13 = v29;
+            v10 = v30;
           }
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v12);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (void)_insertUniqueParticipants:(id)participants intoExistingParticipantsArray:(id)array
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   participantsCopy = participants;
   arrayCopy = array;
   v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v8 = participantsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v33;
+    v11 = *v32;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v33 != v11)
+        if (*v32 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v32 + 1) + 8 * i);
+        v13 = *(*(&v31 + 1) + 8 * i);
         participant = [v13 participant];
         v15 = [participant URL];
         absoluteString = [v15 absoluteString];
@@ -2004,32 +1975,32 @@ LABEL_14:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v10);
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v17 = arrayCopy;
-  v18 = [v17 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v29;
+    v20 = *v28;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v29 != v20)
+        if (*v28 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v28 + 1) + 8 * j);
+        v22 = *(*(&v27 + 1) + 8 * j);
         participant2 = [v22 participant];
         v24 = [participant2 URL];
         absoluteString2 = [v24 absoluteString];
@@ -2040,7 +2011,7 @@ LABEL_14:
         }
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
     while (v19);
@@ -2048,15 +2019,13 @@ LABEL_14:
 
   allValues = [v7 allValues];
   [v17 setArray:allValues];
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_generateNonOptimalTimesFromTimeSpans:(id)spans
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   spansCopy = spans;
-  v61 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v60 = objc_alloc_init(MEMORY[0x1E695DF70]);
   internalOriginalEndDate = [(EKInviteeAlternativeTimeSearcher *)self internalOriginalEndDate];
   selfCopy = self;
   internalOriginalStartDate = [(EKInviteeAlternativeTimeSearcher *)self internalOriginalStartDate];
@@ -2065,16 +2034,16 @@ LABEL_14:
 
   firstObject = [spansCopy firstObject];
   lastObject = [spansCopy lastObject];
-  v59 = firstObject;
+  v58 = firstObject;
   startDate = [firstObject startDate];
-  v58 = lastObject;
+  v57 = lastObject;
   endDate = [lastObject endDate];
   v13 = startDate;
-  v67 = spansCopy;
-  v68 = [spansCopy count];
-  v60 = v13;
-  v62 = endDate;
-  if ([v13 CalIsBeforeDate:endDate] && v68)
+  v66 = spansCopy;
+  v67 = [spansCopy count];
+  v59 = v13;
+  v61 = endDate;
+  if ([v13 CalIsBeforeDate:endDate] && v67)
   {
     v14 = 0;
     v15 = v13;
@@ -2092,7 +2061,7 @@ LABEL_14:
       [(EKInviteeTimeSpan *)v17 setStartDate:v15];
       v18 = v16;
       [(EKInviteeTimeSpan *)v17 setEndDate:v16];
-      v19 = [v67 objectAtIndex:v14];
+      v19 = [v66 objectAtIndex:v14];
       v20 = objc_alloc(MEMORY[0x1E695DF70]);
       conflictedParticipants = [v19 conflictedParticipants];
       v22 = [v20 initWithArray:conflictedParticipants];
@@ -2101,7 +2070,7 @@ LABEL_14:
       endDate3 = [v19 endDate];
       v25 = [endDate2 isEqualToDate:endDate3];
 
-      v63 = v19;
+      v62 = v19;
       if (v25)
       {
         ++v14;
@@ -2116,14 +2085,14 @@ LABEL_14:
         if (v30)
         {
           v31 = v14 + 1;
-          if (v14 + 1 < v68)
+          if (v14 + 1 < v67)
           {
             v32 = v14;
             v33 = v14 + 1;
             v13 = v18;
             while (1)
             {
-              v34 = [v67 objectAtIndex:v31];
+              v34 = [v66 objectAtIndex:v31];
               startDate2 = [v34 startDate];
               v36 = [startDate2 CalIsBeforeDate:v13];
 
@@ -2154,7 +2123,7 @@ LABEL_14:
                 v31 = v33++;
                 v42 = v32 + 2;
                 ++v32;
-                if (v42 < v68)
+                if (v42 < v67)
                 {
                   continue;
                 }
@@ -2177,14 +2146,14 @@ LABEL_8:
 
       if (v27)
       {
-        [v61 addObject:v17];
+        [v60 addObject:v17];
       }
 
-      endDate = v62;
-      if ([v13 CalIsBeforeDate:v62])
+      endDate = v61;
+      if ([v13 CalIsBeforeDate:v61])
       {
         v15 = v13;
-        if (v14 < v68)
+        if (v14 < v67)
         {
           continue;
         }
@@ -2194,31 +2163,31 @@ LABEL_8:
     }
   }
 
-  v69 = v13;
-  v64 = [(EKInviteeAlternativeTimeSearcher *)selfCopy _filterOutUnreasonableTimeSlots:v61];
-  v66 = [objc_opt_class() _rankNonOptimalTimeSpans:v64];
-  v43 = [objc_opt_class() _findHighestRankedNonOptimalTimeSpans:v66];
+  v68 = v13;
+  v63 = [(EKInviteeAlternativeTimeSearcher *)selfCopy _filterOutUnreasonableTimeSlots:v60];
+  v65 = [objc_opt_class() _rankNonOptimalTimeSpans:v63];
+  v43 = [objc_opt_class() _findHighestRankedNonOptimalTimeSpans:v65];
   v44 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v69 = 0u;
   v70 = 0u;
   v71 = 0u;
   v72 = 0u;
-  v73 = 0u;
   v45 = v43;
-  v46 = [v45 countByEnumeratingWithState:&v70 objects:v74 count:16];
+  v46 = [v45 countByEnumeratingWithState:&v69 objects:v73 count:16];
   if (v46)
   {
     v47 = v46;
-    v48 = *v71;
+    v48 = *v70;
     do
     {
       for (i = 0; i != v47; ++i)
       {
-        if (*v71 != v48)
+        if (*v70 != v48)
         {
           objc_enumerationMutation(v45);
         }
 
-        v50 = *(*(&v70 + 1) + 8 * i);
+        v50 = *(*(&v69 + 1) + 8 * i);
         v51 = [EKInviteeAlternativeTime alloc];
         startDate3 = [v50 startDate];
         endDate8 = [v50 endDate];
@@ -2228,13 +2197,11 @@ LABEL_8:
         [v44 addObject:v55];
       }
 
-      v47 = [v45 countByEnumeratingWithState:&v70 objects:v74 count:16];
+      v47 = [v45 countByEnumeratingWithState:&v69 objects:v73 count:16];
     }
 
     while (v47);
   }
-
-  v56 = *MEMORY[0x1E69E9840];
 
   return v44;
 }
@@ -2267,30 +2234,30 @@ LABEL_8:
 
 BOOL __68__EKInviteeAlternativeTimeSearcher__filterOutUnreasonableTimeSlots___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = [v3 conflictedParticipants];
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       v9 = 0;
       do
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(&v17 + 1) + 8 * v9) participant];
+        v10 = [*(*(&v16 + 1) + 8 * v9) participant];
         v11 = [v10 URL];
         v12 = [v11 absoluteString];
 
@@ -2303,7 +2270,7 @@ BOOL __68__EKInviteeAlternativeTimeSearcher__filterOutUnreasonableTimeSlots___bl
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
@@ -2320,13 +2287,12 @@ BOOL __68__EKInviteeAlternativeTimeSearcher__filterOutUnreasonableTimeSlots___bl
     v14 = 1;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 + (id)_findHighestRankedNonOptimalTimeSpans:(id)spans
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   spansCopy = spans;
   if ([spansCopy count] <= 0x14)
   {
@@ -2336,34 +2302,34 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v5 = spansCopy;
-  v6 = [v5 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (!v6)
   {
 
 LABEL_19:
-    v4 = [v5 subarrayWithRange:{0, 20, v26}];
+    v4 = [v5 subarrayWithRange:{0, 20, v25}];
     goto LABEL_20;
   }
 
   v7 = v6;
   v8 = 0;
   v9 = 0;
-  v10 = *v27;
+  v10 = *v26;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v27 != v10)
+      if (*v26 != v10)
       {
         objc_enumerationMutation(v5);
       }
 
-      v12 = *(*(&v26 + 1) + 8 * i);
+      v12 = *(*(&v25 + 1) + 8 * i);
       conflictedParticipants = [v12 conflictedParticipants];
       v14 = [conflictedParticipants count];
 
@@ -2381,7 +2347,7 @@ LABEL_19:
       v8 = [conflictedParticipants2 count];
     }
 
-    v7 = [v5 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v25 objects:v29 count:16];
   }
 
   while (v7);
@@ -2408,8 +2374,6 @@ LABEL_13:
 
 LABEL_21:
   v23 = [v17 sortedArrayWithOptions:16 usingComparator:&__block_literal_global_28];
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v23;
 }
@@ -2537,7 +2501,7 @@ void __90__EKInviteeAlternativeTimeSearcher__generateTimeSpansForResults_between
 
 void __90__EKInviteeAlternativeTimeSearcher__generateTimeSpansForResults_betweenStartDate_endDate___block_invoke_60(uint64_t a1, void *a2)
 {
-  v72[1] = *MEMORY[0x1E69E9840];
+  v69[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 startDate];
   v5 = [v3 endDate];
@@ -2569,8 +2533,8 @@ void __90__EKInviteeAlternativeTimeSearcher__generateTimeSpansForResults_between
       [(EKInviteeTimeSpan *)v12 setEndDate:v14];
 
       v15 = [(EKInviteeTimeSpan *)v12 conflictedParticipants];
-      v72[0] = *(a1 + 40);
-      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v72 count:1];
+      v69[0] = *(a1 + 40);
+      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v69 count:1];
       [v15 addObjectsFromArray:v16];
 
       [*(a1 + 32) insertObject:v12 atIndex:0];
@@ -2590,139 +2554,137 @@ void __90__EKInviteeAlternativeTimeSearcher__generateTimeSpansForResults_between
       [(EKInviteeTimeSpan *)v20 setEndDate:v22];
 
       v23 = [(EKInviteeTimeSpan *)v20 conflictedParticipants];
-      v71 = *(a1 + 40);
-      v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v71 count:1];
+      v68 = *(a1 + 40);
+      v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v68 count:1];
       [v23 addObjectsFromArray:v24];
 
       [*(a1 + 32) addObject:v20];
     }
 
-    v25 = *(a1 + 48);
-    v26 = objc_opt_class();
-    v27 = *(a1 + 32);
-    v28 = [v3 startDate];
-    v29 = [v26 _binarySearchForIndexOfTimeSpanInArray:v27 containingDate:v28];
+    v25 = objc_opt_class();
+    v26 = *(a1 + 32);
+    v27 = [v3 startDate];
+    v28 = [v25 _binarySearchForIndexOfTimeSpanInArray:v26 containingDate:v27];
 
-    v30 = *(a1 + 48);
-    if (v29 == [objc_opt_class() _invalidBinarySearchIndex])
+    if (v28 == [objc_opt_class() _invalidBinarySearchIndex])
     {
-      v31 = EKUIAvailabilitySearchHandle;
+      v29 = EKUIAvailabilitySearchHandle;
       if (os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_ERROR))
       {
-        __90__EKInviteeAlternativeTimeSearcher__generateTimeSpansForResults_betweenStartDate_endDate___block_invoke_60_cold_2(v31, v3);
+        __90__EKInviteeAlternativeTimeSearcher__generateTimeSpansForResults_betweenStartDate_endDate___block_invoke_60_cold_2(v29, v3);
       }
     }
 
     else
     {
-      v32 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v33 = [*(a1 + 32) count];
-      v69 = v29 - v33;
-      if (v29 >= v33)
+      v30 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v31 = [*(a1 + 32) count];
+      v66 = v28 - v31;
+      if (v28 >= v31)
       {
-        v62 = 0;
+        v60 = 0;
       }
 
       else
       {
-        v66 = v8;
-        v67 = v7;
-        v34 = 0;
-        v64 = v33 - v29;
-        v65 = v29;
-        v68 = a1;
+        v63 = v8;
+        v64 = v7;
+        v32 = 0;
+        v61 = v31 - v28;
+        v62 = v28;
+        v65 = a1;
         while (1)
         {
-          v35 = [*(a1 + 32) objectAtIndex:{v29, v64}];
-          v36 = [v3 endDate];
-          v37 = [v35 startDate];
-          v38 = [v36 CalIsBeforeOrSameAsDate:v37];
+          v33 = [*(a1 + 32) objectAtIndex:{v28, v61}];
+          v34 = [v3 endDate];
+          v35 = [v33 startDate];
+          v36 = [v34 CalIsBeforeOrSameAsDate:v35];
 
-          if (v38)
+          if (v36)
           {
             break;
           }
 
-          v39 = v32;
-          v40 = [v35 startDate];
-          v41 = [v35 endDate];
-          v42 = [v3 startDate];
-          v43 = [v35 startDate];
-          v44 = [v42 CalIsAfterDate:v43];
+          v37 = v30;
+          v38 = [v33 startDate];
+          v39 = [v33 endDate];
+          v40 = [v3 startDate];
+          v41 = [v33 startDate];
+          v42 = [v40 CalIsAfterDate:v41];
 
-          if (v44)
+          if (v42)
           {
-            v45 = objc_alloc_init(EKInviteeTimeSpan);
-            v46 = [v35 startDate];
-            [(EKInviteeTimeSpan *)v45 setStartDate:v46];
+            v43 = objc_alloc_init(EKInviteeTimeSpan);
+            v44 = [v33 startDate];
+            [(EKInviteeTimeSpan *)v43 setStartDate:v44];
 
-            v47 = [v3 startDate];
-            [(EKInviteeTimeSpan *)v45 setEndDate:v47];
+            v45 = [v3 startDate];
+            [(EKInviteeTimeSpan *)v43 setEndDate:v45];
 
-            v48 = [(EKInviteeTimeSpan *)v45 conflictedParticipants];
-            v49 = [v35 conflictedParticipants];
-            [v48 addObjectsFromArray:v49];
+            v46 = [(EKInviteeTimeSpan *)v43 conflictedParticipants];
+            v47 = [v33 conflictedParticipants];
+            [v46 addObjectsFromArray:v47];
 
-            [v39 addObject:v45];
-            v50 = [v3 startDate];
+            [v37 addObject:v43];
+            v48 = [v3 startDate];
 
-            v40 = v50;
+            v38 = v48;
           }
 
-          [v39 addObject:v35];
-          v51 = [v3 endDate];
-          v52 = [v35 endDate];
-          v53 = [v51 CalIsBeforeDate:v52];
+          [v37 addObject:v33];
+          v49 = [v3 endDate];
+          v50 = [v33 endDate];
+          v51 = [v49 CalIsBeforeDate:v50];
 
-          if (v53)
+          if (v51)
           {
-            v54 = objc_alloc_init(EKInviteeTimeSpan);
-            v55 = [v3 endDate];
-            [(EKInviteeTimeSpan *)v54 setStartDate:v55];
+            v52 = objc_alloc_init(EKInviteeTimeSpan);
+            v53 = [v3 endDate];
+            [(EKInviteeTimeSpan *)v52 setStartDate:v53];
 
-            v56 = [v35 endDate];
-            [(EKInviteeTimeSpan *)v54 setEndDate:v56];
+            v54 = [v33 endDate];
+            [(EKInviteeTimeSpan *)v52 setEndDate:v54];
 
-            v57 = [(EKInviteeTimeSpan *)v54 conflictedParticipants];
-            v58 = [v35 conflictedParticipants];
-            [v57 addObjectsFromArray:v58];
+            v55 = [(EKInviteeTimeSpan *)v52 conflictedParticipants];
+            v56 = [v33 conflictedParticipants];
+            [v55 addObjectsFromArray:v56];
 
-            [v39 addObject:v54];
-            v59 = [v3 endDate];
+            [v37 addObject:v52];
+            v57 = [v3 endDate];
 
-            v41 = v59;
+            v39 = v57;
           }
 
-          v32 = v39;
-          [v35 setStartDate:v40];
-          [v35 setEndDate:v41];
-          v60 = [v35 conflictedParticipants];
-          a1 = v68;
-          v70 = *(v68 + 40);
-          v61 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v70 count:1];
-          [v60 addObjectsFromArray:v61];
+          v30 = v37;
+          [v33 setStartDate:v38];
+          [v33 setEndDate:v39];
+          v58 = [v33 conflictedParticipants];
+          a1 = v65;
+          v67 = *(v65 + 40);
+          v59 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v67 count:1];
+          [v58 addObjectsFromArray:v59];
 
-          ++v29;
-          if (v69 == --v34)
+          ++v28;
+          if (v66 == --v32)
           {
-            v8 = v66;
-            v7 = v67;
-            v62 = v64;
-            v29 = v65;
+            v8 = v63;
+            v7 = v64;
+            v60 = v61;
+            v28 = v62;
             goto LABEL_23;
           }
         }
 
-        v62 = -v34;
-        v8 = v66;
-        v7 = v67;
-        v29 = v65;
+        v60 = -v32;
+        v8 = v63;
+        v7 = v64;
+        v28 = v62;
       }
 
 LABEL_23:
-      if ([v32 count])
+      if ([v30 count])
       {
-        [*(a1 + 32) replaceObjectsInRange:v29 withObjectsFromArray:{v62, v32}];
+        [*(a1 + 32) replaceObjectsInRange:v28 withObjectsFromArray:{v60, v30}];
       }
 
       else if (os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_ERROR))
@@ -2731,8 +2693,6 @@ LABEL_23:
       }
     }
   }
-
-  v63 = *MEMORY[0x1E69E9840];
 }
 
 + (int64_t)_binarySearchForIndexOfTimeSpanInArray:(id)array containingDate:(id)date
@@ -2794,9 +2754,9 @@ LABEL_23:
   defaultProvider = [v3 defaultProvider];
   myFullName = [defaultProvider myFullName];
   v7 = myFullName;
-  if (!myFullName || ![myFullName length])
+  if (!myFullName || (myFullName = [myFullName length]) == 0)
   {
-    v8 = EKBundle();
+    v8 = EKBundle(myFullName);
     v9 = [v8 localizedStringForKey:@"You" value:&stru_1F1B49D68 table:0];
 
     v7 = v9;
@@ -2886,7 +2846,7 @@ LABEL_23:
   _Block_object_dispose(&v22, 8);
 }
 
-void __51__EKInviteeAlternativeTimeSearcher__validateSpans___block_invoke(uint64_t *a1, void *a2)
+void __51__EKInviteeAlternativeTimeSearcher__validateSpans___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
   v4 = [v3 startDate];
@@ -2895,7 +2855,7 @@ void __51__EKInviteeAlternativeTimeSearcher__validateSpans___block_invoke(uint64
   {
     if (os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_ERROR))
     {
-      __51__EKInviteeAlternativeTimeSearcher__validateSpans___block_invoke_cold_1(a1 + 4);
+      __51__EKInviteeAlternativeTimeSearcher__validateSpans___block_invoke_cold_1();
     }
 
     *(*(a1[5] + 8) + 24) = 1;
@@ -2966,7 +2926,7 @@ LABEL_15:
       *(*(a1[9] + 8) + 24) = 1;
       if (os_log_type_enabled(EKUIAvailabilitySearchHandle, OS_LOG_TYPE_ERROR))
       {
-        __51__EKInviteeAlternativeTimeSearcher__validateSpans___block_invoke_cold_4(v10);
+        __51__EKInviteeAlternativeTimeSearcher__validateSpans___block_invoke_cold_4();
       }
     }
   }
@@ -2976,15 +2936,11 @@ LABEL_15:
   *(v18 + 40) = v3;
 }
 
-void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_1(uint64_t a1)
+void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
-  v2 = *(a1 + 48);
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_2()
@@ -2996,17 +2952,14 @@ void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNe
 
 void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_3(id *a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
   v3 = *a1;
   v4 = a2;
   v5 = [v3 startDate];
   v6 = [*a1 endDateUnadjustedForLegacyClients];
   v7 = [*a1 calendar];
-  v14 = [v7 source];
+  v13 = [v7 source];
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v8, v9, v10, v11, v12, 0x2Au);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_4()
@@ -3018,28 +2971,25 @@ void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNe
 
 void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_5()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_1A805E000, v1, OS_LOG_TYPE_DEBUG, "Adding organizer with address [%@] to the list of attendees to be included in conflict resolution.  Participant: [%@]", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1A805E000, v1, OS_LOG_TYPE_DEBUG, "Adding organizer with address [%@] to the list of attendees to be included in conflict resolution.  Participant: [%@]", v2, 0x16u);
 }
 
 void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_7()
 {
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "No 'organizerAddressForNewlyScheduledEvent' given.  The organizer for this event is unknown and conflict resolution will likely be incorrect and irrelevant.");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_8()
@@ -3051,15 +3001,12 @@ void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNe
 
 void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_9(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AD98];
   v4 = a1;
   v5 = [v3 numberWithUnsignedInteger:{objc_msgSend(a2, "count")}];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v6, v7, v8, v9, v10, 0xCu);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_10()
@@ -3078,20 +3025,16 @@ void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNe
 
 void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_12()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_13()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_14()
@@ -3111,8 +3054,8 @@ void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNe
 void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_cold_16()
 {
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "No event given.  Will not search for alternative times.");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_22_cold_1()
@@ -3129,12 +3072,11 @@ void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNe
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_23_cold_1(uint64_t *a1)
+void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_23_cold_1()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_23_cold_2()
@@ -3146,11 +3088,9 @@ void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNe
 
 void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_23_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_23_cold_4()
@@ -3162,46 +3102,30 @@ void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNe
 
 void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_23_cold_5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_24_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_24_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __90__EKInviteeAlternativeTimeSearcher_resetWithEvent_organizerAddressForNewlyScheduledEvent___block_invoke_24_cold_3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v0, v1, "Could not find participant.  Will not count as busy.  Address: [%@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __50__EKInviteeAlternativeTimeSearcher__attemptSearch__block_invoke_3_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __50__EKInviteeAlternativeTimeSearcher__attemptSearch__block_invoke_3_cold_2()
@@ -3211,41 +3135,32 @@ void __50__EKInviteeAlternativeTimeSearcher__attemptSearch__block_invoke_3_cold_
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __50__EKInviteeAlternativeTimeSearcher__attemptSearch__block_invoke_46_cold_1(uint64_t *a1)
+void __50__EKInviteeAlternativeTimeSearcher__attemptSearch__block_invoke_46_cold_1()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __53__EKInviteeAlternativeTimeSearcher__sendStateChange___block_invoke_cold_1(uint64_t *a1, void *a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v4 = *a1;
-  v5 = a2;
-  v6 = [objc_opt_class() stateAsString:*(a3 + 40)];
+  v4 = a2;
+  v5 = [objc_opt_class() stateAsString:*(a3 + 40)];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_10(&dword_1A805E000, v7, v8, "Sending state change.  State: [%@]", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_10(&dword_1A805E000, v6, v7, "Sending state change.  State: [%@]", v8, v9, v10, v11);
 }
 
 void __53__EKInviteeAlternativeTimeSearcher__sendStateChange___block_invoke_cold_2(uint64_t *a1, void *a2, uint64_t a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v4 = *a1;
-  v5 = a2;
-  v6 = [objc_opt_class() stateAsString:*(a3 + 40)];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_1A805E000, v5, OS_LOG_TYPE_ERROR, "No 'state changed' callback found.  Will not send state changed information.  State: [%@]", v8, 0xCu);
-
   v7 = *MEMORY[0x1E69E9840];
+  v4 = a2;
+  v5 = [objc_opt_class() stateAsString:*(a3 + 40)];
+  OUTLINED_FUNCTION_1();
+  _os_log_error_impl(&dword_1A805E000, v4, OS_LOG_TYPE_ERROR, "No 'state changed' callback found.  Will not send state changed information.  State: [%@]", v6, 0xCu);
 }
 
 - (void)_processResults:(void *)a1 betweenStartDate:(void *)a2 endDate:(void *)a3 .cold.1(void *a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696AD98];
   v6 = a1;
   v7 = [v5 numberWithUnsignedInteger:{objc_msgSend(a2, "count")}];
@@ -3253,27 +3168,22 @@ void __53__EKInviteeAlternativeTimeSearcher__sendStateChange___block_invoke_cold
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v9, v10, v11, v12, v13, 0x16u);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_processResults:betweenStartDate:endDate:.cold.2()
 {
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Search has not progressed and no more work remains.  This is an invalid state, as there should always be work to do until we've seen search results or there are no more search attempts left.");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 - (void)_processResults:(void *)a1 betweenStartDate:(void *)a2 endDate:.cold.3(void *a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AD98];
   v4 = a1;
   v5 = [v3 numberWithUnsignedInteger:{objc_msgSend(a2, "remainingSearchAttempts")}];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_10(&dword_1A805E000, v6, v7, "There are [%@] remaining search attempts left.  Continuing search.", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_10(&dword_1A805E000, v6, v7, "There are [%@] remaining search attempts left.  Continuing search.", v8, v9, v10, v11);
 }
 
 - (void)_processResults:betweenStartDate:endDate:.cold.4()
@@ -3292,124 +3202,49 @@ void __53__EKInviteeAlternativeTimeSearcher__sendStateChange___block_invoke_cold
 
 + (void)_findLeftoverSpans:usingFreeTimes:andNonOptimalTimes:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __90__EKInviteeAlternativeTimeSearcher__generateTimeSpansForResults_betweenStartDate_endDate___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v0, v1, "No participant found for participant with address: [%@].  Will not generate time spans for this participant's availability information.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __90__EKInviteeAlternativeTimeSearcher__generateTimeSpansForResults_betweenStartDate_endDate___block_invoke_60_cold_1()
 {
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "No replacement spans found.");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 void __90__EKInviteeAlternativeTimeSearcher__generateTimeSpansForResults_betweenStartDate_endDate___block_invoke_60_cold_2(void *a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 startDate];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_1A805E000, v3, OS_LOG_TYPE_ERROR, "Could not find a time span that contains date: [%@]", v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __90__EKInviteeAlternativeTimeSearcher__generateTimeSpansForResults_betweenStartDate_endDate___block_invoke_60_cold_3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v0, v1, "This span's start date is equal to its end date: [%@].  Will not consider this span in alternative time calculations.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1A805E000, v3, OS_LOG_TYPE_ERROR, "Could not find a time span that contains date: [%@]", v5, 0xCu);
 }
 
 + (void)_validateSpans:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AD98];
   v4 = a1;
   v5 = [v3 numberWithUnsignedInteger:{objc_msgSend(a2, "count")}];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v6, v7, v8, v9, v10, 0xCu);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
-+ (void)_validateSpans:.cold.2()
+void __51__EKInviteeAlternativeTimeSearcher__validateSpans___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v0, v1, "Time gaps exist in the spans range: [%@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_validateSpans:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v0, v1, "A zero-duration span exists in the spans range: [%@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_validateSpans:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v0, v1, "At least one span's start date comes after its end date in the spans range: [%@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_validateSpans:.cold.5()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v0, v1, "At least two contiguous spans are marked as being free in the spans range: [%@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __51__EKInviteeAlternativeTimeSearcher__validateSpans___block_invoke_cold_1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
-  v2 = *(*(v1 + 8) + 40);
+  OUTLINED_FUNCTION_8(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_7();
-  OUTLINED_FUNCTION_9(&dword_1A805E000, v3, v4, "Found span whose start date doesn't match previous span's end date.  Previous lastEndDate: [%@].  Cached span: [%@]");
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_9(&dword_1A805E000, v0, v1, "Found span whose start date doesn't match previous span's end date.  Previous lastEndDate: [%@].  Cached span: [%@]");
 }
 
-void __51__EKInviteeAlternativeTimeSearcher__validateSpans___block_invoke_cold_2()
+void __51__EKInviteeAlternativeTimeSearcher__validateSpans___block_invoke_cold_4()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v0, v1, "Span's start date is after its end date: [%@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __51__EKInviteeAlternativeTimeSearcher__validateSpans___block_invoke_cold_3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v0, v1, "Span's start and end date is the same: [%@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __51__EKInviteeAlternativeTimeSearcher__validateSpans___block_invoke_cold_4(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
-  v2 = *(*(v1 + 8) + 40);
+  OUTLINED_FUNCTION_8(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_7();
-  OUTLINED_FUNCTION_9(&dword_1A805E000, v3, v4, "Contiguous free spans exist.  Last inspected span: [%@].  This span: [%@]");
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_9(&dword_1A805E000, v0, v1, "Contiguous free spans exist.  Last inspected span: [%@].  This span: [%@]");
 }
 
 @end

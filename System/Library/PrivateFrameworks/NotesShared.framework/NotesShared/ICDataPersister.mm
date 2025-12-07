@@ -529,14 +529,14 @@ LABEL_21:
 {
   [a1 accumulatedDataSize];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v1, v2, "Data is too large to be encoded for the pasteboard: %lu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v1, v2, "Data is too large to be encoded for the pasteboard: %lu", v3, v4, v5, v6);
 }
 
 - (void)encodeWithCoder:(void *)a1 .cold.2(void *a1)
 {
   [a1 accumulatedDataSize];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v1, v2, "Encoding all data for pasteboard: %lu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v1, v2, "Encoding all data for pasteboard: %lu", v3, v4, v5, v6);
 }
 
 @end

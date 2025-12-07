@@ -28,20 +28,20 @@ uint64_t __20__CNArchiver_os_log__block_invoke()
 
 + (id)decodeObjectOfClass:(Class)class associatedClasses:(id)classes data:(id)data error:(id *)error
 {
-  v46[1] = *MEMORY[0x1E69E9840];
+  v45[1] = *MEMORY[0x1E69E9840];
   classesCopy = classes;
   dataCopy = data;
-  v44[0] = 0;
-  v11 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:dataCopy error:v44];
-  v12 = v44[0];
+  v43[0] = 0;
+  v11 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:dataCopy error:v43];
+  v12 = v43[0];
   if (v11)
   {
     v13 = [MEMORY[0x1E695DFA8] setWithArray:classesCopy];
     [v13 addObject:class];
     v14 = *MEMORY[0x1E696A508];
-    v43 = v12;
-    v15 = [v11 decodeTopLevelObjectOfClasses:v13 forKey:v14 error:&v43];
-    v16 = v43;
+    v42 = v12;
+    v15 = [v11 decodeTopLevelObjectOfClasses:v13 forKey:v14 error:&v42];
+    v16 = v42;
 
     if (v15)
     {
@@ -69,9 +69,9 @@ LABEL_22:
       }
 
       v37 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"The decoded object was of type %@, but an object of type %@ (%@) was expected", objc_opt_class(), class, v36];
-      v45 = *MEMORY[0x1E696A278];
-      v46[0] = v37;
-      v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:&v45 count:1];
+      v44 = *MEMORY[0x1E696A278];
+      v45[0] = v37;
+      v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:&v44 count:1];
       v39 = [CNFoundationError errorWithCode:6 userInfo:v38];
       if (error)
       {
@@ -116,30 +116,28 @@ LABEL_22:
   v17 = 0;
 LABEL_23:
 
-  v40 = *MEMORY[0x1E69E9840];
-
   return v17;
 }
 
 + (void)decodeObjectOfClass:(uint64_t)a3 associatedClasses:(uint64_t)a4 data:(uint64_t)a5 error:(uint64_t)a6 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1859F0000, a2, a3, "error unarchiving object: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1859F0000, a2, a3, "error unarchiving object: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)decodeObjectOfClass:(uint64_t)a3 associatedClasses:(uint64_t)a4 data:(uint64_t)a5 error:(uint64_t)a6 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1859F0000, a2, a3, "exception while unarchiving object: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1859F0000, a2, a3, "exception while unarchiving object: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)decodeObjectOfClass:(uint64_t)a3 associatedClasses:(uint64_t)a4 data:(uint64_t)a5 error:(uint64_t)a6 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1859F0000, a2, a3, "error initializing unarchiver: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1859F0000, a2, a3, "error initializing unarchiver: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -24,7 +24,7 @@
 
 - (void)start
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;

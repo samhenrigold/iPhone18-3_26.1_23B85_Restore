@@ -31,7 +31,7 @@
 
       v10 = v9;
       v11 = JavaLangCharacter_codePointAtWithJavaLangCharSequence_withInt_(ref, v8);
-      v8 = JavaLangCharacter_charCountWithInt_(v11) + v8;
+      v8 = JavaLangCharacter_charCountWithInt_(v11, v12) + v8;
       root = v10;
       if (v8 >= v7)
       {
@@ -86,7 +86,7 @@ LABEL_11:
 
 - (BOOL)setPreviousWithOrgApacheLuceneUtilCharsRef:(id)ref
 {
-  v4 = OrgApacheLuceneUtilCharsRef_deepCopyOfWithOrgApacheLuceneUtilCharsRef_(ref);
+  v4 = OrgApacheLuceneUtilCharsRef_deepCopyOfWithOrgApacheLuceneUtilCharsRef_(ref, a2);
   JreStrongAssign(&self->previous_, v4);
   return 1;
 }
@@ -100,9 +100,10 @@ LABEL_11:
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
-    UTF16SortedAsUTF8Comparator = OrgApacheLuceneUtilCharsRef_getUTF16SortedAsUTF8Comparator();
+    UTF16SortedAsUTF8Comparator = OrgApacheLuceneUtilCharsRef_getUTF16SortedAsUTF8Comparator(v3, v4);
     JreStrongAssign(&qword_100554700, UTF16SortedAsUTF8Comparator);
     atomic_store(1u, &OrgApacheLuceneUtilAutomatonDaciukMihovAutomatonBuilder__initialized);
   }

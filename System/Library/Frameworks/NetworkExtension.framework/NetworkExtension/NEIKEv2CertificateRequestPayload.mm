@@ -2,21 +2,22 @@
 - (BOOL)generatePayloadData;
 - (BOOL)hasRequiredFields;
 - (BOOL)parsePayloadData:(id)data;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 @end
 
 @implementation NEIKEv2CertificateRequestPayload
 
 - (BOOL)parsePayloadData:(id)data
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if ([dataCopy length])
   {
-    LOBYTE(v11) = 0;
-    [dataCopy getBytes:&v11 length:1];
+    LOBYTE(v10) = 0;
+    [dataCopy getBytes:&v10 length:1];
     if (self)
     {
-      self->_encoding = v11;
+      self->_encoding = v10;
     }
 
     v6 = [dataCopy subdataWithRange:{1, objc_msgSend(dataCopy, "length") - 1}];
@@ -30,54 +31,52 @@
 
   else
   {
-    v10 = ne_log_obj();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = ne_log_obj();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315138;
-      v12 = "[NEIKEv2CertificateRequestPayload parsePayloadData:]";
-      _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, "BACKTRACE %s called with null (payloadData.length >= sizeof(ikev2_payload_certreq_hdr_t))", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[NEIKEv2CertificateRequestPayload parsePayloadData:]";
+      _os_log_error_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_ERROR, "BACKTRACE %s called with null (payloadData.length >= sizeof(ikev2_payload_certreq_hdr_t))", &v10, 0xCu);
     }
 
     hasRequiredFields = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return hasRequiredFields;
 }
 
 - (BOOL)generatePayloadData
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   if (self)
   {
     if (self->super._payloadDataVector)
     {
-      v3 = 1;
-      goto LABEL_12;
+      return 1;
     }
 
     if ([(NEIKEv2CertificateRequestPayload *)self hasRequiredFields])
     {
-      v13[0] = self->_encoding;
-      v4 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v13 length:1];
+      v12[0] = self->_encoding;
+      v4 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v12 length:1];
       objc_storeStrong(&self->super._payloadSubHeader, v4);
 
       Property = objc_getProperty(self, v5, 40, 1);
 LABEL_6:
-      v14[0] = Property;
+      v13[0] = Property;
       v7 = MEMORY[0x1E695DEC8];
       v8 = Property;
       v3 = 1;
-      v9 = [v7 arrayWithObjects:v14 count:{1, *v13}];
+      v9 = [v7 arrayWithObjects:v13 count:{1, *v12}];
 
       [(NEIKEv2KeyExchangeHandler *)self setSharedSecret:v9];
-      goto LABEL_12;
+      return v3;
     }
   }
 
   else if ([0 hasRequiredFields])
   {
-    v13[0] = 0;
+    v12[0] = 0;
 
     Property = 0;
     goto LABEL_6;
@@ -86,14 +85,11 @@ LABEL_6:
   v10 = ne_log_obj();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    *v13 = 0;
-    _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, "Certificate Request payload missing required fields", v13, 2u);
+    *v12 = 0;
+    _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, "Certificate Request payload missing required fields", v12, 2u);
   }
 
-  v3 = 0;
-LABEL_12:
-  v11 = *MEMORY[0x1E69E9840];
-  return v3;
+  return 0;
 }
 
 - (BOOL)hasRequiredFields
@@ -114,6 +110,30 @@ LABEL_12:
   }
 
   return selfCopy;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  typeDescription = [(NEIKEv2CertificateRequestPayload *)self typeDescription];
+  [v7 appendPrettyObject:typeDescription withName:@"Payload Type" andIndent:v5 options:options];
+
+  if (self)
+  {
+    [v7 appendPrettyObject:objc_getProperty(self withName:v9 andIndent:40 options:{1), @"Certificate Data", v5, options}];
+    encoding = self->_encoding;
+  }
+
+  else
+  {
+    [v7 appendPrettyObject:0 withName:@"Certificate Data" andIndent:v5 options:options];
+    encoding = 0;
+  }
+
+  [v7 appendPrettyInt:encoding withName:@"Encoding" andIndent:v5 options:options];
+
+  return v7;
 }
 
 @end

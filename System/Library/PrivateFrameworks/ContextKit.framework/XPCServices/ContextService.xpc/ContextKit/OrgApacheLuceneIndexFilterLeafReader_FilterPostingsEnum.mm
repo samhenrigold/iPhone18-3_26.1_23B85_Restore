@@ -1,6 +1,7 @@
 @interface OrgApacheLuceneIndexFilterLeafReader_FilterPostingsEnum
 - (id)attributes;
 - (id)getPayload;
+- (int)advanceWithInt:(int)int;
 - (int)docID;
 - (int)endOffset;
 - (int)freq;
@@ -55,6 +56,17 @@
   }
 
   return [(OrgApacheLuceneIndexPostingsEnum *)in nextDoc];
+}
+
+- (int)advanceWithInt:(int)int
+{
+  in = self->in_;
+  if (!in)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [(OrgApacheLuceneIndexPostingsEnum *)in advanceWithInt:*&int];
 }
 
 - (int)nextPosition

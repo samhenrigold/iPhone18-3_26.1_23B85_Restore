@@ -217,7 +217,7 @@
       CFRelease(v2);
     }
 
-    AVCaptureInitializeShutterSoundSuppressedByAirpodStemClickStorageOnce();
+    AVCaptureInitializeShutterSoundSuppressedByAirpodStemClickStorageOnce(v2, v3);
   }
 }
 
@@ -579,11 +579,11 @@ id __50__AVCapturePhotoOutput_supportedDigitalFlashModes__block_invoke(uint64_t 
     {
       v10[0] = &unk_1F1CEA220;
       v7 = MEMORY[0x1E696AD98];
-      [objc_msgSend(v26[5] objectForKeyedSubscript:{*MEMORY[0x1E69908A8]), "doubleValue"}];
+      [objc_msgSend_objectForKeyedSubscript_(v26[5]) doubleValue];
       v10[1] = &unk_1F1CEA238;
       v11[0] = [v7 numberWithDouble:?];
       v8 = MEMORY[0x1E696AD98];
-      [objc_msgSend(v26[5] objectForKeyedSubscript:{*MEMORY[0x1E69908A0]), "doubleValue"}];
+      [objc_msgSend_objectForKeyedSubscript_(v26[5]) doubleValue];
       v11[1] = [v8 numberWithDouble:?];
       v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
     }
@@ -607,7 +607,7 @@ id __50__AVCapturePhotoOutput_supportedDigitalFlashModes__block_invoke(uint64_t 
   return v5;
 }
 
-uint64_t __49__AVCapturePhotoOutput_digitalFlashExposureTimes__block_invoke(void *a1)
+void *__49__AVCapturePhotoOutput_digitalFlashExposureTimes__block_invoke(void *a1)
 {
   *(*(a1[5] + 8) + 40) = *(*(a1[4] + 16) + 312);
   *(*(a1[6] + 8) + 24) = *(*(a1[4] + 16) + 296);
@@ -666,7 +666,7 @@ uint64_t __49__AVCapturePhotoOutput_digitalFlashExposureTimes__block_invoke(void
   return v4;
 }
 
-uint64_t __42__AVCapturePhotoOutput_digitalFlashStatus__block_invoke(void *a1)
+void *__42__AVCapturePhotoOutput_digitalFlashStatus__block_invoke(void *a1)
 {
   *(*(a1[5] + 8) + 24) = *(*(a1[4] + 16) + 296);
   *(*(a1[6] + 8) + 24) = *(*(a1[4] + 16) + 288);
@@ -800,19 +800,19 @@ uint64_t __42__AVCapturePhotoOutput_digitalFlashStatus__block_invoke(void *a1)
 
 - (void)capturePhotoWithSettings:(AVCapturePhotoSettings *)settings delegate:(id)delegate
 {
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 0;
-  v22 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 0;
+  v31 = 0;
   if (!delegate)
   {
-    v16 = @"Nil delegate";
+    v17 = @"Nil delegate";
 LABEL_20:
-    v22 = v16;
+    v31 = v17;
 LABEL_14:
     v15 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v15, v16))
     {
       objc_exception_throw(v15);
     }
@@ -824,13 +824,13 @@ LABEL_14:
   v8 = [(AVCaptureOutput *)self connectionWithMediaType:*MEMORY[0x1E6987608]];
   if (([-[AVCaptureOutput liveConnections](self "liveConnections")] & 1) == 0)
   {
-    v16 = @"No active and enabled video connection";
+    v17 = @"No active and enabled video connection";
     goto LABEL_20;
   }
 
   if ([(AVCapturePhotoSettings *)settings isAutoSpatialOverCaptureEnabled])
   {
-    v16 = @"autoSpatialOverCaptureEnabled is not supported through this interface. Use beginMomentCapture...";
+    v17 = @"autoSpatialOverCaptureEnabled is not supported through this interface. Use beginMomentCapture...";
     goto LABEL_20;
   }
 
@@ -849,7 +849,7 @@ LABEL_14:
   }
 
   v11 = [(AVCapturePhotoSettings *)settings copy];
-  if (po_photoSettingsAreValid(v11, delegate, self, v8, &v22))
+  if (po_photoSettingsAreValid(v11, delegate, self, v8, &v31))
   {
     if (sIsForcedShutterSoundRegion == 1)
     {
@@ -860,34 +860,33 @@ LABEL_14:
 
     self->_internal->lastSettingsUniqueID = [v11 uniqueID];
     v14 = -[AVCapturePhotoOutput _figCaptureIrisStillImageSettingsForAVCapturePhotoSettings:captureRequestIdentifier:delegate:connections:](self, "_figCaptureIrisStillImageSettingsForAVCapturePhotoSettings:captureRequestIdentifier:delegate:connections:", v11, [objc_msgSend(MEMORY[0x1E696AFB0] "UUID")], delegate, -[AVCaptureOutput connections](self, "connections"));
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __58__AVCapturePhotoOutput_capturePhotoWithSettings_delegate___block_invoke;
-    v20[3] = &unk_1E7876038;
-    v20[7] = v14;
-    v20[8] = &v23;
-    v20[4] = v11;
-    v20[5] = self;
-    v20[6] = delegate;
-    [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:v20];
-    v18 = *MEMORY[0x1E6987418];
-    v19 = &unk_1F1CEA208;
-    [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-    if ((v24[3] & 1) == 0)
+    v21 = MEMORY[0x1E69E9820];
+    v22 = 3221225472;
+    v23 = __58__AVCapturePhotoOutput_capturePhotoWithSettings_delegate___block_invoke;
+    v24 = &unk_1E7876038;
+    v28 = v14;
+    v29 = &v32;
+    v25 = v11;
+    selfCopy = self;
+    v27 = delegate;
+    [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:&v21];
+    v19 = *MEMORY[0x1E6987418];
+    v20 = &unk_1F1CEA208;
+    [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    if ((v33[3] & 1) == 0)
     {
-      LODWORD(v17) = 0;
-      FigDebugAssert3();
-      [(AVCapturePhotoOutput *)self _dispatchFailureCallbacksForPhotoSettings:settings toDelegate:delegate withError:AVLocalizedError(), v17, v4];
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v4, v18, v19, v20, v21, v22, v23);
+      [(AVCapturePhotoOutput *)self _dispatchFailureCallbacksForPhotoSettings:settings toDelegate:delegate withError:AVLocalizedError()];
     }
   }
 
-  if (v22)
+  if (v31)
   {
     goto LABEL_14;
   }
 
 LABEL_16:
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v32, 8);
 }
 
 uint64_t __58__AVCapturePhotoOutput_capturePhotoWithSettings_delegate___block_invoke(uint64_t result, uint64_t a2)
@@ -954,27 +953,27 @@ uint64_t __58__AVCapturePhotoOutput_capturePhotoWithSettings_delegate___block_in
 {
   if (preparedPhotoSettingsArray)
   {
-    v26 = 0;
-    v22 = 0u;
+    v27 = 0;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v7 = [(NSArray *)preparedPhotoSettingsArray countByEnumeratingWithState:&v22 objects:v21 count:16];
+    v26 = 0u;
+    v7 = [(NSArray *)preparedPhotoSettingsArray countByEnumeratingWithState:&v23 objects:v22 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v23;
+      v9 = *v24;
       while (2)
       {
         v10 = 0;
         do
         {
-          if (*v23 != v9)
+          if (*v24 != v9)
           {
             objc_enumerationMutation(preparedPhotoSettingsArray);
           }
 
-          if (!po_photoSettingsAreValid(*(*(&v22 + 1) + 8 * v10), 0, 0, 0, &v26))
+          if (!po_photoSettingsAreValid(*(*(&v23 + 1) + 8 * v10), 0, 0, 0, &v27))
           {
             v16 = MEMORY[0x1E695DF30];
             v17 = *MEMORY[0x1E695D940];
@@ -985,7 +984,7 @@ uint64_t __58__AVCapturePhotoOutput_capturePhotoWithSettings_delegate___block_in
         }
 
         while (v8 != v10);
-        v8 = [(NSArray *)preparedPhotoSettingsArray countByEnumeratingWithState:&v22 objects:v21 count:16];
+        v8 = [(NSArray *)preparedPhotoSettingsArray countByEnumeratingWithState:&v23 objects:v22 count:16];
         if (v8)
         {
           continue;
@@ -1019,26 +1018,26 @@ uint64_t __58__AVCapturePhotoOutput_capturePhotoWithSettings_delegate___block_in
     {
       if (v15 >= 1)
       {
-        v20[0] = MEMORY[0x1E69E9820];
-        v20[1] = 3221225472;
-        v20[2] = __72__AVCapturePhotoOutput_setPreparedPhotoSettingsArray_completionHandler___block_invoke;
-        v20[3] = &unk_1E786ECD0;
-        v20[4] = self;
-        v20[5] = v15;
-        [(AVCaptureOutput *)self performBlockOnSessionNotifyingThread:v20];
+        v21[0] = MEMORY[0x1E69E9820];
+        v21[1] = 3221225472;
+        v21[2] = __72__AVCapturePhotoOutput_setPreparedPhotoSettingsArray_completionHandler___block_invoke;
+        v21[3] = &unk_1E786ECD0;
+        v21[4] = self;
+        v21[5] = v15;
+        [(AVCaptureOutput *)self performBlockOnSessionNotifyingThread:v21];
       }
     }
 
     else
     {
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __72__AVCapturePhotoOutput_setPreparedPhotoSettingsArray_completionHandler___block_invoke_2;
-      v19[3] = &unk_1E7876060;
-      v19[4] = self;
-      v19[5] = v11;
-      v19[6] = v15;
-      [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:v19];
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __72__AVCapturePhotoOutput_setPreparedPhotoSettingsArray_completionHandler___block_invoke_2;
+      v20[3] = &unk_1E7876060;
+      v20[4] = self;
+      v20[5] = v11;
+      v20[6] = v15;
+      [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:v20];
     }
   }
 
@@ -1048,7 +1047,7 @@ uint64_t __58__AVCapturePhotoOutput_capturePhotoWithSettings_delegate___block_in
     v17 = *MEMORY[0x1E695D940];
 LABEL_19:
     v18 = [v16 exceptionWithName:v17 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v18, v19))
     {
       objc_exception_throw(v18);
     }
@@ -1057,13 +1056,13 @@ LABEL_19:
   }
 }
 
-uint64_t __72__AVCapturePhotoOutput_setPreparedPhotoSettingsArray_completionHandler___block_invoke_2(uint64_t result, uint64_t a2)
+id *__72__AVCapturePhotoOutput_setPreparedPhotoSettingsArray_completionHandler___block_invoke_2(id *result, uint64_t a2)
 {
   v2 = result;
   if (a2)
   {
-    v4 = [*(result + 32) _figCaptureIrisPreparedSettingsForRequest:*(result + 40)];
-    v5 = [*(v2 + 32) sinkID];
+    v4 = [result[4] _figCaptureIrisPreparedSettingsForRequest:result[5]];
+    v5 = [v2[4] sinkID];
     v6 = *(CMBaseObjectGetVTable() + 16);
     if (*(v6 + 96))
     {
@@ -1084,10 +1083,10 @@ uint64_t __72__AVCapturePhotoOutput_setPreparedPhotoSettingsArray_completionHand
 
   else
   {
-    v8 = *(result + 48);
+    v8 = result[6];
     if (v8 >= 1)
     {
-      v9 = *(result + 32);
+      v9 = result[4];
       v10[0] = MEMORY[0x1E69E9820];
       v10[1] = 3221225472;
       v10[2] = __72__AVCapturePhotoOutput_setPreparedPhotoSettingsArray_completionHandler___block_invoke_3;
@@ -1148,7 +1147,7 @@ LABEL_7:
   if (appleProRAWEnabled && ![(AVCapturePhotoOutput *)self isAppleProRAWSupported])
   {
     v7 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v7, v8))
     {
       objc_exception_throw(v7);
     }
@@ -1291,7 +1290,7 @@ LABEL_7:
   if ((maxPhotoQualityPrioritization - 1) >= 3)
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:{0, maxPhotoQualityPrioritization}];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -1320,7 +1319,7 @@ LABEL_7:
   if (fastCapturePrioritizationEnabled && !internal->fastCapturePrioritizationSupported)
   {
     v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v4, v5))
     {
       objc_exception_throw(v4);
     }
@@ -1405,7 +1404,7 @@ LABEL_7:
   return v4 & 1;
 }
 
-uint64_t __34__AVCapturePhotoOutput_isHDRScene__block_invoke(void *a1)
+void *__34__AVCapturePhotoOutput_isHDRScene__block_invoke(void *a1)
 {
   *(*(a1[5] + 8) + 24) = *(*(a1[4] + 16) + 285);
   *(*(a1[6] + 8) + 24) = *(*(a1[4] + 16) + 276);
@@ -1463,7 +1462,7 @@ uint64_t __34__AVCapturePhotoOutput_isHDRScene__block_invoke(void *a1)
   return v4 & 1;
 }
 
-uint64_t __54__AVCapturePhotoOutput_isStillImageStabilizationScene__block_invoke(void *a1)
+void *__54__AVCapturePhotoOutput_isStillImageStabilizationScene__block_invoke(void *a1)
 {
   *(*(a1[5] + 8) + 24) = *(*(a1[4] + 16) + 286);
   *(*(a1[6] + 8) + 24) = *(*(a1[4] + 16) + 280);
@@ -1521,7 +1520,7 @@ uint64_t __54__AVCapturePhotoOutput_isStillImageStabilizationScene__block_invoke
   return v4 & 1;
 }
 
-uint64_t __36__AVCapturePhotoOutput_isFlashScene__block_invoke(void *a1)
+void *__36__AVCapturePhotoOutput_isFlashScene__block_invoke(void *a1)
 {
   *(*(a1[5] + 8) + 24) = *(*(a1[4] + 16) + 284);
   *(*(a1[6] + 8) + 24) = *(*(a1[4] + 16) + 272);
@@ -1536,7 +1535,7 @@ uint64_t __36__AVCapturePhotoOutput_isFlashScene__block_invoke(void *a1)
   if (enabled && [-[AVCapturePhotoOutput supportedDigitalFlashModes](self "supportedDigitalFlashModes")] <= 1)
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -1562,7 +1561,7 @@ uint64_t __36__AVCapturePhotoOutput_isFlashScene__block_invoke(void *a1)
   if (virtualDeviceConstituentPhotoDeliveryEnabled && ![(AVCapturePhotoOutput *)self isVirtualDeviceConstituentPhotoDeliverySupported])
   {
     v8 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v8, v9))
     {
       objc_exception_throw(v8);
     }
@@ -1608,7 +1607,7 @@ uint64_t __36__AVCapturePhotoOutput_isFlashScene__block_invoke(void *a1)
   if (dualCameraDualPhotoDeliveryEnabled && ![(AVCapturePhotoOutput *)self isDualCameraDualPhotoDeliverySupported])
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -1634,7 +1633,7 @@ uint64_t __36__AVCapturePhotoOutput_isFlashScene__block_invoke(void *a1)
   if (autoDeferredPhotoDeliveryEnabled && ![(AVCapturePhotoOutput *)self isAutoDeferredPhotoDeliverySupported])
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -1689,7 +1688,7 @@ uint64_t __36__AVCapturePhotoOutput_isFlashScene__block_invoke(void *a1)
   }
 
   v7 = [v5 exceptionWithName:v6 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v7, v8))
   {
     objc_exception_throw(v7);
   }
@@ -1761,7 +1760,7 @@ uint64_t __36__AVCapturePhotoOutput_isFlashScene__block_invoke(void *a1)
   }
 
   v11 = [v9 exceptionWithName:v10 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v11, v12))
   {
     objc_exception_throw(v11);
   }
@@ -1821,7 +1820,7 @@ uint64_t __86__AVCapturePhotoOutput__invokeClientCompositingCallbackForSettingsI
   if (enabled && !internal->focusPixelFocusBlurScoreSupported)
   {
     v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v4, v5))
     {
       objc_exception_throw(v4);
     }
@@ -1843,7 +1842,7 @@ uint64_t __86__AVCapturePhotoOutput__invokeClientCompositingCallbackForSettingsI
   if (enabled && !internal->previewQualityAdjustedPhotoFilterRenderingSupported)
   {
     v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v4, v5))
     {
       objc_exception_throw(v4);
     }
@@ -1865,7 +1864,7 @@ uint64_t __86__AVCapturePhotoOutput__invokeClientCompositingCallbackForSettingsI
   if (enabled && !internal->semanticStyleRenderingSupported)
   {
     v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v4, v5))
     {
       objc_exception_throw(v4);
     }
@@ -1898,7 +1897,7 @@ uint64_t __86__AVCapturePhotoOutput__invokeClientCompositingCallbackForSettingsI
   if (photoSettingsForSceneMonitoring && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     v13 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v13, v14))
     {
       objc_exception_throw(v13);
     }
@@ -1970,7 +1969,7 @@ uint64_t __86__AVCapturePhotoOutput__invokeClientCompositingCallbackForSettingsI
   }
 }
 
-uint64_t __59__AVCapturePhotoOutput_setPhotoSettingsForSceneMonitoring___block_invoke(uint64_t a1)
+void *__59__AVCapturePhotoOutput_setPhotoSettingsForSceneMonitoring___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 40) copy];
   *(*(*(a1 + 32) + 16) + 320) = result;
@@ -2036,11 +2035,11 @@ uint64_t __59__AVCapturePhotoOutput_setPhotoSettingsForSceneMonitoring___block_i
   {
     if ([activeFormat validateMaxPhotoDimensions:maxPhotoDimensions privateDimensionsEnabled:self->_internal->privatePhotoDimensionsEnabled])
     {
-      v10 = 0;
-      [(AVCapturePhotoOutput *)self _setMaxPhotoDimensions:maxPhotoDimensions bumpChangeSeedOut:&v10];
+      v11 = 0;
+      [(AVCapturePhotoOutput *)self _setMaxPhotoDimensions:maxPhotoDimensions bumpChangeSeedOut:&v11];
       [(AVCapturePhotoOutput *)self _updateZeroShutterLagResponsiveCaptureAndFastCapturePrioritizationSupportedForDevice:sourceDevice];
-      [(AVCapturePhotoOutput *)self _setHighResolutionCaptureEnabled:[(AVCapturePhotoOutput *)self maxPhotoDimensionsAreHighResolution] bumpChangeSeedOut:&v10];
-      if (v10 == 1)
+      [(AVCapturePhotoOutput *)self _setHighResolutionCaptureEnabled:[(AVCapturePhotoOutput *)self maxPhotoDimensionsAreHighResolution] bumpChangeSeedOut:&v11];
+      if (v11 == 1)
       {
         [(AVCaptureOutput *)self bumpChangeSeed];
       }
@@ -2059,7 +2058,7 @@ uint64_t __59__AVCapturePhotoOutput_setPhotoSettingsForSceneMonitoring___block_i
   }
 
   v9 = [v7 exceptionWithName:v8 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v9, v10))
   {
     objc_exception_throw(v9);
   }
@@ -2081,7 +2080,7 @@ uint64_t __59__AVCapturePhotoOutput_setPhotoSettingsForSceneMonitoring___block_i
   if (livePhotoCaptureEnabled && ![(AVCapturePhotoOutput *)self isLivePhotoCaptureSupported])
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -2104,13 +2103,13 @@ uint64_t __59__AVCapturePhotoOutput_setPhotoSettingsForSceneMonitoring___block_i
 - (void)setLivePhotoCaptureSuspended:(BOOL)livePhotoCaptureSuspended
 {
   v3 = livePhotoCaptureSuspended;
-  memset(&v18, 0, sizeof(v18));
+  memset(&v19, 0, sizeof(v19));
   HostTimeClock = CMClockGetHostTimeClock();
-  CMClockGetTime(&v18, HostTimeClock);
+  CMClockGetTime(&v19, HostTimeClock);
   if (dword_1ED806900)
   {
+    v18 = 0;
     v17 = 0;
-    v16 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -2140,8 +2139,8 @@ LABEL_7:
 
       else
       {
-        v13 = CMClockGetHostTimeClock();
-        CMClockGetTime(&time, v13);
+        v14 = CMClockGetHostTimeClock();
+        CMClockGetTime(&time, v14);
         [(AVCapturePhotoOutput *)self setFigCaptureSessionSectionProperty:v8 withHostTime:&time];
       }
     }
@@ -2156,7 +2155,7 @@ LABEL_7:
   }
 
   v12 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v12, v13))
   {
     objc_exception_throw(v12);
   }
@@ -2176,18 +2175,18 @@ uint64_t __53__AVCapturePhotoOutput_setLivePhotoCaptureSuspended___block_invoke(
 - (void)setPreservesLivePhotoCaptureSuspendedOnSessionStop:(BOOL)preservesLivePhotoCaptureSuspendedOnSessionStop
 {
   v3 = preservesLivePhotoCaptureSuspendedOnSessionStop;
-  memset(&v7, 0, sizeof(v7));
+  memset(&v8, 0, sizeof(v8));
   HostTimeClock = CMClockGetHostTimeClock();
-  CMClockGetTime(&v7, HostTimeClock);
+  CMClockGetTime(&v8, HostTimeClock);
   if (v3 && ![(AVCapturePhotoOutput *)self isLivePhotoCaptureSupported])
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
 
-    NSLog(&cfstr_SuppressingExc.isa, v6, v7.value, *&v7.timescale, v7.epoch);
+    NSLog(&cfstr_SuppressingExc.isa, v6, v8.value, *&v8.timescale, v8.epoch);
   }
 
   else
@@ -2203,7 +2202,7 @@ uint64_t __53__AVCapturePhotoOutput_setLivePhotoCaptureSuspended___block_invoke(
   if (livePhotoAutoTrimmingEnabled && !internal->livePhotoCaptureSupported)
   {
     v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v4, v5))
     {
       objc_exception_throw(v4);
     }
@@ -2232,7 +2231,7 @@ uint64_t __53__AVCapturePhotoOutput_setLivePhotoCaptureSuspended___block_invoke(
   if (suspended && ![(AVCapturePhotoOutput *)self isLivePhotoCaptureEnabled])
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -2246,13 +2245,13 @@ uint64_t __53__AVCapturePhotoOutput_setLivePhotoCaptureSuspended___block_invoke(
     if (internal->livePhotoMovieProcessingSuspended != suspendedCopy)
     {
       internal->livePhotoMovieProcessingSuspended = suspendedCopy;
-      v7[0] = MEMORY[0x1E69E9820];
-      v7[1] = 3221225472;
-      v7[2] = __61__AVCapturePhotoOutput_setLivePhotoMovieProcessingSuspended___block_invoke;
-      v7[3] = &unk_1E786EF58;
-      v7[4] = self;
-      v8 = suspendedCopy;
-      [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:v7];
+      v8[0] = MEMORY[0x1E69E9820];
+      v8[1] = 3221225472;
+      v8[2] = __61__AVCapturePhotoOutput_setLivePhotoMovieProcessingSuspended___block_invoke;
+      v8[3] = &unk_1E786EF58;
+      v8[4] = self;
+      v9 = suspendedCopy;
+      [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:v8];
     }
   }
 }
@@ -2284,7 +2283,7 @@ LABEL_5:
   if (depthDataDeliveryEnabled && !internal->depthDataDeliverySupported)
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -2311,7 +2310,7 @@ LABEL_5:
   if (portraitEffectsMatteDeliveryEnabled && !internal->portraitEffectsMatteDeliverySupported)
   {
     v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v4, v5))
     {
       objc_exception_throw(v4);
     }
@@ -2345,13 +2344,13 @@ LABEL_5:
   {
     v6 = MEMORY[0x1E695DF30];
     v7 = *MEMORY[0x1E695D940];
-    v15 = v5;
+    v16 = v5;
     v8 = AVMethodExceptionReasonWithObjectAndSelector();
     v9 = v6;
     v10 = v7;
 LABEL_5:
-    v13 = [v9 exceptionWithName:v10 reason:v8 userInfo:{0, v15}];
-    if (AVCaptureShouldThrowForAPIViolations())
+    v13 = [v9 exceptionWithName:v10 reason:v8 userInfo:{0, v16}];
+    if (AVCaptureShouldThrowForAPIViolations(v13, v14))
     {
       objc_exception_throw(v13);
     }
@@ -2360,8 +2359,8 @@ LABEL_5:
     return;
   }
 
-  v14 = [MEMORY[0x1E695DFD8] setWithArray:self->_internal->enabledSemanticSegmentationTypes];
-  if (([v14 isEqual:{objc_msgSend(MEMORY[0x1E695DFD8], "setWithArray:", enabledSemanticSegmentationMatteTypes)}] & 1) == 0)
+  v15 = [MEMORY[0x1E695DFD8] setWithArray:self->_internal->enabledSemanticSegmentationTypes];
+  if (([v15 isEqual:{objc_msgSend(MEMORY[0x1E695DFD8], "setWithArray:", enabledSemanticSegmentationMatteTypes)}] & 1) == 0)
   {
 
     self->_internal->enabledSemanticSegmentationTypes = [(NSArray *)enabledSemanticSegmentationMatteTypes copy];
@@ -2378,7 +2377,7 @@ LABEL_5:
     EXIFJPEGData = 0;
 LABEL_17:
     v16 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v16, v17))
     {
       objc_exception_throw(v16);
     }
@@ -2489,14 +2488,14 @@ LABEL_17:
       }
     }
 
-    else if ([AVCapturePhotoOutput DNGPhotoDataRepresentationForRawSampleBuffer:&v13 previewPhotoSampleBuffer:?])
+    else if ([AVCapturePhotoOutput DNGPhotoDataRepresentationForRawSampleBuffer:&v14 previewPhotoSampleBuffer:?])
     {
       return 0;
     }
   }
 
   v12 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v12, v13))
   {
     objc_exception_throw(v12);
   }
@@ -2511,7 +2510,7 @@ LABEL_17:
   if (contentAwareDistortionCorrectionEnabled && ![(AVCapturePhotoOutput *)self isContentAwareDistortionCorrectionSupported])
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -2538,7 +2537,7 @@ LABEL_17:
   if (responsiveCaptureEnabled && ![(AVCapturePhotoOutput *)self isResponsiveCaptureSupported])
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -2565,7 +2564,7 @@ LABEL_17:
   if (zeroShutterLagEnabled && ![(AVCapturePhotoOutput *)self isZeroShutterLagSupported])
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -2593,7 +2592,7 @@ LABEL_17:
   if (enabled && ![(AVCapturePhotoOutput *)self isUltraHighResolutionZeroShutterLagSupported])
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -2620,7 +2619,7 @@ LABEL_17:
   if (enabled && ![(AVCapturePhotoOutput *)self isUltraHighResolutionZeroShutterLagSupportEnabled])
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -2796,7 +2795,7 @@ LABEL_7:
   }
 
   v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v5, v6))
   {
     objc_exception_throw(v5);
   }
@@ -2896,7 +2895,7 @@ uint64_t __58__AVCapturePhotoOutput_userInitiatedCaptureRequestAtTime___block_in
       v5 = *MEMORY[0x1E695D940];
 LABEL_10:
       v6 = [v4 exceptionWithName:v5 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-      if (AVCaptureShouldThrowForAPIViolations())
+      if (AVCaptureShouldThrowForAPIViolations(v6, v7))
       {
         objc_exception_throw(v6);
       }
@@ -2927,7 +2926,7 @@ LABEL_10:
   if (enabled && !internal->spatialOverCaptureSupported)
   {
     v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v4, v5))
     {
       objc_exception_throw(v4);
     }
@@ -2945,15 +2944,15 @@ LABEL_10:
 
 - (void)beginMomentCaptureWithSettings:(id)settings delegate:(id)delegate
 {
-  v19 = 0;
+  v20 = 0;
   if (!self->_internal->movieRecordingEnabled)
   {
-    v17 = @"movieRecordingEnabled must be YES in order to begin moment capture";
+    v18 = @"movieRecordingEnabled must be YES in order to begin moment capture";
 LABEL_31:
-    v19 = v17;
+    v20 = v18;
 LABEL_21:
     v16 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v16, v17))
     {
       objc_exception_throw(v16);
     }
@@ -2964,20 +2963,20 @@ LABEL_21:
 
   if (!settings)
   {
-    v17 = @"Nil momentCaptureSettings";
+    v18 = @"Nil momentCaptureSettings";
     goto LABEL_31;
   }
 
   if ([settings uniqueID] <= self->_internal->lastMomentSettingsUniqueID)
   {
-    v17 = @"momentCaptureSettings may not be re-used";
+    v18 = @"momentCaptureSettings may not be re-used";
     goto LABEL_31;
   }
 
   v7 = [(AVCaptureOutput *)self connectionWithMediaType:*MEMORY[0x1E6987608]];
   if ([settings torchMode] && (objc_msgSend(-[AVCaptureConnection sourceDevice](v7, "sourceDevice"), "isTorchModeSupported:", objc_msgSend(settings, "torchMode")) & 1) == 0)
   {
-    v17 = @"torchMode is unsupported in this configuration";
+    v18 = @"torchMode is unsupported in this configuration";
     goto LABEL_31;
   }
 
@@ -2985,23 +2984,23 @@ LABEL_21:
   internal = self->_internal;
   if (isAutoSpatialOverCaptureEnabled && !internal->spatialOverCaptureEnabled)
   {
-    v17 = @"spatialOverCaptureEnabled must be YES on the AVCapturePhotoOutput in order to begin a moment capture with autoSpatialOverCaptureEnabled set to YES";
+    v18 = @"spatialOverCaptureEnabled must be YES on the AVCapturePhotoOutput in order to begin a moment capture with autoSpatialOverCaptureEnabled set to YES";
     goto LABEL_31;
   }
 
   if (internal->momentCaptureInFlight)
   {
-    v17 = @"Can't begin a new moment capture when you've already got a moment capture in flight";
+    v18 = @"Can't begin a new moment capture when you've already got a moment capture in flight";
     goto LABEL_31;
   }
 
   if (([-[AVCaptureOutput liveConnections](self "liveConnections")] & 1) == 0)
   {
-    v17 = @"No active and enabled video connection";
+    v18 = @"No active and enabled video connection";
     goto LABEL_31;
   }
 
-  if (![settings photoSettings] || po_photoSettingsAreValid(objc_msgSend(settings, "photoSettings"), delegate, self, v7, &v19))
+  if (![settings photoSettings] || po_photoSettingsAreValid(objc_msgSend(settings, "photoSettings"), delegate, self, v7, &v20))
   {
     self->_internal->momentCaptureInFlight = [settings copy];
     self->_internal->momentPhotoCaptureDelegateInFlight = delegate;
@@ -3046,16 +3045,16 @@ LABEL_21:
     }
 
     [v11 setTorchMode:{objc_msgSend(settings, "torchMode")}];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __64__AVCapturePhotoOutput_beginMomentCaptureWithSettings_delegate___block_invoke;
-    v18[3] = &unk_1E786EFA8;
-    v18[4] = self;
-    v18[5] = v11;
-    [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:v18];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __64__AVCapturePhotoOutput_beginMomentCaptureWithSettings_delegate___block_invoke;
+    v19[3] = &unk_1E786EFA8;
+    v19[4] = self;
+    v19[5] = v11;
+    [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:v19];
   }
 
-  if (v19)
+  if (v20)
   {
     goto LABEL_21;
   }
@@ -3101,25 +3100,25 @@ uint64_t __64__AVCapturePhotoOutput_beginMomentCaptureWithSettings_delegate___bl
 
   else
   {
-    [AVCapturePhotoOutput commitMomentCaptureToPhotoWithUniqueID:];
+    [(AVCapturePhotoOutput *)self commitMomentCaptureToPhotoWithUniqueID:a2];
   }
 }
 
 - (void)commitMomentCaptureWithUniqueID:(int64_t)d toPhotoCaptureWithSettings:(id)settings delegate:(id)delegate
 {
-  v30 = 0;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
-  v29 = 0;
+  v39 = 0;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2020000000;
+  v38 = 0;
   if (!settings)
   {
-    v20 = @"Nil photoSettings";
+    v21 = @"Nil photoSettings";
 LABEL_24:
-    v30 = v20;
+    v39 = v21;
 LABEL_16:
     v19 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v19, v20))
     {
       objc_exception_throw(v19);
     }
@@ -3130,28 +3129,28 @@ LABEL_16:
 
   if (!delegate)
   {
-    v20 = @"Nil delegate";
+    v21 = @"Nil delegate";
     goto LABEL_24;
   }
 
   internal = self->_internal;
   if (!internal->momentCaptureInFlight)
   {
-    v20 = @"You must call beginMomentCaptureWithSettings: first";
+    v21 = @"You must call beginMomentCaptureWithSettings: first";
     goto LABEL_24;
   }
 
   lastMomentSettingsUniqueID = internal->lastMomentSettingsUniqueID;
   if (lastMomentSettingsUniqueID != [settings uniqueID])
   {
-    v20 = @"MomentCapture and PhotoSettings uniqueID mismatch";
+    v21 = @"MomentCapture and PhotoSettings uniqueID mismatch";
     goto LABEL_24;
   }
 
   v11 = [(AVCaptureOutput *)self connectionWithMediaType:*MEMORY[0x1E6987608]];
   if (([-[AVCaptureOutput liveConnections](self "liveConnections")] & 1) == 0)
   {
-    v20 = @"No active and enabled video connection";
+    v21 = @"No active and enabled video connection";
     goto LABEL_24;
   }
 
@@ -3173,7 +3172,7 @@ LABEL_16:
   }
 
   v15 = [settings copy];
-  if (po_photoSettingsAreValid(v15, delegate, self, v11, &v30))
+  if (po_photoSettingsAreValid(v15, delegate, self, v11, &v39))
   {
     if (sIsForcedShutterSoundRegion == 1)
     {
@@ -3184,34 +3183,33 @@ LABEL_16:
 
     self->_internal->lastSettingsUniqueID = [v15 uniqueID];
     v18 = [(AVCapturePhotoOutput *)self _figCaptureIrisStillImageSettingsForAVCapturePhotoSettings:v15 captureRequestIdentifier:v12 delegate:delegate connections:[(AVCaptureOutput *)self connections]];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __92__AVCapturePhotoOutput_commitMomentCaptureWithUniqueID_toPhotoCaptureWithSettings_delegate___block_invoke;
-    v24[3] = &unk_1E7876038;
-    v24[7] = v18;
-    v24[8] = &v26;
-    v24[4] = v15;
-    v24[5] = self;
-    v24[6] = delegate;
-    [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:v24];
-    v22 = *MEMORY[0x1E6987418];
-    v23 = &unk_1F1CEA208;
-    [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-    if ((v27[3] & 1) == 0)
+    v25 = MEMORY[0x1E69E9820];
+    v26 = 3221225472;
+    v27 = __92__AVCapturePhotoOutput_commitMomentCaptureWithUniqueID_toPhotoCaptureWithSettings_delegate___block_invoke;
+    v28 = &unk_1E7876038;
+    v32 = v18;
+    v33 = &v35;
+    v29 = v15;
+    selfCopy = self;
+    delegateCopy = delegate;
+    [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:&v25];
+    v23 = *MEMORY[0x1E6987418];
+    v24 = &unk_1F1CEA208;
+    [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    if ((v36[3] & 1) == 0)
     {
-      LODWORD(v21) = 0;
-      FigDebugAssert3();
-      [(AVCapturePhotoOutput *)self _dispatchFailureCallbacksForPhotoSettings:settings toDelegate:delegate withError:AVLocalizedError(), v21, v5];
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v5, v22, v23, v24, v25, v26, v27);
+      [(AVCapturePhotoOutput *)self _dispatchFailureCallbacksForPhotoSettings:settings toDelegate:delegate withError:AVLocalizedError()];
     }
   }
 
-  if (v30)
+  if (v39)
   {
     goto LABEL_16;
   }
 
 LABEL_18:
-  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v35, 8);
 }
 
 uint64_t __92__AVCapturePhotoOutput_commitMomentCaptureWithUniqueID_toPhotoCaptureWithSettings_delegate___block_invoke(uint64_t result, uint64_t a2)
@@ -3259,14 +3257,14 @@ uint64_t __92__AVCapturePhotoOutput_commitMomentCaptureWithUniqueID_toPhotoCaptu
 
 - (void)commitMomentCaptureWithUniqueID:(int64_t)d toMovieRecordingWithSettings:(id)settings delegate:(id)delegate
 {
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
-  v37 = 0;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
-  v33 = 0;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
+  v46 = 0;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
+  v42 = 0;
   if (!settings)
   {
     goto LABEL_28;
@@ -3316,13 +3314,13 @@ uint64_t __92__AVCapturePhotoOutput_commitMomentCaptureWithUniqueID_toPhotoCaptu
       block[2] = __94__AVCapturePhotoOutput_commitMomentCaptureWithUniqueID_toMovieRecordingWithSettings_delegate___block_invoke;
       block[3] = &unk_1E786FEE0;
       block[4] = self;
-      block[5] = &v30;
+      block[5] = &v39;
       dispatch_sync(beginEndIrisMovieCaptureHostTimeQueue, block);
       v20 = self->_internal->beginEndIrisMovieCaptureHostTimeDispatchGroup;
       v21 = dispatch_time(0, 2000000000);
       if (dispatch_group_wait(v20, v21))
       {
-        v31[3] = mach_absolute_time();
+        v40[3] = mach_absolute_time();
       }
     }
 
@@ -3332,25 +3330,24 @@ uint64_t __92__AVCapturePhotoOutput_commitMomentCaptureWithUniqueID_toPhotoCaptu
 
     self->_internal->momentPhotoCaptureDelegateInFlight = 0;
     self->_internal->momentCaptureRequestIdentifierInFlight = 0;
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __94__AVCapturePhotoOutput_commitMomentCaptureWithUniqueID_toMovieRecordingWithSettings_delegate___block_invoke_3;
-    v27[3] = &unk_1E7876088;
-    v27[4] = self;
-    v27[5] = v15;
-    v27[6] = v22;
-    v27[7] = delegate;
-    v27[8] = &v34;
-    v27[9] = &v30;
-    [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:v27];
+    v27 = MEMORY[0x1E69E9820];
+    v28 = 3221225472;
+    v29 = __94__AVCapturePhotoOutput_commitMomentCaptureWithUniqueID_toMovieRecordingWithSettings_delegate___block_invoke_3;
+    v30 = &unk_1E7876088;
+    selfCopy = self;
+    v32 = v15;
+    v33 = v22;
+    delegateCopy = delegate;
+    v35 = &v43;
+    v36 = &v39;
+    [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:&v27];
     v25 = *MEMORY[0x1E6987418];
     v26 = &unk_1F1CEA208;
     [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-    if ((v35[3] & 1) == 0)
+    if ((v44[3] & 1) == 0)
     {
-      LODWORD(v24) = 0;
-      FigDebugAssert3();
-      [(AVCapturePhotoOutput *)self _dispatchFailureCallbacksForMovieRecordingSettings:settings momentCaptureSettings:v22 toDelegate:delegate withError:AVLocalizedError(), v24, v5];
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v5, v25, v26, v27, v28, v29, v30);
+      [(AVCapturePhotoOutput *)self _dispatchFailureCallbacksForMovieRecordingSettings:settings momentCaptureSettings:v22 toDelegate:delegate withError:AVLocalizedError()];
     }
   }
 
@@ -3358,7 +3355,7 @@ uint64_t __92__AVCapturePhotoOutput_commitMomentCaptureWithUniqueID_toPhotoCaptu
   {
 LABEL_28:
     v23 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v23, v24))
     {
       objc_exception_throw(v23);
     }
@@ -3366,8 +3363,8 @@ LABEL_28:
     NSLog(&cfstr_SuppressingExc.isa, v23);
   }
 
-  _Block_object_dispose(&v30, 8);
-  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v43, 8);
 }
 
 void __94__AVCapturePhotoOutput_commitMomentCaptureWithUniqueID_toMovieRecordingWithSettings_delegate___block_invoke(uint64_t a1)
@@ -3437,10 +3434,10 @@ uint64_t __94__AVCapturePhotoOutput_commitMomentCaptureWithUniqueID_toMovieRecor
 
 - (void)cancelMomentCaptureWithUniqueID:(int64_t)d
 {
-  v9[0] = 0;
-  v9[1] = v9;
-  v9[2] = 0x2020000000;
-  v10 = 0;
+  v10[0] = 0;
+  v10[1] = v10;
+  v10[2] = 0x2020000000;
+  v11 = 0;
   if (([-[AVCaptureOutput liveConnections](self "liveConnections")] & 1) != 0 && (internal = self->_internal, internal->lastMomentSettingsUniqueID == d) && (momentCaptureInFlight = internal->momentCaptureInFlight) != 0)
   {
 
@@ -3448,20 +3445,20 @@ uint64_t __94__AVCapturePhotoOutput_commitMomentCaptureWithUniqueID_toMovieRecor
     self->_internal->momentPhotoCaptureDelegateInFlight = 0;
 
     self->_internal->momentCaptureRequestIdentifierInFlight = 0;
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __56__AVCapturePhotoOutput_cancelMomentCaptureWithUniqueID___block_invoke;
-    v8[3] = &unk_1E786ECF8;
-    v8[4] = self;
-    v8[5] = v9;
-    v8[6] = d;
-    [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:v8];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __56__AVCapturePhotoOutput_cancelMomentCaptureWithUniqueID___block_invoke;
+    v9[3] = &unk_1E786ECF8;
+    v9[4] = self;
+    v9[5] = v10;
+    v9[6] = d;
+    [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:v9];
   }
 
   else
   {
     v7 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v7, v8))
     {
       objc_exception_throw(v7);
     }
@@ -3469,7 +3466,7 @@ uint64_t __94__AVCapturePhotoOutput_commitMomentCaptureWithUniqueID_toMovieRecor
     NSLog(&cfstr_SuppressingExc.isa, v7);
   }
 
-  _Block_object_dispose(v9, 8);
+  _Block_object_dispose(v10, 8);
 }
 
 uint64_t __56__AVCapturePhotoOutput_cancelMomentCaptureWithUniqueID___block_invoke(uint64_t result, uint64_t a2)
@@ -3502,26 +3499,26 @@ uint64_t __56__AVCapturePhotoOutput_cancelMomentCaptureWithUniqueID___block_invo
 
 - (void)endMomentCaptureWithUniqueID:(int64_t)d
 {
-  v8[0] = 0;
-  v8[1] = v8;
-  v8[2] = 0x2020000000;
-  v9 = 0;
+  v9[0] = 0;
+  v9[1] = v9;
+  v9[2] = 0x2020000000;
+  v10 = 0;
   if (([-[AVCaptureOutput liveConnections](self "liveConnections")] & 1) != 0 && (internal = self->_internal, !internal->momentCaptureInFlight) && internal->lastMomentSettingsUniqueID == d)
   {
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __53__AVCapturePhotoOutput_endMomentCaptureWithUniqueID___block_invoke;
-    v7[3] = &unk_1E786ECF8;
-    v7[4] = self;
-    v7[5] = v8;
-    v7[6] = d;
-    [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:v7];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __53__AVCapturePhotoOutput_endMomentCaptureWithUniqueID___block_invoke;
+    v8[3] = &unk_1E786ECF8;
+    v8[4] = self;
+    v8[5] = v9;
+    v8[6] = d;
+    [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:v8];
   }
 
   else
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -3529,7 +3526,7 @@ uint64_t __56__AVCapturePhotoOutput_cancelMomentCaptureWithUniqueID___block_invo
     NSLog(&cfstr_SuppressingExc.isa, v6);
   }
 
-  _Block_object_dispose(v8, 8);
+  _Block_object_dispose(v9, 8);
 }
 
 uint64_t __53__AVCapturePhotoOutput_endMomentCaptureWithUniqueID___block_invoke(uint64_t result, uint64_t a2)
@@ -3566,7 +3563,7 @@ uint64_t __53__AVCapturePhotoOutput_endMomentCaptureWithUniqueID___block_invoke(
   if (enabled && internal->movieRecordingEnabled)
   {
     v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v4, v5))
     {
       objc_exception_throw(v4);
     }
@@ -3599,7 +3596,7 @@ uint64_t __52__AVCapturePhotoOutput_initiateCaptureWithSettings___block_invoke(u
   {
     v3 = result;
     v4 = [*(result + 32) sinkID];
-    v5 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(*(v3 + 40), "timestamp")}];
+    v5 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:objc_msgSend_timestamp(*(v3 + 40))];
     VTable = CMBaseObjectGetVTable();
     v7 = *(VTable + 16);
     result = VTable + 16;
@@ -3627,11 +3624,9 @@ uint64_t __52__AVCapturePhotoOutput_initiateCaptureWithSettings___block_invoke(u
 
     [settings setTurboModeEnabled:1];
     [settings setLivePhotoMovieFileURL:{objc_msgSend(settings, "videoFileURL")}];
-    videoFormat = [settings videoFormat];
-    v8 = *MEMORY[0x1E6987CB0];
-    if ([videoFormat objectForKeyedSubscript:*MEMORY[0x1E6987CB0]])
+    if (objc_msgSend_objectForKeyedSubscript_([settings videoFormat]))
     {
-      [settings setLivePhotoVideoCodecType:{objc_msgSend(objc_msgSend(settings, "videoFormat"), "objectForKeyedSubscript:", v8)}];
+      [settings setLivePhotoVideoCodecType:{objc_msgSend_objectForKeyedSubscript_(objc_msgSend(settings, "videoFormat"))}];
     }
 
     [settings setLivePhotoMovieMetadata:{objc_msgSend(settings, "videoFileMetadata")}];
@@ -3670,7 +3665,7 @@ uint64_t __52__AVCapturePhotoOutput_initiateCaptureWithSettings___block_invoke(u
   if (enabled && !internal->constantColorSupported)
   {
     v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v4, v5))
     {
       objc_exception_throw(v4);
     }
@@ -3692,7 +3687,7 @@ uint64_t __52__AVCapturePhotoOutput_initiateCaptureWithSettings___block_invoke(u
   if (enabled && !internal->constantColorSupported)
   {
     v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v4, v5))
     {
       objc_exception_throw(v4);
     }
@@ -3714,7 +3709,7 @@ uint64_t __52__AVCapturePhotoOutput_initiateCaptureWithSettings___block_invoke(u
   if (enabled && !internal->constantColorSupported)
   {
     v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v4, v5))
     {
       objc_exception_throw(v4);
     }
@@ -3736,7 +3731,7 @@ uint64_t __52__AVCapturePhotoOutput_initiateCaptureWithSettings___block_invoke(u
   if (enabled && !internal->spatialPhotoCaptureSupported)
   {
     v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v4, v5))
     {
       objc_exception_throw(v4);
     }
@@ -3758,7 +3753,7 @@ uint64_t __52__AVCapturePhotoOutput_initiateCaptureWithSettings___block_invoke(u
   if (enabled && !internal->cameraSensorOrientationCompensationSupported)
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -3808,7 +3803,7 @@ uint64_t __52__AVCapturePhotoOutput_initiateCaptureWithSettings___block_invoke(u
 
 - (id)connectionMediaTypes
 {
-  if (AVMediaTypeMetadataObjectAndAVMediaTypeMetadataAreDefined())
+  if (AVMediaTypeMetadataObjectAndAVMediaTypeMetadataAreDefined(self, a2))
   {
     v5 = *MEMORY[0x1E6987608];
     v2 = &v5;
@@ -3830,40 +3825,44 @@ uint64_t __52__AVCapturePhotoOutput_initiateCaptureWithSettings___block_invoke(u
   v8 = *MEMORY[0x1E6987608];
   v9 = [mediaType isEqualToString:*MEMORY[0x1E6987608]];
   v10 = MEMORY[0x1E69875A0];
-  if ((v9 & 1) == 0 && ([mediaType isEqualToString:*MEMORY[0x1E69875A0]] & 1) == 0 && (!objc_msgSend(mediaType, "isEqualToString:", *MEMORY[0x1E69875D0]) || !AVMediaTypeMetadataObjectAndAVMediaTypeMetadataAreDefined()))
+  if ((v9 & 1) == 0 && ([mediaType isEqualToString:*MEMORY[0x1E69875A0]] & 1) == 0)
   {
-    v18 = 1;
-    goto LABEL_34;
+    v28 = [mediaType isEqualToString:*MEMORY[0x1E69875D0]];
+    if (!v28 || !AVMediaTypeMetadataObjectAndAVMediaTypeMetadataAreDefined(v28, v29))
+    {
+      v18 = 1;
+      goto LABEL_34;
+    }
   }
 
   if ([mediaType isEqualToString:v8])
   {
-    v36 = 0u;
-    v37 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     v11 = [(AVCapturePhotoOutput *)self isMultiCamClientCompositingEnabled]? 2 : 1;
-    v38 = 0uLL;
-    v39 = 0uLL;
+    v40 = 0uLL;
+    v41 = 0uLL;
     connections = [(AVCaptureOutput *)self connections];
-    v13 = [(NSArray *)connections countByEnumeratingWithState:&v36 objects:v35 count:16];
+    v13 = [(NSArray *)connections countByEnumeratingWithState:&v38 objects:v37 count:16];
     if (v13)
     {
       v14 = v13;
       reasonCopy = reason;
       v15 = 0;
-      v16 = *v37;
+      v16 = *v39;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v37 != v16)
+          if (*v39 != v16)
           {
             objc_enumerationMutation(connections);
           }
 
-          v15 += [objc_msgSend(*(*(&v36 + 1) + 8 * i) "mediaType")];
+          v15 += [objc_msgSend(*(*(&v38 + 1) + 8 * i) "mediaType")];
         }
 
-        v14 = [(NSArray *)connections countByEnumeratingWithState:&v36 objects:v35 count:16];
+        v14 = [(NSArray *)connections countByEnumeratingWithState:&v38 objects:v37 count:16];
       }
 
       while (v14);
@@ -3873,9 +3872,9 @@ uint64_t __52__AVCapturePhotoOutput_initiateCaptureWithSettings___block_invoke(u
 LABEL_17:
         v18 = 2;
 LABEL_34:
-        v28 = AVCaptureOutputConnectionFailureReasonString(v18, self, connection);
+        v30 = AVCaptureOutputConnectionFailureReasonString(v18, self, connection);
         result = 0;
-        *reason = v28;
+        *reason = v30;
         return result;
       }
     }
@@ -3898,29 +3897,29 @@ LABEL_34:
   }
 
   v20 = [objc_msgSend(connection "inputPorts")];
-  v31 = 0u;
-  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   connections2 = [(AVCaptureOutput *)self connections];
-  v22 = [(NSArray *)connections2 countByEnumeratingWithState:&v31 objects:v30 count:16];
+  v22 = [(NSArray *)connections2 countByEnumeratingWithState:&v33 objects:v32 count:16];
   if (!v22)
   {
     return 1;
   }
 
   v23 = v22;
-  v24 = *v32;
+  v24 = *v34;
   while (2)
   {
     for (j = 0; j != v23; ++j)
     {
-      if (*v32 != v24)
+      if (*v34 != v24)
       {
         objc_enumerationMutation(connections2);
       }
 
-      v26 = *(*(&v31 + 1) + 8 * j);
+      v26 = *(*(&v33 + 1) + 8 * j);
       if ([objc_msgSend(v26 "mediaType")] && (objc_msgSend(objc_msgSend(objc_msgSend(objc_msgSend(v26, "inputPorts"), "firstObject"), "input"), "isEqual:", objc_msgSend(v20, "input")) & 1) == 0)
       {
         v18 = 3;
@@ -3928,7 +3927,7 @@ LABEL_34:
       }
     }
 
-    v23 = [(NSArray *)connections2 countByEnumeratingWithState:&v31 objects:v30 count:16];
+    v23 = [(NSArray *)connections2 countByEnumeratingWithState:&v33 objects:v32 count:16];
     result = 1;
     if (v23)
     {
@@ -4266,7 +4265,7 @@ LABEL_34:
 
   if (AVCapturePhotoOutputSessionIsRunningChangedContext == context)
   {
-    v12 = [objc_msgSend(change objectForKeyedSubscript:{*MEMORY[0x1E696A4F0], object), "BOOLValue"}];
+    v12 = [objc_msgSend_objectForKeyedSubscript_(change a2];
     FigSimpleMutexLock();
     internal = selfCopy->_internal;
     if (internal->readinessState.sessionIsRunning == v12)
@@ -4288,150 +4287,148 @@ LABEL_34:
 
   if (AVCapturePhotoOutputDeviceFlashSceneDetectedForPhotoOutputChangedContext == context)
   {
-    v14 = [objc_msgSend(change objectForKeyedSubscript:{*MEMORY[0x1E696A500], object), "BOOLValue"}];
-    v15 = [objc_msgSend(change objectForKeyedSubscript:{*MEMORY[0x1E696A4F0]), "BOOLValue"}];
-    if (v14 == v15)
+    v14 = [objc_msgSend_objectForKeyedSubscript_(change a2];
+    bOOLValue = [objc_msgSend_objectForKeyedSubscript_(change) BOOLValue];
+    if (v14 == bOOLValue)
     {
       return;
     }
 
-    v16 = v15;
-    v53 = 0;
-    v54 = &v53;
-    v55 = 0x2020000000;
+    v16 = bOOLValue;
+    v51 = 0;
+    v52 = &v51;
+    v53 = 0x2020000000;
     v17 = selfCopy->_internal;
-    v56 = 0;
+    v54 = 0;
     sceneDetectionObserversDispatchQueue = v17->sceneDetectionObserversDispatchQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __71__AVCapturePhotoOutput_observeValueForKeyPath_ofObject_change_context___block_invoke;
     block[3] = &unk_1E7870040;
     block[4] = selfCopy;
-    block[5] = &v53;
+    block[5] = &v51;
     dispatch_sync(sceneDetectionObserversDispatchQueue, block);
-    [(AVCapturePhotoOutput *)selfCopy _setIsFlashScene:v16 firingKVO:*(v54 + 24)];
+    [(AVCapturePhotoOutput *)selfCopy _setIsFlashScene:v16 firingKVO:*(v52 + 24)];
     goto LABEL_42;
   }
 
   if (AVCapturePhotoOutputDeviceHDRSceneDetectedForPhotoOutputChangedContext == context)
   {
-    v19 = [objc_msgSend(change objectForKeyedSubscript:{*MEMORY[0x1E696A500], object), "BOOLValue"}];
-    v20 = [objc_msgSend(change objectForKeyedSubscript:{*MEMORY[0x1E696A4F0]), "BOOLValue"}];
-    if (v19 == v20)
+    v19 = [objc_msgSend_objectForKeyedSubscript_(change a2];
+    bOOLValue2 = [objc_msgSend_objectForKeyedSubscript_(change) BOOLValue];
+    if (v19 == bOOLValue2)
     {
       return;
     }
 
-    v21 = v20;
-    v53 = 0;
-    v54 = &v53;
-    v55 = 0x2020000000;
+    v21 = bOOLValue2;
+    v51 = 0;
+    v52 = &v51;
+    v53 = 0x2020000000;
     v22 = selfCopy->_internal;
-    v56 = 0;
+    v54 = 0;
     v23 = v22->sceneDetectionObserversDispatchQueue;
-    v51[0] = MEMORY[0x1E69E9820];
-    v51[1] = 3221225472;
-    v51[2] = __71__AVCapturePhotoOutput_observeValueForKeyPath_ofObject_change_context___block_invoke_2;
-    v51[3] = &unk_1E7870040;
-    v51[4] = selfCopy;
-    v51[5] = &v53;
-    dispatch_sync(v23, v51);
-    [(AVCapturePhotoOutput *)selfCopy _setIsHDRScene:v21 firingKVO:*(v54 + 24)];
+    v49[0] = MEMORY[0x1E69E9820];
+    v49[1] = 3221225472;
+    v49[2] = __71__AVCapturePhotoOutput_observeValueForKeyPath_ofObject_change_context___block_invoke_2;
+    v49[3] = &unk_1E7870040;
+    v49[4] = selfCopy;
+    v49[5] = &v51;
+    dispatch_sync(v23, v49);
+    [(AVCapturePhotoOutput *)selfCopy _setIsHDRScene:v21 firingKVO:*(v52 + 24)];
     goto LABEL_42;
   }
 
   if (AVCapturePhotoOutputDeviceStillImageStabilizationSceneChangedContext == context)
   {
-    v24 = [objc_msgSend(change objectForKeyedSubscript:{*MEMORY[0x1E696A500], object), "BOOLValue"}];
-    v25 = [objc_msgSend(change objectForKeyedSubscript:{*MEMORY[0x1E696A4F0]), "BOOLValue"}];
-    if (v24 == v25)
+    v24 = [objc_msgSend_objectForKeyedSubscript_(change a2];
+    bOOLValue3 = [objc_msgSend_objectForKeyedSubscript_(change) BOOLValue];
+    if (v24 == bOOLValue3)
     {
       return;
     }
 
-    v26 = v25;
-    v53 = 0;
-    v54 = &v53;
-    v55 = 0x2020000000;
+    v26 = bOOLValue3;
+    v51 = 0;
+    v52 = &v51;
+    v53 = 0x2020000000;
     v27 = selfCopy->_internal;
-    v56 = 0;
+    v54 = 0;
     v28 = v27->sceneDetectionObserversDispatchQueue;
-    v50[0] = MEMORY[0x1E69E9820];
-    v50[1] = 3221225472;
-    v50[2] = __71__AVCapturePhotoOutput_observeValueForKeyPath_ofObject_change_context___block_invoke_3;
-    v50[3] = &unk_1E7870040;
-    v50[4] = selfCopy;
-    v50[5] = &v53;
-    dispatch_sync(v28, v50);
-    [(AVCapturePhotoOutput *)selfCopy _setIsStillImageStabilizationScene:v26 firingKVO:*(v54 + 24)];
+    v48[0] = MEMORY[0x1E69E9820];
+    v48[1] = 3221225472;
+    v48[2] = __71__AVCapturePhotoOutput_observeValueForKeyPath_ofObject_change_context___block_invoke_3;
+    v48[3] = &unk_1E7870040;
+    v48[4] = selfCopy;
+    v48[5] = &v51;
+    dispatch_sync(v28, v48);
+    [(AVCapturePhotoOutput *)selfCopy _setIsStillImageStabilizationScene:v26 firingKVO:*(v52 + 24)];
     goto LABEL_42;
   }
 
   if (AVCapturePhotoOutputDeviceDigitalFlashSceneForPhotoOutputChangedContext == context)
   {
-    v29 = [change objectForKeyedSubscript:{*MEMORY[0x1E696A500], object}];
-    v30 = [change objectForKeyedSubscript:*MEMORY[0x1E696A4F0]];
-    v31 = *MEMORY[0x1E69908B8];
-    v32 = [objc_msgSend(v29 objectForKeyedSubscript:{*MEMORY[0x1E69908B8]), "intValue"}];
-    v33 = *MEMORY[0x1E69908B0];
-    v34 = [v29 objectForKeyedSubscript:*MEMORY[0x1E69908B0]];
-    v35 = [objc_msgSend(v30 objectForKeyedSubscript:{v31), "intValue"}];
-    v36 = [v34 isEqualToDictionary:{objc_msgSend(v30, "objectForKeyedSubscript:", v33)}] ^ 1;
-    if (v32 == v35 && !v36)
+    v29 = objc_msgSend_objectForKeyedSubscript_(change, a2, *MEMORY[0x1E696A500], object);
+    v30 = objc_msgSend_objectForKeyedSubscript_(change);
+    intValue = [objc_msgSend_objectForKeyedSubscript_(v29) intValue];
+    v32 = objc_msgSend_objectForKeyedSubscript_(v29);
+    intValue2 = [objc_msgSend_objectForKeyedSubscript_(v30) intValue];
+    v34 = [v32 isEqualToDictionary:objc_msgSend_objectForKeyedSubscript_(v30)] ^ 1;
+    if (intValue == intValue2 && !v34)
     {
       return;
     }
 
-    v53 = 0;
-    v54 = &v53;
-    v55 = 0x2020000000;
-    v56 = 0;
-    v46 = 0;
-    v47 = &v46;
-    v48 = 0x2020000000;
-    v49 = 0;
-    v37 = selfCopy->_internal->sceneDetectionObserversDispatchQueue;
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = __71__AVCapturePhotoOutput_observeValueForKeyPath_ofObject_change_context___block_invoke_4;
-    v45[3] = &unk_1E7870568;
-    v45[4] = selfCopy;
-    v45[5] = &v53;
-    v45[6] = &v46;
-    dispatch_sync(v37, v45);
-    if (v32 == v35)
+    v51 = 0;
+    v52 = &v51;
+    v53 = 0x2020000000;
+    v54 = 0;
+    v44 = 0;
+    v45 = &v44;
+    v46 = 0x2020000000;
+    v47 = 0;
+    v35 = selfCopy->_internal->sceneDetectionObserversDispatchQueue;
+    v43[0] = MEMORY[0x1E69E9820];
+    v43[1] = 3221225472;
+    v43[2] = __71__AVCapturePhotoOutput_observeValueForKeyPath_ofObject_change_context___block_invoke_4;
+    v43[3] = &unk_1E7870568;
+    v43[4] = selfCopy;
+    v43[5] = &v51;
+    v43[6] = &v44;
+    dispatch_sync(v35, v43);
+    if (intValue == intValue2)
     {
-      v38 = 0;
+      v36 = 0;
     }
 
     else
     {
-      v38 = *(v54 + 24);
+      v36 = *(v52 + 24);
     }
 
-    [(AVCapturePhotoOutput *)selfCopy _setDigitalFlashScene:v30 fireStatusKVO:v38 fireExposureTimesKVO:v47[3] & v36 & 1];
-    _Block_object_dispose(&v46, 8);
+    [(AVCapturePhotoOutput *)selfCopy _setDigitalFlashScene:v30 fireStatusKVO:v36 fireExposureTimesKVO:v45[3] & v34 & 1];
+    _Block_object_dispose(&v44, 8);
 LABEL_42:
-    _Block_object_dispose(&v53, 8);
+    _Block_object_dispose(&v51, 8);
     return;
   }
 
   if (AVCapturePhotoOutputDeviceImageControlModeChangedContext == context)
   {
-    v39 = [objc_msgSend(change objectForKeyedSubscript:{*MEMORY[0x1E696A4F8], object), "BOOLValue"}];
-    v40 = [objc_msgSend(change objectForKeyedSubscript:{*MEMORY[0x1E696A500]), "intValue"}];
-    v41 = [objc_msgSend(change objectForKeyedSubscript:{*MEMORY[0x1E696A4F0]), "intValue"}];
-    if (v40 == 5)
+    v37 = [objc_msgSend_objectForKeyedSubscript_(change a2];
+    intValue3 = [objc_msgSend_objectForKeyedSubscript_(change) intValue];
+    intValue4 = [objc_msgSend_objectForKeyedSubscript_(change) intValue];
+    if (intValue3 == 5)
     {
-      v42 = v39;
+      v40 = v37;
     }
 
     else
     {
-      v42 = 0;
+      v40 = 0;
     }
 
-    if ((v42 & 1) != 0 || v41 == 6)
+    if ((v40 & 1) != 0 || intValue4 == 6)
     {
 
       [(AVCapturePhotoOutput *)selfCopy _updateTimeLapseCaptureRate];
@@ -4461,8 +4458,8 @@ LABEL_53:
       goto LABEL_53;
     }
 
-    v43 = [objc_msgSend(change objectForKeyedSubscript:{*MEMORY[0x1E696A500], object), "BOOLValue"}];
-    if (v43 != [objc_msgSend(change objectForKeyedSubscript:{*MEMORY[0x1E696A4F0]), "BOOLValue"}])
+    v41 = [objc_msgSend_objectForKeyedSubscript_(change a2];
+    if (v41 != [objc_msgSend_objectForKeyedSubscript_(change) BOOLValue])
     {
       sourceDevice = [(AVCaptureConnection *)[(AVCaptureOutput *)selfCopy connectionWithMediaType:*MEMORY[0x1E6987608]] sourceDevice];
 
@@ -4627,9 +4624,11 @@ void *__71__AVCapturePhotoOutput_observeValueForKeyPath_ofObject_change_context_
 
 - (unsigned)_internalRawFormatFromRawFormat:(unsigned int)format
 {
-  v3 = -[NSDictionary objectForKeyedSubscript:](self->_internal->availableRawPhotoPixelFormatTypes, "objectForKeyedSubscript:", [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&format]);
+  availableRawPhotoPixelFormatTypes = self->_internal->availableRawPhotoPixelFormatTypes;
+  [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&format];
+  v4 = objc_msgSend_objectForKeyedSubscript_(availableRawPhotoPixelFormatTypes);
 
-  return [v3 intValue];
+  return [v4 intValue];
 }
 
 - (void)_updateAvailablePhotoFileTypesForSourceDevice:(id)device
@@ -4902,7 +4901,7 @@ LABEL_20:
   }
 }
 
-uint64_t __64__AVCapturePhotoOutput__updateSupportedHDRModesForSourceDevice___block_invoke(uint64_t a1)
+void *__64__AVCapturePhotoOutput__updateSupportedHDRModesForSourceDevice___block_invoke(uint64_t a1)
 {
   result = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:*(a1 + 40)];
   *(*(*(a1 + 32) + 16) + 96) = result;
@@ -5455,7 +5454,7 @@ LABEL_24:
   }
 }
 
-uint64_t __62__AVCapturePhotoOutput__updateSceneMonitoringForSourceDevice___block_invoke(uint64_t a1)
+void *__62__AVCapturePhotoOutput__updateSceneMonitoringForSourceDevice___block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 16) + 320) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -6110,37 +6109,46 @@ LABEL_10:
 
 - (void)_updateCameraSensorOrientationCompensationSupportedForDevice:(id)device
 {
-  figCaptureSourceAttributes = [device figCaptureSourceAttributes];
-  v5 = [objc_msgSend(figCaptureSourceAttributes objectForKeyedSubscript:{*MEMORY[0x1E69900E8]), "intValue"}];
-  v6 = v5 != 0;
+  v4 = [objc_msgSend_objectForKeyedSubscript_(objc_msgSend(device "figCaptureSourceAttributes"))];
+  v5 = v4 != 0;
   internal = self->_internal;
   cameraSensorOrientationCompensationSupported = internal->cameraSensorOrientationCompensationSupported;
   cameraSensorOrientationCompensationEnabled = internal->cameraSensorOrientationCompensationEnabled;
   cameraSensorOrientationCompensationAutomaticallyEnabled = internal->cameraSensorOrientationCompensationAutomaticallyEnabled;
-  if (v5)
+  if (v4)
   {
-    v11 = cameraSensorOrientationCompensationEnabled;
+    v10 = cameraSensorOrientationCompensationEnabled;
   }
 
   else
+  {
+    v10 = 0;
+  }
+
+  if (v4)
   {
     v11 = 0;
   }
 
-  if (v5)
+  else
   {
-    v12 = 0;
+    v11 = cameraSensorOrientationCompensationEnabled;
+  }
+
+  v12 = cameraSensorOrientationCompensationEnabled != v5;
+  if (cameraSensorOrientationCompensationAutomaticallyEnabled)
+  {
+    v13 = v4 != 0;
   }
 
   else
   {
-    v12 = cameraSensorOrientationCompensationEnabled;
+    v13 = v10;
   }
 
-  v13 = cameraSensorOrientationCompensationEnabled != v6;
   if (cameraSensorOrientationCompensationAutomaticallyEnabled)
   {
-    v14 = v5 != 0;
+    v14 = v12;
   }
 
   else
@@ -6148,30 +6156,20 @@ LABEL_10:
     v14 = v11;
   }
 
-  if (cameraSensorOrientationCompensationAutomaticallyEnabled)
-  {
-    v15 = v13;
-  }
-
-  else
-  {
-    v15 = v12;
-  }
-
-  if (cameraSensorOrientationCompensationSupported != v6)
+  if (cameraSensorOrientationCompensationSupported != v5)
   {
     [(AVCapturePhotoOutput *)self willChangeValueForKey:@"cameraSensorOrientationCompensationSupported"];
-    self->_internal->cameraSensorOrientationCompensationSupported = v6;
+    self->_internal->cameraSensorOrientationCompensationSupported = v5;
   }
 
-  if (v15)
+  if (v14)
   {
     [(AVCapturePhotoOutput *)self willChangeValueForKey:@"cameraSensorOrientationCompensationEnabled"];
-    self->_internal->cameraSensorOrientationCompensationEnabled = v14;
+    self->_internal->cameraSensorOrientationCompensationEnabled = v13;
     [(AVCapturePhotoOutput *)self didChangeValueForKey:@"cameraSensorOrientationCompensationEnabled"];
   }
 
-  if (cameraSensorOrientationCompensationSupported != v6)
+  if (cameraSensorOrientationCompensationSupported != v5)
   {
 
     [(AVCapturePhotoOutput *)self didChangeValueForKey:@"cameraSensorOrientationCompensationSupported"];
@@ -6349,11 +6347,11 @@ uint64_t __58__AVCapturePhotoOutput__decrementObserverCountForKeyPath___block_in
   }
 }
 
-id __81__AVCapturePhotoOutput__setDigitalFlashScene_fireStatusKVO_fireExposureTimesKVO___block_invoke(uint64_t a1)
+id __81__AVCapturePhotoOutput__setDigitalFlashScene_fireStatusKVO_fireExposureTimesKVO___block_invoke(uint64_t a1, const char *a2)
 {
-  *(*(*(a1 + 32) + 16) + 296) = [objc_msgSend(*(a1 + 40) objectForKeyedSubscript:{*MEMORY[0x1E69908B8]), "intValue"}];
+  *(*(*(a1 + 32) + 16) + 296) = [objc_msgSend_objectForKeyedSubscript_(*(a1 + 40) a2];
 
-  result = [*(a1 + 40) objectForKeyedSubscript:*MEMORY[0x1E69908B0]];
+  result = objc_msgSend_objectForKeyedSubscript_(*(a1 + 40));
   *(*(*(a1 + 32) + 16) + 312) = result;
   return result;
 }
@@ -6517,30 +6515,30 @@ LABEL_19:
 - (id)_figCaptureIrisStillImageSettingsForAVCapturePhotoSettings:(id)settings captureRequestIdentifier:(id)identifier delegate:(id)delegate connections:(id)connections
 {
   v9 = [objc_alloc(MEMORY[0x1E698F798]) initWithSettingsID:objc_msgSend(settings captureRequestIdentifier:{"uniqueID"), identifier}];
-  v155 = [MEMORY[0x1E695DFA8] set];
-  v160 = v9;
+  v149 = [MEMORY[0x1E695DFA8] set];
+  v154 = v9;
   [v9 setClientQualityPrioritization:{objc_msgSend(settings, "photoQualityPrioritization")}];
   selfCopy = self;
   v10 = [(AVCapturePhotoOutput *)self _sanitizedSettingsForSettings:settings];
-  v172 = 0u;
-  v173 = 0u;
-  v174 = 0u;
-  v175 = 0u;
-  v11 = [connections countByEnumeratingWithState:&v172 objects:v171 count:16];
-  v154 = v10;
+  v166 = 0u;
+  v167 = 0u;
+  v168 = 0u;
+  v169 = 0u;
+  v11 = [connections countByEnumeratingWithState:&v166 objects:v165 count:16];
+  v148 = v10;
   if (!v11)
   {
-    v157 = 0;
+    v151 = 0;
 LABEL_215:
     [AVCapturePhotoOutput _figCaptureIrisStillImageSettingsForAVCapturePhotoSettings:captureRequestIdentifier:delegate:connections:];
-    v156 = 0;
+    v150 = 0;
     goto LABEL_25;
   }
 
   v12 = v11;
-  v157 = 0;
+  v151 = 0;
   v13 = 0;
-  v14 = *v173;
+  v14 = *v167;
   v15 = *MEMORY[0x1E6987608];
   v16 = *MEMORY[0x1E69875A0];
   v17 = *MEMORY[0x1E69875D0];
@@ -6548,12 +6546,12 @@ LABEL_215:
   {
     for (i = 0; i != v12; ++i)
     {
-      if (*v173 != v14)
+      if (*v167 != v14)
       {
         objc_enumerationMutation(connections);
       }
 
-      v19 = *(*(&v172 + 1) + 8 * i);
+      v19 = *(*(&v166 + 1) + 8 * i);
       v20 = [objc_msgSend(v19 "inputPorts")];
       if ([v19 isEnabled] && objc_msgSend(v20, "isEnabled"))
       {
@@ -6591,55 +6589,55 @@ LABEL_215:
 
         else if ([mediaType isEqual:v16])
         {
-          v157 = v19;
+          v151 = v19;
         }
 
         else if ([mediaType isEqual:v17])
         {
-          [v155 addObject:v19];
+          [v149 addObject:v19];
         }
       }
     }
 
-    v12 = [connections countByEnumeratingWithState:&v172 objects:v171 count:16];
+    v12 = [connections countByEnumeratingWithState:&v166 objects:v165 count:16];
   }
 
   while (v12);
-  v10 = v154;
-  v156 = v13;
+  v10 = v148;
+  v150 = v13;
   if (!v13)
   {
     goto LABEL_215;
   }
 
 LABEL_25:
-  v23 = v160;
+  v23 = v154;
   if ([v10 livePhotoMovieFileURL])
   {
-    [v160 setMovieMode:1];
+    [v154 setMovieMode:1];
     v24 = objc_alloc_init(MEMORY[0x1E698F7B0]);
     [v24 setSettingsID:{objc_msgSend(v10, "uniqueID")}];
     [v24 setIrisRecording:1];
     [v24 setOutputURL:{objc_msgSend(v10, "livePhotoMovieFileURL")}];
     v25 = *MEMORY[0x1E69874C0];
     [v24 setOutputFileType:*MEMORY[0x1E69874C0]];
-    v170 = **&MEMORY[0x1E6960C70];
-    [v24 setMaxDuration:&v170];
+    v164 = **&MEMORY[0x1E6960C70];
+    [v24 setMaxDuration:&v164];
     [v24 setMaxFileSize:0];
     [v24 setMinFreeDiskSpaceLimit:0];
     livePhotoMovieDimensions = [(AVCapturePhotoOutput *)selfCopy livePhotoMovieDimensions];
     v27 = HIDWORD(livePhotoMovieDimensions);
-    v168[0] = *MEMORY[0x1E6966208];
-    v169[0] = [MEMORY[0x1E696AD98] numberWithInt:livePhotoMovieDimensions];
-    v168[1] = *MEMORY[0x1E69660B8];
-    v169[1] = [MEMORY[0x1E696AD98] numberWithInt:v27];
-    LODWORD(v152) = -65536;
-    [v24 setVideoSettings:{-[AVCaptureOutput recommendedOutputSettingsForConnection:sourceSettings:videoCodecType:fileType:isIris:outputFileURL:spatialAudioChannelLayoutTag:](selfCopy, "recommendedOutputSettingsForConnection:sourceSettings:videoCodecType:fileType:isIris:outputFileURL:spatialAudioChannelLayoutTag:", v156, objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v169, v168, 2), objc_msgSend(v10, "livePhotoVideoCodecType"), v25, 1, 0, v152)}];
-    [v24 setVideoMirrored:{objc_msgSend(v156, "isVideoMirrored")}];
-    [v156 videoRotationAngle];
+    v162[0] = *MEMORY[0x1E6966208];
+    v163[0] = [MEMORY[0x1E696AD98] numberWithInt:livePhotoMovieDimensions];
+    v162[1] = *MEMORY[0x1E69660B8];
+    v163[1] = [MEMORY[0x1E696AD98] numberWithInt:v27];
+    LODWORD(v146) = -65536;
+    [v24 setVideoSettings:{-[AVCaptureOutput recommendedOutputSettingsForConnection:sourceSettings:videoCodecType:fileType:isIris:outputFileURL:spatialAudioChannelLayoutTag:](selfCopy, "recommendedOutputSettingsForConnection:sourceSettings:videoCodecType:fileType:isIris:outputFileURL:spatialAudioChannelLayoutTag:", v150, objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v163, v162, 2), objc_msgSend(v10, "livePhotoVideoCodecType"), v25, 1, 0, v146)}];
+    [v24 setVideoMirrored:{objc_msgSend(v150, "isVideoMirrored")}];
+    [v150 videoRotationAngle];
     [v24 setVideoRotationDegrees:v28];
     [v24 setRecordVideoOrientationAndMirroringChanges:1];
-    isDebugMetadataSidecarFileEnabled = [v156 isDebugMetadataSidecarFileEnabled];
+    isDebugMetadataSidecarFileEnabled = [v150 isDebugMetadataSidecarFileEnabled];
     if (isDebugMetadataSidecarFileEnabled)
     {
       LOBYTE(isDebugMetadataSidecarFileEnabled) = objc_opt_respondsToSelector();
@@ -6648,15 +6646,15 @@ LABEL_25:
     [v24 setDebugMetadataSidecarFileEnabled:isDebugMetadataSidecarFileEnabled & 1];
     [v24 setMetadataIdentifiersEnabled:objc_opt_respondsToSelector() & 1];
     [v24 setSendPreviewIOSurface:0];
-    if (v157)
+    if (v151)
     {
-      LODWORD(v153) = -65536;
-      [v24 setAudioSettings:{-[AVCaptureOutput recommendedOutputSettingsForConnection:sourceSettings:videoCodecType:fileType:isIris:outputFileURL:spatialAudioChannelLayoutTag:](selfCopy, "recommendedOutputSettingsForConnection:sourceSettings:videoCodecType:fileType:isIris:outputFileURL:spatialAudioChannelLayoutTag:", v157, 0, 0, *MEMORY[0x1E69874D0], 1, 0, v153)}];
+      LODWORD(v147) = -65536;
+      [v24 setAudioSettings:{-[AVCaptureOutput recommendedOutputSettingsForConnection:sourceSettings:videoCodecType:fileType:isIris:outputFileURL:spatialAudioChannelLayoutTag:](selfCopy, "recommendedOutputSettingsForConnection:sourceSettings:videoCodecType:fileType:isIris:outputFileURL:spatialAudioChannelLayoutTag:", v151, 0, 0, *MEMORY[0x1E69874D0], 1, 0, v147)}];
     }
 
-    CMTimeMake(&v167, 1, 1);
-    v170 = v167;
-    [v24 setMovieFragmentInterval:&v170];
+    CMTimeMake(&v161, 1, 1);
+    v164 = v161;
+    [v24 setMovieFragmentInterval:&v164];
     [v24 setMovieLevelMetadata:{objc_msgSend(MEMORY[0x1E6987FE0], "figMetadataPropertyFromMetadataItems:", objc_msgSend(v10, "livePhotoMovieMetadata"))}];
     if ([v10 isAutoSpatialOverCaptureEnabled])
     {
@@ -6664,8 +6662,8 @@ LABEL_25:
       [v24 setSpatialOverCaptureMovieLevelMetadata:{objc_msgSend(MEMORY[0x1E6987FE0], "figMetadataPropertyFromMetadataItems:", objc_msgSend(v10, "spatialOverCaptureLivePhotoMovieMetadata"))}];
     }
 
-    v23 = v160;
-    [v160 setMovieRecordingSettings:v24];
+    v23 = v154;
+    [v154 setMovieRecordingSettings:v24];
   }
 
   [v23 setSettingsProvider:1];
@@ -6674,10 +6672,10 @@ LABEL_25:
   [v23 setOutputFileType:{po_figCaptureStillImageSettingsFileTypeForAVFileType(objc_msgSend(v10, "processedFileType"))}];
   [v23 setRawOutputFormat:-[AVCapturePhotoOutput _internalRawFormatFromRawFormat:](selfCopy, "_internalRawFormatFromRawFormat:", objc_msgSend(v10, "rawPhotoPixelFormatType"))];
   [v23 setRawOutputFileType:{po_figCaptureStillImageSettingsFileTypeForAVFileType(objc_msgSend(v10, "rawFileType"))}];
-  sourceDevice = [v156 sourceDevice];
+  sourceDevice = [v150 sourceDevice];
   activeFormat = [sourceDevice activeFormat];
-  v166 = 0;
-  v32 = po_requestingDefaultHighResStillForAVCapturePhotoSettings(v10, activeFormat, &v166);
+  v160 = 0;
+  v32 = po_requestingDefaultHighResStillForAVCapturePhotoSettings(v10, activeFormat, &v160);
   if (v32)
   {
     v33 = 0;
@@ -6703,62 +6701,71 @@ LABEL_25:
 
   else
   {
-    optimizedImageDimensionsForOfflineStabilization = v166;
-    v33 = HIDWORD(v166);
+    optimizedImageDimensionsForOfflineStabilization = v160;
+    v33 = HIDWORD(v160);
   }
 
-  [v160 setSquareCropEnabled:{objc_msgSend(v10, "isSquareCropEnabled")}];
-  [v160 setOutputWidth:optimizedImageDimensionsForOfflineStabilization];
-  [v160 setOutputHeight:v33];
-  [v160 setOriginalOutputDimensions:{objc_msgSend(v160, "outputDimensions")}];
-  format = [v10 format];
-  [v160 setVtCompressionProperties:{objc_msgSend(format, "objectForKeyedSubscript:", *MEMORY[0x1E6987D30])}];
+  [v154 setSquareCropEnabled:{objc_msgSend(v10, "isSquareCropEnabled")}];
+  [v154 setOutputWidth:optimizedImageDimensionsForOfflineStabilization];
+  [v154 setOutputHeight:v33];
+  [v154 setOriginalOutputDimensions:{objc_msgSend(v154, "outputDimensions")}];
+  [v154 setVtCompressionProperties:{objc_msgSend_objectForKeyedSubscript_(objc_msgSend(v10, "format"))}];
   sourceDevice2 = [(AVCaptureConnection *)[(AVCaptureOutput *)selfCopy connectionWithMediaType:*MEMORY[0x1E6987608]] sourceDevice];
-  [v160 setDeferredSourceDeviceType:{objc_msgSend(sourceDevice2, "figCaptureSourceDeviceType")}];
-  [v160 setDeferredSourcePosition:{objc_msgSend(sourceDevice2, "figCaptureSourcePosition")}];
-  [v160 setDeferredVideoFormatUniqueID:{objc_msgSend(objc_msgSend(objc_msgSend(sourceDevice2, "activeFormat"), "figCaptureSourceVideoFormat"), "uniqueID")}];
+  [v154 setDeferredSourceDeviceType:{objc_msgSend(sourceDevice2, "figCaptureSourceDeviceType")}];
+  [v154 setDeferredSourcePosition:{objc_msgSend(sourceDevice2, "figCaptureSourcePosition")}];
+  [v154 setDeferredVideoFormatUniqueID:{objc_msgSend(objc_msgSend(objc_msgSend(sourceDevice2, "activeFormat"), "figCaptureSourceVideoFormat"), "uniqueID")}];
   if ([(AVCapturePhotoOutput *)selfCopy isDepthDataDeliverySupported]&& [(AVCapturePhotoOutput *)selfCopy isDepthDataDeliveryEnabled])
   {
-    [v160 setDeferredDepthDataFormatUniqueID:{objc_msgSend(objc_msgSend(objc_msgSend(sourceDevice2, "activeDepthDataFormat"), "figCaptureSourceDepthDataFormat"), "uniqueID")}];
+    [v154 setDeferredDepthDataFormatUniqueID:{objc_msgSend(objc_msgSend(objc_msgSend(sourceDevice2, "activeDepthDataFormat"), "figCaptureSourceDepthDataFormat"), "uniqueID")}];
   }
 
-  [v160 setOutputMirroring:{objc_msgSend(v156, "isVideoMirrored")}];
-  [v156 videoRotationAngle];
-  [v160 setOutputRotationDegrees:v39];
+  [v154 setOutputMirroring:{objc_msgSend(v150, "isVideoMirrored")}];
+  [v150 videoRotationAngle];
+  [v154 setOutputRotationDegrees:v38];
   if (v32)
   {
-    v40 = HIDWORD(v166);
+    v39 = HIDWORD(v160);
   }
 
   else
   {
-    v40 = v33;
+    v39 = v33;
   }
 
   if (v32)
   {
-    v41 = v166;
+    v40 = v160;
   }
 
   else
   {
-    v41 = optimizedImageDimensionsForOfflineStabilization;
+    v40 = optimizedImageDimensionsForOfflineStabilization;
   }
 
   isSquareCropEnabled = [v10 isSquareCropEnabled];
-  if (v41 >= v40)
+  if (v40 >= v39)
   {
-    v43 = v40;
+    v42 = v39;
   }
 
   else
   {
-    v43 = v41;
+    v42 = v40;
   }
 
   if (isSquareCropEnabled)
   {
-    v44 = v43;
+    v43 = v42;
+  }
+
+  else
+  {
+    v43 = v39;
+  }
+
+  if (isSquareCropEnabled)
+  {
+    v44 = v42;
   }
 
   else
@@ -6766,475 +6773,461 @@ LABEL_25:
     v44 = v40;
   }
 
-  if (isSquareCropEnabled)
+  v45 = AVCaptureAspectRatioForDimensions(v44 | (v43 << 32));
+  if (v44 == v43)
   {
-    v45 = v43;
+    v46 = [v10 isSquareCropEnabled] ^ 1;
   }
 
   else
   {
-    v45 = v41;
+    v46 = 0;
   }
 
-  v46 = AVCaptureAspectRatioForDimensions(v45 | (v44 << 32));
-  if (v45 == v44)
-  {
-    v47 = [v10 isSquareCropEnabled] ^ 1;
-  }
-
-  else
-  {
-    v47 = 0;
-  }
-
-  v48 = v46;
-  v49 = v45;
-  v50 = v160;
-  [v160 setPreviewEnabled:{objc_msgSend(v10, "previewFormatFourCC") != 0}];
-  v51 = v156;
-  if ([v160 previewEnabled])
+  v47 = v45;
+  v48 = v44;
+  v49 = v154;
+  [v154 setPreviewEnabled:{objc_msgSend(v10, "previewFormatFourCC") != 0}];
+  v50 = v150;
+  if ([v154 previewEnabled])
   {
     [v10 previewCGSize];
-    v53 = v52;
-    v55 = v54;
-    v56 = AVCaptureVideoDimensionsAreValid(v53 | (v55 << 32));
-    if (v56)
+    v52 = v51;
+    v54 = v53;
+    v55 = AVCaptureVideoDimensionsAreValid(v52 | (v54 << 32));
+    if (v55)
     {
-      v55 = v55;
+      v54 = v54;
     }
 
     else
     {
-      v55 = 640;
+      v54 = 640;
     }
 
-    if (v56)
+    if (v55)
     {
-      v53 = v53;
+      v52 = v52;
     }
 
     else
     {
-      v53 = 852;
+      v52 = 852;
     }
 
     [objc_msgSend(activeFormat "figCaptureSourceVideoFormat")];
-    if (AVCaptureIsSensorMountedInPortraitOrientation(v57))
+    if (AVCaptureIsSensorMountedInPortraitOrientation(v56))
     {
-      v58 = AVCaptureFlippedDimensions(v53 | (v55 << 32));
-      v55 = HIDWORD(v58);
-      LODWORD(v53) = v58;
+      v57 = AVCaptureFlippedDimensions(v52 | (v54 << 32));
+      v54 = HIDWORD(v57);
+      LODWORD(v52) = v57;
     }
 
     arePreviewPhotoFormatDimensionsLimitedToDisplayDimensions = [v10 arePreviewPhotoFormatDimensionsLimitedToDisplayDimensions];
+    v59 = v43;
     v60 = v44;
-    v61 = v45;
     if (arePreviewPhotoFormatDimensionsLimitedToDisplayDimensions)
     {
-      v62 = AVCaptureMainScreenPixelSize();
-      v61 = v63;
+      v61 = AVCaptureMainScreenPixelSize();
       v60 = v62;
+      v59 = v61;
     }
 
-    if (v53 >= v61)
+    if (v52 >= v60)
     {
-      v53 = v61;
-    }
-
-    else
-    {
-      v53 = v53;
-    }
-
-    if (v55 >= v60)
-    {
-      v55 = v60;
+      v52 = v60;
     }
 
     else
     {
-      v55 = v55;
+      v52 = v52;
     }
 
-    v64 = AVCaptureAspectRatioForDimensions(v53 | (v55 << 32));
-    if (vabds_f32(v48, v64) >= 0.01)
+    if (v54 >= v59)
     {
-      if (v47)
+      v54 = v59;
+    }
+
+    else
+    {
+      v54 = v54;
+    }
+
+    v63 = AVCaptureAspectRatioForDimensions(v52 | (v54 << 32));
+    if (vabds_f32(v47, v63) >= 0.01)
+    {
+      if (v46)
       {
-        if (v53 <= v55)
+        if (v52 <= v54)
         {
-          v67 = v55;
+          v66 = v54;
         }
 
         else
         {
-          v67 = v53;
+          v66 = v52;
         }
 
-        v68 = vcvtd_n_f64_s32(v67, 1uLL);
-        v69 = 2 * llroundf(v68);
-        v50 = v160;
-        [v160 setPreviewWidth:v69];
+        v67 = vcvtd_n_f64_s32(v66, 1uLL);
+        v68 = 2 * llroundf(v67);
+        v49 = v154;
+        [v154 setPreviewWidth:v68];
         goto LABEL_87;
       }
 
-      v182.size.width = v53;
-      v182.size.height = v55;
-      v182.origin.x = 0.0;
-      v182.origin.y = 0.0;
-      v176.width = v45;
-      v176.height = v44;
-      v179 = AVMakeRectWithAspectRatioInsideRect(v176, v182);
-      height = v179.size.height;
-      *&v179.origin.x = v179.size.width * 0.5;
-      v50 = v160;
-      [v160 setPreviewWidth:2 * llroundf(*&v179.origin.x)];
-      v66 = height * 0.5;
+      v176.size.width = v52;
+      v176.size.height = v54;
+      v176.origin.x = 0.0;
+      v176.origin.y = 0.0;
+      v170.width = v44;
+      v170.height = v43;
+      v173 = AVMakeRectWithAspectRatioInsideRect(v170, v176);
+      height = v173.size.height;
+      *&v173.origin.x = v173.size.width * 0.5;
+      v49 = v154;
+      [v154 setPreviewWidth:2 * llroundf(*&v173.origin.x)];
+      v65 = height * 0.5;
     }
 
     else
     {
-      v65 = vcvtd_n_f64_s32(v53, 1uLL);
-      v50 = v160;
-      [v160 setPreviewWidth:2 * llroundf(v65)];
-      v66 = vcvtd_n_f64_s32(v55, 1uLL);
+      v64 = vcvtd_n_f64_s32(v52, 1uLL);
+      v49 = v154;
+      [v154 setPreviewWidth:2 * llroundf(v64)];
+      v65 = vcvtd_n_f64_s32(v54, 1uLL);
     }
 
-    v71 = v66;
-    v69 = 2 * llroundf(v71);
+    v70 = v65;
+    v68 = 2 * llroundf(v70);
 LABEL_87:
-    [v50 setPreviewHeight:v69];
-    [v50 setPreviewFormat:objc_msgSend(v10, "previewFormatFourCC")];
-    [v50 setPreviewMirroring:{objc_msgSend(v50, "outputMirroring")}];
-    [v50 setPreviewRotationDegrees:{objc_msgSend(v50, "outputRotationDegrees")}];
-    v51 = v156;
+    [v49 setPreviewHeight:v68];
+    [v49 setPreviewFormat:objc_msgSend(v10, "previewFormatFourCC")];
+    [v49 setPreviewMirroring:{objc_msgSend(v49, "outputMirroring")}];
+    [v49 setPreviewRotationDegrees:{objc_msgSend(v49, "outputRotationDegrees")}];
+    v50 = v150;
   }
 
-  [v50 setThumbnailEnabled:{objc_msgSend(v10, "embeddedThumbnailFormatFourCC") != 0}];
-  if (![v50 thumbnailEnabled])
+  [v49 setThumbnailEnabled:{objc_msgSend(v10, "embeddedThumbnailFormatFourCC") != 0}];
+  if (![v49 thumbnailEnabled])
   {
     goto LABEL_120;
   }
 
   [v10 embeddedThumbnailCGSize];
-  v73 = v72;
-  v75 = v74;
-  v76 = v72;
-  v77 = v74;
-  if (!AVCaptureVideoDimensionsAreValid(v76 | (v77 << 32)) && ([v160 outputFileType] == 1785096550 || objc_msgSend(v160, "outputFileType") == 1953064550))
+  v72 = v71;
+  v74 = v73;
+  v75 = v71;
+  v76 = v73;
+  if (!AVCaptureVideoDimensionsAreValid(v75 | (v76 << 32)) && ([v154 outputFileType] == 1785096550 || objc_msgSend(v154, "outputFileType") == 1953064550))
   {
-    v77 = 160;
-    LODWORD(v76) = 160;
+    v76 = 160;
+    LODWORD(v75) = 160;
   }
 
   [objc_msgSend(activeFormat "figCaptureSourceVideoFormat")];
-  if (AVCaptureIsSensorMountedInPortraitOrientation(v78))
+  if (AVCaptureIsSensorMountedInPortraitOrientation(v77))
   {
-    v79 = AVCaptureFlippedDimensions(v76 | (v77 << 32));
-    v77 = HIDWORD(v79);
-    LODWORD(v76) = v79;
+    v78 = AVCaptureFlippedDimensions(v75 | (v76 << 32));
+    v76 = HIDWORD(v78);
+    LODWORD(v75) = v78;
   }
 
-  if ([v160 outputFileType] == 1785096550 || (v80 = objc_msgSend(v160, "outputFileType"), v81 = v44, v82 = v45, v80 == 1953064550))
+  if ([v154 outputFileType] == 1785096550 || (v79 = objc_msgSend(v154, "outputFileType"), v80 = v43, v81 = v44, v79 == 1953064550))
   {
+    v80 = 160;
     v81 = 160;
-    v82 = 160;
   }
 
-  v84 = v76 > v82 || v77 > v81;
-  if (v84)
+  v83 = v75 > v81 || v76 > v80;
+  if (v83)
+  {
+    v84 = v80;
+  }
+
+  else
+  {
+    v84 = v76;
+  }
+
+  if (v83)
   {
     v85 = v81;
   }
 
   else
   {
-    v85 = v77;
+    v85 = v75;
   }
 
-  if (v84)
+  v86 = AVCaptureAspectRatioForDimensions(v85 | (v84 << 32));
+  if (vabds_f32(v47, v86) >= 0.01)
   {
-    v86 = v82;
-  }
-
-  else
-  {
-    v86 = v76;
-  }
-
-  v87 = AVCaptureAspectRatioForDimensions(v86 | (v85 << 32));
-  if (vabds_f32(v48, v87) >= 0.01)
-  {
-    if (v47)
+    if (v46)
     {
-      if (v86 <= v85)
+      if (v85 <= v84)
       {
-        v91 = v85;
+        v90 = v84;
       }
 
       else
       {
-        v91 = v86;
+        v90 = v85;
       }
 
-      v92 = vcvtd_n_f64_s32(v91, 1uLL);
-      v93 = 2 * llroundf(v92);
-      v89 = v160;
-      [v160 setThumbnailWidth:v93];
+      v91 = vcvtd_n_f64_s32(v90, 1uLL);
+      v92 = 2 * llroundf(v91);
+      v88 = v154;
+      [v154 setThumbnailWidth:v92];
       goto LABEL_119;
     }
 
-    v183.origin.x = 0.0;
-    v183.origin.y = 0.0;
-    v177.width = v45;
-    v177.height = v44;
-    v183.size.width = v73;
-    v183.size.height = v75;
-    v180 = AVMakeRectWithAspectRatioInsideRect(v177, v183);
-    v94 = v180.size.height;
-    *&v180.origin.x = v180.size.width * 0.5;
-    v89 = v160;
-    [v160 setThumbnailWidth:2 * llroundf(*&v180.origin.x)];
-    v90 = v94 * 0.5;
+    v177.origin.x = 0.0;
+    v177.origin.y = 0.0;
+    v171.width = v44;
+    v171.height = v43;
+    v177.size.width = v72;
+    v177.size.height = v74;
+    v174 = AVMakeRectWithAspectRatioInsideRect(v171, v177);
+    v93 = v174.size.height;
+    *&v174.origin.x = v174.size.width * 0.5;
+    v88 = v154;
+    [v154 setThumbnailWidth:2 * llroundf(*&v174.origin.x)];
+    v89 = v93 * 0.5;
   }
 
   else
   {
-    v88 = vcvtd_n_f64_s32(v86, 1uLL);
-    v89 = v160;
-    [v160 setThumbnailWidth:2 * llroundf(v88)];
-    v90 = vcvtd_n_f64_s32(v85, 1uLL);
+    v87 = vcvtd_n_f64_s32(v85, 1uLL);
+    v88 = v154;
+    [v154 setThumbnailWidth:2 * llroundf(v87)];
+    v89 = vcvtd_n_f64_s32(v84, 1uLL);
   }
 
-  v95 = v90;
-  v93 = 2 * llroundf(v95);
+  v94 = v89;
+  v92 = 2 * llroundf(v94);
 LABEL_119:
-  [v89 setThumbnailHeight:v93];
-  [v89 setThumbnailFormat:objc_msgSend(v10, "embeddedThumbnailFormatFourCC")];
-  v51 = v156;
+  [v88 setThumbnailHeight:v92];
+  [v88 setThumbnailFormat:objc_msgSend(v10, "embeddedThumbnailFormatFourCC")];
+  v50 = v150;
 LABEL_120:
-  rawFileFormat = [v10 rawFileFormat];
-  v97 = MEMORY[0x1E6987CB0];
-  if (rawFileFormat)
+  if ([v10 rawFileFormat])
   {
-    rawFileFormat2 = [v10 rawFileFormat];
-    v99 = [rawFileFormat2 objectForKeyedSubscript:*MEMORY[0x1E6987C58]];
+    v95 = objc_msgSend_objectForKeyedSubscript_([v10 rawFileFormat]);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v160 setRawOutputFileBitDepth:{objc_msgSend(v99, "unsignedIntValue")}];
+      [v154 setRawOutputFileBitDepth:{objc_msgSend(v95, "unsignedIntValue")}];
     }
 
-    if ([objc_msgSend(v10 "rawFileFormat")])
+    if (objc_msgSend_objectForKeyedSubscript_([v10 rawFileFormat]))
     {
-      [v160 setRawOutputFileCodec:AVOSTypeForString()];
+      [v154 setRawOutputFileCodec:AVOSTypeForString()];
     }
 
-    rawFileFormat3 = [v10 rawFileFormat];
-    v101 = [rawFileFormat3 objectForKeyedSubscript:*MEMORY[0x1E6987DC0]];
+    v96 = objc_msgSend_objectForKeyedSubscript_([v10 rawFileFormat]);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v101 floatValue];
-      [v160 setRawOutputFileCodecQuality:?];
+      [v96 floatValue];
+      [v154 setRawOutputFileCodecQuality:?];
     }
   }
 
-  v102 = v160;
-  [v160 setRawThumbnailEnabled:{objc_msgSend(v10, "rawEmbeddedThumbnailFormatFourCC") != 0}];
-  if ([v160 rawThumbnailEnabled])
+  v97 = v154;
+  [v154 setRawThumbnailEnabled:{objc_msgSend(v10, "rawEmbeddedThumbnailFormatFourCC") != 0}];
+  if ([v154 rawThumbnailEnabled])
   {
     [v10 rawEmbeddedThumbnailCGSize];
-    v104 = v103;
-    v106 = v105;
-    if (!AVCaptureVideoDimensionsAreValid(v104 | (v106 << 32)))
+    v99 = v98;
+    v101 = v100;
+    if (!AVCaptureVideoDimensionsAreValid(v99 | (v101 << 32)))
     {
-      if ([v160 rawOutputFileType] == 1684956519)
+      if ([v154 rawOutputFileType] == 1684956519)
       {
-        LODWORD(v104) = 320;
-        v106 = 320;
+        LODWORD(v99) = 320;
+        v101 = 320;
       }
 
       else
       {
-        v106 = v106;
+        v101 = v101;
       }
     }
 
     [objc_msgSend(activeFormat "figCaptureSourceVideoFormat")];
-    if (AVCaptureIsSensorMountedInPortraitOrientation(v107))
+    if (AVCaptureIsSensorMountedInPortraitOrientation(v102))
     {
-      v108 = AVCaptureFlippedDimensions(v104 | (v106 << 32));
-      v106 = HIDWORD(v108);
-      LODWORD(v104) = v108;
+      v103 = AVCaptureFlippedDimensions(v99 | (v101 << 32));
+      v101 = HIDWORD(v103);
+      LODWORD(v99) = v103;
     }
 
-    v110 = v104 > v45 || v106 > v44;
-    if (v110)
+    v105 = v99 > v44 || v101 > v43;
+    if (v105)
     {
-      v45 = v45;
-    }
-
-    else
-    {
-      v45 = v104;
-    }
-
-    if (v110)
-    {
-      v111 = v44;
+      v44 = v44;
     }
 
     else
     {
-      v111 = v106;
+      v44 = v99;
     }
 
-    v112 = AVCaptureAspectRatioForDimensions(v45 | (v111 << 32));
-    if (vabds_f32(v48, v112) >= 0.01)
+    if (v105)
     {
-      if (v47)
+      v106 = v43;
+    }
+
+    else
+    {
+      v106 = v101;
+    }
+
+    v107 = AVCaptureAspectRatioForDimensions(v44 | (v106 << 32));
+    if (vabds_f32(v47, v107) >= 0.01)
+    {
+      if (v46)
       {
-        if (v45 <= v111)
+        if (v44 <= v106)
         {
-          v115 = v111;
+          v110 = v106;
         }
 
         else
         {
-          v115 = v45;
+          v110 = v44;
         }
 
-        v116 = vcvtd_n_f64_s32(v115, 1uLL);
-        v117 = 2 * llroundf(v116);
-        [v160 setRawThumbnailWidth:v117];
+        v111 = vcvtd_n_f64_s32(v110, 1uLL);
+        v112 = 2 * llroundf(v111);
+        [v154 setRawThumbnailWidth:v112];
         goto LABEL_155;
       }
 
-      v184.size.width = v45;
-      v184.size.height = v111;
-      v184.origin.x = 0.0;
-      v184.origin.y = 0.0;
-      v178.width = v49;
-      v178.height = v44;
-      v181 = AVMakeRectWithAspectRatioInsideRect(v178, v184);
-      v118 = v181.size.height;
-      *&v181.origin.x = v181.size.width * 0.5;
-      [v160 setRawThumbnailWidth:2 * llroundf(*&v181.origin.x)];
-      v114 = v118 * 0.5;
+      v178.size.width = v44;
+      v178.size.height = v106;
+      v178.origin.x = 0.0;
+      v178.origin.y = 0.0;
+      v172.width = v48;
+      v172.height = v43;
+      v175 = AVMakeRectWithAspectRatioInsideRect(v172, v178);
+      v113 = v175.size.height;
+      *&v175.origin.x = v175.size.width * 0.5;
+      [v154 setRawThumbnailWidth:2 * llroundf(*&v175.origin.x)];
+      v109 = v113 * 0.5;
     }
 
     else
     {
-      v113 = vcvtd_n_f64_s32(v45, 1uLL);
-      [v160 setRawThumbnailWidth:2 * llroundf(v113)];
-      v114 = vcvtd_n_f64_s32(v111, 1uLL);
+      v108 = vcvtd_n_f64_s32(v44, 1uLL);
+      [v154 setRawThumbnailWidth:2 * llroundf(v108)];
+      v109 = vcvtd_n_f64_s32(v106, 1uLL);
     }
 
-    v119 = v114;
-    v117 = 2 * llroundf(v119);
+    v114 = v109;
+    v112 = 2 * llroundf(v114);
 LABEL_155:
-    [v160 setRawThumbnailHeight:v117];
-    [v160 setRawThumbnailFormat:objc_msgSend(v10, "rawEmbeddedThumbnailFormatFourCC")];
-    v51 = v156;
+    [v154 setRawThumbnailHeight:v112];
+    [v154 setRawThumbnailFormat:objc_msgSend(v10, "rawEmbeddedThumbnailFormatFourCC")];
+    v50 = v150;
   }
 
-  [v160 setNoiseReductionEnabled:{objc_msgSend(v10, "isTurboModeEnabled") ^ 1}];
-  [v160 setBurstQualityCaptureEnabled:{objc_msgSend(v10, "isBurstQualityCaptureEnabled")}];
-  [v51 videoScaleAndCropFactor];
-  *&v120 = v120;
-  [v160 setScaleFactor:v120];
-  [v160 setShutterSound:{objc_msgSend(v10, "shutterSound")}];
-  [v160 setFlashMode:{objc_msgSend(v10, "flashMode")}];
-  [v160 setAutoRedEyeReductionEnabled:{objc_msgSend(v10, "isAutoRedEyeReductionEnabled")}];
-  [v160 setDigitalFlashMode:{objc_msgSend(v10, "digitalFlashMode")}];
-  [v160 setConstantColorEnabled:{objc_msgSend(v10, "isConstantColorEnabled")}];
-  [v160 setConstantColorFallbackPhotoDeliveryEnabled:{objc_msgSend(v10, "isConstantColorFallbackPhotoDeliveryEnabled")}];
-  [v160 setAutoStereoPhotoCaptureEnabled:{objc_msgSend(v10, "isAutoSpatialPhotoCaptureEnabled")}];
-  [v160 setWideColorMode:2];
-  [v160 setProvidesOriginalImage:{objc_msgSend(v10, "isEV0PhotoDeliveryEnabled")}];
-  [v160 setHDRMode:{objc_msgSend(v10, "HDRMode")}];
+  [v154 setNoiseReductionEnabled:{objc_msgSend(v10, "isTurboModeEnabled") ^ 1}];
+  [v154 setBurstQualityCaptureEnabled:{objc_msgSend(v10, "isBurstQualityCaptureEnabled")}];
+  [v50 videoScaleAndCropFactor];
+  *&v115 = v115;
+  [v154 setScaleFactor:v115];
+  [v154 setShutterSound:{objc_msgSend(v10, "shutterSound")}];
+  [v154 setFlashMode:{objc_msgSend(v10, "flashMode")}];
+  [v154 setAutoRedEyeReductionEnabled:{objc_msgSend(v10, "isAutoRedEyeReductionEnabled")}];
+  [v154 setDigitalFlashMode:{objc_msgSend(v10, "digitalFlashMode")}];
+  [v154 setConstantColorEnabled:{objc_msgSend(v10, "isConstantColorEnabled")}];
+  [v154 setConstantColorFallbackPhotoDeliveryEnabled:{objc_msgSend(v10, "isConstantColorFallbackPhotoDeliveryEnabled")}];
+  [v154 setAutoStereoPhotoCaptureEnabled:{objc_msgSend(v10, "isAutoSpatialPhotoCaptureEnabled")}];
+  [v154 setWideColorMode:2];
+  [v154 setProvidesOriginalImage:{objc_msgSend(v10, "isEV0PhotoDeliveryEnabled")}];
+  [v154 setHDRMode:{objc_msgSend(v10, "HDRMode")}];
   if ([activeFormat videoHDRFlavor] == 2 && (objc_msgSend(v10, "photoQualityPrioritization") > 1 || objc_msgSend(v10, "HDRMode")))
   {
     if ([sourceDevice isVideoHDREnabled])
     {
       if ([sourceDevice isVideoHDRSuspended])
       {
-        v121 = 0;
+        v116 = 0;
       }
 
       else
       {
-        v121 = 2;
+        v116 = 2;
       }
     }
 
     else
     {
-      v121 = 0;
+      v116 = 0;
     }
 
-    [v160 setHDRMode:v121];
+    [v154 setHDRMode:v116];
   }
 
-  [v160 setDepthDataDeliveryEnabled:{objc_msgSend(v10, "isDepthDataDeliveryEnabled")}];
-  [v160 setEmbedsDepthDataInImage:{objc_msgSend(v10, "embedsDepthDataInPhoto")}];
-  [v160 setDepthDataFiltered:{objc_msgSend(v10, "isDepthDataFiltered")}];
-  [v160 setCameraCalibrationDataDeliveryEnabled:{objc_msgSend(v10, "isCameraCalibrationDataDeliveryEnabled")}];
-  [v160 setPortraitEffectsMatteDeliveryEnabled:{objc_msgSend(v10, "isPortraitEffectsMatteDeliveryEnabled")}];
-  [v160 setEmbedsPortraitEffectsMatteInImage:{objc_msgSend(v10, "embedsPortraitEffectsMatteInPhoto")}];
+  [v154 setDepthDataDeliveryEnabled:{objc_msgSend(v10, "isDepthDataDeliveryEnabled")}];
+  [v154 setEmbedsDepthDataInImage:{objc_msgSend(v10, "embedsDepthDataInPhoto")}];
+  [v154 setDepthDataFiltered:{objc_msgSend(v10, "isDepthDataFiltered")}];
+  [v154 setCameraCalibrationDataDeliveryEnabled:{objc_msgSend(v10, "isCameraCalibrationDataDeliveryEnabled")}];
+  [v154 setPortraitEffectsMatteDeliveryEnabled:{objc_msgSend(v10, "isPortraitEffectsMatteDeliveryEnabled")}];
+  [v154 setEmbedsPortraitEffectsMatteInImage:{objc_msgSend(v10, "embedsPortraitEffectsMatteInPhoto")}];
   if ([objc_msgSend(v10 "enabledSemanticSegmentationMatteTypes")])
   {
-    [v160 setEnabledSemanticSegmentationMatteURNs:{AVSemanticSegmentationCMPhotoURNsForMatteTypes(objc_msgSend(v10, "enabledSemanticSegmentationMatteTypes"))}];
-    [v160 setEmbedsSemanticSegmentationMattesInImage:{objc_msgSend(v10, "embedsSemanticSegmentationMattesInPhoto")}];
+    [v154 setEnabledSemanticSegmentationMatteURNs:{AVSemanticSegmentationCMPhotoURNsForMatteTypes(objc_msgSend(v10, "enabledSemanticSegmentationMatteTypes"))}];
+    [v154 setEmbedsSemanticSegmentationMattesInImage:{objc_msgSend(v10, "embedsSemanticSegmentationMattesInPhoto")}];
   }
 
   if ([v10 isDepthDataDeliveryEnabled] && AVCIFilterArrayContainsPortraitFilters(objc_msgSend(v10, "adjustedPhotoFilters")))
   {
-    v122 = [objc_msgSend(objc_msgSend(v51 "inputPorts")];
-    [v122 simulatedAperture];
-    [v160 setSimulatedAperture:?];
-    [v122 portraitLightingEffectStrength];
-    [v160 setPortraitLightingEffectStrength:?];
+    v117 = [objc_msgSend(objc_msgSend(v50 "inputPorts")];
+    [v117 simulatedAperture];
+    [v154 setSimulatedAperture:?];
+    [v117 portraitLightingEffectStrength];
+    [v154 setPortraitLightingEffectStrength:?];
   }
 
-  [v160 setMetadata:{objc_msgSend(v10, "metadata")}];
-  [v160 setMetadataForOriginalImage:{objc_msgSend(v10, "metadataForOriginalPhoto")}];
-  [v160 setOriginalImageFilters:{objc_msgSend(v10, "photoFilters")}];
-  [v160 setProcessedImageFilters:{objc_msgSend(v10, "adjustedPhotoFilters")}];
+  [v154 setMetadata:{objc_msgSend(v10, "metadata")}];
+  [v154 setMetadataForOriginalImage:{objc_msgSend(v10, "metadataForOriginalPhoto")}];
+  [v154 setOriginalImageFilters:{objc_msgSend(v10, "photoFilters")}];
+  [v154 setProcessedImageFilters:{objc_msgSend(v10, "adjustedPhotoFilters")}];
   if ([v10 isAutoSpatialOverCaptureEnabled])
   {
-    [v160 setSpatialOverCaptureMetadata:{objc_msgSend(v10, "spatialOverCaptureMetadata")}];
-    if ([v160 providesOriginalImage])
+    [v154 setSpatialOverCaptureMetadata:{objc_msgSend(v10, "spatialOverCaptureMetadata")}];
+    if ([v154 providesOriginalImage])
     {
-      [v160 setSpatialOverCaptureMetadataForOriginalImage:{objc_msgSend(v10, "spatialOverCaptureMetadataForOriginalPhoto")}];
+      [v154 setSpatialOverCaptureMetadataForOriginalImage:{objc_msgSend(v10, "spatialOverCaptureMetadataForOriginalPhoto")}];
     }
   }
 
-  if ([v160 providesOriginalImage])
+  if ([v154 providesOriginalImage])
   {
     if ([v10 livePhotoMovieFileURL])
     {
-      [v160 setMovieURLForOriginalImage:{objc_msgSend(v10, "livePhotoMovieFileURLForOriginalPhoto")}];
-      [v160 setMovieLevelMetadataForOriginalImage:{objc_msgSend(MEMORY[0x1E6987FE0], "figMetadataPropertyFromMetadataItems:", objc_msgSend(v10, "livePhotoMovieMetadataForOriginalPhoto"))}];
+      [v154 setMovieURLForOriginalImage:{objc_msgSend(v10, "livePhotoMovieFileURLForOriginalPhoto")}];
+      [v154 setMovieLevelMetadataForOriginalImage:{objc_msgSend(MEMORY[0x1E6987FE0], "figMetadataPropertyFromMetadataItems:", objc_msgSend(v10, "livePhotoMovieMetadataForOriginalPhoto"))}];
       if ([v10 isAutoSpatialOverCaptureEnabled])
       {
-        [v160 setSpatialOverCaptureMovieURLForOriginalImage:{objc_msgSend(v10, "spatialOverCaptureLivePhotoMovieFileURLForOriginalPhoto")}];
-        [v160 setSpatialOverCaptureMovieLevelMetadataForOriginalImage:{objc_msgSend(MEMORY[0x1E6987FE0], "figMetadataPropertyFromMetadataItems:", objc_msgSend(v10, "spatialOverCaptureLivePhotoMovieMetadataForOriginalPhoto"))}];
+        [v154 setSpatialOverCaptureMovieURLForOriginalImage:{objc_msgSend(v10, "spatialOverCaptureLivePhotoMovieFileURLForOriginalPhoto")}];
+        [v154 setSpatialOverCaptureMovieLevelMetadataForOriginalImage:{objc_msgSend(MEMORY[0x1E6987FE0], "figMetadataPropertyFromMetadataItems:", objc_msgSend(v10, "spatialOverCaptureLivePhotoMovieMetadataForOriginalPhoto"))}];
       }
     }
   }
 
-  [v160 setAutoDeferredProcessingEnabled:{-[AVCapturePhotoOutput isAutoDeferredPhotoDeliveryEnabled](selfCopy, "isAutoDeferredPhotoDeliveryEnabled")}];
-  [v160 setQualityPrioritization:{objc_msgSend(v10, "photoQualityPrioritization")}];
+  [v154 setAutoDeferredProcessingEnabled:{-[AVCapturePhotoOutput isAutoDeferredPhotoDeliveryEnabled](selfCopy, "isAutoDeferredPhotoDeliveryEnabled")}];
+  [v154 setQualityPrioritization:{objc_msgSend(v10, "photoQualityPrioritization")}];
   if ([v10 isAutoVirtualDeviceFusionEnabled])
   {
-    [v160 setBravoImageFusionMode:2];
+    [v154 setBravoImageFusionMode:2];
   }
 
-  [v160 setBravoConstituentImageDeliveryDeviceTypes:{po_deviceArrayToFigCaptureSourceDeviceTypesArray(objc_msgSend(v10, "virtualDeviceConstituentPhotoDeliveryEnabledDevices"))}];
-  [v160 setZoomWithoutUpscalingEnabled:{objc_msgSend(v10, "isProcessedPhotoZoomWithoutUpscalingEnabled")}];
-  [v160 setAutoIntelligentDistortionCorrectionEnabled:{objc_msgSend(v10, "isAutoContentAwareDistortionCorrectionEnabled")}];
+  [v154 setBravoConstituentImageDeliveryDeviceTypes:{po_deviceArrayToFigCaptureSourceDeviceTypesArray(objc_msgSend(v10, "virtualDeviceConstituentPhotoDeliveryEnabledDevices"))}];
+  [v154 setZoomWithoutUpscalingEnabled:{objc_msgSend(v10, "isProcessedPhotoZoomWithoutUpscalingEnabled")}];
+  [v154 setAutoIntelligentDistortionCorrectionEnabled:{objc_msgSend(v10, "isAutoContentAwareDistortionCorrectionEnabled")}];
   isConstantColorEnabled = [v10 isConstantColorEnabled];
   semanticStyle = [v10 semanticStyle];
   if ([(AVCapturePhotoOutput *)selfCopy isSemanticStyleRenderingEnabled]&& !semanticStyle)
@@ -7255,130 +7248,129 @@ LABEL_155:
 
   if (!((semanticStyle == 0) | isConstantColorEnabled & 1))
   {
-    v125 = MEMORY[0x1E698F7C8];
+    v120 = MEMORY[0x1E698F7C8];
     [semanticStyle toneBias];
-    v127 = v126;
+    v122 = v121;
     [semanticStyle warmthBias];
-    LODWORD(v129) = v128;
-    LODWORD(v130) = v127;
-    [v160 setSemanticStyle:{objc_msgSend(v125, "semanticStyleWithToneBias:warmthBias:", v130, v129)}];
+    LODWORD(v124) = v123;
+    LODWORD(v125) = v122;
+    [v154 setSemanticStyle:{objc_msgSend(v120, "semanticStyleWithToneBias:warmthBias:", v125, v124)}];
   }
 
 LABEL_187:
-  v159 = sourceDevice;
+  v153 = sourceDevice;
   IntegerAnswer = AVGestaltGetIntegerAnswer(@"AVGQGYSWMQKMTMQOUYQ2AKUCKEN6AA");
-  if ([objc_msgSend(v160 "semanticStyle")] && (IntegerAnswer - 1) <= 0x7FFFFFFFFFFFFFFDLL)
+  if ([objc_msgSend(v154 "semanticStyle")] && (IntegerAnswer - 1) <= 0x7FFFFFFFFFFFFFFDLL)
   {
-    [v160 setSemanticStyle:0];
+    [v154 setSemanticStyle:0];
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    bracketedSettings = [v154 bracketedSettings];
-    [v160 setLensStabilizationDuringBracketEnabled:{objc_msgSend(v154, "isLensStabilizationEnabled")}];
+    bracketedSettings = [v148 bracketedSettings];
+    [v154 setLensStabilizationDuringBracketEnabled:{objc_msgSend(v148, "isLensStabilizationEnabled")}];
     [bracketedSettings firstObject];
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
     if (isKindOfClass)
     {
-      v134 = 0;
-      v135 = 1;
+      v129 = 0;
+      v130 = 1;
     }
 
     else
     {
       [bracketedSettings firstObject];
       objc_opt_class();
-      v134 = objc_opt_isKindOfClass();
-      v135 = (v134 & 1) != 0 ? 2 : 0;
+      v129 = objc_opt_isKindOfClass();
+      v130 = (v129 & 1) != 0 ? 2 : 0;
     }
 
-    [v160 setBracketType:v135 imageCount:{objc_msgSend(bracketedSettings, "count")}];
-    v164 = 0u;
-    v165 = 0u;
-    v162 = 0u;
-    v163 = 0u;
-    v136 = [bracketedSettings countByEnumeratingWithState:&v162 objects:v161 count:16];
-    if (v136)
+    [v154 setBracketType:v130 imageCount:{objc_msgSend(bracketedSettings, "count")}];
+    v158 = 0u;
+    v159 = 0u;
+    v156 = 0u;
+    v157 = 0u;
+    v131 = [bracketedSettings countByEnumeratingWithState:&v156 objects:v155 count:16];
+    if (v131)
     {
-      v137 = v136;
-      v138 = 0;
-      v139 = *v163;
+      v132 = v131;
+      v133 = 0;
+      v134 = *v157;
       do
       {
-        v140 = 0;
-        v141 = 24 * v138;
+        v135 = 0;
+        v136 = 24 * v133;
         do
         {
-          if (*v163 != v139)
+          if (*v157 != v134)
           {
             objc_enumerationMutation(bracketedSettings);
           }
 
-          v142 = *(*(&v162 + 1) + 8 * v140);
+          v137 = *(*(&v156 + 1) + 8 * v135);
           if (isKindOfClass)
           {
-            exposureDurations = [v102 exposureDurations];
-            if (v142)
+            exposureDurations = [v97 exposureDurations];
+            if (v137)
             {
-              [v142 exposureDuration];
+              objc_msgSend_exposureDuration(v137);
             }
 
             else
             {
-              memset(&v170, 0, sizeof(v170));
+              memset(&v164, 0, sizeof(v164));
             }
 
-            v147 = exposureDurations + v141;
-            v148 = *&v170.value;
-            *(v147 + 16) = v170.epoch;
-            *v147 = v148;
-            [v142 ISO];
-            v145 = v149;
-            v102 = v160;
-            iSOs = [v160 ISOs];
+            v142 = exposureDurations + v136;
+            v143 = *&v164.value;
+            *(v142 + 16) = v164.epoch;
+            *v142 = v143;
+            [v137 ISO];
+            v140 = v144;
+            v97 = v154;
+            iSOs = [v154 ISOs];
           }
 
           else
           {
-            if ((v134 & 1) == 0)
+            if ((v129 & 1) == 0)
             {
               goto LABEL_209;
             }
 
-            [*(*(&v162 + 1) + 8 * v140) exposureTargetBias];
-            v145 = v144;
-            iSOs = [v102 exposureTargetBiases];
+            [*(*(&v156 + 1) + 8 * v135) exposureTargetBias];
+            v140 = v139;
+            iSOs = [v97 exposureTargetBiases];
           }
 
-          *(iSOs + 4 * v138) = v145;
+          *(iSOs + 4 * v133) = v140;
 LABEL_209:
-          ++v138;
-          ++v140;
-          v141 += 24;
+          ++v133;
+          ++v135;
+          v136 += 24;
         }
 
-        while (v137 != v140);
-        v137 = [bracketedSettings countByEnumeratingWithState:&v162 objects:v161 count:16];
+        while (v132 != v135);
+        v132 = [bracketedSettings countByEnumeratingWithState:&v156 objects:v155 count:16];
       }
 
-      while (v137);
+      while (v132);
     }
   }
 
-  if ([objc_msgSend(v159 "deviceType")])
+  if ([objc_msgSend(v153 "deviceType")])
   {
-    format2 = [v154 format];
-    [v102 setCmioCompressedFormat:objc_msgSend(format2, "objectForKeyedSubscript:", *MEMORY[0x1E6987CB0])];
-    [v102 setCmioHighResolutionPhotoEnabled:{objc_msgSend(v154, "isHighResolutionPhotoEnabled")}];
-    [v102 setCmioMaxPhotoDimensionsWidth:{objc_msgSend(v154, "maxPhotoDimensions")}];
-    [v102 setCmioMaxPhotoDimensionsHeight:{objc_msgSend(v154, "maxPhotoDimensions") >> 32}];
+    [v97 setCmioCompressedFormat:objc_msgSend_objectForKeyedSubscript_(objc_msgSend(v148, "format"))];
+    [v97 setCmioHighResolutionPhotoEnabled:{objc_msgSend(v148, "isHighResolutionPhotoEnabled")}];
+    [v97 setCmioMaxPhotoDimensionsWidth:{objc_msgSend(v148, "maxPhotoDimensions")}];
+    [v97 setCmioMaxPhotoDimensionsHeight:{objc_msgSend(v148, "maxPhotoDimensions") >> 32}];
   }
 
-  [v102 setStillImageUserInitiatedRequestTime:{objc_msgSend(v154, "userInitiatedPhotoRequestTime")}];
-  [v102 setDeviceOrientationCorrectionEnabled:{objc_msgSend(v156, "isVideoDeviceOrientationCorrectionEnabled")}];
-  return v102;
+  [v97 setStillImageUserInitiatedRequestTime:{objc_msgSend(v148, "userInitiatedPhotoRequestTime")}];
+  [v97 setDeviceOrientationCorrectionEnabled:{objc_msgSend(v150, "isVideoDeviceOrientationCorrectionEnabled")}];
+  return v97;
 }
 
 - (id)_figCaptureIrisPreparedSettingsForRequest:(id)request
@@ -7390,21 +7382,21 @@ LABEL_209:
   [v5 setOutputWidth:0xFFFFFFFFLL];
   [v5 setQualityPrioritization:1];
   array = [MEMORY[0x1E695DF70] array];
-  v42 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
+  v42 = 0u;
   availablePhotoCodecTypes = self->_internal->availablePhotoCodecTypes;
-  v8 = [(NSArray *)availablePhotoCodecTypes countByEnumeratingWithState:&v40 objects:v39 count:16];
+  v8 = [(NSArray *)availablePhotoCodecTypes countByEnumeratingWithState:&v41 objects:v40 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v41;
+    v10 = *v42;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v41 != v10)
+        if (*v42 != v10)
         {
           objc_enumerationMutation(availablePhotoCodecTypes);
         }
@@ -7412,34 +7404,34 @@ LABEL_209:
         [array addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", AVOSTypeForString())}];
       }
 
-      v9 = [(NSArray *)availablePhotoCodecTypes countByEnumeratingWithState:&v40 objects:v39 count:16];
+      v9 = [(NSArray *)availablePhotoCodecTypes countByEnumeratingWithState:&v41 objects:v40 count:16];
     }
 
     while (v9);
   }
 
   [array addObjectsFromArray:self->_internal->availablePhotoPixelFormatTypes];
-  v32 = [-[AVCaptureConnection sourceDevice](-[AVCaptureOutput connectionWithMediaType:](self connectionWithMediaType:{*MEMORY[0x1E6987608]), "sourceDevice"), "activeFormat"}];
-  v35 = 0u;
+  v33 = [-[AVCaptureConnection sourceDevice](-[AVCaptureOutput connectionWithMediaType:](self connectionWithMediaType:{*MEMORY[0x1E6987608]), "sourceDevice"), "activeFormat"}];
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
   obj = [requestCopy photoSettingsArray];
-  v12 = [obj countByEnumeratingWithState:&v35 objects:v34 count:16];
+  v12 = [obj countByEnumeratingWithState:&v36 objects:v35 count:16];
   if (v12)
   {
     v13 = v12;
-    v31 = *v36;
+    v32 = *v37;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v36 != v31)
+        if (*v37 != v32)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v35 + 1) + 8 * j);
+        v15 = *(*(&v36 + 1) + 8 * j);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -7469,13 +7461,18 @@ LABEL_209:
           }
         }
 
-        if ([v15 rawPhotoPixelFormatType] && -[NSDictionary objectForKeyedSubscript:](self->_internal->availableRawPhotoPixelFormatTypes, "objectForKeyedSubscript:", objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", objc_msgSend(v15, "rawPhotoPixelFormatType"))))
+        if ([v15 rawPhotoPixelFormatType])
         {
-          [v5 setRawOutputFormat:-[AVCapturePhotoOutput _internalRawFormatFromRawFormat:](self, "_internalRawFormatFromRawFormat:", objc_msgSend(v15, "rawPhotoPixelFormatType"))];
+          availableRawPhotoPixelFormatTypes = self->_internal->availableRawPhotoPixelFormatTypes;
+          [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v15, "rawPhotoPixelFormatType")}];
+          if (objc_msgSend_objectForKeyedSubscript_(availableRawPhotoPixelFormatTypes))
+          {
+            [v5 setRawOutputFormat:-[AVCapturePhotoOutput _internalRawFormatFromRawFormat:](self, "_internalRawFormatFromRawFormat:", objc_msgSend(v15, "rawPhotoPixelFormatType"))];
+          }
         }
 
-        v33 = 0;
-        if (po_requestingDefaultHighResStillForAVCapturePhotoSettings(v15, v32, &v33))
+        v34 = 0;
+        if (po_requestingDefaultHighResStillForAVCapturePhotoSettings(v15, v33, &v34))
         {
           [v5 setOutputHeight:0];
           [v5 setOutputWidth:0];
@@ -7483,8 +7480,8 @@ LABEL_209:
 
         else if ([v5 outputWidth] == -1)
         {
-          [v5 setOutputWidth:v33];
-          [v5 setOutputHeight:HIDWORD(v33)];
+          [v5 setOutputWidth:v34];
+          [v5 setOutputHeight:HIDWORD(v34)];
         }
 
         internal = self->_internal;
@@ -7522,7 +7519,7 @@ LABEL_209:
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v35 objects:v34 count:16];
+      v13 = [obj countByEnumeratingWithState:&v36 objects:v35 count:16];
     }
 
     while (v13);
@@ -7750,7 +7747,7 @@ LABEL_6:
   return settings;
 }
 
-uint64_t __54__AVCapturePhotoOutput__sanitizedSettingsForSettings___block_invoke(uint64_t a1)
+void *__54__AVCapturePhotoOutput__sanitizedSettingsForSettings___block_invoke(uint64_t a1)
 {
   *(*(*(a1 + 48) + 8) + 24) = [*(*(*(a1 + 32) + 16) + 112) containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInteger:", objc_msgSend(*(a1 + 40), "flashMode"))}];
   result = [*(*(*(a1 + 32) + 16) + 96) containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInteger:", objc_msgSend(*(a1 + 40), "HDRMode"))}];
@@ -7811,8 +7808,8 @@ uint64_t __54__AVCapturePhotoOutput__sanitizedSettingsForSettings___block_invoke
     v10 = [objc_msgSend(request "unresolvedSettings")];
     v11 = [objc_msgSend(request "unresolvedSettings")];
     v12 = [objc_msgSend(request "unresolvedSettings")];
-    v47 = cleanupRequestCopy;
-    v51 = v10;
+    v52 = cleanupRequestCopy;
+    v56 = v10;
     if (v12 == 1)
     {
       v13 = [objc_msgSend(request "unresolvedSettings")];
@@ -7831,57 +7828,57 @@ uint64_t __54__AVCapturePhotoOutput__sanitizedSettingsForSettings___block_invoke
     firedCallbackFlags = [request firedCallbackFlags];
     v20 = [objc_msgSend(request "unresolvedSettings")];
     v21 = *(MEMORY[0x1E6960C98] + 16);
-    v75 = *MEMORY[0x1E6960C98];
-    v76 = v21;
-    v77 = *(MEMORY[0x1E6960C98] + 32);
-    LOBYTE(v45) = firedCallbackFlags & 1;
-    LOWORD(v44) = 0;
-    LOBYTE(v43) = v16;
-    HIWORD(v42) = 0;
-    BYTE5(v42) = v13;
-    *(&v42 + 3) = v14;
-    *(&v42 + 1) = v15;
-    LOBYTE(v42) = v51;
+    v80 = *MEMORY[0x1E6960C98];
+    v81 = v21;
+    v82 = *(MEMORY[0x1E6960C98] + 32);
+    LOBYTE(v50) = firedCallbackFlags & 1;
+    LOWORD(v49) = 0;
+    LOBYTE(v48) = v16;
+    HIWORD(v47) = 0;
+    BYTE5(v47) = v13;
+    *(&v47 + 3) = v14;
+    *(&v47 + 1) = v15;
+    LOBYTE(v47) = v56;
     LOBYTE(v40) = v17;
-    [request setResolvedSettings:{+[AVCaptureResolvedPhotoSettings resolvedSettingsWithUniqueID:photoDimensions:rawPhotoDimensions:previewDimensions:embeddedThumbnailDimensions:rawEmbeddedThumbnailDimensions:livePhotoMovieEnabled:livePhotoMovieDimensions:portraitEffectsMatteDimensions:hairSegmentationMatteDimensions:skinSegmentationMatteDimensions:teethSegmentationMatteDimensions:glassesSegmentationMatteDimensions:spatialOverCapturePhotoDimensions:turboModeEnabled:flashEnabled:redEyeReductionEnabled:HDREnabled:adjustedPhotoFiltersEnabled:EV0PhotoDeliveryEnabled:stillImageStabilizationEnabled:virtualDeviceFusionEnabled:squareCropEnabled:deferredPhotoProxyDimensions:photoProcessingTimeRange:contentAwareDistortionCorrectionEnabled:spatialPhotoCaptureEnabled:photoManifest:digitalFlashUserInterfaceHints:digitalFlashUserInterfaceRGBEstimate:captureBeforeResolvingSettingsEnabled:](AVCaptureResolvedPhotoSettings, "resolvedSettingsWithUniqueID:photoDimensions:rawPhotoDimensions:previewDimensions:embeddedThumbnailDimensions:rawEmbeddedThumbnailDimensions:livePhotoMovieEnabled:livePhotoMovieDimensions:portraitEffectsMatteDimensions:hairSegmentationMatteDimensions:skinSegmentationMatteDimensions:teethSegmentationMatteDimensions:glassesSegmentationMatteDimensions:spatialOverCapturePhotoDimensions:turboModeEnabled:flashEnabled:redEyeReductionEnabled:HDREnabled:adjustedPhotoFiltersEnabled:EV0PhotoDeliveryEnabled:stillImageStabilizationEnabled:virtualDeviceFusionEnabled:squareCropEnabled:deferredPhotoProxyDimensions:photoProcessingTimeRange:contentAwareDistortionCorrectionEnabled:spatialPhotoCaptureEnabled:photoManifest:digitalFlashUserInterfaceHints:digitalFlashUserInterfaceRGBEstimate:captureBeforeResolvingSettingsEnabled:", v20, 0, 0, 0, 0, 0, v40, 0, 0, 0, 0, 0, 0, 0, v42, v43, 0, &v75, v44, v18, 0, 0, v45)}];
+    [request setResolvedSettings:{+[AVCaptureResolvedPhotoSettings resolvedSettingsWithUniqueID:photoDimensions:rawPhotoDimensions:previewDimensions:embeddedThumbnailDimensions:rawEmbeddedThumbnailDimensions:livePhotoMovieEnabled:livePhotoMovieDimensions:portraitEffectsMatteDimensions:hairSegmentationMatteDimensions:skinSegmentationMatteDimensions:teethSegmentationMatteDimensions:glassesSegmentationMatteDimensions:spatialOverCapturePhotoDimensions:turboModeEnabled:flashEnabled:redEyeReductionEnabled:HDREnabled:adjustedPhotoFiltersEnabled:EV0PhotoDeliveryEnabled:stillImageStabilizationEnabled:virtualDeviceFusionEnabled:squareCropEnabled:deferredPhotoProxyDimensions:photoProcessingTimeRange:contentAwareDistortionCorrectionEnabled:spatialPhotoCaptureEnabled:photoManifest:digitalFlashUserInterfaceHints:digitalFlashUserInterfaceRGBEstimate:captureBeforeResolvingSettingsEnabled:](AVCaptureResolvedPhotoSettings, "resolvedSettingsWithUniqueID:photoDimensions:rawPhotoDimensions:previewDimensions:embeddedThumbnailDimensions:rawEmbeddedThumbnailDimensions:livePhotoMovieEnabled:livePhotoMovieDimensions:portraitEffectsMatteDimensions:hairSegmentationMatteDimensions:skinSegmentationMatteDimensions:teethSegmentationMatteDimensions:glassesSegmentationMatteDimensions:spatialOverCapturePhotoDimensions:turboModeEnabled:flashEnabled:redEyeReductionEnabled:HDREnabled:adjustedPhotoFiltersEnabled:EV0PhotoDeliveryEnabled:stillImageStabilizationEnabled:virtualDeviceFusionEnabled:squareCropEnabled:deferredPhotoProxyDimensions:photoProcessingTimeRange:contentAwareDistortionCorrectionEnabled:spatialPhotoCaptureEnabled:photoManifest:digitalFlashUserInterfaceHints:digitalFlashUserInterfaceRGBEstimate:captureBeforeResolvingSettingsEnabled:", v20, 0, 0, 0, 0, 0, v40, 0, 0, 0, 0, 0, 0, 0, v47, v48, 0, &v80, v49, v18, 0, 0, v50)}];
     self = selfCopy;
-    cleanupRequestCopy = v47;
+    cleanupRequestCopy = v52;
   }
 
   resolvedSettings = [request resolvedSettings];
   firedCallbackFlags2 = [request firedCallbackFlags];
-  *&v75 = 0;
-  *(&v75 + 1) = &v75;
-  v76 = 0x2020000000uLL;
-  v50 = [objc_msgSend(objc_msgSend(request "unresolvedSettings")];
+  *&v80 = 0;
+  *(&v80 + 1) = &v80;
+  v81 = 0x2020000000uLL;
+  v55 = [objc_msgSend(objc_msgSend(request "unresolvedSettings")];
   [request unresolvedSettings];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v52 = [objc_msgSend(request "unresolvedSettings")];
-    v48 = cleanupRequestCopy;
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
-    v72 = 0u;
+    v57 = [objc_msgSend(request "unresolvedSettings")];
+    v53 = cleanupRequestCopy;
+    v78 = 0u;
+    v79 = 0u;
+    v76 = 0u;
+    v77 = 0u;
     photoManifest = [resolvedSettings photoManifest];
-    v24 = [photoManifest countByEnumeratingWithState:&v71 objects:v70 count:16];
+    v24 = [photoManifest countByEnumeratingWithState:&v76 objects:v75 count:16];
     selfCopy2 = self;
     v26 = 0;
     v27 = 0;
     if (v24)
     {
-      v28 = *v72;
+      v28 = *v77;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v72 != v28)
+          if (*v77 != v28)
           {
             objc_enumerationMutation(photoManifest);
           }
 
-          unsignedIntValue = [*(*(&v71 + 1) + 8 * i) unsignedIntValue];
+          unsignedIntValue = [*(*(&v76 + 1) + 8 * i) unsignedIntValue];
           v26 += ((unsignedIntValue >> 7) & 1) + ((unsignedIntValue & 0x10000) >> 16);
           if ((unsignedIntValue & 0x10000) == 0)
           {
@@ -7889,31 +7886,30 @@ uint64_t __54__AVCapturePhotoOutput__sanitizedSettingsForSettings___block_invoke
           }
         }
 
-        v24 = [photoManifest countByEnumeratingWithState:&v71 objects:v70 count:16];
+        v24 = [photoManifest countByEnumeratingWithState:&v76 objects:v75 count:16];
       }
 
       while (v24);
     }
 
     self = selfCopy2;
-    if (v50)
+    if (v55)
     {
-      v27 /= v50;
-      v26 /= v50;
+      v27 /= v55;
+      v26 /= v55;
     }
 
-    cleanupRequestCopy = v48;
-    if ([v52 count] != v27 && objc_msgSend(v52, "count") != v26)
+    cleanupRequestCopy = v53;
+    if ([v57 count] != v27 && objc_msgSend(v57, "count") != v26)
     {
-      v41 = v46;
       LODWORD(v40) = 0;
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v40, v51, v41, v42, v43, v44, v45, v46);
     }
   }
 
   else
   {
-    v52 = 0;
+    v57 = 0;
   }
 
   if ((((firedCallbackFlags2 & 2) == 0) & (callbacks >> 1)) != 0)
@@ -7931,10 +7927,10 @@ uint64_t __54__AVCapturePhotoOutput__sanitizedSettingsForSettings___block_invoke
     v31 |= 4u;
   }
 
-  v64 = MEMORY[0x1E69E9820];
-  v65 = 3221225472;
-  v66 = __91__AVCapturePhotoOutput__dispatchFailureCallbacks_forPhotoRequest_withError_cleanupRequest___block_invoke;
-  v67 = &unk_1E786EAA8;
+  v69 = MEMORY[0x1E69E9820];
+  v70 = 3221225472;
+  v71 = __91__AVCapturePhotoOutput__dispatchFailureCallbacks_forPhotoRequest_withError_cleanupRequest___block_invoke;
+  v72 = &unk_1E786EAA8;
   if ((((firedCallbackFlags2 & 8) == 0) & (callbacks >> 3)) != 0)
   {
     v32 = v31 | 8;
@@ -7953,17 +7949,17 @@ uint64_t __54__AVCapturePhotoOutput__sanitizedSettingsForSettings___block_invoke
     v32 |= 0x8000u;
   }
 
-  v57 = MEMORY[0x1E69E9820];
-  v58 = 3221225472;
-  v59 = __91__AVCapturePhotoOutput__dispatchFailureCallbacks_forPhotoRequest_withError_cleanupRequest___block_invoke_2;
-  v60 = &unk_1E786FF08;
-  v63 = &v75;
+  v62 = MEMORY[0x1E69E9820];
+  v63 = 3221225472;
+  v64 = __91__AVCapturePhotoOutput__dispatchFailureCallbacks_forPhotoRequest_withError_cleanupRequest___block_invoke_2;
+  v65 = &unk_1E786FF08;
+  v68 = &v80;
   requestCopy2 = request;
-  v62 = resolvedSettings;
+  v67 = resolvedSettings;
   if ((callbacks & 0x10) != 0 && (firedCallbackFlags2 & 0x10) == 0)
   {
-    *(*(v63 + 1) + 24) = [request firedPhotoCallbacksCount];
-    [requestCopy2 setFiredPhotoCallbacksCount:{objc_msgSend(objc_msgSend(v62, "photoManifest"), "count")}];
+    *(*(v68 + 1) + 24) = [request firedPhotoCallbacksCount];
+    [requestCopy2 setFiredPhotoCallbacksCount:{objc_msgSend(objc_msgSend(v67, "photoManifest"), "count")}];
     v32 |= 0x10u;
   }
 
@@ -8063,19 +8059,19 @@ uint64_t __54__AVCapturePhotoOutput__sanitizedSettingsForSettings___block_invoke
 
   [request setFiredCallbackFlags:{v34 | objc_msgSend(request, "firedCallbackFlags")}];
   delegateStorage = [request delegateStorage];
-  v55[0] = MEMORY[0x1E69E9820];
-  v55[1] = 3221225472;
-  v55[2] = __91__AVCapturePhotoOutput__dispatchFailureCallbacks_forPhotoRequest_withError_cleanupRequest___block_invoke_3;
-  v55[3] = &unk_1E7876100;
-  v56 = v34;
-  v55[4] = self;
-  v55[5] = resolvedSettings;
-  v55[6] = request;
-  v55[7] = v52;
-  v55[9] = &v75;
-  v55[10] = v50;
-  v55[8] = error;
-  [delegateStorage invokeDelegateCallbackWithBlock:v55];
+  v60[0] = MEMORY[0x1E69E9820];
+  v60[1] = 3221225472;
+  v60[2] = __91__AVCapturePhotoOutput__dispatchFailureCallbacks_forPhotoRequest_withError_cleanupRequest___block_invoke_3;
+  v60[3] = &unk_1E7876100;
+  v61 = v34;
+  v60[4] = self;
+  v60[5] = resolvedSettings;
+  v60[6] = request;
+  v60[7] = v57;
+  v60[9] = &v80;
+  v60[10] = v55;
+  v60[8] = error;
+  [delegateStorage invokeDelegateCallbackWithBlock:v60];
   if (cleanupRequestCopy)
   {
     FigSimpleMutexLock();
@@ -8083,7 +8079,7 @@ uint64_t __54__AVCapturePhotoOutput__sanitizedSettingsForSettings___block_invoke
     FigSimpleMutexUnlock();
   }
 
-  _Block_object_dispose(&v75, 8);
+  _Block_object_dispose(&v80, 8);
 }
 
 uint64_t __91__AVCapturePhotoOutput__dispatchFailureCallbacks_forPhotoRequest_withError_cleanupRequest___block_invoke_2(uint64_t a1)
@@ -8750,8 +8746,8 @@ LABEL_11:
 
 - (void)_handlePreparationCompleteNotificationWithPayload:(id)payload settingsID:(int64_t)d
 {
-  v7 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC40]), "intValue"}];
-  [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC38]), "intValue"}];
+  v7 = [objc_msgSend_objectForKeyedSubscript_(payload a2];
+  [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
   if (v7)
   {
     v28 = [(AVCapturePhotoOutput *)self _errorForFigCaptureSessionNotificationPayloadErrorStatus:v7 userInfo:0];
@@ -8946,108 +8942,107 @@ uint64_t __105__AVCapturePhotoOutput__handleWillBeginCaptureBeforeResolvingSetti
 
 - (void)_handleWillBeginCaptureNotificationWithPayload:(id)payload forRequest:(id)request
 {
-  v61 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FFF0]), "intValue"}];
-  v60 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FFE8]), "intValue"}];
+  v60 = [objc_msgSend_objectForKeyedSubscript_(payload a2];
+  intValue = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
   if ([objc_msgSend(request "unresolvedSettings")])
   {
-    v62 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FF70]), "intValue"}];
-    v63 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FF68]), "intValue"}] << 32;
+    intValue2 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+    v62 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue] << 32;
   }
 
   else
   {
+    intValue2 = 0;
     v62 = 0;
-    v63 = 0;
   }
 
-  v59 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E6990010]), "intValue"}];
-  v58 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E6990008]), "intValue"}];
-  v57 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FF98]), "intValue"}];
-  v55 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FF90]), "intValue"}];
-  v54 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FF88]), "intValue"}];
-  v53 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FF80]), "intValue"}];
-  v7 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FF30]), "intValue"}];
-  v8 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FF28]), "intValue"}];
-  v52 = v7;
-  v51 = v8;
-  v9 = v7 >= 1 && v8 > 0 || [objc_msgSend(request "unresolvedSettings")] != 0;
-  v56 = v9;
-  v50 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FF60]), "intValue"}];
-  v49 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FF58]), "intValue"}];
-  v48 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FF18]), "intValue"}];
-  v47 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FF10]), "intValue"}];
-  v46 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FFB8]), "intValue"}];
-  v45 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FFB0]), "intValue"}];
-  v44 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E6990000]), "intValue"}];
-  v43 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FFF8]), "intValue"}];
-  v42 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FF00]), "intValue"}];
-  v41 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FEF8]), "intValue"}];
-  v40 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FFD0]), "intValue"}];
-  v38 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FFC8]), "intValue"}];
-  v10 = *MEMORY[0x1E698FF38];
-  if ([payload objectForKeyedSubscript:*MEMORY[0x1E698FF38]])
+  intValue3 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  intValue4 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  intValue5 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  intValue6 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  intValue7 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  intValue8 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  intValue9 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  intValue10 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  v51 = intValue9;
+  v50 = intValue10;
+  v9 = intValue9 >= 1 && intValue10 > 0 || [objc_msgSend(request "unresolvedSettings")] != 0;
+  v55 = v9;
+  intValue11 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  intValue12 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  intValue13 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  intValue14 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  intValue15 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  intValue16 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  intValue17 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  intValue18 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  intValue19 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  intValue20 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  intValue21 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  intValue22 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  if (objc_msgSend_objectForKeyedSubscript_(payload))
   {
-    v39 = [objc_msgSend(payload objectForKeyedSubscript:{v10), "BOOLValue"}] ^ 1;
+    v38 = [objc_msgSend_objectForKeyedSubscript_(payload) BOOLValue] ^ 1;
   }
 
   else
   {
-    LOBYTE(v39) = 0;
+    LOBYTE(v38) = 0;
   }
 
   selfCopy = self;
-  v37 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FEF0]), "BOOLValue"}];
-  v36 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FFA0]), "BOOLValue"}];
-  v35 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FF08]), "BOOLValue"}];
-  v34 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FF78]), "BOOLValue"}];
-  v33 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FF40]), "BOOLValue"}];
-  v32 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FFA8]), "BOOLValue"}];
-  v31 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FFD8]), "BOOLValue"}];
-  v30 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FEC8]), "BOOLValue"}];
-  v11 = *(MEMORY[0x1E6960C98] + 16);
-  *&v69.start.value = *MEMORY[0x1E6960C98];
-  *&v69.start.epoch = v11;
-  *&v69.duration.timescale = *(MEMORY[0x1E6960C98] + 32);
-  v12 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FF50]];
-  if (v12)
+  bOOLValue = [objc_msgSend_objectForKeyedSubscript_(payload) BOOLValue];
+  bOOLValue2 = [objc_msgSend_objectForKeyedSubscript_(payload) BOOLValue];
+  bOOLValue3 = [objc_msgSend_objectForKeyedSubscript_(payload) BOOLValue];
+  bOOLValue4 = [objc_msgSend_objectForKeyedSubscript_(payload) BOOLValue];
+  bOOLValue5 = [objc_msgSend_objectForKeyedSubscript_(payload) BOOLValue];
+  bOOLValue6 = [objc_msgSend_objectForKeyedSubscript_(payload) BOOLValue];
+  bOOLValue7 = [objc_msgSend_objectForKeyedSubscript_(payload) BOOLValue];
+  bOOLValue8 = [objc_msgSend_objectForKeyedSubscript_(payload) BOOLValue];
+  v10 = *(MEMORY[0x1E6960C98] + 16);
+  *&v68.start.value = *MEMORY[0x1E6960C98];
+  *&v68.start.epoch = v10;
+  *&v68.duration.timescale = *(MEMORY[0x1E6960C98] + 32);
+  v11 = objc_msgSend_objectForKeyedSubscript_(payload);
+  if (v11)
   {
-    CMTimeRangeMakeFromDictionary(&v69, v12);
+    CMTimeRangeMakeFromDictionary(&v68, v11);
   }
 
-  HIDWORD(v29) = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FF20]), "BOOLValue"}];
-  v13 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FFE0]), "BOOLValue"}];
-  v14 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FF48]];
-  v15 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FED8]), "intValue"}];
-  v16 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FED0]), "intValue"}];
-  v17 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC40]), "intValue"}];
-  if (v17 && !v14)
+  HIDWORD(v28) = [objc_msgSend_objectForKeyedSubscript_(payload) BOOLValue];
+  bOOLValue9 = [objc_msgSend_objectForKeyedSubscript_(payload) BOOLValue];
+  v13 = objc_msgSend_objectForKeyedSubscript_(payload);
+  intValue23 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  intValue24 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  intValue25 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  if (intValue25 && !v13)
   {
-    v14 = [objc_msgSend(request "expectedPhotoManifest")];
+    v13 = [objc_msgSend(request "expectedPhotoManifest")];
   }
 
   firedCallbackFlags = [request firedCallbackFlags];
-  v19 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FEE0]), "unsignedIntegerValue"}];
-  v20 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FEE8]];
-  v21 = [objc_msgSend(request "unresolvedSettings")];
-  v68 = v69;
-  LOBYTE(v29) = firedCallbackFlags & 1;
-  BYTE1(v28) = v13;
-  LOBYTE(v28) = BYTE4(v29);
-  LOBYTE(v27) = v31;
-  HIBYTE(v26) = v30;
-  BYTE6(v26) = v32;
-  BYTE5(v26) = v33;
-  BYTE4(v26) = v34;
-  BYTE3(v26) = v35;
-  BYTE2(v26) = v36;
-  BYTE1(v26) = v37;
-  LOBYTE(v26) = v39;
-  LOBYTE(v25) = v56;
-  v22 = [AVCaptureResolvedPhotoSettings resolvedSettingsWithUniqueID:"resolvedSettingsWithUniqueID:photoDimensions:rawPhotoDimensions:previewDimensions:embeddedThumbnailDimensions:rawEmbeddedThumbnailDimensions:livePhotoMovieEnabled:livePhotoMovieDimensions:portraitEffectsMatteDimensions:hairSegmentationMatteDimensions:skinSegmentationMatteDimensions:teethSegmentationMatteDimensions:glassesSegmentationMatteDimensions:spatialOverCapturePhotoDimensions:turboModeEnabled:flashEnabled:redEyeReductionEnabled:HDREnabled:adjustedPhotoFiltersEnabled:EV0PhotoDeliveryEnabled:stillImageStabilizationEnabled:virtualDeviceFusionEnabled:squareCropEnabled:deferredPhotoProxyDimensions:photoProcessingTimeRange:contentAwareDistortionCorrectionEnabled:spatialPhotoCaptureEnabled:photoManifest:digitalFlashUserInterfaceHints:digitalFlashUserInterfaceRGBEstimate:captureBeforeResolvingSettingsEnabled:" photoDimensions:v21 rawPhotoDimensions:v61 | (v60 << 32) previewDimensions:v54 | (v53 << 32) embeddedThumbnailDimensions:v62 | v63 rawEmbeddedThumbnailDimensions:v59 | (v58 << 32) livePhotoMovieEnabled:v57 | (v55 << 32) livePhotoMovieDimensions:v25 portraitEffectsMatteDimensions:v52 | (v51 << 32) hairSegmentationMatteDimensions:v50 | (v49 << 32) skinSegmentationMatteDimensions:v48 | (v47 << 32) teethSegmentationMatteDimensions:v46 | (v45 << 32) glassesSegmentationMatteDimensions:v44 | (v43 << 32) spatialOverCapturePhotoDimensions:v42 | (v41 << 32) turboModeEnabled:v40 | (v38 << 32) flashEnabled:v26 redEyeReductionEnabled:v27 HDREnabled:v15 | (v16 << 32) adjustedPhotoFiltersEnabled:&v68 EV0PhotoDeliveryEnabled:v28 stillImageStabilizationEnabled:v14 virtualDeviceFusionEnabled:v19 squareCropEnabled:v20 deferredPhotoProxyDimensions:v29 photoProcessingTimeRange:? contentAwareDistortionCorrectionEnabled:? spatialPhotoCaptureEnabled:? photoManifest:? digitalFlashUserInterfaceHints:? digitalFlashUserInterfaceRGBEstimate:? captureBeforeResolvingSettingsEnabled:?];
-  [request setResolvedSettings:v22];
+  unsignedIntegerValue = [objc_msgSend_objectForKeyedSubscript_(payload) unsignedIntegerValue];
+  v19 = objc_msgSend_objectForKeyedSubscript_(payload);
+  v20 = [objc_msgSend(request "unresolvedSettings")];
+  v67 = v68;
+  LOBYTE(v28) = firedCallbackFlags & 1;
+  BYTE1(v27) = bOOLValue9;
+  LOBYTE(v27) = BYTE4(v28);
+  LOBYTE(v26) = bOOLValue7;
+  HIBYTE(v25) = bOOLValue8;
+  BYTE6(v25) = bOOLValue6;
+  BYTE5(v25) = bOOLValue5;
+  BYTE4(v25) = bOOLValue4;
+  BYTE3(v25) = bOOLValue3;
+  BYTE2(v25) = bOOLValue2;
+  BYTE1(v25) = bOOLValue;
+  LOBYTE(v25) = v38;
+  LOBYTE(v24) = v55;
+  v21 = [AVCaptureResolvedPhotoSettings resolvedSettingsWithUniqueID:"resolvedSettingsWithUniqueID:photoDimensions:rawPhotoDimensions:previewDimensions:embeddedThumbnailDimensions:rawEmbeddedThumbnailDimensions:livePhotoMovieEnabled:livePhotoMovieDimensions:portraitEffectsMatteDimensions:hairSegmentationMatteDimensions:skinSegmentationMatteDimensions:teethSegmentationMatteDimensions:glassesSegmentationMatteDimensions:spatialOverCapturePhotoDimensions:turboModeEnabled:flashEnabled:redEyeReductionEnabled:HDREnabled:adjustedPhotoFiltersEnabled:EV0PhotoDeliveryEnabled:stillImageStabilizationEnabled:virtualDeviceFusionEnabled:squareCropEnabled:deferredPhotoProxyDimensions:photoProcessingTimeRange:contentAwareDistortionCorrectionEnabled:spatialPhotoCaptureEnabled:photoManifest:digitalFlashUserInterfaceHints:digitalFlashUserInterfaceRGBEstimate:captureBeforeResolvingSettingsEnabled:" photoDimensions:v20 rawPhotoDimensions:v60 | (intValue << 32) previewDimensions:intValue7 | (intValue8 << 32) embeddedThumbnailDimensions:intValue2 | v62 rawEmbeddedThumbnailDimensions:intValue3 | (intValue4 << 32) livePhotoMovieEnabled:intValue5 | (intValue6 << 32) livePhotoMovieDimensions:v24 portraitEffectsMatteDimensions:v51 | (v50 << 32) hairSegmentationMatteDimensions:intValue11 | (intValue12 << 32) skinSegmentationMatteDimensions:intValue13 | (intValue14 << 32) teethSegmentationMatteDimensions:intValue15 | (intValue16 << 32) glassesSegmentationMatteDimensions:intValue17 | (intValue18 << 32) spatialOverCapturePhotoDimensions:intValue19 | (intValue20 << 32) turboModeEnabled:intValue21 | (intValue22 << 32) flashEnabled:v25 redEyeReductionEnabled:v26 HDREnabled:intValue23 | (intValue24 << 32) adjustedPhotoFiltersEnabled:&v67 EV0PhotoDeliveryEnabled:v27 stillImageStabilizationEnabled:v13 virtualDeviceFusionEnabled:unsignedIntegerValue squareCropEnabled:v19 deferredPhotoProxyDimensions:v28 photoProcessingTimeRange:? contentAwareDistortionCorrectionEnabled:? spatialPhotoCaptureEnabled:? photoManifest:? digitalFlashUserInterfaceHints:? digitalFlashUserInterfaceRGBEstimate:? captureBeforeResolvingSettingsEnabled:?];
+  [request setResolvedSettings:v21];
   FigSimpleMutexLock();
-  v23 = [(AVCapturePhotoOutput *)selfCopy _requestUsesWaitingForCaptureReadiness:request];
-  if (v23)
+  v22 = [(AVCapturePhotoOutput *)selfCopy _requestUsesWaitingForCaptureReadiness:request];
+  if (v22)
   {
     selfCopy->_internal->readinessState.inflightUniqueIDWaitingForCapture = [objc_msgSend(request "unresolvedSettings")];
   }
@@ -9061,7 +9056,7 @@ uint64_t __105__AVCapturePhotoOutput__handleWillBeginCaptureBeforeResolvingSetti
   else
   {
     FigSimpleMutexUnlock();
-    if (!v23)
+    if (!v22)
     {
       goto LABEL_22;
     }
@@ -9069,24 +9064,24 @@ uint64_t __105__AVCapturePhotoOutput__handleWillBeginCaptureBeforeResolvingSetti
 
   [(AVCapturePhotoOutput *)selfCopy _updateCaptureReadiness];
 LABEL_22:
-  if (v17)
+  if (intValue25)
   {
-    v66 = *MEMORY[0x1E6987418];
-    v67 = &unk_1F1CEA208;
-    -[AVCapturePhotoOutput _dispatchFailureCallbacks:forPhotoRequest:withError:cleanupRequest:](selfCopy, "_dispatchFailureCallbacks:forPhotoRequest:withError:cleanupRequest:", 2147549183, request, -[AVCapturePhotoOutput _errorForFigCaptureSessionNotificationPayloadErrorStatus:userInfo:](selfCopy, "_errorForFigCaptureSessionNotificationPayloadErrorStatus:userInfo:", v17, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v67 forKeys:&v66 count:1]), 1);
+    v65 = *MEMORY[0x1E6987418];
+    v66 = &unk_1F1CEA208;
+    -[AVCapturePhotoOutput _dispatchFailureCallbacks:forPhotoRequest:withError:cleanupRequest:](selfCopy, "_dispatchFailureCallbacks:forPhotoRequest:withError:cleanupRequest:", 2147549183, request, -[AVCapturePhotoOutput _errorForFigCaptureSessionNotificationPayloadErrorStatus:userInfo:](selfCopy, "_errorForFigCaptureSessionNotificationPayloadErrorStatus:userInfo:", intValue25, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v66 forKeys:&v65 count:1]), 1);
   }
 
   else
   {
     [request setFiredCallbackFlags:{objc_msgSend(request, "firedCallbackFlags") | 2}];
     delegateStorage = [request delegateStorage];
-    v65[0] = MEMORY[0x1E69E9820];
-    v65[1] = 3221225472;
-    v65[2] = __82__AVCapturePhotoOutput__handleWillBeginCaptureNotificationWithPayload_forRequest___block_invoke;
-    v65[3] = &unk_1E786FC18;
-    v65[4] = selfCopy;
-    v65[5] = v22;
-    [delegateStorage invokeDelegateCallbackWithBlock:v65];
+    v64[0] = MEMORY[0x1E69E9820];
+    v64[1] = 3221225472;
+    v64[2] = __82__AVCapturePhotoOutput__handleWillBeginCaptureNotificationWithPayload_forRequest___block_invoke;
+    v64[3] = &unk_1E786FC18;
+    v64[4] = selfCopy;
+    v64[5] = v21;
+    [delegateStorage invokeDelegateCallbackWithBlock:v64];
   }
 }
 
@@ -9122,12 +9117,12 @@ uint64_t __82__AVCapturePhotoOutput__handleWillBeginCaptureNotificationWithPaylo
     AVCaptureStillImageOutputPlayShutterSound(self, v8, v7);
   }
 
-  v9 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC40]), "intValue"}];
-  if (v9)
+  intValue = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  if (intValue)
   {
     v12 = *MEMORY[0x1E6987418];
     v13 = &unk_1F1CEA340;
-    -[AVCapturePhotoOutput _dispatchFailureCallbacks:forPhotoRequest:withError:cleanupRequest:](self, "_dispatchFailureCallbacks:forPhotoRequest:withError:cleanupRequest:", 2147549183, request, -[AVCapturePhotoOutput _errorForFigCaptureSessionNotificationPayloadErrorStatus:userInfo:](self, "_errorForFigCaptureSessionNotificationPayloadErrorStatus:userInfo:", v9, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1]), 1);
+    -[AVCapturePhotoOutput _dispatchFailureCallbacks:forPhotoRequest:withError:cleanupRequest:](self, "_dispatchFailureCallbacks:forPhotoRequest:withError:cleanupRequest:", 2147549183, request, -[AVCapturePhotoOutput _errorForFigCaptureSessionNotificationPayloadErrorStatus:userInfo:](self, "_errorForFigCaptureSessionNotificationPayloadErrorStatus:userInfo:", intValue, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1]), 1);
   }
 
   else
@@ -9160,7 +9155,7 @@ uint64_t __87__AVCapturePhotoOutput__handleWillCaptureStillImageNotificationWith
 
 - (void)_handleDidCaptureStillImageNotificationWithPayload:(id)payload forRequest:(id)request
 {
-  v6 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC40]), "intValue"}];
+  v6 = [objc_msgSend_objectForKeyedSubscript_(payload a2];
   FigSimpleMutexLock();
   if (self->_internal->readinessState.inflightUniqueIDWaitingForCapture && (v7 = [objc_msgSend(request "resolvedSettings")], internal = self->_internal, v7 >= internal->readinessState.inflightUniqueIDWaitingForCapture))
   {
@@ -9245,8 +9240,8 @@ uint64_t __79__AVCapturePhotoOutput__handleReadyForResponsiveRequestWithPayload_
 
 - (void)_handleStillImageCompleteNotification:(id)notification withPayload:(id)payload forRequest:(id)request
 {
-  v9 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC40]), "intValue"}];
-  [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC38]), "intValue"}];
+  v9 = [objc_msgSend_objectForKeyedSubscript_(payload a2];
+  [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
   v83 = *MEMORY[0x1E6987418];
   v84 = &unk_1F1CEA340;
   v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
@@ -9283,7 +9278,7 @@ uint64_t __79__AVCapturePhotoOutput__handleReadyForResponsiveRequestWithPayload_
     [request setFiredCallbackFlags:{objc_msgSend(request, "firedCallbackFlags") | 0x10}];
     if ([objc_msgSend(request "unresolvedSettings")])
     {
-      AVCaptureStillImageOutputPlayShutterSound(self, 0x462u, 0);
+      AVCaptureStillImageOutputPlayShutterSound(self, 1122, 0);
     }
   }
 
@@ -9292,9 +9287,9 @@ uint64_t __79__AVCapturePhotoOutput__handleReadyForResponsiveRequestWithPayload_
   v17 = [objc_msgSend(objc_msgSend(objc_msgSend(request "resolvedSettings")];
   if (![request photoCallbackFlavor])
   {
-    v75 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FCF8]];
-    v74 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FD00]), "unsignedIntegerValue"}];
-    v21 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FCB0]];
+    v75 = objc_msgSend_objectForKeyedSubscript_(payload);
+    unsignedIntegerValue = [objc_msgSend_objectForKeyedSubscript_(payload) unsignedIntegerValue];
+    v21 = objc_msgSend_objectForKeyedSubscript_(payload);
     if (v21)
     {
       previewSurface = v21;
@@ -9306,7 +9301,7 @@ uint64_t __79__AVCapturePhotoOutput__handleReadyForResponsiveRequestWithPayload_
       previewSurface = [request previewSurface];
     }
 
-    v26 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FD18]];
+    v26 = objc_msgSend_objectForKeyedSubscript_(payload);
     if (v26)
     {
       thumbnailSurface = v26;
@@ -9318,37 +9313,37 @@ uint64_t __79__AVCapturePhotoOutput__handleReadyForResponsiveRequestWithPayload_
       thumbnailSurface = [request thumbnailSurface];
     }
 
-    v71 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FC18]];
-    v70 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC20]), "unsignedIntegerValue"}];
-    v68 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC08]), "unsignedIntValue"}];
-    v67 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC10]), "intValue"}];
-    v76 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FC70]];
+    v71 = objc_msgSend_objectForKeyedSubscript_(payload);
+    unsignedIntegerValue2 = [objc_msgSend_objectForKeyedSubscript_(payload) unsignedIntegerValue];
+    unsignedIntValue = [objc_msgSend_objectForKeyedSubscript_(payload) unsignedIntValue];
+    intValue = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+    v76 = objc_msgSend_objectForKeyedSubscript_(payload);
     v82 = **&MEMORY[0x1E6960C70];
-    v27 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FCA0]];
+    v27 = objc_msgSend_objectForKeyedSubscript_(payload);
     if (v27)
     {
       CMTimeMakeFromDictionary(&v82, v27);
     }
 
-    v63 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC78]), "unsignedIntValue"}];
-    v61 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC80]), "intValue"}];
-    v66 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FC28]];
-    v65 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FC30]];
-    v64 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FC98]];
-    v62 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FC90]];
-    v60 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FC68]];
-    v59 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FC60]];
-    v58 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FCF0]];
-    v57 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FCE8]];
-    v56 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FD10]];
-    v55 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FD08]];
-    v54 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FC58]];
-    v53 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FC50]];
-    v52 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FBF0]];
-    v51 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FBF8]];
-    if (!v75 || !v74)
+    unsignedIntValue2 = [objc_msgSend_objectForKeyedSubscript_(payload) unsignedIntValue];
+    intValue2 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+    v66 = objc_msgSend_objectForKeyedSubscript_(payload);
+    v65 = objc_msgSend_objectForKeyedSubscript_(payload);
+    v64 = objc_msgSend_objectForKeyedSubscript_(payload);
+    v62 = objc_msgSend_objectForKeyedSubscript_(payload);
+    v60 = objc_msgSend_objectForKeyedSubscript_(payload);
+    v59 = objc_msgSend_objectForKeyedSubscript_(payload);
+    v58 = objc_msgSend_objectForKeyedSubscript_(payload);
+    v57 = objc_msgSend_objectForKeyedSubscript_(payload);
+    v56 = objc_msgSend_objectForKeyedSubscript_(payload);
+    v55 = objc_msgSend_objectForKeyedSubscript_(payload);
+    v54 = objc_msgSend_objectForKeyedSubscript_(payload);
+    v53 = objc_msgSend_objectForKeyedSubscript_(payload);
+    v52 = objc_msgSend_objectForKeyedSubscript_(payload);
+    v51 = objc_msgSend_objectForKeyedSubscript_(payload);
+    if (!v75 || !unsignedIntegerValue)
     {
-      v28 = !v70 || v71 == 0;
+      v28 = !unsignedIntegerValue2 || v71 == 0;
       if (v28 && !v11)
       {
         v11 = AVLocalizedError();
@@ -9365,8 +9360,8 @@ uint64_t __79__AVCapturePhotoOutput__handleReadyForResponsiveRequestWithPayload_
     v73 = firedPhotoCallbacksCount3;
     if (objc_opt_isKindOfClass())
     {
-      v29 = [v76 objectForKeyedSubscript:*MEMORY[0x1E696DE30]];
-      v30 = [v29 objectForKeyedSubscript:*MEMORY[0x1E6990A48]];
+      v29 = objc_msgSend_objectForKeyedSubscript_(v76);
+      v30 = objc_msgSend_objectForKeyedSubscript_(v29);
       if (v30)
       {
         integerValue = [v30 integerValue];
@@ -9398,14 +9393,14 @@ uint64_t __79__AVCapturePhotoOutput__handleReadyForResponsiveRequestWithPayload_
     if ([notification isEqualToString:*MEMORY[0x1E698FB08]])
     {
       v36 = [objc_msgSend(MEMORY[0x1E696AAE8] "mainBundle")];
-      v37 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FBE0]];
-      v38 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FC88]];
-      v39 = +[AVCapturePhoto AVFileTypeFromFigCaptureStillImageSettingsFileType:codec:unresolvedSettings:](AVCapturePhoto, "AVFileTypeFromFigCaptureStillImageSettingsFileType:codec:unresolvedSettings:", v67, v68, [request unresolvedSettings]);
+      v37 = objc_msgSend_objectForKeyedSubscript_(payload);
+      v38 = objc_msgSend_objectForKeyedSubscript_(payload);
+      v39 = +[AVCapturePhoto AVFileTypeFromFigCaptureStillImageSettingsFileType:codec:unresolvedSettings:](AVCapturePhoto, "AVFileTypeFromFigCaptureStillImageSettingsFileType:codec:unresolvedSettings:", intValue, unsignedIntValue, [request unresolvedSettings]);
       v40 = [AVCaptureDeferredPhotoProxy alloc];
       sourceDeviceType = self->_internal->sourceDeviceType;
       v81 = v82;
       LODWORD(v49) = v35;
-      v42 = [(AVCaptureDeferredPhotoProxy *)v40 initWithTimestamp:&v81 proxySurface:v71 proxySurfaceSize:v70 proxyFileType:v39 previewPhotoSurface:previewSurface metadata:v76 captureRequest:request sequenceCount:integerValue photoCount:v73 applicationIdentifier:v36 captureRequestIdentifier:v37 photoIdentifier:v38 expectedPhotoProcessingFlags:v49 sourceDeviceType:sourceDeviceType];
+      v42 = [(AVCaptureDeferredPhotoProxy *)v40 initWithTimestamp:&v81 proxySurface:v71 proxySurfaceSize:unsignedIntegerValue2 proxyFileType:v39 previewPhotoSurface:previewSurface metadata:v76 captureRequest:request sequenceCount:integerValue photoCount:v73 applicationIdentifier:v36 captureRequestIdentifier:v37 photoIdentifier:v38 expectedPhotoProcessingFlags:v49 sourceDeviceType:sourceDeviceType];
       delegateStorage = [request delegateStorage];
       v79[0] = MEMORY[0x1E69E9820];
       v79[1] = 3221225472;
@@ -9419,12 +9414,12 @@ uint64_t __79__AVCapturePhotoOutput__handleReadyForResponsiveRequestWithPayload_
 
     else
     {
-      v43 = +[AVCapturePhoto AVFileTypeFromFigCaptureStillImageSettingsFileType:codec:unresolvedSettings:](AVCapturePhoto, "AVFileTypeFromFigCaptureStillImageSettingsFileType:codec:unresolvedSettings:", v61, v63, [request unresolvedSettings]);
+      v43 = +[AVCapturePhoto AVFileTypeFromFigCaptureStillImageSettingsFileType:codec:unresolvedSettings:](AVCapturePhoto, "AVFileTypeFromFigCaptureStillImageSettingsFileType:codec:unresolvedSettings:", intValue2, unsignedIntValue2, [request unresolvedSettings]);
       v44 = [AVCapturePhoto alloc];
       v45 = self->_internal->sourceDeviceType;
       v81 = v82;
       LODWORD(v50) = v17;
-      v46 = [(AVCapturePhoto *)v44 initWithTimestamp:&v81 photoSurface:v75 photoSurfaceSize:v74 processedFileType:v43 previewPhotoSurface:previewSurface embeddedThumbnailSourceSurface:thumbnailSurface photoLibraryThumbnails:0 metadata:v76 depthDataSurface:v66 depthMetadataDictionary:v65 portraitEffectsMatteSurface:v64 portraitEffectsMatteMetadataDictionary:v62 hairSegmentationMatteSurface:v60 hairSegmentationMatteMetadataDictionary:v59 skinSegmentationMatteSurface:v58 skinSegmentationMatteMetadataDictionary:v57 teethSegmentationMatteSurface:v56 teethSegmentationMatteMetadataDictionary:v55 glassesSegmentationMatteSurface:v54 glassesSegmentationMatteMetadataDictionary:v53 constantColorConfidenceMapSurface:v52 constantColorMetadataDictionary:v51 captureRequest:request bracketSettings:v33 sequenceCount:integerValue photoCount:v73 expectedPhotoProcessingFlags:v50 sourceDeviceType:v45];
+      v46 = [(AVCapturePhoto *)v44 initWithTimestamp:&v81 photoSurface:v75 photoSurfaceSize:unsignedIntegerValue processedFileType:v43 previewPhotoSurface:previewSurface embeddedThumbnailSourceSurface:thumbnailSurface photoLibraryThumbnails:0 metadata:v76 depthDataSurface:v66 depthMetadataDictionary:v65 portraitEffectsMatteSurface:v64 portraitEffectsMatteMetadataDictionary:v62 hairSegmentationMatteSurface:v60 hairSegmentationMatteMetadataDictionary:v59 skinSegmentationMatteSurface:v58 skinSegmentationMatteMetadataDictionary:v57 teethSegmentationMatteSurface:v56 teethSegmentationMatteMetadataDictionary:v55 glassesSegmentationMatteSurface:v54 glassesSegmentationMatteMetadataDictionary:v53 constantColorConfidenceMapSurface:v52 constantColorMetadataDictionary:v51 captureRequest:request bracketSettings:v33 sequenceCount:integerValue photoCount:v73 expectedPhotoProcessingFlags:v50 sourceDeviceType:v45];
       delegateStorage = [request delegateStorage];
       v80[0] = MEMORY[0x1E69E9820];
       v80[1] = 3221225472;
@@ -9439,8 +9434,8 @@ uint64_t __79__AVCapturePhotoOutput__handleReadyForResponsiveRequestWithPayload_
     goto LABEL_57;
   }
 
-  v18 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FCD0]];
-  v19 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FCA8]];
+  v18 = objc_msgSend_objectForKeyedSubscript_(payload);
+  v19 = objc_msgSend_objectForKeyedSubscript_(payload);
   if (v19)
   {
     previewSampleBuffer = v19;
@@ -9460,7 +9455,7 @@ uint64_t __79__AVCapturePhotoOutput__handleReadyForResponsiveRequestWithPayload_
   v22 = CMGetAttachment(v18, *MEMORY[0x1E696DE30], 0);
   if (v22)
   {
-    LODWORD(v17) = [objc_msgSend(v22 objectForKeyedSubscript:{@"25", "unsignedIntValue"}];
+    LODWORD(v17) = [objc_msgSend_objectForKeyedSubscript_(v22) unsignedIntValue];
   }
 
   [request unresolvedSettings];
@@ -9683,7 +9678,7 @@ void __84__AVCapturePhotoOutput__handleDidRecordIrisMovieNotificationWithPayload
   dispatch_group_leave(*(*(*(a1 + 32) + 16) + 368));
 }
 
-uint64_t __84__AVCapturePhotoOutput__handleDidRecordIrisMovieNotificationWithPayload_forRequest___block_invoke_3(uint64_t a1, void *a2)
+void *__84__AVCapturePhotoOutput__handleDidRecordIrisMovieNotificationWithPayload_forRequest___block_invoke_3(uint64_t a1, void *a2)
 {
   v13 = 0u;
   v14 = 0u;
@@ -9711,7 +9706,7 @@ uint64_t __84__AVCapturePhotoOutput__handleDidRecordIrisMovieNotificationWithPay
           [a2 captureOutput:*(a1 + 40) didFinishRecordingLivePhotoMovieForEventualFileAtURL:v9 resolvedSettings:{objc_msgSend(*(a1 + 48), "resolvedSettings")}];
         }
 
-        ++v8;
+        v8 = v8 + 1;
       }
 
       while (v6 != v8);
@@ -9780,78 +9775,80 @@ LABEL_16:
 
 - (void)_handleDidFinishRecordingIrisMovieNotificationWithPayload:(id)payload forRequest:(id)request
 {
-  v7 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC40]), "intValue"}];
-  [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC38]), "intValue"}];
-  memset(&v25, 0, sizeof(v25));
-  CMTimeMakeFromDictionary(&v25, [payload objectForKeyedSubscript:*MEMORY[0x1E698FA68]]);
-  memset(&v24, 0, sizeof(v24));
-  CMTimeMakeFromDictionary(&v24, [payload objectForKeyedSubscript:*MEMORY[0x1E698FA70]]);
-  v8 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FA58]), "BOOLValue"}];
-  v9 = [objc_msgSend(request "resolvedSettings")] >= 1 && objc_msgSend(objc_msgSend(request, "unresolvedSettings"), "spatialOverCaptureLivePhotoMovieFileURL") != 0;
-  v10 = v8 & v9;
-  v11 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FA50]), "BOOLValue"}];
-  if ([objc_msgSend(request "resolvedSettings")] && ((objc_msgSend(objc_msgSend(request, "unresolvedSettings"), "livePhotoMovieFileURLForOriginalPhoto") != 0) & v11) == 1)
+  v7 = [objc_msgSend_objectForKeyedSubscript_(payload a2];
+  [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  memset(&v27, 0, sizeof(v27));
+  v8 = objc_msgSend_objectForKeyedSubscript_(payload);
+  CMTimeMakeFromDictionary(&v27, v8);
+  memset(&v26, 0, sizeof(v26));
+  v9 = objc_msgSend_objectForKeyedSubscript_(payload);
+  CMTimeMakeFromDictionary(&v26, v9);
+  bOOLValue = [objc_msgSend_objectForKeyedSubscript_(payload) BOOLValue];
+  v11 = [objc_msgSend(request "resolvedSettings")] >= 1 && objc_msgSend(objc_msgSend(request, "unresolvedSettings"), "spatialOverCaptureLivePhotoMovieFileURL") != 0;
+  v12 = bOOLValue & v11;
+  bOOLValue2 = [objc_msgSend_objectForKeyedSubscript_(payload) BOOLValue];
+  if ([objc_msgSend(request "resolvedSettings")] && ((objc_msgSend(objc_msgSend(request, "unresolvedSettings"), "livePhotoMovieFileURLForOriginalPhoto") != 0) & bOOLValue2) == 1)
   {
     unresolvedSettings = [request unresolvedSettings];
-    if (v10)
+    if (v12)
     {
       spatialOverCaptureLivePhotoMovieFileURLForOriginalPhoto = [unresolvedSettings spatialOverCaptureLivePhotoMovieFileURLForOriginalPhoto];
-      v14 = 1;
-      v15 = 1024;
+      v16 = 1;
+      v17 = 1024;
     }
 
     else
     {
       spatialOverCaptureLivePhotoMovieFileURLForOriginalPhoto = [unresolvedSettings livePhotoMovieFileURLForOriginalPhoto];
-      v14 = 1;
-      v15 = 512;
+      v16 = 1;
+      v17 = 512;
     }
   }
 
   else
   {
     unresolvedSettings2 = [request unresolvedSettings];
-    if (v10)
+    if (v12)
     {
       spatialOverCaptureLivePhotoMovieFileURLForOriginalPhoto = [unresolvedSettings2 spatialOverCaptureLivePhotoMovieFileURL];
-      v14 = 0;
-      v15 = 4096;
+      v16 = 0;
+      v17 = 4096;
     }
 
     else
     {
       spatialOverCaptureLivePhotoMovieFileURLForOriginalPhoto = [unresolvedSettings2 livePhotoMovieFileURL];
-      v14 = 0;
-      v15 = 2048;
+      v16 = 0;
+      v17 = 2048;
     }
   }
 
-  [request setFiredCallbackFlags:{objc_msgSend(request, "firedCallbackFlags") | v15}];
+  [request setFiredCallbackFlags:{objc_msgSend(request, "firedCallbackFlags") | v17}];
   if (v7)
   {
-    v17 = [(AVCapturePhotoOutput *)self _errorForFigCaptureSessionNotificationPayloadErrorStatus:v7 userInfo:[(AVCapturePhotoOutput *)self _avErrorUserInfoDictionaryForError:v7 photoRequest:request payload:payload isOriginalMovie:v14]];
+    v19 = [(AVCapturePhotoOutput *)self _errorForFigCaptureSessionNotificationPayloadErrorStatus:v7 userInfo:[(AVCapturePhotoOutput *)self _avErrorUserInfoDictionaryForError:v7 photoRequest:request payload:payload isOriginalMovie:v16]];
   }
 
   else
   {
-    v17 = 0;
+    v19 = 0;
   }
 
   delegateStorage = [request delegateStorage];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __93__AVCapturePhotoOutput__handleDidFinishRecordingIrisMovieNotificationWithPayload_forRequest___block_invoke;
-  v19[3] = &unk_1E7876178;
-  v22 = v14;
-  v23 = v10;
-  v19[4] = request;
-  v19[5] = payload;
-  v19[6] = self;
-  v19[7] = spatialOverCaptureLivePhotoMovieFileURLForOriginalPhoto;
-  v20 = v25;
-  v21 = v24;
-  v19[8] = v17;
-  [delegateStorage invokeDelegateCallbackWithBlock:v19];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __93__AVCapturePhotoOutput__handleDidFinishRecordingIrisMovieNotificationWithPayload_forRequest___block_invoke;
+  v21[3] = &unk_1E7876178;
+  v24 = v16;
+  v25 = v12;
+  v21[4] = request;
+  v21[5] = payload;
+  v21[6] = self;
+  v21[7] = spatialOverCaptureLivePhotoMovieFileURLForOriginalPhoto;
+  v22 = v27;
+  v23 = v26;
+  v21[8] = v19;
+  [delegateStorage invokeDelegateCallbackWithBlock:v21];
   [(AVCapturePhotoOutput *)self _handlePotentiallyFinalPhotoRequestCallbackWithPayload:payload forRequest:request];
 }
 
@@ -9859,7 +9856,7 @@ uint64_t __93__AVCapturePhotoOutput__handleDidFinishRecordingIrisMovieNotificati
 {
   if ([*(a1 + 32) delegateSupportsMetadataIdentifiersCallback])
   {
-    v4 = [*(a1 + 40) objectForKeyedSubscript:*MEMORY[0x1E698FA60]];
+    v4 = objc_msgSend_objectForKeyedSubscript_(*(a1 + 40));
     if (v4)
     {
       v5 = v4;
@@ -9883,7 +9880,7 @@ uint64_t __93__AVCapturePhotoOutput__handleDidFinishRecordingIrisMovieNotificati
 
   else if ([*(a1 + 32) delegateSupportsDebugMetadataSidecarFile])
   {
-    v11 = [*(a1 + 40) objectForKeyedSubscript:*MEMORY[0x1E698FC00]];
+    v11 = objc_msgSend_objectForKeyedSubscript_(*(a1 + 40));
     if (v11)
     {
       v12 = [MEMORY[0x1E695DFF8] fileURLWithPath:v11];
@@ -9921,34 +9918,35 @@ uint64_t __93__AVCapturePhotoOutput__handleDidFinishRecordingIrisMovieNotificati
 
 - (void)_handleDidFinishRecordingVideoNotificationWithPayload:(id)payload forRequest:(id)request
 {
-  v7 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC40]), "intValue"}];
-  [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC38]), "intValue"}];
-  memset(&v13, 0, sizeof(v13));
-  CMTimeMakeFromDictionary(&v13, [payload objectForKeyedSubscript:*MEMORY[0x1E698FA68]]);
+  v7 = [objc_msgSend_objectForKeyedSubscript_(payload a2];
+  [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  memset(&v14, 0, sizeof(v14));
+  v8 = objc_msgSend_objectForKeyedSubscript_(payload);
+  CMTimeMakeFromDictionary(&v14, v8);
   [request setFiredCallbackFlags:{objc_msgSend(request, "firedCallbackFlags") | 0x4000}];
-  v8 = [objc_msgSend(request "unresolvedSettings")];
+  v9 = [objc_msgSend(request "unresolvedSettings")];
   if (v7)
   {
-    v9 = [(AVCapturePhotoOutput *)self _errorForFigCaptureSessionNotificationPayloadErrorStatus:v7 userInfo:[(AVCapturePhotoOutput *)self _avErrorUserInfoDictionaryForError:v7 photoRequest:request payload:payload isOriginalMovie:0]];
+    v10 = [(AVCapturePhotoOutput *)self _errorForFigCaptureSessionNotificationPayloadErrorStatus:v7 userInfo:[(AVCapturePhotoOutput *)self _avErrorUserInfoDictionaryForError:v7 photoRequest:request payload:payload isOriginalMovie:0]];
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
   delegateStorage = [request delegateStorage];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __89__AVCapturePhotoOutput__handleDidFinishRecordingVideoNotificationWithPayload_forRequest___block_invoke;
-  v11[3] = &unk_1E78761A0;
-  v11[4] = self;
-  v11[5] = v8;
-  v11[7] = v9;
-  v11[8] = 0;
-  v12 = v13;
-  v11[6] = request;
-  [delegateStorage invokeDelegateCallbackWithBlock:v11];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __89__AVCapturePhotoOutput__handleDidFinishRecordingVideoNotificationWithPayload_forRequest___block_invoke;
+  v12[3] = &unk_1E78761A0;
+  v12[4] = self;
+  v12[5] = v9;
+  v12[7] = v10;
+  v12[8] = 0;
+  v13 = v14;
+  v12[6] = request;
+  [delegateStorage invokeDelegateCallbackWithBlock:v12];
   if (([request firedCallbackFlags] & 0x2010) != 0)
   {
     [(AVCapturePhotoOutput *)self _handleDidFinishCaptureNotificationWithPayload:payload forRequest:request];
@@ -10036,7 +10034,7 @@ uint64_t __70__AVCapturePhotoOutput_setFigCaptureSessionSectionProperty_withValu
 {
   movieCopy = movie;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v11 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FCC8]];
+  v11 = objc_msgSend_objectForKeyedSubscript_(payload);
   if (v11)
   {
     [dictionary setObject:v11 forKeyedSubscript:*MEMORY[0x1E6987420]];
@@ -10075,7 +10073,7 @@ uint64_t __70__AVCapturePhotoOutput_setFigCaptureSessionSectionProperty_withValu
 {
   movieCopy = movie;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v11 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FCC8]];
+  v11 = objc_msgSend_objectForKeyedSubscript_(payload);
   if (v11)
   {
     [dictionary setObject:v11 forKeyedSubscript:*MEMORY[0x1E6987420]];
@@ -10106,8 +10104,8 @@ uint64_t __70__AVCapturePhotoOutput_setFigCaptureSessionSectionProperty_withValu
 
 - (void)_handleDidFinishCaptureNotificationWithPayload:(id)payload forRequest:(id)request
 {
-  v7 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC40]), "intValue"}];
-  [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC38]), "intValue"}];
+  v7 = [objc_msgSend_objectForKeyedSubscript_(payload a2];
+  [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
   if (v7)
   {
     v8 = [(AVCapturePhotoOutput *)self _errorForFigCaptureSessionNotificationPayloadErrorStatus:v7 userInfo:0];
@@ -10150,11 +10148,11 @@ uint64_t __82__AVCapturePhotoOutput__handleDidFinishCaptureNotificationWithPaylo
 
 - (void)_handleDidBeginRecordingMomentCaptureMovieNotificationWithPayload:(id)payload forRequest:(id)request
 {
-  v7 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC40]), "intValue"}];
-  v8 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FA48]), "BOOLValue"}];
-  v9 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FF30]), "intValue"}];
-  v10 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FF28]), "intValue"}];
-  if ([objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FFC0]), "BOOLValue"}])
+  v7 = [objc_msgSend_objectForKeyedSubscript_(payload a2];
+  bOOLValue = [objc_msgSend_objectForKeyedSubscript_(payload) BOOLValue];
+  intValue = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  intValue2 = [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  if ([objc_msgSend_objectForKeyedSubscript_(payload) BOOLValue])
   {
     v11 = [objc_msgSend(request "unresolvedSettings")];
   }
@@ -10164,7 +10162,7 @@ uint64_t __82__AVCapturePhotoOutput__handleDidFinishCaptureNotificationWithPaylo
     v11 = 0;
   }
 
-  v12 = +[AVMomentCaptureMovieRecordingResolvedSettings movieRecordingResolvedSettingsWithUniqueID:torchEnabled:movieURL:spatialOverCaptureURL:movieDimensions:](AVMomentCaptureMovieRecordingResolvedSettings, "movieRecordingResolvedSettingsWithUniqueID:torchEnabled:movieURL:spatialOverCaptureURL:movieDimensions:", [objc_msgSend(request "unresolvedSettings")], v8, objc_msgSend(objc_msgSend(request, "unresolvedSettings"), "movieFileURL"), v11, v9 | (v10 << 32));
+  v12 = +[AVMomentCaptureMovieRecordingResolvedSettings movieRecordingResolvedSettingsWithUniqueID:torchEnabled:movieURL:spatialOverCaptureURL:movieDimensions:](AVMomentCaptureMovieRecordingResolvedSettings, "movieRecordingResolvedSettingsWithUniqueID:torchEnabled:movieURL:spatialOverCaptureURL:movieDimensions:", [objc_msgSend(request "unresolvedSettings")], bOOLValue, objc_msgSend(objc_msgSend(request, "unresolvedSettings"), "movieFileURL"), v11, intValue | (intValue2 << 32));
   [request setResolvedSettings:v12];
   if (v7)
   {
@@ -10352,74 +10350,75 @@ uint64_t __102__AVCapturePhotoOutput__handleDidFinishRecordingMomentCaptureMovie
 
 - (void)_handleDidFinishWritingMomentCaptureMovieNotificationWithPayload:(id)payload forRequest:(id)request
 {
-  v7 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC40]), "intValue"}];
-  [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC38]), "intValue"}];
-  memset(&v25, 0, sizeof(v25));
-  CMTimeMakeFromDictionary(&v25, [payload objectForKeyedSubscript:*MEMORY[0x1E698FA68]]);
-  v8 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FA58]), "BOOLValue"}];
-  v9 = v8;
-  if (v8 && [objc_msgSend(request "resolvedSettings")])
+  v7 = [objc_msgSend_objectForKeyedSubscript_(payload a2];
+  [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
+  memset(&v26, 0, sizeof(v26));
+  v8 = objc_msgSend_objectForKeyedSubscript_(payload);
+  CMTimeMakeFromDictionary(&v26, v8);
+  bOOLValue = [objc_msgSend_objectForKeyedSubscript_(payload) BOOLValue];
+  v10 = bOOLValue;
+  if (bOOLValue && [objc_msgSend(request "resolvedSettings")])
   {
     [request setFiredCallbackFlags:{objc_msgSend(request, "firedCallbackFlags") | 0x10}];
-    v10 = [objc_msgSend(request "resolvedSettings")];
-    v11 = 1;
+    v11 = [objc_msgSend(request "resolvedSettings")];
     v12 = 1;
+    v13 = 1;
   }
 
   else
   {
     [request setFiredCallbackFlags:{objc_msgSend(request, "firedCallbackFlags") | 8}];
-    v10 = [objc_msgSend(request "resolvedSettings")];
-    v11 = 0;
+    v11 = [objc_msgSend(request "resolvedSettings")];
     v12 = 0;
+    v13 = 0;
   }
 
-  v13 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FC00]];
-  if (v13)
+  v14 = objc_msgSend_objectForKeyedSubscript_(payload);
+  if (v14)
   {
-    v14 = [MEMORY[0x1E695DFF8] fileURLWithPath:v13];
+    v15 = [MEMORY[0x1E695DFF8] fileURLWithPath:v14];
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
   pixelBufferOut = 0;
-  v15 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FCB0]];
-  if (v15)
+  v16 = objc_msgSend_objectForKeyedSubscript_(payload);
+  if (v16)
   {
-    CVPixelBufferCreateWithIOSurface(*MEMORY[0x1E695E480], v15, 0, &pixelBufferOut);
+    CVPixelBufferCreateWithIOSurface(*MEMORY[0x1E695E480], v16, 0, &pixelBufferOut);
   }
 
   if (v7)
   {
-    v16 = [(AVCapturePhotoOutput *)self _errorForFigCaptureSessionNotificationPayloadErrorStatus:v7 userInfo:[(AVCapturePhotoOutput *)self _avErrorUserInfoDictionaryForError:v7 movieRequest:request payload:payload isSpatialOverCaptureMovie:v11]];
+    v17 = [(AVCapturePhotoOutput *)self _errorForFigCaptureSessionNotificationPayloadErrorStatus:v7 userInfo:[(AVCapturePhotoOutput *)self _avErrorUserInfoDictionaryForError:v7 movieRequest:request payload:payload isSpatialOverCaptureMovie:v12]];
   }
 
   else
   {
-    v16 = 0;
+    v17 = 0;
   }
 
   delegateStorage = [request delegateStorage];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __100__AVCapturePhotoOutput__handleDidFinishWritingMomentCaptureMovieNotificationWithPayload_forRequest___block_invoke;
-  v20[3] = &unk_1E7876240;
-  v22 = v12;
-  v23 = v9;
-  v20[4] = request;
-  v20[5] = v10;
-  v21 = v25;
-  v20[6] = v14;
-  v20[7] = self;
-  v20[8] = v16;
-  v20[9] = pixelBufferOut;
-  [delegateStorage invokeDelegateCallbackWithBlock:v20];
-  v18 = ([request firedCallbackFlags] >> 3) & 1;
-  v19 = (([request firedCallbackFlags] >> 4) & 1) + v18;
-  if ([request expectedMovieCount] == v19)
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __100__AVCapturePhotoOutput__handleDidFinishWritingMomentCaptureMovieNotificationWithPayload_forRequest___block_invoke;
+  v21[3] = &unk_1E7876240;
+  v23 = v13;
+  v24 = v10;
+  v21[4] = request;
+  v21[5] = v11;
+  v22 = v26;
+  v21[6] = v15;
+  v21[7] = self;
+  v21[8] = v17;
+  v21[9] = pixelBufferOut;
+  [delegateStorage invokeDelegateCallbackWithBlock:v21];
+  v19 = ([request firedCallbackFlags] >> 3) & 1;
+  v20 = (([request firedCallbackFlags] >> 4) & 1) + v19;
+  if ([request expectedMovieCount] == v20)
   {
     [(AVCapturePhotoOutput *)self _handleDidFinishMovieCaptureMovieNotificationWithPayload:payload forRequest:request];
   }
@@ -10498,8 +10497,8 @@ void __100__AVCapturePhotoOutput__handleDidFinishWritingMomentCaptureMovieNotifi
 
 - (void)_handleDidFinishMovieCaptureMovieNotificationWithPayload:(id)payload forRequest:(id)request
 {
-  v7 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC40]), "intValue"}];
-  [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC38]), "intValue"}];
+  v7 = [objc_msgSend_objectForKeyedSubscript_(payload a2];
+  [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
   if (v7)
   {
     v8 = [(AVCapturePhotoOutput *)self _errorForFigCaptureSessionNotificationPayloadErrorStatus:v7 userInfo:0];
@@ -10570,9 +10569,9 @@ uint64_t __92__AVCapturePhotoOutput__handleDidFinishMovieCaptureMovieNotificatio
 
 - (void)_handleNotification:(id)notification payload:(id)payload
 {
-  if ([objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FCD8]), "isEqual:", -[AVCaptureOutput sinkID](self, "sinkID")}])
+  if ([objc_msgSend_objectForKeyedSubscript_(payload a2])
   {
-    v7 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FCE0]), "longLongValue"}];
+    longLongValue = [objc_msgSend_objectForKeyedSubscript_(payload) longLongValue];
     if ([notification isEqualToString:*MEMORY[0x1E698FB58]])
     {
       v8 = OUTLINED_FUNCTION_2_7();
@@ -10594,8 +10593,8 @@ uint64_t __92__AVCapturePhotoOutput__handleDidFinishMovieCaptureMovieNotificatio
 
     else
     {
-      v9 = [(AVCapturePhotoOutput *)self _photoRequestForUniqueID:v7];
-      v10 = [(AVCapturePhotoOutput *)self _movieRequestForUniqueID:v7];
+      v9 = [(AVCapturePhotoOutput *)self _photoRequestForUniqueID:longLongValue];
+      v10 = [(AVCapturePhotoOutput *)self _movieRequestForUniqueID:longLongValue];
       if (v9 | v10)
       {
         if (v9)
@@ -10704,15 +10703,15 @@ uint64_t __92__AVCapturePhotoOutput__handleDidFinishMovieCaptureMovieNotificatio
   return v3 == 0;
 }
 
-- (void)commitMomentCaptureToPhotoWithUniqueID:.cold.1()
+- (void)commitMomentCaptureToPhotoWithUniqueID:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v0 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  v2 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
+  if (AVCaptureShouldThrowForAPIViolations(v2, v3))
   {
-    objc_exception_throw(v0);
+    objc_exception_throw(v2);
   }
 
-  NSLog(&cfstr_SuppressingExc.isa, v0);
+  NSLog(&cfstr_SuppressingExc.isa, v2);
 }
 
 @end

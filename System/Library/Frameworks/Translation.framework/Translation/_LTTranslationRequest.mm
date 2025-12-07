@@ -54,20 +54,19 @@
   v16 = *MEMORY[0x277D85DE8];
   localeCopy = locale;
   targetLocaleCopy = targetLocale;
-  v8 = _LTOSLogXPC();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = _LTOSLogXPC(targetLocaleCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v12 = 138478083;
     v13 = localeCopy;
     v14 = 2113;
     v15 = targetLocaleCopy;
-    _os_log_impl(&dword_23AAF5000, v8, OS_LOG_TYPE_INFO, "Translation request with sourceLocale:%{private}@ targetLocale:%{private}@", &v12, 0x16u);
+    _os_log_impl(&dword_23AAF5000, v9, OS_LOG_TYPE_INFO, "Translation request with sourceLocale:%{private}@ targetLocale:%{private}@", &v12, 0x16u);
   }
 
-  v9 = [(_LTTranslationRequest *)self initWithSourceLocale:localeCopy targetLocale:targetLocaleCopy suggestedUniqueID:0];
+  v10 = [(_LTTranslationRequest *)self initWithSourceLocale:localeCopy targetLocale:targetLocaleCopy suggestedUniqueID:0];
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v10;
 }
 
 - (_LTTranslationRequest)initWithSourceLocale:(id)locale targetLocale:(id)targetLocale suggestedUniqueID:(id)d

@@ -16,6 +16,7 @@
 - (void)_updateToolbarButtonItems;
 - (void)_willEncodeRequest:(id)request;
 - (void)loadView;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 - (void)willPresentPageModel:(id)model appearance:(id)appearance;
 @end
@@ -52,6 +53,14 @@
   view = [(AMSUICommonViewController *)self view];
   webView = [(AMSUIWebPageViewController *)self webView];
   [view addSubview:webView];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AMSUIWebPageViewController;
+  [(AMSUIWebPageViewController *)&v4 viewWillAppear:appear];
+  [(AMSUIWebPageViewController *)self _applyAppearance];
 }
 
 - (void)viewWillLayoutSubviews
@@ -218,7 +227,7 @@ id __58__AMSUIWebPageViewController_presentAppOverlayWithAdamID___block_invoke(u
 
 - (void)willPresentPageModel:(id)model appearance:(id)appearance
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   modelCopy = model;
   appearanceCopy = appearance;
   v8 = modelCopy;
@@ -256,17 +265,15 @@ id __58__AMSUIWebPageViewController_presentAppOverlayWithAdamID___block_invoke(u
       v12 = objc_opt_class();
       context = [(AMSUIWebPageViewController *)self context];
       logKey = [context logKey];
-      v16 = 138543874;
-      v17 = v12;
-      v18 = 2114;
-      v19 = logKey;
-      v20 = 2114;
-      v21 = v8;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Invalid browser page model: %{public}@", &v16, 0x20u);
+      v15 = 138543874;
+      v16 = v12;
+      v17 = 2114;
+      v18 = logKey;
+      v19 = 2114;
+      v20 = v8;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Invalid browser page model: %{public}@", &v15, 0x20u);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_applyAppearance
@@ -465,7 +472,7 @@ void __65__AMSUIWebPageViewController__downloadHTMLForRequest_completion___block
 
 void __65__AMSUIWebPageViewController__downloadHTMLForRequest_completion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!v4)
@@ -476,20 +483,17 @@ void __65__AMSUIWebPageViewController__downloadHTMLForRequest_completion___block
   v5 = [v4 OSLogObject];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = [*(a1 + 32) context];
-    v9 = [v8 logKey];
-    v11 = 138543874;
-    v12 = v7;
+    v6 = objc_opt_class();
+    v7 = [*(a1 + 32) context];
+    v8 = [v7 logKey];
+    v9 = 138543874;
+    v10 = v6;
+    v11 = 2114;
+    v12 = v8;
     v13 = 2114;
-    v14 = v9;
-    v15 = 2114;
-    v16 = v3;
-    _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to prime sign: %{public}@", &v11, 0x20u);
+    v14 = v3;
+    _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to prime sign: %{public}@", &v9, 0x20u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 id __65__AMSUIWebPageViewController__downloadHTMLForRequest_completion___block_invoke_2_28(uint64_t a1, void *a2)
@@ -504,7 +508,7 @@ id __65__AMSUIWebPageViewController__downloadHTMLForRequest_completion___block_i
 
 void __65__AMSUIWebPageViewController__downloadHTMLForRequest_completion___block_invoke_3_29(uint64_t a1, void *a2, void *a3)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   v8 = [*(a1 + 32) context];
@@ -534,9 +538,9 @@ void __65__AMSUIWebPageViewController__downloadHTMLForRequest_completion___block
   {
     v16 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBase64EncodedString:v15 options:0];
     v17 = [*(a1 + 40) verifyPrimeSignature:v16];
-    v36 = 0;
-    v18 = [v17 resultWithError:&v36];
-    v19 = v36;
+    v33 = 0;
+    v18 = [v17 resultWithError:&v33];
+    v19 = v33;
 
     v20 = [MEMORY[0x1E698C968] sharedWebUIConfig];
     v21 = v20;
@@ -553,19 +557,18 @@ void __65__AMSUIWebPageViewController__downloadHTMLForRequest_completion___block
         goto LABEL_17;
       }
 
-      v23 = *(a1 + 32);
-      v33 = v17;
-      v24 = v19;
-      v25 = objc_opt_class();
+      v30 = v17;
+      v23 = v19;
+      v24 = objc_opt_class();
       [*(a1 + 32) context];
-      v26 = v35 = v16;
-      v27 = [v26 logKey];
+      v25 = v32 = v16;
+      v26 = [v25 logKey];
       *buf = 138543618;
-      v38 = v25;
-      v19 = v24;
-      v17 = v33;
-      v39 = 2114;
-      v40 = v27;
+      v35 = v24;
+      v19 = v23;
+      v17 = v30;
+      v36 = 2114;
+      v37 = v26;
       _os_log_impl(&dword_1BB036000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Verify prime finished.", buf, 0x16u);
     }
 
@@ -582,24 +585,23 @@ void __65__AMSUIWebPageViewController__downloadHTMLForRequest_completion___block
         goto LABEL_17;
       }
 
-      v28 = *(a1 + 32);
-      v29 = objc_opt_class();
-      v34 = [*(a1 + 32) context];
-      v35 = v16;
-      [v34 logKey];
-      v31 = v30 = v19;
+      v27 = objc_opt_class();
+      v31 = [*(a1 + 32) context];
+      v32 = v16;
+      [v31 logKey];
+      v29 = v28 = v19;
       *buf = 138543874;
-      v38 = v29;
-      v39 = 2114;
-      v40 = v31;
-      v41 = 2114;
-      v42 = v30;
+      v35 = v27;
+      v36 = 2114;
+      v37 = v29;
+      v38 = 2114;
+      v39 = v28;
       _os_log_impl(&dword_1BB036000, v22, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Verify prime failed: %{public}@", buf, 0x20u);
 
-      v19 = v30;
+      v19 = v28;
     }
 
-    v16 = v35;
+    v16 = v32;
 LABEL_17:
   }
 
@@ -617,8 +619,6 @@ LABEL_17:
   {
     (*(*(a1 + 48) + 16))();
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateToolbarButtonItems

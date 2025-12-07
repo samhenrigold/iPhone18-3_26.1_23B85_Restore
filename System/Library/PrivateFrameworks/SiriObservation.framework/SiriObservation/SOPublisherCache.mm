@@ -60,10 +60,7 @@
 
 uint64_t __45__SOPublisherCache_publisherForSnapshotType___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 8) objectForKey:a1[6]];
-  v3 = *(a1[5] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[5] + 8) + 40) = [*(a1[4] + 8) objectForKey:a1[6]];
 
   return MEMORY[0x2821F96F8]();
 }

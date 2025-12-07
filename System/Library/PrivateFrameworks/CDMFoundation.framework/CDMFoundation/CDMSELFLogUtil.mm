@@ -6,13 +6,24 @@
 + (BOOL)cdmAllServicesWarmupFailed:(id)failed logMessage:(id)message dataDispatcherContext:(id)context;
 + (BOOL)cdmAllServicesWarmupStarted:(id)started logMessage:(id)message dataDispatcherContext:(id)context;
 + (BOOL)cdmAssetSetupEnded:(id)ended contextId:(id)id logMessage:(id)message dataDispatcherContext:(id)context;
++ (BOOL)cdmAssetSetupFailed:(id)failed contextId:(id)id errorDomain:(int)domain errorCode:(unsigned int)code logMessage:(id)message dataDispatcherContext:(id)context;
 + (BOOL)cdmAssetSetupStarted:(id)started contextId:(id)id serviceNames:(id)names logMessage:(id)message dataDispatcherContext:(id)context;
 + (BOOL)cdmAssetsReported:(id)reported metadata:(id)metadata dataDispatcherContext:(id)context;
 + (BOOL)cdmClientSetupEnded:(id)ended logMessage:(id)message dataDispatcherContext:(id)context;
++ (BOOL)cdmClientSetupFailed:(id)failed errorDomain:(int)domain errorCode:(unsigned int)code logMessage:(id)message;
++ (BOOL)cdmClientSetupFailed:(id)failed errorDomain:(int)domain errorCode:(unsigned int)code logMessage:(id)message dataDispatcherContext:(id)context;
++ (BOOL)cdmClientSetupStarted:(id)started logMessage:(id)message currentServiceGraph:(int)graph dataDispatcherContext:(id)context;
 + (BOOL)cdmClientWarmupEnded:(id)ended logMessage:(id)message dataDispatcherContext:(id)context;
++ (BOOL)cdmClientWarmupFailed:(id)failed errorDomain:(int)domain errorCode:(unsigned int)code logMessage:(id)message dataDispatcherContext:(id)context;
++ (BOOL)cdmClientWarmupStarted:(id)started logMessage:(id)message currentServiceGraph:(int)graph dataDispatcherContext:(id)context;
 + (BOOL)cdmEnded:(id)ended metadata:(id)metadata logMessage:(id)message machAbsoluteTime:(unint64_t)time dataDispatcherContext:(id)context;
++ (BOOL)cdmFailed:(int)failed errorDomainString:(id)string errorCode:(int)code metadata:(id)metadata logMessage:(id)message dataDispatcherContext:(id)context;
++ (BOOL)cdmFailed:(int)failed metadata:(id)metadata logMessage:(id)message dataDispatcherContext:(id)context;
 + (BOOL)cdmSetupMissingAssetsDetected:(id)detected contextId:(id)id serviceNames:(id)names logMessage:(id)message dataDispatcherContext:(id)context;
++ (BOOL)cdmStarted:(id)started metadata:(id)metadata logMessage:(id)message machAbsoluteTime:(unint64_t)time currentServiceGraph:(int)graph dataDispatcherContext:(id)context;
 + (BOOL)cdmXpcProcessingEnded:(id)ended metadata:(id)metadata logMessage:(id)message dataDispatcherContext:(id)context;
++ (BOOL)cdmXpcProcessingFailed:(id)failed reason:(int)reason errorCode:(unsigned int)code metadata:(id)metadata logMessage:(id)message dataDispatcherContext:(id)context;
++ (BOOL)cdmXpcProcessingStarted:(id)started xpcType:(int)type xpcSystemEventType:(int)eventType serviceName:(int)name metadata:(id)metadata logMessage:(id)message dataDispatcherContext:(id)context;
 + (BOOL)contextUpdateEnded:(id)ended metadata:(id)metadata logMessage:(id)message dataDispatcherContext:(id)context;
 + (BOOL)curareRequestLink:(id)link nlId:(id)id metadata:(id)metadata logMessage:(id)message dataDispatcherContext:(id)context;
 + (BOOL)emitCurareContext:(id)context metadata:(id)metadata dataDispatcherContext:(id)dispatcherContext;
@@ -22,6 +33,8 @@
 + (BOOL)isEventSampledForEmission:(id)emission;
 + (BOOL)matchingSpanEnded:(id)ended metadata:(id)metadata logMessage:(id)message dataDispatcherContext:(id)context;
 + (BOOL)orchestratorRequestLink:(id)link nlId:(id)id metadata:(id)metadata logMessage:(id)message dataDispatcherContext:(id)context;
++ (BOOL)tokenizationEnded:(id)ended inputType:(int)type metadata:(id)metadata logMessage:(id)message dataDispatcherContext:(id)context;
++ (BOOL)tokenizationEndedWithMultiResponses:(id)responses inputType:(int)type metadata:(id)metadata logMessage:(id)message dataDispatcherContext:(id)context;
 + (id)convertNLAssetToSISchemaAsset:(id)asset nlAsset:(id)nlAsset;
 + (id)createSELFMetadataWithNlId:(id)id andWithTrpId:(id)trpId andWithRequestId:(id)requestId andWithResultCandidateId:(id)candidateId andWithConnectionId:(id)connectionId;
 + (id)createSELFMetadataWithRequestId:(id)id;
@@ -54,7 +67,7 @@
 
 + (id)mintRequestIdAndCreateSELFMetadataWithRequestId
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E69D11C0]);
   v3 = MEMORY[0x1E696AEC0];
   uUID = [MEMORY[0x1E696AFB0] UUID];
@@ -65,17 +78,15 @@
   v7 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v11 = [v2 idA];
+    v10 = [v2 idA];
     *buf = 136315394;
-    v13 = "+[CDMSELFLogUtil mintRequestIdAndCreateSELFMetadataWithRequestId]";
-    v14 = 2112;
-    v15 = v11;
+    v12 = "+[CDMSELFLogUtil mintRequestIdAndCreateSELFMetadataWithRequestId]";
+    v13 = 2112;
+    v14 = v10;
     _os_log_debug_impl(&dword_1DC287000, v7, OS_LOG_TYPE_DEBUG, "%s Generated request id with UUID: %@", buf, 0x16u);
   }
 
   v8 = [CDMSELFLogUtil createSELFMetadataWithRequestId:v2];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -431,7 +442,7 @@
 
 + (id)getVersionForAsset:(id)asset
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (asset)
   {
     v3 = [asset componentsSeparatedByString:@"."];
@@ -458,11 +469,11 @@
       v5 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v12 = 136315394;
-        v13 = "+[CDMSELFLogUtil getVersionForAsset:]";
-        v14 = 2048;
-        v15 = [v3 count];
-        _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s [WARN]: Version info count is %lu", &v12, 0x16u);
+        v11 = 136315394;
+        v12 = "+[CDMSELFLogUtil getVersionForAsset:]";
+        v13 = 2048;
+        v14 = [v3 count];
+        _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s [WARN]: Version info count is %lu", &v11, 0x16u);
       }
 
       v6 = 0;
@@ -473,8 +484,6 @@
   {
     v6 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -505,7 +514,7 @@
 
 + (int)stringXPCSystemEventTypeToEnum:(id)enum
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   enumCopy = enum;
   if (enumCopy)
   {
@@ -526,9 +535,9 @@ LABEL_14:
       v9 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v12 = 136315138;
-        v13 = "+[CDMSELFLogUtil stringXPCSystemEventTypeToEnum:]";
-        _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to fetch CDMXPCSystemEventType with string key, but received nil!", &v12, 0xCu);
+        v11 = 136315138;
+        v12 = "+[CDMSELFLogUtil stringXPCSystemEventTypeToEnum:]";
+        _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to fetch CDMXPCSystemEventType with string key, but received nil!", &v11, 0xCu);
       }
 
       v7 = 0;
@@ -539,9 +548,9 @@ LABEL_14:
       v7 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        v12 = 136315138;
-        v13 = "+[CDMSELFLogUtil stringXPCSystemEventTypeToEnum:]";
-        _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to fetch CDMXPCSystemEventTypeNames stringToEnumDict, but received nil!", &v12, 0xCu);
+        v11 = 136315138;
+        v12 = "+[CDMSELFLogUtil stringXPCSystemEventTypeToEnum:]";
+        _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to fetch CDMXPCSystemEventTypeNames stringToEnumDict, but received nil!", &v11, 0xCu);
       }
     }
 
@@ -552,21 +561,20 @@ LABEL_14:
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v12 = 136315138;
-    v13 = "+[CDMSELFLogUtil stringXPCSystemEventTypeToEnum:]";
-    _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s [WARN]: Nil given to stringXPCSystemEventTypeToEnum method!", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "+[CDMSELFLogUtil stringXPCSystemEventTypeToEnum:]";
+    _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s [WARN]: Nil given to stringXPCSystemEventTypeToEnum method!", &v11, 0xCu);
   }
 
   intValue = 0;
 LABEL_15:
 
-  v10 = *MEMORY[0x1E69E9840];
   return intValue;
 }
 
 + (int)stringServiceTypeToEnum:(id)enum
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   enumCopy = enum;
   if (enumCopy)
   {
@@ -587,9 +595,9 @@ LABEL_14:
       v9 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v12 = 136315138;
-        v13 = "+[CDMSELFLogUtil stringServiceTypeToEnum:]";
-        _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to fetch CDMServiceType with string key, but received nil!", &v12, 0xCu);
+        v11 = 136315138;
+        v12 = "+[CDMSELFLogUtil stringServiceTypeToEnum:]";
+        _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to fetch CDMServiceType with string key, but received nil!", &v11, 0xCu);
       }
 
       v7 = 0;
@@ -600,9 +608,9 @@ LABEL_14:
       v7 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        v12 = 136315138;
-        v13 = "+[CDMSELFLogUtil stringServiceTypeToEnum:]";
-        _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to fetch CDMServiceTypeNames stringToEnumDict, but received nil!", &v12, 0xCu);
+        v11 = 136315138;
+        v12 = "+[CDMSELFLogUtil stringServiceTypeToEnum:]";
+        _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to fetch CDMServiceTypeNames stringToEnumDict, but received nil!", &v11, 0xCu);
       }
     }
 
@@ -613,21 +621,20 @@ LABEL_14:
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v12 = 136315138;
-    v13 = "+[CDMSELFLogUtil stringServiceTypeToEnum:]";
-    _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s [WARN]: Nil given to stringServiceTypeToEnum method!", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "+[CDMSELFLogUtil stringServiceTypeToEnum:]";
+    _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s [WARN]: Nil given to stringServiceTypeToEnum method!", &v11, 0xCu);
   }
 
   intValue = 0;
 LABEL_15:
 
-  v10 = *MEMORY[0x1E69E9840];
   return intValue;
 }
 
 + (int)stringNodeNameToEnum:(id)enum
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   enumCopy = enum;
   if (enumCopy)
   {
@@ -648,9 +655,9 @@ LABEL_14:
       v9 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v12 = 136315138;
-        v13 = "+[CDMSELFLogUtil stringNodeNameToEnum:]";
-        _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to fetch CDMServiceName with string key, but received nil!", &v12, 0xCu);
+        v11 = 136315138;
+        v12 = "+[CDMSELFLogUtil stringNodeNameToEnum:]";
+        _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to fetch CDMServiceName with string key, but received nil!", &v11, 0xCu);
       }
 
       v7 = 0;
@@ -661,9 +668,9 @@ LABEL_14:
       v7 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        v12 = 136315138;
-        v13 = "+[CDMSELFLogUtil stringNodeNameToEnum:]";
-        _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to fetch CDMServiceNodeNames stringToEnumDict, but received nil!", &v12, 0xCu);
+        v11 = 136315138;
+        v12 = "+[CDMSELFLogUtil stringNodeNameToEnum:]";
+        _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to fetch CDMServiceNodeNames stringToEnumDict, but received nil!", &v11, 0xCu);
       }
     }
 
@@ -674,21 +681,20 @@ LABEL_14:
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v12 = 136315138;
-    v13 = "+[CDMSELFLogUtil stringNodeNameToEnum:]";
-    _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s [WARN]: Nil given to stringNodeNameToEnum method!", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "+[CDMSELFLogUtil stringNodeNameToEnum:]";
+    _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s [WARN]: Nil given to stringNodeNameToEnum method!", &v11, 0xCu);
   }
 
   intValue = 0;
 LABEL_15:
 
-  v10 = *MEMORY[0x1E69E9840];
   return intValue;
 }
 
 + (BOOL)cdmAssetsReported:(id)reported metadata:(id)metadata dataDispatcherContext:(id)context
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   reportedCopy = reported;
   metadataCopy = metadata;
   contextCopy = context;
@@ -696,41 +702,41 @@ LABEL_15:
   if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v31 = "+[CDMSELFLogUtil cdmAssetsReported:metadata:dataDispatcherContext:]";
-    v32 = 2112;
-    v33 = @"assets";
-    v34 = 2112;
-    v35 = reportedCopy;
+    v30 = "+[CDMSELFLogUtil cdmAssetsReported:metadata:dataDispatcherContext:]";
+    v31 = 2112;
+    v32 = @"assets";
+    v33 = 2112;
+    v34 = reportedCopy;
     _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s [insights-cdm-%@]:\nAssets available are: %@", buf, 0x20u);
   }
 
   v10 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(reportedCopy, "count")}];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v11 = reportedCopy;
-  v12 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v26;
+    v14 = *v25;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v26 != v14)
+        if (*v25 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v25 + 1) + 8 * i);
+        v16 = *(*(&v24 + 1) + 8 * i);
         v17 = [v11 objectForKey:v16];
         v18 = [CDMSELFLogUtil convertNLAssetToSISchemaAsset:v16 nlAsset:v17];
         [v10 addObject:v18];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v13);
@@ -744,18 +750,42 @@ LABEL_15:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v31 = "+[CDMSELFLogUtil cdmAssetsReported:metadata:dataDispatcherContext:]";
+      v30 = "+[CDMSELFLogUtil cdmAssetsReported:metadata:dataDispatcherContext:]";
       _os_log_impl(&dword_1DC287000, v21, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDMAssetsReported event, but there was an issue with emission. Log was not emitted!", buf, 0xCu);
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v20;
+}
+
++ (BOOL)cdmXpcProcessingFailed:(id)failed reason:(int)reason errorCode:(unsigned int)code metadata:(id)metadata logMessage:(id)message dataDispatcherContext:(id)context
+{
+  v10 = *&code;
+  v11 = *&reason;
+  v22 = *MEMORY[0x1E69E9840];
+  v13 = MEMORY[0x1E69D1420];
+  contextCopy = context;
+  messageCopy = message;
+  v16 = [v13 createCdmXpcEventProcessingFailedLog:failed reason:v11 errorCode:v10 metadata:metadata];
+  v17 = [CDMSELFLogUtil emitEventsFromContainer:v16 mainEventLogMessage:messageCopy dataDispatcherContext:contextCopy];
+
+  if (!v17)
+  {
+    v18 = CDMOSLoggerForCategory(0);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    {
+      v20 = 136315138;
+      v21 = "+[CDMSELFLogUtil cdmXpcProcessingFailed:reason:errorCode:metadata:logMessage:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v18, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM XPC Processing failed event, but there was an issue with emission. Log was not emitted!", &v20, 0xCu);
+    }
+  }
+
+  return v17;
 }
 
 + (BOOL)cdmXpcProcessingEnded:(id)ended metadata:(id)metadata logMessage:(id)message dataDispatcherContext:(id)context
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v9 = MEMORY[0x1E69D1420];
   contextCopy = context;
   messageCopy = message;
@@ -767,50 +797,75 @@ LABEL_15:
     v14 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v17 = 136315138;
-      v18 = "+[CDMSELFLogUtil cdmXpcProcessingEnded:metadata:logMessage:dataDispatcherContext:]";
-      _os_log_impl(&dword_1DC287000, v14, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM XPC Processing ended event, but there was an issue with emission. Log was not emitted!", &v17, 0xCu);
+      v16 = 136315138;
+      v17 = "+[CDMSELFLogUtil cdmXpcProcessingEnded:metadata:logMessage:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v14, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM XPC Processing ended event, but there was an issue with emission. Log was not emitted!", &v16, 0xCu);
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v13;
+}
+
++ (BOOL)cdmXpcProcessingStarted:(id)started xpcType:(int)type xpcSystemEventType:(int)eventType serviceName:(int)name metadata:(id)metadata logMessage:(id)message dataDispatcherContext:(id)context
+{
+  v11 = *&name;
+  v12 = *&eventType;
+  v13 = *&type;
+  v24 = *MEMORY[0x1E69E9840];
+  v15 = MEMORY[0x1E69D1420];
+  contextCopy = context;
+  messageCopy = message;
+  v18 = [v15 createCdmXpcEventProcessingStartedLog:started xpcType:v13 xpcSystemEventType:v12 serviceName:v11 metadata:metadata];
+  v19 = [CDMSELFLogUtil emitEventsFromContainer:v18 mainEventLogMessage:messageCopy dataDispatcherContext:contextCopy];
+
+  if (!v19)
+  {
+    v20 = CDMOSLoggerForCategory(0);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    {
+      v22 = 136315138;
+      v23 = "+[CDMSELFLogUtil cdmXpcProcessingStarted:xpcType:xpcSystemEventType:serviceName:metadata:logMessage:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v20, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM XPC Processing started event, but there was an issue with emission. Log was not emitted!", &v22, 0xCu);
+    }
+  }
+
+  return v19;
 }
 
 + (BOOL)cdmSetupMissingAssetsDetected:(id)detected contextId:(id)id serviceNames:(id)names logMessage:(id)message dataDispatcherContext:(id)context
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   detectedCopy = detected;
   idCopy = id;
   namesCopy = names;
   messageCopy = message;
   contextCopy = context;
   v14 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(namesCopy, "count")}];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v15 = namesCopy;
-  v16 = [v15 countByEnumeratingWithState:&v29 objects:v35 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v30;
+    v18 = *v29;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v30 != v18)
+        if (*v29 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        idCopy = [CDMSELFLogUtil stringServiceTypeToEnum:*(*(&v29 + 1) + 8 * i), idCopy];
+        idCopy = [CDMSELFLogUtil stringServiceTypeToEnum:*(*(&v28 + 1) + 8 * i), idCopy];
         v21 = [MEMORY[0x1E696AD98] numberWithInt:idCopy];
         [v14 addObject:v21];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v17);
@@ -824,18 +879,42 @@ LABEL_15:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v34 = "+[CDMSELFLogUtil cdmSetupMissingAssetsDetected:contextId:serviceNames:logMessage:dataDispatcherContext:]";
+      v33 = "+[CDMSELFLogUtil cdmSetupMissingAssetsDetected:contextId:serviceNames:logMessage:dataDispatcherContext:]";
       _os_log_impl(&dword_1DC287000, v24, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDMSetupMissingAssetsDetected event, but there was an issue with emission. Log was not emitted!!", buf, 0xCu);
     }
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v23;
+}
+
++ (BOOL)cdmAssetSetupFailed:(id)failed contextId:(id)id errorDomain:(int)domain errorCode:(unsigned int)code logMessage:(id)message dataDispatcherContext:(id)context
+{
+  v9 = *&code;
+  v10 = *&domain;
+  v22 = *MEMORY[0x1E69E9840];
+  v13 = MEMORY[0x1E69D1420];
+  contextCopy = context;
+  messageCopy = message;
+  v16 = [v13 createCDMAssetSetupFailedLog:id errorDomain:v10 errorCode:v9 metadata:failed];
+  v17 = [CDMSELFLogUtil emitEventsFromContainer:v16 mainEventLogMessage:messageCopy dataDispatcherContext:contextCopy];
+
+  if (!v17)
+  {
+    v18 = CDMOSLoggerForCategory(0);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    {
+      v20 = 136315138;
+      v21 = "+[CDMSELFLogUtil cdmAssetSetupFailed:contextId:errorDomain:errorCode:logMessage:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v18, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDMAssetSetup failed event, but there was an issue with emission. Log was not emitted!!", &v20, 0xCu);
+    }
+  }
+
+  return v17;
 }
 
 + (BOOL)cdmAssetSetupEnded:(id)ended contextId:(id)id logMessage:(id)message dataDispatcherContext:(id)context
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v9 = MEMORY[0x1E69D1420];
   contextCopy = context;
   messageCopy = message;
@@ -847,50 +926,49 @@ LABEL_15:
     v14 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v17 = 136315138;
-      v18 = "+[CDMSELFLogUtil cdmAssetSetupEnded:contextId:logMessage:dataDispatcherContext:]";
-      _os_log_impl(&dword_1DC287000, v14, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDMAssetSetup ended event, but there was an issue with emission. Log was not emitted!!", &v17, 0xCu);
+      v16 = 136315138;
+      v17 = "+[CDMSELFLogUtil cdmAssetSetupEnded:contextId:logMessage:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v14, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDMAssetSetup ended event, but there was an issue with emission. Log was not emitted!!", &v16, 0xCu);
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 + (BOOL)cdmAssetSetupStarted:(id)started contextId:(id)id serviceNames:(id)names logMessage:(id)message dataDispatcherContext:(id)context
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   startedCopy = started;
   idCopy = id;
   namesCopy = names;
   messageCopy = message;
   contextCopy = context;
   v14 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(namesCopy, "count")}];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v15 = namesCopy;
-  v16 = [v15 countByEnumeratingWithState:&v29 objects:v35 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v30;
+    v18 = *v29;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v30 != v18)
+        if (*v29 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        idCopy = [CDMSELFLogUtil stringServiceTypeToEnum:*(*(&v29 + 1) + 8 * i), idCopy];
+        idCopy = [CDMSELFLogUtil stringServiceTypeToEnum:*(*(&v28 + 1) + 8 * i), idCopy];
         v21 = [MEMORY[0x1E696AD98] numberWithInt:idCopy];
         [v14 addObject:v21];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v17);
@@ -904,18 +982,17 @@ LABEL_15:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v34 = "+[CDMSELFLogUtil cdmAssetSetupStarted:contextId:serviceNames:logMessage:dataDispatcherContext:]";
+      v33 = "+[CDMSELFLogUtil cdmAssetSetupStarted:contextId:serviceNames:logMessage:dataDispatcherContext:]";
       _os_log_impl(&dword_1DC287000, v24, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDMAssetSetup started event, but there was an issue with emission. Log was not emitted!!", buf, 0xCu);
     }
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
 + (BOOL)cdmAllServicesWarmupFailed:(id)failed logMessage:(id)message dataDispatcherContext:(id)context
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E69D1420];
   contextCopy = context;
   messageCopy = message;
@@ -927,19 +1004,18 @@ LABEL_15:
     v12 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v15 = 136315138;
-      v16 = "+[CDMSELFLogUtil cdmAllServicesWarmupFailed:logMessage:dataDispatcherContext:]";
-      _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM All Services Warmup failed event, but there was an issue with emission. Log was not emitted!", &v15, 0xCu);
+      v14 = 136315138;
+      v15 = "+[CDMSELFLogUtil cdmAllServicesWarmupFailed:logMessage:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM All Services Warmup failed event, but there was an issue with emission. Log was not emitted!", &v14, 0xCu);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 + (BOOL)cdmAllServicesWarmupEnded:(id)ended logMessage:(id)message dataDispatcherContext:(id)context
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E69D1420];
   contextCopy = context;
   messageCopy = message;
@@ -951,19 +1027,18 @@ LABEL_15:
     v12 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v15 = 136315138;
-      v16 = "+[CDMSELFLogUtil cdmAllServicesWarmupEnded:logMessage:dataDispatcherContext:]";
-      _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM All Services Warmup ended event, but there was an issue with emission. Log was not emitted!", &v15, 0xCu);
+      v14 = 136315138;
+      v15 = "+[CDMSELFLogUtil cdmAllServicesWarmupEnded:logMessage:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM All Services Warmup ended event, but there was an issue with emission. Log was not emitted!", &v14, 0xCu);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 + (BOOL)cdmAllServicesWarmupStarted:(id)started logMessage:(id)message dataDispatcherContext:(id)context
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E69D1420];
   contextCopy = context;
   messageCopy = message;
@@ -975,19 +1050,43 @@ LABEL_15:
     v12 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v15 = 136315138;
-      v16 = "+[CDMSELFLogUtil cdmAllServicesWarmupStarted:logMessage:dataDispatcherContext:]";
-      _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM All Services Warmup started event, but there was an issue with emission. Log was not emitted!", &v15, 0xCu);
+      v14 = 136315138;
+      v15 = "+[CDMSELFLogUtil cdmAllServicesWarmupStarted:logMessage:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM All Services Warmup started event, but there was an issue with emission. Log was not emitted!", &v14, 0xCu);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v11;
+}
+
++ (BOOL)cdmClientWarmupFailed:(id)failed errorDomain:(int)domain errorCode:(unsigned int)code logMessage:(id)message dataDispatcherContext:(id)context
+{
+  v8 = *&code;
+  v9 = *&domain;
+  v20 = *MEMORY[0x1E69E9840];
+  v11 = MEMORY[0x1E69D1420];
+  contextCopy = context;
+  messageCopy = message;
+  v14 = [v11 createCDMClientWarmupFailedLog:failed errorDomain:v9 errorCode:v8];
+  v15 = [CDMSELFLogUtil emitEventsFromContainer:v14 mainEventLogMessage:messageCopy dataDispatcherContext:contextCopy];
+
+  if (!v15)
+  {
+    v16 = CDMOSLoggerForCategory(0);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    {
+      v18 = 136315138;
+      v19 = "+[CDMSELFLogUtil cdmClientWarmupFailed:errorDomain:errorCode:logMessage:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v16, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM Client Warmup failed event, but there was an issue with emission. Log was not emitted!", &v18, 0xCu);
+    }
+  }
+
+  return v15;
 }
 
 + (BOOL)cdmClientWarmupEnded:(id)ended logMessage:(id)message dataDispatcherContext:(id)context
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E69D1420];
   contextCopy = context;
   messageCopy = message;
@@ -999,19 +1098,69 @@ LABEL_15:
     v12 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v15 = 136315138;
-      v16 = "+[CDMSELFLogUtil cdmClientWarmupEnded:logMessage:dataDispatcherContext:]";
-      _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM Client Warmup ended event, but there was an issue with emission. Log was not emitted!", &v15, 0xCu);
+      v14 = 136315138;
+      v15 = "+[CDMSELFLogUtil cdmClientWarmupEnded:logMessage:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM Client Warmup ended event, but there was an issue with emission. Log was not emitted!", &v14, 0xCu);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v11;
+}
+
++ (BOOL)cdmClientWarmupStarted:(id)started logMessage:(id)message currentServiceGraph:(int)graph dataDispatcherContext:(id)context
+{
+  v7 = *&graph;
+  v38 = *MEMORY[0x1E69E9840];
+  startedCopy = started;
+  contextCopy = context;
+  messageCopy = message;
+  v12 = CDMOSLoggerForCategory(0);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  {
+    nlId = [startedCopy nlId];
+    toSafeNSUUID = [nlId toSafeNSUUID];
+    resultCandidateId = [startedCopy resultCandidateId];
+    trpId = [startedCopy trpId];
+    toSafeNSUUID2 = [trpId toSafeNSUUID];
+    requestId = [startedCopy requestId];
+    toSafeNSUUID3 = [requestId toSafeNSUUID];
+    subRequestId = [startedCopy subRequestId];
+    [subRequestId toSafeNSUUID];
+    *buf = 136316418;
+    v27 = "+[CDMSELFLogUtil cdmClientWarmupStarted:logMessage:currentServiceGraph:dataDispatcherContext:]";
+    v28 = 2112;
+    v29 = toSafeNSUUID;
+    v30 = 2112;
+    v31 = resultCandidateId;
+    v32 = 2112;
+    v33 = toSafeNSUUID2;
+    v34 = 2112;
+    v35 = toSafeNSUUID3;
+    v37 = v36 = 2112;
+    v21 = v37;
+    _os_log_debug_impl(&dword_1DC287000, v12, OS_LOG_TYPE_DEBUG, "%s SELF Metadata for CDMClientWarmupStarted \n nlxMetadata.nlId: %@ \n nlxMetadata.rcId: %@ \n nlxMetadata.trpId: %@ \nnlxMetadata.requestId: %@ \n nlxMetadata.subRequestId: %@ \n ", buf, 0x3Eu);
+  }
+
+  v13 = [MEMORY[0x1E69D1420] createCDMClientWarmupStartedLog:startedCopy cdmServiceGraphName:v7];
+  v14 = [CDMSELFLogUtil emitEventsFromContainer:v13 mainEventLogMessage:messageCopy dataDispatcherContext:contextCopy];
+
+  if (!v14)
+  {
+    v15 = CDMOSLoggerForCategory(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    {
+      *buf = 136315138;
+      v27 = "+[CDMSELFLogUtil cdmClientWarmupStarted:logMessage:currentServiceGraph:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v15, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM Client Warmup started event, but there was an issue with emission. Log was not emitted!", buf, 0xCu);
+    }
+  }
+
+  return v14;
 }
 
 + (BOOL)cdmAllServicesSetupFailed:(id)failed logMessage:(id)message dataDispatcherContext:(id)context
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E69D1420];
   contextCopy = context;
   messageCopy = message;
@@ -1023,19 +1172,18 @@ LABEL_15:
     v12 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v15 = 136315138;
-      v16 = "+[CDMSELFLogUtil cdmAllServicesSetupFailed:logMessage:dataDispatcherContext:]";
-      _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM All Services Setup failed event, but there was an issue with emission. Log was not emitted!", &v15, 0xCu);
+      v14 = 136315138;
+      v15 = "+[CDMSELFLogUtil cdmAllServicesSetupFailed:logMessage:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM All Services Setup failed event, but there was an issue with emission. Log was not emitted!", &v14, 0xCu);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 + (BOOL)cdmAllServicesSetupEnded:(id)ended logMessage:(id)message dataDispatcherContext:(id)context
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E69D1420];
   contextCopy = context;
   messageCopy = message;
@@ -1047,19 +1195,18 @@ LABEL_15:
     v12 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v15 = 136315138;
-      v16 = "+[CDMSELFLogUtil cdmAllServicesSetupEnded:logMessage:dataDispatcherContext:]";
-      _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM All Services Setup ended event, but there was an issue with emission. Log was not emitted!", &v15, 0xCu);
+      v14 = 136315138;
+      v15 = "+[CDMSELFLogUtil cdmAllServicesSetupEnded:logMessage:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM All Services Setup ended event, but there was an issue with emission. Log was not emitted!", &v14, 0xCu);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 + (BOOL)cdmAllServicesSetupStarted:(id)started logMessage:(id)message dataDispatcherContext:(id)context
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E69D1420];
   contextCopy = context;
   messageCopy = message;
@@ -1071,19 +1218,67 @@ LABEL_15:
     v12 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v15 = 136315138;
-      v16 = "+[CDMSELFLogUtil cdmAllServicesSetupStarted:logMessage:dataDispatcherContext:]";
-      _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM All Services Setup started event, but there was an issue with emission. Log was not emitted!", &v15, 0xCu);
+      v14 = 136315138;
+      v15 = "+[CDMSELFLogUtil cdmAllServicesSetupStarted:logMessage:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM All Services Setup started event, but there was an issue with emission. Log was not emitted!", &v14, 0xCu);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v11;
+}
+
++ (BOOL)cdmClientSetupFailed:(id)failed errorDomain:(int)domain errorCode:(unsigned int)code logMessage:(id)message dataDispatcherContext:(id)context
+{
+  v8 = *&code;
+  v9 = *&domain;
+  v20 = *MEMORY[0x1E69E9840];
+  v11 = MEMORY[0x1E69D1420];
+  contextCopy = context;
+  messageCopy = message;
+  v14 = [v11 createCDMClientSetupFailedLog:failed errorDomain:v9 errorCode:v8];
+  v15 = [CDMSELFLogUtil emitEventsFromContainer:v14 mainEventLogMessage:messageCopy dataDispatcherContext:contextCopy];
+
+  if (!v15)
+  {
+    v16 = CDMOSLoggerForCategory(0);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    {
+      v18 = 136315138;
+      v19 = "+[CDMSELFLogUtil cdmClientSetupFailed:errorDomain:errorCode:logMessage:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v16, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM Client Setup failed event, but there was an issue with emission. Log was not emitted!", &v18, 0xCu);
+    }
+  }
+
+  return v15;
+}
+
++ (BOOL)cdmClientSetupFailed:(id)failed errorDomain:(int)domain errorCode:(unsigned int)code logMessage:(id)message
+{
+  v6 = *&code;
+  v7 = *&domain;
+  v17 = *MEMORY[0x1E69E9840];
+  v9 = MEMORY[0x1E69D1420];
+  messageCopy = message;
+  v11 = [v9 createCDMClientSetupFailedLog:failed errorDomain:v7 errorCode:v6];
+  v12 = [CDMSELFLogUtil emitEventsFromContainer:v11 mainEventLogMessage:messageCopy];
+
+  if (!v12)
+  {
+    v13 = CDMOSLoggerForCategory(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    {
+      v15 = 136315138;
+      v16 = "+[CDMSELFLogUtil cdmClientSetupFailed:errorDomain:errorCode:logMessage:]";
+      _os_log_impl(&dword_1DC287000, v13, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM Client Setup failed event, but there was an issue with emission. Log was not emitted!", &v15, 0xCu);
+    }
+  }
+
+  return v12;
 }
 
 + (BOOL)cdmClientSetupEnded:(id)ended logMessage:(id)message dataDispatcherContext:(id)context
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E69D1420];
   contextCopy = context;
   messageCopy = message;
@@ -1095,19 +1290,69 @@ LABEL_15:
     v12 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v15 = 136315138;
-      v16 = "+[CDMSELFLogUtil cdmClientSetupEnded:logMessage:dataDispatcherContext:]";
-      _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM Client Setup ended event, but there was an issue with emission. Log was not emitted!", &v15, 0xCu);
+      v14 = 136315138;
+      v15 = "+[CDMSELFLogUtil cdmClientSetupEnded:logMessage:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM Client Setup ended event, but there was an issue with emission. Log was not emitted!", &v14, 0xCu);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v11;
+}
+
++ (BOOL)cdmClientSetupStarted:(id)started logMessage:(id)message currentServiceGraph:(int)graph dataDispatcherContext:(id)context
+{
+  v7 = *&graph;
+  v38 = *MEMORY[0x1E69E9840];
+  startedCopy = started;
+  contextCopy = context;
+  messageCopy = message;
+  v12 = CDMOSLoggerForCategory(0);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  {
+    nlId = [startedCopy nlId];
+    toSafeNSUUID = [nlId toSafeNSUUID];
+    resultCandidateId = [startedCopy resultCandidateId];
+    trpId = [startedCopy trpId];
+    toSafeNSUUID2 = [trpId toSafeNSUUID];
+    requestId = [startedCopy requestId];
+    toSafeNSUUID3 = [requestId toSafeNSUUID];
+    subRequestId = [startedCopy subRequestId];
+    [subRequestId toSafeNSUUID];
+    *buf = 136316418;
+    v27 = "+[CDMSELFLogUtil cdmClientSetupStarted:logMessage:currentServiceGraph:dataDispatcherContext:]";
+    v28 = 2112;
+    v29 = toSafeNSUUID;
+    v30 = 2112;
+    v31 = resultCandidateId;
+    v32 = 2112;
+    v33 = toSafeNSUUID2;
+    v34 = 2112;
+    v35 = toSafeNSUUID3;
+    v37 = v36 = 2112;
+    v21 = v37;
+    _os_log_debug_impl(&dword_1DC287000, v12, OS_LOG_TYPE_DEBUG, "%s SELF Metadata for CDMClientSetupStarted \n nlxMetadata.nlId: %@ \n nlxMetadata.rcId: %@ \n nlxMetadata.trpId: %@ \nnlxMetadata.requestId: %@ \n nlxMetadata.subRequestId: %@ \n ", buf, 0x3Eu);
+  }
+
+  v13 = [MEMORY[0x1E69D1420] createCDMClientSetupStartedLog:startedCopy cdmServiceGraphName:v7];
+  v14 = [CDMSELFLogUtil emitEventsFromContainer:v13 mainEventLogMessage:messageCopy dataDispatcherContext:contextCopy];
+
+  if (!v14)
+  {
+    v15 = CDMOSLoggerForCategory(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    {
+      *buf = 136315138;
+      v27 = "+[CDMSELFLogUtil cdmClientSetupStarted:logMessage:currentServiceGraph:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v15, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM Client Setup started event, but there was an issue with emission. Log was not emitted!", buf, 0xCu);
+    }
+  }
+
+  return v14;
 }
 
 + (BOOL)contextUpdateEnded:(id)ended metadata:(id)metadata logMessage:(id)message dataDispatcherContext:(id)context
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v9 = MEMORY[0x1E69D1420];
   contextCopy = context;
   messageCopy = message;
@@ -1119,19 +1364,66 @@ LABEL_15:
     v14 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v17 = 136315138;
-      v18 = "+[CDMSELFLogUtil contextUpdateEnded:metadata:logMessage:dataDispatcherContext:]";
-      _os_log_impl(&dword_1DC287000, v14, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM context update ended (response) event, but the converted object is nil!", &v17, 0xCu);
+      v16 = 136315138;
+      v17 = "+[CDMSELFLogUtil contextUpdateEnded:metadata:logMessage:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v14, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM context update ended (response) event, but the converted object is nil!", &v16, 0xCu);
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v13;
+}
+
++ (BOOL)tokenizationEndedWithMultiResponses:(id)responses inputType:(int)type metadata:(id)metadata logMessage:(id)message dataDispatcherContext:(id)context
+{
+  v9 = *&type;
+  v20 = *MEMORY[0x1E69E9840];
+  v11 = MEMORY[0x1E69D1420];
+  contextCopy = context;
+  messageCopy = message;
+  v14 = [v11 createMultiHypoTokenizationEndedLog:0 tokenizationResponses:responses tokenizationInputType:v9 metadata:metadata];
+  v15 = [CDMSELFLogUtil emitEventsFromContainer:v14 mainEventLogMessage:messageCopy dataDispatcherContext:contextCopy];
+
+  if (!v15)
+  {
+    v16 = CDMOSLoggerForCategory(0);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    {
+      v18 = 136315138;
+      v19 = "+[CDMSELFLogUtil tokenizationEndedWithMultiResponses:inputType:metadata:logMessage:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v16, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM tokenization ended (response) event, but the converted object is nil!", &v18, 0xCu);
+    }
+  }
+
+  return v15;
+}
+
++ (BOOL)tokenizationEnded:(id)ended inputType:(int)type metadata:(id)metadata logMessage:(id)message dataDispatcherContext:(id)context
+{
+  v9 = *&type;
+  v20 = *MEMORY[0x1E69E9840];
+  v11 = MEMORY[0x1E69D1420];
+  contextCopy = context;
+  messageCopy = message;
+  v14 = [v11 createTokenizationEndedLog:0 tokenizationResponse:ended tokenizationInputType:v9 metadata:metadata];
+  v15 = [CDMSELFLogUtil emitEventsFromContainer:v14 mainEventLogMessage:messageCopy dataDispatcherContext:contextCopy];
+
+  if (!v15)
+  {
+    v16 = CDMOSLoggerForCategory(0);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    {
+      v18 = 136315138;
+      v19 = "+[CDMSELFLogUtil tokenizationEnded:inputType:metadata:logMessage:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v16, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM tokenization ended (response) event, but the converted object is nil!", &v18, 0xCu);
+    }
+  }
+
+  return v15;
 }
 
 + (BOOL)matchingSpanEnded:(id)ended metadata:(id)metadata logMessage:(id)message dataDispatcherContext:(id)context
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v9 = CDMLogContext;
   contextCopy = context;
   messageCopy = message;
@@ -1143,8 +1435,8 @@ LABEL_15:
   v17 = v14 - 1;
   if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
-    LOWORD(v26) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1DC287000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v14, "SpanMatcher", "SELFLogSpanMatching", &v26, 2u);
+    LOWORD(v25) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1DC287000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v14, "SpanMatcher", "SELFLogSpanMatching", &v25, 2u);
   }
 
   v18 = [MEMORY[0x1E69D1420] createMatchingSpanEndedLog:0 spanMatchResponse:endedCopy metadata:metadataCopy];
@@ -1156,9 +1448,9 @@ LABEL_15:
     v21 = v20;
     if (v17 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
     {
-      LOWORD(v26) = 0;
+      LOWORD(v25) = 0;
 LABEL_13:
-      _os_signpost_emit_with_name_impl(&dword_1DC287000, v21, OS_SIGNPOST_INTERVAL_END, v14, "SpanMatcher", "", &v26, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1DC287000, v21, OS_SIGNPOST_INTERVAL_END, v14, "SpanMatcher", "", &v25, 2u);
     }
   }
 
@@ -1167,27 +1459,75 @@ LABEL_13:
     v22 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
-      v26 = 136315138;
-      v27 = "+[CDMSELFLogUtil matchingSpanEnded:metadata:logMessage:dataDispatcherContext:]";
-      _os_log_impl(&dword_1DC287000, v22, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM matching span ended (response) event, but the converted object is nil!", &v26, 0xCu);
+      v25 = 136315138;
+      v26 = "+[CDMSELFLogUtil matchingSpanEnded:metadata:logMessage:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v22, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM matching span ended (response) event, but the converted object is nil!", &v25, 0xCu);
     }
 
     v23 = CDMLogContext;
     v21 = v23;
     if (v17 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
     {
-      LOWORD(v26) = 0;
+      LOWORD(v25) = 0;
       goto LABEL_13;
     }
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v19;
+}
+
++ (BOOL)cdmFailed:(int)failed errorDomainString:(id)string errorCode:(int)code metadata:(id)metadata logMessage:(id)message dataDispatcherContext:(id)context
+{
+  v10 = *&code;
+  v12 = *&failed;
+  v22 = *MEMORY[0x1E69E9840];
+  v13 = MEMORY[0x1E69D1420];
+  contextCopy = context;
+  messageCopy = message;
+  v16 = [v13 createCDMRequestFailedLog:v12 errorDomainString:string errorCode:v10 metadata:metadata];
+  v17 = [CDMSELFLogUtil emitEventsFromContainer:v16 mainEventLogMessage:messageCopy dataDispatcherContext:contextCopy];
+
+  if (!v17)
+  {
+    v18 = CDMOSLoggerForCategory(0);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    {
+      v20 = 136315138;
+      v21 = "+[CDMSELFLogUtil cdmFailed:errorDomainString:errorCode:metadata:logMessage:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v18, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM failed event, but the converted object is nil!", &v20, 0xCu);
+    }
+  }
+
+  return v17;
+}
+
++ (BOOL)cdmFailed:(int)failed metadata:(id)metadata logMessage:(id)message dataDispatcherContext:(id)context
+{
+  v8 = *&failed;
+  v18 = *MEMORY[0x1E69E9840];
+  v9 = MEMORY[0x1E69D1420];
+  contextCopy = context;
+  messageCopy = message;
+  v12 = [v9 createCDMRequestFailedLog:v8 metadata:metadata];
+  v13 = [CDMSELFLogUtil emitEventsFromContainer:v12 mainEventLogMessage:messageCopy dataDispatcherContext:contextCopy];
+
+  if (!v13)
+  {
+    v14 = CDMOSLoggerForCategory(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    {
+      v16 = 136315138;
+      v17 = "+[CDMSELFLogUtil cdmFailed:metadata:logMessage:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v14, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM failed event, but the converted object is nil!", &v16, 0xCu);
+    }
+  }
+
+  return v13;
 }
 
 + (BOOL)cdmEnded:(id)ended metadata:(id)metadata logMessage:(id)message machAbsoluteTime:(unint64_t)time dataDispatcherContext:(id)context
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v11 = MEMORY[0x1E69D1420];
   contextCopy = context;
   messageCopy = message;
@@ -1199,19 +1539,70 @@ LABEL_13:
     v16 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v19 = 136315138;
-      v20 = "+[CDMSELFLogUtil cdmEnded:metadata:logMessage:machAbsoluteTime:dataDispatcherContext:]";
-      _os_log_impl(&dword_1DC287000, v16, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM ended (response) event, but the converted object is nil!", &v19, 0xCu);
+      v18 = 136315138;
+      v19 = "+[CDMSELFLogUtil cdmEnded:metadata:logMessage:machAbsoluteTime:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v16, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM ended (response) event, but the converted object is nil!", &v18, 0xCu);
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v15;
+}
+
++ (BOOL)cdmStarted:(id)started metadata:(id)metadata logMessage:(id)message machAbsoluteTime:(unint64_t)time currentServiceGraph:(int)graph dataDispatcherContext:(id)context
+{
+  v9 = *&graph;
+  v43 = *MEMORY[0x1E69E9840];
+  metadataCopy = metadata;
+  contextCopy = context;
+  messageCopy = message;
+  startedCopy = started;
+  v17 = CDMOSLoggerForCategory(0);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  {
+    nlId = [metadataCopy nlId];
+    toSafeNSUUID = [nlId toSafeNSUUID];
+    resultCandidateId = [metadataCopy resultCandidateId];
+    trpId = [metadataCopy trpId];
+    toSafeNSUUID2 = [trpId toSafeNSUUID];
+    requestId = [metadataCopy requestId];
+    toSafeNSUUID3 = [requestId toSafeNSUUID];
+    subRequestId = [metadataCopy subRequestId];
+    [subRequestId toSafeNSUUID];
+    *buf = 136316418;
+    v32 = "+[CDMSELFLogUtil cdmStarted:metadata:logMessage:machAbsoluteTime:currentServiceGraph:dataDispatcherContext:]";
+    v33 = 2112;
+    v34 = toSafeNSUUID;
+    v35 = 2112;
+    v36 = resultCandidateId;
+    v37 = 2112;
+    v38 = toSafeNSUUID2;
+    v39 = 2112;
+    v40 = toSafeNSUUID3;
+    v42 = v41 = 2112;
+    v24 = v42;
+    _os_log_debug_impl(&dword_1DC287000, v17, OS_LOG_TYPE_DEBUG, "%s SELF Metadata for CDMRequestStarted \n nlxMetadata.nlId: %@ \n nlxMetadata.rcId: %@ \n nlxMetadata.trpId: %@ \nnlxMetadata.requestId: %@ \n nlxMetadata.subRequestId: %@ \n ", buf, 0x3Eu);
+  }
+
+  v18 = [MEMORY[0x1E69D1420] createCDMRequestStartedLog:startedCopy metadata:metadataCopy cdmServiceGraphName:v9];
+
+  v19 = [CDMSELFLogUtil emitEventsFromContainer:v18 mainEventLogMessage:messageCopy machAbsoluteTime:time dataDispatcherContext:contextCopy];
+  if (!v19)
+  {
+    v20 = CDMOSLoggerForCategory(0);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    {
+      *buf = 136315138;
+      v32 = "+[CDMSELFLogUtil cdmStarted:metadata:logMessage:machAbsoluteTime:currentServiceGraph:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v20, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a CDM started (request) event, but the converted object is nil!", buf, 0xCu);
+    }
+  }
+
+  return v19;
 }
 
 + (BOOL)emitRequestLink:(id)link metadata:(id)metadata dataDispatcherContext:(id)context
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   linkCopy = link;
   metadataCopy = metadata;
   contextCopy = context;
@@ -1223,11 +1614,11 @@ LABEL_13:
       goto LABEL_10;
     }
 
-    v26 = 136315138;
-    v27 = "+[CDMSELFLogUtil emitRequestLink:metadata:dataDispatcherContext:]";
+    v25 = 136315138;
+    v26 = "+[CDMSELFLogUtil emitRequestLink:metadata:dataDispatcherContext:]";
     v17 = "%s [WARN]: SELF RequestLink was attemped to be emitted, but the received RequestLinkData was nil! RequestLink not emitted!";
 LABEL_9:
-    _os_log_impl(&dword_1DC287000, v16, OS_LOG_TYPE_INFO, v17, &v26, 0xCu);
+    _os_log_impl(&dword_1DC287000, v16, OS_LOG_TYPE_INFO, v17, &v25, 0xCu);
     goto LABEL_10;
   }
 
@@ -1241,8 +1632,8 @@ LABEL_9:
       goto LABEL_10;
     }
 
-    v26 = 136315138;
-    v27 = "+[CDMSELFLogUtil emitRequestLink:metadata:dataDispatcherContext:]";
+    v25 = 136315138;
+    v26 = "+[CDMSELFLogUtil emitRequestLink:metadata:dataDispatcherContext:]";
     v17 = "%s [WARN]: SELF RequestLink was attempted to be emitted, but the target name was not set in the received RequestLinkData! RequestLink not emitted!";
     goto LABEL_9;
   }
@@ -1277,9 +1668,9 @@ LABEL_14:
   }
 
   targetName4 = [linkCopy targetName];
-  v25 = [targetName4 isEqualToString:@"LIGHTHOUSE"];
+  v24 = [targetName4 isEqualToString:@"LIGHTHOUSE"];
 
-  if (v25)
+  if (v24)
   {
     targetUUID = [linkCopy targetUUID];
     v18 = [CDMSELFLogUtil emitCurareContext:targetUUID metadata:metadataCopy dataDispatcherContext:contextCopy];
@@ -1289,8 +1680,8 @@ LABEL_14:
   v16 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
-    v26 = 136315138;
-    v27 = "+[CDMSELFLogUtil emitRequestLink:metadata:dataDispatcherContext:]";
+    v25 = 136315138;
+    v26 = "+[CDMSELFLogUtil emitRequestLink:metadata:dataDispatcherContext:]";
     v17 = "%s [WARN]: SELF RequestLink was attempted to be emitted, but the requestId target was neither ORCHESTRATOR nor CURARE! RequestLink not emitted!";
     goto LABEL_9;
   }
@@ -1300,13 +1691,12 @@ LABEL_10:
   v18 = 0;
 LABEL_15:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 + (BOOL)emitCurareContext:(id)context metadata:(id)metadata dataDispatcherContext:(id)dispatcherContext
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dispatcherContextCopy = dispatcherContext;
   if (context)
   {
@@ -1319,21 +1709,20 @@ LABEL_15:
     v10 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v13 = 136315138;
-      v14 = "+[CDMSELFLogUtil emitCurareContext:metadata:dataDispatcherContext:]";
-      _os_log_impl(&dword_1DC287000, v10, OS_LOG_TYPE_INFO, "%s [WARN]: SELF CurareContext - given curare ID was nil! Not emitting CurareContext log as it is meaningless.", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = "+[CDMSELFLogUtil emitCurareContext:metadata:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v10, OS_LOG_TYPE_INFO, "%s [WARN]: SELF CurareContext - given curare ID was nil! Not emitting CurareContext log as it is meaningless.", &v12, 0xCu);
     }
 
     v9 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 + (BOOL)curareRequestLink:(id)link nlId:(id)id metadata:(id)metadata logMessage:(id)message dataDispatcherContext:(id)context
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   linkCopy = link;
   idCopy = id;
   metadataCopy = metadata;
@@ -1344,11 +1733,11 @@ LABEL_15:
     v16 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v22 = 136315138;
-      v23 = "+[CDMSELFLogUtil curareRequestLink:nlId:metadata:logMessage:dataDispatcherContext:]";
+      v21 = 136315138;
+      v22 = "+[CDMSELFLogUtil curareRequestLink:nlId:metadata:logMessage:dataDispatcherContext:]";
       v18 = "%s [WARN]: Tried to create a Curare RequestLink but received nil sourceId (Curare Id)!";
 LABEL_9:
-      _os_log_impl(&dword_1DC287000, v16, OS_LOG_TYPE_INFO, v18, &v22, 0xCu);
+      _os_log_impl(&dword_1DC287000, v16, OS_LOG_TYPE_INFO, v18, &v21, 0xCu);
     }
 
 LABEL_13:
@@ -1361,8 +1750,8 @@ LABEL_13:
     v16 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v22 = 136315138;
-      v23 = "+[CDMSELFLogUtil curareRequestLink:nlId:metadata:logMessage:dataDispatcherContext:]";
+      v21 = 136315138;
+      v22 = "+[CDMSELFLogUtil curareRequestLink:nlId:metadata:logMessage:dataDispatcherContext:]";
       v18 = "%s [WARN]: Tried to create a Curare RequestLink but had nil nluRequestId!";
       goto LABEL_9;
     }
@@ -1376,9 +1765,9 @@ LABEL_13:
     v19 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      v22 = 136315138;
-      v23 = "+[CDMSELFLogUtil curareRequestLink:nlId:metadata:logMessage:dataDispatcherContext:]";
-      _os_log_impl(&dword_1DC287000, v19, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a Curare RequestLink, but there was an issue and could not emit!", &v22, 0xCu);
+      v21 = 136315138;
+      v22 = "+[CDMSELFLogUtil curareRequestLink:nlId:metadata:logMessage:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v19, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a Curare RequestLink, but there was an issue and could not emit!", &v21, 0xCu);
     }
 
     goto LABEL_13;
@@ -1387,13 +1776,12 @@ LABEL_13:
   v17 = 1;
 LABEL_14:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 + (BOOL)orchestratorRequestLink:(id)link nlId:(id)id metadata:(id)metadata logMessage:(id)message dataDispatcherContext:(id)context
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   linkCopy = link;
   idCopy = id;
   metadataCopy = metadata;
@@ -1404,11 +1792,11 @@ LABEL_14:
     v17 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v23 = 136315138;
-      v24 = "+[CDMSELFLogUtil orchestratorRequestLink:nlId:metadata:logMessage:dataDispatcherContext:]";
+      v22 = 136315138;
+      v23 = "+[CDMSELFLogUtil orchestratorRequestLink:nlId:metadata:logMessage:dataDispatcherContext:]";
       v19 = "%s [WARN]: Tried to create an orchestrator RequestLink but received nil sourceId (Orchestration Id)!";
 LABEL_12:
-      _os_log_impl(&dword_1DC287000, v17, OS_LOG_TYPE_INFO, v19, &v23, 0xCu);
+      _os_log_impl(&dword_1DC287000, v17, OS_LOG_TYPE_INFO, v19, &v22, 0xCu);
     }
 
 LABEL_16:
@@ -1421,8 +1809,8 @@ LABEL_16:
     v17 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v23 = 136315138;
-      v24 = "+[CDMSELFLogUtil orchestratorRequestLink:nlId:metadata:logMessage:dataDispatcherContext:]";
+      v22 = 136315138;
+      v23 = "+[CDMSELFLogUtil orchestratorRequestLink:nlId:metadata:logMessage:dataDispatcherContext:]";
       v19 = "%s [WARN]: Tried to create an orchestrator RequestLink but had nil nluRequestId!";
       goto LABEL_12;
     }
@@ -1446,9 +1834,9 @@ LABEL_16:
     v20 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
-      v23 = 136315138;
-      v24 = "+[CDMSELFLogUtil orchestratorRequestLink:nlId:metadata:logMessage:dataDispatcherContext:]";
-      _os_log_impl(&dword_1DC287000, v20, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit an orchestrator RequestLink, but there was an issue and could not emit!", &v23, 0xCu);
+      v22 = 136315138;
+      v23 = "+[CDMSELFLogUtil orchestratorRequestLink:nlId:metadata:logMessage:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v20, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit an orchestrator RequestLink, but there was an issue and could not emit!", &v22, 0xCu);
     }
 
     goto LABEL_16;
@@ -1457,13 +1845,12 @@ LABEL_16:
   v18 = 1;
 LABEL_17:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 + (BOOL)emitNLXRequestLink:(id)link logMessage:(id)message dataDispatcherContext:(id)context
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   linkCopy = link;
   messageCopy = message;
   if (linkCopy)
@@ -1474,11 +1861,11 @@ LABEL_17:
     v9 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v12 = 136315394;
-      v13 = "+[CDMSELFLogUtil emitNLXRequestLink:logMessage:dataDispatcherContext:]";
-      v14 = 2112;
-      v15 = messageCopy;
-      _os_log_debug_impl(&dword_1DC287000, v9, OS_LOG_TYPE_DEBUG, "%s %@", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "+[CDMSELFLogUtil emitNLXRequestLink:logMessage:dataDispatcherContext:]";
+      v13 = 2112;
+      v14 = messageCopy;
+      _os_log_debug_impl(&dword_1DC287000, v9, OS_LOG_TYPE_DEBUG, "%s %@", &v11, 0x16u);
     }
   }
 
@@ -1487,19 +1874,18 @@ LABEL_17:
     v9 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v12 = 136315138;
-      v13 = "+[CDMSELFLogUtil emitNLXRequestLink:logMessage:dataDispatcherContext:]";
-      _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a SELF RequestLink, but the given RequestLink was nil!", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "+[CDMSELFLogUtil emitNLXRequestLink:logMessage:dataDispatcherContext:]";
+      _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s [WARN]: Tried to emit a SELF RequestLink, but the given RequestLink was nil!", &v11, 0xCu);
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return linkCopy != 0;
 }
 
 + (BOOL)isEventSampledForEmission:(id)emission
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   emissionCopy = emission;
   v4 = [CDMSELFLogUtil getSampleRateForEvent:emissionCopy];
   if (v4 > 0x63)
@@ -1529,11 +1915,11 @@ LABEL_17:
   v13 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v18 = 136315394;
-    v19 = "+[CDMSELFLogUtil isEventSampledForEmission:]";
-    v20 = 2048;
-    v21 = v12;
-    _os_log_debug_impl(&dword_1DC287000, v13, OS_LOG_TYPE_DEBUG, "%s NLX SELF log sampling value: %lu", &v18, 0x16u);
+    v17 = 136315394;
+    v18 = "+[CDMSELFLogUtil isEventSampledForEmission:]";
+    v19 = 2048;
+    v20 = v12;
+    _os_log_debug_impl(&dword_1DC287000, v13, OS_LOG_TYPE_DEBUG, "%s NLX SELF log sampling value: %lu", &v17, 0x16u);
   }
 
   if (v12 % 0x64 < v5)
@@ -1547,21 +1933,20 @@ LABEL_9:
   v15 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    v18 = 136315138;
-    v19 = "+[CDMSELFLogUtil isEventSampledForEmission:]";
-    _os_log_debug_impl(&dword_1DC287000, v15, OS_LOG_TYPE_DEBUG, "%s NLX SELF log sampled via NL ID", &v18, 0xCu);
+    v17 = 136315138;
+    v18 = "+[CDMSELFLogUtil isEventSampledForEmission:]";
+    _os_log_debug_impl(&dword_1DC287000, v15, OS_LOG_TYPE_DEBUG, "%s NLX SELF log sampled via NL ID", &v17, 0xCu);
   }
 
   v14 = 0;
 LABEL_13:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 + (BOOL)emitEventsFromContainer:(id)container mainEventLogMessage:(id)message machAbsoluteTime:(unint64_t)time logLevel:(id)level dataDispatcherContext:(id)context
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   containerCopy = container;
   messageCopy = message;
   levelCopy = level;
@@ -1573,7 +1958,7 @@ LABEL_13:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v56 = "+[CDMSELFLogUtil emitEventsFromContainer:mainEventLogMessage:machAbsoluteTime:logLevel:dataDispatcherContext:]";
+      v55 = "+[CDMSELFLogUtil emitEventsFromContainer:mainEventLogMessage:machAbsoluteTime:logLevel:dataDispatcherContext:]";
       _os_log_debug_impl(&dword_1DC287000, v17, OS_LOG_TYPE_DEBUG, "%s No datadispatchercontext found - using default logging policy", buf, 0xCu);
     }
 
@@ -1590,7 +1975,7 @@ LABEL_13:
     }
 
     *buf = 136315138;
-    v56 = "+[CDMSELFLogUtil emitEventsFromContainer:mainEventLogMessage:machAbsoluteTime:logLevel:dataDispatcherContext:]";
+    v55 = "+[CDMSELFLogUtil emitEventsFromContainer:mainEventLogMessage:machAbsoluteTime:logLevel:dataDispatcherContext:]";
     v32 = "%s Tried to emit a SELF event, but logging is not allowed!";
 LABEL_22:
     _os_log_debug_impl(&dword_1DC287000, tier1Events, OS_LOG_TYPE_DEBUG, v32, buf, 0xCu);
@@ -1606,7 +1991,7 @@ LABEL_22:
     }
 
     *buf = 136315138;
-    v56 = "+[CDMSELFLogUtil emitEventsFromContainer:mainEventLogMessage:machAbsoluteTime:logLevel:dataDispatcherContext:]";
+    v55 = "+[CDMSELFLogUtil emitEventsFromContainer:mainEventLogMessage:machAbsoluteTime:logLevel:dataDispatcherContext:]";
     v32 = "%s Supressing SELF log emission, not sampled.";
     goto LABEL_22;
   }
@@ -1646,7 +2031,7 @@ LABEL_22:
           if (v28)
           {
             *buf = 136315138;
-            v56 = "+[CDMSELFLogUtil emitEventsFromContainer:mainEventLogMessage:machAbsoluteTime:logLevel:dataDispatcherContext:]";
+            v55 = "+[CDMSELFLogUtil emitEventsFromContainer:mainEventLogMessage:machAbsoluteTime:logLevel:dataDispatcherContext:]";
             _os_log_debug_impl(&dword_1DC287000, v27, OS_LOG_TYPE_DEBUG, "%s CDM Log policy - Siri", buf, 0xCu);
           }
 
@@ -1668,7 +2053,7 @@ LABEL_22:
           if (v28)
           {
             *buf = 136315138;
-            v56 = "+[CDMSELFLogUtil emitEventsFromContainer:mainEventLogMessage:machAbsoluteTime:logLevel:dataDispatcherContext:]";
+            v55 = "+[CDMSELFLogUtil emitEventsFromContainer:mainEventLogMessage:machAbsoluteTime:logLevel:dataDispatcherContext:]";
             _os_log_debug_impl(&dword_1DC287000, v27, OS_LOG_TYPE_DEBUG, "%s CDM Log policy - Non Siri", buf, 0xCu);
           }
 
@@ -1689,66 +2074,66 @@ LABEL_22:
 
         if ([levelCopy isEqualToString:@"LOG_DEBUG"])
         {
-          v39 = CDMOSLoggerForCategory(0);
-          if (!os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+          v38 = CDMOSLoggerForCategory(0);
+          if (!os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
           {
 LABEL_52:
 
 LABEL_53:
-            v52 = 0u;
-            v53 = 0u;
-            v50 = 0u;
             v51 = 0u;
+            v52 = 0u;
+            v49 = 0u;
+            v50 = 0u;
             tier1Events = [containerCopy tier1Events];
-            v42 = [tier1Events countByEnumeratingWithState:&v50 objects:v54 count:16];
-            if (v42)
+            v41 = [tier1Events countByEnumeratingWithState:&v49 objects:v53 count:16];
+            if (v41)
             {
-              v43 = v42;
-              v49 = levelCopy;
-              v44 = *v51;
+              v42 = v41;
+              v48 = levelCopy;
+              v43 = *v50;
               do
               {
-                for (i = 0; i != v43; ++i)
+                for (i = 0; i != v42; ++i)
                 {
-                  if (*v51 != v44)
+                  if (*v50 != v43)
                   {
                     objc_enumerationMutation(tier1Events);
                   }
 
-                  v46 = *(*(&v50 + 1) + 8 * i);
+                  v45 = *(*(&v49 + 1) + 8 * i);
                   if ([(CDMDataDispatcherContext *)v15 cdmSELFLoggingPolicyType]== 1)
                   {
                     mEMORY[0x1E69CE1F0]2 = [MEMORY[0x1E69CE1F0] sharedStream];
-                    v48 = mEMORY[0x1E69CE1F0]2;
+                    v47 = mEMORY[0x1E69CE1F0]2;
                     if (time)
                     {
-                      [mEMORY[0x1E69CE1F0]2 emitMessage:v46 timestamp:time];
+                      [mEMORY[0x1E69CE1F0]2 emitMessage:v45 timestamp:time];
                     }
 
                     else
                     {
-                      [mEMORY[0x1E69CE1F0]2 emitMessage:v46];
+                      [mEMORY[0x1E69CE1F0]2 emitMessage:v45];
                     }
                   }
 
                   else
                   {
-                    v48 = CDMOSLoggerForCategory(0);
-                    if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+                    v47 = CDMOSLoggerForCategory(0);
+                    if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
                     {
                       *buf = 136315138;
-                      v56 = "+[CDMSELFLogUtil emitEventsFromContainer:mainEventLogMessage:machAbsoluteTime:logLevel:dataDispatcherContext:]";
-                      _os_log_impl(&dword_1DC287000, v48, OS_LOG_TYPE_INFO, "%s [WARN]: Got a tier1Event for non-siri client", buf, 0xCu);
+                      v55 = "+[CDMSELFLogUtil emitEventsFromContainer:mainEventLogMessage:machAbsoluteTime:logLevel:dataDispatcherContext:]";
+                      _os_log_impl(&dword_1DC287000, v47, OS_LOG_TYPE_INFO, "%s [WARN]: Got a tier1Event for non-siri client", buf, 0xCu);
                     }
                   }
                 }
 
-                v43 = [tier1Events countByEnumeratingWithState:&v50 objects:v54 count:16];
+                v42 = [tier1Events countByEnumeratingWithState:&v49 objects:v53 count:16];
               }
 
-              while (v43);
+              while (v42);
               v34 = 1;
-              levelCopy = v49;
+              levelCopy = v48;
             }
 
             else
@@ -1764,55 +2149,55 @@ LABEL_53:
         {
           if ([levelCopy isEqualToString:@"LOG_WARN"])
           {
-            v39 = CDMOSLoggerForCategory(0);
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+            v38 = CDMOSLoggerForCategory(0);
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
             {
               *buf = 136315394;
-              v56 = "+[CDMSELFLogUtil emitEventsFromContainer:mainEventLogMessage:machAbsoluteTime:logLevel:dataDispatcherContext:]";
-              v57 = 2112;
-              v58 = messageCopy;
-              _os_log_impl(&dword_1DC287000, v39, OS_LOG_TYPE_INFO, "%s [WARN]: %@", buf, 0x16u);
+              v55 = "+[CDMSELFLogUtil emitEventsFromContainer:mainEventLogMessage:machAbsoluteTime:logLevel:dataDispatcherContext:]";
+              v56 = 2112;
+              v57 = messageCopy;
+              _os_log_impl(&dword_1DC287000, v38, OS_LOG_TYPE_INFO, "%s [WARN]: %@", buf, 0x16u);
             }
 
             goto LABEL_52;
           }
 
-          v40 = [levelCopy isEqualToString:@"LOG_ERROR"];
-          v41 = CDMOSLoggerForCategory(0);
-          v39 = v41;
-          if (v40)
+          v39 = [levelCopy isEqualToString:@"LOG_ERROR"];
+          v40 = CDMOSLoggerForCategory(0);
+          v38 = v40;
+          if (v39)
           {
-            if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v56 = "+[CDMSELFLogUtil emitEventsFromContainer:mainEventLogMessage:machAbsoluteTime:logLevel:dataDispatcherContext:]";
-              v57 = 2112;
-              v58 = messageCopy;
-              _os_log_error_impl(&dword_1DC287000, v39, OS_LOG_TYPE_ERROR, "%s [ERR]: %@", buf, 0x16u);
+              v55 = "+[CDMSELFLogUtil emitEventsFromContainer:mainEventLogMessage:machAbsoluteTime:logLevel:dataDispatcherContext:]";
+              v56 = 2112;
+              v57 = messageCopy;
+              _os_log_error_impl(&dword_1DC287000, v38, OS_LOG_TYPE_ERROR, "%s [ERR]: %@", buf, 0x16u);
             }
 
             goto LABEL_52;
           }
 
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
           {
             *buf = 136315138;
-            v56 = "+[CDMSELFLogUtil emitEventsFromContainer:mainEventLogMessage:machAbsoluteTime:logLevel:dataDispatcherContext:]";
-            _os_log_impl(&dword_1DC287000, v39, OS_LOG_TYPE_INFO, "%s [WARN]: Did not get a valid log level for SELF emitEventsFromContainer. Defaulting to debug level.", buf, 0xCu);
+            v55 = "+[CDMSELFLogUtil emitEventsFromContainer:mainEventLogMessage:machAbsoluteTime:logLevel:dataDispatcherContext:]";
+            _os_log_impl(&dword_1DC287000, v38, OS_LOG_TYPE_INFO, "%s [WARN]: Did not get a valid log level for SELF emitEventsFromContainer. Defaulting to debug level.", buf, 0xCu);
           }
 
-          v39 = CDMOSLoggerForCategory(0);
-          if (!os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+          v38 = CDMOSLoggerForCategory(0);
+          if (!os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
           {
             goto LABEL_52;
           }
         }
 
         *buf = 136315394;
-        v56 = "+[CDMSELFLogUtil emitEventsFromContainer:mainEventLogMessage:machAbsoluteTime:logLevel:dataDispatcherContext:]";
-        v57 = 2112;
-        v58 = messageCopy;
-        _os_log_debug_impl(&dword_1DC287000, v39, OS_LOG_TYPE_DEBUG, "%s %@", buf, 0x16u);
+        v55 = "+[CDMSELFLogUtil emitEventsFromContainer:mainEventLogMessage:machAbsoluteTime:logLevel:dataDispatcherContext:]";
+        v56 = 2112;
+        v57 = messageCopy;
+        _os_log_debug_impl(&dword_1DC287000, v38, OS_LOG_TYPE_DEBUG, "%s %@", buf, 0x16u);
         goto LABEL_52;
       }
     }
@@ -1825,7 +2210,7 @@ LABEL_53:
     if (os_log_type_enabled(tier1Events, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v56 = "+[CDMSELFLogUtil emitEventsFromContainer:mainEventLogMessage:machAbsoluteTime:logLevel:dataDispatcherContext:]";
+      v55 = "+[CDMSELFLogUtil emitEventsFromContainer:mainEventLogMessage:machAbsoluteTime:logLevel:dataDispatcherContext:]";
       v33 = "%s [WARN]: Tried to emit a SELF event, but the event's NL ID was nil! This event is not emitted as it is created from a test.";
       goto LABEL_28;
     }
@@ -1837,7 +2222,7 @@ LABEL_53:
     if (os_log_type_enabled(tier1Events, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v56 = "+[CDMSELFLogUtil emitEventsFromContainer:mainEventLogMessage:machAbsoluteTime:logLevel:dataDispatcherContext:]";
+      v55 = "+[CDMSELFLogUtil emitEventsFromContainer:mainEventLogMessage:machAbsoluteTime:logLevel:dataDispatcherContext:]";
       v33 = "%s [WARN]: Tried to emit a SELF event, but the given eventContainer was nil!";
 LABEL_28:
       _os_log_impl(&dword_1DC287000, tier1Events, OS_LOG_TYPE_INFO, v33, buf, 0xCu);
@@ -1849,7 +2234,6 @@ LABEL_29:
 LABEL_30:
 
 LABEL_31:
-  v35 = *MEMORY[0x1E69E9840];
   return v34;
 }
 
@@ -1877,14 +2261,14 @@ LABEL_31:
 
 + (id)createSELFMetadataWithNlId:(id)id andWithTrpId:(id)trpId andWithRequestId:(id)requestId andWithResultCandidateId:(id)candidateId andWithConnectionId:(id)connectionId
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   idCopy = id;
   trpIdCopy = trpId;
   requestIdCopy = requestId;
   candidateIdCopy = candidateId;
   connectionIdCopy = connectionId;
   v16 = connectionIdCopy;
-  v29 = 0;
+  v28 = 0;
   if (connectionIdCopy)
   {
     if ([connectionIdCopy isEqualToString:@"ORCHESTRATOR"])
@@ -1912,7 +2296,7 @@ LABEL_31:
       v17 = 5;
     }
 
-    v29 = v17;
+    v28 = v17;
   }
 
 LABEL_11:
@@ -1925,7 +2309,7 @@ LABEL_11:
     if (v21)
     {
       *buf = 136315138;
-      v31 = "+[CDMSELFLogUtil createSELFMetadataWithNlId:andWithTrpId:andWithRequestId:andWithResultCandidateId:andWithConnectionId:]";
+      v30 = "+[CDMSELFLogUtil createSELFMetadataWithNlId:andWithTrpId:andWithRequestId:andWithResultCandidateId:andWithConnectionId:]";
       _os_log_debug_impl(&dword_1DC287000, v20, OS_LOG_TYPE_DEBUG, "%s Device supports AssistantEngine flow, use incoming requestId as subRequestId for NLX", buf, 0xCu);
     }
 
@@ -1938,7 +2322,7 @@ LABEL_11:
     if (v21)
     {
       *buf = 136315138;
-      v31 = "+[CDMSELFLogUtil createSELFMetadataWithNlId:andWithTrpId:andWithRequestId:andWithResultCandidateId:andWithConnectionId:]";
+      v30 = "+[CDMSELFLogUtil createSELFMetadataWithNlId:andWithTrpId:andWithRequestId:andWithResultCandidateId:andWithConnectionId:]";
       _os_log_debug_impl(&dword_1DC287000, v20, OS_LOG_TYPE_DEBUG, "%s Device does NOT support AssistantEngine flow, use incoming requestId as is for NLX", buf, 0xCu);
     }
 
@@ -1948,9 +2332,7 @@ LABEL_11:
 
   v24 = MEMORY[0x1E69D1420];
   v25 = v18;
-  v26 = [v24 createNLXClientEventMetadataWithNlId:idCopy andWithTrpId:trpIdCopy andWithRequestId:v22 andWithSubRequestId:v23 andWithResultCandidateId:candidateIdCopy andWithRequester:&v29];
-
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = [v24 createNLXClientEventMetadataWithNlId:idCopy andWithTrpId:trpIdCopy andWithRequestId:v22 andWithSubRequestId:v23 andWithResultCandidateId:candidateIdCopy andWithRequester:&v28];
 
   return v26;
 }

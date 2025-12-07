@@ -48,19 +48,21 @@ void sub_1BB816CB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1BB8170A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, char a19)
+void sub_1BB8170A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, ...)
 {
-  objc_destroyWeak((v20 + 56));
+  va_start(va, location);
+  objc_destroyWeak((v19 + 56));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a19, 8);
-  objc_destroyWeak((v19 + 40));
+  _Block_object_dispose(va, 8);
+  objc_destroyWeak((v18 + 40));
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1_9(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_9(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0x20u);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0x20u);
 }
 
 void sub_1BB817700(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
@@ -87,9 +89,8 @@ void sub_1BB81906C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *std::deque<_WBSSearchSuggestionCandidate>::push_back(void *result, uint64_t *a2)
+void std::deque<_WBSSearchSuggestionCandidate>::push_back(unint64_t *result, uint64_t *a2)
 {
-  v3 = result;
   v4 = result[1];
   v5 = result[2];
   v6 = 170 * ((v5 - v4) >> 3) - 1;
@@ -100,12 +101,12 @@ void *std::deque<_WBSSearchSuggestionCandidate>::push_back(void *result, uint64_
 
   if (v6 == result[5] + result[4])
   {
-    result = std::deque<_WBSSearchSuggestionCandidate>::__add_back_capacity(result);
-    v4 = v3[1];
-    v5 = v3[2];
+    std::deque<_WBSSearchSuggestionCandidate>::__add_back_capacity(result);
+    v4 = result[1];
+    v5 = result[2];
   }
 
-  if (v5 == v4 || (v7 = v3[5] + v3[4], (v8 = *(v4 + 8 * (v7 / 0xAA))) == 0))
+  if (v5 == v4 || (v7 = result[5] + result[4], (v8 = *(v4 + 8 * (v7 / 0xAA))) == 0))
   {
     __break(1u);
   }
@@ -116,17 +117,13 @@ void *std::deque<_WBSSearchSuggestionCandidate>::push_back(void *result, uint64_
     v10 = *a2;
     *(v9 + 8) = *(a2 + 8);
     *v9 = v10;
-    result = a2[2];
-    *(v9 + 16) = result;
-    ++v3[5];
+    *(v9 + 16) = a2[2];
+    ++result[5];
   }
-
-  return result;
 }
 
-int64x2_t *std::deque<_WBSSearchSuggestionCandidate>::insert(int64x2_t *result, void *a2, uint64_t a3, unint64_t a4)
+void std::deque<_WBSSearchSuggestionCandidate>::insert(int64x2_t *result, void *a2, uint64_t a3, unint64_t a4)
 {
-  v5 = result;
   v6 = result[2].u64[0];
   v7 = result->i64[1];
   v8 = result[1].i64[0];
@@ -170,10 +167,10 @@ int64x2_t *std::deque<_WBSSearchSuggestionCandidate>::insert(int64x2_t *result, 
       {
 LABEL_10:
         v58 = a4;
-        v14 = v5[2].u64[0];
-        v15 = v5->i64[1];
+        v14 = result[2].u64[0];
+        v15 = result->i64[1];
         v16 = (v15 + 8 * (v14 / 0xAA));
-        if (v5[1].i64[0] == v15)
+        if (result[1].i64[0] == v15)
         {
           v17 = 0;
         }
@@ -183,7 +180,7 @@ LABEL_10:
           v17 = *v16 + 24 * (v14 % 0xAA);
         }
 
-        result = std::prev[abi:sn200100]<std::__deque_iterator<_WBSSearchSuggestionCandidate,_WBSSearchSuggestionCandidate*,_WBSSearchSuggestionCandidate&,_WBSSearchSuggestionCandidate**,long,170l>,0>(v16, v17);
+        std::prev[abi:sn200100]<std::__deque_iterator<_WBSSearchSuggestionCandidate,_WBSSearchSuggestionCandidate*,_WBSSearchSuggestionCandidate&,_WBSSearchSuggestionCandidate**,long,170l>,0>(v16, v17);
         if (v17 == a4)
         {
           v58 = v34;
@@ -198,7 +195,7 @@ LABEL_10:
           v36 = *(v17 + 16);
           *(v17 + 16) = 0;
           *(v34 + 16) = v36;
-          v5[2] = vaddq_s64(v5[2], xmmword_1BB94FE50);
+          result[2] = vaddq_s64(result[2], xmmword_1BB94FE50);
           if (v11 != 1)
           {
             v37 = v17 - *v16;
@@ -207,20 +204,20 @@ LABEL_10:
             {
               v51 = 168 - v38;
               v40 = &v16[-(v51 / 0xAA)];
-              v41 = (*v40 + 24 * (170 * (v51 / 0xAA) - v51) + 4056);
+              v41 = *v40 + 24 * (170 * (v51 / 0xAA) - v51) + 4056;
             }
 
             else
             {
               v39 = v38 + 1;
               v40 = &v16[v39 / 0xAA];
-              v41 = (*v40 + 24 * (v39 % 0xAA));
+              v41 = *v40 + 24 * (v39 % 0xAA);
             }
 
             v59 = v16;
             v60 = v17;
             std::__deque_iterator<_WBSSearchSuggestionCandidate,_WBSSearchSuggestionCandidate*,_WBSSearchSuggestionCandidate&,_WBSSearchSuggestionCandidate**,long,170l>::operator+=[abi:sn200100](&v59, v11);
-            std::deque<_WBSSearchSuggestionCandidate>::__move_and_check(v5, v40, v41, v59, v60, v16, v17, &v58);
+            std::deque<_WBSSearchSuggestionCandidate>::__move_and_check(result, v40, v41, v59, v60, v16, v17, &v58);
             v17 = v52;
             a4 = v58;
           }
@@ -239,11 +236,11 @@ LABEL_49:
       }
     }
 
-    v28 = v5[2].u64[0];
-    v29 = v5->i64[1];
+    v28 = result[2].u64[0];
+    v29 = result->i64[1];
     v30 = (v29 + 8 * (v28 / 0xAA));
     v31 = *v30 + 24 * (v28 % 0xAA);
-    if (v5[1].i64[0] == v29)
+    if (result[1].i64[0] == v29)
     {
       v32 = 0;
     }
@@ -262,7 +259,7 @@ LABEL_49:
     *(v32 - 16) = *(a4 + 8);
     *(v32 - 24) = v33;
     *(v32 - 8) = *(a4 + 16);
-    v5[2] = vaddq_s64(v5[2], xmmword_1BB94FE50);
+    result[2] = vaddq_s64(result[2], xmmword_1BB94FE50);
     goto LABEL_50;
   }
 
@@ -278,18 +275,18 @@ LABEL_49:
 
   if (v18 == v12 + v6)
   {
-    result = std::deque<_WBSSearchSuggestionCandidate>::__add_back_capacity(result);
-    v12 = v5[2].i64[1];
+    std::deque<_WBSSearchSuggestionCandidate>::__add_back_capacity(result);
+    v12 = result[2].i64[1];
     v13 = v12 - v11;
   }
 
   if (v12 != v11)
   {
     v58 = a4;
-    v24 = v5[2].i64[0] + v12;
-    v25 = v5->i64[1];
+    v24 = result[2].i64[0] + v12;
+    v25 = result->i64[1];
     v26 = (v25 + 8 * (v24 / 0xAA));
-    if (v5[1].i64[0] == v25)
+    if (result[1].i64[0] == v25)
     {
       v27 = 0;
     }
@@ -299,8 +296,7 @@ LABEL_49:
       v27 = *v26 + 24 * (v24 % 0xAA);
     }
 
-    result = std::prev[abi:sn200100]<std::__deque_iterator<_WBSSearchSuggestionCandidate,_WBSSearchSuggestionCandidate*,_WBSSearchSuggestionCandidate&,_WBSSearchSuggestionCandidate**,long,170l>,0>(v26, v27);
-    v43 = result;
+    v43 = std::prev[abi:sn200100]<std::__deque_iterator<_WBSSearchSuggestionCandidate,_WBSSearchSuggestionCandidate*,_WBSSearchSuggestionCandidate&,_WBSSearchSuggestionCandidate**,long,170l>,0>(v26, v27);
     v44 = v42;
     if (v42 == a4)
     {
@@ -316,13 +312,13 @@ LABEL_49:
       v46 = *(v42 + 16);
       *(v42 + 16) = 0;
       *(v27 + 16) = v46;
-      ++v5[2].i64[1];
+      ++result[2].i64[1];
       if (v13 >= 2)
       {
         v59 = v26;
         v60 = v27;
         std::__deque_iterator<_WBSSearchSuggestionCandidate,_WBSSearchSuggestionCandidate*,_WBSSearchSuggestionCandidate&,_WBSSearchSuggestionCandidate**,long,170l>::operator+=[abi:sn200100](&v59, -v13);
-        v26 = std::deque<_WBSSearchSuggestionCandidate>::__move_backward_and_check(v5, v59, v60, v43, v44, v26, v27, &v58);
+        v26 = std::deque<_WBSSearchSuggestionCandidate>::__move_backward_and_check(result, v59, v60, v43, v44, v26, v27, &v58);
         v27 = v47;
         a4 = v58;
       }
@@ -342,16 +338,16 @@ LABEL_49:
 
 LABEL_54:
     __break(1u);
-    return result;
+    return;
   }
 
-  v19 = v5->i64[1];
-  if (v5[1].i64[0] == v19)
+  v19 = result->i64[1];
+  if (result[1].i64[0] == v19)
   {
     goto LABEL_54;
   }
 
-  v20 = v5[2].i64[0] + v11;
+  v20 = result[2].i64[0] + v11;
   v21 = *(v19 + 8 * (v20 / 0xAA));
   if (!v21)
   {
@@ -363,25 +359,24 @@ LABEL_54:
   *(v22 + 8) = *(a4 + 8);
   *v22 = v23;
   *(v22 + 16) = *(a4 + 16);
-  ++v5[2].i64[1];
+  ++result[2].i64[1];
 LABEL_50:
-  v54 = v5[2].u64[0];
-  v55 = v5->i64[1];
+  v54 = result[2].u64[0];
+  v55 = result->i64[1];
   v56 = (v55 + 8 * (v54 / 0xAA));
-  if (v5[1].i64[0] == v55)
+  if (result[1].i64[0] == v55)
   {
     v57 = 0;
   }
 
   else
   {
-    v57 = (*v56 + 24 * (v54 % 0xAA));
+    v57 = *v56 + 24 * (v54 % 0xAA);
   }
 
   v59 = v56;
   v60 = v57;
   std::__deque_iterator<_WBSSearchSuggestionCandidate,_WBSSearchSuggestionCandidate*,_WBSSearchSuggestionCandidate&,_WBSSearchSuggestionCandidate**,long,170l>::operator+=[abi:sn200100](&v59, v11);
-  return v59;
 }
 
 void *std::deque<_WBSSearchSuggestionCandidate>::pop_back(void *result)
@@ -523,19 +518,19 @@ uint64_t std::__split_buffer<_WBSSearchSuggestionCandidate *>::~__split_buffer(u
   return a1;
 }
 
-void *std::deque<_WBSSearchSuggestionCandidate>::__add_back_capacity(void *a1)
+void std::deque<_WBSSearchSuggestionCandidate>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0xAA;
   v3 = v1 - 170;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -543,25 +538,25 @@ void *std::deque<_WBSSearchSuggestionCandidate>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::allocator<_WBSSearchSuggestionCandidate *>::allocate_at_least[abi:sn200100](a1, v9);
+    v10 = a1;
+    std::allocator<_WBSSearchSuggestionCandidate *>::allocate_at_least[abi:sn200100](a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<_WBSSearchSuggestionCandidate *>::emplace_back<_WBSSearchSuggestionCandidate *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<_WBSSearchSuggestionCandidate *>::emplace_back<_WBSSearchSuggestionCandidate *&>(a1, &v9);
 }
 
 void sub_1BB819DA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -575,27 +570,26 @@ void sub_1BB819DA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<_WBSSearchSuggestionCandidate *>::emplace_back<_WBSSearchSuggestionCandidate *&>(void *result, void *a2)
+void std::__split_buffer<_WBSSearchSuggestionCandidate *>::emplace_back<_WBSSearchSuggestionCandidate *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::allocator<_WBSSearchSuggestionCandidate *>::allocate_at_least[abi:sn200100](result, v11);
+      std::allocator<_WBSSearchSuggestionCandidate *>::allocate_at_least[abi:sn200100](a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -604,37 +598,34 @@ void *std::__split_buffer<_WBSSearchSuggestionCandidate *>::emplace_back<_WBSSea
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   if (v4)
   {
     *v4 = *a2;
-    v3[2] += 8;
+    a1[2] += 8;
   }
 
   else
   {
     __break(1u);
   }
-
-  return result;
 }
 
-const void **std::__split_buffer<_WBSSearchSuggestionCandidate *>::emplace_front<_WBSSearchSuggestionCandidate *>(const void **result, void *a2)
+void std::__split_buffer<_WBSSearchSuggestionCandidate *>::emplace_front<_WBSSearchSuggestionCandidate *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -647,52 +638,50 @@ const void **std::__split_buffer<_WBSSearchSuggestionCandidate *>::emplace_front
         v9 = (v7 - v4) >> 2;
       }
 
-      std::allocator<_WBSSearchSuggestionCandidate *>::allocate_at_least[abi:sn200100](result, v9);
+      std::allocator<_WBSSearchSuggestionCandidate *>::allocate_at_least[abi:sn200100](a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = (v6 + 8 * v8);
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
-  *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  *(v5 - 8) = *a2;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<_WBSSearchSuggestionCandidate *>::emplace_back<_WBSSearchSuggestionCandidate *>(void *result, void *a2)
+void std::__split_buffer<_WBSSearchSuggestionCandidate *>::emplace_back<_WBSSearchSuggestionCandidate *>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::allocator<_WBSSearchSuggestionCandidate *>::allocate_at_least[abi:sn200100](result[4], v11);
+      std::allocator<_WBSSearchSuggestionCandidate *>::allocate_at_least[abi:sn200100](a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -701,37 +690,34 @@ void *std::__split_buffer<_WBSSearchSuggestionCandidate *>::emplace_back<_WBSSea
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   if (v4)
   {
     *v4 = *a2;
-    v3[2] += 8;
+    a1[2] += 8;
   }
 
   else
   {
     __break(1u);
   }
-
-  return result;
 }
 
-const void **std::__split_buffer<_WBSSearchSuggestionCandidate *>::emplace_front<_WBSSearchSuggestionCandidate *&>(const void **result, void *a2)
+void std::__split_buffer<_WBSSearchSuggestionCandidate *>::emplace_front<_WBSSearchSuggestionCandidate *&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -744,29 +730,28 @@ const void **std::__split_buffer<_WBSSearchSuggestionCandidate *>::emplace_front
         v9 = (v7 - v4) >> 2;
       }
 
-      std::allocator<_WBSSearchSuggestionCandidate *>::allocate_at_least[abi:sn200100](result[4], v9);
+      std::allocator<_WBSSearchSuggestionCandidate *>::allocate_at_least[abi:sn200100](a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = (v6 + 8 * v8);
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
-  *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  *(v5 - 8) = *a2;
+  a1[1] = a1[1] - 8;
 }
 
 void std::allocator<_WBSSearchSuggestionCandidate *>::allocate_at_least[abi:sn200100](uint64_t a1, unint64_t a2)
@@ -779,10 +764,10 @@ void std::allocator<_WBSSearchSuggestionCandidate *>::allocate_at_least[abi:sn20
   std::__throw_bad_array_new_length[abi:sn200100]();
 }
 
-const void **std::deque<_WBSSearchSuggestionCandidate>::__add_front_capacity(uint64_t a1)
+void std::deque<_WBSSearchSuggestionCandidate>::__add_front_capacity(const void **a1)
 {
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
+  v1 = a1[1];
+  v2 = a1[2];
   v3 = v2 - v1;
   if (v2 == v1)
   {
@@ -794,15 +779,15 @@ const void **std::deque<_WBSSearchSuggestionCandidate>::__add_front_capacity(uin
     v4 = 170 * ((v2 - v1) >> 3) - 1;
   }
 
-  v5 = *(a1 + 32);
-  if ((v4 - (*(a1 + 40) + v5)) < 0xAA)
+  v5 = a1[4];
+  if ((v4 - (a1[5] + v5)) < 0xAA)
   {
-    v7 = *(a1 + 24);
-    v8 = *a1;
-    v9 = &v7[-*a1];
-    if (v3 < v9)
+    v6 = a1[3];
+    v7 = *a1;
+    v8 = v6 - *a1;
+    if (v3 < v8)
     {
-      if (v1 != v8)
+      if (v1 != v7)
       {
         operator new();
       }
@@ -810,24 +795,24 @@ const void **std::deque<_WBSSearchSuggestionCandidate>::__add_front_capacity(uin
       operator new();
     }
 
-    if (v7 == v8)
+    if (v6 == v7)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9 >> 2;
+      v9 = v8 >> 2;
     }
 
-    v11[4] = a1;
-    std::allocator<_WBSSearchSuggestionCandidate *>::allocate_at_least[abi:sn200100](a1, v10);
+    v10[4] = a1;
+    std::allocator<_WBSSearchSuggestionCandidate *>::allocate_at_least[abi:sn200100](a1, v9);
   }
 
-  *(a1 + 32) = v5 + 170;
-  v11[0] = *(v2 - 1);
-  *(a1 + 16) = v2 - 8;
-  return std::__split_buffer<_WBSSearchSuggestionCandidate *>::emplace_front<_WBSSearchSuggestionCandidate *>(a1, v11);
+  a1[4] = (v5 + 170);
+  v10[0] = *(v2 - 8);
+  a1[2] = (v2 - 8);
+  std::__split_buffer<_WBSSearchSuggestionCandidate *>::emplace_front<_WBSSearchSuggestionCandidate *>(a1, v10);
 }
 
 void sub_1BB81A490(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -856,7 +841,7 @@ void *std::prev[abi:sn200100]<std::__deque_iterator<_WBSSearchSuggestionCandidat
   }
 }
 
-uint64_t *std::deque<_WBSSearchSuggestionCandidate>::__move_and_check(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t a7, unint64_t *a8)
+uint64_t *std::deque<_WBSSearchSuggestionCandidate>::__move_and_check(uint64_t a1, uint64_t *a2, unint64_t a3, void *a4, uint64_t a5, uint64_t *a6, uint64_t a7, unint64_t *a8)
 {
   v20 = a2;
   v21 = a3;
@@ -887,7 +872,7 @@ uint64_t *std::deque<_WBSSearchSuggestionCandidate>::__move_and_check(uint64_t a
 
         else
         {
-          v16 = &v21[3 * v10];
+          v16 = (v21 + 24 * v10);
         }
 
         v17 = *a8;
@@ -1088,7 +1073,7 @@ LABEL_14:
   a5[2] = a4;
 }
 
-void std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:sn200100]<_WBSSearchSuggestionCandidate *,std::__deque_iterator<_WBSSearchSuggestionCandidate,_WBSSearchSuggestionCandidate *,_WBSSearchSuggestionCandidate&,_WBSSearchSuggestionCandidate **,long,170l>,0>(uint64_t a1@<X1>, uint64_t a2@<X2>, void *a3@<X3>, uint64_t a4@<X4>, void *a5@<X8>)
+void std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:sn200100]<_WBSSearchSuggestionCandidate *,std::__deque_iterator<_WBSSearchSuggestionCandidate,_WBSSearchSuggestionCandidate *,_WBSSearchSuggestionCandidate&,_WBSSearchSuggestionCandidate **,long,170l>,0>(uint64_t a1@<X1>, uint64_t a2@<X2>, void *a3@<X3>, uint64_t a4@<X4>, uint64_t *a5@<X8>)
 {
   v6 = a3;
   if (a1 == a2)
@@ -1202,10 +1187,10 @@ uint64_t std::deque<_WBSSearchSuggestionCandidate>::__maybe_remove_back_spare[ab
   return v7 ^ 1u;
 }
 
-uint64_t std::deque<_WBSSearchSuggestionCandidate>::deque(uint64_t a1, void *a2)
+unint64_t *std::deque<_WBSSearchSuggestionCandidate>::deque(unint64_t *a1, void *a2)
 {
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
   *a1 = 0u;
   v3 = a2[4];
   v4 = a2[1];
@@ -1228,7 +1213,7 @@ uint64_t std::deque<_WBSSearchSuggestionCandidate>::deque(uint64_t a1, void *a2)
   return a1;
 }
 
-void *std::deque<_WBSSearchSuggestionCandidate>::__append<std::__deque_iterator<_WBSSearchSuggestionCandidate,_WBSSearchSuggestionCandidate const*,_WBSSearchSuggestionCandidate const&,_WBSSearchSuggestionCandidate const* const*,long,170l>,0>(void *a1, void *a2, uint64_t *a3, void *a4, uint64_t *a5)
+void *std::deque<_WBSSearchSuggestionCandidate>::__append<std::__deque_iterator<_WBSSearchSuggestionCandidate,_WBSSearchSuggestionCandidate const*,_WBSSearchSuggestionCandidate const&,_WBSSearchSuggestionCandidate const* const*,long,170l>,0>(unint64_t *a1, void *a2, uint64_t *a3, void *a4, uint64_t *a5)
 {
   if (a5 == a3)
   {
@@ -1243,7 +1228,7 @@ void *std::deque<_WBSSearchSuggestionCandidate>::__append<std::__deque_iterator<
   return std::deque<_WBSSearchSuggestionCandidate>::__append_with_size[abi:sn200100]<std::__deque_iterator<_WBSSearchSuggestionCandidate,_WBSSearchSuggestionCandidate const*,_WBSSearchSuggestionCandidate const&,_WBSSearchSuggestionCandidate const* const*,long,170l>>(a1, a2, a3, v5);
 }
 
-void *std::deque<_WBSSearchSuggestionCandidate>::__append_with_size[abi:sn200100]<std::__deque_iterator<_WBSSearchSuggestionCandidate,_WBSSearchSuggestionCandidate const*,_WBSSearchSuggestionCandidate const&,_WBSSearchSuggestionCandidate const* const*,long,170l>>(void *a1, void *a2, uint64_t *a3, unint64_t a4)
+void *std::deque<_WBSSearchSuggestionCandidate>::__append_with_size[abi:sn200100]<std::__deque_iterator<_WBSSearchSuggestionCandidate,_WBSSearchSuggestionCandidate const*,_WBSSearchSuggestionCandidate const&,_WBSSearchSuggestionCandidate const* const*,long,170l>>(unint64_t *a1, void *a2, uint64_t *a3, unint64_t a4)
 {
   v8 = a1[1];
   v9 = a1[2];
@@ -1341,10 +1326,9 @@ LABEL_22:
   return result;
 }
 
-void *std::deque<_WBSSearchSuggestionCandidate>::__add_back_capacity(void *result, unint64_t a2)
+void std::deque<_WBSSearchSuggestionCandidate>::__add_back_capacity(unint64_t *a1, unint64_t a2)
 {
-  v2 = result;
-  v3 = result[2] - result[1];
+  v3 = a1[2] - a1[1];
   if (v3)
   {
     v4 = a2;
@@ -1365,7 +1349,7 @@ void *std::deque<_WBSSearchSuggestionCandidate>::__add_back_capacity(void *resul
     v5 = v4 / 0xAA;
   }
 
-  v6 = result[4];
+  v6 = a1[4];
   if (v5 >= v6 / 0xAA)
   {
     v7 = v6 / 0xAA;
@@ -1378,19 +1362,19 @@ void *std::deque<_WBSSearchSuggestionCandidate>::__add_back_capacity(void *resul
 
   if (v5 <= v6 / 0xAA)
   {
-    for (result[4] = v6 - 170 * v7; v7; --v7)
+    for (a1[4] = v6 - 170 * v7; v7; --v7)
     {
-      v14 = v2[1];
+      v14 = a1[1];
       v16[0] = *v14;
-      v2[1] = v14 + 1;
-      result = std::__split_buffer<_WBSSearchSuggestionCandidate *>::emplace_back<_WBSSearchSuggestionCandidate *&>(v2, v16);
+      a1[1] = (v14 + 1);
+      std::__split_buffer<_WBSSearchSuggestionCandidate *>::emplace_back<_WBSSearchSuggestionCandidate *&>(a1, v16);
     }
   }
 
   else
   {
     v8 = v5 - v7;
-    v9 = result[3] - *result;
+    v9 = a1[3] - *a1;
     if (v5 - v7 > (v9 >> 3) - (v3 >> 3))
     {
       v10 = v3 >> 3;
@@ -1406,10 +1390,10 @@ void *std::deque<_WBSSearchSuggestionCandidate>::__add_back_capacity(void *resul
       }
 
       v13 = v10 - v7;
-      v18 = result;
+      v18 = a1;
       if (v12)
       {
-        std::allocator<_WBSSearchSuggestionCandidate *>::allocate_at_least[abi:sn200100](result, v12);
+        std::allocator<_WBSSearchSuggestionCandidate *>::allocate_at_least[abi:sn200100](a1, v12);
       }
 
       v16[0] = 0;
@@ -1420,7 +1404,7 @@ void *std::deque<_WBSSearchSuggestionCandidate>::__add_back_capacity(void *resul
 
     if (v8)
     {
-      if (result[3] != result[2])
+      if (a1[3] != a1[2])
       {
         operator new();
       }
@@ -1428,16 +1412,14 @@ void *std::deque<_WBSSearchSuggestionCandidate>::__add_back_capacity(void *resul
       operator new();
     }
 
-    for (result[4] -= 170 * v7; v7; --v7)
+    for (a1[4] -= 170 * v7; v7; --v7)
     {
-      v15 = v2[1];
+      v15 = a1[1];
       v16[0] = *v15;
-      v2[1] = v15 + 1;
-      result = std::__split_buffer<_WBSSearchSuggestionCandidate *>::emplace_back<_WBSSearchSuggestionCandidate *&>(v2, v16);
+      a1[1] = (v15 + 1);
+      std::__split_buffer<_WBSSearchSuggestionCandidate *>::emplace_back<_WBSSearchSuggestionCandidate *&>(a1, v16);
     }
   }
-
-  return result;
 }
 
 void sub_1BB81B124(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -1536,35 +1518,36 @@ void sub_1BB8216C4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1BB8221A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1BB8221A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BB822E28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BB822E28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BB8248D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BB8248D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BB828508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_1BB828508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a19, 8);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 144), 8);
-  _Block_object_dispose((v27 - 112), 8);
-  _Block_object_dispose((v27 - 80), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 144), 8);
+  _Block_object_dispose((v26 - 112), 8);
+  _Block_object_dispose((v26 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2025,31 +2008,32 @@ id SafariShared::ReaderAvailabilityController::extractTextSamplesForTranslation(
   if (SafariShared::ReaderAvailabilityController::prepareArticleFinder(this))
   {
     v2 = (*(*this + 13))(this);
-    TextSamplesByVisualExamination = SafariShared::ArticleFinderJSController::findTextSamplesByVisualExamination(this[2]);
-    v5 = SafariShared::JSUtilities::translateJSValueToNS(v2, TextSamplesByVisualExamination, v4);
+    TextSamplesByVisualExamination = SafariShared::ArticleFinderJSController::findTextSamplesByVisualExamination(this[2], v3, v4, v5, v6, v7);
+    v10 = SafariShared::JSUtilities::translateJSValueToNS(v2, TextSamplesByVisualExamination, v9);
   }
 
   else
   {
-    v5 = 0;
+    v10 = 0;
   }
 
-  return v5;
+  return v10;
 }
 
-BOOL SafariShared::ReaderAvailabilityController::doesPageUseSearchEngineOptimizationMetadata(SafariShared::ReaderAvailabilityController *this)
+BOOL SafariShared::ReaderAvailabilityController::doesPageUseSearchEngineOptimizationMetadata(SafariShared::ArticleFinderJSController **this)
 {
-  if (SafariShared::ReaderAvailabilityController::prepareArticleFinder(this))
+  v2 = SafariShared::ReaderAvailabilityController::prepareArticleFinder(this);
+  if (v2)
   {
-    v2 = *(this + 2);
+    v8 = this[2];
 
-    return SafariShared::ArticleFinderJSController::usesSearchEngineOptimizationMetadata(v2);
+    return SafariShared::ArticleFinderJSController::usesSearchEngineOptimizationMetadata(v8, v3, v4, v5, v6, v7);
   }
 
   else
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXReader();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXReader(v2, v3);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       SafariShared::ReaderAvailabilityController::doesPageUseSearchEngineOptimizationMetadata();
     }
@@ -2060,36 +2044,38 @@ BOOL SafariShared::ReaderAvailabilityController::doesPageUseSearchEngineOptimiza
 
 void SafariShared::ReaderAvailabilityController::checkTextSampleAvailabilityIfNeeded(SafariShared::ReaderAvailabilityController::AvailabilityDetectionScheduler **this)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  if ((*(*this + 11))(this))
+  v19 = *MEMORY[0x1E69E9840];
+  v2 = (*(*this + 11))(this);
+  if (v2)
   {
-    if (SafariShared::ReaderAvailabilityController::prepareArticleFinder(this))
+    v4 = SafariShared::ReaderAvailabilityController::prepareArticleFinder(this);
+    if (v4)
     {
-      v2 = objc_alloc_init(WBSReaderAvailabilityCheckResult);
-      v3 = (*(*this + 7))(this);
-      [(WBSReaderAvailabilityCheckResult *)v2 setTextSamples:v3];
+      v6 = objc_alloc_init(WBSReaderAvailabilityCheckResult);
+      v7 = (*(*this + 7))(this);
+      [(WBSReaderAvailabilityCheckResult *)v6 setTextSamples:v7];
 
-      v4 = [(WBSReaderAvailabilityCheckResult *)v2 textSamples];
-      v5 = [v4 count];
+      v8 = [(WBSReaderAvailabilityCheckResult *)v6 textSamples];
+      v9 = [v8 count];
 
-      if (v5)
+      if (v9)
       {
-        v6 = WBS_LOG_CHANNEL_PREFIXTranslation();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+        v12 = WBS_LOG_CHANNEL_PREFIXTranslation(v10, v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
-          v10 = [(WBSReaderAvailabilityCheckResult *)v2 textSamples];
-          v11 = 134217984;
-          v12 = [v10 count];
-          _os_log_debug_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_DEBUG, "Translation found %lu text samples", &v11, 0xCu);
+          v16 = [(WBSReaderAvailabilityCheckResult *)v6 textSamples];
+          v17 = 134217984;
+          v18 = [v16 count];
+          _os_log_debug_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_DEBUG, "Translation found %lu text samples", &v17, 0xCu);
         }
 
-        (*(*this + 8))(this, v2);
+        (*(*this + 8))(this, v6);
       }
 
       else
       {
-        v9 = WBS_LOG_CHANNEL_PREFIXTranslation();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v15 = WBS_LOG_CHANNEL_PREFIXTranslation(v10, v11);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           SafariShared::ReaderAvailabilityController::checkTextSampleAvailabilityIfNeeded();
         }
@@ -2100,8 +2086,8 @@ void SafariShared::ReaderAvailabilityController::checkTextSampleAvailabilityIfNe
 
     else
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXTranslation();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v14 = WBS_LOG_CHANNEL_PREFIXTranslation(v4, v5);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         SafariShared::ReaderAvailabilityController::doesPageUseSearchEngineOptimizationMetadata();
       }
@@ -2110,28 +2096,28 @@ void SafariShared::ReaderAvailabilityController::checkTextSampleAvailabilityIfNe
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXTranslation();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v13 = WBS_LOG_CHANNEL_PREFIXTranslation(v2, v3);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       SafariShared::ReaderAvailabilityController::checkTextSampleAvailabilityIfNeeded();
     }
   }
 }
 
-void SafariShared::ReaderAvailabilityController::AvailabilityDetectionScheduler::scheduleDelayedDetection(SafariShared::ReaderAvailabilityController::AvailabilityDetectionScheduler *this)
+void SafariShared::ReaderAvailabilityController::AvailabilityDetectionScheduler::scheduleDelayedDetection(uint64_t this)
 {
-  v1 = *(this + 6);
-  v2 = *(this + 1);
-  if (v1 >= (*(this + 2) - v2) >> 3)
+  v1 = *(this + 48);
+  v2 = *(this + 8);
+  if (v1 >= (*(this + 16) - v2) >> 3)
   {
-    *(this + 6) = 0;
+    *(this + 48) = 0;
   }
 
   else
   {
     v3 = *(v2 + 8 * v1);
-    *(this + 6) = v1 + 1;
-    SafariShared::ReaderAvailabilityController::AvailabilityDetectionScheduler::detectAvailabilityAfterDelay(this, *(this + 11), v3);
+    *(this + 48) = v1 + 1;
+    SafariShared::ReaderAvailabilityController::AvailabilityDetectionScheduler::detectAvailabilityAfterDelay(this, *(this + 44), v3);
   }
 }
 
@@ -2139,30 +2125,30 @@ id SafariShared::ReaderAvailabilityController::extractCanonicalURLForSystemNoteT
 {
   if (SafariShared::ReaderAvailabilityController::prepareArticleFinder(this))
   {
-    v2 = SafariShared::ArticleFinderJSController::canonicalURLForSystemNoteTaking(this[2]);
+    v7 = SafariShared::ArticleFinderJSController::canonicalURLForSystemNoteTaking(this[2], v2, v3, v4, v5, v6);
   }
 
   else
   {
-    v2 = 0;
+    v7 = 0;
   }
 
-  return v2;
+  return v7;
 }
 
 id SafariShared::ReaderAvailabilityController::extractReaderArticleTitleIfAvailable(SafariShared::ArticleFinderJSController **this)
 {
   if (SafariShared::ReaderAvailabilityController::prepareArticleFinder(this) && *(this + 25) == 1)
   {
-    v2 = SafariShared::ArticleFinderJSController::readerArticleTitle(this[2]);
+    v7 = SafariShared::ArticleFinderJSController::readerArticleTitle(this[2], v2, v3, v4, v5, v6);
   }
 
   else
   {
-    v2 = 0;
+    v7 = 0;
   }
 
-  return v2;
+  return v7;
 }
 
 void SafariShared::ReaderAvailabilityController::checkAvailabilityIfNeeded(SafariShared::ReaderAvailabilityController *this)
@@ -2170,7 +2156,7 @@ void SafariShared::ReaderAvailabilityController::checkAvailabilityIfNeeded(Safar
   v4 = objc_alloc_init(WBSReaderAvailabilityCheckResult);
   (*(*this + 32))(this);
   v2 = *(this + 8);
-  v3 = *(v2 + 10);
+  v3 = *(v2 + 40);
   if ((*(this + 25) & 1) == 0 && v3 == 3)
   {
     SafariShared::ReaderAvailabilityController::AvailabilityDetectionScheduler::scheduleDelayedDetection(v2);
@@ -2182,7 +2168,7 @@ void SafariShared::ReaderAvailabilityController::checkAvailabilityIfNeeded(Safar
 
 void SafariShared::ReaderAvailabilityController::checkReaderAvailabilityIfNeededAndUpdateResult(SafariShared::ReaderAvailabilityController *this, WBSReaderAvailabilityCheckResult *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (*(this + 25) == 1)
   {
@@ -2217,12 +2203,12 @@ void SafariShared::ReaderAvailabilityController::checkReaderAvailabilityIfNeeded
   if ((*(this + 72) & 1) == 0)
   {
     v7 = (*(*this + 56))(this);
-    [(WBSReaderAvailabilityCheckResult *)v3 setTextSamples:v7];
+    v8 = [(WBSReaderAvailabilityCheckResult *)v3 setTextSamples:v7];
     *(this + 72) = 1;
-    v8 = WBS_LOG_CHANNEL_PREFIXTranslation();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v10 = WBS_LOG_CHANNEL_PREFIXTranslation(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      SafariShared::ReaderAvailabilityController::checkReaderAvailabilityIfNeededAndUpdateResult(v11, [v7 count], v8);
+      SafariShared::ReaderAvailabilityController::checkReaderAvailabilityIfNeededAndUpdateResult(v13, [v7 count], v10);
     }
 
     if (![v7 count])
@@ -2232,18 +2218,18 @@ void SafariShared::ReaderAvailabilityController::checkReaderAvailabilityIfNeeded
   }
 
   SafariShared::ReaderAvailabilityController::extractPageMetadataAndTextSoonIfNeeded(this, 1);
-  v9 = (*(*this + 72))(this);
-  [(WBSReaderAvailabilityCheckResult *)v3 setCanonicalURL:v9];
+  v11 = (*(*this + 72))(this);
+  [(WBSReaderAvailabilityCheckResult *)v3 setCanonicalURL:v11];
 
-  v10 = *(this + 25);
-  if ((v10 & 1) != 0 || (*(*(this + 8) + 40) - 1) <= 2)
+  v12 = *(this + 25);
+  if ((v12 & 1) != 0 || (*(*(this + 8) + 40) - 1) <= 2)
   {
     *(this + 24) = 1;
     SafariShared::ReaderAvailabilityController::clearArticleFinderIfPossible(this);
-    v10 = *(this + 25);
+    v12 = *(this + 25);
   }
 
-  [(WBSReaderAvailabilityCheckResult *)v3 setReaderAvailable:v10 & 1];
+  [(WBSReaderAvailabilityCheckResult *)v3 setReaderAvailable:v12 & 1];
 }
 
 void SafariShared::ReaderAvailabilityController::extractPageMetadataAndTextSoonIfNeeded(uint64_t a1, uint64_t a2)
@@ -2309,9 +2295,9 @@ uint64_t SafariShared::ReaderAvailabilityController::determineAvailability(Safar
   result = SafariShared::ReaderAvailabilityController::prepareArticleFinder(this);
   if (result)
   {
-    v3 = this[2];
+    v8 = this[2];
 
-    return SafariShared::ArticleFinderJSController::readerIsAvailable(v3);
+    return SafariShared::ArticleFinderJSController::readerIsAvailable(v8, v3, v4, v5, v6, v7);
   }
 
   return result;
@@ -2344,7 +2330,7 @@ JSValueRef SafariShared::ReaderAvailabilityController::prepareToTransitionToRead
   result = SafariShared::ReaderAvailabilityController::prepareArticleFinder(this);
   if (result)
   {
-    result = SafariShared::ArticleFinderJSController::prepareToTransitionToReader(this[2]);
+    result = SafariShared::ArticleFinderJSController::prepareToTransitionToReader(this[2], v3, v4, v5, v6, v7);
     *(this + 56) = 1;
   }
 
@@ -2394,16 +2380,16 @@ void SafariShared::ReaderAvailabilityController::scheduleArticleReloadTimer(Safa
   CFRunLoopAddTimer(v8, *(this + 4), *MEMORY[0x1E695E8D0]);
 }
 
-SafariShared::JSUtilities **SafariShared::ReaderAvailabilityController::articleReloadTimerFired(SafariShared::ReaderAvailabilityController *this, __CFRunLoopTimer *a2, void *a3)
+SafariShared::JSUtilities **SafariShared::ReaderAvailabilityController::articleReloadTimerFired(SafariShared::ReaderAvailabilityController *this, __CFRunLoopTimer *a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6)
 {
   *(a2 + 27) = 0;
   result = *(a2 + 2);
   if (result)
   {
-    SafariShared::ArticleFinderJSController::reloadArticleContent(result);
-    v5 = *(*a2 + 120);
+    SafariShared::ArticleFinderJSController::reloadArticleContent(result, a2, a3, a4, a5, a6);
+    v8 = *(*a2 + 120);
 
-    return v5(a2);
+    return v8(a2);
   }
 
   return result;
@@ -2498,15 +2484,15 @@ id SafariShared::ReaderAvailabilityController::previewReaderImageURL(SafariShare
 {
   if (SafariShared::ReaderAvailabilityController::prepareArticleFinder(this))
   {
-    v2 = SafariShared::ArticleFinderJSController::previewReaderImageURL(this[2]);
+    v7 = SafariShared::ArticleFinderJSController::previewReaderImageURL(this[2], v2, v3, v4, v5, v6);
   }
 
   else
   {
-    v2 = 0;
+    v7 = 0;
   }
 
-  return v2;
+  return v7;
 }
 
 uint64_t SafariShared::ReaderAvailabilityController::canExtractPageMetadataAndText(SafariShared::ReaderAvailabilityController *this)
@@ -2640,7 +2626,7 @@ void sub_1BB83B264(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<double>::__vallocate[abi:sn200100](uint64_t a1, unint64_t a2)
+void std::vector<double>::__vallocate[abi:sn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -2660,18 +2646,18 @@ void std::allocator<double>::allocate_at_least[abi:sn200100](uint64_t a1, unint6
   std::__throw_bad_array_new_length[abi:sn200100]();
 }
 
-void *std::vector<double>::vector[abi:sn200100](void *result, void *a2)
+uint64_t *std::vector<double>::vector[abi:sn200100](uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<double>::__vallocate[abi:sn200100](result, (v2 - *a2) >> 3);
+    std::vector<double>::__vallocate[abi:sn200100](a1, (v2 - *a2) >> 3);
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t WBSThemeForNSString(NSString *a1)
@@ -2745,12 +2731,13 @@ void SafariShared::ReaderJSController::evaluateLocalizedStringsScript(SafariShar
 {
   script[3] = *MEMORY[0x1E69E9840];
   v3 = +[WBSReaderResources localizedStringsScriptURL];
-  v8 = 0;
-  v4 = [MEMORY[0x1E696AEC0] stringWithContentsOfURL:v3 usedEncoding:0 error:&v8];
-  v5 = v8;
+  v10 = 0;
+  v4 = [MEMORY[0x1E696AEC0] stringWithContentsOfURL:v3 usedEncoding:0 error:&v10];
+  v5 = v10;
+  v7 = v5;
   if (v4)
   {
-    SafariShared::JSUtilities::jsString(v4, script);
+    SafariShared::JSUtilities::jsString(script, v4);
     JSEvaluateScript(a2, script[0], 0, 0, 0, 0);
     if (script[0])
     {
@@ -2760,11 +2747,11 @@ void SafariShared::ReaderJSController::evaluateLocalizedStringsScript(SafariShar
 
   else
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXReader();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXReader(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v7 = [v5 safari_privacyPreservingDescription];
-      SafariShared::ReaderJSController::evaluateLocalizedStringsScript(v7, script, v6);
+      v9 = [v7 safari_privacyPreservingDescription];
+      SafariShared::ReaderJSController::evaluateLocalizedStringsScript(v9, script, v8);
     }
   }
 }
@@ -3312,7 +3299,7 @@ JSValueRef SafariShared::jsReportReaderEvent(SafariShared *this, const OpaqueJSC
 JSValueRef SafariShared::jsLog(SafariShared *this, const OpaqueJSContext *a2, OpaqueJSValue *a3, OpaqueJSValue *a4, const OpaqueJSContext **a5, const OpaqueJSValue *const *a6, const OpaqueJSValue **a7)
 {
   v14 = *MEMORY[0x1E69E9840];
-  v9 = WBS_LOG_CHANNEL_PREFIXReader();
+  v9 = WBS_LOG_CHANNEL_PREFIXReader(this, a2);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v11 = SafariShared::JSUtilities::translateJSValueToNS(this, *a5, v10);
@@ -3356,7 +3343,7 @@ JSClassRef SafariShared::ReaderJSController::staticJSClass(SafariShared::ReaderJ
 id SafariShared::ReaderJSController::fullArticleHTML(SafariShared::ReaderJSController *this)
 {
   v2 = *(this + 5);
-  SafariShared::JSUtilities::jsString("ReaderJS.sanitizedFullArticle().outerHTML", &script);
+  SafariShared::JSUtilities::jsString(&script, "ReaderJS.sanitizedFullArticle().outerHTML");
   v3 = JSEvaluateScript(v2, script, *(this + 3), 0, 0, 0);
   if (script)
   {
@@ -3783,49 +3770,50 @@ void sub_1BB841A08(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void WBSReloadReadingListWidget()
+void WBSReloadReadingListWidget(uint64_t a1, uint64_t a2)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXWidgets();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v2 = WBS_LOG_CHANNEL_PREFIXWidgets(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v7[0]) = 0;
-    _os_log_impl(&dword_1BB6F3000, v0, OS_LOG_TYPE_INFO, "Requesting reload of Reading List widget", v7, 2u);
+    LOWORD(v11[0]) = 0;
+    _os_log_impl(&dword_1BB6F3000, v2, OS_LOG_TYPE_INFO, "Requesting reload of Reading List widget", v11, 2u);
   }
 
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2050000000;
-  v1 = getCHSTimelineControllerClass_softClass;
-  v11 = getCHSTimelineControllerClass_softClass;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2050000000;
+  v3 = getCHSTimelineControllerClass_softClass;
+  v15 = getCHSTimelineControllerClass_softClass;
   if (!getCHSTimelineControllerClass_softClass)
   {
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __getCHSTimelineControllerClass_block_invoke;
-    v7[3] = &unk_1E7FB6EC8;
-    v7[4] = &v8;
-    __getCHSTimelineControllerClass_block_invoke(v7);
-    v1 = v9[3];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __getCHSTimelineControllerClass_block_invoke;
+    v11[3] = &unk_1E7FB6EC8;
+    v11[4] = &v12;
+    __getCHSTimelineControllerClass_block_invoke(v11);
+    v3 = v13[3];
   }
 
-  v2 = v1;
-  _Block_object_dispose(&v8, 8);
-  v3 = [v1 alloc];
-  v4 = [v3 initWithExtensionBundleIdentifier:*MEMORY[0x1E69C8D38] kind:@"ReadingListWidget"];
-  v5 = [v4 reloadTimelineWithReason:@"new data"];
-  if (v5)
+  v4 = v3;
+  _Block_object_dispose(&v12, 8);
+  v5 = [v3 alloc];
+  v6 = [v5 initWithExtensionBundleIdentifier:*MEMORY[0x1E69C8D38] kind:@"ReadingListWidget"];
+  v7 = [v6 reloadTimelineWithReason:@"new data"];
+  v9 = v7;
+  if (v7)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXWidgets();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXWidgets(v7, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      WBSReloadReadingListWidget_cold_1(v6, v5);
+      WBSReloadReadingListWidget_cold_1(v10, v9);
     }
   }
 }
 
-void sub_1BB841EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BB841EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3867,7 +3855,7 @@ Class __getCHSTimelineControllerClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __ChronoServicesLibraryCore_block_invoke()
+uint64_t __ChronoServicesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   ChronoServicesLibraryCore_frameworkLibrary = result;
@@ -4078,9 +4066,9 @@ void sub_1BB853510(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1BB855C98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BB855C98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4092,9 +4080,9 @@ void sub_1BB856398(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1BB8584C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BB8584C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   SafariShared::ScopeExitHandler::~ScopeExitHandler(va);
   _Unwind_Resume(a1);
@@ -4256,7 +4244,7 @@ LABEL_13:
   {
     if (a2)
     {
-      std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_multi<long long const&>();
+      std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_multi<long long const&>(a1, a2 + 2);
     }
 
 LABEL_15:
@@ -4264,16 +4252,23 @@ LABEL_15:
   }
 }
 
-id coreSpotlightBookmarksDonationIdentifier()
+id coreSpotlightBookmarksDonationIdentifier(uint64_t a1)
 {
   if (coreSpotlightBookmarksDonationIdentifier_once != -1)
   {
     coreSpotlightBookmarksDonationIdentifier_cold_1();
   }
 
-  v1 = coreSpotlightBookmarksDonationIdentifier_identifier;
+  v2 = coreSpotlightBookmarksDonationIdentifier_identifier;
 
-  return v1;
+  return v2;
+}
+
+void sub_1BB85F830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void __coreSpotlightBookmarksDonationIdentifier_block_invoke()
@@ -4312,10 +4307,11 @@ uint64_t indexOfSectionWithIdentifier(void *a1, void *a2)
   return v5;
 }
 
-void sub_1BB865180(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54, uint64_t a55, uint64_t a56, uint64_t a57, char a58)
+void sub_1BB865180(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, ...)
 {
+  va_start(va, a57);
   _Block_object_dispose(&a54, 8);
-  _Block_object_dispose(&a58, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -4357,34 +4353,34 @@ double WBSHistoryTopicScore(unint64_t a1, double a2, double a3)
   return sqrt(a1) * v6;
 }
 
-float WBSTopSitesScoreForCaching()
+float WBSTopSitesScoreForCaching(uint64_t a1)
 {
-  v0 = MEMORY[0x1EEE9AC00]();
-  v2 = v1;
-  v4 = v3;
-  v6 = v5;
-  v8 = v7;
-  v10 = v9;
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
-  v19 = v0;
+  v1 = MEMORY[0x1EEE9AC00](a1);
+  v3 = v2;
+  v5 = v4;
+  v7 = v6;
+  v9 = v8;
+  v11 = v10;
+  v13 = v12;
+  v15 = v14;
+  v17 = v16;
+  v19 = v18;
+  v20 = v1;
   if (urlPenaltyFactor(__CFString const*)::onceToken != -1)
   {
     WBSTopSitesScoreForCaching_cold_1();
   }
 
-  v20 = 1.0;
+  v21 = 1.0;
   if ((urlPenaltyFactor(__CFString const*)::shouldSkipURLQuirksPenalty & 1) == 0)
   {
-    Length = CFStringGetLength(v19);
+    Length = CFStringGetLength(v20);
     if (systemEightBitStringEncoding(void)::onceToken != -1)
     {
       WBSTopSitesScoreForCaching_cold_2();
     }
 
-    CStringPtr = CFStringGetCStringPtr(v19, systemEightBitStringEncoding(void)::encoding);
+    CStringPtr = CFStringGetCStringPtr(v20, systemEightBitStringEncoding(void)::encoding);
     if (CStringPtr)
     {
       if (!Length)
@@ -4392,64 +4388,64 @@ float WBSTopSitesScoreForCaching()
         goto LABEL_82;
       }
 
-      v23 = 0;
+      v24 = 0;
       do
       {
-        v25 = *CStringPtr++;
-        v24 = v25;
+        v26 = *CStringPtr++;
+        v25 = v26;
         if (Length == 1)
         {
-          v26 = 3;
+          v27 = 3;
         }
 
         else
         {
-          v26 = 4;
+          v27 = 4;
         }
 
-        if (v23 == 2)
+        if (v24 == 2)
         {
-          v27 = v26;
-        }
-
-        else
-        {
-          v27 = v23 + 1;
-        }
-
-        if (v24 != 47)
-        {
-          v27 = v23;
-        }
-
-        if (v24 == 63)
-        {
-          v27 = v23 + 1;
-        }
-
-        if (v24 == 38)
-        {
-          v28 = v23 + 1;
+          v28 = v27;
         }
 
         else
         {
-          v28 = v23;
+          v28 = v24 + 1;
         }
 
-        if (v24 == 35)
+        if (v25 != 47)
         {
-          v28 = v23 + 1;
+          v28 = v24;
         }
 
-        if (v24 <= 46)
+        if (v25 == 63)
         {
-          v23 = v28;
+          v28 = v24 + 1;
+        }
+
+        if (v25 == 38)
+        {
+          v29 = v24 + 1;
         }
 
         else
         {
-          v23 = v27;
+          v29 = v24;
+        }
+
+        if (v25 == 35)
+        {
+          v29 = v24 + 1;
+        }
+
+        if (v25 <= 46)
+        {
+          v24 = v29;
+        }
+
+        else
+        {
+          v24 = v28;
         }
 
         --Length;
@@ -4460,7 +4456,7 @@ float WBSTopSitesScoreForCaching()
 
     else
     {
-      CharactersPtr = CFStringGetCharactersPtr(v19);
+      CharactersPtr = CFStringGetCharactersPtr(v20);
       if (CharactersPtr)
       {
         if (!Length)
@@ -4468,64 +4464,64 @@ float WBSTopSitesScoreForCaching()
           goto LABEL_82;
         }
 
-        v23 = 0;
+        v24 = 0;
         do
         {
-          v31 = *CharactersPtr++;
-          v30 = v31;
+          v32 = *CharactersPtr++;
+          v31 = v32;
           if (Length == 1)
           {
-            v32 = 3;
+            v33 = 3;
           }
 
           else
           {
-            v32 = 4;
+            v33 = 4;
           }
 
-          if (v23 == 2)
+          if (v24 == 2)
           {
-            v33 = v32;
-          }
-
-          else
-          {
-            v33 = v23 + 1;
-          }
-
-          if (v30 != 47)
-          {
-            v33 = v23;
-          }
-
-          if (v30 == 63)
-          {
-            v33 = v23 + 1;
-          }
-
-          if (v30 == 38)
-          {
-            v34 = v23 + 1;
+            v34 = v33;
           }
 
           else
           {
-            v34 = v23;
+            v34 = v24 + 1;
           }
 
-          if (v30 == 35)
+          if (v31 != 47)
           {
-            v34 = v23 + 1;
+            v34 = v24;
           }
 
-          if (v30 <= 46)
+          if (v31 == 63)
           {
-            v23 = v34;
+            v34 = v24 + 1;
+          }
+
+          if (v31 == 38)
+          {
+            v35 = v24 + 1;
           }
 
           else
           {
-            v23 = v33;
+            v35 = v24;
+          }
+
+          if (v31 == 35)
+          {
+            v35 = v24 + 1;
+          }
+
+          if (v31 <= 46)
+          {
+            v24 = v35;
+          }
+
+          else
+          {
+            v24 = v34;
           }
 
           --Length;
@@ -4536,10 +4532,10 @@ float WBSTopSitesScoreForCaching()
 
       else
       {
-        v104 = v107;
-        v105 = 2048;
-        v106 = Length;
-        v35 = v107;
+        v105 = v108;
+        v106 = 2048;
+        v107 = Length;
+        v36 = v108;
         if (Length >= 0x801)
         {
           if (Length >> 31)
@@ -4549,77 +4545,77 @@ LABEL_171:
             JUMPOUT(0x1BB86B770);
           }
 
-          v35 = WTF::fastMalloc((2 * Length));
-          v105 = Length;
-          v104 = v35;
+          v36 = WTF::fastMalloc((2 * Length));
+          v106 = Length;
+          v105 = v36;
         }
 
-        v108.location = 0;
-        v108.length = Length;
-        CFStringGetCharacters(v19, v108, v35);
-        v37 = v104;
-        v23 = 0;
+        v109.location = 0;
+        v109.length = Length;
+        CFStringGetCharacters(v20, v109, v36);
+        v38 = v105;
+        v24 = 0;
         if (Length)
         {
-          v38 = v104;
+          v39 = v105;
           do
           {
-            v40 = *v38;
-            v38 = (v38 + 2);
-            v39 = v40;
+            v41 = *v39;
+            v39 = (v39 + 2);
+            v40 = v41;
             if (Length == 1)
             {
-              v41 = 3;
+              v42 = 3;
             }
 
             else
             {
-              v41 = 4;
+              v42 = 4;
             }
 
-            if (v23 == 2)
+            if (v24 == 2)
             {
-              v42 = v41;
-            }
-
-            else
-            {
-              v42 = v23 + 1;
-            }
-
-            if (v39 != 47)
-            {
-              v42 = v23;
-            }
-
-            if (v39 == 63)
-            {
-              v42 = v23 + 1;
-            }
-
-            if (v39 == 38)
-            {
-              v43 = v23 + 1;
+              v43 = v42;
             }
 
             else
             {
-              v43 = v23;
+              v43 = v24 + 1;
             }
 
-            if (v39 == 35)
+            if (v40 != 47)
             {
-              v43 = v23 + 1;
+              v43 = v24;
             }
 
-            if (v39 <= 46)
+            if (v40 == 63)
             {
-              v23 = v43;
+              v43 = v24 + 1;
+            }
+
+            if (v40 == 38)
+            {
+              v44 = v24 + 1;
             }
 
             else
             {
-              v23 = v42;
+              v44 = v24;
+            }
+
+            if (v40 == 35)
+            {
+              v44 = v24 + 1;
+            }
+
+            if (v40 <= 46)
+            {
+              v24 = v44;
+            }
+
+            else
+            {
+              v24 = v43;
             }
 
             --Length;
@@ -4628,166 +4624,166 @@ LABEL_171:
           while (Length);
         }
 
-        if (v107 != v104 && v104)
+        if (v108 != v105 && v105)
         {
-          v104 = 0;
           v105 = 0;
-          WTF::fastFree(v37, v36);
+          v106 = 0;
+          WTF::fastFree(v38, v37);
         }
       }
     }
 
-    v44 = v23 - 4;
-    if (v23 >= 4)
+    v45 = v24 - 4;
+    if (v24 >= 4)
     {
-      v20 = 0.25;
-      if (v44 <= 5)
+      v21 = 0.25;
+      if (v45 <= 5)
       {
-        v20 = flt_1BB953850[v44];
+        v21 = flt_1BB953850[v45];
       }
     }
   }
 
 LABEL_82:
-  if (v4)
+  if (v5)
   {
-    *v4 = v20;
+    *v5 = v21;
   }
 
-  [WBSHistoryVisit weightedVisitCountFromScore:v14];
-  v46 = v45;
-  if (v6 | v10)
+  [WBSHistoryVisit weightedVisitCountFromScore:v15];
+  v47 = v46;
+  if (v7 | v11)
   {
-    WTF::Vector<float,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(&v104, v10);
-    if (v10)
+    WTF::Vector<float,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(&v105, v11);
+    if (v11)
     {
-      for (i = 0; i != v10; *(v104 + i++) = v48)
+      for (i = 0; i != v11; *(v105 + i++) = v49)
       {
-        [WBSHistoryVisit weightedVisitCountFromScore:*(v12 + 4 * i)];
-        if (i >= v106)
+        [WBSHistoryVisit weightedVisitCountFromScore:*(v13 + 4 * i)];
+        if (i >= v107)
         {
           goto LABEL_168;
         }
       }
     }
 
-    WTF::Vector<float,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(&v101, v6);
-    if (v6)
+    WTF::Vector<float,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(&v102, v7);
+    if (v7)
     {
-      for (j = 0; j != v6; ++j)
+      for (j = 0; j != v7; ++j)
       {
-        [WBSHistoryVisit weightedVisitCountFromScore:*(v8 + 4 * j)];
-        v51 = v103;
-        if (j >= v103)
+        [WBSHistoryVisit weightedVisitCountFromScore:*(v9 + 4 * j)];
+        v52 = v104;
+        if (j >= v104)
         {
           __break(0xC471u);
           JUMPOUT(0x1BB86B778);
         }
 
-        v52 = v101;
-        *(v101 + j) = v50;
+        v53 = v102;
+        *(v102 + j) = v51;
       }
     }
 
     else
     {
-      v52 = v101;
-      v51 = v103;
+      v53 = v102;
+      v52 = v104;
     }
 
-    v100 = v20;
-    v56 = v104;
-    v57 = v106;
-    v58 = v18;
-    if (v106)
+    v101 = v21;
+    v57 = v105;
+    v58 = v107;
+    v59 = v19;
+    if (v107)
     {
-      v59 = *v104;
+      v60 = *v105;
       if (agePenaltyFactor(double,double)::onceToken != -1)
       {
         WBSTopSitesScoreForCaching_cold_3();
       }
 
-      v60 = 1.0;
+      v61 = 1.0;
       if ((agePenaltyFactor(double,double)::shouldSkipAgePenalty & 1) == 0)
       {
-        v61 = v16 - v58;
-        v60 = powf(1.0, v61);
+        v62 = v17 - v59;
+        v61 = powf(1.0, v62);
       }
 
-      v62 = (v59 * v60) + 0.0;
+      v63 = (v60 * v61) + 0.0;
     }
 
     else
     {
-      v62 = 0.0;
+      v63 = 0.0;
     }
 
-    v63 = floorf(v58 / 86400.0) * 86400.0 + 43200.0;
-    if (v57 >= 2)
+    v64 = floorf(v59 / 86400.0) * 86400.0 + 43200.0;
+    if (v58 >= 2)
     {
-      v64 = agePenaltyFactor(double,double)::onceToken == -1;
-      v65 = v57 - 1;
-      v66 = (v56 + 4);
+      v65 = agePenaltyFactor(double,double)::onceToken == -1;
+      v66 = v58 - 1;
+      v67 = (v57 + 4);
       do
       {
-        v67 = *v66;
-        if (!v64)
+        v68 = *v67;
+        if (!v65)
         {
           WBSTopSitesScoreForCaching_cold_3();
         }
 
-        v63 = v63 + -86400.0;
-        v68 = 1.0;
+        v64 = v64 + -86400.0;
+        v69 = 1.0;
         if ((agePenaltyFactor(double,double)::shouldSkipAgePenalty & 1) == 0)
         {
-          v69 = v16 - v63;
-          v68 = powf(1.0, v69);
+          v70 = v17 - v64;
+          v69 = powf(1.0, v70);
         }
 
-        v62 = v62 + (v67 * v68);
-        ++v66;
-        v64 = 1;
-        --v65;
+        v63 = v63 + (v68 * v69);
+        ++v67;
+        v65 = 1;
+        --v66;
       }
 
-      while (v65);
+      while (v66);
     }
 
-    if (v51)
+    if (v52)
     {
-      v70 = v63 + 259200.0;
-      v71 = agePenaltyFactor(double,double)::onceToken == -1;
-      v72 = 0.0;
-      v73 = v52;
-      v74 = v51;
+      v71 = v64 + 259200.0;
+      v72 = agePenaltyFactor(double,double)::onceToken == -1;
+      v73 = 0.0;
+      v74 = v53;
+      v75 = v52;
       do
       {
-        v75 = *v73;
-        if (!v71)
+        v76 = *v74;
+        if (!v72)
         {
           WBSTopSitesScoreForCaching_cold_3();
         }
 
-        v70 = v70 + -604800.0;
-        v76 = 1.0;
+        v71 = v71 + -604800.0;
+        v77 = 1.0;
         if ((agePenaltyFactor(double,double)::shouldSkipAgePenalty & 1) == 0)
         {
-          v77 = v16 - v70;
-          v76 = powf(1.0, v77);
+          v78 = v17 - v71;
+          v77 = powf(1.0, v78);
         }
 
-        v72 = v72 + (v75 * v76);
-        ++v73;
-        v71 = 1;
-        --v74;
+        v73 = v73 + (v76 * v77);
+        ++v74;
+        v72 = 1;
+        --v75;
       }
 
-      while (v74);
+      while (v75);
     }
 
     else
     {
-      v72 = 0.0;
+      v73 = 0.0;
     }
 
     if (inconsistencyPenaltyFactor(std::span<float const,18446744073709551615ul>)::onceToken != -1)
@@ -4797,118 +4793,118 @@ LABEL_82:
 
     if (inconsistencyPenaltyFactor(std::span<float const,18446744073709551615ul>)::shouldSkipInconsistentVisitsPenalty)
     {
-      v78 = 1.0;
+      v79 = 1.0;
     }
 
     else
     {
-      v78 = 0.5;
+      v79 = 0.5;
     }
 
-    if (v57 && (inconsistencyPenaltyFactor(std::span<float const,18446744073709551615ul>)::shouldSkipInconsistentVisitsPenalty & 1) == 0)
+    if (v58 && (inconsistencyPenaltyFactor(std::span<float const,18446744073709551615ul>)::shouldSkipInconsistentVisitsPenalty & 1) == 0)
     {
-      v79 = 0;
       v80 = 0;
-      v81 = 0.0;
+      v81 = 0;
+      v82 = 0.0;
       do
       {
-        v82 = *(v56 + v79);
-        if (v82 != 0.0)
+        v83 = *(v57 + v80);
+        if (v83 != 0.0)
         {
-          v81 = v81 + v82;
-          v80 = v79;
+          v82 = v82 + v83;
+          v81 = v80;
         }
 
-        ++v79;
+        ++v80;
       }
 
-      while (v57 != v79);
-      if (v80)
+      while (v58 != v80);
+      if (v81)
       {
-        if (v81 == 0.0)
+        if (v82 == 0.0)
         {
-          v78 = 0.0;
+          v79 = 0.0;
         }
 
         else
         {
-          if (v80 >= v57)
+          if (v81 >= v58)
           {
             goto LABEL_167;
           }
 
-          v84 = v80 + 1;
-          v85 = 0.0;
+          v85 = v81 + 1;
+          v86 = 0.0;
           do
           {
-            v86 = *v56;
-            v56 = (v56 + 4);
-            v83 = 1.0 / v57;
-            v85 = v85 + (((v86 / v81) - v83) * ((v86 / v81) - v83));
-            --v84;
+            v87 = *v57;
+            v57 = (v57 + 4);
+            v84 = 1.0 / v58;
+            v86 = v86 + (((v87 / v82) - v84) * ((v87 / v82) - v84));
+            --v85;
           }
 
-          while (v84);
-          v78 = 0.09531 / logf((v85 / v57) + 1.1);
+          while (v85);
+          v79 = 0.09531 / logf((v86 / v58) + 1.1);
         }
       }
 
       else
       {
-        v78 = 0.5;
+        v79 = 0.5;
       }
     }
 
     if (inconsistencyPenaltyFactor(std::span<float const,18446744073709551615ul>)::shouldSkipInconsistentVisitsPenalty)
     {
-      v87 = 1.0;
+      v88 = 1.0;
     }
 
     else
     {
-      v87 = 0.5;
+      v88 = 0.5;
     }
 
-    if (!v51 || (inconsistencyPenaltyFactor(std::span<float const,18446744073709551615ul>)::shouldSkipInconsistentVisitsPenalty & 1) != 0)
+    if (!v52 || (inconsistencyPenaltyFactor(std::span<float const,18446744073709551615ul>)::shouldSkipInconsistentVisitsPenalty & 1) != 0)
     {
       goto LABEL_160;
     }
 
-    v88 = 0;
     v89 = 0;
-    v90 = 0.0;
+    v90 = 0;
+    v91 = 0.0;
     do
     {
-      v91 = *(v52 + v88);
-      if (v91 != 0.0)
+      v92 = *(v53 + v89);
+      if (v92 != 0.0)
       {
-        v90 = v90 + v91;
-        v89 = v88;
+        v91 = v91 + v92;
+        v90 = v89;
       }
 
-      ++v88;
+      ++v89;
     }
 
-    while (v51 != v88);
-    if (v89)
+    while (v52 != v89);
+    if (v90)
     {
-      if (v90 != 0.0)
+      if (v91 != 0.0)
       {
-        if (v89 < v51)
+        if (v90 < v52)
         {
-          v93 = v89 + 1;
-          v94 = 0.0;
+          v94 = v90 + 1;
+          v95 = 0.0;
           do
           {
-            v95 = *v52;
-            v52 = (v52 + 4);
-            v92 = 1.0 / v51;
-            v94 = v94 + (((v95 / v90) - v92) * ((v95 / v90) - v92));
-            --v93;
+            v96 = *v53;
+            v53 = (v53 + 4);
+            v93 = 1.0 / v52;
+            v95 = v95 + (((v96 / v91) - v93) * ((v96 / v91) - v93));
+            --v94;
           }
 
-          while (v93);
-          v87 = 0.09531 / logf((v94 / v51) + 1.1);
+          while (v94);
+          v88 = 0.09531 / logf((v95 / v52) + 1.1);
           goto LABEL_160;
         }
 
@@ -4919,39 +4915,39 @@ LABEL_168:
         goto LABEL_171;
       }
 
-      v87 = 0.0;
+      v88 = 0.0;
     }
 
     else
     {
-      v87 = 0.5;
+      v88 = 0.5;
     }
 
 LABEL_160:
-    v55 = logf(v46) * ((v62 * v78) + (v72 * v87));
-    if (v2)
+    v56 = logf(v47) * ((v63 * v79) + (v73 * v88));
+    if (v3)
     {
-      *v2 = v55;
+      *v3 = v56;
     }
 
-    v97 = v101;
-    v20 = v100;
-    if (v101)
+    v98 = v102;
+    v21 = v101;
+    if (v102)
     {
-      v101 = 0;
       v102 = 0;
-      WTF::fastFree(v97, v96);
+      v103 = 0;
+      WTF::fastFree(v98, v97);
     }
 
-    v98 = v104;
-    if (v104)
+    v99 = v105;
+    if (v105)
     {
-      v104 = 0;
       v105 = 0;
-      WTF::fastFree(v98, v96);
+      v106 = 0;
+      WTF::fastFree(v99, v97);
     }
 
-    return v20 * v55;
+    return v21 * v56;
   }
 
   if (agePenaltyFactor(double,double)::onceToken != -1)
@@ -4959,20 +4955,20 @@ LABEL_160:
     WBSTopSitesScoreForCaching_cold_3();
   }
 
-  v53 = 1.0;
+  v54 = 1.0;
   if ((agePenaltyFactor(double,double)::shouldSkipAgePenalty & 1) == 0)
   {
-    v54 = v16 - v18;
-    v53 = powf(1.0, v54);
+    v55 = v17 - v19;
+    v54 = powf(1.0, v55);
   }
 
-  v55 = v46 * v53;
-  if (v2)
+  v56 = v47 * v54;
+  if (v3)
   {
-    *v2 = v55;
+    *v3 = v56;
   }
 
-  return v20 * v55;
+  return v21 * v56;
 }
 
 void sub_1BB86B784(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF *a10, int a11, WTF *a12, int a13)
@@ -5536,16 +5532,16 @@ void sub_1BB86DB08(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1BB86DF54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6, ...)
+void sub_1BB86DF54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, ...)
 {
-  va_start(va2, a6);
-  va_start(va1, a6);
-  va_start(va, a6);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
+  va_start(va2, a11);
+  va_start(va1, a11);
+  va_start(va, a11);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
   va_copy(va2, va1);
-  v12 = va_arg(va2, void);
-  v14 = va_arg(va2, void);
+  v17 = va_arg(va2, void);
+  v19 = va_arg(va2, void);
   WTF::Vector<WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va);
 
   WTF::Vector<WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va1);
@@ -5566,9 +5562,9 @@ uint64_t *WTF::Vector<WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatc
   return result;
 }
 
-uint64_t WTF::Vector<WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrink(uint64_t result, unint64_t a2)
+id *WTF::Vector<WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrink(id *result, unint64_t a2)
 {
-  v2 = *(result + 12);
+  v2 = *(result + 3);
   if (v2 < a2)
   {
     __break(1u);
@@ -5598,7 +5594,7 @@ uint64_t WTF::Vector<WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch
       while (v6);
     }
 
-    *(v4 + 12) = v3;
+    *(v4 + 3) = v3;
   }
 
   return result;
@@ -5629,7 +5625,7 @@ void sub_1BB86E3E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1BB86F20C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, void *a16, void *a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
+void sub_1BB86F20C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, void *a16, void *a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, id *a25)
 {
   if (a25)
   {
@@ -5641,129 +5637,134 @@ void sub_1BB86F20C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void logCompletionMatchToDebugChannel(NSString *a1, SafariShared::BookmarkAndHistoryCompletionMatch *a2)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v3 = a1;
   if (a2)
   {
     v4 = SafariShared::BookmarkAndHistoryCompletionMatch::data(a2);
     v5 = [v4 containsBookmark];
 
-    if ([MEMORY[0x1E69C8880] isSearchEvaluationLoggingEnabled])
+    v6 = [MEMORY[0x1E69C8880] isSearchEvaluationLoggingEnabled];
+    if (v6)
     {
-      v6 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v8 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         if (v5)
         {
-          v7 = "bookmark";
+          v9 = "bookmark";
         }
 
         else
         {
-          v7 = "history";
+          v9 = "history";
         }
 
-        v8 = *(a2 + 12);
-        v9 = SafariShared::BookmarkAndHistoryCompletionMatch::userVisibleURLString(a2);
-        v10 = [v9 safari_urlHashesOfComponents];
-        v11 = SafariShared::BookmarkAndHistoryCompletionMatch::title(a2);
-        v12 = [v11 safari_md5Hash];
-        v13 = SafariShared::BookmarkAndHistoryCompletionMatch::uuidString(a2);
+        v10 = *(a2 + 12);
+        v11 = SafariShared::BookmarkAndHistoryCompletionMatch::userVisibleURLString(a2);
+        v12 = [v11 safari_urlHashesOfComponents];
+        v13 = SafariShared::BookmarkAndHistoryCompletionMatch::title(a2);
+        v14 = [v13 safari_md5Hash];
+        v15 = SafariShared::BookmarkAndHistoryCompletionMatch::uuidString(a2);
         matched = SafariShared::debugStringForMatchLocation(*(a2 + 1));
-        v15 = SafariShared::BookmarkAndHistoryCompletionMatch::lastVisitedDate(a2);
-        v28 = 138414082;
-        v29 = v3;
-        v30 = 2082;
-        v31 = v7;
-        v32 = 2048;
-        v33 = v8;
-        v34 = 2114;
-        v35 = v10;
-        v36 = 2114;
-        v37 = v12;
+        v17 = SafariShared::BookmarkAndHistoryCompletionMatch::lastVisitedDate(a2);
+        v32 = 138414082;
+        v33 = v3;
+        v34 = 2082;
+        v35 = v9;
+        v36 = 2048;
+        v37 = v10;
         v38 = 2114;
-        v39 = v13;
-        v40 = 2082;
-        v41 = matched;
-        v42 = 2112;
+        v39 = v12;
+        v40 = 2114;
+        v41 = v14;
+        v42 = 2114;
         v43 = v15;
-        _os_log_debug_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_DEBUG, "%@: (%{public}8s) %.6f <%{public}@> %{public}@ [%{public}@] (%{public}s) %@", &v28, 0x52u);
-      }
-    }
-
-    else if ([MEMORY[0x1E69C8880] isShowURLsInURLAutocompleteDebugChannelEnabled])
-    {
-      v6 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-      {
-        if (v5)
-        {
-          v16 = "bookmark";
-        }
-
-        else
-        {
-          v16 = "history";
-        }
-
-        v17 = *(a2 + 12);
-        v18 = SafariShared::BookmarkAndHistoryCompletionMatch::userVisibleURLString(a2);
-        v19 = SafariShared::BookmarkAndHistoryCompletionMatch::title(a2);
-        v20 = SafariShared::debugStringForMatchLocation(*(a2 + 1));
-        v21 = SafariShared::BookmarkAndHistoryCompletionMatch::lastVisitedDate(a2);
-        v28 = 138413827;
-        v29 = v3;
-        v30 = 2082;
-        v31 = v16;
-        v32 = 2048;
-        v33 = v17;
-        v34 = 2114;
-        v35 = v18;
-        v36 = 2117;
-        v37 = v19;
-        v38 = 2082;
-        v39 = v20;
-        v40 = 2112;
-        v41 = v21;
-        _os_log_debug_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_DEBUG, "%@: (%{public}8s) %.6f <%{public}@> %{sensitive}@ (%{public}s) %@", &v28, 0x48u);
+        v44 = 2082;
+        v45 = matched;
+        v46 = 2112;
+        v47 = v17;
+        _os_log_debug_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_DEBUG, "%@: (%{public}8s) %.6f <%{public}@> %{public}@ [%{public}@] (%{public}s) %@", &v32, 0x52u);
       }
     }
 
     else
     {
-      v6 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v18 = [MEMORY[0x1E69C8880] isShowURLsInURLAutocompleteDebugChannelEnabled];
+      if (v18)
       {
-        if (v5)
+        v8 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(v18, v19);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
-          v22 = "bookmark";
-        }
+          if (v5)
+          {
+            v20 = "bookmark";
+          }
 
-        else
+          else
+          {
+            v20 = "history";
+          }
+
+          v21 = *(a2 + 12);
+          v22 = SafariShared::BookmarkAndHistoryCompletionMatch::userVisibleURLString(a2);
+          v23 = SafariShared::BookmarkAndHistoryCompletionMatch::title(a2);
+          v24 = SafariShared::debugStringForMatchLocation(*(a2 + 1));
+          v25 = SafariShared::BookmarkAndHistoryCompletionMatch::lastVisitedDate(a2);
+          v32 = 138413827;
+          v33 = v3;
+          v34 = 2082;
+          v35 = v20;
+          v36 = 2048;
+          v37 = v21;
+          v38 = 2114;
+          v39 = v22;
+          v40 = 2117;
+          v41 = v23;
+          v42 = 2082;
+          v43 = v24;
+          v44 = 2112;
+          v45 = v25;
+          _os_log_debug_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_DEBUG, "%@: (%{public}8s) %.6f <%{public}@> %{sensitive}@ (%{public}s) %@", &v32, 0x48u);
+        }
+      }
+
+      else
+      {
+        v8 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(v18, v19);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
-          v22 = "history";
-        }
+          if (v5)
+          {
+            v26 = "bookmark";
+          }
 
-        v23 = *(a2 + 12);
-        v24 = SafariShared::BookmarkAndHistoryCompletionMatch::userVisibleURLString(a2);
-        v25 = SafariShared::BookmarkAndHistoryCompletionMatch::title(a2);
-        v26 = SafariShared::debugStringForMatchLocation(*(a2 + 1));
-        v27 = SafariShared::BookmarkAndHistoryCompletionMatch::lastVisitedDate(a2);
-        v28 = 138413827;
-        v29 = v3;
-        v30 = 2082;
-        v31 = v22;
-        v32 = 2048;
-        v33 = v23;
-        v34 = 2117;
-        v35 = v24;
-        v36 = 2117;
-        v37 = v25;
-        v38 = 2082;
-        v39 = v26;
-        v40 = 2112;
-        v41 = v27;
-        _os_log_debug_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_DEBUG, "%@: (%{public}8s) %.6f <%{sensitive}@> %{sensitive}@ (%{public}s) %@", &v28, 0x48u);
+          else
+          {
+            v26 = "history";
+          }
+
+          v27 = *(a2 + 12);
+          v28 = SafariShared::BookmarkAndHistoryCompletionMatch::userVisibleURLString(a2);
+          v29 = SafariShared::BookmarkAndHistoryCompletionMatch::title(a2);
+          v30 = SafariShared::debugStringForMatchLocation(*(a2 + 1));
+          v31 = SafariShared::BookmarkAndHistoryCompletionMatch::lastVisitedDate(a2);
+          v32 = 138413827;
+          v33 = v3;
+          v34 = 2082;
+          v35 = v26;
+          v36 = 2048;
+          v37 = v27;
+          v38 = 2117;
+          v39 = v28;
+          v40 = 2117;
+          v41 = v29;
+          v42 = 2082;
+          v43 = v30;
+          v44 = 2112;
+          v45 = v31;
+          _os_log_debug_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_DEBUG, "%@: (%{public}8s) %.6f <%{sensitive}@> %{sensitive}@ (%{public}s) %@", &v32, 0x48u);
+        }
       }
     }
   }
@@ -5780,7 +5781,7 @@ void sub_1BB86FC7C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t SafariShared::BookmarkAndHistoryCompletionMatch::create@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t *a6@<X8>, double a7@<D0>)
+SafariShared::BookmarkAndHistoryCompletionMatch *SafariShared::BookmarkAndHistoryCompletionMatch::create@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, SafariShared::BookmarkAndHistoryCompletionMatch **a6@<X8>, double a7@<D0>)
 {
   v14 = WTF::fastMalloc(0x50);
   result = SafariShared::BookmarkAndHistoryCompletionMatch::BookmarkAndHistoryCompletionMatch(v14, a1, a2, a3, a4, a5, a7);
@@ -5788,14 +5789,14 @@ uint64_t SafariShared::BookmarkAndHistoryCompletionMatch::create@<X0>(uint64_t a
   return result;
 }
 
-void sub_1BB8709A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, void *a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1BB8709A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, void *a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v16 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  WTF::RefCounted<SafariShared::BookmarkAndHistoryCompletionMatch>::deref(v12);
-  WTF::RefCounted<SafariShared::BookmarkAndHistoryCompletionMatch>::deref(v11);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v23 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  WTF::RefCounted<SafariShared::BookmarkAndHistoryCompletionMatch>::deref(v19);
+  WTF::RefCounted<SafariShared::BookmarkAndHistoryCompletionMatch>::deref(v18);
 
   WTF::Vector<WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va);
   WTF::Vector<WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va1);
@@ -5811,7 +5812,7 @@ void sub_1BB870E94(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ui
   _Unwind_Resume(a1);
 }
 
-void *recordItemIfFullTextMatch(void *result, void *a2, uint64_t a3, uint64_t a4, double a5)
+id *recordItemIfFullTextMatch(id *result, void *a2, uint64_t *a3, uint64_t *a4, double a5)
 {
   v23 = result;
   if (result)
@@ -5823,8 +5824,8 @@ void *recordItemIfFullTextMatch(void *result, void *a2, uint64_t a3, uint64_t a4
     if (result)
     {
       v9 = result;
-      v10 = *(a4 + 12);
-      if (v10 == *(a4 + 8))
+      v10 = *(a4 + 3);
+      if (v10 == *(a4 + 2))
       {
         WTF::Vector<objc_object  {objcproto25WBSURLCompletionMatchData}* {__strong},0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,objc_object  {objcproto25WBSURLCompletionMatchData}&>(a4, &v23);
         v11 = v23;
@@ -5835,12 +5836,12 @@ void *recordItemIfFullTextMatch(void *result, void *a2, uint64_t a3, uint64_t a4
         v12 = *a4;
         v11 = v8;
         *(v12 + 8 * v10) = v11;
-        ++*(a4 + 12);
+        ++*(a4 + 3);
       }
 
-      SafariShared::BookmarkAndHistoryCompletionMatch::create(v11, *(a3 + 12), v9, v21, v22, &v20, a5);
-      v13 = *(a3 + 12);
-      if (v13 == *(a3 + 8))
+      SafariShared::BookmarkAndHistoryCompletionMatch::create(v11, *(a3 + 3), v9, v21, v22, &v20, a5);
+      v13 = *(a3 + 3);
+      if (v13 == *(a3 + 2))
       {
         if (v13 + (v13 >> 1) <= v13 + 1)
         {
@@ -5863,7 +5864,7 @@ void *recordItemIfFullTextMatch(void *result, void *a2, uint64_t a3, uint64_t a4
         }
 
         WTF::Vector<OpaqueJSValue *,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::reserveCapacity<(WTF::FailureAction)0>(a3, v15);
-        v13 = *(a3 + 12);
+        v13 = *(a3 + 3);
         v16 = *a3;
         v17 = v20;
         v20 = 0;
@@ -5878,7 +5879,7 @@ void *recordItemIfFullTextMatch(void *result, void *a2, uint64_t a3, uint64_t a4
         *(v18 + 8 * v13) = v19;
       }
 
-      *(a3 + 12) = v13 + 1;
+      *(a3 + 3) = v13 + 1;
       result = v20;
       v20 = 0;
       if (result)
@@ -5891,7 +5892,7 @@ void *recordItemIfFullTextMatch(void *result, void *a2, uint64_t a3, uint64_t a4
   return result;
 }
 
-void sub_1BB871050(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
+void sub_1BB871050(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, id *a9)
 {
   if (a9)
   {
@@ -5938,7 +5939,7 @@ void sub_1BB871604(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ui
   _Unwind_Resume(a1);
 }
 
-uint64_t recordItemIfPrefixMatch(uint64_t result, void *a2, uint64_t a3, uint64_t a4, double a5)
+uint64_t recordItemIfPrefixMatch(uint64_t result, void *a2, uint64_t *a3, uint64_t *a4, double a5)
 {
   v23 = result;
   if (result)
@@ -5950,8 +5951,8 @@ uint64_t recordItemIfPrefixMatch(uint64_t result, void *a2, uint64_t a3, uint64_
     if (result >= 4)
     {
       v9 = result;
-      v10 = *(a4 + 12);
-      if (v10 == *(a4 + 8))
+      v10 = *(a4 + 3);
+      if (v10 == *(a4 + 2))
       {
         WTF::Vector<objc_object  {objcproto25WBSURLCompletionMatchData}* {__strong},0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,objc_object  {objcproto25WBSURLCompletionMatchData}&>(a4, &v23);
         v11 = v23;
@@ -5962,12 +5963,12 @@ uint64_t recordItemIfPrefixMatch(uint64_t result, void *a2, uint64_t a3, uint64_
         v12 = *a4;
         v11 = v8;
         *(v12 + 8 * v10) = v11;
-        ++*(a4 + 12);
+        ++*(a4 + 3);
       }
 
-      SafariShared::BookmarkAndHistoryCompletionMatch::create(v11, *(a3 + 12), v9, v21, v22, &v20, a5);
-      v13 = *(a3 + 12);
-      if (v13 == *(a3 + 8))
+      SafariShared::BookmarkAndHistoryCompletionMatch::create(v11, *(a3 + 3), v9, v21, v22, &v20, a5);
+      v13 = *(a3 + 3);
+      if (v13 == *(a3 + 2))
       {
         if (v13 + (v13 >> 1) <= v13 + 1)
         {
@@ -5990,7 +5991,7 @@ uint64_t recordItemIfPrefixMatch(uint64_t result, void *a2, uint64_t a3, uint64_
         }
 
         WTF::Vector<OpaqueJSValue *,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::reserveCapacity<(WTF::FailureAction)0>(a3, v15);
-        v13 = *(a3 + 12);
+        v13 = *(a3 + 3);
         v16 = *a3;
         v17 = v20;
         v20 = 0;
@@ -6005,7 +6006,7 @@ uint64_t recordItemIfPrefixMatch(uint64_t result, void *a2, uint64_t a3, uint64_
         *(v18 + 8 * v13) = v19;
       }
 
-      *(a3 + 12) = v13 + 1;
+      *(a3 + 3) = v13 + 1;
       result = v20;
       v20 = 0;
       if (result)
@@ -6018,7 +6019,7 @@ uint64_t recordItemIfPrefixMatch(uint64_t result, void *a2, uint64_t a3, uint64_
   return result;
 }
 
-void sub_1BB8717C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
+void sub_1BB8717C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, id *a9)
 {
   if (a9)
   {
@@ -6028,12 +6029,12 @@ void sub_1BB8717C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-int8x16_t std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*,false>(uint64_t *a1, uint64_t *a2, uint64_t (**a3)(uint64_t *, uint64_t *), uint64_t a4, char a5)
+int8x16_t std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*,false>(id **a1, id *a2, uint64_t (**a3)(uint64_t *, uint64_t *), uint64_t a4, char a5)
 {
 LABEL_1:
-  v8 = a2 - 1;
-  v9 = a2 - 2;
-  v10 = a2 - 3;
+  v8 = (a2 - 1);
+  v9 = (a2 - 2);
+  v10 = (a2 - 3);
   v11 = a1;
 LABEL_2:
   v12 = 1 - a4;
@@ -6041,7 +6042,7 @@ LABEL_2:
   {
     a1 = v11;
     v13 = v12;
-    v14 = a2 - v11;
+    v14 = (a2 - v11) >> 3;
     if (v14 <= 2)
     {
       break;
@@ -6406,7 +6407,7 @@ LABEL_59:
     if (!v48)
     {
 LABEL_64:
-      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*,false>(a1, v46, a3, -v13, a5 & 1);
+      result = std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*,false>(a1, v46, a3, -v13, a5 & 1);
       v11 = v46 + 1;
 LABEL_66:
       a5 = 0;
@@ -6526,13 +6527,13 @@ LABEL_10:
   return result;
 }
 
-uint64_t std::__insertion_sort[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*>(uint64_t result, uint64_t *a2, uint64_t (**a3)(uint64_t *, uint64_t))
+id *std::__insertion_sort[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*>(id *result, id *a2, uint64_t (**a3)(uint64_t *, uint64_t))
 {
   if (result != a2)
   {
     v4 = result;
-    v5 = (result + 8);
-    if ((result + 8) != a2)
+    v5 = (result + 1);
+    if (result + 1 != a2)
     {
       v7 = 0;
       v8 = result;
@@ -6577,7 +6578,7 @@ LABEL_15:
           result = std::__insertion_sort[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*>(&v16, v15);
         }
 
-        v5 = v8 + 1;
+        v5 = (v8 + 1);
         v7 += 8;
       }
 
@@ -6588,7 +6589,7 @@ LABEL_15:
   return result;
 }
 
-void sub_1BB8723E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_1BB8723E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id *a10)
 {
   if (a10)
   {
@@ -6598,13 +6599,13 @@ void sub_1BB8723E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__insertion_sort_unguarded[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*>(uint64_t result, uint64_t *a2, uint64_t (**a3)(uint64_t *, uint64_t))
+id *std::__insertion_sort_unguarded[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*>(id *result, id *a2, uint64_t (**a3)(uint64_t *, uint64_t))
 {
   if (result != a2)
   {
     v4 = result;
-    v5 = (result + 8);
-    if ((result + 8) != a2)
+    v5 = (result + 1);
+    if (result + 1 != a2)
     {
       v7 = 0;
       v8 = -8;
@@ -6666,7 +6667,7 @@ LABEL_5:
   return result;
 }
 
-void sub_1BB872508(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_1BB872508(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id *a10)
 {
   if (a10)
   {
@@ -6676,7 +6677,7 @@ void sub_1BB872508(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__partition_with_equals_on_left[abi:sn200100]<std::_ClassicAlgPolicy,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> *,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&)>(uint64_t *a1, uint64_t *a2, uint64_t (**a3)(uint64_t *, uint64_t *))
+uint64_t *std::__partition_with_equals_on_left[abi:sn200100]<std::_ClassicAlgPolicy,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> *,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&)>(id **a1, uint64_t *a2, uint64_t (**a3)(uint64_t *, uint64_t *))
 {
   v6 = *a1;
   *a1 = 0;
@@ -6698,7 +6699,7 @@ uint64_t *std::__partition_with_equals_on_left[abi:sn200100]<std::_ClassicAlgPol
     }
   }
 
-  v8 = a1 + 1;
+  v8 = (a1 + 1);
   do
   {
     v7 = v8;
@@ -6758,7 +6759,7 @@ LABEL_20:
   return v7;
 }
 
-void sub_1BB872678(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_1BB872678(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id *a10)
 {
   if (a10)
   {
@@ -6886,7 +6887,7 @@ LABEL_22:
   return v14;
 }
 
-void sub_1BB872848(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_1BB872848(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id *a10)
 {
   if (a10)
   {
@@ -7075,8 +7076,8 @@ LABEL_13:
       {
         v28 = a1 + i;
         v29 = *(a1 + i + 16);
-        *(v28 + 16) = 0;
-        *(v28 + 24) = v29;
+        *(v28 + 2) = 0;
+        *(v28 + 3) = v29;
         if (v25)
         {
           WTF::RefCounted<SafariShared::BookmarkAndHistoryCompletionMatch>::deref(v25);
@@ -7093,7 +7094,7 @@ LABEL_13:
           break;
         }
 
-        v25 = *(v28 + 16);
+        v25 = *(v28 + 2);
       }
 
       v30 = (a1 + i + 16);
@@ -7129,7 +7130,7 @@ LABEL_43:
   }
 }
 
-void sub_1BB872C58(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_1BB872C58(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id *a10)
 {
   if (a10)
   {
@@ -7139,7 +7140,7 @@ void sub_1BB872C58(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__partial_sort_impl[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*>(uint64_t *a1, uint64_t *a2, uint64_t *a3, unsigned int (**a4)(uint64_t *, uint64_t *))
+uint64_t *std::__partial_sort_impl[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*>(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t (**a4)(uint64_t *, uint64_t *))
 {
   if (a1 != a2)
   {
@@ -7183,8 +7184,7 @@ uint64_t *std::__partial_sort_impl[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&
     {
       do
       {
-        std::__pop_heap[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*>(a1, v6, a4, v8);
-        v6 -= 8;
+        std::__pop_heap[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*>(a1, v6--, a4, v8);
       }
 
       while (v8-- > 2);
@@ -7196,7 +7196,7 @@ uint64_t *std::__partial_sort_impl[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&
   return a3;
 }
 
-uint64_t std::__sift_down[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*>(uint64_t result, unsigned int (**a2)(uint64_t *, uint64_t *), uint64_t a3, uint64_t *a4)
+uint64_t std::__sift_down[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*>(uint64_t result, uint64_t (**a2)(uint64_t *, uint64_t *), uint64_t a3, uint64_t *a4)
 {
   v4 = a3 - 2;
   if (a3 >= 2)
@@ -7269,7 +7269,7 @@ uint64_t std::__sift_down[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&)(WTF::Re
   return result;
 }
 
-void sub_1BB872EDC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_1BB872EDC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id *a10)
 {
   if (a10)
   {
@@ -7279,7 +7279,7 @@ void sub_1BB872EDC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__pop_heap[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*>(uint64_t *result, uint64_t a2, unsigned int (**a3)(uint64_t, uint64_t), uint64_t a4)
+id **std::__pop_heap[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*>(id **result, uint64_t a2, unsigned int (**a3)(uint64_t, uint64_t), uint64_t a4)
 {
   if (a4 <= 0)
   {
@@ -7323,7 +7323,7 @@ uint64_t *std::__pop_heap[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*)(WTF::Ref
         WTF::RefCounted<SafariShared::BookmarkAndHistoryCompletionMatch>::deref(v13);
       }
 
-      return std::__sift_up[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*>(v6, (v9 + 1), a3, (v9 - v6 + 8) >> 3);
+      return std::__sift_up[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*>(v6, (v9 + 1), a3, (v9 + 1) - v6);
     }
   }
 
@@ -7340,14 +7340,14 @@ void sub_1BB872FF8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__sift_up[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*>(uint64_t result, uint64_t a2, uint64_t (**a3)(uint64_t *, uint64_t), uint64_t a4)
+id *std::__sift_up[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*>(id *result, uint64_t a2, uint64_t (**a3)(uint64_t *, uint64_t), uint64_t a4)
 {
   v4 = a4 - 2;
   if (a4 >= 2)
   {
     v6 = result;
     v7 = v4 >> 1;
-    v8 = (result + 8 * (v4 >> 1));
+    v8 = &result[v4 >> 1];
     v9 = (a2 - 8);
     result = (*a3)(v8, a2 - 8);
     if (result)
@@ -7373,7 +7373,7 @@ uint64_t std::__sift_up[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&)(WTF::RefP
         }
 
         v7 = (v7 - 1) >> 1;
-        v8 = (v6 + 8 * v7);
+        v8 = &v6[v7];
         v9 = v11;
       }
 
@@ -7385,7 +7385,7 @@ uint64_t std::__sift_up[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&)(WTF::RefP
   return result;
 }
 
-void sub_1BB8730D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_1BB8730D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id *a10)
 {
   if (a10)
   {
@@ -7694,10 +7694,10 @@ LABEL_63:
   __break(0xC471u);
 }
 
-uint64_t WTF::Vector<objc_object  {objcproto25WBSURLCompletionMatchData}* {__strong},0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,objc_object  {objcproto25WBSURLCompletionMatchData}&>(uint64_t a1, id *a2)
+uint64_t WTF::Vector<objc_object  {objcproto25WBSURLCompletionMatchData}* {__strong},0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,objc_object  {objcproto25WBSURLCompletionMatchData}&>(uint64_t *a1, id *a2)
 {
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 12);
+  v5 = *(a1 + 2);
+  v4 = *(a1 + 3);
   if (v5 + (v5 >> 1) <= v5 + 1)
   {
     v6 = v5 + 1;
@@ -7729,10 +7729,10 @@ uint64_t WTF::Vector<objc_object  {objcproto25WBSURLCompletionMatchData}* {__str
   }
 
   WTF::Vector<NSString const* {__strong},0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::reserveCapacity<(WTF::FailureAction)0>(a1, v8);
-  v9 = *(a1 + 12);
+  v9 = *(a1 + 3);
   v10 = *a1;
   *(v10 + 8 * v9) = *a2;
-  ++*(a1 + 12);
+  ++*(a1 + 3);
   return 1;
 }
 
@@ -7755,24 +7755,24 @@ uint64_t WTF::Vector<WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch
   return a1;
 }
 
-unsigned int *WTF::Vector<WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(unsigned int *result, unint64_t a2)
+unsigned int *WTF::Vector<WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(unsigned int *result, unint64_t a2, unint64_t a3)
 {
   if (result[2] > a2)
   {
-    v3 = result;
+    v4 = result;
     if (result[3] > a2)
     {
       result = WTF::Vector<WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrink(result, a2);
     }
 
-    v4 = *v3;
+    v5 = *v4;
     if (a2)
     {
-      if (v3[2])
+      if (v4[2])
       {
-        v3[2] = a2;
-        result = WTF::fastRealloc(v4, (8 * a2));
-        *v3 = result;
+        v4[2] = a2;
+        result = WTF::fastRealloc(v5, (8 * a2));
+        *v4 = result;
         return result;
       }
 
@@ -7782,25 +7782,25 @@ unsigned int *WTF::Vector<WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletion
         return result;
       }
 
-      v5 = v3[3];
+      v6 = v4[3];
       result = WTF::fastMalloc((8 * a2));
-      v3[2] = a2;
-      *v3 = result;
-      if (result != v4)
+      v4[2] = a2;
+      *v4 = result;
+      if (result != v5)
       {
-        result = memcpy(result, v4, 8 * v5);
+        result = memcpy(result, v5, 8 * v6);
       }
     }
 
-    if (v4)
+    if (v5)
     {
-      if (*v3 == v4)
+      if (*v4 == v5)
       {
-        *v3 = 0;
-        v3[2] = 0;
+        *v4 = 0;
+        v4[2] = 0;
       }
 
-      return WTF::fastFree(v4, a2);
+      return WTF::fastFree(v5, a2);
     }
   }
 
@@ -7906,24 +7906,24 @@ uint64_t OUTLINED_FUNCTION_5_1()
   return result;
 }
 
-void sub_1BB874308(_Unwind_Exception *exception_object)
+void sub_1BB874308(_Unwind_Exception *exception_object, uint64_t a2)
 {
-  if (v1)
+  if (v2)
   {
-    WTF::ThreadSafeRefCounted<SafariShared::HistoryURLCompletionItem,(WTF::DestructionThread)0>::deref(v1);
+    WTF::ThreadSafeRefCounted<SafariShared::HistoryURLCompletionItem,(WTF::DestructionThread)0>::deref(v2, a2);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void SafariShared::HistoryURLCompletionItem::create(SafariShared::HistoryURLCompletionItem *this@<X0>, NSString *a2@<X1>, NSString *a3@<X2>, SafariShared::HistoryURLCompletionItem **a4@<X8>)
+void SafariShared::HistoryURLCompletionItem::create(SafariShared::HistoryURLCompletionItem **__return_ptr a1@<X8>, SafariShared::HistoryURLCompletionItem *this@<X0>, NSString *a3@<X1>, NSString *a4@<X2>)
 {
-  v4 = a3;
+  v4 = a4;
   v9 = this;
-  v7 = a2;
+  v7 = a3;
   v8 = WTF::fastMalloc(0xA8);
   SafariShared::HistoryURLCompletionItem::HistoryURLCompletionItem(v8, v9, v7, v4);
-  *a4 = v8;
+  *a1 = v8;
 }
 
 void sub_1BB8743A0(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
@@ -7940,7 +7940,7 @@ void ***std::unique_ptr<std::vector<WTF::RefPtr<SafariShared::HistoryURLCompleti
   if (v2)
   {
     v3 = v2;
-    std::vector<WTF::RefPtr<SafariShared::HistoryURLCompletionItem,WTF::RawPtrTraits<SafariShared::HistoryURLCompletionItem>,WTF::DefaultRefDerefTraits<SafariShared::HistoryURLCompletionItem>>>::__destroy_vector::operator()[abi:sn200100](&v3);
+    std::vector<WTF::RefPtr<SafariShared::HistoryURLCompletionItem,WTF::RawPtrTraits<SafariShared::HistoryURLCompletionItem>,WTF::DefaultRefDerefTraits<SafariShared::HistoryURLCompletionItem>>>::__destroy_vector::operator()[abi:sn200100](&v3, a2);
     return MEMORY[0x1BFB13480](v2, 0x20C40960023A9);
   }
 
@@ -7976,7 +7976,7 @@ SafariShared::HistoryURLCompletionItem *SafariShared::HistoryURLCompletionItem::
 void sub_1BB874534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
 {
   a10 = v11 + 4;
-  std::vector<WTF::RefPtr<SafariShared::HistoryURLCompletionItem,WTF::RawPtrTraits<SafariShared::HistoryURLCompletionItem>,WTF::DefaultRefDerefTraits<SafariShared::HistoryURLCompletionItem>>>::__destroy_vector::operator()[abi:sn200100](&a10);
+  std::vector<WTF::RefPtr<SafariShared::HistoryURLCompletionItem,WTF::RawPtrTraits<SafariShared::HistoryURLCompletionItem>,WTF::DefaultRefDerefTraits<SafariShared::HistoryURLCompletionItem>>>::__destroy_vector::operator()[abi:sn200100](&a10, v14);
 
   _Unwind_Resume(a1);
 }
@@ -8134,16 +8134,16 @@ LABEL_12:
   return v12;
 }
 
-void sub_1BB875FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1BB875FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BB8761F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BB8761F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8161,16 +8161,16 @@ uint64_t _SSURLCompletionMatchLocationForWBSURLCompletionMatchLocation(uint64_t 
   }
 }
 
-void sub_1BB877984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BB877984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -8273,15 +8273,15 @@ void SafariShared::_WBSSQLiteStatementBindAllParameters<1,NSData * {__strong}&,i
   [v5 bindInt:*a3 atParameterIndex:2];
 }
 
-void sub_1BB87C718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, uint64_t a9, ...)
+void sub_1BB87C718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BB87C8AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_1BB87C8AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -8303,14 +8303,14 @@ id originHash(NSString *a1, NSString *a2)
   return v9;
 }
 
-void sub_1BB87D1F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_1BB87D1F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1BB87DF1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1BB87DF1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -8325,12 +8325,12 @@ void sub_1BB87E42C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1BB87F308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, ...)
+void sub_1BB87F308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
 
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
 
   _Unwind_Resume(a1);
 }
@@ -8350,12 +8350,12 @@ void sub_1BB88055C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1BB880BCC(uint64_t a1, unint64_t *a2)
+void sub_1BB880BCC(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -8370,20 +8370,20 @@ uint64_t sub_1BB880C18()
   return v1;
 }
 
-uint64_t sub_1BB880C54()
+uint64_t sub_1BB880C54(uint64_t a1)
 {
   sub_1BB8965B8();
   sub_1BB8965D8();
 }
 
-uint64_t sub_1BB880CA8()
+uint64_t sub_1BB880CA8(uint64_t a1)
 {
   sub_1BB8965B8();
   sub_1BB896728();
   sub_1BB8965D8();
-  v0 = sub_1BB896738();
+  v1 = sub_1BB896738();
 
-  return v0;
+  return v1;
 }
 
 uint64_t sub_1BB880D24(uint64_t a1, id *a2)
@@ -8400,37 +8400,37 @@ uint64_t sub_1BB880D9C(uint64_t a1, id *a2)
   return v3 & 1;
 }
 
-uint64_t sub_1BB880E1C@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_1BB880E1C@<X0>(uint64_t *a2@<X8>)
 {
   sub_1BB8965B8();
-  v2 = sub_1BB896588();
+  v3 = sub_1BB896588();
 
-  *a1 = v2;
+  *a2 = v3;
   return result;
 }
 
-uint64_t sub_1BB880E74()
+uint64_t sub_1BB880E74(void *a1, uint64_t *a2)
 {
-  v0 = sub_1BB8965B8();
-  v2 = v1;
-  if (v0 == sub_1BB8965B8() && v2 == v3)
+  v2 = sub_1BB8965B8();
+  v4 = v3;
+  if (v2 == sub_1BB8965B8() && v4 == v5)
   {
-    v5 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v5 = sub_1BB896708();
+    v7 = sub_1BB896708();
   }
 
-  return v5 & 1;
+  return v7 & 1;
 }
 
-uint64_t sub_1BB880EFC@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_1BB880EFC@<X0>(uint64_t *a2@<X8>)
 {
-  v2 = sub_1BB896588();
+  v3 = sub_1BB896588();
 
-  *a1 = v2;
+  *a2 = v3;
   return result;
 }
 
@@ -8444,14 +8444,14 @@ uint64_t sub_1BB880F44@<X0>(uint64_t *a1@<X8>)
 
 uint64_t sub_1BB880F70(uint64_t a1)
 {
-  v2 = sub_1BB881070(&qword_1EBC78968);
-  v3 = sub_1BB881070(&qword_1EBC78970);
+  v2 = sub_1BB881070(&qword_1EBC78968, &unk_1BB953ACC);
+  v3 = sub_1BB881070(&qword_1EBC78970, &unk_1BB953A6C);
   v4 = MEMORY[0x1E69E6168];
 
   return MEMORY[0x1EEE6ABA0](a1, v2, v3, v4);
 }
 
-uint64_t sub_1BB881070(unint64_t *a1)
+uint64_t sub_1BB881070(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -8532,7 +8532,7 @@ unint64_t sub_1BB881358(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC78990);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC78990, &qword_1BB953BE0);
     v3 = sub_1BB8966D8();
     v4 = a1 + 32;
 
@@ -8587,7 +8587,7 @@ unint64_t sub_1BB881468(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC78988);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC78988, &qword_1BB953BD8);
     v3 = sub_1BB8966D8();
 
     for (i = (a1 + 48); ; i += 3)
@@ -8654,7 +8654,7 @@ unint64_t sub_1BB8815BC(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC78980);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC78980, &unk_1BB953C70);
     v3 = sub_1BB8966D8();
 
     for (i = (a1 + 40); ; i += 2)
@@ -8699,7 +8699,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -8713,7 +8713,7 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
 
 uint64_t sub_1BB8816F0(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC78998);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC78998, &qword_1BB953BE8);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -8776,7 +8776,7 @@ uint64_t WBSOnboardingState.init(_:)(uint64_t a1)
 
 uint64_t sub_1BB8818E8(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC789A0);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC789A0, &qword_1BB953BF8);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -9022,7 +9022,7 @@ unint64_t sub_1BB881F24(uint64_t a1)
 {
   if (*(a1 + 16))
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC789B0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC789B0, &qword_1BB953C60);
     v2 = sub_1BB8966D8();
   }
 
@@ -9732,7 +9732,7 @@ Swift::Void __swiftcall WBSOnboardingStateManager.pauseStartPageOnboardingIfNeed
   MEMORY[0x1EEE9AC00](v0);
   v3 = &v8 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1BB8964F8();
-  started = _s12SafariShared25WBSOnboardingStateManagerC27isStartPageOnboardingPaused2onSb10Foundation4DateV_tF_0();
+  started = _s12SafariShared25WBSOnboardingStateManagerC27isStartPageOnboardingPaused2onSb10Foundation4DateV_tF_0(v3);
   v5 = *(v1 + 8);
   v5(v3, v0);
   if ((started & 1) == 0)
@@ -9855,14 +9855,14 @@ LABEL_8:
   }
 }
 
-uint64_t sub_1BB88311C(uint64_t a1, unint64_t a2)
+void *sub_1BB88311C(uint64_t a1, unint64_t a2)
 {
   v3 = sub_1BB883168(a1, a2);
   sub_1BB883298(&unk_1F3A5E1A8);
   return v3;
 }
 
-uint64_t sub_1BB883168(uint64_t a1, unint64_t a2)
+void *sub_1BB883168(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -10043,7 +10043,7 @@ void *sub_1BB883384(uint64_t a1, uint64_t a2)
     return MEMORY[0x1E69E7CC0];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC789B8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC789B8, &qword_1BB953C68);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   result = v4;
@@ -10093,7 +10093,7 @@ char *sub_1BB8833F8(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC789B8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC789B8, &qword_1BB953C68);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -10207,12 +10207,13 @@ unint64_t sub_1BB8836B0(uint64_t a1, uint64_t a2)
   return v4;
 }
 
-uint64_t sub_1BB8837B4(uint64_t a1, char a2)
+uint64_t sub_1BB8837B4(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC78980);
-  v34 = a2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC78980, &unk_1BB953C70);
+  v34 = v4;
   result = sub_1BB8966C8();
   v7 = result;
   if (*(v5 + 16))
@@ -10344,12 +10345,13 @@ LABEL_33:
   return result;
 }
 
-uint64_t sub_1BB883A70(uint64_t a1, char a2)
+uint64_t sub_1BB883A70(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC789B0);
-  v34 = a2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC789B0, &qword_1BB953C60);
+  v34 = v4;
   result = sub_1BB8966C8();
   v7 = result;
   if (*(v5 + 16))
@@ -10549,7 +10551,7 @@ LABEL_15:
 id sub_1BB883E64()
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC78980);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC78980, &unk_1BB953C70);
   v2 = *v0;
   v3 = sub_1BB8966B8();
   v4 = v3;
@@ -10632,7 +10634,7 @@ LABEL_19:
 void *sub_1BB883FC0()
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC789B0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC789B0, &qword_1BB953C60);
   v2 = *v0;
   v3 = sub_1BB8966B8();
   v4 = v3;
@@ -10715,19 +10717,19 @@ LABEL_19:
   return result;
 }
 
-uint64_t _s12SafariShared25WBSOnboardingStateManagerC27isStartPageOnboardingPaused2onSb10Foundation4DateV_tF_0()
+uint64_t _s12SafariShared25WBSOnboardingStateManagerC27isStartPageOnboardingPaused2onSb10Foundation4DateV_tF_0(uint64_t a1)
 {
-  v0 = sub_1BB896508();
-  v1 = *(v0 - 8);
-  v2 = (MEMORY[0x1EEE9AC00])();
-  v4 = &v24 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v2);
-  v6 = &v24 - v5;
-  v7 = objc_opt_self();
-  v8 = [v7 standardUserDefaults];
-  v9 = [v8 safari:@"WBSStartPageOnboardingResumeDate" dateForKey:?];
+  v1 = sub_1BB896508();
+  v2 = *(v1 - 8);
+  v3 = MEMORY[0x1EEE9AC00](v1);
+  v5 = &v25 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v3);
+  v7 = &v25 - v6;
+  v8 = objc_opt_self();
+  v9 = [v8 standardUserDefaults];
+  v10 = [v9 safari:@"WBSStartPageOnboardingResumeDate" dateForKey:?];
 
-  if (!v9)
+  if (!v10)
   {
     return 0;
   }
@@ -10735,12 +10737,12 @@ uint64_t _s12SafariShared25WBSOnboardingStateManagerC27isStartPageOnboardingPaus
   sub_1BB8964E8();
 
   sub_1BB8964B8();
-  if (v10 <= 0.0)
+  if (v11 <= 0.0)
   {
-    v22 = [v7 standardUserDefaults];
-    [v22 removeObjectForKey_];
+    v23 = [v8 standardUserDefaults];
+    [v23 removeObjectForKey_];
 
-    (*(v1 + 8))(v6, v0);
+    (*(v2 + 8))(v7, v1);
     return 0;
   }
 
@@ -10749,40 +10751,40 @@ uint64_t _s12SafariShared25WBSOnboardingStateManagerC27isStartPageOnboardingPaus
     swift_once();
   }
 
-  v11 = sub_1BB896538();
-  __swift_project_value_buffer(v11, qword_1EBC79AC0);
-  (*(v1 + 16))(v4, v6, v0);
-  v12 = sub_1BB896518();
-  v13 = sub_1BB896648();
-  if (os_log_type_enabled(v12, v13))
+  v12 = sub_1BB896538();
+  __swift_project_value_buffer(v12, qword_1EBC79AC0);
+  (*(v2 + 16))(v5, v7, v1);
+  v13 = sub_1BB896518();
+  v14 = sub_1BB896648();
+  if (os_log_type_enabled(v13, v14))
   {
-    v14 = swift_slowAlloc();
-    v24 = swift_slowAlloc();
-    v25 = v24;
-    *v14 = 136315138;
+    v15 = swift_slowAlloc();
+    v25 = swift_slowAlloc();
+    v26 = v25;
+    *v15 = 136315138;
     sub_1BB8844CC();
-    v15 = sub_1BB8966F8();
-    v17 = v16;
-    v18 = *(v1 + 8);
-    v18(v4, v0);
-    v19 = sub_1BB882F44(v15, v17, &v25);
+    v16 = sub_1BB8966F8();
+    v18 = v17;
+    v19 = *(v2 + 8);
+    v19(v5, v1);
+    v20 = sub_1BB882F44(v16, v18, &v26);
 
-    *(v14 + 4) = v19;
-    _os_log_impl(&dword_1BB6F3000, v12, v13, "Start Page Onboarding is paused until %s", v14, 0xCu);
-    v20 = v24;
-    __swift_destroy_boxed_opaque_existential_0(v24);
-    MEMORY[0x1BFB14410](v20, -1, -1);
-    MEMORY[0x1BFB14410](v14, -1, -1);
+    *(v15 + 4) = v20;
+    _os_log_impl(&dword_1BB6F3000, v13, v14, "Start Page Onboarding is paused until %s", v15, 0xCu);
+    v21 = v25;
+    __swift_destroy_boxed_opaque_existential_0(v25);
+    MEMORY[0x1BFB14410](v21, -1, -1);
+    MEMORY[0x1BFB14410](v15, -1, -1);
 
-    v18(v6, v0);
+    v19(v7, v1);
   }
 
   else
   {
 
-    v23 = *(v1 + 8);
-    v23(v4, v0);
-    v23(v6, v0);
+    v24 = *(v2 + 8);
+    v24(v5, v1);
+    v24(v7, v1);
   }
 
   return 1;
@@ -10801,9 +10803,9 @@ unint64_t sub_1BB8844CC()
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -11054,6 +11056,16 @@ void SafariShared::URLCompletionEntryBuilder::validateVisitedCountsIfNeeded(os_l
   _os_log_error_impl(&dword_1BB6F3000, log, OS_LOG_TYPE_ERROR, "Found data corruption in weekly visit counts", v1, 2u);
 }
 
+void std::__hash_table<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>>>::__emplace_multi<NSString * const {__strong}&,NSString * {__strong}&>()
+{
+  OUTLINED_FUNCTION_3_4();
+  if (v1)
+  {
+  }
+
+  operator delete(v0);
+}
+
 uint64_t WTF::ThreadSafeRefCounted<SafariShared::HistoryURLCompletionItem,(WTF::DestructionThread)0>::deref(uint64_t a1)
 {
   atomic_store(1u, a1);
@@ -11072,9 +11084,9 @@ uint64_t WTF::ThreadSafeRefCounted<SafariShared::HistoryURLCompletionItem,(WTF::
     operator delete(v3);
   }
 
-  v6 = (a1 + 32);
-  std::vector<WTF::RefPtr<SafariShared::HistoryURLCompletionItem,WTF::RawPtrTraits<SafariShared::HistoryURLCompletionItem>,WTF::DefaultRefDerefTraits<SafariShared::HistoryURLCompletionItem>>>::__destroy_vector::operator()[abi:sn200100](&v6);
-  return WTF::fastFree(a1, v4);
+  v7 = (a1 + 32);
+  std::vector<WTF::RefPtr<SafariShared::HistoryURLCompletionItem,WTF::RawPtrTraits<SafariShared::HistoryURLCompletionItem>,WTF::DefaultRefDerefTraits<SafariShared::HistoryURLCompletionItem>>>::__destroy_vector::operator()[abi:sn200100](&v7, v4);
+  return WTF::fastFree(a1, v5);
 }
 
 void SafariShared::ReaderAvailabilityController::checkTextSampleAvailabilityIfNeeded()
@@ -11137,7 +11149,7 @@ void __getCHSTimelineControllerClass_block_invoke_cold_2(void *a1)
   __break(1u);
 }
 
-uint64_t *std::__floyd_sift_down[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*>(uint64_t *a1, unsigned int (**a2)(uint64_t, uint64_t), uint64_t a3)
+uint64_t *std::__floyd_sift_down[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*>(id **a1, unsigned int (**a2)(uint64_t, uint64_t), uint64_t a3)
 {
   v6 = 0;
   v7 = (a3 - 2) / 2;
@@ -11190,10 +11202,10 @@ uint64_t WTF::Vector<WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch
   return 1;
 }
 
-uint64_t WTF::Vector<WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,SafariShared::BookmarkAndHistoryCompletionMatch*&>(uint64_t a1, _DWORD **a2)
+uint64_t WTF::Vector<WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,SafariShared::BookmarkAndHistoryCompletionMatch*&>(uint64_t *a1, _DWORD **a2)
 {
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 12);
+  v5 = *(a1 + 2);
+  v4 = *(a1 + 3);
   if (v5 + (v5 >> 1) <= v5 + 1)
   {
     v6 = v5 + 1;
@@ -11225,7 +11237,7 @@ uint64_t WTF::Vector<WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch
   }
 
   WTF::Vector<OpaqueJSValue *,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::reserveCapacity<(WTF::FailureAction)0>(a1, v8);
-  v9 = *(a1 + 12);
+  v9 = *(a1 + 3);
   v10 = *a1;
   v11 = *a2;
   if (*a2)
@@ -11234,7 +11246,7 @@ uint64_t WTF::Vector<WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch
   }
 
   *(v10 + 8 * v9) = v11;
-  *(a1 + 12) = v9 + 1;
+  *(a1 + 3) = v9 + 1;
   return 1;
 }
 
@@ -11260,7 +11272,7 @@ uint64_t *WTF::Vector<WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatc
   return result;
 }
 
-uint64_t std::__insertion_sort[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*>(uint64_t *a1, uint64_t *a2)
+id *std::__insertion_sort[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*>(uint64_t *a1, uint64_t *a2)
 {
   result = OUTLINED_FUNCTION_1_11(a1, a2);
   if (result)
@@ -11276,7 +11288,7 @@ uint64_t std::__insertion_sort[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&)(WT
   return result;
 }
 
-uint64_t std::__partition_with_equals_on_left[abi:sn200100]<std::_ClassicAlgPolicy,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> *,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&)>(uint64_t *a1, uint64_t *a2, uint64_t a3)
+id *std::__partition_with_equals_on_left[abi:sn200100]<std::_ClassicAlgPolicy,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> *,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&)>(id **a1, uint64_t *a2, uint64_t a3)
 {
   v4 = (a3 - 8);
   if ((a3 - 8) != a1)
@@ -11309,7 +11321,7 @@ uint64_t std::__partition_with_equals_on_left[abi:sn200100]<std::_ClassicAlgPoli
   return result;
 }
 
-uint64_t std::__sift_down[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*>(uint64_t *a1, uint64_t *a2)
+id *std::__sift_down[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&)(WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&,WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>> const&),WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>*>(uint64_t *a1, uint64_t *a2)
 {
   v2 = OUTLINED_FUNCTION_1_11(a1, a2);
   if (v2)
@@ -11326,7 +11338,7 @@ uint64_t std::__sift_down[abi:sn200100]<std::_ClassicAlgPolicy,BOOL (*&)(WTF::Re
   return result;
 }
 
-uint64_t WTF::Vector<WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(uint64_t *a1, unsigned int a2)
+id *WTF::Vector<WTF::RefPtr<SafariShared::BookmarkAndHistoryCompletionMatch,WTF::RawPtrTraits<SafariShared::BookmarkAndHistoryCompletionMatch>,WTF::DefaultRefDerefTraits<SafariShared::BookmarkAndHistoryCompletionMatch>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(uint64_t *a1, unsigned int a2)
 {
   v2 = *a1;
   v3 = 8 * a2;

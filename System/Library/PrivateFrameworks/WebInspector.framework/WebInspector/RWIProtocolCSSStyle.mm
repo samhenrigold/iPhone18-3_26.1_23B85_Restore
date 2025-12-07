@@ -20,13 +20,13 @@
 
 - (RWIProtocolCSSStyle)initWithCssProperties:(id)properties shorthandEntries:(id)entries
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   entriesCopy = entries;
-  v39.receiver = self;
-  v39.super_class = RWIProtocolCSSStyle;
-  v29 = [(RWIProtocolJSONObject *)&v39 init];
-  if (v29)
+  v38.receiver = self;
+  v38.super_class = RWIProtocolCSSStyle;
+  v28 = [(RWIProtocolJSONObject *)&v38 init];
+  if (v28)
   {
     v6 = MEMORY[0x277CBE660];
     if (!propertiesCopy)
@@ -34,27 +34,27 @@
       [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"required property '%@' cannot be nil", @"cssProperties"}];
     }
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     obj = propertiesCopy;
-    v7 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+    v7 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
     if (v7)
     {
-      v8 = *v36;
+      v8 = *v35;
       v9 = *v6;
       do
       {
         v10 = 0;
         do
         {
-          if (*v36 != v8)
+          if (*v35 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v35 + 1) + 8 * v10);
+          v11 = *(*(&v34 + 1) + 8 * v10);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -68,7 +68,7 @@
         }
 
         while (v7 != v10);
-        v7 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+        v7 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
       }
 
       while (v7);
@@ -79,27 +79,27 @@
       [MEMORY[0x277CBEAD8] raise:*v6 format:{@"required property '%@' cannot be nil", @"shorthandEntries"}];
     }
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v15 = entriesCopy;
-    v16 = [v15 countByEnumeratingWithState:&v31 objects:v40 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v30 objects:v39 count:16];
     if (v16)
     {
-      v17 = *v32;
+      v17 = *v31;
       v18 = *v6;
       do
       {
         v19 = 0;
         do
         {
-          if (*v32 != v17)
+          if (*v31 != v17)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v31 + 1) + 8 * v19);
+          v20 = *(*(&v30 + 1) + 8 * v19);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -113,19 +113,18 @@
         }
 
         while (v16 != v19);
-        v16 = [v15 countByEnumeratingWithState:&v31 objects:v40 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v30 objects:v39 count:16];
       }
 
       while (v16);
     }
 
-    [(RWIProtocolCSSStyle *)v29 setCssProperties:obj];
-    [(RWIProtocolCSSStyle *)v29 setShorthandEntries:v15];
-    v24 = v29;
+    [(RWIProtocolCSSStyle *)v28 setCssProperties:obj];
+    [(RWIProtocolCSSStyle *)v28 setShorthandEntries:v15];
+    v24 = v28;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-  return v29;
+  return v28;
 }
 
 - (void)setStyleId:(id)id
@@ -146,7 +145,7 @@
     v11.receiver = self;
     v11.super_class = RWIProtocolCSSStyle;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"styleId"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -192,27 +191,27 @@
 
 - (void)setCssProperties:(id)properties
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = properties;
-  v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v3)
   {
-    v4 = *v18;
+    v4 = *v17;
     v5 = *MEMORY[0x277CBE660];
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v18 != v4)
+        if (*v17 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * i);
+        v7 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -223,18 +222,18 @@
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v3);
   }
 
-  Inspector::toJSONObjectArray(obj, &v16);
-  v15.receiver = self;
-  v15.super_class = RWIProtocolCSSStyle;
-  [(RWIProtocolJSONObject *)&v15 setJSONArray:&v16 forKey:@"cssProperties"];
-  v11 = v16;
-  v16 = 0;
+  Inspector::toJSONObjectArray(obj, &v15);
+  v14.receiver = self;
+  v14.super_class = RWIProtocolCSSStyle;
+  [(RWIProtocolJSONObject *)&v14 setJSONArray:&v15 forKey:@"cssProperties"];
+  v11 = v15;
+  v15 = 0;
   if (v11)
   {
     if (*v11 == 1)
@@ -247,8 +246,6 @@
       --*v11;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)cssProperties
@@ -263,27 +260,27 @@
 
 - (void)setShorthandEntries:(id)entries
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = entries;
-  v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v3)
   {
-    v4 = *v18;
+    v4 = *v17;
     v5 = *MEMORY[0x277CBE660];
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v18 != v4)
+        if (*v17 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * i);
+        v7 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -294,18 +291,18 @@
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v3);
   }
 
-  Inspector::toJSONObjectArray(obj, &v16);
-  v15.receiver = self;
-  v15.super_class = RWIProtocolCSSStyle;
-  [(RWIProtocolJSONObject *)&v15 setJSONArray:&v16 forKey:@"shorthandEntries"];
-  v11 = v16;
-  v16 = 0;
+  Inspector::toJSONObjectArray(obj, &v15);
+  v14.receiver = self;
+  v14.super_class = RWIProtocolCSSStyle;
+  [(RWIProtocolJSONObject *)&v14 setJSONArray:&v15 forKey:@"shorthandEntries"];
+  v11 = v15;
+  v15 = 0;
   if (v11)
   {
     if (*v11 == 1)
@@ -318,8 +315,6 @@
       --*v11;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)shorthandEntries
@@ -366,7 +361,7 @@
     v11.receiver = self;
     v11.super_class = RWIProtocolCSSStyle;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"range"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;

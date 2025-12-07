@@ -6,10 +6,10 @@
 
 - (MKPUTRouter)init
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v33.receiver = self;
-  v33.super_class = MKPUTRouter;
-  v2 = [(MKPUTRouter *)&v33 init];
+  v34 = *MEMORY[0x277D85DE8];
+  v32.receiver = self;
+  v32.super_class = MKPUTRouter;
+  v2 = [(MKPUTRouter *)&v32 init];
   if (v2)
   {
     v3 = objc_alloc_init(MKDevice);
@@ -71,31 +71,31 @@
     v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
     [(MKPUTRouter *)v2 setSupportedContentTypes:v21];
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     allKeys = [v5 allKeys];
-    v23 = [allKeys countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v23 = [allKeys countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v30;
+      v25 = *v29;
       do
       {
         v26 = 0;
         do
         {
-          if (*v30 != v25)
+          if (*v29 != v25)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          [(NSMutableArray *)v2->_supportedContentTypes addObject:*(*(&v29 + 1) + 8 * v26++)];
+          [(NSMutableArray *)v2->_supportedContentTypes addObject:*(*(&v28 + 1) + 8 * v26++)];
         }
 
         while (v24 != v26);
-        v24 = [allKeys countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v24 = [allKeys countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v24);

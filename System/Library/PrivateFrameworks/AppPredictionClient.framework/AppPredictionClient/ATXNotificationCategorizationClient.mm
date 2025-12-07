@@ -33,78 +33,78 @@
   return v2;
 }
 
-void __43__ATXNotificationCategorizationClient_init__block_invoke()
+void __43__ATXNotificationCategorizationClient_init__block_invoke(uint64_t a1)
 {
-  v0 = __atxlog_handle_notification_categorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_notification_categorization(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __43__ATXNotificationCategorizationClient_init__block_invoke_cold_1(v0);
+    __43__ATXNotificationCategorizationClient_init__block_invoke_cold_1(v1);
   }
 }
 
-void __43__ATXNotificationCategorizationClient_init__block_invoke_8()
+void __43__ATXNotificationCategorizationClient_init__block_invoke_8(uint64_t a1)
 {
-  v0 = __atxlog_handle_notification_categorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_notification_categorization(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __43__ATXNotificationCategorizationClient_init__block_invoke_8_cold_1(v0);
+    __43__ATXNotificationCategorizationClient_init__block_invoke_8_cold_1(v1);
   }
 }
 
 - (void)collectDynamicBreakthroughFeaturesForNotification:(id)notification completion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   completionCopy = completion;
-  v9 = __atxlog_handle_notification_categorization();
+  v9 = __atxlog_handle_notification_categorization(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v25 = "[ATXNotificationCategorizationClient collectDynamicBreakthroughFeaturesForNotification:completion:]";
+    v26 = "[ATXNotificationCategorizationClient collectDynamicBreakthroughFeaturesForNotification:completion:]";
     _os_log_impl(&dword_1BF549000, v9, OS_LOG_TYPE_DEFAULT, "Starting %s", buf, 0xCu);
   }
 
   if (completionCopy)
   {
     xpcConnection = self->_xpcConnection;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke;
-    v21[3] = &unk_1E80C1100;
-    v23 = a2;
-    v21[4] = self;
-    v11 = completionCopy;
-    v22 = v11;
-    v12 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v21];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_16;
-    v19[3] = &unk_1E80C1938;
-    v20 = v11;
-    [v12 collectDynamicBreakthroughFeaturesForNotification:notificationCopy completion:v19];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke;
+    v22[3] = &unk_1E80C1100;
+    v24 = a2;
+    v22[4] = self;
+    v12 = completionCopy;
+    v23 = v12;
+    v13 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v22];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_16;
+    v20[3] = &unk_1E80C1938;
+    v21 = v12;
+    [v13 collectDynamicBreakthroughFeaturesForNotification:notificationCopy completion:v20];
   }
 
   else
   {
-    v13 = __atxlog_handle_notification_categorization();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_notification_categorization(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [ATXNotificationCategorizationClient collectDynamicBreakthroughFeaturesForNotification:completion:];
     }
 
-    v14 = MEMORY[0x1E695DF30];
-    v15 = *MEMORY[0x1E695D930];
-    v16 = NSStringFromSelector(a2);
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    [v14 raise:v15 format:{@"No completion handler provided for %@ in %@", v16, v18}];
+    v15 = MEMORY[0x1E695DF30];
+    v16 = *MEMORY[0x1E695D930];
+    v17 = NSStringFromSelector(a2);
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    [v15 raise:v16 format:{@"No completion handler provided for %@ in %@", v17, v19}];
   }
 }
 
 void __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_categorization();
+  v4 = __atxlog_handle_notification_categorization(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -118,7 +118,7 @@ void __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeatur
   v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
-  v7 = __atxlog_handle_notification_categorization();
+  v7 = __atxlog_handle_notification_categorization(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315138;
@@ -131,58 +131,58 @@ void __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeatur
 
 - (void)collectCoreAnalyticsJsonForNotification:(id)notification completion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   completionCopy = completion;
-  v9 = __atxlog_handle_notification_categorization();
+  v9 = __atxlog_handle_notification_categorization(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v25 = "[ATXNotificationCategorizationClient collectCoreAnalyticsJsonForNotification:completion:]";
+    v26 = "[ATXNotificationCategorizationClient collectCoreAnalyticsJsonForNotification:completion:]";
     _os_log_impl(&dword_1BF549000, v9, OS_LOG_TYPE_DEFAULT, "Starting %s", buf, 0xCu);
   }
 
   if (completionCopy)
   {
     xpcConnection = self->_xpcConnection;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __90__ATXNotificationCategorizationClient_collectCoreAnalyticsJsonForNotification_completion___block_invoke;
-    v21[3] = &unk_1E80C1100;
-    v23 = a2;
-    v21[4] = self;
-    v11 = completionCopy;
-    v22 = v11;
-    v12 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v21];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __90__ATXNotificationCategorizationClient_collectCoreAnalyticsJsonForNotification_completion___block_invoke_18;
-    v19[3] = &unk_1E80C1960;
-    v20 = v11;
-    [v12 collectCoreAnalyticsJsonForNotification:notificationCopy completion:v19];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __90__ATXNotificationCategorizationClient_collectCoreAnalyticsJsonForNotification_completion___block_invoke;
+    v22[3] = &unk_1E80C1100;
+    v24 = a2;
+    v22[4] = self;
+    v12 = completionCopy;
+    v23 = v12;
+    v13 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v22];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __90__ATXNotificationCategorizationClient_collectCoreAnalyticsJsonForNotification_completion___block_invoke_18;
+    v20[3] = &unk_1E80C1960;
+    v21 = v12;
+    [v13 collectCoreAnalyticsJsonForNotification:notificationCopy completion:v20];
   }
 
   else
   {
-    v13 = __atxlog_handle_notification_categorization();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_notification_categorization(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [ATXNotificationCategorizationClient collectDynamicBreakthroughFeaturesForNotification:completion:];
     }
 
-    v14 = MEMORY[0x1E695DF30];
-    v15 = *MEMORY[0x1E695D930];
-    v16 = NSStringFromSelector(a2);
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    [v14 raise:v15 format:{@"No completion handler provided for %@ in %@", v16, v18}];
+    v15 = MEMORY[0x1E695DF30];
+    v16 = *MEMORY[0x1E695D930];
+    v17 = NSStringFromSelector(a2);
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    [v15 raise:v16 format:{@"No completion handler provided for %@ in %@", v17, v19}];
   }
 }
 
 void __90__ATXNotificationCategorizationClient_collectCoreAnalyticsJsonForNotification_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_categorization();
+  v4 = __atxlog_handle_notification_categorization(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -196,7 +196,7 @@ void __90__ATXNotificationCategorizationClient_collectCoreAnalyticsJsonForNotifi
   v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
-  v7 = __atxlog_handle_notification_categorization();
+  v7 = __atxlog_handle_notification_categorization(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315138;
@@ -209,58 +209,58 @@ void __90__ATXNotificationCategorizationClient_collectCoreAnalyticsJsonForNotifi
 
 - (void)rankUserNotificationWithRequest:(id)request completion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   completionCopy = completion;
-  v9 = __atxlog_handle_notification_categorization();
+  v9 = __atxlog_handle_notification_categorization(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v25 = "[ATXNotificationCategorizationClient rankUserNotificationWithRequest:completion:]";
+    v26 = "[ATXNotificationCategorizationClient rankUserNotificationWithRequest:completion:]";
     _os_log_impl(&dword_1BF549000, v9, OS_LOG_TYPE_DEFAULT, "Starting %s", buf, 0xCu);
   }
 
   if (completionCopy)
   {
     xpcConnection = self->_xpcConnection;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __82__ATXNotificationCategorizationClient_rankUserNotificationWithRequest_completion___block_invoke;
-    v21[3] = &unk_1E80C1100;
-    v23 = a2;
-    v21[4] = self;
-    v11 = completionCopy;
-    v22 = v11;
-    v12 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v21];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __82__ATXNotificationCategorizationClient_rankUserNotificationWithRequest_completion___block_invoke_20;
-    v19[3] = &unk_1E80C1988;
-    v20 = v11;
-    [v12 rankUserNotificationWithRequest:requestCopy completion:v19];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __82__ATXNotificationCategorizationClient_rankUserNotificationWithRequest_completion___block_invoke;
+    v22[3] = &unk_1E80C1100;
+    v24 = a2;
+    v22[4] = self;
+    v12 = completionCopy;
+    v23 = v12;
+    v13 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v22];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __82__ATXNotificationCategorizationClient_rankUserNotificationWithRequest_completion___block_invoke_20;
+    v20[3] = &unk_1E80C1988;
+    v21 = v12;
+    [v13 rankUserNotificationWithRequest:requestCopy completion:v20];
   }
 
   else
   {
-    v13 = __atxlog_handle_notification_categorization();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_notification_categorization(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [ATXNotificationCategorizationClient collectDynamicBreakthroughFeaturesForNotification:completion:];
     }
 
-    v14 = MEMORY[0x1E695DF30];
-    v15 = *MEMORY[0x1E695D930];
-    v16 = NSStringFromSelector(a2);
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    [v14 raise:v15 format:{@"No completion handler provided for %@ in %@", v16, v18}];
+    v15 = MEMORY[0x1E695DF30];
+    v16 = *MEMORY[0x1E695D930];
+    v17 = NSStringFromSelector(a2);
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    [v15 raise:v16 format:{@"No completion handler provided for %@ in %@", v17, v19}];
   }
 }
 
 void __82__ATXNotificationCategorizationClient_rankUserNotificationWithRequest_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_categorization();
+  v4 = __atxlog_handle_notification_categorization(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -274,7 +274,7 @@ void __82__ATXNotificationCategorizationClient_rankUserNotificationWithRequest_c
   v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
-  v7 = __atxlog_handle_notification_categorization();
+  v7 = __atxlog_handle_notification_categorization(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315138;
@@ -287,58 +287,58 @@ void __82__ATXNotificationCategorizationClient_rankUserNotificationWithRequest_c
 
 - (void)fetchContextForNotificationWithRequest:(id)request completion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   completionCopy = completion;
-  v9 = __atxlog_handle_notification_categorization();
+  v9 = __atxlog_handle_notification_categorization(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v25 = "[ATXNotificationCategorizationClient fetchContextForNotificationWithRequest:completion:]";
+    v26 = "[ATXNotificationCategorizationClient fetchContextForNotificationWithRequest:completion:]";
     _os_log_impl(&dword_1BF549000, v9, OS_LOG_TYPE_DEFAULT, "Fetching notification context %s", buf, 0xCu);
   }
 
   if (completionCopy)
   {
     xpcConnection = self->_xpcConnection;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __89__ATXNotificationCategorizationClient_fetchContextForNotificationWithRequest_completion___block_invoke;
-    v21[3] = &unk_1E80C1100;
-    v23 = a2;
-    v21[4] = self;
-    v11 = completionCopy;
-    v22 = v11;
-    v12 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v21];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __89__ATXNotificationCategorizationClient_fetchContextForNotificationWithRequest_completion___block_invoke_22;
-    v19[3] = &unk_1E80C19B0;
-    v20 = v11;
-    [v12 fetchContextForNotificationWithRequest:requestCopy completion:v19];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __89__ATXNotificationCategorizationClient_fetchContextForNotificationWithRequest_completion___block_invoke;
+    v22[3] = &unk_1E80C1100;
+    v24 = a2;
+    v22[4] = self;
+    v12 = completionCopy;
+    v23 = v12;
+    v13 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v22];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __89__ATXNotificationCategorizationClient_fetchContextForNotificationWithRequest_completion___block_invoke_22;
+    v20[3] = &unk_1E80C19B0;
+    v21 = v12;
+    [v13 fetchContextForNotificationWithRequest:requestCopy completion:v20];
   }
 
   else
   {
-    v13 = __atxlog_handle_notification_categorization();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_notification_categorization(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [ATXNotificationCategorizationClient collectDynamicBreakthroughFeaturesForNotification:completion:];
     }
 
-    v14 = MEMORY[0x1E695DF30];
-    v15 = *MEMORY[0x1E695D930];
-    v16 = NSStringFromSelector(a2);
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    [v14 raise:v15 format:{@"No completion handler provided for %@ in %@", v16, v18}];
+    v15 = MEMORY[0x1E695DF30];
+    v16 = *MEMORY[0x1E695D930];
+    v17 = NSStringFromSelector(a2);
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    [v15 raise:v16 format:{@"No completion handler provided for %@ in %@", v17, v19}];
   }
 }
 
 void __89__ATXNotificationCategorizationClient_fetchContextForNotificationWithRequest_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_categorization();
+  v4 = __atxlog_handle_notification_categorization(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -352,7 +352,7 @@ void __89__ATXNotificationCategorizationClient_fetchContextForNotificationWithRe
   v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
-  v7 = __atxlog_handle_notification_categorization();
+  v7 = __atxlog_handle_notification_categorization(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315138;
@@ -365,58 +365,58 @@ void __89__ATXNotificationCategorizationClient_fetchContextForNotificationWithRe
 
 - (void)fetchContextForMailWithRequest:(id)request completion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   completionCopy = completion;
-  v9 = __atxlog_handle_notification_categorization();
+  v9 = __atxlog_handle_notification_categorization(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v25 = "[ATXNotificationCategorizationClient fetchContextForMailWithRequest:completion:]";
+    v26 = "[ATXNotificationCategorizationClient fetchContextForMailWithRequest:completion:]";
     _os_log_impl(&dword_1BF549000, v9, OS_LOG_TYPE_DEFAULT, "Fetching mail context %s", buf, 0xCu);
   }
 
   if (completionCopy)
   {
     xpcConnection = self->_xpcConnection;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __81__ATXNotificationCategorizationClient_fetchContextForMailWithRequest_completion___block_invoke;
-    v21[3] = &unk_1E80C1100;
-    v23 = a2;
-    v21[4] = self;
-    v11 = completionCopy;
-    v22 = v11;
-    v12 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v21];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __81__ATXNotificationCategorizationClient_fetchContextForMailWithRequest_completion___block_invoke_24;
-    v19[3] = &unk_1E80C19D8;
-    v20 = v11;
-    [v12 fetchContextForMailWithRequest:requestCopy completion:v19];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __81__ATXNotificationCategorizationClient_fetchContextForMailWithRequest_completion___block_invoke;
+    v22[3] = &unk_1E80C1100;
+    v24 = a2;
+    v22[4] = self;
+    v12 = completionCopy;
+    v23 = v12;
+    v13 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v22];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __81__ATXNotificationCategorizationClient_fetchContextForMailWithRequest_completion___block_invoke_24;
+    v20[3] = &unk_1E80C19D8;
+    v21 = v12;
+    [v13 fetchContextForMailWithRequest:requestCopy completion:v20];
   }
 
   else
   {
-    v13 = __atxlog_handle_notification_categorization();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_notification_categorization(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [ATXNotificationCategorizationClient collectDynamicBreakthroughFeaturesForNotification:completion:];
     }
 
-    v14 = MEMORY[0x1E695DF30];
-    v15 = *MEMORY[0x1E695D930];
-    v16 = NSStringFromSelector(a2);
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    [v14 raise:v15 format:{@"No completion handler provided for %@ in %@", v16, v18}];
+    v15 = MEMORY[0x1E695DF30];
+    v16 = *MEMORY[0x1E695D930];
+    v17 = NSStringFromSelector(a2);
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    [v15 raise:v16 format:{@"No completion handler provided for %@ in %@", v17, v19}];
   }
 }
 
 void __81__ATXNotificationCategorizationClient_fetchContextForMailWithRequest_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_categorization();
+  v4 = __atxlog_handle_notification_categorization(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -430,7 +430,7 @@ void __81__ATXNotificationCategorizationClient_fetchContextForMailWithRequest_co
   v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
-  v7 = __atxlog_handle_notification_categorization();
+  v7 = __atxlog_handle_notification_categorization(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315138;
@@ -443,58 +443,58 @@ void __81__ATXNotificationCategorizationClient_fetchContextForMailWithRequest_co
 
 - (void)fetchContextForMessageWithRequest:(id)request completion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   completionCopy = completion;
-  v9 = __atxlog_handle_notification_categorization();
+  v9 = __atxlog_handle_notification_categorization(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v25 = "[ATXNotificationCategorizationClient fetchContextForMessageWithRequest:completion:]";
+    v26 = "[ATXNotificationCategorizationClient fetchContextForMessageWithRequest:completion:]";
     _os_log_impl(&dword_1BF549000, v9, OS_LOG_TYPE_DEFAULT, "Fetching message context %s", buf, 0xCu);
   }
 
   if (completionCopy)
   {
     xpcConnection = self->_xpcConnection;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __84__ATXNotificationCategorizationClient_fetchContextForMessageWithRequest_completion___block_invoke;
-    v21[3] = &unk_1E80C1100;
-    v23 = a2;
-    v21[4] = self;
-    v11 = completionCopy;
-    v22 = v11;
-    v12 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v21];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __84__ATXNotificationCategorizationClient_fetchContextForMessageWithRequest_completion___block_invoke_26;
-    v19[3] = &unk_1E80C1A00;
-    v20 = v11;
-    [v12 fetchContextForMessageWithRequest:requestCopy completion:v19];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __84__ATXNotificationCategorizationClient_fetchContextForMessageWithRequest_completion___block_invoke;
+    v22[3] = &unk_1E80C1100;
+    v24 = a2;
+    v22[4] = self;
+    v12 = completionCopy;
+    v23 = v12;
+    v13 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v22];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __84__ATXNotificationCategorizationClient_fetchContextForMessageWithRequest_completion___block_invoke_26;
+    v20[3] = &unk_1E80C1A00;
+    v21 = v12;
+    [v13 fetchContextForMessageWithRequest:requestCopy completion:v20];
   }
 
   else
   {
-    v13 = __atxlog_handle_notification_categorization();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_notification_categorization(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [ATXNotificationCategorizationClient collectDynamicBreakthroughFeaturesForNotification:completion:];
     }
 
-    v14 = MEMORY[0x1E695DF30];
-    v15 = *MEMORY[0x1E695D930];
-    v16 = NSStringFromSelector(a2);
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    [v14 raise:v15 format:{@"No completion handler provided for %@ in %@", v16, v18}];
+    v15 = MEMORY[0x1E695DF30];
+    v16 = *MEMORY[0x1E695D930];
+    v17 = NSStringFromSelector(a2);
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    [v15 raise:v16 format:{@"No completion handler provided for %@ in %@", v17, v19}];
   }
 }
 
 void __84__ATXNotificationCategorizationClient_fetchContextForMessageWithRequest_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_categorization();
+  v4 = __atxlog_handle_notification_categorization(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -508,7 +508,7 @@ void __84__ATXNotificationCategorizationClient_fetchContextForMessageWithRequest
   v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
-  v7 = __atxlog_handle_notification_categorization();
+  v7 = __atxlog_handle_notification_categorization(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315138;

@@ -17,11 +17,91 @@
 - (MIPlaceholderConstructor)firstNetworkExtension;
 - (NSString)bundleID;
 - (id)_entitlementsForPath:(id)path error:(id *)error;
+- (id)_initWithSource:(id)source byPreservingFullInfoPlist:(BOOL)plist forBundleType:(unint64_t)type error:(id *)error;
 - (void)setInstallSessionUUID:(id)d;
 - (void)setInstallUUID:(id)d;
+- (void)setPerformPlaceholderInstallActions:(BOOL)actions;
 @end
 
 @implementation MIPlaceholderConstructor
+
+- (id)_initWithSource:(id)source byPreservingFullInfoPlist:(BOOL)plist forBundleType:(unint64_t)type error:(id *)error
+{
+  plistCopy = plist;
+  sourceCopy = source;
+  v26.receiver = self;
+  v26.super_class = MIPlaceholderConstructor;
+  v11 = [(MIPlaceholderConstructor *)&v26 init];
+  v12 = v11;
+  if (!v11)
+  {
+    v15 = 0;
+LABEL_9:
+    v18 = v12;
+    goto LABEL_17;
+  }
+
+  [(MIPlaceholderConstructor *)v11 setBundleURL:sourceCopy];
+  pathExtension = [sourceCopy pathExtension];
+  [(MIPlaceholderConstructor *)v12 setPlaceholderType:type];
+  if (type > 4)
+  {
+    v14 = 0;
+  }
+
+  else
+  {
+    v14 = off_1E80BA620[type];
+  }
+
+  if (([(__CFString *)v14 isEqualToString:pathExtension]& 1) != 0)
+  {
+    [(MIPlaceholderConstructor *)v12 setPreserveFullInfoPlist:plistCopy];
+    v16 = objc_autoreleasePoolPush();
+    v25 = 0;
+    v17 = [(MIPlaceholderConstructor *)v12 _introspectWithError:&v25];
+    v15 = v25;
+    objc_autoreleasePoolPop(v16);
+    if (v17)
+    {
+
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+    v19 = *MEMORY[0x1E69A8D00];
+    if (type >= 5)
+    {
+      type = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unknown PlaceholderBundleType value %lu", type];
+    }
+
+    else
+    {
+      type = off_1E80BA648[type];
+    }
+
+    path = [sourceCopy path];
+    v15 = _CreateAndLogError("[MIPlaceholderConstructor _initWithSource:byPreservingFullInfoPlist:forBundleType:error:]", 137, v19, 4, 0, 0, @"The provided placeholder type of %@ does not match the path extension for the bundle at %@", v21, type);
+  }
+
+  if (error)
+  {
+    v22 = v15;
+    v18 = 0;
+    *error = v15;
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+LABEL_17:
+
+  return v18;
+}
 
 - (NSString)bundleID
 {
@@ -44,26 +124,26 @@
 
 - (MIPlaceholderConstructor)firstNetworkExtension
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   [(MIPlaceholderConstructor *)self appExtensionPlaceholderConstructors];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v2 = v14 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v2 = v13 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
-    v4 = *v12;
+    v4 = *v11;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v12 != v4)
+        if (*v11 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v11 + 1) + 8 * i);
+        v6 = *(*(&v10 + 1) + 8 * i);
         entitlements = [v6 entitlements];
         v8 = MICopyNetworkExtensionEntitlement(entitlements);
 
@@ -75,7 +155,7 @@
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v3)
       {
         continue;
@@ -86,8 +166,6 @@
   }
 
 LABEL_11:
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -176,12 +254,11 @@ LABEL_7:
 
 uint64_t __48__MIPlaceholderConstructor__infoPlistKeysToLoad__block_invoke()
 {
-  v0 = *MEMORY[0x1E695E4E8];
-  v1 = [MEMORY[0x1E695DFD8] setWithObjects:{*MEMORY[0x1E695E4F0], *MEMORY[0x1E695E4E8], *MEMORY[0x1E695E148], *MEMORY[0x1E695E500], *MEMORY[0x1E695E4F8], *MEMORY[0x1E695E120], @"MinimumOSVersion", @"LSApplicationLaunchProhibited", @"NSExtension", @"EXAppExtensionAttributes", @"UIRequiredDeviceCapabilities", @"SBAppTags", @"LSCounterpartIdentifiers", @"SBIconMasqueradeIdentifier", @"WKCompanionAppBundleIdentifier", @"WKWatchOnly", @"WKRunsIndependentlyOfCompanionApp", @"NSApplicationRequiresArcade", 0}];
-  v2 = _infoPlistKeysToLoad_keysSet;
-  _infoPlistKeysToLoad_keysSet = v1;
+  v0 = [MEMORY[0x1E695DFD8] setWithObjects:{*MEMORY[0x1E695E4F0], *MEMORY[0x1E695E4E8], *MEMORY[0x1E695E148], *MEMORY[0x1E695E500], *MEMORY[0x1E695E4F8], *MEMORY[0x1E695E120], @"MinimumOSVersion", @"LSApplicationLaunchProhibited", @"NSExtension", @"EXAppExtensionAttributes", @"UIRequiredDeviceCapabilities", @"SBAppTags", @"LSCounterpartIdentifiers", @"SBIconMasqueradeIdentifier", @"WKCompanionAppBundleIdentifier", @"WKWatchOnly", @"WKRunsIndependentlyOfCompanionApp", @"NSApplicationRequiresArcade", 0}];
+  v1 = _infoPlistKeysToLoad_keysSet;
+  _infoPlistKeysToLoad_keysSet = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (BOOL)_loadInfoPlistContentWithError:(id *)error
@@ -324,73 +401,72 @@ BOOL __120__MIPlaceholderConstructor__constructPlaceholdersForDirectory_itemsWit
   v6 = v5;
   if (a3 == 4 && ([v5 pathExtension], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isEqualToString:", *(a1 + 32)), v7, v8))
   {
-    v9 = *(a1 + 40);
-    v10 = objc_alloc(objc_opt_class());
-    v11 = [*(a1 + 40) preserveFullInfoPlist];
-    v12 = *(a1 + 64);
-    v20 = 0;
-    v13 = [v10 _initWithSource:v6 byPreservingFullInfoPlist:v11 forBundleType:v12 error:&v20];
-    v14 = v20;
-    v15 = v20;
-    v16 = v13 != 0;
-    if (v13)
+    v9 = objc_alloc(objc_opt_class());
+    v10 = [*(a1 + 40) preserveFullInfoPlist];
+    v11 = *(a1 + 64);
+    v19 = 0;
+    v12 = [v9 _initWithSource:v6 byPreservingFullInfoPlist:v10 forBundleType:v11 error:&v19];
+    v13 = v19;
+    v14 = v19;
+    v15 = v12 != 0;
+    if (v12)
     {
       if (*(a1 + 64) == 2)
       {
-        v17 = [v13 infoPlistContent];
+        v16 = [v12 infoPlistContent];
         IsWatchKitForInfoPlist = MIExtensionPointIsWatchKitForInfoPlist();
 
         if (IsWatchKitForInfoPlist)
         {
-          [v13 setIsWatchKitExtension:1];
-          [*(a1 + 40) setWatchKitExtensionPlaceholderConstructor:v13];
+          [v12 setIsWatchKitExtension:1];
+          [*(a1 + 40) setWatchKitExtensionPlaceholderConstructor:v12];
         }
       }
 
-      [*(a1 + 48) addObject:v13];
+      [*(a1 + 48) addObject:v12];
     }
 
     else
     {
-      objc_storeStrong((*(*(a1 + 56) + 8) + 40), v14);
+      objc_storeStrong((*(*(a1 + 56) + 8) + 40), v13);
     }
   }
 
   else
   {
-    v16 = 1;
+    v15 = 1;
   }
 
-  return v16;
+  return v15;
 }
 
 - (BOOL)_populateAppExtensionPlaceholderConstructorsWithError:(id *)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v5 = objc_opt_new();
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v6 = [&unk_1F3DE9A68 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v6 = [&unk_1F3DE9A68 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
     errorCopy = error;
     v8 = 0;
-    v9 = *v26;
+    v9 = *v25;
     while (2)
     {
       v10 = 0;
       v11 = v8;
       do
       {
-        if (*v26 != v9)
+        if (*v25 != v9)
         {
           objc_enumerationMutation(&unk_1F3DE9A68);
         }
 
-        unsignedIntegerValue = [*(*(&v25 + 1) + 8 * v10) unsignedIntegerValue];
+        unsignedIntegerValue = [*(*(&v24 + 1) + 8 * v10) unsignedIntegerValue];
         bundleURL = [(MIPlaceholderConstructor *)self bundleURL];
         v14 = bundleURL;
         if ((unsignedIntegerValue - 1) > 3)
@@ -405,9 +481,9 @@ BOOL __120__MIPlaceholderConstructor__constructPlaceholdersForDirectory_itemsWit
 
         v16 = [bundleURL URLByAppendingPathComponent:v15 isDirectory:1];
 
-        v24 = v11;
-        v17 = [(MIPlaceholderConstructor *)self _constructPlaceholdersForDirectory:v16 itemsWithPathExtension:@"appex" appendingToArray:v5 bundleType:unsignedIntegerValue error:&v24];
-        v8 = v24;
+        v23 = v11;
+        v17 = [(MIPlaceholderConstructor *)self _constructPlaceholdersForDirectory:v16 itemsWithPathExtension:@"appex" appendingToArray:v5 bundleType:unsignedIntegerValue error:&v23];
+        v8 = v23;
 
         if (!v17)
         {
@@ -431,7 +507,7 @@ BOOL __120__MIPlaceholderConstructor__constructPlaceholdersForDirectory_itemsWit
       }
 
       while (v7 != v10);
-      v7 = [&unk_1F3DE9A68 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v7 = [&unk_1F3DE9A68 countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v7)
       {
         continue;
@@ -452,7 +528,6 @@ BOOL __120__MIPlaceholderConstructor__constructPlaceholdersForDirectory_itemsWit
   v19 = 1;
 LABEL_18:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -629,85 +704,117 @@ LABEL_14:
   return v12;
 }
 
+- (void)setPerformPlaceholderInstallActions:(BOOL)actions
+{
+  actionsCopy = actions;
+  v14 = *MEMORY[0x1E69E9840];
+  self->_performPlaceholderInstallActions = actions;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  appExtensionPlaceholderConstructors = [(MIPlaceholderConstructor *)self appExtensionPlaceholderConstructors];
+  v5 = [appExtensionPlaceholderConstructors countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v10;
+    do
+    {
+      v8 = 0;
+      do
+      {
+        if (*v10 != v7)
+        {
+          objc_enumerationMutation(appExtensionPlaceholderConstructors);
+        }
+
+        [*(*(&v9 + 1) + 8 * v8++) setPerformPlaceholderInstallActions:actionsCopy];
+      }
+
+      while (v6 != v8);
+      v6 = [appExtensionPlaceholderConstructors countByEnumeratingWithState:&v9 objects:v13 count:16];
+    }
+
+    while (v6);
+  }
+}
+
 - (void)setInstallUUID:(id)d
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   dCopy = d;
   objc_storeStrong(&self->_installUUID, d);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   appExtensionPlaceholderConstructors = [(MIPlaceholderConstructor *)self appExtensionPlaceholderConstructors];
-  v7 = [appExtensionPlaceholderConstructors countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [appExtensionPlaceholderConstructors countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(appExtensionPlaceholderConstructors);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) setInstallUUID:dCopy];
+        [*(*(&v11 + 1) + 8 * v10++) setInstallUUID:dCopy];
       }
 
       while (v8 != v10);
-      v8 = [appExtensionPlaceholderConstructors countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [appExtensionPlaceholderConstructors countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setInstallSessionUUID:(id)d
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   dCopy = d;
   objc_storeStrong(&self->_installSessionUUID, d);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   appExtensionPlaceholderConstructors = [(MIPlaceholderConstructor *)self appExtensionPlaceholderConstructors];
-  v7 = [appExtensionPlaceholderConstructors countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [appExtensionPlaceholderConstructors countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(appExtensionPlaceholderConstructors);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) setInstallSessionUUID:dCopy];
+        [*(*(&v11 + 1) + 8 * v10++) setInstallSessionUUID:dCopy];
       }
 
       while (v8 != v10);
-      v8 = [appExtensionPlaceholderConstructors countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [appExtensionPlaceholderConstructors countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_writeInfoPlistToPlaceholder:(id)placeholder substitutingIconContent:(id)content withError:(id *)error
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   placeholderCopy = placeholder;
   contentCopy = content;
   infoPlistContent = [(MIPlaceholderConstructor *)self infoPlistContent];
@@ -716,8 +823,8 @@ LABEL_14:
   [v12 setObject:@"Executable" forKeyedSubscript:*MEMORY[0x1E695E4E8]];
   placeholderType = [(MIPlaceholderConstructor *)self placeholderType];
   MIMinimumOSVersionForBundleInfoPlist();
-  v41 = v40 = error;
-  if (v41)
+  v40 = v39 = error;
+  if (v40)
   {
     v14 = MIBundleMinimumOSVersionIsPreV6() ^ 1;
   }
@@ -727,35 +834,35 @@ LABEL_14:
     LOBYTE(v14) = 0;
   }
 
-  v42 = infoPlistContent;
-  v43 = placeholderCopy;
+  v41 = infoPlistContent;
+  v42 = placeholderCopy;
   v15 = v11;
   if (MEMORY[0x1EEE8A788])
   {
     v16 = contentCopy;
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     v17 = IFTopLevelAppBundlePlistKeys();
-    v18 = [v17 countByEnumeratingWithState:&v45 objects:v49 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v44 objects:v48 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v46;
+      v20 = *v45;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v46 != v20)
+          if (*v45 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          [v12 setObject:0 forKeyedSubscript:*(*(&v45 + 1) + 8 * i)];
+          [v12 setObject:0 forKeyedSubscript:*(*(&v44 + 1) + 8 * i)];
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v45 objects:v49 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v44 objects:v48 count:16];
       }
 
       while (v19);
@@ -812,26 +919,26 @@ LABEL_22:
 
 LABEL_24:
   bundleURL = [(MIPlaceholderConstructor *)self bundleURL];
-  v44[1] = 0;
+  v43[1] = 0;
   v26 = MIBundleSupportedArchitecturesForPlaceholderInfoPlist();
   v27 = 0;
 
   if (!v26)
   {
-    v28 = v42;
-    v29 = v43;
+    v28 = v41;
+    v29 = v42;
     goto LABEL_31;
   }
 
   [v12 setObject:v26 forKeyedSubscript:*MEMORY[0x1E69A8D10]];
 
 LABEL_27:
-  v28 = v42;
-  v29 = v43;
+  v28 = v41;
+  v29 = v42;
   v30 = v27;
-  v44[0] = v27;
-  v31 = [v12 MI_writeToURL:v11 format:200 options:0x10000000 error:v44];
-  v27 = v44[0];
+  v43[0] = v27;
+  v31 = [v12 MI_writeToURL:v11 format:200 options:0x10000000 error:v43];
+  v27 = v43[0];
 
   if (v31)
   {
@@ -845,11 +952,11 @@ LABEL_27:
 
   v27 = v36;
 LABEL_31:
-  if (v40)
+  if (v39)
   {
     v37 = v27;
     v32 = 0;
-    *v40 = v27;
+    *v39 = v27;
   }
 
   else
@@ -859,7 +966,6 @@ LABEL_31:
 
 LABEL_34:
 
-  v38 = *MEMORY[0x1E69E9840];
   return v32;
 }
 
@@ -1210,36 +1316,36 @@ LABEL_16:
 
 - (BOOL)_materializeConstructors:(id)constructors intoBundle:(id)bundle error:(id *)error
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   constructorsCopy = constructors;
   bundleCopy = bundle;
   defaultManager = [MEMORY[0x1E69A8D78] defaultManager];
   v8 = objc_opt_new();
   if (constructorsCopy && [constructorsCopy count])
   {
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
-    v28 = constructorsCopy;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v27 = constructorsCopy;
     obj = constructorsCopy;
-    v9 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+    v9 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
     if (v9)
     {
       v10 = v9;
       errorCopy = error;
       v11 = 0;
-      v30 = *v36;
+      v29 = *v35;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v36 != v30)
+          if (*v35 != v29)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v35 + 1) + 8 * i);
+          v13 = *(*(&v34 + 1) + 8 * i);
           placeholderType = [v13 placeholderType];
           if ((placeholderType - 1) >= 4)
           {
@@ -1257,9 +1363,9 @@ LABEL_16:
 
           else
           {
-            v34 = v11;
-            v19 = [defaultManager createDirectoryAtURL:v17 withIntermediateDirectories:0 mode:493 error:&v34];
-            v18 = v34;
+            v33 = v11;
+            v19 = [defaultManager createDirectoryAtURL:v17 withIntermediateDirectories:0 mode:493 error:&v33];
+            v18 = v33;
 
             if (!v19)
             {
@@ -1273,19 +1379,19 @@ LABEL_16:
           lastPathComponent = [bundleURL lastPathComponent];
           v22 = [v17 URLByAppendingPathComponent:lastPathComponent isDirectory:1];
 
-          v33 = v18;
-          LODWORD(bundleURL) = [v13 materializeIntoBundleDirectory:v22 error:&v33];
-          v11 = v33;
+          v32 = v18;
+          LODWORD(bundleURL) = [v13 materializeIntoBundleDirectory:v22 error:&v32];
+          v11 = v32;
 
           if (!bundleURL)
           {
             v18 = v11;
 LABEL_23:
 
-            constructorsCopy = v28;
+            constructorsCopy = v27;
             if (errorCopy)
             {
-              v26 = v18;
+              v25 = v18;
               v23 = 0;
               *errorCopy = v18;
             }
@@ -1299,7 +1405,7 @@ LABEL_23:
           }
         }
 
-        v10 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+        v10 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
         if (v10)
         {
           continue;
@@ -1316,7 +1422,7 @@ LABEL_23:
 
     v23 = 1;
     v18 = v11;
-    constructorsCopy = v28;
+    constructorsCopy = v27;
   }
 
   else
@@ -1327,7 +1433,6 @@ LABEL_23:
 
 LABEL_18:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 

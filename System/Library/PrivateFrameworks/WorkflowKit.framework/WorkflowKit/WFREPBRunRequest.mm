@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)payloadTypeAsString:(int)string;
 - (int)StringAsPayloadType:(id)type;
 - (void)mergeFrom:(id)from;
 - (void)writeTo:(id)to;
@@ -58,8 +59,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  payloadType = self->_payloadType;
-  v6 = toCopy;
   PBDataWriterWriteInt32Field();
   if (!self->_payload)
   {
@@ -115,9 +114,9 @@
 {
   typeCopy = type;
   v4 = 1;
-  if (([typeCopy isEqualToString:@"SingleActionExecution"] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(typeCopy) & 1) == 0)
   {
-    if ([typeCopy isEqualToString:@"WorkflowExecution"])
+    if (objc_msgSend_isEqualToString_(typeCopy))
     {
       v4 = 2;
     }
@@ -126,6 +125,26 @@
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)payloadTypeAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"SingleActionExecution";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"WorkflowExecution";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;

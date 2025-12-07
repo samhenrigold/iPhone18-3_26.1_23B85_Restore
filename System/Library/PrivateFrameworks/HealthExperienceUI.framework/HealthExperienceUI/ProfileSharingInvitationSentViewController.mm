@@ -7,7 +7,7 @@
 - (void)viewDidLoad
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for ProfileSharingInvitationSentViewController();
+  v3.super_class = type metadata accessor for ProfileSharingInvitationSentViewController(0);
   v2 = v3.receiver;
   [(OBBaseWelcomeController *)&v3 viewDidLoad];
   sub_1BA034B48();

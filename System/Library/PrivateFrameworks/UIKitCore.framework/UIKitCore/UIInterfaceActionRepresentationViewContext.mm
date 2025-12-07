@@ -24,7 +24,7 @@ uint64_t __79___UIInterfaceActionRepresentationViewContext_AppleTV__applyHighlig
     v8 = *(a1 + 32);
     if (v8)
     {
-      [v8 _enlargedTransformForSize:v8[17] pressed:{v5, v7}];
+      objc_msgSend__enlargedTransformForSize_pressed_(v8, v5, v7);
       v9 = *(a1 + 32);
     }
 

@@ -191,23 +191,22 @@ LABEL_8:
 
 void __40__WFIPMonitor__postChangesNotification___block_invoke(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAB98] defaultCenter];
   v3 = MEMORY[0x277CCAB88];
   v5 = *(a1 + 32);
   v4 = *(a1 + 40);
-  v9 = @"changedKeys";
-  v10[0] = v4;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"changedKeys";
+  v9[0] = v4;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v7 = [v3 notificationWithName:@"WFIPMonitorStateChangedNotification" object:v5 userInfo:v6];
 
   [v2 postNotification:v7];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)__wifiServiceID
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
   selfCopy = self;
@@ -220,20 +219,21 @@ void __40__WFIPMonitor__postChangesNotification___block_invoke(uint64_t a1)
 LABEL_42:
     if ([(__CFString *)array count])
     {
-      v31 = WFLogForCategory(0);
-      v32 = OSLogForWFLogLevel(1uLL);
-      if (WFCurrentLogLevel() && v31 && os_log_type_enabled(v31, v32))
+      v35 = WFLogForCategory(0);
+      v36 = OSLogForWFLogLevel(1uLL);
+      v37 = v36;
+      if (WFCurrentLogLevel(v36, v38) && v35 && os_log_type_enabled(v35, v37))
       {
         interfaceName = selfCopy->_interfaceName;
         *buf = 136315906;
-        v44 = "[WFIPMonitor __wifiServiceID]";
-        v45 = 2114;
-        v46 = interfaceName;
-        v47 = 2114;
-        v48 = array;
-        v49 = 2114;
-        v50 = array2;
-        _os_log_impl(&dword_273ECD000, v31, v32, "%s Failed to return a service ID. None of the available SCNetworkInterfaceRefs matched the IEEE80211 type. _interfaceName: %{public}@, BSD names compared: %{public}@, types: %{public}@", buf, 0x2Au);
+        v49 = "[WFIPMonitor __wifiServiceID]";
+        v50 = 2114;
+        v51 = interfaceName;
+        v52 = 2114;
+        v53 = array;
+        v54 = 2114;
+        v55 = array2;
+        _os_log_impl(&dword_273ECD000, v35, v37, "%s Failed to return a service ID. None of the available SCNetworkInterfaceRefs matched the IEEE80211 type. _interfaceName: %{public}@, BSD names compared: %{public}@, types: %{public}@", buf, 0x2Au);
       }
     }
 
@@ -267,13 +267,13 @@ LABEL_42:
     goto LABEL_42;
   }
 
-  v37 = v7;
-  v38 = v5;
+  v42 = v7;
+  v43 = v5;
   v12 = 0;
   cf2 = *MEMORY[0x277CE16D8];
   *&v11 = 136315906;
-  v36 = v11;
-  v39 = array;
+  v41 = v11;
+  v44 = array;
   do
   {
     ValueAtIndex = CFArrayGetValueAtIndex(v10, v12);
@@ -360,19 +360,20 @@ LABEL_21:
           if (InterfaceType)
           {
             v27 = WFLogForCategory(0);
-            v29 = OSLogForWFLogLevel(3uLL);
-            if (WFCurrentLogLevel() >= 3 && v27 && os_log_type_enabled(v27, v29))
+            v31 = OSLogForWFLogLevel(3uLL);
+            v32 = v31;
+            if (WFCurrentLogLevel(v31, v33) >= 3 && v27 && os_log_type_enabled(v27, v32))
             {
-              v30 = selfCopy->_interfaceName;
-              *buf = v36;
-              v44 = "[WFIPMonitor __wifiServiceID]";
-              v45 = 2112;
-              v46 = InterfaceType;
-              v47 = 2112;
-              v48 = v23;
-              v49 = 2112;
-              v50 = v30;
-              _os_log_impl(&dword_273ECD000, v27, v29, "%s: wifi serviceID: %@, bsdName: %@, _interfaceName: %@", buf, 0x2Au);
+              v34 = selfCopy->_interfaceName;
+              *buf = v41;
+              v49 = "[WFIPMonitor __wifiServiceID]";
+              v50 = 2112;
+              v51 = InterfaceType;
+              v52 = 2112;
+              v53 = v23;
+              v54 = 2112;
+              v55 = v34;
+              _os_log_impl(&dword_273ECD000, v27, v32, "%s: wifi serviceID: %@, bsdName: %@, _interfaceName: %@", buf, 0x2Au);
             }
 
             goto LABEL_32;
@@ -387,24 +388,25 @@ LABEL_22:
 
         v27 = WFLogForCategory(0);
         v28 = OSLogForWFLogLevel(1uLL);
+        v29 = v28;
         InterfaceType = 0;
-        if (WFCurrentLogLevel() && v27)
+        if (WFCurrentLogLevel(v28, v30) && v27)
         {
-          if (os_log_type_enabled(v27, v28))
+          if (os_log_type_enabled(v27, v29))
           {
             *buf = 136315650;
-            v44 = "[WFIPMonitor __wifiServiceID]";
-            v45 = 2112;
-            v46 = v23;
-            v47 = 2112;
-            v48 = v19;
-            _os_log_impl(&dword_273ECD000, v27, v28, "%s: skipping non-Infra WiFi service bsdName='%@' (serviceID='%@')", buf, 0x20u);
+            v49 = "[WFIPMonitor __wifiServiceID]";
+            v50 = 2112;
+            v51 = v23;
+            v52 = 2112;
+            v53 = v19;
+            _os_log_impl(&dword_273ECD000, v27, v29, "%s: skipping non-Infra WiFi service bsdName='%@' (serviceID='%@')", buf, 0x20u);
           }
 
           InterfaceType = 0;
         }
 
-        array = v39;
+        array = v44;
 LABEL_32:
 
         goto LABEL_22;
@@ -417,8 +419,8 @@ LABEL_39:
   }
 
   while (CFArrayGetCount(v10) > v12 && !InterfaceType);
-  v7 = v37;
-  v5 = v38;
+  v7 = v42;
+  v5 = v43;
   if (!InterfaceType)
   {
     goto LABEL_42;
@@ -439,8 +441,6 @@ LABEL_49:
   {
     CFRelease(v5);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return InterfaceType;
 }
@@ -891,10 +891,7 @@ void __31__WFIPMonitor_ipv4DHCPClientID__block_invoke(uint64_t a1)
 
 uint64_t __38__WFIPMonitor_DHCPLeaseExpirationDate__block_invoke(uint64_t a1)
 {
-  v2 = DHCPInfoGetLeaseExpirationTime(*(a1 + 32));
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = DHCPInfoGetLeaseExpirationTime(*(a1 + 32));
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1296,7 +1293,7 @@ void __25__WFIPMonitor___dhcpInfo__block_invoke(uint64_t a1)
 
 - (BOOL)monitorNetworkServiceID:(id)d
 {
-  v71[1] = *MEMORY[0x277D85DE8];
+  v77[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   storeRef = self->_storeRef;
   if (storeRef)
@@ -1324,7 +1321,7 @@ void __25__WFIPMonitor___dhcpInfo__block_invoke(uint64_t a1)
   context.copyDescription = 0;
   if (!dCopy || (v14 = WFCopyProcessIdentifier()) == 0)
   {
-    v63 = 0;
+    v69 = 0;
     goto LABEL_30;
   }
 
@@ -1336,8 +1333,8 @@ void __25__WFIPMonitor___dhcpInfo__block_invoke(uint64_t a1)
     OUTLINED_FUNCTION_0_12();
     v19 = 0;
 LABEL_34:
-    v67 = 0;
-    v68 = 0;
+    v72 = 0;
+    v73 = 0;
     goto LABEL_40;
   }
 
@@ -1353,10 +1350,10 @@ LABEL_34:
   v20 = [array addObject:v19];
   v5 = *MEMORY[0x277CE1648];
   v23 = OUTLINED_FUNCTION_2_5(v20, v21, v22, *MEMORY[0x277CE1688]);
-  v67 = v19;
+  v72 = v19;
   if (v23)
   {
-    v68 = v23;
+    v73 = v23;
     v24 = [array addObject:v23];
     v19 = OUTLINED_FUNCTION_2_5(v24, v25, v26, *MEMORY[0x277CE1690]);
     if (v19)
@@ -1380,8 +1377,8 @@ LABEL_34:
             {
               cf = v15;
               v37 = self->_storeRef;
-              v71[0] = NetworkServiceEntity;
-              v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:1];
+              v77[0] = NetworkServiceEntity;
+              v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v77 count:1];
               LODWORD(v37) = SCDynamicStoreSetNotificationKeys(v37, array, v38);
 
               if (v37)
@@ -1389,34 +1386,40 @@ LABEL_34:
                 SCDynamicStoreSetDispatchQueue(self->_storeRef, self->_queue);
                 v39 = WFLogForCategory(0);
                 v40 = OSLogForWFLogLevel(4uLL);
-                if (WFCurrentLogLevel() >= 4 && v39 && os_log_type_enabled(v39, v40))
+                v41 = v40;
+                if (WFCurrentLogLevel(v40, v42) >= 4 && v39 && os_log_type_enabled(v39, v41))
                 {
-                  HIDWORD(v70) = HIDWORD(dCopy);
-                  OUTLINED_FUNCTION_3_2(&dword_273ECD000, v41, v42, "Monitoring service ID %@", v43, v44, v45, v46, cf, v67, v68, context.version, context.info, context.retain, context.release, context.copyDescription, 2u);
+                  *buf = 138412290;
+                  v76 = dCopy;
+                  OUTLINED_FUNCTION_3_2(&dword_273ECD000, v43, v44, "Monitoring service ID %@", v45, v46, v47, v48, cf, v72, v73, context.version, context.info, context.retain, context.release, context.copyDescription);
                 }
 
-                v47 = WFLogForCategory(0);
-                v48 = OSLogForWFLogLevel(4uLL);
-                if (WFCurrentLogLevel() >= 4 && v47 && os_log_type_enabled(v47, v48))
+                v49 = WFLogForCategory(0);
+                v50 = OSLogForWFLogLevel(4uLL);
+                v51 = v50;
+                if (WFCurrentLogLevel(v50, v52) >= 4 && v49 && os_log_type_enabled(v49, v51))
                 {
-                  HIDWORD(v70) = HIDWORD(array);
-                  OUTLINED_FUNCTION_3_2(&dword_273ECD000, v49, v50, "SC Keys: %@", v51, v52, v53, v54, cf, v67, v68, context.version, context.info, context.retain, context.release, context.copyDescription, 2u);
+                  *buf = 138412290;
+                  v76 = array;
+                  OUTLINED_FUNCTION_3_2(&dword_273ECD000, v53, v54, "SC Keys: %@", v55, v56, v57, v58, cf, v72, v73, context.version, context.info, context.retain, context.release, context.copyDescription);
                 }
 
-                v55 = WFLogForCategory(0);
-                v56 = OSLogForWFLogLevel(4uLL);
-                if (WFCurrentLogLevel() >= 4 && v55 && os_log_type_enabled(v55, v56))
+                v59 = WFLogForCategory(0);
+                v60 = OSLogForWFLogLevel(4uLL);
+                v61 = v60;
+                if (WFCurrentLogLevel(v60, v62) >= 4 && v59 && os_log_type_enabled(v59, v61))
                 {
-                  HIDWORD(v70) = HIDWORD(v16);
-                  OUTLINED_FUNCTION_3_2(&dword_273ECD000, v57, v58, "SC Match Pattern: %@", v59, v60, v61, v62, cf, v67, v68, context.version, context.info, context.retain, context.release, context.copyDescription, 2u);
+                  *buf = 138412290;
+                  v76 = v16;
+                  OUTLINED_FUNCTION_3_2(&dword_273ECD000, v63, v64, "SC Match Pattern: %@", v65, v66, v67, v68, cf, v72, v73, context.version, context.info, context.retain, context.release, context.copyDescription);
                 }
 
-                v63 = 1;
+                v69 = 1;
               }
 
               else
               {
-                v63 = 0;
+                v69 = 0;
               }
 
               v15 = cf;
@@ -1455,17 +1458,16 @@ LABEL_34:
   {
     OUTLINED_FUNCTION_0_12();
     v19 = 0;
-    v68 = 0;
+    v73 = 0;
   }
 
 LABEL_40:
-  v63 = 0;
+  v69 = 0;
 LABEL_29:
   CFRelease(v15);
 
 LABEL_30:
-  v64 = *MEMORY[0x277D85DE8];
-  return v63;
+  return v69;
 }
 
 - (BOOL)hasValidIPv4Address
@@ -1498,37 +1500,37 @@ LABEL_30:
 
 - (BOOL)hasValidIPv6Address
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   ipv6Addresses = [(WFIPMonitor *)self ipv6Addresses];
   v3 = ipv6Addresses;
   if (ipv6Addresses)
   {
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v4 = ipv6Addresses;
-    v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v5)
     {
-      v6 = *v11;
+      v6 = *v10;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v11 != v6)
+          if (*v10 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          if (WFIsValidIPv6Address(*(*(&v10 + 1) + 8 * i)))
+          if (WFIsValidIPv6Address(*(*(&v9 + 1) + 8 * i)))
           {
             LOBYTE(v5) = 1;
             goto LABEL_12;
           }
         }
 
-        v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v5)
         {
           continue;
@@ -1546,64 +1548,69 @@ LABEL_12:
     LOBYTE(v5) = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (BOOL)renewLease
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = WFLogForCategory(0);
   v4 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v3 && os_log_type_enabled(v3, v4))
+  v5 = v4;
+  if (WFCurrentLogLevel(v4, v6) >= 3 && v3 && os_log_type_enabled(v3, v5))
   {
-    v28 = 136315138;
-    v29 = "[WFIPMonitor renewLease]";
-    _os_log_impl(&dword_273ECD000, v3, v4, "%s: renewing lease", &v28, 0xCu);
+    v33 = 136315138;
+    v34 = "[WFIPMonitor renewLease]";
+    _os_log_impl(&dword_273ECD000, v3, v5, "%s: renewing lease", &v33, 0xCu);
   }
 
-  if (![(WFIPMonitor *)self prefsRef]|| (v5 = SCNetworkSetCopyCurrent([(WFIPMonitor *)self prefsRef])) == 0)
+  if (![(WFIPMonitor *)self prefsRef])
   {
-    v23 = 0;
-    goto LABEL_25;
+    return 0;
   }
 
-  v6 = v5;
-  v7 = SCNetworkSetCopyServices(v5);
+  v7 = SCNetworkSetCopyCurrent([(WFIPMonitor *)self prefsRef]);
   if (!v7)
   {
-    v23 = 0;
-    v8 = v6;
-    goto LABEL_24;
+    return 0;
   }
 
   v8 = v7;
-  Count = CFArrayGetCount(v7);
+  v9 = SCNetworkSetCopyServices(v7);
+  if (!v9)
+  {
+    v27 = 0;
+    v10 = v8;
+    goto LABEL_24;
+  }
+
+  v10 = v9;
+  Count = CFArrayGetCount(v9);
   if (!Count)
   {
     goto LABEL_13;
   }
 
-  v10 = Count;
-  v11 = 0;
-  v12 = *MEMORY[0x277CE16D8];
+  v12 = Count;
+  v13 = 0;
+  v14 = *MEMORY[0x277CE16D8];
   while (1)
   {
-    ValueAtIndex = CFArrayGetValueAtIndex(v8, v11);
+    ValueAtIndex = CFArrayGetValueAtIndex(v10, v13);
     Interface = SCNetworkServiceGetInterface(ValueAtIndex);
-    v15 = SCNetworkInterfaceGetInterfaceType(Interface);
-    if ([v15 isEqualToString:v12])
+    v17 = SCNetworkInterfaceGetInterfaceType(Interface);
+    if ([v17 isEqualToString:v14])
     {
-      v16 = SCNetworkInterfaceGetBSDName(Interface);
-      v17 = [v16 isEqualToString:self->_interfaceName];
+      v18 = SCNetworkInterfaceGetBSDName(Interface);
+      v19 = [v18 isEqualToString:self->_interfaceName];
 
-      if (v17)
+      if (v19)
       {
         break;
       }
     }
 
-    if (v10 == ++v11)
+    if (v12 == ++v13)
     {
       goto LABEL_13;
     }
@@ -1612,63 +1619,63 @@ LABEL_12:
   if (!Interface)
   {
 LABEL_13:
-    v18 = WFLogForCategory(0);
-    v19 = OSLogForWFLogLevel(1uLL);
-    if (!WFCurrentLogLevel() || !v18)
+    v20 = WFLogForCategory(0);
+    v21 = OSLogForWFLogLevel(1uLL);
+    v22 = v21;
+    if (!WFCurrentLogLevel(v21, v23) || !v20)
     {
       goto LABEL_19;
     }
 
-    v18 = v18;
-    if (!os_log_type_enabled(v18, v19))
+    v20 = v20;
+    if (!os_log_type_enabled(v20, v22))
     {
       goto LABEL_18;
     }
 
-    v20 = SCError();
-    v21 = SCErrorString(v20);
-    v28 = 136315138;
-    v29 = v21;
-    v22 = "WiFi: renewLease failed. Couldn't find WiFi interface. %s";
+    v24 = SCError();
+    v25 = SCErrorString(v24);
+    v33 = 136315138;
+    v34 = v25;
+    v26 = "WiFi: renewLease failed. Couldn't find WiFi interface. %s";
     goto LABEL_17;
   }
 
   if (SCNetworkInterfaceForceConfigurationRefresh(Interface))
   {
-    v23 = 1;
+    v27 = 1;
     goto LABEL_23;
   }
 
-  v18 = WFLogForCategory(0);
-  v19 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v18)
+  v20 = WFLogForCategory(0);
+  v29 = OSLogForWFLogLevel(1uLL);
+  v22 = v29;
+  if (WFCurrentLogLevel(v29, v30) && v20)
   {
-    v18 = v18;
-    if (!os_log_type_enabled(v18, v19))
+    v20 = v20;
+    if (!os_log_type_enabled(v20, v22))
     {
       goto LABEL_18;
     }
 
-    v26 = SCError();
-    v27 = SCErrorString(v26);
-    v28 = 136315138;
-    v29 = v27;
-    v22 = "renewLease failed: %s";
+    v31 = SCError();
+    v32 = SCErrorString(v31);
+    v33 = 136315138;
+    v34 = v32;
+    v26 = "renewLease failed: %s";
 LABEL_17:
-    _os_log_impl(&dword_273ECD000, v18, v19, v22, &v28, 0xCu);
+    _os_log_impl(&dword_273ECD000, v20, v22, v26, &v33, 0xCu);
 LABEL_18:
   }
 
 LABEL_19:
 
-  v23 = 0;
+  v27 = 0;
 LABEL_23:
-  CFRelease(v6);
-LABEL_24:
   CFRelease(v8);
-LABEL_25:
-  v24 = *MEMORY[0x277D85DE8];
-  return v23;
+LABEL_24:
+  CFRelease(v10);
+  return v27;
 }
 
 - (id)__ipv4StateConfig

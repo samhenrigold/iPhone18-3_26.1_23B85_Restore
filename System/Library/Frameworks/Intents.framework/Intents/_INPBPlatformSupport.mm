@@ -3,6 +3,7 @@
 - (_INPBPlatformSupport)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)supportedPlatformAsString:(int)string;
 - (int)StringAsSupportedPlatform:(id)platform;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -156,13 +157,11 @@ LABEL_10:
 
   if (minimumOsVersion)
   {
-    minimumOsVersion = self->_minimumOsVersion;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBPlatformSupport *)self hasSupportedPlatform])
   {
-    supportedPlatform = self->_supportedPlatform;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -188,6 +187,21 @@ LABEL_10:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)supportedPlatformAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7285960[string - 1];
   }
 
   return v4;

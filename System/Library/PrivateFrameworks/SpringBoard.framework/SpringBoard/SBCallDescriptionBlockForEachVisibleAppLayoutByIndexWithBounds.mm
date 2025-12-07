@@ -7,7 +7,7 @@ void ___SBCallDescriptionBlockForEachVisibleAppLayoutByIndexWithBounds_block_inv
 {
   v5 = a2;
   v20 = a3;
-  if ([*(a1 + 32) containsObject:v5])
+  if (objc_msgSend_containsObject_(*(a1 + 32)))
   {
     [*(a1 + 40) frameForIndex:a3];
     v19.origin.x = v6;

@@ -154,7 +154,7 @@ LABEL_27:
   *(location + 4) = v15;
   v2 = MGGetSInt32Answer() != 2;
   *(location + 8) = v2;
-  v3 = sub_1002414F4();
+  v3 = sub_1002414F4(0);
   v4 = 0;
   if (v3)
   {

@@ -463,74 +463,72 @@ LABEL_76:
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    minimumSchemaVersion = self->_minimumSchemaVersion;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    revision = self->_revision;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_requiredZoneCryptoFeatures)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_requiredRecordCryptoFeatures)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_requiredFieldCryptoFeatures)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_permittedZoneCryptoFeatures)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_permittedRecordCryptoFeatures)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_permittedFieldCryptoFeatures)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_zoneIdentifier)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_requiredAdopterFeatures)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_lastModifiedTimestamp)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -684,7 +682,6 @@ LABEL_76:
     goto LABEL_30;
   }
 
-  v8 = *(equalCopy + 96);
   if (*&self->_has)
   {
     if ((equalCopy[12] & 1) == 0 || self->_minimumSchemaVersion != *(equalCopy + 4))
@@ -714,87 +711,87 @@ LABEL_30:
   }
 
   requiredZoneCryptoFeatures = self->_requiredZoneCryptoFeatures;
-  v10 = equalCopy[9];
-  if (requiredZoneCryptoFeatures | v10 && !objc_msgSend_isEqual_(requiredZoneCryptoFeatures, v7, v10))
+  v9 = equalCopy[9];
+  if (requiredZoneCryptoFeatures | v9 && !objc_msgSend_isEqual_(requiredZoneCryptoFeatures, v7, v9))
   {
     goto LABEL_30;
   }
 
   requiredRecordCryptoFeatures = self->_requiredRecordCryptoFeatures;
-  v12 = equalCopy[8];
-  if (requiredRecordCryptoFeatures | v12)
+  v11 = equalCopy[8];
+  if (requiredRecordCryptoFeatures | v11)
   {
-    if (!objc_msgSend_isEqual_(requiredRecordCryptoFeatures, v7, v12))
+    if (!objc_msgSend_isEqual_(requiredRecordCryptoFeatures, v7, v11))
     {
       goto LABEL_30;
     }
   }
 
   requiredFieldCryptoFeatures = self->_requiredFieldCryptoFeatures;
-  v14 = equalCopy[7];
-  if (requiredFieldCryptoFeatures | v14)
+  v13 = equalCopy[7];
+  if (requiredFieldCryptoFeatures | v13)
   {
-    if (!objc_msgSend_isEqual_(requiredFieldCryptoFeatures, v7, v14))
+    if (!objc_msgSend_isEqual_(requiredFieldCryptoFeatures, v7, v13))
     {
       goto LABEL_30;
     }
   }
 
   permittedZoneCryptoFeatures = self->_permittedZoneCryptoFeatures;
-  v16 = equalCopy[5];
-  if (permittedZoneCryptoFeatures | v16)
+  v15 = equalCopy[5];
+  if (permittedZoneCryptoFeatures | v15)
   {
-    if (!objc_msgSend_isEqual_(permittedZoneCryptoFeatures, v7, v16))
+    if (!objc_msgSend_isEqual_(permittedZoneCryptoFeatures, v7, v15))
     {
       goto LABEL_30;
     }
   }
 
   permittedRecordCryptoFeatures = self->_permittedRecordCryptoFeatures;
-  v18 = equalCopy[4];
-  if (permittedRecordCryptoFeatures | v18)
+  v17 = equalCopy[4];
+  if (permittedRecordCryptoFeatures | v17)
   {
-    if (!objc_msgSend_isEqual_(permittedRecordCryptoFeatures, v7, v18))
+    if (!objc_msgSend_isEqual_(permittedRecordCryptoFeatures, v7, v17))
     {
       goto LABEL_30;
     }
   }
 
   permittedFieldCryptoFeatures = self->_permittedFieldCryptoFeatures;
-  v20 = equalCopy[3];
-  if (permittedFieldCryptoFeatures | v20)
+  v19 = equalCopy[3];
+  if (permittedFieldCryptoFeatures | v19)
   {
-    if (!objc_msgSend_isEqual_(permittedFieldCryptoFeatures, v7, v20))
+    if (!objc_msgSend_isEqual_(permittedFieldCryptoFeatures, v7, v19))
     {
       goto LABEL_30;
     }
   }
 
   zoneIdentifier = self->_zoneIdentifier;
-  v22 = equalCopy[11];
-  if (zoneIdentifier | v22)
+  v21 = equalCopy[11];
+  if (zoneIdentifier | v21)
   {
-    if (!objc_msgSend_isEqual_(zoneIdentifier, v7, v22))
+    if (!objc_msgSend_isEqual_(zoneIdentifier, v7, v21))
     {
       goto LABEL_30;
     }
   }
 
   requiredAdopterFeatures = self->_requiredAdopterFeatures;
-  v24 = equalCopy[6];
-  if (requiredAdopterFeatures | v24)
+  v23 = equalCopy[6];
+  if (requiredAdopterFeatures | v23)
   {
-    if (!objc_msgSend_isEqual_(requiredAdopterFeatures, v7, v24))
+    if (!objc_msgSend_isEqual_(requiredAdopterFeatures, v7, v23))
     {
       goto LABEL_30;
     }
   }
 
   lastModifiedTimestamp = self->_lastModifiedTimestamp;
-  v26 = equalCopy[1];
-  if (lastModifiedTimestamp | v26)
+  v25 = equalCopy[1];
+  if (lastModifiedTimestamp | v25)
   {
-    isEqual = objc_msgSend_isEqual_(lastModifiedTimestamp, v7, v26);
+    isEqual = objc_msgSend_isEqual_(lastModifiedTimestamp, v7, v25);
   }
 
   else

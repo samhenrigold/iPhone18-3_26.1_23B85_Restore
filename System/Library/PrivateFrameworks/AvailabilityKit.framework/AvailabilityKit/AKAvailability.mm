@@ -1,9 +1,11 @@
 @interface AKAvailability
 + (id)logger;
+- (AKAvailability)initWithAvailable:(BOOL)available activityIdentifier:(id)identifier;
 - (AKAvailability)initWithAvailable:(BOOL)available activityIdentifierString:(id)string;
 - (AKAvailability)initWithPublishedStatus:(id)status;
 - (AKAvailability)initWithStatusPayload:(id)payload invitationPayload:(id)invitationPayload;
 - (NSUUID)activityIdentifier;
+- (id)_initWithAvailable:(BOOL)available activityIdentifierString:(id)string personalizedAvailability:(BOOL)availability;
 - (id)_payloadDictionary;
 - (id)statusPublishRequest;
 @end
@@ -24,6 +26,26 @@
   }
 
   return v9;
+}
+
+- (id)_initWithAvailable:(BOOL)available activityIdentifierString:(id)string personalizedAvailability:(BOOL)availability
+{
+  result = [(AKAvailability *)self initWithAvailable:available activityIdentifierString:string];
+  if (result)
+  {
+    *(result + 9) = availability;
+  }
+
+  return result;
+}
+
+- (AKAvailability)initWithAvailable:(BOOL)available activityIdentifier:(id)identifier
+{
+  availableCopy = available;
+  uUIDString = [identifier UUIDString];
+  v7 = [(AKAvailability *)self initWithAvailable:availableCopy activityIdentifierString:uUIDString];
+
+  return v7;
 }
 
 - (NSUUID)activityIdentifier
@@ -89,7 +111,7 @@
 
 - (AKAvailability)initWithStatusPayload:(id)payload invitationPayload:(id)invitationPayload
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   invitationPayloadCopy = invitationPayload;
   payloadDictionary = [payload payloadDictionary];
   v8 = [payloadDictionary availabilityKit_BOOLForKey:@"a" defaultValue:1];
@@ -102,7 +124,7 @@
     if (v12)
     {
       *buf = 138412290;
-      v32 = v9;
+      v31 = v9;
       _os_log_impl(&dword_24192F000, p_super, OS_LOG_TYPE_DEFAULT, "Availability payload has an activity identifier %@, looking at invitation to see if they may be available or unavailable to me for this activity", buf, 0xCu);
     }
 
@@ -134,9 +156,9 @@
           if (v17)
           {
             *buf = 138412546;
-            v32 = v9;
-            v33 = 2112;
-            v34 = availableDuringActivityIdentifiers;
+            v31 = v9;
+            v32 = 2112;
+            v33 = availableDuringActivityIdentifiers;
             _os_log_impl(&dword_24192F000, v16, OS_LOG_TYPE_DEFAULT, "Overriding personalizedAvailability, users active activity identifier %@ is on my list of invited availableDuringActivityIdentifiers: %@", buf, 0x16u);
           }
 
@@ -147,9 +169,9 @@
         if (v17)
         {
           *buf = 138412546;
-          v32 = v9;
-          v33 = 2112;
-          v34 = availableDuringActivityIdentifiers;
+          v31 = v9;
+          v32 = 2112;
+          v33 = availableDuringActivityIdentifiers;
           v20 = "Not overriding personalizedAvailability, users active activity identifier %@ is not on my list of invited availableDuringActivityIdentifiers: %@";
           v21 = v16;
           v22 = 22;
@@ -186,9 +208,9 @@ LABEL_26:
           if (v26)
           {
             *buf = 138412546;
-            v32 = v9;
-            v33 = 2112;
-            v34 = availableDuringActivityIdentifiers;
+            v31 = v9;
+            v32 = 2112;
+            v33 = availableDuringActivityIdentifiers;
             _os_log_impl(&dword_24192F000, v25, OS_LOG_TYPE_DEFAULT, "Overriding personalizedAvailability, users active activity identifier %@ is on my list of invited unavailableDuringActivityIdentifiers: %@", buf, 0x16u);
           }
 
@@ -198,9 +220,9 @@ LABEL_26:
         else if (v26)
         {
           *buf = 138412546;
-          v32 = v9;
-          v33 = 2112;
-          v34 = availableDuringActivityIdentifiers;
+          v31 = v9;
+          v32 = 2112;
+          v33 = availableDuringActivityIdentifiers;
           _os_log_impl(&dword_24192F000, v25, OS_LOG_TYPE_DEFAULT, "Not overriding personalizedAvailability, users active activity identifier %@ is not on my list of invited unavailableDuringActivityIdentifiers: %@", buf, 0x16u);
         }
 
@@ -242,7 +264,6 @@ LABEL_15:
 LABEL_38:
 
   v27 = [(AKAvailability *)self _initWithAvailable:v8 activityIdentifierString:v9 personalizedAvailability:v18];
-  v28 = *MEMORY[0x277D85DE8];
   return v27;
 }
 

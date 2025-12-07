@@ -64,7 +64,7 @@
   player = self->_player;
   if (player)
   {
-    [(AVPlayer *)self->_player currentTime];
+    objc_msgSend_currentTime(self->_player);
   }
 
   else
@@ -551,7 +551,7 @@
   playerItem = self->_playerItem;
   if (playerItem)
   {
-    [(AVPlayerItem *)playerItem currentTime];
+    objc_msgSend_currentTime(playerItem, a2);
   }
 
   else
@@ -567,7 +567,7 @@
   _asset = [(PLMoviePlayerController *)self _asset];
   if (_asset)
   {
-    [_asset duration];
+    objc_msgSend_duration(_asset);
   }
 
   else
@@ -875,12 +875,12 @@ LABEL_9:
   }
 }
 
-uint64_t __74__PLMoviePlayerController_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t result)
+id *__74__PLMoviePlayerController_observeValueForKeyPath_ofObject_change_context___block_invoke(id *result)
 {
-  if (*(*(result + 32) + 8) == *(result + 40))
+  if (*(result[4] + 1) == result[5])
   {
     v1 = result;
-    if ([*(result + 48) isEqualToString:@"status"])
+    if ([result[6] isEqualToString:@"status"])
     {
       v2 = [*(v1[4] + 1) status];
       v3 = v1[4];
@@ -949,12 +949,12 @@ uint64_t __74__PLMoviePlayerController_observeValueForKeyPath_ofObject_change_co
   return result;
 }
 
-uint64_t __74__PLMoviePlayerController_observeValueForKeyPath_ofObject_change_context___block_invoke_2(uint64_t result)
+id *__74__PLMoviePlayerController_observeValueForKeyPath_ofObject_change_context___block_invoke_2(id *result)
 {
-  if (*(*(result + 32) + 16) == *(result + 40))
+  if (*(result[4] + 2) == result[5])
   {
     v1 = result;
-    if ([*(result + 48) isEqualToString:@"rate"])
+    if ([result[6] isEqualToString:@"rate"])
     {
       v2 = v1[4];
       v3 = v1[7];

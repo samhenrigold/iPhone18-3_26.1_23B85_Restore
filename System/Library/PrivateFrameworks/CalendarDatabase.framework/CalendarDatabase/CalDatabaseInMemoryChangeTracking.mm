@@ -8,7 +8,10 @@
 + (void)setInterestedDatabases:(id)databases forContext:(id)context;
 - (CalDatabaseInMemoryChangeTracking)init;
 - (id)changedEntityIDsBetweenMinExternalTimestamp:(unint64_t)timestamp minSelfTimestamp:(unint64_t)selfTimestamp maxExternalTimestamp:(unint64_t)externalTimestamp allowIntegrationChanges:(BOOL)changes latestSelfTimestamp:(unint64_t *)latestSelfTimestamp client:(int)client changeType:(unint64_t *)type deleteOffset:(unint64_t *)self0;
+- (id)changedEntityIDsBetweenTimestamp:(id)timestamp andTimestamp:(unint64_t)andTimestamp allowIntegrationChanges:(BOOL)changes latestTimestamp:(id *)latestTimestamp client:(unsigned int)client changeType:(unint64_t *)type deleteOffset:(unint64_t *)offset;
+- (id)changedEntityIDsForDatabase:(CalDatabase *)database sinceTimestamp:(id)timestamp allowIntegrationChanges:(BOOL)changes latestTimestamp:(id *)latestTimestamp changeType:(unint64_t *)type deleteOffset:(unint64_t *)offset;
 - (int)_writeChanges:(id)changes withTimestamp:(unint64_t)timestamp flags:(int)flags clientID:(unsigned int)d atIndex:(int)index;
+- (void)addChangeset:(__CFArray *)changeset deletes:(__CFArray *)deletes clientID:(unsigned int)d changeType:(unint64_t)type;
 - (void)clearAllChangesets;
 @end
 
@@ -50,30 +53,30 @@
 
 + (void)_setInterestedDatabasePaths:(id)paths forContext:(id)context
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
   contextCopy = context;
   os_unfair_lock_lock(&_trackedDatabasesLock);
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   obj = [_trackedDatabases allKeys];
-  v7 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v7 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v33;
+    v9 = *v32;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v33 != v9)
+        if (*v32 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * i);
+        v11 = *(*(&v31 + 1) + 8 * i);
         v12 = [_trackedDatabases objectForKeyedSubscript:v11];
         v13 = [pathsCopy containsObject:v11];
         clients = [v12 clients];
@@ -96,7 +99,7 @@
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v8 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v8);
@@ -109,26 +112,26 @@
     _trackedDatabases = v16;
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v18 = pathsCopy;
-  v19 = [v18 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v29;
+    v21 = *v28;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v29 != v21)
+        if (*v28 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v28 + 1) + 8 * j);
+        v23 = *(*(&v27 + 1) + 8 * j);
         v24 = objc_alloc_init(CalInMemoryTrackedDatabase);
         clients2 = [(CalInMemoryTrackedDatabase *)v24 clients];
         [clients2 addObject:contextCopy];
@@ -136,48 +139,47 @@
         [_trackedDatabases setObject:v24 forKeyedSubscript:v23];
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
     while (v20);
   }
 
   os_unfair_lock_unlock(&_trackedDatabasesLock);
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 + (void)setInterestedDatabases:(id)databases forContext:(id)context
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   databasesCopy = databases;
   contextCopy = context;
   if (contextCopy)
   {
     v8 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v9 = databasesCopy;
-    v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v17;
+      v12 = *v16;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v17 != v12)
+          if (*v16 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = [self pathForDatabase:{*(*(&v16 + 1) + 8 * i), v16}];
+          v14 = [self pathForDatabase:{*(*(&v15 + 1) + 8 * i), v15}];
           [v8 addObject:v14];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v11);
@@ -189,43 +191,41 @@
     v8 = 0;
   }
 
-  [self _setInterestedDatabasePaths:v8 forContext:{contextCopy, v16}];
-
-  v15 = *MEMORY[0x1E69E9840];
+  [self _setInterestedDatabasePaths:v8 forContext:{contextCopy, v15}];
 }
 
 + (void)setInterestedDatabasePaths:(id)paths forContext:(id)context
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
   contextCopy = context;
   if (contextCopy)
   {
     v8 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v9 = pathsCopy;
-    v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v17;
+      v12 = *v16;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v17 != v12)
+          if (*v16 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = [self canonicalizePath:{*(*(&v16 + 1) + 8 * i), v16}];
+          v14 = [self canonicalizePath:{*(*(&v15 + 1) + 8 * i), v15}];
           [v8 addObject:v14];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v11);
@@ -237,9 +237,7 @@
     v8 = 0;
   }
 
-  [self _setInterestedDatabasePaths:v8 forContext:{contextCopy, v16}];
-
-  v15 = *MEMORY[0x1E69E9840];
+  [self _setInterestedDatabasePaths:v8 forContext:{contextCopy, v15}];
 }
 
 + (id)changeTrackingForDatabase:(CalDatabase *)database
@@ -272,31 +270,100 @@
   os_unfair_lock_unlock(&self->_lock);
 }
 
+- (void)addChangeset:(__CFArray *)changeset deletes:(__CFArray *)deletes clientID:(unsigned int)d changeType:(unint64_t)type
+{
+  typeCopy = type;
+  v7 = *&d;
+  Count = CFArrayGetCount(changeset);
+  v12 = CFArrayGetCount(deletes) + Count;
+  if (v12 >= 513)
+  {
+
+    [(CalDatabaseInMemoryChangeTracking *)self clearAllChangesets];
+    return;
+  }
+
+  os_unfair_lock_lock(&self->_lock);
+  v13 = self->_changeCount + v12;
+  if (v13 >= 513)
+  {
+    if (1 - (v12 + self->_nextIndex) >= 0)
+    {
+      v14 = -((1 - (v12 + self->_nextIndex)) & 0x1FF);
+    }
+
+    else
+    {
+      v14 = (v12 + self->_nextIndex - 1) & 0x1FF;
+    }
+
+    self->_lastPrunedTimestamp = self->_changes[v14].timestamp;
+  }
+
+  v15 = CalMonotonicTime();
+  v16 = [(CalDatabaseInMemoryChangeTracking *)self _writeChanges:deletes withTimestamp:v15 flags:typeCopy & 3 | 4u clientID:v7 atIndex:[(CalDatabaseInMemoryChangeTracking *)self _writeChanges:changeset withTimestamp:v15 flags:typeCopy & 3 clientID:v7 atIndex:self->_nextIndex]];
+  self->_nextIndex = v16;
+  if (v13 <= 512)
+  {
+    v18 = self->_changeCount + v12;
+LABEL_19:
+    self->_changeCount = v18;
+    goto LABEL_20;
+  }
+
+  self->_changeCount = 512;
+  lastPrunedTimestamp = self->_lastPrunedTimestamp;
+  if (self->_changes[v16].timestamp == lastPrunedTimestamp)
+  {
+    v18 = 512;
+    do
+    {
+      --v18;
+      if (v16 == 511)
+      {
+        v16 = 0;
+      }
+
+      else
+      {
+        ++v16;
+      }
+    }
+
+    while (self->_changes[v16].timestamp == lastPrunedTimestamp);
+    goto LABEL_19;
+  }
+
+LABEL_20:
+
+  os_unfair_lock_unlock(&self->_lock);
+}
+
 - (int)_writeChanges:(id)changes withTimestamp:(unint64_t)timestamp flags:(int)flags clientID:(unsigned int)d atIndex:(int)index
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   changesCopy = changes;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v13 = [changesCopy countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v13 = [changesCopy countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v27;
+    v15 = *v26;
     changes = self->_changes;
     v17 = ((d & 0x1FFFFF) << 8) | (flags << 29);
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v27 != v15)
+        if (*v26 != v15)
         {
           objc_enumerationMutation(changesCopy);
         }
 
-        v19 = *(*(&v26 + 1) + 8 * i);
+        v19 = *(*(&v25 + 1) + 8 * i);
         v20 = &changes[index];
         v20->timestamp = timestamp;
         v21 = CalRecordIDGetEntityType(v19);
@@ -316,13 +383,12 @@
         }
       }
 
-      v14 = [changesCopy countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v14 = [changesCopy countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v14);
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return index;
 }
 
@@ -700,6 +766,46 @@ uint64_t __194__CalDatabaseInMemoryChangeTracking_changedEntityIDsBetweenMinExte
   *(v6 + 8 * *(*(*(result + v5) + 8) + 24)) = v4;
   *(v6 + 8 * (*(*(*(result + v5) + 8) + 24))++ + 4) = a3;
   return result;
+}
+
+- (id)changedEntityIDsBetweenTimestamp:(id)timestamp andTimestamp:(unint64_t)andTimestamp allowIntegrationChanges:(BOOL)changes latestTimestamp:(id *)latestTimestamp client:(unsigned int)client changeType:(unint64_t *)type deleteOffset:(unint64_t *)offset
+{
+  v10 = *&client;
+  changesCopy = changes;
+  timestampCopy = timestamp;
+  os_unfair_lock_lock(&self->_lock);
+  v21 = 0;
+  others = [timestampCopy others];
+  myself = [timestampCopy myself];
+
+  v18 = [(CalDatabaseInMemoryChangeTracking *)self changedEntityIDsBetweenMinExternalTimestamp:others minSelfTimestamp:myself maxExternalTimestamp:andTimestamp allowIntegrationChanges:changesCopy latestSelfTimestamp:&v21 client:v10 changeType:type deleteOffset:offset];
+  if (latestTimestamp)
+  {
+    v19 = [CalSingleDatabaseInMemoryChangeTimestamp alloc];
+    *latestTimestamp = [(CalSingleDatabaseInMemoryChangeTimestamp *)v19 initWithTimestampForMyself:v21 others:andTimestamp];
+  }
+
+  os_unfair_lock_unlock(&self->_lock);
+
+  return v18;
+}
+
+- (id)changedEntityIDsForDatabase:(CalDatabase *)database sinceTimestamp:(id)timestamp allowIntegrationChanges:(BOOL)changes latestTimestamp:(id *)latestTimestamp changeType:(unint64_t *)type deleteOffset:(unint64_t *)offset
+{
+  changesCopy = changes;
+  timestampCopy = timestamp;
+  os_unfair_lock_lock(&database->var9);
+  var21 = database->var21;
+  var22 = database->var22;
+  if (CDBLockingAssertionsEnabled == 1)
+  {
+    os_unfair_lock_assert_owner(&database->var9);
+  }
+
+  os_unfair_lock_unlock(&database->var9);
+  v17 = [(CalDatabaseInMemoryChangeTracking *)self changedEntityIDsBetweenTimestamp:timestampCopy andTimestamp:var21 allowIntegrationChanges:changesCopy latestTimestamp:latestTimestamp client:var22 changeType:type deleteOffset:offset];
+
+  return v17;
 }
 
 @end

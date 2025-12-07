@@ -14,8 +14,10 @@
 - (id)serverPropertyForOption:(int64_t)option error:(id *)error;
 - (id)synchronousExternalizedContextWithError:(id *)error;
 - (void)_checkIdResultForTCC:(id)c synchronous:(BOOL)synchronous error:(id)error retryBlock:(id)block finally:(id)finally;
+- (void)_connectToServerWithRecovery:(BOOL)recovery userSession:(const unsigned int *)session legacyService:(BOOL)service;
 - (void)_handleConnectionResult:(id)result uuid:(id)uuid proxyId:(id)id error:(id)error;
 - (void)_invalidateCachedExternalizedContextWithError:(id)error;
+- (void)_performSynchronous:(BOOL)synchronous callBool:(id)bool finally:(id)finally;
 - (void)_performSynchronous:(BOOL)synchronous callId:(id)id finally:(id)finally;
 - (void)_recoverConnectionIfNeeded;
 - (void)_scheduleRecovery;
@@ -31,8 +33,10 @@
 - (void)evaluateACL:(id)l operation:(id)operation options:(id)options reply:(id)reply;
 - (void)evaluateACL:(id)l operation:(id)operation options:(id)options uiDelegate:(id)delegate synchronous:(BOOL)synchronous reply:(id)reply;
 - (void)evaluatePolicy:(int64_t)policy options:(id)options reply:(id)reply;
+- (void)evaluatePolicy:(int64_t)policy options:(id)options uiDelegate:(id)delegate synchronous:(BOOL)synchronous reply:(id)reply;
 - (void)externalizedContextWithReply:(id)reply;
 - (void)failProcessedEvent:(int64_t)event failureError:(id)error reply:(id)reply;
+- (void)getDomainStateWithOptions:(id)options synchronous:(BOOL)synchronous reply:(id)reply;
 - (void)invalidateWithMessage:(id)message;
 - (void)invalidateWithReply:(id)reply;
 - (void)invalidatedWithError:(id)error;
@@ -118,7 +122,7 @@ void __18__LAClient__queue__block_invoke()
 
 - (void)_recoverConnectionIfNeeded
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if ([(LAClient *)self shouldRecoverConnection])
   {
     [(LAClient *)self setShouldRecoverConnection:0];
@@ -127,7 +131,7 @@ void __18__LAClient__queue__block_invoke()
     {
       context = [(LAClient *)self context];
       *buf = 138543362;
-      v12 = context;
+      v11 = context;
       _os_log_impl(&dword_1A784E000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ is recovering connection to server", buf, 0xCu);
     }
 
@@ -146,15 +150,13 @@ void __18__LAClient__queue__block_invoke()
       v8 = 0;
     }
 
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __38__LAClient__recoverConnectionIfNeeded__block_invoke;
-    v10[3] = &unk_1E77CBB00;
-    v10[4] = self;
-    [(LAClient *)self _synchronousRemoteObjectProxy:v8 performCall:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __38__LAClient__recoverConnectionIfNeeded__block_invoke;
+    v9[3] = &unk_1E77CBB00;
+    v9[4] = self;
+    [(LAClient *)self _synchronousRemoteObjectProxy:v8 performCall:v9];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -307,7 +309,7 @@ void __60__LAClient_initWithUUID_token_senderAuditTokenData_context___block_invo
 + (id)createConnection:(const unsigned int *)connection legacyService:(BOOL)service
 {
   serviceCopy = service;
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v6 = LALogForCategory();
   v7 = @"com.apple.CoreAuthentication.daemon";
   if (serviceCopy)
@@ -329,7 +331,7 @@ void __60__LAClient_initWithUUID_token_senderAuditTokenData_context___block_invo
   v10 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:v8 options:v9];
   if (xpc_user_sessions_enabled())
   {
-    *v18 = 0;
+    *v17 = 0;
     foreground_uid = xpc_user_sessions_get_foreground_uid();
     _xpcConnection = [v10 _xpcConnection];
     xpc_connection_set_target_user_session_uid();
@@ -354,26 +356,74 @@ void __60__LAClient_initWithUUID_token_senderAuditTokenData_context___block_invo
       v15 = 0;
     }
 
-    *v18 = 138543874;
-    *&v18[4] = v8;
-    v19 = 1024;
-    v20 = v9;
-    v21 = 2114;
-    v22 = v15;
-    _os_log_impl(&dword_1A784E000, v14, OS_LOG_TYPE_INFO, "Connecting to %{public}@, flags:%x, uid:%{public}@", v18, 0x1Cu);
+    *v17 = 138543874;
+    *&v17[4] = v8;
+    v18 = 1024;
+    v19 = v9;
+    v20 = 2114;
+    v21 = v15;
+    _os_log_impl(&dword_1A784E000, v14, OS_LOG_TYPE_INFO, "Connecting to %{public}@, flags:%x, uid:%{public}@", v17, 0x1Cu);
     if (connection)
     {
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v10;
+}
+
+- (void)_connectToServerWithRecovery:(BOOL)recovery userSession:(const unsigned int *)session legacyService:(BOOL)service
+{
+  serviceCopy = service;
+  v31 = *MEMORY[0x1E69E9840];
+  v9 = LALogForCategory();
+  v10 = [LAClient createConnection:session legacyService:serviceCopy];
+  serverConnection = self->_serverConnection;
+  self->_serverConnection = v10;
+
+  v12 = [MEMORY[0x1E696EE98] interfaceWithInternalProtocol:&unk_1F1A78C90];
+  serverConnection = [(LAClient *)self serverConnection];
+  [serverConnection setRemoteObjectInterface:v12];
+
+  serverConnection2 = [(LAClient *)self serverConnection];
+  v15 = +[LAClient _queue];
+  [serverConnection2 _setQueue:v15];
+
+  if (session && *session)
+  {
+    [(NSXPCConnection *)self->_serverConnection _setTargetUserIdentifier:?];
+    v16 = v9;
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    {
+      context = [(LAClient *)self context];
+      v18 = *session;
+      *buf = 138543618;
+      v28 = context;
+      v29 = 1024;
+      v30 = v18;
+      _os_log_impl(&dword_1A784E000, v16, OS_LOG_TYPE_INFO, "%{public}@ target uid: %u", buf, 0x12u);
+    }
+  }
+
+  objc_initWeak(buf, self);
+  v22 = MEMORY[0x1E69E9820];
+  v19 = v9;
+  v23 = v19;
+  objc_copyWeak(&v25, buf);
+  recoveryCopy = recovery;
+  selfCopy = self;
+  v20 = [(LAClient *)self serverConnection:v22];
+  [v20 setInterruptionHandler:&v22];
+
+  serverConnection3 = [(LAClient *)self serverConnection];
+  [serverConnection3 resume];
+
+  objc_destroyWeak(&v25);
+  objc_destroyWeak(buf);
 }
 
 void __67__LAClient__connectToServerWithRecovery_userSession_legacyService___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
@@ -383,11 +433,11 @@ void __67__LAClient__connectToServerWithRecovery_userSession_legacyService___blo
     v6 = *(a1 + 56);
     v7 = objc_loadWeakRetained((a1 + 48));
     *buf = 138543874;
-    v13 = v5;
-    v14 = 1024;
-    v15 = v6;
-    v16 = 1024;
-    v17 = [v7 willRetryOnInterruptedConnection];
+    v12 = v5;
+    v13 = 1024;
+    v14 = v6;
+    v15 = 1024;
+    v16 = [v7 willRetryOnInterruptedConnection];
     _os_log_impl(&dword_1A784E000, v3, OS_LOG_TYPE_INFO, "%{public}@ connection to server interrupted (recovery: %d, willRetry: %d)", buf, 0x18u);
   }
 
@@ -398,13 +448,11 @@ void __67__LAClient__connectToServerWithRecovery_userSession_legacyService___blo
     block[1] = 3221225472;
     block[2] = __67__LAClient__connectToServerWithRecovery_userSession_legacyService___block_invoke_46;
     block[3] = &unk_1E77CB1F8;
-    objc_copyWeak(&v11, (a1 + 48));
+    objc_copyWeak(&v10, (a1 + 48));
     dispatch_async(v8, block);
 
-    objc_destroyWeak(&v11);
+    objc_destroyWeak(&v10);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __67__LAClient__connectToServerWithRecovery_userSession_legacyService___block_invoke_46(uint64_t a1)
@@ -713,40 +761,38 @@ uint64_t __32__LAClient_invalidateWithReply___block_invoke(uint64_t a1, void *a2
 
 + (void)_performInvalidationBlocks:(id)blocks
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   blocksCopy = blocks;
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v4 = [blocksCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [blocksCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(blocksCopy);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) invoke];
+        [*(*(&v8 + 1) + 8 * v7++) invoke];
       }
 
       while (v5 != v7);
-      v5 = [blocksCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [blocksCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
 
   [blocksCopy removeAllObjects];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_checkIdResultForTCC:(id)c synchronous:(BOOL)synchronous error:(id)error retryBlock:(id)block finally:(id)finally
@@ -785,35 +831,30 @@ uint64_t __32__LAClient_invalidateWithReply___block_invoke(uint64_t a1, void *a2
 
 uint64_t __70__LAClient__checkIdResultForTCC_synchronous_error_retryBlock_finally___block_invoke(void *a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = LALogForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
     v6 = a1[5];
-    v11 = 138543874;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v6;
-    v15 = 1024;
-    v16 = a2 == 1;
-    _os_log_impl(&dword_1A784E000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ TCC access request for %@ returned %d", &v11, 0x1Cu);
+    v8 = 138543874;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 1024;
+    v13 = a2 == 1;
+    _os_log_impl(&dword_1A784E000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ TCC access request for %@ returned %d", &v8, 0x1Cu);
   }
 
   if (a2 == 1)
   {
-    v7 = a1[8];
-    result = (*(a1[7] + 16))();
+    return (*(a1[7] + 16))();
   }
 
   else
   {
-    v9 = a1[6];
-    result = (*(a1[8] + 16))();
+    return (*(a1[8] + 16))();
   }
-
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (void)_performSynchronous:(BOOL)synchronous callId:(id)id finally:(id)finally
@@ -946,6 +987,26 @@ void __47__LAClient__performSynchronous_callId_finally___block_invoke_3(uint64_t
   }
 }
 
+- (void)_performSynchronous:(BOOL)synchronous callBool:(id)bool finally:(id)finally
+{
+  synchronousCopy = synchronous;
+  boolCopy = bool;
+  finallyCopy = finally;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __49__LAClient__performSynchronous_callBool_finally___block_invoke;
+  v14[3] = &unk_1E77CBCB8;
+  v15 = boolCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __49__LAClient__performSynchronous_callBool_finally___block_invoke_3;
+  v12[3] = &unk_1E77CBCE0;
+  v13 = finallyCopy;
+  v10 = finallyCopy;
+  v11 = boolCopy;
+  [(LAClient *)self _performSynchronous:synchronousCopy callId:v14 finally:v12];
+}
+
 void __49__LAClient__performSynchronous_callBool_finally___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -1025,6 +1086,20 @@ void __49__LAClient__performSynchronous_callBool_finally___block_invoke_3(uint64
   return v5;
 }
 
+- (void)getDomainStateWithOptions:(id)options synchronous:(BOOL)synchronous reply:(id)reply
+{
+  synchronousCopy = synchronous;
+  optionsCopy = options;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __56__LAClient_getDomainStateWithOptions_synchronous_reply___block_invoke;
+  v10[3] = &unk_1E77CBD08;
+  v10[4] = self;
+  v11 = optionsCopy;
+  v9 = optionsCopy;
+  [(LAClient *)self _performSynchronous:synchronousCopy callId:v10 finally:reply];
+}
+
 void __56__LAClient_getDomainStateWithOptions_synchronous_reply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -1045,6 +1120,36 @@ void __56__LAClient_getDomainStateWithOptions_synchronous_reply___block_invoke(u
   optionsCopy = options;
   uiDelegate = [(LAClient *)self uiDelegate];
   [(LAClient *)self evaluatePolicy:policy options:optionsCopy uiDelegate:uiDelegate reply:replyCopy];
+}
+
+- (void)evaluatePolicy:(int64_t)policy options:(id)options uiDelegate:(id)delegate synchronous:(BOOL)synchronous reply:(id)reply
+{
+  synchronousCopy = synchronous;
+  replyCopy = reply;
+  delegateCopy = delegate;
+  v14 = [(LAClient *)self _updateOptions:options];
+  v15 = MEMORY[0x1E696EE88];
+  v16 = [MEMORY[0x1E69AD298] checkOptions:v14];
+  [v15 raiseExceptionOnError:v16];
+
+  v17 = MEMORY[0x1E696EE88];
+  v18 = [MEMORY[0x1E69AD298] checkPolicy:policy];
+  [v17 raiseExceptionOnError:v18];
+
+  v19 = [(LAClient *)self _resolveUIDelegateFromDelegate:delegateCopy];
+
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __64__LAClient_evaluatePolicy_options_uiDelegate_synchronous_reply___block_invoke;
+  v22[3] = &unk_1E77CBD80;
+  v22[4] = self;
+  v23 = v14;
+  v24 = v19;
+  policyCopy = policy;
+  v26 = synchronousCopy;
+  v20 = v19;
+  v21 = v14;
+  [(LAClient *)self _performSynchronous:synchronousCopy callId:v22 finally:replyCopy];
 }
 
 void __64__LAClient_evaluatePolicy_options_uiDelegate_synchronous_reply___block_invoke(uint64_t a1, void *a2)
@@ -1899,69 +2004,52 @@ LABEL_6:
   return v5;
 }
 
-+ (void)createConnection:(int *)a1 legacyService:.cold.1(int *a1)
++ (void)createConnection:(unsigned int *)a1 legacyService:.cold.1(unsigned int *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
   xpc_strerror();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)createConnection:(uint64_t)a1 legacyService:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a1];
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_debug_impl(&dword_1A784E000, a2, OS_LOG_TYPE_DEBUG, "xpc_connection_set_target_user_session_uid() setting uid:%{public}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_debug_impl(&dword_1A784E000, a2, OS_LOG_TYPE_DEBUG, "xpc_connection_set_target_user_session_uid() setting uid:%{public}@", &v4, 0xCu);
 }
 
 - (void)_handleConnectionResult:(void *)a1 uuid:proxyId:error:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 context];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __29__LAClient_setRemoteContext___block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) context];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidatedWithError:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 context];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setPermanentError:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 context];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

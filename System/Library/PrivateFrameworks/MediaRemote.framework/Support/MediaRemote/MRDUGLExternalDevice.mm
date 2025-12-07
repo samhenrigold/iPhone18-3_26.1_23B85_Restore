@@ -44,11 +44,18 @@
 - (void)sendButtonEvent:(_MRHIDButtonEvent)event;
 - (void)sendClientUpdatesConfigMessage;
 - (void)sendCustomData:(id)data withName:(id)name;
+- (void)setAllowsHeadTrackedSpatialAudio:(BOOL)audio outputDeviceUID:(id)d queue:(id)queue completion:(id)completion;
+- (void)setConversationDetectionEnabled:(BOOL)enabled outputDeviceUID:(id)d queue:(id)queue completion:(id)completion;
 - (void)setCustomDataCallback:(id)callback withQueue:(id)queue;
 - (void)setHeadTrackedSpatialAudioMode:(id)mode outputDeviceUID:(id)d queue:(id)queue completion:(id)completion;
 - (void)setListeningMode:(id)mode outputDeviceUID:(id)d queue:(id)queue completion:(id)completion;
 - (void)setOutputDeviceVolume:(float)volume outputDeviceUID:(id)d details:(id)details queue:(id)queue completion:(id)completion;
 - (void)setSubscribedPlayerPaths:(id)paths;
+- (void)setWantsNowPlayingArtworkNotifications:(BOOL)notifications;
+- (void)setWantsNowPlayingNotifications:(BOOL)notifications;
+- (void)setWantsOutputDeviceNotifications:(BOOL)notifications;
+- (void)setWantsSystemEndpointNotifications:(BOOL)notifications;
+- (void)setWantsVolumeNotifications:(BOOL)notifications;
 @end
 
 @implementation MRDUGLExternalDevice
@@ -150,22 +157,21 @@
 - (NSString)debugDescription
 {
   v3 = objc_opt_class();
-  ugl = self->_ugl;
-  v5 = MRCreateIndentedDebugDescriptionFromObject();
-  v6 = v5;
+  v4 = MRCreateIndentedDebugDescriptionFromObject();
+  v5 = v4;
   if (self->_disconnected)
   {
-    v7 = @"YES";
+    v6 = @"YES";
   }
 
   else
   {
-    v7 = @"NO";
+    v6 = @"NO";
   }
 
-  v8 = [NSString stringWithFormat:@"<%@: %p {\n    uglEndpoint = %@\n    disconnected = %@\n}>", v3, self, v5, v7];
+  v7 = [NSString stringWithFormat:@"<%@: %p {\n    uglEndpoint = %@\n    disconnected = %@\n}>", v3, self, v4, v6];
 
-  return v8;
+  return v7;
 }
 
 - (id)name
@@ -624,6 +630,16 @@ LABEL_21:
   [localEndpoint setListeningMode:modeCopy outputDeviceUID:dCopy queue:queueCopy completion:completionCopy];
 }
 
+- (void)setAllowsHeadTrackedSpatialAudio:(BOOL)audio outputDeviceUID:(id)d queue:(id)queue completion:(id)completion
+{
+  audioCopy = audio;
+  completionCopy = completion;
+  queueCopy = queue;
+  dCopy = d;
+  localEndpoint = [(MRDUGLExternalDevice *)self localEndpoint];
+  [localEndpoint setAllowsHeadTrackedSpatialAudio:audioCopy outputDeviceUID:dCopy queue:queueCopy completion:completionCopy];
+}
+
 - (void)setHeadTrackedSpatialAudioMode:(id)mode outputDeviceUID:(id)d queue:(id)queue completion:(id)completion
 {
   completionCopy = completion;
@@ -632,6 +648,16 @@ LABEL_21:
   modeCopy = mode;
   localEndpoint = [(MRDUGLExternalDevice *)self localEndpoint];
   [localEndpoint setHeadTrackedSpatialAudioMode:modeCopy outputDeviceUID:dCopy queue:queueCopy completion:completionCopy];
+}
+
+- (void)setConversationDetectionEnabled:(BOOL)enabled outputDeviceUID:(id)d queue:(id)queue completion:(id)completion
+{
+  enabledCopy = enabled;
+  completionCopy = completion;
+  queueCopy = queue;
+  dCopy = d;
+  localEndpoint = [(MRDUGLExternalDevice *)self localEndpoint];
+  [localEndpoint setConversationDetectionEnabled:enabledCopy outputDeviceUID:dCopy queue:queueCopy completion:completionCopy];
 }
 
 - (void)ping:(double)ping callback:(id)callback withQueue:(id)queue
@@ -778,12 +804,26 @@ LABEL_21:
   return wantsNowPlayingNotifications;
 }
 
+- (void)setWantsNowPlayingNotifications:(BOOL)notifications
+{
+  notificationsCopy = notifications;
+  v4 = [(MRDUGLExternalDevice *)self ugl];
+  [v4 setWantsNowPlayingNotifications:notificationsCopy];
+}
+
 - (BOOL)wantsNowPlayingArtworkNotifications
 {
   v2 = [(MRDUGLExternalDevice *)self ugl];
   wantsNowPlayingArtworkNotifications = [v2 wantsNowPlayingArtworkNotifications];
 
   return wantsNowPlayingArtworkNotifications;
+}
+
+- (void)setWantsNowPlayingArtworkNotifications:(BOOL)notifications
+{
+  notificationsCopy = notifications;
+  v4 = [(MRDUGLExternalDevice *)self ugl];
+  [v4 setWantsNowPlayingArtworkNotifications:notificationsCopy];
 }
 
 - (BOOL)wantsVolumeNotifications
@@ -794,6 +834,13 @@ LABEL_21:
   return wantsVolumeNotifications;
 }
 
+- (void)setWantsVolumeNotifications:(BOOL)notifications
+{
+  notificationsCopy = notifications;
+  v4 = [(MRDUGLExternalDevice *)self ugl];
+  [v4 setWantsVolumeNotifications:notificationsCopy];
+}
+
 - (BOOL)wantsOutputDeviceNotifications
 {
   v2 = [(MRDUGLExternalDevice *)self ugl];
@@ -802,12 +849,26 @@ LABEL_21:
   return wantsOutputDeviceNotifications;
 }
 
+- (void)setWantsOutputDeviceNotifications:(BOOL)notifications
+{
+  notificationsCopy = notifications;
+  v4 = [(MRDUGLExternalDevice *)self ugl];
+  [v4 setWantsOutputDeviceNotifications:notificationsCopy];
+}
+
 - (BOOL)wantsSystemEndpointNotifications
 {
   v2 = [(MRDUGLExternalDevice *)self ugl];
   wantsSystemEndpointNotifications = [v2 wantsSystemEndpointNotifications];
 
   return wantsSystemEndpointNotifications;
+}
+
+- (void)setWantsSystemEndpointNotifications:(BOOL)notifications
+{
+  notificationsCopy = notifications;
+  v4 = [(MRDUGLExternalDevice *)self ugl];
+  [v4 setWantsSystemEndpointNotifications:notificationsCopy];
 }
 
 - (void)sendButtonEvent:(_MRHIDButtonEvent)event

@@ -69,7 +69,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1B38473B0();
+  sub_1B38473B0(delegate);
 }
 
 - (PUOneUpDefaultActionsControllerActionManagerSource)assetActionManagerSource
@@ -83,7 +83,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1B38474F8();
+  sub_1B38474F8(source);
 }
 
 - (PUOneUpActionsControllerPopoverHelper)popoverHelper
@@ -97,7 +97,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1B3847674();
+  sub_1B3847674(helper);
 }
 
 - (PUOneUpDefaultActionsController)initWithBrowsingSession:(id)session viewController:(id)controller
@@ -158,7 +158,7 @@
 - (void)toggleChromeVisibility
 {
   selfCopy = self;
-  sub_1B3848EB4();
+  sub_1B3848EB4(selfCopy, v2);
 }
 
 - (void)toggleImmersiveMode
@@ -188,21 +188,22 @@
 - (void)performToggleDetailsAction
 {
   selfCopy = self;
-  sub_1B3849714();
+  sub_1B3849714(selfCopy, v2);
 }
 
 - (void)performZoomAt:(id)at
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1B38497CC(at);
+  sub_1B38497CC(at, selfCopy);
   swift_unknownObjectRelease();
 }
 
 - (void)performToggleCommentsActionAndBeginEditing:(BOOL)editing
 {
+  editingCopy = editing;
   selfCopy = self;
-  sub_1B38498A0(editing);
+  sub_1B38498A0(editingCopy);
 }
 
 - (void)performShowInLibraryAction
@@ -258,7 +259,7 @@
 
 - (void)performActionType:(unint64_t)type assetsByAssetCollection:(id)collection
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB8557F0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB8557F0, &unk_1B3D04890);
   sub_1B3C9C4C8();
   selfCopy = self;
   sub_1B384AF50();
@@ -266,7 +267,7 @@
 
 - (void)performDuplicateActionWithAssetsByAssetCollection:(id)collection
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB8557F0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB8557F0, &unk_1B3D04890);
   v4 = sub_1B3C9C4C8();
   selfCopy = self;
   sub_1B384B09C(v4);
@@ -281,7 +282,7 @@
 - (BOOL)canPerformTrashAction
 {
   selfCopy = self;
-  v3 = sub_1B384B610();
+  v3 = sub_1B384B610(selfCopy);
 
   return v3 & 1;
 }
@@ -325,7 +326,7 @@
 
   selfCopy = self;
   v9 = sub_1B384BB60(type, v6, v7);
-  sub_1B36F9DA0(v6);
+  sub_1B36F9DA0(v6, v7);
 
   return v9 & 1;
 }
@@ -334,7 +335,7 @@
 {
   controllerCopy = controller;
   selfCopy = self;
-  LOBYTE(self) = sub_1B384BF70(controllerCopy);
+  LOBYTE(self) = sub_1B384BF70(controllerCopy, v6);
 
   return self & 1;
 }
@@ -377,7 +378,7 @@
 - (BOOL)shouldEnableToggleDetailsAction
 {
   selfCopy = self;
-  v3 = sub_1B384C754();
+  v3 = sub_1B384C754(selfCopy);
 
   return v3 & 1;
 }
@@ -385,7 +386,7 @@
 - (void)internalToggleGainMapImage
 {
   selfCopy = self;
-  sub_1B384C800();
+  sub_1B384C800(selfCopy);
 }
 
 - (id)undoManagerForAssetActionPerformer:(id)performer
@@ -428,7 +429,7 @@
   selfCopy = self;
   sub_1B384CAC4(selfCopy, controller, v8, v9);
   v14 = v13;
-  sub_1B36F9DA0(v8);
+  sub_1B36F9DA0(v8, v9);
 
   return v14 & 1;
 }
@@ -437,7 +438,7 @@
 {
   toastCopy = toast;
   selfCopy = self;
-  v6 = sub_1B384CD1C();
+  v6 = sub_1B384CD1C(selfCopy);
 
   return v6;
 }
@@ -446,7 +447,7 @@
 {
   toastCopy = toast;
   selfCopy = self;
-  v6 = sub_1B384CDE8();
+  v6 = sub_1B384CDE8(selfCopy);
 
   return v6;
 }
@@ -479,7 +480,7 @@
   performerCopy = performer;
   selfCopy = self;
   v10 = sub_1B384CF90(performerCopy, v6, v7);
-  sub_1B36F9DA0(v6);
+  sub_1B36F9DA0(v6, v7);
 
   return v10 & 1;
 }

@@ -2,6 +2,7 @@
 - (MobileAsset)assetWithMaxVersion:(id)version;
 - (MobileAsset)initWithDelegate:(id)delegate;
 - (id)downloadAsset:(id)asset;
+- (id)findAsset:(BOOL)asset completion:(id)completion;
 - (id)validateAssetAttributes:(id)attributes;
 - (void)downloadComplete:(int64_t)complete completion:(id)completion;
 - (void)queryComplete:(id)complete remote:(BOOL)remote status:(int64_t)status completion:(id)completion;
@@ -217,6 +218,71 @@ LABEL_4:
   }
 
   return self;
+}
+
+- (id)findAsset:(BOOL)asset completion:(id)completion
+{
+  assetCopy = asset;
+  completionCopy = completion;
+  if (+[ASAsset nonUserInitiatedDownloadsAllowed]&& self->_assetType)
+  {
+    query = self->_query;
+    if (query)
+    {
+      self->_query = 0;
+    }
+
+    v8 = [[MAAssetQuery alloc] initWithType:self->_assetType];
+    v9 = self->_query;
+    self->_query = v8;
+
+    v10 = self->_query;
+    if (v10)
+    {
+      if (assetCopy)
+      {
+        v11 = objc_alloc_init(MADownloadOptions);
+        [v11 setDiscretionary:0];
+        assetType = [(MobileAsset *)self assetType];
+        v20[0] = _NSConcreteStackBlock;
+        v20[1] = 3221225472;
+        v20[2] = sub_100008270;
+        v20[3] = &unk_100024518;
+        v20[4] = self;
+        v22 = assetCopy;
+        v21 = completionCopy;
+        [MAAsset startCatalogDownload:assetType options:v11 then:v20];
+
+        v13 = 0;
+        goto LABEL_11;
+      }
+
+      [(MAAssetQuery *)v10 returnTypes:0];
+      v14 = self->_query;
+      v17[0] = _NSConcreteStackBlock;
+      v17[1] = 3221225472;
+      v17[2] = sub_100008400;
+      v17[3] = &unk_100024518;
+      v17[4] = self;
+      v19 = 0;
+      v18 = completionCopy;
+      [(MAAssetQuery *)v14 queryMetaData:v17];
+    }
+
+    v13 = 0;
+  }
+
+  else
+  {
+    sub_100008A50();
+    v13 = [v16 errorWithDomain:? code:? userInfo:?];
+    [(MobileAsset *)self queryComplete:0 remote:assetCopy status:5 completion:completionCopy];
+  }
+
+  v11 = 0;
+LABEL_11:
+
+  return v13;
 }
 
 - (MobileAsset)assetWithMaxVersion:(id)version

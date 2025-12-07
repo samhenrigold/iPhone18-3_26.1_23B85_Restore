@@ -86,7 +86,7 @@
 
 - (void)didSelectFormat:(id)format forInput:(id)input forAttachedMediaKey:(id)key
 {
-  if ([key isEqualToString:@"SynchronizedSlaveFrame"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"SynchronizedSlaveFrame"))
   {
     v9 = -[BWVideoFormatRequirements initWithPixelBufferAttributes:]([BWInferenceVideoFormatRequirements alloc], "initWithPixelBufferAttributes:", [format pixelBufferAttributes]);
     v13 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(format, "colorSpaceProperties")}];
@@ -201,29 +201,29 @@ LABEL_14:
 
 - (BOOL)intermediateResourceTrackingAllowedForAttachedMediaKey:(id)key
 {
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
     return 1;
   }
 
-  return [key isEqualToString:@"SynchronizedSlaveFrame"];
+  return objc_msgSend_isEqualToString_(key);
 }
 
 - (id)inputVideoFormatForAttachedMediaKey:(id)key
 {
-  if (([key isEqualToString:@"colorFeaturesIn"] & 1) != 0 || objc_msgSend(key, "isEqualToString:", @"colorFeaturesOut"))
+  if ((objc_msgSend_isEqualToString_(key, a2, @"colorFeaturesIn") & 1) != 0 || objc_msgSend_isEqualToString_(key))
   {
     v5 = 312;
     return *(&self->super.super.super.isa + v5);
   }
 
-  if (([key isEqualToString:@"depthFeaturesIn"] & 1) != 0 || objc_msgSend(key, "isEqualToString:", @"depthFeaturesOut"))
+  if ((objc_msgSend_isEqualToString_(key) & 1) != 0 || objc_msgSend_isEqualToString_(key))
   {
     v5 = 304;
     return *(&self->super.super.super.isa + v5);
   }
 
-  if ([key isEqualToString:@"currentFeaturesMin"])
+  if (objc_msgSend_isEqualToString_(key))
   {
     stereoV2inferenceDescriptor = [(BWVideoDepthInferenceConfiguration *)self->_videoDepthConfiguration stereoV2inferenceDescriptor];
     [objc_msgSend(-[ADEspressoStereoV2InferenceDescriptor temporalSmoothingCurrentFeaturesRatioMinInput](stereoV2inferenceDescriptor "temporalSmoothingCurrentFeaturesRatioMinInput")];
@@ -241,7 +241,7 @@ LABEL_14:
     return +[BWVideoFormat formatByResolvingRequirements:](BWVideoFormat, "formatByResolvingRequirements:", [v13 arrayWithObjects:v14 count:1]);
   }
 
-  if ([key isEqualToString:@"previousFeaturesMin"])
+  if (objc_msgSend_isEqualToString_(key))
   {
     stereoV2inferenceDescriptor2 = [(BWVideoDepthInferenceConfiguration *)self->_videoDepthConfiguration stereoV2inferenceDescriptor];
     [objc_msgSend(-[ADEspressoStereoV2InferenceDescriptor temporalSmoothingPreviousFeaturesRatioMinInput](stereoV2inferenceDescriptor2 "temporalSmoothingPreviousFeaturesRatioMinInput")];
@@ -266,16 +266,16 @@ LABEL_14:
 
 - (id)preparedOutputPixelBufferPoolForAttachedMediaKey:(id)key format:(id)format
 {
-  if (![key isEqualToString:{@"Depth", format}])
+  if (!objc_msgSend_isEqualToString_(key, a2, @"Depth", format))
   {
-    if ([key isEqualToString:@"colorFeaturesOut"])
+    if (objc_msgSend_isEqualToString_(key))
     {
       v10 = 328;
     }
 
     else
     {
-      if (![key isEqualToString:@"depthFeaturesOut"])
+      if (!objc_msgSend_isEqualToString_(key))
       {
         output = self->super.super._output;
         keyCopy = key;
@@ -489,73 +489,73 @@ LABEL_3:
 
       v14 = *(*(&v99 + 1) + 8 * v13);
       v15 = [objc_msgSend(obj objectForKeyedSubscript:{v14, v52), "objectForKeyedSubscript:", v63}];
-      v16 = [v14 isEqualToString:v62];
+      isEqualToString = objc_msgSend_isEqualToString_(v14);
       v67 = v13;
-      if (v16)
+      if (isEqualToString)
       {
         v24 = 1002;
       }
 
       else
       {
-        v16 = [v14 isEqualToString:v61];
-        if (v16)
+        isEqualToString = objc_msgSend_isEqualToString_(v14);
+        if (isEqualToString)
         {
           v24 = 1001;
         }
 
         else
         {
-          v16 = [v14 isEqualToString:v60];
-          if (v16)
+          isEqualToString = objc_msgSend_isEqualToString_(v14);
+          if (isEqualToString)
           {
             v24 = 1000;
           }
 
           else
           {
-            v16 = [v14 isEqualToString:v59];
-            if (v16)
+            isEqualToString = objc_msgSend_isEqualToString_(v14);
+            if (isEqualToString)
             {
               v24 = 1003;
             }
 
             else
             {
-              v16 = [v14 isEqualToString:v58];
-              if (v16)
+              isEqualToString = objc_msgSend_isEqualToString_(v14);
+              if (isEqualToString)
               {
                 v24 = 2000;
               }
 
               else
               {
-                v16 = [v14 isEqualToString:v57];
-                if (v16)
+                isEqualToString = objc_msgSend_isEqualToString_(v14);
+                if (isEqualToString)
                 {
                   v24 = 2001;
                 }
 
                 else
                 {
-                  v16 = [v14 isEqualToString:v56];
-                  if (v16)
+                  isEqualToString = objc_msgSend_isEqualToString_(v14);
+                  if (isEqualToString)
                   {
                     v24 = 3000;
                   }
 
                   else
                   {
-                    v16 = [v14 isEqualToString:v55];
-                    if (v16)
+                    isEqualToString = objc_msgSend_isEqualToString_(v14);
+                    if (isEqualToString)
                     {
                       v24 = 3001;
                     }
 
                     else
                     {
-                      v16 = [v14 isEqualToString:v54];
-                      if ((v16 & 1) == 0)
+                      isEqualToString = objc_msgSend_isEqualToString_(v14);
+                      if ((isEqualToString & 1) == 0)
                       {
                         [v15 count];
                         goto LABEL_39;
@@ -575,7 +575,7 @@ LABEL_3:
       v97 = 0u;
       v94 = 0u;
       v95 = 0u;
-      v25 = OUTLINED_FUNCTION_3_106(v16, v17, v18, v19, v20, v21, v22, v23, v52, bufferCopy, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, obj, v13, v68, v69, inputCopy, v71, v24, v73, v74, *(&v74 + 1), v75, v76, *&rect.origin.x, *&rect.origin.y, *&rect.size.width, *&rect.size.height, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, 0);
+      v25 = OUTLINED_FUNCTION_3_106(isEqualToString, v17, v18, v19, v20, v21, v22, v23, v52, bufferCopy, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, obj, v13, v68, v69, inputCopy, v71, v24, v73, v74, *(&v74 + 1), v75, v76, *&rect.origin.x, *&rect.origin.y, *&rect.size.width, *&rect.size.height, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93);
       if (v25)
       {
         v26 = v25;
@@ -627,7 +627,7 @@ LABEL_3:
           }
 
           while (v26 != v28);
-          v47 = OUTLINED_FUNCTION_3_106(v30, v31, v32, v33, v34, v35, v36, v37, v52, bufferCopy, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, obj, v67, v68, v69, inputCopy, v71, v72, v73, v74, *(&v74 + 1), v75, v76, *&rect.origin.x, *&rect.origin.y, *&rect.size.width, *&rect.size.height, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94);
+          v47 = OUTLINED_FUNCTION_3_106(v30, v31, v32, v33, v34, v35, v36, v37, v52, bufferCopy, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, obj, v67, v68, v69, inputCopy, v71, v72, v73, v74, *(&v74 + 1), v75, v76, *&rect.origin.x, *&rect.origin.y, *&rect.size.width, *&rect.size.height, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93);
           v26 = v47;
         }
 

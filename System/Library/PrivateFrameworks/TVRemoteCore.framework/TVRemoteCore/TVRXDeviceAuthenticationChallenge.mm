@@ -54,15 +54,16 @@
 {
   v12 = *MEMORY[0x277D85DE8];
   locallyCopy = locally;
+  v6 = locallyCopy;
   if (self->_challengeType)
   {
-    v6 = _TVRCGeneralLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _TVRCGeneralLog(locallyCopy);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = NSStringFromSelector(a2);
+      v8 = NSStringFromSelector(a2);
       v10 = 138543362;
-      v11 = v7;
-      _os_log_impl(&dword_26CF7F000, v6, OS_LOG_TYPE_DEFAULT, "Calling %{public}@ is invalid for this challenge type.", &v10, 0xCu);
+      v11 = v8;
+      _os_log_impl(&dword_26CF7F000, v7, OS_LOG_TYPE_DEFAULT, "Calling %{public}@ is invalid for this challenge type.", &v10, 0xCu);
     }
   }
 
@@ -71,11 +72,9 @@
     continuation = self->_continuation;
     if (continuation)
     {
-      continuation[2](continuation, locallyCopy, 0);
+      continuation[2](continuation, v6, 0);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancel

@@ -123,7 +123,6 @@
 - (id)startDataTaskWithURI:(id)i headers:(uint64_t)headers timeoutInterval:(void *)interval responseHandler:(void *)handler
 {
   iCopy = i;
-  v41 = *MEMORY[0x1E69E9840];
   if (i)
   {
     handlerCopy = handler;
@@ -157,8 +156,6 @@
     [iCopy resume];
   }
 
-  v39 = *MEMORY[0x1E69E9840];
-
   return iCopy;
 }
 
@@ -186,7 +183,6 @@
 
 - (void)URLSession:(id)session didBecomeInvalidWithError:(id)error
 {
-  v35 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   errorCopy = error;
   if (self)
@@ -237,21 +233,18 @@
       if (self)
       {
         OUTLINED_FUNCTION_3_6();
-        objc_getProperty(v25, v26, v27, v28);
+        objc_getProperty(v24, v25, v26, v27);
       }
 
       OUTLINED_FUNCTION_1_10();
       OUTLINED_FUNCTION_2_7();
-      _os_log_debug_impl(v29, v30, v31, v32, v33, v34);
+      _os_log_debug_impl(v28, v29, v30, v31, v32, v33);
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)URLSession:(id)session downloadTask:(id)task didFinishDownloadingToURL:(id)l
 {
-  v42 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   taskCopy = task;
   lCopy = l;
@@ -280,14 +273,14 @@
     objc_opt_class();
     if (!((self == 0) | ((objc_opt_isKindOfClass() & 1) == 0)))
     {
-      objc_setProperty_atomic(self, v28, response, 40);
-      v30 = objc_getProperty(self, v29, 8, 1);
-      objc_setProperty_atomic_copy(self, v31, 0, 8);
-      if (v30)
+      objc_setProperty_atomic(self, v29, response, 40);
+      v31 = objc_getProperty(self, v30, 8, 1);
+      objc_setProperty_atomic_copy(self, v32, 0, 8);
+      if (v31)
       {
-        v32 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(taskCopy, "taskIdentifier")}];
-        v34 = OUTLINED_FUNCTION_8_3(v32, v33);
-        v30[2](v30, v32, v34, lCopy, 0);
+        v33 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(taskCopy, "taskIdentifier")}];
+        v35 = OUTLINED_FUNCTION_8_3(v33, v34);
+        v31[2](v31, v33, v35, lCopy, 0);
       }
     }
   }
@@ -301,19 +294,25 @@
       if (self)
       {
         OUTLINED_FUNCTION_3_6();
-        objc_getProperty(v24, v25, v26, v27);
+        v28 = objc_getProperty(v24, v25, v26, v27);
       }
 
-      OUTLINED_FUNCTION_10_4(&dword_191750000, v18, v19, "Delegate session %@ is NOT the same as our session %@", v20, v21, v22, v23, 2u);
+      else
+      {
+        v28 = 0;
+      }
+
+      LODWORD(v42) = 138412546;
+      *(&v42 + 4) = sessionCopy;
+      WORD6(v42) = 2112;
+      *(&v43 - 2) = v28;
+      OUTLINED_FUNCTION_10_4(&dword_191750000, v18, v19, "Delegate session %@ is NOT the same as our session %@", v20, v21, v22, v23, v42, v43);
     }
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)URLSession:(id)session task:(id)task didSendBodyData:(int64_t)data totalBytesSent:(int64_t)sent totalBytesExpectedToSend:(int64_t)send
 {
-  v34 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   taskCopy = task;
   if (self)
@@ -332,7 +331,7 @@
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
     {
       OUTLINED_FUNCTION_8();
-      _os_log_debug_impl(v29, v30, v31, v32, v33, 0x20u);
+      _os_log_debug_impl(v28, v29, v30, v31, v32, 0x20u);
     }
   }
 
@@ -345,21 +344,18 @@
       if (self)
       {
         OUTLINED_FUNCTION_3_6();
-        objc_getProperty(v19, v20, v21, v22);
+        objc_getProperty(v18, v19, v20, v21);
       }
 
       OUTLINED_FUNCTION_1_10();
       OUTLINED_FUNCTION_2_7();
-      _os_log_debug_impl(v23, v24, v25, v26, v27, v28);
+      _os_log_debug_impl(v22, v23, v24, v25, v26, v27);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error
 {
-  v59 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   taskCopy = task;
   errorCopy = error;
@@ -387,7 +383,7 @@
       }
 
       OUTLINED_FUNCTION_1_10();
-      OUTLINED_FUNCTION_10_4(&dword_191750000, v22, v23, "Delegate session %@ is NOT the same as our session %@", v24, v25, v26, v27, v58[0]);
+      OUTLINED_FUNCTION_10_4(&dword_191750000, v22, v23, "Delegate session %@ is NOT the same as our session %@", v24, v25, v26, v27);
     }
 
     goto LABEL_29;
@@ -398,10 +394,10 @@
   {
     if (v28)
     {
-      *v58 = 138412546;
-      *&v58[4] = self;
-      *&v58[12] = 2112;
-      *&v58[14] = errorCopy;
+      *v57 = 138412546;
+      *&v57[4] = self;
+      *&v57[12] = 2112;
+      *&v57[14] = errorCopy;
       OUTLINED_FUNCTION_2_7();
       goto LABEL_31;
     }
@@ -409,8 +405,8 @@
 
   else if (v28)
   {
-    *v58 = 138412290;
-    *&v58[4] = self;
+    *v57 = 138412290;
+    *&v57[4] = self;
     OUTLINED_FUNCTION_8();
     v35 = 12;
 LABEL_31:
@@ -481,8 +477,6 @@ LABEL_14:
   }
 
 LABEL_29:
-
-  v57 = *MEMORY[0x1E69E9840];
 }
 
 @end

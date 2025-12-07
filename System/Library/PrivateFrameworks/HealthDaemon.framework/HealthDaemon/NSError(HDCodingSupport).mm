@@ -20,15 +20,15 @@
 
 + (id)hk_errorWithCodableError:()HDCodingSupport
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v3 = a3;
   localizedDescription = [v3 localizedDescription];
   v5 = localizedDescription;
   if (localizedDescription)
   {
-    v13 = *MEMORY[0x277CCA450];
-    v14[0] = localizedDescription;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = *MEMORY[0x277CCA450];
+    v13[0] = localizedDescription;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   }
 
   else
@@ -41,7 +41,6 @@
   code = [v3 code];
 
   v10 = [v7 initWithDomain:domain code:code userInfo:v6];
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

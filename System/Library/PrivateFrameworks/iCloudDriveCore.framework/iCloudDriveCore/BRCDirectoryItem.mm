@@ -1,4 +1,5 @@
 @interface BRCDirectoryItem
+- (BOOL)_deleteFromDB:(id)b keepAliases:(BOOL)aliases;
 - (BOOL)_insertInDB:(id)b dbRowID:(unint64_t)d;
 - (BOOL)_insertRecursiveProperties;
 - (BOOL)_recomputeChildItemCount;
@@ -51,6 +52,7 @@
 - (void)markNeedsDeleteForItemIDTransfer;
 - (void)markRemovedFromFilesystemRecursively:(BOOL)recursively;
 - (void)prepareForSyncUpInZone:(id)zone;
+- (void)updateItemMetadataFromServerItem:(id)item appliedSharingPermission:(BOOL)permission;
 @end
 
 @implementation BRCDirectoryItem
@@ -492,7 +494,7 @@ LABEL_11:
 
 - (void)markDirectoryMergeOrCrossZonePropagationComplete
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   itemFetcher = [(BRCAccountSession *)self->super._session itemFetcher];
   v4 = [itemFetcher itemByItemGlobalID:self->_previousItemGlobalID];
   asDirectory = [v4 asDirectory];
@@ -515,21 +517,21 @@ LABEL_11:
   v10 = brc_default_log();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v16 = "Cross zone move";
-    v17 = 136315906;
+    v15 = "Cross zone move";
+    v16 = 136315906;
     if (v8)
     {
-      v16 = "Directory merge";
+      v15 = "Directory merge";
     }
 
-    v18 = v16;
-    v19 = 2112;
+    v17 = v15;
+    v18 = 2112;
     selfCopy = self;
-    v21 = 2112;
-    v22 = asDirectory;
-    v23 = 2112;
-    v24 = v9;
-    _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] %s propagation completed for item %@. Deleting tombstone item %@%@", &v17, 0x2Au);
+    v20 = 2112;
+    v21 = asDirectory;
+    v22 = 2112;
+    v23 = v9;
+    _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] %s propagation completed for item %@. Deleting tombstone item %@%@", &v16, 0x2Au);
   }
 
   [asDirectory markRemovedFromFilesystemRecursively:1];
@@ -544,8 +546,6 @@ LABEL_11:
 
   previousItemGlobalID = self->_previousItemGlobalID;
   self->_previousItemGlobalID = 0;
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markChildPropagationComplete
@@ -809,7 +809,7 @@ LABEL_6:
   return v8;
 }
 
-uint64_t __62__BRCDirectoryItem_FPFSAdditions__mergeContentsIntoDirectory___block_invoke(uint64_t a1)
+void *__62__BRCDirectoryItem_FPFSAdditions__mergeContentsIntoDirectory___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 40) itemGlobalID];
   v3 = *(a1 + 32);
@@ -1045,6 +1045,18 @@ uint64_t __62__BRCDirectoryItem_FPFSAdditions__mergeContentsIntoDirectory___bloc
   }
 
   return v5;
+}
+
+- (void)updateItemMetadataFromServerItem:(id)item appliedSharingPermission:(BOOL)permission
+{
+  permissionCopy = permission;
+  v8.receiver = self;
+  v8.super_class = BRCDirectoryItem;
+  itemCopy = item;
+  [(BRCLocalItem *)&v8 updateItemMetadataFromServerItem:itemCopy appliedSharingPermission:permissionCopy];
+  directoryMtime = [itemCopy directoryMtime];
+
+  self->_mtime = directoryMtime;
 }
 
 - (void)_learnItemID:(id)d serverItem:(id)item
@@ -1308,7 +1320,7 @@ LABEL_7:
 
 - (id)_serverChildItemCount
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   _serverChildItemCountIncludingHiddenFiles = [(BRCDirectoryItem *)self _serverChildItemCountIncludingHiddenFiles];
   if (_serverChildItemCountIncludingHiddenFiles)
   {
@@ -1326,15 +1338,15 @@ LABEL_7:
       v12 = brc_default_log();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
       {
-        v16 = 138413058;
-        v17 = v4;
-        v18 = 2112;
-        v19 = v8;
-        v20 = 2112;
+        v15 = 138413058;
+        v16 = v4;
+        v17 = 2112;
+        v18 = v8;
+        v19 = 2112;
         selfCopy = self;
-        v22 = 2112;
-        v23 = v11;
-        _os_log_fault_impl(&dword_223E7A000, v12, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: server count %@ minus hidden count %@ is less than 0 for %@%@", &v16, 0x2Au);
+        v21 = 2112;
+        v22 = v11;
+        _os_log_fault_impl(&dword_223E7A000, v12, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: server count %@ minus hidden count %@ is less than 0 for %@%@", &v15, 0x2Au);
       }
 
       v10 = 0;
@@ -1347,8 +1359,6 @@ LABEL_7:
   {
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -1392,38 +1402,38 @@ LABEL_7:
 
 - (id)clientZonesChildrenNeedingSyncUpAreIn
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v21 = objc_opt_new();
+  v30 = *MEMORY[0x277D85DE8];
+  v20 = objc_opt_new();
   db = self->super._db;
   itemID = self->super._itemID;
   dbRowID = [(BRCClientZone *)self->super._clientZone dbRowID];
   v6 = [(BRCPQLConnection *)db fetch:@"SELECT DISTINCT zone_rowid FROM client_items WHERE item_parent_id = %@   AND item_parent_zone_rowid = %@    AND item_localsyncupstate = 4   AND item_state IN (0, 1)", itemID, dbRowID];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   obj = [v6 enumerateObjectsOfClass:objc_opt_class()];
-  v7 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v7 = [obj countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v22;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
+        v11 = *(*(&v21 + 1) + 8 * i);
         v12 = [(BRCAccountSession *)self->super._session serverZoneByRowID:v11];
         clientZone = [v12 clientZone];
         if (clientZone)
         {
-          [v21 addObject:clientZone];
+          [v20 addObject:clientZone];
         }
 
         else
@@ -1433,23 +1443,23 @@ LABEL_7:
           if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
           {
             *buf = 138412546;
-            v27 = v11;
-            v28 = 2112;
-            v29 = v14;
+            v26 = v11;
+            v27 = 2112;
+            v28 = v14;
             _os_log_fault_impl(&dword_223E7A000, v15, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Can't find clientZone for zoneID %@%@", buf, 0x16u);
           }
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v8 = [obj countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v8);
   }
 
-  if ([v21 count])
+  if ([v20 count])
   {
-    v16 = v21;
+    v16 = v20;
   }
 
   else
@@ -1459,7 +1469,6 @@ LABEL_7:
 
   v17 = v16;
 
-  v18 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -1560,7 +1569,7 @@ LABEL_7:
 
 - (BOOL)_updateInDB:(id)b diffs:(unint64_t)diffs
 {
-  v101 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   bCopy = b;
   if ((diffs & 0x80000000) != 0 && (previousItemGlobalID = self->_previousItemGlobalID, [(BRCLocalItem *)self->super._orig itemGlobalID], v8 = objc_claimAutoreleasedReturnValue(), LOBYTE(previousItemGlobalID) = [(BRCItemGlobalID *)previousItemGlobalID isEqualToItemGlobalID:v8], v8, (previousItemGlobalID & 1) == 0))
   {
@@ -1584,15 +1593,15 @@ LABEL_7:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         itemID2 = [(BRCLocalItem *)self->super._orig itemID];
-        v52 = self->super._itemID;
+        v51 = self->super._itemID;
         *buf = 134218754;
-        v94 = v20;
-        v95 = 2112;
-        v96 = itemID2;
-        v97 = 2112;
-        v98 = v52;
-        v99 = 2112;
-        v100 = v21;
+        v93 = v20;
+        v94 = 2112;
+        v95 = itemID2;
+        v96 = 2112;
+        v97 = v51;
+        v98 = 2112;
+        v99 = v21;
         _os_log_debug_impl(&dword_223E7A000, v22, OS_LOG_TYPE_DEBUG, "[DEBUG] Updated %llu items from parent %@ to %@%@", buf, 0x2Au);
       }
     }
@@ -1629,7 +1638,7 @@ LABEL_7:
     if ((isAlmostDead & 1) == 0)
     {
       diffsCopy = diffs;
-      v84 = bCopy;
+      v83 = bCopy;
       if (([bCopy isBatchSuspended] & 1) == 0)
       {
         [BRCDirectoryItem _updateInDB:diffs:];
@@ -1640,28 +1649,28 @@ LABEL_7:
       dbRowID3 = [(BRCClientZone *)self->super._clientZone dbRowID];
       v27 = [v24 fetch:{@"SELECT si.rowid FROM server_items AS si INNER JOIN client_unapplied_table AS ap ON si.item_rank = ap.throttle_id WHERE si.item_parent_id = %@   AND si.zone_rowid = %@   AND si.item_type = 3   AND ap.throttle_state = 24", itemID4, dbRowID3}];
 
-      v90 = 0u;
-      v91 = 0u;
-      v88 = 0u;
       v89 = 0u;
-      v82 = v27;
+      v90 = 0u;
+      v87 = 0u;
+      v88 = 0u;
+      v81 = v27;
       v28 = [v27 enumerateObjectsOfClass:objc_opt_class()];
-      v29 = [v28 countByEnumeratingWithState:&v88 objects:v92 count:16];
+      v29 = [v28 countByEnumeratingWithState:&v87 objects:v91 count:16];
       if (v29)
       {
         v30 = v29;
-        v31 = *v89;
+        v31 = *v88;
         do
         {
           v32 = 0;
           do
           {
-            if (*v89 != v31)
+            if (*v88 != v31)
             {
               objc_enumerationMutation(v28);
             }
 
-            v33 = *(*(&v88 + 1) + 8 * v32);
+            v33 = *(*(&v87 + 1) + 8 * v32);
             itemFetcher = [(BRCAccountSession *)self->super._session itemFetcher];
             v35 = [itemFetcher serverItemByRowID:{objc_msgSend(v33, "longLongValue")}];
 
@@ -1670,9 +1679,9 @@ LABEL_7:
             if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412546;
-              v94 = v35;
-              v95 = 2112;
-              v96 = v36;
+              v93 = v35;
+              v94 = 2112;
+              v95 = v36;
               _os_log_debug_impl(&dword_223E7A000, v37, OS_LOG_TYPE_DEBUG, "[DEBUG] Inserting tombstone for alias %@ which is pending target%@", buf, 0x16u);
             }
 
@@ -1685,7 +1694,7 @@ LABEL_7:
           }
 
           while (v30 != v32);
-          v30 = [v28 countByEnumeratingWithState:&v88 objects:v92 count:16];
+          v30 = [v28 countByEnumeratingWithState:&v87 objects:v91 count:16];
         }
 
         while (v30);
@@ -1694,7 +1703,7 @@ LABEL_7:
       [(BRCDirectoryItem *)self signalPropagationToChildren];
       diffs = diffsCopy;
       [(BRCDirectoryItem *)self _retryPostponedIfNeededForDiffs:diffsCopy];
-      bCopy = v84;
+      bCopy = v83;
       goto LABEL_36;
     }
   }
@@ -1724,9 +1733,9 @@ LABEL_43:
   }
 
 LABEL_36:
-  v85 = bCopy;
+  v84 = bCopy;
   dbRowID4 = [(BRCClientZone *)self->super._clientZone dbRowID];
-  v77 = self->super._itemID;
+  v76 = self->super._itemID;
   ownerKey = self->super._ownerKey;
   sharingOptions = self->super._sharingOptions;
   sideCarCKInfo = self->super._sideCarCKInfo;
@@ -1753,7 +1762,7 @@ LABEL_36:
     logicalName = &stru_2837504F0;
   }
 
-  v57 = logicalName;
+  v56 = logicalName;
   isHiddenExt = [(BRCStatInfo *)st isHiddenExt];
   finderTags = [(BRCStatInfo *)self->super._st finderTags];
   xattrSignature = [(BRCStatInfo *)self->super._st xattrSignature];
@@ -1767,20 +1776,20 @@ LABEL_36:
   localChangeCount = [(BRCLocalStatInfo *)self->super._st localChangeCount];
   oldVersionIdentifier = [(BRCLocalStatInfo *)self->super._st oldVersionIdentifier];
   [(BRCLocalStatInfo *)self->super._st fpCreationItemIdentifier];
-  v47 = v53 = localChangeCount;
-  v78 = [v85 execute:{@"UPDATE client_items SET zone_rowid = %@, item_id = %@, item_creator_id = %@, item_sharing_options = %ld, item_side_car_ckinfo = %@, item_parent_zone_rowid = %@, item_localsyncupstate = %d, item_local_diffs = %llu, item_notifs_rank = %lld, app_library_rowid = %@, item_min_supported_os_rowid = %@, item_user_visible = %d, item_stat_ckinfo = %@, item_state = %d, item_type = %d, item_mode = %d, item_birthtime = %lld, item_lastusedtime = %lld, item_favoriterank = %lld, item_parent_id = %@, item_filename = %@, item_hidden_ext = %d, item_finder_tags = %@, item_xattr_signature = %@, item_trash_put_back_path = %@, item_trash_put_back_parent_id = %@, item_alias_target = %@, item_creator = %@, item_processing_stamp = %@, item_bouncedname = %@, item_scope = %d, item_local_change_count = %llu, item_old_version_identifier = %@, fp_creation_item_identifier = %@, version_mtime = %lld  WHERE rowid = %llu", dbRowID4, v77, ownerKey, sharingOptions, sideCarCKInfo, parentZoneRowID, syncUpState, localDiffs, notifsRank, dbRowID5, minimumSupportedOSRowID, isUserVisible, ckInfo, state, type, mode, birthtime, lastUsedTime, favoriteRank, parentID, v57, isHiddenExt, finderTags, xattrSignature, trashPutBackPath, trashPutBackParentID, aliasTarget, creatorRowID, processingStamp, rawBouncedLogicalName, itemScope, v53, oldVersionIdentifier, v47, self->_mtime, self->super._dbRowID}];
+  v47 = v52 = localChangeCount;
+  v77 = [v84 execute:{@"UPDATE client_items SET zone_rowid = %@, item_id = %@, item_creator_id = %@, item_sharing_options = %ld, item_side_car_ckinfo = %@, item_parent_zone_rowid = %@, item_localsyncupstate = %d, item_local_diffs = %llu, item_notifs_rank = %lld, app_library_rowid = %@, item_min_supported_os_rowid = %@, item_user_visible = %d, item_stat_ckinfo = %@, item_state = %d, item_type = %d, item_mode = %d, item_birthtime = %lld, item_lastusedtime = %lld, item_favoriterank = %lld, item_parent_id = %@, item_filename = %@, item_hidden_ext = %d, item_finder_tags = %@, item_xattr_signature = %@, item_trash_put_back_path = %@, item_trash_put_back_parent_id = %@, item_alias_target = %@, item_creator = %@, item_processing_stamp = %@, item_bouncedname = %@, item_scope = %d, item_local_change_count = %llu, item_old_version_identifier = %@, fp_creation_item_identifier = %@, version_mtime = %lld  WHERE rowid = %llu", dbRowID4, v76, ownerKey, sharingOptions, sideCarCKInfo, parentZoneRowID, syncUpState, localDiffs, notifsRank, dbRowID5, minimumSupportedOSRowID, isUserVisible, ckInfo, state, type, mode, birthtime, lastUsedTime, favoriteRank, parentID, v56, isHiddenExt, finderTags, xattrSignature, trashPutBackPath, trashPutBackParentID, aliasTarget, creatorRowID, processingStamp, rawBouncedLogicalName, itemScope, v52, oldVersionIdentifier, v47, self->_mtime, self->super._dbRowID}];
 
-  if (!v78)
+  if (!v77)
   {
     LOBYTE(v9) = 0;
-    bCopy = v85;
+    bCopy = v84;
     goto LABEL_45;
   }
 
-  v87.receiver = self;
-  v87.super_class = BRCDirectoryItem;
-  bCopy = v85;
-  if (![(BRCLocalItem *)&v87 _updateInDB:v85 diffs:diffs])
+  v86.receiver = self;
+  v86.super_class = BRCDirectoryItem;
+  bCopy = v84;
+  if (![(BRCLocalItem *)&v86 _updateInDB:v84 diffs:diffs])
   {
     goto LABEL_43;
   }
@@ -1794,8 +1803,52 @@ LABEL_36:
 
 LABEL_45:
 
-  v49 = *MEMORY[0x277D85DE8];
   return v9;
+}
+
+- (BOOL)_deleteFromDB:(id)b keepAliases:(BOOL)aliases
+{
+  aliasesCopy = aliases;
+  bCopy = b;
+  isSharedToMeChildItem = [(BRCLocalItem *)self isSharedToMeTopLevelItem]|| [(BRCLocalItem *)self isSharedToMeChildItem];
+  if (self->_previousItemGlobalID)
+  {
+    [(BRCDirectoryItem *)self markDirectoryMergeOrCrossZonePropagationComplete];
+  }
+
+  if (self->_needsDeleteForItemIDTransfer)
+  {
+    if (([(BRCPQLConnection *)self->super._db isInTransaction]& 1) == 0)
+    {
+      [BRCDirectoryItem _deleteFromDB:keepAliases:];
+    }
+  }
+
+  else
+  {
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __46__BRCDirectoryItem__deleteFromDB_keepAliases___block_invoke;
+    v14[3] = &__block_descriptor_33_e48_v28__0__sqlite3_context__8i16___sqlite3_value_20l;
+    v15 = isSharedToMeChildItem;
+    v8 = MEMORY[0x22AA4A310](v14);
+    itemID = self->super._itemID;
+    dbRowID = [(BRCClientZone *)self->super._clientZone dbRowID];
+    LOBYTE(itemID) = [bCopy execute:{@"UPDATE client_items SET item_parent_id = call_block(%@, item_state, app_library_rowid, zone_rowid, rowid), item_localname = call_block(%@) WHERE item_parent_id = %@   AND item_parent_zone_rowid = %@", v8, &__block_literal_global_68, itemID, dbRowID}];
+
+    if ((itemID & 1) == 0)
+    {
+      v11 = 0;
+      goto LABEL_12;
+    }
+  }
+
+  v13.receiver = self;
+  v13.super_class = BRCDirectoryItem;
+  v11 = [(BRCLocalItem *)&v13 _deleteFromDB:bCopy keepAliases:aliasesCopy];
+LABEL_12:
+
+  return v11;
 }
 
 void __46__BRCDirectoryItem__deleteFromDB_keepAliases___block_invoke(uint64_t a1, sqlite3_context *a2, uint64_t a3, sqlite3_value **a4)
@@ -1835,13 +1888,12 @@ void __46__BRCDirectoryItem__deleteFromDB_keepAliases___block_invoke(uint64_t a1
 
 void __46__BRCDirectoryItem__deleteFromDB_keepAliases___block_invoke_116(uint64_t a1, sqlite3_context *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   memset(out, 0, sizeof(out));
-  memset(v4, 0, sizeof(v4));
+  memset(v3, 0, sizeof(v3));
   uuid_generate_random(out);
-  uuid_unparse(out, v4);
-  sqlite3_result_text(a2, v4, 36, 0xFFFFFFFFFFFFFFFFLL);
-  v3 = *MEMORY[0x277D85DE8];
+  uuid_unparse(out, v3);
+  sqlite3_result_text(a2, v3, 36, 0xFFFFFFFFFFFFFFFFLL);
 }
 
 - (void)prepareForSyncUpInZone:(id)zone
@@ -1960,11 +2012,10 @@ LABEL_3:
 
 void __89__BRCDirectoryItem_FPFSAdditions__handlePathMatchConflictForDirectoryCreationIfNecessary__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Recalculating the recursive properties for the revived item%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Recalculating the recursive properties for the revived item%@", &v2, 0xCu);
 }
 
 @end

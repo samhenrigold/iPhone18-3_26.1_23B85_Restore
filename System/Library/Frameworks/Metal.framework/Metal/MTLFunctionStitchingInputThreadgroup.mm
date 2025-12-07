@@ -42,18 +42,16 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v10[3] = *MEMORY[0x1E69E9840];
+  v9[3] = *MEMORY[0x1E69E9840];
   v4 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v5 = MEMORY[0x1E696AEC0];
-  v9.receiver = self;
-  v9.super_class = MTLFunctionStitchingInputThreadgroup;
-  v6 = [(MTLFunctionStitchingInputThreadgroup *)&v9 description];
-  v10[0] = v4;
-  v10[1] = @"bind index = ";
-  v10[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_bindIndex];
-  result = [v5 stringWithFormat:@"%@%@", v6, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v10, 3), "componentsJoinedByString:", @" "];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  v8.receiver = self;
+  v8.super_class = MTLFunctionStitchingInputThreadgroup;
+  v6 = [(MTLFunctionStitchingInputThreadgroup *)&v8 description];
+  v9[0] = v4;
+  v9[1] = @"bind index = ";
+  v9[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_bindIndex];
+  return [v5 stringWithFormat:@"%@%@", v6, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v9, 3), "componentsJoinedByString:", @" "];
 }
 
 @end

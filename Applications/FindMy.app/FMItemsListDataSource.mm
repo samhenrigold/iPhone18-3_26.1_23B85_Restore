@@ -25,15 +25,16 @@
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_10043D7D8(viewCopy, v9);
+  sub_10043D7D8(viewCopy, v9);
+  v13 = v12;
 
   (*(v7 + 8))(v9, v6);
 
-  return v12;
+  return v13;
 }
 
 - (id)tableView:(id)view titleForHeaderInSection:(int64_t)section

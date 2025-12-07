@@ -1,708 +1,14 @@
-uint64_t llvm::IRBuilderBase::CreateSub(llvm::IRBuilderBase *this, llvm::Value *a2, llvm::Value *a3, const llvm::Twine *a4)
-{
-  if (a2 && *(a2 + 16) <= 0x14u && a3 && *(a3 + 16) <= 0x14u)
-  {
-    v6 = (*(**(this + 9) + 72))(*(this + 9));
-    if (v6)
-    {
-      v7 = *(v6 + 16) >= 0x1Cu;
-    }
-
-    else
-    {
-      v7 = 0;
-    }
-
-    if (v7)
-    {
-      llvm::IRBuilderBase::Insert<llvm::CastInst>(this, v6, a4);
-    }
-  }
-
-  else
-  {
-    v6 = llvm::BinaryOperator::Create();
-    llvm::IRBuilderBase::Insert<llvm::CastInst>(this, v6, a4);
-  }
-
-  return v6;
-}
-
-llvm::Value *AGCLLVMUserVertexShader::replaceOutputUses(uint64_t *a1, unsigned __int8 *a2, llvm::Value *a3, int a4, int a5, unsigned int a6)
-{
-  v8 = a2;
-  v74 = *MEMORY[0x277D85DE8];
-  v10 = *a2;
-  if ((*(*a2 + 8) & 0xFE) == 0x12)
-  {
-    v10 = **(v10 + 2);
-  }
-
-  v11 = (a1 + *(*a1 - 24));
-  v12 = v10 == v11[234] || v10 == v11[232];
-  if (a4 > 2)
-  {
-    v13 = 1520;
-    if (a5)
-    {
-      v13 = 1576;
-    }
-
-    v14 = 1528;
-    if (a5)
-    {
-      v14 = 1584;
-    }
-
-    v16 = 1536;
-    if (a5)
-    {
-      v16 = 1592;
-    }
-
-    if (a4 != 4)
-    {
-      v14 = v16;
-    }
-
-    v15 = a4 == 3;
-    goto LABEL_23;
-  }
-
-  if (a4)
-  {
-    if (a4 == 1)
-    {
-      v13 = 1488;
-      if (v12)
-      {
-        v13 = 1496;
-      }
-
-      v14 = 1544;
-      if (v12)
-      {
-        v14 = 1552;
-      }
-
-      v15 = a5 == 0;
-LABEL_23:
-      if (!v15)
-      {
-        v13 = v14;
-      }
-
-      goto LABEL_30;
-    }
-
-    v17 = a5 == 0;
-    v13 = 1512;
-    v18 = 1568;
-  }
-
-  else
-  {
-    v17 = a5 == 0;
-    v13 = 1504;
-    v18 = 1560;
-  }
-
-  if (!v17)
-  {
-    v13 = v18;
-  }
-
-LABEL_30:
-  v19 = *(v11[271] + v13);
-  v15 = !v12;
-  v20 = 238;
-  if (!v15)
-  {
-    v20 = 234;
-  }
-
-  v21 = v11[v20];
-  if (v19)
-  {
-    v22 = strlen(*(v11[271] + v13));
-  }
-
-  else
-  {
-    v22 = 0;
-  }
-
-  v64 = AGCLLVMBuilder::getOrInsertFunction<llvm::PointerType *,llvm::Type *>((v11 + 213), v19, v22, v11[231], v11[573], v21);
-  v23 = *v8;
-  if (*v8 && *(v23 + 8) == 18)
-  {
-    v24 = *(v23 + 32);
-    if (v24 >= a6)
-    {
-      v25 = a6;
-    }
-
-    else
-    {
-      v25 = v24;
-    }
-
-    *v72 = 0u;
-    v73 = 0u;
-    v26 = v8[16];
-    v27 = a1 + *(*a1 - 24);
-    if (v26 < 0x15 || (v26 & 0xFE) == 0x5A)
-    {
-      AGCLLVMBuilder::unboxVector((v27 + 1704), v8, v72);
-      if (!v25)
-      {
-LABEL_57:
-        result = EraseInstructionChain(v8);
-        goto LABEL_58;
-      }
-
-      v41 = v72;
-      v42 = v25;
-      do
-      {
-        *v41 = AGCLLVMBuilder::extendFromSmall((a1 + *(*a1 - 24) + 1704), *v41, v10, 1);
-        ++v41;
-        --v42;
-      }
-
-      while (v42);
-    }
-
-    else
-    {
-      v8 = AGCLLVMBuilder::extendFromSmall((v27 + 1704), v8, v10, 1);
-      AGCLLVMBuilder::unboxVector((a1 + *(*a1 - 24) + 1704), v8, v72);
-    }
-
-    if (v25)
-    {
-      v43 = 0;
-      v44 = a1 + 214;
-      v62 = a1 + 238;
-      v63 = a3;
-      v61 = v8;
-      do
-      {
-        Select = v72[v43];
-        v46 = *a1;
-        v47 = (a1 + *(*a1 - 24));
-        if (v10 == v47[234] && *(a1 + 5277) == 1)
-        {
-          v48 = v47[238];
-          v68 = 257;
-          Cast = llvm::IRBuilderBase::CreateCast((v47 + 214), 49, Select, v48, v67);
-          v50 = *(v62 + *(*a1 - 24));
-          v51 = llvm::ConstantInt::get();
-          v71 = 257;
-          v52 = llvm::IRBuilderBase::CreateAnd((v47 + 214), Cast, v51, &Add);
-          v53 = *(v62 + *(*a1 - 24));
-          v54 = llvm::ConstantInt::get();
-          v66 = 257;
-          llvm::IRBuilderBase::CreateICmp(v47 + 214, 34, v52, v54, v65);
-          v55 = *(a1 + *(*a1 - 24) + 1872);
-          llvm::ConstantFP::get();
-          a3 = v63;
-          Select = llvm::IRBuilderBase::CreateSelect();
-          v46 = *a1;
-        }
-
-        v56 = *(a1 + *(v46 - 24) + 4584);
-        v57 = llvm::ConstantInt::get();
-        v58 = *(*a1 - 24);
-        v68 = 257;
-        Add = llvm::IRBuilderBase::CreateAdd((v44 + v58), a3, v57, v67);
-        v70 = Select;
-        v59 = *(*a1 - 24);
-        v68 = 257;
-        llvm::IRBuilderBase::CreateCall(v44 + v59, *(v64 + 24), v64, &Add, 2, v67);
-        ++v43;
-      }
-
-      while (v25 != v43);
-      v8 = v61;
-    }
-
-    goto LABEL_57;
-  }
-
-  v28 = AGCLLVMBuilder::extendFromSmall((a1 + *(*a1 - 24) + 1704), v8, v10, 1);
-  v29 = *a1;
-  v30 = (a1 + *(*a1 - 24));
-  if (v10 == v30[234] && *(a1 + 5277) == 1)
-  {
-    v31 = v30[238];
-    v68 = 257;
-    v32 = llvm::IRBuilderBase::CreateCast((v30 + 214), 49, v28, v31, v67);
-    v33 = *(a1 + *(*a1 - 24) + 1904);
-    v34 = llvm::ConstantInt::get();
-    v71 = 257;
-    v35 = llvm::IRBuilderBase::CreateAnd((v30 + 214), v32, v34, &Add);
-    v36 = *(a1 + *(*a1 - 24) + 1904);
-    v37 = llvm::ConstantInt::get();
-    v66 = 257;
-    llvm::IRBuilderBase::CreateICmp(v30 + 214, 34, v35, v37, v65);
-    v38 = *(a1 + *(*a1 - 24) + 1872);
-    llvm::ConstantFP::get();
-    v28 = llvm::IRBuilderBase::CreateSelect();
-    v29 = *a1;
-  }
-
-  Add = a3;
-  v70 = v28;
-  v39 = a1 + *(v29 - 24);
-  v68 = 257;
-  result = llvm::IRBuilderBase::CreateCall(v39 + 1712, *(v64 + 24), v64, &Add, 2, v67);
-LABEL_58:
-  v60 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-llvm::Value *AGCLLVMBuilder::extendFromSmall(llvm::Type **this, llvm::Value *a2, llvm::Type *a3, int a4)
-{
-  v5 = a2;
-  v7 = *a2;
-  if (this[19] == a3)
-  {
-    v8 = 21;
-  }
-
-  else
-  {
-    if (this[24] != a3 && this[23] != a3 && this[22] != a3)
-    {
-      return v5;
-    }
-
-    v8 = 25;
-  }
-
-  v9 = this[v8];
-  if ((*(v7 + 8) & 0xFE) == 0x12)
-  {
-    v10 = *(v7 + 32);
-    v9 = llvm::FixedVectorType::get();
-  }
-
-  if ((*(v9 + 8) & 0xFE) == 0x12)
-  {
-    v11 = *(**(v9 + 16) + 8);
-  }
-
-  else
-  {
-    v11 = *(v9 + 8);
-  }
-
-  if (v11 > 6)
-  {
-    v16 = 257;
-    if (a4)
-    {
-      v13 = 40;
-    }
-
-    else
-    {
-      v13 = 39;
-    }
-
-    return llvm::IRBuilderBase::CreateCast((this + 1), v13, v5, v9, v15);
-  }
-
-  else
-  {
-    v16 = 257;
-    return llvm::IRBuilderBase::CreateFPExt((this + 1), v5, v9, v15);
-  }
-}
-
-uint64_t AGCLLVMUserVertexShader::markInvariantOutputs(AGCLLVMUserVertexShader *this, const char *a2)
-{
-  {
-    AGCEnv::isEnabled(void)::is_internal = os_variant_has_internal_diagnostics();
-  }
-
-  if (AGCEnv::isEnabled(void)::is_internal == 1 && AGCEnv::getValue("AGC_POS_INVARIANCE", a2))
-  {
-    {
-      AGCEnv::isEnabled(void)::is_internal = os_variant_has_internal_diagnostics();
-    }
-
-    v5 = AGCEnv::isEnabled(void)::is_internal == 1 && (Value = AGCEnv::getValue("AGC_POS_INVARIANCE", v3)) != 0 && *Value != 48 && atoi(Value) != 0;
-    *(this + 5273) = v5;
-  }
-
-  if ((*(this + 5272) & 1) != 0 || ((*(this + 5273) & 1) != 0 || *(this + 5275) == 1) && *(this + 32) == 1)
-  {
-    v6 = this + *(*this - 24);
-    v7 = *(v6 + 267);
-    v8 = *(v6 + 271);
-    if (*(v8 + 1504))
-    {
-      v9 = strlen(*(v8 + 1504));
-    }
-
-    Function = llvm::Module::getFunction();
-    if (Function)
-    {
-      if (*(this + 32) == 1 && (*(this + 5275) != 1 || *(this + 5273) == 1))
-      {
-        v11 = *(this + 5274);
-      }
-
-      else
-      {
-        v11 = 0;
-      }
-
-      v12 = *this;
-      v13 = *(this + *(*this - 24) + 2136);
-      __p = 0;
-      v29 = 0;
-      v32[0] = 0;
-      v32[1] = 0;
-      v30 = 0;
-      v31 = v32;
-      v32[2] = v13;
-      v33 = v11 & 1;
-      v14 = *(Function + 8);
-      if (v14)
-      {
-        do
-        {
-          v15 = (*(v14 + 24) - 32 * (*(*(v14 + 24) + 20) & 0x7FFFFFF));
-          v16 = (*v15 + 24);
-          if (*(*v15 + 8) >= 0x41u)
-          {
-            v16 = *v16;
-          }
-
-          if ((*v16 & 0xFFFFFFFC) == 0)
-          {
-            MarkInvariants::addSeed(&__p, v15[4], 0);
-          }
-
-          v14 = *(v14 + 8);
-        }
-
-        while (v14);
-        v12 = *this;
-      }
-
-      if ((MarkInvariants::markInvariant(&__p, (this + *(v12 - 24) + 1704)) & 1) == 0)
-      {
-        v18 = *(this + *(*this - 24) + 2136);
-        v19 = v18 + 24;
-        for (i = *(v18 + 32); i != v19; i = *(i + 8))
-        {
-          v21 = i - 56;
-          if (!i)
-          {
-            v21 = 0;
-          }
-
-          v22 = v21 + 72;
-          v23 = *(v21 + 80);
-          if (v23 == v21 + 72)
-          {
-            v25 = 0;
-          }
-
-          else
-          {
-            do
-            {
-              v24 = v23 - 24;
-              if (!v23)
-              {
-                v24 = 0;
-              }
-
-              v25 = *(v24 + 48);
-              if (v25 != v24 + 40)
-              {
-                break;
-              }
-
-              v23 = *(v23 + 8);
-            }
-
-            while (v23 != v22);
-          }
-
-          while (v23 != v22)
-          {
-            if (v25)
-            {
-              v26 = (v25 - 24);
-            }
-
-            else
-            {
-              v26 = 0;
-            }
-
-            if (llvm::FPMathOperator::classof(v26))
-            {
-              llvm::Instruction::setFast(v26);
-            }
-
-            v25 = *(v25 + 8);
-            v27 = v23 - 24;
-            if (!v23)
-            {
-              v27 = 0;
-            }
-
-            while (v25 == v27 + 40)
-            {
-              v23 = *(v23 + 8);
-              if (v23 == v22)
-              {
-                break;
-              }
-
-              v27 = v23 - 24;
-              if (!v23)
-              {
-                v27 = 0;
-              }
-
-              v25 = *(v27 + 48);
-            }
-          }
-        }
-      }
-
-      std::__tree<std::__value_type<llvm::Function *,std::pair<unsigned char,unsigned char>>,std::__map_value_compare<llvm::Function *,std::__value_type<llvm::Function *,std::pair<unsigned char,unsigned char>>,std::less<llvm::Function *>,true>,std::allocator<std::__value_type<llvm::Function *,std::pair<unsigned char,unsigned char>>>>::destroy(v32[0]);
-      if (__p)
-      {
-        v29 = __p;
-        operator delete(__p);
-      }
-    }
-  }
-
-  return 1;
-}
-
-double std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,GenericVaryingAllocator::getVaryingSignature(flatbuffers::FlatBufferBuilder &,flatbuffers::Offset<flatbuffers::Vector<unsigned char>> *,flatbuffers::Offset<flatbuffers::Vector<unsigned char>> *)::$_0 &,GenericVarying *,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,GenericVaryingAllocator::getVaryingSignature(flatbuffers::FlatBufferBuilder &,flatbuffers::Offset<flatbuffers::Vector<unsigned char>> *,flatbuffers::Offset<flatbuffers::Vector<unsigned char>> *)::$_0 &,GenericVarying *,0>(a1, a2, a3);
-  v8 = *(a3 + 24);
-  v9 = *(a3 + 47);
-  v10 = *(a4 + 47);
-  if (v10 >= 0)
-  {
-    v11 = *(a4 + 47);
-  }
-
-  else
-  {
-    v11 = *(a4 + 32);
-  }
-
-  if (v10 >= 0)
-  {
-    v12 = (a4 + 24);
-  }
-
-  else
-  {
-    v12 = *(a4 + 24);
-  }
-
-  if (v9 >= 0)
-  {
-    v13 = *(a3 + 47);
-  }
-
-  else
-  {
-    v13 = *(a3 + 32);
-  }
-
-  if (v9 >= 0)
-  {
-    v14 = (a3 + 24);
-  }
-
-  else
-  {
-    v14 = *(a3 + 24);
-  }
-
-  if (v13 >= v11)
-  {
-    v15 = v11;
-  }
-
-  else
-  {
-    v15 = v13;
-  }
-
-  v16 = memcmp(v12, v14, v15);
-  v18 = v11 < v13;
-  if (v16)
-  {
-    v18 = v16 < 0;
-  }
-
-  if (v18)
-  {
-    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<GenericVarying *&,GenericVarying *&>(a3, a4);
-    v19 = *(a2 + 24);
-    v20 = *(a2 + 47);
-    v21 = *(a3 + 47);
-    if (v21 >= 0)
-    {
-      v22 = *(a3 + 47);
-    }
-
-    else
-    {
-      v22 = *(a3 + 32);
-    }
-
-    if (v21 >= 0)
-    {
-      v23 = (a3 + 24);
-    }
-
-    else
-    {
-      v23 = *(a3 + 24);
-    }
-
-    if (v20 >= 0)
-    {
-      v24 = *(a2 + 47);
-    }
-
-    else
-    {
-      v24 = *(a2 + 32);
-    }
-
-    if (v20 >= 0)
-    {
-      v25 = (a2 + 24);
-    }
-
-    else
-    {
-      v25 = *(a2 + 24);
-    }
-
-    if (v24 >= v22)
-    {
-      v26 = v22;
-    }
-
-    else
-    {
-      v26 = v24;
-    }
-
-    v27 = memcmp(v23, v25, v26);
-    v28 = v22 < v24;
-    if (v27)
-    {
-      v28 = v27 < 0;
-    }
-
-    if (v28)
-    {
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<GenericVarying *&,GenericVarying *&>(a2, a3);
-      v29 = *(a1 + 47);
-      v30 = *(a2 + 47);
-      if (v30 >= 0)
-      {
-        v31 = *(a2 + 47);
-      }
-
-      else
-      {
-        v31 = *(a2 + 32);
-      }
-
-      if (v30 >= 0)
-      {
-        v32 = (a2 + 24);
-      }
-
-      else
-      {
-        v32 = *(a2 + 24);
-      }
-
-      if (v29 >= 0)
-      {
-        v33 = *(a1 + 47);
-      }
-
-      else
-      {
-        v33 = *(a1 + 32);
-      }
-
-      if (v29 >= 0)
-      {
-        v34 = (a1 + 24);
-      }
-
-      else
-      {
-        v34 = *(a1 + 24);
-      }
-
-      if (v33 >= v31)
-      {
-        v35 = v31;
-      }
-
-      else
-      {
-        v35 = v33;
-      }
-
-      v36 = memcmp(v32, v34, v35);
-      v37 = v31 < v33;
-      if (v36)
-      {
-        v37 = v36 < 0;
-      }
-
-      if (v37)
-      {
-
-        *&result = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<GenericVarying *&,GenericVarying *&>(a1, a2).n128_u64[0];
-      }
-    }
-  }
-
-  return result;
-}
-
 __n128 std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<GenericVarying *&,GenericVarying *&>(__int128 *a1, __int128 *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v11 = *a1;
-  v12 = *(a1 + 4);
+  v10 = *a1;
+  v11 = *(a1 + 4);
   v3 = *(a1 + 3);
-  *v10 = *(a1 + 4);
-  *&v10[7] = *(a1 + 39);
+  *v9 = *(a1 + 4);
+  *&v9[7] = *(a1 + 39);
   v4 = *(a1 + 47);
-  *(a1 + 4) = 0;
-  *(a1 + 5) = 0;
+  a1[2] = 0uLL;
   *(a1 + 3) = 0;
-  v9 = a1[3];
+  v8 = a1[3];
   v5 = *(a2 + 4);
   *a1 = *a2;
   *(a1 + 4) = v5;
@@ -712,20 +18,19 @@ __n128 std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<GenericVar
   *(a2 + 47) = 0;
   *(a2 + 24) = 0;
   a1[3] = a2[3];
-  *a2 = v11;
-  *(a2 + 4) = v12;
+  *a2 = v10;
+  *(a2 + 4) = v11;
   if (*(a2 + 47) < 0)
   {
     operator delete(*(a2 + 3));
   }
 
   *(a2 + 3) = v3;
-  *(a2 + 4) = *v10;
-  *(a2 + 39) = *&v10[7];
+  *(a2 + 4) = *v9;
+  *(a2 + 39) = *&v9[7];
   *(a2 + 47) = v4;
-  result = v9;
-  a2[3] = v9;
-  v8 = *MEMORY[0x277D85DE8];
+  result = v8;
+  a2[3] = v8;
   return result;
 }
 
@@ -771,12 +76,12 @@ BOOL AGCLLVMAGPVertexShaderGen4::constructReply(AGCLLVMAGPVertexShaderGen4 *this
     v3[4454] = 1;
     v9 = *(v3 + 1106);
     v10 = *(v3 + 1104) - *(v3 + 1108);
-    flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v3 + 548, 14, v8, 0);
-    flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v3 + 548, 12, v7, 0);
-    flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v3 + 548, 10, v6, 0);
-    flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v3 + 548, 8, v5, 0);
-    flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v3 + 548, 6, v4, 0);
-    flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v3 + 548, 4, v18, 0);
+    flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v3 + 4384, 14, v8, 0);
+    flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v3 + 4384, 12, v7, 0);
+    flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v3 + 4384, 10, v6, 0);
+    flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v3 + 4384, 8, v5, 0);
+    flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v3 + 4384, 6, v4, 0);
+    flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v3 + 4384, 4, v18, 0);
     v11 = flatbuffers::FlatBufferBuilder::EndTable((v3 + 4384), v10 + v9);
     v12 = this + *(*this - 24);
     v12[4454] = 1;
@@ -793,7 +98,7 @@ BOOL AGCLLVMAGPVertexShaderGen4::constructReply(AGCLLVMAGPVertexShaderGen4 *this
 
 uint64_t AGCLLVMUserVertexShader::constructFlatReply(AGCLLVMUserVertexShader *this)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   if (*(*(this + *(*this - 24) + 2168) + 1849))
   {
     if (*(this + 1352))
@@ -815,20 +120,24 @@ uint64_t AGCLLVMUserVertexShader::constructFlatReply(AGCLLVMUserVertexShader *th
         v6 = *v5;
         if (v4 <= 1)
         {
-          i = 1;
+          v7 = 1;
         }
 
         else
         {
-          for (i = 1; i != v4; ++i)
+          v7 = 1;
+          do
           {
-            if (v6 + i != v5[i])
+            if (v6 + v7 != v5[v7])
             {
               goto LABEL_13;
             }
+
+            v7 = (v7 + 1);
           }
 
-          i = *v3;
+          while (v4 != v7);
+          v7 = v4;
         }
 
 LABEL_13:
@@ -836,10 +145,10 @@ LABEL_13:
         v8[4358] = 1;
         v9 = *(v8 + 1082);
         v10 = *(v8 + 1080) - *(v8 + 1084);
-        flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v8 + 536, 4, i);
-        flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v8 + 536, 6, v6);
-        flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v8 + 536, 8, v2);
-        flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v8 + 536, 10, 0);
+        flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v8 + 4288, 4, v7);
+        flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v8 + 4288, 6, v6);
+        flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v8 + 4288, 8, v2);
+        flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v8 + 4288, 10, 0);
         flatbuffers::FlatBufferBuilder::EndTable((v8 + 4288), v10 + v9);
         operator new();
       }
@@ -850,23 +159,23 @@ LABEL_13:
     while (v2 < *(this + 1352));
   }
 
-  v39 = this + 4096;
+  v38 = this + 4096;
   v11 = *(this + 5096);
   __p = 0;
-  v42 = 0u;
-  v43[0] = v44;
-  v43[1] = 0x800000000;
-  v44[64] = 0x1FFFFFFFFLL;
-  v45 = v11;
-  v52[7] = 0;
+  v41 = 0u;
+  v42[0] = v43;
+  v42[1] = 0x800000000;
+  v43[64] = 0x1FFFFFFFFLL;
+  v44 = v11;
+  v51[7] = 0;
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
-  memset(v52, 0, 26);
-  v53 = 1;
+  memset(v51, 0, 26);
+  v52 = 1;
   if (*(this + 1142))
   {
     v12 = *(this + 570);
@@ -881,7 +190,7 @@ LABEL_13:
 
   GenericVaryingAllocator::allocate(&__p, *(this + *(*this - 24) + 2168));
   GenericVaryingAllocator::serialize(&__p, (this + *(*this - 24) + 4288));
-  if (v42 == __p)
+  if (v41 == __p)
   {
     v13 = &flatbuffers::data<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>,std::allocator<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>>>(std::vector<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>> const&)::t;
   }
@@ -891,40 +200,40 @@ LABEL_13:
     v13 = __p;
   }
 
-  v37 = flatbuffers::FlatBufferBuilder::CreateVector<AGCCodeTranslator::VertexShaderOutIterator>(this + *(*this - 24) + 4288, v13, (v42 - __p) >> 2);
+  v36 = flatbuffers::FlatBufferBuilder::CreateVector<AGCCodeTranslator::VertexShaderOutIterator>(this + *(*this - 24) + 4288, v13, (v41 - __p) >> 2);
   v14 = this + *(*this - 24);
   v14[4358] = 1;
   flatbuffers::FlatBufferBuilder::PreAlign((v14 + 4288), 0, 4uLL);
   flatbuffers::FlatBufferBuilder::PreAlign((v14 + 4288), 0, 4uLL);
   v14[4358] = 0;
-  v36 = flatbuffers::FlatBufferBuilder::PushElement<unsigned int>((v14 + 4288), 0);
-  v35 = flatbuffers::FlatBufferBuilder::CreateVector<unsigned int>((this + *(*this - 24) + 4288), &flatbuffers::data<unsigned int,std::allocator<unsigned int>>(std::vector<unsigned int> const&)::t, 0);
+  v35 = flatbuffers::FlatBufferBuilder::PushElement<unsigned int>((v14 + 4288), 0);
+  v34 = flatbuffers::FlatBufferBuilder::CreateVector<unsigned int>((this + *(*this - 24) + 4288), &flatbuffers::data<unsigned int,std::allocator<unsigned int>>(std::vector<unsigned int> const&)::t, 0);
   v15 = this + *(*this - 24);
   v15[4358] = 1;
   v16 = *(v15 + 1082);
   v17 = *(v15 + 1080) - *(v15 + 1084);
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v15 + 536, 4, v49);
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v15 + 536, 6, SDWORD1(v49));
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v15 + 536, 8, DWORD2(v49) + *(this + 1311));
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v15 + 536, 16, SDWORD1(v50));
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v15 + 536, 10, SDWORD2(v47));
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v15 + 536, 12, SHIDWORD(v47));
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v15 + 536, 14, v48);
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v15 + 536, 18, SHIDWORD(v48));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v15 + 4288, 4, v48);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v15 + 4288, 6, DWORD1(v48));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v15 + 4288, 8, (DWORD2(v48) + *(this + 1311)));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v15 + 4288, 16, DWORD1(v49));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v15 + 4288, 10, DWORD2(v46));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v15 + 4288, 12, HIDWORD(v46));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v15 + 4288, 14, v47);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v15 + 4288, 18, HIDWORD(v47));
   v18 = flatbuffers::FlatBufferBuilder::EndTable((v15 + 4288), v17 + v16);
   v19 = this + *(*this - 24);
   v20 = *(v19 + 1080);
   v19[4358] = 1;
   v21 = *(v19 + 1082);
   v22 = v20 - *(v19 + 1084);
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v19 + 536, 4, v52[0]);
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v19 + 536, 6, v52[1]);
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v19 + 536, 8, v52[2]);
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v19 + 536, 16, v52[5]);
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v19 + 536, 10, SDWORD2(v50));
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v19 + 536, 12, SHIDWORD(v50));
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v19 + 536, 14, v51);
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v19 + 536, 18, SHIDWORD(v51));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v19 + 4288, 4, v51[0]);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v19 + 4288, 6, v51[1]);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v19 + 4288, 8, v51[2]);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v19 + 4288, 16, v51[5]);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v19 + 4288, 10, DWORD2(v49));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v19 + 4288, 12, HIDWORD(v49));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v19 + 4288, 14, v50);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v19 + 4288, 18, HIDWORD(v50));
   v23 = flatbuffers::FlatBufferBuilder::EndTable((v19 + 4288), v22 + v21);
   v24 = *this;
   v25 = this + *(*this - 24);
@@ -934,43 +243,42 @@ LABEL_13:
   v28 = *(v25 + 1082);
   v29 = (*(v24 + 560))(this);
   flatbuffers::FlatBufferBuilder::AddOffset<AGCCodeTranslator::ShaderInfo>((v25 + 4288), v29);
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v25 + 536, 6, v53, 0);
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v25 + 536, 8, v39[1152], 0);
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v25 + 536, 10, *(this + 1313));
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v25 + 536, 12, *(this + 1314));
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v25 + 536, 14, *(this + 1315));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v25 + 4288, 6, v52, 0);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v25 + 4288, 8, v38[1152], 0);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v25 + 4288, 10, *(this + 1313));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v25 + 4288, 12, *(this + 1314));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v25 + 4288, 14, *(this + 1315));
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>((v25 + 4288), 16, v18);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>((v25 + 4288), 18, v23);
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v25 + 536, 20, LOBYTE(v52[6]), 0);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>((v25 + 4288), 22, v37);
-  if (v36)
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v25 + 4288, 20, LOBYTE(v51[6]), 0);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>((v25 + 4288), 22, v36);
+  if (v35)
   {
     flatbuffers::FlatBufferBuilder::Align((v25 + 4288), 4uLL);
-    flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v25 + 536, 24, *(v25 + 1080) - *(v25 + 1084) + *(v25 + 1082) - v36 + 4);
+    flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v25 + 4288, 24, (*(v25 + 1080) - *(v25 + 1084) + *(v25 + 1082) - v35 + 4));
   }
 
   v30 = v26 - v27;
   v31 = *(this + 1352);
   if (v31)
   {
-    flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v25 + 536, 26, v31);
+    flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v25 + 4288, 26, v31);
     if (*(*(this + *(*this - 24) + 2168) + 1849) == 1)
     {
-      flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>((v25 + 4288), 28, v35);
+      flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>((v25 + 4288), 28, v34);
     }
   }
 
   v32 = flatbuffers::FlatBufferBuilder::EndTable((v25 + 4288), v30 + v28);
-  v40 = &v46;
-  std::vector<GenericVaryingAllocator::OutIterator>::__destroy_vector::operator()[abi:nn200100](&v40);
-  llvm::SmallVector<GenericVarying,8u>::~SmallVector(v43);
+  v39 = &v45;
+  std::vector<GenericVaryingAllocator::OutIterator>::__destroy_vector::operator()[abi:nn200100](&v39);
+  llvm::SmallVector<GenericVarying,8u>::~SmallVector(v42);
   if (__p)
   {
-    *&v42 = __p;
+    *&v41 = __p;
     operator delete(__p);
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v32;
 }
 
@@ -1050,8 +358,8 @@ uint64_t AGCLLVMAGPVertexShader::constructMTLVertexInfo(AGCLLVMAGPVertexShader *
         v40 = *(v31 + 1082);
         v41 = *(v31 + 1080) - *(v31 + 1084);
         v42 = *(this + 1295);
-        flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v31 + 536, 4, v34);
-        flatbuffers::FlatBufferBuilder::AddElement<signed char>(v31 + 536, 6, *(v42 + 8 * v26 + 4));
+        flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v31 + 4288, 4, v34);
+        flatbuffers::FlatBufferBuilder::AddElement<signed char>(v31 + 4288, 6, *(v42 + 8 * v26 + 4));
         v43 = flatbuffers::FlatBufferBuilder::EndTable((v31 + 4288), v41 + v40);
         v49 = v81;
         v50 = v81 >> 2;
@@ -1094,9 +402,9 @@ LABEL_67:
         v77 = *(v27 + 1080);
         v78 = *(v27 + 1082);
         v35 = *(this + 1229) + 32 * v24;
-        flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v27 + 536, 4, v30);
-        flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v27 + 536, 6, *(v35 + 4));
-        flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v27 + 536, 8, *(v35 + 8), 0);
+        flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v27 + 4288, 4, v30);
+        flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v27 + 4288, 6, *(v35 + 4));
+        flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v27 + 4288, 8, *(v35 + 8), 0);
         v36 = v16 + v13 + v18;
         v37 = v15 + v36 - *(v20 - 4);
         if (*(v37 - 4) >= 7u && (v38 = *(v37 + 2)) != 0)
@@ -1109,7 +417,7 @@ LABEL_67:
           v39 = 0;
         }
 
-        flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v27 + 536, 10, v39);
+        flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v27 + 4288, 10, v39);
         v44 = *(v20 - 4);
         if (*(v15 + v36 - v44 - 4) >= 9u && (v45 = v16 + v13 + v18, (v46 = *(v15 + v45 - v44 + 4)) != 0))
         {
@@ -1121,10 +429,10 @@ LABEL_67:
           v47 = 0;
         }
 
-        flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v27 + 536, 12, v47);
-        flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v27 + 536, 14, *(v35 + 20));
-        flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v27 + 536, 16, *(v35 + 24));
-        flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v27 + 536, 18, *(v35 + 28), 0);
+        flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v27 + 4288, 12, v47);
+        flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v27 + 4288, 14, *(v35 + 20));
+        flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v27 + 4288, 16, *(v35 + 24));
+        flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v27 + 4288, 18, *(v35 + 28), 0);
         v48 = flatbuffers::FlatBufferBuilder::EndTable((v27 + 4288), v77 - v76 + v78);
         v51 = v79;
         v52 = v79 >> 2;
@@ -1237,17 +545,17 @@ LABEL_67:
   v72 = *(v71 + 1080);
   v73 = *(v71 + 1084);
   v74 = *(v71 + 1082);
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v71 + 536, 4, *(this + 1310));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v71 + 4288, 4, *(this + 1310));
   if (v63)
   {
     flatbuffers::FlatBufferBuilder::Align((v71 + 4288), 4uLL);
-    flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v71 + 536, 6, *(v71 + 1080) - *(v71 + 1084) + *(v71 + 1082) - v63 + 4);
+    flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v71 + 4288, 6, (*(v71 + 1080) - *(v71 + 1084) + *(v71 + 1082) - v63 + 4));
   }
 
   if (v70)
   {
     flatbuffers::FlatBufferBuilder::Align((v71 + 4288), 4uLL);
-    flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v71 + 536, 8, *(v71 + 1080) - *(v71 + 1084) + *(v71 + 1082) - v70 + 4);
+    flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v71 + 4288, 8, (*(v71 + 1080) - *(v71 + 1084) + *(v71 + 1082) - v70 + 4));
   }
 
   return flatbuffers::FlatBufferBuilder::EndTable((v71 + 4288), v72 - v73 + v74);
@@ -1260,7 +568,7 @@ flatbuffers::FlatBufferBuilder *flatbuffers::FlatBufferBuilder::AddOffset<AGCCod
     v2 = a2;
     v3 = result;
     flatbuffers::FlatBufferBuilder::Align(result, 4uLL);
-    v4 = *(v3 + 8) - *(v3 + 12) + *(v3 + 10) - v2 + 4;
+    v4 = (*(v3 + 8) - *(v3 + 12) + *(v3 + 10) - v2 + 4);
 
     return flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v3, 12, v4);
   }
@@ -1275,7 +583,7 @@ flatbuffers::FlatBufferBuilder *flatbuffers::FlatBufferBuilder::AddOffset<flatbu
     v2 = a2;
     v3 = result;
     flatbuffers::FlatBufferBuilder::Align(result, 4uLL);
-    v4 = *(v3 + 8) - *(v3 + 12) + *(v3 + 10) - v2 + 4;
+    v4 = (*(v3 + 8) - *(v3 + 12) + *(v3 + 10) - v2 + 4);
 
     return flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v3, 6, v4);
   }
@@ -1308,67 +616,64 @@ BOOL AGCLLVMAGPVertexShader::validateReply(AGCLLVMAGPVertexShader *this)
   return *(v7 + *v7) < 0x21;
 }
 
-uint64_t AGCLLVMObject::dumpTranslatorMetadata<AGCCodeTranslatorG11::CompileReplyBinarySchema>(AGCTargetPrinter **a1, _DWORD *a2)
+void AGCLLVMObject::dumpTranslatorMetadata<AGCCodeTranslatorG11::CompileReplyBinarySchema>(unsigned int (***a1)(AGCTargetPrinter **), _DWORD *a2)
 {
-  result = AGCLLVMObjectBase::dumpShaderToFile(a1);
-  if (result)
+  if (AGCLLVMObjectBase::dumpShaderToFile(a1))
   {
     if (a2[8] - a2[12] + a2[10])
     {
-      flatbuffers::IDLOptions::IDLOptions(&v4);
-      flatbuffers::Parser::Parser(v5, &v4);
+      flatbuffers::IDLOptions::IDLOptions(&v3);
+      flatbuffers::Parser::Parser(v4, &v3);
     }
   }
-
-  return result;
 }
 
-void virtual thunk toAGCLLVMAGPVertexShaderGen4::~AGCLLVMAGPVertexShaderGen4(AGCLLVMAGPVertexShaderGen4 *this)
+void virtual thunk toAGCLLVMAGPVertexShaderGen4::~AGCLLVMAGPVertexShaderGen4(AGCLLVMAGPVertexShaderGen4 *this, uint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v1 = (this + *(*this - 24));
-  *v1 = off_282570FE8;
-  v1[1307] = off_282571368;
-  v1[1520] = &off_282571478;
-  v2 = v1[1295];
-  if (v2 != v1 + 1297)
+  v4 = (this + *(*this - 24));
+  *v4 = off_282570FE8;
+  v4[1307] = off_282571368;
+  v4[1520] = &off_282571478;
+  v5 = v4[1295];
+  if (v5 != v4 + 1297)
   {
-    free(v2);
+    free(v5);
   }
 
-  v3 = v1[1229];
-  if (v3 != v1 + 1231)
+  v6 = v4[1229];
+  if (v6 != v4 + 1231)
   {
-    free(v3);
+    free(v6);
   }
 
-  llvm::StringMap<llvm::MDNode *,llvm::MallocAllocator>::~StringMap((v1 + 1224));
-  AGCLLVMUserVertexShader::~AGCLLVMUserVertexShader(v1, off_282562CB0);
-  AGCLLVMObject::~AGCLLVMObject((v1 + 1307));
+  llvm::StringMap<llvm::MDNode *,llvm::MallocAllocator>::~StringMap((v4 + 1224), a2, a3, a4);
+  AGCLLVMUserVertexShader::~AGCLLVMUserVertexShader(v4, off_282562CB0);
+  AGCLLVMObject::~AGCLLVMObject((v4 + 1307));
 
   JUMPOUT(0x20F331DC0);
 }
 
 {
-  v1 = (this + *(*this - 24));
-  *v1 = off_282570FE8;
-  v1[1307] = off_282571368;
-  v1[1520] = &off_282571478;
-  v2 = v1[1295];
-  if (v2 != v1 + 1297)
+  v4 = (this + *(*this - 24));
+  *v4 = off_282570FE8;
+  v4[1307] = off_282571368;
+  v4[1520] = &off_282571478;
+  v5 = v4[1295];
+  if (v5 != v4 + 1297)
   {
-    free(v2);
+    free(v5);
   }
 
-  v3 = v1[1229];
-  if (v3 != v1 + 1231)
+  v6 = v4[1229];
+  if (v6 != v4 + 1231)
   {
-    free(v3);
+    free(v6);
   }
 
-  llvm::StringMap<llvm::MDNode *,llvm::MallocAllocator>::~StringMap((v1 + 1224));
-  AGCLLVMUserVertexShader::~AGCLLVMUserVertexShader(v1, off_282562CB0);
+  llvm::StringMap<llvm::MDNode *,llvm::MallocAllocator>::~StringMap((v4 + 1224), a2, a3, a4);
+  AGCLLVMUserVertexShader::~AGCLLVMUserVertexShader(v4, off_282562CB0);
 
-  AGCLLVMObject::~AGCLLVMObject((v1 + 1307));
+  AGCLLVMObject::~AGCLLVMObject((v4 + 1307));
 }
 
 void AGCLLVMUserVertexShader::~AGCLLVMUserVertexShader(AGCLLVMUserVertexShader *this, uint64_t *a2)
@@ -1433,23 +738,24 @@ void AGCLLVMUserVertexShader::~AGCLLVMUserVertexShader(AGCLLVMUserVertexShader *
     operator delete(v14);
   }
 
-  v18 = (this + 5104);
-  std::vector<GenericVaryingAllocator::OutIterator>::__destroy_vector::operator()[abi:nn200100](&v18);
+  v20 = (this + 5104);
+  std::vector<GenericVaryingAllocator::OutIterator>::__destroy_vector::operator()[abi:nn200100](&v20);
   llvm::SmallVector<GenericVarying,8u>::~SmallVector(this + 4560);
-  v17 = *(this + 567);
-  if (v17)
+  v19 = *(this + 567);
+  if (v19)
   {
-    *(this + 568) = v17;
-    operator delete(v17);
+    *(this + 568) = v19;
+    operator delete(v19);
   }
 
-  AGCLLVMUserShader::~AGCLLVMUserShader(this, a2 + 1);
+  AGCLLVMUserShader::~AGCLLVMUserShader(this, a2 + 1, v17, v18);
 }
 
-uint64_t AGCLLVMAGPVertexShader::getGenericVaryingInfo(void *a1, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, int a6, unsigned int a7)
+uint64_t AGCLLVMAGPVertexShader::getGenericVaryingInfo(void *a1, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7)
 {
+  v7 = a7;
   String = llvm::MDString::getString(*(a4 - 8 * *(a4 + 8) + 8));
-  GenericVarying::getComponentSemantic(&__p, String, v14, a7);
+  GenericVarying::getComponentSemantic(&__p, String, v14, v7);
   ComponentType = AGCLLVMBuilder::getComponentType((a1 + *(*a1 - 24) + 1704), *(*(a2 + 16) + 8 * a3), &v21);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
@@ -1471,7 +777,7 @@ uint64_t AGCLLVMAGPVertexShader::getGenericVaryingInfo(void *a1, uint64_t a2, un
     size = __p.__r_.__value_.__l.__size_;
   }
 
-  GenericVaryingInfo = AGCLLVMAGPVertexShader::getGenericVaryingInfo(a1, ComponentType, 1, p_p, size, a5, a6);
+  GenericVaryingInfo = AGCLLVMAGPVertexShader::getGenericVaryingInfo(a1, ComponentType, 1u, p_p, size, a5, a6);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -1528,10 +834,6 @@ uint64_t AGCLLVMAGPVertexShader::buildBackendRequest(AGCLLVMAGPVertexShader *thi
     v5 = 0;
     do
     {
-      v6 = (*(this + 1229) + v4);
-      v7 = *v6;
-      v8 = v6[3];
-      v9 = v6[4];
       llvm::AGX::CompileRequest::addDMAListEntry(a2);
       ++v5;
       v4 += 32;
@@ -1540,33 +842,34 @@ uint64_t AGCLLVMAGPVertexShader::buildBackendRequest(AGCLLVMAGPVertexShader *thi
     while (v5 < *(this + 2460));
   }
 
-  v10 = *(this + *(*this - 24) + 2168);
-  result = (*(*v10 + 472))(v10);
+  v6 = *(this + *(*this - 24) + 2168);
+  result = (*(*v6 + 472))(v6);
   if (!result && *(this + 2592))
   {
-    v12 = 0;
-    v13 = 0;
-    v14 = *(this + 2460);
+    v8 = 0;
+    v9 = 0;
+    v10 = *(this + 2460);
     do
     {
-      v15 = *(*(this + 1295) + v12);
       result = llvm::AGX::CompileRequest::addDMAListEntry(a2);
-      ++v13;
-      ++v14;
-      v12 += 8;
+      ++v9;
+      ++v10;
+      v8 += 8;
     }
 
-    while (v13 < *(this + 2592));
+    while (v9 < *(this + 2592));
   }
 
   return result;
 }
 
-uint64_t GLCompilerCreate(void *__src, size_t __len)
+uint64_t GLCompilerCreate(void *__src, size_t __len, uint64_t a3)
 {
-  v2 = std::string::basic_string[abi:nn200100](&__dst, __src, __len);
-  Internal = AGCCodeGenServiceCreateInternal(v2);
-  if (v6 < 0)
+  v4 = std::string::basic_string[abi:nn200100](&__dst, __src, __len);
+  memset(v8, 0, sizeof(v8));
+  memset(v7, 0, sizeof(v7));
+  Internal = AGCCodeGenServiceCreateInternal(v4, a3, 0, v8, v7);
+  if (v10 < 0)
   {
     operator delete(__dst);
   }
@@ -1596,15 +899,15 @@ llvm::raw_ostream *llvm::raw_ostream::operator<<(llvm::raw_ostream *this, const 
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(const void **a1)
+uint64_t *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(const void **a1, __int128 **a2)
 {
-  v1 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(&AGCEnv::getEnvLookup(void)::envlookup, &v3, a1);
-  if (!v1)
+  v2 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(&AGCEnv::getEnvLookup(void)::envlookup, &v4, a1);
+  if (!v2)
   {
     operator new();
   }
 
-  return v1;
+  return v2;
 }
 
 void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(uint64_t a1, void *a2, const void **a3)
@@ -2613,8 +1916,7 @@ LABEL_29:
 void AGCEnv::getLogDirectory(std::string *this, const char *a2)
 {
   v2 = a2;
-  this->__r_.__value_.__r.__words[0] = 0;
-  this->__r_.__value_.__l.__size_ = 0;
+  *&this->__r_.__value_.__l.__data_ = 0uLL;
   this->__r_.__value_.__r.__words[2] = 0;
   {
     AGCEnv::isEnabled(void)::is_internal = os_variant_has_internal_diagnostics();
@@ -2795,21 +2097,21 @@ LABEL_37:
 BOOL AGCPrinterFactory::createDirectoryIgnoreExisting(std::string::size_type a1)
 {
   v1 = a1;
-  v22 = *MEMORY[0x277D85DE8];
-  memset(v19, 0, sizeof(v19));
-  *v20 = 0xFFFFLL;
-  *&v20[8] = 0;
-  v21 = 0;
-  v18 = 260;
-  v17.__r_.__value_.__r.__words[0] = a1;
+  v21 = *MEMORY[0x277D85DE8];
+  memset(v18, 0, sizeof(v18));
+  *v19 = 0xFFFFLL;
+  *&v19[8] = 0;
+  v20 = 0;
+  v17 = 260;
+  v16.__r_.__value_.__r.__words[0] = a1;
   v2 = 1;
   if (llvm::sys::fs::status())
   {
-    *&v19[32] = 260;
-    *v19 = v1;
+    *&v18[32] = 260;
+    *v18 = v1;
     directories = llvm::sys::fs::create_directories();
-    *&v16.__val_ = directories;
-    v16.__cat_ = v4;
+    *&v15.__val_ = directories;
+    v15.__cat_ = v4;
     v2 = directories == 0;
     if (directories)
     {
@@ -2824,45 +2126,45 @@ BOOL AGCPrinterFactory::createDirectoryIgnoreExisting(std::string::size_type a1)
         v6 = *v1;
       }
 
-      std::error_code::message(v19, &v16);
-      if (v19[23] >= 0)
+      std::error_code::message(v18, &v15);
+      if (v18[23] >= 0)
       {
-        v7 = v19;
+        v7 = v18;
       }
 
       else
       {
-        v7 = *v19;
+        v7 = *v18;
       }
 
       fprintf(v5, "AGC: %s:%d:%s: *** Failed to create: %s, with error code %d (%s)\n", "agc_file_printer.cpp", 302, "createDirectoryIgnoreExisting", v6, directories, v7);
-      if ((v19[23] & 0x80000000) != 0)
+      if ((v18[23] & 0x80000000) != 0)
       {
-        operator delete(*v19);
+        operator delete(*v18);
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v13 = *(v1 + 23) >= 0 ? v1 : *v1;
-        val = v16.__val_;
-        std::error_code::message(&v17, &v16);
-        v15 = (v17.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v17 : v17.__r_.__value_.__r.__words[0];
-        *v19 = 136316418;
-        *&v19[4] = "agc_file_printer.cpp";
-        *&v19[12] = 1024;
-        *&v19[14] = 302;
-        *&v19[18] = 2080;
-        *&v19[20] = "createDirectoryIgnoreExisting";
-        *&v19[28] = 2080;
-        *&v19[30] = v13;
-        *&v19[38] = 1024;
-        *&v19[40] = val;
-        *v20 = 2080;
-        *&v20[2] = v15;
-        _os_log_error_impl(&dword_20E4E1000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGC: AGC: %s:%d:%s: *** Failed to create: %s, with error code %d (%s)\n", v19, 0x36u);
-        if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
+        v12 = *(v1 + 23) >= 0 ? v1 : *v1;
+        val = v15.__val_;
+        std::error_code::message(&v16, &v15);
+        v14 = (v16.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v16 : v16.__r_.__value_.__r.__words[0];
+        *v18 = 136316418;
+        *&v18[4] = "agc_file_printer.cpp";
+        *&v18[12] = 1024;
+        *&v18[14] = 302;
+        *&v18[18] = 2080;
+        *&v18[20] = "createDirectoryIgnoreExisting";
+        *&v18[28] = 2080;
+        *&v18[30] = v12;
+        *&v18[38] = 1024;
+        *&v18[40] = val;
+        *v19 = 2080;
+        *&v19[2] = v14;
+        _os_log_error_impl(&dword_20E4E1000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGC: AGC: %s:%d:%s: *** Failed to create: %s, with error code %d (%s)\n", v18, 0x36u);
+        if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v17.__r_.__value_.__l.__data_);
+          operator delete(v16.__r_.__value_.__l.__data_);
         }
       }
 
@@ -2873,34 +2175,34 @@ BOOL AGCPrinterFactory::createDirectoryIgnoreExisting(std::string::size_type a1)
           v1 = *v1;
         }
 
-        v8 = v16.__val_;
-        std::error_code::message(&v17, &v16);
-        if ((v17.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        v8 = v15.__val_;
+        std::error_code::message(&v16, &v15);
+        if ((v16.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v9 = &v17;
+          v9 = &v16;
         }
 
         else
         {
-          v9 = v17.__r_.__value_.__r.__words[0];
+          v9 = v16.__r_.__value_.__r.__words[0];
         }
 
-        *v19 = 136316418;
-        *&v19[4] = "agc_file_printer.cpp";
-        *&v19[12] = 1024;
-        *&v19[14] = 302;
-        *&v19[18] = 2080;
-        *&v19[20] = "createDirectoryIgnoreExisting";
-        *&v19[28] = 2080;
-        *&v19[30] = v1;
-        *&v19[38] = 1024;
-        *&v19[40] = v8;
-        *v20 = 2080;
-        *&v20[2] = v9;
-        _os_log_impl(&dword_20E4E1000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGC: AGC: %s:%d:%s: *** Failed to create: %s, with error code %d (%s)\n", v19, 0x36u);
-        if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
+        *v18 = 136316418;
+        *&v18[4] = "agc_file_printer.cpp";
+        *&v18[12] = 1024;
+        *&v18[14] = 302;
+        *&v18[18] = 2080;
+        *&v18[20] = "createDirectoryIgnoreExisting";
+        *&v18[28] = 2080;
+        *&v18[30] = v1;
+        *&v18[38] = 1024;
+        *&v18[40] = v8;
+        *v19 = 2080;
+        *&v19[2] = v9;
+        _os_log_impl(&dword_20E4E1000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGC: AGC: %s:%d:%s: *** Failed to create: %s, with error code %d (%s)\n", v18, 0x36u);
+        if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v17.__r_.__value_.__l.__data_);
+          operator delete(v16.__r_.__value_.__l.__data_);
         }
       }
     }
@@ -2921,7 +2223,6 @@ BOOL AGCPrinterFactory::createDirectoryIgnoreExisting(std::string::size_type a1)
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -3082,7 +2383,7 @@ void std::__shared_ptr_emplace<AGCTargetPrinter>::~__shared_ptr_emplace(std::__s
 
 void tryChangeOwnerToMobile(const char *a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (chown(a1, 0x1F5u, 0xFFFFFFFF))
   {
     v2 = *MEMORY[0x277D85DF8];
@@ -3092,21 +2393,21 @@ void tryChangeOwnerToMobile(const char *a1)
     fprintf(v2, "AGC: %s:%d:%s: *** Failed to change owner uid to 501: %s, with error code %d (%s)\n", "agc_file_printer.cpp", 39, "tryChangeOwnerToMobile", a1, v3, v5);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v10 = *__error();
-      v11 = __error();
-      v12 = strerror(*v11);
+      v9 = *__error();
+      v10 = __error();
+      v11 = strerror(*v10);
       *buf = 136316418;
-      v14 = "agc_file_printer.cpp";
-      v15 = 1024;
-      v16 = 39;
-      v17 = 2080;
-      v18 = "tryChangeOwnerToMobile";
-      v19 = 2080;
-      v20 = a1;
-      v21 = 1024;
-      v22 = v10;
-      v23 = 2080;
-      v24 = v12;
+      v13 = "agc_file_printer.cpp";
+      v14 = 1024;
+      v15 = 39;
+      v16 = 2080;
+      v17 = "tryChangeOwnerToMobile";
+      v18 = 2080;
+      v19 = a1;
+      v20 = 1024;
+      v21 = v9;
+      v22 = 2080;
+      v23 = v11;
       _os_log_error_impl(&dword_20E4E1000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGC: AGC: %s:%d:%s: *** Failed to change owner uid to 501: %s, with error code %d (%s)\n", buf, 0x36u);
     }
 
@@ -3116,22 +2417,20 @@ void tryChangeOwnerToMobile(const char *a1)
       v7 = __error();
       v8 = strerror(*v7);
       *buf = 136316418;
-      v14 = "agc_file_printer.cpp";
-      v15 = 1024;
-      v16 = 39;
-      v17 = 2080;
-      v18 = "tryChangeOwnerToMobile";
-      v19 = 2080;
-      v20 = a1;
-      v21 = 1024;
-      v22 = v6;
-      v23 = 2080;
-      v24 = v8;
+      v13 = "agc_file_printer.cpp";
+      v14 = 1024;
+      v15 = 39;
+      v16 = 2080;
+      v17 = "tryChangeOwnerToMobile";
+      v18 = 2080;
+      v19 = a1;
+      v20 = 1024;
+      v21 = v6;
+      v22 = 2080;
+      v23 = v8;
       _os_log_impl(&dword_20E4E1000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGC: AGC: %s:%d:%s: *** Failed to change owner uid to 501: %s, with error code %d (%s)\n", buf, 0x36u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t std::unordered_map<std::string,std::shared_ptr<AGCTargetPrinter>>::~unordered_map[abi:nn200100](uint64_t a1)
@@ -3170,7 +2469,7 @@ uint64_t std::unordered_map<std::string,std::shared_ptr<AGCTargetPrinter>>::~uno
   return a1;
 }
 
-void AGCPrinterFactory::createObjectPrinter(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void AGCPrinterFactory::createObjectPrinter(uint64_t *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (byte_27C8D81C0 != 1 || (byte_27C8D81C1 & 1) != 0)
   {
@@ -4063,7 +3362,7 @@ flatbuffers::IDLOptions *flatbuffers::IDLOptions::IDLOptions(flatbuffers::IDLOpt
   *(this + 16) = 1;
   *(this + 17) = 0;
   *(this + 25) = 0;
-  std::string::basic_string[abi:nn200100]<0>(this + 32, "std::unique_ptr");
+  std::string::basic_string[abi:nn200100]<0>(this + 4, "std::unique_ptr");
   *(this + 11) = 0;
   *(this + 12) = 0;
   *(this + 13) = 0;
@@ -4071,7 +3370,7 @@ flatbuffers::IDLOptions *flatbuffers::IDLOptions::IDLOptions(flatbuffers::IDLOpt
   *(this + 9) = 0;
   *(this + 7) = 0;
   *(this + 20) = 0;
-  std::string::basic_string[abi:nn200100]<0>(this + 112, "T");
+  std::string::basic_string[abi:nn200100]<0>(this + 14, "T");
   *(this + 68) = 1;
   *(this + 138) = 0;
   *(this + 19) = 0;
@@ -4091,7 +3390,7 @@ flatbuffers::IDLOptions *flatbuffers::IDLOptions::IDLOptions(flatbuffers::IDLOpt
   *(this + 296) = 0u;
   *(this + 312) = 0u;
   *(this + 41) = 0;
-  std::string::basic_string[abi:nn200100]<0>(this + 336, "_generated");
+  std::string::basic_string[abi:nn200100]<0>(this + 42, "_generated");
   *(this + 45) = 0;
   *(this + 46) = 0;
   *(this + 47) = 0;
@@ -4163,7 +3462,7 @@ void flatbuffers::IDLOptions::~IDLOptions(void **this)
     operator delete(this[36]);
   }
 
-  v2 = this + 33;
+  v2 = (this + 33);
   std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v2);
   if (*(this + 255) < 0)
   {
@@ -4644,10 +3943,10 @@ char *flatbuffers::Allocator::reallocate_downward(flatbuffers::Allocator *this, 
   return v12;
 }
 
-void *std::__tree<std::__value_type<std::string,BOOL>,std::__map_value_compare<std::string,std::__value_type<std::string,BOOL>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,BOOL>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, void *a2)
+uint64_t *std::__tree<std::__value_type<std::string,BOOL>,std::__map_value_compare<std::string,std::__value_type<std::string,BOOL>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,BOOL>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, void *a2, _OWORD **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -4657,26 +3956,26 @@ LABEL_7:
   {
     while (1)
     {
-      v4 = v2;
-      if (!std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>::operator()[abi:nn200100](a2, v2 + 4))
+      v5 = v3;
+      if (!std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>::operator()[abi:nn200100](a2, v3 + 4))
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_7;
       }
     }
 
-    if (!std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>::operator()[abi:nn200100](v4 + 4, a2))
+    if (!std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>::operator()[abi:nn200100](v5 + 4, a2))
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -4685,227 +3984,227 @@ LABEL_7:
 
 void AGCLLVMAGPFragmentShader::getCompilationKeyDescription(AGCLLVMAGPFragmentShader *this@<X0>, uint64_t a2@<X8>)
 {
-  v130 = *MEMORY[0x277D85DE8];
+  v122 = *MEMORY[0x277D85DE8];
   v4 = *(this + 801);
-  std::string::basic_string[abi:nn200100]<0>(v52, "AGCFragmentContextStateAGP");
-  std::string::basic_string[abi:nn200100]<0>(&v57, "AGCFragmentContextState");
-  std::string::basic_string[abi:nn200100]<0>(v55, "fragmentState");
-  std::string::basic_string[abi:nn200100]<0>(&v122, "AGCFragmentState");
-  std::string::basic_string[abi:nn200100]<0>(&v84, "GL and Metal state:");
-  std::string::basic_string[abi:nn200100]<0>(v82, "alphaToCoverage");
-  _agcFieldString<unsigned int>(&v85, v82, *v4 & 1);
-  std::string::basic_string[abi:nn200100]<0>(v80, "alphaToOne");
-  _agcFieldString<unsigned int>(&v86, v80, (*v4 >> 1) & 1);
-  std::string::basic_string[abi:nn200100]<0>(&v79, "sampleCoverage");
-  _agcFieldString<unsigned int>(&v87, &v79.__r_.__value_.__l.__data_, (*v4 >> 2) & 1);
-  std::string::basic_string[abi:nn200100]<0>(v77, "sampleCoverageInvert");
-  _agcFieldString<unsigned int>(&v88, v77, (*v4 >> 3) & 1);
-  std::string::basic_string[abi:nn200100]<0>(&v89, "GL specific state:");
-  std::string::basic_string[abi:nn200100]<0>(v75, "depthStencilWriteDisabled");
-  _agcFieldString<unsigned int>(&v90, v75, (*v4 >> 4) & 1);
-  std::string::basic_string[abi:nn200100]<0>(v73, "logicOp");
-  _agcFieldString<unsigned int>(&v91, v73, (*v4 >> 5) & 1);
-  std::string::basic_string[abi:nn200100]<0>(v71, "logicOpState");
-  _agcFieldString<char const*>(&v92, v71, _agcLogicOpStrings[(*v4 >> 6) & 0x1F]);
-  std::string::basic_string[abi:nn200100]<0>(&v70, "alphaTest");
-  _agcFieldString<unsigned int>(&v93, &v70.__r_.__value_.__l.__data_, (*v4 >> 11) & 1);
-  std::string::basic_string[abi:nn200100]<0>(v68, "alphaTestFunc");
-  _agcFieldString<char const*>(&v94, v68, _agcCompareFuncStrings[*v4 >> 12]);
-  std::string::basic_string[abi:nn200100]<0>(v66, "smoothPoints");
-  _agcFieldString<unsigned int>(&v95, v66, HIWORD(*v4) & 1);
-  std::string::basic_string[abi:nn200100]<0>(&v65, "pointSpriteEnabled");
-  _agcFieldString<unsigned int>(&v96, &v65.__r_.__value_.__l.__data_, (*v4 >> 17) & 1);
-  std::string::basic_string[abi:nn200100]<0>(v63, "outputPointSize");
-  _agcFieldString<unsigned int>(&v97, v63, (*v4 >> 18) & 1);
-  std::string::basic_string[abi:nn200100]<0>(&v62, "shaderDebugEnable");
-  _agcFieldString<unsigned int>(&v98, &v62.__r_.__value_.__l.__data_, (*v4 >> 19) & 1);
-  std::string::basic_string[abi:nn200100]<0>(&v99, "MTL specific state:");
-  std::string::basic_string[abi:nn200100]<0>(v60, "pridAllocationStrategy");
-  _agcFieldString<char const*>(&v100, v60, _agcPRIDAllocationStrategyStrings[(*v4 >> 20) & 7]);
+  std::string::basic_string[abi:nn200100]<0>(v51, "AGCFragmentContextStateAGP");
+  std::string::basic_string[abi:nn200100]<0>(&v56, "AGCFragmentContextState");
+  std::string::basic_string[abi:nn200100]<0>(v54, "fragmentState");
+  std::string::basic_string[abi:nn200100]<0>(v121, "AGCFragmentState");
+  std::string::basic_string[abi:nn200100]<0>(&v83, "GL and Metal state:");
+  std::string::basic_string[abi:nn200100]<0>(v81, "alphaToCoverage");
+  _agcFieldString<unsigned int>(&v84, v81, *v4 & 1);
+  std::string::basic_string[abi:nn200100]<0>(v79, "alphaToOne");
+  _agcFieldString<unsigned int>(&v85, v79, (*v4 >> 1) & 1);
+  std::string::basic_string[abi:nn200100]<0>(&v78, "sampleCoverage");
+  _agcFieldString<unsigned int>(&v86, &v78.__r_.__value_.__l.__data_, (*v4 >> 2) & 1);
+  std::string::basic_string[abi:nn200100]<0>(v76, "sampleCoverageInvert");
+  _agcFieldString<unsigned int>(&v87, v76, (*v4 >> 3) & 1);
+  std::string::basic_string[abi:nn200100]<0>(&v88, "GL specific state:");
+  std::string::basic_string[abi:nn200100]<0>(v74, "depthStencilWriteDisabled");
+  _agcFieldString<unsigned int>(&v89, v74, (*v4 >> 4) & 1);
+  std::string::basic_string[abi:nn200100]<0>(v72, "logicOp");
+  _agcFieldString<unsigned int>(&v90, v72, (*v4 >> 5) & 1);
+  std::string::basic_string[abi:nn200100]<0>(v70, "logicOpState");
+  _agcFieldString<char const*>(&v91, v70, _agcLogicOpStrings[(*v4 >> 6) & 0x1F]);
+  std::string::basic_string[abi:nn200100]<0>(&v69, "alphaTest");
+  _agcFieldString<unsigned int>(&v92, &v69.__r_.__value_.__l.__data_, (*v4 >> 11) & 1);
+  std::string::basic_string[abi:nn200100]<0>(v67, "alphaTestFunc");
+  _agcFieldString<char const*>(&v93, v67, _agcCompareFuncStrings[*v4 >> 12]);
+  std::string::basic_string[abi:nn200100]<0>(v65, "smoothPoints");
+  _agcFieldString<unsigned int>(&v94, v65, HIWORD(*v4) & 1);
+  std::string::basic_string[abi:nn200100]<0>(&v64, "pointSpriteEnabled");
+  _agcFieldString<unsigned int>(&v95, &v64.__r_.__value_.__l.__data_, (*v4 >> 17) & 1);
+  std::string::basic_string[abi:nn200100]<0>(v62, "outputPointSize");
+  _agcFieldString<unsigned int>(&v96, v62, (*v4 >> 18) & 1);
+  std::string::basic_string[abi:nn200100]<0>(&v61, "shaderDebugEnable");
+  _agcFieldString<unsigned int>(&v97, &v61.__r_.__value_.__l.__data_, (*v4 >> 19) & 1);
+  std::string::basic_string[abi:nn200100]<0>(&v98, "MTL specific state:");
+  std::string::basic_string[abi:nn200100]<0>(v59, "pridAllocationStrategy");
+  _agcFieldString<char const*>(&v99, v59, _agcPRIDAllocationStrategyStrings[(*v4 >> 20) & 7]);
   std::string::basic_string[abi:nn200100]<0>(__p, "unused");
-  _agcFieldString<unsigned int>(&v101, __p, *v4 >> 23);
-  _agcGroupWithHeader(&v54, &v122, &v84, 18);
+  _agcFieldString<unsigned int>(&v100, __p, *v4 >> 23);
+  _agcGroupWithHeader(&v53, v121, &v83, 18);
   v5 = 54;
   do
   {
-    if (v84.__r_.__value_.__s.__data_[v5 * 8 - 1] < 0)
+    if (v83.__r_.__value_.__s.__data_[v5 * 8 - 1] < 0)
     {
-      operator delete(v82[v5]);
+      operator delete(v81[v5]);
     }
 
     v5 -= 3;
   }
 
   while (v5 * 8);
-  if (v59 < 0)
+  if (v58 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v61 < 0)
+  if (v60 < 0)
   {
-    operator delete(v60[0]);
+    operator delete(v59[0]);
   }
 
-  if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v62.__r_.__value_.__l.__data_);
+    operator delete(v61.__r_.__value_.__l.__data_);
   }
 
-  if (v64 < 0)
+  if (v63 < 0)
   {
-    operator delete(v63[0]);
+    operator delete(v62[0]);
   }
 
-  if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v65.__r_.__value_.__l.__data_);
+    operator delete(v64.__r_.__value_.__l.__data_);
   }
 
-  if (v67 < 0)
+  if (v66 < 0)
   {
-    operator delete(v66[0]);
+    operator delete(v65[0]);
   }
 
-  if (v69 < 0)
+  if (v68 < 0)
   {
-    operator delete(v68[0]);
+    operator delete(v67[0]);
   }
 
-  if (SHIBYTE(v70.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v70.__r_.__value_.__l.__data_);
+    operator delete(v69.__r_.__value_.__l.__data_);
   }
 
-  if (v72 < 0)
+  if (v71 < 0)
   {
-    operator delete(v71[0]);
+    operator delete(v70[0]);
   }
 
-  if (v74 < 0)
+  if (v73 < 0)
   {
-    operator delete(v73[0]);
+    operator delete(v72[0]);
   }
 
-  if (v76 < 0)
+  if (v75 < 0)
   {
-    operator delete(v75[0]);
+    operator delete(v74[0]);
   }
 
-  if (v78 < 0)
+  if (v77 < 0)
   {
-    operator delete(v77[0]);
+    operator delete(v76[0]);
   }
 
-  if (SHIBYTE(v79.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v79.__r_.__value_.__l.__data_);
+    operator delete(v78.__r_.__value_.__l.__data_);
   }
 
-  if (v81 < 0)
+  if (v80 < 0)
   {
-    operator delete(v80[0]);
+    operator delete(v79[0]);
   }
 
-  if (v83 < 0)
+  if (v82 < 0)
   {
-    operator delete(v82[0]);
+    operator delete(v81[0]);
   }
 
-  if (SHIBYTE(v122.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v121[0].__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v122.__r_.__value_.__l.__data_);
+    operator delete(v121[0].__r_.__value_.__l.__data_);
   }
 
-  _agcFieldString<std::string>(&v122, v55, &v54);
-  std::string::basic_string[abi:nn200100]<0>(v71, "colorMaskState");
-  std::string::basic_string[abi:nn200100]<0>(v82, "AGCColorMaskState");
-  std::string::basic_string[abi:nn200100]<0>(v80, "redEnableBits");
-  _agcFieldStringHex(&v84, v80, *(v4 + 8));
-  std::string::basic_string[abi:nn200100]<0>(&v79, "greenEnableBits");
-  _agcFieldStringHex(&v85, &v79.__r_.__value_.__l.__data_, *(v4 + 9));
-  std::string::basic_string[abi:nn200100]<0>(v77, "blueEnableBits");
-  _agcFieldStringHex(&v86, v77, *(v4 + 10));
-  std::string::basic_string[abi:nn200100]<0>(v75, "alphaEnableBits");
-  _agcFieldStringHex(&v87, v75, *(v4 + 11));
-  std::string::basic_string[abi:nn200100]<0>(v73, "unknownMaskBits");
-  _agcFieldStringHex(&v88, v73, *(v4 + 12));
-  _agcGroupWithHeader(&v70, v82, &v84, 5);
+  _agcFieldString<std::string>(v121, v54, &v53);
+  std::string::basic_string[abi:nn200100]<0>(v70, "colorMaskState");
+  std::string::basic_string[abi:nn200100]<0>(v81, "AGCColorMaskState");
+  std::string::basic_string[abi:nn200100]<0>(v79, "redEnableBits");
+  _agcFieldStringHex(&v83, v79, *(v4 + 8));
+  std::string::basic_string[abi:nn200100]<0>(&v78, "greenEnableBits");
+  _agcFieldStringHex(&v84, &v78.__r_.__value_.__l.__data_, *(v4 + 9));
+  std::string::basic_string[abi:nn200100]<0>(v76, "blueEnableBits");
+  _agcFieldStringHex(&v85, v76, *(v4 + 10));
+  std::string::basic_string[abi:nn200100]<0>(v74, "alphaEnableBits");
+  _agcFieldStringHex(&v86, v74, *(v4 + 11));
+  std::string::basic_string[abi:nn200100]<0>(v72, "unknownMaskBits");
+  _agcFieldStringHex(&v87, v72, *(v4 + 12));
+  _agcGroupWithHeader(&v69, v81, &v83, 5);
   for (i = 0; i != -15; i -= 3)
   {
-    if (SHIBYTE(v88.__r_.__value_.__r.__words[i + 2]) < 0)
+    if (SHIBYTE(v87.__r_.__value_.__r.__words[i + 2]) < 0)
     {
-      operator delete(*(&v88.__r_.__value_.__l.__data_ + i * 8));
+      operator delete(*(&v87.__r_.__value_.__l.__data_ + i * 8));
     }
   }
 
-  if (v74 < 0)
+  if (v73 < 0)
   {
-    operator delete(v73[0]);
+    operator delete(v72[0]);
   }
 
-  if (v76 < 0)
+  if (v75 < 0)
   {
-    operator delete(v75[0]);
+    operator delete(v74[0]);
   }
 
-  if (v78 < 0)
+  if (v77 < 0)
   {
-    operator delete(v77[0]);
+    operator delete(v76[0]);
   }
 
-  if (SHIBYTE(v79.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v79.__r_.__value_.__l.__data_);
+    operator delete(v78.__r_.__value_.__l.__data_);
   }
 
-  if (v81 < 0)
+  if (v80 < 0)
   {
-    operator delete(v80[0]);
+    operator delete(v79[0]);
   }
 
-  if (v83 < 0)
+  if (v82 < 0)
   {
-    operator delete(v82[0]);
+    operator delete(v81[0]);
   }
 
-  _agcFieldString<std::string>(&v123, v71, &v70);
-  _agcGroupWithHeader(&v84, &v57, &v122, 2);
-  for (j = 0; j != -6; j -= 3)
+  _agcFieldString<std::string>(&v121[1], v70, &v69);
+  _agcGroupWithHeader(&v83, &v56, v121, 2);
+  for (j = 0; j != -48; j -= 24)
   {
-    if (SHIBYTE(v123.__r_.__value_.__r.__words[j + 2]) < 0)
+    if (SHIBYTE(v121[j / 0x18 + 1].__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(*(&v122 + j * 8 + 24));
+      operator delete(v121[j / 0x18 + 1].__r_.__value_.__l.__data_);
     }
   }
 
-  if (SHIBYTE(v70.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v70.__r_.__value_.__l.__data_);
+    operator delete(v69.__r_.__value_.__l.__data_);
   }
 
-  if (v72 < 0)
+  if (v71 < 0)
   {
-    operator delete(v71[0]);
+    operator delete(v70[0]);
   }
 
-  if (SHIBYTE(v54.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v54.__r_.__value_.__l.__data_);
+    operator delete(v53.__r_.__value_.__l.__data_);
   }
 
-  if (v56 < 0)
+  if (v55 < 0)
   {
-    operator delete(v55[0]);
+    operator delete(v54[0]);
   }
 
-  if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v57.__r_.__value_.__l.__data_);
+    operator delete(v56.__r_.__value_.__l.__data_);
   }
 
-  std::string::basic_string[abi:nn200100]<0>(v66, "mutableBuffers");
-  _agcFieldStringHex(&v85, v66, *(v4 + 2));
+  std::string::basic_string[abi:nn200100]<0>(v65, "mutableBuffers");
+  _agcFieldStringHex(&v84, v65, *(v4 + 2));
   v8 = v4[16];
   if ((~v8 & 0xF) != 0)
   {
@@ -4927,215 +4226,220 @@ void AGCLLVMAGPFragmentShader::getCompilationKeyDescription(AGCLLVMAGPFragmentSh
       }
     }
 
-    std::string::basic_string[abi:nn200100]<0>(v82, "AGCLogicalToPhysicalRemap");
-    std::string::basic_string[abi:nn200100]<0>(v80, "logicalToPhysical[0]");
-    _agcFieldString<unsigned char>(&v122, v80, v4[16] & 0xF);
-    std::string::basic_string[abi:nn200100]<0>(&v79, "logicalToPhysical[1]");
-    _agcFieldString<unsigned char>(&v123, &v79.__r_.__value_.__l.__data_, *(v4 + 64) >> 4);
-    std::string::basic_string[abi:nn200100]<0>(v77, "logicalToPhysical[2]");
-    _agcFieldString<unsigned char>(&v124, v77, *(v4 + 65) & 0xF);
-    std::string::basic_string[abi:nn200100]<0>(v75, "logicalToPhysical[3]");
-    _agcFieldString<unsigned char>(&v125, v75, v4[16] >> 12);
-    std::string::basic_string[abi:nn200100]<0>(v73, "logicalToPhysical[4]");
-    _agcFieldString<unsigned char>(&v126, v73, *(v4 + 66) & 0xF);
-    std::string::basic_string[abi:nn200100]<0>(v71, "logicalToPhysical[5]");
-    _agcFieldString<unsigned char>(&v127, v71, (v4[16] >> 20) & 0xF);
-    std::string::basic_string[abi:nn200100]<0>(&v70, "logicalToPhysical[6]");
-    _agcFieldString<unsigned char>(&v128, &v70.__r_.__value_.__l.__data_, *(v4 + 67) & 0xF);
-    std::string::basic_string[abi:nn200100]<0>(v68, "logicalToPhysical[7]");
-    _agcFieldString<unsigned char>(&v129, v68, v4[16] >> 28);
-    _agcGroupWithHeader(&v86, v82, &v122, 8);
-    for (k = 0; k != -24; k -= 3)
+    std::string::basic_string[abi:nn200100]<0>(v81, "AGCLogicalToPhysicalRemap");
+    std::string::basic_string[abi:nn200100]<0>(v79, "logicalToPhysical[0]");
+    _agcFieldString<unsigned char>(v121, v79, v4[16] & 0xF);
+    std::string::basic_string[abi:nn200100]<0>(&v78, "logicalToPhysical[1]");
+    _agcFieldString<unsigned char>(&v121[1], &v78.__r_.__value_.__l.__data_, *(v4 + 64) >> 4);
+    std::string::basic_string[abi:nn200100]<0>(v76, "logicalToPhysical[2]");
+    _agcFieldString<unsigned char>(&v121[2], v76, *(v4 + 65) & 0xF);
+    std::string::basic_string[abi:nn200100]<0>(v74, "logicalToPhysical[3]");
+    _agcFieldString<unsigned char>(&v121[3], v74, v4[16] >> 12);
+    std::string::basic_string[abi:nn200100]<0>(v72, "logicalToPhysical[4]");
+    _agcFieldString<unsigned char>(&v121[4], v72, *(v4 + 66) & 0xF);
+    std::string::basic_string[abi:nn200100]<0>(v70, "logicalToPhysical[5]");
+    _agcFieldString<unsigned char>(&v121[5], v70, (v4[16] >> 20) & 0xF);
+    std::string::basic_string[abi:nn200100]<0>(&v69, "logicalToPhysical[6]");
+    _agcFieldString<unsigned char>(&v121[6], &v69.__r_.__value_.__l.__data_, *(v4 + 67) & 0xF);
+    std::string::basic_string[abi:nn200100]<0>(v67, "logicalToPhysical[7]");
+    _agcFieldString<unsigned char>(&v121[7], v67, v4[16] >> 28);
+    _agcGroupWithHeader(&v85, v81, v121, 8);
+    for (k = 0; k != -192; k -= 24)
     {
-      if (SHIBYTE(v129.__r_.__value_.__r.__words[k + 2]) < 0)
+      if (SHIBYTE(v121[k / 0x18 + 7].__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(*(&v129.__r_.__value_.__l.__data_ + k * 8));
+        operator delete(v121[k / 0x18 + 7].__r_.__value_.__l.__data_);
       }
     }
 
-    if (v69 < 0)
+    if (v68 < 0)
     {
-      operator delete(v68[0]);
+      operator delete(v67[0]);
     }
 
-    if (SHIBYTE(v70.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v70.__r_.__value_.__l.__data_);
+      operator delete(v69.__r_.__value_.__l.__data_);
     }
 
-    if (v72 < 0)
+    if (v71 < 0)
     {
-      operator delete(v71[0]);
+      operator delete(v70[0]);
     }
 
-    if (v74 < 0)
+    if (v73 < 0)
     {
-      operator delete(v73[0]);
+      operator delete(v72[0]);
     }
 
-    if (v76 < 0)
+    if (v75 < 0)
     {
-      operator delete(v75[0]);
+      operator delete(v74[0]);
     }
 
-    if (v78 < 0)
+    if (v77 < 0)
     {
-      operator delete(v77[0]);
+      operator delete(v76[0]);
     }
 
-    if (SHIBYTE(v79.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v79.__r_.__value_.__l.__data_);
+      operator delete(v78.__r_.__value_.__l.__data_);
     }
 
-    if (v81 < 0)
+    if (v80 < 0)
     {
-      operator delete(v80[0]);
+      operator delete(v79[0]);
     }
   }
 
   else
   {
 LABEL_68:
-    std::string::basic_string[abi:nn200100]<0>(v82, "AGCLogicalToPhysicalRemap");
-    std::string::basic_string[abi:nn200100]<0>(&v122, "logicalToPhysical[0]: dynamic");
-    std::string::basic_string[abi:nn200100]<0>(&v123, "logicalToPhysical[1]: dynamic");
-    std::string::basic_string[abi:nn200100]<0>(&v124, "logicalToPhysical[2]: dynamic");
-    std::string::basic_string[abi:nn200100]<0>(&v125, "logicalToPhysical[3]: dynamic");
-    std::string::basic_string[abi:nn200100]<0>(&v126, "logicalToPhysical[4]: dynamic");
-    std::string::basic_string[abi:nn200100]<0>(&v127, "logicalToPhysical[5]: dynamic");
-    std::string::basic_string[abi:nn200100]<0>(&v128, "logicalToPhysical[6]: dynamic");
-    std::string::basic_string[abi:nn200100]<0>(&v129, "logicalToPhysical[7]: dynamic");
-    _agcGroupWithHeader(&v86, v82, &v122, 8);
-    for (m = 0; m != -24; m -= 3)
+    std::string::basic_string[abi:nn200100]<0>(v81, "AGCLogicalToPhysicalRemap");
+    std::string::basic_string[abi:nn200100]<0>(v121, "logicalToPhysical[0]: dynamic");
+    std::string::basic_string[abi:nn200100]<0>(v121[1].__r_.__value_.__r.__words, "logicalToPhysical[1]: dynamic");
+    std::string::basic_string[abi:nn200100]<0>(v121[2].__r_.__value_.__r.__words, "logicalToPhysical[2]: dynamic");
+    std::string::basic_string[abi:nn200100]<0>(v121[3].__r_.__value_.__r.__words, "logicalToPhysical[3]: dynamic");
+    std::string::basic_string[abi:nn200100]<0>(v121[4].__r_.__value_.__r.__words, "logicalToPhysical[4]: dynamic");
+    std::string::basic_string[abi:nn200100]<0>(v121[5].__r_.__value_.__r.__words, "logicalToPhysical[5]: dynamic");
+    std::string::basic_string[abi:nn200100]<0>(v121[6].__r_.__value_.__r.__words, "logicalToPhysical[6]: dynamic");
+    std::string::basic_string[abi:nn200100]<0>(v121[7].__r_.__value_.__r.__words, "logicalToPhysical[7]: dynamic");
+    _agcGroupWithHeader(&v85, v81, v121, 8);
+    for (m = 0; m != -192; m -= 24)
     {
-      if (SHIBYTE(v129.__r_.__value_.__r.__words[m + 2]) < 0)
+      if (SHIBYTE(v121[m / 0x18 + 7].__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(*(&v129.__r_.__value_.__l.__data_ + m * 8));
+        operator delete(v121[m / 0x18 + 7].__r_.__value_.__l.__data_);
       }
     }
   }
 
-  if (v83 < 0)
+  if (v82 < 0)
   {
-    operator delete(v82[0]);
+    operator delete(v81[0]);
   }
 
-  std::string::basic_string[abi:nn200100]<0>(&v122, "genCompilerStatistics");
-  _agcFieldString<unsigned int>(&v87, &v122.__r_.__value_.__l.__data_, v4[15] & 1);
-  std::string::basic_string[abi:nn200100]<0>(v82, "genTelemetryStatistics");
-  _agcFieldString<unsigned int>(&v88, v82, (v4[15] >> 1) & 1);
-  std::string::basic_string[abi:nn200100]<0>(v80, "fragmentOnly");
-  _agcFieldString<unsigned int>(&v89, v80, v4[17] & 1);
-  std::string::basic_string[abi:nn200100]<0>(&v79, "openglMode");
-  _agcFieldString<unsigned int>(&v90, &v79.__r_.__value_.__l.__data_, (v4[17] >> 1) & 1);
-  std::string::basic_string[abi:nn200100]<0>(v77, "customBorderColor");
-  _agcFieldString<unsigned int>(&v91, v77, (v4[17] >> 2) & 1);
-  std::string::basic_string[abi:nn200100]<0>(v75, "disableTextureRWBoundsCheck");
-  _agcFieldString<unsigned int>(&v92, v75, (v4[15] >> 2) & 1);
-  std::string::basic_string[abi:nn200100]<0>(v73, "debugInstrumentationEnabled");
-  _agcFieldString<unsigned int>(&v93, v73, (v4[15] >> 3) & 1);
-  std::string::basic_string[abi:nn200100]<0>(v71, "debugInfoEnabled");
-  _agcFieldString<unsigned int>(&v94, v71, (v4[15] >> 26) & 1);
-  std::string::basic_string[abi:nn200100]<0>(&v70, "forceSoftwareEmulatedRaytracing");
-  _agcFieldString<unsigned int>(&v95, &v70.__r_.__value_.__l.__data_, (v4[15] >> 8) & 1);
-  std::string::basic_string[abi:nn200100]<0>(v68, "mayLinkBinaryFunctions");
-  _agcFieldString<unsigned int>(&v96, v68, (v4[15] >> 9) & 1);
-  std::string::basic_string[abi:nn200100]<0>(&v65, "maxTempRegisters");
-  _agcFieldString<unsigned int>(&v97, &v65.__r_.__value_.__l.__data_, (v4[15] >> 10));
-  std::string::basic_string[abi:nn200100]<0>(v63, "enableStackShadow");
-  _agcFieldString<unsigned int>(&v98, v63, (v4[15] >> 27) & 1);
-  std::string::basic_string[abi:nn200100]<0>(&v62, "forwardProgressMode");
-  _agcFieldString<unsigned int>(&v99, &v62.__r_.__value_.__l.__data_, v4[15] >> 31);
-  std::string::basic_string[abi:nn200100]<0>(v60, "enableHLSLDiscardSemantics");
-  _agcFieldString<unsigned int>(&v100, v60, (v4[17] >> 3) & 1);
+  std::string::basic_string[abi:nn200100]<0>(v121, "genCompilerStatistics");
+  _agcFieldString<unsigned int>(&v86, &v121[0].__r_.__value_.__l.__data_, v4[15] & 1);
+  std::string::basic_string[abi:nn200100]<0>(v81, "genTelemetryStatistics");
+  _agcFieldString<unsigned int>(&v87, v81, (v4[15] >> 1) & 1);
+  std::string::basic_string[abi:nn200100]<0>(v79, "fragmentOnly");
+  _agcFieldString<unsigned int>(&v88, v79, v4[17] & 1);
+  std::string::basic_string[abi:nn200100]<0>(&v78, "openglMode");
+  _agcFieldString<unsigned int>(&v89, &v78.__r_.__value_.__l.__data_, (v4[17] >> 1) & 1);
+  std::string::basic_string[abi:nn200100]<0>(v76, "customBorderColor");
+  _agcFieldString<unsigned int>(&v90, v76, (v4[17] >> 2) & 1);
+  std::string::basic_string[abi:nn200100]<0>(v74, "disableTextureRWBoundsCheck");
+  _agcFieldString<unsigned int>(&v91, v74, (v4[15] >> 2) & 1);
+  std::string::basic_string[abi:nn200100]<0>(v72, "debugInstrumentationEnabled");
+  _agcFieldString<unsigned int>(&v92, v72, (v4[15] >> 3) & 1);
+  std::string::basic_string[abi:nn200100]<0>(v70, "debugInfoEnabled");
+  _agcFieldString<unsigned int>(&v93, v70, (v4[15] >> 26) & 1);
+  std::string::basic_string[abi:nn200100]<0>(&v69, "forceSoftwareEmulatedRaytracing");
+  _agcFieldString<unsigned int>(&v94, &v69.__r_.__value_.__l.__data_, (v4[15] >> 8) & 1);
+  std::string::basic_string[abi:nn200100]<0>(v67, "mayLinkBinaryFunctions");
+  _agcFieldString<unsigned int>(&v95, v67, (v4[15] >> 9) & 1);
+  std::string::basic_string[abi:nn200100]<0>(&v64, "maxTempRegisters");
+  _agcFieldString<unsigned int>(&v96, &v64.__r_.__value_.__l.__data_, (v4[15] >> 10));
+  std::string::basic_string[abi:nn200100]<0>(v62, "enableStackShadow");
+  _agcFieldString<unsigned int>(&v97, v62, (v4[15] >> 27) & 1);
+  std::string::basic_string[abi:nn200100]<0>(&v61, "forwardProgressMode");
+  _agcFieldString<unsigned int>(&v98, &v61.__r_.__value_.__l.__data_, v4[15] >> 31);
+  std::string::basic_string[abi:nn200100]<0>(v59, "enableHLSLDiscardSemantics");
+  _agcFieldString<unsigned int>(&v99, v59, (v4[17] >> 3) & 1);
   std::string::basic_string[abi:nn200100]<0>(__p, "textureWriteFPRoundingMode");
-  _agcFieldString<unsigned int>(&v101, __p, (v4[17] >> 4) & 3);
-  std::string::basic_string[abi:nn200100]<0>(&v57, "usesMeshShader");
-  _agcFieldString<unsigned int>(&v102, &v57.__r_.__value_.__l.__data_, (v4[17] >> 8) & 1);
-  std::string::basic_string[abi:nn200100]<0>(v55, "statelessPSOOverride");
-  _agcFieldString<unsigned int>(&v103, v55, v4[17] >> 14);
-  std::string::basic_string[abi:nn200100]<0>(&v54, "lbrtOverride");
-  _agcFieldString<unsigned int>(&v104, &v54.__r_.__value_.__l.__data_, HIWORD(v4[17]) & 1);
-  std::string::basic_string[abi:nn200100]<0>(&v51, "unused");
-  _agcFieldString<unsigned int>(&v105, &v51.__r_.__value_.__l.__data_, v4[17] >> 17);
-  _agcStringRepresentation(&v50, v4 + 6);
-  v14 = std::string::insert(&v50, 0, "blendState[0]: ");
+  _agcFieldString<unsigned int>(&v100, __p, (v4[17] >> 4) & 3);
+  std::string::basic_string[abi:nn200100]<0>(&v56, "usesMeshShader");
+  _agcFieldString<unsigned int>(&v101, &v56.__r_.__value_.__l.__data_, (v4[17] >> 8) & 1);
+  std::string::basic_string[abi:nn200100]<0>(v54, "statelessPSOOverride");
+  _agcFieldString<unsigned int>(&v102, v54, v4[17] >> 14);
+  std::string::basic_string[abi:nn200100]<0>(&v53, "lbrtOverride");
+  _agcFieldString<unsigned int>(&v103, &v53.__r_.__value_.__l.__data_, HIWORD(v4[17]) & 1);
+  std::string::basic_string[abi:nn200100]<0>(&v50, "unused");
+  _agcFieldString<unsigned int>(&v104, &v50.__r_.__value_.__l.__data_, v4[17] >> 17);
+  _agcStringRepresentation(&v49, v4 + 6);
+  v14 = std::string::insert(&v49, 0, "blendState[0]: ");
   v15 = v14->__r_.__value_.__r.__words[2];
-  v106 = *&v14->__r_.__value_.__l.__data_;
-  v107 = v15;
+  v105 = *&v14->__r_.__value_.__l.__data_;
+  v106 = v15;
   v14->__r_.__value_.__l.__size_ = 0;
   v14->__r_.__value_.__r.__words[2] = 0;
   v14->__r_.__value_.__r.__words[0] = 0;
-  _agcStringRepresentation(&v49, v4 + 7);
-  v16 = std::string::insert(&v49, 0, "blendState[1]: ");
+  _agcStringRepresentation(&v48, v4 + 7);
+  v16 = std::string::insert(&v48, 0, "blendState[1]: ");
   v17 = v16->__r_.__value_.__r.__words[2];
-  v108 = *&v16->__r_.__value_.__l.__data_;
-  v109 = v17;
+  v107 = *&v16->__r_.__value_.__l.__data_;
+  v108 = v17;
   v16->__r_.__value_.__l.__size_ = 0;
   v16->__r_.__value_.__r.__words[2] = 0;
   v16->__r_.__value_.__r.__words[0] = 0;
-  _agcStringRepresentation(&v48, v4 + 8);
-  v18 = std::string::insert(&v48, 0, "blendState[2]: ");
+  _agcStringRepresentation(&v47, v4 + 8);
+  v18 = std::string::insert(&v47, 0, "blendState[2]: ");
   v19 = v18->__r_.__value_.__r.__words[2];
-  v110 = *&v18->__r_.__value_.__l.__data_;
-  v111 = v19;
+  v109 = *&v18->__r_.__value_.__l.__data_;
+  v110 = v19;
   v18->__r_.__value_.__l.__size_ = 0;
   v18->__r_.__value_.__r.__words[2] = 0;
   v18->__r_.__value_.__r.__words[0] = 0;
-  _agcStringRepresentation(&v47, v4 + 9);
-  v20 = std::string::insert(&v47, 0, "blendState[3]: ");
+  _agcStringRepresentation(&v46, v4 + 9);
+  v20 = std::string::insert(&v46, 0, "blendState[3]: ");
   v21 = v20->__r_.__value_.__r.__words[2];
-  v112 = *&v20->__r_.__value_.__l.__data_;
-  v113 = v21;
+  v111 = *&v20->__r_.__value_.__l.__data_;
+  v112 = v21;
   v20->__r_.__value_.__l.__size_ = 0;
   v20->__r_.__value_.__r.__words[2] = 0;
   v20->__r_.__value_.__r.__words[0] = 0;
-  _agcStringRepresentation(&v46, v4 + 10);
-  v22 = std::string::insert(&v46, 0, "blendState[4]: ");
+  _agcStringRepresentation(&v45, v4 + 10);
+  v22 = std::string::insert(&v45, 0, "blendState[4]: ");
   v23 = v22->__r_.__value_.__r.__words[2];
-  v114 = *&v22->__r_.__value_.__l.__data_;
-  v115 = v23;
+  v113 = *&v22->__r_.__value_.__l.__data_;
+  v114 = v23;
   v22->__r_.__value_.__l.__size_ = 0;
   v22->__r_.__value_.__r.__words[2] = 0;
   v22->__r_.__value_.__r.__words[0] = 0;
-  _agcStringRepresentation(&v45, v4 + 11);
-  v24 = std::string::insert(&v45, 0, "blendState[5]: ");
+  _agcStringRepresentation(&v44, v4 + 11);
+  v24 = std::string::insert(&v44, 0, "blendState[5]: ");
   v25 = v24->__r_.__value_.__r.__words[2];
-  v116 = *&v24->__r_.__value_.__l.__data_;
-  v117 = v25;
+  v115 = *&v24->__r_.__value_.__l.__data_;
+  v116 = v25;
   v24->__r_.__value_.__l.__size_ = 0;
   v24->__r_.__value_.__r.__words[2] = 0;
   v24->__r_.__value_.__r.__words[0] = 0;
-  _agcStringRepresentation(&v44, v4 + 12);
-  v26 = std::string::insert(&v44, 0, "blendState[6]: ");
+  _agcStringRepresentation(&v43, v4 + 12);
+  v26 = std::string::insert(&v43, 0, "blendState[6]: ");
   v27 = v26->__r_.__value_.__r.__words[2];
-  v118 = *&v26->__r_.__value_.__l.__data_;
-  v119 = v27;
+  v117 = *&v26->__r_.__value_.__l.__data_;
+  v118 = v27;
   v26->__r_.__value_.__l.__size_ = 0;
   v26->__r_.__value_.__r.__words[2] = 0;
   v26->__r_.__value_.__r.__words[0] = 0;
-  _agcStringRepresentation(&v43, v4 + 13);
-  v28 = std::string::insert(&v43, 0, "blendState[7]: ");
+  _agcStringRepresentation(&v42, v4 + 13);
+  v28 = std::string::insert(&v42, 0, "blendState[7]: ");
   v29 = v28->__r_.__value_.__r.__words[2];
-  v120 = *&v28->__r_.__value_.__l.__data_;
-  v121 = v29;
+  v119 = *&v28->__r_.__value_.__l.__data_;
+  v120 = v29;
   v28->__r_.__value_.__l.__size_ = 0;
   v28->__r_.__value_.__r.__words[2] = 0;
   v28->__r_.__value_.__r.__words[0] = 0;
-  _agcGroupWithHeader(&v42, v52, &v84, 30);
+  _agcGroupWithHeader(&v41, v51, &v83, 30);
   v30 = 90;
   do
   {
-    if (v84.__r_.__value_.__s.__data_[v30 * 8 - 1] < 0)
+    if (v83.__r_.__value_.__s.__data_[v30 * 8 - 1] < 0)
     {
-      operator delete(v82[v30]);
+      operator delete(v81[v30]);
     }
 
     v30 -= 3;
   }
 
   while (v30 * 8);
+  if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v42.__r_.__value_.__l.__data_);
+  }
+
   if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v43.__r_.__value_.__l.__data_);
@@ -5176,153 +4480,148 @@ LABEL_68:
     operator delete(v50.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v51.__r_.__value_.__l.__data_);
+    operator delete(v53.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v54.__r_.__value_.__r.__words[2]) < 0)
+  if (v55 < 0)
   {
-    operator delete(v54.__r_.__value_.__l.__data_);
+    operator delete(v54[0]);
   }
 
-  if (v56 < 0)
+  if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v55[0]);
+    operator delete(v56.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v57.__r_.__value_.__l.__data_);
-  }
-
-  if (v59 < 0)
+  if (v58 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v61 < 0)
+  if (v60 < 0)
   {
-    operator delete(v60[0]);
+    operator delete(v59[0]);
   }
 
-  if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v62.__r_.__value_.__l.__data_);
+    operator delete(v61.__r_.__value_.__l.__data_);
   }
 
-  if (v64 < 0)
+  if (v63 < 0)
   {
-    operator delete(v63[0]);
+    operator delete(v62[0]);
   }
 
-  if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v65.__r_.__value_.__l.__data_);
+    operator delete(v64.__r_.__value_.__l.__data_);
   }
 
-  if (v69 < 0)
+  if (v68 < 0)
   {
-    operator delete(v68[0]);
+    operator delete(v67[0]);
   }
 
-  if (SHIBYTE(v70.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v70.__r_.__value_.__l.__data_);
+    operator delete(v69.__r_.__value_.__l.__data_);
   }
 
-  if (v72 < 0)
+  if (v71 < 0)
   {
-    operator delete(v71[0]);
+    operator delete(v70[0]);
   }
 
-  if (v74 < 0)
+  if (v73 < 0)
   {
-    operator delete(v73[0]);
+    operator delete(v72[0]);
   }
 
-  if (v76 < 0)
+  if (v75 < 0)
   {
-    operator delete(v75[0]);
+    operator delete(v74[0]);
   }
 
-  if (v78 < 0)
+  if (v77 < 0)
   {
-    operator delete(v77[0]);
+    operator delete(v76[0]);
   }
 
-  if (SHIBYTE(v79.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v79.__r_.__value_.__l.__data_);
+    operator delete(v78.__r_.__value_.__l.__data_);
   }
 
-  if (v81 < 0)
+  if (v80 < 0)
   {
-    operator delete(v80[0]);
+    operator delete(v79[0]);
   }
 
-  if (v83 < 0)
+  if (v82 < 0)
   {
-    operator delete(v82[0]);
+    operator delete(v81[0]);
   }
 
-  if (SHIBYTE(v122.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v121[0].__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v122.__r_.__value_.__l.__data_);
+    operator delete(v121[0].__r_.__value_.__l.__data_);
   }
 
-  if (v67 < 0)
+  if (v66 < 0)
   {
-    operator delete(v66[0]);
+    operator delete(v65[0]);
   }
 
-  if (v53 < 0)
+  if (v52 < 0)
   {
-    operator delete(v52[0]);
+    operator delete(v51[0]);
   }
 
   v31 = *(this + 660);
-  std::string::basic_string[abi:nn200100]<0>(v60, "AGCDrawBufferState");
-  std::string::basic_string[abi:nn200100]<0>(v82, "AGCDrawBufferStateInternal");
-  std::string::basic_string[abi:nn200100]<0>(v80, "enabledBits");
-  _agcFieldStringHex(&v84, v80, *(v31 + 32));
-  std::string::basic_string[abi:nn200100]<0>(&v79, "sampleCount");
-  _agcFieldString<unsigned char>(&v85, &v79.__r_.__value_.__l.__data_, 1 << (BYTE1(*(v31 + 32)) & 3));
-  std::string::basic_string[abi:nn200100]<0>(v77, "colorSampleCount");
-  _agcFieldString<unsigned char>(&v86, v77, 1 << ((*(v31 + 32) >> 10) & 3));
+  std::string::basic_string[abi:nn200100]<0>(v59, "AGCDrawBufferState");
+  std::string::basic_string[abi:nn200100]<0>(v81, "AGCDrawBufferStateInternal");
+  std::string::basic_string[abi:nn200100]<0>(v79, "enabledBits");
+  _agcFieldStringHex(&v83, v79, *(v31 + 32));
+  std::string::basic_string[abi:nn200100]<0>(&v78, "sampleCount");
+  _agcFieldString<unsigned char>(&v84, &v78.__r_.__value_.__l.__data_, 1 << (BYTE1(*(v31 + 32)) & 3));
+  std::string::basic_string[abi:nn200100]<0>(v76, "colorSampleCount");
+  _agcFieldString<unsigned char>(&v85, v76, 1 << ((*(v31 + 32) >> 10) & 3));
   v32 = *(v31 + 32) & 0x1FF000;
   if (v32 == 2093056)
   {
-    std::string::basic_string[abi:nn200100]<0>(v73, "outputPartitionSize");
-    std::string::basic_string[abi:nn200100]<0>(v71, "unknown");
-    _agcFieldString<std::string>(&v87, v73, v71);
+    std::string::basic_string[abi:nn200100]<0>(v72, "outputPartitionSize");
+    std::string::basic_string[abi:nn200100]<0>(v70, "unknown");
+    _agcFieldString<std::string>(&v86, v72, v70);
   }
 
   else
   {
-    std::string::basic_string[abi:nn200100]<0>(v75, "outputPartitionSize");
+    std::string::basic_string[abi:nn200100]<0>(v74, "outputPartitionSize");
     v33 = *(v31 + 32);
     if ((~v33 & 0x1FF000) == 0)
     {
       goto LABEL_255;
     }
 
-    std::to_string(&v122, (v33 >> 12) & 0x1FF);
-    _agcFieldString<std::string>(&v87, v75, &v122);
-    if (SHIBYTE(v122.__r_.__value_.__r.__words[2]) < 0)
+    std::to_string(v121, (v33 >> 12) & 0x1FF);
+    _agcFieldString<std::string>(&v86, v74, v121);
+    if (SHIBYTE(v121[0].__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v122.__r_.__value_.__l.__data_);
+      operator delete(v121[0].__r_.__value_.__l.__data_);
     }
   }
 
   v34 = *(v31 + 32);
   if ((v34 & 0x400000) != 0)
   {
-    std::string::basic_string[abi:nn200100]<0>(&v70, "LIBSpilling");
+    std::string::basic_string[abi:nn200100]<0>(&v69, "LIBSpilling");
     v35 = *(v31 + 32);
     if ((v35 & 0x400000) != 0)
     {
-      _agcFieldString<unsigned char>(&v88, &v70.__r_.__value_.__l.__data_, (v35 & 0x200000) != 0);
+      _agcFieldString<unsigned char>(&v87, &v69.__r_.__value_.__l.__data_, (v35 & 0x200000) != 0);
       goto LABEL_170;
     }
 
@@ -5330,36 +4629,36 @@ LABEL_255:
     std::__throw_bad_optional_access[abi:nn200100]();
   }
 
-  std::string::basic_string[abi:nn200100]<0>(v68, "LIBSpilling");
-  std::string::basic_string[abi:nn200100]<0>(v66, "unknown");
-  _agcFieldString<std::string>(&v88, v68, v66);
+  std::string::basic_string[abi:nn200100]<0>(v67, "LIBSpilling");
+  std::string::basic_string[abi:nn200100]<0>(v65, "unknown");
+  _agcFieldString<std::string>(&v87, v67, v65);
 LABEL_170:
-  std::string::basic_string[abi:nn200100]<0>(&v65, "forceSoftwareEmulatedRaytracing");
-  _agcFieldString<unsigned char>(&v89, &v65.__r_.__value_.__l.__data_, (*(v31 + 32) & 0x800000) != 0);
-  std::string::basic_string[abi:nn200100]<0>(v63, "maxSlabIndex");
-  _agcFieldString<unsigned char>(&v90, v63, *(v31 + 35) & 0xF);
-  std::string::basic_string[abi:nn200100]<0>(&v62, "useSlabs");
-  _agcFieldString<unsigned char>(&v91, &v62.__r_.__value_.__l.__data_, (*(v31 + 32) & 0x10000000) != 0);
-  _agcGroupWithHeader(&v122, v82, &v84, 8);
+  std::string::basic_string[abi:nn200100]<0>(&v64, "forceSoftwareEmulatedRaytracing");
+  _agcFieldString<unsigned char>(&v88, &v64.__r_.__value_.__l.__data_, (*(v31 + 32) & 0x800000) != 0);
+  std::string::basic_string[abi:nn200100]<0>(v62, "maxSlabIndex");
+  _agcFieldString<unsigned char>(&v89, v62, *(v31 + 35) & 0xF);
+  std::string::basic_string[abi:nn200100]<0>(&v61, "useSlabs");
+  _agcFieldString<unsigned char>(&v90, &v61.__r_.__value_.__l.__data_, (*(v31 + 32) & 0x10000000) != 0);
+  _agcGroupWithHeader(v121, v81, &v83, 8);
   for (n = 0; n != -24; n -= 3)
   {
-    if (SHIBYTE(v91.__r_.__value_.__r.__words[n + 2]) < 0)
+    if (SHIBYTE(v90.__r_.__value_.__r.__words[n + 2]) < 0)
     {
-      operator delete(*(&v91.__r_.__value_.__l.__data_ + n * 8));
+      operator delete(*(&v90.__r_.__value_.__l.__data_ + n * 8));
     }
   }
 
-  if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v62.__r_.__value_.__l.__data_);
+    operator delete(v61.__r_.__value_.__l.__data_);
   }
 
-  if (v64 < 0)
+  if (v63 < 0)
   {
-    operator delete(v63[0]);
+    operator delete(v62[0]);
   }
 
-  if ((SHIBYTE(v65.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  if ((SHIBYTE(v64.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     if ((v34 & 0x400000) == 0)
     {
@@ -5367,30 +4666,30 @@ LABEL_170:
     }
 
 LABEL_185:
-    if ((SHIBYTE(v70.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v69.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_188;
     }
 
-    v37 = v70.__r_.__value_.__r.__words[0];
+    v37 = v69.__r_.__value_.__r.__words[0];
     goto LABEL_187;
   }
 
-  operator delete(v65.__r_.__value_.__l.__data_);
+  operator delete(v64.__r_.__value_.__l.__data_);
   if ((v34 & 0x400000) != 0)
   {
     goto LABEL_185;
   }
 
 LABEL_180:
-  if (v67 < 0)
+  if (v66 < 0)
   {
-    operator delete(v66[0]);
+    operator delete(v65[0]);
   }
 
-  if (v69 < 0)
+  if (v68 < 0)
   {
-    v37 = v68[0];
+    v37 = v67[0];
 LABEL_187:
     operator delete(v37);
   }
@@ -5398,96 +4697,101 @@ LABEL_187:
 LABEL_188:
   if (v32 != 2093056)
   {
-    if ((v76 & 0x80000000) == 0)
+    if ((v75 & 0x80000000) == 0)
     {
       goto LABEL_196;
     }
 
-    v38 = v75[0];
+    v38 = v74[0];
     goto LABEL_195;
   }
 
-  if (v72 < 0)
+  if (v71 < 0)
   {
-    operator delete(v71[0]);
+    operator delete(v70[0]);
   }
 
-  if (v74 < 0)
+  if (v73 < 0)
   {
-    v38 = v73[0];
+    v38 = v72[0];
 LABEL_195:
     operator delete(v38);
   }
 
 LABEL_196:
-  if (v78 < 0)
+  if (v77 < 0)
   {
-    operator delete(v77[0]);
+    operator delete(v76[0]);
   }
 
-  if (SHIBYTE(v79.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v79.__r_.__value_.__l.__data_);
+    operator delete(v78.__r_.__value_.__l.__data_);
   }
 
-  if (v81 < 0)
+  if (v80 < 0)
   {
-    operator delete(v80[0]);
+    operator delete(v79[0]);
   }
 
-  if (v83 < 0)
+  if (v82 < 0)
   {
-    operator delete(v82[0]);
+    operator delete(v81[0]);
   }
 
-  std::string::basic_string[abi:nn200100]<0>(v82, "encoded : ");
-  std::string::basic_string[abi:nn200100]<0>(v80, "encoded[0]");
-  _agcStringRepresentation(&v79, v31);
-  _agcFieldString<std::string>(&v84, v80, &v79);
-  std::string::basic_string[abi:nn200100]<0>(v77, "encoded[1]");
-  _agcStringRepresentation(&v65, (v31 + 4));
-  _agcFieldString<std::string>(&v85, v77, &v65);
-  std::string::basic_string[abi:nn200100]<0>(v63, "encoded[2]");
-  _agcStringRepresentation(&v62, (v31 + 8));
-  _agcFieldString<std::string>(&v86, v63, &v62);
+  std::string::basic_string[abi:nn200100]<0>(v81, "encoded : ");
+  std::string::basic_string[abi:nn200100]<0>(v79, "encoded[0]");
+  _agcStringRepresentation(&v78, v31);
+  _agcFieldString<std::string>(&v83, v79, &v78);
+  std::string::basic_string[abi:nn200100]<0>(v76, "encoded[1]");
+  _agcStringRepresentation(&v64, (v31 + 4));
+  _agcFieldString<std::string>(&v84, v76, &v64);
+  std::string::basic_string[abi:nn200100]<0>(v62, "encoded[2]");
+  _agcStringRepresentation(&v61, (v31 + 8));
+  _agcFieldString<std::string>(&v85, v62, &v61);
   std::string::basic_string[abi:nn200100]<0>(__p, "encoded[3]");
-  _agcStringRepresentation(&v57, (v31 + 12));
-  _agcFieldString<std::string>(&v87, __p, &v57);
-  std::string::basic_string[abi:nn200100]<0>(v55, "encoded[4]");
-  _agcStringRepresentation(&v54, (v31 + 16));
-  _agcFieldString<std::string>(&v88, v55, &v54);
-  std::string::basic_string[abi:nn200100]<0>(v52, "encoded[5]");
-  _agcStringRepresentation(&v51, (v31 + 20));
-  _agcFieldString<std::string>(&v89, v52, &v51);
-  std::string::basic_string[abi:nn200100]<0>(&v50, "encoded[6]");
-  _agcStringRepresentation(&v49, (v31 + 24));
-  _agcFieldString<std::string>(&v90, &v50.__r_.__value_.__l.__data_, &v49);
-  std::string::basic_string[abi:nn200100]<0>(&v48, "encoded[7]");
-  _agcStringRepresentation(&v47, (v31 + 28));
-  _agcFieldString<std::string>(&v91, &v48.__r_.__value_.__l.__data_, &v47);
-  _agcGroupWithHeader(&v123, v82, &v84, 8);
-  std::string::basic_string[abi:nn200100]<0>(&v46, "_unused");
-  _agcFieldString<unsigned int>(&v124, &v46.__r_.__value_.__l.__data_, *(v31 + 36));
-  _agcGroupWithHeader(&v45, v60, &v122, 3);
-  for (ii = 0; ii != -9; ii -= 3)
+  _agcStringRepresentation(&v56, (v31 + 12));
+  _agcFieldString<std::string>(&v86, __p, &v56);
+  std::string::basic_string[abi:nn200100]<0>(v54, "encoded[4]");
+  _agcStringRepresentation(&v53, (v31 + 16));
+  _agcFieldString<std::string>(&v87, v54, &v53);
+  std::string::basic_string[abi:nn200100]<0>(v51, "encoded[5]");
+  _agcStringRepresentation(&v50, (v31 + 20));
+  _agcFieldString<std::string>(&v88, v51, &v50);
+  std::string::basic_string[abi:nn200100]<0>(&v49, "encoded[6]");
+  _agcStringRepresentation(&v48, (v31 + 24));
+  _agcFieldString<std::string>(&v89, &v49.__r_.__value_.__l.__data_, &v48);
+  std::string::basic_string[abi:nn200100]<0>(&v47, "encoded[7]");
+  _agcStringRepresentation(&v46, (v31 + 28));
+  _agcFieldString<std::string>(&v90, &v47.__r_.__value_.__l.__data_, &v46);
+  _agcGroupWithHeader(&v121[1], v81, &v83, 8);
+  std::string::basic_string[abi:nn200100]<0>(&v45, "_unused");
+  _agcFieldString<unsigned int>(&v121[2], &v45.__r_.__value_.__l.__data_, *(v31 + 36));
+  _agcGroupWithHeader(&v44, v59, v121, 3);
+  for (ii = 0; ii != -72; ii -= 24)
   {
-    if (SHIBYTE(v124.__r_.__value_.__r.__words[ii + 2]) < 0)
+    if (SHIBYTE(v121[ii / 0x18 + 2].__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(*(&v124.__r_.__value_.__l.__data_ + ii * 8));
+      operator delete(v121[ii / 0x18 + 2].__r_.__value_.__l.__data_);
+    }
+  }
+
+  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v45.__r_.__value_.__l.__data_);
+  }
+
+  for (jj = 0; jj != -24; jj -= 3)
+  {
+    if (SHIBYTE(v90.__r_.__value_.__r.__words[jj + 2]) < 0)
+    {
+      operator delete(*(&v90.__r_.__value_.__l.__data_ + jj * 8));
     }
   }
 
   if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v46.__r_.__value_.__l.__data_);
-  }
-
-  for (jj = 0; jj != -24; jj -= 3)
-  {
-    if (SHIBYTE(v91.__r_.__value_.__r.__words[jj + 2]) < 0)
-    {
-      operator delete(*(&v91.__r_.__value_.__l.__data_ + jj * 8));
-    }
   }
 
   if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
@@ -5510,88 +4814,81 @@ LABEL_196:
     operator delete(v50.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
+  if (v52 < 0)
   {
-    operator delete(v51.__r_.__value_.__l.__data_);
+    operator delete(v51[0]);
   }
 
-  if (v53 < 0)
+  if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v52[0]);
+    operator delete(v53.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v54.__r_.__value_.__r.__words[2]) < 0)
+  if (v55 < 0)
   {
-    operator delete(v54.__r_.__value_.__l.__data_);
+    operator delete(v54[0]);
   }
 
-  if (v56 < 0)
+  if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v55[0]);
+    operator delete(v56.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v57.__r_.__value_.__l.__data_);
-  }
-
-  if (v59 < 0)
+  if (v58 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v62.__r_.__value_.__l.__data_);
+    operator delete(v61.__r_.__value_.__l.__data_);
   }
 
-  if (v64 < 0)
+  if (v63 < 0)
   {
-    operator delete(v63[0]);
+    operator delete(v62[0]);
   }
 
-  if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v65.__r_.__value_.__l.__data_);
+    operator delete(v64.__r_.__value_.__l.__data_);
   }
 
-  if (v78 < 0)
+  if (v77 < 0)
   {
-    operator delete(v77[0]);
+    operator delete(v76[0]);
   }
 
-  if (SHIBYTE(v79.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v79.__r_.__value_.__l.__data_);
+    operator delete(v78.__r_.__value_.__l.__data_);
   }
 
-  if (v81 < 0)
+  if (v80 < 0)
   {
-    operator delete(v80[0]);
+    operator delete(v79[0]);
   }
 
-  if (v83 < 0)
+  if (v82 < 0)
   {
-    operator delete(v82[0]);
+    operator delete(v81[0]);
   }
 
-  if (v61 < 0)
+  if (v60 < 0)
   {
-    operator delete(v60[0]);
+    operator delete(v59[0]);
   }
 
-  std::operator+[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(a2, &v42.__r_.__value_.__l.__data_, &v45.__r_.__value_.__l.__data_);
-  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+  std::operator+[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(a2, &v41.__r_.__value_.__l.__data_, &v44.__r_.__value_.__l.__data_);
+  if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v45.__r_.__value_.__l.__data_);
+    operator delete(v44.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v42.__r_.__value_.__l.__data_);
+    operator delete(v41.__r_.__value_.__l.__data_);
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 void _agcFieldString<unsigned int>(std::string *a1, const void **a2, unsigned int __val)
@@ -5768,7 +5065,7 @@ void _agcGroupWithHeader(std::string *a1, uint64_t a2, uint64_t a3, uint64_t a4)
     v26 = *a2;
   }
 
-  _agcIndentedLine(&v27.__r_.__value_.__l.__data_, &v26, 0);
+  _agcIndentedLine(&v27, &v26, 0);
   std::string::basic_string[abi:nn200100]<0>(v21, "{");
   _agcIndentedLine(&__p, v21, 0);
   if ((v25 & 0x80u) == 0)
@@ -5890,7 +5187,7 @@ LABEL_39:
   }
 
   std::string::basic_string[abi:nn200100]<0>(v18, "}");
-  _agcIndentedLine(&v27.__r_.__value_.__l.__data_, v18, 0);
+  _agcIndentedLine(&v27, v18, 0);
   if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v15 = &v28;
@@ -5943,7 +5240,7 @@ LABEL_39:
     v26 = *a2;
   }
 
-  _agcIndentedLine(&v27.__r_.__value_.__l.__data_, &v26, 0);
+  _agcIndentedLine(&v27, &v26, 0);
   std::string::basic_string[abi:nn200100]<0>(v21, "{");
   _agcIndentedLine(&__p, v21, 0);
   if ((v25 & 0x80u) == 0)
@@ -6065,7 +5362,7 @@ LABEL_39:
   }
 
   std::string::basic_string[abi:nn200100]<0>(v18, "}");
-  _agcIndentedLine(&v27.__r_.__value_.__l.__data_, v18, 0);
+  _agcIndentedLine(&v27, v18, 0);
   if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v15 = &v28;
@@ -6215,9 +5512,9 @@ void _agcFieldString<unsigned char>(std::string *a1, const void **a2, unsigned _
 
 void _agcStringRepresentation(std::string *a1, unsigned int *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  std::string::basic_string[abi:nn200100]<0>(v24, "AGCBlendState");
-  std::string::basic_string[abi:nn200100]<0>(v22, "enabled");
+  v33 = *MEMORY[0x277D85DE8];
+  std::string::basic_string[abi:nn200100]<0>(v23, "AGCBlendState");
+  std::string::basic_string[abi:nn200100]<0>(v21, "enabled");
   if (*a2)
   {
     v4 = "yes";
@@ -6228,19 +5525,19 @@ void _agcStringRepresentation(std::string *a1, unsigned int *a2)
     v4 = "no";
   }
 
-  _agcFieldString<char const*>(&v26, v22, v4);
-  std::string::basic_string[abi:nn200100]<0>(v20, "src");
-  _agcFieldString<char const*>(&v27, v20, _agcBlendFactorStrings[(*a2 >> 1) & 0x1F]);
-  std::string::basic_string[abi:nn200100]<0>(v18, "dst");
-  _agcFieldString<char const*>(&v28, v18, _agcBlendFactorStrings[(*a2 >> 6) & 0x1F]);
-  std::string::basic_string[abi:nn200100]<0>(v16, "srcA");
-  _agcFieldString<char const*>(&v29, v16, _agcBlendFactorStrings[*a2 >> 11]);
-  std::string::basic_string[abi:nn200100]<0>(v14, "dstA");
-  _agcFieldString<char const*>(&v30, v14, _agcBlendFactorStrings[*(a2 + 1) & 0x1F]);
-  std::string::basic_string[abi:nn200100]<0>(v12, "equation");
-  _agcFieldString<char const*>(&v31, v12, _agcBlendEquationStrings[(*a2 >> 21) & 7]);
-  std::string::basic_string[abi:nn200100]<0>(v10, "equationA");
-  _agcFieldString<char const*>(&v32, v10, _agcBlendEquationStrings[*(a2 + 3) & 7]);
+  _agcFieldString<char const*>(&v25, v21, v4);
+  std::string::basic_string[abi:nn200100]<0>(v19, "src");
+  _agcFieldString<char const*>(&v26, v19, _agcBlendFactorStrings[(*a2 >> 1) & 0x1F]);
+  std::string::basic_string[abi:nn200100]<0>(v17, "dst");
+  _agcFieldString<char const*>(&v27, v17, _agcBlendFactorStrings[(*a2 >> 6) & 0x1F]);
+  std::string::basic_string[abi:nn200100]<0>(v15, "srcA");
+  _agcFieldString<char const*>(&v28, v15, _agcBlendFactorStrings[*a2 >> 11]);
+  std::string::basic_string[abi:nn200100]<0>(v13, "dstA");
+  _agcFieldString<char const*>(&v29, v13, _agcBlendFactorStrings[*(a2 + 1) & 0x1F]);
+  std::string::basic_string[abi:nn200100]<0>(v11, "equation");
+  _agcFieldString<char const*>(&v30, v11, _agcBlendEquationStrings[(*a2 >> 21) & 7]);
+  std::string::basic_string[abi:nn200100]<0>(v9, "equationA");
+  _agcFieldString<char const*>(&v31, v9, _agcBlendEquationStrings[*(a2 + 3) & 7]);
   std::string::basic_string[abi:nn200100]<0>(__p, "unknown");
   if ((*a2 & 0x8000000) != 0)
   {
@@ -6252,103 +5549,13 @@ void _agcStringRepresentation(std::string *a1, unsigned int *a2)
     v5 = "no";
   }
 
-  _agcFieldString<char const*>(&v33, __p, v5);
-  _agcGroupWithHeader(a1, v24, &v26, 8);
+  _agcFieldString<char const*>(&v32, __p, v5);
+  _agcGroupWithHeader(a1, v23, &v25, 8);
   for (i = 0; i != -24; i -= 3)
   {
-    if (SHIBYTE(v33.__r_.__value_.__r.__words[i + 2]) < 0)
+    if (SHIBYTE(v32.__r_.__value_.__r.__words[i + 2]) < 0)
     {
-      operator delete(*(&v33.__r_.__value_.__l.__data_ + i * 8));
-    }
-  }
-
-  if (v9 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (v11 < 0)
-  {
-    operator delete(v10[0]);
-  }
-
-  if (v13 < 0)
-  {
-    operator delete(v12[0]);
-  }
-
-  if (v15 < 0)
-  {
-    operator delete(v14[0]);
-  }
-
-  if (v17 < 0)
-  {
-    operator delete(v16[0]);
-  }
-
-  if (v19 < 0)
-  {
-    operator delete(v18[0]);
-  }
-
-  if (v21 < 0)
-  {
-    operator delete(v20[0]);
-  }
-
-  if (v23 < 0)
-  {
-    operator delete(v22[0]);
-  }
-
-  if (v25 < 0)
-  {
-    operator delete(v24[0]);
-  }
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void _agcStringRepresentation(std::string *a1, _DWORD *a2)
-{
-  v38 = *MEMORY[0x277D85DE8];
-  std::string::basic_string[abi:nn200100]<0>(v27, "AGCDrawBuffer");
-  std::string::basic_string[abi:nn200100]<0>(v25, "pbeSourceFormat");
-  if ((*a2 & 0x1F) == 0x17)
-  {
-    v4 = "unknown";
-  }
-
-  else
-  {
-    v4 = _agcPBESourceFormatTypeStrings[*a2 & 0x1F];
-  }
-
-  std::string::basic_string[abi:nn200100]<0>(v23, v4);
-  _agcFieldString<std::string>(&v29, v25, v23);
-  std::string::basic_string[abi:nn200100]<0>(v21, "numWrittenComponents");
-  _agcFieldString<unsigned int>(&v30, v21, *a2 >> 5);
-  std::string::basic_string[abi:nn200100]<0>(v19, "gammaCorrection");
-  _agcFieldString<unsigned int>(&v31, v19, (*a2 >> 8) & 1);
-  std::string::basic_string[abi:nn200100]<0>(v17, "preEmitSwizzle");
-  _agcFieldString<char const*>(&v32, v17, _agcPreEmitSwizzleStrings[(*a2 >> 9) & 7]);
-  std::string::basic_string[abi:nn200100]<0>(v15, "outputPartitionOffset");
-  _agcFieldString<unsigned int>(&v33, v15, (*a2 >> 12));
-  std::string::basic_string[abi:nn200100]<0>(v13, "knownOnLIB");
-  _agcFieldString<unsigned int>(&v34, v13, (*a2 >> 20) & 1);
-  std::string::basic_string[abi:nn200100]<0>(v11, "slabIndex");
-  _agcFieldString<unsigned int>(&v35, v11, (*a2 >> 21) & 0xF);
-  std::string::basic_string[abi:nn200100]<0>(v9, "packed");
-  _agcFieldString<unsigned int>(&v36, v9, (*a2 >> 25) & 1);
-  std::string::basic_string[abi:nn200100]<0>(__p, "unused");
-  _agcFieldString<unsigned int>(&v37, __p, *a2 >> 26);
-  _agcGroupWithHeader(a1, v27, &v29, 9);
-  for (i = 0; i != -27; i -= 3)
-  {
-    if (SHIBYTE(v37.__r_.__value_.__r.__words[i + 2]) < 0)
-    {
-      operator delete(*(&v37.__r_.__value_.__l.__data_ + i * 8));
+      operator delete(*(&v32.__r_.__value_.__l.__data_ + i * 8));
     }
   }
 
@@ -6396,62 +5603,50 @@ void _agcStringRepresentation(std::string *a1, _DWORD *a2)
   {
     operator delete(v23[0]);
   }
-
-  if (v26 < 0)
-  {
-    operator delete(v25[0]);
-  }
-
-  if (v28 < 0)
-  {
-    operator delete(v27[0]);
-  }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
+void _agcStringRepresentation(std::string *a1, _DWORD *a2)
 {
-  v47 = *MEMORY[0x277D85DE8];
-  std::string::basic_string[abi:nn200100]<0>(v32, "AGCDynamicLibraryStateAGP");
-  std::string::basic_string[abi:nn200100]<0>(v30, "genCompilerStatistics");
-  _agcFieldString<unsigned int>(&v34, v30, *a2 & 1);
-  std::string::basic_string[abi:nn200100]<0>(v28, "genTelemetryStatistics");
-  _agcFieldString<unsigned int>(&v35, v28, (*a2 >> 1) & 1);
-  std::string::basic_string[abi:nn200100]<0>(v26, "disableTextureRWBoundsCheck");
-  _agcFieldString<unsigned int>(&v36, v26, (*a2 >> 2) & 1);
-  std::string::basic_string[abi:nn200100]<0>(v24, "debugInstrumentationEnabled");
-  _agcFieldString<unsigned int>(&v37, v24, (*a2 >> 3) & 1);
-  std::string::basic_string[abi:nn200100]<0>(v22, "debugInfoEnabled");
-  _agcFieldString<unsigned int>(&v38, v22, (*a2 >> 26) & 1);
-  std::string::basic_string[abi:nn200100]<0>(v20, "bufferBoundsCheckMode");
-  _agcFieldString<unsigned int>(&v39, v20, (*a2 >> 4) & 7);
-  std::string::basic_string[abi:nn200100]<0>(v18, "disableDMAPromotion");
-  _agcFieldString<unsigned int>(&v40, v18, (*a2 >> 7) & 1);
-  std::string::basic_string[abi:nn200100]<0>(v16, "forceSoftwareEmulatedRaytracing");
-  _agcFieldString<unsigned int>(&v41, v16, (*a2 >> 8) & 1);
-  std::string::basic_string[abi:nn200100]<0>(v14, "mayLinkBinaryFunctions");
-  _agcFieldString<unsigned int>(&v42, v14, (*a2 >> 9) & 1);
-  std::string::basic_string[abi:nn200100]<0>(v12, "maxTempRegisters");
-  _agcFieldString<unsigned int>(&v43, v12, (*a2 >> 10));
-  std::string::basic_string[abi:nn200100]<0>(v10, "enableStackShadow");
-  _agcFieldString<unsigned int>(&v44, v10, (*a2 >> 27) & 1);
-  std::string::basic_string[abi:nn200100]<0>(v8, "forwardProgressMode");
-  _agcFieldString<unsigned int>(&v45, v8, *a2 >> 31);
-  std::string::basic_string[abi:nn200100]<0>(__p, "unused");
-  _agcFieldString<unsigned int>(&v46, __p, a2[1] >> 3);
-  _agcGroupWithHeader(a1, v32, &v34, 13);
-  v4 = 39;
-  do
+  v37 = *MEMORY[0x277D85DE8];
+  std::string::basic_string[abi:nn200100]<0>(v26, "AGCDrawBuffer");
+  std::string::basic_string[abi:nn200100]<0>(v24, "pbeSourceFormat");
+  if ((*a2 & 0x1F) == 0x17)
   {
-    if (v34.__r_.__value_.__s.__data_[v4 * 8 - 1] < 0)
-    {
-      operator delete(v32[v4]);
-    }
-
-    v4 -= 3;
+    v4 = "unknown";
   }
 
-  while (v4 * 8);
+  else
+  {
+    v4 = _agcPBESourceFormatTypeStrings[*a2 & 0x1F];
+  }
+
+  std::string::basic_string[abi:nn200100]<0>(v22, v4);
+  _agcFieldString<std::string>(&v28, v24, v22);
+  std::string::basic_string[abi:nn200100]<0>(v20, "numWrittenComponents");
+  _agcFieldString<unsigned int>(&v29, v20, *a2 >> 5);
+  std::string::basic_string[abi:nn200100]<0>(v18, "gammaCorrection");
+  _agcFieldString<unsigned int>(&v30, v18, (*a2 >> 8) & 1);
+  std::string::basic_string[abi:nn200100]<0>(v16, "preEmitSwizzle");
+  _agcFieldString<char const*>(&v31, v16, _agcPreEmitSwizzleStrings[(*a2 >> 9) & 7]);
+  std::string::basic_string[abi:nn200100]<0>(v14, "outputPartitionOffset");
+  _agcFieldString<unsigned int>(&v32, v14, (*a2 >> 12));
+  std::string::basic_string[abi:nn200100]<0>(v12, "knownOnLIB");
+  _agcFieldString<unsigned int>(&v33, v12, (*a2 >> 20) & 1);
+  std::string::basic_string[abi:nn200100]<0>(v10, "slabIndex");
+  _agcFieldString<unsigned int>(&v34, v10, (*a2 >> 21) & 0xF);
+  std::string::basic_string[abi:nn200100]<0>(v8, "packed");
+  _agcFieldString<unsigned int>(&v35, v8, (*a2 >> 25) & 1);
+  std::string::basic_string[abi:nn200100]<0>(__p, "unused");
+  _agcFieldString<unsigned int>(&v36, __p, *a2 >> 26);
+  _agcGroupWithHeader(a1, v26, &v28, 9);
+  for (i = 0; i != -27; i -= 3)
+  {
+    if (SHIBYTE(v36.__r_.__value_.__r.__words[i + 2]) < 0)
+    {
+      operator delete(*(&v36.__r_.__value_.__l.__data_ + i * 8));
+    }
+  }
+
   if (v7 < 0)
   {
     operator delete(__p[0]);
@@ -6506,26 +5701,122 @@ void _agcStringRepresentation(std::string *a1, _DWORD *a2)
   {
     operator delete(v26[0]);
   }
-
-  if (v29 < 0)
-  {
-    operator delete(v28[0]);
-  }
-
-  if (v31 < 0)
-  {
-    operator delete(v30[0]);
-  }
-
-  if (v33 < 0)
-  {
-    operator delete(v32[0]);
-  }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t std::operator+[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(uint64_t a1, const void **a2, const void **a3)
+{
+  v46 = *MEMORY[0x277D85DE8];
+  std::string::basic_string[abi:nn200100]<0>(v31, "AGCDynamicLibraryStateAGP");
+  std::string::basic_string[abi:nn200100]<0>(v29, "genCompilerStatistics");
+  _agcFieldString<unsigned int>(&v33, v29, *a2 & 1);
+  std::string::basic_string[abi:nn200100]<0>(v27, "genTelemetryStatistics");
+  _agcFieldString<unsigned int>(&v34, v27, (*a2 >> 1) & 1);
+  std::string::basic_string[abi:nn200100]<0>(v25, "disableTextureRWBoundsCheck");
+  _agcFieldString<unsigned int>(&v35, v25, (*a2 >> 2) & 1);
+  std::string::basic_string[abi:nn200100]<0>(v23, "debugInstrumentationEnabled");
+  _agcFieldString<unsigned int>(&v36, v23, (*a2 >> 3) & 1);
+  std::string::basic_string[abi:nn200100]<0>(v21, "debugInfoEnabled");
+  _agcFieldString<unsigned int>(&v37, v21, (*a2 >> 26) & 1);
+  std::string::basic_string[abi:nn200100]<0>(v19, "bufferBoundsCheckMode");
+  _agcFieldString<unsigned int>(&v38, v19, (*a2 >> 4) & 7);
+  std::string::basic_string[abi:nn200100]<0>(v17, "disableDMAPromotion");
+  _agcFieldString<unsigned int>(&v39, v17, (*a2 >> 7) & 1);
+  std::string::basic_string[abi:nn200100]<0>(v15, "forceSoftwareEmulatedRaytracing");
+  _agcFieldString<unsigned int>(&v40, v15, (*a2 >> 8) & 1);
+  std::string::basic_string[abi:nn200100]<0>(v13, "mayLinkBinaryFunctions");
+  _agcFieldString<unsigned int>(&v41, v13, (*a2 >> 9) & 1);
+  std::string::basic_string[abi:nn200100]<0>(v11, "maxTempRegisters");
+  _agcFieldString<unsigned int>(&v42, v11, (*a2 >> 10));
+  std::string::basic_string[abi:nn200100]<0>(v9, "enableStackShadow");
+  _agcFieldString<unsigned int>(&v43, v9, (*a2 >> 27) & 1);
+  std::string::basic_string[abi:nn200100]<0>(v7, "forwardProgressMode");
+  _agcFieldString<unsigned int>(&v44, v7, *a2 >> 31);
+  std::string::basic_string[abi:nn200100]<0>(__p, "unused");
+  _agcFieldString<unsigned int>(&v45, __p, a2[1] >> 3);
+  _agcGroupWithHeader(a1, v31, &v33, 13);
+  v4 = 39;
+  do
+  {
+    if (v33.__r_.__value_.__s.__data_[v4 * 8 - 1] < 0)
+    {
+      operator delete(v31[v4]);
+    }
+
+    v4 -= 3;
+  }
+
+  while (v4 * 8);
+  if (v6 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  if (v8 < 0)
+  {
+    operator delete(v7[0]);
+  }
+
+  if (v10 < 0)
+  {
+    operator delete(v9[0]);
+  }
+
+  if (v12 < 0)
+  {
+    operator delete(v11[0]);
+  }
+
+  if (v14 < 0)
+  {
+    operator delete(v13[0]);
+  }
+
+  if (v16 < 0)
+  {
+    operator delete(v15[0]);
+  }
+
+  if (v18 < 0)
+  {
+    operator delete(v17[0]);
+  }
+
+  if (v20 < 0)
+  {
+    operator delete(v19[0]);
+  }
+
+  if (v22 < 0)
+  {
+    operator delete(v21[0]);
+  }
+
+  if (v24 < 0)
+  {
+    operator delete(v23[0]);
+  }
+
+  if (v26 < 0)
+  {
+    operator delete(v25[0]);
+  }
+
+  if (v28 < 0)
+  {
+    operator delete(v27[0]);
+  }
+
+  if (v30 < 0)
+  {
+    operator delete(v29[0]);
+  }
+
+  if (v32 < 0)
+  {
+    operator delete(v31[0]);
+  }
+}
+
+char *std::operator+[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(uint64_t a1, const void **a2, const void **a3)
 {
   if (*(a2 + 23) >= 0)
   {
@@ -6548,7 +5839,7 @@ uint64_t std::operator+[abi:nn200100]<char,std::char_traits<char>,std::allocator
   }
 
   result = std::string::basic_string[abi:nn200100](a1, v6 + v5);
-  if (*(result + 23) >= 0)
+  if (result[23] >= 0)
   {
     v8 = result;
   }
@@ -6593,7 +5884,7 @@ uint64_t std::operator+[abi:nn200100]<char,std::char_traits<char>,std::allocator
   return result;
 }
 
-void _agcIndentedLine(void **a1, std::string::value_type *a2, int a3)
+void _agcIndentedLine(void ***a1, std::string::value_type *a2, int a3)
 {
   std::string::basic_string[abi:nn200100]<0>(&v14, &unk_20E75F419);
   for (; a3; --a3)
@@ -6803,8 +6094,7 @@ void AGCLLVMObject::getObjectName(AGCLLVMObject *this@<X0>, std::string *a2@<X8>
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 5064);
-    a2->__r_.__value_.__r.__words[2] = *(this + 635);
+    *a2 = *(this + 211);
   }
 }
 
@@ -6822,7 +6112,7 @@ void virtual thunk toAGCLLVMAGPFragmentShader::~AGCLLVMAGPFragmentShader(AGCLLVM
   AGCLLVMObject::~AGCLLVMObject(v2);
 }
 
-BOOL AGCLLVMFragmentShader::isAnyPsoStateUnknown(AGCLLVMFragmentShader *this)
+uint64_t AGCLLVMFragmentShader::isAnyPsoStateUnknown(AGCLLVMFragmentShader *this)
 {
   v1 = *(this + 93);
   if ((*v1 & 0x1F) == 0x17)
@@ -6874,106 +6164,90 @@ uint64_t AGCLLVMAGPFragmentShader::buildPixelPositionInTile(AGCLLVMAGPFragmentSh
   return v7;
 }
 
-void AGCLLVMAGPFragmentShader::setupPullMode_Or_ParentVertex_Globals(AGCLLVMAGPFragmentShader *this)
+void AGCLLVMAGPFragmentShader::setupPullMode_Or_ParentVertex_Globals(AGCLLVMAGPFragmentShader *this, uint64_t a2, unint64_t a3)
 {
-  v33 = this + 7048;
-  v32 = this + 2016;
-  v44 = *MEMORY[0x277D85DE8];
-  v2 = this + 2160;
-  v30 = this + 7088;
-  v31 = this + 2136;
-  v29 = this + 7208;
-  v28 = this + 7368;
-  v3 = this + 1904;
+  v22 = this + 7048;
+  v21 = this + 2016;
+  v33 = *MEMORY[0x277D85DE8];
+  v20 = this + 7088;
+  v19 = this + 7208;
+  v18 = this + 7368;
   for (i = 1; i != 5; ++i)
   {
-    v5 = *&v33[4 * i];
+    v5 = *&v22[4 * i];
     if (v5)
     {
-      v6 = llvm::ArrayType::get(*&v32[*(*this - 24)], i);
+      v6 = llvm::ArrayType::get(*&v21[*(*this - 24)], i);
       llvm::ArrayType::get(v6, v5);
       v7 = llvm::User::operator new(0x58);
-      v8 = *&v31[*(*this - 24)];
-      v40 = "agc.pullmode_or_parentvertex_";
-      v35 = v35 & 0xFFFFFFFF00000000 | i;
-      v42 = v35;
-      v43 = 2051;
-      v37[0] = &v40;
-      v38[0] = "_component_coefficients";
-      v39 = 770;
-      v9 = llvm::GlobalVariable::GlobalVariable();
-      *(v9 + 80) |= 1u;
-      v34 = v34 & 0xFFFFFFFFFFFF0000 | 0x104;
+      v29 = "agc.pullmode_or_parentvertex_";
+      v24 = v24 & 0xFFFFFFFF00000000 | i;
+      v31 = v24;
+      v32 = 2051;
+      v26[0] = &v29;
+      v27[0] = "_component_coefficients";
+      v28 = 770;
+      v8 = llvm::GlobalVariable::GlobalVariable();
+      *(v8 + 80) |= 1u;
+      v23 = v23 & 0xFFFFFFFFFFFF0000 | 0x104;
       llvm::GlobalObject::setAlignment();
-      llvm::ValueHandleBase::operator=(&v30[24 * i], v7);
-      v37[0] = v38;
-      v37[1] = 0x400000000;
+      llvm::ValueHandleBase::operator=(&v20[24 * i], v7);
+      v26[0] = v27;
+      v26[1] = 0x400000000;
+      v9 = llvm::ValueAsMetadata::get();
+      llvm::SmallVectorTemplateBase<llvm::Metadata *,true>::push_back(v26, v9);
+      llvm::ConstantInt::get();
       v10 = llvm::ValueAsMetadata::get();
-      llvm::SmallVectorTemplateBase<llvm::Metadata *,true>::push_back(v37, v10);
-      v11 = *&v3[*(*this - 24)];
+      llvm::ConstantInt::get();
+      v11 = llvm::ValueAsMetadata::get();
       llvm::ConstantInt::get();
       v12 = llvm::ValueAsMetadata::get();
-      v13 = *&v3[*(*this - 24)];
-      llvm::ConstantInt::get();
-      v14 = llvm::ValueAsMetadata::get();
-      v15 = *&v3[*(*this - 24)];
-      llvm::ConstantInt::get();
-      v16 = llvm::ValueAsMetadata::get();
-      v36 = i;
-      v17 = &v29[32 * i];
-      if (*(v17 + 2))
+      v25 = i;
+      v13 = &v19[32 * i];
+      if (*(v13 + 2))
       {
-        v18 = v16;
-        v19 = 0;
+        v14 = v12;
+        v15 = 0;
         do
         {
-          if (*(*&v28[32 * v36] + 4 * v19) == 1)
+          if (*(*&v18[32 * v25] + 4 * v15) == 1)
           {
-            v20 = v12;
+            v16 = v10;
           }
 
           else
           {
-            v20 = v14;
+            v16 = v11;
           }
 
-          v41 = 0;
-          v42 = 0;
-          v40 = v20;
-          v21 = *(*v17 + 4 * v19);
-          v22 = *&v3[*(*this - 24)];
+          v30 = 0;
+          v31 = 0;
+          v29 = v16;
           llvm::ConstantInt::get();
-          v41 = llvm::ValueAsMetadata::get();
-          v42 = v18;
-          v23 = *&v2[*(*this - 24)];
+          v30 = llvm::ValueAsMetadata::get();
+          v31 = v14;
           Impl = llvm::MDTuple::getImpl();
-          llvm::SmallVectorTemplateBase<llvm::Metadata *,true>::push_back(v37, Impl);
-          ++v19;
+          llvm::SmallVectorTemplateBase<llvm::Metadata *,true>::push_back(v26, Impl);
+          ++v15;
         }
 
-        while (v19 < *(v17 + 2));
+        while (v15 < *(v13 + 2));
       }
 
-      v25 = *(this + 690);
-      v26 = *&v2[*(*this - 24)];
       llvm::MDTuple::getImpl();
       llvm::NamedMDNode::addOperand();
-      if (v37[0] != v38)
+      if (v26[0] != v27)
       {
-        free(v37[0]);
+        free(v26[0]);
       }
 
-      i = v36;
+      i = v25;
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t AGCLLVMAGPFragmentShader::replacePullMode_Or_ParentVertex_Index(void *a1, unsigned int *a2)
+uint64_t AGCLLVMAGPFragmentShader::replacePullMode_Or_ParentVertex_Index(void *a1, unsigned int *a2, uint64_t a3, BOOL a4)
 {
-  v4 = *(*(a2 + 6) + 4 * *a2);
-  v5 = *(a1 + *(*a1 - 24) + 1904);
   v6 = llvm::ConstantInt::get();
   v7 = a1 + *(*a1 - 24);
   v8 = *(a2 + 3);
@@ -6981,27 +6255,27 @@ uint64_t AGCLLVMAGPFragmentShader::replacePullMode_Or_ParentVertex_Index(void *a
   return llvm::IRBuilderBase::CreateCast((v7 + 1712), 48, v6, v8, v10);
 }
 
-uint64_t llvm::StringMap<AGCLLVMUserObject::AIRSampleFunction,llvm::MallocAllocator>::~StringMap(uint64_t a1)
+uint64_t llvm::StringMap<AGCLLVMUserObject::AIRSampleFunction,llvm::MallocAllocator>::~StringMap(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (*(a1 + 12))
   {
-    v2 = *(a1 + 8);
-    if (v2)
+    v5 = *(a1 + 8);
+    if (v5)
     {
-      v3 = 0;
-      v4 = 8 * v2;
+      v6 = 0;
+      v7 = 8 * v5;
       do
       {
-        v5 = *(*a1 + v3);
-        if (v5 != -8 && v5 != 0)
+        v8 = *(*a1 + v6);
+        if (v8 != -8 && v8 != 0)
         {
-          llvm::deallocate_buffer(v5, (*v5 + 65));
+          llvm::deallocate_buffer(*v8, v8, *v8 + 65);
         }
 
-        v3 += 8;
+        v6 += 8;
       }
 
-      while (v4 != v3);
+      while (v7 != v6);
     }
   }
 
@@ -7009,7 +6283,7 @@ uint64_t llvm::StringMap<AGCLLVMUserObject::AIRSampleFunction,llvm::MallocAlloca
   return a1;
 }
 
-uint64_t AGCLLVMAGPFragmentShader::getBarycentricCoordVarying@<X0>(AGCLLVMUserShader *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+llvm::ValueAsMetadata *AGCLLVMAGPFragmentShader::getBarycentricCoordVarying@<X0>(AGCLLVMUserShader *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   v17[1] = 0;
   v18 = 0;
@@ -7046,33 +6320,33 @@ uint64_t AGCLLVMAGPFragmentShader::getBarycentricCoordVarying@<X0>(AGCLLVMUserSh
   *(a4 + 4) = v9;
   v11 = v9 != 0;
   *(a4 + 16) = v11;
-  result = AGCLLVMUserFragmentShader::setupInterpolation(a1, 8, v11, 2);
+  result = AGCLLVMUserFragmentShader::setupInterpolation(a1, 8u, v11, 2);
   *(a4 + 32) = result;
   *(a4 + 40) = v13;
   return result;
 }
 
-uint64_t llvm::StringMap<InterpolationLocation,llvm::MallocAllocator>::~StringMap(uint64_t a1)
+uint64_t llvm::StringMap<InterpolationLocation,llvm::MallocAllocator>::~StringMap(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (*(a1 + 12))
   {
-    v2 = *(a1 + 8);
-    if (v2)
+    v5 = *(a1 + 8);
+    if (v5)
     {
-      v3 = 0;
-      v4 = 8 * v2;
+      v6 = 0;
+      v7 = 8 * v5;
       do
       {
-        v5 = *(*a1 + v3);
-        if (v5 != -8 && v5 != 0)
+        v8 = *(*a1 + v6);
+        if (v8 != -8 && v8 != 0)
         {
-          llvm::deallocate_buffer(v5, (*v5 + 17));
+          llvm::deallocate_buffer(*v8, v8, *v8 + 17);
         }
 
-        v3 += 8;
+        v6 += 8;
       }
 
-      while (v4 != v3);
+      while (v7 != v6);
     }
   }
 
@@ -7080,27 +6354,27 @@ uint64_t llvm::StringMap<InterpolationLocation,llvm::MallocAllocator>::~StringMa
   return a1;
 }
 
-uint64_t llvm::StringMap<AGCCodeTranslator::VertexShaderVaryingType,llvm::MallocAllocator>::~StringMap(uint64_t a1)
+uint64_t llvm::StringMap<AGCCodeTranslator::VertexShaderVaryingType,llvm::MallocAllocator>::~StringMap(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (*(a1 + 12))
   {
-    v2 = *(a1 + 8);
-    if (v2)
+    v5 = *(a1 + 8);
+    if (v5)
     {
-      v3 = 0;
-      v4 = 8 * v2;
+      v6 = 0;
+      v7 = 8 * v5;
       do
       {
-        v5 = *(*a1 + v3);
-        if (v5 != -8 && v5 != 0)
+        v8 = *(*a1 + v6);
+        if (v8 != -8 && v8 != 0)
         {
-          llvm::deallocate_buffer(v5, (*v5 + 17));
+          llvm::deallocate_buffer(*v8, v8, *v8 + 17);
         }
 
-        v3 += 8;
+        v6 += 8;
       }
 
-      while (v4 != v3);
+      while (v7 != v6);
     }
   }
 
@@ -7108,7 +6382,7 @@ uint64_t llvm::StringMap<AGCCodeTranslator::VertexShaderVaryingType,llvm::Malloc
   return a1;
 }
 
-uint64_t AGCLLVMAGPFragmentShader::getPrimitiveIdVarying@<X0>(AGCLLVMAGPFragmentShader *this@<X0>, llvm::Type *a2@<X1>, uint64_t a3@<X8>)
+llvm::ValueAsMetadata *AGCLLVMAGPFragmentShader::getPrimitiveIdVarying@<X0>(AGCLLVMAGPFragmentShader *this@<X0>, llvm::Type *a2@<X1>, uint64_t a3@<X8>)
 {
   ComponentType = AGCLLVMBuilder::getComponentType((this + *(*this - 24) + 1704), a2, &v8);
   *(a3 + 16) = 0;
@@ -7122,7 +6396,7 @@ uint64_t AGCLLVMAGPFragmentShader::getPrimitiveIdVarying@<X0>(AGCLLVMAGPFragment
   *(a3 + 8) = 3;
   *(a3 + 12) = ComponentType;
   *(a3 + 16) = 0;
-  result = AGCLLVMUserFragmentShader::setupInterpolation(this, 7, 0, 1);
+  result = AGCLLVMUserFragmentShader::setupInterpolation(this, 7u, 0, 1);
   *(a3 + 32) = result;
   *(a3 + 40) = v7;
   return result;
@@ -7144,7 +6418,7 @@ void AGCLLVMAGPFragmentShader::getFragmentViewportOrLayerIdVarying(void *a1@<X0>
   AGCLLVMAGPFragmentShader::getFragmentVarying(a5, a1, a2, a3, a4, v10, 3, 1, ComponentType, 0);
 }
 
-uint64_t AGCLLVMBuilder::CreateGEP(uint64_t a1, llvm::Type **this, uint64_t **a3, uint64_t a4, uint64_t a5)
+llvm::Instruction *AGCLLVMBuilder::CreateGEP(uint64_t a1, llvm::Type **this, uint64_t **a3, uint64_t a4, uint64_t a5)
 {
   v10 = AGCLLVMBuilder::tryDeducePointeeType(this, this);
   if (v10)
@@ -7164,328 +6438,318 @@ uint64_t AGCLLVMBuilder::CreateGEP(uint64_t a1, llvm::Type **this, uint64_t **a3
   return llvm::IRBuilderBase::CreateGEP(v12, v13, this, a3, a4, a5);
 }
 
-uint64_t AGCLLVMAGPFragmentShader::calculateInterpolationCoords(AGCLLVMAGPFragmentShader *this, uint64_t a2, llvm::Value *a3)
+uint64_t AGCLLVMAGPFragmentShader::calculateInterpolationCoords(AGCLLVMAGPFragmentShader *this, llvm::Type *a2, llvm::Value *a3)
 {
   v3 = a2;
-  v5 = *(this + *(*this - 24) + 1872);
   if (a2 >= 2)
   {
     llvm::FixedVectorType::get();
   }
 
-  v6 = 0;
-  v56 = llvm::UndefValue::get();
-  v57 = v56;
-  v51 = this + 1704;
-  v49 = this + 1712;
-  v54 = v56;
-  v55 = v56;
-  v53 = &v57;
-  v7 = &v55;
-  v8 = 1;
-  v9 = v3;
+  v5 = 0;
+  v52 = llvm::UndefValue::get();
+  v53 = v52;
+  v47 = this + 1704;
+  v45 = this + 1712;
+  v50 = v52;
+  v51 = v52;
+  v49 = &v53;
+  v6 = &v51;
+  v7 = 1;
+  v8 = v3;
   do
   {
-    v10 = v8;
-    v11 = (this + *(*this - 24));
-    v12 = v11[271];
-    v13 = v11[237];
-    v50 = v8;
-    if (*(v12 + 1912) == 1)
+    v9 = v7;
+    v10 = (this + *(*this - 24));
+    v11 = v10[271];
+    v12 = v10[237];
+    v46 = v7;
+    if (*(v11 + 1912) == 1)
     {
-      v14 = 1696;
-      if (v10)
+      v13 = 1696;
+      if (v9)
       {
-        v14 = 1688;
+        v13 = 1688;
       }
 
-      if (*(v12 + v14))
+      v14 = *(v11 + v13);
+      if (v14)
       {
-        v15 = strlen(*(v12 + v14));
+        v15 = strlen(*(v11 + v13));
       }
 
-      v17 = v11[234];
-      inserted = AGCLLVMBuilder::getOrInsertFunction<>((v11 + 213));
-      v19 = *(*this - 24);
-      v61 = 257;
-      v20 = llvm::IRBuilderBase::CreateCall(&v49[v19], *(inserted + 24), inserted, 0, 0, v60);
-      v59 = 257;
-      FPToUI = llvm::IRBuilderBase::CreateFPToUI(&v49[v19], v20, v13, v58);
-      v22 = *(*this - 24);
-      v23 = llvm::ConstantInt::get();
-      v61 = 257;
-      v16 = llvm::IRBuilderBase::CreateAnd(&v49[v22], FPToUI, v23, v60);
+      else
+      {
+        v15 = 0;
+      }
+
+      inserted = AGCLLVMBuilder::getOrInsertFunction<>((v10 + 213), v14, v15, v10[234]);
+      v18 = *(*this - 24);
+      v57 = 257;
+      v19 = llvm::IRBuilderBase::CreateCall(&v45[v18], *(inserted + 24), inserted, 0, 0, v56);
+      v55 = 257;
+      FPToUI = llvm::IRBuilderBase::CreateFPToUI(&v45[v18], v19, v12, v54);
+      v21 = *(*this - 24);
+      v22 = llvm::ConstantInt::get();
+      v57 = 257;
+      v16 = llvm::IRBuilderBase::CreateAnd(&v45[v21], FPToUI, v22, v56);
     }
 
     else
     {
-      v16 = (*(*this + 640))(this, v13, v6);
+      v16 = (*(*this + 640))(this, v12, v5);
     }
 
-    v24 = this + *(*this - 24);
-    v25 = *(v24 + 234);
-    v61 = 257;
-    UIToFP = llvm::IRBuilderBase::CreateUIToFP((v24 + 1712), v16, v25, v60);
-    v26 = &v51[*(*this - 24)];
-    v61 = 257;
-    v27 = *(v26 + 25);
-    v28 = llvm::ConstantInt::get();
-    Element = llvm::IRBuilderBase::CreateExtractElement((v26 + 8), a3, v28, v60);
+    v23 = this + *(*this - 24);
+    v24 = *(v23 + 234);
+    v57 = 257;
+    UIToFP = llvm::IRBuilderBase::CreateUIToFP((v23 + 1712), v16, v24, v56);
+    v25 = &v47[*(*this - 24)];
+    v57 = 257;
+    v26 = llvm::ConstantInt::get();
+    Element = llvm::IRBuilderBase::CreateExtractElement((v25 + 8), a3, v26, v56);
     if (v3)
     {
-      v30 = Element;
-      v31 = 0;
+      v28 = Element;
+      v29 = 0;
       do
       {
         if (v3 < 2)
         {
-          *v53 = UIToFP;
-          InsertElement = v30;
+          *v49 = UIToFP;
+          InsertElement = v28;
         }
 
         else
         {
-          v32 = v3;
-          v33 = &v51[*(*this - 24)];
-          v34 = *v53;
-          v61 = 257;
-          v35 = *(v33 + 25);
+          v30 = v3;
+          v31 = &v47[*(*this - 24)];
+          v32 = *v49;
+          v57 = 257;
+          v33 = llvm::ConstantInt::get();
+          *v49 = llvm::IRBuilderBase::CreateInsertElement((v31 + 8), v32, UIToFP, v33, v56);
+          v34 = &v47[*(*this - 24)];
+          v35 = *v6;
+          v57 = 257;
           v36 = llvm::ConstantInt::get();
-          *v53 = llvm::IRBuilderBase::CreateInsertElement((v33 + 8), v34, UIToFP, v36, v60);
-          v37 = &v51[*(*this - 24)];
-          v38 = *v7;
-          v61 = 257;
-          v39 = *(v37 + 25);
-          v40 = llvm::ConstantInt::get();
-          v41 = (v37 + 8);
-          v3 = v32;
-          InsertElement = llvm::IRBuilderBase::CreateInsertElement(v41, v38, v30, v40, v60);
+          v37 = (v34 + 8);
+          v3 = v30;
+          InsertElement = llvm::IRBuilderBase::CreateInsertElement(v37, v35, v28, v36, v56);
         }
 
-        *v7 = InsertElement;
-        ++v31;
+        *v6 = InsertElement;
+        ++v29;
       }
 
-      while (v9 != v31);
+      while (v8 != v29);
     }
 
-    v43 = *(*this - 24);
-    v44 = *v53;
-    v45 = *v7;
-    v61 = 257;
-    FAdd = llvm::IRBuilderBase::CreateFAdd(&v49[v43], v44, v45, v60);
-    v8 = 0;
-    *v53 = FAdd;
-    v6 = 1;
-    v53 = &v56;
-    v7 = &v54;
+    v39 = *(*this - 24);
+    v40 = *v49;
+    v41 = *v6;
+    v57 = 257;
+    FAdd = llvm::IRBuilderBase::CreateFAdd(&v45[v39], v40, v41, v56);
+    v7 = 0;
+    *v49 = FAdd;
+    v5 = 1;
+    v49 = &v52;
+    v6 = &v50;
   }
 
-  while ((v50 & 1) != 0);
-  return v57;
+  while ((v46 & 1) != 0);
+  return v53;
 }
 
-uint64_t AGCLLVMAGPFragmentShader::interpolateAtOffset(uint64_t *a1, _OWORD *a2, unsigned int a3, llvm::Type **a4, uint64_t a5, llvm::Value *a6)
+llvm::Value *AGCLLVMAGPFragmentShader::interpolateAtOffset(uint64_t *a1, llvm::Type *a2, llvm::Type *a3, llvm::Type **a4, uint64_t a5, llvm::FixedVectorType **a6)
 {
   v6 = a6;
   v7 = a3;
   v8 = a2;
-  v116 = *MEMORY[0x277D85DE8];
-  v10 = *(a1 + *(*a1 - 24) + 1872);
+  v110 = *MEMORY[0x277D85DE8];
+  v101 = a3;
   if (a3 < 2)
   {
-    v11 = llvm::UndefValue::get();
-    v113 = v11;
-    v114 = v11;
-    v115 = v11;
-    v12 = a1 + 213;
+    v10 = llvm::UndefValue::get();
+    v107 = v10;
+    v108 = v10;
+    v109 = v10;
+    v11 = a1 + 213;
     if (!v7)
     {
-      FAdd = v11;
+      FAdd = v10;
       goto LABEL_14;
     }
 
-    v100 = a1 + 213;
-    v101 = v8;
-    v102 = v6;
+    v94 = a1 + 213;
+    v95 = v8;
+    v96 = v6;
   }
 
   else
   {
-    v101 = a2;
-    v102 = a6;
+    v95 = a2;
+    v96 = a6;
     llvm::FixedVectorType::get();
-    v113 = llvm::UndefValue::get();
-    v114 = v113;
-    v115 = v113;
-    v100 = a1 + 213;
+    v107 = llvm::UndefValue::get();
+    v108 = v107;
+    v109 = v107;
+    v94 = a1 + 213;
   }
 
-  v13 = 0;
-  v14 = a1 + 213;
-  v103 = v7;
+  v12 = 0;
+  v13 = a1 + 213;
+  v97 = v7;
   do
   {
     GEP = a4;
     if (*(a5 + 8) == 17)
     {
-      v16 = v14 + *(*a1 - 24);
-      v17 = *(v16 + 200);
-      v110[0] = llvm::ConstantInt::get();
-      v18 = *(a1 + *(*a1 - 24) + 1904);
-      v110[1] = llvm::ConstantInt::get();
-      v109 = 257;
-      GEP = AGCLLVMBuilder::CreateGEP(v16, a4, v110, 2, v108);
+      v15 = v13 + *(*a1 - 24);
+      v104[0] = llvm::ConstantInt::get();
+      v104[1] = llvm::ConstantInt::get();
+      v103 = 257;
+      GEP = AGCLLVMBuilder::CreateGEP(v15, a4, v104, 2, v102);
     }
 
-    v19 = a1 + *(*a1 - 24);
-    v20 = *(v19 + 252);
-    v109 = 257;
+    v16 = a1 + *(*a1 - 24);
+    v17 = *(v16 + 252);
+    v103 = 257;
     llvm::Type::isOpaquePointerTy(*GEP);
-    AlignedLoad = llvm::IRBuilderBase::CreateAlignedLoad(v19 + 214, v20, GEP, 0, v108);
+    AlignedLoad = llvm::IRBuilderBase::CreateAlignedLoad(v16 + 214, v17, GEP, 0, v102);
     for (i = 0; i != 3; ++i)
     {
-      v23 = v14 + *(*a1 - 24);
-      v109 = 257;
-      v24 = *(v23 + 25);
-      v25 = llvm::ConstantInt::get();
-      Element = llvm::IRBuilderBase::CreateExtractElement((v23 + 8), AlignedLoad, v25, v108);
+      v20 = v13 + *(*a1 - 24);
+      v103 = 257;
+      v21 = llvm::ConstantInt::get();
+      Element = llvm::IRBuilderBase::CreateExtractElement((v20 + 8), AlignedLoad, v21, v102);
       if (v7 >= 2)
       {
-        v27 = v14 + *(*a1 - 24);
-        v28 = *(&v113 + i);
-        v109 = 257;
-        v29 = *(v27 + 25);
-        v30 = llvm::ConstantInt::get();
-        v31 = (v27 + 8);
-        v7 = a3;
-        Element = llvm::IRBuilderBase::CreateInsertElement(v31, v28, Element, v30, v108);
+        v23 = v13 + *(*a1 - 24);
+        v24 = *(&v107 + i);
+        v103 = 257;
+        v25 = llvm::ConstantInt::get();
+        v26 = (v23 + 8);
+        v7 = v101;
+        Element = llvm::IRBuilderBase::CreateInsertElement(v26, v24, Element, v25, v102);
       }
 
-      *(&v113 + i) = Element;
+      *(&v107 + i) = Element;
     }
 
-    ++v13;
+    ++v12;
   }
 
-  while (v13 != v103);
-  FAdd = v115;
-  v8 = v101;
-  v6 = v102;
-  v12 = v100;
+  while (v12 != v97);
+  FAdd = v109;
+  v8 = v95;
+  v6 = v96;
+  v11 = v94;
 LABEL_14:
-  v33 = v12 + 1;
-  v112 = *v8;
+  v28 = v11 + 1;
+  v106 = *v8;
   for (j = 8; j != -8; j -= 8)
   {
-    v35 = *(*a1 - 24);
-    v36 = *(&v113 + j);
-    v37 = *(&v112 + j);
-    v109 = 257;
-    FMul = llvm::IRBuilderBase::CreateFMul(v33 + v35, v36, v37, v108);
-    v109 = 257;
-    FAdd = llvm::IRBuilderBase::CreateFAdd(v33 + v35, FMul, FAdd, v108);
+    v30 = *(*a1 - 24);
+    v31 = *(&v107 + j);
+    v32 = *(&v106 + j);
+    v103 = 257;
+    FMul = llvm::IRBuilderBase::CreateFMul(v28 + v30, v31, v32, v102);
+    v103 = 257;
+    FAdd = llvm::IRBuilderBase::CreateFAdd(v28 + v30, FMul, FAdd, v102);
   }
 
   if (v6)
   {
-    v39 = a1 + *(*a1 - 24);
-    v40 = AGCLLVMBuilder::splat((v39 + 1704), a3, v6);
-    v109 = 257;
-    FAdd = llvm::IRBuilderBase::CreateFDiv((v39 + 1712), FAdd, v40, v108);
+    v35 = (a1 + *(*a1 - 24));
+    v36 = AGCLLVMBuilder::splat(v35 + 213, v101, v6, v34);
+    v103 = 257;
+    FAdd = llvm::IRBuilderBase::CreateFDiv((v35 + 214), FAdd, v36, v102);
   }
 
-  v41 = (a1 + *(*a1 - 24));
-  if (*(v41[271] + 1893) == 1)
+  v37 = (a1 + *(*a1 - 24));
+  if (*(v37[271] + 1893) == 1)
   {
-    v42 = v41[238];
-    v43 = llvm::ConstantInt::get();
-    v44 = AGCLLVMBuilder::splat((v41 + 213), a3, v43);
-    v45 = a1 + *(*a1 - 24);
-    v46 = *(v45 + 238);
-    v47 = llvm::ConstantInt::get();
-    v48 = AGCLLVMBuilder::splat((v45 + 1704), a3, v47);
-    v49 = a1 + *(*a1 - 24);
-    v50 = *(v49 + 238);
-    v51 = llvm::ConstantInt::get();
-    v52 = AGCLLVMBuilder::splat((v49 + 1704), a3, v51);
-    v53 = a1 + *(*a1 - 24);
-    v54 = *(v53 + 238);
-    v55 = llvm::ConstantInt::get();
-    v56 = AGCLLVMBuilder::splat((v53 + 1704), a3, v55);
-    v57 = (a1 + *(*a1 - 24));
-    llvm::Type::getFPMantissaWidth(v57[234]);
-    v58 = v57[238];
-    v59 = llvm::ConstantInt::get();
-    v60 = AGCLLVMBuilder::splat((v57 + 213), a3, v59);
-    v61 = *a1;
-    v62 = *(a1 + *(*a1 - 24) + 1904);
-    v105 = v52;
-    v63 = v48;
-    if (a3 >= 2)
+    v38 = llvm::ConstantInt::get();
+    v40 = AGCLLVMBuilder::splat(v37 + 213, v101, v38, v39);
+    v41 = (a1 + *(*a1 - 24));
+    v42 = llvm::ConstantInt::get();
+    v44 = AGCLLVMBuilder::splat(v41 + 213, v101, v42, v43);
+    v45 = (a1 + *(*a1 - 24));
+    v46 = llvm::ConstantInt::get();
+    v48 = AGCLLVMBuilder::splat(v45 + 213, v101, v46, v47);
+    v49 = (a1 + *(*a1 - 24));
+    v50 = llvm::ConstantInt::get();
+    v52 = AGCLLVMBuilder::splat(v49 + 213, v101, v50, v51);
+    v53 = (a1 + *(*a1 - 24));
+    llvm::Type::getFPMantissaWidth(v53[234]);
+    v54 = llvm::ConstantInt::get();
+    v56 = AGCLLVMBuilder::splat(v53 + 213, v101, v54, v55);
+    v57 = *a1;
+    v58 = *(a1 + *(*a1 - 24) + 1904);
+    v99 = v48;
+    v59 = v44;
+    if (v101 >= 2)
     {
-      v62 = llvm::FixedVectorType::get();
-      v61 = *a1;
+      v58 = llvm::FixedVectorType::get();
+      v57 = *a1;
     }
 
-    v64 = a1 + *(v61 - 24);
-    v109 = 257;
-    Cast = llvm::IRBuilderBase::CreateCast((v64 + 1712), 49, v113, v62, v108);
+    v60 = a1 + *(v57 - 24);
+    v103 = 257;
+    Cast = llvm::IRBuilderBase::CreateCast((v60 + 1712), 49, v107, v58, v102);
+    v62 = a1 + *(*a1 - 24);
+    v103 = 257;
+    v63 = llvm::IRBuilderBase::CreateCast((v62 + 1712), 49, v108, v58, v102);
+    v64 = a1 + *(*a1 - 24);
+    v103 = 257;
+    v65 = llvm::IRBuilderBase::CreateAnd((v64 + 1712), Cast, v40, v102);
     v66 = a1 + *(*a1 - 24);
-    v109 = 257;
-    v67 = llvm::IRBuilderBase::CreateCast((v66 + 1712), 49, v114, v62, v108);
-    v68 = a1 + *(*a1 - 24);
-    v109 = 257;
-    v69 = llvm::IRBuilderBase::CreateAnd((v68 + 1712), Cast, v44, v108);
-    v70 = a1 + *(*a1 - 24);
-    v109 = 257;
-    v71 = llvm::IRBuilderBase::CreateAnd((v70 + 1712), Cast, v63, v108);
-    v111 = 257;
-    LShr = llvm::IRBuilderBase::CreateLShr((v70 + 1712), v71, v60, v110);
-    v73 = a1 + *(*a1 - 24);
-    v109 = 257;
-    v74 = llvm::IRBuilderBase::CreateAnd((v73 + 1712), v67, v44, v108);
-    v75 = a1 + *(*a1 - 24);
-    v109 = 257;
-    v76 = llvm::IRBuilderBase::CreateAnd((v75 + 1712), v67, v63, v108);
-    v111 = 257;
-    v77 = llvm::IRBuilderBase::CreateLShr((v75 + 1712), v76, v60, v110);
-    v78 = (a1 + *(*a1 - 24));
-    v109 = 257;
-    v79 = v69;
-    ICmp = llvm::IRBuilderBase::CreateICmp(v78 + 214, 33, v69, v105, v108);
+    v103 = 257;
+    v67 = llvm::IRBuilderBase::CreateAnd((v66 + 1712), Cast, v59, v102);
+    v105 = 257;
+    LShr = llvm::IRBuilderBase::CreateLShr((v66 + 1712), v67, v56, v104);
+    v69 = a1 + *(*a1 - 24);
+    v103 = 257;
+    v70 = llvm::IRBuilderBase::CreateAnd((v69 + 1712), v63, v40, v102);
+    v71 = a1 + *(*a1 - 24);
+    v103 = 257;
+    v72 = llvm::IRBuilderBase::CreateAnd((v71 + 1712), v63, v59, v102);
+    v105 = 257;
+    v73 = llvm::IRBuilderBase::CreateLShr((v71 + 1712), v72, v56, v104);
+    v74 = (a1 + *(*a1 - 24));
+    v103 = 257;
+    v75 = v65;
+    ICmp = llvm::IRBuilderBase::CreateICmp(v74 + 214, 33, v65, v99, v102);
+    v77 = (a1 + *(*a1 - 24));
+    v103 = 257;
+    v78 = llvm::IRBuilderBase::CreateICmp(v77 + 214, 32, LShr, v99, v102);
+    v79 = (a1 + *(*a1 - 24));
+    v103 = 257;
+    v80 = llvm::IRBuilderBase::CreateICmp(v79 + 214, 33, v70, v99, v102);
     v81 = (a1 + *(*a1 - 24));
-    v109 = 257;
-    v82 = llvm::IRBuilderBase::CreateICmp(v81 + 214, 32, LShr, v105, v108);
-    v83 = (a1 + *(*a1 - 24));
-    v109 = 257;
-    v84 = llvm::IRBuilderBase::CreateICmp(v83 + 214, 33, v74, v105, v108);
-    v85 = (a1 + *(*a1 - 24));
-    v109 = 257;
-    v86 = llvm::IRBuilderBase::CreateICmp(v85 + 214, 32, v77, v105, v108);
+    v103 = 257;
+    v82 = llvm::IRBuilderBase::CreateICmp(v81 + 214, 32, v73, v99, v102);
+    v83 = a1 + *(*a1 - 24);
+    v103 = 257;
+    v84 = llvm::IRBuilderBase::CreateAnd((v83 + 1712), ICmp, v78, v102);
+    v85 = a1 + *(*a1 - 24);
+    v103 = 257;
+    v86 = llvm::IRBuilderBase::CreateAnd((v85 + 1712), v80, v82, v102);
     v87 = a1 + *(*a1 - 24);
-    v109 = 257;
-    v88 = llvm::IRBuilderBase::CreateAnd((v87 + 1712), ICmp, v82, v108);
-    v89 = a1 + *(*a1 - 24);
-    v109 = 257;
-    v90 = llvm::IRBuilderBase::CreateAnd((v89 + 1712), v84, v86, v108);
+    v103 = 257;
+    v88 = llvm::IRBuilderBase::CreateAnd((v87 + 1712), v75, v52, v102);
+    v89 = *v84;
+    v105 = 257;
+    v90 = llvm::IRBuilderBase::CreateCast((v87 + 1712), 38, v88, v89, v104);
     v91 = a1 + *(*a1 - 24);
-    v109 = 257;
-    v92 = llvm::IRBuilderBase::CreateAnd((v91 + 1712), v79, v56, v108);
-    v93 = *v88;
-    v111 = 257;
-    v94 = llvm::IRBuilderBase::CreateCast((v91 + 1712), 38, v92, v93, v110);
-    v95 = a1 + *(*a1 - 24);
-    v109 = 257;
-    v96 = llvm::IRBuilderBase::CreateAnd((v95 + 1712), v88, v90, v108);
-    v111 = 257;
-    llvm::IRBuilderBase::CreateAnd((v95 + 1712), v96, v94, v110);
-    v97 = a1 + *(*a1 - 24);
-    v109 = 257;
-    FAdd = llvm::IRBuilderBase::CreateSelect();
+    v103 = 257;
+    v92 = llvm::IRBuilderBase::CreateAnd((v91 + 1712), v84, v86, v102);
+    v105 = 257;
+    llvm::IRBuilderBase::CreateAnd((v91 + 1712), v92, v90, v104);
+    v103 = 257;
+    return llvm::IRBuilderBase::CreateSelect();
   }
 
-  v98 = *MEMORY[0x277D85DE8];
   return FAdd;
 }
 
@@ -7500,8 +6764,7 @@ uint64_t llvm::IRBuilderBase::CreateFDiv(uint64_t a1, uint64_t a2, uint64_t a3, 
   if (!v7)
   {
     v7 = llvm::BinaryOperator::Create();
-    v8 = *(a1 + 96);
-    llvm::IRBuilderBase::setFPAttrs(a1, v7);
+    llvm::IRBuilderBase::setFPAttrs(a1, v7, *(a1 + 96));
     llvm::IRBuilderBase::Insert<llvm::CastInst>(a1, v7, a4);
   }
 
@@ -7518,39 +6781,40 @@ uint64_t llvm::IRBuilderBase::CreateFPToUI(llvm::IRBuilderBase *this, llvm::Valu
   return llvm::IRBuilderBase::CreateCast(this, 41, a2, a3, a4);
 }
 
-uint64_t llvm::IRBuilderBase::CreateGEP(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t **a4, uint64_t a5, uint64_t a6)
+llvm::Instruction *llvm::IRBuilderBase::CreateGEP(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t **a4, uint64_t a5, uint64_t a6)
 {
   v12 = (*(**(a1 + 72) + 48))(*(a1 + 72), a2, a3, a4, a5, 0);
   if (!v12)
   {
-    v12 = llvm::GetElementPtrInst::Create(a2, a3, a4, a5);
+    v15 = 257;
+    v12 = llvm::GetElementPtrInst::Create(a2, a3, a4, a5, v14);
     llvm::IRBuilderBase::Insert<llvm::CastInst>(a1, v12, a6);
   }
 
   return v12;
 }
 
-uint64_t llvm::StringMap<AGCLLVMAGPFragmentShader::InterpolationFunction,llvm::MallocAllocator>::~StringMap(uint64_t a1)
+uint64_t llvm::StringMap<AGCLLVMAGPFragmentShader::InterpolationFunction,llvm::MallocAllocator>::~StringMap(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (*(a1 + 12))
   {
-    v2 = *(a1 + 8);
-    if (v2)
+    v5 = *(a1 + 8);
+    if (v5)
     {
-      v3 = 0;
-      v4 = 8 * v2;
+      v6 = 0;
+      v7 = 8 * v5;
       do
       {
-        v5 = *(*a1 + v3);
-        if (v5 != -8 && v5 != 0)
+        v8 = *(*a1 + v6);
+        if (v8 != -8 && v8 != 0)
         {
-          llvm::deallocate_buffer(v5, (*v5 + 25));
+          llvm::deallocate_buffer(*v8, v8, *v8 + 25);
         }
 
-        v3 += 8;
+        v6 += 8;
       }
 
-      while (v4 != v3);
+      while (v7 != v6);
     }
   }
 
@@ -7603,7 +6867,7 @@ char *llvm::PassInfoMixin<AGCPrintIRPass>::name()
   return result;
 }
 
-llvm::raw_ostream *llvm::detail::PassModel<llvm::Module,AGCPrintIRPass,llvm::PreservedAnalyses,llvm::AnalysisManager<llvm::Module>>::printPipeline(uint64_t a1, llvm::raw_ostream *a2, uint64_t (*a3)(uint64_t, char *, uint64_t), uint64_t a4)
+llvm::raw_ostream *llvm::detail::PassModel<llvm::Module,AGCPrintIRPass,llvm::PreservedAnalyses,llvm::AnalysisManager<llvm::Module>>::printPipeline(uint64_t a1, llvm::raw_ostream *a2, uint64_t (*a3)(uint64_t, const char *, uint64_t), uint64_t a4)
 {
   v7 = llvm::PassInfoMixin<AGCPrintIRPass>::name();
   v10 = a3(a4, v7, v8);
@@ -7611,7 +6875,7 @@ llvm::raw_ostream *llvm::detail::PassModel<llvm::Module,AGCPrintIRPass,llvm::Pre
   return llvm::raw_ostream::operator<<(a2, v10, v9);
 }
 
-llvm::raw_ostream *llvm::detail::PassModel<llvm::Module,InitCompileAGPFragmentShaderPass,llvm::PreservedAnalyses,llvm::AnalysisManager<llvm::Module>>::printPipeline(uint64_t a1, llvm::raw_ostream *a2, uint64_t (*a3)(uint64_t, char *, uint64_t), uint64_t a4)
+llvm::raw_ostream *llvm::detail::PassModel<llvm::Module,InitCompileAGPFragmentShaderPass,llvm::PreservedAnalyses,llvm::AnalysisManager<llvm::Module>>::printPipeline(uint64_t a1, llvm::raw_ostream *a2, uint64_t (*a3)(uint64_t, const char *, uint64_t), uint64_t a4)
 {
   v7 = llvm::PassInfoMixin<InitCompileAGPFragmentShaderPass>::name();
   v10 = a3(a4, v7, v8);
@@ -7675,21 +6939,21 @@ void AGCLLVMAGPFragmentShader::~AGCLLVMAGPFragmentShader(AGCLLVMAGPFragmentShade
   AGCLLVMObject::~AGCLLVMObject((v1 + 7528));
 }
 
-void virtual thunk toAGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(AGCLLVMAGPFragmentShaderGen3 *this)
+void virtual thunk toAGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(AGCLLVMAGPFragmentShaderGen3 *this, uint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v1 = this + *(*this - 24);
-  AGCLLVMObject::~AGCLLVMObject((v1 + 7920));
+  v4 = this + *(*this - 24);
+  AGCLLVMObject::~AGCLLVMObject((v4 + 7920));
 
   JUMPOUT(0x20F331DC0);
 }
 
 {
-  v2 = (v1 + 7920);
+  v5 = (v4 + 7920);
 
-  AGCLLVMObject::~AGCLLVMObject(v2);
+  AGCLLVMObject::~AGCLLVMObject(v5);
 }
 
-void non-virtual thunk toAGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(AGCLLVMAGPFragmentShaderGen3 *this)
+void non-virtual thunk toAGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(AGCLLVMAGPFragmentShaderGen3 *this, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   AGCLLVMObject::~AGCLLVMObject((this + 3384));
 
@@ -7720,117 +6984,108 @@ uint64_t AGCLLVMAGPFragmentShaderGen3::buildPixelPositionInTile(AGCLLVMAGPFragme
 
 uint64_t AGCLLVMAGPFragmentShaderGen3::buildSimdGroupIndexInThreadgroup(AGCLLVMAGPFragmentShaderGen3 *this, llvm::Type *a2)
 {
-  v17[4] = *MEMORY[0x277D85DE8];
-  v15 = v17;
-  v16 = xmmword_20E70C510;
-  llvm::SmallVectorImpl<char>::append<char const*,void>(&v15, "llvm.agx2.simd.group", "");
-  v4 = this + *(*this - 24);
-  v5 = *(v4 + 238);
-  inserted = AGCLLVMBuilder::getOrInsertFunction<>((v4 + 1704));
-  v7 = this + *(*this - 24);
-  v14 = 257;
-  v8 = llvm::IRBuilderBase::CreateCall((v7 + 1712), *(inserted + 24), inserted, 0, 0, v13);
-  v12[16] = 257;
-  Cast = llvm::IRBuilderBase::CreateCast((v7 + 1712), 38, v8, a2, v12);
-  if (v15 != v17)
+  v14[4] = *MEMORY[0x277D85DE8];
+  v12 = v14;
+  v13 = xmmword_20E70C510;
+  llvm::SmallVectorImpl<char>::append<char const*,void>(&v12, "llvm.agx2.simd.group", "");
+  inserted = AGCLLVMBuilder::getOrInsertFunction<>(this + *(*this - 24) + 1704, v12, v13, *(this + *(*this - 24) + 1904));
+  v5 = (this + *(*this - 24));
+  v11 = 257;
+  v6 = llvm::IRBuilderBase::CreateCall(v5 + 214, *(inserted + 24), inserted, 0, 0, v10);
+  v9[16] = 257;
+  Cast = llvm::IRBuilderBase::CreateCast((v5 + 214), 38, v6, a2, v9);
+  if (v12 != v14)
   {
-    free(v15);
+    free(v12);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return Cast;
 }
 
 uint64_t AGCLLVMAGPFragmentShaderGen3::buildThreadIndexInSimdGroup(AGCLLVMAGPFragmentShaderGen3 *this, llvm::Type *a2)
 {
-  v17[4] = *MEMORY[0x277D85DE8];
-  v15 = v17;
-  v16 = xmmword_20E70C510;
-  llvm::SmallVectorImpl<char>::append<char const*,void>(&v15, "llvm.agx2.simd.element", "");
-  v4 = this + *(*this - 24);
-  v5 = *(v4 + 238);
-  inserted = AGCLLVMBuilder::getOrInsertFunction<>((v4 + 1704));
-  v7 = this + *(*this - 24);
-  v14 = 257;
-  v8 = llvm::IRBuilderBase::CreateCall((v7 + 1712), *(inserted + 24), inserted, 0, 0, v13);
-  v12[16] = 257;
-  Cast = llvm::IRBuilderBase::CreateCast((v7 + 1712), 38, v8, a2, v12);
-  if (v15 != v17)
+  v14[4] = *MEMORY[0x277D85DE8];
+  v12 = v14;
+  v13 = xmmword_20E70C510;
+  llvm::SmallVectorImpl<char>::append<char const*,void>(&v12, "llvm.agx2.simd.element", "");
+  inserted = AGCLLVMBuilder::getOrInsertFunction<>(this + *(*this - 24) + 1704, v12, v13, *(this + *(*this - 24) + 1904));
+  v5 = (this + *(*this - 24));
+  v11 = 257;
+  v6 = llvm::IRBuilderBase::CreateCall(v5 + 214, *(inserted + 24), inserted, 0, 0, v10);
+  v9[16] = 257;
+  Cast = llvm::IRBuilderBase::CreateCast((v5 + 214), 38, v6, a2, v9);
+  if (v12 != v14)
   {
-    free(v15);
+    free(v12);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return Cast;
 }
 
-uint64_t AGCLLVMAGPFragmentShaderGen3::buildTileIndex(AGCLLVMAGPFragmentShaderGen3 *this, llvm::Type *a2)
+uint64_t AGCLLVMAGPFragmentShaderGen3::buildTileIndex(AGCLLVMAGPFragmentShaderGen3 *this, llvm::Type *a2, uint64_t a3)
 {
   if (!*(this + 981))
   {
-    v4 = llvm::User::operator new(0x58);
-    v5 = (this + *(*this - 24));
-    v6 = v5[267];
-    v7 = v5[238];
-    v38[0] = "agc.tile.count.x";
-    v39 = 259;
-    v27 = *(v5[271] + 972) | 0x100000000;
-    v8 = llvm::GlobalVariable::GlobalVariable();
-    *(v8 + 80) |= 1u;
+    v5 = llvm::User::operator new(0x58);
+    v35[0] = "agc.tile.count.x";
+    v36 = 259;
+    v6 = llvm::GlobalVariable::GlobalVariable();
+    *(v6 + 80) |= 1u;
     llvm::GlobalObject::setSection();
-    v9 = this + *(*this - 24);
-    v10 = *(v9 + 268);
-    v11 = AGCLLVMBuilder::buildGlobalMetadata((v9 + 1704), v4);
-    llvm::SmallVectorTemplateBase<llvm::Metadata *,true>::push_back(v10, v11);
-    llvm::ValueHandleBase::operator=((this + 7832), v4);
+    v7 = this + *(*this - 24);
+    v8 = *(v7 + 268);
+    v9 = AGCLLVMBuilder::buildGlobalMetadata(v7 + 213, v5, 0x38u, 0);
+    llvm::SmallVectorTemplateBase<llvm::Metadata *,true>::push_back(v8, v9);
+    llvm::ValueHandleBase::operator=((this + 7832), v5);
   }
 
-  v12 = *(this + *(*this - 24) + 2168);
-  v13 = (*(*v12 + 688))(v12);
-  v14 = this + *(*this - 24);
-  v35 = *(v14 + 110);
-  llvm::IRBuilderBase::getCurrentDebugLocation(&v36, (v14 + 1712));
-  v37 = *(v14 + 452);
-  v15 = AGCLLVMGen3TargetLowerer::buildThreadgroupIndex(v13, &v35, a2, 0);
-  if (v36)
-  {
-    llvm::MetadataTracking::untrack();
-  }
-
-  v16 = *(this + *(*this - 24) + 2168);
-  v17 = (*(*v16 + 688))(v16);
-  v18 = this + *(*this - 24);
-  v32 = *(v18 + 110);
-  llvm::IRBuilderBase::getCurrentDebugLocation(&v33, (v18 + 1712));
-  v34 = *(v18 + 452);
-  v19 = AGCLLVMGen3TargetLowerer::buildThreadgroupIndex(v17, &v32, a2, 1);
+  v10 = *(this + *(*this - 24) + 2168);
+  v11 = (*(*v10 + 688))(v10, a2, a3);
+  v12 = this + *(*this - 24);
+  v32 = *(v12 + 110);
+  llvm::IRBuilderBase::getCurrentDebugLocation(&v33, (v12 + 1712));
+  v34 = *(v12 + 452);
+  v13 = AGCLLVMGen3TargetLowerer::buildThreadgroupIndex(v11, &v32, a2, 0);
   if (v33)
   {
     llvm::MetadataTracking::untrack();
   }
 
-  v20 = this + *(*this - 24);
-  v21 = *(this + 981);
-  v39 = 257;
-  Load = AGCLLVMBuilder::CreateLoad((v20 + 1704), v21, v38);
-  v31 = 257;
-  Cast = llvm::IRBuilderBase::CreateCast((v20 + 1712), 38, Load, a2, v30);
-  v29 = 257;
-  Mul = llvm::IRBuilderBase::CreateMul((v20 + 1712), v19, Cast, v28);
-  v25 = this + *(*this - 24);
-  v39 = 257;
-  return llvm::IRBuilderBase::CreateAdd((v25 + 1712), Mul, v15, v38);
+  v14 = *(this + *(*this - 24) + 2168);
+  v15 = (*(*v14 + 688))(v14);
+  v16 = this + *(*this - 24);
+  v29 = *(v16 + 110);
+  llvm::IRBuilderBase::getCurrentDebugLocation(&v30, (v16 + 1712));
+  v31 = *(v16 + 452);
+  v17 = AGCLLVMGen3TargetLowerer::buildThreadgroupIndex(v15, &v29, a2, 1);
+  if (v30)
+  {
+    llvm::MetadataTracking::untrack();
+  }
+
+  v18 = this + *(*this - 24);
+  v19 = *(this + 981);
+  v36 = 257;
+  Load = AGCLLVMBuilder::CreateLoad((v18 + 1704), v19, v35);
+  v28 = 257;
+  Cast = llvm::IRBuilderBase::CreateCast((v18 + 1712), 38, Load, a2, v27);
+  v26 = 257;
+  Mul = llvm::IRBuilderBase::CreateMul((v18 + 1712), v17, Cast, v25);
+  v23 = this + *(*this - 24);
+  v36 = 257;
+  return llvm::IRBuilderBase::CreateAdd((v23 + 1712), Mul, v13, v35);
 }
 
-uint64_t AGCLLVMAGPFragmentShaderGen3::buildPixelsPerTile(AGCLLVMAGPFragmentShaderGen3 *this, llvm::Type *a2, int a3)
+uint64_t AGCLLVMAGPFragmentShaderGen3::buildPixelsPerTile(AGCLLVMAGPFragmentShaderGen3 *this, llvm::Type *a2, uint64_t a3)
 {
+  v3 = a3;
   v6 = *(this + *(*this - 24) + 2168);
   v7 = (*(*v6 + 688))(v6);
   v8 = this + *(*this - 24);
   v11 = *(v8 + 110);
   llvm::IRBuilderBase::getCurrentDebugLocation(&v12, (v8 + 1712));
   v13 = *(v8 + 452);
-  v9 = AGCLLVMGen3TargetLowerer::buildLocalSize(v7, &v11, a2, a3);
+  v9 = AGCLLVMGen3TargetLowerer::buildLocalSize(v7, &v11, a2, v3);
   if (v12)
   {
     llvm::MetadataTracking::untrack();
@@ -7839,137 +7094,134 @@ uint64_t AGCLLVMAGPFragmentShaderGen3::buildPixelsPerTile(AGCLLVMAGPFragmentShad
   return v9;
 }
 
-uint64_t AGCLLVMAGPFragmentShaderGen3::setupLIBStructValueFromType(uint64_t result, unint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t a7)
+uint64_t AGCLLVMAGPFragmentShaderGen3::setupLIBStructValueFromType(uint64_t result, unint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t a7, __n128 a8)
 {
-  v7 = a6;
-  v9 = a2;
-  v10 = result;
-  v50 = *MEMORY[0x277D85DE8];
-  v11 = *(a2 + 8);
-  if (a2 && v11 == 16)
+  v8 = a6;
+  v10 = a2;
+  v11 = result;
+  v52 = *MEMORY[0x277D85DE8];
+  v12 = *(a2 + 8);
+  if (a2 && v12 == 16)
   {
-    v13 = a5;
+    v14 = a5;
     result = llvm::DataLayout::getStructLayout();
-    if (*(v9 + 12))
+    if (*(v10 + 12))
     {
-      v14 = 0;
-      v15 = result + 16;
+      v15 = 0;
+      v16 = result + 16;
       do
       {
-        v16 = v7;
-        v17 = *(v15 + 8 * v14);
-        llvm::SmallVectorTemplateBase<AGCCodeTranslator::ComputeVIRegType,true>::push_back(a3, v14);
-        v18 = v9;
-        v19 = *(*(v9 + 16) + 8 * v14);
-        std::__function::__value_func<void ()(llvm::Type *,llvm::SmallVectorImpl<unsigned int> &,unsigned int)>::__value_func[abi:nn200100](v49, a7);
-        v20 = v17 + v13;
-        v7 = v16;
-        v21 = v19;
-        v9 = v18;
-        AGCLLVMAGPFragmentShaderGen3::setupLIBStructValueFromType(v10, v21, a3, a4, v20, v16, v49);
-        result = std::__function::__value_func<void ()(llvm::Type *,llvm::SmallVectorImpl<unsigned int> &,unsigned int)>::~__value_func[abi:nn200100](v49);
+        v17 = v8;
+        v18 = *(v16 + 8 * v15);
+        llvm::SmallVectorTemplateBase<AGCCodeTranslator::ComputeVIRegType,true>::push_back(a3, v15);
+        v19 = v10;
+        v20 = *(*(v10 + 16) + 8 * v15);
+        std::__function::__value_func<void ()(llvm::Type *,llvm::SmallVectorImpl<unsigned int> &,unsigned int)>::__value_func[abi:nn200100](v51, a7);
+        v21 = v18 + v14;
+        v8 = v17;
+        v22 = v20;
+        v10 = v19;
+        AGCLLVMAGPFragmentShaderGen3::setupLIBStructValueFromType(v11, v22, a3, a4, v21, v17, v51, v23);
+        result = std::__function::__value_func<void ()(llvm::Type *,llvm::SmallVectorImpl<unsigned int> &,unsigned int)>::~__value_func[abi:nn200100](v51);
         --*(a3 + 8);
-        ++v14;
+        ++v15;
       }
 
-      while (v14 < *(v18 + 12));
+      while (v15 < *(v19 + 12));
     }
 
-    goto LABEL_33;
-  }
-
-  if (a2 && v11 == 17)
-  {
-    v22 = *(a4 + 8);
-    if (v22)
-    {
-      v25 = a4 + 8;
-      do
-      {
-        v26 = *(v22 + 28);
-        v27 = v26 >= a5;
-        v28 = v26 < a5;
-        if (v27)
-        {
-          v25 = v22;
-        }
-
-        v22 = *(v22 + 8 * v28);
-      }
-
-      while (v22);
-      if (v25 != a4 + 8 && *(v25 + 28) <= a5 && *(a2 + 32))
-      {
-        v29 = result;
-        LODWORD(v30) = 0;
-        v31 = *(v25 + 32);
-        do
-        {
-          TypeAllocSize = llvm::DataLayout::getTypeAllocSize((v29 + 224), *(v9 + 24));
-          v46 = v32;
-          v33 = llvm::TypeSize::operator unsigned long long();
-          llvm::SmallVectorTemplateBase<AGCCodeTranslator::ComputeVIRegType,true>::push_back(a3, v30);
-          v34 = *(v9 + 24);
-          std::__function::__value_func<void ()(llvm::Type *,llvm::SmallVectorImpl<unsigned int> &,unsigned int)>::__value_func[abi:nn200100](v48, a7);
-          AGCLLVMAGPFragmentShaderGen3::setupLIBStructValueFromType(v29, v34, a3, a4, (v31 + v30 * v33), v30 == 0, v48);
-          result = std::__function::__value_func<void ()(llvm::Type *,llvm::SmallVectorImpl<unsigned int> &,unsigned int)>::~__value_func[abi:nn200100](v48);
-          --*(a3 + 8);
-          v30 = (v30 + 1);
-        }
-
-        while (*(v9 + 32) > v30);
-      }
-    }
-
-    goto LABEL_33;
-  }
-
-  if (a6)
-  {
-    v37 = *(a4 + 8);
-    v35 = a4 + 8;
-    v36 = v37;
-    if (!v37)
-    {
-      goto LABEL_33;
-    }
-
-    v38 = v35;
-    do
-    {
-      v39 = *(v36 + 28);
-      v27 = v39 >= a5;
-      v40 = v39 < a5;
-      if (v27)
-      {
-        v38 = v36;
-      }
-
-      v36 = *(v36 + 8 * v40);
-    }
-
-    while (v36);
-    if (v38 == v35 || *(v38 + 28) > a5)
-    {
-      goto LABEL_33;
-    }
-
-    a5 = *(v38 + 32);
-  }
-
-  TypeAllocSize = a2;
-  v47 = a5;
-  v41 = *(a7 + 24);
-  if (v41)
-  {
-    result = (*(*v41 + 48))(v41, &TypeAllocSize, a3, &v47);
-LABEL_33:
-    v42 = *MEMORY[0x277D85DE8];
     return result;
   }
 
-  v43 = std::__throw_bad_function_call[abi:nn200100]();
-  return std::__function::__value_func<void ()(llvm::Type *,llvm::SmallVectorImpl<unsigned int> &,unsigned int)>::~__value_func[abi:nn200100](v43);
+  if (a2 && v12 == 17)
+  {
+    v24 = *(a4 + 8);
+    if (v24)
+    {
+      v27 = a4 + 8;
+      do
+      {
+        v28 = *(v24 + 28);
+        v29 = v28 >= a5;
+        v30 = v28 < a5;
+        if (v29)
+        {
+          v27 = v24;
+        }
+
+        v24 = *(v24 + 8 * v30);
+      }
+
+      while (v24);
+      if (v27 != a4 + 8 && *(v27 + 28) <= a5 && *(a2 + 32))
+      {
+        v31 = result;
+        LODWORD(v32) = 0;
+        v33 = *(v27 + 32);
+        do
+        {
+          TypeAllocSize = llvm::DataLayout::getTypeAllocSize((v31 + 224), *(v10 + 24));
+          v48 = v34;
+          v35 = llvm::TypeSize::operator unsigned long long();
+          llvm::SmallVectorTemplateBase<AGCCodeTranslator::ComputeVIRegType,true>::push_back(a3, v32);
+          v36 = *(v10 + 24);
+          std::__function::__value_func<void ()(llvm::Type *,llvm::SmallVectorImpl<unsigned int> &,unsigned int)>::__value_func[abi:nn200100](v50, a7);
+          AGCLLVMAGPFragmentShaderGen3::setupLIBStructValueFromType(v31, v36, a3, a4, v33 + v32 * v35, v32 == 0, v50, v37);
+          result = std::__function::__value_func<void ()(llvm::Type *,llvm::SmallVectorImpl<unsigned int> &,unsigned int)>::~__value_func[abi:nn200100](v50);
+          --*(a3 + 8);
+          v32 = (v32 + 1);
+        }
+
+        while (*(v10 + 32) > v32);
+      }
+    }
+
+    return result;
+  }
+
+  if (!a6)
+  {
+LABEL_31:
+    TypeAllocSize = a2;
+    v49 = a5;
+    v44 = *(a7 + 24);
+    if (v44)
+    {
+      return (*(*v44 + 48))(v44, &TypeAllocSize, a3, &v49, a8);
+    }
+
+    v45 = std::__throw_bad_function_call[abi:nn200100]();
+    return std::__function::__value_func<void ()(llvm::Type *,llvm::SmallVectorImpl<unsigned int> &,unsigned int)>::~__value_func[abi:nn200100](v45);
+  }
+
+  v40 = *(a4 + 8);
+  v38 = a4 + 8;
+  v39 = v40;
+  if (v40)
+  {
+    v41 = v38;
+    do
+    {
+      v42 = *(v39 + 28);
+      v29 = v42 >= a5;
+      v43 = v42 < a5;
+      if (v29)
+      {
+        v41 = v39;
+      }
+
+      v39 = *(v39 + 8 * v43);
+    }
+
+    while (v39);
+    if (v41 != v38 && *(v41 + 28) <= a5)
+    {
+      a5 = *(v41 + 32);
+      goto LABEL_31;
+    }
+  }
+
+  return result;
 }
 
 uint64_t std::__function::__value_func<void ()(llvm::Type *,llvm::SmallVectorImpl<unsigned int> &,unsigned int)>::~__value_func[abi:nn200100](uint64_t a1)
@@ -8013,7 +7265,7 @@ uint64_t std::__function::__value_func<void ()(llvm::Type *,llvm::SmallVectorImp
   return a1;
 }
 
-uint64_t std::__function::__func<AGCLLVMAGPFragmentShaderGen3::setupShaderOutputs(void)::$_0,std::allocator<AGCLLVMAGPFragmentShaderGen3::setupShaderOutputs(void)::$_0>,void ()(llvm::Type *,llvm::SmallVectorImpl<unsigned int> &,unsigned int)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
+uint64_t std::__function::__func<AGCLLVMAGPFragmentShaderGen3::setupShaderOutputs(void)::$_0,std::allocator<AGCLLVMAGPFragmentShaderGen3::setupShaderOutputs(void)::$_0>,void ()(llvm::Type *,llvm::SmallVectorImpl<unsigned int> &,unsigned int)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int *a4)
 {
   v4 = *a4;
   v5 = *(a1 + 8);
@@ -8037,7 +7289,7 @@ uint64_t std::__function::__func<AGCLLVMAGPFragmentShaderGen3::setupShaderOutput
 
   if (!v12)
   {
-    return llvm::IRBuilderBase::CreateAlignedStore((v5 + *(*v5 - 24) + 1712), Value, *(v13[0] + 32), 0);
+    return llvm::IRBuilderBase::CreateAlignedStore((v5 + *(*v5 - 24) + 1712), Value, *(v13[0] + 32), 0, 0);
   }
 
   return result;
@@ -8115,105 +7367,100 @@ __n128 std::__function::__func<AGCLLVMAGPFragmentShaderGen3::setupShaderOutputs(
   return result;
 }
 
-uint64_t std::__function::__func<AGCLLVMAGPFragmentShaderGen3::setupShaderInputs(void)::$_0,std::allocator<AGCLLVMAGPFragmentShaderGen3::setupShaderInputs(void)::$_0>,void ()(llvm::Type *,llvm::SmallVectorImpl<unsigned int> &,unsigned int)>::operator()(uint64_t a1, uint64_t *a2, uint64_t a3, __int16 *a4)
+unsigned __int8 *std::__function::__func<AGCLLVMAGPFragmentShaderGen3::setupShaderInputs(void)::$_0,std::allocator<AGCLLVMAGPFragmentShaderGen3::setupShaderInputs(void)::$_0>,void ()(llvm::Type *,llvm::SmallVectorImpl<unsigned int> &,unsigned int)>::operator()(uint64_t a1, uint64_t *a2, uint64_t a3, __int16 *a4)
 {
   v5 = *a2;
   v6 = *a4;
   v7 = *(a1 + 16);
   v8 = *(v7 + 3764);
-  v9 = *(v7 + *(*v7 - 24) + 1896);
-  v10 = llvm::ConstantInt::get();
-  v11 = v7 + *(*v7 - 24);
-  v12 = *(v11 + 2168);
-  v51 = *(v11 + 1760);
-  llvm::IRBuilderBase::getCurrentDebugLocation(&v52, (v11 + 1712));
-  v53 = *(v11 + 1808);
-  v13 = (*(*v12 + 208))(v12, &v51, v10);
-  if (v52)
+  v9 = llvm::ConstantInt::get();
+  v10 = v7 + *(*v7 - 24);
+  v11 = *(v10 + 2168);
+  v46 = *(v10 + 1760);
+  llvm::IRBuilderBase::getCurrentDebugLocation(&v47, (v10 + 1712));
+  v48 = *(v10 + 1808);
+  v12 = (*(*v11 + 208))(v11, &v46, v9);
+  if (v47)
   {
     llvm::MetadataTracking::untrack();
   }
 
-  v14 = v7 + *(*v7 - 24);
+  v13 = v7 + *(*v7 - 24);
   if (*(v7 + 3766) == 1)
   {
-    v15 = *(v7 + 4528);
-    v16 = *(v14 + 1896);
-    v17 = llvm::ConstantInt::get();
+    v14 = llvm::ConstantInt::get();
   }
 
   else
   {
-    v48 = *(v14 + 1760);
-    llvm::IRBuilderBase::getCurrentDebugLocation(&v49, (v14 + 1712));
-    v50 = *(v14 + 1808);
-    v17 = AGCLLVMObject::buildReadDynamicLIBSize(v14, &v48);
-    if (v49)
+    v43 = *(v13 + 1760);
+    llvm::IRBuilderBase::getCurrentDebugLocation(&v44, (v13 + 1712));
+    v45 = *(v13 + 1808);
+    v14 = AGCLLVMObject::buildReadDynamicLIBSize(v13, &v43);
+    if (v44)
     {
       llvm::MetadataTracking::untrack();
     }
   }
 
-  v18 = *(v7 + *(*v7 - 24) + 2168);
-  (*(*v18 + 688))(v18);
-  v19 = v5;
+  v15 = *(v7 + *(*v7 - 24) + 2168);
+  (*(*v15 + 688))(v15);
+  v16 = v5;
   if (*(v5 + 8) == 15)
   {
-    v19 = **(v5 + 16);
+    v16 = **(v5 + 16);
   }
 
-  v20 = ~(-1 << llvm::DataLayout::getABITypeAlign((v7 + 224), v19)) & (v8 + v6);
-  v21 = (*(**(v7 + *(*v7 - 24) + 2168) + 688))();
-  v22 = v7 + *(*v7 - 24);
-  v45 = *(v22 + 1760);
-  llvm::IRBuilderBase::getCurrentDebugLocation(&v46, (v22 + 1712));
-  v47 = *(v22 + 1808);
-  if (v20)
+  v17 = ~(-1 << llvm::DataLayout::getABITypeAlign((v7 + 224), v16)) & (v8 + v6);
+  v18 = (*(**(v7 + *(*v7 - 24) + 2168) + 688))();
+  v19 = v7 + *(*v7 - 24);
+  v40 = *(v19 + 1760);
+  llvm::IRBuilderBase::getCurrentDebugLocation(&v41, (v19 + 1712));
+  v42 = *(v19 + 1808);
+  if (v17)
   {
-    v23 = 1 << ((*(*(v7 + 5280) + 32) >> 10) & 3);
-    v24 = *(v7 + *(*v7 - 24) + 1896);
-    v25 = llvm::ConstantInt::get();
-    v26 = AGCLLVMGen3TargetLowerer::splitUnalignedLoads(v21, &v45, 0, v23, v17, v5, v25, v10, v13, 0, 0);
+    v20 = 1 << ((*(*(v7 + 5280) + 32) >> 10) & 3);
+    v21 = llvm::ConstantInt::get();
+    v22 = AGCLLVMGen3TargetLowerer::splitUnalignedLoads(v18, &v40, 0, v20, v14, v5, v21, v9, v12, 0, 0);
   }
 
   else
   {
-    v27 = (1 << ((*(*(v7 + 5280) + 32) >> 10) & 3));
-    v28 = *(v7 + *(*v7 - 24) + 1896);
-    v29 = llvm::ConstantInt::get();
-    v26 = AGCLLVMGen3TargetLowerer::buildReadOutputPartitionFromIR(v21, &v45, 0, 0, v27, v17, v5, v29, v10, v13, 0, 0);
+    v23 = (1 << ((*(*(v7 + 5280) + 32) >> 10) & 3));
+    v24 = llvm::ConstantInt::get();
+    v22 = AGCLLVMGen3TargetLowerer::buildReadOutputPartitionFromIR(v18, &v40, 0, 0, v23, v14, v5, v24, v9, v12, 0, 0);
   }
 
-  v30 = v26;
-  if (v46)
+  v25 = v22;
+  if (v41)
   {
     llvm::MetadataTracking::untrack();
   }
 
-  NextNonDebugInstruction = llvm::Instruction::getNextNonDebugInstruction(v30);
-  v32 = (v7 + *(*v7 - 24));
+  NextNonDebugInstruction = llvm::Instruction::getNextNonDebugInstruction(v25);
+  v27 = (v7 + *(*v7 - 24));
   if (NextNonDebugInstruction)
   {
-    v33 = llvm::Instruction::getNextNonDebugInstruction(v30);
-    llvm::IRBuilderBase::SetInsertPoint((v32 + 214), v33);
+    v28 = llvm::Instruction::getNextNonDebugInstruction(v25);
+    llvm::IRBuilderBase::SetInsertPoint((v27 + 214), v28);
   }
 
   else
   {
-    v34 = *(v30 + 5);
-    v32[220] = v34;
-    v32[221] = v34 + 40;
+    v29 = *(v25 + 5);
+    v27[220] = v29;
+    v27[221] = v29 + 40;
   }
 
-  v35 = v7 + *(*v7 - 24);
-  v44 = 257;
-  Cast = llvm::IRBuilderBase::CreateCast(v35 + 1712, 49, v30, v5, v43);
-  v37 = v7 + *(*v7 - 24);
-  v38 = **(a1 + 8);
-  v39 = *a3;
-  v40 = *(a3 + 8);
-  v44 = 257;
-  result = llvm::IRBuilderBase::CreateInsertValue(v37 + 1712, v38, Cast, v39, v40, v43);
+  v30 = v7 + *(*v7 - 24);
+  v39 = 257;
+  Cast = llvm::IRBuilderBase::CreateCast(v30 + 1712, 49, v25, v5, v38);
+  v32 = v7 + *(*v7 - 24);
+  v33 = **(a1 + 8);
+  v34 = *a3;
+  v35 = *(a3 + 8);
+  v39 = 257;
+  result = llvm::IRBuilderBase::CreateInsertValue(v32 + 1712, v33, Cast, v34, v35, v38);
   **(a1 + 8) = result;
   return result;
 }
@@ -8343,7 +7590,7 @@ LABEL_13:
   return result;
 }
 
-void *llvm::DenseMap<unsigned int,AGCLLVMUserFragmentShader::OutputStorage,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,AGCLLVMUserFragmentShader::OutputStorage>>::grow(uint64_t a1, int a2)
+uint64_t *llvm::DenseMap<unsigned int,AGCLLVMUserFragmentShader::OutputStorage,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,AGCLLVMUserFragmentShader::OutputStorage>>::grow(uint64_t a1, int a2)
 {
   v3 = *(a1 + 16);
   v4 = *a1;
@@ -8366,16 +7613,16 @@ void *llvm::DenseMap<unsigned int,AGCLLVMUserFragmentShader::OutputStorage,llvm:
   if (v4)
   {
     *(a1 + 8) = 0;
-    v10 = *(a1 + 16);
-    if (v10)
+    v11 = *(a1 + 16);
+    if (v11)
     {
-      v11 = 0;
-      v12 = 40 * v10 - 40;
+      v10 = 0;
+      v12 = 40 * v11 - 40;
       v13 = vdupq_n_s64(v12 / 0x28);
       v14 = result + 10;
       do
       {
-        v15 = vdupq_n_s64(v11);
+        v15 = vdupq_n_s64(v10);
         v16 = vmovn_s64(vcgeq_u64(v13, vorrq_s8(v15, xmmword_20E70C4F0)));
         if (vuzp1_s16(v16, *v13.i8).u8[0])
         {
@@ -8390,14 +7637,14 @@ void *llvm::DenseMap<unsigned int,AGCLLVMUserFragmentShader::OutputStorage,llvm:
         if (vuzp1_s16(*&v13, vmovn_s64(vcgeq_u64(v13, vorrq_s8(v15, xmmword_20E70C4E0)))).i32[1])
         {
           *v14 = -1;
-          v14[10] = -1;
+          *(v14 + 10) = -1;
         }
 
-        v11 += 4;
-        v14 += 40;
+        v10 = (v10 + 4);
+        v14 += 20;
       }
 
-      while (((v12 / 0x28 + 4) & 0xFFFFFFFFFFFFFFCLL) != v11);
+      while (((v12 / 0x28 + 4) & 0xFFFFFFFFFFFFFFCLL) != v10);
     }
 
     v17 = 5 * v3;
@@ -8410,15 +7657,15 @@ void *llvm::DenseMap<unsigned int,AGCLLVMUserFragmentShader::OutputStorage,llvm:
         v20 = *(v19 - 4);
         if (v20 <= 0xFFFFFFFD)
         {
-          v30 = 0;
-          llvm::DenseMapBase<llvm::DenseMap<unsigned int,AGCLLVMUserFragmentShader::OutputStorage,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,AGCLLVMUserFragmentShader::OutputStorage>>,unsigned int,AGCLLVMUserFragmentShader::OutputStorage,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,AGCLLVMUserFragmentShader::OutputStorage>>::LookupBucketFor<unsigned int>(*a1, *(a1 + 16), v20, &v30);
-          v21 = v30;
-          *v30 = *(v19 - 4);
+          v29 = 0;
+          llvm::DenseMapBase<llvm::DenseMap<unsigned int,AGCLLVMUserFragmentShader::OutputStorage,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,AGCLLVMUserFragmentShader::OutputStorage>>,unsigned int,AGCLLVMUserFragmentShader::OutputStorage,llvm::DenseMapInfo<unsigned int,void>,llvm::detail::DenseMapPair<unsigned int,AGCLLVMUserFragmentShader::OutputStorage>>::LookupBucketFor<unsigned int>(*a1, *(a1 + 16), v20, &v29);
+          v21 = v29;
+          *v29 = *(v19 - 4);
           *(v21 + 1) = *(v19 - 1);
           llvm::ValueHandleBase::ValueHandleBase((v21 + 4), 2u, v19);
           ++*(a1 + 8);
-          v22 = v19[2];
-          if (v22 != -8192 && v22 != -4096 && v22)
+          v10 = v19[2];
+          if (v10 != -8192 && v10 != -4096 && v10)
           {
             llvm::ValueHandleBase::RemoveFromUseList(v19);
           }
@@ -8431,44 +7678,44 @@ void *llvm::DenseMap<unsigned int,AGCLLVMUserFragmentShader::OutputStorage,llvm:
       while (v18);
     }
 
-    return llvm::deallocate_buffer(v4, (8 * v17));
+    return llvm::deallocate_buffer(v10, v4, (8 * v17));
   }
 
   else
   {
     *(a1 + 8) = 0;
-    v23 = *(a1 + 16);
-    if (v23)
+    v22 = *(a1 + 16);
+    if (v22)
     {
-      v24 = 0;
-      v25 = 40 * v23 - 40;
-      v26 = vdupq_n_s64(v25 / 0x28);
-      v27 = result + 10;
+      v23 = 0;
+      v24 = 40 * v22 - 40;
+      v25 = vdupq_n_s64(v24 / 0x28);
+      v26 = result + 10;
       do
       {
-        v28 = vdupq_n_s64(v24);
-        v29 = vmovn_s64(vcgeq_u64(v26, vorrq_s8(v28, xmmword_20E70C4F0)));
-        if (vuzp1_s16(v29, *v26.i8).u8[0])
+        v27 = vdupq_n_s64(v23);
+        v28 = vmovn_s64(vcgeq_u64(v25, vorrq_s8(v27, xmmword_20E70C4F0)));
+        if (vuzp1_s16(v28, *v25.i8).u8[0])
         {
-          *(v27 - 20) = -1;
+          *(v26 - 20) = -1;
         }
 
-        if (vuzp1_s16(v29, *&v26).i8[2])
+        if (vuzp1_s16(v28, *&v25).i8[2])
         {
-          *(v27 - 10) = -1;
+          *(v26 - 10) = -1;
         }
 
-        if (vuzp1_s16(*&v26, vmovn_s64(vcgeq_u64(v26, vorrq_s8(v28, xmmword_20E70C4E0)))).i32[1])
+        if (vuzp1_s16(*&v25, vmovn_s64(vcgeq_u64(v25, vorrq_s8(v27, xmmword_20E70C4E0)))).i32[1])
         {
-          *v27 = -1;
-          v27[10] = -1;
+          *v26 = -1;
+          *(v26 + 10) = -1;
         }
 
-        v24 += 4;
-        v27 += 40;
+        v23 += 4;
+        v26 += 20;
       }
 
-      while (((v25 / 0x28 + 4) & 0xFFFFFFFFFFFFFFCLL) != v24);
+      while (((v24 / 0x28 + 4) & 0xFFFFFFFFFFFFFFCLL) != v23);
     }
   }
 
@@ -8483,7 +7730,7 @@ uint64_t std::__function::__func<AGCLLVMAGPFragmentShaderGen3::addWrapperPrefix(
   return result;
 }
 
-llvm::raw_ostream *llvm::detail::PassModel<llvm::Module,InitCompileAGPFragmentShaderGen3Pass,llvm::PreservedAnalyses,llvm::AnalysisManager<llvm::Module>>::printPipeline(uint64_t a1, llvm::raw_ostream *a2, uint64_t (*a3)(uint64_t, char *, uint64_t), uint64_t a4)
+llvm::raw_ostream *llvm::detail::PassModel<llvm::Module,InitCompileAGPFragmentShaderGen3Pass,llvm::PreservedAnalyses,llvm::AnalysisManager<llvm::Module>>::printPipeline(uint64_t a1, llvm::raw_ostream *a2, uint64_t (*a3)(uint64_t, const char *, uint64_t), uint64_t a4)
 {
   v7 = llvm::PassInfoMixin<InitCompileAGPFragmentShaderGen3Pass>::name();
   v10 = a3(a4, v7, v8);
@@ -8491,7 +7738,7 @@ llvm::raw_ostream *llvm::detail::PassModel<llvm::Module,InitCompileAGPFragmentSh
   return llvm::raw_ostream::operator<<(a2, v10, v9);
 }
 
-llvm::raw_ostream *llvm::detail::PassModel<llvm::Module,ValidateMaxTTPTGFragShaderGen3Pass,llvm::PreservedAnalyses,llvm::AnalysisManager<llvm::Module>>::printPipeline(uint64_t a1, llvm::raw_ostream *a2, uint64_t (*a3)(uint64_t, char *, uint64_t), uint64_t a4)
+llvm::raw_ostream *llvm::detail::PassModel<llvm::Module,ValidateMaxTTPTGFragShaderGen3Pass,llvm::PreservedAnalyses,llvm::AnalysisManager<llvm::Module>>::printPipeline(uint64_t a1, llvm::raw_ostream *a2, uint64_t (*a3)(uint64_t, const char *, uint64_t), uint64_t a4)
 {
   v7 = llvm::PassInfoMixin<ValidateMaxTTPTGFragShaderGen3Pass>::name();
   v10 = a3(a4, v7, v8);
@@ -8544,132 +7791,122 @@ char *llvm::detail::AnalysisPassModel<llvm::Module,AGCUserObjectTemplateWrapper<
   return result;
 }
 
-void AGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(AGCLLVMAGPFragmentShaderGen3 *this)
+void AGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(AGCLLVMAGPFragmentShaderGen3 *this, uint64_t a2, uint64_t a3, unint64_t a4)
 {
-  AGCLLVMObject::~AGCLLVMObject((v1 + 7920));
+  AGCLLVMObject::~AGCLLVMObject((v4 + 7920));
 
   JUMPOUT(0x20F331DC0);
 }
 
 {
-  AGCLLVMObject::~AGCLLVMObject((v1 + 7920));
+  AGCLLVMObject::~AGCLLVMObject((v4 + 7920));
 }
 
-void virtual thunk toAGCLLVMAGPFragmentShaderGen4::~AGCLLVMAGPFragmentShaderGen4(AGCLLVMAGPFragmentShaderGen4 *this)
+void virtual thunk toAGCLLVMAGPFragmentShaderGen4::~AGCLLVMAGPFragmentShaderGen4(AGCLLVMAGPFragmentShaderGen4 *this, uint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v1 = (this + *(*this - 24));
-  *v1 = &unk_2825510B8;
-  v1[1008] = &unk_2825514C0;
-  v1[1221] = &unk_2825515D0;
-  v1[567] = &unk_282551388;
-  v2 = v1[990];
-  if (v2 != v1 + 992)
+  v4 = (this + *(*this - 24));
+  *v4 = &unk_2825510B8;
+  v4[1008] = &unk_2825514C0;
+  v4[1221] = &unk_2825515D0;
+  v4[567] = &unk_282551388;
+  v5 = v4[990];
+  if (v5 != v4 + 992)
   {
-    free(v2);
+    free(v5);
   }
 
-  AGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(v1, off_2825515E0);
-  AGCLLVMObject::~AGCLLVMObject((v1 + 1008));
+  AGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(v4, off_2825515E0, a3, a4);
+  AGCLLVMObject::~AGCLLVMObject((v4 + 1008));
 
   JUMPOUT(0x20F331DC0);
 }
 
 {
-  v1 = (this + *(*this - 24));
-  *v1 = &unk_2825510B8;
-  v1[1008] = &unk_2825514C0;
-  v1[1221] = &unk_2825515D0;
-  v1[567] = &unk_282551388;
-  v2 = v1[990];
-  if (v2 != v1 + 992)
+  v4 = (this + *(*this - 24));
+  *v4 = &unk_2825510B8;
+  v4[1008] = &unk_2825514C0;
+  v4[1221] = &unk_2825515D0;
+  v4[567] = &unk_282551388;
+  v5 = v4[990];
+  if (v5 != v4 + 992)
   {
-    free(v2);
+    free(v5);
   }
 
-  AGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(v1, off_2825515E0);
+  AGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(v4, off_2825515E0, a3, a4);
 
-  AGCLLVMObject::~AGCLLVMObject((v1 + 1008));
+  AGCLLVMObject::~AGCLLVMObject((v4 + 1008));
 }
 
-void non-virtual thunk toAGCLLVMAGPFragmentShaderGen4::~AGCLLVMAGPFragmentShaderGen4(AGCLLVMAGPFragmentShaderGen4 *this)
+void non-virtual thunk toAGCLLVMAGPFragmentShaderGen4::~AGCLLVMAGPFragmentShaderGen4(AGCLLVMAGPFragmentShaderGen4 *this, uint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v2 = (this - 4536);
+  v5 = (this - 4536);
   *(this - 567) = &unk_2825510B8;
-  v3 = (this + 3528);
+  v6 = (this + 3528);
   *(this + 441) = &unk_2825514C0;
   *(this + 654) = &unk_2825515D0;
   *this = &unk_282551388;
-  v4 = *(this + 423);
-  if (v4 != this + 3400)
+  v7 = *(this + 423);
+  if (v7 != this + 3400)
   {
-    free(v4);
+    free(v7);
   }
 
-  AGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(v2, off_2825515E0);
-  AGCLLVMObject::~AGCLLVMObject(v3);
+  AGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(v5, off_2825515E0, a3, a4);
+  AGCLLVMObject::~AGCLLVMObject(v6);
 
   JUMPOUT(0x20F331DC0);
 }
 
 {
-  v2 = (this - 4536);
+  v5 = (this - 4536);
   *(this - 567) = &unk_2825510B8;
-  v3 = (this + 3528);
+  v6 = (this + 3528);
   *(this + 441) = &unk_2825514C0;
   *(this + 654) = &unk_2825515D0;
   *this = &unk_282551388;
-  v4 = *(this + 423);
-  if (v4 != this + 3400)
+  v7 = *(this + 423);
+  if (v7 != this + 3400)
   {
-    free(v4);
+    free(v7);
   }
 
-  AGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(v2, off_2825515E0);
+  AGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(v5, off_2825515E0, a3, a4);
 
-  AGCLLVMObject::~AGCLLVMObject(v3);
+  AGCLLVMObject::~AGCLLVMObject(v6);
 }
 
-uint64_t AGCLLVMAGPFragmentShaderGen4::setupPerPrimitiveVarying(AGCLLVMAGPFragmentShaderGen4 *this, unsigned int a2, int a3, int a4)
+uint64_t AGCLLVMAGPFragmentShaderGen4::setupPerPrimitiveVarying(AGCLLVMAGPFragmentShaderGen4 *this, unsigned int a2, llvm::Type *a3, int a4)
 {
-  v6 = this + *(*this - 24);
-  v7 = 1872;
-  if (a4)
-  {
-    v7 = 1856;
-  }
-
-  v8 = *&v6[v7];
   if (a3 != 1)
   {
-    v9 = *&v6[v7];
     llvm::FixedVectorType::get();
   }
 
-  v10 = llvm::User::operator new(0x58);
-  v11 = *(this + *(*this - 24) + 2136);
+  v6 = llvm::User::operator new(0x58);
   llvm::GlobalVariable::GlobalVariable();
-  v12 = *(this + 1982);
-  if (v12 >= *(this + 1983))
+  v7 = *(this + 1982);
+  if (v7 >= *(this + 1983))
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
-  v13 = (*(this + 990) + 16 * v12);
-  *v13 = a2;
-  v13[1] = v10;
+  v8 = (*(this + 990) + 16 * v7);
+  *v8 = a2;
+  v8[1] = v6;
   ++*(this + 1982);
-  return v10;
+  return v6;
 }
 
 void AGCLLVMAGPFragmentShaderGen4::setupPerPrimitiveVaryings(AGCLLVMAGPFragmentShaderGen4 *this)
 {
-  v112 = *MEMORY[0x277D85DE8];
+  v110 = *MEMORY[0x277D85DE8];
   if (*(this + 1982))
   {
     v2 = this + *(*this - 24);
-    v88 = *(v2 + 110);
-    llvm::IRBuilderBase::getCurrentDebugLocation(&v89, (v2 + 1712));
-    v90 = *(v2 + 452);
+    v86 = *(v2 + 110);
+    llvm::IRBuilderBase::getCurrentDebugLocation(&v87, (v2 + 1712));
+    v88 = *(v2 + 452);
     v3 = *(this + 798);
     if (v3 && v3[16] >= 0x1Cu)
     {
@@ -8697,161 +7934,157 @@ void AGCLLVMAGPFragmentShaderGen4::setupPerPrimitiveVaryings(AGCLLVMAGPFragmentS
     }
 
     AGCLLVMAGPFragmentShader::getFragmentVarying(&__p, this, *(this + *(*this - 24) + 1904), "agc.per_prim.primitive_address_2", 0x20uLL, 1, 3, 1, 7, 0);
-    v10 = AGCLLVMUserFragmentShader::replaceInterpolation(this, &__p);
-    v11 = this + *(*this - 24);
-    v12 = *(v11 + 239);
-    LOWORD(v94) = 257;
-    Cast = llvm::IRBuilderBase::CreateCast((v11 + 1712), 39, v10, v12, &v91);
-    if (v102 != v103)
+    v11 = AGCLLVMUserFragmentShader::replaceInterpolation(this, &__p, v10);
+    v12 = this + *(*this - 24);
+    v13 = *(v12 + 239);
+    LOWORD(v92) = 257;
+    Cast = llvm::IRBuilderBase::CreateCast((v12 + 1712), 39, v11, v13, &v89);
+    if (v100 != v101)
     {
-      free(v102);
+      free(v100);
     }
 
     AGCLLVMAGPFragmentShader::getFragmentVarying(&__p, this, *(this + *(*this - 24) + 1904), "agc.per_prim.primitive_address", 0x1EuLL, 1, 3, 1, 7, 0);
-    v14 = AGCLLVMUserFragmentShader::replaceInterpolation(this, &__p);
-    v15 = this + *(*this - 24);
-    v16 = *(v15 + 239);
-    LOWORD(v94) = 257;
-    v17 = llvm::IRBuilderBase::CreateCast((v15 + 1712), 39, v14, v16, &v91);
-    v18 = this + *(*this - 24);
-    LOWORD(v94) = 257;
-    v19 = *v17;
-    v20 = llvm::ConstantInt::get();
-    Shl = llvm::IRBuilderBase::CreateShl((v18 + 1712), v17, v20, &v91);
-    if (v102 != v103)
+    v16 = AGCLLVMUserFragmentShader::replaceInterpolation(this, &__p, v15);
+    v17 = this + *(*this - 24);
+    v18 = *(v17 + 239);
+    LOWORD(v92) = 257;
+    v19 = llvm::IRBuilderBase::CreateCast((v17 + 1712), 39, v16, v18, &v89);
+    v20 = this + *(*this - 24);
+    LOWORD(v92) = 257;
+    v21 = llvm::ConstantInt::get();
+    Shl = llvm::IRBuilderBase::CreateShl((v20 + 1712), v19, v21, &v89);
+    if (v100 != v101)
     {
-      free(v102);
+      free(v100);
     }
 
-    v22 = this + *(*this - 24);
-    LOWORD(v100) = 257;
-    v76 = llvm::IRBuilderBase::CreateOr((v22 + 1712), Cast, Shl, &__p);
+    v23 = this + *(*this - 24);
+    LOWORD(v98) = 257;
+    v72 = llvm::IRBuilderBase::CreateOr((v23 + 1712), Cast, Shl, &__p);
     if (!*(this + 986))
     {
       AGCLLVMAGPFragmentShaderGen3::getAmplificationVarying(&__p, this, *(this + *(*this - 24) + 1904), "air.amplification_id", 0x14uLL);
-      v23 = AGCLLVMUserFragmentShader::replaceInterpolation(this, &__p);
-      llvm::ValueHandleBase::operator=((this + 7872), v23);
+      v25 = AGCLLVMUserFragmentShader::replaceInterpolation(this, &__p, v24);
+      llvm::ValueHandleBase::operator=((this + 7872), v25);
       *(this + 6460) = 1;
-      if (v102 != v103)
+      if (v100 != v101)
       {
-        free(v102);
+        free(v100);
       }
     }
 
     if (!*(this + 989))
     {
       AGCLLVMAGPFragmentShaderGen3::getAmplificationVarying(&__p, this, *(this + *(*this - 24) + 1904), "air.amplification_count", 0x17uLL);
-      v24 = AGCLLVMUserFragmentShader::replaceInterpolation(this, &__p);
-      llvm::ValueHandleBase::operator=((this + 7896), v24);
+      v27 = AGCLLVMUserFragmentShader::replaceInterpolation(this, &__p, v26);
+      llvm::ValueHandleBase::operator=((this + 7896), v27);
       *(this + 6461) = 1;
-      if (v102 != v103)
+      if (v100 != v101)
       {
-        free(v102);
+        free(v100);
       }
     }
 
-    v25 = *this;
-    v26 = *(*(this + *(*this - 24) + 2168) + 1878);
+    v28 = *this;
+    v29 = *(*(this + *(*this - 24) + 2168) + 1878);
     __p = 0;
-    v98 = 0u;
-    v99 = &v101;
-    v100 = 0x800000000;
-    v103[61] = 0xFFFFFFFFLL;
-    v104 = v26;
-    v110[7] = 0;
-    memset(v105, 0, sizeof(v105));
+    v96 = 0u;
+    v97 = &v99;
+    v98 = 0x800000000;
+    v101[61] = 0xFFFFFFFFLL;
+    v102 = v29;
+    v108[7] = 0;
+    memset(v103, 0, sizeof(v103));
+    v104 = 0u;
+    v105 = 0u;
     v106 = 0u;
     v107 = 0u;
-    v108 = 0u;
-    v109 = 0u;
-    memset(v110, 0, 26);
-    v111 = 1;
-    v27 = *(this + 1630);
-    if (v27)
+    memset(v108, 0, 26);
+    v109 = 1;
+    v30 = *(this + 1630);
+    if (v30)
     {
-      v28 = *(this + 814);
-      v29 = v27 << 6;
+      v31 = *(this + 814);
+      v32 = v30 << 6;
       do
       {
-        GenericVaryingAllocator::addVarying(&__p, v28);
-        v28 += 64;
-        v29 -= 64;
+        GenericVaryingAllocator::addVarying(&__p, v31);
+        v31 += 64;
+        v32 -= 64;
       }
 
-      while (v29);
-      v25 = *this;
+      while (v32);
+      v28 = *this;
     }
 
-    GenericVaryingAllocator::allocate(&__p, *(this + *(v25 - 24) + 2168));
-    v87[0] = 0;
-    v87[1] = 4 * DWORD1(v106);
-    if (v104)
+    GenericVaryingAllocator::allocate(&__p, *(this + *(v28 - 24) + 2168));
+    v84 = 0;
+    v85 = 4 * DWORD1(v104);
+    if (v102)
     {
-      v30 = (HIDWORD(v107) + 1) >> 1;
+      v33 = (HIDWORD(v105) + 1) >> 1;
     }
 
     else
     {
-      v30 = HIDWORD(v107);
+      v33 = HIDWORD(v105);
     }
 
-    v31 = v30 + DWORD1(v106);
-    v86[0] = 4 * v31;
-    v86[1] = 4 * (v31 + DWORD1(v109));
-    v32 = this + *(*this - 24);
-    v33 = *(v32 + 238);
-    v34 = llvm::ConstantInt::get();
+    v34 = v33 + DWORD1(v104);
+    v82 = 4 * v34;
+    v83 = 4 * (v34 + DWORD1(v107));
     v35 = this + *(*this - 24);
-    v36 = *(this + 986);
-    v37 = *(v35 + 238);
-    LOWORD(v94) = 257;
-    v38 = llvm::IRBuilderBase::CreateCast((v35 + 1712), 39, v36, v37, &v91);
-    v85 = 257;
-    Mul = llvm::IRBuilderBase::CreateMul((v32 + 1712), v34, v38, v84);
-    v39 = this + *(*this - 24);
-    v40 = *(v39 + 238);
-    v41 = llvm::ConstantInt::get();
-    v42 = this + *(*this - 24);
-    v43 = *(v42 + 238);
+    v36 = llvm::ConstantInt::get();
+    v37 = this + *(*this - 24);
+    v38 = *(this + 986);
+    v39 = *(v37 + 238);
+    LOWORD(v92) = 257;
+    v40 = llvm::IRBuilderBase::CreateCast((v37 + 1712), 39, v38, v39, &v89);
+    v81 = 257;
+    Mul = llvm::IRBuilderBase::CreateMul((v35 + 1712), v36, v40, v80);
+    v41 = this + *(*this - 24);
+    v42 = llvm::ConstantInt::get();
+    v43 = this + *(*this - 24);
     v44 = llvm::ConstantInt::get();
     v45 = *(this + 989);
-    LOWORD(v94) = 257;
-    v46 = llvm::IRBuilderBase::CreateMul((v42 + 1712), v44, v45, &v91);
-    v85 = 257;
-    Add = llvm::IRBuilderBase::CreateAdd((v39 + 1712), v41, v46, v84);
-    v92 = 0;
-    v91 = 0u;
-    v93 = 0;
-    v94 = 0u;
-    v95[0] = v96;
-    v95[1] = 0x500000000;
-    llvm::SmallVectorImpl<unsigned int>::assign(v95, 5uLL, -559038737);
-    v92 = 0;
-    v91 = xmmword_20E70C550;
-    *&v94 = AGCLLVMUserFragmentShader::setupInterpolation(this, 7, 0, 1);
-    *(&v94 + 1) = v48;
-    v49 = AGCLLVMUserFragmentShader::replaceInterpolation(this, &v91);
-    v50 = *(*this - 24);
-    v51 = this + 1712;
-    v85 = 257;
-    v52 = llvm::IRBuilderBase::CreateMul((this + v50 + 1712), Add, v49, v84);
-    v53 = *(this + 1982);
-    if (v53)
+    LOWORD(v92) = 257;
+    v46 = llvm::IRBuilderBase::CreateMul((v43 + 1712), v44, v45, &v89);
+    v81 = 257;
+    Add = llvm::IRBuilderBase::CreateAdd((v41 + 1712), v42, v46, v80);
+    v90 = 0;
+    v89 = 0u;
+    v91 = 0;
+    v92 = 0u;
+    v93[0] = v94;
+    v93[1] = 0x500000000;
+    llvm::SmallVectorImpl<unsigned int>::assign(v93, 5uLL, -559038737);
+    v90 = 0;
+    v89 = xmmword_20E70C550;
+    *&v92 = AGCLLVMUserFragmentShader::setupInterpolation(this, 7u, 0, 1);
+    *(&v92 + 1) = v48;
+    v50 = AGCLLVMUserFragmentShader::replaceInterpolation(this, &v89, v49);
+    v51 = *(*this - 24);
+    v52 = this + 1712;
+    v81 = 257;
+    v53 = llvm::IRBuilderBase::CreateMul((this + v51 + 1712), Add, v50, v80);
+    v54 = *(this + 1982);
+    if (v54)
     {
-      v54 = v52;
-      v55 = *(this + 990);
-      v56 = v55 + 16 * v53;
+      v55 = v53;
+      v56 = *(this + 990);
+      v57 = v56 + 16 * v54;
       do
       {
-        if (v100)
+        if (v98)
         {
-          v57 = v99;
-          v58 = v100 << 6;
-          while (*(v57 + 4) != *v55)
+          v58 = v97;
+          v59 = v98 << 6;
+          while (*(v58 + 4) != *v56)
           {
-            v57 += 8;
-            v58 -= 64;
-            if (!v58)
+            v58 += 8;
+            v59 -= 64;
+            if (!v59)
             {
               goto LABEL_32;
             }
@@ -8861,83 +8094,71 @@ void AGCLLVMAGPFragmentShaderGen4::setupPerPrimitiveVaryings(AGCLLVMAGPFragmentS
         else
         {
 LABEL_32:
-          v57 = 0;
+          v58 = 0;
         }
 
-        v59 = *(v55 + 8);
-        v60 = v87;
-        if (*(v57 + 57))
+        v60 = *(v56 + 8);
+        v61 = llvm::ConstantInt::get();
+        if (*(v58 + 57) == 1)
         {
-          v60 = v86;
+          v62 = *(*this - 24);
+          v81 = 257;
+          v61 = llvm::IRBuilderBase::CreateAdd(&v52[v62], v61, Mul, v80);
         }
 
-        v61 = v60[*(v57 + 56)];
-        v62 = *(v57 + 13);
-        *(v57 + 56);
-        v63 = *(this + *(*this - 24) + 1904);
-        v64 = llvm::ConstantInt::get();
-        if (*(v57 + 57) == 1)
-        {
-          v65 = *(*this - 24);
-          v85 = 257;
-          v64 = llvm::IRBuilderBase::CreateAdd(&v51[v65], v64, Mul, v84);
-        }
-
-        v66 = *(*this - 24);
-        v85 = 257;
-        v67 = llvm::IRBuilderBase::CreateAdd(&v51[v66], v64, v54, v84);
-        v68 = *(this + *(*this - 24) + 1912);
-        v83 = 257;
-        v69 = llvm::IRBuilderBase::CreateCast(&v51[v66], 39, v67, v68, v82);
+        v63 = *(*this - 24);
         v81 = 257;
-        v70 = llvm::IRBuilderBase::CreateAdd(&v51[v66], v76, v69, v80);
-        v71 = *(*this - 24);
-        v72 = *v59;
-        v85 = 257;
-        llvm::IRBuilderBase::CreateCast(&v51[v71], 48, v70, v72, v84);
+        v64 = llvm::IRBuilderBase::CreateAdd(&v52[v63], v61, v55, v80);
+        v65 = *(this + *(*this - 24) + 1912);
+        v79 = 257;
+        v66 = llvm::IRBuilderBase::CreateCast(&v52[v63], 39, v64, v65, v78);
+        v77 = 257;
+        v67 = llvm::IRBuilderBase::CreateAdd(&v52[v63], v72, v66, v76);
+        v68 = *(*this - 24);
+        v69 = *v60;
+        v81 = 257;
+        llvm::IRBuilderBase::CreateCast(&v52[v68], 48, v67, v69, v80);
         llvm::Value::replaceAllUsesWith();
-        v55 += 16;
+        v56 += 16;
       }
 
-      while (v55 != v56);
+      while (v56 != v57);
     }
 
-    v73 = this + *(*this - 24);
-    v77 = v88;
-    v78 = v89;
-    if (v89)
+    v70 = this + *(*this - 24);
+    v73 = v86;
+    v74 = v87;
+    if (v87)
     {
       llvm::MetadataTracking::track();
     }
 
-    v79 = v90;
-    AGCLLVMBuilder::InsertPoint::restoreIP(&v77, (v73 + 1712));
-    if (v78)
+    v75 = v88;
+    AGCLLVMBuilder::InsertPoint::restoreIP(&v73, (v70 + 1712));
+    if (v74)
     {
       llvm::MetadataTracking::untrack();
     }
 
-    if (v95[0] != v96)
+    if (v93[0] != v94)
     {
-      free(v95[0]);
+      free(v93[0]);
     }
 
-    *&v91 = v105;
-    std::vector<GenericVaryingAllocator::OutIterator>::__destroy_vector::operator()[abi:nn200100](&v91);
-    llvm::SmallVector<GenericVarying,8u>::~SmallVector(&v99);
+    *&v89 = v103;
+    std::vector<GenericVaryingAllocator::OutIterator>::__destroy_vector::operator()[abi:nn200100](&v89);
+    llvm::SmallVector<GenericVarying,8u>::~SmallVector(&v97);
     if (__p)
     {
-      *&v98 = __p;
+      *&v96 = __p;
       operator delete(__p);
     }
 
-    if (v89)
+    if (v87)
     {
       llvm::MetadataTracking::untrack();
     }
   }
-
-  v74 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t llvm::IRBuilderBase::CreateShl(llvm::IRBuilderBase *this, llvm::Value *a2, llvm::Value *a3, const llvm::Twine *a4)
@@ -8987,7 +8208,7 @@ void AGCLLVMAGPFragmentShaderGen4::getPrimitiveIdVarying(AGCLLVMAGPFragmentShade
   if ((*(*(this + 801) + 69) & 1) == 0 || (Key = llvm::StringMapImpl::FindKey(), Key == -1) || Key == *(this + 1622))
   {
     a3[1] = 1;
-    *(a3 + 4) = AGCLLVMUserFragmentShader::setupInterpolation(this, 7, a3[4], *a3);
+    *(a3 + 4) = AGCLLVMUserFragmentShader::setupInterpolation(this, 7u, a3[4], *a3);
     *(a3 + 5) = v7;
   }
 
@@ -9047,7 +8268,7 @@ void AGCLLVMAGPFragmentShaderGen4::getPrimitiveIdVarying(AGCLLVMAGPFragmentShade
   }
 }
 
-llvm::raw_ostream *llvm::detail::PassModel<llvm::Module,SimplifyGenericIRAGPFragmentGen4Pass,llvm::PreservedAnalyses,llvm::AnalysisManager<llvm::Module>>::printPipeline(uint64_t a1, llvm::raw_ostream *a2, uint64_t (*a3)(uint64_t, char *, uint64_t), uint64_t a4)
+llvm::raw_ostream *llvm::detail::PassModel<llvm::Module,SimplifyGenericIRAGPFragmentGen4Pass,llvm::PreservedAnalyses,llvm::AnalysisManager<llvm::Module>>::printPipeline(uint64_t a1, llvm::raw_ostream *a2, uint64_t (*a3)(uint64_t, const char *, uint64_t), uint64_t a4)
 {
   v7 = llvm::PassInfoMixin<SimplifyGenericIRAGPFragmentGen4Pass>::name();
   v10 = a3(a4, v7, v8);
@@ -9055,77 +8276,77 @@ llvm::raw_ostream *llvm::detail::PassModel<llvm::Module,SimplifyGenericIRAGPFrag
   return llvm::raw_ostream::operator<<(a2, v10, v9);
 }
 
-void AGCLLVMAGPFragmentShaderGen4::~AGCLLVMAGPFragmentShaderGen4(AGCLLVMAGPFragmentShaderGen4 *this)
+void AGCLLVMAGPFragmentShaderGen4::~AGCLLVMAGPFragmentShaderGen4(AGCLLVMAGPFragmentShaderGen4 *this, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   *this = &unk_2825510B8;
-  v2 = (this + 8064);
+  v5 = (this + 8064);
   *(this + 1008) = &unk_2825514C0;
   *(this + 1221) = &unk_2825515D0;
   *(this + 567) = &unk_282551388;
-  v3 = *(this + 990);
-  if (v3 != this + 7936)
+  v6 = *(this + 990);
+  if (v6 != this + 7936)
   {
-    free(v3);
+    free(v6);
   }
 
-  AGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(this, off_2825515E0);
-  AGCLLVMObject::~AGCLLVMObject(v2);
+  AGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(this, off_2825515E0, a3, a4);
+  AGCLLVMObject::~AGCLLVMObject(v5);
 
   JUMPOUT(0x20F331DC0);
 }
 
 {
   *this = &unk_2825510B8;
-  v2 = (this + 8064);
+  v5 = (this + 8064);
   *(this + 1008) = &unk_2825514C0;
   *(this + 1221) = &unk_2825515D0;
   *(this + 567) = &unk_282551388;
-  v3 = *(this + 990);
-  if (v3 != this + 7936)
+  v6 = *(this + 990);
+  if (v6 != this + 7936)
   {
-    free(v3);
+    free(v6);
   }
 
-  AGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(this, off_2825515E0);
-  AGCLLVMObject::~AGCLLVMObject(v2);
+  AGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(this, off_2825515E0, a3, a4);
+  AGCLLVMObject::~AGCLLVMObject(v5);
 }
 
-void non-virtual thunk toAGCLLVMAGPFragmentShaderGen6::~AGCLLVMAGPFragmentShaderGen6(AGCLLVMAGPFragmentShaderGen6 *this)
+void non-virtual thunk toAGCLLVMAGPFragmentShaderGen6::~AGCLLVMAGPFragmentShaderGen6(AGCLLVMAGPFragmentShaderGen6 *this, uint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v2 = (this - 4536);
+  v5 = (this - 4536);
   *(this - 567) = off_282556258;
-  v3 = (this + 3528);
+  v6 = (this + 3528);
   *(this + 441) = off_282556660;
   *(this + 654) = &off_282556770;
   *this = &off_282556528;
-  v4 = *(this + 423);
-  if (v4 != this + 3400)
+  v7 = *(this + 423);
+  if (v7 != this + 3400)
   {
-    free(v4);
+    free(v7);
   }
 
-  AGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(v2, off_282551C00);
-  AGCLLVMObject::~AGCLLVMObject(v3);
+  AGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(v5, off_282551C00, a3, a4);
+  AGCLLVMObject::~AGCLLVMObject(v6);
 
   JUMPOUT(0x20F331DC0);
 }
 
 {
-  v2 = (this - 4536);
+  v5 = (this - 4536);
   *(this - 567) = off_282556258;
-  v3 = (this + 3528);
+  v6 = (this + 3528);
   *(this + 441) = off_282556660;
   *(this + 654) = &off_282556770;
   *this = &off_282556528;
-  v4 = *(this + 423);
-  if (v4 != this + 3400)
+  v7 = *(this + 423);
+  if (v7 != this + 3400)
   {
-    free(v4);
+    free(v7);
   }
 
-  AGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(v2, off_282551C00);
+  AGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(v5, off_282551C00, a3, a4);
 
-  AGCLLVMObject::~AGCLLVMObject(v3);
+  AGCLLVMObject::~AGCLLVMObject(v6);
 }
 
 void AGCLLVMAGPFragmentShaderGen6::getPrimitiveIdVarying(AGCLLVMAGPFragmentShaderGen6 *this@<X0>, llvm::Type *a2@<X1>, unsigned int *a3@<X8>)
@@ -9145,7 +8366,7 @@ void AGCLLVMAGPFragmentShaderGen6::getPrimitiveIdVarying(AGCLLVMAGPFragmentShade
   if ((*(*(this + 801) + 69) & 1) == 0 || (Key = llvm::StringMapImpl::FindKey(), Key == -1) || Key == *(this + 1622))
   {
     a3[1] = 1;
-    *(a3 + 4) = AGCLLVMUserFragmentShader::setupInterpolation(this, 7, a3[4], *a3);
+    *(a3 + 4) = AGCLLVMUserFragmentShader::setupInterpolation(this, 7u, a3[4], *a3);
     *(a3 + 5) = v7;
   }
 
@@ -9205,39 +8426,39 @@ void AGCLLVMAGPFragmentShaderGen6::getPrimitiveIdVarying(AGCLLVMAGPFragmentShade
   }
 }
 
-void AGCLLVMAGPFragmentShaderGen6::~AGCLLVMAGPFragmentShaderGen6(AGCLLVMAGPFragmentShaderGen6 *this)
+void AGCLLVMAGPFragmentShaderGen6::~AGCLLVMAGPFragmentShaderGen6(AGCLLVMAGPFragmentShaderGen6 *this, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   *this = off_282556258;
-  v2 = (this + 8064);
+  v5 = (this + 8064);
   *(this + 1008) = off_282556660;
   *(this + 1221) = &off_282556770;
   *(this + 567) = &off_282556528;
-  v3 = *(this + 990);
-  if (v3 != this + 7936)
+  v6 = *(this + 990);
+  if (v6 != this + 7936)
   {
-    free(v3);
+    free(v6);
   }
 
-  AGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(this, off_282551C00);
-  AGCLLVMObject::~AGCLLVMObject(v2);
+  AGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(this, off_282551C00, a3, a4);
+  AGCLLVMObject::~AGCLLVMObject(v5);
 
   JUMPOUT(0x20F331DC0);
 }
 
 {
   *this = off_282556258;
-  v2 = (this + 8064);
+  v5 = (this + 8064);
   *(this + 1008) = off_282556660;
   *(this + 1221) = &off_282556770;
   *(this + 567) = &off_282556528;
-  v3 = *(this + 990);
-  if (v3 != this + 7936)
+  v6 = *(this + 990);
+  if (v6 != this + 7936)
   {
-    free(v3);
+    free(v6);
   }
 
-  AGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(this, off_282551C00);
-  AGCLLVMObject::~AGCLLVMObject(v2);
+  AGCLLVMAGPFragmentShaderGen3::~AGCLLVMAGPFragmentShaderGen3(this, off_282551C00, a3, a4);
+  AGCLLVMObject::~AGCLLVMObject(v5);
 }
 
 uint64_t AGCLLVMAGPFragmentShaderGen3::setupROGTable(uint64_t a1, uint64_t a2, int a3, uint64_t *a4)
@@ -9577,24 +8798,26 @@ BOOL AGCLLVMAGPFragmentShaderGen3::setupLIBViewToMasterFieldOffsetMap(uint64_t *
       }
 
       v12 = *(v9 + 8);
-      *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a4, *(v11 + 8)) + 8) = v12;
+      v13 = *(v11 + 8);
+      v17 = (v11 + 8);
+      *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a4, v13, &v17) + 8) = v12;
       do
       {
-        v13 = i[1];
+        v14 = i[1];
         ++i;
-        v9 = v13;
-        if (v13)
+        v9 = v14;
+        if (v14)
         {
-          v14 = v9 == -8;
+          v15 = v9 == -8;
         }
 
         else
         {
-          v14 = 1;
+          v15 = 1;
         }
       }
 
-      while (v14);
+      while (v15);
     }
 
     while (i != v8);
@@ -9647,10 +8870,10 @@ uint64_t *llvm::StringMap<LIBStructFieldInfo,llvm::MallocAllocator>::try_emplace
   return i;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t **a1, unsigned int a2, _DWORD **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -9660,54 +8883,54 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = *(v2 + 28);
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = *(v3 + 7);
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
   }
 }
 
-uint64_t llvm::StringMap<LIBStructFieldInfo,llvm::MallocAllocator>::~StringMap(uint64_t a1)
+uint64_t llvm::StringMap<LIBStructFieldInfo,llvm::MallocAllocator>::~StringMap(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (*(a1 + 12))
   {
-    v2 = *(a1 + 8);
-    if (v2)
+    v5 = *(a1 + 8);
+    if (v5)
     {
-      v3 = 0;
-      v4 = 8 * v2;
+      v6 = 0;
+      v7 = 8 * v5;
       do
       {
-        v5 = *(*a1 + v3);
-        if (v5 != -8 && v5 != 0)
+        v8 = *(*a1 + v6);
+        if (v8 != -8 && v8 != 0)
         {
-          llvm::deallocate_buffer(v5, (*v5 + 49));
+          llvm::deallocate_buffer(*v8, v8, *v8 + 49);
         }
 
-        v3 += 8;
+        v6 += 8;
       }
 
-      while (v4 != v3);
+      while (v7 != v6);
     }
   }
 
@@ -9724,15 +8947,15 @@ uint64_t AGCLLVMUserMeshShaderAnalysis::constructReply(AGCLLVMUserMeshShaderAnal
   if (*(this + 4368) == 1)
   {
     v5 = flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(this + 4288, 0);
-    flatbuffers::FlatBufferBuilder::TrackField(this + 536, 4, v5);
+    flatbuffers::FlatBufferBuilder::TrackField(this + 4288, 4, v5);
     if (v2[272])
     {
       v6 = flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(this + 4288, 0);
-      flatbuffers::FlatBufferBuilder::TrackField(this + 536, 6, v6);
+      flatbuffers::FlatBufferBuilder::TrackField(this + 4288, 6, v6);
       if (v2[272])
       {
         v7 = flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(this + 4288, 0);
-        flatbuffers::FlatBufferBuilder::TrackField(this + 536, 8, v7);
+        flatbuffers::FlatBufferBuilder::TrackField(this + 4288, 8, v7);
       }
     }
   }
@@ -9771,37 +8994,37 @@ uint64_t AGCLLVMUserMeshShaderAnalysis::constructReply(AGCLLVMUserMeshShaderAnal
   v20 = *(this + 542);
   v21 = *(this + 541);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>((this + 4288), 4, v8);
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(this + 536, 6, *(this + 1471));
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(this + 536, 8, *(this + 1472));
-  flatbuffers::FlatBufferBuilder::AddElement<signed char>(this + 536, 10, *(this + 5892));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(this + 4288, 6, *(this + 1471));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(this + 4288, 8, *(this + 1472));
+  flatbuffers::FlatBufferBuilder::AddElement<signed char>(this + 4288, 10, *(this + 5892));
   if (v2[272] == 1)
   {
     v22 = flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(this + 4288, 0);
-    flatbuffers::FlatBufferBuilder::TrackField(this + 536, 12, v22);
+    flatbuffers::FlatBufferBuilder::TrackField(this + 4288, 12, v22);
     if (v2[272])
     {
       v23 = flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(this + 4288, 0);
-      flatbuffers::FlatBufferBuilder::TrackField(this + 536, 14, v23);
+      flatbuffers::FlatBufferBuilder::TrackField(this + 4288, 14, v23);
       if (v2[272])
       {
         v24 = flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(this + 4288, 0);
-        flatbuffers::FlatBufferBuilder::TrackField(this + 536, 16, v24);
+        flatbuffers::FlatBufferBuilder::TrackField(this + 4288, 16, v24);
         if (v2[272])
         {
           v25 = flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(this + 4288, 0);
-          flatbuffers::FlatBufferBuilder::TrackField(this + 536, 18, v25);
+          flatbuffers::FlatBufferBuilder::TrackField(this + 4288, 18, v25);
           if (v2[272])
           {
             v26 = flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(this + 4288, 0);
-            flatbuffers::FlatBufferBuilder::TrackField(this + 536, 60, v26);
+            flatbuffers::FlatBufferBuilder::TrackField(this + 4288, 60, v26);
             if (v2[272])
             {
               v27 = flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(this + 4288, 0);
-              flatbuffers::FlatBufferBuilder::TrackField(this + 536, 20, v27);
+              flatbuffers::FlatBufferBuilder::TrackField(this + 4288, 20, v27);
               if (v2[272])
               {
                 v28 = flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(this + 4288, 0);
-                flatbuffers::FlatBufferBuilder::TrackField(this + 536, 22, v28);
+                flatbuffers::FlatBufferBuilder::TrackField(this + 4288, 22, v28);
               }
             }
           }
@@ -9810,40 +9033,40 @@ uint64_t AGCLLVMUserMeshShaderAnalysis::constructReply(AGCLLVMUserMeshShaderAnal
     }
   }
 
-  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(this + 536, 28, v2[1760], 0);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(this + 4288, 28, v2[1760], 0);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>((this + 4288), 30, v11);
   if (v2[272] == 1)
   {
     v29 = flatbuffers::FlatBufferBuilder::PushElement<unsigned char>(this + 4288, 0);
-    flatbuffers::FlatBufferBuilder::TrackField(this + 536, 32, v29);
+    flatbuffers::FlatBufferBuilder::TrackField(this + 4288, 32, v29);
     if (v2[272])
     {
       v30 = flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(this + 4288, 0);
-      flatbuffers::FlatBufferBuilder::TrackField(this + 536, 34, v30);
+      flatbuffers::FlatBufferBuilder::TrackField(this + 4288, 34, v30);
       if (v2[272])
       {
         v31 = flatbuffers::FlatBufferBuilder::PushElement<unsigned char>(this + 4288, 0);
-        flatbuffers::FlatBufferBuilder::TrackField(this + 536, 36, v31);
+        flatbuffers::FlatBufferBuilder::TrackField(this + 4288, 36, v31);
         if (v2[272])
         {
           v32 = flatbuffers::FlatBufferBuilder::PushElement<unsigned char>(this + 4288, 0);
-          flatbuffers::FlatBufferBuilder::TrackField(this + 536, 38, v32);
+          flatbuffers::FlatBufferBuilder::TrackField(this + 4288, 38, v32);
           if (v2[272])
           {
             v33 = flatbuffers::FlatBufferBuilder::PushElement<unsigned char>(this + 4288, 0);
-            flatbuffers::FlatBufferBuilder::TrackField(this + 536, 40, v33);
+            flatbuffers::FlatBufferBuilder::TrackField(this + 4288, 40, v33);
             if (v2[272])
             {
               v34 = flatbuffers::FlatBufferBuilder::PushElement<unsigned char>(this + 4288, 0);
-              flatbuffers::FlatBufferBuilder::TrackField(this + 536, 42, v34);
+              flatbuffers::FlatBufferBuilder::TrackField(this + 4288, 42, v34);
               if (v2[272])
               {
                 v35 = flatbuffers::FlatBufferBuilder::PushElement<unsigned char>(this + 4288, 0);
-                flatbuffers::FlatBufferBuilder::TrackField(this + 536, 44, v35);
+                flatbuffers::FlatBufferBuilder::TrackField(this + 4288, 44, v35);
                 if (v2[272])
                 {
                   v36 = flatbuffers::FlatBufferBuilder::PushElement<unsigned char>(this + 4288, 0);
-                  flatbuffers::FlatBufferBuilder::TrackField(this + 536, 46, v36);
+                  flatbuffers::FlatBufferBuilder::TrackField(this + 4288, 46, v36);
                 }
               }
             }
@@ -9854,7 +9077,7 @@ uint64_t AGCLLVMUserMeshShaderAnalysis::constructReply(AGCLLVMUserMeshShaderAnal
   }
 
   v37 = flatbuffers::FlatBufferBuilder::PushElement<unsigned int>(this + 4288, 1);
-  flatbuffers::FlatBufferBuilder::TrackField(this + 536, 54, v37);
+  flatbuffers::FlatBufferBuilder::TrackField(this + 4288, 54, v37);
   v38 = flatbuffers::FlatBufferBuilder::EndTable((this + 4288), v19 - v20 + v21);
   v2[262] = 1;
   v39 = *(this + 1082);
@@ -9918,4 +9141,858 @@ uint64_t AGCLLVMUserMeshShaderAnalysis::constructReply(AGCLLVMUserMeshShaderAnal
   *(this + 287) = v50 + 40;
   flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(&v57);
   return 1;
+}
+
+flatbuffers::FlatBufferBuilder *flatbuffers::FlatBufferBuilder::AddOffset<AGCCodeTranslator::MeshShaderInfo>(flatbuffers::FlatBufferBuilder *result, uint64_t a2)
+{
+  if (a2)
+  {
+    v2 = a2;
+    v3 = result;
+    flatbuffers::FlatBufferBuilder::Align(result, 4uLL);
+    v4 = (*(v3 + 8) - *(v3 + 12) + *(v3 + 10) - v2 + 4);
+
+    return flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v3, 22, v4);
+  }
+
+  return result;
+}
+
+llvm::NamedMDNode *AGCLLVMUserMeshShaderAnalysis::compile(AGCLLVMUserMeshShaderAnalysis *this)
+{
+  v2 = *(this + 734);
+  *&v43 = "air.mesh";
+  WORD4(__p) = 259;
+  result = llvm::Module::getNamedMetadata(v2, &v43);
+  if (!result)
+  {
+    return result;
+  }
+
+  result = llvm::NamedMDNode::getOperand(result);
+  if (!result)
+  {
+    return result;
+  }
+
+  v4 = (result - *(result + 2))[2];
+  v5 = *(v4 + 8);
+  if (!v5)
+  {
+    return (*(*this + 160))(this);
+  }
+
+  v6 = 0;
+  v7 = this + 4096;
+  LOBYTE(v8) = 1;
+  do
+  {
+    while (1)
+    {
+      while (1)
+      {
+        v9 = *(v4 - 8 * v5 + 8 * v6);
+        if (!v9 || !isStringMDNode(*(v9 - 8 * *(v9 + 8) + 8), "air.mesh"))
+        {
+          goto LABEL_67;
+        }
+
+        if (v8)
+        {
+          v10 = *(v9 - 8 * *(v9 + 8) + 16);
+          if (v10)
+          {
+            v11 = *v10;
+            if (v11 <= 0x22 && ((0x7FFFFFFF0uLL >> v11) & 1) != 0 && *(v10 + 2) == 6 && isStringMDNode(*(v10 - 6), "air.mesh_type_info"))
+            {
+              v12 = &v10[-8 * *(v10 + 2)];
+              v13 = *(v12 + 1);
+              if (v13)
+              {
+                v14 = *v13;
+                if (v14 <= 0x22 && ((0x7FFFFFFF0uLL >> v14) & 1) != 0)
+                {
+                  v15 = *(v12 + 2);
+                  if (v15)
+                  {
+                    v16 = *v15;
+                    if (v16 <= 0x22 && ((0x7FFFFFFF0uLL >> v16) & 1) != 0)
+                    {
+                      LODWORD(v43) = 3;
+                      if (parseMDInt(0, v10, &v43, this + 1471))
+                      {
+                        LODWORD(v43) = 4;
+                        if (parseMDInt(0, v10, &v43, this + 1472))
+                        {
+                          if (parseMDPrimitiveType(v10, this + 1473))
+                          {
+                            break;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+LABEL_54:
+        LOBYTE(v8) = 0;
+        result = 0;
+        ++v6;
+        v5 = *(v4 + 8);
+        if (v6 >= v5)
+        {
+          return result;
+        }
+      }
+
+      v17 = *(v13 + 2);
+      v39 = v15;
+      v40 = v7;
+      if (v17)
+      {
+        v18 = 0;
+        do
+        {
+          v19 = *&v13[8 * v18 + -8 * v17];
+          if (!v19)
+          {
+            goto LABEL_54;
+          }
+
+          v20 = *v19;
+          if (v20 > 0x22 || ((0x7FFFFFFF0uLL >> v20) & 1) == 0)
+          {
+            goto LABEL_54;
+          }
+
+          v41 = v18;
+          if (v7[1785] == 1)
+          {
+            v21 = v19 + 8;
+            v22 = 1;
+            while (1)
+            {
+              v23 = *(v19 + 2);
+              v24 = v22 >= v23;
+              if (v22 >= v23)
+              {
+                break;
+              }
+
+              v25 = isStringMDNode(*&v21[-8 * v23], "air.shared");
+              ++v22;
+              v21 += 8;
+              if (v25)
+              {
+                v24 = 0;
+                break;
+              }
+            }
+
+            v15 = v39;
+            v7 = v40;
+          }
+
+          else
+          {
+            v24 = 0;
+          }
+
+          AGCLLVMUserMeshShaderAnalysis::addGenericVarying(this, v19, 0, v24);
+          v18 = v41 + 1;
+          v17 = *(v13 + 2);
+        }
+
+        while (v41 + 1 < v17);
+      }
+
+      v26 = *(v15 + 2);
+      if (v26)
+      {
+        break;
+      }
+
+      ++v6;
+      v5 = *(v4 + 8);
+      LOBYTE(v8) = 1;
+      if (v6 >= v5)
+      {
+        return (*(*this + 160))(this);
+      }
+    }
+
+    v38 = 0;
+    v37 = 0;
+    v27 = 0;
+    while (1)
+    {
+      v8 = *&v15[8 * v27 + -8 * v26];
+      if (!v8)
+      {
+        break;
+      }
+
+      v28 = *v8;
+      if (v28 > 0x22 || ((0x7FFFFFFF0uLL >> v28) & 1) == 0)
+      {
+        LOBYTE(v8) = 0;
+        break;
+      }
+
+      v42 = v27;
+      if (v7[1785] == 1)
+      {
+        v29 = v8 + 8;
+        v30 = 1;
+        while (1)
+        {
+          v31 = *(v8 + 8);
+          v32 = v30 >= v31;
+          if (v30 >= v31)
+          {
+            break;
+          }
+
+          v33 = isStringMDNode(*(v29 - 8 * v31), "air.shared");
+          ++v30;
+          v29 += 8;
+          if (v33)
+          {
+            v32 = 0;
+            break;
+          }
+        }
+
+        v15 = v39;
+        v7 = v40;
+      }
+
+      else
+      {
+        v32 = 0;
+      }
+
+      if (AGCLLVMUserMeshShaderAnalysis::addGenericVarying(this, v8, 1, v32))
+      {
+        v37 = 1;
+      }
+
+      else
+      {
+        v34 = isStringMDNode(*(v8 - 8 * *(v8 + 8)), "air.primitive_id");
+        BYTE4(v38) |= v34;
+        v35 = v38;
+        if (v34)
+        {
+          v35 = v32;
+        }
+
+        LODWORD(v38) = v35;
+      }
+
+      v27 = v42 + 1;
+      v26 = *(v15 + 2);
+      if (v42 + 1 >= v26)
+      {
+        LOBYTE(v8) = 1;
+        break;
+      }
+    }
+
+    if ((v38 & 0x100000000) != 0 || (v7[1784] & 1) == 0 && ((v37 ^ 1) & 1) == 0)
+    {
+      v43 = xmmword_20E70C580;
+      v44 = 0;
+      __p = 0u;
+      v46 = 0u;
+      v47 = 0;
+      v48 = v38 & 1;
+      v49 = 0;
+      if (v38)
+      {
+        v36 = 20;
+      }
+
+      else
+      {
+        v36 = 18;
+      }
+
+      v50 = v36;
+      MEMORY[0x20F331AA0](&__p, "agc.per_prim.primitive_id");
+      GenericVaryingAllocator::addVarying(this + 5168, &v43);
+      if (SBYTE7(v46) < 0)
+      {
+        operator delete(__p);
+      }
+    }
+
+LABEL_67:
+    ++v6;
+    v5 = *(v4 + 8);
+  }
+
+  while (v6 < v5);
+  if (v8)
+  {
+    return (*(*this + 160))(this);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+BOOL parseMDPrimitiveType(uint64_t a1, int *a2)
+{
+  if (isStringMDNode(*(a1 - 8 * *(a1 + 8) + 40), "air.line"))
+  {
+    v4 = 1;
+  }
+
+  else if (isStringMDNode(*(a1 - 8 * *(a1 + 8) + 40), "air.point"))
+  {
+    v4 = 0;
+  }
+
+  else
+  {
+    result = isStringMDNode(*(a1 - 8 * *(a1 + 8) + 40), "air.triangle");
+    if (!result)
+    {
+      return result;
+    }
+
+    v4 = 2;
+  }
+
+  *a2 = v4;
+  return 1;
+}
+
+uint64_t AGCLLVMUserMeshShaderAnalysis::addGenericVarying(uint64_t a1, uint64_t a2, int a3, int a4)
+{
+  v8 = *(a2 - 8 * *(a2 + 8));
+  if (a3)
+  {
+    v9 = "air.primitive_data";
+  }
+
+  else
+  {
+    v9 = "air.vertex_data";
+  }
+
+  if (isStringMDNode(v8, v9))
+  {
+    v32 = 0;
+  }
+
+  else
+  {
+    v10 = *(a2 - 8 * *(a2 + 8));
+    if (a3)
+    {
+      v11 = "air.mesh_primitive_data";
+    }
+
+    else
+    {
+      v11 = "air.mesh_vertex_data";
+    }
+
+    v32 = 0;
+    if (!isStringMDNode(v10, v11))
+    {
+      return 0;
+    }
+  }
+
+  LODWORD(v21) = 1;
+  result = parseMDInt(0, a2, &v21, &v32);
+  if (result)
+  {
+    result = *(a2 - 8 * *(a2 + 8) + 16);
+    if (result)
+    {
+      if (*result)
+      {
+        return 0;
+      }
+
+      if (a3)
+      {
+        v13 = 3;
+      }
+
+      else
+      {
+        v13 = 0;
+      }
+
+      if (v32 < 0xFFFFFFFA)
+      {
+        v14 = ((a3 != 0) | (2 * v32)) + 6;
+      }
+
+      else
+      {
+        v14 = ~v32;
+      }
+
+      v21 = 1;
+      v22 = v13;
+      v23 = 0;
+      v24 = v14;
+      v27 = 0;
+      v28 = 0;
+      v29 = a4;
+      v30 = 0;
+      if (a4)
+      {
+        v15 = 10;
+      }
+
+      else
+      {
+        v15 = 1;
+      }
+
+      if (a4)
+      {
+        v16 = 20;
+      }
+
+      else
+      {
+        v16 = 18;
+      }
+
+      if (a3)
+      {
+        v15 = v16;
+      }
+
+      v31 = v15;
+      String = llvm::MDString::getString(result);
+      if (String)
+      {
+        std::string::basic_string[abi:nn200100](&v19, String, v18);
+      }
+
+      else
+      {
+        v19 = 0uLL;
+        v20 = 0;
+      }
+
+      __p = v19;
+      v26 = v20;
+      GenericVaryingAllocator::addVarying(a1 + 5168, &v21);
+      if (SHIBYTE(v26) < 0)
+      {
+        operator delete(__p);
+      }
+
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+void AGCLLVMUserMeshShaderAnalysis::~AGCLLVMUserMeshShaderAnalysis(AGCLLVMUserMeshShaderAnalysis *this)
+{
+  *this = &unk_282558678;
+  *(this + 213) = &unk_282558788;
+  v3 = (this + 5736);
+  std::vector<GenericVaryingAllocator::OutIterator>::__destroy_vector::operator()[abi:nn200100](&v3);
+  llvm::SmallVector<GenericVarying,8u>::~SmallVector(this + 5192);
+  v2 = *(this + 646);
+  if (v2)
+  {
+    *(this + 647) = v2;
+    operator delete(v2);
+  }
+
+  AGCLLVMObject::~AGCLLVMObject(this);
+
+  JUMPOUT(0x20F331DC0);
+}
+
+{
+  *this = &unk_282558678;
+  *(this + 213) = &unk_282558788;
+  v3 = (this + 5736);
+  std::vector<GenericVaryingAllocator::OutIterator>::__destroy_vector::operator()[abi:nn200100](&v3);
+  llvm::SmallVector<GenericVarying,8u>::~SmallVector(this + 5192);
+  v2 = *(this + 646);
+  if (v2)
+  {
+    *(this + 647) = v2;
+    operator delete(v2);
+  }
+
+  AGCLLVMObject::~AGCLLVMObject(this);
+}
+
+uint64_t virtual thunk toAGCLLVMUserObjectShaderBase::needsThreadgroupMemoryOOBChecks(AGCLLVMUserObjectShaderBase *this)
+{
+  v1 = (this + *(*this - 240));
+  if (*(*(v1 + *(*v1 - 24) + 2168) + 1885) == 1)
+  {
+    return AGCLLVMUserObject::isThreadgroupMemoryUsed(v1);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t AGCLLVMUserMeshShader::constructReply(AGCLLVMUserMeshShader *this)
+{
+  v92 = *MEMORY[0x277D85DE8];
+  if (!AGCDeserializedReply::deserialize((this + *(*this - 24) + 2288), *(*(this + *(*this - 24) + 1688) + 152), *(*(this + *(*this - 24) + 1688) + 160)))
+  {
+    return 0;
+  }
+
+  AGCLLVMObject::validateBackendReply((this + *(*this - 24)));
+  v71 = AGCLLVMUserObject::constructFlatReply(this);
+  v2 = this + *(*this - 24);
+  v2[4358] = 1;
+  v3 = *(v2 + 1082);
+  v4 = *(v2 + 1080) - *(v2 + 1084);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v2 + 4288, 4, *(this + 1152));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v2 + 4288, 6, *(this + 1153));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v2 + 4288, 8, *(this + 1154));
+  v67 = flatbuffers::FlatBufferBuilder::EndTable((v2 + 4288), v4 + v3);
+  v5 = *(this + 5472);
+  v79 = 0;
+  v80 = 0u;
+  v81[0] = v82;
+  v81[1] = 0x800000000;
+  v82[64] = 0x1FFFFFFFFLL;
+  v83 = v5;
+  v90[7] = 0;
+  v84 = 0u;
+  v85 = 0u;
+  v86 = 0u;
+  v87 = 0u;
+  v88 = 0u;
+  v89 = 0u;
+  memset(v90, 0, 26);
+  v91 = 1;
+  if (*(this + 1236))
+  {
+    v6 = *(this + 617);
+    do
+    {
+      GenericVaryingAllocator::addVarying(&v79, v6);
+      v6 += 64;
+    }
+
+    while (v6 < *(this + 617) + (*(this + 1236) << 6));
+  }
+
+  GenericVaryingAllocator::allocate(&v79, *(this + *(*this - 24) + 2168));
+  GenericVaryingAllocator::serialize(&v79, (this + *(*this - 24) + 4288));
+  if (v80 == v79)
+  {
+    v7 = &flatbuffers::data<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>,std::allocator<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>>>(std::vector<flatbuffers::Offset<AGCCodeTranslator::VertexShaderOutIterator>> const&)::t;
+  }
+
+  else
+  {
+    v7 = v79;
+  }
+
+  v68 = flatbuffers::FlatBufferBuilder::CreateVector<AGCCodeTranslator::VertexShaderOutIterator>(this + *(*this - 24) + 4288, v7, (v80 - v79) >> 2);
+  v8 = this + *(*this - 24);
+  v8[4358] = 1;
+  v9 = *(v8 + 1082);
+  v10 = *(v8 + 1080) - *(v8 + 1084);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v8 + 4288, 4, v87);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v8 + 4288, 6, DWORD1(v87));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v8 + 4288, 8, DWORD2(v87));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v8 + 4288, 16, DWORD1(v88));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v8 + 4288, 10, DWORD2(v85));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v8 + 4288, 12, HIDWORD(v85));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v8 + 4288, 14, v86);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v8 + 4288, 18, HIDWORD(v86));
+  v11 = flatbuffers::FlatBufferBuilder::EndTable((v8 + 4288), v10 + v9);
+  v12 = this + *(*this - 24);
+  v13 = *(v12 + 1080);
+  v12[4358] = 1;
+  v14 = *(v12 + 1082);
+  v15 = v13 - *(v12 + 1084);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v12 + 4288, 4, v90[0]);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v12 + 4288, 6, v90[1]);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v12 + 4288, 8, v90[2]);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v12 + 4288, 16, v90[5]);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v12 + 4288, 10, DWORD2(v88));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v12 + 4288, 12, HIDWORD(v88));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v12 + 4288, 14, v89);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v12 + 4288, 18, HIDWORD(v89));
+  v16 = flatbuffers::FlatBufferBuilder::EndTable((v12 + 4288), v15 + v14);
+  v17 = this + *(*this - 24);
+  v18 = *(v17 + 1080);
+  v17[4358] = 1;
+  LODWORD(v12) = *(v17 + 1082);
+  v19 = v18 - *(v17 + 1084);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>((v17 + 4288), 4, v67);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v17 + 4288, 6, *(this + 1204));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v17 + 4288, 8, *(this + 1205));
+  flatbuffers::FlatBufferBuilder::AddElement<signed char>(v17 + 4288, 10, *(this + 4828));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v17 + 4288, 12, *(this + 1218));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v17 + 4288, 14, *(this + 1219));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v17 + 4288, 16, (*(this + 1214) - *(this + 1220)));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v17 + 4288, 18, *(this + 1216));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v17 + 4288, 60, *(this + 1220));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v17 + 4288, 20, *(this + 1215));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v17 + 4288, 22, *(this + 1217));
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>((v17 + 4288), 24, v11);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>((v17 + 4288), 26, v16);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v17 + 4288, 28, LOBYTE(v90[6]), 0);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>((v17 + 4288), 30, v68);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v17 + 4288, 32, *(this + 4841), 0);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v17 + 4288, 34, *(this + 1209));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v17 + 4288, 36, *(this + 4845), 0);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v17 + 4288, 38, *(this + 4843), 0);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v17 + 4288, 40, *(this + 4847), 0);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v17 + 4288, 42, *(this + 4832), 0);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v17 + 4288, 44, *(this + 4842), 0);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v17 + 4288, 46, *(this + 4849), 0);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v17 + 4288, 48, *(this + 1146));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v17 + 4288, 50, *(this + 4600), 0);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v17 + 4288, 52, *(this + 4848), 0);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v17 + 4288, 54, *(this + 1194));
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v17 + 4288, 56, *(this + 12), 0);
+  flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(v17 + 4288, 58, *(this + 4601), 0);
+  LODWORD(v12) = flatbuffers::FlatBufferBuilder::EndTable((v17 + 4288), v19 + v12);
+  v20 = this + *(*this - 24);
+  v21 = *(v20 + 1080);
+  v20[4358] = 1;
+  v22 = *(v20 + 1082);
+  v23 = v21 - *(v20 + 1084);
+  flatbuffers::FlatBufferBuilder::AddOffset<AGCCodeTranslator::ShaderInfo>((v20 + 4288), v71);
+  flatbuffers::FlatBufferBuilder::AddOffset<AGCCodeTranslator::MeshShaderInfo>((v20 + 4288), v12);
+  v24 = *(*this - 24);
+  v25 = flatbuffers::FlatBufferBuilder::EndTable((v20 + 4288), v23 + v22);
+  flatbuffers::FlatBufferBuilder::Finish((this + v24 + 4288), v25, v26);
+  AGCLLVMObject::dumpTranslatorMetadata<AGCCodeTranslator::CompileReplyBinarySchema>((this + *(*this - 24)), (this + *(*this - 24) + 4288));
+  v27 = *this;
+  v28 = this + *(*this - 24);
+  v28[4454] = 1;
+  v29 = *(v27 - 24);
+  v30 = flatbuffers::FlatBufferBuilder::EndTable((v28 + 4384), *(v28 + 2208) - *(v28 + 2216) + *(v28 + 2212));
+  flatbuffers::FlatBufferBuilder::Finish((this + v29 + 4384), v30, v31);
+  AGCLLVMObject::dumpTranslatorMetadata<AGCCodeTranslatorG10::CompileReplyBinarySchema>((this + *(*this - 24)), (this + *(*this - 24) + 4384));
+  v32 = (this + *(*this - 24));
+  v33 = v32[314];
+  if (v33)
+  {
+    if (v32[315])
+    {
+      v34 = v32 + 314;
+    }
+
+    else
+    {
+      v34 = v32 + 384;
+    }
+  }
+
+  else
+  {
+    v34 = v32 + 384;
+  }
+
+  v36 = (*v34 + **v34);
+  v37 = (v36 + *(v36 - *v36 + 4));
+  v38 = (v37 + *v37);
+  if (v33)
+  {
+    if (v32[315])
+    {
+      v39 = (v32 + 314);
+    }
+
+    else
+    {
+      v39 = (v32 + 384);
+    }
+  }
+
+  else
+  {
+    v39 = (v32 + 384);
+  }
+
+  v40 = 0;
+  v41 = (v38 + *(v38 - *v38 + 8));
+  if (*v39 && v39[1])
+  {
+    v40 = (*v39 + **v39);
+  }
+
+  v42 = (v40 - *v40);
+  if (*v42 >= 5u && (v43 = v42[2]) != 0)
+  {
+    v44 = (v40 + v43 + *(v40 + v43));
+  }
+
+  else
+  {
+    v44 = 0;
+  }
+
+  v45 = (v44 - *v44);
+  if (*v45 >= 0x3Du && (v46 = v45[30]) != 0)
+  {
+    v47 = *(v44 + v46);
+  }
+
+  else
+  {
+    v47 = 0;
+  }
+
+  v48 = *(v41 + *v41);
+  v49 = *(this + 1204);
+  v69 = *(this + 1223);
+  v70 = *(this + 1221);
+  v72 = *(this + 1222);
+  v50 = *(this + 1205);
+  v51 = *(this + 1224);
+  v52 = *(this + 1194);
+  v53 = *(this + 1225);
+  v54 = *(v32[271] + 1004);
+  if (v53 > v54)
+  {
+    std::to_string(&v74, v53);
+    v55 = std::string::insert(&v74, 0, "Mesh unique scalar count of ");
+    v56 = v55->__r_.__value_.__r.__words[2];
+    *&v75.__r_.__value_.__l.__data_ = *&v55->__r_.__value_.__l.__data_;
+    v75.__r_.__value_.__r.__words[2] = v56;
+    v55->__r_.__value_.__l.__size_ = 0;
+    v55->__r_.__value_.__r.__words[2] = 0;
+    v55->__r_.__value_.__r.__words[0] = 0;
+    v57 = std::string::append(&v75, " exceeds limit of ");
+    v58 = v57->__r_.__value_.__r.__words[2];
+    *&v76.__r_.__value_.__l.__data_ = *&v57->__r_.__value_.__l.__data_;
+    v76.__r_.__value_.__r.__words[2] = v58;
+    v57->__r_.__value_.__l.__size_ = 0;
+    v57->__r_.__value_.__r.__words[2] = 0;
+    v57->__r_.__value_.__r.__words[0] = 0;
+    std::to_string(&v73, *(*(this + *(*this - 24) + 2168) + 1004));
+    if ((v73.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v59 = &v73;
+    }
+
+    else
+    {
+      v59 = v73.__r_.__value_.__r.__words[0];
+    }
+
+    if ((v73.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      size = HIBYTE(v73.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      size = v73.__r_.__value_.__l.__size_;
+    }
+
+    v61 = std::string::append(&v76, v59, size);
+    v62 = v61->__r_.__value_.__r.__words[2];
+    *__p = *&v61->__r_.__value_.__l.__data_;
+    v78 = v62;
+    v61->__r_.__value_.__l.__size_ = 0;
+    v61->__r_.__value_.__r.__words[2] = 0;
+    v61->__r_.__value_.__r.__words[0] = 0;
+    if (v78 >= 0)
+    {
+      v63 = __p;
+    }
+
+    else
+    {
+      v63 = __p[0];
+    }
+
+    if (v78 >= 0)
+    {
+      v64 = HIBYTE(v78);
+    }
+
+    else
+    {
+      v64 = __p[1];
+    }
+
+    std::string::append((this + *(*this - 24) + 1656), v63, v64);
+    if (SHIBYTE(v78) < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v73.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v76.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v76.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v75.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v75.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v74.__r_.__value_.__l.__data_);
+    }
+  }
+
+  if (v48 > 0x20)
+  {
+    v35 = 0;
+  }
+
+  else
+  {
+    v65 = validateUserMeshLocalMemoryUsage(v47, ((v49 + 3) & 0xFFFFFFFC) * v70 + v50 * v72 + (v69 * ((v49 + 3) & 0xFFFFFFFC) + v51 * v50) * v52, *(*(this + *(*this - 24) + 2168) + 996), *(*(this + *(*this - 24) + 2168) + 992), *(*(this + *(*this - 24) + 2168) + 1000), (this + *(*this - 24) + 1656));
+    if (v53 <= v54)
+    {
+      v35 = v65;
+    }
+
+    else
+    {
+      v35 = 0;
+    }
+  }
+
+  __p[0] = &v84;
+  std::vector<GenericVaryingAllocator::OutIterator>::__destroy_vector::operator()[abi:nn200100](__p);
+  llvm::SmallVector<GenericVarying,8u>::~SmallVector(v81);
+  if (v79)
+  {
+    *&v80 = v79;
+    operator delete(v79);
+  }
+
+  return v35;
 }

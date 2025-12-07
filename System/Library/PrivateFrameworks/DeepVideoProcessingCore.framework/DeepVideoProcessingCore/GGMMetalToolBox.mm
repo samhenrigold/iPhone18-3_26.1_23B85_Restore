@@ -5154,7 +5154,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild bestMatchLoc texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMSearch1RefToCommandEncoder:target:ref:reflect:normalizedTargetCenter:normalizedRefCenter:bestMatchLoc:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild bestMatchLoc texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMSearch1RefToCommandEncoder:target:ref:reflect:normalizedTargetCenter:normalizedRefCenter:bestMatchLoc:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5165,7 +5167,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMSearch1RefToCommandEncoder:target:ref:reflect:normalizedTargetCenter:normalizedRefCenter:bestMatchLoc:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMSearch1RefToCommandEncoder:target:ref:reflect:normalizedTargetCenter:normalizedRefCenter:bestMatchLoc:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5176,7 +5180,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild target texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMSearch1RefToCommandEncoder:target:ref:reflect:normalizedTargetCenter:normalizedRefCenter:bestMatchLoc:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild target texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMSearch1RefToCommandEncoder:target:ref:reflect:normalizedTargetCenter:normalizedRefCenter:bestMatchLoc:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5187,7 +5193,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMSearch4RepairToCommandEncoder:hrTarget:target:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:mvf0:mvf1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMSearch4RepairToCommandEncoder:hrTarget:target:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:mvf0:mvf1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5198,7 +5206,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMSearch4RepairToCommandEncoder:hrTarget:target:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:mvf0:mvf1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMSearch4RepairToCommandEncoder:hrTarget:target:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:mvf0:mvf1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5209,7 +5219,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMSearch4RepairToCommandEncoder:hrTarget:target:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:mvf0:mvf1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMSearch4RepairToCommandEncoder:hrTarget:target:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:mvf0:mvf1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5220,7 +5232,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMSearch4RepairToCommandEncoder:hrTarget:target:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:mvf0:mvf1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMSearch4RepairToCommandEncoder:hrTarget:target:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:mvf0:mvf1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5231,7 +5245,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild forwarpHoleMap1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMSearch4RepairToCommandEncoder:hrTarget:target:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:mvf0:mvf1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild forwarpHoleMap1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMSearch4RepairToCommandEncoder:hrTarget:target:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:mvf0:mvf1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5242,7 +5258,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild forwarpHoleMap0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMSearch4RepairToCommandEncoder:hrTarget:target:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:mvf0:mvf1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild forwarpHoleMap0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMSearch4RepairToCommandEncoder:hrTarget:target:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:mvf0:mvf1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5253,7 +5271,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMSearch4RepairToCommandEncoder:hrTarget:target:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:mvf0:mvf1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMSearch4RepairToCommandEncoder:hrTarget:target:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:mvf0:mvf1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5264,7 +5284,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMSearch4RepairToCommandEncoder:hrTarget:target:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:mvf0:mvf1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMSearch4RepairToCommandEncoder:hrTarget:target:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:mvf0:mvf1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5275,7 +5297,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild target texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMSearch4RepairToCommandEncoder:hrTarget:target:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:mvf0:mvf1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild target texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMSearch4RepairToCommandEncoder:hrTarget:target:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:mvf0:mvf1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5286,7 +5310,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild hrTarget texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMSearch4RepairToCommandEncoder:hrTarget:target:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:mvf0:mvf1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild hrTarget texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMSearch4RepairToCommandEncoder:hrTarget:target:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:mvf0:mvf1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5297,7 +5323,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMTransfer4RepairYUVToCommandEncoder:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:warpedRef0:warpedRef1:bmMvf0:bmMvf1:backwarpFlow0:backwarpFlow1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMTransfer4RepairYUVToCommandEncoder:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:warpedRef0:warpedRef1:bmMvf0:bmMvf1:backwarpFlow0:backwarpFlow1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5308,7 +5336,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild backwarpFlow1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMTransfer4RepairYUVToCommandEncoder:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:warpedRef0:warpedRef1:bmMvf0:bmMvf1:backwarpFlow0:backwarpFlow1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild backwarpFlow1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMTransfer4RepairYUVToCommandEncoder:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:warpedRef0:warpedRef1:bmMvf0:bmMvf1:backwarpFlow0:backwarpFlow1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5319,7 +5349,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild backwarpFlow0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMTransfer4RepairYUVToCommandEncoder:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:warpedRef0:warpedRef1:bmMvf0:bmMvf1:backwarpFlow0:backwarpFlow1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild backwarpFlow0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMTransfer4RepairYUVToCommandEncoder:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:warpedRef0:warpedRef1:bmMvf0:bmMvf1:backwarpFlow0:backwarpFlow1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5330,7 +5362,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild bmMvf1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMTransfer4RepairYUVToCommandEncoder:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:warpedRef0:warpedRef1:bmMvf0:bmMvf1:backwarpFlow0:backwarpFlow1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild bmMvf1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMTransfer4RepairYUVToCommandEncoder:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:warpedRef0:warpedRef1:bmMvf0:bmMvf1:backwarpFlow0:backwarpFlow1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5341,7 +5375,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild bmMvf0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMTransfer4RepairYUVToCommandEncoder:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:warpedRef0:warpedRef1:bmMvf0:bmMvf1:backwarpFlow0:backwarpFlow1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild bmMvf0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMTransfer4RepairYUVToCommandEncoder:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:warpedRef0:warpedRef1:bmMvf0:bmMvf1:backwarpFlow0:backwarpFlow1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5352,7 +5388,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild warpedRef1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMTransfer4RepairYUVToCommandEncoder:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:warpedRef0:warpedRef1:bmMvf0:bmMvf1:backwarpFlow0:backwarpFlow1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild warpedRef1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMTransfer4RepairYUVToCommandEncoder:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:warpedRef0:warpedRef1:bmMvf0:bmMvf1:backwarpFlow0:backwarpFlow1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5363,7 +5401,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild warpedRef0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMTransfer4RepairYUVToCommandEncoder:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:warpedRef0:warpedRef1:bmMvf0:bmMvf1:backwarpFlow0:backwarpFlow1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild warpedRef0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMTransfer4RepairYUVToCommandEncoder:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:warpedRef0:warpedRef1:bmMvf0:bmMvf1:backwarpFlow0:backwarpFlow1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5374,7 +5414,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMTransfer4RepairYUVToCommandEncoder:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:warpedRef0:warpedRef1:bmMvf0:bmMvf1:backwarpFlow0:backwarpFlow1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMTransfer4RepairYUVToCommandEncoder:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:warpedRef0:warpedRef1:bmMvf0:bmMvf1:backwarpFlow0:backwarpFlow1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5385,7 +5427,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild forwarpHoleMap1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMTransfer4RepairYUVToCommandEncoder:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:warpedRef0:warpedRef1:bmMvf0:bmMvf1:backwarpFlow0:backwarpFlow1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild forwarpHoleMap1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMTransfer4RepairYUVToCommandEncoder:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:warpedRef0:warpedRef1:bmMvf0:bmMvf1:backwarpFlow0:backwarpFlow1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5396,7 +5440,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild forwarpHoleMap0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMTransfer4RepairYUVToCommandEncoder:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:warpedRef0:warpedRef1:bmMvf0:bmMvf1:backwarpFlow0:backwarpFlow1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild forwarpHoleMap0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMTransfer4RepairYUVToCommandEncoder:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:warpedRef0:warpedRef1:bmMvf0:bmMvf1:backwarpFlow0:backwarpFlow1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5407,7 +5453,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMTransfer4RepairYUVToCommandEncoder:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:warpedRef0:warpedRef1:bmMvf0:bmMvf1:backwarpFlow0:backwarpFlow1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMTransfer4RepairYUVToCommandEncoder:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:warpedRef0:warpedRef1:bmMvf0:bmMvf1:backwarpFlow0:backwarpFlow1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5418,7 +5466,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMTransfer4RepairYUVToCommandEncoder:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:warpedRef0:warpedRef1:bmMvf0:bmMvf1:backwarpFlow0:backwarpFlow1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMTransfer4RepairYUVToCommandEncoder:ref0:ref1:forwarpHoleMap0:forwarpHoleMap1:probMap:warpedRef0:warpedRef1:bmMvf0:bmMvf1:backwarpFlow0:backwarpFlow1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5429,7 +5479,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetGhostProbMapToCommandEncoder:target:reflLsMap:motionMap:saliencyMap:isInitFrame:probMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetGhostProbMapToCommandEncoder:target:reflLsMap:motionMap:saliencyMap:isInitFrame:probMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5440,7 +5492,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetGhostProbMapToCommandEncoder:target:reflLsMap:motionMap:saliencyMap:isInitFrame:probMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetGhostProbMapToCommandEncoder:target:reflLsMap:motionMap:saliencyMap:isInitFrame:probMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5451,7 +5505,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild saliencyMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetGhostProbMapToCommandEncoder:target:reflLsMap:motionMap:saliencyMap:isInitFrame:probMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild saliencyMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetGhostProbMapToCommandEncoder:target:reflLsMap:motionMap:saliencyMap:isInitFrame:probMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5462,7 +5518,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild motionMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetGhostProbMapToCommandEncoder:target:reflLsMap:motionMap:saliencyMap:isInitFrame:probMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild motionMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetGhostProbMapToCommandEncoder:target:reflLsMap:motionMap:saliencyMap:isInitFrame:probMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5473,7 +5531,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild reflLsMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetGhostProbMapToCommandEncoder:target:reflLsMap:motionMap:saliencyMap:isInitFrame:probMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild reflLsMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetGhostProbMapToCommandEncoder:target:reflLsMap:motionMap:saliencyMap:isInitFrame:probMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5484,7 +5544,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild target texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetGhostProbMapToCommandEncoder:target:reflLsMap:motionMap:saliencyMap:isInitFrame:probMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild target texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetGhostProbMapToCommandEncoder:target:reflLsMap:motionMap:saliencyMap:isInitFrame:probMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5495,7 +5557,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMTransferYUVToCommandEncoder:ref:reflect:normalizedCenter:warpedRef:bestMatchLoc:meta:sf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMTransferYUVToCommandEncoder:ref:reflect:normalizedCenter:warpedRef:bestMatchLoc:meta:sf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5506,7 +5570,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild bestMatchLoc texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMTransferYUVToCommandEncoder:ref:reflect:normalizedCenter:warpedRef:bestMatchLoc:meta:sf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild bestMatchLoc texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMTransferYUVToCommandEncoder:ref:reflect:normalizedCenter:warpedRef:bestMatchLoc:meta:sf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5517,7 +5583,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild warpedRef texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMTransferYUVToCommandEncoder:ref:reflect:normalizedCenter:warpedRef:bestMatchLoc:meta:sf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild warpedRef texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMTransferYUVToCommandEncoder:ref:reflect:normalizedCenter:warpedRef:bestMatchLoc:meta:sf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5528,7 +5596,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMTransferYUVToCommandEncoder:ref:reflect:normalizedCenter:warpedRef:bestMatchLoc:meta:sf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMTransferYUVToCommandEncoder:ref:reflect:normalizedCenter:warpedRef:bestMatchLoc:meta:sf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5539,7 +5609,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMTransferGrayToCommandEncoder:ref:warpedRef:bestMatchLoc:meta:sf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMTransferGrayToCommandEncoder:ref:warpedRef:bestMatchLoc:meta:sf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5550,7 +5622,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild bestMatchLoc texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMTransferGrayToCommandEncoder:ref:warpedRef:bestMatchLoc:meta:sf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild bestMatchLoc texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMTransferGrayToCommandEncoder:ref:warpedRef:bestMatchLoc:meta:sf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5561,7 +5635,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild warpedRef texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMTransferGrayToCommandEncoder:ref:warpedRef:bestMatchLoc:meta:sf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild warpedRef texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMTransferGrayToCommandEncoder:ref:warpedRef:bestMatchLoc:meta:sf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5572,7 +5648,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBMTransferGrayToCommandEncoder:ref:warpedRef:bestMatchLoc:meta:sf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBMTransferGrayToCommandEncoder:ref:warpedRef:bestMatchLoc:meta:sf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5583,7 +5661,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v2 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v3, v4, "%s : filter initialization fail", v5, v6, v7, v8, 2u);
+    LODWORD(v9) = 136315138;
+    *(&v9 + 4) = "[GGMMetalToolBox resizeImageCmdBuf:inputTexture:withFactorX:withFactorY:outputTexture:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v3, v4, "%s : filter initialization fail", v5, v6, v7, v8, v9, "[GGMMetalToolBox resizeImageCmdBuf:inputTexture:withFactorX:withFactorY:outputTexture:]" >> 32);
   }
 
   *a1 = 6;
@@ -5594,7 +5674,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outputTexture texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox resizeImageCmdBuf:inputTexture:withFactorX:withFactorY:outputTexture:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outputTexture texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox resizeImageCmdBuf:inputTexture:withFactorX:withFactorY:outputTexture:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5605,7 +5687,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild inputTexture texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox resizeImageCmdBuf:inputTexture:withFactorX:withFactorY:outputTexture:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild inputTexture texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox resizeImageCmdBuf:inputTexture:withFactorX:withFactorY:outputTexture:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5616,7 +5700,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeReflectYUVImg2:fullResInput:meta:input0:output0:center0:input1:output1:center1:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeReflectYUVImg2:fullResInput:meta:input0:output0:center0:input1:output1:center1:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5627,7 +5713,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeReflectYUVImg2:fullResInput:meta:input0:output0:center0:input1:output1:center1:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeReflectYUVImg2:fullResInput:meta:input0:output0:center0:input1:output1:center1:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5638,7 +5726,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeReflectYUVImg2:fullResInput:meta:input0:output0:center0:input1:output1:center1:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeReflectYUVImg2:fullResInput:meta:input0:output0:center0:input1:output1:center1:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5649,7 +5739,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeReflectYUVImg2:fullResInput:meta:input0:output0:center0:input1:output1:center1:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeReflectYUVImg2:fullResInput:meta:input0:output0:center0:input1:output1:center1:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5660,7 +5752,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeReflectYUVImg2:fullResInput:meta:input0:output0:center0:input1:output1:center1:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeReflectYUVImg2:fullResInput:meta:input0:output0:center0:input1:output1:center1:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5671,7 +5765,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResInput texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeReflectYUVImg2:fullResInput:meta:input0:output0:center0:input1:output1:center1:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResInput texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeReflectYUVImg2:fullResInput:meta:input0:output0:center0:input1:output1:center1:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5682,7 +5778,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeDilateGrayImg:input:output:hardDilationOutput:hardDilationRadius:softDilationRadius:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeDilateGrayImg:input:output:hardDilationOutput:hardDilationRadius:softDilationRadius:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5693,7 +5791,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : hardDilationOutput output texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeDilateGrayImg:input:output:hardDilationOutput:hardDilationRadius:softDilationRadius:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : hardDilationOutput output texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeDilateGrayImg:input:output:hardDilationOutput:hardDilationRadius:softDilationRadius:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5704,7 +5804,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeDilateGrayImg:input:output:hardDilationOutput:hardDilationRadius:softDilationRadius:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeDilateGrayImg:input:output:hardDilationOutput:hardDilationRadius:softDilationRadius:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5715,7 +5817,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeDilateGrayImg:input:output:hardDilationOutput:hardDilationRadius:softDilationRadius:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeDilateGrayImg:input:output:hardDilationOutput:hardDilationRadius:softDilationRadius:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5726,7 +5830,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeDilateProbMap:input:output:hardDilationRadius:softDilationRadius:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeDilateProbMap:input:output:hardDilationRadius:softDilationRadius:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5737,7 +5843,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeDilateProbMap:input:output:hardDilationRadius:softDilationRadius:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeDilateProbMap:input:output:hardDilationRadius:softDilationRadius:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5748,7 +5856,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeDilateProbMap:input:output:hardDilationRadius:softDilationRadius:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeDilateProbMap:input:output:hardDilationRadius:softDilationRadius:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5759,7 +5869,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetMotionMapYUVToCommandEncoder:ref:target:motionMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetMotionMapYUVToCommandEncoder:ref:target:motionMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5770,7 +5882,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild motionMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetMotionMapYUVToCommandEncoder:ref:target:motionMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild motionMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetMotionMapYUVToCommandEncoder:ref:target:motionMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5781,7 +5895,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild target texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetMotionMapYUVToCommandEncoder:ref:target:motionMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild target texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetMotionMapYUVToCommandEncoder:ref:target:motionMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5792,7 +5908,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetMotionMapYUVToCommandEncoder:ref:target:motionMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetMotionMapYUVToCommandEncoder:ref:target:motionMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5803,7 +5921,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetTempRepairedBgAlignErrYUVToCommandEncoder:target:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:probMap:errRescaleProbMap:prevProbMap:flow0:flow1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetTempRepairedBgAlignErrYUVToCommandEncoder:target:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:probMap:errRescaleProbMap:prevProbMap:flow0:flow1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5814,7 +5934,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild flow1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetTempRepairedBgAlignErrYUVToCommandEncoder:target:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:probMap:errRescaleProbMap:prevProbMap:flow0:flow1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild flow1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetTempRepairedBgAlignErrYUVToCommandEncoder:target:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:probMap:errRescaleProbMap:prevProbMap:flow0:flow1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5825,7 +5947,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild flow0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetTempRepairedBgAlignErrYUVToCommandEncoder:target:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:probMap:errRescaleProbMap:prevProbMap:flow0:flow1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild flow0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetTempRepairedBgAlignErrYUVToCommandEncoder:target:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:probMap:errRescaleProbMap:prevProbMap:flow0:flow1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5836,7 +5960,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild prevProbMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetTempRepairedBgAlignErrYUVToCommandEncoder:target:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:probMap:errRescaleProbMap:prevProbMap:flow0:flow1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild prevProbMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetTempRepairedBgAlignErrYUVToCommandEncoder:target:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:probMap:errRescaleProbMap:prevProbMap:flow0:flow1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5847,7 +5973,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild errRescaleProbMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetTempRepairedBgAlignErrYUVToCommandEncoder:target:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:probMap:errRescaleProbMap:prevProbMap:flow0:flow1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild errRescaleProbMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetTempRepairedBgAlignErrYUVToCommandEncoder:target:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:probMap:errRescaleProbMap:prevProbMap:flow0:flow1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5858,7 +5986,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetTempRepairedBgAlignErrYUVToCommandEncoder:target:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:probMap:errRescaleProbMap:prevProbMap:flow0:flow1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetTempRepairedBgAlignErrYUVToCommandEncoder:target:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:probMap:errRescaleProbMap:prevProbMap:flow0:flow1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5869,7 +5999,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild bmRef1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetTempRepairedBgAlignErrYUVToCommandEncoder:target:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:probMap:errRescaleProbMap:prevProbMap:flow0:flow1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild bmRef1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetTempRepairedBgAlignErrYUVToCommandEncoder:target:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:probMap:errRescaleProbMap:prevProbMap:flow0:flow1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5880,7 +6012,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild bmRef0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetTempRepairedBgAlignErrYUVToCommandEncoder:target:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:probMap:errRescaleProbMap:prevProbMap:flow0:flow1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild bmRef0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetTempRepairedBgAlignErrYUVToCommandEncoder:target:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:probMap:errRescaleProbMap:prevProbMap:flow0:flow1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5891,7 +6025,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild hmgrphyRef1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetTempRepairedBgAlignErrYUVToCommandEncoder:target:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:probMap:errRescaleProbMap:prevProbMap:flow0:flow1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild hmgrphyRef1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetTempRepairedBgAlignErrYUVToCommandEncoder:target:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:probMap:errRescaleProbMap:prevProbMap:flow0:flow1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5902,7 +6038,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild hmgrphyRef0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetTempRepairedBgAlignErrYUVToCommandEncoder:target:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:probMap:errRescaleProbMap:prevProbMap:flow0:flow1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild hmgrphyRef0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetTempRepairedBgAlignErrYUVToCommandEncoder:target:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:probMap:errRescaleProbMap:prevProbMap:flow0:flow1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5913,7 +6051,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild target texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetTempRepairedBgAlignErrYUVToCommandEncoder:target:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:probMap:errRescaleProbMap:prevProbMap:flow0:flow1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild target texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetTempRepairedBgAlignErrYUVToCommandEncoder:target:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:probMap:errRescaleProbMap:prevProbMap:flow0:flow1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5924,7 +6064,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5935,7 +6077,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild spaOutput texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild spaOutput texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5946,7 +6090,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5957,7 +6103,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5968,7 +6116,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild spaRef texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild spaRef texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5979,7 +6129,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild blobSaliency texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild blobSaliency texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -5990,7 +6142,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild targetFrameYUV texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild targetFrameYUV texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6001,7 +6155,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild saliency texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild saliency texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6012,7 +6168,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild motion texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild motion texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6023,7 +6181,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild refLsMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild refLsMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6034,7 +6194,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild dilatedLsMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild dilatedLsMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6045,7 +6207,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild lsMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild lsMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6056,7 +6220,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild dilatedRef texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild dilatedRef texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6067,7 +6233,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6078,7 +6246,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild map texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild map texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCombineMapWithRefMapToEncoder:map:ref:dilatedRef:lsMap:dilatedLsMap:refLsMap:motion:saliency:targetFrameYUV:blobSaliency:spaRef:mvf:output:spaOutput:meta:wRef:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6089,7 +6259,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetSaliencyMapToCommandEncoder:target:saliencyMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetSaliencyMapToCommandEncoder:target:saliencyMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6100,7 +6272,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild saliencyMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetSaliencyMapToCommandEncoder:target:saliencyMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild saliencyMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetSaliencyMapToCommandEncoder:target:saliencyMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6111,7 +6285,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild target texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetSaliencyMapToCommandEncoder:target:saliencyMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild target texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetSaliencyMapToCommandEncoder:target:saliencyMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6122,7 +6298,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetBgAvgYUVToCommandEncoder:target:ref0:ref1:probMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetBgAvgYUVToCommandEncoder:target:ref0:ref1:probMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6133,7 +6311,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetBgAvgYUVToCommandEncoder:target:ref0:ref1:probMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetBgAvgYUVToCommandEncoder:target:ref0:ref1:probMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6144,7 +6324,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetBgAvgYUVToCommandEncoder:target:ref0:ref1:probMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetBgAvgYUVToCommandEncoder:target:ref0:ref1:probMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6155,7 +6337,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetBgAvgYUVToCommandEncoder:target:ref0:ref1:probMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetBgAvgYUVToCommandEncoder:target:ref0:ref1:probMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6166,7 +6350,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild target texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetBgAvgYUVToCommandEncoder:target:ref0:ref1:probMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild target texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetBgAvgYUVToCommandEncoder:target:ref0:ref1:probMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6177,7 +6363,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCollectClusterBgAvgToCommandEncoder:clusterMetaBuf:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCollectClusterBgAvgToCommandEncoder:clusterMetaBuf:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6188,7 +6376,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild clusterMetaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCollectClusterBgAvgToCommandEncoder:clusterMetaBuf:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild clusterMetaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCollectClusterBgAvgToCommandEncoder:clusterMetaBuf:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6199,7 +6389,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBilinearRescaleYUV:fullResInput:input:meta:blurBeforeSample:output:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBilinearRescaleYUV:fullResInput:input:meta:blurBeforeSample:output:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6210,7 +6402,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBilinearRescaleYUV:fullResInput:input:meta:blurBeforeSample:output:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBilinearRescaleYUV:fullResInput:input:meta:blurBeforeSample:output:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6221,7 +6415,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBilinearRescaleYUV:fullResInput:input:meta:blurBeforeSample:output:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBilinearRescaleYUV:fullResInput:input:meta:blurBeforeSample:output:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6232,7 +6428,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResInput texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBilinearRescaleYUV:fullResInput:input:meta:blurBeforeSample:output:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResInput texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBilinearRescaleYUV:fullResInput:input:meta:blurBeforeSample:output:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6243,7 +6441,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBilinearRescale2ImgsYUV:fullResInput:input0:output0:input1:output1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBilinearRescale2ImgsYUV:fullResInput:input0:output0:input1:output1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6254,7 +6454,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBilinearRescale2ImgsYUV:fullResInput:input0:output0:input1:output1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBilinearRescale2ImgsYUV:fullResInput:input0:output0:input1:output1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6265,7 +6467,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input1 buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBilinearRescale2ImgsYUV:fullResInput:input0:output0:input1:output1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input1 buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBilinearRescale2ImgsYUV:fullResInput:input0:output0:input1:output1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6276,7 +6480,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBilinearRescale2ImgsYUV:fullResInput:input0:output0:input1:output1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBilinearRescale2ImgsYUV:fullResInput:input0:output0:input1:output1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6287,7 +6493,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBilinearRescale2ImgsYUV:fullResInput:input0:output0:input1:output1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBilinearRescale2ImgsYUV:fullResInput:input0:output0:input1:output1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6298,7 +6506,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResInput texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBilinearRescale2ImgsYUV:fullResInput:input0:output0:input1:output1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResInput texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBilinearRescale2ImgsYUV:fullResInput:input0:output0:input1:output1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6309,7 +6519,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeDilateReflLsMap:inputYUV:lsMap:dilatedLsMap:hardDilationRadius:softDilationRadius:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeDilateReflLsMap:inputYUV:lsMap:dilatedLsMap:hardDilationRadius:softDilationRadius:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6320,7 +6532,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild dilatedLsMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeDilateReflLsMap:inputYUV:lsMap:dilatedLsMap:hardDilationRadius:softDilationRadius:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild dilatedLsMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeDilateReflLsMap:inputYUV:lsMap:dilatedLsMap:hardDilationRadius:softDilationRadius:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6331,7 +6545,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild lsMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeDilateReflLsMap:inputYUV:lsMap:dilatedLsMap:hardDilationRadius:softDilationRadius:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild lsMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeDilateReflLsMap:inputYUV:lsMap:dilatedLsMap:hardDilationRadius:softDilationRadius:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6342,7 +6558,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild inputYUV texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeDilateReflLsMap:inputYUV:lsMap:dilatedLsMap:hardDilationRadius:softDilationRadius:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild inputYUV texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeDilateReflLsMap:inputYUV:lsMap:dilatedLsMap:hardDilationRadius:softDilationRadius:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6353,7 +6571,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetBlobSaliency:inputYUV:blobSaliencyMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetBlobSaliency:inputYUV:blobSaliencyMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6364,7 +6584,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild blobSaliencyMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetBlobSaliency:inputYUV:blobSaliencyMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild blobSaliencyMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetBlobSaliency:inputYUV:blobSaliencyMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6375,7 +6597,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild inputYUV texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetBlobSaliency:inputYUV:blobSaliencyMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild inputYUV texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetBlobSaliency:inputYUV:blobSaliencyMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6386,7 +6610,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeSpatialRepairYUVToCommandEncoder:input:probMap4Spatial:spatialOutput:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeSpatialRepairYUVToCommandEncoder:input:probMap4Spatial:spatialOutput:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6397,7 +6623,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild spatialOutput texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeSpatialRepairYUVToCommandEncoder:input:probMap4Spatial:spatialOutput:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild spatialOutput texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeSpatialRepairYUVToCommandEncoder:input:probMap4Spatial:spatialOutput:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6408,7 +6636,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMap4Spatial texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeSpatialRepairYUVToCommandEncoder:input:probMap4Spatial:spatialOutput:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMap4Spatial texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeSpatialRepairYUVToCommandEncoder:input:probMap4Spatial:spatialOutput:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6419,7 +6649,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeSpatialRepairYUVToCommandEncoder:input:probMap4Spatial:spatialOutput:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeSpatialRepairYUVToCommandEncoder:input:probMap4Spatial:spatialOutput:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6430,7 +6662,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeSpatialTemporalRepair4DetectionYUVToCommandEncoder:input:frRef0:frRef1:temporalOutput:inputCopy:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeSpatialTemporalRepair4DetectionYUVToCommandEncoder:input:frRef0:frRef1:temporalOutput:inputCopy:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6441,7 +6675,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild inputCopy texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeSpatialTemporalRepair4DetectionYUVToCommandEncoder:input:frRef0:frRef1:temporalOutput:inputCopy:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild inputCopy texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeSpatialTemporalRepair4DetectionYUVToCommandEncoder:input:frRef0:frRef1:temporalOutput:inputCopy:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6452,7 +6688,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild temporalOutput texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeSpatialTemporalRepair4DetectionYUVToCommandEncoder:input:frRef0:frRef1:temporalOutput:inputCopy:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild temporalOutput texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeSpatialTemporalRepair4DetectionYUVToCommandEncoder:input:frRef0:frRef1:temporalOutput:inputCopy:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6463,7 +6701,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild frRef1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeSpatialTemporalRepair4DetectionYUVToCommandEncoder:input:frRef0:frRef1:temporalOutput:inputCopy:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild frRef1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeSpatialTemporalRepair4DetectionYUVToCommandEncoder:input:frRef0:frRef1:temporalOutput:inputCopy:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6474,7 +6714,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild frRef0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeSpatialTemporalRepair4DetectionYUVToCommandEncoder:input:frRef0:frRef1:temporalOutput:inputCopy:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild frRef0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeSpatialTemporalRepair4DetectionYUVToCommandEncoder:input:frRef0:frRef1:temporalOutput:inputCopy:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6485,7 +6727,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeSpatialTemporalRepair4DetectionYUVToCommandEncoder:input:frRef0:frRef1:temporalOutput:inputCopy:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeSpatialTemporalRepair4DetectionYUVToCommandEncoder:input:frRef0:frRef1:temporalOutput:inputCopy:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6496,7 +6740,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeFuse4DetectionYUVToCommandEncoder:inputTexture:probMapTexture:temporalMitTexture:spatialMitTexture:forceToSpatial:outputTexture:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeFuse4DetectionYUVToCommandEncoder:inputTexture:probMapTexture:temporalMitTexture:spatialMitTexture:forceToSpatial:outputTexture:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6507,7 +6753,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outputTexture texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeFuse4DetectionYUVToCommandEncoder:inputTexture:probMapTexture:temporalMitTexture:spatialMitTexture:forceToSpatial:outputTexture:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outputTexture texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeFuse4DetectionYUVToCommandEncoder:inputTexture:probMapTexture:temporalMitTexture:spatialMitTexture:forceToSpatial:outputTexture:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6518,7 +6766,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild spatialMitTexture texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeFuse4DetectionYUVToCommandEncoder:inputTexture:probMapTexture:temporalMitTexture:spatialMitTexture:forceToSpatial:outputTexture:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild spatialMitTexture texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeFuse4DetectionYUVToCommandEncoder:inputTexture:probMapTexture:temporalMitTexture:spatialMitTexture:forceToSpatial:outputTexture:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6529,7 +6779,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild temporalMitTexture texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeFuse4DetectionYUVToCommandEncoder:inputTexture:probMapTexture:temporalMitTexture:spatialMitTexture:forceToSpatial:outputTexture:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild temporalMitTexture texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeFuse4DetectionYUVToCommandEncoder:inputTexture:probMapTexture:temporalMitTexture:spatialMitTexture:forceToSpatial:outputTexture:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6540,7 +6792,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMapTexture texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeFuse4DetectionYUVToCommandEncoder:inputTexture:probMapTexture:temporalMitTexture:spatialMitTexture:forceToSpatial:outputTexture:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMapTexture texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeFuse4DetectionYUVToCommandEncoder:inputTexture:probMapTexture:temporalMitTexture:spatialMitTexture:forceToSpatial:outputTexture:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6551,7 +6805,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild inputTexture texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeFuse4DetectionYUVToCommandEncoder:inputTexture:probMapTexture:temporalMitTexture:spatialMitTexture:forceToSpatial:outputTexture:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild inputTexture texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeFuse4DetectionYUVToCommandEncoder:inputTexture:probMapTexture:temporalMitTexture:spatialMitTexture:forceToSpatial:outputTexture:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6562,7 +6818,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCollectClusterTempRepairErr:clusterMetaBuf:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCollectClusterTempRepairErr:clusterMetaBuf:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6573,7 +6831,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild clusterMetaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCollectClusterTempRepairErr:clusterMetaBuf:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild clusterMetaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCollectClusterTempRepairErr:clusterMetaBuf:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6584,7 +6844,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCollectClusterMv:clusterMetaBuf:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCollectClusterMv:clusterMetaBuf:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6595,7 +6857,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild clusterMetaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCollectClusterMv:clusterMetaBuf:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild clusterMetaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCollectClusterMv:clusterMetaBuf:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6606,7 +6870,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeUpscaleProbMap:probMap:refinedProbMap:inputFrame:upscaledProbMap:upscaledRefinedProbMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeUpscaleProbMap:probMap:refinedProbMap:inputFrame:upscaledProbMap:upscaledRefinedProbMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6617,7 +6883,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild upscaledRefinedProbMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeUpscaleProbMap:probMap:refinedProbMap:inputFrame:upscaledProbMap:upscaledRefinedProbMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild upscaledRefinedProbMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeUpscaleProbMap:probMap:refinedProbMap:inputFrame:upscaledProbMap:upscaledRefinedProbMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6628,7 +6896,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild upscaledProbMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeUpscaleProbMap:probMap:refinedProbMap:inputFrame:upscaledProbMap:upscaledRefinedProbMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild upscaledProbMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeUpscaleProbMap:probMap:refinedProbMap:inputFrame:upscaledProbMap:upscaledRefinedProbMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6639,7 +6909,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild inputFrame texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeUpscaleProbMap:probMap:refinedProbMap:inputFrame:upscaledProbMap:upscaledRefinedProbMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild inputFrame texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeUpscaleProbMap:probMap:refinedProbMap:inputFrame:upscaledProbMap:upscaledRefinedProbMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6650,7 +6922,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild refinedProbMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeUpscaleProbMap:probMap:refinedProbMap:inputFrame:upscaledProbMap:upscaledRefinedProbMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild refinedProbMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeUpscaleProbMap:probMap:refinedProbMap:inputFrame:upscaledProbMap:upscaledRefinedProbMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6661,7 +6935,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeUpscaleProbMap:probMap:refinedProbMap:inputFrame:upscaledProbMap:upscaledRefinedProbMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeUpscaleProbMap:probMap:refinedProbMap:inputFrame:upscaledProbMap:upscaledRefinedProbMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6672,7 +6948,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeUpscaleThenReflectLsMap:input:normalizedCenter:output:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeUpscaleThenReflectLsMap:input:normalizedCenter:output:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6683,7 +6961,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeUpscaleThenReflectLsMap:input:normalizedCenter:output:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeUpscaleThenReflectLsMap:input:normalizedCenter:output:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6694,7 +6974,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetOverlapWithRefs:input:probMap:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetOverlapWithRefs:input:probMap:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6705,7 +6987,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetOverlapWithRefs:input:probMap:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetOverlapWithRefs:input:probMap:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6716,7 +7000,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetOverlapWithRefs:input:probMap:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetOverlapWithRefs:input:probMap:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6727,7 +7013,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCollectClusterOverlapWithRefs:clusterMetaBuf:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCollectClusterOverlapWithRefs:clusterMetaBuf:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6738,7 +7026,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild clusterMetaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCollectClusterOverlapWithRefs:clusterMetaBuf:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild clusterMetaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCollectClusterOverlapWithRefs:clusterMetaBuf:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6749,7 +7039,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodePreprocessInputs4MotionCueYUVToCommandEncoder:input:ref:output:refOutput:metaBuf:processedFrameCount:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodePreprocessInputs4MotionCueYUVToCommandEncoder:input:ref:output:refOutput:metaBuf:processedFrameCount:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6760,7 +7052,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild refOutput texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodePreprocessInputs4MotionCueYUVToCommandEncoder:input:ref:output:refOutput:metaBuf:processedFrameCount:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild refOutput texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodePreprocessInputs4MotionCueYUVToCommandEncoder:input:ref:output:refOutput:metaBuf:processedFrameCount:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6771,7 +7065,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodePreprocessInputs4MotionCueYUVToCommandEncoder:input:ref:output:refOutput:metaBuf:processedFrameCount:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodePreprocessInputs4MotionCueYUVToCommandEncoder:input:ref:output:refOutput:metaBuf:processedFrameCount:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6782,7 +7078,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodePreprocessInputs4MotionCueYUVToCommandEncoder:input:ref:output:refOutput:metaBuf:processedFrameCount:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodePreprocessInputs4MotionCueYUVToCommandEncoder:input:ref:output:refOutput:metaBuf:processedFrameCount:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6793,7 +7091,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodePreprocessInputs4MotionCueYUVToCommandEncoder:input:ref:output:refOutput:metaBuf:processedFrameCount:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodePreprocessInputs4MotionCueYUVToCommandEncoder:input:ref:output:refOutput:metaBuf:processedFrameCount:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6804,7 +7104,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCollectMvToFuture:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCollectMvToFuture:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6815,7 +7117,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild redoTrackingOutmetaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeWarpRefMeta:refMetaBuf:metaBuf:outMetaBuf:lsCheckOutmetaBuf:redoTrackingOutmetaBuf:capRefMetaCnt:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild redoTrackingOutmetaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeWarpRefMeta:refMetaBuf:metaBuf:outMetaBuf:lsCheckOutmetaBuf:redoTrackingOutmetaBuf:capRefMetaCnt:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6826,7 +7130,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild lsCheckOutmetaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeWarpRefMeta:refMetaBuf:metaBuf:outMetaBuf:lsCheckOutmetaBuf:redoTrackingOutmetaBuf:capRefMetaCnt:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild lsCheckOutmetaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeWarpRefMeta:refMetaBuf:metaBuf:outMetaBuf:lsCheckOutmetaBuf:redoTrackingOutmetaBuf:capRefMetaCnt:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6837,7 +7143,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outMetaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeWarpRefMeta:refMetaBuf:metaBuf:outMetaBuf:lsCheckOutmetaBuf:redoTrackingOutmetaBuf:capRefMetaCnt:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outMetaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeWarpRefMeta:refMetaBuf:metaBuf:outMetaBuf:lsCheckOutmetaBuf:redoTrackingOutmetaBuf:capRefMetaCnt:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6848,7 +7156,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeWarpRefMeta:refMetaBuf:metaBuf:outMetaBuf:lsCheckOutmetaBuf:redoTrackingOutmetaBuf:capRefMetaCnt:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeWarpRefMeta:refMetaBuf:metaBuf:outMetaBuf:lsCheckOutmetaBuf:redoTrackingOutmetaBuf:capRefMetaCnt:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6859,7 +7169,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild refMetaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeWarpRefMeta:refMetaBuf:metaBuf:outMetaBuf:lsCheckOutmetaBuf:redoTrackingOutmetaBuf:capRefMetaCnt:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild refMetaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeWarpRefMeta:refMetaBuf:metaBuf:outMetaBuf:lsCheckOutmetaBuf:redoTrackingOutmetaBuf:capRefMetaCnt:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6870,7 +7182,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild redoTrackingOutmetaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCollectMetaContainers:metaBuf:lsCheckOutmetaBuf:redoTrackingOutmetaBuf:currTrackId:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild redoTrackingOutmetaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCollectMetaContainers:metaBuf:lsCheckOutmetaBuf:redoTrackingOutmetaBuf:currTrackId:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6881,7 +7195,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild lsCheckOutmetaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCollectMetaContainers:metaBuf:lsCheckOutmetaBuf:redoTrackingOutmetaBuf:currTrackId:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild lsCheckOutmetaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCollectMetaContainers:metaBuf:lsCheckOutmetaBuf:redoTrackingOutmetaBuf:currTrackId:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6892,7 +7208,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCollectMetaContainers:metaBuf:lsCheckOutmetaBuf:redoTrackingOutmetaBuf:currTrackId:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCollectMetaContainers:metaBuf:lsCheckOutmetaBuf:redoTrackingOutmetaBuf:currTrackId:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6903,7 +7221,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeRefineFutureHwLsMapWithTrackingToEncoder:reflHwMap:target:opticalCenter:warpedRefReflHwMap:warpedReflRef:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeRefineFutureHwLsMapWithTrackingToEncoder:reflHwMap:target:opticalCenter:warpedRefReflHwMap:warpedReflRef:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6914,7 +7234,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild warpedReflRef texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeRefineFutureHwLsMapWithTrackingToEncoder:reflHwMap:target:opticalCenter:warpedRefReflHwMap:warpedReflRef:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild warpedReflRef texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeRefineFutureHwLsMapWithTrackingToEncoder:reflHwMap:target:opticalCenter:warpedRefReflHwMap:warpedReflRef:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6925,7 +7247,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild warpedRefReflHwMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeRefineFutureHwLsMapWithTrackingToEncoder:reflHwMap:target:opticalCenter:warpedRefReflHwMap:warpedReflRef:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild warpedRefReflHwMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeRefineFutureHwLsMapWithTrackingToEncoder:reflHwMap:target:opticalCenter:warpedRefReflHwMap:warpedReflRef:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6936,7 +7260,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild target texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeRefineFutureHwLsMapWithTrackingToEncoder:reflHwMap:target:opticalCenter:warpedRefReflHwMap:warpedReflRef:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild target texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeRefineFutureHwLsMapWithTrackingToEncoder:reflHwMap:target:opticalCenter:warpedRefReflHwMap:warpedReflRef:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6947,7 +7273,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild reflHwMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeRefineFutureHwLsMapWithTrackingToEncoder:reflHwMap:target:opticalCenter:warpedRefReflHwMap:warpedReflRef:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild reflHwMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeRefineFutureHwLsMapWithTrackingToEncoder:reflHwMap:target:opticalCenter:warpedRefReflHwMap:warpedReflRef:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6958,7 +7286,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outMetaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCopyCurrMetaForProcFuture:metaBuf:outMetaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outMetaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCopyCurrMetaForProcFuture:metaBuf:outMetaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6969,7 +7299,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCopyCurrMetaForProcFuture:metaBuf:outMetaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCopyCurrMetaForProcFuture:metaBuf:outMetaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6980,7 +7312,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCollectClusterMaxProb:clusterMetaBuf:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCollectClusterMaxProb:clusterMetaBuf:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -6991,7 +7325,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild clusterMetaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCollectClusterMaxProb:clusterMetaBuf:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild clusterMetaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCollectClusterMaxProb:clusterMetaBuf:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7002,7 +7338,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeSyncWeightsOriginal:clusterMetaBuf:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeSyncWeightsOriginal:clusterMetaBuf:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7013,7 +7351,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild clusterMetaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeSyncWeightsOriginal:clusterMetaBuf:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild clusterMetaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeSyncWeightsOriginal:clusterMetaBuf:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7024,7 +7364,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetRoiMaxAndAvgLumaYUV:target:lsMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetRoiMaxAndAvgLumaYUV:target:lsMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7035,7 +7377,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild lsMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetRoiMaxAndAvgLumaYUV:target:lsMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild lsMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetRoiMaxAndAvgLumaYUV:target:lsMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7046,7 +7390,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild target texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetRoiMaxAndAvgLumaYUV:target:lsMap:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild target texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetRoiMaxAndAvgLumaYUV:target:lsMap:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7057,7 +7403,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCollectClusterMaxAndAvgLuma:clusterMetaBuf:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCollectClusterMaxAndAvgLuma:clusterMetaBuf:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7068,7 +7416,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild clusterMetaBuf texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCollectClusterMaxAndAvgLuma:clusterMetaBuf:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild clusterMetaBuf texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCollectClusterMaxAndAvgLuma:clusterMetaBuf:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7079,7 +7429,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetMvFromLsToCommandEncoder:target:lsMap:refLsMap:targetCenter:refCenter:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetMvFromLsToCommandEncoder:target:lsMap:refLsMap:targetCenter:refCenter:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7090,7 +7442,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild refLsMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetMvFromLsToCommandEncoder:target:lsMap:refLsMap:targetCenter:refCenter:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild refLsMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetMvFromLsToCommandEncoder:target:lsMap:refLsMap:targetCenter:refCenter:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7101,7 +7455,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild lsMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetMvFromLsToCommandEncoder:target:lsMap:refLsMap:targetCenter:refCenter:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild lsMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetMvFromLsToCommandEncoder:target:lsMap:refLsMap:targetCenter:refCenter:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7112,7 +7468,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild target texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetMvFromLsToCommandEncoder:target:lsMap:refLsMap:targetCenter:refCenter:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild target texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetMvFromLsToCommandEncoder:target:lsMap:refLsMap:targetCenter:refCenter:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7123,7 +7481,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeConditionalDilateProbMapYUV:inputYUV:probMap:dilatedProbMap:hardDilationRadius:softDilationRadius:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeConditionalDilateProbMapYUV:inputYUV:probMap:dilatedProbMap:hardDilationRadius:softDilationRadius:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7134,7 +7494,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild dilatedProbMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeConditionalDilateProbMapYUV:inputYUV:probMap:dilatedProbMap:hardDilationRadius:softDilationRadius:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild dilatedProbMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeConditionalDilateProbMapYUV:inputYUV:probMap:dilatedProbMap:hardDilationRadius:softDilationRadius:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7145,7 +7507,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeConditionalDilateProbMapYUV:inputYUV:probMap:dilatedProbMap:hardDilationRadius:softDilationRadius:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeConditionalDilateProbMapYUV:inputYUV:probMap:dilatedProbMap:hardDilationRadius:softDilationRadius:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7156,7 +7520,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild inputYUV texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeConditionalDilateProbMapYUV:inputYUV:probMap:dilatedProbMap:hardDilationRadius:softDilationRadius:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild inputYUV texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeConditionalDilateProbMapYUV:inputYUV:probMap:dilatedProbMap:hardDilationRadius:softDilationRadius:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7167,7 +7533,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCopyMapToMap4RoiGenToCommandEncoder:input:output:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCopyMapToMap4RoiGenToCommandEncoder:input:output:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7178,7 +7546,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCopyMapToMap4RoiGenToCommandEncoder:input:output:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCopyMapToMap4RoiGenToCommandEncoder:input:output:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7189,7 +7559,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCopyMapToMap4RoiGenToCommandEncoder:input:output:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCopyMapToMap4RoiGenToCommandEncoder:input:output:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7200,7 +7572,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCopyFullFrameMapToMap4RoiGenToCommandEncoder:input:output:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCopyFullFrameMapToMap4RoiGenToCommandEncoder:input:output:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7211,7 +7585,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCopyFullFrameMapToMap4RoiGenToCommandEncoder:input:output:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCopyFullFrameMapToMap4RoiGenToCommandEncoder:input:output:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7222,7 +7598,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outMetaBuf texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeWarpRefMetaLite:refMetaBuf:outMetaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outMetaBuf texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeWarpRefMetaLite:refMetaBuf:outMetaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7233,7 +7611,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild refMetaBuf texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeWarpRefMetaLite:refMetaBuf:outMetaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild refMetaBuf texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeWarpRefMetaLite:refMetaBuf:outMetaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7244,7 +7624,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBlendSpatialMitigatedYUVToCommandEncoder:inputTexture:probMapTexture:probMap4TradSpatialTexture:tradSpatialMitTexture:dlSpatialMitTexture:outputTexture:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBlendSpatialMitigatedYUVToCommandEncoder:inputTexture:probMapTexture:probMap4TradSpatialTexture:tradSpatialMitTexture:dlSpatialMitTexture:outputTexture:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7255,7 +7637,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outputTexture texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBlendSpatialMitigatedYUVToCommandEncoder:inputTexture:probMapTexture:probMap4TradSpatialTexture:tradSpatialMitTexture:dlSpatialMitTexture:outputTexture:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outputTexture texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBlendSpatialMitigatedYUVToCommandEncoder:inputTexture:probMapTexture:probMap4TradSpatialTexture:tradSpatialMitTexture:dlSpatialMitTexture:outputTexture:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7266,7 +7650,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild dlSpatialMitTexture texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBlendSpatialMitigatedYUVToCommandEncoder:inputTexture:probMapTexture:probMap4TradSpatialTexture:tradSpatialMitTexture:dlSpatialMitTexture:outputTexture:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild dlSpatialMitTexture texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBlendSpatialMitigatedYUVToCommandEncoder:inputTexture:probMapTexture:probMap4TradSpatialTexture:tradSpatialMitTexture:dlSpatialMitTexture:outputTexture:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7277,7 +7663,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild tradSpatialMitTexture texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBlendSpatialMitigatedYUVToCommandEncoder:inputTexture:probMapTexture:probMap4TradSpatialTexture:tradSpatialMitTexture:dlSpatialMitTexture:outputTexture:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild tradSpatialMitTexture texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBlendSpatialMitigatedYUVToCommandEncoder:inputTexture:probMapTexture:probMap4TradSpatialTexture:tradSpatialMitTexture:dlSpatialMitTexture:outputTexture:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7288,7 +7676,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMap4TradSpatialTexture texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBlendSpatialMitigatedYUVToCommandEncoder:inputTexture:probMapTexture:probMap4TradSpatialTexture:tradSpatialMitTexture:dlSpatialMitTexture:outputTexture:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMap4TradSpatialTexture texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBlendSpatialMitigatedYUVToCommandEncoder:inputTexture:probMapTexture:probMap4TradSpatialTexture:tradSpatialMitTexture:dlSpatialMitTexture:outputTexture:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7299,7 +7689,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMapTexture texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBlendSpatialMitigatedYUVToCommandEncoder:inputTexture:probMapTexture:probMap4TradSpatialTexture:tradSpatialMitTexture:dlSpatialMitTexture:outputTexture:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMapTexture texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBlendSpatialMitigatedYUVToCommandEncoder:inputTexture:probMapTexture:probMap4TradSpatialTexture:tradSpatialMitTexture:dlSpatialMitTexture:outputTexture:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7310,7 +7702,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild inputTexture texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBlendSpatialMitigatedYUVToCommandEncoder:inputTexture:probMapTexture:probMap4TradSpatialTexture:tradSpatialMitTexture:dlSpatialMitTexture:outputTexture:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild inputTexture texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBlendSpatialMitigatedYUVToCommandEncoder:inputTexture:probMapTexture:probMap4TradSpatialTexture:tradSpatialMitTexture:dlSpatialMitTexture:outputTexture:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7321,7 +7715,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBlendRefsYUVToCommandEncoder:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:output0:output1:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBlendRefsYUVToCommandEncoder:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:output0:output1:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7332,7 +7728,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBlendRefsYUVToCommandEncoder:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:output0:output1:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBlendRefsYUVToCommandEncoder:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:output0:output1:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7343,7 +7741,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBlendRefsYUVToCommandEncoder:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:output0:output1:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild output0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBlendRefsYUVToCommandEncoder:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:output0:output1:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7354,7 +7754,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild bmRef1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBlendRefsYUVToCommandEncoder:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:output0:output1:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild bmRef1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBlendRefsYUVToCommandEncoder:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:output0:output1:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7365,7 +7767,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild bmRef0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBlendRefsYUVToCommandEncoder:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:output0:output1:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild bmRef0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBlendRefsYUVToCommandEncoder:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:output0:output1:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7376,7 +7780,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild hmgrphyRef1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBlendRefsYUVToCommandEncoder:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:output0:output1:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild hmgrphyRef1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBlendRefsYUVToCommandEncoder:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:output0:output1:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7387,7 +7793,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild hmgrphyRef0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBlendRefsYUVToCommandEncoder:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:output0:output1:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild hmgrphyRef0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBlendRefsYUVToCommandEncoder:hmgrphyRef0:hmgrphyRef1:bmRef0:bmRef1:output0:output1:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7398,7 +7806,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeAlignBgAvgYUVToCommandEncoder:input:ref0:ref1:alignedRef0:alignedRef1:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeAlignBgAvgYUVToCommandEncoder:input:ref0:ref1:alignedRef0:alignedRef1:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7409,7 +7819,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild alignedRef1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeAlignBgAvgYUVToCommandEncoder:input:ref0:ref1:alignedRef0:alignedRef1:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild alignedRef1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeAlignBgAvgYUVToCommandEncoder:input:ref0:ref1:alignedRef0:alignedRef1:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7420,7 +7832,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild alignedRef0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeAlignBgAvgYUVToCommandEncoder:input:ref0:ref1:alignedRef0:alignedRef1:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild alignedRef0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeAlignBgAvgYUVToCommandEncoder:input:ref0:ref1:alignedRef0:alignedRef1:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7431,7 +7845,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeAlignBgAvgYUVToCommandEncoder:input:ref0:ref1:alignedRef0:alignedRef1:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeAlignBgAvgYUVToCommandEncoder:input:ref0:ref1:alignedRef0:alignedRef1:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7442,7 +7858,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeAlignBgAvgYUVToCommandEncoder:input:ref0:ref1:alignedRef0:alignedRef1:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeAlignBgAvgYUVToCommandEncoder:input:ref0:ref1:alignedRef0:alignedRef1:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7453,7 +7871,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeAlignBgAvgYUVToCommandEncoder:input:ref0:ref1:alignedRef0:alignedRef1:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeAlignBgAvgYUVToCommandEncoder:input:ref0:ref1:alignedRef0:alignedRef1:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7464,7 +7884,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outputBuffer1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeResetOutputToCommandEncoder:input:meta:output0:output1:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outputBuffer1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeResetOutputToCommandEncoder:input:meta:output0:output1:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7475,7 +7897,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outputBuffer0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeResetOutputToCommandEncoder:input:meta:output0:output1:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outputBuffer0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeResetOutputToCommandEncoder:input:meta:output0:output1:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7486,7 +7910,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeResetOutputToCommandEncoder:input:meta:output0:output1:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeResetOutputToCommandEncoder:input:meta:output0:output1:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7497,7 +7923,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeResetOutputToCommandEncoder:input:meta:output0:output1:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeResetOutputToCommandEncoder:input:meta:output0:output1:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7508,7 +7936,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outputBuffer1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeUpdateOutputFloatToCommandEncoder:input0:flow0:input1:flow1:meta:output0:output1:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outputBuffer1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeUpdateOutputFloatToCommandEncoder:input0:flow0:input1:flow1:meta:output0:output1:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7519,7 +7949,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outputBuffer0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeUpdateOutputFloatToCommandEncoder:input0:flow0:input1:flow1:meta:output0:output1:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outputBuffer0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeUpdateOutputFloatToCommandEncoder:input0:flow0:input1:flow1:meta:output0:output1:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7530,7 +7962,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeUpdateOutputFloatToCommandEncoder:input0:flow0:input1:flow1:meta:output0:output1:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeUpdateOutputFloatToCommandEncoder:input0:flow0:input1:flow1:meta:output0:output1:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7541,7 +7975,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild flow1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeUpdateOutputFloatToCommandEncoder:input0:flow0:input1:flow1:meta:output0:output1:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild flow1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeUpdateOutputFloatToCommandEncoder:input0:flow0:input1:flow1:meta:output0:output1:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7552,7 +7988,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeUpdateOutputFloatToCommandEncoder:input0:flow0:input1:flow1:meta:output0:output1:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeUpdateOutputFloatToCommandEncoder:input0:flow0:input1:flow1:meta:output0:output1:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7563,7 +8001,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild flow0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeUpdateOutputFloatToCommandEncoder:input0:flow0:input1:flow1:meta:output0:output1:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild flow0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeUpdateOutputFloatToCommandEncoder:input0:flow0:input1:flow1:meta:output0:output1:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7574,7 +8014,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeUpdateOutputFloatToCommandEncoder:input0:flow0:input1:flow1:meta:output0:output1:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeUpdateOutputFloatToCommandEncoder:input0:flow0:input1:flow1:meta:output0:output1:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7585,7 +8027,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outputMap1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeConvertFloatBuffer2TextureToCommandEncoder:inputBuffer0:inputBuffer1:meta:output0:outputMap0:output1:outputMap1:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outputMap1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeConvertFloatBuffer2TextureToCommandEncoder:inputBuffer0:inputBuffer1:meta:output0:outputMap0:output1:outputMap1:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7596,7 +8040,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outputMap0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeConvertFloatBuffer2TextureToCommandEncoder:inputBuffer0:inputBuffer1:meta:output0:outputMap0:output1:outputMap1:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outputMap0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeConvertFloatBuffer2TextureToCommandEncoder:inputBuffer0:inputBuffer1:meta:output0:outputMap0:output1:outputMap1:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7607,7 +8053,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeConvertFloatBuffer2TextureToCommandEncoder:inputBuffer0:inputBuffer1:meta:output0:outputMap0:output1:outputMap1:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeConvertFloatBuffer2TextureToCommandEncoder:inputBuffer0:inputBuffer1:meta:output0:outputMap0:output1:outputMap1:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7618,7 +8066,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild inputBuffer1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeConvertFloatBuffer2TextureToCommandEncoder:inputBuffer0:inputBuffer1:meta:output0:outputMap0:output1:outputMap1:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild inputBuffer1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeConvertFloatBuffer2TextureToCommandEncoder:inputBuffer0:inputBuffer1:meta:output0:outputMap0:output1:outputMap1:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7629,7 +8079,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild inputBuffer0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeConvertFloatBuffer2TextureToCommandEncoder:inputBuffer0:inputBuffer1:meta:output0:outputMap0:output1:outputMap1:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild inputBuffer0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeConvertFloatBuffer2TextureToCommandEncoder:inputBuffer0:inputBuffer1:meta:output0:outputMap0:output1:outputMap1:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7640,7 +8092,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeDilateForwarpHoleMap:fullResTarget:inputMap0:outputMap0:inputMap1:outputMap1:hardDilationRadius:softDilationRadius:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeDilateForwarpHoleMap:fullResTarget:inputMap0:outputMap0:inputMap1:outputMap1:hardDilationRadius:softDilationRadius:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7651,7 +8105,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outputMap1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeDilateForwarpHoleMap:fullResTarget:inputMap0:outputMap0:inputMap1:outputMap1:hardDilationRadius:softDilationRadius:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outputMap1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeDilateForwarpHoleMap:fullResTarget:inputMap0:outputMap0:inputMap1:outputMap1:hardDilationRadius:softDilationRadius:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7662,7 +8118,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild inputMap1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeDilateForwarpHoleMap:fullResTarget:inputMap0:outputMap0:inputMap1:outputMap1:hardDilationRadius:softDilationRadius:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild inputMap1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeDilateForwarpHoleMap:fullResTarget:inputMap0:outputMap0:inputMap1:outputMap1:hardDilationRadius:softDilationRadius:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7673,7 +8131,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outputMap0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeDilateForwarpHoleMap:fullResTarget:inputMap0:outputMap0:inputMap1:outputMap1:hardDilationRadius:softDilationRadius:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outputMap0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeDilateForwarpHoleMap:fullResTarget:inputMap0:outputMap0:inputMap1:outputMap1:hardDilationRadius:softDilationRadius:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7684,7 +8144,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild inputMap0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeDilateForwarpHoleMap:fullResTarget:inputMap0:outputMap0:inputMap1:outputMap1:hardDilationRadius:softDilationRadius:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild inputMap0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeDilateForwarpHoleMap:fullResTarget:inputMap0:outputMap0:inputMap1:outputMap1:hardDilationRadius:softDilationRadius:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7695,7 +8157,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResTarget texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeDilateForwarpHoleMap:fullResTarget:inputMap0:outputMap0:inputMap1:outputMap1:hardDilationRadius:softDilationRadius:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResTarget texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeDilateForwarpHoleMap:fullResTarget:inputMap0:outputMap0:inputMap1:outputMap1:hardDilationRadius:softDilationRadius:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7706,7 +8170,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeWarpMvf0WithMvf1ThenAddToMvf2ToCommandEncoder:fullResTarget:mvf0:mvf1:mvf2:outMvf:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeWarpMvf0WithMvf1ThenAddToMvf2ToCommandEncoder:fullResTarget:mvf0:mvf1:mvf2:outMvf:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7717,7 +8183,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outMvf texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeWarpMvf0WithMvf1ThenAddToMvf2ToCommandEncoder:fullResTarget:mvf0:mvf1:mvf2:outMvf:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outMvf texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeWarpMvf0WithMvf1ThenAddToMvf2ToCommandEncoder:fullResTarget:mvf0:mvf1:mvf2:outMvf:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7728,7 +8196,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf2 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeWarpMvf0WithMvf1ThenAddToMvf2ToCommandEncoder:fullResTarget:mvf0:mvf1:mvf2:outMvf:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf2 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeWarpMvf0WithMvf1ThenAddToMvf2ToCommandEncoder:fullResTarget:mvf0:mvf1:mvf2:outMvf:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7739,7 +8209,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeWarpMvf0WithMvf1ThenAddToMvf2ToCommandEncoder:fullResTarget:mvf0:mvf1:mvf2:outMvf:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeWarpMvf0WithMvf1ThenAddToMvf2ToCommandEncoder:fullResTarget:mvf0:mvf1:mvf2:outMvf:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7750,7 +8222,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeWarpMvf0WithMvf1ThenAddToMvf2ToCommandEncoder:fullResTarget:mvf0:mvf1:mvf2:outMvf:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeWarpMvf0WithMvf1ThenAddToMvf2ToCommandEncoder:fullResTarget:mvf0:mvf1:mvf2:outMvf:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7761,7 +8235,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResTarget texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeWarpMvf0WithMvf1ThenAddToMvf2ToCommandEncoder:fullResTarget:mvf0:mvf1:mvf2:outMvf:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResTarget texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeWarpMvf0WithMvf1ThenAddToMvf2ToCommandEncoder:fullResTarget:mvf0:mvf1:mvf2:outMvf:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7772,7 +8248,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeWarpMvf0WithMvf1ToCommandEncoder:fullResTarget:mvf0:mvf1:outMvf:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeWarpMvf0WithMvf1ToCommandEncoder:fullResTarget:mvf0:mvf1:outMvf:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7783,7 +8261,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outMvf texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeWarpMvf0WithMvf1ToCommandEncoder:fullResTarget:mvf0:mvf1:outMvf:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outMvf texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeWarpMvf0WithMvf1ToCommandEncoder:fullResTarget:mvf0:mvf1:outMvf:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7794,7 +8274,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeWarpMvf0WithMvf1ToCommandEncoder:fullResTarget:mvf0:mvf1:outMvf:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeWarpMvf0WithMvf1ToCommandEncoder:fullResTarget:mvf0:mvf1:outMvf:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7805,7 +8287,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeWarpMvf0WithMvf1ToCommandEncoder:fullResTarget:mvf0:mvf1:outMvf:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeWarpMvf0WithMvf1ToCommandEncoder:fullResTarget:mvf0:mvf1:outMvf:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7816,7 +8300,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResTarget texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeWarpMvf0WithMvf1ToCommandEncoder:fullResTarget:mvf0:mvf1:outMvf:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResTarget texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeWarpMvf0WithMvf1ToCommandEncoder:fullResTarget:mvf0:mvf1:outMvf:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7827,7 +8313,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeAddMvf0ToMvf1ToCommandEncoder:fullResTarget:mvf0:mvf1:outMvf:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeAddMvf0ToMvf1ToCommandEncoder:fullResTarget:mvf0:mvf1:outMvf:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7838,7 +8326,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outMvf texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeAddMvf0ToMvf1ToCommandEncoder:fullResTarget:mvf0:mvf1:outMvf:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outMvf texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeAddMvf0ToMvf1ToCommandEncoder:fullResTarget:mvf0:mvf1:outMvf:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7849,7 +8339,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeAddMvf0ToMvf1ToCommandEncoder:fullResTarget:mvf0:mvf1:outMvf:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeAddMvf0ToMvf1ToCommandEncoder:fullResTarget:mvf0:mvf1:outMvf:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7860,7 +8352,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeAddMvf0ToMvf1ToCommandEncoder:fullResTarget:mvf0:mvf1:outMvf:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeAddMvf0ToMvf1ToCommandEncoder:fullResTarget:mvf0:mvf1:outMvf:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7871,7 +8365,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResTarget texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeAddMvf0ToMvf1ToCommandEncoder:fullResTarget:mvf0:mvf1:outMvf:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResTarget texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeAddMvf0ToMvf1ToCommandEncoder:fullResTarget:mvf0:mvf1:outMvf:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7882,7 +8378,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCopyMvfToCommandEncoder:fullResTarget:mvf0:outMvf0:mvf1:outMvf1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCopyMvfToCommandEncoder:fullResTarget:mvf0:outMvf0:mvf1:outMvf1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7893,7 +8391,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outMvf1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCopyMvfToCommandEncoder:fullResTarget:mvf0:outMvf0:mvf1:outMvf1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outMvf1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCopyMvfToCommandEncoder:fullResTarget:mvf0:outMvf0:mvf1:outMvf1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7904,7 +8404,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCopyMvfToCommandEncoder:fullResTarget:mvf0:outMvf0:mvf1:outMvf1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCopyMvfToCommandEncoder:fullResTarget:mvf0:outMvf0:mvf1:outMvf1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7915,7 +8417,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outMvf0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCopyMvfToCommandEncoder:fullResTarget:mvf0:outMvf0:mvf1:outMvf1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outMvf0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCopyMvfToCommandEncoder:fullResTarget:mvf0:outMvf0:mvf1:outMvf1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7926,7 +8430,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCopyMvfToCommandEncoder:fullResTarget:mvf0:outMvf0:mvf1:outMvf1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCopyMvfToCommandEncoder:fullResTarget:mvf0:outMvf0:mvf1:outMvf1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7937,7 +8443,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResTarget texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCopyMvfToCommandEncoder:fullResTarget:mvf0:outMvf0:mvf1:outMvf1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResTarget texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCopyMvfToCommandEncoder:fullResTarget:mvf0:outMvf0:mvf1:outMvf1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7948,7 +8456,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeVisualizeMvfToCommandEncoder:fullResTarget:mvf:outMvf:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeVisualizeMvfToCommandEncoder:fullResTarget:mvf:outMvf:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7959,7 +8469,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outMvf texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeVisualizeMvfToCommandEncoder:fullResTarget:mvf:outMvf:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild outMvf texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeVisualizeMvfToCommandEncoder:fullResTarget:mvf:outMvf:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7970,7 +8482,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeVisualizeMvfToCommandEncoder:fullResTarget:mvf:outMvf:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeVisualizeMvfToCommandEncoder:fullResTarget:mvf:outMvf:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7981,7 +8495,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResTarget texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeVisualizeMvfToCommandEncoder:fullResTarget:mvf:outMvf:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResTarget texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeVisualizeMvfToCommandEncoder:fullResTarget:mvf:outMvf:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -7992,7 +8508,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetRoiRepairMvFromMvfToCommandEncoder:fullResInput:probMap:mvf0:mvf1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetRoiRepairMvFromMvfToCommandEncoder:fullResInput:probMap:mvf0:mvf1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -8003,7 +8521,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetRoiRepairMvFromMvfToCommandEncoder:fullResInput:probMap:mvf0:mvf1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetRoiRepairMvFromMvfToCommandEncoder:fullResInput:probMap:mvf0:mvf1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -8014,7 +8534,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetRoiRepairMvFromMvfToCommandEncoder:fullResInput:probMap:mvf0:mvf1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetRoiRepairMvFromMvfToCommandEncoder:fullResInput:probMap:mvf0:mvf1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -8025,7 +8547,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMap texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetRoiRepairMvFromMvfToCommandEncoder:fullResInput:probMap:mvf0:mvf1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild probMap texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetRoiRepairMvFromMvfToCommandEncoder:fullResInput:probMap:mvf0:mvf1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -8036,7 +8560,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResInput texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetRoiRepairMvFromMvfToCommandEncoder:fullResInput:probMap:mvf0:mvf1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResInput texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetRoiRepairMvFromMvfToCommandEncoder:fullResInput:probMap:mvf0:mvf1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -8047,7 +8573,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBmTransferWithRoiRepairMvYUVToCommandEncoder:fullResInput:ref0:warpedRef0:ref1:warpedRef1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBmTransferWithRoiRepairMvYUVToCommandEncoder:fullResInput:ref0:warpedRef0:ref1:warpedRef1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -8058,7 +8586,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild warpedRef1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBmTransferWithRoiRepairMvYUVToCommandEncoder:fullResInput:ref0:warpedRef0:ref1:warpedRef1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild warpedRef1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBmTransferWithRoiRepairMvYUVToCommandEncoder:fullResInput:ref0:warpedRef0:ref1:warpedRef1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -8069,7 +8599,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref1 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBmTransferWithRoiRepairMvYUVToCommandEncoder:fullResInput:ref0:warpedRef0:ref1:warpedRef1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref1 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBmTransferWithRoiRepairMvYUVToCommandEncoder:fullResInput:ref0:warpedRef0:ref1:warpedRef1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -8080,7 +8612,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild warpedRef0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBmTransferWithRoiRepairMvYUVToCommandEncoder:fullResInput:ref0:warpedRef0:ref1:warpedRef1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild warpedRef0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBmTransferWithRoiRepairMvYUVToCommandEncoder:fullResInput:ref0:warpedRef0:ref1:warpedRef1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -8091,7 +8625,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref0 texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBmTransferWithRoiRepairMvYUVToCommandEncoder:fullResInput:ref0:warpedRef0:ref1:warpedRef1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild ref0 texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBmTransferWithRoiRepairMvYUVToCommandEncoder:fullResInput:ref0:warpedRef0:ref1:warpedRef1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -8102,7 +8638,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResInput texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeBmTransferWithRoiRepairMvYUVToCommandEncoder:fullResInput:ref0:warpedRef0:ref1:warpedRef1:meta:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResInput texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeBmTransferWithRoiRepairMvYUVToCommandEncoder:fullResInput:ref0:warpedRef0:ref1:warpedRef1:meta:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -8113,7 +8651,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetMvToFutureFromMvf:fullResInput:meta:mvf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild mvf texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetMvToFutureFromMvf:fullResInput:meta:mvf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -8124,7 +8664,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetMvToFutureFromMvf:fullResInput:meta:mvf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetMvToFutureFromMvf:fullResInput:meta:mvf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -8135,7 +8677,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResInput texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetMvToFutureFromMvf:fullResInput:meta:mvf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResInput texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetMvToFutureFromMvf:fullResInput:meta:mvf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -8146,7 +8690,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetMvForMotionCueFromMvf:fullResInput:meta:mvf:opticalCenter:refOpticalCenter:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild meta buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetMvForMotionCueFromMvf:fullResInput:meta:mvf:opticalCenter:refOpticalCenter:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -8157,7 +8703,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResInput texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetMvForMotionCueFromMvf:fullResInput:meta:mvf:opticalCenter:refOpticalCenter:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild fullResInput texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetMvForMotionCueFromMvf:fullResInput:meta:mvf:opticalCenter:refOpticalCenter:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -8168,7 +8716,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCollectClusterMvForMotionCueToCommandEncoder:clusterMetaBuf:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild metaBuf buffer", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCollectClusterMvForMotionCueToCommandEncoder:clusterMetaBuf:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -8179,7 +8729,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild clusterMetaBuf texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeCollectClusterMvForMotionCueToCommandEncoder:clusterMetaBuf:metaBuf:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild clusterMetaBuf texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeCollectClusterMvForMotionCueToCommandEncoder:clusterMetaBuf:metaBuf:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -8190,7 +8742,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild map texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetLsMapYUVToCommandEncoder:input:map:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild map texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetLsMapYUVToCommandEncoder:input:map:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();
@@ -8201,7 +8755,9 @@ LABEL_18:
   OUTLINED_FUNCTION_0_25();
   if ((v0 & 2) != 0 && OUTLINED_FUNCTION_5_6())
   {
-    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[GGMMetalToolBox encodeGetLsMapYUVToCommandEncoder:input:map:]";
+    OUTLINED_FUNCTION_1_25(&dword_24874B000, v1, v2, "%s : Invaild input texture", v3, v4, v5, v6, v7, "[GGMMetalToolBox encodeGetLsMapYUVToCommandEncoder:input:map:]" >> 32);
   }
 
   OUTLINED_FUNCTION_1_29();

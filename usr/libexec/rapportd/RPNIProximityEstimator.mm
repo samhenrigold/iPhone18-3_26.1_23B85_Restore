@@ -87,37 +87,37 @@
   self->_outerPresencePreset = outerPresencePreset;
   v5 = [objc_alloc(off_1001D44F0()) initWithName:self->_innerRegionName devicePresencePreset:self->_innerPresencePreset];
   v6 = [objc_alloc(off_1001D44F0()) initWithName:self->_outerRegionName devicePresencePreset:self->_outerPresencePreset];
-  v14 = 0;
-  v7 = [objc_alloc(off_1001D44F8()) initWithInnerBoundary:v5 outerBoundary:v6 error:&v14];
-  v8 = v14;
-  if (!v8)
+  v22 = 0;
+  v7 = [objc_alloc(off_1001D44F8()) initWithInnerBoundary:v5 outerBoundary:v6 error:&v22];
+  v14 = v22;
+  if (!v14)
   {
     if (v7)
     {
       [v7 setAllowedDevices:0];
       session = self->_session;
       self->_session = 0;
-      v10 = session;
+      v16 = session;
 
-      [(NISession *)v10 invalidate];
-      v11 = objc_alloc_init(off_1001D4500());
-      v12 = self->_session;
-      self->_session = v11;
+      invalidate = [(NISession *)v16 invalidate];
+      v18 = objc_alloc_init(off_1001D4500(invalidate));
+      v19 = self->_session;
+      self->_session = v18;
 
       [(NISession *)self->_session setDelegate:self];
       [(NISession *)self->_session setDelegateQueue:self->_dispatchQueue];
       [(NISession *)self->_session runWithConfiguration:v7];
 
-      v8 = 0;
+      v14 = 0;
     }
 
     else
     {
-      v8 = RPErrorF();
+      v14 = RPErrorF(4294960534, "Failed to create device presence configuration", v8, v9, v10, v11, v12, v13, v21);
     }
   }
 
-  return v8;
+  return v14;
 }
 
 - (void)sessionDidStartRunning:(id)running
@@ -129,7 +129,7 @@
     v6 = runningCopy;
     if (dword_1001D4478 != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
     {
-      sub_10011F974();
+      sub_10011F974(v4);
       v4 = v6;
     }
   }
@@ -149,7 +149,7 @@
     innerPresencePreset = self->_innerPresencePreset;
     if (dword_1001D4478 <= 30 && (dword_1001D4478 != -1 || _LogCategory_Initialize()))
     {
-      sub_10011F9B4(previousRegionCopy, regionCopy);
+      sub_10011F9B4(previousRegionCopy, regionCopy, objectCopy);
     }
 
     v15 = devicePresencePreset == innerPresencePreset;
@@ -162,7 +162,7 @@
   if (dword_1001D4478 <= 30 && (dword_1001D4478 != -1 || _LogCategory_Initialize()))
   {
     deviceIdentifer2 = [objectCopy deviceIdentifer];
-    LogPrintF();
+    LogPrintF(&dword_1001D4478, "[RPNIProximityEstimator session:object:didUpdateRegion:previousRegion:]", 30, "Ignoring region updates for device %@, update handler is not specified\n", deviceIdentifer2);
 LABEL_6:
   }
 }
@@ -173,7 +173,7 @@ LABEL_6:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (dword_1001D4478 <= 30 && (dword_1001D4478 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011FA40();
+    sub_10011FA40(errorCopy);
   }
 
   _createAndRunSession = [(RPNIProximityEstimator *)self _createAndRunSession];
@@ -186,7 +186,7 @@ LABEL_6:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (dword_1001D4478 <= 30 && (dword_1001D4478 != -1 || _LogCategory_Initialize()))
   {
-    sub_10011FA80();
+    sub_10011FA80(errorCopy);
   }
 
   if ([(NISession *)self->_session isEqual:sessionCopy])
@@ -201,18 +201,24 @@ LABEL_6:
 - (void)sessionWasSuspended:(id)suspended
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (dword_1001D4478 <= 30 && (dword_1001D4478 != -1 || _LogCategory_Initialize()))
+  if (dword_1001D4478 <= 30)
   {
-    sub_10011FAC0();
+    if (dword_1001D4478 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_10011FAC0(v3, v4, v5);
+    }
   }
 }
 
 - (void)sessionSuspensionEnded:(id)ended
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (dword_1001D4478 <= 30 && (dword_1001D4478 != -1 || _LogCategory_Initialize()))
+  if (dword_1001D4478 <= 30)
   {
-    sub_10011FADC();
+    if (dword_1001D4478 != -1 || (v4 = _LogCategory_Initialize(), v4))
+    {
+      sub_10011FADC(v4, v5, v6);
+    }
   }
 
   _createAndRunSession = [(RPNIProximityEstimator *)self _createAndRunSession];

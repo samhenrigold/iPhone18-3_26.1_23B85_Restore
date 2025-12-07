@@ -12,7 +12,7 @@
 
 + (BOOL)startMonitoringSystemMetricsWithConfig:(id)config error:(id *)error
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   configCopy = config;
   if ([configCopy updateDelegate] & 1) == 0 && objc_msgSend(configCopy, "isHeadless") && (objc_msgSend(configCopy, "emitTracingSignposts"))
   {
@@ -23,21 +23,20 @@
   else
   {
     v8 = MEMORY[0x277CCA9B8];
-    v12 = *MEMORY[0x277CCA450];
-    v13[0] = @"Invalid configuration";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x277CCA450];
+    v12[0] = @"Invalid configuration";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     *error = [v8 errorWithDomain:@"com.apple.PerfPowerMetricMonitor" code:0 userInfo:v9];
 
     v7 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 + (BOOL)startMonitoringProcessesWithPID:(id)d config:(id)config error:(id *)error
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   configCopy = config;
   if ([configCopy updateDelegate] & 1) == 0 && objc_msgSend(configCopy, "isHeadless") && (objc_msgSend(configCopy, "emitTracingSignposts"))
@@ -49,21 +48,20 @@
   else
   {
     v11 = MEMORY[0x277CCA9B8];
-    v15 = *MEMORY[0x277CCA450];
-    v16[0] = @"Invalid configuration";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = *MEMORY[0x277CCA450];
+    v15[0] = @"Invalid configuration";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     *error = [v11 errorWithDomain:@"com.apple.PerfPowerMetricMonitor" code:0 userInfo:v12];
 
     v10 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 + (BOOL)startMonitoringProcessesWithNames:(id)names config:(id)config error:(id *)error
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   namesCopy = names;
   configCopy = config;
   if ([configCopy updateDelegate] & 1) == 0 && objc_msgSend(configCopy, "isHeadless") && (objc_msgSend(configCopy, "emitTracingSignposts"))
@@ -75,15 +73,14 @@
   else
   {
     v11 = MEMORY[0x277CCA9B8];
-    v15 = *MEMORY[0x277CCA450];
-    v16[0] = @"Invalid configuration";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = *MEMORY[0x277CCA450];
+    v15[0] = @"Invalid configuration";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     *error = [v11 errorWithDomain:@"com.apple.PerfPowerMetricMonitor" code:0 userInfo:v12];
 
     v10 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

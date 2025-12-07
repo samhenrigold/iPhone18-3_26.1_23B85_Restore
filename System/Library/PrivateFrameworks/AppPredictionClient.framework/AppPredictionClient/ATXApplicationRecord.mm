@@ -49,9 +49,9 @@
   if (v5)
   {
     v8 = ATXBundleIdForRemoteBundleId();
-    v14 = 0;
-    v9 = [v7 initWithRemotePlaceholderBundleIdentifier:v8 error:&v14];
-    v10 = v14;
+    v15 = 0;
+    v9 = [v7 initWithRemotePlaceholderBundleIdentifier:v8 error:&v15];
+    v10 = v15;
 
     if (v10)
     {
@@ -61,14 +61,15 @@
 
   else
   {
-    v13 = 0;
-    v9 = [v6 initWithBundleIdentifier:idCopy allowPlaceholder:1 error:&v13];
-    v10 = v13;
-    if (v10)
+    v14 = 0;
+    v9 = [v6 initWithBundleIdentifier:idCopy allowPlaceholder:1 error:&v14];
+    v11 = v14;
+    v10 = v11;
+    if (v11)
     {
 LABEL_3:
-      v11 = __atxlog_handle_default();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = __atxlog_handle_default(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         +[ATXApplicationRecord recordForBundleId:];
       }
@@ -81,10 +82,10 @@ LABEL_5:
 
   if (!v9)
   {
-    v11 = __atxlog_handle_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __atxlog_handle_default(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(ATXApplicationRecord *)idCopy recordForBundleId:v11];
+      [(ATXApplicationRecord *)idCopy recordForBundleId:v12];
     }
 
     goto LABEL_5;
@@ -114,15 +115,16 @@ LABEL_8:
       firstObject = [counterpartIdentifiers2 firstObject];
 
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
         v9 = firstObject;
       }
 
       else
       {
-        v12 = __atxlog_handle_default();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+        v13 = __atxlog_handle_default(isKindOfClass);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
         {
           +[ATXApplicationRecord companionBundleIdForBundleId:];
         }
@@ -152,7 +154,7 @@ LABEL_8:
     v6 = [self isWebClipInstalledWithBundleId:bundleCopy];
   }
 
-  else if ([bundleCopy isEqualToString:@"com.apple.Health"] && objc_msgSend(MEMORY[0x1E69C5CF8], "isiPad") && (objc_msgSend(MEMORY[0x1E696AE30], "processInfo"), (v7 = objc_claimAutoreleasedReturnValue()) != 0) && (v8 = v7, objc_msgSend(v7, "operatingSystemVersion"), v8, v16 == 16))
+  else if ([bundleCopy isEqualToString:@"com.apple.Health"] && objc_msgSend(MEMORY[0x1E69C5CF8], "isiPad") && (objc_msgSend(MEMORY[0x1E696AE30], "processInfo"), (v7 = objc_claimAutoreleasedReturnValue()) != 0) && (v8 = v7, objc_msgSend_operatingSystemVersion(v7), v8, v16 == 16))
   {
     v6 = 0;
   }
@@ -167,7 +169,7 @@ LABEL_8:
     if ((v6 & 1) == 0)
     {
       v13 = isRestricted;
-      v14 = __atxlog_handle_default();
+      v14 = __atxlog_handle_default(isRestricted);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412802;
@@ -195,7 +197,7 @@ LABEL_8:
   if (v6)
   {
     appTags = [v6 appTags];
-    v9 = [appTags containsObject:@"hidden"];
+    v9 = objc_msgSend_containsObject_(appTags);
   }
 
   else
@@ -354,7 +356,7 @@ LABEL_8:
   v5 = objc_autoreleasePoolPush();
   v6 = [self recordForBundleId:bundleCopy];
   uIBackgroundModes = [v6 UIBackgroundModes];
-  v8 = [uIBackgroundModes containsObject:@"audio"];
+  v8 = objc_msgSend_containsObject_(uIBackgroundModes);
 
   objc_autoreleasePoolPop(v5);
   return v8;
@@ -495,15 +497,16 @@ LABEL_8:
 + (id)recordForAdamId:(unint64_t)id
 {
   v4 = objc_autoreleasePoolPush();
-  v9 = 0;
-  v5 = [objc_alloc(MEMORY[0x1E69635F8]) initWithStoreItemIdentifier:id error:&v9];
-  v6 = v9;
+  v10 = 0;
+  v5 = [objc_alloc(MEMORY[0x1E69635F8]) initWithStoreItemIdentifier:id error:&v10];
+  v6 = v10;
+  v7 = v6;
   if (v6)
   {
-    v7 = __atxlog_handle_default();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_default(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(ATXApplicationRecord *)id recordForAdamId:v6, v7];
+      [(ATXApplicationRecord *)id recordForAdamId:v7, v8];
     }
   }
 
@@ -553,53 +556,54 @@ LABEL_8:
 
 + (id)parentAppBundleIdForClipBundleID:(id)d
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = objc_autoreleasePoolPush();
-  v19 = 0;
-  v6 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:dCopy allowPlaceholder:1 error:&v19];
-  v7 = v19;
+  v21 = 0;
+  v6 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:dCopy allowPlaceholder:1 error:&v21];
+  v7 = v21;
+  v8 = v7;
   if (v7)
   {
-    entitlements = __atxlog_handle_hero();
+    entitlements = __atxlog_handle_hero(v7);
     if (os_log_type_enabled(entitlements, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v21 = v7;
+      v23 = v8;
       _os_log_impl(&dword_1BF549000, entitlements, OS_LOG_TYPE_INFO, "Could not get LSApplicationRecord inside parentAppBundleIdForClipBundleID. Error: %@", buf, 0xCu);
     }
 
-    v9 = 0;
+    v10 = 0;
     goto LABEL_5;
   }
 
   if (v6)
   {
     entitlements = [v6 entitlements];
-    v12 = [self isAppClipGivenAppRecord:v6];
-    v13 = objc_opt_class();
-    v14 = [entitlements objectForKey:@"com.apple.developer.parent-application-identifiers" ofClass:v13 valuesOfClass:objc_opt_class()];
-    v9 = v14;
-    if (v12)
+    v13 = [self isAppClipGivenAppRecord:v6];
+    v14 = objc_opt_class();
+    v15 = [entitlements objectForKey:@"com.apple.developer.parent-application-identifiers" ofClass:v14 valuesOfClass:objc_opt_class()];
+    v10 = v15;
+    if (v13)
     {
-      if ([v14 count])
+      if ([v15 count])
       {
-        firstObject = [v9 firstObject];
-        v16 = [firstObject rangeOfString:@"."];
+        firstObject = [v10 firstObject];
+        v17 = [firstObject rangeOfString:@"."];
 
-        if (v16 != 0x7FFFFFFFFFFFFFFFLL)
+        if (v17 != 0x7FFFFFFFFFFFFFFFLL)
         {
-          firstObject2 = [v9 firstObject];
-          v10 = [firstObject2 substringFromIndex:v16 + 1];
+          firstObject2 = [v10 firstObject];
+          v11 = [firstObject2 substringFromIndex:v17 + 1];
 
-          v18 = __atxlog_handle_hero();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v20 = __atxlog_handle_hero(v19);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v21 = dCopy;
-            v22 = 2112;
-            v23 = v9;
-            _os_log_impl(&dword_1BF549000, v18, OS_LOG_TYPE_DEFAULT, "CLIP app %@ parentAppIDs: %@", buf, 0x16u);
+            v23 = dCopy;
+            v24 = 2112;
+            v25 = v10;
+            _os_log_impl(&dword_1BF549000, v20, OS_LOG_TYPE_DEFAULT, "CLIP app %@ parentAppIDs: %@", buf, 0x16u);
           }
 
           goto LABEL_6;
@@ -608,19 +612,19 @@ LABEL_8:
     }
 
 LABEL_5:
-    v10 = 0;
+    v11 = 0;
 LABEL_6:
 
     goto LABEL_7;
   }
 
-  v9 = 0;
   v10 = 0;
+  v11 = 0;
 LABEL_7:
 
   objc_autoreleasePoolPop(v5);
 
-  return v10;
+  return v11;
 }
 
 + (BOOL)isAppClipGivenAppRecord:(id)record

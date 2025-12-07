@@ -54,56 +54,57 @@ LABEL_4:
 
 - (void)mf_updateTableViewBackgroundColorForPopover
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   mf_supportsPopoverPresentation = [self mf_supportsPopoverPresentation];
-  if (mf_supportsPopoverPresentation && !MFSolariumFeatureEnabled())
+  v4 = mf_supportsPopoverPresentation;
+  if (mf_supportsPopoverPresentation && !MFSolariumFeatureEnabled(mf_supportsPopoverPresentation, v3))
   {
-    v4 = 0;
+    v6 = 0;
     systemGroupedBackgroundColor = 0;
   }
 
   else
   {
     systemGroupedBackgroundColor = [MEMORY[0x1E69DC888] systemGroupedBackgroundColor];
-    v4 = 1;
+    v6 = 1;
   }
 
   tableView = [self tableView];
   [tableView setBackgroundColor:systemGroupedBackgroundColor];
 
-  if (v4)
+  if (v6)
   {
   }
 
+  v15 = 0u;
+  v16 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v11 = 0u;
-  v12 = 0u;
   tableView2 = [self tableView];
   visibleCells = [tableView2 visibleCells];
 
-  v8 = [visibleCells countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v8)
+  v10 = [visibleCells countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v10)
   {
-    v9 = *v12;
+    v11 = *v14;
     do
     {
-      v10 = 0;
+      v12 = 0;
       do
       {
-        if (*v12 != v9)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(visibleCells);
         }
 
-        [*(*(&v11 + 1) + 8 * v10++) mf_updateBackgroundColorForPopover:mf_supportsPopoverPresentation];
+        [*(*(&v13 + 1) + 8 * v12++) mf_updateBackgroundColorForPopover:v4];
       }
 
-      while (v8 != v10);
-      v8 = [visibleCells countByEnumeratingWithState:&v11 objects:v15 count:16];
+      while (v10 != v12);
+      v10 = [visibleCells countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
-    while (v8);
+    while (v10);
   }
 }
 

@@ -15,9 +15,9 @@
 - (FMDCoreAccessoryManager)initWithDelegate:(id)delegate
 {
   delegateCopy = delegate;
-  v15.receiver = self;
-  v15.super_class = FMDCoreAccessoryManager;
-  v5 = [(FMDCoreAccessoryManager *)&v15 init];
+  v16.receiver = self;
+  v16.super_class = FMDCoreAccessoryManager;
+  v5 = [(FMDCoreAccessoryManager *)&v16 init];
   if (v5)
   {
     v6 = objc_opt_new();
@@ -31,17 +31,17 @@
     v9 = +[FMDACCConnectionInfoFactory connectionInfo];
     [(FMDCoreAccessoryManager *)v5 setConnectionInfo:v9];
 
-    v16 = ACCConnectionInfoFilterAllowConnectionType;
-    v17 = &off_100028C00;
-    v10 = [NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+    v17 = ACCConnectionInfoFilterAllowConnectionType;
+    v18 = &off_100028C00;
+    v10 = [NSDictionary dictionaryWithObjects:&v18 forKeys:&v17 count:1];
     connectionInfo = [(FMDCoreAccessoryManager *)v5 connectionInfo];
     [connectionInfo registerDelegate:v5 withFilter:v10];
 
-    v12 = sub_100004FC8();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100004FC8(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "FMDCoreAccessoryManager intialised", v14, 2u);
+      *v15 = 0;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "FMDCoreAccessoryManager intialised", v15, 2u);
     }
   }
 
@@ -101,7 +101,7 @@
 - (void)accessoryConnectionDetached:(id)detached
 {
   detachedCopy = detached;
-  v5 = sub_100004FC8();
+  v5 = sub_100004FC8(detachedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -126,7 +126,7 @@
 {
   propertiesCopy = properties;
   connectionCopy = connection;
-  v9 = sub_100004FC8();
+  v9 = sub_100004FC8(connectionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 136315650;
@@ -143,7 +143,7 @@
 {
   changedCopy = changed;
   propertiesCopy = properties;
-  v7 = sub_100004FC8();
+  v7 = sub_100004FC8(propertiesCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315650;
@@ -160,7 +160,7 @@
 {
   propertiesCopy = properties;
   connectionCopy = connection;
-  v9 = sub_100004FC8();
+  v9 = sub_100004FC8(connectionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;

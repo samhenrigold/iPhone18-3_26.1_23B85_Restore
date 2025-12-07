@@ -15,7 +15,6 @@
 - (id)readFindMySignOutTimeFromFile;
 - (id)sharedConfigurationDictionaryFromData:(id)data key:(id)key deviceClasses:(id)classes;
 - (id)signOutTimestampFileURL;
-- (void)clearFindMySignOutTimeFile;
 - (void)clearTheftAndLossCFUWithReply:(id)reply;
 - (void)downloadWithLocale:(id)locale reply:(id)reply;
 - (void)downloadWithReply:(id)reply;
@@ -130,12 +129,12 @@ LABEL_11:
 
 - (id)_createAwarenessStringsDictionaryWithData:(id)data key:(id)key deviceClasses:(id)classes
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   classesCopy = classes;
-  v46 = 0;
-  v9 = [MEMORY[0x1E696ACB0] JSONObjectWithData:data options:0 error:&v46];
-  v10 = v46;
+  v41 = 0;
+  v9 = [MEMORY[0x1E696ACB0] JSONObjectWithData:data options:0 error:&v41];
+  v10 = v41;
   if (!v9)
   {
     v11 = LogCategory_Unspecified();
@@ -153,11 +152,11 @@ LABEL_11:
     v11 = LogCategory_Unspecified();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [FMDSharedConfiguration _createAwarenessStringsDictionaryWithData:key:deviceClasses:];
+      [FMDSharedConfiguration _createAwarenessStringsDictionaryWithData:v9 key:? deviceClasses:?];
     }
 
 LABEL_25:
-    v24 = 0;
+    v23 = 0;
     goto LABEL_34;
   }
 
@@ -171,7 +170,7 @@ LABEL_25:
       [FMDSharedConfiguration _createAwarenessStringsDictionaryWithData:key:deviceClasses:];
     }
 
-    v24 = 0;
+    v23 = 0;
     goto LABEL_33;
   }
 
@@ -185,28 +184,28 @@ LABEL_25:
       [FMDSharedConfiguration _createAwarenessStringsDictionaryWithData:key:deviceClasses:];
     }
 
-    v24 = 0;
+    v23 = 0;
     goto LABEL_32;
   }
 
-  v42 = v11;
-  v43 = keyCopy;
-  v44 = v10;
+  v37 = v11;
+  v38 = keyCopy;
+  v39 = v10;
   if (![v12 count])
   {
 LABEL_17:
     v16 = LogCategory_Unspecified();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = [v12 count];
+      v22 = [v12 count];
       *buf = 134217984;
-      v48 = v23;
+      v43 = v22;
       _os_log_impl(&dword_1DF650000, v16, OS_LOG_TYPE_DEFAULT, "No match found among %lu entries", buf, 0xCu);
     }
 
-    v24 = 0;
-    keyCopy = v43;
-    v10 = v44;
+    v23 = 0;
+    keyCopy = v38;
+    v10 = v39;
     goto LABEL_20;
   }
 
@@ -223,7 +222,7 @@ LABEL_17:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v48 = v13;
+        v43 = v13;
         _os_log_impl(&dword_1DF650000, v17, OS_LOG_TYPE_DEFAULT, "Entry at index %lu is not a dictionary", buf, 0xCu);
       }
 
@@ -231,24 +230,23 @@ LABEL_17:
     }
 
     v17 = [v16 objectForKeyedSubscript:v14];
-    v18 = *(v15 + 3776);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v19 = classesCopy;
-      v20 = v14;
-      v21 = v15;
-      v22 = LogCategory_Unspecified();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v18 = classesCopy;
+      v19 = v14;
+      v20 = v15;
+      v21 = LogCategory_Unspecified();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v48 = v13;
-        _os_log_impl(&dword_1DF650000, v22, OS_LOG_TYPE_DEFAULT, "Entry at index %lu doesn't have a category", buf, 0xCu);
+        v43 = v13;
+        _os_log_impl(&dword_1DF650000, v21, OS_LOG_TYPE_DEFAULT, "Entry at index %lu doesn't have a category", buf, 0xCu);
       }
 
-      v15 = v21;
-      v14 = v20;
-      classesCopy = v19;
+      v15 = v20;
+      v14 = v19;
+      classesCopy = v18;
       goto LABEL_16;
     }
 
@@ -265,12 +263,12 @@ LABEL_16:
     }
   }
 
-  v27 = [v16 objectForKeyedSubscript:@"awarenessEnabled"];
-  v28 = v27;
-  if (!v27)
+  v25 = [v16 objectForKeyedSubscript:@"awarenessEnabled"];
+  v26 = v25;
+  if (!v25)
   {
-    v38 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v33 = LogCategory_Unspecified();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       [FMDSharedConfiguration _createAwarenessStringsDictionaryWithData:key:deviceClasses:];
     }
@@ -281,64 +279,63 @@ LABEL_16:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v38 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v33 = LogCategory_Unspecified();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       [FMDSharedConfiguration _createAwarenessStringsDictionaryWithData:key:deviceClasses:];
     }
 
 LABEL_50:
-    v24 = 0;
-    keyCopy = v43;
+    v23 = 0;
+    keyCopy = v38;
     goto LABEL_64;
   }
 
-  v29 = [v16 objectForKeyedSubscript:@"message"];
-  if (!v29)
+  v27 = [v16 objectForKeyedSubscript:@"message"];
+  if (!v27)
   {
-    v38 = 0;
-    v45 = LogCategory_Unspecified();
-    keyCopy = v43;
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v33 = 0;
+    v40 = LogCategory_Unspecified();
+    keyCopy = v38;
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
       [FMDSharedConfiguration _createAwarenessStringsDictionaryWithData:key:deviceClasses:];
     }
 
-    v24 = 0;
+    v23 = 0;
     goto LABEL_63;
   }
 
-  v30 = *(v15 + 3776);
   objc_opt_class();
-  v41 = v29;
+  v36 = v27;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v45 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v40 = LogCategory_Unspecified();
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
-      v38 = v29;
+      v33 = v27;
       [FMDSharedConfiguration _createAwarenessStringsDictionaryWithData:key:deviceClasses:];
-      v24 = 0;
-      keyCopy = v43;
+      v23 = 0;
+      keyCopy = v38;
     }
 
     else
     {
-      v24 = 0;
-      keyCopy = v43;
-      v38 = v41;
+      v23 = 0;
+      keyCopy = v38;
+      v33 = v36;
     }
 
     goto LABEL_63;
   }
 
-  v31 = [v16 objectForKeyedSubscript:@"title"];
-  v45 = v31;
-  if (!v31)
+  v28 = [v16 objectForKeyedSubscript:@"title"];
+  v40 = v28;
+  if (!v28)
   {
-    v34 = LogCategory_Unspecified();
-    keyCopy = v43;
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    v30 = LogCategory_Unspecified();
+    keyCopy = v38;
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       [FMDSharedConfiguration _createAwarenessStringsDictionaryWithData:key:deviceClasses:];
     }
@@ -346,78 +343,75 @@ LABEL_50:
     goto LABEL_60;
   }
 
-  v32 = v31;
-  v33 = *(v15 + 3776);
+  v29 = v28;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v34 = LogCategory_Unspecified();
-    keyCopy = v43;
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    v30 = LogCategory_Unspecified();
+    keyCopy = v38;
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       [FMDSharedConfiguration _createAwarenessStringsDictionaryWithData:key:deviceClasses:];
     }
 
 LABEL_60:
-    v24 = 0;
+    v23 = 0;
     goto LABEL_61;
   }
 
-  v34 = [v16 objectForKeyedSubscript:@"disclaimerLabel"];
-  v35 = v32;
-  if (!v34 || (v36 = *(v15 + 3776), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v35 = v34, (isKindOfClass & 1) != 0))
+  v30 = [v16 objectForKeyedSubscript:@"disclaimerLabel"];
+  v31 = v29;
+  if (!v30 || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v31 = v30, (isKindOfClass & 1) != 0))
   {
-    v40 = v35;
-    v24 = objc_alloc_init(FMDSharedConfigurationEntry);
-    -[FMDSharedConfigurationEntry setEnabled:](v24, "setEnabled:", [v28 BOOLValue]);
-    v38 = v41;
-    [(FMDSharedConfigurationEntry *)v24 setMessage:v41];
-    [(FMDSharedConfigurationEntry *)v24 setTitle:v32];
-    [(FMDSharedConfigurationEntry *)v24 setDisclaimer:v40];
-    keyCopy = v43;
+    v35 = v31;
+    v23 = objc_alloc_init(FMDSharedConfigurationEntry);
+    -[FMDSharedConfigurationEntry setEnabled:](v23, "setEnabled:", [v26 BOOLValue]);
+    v33 = v36;
+    [(FMDSharedConfigurationEntry *)v23 setMessage:v36];
+    [(FMDSharedConfigurationEntry *)v23 setTitle:v29];
+    [(FMDSharedConfigurationEntry *)v23 setDisclaimer:v35];
+    keyCopy = v38;
     goto LABEL_62;
   }
 
-  v39 = LogCategory_Unspecified();
-  if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+  v34 = LogCategory_Unspecified();
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
   {
     [FMDSharedConfiguration _createAwarenessStringsDictionaryWithData:key:deviceClasses:];
   }
 
-  v24 = 0;
-  keyCopy = v43;
+  v23 = 0;
+  keyCopy = v38;
 LABEL_61:
-  v38 = v41;
+  v33 = v36;
 LABEL_62:
 
 LABEL_63:
 LABEL_64:
 
-  v10 = v44;
+  v10 = v39;
 LABEL_20:
-  v11 = v42;
+  v11 = v37;
 LABEL_32:
 
 LABEL_33:
 LABEL_34:
 
-  v25 = *MEMORY[0x1E69E9840];
-
-  return v24;
+  return v23;
 }
 
 - (id)_createFollowUpStringsDictionaryWithData:(id)data key:(id)key deviceClasses:(id)classes
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   classesCopy = classes;
-  v51 = 0;
-  v10 = [MEMORY[0x1E696ACB0] JSONObjectWithData:data options:0 error:&v51];
-  v11 = v51;
+  v48 = 0;
+  v10 = [MEMORY[0x1E696ACB0] JSONObjectWithData:data options:0 error:&v48];
+  v11 = v48;
   if (!v10)
   {
-    v13 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = LogCategory_Unspecified();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [FMDSharedConfiguration _createAwarenessStringsDictionaryWithData:key:deviceClasses:];
     }
@@ -425,14 +419,13 @@ LABEL_34:
     goto LABEL_75;
   }
 
-  v12 = 0x1E695D000uLL;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v13 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = LogCategory_Unspecified();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [FMDSharedConfiguration _createAwarenessStringsDictionaryWithData:key:deviceClasses:];
+      [FMDSharedConfiguration _createAwarenessStringsDictionaryWithData:v10 key:? deviceClasses:?];
     }
 
 LABEL_75:
@@ -440,69 +433,68 @@ LABEL_75:
     goto LABEL_86;
   }
 
-  v13 = [v10 objectForKeyedSubscript:keyCopy];
+  v12 = [v10 objectForKeyedSubscript:keyCopy];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v14 = [v13 objectForKeyedSubscript:@"followUpStrings"];
+    v13 = [v12 objectForKeyedSubscript:@"followUpStrings"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v49 = keyCopy;
-      v50 = v11;
-      if ([v14 count])
+      v46 = keyCopy;
+      v47 = v11;
+      if ([v13 count])
       {
-        v15 = 0;
+        v14 = 0;
         while (1)
         {
-          v16 = [v14 objectAtIndexedSubscript:v15];
-          v17 = *(v12 + 3872);
+          v15 = [v13 objectAtIndexedSubscript:v14];
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v18 = LogCategory_Unspecified();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+            v16 = LogCategory_Unspecified();
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 134217984;
-              v53 = v15;
-              _os_log_impl(&dword_1DF650000, v18, OS_LOG_TYPE_DEFAULT, "Entry at index %lu is not a dictionary", buf, 0xCu);
+              v50 = v14;
+              _os_log_impl(&dword_1DF650000, v16, OS_LOG_TYPE_DEFAULT, "Entry at index %lu is not a dictionary", buf, 0xCu);
             }
 
             goto LABEL_52;
           }
 
-          v18 = [v16 objectForKeyedSubscript:@"category"];
+          v16 = [v15 objectForKeyedSubscript:@"category"];
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
+            v21 = LogCategory_Unspecified();
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 134217984;
+              v50 = v14;
+              _os_log_impl(&dword_1DF650000, v21, OS_LOG_TYPE_DEFAULT, "Entry at index %lu doesn't have a category", buf, 0xCu);
+            }
+
+            goto LABEL_52;
+          }
+
+          if (![v16 isEqualToString:classesCopy])
+          {
+            goto LABEL_52;
+          }
+
+          v17 = [v15 objectForKeyedSubscript:@"informativeText"];
+          if (!v17)
+          {
+            v22 = 0;
             v23 = LogCategory_Unspecified();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
               *buf = 134217984;
-              v53 = v15;
-              _os_log_impl(&dword_1DF650000, v23, OS_LOG_TYPE_DEFAULT, "Entry at index %lu doesn't have a category", buf, 0xCu);
-            }
-
-            goto LABEL_52;
-          }
-
-          if (![v18 isEqualToString:classesCopy])
-          {
-            goto LABEL_52;
-          }
-
-          v19 = [v16 objectForKeyedSubscript:@"informativeText"];
-          if (!v19)
-          {
-            v24 = 0;
-            v25 = LogCategory_Unspecified();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
-            {
-              *buf = 134217984;
-              v53 = v15;
-              v26 = v25;
-              v27 = "Entry found at %lu, but it doesn't contain informative text";
-              v28 = 12;
+              v50 = v14;
+              v24 = v23;
+              v25 = "Entry found at %lu, but it doesn't contain informative text";
+              v26 = 12;
               goto LABEL_43;
             }
 
@@ -514,36 +506,36 @@ LABEL_31:
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v24 = v19;
-            v25 = LogCategory_Unspecified();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+            v22 = v17;
+            v23 = LogCategory_Unspecified();
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
               *buf = 134218242;
-              v53 = v15;
-              v54 = 2112;
-              v55 = v24;
-              v26 = v25;
-              v27 = "Entry found at %lu, but message is not a string: %@";
-              v28 = 22;
+              v50 = v14;
+              v51 = 2112;
+              v52 = v22;
+              v24 = v23;
+              v25 = "Entry found at %lu, but message is not a string: %@";
+              v26 = 22;
 LABEL_43:
-              _os_log_error_impl(&dword_1DF650000, v26, OS_LOG_TYPE_ERROR, v27, buf, v28);
+              _os_log_error_impl(&dword_1DF650000, v24, OS_LOG_TYPE_ERROR, v25, buf, v26);
             }
 
             goto LABEL_31;
           }
 
-          v20 = [v16 objectForKeyedSubscript:@"reminderInMins"];
-          v48 = v19;
-          if (!v20)
+          v18 = [v15 objectForKeyedSubscript:@"reminderInMins"];
+          v45 = v17;
+          if (!v18)
           {
-            v29 = LogCategory_Unspecified();
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+            v27 = LogCategory_Unspecified();
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
             {
               *buf = 134217984;
-              v53 = v15;
-              v30 = v29;
-              v31 = "Entry found at %lu, but doesn't contain a remainder in mins";
-              v32 = 12;
+              v50 = v14;
+              v28 = v27;
+              v29 = "Entry found at %lu, but doesn't contain a remainder in mins";
+              v30 = 12;
               goto LABEL_56;
             }
 
@@ -555,33 +547,33 @@ LABEL_35:
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v29 = LogCategory_Unspecified();
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+            v27 = LogCategory_Unspecified();
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
             {
               *buf = 134218242;
-              v53 = v15;
-              v54 = 2112;
-              v55 = v20;
-              v30 = v29;
-              v31 = "Entry found at %lu, but remainder in mins isn't a number: %@";
-              v32 = 22;
+              v50 = v14;
+              v51 = 2112;
+              v52 = v18;
+              v28 = v27;
+              v29 = "Entry found at %lu, but remainder in mins isn't a number: %@";
+              v30 = 22;
 LABEL_56:
-              _os_log_error_impl(&dword_1DF650000, v30, OS_LOG_TYPE_ERROR, v31, buf, v32);
+              _os_log_error_impl(&dword_1DF650000, v28, OS_LOG_TYPE_ERROR, v29, buf, v30);
             }
 
             goto LABEL_35;
           }
 
-          v46 = v20;
-          v47 = [v16 objectForKeyedSubscript:@"id"];
-          if (!v47)
+          v43 = v18;
+          v44 = [v15 objectForKeyedSubscript:@"id"];
+          if (!v44)
           {
-            v33 = LogCategory_Unspecified();
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+            v31 = LogCategory_Unspecified();
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
             {
               *buf = 134217984;
-              v53 = v15;
-              _os_log_error_impl(&dword_1DF650000, v33, OS_LOG_TYPE_ERROR, "Entry found at %lu, but doesn't contain an id", buf, 0xCu);
+              v50 = v14;
+              _os_log_error_impl(&dword_1DF650000, v31, OS_LOG_TYPE_ERROR, "Entry found at %lu, but doesn't contain an id", buf, 0xCu);
             }
 
 LABEL_41:
@@ -592,28 +584,28 @@ LABEL_41:
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v33 = LogCategory_Unspecified();
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+            v31 = LogCategory_Unspecified();
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
             {
               *buf = 134218242;
-              v53 = v15;
-              v54 = 2112;
-              v55 = v47;
-              _os_log_error_impl(&dword_1DF650000, v33, OS_LOG_TYPE_ERROR, "Entry found at %lu, but id isn't a number: %@", buf, 0x16u);
+              v50 = v14;
+              v51 = 2112;
+              v52 = v44;
+              _os_log_error_impl(&dword_1DF650000, v31, OS_LOG_TYPE_ERROR, "Entry found at %lu, but id isn't a number: %@", buf, 0x16u);
             }
 
             goto LABEL_41;
           }
 
-          v45 = [v16 objectForKeyedSubscript:@"message"];
-          if (!v45)
+          v42 = [v15 objectForKeyedSubscript:@"message"];
+          if (!v42)
           {
-            v34 = LogCategory_Unspecified();
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+            v32 = LogCategory_Unspecified();
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
             {
               *buf = 134217984;
-              v53 = v15;
-              _os_log_error_impl(&dword_1DF650000, v34, OS_LOG_TYPE_ERROR, "Entry found at %lu, but it doesn't contain message", buf, 0xCu);
+              v50 = v14;
+              _os_log_error_impl(&dword_1DF650000, v32, OS_LOG_TYPE_ERROR, "Entry found at %lu, but it doesn't contain message", buf, 0xCu);
             }
 
 LABEL_49:
@@ -628,21 +620,21 @@ LABEL_52:
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v34 = LogCategory_Unspecified();
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+            v32 = LogCategory_Unspecified();
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
             {
               *buf = 134218242;
-              v53 = v15;
-              v54 = 2112;
-              v55 = v48;
-              _os_log_error_impl(&dword_1DF650000, v34, OS_LOG_TYPE_ERROR, "Entry found at %lu, but message is not a string: %@", buf, 0x16u);
+              v50 = v14;
+              v51 = 2112;
+              v52 = v45;
+              _os_log_error_impl(&dword_1DF650000, v32, OS_LOG_TYPE_ERROR, "Entry found at %lu, but message is not a string: %@", buf, 0x16u);
             }
 
             goto LABEL_49;
           }
 
-          v44 = [v16 objectForKeyedSubscript:@"category"];
-          if (!v44)
+          v41 = [v15 objectForKeyedSubscript:@"category"];
+          if (!v41)
           {
             break;
           }
@@ -650,122 +642,120 @@ LABEL_52:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v21 = [v16 objectForKeyedSubscript:@"title"];
-            if (v21)
+            v19 = [v15 objectForKeyedSubscript:@"title"];
+            if (v19)
             {
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
                 v5 = objc_alloc_init(FMDSharedConfigurationFollowUpEntry);
-                [(FMDSharedConfigurationFollowUpEntry *)v5 setInformativeText:v19];
-                v22 = v46;
-                [(FMDSharedConfigurationFollowUpEntry *)v5 setReminderInMins:v46];
-                [(FMDSharedConfigurationFollowUpEntry *)v5 setIdNumber:v47];
-                [(FMDSharedConfigurationFollowUpEntry *)v5 setMessage:v45];
-                [(FMDSharedConfigurationFollowUpEntry *)v5 setCategory:v44];
-                [(FMDSharedConfigurationFollowUpEntry *)v5 setTitle:v21];
-                v43 = 0;
+                [(FMDSharedConfigurationFollowUpEntry *)v5 setInformativeText:v17];
+                v20 = v43;
+                [(FMDSharedConfigurationFollowUpEntry *)v5 setReminderInMins:v43];
+                [(FMDSharedConfigurationFollowUpEntry *)v5 setIdNumber:v44];
+                [(FMDSharedConfigurationFollowUpEntry *)v5 setMessage:v42];
+                [(FMDSharedConfigurationFollowUpEntry *)v5 setCategory:v41];
+                [(FMDSharedConfigurationFollowUpEntry *)v5 setTitle:v19];
+                v40 = 0;
                 goto LABEL_67;
               }
 
-              v35 = LogCategory_Unspecified();
-              if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+              v33 = LogCategory_Unspecified();
+              if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
               {
 LABEL_65:
 
 LABEL_66:
-                v43 = 1;
-                v22 = v46;
+                v40 = 1;
+                v20 = v43;
                 goto LABEL_67;
               }
 
               *buf = 134218242;
-              v53 = v15;
-              v54 = 2112;
-              v55 = v48;
-              v36 = v35;
-              v37 = "Entry found at %lu, but message is not a string: %@";
-              v38 = 22;
+              v50 = v14;
+              v51 = 2112;
+              v52 = v45;
+              v34 = v33;
+              v35 = "Entry found at %lu, but message is not a string: %@";
+              v36 = 22;
             }
 
             else
             {
-              v35 = LogCategory_Unspecified();
-              if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+              v33 = LogCategory_Unspecified();
+              if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
               {
                 goto LABEL_65;
               }
 
               *buf = 134217984;
-              v53 = v15;
-              v36 = v35;
-              v37 = "Entry found at %lu, but it doesn't contain title";
-              v38 = 12;
+              v50 = v14;
+              v34 = v33;
+              v35 = "Entry found at %lu, but it doesn't contain title";
+              v36 = 12;
             }
 
-            _os_log_error_impl(&dword_1DF650000, v36, OS_LOG_TYPE_ERROR, v37, buf, v38);
+            _os_log_error_impl(&dword_1DF650000, v34, OS_LOG_TYPE_ERROR, v35, buf, v36);
             goto LABEL_65;
           }
 
-          v21 = LogCategory_Unspecified();
-          v22 = v46;
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v19 = LogCategory_Unspecified();
+          v20 = v43;
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218242;
-            v53 = v15;
-            v54 = 2112;
-            v55 = v48;
-            _os_log_error_impl(&dword_1DF650000, v21, OS_LOG_TYPE_ERROR, "Entry found at %lu, but message is not a string: %@", buf, 0x16u);
+            v50 = v14;
+            v51 = 2112;
+            v52 = v45;
+            _os_log_error_impl(&dword_1DF650000, v19, OS_LOG_TYPE_ERROR, "Entry found at %lu, but message is not a string: %@", buf, 0x16u);
           }
 
-          v43 = 1;
+          v40 = 1;
 LABEL_67:
 
-          if ((v43 & 1) == 0)
+          if ((v40 & 1) == 0)
           {
-            keyCopy = v49;
-            v11 = v50;
+            keyCopy = v46;
+            v11 = v47;
             goto LABEL_85;
           }
 
 LABEL_53:
-          ++v15;
-          v12 = 0x1E695D000;
-          if (v15 >= [v14 count])
+          if (++v14 >= [v13 count])
           {
             goto LABEL_80;
           }
         }
 
-        v21 = LogCategory_Unspecified();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v19 = LogCategory_Unspecified();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           *buf = 134217984;
-          v53 = v15;
-          _os_log_error_impl(&dword_1DF650000, v21, OS_LOG_TYPE_ERROR, "Entry found at %lu, but it doesn't contain category", buf, 0xCu);
+          v50 = v14;
+          _os_log_error_impl(&dword_1DF650000, v19, OS_LOG_TYPE_ERROR, "Entry found at %lu, but it doesn't contain category", buf, 0xCu);
         }
 
         goto LABEL_66;
       }
 
 LABEL_80:
-      v39 = LogCategory_Unspecified();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+      v37 = LogCategory_Unspecified();
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
-        v40 = [v14 count];
+        v38 = [v13 count];
         *buf = 134217984;
-        v53 = v40;
-        _os_log_impl(&dword_1DF650000, v39, OS_LOG_TYPE_DEFAULT, "No match found among %lu entries", buf, 0xCu);
+        v50 = v38;
+        _os_log_impl(&dword_1DF650000, v37, OS_LOG_TYPE_DEFAULT, "No match found among %lu entries", buf, 0xCu);
       }
 
-      keyCopy = v49;
-      v11 = v50;
+      keyCopy = v46;
+      v11 = v47;
     }
 
     else
     {
-      v39 = LogCategory_Unspecified();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      v37 = LogCategory_Unspecified();
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
         [FMDSharedConfiguration _createAwarenessStringsDictionaryWithData:key:deviceClasses:];
       }
@@ -774,8 +764,8 @@ LABEL_80:
 
   else
   {
-    v14 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v13 = LogCategory_Unspecified();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [FMDSharedConfiguration _createAwarenessStringsDictionaryWithData:key:deviceClasses:];
     }
@@ -785,7 +775,6 @@ LABEL_80:
 LABEL_85:
 
 LABEL_86:
-  v41 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -822,7 +811,7 @@ LABEL_86:
 
 - (id)contentsWithLocale:(id)locale
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   localeCopy = locale;
   v5 = [(FMDSharedConfiguration *)self fileURLWithLocale:localeCopy];
   if (!v5)
@@ -831,18 +820,18 @@ LABEL_86:
     goto LABEL_11;
   }
 
-  v15 = 0;
-  v6 = [MEMORY[0x1E695DF20] fm_dictionaryWithContentsOfURL:v5 error:&v15];
-  v7 = v15;
+  v14 = 0;
+  v6 = [MEMORY[0x1E695DF20] fm_dictionaryWithContentsOfURL:v5 error:&v14];
+  v7 = v14;
   if (v7)
   {
     v8 = LogCategory_Unspecified();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v17 = localeCopy;
-      v18 = 2112;
-      v19 = v7;
+      v16 = localeCopy;
+      v17 = 2112;
+      v18 = v7;
       v9 = "Failed to read contents for %@, error: %@";
       v10 = v8;
       v11 = 22;
@@ -863,7 +852,7 @@ LABEL_5:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v17 = localeCopy;
+      v16 = localeCopy;
       v9 = "No contents for %@";
       v10 = v8;
       v11 = 12;
@@ -875,7 +864,6 @@ LABEL_5:
 LABEL_10:
 
 LABEL_11:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -900,13 +888,13 @@ LABEL_11:
 
 - (id)defaultEntryForConfiguration:(id)configuration deviceClasses:(id)classes
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   classesCopy = classes;
   v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v9 = objc_alloc_init(FMDSharedConfigurationEntry);
   selfCopy = self;
-  v31 = classesCopy;
+  v30 = classesCopy;
   if ([configurationCopy isEqualToString:@"theftLoss"])
   {
     v10 = [objc_opt_class() localizedStringWithKey:@"TNL_DISCLAIMER_MESSAGE_DEFAULT"];
@@ -962,7 +950,7 @@ LABEL_11:
       v21 = &stru_1F5A998C8;
     }
 
-    v22 = v17 & [v20 isEqualToString:{@"iPhone", selfCopy, v31}];
+    v22 = v17 & [v20 isEqualToString:{@"iPhone", selfCopy, v30}];
     v8 = v16;
     configurationCopy = v15;
     [(FMDSharedConfigurationEntry *)v9 setEnabled:v22];
@@ -977,9 +965,9 @@ LABEL_11:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v33 = configurationCopy;
-      v34 = 2112;
-      v35 = classesCopy;
+      v32 = configurationCopy;
+      v33 = 2112;
+      v34 = classesCopy;
       _os_log_impl(&dword_1DF650000, v23, OS_LOG_TYPE_DEFAULT, "No defaults for configuration %@ (%@)", buf, 0x16u);
     }
 
@@ -1002,8 +990,6 @@ LABEL_11:
 
   [v8 setObject:v9 forKeyedSubscript:{@"awarenessStrings", selfCopy}];
   [v8 setObject:v24 forKeyedSubscript:@"followUpStrings"];
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -1032,7 +1018,7 @@ LABEL_11:
 
 - (id)entryForConfiguration:(id)configuration deviceClasses:(id)classes locale:(id)locale
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   classesCopy = classes;
   localeCopy = locale;
@@ -1051,9 +1037,9 @@ LABEL_11:
       v15 = LogCategory_Unspecified();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 138412290;
-        v19 = localeCopy;
-        _os_log_impl(&dword_1DF650000, v15, OS_LOG_TYPE_DEFAULT, "No data for %@, returning default", &v18, 0xCu);
+        v17 = 138412290;
+        v18 = localeCopy;
+        _os_log_impl(&dword_1DF650000, v15, OS_LOG_TYPE_DEFAULT, "No data for %@, returning default", &v17, 0xCu);
       }
 
       v14 = 0;
@@ -1064,8 +1050,6 @@ LABEL_11:
   {
     v14 = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -1121,7 +1105,7 @@ LABEL_11:
 
 - (void)downloadWithLocale:(id)locale reply:(id)reply
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   localeCopy = locale;
   replyCopy = reply;
   v8 = [(FMDSharedConfiguration *)self contentsWithLocale:localeCopy];
@@ -1135,13 +1119,13 @@ LABEL_11:
   {
 
 LABEL_8:
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __51__FMDSharedConfiguration_downloadWithLocale_reply___block_invoke;
-    v14[3] = &unk_1E86BD2D0;
-    v15 = replyCopy;
-    [(FMDSharedConfiguration *)self forceDownloadWithReply:v14];
-    v9 = v15;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __51__FMDSharedConfiguration_downloadWithLocale_reply___block_invoke;
+    v13[3] = &unk_1E86BD2D0;
+    v14 = replyCopy;
+    [(FMDSharedConfiguration *)self forceDownloadWithReply:v13];
+    v9 = v14;
     goto LABEL_9;
   }
 
@@ -1149,16 +1133,14 @@ LABEL_8:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v17 = localeCopy;
-    v18 = 2112;
-    v19 = v9;
+    v16 = localeCopy;
+    v17 = 2112;
+    v18 = v9;
     _os_log_impl(&dword_1DF650000, v12, OS_LOG_TYPE_DEFAULT, "Has existing shared configuration for '%@' and it has not yet expired (%@)", buf, 0x16u);
   }
 
   (*(replyCopy + 2))(replyCopy, 0);
 LABEL_9:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)forceDownloadWithLocale:(id)locale reply:(id)reply
@@ -1278,7 +1260,7 @@ void __61__FMDSharedConfiguration_postTheftAndLossCFUWithEntry_reply___block_inv
 
 void __61__FMDSharedConfiguration_postTheftAndLossCFUWithEntry_reply___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = LogCategory_Unspecified();
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
@@ -1291,7 +1273,7 @@ void __61__FMDSharedConfiguration_postTheftAndLossCFUWithEntry_reply___block_inv
         goto LABEL_10;
       }
 
-      LOWORD(v11) = 0;
+      LOWORD(v10) = 0;
       v9 = "Requested a CFU";
     }
 
@@ -1302,30 +1284,28 @@ void __61__FMDSharedConfiguration_postTheftAndLossCFUWithEntry_reply___block_inv
         goto LABEL_10;
       }
 
-      LOWORD(v11) = 0;
+      LOWORD(v10) = 0;
       v9 = "No CFU requested";
     }
 
-    _os_log_impl(&dword_1DF650000, v6, OS_LOG_TYPE_DEFAULT, v9, &v11, 2u);
+    _os_log_impl(&dword_1DF650000, v6, OS_LOG_TYPE_DEFAULT, v9, &v10, 2u);
     goto LABEL_10;
   }
 
   if (v7)
   {
     v8 = [MEMORY[0x1E696AD98] numberWithBool:a2];
-    v11 = 138412546;
-    v12 = v5;
-    v13 = 2114;
-    v14 = v8;
-    _os_log_impl(&dword_1DF650000, v6, OS_LOG_TYPE_DEFAULT, "Failure to request a CFU with error: %@, shouldEnable: %{public}@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v5;
+    v12 = 2114;
+    v13 = v8;
+    _os_log_impl(&dword_1DF650000, v6, OS_LOG_TYPE_DEFAULT, "Failure to request a CFU with error: %@, shouldEnable: %{public}@", &v10, 0x16u);
   }
 
 LABEL_10:
 
   (*(*(a1 + 40) + 16))();
   [*(a1 + 32) invalidate];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearTheftAndLossCFUWithReply:(id)reply
@@ -1362,7 +1342,7 @@ void __56__FMDSharedConfiguration_clearTheftAndLossCFUWithReply___block_invoke(u
 
 void __56__FMDSharedConfiguration_clearTheftAndLossCFUWithReply___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = LogCategory_Unspecified();
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -1370,19 +1350,19 @@ void __56__FMDSharedConfiguration_clearTheftAndLossCFUWithReply___block_invoke_2
   {
     if (v5)
     {
-      v10 = 138412290;
-      v11 = v3;
+      v9 = 138412290;
+      v10 = v3;
       v6 = "Failure to request a CFU with error: (%@)";
       v7 = v4;
       v8 = 12;
 LABEL_6:
-      _os_log_impl(&dword_1DF650000, v7, OS_LOG_TYPE_DEFAULT, v6, &v10, v8);
+      _os_log_impl(&dword_1DF650000, v7, OS_LOG_TYPE_DEFAULT, v6, &v9, v8);
     }
   }
 
   else if (v5)
   {
-    LOWORD(v10) = 0;
+    LOWORD(v9) = 0;
     v6 = "Cleared a CFU";
     v7 = v4;
     v8 = 2;
@@ -1391,8 +1371,6 @@ LABEL_6:
 
   (*(*(a1 + 40) + 16))(*(a1 + 40), v3);
   [*(a1 + 32) invalidate];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)signOutTimestampFileURL
@@ -1440,16 +1418,16 @@ LABEL_11:
 
 - (BOOL)writeFindMySignOutTimeToFile
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   signOutTimestampFileURL = [(FMDSharedConfiguration *)self signOutTimestampFileURL];
   if (signOutTimestampFileURL)
   {
     date = [MEMORY[0x1E695DF00] date];
     v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
     [v4 setObject:date forKeyedSubscript:@"SignOutTimestamp"];
-    v16 = 0;
-    [v4 writeToURL:signOutTimestampFileURL error:&v16];
-    v5 = v16;
+    v15 = 0;
+    [v4 writeToURL:signOutTimestampFileURL error:&v15];
+    v5 = v15;
     v6 = v5 == 0;
     v7 = LogCategory_Unspecified();
     v8 = v7;
@@ -1464,17 +1442,17 @@ LABEL_11:
     else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v18 = date;
-      v19 = 2112;
-      v20 = signOutTimestampFileURL;
+      v17 = date;
+      v18 = 2112;
+      v19 = signOutTimestampFileURL;
       _os_log_impl(&dword_1DF650000, v8, OS_LOG_TYPE_DEFAULT, "Wrote (%@) to (%@).", buf, 0x16u);
     }
 
     v9 = [MEMORY[0x1E696AD98] numberWithBool:1];
     v10 = *MEMORY[0x1E695DB80];
-    v15 = 0;
-    [signOutTimestampFileURL setResourceValue:v9 forKey:v10 error:&v15];
-    v11 = v15;
+    v14 = 0;
+    [signOutTimestampFileURL setResourceValue:v9 forKey:v10 error:&v14];
+    v11 = v14;
 
     if (v11)
     {
@@ -1497,26 +1475,25 @@ LABEL_11:
     v6 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (id)readFindMySignOutTimeFromFile
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   signOutTimestampFileURL = [(FMDSharedConfiguration *)self signOutTimestampFileURL];
   if (signOutTimestampFileURL)
   {
-    v12 = 0;
-    v3 = [MEMORY[0x1E695DF20] fm_dictionaryWithContentsOfURL:signOutTimestampFileURL error:&v12];
-    v4 = v12;
+    v11 = 0;
+    v3 = [MEMORY[0x1E695DF20] fm_dictionaryWithContentsOfURL:signOutTimestampFileURL error:&v11];
+    v4 = v11;
     if (v4)
     {
       v5 = LogCategory_Unspecified();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v14 = v4;
+        v13 = v4;
         v6 = "Failed to read contents with error: %@";
         v7 = v5;
         v8 = 12;
@@ -1559,14 +1536,12 @@ LABEL_12:
   v9 = 0;
 LABEL_13:
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (BOOL)clearFindMySignOutTimeFile
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   signOutTimestampFileURL = [(FMDSharedConfiguration *)self signOutTimestampFileURL];
   if (signOutTimestampFileURL)
   {
@@ -1577,9 +1552,9 @@ LABEL_13:
     if (v5)
     {
       path2 = [signOutTimestampFileURL path];
-      v13 = 0;
-      v7 = [defaultManager removeItemAtPath:path2 error:&v13];
-      v8 = v13;
+      v12 = 0;
+      v7 = [defaultManager removeItemAtPath:path2 error:&v12];
+      v8 = v12;
 
       v9 = LogCategory_Unspecified();
       v10 = v9;
@@ -1588,7 +1563,7 @@ LABEL_13:
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v15 = signOutTimestampFileURL;
+          v14 = signOutTimestampFileURL;
           _os_log_impl(&dword_1DF650000, v10, OS_LOG_TYPE_DEFAULT, "Removed (%@).", buf, 0xCu);
         }
       }
@@ -1623,7 +1598,6 @@ LABEL_13:
     v7 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -1648,25 +1622,20 @@ LABEL_13:
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)_createAwarenessStringsDictionaryWithData:key:deviceClasses:.cold.1()
+- (void)_createAwarenessStringsDictionaryWithData:(uint64_t)a1 key:deviceClasses:.cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_3();
-  v1 = v0;
+  v2 = v1;
   OUTLINED_FUNCTION_5_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 - (void)_createAwarenessStringsDictionaryWithData:key:deviceClasses:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_createAwarenessStringsDictionaryWithData:key:deviceClasses:.cold.3()
@@ -1676,88 +1645,40 @@ LABEL_13:
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)_createAwarenessStringsDictionaryWithData:key:deviceClasses:.cold.4()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1DF650000, v0, v1, "Entry found at %lu, but enabled flag isn't a number: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_createAwarenessStringsDictionaryWithData:key:deviceClasses:.cold.5()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1DF650000, v0, v1, "Entry found at %lu, but message is not a string: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_createAwarenessStringsDictionaryWithData:key:deviceClasses:.cold.6()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1DF650000, v0, v1, "Entry found at %lu, but title is not a string: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_createAwarenessStringsDictionaryWithData:key:deviceClasses:.cold.7()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1DF650000, v0, v1, "Entry found at %lu, but disclaimer label exists and is not a string: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 - (void)_createAwarenessStringsDictionaryWithData:key:deviceClasses:.cold.8()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_createAwarenessStringsDictionaryWithData:key:deviceClasses:.cold.9()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_createAwarenessStringsDictionaryWithData:key:deviceClasses:.cold.10()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_createAwarenessStringsDictionaryWithData:key:deviceClasses:.cold.11()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)writeFindMySignOutTimeToFile
 {
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)clearFindMySignOutTimeFile
-{
-  v3 = *MEMORY[0x1E69E9840];
+  lastPathComponent = [self lastPathComponent];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF650000, v0, v1, "Failed to remove file (%@) with error %@.");
-  v2 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5_0();
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 @end

@@ -6,7 +6,7 @@
 
 - (void)performRequestWithCompletion:(id)completion
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   *keys = xmmword_1E7348668;
   values[0] = xpc_int64_create(1);
@@ -16,13 +16,13 @@
   v6 = v5;
   if (v4 && v5)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __60__AFSiriMusicSmartPlayRequest_performRequestWithCompletion___block_invoke;
-    v9[3] = &unk_1E7348638;
-    v11 = completionCopy;
-    v10 = v6;
-    xpc_connection_send_message_with_reply(v10, v4, 0, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __60__AFSiriMusicSmartPlayRequest_performRequestWithCompletion___block_invoke;
+    v8[3] = &unk_1E7348638;
+    v10 = completionCopy;
+    v9 = v6;
+    xpc_connection_send_message_with_reply(v9, v4, 0, v8);
   }
 
   else
@@ -41,8 +41,6 @@
   for (i = 1; i != -1; --i)
   {
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __60__AFSiriMusicSmartPlayRequest_performRequestWithCompletion___block_invoke(uint64_t a1, void *a2)

@@ -1,13 +1,13 @@
-void sub_23CA01960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23CA01960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   absl::lts_20240722::log_internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23CA01974(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23CA01974(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   absl::lts_20240722::log_internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -28,7 +28,7 @@ void sub_23CA01988(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::unique_ptr<operations_research::sat::CompiledConstraint>>::emplace_back<operations_research::sat::CompiledNoOverlapConstraint *&>(uint64_t a1, void *a2)
+void *std::vector<std::unique_ptr<operations_research::sat::CompiledConstraint>>::emplace_back<operations_research::sat::CompiledNoOverlapConstraint *&>(uint64_t a1, void *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -88,7 +88,7 @@ uint64_t std::vector<std::unique_ptr<operations_research::sat::CompiledConstrain
   }
 
   *(a1 + 8) = v5;
-  return v5 - 8;
+  return (v5 - 8);
 }
 
 uint64_t absl::lts_20240722::log_internal::LogMessage::operator<<<operations_research::sat::ConstraintProto::ConstraintCase,0>(uint64_t a1, int *a2)
@@ -247,27 +247,24 @@ LABEL_11:
 
 void operations_research::sat::LsEvaluator::ComputeAllViolations(operations_research::sat::LsEvaluator *this)
 {
-  v2 = *(this + 112);
-  v3 = *(this + 113) - v2;
-  operations_research::sat::LinearIncrementalEvaluator::ComputeInitialActivities(this + 44, v2);
-  v4 = *(this + 100);
-  for (i = *(this + 101); v4 != i; v6[2] = (*(*v6 + 16))(v6))
+  operations_research::sat::LinearIncrementalEvaluator::ComputeInitialActivities(this + 44, *(this + 112));
+  v2 = *(this + 100);
+  for (i = *(this + 101); v2 != i; v4[2] = (*(*v4 + 16))(v4))
   {
-    v6 = *v4++;
-    v7 = (*(this + 113) - *(this + 112)) >> 3;
+    v4 = *v2++;
   }
 
-  v8 = *(*this + 32);
+  v5 = *(*this + 32);
   __u = 0;
-  std::vector<int>::assign((this + 968), v8, &__u);
+  std::vector<int>::assign((this + 968), v5, &__u);
   *(this + 119) = *(this + 118);
-  v9 = (*(this + 44) + ((*(this + 101) - *(this + 100)) >> 3));
-  v12 = -1;
-  std::vector<int>::assign((this + 920), v9, &v12);
-  v10 = *(this + 44) + ((*(this + 101) - *(this + 100)) >> 3);
-  if (v10 >= 1)
+  v6 = (*(this + 44) + ((*(this + 101) - *(this + 100)) >> 3));
+  v9 = -1;
+  std::vector<int>::assign((this + 920), v6, &v9);
+  v7 = *(this + 44) + ((*(this + 101) - *(this + 100)) >> 3);
+  if (v7 >= 1)
   {
-    for (j = 0; j != v10; ++j)
+    for (j = 0; j != v7; ++j)
     {
       operations_research::sat::LsEvaluator::UpdateViolatedList(this, j);
     }
@@ -301,19 +298,10 @@ void operations_research::sat::LsEvaluator::RecomputeViolatedList(operations_res
 uint64_t operations_research::sat::LsEvaluator::UpdateAllNonLinearViolations(uint64_t this)
 {
   v1 = *(this + 800);
-  v2 = *(this + 808);
-  if (v1 != v2)
+  for (i = *(this + 808); v1 != i; v3[2] = this)
   {
-    v3 = this;
-    do
-    {
-      v4 = *v1++;
-      v5 = (*(v3 + 904) - *(v3 + 896)) >> 3;
-      this = (*(*v4 + 16))(v4);
-      v4[2] = this;
-    }
-
-    while (v1 != v2);
+    v3 = *v1++;
+    this = (*(*v3 + 16))(v3);
   }
 
   return this;
@@ -338,12 +326,11 @@ void operations_research::sat::LsEvaluator::UpdateNonLinearViolations(operations
         v12 = *(this + 44) + v11;
         v13 = *(*(this + 100) + 8 * v11);
         v14 = v13[2];
-        v15 = (*(this + 113) - *(this + 112)) >> 3;
         v13[2] = v14 + (*(*v13 + 24))(v13, a2, v4);
-        v16 = *(*(*(this + 100) + 8 * v11) + 16) - v14;
-        LODWORD(v17) = v12;
-        *(&v17 + 1) = v16;
-        std::vector<operations_research::sat::IntegerLiteral>::push_back[abi:ne200100](this + 992, &v17);
+        v15 = *(*(*(this + 100) + 8 * v11) + 16) - v14;
+        LODWORD(v16) = v12;
+        *(&v16 + 1) = v15;
+        std::vector<operations_research::sat::IntegerLiteral>::push_back[abi:ne200100](this + 992, &v16);
       }
 
       while (v9 != v10);
@@ -360,7 +347,7 @@ void operations_research::sat::LsEvaluator::UpdateLinearScores(void *a1, int a2,
   v11 = a3 - v10;
   if (a3 != v10)
   {
-    v17 = (a1 + 124);
+    v17 = a1 + 124;
     a1[125] = a1[124];
     v18 = a1 + 93;
     std::vector<BOOL>::resize((a1 + 93), 0xCCCCCCCCCCCCCCCDLL * ((a1[37] - a1[36]) >> 2), 0);
@@ -526,7 +513,6 @@ double operations_research::sat::LsEvaluator::WeightedNonLinearViolationDelta(ui
     {
       v17 = *v11++;
       v18 = *(*(a1 + 800) + 8 * v17);
-      v19 = (*(a1 + 904) - *(a1 + 896)) >> 3;
       v16 = v16 + (*(*v18 + 24))(v18, a4, v8) * *(a2 + 8 * (v17 + v15));
     }
 
@@ -698,11 +684,11 @@ void operations_research::sat::CompiledCircuitConstraint::~CompiledCircuitConstr
   }
 }
 
-uint64_t *std::__introsort<std::_ClassicAlgPolicy,operations_research::sat::anonymous namespace::ComputeOverloadArea(absl::lts_20240722::Span<int const>,absl::lts_20240722::Span<operations_research::sat::LinearExpressionProto const* const>,operations_research::sat::CpModelProto const&,absl::lts_20240722::Span<long long const>,long long,std::vector<std::pair<long long,long long>> &)::$_0 &,std::pair<long long,long long>*,false>(uint64_t *result, uint64_t *a2, uint64_t a3, char a4)
+uint64_t *std::__introsort<std::_ClassicAlgPolicy,operations_research::sat::anonymous namespace::ComputeOverloadArea(absl::lts_20240722::Span<int const>,absl::lts_20240722::Span<operations_research::sat::LinearExpressionProto const* const>,operations_research::sat::CpModelProto const&,absl::lts_20240722::Span<long long const>,long long,std::vector<std::pair<long long,long long>> &)::$_0 &,std::pair<long long,long long>*,false>(uint64_t *result, char *a2, uint64_t a3, char a4)
 {
   v7 = result;
 LABEL_2:
-  v8 = a2 - 1;
+  v8 = a2 - 8;
   v9 = v7;
   while (1)
   {
@@ -749,7 +735,7 @@ LABEL_2:
 
           v9[2] = v99;
           *(a2 - 2) = v97;
-          v8 = v9 + 3;
+          v8 = (v9 + 3);
           v151 = v9[3];
           v9[3] = *(a2 - 1);
           *(a2 - 1) = v151;
@@ -912,7 +898,7 @@ LABEL_201:
 LABEL_10:
     if (v10 <= 23)
     {
-      v105 = v9 + 2;
+      v105 = (v9 + 2);
       v107 = v9 == a2 || v105 == a2;
       if ((a4 & 1) == 0)
       {
@@ -943,12 +929,12 @@ LABEL_10:
               *v162 = v161;
             }
 
-            v105 = v158 + 2;
+            v105 = v158 + 16;
             v157 += 2;
             v7 = v158;
           }
 
-          while (v158 + 2 != a2);
+          while (v158 + 16 != a2);
         }
 
         return result;
@@ -964,11 +950,11 @@ LABEL_10:
       while (1)
       {
         v111 = v105;
-        v112 = v109[2];
+        v112 = *(v109 + 2);
         v113 = *v109;
         if (v112 < *v109)
         {
-          v114 = v109[3];
+          v114 = *(v109 + 3);
           v115 = v108;
           do
           {
@@ -993,10 +979,10 @@ LABEL_132:
           v110[1] = v114;
         }
 
-        v105 = v111 + 2;
+        v105 = v111 + 16;
         v108 += 16;
         v109 = v111;
-        if (v111 + 2 == a2)
+        if (v111 + 16 == a2)
         {
           return result;
         }
@@ -1017,7 +1003,7 @@ LABEL_132:
       v15 = *v9;
       if (*v11 >= *v9)
       {
-        if (v13 >= v14 || (*v11 = v13, *(a2 - 2) = v14, v21 = v11 + 1, v20 = v11[1], v11[1] = *(a2 - 1), *(a2 - 1) = v20, v22 = *v9, *v11 >= *v9))
+        if (v13 >= v14 || (*v11 = v13, *(a2 - 2) = v14, v21 = (v11 + 1), v20 = v11[1], v11[1] = *(a2 - 1), *(a2 - 1) = v20, v22 = *v9, *v11 >= *v9))
         {
 LABEL_29:
           v30 = v11 - 2;
@@ -1026,7 +1012,7 @@ LABEL_29:
           v33 = *(a2 - 4);
           if (v31 >= v32)
           {
-            if (v33 >= v31 || (*v30 = v33, *(a2 - 4) = v31, v36 = v11 - 1, v35 = *(v11 - 1), *(v11 - 1) = *(a2 - 3), *(a2 - 3) = v35, v37 = v9[2], *v30 >= v37))
+            if (v33 >= v31 || (*v30 = v33, *(a2 - 4) = v31, v36 = (v11 - 1), v35 = *(v11 - 1), *(v11 - 1) = *(a2 - 3), *(a2 - 3) = v35, v37 = v9[2], *v30 >= v37))
             {
 LABEL_42:
               v47 = v11[2];
@@ -1036,20 +1022,7 @@ LABEL_42:
               v49 = *(a2 - 6);
               if (v47 >= v48)
               {
-                if (v49 >= v46)
-                {
-                  goto LABEL_52;
-                }
-
-                *v45 = v49;
-                *(a2 - 6) = v46;
-                v52 = v45 + 1;
-                v51 = v45[1];
-                v45[1] = *(a2 - 5);
-                *(a2 - 5) = v51;
-                v46 = *v45;
-                v53 = v9[4];
-                if (*v45 >= v53)
+                if (v49 >= v46 || (*v45 = v49, *(a2 - 6) = v46, v52 = (v45 + 1), v51 = v45[1], v45[1] = *(a2 - 5), *(a2 - 5) = v51, v46 = *v45, v53 = v9[4], *v45 >= v53))
                 {
 LABEL_52:
                   v58 = *v12;
@@ -1097,7 +1070,7 @@ LABEL_63:
                     *v9 = v58;
                     v19 = v9 + 1;
                     *v12 = v67;
-                    v25 = v12 + 1;
+                    v25 = (v12 + 1);
                     goto LABEL_64;
                   }
 
@@ -1164,7 +1137,7 @@ LABEL_62:
                 }
 
                 *(a2 - 6) = v48;
-                v52 = a2 - 5;
+                v52 = a2 - 40;
               }
 
               v57 = *v50;
@@ -1206,7 +1179,7 @@ LABEL_62:
             }
 
             *(a2 - 4) = v32;
-            v36 = a2 - 3;
+            v36 = a2 - 24;
           }
 
           v44 = *v34;
@@ -1247,7 +1220,7 @@ LABEL_62:
         }
 
         *(a2 - 2) = v15;
-        v21 = a2 - 1;
+        v21 = a2 - 8;
       }
 
       v29 = *v16;
@@ -1273,7 +1246,7 @@ LABEL_62:
           *v12 = *v9;
           *v9 = v24;
           v19 = v12 + 1;
-          v25 = v9 + 1;
+          v25 = (v9 + 1);
 LABEL_64:
           v68 = *v19;
           *v19 = *v25;
@@ -1290,7 +1263,7 @@ LABEL_64:
         *v12 = v13;
 LABEL_37:
         *(a2 - 2) = v18;
-        v25 = a2 - 1;
+        v25 = a2 - 8;
         goto LABEL_64;
       }
 
@@ -1335,7 +1308,7 @@ LABEL_37:
           }
 
           v76 = *(v74 - 2);
-          v74 -= 2;
+          v74 -= 16;
         }
 
         while (v76 >= v69);
@@ -1346,7 +1319,7 @@ LABEL_37:
         do
         {
           v75 = *(v74 - 2);
-          v74 -= 2;
+          v74 -= 16;
         }
 
         while (v75 >= v69);
@@ -1372,8 +1345,8 @@ LABEL_37:
           *v9 = v77;
           *v78 = v72;
           v79 = v9[1];
-          v9[1] = v78[1];
-          v78[1] = v79;
+          v9[1] = *(v78 + 1);
+          *(v78 + 1) = v79;
           do
           {
             v80 = v9[2];
@@ -1385,7 +1358,7 @@ LABEL_37:
           do
           {
             v81 = *(v78 - 2);
-            v78 -= 2;
+            v78 -= 16;
             v77 = v81;
           }
 
@@ -1431,7 +1404,7 @@ LABEL_86:
     {
       if (v69 >= *(a2 - 2))
       {
-        v85 = v9 + 2;
+        v85 = (v9 + 2);
         do
         {
           v9 = v85;
@@ -1440,7 +1413,7 @@ LABEL_86:
             break;
           }
 
-          v85 += 2;
+          v85 += 16;
         }
 
         while (v69 >= *v9);
@@ -1464,7 +1437,7 @@ LABEL_86:
         do
         {
           v87 = *(v86 - 2);
-          v86 -= 2;
+          v86 -= 16;
         }
 
         while (v69 < v87);
@@ -1480,8 +1453,8 @@ LABEL_86:
           *v9 = v90;
           *v86 = v89;
           v91 = v9[1];
-          v9[1] = v86[1];
-          v86[1] = v91;
+          v9[1] = *(v86 + 1);
+          *(v86 + 1) = v91;
           do
           {
             v92 = v9[2];
@@ -1493,7 +1466,7 @@ LABEL_86:
           do
           {
             v93 = *(v86 - 2);
-            v86 -= 2;
+            v86 -= 16;
             v90 = v93;
           }
 
@@ -1684,7 +1657,7 @@ LABEL_152:
 
     while (v131 <= v134);
 LABEL_174:
-    if (v140 == a2 - 2)
+    if (v140 == (a2 - 16))
     {
       *v140 = v132;
       v140[1] = v133;
@@ -1731,7 +1704,7 @@ LABEL_174:
       }
     }
 
-    a2 -= 2;
+    a2 -= 16;
     v139 = v10-- <= 2;
   }
 
@@ -2424,28 +2397,22 @@ void operations_research::sat::LinearIncrementalEvaluator::~LinearIncrementalEva
 
 void *absl::lts_20240722::inlined_vector_internal::Storage<operations_research::ClosedInterval,1ul,std::allocator<operations_research::ClosedInterval>>::InitFrom(void *a1, void *a2)
 {
-  v4 = *a2 >> 1;
   if (*a2)
   {
     if (!(*a2 >> 61))
     {
-      if (v4 > 2)
-      {
-        v5 = *a2 >> 1;
-      }
-
       operator new();
     }
 
     std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  result = memcpy(a1 + 1, a2 + 1, 16 * v4);
+  result = memcpy(a1 + 1, a2 + 1, 16 * (*a2 >> 1));
   *a1 = *a2;
   return result;
 }
 
-uint64_t std::vector<operations_research::Domain>::__emplace_back_slow_path<operations_research::Domain const&>(void ***a1, uint64_t *a2)
+void **std::vector<operations_research::Domain>::__emplace_back_slow_path<operations_research::Domain const&>(void ***a1, uint64_t *a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * (a1[1] - *a1);
   v3 = v2 + 1;
@@ -2479,13 +2446,13 @@ uint64_t std::vector<operations_research::Domain>::__emplace_back_slow_path<oper
     std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  v6 = (8 * (a1[1] - *a1));
+  v6 = 8 * (a1[1] - *a1);
   *v6 = 0;
   v7 = *a2;
   if (*a2 < 2)
   {
 LABEL_13:
-    v8 = (v6 + 3);
+    v8 = (v6 + 24);
     v9 = *a1;
     v10 = a1[1];
     v11 = (v6 + *a1 - v10);
@@ -2539,7 +2506,7 @@ LABEL_18:
   }
 
   absl::lts_20240722::inlined_vector_internal::Storage<operations_research::ClosedInterval,1ul,std::allocator<operations_research::ClosedInterval>>::InitFrom((24 * v2), a2);
-  v8 = 24 * v2 + 24;
+  v8 = (24 * v2 + 24);
   v9 = *a1;
   v10 = a1[1];
   v11 = (v6 + *a1 - v10);
@@ -2561,12 +2528,12 @@ LABEL_15:
   return v8;
 }
 
-void sub_23CA03F44(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23CA03F44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (*v2)
+  va_start(va, a3);
+  if (*v3)
   {
-    operator delete(*(v2 + 8));
+    operator delete(*(v3 + 8));
   }
 
   std::__split_buffer<operations_research::Domain>::~__split_buffer(va);
@@ -2756,7 +2723,7 @@ void *std::vector<long long>::__assign_with_size[abi:ne200100]<long long const*,
     if (v21 >= 0x38)
     {
       v18 = v17;
-      if ((&v8[v17] - &__src[v14]) >= 0x20)
+      if (v8 + v17 - &__src[v14] >= 0x20)
       {
         v22 = (v21 >> 3) + 1;
         v23 = 8 * (v22 & 0x3FFFFFFFFFFFFFFCLL);
@@ -2808,7 +2775,7 @@ LABEL_26:
     result = memmove(*result, __src, v19);
   }
 
-  v20 = &v8[v19];
+  v20 = v8 + v19;
 LABEL_27:
   v6[1] = v20;
   return result;
@@ -2912,11 +2879,11 @@ uint64_t operations_research::sat::BooleanXorPropagator::Propagate(operations_re
   return 0;
 }
 
-void operations_research::sat::BooleanXorPropagator::RegisterWith(operations_research::sat::BooleanXorPropagator *this, operations_research::sat::GenericLiteralWatcher *a2)
+void operations_research::sat::BooleanXorPropagator::RegisterWith(int **this, operations_research::sat::GenericLiteralWatcher *a2)
 {
   v4 = operations_research::sat::GenericLiteralWatcher::Register(a2, this);
-  v6 = *(this + 1);
-  v5 = *(this + 2);
+  v6 = this[1];
+  v5 = this[2];
   if (v6 != v5)
   {
     v7 = v4;
@@ -3018,7 +2985,7 @@ void operations_research::sat::BooleanXorPropagator::RegisterWith(operations_res
   }
 }
 
-uint64_t operations_research::sat::GreaterThanAtLeastOneOfPropagator::GreaterThanAtLeastOneOfPropagator(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9)
+uint64_t operations_research::sat::GreaterThanAtLeastOneOfPropagator::GreaterThanAtLeastOneOfPropagator(uint64_t a1, int a2, __int128 *a3, uint64_t a4, const void *a5, uint64_t a6, const void *a7, uint64_t a8, void *a9)
 {
   *a1 = &unk_284F3C720;
   *(a1 + 8) = a2;
@@ -3272,7 +3239,7 @@ LABEL_31:
 
 void operations_research::sat::GreaterThanAtLeastOneOfPropagator::RegisterWith(operations_research::sat::GreaterThanAtLeastOneOfPropagator *this, operations_research::sat::GenericLiteralWatcher *a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v4 = operations_research::sat::GenericLiteralWatcher::Register(a2, this);
   v5 = *(this + 5);
   v6 = *(this + 6);
@@ -3322,9 +3289,9 @@ void operations_research::sat::GreaterThanAtLeastOneOfPropagator::RegisterWith(o
     }
 
     v17 = *(a2 + 8) + 24 * v7;
-    v36 = v4;
-    LODWORD(v37) = -1;
-    std::vector<long long>::push_back[abi:ne200100](v17, &v36);
+    v35 = v4;
+    LODWORD(v36) = -1;
+    std::vector<long long>::push_back[abi:ne200100](v17, &v35);
   }
 
   v18 = *(i + 8);
@@ -3374,27 +3341,25 @@ void operations_research::sat::GreaterThanAtLeastOneOfPropagator::RegisterWith(o
     }
 
     v30 = *(a2 + 8) + 24 * v20;
-    v36 = v4;
-    LODWORD(v37) = -1;
-    std::vector<long long>::push_back[abi:ne200100](v30, &v36);
+    v35 = v4;
+    LODWORD(v36) = -1;
+    std::vector<long long>::push_back[abi:ne200100](v30, &v35);
   }
 
   v32 = *(i + 2);
   for (k = *(i + 3); v32 != k; v32 += 24)
   {
     v33 = *v32;
-    v39 = *(v32 + 4);
-    v40 = *(v32 + 20);
+    v38 = *(v32 + 4);
+    v39 = *(v32 + 20);
     if (v33 != -1)
     {
-      v36 = v33;
+      v35 = v33;
+      v36 = v38;
       v37 = v39;
-      v38 = v40;
-      operations_research::sat::GenericLiteralWatcher::WatchLowerBound(a2, &v36, v4);
+      operations_research::sat::GenericLiteralWatcher::WatchLowerBound(a2, &v35, v4);
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void operations_research::sat::GenericLiteralWatcher::WatchLowerBound(uint64_t a1, int *a2, unsigned int a3)
@@ -3577,12 +3542,12 @@ uint64_t operations_research::sat::BoolVar::BoolVar(uint64_t result, int a2, uin
   return result;
 }
 
-uint64_t operations_research::sat::BoolVar::WithName(uint64_t *a1, const void *a2, size_t a3)
+uint64_t operations_research::sat::BoolVar::WithName(_DWORD *a1, const void *a2, size_t a3)
 {
   result = *a1;
   if (result)
   {
-    v5 = *(a1 + 2);
+    v5 = a1[2];
     if (~v5 > v5)
     {
       v5 = ~v5;
@@ -3604,13 +3569,7 @@ uint64_t operations_research::sat::BoolVar::WithName(uint64_t *a1, const void *a
     }
 
     google::protobuf::internal::ArenaStringPtr::Set((v9 + 40), a2, a3, v10);
-    result = *a1;
-    v11 = a1[1];
-  }
-
-  else
-  {
-    v12 = a1[1];
+    return *a1;
   }
 
   return result;
@@ -3618,80 +3577,80 @@ uint64_t operations_research::sat::BoolVar::WithName(uint64_t *a1, const void *a
 
 void operations_research::sat::BoolVar::Name(operations_research::sat::BoolVar *this@<X0>, uint64_t a2@<X8>)
 {
-  v18[6] = *MEMORY[0x277D85DE8];
+  v16[6] = *MEMORY[0x277D85DE8];
   v2 = *this;
-  if (!*this)
+  if (*this)
   {
-    *(a2 + 23) = 4;
-    strcpy(a2, "null");
-    goto LABEL_14;
-  }
+    v3 = *(this + 2);
+    if (~v3 <= v3)
+    {
+      v4 = *(this + 2);
+    }
 
-  v3 = *(this + 2);
-  if (~v3 <= v3)
-  {
-    v4 = *(this + 2);
+    else
+    {
+      v4 = ~v3;
+    }
+
+    v6 = *(v2 + 24);
+    v5 = v2 + 24;
+    v7 = v6 + 8 * v4 + 7;
+    if (v6)
+    {
+      v5 = v7;
+    }
+
+    v8 = *(*v5 + 40) & 0xFFFFFFFFFFFFFFFCLL;
+    if (v3 < 0)
+    {
+      v16[0] = "Not(";
+      v16[1] = 4;
+      v10 = *(v8 + 23);
+      v11 = *(v8 + 8);
+      if ((v10 & 0x80u) != 0)
+      {
+        v8 = *v8;
+        v10 = v11;
+      }
+
+      v15[0] = v8;
+      v15[1] = v10;
+      v14[0] = ")";
+      v14[1] = 1;
+      absl::lts_20240722::StrCat(v16, v15, v14, a2);
+    }
+
+    else if (*(v8 + 23) < 0)
+    {
+      v12 = *v8;
+      v13 = *(v8 + 8);
+
+      std::string::__init_copy_ctor_external(a2, v12, v13);
+    }
+
+    else
+    {
+      v9 = *v8;
+      *(a2 + 16) = *(v8 + 16);
+      *a2 = v9;
+    }
   }
 
   else
   {
-    v4 = ~v3;
+    *(a2 + 23) = 4;
+    strcpy(a2, "null");
   }
-
-  v6 = *(v2 + 24);
-  v5 = v2 + 24;
-  v7 = v6 + 8 * v4 + 7;
-  if (v6)
-  {
-    v5 = v7;
-  }
-
-  v8 = *(*v5 + 40) & 0xFFFFFFFFFFFFFFFCLL;
-  if (v3 < 0)
-  {
-    v18[0] = "Not(";
-    v18[1] = 4;
-    v10 = *(v8 + 23);
-    v11 = *(v8 + 8);
-    if ((v10 & 0x80u) != 0)
-    {
-      v8 = *v8;
-      v10 = v11;
-    }
-
-    v17[0] = v8;
-    v17[1] = v10;
-    v16[0] = ")";
-    v16[1] = 1;
-    absl::lts_20240722::StrCat(v18, v17, v16, a2);
-    goto LABEL_14;
-  }
-
-  if ((*(v8 + 23) & 0x80000000) == 0)
-  {
-    v9 = *v8;
-    *(a2 + 16) = *(v8 + 16);
-    *a2 = v9;
-LABEL_14:
-    v12 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  v13 = *v8;
-  v14 = *(v8 + 8);
-  v15 = *MEMORY[0x277D85DE8];
-
-  std::string::__init_copy_ctor_external(a2, v13, v14);
 }
 
-uint64_t operations_research::sat::IntVar::WithName(uint64_t *a1, const void *a2, size_t a3)
+uint64_t operations_research::sat::IntVar::WithName(int *a1, const void *a2, size_t a3)
 {
   result = *a1;
   if (result)
   {
     v6 = *(result + 24);
     v5 = (result + 24);
-    v7 = (v6 + 8 * *(a1 + 2) + 7);
+    v7 = (v6 + 8 * a1[2] + 7);
     if ((v6 & 1) == 0)
     {
       v7 = v5;
@@ -3705,13 +3664,7 @@ uint64_t operations_research::sat::IntVar::WithName(uint64_t *a1, const void *a2
     }
 
     google::protobuf::internal::ArenaStringPtr::Set((v8 + 40), a2, a3, v9);
-    result = *a1;
-    v10 = a1[1];
-  }
-
-  else
-  {
-    v11 = a1[1];
+    return *a1;
   }
 
   return result;
@@ -3825,20 +3778,16 @@ double operations_research::sat::LinearExpr::LinearExpr(operations_research::sat
   return result;
 }
 
-double operations_research::sat::LinearExpr::Sum@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void operations_research::sat::LinearExpr::Sum(uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   *(a3 + 48) = 0;
-  result = 0.0;
   *(a3 + 16) = 0u;
   *(a3 + 32) = 0u;
   *a3 = 0u;
   if ((a2 & 0xFFFFFFFFFFFFFFFLL) != 0)
   {
-    v4 = *(a1 + 8);
     operator new();
   }
-
-  return result;
 }
 
 void sub_23CA0576C(_Unwind_Exception *a1)
@@ -3848,11 +3797,11 @@ void sub_23CA0576C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_23CA05788(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23CA05788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   operations_research::sat::LinearExpr::~LinearExpr(va);
-  operations_research::sat::LinearExpr::~LinearExpr(v2);
+  operations_research::sat::LinearExpr::~LinearExpr(v3);
   _Unwind_Resume(a1);
 }
 
@@ -3871,7 +3820,7 @@ void operations_research::sat::LinearExpr::Sum(uint64_t *a1@<X0>, uint64_t a2@<X
       operations_research::sat::LinearExpr::LinearExpr(&v6, *v3, v3[1]);
       *(a3 + 48) += v10;
       std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(a3, *(a3 + 8), v6, v7, (v7 - v6) >> 2);
-      std::vector<long long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<long long const*>,std::__wrap_iter<long long const*>>(a3 + 24, *(a3 + 32), __p, v9, (v9 - __p) >> 3);
+      std::vector<long long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<long long const*>,std::__wrap_iter<long long const*>>((a3 + 24), *(a3 + 32), __p, v9, (v9 - __p) >> 3);
       if (__p)
       {
         v9 = __p;
@@ -3891,33 +3840,29 @@ void operations_research::sat::LinearExpr::Sum(uint64_t *a1@<X0>, uint64_t a2@<X
   }
 }
 
-void sub_23CA05888(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23CA05888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   operations_research::sat::LinearExpr::~LinearExpr(va);
-  operations_research::sat::LinearExpr::~LinearExpr(v2);
+  operations_research::sat::LinearExpr::~LinearExpr(v3);
   _Unwind_Resume(a1);
 }
 
-double operations_research::sat::LinearExpr::WeightedSum@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X3>, uint64_t a4@<X8>)
+void operations_research::sat::LinearExpr::WeightedSum(uint64_t a2@<X1>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  if (a2 != a3)
+  if (a2 != a4)
   {
-    operations_research::sat::LinearExpr::WeightedSum(a2, a3);
+    operations_research::sat::LinearExpr::WeightedSum(a2, a4, &v5);
   }
 
-  *(a4 + 48) = 0;
-  result = 0.0;
-  *(a4 + 16) = 0u;
-  *(a4 + 32) = 0u;
-  *a4 = 0u;
+  *(a5 + 48) = 0;
+  *(a5 + 16) = 0u;
+  *(a5 + 32) = 0u;
+  *a5 = 0u;
   if (a2)
   {
-    v5 = *(a1 + 8);
     operator new();
   }
-
-  return result;
 }
 
 void sub_23CA05A40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -3927,11 +3872,12 @@ void sub_23CA05A40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_23CA05A60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
+void sub_23CA05A60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  operations_research::sat::LinearExpr::~LinearExpr(&a16);
+  va_start(va, a15);
+  operations_research::sat::LinearExpr::~LinearExpr(va);
   operations_research::sat::LinearExpr::~LinearExpr(&a9);
-  operations_research::sat::LinearExpr::~LinearExpr(v16);
+  operations_research::sat::LinearExpr::~LinearExpr(v15);
   _Unwind_Resume(a1);
 }
 
@@ -3939,7 +3885,7 @@ void operations_research::sat::LinearExpr::WeightedSum(uint64_t a1@<X0>, unint64
 {
   if (a2 != a4)
   {
-    operations_research::sat::LinearExpr::WeightedSum(a2, a4);
+    operations_research::sat::LinearExpr::WeightedSum(a2, a4, &v29);
   }
 
   *(a5 + 48) = 0;
@@ -4011,7 +3957,7 @@ LABEL_24:
       *(a5 + 48) += v12;
       v22 = v20;
       std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(a5, *(a5 + 8), v20, *(&v20 + 1), (*(&v20 + 1) - v20) >> 2);
-      std::vector<long long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<long long const*>,std::__wrap_iter<long long const*>>(a5 + 24, *(a5 + 32), v13, v14, (v14 - v13) >> 3);
+      std::vector<long long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<long long const*>,std::__wrap_iter<long long const*>>((a5 + 24), *(a5 + 32), v13, v14, (v14 - v13) >> 3);
       if (v13)
       {
         operator delete(v13);
@@ -4037,11 +3983,12 @@ LABEL_24:
   }
 }
 
-void sub_23CA05C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+void sub_23CA05C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  operations_research::sat::LinearExpr::~LinearExpr(&a17);
+  va_start(va, a16);
+  operations_research::sat::LinearExpr::~LinearExpr(va);
   operations_research::sat::LinearExpr::~LinearExpr(&a9);
-  operations_research::sat::LinearExpr::~LinearExpr(v17);
+  operations_research::sat::LinearExpr::~LinearExpr(v16);
   _Unwind_Resume(a1);
 }
 
@@ -4150,66 +4097,66 @@ uint64_t operations_research::sat::Constraint::OnlyEnforceIf(void *a1, uint64_t 
 void operations_research::sat::CpModelBuilder::LinearExprToProto(const operations_research::sat::LinearExpr *a1@<X1>, int a2@<W2>, uint64_t a3@<X8>)
 {
   operations_research::sat::LinearExpressionProto::LinearExpressionProto(a3, 0);
-  v7 = *a1;
-  v8 = *(a1 + 1);
-  if (*a1 != v8)
+  v6 = *a1;
+  v7 = *(a1 + 1);
+  if (*a1 != v7)
   {
-    v9 = *(a3 + 16);
-    v10 = *(a3 + 20);
+    v8 = *(a3 + 16);
+    v9 = *(a3 + 20);
     do
     {
-      v11 = *v7;
-      if (v9 == v10)
+      v10 = *v6;
+      if (v8 == v9)
       {
-        google::protobuf::RepeatedField<int>::Grow(a3 + 16, v9, (v9 + 1));
-        LODWORD(v9) = *(a3 + 16);
-        v10 = *(a3 + 20);
+        google::protobuf::RepeatedField<int>::Grow(a3 + 16, v8, (v8 + 1));
+        LODWORD(v8) = *(a3 + 16);
+        v9 = *(a3 + 20);
       }
 
-      v12 = *(a3 + 24);
-      *(a3 + 16) = v9 + 1;
-      *(v12 + 4 * v9) = v11;
-      ++v7;
-      v9 = (v9 + 1);
+      v11 = *(a3 + 24);
+      *(a3 + 16) = v8 + 1;
+      *(v11 + 4 * v8) = v10;
+      ++v6;
+      v8 = (v8 + 1);
     }
 
-    while (v7 != v8);
+    while (v6 != v7);
   }
 
   if (a2)
   {
-    v13 = -1;
+    v12 = -1;
   }
 
   else
   {
-    v13 = 1;
+    v12 = 1;
   }
 
-  v14 = *(a1 + 3);
-  v15 = *(a1 + 4);
-  if (v14 != v15)
+  v13 = *(a1 + 3);
+  v14 = *(a1 + 4);
+  if (v13 != v14)
   {
-    v16 = *(a3 + 40);
+    v15 = *(a3 + 40);
     do
     {
-      v17 = *v14;
-      if (v16 == *(a3 + 44))
+      v16 = *v13;
+      if (v15 == *(a3 + 44))
       {
-        google::protobuf::RepeatedField<long long>::Grow(a3 + 40, v16);
-        LODWORD(v16) = *(a3 + 40);
+        google::protobuf::RepeatedField<long long>::Grow(a3 + 40, v15, (v15 + 1));
+        LODWORD(v15) = *(a3 + 40);
       }
 
-      *(*(a3 + 48) + 8 * v16) = v17 * v13;
-      v16 = (v16 + 1);
-      *(a3 + 40) = v16;
-      ++v14;
+      *(*(a3 + 48) + 8 * v15) = v16 * v12;
+      v15 = (v15 + 1);
+      *(a3 + 40) = v15;
+      ++v13;
     }
 
-    while (v14 != v15);
+    while (v13 != v14);
   }
 
-  *(a3 + 64) = *(a1 + 6) * v13;
+  *(a3 + 64) = *(a1 + 6) * v12;
 }
 
 uint64_t operations_research::sat::CpModelBuilder::IndexFromConstant(operations_research::sat::CpModelBuilder *this, uint64_t a2)
@@ -4268,7 +4215,7 @@ LABEL_4:
     if (v7 == v9)
     {
       v29 = v6;
-      google::protobuf::RepeatedField<long long>::Grow(v6 + 16, v9);
+      google::protobuf::RepeatedField<long long>::Grow(v6 + 16, v9, (v9 + 1));
       v6 = v29;
       v7 = *(v29 + 16);
       v9 = *(v29 + 20);
@@ -4282,14 +4229,14 @@ LABEL_4:
     if (v7 + 1 == v9)
     {
       v28 = v6;
-      google::protobuf::RepeatedField<long long>::Grow(v8, v9);
+      google::protobuf::RepeatedField<long long>::Grow(v8, v9, (v9 + 1));
       v11 = *(v28 + 16);
       v10 = *(v28 + 24);
     }
 
     *v8 = v11 + 1;
     *(v10 + 8 * v11) = v12;
-    absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,int>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,int>>>::find_or_prepare_insert<long long>(v4, &v30, v31);
+    absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,int>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,int>>>::find_or_prepare_insert<long long>(v4, &v30, &v31);
     if (v33 == 1)
     {
       v13 = v32;
@@ -4300,7 +4247,7 @@ LABEL_4:
     *(v32 + 8) = v5;
   }
 
-  absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,int>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,int>>>::find_or_prepare_insert<long long>(v4, &v30, v31);
+  absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,int>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,int>>>::find_or_prepare_insert<long long>(v4, &v30, &v31);
   if (v33 == 1)
   {
     v14 = v32;
@@ -4413,14 +4360,14 @@ LABEL_21:
   operations_research::sat::LinearExpressionProto::~LinearExpressionProto(&v21);
 }
 
-uint64_t operations_research::sat::IntervalVar::WithName(uint64_t *a1, const void *a2, size_t a3)
+uint64_t operations_research::sat::IntervalVar::WithName(int *a1, const void *a2, size_t a3)
 {
   result = *a1;
   if (result)
   {
     v6 = *(result + 48);
     v5 = (result + 48);
-    v7 = (v6 + 8 * *(a1 + 2) + 7);
+    v7 = (v6 + 8 * a1[2] + 7);
     if ((v6 & 1) == 0)
     {
       v7 = v5;
@@ -4434,13 +4381,7 @@ uint64_t operations_research::sat::IntervalVar::WithName(uint64_t *a1, const voi
     }
 
     google::protobuf::internal::ArenaStringPtr::Set((v8 + 40), a2, a3, v9);
-    result = *a1;
-    v10 = a1[1];
-  }
-
-  else
-  {
-    v11 = a1[1];
+    return *a1;
   }
 
   return result;
@@ -4450,9 +4391,9 @@ uint64_t operations_research::sat::CpModelBuilder::AddEquality(operations_resear
 {
   v5 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((this + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
   v6 = v5;
-  if (*(v5 + 60) == 12)
+  if (*(v5 + 15) == 12)
   {
-    v7 = *(v5 + 48);
+    v7 = *(v5 + 6);
   }
 
   else
@@ -4493,19 +4434,19 @@ uint64_t operations_research::sat::CpModelBuilder::AddEquality(operations_resear
   }
 
   v13 = v9 - v10;
-  v15 = *(v11 + 64);
-  v14 = *(v11 + 68);
-  v16 = (v11 + 64);
+  v15 = *(v11 + 16);
+  v14 = *(v11 + 17);
+  v16 = (v11 + 8);
   if (v15 == v14)
   {
     v25 = v11;
-    google::protobuf::RepeatedField<long long>::Grow(v11 + 64, v14);
+    google::protobuf::RepeatedField<long long>::Grow((v11 + 8), v14, (v14 + 1));
     v11 = v25;
     v15 = *v16;
   }
 
-  v17 = *(v11 + 72);
-  *(v11 + 64) = v15 + 1;
+  v17 = v11[9];
+  *(v11 + 16) = v15 + 1;
   *(v17 + 8 * v15) = v13;
   if (*(v6 + 60) == 12)
   {
@@ -4526,93 +4467,92 @@ uint64_t operations_research::sat::CpModelBuilder::AddEquality(operations_resear
     *(v6 + 48) = v18;
   }
 
-  v21 = *(v18 + 64);
-  v20 = *(v18 + 68);
-  v22 = (v18 + 64);
+  v21 = *(v18 + 16);
+  v20 = *(v18 + 17);
+  v22 = (v18 + 8);
   if (v21 == v20)
   {
     v26 = v18;
-    google::protobuf::RepeatedField<long long>::Grow(v18 + 64, v20);
+    google::protobuf::RepeatedField<long long>::Grow((v18 + 8), v20, (v20 + 1));
     v18 = v26;
     v21 = *v22;
   }
 
-  v23 = *(v18 + 72);
-  *(v18 + 64) = v21 + 1;
+  v23 = v18[9];
+  *(v18 + 16) = v21 + 1;
   *(v23 + 8 * v21) = v13;
   return v6;
 }
 
 operations_research::sat::CpModelBuilder *operations_research::sat::CpModelBuilder::NewIntVar(operations_research::sat::CpModelBuilder *this, const operations_research::Domain *a2)
 {
-  v4 = *(this + 8);
-  v5 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((this + 24), google::protobuf::Arena::DefaultConstruct<operations_research::sat::IntegerVariableProto>);
-  v6 = *a2;
-  v9 = *(a2 + 1);
-  v8 = a2 + 8;
-  v7 = v9;
-  if (v6)
+  v4 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((this + 24), google::protobuf::Arena::DefaultConstruct<operations_research::sat::IntegerVariableProto>);
+  v5 = *a2;
+  v8 = *(a2 + 1);
+  v7 = a2 + 8;
+  v6 = v8;
+  if (v5)
   {
-    v10 = v7;
+    v9 = v6;
   }
 
   else
   {
-    v10 = v8;
+    v9 = v7;
   }
 
-  if ((v6 & 0x1FFFFFFFFFFFFFFELL) != 0)
+  if ((v5 & 0x1FFFFFFFFFFFFFFELL) != 0)
   {
-    v11 = &v10[2 * (v6 >> 1)];
-    v13 = (v5 + 16);
-    v12 = *(v5 + 16);
+    v10 = &v9[2 * (v5 >> 1)];
+    v12 = (v4 + 16);
+    v11 = *(v4 + 16);
     do
     {
       while (1)
       {
-        v14 = *v10;
-        v15 = *(v5 + 20);
-        if (v12 == v15)
+        v13 = *v9;
+        v14 = *(v4 + 20);
+        if (v11 == v14)
         {
-          v19 = v5;
-          google::protobuf::RepeatedField<long long>::Grow(v13, v12);
-          v5 = v19;
-          LODWORD(v12) = *(v19 + 16);
-          v15 = *(v19 + 20);
+          v18 = v4;
+          google::protobuf::RepeatedField<long long>::Grow(v12, v11, (v11 + 1));
+          v4 = v18;
+          LODWORD(v11) = *(v18 + 16);
+          v14 = *(v18 + 20);
         }
 
-        v16 = *(v5 + 24);
-        v17 = v12 + 1;
-        *(v5 + 16) = v12 + 1;
-        *(v16 + 8 * v12) = v14;
-        v18 = v10[1];
-        if (v12 + 1 == v15)
+        v15 = *(v4 + 24);
+        v16 = v11 + 1;
+        *(v4 + 16) = v11 + 1;
+        *(v15 + 8 * v11) = v13;
+        v17 = v9[1];
+        if (v11 + 1 == v14)
         {
           break;
         }
 
-        v12 = (v12 + 2);
-        *v13 = v12;
-        *(v16 + 8 * v17) = v18;
-        v10 += 2;
-        if (v10 == v11)
+        v11 = (v11 + 2);
+        *v12 = v11;
+        *(v15 + 8 * v16) = v17;
+        v9 += 2;
+        if (v9 == v10)
         {
           return this;
         }
       }
 
-      v20 = v5;
-      google::protobuf::RepeatedField<long long>::Grow(v13, v15);
-      v5 = v20;
-      v21 = *(v20 + 16);
-      v22 = *(v20 + 24);
-      v12 = (v21 + 1);
-      *v13 = v12;
-      *(v22 + 8 * v21) = v18;
-      v10 += 2;
+      v19 = v4;
+      google::protobuf::RepeatedField<long long>::Grow(v12, v14, (v14 + 1));
+      v4 = v19;
+      v20 = *(v19 + 16);
+      v21 = *(v19 + 24);
+      v11 = (v20 + 1);
+      *v12 = v11;
+      *(v21 + 8 * v20) = v17;
+      v9 += 2;
     }
 
-    while (v10 != v11);
+    while (v9 != v10);
   }
 
   return this;
@@ -4620,129 +4560,127 @@ operations_research::sat::CpModelBuilder *operations_research::sat::CpModelBuild
 
 operations_research::sat::CpModelBuilder *operations_research::sat::CpModelBuilder::NewBoolVar(operations_research::sat::CpModelBuilder *this)
 {
-  v2 = *(this + 8);
-  v3 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((this + 24), google::protobuf::Arena::DefaultConstruct<operations_research::sat::IntegerVariableProto>);
-  v5 = (v3 + 16);
-  v4 = *(v3 + 16);
-  v6 = *(v3 + 20);
-  if (v4 == v6)
+  v2 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((this + 24), google::protobuf::Arena::DefaultConstruct<operations_research::sat::IntegerVariableProto>);
+  v4 = (v2 + 16);
+  v3 = *(v2 + 16);
+  v5 = *(v2 + 20);
+  if (v3 == v5)
   {
-    v10 = v3;
-    google::protobuf::RepeatedField<long long>::Grow(v3 + 16, v6);
-    v3 = v10;
-    v11 = *(v10 + 16);
-    v6 = *(v10 + 20);
-    v7 = *(v10 + 24);
-    v8 = v11 + 1;
-    *(v10 + 16) = v11 + 1;
-    *(v7 + 8 * v11) = 0;
-    if (v11 + 1 != v6)
+    v9 = v2;
+    google::protobuf::RepeatedField<long long>::Grow(v2 + 16, v5, (v5 + 1));
+    v2 = v9;
+    v10 = *(v9 + 16);
+    v5 = *(v9 + 20);
+    v6 = *(v9 + 24);
+    v7 = v10 + 1;
+    *(v9 + 16) = v10 + 1;
+    *(v6 + 8 * v10) = 0;
+    if (v10 + 1 != v5)
     {
       goto LABEL_3;
     }
 
 LABEL_5:
-    v12 = v3;
-    google::protobuf::RepeatedField<long long>::Grow(v5, v6);
-    v8 = *(v12 + 16);
-    v7 = *(v12 + 24);
+    v11 = v2;
+    google::protobuf::RepeatedField<long long>::Grow(v4, v5, (v5 + 1));
+    v7 = *(v11 + 16);
+    v6 = *(v11 + 24);
     goto LABEL_3;
   }
 
-  v7 = *(v3 + 24);
-  v8 = v4 + 1;
-  *(v3 + 16) = v4 + 1;
-  *(v7 + 8 * v4) = 0;
-  if (v4 + 1 == v6)
+  v6 = *(v2 + 24);
+  v7 = v3 + 1;
+  *(v2 + 16) = v3 + 1;
+  *(v6 + 8 * v3) = 0;
+  if (v3 + 1 == v5)
   {
     goto LABEL_5;
   }
 
 LABEL_3:
-  *v5 = v8 + 1;
-  *(v7 + 8 * v8) = 1;
+  *v4 = v7 + 1;
+  *(v6 + 8 * v7) = 1;
   return this;
 }
 
 uint64_t operations_research::sat::CpModelBuilder::NewOptionalIntervalVar(uint64_t a1, const operations_research::sat::LinearExpr *a2, const operations_research::sat::LinearExpr *a3, const operations_research::sat::LinearExpr *a4, uint64_t a5, int a6)
 {
-  v11 = *(a1 + 56);
-  v12 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((a1 + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
-  v13 = v12;
-  v14 = (v12 + 16);
-  v15 = *(v12 + 16);
-  v16 = v15;
-  if (v15 == HIDWORD(v15))
+  v11 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((a1 + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
+  v12 = v11;
+  v13 = (v11 + 16);
+  v14 = *(v11 + 16);
+  v15 = v14;
+  if (v14 == HIDWORD(v14))
   {
-    google::protobuf::RepeatedField<int>::Grow(v12 + 16, HIDWORD(v15), (HIDWORD(v15) + 1));
-    v16 = *v14;
+    google::protobuf::RepeatedField<int>::Grow(v11 + 16, HIDWORD(v14), (HIDWORD(v14) + 1));
+    v15 = *v13;
   }
 
-  v17 = *(v13 + 24);
-  *(v13 + 16) = v16 + 1;
-  *(v17 + 4 * v16) = a6;
-  if (*(v13 + 60) == 19)
+  v16 = *(v12 + 24);
+  *(v12 + 16) = v15 + 1;
+  *(v16 + 4 * v15) = a6;
+  if (*(v12 + 60) == 19)
   {
-    v18 = *(v13 + 48);
+    v17 = *(v12 + 48);
   }
 
   else
   {
-    operations_research::sat::ConstraintProto::clear_constraint(v13);
-    *(v13 + 60) = 19;
-    v19 = *(v13 + 8);
-    if (v19)
+    operations_research::sat::ConstraintProto::clear_constraint(v12);
+    *(v12 + 60) = 19;
+    v18 = *(v12 + 8);
+    if (v18)
     {
-      v19 = *(v19 & 0xFFFFFFFFFFFFFFFELL);
+      v18 = *(v18 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    google::protobuf::Arena::DefaultConstruct<operations_research::sat::IntervalConstraintProto>(v19);
-    v18 = v20;
-    *(v13 + 48) = v20;
+    google::protobuf::Arena::DefaultConstruct<operations_research::sat::IntervalConstraintProto>(v18);
+    v17 = v19;
+    *(v12 + 48) = v19;
   }
 
-  operations_research::sat::CpModelBuilder::LinearExprToProto(a2, 0, &v34);
-  *(v18 + 16) |= 1u;
-  v21 = *(v18 + 24);
-  if (v21)
+  operations_research::sat::CpModelBuilder::LinearExprToProto(a2, 0, &v33);
+  *(v17 + 16) |= 1u;
+  v20 = *(v17 + 24);
+  if (v20)
   {
-    if (v21 == &v34)
+    if (v20 == &v33)
     {
       goto LABEL_21;
     }
 
 LABEL_14:
-    v23 = *(v21 + 1);
-    if (v23)
+    v22 = *(v20 + 1);
+    if (v22)
     {
-      v23 = *(v23 & 0xFFFFFFFFFFFFFFFELL);
-      v24 = v35;
-      if ((v35 & 1) == 0)
+      v22 = *(v22 & 0xFFFFFFFFFFFFFFFELL);
+      v23 = v34;
+      if ((v34 & 1) == 0)
       {
 LABEL_16:
-        if (v23 != v24)
+        if (v22 != v23)
         {
 LABEL_17:
-          operations_research::sat::LinearExpressionProto::CopyFrom(v21, &v34);
+          operations_research::sat::LinearExpressionProto::CopyFrom(v20, &v33);
           goto LABEL_21;
         }
 
 LABEL_20:
-        operations_research::sat::LinearExpressionProto::InternalSwap(v21, &v34);
+        operations_research::sat::LinearExpressionProto::InternalSwap(v20, &v33);
         goto LABEL_21;
       }
     }
 
     else
     {
-      v24 = v35;
-      if ((v35 & 1) == 0)
+      v23 = v34;
+      if ((v34 & 1) == 0)
       {
         goto LABEL_16;
       }
     }
 
-    if (v23 != *(v24 & 0xFFFFFFFFFFFFFFFELL))
+    if (v22 != *(v23 & 0xFFFFFFFFFFFFFFFELL))
     {
       goto LABEL_17;
     }
@@ -4750,63 +4688,63 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v22 = *(v18 + 8);
-  if (v22)
+  v21 = *(v17 + 8);
+  if (v21)
   {
-    v22 = *(v22 & 0xFFFFFFFFFFFFFFFELL);
+    v21 = *(v21 & 0xFFFFFFFFFFFFFFFELL);
   }
 
-  google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearExpressionProto>(v22);
-  *(v18 + 24) = v21;
-  if (v21 != &v34)
+  google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearExpressionProto>(v21);
+  *(v17 + 24) = v20;
+  if (v20 != &v33)
   {
     goto LABEL_14;
   }
 
 LABEL_21:
-  operations_research::sat::LinearExpressionProto::~LinearExpressionProto(&v34);
-  operations_research::sat::CpModelBuilder::LinearExprToProto(a3, 0, &v34);
-  *(v18 + 16) |= 4u;
-  v25 = *(v18 + 40);
-  if (v25)
+  operations_research::sat::LinearExpressionProto::~LinearExpressionProto(&v33);
+  operations_research::sat::CpModelBuilder::LinearExprToProto(a3, 0, &v33);
+  *(v17 + 16) |= 4u;
+  v24 = *(v17 + 40);
+  if (v24)
   {
-    if (v25 == &v34)
+    if (v24 == &v33)
     {
       goto LABEL_34;
     }
 
 LABEL_27:
-    v27 = *(v25 + 1);
-    if (v27)
+    v26 = *(v24 + 1);
+    if (v26)
     {
-      v27 = *(v27 & 0xFFFFFFFFFFFFFFFELL);
-      v28 = v35;
-      if ((v35 & 1) == 0)
+      v26 = *(v26 & 0xFFFFFFFFFFFFFFFELL);
+      v27 = v34;
+      if ((v34 & 1) == 0)
       {
 LABEL_29:
-        if (v27 != v28)
+        if (v26 != v27)
         {
 LABEL_30:
-          operations_research::sat::LinearExpressionProto::CopyFrom(v25, &v34);
+          operations_research::sat::LinearExpressionProto::CopyFrom(v24, &v33);
           goto LABEL_34;
         }
 
 LABEL_33:
-        operations_research::sat::LinearExpressionProto::InternalSwap(v25, &v34);
+        operations_research::sat::LinearExpressionProto::InternalSwap(v24, &v33);
         goto LABEL_34;
       }
     }
 
     else
     {
-      v28 = v35;
-      if ((v35 & 1) == 0)
+      v27 = v34;
+      if ((v34 & 1) == 0)
       {
         goto LABEL_29;
       }
     }
 
-    if (v27 != *(v28 & 0xFFFFFFFFFFFFFFFELL))
+    if (v26 != *(v27 & 0xFFFFFFFFFFFFFFFELL))
     {
       goto LABEL_30;
     }
@@ -4814,63 +4752,63 @@ LABEL_33:
     goto LABEL_33;
   }
 
-  v26 = *(v18 + 8);
-  if (v26)
+  v25 = *(v17 + 8);
+  if (v25)
   {
-    v26 = *(v26 & 0xFFFFFFFFFFFFFFFELL);
+    v25 = *(v25 & 0xFFFFFFFFFFFFFFFELL);
   }
 
-  google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearExpressionProto>(v26);
-  *(v18 + 40) = v25;
-  if (v25 != &v34)
+  google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearExpressionProto>(v25);
+  *(v17 + 40) = v24;
+  if (v24 != &v33)
   {
     goto LABEL_27;
   }
 
 LABEL_34:
-  operations_research::sat::LinearExpressionProto::~LinearExpressionProto(&v34);
-  operations_research::sat::CpModelBuilder::LinearExprToProto(a4, 0, &v34);
-  *(v18 + 16) |= 2u;
-  v29 = *(v18 + 32);
-  if (v29)
+  operations_research::sat::LinearExpressionProto::~LinearExpressionProto(&v33);
+  operations_research::sat::CpModelBuilder::LinearExprToProto(a4, 0, &v33);
+  *(v17 + 16) |= 2u;
+  v28 = *(v17 + 32);
+  if (v28)
   {
-    if (v29 == &v34)
+    if (v28 == &v33)
     {
       goto LABEL_47;
     }
 
 LABEL_40:
-    v31 = *(v29 + 1);
-    if (v31)
+    v30 = *(v28 + 1);
+    if (v30)
     {
-      v31 = *(v31 & 0xFFFFFFFFFFFFFFFELL);
-      v32 = v35;
-      if ((v35 & 1) == 0)
+      v30 = *(v30 & 0xFFFFFFFFFFFFFFFELL);
+      v31 = v34;
+      if ((v34 & 1) == 0)
       {
 LABEL_42:
-        if (v31 != v32)
+        if (v30 != v31)
         {
 LABEL_43:
-          operations_research::sat::LinearExpressionProto::CopyFrom(v29, &v34);
+          operations_research::sat::LinearExpressionProto::CopyFrom(v28, &v33);
           goto LABEL_47;
         }
 
 LABEL_46:
-        operations_research::sat::LinearExpressionProto::InternalSwap(v29, &v34);
+        operations_research::sat::LinearExpressionProto::InternalSwap(v28, &v33);
         goto LABEL_47;
       }
     }
 
     else
     {
-      v32 = v35;
-      if ((v35 & 1) == 0)
+      v31 = v34;
+      if ((v34 & 1) == 0)
       {
         goto LABEL_42;
       }
     }
 
-    if (v31 != *(v32 & 0xFFFFFFFFFFFFFFFELL))
+    if (v30 != *(v31 & 0xFFFFFFFFFFFFFFFELL))
     {
       goto LABEL_43;
     }
@@ -4878,25 +4816,25 @@ LABEL_46:
     goto LABEL_46;
   }
 
-  v30 = *(v18 + 8);
-  if (v30)
+  v29 = *(v17 + 8);
+  if (v29)
   {
-    v30 = *(v30 & 0xFFFFFFFFFFFFFFFELL);
+    v29 = *(v29 & 0xFFFFFFFFFFFFFFFELL);
   }
 
-  google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearExpressionProto>(v30);
-  *(v18 + 32) = v29;
-  if (v29 != &v34)
+  google::protobuf::Arena::DefaultConstruct<operations_research::sat::LinearExpressionProto>(v29);
+  *(v17 + 32) = v28;
+  if (v28 != &v33)
   {
     goto LABEL_40;
   }
 
 LABEL_47:
-  operations_research::sat::LinearExpressionProto::~LinearExpressionProto(&v34);
+  operations_research::sat::LinearExpressionProto::~LinearExpressionProto(&v33);
   return a1;
 }
 
-uint64_t operations_research::sat::FillDomainInProto<operations_research::sat::IntegerVariableProto>(uint64_t *a1, uint64_t a2)
+uint64_t *operations_research::sat::FillDomainInProto<operations_research::sat::IntegerVariableProto>(uint64_t *a1, uint64_t a2)
 {
   *(a2 + 16) = 0;
   v2 = (a2 + 16);
@@ -4905,10 +4843,10 @@ uint64_t operations_research::sat::FillDomainInProto<operations_research::sat::I
   if (*(a2 + 20) < v4)
   {
     v21 = a2;
-    google::protobuf::RepeatedField<long long>::Grow(a2 + 16, 0);
+    google::protobuf::RepeatedField<long long>::Grow(a2 + 16, 0, v4);
     a2 = v21;
     v4 = *a1 >> 1;
-    result = (a1 + 1);
+    result = a1 + 1;
     if (*a1)
     {
       v8 = a1[1];
@@ -4928,7 +4866,7 @@ uint64_t operations_research::sat::FillDomainInProto<operations_research::sat::I
   else
   {
     v7 = a1[1];
-    result = (a1 + 1);
+    result = a1 + 1;
     v6 = v7;
     if (v3)
     {
@@ -4957,7 +4895,7 @@ uint64_t operations_research::sat::FillDomainInProto<operations_research::sat::I
       if (v10 == v12)
       {
         v16 = a2;
-        result = google::protobuf::RepeatedField<long long>::Grow(v2, v10);
+        result = google::protobuf::RepeatedField<long long>::Grow(v2, v10, (v10 + 1));
         a2 = v16;
         LODWORD(v10) = *(v16 + 16);
         v12 = *(v16 + 20);
@@ -4984,7 +4922,7 @@ uint64_t operations_research::sat::FillDomainInProto<operations_research::sat::I
     }
 
     v17 = a2;
-    result = google::protobuf::RepeatedField<long long>::Grow(v2, v12);
+    result = google::protobuf::RepeatedField<long long>::Grow(v2, v12, (v12 + 1));
     a2 = v17;
     v18 = *(v17 + 16);
     v19 = *(v17 + 24);
@@ -5033,7 +4971,7 @@ uint64_t operations_research::sat::CpModelBuilder::AddBoolAnd(uint64_t a1, uint6
       if (v12 == HIDWORD(v12))
       {
         v15 = v8;
-        google::protobuf::RepeatedField<int>::Grow(v8 + 2, HIDWORD(v12), (HIDWORD(v12) + 1));
+        google::protobuf::RepeatedField<int>::Grow((v8 + 2), HIDWORD(v12), (HIDWORD(v12) + 1));
         v8 = v15;
         v13 = *v11;
       }
@@ -5099,7 +5037,7 @@ uint64_t operations_research::sat::CpModelBuilder::FillLinearTerms(operations_re
       {
         v20 = a3;
         v21 = a4;
-        result = google::protobuf::RepeatedField<long long>::Grow(v18, v17);
+        result = google::protobuf::RepeatedField<long long>::Grow(v18, v17, (v17 + 1));
         a3 = v20;
         a4 = v21;
         LODWORD(v17) = *v18;
@@ -5157,7 +5095,7 @@ uint64_t operations_research::sat::CpModelBuilder::FillLinearTerms(operations_re
       if (v33 == *(a4 + 11))
       {
         v36 = a4;
-        result = google::protobuf::RepeatedField<long long>::Grow(v34, v33);
+        result = google::protobuf::RepeatedField<long long>::Grow(v34, v33, (v33 + 1));
         a4 = v36;
         LODWORD(v33) = *v34;
       }
@@ -5178,9 +5116,9 @@ uint64_t operations_research::sat::CpModelBuilder::AddLessOrEqual(operations_res
 {
   v5 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((this + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
   v6 = v5;
-  if (*(v5 + 60) == 12)
+  if (*(v5 + 15) == 12)
   {
-    v7 = *(v5 + 48);
+    v7 = *(v5 + 6);
   }
 
   else
@@ -5220,19 +5158,19 @@ uint64_t operations_research::sat::CpModelBuilder::AddLessOrEqual(operations_res
     *(v6 + 48) = v11;
   }
 
-  v14 = *(v11 + 64);
-  v13 = *(v11 + 68);
-  v15 = (v11 + 64);
+  v14 = *(v11 + 16);
+  v13 = *(v11 + 17);
+  v15 = (v11 + 8);
   if (v14 == v13)
   {
     v24 = v11;
-    google::protobuf::RepeatedField<long long>::Grow(v11 + 64, v13);
+    google::protobuf::RepeatedField<long long>::Grow((v11 + 8), v13, (v13 + 1));
     v11 = v24;
     v14 = *v15;
   }
 
-  v16 = *(v11 + 72);
-  *(v11 + 64) = v14 + 1;
+  v16 = v11[9];
+  *(v11 + 16) = v14 + 1;
   *(v16 + 8 * v14) = 0x8000000000000000;
   if (*(v6 + 60) == 12)
   {
@@ -5253,19 +5191,19 @@ uint64_t operations_research::sat::CpModelBuilder::AddLessOrEqual(operations_res
     *(v6 + 48) = v17;
   }
 
-  v20 = *(v17 + 64);
-  v19 = *(v17 + 68);
-  v21 = (v17 + 64);
+  v20 = *(v17 + 16);
+  v19 = *(v17 + 17);
+  v21 = (v17 + 8);
   if (v20 == v19)
   {
     v25 = v17;
-    google::protobuf::RepeatedField<long long>::Grow(v17 + 64, v19);
+    google::protobuf::RepeatedField<long long>::Grow((v17 + 8), v19, (v19 + 1));
     v17 = v25;
     v20 = *v21;
   }
 
-  v22 = *(v17 + 72);
-  *(v17 + 64) = v20 + 1;
+  v22 = v17[9];
+  *(v17 + 16) = v20 + 1;
   *(v22 + 8 * v20) = v9 - v10;
   return v6;
 }
@@ -5274,9 +5212,9 @@ uint64_t operations_research::sat::CpModelBuilder::AddNotEqual(operations_resear
 {
   v5 = google::protobuf::internal::RepeatedPtrFieldBase::AddMessageLite((this + 48), google::protobuf::Arena::DefaultConstruct<operations_research::sat::ConstraintProto>);
   v6 = v5;
-  if (*(v5 + 60) == 12)
+  if (*(v5 + 15) == 12)
   {
-    v7 = *(v5 + 48);
+    v7 = *(v5 + 6);
   }
 
   else
@@ -5316,20 +5254,20 @@ uint64_t operations_research::sat::CpModelBuilder::AddNotEqual(operations_resear
     *(v6 + 48) = v11;
   }
 
-  v14 = *(v11 + 64);
-  v13 = *(v11 + 68);
-  v15 = (v11 + 64);
+  v14 = *(v11 + 16);
+  v13 = *(v11 + 17);
+  v15 = (v11 + 8);
   if (v14 == v13)
   {
     v38 = v11;
-    google::protobuf::RepeatedField<long long>::Grow(v11 + 64, v13);
+    google::protobuf::RepeatedField<long long>::Grow((v11 + 8), v13, (v13 + 1));
     v11 = v38;
     v14 = *v15;
   }
 
   v16 = v9 - v10;
-  v17 = *(v11 + 72);
-  *(v11 + 64) = v14 + 1;
+  v17 = v11[9];
+  *(v11 + 16) = v14 + 1;
   *(v17 + 8 * v14) = 0x8000000000000000;
   if (*(v6 + 60) == 12)
   {
@@ -5350,19 +5288,19 @@ uint64_t operations_research::sat::CpModelBuilder::AddNotEqual(operations_resear
     *(v6 + 48) = v18;
   }
 
-  v21 = *(v18 + 64);
-  v20 = *(v18 + 68);
-  v22 = (v18 + 64);
+  v21 = *(v18 + 16);
+  v20 = *(v18 + 17);
+  v22 = (v18 + 8);
   if (v21 == v20)
   {
     v39 = v18;
-    google::protobuf::RepeatedField<long long>::Grow(v18 + 64, v20);
+    google::protobuf::RepeatedField<long long>::Grow((v18 + 8), v20, (v20 + 1));
     v18 = v39;
     v21 = *v22;
   }
 
-  v23 = *(v18 + 72);
-  *(v18 + 64) = v21 + 1;
+  v23 = v18[9];
+  *(v18 + 16) = v21 + 1;
   *(v23 + 8 * v21) = v16 - 1;
   if (*(v6 + 60) == 12)
   {
@@ -5384,19 +5322,19 @@ uint64_t operations_research::sat::CpModelBuilder::AddNotEqual(operations_resear
   }
 
   v26 = v16 + 1;
-  v28 = *(v24 + 64);
-  v27 = *(v24 + 68);
-  v29 = (v24 + 64);
+  v28 = *(v24 + 16);
+  v27 = *(v24 + 17);
+  v29 = (v24 + 8);
   if (v28 == v27)
   {
     v40 = v24;
-    google::protobuf::RepeatedField<long long>::Grow(v24 + 64, v27);
+    google::protobuf::RepeatedField<long long>::Grow((v24 + 8), v27, (v27 + 1));
     v24 = v40;
     v28 = *v29;
   }
 
-  v30 = *(v24 + 72);
-  *(v24 + 64) = v28 + 1;
+  v30 = v24[9];
+  *(v24 + 16) = v28 + 1;
   *(v30 + 8 * v28) = v26;
   if (*(v6 + 60) == 12)
   {
@@ -5417,19 +5355,19 @@ uint64_t operations_research::sat::CpModelBuilder::AddNotEqual(operations_resear
     *(v6 + 48) = v31;
   }
 
-  v34 = *(v31 + 64);
-  v33 = *(v31 + 68);
-  v35 = (v31 + 64);
+  v34 = *(v31 + 16);
+  v33 = *(v31 + 17);
+  v35 = (v31 + 8);
   if (v34 == v33)
   {
     v41 = v31;
-    google::protobuf::RepeatedField<long long>::Grow(v31 + 64, v33);
+    google::protobuf::RepeatedField<long long>::Grow((v31 + 8), v33, (v33 + 1));
     v31 = v41;
     v34 = *v35;
   }
 
-  v36 = *(v31 + 72);
-  *(v31 + 64) = v34 + 1;
+  v36 = v31[9];
+  *(v31 + 16) = v34 + 1;
   *(v36 + 8 * v34) = 0x7FFFFFFFFFFFFFFFLL;
   return v6;
 }
@@ -5613,7 +5551,7 @@ double operations_research::sat::CpModelBuilder::Minimize(operations_research::s
     if (v23 == v22)
     {
       v26 = v20;
-      google::protobuf::RepeatedField<long long>::Grow(v20 + 40, v22);
+      google::protobuf::RepeatedField<long long>::Grow(v20 + 40, v22, (v22 + 1));
       v20 = v26;
       v23 = *v24;
     }
@@ -5666,13 +5604,13 @@ BOOL operations_research::sat::WriteModelProtoToFile<operations_research::sat::C
   return v9 == 1;
 }
 
-void sub_23CA078E8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23CA078E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::TextFormat::Printer::~Printer(va);
-  if (*(v2 - 33) < 0)
+  if (*(v3 - 33) < 0)
   {
-    operator delete(*(v2 - 56));
+    operator delete(*(v3 - 56));
   }
 
   _Unwind_Resume(a1);
@@ -5776,7 +5714,7 @@ uint64_t google::protobuf::Arena::DefaultConstruct<operations_research::sat::Dec
   return operations_research::sat::DecisionStrategyProto::DecisionStrategyProto(v2, v3);
 }
 
-void *std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(size_t *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   v6 = a5 - 1;
@@ -5785,8 +5723,8 @@ void *std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int co
     return v5;
   }
 
-  v9 = *(a1 + 8);
-  v8 = *(a1 + 16);
+  v9 = a1[1];
+  v8 = a1[2];
   if (a5 > (v8 - v9) >> 2)
   {
     v10 = *a1;
@@ -5837,7 +5775,7 @@ void *std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int co
       v52 = 4 * (v51 & 0x7FFFFFFFFFFFFFF8);
       v34 = (v32 + v52);
       v35 = &__src[v52];
-      v53 = (__src + 16);
+      v53 = __src + 16;
       v54 = (v32 + 16);
       v55 = v51 & 0x7FFFFFFFFFFFFFF8;
       do
@@ -5845,7 +5783,7 @@ void *std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int co
         v56 = *v53;
         *(v54 - 1) = *(v53 - 1);
         *v54 = v56;
-        v53 += 2;
+        v53 += 32;
         v54 += 2;
         v55 -= 8;
       }
@@ -5873,17 +5811,17 @@ void *std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int co
 
     while (v34 != v33);
 LABEL_32:
-    v37 = *(a1 + 8) - __dst;
+    v37 = a1[1] - __dst;
     memcpy(v33, __dst, v37);
     v39 = &v33[v37];
-    *(a1 + 8) = v5;
+    a1[1] = v5;
     v40 = *a1;
-    v41 = v5 - *a1;
+    v41 = &v5[-*a1];
     v42 = v32 - v41;
     memcpy((v32 - v41), *a1, v41);
     *a1 = v42;
-    *(a1 + 8) = v39;
-    *(a1 + 16) = 0;
+    a1[1] = v39;
+    a1[2] = 0;
     if (v40)
     {
       operator delete(v40);
@@ -5901,7 +5839,7 @@ LABEL_32:
     v19 = (v9 - 4 * a5);
     if (v19 >= v9)
     {
-      v23 = *(a1 + 8);
+      v23 = a1[1];
     }
 
     else
@@ -5909,12 +5847,12 @@ LABEL_32:
       v20 = v19 + 1;
       if (v9 > (v19 + 1))
       {
-        v20 = *(a1 + 8);
+        v20 = a1[1];
       }
 
       v21 = v20 + v14 + ~v9;
       v22 = v21 < 0x1C || (a5 & 0x3FFFFFFFFFFFFFF8) == 0;
-      v23 = *(a1 + 8);
+      v23 = a1[1];
       if (v22)
       {
         goto LABEL_75;
@@ -5951,7 +5889,7 @@ LABEL_75:
       }
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v9 != v18)
     {
       memmove(&__dst[4 * a5], __dst, v9 - v18);
@@ -5968,7 +5906,7 @@ LABEL_75:
   v16 = &__src[v14];
   if (&__src[v14] == a4)
   {
-    v17 = *(a1 + 8);
+    v17 = a1[1];
   }
 
   else
@@ -5977,12 +5915,12 @@ LABEL_75:
     v44 = a4 - v16 - 4;
     if (v44 < 0x1C)
     {
-      v17 = *(a1 + 8);
+      v17 = a1[1];
     }
 
     else
     {
-      v17 = *(a1 + 8);
+      v17 = a1[1];
       if (v9 - v16 >= 0x20)
       {
         v45 = (v44 >> 2) + 1;
@@ -6022,7 +5960,7 @@ LABEL_75:
   }
 
 LABEL_52:
-  *(a1 + 8) = v17;
+  a1[1] = v17;
   if (v15 >= 1)
   {
     v58 = a5;
@@ -6080,7 +6018,7 @@ LABEL_76:
       }
     }
 
-    *(a1 + 8) = v64;
+    a1[1] = v64;
     if (v17 != v59)
     {
       memmove(&__dst[4 * a5], __dst, v17 - v59);
@@ -6096,7 +6034,7 @@ LABEL_69:
   return v5;
 }
 
-void *std::vector<long long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<long long const*>,std::__wrap_iter<long long const*>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<long long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<long long const*>,std::__wrap_iter<long long const*>>(size_t *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   v6 = a5 - 1;
@@ -6105,8 +6043,8 @@ void *std::vector<long long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<
     return v5;
   }
 
-  v9 = *(a1 + 8);
-  v8 = *(a1 + 16);
+  v9 = a1[1];
+  v8 = a1[2];
   if (a5 > (v8 - v9) >> 3)
   {
     v10 = *a1;
@@ -6157,7 +6095,7 @@ void *std::vector<long long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<
       v52 = 8 * (v51 & 0x3FFFFFFFFFFFFFFCLL);
       v34 = (v32 + v52);
       v35 = &__src[v52];
-      v53 = (__src + 16);
+      v53 = __src + 16;
       v54 = (v32 + 16);
       v55 = v51 & 0x3FFFFFFFFFFFFFFCLL;
       do
@@ -6165,7 +6103,7 @@ void *std::vector<long long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<
         v56 = *v53;
         *(v54 - 1) = *(v53 - 1);
         *v54 = v56;
-        v53 += 2;
+        v53 += 32;
         v54 += 2;
         v55 -= 4;
       }
@@ -6193,17 +6131,17 @@ void *std::vector<long long>::__insert_with_size[abi:ne200100]<std::__wrap_iter<
 
     while (v34 != v33);
 LABEL_32:
-    v37 = *(a1 + 8) - __dst;
+    v37 = a1[1] - __dst;
     memcpy(v33, __dst, v37);
     v39 = &v33[v37];
-    *(a1 + 8) = v5;
+    a1[1] = v5;
     v40 = *a1;
-    v41 = v5 - *a1;
+    v41 = &v5[-*a1];
     v42 = v32 - v41;
     memcpy((v32 - v41), *a1, v41);
     *a1 = v42;
-    *(a1 + 8) = v39;
-    *(a1 + 16) = 0;
+    a1[1] = v39;
+    a1[2] = 0;
     if (v40)
     {
       operator delete(v40);
@@ -6221,7 +6159,7 @@ LABEL_32:
     v19 = (v9 - 8 * a5);
     if (v19 >= v9)
     {
-      v23 = *(a1 + 8);
+      v23 = a1[1];
     }
 
     else
@@ -6229,12 +6167,12 @@ LABEL_32:
       v20 = v19 + 1;
       if (v9 > (v19 + 1))
       {
-        v20 = *(a1 + 8);
+        v20 = a1[1];
       }
 
       v21 = v20 + v14 + ~v9;
       v22 = v21 < 0x18 || (a5 & 0x1FFFFFFFFFFFFFFCLL) == 0;
-      v23 = *(a1 + 8);
+      v23 = a1[1];
       if (v22)
       {
         goto LABEL_75;
@@ -6271,7 +6209,7 @@ LABEL_75:
       }
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v9 != v18)
     {
       memmove(&__dst[8 * a5], __dst, v9 - v18);
@@ -6288,7 +6226,7 @@ LABEL_75:
   v16 = &__src[v14];
   if (&__src[v14] == a4)
   {
-    v17 = *(a1 + 8);
+    v17 = a1[1];
   }
 
   else
@@ -6297,12 +6235,12 @@ LABEL_75:
     v44 = a4 - v16 - 8;
     if (v44 < 0x18)
     {
-      v17 = *(a1 + 8);
+      v17 = a1[1];
     }
 
     else
     {
-      v17 = *(a1 + 8);
+      v17 = a1[1];
       if (v9 - v16 >= 0x20)
       {
         v45 = (v44 >> 3) + 1;
@@ -6342,7 +6280,7 @@ LABEL_75:
   }
 
 LABEL_52:
-  *(a1 + 8) = v17;
+  a1[1] = v17;
   if (v15 >= 1)
   {
     v58 = a5;
@@ -6400,7 +6338,7 @@ LABEL_76:
       }
     }
 
-    *(a1 + 8) = v64;
+    a1[1] = v64;
     if (v17 != v59)
     {
       memmove(&__dst[8 * a5], __dst, v17 - v59);
@@ -6416,7 +6354,7 @@ LABEL_69:
   return v5;
 }
 
-uint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,int>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,int>>>::find_or_prepare_insert<long long>@<X0>(uint64_t *result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+unint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,int>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,int>>>::find_or_prepare_insert<long long>@<X0>(unint64_t *result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
   v3 = *result;
   if (*result > 1)
@@ -6487,7 +6425,7 @@ LABEL_8:
       v4 = result + 2;
       if (result[2] != *a2)
       {
-        absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,int>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,int>>>::resize_impl(result, 3);
+        absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,int>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,int>>>::resize_impl(result, 3uLL);
       }
 
       v5 = 0;
@@ -6508,30 +6446,40 @@ LABEL_8:
   return result;
 }
 
-void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,int>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,int>>>::resize_impl(uint64_t *a1, uint64_t a2)
+void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<long long,int>,absl::lts_20240722::hash_internal::Hash<long long>,std::equal_to<long long>,std::allocator<std::pair<long long const,int>>>::resize_impl(unint64_t *a1, unint64_t a2)
 {
   v2 = *a1;
   v3 = a1[1];
   v5 = *a1 < 2 && v3 > 1;
   v6 = a1[2];
-  v9 = v3 & 1;
-  v10 = v2 < 2;
-  v11 = v5;
-  v7 = a1[3];
-  v8[0] = v6;
-  v8[1] = v7;
-  v8[2] = v2;
+  if (v5)
+  {
+    v7 = ((((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v6) * 0x9DDFEA08EB382D69) >> 64) ^ (105 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v6))) & 0x7F;
+  }
+
+  else
+  {
+    v7 = 0x80;
+  }
+
+  v10 = v3 & 1;
+  v11 = v2 < 2;
+  v12 = v5;
+  v8 = a1[3];
+  v9[0] = v6;
+  v9[1] = v8;
+  v9[2] = v2;
   *a1 = a2;
-  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,16ul,true,true,8ul>(v8, a1);
+  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,16ul,true,true,8ul>(v9, a1, v7);
 }
 
-int64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<int,int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<std::pair<int const,int>>>::find_or_prepare_insert<int>@<X0>(int64_t result@<X0>, _DWORD *a2@<X1>, uint64_t a3@<X8>)
+unint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<int,int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<std::pair<int const,int>>>::find_or_prepare_insert<int>@<X0>(unint64_t *result@<X0>, _DWORD *a2@<X1>, uint64_t a3@<X8>)
 {
   v3 = *result;
-  if (*result > 1uLL)
+  if (*result > 1)
   {
     v6 = 0;
-    _X10 = *(result + 16);
+    _X10 = result[2];
     __asm { PRFM            #4, [X10] }
 
     v13 = *a2;
@@ -6546,7 +6494,7 @@ int64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722:
     }
 
 LABEL_5:
-    v19 = *(result + 24);
+    v19 = result[3];
     do
     {
       v20 = (v16 + (__clz(__rbit64(v18)) >> 3)) & v3;
@@ -6583,20 +6531,20 @@ LABEL_8:
 
     v22 = result;
     result = absl::lts_20240722::container_internal::PrepareInsertNonSoo(result, v14, (v16 + (__clz(__rbit64(v21)) >> 3)) & v3, v6, &absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<int,int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<std::pair<int const,int>>>::GetPolicyFunctions(void)::value);
-    v24 = *(v22 + 24) + 8 * result;
-    *a3 = *(v22 + 16) + result;
+    v24 = v22[3] + 8 * result;
+    *a3 = result + v22[2];
     *(a3 + 8) = v24;
     *(a3 + 16) = 1;
   }
 
   else
   {
-    if (*(result + 8) > 1uLL)
+    if (result[1] > 1)
     {
-      v4 = (result + 16);
-      if (*(result + 16) != *a2)
+      v4 = result + 2;
+      if (*(result + 4) != *a2)
       {
-        absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<int,int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<std::pair<int const,int>>>::resize_impl(result, 3);
+        absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<int,int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<std::pair<int const,int>>>::resize_impl(result, 3uLL);
       }
 
       v5 = 0;
@@ -6604,8 +6552,8 @@ LABEL_8:
 
     else
     {
-      *(result + 8) = 2;
-      v4 = (result + 16);
+      result[1] = 2;
+      v4 = result + 2;
       v5 = 1;
     }
 
@@ -6617,26 +6565,31 @@ LABEL_8:
   return result;
 }
 
-void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<int,int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<std::pair<int const,int>>>::resize_impl(uint64_t a1, uint64_t a2)
+void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<int,int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<std::pair<int const,int>>>::resize_impl(unint64_t *a1, unint64_t a2)
 {
   v2 = *a1;
-  v3 = *(a1 + 8);
-  v5 = *a1 < 2uLL && v3 > 1;
+  v3 = a1[1];
+  v5 = *a1 < 2 && v3 > 1;
   if (v5)
   {
-    v6 = &absl::lts_20240722::hash_internal::MixingHashState::kSeed + *(a1 + 16);
+    v6 = ((((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + *(a1 + 4)) * 0x9DDFEA08EB382D69) >> 64) ^ (105 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + *(a1 + 4)))) & 0x7F;
+  }
+
+  else
+  {
+    v6 = 0x80;
   }
 
   v8 = *a1;
   v9 = v3 & 1;
   v10 = v2 < 2;
   v11 = v5;
-  v7 = *(a1 + 16);
+  v7 = *(a1 + 1);
   *a1 = a2;
-  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,8ul,true,true,4ul>(&v7, a1);
+  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,8ul,true,true,4ul>(&v7, a1, v6);
 }
 
-uint64_t operations_research::sat::PossibleIntegerOverflow(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+BOOL operations_research::sat::PossibleIntegerOverflow(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (a6 == 0x8000000000000000)
   {
@@ -6773,19 +6726,19 @@ uint64_t operations_research::sat::PossibleIntegerOverflow(uint64_t a1, uint64_t
   return v8 < 0xC000000000000001 || v37;
 }
 
-void operations_research::sat::ValidateCpModel(operations_research::sat *this@<X0>, const operations_research::sat::CpModelProto *a2@<X1>, char *a3@<X2>, uint64_t a4@<X8>, __int128 a5@<Q0>)
+void operations_research::sat::ValidateCpModel(operations_research::sat *this@<X0>, uint64_t a2@<X1>, char *a3@<X2>, uint64_t a4@<X8>, __int128 a5@<Q0>)
 {
-  v607 = a2;
+  v604 = a2;
   v5 = this;
   v6 = a4;
-  v661 = *MEMORY[0x277D85DE8];
+  v656 = *MEMORY[0x277D85DE8];
   if (*(this + 8) >= 1)
   {
     v7 = 0;
     v8 = 0;
     v10 = this + 24;
     v9 = *(this + 3);
-    v608 = this + 24;
+    v605 = this + 24;
     do
     {
       if (v9)
@@ -6802,25 +6755,25 @@ void operations_research::sat::ValidateCpModel(operations_research::sat *this@<X
       v23 = *(*v21 + 16);
       if (!v23)
       {
-        v631 = "var #";
-        v632.__r_.__value_.__r.__words[0] = 5;
-        v24 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v7, &v658, a3);
-        v656 = &v658;
-        p_size = v24 - &v658;
-        *v655 = " has no domain(): ";
-        *&v655[8] = 18;
+        v626 = "var #";
+        v627.__r_.__value_.__r.__words[0] = 5;
+        v24 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v7, &v653, a3);
+        v651 = &v653;
+        p_size = v24 - &v653;
+        *v650 = " has no domain(): ";
+        *&v650[8] = 18;
         google::protobuf::Message::ShortDebugString(__p);
       }
 
       if (v23)
       {
-        v631 = "var #";
-        v632.__r_.__value_.__r.__words[0] = 5;
-        v25 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v7, &v658, a3);
-        v656 = &v658;
-        p_size = v25 - &v658;
-        *v655 = " has an odd domain() size: ";
-        *&v655[8] = 27;
+        v626 = "var #";
+        v627.__r_.__value_.__r.__words[0] = 5;
+        v25 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v7, &v653, a3);
+        v651 = &v653;
+        p_size = v25 - &v653;
+        *v650 = " has an odd domain() size: ";
+        *&v650[8] = 27;
         google::protobuf::Message::ShortDebugString(__p);
       }
 
@@ -6834,24 +6787,23 @@ void operations_research::sat::ValidateCpModel(operations_research::sat *this@<X
         a5 = **(v22 + 24);
         if (**(v22 + 24) <= *(*(v22 + 24) + 8))
         {
-          *v613 = **(v22 + 24);
           operator new();
         }
 
         v26 = 0;
         v5 = this;
-        v10 = v608;
+        v10 = v605;
       }
 
       if (!v26)
       {
-        v631 = "var #";
-        v632.__r_.__value_.__r.__words[0] = 5;
-        v32 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v7, &v658, a3);
-        v656 = &v658;
-        p_size = v32 - &v658;
-        *v655 = " has and invalid domain() format: ";
-        *&v655[8] = 34;
+        v626 = "var #";
+        v627.__r_.__value_.__r.__words[0] = 5;
+        v32 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v7, &v653, a3);
+        v651 = &v653;
+        p_size = v32 - &v653;
+        *v650 = " has and invalid domain() format: ";
+        *&v650[8] = 34;
         google::protobuf::Message::ShortDebugString(__p);
       }
 
@@ -6862,25 +6814,25 @@ void operations_research::sat::ValidateCpModel(operations_research::sat *this@<X
       v6 = a4;
       if (v30)
       {
-        v631 = "var #";
-        v632.__r_.__value_.__r.__words[0] = 5;
-        v31 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v7, &v658, a3);
-        v656 = &v658;
-        p_size = v31 - &v658;
-        *v655 = " domain do not fall in [kint64min + 2, kint64max - 1]. ";
-        *&v655[8] = 55;
+        v626 = "var #";
+        v627.__r_.__value_.__r.__words[0] = 5;
+        v31 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v7, &v653, a3);
+        v651 = &v653;
+        p_size = v31 - &v653;
+        *v650 = " domain do not fall in [kint64min + 2, kint64max - 1]. ";
+        *&v650[8] = 55;
         google::protobuf::Message::ShortDebugString(__p);
       }
 
       if (v28 < 0 && v28 + 0x7FFFFFFFFFFFFFFFLL < v29)
       {
-        v631 = "var #";
-        v632.__r_.__value_.__r.__words[0] = 5;
-        v33 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v7, &v658, a3);
-        v656 = &v658;
-        p_size = v33 - &v658;
-        *v655 = " has a domain that is too large, i.e. |UB - LB| overflow an int64_t: ";
-        *&v655[8] = 69;
+        v626 = "var #";
+        v627.__r_.__value_.__r.__words[0] = 5;
+        v33 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v7, &v653, a3);
+        v651 = &v653;
+        p_size = v33 - &v653;
+        *v650 = " has a domain that is too large, i.e. |UB - LB| overflow an int64_t: ";
+        *&v650[8] = 69;
         google::protobuf::Message::ShortDebugString(__p);
       }
 
@@ -6954,12 +6906,12 @@ void operations_research::sat::ValidateCpModel(operations_research::sat *this@<X
   {
     v34 = 0;
     v35 = 0;
-    v606 = 0;
-    v604 = 0;
+    v603 = 0;
+    v601 = 0;
     v36 = (v5 + 48);
     v37 = (v5 + 24);
     v38 = &operations_research::sat::_RoutesConstraintProto_default_instance_;
-    v609 = v36;
+    v606 = v36;
     while (2)
     {
       if (*v36)
@@ -6973,9 +6925,9 @@ void operations_research::sat::ValidateCpModel(operations_research::sat *this@<X
       }
 
       v93 = *v92;
-      operations_research::sat::GetReferencesUsedByConstraint(*v92, &v656);
-      v94 = v656;
-      if (v656 != p_size)
+      operations_research::sat::GetReferencesUsedByConstraint(&v651, *v92);
+      v94 = v651;
+      if (v651 != p_size)
       {
         v95 = *(this + 8);
         do
@@ -6983,12 +6935,12 @@ void operations_research::sat::ValidateCpModel(operations_research::sat *this@<X
           v96 = v94->n128_u32[0];
           if (v95 <= v96 || v96 < -v95)
           {
-            v107 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v96, &v655[16], a3);
-            *v655 = &v655[16];
-            *&v655[8] = v107 - &v655[16];
-            v109 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v34, v654, v108);
-            *&v653 = v654;
-            *(&v653 + 1) = v109 - v654;
+            v107 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v96, &v650[16], a3);
+            *v650 = &v650[16];
+            *&v650[8] = v107 - &v650[16];
+            v109 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v34, v649, v108);
+            *&v648 = v649;
+            *(&v648 + 1) = v109 - v649;
             google::protobuf::Message::ShortDebugString(__p);
           }
 
@@ -7059,18 +7011,18 @@ void operations_research::sat::ValidateCpModel(operations_research::sat *this@<X
           }
         }
 
-        v127 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v104, &v655[16], a3);
-        *v655 = &v655[16];
-        *&v655[8] = v127 - &v655[16];
-        v129 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v34, v654, v128);
-        *&v653 = v654;
-        *(&v653 + 1) = v129 - v654;
+        v127 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v104, &v650[16], a3);
+        *v650 = &v650[16];
+        *&v650[8] = v127 - &v650[16];
+        v129 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v34, v649, v128);
+        *&v648 = v649;
+        *(&v648 + 1) = v129 - v649;
         google::protobuf::Message::ShortDebugString(__p);
       }
 
 LABEL_171:
-      v115 = v659;
-      if (v659 != v660)
+      v115 = v654;
+      if (v654 != v655)
       {
         v116 = *(this + 8);
         v117 = -v116;
@@ -7094,7 +7046,7 @@ LABEL_171:
               break;
             }
 
-            if (++v115 == v660)
+            if (++v115 == v655)
             {
               goto LABEL_191;
             }
@@ -7117,43 +7069,43 @@ LABEL_171:
               break;
             }
 
-            if (++v115 == v660)
+            if (++v115 == v655)
             {
               goto LABEL_191;
             }
           }
         }
 
-        v130 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v120, &v655[16], a3);
-        *v655 = &v655[16];
-        *&v655[8] = v130 - &v655[16];
-        v132 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v34, v654, v131);
-        *&v653 = v654;
-        *(&v653 + 1) = v132 - v654;
+        v130 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v120, &v650[16], a3);
+        *v650 = &v650[16];
+        *&v650[8] = v130 - &v650[16];
+        v132 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v34, v649, v131);
+        *&v648 = v649;
+        *(&v648 + 1) = v132 - v649;
         google::protobuf::Message::ShortDebugString(__p);
       }
 
 LABEL_191:
       *(v6 + 23) = 0;
       *v6 = 0;
-      v36 = v609;
-      if (v659)
+      v36 = v606;
+      if (v654)
       {
-        v660 = v659;
-        operator delete(v659);
+        v655 = v654;
+        operator delete(v654);
       }
 
-      if (v656)
+      if (v651)
       {
-        p_size = v656;
-        operator delete(v656);
+        p_size = v651;
+        operator delete(v651);
       }
 
       if (*(v6 + 23) < 0)
       {
         if (*(v6 + 8))
         {
-          goto LABEL_1116;
+          return;
         }
 
         operator delete(*v6);
@@ -7161,21 +7113,21 @@ LABEL_191:
 
       else if (*(v6 + 23))
       {
-        goto LABEL_1116;
+        return;
       }
 
-      if (*v609)
+      if (*v606)
       {
-        v133 = *v609 + 8 * v34 + 7;
+        v133 = *v606 + 8 * v34 + 7;
       }
 
       else
       {
-        v133 = v609;
+        v133 = v606;
       }
 
       v134 = *v133;
-      v616 = *v133;
+      v611 = *v133;
       switch(*(*v133 + 60))
       {
         case 3:
@@ -7185,16 +7137,16 @@ LABEL_191:
           v135 = *(v134 + 48);
           if (*(v135 + 32) != 2)
           {
-            v631 = "An int_div constraint should have exactly 2 terms: ";
-            v632.__r_.__value_.__r.__words[0] = 51;
-            google::protobuf::Message::ShortDebugString(v655);
+            v626 = "An int_div constraint should have exactly 2 terms: ";
+            v627.__r_.__value_.__r.__words[0] = 51;
+            google::protobuf::Message::ShortDebugString(v650);
           }
 
           if ((*(v135 + 16) & 1) == 0)
           {
-            v631 = "An int_div constraint should have a target: ";
-            v632.__r_.__value_.__r.__words[0] = 44;
-            google::protobuf::Message::ShortDebugString(v655);
+            v626 = "An int_div constraint should have a target: ";
+            v627.__r_.__value_.__r.__words[0] = 44;
+            google::protobuf::Message::ShortDebugString(v650);
           }
 
           v222 = *(v135 + 24);
@@ -7210,17 +7162,17 @@ LABEL_191:
           {
             if (*(a4 + 8))
             {
-              goto LABEL_1116;
+              return;
             }
 
             operator delete(*a4);
-            v134 = v616;
+            v134 = v611;
           }
 
           else
           {
             v204 = *(a4 + 23);
-            v134 = v616;
+            v134 = v611;
             if (*(a4 + 23))
             {
               goto LABEL_507;
@@ -7246,17 +7198,17 @@ LABEL_191:
           {
             if (*(a4 + 8))
             {
-              goto LABEL_1116;
+              return;
             }
 
             operator delete(*a4);
-            v134 = v616;
+            v134 = v611;
           }
 
           else
           {
             v204 = *(a4 + 23);
-            v134 = v616;
+            v134 = v611;
             if (*(a4 + 23))
             {
               goto LABEL_507;
@@ -7285,17 +7237,17 @@ LABEL_191:
           {
             if (*(a4 + 8))
             {
-              goto LABEL_1116;
+              return;
             }
 
             operator delete(*a4);
-            v134 = v616;
+            v134 = v611;
           }
 
           else
           {
             v204 = *(a4 + 23);
-            v134 = v616;
+            v134 = v611;
             if (*(a4 + 23))
             {
               goto LABEL_507;
@@ -7320,7 +7272,7 @@ LABEL_191:
           v309 = *(*v305 + 4);
           if (v309 < 1)
           {
-            goto LABEL_1123;
+            goto LABEL_1121;
           }
 
           v310 = *(v308 + 6);
@@ -7371,11 +7323,11 @@ LABEL_191:
 
           if (v313)
           {
-LABEL_1123:
+LABEL_1121:
             {
-              v631 = "Division by 0: ";
-              v632.__r_.__value_.__r.__words[0] = 15;
-              google::protobuf::Message::ShortDebugString(v655);
+              v626 = "Division by 0: ";
+              v627.__r_.__value_.__r.__words[0] = 15;
+              google::protobuf::Message::ShortDebugString(v650);
             }
           }
 
@@ -7391,19 +7343,19 @@ LABEL_1123:
             v361 = -v360 / v359;
             if (!(v361 * v359 + v360))
             {
-              v362 = operations_research::Domain::Contains(&v631, v361);
-              if (v631)
+              v362 = operations_research::Domain::Contains(&v626, v361);
+              if (v626)
               {
-                operator delete(v632.__r_.__value_.__l.__data_);
+                operator delete(v627.__r_.__value_.__l.__data_);
               }
 
               v6 = a4;
-              v134 = v616;
+              v134 = v611;
               if (v362)
               {
-                v631 = "The domain of the divisor cannot contain 0: ";
-                v632.__r_.__value_.__r.__words[0] = 44;
-                google::protobuf::Message::ShortDebugString(v655);
+                v626 = "The domain of the divisor cannot contain 0: ";
+                v627.__r_.__value_.__r.__words[0] = 44;
+                google::protobuf::Message::ShortDebugString(v650);
               }
             }
           }
@@ -7421,16 +7373,16 @@ LABEL_1123:
           v181 = *(v134 + 48);
           if (*(v181 + 32) != 2)
           {
-            v631 = "An int_mod constraint should have exactly 2 terms: ";
-            v632.__r_.__value_.__r.__words[0] = 51;
-            google::protobuf::Message::ShortDebugString(v655);
+            v626 = "An int_mod constraint should have exactly 2 terms: ";
+            v627.__r_.__value_.__r.__words[0] = 51;
+            google::protobuf::Message::ShortDebugString(v650);
           }
 
           if ((*(v181 + 16) & 1) == 0)
           {
-            v631 = "An int_mod constraint should have a target: ";
-            v632.__r_.__value_.__r.__words[0] = 44;
-            google::protobuf::Message::ShortDebugString(v655);
+            v626 = "An int_mod constraint should have a target: ";
+            v627.__r_.__value_.__r.__words[0] = 44;
+            google::protobuf::Message::ShortDebugString(v650);
           }
 
           v225 = *(v181 + 24);
@@ -7446,17 +7398,17 @@ LABEL_1123:
           {
             if (*(a4 + 8))
             {
-              goto LABEL_1116;
+              return;
             }
 
             operator delete(*a4);
-            v134 = v616;
+            v134 = v611;
           }
 
           else
           {
             v204 = *(a4 + 23);
-            v134 = v616;
+            v134 = v611;
             if (*(a4 + 23))
             {
               goto LABEL_507;
@@ -7482,17 +7434,17 @@ LABEL_1123:
           {
             if (*(a4 + 8))
             {
-              goto LABEL_1116;
+              return;
             }
 
             operator delete(*a4);
-            v134 = v616;
+            v134 = v611;
           }
 
           else
           {
             v204 = *(a4 + 23);
-            v134 = v616;
+            v134 = v611;
             if (*(a4 + 23))
             {
               goto LABEL_507;
@@ -7521,17 +7473,17 @@ LABEL_1123:
           {
             if (*(a4 + 8))
             {
-              goto LABEL_1116;
+              return;
             }
 
             operator delete(*a4);
-            v134 = v616;
+            v134 = v611;
           }
 
           else
           {
             v204 = *(a4 + 23);
-            v134 = v616;
+            v134 = v611;
             if (*(a4 + 23))
             {
               goto LABEL_507;
@@ -7552,24 +7504,24 @@ LABEL_1123:
             v319 = v321;
           }
 
-          operations_research::sat::LinearExpressionProto::LinearExpressionProto(&v631, 0, *v319);
-          v322 = v637;
-          v323 = LODWORD(v632.__r_.__value_.__r.__words[1]);
-          if (SLODWORD(v632.__r_.__value_.__r.__words[1]) < 1)
+          operations_research::sat::LinearExpressionProto::LinearExpressionProto(&v626, 0, *v319);
+          v322 = v632;
+          v323 = LODWORD(v627.__r_.__value_.__r.__words[1]);
+          if (SLODWORD(v627.__r_.__value_.__r.__words[1]) < 1)
           {
             v6 = a4;
-            v134 = v616;
+            v134 = v611;
           }
 
           else
           {
-            v324 = v632.__r_.__value_.__r.__words[2];
-            v325 = v635;
+            v324 = v627.__r_.__value_.__r.__words[2];
+            v325 = v630;
             v326 = *v37;
             if (*v37)
             {
               v6 = a4;
-              v134 = v616;
+              v134 = v611;
               do
               {
                 v368 = *v324++;
@@ -7644,7 +7596,7 @@ LABEL_1123:
             else
             {
               v6 = a4;
-              v134 = v616;
+              v134 = v611;
               do
               {
                 v332 = *v324++;
@@ -7708,13 +7660,13 @@ LABEL_1123:
 
           if (v322 <= 0)
           {
-            v656 = "An int_mod must have a strictly positive modulo argument: ";
+            v651 = "An int_mod must have a strictly positive modulo argument: ";
             p_size = 58;
-            google::protobuf::Message::ShortDebugString(&v653);
+            google::protobuf::Message::ShortDebugString(&v648);
           }
 
           std::string::basic_string[abi:ne200100]<0>(v6, &byte_23CE7F131);
-          operations_research::sat::LinearExpressionProto::~LinearExpressionProto(&v631);
+          operations_research::sat::LinearExpressionProto::~LinearExpressionProto(&v626);
           v303 = *(v6 + 23);
           if (v303 < 0)
           {
@@ -7726,9 +7678,9 @@ LABEL_1123:
           v182 = *(v134 + 48);
           if ((v182[2] & 1) == 0)
           {
-            v631 = "An int_prod constraint should have a target: ";
-            v632.__r_.__value_.__r.__words[0] = 45;
-            google::protobuf::Message::ShortDebugString(v655);
+            v626 = "An int_prod constraint should have a target: ";
+            v627.__r_.__value_.__r.__words[0] = 45;
+            google::protobuf::Message::ShortDebugString(v650);
           }
 
           v198 = v182[3];
@@ -7760,7 +7712,7 @@ LABEL_1123:
 
               if (*(v6 + 23))
               {
-                goto LABEL_1116;
+                return;
               }
 
               ++v199;
@@ -7773,7 +7725,7 @@ LABEL_1123:
 
             if (*(v6 + 8))
             {
-              goto LABEL_1116;
+              return;
             }
 
             operator delete(*v6);
@@ -7784,9 +7736,9 @@ LABEL_1123:
           while (v201);
 LABEL_345:
           v182 = &operations_research::sat::_LinearArgumentProto_default_instance_;
-          if (*(v616 + 60) == 11)
+          if (*(v611 + 60) == 11)
           {
-            v182 = *(v616 + 48);
+            v182 = *(v611 + 48);
           }
 
 LABEL_347:
@@ -7806,7 +7758,7 @@ LABEL_347:
           {
             if (*(a4 + 8))
             {
-              goto LABEL_1116;
+              return;
             }
 
             operator delete(*a4);
@@ -7815,19 +7767,19 @@ LABEL_347:
           else
           {
             v204 = *(a4 + 23);
-            v134 = v616;
+            v134 = v611;
             if (*(a4 + 23))
             {
               goto LABEL_507;
             }
           }
 
-          operations_research::Domain::Domain(v655, 1);
+          operations_research::Domain::Domain(v650, 1);
           v230 = v38;
           v231 = &operations_research::sat::_LinearArgumentProto_default_instance_;
-          if (*(v616 + 60) == 11)
+          if (*(v611 + 60) == 11)
           {
-            v231 = *(v616 + 48);
+            v231 = *(v611 + 48);
           }
 
           v233 = v231[3];
@@ -8027,17 +7979,17 @@ LABEL_347:
                 while (v240);
               }
 
-              operations_research::Domain::Domain(&v656, v248, v239);
-              operations_research::Domain::ContinuousMultiplicationBy(v655, &v656, &v631, v271);
-              if (v655[0])
+              operations_research::Domain::Domain(&v651, v248, v239);
+              operations_research::Domain::ContinuousMultiplicationBy(&v626, v650, &v651, v271);
+              if (v650[0])
               {
-                operator delete(*&v655[8]);
+                operator delete(*&v650[8]);
               }
 
-              *v655 = v631;
-              *&v655[8] = *&v632.__r_.__value_.__l.__data_;
-              v631 = 0;
-              if (v656)
+              *v650 = v626;
+              *&v650[8] = *&v627.__r_.__value_.__l.__data_;
+              v626 = 0;
+              if (v651)
               {
                 operator delete(p_size);
               }
@@ -8049,37 +8001,37 @@ LABEL_347:
           }
 
           v6 = a4;
-          if (operations_research::Domain::Max(v655) < 0x8000000000000002 || operations_research::Domain::Min(v655) == 0x7FFFFFFFFFFFFFFFLL)
+          if (operations_research::Domain::Max(v650) < 0x8000000000000002 || operations_research::Domain::Min(v650) == 0x7FFFFFFFFFFFFFFFLL)
           {
-            v631 = "integer overflow in constraint: ";
-            v632.__r_.__value_.__r.__words[0] = 32;
-            google::protobuf::Message::ShortDebugString(&v653);
+            v626 = "integer overflow in constraint: ";
+            v627.__r_.__value_.__r.__words[0] = 32;
+            google::protobuf::Message::ShortDebugString(&v648);
           }
 
           v301 = &operations_research::sat::_LinearArgumentProto_default_instance_;
-          if (*(v616 + 60) == 11)
+          if (*(v611 + 60) == 11)
           {
-            v301 = *(v616 + 48);
+            v301 = *(v611 + 48);
           }
 
           if (*(v301 + 8) >= 3)
           {
-            if (operations_research::Domain::Max(v655) == 0x7FFFFFFFFFFFFFFFLL || (v302 = operations_research::Domain::Min(v655), v302 == 0x8000000000000000 || v302 == 0x8000000000000001))
+            if (operations_research::Domain::Max(v650) == 0x7FFFFFFFFFFFFFFFLL || (v302 = operations_research::Domain::Min(v650), v302 == 0x8000000000000000 || v302 == 0x8000000000000001))
             {
-              v631 = "Potential integer overflow in constraint: ";
-              v632.__r_.__value_.__r.__words[0] = 42;
-              google::protobuf::Message::ShortDebugString(&v653);
+              v626 = "Potential integer overflow in constraint: ";
+              v627.__r_.__value_.__r.__words[0] = 42;
+              google::protobuf::Message::ShortDebugString(&v648);
             }
           }
 
           std::string::basic_string[abi:ne200100]<0>(a4, &byte_23CE7F131);
-          if (v655[0])
+          if (v650[0])
           {
-            operator delete(*&v655[8]);
+            operator delete(*&v650[8]);
           }
 
           v38 = v230;
-          v134 = v616;
+          v134 = v611;
           v303 = *(a4 + 23);
           if (v303 < 0)
           {
@@ -8089,7 +8041,7 @@ LABEL_347:
 LABEL_333:
           if (v303)
           {
-            goto LABEL_1116;
+            return;
           }
 
           goto LABEL_508;
@@ -8105,14 +8057,13 @@ LABEL_333:
           {
             if (**(v158 + 72) <= *(*(v158 + 72) + 8))
             {
-              v603 = **(v158 + 72);
               operator new();
             }
 
 LABEL_496:
-            v631 = "Invalid domain in constraint : ";
-            v632.__r_.__value_.__r.__words[0] = 31;
-            google::protobuf::Message::ShortDebugString(v655);
+            v626 = "Invalid domain in constraint : ";
+            v627.__r_.__value_.__r.__words[0] = 31;
+            google::protobuf::Message::ShortDebugString(v650);
           }
 
           if (!operations_research::IntervalsAreSortedAndNonAdjacent(0, 0))
@@ -8120,9 +8071,9 @@ LABEL_496:
             goto LABEL_496;
           }
 
-          if (*(v616 + 60) == 12)
+          if (*(v611 + 60) == 12)
           {
-            v272 = *(v616 + 48);
+            v272 = *(v611 + 48);
             v273 = *(v272 + 10);
             if (v273 != *(v272 + 4))
             {
@@ -8136,9 +8087,9 @@ LABEL_496:
             if (dword_2810BEE70 != off_2810BEE58)
             {
 LABEL_540:
-              v631 = "coeffs_size() != vars_size() in constraint: ";
-              v632.__r_.__value_.__r.__words[0] = 44;
-              google::protobuf::Message::ShortDebugString(v655);
+              v626 = "coeffs_size() != vars_size() in constraint: ";
+              v627.__r_.__value_.__r.__words[0] = 44;
+              google::protobuf::Message::ShortDebugString(v650);
             }
 
             v272 = &operations_research::sat::_LinearConstraintProto_default_instance_;
@@ -8146,7 +8097,7 @@ LABEL_540:
 
           if (operations_research::sat::PossibleIntegerOverflow(this, v272[3], v273, v272[6], v273, 0))
           {
-            google::protobuf::Message::DebugString(&v631);
+            google::protobuf::Message::DebugString(&v626);
           }
 
           v6 = a4;
@@ -8180,17 +8131,16 @@ LABEL_581:
           {
             while (1)
             {
-              if ((*(v6 + 23) & 0x80000000) == 0)
+              if (*(v6 + 23) < 0)
               {
                 break;
               }
 
-              if (*(v6 + 8))
+              if (*(v6 + 23))
               {
-                goto LABEL_1116;
+                return;
               }
 
-              operator delete(*v6);
               ++v164;
               v166 -= 8;
               if (!v166)
@@ -8199,11 +8149,12 @@ LABEL_581:
               }
             }
 
-            if (*(v6 + 23))
+            if (*(v6 + 8))
             {
-              goto LABEL_1116;
+              return;
             }
 
+            operator delete(*v6);
             ++v164;
             v166 -= 8;
           }
@@ -8212,63 +8163,63 @@ LABEL_581:
           goto LABEL_266;
         case 0xE:
           v168 = *(v134 + 48);
-          operations_research::sat::LinearExpressionProto::LinearExpressionProto(&v631, 0);
+          operations_research::sat::LinearExpressionProto::LinearExpressionProto(&v626, 0);
           v169 = *(v168 + 40);
-          v170 = HIDWORD(v632.__r_.__value_.__r.__words[1]);
-          v171 = v632.__r_.__value_.__r.__words[1];
-          if (LODWORD(v632.__r_.__value_.__r.__words[1]) == HIDWORD(v632.__r_.__value_.__r.__words[1]))
+          v170 = HIDWORD(v627.__r_.__value_.__r.__words[1]);
+          v171 = v627.__r_.__value_.__r.__words[1];
+          if (LODWORD(v627.__r_.__value_.__r.__words[1]) == HIDWORD(v627.__r_.__value_.__r.__words[1]))
           {
-            google::protobuf::RepeatedField<int>::Grow(&v632.__r_.__value_.__r.__words[1], HIDWORD(v632.__r_.__value_.__r.__words[1]), (HIDWORD(v632.__r_.__value_.__r.__words[1]) + 1));
-            v170 = HIDWORD(v632.__r_.__value_.__r.__words[1]);
-            v171 = v632.__r_.__value_.__r.__words[1];
+            google::protobuf::RepeatedField<int>::Grow(&v627.__r_.__value_.__l.__size_, HIDWORD(v627.__r_.__value_.__r.__words[1]), (HIDWORD(v627.__r_.__value_.__r.__words[1]) + 1));
+            v170 = HIDWORD(v627.__r_.__value_.__r.__words[1]);
+            v171 = v627.__r_.__value_.__r.__words[1];
           }
 
           v172 = (v171 + 1);
-          LODWORD(v632.__r_.__value_.__r.__words[1]) = v171 + 1;
-          *(v632.__r_.__value_.__r.__words[2] + 4 * v171) = v169;
-          v173 = v634;
-          if (v634 == HIDWORD(v634))
+          LODWORD(v627.__r_.__value_.__r.__words[1]) = v171 + 1;
+          *(v627.__r_.__value_.__r.__words[2] + 4 * v171) = v169;
+          v173 = v629;
+          if (v629 == HIDWORD(v629))
           {
-            google::protobuf::RepeatedField<long long>::Grow(&v634, HIDWORD(v634));
-            v173 = v634;
-            v170 = HIDWORD(v632.__r_.__value_.__r.__words[1]);
-            v172 = LODWORD(v632.__r_.__value_.__r.__words[1]);
+            google::protobuf::RepeatedField<long long>::Grow(&v629, HIDWORD(v629), (HIDWORD(v629) + 1));
+            v173 = v629;
+            v170 = HIDWORD(v627.__r_.__value_.__r.__words[1]);
+            v172 = LODWORD(v627.__r_.__value_.__r.__words[1]);
           }
 
-          LODWORD(v634) = v173 + 1;
-          v635[v173] = 1;
+          LODWORD(v629) = v173 + 1;
+          v630[v173] = 1;
           if (v172 == v170)
           {
-            google::protobuf::RepeatedField<int>::Grow(&v632.__r_.__value_.__r.__words[1], v172, (v172 + 1));
-            LODWORD(v172) = v632.__r_.__value_.__r.__words[1];
+            google::protobuf::RepeatedField<int>::Grow(&v627.__r_.__value_.__l.__size_, v172, (v172 + 1));
+            LODWORD(v172) = v627.__r_.__value_.__r.__words[1];
           }
 
-          LODWORD(v632.__r_.__value_.__r.__words[1]) = v172 + 1;
-          *(v632.__r_.__value_.__r.__words[2] + 4 * v172) = 0;
-          v174 = v634;
-          if (v634 == HIDWORD(v634))
+          LODWORD(v627.__r_.__value_.__r.__words[1]) = v172 + 1;
+          *(v627.__r_.__value_.__r.__words[2] + 4 * v172) = 0;
+          v174 = v629;
+          if (v629 == HIDWORD(v629))
           {
-            google::protobuf::RepeatedField<long long>::Grow(&v634, HIDWORD(v634));
-            v174 = v634;
+            google::protobuf::RepeatedField<long long>::Grow(&v629, HIDWORD(v629), (HIDWORD(v629) + 1));
+            v174 = v629;
           }
 
-          v175 = v635;
-          LODWORD(v634) = v174 + 1;
-          v635[v174] = -1;
+          v175 = v630;
+          LODWORD(v629) = v174 + 1;
+          v630[v174] = -1;
           v176 = *(v168 + 16);
           if (v176)
           {
             v177 = *(v168 + 24);
-            v178 = v632.__r_.__value_.__r.__words[2];
+            v178 = v627.__r_.__value_.__r.__words[2];
             v179 = 4 * v176;
             do
             {
               *(v178 + 4) = *v177;
-              if (operations_research::sat::PossibleIntegerOverflow(this, v178, SLODWORD(v632.__r_.__value_.__r.__words[1]), v175, v634, 0))
+              if (operations_research::sat::PossibleIntegerOverflow(this, v178, SLODWORD(v627.__r_.__value_.__r.__words[1]), v175, v629, 0))
               {
-                v656 = "Domain of the variables involved in element constraint may cause overflow";
+                v651 = "Domain of the variables involved in element constraint may cause overflow";
                 p_size = 73;
-                google::protobuf::Message::ShortDebugString(&v653);
+                google::protobuf::Message::ShortDebugString(&v648);
               }
 
               ++v177;
@@ -8281,8 +8232,8 @@ LABEL_581:
           v6 = a4;
           *(a4 + 23) = 0;
           *a4 = 0;
-          v134 = v616;
-          operations_research::sat::LinearExpressionProto::~LinearExpressionProto(&v631);
+          v134 = v611;
+          operations_research::sat::LinearExpressionProto::~LinearExpressionProto(&v626);
           v204 = *(a4 + 23);
           if (v204 < 0)
           {
@@ -8295,13 +8246,13 @@ LABEL_581:
           v186 = *(v185 + 16);
           if (*(v185 + 40) != v186 || *(v185 + 64) != v186)
           {
-            v631 = "Wrong field sizes in graph: ";
-            v632.__r_.__value_.__r.__words[0] = 28;
-            google::protobuf::Message::ShortDebugString(v655);
+            v626 = "Wrong field sizes in graph: ";
+            v627.__r_.__value_.__r.__words[0] = 28;
+            google::protobuf::Message::ShortDebugString(v650);
           }
 
           a5 = xmmword_23CE306D0;
-          *v655 = xmmword_23CE306D0;
+          *v650 = xmmword_23CE306D0;
           if (v186 < 1)
           {
             goto LABEL_359;
@@ -8316,11 +8267,11 @@ LABEL_581:
               goto LABEL_355;
             }
 
-            LODWORD(v656) = *(*(v185 + 48) + v205);
-            absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::find_or_prepare_insert<int>(v655, &v656, &v631);
-            if (v632.__r_.__value_.__s.__data_[8] == 1)
+            LODWORD(v651) = *(*(v185 + 48) + v205);
+            absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::find_or_prepare_insert<int>(v650, &v651, &v626);
+            if (v627.__r_.__value_.__s.__data_[8] == 1)
             {
-              *v632.__r_.__value_.__l.__data_ = v656;
+              *v627.__r_.__value_.__l.__data_ = v651;
 LABEL_355:
               v205 += 4;
               if (v206 == v205)
@@ -8337,19 +8288,19 @@ LABEL_359:
             break;
           }
 
-          v631 = "Circuit/Route constraint contains multiple self-loop involving node ";
-          v632.__r_.__value_.__r.__words[0] = 68;
-          v274 = absl::lts_20240722::numbers_internal::FastIntToBuffer(*(*(v185 + 48) + v205), &v658, a3);
-          v656 = &v658;
-          p_size = v274 - &v658;
-          absl::lts_20240722::StrCat(&v631, &v656, v6);
+          v626 = "Circuit/Route constraint contains multiple self-loop involving node ";
+          v627.__r_.__value_.__r.__words[0] = 68;
+          v274 = absl::lts_20240722::numbers_internal::FastIntToBuffer(*(*(v185 + 48) + v205), &v653, a3);
+          v651 = &v653;
+          p_size = v274 - &v653;
+          absl::lts_20240722::StrCat(&v626, &v651, v6);
 LABEL_504:
-          if (*v655 >= 2uLL)
+          if (*v650 >= 2uLL)
           {
-            operator delete((*&v655[16] - (v655[8] & 1) - 8));
+            operator delete((*&v650[16] - (v650[8] & 1) - 8));
           }
 
-          v134 = v616;
+          v134 = v611;
           v204 = *(v6 + 23);
           if ((v204 & 0x80000000) == 0)
           {
@@ -8362,9 +8313,9 @@ LABEL_504:
           v184 = *(v183 + 16);
           if (v184 && *(v183 + 40) % v184)
           {
-            v631 = "The flat encoding of a table constraint must be a multiple of the number of variable: ";
-            v632.__r_.__value_.__r.__words[0] = 86;
-            google::protobuf::Message::DebugString(v655);
+            v626 = "The flat encoding of a table constraint must be a multiple of the number of variable: ";
+            v627.__r_.__value_.__r.__words[0] = 86;
+            google::protobuf::Message::DebugString(v650);
           }
 
           goto LABEL_581;
@@ -8373,15 +8324,15 @@ LABEL_504:
           v151 = v150[10];
           if (v151 != v150[16] || v151 != v150[22])
           {
-            v631 = "The transitions repeated fields must have the same size: ";
-            v632.__r_.__value_.__r.__words[0] = 57;
-            google::protobuf::Message::ShortDebugString(v655);
+            v626 = "The transitions repeated fields must have the same size: ";
+            v627.__r_.__value_.__r.__words[0] = 57;
+            google::protobuf::Message::ShortDebugString(v650);
           }
 
-          v605 = v35;
-          v621 = 0;
-          v622 = 0;
-          v623 = &unk_23CE31C20;
+          v602 = v35;
+          v616 = 0;
+          v617 = 0;
+          v618 = &unk_23CE31C20;
           if (v151 < 1)
           {
             goto LABEL_247;
@@ -8392,34 +8343,34 @@ LABEL_504:
           while (2)
           {
             v154 = &operations_research::sat::_AutomatonConstraintProto_default_instance_;
-            if (*(v616 + 60) == 17)
+            if (*(v611 + 60) == 17)
             {
-              v154 = *(v616 + 48);
+              v154 = *(v611 + 48);
             }
 
             v155 = v154[12][v152 / 8];
             if (v155 - 0x7FFFFFFFFFFFFFFFLL <= 2)
             {
-              v631 = "labels in the automaton constraint are too big: ";
-              v632.__r_.__value_.__r.__words[0] = 48;
-              v295 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v155, &v658, a3);
-              v656 = &v658;
-              p_size = v295 - &v658;
-              absl::lts_20240722::StrCat(&v631, &v656, v6);
+              v626 = "labels in the automaton constraint are too big: ";
+              v627.__r_.__value_.__r.__words[0] = 48;
+              v295 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v155, &v653, a3);
+              v651 = &v653;
+              p_size = v295 - &v653;
+              absl::lts_20240722::StrCat(&v626, &v651, v6);
             }
 
             else
             {
               v156 = v154[6][v152 / 8];
               v157 = v154[9][v152 / 8];
-              v631 = v156;
-              v632.__r_.__value_.__r.__words[0] = v155;
-              v632.__r_.__value_.__l.__size_ = v157;
-              *v655 = &v621;
-              v656 = &v631;
-              p_size = &v632.__r_.__value_.__l.__size_;
-              a5 = absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::pair<long long,long long>,long long>,absl::lts_20240722::hash_internal::Hash<std::pair<long long,long long>>,std::equal_to<std::pair<long long,long long>>,std::allocator<std::pair<std::pair<long long,long long> const,long long>>>::EmplaceDecomposable::operator()<std::pair<long long,long long>,std::piecewise_construct_t const&,std::tuple<std::pair<long long,long long>&&>,std::tuple<long long &&>>(v655, &v631, &v656, &p_size, v618);
-              if (v620)
+              v626 = v156;
+              v627.__r_.__value_.__r.__words[0] = v155;
+              v627.__r_.__value_.__l.__size_ = v157;
+              *v650 = &v616;
+              v651 = &v626;
+              p_size = &v627.__r_.__value_.__l.__size_;
+              a5 = absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::pair<long long,long long>,long long>,absl::lts_20240722::hash_internal::Hash<std::pair<long long,long long>>,std::equal_to<std::pair<long long,long long>>,std::allocator<std::pair<std::pair<long long,long long> const,long long>>>::EmplaceDecomposable::operator()<std::pair<long long,long long>,std::piecewise_construct_t const&,std::tuple<std::pair<long long,long long>&&>,std::tuple<long long &&>>(v650, &v626, &v651, &p_size, &v613);
+              if (v615)
               {
                 v152 += 8;
                 v6 = a4;
@@ -8434,91 +8385,91 @@ LABEL_247:
                 continue;
               }
 
-              if (*(v619 + 16) == v157)
+              if (*(v614 + 16) == v157)
               {
-                v296 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v156, &v655[16], a3);
-                *v655 = &v655[16];
-                *&v655[8] = v296 - &v655[16];
-                v298 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v155, v654, v297);
-                *&v653 = v654;
-                *(&v653 + 1) = v298 - v654;
-                v631 = "automaton: duplicate transition ";
-                v632.__r_.__value_.__r.__words[0] = 32;
-                *&v632.__r_.__value_.__r.__words[1] = *v655;
-                v633 = " --(";
-                v634 = 4;
-                v635 = v654;
-                v636 = v298 - v654;
-                v637 = ")--> ";
-                v638 = 5;
-                v300 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v157, &v658, v299);
+                v296 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v156, &v650[16], a3);
+                *v650 = &v650[16];
+                *&v650[8] = v296 - &v650[16];
+                v298 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v155, v649, v297);
+                *&v648 = v649;
+                *(&v648 + 1) = v298 - v649;
+                v626 = "automaton: duplicate transition ";
+                v627.__r_.__value_.__r.__words[0] = 32;
+                *&v627.__r_.__value_.__r.__words[1] = *v650;
+                v628 = " --(";
+                v629 = 4;
+                v630 = v649;
+                v631 = v298 - v649;
+                v632 = ")--> ";
+                v633 = 5;
+                v300 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v157, &v653, v299);
                 v6 = a4;
-                v656 = &v658;
-                p_size = v300 - &v658;
-                v639 = &v658;
-                v640 = v300 - &v658;
-                absl::lts_20240722::strings_internal::CatPieces(&v631, 6, a4);
+                v651 = &v653;
+                p_size = v300 - &v653;
+                v634 = &v653;
+                v635 = v300 - &v653;
+                absl::lts_20240722::strings_internal::CatPieces(&v626, 6, a4);
               }
 
               else
               {
-                v344 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v156, v628, a3);
-                v627[0] = v628;
-                v627[1] = (v344 - v628);
-                v346 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v155, v626, v345);
-                v624 = v626;
-                v625 = v346 - v626;
-                v347 = v619;
-                v631 = "automaton: incompatible transitions ";
-                v632.__r_.__value_.__r.__words[0] = 36;
-                *&v632.__r_.__value_.__r.__words[1] = *v627;
-                v633 = " --(";
-                v634 = 4;
-                v635 = v626;
-                v636 = v346 - v626;
-                v637 = ")--> ";
-                v638 = 5;
-                v349 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v157, &v658, v348);
+                v344 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v156, v623, a3);
+                v622[0] = v623;
+                v622[1] = (v344 - v623);
+                v346 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v155, v621, v345);
+                v619 = v621;
+                v620 = v346 - v621;
+                v347 = v614;
+                v626 = "automaton: incompatible transitions ";
+                v627.__r_.__value_.__r.__words[0] = 36;
+                *&v627.__r_.__value_.__r.__words[1] = *v622;
+                v628 = " --(";
+                v629 = 4;
+                v630 = v621;
+                v631 = v346 - v621;
+                v632 = ")--> ";
+                v633 = 5;
+                v349 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v157, &v653, v348);
                 v6 = a4;
-                v656 = &v658;
-                p_size = v349 - &v658;
-                v639 = &v658;
-                v640 = v349 - &v658;
-                v641 = " and ";
-                v642 = 5;
-                v351 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v156, &v655[16], v350);
-                *v655 = &v655[16];
-                *&v655[8] = v351 - &v655[16];
-                v643 = &v655[16];
-                v644 = v351 - &v655[16];
-                v645 = " --(";
-                v646 = 4;
-                v353 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v155, v654, v352);
-                *&v653 = v654;
-                *(&v653 + 1) = v353 - v654;
-                v647 = v654;
-                v648 = v353 - v654;
-                v649 = ")--> ";
-                v650 = 5;
-                v355 = absl::lts_20240722::numbers_internal::FastIntToBuffer(*(v347 + 16), v630, v354);
-                __p[0] = v630;
-                __p[1] = (v355 - v630);
-                v651 = v630;
-                v652 = v355 - v630;
-                absl::lts_20240722::strings_internal::CatPieces(&v631, 12, a4);
+                v651 = &v653;
+                p_size = v349 - &v653;
+                v634 = &v653;
+                v635 = v349 - &v653;
+                v636 = " and ";
+                v637 = 5;
+                v351 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v156, &v650[16], v350);
+                *v650 = &v650[16];
+                *&v650[8] = v351 - &v650[16];
+                v638 = &v650[16];
+                v639 = v351 - &v650[16];
+                v640 = " --(";
+                v641 = 4;
+                v353 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v155, v649, v352);
+                *&v648 = v649;
+                *(&v648 + 1) = v353 - v649;
+                v642 = v649;
+                v643 = v353 - v649;
+                v644 = ")--> ";
+                v645 = 5;
+                v355 = absl::lts_20240722::numbers_internal::FastIntToBuffer(*(v347 + 16), v625, v354);
+                __p[0] = v625;
+                __p[1] = (v355 - v625);
+                v646 = v625;
+                v647 = v355 - v625;
+                absl::lts_20240722::strings_internal::CatPieces(&v626, 12, a4);
               }
             }
 
             break;
           }
 
-          v134 = v616;
-          if (v621)
+          v134 = v611;
+          if (v616)
           {
-            operator delete(&v623[-(v622 & 1) - 8]);
+            operator delete(&v618[-(v617 & 1) - 8]);
           }
 
-          v35 = v605;
+          v35 = v602;
           v204 = *(v6 + 23);
           if (v204 < 0)
           {
@@ -8529,44 +8480,44 @@ LABEL_247:
         case 0x12:
           if (*(*(v134 + 48) + 16) != *(*(v134 + 48) + 40))
           {
-            v631 = "Non-matching fields size in inverse: ";
-            v632.__r_.__value_.__r.__words[0] = 37;
-            google::protobuf::Message::ShortDebugString(v655);
+            v626 = "Non-matching fields size in inverse: ";
+            v627.__r_.__value_.__r.__words[0] = 37;
+            google::protobuf::Message::ShortDebugString(v650);
           }
 
           goto LABEL_508;
         case 0x13:
           if (*(v134 + 16) >= 2)
           {
-            v631 = "Interval with more than one enforcement literals are currently not supported: ";
-            v632.__r_.__value_.__r.__words[0] = 78;
-            google::protobuf::Message::ShortDebugString(v655);
+            v626 = "Interval with more than one enforcement literals are currently not supported: ";
+            v627.__r_.__value_.__r.__words[0] = 78;
+            google::protobuf::Message::ShortDebugString(v650);
           }
 
           v195 = *(v134 + 48);
           v196 = *(v195 + 16);
           if ((v196 & 1) == 0)
           {
-            v631 = "Interval must have a start expression: ";
-            v632.__r_.__value_.__r.__words[0] = 39;
-            google::protobuf::Message::ShortDebugString(v655);
+            v626 = "Interval must have a start expression: ";
+            v627.__r_.__value_.__r.__words[0] = 39;
+            google::protobuf::Message::ShortDebugString(v650);
           }
 
           if ((v196 & 4) == 0)
           {
-            v631 = "Interval must have a size expression: ";
-            v632.__r_.__value_.__r.__words[0] = 38;
-            google::protobuf::Message::ShortDebugString(v655);
+            v626 = "Interval must have a size expression: ";
+            v627.__r_.__value_.__r.__words[0] = 38;
+            google::protobuf::Message::ShortDebugString(v650);
           }
 
           if ((v196 & 2) == 0)
           {
-            v631 = "Interval must have a end expression: ";
-            v632.__r_.__value_.__r.__words[0] = 37;
-            google::protobuf::Message::ShortDebugString(v655);
+            v626 = "Interval must have a end expression: ";
+            v627.__r_.__value_.__r.__words[0] = 37;
+            google::protobuf::Message::ShortDebugString(v650);
           }
 
-          operations_research::sat::LinearExpressionProto::LinearExpressionProto(&v631, 0);
+          operations_research::sat::LinearExpressionProto::LinearExpressionProto(&v626, 0);
           if (*(v195 + 24))
           {
             v288 = *(v195 + 24);
@@ -8587,7 +8538,7 @@ LABEL_247:
           {
             if (*(a4 + 8))
             {
-              goto LABEL_821;
+              goto LABEL_819;
             }
 
             operator delete(*a4);
@@ -8595,7 +8546,7 @@ LABEL_247:
 
           else if (*(a4 + 23))
           {
-            goto LABEL_821;
+            goto LABEL_819;
           }
 
           if (*(v195 + 24))
@@ -8628,7 +8579,7 @@ LABEL_247:
           {
             if (*(a4 + 8))
             {
-              goto LABEL_821;
+              goto LABEL_819;
             }
 
             operator delete(*a4);
@@ -8636,17 +8587,17 @@ LABEL_247:
 
           else if (*(a4 + 23))
           {
-            goto LABEL_821;
+            goto LABEL_819;
           }
 
           v426 = *(v195 + 40);
-          if (!*(v616 + 16))
+          if (!*(v611 + 16))
           {
             v427 = v426 ? *(v195 + 40) : &operations_research::sat::_LinearExpressionProto_default_instance_;
             {
-              v656 = "The size of a performed interval must be >= 0 in constraint: ";
+              v651 = "The size of a performed interval must be >= 0 in constraint: ";
               p_size = 61;
-              google::protobuf::Message::DebugString(&v653);
+              google::protobuf::Message::DebugString(&v648);
             }
           }
 
@@ -8678,7 +8629,7 @@ LABEL_247:
 
           if (*(a4 + 23) < 0)
           {
-            v36 = v609;
+            v36 = v606;
             v6 = a4;
             if (!*(a4 + 8))
             {
@@ -8694,18 +8645,13 @@ LABEL_813:
                 v431 = &operations_research::sat::_LinearExpressionProto_default_instance_;
               }
 
-              v432 = operations_research::sat::PossibleIntegerOverflow(this, v632.__r_.__value_.__r.__words[2], SLODWORD(v632.__r_.__value_.__r.__words[1]), v635, v634, v637);
+              v432 = operations_research::sat::PossibleIntegerOverflow(this, v627.__r_.__value_.__r.__words[2], SLODWORD(v627.__r_.__value_.__r.__words[1]), v630, v629, v632);
               v423 = &byte_23CE7F131;
               if (v432)
               {
-                v656 = "Possible overflow in interval: ";
+                v651 = "Possible overflow in interval: ";
                 p_size = 31;
-                if (*(v616 + 60) == 19)
-                {
-                  v433 = *(v616 + 48);
-                }
-
-                google::protobuf::Message::ShortDebugString(&v653);
+                google::protobuf::Message::ShortDebugString(&v648);
               }
 
 LABEL_781:
@@ -8715,7 +8661,7 @@ LABEL_781:
 
           else
           {
-            v36 = v609;
+            v36 = v606;
             v6 = a4;
             if (!*(a4 + 23))
             {
@@ -8723,13 +8669,13 @@ LABEL_781:
             }
           }
 
-LABEL_821:
-          operations_research::sat::LinearExpressionProto::~LinearExpressionProto(&v631);
+LABEL_819:
+          operations_research::sat::LinearExpressionProto::~LinearExpressionProto(&v626);
           if (*(v6 + 23) < 0)
           {
             if (*(v6 + 8))
             {
-              goto LABEL_1116;
+              return;
             }
 
             operator delete(*v6);
@@ -8737,31 +8683,31 @@ LABEL_821:
 
           else if (*(v6 + 23))
           {
-            goto LABEL_1116;
+            return;
           }
 
           goto LABEL_138;
         case 0x14:
-          v145 = v606;
-          if (v606 < v604)
+          v145 = v603;
+          if (v603 < v601)
           {
             goto LABEL_292;
           }
 
-          v146 = v606 - v35;
-          v147 = (v606 - v35) >> 2;
+          v146 = v603 - v35;
+          v147 = (v603 - v35) >> 2;
           v148 = v147 + 1;
           if ((v147 + 1) >> 62)
           {
-            goto LABEL_1119;
+            goto LABEL_1117;
           }
 
-          if ((v604 - v35) >> 1 > v148)
+          if ((v601 - v35) >> 1 > v148)
           {
-            v148 = (v604 - v35) >> 1;
+            v148 = (v601 - v35) >> 1;
           }
 
-          if (v604 - v35 >= 0x7FFFFFFFFFFFFFFCLL)
+          if (v601 - v35 >= 0x7FFFFFFFFFFFFFFCLL)
           {
             v149 = 0x3FFFFFFFFFFFFFFFLL;
           }
@@ -8781,28 +8727,28 @@ LABEL_821:
             operator new();
           }
 
-          goto LABEL_1120;
+          goto LABEL_1118;
         case 0x15:
-          v145 = v606;
-          if (v606 < v604)
+          v145 = v603;
+          if (v603 < v601)
           {
             goto LABEL_292;
           }
 
-          v146 = v606 - v35;
-          v147 = (v606 - v35) >> 2;
+          v146 = v603 - v35;
+          v147 = (v603 - v35) >> 2;
           v180 = v147 + 1;
           if ((v147 + 1) >> 62)
           {
-            goto LABEL_1119;
+            goto LABEL_1117;
           }
 
-          if ((v604 - v35) >> 1 > v180)
+          if ((v601 - v35) >> 1 > v180)
           {
-            v180 = (v604 - v35) >> 1;
+            v180 = (v601 - v35) >> 1;
           }
 
-          if (v604 - v35 >= 0x7FFFFFFFFFFFFFFCLL)
+          if (v601 - v35 >= 0x7FFFFFFFFFFFFFFCLL)
           {
             v149 = 0x3FFFFFFFFFFFFFFFLL;
           }
@@ -8822,26 +8768,26 @@ LABEL_821:
             operator new();
           }
 
-          goto LABEL_1120;
+          goto LABEL_1118;
         case 0x16:
-          v145 = v606;
-          if (v606 >= v604)
+          v145 = v603;
+          if (v603 >= v601)
           {
-            v146 = v606 - v35;
-            v147 = (v606 - v35) >> 2;
+            v146 = v603 - v35;
+            v147 = (v603 - v35) >> 2;
             v197 = v147 + 1;
             if ((v147 + 1) >> 62)
             {
-LABEL_1119:
+LABEL_1117:
               std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
             }
 
-            if ((v604 - v35) >> 1 > v197)
+            if ((v601 - v35) >> 1 > v197)
             {
-              v197 = (v604 - v35) >> 1;
+              v197 = (v601 - v35) >> 1;
             }
 
-            if (v604 - v35 >= 0x7FFFFFFFFFFFFFFCLL)
+            if (v601 - v35 >= 0x7FFFFFFFFFFFFFFCLL)
             {
               v149 = 0x3FFFFFFFFFFFFFFFLL;
             }
@@ -8858,19 +8804,19 @@ LABEL_1119:
                 operator new();
               }
 
-LABEL_1120:
+LABEL_1118:
               std::__throw_bad_array_new_length[abi:ne200100]();
             }
 
 LABEL_330:
-            v604 = 4 * v149;
+            v601 = 4 * v149;
             *(4 * v147) = v34;
-            v606 = 4 * v147 + 4;
+            v603 = 4 * v147 + 4;
             memcpy(0, v35, v146);
             v35 = 0;
             v6 = a4;
-            v134 = v616;
-            v167 = *(v616 + 16);
+            v134 = v611;
+            v167 = *(v611 + 16);
             if (v167)
             {
               goto LABEL_509;
@@ -8881,7 +8827,7 @@ LABEL_330:
           {
 LABEL_292:
             *v145 = v34;
-            v606 = (v145 + 1);
+            v603 = (v145 + 1);
             v167 = *(v134 + 16);
             if (v167)
             {
@@ -8891,7 +8837,7 @@ LABEL_292:
 
           goto LABEL_138;
         case 0x17:
-          v653 = xmmword_23CE306D0;
+          v648 = xmmword_23CE306D0;
           v188 = *(v134 + 48);
           v189 = *(v188 + 4);
           if (v189)
@@ -8902,17 +8848,17 @@ LABEL_292:
             v193 = 4 * v189;
             do
             {
-              LODWORD(v656) = *v192;
-              if ((v656 & 0x80000000) != 0)
+              LODWORD(v651) = *v192;
+              if ((v651 & 0x80000000) != 0)
               {
                 operator new();
               }
 
-              absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::find_or_prepare_insert<int>(&v653, &v656, &v631);
-              v194 = v656;
-              if (v632.__r_.__value_.__s.__data_[8] == 1)
+              absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::find_or_prepare_insert<int>(&v648, &v651, &v626);
+              v194 = v651;
+              if (v627.__r_.__value_.__s.__data_[8] == 1)
               {
-                *v632.__r_.__value_.__l.__data_ = v656;
+                *v627.__r_.__value_.__l.__data_ = v651;
               }
 
               if (v191 <= v194)
@@ -8926,9 +8872,9 @@ LABEL_292:
 
             while (v193);
             v38 = v190;
-            if (*(v616 + 60) == 23)
+            if (*(v611 + 60) == 23)
             {
-              v188 = *(v616 + 48);
+              v188 = *(v611 + 48);
             }
 
             else
@@ -8950,17 +8896,17 @@ LABEL_292:
             v217 = 4 * v215;
             do
             {
-              LODWORD(v656) = *v216;
-              if ((v656 & 0x80000000) != 0)
+              LODWORD(v651) = *v216;
+              if ((v651 & 0x80000000) != 0)
               {
                 operator new();
               }
 
-              absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::find_or_prepare_insert<int>(&v653, &v656, &v631);
-              v218 = v656;
-              if (v632.__r_.__value_.__s.__data_[8] == 1)
+              absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::find_or_prepare_insert<int>(&v648, &v651, &v626);
+              v218 = v651;
+              if (v627.__r_.__value_.__s.__data_[8] == 1)
               {
-                *v632.__r_.__value_.__l.__data_ = v656;
+                *v627.__r_.__value_.__l.__data_ = v651;
               }
 
               if (v191 <= v218)
@@ -8975,27 +8921,27 @@ LABEL_292:
             while (v217);
           }
 
-          if (*(&v653 + 1) >= 2uLL && (*(&v653 + 1) >> 1) - 1 != v191)
+          if (*(&v648 + 1) >= 2uLL && (*(&v648 + 1) >> 1) - 1 != v191)
           {
             operator new();
           }
 
           v38 = v214;
-          if (*(v616 + 60) == 23)
+          if (*(v611 + 60) == 23)
           {
-            v214 = *(v616 + 48);
+            v214 = *(v611 + 48);
           }
 
           v219 = *(v214 + 4);
           if (*(v214 + 10) != v219 || *(v214 + 16) != v219)
           {
-            v631 = "Wrong field sizes in graph: ";
-            v632.__r_.__value_.__r.__words[0] = 28;
-            google::protobuf::Message::ShortDebugString(v655);
+            v626 = "Wrong field sizes in graph: ";
+            v627.__r_.__value_.__r.__words[0] = 28;
+            google::protobuf::Message::ShortDebugString(v650);
           }
 
           a5 = xmmword_23CE306D0;
-          *v655 = xmmword_23CE306D0;
+          *v650 = xmmword_23CE306D0;
           if (v219 < 1)
           {
             goto LABEL_499;
@@ -9011,11 +8957,11 @@ LABEL_292:
               goto LABEL_423;
             }
 
-            LODWORD(v656) = *(v214[6] + v227);
-            absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::find_or_prepare_insert<int>(v655, &v656, &v631);
-            if (v632.__r_.__value_.__s.__data_[8])
+            LODWORD(v651) = *(v214[6] + v227);
+            absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::find_or_prepare_insert<int>(v650, &v651, &v626);
+            if (v627.__r_.__value_.__s.__data_[8])
             {
-              *v632.__r_.__value_.__l.__data_ = v656;
+              *v627.__r_.__value_.__l.__data_ = v651;
               v228 = v214[3];
               if (!*(v228 + v227))
               {
@@ -9038,20 +8984,20 @@ LABEL_499:
             break;
           }
 
-          v631 = "Circuit/Route constraint contains multiple self-loop involving node ";
-          v632.__r_.__value_.__r.__words[0] = 68;
-          v343 = absl::lts_20240722::numbers_internal::FastIntToBuffer(*(v214[6] + v227), &v658, a3);
-          v656 = &v658;
-          p_size = v343 - &v658;
-          absl::lts_20240722::StrCat(&v631, &v656, v6);
+          v626 = "Circuit/Route constraint contains multiple self-loop involving node ";
+          v627.__r_.__value_.__r.__words[0] = 68;
+          v343 = absl::lts_20240722::numbers_internal::FastIntToBuffer(*(v214[6] + v227), &v653, a3);
+          v651 = &v653;
+          p_size = v343 - &v653;
+          absl::lts_20240722::StrCat(&v626, &v651, v6);
 LABEL_500:
-          if (*v655 >= 2uLL)
+          if (*v650 >= 2uLL)
           {
-            operator delete((*&v655[16] - (v655[8] & 1) - 8));
+            operator delete((*&v650[16] - (v650[8] & 1) - 8));
           }
 
-          v134 = v616;
-          if (v653 < 2)
+          v134 = v611;
+          if (v648 < 2)
           {
             v204 = *(v6 + 23);
             if ((v204 & 0x80000000) == 0)
@@ -9062,14 +9008,14 @@ LABEL_500:
 
           else
           {
-            operator delete((v654[0] - (BYTE8(v653) & 1) - 8));
+            operator delete((v649[0] - (BYTE8(v648) & 1) - 8));
             v204 = *(v6 + 23);
             if ((v204 & 0x80000000) == 0)
             {
 LABEL_507:
               if (v204)
               {
-                goto LABEL_1116;
+                return;
               }
 
               goto LABEL_508;
@@ -9079,17 +9025,17 @@ LABEL_507:
 LABEL_653:
           if (*(v6 + 8))
           {
-            goto LABEL_1116;
+            return;
           }
 
           operator delete(*v6);
           v167 = *(v134 + 16);
-          if (v167)
+          if (!v167)
           {
-            goto LABEL_509;
+            goto LABEL_138;
           }
 
-          goto LABEL_138;
+          goto LABEL_509;
         case 0x18:
           if (*(v134 + 16) >= 1)
           {
@@ -9100,9 +9046,9 @@ LABEL_653:
           v208 = *(v207 + 6);
           if (v208 != *(v207 + 18))
           {
-            v631 = "time_exprs and level_changes fields must be of the same size: ";
-            v632.__r_.__value_.__r.__words[0] = 62;
-            google::protobuf::Message::ShortDebugString(v655);
+            v626 = "time_exprs and level_changes fields must be of the same size: ";
+            v627.__r_.__value_.__r.__words[0] = 62;
+            google::protobuf::Message::ShortDebugString(v650);
           }
 
           v209 = v207[2];
@@ -9136,7 +9082,7 @@ LABEL_653:
 
               if (*(a4 + 23))
               {
-                goto LABEL_1116;
+                return;
               }
 
               ++v210;
@@ -9149,7 +9095,7 @@ LABEL_653:
 
             if (*(a4 + 8))
             {
-              goto LABEL_1116;
+              return;
             }
 
             operator delete(*a4);
@@ -9159,10 +9105,10 @@ LABEL_653:
 
           while (v211);
 LABEL_371:
-          v213 = *(v616 + 60);
+          v213 = *(v611 + 60);
           if (v213 == 24)
           {
-            v207 = *(v616 + 48);
+            v207 = *(v611 + 48);
 LABEL_542:
             v287 = v38;
             goto LABEL_624;
@@ -9194,9 +9140,9 @@ LABEL_624:
               {
                 if (*(*v339 + 4))
                 {
-                  v631 = "expression must be constant: ";
-                  v632.__r_.__value_.__r.__words[0] = 29;
-                  google::protobuf::Message::ShortDebugString(v655);
+                  v626 = "expression must be constant: ";
+                  v627.__r_.__value_.__r.__words[0] = 29;
+                  google::protobuf::Message::ShortDebugString(v650);
                 }
 
                 if (*(v212 + 23) < 0)
@@ -9206,7 +9152,7 @@ LABEL_624:
 
                 if (*(v212 + 23))
                 {
-                  goto LABEL_1116;
+                  return;
                 }
 
                 ++v339;
@@ -9219,7 +9165,7 @@ LABEL_624:
 
               if (*(v212 + 8))
               {
-                goto LABEL_1116;
+                return;
               }
 
               operator delete(*v212);
@@ -9229,12 +9175,12 @@ LABEL_624:
 
             while (v341);
 LABEL_636:
-            v213 = *(v616 + 60);
+            v213 = *(v611 + 60);
           }
 
           if (v213 == 24)
           {
-            v342 = *(v616 + 48);
+            v342 = *(v611 + 48);
             v38 = v287;
             if (v342[11] > 0)
             {
@@ -9248,9 +9194,9 @@ LABEL_636:
             if (qword_2810BEB58 >= 1)
             {
 LABEL_641:
-              v631 = "The min level of a reservoir must be <= 0. Please use fixed events to setup initial state: ";
-              v632.__r_.__value_.__r.__words[0] = 91;
-              google::protobuf::Message::ShortDebugString(v655);
+              v626 = "The min level of a reservoir must be <= 0. Please use fixed events to setup initial state: ";
+              v627.__r_.__value_.__r.__words[0] = 91;
+              google::protobuf::Message::ShortDebugString(v650);
             }
 
             v342 = &operations_research::sat::_ReservoirConstraintProto_default_instance_;
@@ -9258,9 +9204,9 @@ LABEL_641:
 
           if ((v342[12] & 0x8000000000000000) != 0)
           {
-            v631 = "The max level of a reservoir must be >= 0. Please use fixed events to setup initial state: ";
-            v632.__r_.__value_.__r.__words[0] = 91;
-            google::protobuf::Message::ShortDebugString(v655);
+            v626 = "The max level of a reservoir must be >= 0. Please use fixed events to setup initial state: ";
+            v627.__r_.__value_.__r.__words[0] = 91;
+            google::protobuf::Message::ShortDebugString(v650);
           }
 
           v374 = v342[8];
@@ -9503,7 +9449,7 @@ LABEL_641:
 
               if (v378 == 0x7FFFFFFFFFFFFFFFLL)
               {
-                google::protobuf::Message::DebugString(&v631);
+                google::protobuf::Message::DebugString(&v626);
               }
 
               ++v376;
@@ -9514,7 +9460,7 @@ LABEL_641:
 
           if (v213 == 24)
           {
-            v417 = *(v616 + 48);
+            v417 = *(v611 + 48);
             v418 = *(v417 + 10);
             v419 = a4;
             if (v418 <= 0 || v418 == *(v417 + 6))
@@ -9560,12 +9506,12 @@ LABEL_793:
           {
             if (*(a4 + 8))
             {
-              goto LABEL_1116;
+              return;
             }
 
             operator delete(*a4);
-            v134 = v616;
-            v167 = *(v616 + 16);
+            v134 = v611;
+            v167 = *(v611 + 16);
             if (v167)
             {
               goto LABEL_509;
@@ -9574,10 +9520,10 @@ LABEL_793:
 
           else
           {
-            v134 = v616;
+            v134 = v611;
             if (*(a4 + 23))
             {
-              goto LABEL_1116;
+              return;
             }
 
 LABEL_508:
@@ -9601,17 +9547,17 @@ LABEL_509:
                   v278 = v37;
                 }
 
-                operations_research::Domain::FromFlatSpanOfIntervals(*(*v278 + 24), *(*v278 + 16), v655, a5);
-                if (operations_research::Domain::Size(v655) != 1)
+                operations_research::Domain::FromFlatSpanOfIntervals(*(*v278 + 24), *(*v278 + 16), v650, a5);
+                if (operations_research::Domain::Size(v650) != 1)
                 {
-                  v631 = "Enforcement literal not supported in constraint: ";
-                  v632.__r_.__value_.__r.__words[0] = 49;
-                  google::protobuf::Message::ShortDebugString(&v653);
+                  v626 = "Enforcement literal not supported in constraint: ";
+                  v627.__r_.__value_.__r.__words[0] = 49;
+                  google::protobuf::Message::ShortDebugString(&v648);
                 }
 
-                if (v655[0])
+                if (v650[0])
                 {
-                  operator delete(*&v655[8]);
+                  operator delete(*&v650[8]);
                 }
 
                 ++v275;
@@ -9628,96 +9574,96 @@ LABEL_138:
             continue;
           }
 
-          if (v35 == v606)
+          if (v35 == v603)
           {
             v5 = this;
           }
 
           else
           {
-            v434 = &v658;
-            v435 = &v655[16];
-            v436 = v35;
+            v433 = &v653;
+            v434 = &v650[16];
+            v435 = v35;
             do
             {
-              v437 = *v436;
+              v436 = *v435;
               if (*v36)
               {
-                v438 = (*v36 + 8 * v437 + 7);
+                v437 = (*v36 + 8 * v436 + 7);
               }
 
               else
               {
-                v438 = v36;
+                v437 = v36;
               }
 
-              operations_research::sat::UsedIntervals(*v438, &v653);
-              if (v653 != *(&v653 + 1))
+              operations_research::sat::UsedIntervals(&v648, *v437);
+              if (v648 != *(&v648 + 1))
               {
-                v439 = *(this + 14);
-                v440 = *(this + 6);
-                v441 = v440 + 7;
-                if (v607)
+                v438 = *(this + 14);
+                v439 = *(this + 6);
+                v440 = v439 + 7;
+                if (v604)
                 {
-                  v442 = v653;
-                  if (v440)
+                  v441 = v648;
+                  if (v439)
                   {
                     while (1)
                     {
-                      v444 = *v442;
-                      if ((v444 & 0x80000000) != 0 || v444 >= v439)
+                      v443 = *v441;
+                      if ((v443 & 0x80000000) != 0 || v443 >= v438)
                       {
                         break;
                       }
 
-                      if (v444 >= v437)
+                      if (v443 >= v436)
                       {
-LABEL_866:
-                        v453 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v444, v434, a3);
-                        v656 = v434;
-                        p_size = v453 - v434;
-                        v455 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v437, v435, v454);
-                        *v655 = v435;
-                        *&v655[8] = v455 - v435;
+LABEL_864:
+                        v452 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v443, v433, a3);
+                        v651 = v433;
+                        p_size = v452 - v433;
+                        v454 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v436, v434, v453);
+                        *v650 = v434;
+                        *&v650[8] = v454 - v434;
                         google::protobuf::Message::ShortDebugString(__p);
                       }
 
-                      if (*(*(v441 + 8 * v444) + 60) != 19)
+                      if (*(*(v440 + 8 * v443) + 60) != 19)
                       {
-                        goto LABEL_865;
+                        goto LABEL_863;
                       }
 
-                      if (++v442 == *(&v653 + 1))
+                      if (++v441 == *(&v648 + 1))
                       {
-                        goto LABEL_861;
+                        goto LABEL_859;
                       }
                     }
                   }
 
                   else
                   {
-                    v443 = v653;
+                    v442 = v648;
                     while (1)
                     {
-                      v444 = *v443;
-                      if ((v444 & 0x80000000) != 0 || v444 >= v439)
+                      v443 = *v442;
+                      if ((v443 & 0x80000000) != 0 || v443 >= v438)
                       {
                         break;
                       }
 
-                      if (v444 >= v437)
+                      if (v443 >= v436)
                       {
-                        goto LABEL_866;
+                        goto LABEL_864;
                       }
 
-                      if (*(v440 + 60) != 19)
+                      if (*(v439 + 60) != 19)
                       {
-                        goto LABEL_865;
+                        goto LABEL_863;
                       }
 
-                      if (++v443 == *(&v653 + 1))
+                      if (++v442 == *(&v648 + 1))
                       {
-                        goto LABEL_861;
+                        goto LABEL_859;
                       }
                     }
                   }
@@ -9725,167 +9671,167 @@ LABEL_866:
 
                 else
                 {
-                  v445 = v653;
-                  if (v440)
+                  v444 = v648;
+                  if (v439)
                   {
                     while (1)
                     {
-                      v444 = *v445;
-                      if ((v444 & 0x80000000) != 0 || v444 >= v439)
+                      v443 = *v444;
+                      if ((v443 & 0x80000000) != 0 || v443 >= v438)
                       {
                         break;
                       }
 
-                      if (*(*(v441 + 8 * v444) + 60) != 19)
+                      if (*(*(v440 + 8 * v443) + 60) != 19)
                       {
-LABEL_865:
-                        v450 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v444, v434, a3);
-                        v656 = v434;
-                        p_size = v450 - v434;
-                        v452 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v437, v435, v451);
-                        *v655 = v435;
-                        *&v655[8] = v452 - v435;
+LABEL_863:
+                        v449 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v443, v433, a3);
+                        v651 = v433;
+                        p_size = v449 - v433;
+                        v451 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v436, v434, v450);
+                        *v650 = v434;
+                        *&v650[8] = v451 - v434;
                         google::protobuf::Message::ShortDebugString(__p);
                       }
 
-                      if (++v445 == *(&v653 + 1))
+                      if (++v444 == *(&v648 + 1))
                       {
-                        goto LABEL_861;
+                        goto LABEL_859;
                       }
                     }
                   }
 
                   else
                   {
-                    v446 = v653;
+                    v445 = v648;
                     while (1)
                     {
-                      v444 = *v446;
-                      if ((v444 & 0x80000000) != 0 || v444 >= v439)
+                      v443 = *v445;
+                      if ((v443 & 0x80000000) != 0 || v443 >= v438)
                       {
                         break;
                       }
 
-                      if (*(v440 + 60) != 19)
+                      if (*(v439 + 60) != 19)
                       {
-                        goto LABEL_865;
+                        goto LABEL_863;
                       }
 
-                      if (++v446 == *(&v653 + 1))
+                      if (++v445 == *(&v648 + 1))
                       {
-                        goto LABEL_861;
+                        goto LABEL_859;
                       }
                     }
                   }
                 }
 
-                v447 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v444, v434, a3);
-                v656 = v434;
-                p_size = v447 - v434;
-                v449 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v437, v435, v448);
-                *v655 = v435;
-                *&v655[8] = v449 - v435;
+                v446 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v443, v433, a3);
+                v651 = v433;
+                p_size = v446 - v433;
+                v448 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v436, v434, v447);
+                *v650 = v434;
+                *&v650[8] = v448 - v434;
                 google::protobuf::Message::ShortDebugString(__p);
               }
 
-LABEL_861:
-              if (v653)
+LABEL_859:
+              if (v648)
               {
-                *(&v653 + 1) = v653;
-                operator delete(v653);
+                *(&v648 + 1) = v648;
+                operator delete(v648);
               }
 
               *(a4 + 23) = 0;
               *a4 = 0;
               if (*v36)
               {
-                v456 = *v36 + 8 * v437 + 7;
+                v455 = *v36 + 8 * v436 + 7;
               }
 
               else
               {
-                v456 = v36;
+                v455 = v36;
               }
 
-              v457 = *v456;
-              v458 = *(*v456 + 60);
-              if (v458 != 20)
+              v456 = *v455;
+              v457 = *(*v455 + 60);
+              if (v457 != 20)
               {
-                if (v458 == 21)
+                if (v457 == 21)
                 {
-                  v462 = *(v457 + 48);
-                  v463 = *(v462 + 16);
-                  if (v463 != *(v462 + 40))
+                  v461 = *(v456 + 48);
+                  v462 = *(v461 + 16);
+                  if (v462 != *(v461 + 40))
                   {
-                    v631 = "The two lists of intervals must have the same size: ";
-                    v632.__r_.__value_.__r.__words[0] = 52;
-                    google::protobuf::Message::ShortDebugString(v655);
+                    v626 = "The two lists of intervals must have the same size: ";
+                    v627.__r_.__value_.__r.__words[0] = 52;
+                    google::protobuf::Message::ShortDebugString(v650);
                   }
 
-                  v464 = v434;
+                  v463 = v433;
+                  v464 = 0;
                   v465 = 0;
-                  v466 = 0;
-                  v467 = 4 * (v463 & ~(v463 >> 31));
-                  while (v467 != v465)
+                  v466 = 4 * (v462 & ~(v462 >> 31));
+                  while (v466 != v464)
                   {
-                    v470 = ((v469 ^ v468) >> 63) + 0x7FFFFFFFFFFFFFFFLL;
-                    if ((v468 * v469) >> 64 == (v468 * v469) >> 63)
+                    v469 = ((v468 ^ v467) >> 63) + 0x7FFFFFFFFFFFFFFFLL;
+                    if ((v467 * v468) >> 64 == (v467 * v468) >> 63)
                     {
-                      v470 = v468 * v469;
+                      v469 = v467 * v468;
                     }
 
-                    v19 = __OFADD__(v466, v470);
-                    v471 = v466 + v470;
+                    v19 = __OFADD__(v465, v469);
+                    v470 = v465 + v469;
                     if (v19)
                     {
-                      v466 = (v466 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
+                      v465 = (v465 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
                     }
 
                     else
                     {
-                      v466 = v471;
+                      v465 = v470;
                     }
 
-                    v465 += 4;
-                    if (v466 == 0x7FFFFFFFFFFFFFFFLL)
+                    v464 += 4;
+                    if (v465 == 0x7FFFFFFFFFFFFFFFLL)
                     {
-                      google::protobuf::Message::DebugString(&v631);
+                      google::protobuf::Message::DebugString(&v626);
                     }
                   }
 
-                  v36 = v609;
+                  v36 = v606;
                   *(a4 + 23) = 0;
                   *a4 = 0;
-                  v434 = v464;
-                  v435 = &v655[16];
+                  v433 = v463;
+                  v434 = &v650[16];
                 }
 
-                else if (v458 == 22)
+                else if (v457 == 22)
                 {
-                  v459 = *(v457 + 48);
-                  if (*(v459 + 24) != *(v459 + 56))
+                  v458 = *(v456 + 48);
+                  if (*(v458 + 24) != *(v458 + 56))
                   {
-                    v631 = "intervals_size() != demands_size() in constraint: ";
-                    v632.__r_.__value_.__r.__words[0] = 50;
-                    google::protobuf::Message::ShortDebugString(v655);
+                    v626 = "intervals_size() != demands_size() in constraint: ";
+                    v627.__r_.__value_.__r.__words[0] = 50;
+                    google::protobuf::Message::ShortDebugString(v650);
                   }
 
-                  v460 = *(v459 + 72);
-                  if (v460)
+                  v459 = *(v458 + 72);
+                  if (v459)
                   {
-                    v461 = v460;
+                    v460 = v459;
                   }
 
                   else
                   {
-                    v461 = &operations_research::sat::_LinearExpressionProto_default_instance_;
+                    v460 = &operations_research::sat::_LinearExpressionProto_default_instance_;
                   }
 
                   if (*(a4 + 23) < 0)
                   {
                     if (*(a4 + 8))
                     {
-                      goto LABEL_1116;
+                      return;
                     }
 
                     operator delete(*a4);
@@ -9893,37 +9839,37 @@ LABEL_861:
 
                   else if (*(a4 + 23))
                   {
-                    goto LABEL_1116;
+                    return;
                   }
 
-                  v472 = *(v457 + 60);
-                  v473 = *(v457 + 48);
-                  v474 = &operations_research::sat::_CumulativeConstraintProto_default_instance_;
-                  if (v472 == 22)
+                  v471 = *(v456 + 60);
+                  v472 = *(v456 + 48);
+                  v473 = &operations_research::sat::_CumulativeConstraintProto_default_instance_;
+                  if (v471 == 22)
                   {
-                    v474 = *(v457 + 48);
+                    v473 = *(v456 + 48);
                   }
 
-                  v476 = v474[6];
-                  v475 = v474 + 6;
-                  v477 = (v476 + 7);
-                  if (v476)
+                  v475 = v473[6];
+                  v474 = v473 + 6;
+                  v476 = (v475 + 7);
+                  if (v475)
                   {
-                    v478 = v477;
+                    v477 = v476;
                   }
 
                   else
                   {
-                    v478 = v475;
+                    v477 = v474;
                   }
 
-                  v479 = *(v475 + 2);
-                  if (v479)
+                  v478 = *(v474 + 2);
+                  if (v478)
                   {
-                    v617 = v434;
-                    v480 = v457;
-                    v481 = v435;
-                    v482 = 8 * v479;
+                    v612 = v433;
+                    v479 = v456;
+                    v480 = v434;
+                    v481 = 8 * v478;
                     do
                     {
                       while (1)
@@ -9935,162 +9881,162 @@ LABEL_861:
 
                         if (*(a4 + 23))
                         {
-                          goto LABEL_1116;
+                          return;
                         }
 
-                        ++v478;
-                        v482 -= 8;
-                        if (!v482)
+                        ++v477;
+                        v481 -= 8;
+                        if (!v481)
                         {
-                          goto LABEL_907;
+                          goto LABEL_905;
                         }
                       }
 
                       if (*(a4 + 8))
                       {
-                        goto LABEL_1116;
+                        return;
                       }
 
                       operator delete(*a4);
-                      ++v478;
-                      v482 -= 8;
+                      ++v477;
+                      v481 -= 8;
                     }
 
-                    while (v482);
-LABEL_907:
-                    v472 = *(v480 + 60);
-                    v473 = *(v480 + 48);
-                    v435 = v481;
-                    v434 = v617;
+                    while (v481);
+LABEL_905:
+                    v471 = *(v479 + 60);
+                    v472 = *(v479 + 48);
+                    v434 = v480;
+                    v433 = v612;
                   }
 
-                  if (v472 == 22)
+                  if (v471 == 22)
                   {
-                    v483 = v473;
-                  }
-
-                  else
-                  {
-                    v483 = &operations_research::sat::_CumulativeConstraintProto_default_instance_;
-                  }
-
-                  v485 = v483[6];
-                  v484 = v483 + 6;
-                  v486 = (v485 + 7);
-                  if (v485)
-                  {
-                    v487 = v486;
+                    v482 = v472;
                   }
 
                   else
                   {
-                    v487 = v484;
+                    v482 = &operations_research::sat::_CumulativeConstraintProto_default_instance_;
                   }
 
-                  v488 = *(v484 + 2);
-                  if (v488)
+                  v484 = v482[6];
+                  v483 = v482 + 6;
+                  v485 = (v484 + 7);
+                  if (v484)
                   {
-                    v489 = &v487[v488];
-                    v490 = *v37;
+                    v486 = v485;
+                  }
+
+                  else
+                  {
+                    v486 = v483;
+                  }
+
+                  v487 = *(v483 + 2);
+                  if (v487)
+                  {
+                    v488 = &v486[v487];
+                    v489 = *v37;
                     if (*v37)
                     {
                       while (1)
                       {
-                        v504 = *v487;
-                        v505 = (*v487)[8];
-                        v506 = *(*v487 + 4);
-                        if (v506 >= 1)
+                        v503 = *v486;
+                        v504 = (*v486)[8];
+                        v505 = *(*v486 + 4);
+                        if (v505 >= 1)
                         {
-                          v507 = v504[3];
-                          v508 = v504[6];
-                          v509 = *(*v487 + 4);
+                          v506 = v503[3];
+                          v507 = v503[6];
+                          v508 = *(*v486 + 4);
                           do
                           {
-                            v514 = *v507++;
-                            v513 = v514;
-                            v516 = *v508++;
-                            v515 = v516;
-                            if (~v513 <= v513)
+                            v513 = *v506++;
+                            v512 = v513;
+                            v515 = *v507++;
+                            v514 = v515;
+                            if (~v512 <= v512)
                             {
-                              v517 = v513;
+                              v516 = v512;
                             }
 
                             else
                             {
-                              v517 = ~v513;
+                              v516 = ~v512;
                             }
 
-                            v518 = *(*v37 + 7 + 8 * v517);
-                            if (v515 < 0)
+                            v517 = *(*v37 + 7 + 8 * v516);
+                            if (v514 < 0)
                             {
-                              if (v513 < 0)
+                              if (v512 < 0)
                               {
-                                v510 = -**(v518 + 24);
+                                v509 = -**(v517 + 24);
                               }
 
                               else
                               {
-                                v510 = *(*(v518 + 24) + 8 * (*(v518 + 16) - 1));
+                                v509 = *(*(v517 + 24) + 8 * (*(v517 + 16) - 1));
                               }
 
-                              v511 = (v510 >> 63) ^ 0x8000000000000000;
+                              v510 = (v509 >> 63) ^ 0x8000000000000000;
                             }
 
                             else
                             {
-                              if (v513 < 0)
+                              if (v512 < 0)
                               {
-                                v510 = -*(*(v518 + 24) + 8 * (*(v518 + 16) - 1));
+                                v509 = -*(*(v517 + 24) + 8 * (*(v517 + 16) - 1));
                               }
 
                               else
                               {
-                                v510 = **(v518 + 24);
+                                v509 = **(v517 + 24);
                               }
 
-                              v511 = (v510 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
+                              v510 = (v509 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
                             }
 
-                            if ((v510 * v515) >> 64 == (v510 * v515) >> 63)
+                            if ((v509 * v514) >> 64 == (v509 * v514) >> 63)
                             {
-                              v512 = v510 * v515;
+                              v511 = v509 * v514;
                             }
 
                             else
                             {
-                              v512 = v511;
+                              v511 = v510;
                             }
 
-                            a3 = ((v505 >> 63) + 0x7FFFFFFFFFFFFFFFLL);
-                            v19 = __OFADD__(v505, v512);
-                            v505 += v512;
+                            a3 = ((v504 >> 63) + 0x7FFFFFFFFFFFFFFFLL);
+                            v19 = __OFADD__(v504, v511);
+                            v504 += v511;
                             if (v19)
                             {
-                              v505 = a3;
+                              v504 = a3;
                             }
 
-                            --v509;
+                            --v508;
                           }
 
-                          while (v509);
+                          while (v508);
                         }
 
-                        if ((v505 & 0x8000000000000000) != 0)
+                        if ((v504 & 0x8000000000000000) != 0)
                         {
                           break;
                         }
 
-                        if (v506 >= 2)
+                        if (v505 >= 2)
                         {
-LABEL_1001:
-                          v631 = "Demand ";
-                          v632.__r_.__value_.__r.__words[0] = 7;
+LABEL_999:
+                          v626 = "Demand ";
+                          v627.__r_.__value_.__r.__words[0] = 7;
                           google::protobuf::Message::DebugString(__p);
                         }
 
-                        if (++v487 == v489)
+                        if (++v486 == v488)
                         {
-                          goto LABEL_960;
+                          goto LABEL_958;
                         }
                       }
                     }
@@ -10099,112 +10045,112 @@ LABEL_1001:
                     {
                       while (1)
                       {
-                        v491 = *v487;
-                        v492 = (*v487)[8];
-                        v493 = *(*v487 + 4);
-                        if (v493 > 0)
+                        v490 = *v486;
+                        v491 = (*v486)[8];
+                        v492 = *(*v486 + 4);
+                        if (v492 > 0)
                         {
-                          v494 = v491[3];
-                          v495 = v491[6];
-                          v496 = *(*v487 + 4);
+                          v493 = v490[3];
+                          v494 = v490[6];
+                          v495 = *(*v486 + 4);
                           do
                           {
-                            v501 = *v494++;
-                            v500 = v501;
-                            v503 = *v495++;
-                            v502 = v503;
-                            if (v503 < 0)
+                            v500 = *v493++;
+                            v499 = v500;
+                            v502 = *v494++;
+                            v501 = v502;
+                            if (v502 < 0)
                             {
-                              if (v500 < 0)
+                              if (v499 < 0)
                               {
-                                v497 = -**(v490 + 24);
+                                v496 = -**(v489 + 24);
                               }
 
                               else
                               {
-                                v497 = *(*(v490 + 24) + 8 * (*(v490 + 16) - 1));
+                                v496 = *(*(v489 + 24) + 8 * (*(v489 + 16) - 1));
                               }
 
-                              v498 = (v497 >> 63) ^ 0x8000000000000000;
+                              v497 = (v496 >> 63) ^ 0x8000000000000000;
                             }
 
                             else
                             {
-                              if (v500 < 0)
+                              if (v499 < 0)
                               {
-                                v497 = -*(*(v490 + 24) + 8 * (*(v490 + 16) - 1));
+                                v496 = -*(*(v489 + 24) + 8 * (*(v489 + 16) - 1));
                               }
 
                               else
                               {
-                                v497 = **(v490 + 24);
+                                v496 = **(v489 + 24);
                               }
 
-                              v498 = (v497 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
+                              v497 = (v496 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
                             }
 
-                            if ((v497 * v502) >> 64 == (v497 * v502) >> 63)
+                            if ((v496 * v501) >> 64 == (v496 * v501) >> 63)
                             {
-                              v499 = v497 * v502;
+                              v498 = v496 * v501;
                             }
 
                             else
                             {
-                              v499 = v498;
+                              v498 = v497;
                             }
 
-                            a3 = ((v492 >> 63) + 0x7FFFFFFFFFFFFFFFLL);
-                            v19 = __OFADD__(v492, v499);
-                            v492 += v499;
+                            a3 = ((v491 >> 63) + 0x7FFFFFFFFFFFFFFFLL);
+                            v19 = __OFADD__(v491, v498);
+                            v491 += v498;
                             if (v19)
                             {
-                              v492 = a3;
+                              v491 = a3;
                             }
 
-                            --v496;
+                            --v495;
                           }
 
-                          while (v496);
+                          while (v495);
                         }
 
-                        if ((v492 & 0x8000000000000000) != 0)
+                        if ((v491 & 0x8000000000000000) != 0)
                         {
                           break;
                         }
 
-                        if (v493 > 1)
+                        if (v492 > 1)
                         {
-                          goto LABEL_1001;
+                          goto LABEL_999;
                         }
 
-                        if (++v487 == v489)
+                        if (++v486 == v488)
                         {
-                          goto LABEL_960;
+                          goto LABEL_958;
                         }
                       }
                     }
 
-                    v631 = "Demand ";
-                    v632.__r_.__value_.__r.__words[0] = 7;
+                    v626 = "Demand ";
+                    v627.__r_.__value_.__r.__words[0] = 7;
                     google::protobuf::Message::DebugString(__p);
                   }
 
-LABEL_960:
-                  if (v472 == 22)
+LABEL_958:
+                  if (v471 == 22)
                   {
-                    if (v473[9])
+                    if (v472[9])
                     {
-                      v519 = v473[9];
+                      v518 = v472[9];
                     }
 
                     else
                     {
-                      v519 = &operations_research::sat::_LinearExpressionProto_default_instance_;
+                      v518 = &operations_research::sat::_LinearExpressionProto_default_instance_;
                     }
 
-                    if (*(v519 + 4) > 1)
+                    if (*(v518 + 4) > 1)
                     {
-                      goto LABEL_965;
+                      goto LABEL_963;
                     }
                   }
 
@@ -10212,258 +10158,258 @@ LABEL_960:
                   {
                     if (qword_2810BEAF8)
                     {
-                      v520 = qword_2810BEAF8;
+                      v519 = qword_2810BEAF8;
                     }
 
                     else
                     {
-                      v520 = &operations_research::sat::_LinearExpressionProto_default_instance_;
+                      v519 = &operations_research::sat::_LinearExpressionProto_default_instance_;
                     }
 
-                    v473 = &operations_research::sat::_CumulativeConstraintProto_default_instance_;
-                    if (*(v520 + 4) >= 2)
+                    v472 = &operations_research::sat::_CumulativeConstraintProto_default_instance_;
+                    if (*(v519 + 4) >= 2)
                     {
-LABEL_965:
-                      v631 = "capacity ";
-                      v632.__r_.__value_.__r.__words[0] = 9;
+LABEL_963:
+                      v626 = "capacity ";
+                      v627.__r_.__value_.__r.__words[0] = 9;
                       google::protobuf::Message::DebugString(__p);
                     }
                   }
 
-                  v522 = v473[6];
-                  v521 = v473 + 6;
-                  v523 = (v522 + 7);
-                  if (v522)
+                  v521 = v472[6];
+                  v520 = v472 + 6;
+                  v522 = (v521 + 7);
+                  if (v521)
                   {
-                    v524 = v523;
+                    v523 = v522;
                   }
 
                   else
                   {
-                    v524 = v521;
+                    v523 = v520;
                   }
 
-                  v525 = *(v521 + 2);
-                  if (v525)
+                  v524 = *(v520 + 2);
+                  if (v524)
                   {
-                    v526 = &v524[v525];
-                    v527 = *v37;
+                    v525 = &v523[v524];
+                    v526 = *v37;
                     if (*v37)
                     {
-                      v543 = 0;
-                      v544 = v527 + 7;
+                      v542 = 0;
+                      v543 = v526 + 7;
                       while (1)
                       {
-                        v545 = *v524;
-                        v546 = (*v524)[8];
-                        v547 = *(*v524 + 4);
-                        if (v547 >= 1)
+                        v544 = *v523;
+                        v545 = (*v523)[8];
+                        v546 = *(*v523 + 4);
+                        if (v546 >= 1)
                         {
-                          v548 = v545[3];
-                          v549 = v545[6];
+                          v547 = v544[3];
+                          v548 = v544[6];
                           do
                           {
-                            v555 = *v548++;
-                            v554 = v555;
-                            v557 = *v549++;
-                            v556 = v557;
-                            if (~v554 <= v554)
+                            v554 = *v547++;
+                            v553 = v554;
+                            v556 = *v548++;
+                            v555 = v556;
+                            if (~v553 <= v553)
                             {
-                              v558 = v554;
+                              v557 = v553;
                             }
 
                             else
                             {
-                              v558 = ~v554;
+                              v557 = ~v553;
                             }
 
-                            v559 = *(v544 + 8 * v558);
-                            if (v556 < 0)
+                            v558 = *(v543 + 8 * v557);
+                            if (v555 < 0)
                             {
-                              if (v554 < 0)
+                              if (v553 < 0)
                               {
-                                v550 = -*(*(v559 + 24) + 8 * (*(v559 + 16) - 1));
+                                v549 = -*(*(v558 + 24) + 8 * (*(v558 + 16) - 1));
                               }
 
                               else
                               {
-                                v550 = **(v559 + 24);
+                                v549 = **(v558 + 24);
                               }
 
-                              v551 = (v550 >> 63) ^ 0x8000000000000000;
+                              v550 = (v549 >> 63) ^ 0x8000000000000000;
                             }
 
                             else
                             {
-                              if (v554 < 0)
+                              if (v553 < 0)
                               {
-                                v550 = -**(v559 + 24);
+                                v549 = -**(v558 + 24);
                               }
 
                               else
                               {
-                                v550 = *(*(v559 + 24) + 8 * (*(v559 + 16) - 1));
+                                v549 = *(*(v558 + 24) + 8 * (*(v558 + 16) - 1));
                               }
 
-                              v551 = (v550 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
+                              v550 = (v549 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
                             }
 
-                            if ((v550 * v556) >> 64 == (v550 * v556) >> 63)
+                            if ((v549 * v555) >> 64 == (v549 * v555) >> 63)
                             {
-                              v552 = v550 * v556;
+                              v551 = v549 * v555;
                             }
 
                             else
                             {
-                              v552 = v551;
+                              v551 = v550;
                             }
 
-                            v553 = (v546 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
-                            v19 = __OFADD__(v546, v552);
-                            v546 += v552;
+                            v552 = (v545 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
+                            v19 = __OFADD__(v545, v551);
+                            v545 += v551;
                             if (v19)
                             {
-                              v546 = v553;
+                              v545 = v552;
                             }
 
-                            --v547;
+                            --v546;
                           }
 
-                          while (v547);
+                          while (v546);
                         }
 
-                        v560 = (v543 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
-                        v19 = __OFADD__(v543, v546);
-                        v543 += v546;
+                        v559 = (v542 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
+                        v19 = __OFADD__(v542, v545);
+                        v542 += v545;
                         if (v19)
                         {
-                          v543 = v560;
+                          v542 = v559;
                         }
 
-                        if (v543 == 0x7FFFFFFFFFFFFFFFLL)
+                        if (v542 == 0x7FFFFFFFFFFFFFFFLL)
                         {
                           break;
                         }
 
-                        if (++v524 == v526)
+                        if (++v523 == v525)
                         {
-                          goto LABEL_1027;
+                          goto LABEL_1025;
                         }
                       }
                     }
 
                     else
                     {
-                      v528 = 0;
+                      v527 = 0;
                       while (1)
                       {
-                        v529 = *v524;
-                        v530 = (*v524)[8];
-                        v531 = *(*v524 + 4);
-                        if (v531 > 0)
+                        v528 = *v523;
+                        v529 = (*v523)[8];
+                        v530 = *(*v523 + 4);
+                        if (v530 > 0)
                         {
-                          v532 = v529[3];
-                          v533 = v529[6];
+                          v531 = v528[3];
+                          v532 = v528[6];
                           do
                           {
-                            v539 = *v532++;
-                            v538 = v539;
-                            v541 = *v533++;
-                            v540 = v541;
-                            if (v541 < 0)
+                            v538 = *v531++;
+                            v537 = v538;
+                            v540 = *v532++;
+                            v539 = v540;
+                            if (v540 < 0)
                             {
-                              if (v538 < 0)
+                              if (v537 < 0)
                               {
-                                v534 = -*(*(v527 + 24) + 8 * (*(v527 + 16) - 1));
+                                v533 = -*(*(v526 + 24) + 8 * (*(v526 + 16) - 1));
                               }
 
                               else
                               {
-                                v534 = **(v527 + 24);
+                                v533 = **(v526 + 24);
                               }
 
-                              v535 = (v534 >> 63) ^ 0x8000000000000000;
+                              v534 = (v533 >> 63) ^ 0x8000000000000000;
                             }
 
                             else
                             {
-                              if (v538 < 0)
+                              if (v537 < 0)
                               {
-                                v534 = -**(v527 + 24);
+                                v533 = -**(v526 + 24);
                               }
 
                               else
                               {
-                                v534 = *(*(v527 + 24) + 8 * (*(v527 + 16) - 1));
+                                v533 = *(*(v526 + 24) + 8 * (*(v526 + 16) - 1));
                               }
 
-                              v535 = (v534 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
+                              v534 = (v533 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
                             }
 
-                            if ((v534 * v540) >> 64 == (v534 * v540) >> 63)
+                            if ((v533 * v539) >> 64 == (v533 * v539) >> 63)
                             {
-                              v536 = v534 * v540;
+                              v535 = v533 * v539;
                             }
 
                             else
                             {
-                              v536 = v535;
+                              v535 = v534;
                             }
 
-                            v537 = (v530 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
-                            v19 = __OFADD__(v530, v536);
-                            v530 += v536;
+                            v536 = (v529 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
+                            v19 = __OFADD__(v529, v535);
+                            v529 += v535;
                             if (v19)
                             {
-                              v530 = v537;
+                              v529 = v536;
                             }
 
-                            --v531;
+                            --v530;
                           }
 
-                          while (v531);
+                          while (v530);
                         }
 
-                        v542 = (v528 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
-                        v19 = __OFADD__(v528, v530);
-                        v528 += v530;
+                        v541 = (v527 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
+                        v19 = __OFADD__(v527, v529);
+                        v527 += v529;
                         if (v19)
                         {
-                          v528 = v542;
+                          v527 = v541;
                         }
 
-                        if (v528 == 0x7FFFFFFFFFFFFFFFLL)
+                        if (v527 == 0x7FFFFFFFFFFFFFFFLL)
                         {
                           break;
                         }
 
-                        if (++v524 == v526)
+                        if (++v523 == v525)
                         {
-                          goto LABEL_1027;
+                          goto LABEL_1025;
                         }
                       }
                     }
 
-                    google::protobuf::Message::DebugString(&v631);
+                    google::protobuf::Message::DebugString(&v626);
                   }
 
-LABEL_1027:
+LABEL_1025:
                   *(a4 + 23) = 0;
                   *a4 = 0;
                 }
 
                 else
                 {
-                  absl::lts_20240722::log_internal::LogMessage::LogMessage(&v631, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/cp_model_checker.cc", 1062, 2);
-                  absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(&v631, "Shouldn't be here", 0x11uLL);
-                  absl::lts_20240722::log_internal::LogMessage::~LogMessage(&v631);
+                  absl::lts_20240722::log_internal::LogMessage::LogMessage(&v626, "/Library/Caches/com.apple.xbs/Sources/ANECompiler/ext/or-tools/src/ortools/sat/cp_model_checker.cc", 1062, 2);
+                  absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(&v626, "Shouldn't be here", 0x11uLL);
+                  absl::lts_20240722::log_internal::LogMessage::~LogMessage(&v626);
                 }
               }
 
-              ++v436;
+              ++v435;
             }
 
-            while (v436 != v606);
+            while (v435 != v603);
             v6 = a4;
             v5 = this;
           }
@@ -10485,15 +10431,16 @@ LABEL_1027:
           {
             if (*(a4 + 8))
             {
-              goto LABEL_1116;
+              return;
             }
 
             operator delete(*a4);
-            v137 = v616;
+            v137 = v611;
             v138 = &operations_research::sat::_LinearArgumentProto_default_instance_;
-            if (*(v616 + 60) == 27)
+            if (*(v611 + 60) == 27)
             {
-              goto LABEL_216;
+LABEL_216:
+              v138 = *(v137 + 48);
             }
           }
 
@@ -10501,15 +10448,14 @@ LABEL_1027:
           {
             if (*(a4 + 23))
             {
-              goto LABEL_1116;
+              return;
             }
 
-            v137 = v616;
+            v137 = v611;
             v138 = &operations_research::sat::_LinearArgumentProto_default_instance_;
-            if (*(v616 + 60) == 27)
+            if (*(v611 + 60) == 27)
             {
-LABEL_216:
-              v138 = *(v137 + 48);
+              goto LABEL_216;
             }
           }
 
@@ -10534,17 +10480,16 @@ LABEL_216:
             {
               while (1)
               {
-                if ((*(a4 + 23) & 0x80000000) == 0)
+                if (*(a4 + 23) < 0)
                 {
                   break;
                 }
 
-                if (*(a4 + 8))
+                if (*(a4 + 23))
                 {
-                  goto LABEL_1116;
+                  return;
                 }
 
-                operator delete(*a4);
                 ++v142;
                 v144 -= 8;
                 if (!v144)
@@ -10553,11 +10498,12 @@ LABEL_216:
                 }
               }
 
-              if (*(a4 + 23))
+              if (*(a4 + 8))
               {
-                goto LABEL_1116;
+                return;
               }
 
+              operator delete(*a4);
               ++v142;
               v144 -= 8;
             }
@@ -10566,8 +10512,8 @@ LABEL_216:
           }
 
 LABEL_266:
-          v134 = v616;
-          v167 = *(v616 + 16);
+          v134 = v611;
+          v167 = *(v611 + 16);
           if (!v167)
           {
             goto LABEL_138;
@@ -10576,7 +10522,7 @@ LABEL_266:
           goto LABEL_509;
         case 0x1E:
           std::string::basic_string[abi:ne200100]<0>(v6, "The dummy constraint should never appear in a model.");
-          goto LABEL_1116;
+          return;
         default:
           goto LABEL_508;
       }
@@ -10600,67 +10546,66 @@ LABEL_266:
   v91 = *(v90 + 64);
   if (v91)
   {
-LABEL_1046:
-    v631 = "The objective has and invalid domain() format: ";
-    v632.__r_.__value_.__r.__words[0] = 47;
-    google::protobuf::Message::ShortDebugString(v655);
+LABEL_1044:
+    v626 = "The objective has and invalid domain() format: ";
+    v627.__r_.__value_.__r.__words[0] = 47;
+    google::protobuf::Message::ShortDebugString(v650);
   }
 
   if (v91 >= 1)
   {
     if (**(v90 + 72) <= *(*(v90 + 72) + 8))
     {
-      *v615 = **(v90 + 72);
       operator new();
     }
 
-    goto LABEL_1046;
+    goto LABEL_1044;
   }
 
   if (!operations_research::IntervalsAreSortedAndNonAdjacent(0, 0))
   {
-    goto LABEL_1046;
+    goto LABEL_1044;
   }
 
-  v563 = *(v90 + 16);
-  if (v563 != *(v90 + 40))
+  v562 = *(v90 + 16);
+  if (v562 != *(v90 + 40))
   {
-    v631 = "vars and coeffs size do not match in objective: ";
-    v632.__r_.__value_.__r.__words[0] = 48;
-    google::protobuf::Message::ShortDebugString(v655);
+    v626 = "vars and coeffs size do not match in objective: ";
+    v627.__r_.__value_.__r.__words[0] = 48;
+    google::protobuf::Message::ShortDebugString(v650);
   }
 
   v5 = this;
-  if (v563)
+  if (v562)
   {
-    v564 = *(this + 8);
-    v565 = 4 * v563;
-    v566 = *(v90 + 24);
+    v563 = *(this + 8);
+    v564 = 4 * v562;
+    v565 = *(v90 + 24);
     do
     {
-      v567 = *v566;
-      if (v564 <= v567 || v567 < -v564)
+      v566 = *v565;
+      if (v563 <= v566 || v566 < -v563)
       {
-        v631 = "Out of bound integer variable ";
-        v632.__r_.__value_.__r.__words[0] = 30;
-        v601 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v567, &v658, v563);
-        v656 = &v658;
-        p_size = v601 - &v658;
-        *v655 = " in objective: ";
-        *&v655[8] = 15;
+        v626 = "Out of bound integer variable ";
+        v627.__r_.__value_.__r.__words[0] = 30;
+        v600 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v566, &v653, v562);
+        v651 = &v653;
+        p_size = v600 - &v653;
+        *v650 = " in objective: ";
+        *&v650[8] = 15;
         google::protobuf::Message::ShortDebugString(__p);
       }
 
-      ++v566;
-      v565 -= 4;
+      ++v565;
+      v564 -= 4;
     }
 
-    while (v565);
+    while (v564);
   }
 
-  if (operations_research::sat::PossibleIntegerOverflow(this, *(v90 + 24), v563, *(v90 + 48), *(v90 + 16), 0))
+  if (operations_research::sat::PossibleIntegerOverflow(this, *(v90 + 24), v562, *(v90 + 48), *(v90 + 16), 0))
   {
-    google::protobuf::Message::DebugString(&v631);
+    google::protobuf::Message::DebugString(&v626);
   }
 
   *(v6 + 23) = 0;
@@ -10669,7 +10614,7 @@ LABEL_1046:
   {
     if (*(v6 + 8))
     {
-      goto LABEL_1116;
+      return;
     }
 
     operator delete(*v6);
@@ -10677,75 +10622,75 @@ LABEL_1046:
 
   else if (*(v6 + 23))
   {
-    goto LABEL_1116;
+    return;
   }
 
   if (*(this + 16))
   {
-    v588 = *(this + 16);
+    v587 = *(this + 16);
   }
 
   else
   {
-    v588 = &operations_research::sat::_CpObjectiveProto_default_instance_;
+    v587 = &operations_research::sat::_CpObjectiveProto_default_instance_;
   }
 
-  v589 = v588[14];
-  if (v589 || v588[13] || v588[15])
+  v588 = v587[14];
+  if (v588 || v587[13] || v587[15])
   {
-    v590 = *(v588 + 16);
-    if (!v590)
+    v589 = *(v587 + 16);
+    if (!v589)
     {
-      v631 = "Objective integer scaling or offset is set without an objective domain.";
-      v632.__r_.__value_.__r.__words[0] = 71;
-      absl::lts_20240722::StrCat(&v631, v6);
-      goto LABEL_1116;
+      v626 = "Objective integer scaling or offset is set without an objective domain.";
+      v627.__r_.__value_.__r.__words[0] = 71;
+      absl::lts_20240722::StrCat(&v626, v6);
+      return;
     }
 
-    v591 = v588[9];
-    v592 = v588[13];
-    v593 = 8 * v590 - 8;
+    v590 = v587[9];
+    v591 = v587[13];
+    v592 = 8 * v589 - 8;
     do
     {
-      v594 = v592 + *v591;
-      if (__OFADD__(*v591, v592))
+      v593 = v591 + *v590;
+      if (__OFADD__(*v590, v591))
       {
-        v594 = (*v591 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
+        v593 = (*v590 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
       }
 
-      if ((v594 - 0x7FFFFFFFFFFFFFFFLL) < 2)
+      if ((v593 - 0x7FFFFFFFFFFFFFFFLL) < 2)
       {
-        goto LABEL_1105;
+        goto LABEL_1103;
       }
 
-      v595 = (v594 * v589) >> 64 == (v594 * v589) >> 63 ? v594 * v589 : ((v594 ^ v589) >> 63) + 0x7FFFFFFFFFFFFFFFLL;
-      if (v595 - 0x7FFFFFFFFFFFFFFFLL < 2)
+      v594 = (v593 * v588) >> 64 == (v593 * v588) >> 63 ? v593 * v588 : ((v593 ^ v588) >> 63) + 0x7FFFFFFFFFFFFFFFLL;
+      if (v594 - 0x7FFFFFFFFFFFFFFFLL < 2)
       {
-        goto LABEL_1105;
+        goto LABEL_1103;
       }
 
-      v596 = v588[15];
-      v597 = (v595 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
-      v19 = __OFADD__(v595, v596);
-      v598 = v596 + v595;
+      v595 = v587[15];
+      v596 = (v594 >> 63) + 0x7FFFFFFFFFFFFFFFLL;
+      v19 = __OFADD__(v594, v595);
+      v597 = v595 + v594;
       if (v19)
       {
-        v598 = v597;
+        v597 = v596;
       }
 
-      v599 = v598 - 0x7FFFFFFFFFFFFFFFLL;
-      ++v591;
-      v600 = v599 < 2 || v593 == 0;
-      v593 -= 8;
+      v598 = v597 - 0x7FFFFFFFFFFFFFFFLL;
+      ++v590;
+      v599 = v598 < 2 || v592 == 0;
+      v592 -= 8;
     }
 
-    while (!v600);
-    if (v599 <= 1)
+    while (!v599);
+    if (v598 <= 1)
     {
-LABEL_1105:
-      v631 = "Internal fields related to the postsolve of the integer objective are causing a potential integer overflow: ";
-      v632.__r_.__value_.__r.__words[0] = 108;
-      google::protobuf::Message::ShortDebugString(v655);
+LABEL_1103:
+      v626 = "Internal fields related to the postsolve of the integer objective are causing a potential integer overflow: ";
+      v627.__r_.__value_.__r.__words[0] = 108;
+      google::protobuf::Message::ShortDebugString(v650);
     }
   }
 
@@ -10770,13 +10715,13 @@ LABEL_109:
     v75 = *(v6 + 23);
     if ((v75 & 0x80000000) == 0)
     {
-      goto LABEL_1057;
+      goto LABEL_1055;
     }
 
     goto LABEL_110;
   }
 
-  v614 = &v41[8 * v42];
+  v610 = &v41[8 * v42];
   v43 = (v5 + 24);
   while (1)
   {
@@ -10784,25 +10729,25 @@ LABEL_109:
     v45 = *(*v41 + 64);
     if (v45 >= 5)
     {
-      v631 = "Unknown or unsupported variable_selection_strategy: ";
-      v632.__r_.__value_.__r.__words[0] = 52;
-      v570 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v45, &v658, a3);
-      v656 = &v658;
-      p_size = v570 - &v658;
-      absl::lts_20240722::StrCat(&v631, &v656, v6);
-      goto LABEL_1056;
+      v626 = "Unknown or unsupported variable_selection_strategy: ";
+      v627.__r_.__value_.__r.__words[0] = 52;
+      v569 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v45, &v653, a3);
+      v651 = &v653;
+      p_size = v569 - &v653;
+      absl::lts_20240722::StrCat(&v626, &v651, v6);
+      goto LABEL_1054;
     }
 
     v46 = *(v44 + 68);
     if (v46 >= 5)
     {
-      v631 = "Unknown or unsupported domain_reduction_strategy: ";
-      v632.__r_.__value_.__r.__words[0] = 50;
-      v571 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v46, &v658, a3);
-      v656 = &v658;
-      p_size = v571 - &v658;
-      absl::lts_20240722::StrCat(&v631, &v656, v6);
-      goto LABEL_1056;
+      v626 = "Unknown or unsupported domain_reduction_strategy: ";
+      v627.__r_.__value_.__r.__words[0] = 50;
+      v570 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v46, &v653, a3);
+      v651 = &v653;
+      p_size = v570 - &v653;
+      absl::lts_20240722::StrCat(&v626, &v651, v6);
+      goto LABEL_1054;
     }
 
     v47 = *(v44 + 16);
@@ -10826,7 +10771,7 @@ LABEL_80:
     v61 = *(v44 + 48);
     if (v61)
     {
-      v610 = &v60[v61];
+      v607 = &v60[v61];
       while (1)
       {
         v62 = *v60;
@@ -10840,9 +10785,9 @@ LABEL_80:
           {
             if (v65 <= *v64 || *v64 < -v65)
             {
-              v631 = "Invalid variable reference in strategy: ";
-              v632.__r_.__value_.__r.__words[0] = 40;
-              google::protobuf::Message::ShortDebugString(v655);
+              v626 = "Invalid variable reference in strategy: ";
+              v627.__r_.__value_.__r.__words[0] = 40;
+              google::protobuf::Message::ShortDebugString(v650);
             }
 
             ++v64;
@@ -10852,22 +10797,22 @@ LABEL_80:
           while (v66);
         }
 
-        if (v632.__r_.__value_.__s.__data_[15] < 0)
+        if (v627.__r_.__value_.__s.__data_[15] < 0)
         {
-          v68 = v632.__r_.__value_.__r.__words[0];
-          operator delete(v631);
+          v68 = v627.__r_.__value_.__r.__words[0];
+          operator delete(v626);
           if (v68)
           {
-LABEL_1107:
-            v631 = "Invalid affine expr in strategy: ";
-            v632.__r_.__value_.__r.__words[0] = 33;
-            google::protobuf::Message::ShortDebugString(v655);
+LABEL_1105:
+            v626 = "Invalid affine expr in strategy: ";
+            v627.__r_.__value_.__r.__words[0] = 33;
+            google::protobuf::Message::ShortDebugString(v650);
           }
         }
 
-        else if (v632.__r_.__value_.__s.__data_[15])
+        else if (v627.__r_.__value_.__s.__data_[15])
         {
-          goto LABEL_1107;
+          goto LABEL_1105;
         }
 
         if (v46 == 4)
@@ -10882,7 +10827,7 @@ LABEL_1107:
 LABEL_85:
         ++v60;
         v6 = a4;
-        if (v60 == v610)
+        if (v60 == v607)
         {
           goto LABEL_108;
         }
@@ -10903,11 +10848,11 @@ LABEL_85:
           v73 = v43;
         }
 
-        operations_research::Domain::FromFlatSpanOfIntervals(*(*v73 + 24), *(*v73 + 16), &v631, a5);
-        v74 = operations_research::Domain::Size(&v631);
-        if (v631)
+        operations_research::Domain::FromFlatSpanOfIntervals(*(*v73 + 24), *(*v73 + 16), &v626, a5);
+        v74 = operations_research::Domain::Size(&v626);
+        if (v626)
         {
-          operator delete(v632.__r_.__value_.__l.__data_);
+          operator delete(v627.__r_.__value_.__l.__data_);
         }
 
         if (v74 >= 100001)
@@ -10923,22 +10868,22 @@ LABEL_85:
         }
       }
 
-      v631 = "Variable #";
-      v632.__r_.__value_.__r.__words[0] = 10;
-      v562 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v72, &v658, a3);
+      v626 = "Variable #";
+      v627.__r_.__value_.__r.__words[0] = 10;
+      v561 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v72, &v653, a3);
       v6 = a4;
-      v656 = &v658;
-      p_size = v562 - &v658;
-      *v655 = " has a domain too large to be used in a SELECT_MEDIAN_VALUE value selection strategy";
-      *&v655[8] = 84;
-      absl::lts_20240722::StrCat(&v631, &v656, v655, a4);
-      goto LABEL_1056;
+      v651 = &v653;
+      p_size = v561 - &v653;
+      *v650 = " has a domain too large to be used in a SELECT_MEDIAN_VALUE value selection strategy";
+      *&v650[8] = 84;
+      absl::lts_20240722::StrCat(&v626, &v651, v650, a4);
+      goto LABEL_1054;
     }
 
 LABEL_108:
     v41 += 8;
     v5 = this;
-    if (v41 == v614)
+    if (v41 == v610)
     {
       goto LABEL_109;
     }
@@ -10946,9 +10891,9 @@ LABEL_108:
 
   if (*(v44 + 48))
   {
-    v631 = "Strategy can't have both variables and exprs: ";
-    v632.__r_.__value_.__r.__words[0] = 46;
-    google::protobuf::Message::ShortDebugString(v655);
+    v626 = "Strategy can't have both variables and exprs: ";
+    v627.__r_.__value_.__r.__words[0] = 46;
+    google::protobuf::Message::ShortDebugString(v650);
   }
 
   v48 = *(v44 + 24);
@@ -10960,10 +10905,10 @@ LABEL_108:
     {
       if (v56 <= *v48 || *v48 < -v56)
       {
-LABEL_828:
-        v631 = "Invalid variable reference in strategy: ";
-        v632.__r_.__value_.__r.__words[0] = 40;
-        google::protobuf::Message::ShortDebugString(v655);
+LABEL_826:
+        v626 = "Invalid variable reference in strategy: ";
+        v627.__r_.__value_.__r.__words[0] = 40;
+        google::protobuf::Message::ShortDebugString(v650);
       }
 
       ++v48;
@@ -10981,7 +10926,7 @@ LABEL_828:
     v51 = *(v5 + 8);
     if (v51 <= *v48 || v50 < -v51)
     {
-      goto LABEL_828;
+      goto LABEL_826;
     }
 
     if (~v50 <= v50)
@@ -11004,11 +10949,11 @@ LABEL_828:
       v54 = v43;
     }
 
-    operations_research::Domain::FromFlatSpanOfIntervals(*(*v54 + 24), *(*v54 + 16), &v631, a5);
-    v55 = operations_research::Domain::Size(&v631);
-    if (v631)
+    operations_research::Domain::FromFlatSpanOfIntervals(*(*v54 + 24), *(*v54 + 16), &v626, a5);
+    v55 = operations_research::Domain::Size(&v626);
+    if (v626)
     {
-      operator delete(v632.__r_.__value_.__l.__data_);
+      operator delete(v627.__r_.__value_.__l.__data_);
     }
 
     if (v55 > 100000)
@@ -11025,15 +10970,15 @@ LABEL_828:
     }
   }
 
-  v631 = "Variable #";
-  v632.__r_.__value_.__r.__words[0] = 10;
-  v561 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v53, &v658, a3);
-  v656 = &v658;
-  p_size = v561 - &v658;
-  *v655 = " has a domain too large to be used in a SELECT_MEDIAN_VALUE value selection strategy";
-  *&v655[8] = 84;
-  absl::lts_20240722::StrCat(&v631, &v656, v655, v6);
-LABEL_1056:
+  v626 = "Variable #";
+  v627.__r_.__value_.__r.__words[0] = 10;
+  v560 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v53, &v653, a3);
+  v651 = &v653;
+  p_size = v560 - &v653;
+  *v650 = " has a domain too large to be used in a SELECT_MEDIAN_VALUE value selection strategy";
+  *&v650[8] = 84;
+  absl::lts_20240722::StrCat(&v626, &v651, v650, v6);
+LABEL_1054:
   v5 = this;
   v75 = *(v6 + 23);
   if (v75 < 0)
@@ -11041,87 +10986,87 @@ LABEL_1056:
 LABEL_110:
     if (*(v6 + 8))
     {
-      goto LABEL_1116;
+      return;
     }
 
     operator delete(*v6);
     if ((*(v5 + 16) & 2) == 0)
     {
-      goto LABEL_1059;
+      goto LABEL_1057;
     }
 
     goto LABEL_112;
   }
 
-LABEL_1057:
+LABEL_1055:
   if (v75)
   {
-    goto LABEL_1116;
+    return;
   }
 
   if ((*(v5 + 16) & 2) == 0)
   {
-LABEL_1059:
+LABEL_1057:
     *(v6 + 23) = 0;
     *v6 = 0;
-LABEL_1060:
-    v572 = *(v5 + 24);
-    if (v572)
+LABEL_1058:
+    v571 = *(v5 + 24);
+    if (v571)
     {
-      v573 = *(v5 + 13);
-      v576 = *(v5 + 3);
-      v575 = v5 + 24;
-      v574 = v576;
-      v577 = *(v575 + 2);
-      v578 = v576 + 7;
-      v579 = 4 * v572;
+      v572 = *(v5 + 13);
+      v575 = *(v5 + 3);
+      v574 = v5 + 24;
+      v573 = v575;
+      v576 = *(v574 + 2);
+      v577 = v575 + 7;
+      v578 = 4 * v571;
       while (1)
       {
-        v580 = *v573;
-        if (v577 <= v580 || v580 < -v577)
+        v579 = *v572;
+        if (v576 <= v579 || v579 < -v576)
         {
           break;
         }
 
-        v582 = ~v580 <= v580 ? *v573 : ~v580;
-        v583 = (v578 + 8 * v582);
-        if ((v574 & 1) == 0)
+        v581 = ~v579 <= v579 ? *v572 : ~v579;
+        v582 = (v577 + 8 * v581);
+        if ((v573 & 1) == 0)
         {
-          v583 = v575;
+          v582 = v574;
         }
 
-        v584 = *v583;
-        v585 = *(*v583 + 24);
-        if ((*v585 & 0x8000000000000000) != 0 || v585[*(v584 + 16) - 1] >= 2)
+        v583 = *v582;
+        v584 = *(*v582 + 24);
+        if ((*v584 & 0x8000000000000000) != 0 || v584[*(v583 + 16) - 1] >= 2)
         {
           break;
         }
 
-        ++v573;
-        v579 -= 4;
-        if (!v579)
+        ++v572;
+        v578 -= 4;
+        if (!v578)
         {
-          goto LABEL_1074;
+          goto LABEL_1072;
         }
       }
 
-      v631 = "Invalid literal reference ";
-      v632.__r_.__value_.__r.__words[0] = 26;
-      v586 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v580, &v658, a3);
-      v656 = &v658;
-      p_size = v586 - &v658;
-      *v655 = " in the 'assumptions' field.";
-      *&v655[8] = 28;
-      absl::lts_20240722::StrCat(&v631, &v656, v655, v6);
+      v626 = "Invalid literal reference ";
+      v627.__r_.__value_.__r.__words[0] = 26;
+      v585 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v579, &v653, a3);
+      v651 = &v653;
+      p_size = v585 - &v653;
+      *v650 = " in the 'assumptions' field.";
+      *&v650[8] = 28;
+      absl::lts_20240722::StrCat(&v626, &v651, v650, v6);
     }
 
     else
     {
-LABEL_1074:
+LABEL_1072:
       std::string::basic_string[abi:ne200100]<0>(v6, &byte_23CE7F131);
     }
 
-    goto LABEL_1116;
+    return;
   }
 
 LABEL_112:
@@ -11144,14 +11089,14 @@ LABEL_112:
       v83 = *v82;
       if (v79 <= v83 || v83 < -v79)
       {
-        v631 = "Invalid variable reference in solution hint: ";
-        v632.__r_.__value_.__r.__words[0] = 45;
-        v569 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v83, &v658, a3);
-        v656 = &v658;
-        p_size = v569 - &v658;
-        absl::lts_20240722::StrCat(&v631, &v656, v6);
+        v626 = "Invalid variable reference in solution hint: ";
+        v627.__r_.__value_.__r.__words[0] = 45;
+        v568 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v83, &v653, a3);
+        v651 = &v653;
+        p_size = v568 - &v653;
+        absl::lts_20240722::StrCat(&v626, &v651, v6);
         v5 = this;
-        goto LABEL_1112;
+        goto LABEL_1110;
       }
 
       ++v82;
@@ -11159,7 +11104,7 @@ LABEL_112:
     }
 
     while (v81);
-    *v655 = xmmword_23CE306D0;
+    *v650 = xmmword_23CE306D0;
     do
     {
       v85 = *v78;
@@ -11173,20 +11118,20 @@ LABEL_112:
         v86 = ~v85;
       }
 
-      LODWORD(v631) = v86;
-      absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::find_or_prepare_insert<int>(v655, &v631, &v653);
-      if ((v654[0] & 1) == 0)
+      LODWORD(v626) = v86;
+      absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::find_or_prepare_insert<int>(v650, &v626, &v648);
+      if ((v649[0] & 1) == 0)
       {
-        v631 = "The solution hint contains duplicate variables like the variable with index #";
-        v632.__r_.__value_.__r.__words[0] = 77;
-        v587 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v86, &v658, a3);
-        v656 = &v658;
-        p_size = v587 - &v658;
-        absl::lts_20240722::StrCat(&v631, &v656, v6);
-        goto LABEL_1110;
+        v626 = "The solution hint contains duplicate variables like the variable with index #";
+        v627.__r_.__value_.__r.__words[0] = 77;
+        v586 = absl::lts_20240722::numbers_internal::FastIntToBuffer(v86, &v653, a3);
+        v651 = &v653;
+        p_size = v586 - &v653;
+        absl::lts_20240722::StrCat(&v626, &v651, v6);
+        goto LABEL_1108;
       }
 
-      **(&v653 + 1) = v631;
+      **(&v648 + 1) = v626;
       ++v78;
       v80 -= 4;
     }
@@ -11214,32 +11159,29 @@ LABEL_112:
 
   else
   {
-    *v655 = xmmword_23CE306D0;
+    *v650 = xmmword_23CE306D0;
   }
 
   *(v6 + 23) = 0;
   *v6 = 0;
-LABEL_1110:
-  if (*v655 >= 2uLL)
+LABEL_1108:
+  if (*v650 >= 2uLL)
   {
-    operator delete((*&v655[16] - (v655[8] & 1) - 8));
+    operator delete((*&v650[16] - (v650[8] & 1) - 8));
   }
 
-LABEL_1112:
+LABEL_1110:
   if (*(v6 + 23) < 0)
   {
     if (!*(v6 + 8))
     {
       operator delete(*v6);
-      goto LABEL_1060;
+      goto LABEL_1058;
     }
   }
 
   else if (!*(v6 + 23))
   {
-    goto LABEL_1060;
+    goto LABEL_1058;
   }
-
-LABEL_1116:
-  v602 = *MEMORY[0x277D85DE8];
 }

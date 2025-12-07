@@ -310,12 +310,13 @@
 void __66__PRWidgetGridViewController_ensureContentWithTimeout_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = PRLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = PRLogCommon(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __66__PRWidgetGridViewController_ensureContentWithTimeout_completion___block_invoke_2_cold_1(v3, a1, v4);
+      __66__PRWidgetGridViewController_ensureContentWithTimeout_completion___block_invoke_2_cold_1(v4, a1, v5);
     }
   }
 
@@ -869,7 +870,7 @@ uint64_t __80__PRWidgetGridViewController_widgetHostViewController_requestsLaunc
       if (!complicationDescriptor)
       {
         complicationDescriptor = [tapCopy complicationDescriptor];
-        v12 = PRLogCommon();
+        v12 = PRLogCommon(complicationDescriptor);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           [PRWidgetGridViewController widgetIconViewControllerDidReceiveTap:tapCopy];
@@ -996,7 +997,7 @@ LABEL_10:
 
     [(PRWidgetIconViewController *)v9 setConfigureForSnapshotting:self->_configureForSnapshotting];
     widget = [v7 widget];
-    v13 = PRSharedWidgetExtensionProvider();
+    v13 = PRSharedWidgetExtensionProvider(widget);
     v14 = [v13 widgetDescriptorForWidget:widget];
 
     intentType = [v14 intentType];
@@ -1014,14 +1015,14 @@ LABEL_10:
         if (intent2)
         {
           widgetHostViewController2 = [(PRWidgetIconViewController *)v9 widgetHostViewController];
-          v22 = [widget widgetByReplacingIntent:intent2];
-          [v7 setWidget:v22];
-          [widgetHostViewController2 setWidget:v22];
+          v23 = [widget widgetByReplacingIntent:intent2];
+          [v7 setWidget:v23];
+          [widgetHostViewController2 setWidget:v23];
         }
 
         else
         {
-          widgetHostViewController2 = PRLogCommon();
+          widgetHostViewController2 = PRLogCommon(v21);
           if (os_log_type_enabled(widgetHostViewController2, OS_LOG_TYPE_ERROR))
           {
             [PRWidgetGridViewController customImageViewControllerForIconView:widget];
@@ -1033,14 +1034,14 @@ LABEL_10:
     if (-[PRWidgetGridViewController presentationMode](self, "presentationMode") == 3 && ([widget pr_isWorldClockWidget] & 1) == 0)
     {
       widgetHostViewController3 = [(PRWidgetIconViewController *)v9 widgetHostViewController];
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __67__PRWidgetGridViewController_customImageViewControllerForIconView___block_invoke;
-      v26[3] = &unk_1E7843750;
-      v27 = widget;
-      v28 = widgetHostViewController3;
-      v24 = widgetHostViewController3;
-      [v24 ensureContentWithTimeout:v26 completion:10.0];
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __67__PRWidgetGridViewController_customImageViewControllerForIconView___block_invoke;
+      v27[3] = &unk_1E7843750;
+      v28 = widget;
+      v29 = widgetHostViewController3;
+      v25 = widgetHostViewController3;
+      [v25 ensureContentWithTimeout:v27 completion:10.0];
     }
   }
 
@@ -1055,22 +1056,23 @@ LABEL_10:
 void __67__PRWidgetGridViewController_customImageViewControllerForIconView___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = PRLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = PRLogCommon(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __67__PRWidgetGridViewController_customImageViewControllerForIconView___block_invoke_cold_1(a1);
     }
   }
 
-  v5 = dispatch_time(0, 500000000);
+  v6 = dispatch_time(0, 500000000);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __67__PRWidgetGridViewController_customImageViewControllerForIconView___block_invoke_30;
   block[3] = &unk_1E7843688;
-  v7 = *(a1 + 40);
-  dispatch_after(v5, MEMORY[0x1E69E96A0], block);
+  v8 = *(a1 + 40);
+  dispatch_after(v6, MEMORY[0x1E69E96A0], block);
 }
 
 - (id)iconDragManager:(id)manager dragItemsForIconView:(id)view

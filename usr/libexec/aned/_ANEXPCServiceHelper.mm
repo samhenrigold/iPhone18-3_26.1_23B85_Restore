@@ -3,6 +3,7 @@
 + (BOOL)allowProcessModelShareFor:(id)for;
 + (BOOL)allowRestrictedAccessFor:(id)for;
 + (BOOL)allowRestrictedAccessFor:(id)for entitlementString:(id)string;
++ (id)serviceWithName:(id)name interface:(id)interface delegate:(id)delegate requiresEntitlement:(BOOL)entitlement entitlementString:(id)string;
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
 - (_ANEXPCServiceHelper)initWithMachServiceName:(id)name interface:(id)interface delegate:(id)delegate requiresEntitlement:(BOOL)entitlement entitlementString:(id)string;
 @end
@@ -41,6 +42,18 @@
   }
 
   return v17;
+}
+
++ (id)serviceWithName:(id)name interface:(id)interface delegate:(id)delegate requiresEntitlement:(BOOL)entitlement entitlementString:(id)string
+{
+  entitlementCopy = entitlement;
+  stringCopy = string;
+  delegateCopy = delegate;
+  interfaceCopy = interface;
+  nameCopy = name;
+  v15 = [objc_alloc(objc_opt_class()) initWithMachServiceName:nameCopy interface:interfaceCopy delegate:delegateCopy requiresEntitlement:entitlementCopy entitlementString:stringCopy];
+
+  return v15;
 }
 
 + (BOOL)allowRestrictedAccessFor:(id)for

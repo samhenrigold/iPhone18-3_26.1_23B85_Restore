@@ -380,7 +380,7 @@ void __36__WBSOnDiskDataCache_settingForKey___block_invoke(void *a1)
   }
 }
 
-uint64_t __40__WBSOnDiskDataCache_setSetting_forKey___block_invoke(void *a1)
+void *__40__WBSOnDiskDataCache_setSetting_forKey___block_invoke(void *a1)
 {
   v2 = a1[4];
   v3 = *(a1[5] + 48);
@@ -934,7 +934,7 @@ id __80__WBSOnDiskDataCache_removeEntriesForKeyStringsNotIncludedIn_completionHa
   return v6;
 }
 
-uint64_t __45__WBSOnDiskDataCache_entryStateForKeyString___block_invoke(uint64_t a1)
+void *__45__WBSOnDiskDataCache_entryStateForKeyString___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _internalEntryStateForKeyString:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;

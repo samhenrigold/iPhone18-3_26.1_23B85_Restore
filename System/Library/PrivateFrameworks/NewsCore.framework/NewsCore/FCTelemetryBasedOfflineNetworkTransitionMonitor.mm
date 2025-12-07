@@ -34,22 +34,22 @@
 
 - (FCTelemetryBasedOfflineNetworkTransitionMonitor)initWithAppActivationMonitor:(id)monitor configurationManager:(id)manager networkBehaviorMonitor:(id)behaviorMonitor onlineTransitionMonitor:(id)transitionMonitor
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   monitorCopy = monitor;
   managerCopy = manager;
   behaviorMonitorCopy = behaviorMonitor;
   transitionMonitorCopy = transitionMonitor;
   if (!monitorCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "appActivationMonitor"];
+    v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "appActivationMonitor"];
     *buf = 136315906;
-    v27 = "[FCTelemetryBasedOfflineNetworkTransitionMonitor initWithAppActivationMonitor:configurationManager:networkBehaviorMonitor:onlineTransitionMonitor:]";
-    v28 = 2080;
-    v29 = "FCTelemetryBasedOfflineNetworkTransitionMonitor.m";
-    v30 = 1024;
-    v31 = 41;
-    v32 = 2114;
-    v33 = v21;
+    v26 = "[FCTelemetryBasedOfflineNetworkTransitionMonitor initWithAppActivationMonitor:configurationManager:networkBehaviorMonitor:onlineTransitionMonitor:]";
+    v27 = 2080;
+    v28 = "FCTelemetryBasedOfflineNetworkTransitionMonitor.m";
+    v29 = 1024;
+    v30 = 41;
+    v31 = 2114;
+    v32 = v20;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (managerCopy)
@@ -65,30 +65,30 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "configurationManager"];
+    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "configurationManager"];
     *buf = 136315906;
-    v27 = "[FCTelemetryBasedOfflineNetworkTransitionMonitor initWithAppActivationMonitor:configurationManager:networkBehaviorMonitor:onlineTransitionMonitor:]";
-    v28 = 2080;
-    v29 = "FCTelemetryBasedOfflineNetworkTransitionMonitor.m";
-    v30 = 1024;
-    v31 = 42;
-    v32 = 2114;
-    v33 = v22;
+    v26 = "[FCTelemetryBasedOfflineNetworkTransitionMonitor initWithAppActivationMonitor:configurationManager:networkBehaviorMonitor:onlineTransitionMonitor:]";
+    v27 = 2080;
+    v28 = "FCTelemetryBasedOfflineNetworkTransitionMonitor.m";
+    v29 = 1024;
+    v30 = 42;
+    v31 = 2114;
+    v32 = v21;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   if (!behaviorMonitorCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "networkBehaviorMonitor"];
+    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "networkBehaviorMonitor"];
     *buf = 136315906;
-    v27 = "[FCTelemetryBasedOfflineNetworkTransitionMonitor initWithAppActivationMonitor:configurationManager:networkBehaviorMonitor:onlineTransitionMonitor:]";
-    v28 = 2080;
-    v29 = "FCTelemetryBasedOfflineNetworkTransitionMonitor.m";
-    v30 = 1024;
-    v31 = 43;
-    v32 = 2114;
-    v33 = v23;
+    v26 = "[FCTelemetryBasedOfflineNetworkTransitionMonitor initWithAppActivationMonitor:configurationManager:networkBehaviorMonitor:onlineTransitionMonitor:]";
+    v27 = 2080;
+    v28 = "FCTelemetryBasedOfflineNetworkTransitionMonitor.m";
+    v29 = 1024;
+    v30 = 43;
+    v31 = 2114;
+    v32 = v22;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (transitionMonitorCopy)
@@ -104,22 +104,22 @@ LABEL_6:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "onlineTransitionMonitor"];
+    v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "onlineTransitionMonitor"];
     *buf = 136315906;
-    v27 = "[FCTelemetryBasedOfflineNetworkTransitionMonitor initWithAppActivationMonitor:configurationManager:networkBehaviorMonitor:onlineTransitionMonitor:]";
-    v28 = 2080;
-    v29 = "FCTelemetryBasedOfflineNetworkTransitionMonitor.m";
-    v30 = 1024;
-    v31 = 44;
-    v32 = 2114;
-    v33 = v24;
+    v26 = "[FCTelemetryBasedOfflineNetworkTransitionMonitor initWithAppActivationMonitor:configurationManager:networkBehaviorMonitor:onlineTransitionMonitor:]";
+    v27 = 2080;
+    v28 = "FCTelemetryBasedOfflineNetworkTransitionMonitor.m";
+    v29 = 1024;
+    v30 = 44;
+    v31 = 2114;
+    v32 = v23;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_11:
-  v25.receiver = self;
-  v25.super_class = FCTelemetryBasedOfflineNetworkTransitionMonitor;
-  v15 = [(FCTelemetryBasedOfflineNetworkTransitionMonitor *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = FCTelemetryBasedOfflineNetworkTransitionMonitor;
+  v15 = [(FCTelemetryBasedOfflineNetworkTransitionMonitor *)&v24 init];
   v16 = v15;
   if (v15)
   {
@@ -132,7 +132,6 @@ LABEL_11:
     v16->_dateOfLastTransitionLock = v17;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v16;
 }
 

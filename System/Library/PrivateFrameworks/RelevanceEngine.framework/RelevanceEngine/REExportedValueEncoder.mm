@@ -343,10 +343,10 @@ void __65__REExportedValueEncoder__writeValue_toStream_depth_needsIndent___block
 
 void __102__REExportedValueEncoder__writeCollection_toStream_startBlock_writerBlock_endBlock_wantsHeader_depth___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v50 = *MEMORY[0x277D85DE8];
-  v28 = a2;
+  v49 = *MEMORY[0x277D85DE8];
+  v27 = a2;
   v5 = a3;
-  v29 = a1;
+  v28 = a1;
   --*(*(*(a1 + 56) + 8) + 24);
   v6 = [REExportedValue exportedValueForObject:v5];
   if ([v6 type] > 2 || (*(a1 + 72) & 1) != 0)
@@ -362,12 +362,12 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   v7 = REEncodeIdentificationProperites();
-  v8 = [v7 countByEnumeratingWithState:&v45 objects:v49 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v44 objects:v48 count:16];
   if (!v8)
   {
 
@@ -375,17 +375,17 @@ LABEL_17:
   }
 
   v9 = 0;
-  v10 = *v46;
+  v10 = *v45;
   do
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v46 != v10)
+      if (*v45 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = [v6 exportedValueForKey:*(*(&v45 + 1) + 8 * i)];
+      v12 = [v6 exportedValueForKey:*(*(&v44 + 1) + 8 * i)];
       v13 = v12;
       if (v12 && [v12 type] == 3)
       {
@@ -399,7 +399,7 @@ LABEL_17:
       }
     }
 
-    v8 = [v7 countByEnumeratingWithState:&v45 objects:v49 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v44 objects:v48 count:16];
   }
 
   while (v8);
@@ -410,18 +410,18 @@ LABEL_17:
   }
 
 LABEL_18:
-  if (*(v29 + 73) != 1 || [v6 shouldEncodeProperty:v28])
+  if (*(v28 + 73) != 1 || [v6 shouldEncodeProperty:v27])
   {
-    v16 = v29;
-    v17 = *(*(*(v29 + 56) + 8) + 24);
-    v18 = *(v29 + 74);
-    if (*(v29 + 75) == 1)
+    v16 = v28;
+    v17 = *(*(*(v28 + 56) + 8) + 24);
+    v18 = *(v28 + 74);
+    if (*(v28 + 75) == 1)
     {
-      v16 = v29;
-      if ([v6 type] > 2 || *(v29 + 74) == 1)
+      v16 = v28;
+      if ([v6 type] > 2 || *(v28 + 74) == 1)
       {
-        v19 = *(v29 + 32);
-        v20 = *(v29 + 64) + v18;
+        v19 = *(v28 + 32);
+        v20 = *(v28 + 64) + v18;
         if (v20)
         {
           if (v20 == 1)
@@ -450,50 +450,48 @@ LABEL_18:
 
         [v19 re_writeString:v21];
 
-        v16 = v29;
+        v16 = v28;
       }
     }
 
-    v43[0] = 0;
-    v43[1] = v43;
-    v43[2] = 0x2020000000;
-    v44 = 0;
+    v42[0] = 0;
+    v42[1] = v42;
+    v42[2] = 0x2020000000;
+    v43 = 0;
     v23 = *(v16 + 48);
     v24 = *(v16 + 32);
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __102__REExportedValueEncoder__writeCollection_toStream_startBlock_writerBlock_endBlock_wantsHeader_depth___block_invoke_2;
-    v39[3] = &unk_2785F9F58;
-    v40 = v24;
-    v41 = v28;
-    v42 = v43;
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __102__REExportedValueEncoder__writeCollection_toStream_startBlock_writerBlock_endBlock_wantsHeader_depth___block_invoke_3;
-    v30[3] = &unk_2785F9F80;
-    v38 = *(v16 + 75);
-    v35 = v43;
-    v31 = v6;
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __102__REExportedValueEncoder__writeCollection_toStream_startBlock_writerBlock_endBlock_wantsHeader_depth___block_invoke_2;
+    v38[3] = &unk_2785F9F58;
+    v39 = v24;
+    v40 = v27;
+    v41 = v42;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __102__REExportedValueEncoder__writeCollection_toStream_startBlock_writerBlock_endBlock_wantsHeader_depth___block_invoke_3;
+    v29[3] = &unk_2785F9F80;
+    v37 = *(v16 + 75);
+    v34 = v42;
+    v30 = v6;
     v25 = *(v16 + 32);
-    v36 = *(v16 + 64);
-    v37 = v18;
+    v35 = *(v16 + 64);
+    v36 = v18;
     v26 = *(v16 + 40);
-    v32 = v25;
-    v33 = v26;
-    v34 = v5;
-    (*(v23 + 16))(v23, v40, v39, v30, v17 == 0);
+    v31 = v25;
+    v32 = v26;
+    v33 = v5;
+    (*(v23 + 16))(v23, v39, v38, v29, v17 == 0);
     if (*(v16 + 75) == 1 && ((*(v16 + 74) & 1) != 0 || v17))
     {
       [*(v16 + 32) re_writeString:@"\n"];
     }
 
-    _Block_object_dispose(v43, 8);
+    _Block_object_dispose(v42, 8);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __102__REExportedValueEncoder__writeCollection_toStream_startBlock_writerBlock_endBlock_wantsHeader_depth___block_invoke_2(uint64_t a1)
+void *__102__REExportedValueEncoder__writeCollection_toStream_startBlock_writerBlock_endBlock_wantsHeader_depth___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) re_writeString:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = 1;
@@ -546,7 +544,7 @@ uint64_t __102__REExportedValueEncoder__writeCollection_toStream_startBlock_writ
 
 - (id)_namesArrayFromArray:(id)array
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if ([arrayCopy count])
   {
@@ -560,85 +558,85 @@ uint64_t __102__REExportedValueEncoder__writeCollection_toStream_startBlock_writ
 
     else
     {
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
       v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
       v7 = REEncodeIdentificationProperites();
-      v6 = [v7 countByEnumeratingWithState:&v39 objects:v45 count:16];
+      v6 = [v7 countByEnumeratingWithState:&v38 objects:v44 count:16];
       if (v6)
       {
-        v8 = *v40;
+        v8 = *v39;
         while (2)
         {
           for (i = 0; i != v6; i = i + 1)
           {
-            if (*v40 != v8)
+            if (*v39 != v8)
             {
               objc_enumerationMutation(v7);
             }
 
-            v10 = [v5 exportedValueForKey:*(*(&v39 + 1) + 8 * i)];
+            v10 = [v5 exportedValueForKey:*(*(&v38 + 1) + 8 * i)];
             type = [v10 type];
 
             if (type == 3)
             {
-              v25 = v5;
+              v24 = v5;
 
-              v28 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(arrayCopy, "count")}];
+              v27 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(arrayCopy, "count")}];
+              v34 = 0u;
               v35 = 0u;
               v36 = 0u;
               v37 = 0u;
-              v38 = 0u;
-              v26 = arrayCopy;
+              v25 = arrayCopy;
               obj = arrayCopy;
-              v30 = [obj countByEnumeratingWithState:&v35 objects:v44 count:16];
-              if (v30)
+              v29 = [obj countByEnumeratingWithState:&v34 objects:v43 count:16];
+              if (v29)
               {
-                v29 = *v36;
+                v28 = *v35;
                 do
                 {
-                  for (j = 0; j != v30; ++j)
+                  for (j = 0; j != v29; ++j)
                   {
-                    if (*v36 != v29)
+                    if (*v35 != v28)
                     {
                       objc_enumerationMutation(obj);
                     }
 
-                    v13 = *(*(&v35 + 1) + 8 * j);
+                    v13 = *(*(&v34 + 1) + 8 * j);
+                    v30 = 0u;
                     v31 = 0u;
                     v32 = 0u;
                     v33 = 0u;
-                    v34 = 0u;
                     v14 = REEncodeIdentificationProperites();
-                    v15 = [v14 countByEnumeratingWithState:&v31 objects:v43 count:16];
+                    v15 = [v14 countByEnumeratingWithState:&v30 objects:v42 count:16];
                     if (v15)
                     {
                       v16 = v15;
-                      v17 = *v32;
+                      v17 = *v31;
                       while (2)
                       {
                         for (k = 0; k != v16; ++k)
                         {
-                          if (*v32 != v17)
+                          if (*v31 != v17)
                           {
                             objc_enumerationMutation(v14);
                           }
 
-                          v19 = *(*(&v31 + 1) + 8 * k);
-                          v20 = [REExportedValue exportedValueForObject:v13, v25];
+                          v19 = *(*(&v30 + 1) + 8 * k);
+                          v20 = [REExportedValue exportedValueForObject:v13, v24];
                           v21 = [v20 exportedValueForKey:v19];
                           stringValue = [v21 stringValue];
 
                           if (stringValue)
                           {
-                            [v28 addObject:stringValue];
+                            [v27 addObject:stringValue];
 
                             goto LABEL_29;
                           }
                         }
 
-                        v16 = [v14 countByEnumeratingWithState:&v31 objects:v43 count:16];
+                        v16 = [v14 countByEnumeratingWithState:&v30 objects:v42 count:16];
                         if (v16)
                         {
                           continue;
@@ -651,21 +649,21 @@ uint64_t __102__REExportedValueEncoder__writeCollection_toStream_startBlock_writ
 LABEL_29:
                   }
 
-                  v30 = [obj countByEnumeratingWithState:&v35 objects:v44 count:16];
+                  v29 = [obj countByEnumeratingWithState:&v34 objects:v43 count:16];
                 }
 
-                while (v30);
+                while (v29);
               }
 
-              v7 = v28;
-              v6 = [v28 copy];
-              v5 = v25;
-              arrayCopy = v26;
+              v7 = v27;
+              v6 = [v27 copy];
+              v5 = v24;
+              arrayCopy = v25;
               goto LABEL_32;
             }
           }
 
-          v6 = [v7 countByEnumeratingWithState:&v39 objects:v45 count:16];
+          v6 = [v7 countByEnumeratingWithState:&v38 objects:v44 count:16];
           if (v6)
           {
             continue;
@@ -683,8 +681,6 @@ LABEL_32:
   {
     v6 = 0;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

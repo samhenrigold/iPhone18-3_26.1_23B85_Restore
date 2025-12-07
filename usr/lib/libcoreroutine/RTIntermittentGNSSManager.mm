@@ -1813,34 +1813,34 @@ LABEL_23:
   dispatch_async(v7, v6);
 }
 
-void __59__RTIntermittentGNSSManager_onLeechedLocationNotification___block_invoke(uint64_t a1)
+void __59__RTIntermittentGNSSManager_onLeechedLocationNotification___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v10 = [*(a1 + 32) leechedLocations];
-    v2 = [*(a1 + 40) metrics];
-    [v2 updateSessionLocationCount:{objc_msgSend(v10, "count")}];
+    v11 = [*(a1 + 32) leechedLocations];
+    v3 = [*(a1 + 40) metrics];
+    [v3 updateSessionLocationCount:{objc_msgSend(v11, "count")}];
 
-    [*(a1 + 40) _updateWifiLocationAvailabilityStatus:v10];
-    v3 = *(a1 + 40);
-    v4 = [v10 lastObject];
-    [v3 _updateSignalEnvironmentRiskStatus:{objc_msgSend(v4, "signalEnvironmentType")}];
+    [*(a1 + 40) _updateWifiLocationAvailabilityStatus:v11];
+    v4 = *(a1 + 40);
+    v5 = [v11 lastObject];
+    [v4 _updateSignalEnvironmentRiskStatus:{objc_msgSend(v5, "signalEnvironmentType")}];
 
-    v5 = *(a1 + 40);
-    v6 = objc_alloc(MEMORY[0x277D01160]);
-    v7 = [v10 lastObject];
-    v8 = [v6 initWithCLLocation:v7];
-    [v5 _updateLocationNearLOI:v8];
+    v6 = *(a1 + 40);
+    v7 = objc_alloc(MEMORY[0x277D01160]);
+    v8 = [v11 lastObject];
+    v9 = [v7 initWithCLLocation:v8];
+    [v6 _updateLocationNearLOI:v9];
   }
 
   else
   {
-    v9 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_2304B3000, v9, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: [notification isKindOfClass:[RTLocationManagerNotificationLocationsLeeched class]]", buf, 2u);
+      _os_log_error_impl(&dword_2304B3000, v10, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: [notification isKindOfClass:[RTLocationManagerNotificationLocationsLeeched class]]", buf, 2u);
     }
   }
 }
@@ -2012,14 +2012,14 @@ void __56__RTIntermittentGNSSManager_onVehicleEventNotification___block_invoke(u
   dispatch_async(queue, v7);
 }
 
-void __59__RTIntermittentGNSSManager_onWifiScanResultsNotification___block_invoke(uint64_t a1)
+void __59__RTIntermittentGNSSManager_onWifiScanResultsNotification___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v3 = [*(a1 + 32) scanResults];
-    v2 = [*(a1 + 40) accessPoints];
-    [v2 addObjectsFromArray:v3];
+    v4 = [*(a1 + 32) scanResults];
+    v3 = [*(a1 + 40) accessPoints];
+    [v3 addObjectsFromArray:v4];
 
     [*(a1 + 40) _processWifiScanResults];
   }

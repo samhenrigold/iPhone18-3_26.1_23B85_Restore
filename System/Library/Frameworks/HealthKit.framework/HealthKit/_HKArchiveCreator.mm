@@ -17,9 +17,9 @@
   handleCopy = handle;
   if (lCopy | handleCopy)
   {
-    v23.receiver = self;
-    v23.super_class = _HKArchiveCreator;
-    v11 = [(_HKArchiveCreator *)&v23 init];
+    v20.receiver = self;
+    v20.super_class = _HKArchiveCreator;
+    v11 = [(_HKArchiveCreator *)&v20 init];
     if (!v11)
     {
       goto LABEL_13;
@@ -38,20 +38,18 @@
       archiveURL = v11->_archiveURL;
       v11->_archiveURL = v12;
 
-      archive = v11->_archive;
       [(NSURL *)v11->_archiveURL fileSystemRepresentation];
-      v15 = archive_write_open_filename();
+      v14 = archive_write_open_filename();
     }
 
     else
     {
       if (!handleCopy)
       {
-        v19 = 4294967266;
+        v17 = 4294967266;
 LABEL_12:
-        v20 = v11->_archive;
-        v21 = [MEMORY[0x1E696ABC0] hk_error:102 format:{@"Failed to open archive: %s (%d)", archive_error_string(), v19}];
-        [(_HKArchiveCreator *)v11 _closeArchiveWithError:v21];
+        v18 = [MEMORY[0x1E696ABC0] hk_error:102 format:{@"Failed to open archive: %s (%d)", archive_error_string(), v17}];
+        [(_HKArchiveCreator *)v11 _closeArchiveWithError:v18];
 
 LABEL_13:
         self = v11;
@@ -59,17 +57,16 @@ LABEL_13:
         goto LABEL_14;
       }
 
-      v16 = [objc_alloc(MEMORY[0x1E696AC00]) initWithFileDescriptor:dup(objc_msgSend(handleCopy closeOnDealloc:{"fileDescriptor")), 1}];
+      v15 = [objc_alloc(MEMORY[0x1E696AC00]) initWithFileDescriptor:dup(objc_msgSend(handleCopy closeOnDealloc:{"fileDescriptor")), 1}];
       fileHandle = v11->_fileHandle;
-      v11->_fileHandle = v16;
+      v11->_fileHandle = v15;
 
-      v18 = v11->_archive;
       [(NSFileHandle *)v11->_fileHandle fileDescriptor];
-      v15 = archive_write_open_fd();
+      v14 = archive_write_open_fd();
     }
 
-    v19 = v15;
-    if (!v15)
+    v17 = v14;
+    if (!v14)
     {
       goto LABEL_13;
     }
@@ -85,48 +82,48 @@ LABEL_14:
 
 + (BOOL)archiveContentsOfDirectoryAtURL:(id)l archiveURL:(id)rL error:(id *)error
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   lCopy = l;
   rLCopy = rL;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v43 = 0;
+  v42 = 0;
   path = [lCopy path];
-  v11 = [defaultManager fileExistsAtPath:path isDirectory:&v43];
+  v11 = [defaultManager fileExistsAtPath:path isDirectory:&v42];
 
   if (v11)
   {
-    if (v43)
+    if (v42)
     {
       errorCopy = error;
-      v36 = rLCopy;
+      v35 = rLCopy;
       v12 = [[_HKArchiveCreator alloc] initWithURL:rLCopy archiveType:0];
-      v41[0] = MEMORY[0x1E69E9820];
-      v41[1] = 3221225472;
-      v41[2] = __70___HKArchiveCreator_archiveContentsOfDirectoryAtURL_archiveURL_error___block_invoke;
-      v41[3] = &unk_1E737A220;
+      v40[0] = MEMORY[0x1E69E9820];
+      v40[1] = 3221225472;
+      v40[2] = __70___HKArchiveCreator_archiveContentsOfDirectoryAtURL_archiveURL_error___block_invoke;
+      v40[3] = &unk_1E737A220;
       v13 = v12;
-      v42 = v13;
-      v35 = defaultManager;
-      [defaultManager enumeratorAtURL:lCopy includingPropertiesForKeys:0 options:16 errorHandler:v41];
+      v41 = v13;
+      v34 = defaultManager;
+      [defaultManager enumeratorAtURL:lCopy includingPropertiesForKeys:0 options:16 errorHandler:v40];
+      v36 = 0u;
       v37 = 0u;
       v38 = 0u;
-      v39 = 0u;
-      v14 = v40 = 0u;
-      v15 = [v14 countByEnumeratingWithState:&v37 objects:v44 count:16];
+      v14 = v39 = 0u;
+      v15 = [v14 countByEnumeratingWithState:&v36 objects:v43 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v38;
+        v17 = *v37;
 LABEL_5:
         v18 = 0;
         while (1)
         {
-          if (*v38 != v17)
+          if (*v37 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v37 + 1) + 8 * v18);
+          v19 = *(*(&v36 + 1) + 8 * v18);
           if (![(_HKArchiveCreator *)v13 archiveIsValid])
           {
             break;
@@ -143,7 +140,7 @@ LABEL_5:
 
           if (v16 == ++v18)
           {
-            v16 = [v14 countByEnumeratingWithState:&v37 objects:v44 count:16];
+            v16 = [v14 countByEnumeratingWithState:&v36 objects:v43 count:16];
             if (v16)
             {
               goto LABEL_5;
@@ -158,7 +155,7 @@ LABEL_5:
       if (archiveIsValid)
       {
         [(_HKArchiveCreator *)v13 closeArchive];
-        defaultManager = v35;
+        defaultManager = v34;
 LABEL_33:
 
         goto LABEL_34;
@@ -178,8 +175,8 @@ LABEL_33:
         v30 = errorCopy;
         if (!v29)
         {
-          defaultManager = v35;
-          rLCopy = v36;
+          defaultManager = v34;
+          rLCopy = v35;
 LABEL_31:
 
 LABEL_32:
@@ -198,8 +195,8 @@ LABEL_32:
         _HKLogDroppedError(v29);
       }
 
-      defaultManager = v35;
-      rLCopy = v36;
+      defaultManager = v34;
+      rLCopy = v35;
 
       if (v28)
       {
@@ -234,7 +231,6 @@ LABEL_32:
   archiveIsValid = 0;
 LABEL_34:
 
-  v32 = *MEMORY[0x1E69E9840];
   return archiveIsValid;
 }
 
@@ -330,7 +326,7 @@ LABEL_34:
   if ([(_HKArchiveCreator *)self archiveIsValid])
   {
     archive_entry_new();
-    *[archiveCopy fileSystemRepresentation];
+    [archiveCopy fileSystemRepresentation];
     archive_entry_set_pathname();
     archive_entry_set_size();
     archive_entry_set_filetype();
@@ -340,27 +336,26 @@ LABEL_34:
     archive_entry_set_ctime();
     archive_entry_set_mtime();
     archive_entry_set_atime();
-    archive = self->_archive;
     if (archive_write_header())
     {
-      v10 = [MEMORY[0x1E696ABC0] hk_error:102 description:@"Failed to write archive header"];
+      v9 = [MEMORY[0x1E696ABC0] hk_error:102 description:@"Failed to write archive header"];
     }
 
     else
     {
-      v11 = providerCopy[2](providerCopy, self);
-      if (v11 >= size)
+      v10 = providerCopy[2](providerCopy, self);
+      if (v10 >= size)
       {
 LABEL_7:
         archive_entry_free();
         goto LABEL_8;
       }
 
-      v10 = [MEMORY[0x1E696ABC0] hk_error:102 format:{@"Wrote %ld bytes, expected %ld", v11, size}];
+      v9 = [MEMORY[0x1E696ABC0] hk_error:102 format:{@"Wrote %ld bytes, expected %ld", v10, size}];
     }
 
-    v12 = v10;
-    [(_HKArchiveCreator *)self _closeArchiveWithError:v10];
+    v11 = v9;
+    [(_HKArchiveCreator *)self _closeArchiveWithError:v9];
 
     goto LABEL_7;
   }
@@ -374,16 +369,15 @@ LABEL_8:
   if (self->_archive)
   {
     archive_write_close();
-    archive = self->_archive;
-    archive_write_free();
+    v6 = archive_write_free();
     self->_archive = 0;
     if (errorCopy)
     {
-      _HKInitializeLogging();
-      v7 = HKLogInfrastructure();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      _HKInitializeLogging(v6, v7);
+      v10 = HKLogInfrastructure(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        [(_HKArchiveCreator *)self _closeArchiveWithError:errorCopy, v7];
+        [(_HKArchiveCreator *)self _closeArchiveWithError:errorCopy, v10];
       }
     }
 
@@ -393,15 +387,13 @@ LABEL_8:
 
 - (void)_closeArchiveWithError:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v7 = 138412546;
-  v8 = objc_opt_class();
-  v9 = 2114;
-  v10 = a2;
-  v5 = v8;
-  _os_log_error_impl(&dword_19197B000, a3, OS_LOG_TYPE_ERROR, "%@: closing archive unexpectedly: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = objc_opt_class();
+  v8 = 2114;
+  v9 = a2;
+  v5 = v7;
+  _os_log_error_impl(&dword_19197B000, a3, OS_LOG_TYPE_ERROR, "%@: closing archive unexpectedly: %{public}@", &v6, 0x16u);
 }
 
 @end

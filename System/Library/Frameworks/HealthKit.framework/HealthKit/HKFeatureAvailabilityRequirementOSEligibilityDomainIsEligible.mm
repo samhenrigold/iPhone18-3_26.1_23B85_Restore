@@ -26,12 +26,10 @@
 
 - (NSArray)requiredEntitlements
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v2 = +[HKFeatureAvailabilityRequirementEntitlement OSEligibilityPlistFilePathReadAccessEntitlement];
-  v6[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }
@@ -152,13 +150,14 @@ void __96__HKFeatureAvailabilityRequirementOSEligibilityDomainIsEligible_registe
 
 - (void)handleDarwinNotificationForObserver:(uint64_t)observer dataSource:
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (self)
   {
-    v12 = 0;
-    v6 = [self isSatisfiedWithDataSource:observer error:&v12];
-    v7 = v12;
+    v15 = 0;
+    v6 = [self isSatisfiedWithDataSource:observer error:&v15];
+    v7 = v15;
+    v9 = v7;
     if (v6)
     {
       [v5 featureAvailabilityRequirement:self didUpdateSatisfaction:{objc_msgSend(v6, "BOOLValue")}];
@@ -166,22 +165,20 @@ void __96__HKFeatureAvailabilityRequirementOSEligibilityDomainIsEligible_registe
 
     else
     {
-      _HKInitializeLogging();
-      v8 = HKLogInfrastructure();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      _HKInitializeLogging(v7, v8);
+      v12 = HKLogInfrastructure(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v10 = objc_opt_class();
+        v13 = objc_opt_class();
         *buf = 138543618;
-        v14 = v10;
-        v15 = 2114;
-        v16 = v7;
-        v11 = v10;
-        _os_log_error_impl(&dword_19197B000, v8, OS_LOG_TYPE_ERROR, "[%{public}@] Error determining os_eligibility answer: %{public}@", buf, 0x16u);
+        v17 = v13;
+        v18 = 2114;
+        v19 = v9;
+        v14 = v13;
+        _os_log_error_impl(&dword_19197B000, v12, OS_LOG_TYPE_ERROR, "[%{public}@] Error determining os_eligibility answer: %{public}@", buf, 0x16u);
       }
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

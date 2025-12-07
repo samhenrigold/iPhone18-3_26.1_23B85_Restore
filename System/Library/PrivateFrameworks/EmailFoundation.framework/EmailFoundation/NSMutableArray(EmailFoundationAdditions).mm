@@ -1,6 +1,7 @@
 @interface NSMutableArray(EmailFoundationAdditions)
 - (BOOL)ef_addObjectIfAbsent:()EmailFoundationAdditions;
 - (BOOL)ef_addObjectIfAbsentAccordingToEquals:()EmailFoundationAdditions;
+- (char)ef_trimToCount:()EmailFoundationAdditions fromStart:;
 - (id)ef_popElement;
 - (id)ef_removeFirst;
 - (uint64_t)ef_addObject:()EmailFoundationAdditions orPlaceholder:;
@@ -10,7 +11,6 @@
 - (uint64_t)ef_removeObject:()EmailFoundationAdditions usingComparator:;
 - (uint64_t)ef_removeObject:()EmailFoundationAdditions usingSortFunction:context:;
 - (unint64_t)ef_insertObjectIfAbsent:()EmailFoundationAdditions usingComparator:;
-- (unint64_t)ef_trimToCount:()EmailFoundationAdditions fromStart:;
 - (void)ef_addAbsentObjectsFromArrayAccordingToEquals:()EmailFoundationAdditions;
 - (void)ef_addOptionalObject:()EmailFoundationAdditions;
 - (void)ef_insertOptionalObject:()EmailFoundationAdditions atIndex:;
@@ -73,37 +73,35 @@
 
 - (void)ef_addAbsentObjectsFromArrayAccordingToEquals:()EmailFoundationAdditions
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v4 = a3;
-  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v5)
   {
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        [self ef_addObjectIfAbsentAccordingToEquals:{*(*(&v9 + 1) + 8 * v7++), v9}];
+        [self ef_addObjectIfAbsentAccordingToEquals:{*(*(&v8 + 1) + 8 * v7++), v8}];
       }
 
       while (v5 != v7);
-      v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ef_reverseObjects
@@ -245,7 +243,7 @@
   }
 }
 
-- (unint64_t)ef_trimToCount:()EmailFoundationAdditions fromStart:
+- (char)ef_trimToCount:()EmailFoundationAdditions fromStart:
 {
   result = [self count];
   if (result > a3)
@@ -260,7 +258,7 @@
       v8 = a3;
     }
 
-    return [self removeObjectsInRange:{v8, result - a3}];
+    return [self removeObjectsInRange:{v8, &result[-a3]}];
   }
 
   return result;

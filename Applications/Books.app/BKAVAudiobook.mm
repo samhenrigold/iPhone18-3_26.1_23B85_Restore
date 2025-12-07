@@ -48,7 +48,7 @@
 
         else
         {
-          v15 = sub_1001B9CD0();
+          v15 = sub_1001B9CD0(0);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
@@ -201,7 +201,7 @@
 
   else
   {
-    v7 = sub_1001B9CD0();
+    v7 = sub_1001B9CD0(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_100791314(v7);

@@ -15,7 +15,7 @@
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   *(&self->super.super.super.super.super.super.isa + OBJC_IVAR____TtC10StickerKit23EmojiCollectionViewCell____lazy_storage___hostingController) = 0;
   v6 = OBJC_IVAR____TtC10StickerKit23EmojiCollectionViewCell_viewModel;
-  type metadata accessor for EmojiCellViewModel();
+  type metadata accessor for EmojiCellViewModel(0);
   swift_allocObject();
   *(&self->super.super.super.super.super.super.isa + v6) = sub_19A63FE08();
   result = sub_19A7ABE34();

@@ -225,7 +225,7 @@
   {
     if (javascriptCopy)
     {
-      [v12 appendString:@"\\""];
+      [v12 appendString:@"\"];
     }
 
     [v12 appendString:@"\\s+"];
@@ -253,7 +253,7 @@ void __70__HKIncrementalSearchBar__patternFromSearchString_quoteForJavascript___
     {
       if (*(a1 + 64) == 1)
       {
-        [*(a1 + 40) appendString:@"\\""];
+        [*(a1 + 40) appendString:@"\"];
       }
 
       [*(a1 + 40) appendString:@"\\s+"];
@@ -271,7 +271,7 @@ void __70__HKIncrementalSearchBar__patternFromSearchString_quoteForJavascript___
 
       if (!v8)
       {
-        [*(a1 + 40) appendString:@"\\""];
+        [*(a1 + 40) appendString:@"\"];
       }
     }
 

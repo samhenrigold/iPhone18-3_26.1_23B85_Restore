@@ -23,7 +23,7 @@ void __60__NSLocale_PhotosUIFoundation__px_currentCharacterDirection__block_invo
   }
 }
 
-uint64_t __62__NSLocale_PhotosUIFoundation__px_currentLeadingTextAlignment__block_invoke()
+void *__62__NSLocale_PhotosUIFoundation__px_currentLeadingTextAlignment__block_invoke()
 {
   result = [MEMORY[0x1E695DF58] px_currentCharacterDirection];
   px_currentLeadingTextAlignment_textAlignment = 2 * (result == 2);

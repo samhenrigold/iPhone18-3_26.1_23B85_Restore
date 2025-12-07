@@ -5,7 +5,7 @@
 
 void ___MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayer_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v5 resolvedPlayerPath];
@@ -27,15 +27,15 @@ void ___MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayer_block_invoke(uint64
       v14 = [MEMORY[0x1E695DF00] date];
       [v14 timeIntervalSinceDate:*(a1 + 40)];
       *buf = 138544386;
-      v51 = @"playbackQueue";
-      v52 = 2114;
-      v53 = v13;
-      v54 = 2112;
-      v55 = v9;
-      v56 = 2114;
-      v57 = v7;
-      v58 = 2048;
-      v59 = v15;
+      v50 = @"playbackQueue";
+      v51 = 2114;
+      v52 = v13;
+      v53 = 2112;
+      v54 = v9;
+      v55 = 2114;
+      v56 = v7;
+      v57 = 2048;
+      v58 = v15;
       v16 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
       v17 = v11;
       v18 = 52;
@@ -51,13 +51,13 @@ void ___MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayer_block_invoke(uint64
     v14 = [MEMORY[0x1E695DF00] date];
     [v14 timeIntervalSinceDate:*(a1 + 40)];
     *buf = 138544130;
-    v51 = @"playbackQueue";
-    v52 = 2114;
-    v53 = v25;
-    v54 = 2112;
-    v55 = v9;
-    v56 = 2048;
-    v57 = v26;
+    v50 = @"playbackQueue";
+    v51 = 2114;
+    v52 = v25;
+    v53 = 2112;
+    v54 = v9;
+    v55 = 2048;
+    v56 = v26;
     v16 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
     goto LABEL_15;
   }
@@ -76,15 +76,15 @@ void ___MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayer_block_invoke(uint64
       v14 = [MEMORY[0x1E695DF00] date];
       [v14 timeIntervalSinceDate:*(a1 + 40)];
       *buf = 138544386;
-      v51 = @"playbackQueue";
-      v52 = 2114;
-      v53 = v20;
-      v54 = 2114;
-      v55 = v6;
-      v56 = 2114;
-      v57 = v7;
-      v58 = 2048;
-      v59 = v21;
+      v50 = @"playbackQueue";
+      v51 = 2114;
+      v52 = v20;
+      v53 = 2114;
+      v54 = v6;
+      v55 = 2114;
+      v56 = v7;
+      v57 = 2048;
+      v58 = v21;
       _os_log_error_impl(&dword_1A2860000, v11, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
       goto LABEL_17;
     }
@@ -109,13 +109,13 @@ void ___MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayer_block_invoke(uint64
       v14 = [MEMORY[0x1E695DF00] date];
       [v14 timeIntervalSinceDate:*(a1 + 40)];
       *buf = 138544130;
-      v51 = @"playbackQueue";
-      v52 = 2114;
-      v53 = v23;
-      v54 = 2114;
-      v55 = v7;
-      v56 = 2048;
-      v57 = v24;
+      v50 = @"playbackQueue";
+      v51 = 2114;
+      v52 = v23;
+      v53 = 2114;
+      v54 = v7;
+      v55 = 2048;
+      v56 = v24;
       v16 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
 LABEL_15:
       v17 = v11;
@@ -133,11 +133,11 @@ LABEL_17:
       v14 = [MEMORY[0x1E695DF00] date];
       [v14 timeIntervalSinceDate:*(a1 + 40)];
       *buf = 138543874;
-      v51 = @"playbackQueue";
-      v52 = 2114;
-      v53 = v27;
-      v54 = 2048;
-      v55 = v28;
+      v50 = @"playbackQueue";
+      v51 = 2114;
+      v52 = v27;
+      v53 = 2048;
+      v54 = v28;
       v16 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
       v17 = v11;
       v18 = 32;
@@ -155,33 +155,33 @@ LABEL_22:
     v30 = [(__CFString *)v7 origin];
     if (([v30 isLocallyHosted] & 1) == 0)
     {
-      v47 = 0u;
-      v48 = 0u;
-      v45 = 0u;
       v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
       v31 = [v5 contentItems];
-      v32 = [v31 countByEnumeratingWithState:&v45 objects:v49 count:16];
+      v32 = [v31 countByEnumeratingWithState:&v44 objects:v48 count:16];
       if (v32)
       {
         v33 = v32;
-        v34 = *v46;
+        v34 = *v45;
         do
         {
           for (i = 0; i != v33; ++i)
           {
-            if (*v46 != v34)
+            if (*v45 != v34)
             {
               objc_enumerationMutation(v31);
             }
 
-            v36 = *(*(&v45 + 1) + 8 * i);
+            v36 = *(*(&v44 + 1) + 8 * i);
             MRContentItemSetDeviceSpecificUserInfo(v36, 0);
             [v36 setAvailableAnimatedArtworkFormats:0];
             [v36 setAnimatedArtworkPreviewFrames:0];
             [v36 setAnimatedArtworks:0];
           }
 
-          v33 = [v31 countByEnumeratingWithState:&v45 objects:v49 count:16];
+          v33 = [v31 countByEnumeratingWithState:&v44 objects:v48 count:16];
         }
 
         while (v33);
@@ -193,30 +193,29 @@ LABEL_22:
   if (v37)
   {
     v38 = *(a1 + 48);
-    v41[0] = MEMORY[0x1E69E9820];
-    v41[1] = 3221225472;
-    v41[2] = ___MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayer_block_invoke_99;
-    v41[3] = &unk_1E769AC18;
-    v44 = v37;
-    v42 = v5;
-    v43 = v6;
-    v39 = MRCreateDonatedQosBlock(v41);
+    v40[0] = MEMORY[0x1E69E9820];
+    v40[1] = 3221225472;
+    v40[2] = ___MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayer_block_invoke_99;
+    v40[3] = &unk_1E769AC18;
+    v43 = v37;
+    v41 = v5;
+    v42 = v6;
+    v39 = MRCreateDonatedQosBlock(v40);
     dispatch_async(v38, v39);
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 void ___MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayer_block_invoke_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = [MEMORY[0x1E695DF00] date];
   [v3 timeIntervalSinceDate:*(a1 + 40)];
+  *v10 = 138544130;
+  *&v10[4] = @"playbackQueue";
+  *&v10[12] = 2114;
+  *&v10[14] = v2;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1A2860000, v4, v5, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v4, v5, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 @end

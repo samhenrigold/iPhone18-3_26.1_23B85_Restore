@@ -144,12 +144,12 @@
     candidateFont = self->_candidateFont;
     if (candidateFont == v6[5])
     {
-      v8 = 1;
+      isEqual = 1;
     }
 
     else
     {
-      v8 = [(UIFont *)candidateFont isEqual:?];
+      isEqual = objc_msgSend_isEqual_(candidateFont);
     }
 
     alternativeTextFont = self->_alternativeTextFont;
@@ -160,10 +160,10 @@
 
     else
     {
-      v11 = [(UIFont *)alternativeTextFont isEqual:?];
+      v11 = objc_msgSend_isEqual_(alternativeTextFont);
     }
 
-    v12 = v8 & v11;
+    v12 = isEqual & v11;
     annotationTextFont = self->_annotationTextFont;
     if (annotationTextFont == v6[7])
     {
@@ -172,7 +172,7 @@
 
     else
     {
-      v14 = [(UIFont *)annotationTextFont isEqual:?];
+      v14 = objc_msgSend_isEqual_(annotationTextFont);
     }
 
     v15 = v12 & v14;
@@ -184,7 +184,7 @@
 
     else
     {
-      v17 = [(UIFont *)candidateNumberFont isEqual:?];
+      v17 = objc_msgSend_isEqual_(candidateNumberFont);
     }
 
     v18 = v15 & v17;
@@ -196,7 +196,7 @@
 
     else
     {
-      v20 = [(UIFont *)sortControlFont isEqual:?];
+      v20 = objc_msgSend_isEqual_(sortControlFont);
     }
 
     v21 = v18 & v20;
@@ -208,7 +208,7 @@
 
     else
     {
-      v23 = [(UIColor *)textColor isEqual:?];
+      v23 = objc_msgSend_isEqual_(textColor);
     }
 
     v24 = v21 & v23;
@@ -220,7 +220,7 @@
 
     else
     {
-      v26 = [(UIColor *)highlightedTextColor isEqual:?];
+      v26 = objc_msgSend_isEqual_(highlightedTextColor);
     }
 
     v27 = v24 & v26;
@@ -232,7 +232,7 @@
 
     else
     {
-      v29 = [(UIColor *)alternativeTextColor isEqual:?];
+      v29 = objc_msgSend_isEqual_(alternativeTextColor);
     }
 
     v30 = v27 & v29;
@@ -244,7 +244,7 @@
 
     else
     {
-      v32 = [(UIColor *)highlightedAlternativeTextColor isEqual:?];
+      v32 = objc_msgSend_isEqual_(highlightedAlternativeTextColor);
     }
 
     v33 = v30 & v32;
@@ -256,7 +256,7 @@
 
     else
     {
-      v35 = [(UIColor *)candidateNumberColor isEqual:?];
+      v35 = objc_msgSend_isEqual_(candidateNumberColor);
     }
 
     v36 = v33 & v35;
@@ -268,7 +268,7 @@
 
     else
     {
-      v38 = [(UIColor *)highlightedCandidateNumberColor isEqual:?];
+      v38 = objc_msgSend_isEqual_(highlightedCandidateNumberColor);
     }
 
     v39 = v36 & v38;
@@ -280,7 +280,7 @@
 
     else
     {
-      v41 = [(_UIViewMaterial *)backgroundMaterial isEqual:?];
+      v41 = objc_msgSend_isEqual_(backgroundMaterial);
     }
 
     v42 = v39 & v41;
@@ -292,7 +292,7 @@
 
     else
     {
-      v44 = [(UIColor *)backgroundColor isEqual:?];
+      v44 = objc_msgSend_isEqual_(backgroundColor);
     }
 
     v45 = v42 & v44;
@@ -304,7 +304,7 @@
 
     else
     {
-      v47 = [(UIColor *)arrowButtonBackgroundColor isEqual:?];
+      v47 = objc_msgSend_isEqual_(arrowButtonBackgroundColor);
     }
 
     if (self->_arrowButtonBackgroundHidden == *(v6 + 8))
@@ -325,7 +325,7 @@
 
     else
     {
-      v50 = [(UIColor *)arrowButtonColor isEqual:?];
+      v50 = objc_msgSend_isEqual_(arrowButtonColor);
     }
 
     v51 = v48 & v50;
@@ -337,7 +337,7 @@
 
     else
     {
-      v53 = [(UIColor *)cellBackgroundColor isEqual:?];
+      v53 = objc_msgSend_isEqual_(cellBackgroundColor);
     }
 
     v54 = v51 & v53;
@@ -349,7 +349,7 @@
 
     else
     {
-      v56 = [(UIColor *)gridBackgroundColor isEqual:?];
+      v56 = objc_msgSend_isEqual_(gridBackgroundColor);
     }
 
     v57 = v54 & v56;
@@ -361,7 +361,7 @@
 
     else
     {
-      v59 = [(UIColor *)highlightedBackgroundColor isEqual:?];
+      v59 = objc_msgSend_isEqual_(highlightedBackgroundColor);
     }
 
     v60 = v57 & v59;
@@ -373,7 +373,7 @@
 
     else
     {
-      v62 = [(UIColor *)groupHeaderBackgroundColor isEqual:?];
+      v62 = objc_msgSend_isEqual_(groupHeaderBackgroundColor);
     }
 
     v63 = v60 & v62;
@@ -385,7 +385,7 @@
 
     else
     {
-      v65 = [(UIColor *)lineColor isEqual:?];
+      v65 = objc_msgSend_isEqual_(lineColor);
     }
 
     v66 = v63 & v65;
@@ -397,7 +397,7 @@
 
     else
     {
-      v68 = [(UIColor *)sortControlColor isEqual:?];
+      v68 = objc_msgSend_isEqual_(sortControlColor);
     }
 
     v69 = v66 & v68;
@@ -409,7 +409,7 @@
 
     else
     {
-      v71 = [(UIColor *)sortControlBackgroundColor isEqual:?];
+      v71 = objc_msgSend_isEqual_(sortControlBackgroundColor);
     }
 
     v72 = v69 & v71;
@@ -421,7 +421,7 @@
 
     else
     {
-      v74 = [(NSString *)arrowButtonImageName isEqual:?];
+      v74 = objc_msgSend_isEqual_(arrowButtonImageName);
     }
 
     v75 = v72 & v74;
@@ -433,7 +433,7 @@
 
     else
     {
-      v77 = [(UIColor *)borderColor isEqual:?];
+      v77 = objc_msgSend_isEqual_(borderColor);
     }
 
     v78 = v75 & v77;
@@ -734,7 +734,7 @@
 
     else
     {
-      v90 = [(UIButtonConfiguration *)arrowButtonConfig isEqual:?];
+      v90 = objc_msgSend_isEqual_(arrowButtonConfig);
     }
 
     v91 = v88 & v90;
@@ -746,7 +746,7 @@
 
     else
     {
-      v93 = [(UIColor *)spaceConfirmationCandidateCellBackgroundColor isEqual:?];
+      v93 = objc_msgSend_isEqual_(spaceConfirmationCandidateCellBackgroundColor);
     }
 
     v94 = v91 & v93;
@@ -815,7 +815,7 @@
 
     else
     {
-      v99 = [(NSDictionary *)suggestionCandidateHeaderFontAttributes isEqual:?];
+      v99 = objc_msgSend_isEqual_(suggestionCandidateHeaderFontAttributes);
     }
 
     v100 = v97 & v99;
@@ -827,7 +827,7 @@
 
     else
     {
-      v102 = [(NSDictionary *)suggestionCandidateBodyFontAttributes isEqual:?];
+      v102 = objc_msgSend_isEqual_(suggestionCandidateBodyFontAttributes);
     }
 
     v103 = v100 & v102;
@@ -854,7 +854,7 @@
 
     else
     {
-      v106 = [(NSString *)proactiveCandidateContentsGravity isEqual:?];
+      v106 = objc_msgSend_isEqual_(proactiveCandidateContentsGravity);
     }
 
     if (self->_shouldScrollIfShowingLastVisibleRow == *(v6 + 33))
@@ -921,7 +921,7 @@
   sortControlFont = v4->_sortControlFont;
   v4->_sortControlFont = v16;
 
-  v18 = +[UIColor blackColor];
+  v18 = objc_msgSend_blackColor(UIColor);
   textColor = v4->_textColor;
   v4->_textColor = v18;
 
@@ -957,7 +957,7 @@
   arrowButtonBackgroundColor = v4->_arrowButtonBackgroundColor;
   v4->_arrowButtonBackgroundColor = v34;
 
-  v36 = +[UIColor blackColor];
+  v36 = objc_msgSend_blackColor(UIColor);
   arrowButtonColor = v4->_arrowButtonColor;
   v4->_arrowButtonColor = v36;
 
@@ -1155,7 +1155,7 @@
   textColor = v2->_textColor;
   v2->_textColor = v13;
 
-  v15 = +[UIColor blackColor];
+  v15 = objc_msgSend_blackColor(UIColor);
   highlightedTextColor = v2->_highlightedTextColor;
   v2->_highlightedTextColor = v15;
 
@@ -1163,7 +1163,7 @@
   alternativeTextColor = v2->_alternativeTextColor;
   v2->_alternativeTextColor = v17;
 
-  v19 = +[UIColor blackColor];
+  v19 = objc_msgSend_blackColor(UIColor);
   v20 = [v19 colorWithAlphaComponent:0.4];
   highlightedAlternativeTextColor = v2->_highlightedAlternativeTextColor;
   v2->_highlightedAlternativeTextColor = v20;
@@ -1172,7 +1172,7 @@
   candidateNumberColor = v2->_candidateNumberColor;
   v2->_candidateNumberColor = v22;
 
-  v24 = +[UIColor blackColor];
+  v24 = objc_msgSend_blackColor(UIColor);
   v25 = [v24 colorWithAlphaComponent:0.4];
   highlightedCandidateNumberColor = v2->_highlightedCandidateNumberColor;
   v2->_highlightedCandidateNumberColor = v25;
@@ -1272,7 +1272,7 @@
   {
   }
 
-  v10 = +[UIColor blackColor];
+  v10 = objc_msgSend_blackColor(UIColor);
   textColor = v4->_textColor;
   v4->_textColor = v10;
 
@@ -1504,13 +1504,13 @@
 
   else
   {
-    +[UIColor blackColor];
+    objc_msgSend_blackColor(UIColor);
   }
   v15 = ;
   textColor = v4->_textColor;
   v4->_textColor = v15;
 
-  v17 = +[UIColor blackColor];
+  v17 = objc_msgSend_blackColor(UIColor);
   highlightedTextColor = v4->_highlightedTextColor;
   v4->_highlightedTextColor = v17;
 
@@ -1601,13 +1601,13 @@
 
   else
   {
-    +[UIColor blackColor];
+    objc_msgSend_blackColor(UIColor);
   }
   v15 = ;
   textColor = v4->_textColor;
   v4->_textColor = v15;
 
-  v17 = +[UIColor blackColor];
+  v17 = objc_msgSend_blackColor(UIColor);
   highlightedTextColor = v4->_highlightedTextColor;
   v4->_highlightedTextColor = v17;
 

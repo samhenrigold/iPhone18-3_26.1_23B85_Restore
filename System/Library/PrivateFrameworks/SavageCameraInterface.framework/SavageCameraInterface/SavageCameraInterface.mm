@@ -1,12 +1,11 @@
 uint64_t connect(uint64_t a1, const char *a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   valuePtr = 0;
   existing = 0;
   if (!a1)
   {
-    v8 = 3758096385;
-    goto LABEL_40;
+    return 3758096385;
   }
 
   v4 = 0;
@@ -22,8 +21,7 @@ uint64_t connect(uint64_t a1, const char *a2)
 
     if (++v4 == 3)
     {
-      v8 = 3758097086;
-      goto LABEL_40;
+      return 3758097086;
     }
   }
 
@@ -156,7 +154,7 @@ LABEL_27:
     }
 
     *buf = 136315138;
-    v37 = "connect";
+    v36 = "connect";
     v30 = MEMORY[0x277D86220];
     v31 = "%s: Could not establish a connection\n";
     goto LABEL_33;
@@ -166,7 +164,7 @@ LABEL_27:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v37 = "connect";
+    v36 = "connect";
     v30 = MEMORY[0x277D86220];
     v31 = "%s: Could not create a serial dispatch queue, exiting\n";
 LABEL_33:
@@ -190,8 +188,6 @@ LABEL_34:
     CFRelease(v13);
   }
 
-LABEL_40:
-  v32 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -210,7 +206,7 @@ void disconnect(xpc_connection_t *a1)
 xpc_object_t sendSynchronousXpcMsgWithReply()
 {
   v0 = MEMORY[0x28223BE20]();
-  *&v29[3329] = *MEMORY[0x277D85DE8];
+  *&v28[3329] = *MEMORY[0x277D85DE8];
   if (*v0)
   {
     v4 = v3;
@@ -228,7 +224,7 @@ xpc_object_t sendSynchronousXpcMsgWithReply()
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             bytes = 136315138;
-            *v29 = "sendSynchronousXpcMsgWithReply";
+            *v28 = "sendSynchronousXpcMsgWithReply";
             _os_log_impl(&dword_2647F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Unexpected property type, returning\n", &bytes, 0xCu);
           }
 
@@ -244,7 +240,7 @@ LABEL_40:
         v12 = xpc_connection_send_message_with_reply_sync(*v7, v9);
 LABEL_41:
         xpc_release(v9);
-        goto LABEL_42;
+        return v12;
       }
 
       v13 = 13320;
@@ -279,12 +275,12 @@ LABEL_41:
           {
             v23 = *(v4 + 24);
             v22 = (v4 + 24);
-            *&v29[1] = *(v22 - 1);
-            *&v29[5] = v23;
+            *&v28[1] = *(v22 - 1);
+            *&v28[5] = v23;
             xpc_dictionary_set_uint64(v9, v7[3], 1uLL);
             xpc_dictionary_set_data(v9, v7[4], &bytes, v13);
-            xpc_dictionary_set_string(v9, v7[8], *&v29[1]);
-            xpc_dictionary_set_data(v9, v7[9], *&v29[3], *v22);
+            xpc_dictionary_set_string(v9, v7[8], *&v28[1]);
+            xpc_dictionary_set_data(v9, v7[9], *&v28[3], *v22);
             goto LABEL_40;
           }
 
@@ -293,8 +289,8 @@ LABEL_41:
             goto LABEL_40;
           }
 
-          v26 = 136315138;
-          v27 = "sendSynchronousXpcMsgWithReply";
+          v25 = 136315138;
+          v26 = "sendSynchronousXpcMsgWithReply";
           v18 = MEMORY[0x277D86220];
           v19 = "%s: Missing property information to set, returning\n";
           goto LABEL_39;
@@ -310,7 +306,7 @@ LABEL_41:
       {
         if (v6 == 105)
         {
-          v29[1] = *(v4 + 8);
+          v28[1] = *(v4 + 8);
           xpc_dictionary_set_uint64(v9, v7[3], 1uLL);
           xpc_dictionary_set_data(v9, v7[4], &bytes, v13);
           goto LABEL_40;
@@ -324,12 +320,12 @@ LABEL_21:
             goto LABEL_40;
           }
 
-          v26 = 136315138;
-          v27 = "sendSynchronousXpcMsgWithReply";
+          v25 = 136315138;
+          v26 = "sendSynchronousXpcMsgWithReply";
           v18 = MEMORY[0x277D86220];
           v19 = "%s: Unhandled property\n";
 LABEL_39:
-          _os_log_impl(&dword_2647F2000, v18, OS_LOG_TYPE_DEFAULT, v19, &v26, 0xCu);
+          _os_log_impl(&dword_2647F2000, v18, OS_LOG_TYPE_DEFAULT, v19, &v25, 0xCu);
           goto LABEL_40;
         }
       }
@@ -338,12 +334,12 @@ LABEL_39:
       {
         v21 = *(v4 + 16);
         v20 = (v4 + 16);
-        *&v29[1] = *(v20 - 1);
-        *&v29[3] = v21;
+        *&v28[1] = *(v20 - 1);
+        *&v28[3] = v21;
         xpc_dictionary_set_uint64(v9, v7[3], 1uLL);
         xpc_dictionary_set_data(v9, v7[4], &bytes, v13);
-        xpc_dictionary_set_data(v9, v7[6], *&v29[1], *v20);
-        xpc_dictionary_set_uint64(v9, v7[7], *&v29[3]);
+        xpc_dictionary_set_data(v9, v7[6], *&v28[1], *v20);
+        xpc_dictionary_set_uint64(v9, v7[7], *&v28[3]);
         goto LABEL_40;
       }
 
@@ -352,8 +348,8 @@ LABEL_39:
         goto LABEL_40;
       }
 
-      v26 = 136315138;
-      v27 = "sendSynchronousXpcMsgWithReply";
+      v25 = 136315138;
+      v26 = "sendSynchronousXpcMsgWithReply";
       v18 = MEMORY[0x277D86220];
       v19 = "%s: Missing property information to set, returning\n";
       goto LABEL_39;
@@ -362,7 +358,7 @@ LABEL_39:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       bytes = 136315138;
-      *v29 = "sendSynchronousXpcMsgWithReply";
+      *v28 = "sendSynchronousXpcMsgWithReply";
       v10 = MEMORY[0x277D86220];
       v11 = "%s: Could not create dictionary, exiting\n";
       goto LABEL_10;
@@ -372,34 +368,30 @@ LABEL_39:
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     bytes = 136315138;
-    *v29 = "sendSynchronousXpcMsgWithReply";
+    *v28 = "sendSynchronousXpcMsgWithReply";
     v10 = MEMORY[0x277D86220];
     v11 = "%s: Connection is invalid, exiting \n";
 LABEL_10:
     _os_log_impl(&dword_2647F2000, v10, OS_LOG_TYPE_DEFAULT, v11, &bytes, 0xCu);
   }
 
-  v12 = 0;
-LABEL_42:
-  v24 = *MEMORY[0x277D85DE8];
-  return v12;
+  return 0;
 }
 
-uint64_t SavageCamInterfaceOpen(uint64_t a1)
+uint64_t SavageCamInterfaceOpen(CFNumberRef *a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     operator new();
   }
 
-  v1 = *MEMORY[0x277D85DE8];
   return 3758097090;
 }
 
 void __SavageCamInterfaceOpen_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (MEMORY[0x266741540](a2) == MEMORY[0x277D86480])
   {
     if (a2 == MEMORY[0x277D863F8])
@@ -409,10 +401,10 @@ void __SavageCamInterfaceOpen_block_invoke(uint64_t a1, uint64_t a2)
         goto LABEL_2;
       }
 
-      v7 = 136315138;
-      v8 = "SavageCamInterfaceOpen_block_invoke";
-      v5 = MEMORY[0x277D86220];
-      v6 = "%s: Received error XPC_ERROR_CONNECTION_INVALID\n";
+      v6 = 136315138;
+      v7 = "SavageCamInterfaceOpen_block_invoke";
+      v4 = MEMORY[0x277D86220];
+      v5 = "%s: Received error XPC_ERROR_CONNECTION_INVALID\n";
     }
 
     else if (a2 == MEMORY[0x277D863F0])
@@ -422,10 +414,10 @@ void __SavageCamInterfaceOpen_block_invoke(uint64_t a1, uint64_t a2)
         goto LABEL_2;
       }
 
-      v7 = 136315138;
-      v8 = "SavageCamInterfaceOpen_block_invoke";
-      v5 = MEMORY[0x277D86220];
-      v6 = "%s: Received error XPC_ERROR_CONNECTION_INTERRUPTED\n";
+      v6 = 136315138;
+      v7 = "SavageCamInterfaceOpen_block_invoke";
+      v4 = MEMORY[0x277D86220];
+      v5 = "%s: Received error XPC_ERROR_CONNECTION_INTERRUPTED\n";
     }
 
     else
@@ -435,18 +427,17 @@ void __SavageCamInterfaceOpen_block_invoke(uint64_t a1, uint64_t a2)
         goto LABEL_2;
       }
 
-      v7 = 136315138;
-      v8 = "SavageCamInterfaceOpen_block_invoke";
-      v5 = MEMORY[0x277D86220];
-      v6 = "%s: Received error XPC_ERROR_TERMINATION_IMMINENT\n";
+      v6 = 136315138;
+      v7 = "SavageCamInterfaceOpen_block_invoke";
+      v4 = MEMORY[0x277D86220];
+      v5 = "%s: Received error XPC_ERROR_TERMINATION_IMMINENT\n";
     }
 
-    _os_log_impl(&dword_2647F2000, v5, OS_LOG_TYPE_DEFAULT, v6, &v7, 0xCu);
+    _os_log_impl(&dword_2647F2000, v4, OS_LOG_TYPE_DEFAULT, v5, &v6, 0xCu);
   }
 
 LABEL_2:
   disconnect(*(a1 + 32));
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t SavageCamInterfaceClose(const void *a1)
@@ -490,32 +481,30 @@ uint64_t SavageCamInterfaceClose(const void *a1)
 
 uint64_t SavageCamInterfaceGetSensorInfo(const void *a1, int a2, uint64_t a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = -536870206;
   if (!a1 || (v5 = a2, a2 > 2) || !a3)
   {
 LABEL_4:
     if (*a3 == -1)
     {
-      v6 = 3758097086;
+      return 3758097086;
     }
 
     else
     {
-      v6 = v4;
+      return v4;
     }
-
-    goto LABEL_7;
   }
 
   PtrForRef = getPtrForRef(a1);
-  v10 = sendSynchronousXpcMsgWithReply();
-  if (!v10)
+  v9 = sendSynchronousXpcMsgWithReply();
+  if (!v9)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v19 = "SavageCamInterfaceGetSensorInfo";
+      v18 = "SavageCamInterfaceGetSensorInfo";
       _os_log_impl(&dword_2647F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Did not receive a reply from the daemon\n", buf, 0xCu);
     }
 
@@ -523,30 +512,30 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v11 = v10;
+  v10 = v9;
   if (MEMORY[0x266741540]() == MEMORY[0x277D86468])
   {
     length = 0;
-    data = xpc_dictionary_get_data(v11, *(PtrForRef + 32), &length);
-    v13 = length;
+    data = xpc_dictionary_get_data(v10, *(PtrForRef + 32), &length);
+    v12 = length;
     if (length == 3680)
     {
-      v14 = data[9];
-      v15 = data[10];
-      v16 = data[11];
+      v13 = data[9];
+      v14 = data[10];
+      v15 = data[11];
       *(a3 + 4) = data[8];
       if (v5 == 2)
       {
         v5 = 0;
         *a3 = *(PtrForRef + 80);
-        *(a3 + 5) = v16;
+        *(a3 + 5) = v15;
       }
 
       else if (v5 == 1)
       {
         v5 = 0;
         *a3 = *(PtrForRef + 84);
-        *(a3 + 5) = v15;
+        *(a3 + 5) = v14;
       }
 
       else if (v5)
@@ -557,7 +546,7 @@ LABEL_4:
       else
       {
         *a3 = *(PtrForRef + 80);
-        *(a3 + 5) = v14;
+        *(a3 + 5) = v13;
       }
     }
 
@@ -566,11 +555,11 @@ LABEL_4:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v19 = "SavageCamInterfaceGetSensorInfo";
-        v20 = 2048;
-        v21 = v13;
-        v22 = 2048;
-        v23 = 3680;
+        v18 = "SavageCamInterfaceGetSensorInfo";
+        v19 = 2048;
+        v20 = v12;
+        v21 = 2048;
+        v22 = 3680;
         _os_log_impl(&dword_2647F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Received reply with unexpected length %lu. Expected %lu\n", buf, 0x20u);
       }
 
@@ -584,7 +573,7 @@ LABEL_4:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v19 = "SavageCamInterfaceGetSensorInfo";
+      v18 = "SavageCamInterfaceGetSensorInfo";
       _os_log_impl(&dword_2647F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Received an unexpected event\n", buf, 0xCu);
     }
   }
@@ -599,15 +588,13 @@ LABEL_4:
     v6 = v5;
   }
 
-  xpc_release(v11);
-LABEL_7:
-  v7 = *MEMORY[0x277D85DE8];
+  xpc_release(v10);
   return v6;
 }
 
-uint64_t SavageCamInterfaceSensorPrePersonalize(const void *a1, int a2)
+uint64_t SavageCamInterfaceSensorPrePersonalize(const void *a1, unsigned int a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = 3758097087;
   v3 = 3758097090;
   if (a1 && a2 <= 2)
@@ -619,24 +606,23 @@ uint64_t SavageCamInterfaceSensorPrePersonalize(const void *a1, int a2)
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v16 = "SavageCamInterfaceSensorPrePersonalize";
+        v14 = "SavageCamInterfaceSensorPrePersonalize";
         _os_log_impl(&dword_2647F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Did we miss a sensor in the switch..case ??\n", buf, 0xCu);
       }
     }
 
     else
     {
-      v8 = PtrForRef;
-      v9 = dword_2647F4908[a2];
-      v10 = sendSynchronousXpcMsgWithReply();
-      if (v10)
+      v7 = PtrForRef;
+      v8 = sendSynchronousXpcMsgWithReply();
+      if (v8)
       {
-        v11 = v10;
+        v9 = v8;
         if (MEMORY[0x266741540]() == MEMORY[0x277D86468])
         {
           length = 0;
-          data = xpc_dictionary_get_data(v11, *(v8 + 32), &length);
-          v13 = length;
+          data = xpc_dictionary_get_data(v9, *(v7 + 32), &length);
+          v11 = length;
           if (length == 3680)
           {
             v2 = data[2];
@@ -645,11 +631,11 @@ uint64_t SavageCamInterfaceSensorPrePersonalize(const void *a1, int a2)
           else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315650;
-            v16 = "SavageCamInterfaceSensorPrePersonalize";
+            v14 = "SavageCamInterfaceSensorPrePersonalize";
+            v15 = 2048;
+            v16 = v11;
             v17 = 2048;
-            v18 = v13;
-            v19 = 2048;
-            v20 = 3680;
+            v18 = 3680;
             _os_log_impl(&dword_2647F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Received reply with unexpected length %lu. Expected %lu\n", buf, 0x20u);
           }
 
@@ -662,12 +648,12 @@ uint64_t SavageCamInterfaceSensorPrePersonalize(const void *a1, int a2)
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            v16 = "SavageCamInterfaceSensorPrePersonalize";
+            v14 = "SavageCamInterfaceSensorPrePersonalize";
             _os_log_impl(&dword_2647F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Received an unexpected event\n", buf, 0xCu);
           }
         }
 
-        xpc_release(v11);
+        xpc_release(v9);
       }
 
       else
@@ -675,22 +661,21 @@ uint64_t SavageCamInterfaceSensorPrePersonalize(const void *a1, int a2)
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v16 = "SavageCamInterfaceSensorPrePersonalize";
+          v14 = "SavageCamInterfaceSensorPrePersonalize";
           _os_log_impl(&dword_2647F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Did not receive a reply from the daemon\n", buf, 0xCu);
         }
 
-        v3 = 3758097087;
+        return 3758097087;
       }
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
-uint64_t SavageCamInterfaceSensorPreFusing(const void *a1, int a2)
+uint64_t SavageCamInterfaceSensorPreFusing(const void *a1, unsigned int a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = 3758097087;
   v3 = 3758097090;
   if (a1 && a2 <= 2)
@@ -702,24 +687,23 @@ uint64_t SavageCamInterfaceSensorPreFusing(const void *a1, int a2)
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v16 = "SavageCamInterfaceSensorPreFusing";
+        v14 = "SavageCamInterfaceSensorPreFusing";
         _os_log_impl(&dword_2647F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Did we miss a sensor in the switch..case ??\n", buf, 0xCu);
       }
     }
 
     else
     {
-      v8 = PtrForRef;
-      v9 = dword_2647F4914[a2];
-      v10 = sendSynchronousXpcMsgWithReply();
-      if (v10)
+      v7 = PtrForRef;
+      v8 = sendSynchronousXpcMsgWithReply();
+      if (v8)
       {
-        v11 = v10;
+        v9 = v8;
         if (MEMORY[0x266741540]() == MEMORY[0x277D86468])
         {
           length = 0;
-          data = xpc_dictionary_get_data(v11, *(v8 + 32), &length);
-          v13 = length;
+          data = xpc_dictionary_get_data(v9, *(v7 + 32), &length);
+          v11 = length;
           if (length == 3680)
           {
             v2 = data[2];
@@ -728,11 +712,11 @@ uint64_t SavageCamInterfaceSensorPreFusing(const void *a1, int a2)
           else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315650;
-            v16 = "SavageCamInterfaceSensorPreFusing";
+            v14 = "SavageCamInterfaceSensorPreFusing";
+            v15 = 2048;
+            v16 = v11;
             v17 = 2048;
-            v18 = v13;
-            v19 = 2048;
-            v20 = 3680;
+            v18 = 3680;
             _os_log_impl(&dword_2647F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Received reply with unexpected length %lu. Expected %lu\n", buf, 0x20u);
           }
 
@@ -745,12 +729,12 @@ uint64_t SavageCamInterfaceSensorPreFusing(const void *a1, int a2)
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            v16 = "SavageCamInterfaceSensorPreFusing";
+            v14 = "SavageCamInterfaceSensorPreFusing";
             _os_log_impl(&dword_2647F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Received an unexpected event\n", buf, 0xCu);
           }
         }
 
-        xpc_release(v11);
+        xpc_release(v9);
       }
 
       else
@@ -758,16 +742,15 @@ uint64_t SavageCamInterfaceSensorPreFusing(const void *a1, int a2)
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v16 = "SavageCamInterfaceSensorPreFusing";
+          v14 = "SavageCamInterfaceSensorPreFusing";
           _os_log_impl(&dword_2647F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Did not receive a reply from the daemon\n", buf, 0xCu);
         }
 
-        v3 = 3758097087;
+        return 3758097087;
       }
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -778,35 +761,33 @@ uint64_t SavageCamInterfaceSensorFusing()
   v4 = v3;
   v6 = v5;
   v7 = v0;
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v8 = 3758097090;
-  bzero(v15, 0x3408uLL);
+  bzero(v13, 0x3408uLL);
   if (v7 && v6 < 3)
   {
     getPtrForRef(v7);
     if (v6 <= 2)
     {
       v8 = 0;
-      v11 = dword_2647F4920[v6];
     }
 
-    v16 = v4;
-    v17 = v2;
-    v12 = sendSynchronousXpcMsgWithReply();
-    if (v12)
+    v14 = v4;
+    v15 = v2;
+    v10 = sendSynchronousXpcMsgWithReply();
+    if (v10)
     {
-      xpc_release(v12);
+      xpc_release(v10);
     }
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "SavageCamInterfaceSensorFusing";
-    _os_log_impl(&dword_2647F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Bad argument, returning\n", &v13, 0xCu);
+    v11 = 136315138;
+    v12 = "SavageCamInterfaceSensorFusing";
+    _os_log_impl(&dword_2647F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Bad argument, returning\n", &v11, 0xCu);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -817,9 +798,9 @@ uint64_t SavageCamInterfaceSensorAuth()
   v4 = v3;
   v6 = v5;
   v7 = v0;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v8 = 3758097090;
-  bzero(v14, 0x3408uLL);
+  bzero(v13, 0x3408uLL);
   if (v7 && v6 < 3)
   {
     getPtrForRef(v7);
@@ -833,46 +814,44 @@ uint64_t SavageCamInterfaceSensorAuth()
       v8 = 0;
     }
 
-    v15 = v4;
-    v16 = v2;
-    v11 = sendSynchronousXpcMsgWithReply();
-    if (v11)
+    v14 = v4;
+    v15 = v2;
+    v10 = sendSynchronousXpcMsgWithReply();
+    if (v10)
     {
-      xpc_release(v11);
+      xpc_release(v10);
     }
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315138;
-    v13 = "SavageCamInterfaceSensorAuth";
-    _os_log_impl(&dword_2647F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Bad argument, returning\n", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "SavageCamInterfaceSensorAuth";
+    _os_log_impl(&dword_2647F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Bad argument, returning\n", &v11, 0xCu);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 uint64_t SavageCamInterfaceForgetISPFirmware(const void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v1 = 3758097087;
   if (!a1)
   {
-    v1 = 3758097090;
-    goto LABEL_3;
+    return 3758097090;
   }
 
   PtrForRef = getPtrForRef(a1);
-  v5 = sendSynchronousXpcMsgWithReply();
-  if (v5)
+  v4 = sendSynchronousXpcMsgWithReply();
+  if (v4)
   {
-    v6 = v5;
+    v5 = v4;
     if (MEMORY[0x266741540]() == MEMORY[0x277D86468])
     {
       length = 0;
-      data = xpc_dictionary_get_data(v6, *(PtrForRef + 32), &length);
-      v11 = length;
+      data = xpc_dictionary_get_data(v5, *(PtrForRef + 32), &length);
+      v10 = length;
       if (length == 3680)
       {
         v1 = data[2];
@@ -881,14 +860,14 @@ uint64_t SavageCamInterfaceForgetISPFirmware(const void *a1)
       else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v14 = "SavageCamInterfaceForgetISPFirmware";
-        v15 = 2048;
-        v16 = v11;
-        v17 = 2048;
-        v18 = 3680;
-        v7 = MEMORY[0x277D86220];
-        v8 = "%s: Received reply with unexpected length %lu. Expected %lu\n";
-        v9 = 32;
+        v13 = "SavageCamInterfaceForgetISPFirmware";
+        v14 = 2048;
+        v15 = v10;
+        v16 = 2048;
+        v17 = 3680;
+        v6 = MEMORY[0x277D86220];
+        v7 = "%s: Received reply with unexpected length %lu. Expected %lu\n";
+        v8 = 32;
         goto LABEL_14;
       }
     }
@@ -899,51 +878,48 @@ uint64_t SavageCamInterfaceForgetISPFirmware(const void *a1)
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v14 = "SavageCamInterfaceForgetISPFirmware";
-        v7 = MEMORY[0x277D86220];
-        v8 = "%s: Received an unexpected event\n";
-        v9 = 12;
+        v13 = "SavageCamInterfaceForgetISPFirmware";
+        v6 = MEMORY[0x277D86220];
+        v7 = "%s: Received an unexpected event\n";
+        v8 = 12;
 LABEL_14:
-        _os_log_impl(&dword_2647F2000, v7, OS_LOG_TYPE_DEFAULT, v8, buf, v9);
+        _os_log_impl(&dword_2647F2000, v6, OS_LOG_TYPE_DEFAULT, v7, buf, v8);
       }
     }
 
-    xpc_release(v6);
-    goto LABEL_3;
+    xpc_release(v5);
+    return v1;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v14 = "SavageCamInterfaceForgetISPFirmware";
+    v13 = "SavageCamInterfaceForgetISPFirmware";
     _os_log_impl(&dword_2647F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Did not receive a reply from the daemon\n", buf, 0xCu);
   }
 
-LABEL_3:
-  v2 = *MEMORY[0x277D85DE8];
   return v1;
 }
 
 uint64_t SavageCamInterfaceColdBootPowerCycle(const void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v1 = 3758097087;
   if (!a1)
   {
-    v1 = 3758097090;
-    goto LABEL_3;
+    return 3758097090;
   }
 
   PtrForRef = getPtrForRef(a1);
-  v5 = sendSynchronousXpcMsgWithReply();
-  if (v5)
+  v4 = sendSynchronousXpcMsgWithReply();
+  if (v4)
   {
-    v6 = v5;
+    v5 = v4;
     if (MEMORY[0x266741540]() == MEMORY[0x277D86468])
     {
       length = 0;
-      data = xpc_dictionary_get_data(v6, *(PtrForRef + 32), &length);
-      v11 = length;
+      data = xpc_dictionary_get_data(v5, *(PtrForRef + 32), &length);
+      v10 = length;
       if (length == 3680)
       {
         v1 = data[2];
@@ -952,14 +928,14 @@ uint64_t SavageCamInterfaceColdBootPowerCycle(const void *a1)
       else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v14 = "SavageCamInterfaceColdBootPowerCycle";
-        v15 = 2048;
-        v16 = v11;
-        v17 = 2048;
-        v18 = 3680;
-        v7 = MEMORY[0x277D86220];
-        v8 = "%s: Received reply with unexpected length %lu. Expected %lu\n";
-        v9 = 32;
+        v13 = "SavageCamInterfaceColdBootPowerCycle";
+        v14 = 2048;
+        v15 = v10;
+        v16 = 2048;
+        v17 = 3680;
+        v6 = MEMORY[0x277D86220];
+        v7 = "%s: Received reply with unexpected length %lu. Expected %lu\n";
+        v8 = 32;
         goto LABEL_14;
       }
     }
@@ -970,28 +946,26 @@ uint64_t SavageCamInterfaceColdBootPowerCycle(const void *a1)
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v14 = "SavageCamInterfaceColdBootPowerCycle";
-        v7 = MEMORY[0x277D86220];
-        v8 = "%s: Received an unexpected event\n";
-        v9 = 12;
+        v13 = "SavageCamInterfaceColdBootPowerCycle";
+        v6 = MEMORY[0x277D86220];
+        v7 = "%s: Received an unexpected event\n";
+        v8 = 12;
 LABEL_14:
-        _os_log_impl(&dword_2647F2000, v7, OS_LOG_TYPE_DEFAULT, v8, buf, v9);
+        _os_log_impl(&dword_2647F2000, v6, OS_LOG_TYPE_DEFAULT, v7, buf, v8);
       }
     }
 
-    xpc_release(v6);
-    goto LABEL_3;
+    xpc_release(v5);
+    return v1;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v14 = "SavageCamInterfaceColdBootPowerCycle";
+    v13 = "SavageCamInterfaceColdBootPowerCycle";
     _os_log_impl(&dword_2647F2000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Did not receive a reply from the daemon\n", buf, 0xCu);
   }
 
-LABEL_3:
-  v2 = *MEMORY[0x277D85DE8];
   return v1;
 }
 
@@ -1001,8 +975,8 @@ uint64_t SavageCamInterfacePublishToRegistry()
   v2 = v1;
   v4 = v3;
   v5 = v0;
-  v18 = *MEMORY[0x277D85DE8];
-  bzero(v14, 0x3408uLL);
+  v17 = *MEMORY[0x277D85DE8];
+  bzero(v13, 0x3408uLL);
   if (v5 && v4)
   {
     if (!getPtrForRef(v5))
@@ -1010,11 +984,11 @@ uint64_t SavageCamInterfacePublishToRegistry()
       v6 = 3758097101;
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_6;
+        return v6;
       }
 
-      v12 = 136315138;
-      v13 = "SavageCamInterfacePublishToRegistry";
+      v11 = 136315138;
+      v12 = "SavageCamInterfacePublishToRegistry";
       v7 = MEMORY[0x277D86220];
       v8 = "%s: Interface to SavageCam not open, returning\n";
       goto LABEL_5;
@@ -1023,13 +997,13 @@ uint64_t SavageCamInterfacePublishToRegistry()
     CStringPtr = CFStringGetCStringPtr(v4, 0x8000100u);
     BytePtr = CFDataGetBytePtr(v2);
     Length = CFDataGetLength(v2);
-    v11 = sendSynchronousXpcMsgWithReply();
-    if (v11)
+    v10 = sendSynchronousXpcMsgWithReply();
+    if (v10)
     {
-      xpc_release(v11);
+      xpc_release(v10);
     }
 
-    v6 = 0;
+    return 0;
   }
 
   else
@@ -1037,17 +1011,15 @@ uint64_t SavageCamInterfacePublishToRegistry()
     v6 = 3758097090;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136315138;
-      v13 = "SavageCamInterfacePublishToRegistry";
+      v11 = 136315138;
+      v12 = "SavageCamInterfacePublishToRegistry";
       v7 = MEMORY[0x277D86220];
       v8 = "%s: Bad argument, returning\n";
 LABEL_5:
-      _os_log_impl(&dword_2647F2000, v7, OS_LOG_TYPE_DEFAULT, v8, &v12, 0xCu);
+      _os_log_impl(&dword_2647F2000, v7, OS_LOG_TYPE_DEFAULT, v8, &v11, 0xCu);
     }
   }
 
-LABEL_6:
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

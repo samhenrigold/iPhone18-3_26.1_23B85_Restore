@@ -2,8 +2,8 @@
 - (uint64_t)pl_indexPathForLastRow;
 - (uint64_t)pl_lastRowIsVisible;
 - (uint64_t)pl_resetContentOffsetFromContentInsets;
-- (uint64_t)pl_scrollToBottom:()PhotoLibraryAdditions;
 - (uint64_t)pl_scrollToVisibleRowAtIndexPath:()PhotoLibraryAdditions animated:;
+- (void)pl_scrollToBottom:()PhotoLibraryAdditions;
 @end
 
 @implementation UITableView(PhotoLibraryAdditions)
@@ -68,7 +68,7 @@
   return [v3 isEqual:v4];
 }
 
-- (uint64_t)pl_scrollToBottom:()PhotoLibraryAdditions
+- (void)pl_scrollToBottom:()PhotoLibraryAdditions
 {
   tableFooterView = [self tableFooterView];
   if (tableFooterView)

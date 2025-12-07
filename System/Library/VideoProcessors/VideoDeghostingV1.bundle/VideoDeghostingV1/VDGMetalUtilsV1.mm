@@ -5,6 +5,7 @@
 - (VDGMetalUtilsV1)initWithMetalContext:(id)context;
 - (int)_compileShaders;
 - (int)computeGradientX:(id)x GradientY:(id)y absGradientX:(id)gradientX absGradientY:(id)gradientY inputLumaTex:(id)tex roi:(CGRect)roi isTenBitInput:(BOOL)input commandBuffer:(id)self0;
+- (int)computeGradientX:(id)x GradientY:(id)y absGradientX:(id)gradientX absGradientY:(id)gradientY inputPixelBuffer:(__CVBuffer *)buffer roi:(CGRect)roi isTenBitInput:(BOOL)input commandBuffer:(id)self0;
 - (int)computeImageIntegralSourceTexture:(id)texture destinationTexture:(id)destinationTexture commandBuffer:(id)buffer;
 - (int)computeShapeScore:(float *)score contextScore:(float *)contextScore confidence:(float *)confidence maxScoreXPos:(int *)pos maxScoreYPos:(int *)yPos inputPixelBuffer:(__CVBuffer *)buffer searchRect:(CGRect)rect ghostSize:(int)self0 shapeScoreLambda:(float)self1 contextScoreLambda:(float)self2 xSearchRangeInPixel:(int)self3 ySearchRangeInPixel:(int)self4 contextPaddingInPixel:(int)self5 maxSize:(int)self6;
 @end
@@ -54,6 +55,71 @@
   }
 
   return 0;
+}
+
+- (int)computeGradientX:(id)x GradientY:(id)y absGradientX:(id)gradientX absGradientY:(id)gradientY inputPixelBuffer:(__CVBuffer *)buffer roi:(CGRect)roi isTenBitInput:(BOOL)input commandBuffer:(id)self0
+{
+  inputCopy = input;
+  height = roi.size.height;
+  width = roi.size.width;
+  y = roi.origin.y;
+  x = roi.origin.x;
+  xCopy = x;
+  yCopy = y;
+  gradientXCopy = gradientX;
+  gradientYCopy = gradientY;
+  commandBufferCopy = commandBuffer;
+  if (buffer)
+  {
+    v25 = [VDGMetalUtilsV1 getMetalFormatFor:CVPixelBufferGetPixelFormatType(buffer)];
+    if ([v25 count])
+    {
+      v38 = gradientYCopy;
+      v26 = gradientXCopy;
+      v27 = yCopy;
+      v28 = xCopy;
+      v29 = inputCopy;
+      metalContext = self->_metalContext;
+      v31 = [v25 objectAtIndexedSubscript:0];
+      v32 = -[FigMetalContext bindPixelBufferToMTL2DTexture:pixelFormat:usage:plane:](metalContext, "bindPixelBufferToMTL2DTexture:pixelFormat:usage:plane:", buffer, [v31 intValue], 1, 0);
+
+      if (v32)
+      {
+        xCopy = v28;
+        v33 = v28;
+        yCopy = v27;
+        v34 = v27;
+        gradientXCopy = v26;
+        v35 = v26;
+        gradientYCopy = v38;
+        commandBufferCopy = [(VDGMetalUtilsV1 *)self computeGradientX:v33 GradientY:v34 absGradientX:v35 absGradientY:v38 inputLumaTex:v32 roi:v29 isTenBitInput:x commandBuffer:y, width, height, commandBufferCopy];
+      }
+
+      else
+      {
+        sub_15494();
+        commandBufferCopy = v39;
+        xCopy = v28;
+        yCopy = v27;
+        gradientXCopy = v26;
+        gradientYCopy = v38;
+      }
+    }
+
+    else
+    {
+      sub_15508();
+      commandBufferCopy = v40;
+    }
+  }
+
+  else
+  {
+    sub_1557C(&v41);
+    commandBufferCopy = v41;
+  }
+
+  return commandBufferCopy;
 }
 
 - (int)computeGradientX:(id)x GradientY:(id)y absGradientX:(id)gradientX absGradientY:(id)gradientY inputLumaTex:(id)tex roi:(CGRect)roi isTenBitInput:(BOOL)input commandBuffer:(id)self0
@@ -136,56 +202,56 @@ LABEL_9:
 
 - (int)computeShapeScore:(float *)score contextScore:(float *)contextScore confidence:(float *)confidence maxScoreXPos:(int *)pos maxScoreYPos:(int *)yPos inputPixelBuffer:(__CVBuffer *)buffer searchRect:(CGRect)rect ghostSize:(int)self0 shapeScoreLambda:(float)self1 contextScoreLambda:(float)self2 xSearchRangeInPixel:(int)self3 ySearchRangeInPixel:(int)self4 contextPaddingInPixel:(int)self5 maxSize:(int)self6
 {
-  v98 = 0;
+  v101 = 0;
+  v102[0] = 0;
   v99 = 0;
-  v96 = 0;
+  v100 = 0;
   v97 = 0;
-  v94 = 0;
+  v98 = 0;
   v95 = 0;
-  v92 = 0;
-  v93 = 0;
-  v91 = 0;
+  v96 = 0;
+  v94 = 0;
   if (!contextScore)
   {
-    sub_160D4(v83);
+    sub_160D4(v86);
 LABEL_51:
-    v71 = v83[0];
+    v72 = v86[0];
     goto LABEL_29;
   }
 
   if (!confidence)
   {
-    sub_16078(v83);
+    sub_16078(v86);
     goto LABEL_51;
   }
 
   if (!pos)
   {
-    sub_1601C(v83);
+    sub_1601C(v86);
     goto LABEL_51;
   }
 
   if (!yPos)
   {
-    sub_15FC0(v83);
+    sub_15FC0(v86);
     goto LABEL_51;
   }
 
   if (!score)
   {
-    sub_15F64(v83);
+    sub_15F64(v86);
     goto LABEL_51;
   }
 
   if (!buffer)
   {
-    sub_15F08(v83);
+    sub_15F08(v86);
     goto LABEL_51;
   }
 
   if (size <= 0)
   {
-    sub_15EAC(v83);
+    sub_15EAC(v86);
     goto LABEL_51;
   }
 
@@ -198,7 +264,7 @@ LABEL_51:
 
   if (!commandBuffer)
   {
-    sub_15E50(v83);
+    sub_15E50(v86);
     goto LABEL_51;
   }
 
@@ -229,9 +295,9 @@ LABEL_51:
 
   [newTextureDescriptor setLabel:0];
   allocator2 = [(FigMetalContext *)self->_metalContext allocator];
-  v99 = [allocator2 newTextureWithDescriptor:newTextureDescriptor];
+  v102[0] = [allocator2 newTextureWithDescriptor:newTextureDescriptor];
 
-  if (!v99)
+  if (!v102[0])
   {
     sub_15D58();
     goto LABEL_51;
@@ -239,9 +305,9 @@ LABEL_51:
 
   [newTextureDescriptor setLabel:0];
   allocator3 = [(FigMetalContext *)self->_metalContext allocator];
-  v98 = [allocator3 newTextureWithDescriptor:newTextureDescriptor];
+  v101 = [allocator3 newTextureWithDescriptor:newTextureDescriptor];
 
-  if (!v98)
+  if (!v101)
   {
     sub_15CD4();
     goto LABEL_51;
@@ -249,9 +315,9 @@ LABEL_51:
 
   [newTextureDescriptor setLabel:0];
   allocator4 = [(FigMetalContext *)self->_metalContext allocator];
-  v97 = [allocator4 newTextureWithDescriptor:newTextureDescriptor];
+  v100 = [allocator4 newTextureWithDescriptor:newTextureDescriptor];
 
-  if (!v97)
+  if (!v100)
   {
     sub_15C50();
     goto LABEL_51;
@@ -259,18 +325,18 @@ LABEL_51:
 
   [newTextureDescriptor setLabel:0];
   allocator5 = [(FigMetalContext *)self->_metalContext allocator];
-  v42 = [allocator5 newTextureWithDescriptor:newTextureDescriptor];
-  v96 = v42;
+  v43 = [allocator5 newTextureWithDescriptor:newTextureDescriptor];
+  v99 = v43;
 
-  if (!v42)
+  if (!v43)
   {
     sub_15BCC();
     goto LABEL_51;
   }
 
   yPosCopy = yPos;
-  v79 = v42;
-  if ([(VDGMetalUtilsV1 *)self computeGradientX:v99 GradientY:v98 absGradientX:v97 absGradientY:v42 inputPixelBuffer:pixelBuffer roi:[VDGMetalUtilsV1 isTenBitPixelBufferFormat:?], x, y, width, height, commandBuffer])
+  v82 = v43;
+  if ([(VDGMetalUtilsV1 *)self computeGradientX:v102[0] GradientY:v101 absGradientX:v100 absGradientY:v43 inputPixelBuffer:pixelBuffer roi:[VDGMetalUtilsV1 isTenBitPixelBufferFormat:?], x, y, width, height, commandBuffer])
   {
     sub_157A4();
     goto LABEL_51;
@@ -294,10 +360,10 @@ LABEL_51:
 
   [newTextureDescriptor setLabel:0];
   allocator6 = [(FigMetalContext *)self->_metalContext allocator];
-  v49 = [allocator6 newTextureWithDescriptor:newTextureDescriptor];
-  v95 = v49;
+  v50 = [allocator6 newTextureWithDescriptor:newTextureDescriptor];
+  v98 = v50;
 
-  if (!v49)
+  if (!v50)
   {
     sub_15B48();
     goto LABEL_51;
@@ -306,10 +372,10 @@ LABEL_51:
   contextScoreCopy = contextScore;
   [newTextureDescriptor setLabel:0];
   allocator7 = [(FigMetalContext *)self->_metalContext allocator];
-  v51 = [allocator7 newTextureWithDescriptor:newTextureDescriptor];
-  v94 = v51;
+  v52 = [allocator7 newTextureWithDescriptor:newTextureDescriptor];
+  v97 = v52;
 
-  if (!v51)
+  if (!v52)
   {
     sub_15AC4();
     goto LABEL_51;
@@ -317,10 +383,10 @@ LABEL_51:
 
   [newTextureDescriptor setLabel:0];
   allocator8 = [(FigMetalContext *)self->_metalContext allocator];
-  v53 = [allocator8 newTextureWithDescriptor:newTextureDescriptor];
-  v93 = v53;
+  v54 = [allocator8 newTextureWithDescriptor:newTextureDescriptor];
+  v96 = v54;
 
-  if (!v53)
+  if (!v54)
   {
     sub_15A40();
     goto LABEL_51;
@@ -329,10 +395,10 @@ LABEL_51:
   confidenceCopy = confidence;
   [newTextureDescriptor setLabel:0];
   allocator9 = [(FigMetalContext *)self->_metalContext allocator];
-  v55 = [allocator9 newTextureWithDescriptor:newTextureDescriptor];
-  v92 = v55;
+  v56 = [allocator9 newTextureWithDescriptor:newTextureDescriptor];
+  v95 = v56;
 
-  if (!v55)
+  if (!v56)
   {
     sub_159BC();
     goto LABEL_51;
@@ -351,92 +417,92 @@ LABEL_51:
   [newBufferDescriptor setLength:20];
   [newBufferDescriptor setLabel:0];
   allocator11 = [(FigMetalContext *)self->_metalContext allocator];
-  v59 = [allocator11 newBufferWithDescriptor:newBufferDescriptor];
-  v91 = v59;
+  v60 = [allocator11 newBufferWithDescriptor:newBufferDescriptor];
+  v94 = v60;
 
-  if (!v59)
+  if (!v60)
   {
     sub_158B0();
     goto LABEL_51;
   }
 
-  v73 = newBufferDescriptor;
-  v60 = [(VDGMetalUtilsV1 *)self computeImageIntegralSourceTexture:v99 destinationTexture:v49 commandBuffer:commandBuffer];
-  v61 = commandBuffer;
-  v62 = [(VDGMetalUtilsV1 *)self computeImageIntegralSourceTexture:v98 destinationTexture:v51 commandBuffer:commandBuffer]| v60;
-  v63 = [(VDGMetalUtilsV1 *)self computeImageIntegralSourceTexture:v97 destinationTexture:v53 commandBuffer:v61];
-  if (v62 | v63 | [(VDGMetalUtilsV1 *)self computeImageIntegralSourceTexture:v79 destinationTexture:v55 commandBuffer:v61])
+  v75 = newBufferDescriptor;
+  v61 = [(VDGMetalUtilsV1 *)self computeImageIntegralSourceTexture:v102[0] destinationTexture:v50 commandBuffer:commandBuffer];
+  v62 = commandBuffer;
+  v63 = [(VDGMetalUtilsV1 *)self computeImageIntegralSourceTexture:v101 destinationTexture:v52 commandBuffer:commandBuffer]| v61;
+  v64 = [(VDGMetalUtilsV1 *)self computeImageIntegralSourceTexture:v100 destinationTexture:v54 commandBuffer:v62];
+  if (v63 | v64 | [(VDGMetalUtilsV1 *)self computeImageIntegralSourceTexture:v82 destinationTexture:v56 commandBuffer:v62])
   {
     sub_15828();
     goto LABEL_51;
   }
 
-  v64 = self->_pipelineStates[1];
-  computeCommandEncoder = [v61 computeCommandEncoder];
+  v65 = self->_pipelineStates[1];
+  computeCommandEncoder = [v62 computeCommandEncoder];
   if (computeCommandEncoder)
   {
-    v66 = computeCommandEncoder;
+    v67 = computeCommandEncoder;
     [computeCommandEncoder setComputePipelineState:?];
-    [v66 setTexture:v49 atIndex:0];
-    [v66 setTexture:v51 atIndex:1];
-    [v66 setTexture:v53 atIndex:2];
-    [v66 setTexture:v55 atIndex:3];
-    [v66 setBuffer:v59 offset:0 atIndex:1];
-    v84[0] = size;
-    v84[1] = size;
-    *&v84[2] = (paddingInPixel + (maxSize - size) / 2);
+    [v67 setTexture:v50 atIndex:0];
+    [v67 setTexture:v52 atIndex:1];
+    [v67 setTexture:v54 atIndex:2];
+    [v67 setTexture:v56 atIndex:3];
+    [v67 setBuffer:v60 offset:0 atIndex:1];
+    v87[0] = size;
+    v87[1] = size;
+    *&v87[2] = (paddingInPixel + (maxSize - size) / 2);
     lambdaCopy = lambda;
     scoreLambdaCopy = scoreLambda;
     paddingInPixelCopy = paddingInPixel;
-    v85 = llroundf(size / 3.0);
-    v86 = v85;
+    v88 = llroundf(size / 3.0);
+    v89 = v88;
     if ([VDGMetalUtilsV1 isTenBitPixelBufferFormat:CVPixelBufferGetPixelFormatType(pixelBuffer)])
     {
-      v67 = 4;
+      v68 = 4;
     }
 
     else
     {
-      v67 = 1;
+      v68 = 1;
     }
 
-    v87 = v67;
-    [v66 setBytes:v84 length:36 atIndex:0];
-    v83[0] = pixel + 1;
-    v83[1] = inPixel + 1;
-    v83[2] = 1;
-    v81 = vdupq_n_s64(0x20uLL);
-    v82 = 1;
-    [v66 dispatchThreads:v83 threadsPerThreadgroup:&v81];
-    [v66 endEncoding];
+    v90 = v68;
+    [v67 setBytes:v87 length:36 atIndex:0];
+    v86[0] = pixel + 1;
+    v86[1] = inPixel + 1;
+    v86[2] = 1;
+    v84 = vdupq_n_s64(0x20uLL);
+    v85 = 1;
+    [v67 dispatchThreads:v86 threadsPerThreadgroup:&v84];
+    [v67 endEncoding];
     if (gGMFigKTraceEnabled)
     {
-      commandQueue2 = [v61 commandQueue];
+      commandQueue2 = [v62 commandQueue];
       commandBuffer2 = [commandQueue2 commandBuffer];
 
       [commandBuffer2 setLabel:@"KTRACE_MTLCMDBUF"];
       [commandBuffer2 addCompletedHandler:&stru_345F8];
       [commandBuffer2 commit];
-      [v61 addCompletedHandler:&stru_34618];
+      [v62 addCompletedHandler:&stru_34618];
     }
 
-    [v61 setLabel:@"VideoDeghostingV1Util_ComputeShape"];
-    [v61 commit];
-    [v61 waitUntilCompleted];
-    contents = [v59 contents];
+    [v62 setLabel:@"VideoDeghostingV1Util_ComputeShape"];
+    [v62 commit];
+    [v62 waitUntilCompleted];
+    contents = [v60 contents];
     *contextScoreCopy = contents[1];
     *scoreCopy = contents[2];
     *confidenceCopy = *contents;
     *posCopy = *(contents + 3);
     *yPosCopy = *(contents + 4);
 
-    v71 = 0;
+    v72 = 0;
   }
 
   else
   {
     fig_log_get_emitter();
-    v71 = FigSignalErrorAtGM();
+    v72 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v74, v16, v75);
   }
 
 LABEL_29:
@@ -450,7 +516,7 @@ LABEL_29:
   FigMetalDecRef();
   FigMetalDecRef();
 
-  return v71;
+  return v72;
 }
 
 - (CGRect)updateGhostPositionsUsingSourceImageFeatureMatching:(CGRect *)matching shapeScore:(float *)score contextScore:(float *)contextScore confidenceOut:(float *)out pixelBuffer:(__CVBuffer *)buffer searchRangeInPixel:(int)pixel shapeScoreLambda:(float)lambda contextScoreLambda:(float)self0 contextPaddingInPixel:(int)self1
@@ -972,22 +1038,22 @@ LABEL_34:
   if (!contextCopy)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, v10.receiver, v10.super_class, v11, v12, v13, v14);
 LABEL_7:
     selfCopy = 0;
     goto LABEL_5;
   }
 
-  v9.receiver = self;
-  v9.super_class = VDGMetalUtilsV1;
-  v6 = [(VDGMetalUtilsV1 *)&v9 init];
-  self = v6;
-  if (!v6)
+  v10.receiver = self;
+  v10.super_class = VDGMetalUtilsV1;
+  v7 = [(VDGMetalUtilsV1 *)&v10 init];
+  self = v7;
+  if (!v7)
   {
     goto LABEL_7;
   }
 
-  objc_storeStrong(&v6->_metalContext, context);
+  objc_storeStrong(&v7->_metalContext, context);
   if ([(VDGMetalUtilsV1 *)self _compileShaders])
   {
     goto LABEL_7;

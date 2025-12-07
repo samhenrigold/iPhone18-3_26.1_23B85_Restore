@@ -74,7 +74,7 @@ void __57__NSUserActivity_SynapseExtensions__set_linkContextInfo___block_invoke(
   v9 = os_log_create("com.apple.synapse", "");
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    __57__NSUserActivity_SynapseExtensions__set_linkContextInfo___block_invoke_cold_1();
+    __57__NSUserActivity_SynapseExtensions__set_linkContextInfo___block_invoke_cold_1(v7);
   }
 
   *a4 = 1;
@@ -87,7 +87,7 @@ LABEL_5:
       v10 = os_log_create("com.apple.synapse", "");
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        __57__NSUserActivity_SynapseExtensions__set_linkContextInfo___block_invoke_cold_2();
+        __57__NSUserActivity_SynapseExtensions__set_linkContextInfo___block_invoke_cold_2(v7);
       }
 
       *a4 = 1;
@@ -113,41 +113,26 @@ void __82__NSUserActivity_SYInternalExtensions___syFetchCurrentUserActivityWithC
 
 - (void)set_syDocument:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_225901000, a2, OS_LOG_TYPE_ERROR, "Unable to encode document, error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_225901000, a2, OS_LOG_TYPE_ERROR, "Unable to encode document, error: %@", &v2, 0xCu);
 }
 
-void __57__NSUserActivity_SynapseExtensions__set_linkContextInfo___block_invoke_cold_1()
+void __57__NSUserActivity_SynapseExtensions__set_linkContextInfo___block_invoke_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   OUTLINED_FUNCTION_1_1();
-  v1 = v0;
-  OUTLINED_FUNCTION_2(&dword_225901000, v2, v3, "Invalid key of class %@ in linkContextInfo dictionary.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v2 = v1;
+  OUTLINED_FUNCTION_2(&dword_225901000, v3, v4, "Invalid key of class %@ in linkContextInfo dictionary.", v5, v6, v7, v8);
 }
 
-void __57__NSUserActivity_SynapseExtensions__set_linkContextInfo___block_invoke_cold_2()
+void __57__NSUserActivity_SynapseExtensions__set_linkContextInfo___block_invoke_cold_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   OUTLINED_FUNCTION_1_1();
-  v1 = v0;
-  OUTLINED_FUNCTION_2(&dword_225901000, v2, v3, "Invalid value of class %@ in linkContextInfo dictionary.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __82__NSUserActivity_SYInternalExtensions___syFetchCurrentUserActivityWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_0(&dword_225901000, v0, v1, "Fetching current user activity failed with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v2 = v1;
+  OUTLINED_FUNCTION_2(&dword_225901000, v3, v4, "Invalid value of class %@ in linkContextInfo dictionary.", v5, v6, v7, v8);
 }
 
 @end

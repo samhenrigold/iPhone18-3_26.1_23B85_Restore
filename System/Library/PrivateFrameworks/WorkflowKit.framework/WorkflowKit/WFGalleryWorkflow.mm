@@ -15,19 +15,17 @@
 
 - (id)propertiesForEventLogging
 {
-  v10[3] = *MEMORY[0x1E69E9840];
-  v9[0] = @"workflow_identifier";
+  v9[3] = *MEMORY[0x1E69E9840];
+  v8[0] = @"workflow_identifier";
   persistentIdentifier = [(WFGalleryWorkflow *)self persistentIdentifier];
-  v10[0] = persistentIdentifier;
-  v9[1] = @"workflow_name";
+  v9[0] = persistentIdentifier;
+  v8[1] = @"workflow_name";
   name = [(WFGalleryWorkflow *)self name];
-  v10[1] = name;
-  v9[2] = @"workflow_record_type";
+  v9[1] = name;
+  v8[2] = @"workflow_record_type";
   recordType = [objc_opt_class() recordType];
-  v10[2] = recordType;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9[2] = recordType;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
@@ -94,9 +92,9 @@ LABEL_69:
           goto LABEL_67;
         }
 
-        v19 = [v12 isEqualToString:v16];
+        isEqualToString = objc_msgSend_isEqualToString_(v12);
 
-        if (!v19)
+        if (!isEqualToString)
         {
           v10 = 0;
 LABEL_68:
@@ -269,7 +267,7 @@ LABEL_60:
                       goto LABEL_61;
                     }
 
-                    v48 = [v45 isEqualToString:v46];
+                    v48 = objc_msgSend_isEqualToString_(v45);
 
                     if (!v48)
                     {
@@ -300,7 +298,7 @@ LABEL_61:
                       v24 = v61;
                       if (v51)
                       {
-                        v10 = [v45 isEqualToString:v51];
+                        v10 = objc_msgSend_isEqualToString_(v45);
                       }
 
                       goto LABEL_58;
@@ -420,7 +418,7 @@ LABEL_70:
 
 - (WFWorkflowRecord)workflowRecord
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if (self->_workflowRecord)
   {
     goto LABEL_2;
@@ -453,18 +451,18 @@ LABEL_2:
     name = [(WFGalleryWorkflow *)self name];
     v11 = [(WFShortcutPackageFile *)v7 initWithSignedShortcutData:data shortcutName:name];
 
-    v31 = 0;
-    shortcutFile2 = [(WFShortcutPackageFile *)v11 extractShortcutFileRepresentationWithError:&v31];
-    v13 = v31;
-    if (!shortcutFile2 || (-[WFGalleryWorkflow signingStatus](self, "signingStatus"), v14 = objc_claimAutoreleasedReturnValue(), v15 = [v14 isEqualToString:@"APPROVED"], v14, (v15 & 1) == 0))
+    v30 = 0;
+    shortcutFile2 = [(WFShortcutPackageFile *)v11 extractShortcutFileRepresentationWithError:&v30];
+    v13 = v30;
+    if (!shortcutFile2 || ([(WFGalleryWorkflow *)self signingStatus], v14 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v14), v14, (isEqualToString & 1) == 0))
     {
       v16 = getWFGeneralLogObject();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v33 = "[WFGalleryWorkflow workflowRecord]";
-        v34 = 2114;
-        v35 = v13;
+        v32 = "[WFGalleryWorkflow workflowRecord]";
+        v33 = 2114;
+        v34 = v13;
         _os_log_impl(&dword_1CA256000, v16, OS_LOG_TYPE_ERROR, "%s WFSharedShortcut was unable to verify signed shortcut: %{public}@", buf, 0x16u);
       }
 
@@ -486,12 +484,12 @@ LABEL_2:
   name2 = [(WFGalleryWorkflow *)self name];
   v19 = [(WFWorkflowFileDescriptor *)v17 initWithFile:shortcutFile2 name:name2];
 
-  v30 = 0;
-  v20 = [[WFWorkflowFile alloc] initWithDescriptor:v19 error:&v30];
-  v21 = v30;
-  v29 = v21;
-  v22 = [(WFWorkflowFile *)v20 recordRepresentationWithError:&v29];
-  v23 = v29;
+  v29 = 0;
+  v20 = [[WFWorkflowFile alloc] initWithDescriptor:v19 error:&v29];
+  v21 = v29;
+  v28 = v21;
+  v22 = [(WFWorkflowFile *)v20 recordRepresentationWithError:&v28];
+  v23 = v28;
 
   persistentIdentifier = [(WFGalleryWorkflow *)self persistentIdentifier];
   [v22 setGalleryIdentifier:persistentIdentifier];
@@ -510,9 +508,9 @@ LABEL_2:
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v33 = "[WFGalleryWorkflow workflowRecord]";
-      v34 = 2114;
-      v35 = v23;
+      v32 = "[WFGalleryWorkflow workflowRecord]";
+      v33 = 2114;
+      v34 = v23;
       _os_log_impl(&dword_1CA256000, p_super, OS_LOG_TYPE_ERROR, "%s WFGalleryWorkflow was unable to load record from shortcut file: %{public}@", buf, 0x16u);
     }
   }
@@ -525,7 +523,6 @@ LABEL_2:
 LABEL_20:
   v3 = 0;
 LABEL_21:
-  v27 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -662,61 +659,59 @@ LABEL_21:
 
 + (NSDictionary)properties
 {
-  v25[16] = *MEMORY[0x1E69E9840];
-  v24[0] = @"name";
-  v23 = [WFCloudKitItemProperty objectPropertyWithName:?];
-  v25[0] = v23;
-  v24[1] = @"shortDescription";
+  v24[16] = *MEMORY[0x1E69E9840];
+  v23[0] = @"name";
   v22 = [WFCloudKitItemProperty objectPropertyWithName:?];
-  v25[1] = v22;
-  v24[2] = @"longDescription";
+  v24[0] = v22;
+  v23[1] = @"shortDescription";
   v21 = [WFCloudKitItemProperty objectPropertyWithName:?];
-  v25[2] = v21;
-  v24[3] = @"icon_color";
-  v20 = [WFCloudKitItemProperty objectPropertyWithName:@"iconColor"];
-  v25[3] = v20;
-  v24[4] = @"icon_glyph";
-  v19 = [WFCloudKitItemProperty objectPropertyWithName:@"iconGlyph"];
-  v25[4] = v19;
-  v24[5] = @"icon";
-  v18 = [MEMORY[0x1E69E0AF8] typeWithUTType:*MEMORY[0x1E6982E30]];
-  v17 = [WFCloudKitItemProperty assetPropertyWithName:@"iconFile" fileType:v18 ignoredByDefault:1 encrypted:0];
-  v25[5] = v17;
-  v24[6] = @"shortcut";
-  v16 = [MEMORY[0x1E69E0AF8] typeWithString:@"com.apple.shortcuts.workflow-file"];
-  v15 = [WFCloudKitItemProperty assetPropertyWithName:@"shortcutFile" fileType:v16 ignoredByDefault:1 encrypted:0];
-  v25[6] = v15;
-  v24[7] = @"searchable";
-  v14 = [WFCloudKitItemProperty objectPropertyWithName:?];
-  v25[7] = v14;
-  v24[8] = @"minVersion";
+  v24[1] = v21;
+  v23[2] = @"longDescription";
+  v20 = [WFCloudKitItemProperty objectPropertyWithName:?];
+  v24[2] = v20;
+  v23[3] = @"icon_color";
+  v19 = [WFCloudKitItemProperty objectPropertyWithName:@"iconColor"];
+  v24[3] = v19;
+  v23[4] = @"icon_glyph";
+  v18 = [WFCloudKitItemProperty objectPropertyWithName:@"iconGlyph"];
+  v24[4] = v18;
+  v23[5] = @"icon";
+  v17 = [MEMORY[0x1E69E0AF8] typeWithUTType:*MEMORY[0x1E6982E30]];
+  v16 = [WFCloudKitItemProperty assetPropertyWithName:@"iconFile" fileType:v17 ignoredByDefault:1 encrypted:0];
+  v24[5] = v16;
+  v23[6] = @"shortcut";
+  v15 = [MEMORY[0x1E69E0AF8] typeWithString:@"com.apple.shortcuts.workflow-file"];
+  v14 = [WFCloudKitItemProperty assetPropertyWithName:@"shortcutFile" fileType:v15 ignoredByDefault:1 encrypted:0];
+  v24[6] = v14;
+  v23[7] = @"searchable";
+  v13 = [WFCloudKitItemProperty objectPropertyWithName:?];
+  v24[7] = v13;
+  v23[8] = @"minVersion";
   v2 = [WFCloudKitItemProperty scalarPropertyWithName:"scalarPropertyWithName:nilValue:" nilValue:?];
-  v25[8] = v2;
-  v24[9] = @"hiddenRegions";
+  v24[8] = v2;
+  v23[9] = @"hiddenRegions";
   v3 = [WFCloudKitItemProperty objectPropertyWithName:?];
-  v25[9] = v3;
-  v24[10] = @"supportedIdioms";
+  v24[9] = v3;
+  v23[10] = @"supportedIdioms";
   v4 = [WFCloudKitItemProperty objectPropertyWithName:?];
-  v25[10] = v4;
-  v24[11] = @"language";
+  v24[10] = v4;
+  v23[11] = @"language";
   v5 = [WFCloudKitItemProperty objectPropertyWithName:"objectPropertyWithName:ignoredByDefault:encrypted:" ignoredByDefault:? encrypted:?];
-  v25[11] = v5;
-  v24[12] = @"base";
+  v24[11] = v5;
+  v23[12] = @"base";
   v6 = [WFCloudKitItemProperty itemReferencePropertyWithName:@"base" itemClass:objc_opt_class()];
-  v25[12] = v6;
-  v24[13] = @"persistentIdentifier";
+  v24[12] = v6;
+  v23[13] = @"persistentIdentifier";
   v7 = [WFCloudKitItemProperty objectPropertyWithName:?];
-  v25[13] = v7;
-  v24[14] = @"signedShortcut";
+  v24[13] = v7;
+  v23[14] = @"signedShortcut";
   v8 = [MEMORY[0x1E69E0AF8] typeWithString:@"com.apple.shortcut"];
   v9 = [WFCloudKitItemProperty assetPropertyWithName:@"signedShortcutFile" fileType:v8 ignoredByDefault:1 encrypted:0];
-  v25[14] = v9;
-  v24[15] = @"signingStatus";
+  v24[14] = v9;
+  v23[15] = @"signingStatus";
   v10 = [WFCloudKitItemProperty objectPropertyWithName:"objectPropertyWithName:ignoredByDefault:encrypted:" ignoredByDefault:? encrypted:?];
-  v25[15] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:16];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v24[15] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:16];
 
   return v11;
 }

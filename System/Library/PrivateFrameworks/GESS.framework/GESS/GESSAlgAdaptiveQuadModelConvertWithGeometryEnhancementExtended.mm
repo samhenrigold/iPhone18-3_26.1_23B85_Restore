@@ -28,7 +28,7 @@
 
 - (BOOL)run:(id)run output:(id)output
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   runCopy = run;
   outputCopy = output;
@@ -49,76 +49,75 @@
       selfCopy->_options = v26;
     }
 
-    sub_24BD29B54(&v83);
-    v88 = xmmword_24BFBF8C0;
-    v89 = 981668463;
-    v90 = 0x1400000005;
-    v91 = 1;
-    v83 = objc_msgSend_outputFaceNumber(selfCopy->_options, v28, v29, v30);
-    v84 = objc_msgSend_enableSimplify(selfCopy->_options, v31, v32, v33);
-    v87 = objc_msgSend_textureResolution(selfCopy->_options, v34, v35, v36);
+    sub_24BD29B54(v82);
+    v86 = xmmword_24BFBF8C0;
+    v87 = 981668463;
+    v88 = 0x1400000005;
+    v89 = 1;
+    LODWORD(v82[0]) = objc_msgSend_outputFaceNumber(selfCopy->_options, v28, v29, v30);
+    BYTE4(v82[0]) = objc_msgSend_enableSimplify(selfCopy->_options, v31, v32, v33);
+    v85[0] = objc_msgSend_textureResolution(selfCopy->_options, v34, v35, v36);
     v40 = objc_msgSend_textureTransferOptions(selfCopy->_options, v37, v38, v39);
     v44 = objc_msgSend_inputTangentialSpaceType(v40, v41, v42, v43);
-    v85 = sub_24BE74A64(v44);
+    v83 = sub_24BE74A64(v44);
 
     v48 = objc_msgSend_textureTransferOptions(selfCopy->_options, v45, v46, v47);
     v52 = objc_msgSend_outputTangentialSpaceType(v48, v49, v50, v51);
-    v86 = sub_24BE74A64(v52);
+    v84 = sub_24BE74A64(v52);
 
     v56 = objc_msgSend_smoothOptions(selfCopy->_options, v53, v54, v55);
-    sub_24BCD278C(v56, &v88);
+    sub_24BCD278C(v56, &v86);
 
+    v78[3] = 0;
     v79[3] = 0;
     v80[3] = 0;
     v81[3] = 0;
-    v82[3] = 0;
     v57 = selfCopy;
     if (selfCopy->_progress_cb)
     {
-      v92 = &unk_285F95370;
-      v93 = &selfCopy;
-      v94 = &v92;
-      sub_24BCA3290(&v92, v79);
-      sub_24BC9F00C(&v92);
+      v90 = &unk_285F95370;
+      v91 = &selfCopy;
+      v92 = &v90;
+      sub_24BCA3290(&v90, v78);
+      sub_24BC9F00C(&v90);
       v57 = selfCopy;
     }
 
     if (v57->_error_cb)
     {
-      v92 = &unk_285F953B8;
-      v93 = &selfCopy;
-      v94 = &v92;
-      sub_24BCA4ECC(&v92, v80);
-      sub_24BC9F08C(&v92);
+      v90 = &unk_285F953B8;
+      v91 = &selfCopy;
+      v92 = &v90;
+      sub_24BCA4ECC(&v90, v79);
+      sub_24BC9F08C(&v90);
     }
 
-    v92 = &unk_285F95400;
-    v93 = &selfCopy;
-    v94 = &v92;
-    sub_24BD2BA44(&v92, v82);
-    sub_24BD2A770(&v92);
-    if (!objc_msgSend_materialImpl(runCopy, v60, v61, v62))
+    v90 = &unk_285F95400;
+    v91 = &selfCopy;
+    v92 = &v90;
+    sub_24BD2BA44(&v90, v81);
+    sub_24BD2A770(&v90);
+    if (!objc_msgSend_materialImpl(runCopy, v59, v60, v61))
     {
       operator new();
     }
 
-    v66 = objc_msgSend_materialImpl(runCopy, v63, v64, v65);
-    if (!objc_msgSend_materialImpl(outputCopy, v67, v68, v69))
+    v65 = objc_msgSend_materialImpl(runCopy, v62, v63, v64);
+    if (!objc_msgSend_materialImpl(outputCopy, v66, v67, v68))
     {
       operator new();
     }
 
-    v73 = objc_msgSend_materialImpl(outputCopy, v70, v71, v72);
-    sub_24BCA1524(v75, v79);
-    sub_24BCA2D38(&v76, v80);
-    sub_24BCA2DD0(&v77, v81);
-    sub_24BD2A6D8(&v78, v82);
-    sub_24BE3C2B0(v18, v66, v25, v73, &v83, v75);
+    v72 = objc_msgSend_materialImpl(outputCopy, v69, v70, v71);
+    sub_24BCA1524(v74, v78);
+    sub_24BCA2D38(&v75, v79);
+    sub_24BCA2DD0(&v76, v80);
+    sub_24BD2A6D8(&v77, v81);
+    sub_24BE3C2B0(v18, v65, v25, v72, v82, v74);
   }
 
   objc_msgSend_setAlgStatus_(selfCopy, v13, 2, v15, selfCopy);
 
-  v58 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

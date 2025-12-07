@@ -55,43 +55,43 @@
   lCopy = l;
   additionalParams = [(BKAcquireSlotRequest *)self additionalParams];
 
-  v6 = lCopy;
+  v7 = lCopy;
   if (additionalParams)
   {
     if (lCopy)
     {
-      v7 = [[NSURLComponents alloc] initWithURL:lCopy resolvingAgainstBaseURL:0];
+      v8 = [[NSURLComponents alloc] initWithURL:lCopy resolvingAgainstBaseURL:0];
       additionalParams2 = [(BKAcquireSlotRequest *)self additionalParams];
-      [v7 setQuery:additionalParams2];
+      [v8 setQuery:additionalParams2];
 
-      v6 = [v7 URL];
+      v7 = [v8 URL];
     }
 
     else
     {
-      v9 = sub_1000AC6E8();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = sub_1000AC6E8(v6);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Nil url, can't add additional query parms.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Nil url, can't add additional query parms.", buf, 2u);
       }
 
-      v6 = 0;
+      v7 = 0;
     }
   }
 
-  v10 = [[NSMutableURLRequest alloc] initWithURL:v6];
-  [v10 setHTTPMethod:@"GET"];
+  v11 = [[NSMutableURLRequest alloc] initWithURL:v7];
+  [v11 setHTTPMethod:@"GET"];
   objc_initWeak(buf, self);
-  v11 = [[ICStoreURLRequest alloc] initWithURLRequest:v10 requestContext:self->_requestContext];
-  v12 = +[ICURLSessionManager highPrioritySession];
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_1000FD8FC;
-  v13[3] = &unk_100A07368;
-  objc_copyWeak(&v14, buf);
-  [v12 enqueueDataRequest:v11 withCompletionHandler:v13];
-  objc_destroyWeak(&v14);
+  v12 = [[ICStoreURLRequest alloc] initWithURLRequest:v11 requestContext:self->_requestContext];
+  v13 = +[ICURLSessionManager highPrioritySession];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_1000FD8FC;
+  v14[3] = &unk_100A07368;
+  objc_copyWeak(&v15, buf);
+  [v13 enqueueDataRequest:v12 withCompletionHandler:v14];
+  objc_destroyWeak(&v15);
 
   objc_destroyWeak(buf);
 }

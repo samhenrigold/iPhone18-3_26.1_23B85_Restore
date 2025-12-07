@@ -55,11 +55,13 @@
 - (void)tipsViewControllerContentUpdated:(id)updated;
 - (void)tipsViewControllerCurrentTipUpdated:(id)updated;
 - (void)tipsViewControllerHandleSupportArticleURL:(id)l;
+- (void)updateAppInBackground:(BOOL)background;
 - (void)updateAppShortcutSuggestions;
 - (void)updateCollectionListModelDynamicSections;
 - (void)updateShortcutItems;
 - (void)updateShouldHoldOffVideo;
 - (void)updateSupplementaryColumnForCollectionID:(id)d;
+- (void)updateViewCollapsed:(BOOL)collapsed;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
@@ -378,7 +380,7 @@
   stringByRemovingPercentEncoding = [identifierCopy stringByRemovingPercentEncoding];
 
   v42 = stringByRemovingPercentEncoding;
-  v12 = [stringByRemovingPercentEncoding componentsSeparatedByString:@"#"];
+  v12 = objc_msgSend_componentsSeparatedByString_(stringByRemovingPercentEncoding);
   firstObject = [v12 firstObject];
   lastObject = 0;
   if ([v12 count] == 2)
@@ -771,7 +773,7 @@ LABEL_17:
   pendingShowTipIdentifier = self->_pendingShowTipIdentifier;
   if (pendingShowTipIdentifier)
   {
-    v14 = [(NSString *)pendingShowTipIdentifier componentsSeparatedByString:@"#"];
+    v14 = objc_msgSend_componentsSeparatedByString_(pendingShowTipIdentifier);
     if ([v14 count] == 1)
     {
       lastObject = [v14 lastObject];
@@ -2324,7 +2326,7 @@ LABEL_21:
   LOBYTE(v9) = v41;
 LABEL_31:
   path = [v7 path];
-  v37 = [path componentsSeparatedByString:@"/"];
+  v37 = objc_msgSend_componentsSeparatedByString_(path);
 
   if ([v37 count] != 6)
   {
@@ -2356,6 +2358,43 @@ LABEL_40:
 LABEL_41:
 
   return v9;
+}
+
+- (void)updateAppInBackground:(BOOL)background
+{
+  backgroundCopy = background;
+  appController = [(TPSMainViewController *)self appController];
+  [appController setAppInBackground:backgroundCopy];
+
+  collectionListViewController = [(TPSMainViewController *)self collectionListViewController];
+  viewModel = [collectionListViewController viewModel];
+  [viewModel setAppInBackground:backgroundCopy];
+
+  tipListViewController = [(TPSMainViewController *)self tipListViewController];
+  viewModel2 = [tipListViewController viewModel];
+  [viewModel2 setAppInBackground:backgroundCopy];
+}
+
+- (void)updateViewCollapsed:(BOOL)collapsed
+{
+  collapsedCopy = collapsed;
+  appController = [(TPSMainViewController *)self appController];
+  [appController setViewNavigationCollapsed:collapsedCopy];
+
+  collectionListViewController = [(TPSMainViewController *)self collectionListViewController];
+  viewModel = [collectionListViewController viewModel];
+  [viewModel setViewCollapsed:collapsedCopy];
+
+  tipListViewController = [(TPSMainViewController *)self tipListViewController];
+  viewModel2 = [tipListViewController viewModel];
+  [viewModel2 setViewCollapsed:collapsedCopy];
+
+  tipListViewController2 = [(TPSMainViewController *)self tipListViewController];
+  viewModel3 = [tipListViewController2 viewModel];
+  [viewModel3 setDisplayChevron:collapsedCopy];
+
+  tipsByCollectionViewController = [(TPSMainViewController *)self tipsByCollectionViewController];
+  [tipsByCollectionViewController setShouldDisplayNavigationTitle:collapsedCopy];
 }
 
 - (void)updateShouldHoldOffVideo
@@ -2711,12 +2750,11 @@ LABEL_8:
 {
   v2 = type metadata accessor for TipsLog();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin(v2);
-  v6 = &v7 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v6 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   static TipsLog.default.getter();
   log(_:_:)();
-  (*(v3 + 8))(v6, v2);
+  (*(v3 + 8))(v5, v2);
   sub_10002D7FC();
   static AppShortcutsProvider.updateAppShortcutParameters()();
 }
@@ -2725,28 +2763,27 @@ LABEL_8:
 {
   v4 = type metadata accessor for URL();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   type metadata accessor for SupportFlowURLComponents();
   selfCopy = self;
   static SupportFlowURLComponents.components(from:)();
-  v11 = v10;
+  v10 = v9;
 
-  if (v11)
+  if (v10)
   {
-    v12 = String._bridgeToObjectiveC()();
+    v11 = String._bridgeToObjectiveC()();
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  [(TPSMainViewController *)selfCopy displaySupportFlowWithIdentifier:v12];
+  [(TPSMainViewController *)selfCopy displaySupportFlowWithIdentifier:v11];
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)displaySupportFlowWithIdentifier:(id)identifier
@@ -2771,14 +2808,13 @@ LABEL_8:
 {
   v6 = type metadata accessor for URL();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  TPSMainViewController.presentURL(_:isModalInPresentation:)(v10, presentation);
+  TPSMainViewController.presentURL(_:isModalInPresentation:)(v9, presentation);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)tipsViewController:(id)controller didSelectSearchResult:(id)result
@@ -2808,28 +2844,26 @@ LABEL_8:
 {
   v5 = type metadata accessor for URL();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v22 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_10001B4A4(&unk_1000B3380, &qword_100079940);
-  v11 = *(*(v10 - 8) + 64);
-  v12 = __chkstk_darwin(v10 - 8);
-  v14 = &v22 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v12);
-  v16 = &v22 - v15;
+  v8 = &v20 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = sub_10001B4A4(&unk_1000B3380, &qword_100079940);
+  v10 = __chkstk_darwin(v9 - 8);
+  v12 = &v20 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v10);
+  v14 = &v20 - v13;
   if (l)
   {
     static URL._unconditionallyBridgeFromObjectiveC(_:)();
-    (*(v6 + 56))(v16, 0, 1, v5);
+    (*(v6 + 56))(v14, 0, 1, v5);
   }
 
   else
   {
-    (*(v6 + 56))(&v22 - v15, 1, 1, v5);
+    (*(v6 + 56))(&v20 - v13, 1, 1, v5);
   }
 
-  sub_10001F808(v16, v14, &unk_1000B3380, &qword_100079940);
-  if ((*(v6 + 48))(v14, 1, v5) == 1)
+  sub_10001F808(v14, v12, &unk_1000B3380, &qword_100079940);
+  if ((*(v6 + 48))(v12, 1, v5) == 1)
   {
     __break(1u);
   }
@@ -2838,14 +2872,14 @@ LABEL_8:
   {
     selfCopy = self;
     URL.appendingSupportArticleQueryParam()();
-    v18 = *(v6 + 8);
-    v18(v14, v5);
-    URL._bridgeToObjectiveC()(v19);
-    v21 = v20;
-    v18(v9, v5);
-    [(TPSMainViewController *)selfCopy presentURL:v21 isModalInPresentation:1];
+    v16 = *(v6 + 8);
+    v16(v12, v5);
+    URL._bridgeToObjectiveC()(v17);
+    v19 = v18;
+    v16(v8, v5);
+    [(TPSMainViewController *)selfCopy presentURL:v19 isModalInPresentation:1];
 
-    sub_10001F870(v16, &unk_1000B3380, &qword_100079940);
+    sub_10001F870(v14, &unk_1000B3380, &qword_100079940);
   }
 }
 

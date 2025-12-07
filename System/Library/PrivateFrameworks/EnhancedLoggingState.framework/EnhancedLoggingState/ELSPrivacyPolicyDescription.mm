@@ -105,19 +105,17 @@
 
 - (id)dictionaryRepresentation
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"policyKey";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"policyKey";
   policyKey = [(ELSPrivacyPolicyDescription *)self policyKey];
-  v10[0] = policyKey;
-  v9[1] = @"suiteNameKey";
+  v9[0] = policyKey;
+  v8[1] = @"suiteNameKey";
   suiteNameKey = [(ELSPrivacyPolicyDescription *)self suiteNameKey];
-  v10[1] = suiteNameKey;
-  v9[2] = @"sensitiveInfoKey";
+  v9[1] = suiteNameKey;
+  v8[2] = @"sensitiveInfoKey";
   sensitiveInformationKey = [(ELSPrivacyPolicyDescription *)self sensitiveInformationKey];
-  v10[2] = sensitiveInformationKey;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = sensitiveInformationKey;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }

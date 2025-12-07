@@ -211,7 +211,6 @@
 - (uint64_t)hf_homeHasMigratedServicesToAccessories;
 - (uint64_t)hf_isAbleToAddTrigger;
 - (uint64_t)hf_isAutomatable;
-- (uint64_t)hf_isAutomaticThirdPartyAccessorySoftwareUpdateEnabled;
 - (uint64_t)hf_isCurrentLocationHome;
 - (uint64_t)hf_isCurrentUserInRestrictedGuestAllowedPeriod;
 - (uint64_t)hf_isEmpty;
@@ -245,6 +244,7 @@
 - (uint64_t)hf_userIsOwner:()Additions;
 - (uint64_t)hf_userIsRestrictedGuest:()Additions;
 - (void)hf_clearCachedWalletKeyDeviceStateForCurrentDevice;
+- (void)hf_isAutomaticThirdPartyAccessorySoftwareUpdateEnabled;
 - (void)hf_setIsGridForecastEnabled:()Additions;
 - (void)hf_setSelectedRoom:()Additions;
 - (void)hf_setTemporaryEnergyLocation:()Additions;
@@ -292,7 +292,7 @@ LABEL_5:
 
 - (HFCharacteristicValueManager)hf_characteristicValueManager
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_getAssociatedObject(self, sel_hf_characteristicValueManager);
   if (!v2)
   {
@@ -301,19 +301,17 @@ LABEL_5:
     v3 = HFLogForCategory(0x3BuLL);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v6 = 136315906;
-      v7 = "[HMHome(Additions) hf_characteristicValueManager]";
-      v8 = 2048;
-      v9 = 147;
-      v10 = 2112;
-      v11 = v2;
-      v12 = 2112;
+      v5 = 136315906;
+      v6 = "[HMHome(Additions) hf_characteristicValueManager]";
+      v7 = 2048;
+      v8 = 147;
+      v9 = 2112;
+      v10 = v2;
+      v11 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_INFO, "%s (Line: %ld) HFCharacteristicValueManager is %@ for Home %@.", &v6, 0x2Au);
+      _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_INFO, "%s (Line: %ld) HFCharacteristicValueManager is %@ for Home %@.", &v5, 0x2Au);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -336,7 +334,7 @@ LABEL_5:
 
 - (_TtC4Home19HFHomeEnergyManager)hf_energyManager
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = objc_getAssociatedObject(self, sel_hf_energyManager);
   if (!v2)
   {
@@ -346,17 +344,15 @@ LABEL_5:
     v3 = HFLogForCategory(0x24uLL);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v6 = 136315650;
-      v7 = "[HMHome(Additions) hf_energyManager]";
-      v8 = 2112;
-      v9 = v2;
-      v10 = 2112;
+      v5 = 136315650;
+      v6 = "[HMHome(Additions) hf_energyManager]";
+      v7 = 2112;
+      v8 = v2;
+      v9 = 2112;
       selfCopy = self;
-      _os_log_debug_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEBUG, "%s HFHomeEnergyManager is %@ for Home %@.", &v6, 0x20u);
+      _os_log_debug_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEBUG, "%s HFHomeEnergyManager is %@ for Home %@.", &v5, 0x20u);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -483,66 +479,62 @@ LABEL_5:
 
 - (uint64_t)hf_remoteAccessState
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if ((HFForceRemoteAccessStateAvailable() & 1) != 0 || +[HFUtilities shouldSuppressAllErrorsForDemo])
   {
-    v2 = 3;
+    return 3;
+  }
+
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  residentDevices = [self residentDevices];
+  v4 = [residentDevices countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v11;
+    v2 = 1;
+    while (2)
+    {
+      for (i = 0; i != v5; ++i)
+      {
+        if (*v11 != v6)
+        {
+          objc_enumerationMutation(residentDevices);
+        }
+
+        v8 = *(*(&v10 + 1) + 8 * i);
+        if ([v8 isEnabled])
+        {
+          if ([v8 status])
+          {
+            v2 = 3;
+            goto LABEL_17;
+          }
+
+          v2 = 2;
+        }
+      }
+
+      v5 = [residentDevices countByEnumeratingWithState:&v10 objects:v14 count:16];
+      if (v5)
+      {
+        continue;
+      }
+
+      break;
+    }
   }
 
   else
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
-    v12 = 0u;
-    residentDevices = [self residentDevices];
-    v4 = [residentDevices countByEnumeratingWithState:&v11 objects:v15 count:16];
-    if (v4)
-    {
-      v5 = v4;
-      v6 = *v12;
-      v2 = 1;
-      while (2)
-      {
-        for (i = 0; i != v5; ++i)
-        {
-          if (*v12 != v6)
-          {
-            objc_enumerationMutation(residentDevices);
-          }
-
-          v8 = *(*(&v11 + 1) + 8 * i);
-          if ([v8 isEnabled])
-          {
-            if ([v8 status])
-            {
-              v2 = 3;
-              goto LABEL_17;
-            }
-
-            v2 = 2;
-          }
-        }
-
-        v5 = [residentDevices countByEnumeratingWithState:&v11 objects:v15 count:16];
-        if (v5)
-        {
-          continue;
-        }
-
-        break;
-      }
-    }
-
-    else
-    {
-      v2 = 1;
-    }
-
-LABEL_17:
+    v2 = 1;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
+LABEL_17:
+
   return v2;
 }
 
@@ -676,7 +668,7 @@ LABEL_17:
 
 - (uint64_t)hf_canAddRestrictedGuest
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if ([self hf_canAddHomeMember])
   {
     hf_primaryResidentDevice = [self hf_primaryResidentDevice];
@@ -696,15 +688,15 @@ LABEL_17:
 
       [hf_primaryResidentDevice capabilities];
       v6 = HMResidentDeviceCapabilitiesDescription();
-      v12 = 136315906;
-      v13 = "[HMHome(Additions) hf_canAddRestrictedGuest]";
-      v14 = 2112;
-      v15 = v5;
-      v16 = 2112;
-      v17 = hf_primaryResidentDevice;
-      v18 = 2112;
-      v19 = v6;
-      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "(%s) Returning %@. primary resident %@ has capabilities %@.", &v12, 0x2Au);
+      v11 = 136315906;
+      v12 = "[HMHome(Additions) hf_canAddRestrictedGuest]";
+      v13 = 2112;
+      v14 = v5;
+      v15 = 2112;
+      v16 = hf_primaryResidentDevice;
+      v17 = 2112;
+      v18 = v6;
+      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "(%s) Returning %@. primary resident %@ has capabilities %@.", &v11, 0x2Au);
     }
 
     hf_restrictedGuestAllowedAccessories = [self hf_restrictedGuestAllowedAccessories];
@@ -718,15 +710,14 @@ LABEL_17:
     hf_primaryResidentDevice = HFLogForCategory(0x4CuLL);
     if (os_log_type_enabled(hf_primaryResidentDevice, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136315138;
-      v13 = "[HMHome(Additions) hf_canAddRestrictedGuest]";
-      _os_log_impl(&dword_20D9BF000, hf_primaryResidentDevice, OS_LOG_TYPE_DEFAULT, "(%s) Returning NO because adding home is not available. Check if resident device opted into HH2 or not.", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[HMHome(Additions) hf_canAddRestrictedGuest]";
+      _os_log_impl(&dword_20D9BF000, hf_primaryResidentDevice, OS_LOG_TYPE_DEFAULT, "(%s) Returning NO because adding home is not available. Check if resident device opted into HH2 or not.", &v11, 0xCu);
     }
 
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -748,7 +739,7 @@ LABEL_17:
 
 - (uint64_t)hf_isInRestrictedGuestAllowedPeriodForUser:()Additions
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ([self hf_userIsRestrictedGuest:v4])
   {
@@ -769,19 +760,19 @@ LABEL_17:
         uniqueIdentifier = [self uniqueIdentifier];
         hf_prettyDescription = [v4 hf_prettyDescription];
         timeZone = [self timeZone];
-        v22 = 136316418;
-        v23 = "[HMHome(Additions) hf_isInRestrictedGuestAllowedPeriodForUser:]";
-        v24 = 2112;
-        v25 = v11;
-        v26 = 2112;
-        v27 = name;
-        v28 = 2112;
-        v29 = uniqueIdentifier;
-        v30 = 2112;
-        v31 = hf_prettyDescription;
-        v32 = 2112;
-        v33 = timeZone;
-        _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "(%s) Returning %@. home: <Name: %@, uniqueIdentifier: %@>. User = %@. (timeZone = %@.)", &v22, 0x3Eu);
+        v21 = 136316418;
+        v22 = "[HMHome(Additions) hf_isInRestrictedGuestAllowedPeriodForUser:]";
+        v23 = 2112;
+        v24 = v11;
+        v25 = 2112;
+        v26 = name;
+        v27 = 2112;
+        v28 = uniqueIdentifier;
+        v29 = 2112;
+        v30 = hf_prettyDescription;
+        v31 = 2112;
+        v32 = timeZone;
+        _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "(%s) Returning %@. home: <Name: %@, uniqueIdentifier: %@>. User = %@. (timeZone = %@.)", &v21, 0x3Eu);
       }
     }
 
@@ -793,15 +784,15 @@ LABEL_17:
         name2 = [self name];
         uniqueIdentifier2 = [self uniqueIdentifier];
         hf_prettyDescription2 = [v4 hf_prettyDescription];
-        v22 = 136315906;
-        v23 = "[HMHome(Additions) hf_isInRestrictedGuestAllowedPeriodForUser:]";
-        v24 = 2112;
-        v25 = name2;
-        v26 = 2112;
-        v27 = uniqueIdentifier2;
-        v28 = 2112;
-        v29 = hf_prettyDescription2;
-        _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "(%s) Returning YES because schedule is 'nil' aka 'Always Allowed' for RG. home: <Name: %@, Id: %@> user:%@.", &v22, 0x2Au);
+        v21 = 136315906;
+        v22 = "[HMHome(Additions) hf_isInRestrictedGuestAllowedPeriodForUser:]";
+        v23 = 2112;
+        v24 = name2;
+        v25 = 2112;
+        v26 = uniqueIdentifier2;
+        v27 = 2112;
+        v28 = hf_prettyDescription2;
+        _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "(%s) Returning YES because schedule is 'nil' aka 'Always Allowed' for RG. home: <Name: %@, Id: %@> user:%@.", &v21, 0x2Au);
       }
 
       isRestrictedGuestInAllowedPeriod = 1;
@@ -814,17 +805,16 @@ LABEL_17:
     if (os_log_type_enabled(restrictedGuestAccessSettings, OS_LOG_TYPE_DEFAULT))
     {
       hf_prettyDescription3 = [v4 hf_prettyDescription];
-      v22 = 136315394;
-      v23 = "[HMHome(Additions) hf_isInRestrictedGuestAllowedPeriodForUser:]";
-      v24 = 2112;
-      v25 = hf_prettyDescription3;
-      _os_log_impl(&dword_20D9BF000, restrictedGuestAccessSettings, OS_LOG_TYPE_DEFAULT, "(%s) Returning NO because user is NOT restricted guest. User = %@", &v22, 0x16u);
+      v21 = 136315394;
+      v22 = "[HMHome(Additions) hf_isInRestrictedGuestAllowedPeriodForUser:]";
+      v23 = 2112;
+      v24 = hf_prettyDescription3;
+      _os_log_impl(&dword_20D9BF000, restrictedGuestAccessSettings, OS_LOG_TYPE_DEFAULT, "(%s) Returning NO because user is NOT restricted guest. User = %@", &v21, 0x16u);
     }
 
     isRestrictedGuestInAllowedPeriod = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return isRestrictedGuestInAllowedPeriod;
 }
 
@@ -838,7 +828,7 @@ LABEL_17:
 
 - (BOOL)hf_isCurrentRestrictedGuestAwayFromHome
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   currentUser = [self currentUser];
   v3 = [self hf_userIsRestrictedGuest:currentUser];
 
@@ -861,22 +851,21 @@ LABEL_17:
     v8 = HMStringFromHomeLocation();
     currentUser2 = [self currentUser];
     hf_prettyDescription = [currentUser2 hf_prettyDescription];
-    v13 = 136316418;
-    v14 = "[HMHome(Additions) hf_isCurrentRestrictedGuestAwayFromHome]";
-    v15 = 1024;
-    v16 = v4;
-    v17 = 2112;
-    v18 = name;
-    v19 = 2112;
-    v20 = uniqueIdentifier;
-    v21 = 2112;
-    v22 = v8;
-    v23 = 2112;
-    v24 = hf_prettyDescription;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "(%s) result = %{BOOL}d. home: <Name: %@, Id: %@>. HomeLocationStatus = %@. User:%@.", &v13, 0x3Au);
+    v12 = 136316418;
+    v13 = "[HMHome(Additions) hf_isCurrentRestrictedGuestAwayFromHome]";
+    v14 = 1024;
+    v15 = v4;
+    v16 = 2112;
+    v17 = name;
+    v18 = 2112;
+    v19 = uniqueIdentifier;
+    v20 = 2112;
+    v21 = v8;
+    v22 = 2112;
+    v23 = hf_prettyDescription;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "(%s) result = %{BOOL}d. home: <Name: %@, Id: %@>. HomeLocationStatus = %@. User:%@.", &v12, 0x3Au);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -906,7 +895,7 @@ LABEL_17:
 
 - (uint64_t)hf_shouldShowNoAccessOutsideOfScheduleForRestrictedGuest:()Additions
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ([self hf_userIsRestrictedGuest:v4])
   {
@@ -918,17 +907,17 @@ LABEL_17:
       name = [self name];
       uniqueIdentifier = [self uniqueIdentifier];
       hf_prettyDescription = [v4 hf_prettyDescription];
-      v16 = 136316162;
-      v17 = "[HMHome(Additions) hf_shouldShowNoAccessOutsideOfScheduleForRestrictedGuest:]";
-      v18 = 2112;
-      v19 = v7;
-      v20 = 2112;
-      v21 = name;
-      v22 = 2112;
-      v23 = uniqueIdentifier;
-      v24 = 2112;
-      v25 = hf_prettyDescription;
-      _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "(%s) Returning %@. home: <Name: %@, Id: %@>. user = %@.", &v16, 0x34u);
+      v15 = 136316162;
+      v16 = "[HMHome(Additions) hf_shouldShowNoAccessOutsideOfScheduleForRestrictedGuest:]";
+      v17 = 2112;
+      v18 = v7;
+      v19 = 2112;
+      v20 = name;
+      v21 = 2112;
+      v22 = uniqueIdentifier;
+      v23 = 2112;
+      v24 = hf_prettyDescription;
+      _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "(%s) Returning %@. home: <Name: %@, Id: %@>. user = %@.", &v15, 0x34u);
     }
   }
 
@@ -940,27 +929,26 @@ LABEL_17:
       name2 = [self name];
       uniqueIdentifier2 = [self uniqueIdentifier];
       hf_prettyDescription2 = [v4 hf_prettyDescription];
-      v16 = 136315906;
-      v17 = "[HMHome(Additions) hf_shouldShowNoAccessOutsideOfScheduleForRestrictedGuest:]";
-      v18 = 2112;
-      v19 = name2;
-      v20 = 2112;
-      v21 = uniqueIdentifier2;
-      v22 = 2112;
-      v23 = hf_prettyDescription2;
-      _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "(%s) Returning NO because user is NOT a restricted guest. home: <Name: %@, Id: %@>. User:%@", &v16, 0x2Au);
+      v15 = 136315906;
+      v16 = "[HMHome(Additions) hf_shouldShowNoAccessOutsideOfScheduleForRestrictedGuest:]";
+      v17 = 2112;
+      v18 = name2;
+      v19 = 2112;
+      v20 = uniqueIdentifier2;
+      v21 = 2112;
+      v22 = hf_prettyDescription2;
+      _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "(%s) Returning NO because user is NOT a restricted guest. home: <Name: %@, Id: %@>. User:%@", &v15, 0x2Au);
     }
 
     v5 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (uint64_t)hf_shouldHideResidentDeviceReachabilityIssues
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   currentUser = [self currentUser];
   v5 = [self hf_userIsRestrictedGuest:currentUser];
 
@@ -970,15 +958,14 @@ LABEL_17:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = NSStringFromSelector(a2);
-      v10 = 138412546;
+      v9 = 138412546;
       selfCopy = self;
-      v12 = 2112;
-      v13 = v7;
-      _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "%@:%@ Current user is a restricted guest, will hide resident reachability issues.", &v10, 0x16u);
+      v11 = 2112;
+      v12 = v7;
+      _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "%@:%@ Current user is a restricted guest, will hide resident reachability issues.", &v9, 0x16u);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1078,7 +1065,7 @@ LABEL_17:
 
 - (void)hf_setSelectedRoom:()Additions
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = +[HFStateRestorationSettings sharedInstance];
   selectedRoomIdentifierForSelectedHome = [v5 selectedRoomIdentifierForSelectedHome];
@@ -1099,22 +1086,20 @@ LABEL_17:
       hf_prettyDescription = [v4 hf_prettyDescription];
       *buf = 138412546;
       selfCopy = self;
-      v20 = 2112;
-      v21 = hf_prettyDescription;
+      v19 = 2112;
+      v20 = hf_prettyDescription;
       _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "home:%@ didSelectRoom:%@", buf, 0x16u);
     }
 
     v14 = +[HFHomeKitDispatcher sharedDispatcher];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __40__HMHome_Additions__hf_setSelectedRoom___block_invoke;
-    v16[3] = &unk_277DF3810;
-    v16[4] = self;
-    v17 = v4;
-    [v14 dispatchHomeObserverMessage:v16 sender:0];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __40__HMHome_Additions__hf_setSelectedRoom___block_invoke;
+    v15[3] = &unk_277DF3810;
+    v15[4] = self;
+    v16 = v4;
+    [v14 dispatchHomeObserverMessage:v15 sender:0];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)hf_orderedActionSets
@@ -1213,28 +1198,28 @@ LABEL_17:
 
 - (id)hf_allNonEmptyActionSets
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   actionSets = [self actionSets];
-  v4 = [actionSets countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [actionSets countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(actionSets);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         actions = [v8 actions];
         if ([actions count])
         {
@@ -1251,40 +1236,38 @@ LABEL_17:
         }
       }
 
-      v5 = [actionSets countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [actionSets countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 - (id)hf_accessoryWithIdentifier:()Additions
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   accessories = [self accessories];
-  v6 = [accessories countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [accessories countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(accessories);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         uniqueIdentifier = [v9 uniqueIdentifier];
         v11 = [uniqueIdentifier isEqual:v4];
 
@@ -1295,7 +1278,7 @@ LABEL_17:
         }
       }
 
-      v6 = [accessories countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [accessories countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -1307,34 +1290,32 @@ LABEL_17:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)hf_accessoryWithDeviceIdentifier:()Additions
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   accessories = [self accessories];
-  v6 = [accessories countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [accessories countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
-    v7 = *v20;
+    v7 = *v19;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(accessories);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         v10 = objc_alloc(MEMORY[0x277D0F808]);
         deviceIdentifier = [v9 deviceIdentifier];
         v12 = [v10 initWithMACAddressString:deviceIdentifier];
@@ -1360,7 +1341,7 @@ LABEL_11:
         }
       }
 
-      v6 = [accessories countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [accessories countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v6)
       {
         continue;
@@ -1371,8 +1352,6 @@ LABEL_11:
   }
 
 LABEL_14:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1394,27 +1373,27 @@ LABEL_14:
 
 - (id)hf_accessoryForSymptomsHandler:()Additions
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   accessories = [self accessories];
-  v6 = [accessories countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [accessories countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(accessories);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         symptomsHandler = [v9 symptomsHandler];
         v11 = [symptomsHandler isEqual:v4];
 
@@ -1425,7 +1404,7 @@ LABEL_14:
         }
       }
 
-      v6 = [accessories countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [accessories countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -1436,8 +1415,6 @@ LABEL_14:
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1488,29 +1465,29 @@ LABEL_11:
 
 - (id)hf_accessoriesMatchingCategoryType:()Additions
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   accessories = [self accessories];
-  v7 = [accessories countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [accessories countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(accessories);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         category = [v11 category];
         categoryType = [category categoryType];
         v14 = [categoryType isEqualToString:v4];
@@ -1521,54 +1498,50 @@ LABEL_11:
         }
       }
 
-      v8 = [accessories countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [accessories countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)hf_allBridgeAccessories
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   accessories = [self accessories];
-  v4 = [accessories countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [accessories countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(accessories);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
+        v8 = *(*(&v10 + 1) + 8 * i);
         if ([v8 hf_isBridge])
         {
           [v2 addObject:v8];
         }
       }
 
-      v5 = [accessories countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [accessories countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -1706,14 +1679,14 @@ LABEL_11:
 
 - (uint64_t)hf_shouldBlockCurrentUserFromHomeForRoarUpgrade
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (+[HFUtilities isInternalInstall]&& HFPreferencesBooleanValueForKey(@"HFEnableForceBlockUserForRoarUpgrade") == 2)
   {
     v2 = HFLogForCategory(0);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v20) = 0;
-      _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "<HMHome:hf_shouldBlockCurrentUserFromHomeForRoarUpgrade> Debug default enabled, override set to YES ", &v20, 2u);
+      LOWORD(v19) = 0;
+      _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "<HMHome:hf_shouldBlockCurrentUserFromHomeForRoarUpgrade> Debug default enabled, override set to YES ", &v19, 2u);
     }
 
     v3 = 1;
@@ -1752,28 +1725,27 @@ LABEL_11:
         v15 = HF_HomeAccessNotAllowedReasonCodeString(v6);
         v16 = +[HFHomeKitDispatcher sharedDispatcher];
         homeManager2 = [v16 homeManager];
-        v20 = 138544386;
-        v21 = uniqueIdentifier;
-        v22 = 2114;
-        v23 = uniqueIdentifier2;
-        v24 = 2048;
-        v25 = v6;
-        v26 = 2112;
-        v27 = v15;
-        v28 = 1024;
+        v19 = 138544386;
+        v20 = uniqueIdentifier;
+        v21 = 2114;
+        v22 = uniqueIdentifier2;
+        v23 = 2048;
+        v24 = v6;
+        v25 = 2112;
+        v26 = v15;
+        v27 = 1024;
         hasOptedToHH22 = [homeManager2 hasOptedToHH2];
-        _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "<HMHome:hf_shouldBlockCurrentUserFromHomeForRoarUpgrade> User %{public}@ is blocked from home %{public}@. HMHomeAccessNotAllowedReasonCode %lu (%@) | hasOptedToHH2 = %{BOOL}d", &v20, 0x30u);
+        _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "<HMHome:hf_shouldBlockCurrentUserFromHomeForRoarUpgrade> User %{public}@ is blocked from home %{public}@. HMHomeAccessNotAllowedReasonCode %lu (%@) | hasOptedToHH2 = %{BOOL}d", &v19, 0x30u);
       }
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v3 & 1;
 }
 
 - (uint64_t)hf_currentUserRoarUpdateRequiredForUnsupportedLegacyHomeHubVersion
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v2 = +[HFHomeKitDispatcher sharedDispatcher];
   homeManager = [v2 homeManager];
   hasOptedToHH2 = [homeManager hasOptedToHH2];
@@ -1810,26 +1782,25 @@ LABEL_11:
       hf_minimumDescription = [self hf_minimumDescription];
       uniqueIdentifier2 = [self uniqueIdentifier];
       *buf = 67110914;
-      v22 = v6;
-      v23 = 1024;
-      v24 = isAccessAllowed;
-      v25 = 2048;
-      v26 = accessNotAllowedReasonCode;
-      v27 = 2114;
-      v28 = v10;
-      v29 = 2112;
-      v30 = hf_prettyDescription;
-      v31 = 2114;
-      v32 = uniqueIdentifier;
-      v33 = 2112;
-      v34 = hf_minimumDescription;
-      v35 = 2114;
-      v36 = uniqueIdentifier2;
+      v21 = v6;
+      v22 = 1024;
+      v23 = isAccessAllowed;
+      v24 = 2048;
+      v25 = accessNotAllowedReasonCode;
+      v26 = 2114;
+      v27 = v10;
+      v28 = 2112;
+      v29 = hf_prettyDescription;
+      v30 = 2114;
+      v31 = uniqueIdentifier;
+      v32 = 2112;
+      v33 = hf_minimumDescription;
+      v34 = 2114;
+      v35 = uniqueIdentifier2;
       _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "<HMHome:hf_currentUserHomeHubMigrationRequired> ROAR Upgrade required = %{BOOL}d | isAccessAllowed = %{BOOL}d | HMHomeAccessNotAllowedReasonCode %lu (%{public}@) | User = %@ (%{public}@) | home = %@ (%{public}@)", buf, 0x4Au);
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1844,7 +1815,7 @@ LABEL_11:
 
 - (BOOL)hf_hasReachableResidents
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   residentDevices = [self residentDevices];
   v3 = [residentDevices na_filter:&__block_literal_global_157];
   v4 = HFLogForCategory(0);
@@ -1852,19 +1823,18 @@ LABEL_11:
   {
     v5 = [residentDevices count];
     uniqueIdentifier = [self uniqueIdentifier];
-    v10 = 134218754;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v3;
-    v14 = 2112;
+    v9 = 134218754;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v3;
+    v13 = 2112;
     selfCopy = self;
-    v16 = 2114;
-    v17 = uniqueIdentifier;
-    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "[hf_hasReachableResidents] Total residents: %lu - Reachable: %@ | home = %@ (%{public}@)", &v10, 0x2Au);
+    v15 = 2114;
+    v16 = uniqueIdentifier;
+    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "[hf_hasReachableResidents] Total residents: %lu - Reachable: %@ | home = %@ (%{public}@)", &v9, 0x2Au);
   }
 
   v7 = [v3 count] != 0;
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -2075,7 +2045,7 @@ LABEL_12:
   return result;
 }
 
-- (uint64_t)hf_isAutomaticThirdPartyAccessorySoftwareUpdateEnabled
+- (void)hf_isAutomaticThirdPartyAccessorySoftwareUpdateEnabled
 {
   result = [self hf_hasEnabledResidentSupportingThirdPartySoftwareUpdate];
   if (result)
@@ -2132,48 +2102,48 @@ LABEL_12:
 
 - (id)hf_serviceWithIdentifier:()Additions
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   accessories = [self accessories];
-  v21 = [accessories countByEnumeratingWithState:&v26 objects:v31 count:16];
-  if (v21)
+  v20 = [accessories countByEnumeratingWithState:&v25 objects:v30 count:16];
+  if (v20)
   {
-    v6 = *v27;
-    v20 = *v27;
+    v6 = *v26;
+    v19 = *v26;
     do
     {
-      for (i = 0; i != v21; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        if (*v27 != v6)
+        if (*v26 != v6)
         {
           objc_enumerationMutation(accessories);
         }
 
-        v8 = *(*(&v26 + 1) + 8 * i);
+        v8 = *(*(&v25 + 1) + 8 * i);
+        v21 = 0u;
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v25 = 0u;
         services = [v8 services];
-        v10 = [services countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v10 = [services countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v23;
+          v12 = *v22;
           while (2)
           {
             for (j = 0; j != v11; ++j)
             {
-              if (*v23 != v12)
+              if (*v22 != v12)
               {
                 objc_enumerationMutation(services);
               }
 
-              v14 = *(*(&v22 + 1) + 8 * j);
+              v14 = *(*(&v21 + 1) + 8 * j);
               uniqueIdentifier = [v14 uniqueIdentifier];
               v16 = [uniqueIdentifier isEqual:v4];
 
@@ -2185,7 +2155,7 @@ LABEL_12:
               }
             }
 
-            v11 = [services countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v11 = [services countByEnumeratingWithState:&v21 objects:v29 count:16];
             if (v11)
             {
               continue;
@@ -2195,14 +2165,14 @@ LABEL_12:
           }
         }
 
-        v6 = v20;
+        v6 = v19;
       }
 
       v17 = 0;
-      v21 = [accessories countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v20 = [accessories countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
-    while (v21);
+    while (v20);
   }
 
   else
@@ -2212,45 +2182,41 @@ LABEL_12:
 
 LABEL_19:
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (id)hf_allServices
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   accessories = [self accessories];
-  v4 = [accessories countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [accessories countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(accessories);
         }
 
-        services = [*(*(&v11 + 1) + 8 * i) services];
+        services = [*(*(&v10 + 1) + 8 * i) services];
         [v2 addObjectsFromArray:services];
       }
 
-      v5 = [accessories countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [accessories countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -2328,34 +2294,34 @@ LABEL_19:
 
 - (id)hf_cameraProfileWithIdentifier:()Additions
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   accessories = [self accessories];
-  v6 = [accessories countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [accessories countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v17 != v8)
+      if (*v16 != v8)
       {
         objc_enumerationMutation(accessories);
       }
 
-      cameraProfiles = [*(*(&v16 + 1) + 8 * v9) cameraProfiles];
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __52__HMHome_Additions__hf_cameraProfileWithIdentifier___block_invoke;
-      v14[3] = &unk_277DF8038;
-      v15 = v4;
-      v11 = [cameraProfiles na_firstObjectPassingTest:v14];
+      cameraProfiles = [*(*(&v15 + 1) + 8 * v9) cameraProfiles];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __52__HMHome_Additions__hf_cameraProfileWithIdentifier___block_invoke;
+      v13[3] = &unk_277DF8038;
+      v14 = v4;
+      v11 = [cameraProfiles na_firstObjectPassingTest:v13];
 
       if (v11)
       {
@@ -2364,7 +2330,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [accessories countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [accessories countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -2380,8 +2346,6 @@ LABEL_3:
 LABEL_9:
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -2540,7 +2504,7 @@ LABEL_9:
 
 - (uint64_t)hf_isFaceRecognitionAvailable
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   residentDevices = [self residentDevices];
   v3 = [residentDevices count];
 
@@ -2552,11 +2516,11 @@ LABEL_9:
       goto LABEL_12;
     }
 
-    v12 = 138412290;
+    v11 = 138412290;
     selfCopy3 = self;
     v10 = "Home %@ does not have any resident device, which is required for Face Recognition feature";
 LABEL_11:
-    _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, v10, &v12, 0xCu);
+    _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, v10, &v11, 0xCu);
     goto LABEL_12;
   }
 
@@ -2571,7 +2535,7 @@ LABEL_11:
       goto LABEL_12;
     }
 
-    v12 = 138412290;
+    v11 = 138412290;
     selfCopy3 = self;
     v10 = "No resident devices in home %@ support face classification";
     goto LABEL_11;
@@ -2580,64 +2544,58 @@ LABEL_11:
   hf_allCameraProfilesSupportingRecording = [self hf_allCameraProfilesSupportingRecording];
   v7 = [hf_allCameraProfilesSupportingRecording count];
 
-  if (!v7)
+  if (v7)
   {
-    v9 = HFLogForCategory(0x13uLL);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-    {
-      v12 = 138412290;
-      selfCopy3 = self;
-      v10 = "No cameras in home %@ support recording";
-      goto LABEL_11;
-    }
+    return 1;
+  }
+
+  v9 = HFLogForCategory(0x13uLL);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = 138412290;
+    selfCopy3 = self;
+    v10 = "No cameras in home %@ support recording";
+    goto LABEL_11;
+  }
 
 LABEL_12:
 
-    result = 0;
-    goto LABEL_13;
-  }
-
-  result = 1;
-LABEL_13:
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (id)hf_setFaceRecognitionEnabled:()Additions
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = HFLogForCategory(0x13uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     selfCopy = self;
-    v21 = 1024;
-    v22 = a3;
+    v20 = 1024;
+    v21 = a3;
     _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%@: Setting face recognition enabled(%d)", buf, 0x12u);
   }
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __50__HMHome_Additions__hf_setFaceRecognitionEnabled___block_invoke;
-  v16[3] = &unk_277DF4EF0;
-  v17 = a3;
-  v16[4] = self;
-  v6 = [MEMORY[0x277D2C900] futureWithBlock:v16];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __50__HMHome_Additions__hf_setFaceRecognitionEnabled___block_invoke_2_249;
-  v14[3] = &unk_277DF4EF0;
-  v14[4] = self;
-  v15 = a3;
-  v7 = [MEMORY[0x277D2C900] futureWithBlock:v14];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __50__HMHome_Additions__hf_setFaceRecognitionEnabled___block_invoke;
+  v15[3] = &unk_277DF4EF0;
+  v16 = a3;
+  v15[4] = self;
+  v6 = [MEMORY[0x277D2C900] futureWithBlock:v15];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __50__HMHome_Additions__hf_setFaceRecognitionEnabled___block_invoke_2_249;
+  v13[3] = &unk_277DF4EF0;
+  v13[4] = self;
+  v14 = a3;
+  v7 = [MEMORY[0x277D2C900] futureWithBlock:v13];
   v8 = MEMORY[0x277D2C900];
-  v18[0] = v6;
-  v18[1] = v7;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+  v17[0] = v6;
+  v17[1] = v7;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
   mainThreadScheduler = [MEMORY[0x277D2C938] mainThreadScheduler];
   v11 = [v8 combineAllFutures:v9 ignoringErrors:1 scheduler:mainThreadScheduler];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -2712,7 +2670,7 @@ LABEL_13:
 
 - (id)hf_setSharePhotosLibraryEnabled:()Additions forUser:
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v6 = a4;
   if ([v6 hf_isImportingPhotosLibraryEnabledForFaceRecognition])
   {
@@ -2727,11 +2685,11 @@ LABEL_13:
     v11 = HFLogForCategory(0x13uLL);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412546;
+      v14 = 138412546;
       selfCopy2 = self;
-      v17 = 2080;
-      v18 = "[HMHome(Additions) hf_setSharePhotosLibraryEnabled:forUser:]";
-      _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "%@ %s: importing photos library is disabled, so disabling sharing of photos library.", &v15, 0x16u);
+      v16 = 2080;
+      v17 = "[HMHome(Additions) hf_setSharePhotosLibraryEnabled:forUser:]";
+      _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "%@ %s: importing photos library is disabled, so disabling sharing of photos library.", &v14, 0x16u);
     }
 
     selfCopy3 = self;
@@ -2742,28 +2700,26 @@ LABEL_13:
 
   v12 = [selfCopy3 hf_setPhotosLibrarySettingsForUser:v8 importPhotosLibraryEnabled:v9 shareFacesEnabled:v10];
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (id)hf_setPhotosLibrarySettingsForUser:()Additions importPhotosLibraryEnabled:shareFacesEnabled:
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = HFLogForCategory(0x13uLL);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413314;
     selfCopy = self;
-    v28 = 2080;
-    v29 = "[HMHome(Additions) hf_setPhotosLibrarySettingsForUser:importPhotosLibraryEnabled:shareFacesEnabled:]";
-    v30 = 2112;
-    v31 = v8;
-    v32 = 1024;
-    v33 = a4;
-    v34 = 1024;
-    v35 = a5;
+    v27 = 2080;
+    v28 = "[HMHome(Additions) hf_setPhotosLibrarySettingsForUser:importPhotosLibraryEnabled:shareFacesEnabled:]";
+    v29 = 2112;
+    v30 = v8;
+    v31 = 1024;
+    v32 = a4;
+    v33 = 1024;
+    v34 = a5;
     _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "%@ (%s): Setting Use Photos Library for user %@ enabled=%d and sharing=%d", buf, 0x2Cu);
   }
 
@@ -2773,7 +2729,7 @@ LABEL_13:
   if ((v11 & 1) == 0)
   {
     v12 = MEMORY[0x277CCA9B8];
-    v19 = v8;
+    v18 = v8;
     selfCopy2 = self;
     v13 = @"%@ is not a user of home %@";
     goto LABEL_8;
@@ -2784,25 +2740,23 @@ LABEL_13:
     v12 = MEMORY[0x277CCA9B8];
     v13 = @"Sharing photos library is only possible when using photos library for face recognition is enabled.";
 LABEL_8:
-    selfCopy2 = [v12 hf_errorWithCode:33 descriptionFormat:v13, v19, selfCopy2];
+    selfCopy2 = [v12 hf_errorWithCode:33 descriptionFormat:v13, v18, selfCopy2];
     v15 = [MEMORY[0x277D2C900] futureWithError:selfCopy2];
     goto LABEL_10;
   }
 
   v16 = MEMORY[0x277D2C900];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __101__HMHome_Additions__hf_setPhotosLibrarySettingsForUser_importPhotosLibraryEnabled_shareFacesEnabled___block_invoke;
-  v21[3] = &unk_277DF81F0;
-  v24 = a4;
-  v25 = a5;
-  v22 = v8;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __101__HMHome_Additions__hf_setPhotosLibrarySettingsForUser_importPhotosLibraryEnabled_shareFacesEnabled___block_invoke;
+  v20[3] = &unk_277DF81F0;
+  v23 = a4;
+  v24 = a5;
+  v21 = v8;
   selfCopy3 = self;
-  v15 = [v16 futureWithBlock:v21];
-  selfCopy2 = v22;
+  v15 = [v16 futureWithBlock:v20];
+  selfCopy2 = v21;
 LABEL_10:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -3198,7 +3152,7 @@ LABEL_5:
 
 - (uint64_t)hf_hasAcceptedTermsAndConditionsForHomePodVersion:()Additions
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (+[HFUtilities isInternalInstall])
   {
@@ -3207,13 +3161,13 @@ LABEL_5:
     block[1] = 3221225472;
     block[2] = __71__HMHome_Additions__hf_hasAcceptedTermsAndConditionsForHomePodVersion___block_invoke;
     block[3] = &unk_277DF4460;
-    objc_copyWeak(&v12, location);
+    objc_copyWeak(&v11, location);
     if (hf_hasAcceptedTermsAndConditionsForHomePodVersion__onceToken != -1)
     {
       dispatch_once(&hf_hasAcceptedTermsAndConditionsForHomePodVersion__onceToken, block);
     }
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v11);
     objc_destroyWeak(location);
   }
 
@@ -3225,13 +3179,12 @@ LABEL_5:
   {
     *location = 138412546;
     *&location[4] = v6;
-    v14 = 2112;
-    v15 = v4;
+    v13 = 2112;
+    v14 = v4;
     _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "[START UPDATE] Comparing previously accepted license agremenet versions to current version: %@ %@", location, 0x16u);
   }
 
   v8 = [v6 containsObject:v4];
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -3509,30 +3462,28 @@ LABEL_5:
 
 - (void)hf_startReprovisioningAccessory:()Additions
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = HFLogForCategory(0x27uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = v4;
+    v10 = v4;
     _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Requesting reprovisioning for accessory: %@", buf, 0xCu);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __53__HMHome_Additions__hf_startReprovisioningAccessory___block_invoke;
-  v8[3] = &unk_277DF2D08;
-  v9 = v4;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __53__HMHome_Additions__hf_startReprovisioningAccessory___block_invoke;
+  v7[3] = &unk_277DF2D08;
+  v8 = v4;
   v6 = v4;
-  [self reprovisionAccessory:v6 completionHandler:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  [self reprovisionAccessory:v6 completionHandler:v7];
 }
 
 - (uint64_t)hf_shouldShowAnnounceButtonForThisHome
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   currentUser = [self currentUser];
   v3 = [self homeAccessControlForUser:currentUser];
 
@@ -3541,13 +3492,13 @@ LABEL_5:
   v6 = HFLogForCategory(7uLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10[0] = 67109634;
-    v10[1] = isAnnounceAccessAllowed;
-    v11 = 1024;
-    v12 = hf_atleastOneMediaAccessorySupportsAndHasAnnounceEnabled;
-    v13 = 2112;
+    v9[0] = 67109634;
+    v9[1] = isAnnounceAccessAllowed;
+    v10 = 1024;
+    v11 = hf_atleastOneMediaAccessorySupportsAndHasAnnounceEnabled;
+    v12 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "isAnnounceAccessAllowedForThisUser = %d, atleastOneHomePodSupportsAnnounce = [%d], for home = %@", v10, 0x18u);
+    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "isAnnounceAccessAllowedForThisUser = %d, atleastOneHomePodSupportsAnnounce = [%d], for home = %@", v9, 0x18u);
   }
 
   if ((isAnnounceAccessAllowed & hf_atleastOneMediaAccessorySupportsAndHasAnnounceEnabled) == 1)
@@ -3560,25 +3511,23 @@ LABEL_5:
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (uint64_t)hf_shouldShowAnnounceFeatureForThisHome
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   hf_atleastOneHomePodSupportsAnnounce = [self hf_atleastOneHomePodSupportsAnnounce];
   v3 = HFLogForCategory(7uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 67109378;
-    v6[1] = hf_atleastOneHomePodSupportsAnnounce;
-    v7 = 2112;
+    v5[0] = 67109378;
+    v5[1] = hf_atleastOneHomePodSupportsAnnounce;
+    v6 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "atleastOneHomePodSupportsAnnounce = [%d], for home = %@", v6, 0x12u);
+    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "atleastOneHomePodSupportsAnnounce = [%d], for home = %@", v5, 0x12u);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return hf_atleastOneHomePodSupportsAnnounce;
 }
 
@@ -3652,7 +3601,7 @@ LABEL_5:
 
 - (uint64_t)hf_shouldShowActivityLogSettingForTargetKind:()Additions
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   residentDevices = [self residentDevices];
   v6 = [residentDevices na_any:&__block_literal_global_396];
 
@@ -3693,21 +3642,21 @@ LABEL_12:
   v12 = HFLogForCategory(3uLL);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138413826;
+    v15 = 138413826;
     selfCopy = self;
-    v18 = 1024;
-    v19 = v6;
-    v20 = 1024;
+    v17 = 1024;
+    v18 = v6;
+    v19 = 1024;
     hf_hasEnabledResident = [self hf_hasEnabledResident];
-    v22 = 1024;
-    v23 = [self hf_hasCompatibleActivityLogAccessoriesForTargetKind:a3];
-    v24 = 1024;
-    v25 = eventsExist;
-    v26 = 1024;
+    v21 = 1024;
+    v22 = [self hf_hasCompatibleActivityLogAccessoriesForTargetKind:a3];
+    v23 = 1024;
+    v24 = eventsExist;
+    v25 = 1024;
     isEventLogEnabled = [self isEventLogEnabled];
-    v28 = 1024;
+    v27 = 1024;
     hf_hasActivityLogPrerequisites = [self hf_hasActivityLogPrerequisites];
-    _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "Home:%@ hasActivityCapableHub:%{BOOL}d hasEnabledResident:%{BOOL}d hasCompatibleActivityLogAccessories:%{BOOL}d hasEvents:%{BOOL}d isEventLogEnabled:%{BOOL}d hasActivityLogPrerequisites:%{BOOL}d", &v16, 0x30u);
+    _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "Home:%@ hasActivityCapableHub:%{BOOL}d hasEnabledResident:%{BOOL}d hasCompatibleActivityLogAccessories:%{BOOL}d hasEvents:%{BOOL}d isEventLogEnabled:%{BOOL}d hasActivityLogPrerequisites:%{BOOL}d", &v15, 0x30u);
   }
 
   if ((v10 & 1) != 0 || ([self isEventLogEnabled] & eventsExist) == 1)
@@ -3720,7 +3669,6 @@ LABEL_12:
     hf_hasActivityLogPrerequisites2 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return hf_hasActivityLogPrerequisites2;
 }
 
@@ -3759,6 +3707,51 @@ LABEL_12:
 
 - (uint64_t)hf_hasEnabledResident
 {
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = HFForceRemoteAccessStateAvailable();
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  residentDevices = [self residentDevices];
+  v4 = [residentDevices countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v10;
+    while (2)
+    {
+      for (i = 0; i != v5; ++i)
+      {
+        if (*v10 != v6)
+        {
+          objc_enumerationMutation(residentDevices);
+        }
+
+        if ([*(*(&v9 + 1) + 8 * i) hf_isEnabled])
+        {
+          v2 = 1;
+          goto LABEL_11;
+        }
+      }
+
+      v5 = [residentDevices countByEnumeratingWithState:&v9 objects:v13 count:16];
+      if (v5)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+LABEL_11:
+
+  return v2;
+}
+
+- (uint64_t)hf_hasEnabledAndReachableResident
+{
   v15 = *MEMORY[0x277D85DE8];
   v2 = HFForceRemoteAccessStateAvailable();
   v10 = 0u;
@@ -3780,10 +3773,11 @@ LABEL_12:
           objc_enumerationMutation(residentDevices);
         }
 
-        if ([*(*(&v10 + 1) + 8 * i) hf_isEnabled])
+        v8 = *(*(&v10 + 1) + 8 * i);
+        if ([v8 hf_isEnabled] && (objc_msgSend(v8, "hf_isReachable") & 1) != 0)
         {
           v2 = 1;
-          goto LABEL_11;
+          goto LABEL_12;
         }
       }
 
@@ -3797,80 +3791,31 @@ LABEL_12:
     }
   }
 
-LABEL_11:
-
-  v8 = *MEMORY[0x277D85DE8];
-  return v2;
-}
-
-- (uint64_t)hf_hasEnabledAndReachableResident
-{
-  v16 = *MEMORY[0x277D85DE8];
-  v2 = HFForceRemoteAccessStateAvailable();
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  residentDevices = [self residentDevices];
-  v4 = [residentDevices countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v4)
-  {
-    v5 = v4;
-    v6 = *v12;
-    while (2)
-    {
-      for (i = 0; i != v5; ++i)
-      {
-        if (*v12 != v6)
-        {
-          objc_enumerationMutation(residentDevices);
-        }
-
-        v8 = *(*(&v11 + 1) + 8 * i);
-        if ([v8 hf_isEnabled] && (objc_msgSend(v8, "hf_isReachable") & 1) != 0)
-        {
-          v2 = 1;
-          goto LABEL_12;
-        }
-      }
-
-      v5 = [residentDevices countByEnumeratingWithState:&v11 objects:v15 count:16];
-      if (v5)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
 LABEL_12:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (uint64_t)hf_hasAnyVisibleTriggers
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   triggers = [self triggers];
   v2 = [triggers na_any:&__block_literal_global_413];
 
   v3 = HFLogForCategory(0x4AuLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 67109120;
-    v6[1] = v2;
-    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "Checking if home has visible triggers hasVisibleTriggers:%d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = v2;
+    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "Checking if home has visible triggers hasVisibleTriggers:%d", v5, 8u);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (uint64_t)hf_isAbleToAddTrigger
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   hf_remoteAccessState = [self hf_remoteAccessState];
   v3 = +[HFHomeKitDispatcher sharedDispatcher];
   homeManager = [v3 homeManager];
@@ -3881,46 +3826,44 @@ LABEL_12:
   v8 = HFLogForCategory(0x4AuLL);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11[0] = 67109888;
-    v11[1] = hf_remoteAccessState == 1;
-    v12 = 1024;
-    v13 = hf_hasDetectediCloudIssue;
-    v14 = 1024;
-    v15 = hf_hasEnabledResident;
-    v16 = 1024;
-    v17 = hf_isAutomatable;
-    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Checking if triggers can be added to this home hasRemoteAccessProblem:%d hasiCloudProblem:%d hasResident:%d isAutomatable:%d", v11, 0x1Au);
+    v10[0] = 67109888;
+    v10[1] = hf_remoteAccessState == 1;
+    v11 = 1024;
+    v12 = hf_hasDetectediCloudIssue;
+    v13 = 1024;
+    v14 = hf_hasEnabledResident;
+    v15 = 1024;
+    v16 = hf_isAutomatable;
+    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Checking if triggers can be added to this home hasRemoteAccessProblem:%d hasiCloudProblem:%d hasResident:%d isAutomatable:%d", v10, 0x1Au);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return (hf_remoteAccessState != 1) & hf_hasEnabledResident & hf_isAutomatable & (hf_hasDetectediCloudIssue ^ 1u);
 }
 
 - (BOOL)hf_userCanCreateTrigger
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   hf_isAbleToAddTrigger = [self hf_isAbleToAddTrigger];
   hf_userIsAllowedToCreateTrigger = [self hf_userIsAllowedToCreateTrigger];
   v4 = HFLogForCategory(0x4AuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 67109376;
-    v10 = hf_isAbleToAddTrigger;
-    v11 = 1024;
-    v12 = hf_userIsAllowedToCreateTrigger;
-    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Checking if user can create a trigger in this home isAbleToAddTrigger:%d userIsAllowedToCreateTrigger:%d", &v9, 0xEu);
+    v8 = 67109376;
+    v9 = hf_isAbleToAddTrigger;
+    v10 = 1024;
+    v11 = hf_userIsAllowedToCreateTrigger;
+    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Checking if user can create a trigger in this home isAbleToAddTrigger:%d userIsAllowedToCreateTrigger:%d", &v8, 0xEu);
   }
 
   v5 = (hf_isAbleToAddTrigger & hf_userIsAllowedToCreateTrigger & 1) != 0 || HFForceAllowAutomationCreation();
   v6 = HFLogForCategory(0x4AuLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 67109120;
-    v10 = v5;
-    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Checking if user can create a trigger in this home userCanCreateTrigger:%d", &v9, 8u);
+    v8 = 67109120;
+    v9 = v5;
+    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Checking if user can create a trigger in this home userCanCreateTrigger:%d", &v8, 8u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -3936,35 +3879,33 @@ LABEL_12:
 
 - (uint64_t)hf_hasAutomatableServices
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   hf_hasVisibleServies = [self hf_hasVisibleServies];
   v2 = HFLogForCategory(0x4AuLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 67109120;
-    v5[1] = hf_hasVisibleServies;
-    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Checking if home has automatable services hasAutomatableServices:%d", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = hf_hasVisibleServies;
+    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Checking if home has automatable services hasAutomatableServices:%d", v4, 8u);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return hf_hasVisibleServies;
 }
 
 - (uint64_t)hf_hasAutomatableProfiles
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   hf_allAccessoryProfiles = [self hf_allAccessoryProfiles];
   v2 = [hf_allAccessoryProfiles na_any:&__block_literal_global_415];
 
   v3 = HFLogForCategory(0x4AuLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 67109120;
-    v6[1] = v2;
-    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "Checking if home has automatable profiles hasAutomatableProfiles:%d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = v2;
+    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "Checking if home has automatable profiles hasAutomatableProfiles:%d", v5, 8u);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -4046,7 +3987,7 @@ LABEL_9:
 
 - (id)hf_accessControlDescriptor
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   mediaPassword = [self mediaPassword];
   minimumMediaUserPrivilege = [self minimumMediaUserPrivilege];
   isMediaPeerToPeerEnabled = [self isMediaPeerToPeerEnabled];
@@ -4061,9 +4002,9 @@ LABEL_9:
     v6 = HFLogForCategory(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = 134217984;
-      v11 = minimumMediaUserPrivilege;
-      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "Unknown HMUserPrivilege %lu", &v10, 0xCu);
+      v9 = 134217984;
+      v10 = minimumMediaUserPrivilege;
+      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "Unknown HMUserPrivilege %lu", &v9, 0xCu);
     }
   }
 
@@ -4071,14 +4012,12 @@ LABEL_9:
 LABEL_8:
   v7 = [HFMediaAccessControlDescriptor descriptorWithAccess:v5 requiresPassword:mediaPassword != 0 password:mediaPassword];
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)hf_updateAccessControlDescriptor:()Additions
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v5 = a3;
   hf_accessControlDescriptor = [self hf_accessControlDescriptor];
   v7 = [(__CFString *)hf_accessControlDescriptor isEqual:v5];
@@ -4099,9 +4038,9 @@ LABEL_8:
   if (v9)
   {
     *buf = 138412546;
-    v50 = hf_accessControlDescriptor;
-    v51 = 2112;
-    v52 = v5;
+    v49 = hf_accessControlDescriptor;
+    v50 = 2112;
+    v51 = v5;
     _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Transitioning from %@ -> %@", buf, 0x16u);
   }
 
@@ -4129,36 +4068,36 @@ LABEL_18:
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           isMediaPeerToPeerEnabled = [self isMediaPeerToPeerEnabled];
-          v33 = @"NO";
+          v32 = @"NO";
           if (isMediaPeerToPeerEnabled)
-          {
-            v34 = @"YES";
-          }
-
-          else
-          {
-            v34 = @"NO";
-          }
-
-          if (v15)
           {
             v33 = @"YES";
           }
 
+          else
+          {
+            v33 = @"NO";
+          }
+
+          if (v15)
+          {
+            v32 = @"YES";
+          }
+
           *buf = 138412546;
-          v50 = v34;
-          v51 = 2112;
-          v52 = v33;
+          v49 = v33;
+          v50 = 2112;
+          v51 = v32;
           _os_log_debug_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_DEBUG, "--> Updating mediaPeerToPeerEnabled from '%@' to '%@'", buf, 0x16u);
         }
 
-        v47[0] = MEMORY[0x277D85DD0];
-        v47[1] = 3221225472;
-        v47[2] = __54__HMHome_Additions__hf_updateAccessControlDescriptor___block_invoke;
-        v47[3] = &unk_277DF8238;
-        v47[4] = self;
-        v48 = v15;
-        v17 = [MEMORY[0x277D2C900] futureWithErrorOnlyHandlerAdapterBlock:v47];
+        v46[0] = MEMORY[0x277D85DD0];
+        v46[1] = 3221225472;
+        v46[2] = __54__HMHome_Additions__hf_updateAccessControlDescriptor___block_invoke;
+        v46[3] = &unk_277DF8238;
+        v46[4] = self;
+        v47 = v15;
+        v17 = [MEMORY[0x277D2C900] futureWithErrorOnlyHandlerAdapterBlock:v46];
         [v11 addObject:v17];
 
         goto LABEL_20;
@@ -4192,36 +4131,36 @@ LABEL_20:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       [self minimumMediaUserPrivilege];
+      v34 = HMUserPrivilegeToString();
       v35 = HMUserPrivilegeToString();
-      v36 = HMUserPrivilegeToString();
       *buf = 138412546;
-      v50 = v35;
-      v51 = 2112;
-      v52 = v36;
-      v37 = v36;
+      v49 = v34;
+      v50 = 2112;
+      v51 = v35;
+      v36 = v35;
       _os_log_debug_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_DEBUG, "--> Updating minimumMediaUserPrivilege from %@ to %@", buf, 0x16u);
     }
 
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __54__HMHome_Additions__hf_updateAccessControlDescriptor___block_invoke_421;
-    v46[3] = &unk_277DF46B0;
-    v46[4] = self;
-    v46[5] = v13;
-    v19 = [MEMORY[0x277D2C900] futureWithErrorOnlyHandlerAdapterBlock:v46];
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __54__HMHome_Additions__hf_updateAccessControlDescriptor___block_invoke_421;
+    v45[3] = &unk_277DF46B0;
+    v45[4] = self;
+    v45[5] = v13;
+    v19 = [MEMORY[0x277D2C900] futureWithErrorOnlyHandlerAdapterBlock:v45];
     [v11 addObject:v19];
   }
 
   accessPassword = [v5 accessPassword];
   accessPassword2 = [v5 accessPassword];
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __54__HMHome_Additions__hf_updateAccessControlDescriptor___block_invoke_2;
-  v43[3] = &unk_277DF72E0;
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __54__HMHome_Additions__hf_updateAccessControlDescriptor___block_invoke_2;
+  v42[3] = &unk_277DF72E0;
   v22 = v5;
-  v44 = v22;
+  v43 = v22;
   v23 = hf_accessControlDescriptor;
-  v45 = v23;
+  v44 = v23;
   if (accessPassword)
   {
     v24 = -1;
@@ -4234,7 +4173,7 @@ LABEL_20:
 
   if (accessPassword && accessPassword2)
   {
-    v24 = __54__HMHome_Additions__hf_updateAccessControlDescriptor___block_invoke_2(v43);
+    v24 = __54__HMHome_Additions__hf_updateAccessControlDescriptor___block_invoke_2(v42);
   }
 
   accessRequiresPassword = [v22 accessRequiresPassword];
@@ -4248,27 +4187,26 @@ LABEL_20:
     }
 
     v27 = MEMORY[0x277D2C900];
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __54__HMHome_Additions__hf_updateAccessControlDescriptor___block_invoke_423;
-    v40[3] = &unk_277DF4150;
-    v41 = v22;
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __54__HMHome_Additions__hf_updateAccessControlDescriptor___block_invoke_423;
+    v39[3] = &unk_277DF4150;
+    v40 = v22;
     selfCopy = self;
-    v28 = [v27 futureWithErrorOnlyHandlerAdapterBlock:v40];
+    v28 = [v27 futureWithErrorOnlyHandlerAdapterBlock:v39];
     [v11 addObject:v28];
   }
 
   v29 = [MEMORY[0x277D2C900] combineAllFutures:v11];
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __54__HMHome_Additions__hf_updateAccessControlDescriptor___block_invoke_2_427;
-  v38[3] = &unk_277DF2D30;
-  v38[4] = self;
-  v39 = v23;
-  futureWithNoResult = [v29 recover:v38];
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __54__HMHome_Additions__hf_updateAccessControlDescriptor___block_invoke_2_427;
+  v37[3] = &unk_277DF2D30;
+  v37[4] = self;
+  v38 = v23;
+  futureWithNoResult = [v29 recover:v37];
 
 LABEL_36:
-  v30 = *MEMORY[0x277D85DE8];
 
   return futureWithNoResult;
 }
@@ -4388,7 +4326,7 @@ LABEL_36:
 
 - (id)hf_walletKeyInWalletAppURL
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   _hf_cachedWalletKeyDeviceStateForCurrentDevice = [self _hf_cachedWalletKeyDeviceStateForCurrentDevice];
   v3 = _hf_cachedWalletKeyDeviceStateForCurrentDevice;
   if (_hf_cachedWalletKeyDeviceStateForCurrentDevice)
@@ -4406,12 +4344,12 @@ LABEL_36:
         customURL2 = [walletKey2 customURL];
         *buf = 138413058;
         selfCopy2 = self;
-        v26 = 2080;
-        v27 = "[HMHome(Additions) hf_walletKeyInWalletAppURL]";
-        v28 = 2112;
-        v29 = customURL2;
-        v30 = 2112;
-        v31 = v3;
+        v25 = 2080;
+        v26 = "[HMHome(Additions) hf_walletKeyInWalletAppURL]";
+        v27 = 2112;
+        v28 = customURL2;
+        v29 = 2112;
+        v30 = v3;
         _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "(%@:%s) returning url %@ for cached wallet key device state %@", buf, 0x2Au);
       }
 
@@ -4427,10 +4365,10 @@ LABEL_36:
       {
         *buf = 138412802;
         selfCopy2 = self;
-        v26 = 2080;
-        v27 = "[HMHome(Additions) hf_walletKeyInWalletAppURL]";
-        v28 = 2112;
-        v29 = v3;
+        v25 = 2080;
+        v26 = "[HMHome(Additions) hf_walletKeyInWalletAppURL]";
+        v27 = 2112;
+        v28 = v3;
         _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "(%@:%s) returning default wallet app url because customURL is nil for cached %@", buf, 0x20u);
       }
 
@@ -4444,25 +4382,23 @@ LABEL_36:
   {
     objc_initWeak(buf, self);
     hf_fetchWalletKeyDeviceStateForCurrentDevice = [self hf_fetchWalletKeyDeviceStateForCurrentDevice];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __47__HMHome_Additions__hf_walletKeyInWalletAppURL__block_invoke;
-    v22[3] = &unk_277DF83D8;
-    objc_copyWeak(&v23, buf);
-    v15 = [hf_fetchWalletKeyDeviceStateForCurrentDevice flatMap:v22];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __47__HMHome_Additions__hf_walletKeyInWalletAppURL__block_invoke_449;
-    v20[3] = &unk_277DF5330;
-    objc_copyWeak(&v21, buf);
-    v13 = [v15 recover:v20];
-    objc_destroyWeak(&v21);
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __47__HMHome_Additions__hf_walletKeyInWalletAppURL__block_invoke;
+    v21[3] = &unk_277DF83D8;
+    objc_copyWeak(&v22, buf);
+    v15 = [hf_fetchWalletKeyDeviceStateForCurrentDevice flatMap:v21];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __47__HMHome_Additions__hf_walletKeyInWalletAppURL__block_invoke_449;
+    v19[3] = &unk_277DF5330;
+    objc_copyWeak(&v20, buf);
+    v13 = [v15 recover:v19];
+    objc_destroyWeak(&v20);
 
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v22);
     objc_destroyWeak(buf);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -4489,22 +4425,22 @@ LABEL_36:
 
 - (id)hf_enableUWBForWalletKeyWithAuthData:()Additions enableNFCExpress:
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v6 = a3;
   if (_os_feature_enabled_impl())
   {
     objc_initWeak(location, self);
     v7 = MEMORY[0x277D2C900];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __75__HMHome_Additions__hf_enableUWBForWalletKeyWithAuthData_enableNFCExpress___block_invoke;
-    v12[3] = &unk_277DF8450;
-    objc_copyWeak(&v14, location);
-    v13 = v6;
-    v15 = a4;
-    futureWithNoResult = [v7 futureWithBlock:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __75__HMHome_Additions__hf_enableUWBForWalletKeyWithAuthData_enableNFCExpress___block_invoke;
+    v11[3] = &unk_277DF8450;
+    objc_copyWeak(&v13, location);
+    v12 = v6;
+    v14 = a4;
+    futureWithNoResult = [v7 futureWithBlock:v11];
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v13);
     objc_destroyWeak(location);
   }
 
@@ -4515,22 +4451,20 @@ LABEL_36:
     {
       *location = 138412546;
       *&location[4] = self;
-      v17 = 2080;
-      v18 = "[HMHome(Additions) hf_enableUWBForWalletKeyWithAuthData:enableNFCExpress:]";
+      v16 = 2080;
+      v17 = "[HMHome(Additions) hf_enableUWBForWalletKeyWithAuthData:enableNFCExpress:]";
       _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "(%@:%s) Returning early because uwb feature flag.", location, 0x16u);
     }
 
     futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return futureWithNoResult;
 }
 
 - (BOOL)hf_containsWalletKeyUWBAccessory
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (_os_feature_enabled_impl())
   {
     hf_accessoriesSupportingUWBUnlock = [self hf_accessoriesSupportingUWBUnlock];
@@ -4542,21 +4476,20 @@ LABEL_36:
     v4 = HFLogForCategory(0x49uLL);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315138;
-      v8 = "[HMHome(Additions) hf_containsWalletKeyUWBAccessory]";
-      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "(%s) Returning false because feature flag is NOT enabled.", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[HMHome(Additions) hf_containsWalletKeyUWBAccessory]";
+      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "(%s) Returning false because feature flag is NOT enabled.", &v6, 0xCu);
     }
 
-    v3 = 0;
+    return 0;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (id)hf_accessoriesSupportingUWBUnlock
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (_os_feature_enabled_impl())
   {
     accessories = [self accessories];
@@ -4568,15 +4501,13 @@ LABEL_36:
     v4 = HFLogForCategory(0x49uLL);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315138;
-      v8 = "[HMHome(Additions) hf_accessoriesSupportingUWBUnlock]";
-      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "(%s) Returning empty collection because feature flag is NOT enabled.", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[HMHome(Additions) hf_accessoriesSupportingUWBUnlock]";
+      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "(%s) Returning empty collection because feature flag is NOT enabled.", &v6, 0xCu);
     }
 
     v3 = MEMORY[0x277CBEBF8];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -4617,18 +4548,18 @@ LABEL_36:
 
 - (id)hf_setHasOnboardedForWalletKey
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if ([self hf_currentUserIsAdministrator])
   {
     objc_initWeak(location, self);
     v2 = MEMORY[0x277D2C900];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __51__HMHome_Additions__hf_setHasOnboardedForWalletKey__block_invoke;
-    v13[3] = &unk_277DF4F68;
-    objc_copyWeak(&v14, location);
-    v3 = [v2 futureWithBlock:v13];
-    objc_destroyWeak(&v14);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __51__HMHome_Additions__hf_setHasOnboardedForWalletKey__block_invoke;
+    v12[3] = &unk_277DF4F68;
+    objc_copyWeak(&v13, location);
+    v3 = [v2 futureWithBlock:v12];
+    objc_destroyWeak(&v13);
     objc_destroyWeak(location);
   }
 
@@ -4641,8 +4572,8 @@ LABEL_36:
       hf_prettyDescription = [currentUser hf_prettyDescription];
       *location = 136315394;
       *&location[4] = "[HMHome(Additions) hf_setHasOnboardedForWalletKey]";
-      v16 = 2112;
-      v17 = hf_prettyDescription;
+      v15 = 2112;
+      v16 = hf_prettyDescription;
       _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "(%s) Unable to update home level onboarding flag for wallet key because current user is NOT an admin. user = %@", location, 0x16u);
     }
 
@@ -4653,8 +4584,6 @@ LABEL_36:
 
     v3 = [MEMORY[0x277D2C900] futureWithError:v10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -4769,18 +4698,18 @@ LABEL_36:
 
 - (id)hf_setHasOnboardedForAccessCode
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if ([self hf_currentUserIsAdministrator])
   {
     objc_initWeak(location, self);
     v2 = MEMORY[0x277D2C900];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __52__HMHome_Additions__hf_setHasOnboardedForAccessCode__block_invoke;
-    v13[3] = &unk_277DF4F68;
-    objc_copyWeak(&v14, location);
-    v3 = [v2 futureWithBlock:v13];
-    objc_destroyWeak(&v14);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __52__HMHome_Additions__hf_setHasOnboardedForAccessCode__block_invoke;
+    v12[3] = &unk_277DF4F68;
+    objc_copyWeak(&v13, location);
+    v3 = [v2 futureWithBlock:v12];
+    objc_destroyWeak(&v13);
     objc_destroyWeak(location);
   }
 
@@ -4793,8 +4722,8 @@ LABEL_36:
       hf_prettyDescription = [currentUser hf_prettyDescription];
       *location = 136315394;
       *&location[4] = "[HMHome(Additions) hf_setHasOnboardedForAccessCode]";
-      v16 = 2112;
-      v17 = hf_prettyDescription;
+      v15 = 2112;
+      v16 = hf_prettyDescription;
       _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "(%s) Unable to update home level onboarding flag for access code because current user is NOT an admin. user = %@", location, 0x16u);
     }
 
@@ -4805,8 +4734,6 @@ LABEL_36:
 
     v3 = [MEMORY[0x277D2C900] futureWithError:v10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

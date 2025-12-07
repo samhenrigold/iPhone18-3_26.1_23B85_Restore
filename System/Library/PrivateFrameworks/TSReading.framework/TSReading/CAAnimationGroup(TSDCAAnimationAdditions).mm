@@ -3,7 +3,7 @@
 - (uint64_t)TSD_animationForKeyPath:()TSDCAAnimationAdditions atTime:;
 - (uint64_t)TSD_containsAnimationForKeyPath:()TSDCAAnimationAdditions;
 - (uint64_t)TSD_valueForKeyPath:()TSDCAAnimationAdditions atTime:animationCache:;
-- (uint64_t)p_getValue:()TSDCAAnimationAdditions animation:animationPercent:forKeyPath:atTime:animationCache:;
+- (void)p_getValue:()TSDCAAnimationAdditions animation:animationPercent:forKeyPath:atTime:animationCache:;
 @end
 
 @implementation CAAnimationGroup(TSDCAAnimationAdditions)
@@ -54,7 +54,7 @@
   return result;
 }
 
-- (uint64_t)p_getValue:()TSDCAAnimationAdditions animation:animationPercent:forKeyPath:atTime:animationCache:
+- (void)p_getValue:()TSDCAAnimationAdditions animation:animationPercent:forKeyPath:atTime:animationCache:
 {
   v38 = *MEMORY[0x277D85DE8];
   if ([self timingFunction])
@@ -98,7 +98,7 @@
           v27 = 0.0;
           if (v26 < 0.0 || v26 > 1.0)
           {
-            [self duration];
+            objc_msgSend_duration(self, 0.0);
             if (v26 >= 0.0)
             {
               v27 = (v26 + -1.0) * v29;
@@ -117,7 +117,7 @@
           }
         }
 
-        ++v23;
+        v23 = v23 + 1;
       }
 
       while (v19 != v23);

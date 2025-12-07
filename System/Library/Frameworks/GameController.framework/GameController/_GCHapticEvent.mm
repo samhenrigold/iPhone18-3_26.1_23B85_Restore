@@ -11,26 +11,26 @@
 
 - (pair<BOOL,)valueForNoteParam:(unsigned int)param inParameters:(id)parameters
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   parametersCopy = parameters;
-  v6 = [parametersCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [parametersCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
-    v7 = *v18;
+    v7 = *v17;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(parametersCopy);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
+        v9 = *(*(&v16 + 1) + 8 * i);
         if ([v9 identifier] == param)
         {
           [v9 value];
@@ -42,7 +42,7 @@
         }
       }
 
-      v6 = [parametersCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [parametersCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v6)
       {
         continue;
@@ -67,7 +67,6 @@
 
 LABEL_13:
 
-  v15 = *MEMORY[0x1E69E9840];
   return (v12 | v11);
 }
 

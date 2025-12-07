@@ -35,11 +35,11 @@
 
 - (WFAppInBackgroundTrigger)initWithCoder:(id)coder
 {
-  v26[2] = *MEMORY[0x1E69E9840];
+  v25[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v24.receiver = self;
-  v24.super_class = WFAppInBackgroundTrigger;
-  v5 = [(WFTrigger *)&v24 initWithCoder:coderCopy];
+  v23.receiver = self;
+  v23.super_class = WFAppInBackgroundTrigger;
+  v5 = [(WFTrigger *)&v23 initWithCoder:coderCopy];
   v6 = v5;
   if (v5)
   {
@@ -48,9 +48,9 @@
     if ([coderCopy containsValueForKey:@"appIdentifiers"])
     {
       v8 = MEMORY[0x1E695DFD8];
-      v26[0] = objc_opt_class();
-      v26[1] = objc_opt_class();
-      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+      v25[0] = objc_opt_class();
+      v25[1] = objc_opt_class();
+      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
       v10 = [v8 setWithArray:v9];
       v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"appIdentifiers"];
       v12 = v11;
@@ -77,9 +77,9 @@ LABEL_13:
       }
 
       v14 = MEMORY[0x1E695DFD8];
-      v25[0] = objc_opt_class();
-      v25[1] = objc_opt_class();
-      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
+      v24[0] = objc_opt_class();
+      v24[1] = objc_opt_class();
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
       v16 = [v14 setWithArray:v15];
       v17 = [coderCopy decodeObjectOfClasses:v16 forKey:@"selectedApps"];
       v18 = v17;
@@ -105,7 +105,6 @@ LABEL_13:
 
 LABEL_14:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

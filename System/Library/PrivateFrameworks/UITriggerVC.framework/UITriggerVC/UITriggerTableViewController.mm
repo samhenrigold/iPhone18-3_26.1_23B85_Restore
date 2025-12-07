@@ -2,6 +2,7 @@
 - (BOOL)requestPluginList;
 - (BOOL)triggerUIProvider:(id)provider;
 - (id)sectionStringForIndexPath:(id)path;
+- (id)sendProtobufRequest:(id)request type:(unsigned __int16)type priority:(int64_t)priority expectsResponse:(BOOL)response errorHandler:(id)handler withTimeout:(double)timeout;
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path;
 - (id)tableView:(id)view titleForHeaderInSection:(int64_t)section;
 - (id)tailStringForIndexPath:(id)path;
@@ -12,6 +13,7 @@
 - (void)didReceiveMemoryWarning;
 - (void)idsRequestUITriggerResponse:(id)response;
 - (void)idsUIProvidersResponse:(id)response;
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
 - (void)viewWillLayoutSubviews;
@@ -240,15 +242,15 @@
 
 - (void)_extractSections:(id)sections
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   sectionsCopy = sections;
-  v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v25 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v4 = sectionsCopy;
-  v5 = [v4 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (!v5)
   {
     v7 = 0;
@@ -260,20 +262,20 @@
   v6 = v5;
   v7 = 0;
   v8 = @"XXX";
-  v9 = *v30;
-  v25 = v4;
+  v9 = *v29;
+  v24 = v4;
   do
   {
     v10 = 0;
-    v27 = v6;
+    v26 = v6;
     do
     {
-      if (*v30 != v9)
+      if (*v29 != v9)
       {
         objc_enumerationMutation(v4);
       }
 
-      v11 = *(*(&v29 + 1) + 8 * v10);
+      v11 = *(*(&v28 + 1) + 8 * v10);
       if (([v11 hasPrefix:v8] & 1) == 0)
       {
         if (v7)
@@ -300,12 +302,12 @@
           v20 = [v14 stringWithFormat:@"%@.%@.%@", v17, v18, v19];
 
           v9 = v15;
-          v4 = v25;
+          v4 = v24;
 
-          [v26 addObject:v20];
+          [v25 addObject:v20];
           v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
           v8 = v20;
-          v6 = v27;
+          v6 = v26;
         }
       }
 
@@ -323,7 +325,7 @@
     }
 
     while (v6 != v10);
-    v6 = [v4 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v6 = [v4 countByEnumeratingWithState:&v28 objects:v32 count:16];
   }
 
   while (v6);
@@ -335,9 +337,7 @@
 LABEL_21:
   }
 
-  [(UITriggerTableViewController *)self setSectionList:v26];
-
-  v24 = *MEMORY[0x277D85DE8];
+  [(UITriggerTableViewController *)self setSectionList:v25];
 }
 
 - (void)idsUIProvidersResponse:(id)response
@@ -381,6 +381,61 @@ LABEL_21:
   }
 }
 
+- (id)sendProtobufRequest:(id)request type:(unsigned __int16)type priority:(int64_t)priority expectsResponse:(BOOL)response errorHandler:(id)handler withTimeout:(double)timeout
+{
+  responseCopy = response;
+  typeCopy = type;
+  v37[2] = *MEMORY[0x277D85DE8];
+  handlerCopy = handler;
+  v36[0] = *MEMORY[0x277D185B0];
+  v14 = MEMORY[0x277CCABB0];
+  requestCopy = request;
+  v16 = [v14 numberWithBool:responseCopy];
+  v37[0] = v16;
+  v36[1] = *MEMORY[0x277D18650];
+  v17 = [MEMORY[0x277CCABB0] numberWithDouble:timeout];
+  v37[1] = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
+
+  accounts = [(IDSService *)self->_idsService accounts];
+  anyObject = [accounts anyObject];
+
+  v21 = [MEMORY[0x277CBEB98] setWithObject:*MEMORY[0x277D187E8]];
+  v22 = objc_alloc(MEMORY[0x277D189F0]);
+  data = [requestCopy data];
+
+  v24 = [v22 initWithProtobufData:data type:typeCopy isResponse:0];
+  idsService = self->_idsService;
+  v34 = 0;
+  v35 = 0;
+  LODWORD(v22) = [(IDSService *)idsService sendProtobuf:v24 fromAccount:anyObject toDestinations:v21 priority:priority options:v18 identifier:&v35 error:&v34];
+  v26 = v35;
+  v27 = v34;
+  data2 = [v24 data];
+  v29 = [data2 length];
+  if (v22)
+  {
+    NSLog(&cfstr_IdsRequestSent.isa, v29, v26);
+
+    v30 = handlerCopy;
+  }
+
+  else
+  {
+    NSLog(&cfstr_IdsRequestFail.isa, v29, v26);
+
+    v30 = handlerCopy;
+    if (handlerCopy && v27)
+    {
+      (*(handlerCopy + 2))(handlerCopy, v27);
+    }
+  }
+
+  v31 = v26;
+
+  return v26;
+}
+
 - (BOOL)requestPluginList
 {
   v3 = objc_alloc_init(CSLUIPBUIPluginListRequest);
@@ -398,6 +453,19 @@ LABEL_21:
   v6 = [(UITriggerTableViewController *)self sendProtobufRequest:v5 type:2 priority:300 expectsResponse:1 errorHandler:&__block_literal_global_80 withTimeout:30.0];
 
   return v6 != 0;
+}
+
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error
+{
+  if (error)
+  {
+    NSLog(&cfstr_IdsDidsendwith.isa, a2, service, account, identifier, success, identifier, error);
+  }
+
+  else
+  {
+    NSLog(&cfstr_IdsDidsendwith_0.isa, a2, service, account, identifier, success, identifier);
+  }
 }
 
 @end

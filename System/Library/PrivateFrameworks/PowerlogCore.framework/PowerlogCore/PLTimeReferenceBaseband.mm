@@ -40,13 +40,12 @@ void __38__PLTimeReferenceBaseband_currentTime__block_invoke_29(uint64_t a1)
 
     if (+[PLDefaults debugEnabled])
     {
-      v12 = *(a1 + 32);
-      v13 = objc_opt_class();
+      v12 = objc_opt_class();
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __38__PLTimeReferenceBaseband_currentTime__block_invoke_2;
       block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      block[4] = v13;
+      block[4] = v12;
       if (PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce != -1)
       {
         dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce, block);
@@ -54,13 +53,13 @@ void __38__PLTimeReferenceBaseband_currentTime__block_invoke_29(uint64_t a1)
 
       if (PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled == 1)
       {
-        v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PLTimeReferenceBaseband::currentTime - followupCurrentTime=%@", v11];
-        v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLTimeReferenceClasses/PLTimeReferenceBaseband.m"];
-        v16 = [v15 lastPathComponent];
-        v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReferenceBaseband currentTime]_block_invoke"];
-        [PLCoreStorage logMessage:v14 fromFile:v16 fromFunction:v17 fromLineNumber:131];
+        v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PLTimeReferenceBaseband::currentTime - followupCurrentTime=%@", v11];
+        v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLTimeReferenceClasses/PLTimeReferenceBaseband.m"];
+        v15 = [v14 lastPathComponent];
+        v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReferenceBaseband currentTime]_block_invoke"];
+        [PLCoreStorage logMessage:v13 fromFile:v15 fromFunction:v16 fromLineNumber:131];
 
-        v18 = PLLogCommon();
+        v18 = PLLogCommon(v17);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
@@ -151,45 +150,45 @@ void __38__PLTimeReferenceBaseband_currentTime__block_invoke_29(uint64_t a1)
     {
       time = [getBasebandTimeAndLatency time];
       [getBasebandTimeAndLatency latency];
-      v12 = [time dateByAddingTimeInterval:-v15];
+      v13 = [time dateByAddingTimeInterval:-v16];
 
       if (+[PLDefaults debugEnabled])
       {
-        v16 = objc_opt_class();
-        v24[0] = MEMORY[0x1E69E9820];
-        v24[1] = 3221225472;
-        v24[2] = __38__PLTimeReferenceBaseband_currentTime__block_invoke_37;
-        v24[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v24[4] = v16;
+        v17 = objc_opt_class();
+        v26[0] = MEMORY[0x1E69E9820];
+        v26[1] = 3221225472;
+        v26[2] = __38__PLTimeReferenceBaseband_currentTime__block_invoke_37;
+        v26[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v26[4] = v17;
         if (currentTime_defaultOnce_35 != -1)
         {
-          dispatch_once(&currentTime_defaultOnce_35, v24);
+          dispatch_once(&currentTime_defaultOnce_35, v26);
         }
 
         if (currentTime_classDebugEnabled_36 == 1)
         {
-          v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PLTimeReferenceBaseband::currentTime=%@", v12];
-          v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLTimeReferenceClasses/PLTimeReferenceBaseband.m"];
-          lastPathComponent = [v18 lastPathComponent];
-          v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReferenceBaseband currentTime]"];
-          [PLCoreStorage logMessage:v17 fromFile:lastPathComponent fromFunction:v20 fromLineNumber:141];
+          v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PLTimeReferenceBaseband::currentTime=%@", v13];
+          v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLTimeReferenceClasses/PLTimeReferenceBaseband.m"];
+          lastPathComponent = [v19 lastPathComponent];
+          v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReferenceBaseband currentTime]"];
+          [PLCoreStorage logMessage:v18 fromFile:lastPathComponent fromFunction:v21 fromLineNumber:141];
 
-          v21 = PLLogCommon();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+          v23 = PLLogCommon(v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
           {
             [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
           }
         }
       }
 
-      v23.receiver = self;
-      v23.super_class = PLTimeReferenceBaseband;
-      [(PLTimeReferenceDynamic *)&v23 checkForTimeChangeWithCurrentTime:v12];
+      v25.receiver = self;
+      v25.super_class = PLTimeReferenceBaseband;
+      [(PLTimeReferenceDynamic *)&v25 checkForTimeChangeWithCurrentTime:v13];
     }
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
   }
 
@@ -198,14 +197,14 @@ void __38__PLTimeReferenceBaseband_currentTime__block_invoke_29(uint64_t a1)
     if (+[PLDefaults debugEnabled])
     {
       v6 = objc_opt_class();
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __38__PLTimeReferenceBaseband_currentTime__block_invoke;
-      v26[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v26[4] = v6;
+      v28[0] = MEMORY[0x1E69E9820];
+      v28[1] = 3221225472;
+      v28[2] = __38__PLTimeReferenceBaseband_currentTime__block_invoke;
+      v28[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v28[4] = v6;
       if (currentTime_defaultOnce != -1)
       {
-        dispatch_once(&currentTime_defaultOnce, v26);
+        dispatch_once(&currentTime_defaultOnce, v28);
       }
 
       if (currentTime_classDebugEnabled == 1)
@@ -216,8 +215,8 @@ void __38__PLTimeReferenceBaseband_currentTime__block_invoke_29(uint64_t a1)
         v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReferenceBaseband currentTime]"];
         [PLCoreStorage logMessage:v7 fromFile:lastPathComponent2 fromFunction:v10 fromLineNumber:96];
 
-        v11 = PLLogCommon();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+        v12 = PLLogCommon(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
         }
@@ -225,10 +224,10 @@ void __38__PLTimeReferenceBaseband_currentTime__block_invoke_29(uint64_t a1)
     }
 
     getBasebandTimeAndLatency = [(PLTimeReference *)self timeManager];
-    v12 = [getBasebandTimeAndLatency currentTimeFromTimeReference:1 toTimeReference:1];
+    v13 = [getBasebandTimeAndLatency currentTimeFromTimeReference:1 toTimeReference:1];
   }
 
-  return v12;
+  return v13;
 }
 
 BOOL __38__PLTimeReferenceBaseband_currentTime__block_invoke(uint64_t a1)
@@ -302,17 +301,17 @@ BOOL __38__PLTimeReferenceBaseband_currentTime__block_invoke_37(uint64_t a1)
       v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReferenceBaseband timeChangedNotificationReceived:]"];
       [PLCoreStorage logMessage:v18 fromFile:lastPathComponent fromFunction:v21 fromLineNumber:164];
 
-      v22 = PLLogCommon();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+      v23 = PLLogCommon(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
     }
   }
 
-  v23.receiver = self;
-  v23.super_class = PLTimeReferenceBaseband;
-  [(PLTimeReferenceDynamic *)&v23 checkForTimeChangeWithCurrentTime:v16];
+  v24.receiver = self;
+  v24.super_class = PLTimeReferenceBaseband;
+  [(PLTimeReferenceDynamic *)&v24 checkForTimeChangeWithCurrentTime:v16];
 }
 
 BOOL __59__PLTimeReferenceBaseband_timeChangedNotificationReceived___block_invoke(uint64_t a1)

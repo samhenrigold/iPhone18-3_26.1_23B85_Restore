@@ -2,6 +2,7 @@
 + (double)_lastDatePlayedIfNotFutureDate:(double)date podcast:(id)podcast;
 + (double)scoreFromModifiedDate:(double)date;
 + (id)_nextEpisodeForUnplayedPodcast:(id)podcast serial:(BOOL)serial filter:(id)filter ctx:(id)ctx;
++ (id)_upNextForPodcast:(id)podcast serial:(BOOL)serial excludeExplicit:(int64_t)explicit ctx:(id)ctx;
 + (id)_upNextResultForUnfollowedPodcast:(id)podcast filter:(id)filter ctx:(id)ctx;
 + (id)_upNextResultForUnplayedFollowedPodcast:(id)podcast nextEpisodeForUnplayedShow:(id)show newestEpisodeWithShowBump:(id)bump mostRecentlyPlayed:(id)played filter:(id)filter serial:(BOOL)serial ctx:(id)ctx;
 + (id)_upNextScoreWithLastModifiedDate:(double)date lastDatePlayed:(double)played filter:(id)filter podcast:(id)podcast ctx:(id)ctx;
@@ -64,6 +65,225 @@ void __58__MTRecencyUtil_upNextForPodcastUuid_excludeExplicit_ctx___block_invoke
     v4 = *(v3 + 40);
     *(v3 + 40) = v2;
   }
+}
+
++ (id)_upNextForPodcast:(id)podcast serial:(BOOL)serial excludeExplicit:(int64_t)explicit ctx:(id)ctx
+{
+  serialCopy = serial;
+  podcastCopy = podcast;
+  ctxCopy = ctx;
+  if ([podcastCopy shouldBeHiddenFromUpNext])
+  {
+    v12 = 0;
+    goto LABEL_51;
+  }
+
+  v13 = objc_alloc_init(MTUpNextResult);
+  v14 = objc_opt_new();
+  [v14 setExcludeExplicit:explicit];
+  [v14 setExcludeUnentitled:1];
+  [v14 setExcludeGhostEpisodes:1];
+  if ([podcastCopy subscribed])
+  {
+LABEL_4:
+    v15 = [podcastCopy mostRecentlyPlayedEpisodeWithFilter:v14];
+    if (([(MTUpNextResult *)v15 isUnplayed]& 1) != 0)
+    {
+      isPlayheadPartiallyPlayed = 1;
+    }
+
+    else
+    {
+      isPlayheadPartiallyPlayed = [(MTUpNextResult *)v15 isPlayheadPartiallyPlayed];
+    }
+
+    [(MTUpNextResult *)v15 lastDatePlayed];
+    if (v18 <= 0.0)
+    {
+      [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
+    }
+
+    else
+    {
+      [(MTUpNextResult *)v15 lastDatePlayed];
+    }
+
+    v20 = v19;
+    v21 = [MTRecencyUtil _nextEpisodeForUnplayedPodcast:podcastCopy serial:serialCopy filter:v14 ctx:ctxCopy];
+    v22 = v21;
+    if (serialCopy)
+    {
+      if (v15)
+      {
+        v52 = isPlayheadPartiallyPlayed;
+        v54 = v21;
+        v23 = [podcastCopy highestNumberedEpisodePublishedBefore:v14 filter:v20];
+        v24 = 0;
+LABEL_25:
+        v34 = [self caughtUpNextEpisodeForPodcast:podcastCopy nextEpisodeForUnplayedShow:v54 mostRecentlyPlayedLastDatePlayed:serialCopy serial:v14 filter:v20];
+        v53 = v23;
+        isVisuallyPlayed = [v23 isVisuallyPlayed];
+        v36 = v34;
+        if (isVisuallyPlayed && v34)
+        {
+          [(MTUpNextResult *)v13 updateFor:v34];
+          v33 = v24;
+          if (serialCopy)
+          {
+            v37 = v34;
+          }
+
+          else
+          {
+            v37 = v24;
+          }
+
+          [v37 pubDate];
+          if (v20 >= v44)
+          {
+            v44 = v20;
+          }
+
+          v45 = v13;
+        }
+
+        else
+        {
+          v33 = v24;
+          if (!v52 || (serialCopy & 1) == 0 && ([v34 firstTimeAvailable], v36 = v34, v20 < v38))
+          {
+            v34 = v36;
+            v39 = [self nextEpisodeForPodcast:podcastCopy mostRecentlyPlayed:v15 caughtUpNextEpisode:v36 serial:serialCopy filter:v14];
+            v22 = v54;
+            if (!v39)
+            {
+              v12 = 0;
+              goto LABEL_48;
+            }
+
+            v40 = v39;
+            [(MTUpNextResult *)v13 updateFor:v39];
+            if ((serialCopy & 1) == 0)
+            {
+              [v33 pubDate];
+              if (v41 >= v20)
+              {
+                v20 = v41;
+              }
+            }
+
+            [(MTUpNextResult *)v13 setModifiedDate:v20];
+            [(MTUpNextResult *)v13 modifiedDate];
+            v42 = 0x1E8567000;
+            [MTRecencyUtil scoreFromModifiedDate:?];
+            [(MTUpNextResult *)v13 setModifiedDateScore:?];
+
+LABEL_47:
+            v46 = *(v42 + 1632);
+            [(MTUpNextResult *)v13 modifiedDate];
+            v48 = v47;
+            [(MTUpNextResult *)v15 lastDatePlayed];
+            v50 = [v46 _upNextScoreWithLastModifiedDate:v14 lastDatePlayed:podcastCopy filter:ctxCopy podcast:v48 ctx:v49];
+            [(MTUpNextResult *)v13 setUpNextScore:v50];
+            v12 = v13;
+
+LABEL_48:
+            goto LABEL_49;
+          }
+
+          v34 = v36;
+          [(MTUpNextResult *)v13 updateFor:v15];
+          v45 = v13;
+          v44 = v20;
+        }
+
+        [(MTUpNextResult *)v45 setModifiedDate:v44];
+        v42 = 0x1E8567000uLL;
+        [(MTUpNextResult *)v13 modifiedDate];
+        [MTRecencyUtil scoreFromModifiedDate:?];
+        [(MTUpNextResult *)v13 setModifiedDateScore:?];
+        v22 = v54;
+        goto LABEL_47;
+      }
+
+      v33 = 0;
+    }
+
+    else
+    {
+      [(MTUpNextResult *)v15 lastDatePlayed];
+      v26 = v25 <= 0.0;
+      v27 = v20;
+      if (v26)
+      {
+        [podcastCopy addedDate];
+      }
+
+      v52 = isPlayheadPartiallyPlayed;
+      v28 = [podcastCopy episodesPublishedAfter:v14 filter:4 limit:0 sortAsc:v27];
+      if ([v28 count] < 4)
+      {
+        v29 = v22;
+      }
+
+      else
+      {
+        v29 = [v28 objectAtIndexedSubscript:2];
+      }
+
+      v33 = v29;
+
+      if (v15)
+      {
+        v54 = v22;
+        v24 = v33;
+        v23 = [podcastCopy episodePublishedBefore:v14 filter:v20];
+        goto LABEL_25;
+      }
+    }
+
+    v12 = [self _upNextResultForUnplayedFollowedPodcast:podcastCopy nextEpisodeForUnplayedShow:v22 newestEpisodeWithShowBump:v33 mostRecentlyPlayed:0 filter:v14 serial:serialCopy ctx:ctxCopy];
+LABEL_49:
+
+    goto LABEL_50;
+  }
+
+  v17 = [self _upNextResultForUnfollowedPodcast:podcastCopy filter:v14 ctx:ctxCopy];
+  v15 = v17;
+  if (v17)
+  {
+    v15 = v17;
+    v12 = v15;
+  }
+
+  else
+  {
+    [podcastCopy lastDatePlayed];
+    v31 = v30;
+    [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
+    if (v31 >= v32 + -7776000.0)
+    {
+      showTypeInFeed = [podcastCopy showTypeInFeed];
+
+      v12 = 0;
+      if (showTypeInFeed)
+      {
+        serialCopy = [podcastCopy isSerialShowTypeInFeed];
+        goto LABEL_4;
+      }
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+  }
+
+LABEL_50:
+
+LABEL_51:
+
+  return v12;
 }
 
 + (id)_upNextResultForUnfollowedPodcast:(id)podcast filter:(id)filter ctx:(id)ctx
@@ -274,7 +494,7 @@ LABEL_10:
 
 + (void)unsafeUpdateRelatedFieldsIfUpNextChangedForPodcast:(id)podcast upNextResult:(id)result ctx:(id)ctx
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   podcastCopy = podcast;
   resultCopy = result;
   ctxCopy = ctx;
@@ -287,9 +507,9 @@ LABEL_10:
     nextEpisodeUuid = [v10 nextEpisodeUuid];
     episodeUuid = [resultCopy episodeUuid];
     *buf = 138543618;
-    v40 = nextEpisodeUuid;
-    v41 = 2114;
-    v42 = episodeUuid;
+    v39 = nextEpisodeUuid;
+    v40 = 2114;
+    v41 = episodeUuid;
     _os_log_impl(&dword_1D8CEC000, v11, OS_LOG_TYPE_DEFAULT, "UpNext result updating podcast nextEpisodeUuid from %{public}@ to %{public}@", buf, 0x16u);
   }
 
@@ -329,36 +549,34 @@ LABEL_8:
   v26 = [v22 AND:v25];
 
   v27 = [ctxCopy objectsInEntity:@"MTEpisode" predicate:v26 sortDescriptors:0 returnsObjectsAsFaults:0 limit:0];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v28 = [v27 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v28 = [v27 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v35;
+    v30 = *v34;
     do
     {
       for (i = 0; i != v29; ++i)
       {
-        if (*v35 != v30)
+        if (*v34 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
-        v32 = *(*(&v34 + 1) + 8 * i);
+        v32 = *(*(&v33 + 1) + 8 * i);
         [v32 setListenNowEpisode:0];
         [v32 setModifiedDateScore:0.0];
       }
 
-      v29 = [v27 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v29 = [v27 countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v29);
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 + (id)mostRecentlySavedUnplayedEpisodeForPodcast:(id)podcast filter:(id)filter ctx:(id)ctx

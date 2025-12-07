@@ -115,7 +115,7 @@
     v10 = v9;
     if (v9)
     {
-      [v9 metricsForSeparatorWithListStyle:v6 traitCollection:v5];
+      objc_msgSend_metricsForSeparatorWithListStyle_traitCollection_(v9);
     }
 
     else

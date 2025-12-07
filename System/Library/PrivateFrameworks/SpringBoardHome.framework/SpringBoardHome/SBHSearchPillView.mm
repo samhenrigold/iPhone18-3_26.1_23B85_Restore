@@ -25,7 +25,7 @@
   v71.receiver = self;
   v71.super_class = SBHSearchPillView;
   [(SBHSearchPillView *)&v71 layoutSubviews];
-  [(SBHSearchPillView *)self bounds];
+  objc_msgSend_bounds(self);
   v4 = v3;
   v6 = v5;
   v8 = v7;
@@ -50,7 +50,7 @@
   }
 
   contentContainerView = [(SBHSearchPillView *)self contentContainerView];
-  [contentContainerView bounds];
+  objc_msgSend_bounds(contentContainerView);
   v65 = v14;
   v66 = v15;
   v17 = v16;
@@ -63,7 +63,7 @@
   [(UILabel *)v22 sizeToFit];
   v23 = self->_searchGlyphImageView;
   [(UIImageView *)v23 sizeToFit];
-  [(UIImageView *)v23 bounds];
+  objc_msgSend_bounds(v23);
   v25 = v24;
   v27 = v26;
   rect = v28;
@@ -75,7 +75,7 @@
     v30 = v17 - v30 - v27;
   }
 
-  [(UILabel *)v22 bounds];
+  objc_msgSend_bounds(v22);
   userInterfaceLayoutDirection = [*v31 userInterfaceLayoutDirection];
   v62 = v30;
   v33 = v30;
@@ -175,7 +175,7 @@
   searchAffordanceReferenceView = self->_searchAffordanceReferenceView;
   if (searchAffordanceReferenceView)
   {
-    [(UIView *)self->_searchAffordanceReferenceView bounds];
+    objc_msgSend_bounds(self->_searchAffordanceReferenceView, a2);
     v5 = v4;
     v7 = v6;
     v9 = v8;
@@ -259,39 +259,39 @@
 
 - (SBHSearchPillView)init
 {
-  v32[2] = *MEMORY[0x1E69E9840];
-  v31.receiver = self;
-  v31.super_class = SBHSearchPillView;
-  v2 = [(SBHSearchPillView *)&v31 init];
+  v33[2] = *MEMORY[0x1E69E9840];
+  v32.receiver = self;
+  v32.super_class = SBHSearchPillView;
+  v2 = [(SBHSearchPillView *)&v32 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x1E69DCC10]);
     searchLabel = v2->_searchLabel;
     v2->_searchLabel = v3;
 
-    v5 = SBHBundle();
-    v6 = [v5 localizedStringForKey:@"SEARCH_LABEL" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+    v6 = SBHBundle(v5);
+    v7 = [v6 localizedStringForKey:@"SEARCH_LABEL" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
 
-    [(UILabel *)v2->_searchLabel setText:v6];
-    v7 = [MEMORY[0x1E69DB880] _preferredFontDescriptorWithTextStyle:*MEMORY[0x1E69DDD08] weight:*MEMORY[0x1E69DB970]];
-    v8 = [MEMORY[0x1E69DB878] fontWithDescriptor:v7 size:12.0];
-    [(UILabel *)v2->_searchLabel setFont:v8];
+    [(UILabel *)v2->_searchLabel setText:v7];
+    v8 = [MEMORY[0x1E69DB880] _preferredFontDescriptorWithTextStyle:*MEMORY[0x1E69DDD08] weight:*MEMORY[0x1E69DB970]];
+    v9 = [MEMORY[0x1E69DB878] fontWithDescriptor:v8 size:12.0];
+    [(UILabel *)v2->_searchLabel setFont:v9];
     [(UILabel *)v2->_searchLabel sizeToFit];
-    v9 = objc_alloc_init(MEMORY[0x1E69DCAE0]);
+    v10 = objc_alloc_init(MEMORY[0x1E69DCAE0]);
     searchGlyphImageView = v2->_searchGlyphImageView;
-    v2->_searchGlyphImageView = v9;
+    v2->_searchGlyphImageView = v10;
 
-    v11 = MEMORY[0x1E69DCAD8];
-    [v8 pointSize];
-    v12 = [v11 configurationWithPointSize:6 weight:1 scale:?];
-    v13 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"magnifyingglass"];
-    v14 = [v13 imageByApplyingSymbolConfiguration:v12];
+    v12 = MEMORY[0x1E69DCAD8];
+    [v9 pointSize];
+    v13 = [v12 configurationWithPointSize:6 weight:1 scale:?];
+    v14 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"magnifyingglass"];
+    v15 = [v14 imageByApplyingSymbolConfiguration:v13];
 
-    [(UIImageView *)v2->_searchGlyphImageView setImage:v14];
+    [(UIImageView *)v2->_searchGlyphImageView setImage:v15];
     [(UIImageView *)v2->_searchGlyphImageView sizeToFit];
-    v15 = objc_alloc_init(MEMORY[0x1E69DD250]);
+    v16 = objc_alloc_init(MEMORY[0x1E69DD250]);
     contentContainerView = v2->_contentContainerView;
-    v2->_contentContainerView = v15;
+    v2->_contentContainerView = v16;
 
     layer = [(UIView *)v2->_contentContainerView layer];
     [layer setAllowsGroupBlending:0];
@@ -301,18 +301,18 @@
     [(UIView *)v2->_contentContainerView addSubview:v2->_searchLabel];
     [(SBHSearchPillView *)v2 intrinsicContentSize];
     BSRectWithSize();
-    v19 = v18;
-    v21 = v20;
-    v23 = v22;
-    v25 = v24;
+    v20 = v19;
+    v22 = v21;
+    v24 = v23;
+    v26 = v25;
     [(SBHSearchPillView *)v2 setBounds:?];
-    [(UIView *)v2->_contentContainerView setFrame:v19, v21, v23, v25];
-    v26 = objc_opt_self();
-    v32[0] = v26;
+    [(UIView *)v2->_contentContainerView setFrame:v20, v22, v24, v26];
     v27 = objc_opt_self();
-    v32[1] = v27;
-    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
-    v29 = [(SBHSearchPillView *)v2 registerForTraitChanges:v28 withTarget:v2 action:sel__updateBackgroundViewUserInterfaceStyle];
+    v33[0] = v27;
+    v28 = objc_opt_self();
+    v33[1] = v28;
+    v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
+    v30 = [(SBHSearchPillView *)v2 registerForTraitChanges:v29 withTarget:v2 action:sel__updateBackgroundViewUserInterfaceStyle];
 
     [(SBHSearchPillView *)v2 _updateBackgroundViewUserInterfaceStyle];
   }
@@ -343,15 +343,18 @@
     v8 = viewCopy;
     [(UIView *)backgroundView removeFromSuperview];
     objc_storeStrong(&self->_backgroundView, view);
+    viewCopy = v8;
     if (v8)
     {
       traitCollection = [(SBHSearchPillView *)self traitCollection];
       -[UIView sbh_applySearchPillGlassWithUserInterfaceStyle:grouping:](self, "sbh_applySearchPillGlassWithUserInterfaceStyle:grouping:", [MEMORY[0x1E69DD1B8] sbh_dockGlassUserInterfaceStyleFromTraitCollection:traitCollection], 0);
       [(SBHSearchPillView *)self setNeedsLayout];
+
+      viewCopy = v8;
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](backgroundView, viewCopy);
 }
 
 - (void)setLabelAlignment:(int64_t)alignment

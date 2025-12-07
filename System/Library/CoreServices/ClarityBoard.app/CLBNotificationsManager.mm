@@ -29,19 +29,19 @@
 
 - (CLBNotificationsManager)init
 {
-  v3 = sub_10002B6CC(&qword_10032BD40);
+  v3 = sub_10002B6CC(&qword_10032BD40, &qword_100297D30);
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v10 - v5;
   swift_unknownObjectWeakInit();
   v7 = OBJC_IVAR___CLBNotificationsManager__notifications;
   v12 = &_swiftEmptyArrayStorage;
-  sub_10002B6CC(&qword_10032BD20);
+  sub_10002B6CC(&qword_10032BD20, &qword_100297C40);
   Published.init(initialValue:)();
   (*(v4 + 32))(self + v7, v6, v3);
   *(self + OBJC_IVAR___CLBNotificationsManager_viewController) = 0;
   *(self + OBJC_IVAR___CLBNotificationsManager_soundsByBulletinID) = &_swiftEmptyDictionarySingleton;
-  v8 = type metadata accessor for CLBNotificationsManager();
+  v8 = type metadata accessor for CLBNotificationsManager(0);
   v11.receiver = self;
   v11.super_class = v8;
   return [(CLBNotificationsManager *)&v11 init];

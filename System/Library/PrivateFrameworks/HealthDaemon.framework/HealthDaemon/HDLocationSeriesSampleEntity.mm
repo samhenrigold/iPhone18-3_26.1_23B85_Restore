@@ -27,10 +27,9 @@
 
 + (id)privateSubEntities
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = objc_opt_class();
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -48,45 +47,45 @@
 
 + (uint64_t)_insertCodableSeriesDataFromObject:(void *)object persistentID:(void *)d database:(void *)database error:
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v8 = a2;
   objectCopy = object;
   dCopy = d;
-  v28 = v8;
-  v29 = objectCopy;
+  v27 = v8;
+  v28 = objectCopy;
   objc_opt_self();
   _codableWorkoutRoute = [v8 _codableWorkoutRoute];
-  v30 = _codableWorkoutRoute;
-  v31 = [(HDSQLiteEntity *)HDLocationSeriesSampleEntity entityWithPersistentID:objectCopy];
-  v11 = [v31 HFDKeyWithDatabase:dCopy error:database];
+  v29 = _codableWorkoutRoute;
+  v30 = [(HDSQLiteEntity *)HDLocationSeriesSampleEntity entityWithPersistentID:objectCopy];
+  v11 = [v30 HFDKeyWithDatabase:dCopy error:database];
   if (v11)
   {
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     locationDatas = [_codableWorkoutRoute locationDatas];
-    v13 = [locationDatas countByEnumeratingWithState:&v46 objects:v50 count:16];
+    v13 = [locationDatas countByEnumeratingWithState:&v45 objects:v49 count:16];
     if (v13)
     {
-      v14 = *v47;
+      v14 = *v46;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v47 != v14)
+          if (*v46 != v14)
           {
             objc_enumerationMutation(locationDatas);
           }
 
-          v16 = *(*(&v46 + 1) + 8 * i);
-          v39 = MEMORY[0x277D85DD0];
-          v40 = 3221225472;
-          v41 = __95__HDLocationSeriesSampleEntity__insertCodableSeriesDataFromObject_persistentID_database_error___block_invoke;
-          v42 = &unk_278624538;
-          v43 = v16;
-          v44 = dCopy;
-          v45 = v11;
+          v16 = *(*(&v45 + 1) + 8 * i);
+          v38 = MEMORY[0x277D85DD0];
+          v39 = 3221225472;
+          v40 = __95__HDLocationSeriesSampleEntity__insertCodableSeriesDataFromObject_persistentID_database_error___block_invoke;
+          v41 = &unk_278624538;
+          v42 = v16;
+          v43 = dCopy;
+          v44 = v11;
           v17 = HKWithAutoreleasePool();
 
           if (!v17)
@@ -96,7 +95,7 @@
           }
         }
 
-        v13 = [locationDatas countByEnumeratingWithState:&v46 objects:v50 count:16];
+        v13 = [locationDatas countByEnumeratingWithState:&v45 objects:v49 count:16];
         if (v13)
         {
           continue;
@@ -106,23 +105,23 @@
       }
     }
 
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x2020000000;
-    v38 = 0;
-    longLongValue = [v11 longLongValue];
-    v33[4] = &v35;
     v34 = 0;
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __95__HDLocationSeriesSampleEntity__insertCodableSeriesDataFromObject_persistentID_database_error___block_invoke_2;
-    v33[3] = &unk_278624560;
-    v19 = [HDLocationSeriesDataEntity getRangeAndCountForSeriesIdentifier:longLongValue database:dCopy error:&v34 handler:v33];
-    v20 = v34;
+    v35 = &v34;
+    v36 = 0x2020000000;
+    v37 = 0;
+    longLongValue = [v11 longLongValue];
+    v32[4] = &v34;
+    v33 = 0;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __95__HDLocationSeriesSampleEntity__insertCodableSeriesDataFromObject_persistentID_database_error___block_invoke_2;
+    v32[3] = &unk_278624560;
+    v19 = [HDLocationSeriesDataEntity getRangeAndCountForSeriesIdentifier:longLongValue database:dCopy error:&v33 handler:v32];
+    v20 = v33;
     v21 = v20;
     if (v19 || ([v20 hk_isHealthKitErrorWithCode:1100] & 1) != 0)
     {
-      v22 = [v31 updateSampleCount:v36[3] withDatabase:dCopy error:database];
+      v22 = [v30 updateSampleCount:v35[3] withDatabase:dCopy error:database];
     }
 
     else
@@ -146,7 +145,7 @@
       v22 = 0;
     }
 
-    _Block_object_dispose(&v35, 8);
+    _Block_object_dispose(&v34, 8);
   }
 
   else
@@ -155,7 +154,6 @@ LABEL_14:
     v22 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -356,49 +354,47 @@ LABEL_10:
 uint64_t __92__HDLocationSeriesSampleEntity_insertLocationData_seriesIdentifier_assertion_profile_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = [a2 databaseForEntityClass:*(a1 + 56)];
-  v6 = *(a1 + 32);
-  v7 = HDDataEntityPredicateForDataUUID();
-  v21 = 0;
-  v8 = [(HDDataEntity *)HDLocationSeriesSampleEntity anyInDatabase:v5 predicate:v7 error:&v21];
-  v9 = v21;
+  v6 = HDDataEntityPredicateForDataUUID();
+  v19 = 0;
+  v7 = [(HDDataEntity *)HDLocationSeriesSampleEntity anyInDatabase:v5 predicate:v6 error:&v19];
+  v8 = v19;
 
-  if (v8)
+  if (v7)
   {
-    v10 = [v8 _insertLocationData:*(a1 + 40) database:v5 error:a3];
-    v11 = v9;
+    v9 = [v7 _insertLocationData:*(a1 + 40) database:v5 error:a3];
+    v10 = v8;
   }
 
   else
   {
-    if (!v9)
+    if (!v8)
     {
-      v12 = *(a1 + 56);
-      v9 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:*(a1 + 64) format:{@"Unable to find location series %@ during data insert.", *(a1 + 32)}];
+      v8 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:*(a1 + 64) format:{@"Unable to find location series %@ during data insert.", *(a1 + 32)}];
     }
 
-    v13 = [[_HDLocationInsertionJournalEntry alloc] initWithSeriesPersistentID:*(a1 + 40) locationData:?];
-    v14 = [*(a1 + 48) database];
-    v15 = [v14 addJournalEntry:v13 error:a3];
+    v11 = [[_HDLocationInsertionJournalEntry alloc] initWithSeriesPersistentID:*(a1 + 40) locationData:?];
+    v12 = [*(a1 + 48) database];
+    v13 = [v12 addJournalEntry:v11 error:a3];
 
-    if ((v15 & 1) == 0)
+    if ((v13 & 1) == 0)
     {
       _HKInitializeLogging();
-      v16 = *MEMORY[0x277CCC2A0];
+      v14 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_228986000, v16, OS_LOG_TYPE_ERROR, "Failed to journal series sample.", buf, 2u);
+        _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "Failed to journal series sample.", buf, 2u);
       }
     }
 
-    v17 = v9;
-    v11 = v17;
-    if (v17)
+    v15 = v8;
+    v10 = v15;
+    if (v15)
     {
       if (a3)
       {
-        v18 = v17;
-        *a3 = v11;
+        v16 = v15;
+        *a3 = v10;
       }
 
       else
@@ -407,10 +403,10 @@ uint64_t __92__HDLocationSeriesSampleEntity_insertLocationData_seriesIdentifier_
       }
     }
 
-    v10 = 0;
+    v9 = 0;
   }
 
-  return v10;
+  return v9;
 }
 
 uint64_t __92__HDLocationSeriesSampleEntity_insertLocationData_seriesIdentifier_assertion_profile_error___block_invoke_310(void **a1, uint64_t a2, uint64_t a3)
@@ -424,11 +420,11 @@ uint64_t __92__HDLocationSeriesSampleEntity_insertLocationData_seriesIdentifier_
 
 - (BOOL)_insertLocationData:(id)data database:(id)database error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   databaseCopy = database;
   v11 = databaseCopy;
-  v24 = dataCopy;
+  v23 = dataCopy;
   if (dataCopy)
   {
     if (databaseCopy)
@@ -457,25 +453,25 @@ LABEL_3:
     v12 = [(HDSeriesSampleEntity *)self HFDKeyWithDatabase:v11 error:error];
     if (v12)
     {
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
       v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       obj = dataCopy;
-      v13 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v13 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v13)
       {
-        v14 = *v27;
+        v14 = *v26;
         while (2)
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v27 != v14)
+            if (*v26 != v14)
             {
               objc_enumerationMutation(obj);
             }
 
-            v16 = *(*(&v26 + 1) + 8 * i);
+            v16 = *(*(&v25 + 1) + 8 * i);
             longLongValue = [v12 longLongValue];
             timestamp = [v16 timestamp];
             [timestamp timeIntervalSinceReferenceDate];
@@ -488,7 +484,7 @@ LABEL_3:
             }
           }
 
-          v13 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+          v13 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
           if (v13)
           {
             continue;
@@ -514,58 +510,57 @@ LABEL_16:
     v19 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 + (BOOL)performPostFirstJournalMergeCleanupWithTransaction:(id)transaction profile:(id)profile error:(id *)error
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   profileCopy = profile;
-  v38 = 0;
-  v8 = [HDWorkoutBuilderAssociatedSeriesEntity allBuilderAssociatedSeriesWithProfile:profileCopy error:&v38];
-  v9 = v38;
+  v37 = 0;
+  v8 = [HDWorkoutBuilderAssociatedSeriesEntity allBuilderAssociatedSeriesWithProfile:profileCopy error:&v37];
+  v9 = v37;
   if (v8)
   {
-    v27 = HDSeriesSamplePredicateForSamplesToAutoFreezeExcludingSamples(v8);
+    v26 = HDSeriesSamplePredicateForSamplesToAutoFreezeExcludingSamples(v8);
     v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
     protectedDatabase = [transactionCopy protectedDatabase];
-    v37 = v9;
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __97__HDLocationSeriesSampleEntity_performPostFirstJournalMergeCleanupWithTransaction_profile_error___block_invoke;
-    v35[3] = &unk_2786245D8;
-    v28 = v10;
-    v36 = v28;
-    v12 = [self enumerateEntitiesInDatabase:protectedDatabase predicate:v27 error:&v37 enumerationHandler:v35];
-    v13 = v37;
+    v36 = v9;
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __97__HDLocationSeriesSampleEntity_performPostFirstJournalMergeCleanupWithTransaction_profile_error___block_invoke;
+    v34[3] = &unk_2786245D8;
+    v27 = v10;
+    v35 = v27;
+    v12 = [self enumerateEntitiesInDatabase:protectedDatabase predicate:v26 error:&v36 enumerationHandler:v34];
+    v13 = v36;
 
     if (v12)
     {
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
-      v14 = v28;
-      v15 = [v14 countByEnumeratingWithState:&v31 objects:v43 count:16];
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
+      v14 = v27;
+      v15 = [v14 countByEnumeratingWithState:&v30 objects:v42 count:16];
       if (v15)
       {
-        v16 = *v32;
+        v16 = *v31;
         do
         {
           v17 = 0;
           do
           {
-            if (*v32 != v16)
+            if (*v31 != v16)
             {
               objc_enumerationMutation(v14);
             }
 
-            v18 = *(*(&v31 + 1) + 8 * v17);
-            v30 = v13;
-            v19 = [v18 freezeWithTransaction:transactionCopy profile:profileCopy error:&v30];
-            v20 = v30;
+            v18 = *(*(&v30 + 1) + 8 * v17);
+            v29 = v13;
+            v19 = [v18 freezeWithTransaction:transactionCopy profile:profileCopy error:&v29];
+            v20 = v29;
 
             v13 = v20;
             if (!v19)
@@ -576,9 +571,9 @@ LABEL_16:
               {
                 persistentID = [v18 persistentID];
                 *buf = 134218242;
-                v40 = persistentID;
-                v41 = 2114;
-                v42 = v20;
+                v39 = persistentID;
+                v40 = 2114;
+                v41 = v20;
                 _os_log_error_impl(&dword_228986000, v21, OS_LOG_TYPE_ERROR, "Failed to freeze workout route %lld during post-journal-merge cleanup: %{public}@", buf, 0x16u);
               }
             }
@@ -587,7 +582,7 @@ LABEL_16:
           }
 
           while (v15 != v17);
-          v15 = [v14 countByEnumeratingWithState:&v31 objects:v43 count:16];
+          v15 = [v14 countByEnumeratingWithState:&v30 objects:v42 count:16];
         }
 
         while (v15);
@@ -601,7 +596,7 @@ LABEL_16:
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v40 = v13;
+        v39 = v13;
         _os_log_error_impl(&dword_228986000, v24, OS_LOG_TYPE_ERROR, "Failed to enumerate workout routes requiring auto-freeze during post-journal-merge cleanup: %{public}@", buf, 0xCu);
       }
     }
@@ -616,12 +611,11 @@ LABEL_16:
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v40 = v9;
+      v39 = v9;
       _os_log_error_impl(&dword_228986000, v23, OS_LOG_TYPE_ERROR, "Failed to determine builder-associated series during post-journal-merge cleanup: %{public}@", buf, 0xCu);
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -862,17 +856,17 @@ LABEL_25:
 
 - (void)willDeleteFromDatabase:(id)database
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   databaseCopy = database;
-  v11 = 0;
-  v5 = [(HDSeriesSampleEntity *)self HFDKeyWithDatabase:databaseCopy error:&v11];
-  v6 = v11;
+  v10 = 0;
+  v5 = [(HDSeriesSampleEntity *)self HFDKeyWithDatabase:databaseCopy error:&v10];
+  v6 = v10;
   if (v5)
   {
-    v10 = v6;
-    +[HDLocationSeriesDataEntity deleteSeriesDataWithIdentifier:database:error:](HDLocationSeriesDataEntity, "deleteSeriesDataWithIdentifier:database:error:", [v5 longLongValue], databaseCopy, &v10);
+    v9 = v6;
+    +[HDLocationSeriesDataEntity deleteSeriesDataWithIdentifier:database:error:](HDLocationSeriesDataEntity, "deleteSeriesDataWithIdentifier:database:error:", [v5 longLongValue], databaseCopy, &v9);
     v7 = v6;
-    v6 = v10;
+    v6 = v9;
   }
 
   else
@@ -883,14 +877,12 @@ LABEL_25:
     {
       persistentID = [(HDSQLiteEntity *)self persistentID];
       *buf = 134218242;
-      v13 = persistentID;
-      v14 = 2114;
-      v15 = v6;
+      v12 = persistentID;
+      v13 = 2114;
+      v14 = v6;
       _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "Failed to find HFD Key when deleting object with persistent id %lld: %{public}@", buf, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)codableObjectsFromObjectCollection:(id)collection
@@ -915,24 +907,24 @@ LABEL_25:
 
 - (id)freezeWithTransaction:(id)transaction profile:(id)profile error:(id *)error
 {
-  v107 = *MEMORY[0x277D85DE8];
+  v106 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   profileCopy = profile;
-  v96 = 0;
-  v97 = &v96;
-  v98 = 0x2020000000;
+  v95 = 0;
+  v96 = &v95;
+  v97 = 0x2020000000;
   Current = CFAbsoluteTimeGetCurrent();
-  v92 = 0;
-  v93 = &v92;
-  v9 = *(v97 + 3);
-  v94 = 0x2020000000;
-  v95 = v9;
-  v88 = 0;
-  v89 = &v88;
-  v90 = 0x2020000000;
   v91 = 0;
-  v84 = [transactionCopy databaseForEntity:self];
-  v10 = [(HDSeriesSampleEntity *)self HFDKeyWithDatabase:v84 error:error];
+  v92 = &v91;
+  v9 = *(v96 + 3);
+  v93 = 0x2020000000;
+  v94 = v9;
+  v87 = 0;
+  v88 = &v87;
+  v89 = 0x2020000000;
+  v90 = 0;
+  v83 = [transactionCopy databaseForEntity:self];
+  v10 = [(HDSeriesSampleEntity *)self HFDKeyWithDatabase:v83 error:error];
   if (!v10)
   {
 LABEL_7:
@@ -940,33 +932,33 @@ LABEL_7:
     goto LABEL_63;
   }
 
-  v87[0] = MEMORY[0x277D85DD0];
-  v87[1] = 3221225472;
-  v87[2] = __68__HDLocationSeriesSampleEntity_freezeWithTransaction_profile_error___block_invoke;
-  v87[3] = &unk_278624628;
-  v87[4] = &v96;
-  v87[5] = &v92;
-  v87[6] = &v88;
-  if (([HDLocationSeriesSampleEntity _getRangeAndCountForKey:v10 transaction:transactionCopy error:error handler:v87]& 1) == 0)
+  v86[0] = MEMORY[0x277D85DD0];
+  v86[1] = 3221225472;
+  v86[2] = __68__HDLocationSeriesSampleEntity_freezeWithTransaction_profile_error___block_invoke;
+  v86[3] = &unk_278624628;
+  v86[4] = &v95;
+  v86[5] = &v91;
+  v86[6] = &v87;
+  if (([HDLocationSeriesSampleEntity _getRangeAndCountForKey:v10 transaction:transactionCopy error:error handler:v86]& 1) == 0)
   {
     _HKInitializeLogging();
     v20 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
     {
-      v21 = *(v97 + 3);
-      v22 = *(v93 + 3);
-      v23 = v89[3];
+      v21 = *(v96 + 3);
+      v22 = *(v92 + 3);
+      v23 = v88[3];
       v24 = *error;
       *buf = 138544386;
       *&buf[4] = self;
       *&buf[12] = 2048;
       *&buf[14] = v21;
       *&buf[22] = 2048;
-      v105 = v22;
-      *v106 = 2048;
-      *&v106[2] = v23;
-      *&v106[10] = 2112;
-      *&v106[12] = v24;
+      v104 = v22;
+      *v105 = 2048;
+      *&v105[2] = v23;
+      *&v105[10] = 2112;
+      *&v105[12] = v24;
       _os_log_impl(&dword_228986000, v20, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@: Failed getting range and count for location series during freeze. start:%f, end:%f, count:%lld, error:%@", buf, 0x34u);
     }
 
@@ -979,25 +971,25 @@ LABEL_7:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v105 = __Block_byref_object_copy__122;
-  *v106 = __Block_byref_object_dispose__122;
-  *&v106[8] = 0;
+  v104 = __Block_byref_object_copy__122;
+  *v105 = __Block_byref_object_dispose__122;
+  *&v105[8] = 0;
   v14 = [v13 entityEnumeratorWithProfile:v12];
   v15 = HDDataEntityPredicateForRowID(v11, 1);
   [v14 setPredicate:v15];
 
   [v14 setIgnoreEntityClassAdditionalPredicateForEnumeration:1];
-  v101 = 0;
-  v100[0] = MEMORY[0x277D85DD0];
-  v100[1] = 3221225472;
-  v100[2] = __79__HDLocationSeriesSampleEntity__routeSampleWithID_canBeUnfrozen_profile_error___block_invoke;
-  v100[3] = &unk_278624678;
-  v100[4] = buf;
-  [v14 enumerateWithError:&v101 handler:v100];
-  v16 = v101;
+  v100 = 0;
+  v99[0] = MEMORY[0x277D85DD0];
+  v99[1] = 3221225472;
+  v99[2] = __79__HDLocationSeriesSampleEntity__routeSampleWithID_canBeUnfrozen_profile_error___block_invoke;
+  v99[3] = &unk_278624678;
+  v99[4] = buf;
+  [v14 enumerateWithError:&v100 handler:v99];
+  v16 = v100;
   v17 = v16;
   v18 = *(*&buf[8] + 40);
-  v83 = v18;
+  v82 = v18;
   if (v18)
   {
     v19 = v18;
@@ -1032,7 +1024,7 @@ LABEL_15:
   _Block_object_dispose(buf, 8);
   if (!v18)
   {
-    v44 = v83;
+    v44 = v82;
     _HKInitializeLogging();
     v45 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
@@ -1049,23 +1041,23 @@ LABEL_15:
     goto LABEL_62;
   }
 
-  uUID = [v83 UUID];
-  v77 = [uUID copy];
+  uUID = [v82 UUID];
+  v76 = objc_msgSend_copy(uUID);
 
   longLongValue = [v10 longLongValue];
-  metadata = [v83 metadata];
-  sourceRevision = [v83 sourceRevision];
+  metadata = [v82 metadata];
+  sourceRevision = [v82 sourceRevision];
   source = [sourceRevision source];
   _sourceID = [source _sourceID];
 
   [v10 longLongValue];
-  v30 = v97[3];
-  v31 = v93[3];
-  v32 = v89[3];
-  v80 = v83;
-  v82 = v12;
+  v30 = v96[3];
+  v31 = v92[3];
+  v32 = v88[3];
+  v79 = v82;
+  v81 = v12;
   v33 = transactionCopy;
-  v81 = v33;
+  v80 = v33;
   if (self)
   {
     v34 = [v33 databaseForEntity:self];
@@ -1073,21 +1065,21 @@ LABEL_15:
 
     if (v35)
     {
-      dataProvenanceManager = [v82 dataProvenanceManager];
-      v37 = [dataProvenanceManager originProvenanceForPersistentID:v35 transaction:v81 error:error];
+      dataProvenanceManager = [v81 dataProvenanceManager];
+      v37 = [dataProvenanceManager originProvenanceForPersistentID:v35 transaction:v80 error:error];
 
       if (v37)
       {
         uUID2 = [MEMORY[0x277CCAD78] UUID];
-        [v80 _setUUID:?];
-        [v80 _setStartTimestamp:v30];
-        [v80 _setEndTimestamp:v31];
-        [v80 _setCount:v32];
-        [v80 _setMetadata:0];
-        dataManager = [v82 dataManager];
-        *buf = v80;
+        [v79 _setUUID:?];
+        [v79 _setStartTimestamp:v30];
+        [v79 _setEndTimestamp:v31];
+        [v79 _setCount:v32];
+        [v79 _setMetadata:0];
+        dataManager = [v81 dataManager];
+        *buf = v79;
         v39 = [MEMORY[0x277CBEA60] arrayWithObjects:buf count:1];
-        _creationDate = [v80 _creationDate];
+        _creationDate = [v79 _creationDate];
         [_creationDate timeIntervalSinceReferenceDate];
         v41 = [dataManager insertDataObjects:v39 withProvenance:v37 creationDate:error error:?];
 
@@ -1141,7 +1133,7 @@ LABEL_15:
   }
 
   v47 = HDDataEntityPredicateForDataUUID();
-  v48 = [(HDDataEntity *)HDLocationSeriesSampleEntity anyInDatabase:v84 predicate:v47 error:error];
+  v48 = [(HDDataEntity *)HDLocationSeriesSampleEntity anyInDatabase:v83 predicate:v47 error:error];
 
   if (!v48)
   {
@@ -1164,7 +1156,7 @@ LABEL_57:
     goto LABEL_58;
   }
 
-  if (([v48 updateSampleCount:v89[3] withDatabase:v84 error:error] & 1) == 0)
+  if (([v48 updateSampleCount:v88[3] withDatabase:v83 error:error] & 1) == 0)
   {
     _HKInitializeLogging();
     v61 = *MEMORY[0x277CCC330];
@@ -1182,16 +1174,16 @@ LABEL_57:
     goto LABEL_57;
   }
 
-  v103[0] = @"start_date";
-  v103[1] = @"end_date";
-  v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v103 count:2];
-  v86[0] = MEMORY[0x277D85DD0];
-  v86[1] = 3221225472;
-  v86[2] = __68__HDLocationSeriesSampleEntity_freezeWithTransaction_profile_error___block_invoke_338;
-  v86[3] = &unk_278624650;
-  v86[4] = &v96;
-  v86[5] = &v92;
-  v50 = [v48 updateProperties:v49 database:v84 error:error bindingHandler:v86];
+  v102[0] = @"start_date";
+  v102[1] = @"end_date";
+  v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v102 count:2];
+  v85[0] = MEMORY[0x277D85DD0];
+  v85[1] = 3221225472;
+  v85[2] = __68__HDLocationSeriesSampleEntity_freezeWithTransaction_profile_error___block_invoke_338;
+  v85[3] = &unk_278624650;
+  v85[4] = &v95;
+  v85[5] = &v91;
+  v50 = [v48 updateProperties:v49 database:v83 error:error bindingHandler:v85];
 
   if ((v50 & 1) == 0)
   {
@@ -1213,7 +1205,7 @@ LABEL_57:
 
   v51 = [MEMORY[0x277CCABB0] numberWithLongLong:{-[HDSQLiteEntity persistentID](self, "persistentID")}];
   v52 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v48, "persistentID")}];
-  v53 = [(HDSeriesSampleEntity *)HDLocationSeriesSampleEntity replaceObjectID:v51 replacementObjectID:v52 deleteOriginalSeriesData:0 insertDeletedObject:0 profile:v82 transaction:v81 error:error];
+  v53 = [(HDSeriesSampleEntity *)HDLocationSeriesSampleEntity replaceObjectID:v51 replacementObjectID:v52 deleteOriginalSeriesData:0 insertDeletedObject:0 profile:v81 transaction:v80 error:error];
 
   if (!v53)
   {
@@ -1235,9 +1227,9 @@ LABEL_57:
 
   if (metadata)
   {
-    metadataManager = [v82 metadataManager];
+    metadataManager = [v81 metadataManager];
     v55 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v48, "persistentID")}];
-    v56 = [metadataManager insertMetadata:metadata forObjectID:v55 sourceID:_sourceID externalSyncObjectCode:objc_msgSend(v80 objectDeleted:"_externalSyncObjectCode") error:{0, error}];
+    v56 = [metadataManager insertMetadata:metadata forObjectID:v55 sourceID:_sourceID externalSyncObjectCode:objc_msgSend(v79 objectDeleted:"_externalSyncObjectCode") error:{0, error}];
 
     if ((v56 & 1) == 0)
     {
@@ -1251,7 +1243,7 @@ LABEL_57:
         *&buf[12] = 2112;
         *&buf[14] = metadata;
         *&buf[22] = 2112;
-        v105 = v69;
+        v104 = v69;
         v63 = "[routes] %{public}@: Adding metadata failed, metadata:%@ error:%@";
         v70 = v68;
         v71 = 32;
@@ -1264,9 +1256,9 @@ LABEL_58:
     }
   }
 
-  v102 = @"frozen";
-  v57 = [MEMORY[0x277CBEA60] arrayWithObjects:&v102 count:1];
-  v58 = [v48 updateProperties:v57 database:v84 error:error bindingHandler:&__block_literal_global_147];
+  v101 = @"frozen";
+  v57 = [MEMORY[0x277CBEA60] arrayWithObjects:&v101 count:1];
+  v58 = [v48 updateProperties:v57 database:v83 error:error bindingHandler:&__block_literal_global_147];
 
   if ((v58 & 1) == 0)
   {
@@ -1286,7 +1278,7 @@ LABEL_58:
     goto LABEL_57;
   }
 
-  if (([HDLocationSeriesSampleEntity _updateFrozenEntityToMatchReplacedUnfrozenEntity:v48 unfrozenSeriesUUID:v77 unfrozenSeriesHFDKey:longLongValue database:v84 error:error]& 1) == 0)
+  if (([HDLocationSeriesSampleEntity _updateFrozenEntityToMatchReplacedUnfrozenEntity:v48 unfrozenSeriesUUID:v76 unfrozenSeriesHFDKey:longLongValue database:v83 error:error]& 1) == 0)
   {
     _HKInitializeLogging();
     v61 = *MEMORY[0x277CCC330];
@@ -1310,15 +1302,13 @@ LABEL_59:
 LABEL_60:
 
 LABEL_61:
-  v44 = v83;
+  v44 = v82;
 LABEL_62:
 
 LABEL_63:
-  _Block_object_dispose(&v88, 8);
-  _Block_object_dispose(&v92, 8);
-  _Block_object_dispose(&v96, 8);
-
-  v73 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v91, 8);
+  _Block_object_dispose(&v95, 8);
 
   return v25;
 }
@@ -1382,38 +1372,37 @@ LABEL_10:
 void __68__HDLocationSeriesSampleEntity_freezeWithTransaction_profile_error___block_invoke_338(uint64_t a1, uint64_t a2)
 {
   MEMORY[0x22AAC6B60](a2, @"start_date", *(*(*(a1 + 32) + 8) + 24));
-  v3 = *(*(*(a1 + 40) + 8) + 24);
 
   JUMPOUT(0x22AAC6B60);
 }
 
 + (uint64_t)_updateFrozenEntityToMatchReplacedUnfrozenEntity:(void *)entity unfrozenSeriesUUID:(uint64_t)d unfrozenSeriesHFDKey:(void *)key database:(uint64_t)database error:
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v10 = a2;
   entityCopy = entity;
   keyCopy = key;
   objc_opt_self();
-  v24[0] = @"uuid";
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __136__HDLocationSeriesSampleEntity__updateFrozenEntityToMatchReplacedUnfrozenEntity_unfrozenSeriesUUID_unfrozenSeriesHFDKey_database_error___block_invoke;
-  v21[3] = &unk_2786246A0;
+  v23[0] = @"uuid";
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __136__HDLocationSeriesSampleEntity__updateFrozenEntityToMatchReplacedUnfrozenEntity_unfrozenSeriesUUID_unfrozenSeriesHFDKey_database_error___block_invoke;
+  v20[3] = &unk_2786246A0;
   v14 = entityCopy;
-  v22 = v14;
-  v15 = [v10 updateProperties:v13 database:keyCopy error:database bindingHandler:v21];
+  v21 = v14;
+  v15 = [v10 updateProperties:v13 database:keyCopy error:database bindingHandler:v20];
 
   if (v15)
   {
-    v23 = @"hfd_key";
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __136__HDLocationSeriesSampleEntity__updateFrozenEntityToMatchReplacedUnfrozenEntity_unfrozenSeriesUUID_unfrozenSeriesHFDKey_database_error___block_invoke_2;
-    v20[3] = &__block_descriptor_40_e34_v16__0__HDSQLiteStatementBinder__8l;
-    v20[4] = d;
-    v17 = [v10 updateProperties:v16 database:keyCopy error:database bindingHandler:v20];
+    v22 = @"hfd_key";
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __136__HDLocationSeriesSampleEntity__updateFrozenEntityToMatchReplacedUnfrozenEntity_unfrozenSeriesUUID_unfrozenSeriesHFDKey_database_error___block_invoke_2;
+    v19[3] = &__block_descriptor_40_e34_v16__0__HDSQLiteStatementBinder__8l;
+    v19[4] = d;
+    v17 = [v10 updateProperties:v16 database:keyCopy error:database bindingHandler:v19];
   }
 
   else
@@ -1421,7 +1410,6 @@ void __68__HDLocationSeriesSampleEntity_freezeWithTransaction_profile_error___bl
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

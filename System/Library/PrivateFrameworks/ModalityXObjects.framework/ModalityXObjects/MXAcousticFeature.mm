@@ -68,15 +68,14 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_acousticFeaturePerFrames.count)
   {
     v5 = 0;
     do
     {
-      v6 = self->_acousticFeaturePerFrames.list[v5];
       PBDataWriterWriteFloatField();
-      toCopy = v8;
+      toCopy = v6;
       ++v5;
     }
 
@@ -85,9 +84,8 @@
 
   if (*&self->_has)
   {
-    frameDuration = self->_frameDuration;
     PBDataWriterWriteFloatField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

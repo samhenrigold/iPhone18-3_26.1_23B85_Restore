@@ -3,8 +3,8 @@
 - (PHAsset)photoKitAsset;
 - (PUVitalityTransformProducer)initWithDidChangeHandler:(id)handler;
 - (__n128)transform;
-- (double)setComputedTransform:(__n128)transform;
 - (id)didChangeHandler;
+- (uint64_t)setComputedTransform:(__n128)transform;
 - (void)handleTransform:(float32x4_t)transform limitingAllowed:(float32x4_t)allowed;
 - (void)produceVitalityTransform;
 - (void)setAssetMetadataTransform:(__n128)transform;
@@ -105,12 +105,12 @@
   sub_1B3800BCC(v8, a6);
 }
 
-- (double)setComputedTransform:(__n128)transform
+- (uint64_t)setComputedTransform:(__n128)transform
 {
   v4[0] = self;
   v4[1] = a2;
   v4[2] = transform;
-  *&result = sub_1B3800DEC(v4).n128_u64[0];
+  sub_1B3800DEC(v4);
   return result;
 }
 

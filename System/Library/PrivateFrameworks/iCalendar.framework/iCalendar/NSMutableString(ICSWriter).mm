@@ -56,9 +56,9 @@
     [NSMutableString(ICSWriter) controlCharacterSet];
   }
 
-  v1 = controlCharacterSet_controlCharacterSet;
+  v2 = controlCharacterSet_controlCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 - (uint64_t)_ICSEscapePropertyValue

@@ -60,31 +60,31 @@
 
 - (REUIRelevanceEngineController)initWithRelevanceEngine:(id)engine
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   engineCopy = engine;
   array = [MEMORY[0x277CBEB18] array];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   configuration = [engineCopy configuration];
   sectionDescriptors = [configuration sectionDescriptors];
 
-  v8 = [sectionDescriptors countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [sectionDescriptors countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(sectionDescriptors);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
+        v12 = *(*(&v20 + 1) + 8 * i);
         historicSectionDescriptor = [v12 historicSectionDescriptor];
         v14 = historicSectionDescriptor;
         if (historicSectionDescriptor)
@@ -97,7 +97,7 @@
         [array addObject:name2];
       }
 
-      v9 = [sectionDescriptors countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [sectionDescriptors countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v9);
@@ -106,7 +106,6 @@
   v17 = [array copy];
   v18 = [(REUIRelevanceEngineController *)self initWithRelevanceEngine:engineCopy sectionOrder:v17];
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -209,7 +208,6 @@ void __70__REUIRelevanceEngineController_initWithRelevanceEngine_sectionOrder___
 {
   if (index < 0 || [(NSArray *)self->_sectionOrder count]<= index)
   {
-    v5 = *MEMORY[0x277CBE660];
     RERaiseInternalException();
   }
 
@@ -224,8 +222,7 @@ void __70__REUIRelevanceEngineController_initWithRelevanceEngine_sectionOrder___
   v5 = [(NSMutableDictionary *)self->_sectionNameOrdering objectForKeyedSubscript:sectionCopy];
   if (!v5)
   {
-    v6 = *MEMORY[0x277CBE660];
-    v9 = sectionCopy;
+    v8 = sectionCopy;
     RERaiseInternalException();
   }
 
@@ -508,44 +505,44 @@ uint64_t __72__REUIRelevanceEngineController__engineIndexPathForControllerIndexP
 
 - (id)indexPathForElementWithIdentifier:(id)identifier
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v5 = self->_currentElementStates;
-  v22 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
-  if (v22)
+  v21 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  if (v21)
   {
-    v6 = *v31;
+    v6 = *v30;
     selfCopy = self;
-    v25 = v5;
-    v21 = *v31;
+    v24 = v5;
+    v20 = *v30;
     do
     {
       v7 = 0;
       do
       {
-        if (*v31 != v6)
+        if (*v30 != v6)
         {
           objc_enumerationMutation(v5);
         }
 
-        v8 = *(*(&v30 + 1) + 8 * v7);
+        v8 = *(*(&v29 + 1) + 8 * v7);
+        v25 = 0u;
         v26 = 0u;
         v27 = 0u;
         v28 = 0u;
-        v29 = 0u;
-        v23 = v8;
+        v22 = v8;
         v9 = [(NSMutableDictionary *)self->_currentElementStates objectForKeyedSubscript:?];
-        v10 = [v9 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
         if (v10)
         {
           v11 = v10;
           v12 = 0;
-          v13 = *v27;
+          v13 = *v26;
           while (2)
           {
             v14 = 0;
@@ -553,19 +550,19 @@ uint64_t __72__REUIRelevanceEngineController__engineIndexPathForControllerIndexP
             v12 += v11;
             do
             {
-              if (*v27 != v13)
+              if (*v26 != v13)
               {
                 objc_enumerationMutation(v9);
               }
 
-              identifier = [*(*(&v26 + 1) + 8 * v14) identifier];
+              identifier = [*(*(&v25 + 1) + 8 * v14) identifier];
               v17 = [identifier isEqualToString:identifierCopy];
 
               if (v17)
               {
-                v18 = [MEMORY[0x277CCAA70] indexPathForItem:v15 inSection:{-[REUIRelevanceEngineController _indexForSection:](selfCopy, "_indexForSection:", v23)}];
+                v18 = [MEMORY[0x277CCAA70] indexPathForItem:v15 inSection:{-[REUIRelevanceEngineController _indexForSection:](selfCopy, "_indexForSection:", v22)}];
 
-                v5 = v25;
+                v5 = v24;
                 goto LABEL_19;
               }
 
@@ -574,7 +571,7 @@ uint64_t __72__REUIRelevanceEngineController__engineIndexPathForControllerIndexP
             }
 
             while (v11 != v14);
-            v11 = [v9 countByEnumeratingWithState:&v26 objects:v34 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
             if (v11)
             {
               continue;
@@ -585,17 +582,17 @@ uint64_t __72__REUIRelevanceEngineController__engineIndexPathForControllerIndexP
         }
 
         ++v7;
-        v6 = v21;
+        v6 = v20;
         self = selfCopy;
-        v5 = v25;
+        v5 = v24;
       }
 
-      while (v7 != v22);
+      while (v7 != v21);
       v18 = 0;
-      v22 = [(NSMutableDictionary *)v25 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v21 = [(NSMutableDictionary *)v24 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
-    while (v22);
+    while (v21);
   }
 
   else
@@ -605,51 +602,47 @@ uint64_t __72__REUIRelevanceEngineController__engineIndexPathForControllerIndexP
 
 LABEL_19:
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (id)generateDiffableSnapshot
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   v3 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = self->_sectionOrder;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v18 = *(*(&v14 + 1) + 8 * i);
-        v9 = v18;
-        v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:{1, v14}];
+        v17 = *(*(&v13 + 1) + 8 * i);
+        v9 = v17;
+        v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:{1, v13}];
         [v3 appendSectionsWithIdentifiers:v10];
 
         v11 = [(NSMutableDictionary *)self->_currentElementStates objectForKeyedSubscript:v9];
         [v3 appendItemsWithIdentifiers:v11];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v18 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -747,7 +740,7 @@ void __68__REUIRelevanceEngineController__indexPathForElementWithIdentifier___bl
 
 - (id)metadataForElementWithIdentifier:(id)identifier
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   v5 = [(REUIRelevanceEngineController *)self indexPathForElementWithIdentifier:identifierCopy];
@@ -760,10 +753,10 @@ void __68__REUIRelevanceEngineController__indexPathForElementWithIdentifier___bl
 
     if (v8)
     {
-      v13 = @"REMetadataBundleIdentifierKey";
+      v12 = @"REMetadataBundleIdentifierKey";
       bundleIdentifier = [v8 bundleIdentifier];
-      v14[0] = bundleIdentifier;
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v13[0] = bundleIdentifier;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     }
 
     else
@@ -776,8 +769,6 @@ void __68__REUIRelevanceEngineController__indexPathForElementWithIdentifier___bl
   {
     v10 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -792,7 +783,7 @@ void __68__REUIRelevanceEngineController__indexPathForElementWithIdentifier___bl
 - (void)setDataSource:(id)source enabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   v7 = [(REUIRelevanceEngineController *)self isDataSourceEnabled:sourceCopy];
   v8 = RELogForDomain();
@@ -801,15 +792,15 @@ void __68__REUIRelevanceEngineController__indexPathForElementWithIdentifier___bl
     v9 = @"disabled";
     *buf = 138412802;
     selfCopy = self;
-    v18 = 2112;
+    v17 = 2112;
     if (enabledCopy)
     {
       v9 = @"enabled";
     }
 
-    v19 = v9;
-    v20 = 2112;
-    v21 = sourceCopy;
+    v18 = v9;
+    v19 = 2112;
+    v20 = sourceCopy;
     _os_log_impl(&dword_261AAC000, v8, OS_LOG_TYPE_DEFAULT, "%@ %@ %@", buf, 0x20u);
   }
 
@@ -821,15 +812,15 @@ void __68__REUIRelevanceEngineController__indexPathForElementWithIdentifier___bl
     }
 
     engine = self->_engine;
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __55__REUIRelevanceEngineController_setDataSource_enabled___block_invoke;
-    v13[3] = &unk_279AF5F38;
-    v13[4] = self;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __55__REUIRelevanceEngineController_setDataSource_enabled___block_invoke;
+    v12[3] = &unk_279AF5F38;
+    v12[4] = self;
     v11 = sourceCopy;
-    v14 = v11;
-    v15 = enabledCopy;
-    [(REUIRelevanceEngineController *)self relevanceEngine:engine performBatchUpdateBlock:v13 completion:&__block_literal_global];
+    v13 = v11;
+    v14 = enabledCopy;
+    [(REUIRelevanceEngineController *)self relevanceEngine:engine performBatchUpdateBlock:v12 completion:&__block_literal_global];
     if ((enabledCopy & 1) == 0)
     {
       [(NSMutableSet *)self->_hiddenBundleIdentifiers addObject:v11];
@@ -837,8 +828,6 @@ void __68__REUIRelevanceEngineController__indexPathForElementWithIdentifier___bl
 
     [(RERelevanceEnginePreferences *)self->_preferences setDisabledDataSourceIdentifiers:self->_hiddenBundleIdentifiers];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __55__REUIRelevanceEngineController_setDataSource_enabled___block_invoke(uint64_t a1)
@@ -933,40 +922,39 @@ void __55__REUIRelevanceEngineController_setDataSource_enabled___block_invoke_2(
 
 - (id)predictedContentForSectionAtIndex:(unint64_t)index atDate:(id)date limit:(int64_t)limit
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = [(REUIRelevanceEngineController *)self predictedElementsForSectionAtIndex:index atDate:date limit:limit];
   v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v6, "count")}];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [(REUIRelevanceEngineController *)self _contentForElement:*(*(&v17 + 1) + 8 * i), v17];
+        v13 = [(REUIRelevanceEngineController *)self _contentForElement:*(*(&v16 + 1) + 8 * i), v16];
         [v7 addObject:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
 
   v14 = [v7 copy];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -1014,32 +1002,32 @@ void __55__REUIRelevanceEngineController_setDataSource_enabled___block_invoke_2(
 
 void __81__REUIRelevanceEngineController_predictedElementsForSectionAtIndex_atDate_limit___block_invoke(uint64_t a1, uint64_t a2, void *a3, char a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v6 = a3;
   if ([*(a1 + 32) count] < *(a1 + 48) && (a4 & 1) == 0)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
-    v18 = v6;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v17 = v6;
     v7 = [v6 relevanceProviders];
-    v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v20;
+      v10 = *v19;
       while (2)
       {
         v11 = 0;
         do
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * v11);
+          v12 = *(*(&v18 + 1) + 8 * v11);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -1051,7 +1039,7 @@ void __81__REUIRelevanceEngineController_predictedElementsForSectionAtIndex_atDa
             if (v16)
             {
 
-              v6 = v18;
+              v6 = v17;
               goto LABEL_14;
             }
           }
@@ -1060,7 +1048,7 @@ void __81__REUIRelevanceEngineController_predictedElementsForSectionAtIndex_atDa
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v9)
         {
           continue;
@@ -1070,13 +1058,11 @@ void __81__REUIRelevanceEngineController_predictedElementsForSectionAtIndex_atDa
       }
     }
 
-    v6 = v18;
-    [*(a1 + 32) addObject:v18];
+    v6 = v17;
+    [*(a1 + 32) addObject:v17];
   }
 
 LABEL_14:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadNewRelevanceEngine:(id)engine withCompletion:(id)completion
@@ -1118,30 +1104,30 @@ LABEL_14:
 
 void __72__REUIRelevanceEngineController__loadNewRelevanceEngine_withCompletion___block_invoke_2(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) allKeys];
   v3 = [v2 sortedArrayUsingComparator:&__block_literal_global_52];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v26;
+    v7 = *v25;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v26 != v7)
+        if (*v25 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v25 + 1) + 8 * i);
+        v9 = *(*(&v24 + 1) + 8 * i);
         v10 = *(a1 + 40);
         v11 = [*(a1 + 32) objectForKeyedSubscript:v9];
         v12 = [v10 _contentForElement:v11];
@@ -1150,7 +1136,7 @@ void __72__REUIRelevanceEngineController__loadNewRelevanceEngine_withCompletion_
         [v13 engineController:*(a1 + 40) didRemoveContent:v12 atIndexPath:v9];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v6);
@@ -1158,12 +1144,12 @@ void __72__REUIRelevanceEngineController__loadNewRelevanceEngine_withCompletion_
 
   v14 = *(a1 + 40);
   v15 = *(v14 + 32);
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __72__REUIRelevanceEngineController__loadNewRelevanceEngine_withCompletion___block_invoke_4;
-  v24[3] = &unk_279AF5FF0;
-  v24[4] = v14;
-  [v15 enumerateObjectsUsingBlock:v24];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __72__REUIRelevanceEngineController__loadNewRelevanceEngine_withCompletion___block_invoke_4;
+  v23[3] = &unk_279AF5FF0;
+  v23[4] = v14;
+  [v15 enumerateObjectsUsingBlock:v23];
   if ([*(a1 + 40) numberOfSections])
   {
     v16 = 0;
@@ -1187,8 +1173,6 @@ void __72__REUIRelevanceEngineController__loadNewRelevanceEngine_withCompletion_
 
     while (v16 < [*(a1 + 40) numberOfSections]);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __72__REUIRelevanceEngineController__loadNewRelevanceEngine_withCompletion___block_invoke_4(uint64_t a1, void *a2, uint64_t a3)
@@ -1403,7 +1387,7 @@ void __90__REUIRelevanceEngineController__enumerateEngineElementsInSection_withO
 
 - (void)_performOrEnqueueOperation:(id)operation
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   if (self->_performingBatch)
@@ -1417,27 +1401,25 @@ void __90__REUIRelevanceEngineController__enumerateEngineElementsInSection_withO
     sectionName = [path sectionName];
     v7 = [(REUIRelevanceEngineController *)self _indexForSection:sectionName];
 
-    v10[0] = operationCopy;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+    v9[0] = operationCopy;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
     [(REUIRelevanceEngineController *)self _performOperations:v8 toSection:v7];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performBatchUpdateUsingBlock:(id)block completion:(id)completion
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   completionCopy = completion;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __74__REUIRelevanceEngineController__performBatchUpdateUsingBlock_completion___block_invoke;
-  v41[3] = &unk_279AF6040;
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __74__REUIRelevanceEngineController__performBatchUpdateUsingBlock_completion___block_invoke;
+  v40[3] = &unk_279AF6040;
   v8 = completionCopy;
-  v42 = v8;
-  v9 = MEMORY[0x2667182D0](v41);
+  v41 = v8;
+  v9 = MEMORY[0x2667182D0](v40);
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   v11 = WeakRetained;
   if ((*&self->_delegateCallbacks & 1) != 0 && WeakRetained)
@@ -1448,35 +1430,35 @@ void __90__REUIRelevanceEngineController__enumerateEngineElementsInSection_withO
       blockCopy[2](blockCopy);
     }
 
-    v31 = v9;
-    v32 = v8;
-    v33 = blockCopy;
+    v30 = v9;
+    v31 = v8;
+    v32 = blockCopy;
     self->_performingBatch = 0;
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     v13 = [(NSMutableArray *)self->_pendingOperations copy];
     selfCopy = self;
     [(NSMutableArray *)self->_pendingOperations removeAllObjects];
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v14 = v13;
-    v15 = [v14 countByEnumeratingWithState:&v37 objects:v43 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v36 objects:v42 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v38;
+      v17 = *v37;
       v18 = 1;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v38 != v17)
+          if (*v37 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v20 = *(*(&v37 + 1) + 8 * i);
+          v20 = *(*(&v36 + 1) + 8 * i);
           path = [v20 path];
           sectionName = [path sectionName];
 
@@ -1497,7 +1479,7 @@ void __90__REUIRelevanceEngineController__enumerateEngineElementsInSection_withO
           [v25 addObject:v20];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v37 objects:v43 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v36 objects:v42 count:16];
       }
 
       while (v16);
@@ -1510,42 +1492,42 @@ void __90__REUIRelevanceEngineController__enumerateEngineElementsInSection_withO
 
     if ([dictionary count] && objc_msgSend(v14, "count"))
     {
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __74__REUIRelevanceEngineController__performBatchUpdateUsingBlock_completion___block_invoke_2;
-      v34[3] = &unk_279AF6018;
-      v35 = dictionary;
-      v36 = selfCopy;
-      v26 = MEMORY[0x2667182D0](v34);
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __74__REUIRelevanceEngineController__performBatchUpdateUsingBlock_completion___block_invoke_2;
+      v33[3] = &unk_279AF6018;
+      v34 = dictionary;
+      v35 = selfCopy;
+      v26 = MEMORY[0x2667182D0](v33);
       v27 = v26;
-      blockCopy = v33;
-      v9 = v31;
+      blockCopy = v32;
+      v9 = v30;
       if ((v18 & 1) != 0 || (*&selfCopy->_delegateCallbacks & 1) == 0)
       {
         (*(v26 + 16))(v26);
-        v8 = v32;
-        if (v31)
+        v8 = v31;
+        if (v30)
         {
-          v31[2](v31);
+          v30[2](v30);
         }
       }
 
       else
       {
         v28 = objc_loadWeakRetained(&selfCopy->_delegate);
-        v8 = v32;
-        [v28 engineController:selfCopy performBatchUpdateBlock:v27 completion:v32];
+        v8 = v31;
+        [v28 engineController:selfCopy performBatchUpdateBlock:v27 completion:v31];
       }
     }
 
     else
     {
-      v8 = v32;
-      blockCopy = v33;
-      v9 = v31;
-      if (v31)
+      v8 = v31;
+      blockCopy = v32;
+      v9 = v30;
+      if (v30)
       {
-        v31[2](v31);
+        v30[2](v30);
       }
     }
   }
@@ -1562,8 +1544,6 @@ void __90__REUIRelevanceEngineController__enumerateEngineElementsInSection_withO
       v9[2](v9);
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __74__REUIRelevanceEngineController__performBatchUpdateUsingBlock_completion___block_invoke_2(uint64_t a1)
@@ -1586,37 +1566,37 @@ void __74__REUIRelevanceEngineController__performBatchUpdateUsingBlock_completio
 
 - (void)_performOperations:(id)operations toSection:(unint64_t)section
 {
-  v130 = *MEMORY[0x277D85DE8];
+  v129 = *MEMORY[0x277D85DE8];
   operationsCopy = operations;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   indexSet = [MEMORY[0x277CCAB58] indexSet];
   indexSet2 = [MEMORY[0x277CCAB58] indexSet];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
-  v92 = [MEMORY[0x277CBEB58] set];
-  v90 = [MEMORY[0x277CBEB58] set];
-  v88 = [MEMORY[0x277CBEB58] set];
+  v91 = [MEMORY[0x277CBEB58] set];
+  v89 = [MEMORY[0x277CBEB58] set];
+  v87 = [MEMORY[0x277CBEB58] set];
+  v120 = 0u;
   v121 = 0u;
   v122 = 0u;
   v123 = 0u;
-  v124 = 0u;
   obj = operationsCopy;
-  v7 = [obj countByEnumeratingWithState:&v121 objects:v129 count:16];
-  v94 = indexSet;
+  v7 = [obj countByEnumeratingWithState:&v120 objects:v128 count:16];
+  v93 = indexSet;
   if (v7)
   {
     v8 = v7;
-    v9 = *v122;
+    v9 = *v121;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v122 != v9)
+        if (*v121 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v121 + 1) + 8 * i);
+        v11 = *(*(&v120 + 1) + 8 * i);
         path = [v11 path];
         element = [path element];
 
@@ -1645,7 +1625,7 @@ void __74__REUIRelevanceEngineController__performBatchUpdateUsingBlock_completio
           v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:element];
           [v18 setObject:element3 forKeyedSubscript:v20];
 
-          indexSet = v94;
+          indexSet = v93;
         }
 
 LABEL_11:
@@ -1658,10 +1638,10 @@ LABEL_11:
             v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:element];
             [dictionary setObject:element4 forKeyedSubscript:v32];
 
-            v24 = v90;
+            v24 = v89;
             break;
           case 3:
-            [v88 addObject:identifier];
+            [v87 addObject:identifier];
             [indexSet addIndex:element];
             element5 = [v11 element];
             v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:element];
@@ -1682,7 +1662,7 @@ LABEL_11:
             v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:element];
             [dictionary2 setObject:element8 forKeyedSubscript:v23];
 
-            v24 = v92;
+            v24 = v91;
             break;
           default:
             goto LABEL_18;
@@ -1692,7 +1672,7 @@ LABEL_11:
 LABEL_18:
       }
 
-      v8 = [obj countByEnumeratingWithState:&v121 objects:v129 count:16];
+      v8 = [obj countByEnumeratingWithState:&v120 objects:v128 count:16];
     }
 
     while (v8);
@@ -1700,40 +1680,40 @@ LABEL_18:
 
   dictionary3 = [MEMORY[0x277CBEB38] dictionary];
   v34 = [(NSArray *)self->_hiddenIndices objectAtIndexedSubscript:section];
-  v113[0] = MEMORY[0x277D85DD0];
-  v113[1] = 3221225472;
-  v113[2] = __62__REUIRelevanceEngineController__performOperations_toSection___block_invoke;
-  v113[3] = &unk_279AF60E0;
+  v112[0] = MEMORY[0x277D85DD0];
+  v112[1] = 3221225472;
+  v112[2] = __62__REUIRelevanceEngineController__performOperations_toSection___block_invoke;
+  v112[3] = &unk_279AF60E0;
   sectionCopy = section;
-  v85 = dictionary;
-  v114 = v85;
+  v84 = dictionary;
+  v113 = v84;
   selfCopy = self;
-  v35 = v88;
-  v116 = v35;
+  v35 = v87;
+  v115 = v35;
   v36 = dictionary3;
-  v117 = v36;
+  v116 = v36;
   v37 = v34;
-  v118 = v37;
-  v91 = v90;
-  v119 = v91;
-  [indexSet enumerateIndexesWithOptions:2 usingBlock:v113];
-  v105[0] = MEMORY[0x277D85DD0];
-  v105[1] = 3221225472;
-  v105[2] = __62__REUIRelevanceEngineController__performOperations_toSection___block_invoke_58;
-  v105[3] = &unk_279AF60E0;
+  v117 = v37;
+  v90 = v89;
+  v118 = v90;
+  [indexSet enumerateIndexesWithOptions:2 usingBlock:v112];
+  v104[0] = MEMORY[0x277D85DD0];
+  v104[1] = 3221225472;
+  v104[2] = __62__REUIRelevanceEngineController__performOperations_toSection___block_invoke_58;
+  v104[3] = &unk_279AF60E0;
   sectionCopy2 = section;
-  v97 = dictionary2;
-  v106 = v97;
-  v89 = v35;
-  v107 = v89;
-  v93 = v92;
-  v108 = v93;
+  v96 = dictionary2;
+  v105 = v96;
+  v88 = v35;
+  v106 = v88;
+  v92 = v91;
+  v107 = v92;
   selfCopy2 = self;
   v38 = v37;
-  v110 = v38;
-  v83 = v36;
-  v111 = v83;
-  [indexSet2 enumerateIndexesUsingBlock:v105];
+  v109 = v38;
+  v82 = v36;
+  v110 = v82;
+  [indexSet2 enumerateIndexesUsingBlock:v104];
   _sectionSupportingNoContentElements = [(REUIRelevanceEngineController *)self _sectionSupportingNoContentElements];
   v40 = [(REUIRelevanceEngineController *)self _sectionAtIndex:section];
   LODWORD(v36) = [v40 isEqualToString:_sectionSupportingNoContentElements];
@@ -1756,8 +1736,8 @@ LABEL_18:
 
         *buf = 134218242;
         selfCopy6 = self;
-        v127 = 2114;
-        v128 = v44;
+        v126 = 2114;
+        v127 = v44;
         _os_log_impl(&dword_261AAC000, v43, OS_LOG_TYPE_INFO, "%p Showing %{public}@ state.", buf, 0x16u);
       }
 
@@ -1772,19 +1752,19 @@ LABEL_18:
       }
 
       v46 = [MEMORY[0x277CCAA78] indexSetWithIndexesInRange:{0, -[RERelevanceEngine numberOfElementsInSection:](self->_engine, "numberOfElementsInSection:", _sectionSupportingNoContentElements)}];
-      v100[0] = MEMORY[0x277D85DD0];
-      v100[1] = 3221225472;
-      v100[2] = __62__REUIRelevanceEngineController__performOperations_toSection___block_invoke_65;
-      v100[3] = &unk_279AF6108;
-      v101 = _sectionSupportingNoContentElements;
+      v99[0] = MEMORY[0x277D85DD0];
+      v99[1] = 3221225472;
+      v99[2] = __62__REUIRelevanceEngineController__performOperations_toSection___block_invoke_65;
+      v99[3] = &unk_279AF6108;
+      v100 = _sectionSupportingNoContentElements;
       selfCopy4 = self;
-      v103 = v38;
-      v104 = v42;
-      [v46 enumerateIndexesWithOptions:v45 usingBlock:v100];
+      v102 = v38;
+      v103 = v42;
+      [v46 enumerateIndexesWithOptions:v45 usingBlock:v99];
     }
   }
 
-  v84 = v38;
+  v83 = v38;
   v47 = [(REUIRelevanceEngineController *)self _sectionAtIndex:section];
   v48 = [(NSMutableDictionary *)self->_currentElementStates objectForKeyedSubscript:v47];
   v49 = [v48 copy];
@@ -1820,8 +1800,8 @@ LABEL_18:
     v62 = [v61 componentsJoinedByString:{@", "}];
     *buf = 134218242;
     selfCopy6 = self;
-    v127 = 2114;
-    v128 = v62;
+    v126 = 2114;
+    v127 = v62;
     _os_log_impl(&dword_261AAC000, v59, OS_LOG_TYPE_INFO, "%p Performing operations with original content: %{public}@", buf, 0x16u);
   }
 
@@ -1833,8 +1813,8 @@ LABEL_18:
     v66 = [v65 componentsJoinedByString:{@", "}];
     *buf = 134218242;
     selfCopy6 = self;
-    v127 = 2114;
-    v128 = v66;
+    v126 = 2114;
+    v127 = v66;
     _os_log_impl(&dword_261AAC000, v63, OS_LOG_TYPE_INFO, "%p Performing operations with current content: %{public}@", buf, 0x16u);
   }
 
@@ -1845,25 +1825,23 @@ LABEL_18:
     [(REUIRelevanceEngineController *)self _performOperations:v68 toSection:v69, v70, v71, v72, v73, v74];
   }
 
-  v99[0] = MEMORY[0x277D85DD0];
-  v99[1] = 3221225472;
-  v99[2] = __62__REUIRelevanceEngineController__performOperations_toSection___block_invoke_81;
-  v99[3] = &unk_279AF6170;
-  v99[4] = self;
-  v99[5] = section;
-  [v67 enumerateOperationsUsingBlock:v99];
+  v98[0] = MEMORY[0x277D85DD0];
+  v98[1] = 3221225472;
+  v98[2] = __62__REUIRelevanceEngineController__performOperations_toSection___block_invoke_81;
+  v98[3] = &unk_279AF6170;
+  v98[4] = self;
+  v98[5] = section;
+  [v67 enumerateOperationsUsingBlock:v98];
   v75 = RELogForDomain();
   if (os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG))
   {
     [(REUIRelevanceEngineController *)self _performOperations:v75 toSection:v76, v77, v78, v79, v80, v81];
   }
-
-  v82 = *MEMORY[0x277D85DE8];
 }
 
 void __62__REUIRelevanceEngineController__performOperations_toSection___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CCAA70] indexPathForItem:a2 inSection:*(a1 + 80)];
   v5 = *(a1 + 32);
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a2];
@@ -1878,19 +1856,19 @@ void __62__REUIRelevanceEngineController__performOperations_toSection___block_in
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = *(a1 + 40);
-      v19 = 134218754;
-      v20 = v11;
-      v21 = 2114;
-      v22 = v8;
-      v23 = 2114;
-      v24 = v9;
-      v25 = 2114;
-      v26 = v4;
+      v18 = 134218754;
+      v19 = v11;
+      v20 = 2114;
+      v21 = v8;
+      v22 = 2114;
+      v23 = v9;
+      v24 = 2114;
+      v25 = v4;
       v12 = "%p Removing (through move) %{public}@ at index path %{public}@ (mapped from %{public}@).";
       v13 = v10;
       v14 = 42;
 LABEL_7:
-      _os_log_impl(&dword_261AAC000, v13, OS_LOG_TYPE_INFO, v12, &v19, v14);
+      _os_log_impl(&dword_261AAC000, v13, OS_LOG_TYPE_INFO, v12, &v18, v14);
       goto LABEL_8;
     }
 
@@ -1903,10 +1881,10 @@ LABEL_7:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v15 = *(a1 + 40);
-      v19 = 134218242;
-      v20 = v15;
-      v21 = 2114;
-      v22 = v8;
+      v18 = 134218242;
+      v19 = v15;
+      v20 = 2114;
+      v21 = v8;
       v12 = "%p Removing %{public}@ (in removed elements).";
       v13 = v10;
       v14 = 22;
@@ -1922,30 +1900,28 @@ LABEL_8:
   if (v9)
   {
     [*(a1 + 64) addIndex:{objc_msgSend(v4, "item")}];
-    v17 = RELogForDomain();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v16 = RELogForDomain();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v18 = *(a1 + 40);
-      v19 = 134218754;
-      v20 = v18;
-      v21 = 2114;
-      v22 = v8;
-      v23 = 2114;
-      v24 = v9;
-      v25 = 2114;
-      v26 = v4;
-      _os_log_impl(&dword_261AAC000, v17, OS_LOG_TYPE_INFO, "%p Hiding %{public}@ at index path %{public}@ (mapped from %{public}@; path removed).", &v19, 0x2Au);
+      v17 = *(a1 + 40);
+      v18 = 134218754;
+      v19 = v17;
+      v20 = 2114;
+      v21 = v8;
+      v22 = 2114;
+      v23 = v9;
+      v24 = 2114;
+      v25 = v4;
+      _os_log_impl(&dword_261AAC000, v16, OS_LOG_TYPE_INFO, "%p Hiding %{public}@ at index path %{public}@ (mapped from %{public}@; path removed).", &v18, 0x2Au);
     }
   }
 
 LABEL_9:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __62__REUIRelevanceEngineController__performOperations_toSection___block_invoke_58(uint64_t a1, uint64_t a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CCAA70] indexPathForItem:a2 inSection:*(a1 + 80)];
   v5 = *(a1 + 32);
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a2];
@@ -1967,11 +1943,11 @@ void __62__REUIRelevanceEngineController__performOperations_toSection___block_in
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = *(a1 + 56);
-    v18 = 134218242;
-    v19 = v11;
-    v20 = 2114;
-    v21 = v8;
-    _os_log_impl(&dword_261AAC000, v10, OS_LOG_TYPE_INFO, "%p Showing %{public}@.", &v18, 0x16u);
+    v17 = 134218242;
+    v18 = v11;
+    v19 = 2114;
+    v20 = v8;
+    _os_log_impl(&dword_261AAC000, v10, OS_LOG_TYPE_INFO, "%p Showing %{public}@.", &v17, 0x16u);
   }
 
   [*(a1 + 64) removeIndex:{objc_msgSend(v4, "item")}];
@@ -1985,17 +1961,17 @@ void __62__REUIRelevanceEngineController__performOperations_toSection___block_in
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         v15 = *(a1 + 56);
-        v18 = 134219010;
-        v19 = v15;
-        v20 = 2114;
-        v21 = v8;
-        v22 = 2114;
-        v23 = 0;
-        v24 = 2114;
-        v25 = v12;
-        v26 = 2114;
-        v27 = v4;
-        _os_log_impl(&dword_261AAC000, v14, OS_LOG_TYPE_INFO, "%p Ignoring move of %{public}@ from index path %{public}@ to index path %{public}@ (mapped from %{public}@).", &v18, 0x34u);
+        v17 = 134219010;
+        v18 = v15;
+        v19 = 2114;
+        v20 = v8;
+        v21 = 2114;
+        v22 = 0;
+        v23 = 2114;
+        v24 = v12;
+        v25 = 2114;
+        v26 = v4;
+        _os_log_impl(&dword_261AAC000, v14, OS_LOG_TYPE_INFO, "%p Ignoring move of %{public}@ from index path %{public}@ to index path %{public}@ (mapped from %{public}@).", &v17, 0x34u);
       }
 
       [*(a1 + 64) addIndex:{objc_msgSend(v4, "item")}];
@@ -2013,23 +1989,21 @@ LABEL_17:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v16 = *(a1 + 56);
-      v18 = 134218754;
-      v19 = v16;
-      v20 = 2114;
-      v21 = v8;
-      v22 = 2114;
-      v23 = v12;
-      v24 = 2114;
-      v25 = v4;
-      _os_log_impl(&dword_261AAC000, v13, OS_LOG_TYPE_INFO, "%p Filtering %{public}@ at index path %{public}@ (mapped from %{public}@).", &v18, 0x2Au);
+      v17 = 134218754;
+      v18 = v16;
+      v19 = 2114;
+      v20 = v8;
+      v21 = 2114;
+      v22 = v12;
+      v23 = 2114;
+      v24 = v4;
+      _os_log_impl(&dword_261AAC000, v13, OS_LOG_TYPE_INFO, "%p Filtering %{public}@ at index path %{public}@ (mapped from %{public}@).", &v17, 0x2Au);
     }
 
     goto LABEL_17;
   }
 
 LABEL_18:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __62__REUIRelevanceEngineController__performOperations_toSection___block_invoke_65(uint64_t a1, uint64_t a2)
@@ -2081,21 +2055,21 @@ uint64_t __62__REUIRelevanceEngineController__performOperations_toSection___bloc
 
 void __62__REUIRelevanceEngineController__performOperations_toSection___block_invoke_81(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v9 = a3;
   v10 = RELogForDomain();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v27 = *(a1 + 32);
-    v28 = REDiffOperationTypeDescription();
-    v29 = [v9 bundleIdentifier];
-    v30 = 134218498;
-    v31 = v27;
-    v32 = 2114;
-    v33 = v28;
-    v34 = 2114;
-    v35 = v29;
-    _os_log_debug_impl(&dword_261AAC000, v10, OS_LOG_TYPE_DEBUG, "%p Performing %{public}@ operation on %{public}@.", &v30, 0x20u);
+    v26 = *(a1 + 32);
+    v27 = REDiffOperationTypeDescription();
+    v28 = [v9 bundleIdentifier];
+    v29 = 134218498;
+    v30 = v26;
+    v31 = 2114;
+    v32 = v27;
+    v33 = 2114;
+    v34 = v28;
+    _os_log_debug_impl(&dword_261AAC000, v10, OS_LOG_TYPE_DEBUG, "%p Performing %{public}@ operation on %{public}@.", &v29, 0x20u);
   }
 
   v11 = [MEMORY[0x277CCAA70] indexPathForItem:a4 inSection:*(a1 + 40)];
@@ -2184,8 +2158,6 @@ LABEL_20:
   }
 
 LABEL_23:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)relevanceEngine:(id)engine didReloadElement:(id)element atPath:(id)path
@@ -2370,44 +2342,41 @@ LABEL_23:
 
 - (void)_performOperations:(uint64_t)a3 toSection:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_261AAC000, a2, a3, "%p Begin updating delegate.", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_261AAC000, a2, a3, "%p Begin updating delegate.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_performOperations:(uint64_t)a3 toSection:(uint64_t)a4 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_261AAC000, a2, a3, "%p Finish updating delegate.", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_261AAC000, a2, a3, "%p Finish updating delegate.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __62__REUIRelevanceEngineController__performOperations_toSection___block_invoke_58_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 56);
-  v5 = 134218242;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_debug_impl(&dword_261AAC000, log, OS_LOG_TYPE_DEBUG, "%p inserting element %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218242;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_debug_impl(&dword_261AAC000, log, OS_LOG_TYPE_DEBUG, "%p inserting element %@", &v4, 0x16u);
 }
 
 void __62__REUIRelevanceEngineController__performOperations_toSection___block_invoke_65_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0(&dword_261AAC000, a2, a3, "%p Showing no content element.", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0(&dword_261AAC000, a2, a3, "%p Showing no content element.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __62__REUIRelevanceEngineController__performOperations_toSection___block_invoke_65_cold_2(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0(&dword_261AAC000, a2, a3, "%p Hiding no content element.", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0(&dword_261AAC000, a2, a3, "%p Hiding no content element.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

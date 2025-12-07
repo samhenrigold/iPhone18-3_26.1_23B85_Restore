@@ -61,10 +61,10 @@ void __104__WFOutOfProcessWorkflowController_ContextualActions__computeFinderRes
 
 uint64_t __104__WFOutOfProcessWorkflowController_ContextualActions__computeFinderResizedSizesForImages_inSizes_error___block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = [a2 identifier];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 identifier];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 @end

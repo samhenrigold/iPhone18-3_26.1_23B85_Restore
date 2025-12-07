@@ -24,7 +24,7 @@
   v16 = sub_24F929768();
   sub_24F921FE8();
 
-  sub_24E69A5C4(0, &qword_27F21C8C8);
+  sub_24E69A5C4(0, &qword_27F21C8C8, 0x277CD4640);
   v17 = sub_24F92C448();
   v21 = v12;
   v22 = v14;
@@ -50,13 +50,13 @@
 
   v5 = sub_24F92AAE8();
   __swift_project_value_buffer(v5, qword_27F39C410);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F221870);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F221870, &unk_24F93B6E0);
   sub_24F928468();
   *(swift_allocObject() + 16) = xmmword_24F93DE60;
   sub_24F9283A8();
   sub_24F92A588();
 
-  sub_24E69A5C4(0, &qword_27F21C8C8);
+  sub_24E69A5C4(0, &qword_27F21C8C8, 0x277CD4640);
   v6 = sub_24F92C448();
   MEMORY[0x28223BE20](v6);
   v7 = sub_24F92C458();
@@ -66,7 +66,7 @@
 
 - (id)fetchRengagementDataForLocalPlayer
 {
-  sub_24E69A5C4(0, &qword_27F21C8C8);
+  sub_24E69A5C4(0, &qword_27F21C8C8, 0x277CD4640);
   selfCopy = self;
   v4 = sub_24F92C448();
   v5 = sub_24F92C458();
@@ -77,7 +77,7 @@
 - (id)fetchGameInfo:(id)info
 {
   sub_24F92B0D8();
-  sub_24E69A5C4(0, &qword_27F21C8C8);
+  sub_24E69A5C4(0, &qword_27F21C8C8, 0x277CD4640);
   v3 = sub_24F92C448();
   v4 = sub_24F92C458();
 

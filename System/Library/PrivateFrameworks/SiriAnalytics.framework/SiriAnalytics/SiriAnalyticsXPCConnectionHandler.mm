@@ -26,7 +26,7 @@
 
 - (id)mapToAnnotatedMessage:(id)message
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   v4 = objc_alloc_init(MEMORY[0x1E69CF568]);
   [v4 setAnyEventType:{objc_msgSend(messageCopy, "messageType")}];
@@ -57,18 +57,16 @@
     v10 = SiriAnalyticsLogContextXPC;
     if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
     {
-      v13 = v10;
-      v14 = 136315394;
-      v15 = "[SiriAnalyticsXPCConnectionHandler mapToAnnotatedMessage:]";
-      v16 = 2048;
+      v12 = v10;
+      v13 = 136315394;
+      v14 = "[SiriAnalyticsXPCConnectionHandler mapToAnnotatedMessage:]";
+      v15 = 2048;
       messageType = [messageCopy messageType];
-      _os_log_error_impl(&dword_1D9863000, v13, OS_LOG_TYPE_ERROR, "%s Unable to unwrap anyEventType: %lu", &v14, 0x16u);
+      _os_log_error_impl(&dword_1D9863000, v12, OS_LOG_TYPE_ERROR, "%s Unable to unwrap anyEventType: %lu", &v13, 0x16u);
     }
 
     v7 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -156,12 +154,11 @@ void __58__SiriAnalyticsXPCConnectionHandler_createTag_completion___block_invoke
 
 void __71__SiriAnalyticsXPCConnectionHandler_purgeStagedMessagesWithCompletion___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if ([*(*(a1 + 32) + 64) hasRuntimeManagement])
   {
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 24));
     [WeakRetained handler:*(a1 + 32) purgeStagedMessagesWithCompletion:*(a1 + 40)];
-    v2 = *MEMORY[0x1E69E9840];
   }
 
   else
@@ -171,21 +168,19 @@ void __71__SiriAnalyticsXPCConnectionHandler_purgeStagedMessagesWithCompletion__
       dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
     }
 
-    v3 = SiriAnalyticsLogContextXPC;
+    v2 = SiriAnalyticsLogContextXPC;
     if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v8 = "[SiriAnalyticsXPCConnectionHandler purgeStagedMessagesWithCompletion:]_block_invoke";
-      _os_log_error_impl(&dword_1D9863000, v3, OS_LOG_TYPE_ERROR, "%s Connection lacks entitlement", buf, 0xCu);
+      v6 = "[SiriAnalyticsXPCConnectionHandler purgeStagedMessagesWithCompletion:]_block_invoke";
+      _os_log_error_impl(&dword_1D9863000, v2, OS_LOG_TYPE_ERROR, "%s Connection lacks entitlement", buf, 0xCu);
     }
 
-    v4 = *(a1 + 40);
-    if (v4)
+    v3 = *(a1 + 40);
+    if (v3)
     {
-      (*(v4 + 16))(v4, 0, 0);
+      (*(v3 + 16))(v3, 0, 0);
     }
-
-    v5 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -205,12 +200,11 @@ void __71__SiriAnalyticsXPCConnectionHandler_purgeStagedMessagesWithCompletion__
 
 void __63__SiriAnalyticsXPCConnectionHandler_runPipelineWithCompletion___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if ([*(*(a1 + 32) + 64) hasRuntimeManagement])
   {
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 24));
     [WeakRetained handler:*(a1 + 32) runPipelineWithCompletion:*(a1 + 40)];
-    v2 = *MEMORY[0x1E69E9840];
   }
 
   else
@@ -220,21 +214,19 @@ void __63__SiriAnalyticsXPCConnectionHandler_runPipelineWithCompletion___block_i
       dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
     }
 
-    v3 = SiriAnalyticsLogContextXPC;
+    v2 = SiriAnalyticsLogContextXPC;
     if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v8 = "[SiriAnalyticsXPCConnectionHandler runPipelineWithCompletion:]_block_invoke";
-      _os_log_error_impl(&dword_1D9863000, v3, OS_LOG_TYPE_ERROR, "%s Connection lacks entitlement", buf, 0xCu);
+      v6 = "[SiriAnalyticsXPCConnectionHandler runPipelineWithCompletion:]_block_invoke";
+      _os_log_error_impl(&dword_1D9863000, v2, OS_LOG_TYPE_ERROR, "%s Connection lacks entitlement", buf, 0xCu);
     }
 
-    v4 = *(a1 + 40);
-    if (v4)
+    v3 = *(a1 + 40);
+    if (v3)
     {
-      (*(v4 + 16))(v4, 0, 0);
+      (*(v3 + 16))(v3, 0, 0);
     }
-
-    v5 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -257,7 +249,7 @@ void __63__SiriAnalyticsXPCConnectionHandler_runPipelineWithCompletion___block_i
 
 void __71__SiriAnalyticsXPCConnectionHandler_saveState_forPluginWithCompletion___block_invoke(void *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (([*(a1[4] + 64) hasPluginState] & 1) == 0)
   {
     if (SiriAnalyticsLoggingInit_once != -1)
@@ -265,26 +257,24 @@ void __71__SiriAnalyticsXPCConnectionHandler_saveState_forPluginWithCompletion__
       dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
     }
 
-    v5 = SiriAnalyticsLogContextXPC;
+    v4 = SiriAnalyticsLogContextXPC;
     if (!os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_13;
     }
 
     *buf = 136315138;
-    v11 = "[SiriAnalyticsXPCConnectionHandler saveState:forPluginWithCompletion:]_block_invoke";
-    v6 = "%s Caller lacks entitlement.";
+    v9 = "[SiriAnalyticsXPCConnectionHandler saveState:forPluginWithCompletion:]_block_invoke";
+    v5 = "%s Caller lacks entitlement.";
     goto LABEL_17;
   }
 
   v2 = *(a1[4] + 72);
   if (v2)
   {
-    v9 = [v2 copy];
+    v7 = [v2 copy];
     WeakRetained = objc_loadWeakRetained((a1[4] + 24));
-    [WeakRetained handler:a1[4] saveState:a1[5] forPluginName:v9 completion:a1[6]];
-
-    v4 = *MEMORY[0x1E69E9840];
+    [WeakRetained handler:a1[4] saveState:a1[5] forPluginName:v7 completion:a1[6]];
 
     return;
   }
@@ -294,24 +284,22 @@ void __71__SiriAnalyticsXPCConnectionHandler_saveState_forPluginWithCompletion__
     dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
   }
 
-  v5 = SiriAnalyticsLogContextXPC;
+  v4 = SiriAnalyticsLogContextXPC;
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v11 = "[SiriAnalyticsXPCConnectionHandler saveState:forPluginWithCompletion:]_block_invoke";
-    v6 = "%s Caller lacks application-identifier entitlement.";
+    v9 = "[SiriAnalyticsXPCConnectionHandler saveState:forPluginWithCompletion:]_block_invoke";
+    v5 = "%s Caller lacks application-identifier entitlement.";
 LABEL_17:
-    _os_log_error_impl(&dword_1D9863000, v5, OS_LOG_TYPE_ERROR, v6, buf, 0xCu);
+    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, v5, buf, 0xCu);
   }
 
 LABEL_13:
-  v7 = a1[6];
-  if (v7)
+  v6 = a1[6];
+  if (v6)
   {
-    (*(v7 + 16))();
+    (*(v6 + 16))();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchStateForPluginWithCompletion:(id)completion
@@ -330,7 +318,7 @@ LABEL_13:
 
 void __71__SiriAnalyticsXPCConnectionHandler_fetchStateForPluginWithCompletion___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (([*(*(a1 + 32) + 64) hasPluginState] & 1) == 0)
   {
     if (SiriAnalyticsLoggingInit_once != -1)
@@ -338,26 +326,24 @@ void __71__SiriAnalyticsXPCConnectionHandler_fetchStateForPluginWithCompletion__
       dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
     }
 
-    v5 = SiriAnalyticsLogContextXPC;
+    v4 = SiriAnalyticsLogContextXPC;
     if (!os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_13;
     }
 
     *buf = 136315138;
-    v11 = "[SiriAnalyticsXPCConnectionHandler fetchStateForPluginWithCompletion:]_block_invoke";
-    v6 = "%s Caller lacks entitlement.";
+    v9 = "[SiriAnalyticsXPCConnectionHandler fetchStateForPluginWithCompletion:]_block_invoke";
+    v5 = "%s Caller lacks entitlement.";
     goto LABEL_17;
   }
 
   v2 = *(*(a1 + 32) + 72);
   if (v2)
   {
-    v9 = [v2 copy];
+    v7 = [v2 copy];
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 24));
-    [WeakRetained handler:*(a1 + 32) fetchStateForPluginName:v9 completion:*(a1 + 40)];
-
-    v4 = *MEMORY[0x1E69E9840];
+    [WeakRetained handler:*(a1 + 32) fetchStateForPluginName:v7 completion:*(a1 + 40)];
 
     return;
   }
@@ -367,24 +353,22 @@ void __71__SiriAnalyticsXPCConnectionHandler_fetchStateForPluginWithCompletion__
     dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
   }
 
-  v5 = SiriAnalyticsLogContextXPC;
+  v4 = SiriAnalyticsLogContextXPC;
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v11 = "[SiriAnalyticsXPCConnectionHandler fetchStateForPluginWithCompletion:]_block_invoke";
-    v6 = "%s Caller lacks application-identifier entitlement.";
+    v9 = "[SiriAnalyticsXPCConnectionHandler fetchStateForPluginWithCompletion:]_block_invoke";
+    v5 = "%s Caller lacks application-identifier entitlement.";
 LABEL_17:
-    _os_log_error_impl(&dword_1D9863000, v5, OS_LOG_TYPE_ERROR, v6, buf, 0xCu);
+    _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, v5, buf, 0xCu);
   }
 
 LABEL_13:
-  v7 = *(a1 + 40);
-  if (v7)
+  v6 = *(a1 + 40);
+  if (v6)
   {
-    (*(v7 + 16))(v7, 0);
+    (*(v6 + 16))(v6, 0);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchTags:(id)tags
@@ -403,12 +387,11 @@ LABEL_13:
 
 void __47__SiriAnalyticsXPCConnectionHandler_fetchTags___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if ([*(*(a1 + 32) + 64) hasRuntimeIntrospection])
   {
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 24));
     [WeakRetained handler:*(a1 + 32) fetchTags:*(a1 + 40)];
-    v2 = *MEMORY[0x1E69E9840];
   }
 
   else
@@ -418,21 +401,19 @@ void __47__SiriAnalyticsXPCConnectionHandler_fetchTags___block_invoke(uint64_t a
       dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
     }
 
-    v3 = SiriAnalyticsLogContextXPC;
+    v2 = SiriAnalyticsLogContextXPC;
     if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v8 = "[SiriAnalyticsXPCConnectionHandler fetchTags:]_block_invoke";
-      _os_log_error_impl(&dword_1D9863000, v3, OS_LOG_TYPE_ERROR, "%s Connection lacks entitlement", buf, 0xCu);
+      v6 = "[SiriAnalyticsXPCConnectionHandler fetchTags:]_block_invoke";
+      _os_log_error_impl(&dword_1D9863000, v2, OS_LOG_TYPE_ERROR, "%s Connection lacks entitlement", buf, 0xCu);
     }
 
-    v4 = *(a1 + 40);
-    if (v4)
+    v3 = *(a1 + 40);
+    if (v3)
     {
-      (*(v4 + 16))(v4, 0, 0, 0);
+      (*(v3 + 16))(v3, 0, 0, 0);
     }
-
-    v5 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -452,12 +433,11 @@ void __47__SiriAnalyticsXPCConnectionHandler_fetchTags___block_invoke(uint64_t a
 
 void __70__SiriAnalyticsXPCConnectionHandler_fetchLogicalClocksWithCompletion___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if ([*(*(a1 + 32) + 64) hasRuntimeIntrospection])
   {
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 24));
     [WeakRetained handler:*(a1 + 32) fetchLogicalClocks:*(a1 + 40)];
-    v2 = *MEMORY[0x1E69E9840];
   }
 
   else
@@ -467,21 +447,19 @@ void __70__SiriAnalyticsXPCConnectionHandler_fetchLogicalClocksWithCompletion___
       dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
     }
 
-    v3 = SiriAnalyticsLogContextXPC;
+    v2 = SiriAnalyticsLogContextXPC;
     if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v8 = "[SiriAnalyticsXPCConnectionHandler fetchLogicalClocksWithCompletion:]_block_invoke";
-      _os_log_error_impl(&dword_1D9863000, v3, OS_LOG_TYPE_ERROR, "%s Connection lacks entitlement", buf, 0xCu);
+      v6 = "[SiriAnalyticsXPCConnectionHandler fetchLogicalClocksWithCompletion:]_block_invoke";
+      _os_log_error_impl(&dword_1D9863000, v2, OS_LOG_TYPE_ERROR, "%s Connection lacks entitlement", buf, 0xCu);
     }
 
-    v4 = *(a1 + 40);
-    if (v4)
+    v3 = *(a1 + 40);
+    if (v3)
     {
-      (*(v4 + 16))(v4, 0, 0, 0);
+      (*(v3 + 16))(v3, 0, 0, 0);
     }
-
-    v5 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -545,12 +523,11 @@ void __90__SiriAnalyticsXPCConnectionHandler_vendSandboxExtensionWithResource_re
 
 void __69__SiriAnalyticsXPCConnectionHandler_resetLogicalClockWithCompletion___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if ([*(*(a1 + 32) + 64) hasRuntimeManagement])
   {
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 24));
     [WeakRetained handler:*(a1 + 32) resetLogicalClockWithCompletion:*(a1 + 40)];
-    v2 = *MEMORY[0x1E69E9840];
   }
 
   else
@@ -560,21 +537,19 @@ void __69__SiriAnalyticsXPCConnectionHandler_resetLogicalClockWithCompletion___b
       dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
     }
 
-    v3 = SiriAnalyticsLogContextXPC;
+    v2 = SiriAnalyticsLogContextXPC;
     if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v8 = "[SiriAnalyticsXPCConnectionHandler resetLogicalClockWithCompletion:]_block_invoke";
-      _os_log_error_impl(&dword_1D9863000, v3, OS_LOG_TYPE_ERROR, "%s Connection lacks entitlement", buf, 0xCu);
+      v6 = "[SiriAnalyticsXPCConnectionHandler resetLogicalClockWithCompletion:]_block_invoke";
+      _os_log_error_impl(&dword_1D9863000, v2, OS_LOG_TYPE_ERROR, "%s Connection lacks entitlement", buf, 0xCu);
     }
 
-    v4 = *(a1 + 40);
-    if (v4)
+    v3 = *(a1 + 40);
+    if (v3)
     {
-      (*(v4 + 16))(v4, 0, 0, 0);
+      (*(v3 + 16))(v3, 0, 0, 0);
     }
-
-    v5 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -667,30 +642,30 @@ uint64_t __79__SiriAnalyticsXPCConnectionHandler_publishUnorderedMessages_topic_
 
 void __79__SiriAnalyticsXPCConnectionHandler_publishUnorderedMessages_topic_completion___block_invoke_2(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if ([*(*(a1 + 32) + 64) canPublishUnordered])
   {
     v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v3 = *(a1 + 40);
-    v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v17;
+      v6 = *v16;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v17 != v6)
+          if (*v16 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v16 + 1) + 8 * i);
+          v8 = *(*(&v15 + 1) + 8 * i);
           v9 = objc_alloc(MEMORY[0x1E69CF568]);
           v10 = [v8 eventTypeId];
           v11 = [v8 payload];
@@ -699,7 +674,7 @@ void __79__SiriAnalyticsXPCConnectionHandler_publishUnorderedMessages_topic_comp
           [v2 addObject:v12];
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v5);
@@ -722,14 +697,12 @@ void __79__SiriAnalyticsXPCConnectionHandler_publishUnorderedMessages_topic_comp
     if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v22 = "[SiriAnalyticsXPCConnectionHandler publishUnorderedMessages:topic:completion:]_block_invoke_2";
+      v21 = "[SiriAnalyticsXPCConnectionHandler publishUnorderedMessages:topic:completion:]_block_invoke_2";
       _os_log_error_impl(&dword_1D9863000, v14, OS_LOG_TYPE_ERROR, "%s Connection lacks entitlement", buf, 0xCu);
     }
 
     (*(*(a1 + 56) + 16))();
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)publishLargeMessage:(id)message completion:(id)completion
@@ -763,14 +736,14 @@ void __68__SiriAnalyticsXPCConnectionHandler_publishLargeMessage_completion___bl
 
 - (void)resolveMessages:(id)messages completion:(id)completion
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __64__SiriAnalyticsXPCConnectionHandler_resolveMessages_completion___block_invoke;
   aBlock[3] = &unk_1E8587C18;
   v5 = completionCopy;
-  v10 = v5;
+  v9 = v5;
   v6 = _Block_copy(aBlock);
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -781,13 +754,11 @@ void __68__SiriAnalyticsXPCConnectionHandler_publishLargeMessage_completion___bl
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v12 = "[SiriAnalyticsXPCConnectionHandler resolveMessages:completion:]";
+    v11 = "[SiriAnalyticsXPCConnectionHandler resolveMessages:completion:]";
     _os_log_error_impl(&dword_1D9863000, v7, OS_LOG_TYPE_ERROR, "%s Remote message resolution not available.", buf, 0xCu);
   }
 
   v6[2](v6);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __64__SiriAnalyticsXPCConnectionHandler_resolveMessages_completion___block_invoke(uint64_t a1)
@@ -844,29 +815,29 @@ uint64_t __64__SiriAnalyticsXPCConnectionHandler_publishMessages_completion___bl
 
 void __64__SiriAnalyticsXPCConnectionHandler_publishMessages_completion___block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(a1 + 40) mapToAnnotatedMessage:{*(*(&v11 + 1) + 8 * v7), v11}];
+        v8 = [*(a1 + 40) mapToAnnotatedMessage:{*(*(&v10 + 1) + 8 * v7), v10}];
         if (v8)
         {
           [v2 addObject:v8];
@@ -876,7 +847,7 @@ void __64__SiriAnalyticsXPCConnectionHandler_publishMessages_completion___block_
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -886,7 +857,6 @@ void __64__SiriAnalyticsXPCConnectionHandler_publishMessages_completion___block_
   [WeakRetained handler:*(a1 + 40) messagesReceived:v2];
 
   (*(*(a1 + 48) + 16))();
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - ($115C4C562B26FF47E01F9F4EA65B5887)auditToken
@@ -914,7 +884,7 @@ void __64__SiriAnalyticsXPCConnectionHandler_publishMessages_completion___block_
     objc_storeWeak(&v16->_delegate, delegateCopy);
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
     else

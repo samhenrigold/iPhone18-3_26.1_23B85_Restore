@@ -26,7 +26,7 @@
       CIImage = self->_CIImage;
       if (CIImage)
       {
-        [CIImage extent];
+        objc_msgSend_extent(CIImage, a2);
         Width = v8;
         height = v9;
         self->_pixelSize.width = v8;

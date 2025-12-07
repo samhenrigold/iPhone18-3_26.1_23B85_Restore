@@ -108,16 +108,16 @@
 
 void __89__FCModifyNotificationsForMarketingCommand_executeWithContext_delegate_qualityOfService___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
     v6 = FCPushNotificationsLog;
     if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138543362;
-      v12 = v5;
-      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "modifyNotificationsCommand: failed to modify Marketing Subscription with error: %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v5;
+      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "modifyNotificationsCommand: failed to modify Marketing Subscription with error: %{public}@", &v10, 0xCu);
     }
   }
 
@@ -128,7 +128,6 @@ void __89__FCModifyNotificationsForMarketingCommand_executeWithContext_delegate_
   v9 = v5;
 
   dispatch_group_leave(*(a1 + 32));
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __89__FCModifyNotificationsForMarketingCommand_executeWithContext_delegate_qualityOfService___block_invoke_9(uint64_t a1)

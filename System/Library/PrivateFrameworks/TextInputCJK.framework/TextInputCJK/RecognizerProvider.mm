@@ -33,7 +33,7 @@
 
 - (CHRecognizer)recognizer
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   recognizer = selfCopy->_recognizer;
@@ -43,8 +43,8 @@
     v5 = MEMORY[0x277CFEE58];
     recognitionMode = [(RecognizerProvider *)selfCopy recognitionMode];
     recognitionLanguage = [(RecognizerProvider *)selfCopy recognitionLanguage];
-    v17[0] = recognitionLanguage;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+    v16[0] = recognitionLanguage;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
     v9 = [v5 newRemoteRecognizerWithMode:recognitionMode locales:v8];
 
     v10 = selfCopy->_recognizer;
@@ -68,8 +68,6 @@
       recognizerDidLoadBlock2[2]();
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

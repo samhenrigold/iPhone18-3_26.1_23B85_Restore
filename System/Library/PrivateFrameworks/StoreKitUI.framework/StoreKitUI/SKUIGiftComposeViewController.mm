@@ -858,7 +858,7 @@ void __48__SKUIGiftComposeViewController_viewWillAppear___block_invoke(uint64_t 
         }
 
         name = [notificationCopy name];
-        -[SKUIGiftComposeViewController _validateGiftThrottled:](self, "_validateGiftThrottled:", [name isEqualToString:*MEMORY[0x277D770B0]]);
+        [(SKUIGiftComposeViewController *)self _validateGiftThrottled:objc_msgSend_isEqualToString_(name)];
       }
     }
   }

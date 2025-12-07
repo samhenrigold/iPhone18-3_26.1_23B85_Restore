@@ -109,13 +109,13 @@
 
 - (UAFXPCConnection)initWithDefaultService
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __42__UAFXPCConnection_initWithDefaultService__block_invoke;
   block[3] = &unk_1E7FFCFD0;
   selfCopy = self;
-  v8 = selfCopy;
+  v7 = selfCopy;
   if (qword_1ED7D1040 != -1)
   {
     dispatch_once(&qword_1ED7D1040, block);
@@ -125,23 +125,21 @@
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v10 = "[UAFXPCConnection initWithDefaultService]";
-    v11 = 2114;
-    v12 = _MergedGlobals;
+    v9 = "[UAFXPCConnection initWithDefaultService]";
+    v10 = 2114;
+    v11 = _MergedGlobals;
     _os_log_debug_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEBUG, "%s Using XPC endpoint: %{public}@", buf, 0x16u);
   }
 
   v4 = [objc_alloc(objc_opt_class()) initWithMachServiceName:_MergedGlobals];
-  v5 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 void __42__UAFXPCConnection_initWithDefaultService__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = [objc_opt_class() selectXPCEndpoint];
-  v3 = _MergedGlobals;
-  _MergedGlobals = v2;
+  v1 = [objc_opt_class() selectXPCEndpoint];
+  v2 = _MergedGlobals;
+  _MergedGlobals = v1;
 }
 
 - (UAFXPCConnection)initWithMachServiceName:(id)name
@@ -185,36 +183,32 @@ void __42__UAFXPCConnection_initWithDefaultService__block_invoke(uint64_t a1)
 
 void __31__UAFXPCConnection__connection__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 136315138;
-    v6 = "[UAFXPCConnection _connection]_block_invoke";
-    _os_log_debug_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEBUG, "%s XPC Connection interrupted", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[UAFXPCConnection _connection]_block_invoke";
+    _os_log_debug_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEBUG, "%s XPC Connection interrupted", &v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _connectionInterrupted];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __31__UAFXPCConnection__connection__block_invoke_291(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 136315138;
-    v6 = "[UAFXPCConnection _connection]_block_invoke";
-    _os_log_debug_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEBUG, "%s XPC Connection invalidated", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[UAFXPCConnection _connection]_block_invoke";
+    _os_log_debug_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEBUG, "%s XPC Connection invalidated", &v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _connectionInvalidated];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)operationWithConfig:(id)config completion:(id)completion
@@ -254,18 +248,18 @@ void __51__UAFXPCConnection_operationWithConfig_completion___block_invoke(uint64
 
 void __51__UAFXPCConnection_operationWithConfig_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v7 = 136315394;
-      v8 = "[UAFXPCConnection operationWithConfig:completion:]_block_invoke_2";
-      v9 = 2112;
-      v10 = v3;
-      _os_log_debug_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEBUG, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[UAFXPCConnection operationWithConfig:completion:]_block_invoke_2";
+      v8 = 2112;
+      v9 = v3;
+      _os_log_debug_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEBUG, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v6, 0x16u);
     }
   }
 
@@ -274,24 +268,22 @@ void __51__UAFXPCConnection_operationWithConfig_completion___block_invoke_2(uint
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __51__UAFXPCConnection_operationWithConfig_completion___block_invoke_293(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v7 = 136315394;
-      v8 = "[UAFXPCConnection operationWithConfig:completion:]_block_invoke";
-      v9 = 2112;
-      v10 = v3;
-      _os_log_debug_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEBUG, "%s operationWithConfig failed with: %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[UAFXPCConnection operationWithConfig:completion:]_block_invoke";
+      v8 = 2112;
+      v9 = v3;
+      _os_log_debug_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEBUG, "%s operationWithConfig failed with: %@", &v6, 0x16u);
     }
   }
 
@@ -300,8 +292,6 @@ void __51__UAFXPCConnection_operationWithConfig_completion___block_invoke_293(ui
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)diagnosticInformation:(id)information
@@ -337,18 +327,18 @@ void __42__UAFXPCConnection_diagnosticInformation___block_invoke(uint64_t a1)
 
 void __42__UAFXPCConnection_diagnosticInformation___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v7 = 136315394;
-      v8 = "[UAFXPCConnection diagnosticInformation:]_block_invoke_2";
-      v9 = 2112;
-      v10 = v3;
-      _os_log_debug_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEBUG, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[UAFXPCConnection diagnosticInformation:]_block_invoke_2";
+      v8 = 2112;
+      v9 = v3;
+      _os_log_debug_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEBUG, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v6, 0x16u);
     }
   }
 
@@ -357,13 +347,11 @@ void __42__UAFXPCConnection_diagnosticInformation___block_invoke_2(uint64_t a1, 
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __42__UAFXPCConnection_diagnosticInformation___block_invoke_294(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -371,11 +359,11 @@ void __42__UAFXPCConnection_diagnosticInformation___block_invoke_294(uint64_t a1
     v7 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 136315394;
-      v11 = "[UAFXPCConnection diagnosticInformation:]_block_invoke";
-      v12 = 2112;
-      v13 = v6;
-      _os_log_debug_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEBUG, "%s diagnosticInformation failed with: %@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[UAFXPCConnection diagnosticInformation:]_block_invoke";
+      v11 = 2112;
+      v12 = v6;
+      _os_log_debug_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEBUG, "%s diagnosticInformation failed with: %@", &v9, 0x16u);
     }
   }
 
@@ -384,8 +372,6 @@ void __42__UAFXPCConnection_diagnosticInformation___block_invoke_294(uint64_t a1
   {
     (*(v8 + 16))(v8, v5, v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)lockLatestAtomicInstance:(id)instance completion:(id)completion
@@ -425,18 +411,18 @@ void __56__UAFXPCConnection_lockLatestAtomicInstance_completion___block_invoke(u
 
 void __56__UAFXPCConnection_lockLatestAtomicInstance_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315394;
-      v8 = "[UAFXPCConnection lockLatestAtomicInstance:completion:]_block_invoke_2";
-      v9 = 2112;
-      v10 = v3;
-      _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[UAFXPCConnection lockLatestAtomicInstance:completion:]_block_invoke_2";
+      v8 = 2112;
+      v9 = v3;
+      _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v6, 0x16u);
     }
   }
 
@@ -445,24 +431,21 @@ void __56__UAFXPCConnection_lockLatestAtomicInstance_completion___block_invoke_2
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __56__UAFXPCConnection_lockLatestAtomicInstance_completion___block_invoke_296(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[UAFXPCConnection lockLatestAtomicInstance:completion:]_block_invoke";
-    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s updateAutoAssetsFromAssetSetUsages complete", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[UAFXPCConnection lockLatestAtomicInstance:completion:]_block_invoke";
+    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s updateAutoAssetsFromAssetSetUsages complete", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)markAssetsExpired:(id)expired completion:(id)completion
@@ -503,7 +486,7 @@ void __49__UAFXPCConnection_markAssetsExpired_completion___block_invoke(id *a1)
 
 void __49__UAFXPCConnection_markAssetsExpired_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -511,36 +494,33 @@ void __49__UAFXPCConnection_markAssetsExpired_completion___block_invoke_2(uint64
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 32);
-      v7 = 136315650;
-      v8 = "[UAFXPCConnection markAssetsExpired:completion:]_block_invoke_2";
-      v9 = 2114;
-      v10 = v5;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s markAssetsExpired of %{public}@ failed with: %@", &v7, 0x20u);
+      v6 = 136315650;
+      v7 = "[UAFXPCConnection markAssetsExpired:completion:]_block_invoke_2";
+      v8 = 2114;
+      v9 = v5;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s markAssetsExpired of %{public}@ failed with: %@", &v6, 0x20u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __49__UAFXPCConnection_markAssetsExpired_completion___block_invoke_297(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 136315394;
-    v8 = "[UAFXPCConnection markAssetsExpired:completion:]_block_invoke";
-    v9 = 2114;
-    v10 = v5;
-    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s markAssetsExpired of %{public}@ complete", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[UAFXPCConnection markAssetsExpired:completion:]_block_invoke";
+    v8 = 2114;
+    v9 = v5;
+    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s markAssetsExpired of %{public}@ complete", &v6, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSystemConfigurationForKey:(id)key withValue:(id)value completion:(id)completion
@@ -586,18 +566,18 @@ void __70__UAFXPCConnection_setSystemConfigurationForKey_withValue_completion___
 
 void __70__UAFXPCConnection_setSystemConfigurationForKey_withValue_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315394;
-      v8 = "[UAFXPCConnection setSystemConfigurationForKey:withValue:completion:]_block_invoke_2";
-      v9 = 2112;
-      v10 = v3;
-      _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[UAFXPCConnection setSystemConfigurationForKey:withValue:completion:]_block_invoke_2";
+      v8 = 2112;
+      v9 = v3;
+      _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v6, 0x16u);
     }
   }
 
@@ -606,30 +586,27 @@ void __70__UAFXPCConnection_setSystemConfigurationForKey_withValue_completion___
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __70__UAFXPCConnection_setSystemConfigurationForKey_withValue_completion___block_invoke_298(void *a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
     v6 = a1[5];
-    v8 = 136315650;
-    v9 = "[UAFXPCConnection setSystemConfigurationForKey:withValue:completion:]_block_invoke";
-    v10 = 2112;
-    v11 = v5;
-    v12 = 2114;
-    v13 = v6;
-    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s setSystemConfigurationForKey:%{}@ withValue:%{public}@ complete", &v8, 0x20u);
+    v7 = 136315650;
+    v8 = "[UAFXPCConnection setSystemConfigurationForKey:withValue:completion:]_block_invoke";
+    v9 = 2112;
+    v10 = v5;
+    v11 = 2114;
+    v12 = v6;
+    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s setSystemConfigurationForKey:%{}@ withValue:%{public}@ complete", &v7, 0x20u);
   }
 
   (*(a1[6] + 16))();
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)expireSubscriptions:(id)subscriptions
@@ -665,18 +642,18 @@ void __40__UAFXPCConnection_expireSubscriptions___block_invoke(uint64_t a1)
 
 void __40__UAFXPCConnection_expireSubscriptions___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315394;
-      v8 = "[UAFXPCConnection expireSubscriptions:]_block_invoke_2";
-      v9 = 2112;
-      v10 = v3;
-      _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[UAFXPCConnection expireSubscriptions:]_block_invoke_2";
+      v8 = 2112;
+      v9 = v3;
+      _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v6, 0x16u);
     }
   }
 
@@ -685,24 +662,21 @@ void __40__UAFXPCConnection_expireSubscriptions___block_invoke_2(uint64_t a1, vo
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __40__UAFXPCConnection_expireSubscriptions___block_invoke_299(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[UAFXPCConnection expireSubscriptions:]_block_invoke";
-    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s expireSubscriptions complete", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[UAFXPCConnection expireSubscriptions:]_block_invoke";
+    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s expireSubscriptions complete", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)subscriptions:(id)subscriptions subscriber:(id)subscriber user:(id)user completion:(id)completion
@@ -754,18 +728,18 @@ void __61__UAFXPCConnection_subscriptions_subscriber_user_completion___block_inv
 
 void __61__UAFXPCConnection_subscriptions_subscriber_user_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315394;
-      v8 = "[UAFXPCConnection subscriptions:subscriber:user:completion:]_block_invoke_2";
-      v9 = 2112;
-      v10 = v3;
-      _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[UAFXPCConnection subscriptions:subscriber:user:completion:]_block_invoke_2";
+      v8 = 2112;
+      v9 = v3;
+      _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v6, 0x16u);
     }
   }
 
@@ -774,27 +748,24 @@ void __61__UAFXPCConnection_subscriptions_subscriber_user_completion___block_inv
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __61__UAFXPCConnection_subscriptions_subscriber_user_completion___block_invoke_300(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
   v7 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315394;
-    v10 = "[UAFXPCConnection subscriptions:subscriber:user:completion:]_block_invoke";
-    v11 = 2114;
-    v12 = v5;
-    _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEFAULT, "%s complete with error: %{public}@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[UAFXPCConnection subscriptions:subscriber:user:completion:]_block_invoke";
+    v10 = 2114;
+    v11 = v5;
+    _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEFAULT, "%s complete with error: %{public}@", &v8, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)downloadSiriAssets
@@ -817,22 +788,20 @@ void __38__UAFXPCConnection_downloadSiriAssets__block_invoke(uint64_t a1)
 
 void __38__UAFXPCConnection_downloadSiriAssets__block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v5 = 136315394;
-      v6 = "[UAFXPCConnection downloadSiriAssets]_block_invoke_2";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_debug_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEBUG, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[UAFXPCConnection downloadSiriAssets]_block_invoke_2";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_debug_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEBUG, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v4, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)downloadSiriAssetsOverCellular
@@ -855,22 +824,20 @@ void __50__UAFXPCConnection_downloadSiriAssetsOverCellular__block_invoke(uint64_
 
 void __50__UAFXPCConnection_downloadSiriAssetsOverCellular__block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v5 = 136315394;
-      v6 = "[UAFXPCConnection downloadSiriAssetsOverCellular]_block_invoke_2";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_debug_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEBUG, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[UAFXPCConnection downloadSiriAssetsOverCellular]_block_invoke_2";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_debug_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEBUG, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v4, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)postAssetNotificationIfNeeded
@@ -893,22 +860,20 @@ void __49__UAFXPCConnection_postAssetNotificationIfNeeded__block_invoke(uint64_t
 
 void __49__UAFXPCConnection_postAssetNotificationIfNeeded__block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v5 = 136315394;
-      v6 = "[UAFXPCConnection postAssetNotificationIfNeeded]_block_invoke_2";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_debug_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEBUG, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[UAFXPCConnection postAssetNotificationIfNeeded]_block_invoke_2";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_debug_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEBUG, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v4, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)downloadDictationAssetsForLanguage:(id)language
@@ -934,22 +899,20 @@ void __55__UAFXPCConnection_downloadDictationAssetsForLanguage___block_invoke(ui
 
 void __55__UAFXPCConnection_downloadDictationAssetsForLanguage___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v5 = 136315394;
-      v6 = "[UAFXPCConnection downloadDictationAssetsForLanguage:]_block_invoke_2";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_debug_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEBUG, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[UAFXPCConnection downloadDictationAssetsForLanguage:]_block_invoke_2";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_debug_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEBUG, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v4, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)postDictationAssetNotificationForLanguage:(id)language
@@ -975,22 +938,20 @@ void __62__UAFXPCConnection_postDictationAssetNotificationForLanguage___block_in
 
 void __62__UAFXPCConnection_postDictationAssetNotificationForLanguage___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v5 = 136315394;
-      v6 = "[UAFXPCConnection postDictationAssetNotificationForLanguage:]_block_invoke_2";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_debug_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEBUG, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[UAFXPCConnection postDictationAssetNotificationForLanguage:]_block_invoke_2";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_debug_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEBUG, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v4, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkAssetStatus:(id)status
@@ -1026,18 +987,18 @@ void __37__UAFXPCConnection_checkAssetStatus___block_invoke(uint64_t a1)
 
 void __37__UAFXPCConnection_checkAssetStatus___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v7 = 136315394;
-      v8 = "[UAFXPCConnection checkAssetStatus:]_block_invoke_2";
-      v9 = 2112;
-      v10 = v3;
-      _os_log_debug_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEBUG, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[UAFXPCConnection checkAssetStatus:]_block_invoke_2";
+      v8 = 2112;
+      v9 = v3;
+      _os_log_debug_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEBUG, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v6, 0x16u);
     }
   }
 
@@ -1046,13 +1007,11 @@ void __37__UAFXPCConnection_checkAssetStatus___block_invoke_2(uint64_t a1, void 
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __37__UAFXPCConnection_checkAssetStatus___block_invoke_310(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1060,11 +1019,11 @@ void __37__UAFXPCConnection_checkAssetStatus___block_invoke_310(uint64_t a1, voi
     v7 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 136315394;
-      v11 = "[UAFXPCConnection checkAssetStatus:]_block_invoke";
-      v12 = 2112;
-      v13 = v6;
-      _os_log_debug_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEBUG, "%s checkAssetStatus failed with: %@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[UAFXPCConnection checkAssetStatus:]_block_invoke";
+      v11 = 2112;
+      v12 = v6;
+      _os_log_debug_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEBUG, "%s checkAssetStatus failed with: %@", &v9, 0x16u);
     }
   }
 
@@ -1073,8 +1032,6 @@ void __37__UAFXPCConnection_checkAssetStatus___block_invoke_310(uint64_t a1, voi
   {
     (*(v8 + 16))(v8, v5, v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)diskSpaceNeededInBytesForLanguage:(id)language forClient:(unint64_t)client completion:(id)completion
@@ -1117,18 +1074,18 @@ void __75__UAFXPCConnection_diskSpaceNeededInBytesForLanguage_forClient_completi
 
 void __75__UAFXPCConnection_diskSpaceNeededInBytesForLanguage_forClient_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v7 = 136315394;
-      v8 = "[UAFXPCConnection diskSpaceNeededInBytesForLanguage:forClient:completion:]_block_invoke_2";
-      v9 = 2112;
-      v10 = v3;
-      _os_log_debug_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEBUG, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[UAFXPCConnection diskSpaceNeededInBytesForLanguage:forClient:completion:]_block_invoke_2";
+      v8 = 2112;
+      v9 = v3;
+      _os_log_debug_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEBUG, "%s remoteObjectProxyWithErrorHandler failed with: %@", &v6, 0x16u);
     }
   }
 
@@ -1137,13 +1094,11 @@ void __75__UAFXPCConnection_diskSpaceNeededInBytesForLanguage_forClient_completi
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __75__UAFXPCConnection_diskSpaceNeededInBytesForLanguage_forClient_completion___block_invoke_312(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1151,14 +1106,14 @@ void __75__UAFXPCConnection_diskSpaceNeededInBytesForLanguage_forClient_completi
     v7 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v10 = *(a1 + 32);
-      v11 = 136315650;
-      v12 = "[UAFXPCConnection diskSpaceNeededInBytesForLanguage:forClient:completion:]_block_invoke";
-      v13 = 2112;
-      v14 = v10;
-      v15 = 2112;
-      v16 = v6;
-      _os_log_debug_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEBUG, "%s diskSpaceInBytesForLanguage %@ failed with: %@", &v11, 0x20u);
+      v9 = *(a1 + 32);
+      v10 = 136315650;
+      v11 = "[UAFXPCConnection diskSpaceNeededInBytesForLanguage:forClient:completion:]_block_invoke";
+      v12 = 2112;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v6;
+      _os_log_debug_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEBUG, "%s diskSpaceInBytesForLanguage %@ failed with: %@", &v10, 0x20u);
     }
   }
 
@@ -1167,13 +1122,11 @@ void __75__UAFXPCConnection_diskSpaceNeededInBytesForLanguage_forClient_completi
   {
     (*(v8 + 16))(v8, v5, v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (id)selectXPCEndpoint
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [UAFCommonUtilities getenv:@"UAF_XPC_ENDPOINT"];
   if (+[UAFCommonUtilities isInternalInstall])
   {
@@ -1199,11 +1152,11 @@ void __75__UAFXPCConnection_diskSpaceNeededInBytesForLanguage_forClient_completi
           v4 = UAFGetLogCategory(&UAFLogContextClient);
           if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
           {
-            v14 = 136315394;
-            v15 = "+[UAFXPCConnection selectXPCEndpoint]";
-            v16 = 2114;
-            v17 = v5;
-            _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s Overriding mach sandbox check for %{public}@ due to environment variable", &v14, 0x16u);
+            v13 = 136315394;
+            v14 = "+[UAFXPCConnection selectXPCEndpoint]";
+            v15 = 2114;
+            v16 = v5;
+            _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s Overriding mach sandbox check for %{public}@ due to environment variable", &v13, 0x16u);
           }
 
           LOBYTE(v4) = 1;
@@ -1221,13 +1174,13 @@ void __75__UAFXPCConnection_diskSpaceNeededInBytesForLanguage_forClient_completi
         v9 = UAFGetLogCategory(&UAFLogContextClient);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          v14 = 136315650;
-          v15 = "+[UAFXPCConnection selectXPCEndpoint]";
-          v16 = 2114;
-          v17 = v5;
-          v18 = 2114;
-          v19 = v5;
-          _os_log_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_DEFAULT, "%s Current process cannot access %{public}@ XPC endpoint.  Falling back to proxying through old endpoint.  Please update entitlements/sandbox to allow access to %{public}@ XPC endpoint.", &v14, 0x20u);
+          v13 = 136315650;
+          v14 = "+[UAFXPCConnection selectXPCEndpoint]";
+          v15 = 2114;
+          v16 = v5;
+          v17 = 2114;
+          v18 = v5;
+          _os_log_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_DEFAULT, "%s Current process cannot access %{public}@ XPC endpoint.  Falling back to proxying through old endpoint.  Please update entitlements/sandbox to allow access to %{public}@ XPC endpoint.", &v13, 0x20u);
         }
 
         v10 = @"com.apple.siri.uaf.service";
@@ -1247,17 +1200,15 @@ void __75__UAFXPCConnection_diskSpaceNeededInBytesForLanguage_forClient_completi
     v6 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136315394;
-      v15 = "+[UAFXPCConnection selectXPCEndpoint]";
-      v16 = 2114;
-      v17 = v5;
-      _os_log_impl(&dword_1BCF2C000, v6, OS_LOG_TYPE_DEFAULT, "%s Overriding XPC endpoint with environment variable: %{public}@", &v14, 0x16u);
+      v13 = 136315394;
+      v14 = "+[UAFXPCConnection selectXPCEndpoint]";
+      v15 = 2114;
+      v16 = v5;
+      _os_log_impl(&dword_1BCF2C000, v6, OS_LOG_TYPE_DEFAULT, "%s Overriding XPC endpoint with environment variable: %{public}@", &v13, 0x16u);
     }
   }
 
   v11 = v5;
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

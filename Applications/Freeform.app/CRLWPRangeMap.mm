@@ -293,6 +293,7 @@
         }
 
         *buf = v15;
+        *&v34[4] = 0;
         *v34 = affinity;
         sub_100393F44(&v10->_unmappedIndexes, buf);
         *&v31 = v14 + v15 - v10->_subRange.location;

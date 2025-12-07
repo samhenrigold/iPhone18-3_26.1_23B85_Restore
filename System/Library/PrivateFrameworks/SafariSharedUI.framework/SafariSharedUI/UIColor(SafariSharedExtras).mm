@@ -89,33 +89,34 @@
 
 + (id)safari_colorWithSerializedColorData:()SafariSharedExtras
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a3;
   if (v3)
   {
-    v10 = 0;
-    v4 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v3 error:&v10];
-    v5 = v10;
+    v12 = 0;
+    v4 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v3 error:&v12];
+    v5 = v12;
+    v7 = v5;
     if (v5)
     {
-      v6 = WBS_LOG_CHANNEL_PREFIXKeyedArchiver();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = WBS_LOG_CHANNEL_PREFIXKeyedArchiver(v5, v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        safari_privacyPreservingDescription = [v5 safari_privacyPreservingDescription];
-        [(UIColor(SafariSharedExtras) *)safari_privacyPreservingDescription safari_colorWithSerializedColorData:buf, v6];
+        safari_privacyPreservingDescription = [v7 safari_privacyPreservingDescription];
+        [(UIColor(SafariSharedExtras) *)safari_privacyPreservingDescription safari_colorWithSerializedColorData:buf, v8];
       }
     }
 
-    v8 = [v4 decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x1E696A508]];
+    v10 = [v4 decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x1E696A508]];
     [v4 finishDecoding];
   }
 
   else
   {
-    v8 = 0;
+    v10 = 0;
   }
 
-  return v8;
+  return v10;
 }
 
 - (id)safari_colorDataForSerialization

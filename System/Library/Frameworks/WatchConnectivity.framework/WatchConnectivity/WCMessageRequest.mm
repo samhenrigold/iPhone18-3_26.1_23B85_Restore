@@ -1,12 +1,26 @@
 @interface WCMessageRequest
 - (BOOL)isEqual:(id)equal;
 - (WCMessageRequest)initWithCoder:(id)coder;
+- (WCMessageRequest)initWithPairingID:(id)d identifier:(id)identifier data:(id)data dictionaryMessage:(BOOL)message expectsResponse:(BOOL)response;
 - (id)description;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation WCMessageRequest
+
+- (WCMessageRequest)initWithPairingID:(id)d identifier:(id)identifier data:(id)data dictionaryMessage:(BOOL)message expectsResponse:(BOOL)response
+{
+  v9.receiver = self;
+  v9.super_class = WCMessageRequest;
+  result = [(WCMessage *)&v9 initWithPairingID:d identifier:identifier data:data dictionaryMessage:message];
+  if (result)
+  {
+    result->_expectsResponse = response;
+  }
+
+  return result;
+}
 
 - (void)encodeWithCoder:(id)coder
 {

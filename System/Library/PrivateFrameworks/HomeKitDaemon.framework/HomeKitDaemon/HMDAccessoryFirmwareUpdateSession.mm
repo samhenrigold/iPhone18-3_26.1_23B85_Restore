@@ -129,7 +129,7 @@
 
 - (void)rescindStagedAsset:(id)asset
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -141,20 +141,20 @@
 
   if (stagedFirmwareVersion)
   {
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __56__HMDAccessoryFirmwareUpdateSession_rescindStagedAsset___block_invoke;
-    v17[3] = &unk_27867DF48;
-    v17[4] = self;
-    v18 = hapAccessory;
-    v19 = assetCopy;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __56__HMDAccessoryFirmwareUpdateSession_rescindStagedAsset___block_invoke_174;
-    v15[3] = &unk_278689A68;
-    v15[4] = self;
-    v16 = v19;
-    [(HMDAccessoryFirmwareUpdateSession *)self _withOpenSocketDoBlock:v17 error:v15];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __56__HMDAccessoryFirmwareUpdateSession_rescindStagedAsset___block_invoke;
+    v16[3] = &unk_27867DF48;
+    v16[4] = self;
+    v17 = hapAccessory;
+    v18 = assetCopy;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __56__HMDAccessoryFirmwareUpdateSession_rescindStagedAsset___block_invoke_174;
+    v14[3] = &unk_278689A68;
+    v14[4] = self;
+    v15 = v18;
+    [(HMDAccessoryFirmwareUpdateSession *)self _withOpenSocketDoBlock:v16 error:v14];
   }
 
   else
@@ -166,9 +166,9 @@
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v21 = v12;
-      v22 = 2112;
-      v23 = hapAccessory;
+      v20 = v12;
+      v21 = 2112;
+      v22 = hapAccessory;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@No staged firmware in accessory %@", buf, 0x16u);
     }
 
@@ -176,18 +176,16 @@
     v13 = [MEMORY[0x277CCA9B8] hmErrorWithCode:3 description:0 reason:@"No staged firmware in accessory" suggestion:0];
     (*(assetCopy + 2))(assetCopy, v13);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __56__HMDAccessoryFirmwareUpdateSession_rescindStagedAsset___block_invoke(uint64_t a1)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) accessoryFirmwareUpdateManager];
   v3 = [v2 UARPAccessoryForHMDAccessory:*(a1 + 40)];
   v4 = [v2 UARPControllerForAccessory:*(a1 + 40)];
-  v17[0] = v3;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v16[0] = v3;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
   v6 = [v4 rescindStagedFirmwareOnAccessoryList:v5 withUserIntent:1];
 
   if (v6)
@@ -203,24 +201,22 @@ void __56__HMDAccessoryFirmwareUpdateSession_rescindStagedAsset___block_invoke(u
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2112;
-      v16 = v3;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to rescind staged firmware for UARP accessory %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v3;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to rescind staged firmware for UARP accessory %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
     v11 = [MEMORY[0x277CCA9B8] hmErrorWithCode:58 description:0 reason:@"Failed to rescind staged firmware for UARP accessory %@" suggestion:0];
     (*(*(a1 + 48) + 16))();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __56__HMDAccessoryFirmwareUpdateSession_rescindStagedAsset___block_invoke_174(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -228,17 +224,15 @@ void __56__HMDAccessoryFirmwareUpdateSession_rescindStagedAsset___block_invoke_1
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Error opening socket for UARP communication: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Error opening socket for UARP communication: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)privateDescription
@@ -293,7 +287,7 @@ void __56__HMDAccessoryFirmwareUpdateSession_rescindStagedAsset___block_invoke_1
 
 - (void)_logDebugStates:(const char *)states
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -314,8 +308,8 @@ void __56__HMDAccessoryFirmwareUpdateSession_rescindStagedAsset___block_invoke_1
   v15 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
-    v30 = HMFGetLogIdentifier();
-    v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:states];
+    v29 = HMFGetLogIdentifier();
+    v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:states];
     internalState = [(HMDAccessoryFirmwareUpdateSession *)selfCopy internalState];
     if ((internalState - 1) > 4)
     {
@@ -327,8 +321,8 @@ void __56__HMDAccessoryFirmwareUpdateSession_rescindStagedAsset___block_invoke_1
       v17 = off_27867DF80[internalState - 1];
     }
 
-    v27 = v17;
-    v31 = accessoryVersion;
+    v26 = v17;
+    v30 = accessoryVersion;
     if (nextStateToSchedule - 1 > 4)
     {
       v18 = @"Up To Date";
@@ -342,8 +336,8 @@ void __56__HMDAccessoryFirmwareUpdateSession_rescindStagedAsset___block_invoke_1
     firmwareUpdateProfile3 = [hapAccessory firmwareUpdateProfile];
     [firmwareUpdateProfile3 updateState];
     v20 = HAPFirmwareUpdateStateAsString();
-    v32 = firmwareUpdateProfile;
-    v28 = v13;
+    v31 = firmwareUpdateProfile;
+    v27 = v13;
     if (softwareUpdate)
     {
       [softwareUpdate state];
@@ -356,49 +350,48 @@ void __56__HMDAccessoryFirmwareUpdateSession_rescindStagedAsset___block_invoke_1
     }
 
     lastStagedVersion = [(HMDAccessoryFirmwareUpdateSession *)selfCopy lastStagedVersion];
-    [v32 stagingNotReadyReasons];
+    [v31 stagingNotReadyReasons];
     v23 = HAPStagingNotReadyReasonsAsString();
-    [v32 updateNotReadyReasons];
+    [v31 updateNotReadyReasons];
     v24 = HAPUpdateNotReadyReasonsAsString();
     *buf = 138546434;
-    v37 = v30;
-    v38 = 2112;
-    v39 = v29;
-    v40 = 2112;
-    v41 = v27;
-    v42 = 2112;
-    v43 = v26;
-    v44 = 2112;
-    v45 = v20;
-    v46 = 2112;
-    v47 = v21;
-    v48 = 2112;
-    v49 = availableSoftwareVersion;
-    v50 = 2112;
-    v51 = stagedFirmwareVersion;
-    v52 = 2112;
-    v53 = lastStagedVersion;
-    v54 = 2112;
-    v55 = v31;
-    v56 = 2114;
-    v57 = assetVersion;
-    v58 = 2114;
-    v59 = v23;
-    v60 = 2114;
-    v61 = v24;
+    v36 = v29;
+    v37 = 2112;
+    v38 = v28;
+    v39 = 2112;
+    v40 = v26;
+    v41 = 2112;
+    v42 = v25;
+    v43 = 2112;
+    v44 = v20;
+    v45 = 2112;
+    v46 = v21;
+    v47 = 2112;
+    v48 = availableSoftwareVersion;
+    v49 = 2112;
+    v50 = stagedFirmwareVersion;
+    v51 = 2112;
+    v52 = lastStagedVersion;
+    v53 = 2112;
+    v54 = v30;
+    v55 = 2114;
+    v56 = assetVersion;
+    v57 = 2114;
+    v58 = v23;
+    v59 = 2114;
+    v60 = v24;
     _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@%@ States <Session internal %@, next %@, accessory %@, SU %@> Versions <available %@, staged %@ (last %@), accessory %@, asset %{public}@> Not Ready Reasons <Stage (%{public}@) Apply (%{public}@)>", buf, 0x84u);
 
     if (softwareUpdate)
     {
     }
 
-    accessoryVersion = v31;
-    firmwareUpdateProfile = v32;
-    v13 = v28;
+    accessoryVersion = v30;
+    firmwareUpdateProfile = v31;
+    v13 = v27;
   }
 
   objc_autoreleasePoolPop(v13);
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logDebugStates
@@ -414,7 +407,7 @@ void __56__HMDAccessoryFirmwareUpdateSession_rescindStagedAsset___block_invoke_1
 
 uint64_t __51__HMDAccessoryFirmwareUpdateSession_logDebugStates__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -426,26 +419,24 @@ uint64_t __51__HMDAccessoryFirmwareUpdateSession_logDebugStates__block_invoke(ui
     v8 = [*(a1 + 32) hapAccessory];
     [v8 isAutomaticThirdPartyAccessorySoftwareUpdateEnabled];
     v9 = HMFBooleanToString();
-    v12 = 138544130;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v7;
-    v18 = 2112;
-    v19 = v9;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Accessory: %@, asset: %@, auto update: %@", &v12, 0x2Au);
+    v11 = 138544130;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v7;
+    v17 = 2112;
+    v18 = v9;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Accessory: %@, asset: %@, auto update: %@", &v11, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _logDebugStates:"\t"];
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _logDebugStates:"\t"];
 }
 
 - (void)socket:(id)socket didFailWithError:(id)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   socketCopy = socket;
   errorCopy = error;
   v8 = objc_autoreleasePoolPush();
@@ -457,17 +448,17 @@ uint64_t __51__HMDAccessoryFirmwareUpdateSession_logDebugStates__block_invoke(ui
     [socketCopy isClosed];
     v12 = HMFBooleanToString();
     hapAccessory = [(HMDAccessoryFirmwareUpdateSession *)selfCopy hapAccessory];
-    v15 = 138544386;
-    v16 = v11;
-    v17 = 2112;
-    v18 = socketCopy;
-    v19 = 2112;
-    v20 = v12;
-    v21 = 2112;
-    v22 = hapAccessory;
-    v23 = 2112;
-    v24 = errorCopy;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@HDS socket %@ closed: %@ failed for accessory %@ with error %@", &v15, 0x34u);
+    v14 = 138544386;
+    v15 = v11;
+    v16 = 2112;
+    v17 = socketCopy;
+    v18 = 2112;
+    v19 = v12;
+    v20 = 2112;
+    v21 = hapAccessory;
+    v22 = 2112;
+    v23 = errorCopy;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@HDS socket %@ closed: %@ failed for accessory %@ with error %@", &v14, 0x34u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -480,13 +471,11 @@ uint64_t __51__HMDAccessoryFirmwareUpdateSession_logDebugStates__block_invoke(ui
   {
     [socketCopy close];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)socketDidClose:(id)close
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   closeCopy = close;
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -522,15 +511,15 @@ uint64_t __51__HMDAccessoryFirmwareUpdateSession_logDebugStates__block_invoke(ui
       }
 
       hapAccessory2 = [(HMDAccessoryFirmwareUpdateSession *)selfCopy hapAccessory];
-      *v43 = 138544130;
-      *&v43[4] = v15;
-      *&v43[12] = 2112;
-      *&v43[14] = v17;
-      v44 = 2112;
-      v45 = v19;
-      v46 = 2112;
-      v47 = hapAccessory2;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@HDS socket closed in state %@ for %@accessory %@", v43, 0x2Au);
+      *v42 = 138544130;
+      *&v42[4] = v15;
+      *&v42[12] = 2112;
+      *&v42[14] = v17;
+      v43 = 2112;
+      v44 = v19;
+      v45 = 2112;
+      v46 = hapAccessory2;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@HDS socket closed in state %@ for %@accessory %@", v42, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -558,8 +547,8 @@ uint64_t __51__HMDAccessoryFirmwareUpdateSession_logDebugStates__block_invoke(ui
       }
 
       v31 = HMFGetLogIdentifier();
-      *v43 = 138543362;
-      *&v43[4] = v31;
+      *v42 = 138543362;
+      *&v42[4] = v31;
       v32 = "%{public}@Notified UARP accessory unreachable";
       v33 = v30;
       v34 = OS_LOG_TYPE_INFO;
@@ -573,14 +562,14 @@ uint64_t __51__HMDAccessoryFirmwareUpdateSession_logDebugStates__block_invoke(ui
       }
 
       v31 = HMFGetLogIdentifier();
-      *v43 = 138543362;
-      *&v43[4] = v31;
+      *v42 = 138543362;
+      *&v42[4] = v31;
       v32 = "%{public}@Failed to notify about unreachable accessory to UARP controller";
       v33 = v30;
       v34 = OS_LOG_TYPE_ERROR;
     }
 
-    _os_log_impl(&dword_229538000, v33, v34, v32, v43, 0xCu);
+    _os_log_impl(&dword_229538000, v33, v34, v32, v42, 0xCu);
 
 LABEL_21:
     objc_autoreleasePoolPop(v27);
@@ -604,22 +593,22 @@ LABEL_21:
 
     else if ([(HMDAccessoryFirmwareUpdateSession *)v28 internalState]== 5 && [(HMDAccessoryFirmwareUpdateSession *)v28 isFirmwareVersionUpToDate])
     {
-      v39 = objc_autoreleasePoolPush();
-      v40 = v28;
-      v41 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+      v38 = objc_autoreleasePoolPush();
+      v39 = v28;
+      v40 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
-        v42 = HMFGetLogIdentifier();
-        *v43 = 138543362;
-        *&v43[4] = v42;
-        _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_DEFAULT, "%{public}@Registration complete", v43, 0xCu);
+        v41 = HMFGetLogIdentifier();
+        *v42 = 138543362;
+        *&v42[4] = v41;
+        _os_log_impl(&dword_229538000, v40, OS_LOG_TYPE_DEFAULT, "%{public}@Registration complete", v42, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v39);
-      [(HMDAccessoryFirmwareUpdateSession *)v40 _endSession];
+      objc_autoreleasePoolPop(v38);
+      [(HMDAccessoryFirmwareUpdateSession *)v39 _endSession];
     }
 
-    [(HMDAccessoryFirmwareUpdateSession *)v28 _schedule];
+    [(HMDAccessoryFirmwareUpdateSession *)v28 _schedule:*v42];
 LABEL_24:
 
     goto LABEL_25;
@@ -631,22 +620,20 @@ LABEL_24:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     v11 = HMFGetLogIdentifier();
-    *v43 = 138543618;
-    *&v43[4] = v11;
-    *&v43[12] = 2080;
-    *&v43[14] = "[HMDAccessoryFirmwareUpdateSession socketDidClose:]";
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@%s: Matter accessory does not use this function", v43, 0x16u);
+    *v42 = 138543618;
+    *&v42[4] = v11;
+    *&v42[12] = 2080;
+    *&v42[14] = "[HMDAccessoryFirmwareUpdateSession socketDidClose:]";
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@%s: Matter accessory does not use this function", v42, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
 LABEL_25:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleApplyTimerFired
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -671,16 +658,16 @@ LABEL_25:
     remoteApplyInProgress = [(HMDAccessoryFirmwareUpdateSession *)selfCopy remoteApplyInProgress];
     v11 = @"local";
     *buf = 138543874;
-    v23 = v8;
-    v24 = 2112;
+    v22 = v8;
+    v23 = 2112;
     if (remoteApplyInProgress)
     {
       v11 = @"remote";
     }
 
-    v25 = v9;
-    v26 = 2112;
-    v27 = v11;
+    v24 = v9;
+    v25 = 2112;
+    v26 = v11;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Apply timer fired for %@ %@ install", buf, 0x20u);
   }
 
@@ -696,7 +683,7 @@ LABEL_25:
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v15;
+      v22 = v15;
       _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Firmware is up to date", buf, 0xCu);
     }
 
@@ -708,24 +695,22 @@ LABEL_25:
     objc_initWeak(buf, selfCopy);
     hapAccessory = [(HMDAccessoryFirmwareUpdateSession *)selfCopy hapAccessory];
     firmwareUpdateProfile = [hapAccessory firmwareUpdateProfile];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __59__HMDAccessoryFirmwareUpdateSession__handleApplyTimerFired__block_invoke;
-    v19[3] = &unk_27867DF20;
-    objc_copyWeak(&v20, buf);
-    v21 = isUserInitiatedInstall;
-    [firmwareUpdateProfile updateProfileWithCompletion:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __59__HMDAccessoryFirmwareUpdateSession__handleApplyTimerFired__block_invoke;
+    v18[3] = &unk_27867DF20;
+    objc_copyWeak(&v19, buf);
+    v20 = isUserInitiatedInstall;
+    [firmwareUpdateProfile updateProfileWithCompletion:v18];
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(buf);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HMDAccessoryFirmwareUpdateSession__handleApplyTimerFired__block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if ([WeakRetained isFirmwareVersionUpToDate])
   {
@@ -767,9 +752,9 @@ LABEL_18:
     v8 = HMFGetLogIdentifier();
     v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v6, "currentAutomaticApplyRetriesCount")}];
     *buf = 138543618;
-    v19 = v8;
-    v20 = 2112;
-    v21 = v9;
+    v18 = v8;
+    v19 = 2112;
+    v20 = v9;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Firmware is still not applied after apply timer fired: retries count=%@", buf, 0x16u);
   }
 
@@ -796,20 +781,18 @@ LABEL_18:
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v19 = v13;
+    v18 = v13;
     _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Out of retries for automatic apply", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v10);
   [v11 _endSession];
 LABEL_19:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_verifyUpdateComplete
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -818,17 +801,20 @@ LABEL_19:
     v4 = objc_autoreleasePoolPush();
     selfCopy2 = self;
     v6 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v7 = HMFGetLogIdentifier();
-      *buf = 138543362;
-      v14 = v7;
-      v8 = "%{public}@Verification already in progress";
-LABEL_4:
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, v8, buf, 0xCu);
+LABEL_5:
 
-      goto LABEL_5;
+      objc_autoreleasePoolPop(v4);
+      return;
     }
+
+    v7 = HMFGetLogIdentifier();
+    *buf = 138543362;
+    v12 = v7;
+    v8 = "%{public}@Verification already in progress";
+LABEL_4:
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, v8, buf, 0xCu);
 
     goto LABEL_5;
   }
@@ -839,57 +825,50 @@ LABEL_4:
     {
       [(HMDAccessoryFirmwareUpdateSession *)self setUserInitiatedInstall:0];
       [(HMDAccessoryFirmwareUpdateSession *)self setIsVerifyingUpdate:1];
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __58__HMDAccessoryFirmwareUpdateSession__verifyUpdateComplete__block_invoke;
-      v12[3] = &unk_278682310;
-      v12[4] = self;
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = __58__HMDAccessoryFirmwareUpdateSession__verifyUpdateComplete__block_invoke_133;
-      v11[3] = &unk_27868A250;
-      v11[4] = self;
-      [(HMDAccessoryFirmwareUpdateSession *)self _withOpenSocketDoBlock:v12 error:v11];
-      goto LABEL_6;
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = __58__HMDAccessoryFirmwareUpdateSession__verifyUpdateComplete__block_invoke;
+      v10[3] = &unk_278682310;
+      v10[4] = self;
+      v9[0] = MEMORY[0x277D85DD0];
+      v9[1] = 3221225472;
+      v9[2] = __58__HMDAccessoryFirmwareUpdateSession__verifyUpdateComplete__block_invoke_133;
+      v9[3] = &unk_27868A250;
+      v9[4] = self;
+      [(HMDAccessoryFirmwareUpdateSession *)self _withOpenSocketDoBlock:v10 error:v9];
+      return;
     }
 
     v4 = objc_autoreleasePoolPush();
     selfCopy2 = self;
     v6 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v7 = HMFGetLogIdentifier();
-      *buf = 138543362;
-      v14 = v7;
-      v8 = "%{public}@Firmware is not up to date. Skipping update complete verification";
-      goto LABEL_4;
+      goto LABEL_5;
     }
 
-LABEL_5:
-
-    objc_autoreleasePoolPop(v4);
-LABEL_6:
-    v9 = *MEMORY[0x277D85DE8];
-    return;
+    v7 = HMFGetLogIdentifier();
+    *buf = 138543362;
+    v12 = v7;
+    v8 = "%{public}@Firmware is not up to date. Skipping update complete verification";
+    goto LABEL_4;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   [(HMDAccessoryFirmwareUpdateSession *)self _schedule];
 }
 
 void __58__HMDAccessoryFirmwareUpdateSession__verifyUpdateComplete__block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v28 = 138543362;
-    v29 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Asking UARP for Apply Results", &v28, 0xCu);
+    v27 = 138543362;
+    v28 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Asking UARP for Apply Results", &v27, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -906,9 +885,9 @@ void __58__HMDAccessoryFirmwareUpdateSession__verifyUpdateComplete__block_invoke
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v12 = HMFGetLogIdentifier();
-      v28 = 138543362;
-      v29 = v12;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Start the timer for querying result", &v28, 0xCu);
+      v27 = 138543362;
+      v28 = v12;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Start the timer for querying result", &v27, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -938,13 +917,11 @@ void __58__HMDAccessoryFirmwareUpdateSession__verifyUpdateComplete__block_invoke
 
   v26 = [*(a1 + 32) uarpAccessory];
   [v25 queryFirmwareUpdateResultForAccessory:v26];
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HMDAccessoryFirmwareUpdateSession__verifyUpdateComplete__block_invoke_133(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -954,11 +931,11 @@ void __58__HMDAccessoryFirmwareUpdateSession__verifyUpdateComplete__block_invoke
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Error opening HDS socket: %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Error opening HDS socket: %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -966,8 +943,6 @@ void __58__HMDAccessoryFirmwareUpdateSession__verifyUpdateComplete__block_invoke
 
   [*(a1 + 32) setIsVerifyingUpdate:0];
   [*(a1 + 32) _schedule];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_logApplyEventWithStatus:(int64_t)status
@@ -991,7 +966,7 @@ void __58__HMDAccessoryFirmwareUpdateSession__verifyUpdateComplete__block_invoke
 
 - (void)timerDidFire:(id)fire
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1053,9 +1028,9 @@ void __58__HMDAccessoryFirmwareUpdateSession__verifyUpdateComplete__block_invoke
             if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
               v19 = HMFGetLogIdentifier();
-              v21 = 138543362;
-              v22 = v19;
-              _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Unknown timer", &v21, 0xCu);
+              v20 = 138543362;
+              v21 = v19;
+              _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Unknown timer", &v20, 0xCu);
             }
 
             objc_autoreleasePoolPop(v16);
@@ -1064,13 +1039,11 @@ void __58__HMDAccessoryFirmwareUpdateSession__verifyUpdateComplete__block_invoke
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stagedFirmwareRescindComplete:(id)complete withStatus:(unint64_t)status
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   completeCopy = complete;
   if (((_os_feature_enabled_impl() & 1) != 0 || CFPreferencesGetAppBooleanValue(@"MatterOTA", @"/Library/Managed Preferences/mobile/com.apple.homed.plist", 0)) && (-[HMDAccessoryFirmwareUpdateSession hapAccessory](self, "hapAccessory"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 supportsCHIP], v7, v8))
   {
@@ -1081,9 +1054,9 @@ void __58__HMDAccessoryFirmwareUpdateSession__verifyUpdateComplete__block_invoke
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v19 = v12;
-      v20 = 2080;
-      v21 = "[HMDAccessoryFirmwareUpdateSession stagedFirmwareRescindComplete:withStatus:]";
+      v18 = v12;
+      v19 = 2080;
+      v20 = "[HMDAccessoryFirmwareUpdateSession stagedFirmwareRescindComplete:withStatus:]";
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@%s: Matter Accessory responsible for staging firmware. No action taken.", buf, 0x16u);
     }
 
@@ -1098,21 +1071,19 @@ void __58__HMDAccessoryFirmwareUpdateSession__verifyUpdateComplete__block_invoke
     block[1] = 3221225472;
     block[2] = __78__HMDAccessoryFirmwareUpdateSession_stagedFirmwareRescindComplete_withStatus___block_invoke;
     block[3] = &unk_27867DEF8;
-    objc_copyWeak(v17, buf);
-    v17[1] = status;
-    v16 = completeCopy;
+    objc_copyWeak(v16, buf);
+    v16[1] = status;
+    v15 = completeCopy;
     dispatch_async(workQueue, block);
 
-    objc_destroyWeak(v17);
+    objc_destroyWeak(v16);
     objc_destroyWeak(buf);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __78__HMDAccessoryFirmwareUpdateSession_stagedFirmwareRescindComplete_withStatus___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = objc_autoreleasePoolPush();
   v4 = WeakRetained;
@@ -1122,20 +1093,18 @@ void __78__HMDAccessoryFirmwareUpdateSession_stagedFirmwareRescindComplete_withS
     v6 = HMFGetLogIdentifier();
     v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 48)];
     v8 = *(a1 + 32);
-    v11 = 138543874;
-    v12 = v6;
-    v13 = 2112;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v8;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Staged firmware rescinded with status: %@ for accessory %@", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v6;
+    v12 = 2112;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v8;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Staged firmware rescinded with status: %@ for accessory %@", &v10, 0x20u);
   }
 
   objc_autoreleasePoolPop(v3);
   v9 = [v4 dataStreamSocket];
   [v9 close];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)firmwareUpdateResult:(id)result vendorSpecificStatus:(unsigned int)status error:(id)error
@@ -1160,7 +1129,7 @@ void __78__HMDAccessoryFirmwareUpdateSession_stagedFirmwareRescindComplete_withS
 
 void __85__HMDAccessoryFirmwareUpdateSession_firmwareUpdateResult_vendorSpecificStatus_error___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = objc_autoreleasePoolPush();
   v4 = WeakRetained;
@@ -1170,13 +1139,13 @@ void __85__HMDAccessoryFirmwareUpdateSession_firmwareUpdateResult_vendorSpecific
     v6 = HMFGetLogIdentifier();
     v7 = *(a1 + 32);
     v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a1 + 48)];
-    v13 = 138543874;
-    v14 = v6;
-    v15 = 2112;
-    v16 = v7;
-    v17 = 2112;
-    v18 = v8;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Results from apply accessory %@ status %@", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = v6;
+    v14 = 2112;
+    v15 = v7;
+    v16 = 2112;
+    v17 = v8;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Results from apply accessory %@ status %@", &v12, 0x20u);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -1187,12 +1156,11 @@ void __85__HMDAccessoryFirmwareUpdateSession_firmwareUpdateResult_vendorSpecific
   [v10 _updateAccessoryFirmwareVersion:v11];
 
   [v4 _schedule];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)firmwareStagingComplete:(id)complete assetID:(id)d withStatus:(unint64_t)status
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   completeCopy = complete;
   dCopy = d;
   v10 = objc_autoreleasePoolPush();
@@ -1203,9 +1171,9 @@ void __85__HMDAccessoryFirmwareUpdateSession_firmwareUpdateResult_vendorSpecific
     v13 = HMFGetLogIdentifier();
     v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", UARPFirmwareStagingCompletionStatusToString()];
     *buf = 138543618;
-    v24 = v13;
-    v25 = 2112;
-    v26 = v14;
+    v23 = v13;
+    v24 = 2112;
+    v25 = v14;
     _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEBUG, "%{public}@firmwareStagingComplete called with status %@", buf, 0x16u);
   }
 
@@ -1216,22 +1184,21 @@ void __85__HMDAccessoryFirmwareUpdateSession_firmwareUpdateResult_vendorSpecific
   block[1] = 3221225472;
   block[2] = __80__HMDAccessoryFirmwareUpdateSession_firmwareStagingComplete_assetID_withStatus___block_invoke;
   block[3] = &unk_278685218;
-  objc_copyWeak(v22, buf);
-  v22[1] = status;
-  v20 = dCopy;
-  v21 = completeCopy;
+  objc_copyWeak(v21, buf);
+  v21[1] = status;
+  v19 = dCopy;
+  v20 = completeCopy;
   v16 = completeCopy;
   v17 = dCopy;
   dispatch_async(workQueue, block);
 
-  objc_destroyWeak(v22);
+  objc_destroyWeak(v21);
   objc_destroyWeak(buf);
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __80__HMDAccessoryFirmwareUpdateSession_firmwareStagingComplete_assetID_withStatus___block_invoke(uint64_t a1)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = [WeakRetained hapAccessory];
   v4 = *(a1 + 56);
@@ -1239,21 +1206,21 @@ void __80__HMDAccessoryFirmwareUpdateSession_firmwareStagingComplete_assetID_wit
   {
     if ((v4 - 4) < 2)
     {
-      v26 = objc_autoreleasePoolPush();
-      v27 = WeakRetained;
-      v28 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v25 = objc_autoreleasePoolPush();
+      v26 = WeakRetained;
+      v27 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = HMFGetLogIdentifier();
+        v28 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v51 = v29;
-        _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@Update canceled", buf, 0xCu);
+        v49 = v28;
+        _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@Update canceled", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v26);
-      v30 = [v27 accessoryFirmwareUpdateManager];
-      v31 = [v27 assetID];
-      [v30 resetFirmwareUpdateAccessoryRetryTracking:v3 forAsset:v31];
+      objc_autoreleasePoolPop(v25);
+      v29 = [v26 accessoryFirmwareUpdateManager];
+      v30 = [v26 assetID];
+      [v29 resetFirmwareUpdateAccessoryRetryTracking:v3 forAsset:v30];
 
       goto LABEL_36;
     }
@@ -1272,15 +1239,14 @@ LABEL_15:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         v22 = HMFGetLogIdentifier();
-        v23 = *(a1 + 56);
-        v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", UARPFirmwareStagingCompletionStatusToString()];
-        v25 = *(a1 + 40);
+        v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", UARPFirmwareStagingCompletionStatusToString()];
+        v24 = *(a1 + 40);
         *buf = 138543874;
-        v51 = v22;
+        v49 = v22;
+        v50 = 2112;
+        v51 = v23;
         v52 = 2112;
         v53 = v24;
-        v54 = 2112;
-        v55 = v25;
         _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Staging completion status %@ not handled for accessory %@", buf, 0x20u);
       }
 
@@ -1289,21 +1255,21 @@ LABEL_15:
       goto LABEL_38;
     }
 
-    v40 = objc_autoreleasePoolPush();
-    v41 = WeakRetained;
-    v42 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    v39 = objc_autoreleasePoolPush();
+    v40 = WeakRetained;
+    v41 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
-      v43 = HMFGetLogIdentifier();
+      v42 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v51 = v43;
-      v44 = "%{public}@Accessory disconnected";
+      v49 = v42;
+      v43 = "%{public}@Accessory disconnected";
       goto LABEL_34;
     }
 
 LABEL_35:
 
-    objc_autoreleasePoolPop(v40);
+    objc_autoreleasePoolPop(v39);
 LABEL_36:
     v18 = WeakRetained;
 LABEL_37:
@@ -1313,44 +1279,44 @@ LABEL_37:
 
   if (!v4)
   {
-    v32 = objc_autoreleasePoolPush();
-    v33 = WeakRetained;
-    v34 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v31 = objc_autoreleasePoolPush();
+    v32 = WeakRetained;
+    v33 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
-      v35 = HMFGetLogIdentifier();
+      v34 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v51 = v35;
-      _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@Asset staging complete", buf, 0xCu);
+      v49 = v34;
+      _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_DEFAULT, "%{public}@Asset staging complete", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v32);
-    [v33 setAssetOfferedForCurrentDataStream:0];
-    v36 = [*(a1 + 32) softwareVersion];
-    [v33 setLastStagedVersion:v36];
+    objc_autoreleasePoolPop(v31);
+    [v32 setAssetOfferedForCurrentDataStream:0];
+    v35 = [*(a1 + 32) softwareVersion];
+    [v32 setLastStagedVersion:v35];
 
-    [v33 _logDebugStates:"Updating profile due to firmwareStagingComplete:"];
-    v37 = [v3 firmwareUpdateProfile];
-    v38 = [*(a1 + 32) softwareVersion];
-    v39 = [v38 versionString];
-    [v37 updateProfileWithStagedFirmwareVersion:v39];
+    [v32 _logDebugStates:"Updating profile due to firmwareStagingComplete:"];
+    v36 = [v3 firmwareUpdateProfile];
+    v37 = [*(a1 + 32) softwareVersion];
+    v38 = [v37 versionString];
+    [v36 updateProfileWithStagedFirmwareVersion:v38];
 
     goto LABEL_38;
   }
 
   if (v4 == 1)
   {
-    v40 = objc_autoreleasePoolPush();
-    v41 = WeakRetained;
-    v42 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    v39 = objc_autoreleasePoolPush();
+    v40 = WeakRetained;
+    v41 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
-      v43 = HMFGetLogIdentifier();
+      v42 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v51 = v43;
-      v44 = "%{public}@Update interrupted";
+      v49 = v42;
+      v43 = "%{public}@Update interrupted";
 LABEL_34:
-      _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_DEFAULT, v44, buf, 0xCu);
+      _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_DEFAULT, v43, buf, 0xCu);
 
       goto LABEL_35;
     }
@@ -1392,11 +1358,11 @@ LABEL_5:
         v17 = @"rejected";
       }
 
-      v51 = v13;
+      v49 = v13;
+      v50 = 2112;
+      v51 = v17;
       v52 = 2112;
-      v53 = v17;
-      v54 = 2112;
-      v55 = v16;
+      v53 = v16;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Staging %@ for asset %@", buf, 0x20u);
     }
 
@@ -1409,39 +1375,37 @@ LABEL_5:
 
   if (v12)
   {
-    v45 = HMFGetLogIdentifier();
+    v44 = HMFGetLogIdentifier();
     if (*(a1 + 56) == 2)
     {
-      v46 = @"failed";
+      v45 = @"failed";
     }
 
     else
     {
-      v46 = @"rejected";
+      v45 = @"rejected";
     }
 
-    v47 = *(a1 + 32);
-    v48 = [v10 assetID];
+    v46 = *(a1 + 32);
+    v47 = [v10 assetID];
     *buf = 138544130;
+    v49 = v44;
+    v50 = 2112;
     v51 = v45;
     v52 = 2112;
     v53 = v46;
     v54 = 2112;
     v55 = v47;
-    v56 = 2112;
-    v57 = v48;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Ignoring Staging %@ for asset %@ with current asset %@", buf, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v9);
 LABEL_38:
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 - (void)firmwareStagingProgress:(id)progress assetID:(id)d bytesSent:(unint64_t)sent bytesTotal:(unint64_t)total
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   progressCopy = progress;
   dCopy = d;
   v12 = objc_autoreleasePoolPush();
@@ -1452,19 +1416,18 @@ LABEL_38:
     v15 = HMFGetLogIdentifier();
     v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:sent];
     v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:total];
-    v19 = 138544130;
-    v20 = v15;
-    v21 = 2112;
-    v22 = progressCopy;
-    v23 = 2112;
-    v24 = v16;
-    v25 = 2112;
-    v26 = v17;
-    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEBUG, "%{public}@firmwareStagingProgress called for accessory %@ %@/%@ bytes sent", &v19, 0x2Au);
+    v18 = 138544130;
+    v19 = v15;
+    v20 = 2112;
+    v21 = progressCopy;
+    v22 = 2112;
+    v23 = v16;
+    v24 = 2112;
+    v25 = v17;
+    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEBUG, "%{public}@firmwareStagingProgress called for accessory %@ %@/%@ bytes sent", &v18, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v12);
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assetAvailablityUpdateForAccessory:(id)accessory assetID:(id)d
@@ -1490,7 +1453,7 @@ LABEL_38:
 
 void __80__HMDAccessoryFirmwareUpdateSession_assetAvailablityUpdateForAccessory_assetID___block_invoke(id *a1)
 {
-  v148 = *MEMORY[0x277D85DE8];
+  v147 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   v3 = objc_autoreleasePoolPush();
   v4 = WeakRetained;
@@ -1509,19 +1472,19 @@ void __80__HMDAccessoryFirmwareUpdateSession_assetAvailablityUpdateForAccessory_
     v11 = UARPAssetDownloadStatusToString();
     v12 = a1[4];
     *buf = 138544898;
-    v135 = v6;
-    v136 = 2114;
-    v137 = v7;
-    v138 = 2114;
-    v139 = v8;
-    v140 = 2082;
-    v141 = v9;
-    v142 = 2114;
-    v143 = v10;
-    v144 = 2082;
-    v145 = v11;
-    v146 = 2112;
-    v147 = v12;
+    v134 = v6;
+    v135 = 2114;
+    v136 = v7;
+    v137 = 2114;
+    v138 = v8;
+    v139 = 2082;
+    v140 = v9;
+    v141 = 2114;
+    v142 = v10;
+    v143 = 2082;
+    v144 = v11;
+    v145 = 2112;
+    v146 = v12;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@assetAvailabilityUpdate called with firmware %{public}@,  status: <%{public}@, %{public}s> releaseNotes status: <%{public}@, %{public}s> for asset %@", buf, 0x48u);
   }
 
@@ -1540,7 +1503,7 @@ void __80__HMDAccessoryFirmwareUpdateSession_assetAvailablityUpdateForAccessory_
     v17 = v18;
   }
 
-  v133 = [a1[4] softwareVersion];
+  v132 = [a1[4] softwareVersion];
   v19 = [v4 assetID];
   v20 = [v19 softwareVersion];
 
@@ -1551,13 +1514,13 @@ void __80__HMDAccessoryFirmwareUpdateSession_assetAvailablityUpdateForAccessory_
   }
 
   v22 = v21;
-  if ([v14 isAtLeastVersion:v133] & 1) != 0 || (objc_msgSend(v16, "isAtLeastVersion:", v133))
+  if ([v14 isAtLeastVersion:v132] & 1) != 0 || (objc_msgSend(v16, "isAtLeastVersion:", v132))
   {
 
     goto LABEL_9;
   }
 
-  v30 = [v20 isGreaterThanVersion:v133];
+  v30 = [v20 isGreaterThanVersion:v132];
 
   if ((v30 & 1) == 0)
   {
@@ -1576,20 +1539,20 @@ LABEL_15:
       if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v131 = v4;
+        v130 = v4;
         v33 = v16;
         v34 = v13;
         v35 = v17;
         v37 = v36 = v20;
         *buf = 138543362;
-        v135 = v37;
+        v134 = v37;
         _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Firmware failed to download", buf, 0xCu);
 
         v20 = v36;
         v17 = v35;
         v13 = v34;
         v16 = v33;
-        v4 = v131;
+        v4 = v130;
       }
 
       objc_autoreleasePoolPop(v31);
@@ -1598,36 +1561,36 @@ LABEL_15:
 
     v38 = v14;
     v39 = [v4 accessoryFirmwareUpdateManager];
-    v129 = [v39 UARPControllerForAccessory:v13];
+    v128 = [v39 UARPControllerForAccessory:v13];
 
     [v4 setUserInitiatedStaging:{objc_msgSend(a1[5], "userInitiatedFirmwareStaging")}];
     v40 = objc_autoreleasePoolPush();
     v41 = v4;
     v42 = HMFGetOSLogHandle();
-    v132 = v16;
+    v131 = v16;
     if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
     {
       HMFGetLogIdentifier();
-      v123 = v13;
+      v122 = v13;
       v43 = v17;
       v45 = v44 = v20;
       [a1[5] userInitiatedFirmwareStaging];
       v46 = HMFBooleanToString();
       *buf = 138543618;
-      v135 = v45;
-      v136 = 2112;
-      v137 = v46;
+      v134 = v45;
+      v135 = 2112;
+      v136 = v46;
       _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_DEBUG, "%{public}@userInitiatedFirmwareStaging: %@", buf, 0x16u);
 
-      v16 = v132;
+      v16 = v131;
       v20 = v44;
       v17 = v43;
-      v13 = v123;
+      v13 = v122;
     }
 
     objc_autoreleasePoolPop(v40);
     v47 = v41;
-    v128 = v41;
+    v127 = v41;
     if (v16)
     {
       v14 = v38;
@@ -1645,19 +1608,19 @@ LABEL_26:
             if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
             {
               HMFGetLogIdentifier();
-              v72 = v126 = v69;
+              v72 = v125 = v69;
               [a1[4] updateAvailabilityStatus];
               v73 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", UARPFirmwareUpdateAvailabilityStatusToString()];
               *buf = 138543618;
-              v135 = v72;
-              v136 = 2114;
-              v137 = v73;
+              v134 = v72;
+              v135 = 2114;
+              v136 = v73;
               v74 = "%{public}@Asset not found status, %{public}@";
 LABEL_48:
               _os_log_impl(&dword_229538000, v71, OS_LOG_TYPE_ERROR, v74, buf, 0x16u);
 
-              v16 = v132;
-              v69 = v126;
+              v16 = v131;
+              v69 = v125;
             }
 
 LABEL_49:
@@ -1673,13 +1636,13 @@ LABEL_46:
           if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
           {
             HMFGetLogIdentifier();
-            v72 = v126 = v69;
+            v72 = v125 = v69;
             [a1[4] updateAvailabilityStatus];
             v73 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", UARPFirmwareUpdateAvailabilityStatusToString()];
             *buf = 138543618;
-            v135 = v72;
-            v136 = 2114;
-            v137 = v73;
+            v134 = v72;
+            v135 = 2114;
+            v136 = v73;
             v74 = "%{public}@Ignoring asset availability status %{public}@";
             goto LABEL_48;
           }
@@ -1698,23 +1661,23 @@ LABEL_46:
             v80 = a1[4];
             v79 = a1[5];
             *buf = 138543874;
-            v135 = v78;
-            v136 = 2112;
-            v137 = v79;
-            v138 = 2112;
-            v139 = v80;
+            v134 = v78;
+            v135 = 2112;
+            v136 = v79;
+            v137 = 2112;
+            v138 = v80;
             _os_log_impl(&dword_229538000, v77, OS_LOG_TYPE_DEFAULT, "%{public}@telling uarpController to download asset for accessory:%@ assetID:%@", buf, 0x20u);
           }
 
           objc_autoreleasePoolPop(v75);
-          v16 = v132;
-          if ([v129 downloadAvailableFirmwareUpdate:a1[5] assetID:a1[4] withUserIntent:{objc_msgSend(v76, "isUserInitiatedInstall")}])
+          v16 = v131;
+          if ([v128 downloadAvailableFirmwareUpdate:a1[5] assetID:a1[4] withUserIntent:{objc_msgSend(v76, "isUserInitiatedInstall")}])
           {
 LABEL_50:
             if ([a1[4] releaseNotesDownloadStatus] == 2)
             {
               v84 = objc_autoreleasePoolPush();
-              v85 = v128;
+              v85 = v127;
               v86 = HMFGetOSLogHandle();
               if (!os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
               {
@@ -1728,25 +1691,25 @@ LABEL_77:
 
               v87 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v135 = v87;
+              v134 = v87;
               v88 = "%{public}@Release notes failed to download";
               v89 = v86;
               v90 = OS_LOG_TYPE_ERROR;
 LABEL_53:
               _os_log_impl(&dword_229538000, v89, v90, v88, buf, 0xCu);
 
-              v16 = v132;
+              v16 = v131;
               goto LABEL_54;
             }
 
             v91 = [a1[4] releaseNotesAvailabilityStatus];
             if (v91 > 5)
             {
-              v127 = v20;
+              v126 = v20;
               if ((v91 - 6) < 3)
               {
                 v97 = objc_autoreleasePoolPush();
-                v98 = v128;
+                v98 = v127;
                 v99 = HMFGetOSLogHandle();
                 if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
                 {
@@ -1754,14 +1717,14 @@ LABEL_53:
                   [a1[4] updateAvailabilityStatus];
                   v101 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", UARPFirmwareUpdateAvailabilityStatusToString()];
                   *buf = 138543618;
-                  v135 = v100;
-                  v136 = 2114;
-                  v137 = v101;
+                  v134 = v100;
+                  v135 = 2114;
+                  v136 = v101;
                   v102 = "%{public}@Release notes not found, status %{public}@";
 LABEL_73:
                   _os_log_impl(&dword_229538000, v99, OS_LOG_TYPE_ERROR, v102, buf, 0x16u);
 
-                  v16 = v132;
+                  v16 = v131;
                 }
 
 LABEL_74:
@@ -1770,7 +1733,7 @@ LABEL_74:
 LABEL_75:
                 objc_autoreleasePoolPop(v115);
 LABEL_76:
-                v20 = v127;
+                v20 = v126;
                 goto LABEL_77;
               }
             }
@@ -1779,9 +1742,9 @@ LABEL_76:
             {
               if (v91 == 1)
               {
-                v127 = v20;
+                v126 = v20;
                 v103 = objc_autoreleasePoolPush();
-                v104 = v128;
+                v104 = v127;
                 v105 = HMFGetOSLogHandle();
                 if (os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
                 {
@@ -1789,19 +1752,19 @@ LABEL_76:
                   v108 = a1[4];
                   v107 = a1[5];
                   *buf = 138543874;
-                  v135 = v106;
-                  v136 = 2112;
-                  v137 = v107;
-                  v138 = 2112;
-                  v139 = v108;
+                  v134 = v106;
+                  v135 = 2112;
+                  v136 = v107;
+                  v137 = 2112;
+                  v138 = v108;
                   _os_log_impl(&dword_229538000, v105, OS_LOG_TYPE_DEFAULT, "%{public}@telling uarpController to download release notes for accessory:%@ assetID:%@", buf, 0x20u);
 
-                  v16 = v132;
+                  v16 = v131;
                 }
 
                 objc_autoreleasePoolPop(v103);
-                v20 = v127;
-                if ([v129 downloadReleaseNotes:a1[5] assetID:a1[4]])
+                v20 = v126;
+                if ([v128 downloadReleaseNotes:a1[5] assetID:a1[4]])
                 {
                   goto LABEL_77;
                 }
@@ -1815,14 +1778,14 @@ LABEL_76:
                   v114 = a1[4];
                   v113 = a1[5];
                   *buf = 138543874;
-                  v135 = v112;
-                  v136 = 2112;
-                  v137 = v113;
-                  v138 = 2112;
-                  v139 = v114;
+                  v134 = v112;
+                  v135 = 2112;
+                  v136 = v113;
+                  v137 = 2112;
+                  v138 = v114;
                   _os_log_impl(&dword_229538000, v111, OS_LOG_TYPE_ERROR, "%{public}@Download of release notes failed for accessory:%@ assetID:%@", buf, 0x20u);
 
-                  v16 = v132;
+                  v16 = v131;
                 }
 
                 v115 = v109;
@@ -1832,7 +1795,7 @@ LABEL_76:
               if (v91 == 2)
               {
                 v84 = objc_autoreleasePoolPush();
-                v85 = v128;
+                v85 = v127;
                 v86 = HMFGetOSLogHandle();
                 if (!os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
                 {
@@ -1841,30 +1804,30 @@ LABEL_76:
 
                 v87 = HMFGetLogIdentifier();
                 *buf = 138543362;
-                v135 = v87;
+                v134 = v87;
                 v88 = "%{public}@Release notes downloading";
                 v89 = v86;
                 v90 = OS_LOG_TYPE_DEFAULT;
                 goto LABEL_53;
               }
 
-              v127 = v20;
+              v126 = v20;
               if (v91 == 3)
               {
                 v92 = objc_autoreleasePoolPush();
-                v93 = v128;
+                v93 = v127;
                 v94 = HMFGetOSLogHandle();
                 if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
                 {
                   v95 = HMFGetLogIdentifier();
                   v96 = [a1[4] releaseNotesLocalURL];
                   *buf = 138543618;
-                  v135 = v95;
-                  v136 = 2114;
-                  v137 = v96;
+                  v134 = v95;
+                  v135 = 2114;
+                  v136 = v96;
                   _os_log_impl(&dword_229538000, v94, OS_LOG_TYPE_DEFAULT, "%{public}@Release notes downloaded to %{public}@", buf, 0x16u);
 
-                  v16 = v132;
+                  v16 = v131;
                 }
 
                 objc_autoreleasePoolPop(v92);
@@ -1874,7 +1837,7 @@ LABEL_76:
             }
 
             v97 = objc_autoreleasePoolPush();
-            v98 = v128;
+            v98 = v127;
             v99 = HMFGetOSLogHandle();
             if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
             {
@@ -1882,9 +1845,9 @@ LABEL_76:
               [a1[4] releaseNotesAvailabilityStatus];
               v101 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", UARPFirmwareUpdateAvailabilityStatusToString()];
               *buf = 138543618;
-              v135 = v100;
-              v136 = 2114;
-              v137 = v101;
+              v134 = v100;
+              v135 = 2114;
+              v136 = v101;
               v102 = "%{public}@Ignoring release notes status: %{public}@";
               goto LABEL_73;
             }
@@ -1902,14 +1865,14 @@ LABEL_76:
             v83 = a1[4];
             v82 = a1[5];
             *buf = 138543874;
-            v135 = v81;
-            v136 = 2112;
-            v137 = v82;
-            v138 = 2112;
-            v139 = v83;
+            v134 = v81;
+            v135 = 2112;
+            v136 = v82;
+            v137 = 2112;
+            v138 = v83;
             _os_log_impl(&dword_229538000, v71, OS_LOG_TYPE_ERROR, "%{public}@downloadAvailableFirmwareUpdate failed for accessory:%@ assetID:%@", buf, 0x20u);
 
-            v16 = v132;
+            v16 = v131;
           }
 
           goto LABEL_49;
@@ -1926,7 +1889,7 @@ LABEL_76:
             {
               v52 = HMFGetLogIdentifier();
               v53 = [a1[4] localURL];
-              v124 = v13;
+              v123 = v13;
               v54 = v14;
               v55 = v49;
               v56 = v54;
@@ -1934,9 +1897,9 @@ LABEL_76:
               v58 = v20;
               v59 = v53;
               *buf = 138543618;
-              v135 = v52;
-              v136 = 2114;
-              v137 = v53;
+              v134 = v52;
+              v135 = 2114;
+              v136 = v53;
               _os_log_impl(&dword_229538000, v51, OS_LOG_TYPE_DEFAULT, "%{public}@Firmware downloaded to %{public}@", buf, 0x16u);
 
               v20 = v58;
@@ -1944,9 +1907,9 @@ LABEL_76:
               v60 = v56;
               v49 = v55;
               v14 = v60;
-              v13 = v124;
+              v13 = v123;
 
-              v16 = v132;
+              v16 = v131;
             }
 
             objc_autoreleasePoolPop(v49);
@@ -1958,29 +1921,29 @@ LABEL_76:
           goto LABEL_46;
         }
 
-        v125 = v14;
+        v124 = v14;
         v61 = v17;
         v62 = v20;
-        v117 = objc_autoreleasePoolPush();
-        v118 = v47;
+        v116 = objc_autoreleasePoolPush();
+        v117 = v47;
+        v118 = v116;
         v119 = v117;
-        v120 = v118;
-        v121 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v121, OS_LOG_TYPE_DEFAULT))
+        v120 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v120, OS_LOG_TYPE_DEFAULT))
         {
-          v122 = HMFGetLogIdentifier();
+          v121 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v135 = v122;
-          _os_log_impl(&dword_229538000, v121, OS_LOG_TYPE_DEFAULT, "%{public}@Firmware downloading", buf, 0xCu);
+          v134 = v121;
+          _os_log_impl(&dword_229538000, v120, OS_LOG_TYPE_DEFAULT, "%{public}@Firmware downloading", buf, 0xCu);
 
-          v16 = v132;
+          v16 = v131;
         }
 
-        objc_autoreleasePoolPop(v119);
+        objc_autoreleasePoolPop(v118);
 LABEL_37:
         v20 = v62;
         v17 = v61;
-        v14 = v125;
+        v14 = v124;
         goto LABEL_50;
       }
     }
@@ -1994,7 +1957,7 @@ LABEL_37:
       }
     }
 
-    v125 = v14;
+    v124 = v14;
     v61 = v17;
     v62 = v20;
     v63 = objc_autoreleasePoolPush();
@@ -2006,10 +1969,10 @@ LABEL_37:
     {
       v68 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v135 = v68;
+      v134 = v68;
       _os_log_impl(&dword_229538000, v67, OS_LOG_TYPE_DEFAULT, "%{public}@No asset download needed", buf, 0xCu);
 
-      v16 = v132;
+      v16 = v131;
     }
 
     objc_autoreleasePoolPop(v65);
@@ -2026,44 +1989,42 @@ LABEL_9:
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     HMFGetLogIdentifier();
-    v130 = v4;
+    v129 = v4;
     v26 = v13;
     v27 = v17;
     v29 = v28 = v20;
     *buf = 138544386;
-    v135 = v29;
-    v136 = 2112;
-    v137 = v133;
-    v138 = 2112;
-    v139 = v28;
-    v140 = 2112;
-    v141 = v14;
-    v142 = 2112;
-    v143 = v16;
+    v134 = v29;
+    v135 = 2112;
+    v136 = v132;
+    v137 = 2112;
+    v138 = v28;
+    v139 = 2112;
+    v140 = v14;
+    v141 = 2112;
+    v142 = v16;
     _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@Ignoring assetAvailability with asset version %@: current asset %@, accessory %@, staged %@", buf, 0x34u);
 
     v20 = v28;
     v17 = v27;
     v13 = v26;
-    v4 = v130;
+    v4 = v129;
   }
 
   objc_autoreleasePoolPop(v23);
   [v24 updateAvailableSoftwareUpdate];
-  if ([v14 isAtLeastVersion:v133] && objc_msgSend(v24, "internalState") != 4)
+  if ([v14 isAtLeastVersion:v132] && objc_msgSend(v24, "internalState") != 4)
   {
 LABEL_21:
     [v24 _endSession];
   }
 
 LABEL_78:
-
-  v116 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_register
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -2076,9 +2037,9 @@ LABEL_78:
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v14 = v9;
-      v15 = 2080;
-      v16 = "[HMDAccessoryFirmwareUpdateSession _register]";
+      v13 = v9;
+      v14 = 2080;
+      v15 = "[HMDAccessoryFirmwareUpdateSession _register]";
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@%s: called on accessory that supports Matter", buf, 0x16u);
     }
 
@@ -2088,25 +2049,23 @@ LABEL_78:
 
   else
   {
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __46__HMDAccessoryFirmwareUpdateSession__register__block_invoke;
-    v12[3] = &unk_278682310;
-    v12[4] = self;
     v11[0] = MEMORY[0x277D85DD0];
     v11[1] = 3221225472;
-    v11[2] = __46__HMDAccessoryFirmwareUpdateSession__register__block_invoke_2;
-    v11[3] = &unk_27868A250;
+    v11[2] = __46__HMDAccessoryFirmwareUpdateSession__register__block_invoke;
+    v11[3] = &unk_278682310;
     v11[4] = self;
-    [(HMDAccessoryFirmwareUpdateSession *)self _withOpenSocketDoBlock:v12 error:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __46__HMDAccessoryFirmwareUpdateSession__register__block_invoke_2;
+    v10[3] = &unk_27868A250;
+    v10[4] = self;
+    [(HMDAccessoryFirmwareUpdateSession *)self _withOpenSocketDoBlock:v11 error:v10];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __46__HMDAccessoryFirmwareUpdateSession__register__block_invoke_2(uint64_t a1, void *a2)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -2117,11 +2076,11 @@ void __46__HMDAccessoryFirmwareUpdateSession__register__block_invoke_2(uint64_t 
     v8 = [*(a1 + 32) uarpAccessory];
     v9 = [v8 uuid];
     *buf = 138543874;
-    v40 = v7;
-    v41 = 2112;
-    v42 = v9;
-    v43 = 2112;
-    v44 = v3;
+    v39 = v7;
+    v40 = 2112;
+    v41 = v9;
+    v42 = 2112;
+    v43 = v3;
     _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Register accessory failed for %@ - couldn't open socket error:%@", buf, 0x20u);
   }
 
@@ -2135,9 +2094,9 @@ void __46__HMDAccessoryFirmwareUpdateSession__register__block_invoke_2(uint64_t 
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v40 = v17;
-      v41 = 2112;
-      v42 = &unk_283E73A18;
+      v39 = v17;
+      v40 = 2112;
+      v41 = &unk_283E73A18;
       _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Rescheduling register in %@ seconds", buf, 0x16u);
     }
 
@@ -2165,7 +2124,7 @@ void __46__HMDAccessoryFirmwareUpdateSession__register__block_invoke_2(uint64_t 
       {
         v14 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v40 = v14;
+        v39 = v14;
         _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Register retry timer is active", buf, 0xCu);
       }
 
@@ -2188,9 +2147,9 @@ void __46__HMDAccessoryFirmwareUpdateSession__register__block_invoke_2(uint64_t 
         v28 = HMFGetLogIdentifier();
         v29 = [MEMORY[0x277CCABB0] numberWithDouble:v24 / 3600.0];
         *buf = 138543618;
-        v40 = v28;
-        v41 = 2112;
-        v42 = v29;
+        v39 = v28;
+        v40 = 2112;
+        v41 = v29;
         _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@Waiting up to %@ hours to retry registering accessory", buf, 0x16u);
       }
 
@@ -2211,8 +2170,6 @@ void __46__HMDAccessoryFirmwareUpdateSession__register__block_invoke_2(uint64_t 
       [v36 resume];
     }
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterAccessory
@@ -2258,7 +2215,7 @@ void __54__HMDAccessoryFirmwareUpdateSession_registerAccessory__block_invoke(uin
 
 - (void)socketDidReceiveData:(id)data
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (((_os_feature_enabled_impl() & 1) != 0 || CFPreferencesGetAppBooleanValue(@"MatterOTA", @"/Library/Managed Preferences/mobile/com.apple.homed.plist", 0)) && (-[HMDAccessoryFirmwareUpdateSession hapAccessory](self, "hapAccessory"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 supportsCHIP], v5, v6))
   {
@@ -2269,9 +2226,9 @@ void __54__HMDAccessoryFirmwareUpdateSession_registerAccessory__block_invoke(uin
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v17 = v10;
-      v18 = 2080;
-      v19 = "[HMDAccessoryFirmwareUpdateSession socketDidReceiveData:]";
+      v16 = v10;
+      v17 = 2080;
+      v18 = "[HMDAccessoryFirmwareUpdateSession socketDidReceiveData:]";
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@%s: Matter accessory does not use this function", buf, 0x16u);
     }
 
@@ -2282,35 +2239,33 @@ void __54__HMDAccessoryFirmwareUpdateSession_registerAccessory__block_invoke(uin
   {
     objc_initWeak(buf, self);
     workQueue = self->_workQueue;
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __58__HMDAccessoryFirmwareUpdateSession_socketDidReceiveData___block_invoke;
-    v13[3] = &unk_278686B48;
-    objc_copyWeak(&v15, buf);
-    v14 = dataCopy;
-    dispatch_async(workQueue, v13);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __58__HMDAccessoryFirmwareUpdateSession_socketDidReceiveData___block_invoke;
+    v12[3] = &unk_278686B48;
+    objc_copyWeak(&v14, buf);
+    v13 = dataCopy;
+    dispatch_async(workQueue, v12);
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(buf);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HMDAccessoryFirmwareUpdateSession_socketDidReceiveData___block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [WeakRetained accessoryFirmwareUpdateManager];
   v4 = [WeakRetained hapAccessory];
-  v30 = [v3 UARPControllerForAccessory:v4];
+  v29 = [v3 UARPControllerForAccessory:v4];
 
   v5 = [*(a1 + 32) readData];
   if (v5)
   {
     v7 = v5;
     *&v6 = 138543874;
-    v29 = v6;
+    v28 = v6;
     while (1)
     {
       v8 = objc_autoreleasePoolPush();
@@ -2321,17 +2276,17 @@ void __58__HMDAccessoryFirmwareUpdateSession_socketDidReceiveData___block_invoke
         v11 = HMFGetLogIdentifier();
         v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v7, "length")}];
         *buf = 138543618;
-        v33 = v11;
-        v34 = 2112;
-        v35 = v12;
+        v32 = v11;
+        v33 = 2112;
+        v34 = v12;
         _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEBUG, "%{public}@HDS socket received %@ bytes", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v8);
       v13 = [v9 uarpAccessory];
-      v31 = 0;
-      v14 = [v30 recvDataFromAccessory:v13 data:v7 error:&v31];
-      v15 = v31;
+      v30 = 0;
+      v14 = [v29 recvDataFromAccessory:v13 data:v7 error:&v30];
+      v15 = v30;
 
       if ((v14 & 1) == 0)
       {
@@ -2342,12 +2297,12 @@ void __58__HMDAccessoryFirmwareUpdateSession_socketDidReceiveData___block_invoke
         {
           v19 = HMFGetLogIdentifier();
           v20 = [v17 uarpAccessory];
-          *buf = v29;
-          v33 = v19;
-          v34 = 2112;
-          v35 = v20;
-          v36 = 2112;
-          v37 = v15;
+          *buf = v28;
+          v32 = v19;
+          v33 = 2112;
+          v34 = v20;
+          v35 = 2112;
+          v36 = v15;
           _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Couldn't send data from accessory %@ to controller: %@", buf, 0x20u);
         }
 
@@ -2378,7 +2333,7 @@ void __58__HMDAccessoryFirmwareUpdateSession_socketDidReceiveData___block_invoke
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v33 = v27;
+      v32 = v27;
       _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Socket closed", buf, 0xCu);
     }
 
@@ -2387,13 +2342,11 @@ void __58__HMDAccessoryFirmwareUpdateSession_socketDidReceiveData___block_invoke
 
 LABEL_14:
   [WeakRetained _resetSocketIdleTimer];
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)sendMessageToAccessory:(id)accessory uarpMsg:(id)msg error:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   msgCopy = msg;
   v10 = objc_autoreleasePoolPush();
@@ -2404,9 +2357,9 @@ LABEL_14:
     v13 = HMFGetLogIdentifier();
     v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(msgCopy, "length")}];
     *buf = 138543618;
-    v34 = v13;
-    v35 = 2112;
-    v36 = v14;
+    v33 = v13;
+    v34 = 2112;
+    v35 = v14;
     _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEBUG, "%{public}@sendMessageToAccessory called with %@ bytes", buf, 0x16u);
   }
 
@@ -2420,9 +2373,9 @@ LABEL_14:
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v34 = v20;
-      v35 = 2080;
-      v36 = "[HMDAccessoryFirmwareUpdateSession sendMessageToAccessory:uarpMsg:error:]";
+      v33 = v20;
+      v34 = 2080;
+      v35 = "[HMDAccessoryFirmwareUpdateSession sendMessageToAccessory:uarpMsg:error:]";
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@%s: Matter accessory does not use this function", buf, 0x16u);
     }
 
@@ -2442,10 +2395,10 @@ LABEL_14:
       block[1] = 3221225472;
       block[2] = __74__HMDAccessoryFirmwareUpdateSession_sendMessageToAccessory_uarpMsg_error___block_invoke;
       block[3] = &unk_278686B80;
-      objc_copyWeak(&v32, buf);
+      objc_copyWeak(&v31, buf);
       dispatch_async(workQueue, block);
       v21 = [v23 writeData:msgCopy error:error];
-      objc_destroyWeak(&v32);
+      objc_destroyWeak(&v31);
       objc_destroyWeak(buf);
     }
 
@@ -2463,7 +2416,7 @@ LABEL_14:
       {
         v27 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v34 = v27;
+        v33 = v27;
         _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@sendMessageToAccessory: Socket not open", buf, 0xCu);
       }
 
@@ -2472,7 +2425,6 @@ LABEL_14:
     }
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -2484,7 +2436,7 @@ void __74__HMDAccessoryFirmwareUpdateSession_sendMessageToAccessory_uarpMsg_erro
 
 - (HMSoftwareUpdateDocumentationMetadata)newDocumentationMetadata
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if ([(HMDAccessoryFirmwareUpdateSession *)self documentationAvailable])
   {
     assetID = [(HMDAccessoryFirmwareUpdateSession *)self assetID];
@@ -2511,9 +2463,9 @@ void __74__HMDAccessoryFirmwareUpdateSession_sendMessageToAccessory_uarpMsg_erro
       unsignedIntValue = 0x200000;
     }
 
-    v27 = 0;
-    v17 = [HMDAccessoryFirmwareUpdateSession __calculateDigestDataFromFile:releaseNotesLocalURL maxDataSize:unsignedIntValue error:&v27];
-    v18 = v27;
+    v26 = 0;
+    v17 = [HMDAccessoryFirmwareUpdateSession __calculateDigestDataFromFile:releaseNotesLocalURL maxDataSize:unsignedIntValue error:&v26];
+    v18 = v26;
     if (releaseNotesRemoteURL && v17)
     {
       v19 = objc_alloc(MEMORY[0x277CD1E60]);
@@ -2530,13 +2482,13 @@ void __74__HMDAccessoryFirmwareUpdateSession_sendMessageToAccessory_uarpMsg_erro
       {
         v24 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v29 = v24;
-        v30 = 2112;
-        v31 = releaseNotesLocalURL;
-        v32 = 2112;
-        v33 = releaseNotesRemoteURL;
-        v34 = 2112;
-        v35 = v18;
+        v28 = v24;
+        v29 = 2112;
+        v30 = releaseNotesLocalURL;
+        v31 = 2112;
+        v32 = releaseNotesRemoteURL;
+        v33 = 2112;
+        v34 = v18;
         _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Couldn't create digest for URLs local %@ remote: %@ error: %@", buf, 0x2Au);
       }
 
@@ -2555,23 +2507,22 @@ void __74__HMDAccessoryFirmwareUpdateSession_sendMessageToAccessory_uarpMsg_erro
       v14 = HMFGetLogIdentifier();
       uarpAccessory = [(HMDAccessoryFirmwareUpdateSession *)selfCopy2 uarpAccessory];
       *buf = 138543618;
-      v29 = v14;
-      v30 = 2112;
-      v31 = uarpAccessory;
+      v28 = v14;
+      v29 = 2112;
+      v30 = uarpAccessory;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_DEBUG, "%{public}@No documentation available for %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
-    v16 = 0;
+    return 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (id)newSoftwareUpdateWithState:(int64_t)state
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   newDocumentationMetadata = [(HMDAccessoryFirmwareUpdateSession *)self newDocumentationMetadata];
   availableSoftwareVersion = [(HMDAccessoryFirmwareUpdateSession *)self availableSoftwareVersion];
   hapAccessory = [(HMDAccessoryFirmwareUpdateSession *)self hapAccessory];
@@ -2600,7 +2551,7 @@ void __74__HMDAccessoryFirmwareUpdateSession_sendMessageToAccessory_uarpMsg_erro
     v11 = firmwareUpdateBytesTotal;
   }
 
-  v47 = v11;
+  v46 = v11;
 
   assetID = [(HMDAccessoryFirmwareUpdateSession *)self assetID];
   assetReleaseDate = [assetID assetReleaseDate];
@@ -2616,9 +2567,9 @@ void __74__HMDAccessoryFirmwareUpdateSession_sendMessageToAccessory_uarpMsg_erro
       v17 = HMFGetLogIdentifier();
       assetID2 = [(HMDAccessoryFirmwareUpdateSession *)selfCopy assetID];
       *buf = 138543618;
-      v51 = v17;
-      v52 = 2112;
-      v53 = assetID2;
+      v50 = v17;
+      v51 = 2112;
+      v52 = assetID2;
       _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@No release date set for asset, using current date - assetID %@", buf, 0x16u);
     }
 
@@ -2633,40 +2584,40 @@ void __74__HMDAccessoryFirmwareUpdateSession_sendMessageToAccessory_uarpMsg_erro
   {
     v22 = HMFGetLogIdentifier();
     v23 = HMSoftwareUpdateStateToString();
-    v24 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v47];
-    v43 = v19;
+    v24 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v46];
+    v42 = v19;
     v25 = MEMORY[0x277CCABB0];
     uarpAccessory3 = [(HMDAccessoryFirmwareUpdateSession *)selfCopy2 uarpAccessory];
     v26 = [v25 numberWithUnsignedInt:{objc_msgSend(uarpAccessory3, "firmwareUpdateBytesTotal")}];
     v27 = [(HMSoftwareUpdateDocumentationMetadata *)newDocumentationMetadata URL];
-    v44 = availableFirmwareVersion;
+    v43 = availableFirmwareVersion;
     v28 = MEMORY[0x277CCABB0];
     [(HMDAccessoryFirmwareUpdateSession *)selfCopy2 hapAccessory];
-    v29 = v45 = state;
+    v29 = v44 = state;
     firmwareUpdateProfile = [v29 firmwareUpdateProfile];
     v31 = [v28 numberWithUnsignedInteger:{objc_msgSend(firmwareUpdateProfile, "updateDuration")}];
     *buf = 138545154;
-    v51 = v22;
-    v52 = 2112;
-    v53 = availableSoftwareVersion;
-    v54 = 2112;
-    v55 = v23;
-    v56 = 2112;
-    v57 = v24;
-    v58 = 2112;
-    v59 = v26;
-    v60 = 2112;
-    v61 = v27;
-    v62 = 2112;
-    v63 = date;
-    v64 = 2112;
-    v65 = v31;
+    v50 = v22;
+    v51 = 2112;
+    v52 = availableSoftwareVersion;
+    v53 = 2112;
+    v54 = v23;
+    v55 = 2112;
+    v56 = v24;
+    v57 = 2112;
+    v58 = v26;
+    v59 = 2112;
+    v60 = v27;
+    v61 = 2112;
+    v62 = date;
+    v63 = 2112;
+    v64 = v31;
     _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Creating SoftwareUpdate with version %@, state %@, downloadSize %@(uarpAccessory downloadSize %@), documentation %@, release date %@, duration %@", buf, 0x52u);
 
-    availableFirmwareVersion = v44;
-    state = v45;
+    availableFirmwareVersion = v43;
+    state = v44;
 
-    v19 = v43;
+    v19 = v42;
   }
 
   objc_autoreleasePoolPop(v19);
@@ -2685,9 +2636,8 @@ void __74__HMDAccessoryFirmwareUpdateSession_sendMessageToAccessory_uarpMsg_erro
 
   v37 = [HMDSoftwareUpdate alloc];
   firmwareUpdateProfile2 = [hapAccessory2 firmwareUpdateProfile];
-  v39 = -[HMDSoftwareUpdate initWithVersion:displayableVersion:downloadSize:state:installDuration:documentationMetadata:releaseDate:](v37, "initWithVersion:displayableVersion:downloadSize:state:installDuration:documentationMetadata:releaseDate:", availableSoftwareVersion, availableFirmwareVersion, v47, state, newDocumentationMetadata, date, [firmwareUpdateProfile2 updateDuration]);
+  v39 = -[HMDSoftwareUpdate initWithVersion:displayableVersion:downloadSize:state:installDuration:documentationMetadata:releaseDate:](v37, "initWithVersion:displayableVersion:downloadSize:state:installDuration:documentationMetadata:releaseDate:", availableSoftwareVersion, availableFirmwareVersion, v46, state, newDocumentationMetadata, date, [firmwareUpdateProfile2 updateDuration]);
 
-  v40 = *MEMORY[0x277D85DE8];
   return v39;
 }
 
@@ -2717,7 +2667,7 @@ LABEL_6:
 
 - (void)_updateAvailableSoftwareUpdateState:(int64_t)state
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -2743,13 +2693,13 @@ LABEL_6:
       }
 
       v36 = HMSoftwareUpdateStateToString();
-      v40 = 138543874;
-      v41 = v27;
-      v42 = 2112;
-      v43 = v29;
-      v44 = 2112;
-      v45 = v36;
-      _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Not updating state from %@ to %@ because update firmware version is not set by UARP", &v40, 0x20u);
+      v39 = 138543874;
+      v40 = v27;
+      v41 = 2112;
+      v42 = v29;
+      v43 = 2112;
+      v44 = v36;
+      _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Not updating state from %@ to %@ because update firmware version is not set by UARP", &v39, 0x20u);
     }
 
     v37 = v24;
@@ -2775,11 +2725,11 @@ LABEL_6:
         v13 = off_27867DF80[internalState - 1];
       }
 
-      v40 = 138543618;
-      v41 = v11;
-      v42 = 2112;
-      v43 = v13;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Not updating state from %@ to downloaded because firmware version is up to date", &v40, 0x16u);
+      v39 = 138543618;
+      v40 = v11;
+      v41 = 2112;
+      v42 = v13;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Not updating state from %@ to downloaded because firmware version is up to date", &v39, 0x16u);
     }
 
     v37 = v8;
@@ -2810,13 +2760,13 @@ LABEL_24:
       }
 
       v38 = HMSoftwareUpdateStateToString();
-      v40 = 138543874;
-      v41 = v21;
-      v42 = 2112;
-      v43 = v23;
-      v44 = 2112;
-      v45 = v38;
-      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Updating available software update state from %@ to %@", &v40, 0x20u);
+      v39 = 138543874;
+      v40 = v21;
+      v41 = 2112;
+      v42 = v23;
+      v43 = 2112;
+      v44 = v38;
+      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Updating available software update state from %@ to %@", &v39, 0x20u);
     }
 
     objc_autoreleasePoolPop(v18);
@@ -2832,11 +2782,11 @@ LABEL_24:
     {
       v33 = HMFGetLogIdentifier();
       v34 = HMSoftwareUpdateStateToString();
-      v40 = 138543618;
-      v41 = v33;
-      v42 = 2112;
-      v43 = v34;
-      _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_INFO, "%{public}@New available software update with state %@", &v40, 0x16u);
+      v39 = 138543618;
+      v40 = v33;
+      v41 = 2112;
+      v42 = v34;
+      _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_INFO, "%{public}@New available software update with state %@", &v39, 0x16u);
     }
 
     objc_autoreleasePoolPop(v30);
@@ -2846,7 +2796,6 @@ LABEL_24:
   }
 
 LABEL_29:
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAvailableSoftwareUpdateState:(int64_t)state
@@ -2863,7 +2812,7 @@ LABEL_29:
 
 void __72__HMDAccessoryFirmwareUpdateSession_updateAvailableSoftwareUpdateState___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) allowedApplyDurationTimer];
 
   if (v2)
@@ -2885,26 +2834,23 @@ void __72__HMDAccessoryFirmwareUpdateSession_updateAvailableSoftwareUpdateState_
         v8 = off_27867DF80[v7];
       }
 
-      v12 = *(a1 + 40);
-      v13 = HMSoftwareUpdateStateToString();
-      v15 = 138543874;
-      v16 = v6;
-      v17 = 2112;
-      v18 = v8;
-      v19 = 2112;
-      v20 = v13;
-      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Not updating available software update state from %@ to %@ because apply timer is active", &v15, 0x20u);
+      v11 = HMSoftwareUpdateStateToString();
+      v12 = 138543874;
+      v13 = v6;
+      v14 = 2112;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v11;
+      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Not updating available software update state from %@ to %@ because apply timer is active", &v12, 0x20u);
     }
 
     objc_autoreleasePoolPop(v3);
-    v14 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     v9 = *(a1 + 32);
     v10 = *(a1 + 40);
-    v11 = *MEMORY[0x277D85DE8];
 
     [v9 _updateAvailableSoftwareUpdateState:v10];
   }
@@ -2935,7 +2881,7 @@ void __72__HMDAccessoryFirmwareUpdateSession_updateAvailableSoftwareUpdateState_
 
 - (void)_updateAvailableSoftwareUpdate
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -2959,13 +2905,13 @@ void __72__HMDAccessoryFirmwareUpdateSession_updateAvailableSoftwareUpdateState_
         v14 = v13 = firmwareUpdateProfile;
         accessoryVersion2 = [(HMDAccessoryFirmwareUpdateSession *)selfCopy5 accessoryVersion];
         *buf = 138544130;
-        v49 = v14;
-        v50 = 2112;
-        v51 = availableSoftwareVersion;
-        v52 = 2112;
-        v53 = accessoryVersion2;
-        v54 = 2112;
-        v55 = stagedFirmwareVersion;
+        v48 = v14;
+        v49 = 2112;
+        v50 = availableSoftwareVersion;
+        v51 = 2112;
+        v52 = accessoryVersion2;
+        v53 = 2112;
+        v54 = stagedFirmwareVersion;
         _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Session available firmware version (%@) is older than either current accessory version (%@) or the staged version (%@)", buf, 0x2Au);
 
         firmwareUpdateProfile = v13;
@@ -2974,29 +2920,7 @@ void __72__HMDAccessoryFirmwareUpdateSession_updateAvailableSoftwareUpdateState_
       goto LABEL_6;
     }
 
-    if (![v6 supportsCHIP])
-    {
-      goto LABEL_38;
-    }
-
-    assetID = [(HMDAccessoryFirmwareUpdateSession *)self assetID];
-    [assetID assetVersionNumber];
-    v21 = v45 = stagedFirmwareVersion;
-    v22 = MEMORY[0x277CCABB0];
-    firmwareVersion = [v6 firmwareVersion];
-    v23 = [v22 numberWithUnsignedInteger:{objc_msgSend(firmwareVersion, "majorVersion")}];
-    assetID2 = [(HMDAccessoryFirmwareUpdateSession *)self assetID];
-    assetVersion = [assetID2 assetVersion];
-    [v6 displayableFirmwareVersion];
-    v25 = v47 = firmwareUpdateProfile;
-    uarpAccessory = [(HMDAccessoryFirmwareUpdateSession *)self uarpAccessory];
-    firmwareVersion2 = [uarpAccessory firmwareVersion];
-    v42 = [(HMDAccessoryFirmwareUpdateSession *)self _shouldUpdateUarpAccessoryVersion:v21 matterFirmwareRevisionNumber:v23 assetVersionString:assetVersion matterFirmwareRevisionString:v25 uarpAccessoryVersion:firmwareVersion2];
-
-    firmwareUpdateProfile = v47;
-    stagedFirmwareVersion = v45;
-
-    if (!v42)
+    if ([v6 supportsCHIP] && (-[HMDAccessoryFirmwareUpdateSession assetID](self, "assetID"), v45 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v45, "assetVersionNumber"), v44 = stagedFirmwareVersion, v20 = objc_claimAutoreleasedReturnValue(), v21 = MEMORY[0x277CCABB0], objc_msgSend(v6, "firmwareVersion"), v43 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "numberWithUnsignedInteger:", objc_msgSend(v43, "majorVersion")), v22 = objc_claimAutoreleasedReturnValue(), -[HMDAccessoryFirmwareUpdateSession assetID](self, "assetID"), v42 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v42, "assetVersion"), v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "displayableFirmwareVersion"), v46 = firmwareUpdateProfile, v24 = objc_claimAutoreleasedReturnValue(), -[HMDAccessoryFirmwareUpdateSession uarpAccessory](self, "uarpAccessory"), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v25, "firmwareVersion"), v26 = objc_claimAutoreleasedReturnValue(), v41 = -[HMDAccessoryFirmwareUpdateSession _shouldUpdateUarpAccessoryVersion:matterFirmwareRevisionNumber:assetVersionString:matterFirmwareRevisionString:uarpAccessoryVersion:](self, "_shouldUpdateUarpAccessoryVersion:matterFirmwareRevisionNumber:assetVersionString:matterFirmwareRevisionString:uarpAccessoryVersion:", v20, v22, v23, v24, v26), v26, v25, v24, firmwareUpdateProfile = v46, v23, v42, v22, v43, v20, stagedFirmwareVersion = v44, v45, !v41))
     {
       v10 = objc_autoreleasePoolPush();
       selfCopy5 = self;
@@ -3011,52 +2935,51 @@ LABEL_7:
         goto LABEL_11;
       }
 
-      v38 = HMFGetLogIdentifier();
+      v37 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v49 = v38;
-      v39 = "%{public}@Updating Available Software Update: Waiting for version number and version string to be in sync before proceeding";
+      v48 = v37;
+      v38 = "%{public}@Updating Available Software Update: Waiting for version number and version string to be in sync before proceeding";
     }
 
     else
     {
-LABEL_38:
       if ([availableSoftwareVersion isEqualToVersion:accessoryVersion])
       {
-        v28 = objc_autoreleasePoolPush();
+        v27 = objc_autoreleasePoolPush();
         selfCopy3 = self;
-        v30 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+        v29 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
         {
-          v31 = HMFGetLogIdentifier();
+          v30 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v49 = v31;
-          _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@Session available firmware version is the same as the current accessory version. Software Update has been installed.", buf, 0xCu);
+          v48 = v30;
+          _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_INFO, "%{public}@Session available firmware version is the same as the current accessory version. Software Update has been installed.", buf, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v28);
-        v32 = selfCopy3;
-        v33 = 4;
+        objc_autoreleasePoolPop(v27);
+        v31 = selfCopy3;
+        v32 = 4;
 LABEL_22:
-        [(HMDAccessoryFirmwareUpdateSession *)v32 updateAvailableSoftwareUpdateState:v33];
+        [(HMDAccessoryFirmwareUpdateSession *)v31 updateAvailableSoftwareUpdateState:v32];
         goto LABEL_7;
       }
 
       if ([availableSoftwareVersion isEqualToVersion:stagedFirmwareVersion])
       {
-        v34 = objc_autoreleasePoolPush();
+        v33 = objc_autoreleasePoolPush();
         selfCopy4 = self;
-        v36 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+        v35 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
         {
-          v37 = HMFGetLogIdentifier();
+          v36 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v49 = v37;
-          _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_INFO, "%{public}@Session available firmware version is staged on accessory. Software Update has been downloaded.", buf, 0xCu);
+          v48 = v36;
+          _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_INFO, "%{public}@Session available firmware version is staged on accessory. Software Update has been downloaded.", buf, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v34);
-        v32 = selfCopy4;
-        v33 = 2;
+        objc_autoreleasePoolPop(v33);
+        v31 = selfCopy4;
+        v32 = 2;
         goto LABEL_22;
       }
 
@@ -3067,9 +2990,9 @@ LABEL_22:
 
       if (![v6 supportsCHIP])
       {
-        v40 = [(HMDAccessoryFirmwareUpdateSession *)self internalState]!= 1 && [(HMDAccessoryFirmwareUpdateSession *)self internalState]!= 2;
+        v39 = [(HMDAccessoryFirmwareUpdateSession *)self internalState]!= 1 && [(HMDAccessoryFirmwareUpdateSession *)self internalState]!= 2;
         updateState = [firmwareUpdateProfile updateState];
-        if (!v40 && updateState != 4)
+        if (!v39 && updateState != 4)
         {
           [(HMDAccessoryFirmwareUpdateSession *)self _resetAvailableSoftwareUpdate];
         }
@@ -3085,13 +3008,13 @@ LABEL_22:
         goto LABEL_6;
       }
 
-      v38 = HMFGetLogIdentifier();
+      v37 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v49 = v38;
-      v39 = "%{public}@Not re-setting software update state for matter accessory";
+      v48 = v37;
+      v38 = "%{public}@Not re-setting software update state for matter accessory";
     }
 
-    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, v39, buf, 0xCu);
+    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, v38, buf, 0xCu);
 
     goto LABEL_6;
   }
@@ -3103,14 +3026,12 @@ LABEL_22:
   {
     v19 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v49 = v19;
+    v48 = v19;
     _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_DEBUG, "%{public}@firmware version not available in UARP accessory", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v16);
 LABEL_11:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAvailableSoftwareUpdate
@@ -3136,7 +3057,7 @@ void __66__HMDAccessoryFirmwareUpdateSession_updateAvailableSoftwareUpdate__bloc
 
 - (void)incrementMatterFirmwareUpdateRetryCount
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if ([(HMDAccessoryFirmwareUpdateSession *)self isMatterFirmwareUpdateRetryAllowed])
   {
     [(HMDAccessoryFirmwareUpdateSession *)self setMatterFirmwareUpdateRetryCount:[(HMDAccessoryFirmwareUpdateSession *)self matterFirmwareUpdateRetryCount]+ 1];
@@ -3146,19 +3067,17 @@ void __66__HMDAccessoryFirmwareUpdateSession_updateAvailableSoftwareUpdate__bloc
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = HMFGetLogIdentifier();
-      v8 = 138543874;
-      v9 = v6;
-      v10 = 2048;
+      v7 = 138543874;
+      v8 = v6;
+      v9 = 2048;
       matterFirmwareUpdateRetryCount = [(HMDAccessoryFirmwareUpdateSession *)selfCopy matterFirmwareUpdateRetryCount];
-      v12 = 2048;
-      v13 = 5;
-      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Matter firmware update retry attempt %lu of %lu", &v8, 0x20u);
+      v11 = 2048;
+      v12 = 5;
+      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Matter firmware update retry attempt %lu of %lu", &v7, 0x20u);
     }
 
     objc_autoreleasePoolPop(v3);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAccessoryVendorIDAndProductID
@@ -3178,7 +3097,7 @@ void __66__HMDAccessoryFirmwareUpdateSession_updateAvailableSoftwareUpdate__bloc
 
 void __72__HMDAccessoryFirmwareUpdateSession_updateAccessoryVendorIDAndProductID__block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = [WeakRetained hapAccessory];
   v3 = [WeakRetained accessoryFirmwareUpdateManager];
@@ -3198,9 +3117,9 @@ void __72__HMDAccessoryFirmwareUpdateSession_updateAccessoryVendorIDAndProductID
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v24 = HMFGetLogIdentifier();
-      v27 = 138543362;
-      v28 = v24;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to update UARP accessory vendor ID property", &v27, 0xCu);
+      v26 = 138543362;
+      v27 = v24;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to update UARP accessory vendor ID property", &v26, 0xCu);
     }
 
     goto LABEL_14;
@@ -3210,11 +3129,11 @@ void __72__HMDAccessoryFirmwareUpdateSession_updateAccessoryVendorIDAndProductID
   {
     v13 = HMFGetLogIdentifier();
     v14 = [v2 matterVendorID];
-    v27 = 138543618;
-    v28 = v13;
-    v29 = 2112;
-    v30 = v14;
-    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Accessory vendor ID updated to %@", &v27, 0x16u);
+    v26 = 138543618;
+    v27 = v13;
+    v28 = 2112;
+    v29 = v14;
+    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Accessory vendor ID updated to %@", &v26, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -3232,9 +3151,9 @@ void __72__HMDAccessoryFirmwareUpdateSession_updateAccessoryVendorIDAndProductID
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       v25 = HMFGetLogIdentifier();
-      v27 = 138543362;
-      v28 = v25;
-      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to update UARP accessory product ID property", &v27, 0xCu);
+      v26 = 138543362;
+      v27 = v25;
+      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to update UARP accessory product ID property", &v26, 0xCu);
     }
 
 LABEL_14:
@@ -3246,24 +3165,22 @@ LABEL_14:
   {
     v22 = HMFGetLogIdentifier();
     v23 = [v2 matterProductID];
-    v27 = 138543618;
-    v28 = v22;
-    v29 = 2112;
-    v30 = v23;
-    _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Accessory product ID updated to %@", &v27, 0x16u);
+    v26 = 138543618;
+    v27 = v22;
+    v28 = 2112;
+    v29 = v23;
+    _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Accessory product ID updated to %@", &v26, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
   [v19 _cancelApplyTimer];
   [v19 _updateAvailableSoftwareUpdate];
 LABEL_15:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateSoftwareUpdateNotReadyReasons
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -3326,9 +3243,9 @@ LABEL_15:
     v19 = HMFGetLogIdentifier();
     v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v10];
     *buf = 138543618;
-    v55 = v19;
-    v56 = 2112;
-    v57 = v20;
+    v54 = v19;
+    v55 = 2112;
+    v56 = v20;
     _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@Unknown stagingNotReadyReasons %@", buf, 0x16u);
   }
 
@@ -3406,9 +3323,9 @@ LABEL_15:
     v34 = HMFGetLogIdentifier();
     v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v24];
     *buf = 138543618;
-    v55 = v34;
-    v56 = 2112;
-    v57 = v35;
+    v54 = v34;
+    v55 = 2112;
+    v56 = v35;
     _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_DEFAULT, "%{public}@Unknown applyNotReadyReasons %@", buf, 0x16u);
   }
 
@@ -3422,52 +3339,50 @@ LABEL_15:
     v39 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
     {
-      v52 = HMFGetLogIdentifier();
+      v51 = HMFGetLogIdentifier();
       [softwareUpdate needsAttentionReasons];
-      v49 = HMSoftwareUpdateNeedsAttentionReasonsToString();
-      v53 = softwareUpdate;
-      v50 = v37;
+      v48 = HMSoftwareUpdateNeedsAttentionReasonsToString();
+      v52 = softwareUpdate;
+      v49 = v37;
       v40 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(softwareUpdate, "needsAttentionReasons")}];
-      v51 = HMSoftwareUpdateNeedsAttentionReasonsToString();
+      v50 = HMSoftwareUpdateNeedsAttentionReasonsToString();
       v41 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v22 | v8];
       [firmwareUpdateProfile stagingNotReadyReasons];
-      v47 = HAPStagingNotReadyReasonsAsString();
-      v46 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(firmwareUpdateProfile, "stagingNotReadyReasons")}];
+      v46 = HAPStagingNotReadyReasonsAsString();
+      v45 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(firmwareUpdateProfile, "stagingNotReadyReasons")}];
       [firmwareUpdateProfile updateNotReadyReasons];
       HAPUpdateNotReadyReasonsAsString();
-      v42 = v48 = selfCopy;
+      v42 = v47 = selfCopy;
       v43 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(firmwareUpdateProfile, "updateNotReadyReasons")}];
       *buf = 138545410;
-      v55 = v52;
-      v56 = 2114;
-      v57 = v49;
-      v58 = 2114;
-      v59 = v40;
-      v60 = 2114;
-      v61 = v51;
-      v62 = 2114;
-      v63 = v41;
-      v64 = 2114;
-      v65 = v47;
-      v66 = 2114;
-      v67 = v46;
-      v68 = 2114;
-      v69 = v42;
-      v70 = 2114;
-      v71 = v43;
+      v54 = v51;
+      v55 = 2114;
+      v56 = v48;
+      v57 = 2114;
+      v58 = v40;
+      v59 = 2114;
+      v60 = v50;
+      v61 = 2114;
+      v62 = v41;
+      v63 = 2114;
+      v64 = v46;
+      v65 = 2114;
+      v66 = v45;
+      v67 = 2114;
+      v68 = v42;
+      v69 = 2114;
+      v70 = v43;
       _os_log_impl(&dword_229538000, v39, OS_LOG_TYPE_INFO, "%{public}@SoftwareUpdate needsAttentionReasons changed - old %{public}@ (%{public}@) new %{public}@ (%{public}@) staging reasons %{public}@ (%{public}@) apply reasons %{public}@ (%{public}@)", buf, 0x5Cu);
 
-      softwareUpdate = v53;
-      selfCopy = v48;
-      v37 = v50;
+      softwareUpdate = v52;
+      selfCopy = v47;
+      v37 = v49;
     }
 
     objc_autoreleasePoolPop(v37);
     softwareUpdate3 = [hapAccessory softwareUpdate];
     [softwareUpdate3 setNeedsAttentionReasons:v22 | v8];
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleNotReadyReasonsChanged:(id)changed
@@ -3512,7 +3427,7 @@ void __66__HMDAccessoryFirmwareUpdateSession_handleNotReadyReasonsChanged___bloc
 
 void __82__HMDAccessoryFirmwareUpdateSession_handleFirmwareUpdateStateChangedNotification___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [*(a1 + 32) userInfo];
   v4 = [v3 hmf_numberForKey:@"HMDAccessoryFirmwareUpdateStateKey"];
@@ -3525,11 +3440,11 @@ void __82__HMDAccessoryFirmwareUpdateSession_handleFirmwareUpdateStateChangedNot
     v8 = HMFGetLogIdentifier();
     [v4 longValue];
     v9 = HAPFirmwareUpdateStateAsString();
-    v19 = 138543618;
-    v20 = v8;
-    v21 = 2112;
-    v22 = v9;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Accessory state changed to %@", &v19, 0x16u);
+    v18 = 138543618;
+    v19 = v8;
+    v20 = 2112;
+    v21 = v9;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Accessory state changed to %@", &v18, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -3541,9 +3456,9 @@ void __82__HMDAccessoryFirmwareUpdateSession_handleFirmwareUpdateStateChangedNot
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = HMFGetLogIdentifier();
-      v19 = 138543362;
-      v20 = v13;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Restarting staging", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = v13;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Restarting staging", &v18, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -3558,9 +3473,9 @@ void __82__HMDAccessoryFirmwareUpdateSession_handleFirmwareUpdateStateChangedNot
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v17 = HMFGetLogIdentifier();
-      v19 = 138543362;
-      v20 = v17;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@Detected remote apply in progress", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = v17;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@Detected remote apply in progress", &v18, 0xCu);
     }
 
     objc_autoreleasePoolPop(v14);
@@ -3584,8 +3499,6 @@ void __82__HMDAccessoryFirmwareUpdateSession_handleFirmwareUpdateStateChangedNot
   {
     [v6 stagingComplete];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAccessoryStagedFirmwareVersion
@@ -3605,7 +3518,7 @@ void __82__HMDAccessoryFirmwareUpdateSession_handleFirmwareUpdateStateChangedNot
 
 void __73__HMDAccessoryFirmwareUpdateSession_updateAccessoryStagedFirmwareVersion__block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = [WeakRetained hapAccessory];
   v3 = [v2 firmwareUpdateProfile];
@@ -3619,13 +3532,13 @@ void __73__HMDAccessoryFirmwareUpdateSession_updateAccessoryStagedFirmwareVersio
     v8 = HMFGetLogIdentifier();
     v9 = [v6 uarpAccessory];
     v10 = [v9 stagedFirmwareVersion];
-    v38 = 138543874;
-    v39 = v8;
-    v40 = 2112;
-    v41 = v10;
-    v42 = 2112;
-    v43 = v4;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Staged firmware version changed from %@ to %@", &v38, 0x20u);
+    v37 = 138543874;
+    v38 = v8;
+    v39 = 2112;
+    v40 = v10;
+    v41 = 2112;
+    v42 = v4;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Staged firmware version changed from %@ to %@", &v37, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -3650,9 +3563,9 @@ void __73__HMDAccessoryFirmwareUpdateSession_updateAccessoryStagedFirmwareVersio
       if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
       {
         v31 = HMFGetLogIdentifier();
-        v38 = 138543362;
-        v39 = v31;
-        _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@Updated UARP staged firmware version property", &v38, 0xCu);
+        v37 = 138543362;
+        v38 = v31;
+        _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@Updated UARP staged firmware version property", &v37, 0xCu);
       }
 
       objc_autoreleasePoolPop(v27);
@@ -3665,17 +3578,17 @@ LABEL_19:
         goto LABEL_20;
       }
 
-      v34 = [v28 availableSoftwareVersion];
-      if (v34)
+      v33 = [v28 availableSoftwareVersion];
+      if (v33)
       {
 
         goto LABEL_19;
       }
 
-      v35 = [v28 uarpAccessory];
-      v36 = [v23 checkForUpdate:v35];
+      v34 = [v28 uarpAccessory];
+      v35 = [v23 checkForUpdate:v34];
 
-      if (v36)
+      if (v35)
       {
         goto LABEL_19;
       }
@@ -3686,14 +3599,14 @@ LABEL_19:
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         v32 = HMFGetLogIdentifier();
-        v37 = [v28 uarpAccessory];
-        v38 = 138543874;
-        v39 = v32;
-        v40 = 2112;
-        v41 = v2;
-        v42 = 2112;
-        v43 = v37;
-        _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@checkForUpdate failed for accessory %@ %@", &v38, 0x20u);
+        v36 = [v28 uarpAccessory];
+        v37 = 138543874;
+        v38 = v32;
+        v39 = 2112;
+        v40 = v2;
+        v41 = 2112;
+        v42 = v36;
+        _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@checkForUpdate failed for accessory %@ %@", &v37, 0x20u);
 
         goto LABEL_17;
       }
@@ -3702,9 +3615,9 @@ LABEL_19:
     else if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       v32 = HMFGetLogIdentifier();
-      v38 = 138543362;
-      v39 = v32;
-      _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@Failed to update UARP staged firmware version property", &v38, 0xCu);
+      v37 = 138543362;
+      v38 = v32;
+      _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@Failed to update UARP staged firmware version property", &v37, 0xCu);
 LABEL_17:
     }
 
@@ -3719,11 +3632,11 @@ LABEL_17:
   {
     v17 = HMFGetLogIdentifier();
     v18 = [v15 availableSoftwareVersion];
-    v38 = 138543618;
-    v39 = v17;
-    v40 = 2112;
-    v41 = v18;
-    _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Staged firmware version newer than available version (%@)", &v38, 0x16u);
+    v37 = 138543618;
+    v38 = v17;
+    v39 = 2112;
+    v40 = v18;
+    _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Staged firmware version newer than available version (%@)", &v37, 0x16u);
   }
 
   objc_autoreleasePoolPop(v14);
@@ -3735,17 +3648,15 @@ LABEL_17:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       v22 = HMFGetLogIdentifier();
-      v38 = 138543362;
-      v39 = v22;
-      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Error request UARP to check for available updates", &v38, 0xCu);
+      v37 = 138543362;
+      v38 = v22;
+      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Error request UARP to check for available updates", &v37, 0xCu);
     }
 
     objc_autoreleasePoolPop(v19);
   }
 
 LABEL_20:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAccessoryFirmwareVersion
@@ -3765,7 +3676,7 @@ LABEL_20:
 
 void __67__HMDAccessoryFirmwareUpdateSession_updateAccessoryFirmwareVersion__block_invoke(uint64_t a1)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = [WeakRetained hapAccessory];
   v3 = [WeakRetained accessoryFirmwareUpdateManager];
@@ -3790,13 +3701,13 @@ LABEL_4:
         v28 = HMFGetLogIdentifier();
         v29 = [v25 accessoryVersion];
         *buf = 138544130;
-        v42 = v28;
-        v43 = 2112;
-        v44 = v2;
-        v45 = 2112;
-        v46 = v6;
-        v47 = 2112;
-        v48 = v29;
+        v41 = v28;
+        v42 = 2112;
+        v43 = v2;
+        v44 = 2112;
+        v45 = v6;
+        v46 = 2112;
+        v47 = v29;
         _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_INFO, "%{public}@Accessory %@: UARP accessory firmware version property updated to %@ (accessoryVersion is %@)", buf, 0x2Au);
       }
 
@@ -3812,7 +3723,7 @@ LABEL_4:
       {
         v30 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v42 = v30;
+        v41 = v30;
         _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to update UARP accessory firmware version property", buf, 0xCu);
       }
 
@@ -3822,17 +3733,17 @@ LABEL_4:
     goto LABEL_14;
   }
 
-  v39 = v6;
-  v40 = v4;
-  v37 = [WeakRetained assetID];
-  v7 = [v37 assetVersionNumber];
+  v38 = v6;
+  v39 = v4;
+  v36 = [WeakRetained assetID];
+  v7 = [v36 assetVersionNumber];
   v8 = MEMORY[0x277CCABB0];
   v9 = [v2 firmwareVersion];
   v10 = [v8 numberWithUnsignedInteger:{objc_msgSend(v9, "majorVersion")}];
   [WeakRetained assetID];
   v12 = v11 = v2;
   v13 = [v12 assetVersion];
-  v38 = v11;
+  v37 = v11;
   v14 = [v11 displayableFirmwareVersion];
   v15 = [WeakRetained uarpAccessory];
   v16 = [v15 firmwareVersion];
@@ -3840,19 +3751,19 @@ LABEL_4:
 
   if (v17)
   {
-    v2 = v38;
-    v18 = [v38 firmwareUpdateProfile];
+    v2 = v37;
+    v18 = [v37 firmwareUpdateProfile];
     v19 = [v18 matterFirmwareUpdateProfile];
     v20 = [v19 matterFirmwareRevisionNumber];
 
     v21 = [v20 stringValue];
 
     v6 = v21;
-    v4 = v40;
+    v4 = v39;
     goto LABEL_4;
   }
 
-  v2 = v38;
+  v2 = v37;
   v31 = objc_autoreleasePoolPush();
   v32 = WeakRetained;
   v33 = HMFGetOSLogHandle();
@@ -3860,20 +3771,18 @@ LABEL_4:
   {
     v34 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v42 = v34;
+    v41 = v34;
     _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_INFO, "%{public}@Waiting for version number and version string to be in sync before proceeding", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v31);
-  v22 = [v38 firmwareUpdateProfile];
+  v22 = [v37 firmwareUpdateProfile];
   v35 = [v22 matterFirmwareUpdateProfile];
   [v35 readMatterFirmwareUpdateCharacteristics];
 
-  v6 = v39;
-  v4 = v40;
+  v6 = v38;
+  v4 = v39;
 LABEL_14:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldUpdateUarpAccessoryVersion:(id)version matterFirmwareRevisionNumber:(id)number assetVersionString:(id)string matterFirmwareRevisionString:(id)revisionString uarpAccessoryVersion:(id)accessoryVersion
@@ -3888,7 +3797,7 @@ LABEL_14:
 
 - (BOOL)_isAccessoryVersionInSyncWithAssetVersion:(id)version matterFirmwareRevisionNumber:(id)number assetVersionString:(id)string matterFirmwareRevisionString:(id)revisionString
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   versionCopy = version;
   numberCopy = number;
   stringCopy = string;
@@ -3897,7 +3806,7 @@ LABEL_14:
   if (stringValue)
   {
     v15 = [versionCopy isEqualToValue:numberCopy];
-    v39 = [stringCopy isEqualToString:revisionStringCopy];
+    v38 = [stringCopy isEqualToString:revisionStringCopy];
     v16 = objc_autoreleasePoolPush();
     selfCopy = self;
     v18 = HMFGetOSLogHandle();
@@ -3905,23 +3814,23 @@ LABEL_14:
     {
       v19 = HMFGetLogIdentifier();
       HMFBooleanToString();
-      v37 = stringCopy;
-      v38 = revisionStringCopy;
+      v36 = stringCopy;
+      v37 = revisionStringCopy;
       v21 = v20 = versionCopy;
       HMFBooleanToString();
       v23 = v22 = v15;
       *buf = 138543874;
-      v41 = v19;
-      v42 = 2112;
-      v43 = v21;
-      v44 = 2112;
-      v45 = v23;
+      v40 = v19;
+      v41 = 2112;
+      v42 = v21;
+      v43 = 2112;
+      v44 = v23;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@isAccessoryVersionInSyncWithAssetVersion: VersionNumberInSync : %@, VersionStringInSync: %@", buf, 0x20u);
 
       v15 = v22;
       versionCopy = v20;
-      stringCopy = v37;
-      revisionStringCopy = v38;
+      stringCopy = v36;
+      revisionStringCopy = v37;
     }
 
     objc_autoreleasePoolPop(v16);
@@ -3933,22 +3842,22 @@ LABEL_14:
       HMFGetLogIdentifier();
       v28 = v27 = v15;
       *buf = 138544386;
-      v41 = v28;
-      v42 = 2112;
-      v43 = versionCopy;
-      v44 = 2112;
-      v45 = numberCopy;
-      v46 = 2112;
-      v47 = stringCopy;
-      v48 = 2112;
-      v49 = revisionStringCopy;
+      v40 = v28;
+      v41 = 2112;
+      v42 = versionCopy;
+      v43 = 2112;
+      v44 = numberCopy;
+      v45 = 2112;
+      v46 = stringCopy;
+      v47 = 2112;
+      v48 = revisionStringCopy;
       _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@isAccessoryVersionInSyncWithAssetVersion: AssetVersionNumber: %@, MatterFirmwareRevisionNumber: %@, AssetVersionString %@, FirmwareVersionString: %@", buf, 0x34u);
 
       v15 = v27;
     }
 
     objc_autoreleasePoolPop(v24);
-    v29 = v15 & v39;
+    v29 = v15 & v38;
   }
 
   else
@@ -3961,9 +3870,9 @@ LABEL_14:
     {
       v34 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v41 = v34;
-      v42 = 2112;
-      v43 = 0;
+      v40 = v34;
+      v41 = 2112;
+      v42 = 0;
       _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_ERROR, "%{public}@Matter firmware version is invalid: %@", buf, 0x16u);
     }
 
@@ -3972,13 +3881,12 @@ LABEL_14:
     versionCopy = v30;
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
 - (BOOL)_isMatterFirmwareVersionMatchingOrNewerThanUARP:(id)p matterFirmwareRevisionNumber:(id)number uarpAccessoryVersion:(id)version
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   pCopy = p;
   numberCopy = number;
   versionCopy = version;
@@ -3994,11 +3902,11 @@ LABEL_14:
     }
 
     v29 = HMFGetLogIdentifier();
-    v33 = 138543362;
-    v34 = v29;
+    v32 = 138543362;
+    v33 = v29;
     v30 = "%{public}@Matter firmware version number is not available to be compared";
 LABEL_19:
-    _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, v30, &v33, 0xCu);
+    _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, v30, &v32, 0xCu);
 
     goto LABEL_20;
   }
@@ -4014,8 +3922,8 @@ LABEL_19:
     }
 
     v29 = HMFGetLogIdentifier();
-    v33 = 138543362;
-    v34 = v29;
+    v32 = 138543362;
+    v33 = v29;
     v30 = "%{public}@UARP firmware version number is not available to be compared";
     goto LABEL_19;
   }
@@ -4028,8 +3936,8 @@ LABEL_19:
     if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       v29 = HMFGetLogIdentifier();
-      v33 = 138543362;
-      v34 = v29;
+      v32 = 138543362;
+      v33 = v29;
       v30 = "%{public}@asset version number is not available to be compared";
       goto LABEL_19;
     }
@@ -4049,13 +3957,13 @@ LABEL_20:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     v17 = HMFGetLogIdentifier();
-    v33 = 138543874;
-    v34 = v17;
-    v35 = 2112;
-    v36 = v12;
-    v37 = 2112;
-    v38 = v13;
-    _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Version mismatch detected. Comparing Matter firmware = %@ and UARP version = %@", &v33, 0x20u);
+    v32 = 138543874;
+    v33 = v17;
+    v34 = 2112;
+    v35 = v12;
+    v36 = 2112;
+    v37 = v13;
+    _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Version mismatch detected. Comparing Matter firmware = %@ and UARP version = %@", &v32, 0x20u);
   }
 
   objc_autoreleasePoolPop(v14);
@@ -4072,15 +3980,15 @@ LABEL_20:
     v21 = HMFGetLogIdentifier();
     unsignedLongLongValue = [numberCopy unsignedLongLongValue];
     unsignedLongLongValue2 = [pCopy unsignedLongLongValue];
-    v33 = 138544130;
-    v34 = v21;
-    v35 = 2048;
-    v36 = unsignedLongLongValue;
-    v37 = 2112;
-    v38 = v13;
-    v39 = 2048;
-    v40 = unsignedLongLongValue2;
-    _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Matter firmware version = %llu is larger than UARP version = %@ with valid asset version number = %llu", &v33, 0x2Au);
+    v32 = 138544130;
+    v33 = v21;
+    v34 = 2048;
+    v35 = unsignedLongLongValue;
+    v36 = 2112;
+    v37 = v13;
+    v38 = 2048;
+    v39 = unsignedLongLongValue2;
+    _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Matter firmware version = %llu is larger than UARP version = %@ with valid asset version number = %llu", &v32, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v18);
@@ -4097,13 +4005,12 @@ LABEL_15:
   }
 
 LABEL_21:
-  v31 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
 - (void)handleAccessoryFirmwareVersionChangedNotification:(id)notification
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -4111,20 +4018,18 @@ LABEL_21:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Received accessory firmware updated notification", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Received accessory firmware updated notification", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMDAccessoryFirmwareUpdateSession *)selfCopy updateAccessoryFirmwareVersion];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAccessoryVIDPIDChangedNotification:(id)notification
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -4132,20 +4037,18 @@ LABEL_21:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Received matter VID PID updated notification", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Received matter VID PID updated notification", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMDAccessoryFirmwareUpdateSession *)selfCopy updateAccessoryVendorIDAndProductID];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAccessoryFirmwareVersionNumberChangedNotification:(id)notification
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -4153,20 +4056,18 @@ LABEL_21:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Received accessory firmware version number updated notification", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Received accessory firmware version number updated notification", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMDAccessoryFirmwareUpdateSession *)selfCopy updateAccessoryFirmwareVersion];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateSoftwareUpdateStateForMatterAccessoryWithState:(unint64_t)state
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if (state == 1)
   {
     hapAccessory = [(HMDAccessoryFirmwareUpdateSession *)self hapAccessory];
@@ -4182,15 +4083,15 @@ LABEL_21:
       {
         v11 = HMFGetLogIdentifier();
         uarpAccessory = [(HMDAccessoryFirmwareUpdateSession *)selfCopy uarpAccessory];
-        v28 = 138544130;
-        v29 = v11;
-        v30 = 2112;
-        v31 = hapAccessory;
-        v32 = 2112;
-        v33 = uarpAccessory;
-        v34 = 2112;
-        v35 = softwareUpdate;
-        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Update is already installed for acc:%@ uarpAcc:%@ softwareUpdate:%@", &v28, 0x2Au);
+        v27 = 138544130;
+        v28 = v11;
+        v29 = 2112;
+        v30 = hapAccessory;
+        v31 = 2112;
+        v32 = uarpAccessory;
+        v33 = 2112;
+        v34 = softwareUpdate;
+        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Update is already installed for acc:%@ uarpAcc:%@ softwareUpdate:%@", &v27, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -4221,11 +4122,11 @@ LABEL_21:
     {
       v25 = HMFGetLogIdentifier();
       v26 = HMSoftwareUpdateStateToString();
-      v28 = 138543618;
-      v29 = v25;
-      v30 = 2112;
-      v31 = v26;
-      _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Marking Update as %@, matter accessory will trigger staging by itself.", &v28, 0x16u);
+      v27 = 138543618;
+      v28 = v25;
+      v29 = 2112;
+      v30 = v26;
+      _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Marking Update as %@, matter accessory will trigger staging by itself.", &v27, 0x16u);
     }
 
     objc_autoreleasePoolPop(v22);
@@ -4252,23 +4153,21 @@ LABEL_21:
         v20 = @"Needs Register";
       }
 
-      v28 = 138543618;
-      v29 = v18;
-      v30 = 2112;
-      v31 = v20;
+      v27 = 138543618;
+      v28 = v18;
+      v29 = 2112;
+      v30 = v20;
       v21 = v20;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Unsupported state %@ for Matter Accessory, ignoring.", &v28, 0x16u);
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Unsupported state %@ for Matter Accessory, ignoring.", &v27, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cancelApplyTimer
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -4283,7 +4182,7 @@ LABEL_21:
 
     if (!expectedApplyDurationTimer)
     {
-      goto LABEL_7;
+      return;
     }
   }
 
@@ -4293,9 +4192,9 @@ LABEL_21:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v13 = 138543362;
-    v14 = v9;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Apply timer cancelled", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = v9;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Apply timer cancelled", &v12, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -4307,13 +4206,11 @@ LABEL_21:
   [expectedApplyDurationTimer2 cancel];
 
   [(HMDAccessoryFirmwareUpdateSession *)selfCopy setExpectedApplyDurationTimer:0];
-LABEL_7:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_endSession
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -4338,9 +4235,9 @@ LABEL_7:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         v11 = HMFGetLogIdentifier();
-        v24 = 138543362;
-        v25 = v11;
-        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Couldn't get a strong ref to the software update provider delegate", &v24, 0xCu);
+        v23 = 138543362;
+        v24 = v11;
+        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Couldn't get a strong ref to the software update provider delegate", &v23, 0xCu);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -4357,11 +4254,11 @@ LABEL_7:
     v15 = HMFGetLogIdentifier();
     [(HMDAccessoryFirmwareUpdateSession *)selfCopy2 sessionEnded];
     v16 = HMFBooleanToString();
-    v24 = 138543618;
-    v25 = v15;
-    v26 = 2112;
-    v27 = v16;
-    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Session ended (already ended: %@)", &v24, 0x16u);
+    v23 = 138543618;
+    v24 = v15;
+    v25 = 2112;
+    v26 = v16;
+    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Session ended (already ended: %@)", &v23, 0x16u);
   }
 
   objc_autoreleasePoolPop(v12);
@@ -4385,13 +4282,11 @@ LABEL_7:
     updateScheduler = [(HMDAccessoryFirmwareUpdateSession *)selfCopy2 updateScheduler];
     [updateScheduler removeUpdatePolicy];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_schedule
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -4406,13 +4301,13 @@ LABEL_7:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       v18 = HMFGetLogIdentifier();
-      v24 = 138543362;
-      v25 = v18;
+      v23 = 138543362;
+      v24 = v18;
       v19 = "%{public}@Update successful";
       v20 = v17;
       v21 = OS_LOG_TYPE_INFO;
 LABEL_21:
-      _os_log_impl(&dword_229538000, v20, v21, v19, &v24, 0xCu);
+      _os_log_impl(&dword_229538000, v20, v21, v19, &v23, 0xCu);
     }
 
 LABEL_22:
@@ -4436,8 +4331,8 @@ LABEL_22:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         v18 = HMFGetLogIdentifier();
-        v24 = 138543362;
-        v25 = v18;
+        v23 = 138543362;
+        v24 = v18;
         v19 = "%{public}@No more staging retries for this accessory's firmware update session";
         v20 = v17;
         v21 = OS_LOG_TYPE_ERROR;
@@ -4472,11 +4367,11 @@ LABEL_22:
         v14 = off_27867DF80[internalState2 - 1];
       }
 
-      v24 = 138543618;
-      v25 = v12;
-      v26 = 2112;
-      v27 = v14;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Scheduling next operation, state %@", &v24, 0x16u);
+      v23 = 138543618;
+      v24 = v12;
+      v25 = 2112;
+      v26 = v14;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Scheduling next operation, state %@", &v23, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -4485,13 +4380,11 @@ LABEL_22:
   }
 
 LABEL_23:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_applyFailed
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -4503,11 +4396,11 @@ LABEL_23:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v9;
-      v17 = 2080;
-      v18 = "[HMDAccessoryFirmwareUpdateSession _applyFailed]";
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@%s: Matter Accessory responsible for managing firmware application. No action taken.", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v9;
+      v16 = 2080;
+      v17 = "[HMDAccessoryFirmwareUpdateSession _applyFailed]";
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@%s: Matter Accessory responsible for managing firmware application. No action taken.", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -4521,9 +4414,9 @@ LABEL_23:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v13;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Apply did not complete or failed in the accessory", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v13;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Apply did not complete or failed in the accessory", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -4547,13 +4440,11 @@ LABEL_23:
       [(HMDAccessoryFirmwareUpdateSession *)selfCopy2 _endSession];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stagingFailed
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -4566,11 +4457,11 @@ LABEL_23:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v21 = 138543618;
-      v22 = v8;
-      v23 = 2080;
-      v24 = "[HMDAccessoryFirmwareUpdateSession _stagingFailed]";
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@%s: Matter Accessory responsible for managing firmware staging. No action taken.", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v8;
+      v22 = 2080;
+      v23 = "[HMDAccessoryFirmwareUpdateSession _stagingFailed]";
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@%s: Matter Accessory responsible for managing firmware staging. No action taken.", &v20, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -4584,9 +4475,9 @@ LABEL_23:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v12;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Staging failed", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v12;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Staging failed", &v20, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -4608,16 +4499,14 @@ LABEL_23:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         v19 = HMFGetLogIdentifier();
-        v21 = 138543362;
-        v22 = v19;
-        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@No more staging retries for this accessory's firmware update session", &v21, 0xCu);
+        v20 = 138543362;
+        v21 = v19;
+        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@No more staging retries for this accessory's firmware update session", &v20, 0xCu);
       }
 
       objc_autoreleasePoolPop(v16);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_automaticUpdateEnabledChanged:(BOOL)changed
@@ -4649,13 +4538,13 @@ LABEL_23:
 
 void __74__HMDAccessoryFirmwareUpdateSession__handleAutomaticUpdateEnabledChanged___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v10 = 0;
+  v9 = 0;
   v3 = [*(a1 + 32) userInfo];
-  v4 = [v3 hmf_BOOLForKey:@"kEnabledKey" isPresent:&v10];
+  v4 = [v3 hmf_BOOLForKey:@"kEnabledKey" isPresent:&v9];
 
-  if (v10)
+  if (v9)
   {
     [WeakRetained _automaticUpdateEnabledChanged:v4];
   }
@@ -4669,19 +4558,17 @@ void __74__HMDAccessoryFirmwareUpdateSession__handleAutomaticUpdateEnabledChange
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v12 = v8;
+      v11 = v8;
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Notification missing required key", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (double)_expectedApplyDuration
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -4697,16 +4584,15 @@ void __74__HMDAccessoryFirmwareUpdateSession__handleAutomaticUpdateEnabledChange
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v10;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Expected duration is not set - default to minimum apply duration", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v10;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Expected duration is not set - default to minimum apply duration", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
     updateDuration = minimumApplyDurationAllowance();
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return updateDuration;
 }
 
@@ -4747,7 +4633,7 @@ void __74__HMDAccessoryFirmwareUpdateSession__handleAutomaticUpdateEnabledChange
   return v4;
 }
 
-uint64_t __58__HMDAccessoryFirmwareUpdateSession_expectedApplyDuration__block_invoke(uint64_t a1)
+void *__58__HMDAccessoryFirmwareUpdateSession_expectedApplyDuration__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _expectedApplyDuration];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -4774,7 +4660,7 @@ uint64_t __58__HMDAccessoryFirmwareUpdateSession_expectedApplyDuration__block_in
   return v4;
 }
 
-uint64_t __57__HMDAccessoryFirmwareUpdateSession_allowedApplyDuration__block_invoke(uint64_t a1)
+void *__57__HMDAccessoryFirmwareUpdateSession_allowedApplyDuration__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _allowedApplyDuration];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -4783,7 +4669,7 @@ uint64_t __57__HMDAccessoryFirmwareUpdateSession_allowedApplyDuration__block_inv
 
 - (void)startApplyDurationTimers
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   [(HMDAccessoryFirmwareUpdateSession *)self _allowedApplyDuration];
   v4 = v3;
   allowedApplyDurationTimer = [(HMDAccessoryFirmwareUpdateSession *)self allowedApplyDurationTimer];
@@ -4820,11 +4706,11 @@ uint64_t __57__HMDAccessoryFirmwareUpdateSession_allowedApplyDuration__block_inv
   {
     v18 = HMFGetLogIdentifier();
     v19 = [MEMORY[0x277CCABB0] numberWithDouble:v4];
-    v23 = 138543618;
-    v24 = v18;
-    v25 = 2112;
-    v26 = v19;
-    _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Waiting up to %@ seconds for accessory to apply update", &v23, 0x16u);
+    v22 = 138543618;
+    v23 = v18;
+    v24 = 2112;
+    v25 = v19;
+    _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Waiting up to %@ seconds for accessory to apply update", &v22, 0x16u);
   }
 
   objc_autoreleasePoolPop(v15);
@@ -4833,13 +4719,11 @@ uint64_t __57__HMDAccessoryFirmwareUpdateSession_allowedApplyDuration__block_inv
 
   expectedApplyDurationTimer3 = [(HMDAccessoryFirmwareUpdateSession *)selfCopy expectedApplyDurationTimer];
   [expectedApplyDurationTimer3 resume];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_applyFirmware
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -4853,9 +4737,9 @@ uint64_t __57__HMDAccessoryFirmwareUpdateSession_allowedApplyDuration__block_inv
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v32 = v8;
-      v33 = 2080;
-      v34 = "[HMDAccessoryFirmwareUpdateSession _applyFirmware]";
+      v31 = v8;
+      v32 = 2080;
+      v33 = "[HMDAccessoryFirmwareUpdateSession _applyFirmware]";
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@%s: Matter Accessory responsible for managing firmware application. No action taken.", buf, 0x16u);
     }
 
@@ -4875,14 +4759,14 @@ uint64_t __57__HMDAccessoryFirmwareUpdateSession_allowedApplyDuration__block_inv
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v32 = v14;
+      v31 = v14;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@telling uarpController to apply asset", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
     uarpAccessory = [(HMDAccessoryFirmwareUpdateSession *)selfCopy2 uarpAccessory];
-    v30 = uarpAccessory;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+    v29 = uarpAccessory;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
     v17 = [v10 applyFirmwareUpdateOnAccessoryList:v16 withUserIntent:{-[HMDAccessoryFirmwareUpdateSession isUserInitiatedInstall](selfCopy2, "isUserInitiatedInstall")}];
 
     if (v17)
@@ -4905,9 +4789,9 @@ uint64_t __57__HMDAccessoryFirmwareUpdateSession_allowedApplyDuration__block_inv
         {
           v28 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v32 = v28;
-          v33 = 2112;
-          v34 = hapAccessory;
+          v31 = v28;
+          v32 = 2112;
+          v33 = hapAccessory;
           _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@No firmwareUpdateProfile for accessory: %@", buf, 0x16u);
         }
 
@@ -4927,22 +4811,20 @@ uint64_t __57__HMDAccessoryFirmwareUpdateSession_allowedApplyDuration__block_inv
         v23 = HMFGetLogIdentifier();
         uarpAccessory2 = [(HMDAccessoryFirmwareUpdateSession *)v21 uarpAccessory];
         *buf = 138543618;
-        v32 = v23;
-        v33 = 2112;
-        v34 = uarpAccessory2;
+        v31 = v23;
+        v32 = 2112;
+        v33 = uarpAccessory2;
         _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@applyFirmwareUpdateOnAccessoryList failed for %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v20);
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applyFirmware
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -4956,9 +4838,9 @@ uint64_t __57__HMDAccessoryFirmwareUpdateSession_allowedApplyDuration__block_inv
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v8;
-      v30 = 2080;
-      v31 = "[HMDAccessoryFirmwareUpdateSession applyFirmware]";
+      v28 = v8;
+      v29 = 2080;
+      v30 = "[HMDAccessoryFirmwareUpdateSession applyFirmware]";
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@%s: Matter Accessory responsible for managing firmware application. No action taken.", buf, 0x16u);
     }
 
@@ -4989,11 +4871,11 @@ uint64_t __57__HMDAccessoryFirmwareUpdateSession_allowedApplyDuration__block_inv
             availableSoftwareVersion2 = [(HMDAccessoryFirmwareUpdateSession *)selfCopy2 availableSoftwareVersion];
             shortVersionString = [availableSoftwareVersion2 shortVersionString];
             *buf = 138543874;
-            v29 = v17;
-            v30 = 2112;
-            v31 = stagedFirmwareVersion;
-            v32 = 2112;
-            v33 = shortVersionString;
+            v28 = v17;
+            v29 = 2112;
+            v30 = stagedFirmwareVersion;
+            v31 = 2112;
+            v32 = shortVersionString;
             _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Staged version %@ is different then available version %@", buf, 0x20u);
           }
 
@@ -5003,17 +4885,17 @@ uint64_t __57__HMDAccessoryFirmwareUpdateSession_allowedApplyDuration__block_inv
 
         else
         {
-          v27[0] = MEMORY[0x277D85DD0];
-          v27[1] = 3221225472;
-          v27[2] = __50__HMDAccessoryFirmwareUpdateSession_applyFirmware__block_invoke;
-          v27[3] = &unk_278682310;
-          v27[4] = self;
           v26[0] = MEMORY[0x277D85DD0];
           v26[1] = 3221225472;
-          v26[2] = __50__HMDAccessoryFirmwareUpdateSession_applyFirmware__block_invoke_2;
-          v26[3] = &unk_27868A250;
+          v26[2] = __50__HMDAccessoryFirmwareUpdateSession_applyFirmware__block_invoke;
+          v26[3] = &unk_278682310;
           v26[4] = self;
-          [(HMDAccessoryFirmwareUpdateSession *)self _withOpenSocketDoBlock:v27 error:v26];
+          v25[0] = MEMORY[0x277D85DD0];
+          v25[1] = 3221225472;
+          v25[2] = __50__HMDAccessoryFirmwareUpdateSession_applyFirmware__block_invoke_2;
+          v25[3] = &unk_27868A250;
+          v25[4] = self;
+          [(HMDAccessoryFirmwareUpdateSession *)self _withOpenSocketDoBlock:v26 error:v25];
         }
       }
 
@@ -5028,9 +4910,9 @@ uint64_t __57__HMDAccessoryFirmwareUpdateSession_allowedApplyDuration__block_inv
           [hapAccessory isAutomaticThirdPartyAccessorySoftwareUpdateEnabled];
           v24 = HMFEnabledStatusToString();
           *buf = 138543618;
-          v29 = v23;
-          v30 = 2112;
-          v31 = v24;
+          v28 = v23;
+          v29 = 2112;
+          v30 = v24;
           _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Not auto applying firmware update because isAutomaticThirdPartyAccessorySoftwareUpdateEnabled = %@", buf, 0x16u);
         }
 
@@ -5038,8 +4920,6 @@ uint64_t __57__HMDAccessoryFirmwareUpdateSession_allowedApplyDuration__block_inv
       }
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __50__HMDAccessoryFirmwareUpdateSession_applyFirmware__block_invoke(uint64_t a1)
@@ -5053,7 +4933,7 @@ void __50__HMDAccessoryFirmwareUpdateSession_applyFirmware__block_invoke(uint64_
 
 - (void)stagingComplete
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -5066,11 +4946,11 @@ void __50__HMDAccessoryFirmwareUpdateSession_applyFirmware__block_invoke(uint64_
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v8;
-      v17 = 2080;
-      v18 = "[HMDAccessoryFirmwareUpdateSession stagingComplete]";
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@%s: Matter Accessory responsible for managing firmware staging. No action taken.", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v8;
+      v16 = 2080;
+      v17 = "[HMDAccessoryFirmwareUpdateSession stagingComplete]";
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@%s: Matter Accessory responsible for managing firmware staging. No action taken.", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -5088,9 +4968,9 @@ void __50__HMDAccessoryFirmwareUpdateSession_applyFirmware__block_invoke(uint64_
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         v12 = HMFGetLogIdentifier();
-        v15 = 138543362;
-        v16 = v12;
-        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Staging complete", &v15, 0xCu);
+        v14 = 138543362;
+        v15 = v12;
+        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Staging complete", &v14, 0xCu);
       }
 
       objc_autoreleasePoolPop(v9);
@@ -5103,13 +4983,11 @@ void __50__HMDAccessoryFirmwareUpdateSession_applyFirmware__block_invoke(uint64_
       [home reevaluateAccessoryInfo];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stageFirmware
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -5123,9 +5001,9 @@ void __50__HMDAccessoryFirmwareUpdateSession_applyFirmware__block_invoke(uint64_
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v14 = v8;
-      v15 = 2080;
-      v16 = "[HMDAccessoryFirmwareUpdateSession stageFirmware]";
+      v13 = v8;
+      v14 = 2080;
+      v15 = "[HMDAccessoryFirmwareUpdateSession stageFirmware]";
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@%s: firmware has been downloaded for Matter Accessory. Matter Accessory responsible for staging firmware. No action taken.", buf, 0x16u);
     }
 
@@ -5134,32 +5012,30 @@ void __50__HMDAccessoryFirmwareUpdateSession_applyFirmware__block_invoke(uint64_
 
   else
   {
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __50__HMDAccessoryFirmwareUpdateSession_stageFirmware__block_invoke;
-    v11[3] = &unk_27867F418;
-    v11[4] = self;
-    v12 = hapAccessory;
     v10[0] = MEMORY[0x277D85DD0];
     v10[1] = 3221225472;
-    v10[2] = __50__HMDAccessoryFirmwareUpdateSession_stageFirmware__block_invoke_105;
-    v10[3] = &unk_27868A250;
+    v10[2] = __50__HMDAccessoryFirmwareUpdateSession_stageFirmware__block_invoke;
+    v10[3] = &unk_27867F418;
     v10[4] = self;
-    [(HMDAccessoryFirmwareUpdateSession *)self _withOpenSocketDoBlock:v11 error:v10];
+    v11 = hapAccessory;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __50__HMDAccessoryFirmwareUpdateSession_stageFirmware__block_invoke_105;
+    v9[3] = &unk_27868A250;
+    v9[4] = self;
+    [(HMDAccessoryFirmwareUpdateSession *)self _withOpenSocketDoBlock:v10 error:v9];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __50__HMDAccessoryFirmwareUpdateSession_stageFirmware__block_invoke(uint64_t a1)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) accessoryFirmwareUpdateManager];
   v3 = [v2 UARPControllerForAccessory:*(a1 + 40)];
 
   v4 = [*(a1 + 32) uarpAccessory];
-  v17[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v16[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
   v6 = [v3 stageFirmwareUpdateOnAccessoryList:v5 withUserIntent:{objc_msgSend(*(a1 + 32), "isUserInitiatedInstall")}];
 
   v7 = objc_autoreleasePoolPush();
@@ -5171,9 +5047,9 @@ void __50__HMDAccessoryFirmwareUpdateSession_stageFirmware__block_invoke(uint64_
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v11;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@UARP initiated asset staging", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v11;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@UARP initiated asset staging", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -5188,20 +5064,18 @@ void __50__HMDAccessoryFirmwareUpdateSession_stageFirmware__block_invoke(uint64_
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v13;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to initiate asset staging in UARP controller", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v13;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to initiate asset staging in UARP controller", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)nextStateToSchedule
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   accessoryVersion = [(HMDAccessoryFirmwareUpdateSession *)self accessoryVersion];
   hapAccessory = [(HMDAccessoryFirmwareUpdateSession *)self hapAccessory];
   firmwareUpdateProfile = [hapAccessory firmwareUpdateProfile];
@@ -5254,9 +5128,9 @@ LABEL_6:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         v15 = HMFGetLogIdentifier();
-        v18 = 138543362;
-        v19 = v15;
-        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Unhandled version combination in nextStateToSchedule", &v18, 0xCu);
+        v17 = 138543362;
+        v18 = v15;
+        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Unhandled version combination in nextStateToSchedule", &v17, 0xCu);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -5287,13 +5161,12 @@ LABEL_18:
 
 LABEL_25:
 
-  v16 = *MEMORY[0x277D85DE8];
   return internalState;
 }
 
 - (BOOL)isReadyToApplyUpdate
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   hapAccessory = [(HMDAccessoryFirmwareUpdateSession *)self hapAccessory];
   firmwareUpdateProfile = [hapAccessory firmwareUpdateProfile];
 
@@ -5311,26 +5184,26 @@ LABEL_25:
   v11 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v20 = HMFGetLogIdentifier();
-    v19 = HMFBooleanToString();
+    v19 = HMFGetLogIdentifier();
+    v18 = HMFBooleanToString();
     [firmwareUpdateProfile updateNotReadyReasons];
-    v18 = HAPUpdateNotReadyReasonsAsString();
+    v17 = HAPUpdateNotReadyReasonsAsString();
     v12 = HMFBooleanToString();
     [firmwareUpdateProfile updateState];
     v13 = HAPFirmwareUpdateStateAsString();
     v14 = HMFBooleanToString();
     *buf = 138544642;
-    v22 = v20;
-    v23 = 2112;
-    v24 = v19;
-    v25 = 2114;
-    v26 = v18;
-    v27 = 2112;
-    v28 = v12;
-    v29 = 2112;
-    v30 = v13;
-    v31 = 2112;
-    v32 = v14;
+    v21 = v19;
+    v22 = 2112;
+    v23 = v18;
+    v24 = 2114;
+    v25 = v17;
+    v26 = 2112;
+    v27 = v12;
+    v28 = 2112;
+    v29 = v13;
+    v30 = 2112;
+    v31 = v14;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Not ready for applying update - Not ready reason: %@ (%{public}@), updateState %@ (%@), isFirmwareVersionUpToDate %@", buf, 0x3Eu);
   }
 
@@ -5346,13 +5219,12 @@ LABEL_8:
     v15 = updateState == 3 && !v8;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (BOOL)isCurrentUpdateLatest
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   availableSoftwareVersion = [(HMDAccessoryFirmwareUpdateSession *)self availableSoftwareVersion];
   if (availableSoftwareVersion)
   {
@@ -5379,22 +5251,21 @@ LABEL_8:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v9;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@No available version from UARP", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v9;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@No available version from UARP", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
     v5 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (BOOL)isReadyForStaging
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   hapAccessory = [(HMDAccessoryFirmwareUpdateSession *)self hapAccessory];
   firmwareUpdateProfile = [hapAccessory firmwareUpdateProfile];
 
@@ -5412,26 +5283,26 @@ LABEL_8:
   v11 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v20 = HMFGetLogIdentifier();
-    v19 = HMFBooleanToString();
+    v19 = HMFGetLogIdentifier();
+    v18 = HMFBooleanToString();
     [firmwareUpdateProfile stagingNotReadyReasons];
-    v18 = HAPStagingNotReadyReasonsAsString();
+    v17 = HAPStagingNotReadyReasonsAsString();
     v12 = HMFBooleanToString();
     [firmwareUpdateProfile updateState];
     v13 = HAPFirmwareUpdateStateAsString();
     v14 = HMFBooleanToString();
     *buf = 138544642;
-    v22 = v20;
-    v23 = 2112;
-    v24 = v19;
-    v25 = 2114;
-    v26 = v18;
-    v27 = 2112;
-    v28 = v12;
-    v29 = 2114;
-    v30 = v13;
-    v31 = 2112;
-    v32 = v14;
+    v21 = v19;
+    v22 = 2112;
+    v23 = v18;
+    v24 = 2114;
+    v25 = v17;
+    v26 = 2112;
+    v27 = v12;
+    v28 = 2114;
+    v29 = v13;
+    v30 = 2112;
+    v31 = v14;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Not ready for staging - Not ready reasons: %@ (%{public}@), updateState %@ (%{public}@), isStagedFirmwareVersionUpToDate %@", buf, 0x3Eu);
   }
 
@@ -5447,7 +5318,6 @@ LABEL_12:
     v15 = v5 && !v8;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -5474,7 +5344,7 @@ LABEL_12:
 
 - (void)_evaluateHDSRetryForApplyFirmware
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   hapAccessory = [(HMDAccessoryFirmwareUpdateSession *)self hapAccessory];
   if (((_os_feature_enabled_impl() & 1) != 0 || CFPreferencesGetAppBooleanValue(@"MatterOTA", @"/Library/Managed Preferences/mobile/com.apple.homed.plist", 0)) && [hapAccessory supportsCHIP])
   {
@@ -5485,9 +5355,9 @@ LABEL_12:
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v7;
-      v30 = 2080;
-      v31 = "[HMDAccessoryFirmwareUpdateSession _evaluateHDSRetryForApplyFirmware]";
+      v28 = v7;
+      v29 = 2080;
+      v30 = "[HMDAccessoryFirmwareUpdateSession _evaluateHDSRetryForApplyFirmware]";
       _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@%s: called to control Matter Accessory. No sockets used with Matter Accessories. No action taken.", buf, 0x16u);
     }
 
@@ -5516,11 +5386,11 @@ LABEL_10:
         v16 = HMFGetLogIdentifier();
         v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDAccessoryFirmwareUpdateSession applyHDSRetryCount](selfCopy2, "applyHDSRetryCount")}];
         *buf = 138543874;
-        v29 = v16;
-        v30 = 2112;
-        v31 = &unk_283E73A18;
-        v32 = 2112;
-        v33 = v17;
+        v28 = v16;
+        v29 = 2112;
+        v30 = &unk_283E73A18;
+        v31 = 2112;
+        v32 = v17;
         _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Rescheduling apply task after HDS failure in %@ sec for retry: %@", buf, 0x20u);
       }
 
@@ -5546,7 +5416,7 @@ LABEL_10:
         {
           v12 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v29 = v12;
+          v28 = v12;
           _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Out of HDS retries for apply. Moving update back to downloaded.", buf, 0xCu);
         }
 
@@ -5579,9 +5449,9 @@ LABEL_10:
     hapAccessory2 = [(HMDAccessoryFirmwareUpdateSession *)selfCopy4 hapAccessory];
     name = [hapAccessory2 name];
     *buf = 138543618;
-    v29 = v23;
-    v30 = 2112;
-    v31 = name;
+    v28 = v23;
+    v29 = 2112;
+    v30 = name;
     _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Not performing HDS retries because firmware apply has not started and accessory %@ is unreachable", buf, 0x16u);
   }
 
@@ -5589,13 +5459,11 @@ LABEL_10:
   [(HMDAccessoryFirmwareUpdateSession *)selfCopy4 updateAvailableSoftwareUpdateState:2];
   [(HMDAccessoryFirmwareUpdateSession *)selfCopy4 setInternalState:3];
 LABEL_24:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __70__HMDAccessoryFirmwareUpdateSession__evaluateHDSRetryForApplyFirmware__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) sessionEnded])
   {
     v2 = objc_autoreleasePoolPush();
@@ -5604,27 +5472,25 @@ void __70__HMDAccessoryFirmwareUpdateSession__evaluateHDSRetryForApplyFirmware__
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       v5 = HMFGetLogIdentifier();
-      v9 = 138543362;
-      v10 = v5;
-      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Session has been ended, stop performing retries", &v9, 0xCu);
+      v7 = 138543362;
+      v8 = v5;
+      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Session has been ended, stop performing retries", &v7, 0xCu);
     }
 
     objc_autoreleasePoolPop(v2);
-    v6 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v7 = *(a1 + 32);
-    v8 = *MEMORY[0x277D85DE8];
+    v6 = *(a1 + 32);
 
-    [v7 _schedule];
+    [v6 _schedule];
   }
 }
 
 - (void)_syncStateWithAccessoryOnResume
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -5649,20 +5515,18 @@ void __70__HMDAccessoryFirmwareUpdateSession__evaluateHDSRetryForApplyFirmware__
         v9 = off_27867DF80[internalState - 1];
       }
 
-      v12 = 138543618;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v9;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Synced state is: %@", &v12, 0x16u);
+      v10 = 138543618;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v9;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Synced state is: %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
-    v11 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v10 = *MEMORY[0x277D85DE8];
 
     [(HMDAccessoryFirmwareUpdateSession *)self _endSession];
   }
@@ -5670,7 +5534,7 @@ void __70__HMDAccessoryFirmwareUpdateSession__evaluateHDSRetryForApplyFirmware__
 
 - (void)_withOpenSocketDoBlock:(id)block error:(id)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   errorCopy = error;
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
@@ -5712,21 +5576,21 @@ void __70__HMDAccessoryFirmwareUpdateSession__evaluateHDSRetryForApplyFirmware__
         {
           v23 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v32 = v23;
+          v31 = v23;
           _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Opening HDS connection to accessory", buf, 0xCu);
         }
 
         objc_autoreleasePoolPop(v19);
         [(HMDAccessoryFirmwareUpdateSession *)selfCopy setDataStreamOpenInProgress:1];
-        v27[0] = MEMORY[0x277D85DD0];
-        v27[1] = 3221225472;
-        v27[2] = __66__HMDAccessoryFirmwareUpdateSession__withOpenSocketDoBlock_error___block_invoke;
-        v27[3] = &unk_27867DEA8;
-        v27[4] = selfCopy;
-        v29 = errorCopy;
-        v28 = hapAccessory;
-        v30 = blockCopy;
-        [dataStreamSocketController openStreamSocketWithApplicationProtocol:@"UARP" completion:v27];
+        v26[0] = MEMORY[0x277D85DD0];
+        v26[1] = 3221225472;
+        v26[2] = __66__HMDAccessoryFirmwareUpdateSession__withOpenSocketDoBlock_error___block_invoke;
+        v26[3] = &unk_27867DEA8;
+        v26[4] = selfCopy;
+        v28 = errorCopy;
+        v27 = hapAccessory;
+        v29 = blockCopy;
+        [dataStreamSocketController openStreamSocketWithApplicationProtocol:@"UARP" completion:v26];
       }
 
       else
@@ -5735,7 +5599,7 @@ void __70__HMDAccessoryFirmwareUpdateSession__evaluateHDSRetryForApplyFirmware__
         {
           v24 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v32 = v24;
+          v31 = v24;
           _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@No dataStreamSocketController", buf, 0xCu);
         }
 
@@ -5755,16 +5619,14 @@ void __70__HMDAccessoryFirmwareUpdateSession__evaluateHDSRetryForApplyFirmware__
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v32 = v13;
-    v33 = 2080;
-    v34 = "[HMDAccessoryFirmwareUpdateSession _withOpenSocketDoBlock:error:]";
+    v31 = v13;
+    v32 = 2080;
+    v33 = "[HMDAccessoryFirmwareUpdateSession _withOpenSocketDoBlock:error:]";
     _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@%s: called to control Matter Accessory. No sockets used with Matter Accessories. No action taken.", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v10);
 LABEL_20:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __66__HMDAccessoryFirmwareUpdateSession__withOpenSocketDoBlock_error___block_invoke(id *a1, void *a2, void *a3)
@@ -5793,7 +5655,7 @@ void __66__HMDAccessoryFirmwareUpdateSession__withOpenSocketDoBlock_error___bloc
 
 void __66__HMDAccessoryFirmwareUpdateSession__withOpenSocketDoBlock_error___block_invoke_2(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -5812,9 +5674,9 @@ void __66__HMDAccessoryFirmwareUpdateSession__withOpenSocketDoBlock_error___bloc
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = HMFGetLogIdentifier();
-        v30 = 138543362;
-        v31 = v8;
-        _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Opened HDS connection to accessory", &v30, 0xCu);
+        v28 = 138543362;
+        v29 = v8;
+        _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Opened HDS connection to accessory", &v28, 0xCu);
       }
 
       objc_autoreleasePoolPop(v5);
@@ -5838,9 +5700,9 @@ void __66__HMDAccessoryFirmwareUpdateSession__withOpenSocketDoBlock_error___bloc
         if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
           v19 = HMFGetLogIdentifier();
-          v30 = 138543362;
-          v31 = v19;
-          _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Notified UARP accessory is reachable", &v30, 0xCu);
+          v28 = 138543362;
+          v29 = v19;
+          _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Notified UARP accessory is reachable", &v28, 0xCu);
         }
 
         objc_autoreleasePoolPop(v15);
@@ -5851,16 +5713,16 @@ void __66__HMDAccessoryFirmwareUpdateSession__withOpenSocketDoBlock_error___bloc
       {
         if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          v26 = HMFGetLogIdentifier();
-          v30 = 138543362;
-          v31 = v26;
-          _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to notify about reachable accessory to UARP", &v30, 0xCu);
+          v25 = HMFGetLogIdentifier();
+          v28 = 138543362;
+          v29 = v25;
+          _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to notify about reachable accessory to UARP", &v28, 0xCu);
         }
 
         objc_autoreleasePoolPop(v15);
-        v27 = *(a1 + 56);
-        v28 = [MEMORY[0x277CCA9B8] hmErrorWithCode:23 description:0 reason:@"UARP accessoryReachable failed" suggestion:0];
-        (*(v27 + 16))(v27, v28);
+        v26 = *(a1 + 56);
+        v27 = [MEMORY[0x277CCA9B8] hmErrorWithCode:23 description:0 reason:@"UARP accessoryReachable failed" suggestion:0];
+        (*(v26 + 16))(v26, v27);
       }
     }
 
@@ -5873,23 +5735,43 @@ void __66__HMDAccessoryFirmwareUpdateSession__withOpenSocketDoBlock_error___bloc
       {
         v23 = HMFGetLogIdentifier();
         v24 = *(a1 + 40);
-        v30 = 138543618;
-        v31 = v23;
-        v32 = 2112;
-        v33 = v24;
-        _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Couldn't open HDS connection to accessory error %@", &v30, 0x16u);
+        v28 = 138543618;
+        v29 = v23;
+        v30 = 2112;
+        v31 = v24;
+        _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Couldn't open HDS connection to accessory error %@", &v28, 0x16u);
       }
 
       objc_autoreleasePoolPop(v20);
-      v25 = *(a1 + 40);
       (*(*(a1 + 56) + 16))();
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleRegisterFailureRetryTimeout
+{
+  v10 = *MEMORY[0x277D85DE8];
+  workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  v4 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v6 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    v7 = HMFGetLogIdentifier();
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Register failure retry timeout", &v8, 0xCu);
+  }
+
+  objc_autoreleasePoolPop(v4);
+  [(HMDAccessoryFirmwareUpdateSession *)selfCopy _cancelRegisterFailureRetryTimer];
+  [(HMDAccessoryFirmwareUpdateSession *)selfCopy setCurrentRegisterFailureCount:0];
+  [(HMDAccessoryFirmwareUpdateSession *)selfCopy _schedule];
+}
+
+- (void)_cancelRegisterFailureRetryTimer
 {
   v11 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
@@ -5903,31 +5785,7 @@ void __66__HMDAccessoryFirmwareUpdateSession__withOpenSocketDoBlock_error___bloc
     v7 = HMFGetLogIdentifier();
     v9 = 138543362;
     v10 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Register failure retry timeout", &v9, 0xCu);
-  }
-
-  objc_autoreleasePoolPop(v4);
-  [(HMDAccessoryFirmwareUpdateSession *)selfCopy _cancelRegisterFailureRetryTimer];
-  [(HMDAccessoryFirmwareUpdateSession *)selfCopy setCurrentRegisterFailureCount:0];
-  [(HMDAccessoryFirmwareUpdateSession *)selfCopy _schedule];
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_cancelRegisterFailureRetryTimer
-{
-  v12 = *MEMORY[0x277D85DE8];
-  workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
-  dispatch_assert_queue_V2(workQueue);
-
-  v4 = objc_autoreleasePoolPush();
-  selfCopy = self;
-  v6 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-  {
-    v7 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Cancel register failure retry timer", &v10, 0xCu);
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Cancel register failure retry timer", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -5935,10 +5793,31 @@ void __66__HMDAccessoryFirmwareUpdateSession__withOpenSocketDoBlock_error___bloc
   [registerFailureRetryTimer cancel];
 
   [(HMDAccessoryFirmwareUpdateSession *)selfCopy setRegisterFailureRetryTimer:0];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleQueryFirmwareUpdateResultTimeout
+{
+  v10 = *MEMORY[0x277D85DE8];
+  workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  v4 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v6 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    v7 = HMFGetLogIdentifier();
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Query firmware update result duration timeout", &v8, 0xCu);
+  }
+
+  objc_autoreleasePoolPop(v4);
+  [(HMDAccessoryFirmwareUpdateSession *)selfCopy _cancelQueryFirmwareUpdateResultTimer];
+  [(HMDAccessoryFirmwareUpdateSession *)selfCopy _schedule];
+}
+
+- (void)_cancelQueryFirmwareUpdateResultTimer
 {
   v11 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
@@ -5952,30 +5831,7 @@ void __66__HMDAccessoryFirmwareUpdateSession__withOpenSocketDoBlock_error___bloc
     v7 = HMFGetLogIdentifier();
     v9 = 138543362;
     v10 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Query firmware update result duration timeout", &v9, 0xCu);
-  }
-
-  objc_autoreleasePoolPop(v4);
-  [(HMDAccessoryFirmwareUpdateSession *)selfCopy _cancelQueryFirmwareUpdateResultTimer];
-  [(HMDAccessoryFirmwareUpdateSession *)selfCopy _schedule];
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_cancelQueryFirmwareUpdateResultTimer
-{
-  v12 = *MEMORY[0x277D85DE8];
-  workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
-  dispatch_assert_queue_V2(workQueue);
-
-  v4 = objc_autoreleasePoolPush();
-  selfCopy = self;
-  v6 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-  {
-    v7 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Cancel query firmware update result duration timer", &v10, 0xCu);
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Cancel query firmware update result duration timer", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -5984,12 +5840,11 @@ void __66__HMDAccessoryFirmwareUpdateSession__withOpenSocketDoBlock_error___bloc
 
   [(HMDAccessoryFirmwareUpdateSession *)selfCopy setQueryFirmwareUpdateResultDurationTimer:0];
   [(HMDAccessoryFirmwareUpdateSession *)selfCopy setIsVerifyingUpdate:0];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSocketTimeout
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -5999,9 +5854,9 @@ void __66__HMDAccessoryFirmwareUpdateSession__withOpenSocketDoBlock_error___bloc
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = HMFGetLogIdentifier();
-    v15 = 138543362;
-    v16 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Socket idle timeout", &v15, 0xCu);
+    v14 = 138543362;
+    v15 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Socket idle timeout", &v14, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -6016,15 +5871,15 @@ void __66__HMDAccessoryFirmwareUpdateSession__withOpenSocketDoBlock_error___bloc
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         v12 = HMFGetLogIdentifier();
-        v15 = 138543618;
-        v16 = v12;
-        v17 = 2080;
-        v18 = "[HMDAccessoryFirmwareUpdateSession _handleSocketTimeout]";
-        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@%s: called to control Matter Accessory. No sockets used with Matter Accessories. No action taken.", &v15, 0x16u);
+        v14 = 138543618;
+        v15 = v12;
+        v16 = 2080;
+        v17 = "[HMDAccessoryFirmwareUpdateSession _handleSocketTimeout]";
+        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@%s: called to control Matter Accessory. No sockets used with Matter Accessories. No action taken.", &v14, 0x16u);
       }
 
       objc_autoreleasePoolPop(v9);
-      goto LABEL_15;
+      return;
     }
   }
 
@@ -6042,14 +5897,11 @@ void __66__HMDAccessoryFirmwareUpdateSession__withOpenSocketDoBlock_error___bloc
     [(HMDAccessoryFirmwareUpdateSession *)selfCopy setInternalState:0];
     [(HMDAccessoryFirmwareUpdateSession *)selfCopy _endSession];
   }
-
-LABEL_15:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cancelSocketIdleTimer
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -6059,9 +5911,9 @@ LABEL_15:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = HMFGetLogIdentifier();
-    v16 = 138543362;
-    v17 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Cancel socket idle timer", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Cancel socket idle timer", &v15, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -6073,11 +5925,11 @@ LABEL_15:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v13;
-      v18 = 2080;
-      v19 = "[HMDAccessoryFirmwareUpdateSession _cancelSocketIdleTimer]";
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@%s: called to control Matter Accessory. No sockets used with Matter Accessories. No action taken.", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v13;
+      v17 = 2080;
+      v18 = "[HMDAccessoryFirmwareUpdateSession _cancelSocketIdleTimer]";
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@%s: called to control Matter Accessory. No sockets used with Matter Accessories. No action taken.", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -6090,13 +5942,11 @@ LABEL_15:
 
     [(HMDAccessoryFirmwareUpdateSession *)selfCopy setSocketIdleTimer:0];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetSocketIdleTimer
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -6106,9 +5956,9 @@ LABEL_15:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = HMFGetLogIdentifier();
-    v16 = 138543362;
-    v17 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Reset socket idle timer", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Reset socket idle timer", &v15, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -6120,11 +5970,11 @@ LABEL_15:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v13;
-      v18 = 2080;
-      v19 = "[HMDAccessoryFirmwareUpdateSession _resetSocketIdleTimer]";
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@%s: called to control Matter Accessory. No sockets used with Matter Accessories. No action taken.", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v13;
+      v17 = 2080;
+      v18 = "[HMDAccessoryFirmwareUpdateSession _resetSocketIdleTimer]";
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@%s: called to control Matter Accessory. No sockets used with Matter Accessories. No action taken.", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -6135,13 +5985,11 @@ LABEL_15:
     socketIdleTimer = [(HMDAccessoryFirmwareUpdateSession *)selfCopy socketIdleTimer];
     [socketIdleTimer resume];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startSocketIdleTimer
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -6153,11 +6001,11 @@ LABEL_15:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v26 = 138543618;
-      v27 = v9;
-      v28 = 2080;
-      v29 = "[HMDAccessoryFirmwareUpdateSession _startSocketIdleTimer]";
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@%s: called to control Matter Accessory. No sockets used with Matter Accessories. No action taken.", &v26, 0x16u);
+      v25 = 138543618;
+      v26 = v9;
+      v27 = 2080;
+      v28 = "[HMDAccessoryFirmwareUpdateSession _startSocketIdleTimer]";
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@%s: called to control Matter Accessory. No sockets used with Matter Accessories. No action taken.", &v25, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -6192,11 +6040,11 @@ LABEL_15:
     {
       v18 = HMFGetLogIdentifier();
       v19 = [MEMORY[0x277CCABB0] numberWithDouble:v14];
-      v26 = 138543618;
-      v27 = v18;
-      v28 = 2112;
-      v29 = v19;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEBUG, "%{public}@Start socket idle timer for %@ seconds", &v26, 0x16u);
+      v25 = 138543618;
+      v26 = v18;
+      v27 = 2112;
+      v28 = v19;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEBUG, "%{public}@Start socket idle timer for %@ seconds", &v25, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
@@ -6213,13 +6061,11 @@ LABEL_15:
     socketIdleTimer3 = [(HMDAccessoryFirmwareUpdateSession *)selfCopy2 socketIdleTimer];
     [socketIdleTimer3 resume];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resumeWithState:(unint64_t)state
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -6256,93 +6102,66 @@ LABEL_15:
     }
 
     *buf = 138544130;
-    v36 = v9;
-    v37 = 2112;
-    v38 = v11;
-    v39 = 2112;
-    v40 = v14;
-    v41 = 2112;
-    v42 = v16;
+    v35 = v9;
+    v36 = 2112;
+    v37 = v11;
+    v38 = 2112;
+    v39 = v14;
+    v40 = 2112;
+    v41 = v16;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Resume called with sessionState: %@ accessoryState %@ resumeState %@", buf, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v6);
-  if ((_os_feature_enabled_impl() & 1) == 0 && !CFPreferencesGetAppBooleanValue(@"MatterOTA", @"/Library/Managed Preferences/mobile/com.apple.homed.plist", 0) || (-[HMDAccessoryFirmwareUpdateSession hapAccessory](selfCopy, "hapAccessory"), v17 = objc_claimAutoreleasedReturnValue(), v18 = [v17 supportsCHIP], v17, !v18))
+  if ((_os_feature_enabled_impl() & 1) != 0 || CFPreferencesGetAppBooleanValue(@"MatterOTA", @"/Library/Managed Preferences/mobile/com.apple.homed.plist", 0))
   {
-    [(HMDAccessoryFirmwareUpdateSession *)selfCopy _logDebugStates:"[HMDAccessoryFirmwareUpdateSession resumeWithState:]"];
-    dataStreamSocket = [(HMDAccessoryFirmwareUpdateSession *)selfCopy dataStreamSocket];
-    isClosing = [dataStreamSocket isClosing];
+    hapAccessory2 = [(HMDAccessoryFirmwareUpdateSession *)selfCopy hapAccessory];
+    supportsCHIP = [hapAccessory2 supportsCHIP];
 
-    if (isClosing)
+    if (supportsCHIP)
     {
-      v21 = objc_autoreleasePoolPush();
-      v22 = selfCopy;
-      v23 = HMFGetOSLogHandle();
-      if (!os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
-      {
+      [(HMDAccessoryFirmwareUpdateSession *)selfCopy _updateSoftwareUpdateStateForMatterAccessoryWithState:state];
+      return;
+    }
+  }
+
+  [(HMDAccessoryFirmwareUpdateSession *)selfCopy _logDebugStates:"[HMDAccessoryFirmwareUpdateSession resumeWithState:]"];
+  dataStreamSocket = [(HMDAccessoryFirmwareUpdateSession *)selfCopy dataStreamSocket];
+  isClosing = [dataStreamSocket isClosing];
+
+  if (isClosing)
+  {
+    v21 = objc_autoreleasePoolPush();
+    v22 = selfCopy;
+    v23 = HMFGetOSLogHandle();
+    if (!os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+    {
 LABEL_17:
 
-        objc_autoreleasePoolPop(v21);
-        goto LABEL_24;
-      }
-
-      v24 = HMFGetLogIdentifier();
-      *buf = 138543362;
-      v36 = v24;
-      v25 = "%{public}@Resume ignored with socket in closing state";
+      objc_autoreleasePoolPop(v21);
+      return;
     }
 
-    else
+    v24 = HMFGetLogIdentifier();
+    *buf = 138543362;
+    v35 = v24;
+    v25 = "%{public}@Resume ignored with socket in closing state";
+LABEL_16:
+    _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, v25, buf, 0xCu);
+
+    goto LABEL_17;
+  }
+
+  if (state == 1)
+  {
+    lastStagedVersion = [(HMDAccessoryFirmwareUpdateSession *)selfCopy lastStagedVersion];
+    assetID = [(HMDAccessoryFirmwareUpdateSession *)selfCopy assetID];
+    softwareVersion = [assetID softwareVersion];
+    v29 = [lastStagedVersion isEqualToVersion:softwareVersion];
+
+    if (v29)
     {
-      if (state != 1)
-      {
-        goto LABEL_23;
-      }
-
-      lastStagedVersion = [(HMDAccessoryFirmwareUpdateSession *)selfCopy lastStagedVersion];
-      assetID = [(HMDAccessoryFirmwareUpdateSession *)selfCopy assetID];
-      softwareVersion = [assetID softwareVersion];
-      v29 = [lastStagedVersion isEqualToVersion:softwareVersion];
-
-      if (v29)
-      {
-        [(HMDAccessoryFirmwareUpdateSession *)selfCopy setLastStagedVersion:0];
-        v21 = objc_autoreleasePoolPush();
-        v22 = selfCopy;
-        v23 = HMFGetOSLogHandle();
-        if (!os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
-        {
-          goto LABEL_17;
-        }
-
-        v24 = HMFGetLogIdentifier();
-        *buf = 138543362;
-        v36 = v24;
-        v25 = "%{public}@Re-stage required. Waiting for asset update availability previously requested on the staged version change notification";
-        goto LABEL_16;
-      }
-
-      assetID2 = [(HMDAccessoryFirmwareUpdateSession *)selfCopy assetID];
-      downloadStatus = [assetID2 downloadStatus];
-
-      if (downloadStatus == 1)
-      {
-LABEL_23:
-        v34[0] = MEMORY[0x277D85DD0];
-        v34[1] = 3221225472;
-        v34[2] = __53__HMDAccessoryFirmwareUpdateSession_resumeWithState___block_invoke;
-        v34[3] = &unk_27867DE58;
-        v34[4] = selfCopy;
-        v34[5] = state;
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __53__HMDAccessoryFirmwareUpdateSession_resumeWithState___block_invoke_88;
-        v33[3] = &unk_27868A250;
-        v33[4] = selfCopy;
-        [(HMDAccessoryFirmwareUpdateSession *)selfCopy _withOpenSocketDoBlock:v34 error:v33];
-        goto LABEL_24;
-      }
-
+      [(HMDAccessoryFirmwareUpdateSession *)selfCopy setLastStagedVersion:0];
       v21 = objc_autoreleasePoolPush();
       v22 = selfCopy;
       v23 = HMFGetOSLogHandle();
@@ -6353,180 +6172,192 @@ LABEL_23:
 
       v24 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v36 = v24;
-      v25 = "%{public}@Asset not ready to stage";
+      v35 = v24;
+      v25 = "%{public}@Re-stage required. Waiting for asset update availability previously requested on the staged version change notification";
+      goto LABEL_16;
     }
 
-LABEL_16:
-    _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, v25, buf, 0xCu);
+    assetID2 = [(HMDAccessoryFirmwareUpdateSession *)selfCopy assetID];
+    downloadStatus = [assetID2 downloadStatus];
 
-    goto LABEL_17;
+    if (downloadStatus != 1)
+    {
+      v21 = objc_autoreleasePoolPush();
+      v22 = selfCopy;
+      v23 = HMFGetOSLogHandle();
+      if (!os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      {
+        goto LABEL_17;
+      }
+
+      v24 = HMFGetLogIdentifier();
+      *buf = 138543362;
+      v35 = v24;
+      v25 = "%{public}@Asset not ready to stage";
+      goto LABEL_16;
+    }
   }
 
-  [(HMDAccessoryFirmwareUpdateSession *)selfCopy _updateSoftwareUpdateStateForMatterAccessoryWithState:state];
-LABEL_24:
-  v32 = *MEMORY[0x277D85DE8];
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __53__HMDAccessoryFirmwareUpdateSession_resumeWithState___block_invoke;
+  v33[3] = &unk_27867DE58;
+  v33[4] = selfCopy;
+  v33[5] = state;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __53__HMDAccessoryFirmwareUpdateSession_resumeWithState___block_invoke_88;
+  v32[3] = &unk_27868A250;
+  v32[4] = selfCopy;
+  [(HMDAccessoryFirmwareUpdateSession *)selfCopy _withOpenSocketDoBlock:v33 error:v32];
 }
 
 void __53__HMDAccessoryFirmwareUpdateSession_resumeWithState___block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setCurrentCommunicationErrorCount:0];
   [*(a1 + 32) _syncStateWithAccessoryOnResume];
-  if (([*(a1 + 32) internalState] != 1 && objc_msgSend(*(a1 + 32), "internalState") != 2 || *(a1 + 40) == 1) && (objc_msgSend(*(a1 + 32), "internalState") != 3 || *(a1 + 40) == 2))
+  if (([*(a1 + 32) internalState] == 1 || objc_msgSend(*(a1 + 32), "internalState") == 2) && *(a1 + 40) != 1 || objc_msgSend(*(a1 + 32), "internalState") == 3 && *(a1 + 40) != 2 || (objc_msgSend(*(a1 + 32), "updateScheduler"), v2 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v2, "currentTask"), v3 = objc_claimAutoreleasedReturnValue(), v4 = objc_msgSend(v3, "shouldRun"), v3, v2, (v4 & 1) == 0))
   {
-    v2 = [*(a1 + 32) updateScheduler];
-    v3 = [v2 currentTask];
-    v4 = [v3 shouldRun];
+    v11 = *(a1 + 32);
 
-    if (v4)
+    [v11 _schedule];
+    return;
+  }
+
+  v5 = [*(a1 + 32) internalState];
+  if (v5 > 2)
+  {
+    if (v5 == 3)
     {
-      v5 = [*(a1 + 32) internalState];
-      if (v5 > 2)
+      v20 = objc_autoreleasePoolPush();
+      v21 = *(a1 + 32);
+      v22 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
-        if (v5 == 3)
-        {
-          v21 = objc_autoreleasePoolPush();
-          v22 = *(a1 + 32);
-          v23 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
-          {
-            v24 = HMFGetLogIdentifier();
-            v31 = 138543362;
-            v32 = v24;
-            _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_DEBUG, "%{public}@Next action: applyFirmware", &v31, 0xCu);
-          }
+        v23 = HMFGetLogIdentifier();
+        v29 = 138543362;
+        v30 = v23;
+        _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_DEBUG, "%{public}@Next action: applyFirmware", &v29, 0xCu);
+      }
 
-          objc_autoreleasePoolPop(v21);
-          [*(a1 + 32) applyFirmware];
-          goto LABEL_40;
+      objc_autoreleasePoolPop(v20);
+      [*(a1 + 32) applyFirmware];
+      return;
+    }
+
+    if (v5 != 4)
+    {
+      if (v5 == 5)
+      {
+        v12 = objc_autoreleasePoolPush();
+        v13 = *(a1 + 32);
+        v14 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        {
+          v15 = HMFGetLogIdentifier();
+          v29 = 138543362;
+          v30 = v15;
+          _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Next action: register", &v29, 0xCu);
         }
 
-        if (v5 != 4)
-        {
-          if (v5 == 5)
-          {
-            v13 = objc_autoreleasePoolPush();
-            v14 = *(a1 + 32);
-            v15 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
-            {
-              v16 = HMFGetLogIdentifier();
-              v31 = 138543362;
-              v32 = v16;
-              _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Next action: register", &v31, 0xCu);
-            }
+        objc_autoreleasePoolPop(v12);
+        [*(a1 + 32) _register];
+      }
 
-            objc_autoreleasePoolPop(v13);
-            [*(a1 + 32) _register];
-          }
+      return;
+    }
 
-          goto LABEL_40;
-        }
-
-        v17 = objc_autoreleasePoolPush();
-        v25 = *(a1 + 32);
-        v26 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
-        {
-          v27 = HMFGetLogIdentifier();
-          v28 = [*(a1 + 32) internalState];
-          if ((v28 - 1) > 4)
-          {
-            v29 = @"Up To Date";
-          }
-
-          else
-          {
-            v29 = off_27867DF80[v28 - 1];
-          }
-
-          v31 = 138543618;
-          v32 = v27;
-          v33 = 2112;
-          v34 = v29;
-          _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Ignoring resume in state %@", &v31, 0x16u);
-        }
+    v16 = objc_autoreleasePoolPush();
+    v24 = *(a1 + 32);
+    v25 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    {
+      v26 = HMFGetLogIdentifier();
+      v27 = [*(a1 + 32) internalState];
+      if ((v27 - 1) > 4)
+      {
+        v28 = @"Up To Date";
       }
 
       else
       {
-        if (v5)
-        {
-          if (v5 == 1)
-          {
-            v6 = objc_autoreleasePoolPush();
-            v7 = *(a1 + 32);
-            v8 = HMFGetOSLogHandle();
-            if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
-            {
-LABEL_32:
-
-              objc_autoreleasePoolPop(v6);
-              [*(a1 + 32) stageFirmware];
-LABEL_40:
-              v30 = *MEMORY[0x277D85DE8];
-              return;
-            }
-
-            v9 = HMFGetLogIdentifier();
-            v31 = 138543362;
-            v32 = v9;
-            v10 = "%{public}@Next action: stageFirmware";
-          }
-
-          else
-          {
-            if (v5 != 2 || ([*(a1 + 32) assetOfferedForCurrentDataStream] & 1) != 0)
-            {
-              goto LABEL_40;
-            }
-
-            v6 = objc_autoreleasePoolPush();
-            v7 = *(a1 + 32);
-            v8 = HMFGetOSLogHandle();
-            if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
-            {
-              goto LABEL_32;
-            }
-
-            v9 = HMFGetLogIdentifier();
-            v31 = 138543362;
-            v32 = v9;
-            v10 = "%{public}@Next action: stageFirmware (recover)";
-          }
-
-          _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, v10, &v31, 0xCu);
-
-          goto LABEL_32;
-        }
-
-        v17 = objc_autoreleasePoolPush();
-        v18 = *(a1 + 32);
-        v19 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
-        {
-          v20 = HMFGetLogIdentifier();
-          v31 = 138543362;
-          v32 = v20;
-          _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_DEBUG, "%{public}@Next action: -", &v31, 0xCu);
-        }
+        v28 = off_27867DF80[v27 - 1];
       }
 
-      objc_autoreleasePoolPop(v17);
-      goto LABEL_40;
+      v29 = 138543618;
+      v30 = v26;
+      v31 = 2112;
+      v32 = v28;
+      _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Ignoring resume in state %@", &v29, 0x16u);
     }
+
+LABEL_39:
+    objc_autoreleasePoolPop(v16);
+    return;
   }
 
-  v11 = *(a1 + 32);
-  v12 = *MEMORY[0x277D85DE8];
+  if (!v5)
+  {
+    v16 = objc_autoreleasePoolPush();
+    v17 = *(a1 + 32);
+    v18 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    {
+      v19 = HMFGetLogIdentifier();
+      v29 = 138543362;
+      v30 = v19;
+      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_DEBUG, "%{public}@Next action: -", &v29, 0xCu);
+    }
 
-  [v11 _schedule];
+    goto LABEL_39;
+  }
+
+  if (v5 == 1)
+  {
+    v6 = objc_autoreleasePoolPush();
+    v7 = *(a1 + 32);
+    v8 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    {
+      v9 = HMFGetLogIdentifier();
+      v29 = 138543362;
+      v30 = v9;
+      v10 = "%{public}@Next action: stageFirmware";
+      goto LABEL_31;
+    }
+
+LABEL_32:
+
+    objc_autoreleasePoolPop(v6);
+    [*(a1 + 32) stageFirmware];
+    return;
+  }
+
+  if (v5 == 2 && ([*(a1 + 32) assetOfferedForCurrentDataStream] & 1) == 0)
+  {
+    v6 = objc_autoreleasePoolPush();
+    v7 = *(a1 + 32);
+    v8 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    {
+      v9 = HMFGetLogIdentifier();
+      v29 = 138543362;
+      v30 = v9;
+      v10 = "%{public}@Next action: stageFirmware (recover)";
+LABEL_31:
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, v10, &v29, 0xCu);
+
+      goto LABEL_32;
+    }
+
+    goto LABEL_32;
+  }
 }
 
 void __53__HMDAccessoryFirmwareUpdateSession_resumeWithState___block_invoke_88(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([*(a1 + 32) internalState] == 3)
   {
@@ -6545,10 +6376,10 @@ LABEL_12:
     block[1] = 3221225472;
     block[2] = __53__HMDAccessoryFirmwareUpdateSession_resumeWithState___block_invoke_90;
     block[3] = &unk_278686B80;
-    objc_copyWeak(&v20, buf);
+    objc_copyWeak(&v19, buf);
     dispatch_after(v16, v17, block);
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(buf);
     goto LABEL_13;
   }
@@ -6561,11 +6392,11 @@ LABEL_12:
     v9 = HMFGetLogIdentifier();
     v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "currentCommunicationErrorCount")}];
     *buf = 138543874;
-    v22 = v9;
-    v23 = 2112;
-    v24 = v10;
-    v25 = 2112;
-    v26 = v3;
+    v21 = v9;
+    v22 = 2112;
+    v23 = v10;
+    v24 = 2112;
+    v25 = v3;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@HAP Communication Error occurrence: %@ error: %@", buf, 0x20u);
   }
 
@@ -6584,20 +6415,18 @@ LABEL_12:
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v22 = v14;
+    v21 = v14;
     _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Out of retries for socket open", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v11);
   [*(a1 + 32) _endSession];
 LABEL_13:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HMDAccessoryFirmwareUpdateSession_resumeWithState___block_invoke_90(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = objc_autoreleasePoolPush();
   v3 = WeakRetained;
@@ -6605,20 +6434,18 @@ void __53__HMDAccessoryFirmwareUpdateSession_resumeWithState___block_invoke_90(u
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@rescheduling task after socket open failed", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@rescheduling task after socket open failed", &v6, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   [v3 _schedule];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pause
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -6637,16 +6464,15 @@ void __53__HMDAccessoryFirmwareUpdateSession_resumeWithState___block_invoke_90(u
       {
         v9 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v21 = v9;
-        v22 = 2080;
-        v23 = "[HMDAccessoryFirmwareUpdateSession pause]";
+        v19 = v9;
+        v20 = 2080;
+        v21 = "[HMDAccessoryFirmwareUpdateSession pause]";
         _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@%s: called by the controller's scheduler. Only a Matter Accessory can pause a firmware staging/application. No action taken.", buf, 0x16u);
       }
 
       v10 = v6;
 LABEL_11:
       objc_autoreleasePoolPop(v10);
-      v17 = *MEMORY[0x277D85DE8];
       return;
     }
   }
@@ -6663,7 +6489,7 @@ LABEL_11:
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v21 = v16;
+      v19 = v16;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Pause ignored with socket in closing state", buf, 0xCu);
     }
 
@@ -6673,7 +6499,6 @@ LABEL_11:
 
   dataStreamSocket2 = [(HMDAccessoryFirmwareUpdateSession *)self dataStreamSocket];
   [dataStreamSocket2 close];
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)availableSoftwareVersion
@@ -6699,7 +6524,7 @@ LABEL_11:
 
 - (BOOL)startManualUpdate:(id)update error:(id *)error
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   workQueue = [(HMDAccessoryFirmwareUpdateSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -6731,22 +6556,22 @@ LABEL_7:
         version3 = [updateCopy version];
         uarpAccessory = [(HMDAccessoryFirmwareUpdateSession *)selfCopy uarpAccessory];
         [uarpAccessory availableFirmwareVersion];
-        v64 = updateCopy;
+        v63 = updateCopy;
         v45 = v44 = hapAccessory;
         uarpAccessory2 = [(HMDAccessoryFirmwareUpdateSession *)selfCopy uarpAccessory];
         firmwareVersion2 = [uarpAccessory2 firmwareVersion];
         *buf = 138544130;
-        v66 = v41;
-        v67 = 2112;
-        v68 = version3;
-        v69 = 2112;
-        v70 = v45;
-        v71 = 2112;
-        v72 = firmwareVersion2;
+        v65 = v41;
+        v66 = 2112;
+        v67 = version3;
+        v68 = 2112;
+        v69 = v45;
+        v70 = 2112;
+        v71 = firmwareVersion2;
         _os_log_impl(&dword_229538000, v40, OS_LOG_TYPE_ERROR, "%{public}@Requested install version %@ is different than available version %@ / %@", buf, 0x2Au);
 
         hapAccessory = v44;
-        updateCopy = v64;
+        updateCopy = v63;
       }
 
       objc_autoreleasePoolPop(v38);
@@ -6778,11 +6603,11 @@ LABEL_7:
       availableSoftwareVersion3 = [(HMDAccessoryFirmwareUpdateSession *)selfCopy3 availableSoftwareVersion];
       shortVersionString = [availableSoftwareVersion3 shortVersionString];
       *buf = 138543874;
-      v66 = v32;
-      v67 = 2112;
-      v68 = stagedFirmwareVersion;
-      v69 = 2112;
-      v70 = shortVersionString;
+      v65 = v32;
+      v66 = 2112;
+      v67 = stagedFirmwareVersion;
+      v68 = 2112;
+      v69 = shortVersionString;
       v35 = "%{public}@Staged version %@ is different than available version %@";
       v36 = v31;
       v37 = 32;
@@ -6812,9 +6637,9 @@ LABEL_7:
       [availableSoftwareVersion3 updateNotReadyReasons];
       shortVersionString = HAPUpdateNotReadyReasonsAsString();
       *buf = 138543618;
-      v66 = v32;
-      v67 = 2114;
-      v68 = shortVersionString;
+      v65 = v32;
+      v66 = 2114;
+      v67 = shortVersionString;
       v35 = "%{public}@Update failed due to updateNotReadyReasons: %{public}@";
       v36 = v31;
       v37 = 22;
@@ -6824,18 +6649,18 @@ LABEL_24:
       goto LABEL_25;
     }
 
-    v52 = objc_autoreleasePoolPush();
+    v51 = objc_autoreleasePoolPush();
     selfCopy4 = self;
-    v54 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+    v53 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
     {
       firmwareUpdateProfile2 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v66 = firmwareUpdateProfile2;
-      _os_log_impl(&dword_229538000, v54, OS_LOG_TYPE_DEFAULT, "%{public}@Starting user-initiated update", buf, 0xCu);
+      v65 = firmwareUpdateProfile2;
+      _os_log_impl(&dword_229538000, v53, OS_LOG_TYPE_DEFAULT, "%{public}@Starting user-initiated update", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v52);
+    objc_autoreleasePoolPop(v51);
     [(HMDAccessoryFirmwareUpdateSession *)selfCopy4 _syncStateWithAccessoryOnResume];
     [(HMDAccessoryFirmwareUpdateSession *)selfCopy4 setUserInitiatedInstall:1];
     internalState = [(HMDAccessoryFirmwareUpdateSession *)selfCopy4 internalState];
@@ -6866,7 +6691,7 @@ LABEL_27:
 
           v32 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v66 = v32;
+          v65 = v32;
           _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_ERROR, "%{public}@Cannot update while registration is in progress", buf, 0xCu);
 LABEL_25:
 
@@ -6874,19 +6699,19 @@ LABEL_25:
         }
 
 LABEL_41:
-        v56 = objc_autoreleasePoolPush();
-        v57 = selfCopy4;
-        v58 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+        v55 = objc_autoreleasePoolPush();
+        v56 = selfCopy4;
+        v57 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
         {
-          v59 = HMFGetLogIdentifier();
+          v58 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v66 = v59;
-          v60 = "%{public}@Already in progress";
-          v61 = v58;
-          v62 = OS_LOG_TYPE_DEFAULT;
+          v65 = v58;
+          v59 = "%{public}@Already in progress";
+          v60 = v57;
+          v61 = OS_LOG_TYPE_DEFAULT;
 LABEL_45:
-          _os_log_impl(&dword_229538000, v61, v62, v60, buf, 0xCu);
+          _os_log_impl(&dword_229538000, v60, v61, v59, buf, 0xCu);
 
           goto LABEL_46;
         }
@@ -6901,23 +6726,23 @@ LABEL_45:
     {
       if (!internalState)
       {
-        v56 = objc_autoreleasePoolPush();
-        v57 = selfCopy4;
-        v58 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+        v55 = objc_autoreleasePoolPush();
+        v56 = selfCopy4;
+        v57 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
         {
-          v59 = HMFGetLogIdentifier();
+          v58 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v66 = v59;
-          v60 = "%{public}@Already up to date";
-          v61 = v58;
-          v62 = OS_LOG_TYPE_ERROR;
+          v65 = v58;
+          v59 = "%{public}@Already up to date";
+          v60 = v57;
+          v61 = OS_LOG_TYPE_ERROR;
           goto LABEL_45;
         }
 
 LABEL_46:
 
-        objc_autoreleasePoolPop(v56);
+        objc_autoreleasePoolPop(v55);
 LABEL_49:
         LOBYTE(firmwareUpdateProfile2) = 1;
         goto LABEL_27;
@@ -6954,24 +6779,24 @@ LABEL_49:
     shortDescription = [hapAccessory shortDescription];
     firmwareVersion3 = [hapAccessory firmwareVersion];
     [updateCopy version];
-    v63 = v12;
+    v62 = v12;
     v19 = v18 = hapAccessory;
     uarpAccessory3 = [(HMDAccessoryFirmwareUpdateSession *)selfCopy5 uarpAccessory];
     firmwareVersion4 = [uarpAccessory3 firmwareVersion];
     *buf = 138544386;
-    v66 = v15;
-    v67 = 2112;
-    v68 = shortDescription;
-    v69 = 2112;
-    v70 = firmwareVersion3;
-    v71 = 2112;
-    v72 = v19;
-    v73 = 2112;
-    v74 = firmwareVersion4;
+    v65 = v15;
+    v66 = 2112;
+    v67 = shortDescription;
+    v68 = 2112;
+    v69 = firmwareVersion3;
+    v70 = 2112;
+    v71 = v19;
+    v72 = 2112;
+    v73 = firmwareVersion4;
     _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@[%@] Already has the latest version: %@. Ignoring the downloaded version: %@ / %@", buf, 0x34u);
 
     hapAccessory = v18;
-    v12 = v63;
+    v12 = v62;
   }
 
   objc_autoreleasePoolPop(v12);
@@ -6980,7 +6805,6 @@ LABEL_18:
   LOBYTE(firmwareUpdateProfile2) = 0;
 LABEL_28:
 
-  v50 = *MEMORY[0x277D85DE8];
   return firmwareUpdateProfile2 & 1;
 }
 
@@ -7099,7 +6923,7 @@ LABEL_28:
 
 - (void)setInternalState:(unint64_t)state
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   internalState = self->_internalState;
   self->_internalState = state;
@@ -7123,17 +6947,15 @@ LABEL_28:
         v11 = off_27867DF80[state - 1];
       }
 
-      v13 = 138543618;
-      v14 = v9;
-      v15 = 2112;
-      v16 = v11;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@State changed to %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v11;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@State changed to %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)internalState
@@ -7299,10 +7121,9 @@ id __127__HMDAccessoryFirmwareUpdateSession_initWithHAPAccessory_uarpAccessory_a
 
 void __48__HMDAccessoryFirmwareUpdateSession_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v204;
-  logCategory__hmf_once_v204 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v204;
+  logCategory__hmf_once_v204 = v0;
 }
 
 + (id)__calculateDigestDataFromFile:(id)file maxDataSize:(unint64_t)size error:(id *)error
@@ -7311,7 +7132,7 @@ void __48__HMDAccessoryFirmwareUpdateSession_logCategory__block_invoke()
   v7 = v6;
   v9 = v8;
   v10 = v5;
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v12 = v11;
   v13 = [MEMORY[0x277CBEAE0] inputStreamWithURL:v12];
   if (!v13)
@@ -7323,9 +7144,9 @@ void __48__HMDAccessoryFirmwareUpdateSession_logCategory__block_invoke()
     {
       v25 = HMFGetLogIdentifier();
       data = 138543618;
-      v50 = v25;
-      v51 = 2112;
-      v52 = v12;
+      v49 = v25;
+      v50 = 2112;
+      v51 = v12;
       _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@Couldn't open input stream for %@", &data, 0x16u);
     }
 
@@ -7333,8 +7154,8 @@ void __48__HMDAccessoryFirmwareUpdateSession_logCategory__block_invoke()
     goto LABEL_17;
   }
 
-  memset(&v42, 0, sizeof(v42));
-  CC_SHA1_Init(&v42);
+  memset(&v41, 0, sizeof(v41));
+  CC_SHA1_Init(&v41);
   [v13 open];
   v14 = [v13 read:&data maxLength:4096];
   if (v14 >= 1)
@@ -7351,7 +7172,7 @@ void __48__HMDAccessoryFirmwareUpdateSession_logCategory__block_invoke()
         break;
       }
 
-      CC_SHA1_Update(&v42, &data, v14);
+      CC_SHA1_Update(&v41, &data, v14);
       v14 = [v13 read:&data maxLength:4096];
       if (v14 <= 0)
       {
@@ -7367,11 +7188,11 @@ void __48__HMDAccessoryFirmwareUpdateSession_logCategory__block_invoke()
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v44 = v29;
-      v45 = 2048;
-      v46 = v9;
-      v47 = 2112;
-      v48 = v12;
+      v43 = v29;
+      v44 = 2048;
+      v45 = v9;
+      v46 = 2112;
+      v47 = v12;
       _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Data size is bigger than maximum %ld bytes on file %@", buf, 0x20u);
     }
 
@@ -7400,11 +7221,11 @@ LABEL_11:
       v34 = HMFGetLogIdentifier();
       streamError = [v13 streamError];
       *buf = 138543874;
-      v44 = v34;
-      v45 = 2112;
-      v46 = v12;
-      v47 = 2112;
-      v48 = streamError;
+      v43 = v34;
+      v44 = 2112;
+      v45 = v12;
+      v46 = 2112;
+      v47 = streamError;
       _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_ERROR, "%{public}@Error reading documentation from %@: %@", buf, 0x20u);
     }
 
@@ -7424,8 +7245,8 @@ LABEL_17:
   v20 = v19;
   if (v19)
   {
-    CC_SHA1_Final([v19 mutableBytes], &v42);
-    v21 = [v20 copy];
+    CC_SHA1_Final([v19 mutableBytes], &v41);
+    v21 = objc_msgSend_copy(v20);
   }
 
   else
@@ -7437,9 +7258,9 @@ LABEL_17:
     {
       v39 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v44 = v39;
-      v45 = 2048;
-      v46 = 20;
+      v43 = v39;
+      v44 = 2048;
+      v45 = 20;
       _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_ERROR, "%{public}@Failed to allocate %lu bytes to hold digest", buf, 0x16u);
     }
 
@@ -7457,7 +7278,6 @@ LABEL_17:
   }
 
 LABEL_33:
-  v40 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

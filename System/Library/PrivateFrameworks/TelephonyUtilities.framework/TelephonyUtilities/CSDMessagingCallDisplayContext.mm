@@ -215,33 +215,32 @@
     PBDataWriterWriteStringField();
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = self->_contactIdentifiers;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v11 + 1) + 8 * v9);
         PBDataWriterWriteStringField();
-        v9 = v9 + 1;
+        ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -456,63 +455,7 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (![equalCopy isMemberOfClass:objc_opt_class()])
-  {
-    goto LABEL_34;
-  }
-
-  name = self->_name;
-  if (name | equalCopy[14])
-  {
-    if (![(NSString *)name isEqual:?])
-    {
-      goto LABEL_34;
-    }
-  }
-
-  protoPersonNameComponents = self->_protoPersonNameComponents;
-  if (protoPersonNameComponents | equalCopy[15] && ![(CSDMessagingPersonNameComponents *)protoPersonNameComponents isEqual:?])
-  {
-    goto LABEL_34;
-  }
-
-  suggestedName = self->_suggestedName;
-  if (suggestedName | equalCopy[16] && ![(NSString *)suggestedName isEqual:?])
-  {
-    goto LABEL_34;
-  }
-
-  label = self->_label;
-  if (label | equalCopy[11] && ![(NSString *)label isEqual:?])
-  {
-    goto LABEL_34;
-  }
-
-  companyName = self->_companyName;
-  if (companyName | equalCopy[6] && ![(NSString *)companyName isEqual:?])
-  {
-    goto LABEL_34;
-  }
-
-  mapName = self->_mapName;
-  if (mapName | equalCopy[13] && ![(NSString *)mapName isEqual:?])
-  {
-    goto LABEL_34;
-  }
-
-  location = self->_location;
-  if (location | equalCopy[12] && ![(NSString *)location isEqual:?])
-  {
-    goto LABEL_34;
-  }
-
-  contactName = self->_contactName;
-  if (contactName | equalCopy[10] && ![(NSString *)contactName isEqual:?])
-  {
-    goto LABEL_34;
-  }
-
-  if (((contactLabel = self->_contactLabel, !(contactLabel | equalCopy[9])) || [(NSString *)contactLabel isEqual:?]) && ((callDirectoryLabel = self->_callDirectoryLabel, !(callDirectoryLabel | equalCopy[2])) || [(NSString *)callDirectoryLabel isEqual:?]) && ((callDirectoryLocalizedExtensionContainingAppName = self->_callDirectoryLocalizedExtensionContainingAppName, !(callDirectoryLocalizedExtensionContainingAppName | equalCopy[3])) || [(NSString *)callDirectoryLocalizedExtensionContainingAppName isEqual:?]) && ((callDirectoryExtensionIdentifier = self->_callDirectoryExtensionIdentifier, !(callDirectoryExtensionIdentifier | equalCopy[1])) || [(NSString *)callDirectoryExtensionIdentifier isEqual:?]) && ((contactIdentifier = self->_contactIdentifier, !(contactIdentifier | equalCopy[7])) || [(NSString *)contactIdentifier isEqual:?]) && ((contactIdentifiers = self->_contactIdentifiers, !(contactIdentifiers | equalCopy[8])) || [(NSMutableArray *)contactIdentifiers isEqual:?]) && ((companyDepartment = self->_companyDepartment, !(companyDepartment | equalCopy[4])) || [(NSString *)companyDepartment isEqual:?]))
+  if ([equalCopy isMemberOfClass:objc_opt_class()] && ((name = self->_name, !(name | equalCopy[14])) || -[NSString isEqual:](name, "isEqual:")) && ((protoPersonNameComponents = self->_protoPersonNameComponents, !(protoPersonNameComponents | equalCopy[15])) || -[CSDMessagingPersonNameComponents isEqual:](protoPersonNameComponents, "isEqual:")) && ((suggestedName = self->_suggestedName, !(suggestedName | equalCopy[16])) || -[NSString isEqual:](suggestedName, "isEqual:")) && ((label = self->_label, !(label | equalCopy[11])) || -[NSString isEqual:](label, "isEqual:")) && ((companyName = self->_companyName, !(companyName | equalCopy[6])) || -[NSString isEqual:](companyName, "isEqual:")) && ((mapName = self->_mapName, !(mapName | equalCopy[13])) || -[NSString isEqual:](mapName, "isEqual:")) && ((location = self->_location, !(location | equalCopy[12])) || -[NSString isEqual:](location, "isEqual:")) && ((contactName = self->_contactName, !(contactName | equalCopy[10])) || -[NSString isEqual:](contactName, "isEqual:")) && ((contactLabel = self->_contactLabel, !(contactLabel | equalCopy[9])) || -[NSString isEqual:](contactLabel, "isEqual:")) && ((callDirectoryLabel = self->_callDirectoryLabel, !(callDirectoryLabel | equalCopy[2])) || -[NSString isEqual:](callDirectoryLabel, "isEqual:")) && ((callDirectoryLocalizedExtensionContainingAppName = self->_callDirectoryLocalizedExtensionContainingAppName, !(callDirectoryLocalizedExtensionContainingAppName | equalCopy[3])) || -[NSString isEqual:](callDirectoryLocalizedExtensionContainingAppName, "isEqual:")) && ((callDirectoryExtensionIdentifier = self->_callDirectoryExtensionIdentifier, !(callDirectoryExtensionIdentifier | equalCopy[1])) || -[NSString isEqual:](callDirectoryExtensionIdentifier, "isEqual:")) && ((contactIdentifier = self->_contactIdentifier, !(contactIdentifier | equalCopy[7])) || -[NSString isEqual:](contactIdentifier, "isEqual:")) && ((contactIdentifiers = self->_contactIdentifiers, !(contactIdentifiers | equalCopy[8])) || -[NSMutableArray isEqual:](contactIdentifiers, "isEqual:")) && ((companyDepartment = self->_companyDepartment, !(companyDepartment | equalCopy[4])) || -[NSString isEqual:](companyDepartment, "isEqual:")))
   {
     companyImageURL = self->_companyImageURL;
     if (companyImageURL | equalCopy[5])
@@ -528,7 +471,6 @@
 
   else
   {
-LABEL_34:
     v21 = 0;
   }
 

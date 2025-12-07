@@ -6,7 +6,7 @@
 
 + (id)resampleTimeSeries:(id)series withMaxDays:(int64_t)days withFrequency:(double)frequency
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   seriesCopy = series;
   v8 = seriesCopy;
   if (seriesCopy)
@@ -23,34 +23,34 @@
       firstObject = [v13 firstObject];
       lastObject = [v13 lastObject];
       v16 = [lastObject dateByAddingTimeInterval:(-86400 * days)];
+      v39 = 0u;
       v40 = 0u;
       v41 = 0u;
       v42 = 0u;
-      v43 = 0u;
       v17 = v13;
-      v18 = [v17 countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v39 objects:v43 count:16];
       if (v18)
       {
         v19 = v18;
         v20 = 0;
-        v21 = *v41;
+        v21 = *v40;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v41 != v21)
+            if (*v40 != v21)
             {
               objc_enumerationMutation(v17);
             }
 
-            [*(*(&v40 + 1) + 8 * i) timeIntervalSinceDate:v16];
+            [*(*(&v39 + 1) + 8 * i) timeIntervalSinceDate:v16];
             if (v23 < 0.0)
             {
               ++v20;
             }
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v40 objects:v44 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v39 objects:v43 count:16];
         }
 
         while (v19);
@@ -69,15 +69,15 @@
 
         v26 = firstObject2;
         v27 = [v8 objectForKeyedSubscript:v26];
-        v37 = 1;
+        v36 = 1;
         v28 = [v24 objectAtIndexedSubscript:1];
         v29 = 0;
-        v38 = v26;
+        v37 = v26;
 LABEL_20:
         v30 = v26;
         while (1)
         {
-          [v30 timeIntervalSinceDate:{lastObject, v36}];
+          [v30 timeIntervalSinceDate:{lastObject, v35}];
           if (v31 > 0.0 || [v24 count] <= v29)
           {
             break;
@@ -90,16 +90,16 @@ LABEL_20:
           v30 = v26;
           if (v32 >= 0.0)
           {
-            v36 = [v8 objectForKeyedSubscript:v28];
+            v35 = [v8 objectForKeyedSubscript:v28];
 
             ++v29;
-            v27 = v36;
-            if ([v24 count] > ++v37)
+            v27 = v35;
+            if ([v24 count] > ++v36)
             {
-              v33 = [v24 objectAtIndexedSubscript:v37];
+              v33 = [v24 objectAtIndexedSubscript:v36];
 
               v28 = v33;
-              v27 = v36;
+              v27 = v35;
             }
 
             goto LABEL_20;
@@ -123,8 +123,6 @@ LABEL_20:
   {
     v10 = 0;
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

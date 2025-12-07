@@ -93,7 +93,7 @@
   else
   {
     error = [completeCopy error];
-    v8 = VUIDefaultLogObject();
+    v8 = VUIDefaultLogObject(error);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(VUIMediaEntitiesFetchController *)error _handleManualFetchControllerOperationDidComplete:requests, v8];
@@ -120,7 +120,7 @@
   else
   {
     error = [completeCopy error];
-    v8 = VUIDefaultLogObject();
+    v8 = VUIDefaultLogObject(error);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 138412546;

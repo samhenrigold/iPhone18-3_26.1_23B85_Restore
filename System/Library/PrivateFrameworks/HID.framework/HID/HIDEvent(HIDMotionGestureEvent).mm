@@ -6,7 +6,6 @@
 
 + (char)motionGestureEvent:()HIDMotionGestureEvent gestureType:progress:options:
 {
-  v7 = *MEMORY[0x277CBECE8];
   v8 = _IOHIDEventCreate();
   v9 = *&v8[*MEMORY[0x277CD2870] + 88];
   *(v9 + 16) = a5;

@@ -183,7 +183,7 @@
   sceneStabilityMonitor = self->_sceneStabilityMonitor;
   if (sceneStabilityMonitor)
   {
-    [(BWSceneStabilityMonitor *)sceneStabilityMonitor stableStartTime];
+    objc_msgSend_stableStartTime(sceneStabilityMonitor);
   }
 
   else
@@ -328,7 +328,7 @@ LABEL_9:
     sceneStabilityMonitor = self->_sceneStabilityMonitor;
     if (sceneStabilityMonitor)
     {
-      [(BWSceneStabilityMonitor *)sceneStabilityMonitor unstableStartTime];
+      objc_msgSend_unstableStartTime(sceneStabilityMonitor);
     }
 
     else
@@ -378,11 +378,13 @@ LABEL_16:
     v5 = result;
     cf = 0;
     target = 0;
-    if (BWCMSampleBufferCreateCopyWithNewPixelBuffer(buffer, a2, &cf, &target))
+    v6 = BWCMSampleBufferCreateCopyWithNewPixelBuffer(buffer, a2, &cf, &target);
+    if (v6)
     {
+      v9 = v6;
       fig_log_get_emitter();
       OUTLINED_FUNCTION_2_33();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v9, v10, cf, target, v13, v14, v15, v16);
     }
 
     else
@@ -401,12 +403,12 @@ LABEL_16:
       OUTLINED_FUNCTION_23_0([MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(v5 + 12), "isStable")}]);
       if (v5[26] == 1 && [*(v5 + 12) processedSceneMotion])
       {
-        v6 = MEMORY[0x1E696AD98];
-        [*(v5 + 12) sceneMotionOffsetX];
-        OUTLINED_FUNCTION_23_0([v6 numberWithFloat:?]);
         v7 = MEMORY[0x1E696AD98];
-        [*(v5 + 12) sceneMotionOffsetY];
+        [*(v5 + 12) sceneMotionOffsetX];
         OUTLINED_FUNCTION_23_0([v7 numberWithFloat:?]);
+        v8 = MEMORY[0x1E696AD98];
+        [*(v5 + 12) sceneMotionOffsetY];
+        OUTLINED_FUNCTION_23_0([v8 numberWithFloat:?]);
       }
 
       if (v5[106] == 1)

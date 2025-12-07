@@ -1,12 +1,12 @@
 @interface NSData(ISImage)
+- (_DWORD)__IS_getImageBuffer:()ISImage size:;
 - (uint64_t)__IS_copyCGImageBlockSetWithProvider:()ISImage;
-- (uint64_t)__IS_imageHeader;
-- (unint64_t)__IS_getImageBuffer:()ISImage size:;
+- (void)__IS_imageHeader;
 @end
 
 @implementation NSData(ISImage)
 
-- (uint64_t)__IS_imageHeader
+- (void)__IS_imageHeader
 {
   v2 = [self length];
   result = [self bytes];
@@ -18,21 +18,21 @@
   return result;
 }
 
-- (unint64_t)__IS_getImageBuffer:()ISImage size:
+- (_DWORD)__IS_getImageBuffer:()ISImage size:
 {
   result = [self __IS_imageHeader];
-  if (*(result + 4))
+  if (result[1])
   {
     v6 = result;
     result = [self length];
-    if (result >= *(v6 + 4) + 48)
+    if (result >= v6[1] + 48)
     {
       result = [self bytes];
       if (a3)
       {
         if (result != -48)
         {
-          *a3 = result + 48;
+          *a3 = result + 12;
         }
       }
     }
@@ -43,13 +43,13 @@
 
 - (uint64_t)__IS_copyCGImageBlockSetWithProvider:()ISImage
 {
-  v5 = xmmword_1F37DE5E0;
+  v7 = xmmword_1F37DE5E0;
   [self __IS_imageHeader];
-  v3 = 0;
-  v4 = 0;
-  [self __IS_getImageBuffer:&v3 size:&v4];
-  result = v3;
-  if (v3)
+  v5 = 0;
+  v6 = 0;
+  [self __IS_getImageBuffer:&v5 size:&v6];
+  result = v5;
+  if (v5)
   {
     CGImageBlockCreate();
     return CGImageBlockSetCreate();

@@ -141,7 +141,7 @@ void __62__SBSARecombinationTransitionProvider_preferencesFromContext___block_in
     v2 = v24;
     if (!v6)
     {
-      __62__SBSARecombinationTransitionProvider_preferencesFromContext___block_invoke_cold_1(a1);
+      __62__SBSARecombinationTransitionProvider_preferencesFromContext___block_invoke_cold_1(a1, v4);
       v2 = v24;
     }
   }
@@ -210,16 +210,16 @@ void __62__SBSARecombinationTransitionProvider_preferencesFromContext___block_in
   [v8 handleFailureInMethod:a2 object:a3 file:@"SBSARecombinationTransitionProvider.m" lineNumber:22 description:{@"Unexpected class – expected '%@', got '%@'", v5, v7}];
 }
 
-void __62__SBSARecombinationTransitionProvider_preferencesFromContext___block_invoke_cold_1(uint64_t a1)
+void __62__SBSARecombinationTransitionProvider_preferencesFromContext___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v8 = [MEMORY[0x277CCA890] currentHandler];
-  v4 = a1 + 32;
-  v2 = *(a1 + 32);
-  v3 = *(v4 + 8);
-  v5 = NSClassFromString(&cfstr_Sbsapreference_0.isa);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  [v8 handleFailureInMethod:v3 object:v2 file:@"SBSARecombinationTransitionProvider.m" lineNumber:24 description:{@"Unexpected class – expected '%@', got '%@'", v5, v7}];
+  v9 = [MEMORY[0x277CCA890] currentHandler];
+  v5 = a1 + 32;
+  v3 = *(a1 + 32);
+  v4 = *(v5 + 8);
+  v6 = NSClassFromString(&cfstr_Sbsapreference_0.isa);
+  v7 = objc_opt_class();
+  v8 = NSStringFromClass(v7);
+  [v9 handleFailureInMethod:v4 object:v3 file:@"SBSARecombinationTransitionProvider.m" lineNumber:24 description:{@"Unexpected class – expected '%@', got '%@'", v6, v8}];
 }
 
 @end

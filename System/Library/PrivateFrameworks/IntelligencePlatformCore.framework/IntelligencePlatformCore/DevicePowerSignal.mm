@@ -1,8 +1,19 @@
 @interface DevicePowerSignal
+- (NSSet)featureNames;
 - (id)featureValueForName:(id)name;
 @end
 
 @implementation DevicePowerSignal
+
+- (NSSet)featureNames
+{
+
+  sub_1C46C49C0();
+
+  v2 = sub_1C4F01AA8();
+
+  return v2;
+}
 
 - (id)featureValueForName:(id)name
 {

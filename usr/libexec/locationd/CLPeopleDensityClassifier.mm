@@ -38,7 +38,7 @@
   {
     memset(v7, 0, sizeof(v7));
     sub_1005D74D4(__p, advertisement, v7);
-    sub_1005D7D20(&self->_advertisementsByAddress.__table_.__bucket_list_.__ptr_, __p);
+    sub_1005D7D20(&self->_advertisementsByAddress.__table_.__bucket_list_.__ptr_, __p, __p);
     v11 = &v10;
     sub_1005D7594(&v11);
     if (v9 < 0)
@@ -56,7 +56,7 @@
     sub_1000432E8("unordered_map::at: key not found");
   }
 
-  sub_1005D7064((v5 + 5), advertisement);
+  sub_1005D7064(v5 + 5, advertisement);
   return 1;
 }
 
@@ -131,7 +131,7 @@
       v23 = *(v7 + 24);
       if ([(CLPeopleDensityMediumSignalClassifierConfig *)self->_classifierConfig isInMidRangeRssi:DWORD1(v23)])
       {
-        sub_1003C9040(buf, __p);
+        sub_1003C9040(buf, __p, __p);
         if (SHIBYTE(v22) < 0)
         {
           operator delete(__p[0]);

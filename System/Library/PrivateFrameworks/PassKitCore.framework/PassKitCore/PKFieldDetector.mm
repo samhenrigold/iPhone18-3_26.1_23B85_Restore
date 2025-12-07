@@ -350,13 +350,13 @@ uint64_t __56__PKFieldDetector_fieldDetectSessionDidEndUnexpectedly___block_invo
   dispatch_async(fieldDetectorSerialQueue, block);
 }
 
-uint64_t __35__PKFieldDetector_updateRadioState__block_invoke(uint64_t a1)
+void *__35__PKFieldDetector_updateRadioState__block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 25) = PKNearFieldRadioIsEnabled();
   result = *(a1 + 32);
   if (*(result + 25) == 1)
   {
-    if (*(result + 24) == 1 && !*(result + 8))
+    if (*(result + 24) == 1 && !*(result + 1))
     {
 
       return [result _startFieldDetectSession];
@@ -720,7 +720,7 @@ void __43__PKFieldDetector__startFieldDetectSession__block_invoke_2(id *a1)
 
     v4 = [a1[5] domain];
     v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"nfcd"];
-    if ([v4 isEqualToString:v5])
+    if (objc_msgSend_isEqualToString_(v4))
     {
       v6 = [a1[5] code];
 

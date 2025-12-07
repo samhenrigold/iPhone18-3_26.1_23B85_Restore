@@ -73,7 +73,7 @@
   if (self->_suspendCount)
   {
     sub_1000474A4(v5, "");
-    sub_100224398("Timer is unbalanced - cannot be cancelled while suspended. cnt = ", &v7);
+    sub_100224398(&v7, "Timer is unbalanced - cannot be cancelled while suspended. cnt = ");
     sub_10024C4BC(&self->_suspendCount, &v8);
     sub_1000E661C(v5, &v7, 2);
     if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
@@ -120,7 +120,7 @@ LABEL_6:
   if (self->_suspendCount)
   {
     sub_1000474A4(v5, "");
-    sub_10022679C("Cannot suspend an already-suspended timer. cnt = ", &buf);
+    sub_10022679C(&buf, "Cannot suspend an already-suspended timer. cnt = ");
     sub_10024C4BC(&self->_suspendCount, &v8);
     sub_1000E661C(v5, &buf, 2);
     if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
@@ -192,7 +192,7 @@ LABEL_10:
   if (self->_suspendCount != 1)
   {
     sub_1000474A4(v7, "");
-    sub_1002B218C("Cannot resume a non-suspended timer. cnt = ", &buf);
+    sub_1002B218C(&buf, "Cannot resume a non-suspended timer. cnt = ");
     sub_10024C4BC(&self->_suspendCount, &v10);
     sub_1000E661C(v7, &buf, 2);
     if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)

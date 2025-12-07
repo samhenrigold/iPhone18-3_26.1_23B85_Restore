@@ -1,7 +1,7 @@
 Swift::Bool __swiftcall CloudDevice.hasCapability(_:)(MomentsUI::CloudDevice::Capability a1)
 {
   v2 = *a1;
-  v3 = *(v1 + *(type metadata accessor for CloudDevice() + 52));
+  v3 = *(v1 + *(type metadata accessor for CloudDevice(0) + 52));
   if (v3)
   {
     v4 = *(v3 + 16);
@@ -219,34 +219,34 @@ LABEL_60:
   return 0;
 }
 
-void CloudDevice.hash(into:)()
+void CloudDevice.hash(into:)(uint64_t a1)
 {
-  v1 = v0;
-  v2 = type metadata accessor for Date();
-  v3 = *(v2 - 8);
-  MEMORY[0x28223BE20](v2);
-  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
-  MEMORY[0x28223BE20](v6 - 8);
-  v8 = &v10 - v7;
+  v2 = v1;
+  v3 = type metadata accessor for Date();
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  MEMORY[0x28223BE20](v7 - 8);
+  v9 = &v11 - v8;
   String.hash(into:)();
-  v9 = type metadata accessor for CloudDevice();
-  outlined init with copy of DateInterval?(v1 + *(v9 + 28), v8, &_s10Foundation4DateVSgMd);
-  if ((*(v3 + 48))(v8, 1, v2) == 1)
+  v10 = type metadata accessor for CloudDevice(0);
+  outlined init with copy of DateInterval?(v2 + *(v10 + 28), v9, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  if ((*(v4 + 48))(v9, 1, v3) == 1)
   {
     Hasher._combine(_:)(0);
   }
 
   else
   {
-    (*(v3 + 32))(v5, v8, v2);
+    (*(v4 + 32))(v6, v9, v3);
     Hasher._combine(_:)(1u);
-    lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+    lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9588]);
     dispatch thunk of Hashable.hash(into:)();
-    (*(v3 + 8))(v5, v2);
+    (*(v4 + 8))(v6, v3);
   }
 
-  if (*(v1 + *(v9 + 32) + 8))
+  if (*(v2 + *(v10 + 32) + 8))
   {
     Hasher._combine(_:)(1u);
     String.hash(into:)();
@@ -265,13 +265,13 @@ Swift::Int CloudDevice.hashValue.getter()
   v3 = *(v2 - 8);
   MEMORY[0x28223BE20](v2);
   v5 = &v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   MEMORY[0x28223BE20](v6 - 8);
   v8 = &v11 - v7;
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v9 = type metadata accessor for CloudDevice();
-  outlined init with copy of DateInterval?(v1 + *(v9 + 28), v8, &_s10Foundation4DateVSgMd);
+  v9 = type metadata accessor for CloudDevice(0);
+  outlined init with copy of DateInterval?(v1 + *(v9 + 28), v8, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   if ((*(v3 + 48))(v8, 1, v2) == 1)
   {
     Hasher._combine(_:)(0);
@@ -281,7 +281,7 @@ Swift::Int CloudDevice.hashValue.getter()
   {
     (*(v3 + 32))(v5, v8, v2);
     Hasher._combine(_:)(1u);
-    lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+    lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9588]);
     dispatch thunk of Hashable.hash(into:)();
     (*(v3 + 8))(v5, v2);
   }
@@ -300,7 +300,7 @@ Swift::Int CloudDevice.hashValue.getter()
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for static CloudRecord.productionSchema.getter in conformance CloudDevice()
+double protocol witness for static CloudRecord.productionSchema.getter in conformance CloudDevice()
 {
   if (one-time initialization token for productionSchema != -1)
   {
@@ -308,9 +308,11 @@ uint64_t protocol witness for static CloudRecord.productionSchema.getter in conf
   }
 
   swift_beginAccess();
+
+  return result;
 }
 
-uint64_t static CloudDevice.productionSchema.getter()
+double static CloudDevice.productionSchema.getter()
 {
   if (one-time initialization token for productionSchema != -1)
   {
@@ -318,6 +320,8 @@ uint64_t static CloudDevice.productionSchema.getter()
   }
 
   swift_beginAccess();
+
+  return result;
 }
 
 void (*protocol witness for CloudRecord.lastKnownCKRecord.modify in conformance CloudDevice(id *a1, uint64_t a2))(void **a1, char a2)
@@ -345,7 +349,7 @@ void protocol witness for CloudRecord.lastKnownCKRecord.modify in conformance Cl
 void (*CloudDevice.lastKnownCKRecord.modify(id *a1))(void **a1, char a2)
 {
   a1[1] = v1;
-  v3 = type metadata accessor for CloudDevice();
+  v3 = type metadata accessor for CloudDevice(0);
   *a1 = specialized static CloudSyncDB.getCKRecord(_:)(*&v1[*(v3 + 112)], *&v1[*(v3 + 112) + 8]);
   return protocol witness for CloudRecord.lastKnownCKRecord.modify in conformance CloudDevice;
 }
@@ -357,12 +361,12 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Clo
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v13 - v10;
   Hasher.init(_seed:)();
   String.hash(into:)();
-  outlined init with copy of DateInterval?(v4 + *(a2 + 28), v11, &_s10Foundation4DateVSgMd);
+  outlined init with copy of DateInterval?(v4 + *(a2 + 28), v11, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   if ((*(v6 + 48))(v11, 1, v5) == 1)
   {
     Hasher._combine(_:)(0);
@@ -372,7 +376,7 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Clo
   {
     (*(v6 + 32))(v8, v11, v5);
     Hasher._combine(_:)(1u);
-    lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+    lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9588]);
     dispatch thunk of Hashable.hash(into:)();
     (*(v6 + 8))(v8, v5);
   }
@@ -391,7 +395,7 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Clo
   return Hasher._finalize()();
 }
 
-uint64_t static CloudDevice.productionSchema.setter(void *a1)
+double static CloudDevice.productionSchema.setter(void *a1)
 {
   if (one-time initialization token for productionSchema != -1)
   {
@@ -400,9 +404,11 @@ uint64_t static CloudDevice.productionSchema.setter(void *a1)
 
   swift_beginAccess();
   static CloudDevice.productionSchema = a1;
+
+  return result;
 }
 
-uint64_t (*static CloudDevice.productionSchema.modify())()
+uint64_t (*static CloudDevice.productionSchema.modify(uint64_t a1))()
 {
   if (one-time initialization token for productionSchema != -1)
   {
@@ -425,7 +431,7 @@ uint64_t closure #1 in CloudDevice.mergeFromServerRecord(_:force:primary:primary
 {
   v1 = v0[4];
   ObjectType = swift_getObjectType();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy8CloudKit12CKSyncEngineC23PendingRecordZoneChangeOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy8CloudKit12CKSyncEngineC23PendingRecordZoneChangeOGMd, &_ss23_ContiguousArrayStorageCy8CloudKit12CKSyncEngineC23PendingRecordZoneChangeOGMR);
   v3 = type metadata accessor for CKSyncEngine.PendingRecordZoneChange();
   v4 = *(v3 - 8);
   v5 = (*(v4 + 80) + 32) & ~*(v4 + 80);
@@ -445,7 +451,7 @@ uint64_t closure #1 in CloudDevice.mergeFromServerRecord(_:force:primary:primary
 uint64_t key path setter for CloudDevice.systemIdiom : CloudDevice(char *a1, uint64_t a2)
 {
   v3 = qword_2165A4770[*a1];
-  result = type metadata accessor for CloudDevice();
+  result = type metadata accessor for CloudDevice(0);
   v5 = a2 + *(result + 40);
   *v5 = v3;
   *(v5 + 8) = 0;
@@ -455,7 +461,7 @@ uint64_t key path setter for CloudDevice.systemIdiom : CloudDevice(char *a1, uin
 uint64_t CloudDevice.systemIdiom.setter(char *a1)
 {
   v2 = qword_2165A4770[*a1];
-  result = type metadata accessor for CloudDevice();
+  result = type metadata accessor for CloudDevice(0);
   v4 = v1 + *(result + 40);
   *v4 = v2;
   *(v4 + 8) = 0;
@@ -465,7 +471,7 @@ uint64_t CloudDevice.systemIdiom.setter(char *a1)
 uint64_t (*CloudDevice.systemIdiom.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
-  v3 = *(type metadata accessor for CloudDevice() + 40);
+  v3 = *(type metadata accessor for CloudDevice(0) + 40);
   *(a1 + 8) = v3;
   v4 = v1 + v3;
   if (*(v4 + 8))
@@ -536,7 +542,7 @@ void CloudDevice.snapshotEventAggregation.modify(__int128 **a1, char a2)
     v17 = v2[4];
     v13 = v8;
     v14 = v3;
-    outlined init with copy of DateInterval?((v2 + 10), (v2 + 15), &_s9MomentsUI14CloudDevicesDBC24SnapshotEventAggregationVSgMd);
+    outlined init with copy of DateInterval?((v2 + 10), (v2 + 15), &_s9MomentsUI14CloudDevicesDBC24SnapshotEventAggregationVSgMd, &_s9MomentsUI14CloudDevicesDBC24SnapshotEventAggregationVSgMR);
     CloudDevice.snapshotEventAggregation.setter(&v13);
     v9 = v2[3];
     v2[7] = v2[2];
@@ -545,7 +551,7 @@ void CloudDevice.snapshotEventAggregation.modify(__int128 **a1, char a2)
     v10 = v2[1];
     v2[5] = *v2;
     v2[6] = v10;
-    outlined destroy of UTType?((v2 + 5), &_s9MomentsUI14CloudDevicesDBC24SnapshotEventAggregationVSgMd);
+    outlined destroy of UTType?((v2 + 5), &_s9MomentsUI14CloudDevicesDBC24SnapshotEventAggregationVSgMd, &_s9MomentsUI14CloudDevicesDBC24SnapshotEventAggregationVSgMR);
   }
 
   else
@@ -563,10 +569,10 @@ void CloudDevice.snapshotEventAggregation.modify(__int128 **a1, char a2)
   free(v2);
 }
 
-unint64_t CloudDevice.jsonDict.getter()
+uint64_t CloudDevice.jsonDict.getter()
 {
   v1 = v0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v3 = MEMORY[0x28223BE20](v2 - 8);
   v325 = &v313 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v5 = MEMORY[0x28223BE20](v3);
@@ -663,7 +669,7 @@ LABEL_3:
   else
   {
     specialized Dictionary._Variant.removeValue(forKey:)(0x4449656369766564, 0xE800000000000000, &v335);
-    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd);
+    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd, &_sSe_SEpSgMR);
     v45 = v1[5];
     if (v45)
     {
@@ -672,10 +678,10 @@ LABEL_3:
   }
 
   specialized Dictionary._Variant.removeValue(forKey:)(0x4449656C646E7562, 0xE800000000000000, &v335);
-  outlined destroy of UTType?(&v335, &_sSe_SEpSgMd);
+  outlined destroy of UTType?(&v335, &_sSe_SEpSgMd, &_sSe_SEpSgMR);
 LABEL_6:
-  v331 = type metadata accessor for CloudDevice();
-  outlined init with copy of DateInterval?(v1 + v331[7], v26, &_s10Foundation4DateVSgMd);
+  v331 = type metadata accessor for CloudDevice(0);
+  outlined init with copy of DateInterval?(v1 + v331[7], v26, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v53 = type metadata accessor for Date();
   v54 = *(v53 - 8);
   v329 = *(v54 + 48);
@@ -688,9 +694,9 @@ LABEL_6:
   v328 = v53;
   if (v55 == 1)
   {
-    outlined destroy of UTType?(v26, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v26, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     specialized Dictionary._Variant.removeValue(forKey:)(0xD000000000000014, 0x8000000216585CF0, &v335);
-    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd);
+    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd, &_sSe_SEpSgMR);
   }
 
   else
@@ -745,7 +751,7 @@ LABEL_6:
   else
   {
     specialized Dictionary._Variant.removeValue(forKey:)(1701667182, 0xE400000000000000, &v335);
-    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd);
+    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd, &_sSe_SEpSgMR);
   }
 
   v79 = (v1 + v331[9]);
@@ -777,7 +783,7 @@ LABEL_6:
   else
   {
     specialized Dictionary._Variant.removeValue(forKey:)(0x65566D6574737973, 0xED00006E6F697372, &v335);
-    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd);
+    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd, &_sSe_SEpSgMR);
   }
 
   v90 = v1 + v331[10];
@@ -786,7 +792,7 @@ LABEL_6:
   if (v91)
   {
     specialized Dictionary._Variant.removeValue(forKey:)(0x64496D6574737973, 0xEE00746E496D6F69, &v335);
-    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd);
+    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd, &_sSe_SEpSgMR);
   }
 
   else
@@ -846,7 +852,7 @@ LABEL_6:
   else
   {
     specialized Dictionary._Variant.removeValue(forKey:)(0x614C6D6574737973, 0xEE0065676175676ELL, &v335);
-    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd);
+    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd, &_sSe_SEpSgMR);
   }
 
   v115 = *(v1 + v331[13]);
@@ -1002,11 +1008,11 @@ LABEL_6:
       v66 = MEMORY[0x277D83A30];
     }
 
-    v137 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+    v137 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
     v336 = v137;
-    v138 = lazy protocol witness table accessor for type [String] and conformance <A> [A](&lazy protocol witness table cache variable for type [String] and conformance <A> [A]);
+    v138 = lazy protocol witness table accessor for type [String] and conformance <A> [A](&lazy protocol witness table cache variable for type [String] and conformance <A> [A], MEMORY[0x277D83808], MEMORY[0x277D83978]);
     v337 = v138;
-    v139 = lazy protocol witness table accessor for type [String] and conformance <A> [A](&lazy protocol witness table cache variable for type [String] and conformance <A> [A]);
+    v139 = lazy protocol witness table accessor for type [String] and conformance <A> [A](&lazy protocol witness table cache variable for type [String] and conformance <A> [A], MEMORY[0x277D837D8], MEMORY[0x277D83948]);
     v338 = v139;
     *&v335 = v117;
     outlined init with take of Decodable & Encodable(&v335, &v333);
@@ -1026,7 +1032,7 @@ LABEL_6:
   else
   {
     specialized Dictionary._Variant.removeValue(forKey:)(0xD000000000000012, 0x8000000216585D10, &v335);
-    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd);
+    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd, &_sSe_SEpSgMR);
   }
 
   v146 = (v1 + v331[12]);
@@ -1058,18 +1064,18 @@ LABEL_6:
   else
   {
     specialized Dictionary._Variant.removeValue(forKey:)(0x6F4D656369766564, 0xEB000000006C6564, &v335);
-    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd);
+    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd, &_sSe_SEpSgMR);
   }
 
   v157 = MEMORY[0x277D839F8];
   v158 = v315;
-  outlined init with copy of DateInterval?(v1 + v331[14], v315, &_s10Foundation4DateVSgMd);
+  outlined init with copy of DateInterval?(v1 + v331[14], v315, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v159 = v328;
   if (v329(v158, 1, v328) == 1)
   {
-    outlined destroy of UTType?(v158, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v158, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     specialized Dictionary._Variant.removeValue(forKey:)(0xD000000000000011, 0x8000000216585D30, &v335);
-    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd);
+    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd, &_sSe_SEpSgMR);
   }
 
   else
@@ -1101,7 +1107,7 @@ LABEL_6:
   if (v170 == 2)
   {
     specialized Dictionary._Variant.removeValue(forKey:)(0x616D697250736177, 0xEA00000000007972, &v335);
-    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd);
+    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd, &_sSe_SEpSgMR);
   }
 
   else
@@ -1132,12 +1138,12 @@ LABEL_6:
 
   v182 = v328;
   v183 = v316;
-  outlined init with copy of DateInterval?(v1 + v331[16], v316, &_s10Foundation4DateVSgMd);
+  outlined init with copy of DateInterval?(v1 + v331[16], v316, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   if (v329(v183, 1, v182) == 1)
   {
-    outlined destroy of UTType?(v183, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v183, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     specialized Dictionary._Variant.removeValue(forKey:)(0xD000000000000013, 0x8000000216585D50, &v335);
-    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd);
+    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd, &_sSe_SEpSgMR);
   }
 
   else
@@ -1195,17 +1201,17 @@ LABEL_6:
   else
   {
     specialized Dictionary._Variant.removeValue(forKey:)(0xD000000000000012, 0x8000000216585D70, &v335);
-    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd);
+    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd, &_sSe_SEpSgMR);
   }
 
   v205 = v317;
-  outlined init with copy of DateInterval?(v1 + v331[18], v317, &_s10Foundation4DateVSgMd);
+  outlined init with copy of DateInterval?(v1 + v331[18], v317, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v206 = v328;
   if (v329(v205, 1, v328) == 1)
   {
-    outlined destroy of UTType?(v205, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v205, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     specialized Dictionary._Variant.removeValue(forKey:)(0x6974616E696D6F6ELL, 0xEE00657461446E6FLL, &v335);
-    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd);
+    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd, &_sSe_SEpSgMR);
   }
 
   else
@@ -1232,12 +1238,12 @@ LABEL_6:
   }
 
   v215 = v318;
-  outlined init with copy of DateInterval?(v1 + v331[19], v318, &_s10Foundation4DateVSgMd);
+  outlined init with copy of DateInterval?(v1 + v331[19], v318, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   if (v329(v215, 1, v206) == 1)
   {
-    outlined destroy of UTType?(v215, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v215, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     specialized Dictionary._Variant.removeValue(forKey:)(0xD000000000000010, 0x8000000216585D90, &v335);
-    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd);
+    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd, &_sSe_SEpSgMR);
   }
 
   else
@@ -1264,12 +1270,12 @@ LABEL_6:
   }
 
   v224 = v319;
-  outlined init with copy of DateInterval?(v1 + v331[20], v319, &_s10Foundation4DateVSgMd);
+  outlined init with copy of DateInterval?(v1 + v331[20], v319, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   if (v329(v224, 1, v206) == 1)
   {
-    outlined destroy of UTType?(v224, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v224, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     specialized Dictionary._Variant.removeValue(forKey:)(0x696472616F626E6FLL, 0xEE0065746144676ELL, &v335);
-    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd);
+    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd, &_sSe_SEpSgMR);
   }
 
   else
@@ -1296,12 +1302,12 @@ LABEL_6:
   }
 
   v233 = v320;
-  outlined init with copy of DateInterval?(v1 + v331[21], v320, &_s10Foundation4DateVSgMd);
+  outlined init with copy of DateInterval?(v1 + v331[21], v320, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   if (v329(v233, 1, v206) == 1)
   {
-    outlined destroy of UTType?(v233, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v233, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     specialized Dictionary._Variant.removeValue(forKey:)(0xD000000000000023, 0x8000000216585DB0, &v335);
-    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd);
+    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd, &_sSe_SEpSgMR);
   }
 
   else
@@ -1331,12 +1337,12 @@ LABEL_6:
   }
 
   v244 = v321;
-  outlined init with copy of DateInterval?(v1 + v331[22], v321, &_s10Foundation4DateVSgMd);
+  outlined init with copy of DateInterval?(v1 + v331[22], v321, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   if (v329(v244, 1, v206) == 1)
   {
-    outlined destroy of UTType?(v244, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v244, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     specialized Dictionary._Variant.removeValue(forKey:)(0xD000000000000021, 0x80000002165842C0, &v335);
-    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd);
+    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd, &_sSe_SEpSgMR);
   }
 
   else
@@ -1366,12 +1372,12 @@ LABEL_6:
   }
 
   v255 = v322;
-  outlined init with copy of DateInterval?(v1 + v331[23], v322, &_s10Foundation4DateVSgMd);
+  outlined init with copy of DateInterval?(v1 + v331[23], v322, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   if (v329(v255, 1, v206) == 1)
   {
-    outlined destroy of UTType?(v255, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v255, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     specialized Dictionary._Variant.removeValue(forKey:)(0xD000000000000020, 0x80000002165842F0, &v335);
-    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd);
+    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd, &_sSe_SEpSgMR);
   }
 
   else
@@ -1401,12 +1407,12 @@ LABEL_6:
   }
 
   v266 = v323;
-  outlined init with copy of DateInterval?(v1 + v331[24], v323, &_s10Foundation4DateVSgMd);
+  outlined init with copy of DateInterval?(v1 + v331[24], v323, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   if (v329(v266, 1, v206) == 1)
   {
-    outlined destroy of UTType?(v266, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v266, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     specialized Dictionary._Variant.removeValue(forKey:)(0xD000000000000018, 0x8000000216584320, &v335);
-    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd);
+    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd, &_sSe_SEpSgMR);
   }
 
   else
@@ -1436,12 +1442,12 @@ LABEL_6:
   }
 
   v277 = v324;
-  outlined init with copy of DateInterval?(v1 + v331[25], v324, &_s10Foundation4DateVSgMd);
+  outlined init with copy of DateInterval?(v1 + v331[25], v324, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   if (v329(v277, 1, v206) == 1)
   {
-    outlined destroy of UTType?(v277, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v277, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     specialized Dictionary._Variant.removeValue(forKey:)(0xD000000000000010, 0x8000000216584340, &v335);
-    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd);
+    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd, &_sSe_SEpSgMR);
   }
 
   else
@@ -1499,20 +1505,20 @@ LABEL_6:
   else
   {
     specialized Dictionary._Variant.removeValue(forKey:)(0x69746172656E6567, 0xEA00000000006E6FLL, &v335);
-    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd);
+    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd, &_sSe_SEpSgMR);
   }
 
   v300 = MEMORY[0x277D839F8];
   v301 = MEMORY[0x277D83A08];
   v302 = v327;
   v303 = v325;
-  outlined init with copy of DateInterval?(v1 + v331[29], v325, &_s10Foundation4DateVSgMd);
+  outlined init with copy of DateInterval?(v1 + v331[29], v325, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v304 = v328;
   if (v329(v303, 1, v328) == 1)
   {
-    outlined destroy of UTType?(v303, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v303, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     specialized Dictionary._Variant.removeValue(forKey:)(0xD000000000000015, 0x800000021657BAE0, &v335);
-    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd);
+    outlined destroy of UTType?(&v335, &_sSe_SEpSgMd, &_sSe_SEpSgMR);
     return v339;
   }
 
@@ -1555,7 +1561,7 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
     return MEMORY[0x277D84F90];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5UInt8VGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5UInt8VGMd, &_ss23_ContiguousArrayStorageCys5UInt8VGMR);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   result = v4;
@@ -1582,17 +1588,18 @@ void *specialized closure #1 in static _UnsafeBitset.withTemporaryBitset<A>(capa
       a2 = v7;
     }
 
-    v8 = specialized closure #1 in _NativeSet.intersection(_:)(result, a2, a3, a4);
+    specialized closure #1 in _NativeSet.intersection(_:)(result, a2, a3, a4);
+    v9 = v8;
 
-    return v8;
+    return v9;
   }
 
   return result;
 }
 
-Swift::Int specialized _NativeSet.intersection(_:)(uint64_t a1, uint64_t a2)
+void *specialized _NativeSet.intersection(_:)(uint64_t a1, uint64_t a2)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v4 = *(a2 + 32);
   v5 = v4 & 0x3F;
   v6 = ((1 << v4) + 63) >> 6;
@@ -1601,111 +1608,112 @@ Swift::Int specialized _NativeSet.intersection(_:)(uint64_t a1, uint64_t a2)
   if (v5 <= 0xD || (isStackAllocationSafe = swift_stdlib_isStackAllocationSafe(), (isStackAllocationSafe & 1) != 0))
   {
     MEMORY[0x28223BE20](isStackAllocationSafe);
-    bzero(v12 - ((v7 + 15) & 0x3FFFFFFFFFFFFFF0), v7);
-    v9 = specialized closure #1 in _NativeSet.intersection(_:)(v12 - ((v7 + 15) & 0x3FFFFFFFFFFFFFF0), v6, a2, a1);
+    bzero(v13 - ((v7 + 15) & 0x3FFFFFFFFFFFFFF0), v7);
+    specialized closure #1 in _NativeSet.intersection(_:)((v13 - ((v7 + 15) & 0x3FFFFFFFFFFFFFF0)), v6, a2, a1);
+    v10 = v9;
   }
 
   else
   {
-    v11 = swift_slowAlloc();
+    v12 = swift_slowAlloc();
 
-    v9 = specialized closure #1 in static _UnsafeBitset.withTemporaryBitset<A>(capacity:body:)(v11, v6, a2, a1);
+    v10 = specialized closure #1 in static _UnsafeBitset.withTemporaryBitset<A>(capacity:body:)(v12, v6, a2, a1);
 
-    MEMORY[0x21CE94770](v11, -1, -1);
+    MEMORY[0x21CE94770](v12, -1, -1);
   }
 
-  return v9;
+  return v10;
 }
 
-Swift::Int specialized closure #1 in _NativeSet.intersection(_:)(Swift::Int result, uint64_t a2, uint64_t a3, uint64_t a4)
+void specialized closure #1 in _NativeSet.intersection(_:)(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = a4;
   v5 = a3;
-  v71 = result;
   v6 = 0;
   v7 = 0;
   if (*(a4 + 16) >= *(a3 + 16))
   {
-    v38 = a3 + 56;
-    v39 = 1 << *(a3 + 32);
-    if (v39 < 64)
+    v39 = a3 + 56;
+    v40 = 1 << *(a3 + 32);
+    if (v40 < 64)
     {
-      v40 = ~(-1 << v39);
+      v41 = ~(-1 << v40);
     }
 
     else
     {
-      v40 = -1;
+      v41 = -1;
     }
 
-    v73 = v40 & *(a3 + 56);
-    v41 = (v39 + 63) >> 6;
-    v77 = a4 + 56;
+    v75 = v41 & *(a3 + 56);
+    v42 = (v40 + 63) >> 6;
+    v79 = a4 + 56;
     while (1)
     {
       do
       {
 LABEL_82:
-        if (v73)
+        if (v75)
         {
-          v42 = __clz(__rbit64(v73));
-          v43 = (v73 - 1) & v73;
+          v43 = __clz(__rbit64(v75));
+          v44 = (v75 - 1) & v75;
         }
 
         else
         {
-          v44 = v7;
+          v45 = v7;
           do
           {
-            v7 = v44 + 1;
-            if (__OFADD__(v44, 1))
+            v7 = v45 + 1;
+            if (__OFADD__(v45, 1))
             {
               goto LABEL_156;
             }
 
-            if (v7 >= v41)
+            if (v7 >= v42)
             {
 LABEL_154:
 
-              return specialized _NativeSet.extractSubset(using:count:)(v71, a2, v6, v5);
+              specialized _NativeSet.extractSubset(using:count:)(a1, a2, v6, v5);
+              return;
             }
 
-            v45 = *(v38 + 8 * v7);
-            ++v44;
+            v46 = *(v39 + 8 * v7);
+            ++v45;
           }
 
-          while (!v45);
-          v42 = __clz(__rbit64(v45));
-          v43 = (v45 - 1) & v45;
+          while (!v46);
+          v43 = __clz(__rbit64(v46));
+          v44 = (v46 - 1) & v46;
         }
 
-        v46 = v42 | (v7 << 6);
-        v47 = *(*(v5 + 48) + v46);
+        v47 = v43 | (v7 << 6);
+        v48 = *(*(v5 + 48) + v47);
         Hasher.init(_seed:)();
-        v73 = v43;
-        v70 = v46;
+        v75 = v44;
+        v72 = v47;
         String.hash(into:)();
 
-        result = Hasher._finalize()();
-        v48 = -1 << *(v4 + 32);
-        v49 = result & ~v48;
+        v49 = Hasher._finalize()();
+        v50 = -1 << *(v4 + 32);
+        v51 = v49 & ~v50;
       }
 
-      while (((*(v77 + ((v49 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v49) & 1) == 0);
-      v75 = v6;
-      v50 = ~v48;
+      while (((*(v79 + ((v51 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v51) & 1) == 0);
+      v77 = v6;
+      v52 = ~v50;
       while (1)
       {
-        v51 = *(*(a4 + 48) + v49);
-        if (v51 > 3)
+        v53 = *(*(a4 + 48) + v51);
+        if (v53 > 3)
         {
-          if (*(*(a4 + 48) + v49) > 5u)
+          if (*(*(a4 + 48) + v51) > 5u)
           {
-            if (v51 == 6)
+            if (v53 == 6)
             {
-              v56 = 0x756F527465737361;
-              v57 = 0xEE00626F6C426574;
-              if (v47 > 3)
+              v58 = 0x756F527465737361;
+              v59 = 0xEE00626F6C426574;
+              if (v48 > 3)
               {
                 goto LABEL_118;
               }
@@ -1713,9 +1721,9 @@ LABEL_154:
 
             else
             {
-              v56 = 0x6174536775626564;
-              v57 = 0xEA0000000000656CLL;
-              if (v47 > 3)
+              v58 = 0x6174536775626564;
+              v59 = 0xEA0000000000656CLL;
+              if (v48 > 3)
               {
                 goto LABEL_118;
               }
@@ -1724,27 +1732,27 @@ LABEL_154:
 
           else
           {
-            if (v51 == 4)
+            if (v53 == 4)
             {
-              v56 = 1280328553;
+              v58 = 1280328553;
             }
 
             else
             {
-              v56 = 0x68746C616548;
+              v58 = 0x68746C616548;
             }
 
-            if (v51 == 4)
+            if (v53 == 4)
             {
-              v57 = 0xE400000000000000;
+              v59 = 0xE400000000000000;
             }
 
             else
             {
-              v57 = 0xE600000000000000;
+              v59 = 0xE600000000000000;
             }
 
-            if (v47 > 3)
+            if (v48 > 3)
             {
               goto LABEL_118;
             }
@@ -1753,94 +1761,94 @@ LABEL_154:
 
         else
         {
-          v52 = 0x64756F6C43776F6CLL;
-          if (v51 != 2)
+          v54 = 0x64756F6C43776F6CLL;
+          if (v53 != 2)
           {
-            v52 = 0x6469766F72506F6ELL;
+            v54 = 0x6469766F72506F6ELL;
           }
 
-          v53 = 0xEF656761726F7453;
-          v54 = 0xEB00000000737265;
-          if (v51 == 2)
+          v55 = 0xEF656761726F7453;
+          v56 = 0xEB00000000737265;
+          if (v53 == 2)
           {
-            v54 = 0xEF656761726F7453;
+            v56 = 0xEF656761726F7453;
           }
 
-          v55 = 0x6C61636F4C776F6CLL;
-          if (!*(*(a4 + 48) + v49))
+          v57 = 0x6C61636F4C776F6CLL;
+          if (!*(*(a4 + 48) + v51))
           {
-            v55 = 0x626E4F726576656ELL;
-            v53 = 0xEE0064656472616FLL;
+            v57 = 0x626E4F726576656ELL;
+            v55 = 0xEE0064656472616FLL;
           }
 
-          if (*(*(a4 + 48) + v49) <= 1u)
+          if (*(*(a4 + 48) + v51) <= 1u)
           {
-            v56 = v55;
-          }
-
-          else
-          {
-            v56 = v52;
-          }
-
-          if (*(*(a4 + 48) + v49) <= 1u)
-          {
-            v57 = v53;
+            v58 = v57;
           }
 
           else
           {
-            v57 = v54;
+            v58 = v54;
           }
 
-          if (v47 > 3)
+          if (*(*(a4 + 48) + v51) <= 1u)
+          {
+            v59 = v55;
+          }
+
+          else
+          {
+            v59 = v56;
+          }
+
+          if (v48 > 3)
           {
 LABEL_118:
-            v60 = 0x756F527465737361;
-            if (v47 != 6)
+            v62 = 0x756F527465737361;
+            if (v48 != 6)
             {
-              v60 = 0x6174536775626564;
+              v62 = 0x6174536775626564;
             }
 
-            v61 = 0xEE00626F6C426574;
-            if (v47 != 6)
+            v63 = 0xEE00626F6C426574;
+            if (v48 != 6)
             {
-              v61 = 0xEA0000000000656CLL;
+              v63 = 0xEA0000000000656CLL;
             }
 
-            v62 = 0x68746C616548;
-            if (v47 == 4)
+            v64 = 0x68746C616548;
+            if (v48 == 4)
             {
-              v62 = 1280328553;
+              v64 = 1280328553;
             }
 
-            v63 = 0xE400000000000000;
-            if (v47 != 4)
+            v65 = 0xE400000000000000;
+            if (v48 != 4)
             {
-              v63 = 0xE600000000000000;
+              v65 = 0xE600000000000000;
             }
 
-            if (v47 <= 5)
+            if (v48 <= 5)
             {
-              v64 = v62;
-            }
-
-            else
-            {
-              v64 = v60;
-            }
-
-            if (v47 <= 5)
-            {
-              v59 = v63;
+              v66 = v64;
             }
 
             else
             {
-              v59 = v61;
+              v66 = v62;
             }
 
-            if (v56 != v64)
+            if (v48 <= 5)
+            {
+              v61 = v65;
+            }
+
+            else
+            {
+              v61 = v63;
+            }
+
+            if (v58 != v66)
             {
               goto LABEL_142;
             }
@@ -1849,29 +1857,29 @@ LABEL_118:
           }
         }
 
-        if (v47 > 1)
+        if (v48 > 1)
         {
-          if (v47 == 2)
+          if (v48 == 2)
           {
-            v65 = 0x64756F6C43776F6CLL;
+            v67 = 0x64756F6C43776F6CLL;
           }
 
           else
           {
-            v65 = 0x6469766F72506F6ELL;
+            v67 = 0x6469766F72506F6ELL;
           }
 
-          if (v47 == 2)
+          if (v48 == 2)
           {
-            v59 = 0xEF656761726F7453;
+            v61 = 0xEF656761726F7453;
           }
 
           else
           {
-            v59 = 0xEB00000000737265;
+            v61 = 0xEB00000000737265;
           }
 
-          if (v56 != v65)
+          if (v58 != v67)
           {
             goto LABEL_142;
           }
@@ -1879,57 +1887,57 @@ LABEL_118:
 
         else
         {
-          v58 = 0x626E4F726576656ELL;
-          v59 = 0xEE0064656472616FLL;
-          if (v47)
+          v60 = 0x626E4F726576656ELL;
+          v61 = 0xEE0064656472616FLL;
+          if (v48)
           {
-            v58 = 0x6C61636F4C776F6CLL;
-            v59 = 0xEF656761726F7453;
+            v60 = 0x6C61636F4C776F6CLL;
+            v61 = 0xEF656761726F7453;
           }
 
-          if (v56 != v58)
+          if (v58 != v60)
           {
             goto LABEL_142;
           }
         }
 
 LABEL_141:
-        if (v57 == v59)
+        if (v59 == v61)
         {
           break;
         }
 
 LABEL_142:
-        v66 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v68 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-        if (v66)
+        if (v68)
         {
           goto LABEL_151;
         }
 
-        v49 = (v49 + 1) & v50;
-        if (((*(v77 + ((v49 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v49) & 1) == 0)
+        v51 = (v51 + 1) & v52;
+        if (((*(v79 + ((v51 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v51) & 1) == 0)
         {
           v5 = a3;
-          v6 = v75;
+          v6 = v77;
           v4 = a4;
           goto LABEL_82;
         }
       }
 
 LABEL_151:
-      *(v71 + ((v70 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v70;
-      v6 = v75 + 1;
+      *(a1 + ((v72 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v72;
+      v6 = v77 + 1;
       v5 = a3;
       v4 = a4;
-      if (__OFADD__(v75, 1))
+      if (__OFADD__(v77, 1))
       {
         goto LABEL_157;
       }
     }
   }
 
-  v69 = a4 + 56;
+  v71 = a4 + 56;
   v8 = 1 << *(a4 + 32);
   if (v8 < 64)
   {
@@ -1942,8 +1950,8 @@ LABEL_151:
   }
 
   v10 = v9 & *(a4 + 56);
-  v67 = (v8 + 63) >> 6;
-  v76 = a3 + 56;
+  v69 = (v8 + 63) >> 6;
+  v78 = a3 + 56;
 LABEL_6:
   while (v10)
   {
@@ -1956,33 +1964,33 @@ LABEL_13:
     Hasher.init(_seed:)();
     String.hash(into:)();
 
-    result = Hasher._finalize()();
-    v17 = -1 << *(v5 + 32);
-    v18 = result & ~v17;
-    v19 = v18 >> 6;
-    v20 = 1 << v18;
-    if (((1 << v18) & *(v76 + 8 * (v18 >> 6))) == 0)
+    v17 = Hasher._finalize()();
+    v18 = -1 << *(v5 + 32);
+    v19 = v17 & ~v18;
+    v20 = v19 >> 6;
+    v21 = 1 << v19;
+    if (((1 << v19) & *(v78 + 8 * (v19 >> 6))) == 0)
     {
       continue;
     }
 
-    v72 = v10;
-    v74 = v6;
-    v21 = ~v17;
+    v74 = v10;
+    v76 = v6;
+    v22 = ~v18;
     while (1)
     {
-      v22 = *(*(v5 + 48) + v18);
-      if (v22 <= 3)
+      v23 = *(*(v5 + 48) + v19);
+      if (v23 <= 3)
       {
         break;
       }
 
-      if (*(*(v5 + 48) + v18) > 5u)
+      if (*(*(v5 + 48) + v19) > 5u)
       {
-        if (v22 == 6)
+        if (v23 == 6)
         {
-          v27 = 0x756F527465737361;
-          v28 = 0xEE00626F6C426574;
+          v28 = 0x756F527465737361;
+          v29 = 0xEE00626F6C426574;
           if (v16 > 3)
           {
             goto LABEL_42;
@@ -1991,8 +1999,8 @@ LABEL_13:
 
         else
         {
-          v27 = 0x6174536775626564;
-          v28 = 0xEA0000000000656CLL;
+          v28 = 0x6174536775626564;
+          v29 = 0xEA0000000000656CLL;
           if (v16 > 3)
           {
             goto LABEL_42;
@@ -2002,24 +2010,24 @@ LABEL_13:
 
       else
       {
-        if (v22 == 4)
+        if (v23 == 4)
         {
-          v27 = 1280328553;
+          v28 = 1280328553;
         }
 
         else
         {
-          v27 = 0x68746C616548;
+          v28 = 0x68746C616548;
         }
 
-        if (v22 == 4)
+        if (v23 == 4)
         {
-          v28 = 0xE400000000000000;
+          v29 = 0xE400000000000000;
         }
 
         else
         {
-          v28 = 0xE600000000000000;
+          v29 = 0xE600000000000000;
         }
 
         if (v16 > 3)
@@ -2033,25 +2041,25 @@ LABEL_29:
       {
         if (v16 == 2)
         {
-          v36 = 0x64756F6C43776F6CLL;
+          v37 = 0x64756F6C43776F6CLL;
         }
 
         else
         {
-          v36 = 0x6469766F72506F6ELL;
+          v37 = 0x6469766F72506F6ELL;
         }
 
         if (v16 == 2)
         {
-          v30 = 0xEF656761726F7453;
+          v31 = 0xEF656761726F7453;
         }
 
         else
         {
-          v30 = 0xEB00000000737265;
+          v31 = 0xEB00000000737265;
         }
 
-        if (v27 == v36)
+        if (v28 == v37)
         {
           goto LABEL_65;
         }
@@ -2059,78 +2067,78 @@ LABEL_29:
 
       else
       {
-        v29 = 0x626E4F726576656ELL;
-        v30 = 0xEE0064656472616FLL;
+        v30 = 0x626E4F726576656ELL;
+        v31 = 0xEE0064656472616FLL;
         if (v16)
         {
-          v29 = 0x6C61636F4C776F6CLL;
-          v30 = 0xEF656761726F7453;
+          v30 = 0x6C61636F4C776F6CLL;
+          v31 = 0xEF656761726F7453;
         }
 
-        if (v27 == v29)
+        if (v28 == v30)
         {
           goto LABEL_65;
         }
       }
 
 LABEL_66:
-      v37 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v38 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-      if (v37)
+      if (v38)
       {
         goto LABEL_75;
       }
 
-      v18 = (v18 + 1) & v21;
-      v19 = v18 >> 6;
+      v19 = (v19 + 1) & v22;
+      v20 = v19 >> 6;
       v5 = a3;
-      v20 = 1 << v18;
-      if ((*(v76 + 8 * (v18 >> 6)) & (1 << v18)) == 0)
+      v21 = 1 << v19;
+      if ((*(v78 + 8 * (v19 >> 6)) & (1 << v19)) == 0)
       {
-        v10 = v72;
-        v6 = v74;
+        v10 = v74;
+        v6 = v76;
         goto LABEL_6;
       }
     }
 
-    v23 = 0x64756F6C43776F6CLL;
-    if (v22 != 2)
+    v24 = 0x64756F6C43776F6CLL;
+    if (v23 != 2)
     {
-      v23 = 0x6469766F72506F6ELL;
+      v24 = 0x6469766F72506F6ELL;
     }
 
-    v24 = 0xEF656761726F7453;
-    v25 = 0xEB00000000737265;
-    if (v22 == 2)
+    v25 = 0xEF656761726F7453;
+    v26 = 0xEB00000000737265;
+    if (v23 == 2)
     {
-      v25 = 0xEF656761726F7453;
+      v26 = 0xEF656761726F7453;
     }
 
-    v26 = 0x6C61636F4C776F6CLL;
-    if (!*(*(v5 + 48) + v18))
+    v27 = 0x6C61636F4C776F6CLL;
+    if (!*(*(v5 + 48) + v19))
     {
-      v26 = 0x626E4F726576656ELL;
-      v24 = 0xEE0064656472616FLL;
+      v27 = 0x626E4F726576656ELL;
+      v25 = 0xEE0064656472616FLL;
     }
 
-    if (*(*(v5 + 48) + v18) <= 1u)
+    if (*(*(v5 + 48) + v19) <= 1u)
     {
-      v27 = v26;
+      v28 = v27;
     }
 
     else
-    {
-      v27 = v23;
-    }
-
-    if (*(*(v5 + 48) + v18) <= 1u)
     {
       v28 = v24;
     }
 
+    if (*(*(v5 + 48) + v19) <= 1u)
+    {
+      v29 = v25;
+    }
+
     else
     {
-      v28 = v25;
+      v29 = v26;
     }
 
     if (v16 <= 3)
@@ -2139,67 +2147,67 @@ LABEL_66:
     }
 
 LABEL_42:
-    v31 = 0x756F527465737361;
+    v32 = 0x756F527465737361;
     if (v16 != 6)
     {
-      v31 = 0x6174536775626564;
+      v32 = 0x6174536775626564;
     }
 
-    v32 = 0xEE00626F6C426574;
+    v33 = 0xEE00626F6C426574;
     if (v16 != 6)
     {
-      v32 = 0xEA0000000000656CLL;
+      v33 = 0xEA0000000000656CLL;
     }
 
-    v33 = 0x68746C616548;
+    v34 = 0x68746C616548;
     if (v16 == 4)
     {
-      v33 = 1280328553;
+      v34 = 1280328553;
     }
 
-    v34 = 0xE400000000000000;
+    v35 = 0xE400000000000000;
     if (v16 != 4)
     {
-      v34 = 0xE600000000000000;
+      v35 = 0xE600000000000000;
     }
 
     if (v16 <= 5)
     {
-      v35 = v33;
+      v36 = v34;
     }
 
     else
     {
-      v35 = v31;
+      v36 = v32;
     }
 
     if (v16 <= 5)
     {
-      v30 = v34;
+      v31 = v35;
     }
 
     else
     {
-      v30 = v32;
+      v31 = v33;
     }
 
-    if (v27 != v35)
+    if (v28 != v36)
     {
       goto LABEL_66;
     }
 
 LABEL_65:
-    if (v28 != v30)
+    if (v29 != v31)
     {
       goto LABEL_66;
     }
 
 LABEL_75:
-    v10 = v72;
-    v71[v19] |= v20;
-    v6 = v74 + 1;
+    v10 = v74;
+    a1[v20] |= v21;
+    v6 = v76 + 1;
     v5 = a3;
-    if (__OFADD__(v74, 1))
+    if (__OFADD__(v76, 1))
     {
       goto LABEL_158;
     }
@@ -2215,12 +2223,12 @@ LABEL_75:
       break;
     }
 
-    if (v7 >= v67)
+    if (v7 >= v69)
     {
       goto LABEL_154;
     }
 
-    v15 = *(v69 + 8 * v7);
+    v15 = *(v71 + 8 * v7);
     ++v14;
     if (v15)
     {
@@ -2237,26 +2245,25 @@ LABEL_157:
   __break(1u);
 LABEL_158:
   __break(1u);
-  return result;
 }
 
-unsigned __int8 *specialized _parseInteger<A, B>(ascii:radix:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void specialized _parseInteger<A, B>(ascii:radix:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v64 = a1;
-  v65 = a2;
-  v66 = a3;
-  v67 = a4;
+  v67 = a1;
+  v68 = a2;
+  v69 = a3;
+  v70 = a4;
   lazy protocol witness table accessor for type Substring and conformance Substring();
 
-  result = String.init<A>(_:)();
-  v8 = result;
+  v6 = String.init<A>(_:)();
+  v8 = v6;
   if ((v7 & 0x1000000000000000) != 0)
   {
-    v8 = static String._copying(_:)();
-    v37 = v36;
+    v8 = static String._copying(_:)(v6, v7);
+    v38 = v37;
 
-    v7 = v37;
-    if ((v37 & 0x2000000000000000) == 0)
+    v7 = v38;
+    if ((v38 & 0x2000000000000000) == 0)
     {
       goto LABEL_3;
     }
@@ -2267,22 +2274,22 @@ unsigned __int8 *specialized _parseInteger<A, B>(ascii:radix:)(uint64_t a1, uint
 LABEL_3:
     if ((v8 & 0x1000000000000000) != 0)
     {
-      result = ((v7 & 0xFFFFFFFFFFFFFFFLL) + 32);
-      v9 = v8 & 0xFFFFFFFFFFFFLL;
+      v9 = ((v7 & 0xFFFFFFFFFFFFFFFLL) + 32);
+      v10 = v8 & 0xFFFFFFFFFFFFLL;
     }
 
     else
     {
-      result = _StringObject.sharedUTF8.getter();
-      v9 = v63;
+      v9 = _StringObject.sharedUTF8.getter();
+      v10 = v66;
     }
 
-    v10 = *result;
-    if (v10 == 43)
+    v11 = *v9;
+    if (v11 == 43)
     {
-      if (v9 >= 1)
+      if (v10 >= 1)
       {
-        v21 = v9 - 1;
+        v21 = v10 - 1;
         if (v21)
         {
           v22 = a5 + 48;
@@ -2299,466 +2306,432 @@ LABEL_3:
             v23 = 65;
           }
 
-          if (result)
+          if (v9)
           {
-            v15 = 0;
-            v25 = result + 1;
-            do
+            v25 = 0;
+            v26 = v9 + 1;
+            while (1)
             {
-              v26 = *v25;
-              if (v26 < 0x30 || v26 >= v22)
+              v27 = *v26;
+              if (v27 < 0x30 || v27 >= v22)
               {
-                if (v26 < 0x41 || v26 >= v23)
+                if (v27 < 0x41 || v27 >= v23)
                 {
-                  v19 = 0;
-                  if (v26 < 0x61 || v26 >= v24)
+                  if (v27 < 0x61 || v27 >= v24)
                   {
-                    goto LABEL_127;
+                    goto LABEL_125;
                   }
 
-                  v27 = -87;
+                  v28 = -87;
                 }
 
                 else
                 {
-                  v27 = -55;
+                  v28 = -55;
                 }
               }
 
               else
               {
-                v27 = -48;
+                v28 = -48;
               }
 
-              v28 = v15 * a5;
-              if ((v15 * a5) >> 64 != (v15 * a5) >> 63)
+              v29 = v25 * a5;
+              if ((v25 * a5) >> 64 == (v25 * a5) >> 63)
               {
-                goto LABEL_126;
-              }
-
-              v15 = v28 + (v26 + v27);
-              if (__OFADD__(v28, (v26 + v27)))
-              {
-                goto LABEL_126;
-              }
-
-              ++v25;
-              --v21;
-            }
-
-            while (v21);
-LABEL_46:
-            v19 = v15;
-            goto LABEL_127;
-          }
-
-          goto LABEL_66;
-        }
-
-LABEL_126:
-        v19 = 0;
-        goto LABEL_127;
-      }
-
-      goto LABEL_131;
-    }
-
-    if (v10 != 45)
-    {
-      if (v9)
-      {
-        v29 = a5 + 48;
-        v30 = a5 + 55;
-        v31 = a5 + 87;
-        if (a5 > 10)
-        {
-          v29 = 58;
-        }
-
-        else
-        {
-          v31 = 97;
-          v30 = 65;
-        }
-
-        if (result)
-        {
-          v32 = 0;
-          do
-          {
-            v33 = *result;
-            if (v33 < 0x30 || v33 >= v29)
-            {
-              if (v33 < 0x41 || v33 >= v30)
-              {
-                v19 = 0;
-                if (v33 < 0x61 || v33 >= v31)
+                v25 = v29 + (v27 + v28);
+                if (!__OFADD__(v29, (v27 + v28)))
                 {
-                  goto LABEL_127;
+                  ++v26;
+                  if (--v21)
+                  {
+                    continue;
+                  }
                 }
-
-                v34 = -87;
               }
 
-              else
-              {
-                v34 = -55;
-              }
+              goto LABEL_125;
             }
-
-            else
-            {
-              v34 = -48;
-            }
-
-            v35 = v32 * a5;
-            if ((v32 * a5) >> 64 != (v32 * a5) >> 63)
-            {
-              goto LABEL_126;
-            }
-
-            v32 = v35 + (v33 + v34);
-            if (__OFADD__(v35, (v33 + v34)))
-            {
-              goto LABEL_126;
-            }
-
-            ++result;
-            --v9;
           }
-
-          while (v9);
-          v19 = v35 + (v33 + v34);
-          goto LABEL_127;
         }
 
-        goto LABEL_66;
+        goto LABEL_125;
       }
 
-      goto LABEL_126;
+      goto LABEL_129;
     }
 
-    if (v9 >= 1)
+    if (v11 != 45)
     {
-      v11 = v9 - 1;
-      if (v11)
+      if (v10)
       {
-        v12 = a5 + 48;
-        v13 = a5 + 55;
-        v14 = a5 + 87;
+        v30 = a5 + 48;
+        v31 = a5 + 55;
+        v32 = a5 + 87;
         if (a5 > 10)
         {
-          v12 = 58;
+          v30 = 58;
         }
 
         else
         {
-          v14 = 97;
-          v13 = 65;
+          v32 = 97;
+          v31 = 65;
         }
 
-        if (result)
+        if (v9)
         {
-          v15 = 0;
-          v16 = result + 1;
+          v33 = 0;
           while (1)
           {
-            v17 = *v16;
-            if (v17 < 0x30 || v17 >= v12)
+            v34 = *v9;
+            if (v34 < 0x30 || v34 >= v30)
             {
-              if (v17 < 0x41 || v17 >= v13)
+              if (v34 < 0x41 || v34 >= v31)
               {
-                v19 = 0;
-                if (v17 < 0x61 || v17 >= v14)
+                if (v34 < 0x61 || v34 >= v32)
                 {
-                  goto LABEL_127;
+                  goto LABEL_125;
                 }
 
-                v18 = -87;
+                v35 = -87;
               }
 
               else
               {
-                v18 = -55;
+                v35 = -55;
               }
             }
 
             else
             {
-              v18 = -48;
+              v35 = -48;
             }
 
-            v20 = v15 * a5;
-            if ((v15 * a5) >> 64 != (v15 * a5) >> 63)
+            v36 = v33 * a5;
+            if ((v33 * a5) >> 64 == (v33 * a5) >> 63)
             {
-              goto LABEL_126;
+              v33 = v36 + (v34 + v35);
+              if (!__OFADD__(v36, (v34 + v35)))
+              {
+                ++v9;
+                if (--v10)
+                {
+                  continue;
+                }
+              }
             }
 
-            v15 = v20 - (v17 + v18);
-            if (__OFSUB__(v20, (v17 + v18)))
-            {
-              goto LABEL_126;
-            }
-
-            ++v16;
-            if (!--v11)
-            {
-              goto LABEL_46;
-            }
+            goto LABEL_125;
           }
         }
-
-LABEL_66:
-        v19 = 0;
-LABEL_127:
-
-        return v19;
       }
 
-      goto LABEL_126;
+      goto LABEL_125;
+    }
+
+    if (v10 >= 1)
+    {
+      v12 = v10 - 1;
+      if (v12)
+      {
+        v13 = a5 + 48;
+        v14 = a5 + 55;
+        v15 = a5 + 87;
+        if (a5 > 10)
+        {
+          v13 = 58;
+        }
+
+        else
+        {
+          v15 = 97;
+          v14 = 65;
+        }
+
+        if (v9)
+        {
+          v16 = 0;
+          v17 = v9 + 1;
+          while (1)
+          {
+            v18 = *v17;
+            if (v18 < 0x30 || v18 >= v13)
+            {
+              if (v18 < 0x41 || v18 >= v14)
+              {
+                if (v18 < 0x61 || v18 >= v15)
+                {
+                  break;
+                }
+
+                v19 = -87;
+              }
+
+              else
+              {
+                v19 = -55;
+              }
+            }
+
+            else
+            {
+              v19 = -48;
+            }
+
+            v20 = v16 * a5;
+            if ((v16 * a5) >> 64 == (v16 * a5) >> 63)
+            {
+              v16 = v20 - (v18 + v19);
+              if (!__OFSUB__(v20, (v18 + v19)))
+              {
+                ++v17;
+                if (--v12)
+                {
+                  continue;
+                }
+              }
+            }
+
+            break;
+          }
+        }
+      }
+
+LABEL_125:
+
+      return;
     }
 
     __break(1u);
-LABEL_130:
+LABEL_128:
     __break(1u);
-LABEL_131:
+LABEL_129:
     __break(1u);
-    goto LABEL_132;
+    goto LABEL_130;
   }
 
-  v38 = HIBYTE(v7) & 0xF;
-  v64 = v8;
-  v65 = v7 & 0xFFFFFFFFFFFFFFLL;
+  v39 = HIBYTE(v7) & 0xF;
+  v67 = v8;
+  v68 = v7 & 0xFFFFFFFFFFFFFFLL;
   if (v8 != 43)
   {
     if (v8 != 45)
     {
-      if (v38)
-      {
-        v40 = 0;
-        v56 = a5 + 48;
-        v57 = a5 + 55;
-        v58 = a5 + 87;
-        if (a5 > 10)
-        {
-          v56 = 58;
-        }
-
-        else
-        {
-          v58 = 97;
-          v57 = 65;
-        }
-
-        v59 = &v64;
-        while (1)
-        {
-          v60 = *v59;
-          if (v60 < 0x30 || v60 >= v56)
-          {
-            if (v60 < 0x41 || v60 >= v57)
-            {
-              v19 = 0;
-              if (v60 < 0x61 || v60 >= v58)
-              {
-                goto LABEL_127;
-              }
-
-              v61 = -87;
-            }
-
-            else
-            {
-              v61 = -55;
-            }
-          }
-
-          else
-          {
-            v61 = -48;
-          }
-
-          v62 = v40 * a5;
-          if ((v40 * a5) >> 64 != (v40 * a5) >> 63)
-          {
-            goto LABEL_126;
-          }
-
-          v40 = v62 + (v60 + v61);
-          if (__OFADD__(v62, (v60 + v61)))
-          {
-            goto LABEL_126;
-          }
-
-          v59 = (v59 + 1);
-          if (!--v38)
-          {
-            goto LABEL_125;
-          }
-        }
-      }
-
-      goto LABEL_126;
-    }
-
-    if (v38)
-    {
-      v39 = v38 - 1;
       if (v39)
       {
-        v40 = 0;
-        v41 = a5 + 48;
-        v42 = a5 + 55;
-        v43 = a5 + 87;
+        v58 = 0;
+        v59 = a5 + 48;
+        v60 = a5 + 55;
+        v61 = a5 + 87;
         if (a5 > 10)
         {
-          v41 = 58;
+          v59 = 58;
         }
 
         else
         {
-          v43 = 97;
-          v42 = 65;
+          v61 = 97;
+          v60 = 65;
         }
 
-        v44 = &v64 + 1;
+        v62 = &v67;
         while (1)
         {
-          v45 = *v44;
-          if (v45 < 0x30 || v45 >= v41)
+          v63 = *v62;
+          if (v63 < 0x30 || v63 >= v59)
           {
-            if (v45 < 0x41 || v45 >= v42)
+            if (v63 < 0x41 || v63 >= v60)
             {
-              v19 = 0;
-              if (v45 < 0x61 || v45 >= v43)
+              if (v63 < 0x61 || v63 >= v61)
               {
-                goto LABEL_127;
+                goto LABEL_125;
               }
 
-              v46 = -87;
+              v64 = -87;
             }
 
             else
             {
-              v46 = -55;
+              v64 = -55;
             }
           }
 
           else
           {
-            v46 = -48;
+            v64 = -48;
           }
 
-          v47 = v40 * a5;
-          if ((v40 * a5) >> 64 != (v40 * a5) >> 63)
+          v65 = v58 * a5;
+          if ((v58 * a5) >> 64 == (v58 * a5) >> 63)
           {
-            goto LABEL_126;
+            v58 = v65 + (v63 + v64);
+            if (!__OFADD__(v65, (v63 + v64)))
+            {
+              v62 = (v62 + 1);
+              if (--v39)
+              {
+                continue;
+              }
+            }
           }
 
-          v40 = v47 - (v45 + v46);
-          if (__OFSUB__(v47, (v45 + v46)))
-          {
-            goto LABEL_126;
-          }
-
-          ++v44;
-          if (!--v39)
-          {
-            goto LABEL_125;
-          }
+          goto LABEL_125;
         }
       }
 
-      goto LABEL_126;
+      goto LABEL_125;
     }
 
-    goto LABEL_130;
+    if (v39)
+    {
+      v40 = v39 - 1;
+      if (v40)
+      {
+        v41 = 0;
+        v42 = a5 + 48;
+        v43 = a5 + 55;
+        v44 = a5 + 87;
+        if (a5 > 10)
+        {
+          v42 = 58;
+        }
+
+        else
+        {
+          v44 = 97;
+          v43 = 65;
+        }
+
+        v45 = &v67 + 1;
+        while (1)
+        {
+          v46 = *v45;
+          if (v46 < 0x30 || v46 >= v42)
+          {
+            if (v46 < 0x41 || v46 >= v43)
+            {
+              if (v46 < 0x61 || v46 >= v44)
+              {
+                goto LABEL_125;
+              }
+
+              v47 = -87;
+            }
+
+            else
+            {
+              v47 = -55;
+            }
+          }
+
+          else
+          {
+            v47 = -48;
+          }
+
+          v48 = v41 * a5;
+          if ((v41 * a5) >> 64 == (v41 * a5) >> 63)
+          {
+            v41 = v48 - (v46 + v47);
+            if (!__OFSUB__(v48, (v46 + v47)))
+            {
+              ++v45;
+              if (--v40)
+              {
+                continue;
+              }
+            }
+          }
+
+          goto LABEL_125;
+        }
+      }
+
+      goto LABEL_125;
+    }
+
+    goto LABEL_128;
   }
 
-  if (v38)
+  if (v39)
   {
-    v48 = v38 - 1;
-    if (v48)
+    v49 = v39 - 1;
+    if (v49)
     {
-      v40 = 0;
-      v49 = a5 + 48;
-      v50 = a5 + 55;
-      v51 = a5 + 87;
+      v50 = 0;
+      v51 = a5 + 48;
+      v52 = a5 + 55;
+      v53 = a5 + 87;
       if (a5 > 10)
       {
-        v49 = 58;
+        v51 = 58;
       }
 
       else
       {
-        v51 = 97;
-        v50 = 65;
+        v53 = 97;
+        v52 = 65;
       }
 
-      v52 = &v64 + 1;
-      do
+      v54 = &v67 + 1;
+      while (1)
       {
-        v53 = *v52;
-        if (v53 < 0x30 || v53 >= v49)
+        v55 = *v54;
+        if (v55 < 0x30 || v55 >= v51)
         {
-          if (v53 < 0x41 || v53 >= v50)
+          if (v55 < 0x41 || v55 >= v52)
           {
-            v19 = 0;
-            if (v53 < 0x61 || v53 >= v51)
+            if (v55 < 0x61 || v55 >= v53)
             {
-              goto LABEL_127;
+              goto LABEL_125;
             }
 
-            v54 = -87;
+            v56 = -87;
           }
 
           else
           {
-            v54 = -55;
+            v56 = -55;
           }
         }
 
         else
         {
-          v54 = -48;
+          v56 = -48;
         }
 
-        v55 = v40 * a5;
-        if ((v40 * a5) >> 64 != (v40 * a5) >> 63)
+        v57 = v50 * a5;
+        if ((v50 * a5) >> 64 == (v50 * a5) >> 63)
         {
-          goto LABEL_126;
+          v50 = v57 + (v55 + v56);
+          if (!__OFADD__(v57, (v55 + v56)))
+          {
+            ++v54;
+            if (--v49)
+            {
+              continue;
+            }
+          }
         }
 
-        v40 = v55 + (v53 + v54);
-        if (__OFADD__(v55, (v53 + v54)))
-        {
-          goto LABEL_126;
-        }
-
-        ++v52;
-        --v48;
+        goto LABEL_125;
       }
-
-      while (v48);
-LABEL_125:
-      v19 = v40;
-      goto LABEL_127;
     }
 
-    goto LABEL_126;
+    goto LABEL_125;
   }
 
-LABEL_132:
+LABEL_130:
   __break(1u);
-  return result;
 }
 
-uint64_t static String._copying(_:)()
+uint64_t static String._copying(_:)(uint64_t a1, unint64_t a2)
 {
-  v0 = String.subscript.getter();
-  v4 = static String._copying(_:)(v0, v1, v2, v3);
+  v2 = String.subscript.getter();
+  v6 = static String._copying(_:)(v2, v3, v4, v5);
 
-  return v4;
+  return v6;
 }
 
 uint64_t static String._copying(_:)(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
@@ -2959,7 +2932,7 @@ LABEL_38:
   return result;
 }
 
-uint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a1;
   v4 = a1 >> 14;
@@ -2992,7 +2965,7 @@ uint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, 
   }
 }
 
-_OWORD *specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, void *a6)
+_OWORD *specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t *a6)
 {
   v10 = MEMORY[0x277D837D0];
   v29 = MEMORY[0x277D837D0];
@@ -3061,7 +3034,7 @@ LABEL_11:
   return __swift_destroy_boxed_opaque_existential_1(&v28);
 }
 
-_OWORD *specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1, uint64_t a2, uint64_t a3, char a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+_OWORD *specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v35 = a6;
   v36 = a7;
@@ -3191,61 +3164,61 @@ uint64_t specialized static CloudDevice.== infix(_:_:)(void *a1, void *a2)
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
   v7 = &v28 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   MEMORY[0x28223BE20](v8 - 8);
   v10 = &v28 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSg_ADtMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSg_ADtMd, &_s10Foundation4DateVSg_ADtMR);
   MEMORY[0x28223BE20](v11);
   v13 = &v28 - v12;
-  if ((*a1 != *a2 || a1[1] != a2[1]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  if (*a1 != *a2 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
   {
-    goto LABEL_10;
+    goto LABEL_9;
   }
 
   v28 = v7;
-  v29 = type metadata accessor for CloudDevice();
+  v29 = type metadata accessor for CloudDevice(0);
   v14 = *(v29 + 28);
   v15 = *(v11 + 48);
-  outlined init with copy of DateInterval?(a1 + v14, v13, &_s10Foundation4DateVSgMd);
-  outlined init with copy of DateInterval?(a2 + v14, &v13[v15], &_s10Foundation4DateVSgMd);
+  outlined init with copy of DateInterval?(a1 + v14, v13, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  outlined init with copy of DateInterval?(a2 + v14, &v13[v15], &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v16 = *(v5 + 48);
   if (v16(v13, 1, v4) != 1)
   {
-    outlined init with copy of DateInterval?(v13, v10, &_s10Foundation4DateVSgMd);
+    outlined init with copy of DateInterval?(v13, v10, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     if (v16(&v13[v15], 1, v4) != 1)
     {
       v19 = &v13[v15];
       v20 = v28;
       (*(v5 + 32))(v28, v19, v4);
-      lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+      lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9598]);
       v21 = dispatch thunk of static Equatable.== infix(_:_:)();
       v22 = *(v5 + 8);
       v22(v20, v4);
       v22(v10, v4);
-      outlined destroy of UTType?(v13, &_s10Foundation4DateVSgMd);
+      outlined destroy of UTType?(v13, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
       if (v21)
       {
-        goto LABEL_13;
+        goto LABEL_12;
       }
 
-LABEL_10:
+LABEL_9:
       v17 = 0;
       return v17 & 1;
     }
 
     (*(v5 + 8))(v10, v4);
-LABEL_9:
-    outlined destroy of UTType?(v13, &_s10Foundation4DateVSg_ADtMd);
-    goto LABEL_10;
+LABEL_8:
+    outlined destroy of UTType?(v13, &_s10Foundation4DateVSg_ADtMd, &_s10Foundation4DateVSg_ADtMR);
+    goto LABEL_9;
   }
 
   if (v16(&v13[v15], 1, v4) != 1)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
-  outlined destroy of UTType?(v13, &_s10Foundation4DateVSgMd);
-LABEL_13:
+  outlined destroy of UTType?(v13, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+LABEL_12:
   v23 = *(v29 + 32);
   v24 = (a1 + v23);
   v25 = *(a1 + v23 + 8);
@@ -3270,7 +3243,7 @@ LABEL_13:
 
 uint64_t outlined init with copy of CloudDevice(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for CloudDevice();
+  v4 = type metadata accessor for CloudDevice(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -3424,14 +3397,14 @@ uint64_t specialized static CloudDevice.Capability.< infix(_:_:)(_BYTE *a1, _BYT
   return v16 & 1;
 }
 
-BOOL specialized static CloudDevice.< infix(_:_:)()
+BOOL specialized static CloudDevice.< infix(_:_:)(uint64_t a1, uint64_t a2)
 {
-  type metadata accessor for CloudDevice();
+  type metadata accessor for CloudDevice(0);
   lazy protocol witness table accessor for type String and conformance String();
 
-  v0 = StringProtocol.localizedCompare<A>(_:)();
+  v2 = StringProtocol.localizedCompare<A>(_:)();
 
-  return v0 == -1;
+  return v2 == -1;
 }
 
 uint64_t specialized static CloudDevice._getDeviceName()()
@@ -3446,7 +3419,7 @@ uint64_t specialized static CloudDevice._getOSVersion()()
   return specialized static CloudDevice._getDeviceName()(0x56746375646F7250, 0xEE006E6F69737265, "OS Version: %s");
 }
 
-uint64_t specialized static CloudDevice._getDeviceName()(uint64_t a1, uint64_t a2, const char *a3)
+uint64_t specialized static CloudDevice._getDeviceName()(uint64_t a1, uint64_t a2, const char *a3, ...)
 {
   v30[1] = *MEMORY[0x277D85DE8];
   v6 = type metadata accessor for Logger();
@@ -3687,7 +3660,7 @@ uint64_t specialized static CloudDevice._getProductType()()
   return specialized static CloudDevice._getDeviceName()(0x54746375646F7250, 0xEB00000000657079, "Machine Code: %s");
 }
 
-char *specialized static CloudDevice.effectiveCapabilities(original:freeSpace:cloudQuotaExceeded:iCloudPhotoLibraryAvailable:healthDataAvailable:)(uint64_t a1, unsigned __int8 *a2, char a3, char a4, char a5)
+void specialized static CloudDevice.effectiveCapabilities(original:freeSpace:cloudQuotaExceeded:iCloudPhotoLibraryAvailable:healthDataAvailable:)(uint64_t a1, unsigned __int8 *a2, char a3, char a4, char a5)
 {
   v5 = *a2;
   v6 = static DefaultsManager.SyncOnboarding.hasOnboardedBefore.getter();
@@ -3773,7 +3746,7 @@ LABEL_31:
 LABEL_19:
         v20 = swift_isUniquelyReferenced_nonNull_native();
         v107 = v14;
-        specialized _NativeSet.insertNew(_:at:isUnique:)(1, v17, v20);
+        specialized _NativeSet.insertNew(_:at:isUnique:)(1u, v17, v20);
         v21 = v14;
         v108 = v14;
       }
@@ -3812,7 +3785,7 @@ LABEL_19:
 LABEL_28:
         v27 = swift_isUniquelyReferenced_nonNull_native();
         v107 = v7;
-        specialized _NativeSet.insertNew(_:at:isUnique:)(1, v24, v27);
+        specialized _NativeSet.insertNew(_:at:isUnique:)(1u, v24, v27);
         v109 = v7;
       }
 
@@ -3867,7 +3840,7 @@ LABEL_125:
 LABEL_40:
     v35 = swift_isUniquelyReferenced_nonNull_native();
     v107 = v21;
-    specialized _NativeSet.insertNew(_:at:isUnique:)(2, v31, v35);
+    specialized _NativeSet.insertNew(_:at:isUnique:)(2u, v31, v35);
     v108 = v21;
   }
 
@@ -3909,7 +3882,7 @@ LABEL_40:
 
     v42 = swift_isUniquelyReferenced_nonNull_native();
     v107 = v7;
-    specialized _NativeSet.insertNew(_:at:isUnique:)(2, v38, v42);
+    specialized _NativeSet.insertNew(_:at:isUnique:)(2u, v38, v42);
     v109 = v7;
   }
 
@@ -3928,7 +3901,7 @@ LABEL_51:
 LABEL_59:
       v49 = swift_isUniquelyReferenced_nonNull_native();
       v107 = v21;
-      specialized _NativeSet.insertNew(_:at:isUnique:)(4, v45, v49);
+      specialized _NativeSet.insertNew(_:at:isUnique:)(4u, v45, v49);
       v108 = v21;
       goto LABEL_69;
     }
@@ -3974,7 +3947,7 @@ LABEL_59:
 LABEL_68:
       v56 = swift_isUniquelyReferenced_nonNull_native();
       v107 = v7;
-      specialized _NativeSet.insertNew(_:at:isUnique:)(4, v52, v56);
+      specialized _NativeSet.insertNew(_:at:isUnique:)(4u, v52, v56);
       v109 = v7;
       goto LABEL_69;
     }
@@ -4016,7 +3989,7 @@ LABEL_69:
 LABEL_77:
       v63 = swift_isUniquelyReferenced_nonNull_native();
       v107 = v21;
-      specialized _NativeSet.insertNew(_:at:isUnique:)(5, v59, v63);
+      specialized _NativeSet.insertNew(_:at:isUnique:)(5u, v59, v63);
       v108 = v21;
       goto LABEL_87;
     }
@@ -4062,7 +4035,7 @@ LABEL_77:
 LABEL_86:
       v70 = swift_isUniquelyReferenced_nonNull_native();
       v107 = v7;
-      specialized _NativeSet.insertNew(_:at:isUnique:)(5, v66, v70);
+      specialized _NativeSet.insertNew(_:at:isUnique:)(5u, v66, v70);
       v109 = v7;
       goto LABEL_87;
     }
@@ -4128,7 +4101,7 @@ LABEL_87:
 LABEL_94:
     v77 = swift_isUniquelyReferenced_nonNull_native();
     v107 = v7;
-    specialized _NativeSet.insertNew(_:at:isUnique:)(6, v73, v77);
+    specialized _NativeSet.insertNew(_:at:isUnique:)(6u, v73, v77);
     v109 = v7;
   }
 
@@ -4246,21 +4219,21 @@ LABEL_95:
 
   v101 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC9MomentsUI11CloudDeviceV10CapabilityO_Tt1g5(*(v98 + 16), 0);
   v102 = specialized Sequence._copySequenceContents(initializing:)(&v107, v101 + 32, v100, v99);
+  v103 = v107;
 
-  outlined consume of [String : DBAssetData].Iterator._Variant();
+  outlined consume of [String : DBAssetData].Iterator._Variant(v103);
   if (v102 == v100)
   {
 
 LABEL_123:
     v107 = v101;
     specialized MutableCollection<>.sort(by:)(&v107);
-    return v107;
+    return;
   }
 
   __break(1u);
 
   __break(1u);
-  return result;
 }
 
 uint64_t _ss5SliceV32withContiguousStorageIfAvailableyqd__Sgqd__SRy7ElementQzGKXEKlFqd__AGKXEfU_SRys5UInt8VGABySS8UTF8ViewVGSRyxGq_s5Error_pRi_zRi0_zRi__Ri0__r0_lyAIqd__Isgyrzo_qd__sAO_pALRszr__lIetyggrzo_Tpq5SiSg_Tg5061_ss17FixedWidthIntegerPsE_5radixxSgqd___SitcSyRd__lufcADSRys5H15VGXEfU_Si_SsTG5SiTf1nnc_nTf4xnn_n(uint64_t result, unint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, uint64_t a6)
@@ -4638,163 +4611,157 @@ LABEL_95:
   return result;
 }
 
-uint64_t specialized static CloudDevice._compareVersions(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void specialized static CloudDevice._compareVersions(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v6 = lazy protocol witness table accessor for type String and conformance String();
   v7 = MEMORY[0x277D837D0];
   v8 = MEMORY[0x21CE92F90](46, 0xE100000000000000, 0x7FFFFFFFFFFFFFFFLL, 1, MEMORY[0x277D837D0], v6);
-  v73 = a3;
-  v74 = a4;
-  result = MEMORY[0x21CE92F90](46, 0xE100000000000000, 0x7FFFFFFFFFFFFFFFLL, 1, v7, v6);
-  v10 = result;
-  v11 = *(v8 + 16);
-  v12 = *(result + 16);
-  if (v11 < v12)
+  v75 = a3;
+  v76 = a4;
+  v9 = MEMORY[0x21CE92F90](46, 0xE100000000000000, 0x7FFFFFFFFFFFFFFFLL, 1, v7, v6);
+  v10 = *(v8 + 2);
+  v11 = *(v9 + 2);
+  if (v10 < v11)
   {
     do
     {
-      v13 = MEMORY[0x21CE92EF0](48, 0xE100000000000000);
-      v15 = v14;
-      v17 = v16;
-      v19 = v18;
-      result = swift_isUniquelyReferenced_nonNull_native();
-      if ((result & 1) == 0)
+      v12 = MEMORY[0x21CE92EF0](48, 0xE100000000000000);
+      v14 = v13;
+      v16 = v15;
+      v18 = v17;
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v8 + 16) + 1, 1, v8);
-        v8 = result;
+        v8 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v8 + 2) + 1, 1, v8);
       }
 
-      v21 = *(v8 + 16);
-      v20 = *(v8 + 24);
-      v11 = v21 + 1;
-      if (v21 >= v20 >> 1)
+      v20 = *(v8 + 2);
+      v19 = *(v8 + 3);
+      v10 = v20 + 1;
+      if (v20 >= v19 >> 1)
       {
-        result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v20 > 1), v21 + 1, 1, v8);
-        v8 = result;
+        v8 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v19 > 1), v20 + 1, 1, v8);
       }
 
-      *(v8 + 16) = v11;
-      v22 = (v8 + 32 * v21);
-      v22[4] = v13;
-      v22[5] = v15;
-      v22[6] = v17;
-      v22[7] = v19;
+      *(v8 + 2) = v10;
+      v21 = &v8[32 * v20];
+      *(v21 + 4) = v12;
+      *(v21 + 5) = v14;
+      *(v21 + 6) = v16;
+      *(v21 + 7) = v18;
     }
 
-    while (v11 < v12);
-    v12 = *(v10 + 16);
+    while (v10 < v11);
+    v11 = *(v9 + 2);
   }
 
-  if (v12 < v11)
+  if (v11 < v10)
   {
     do
     {
-      v23 = MEMORY[0x21CE92EF0](48, 0xE100000000000000);
-      v25 = v24;
-      v27 = v26;
-      v29 = v28;
-      result = swift_isUniquelyReferenced_nonNull_native();
-      if ((result & 1) == 0)
+      v22 = MEMORY[0x21CE92EF0](48, 0xE100000000000000);
+      v24 = v23;
+      v26 = v25;
+      v28 = v27;
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v10 + 16) + 1, 1, v10);
-        v10 = result;
+        v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v9 + 2) + 1, 1, v9);
       }
 
-      v31 = *(v10 + 16);
-      v30 = *(v10 + 24);
-      v12 = v31 + 1;
-      if (v31 >= v30 >> 1)
+      v30 = *(v9 + 2);
+      v29 = *(v9 + 3);
+      v11 = v30 + 1;
+      if (v30 >= v29 >> 1)
       {
-        result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v30 > 1), v31 + 1, 1, v10);
-        v10 = result;
+        v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v29 > 1), v30 + 1, 1, v9);
       }
 
-      *(v10 + 16) = v12;
-      v32 = (v10 + 32 * v31);
-      v32[4] = v23;
-      v32[5] = v25;
-      v32[6] = v27;
-      v32[7] = v29;
+      *(v9 + 2) = v11;
+      v31 = &v9[32 * v30];
+      *(v31 + 4) = v22;
+      *(v31 + 5) = v24;
+      *(v31 + 6) = v26;
+      *(v31 + 7) = v28;
     }
 
-    while (v12 < v11);
-    v11 = *(v8 + 16);
+    while (v11 < v10);
+    v10 = *(v8 + 2);
   }
 
-  if (v12 <= v11)
+  if (v11 <= v10)
   {
-    v33 = v11;
+    v32 = v10;
   }
 
   else
   {
-    v33 = v12;
+    v32 = v11;
   }
 
-  if (!v33)
+  if (!v32)
   {
 LABEL_50:
 
-    return 2;
+    return;
   }
 
+  v33 = 0;
   v34 = 0;
-  v35 = 0;
-  while (v35 < *(v8 + 16))
+  while (v34 < *(v8 + 2))
   {
-    v36 = v8 + v34;
-    v37 = *(v8 + v34 + 32);
-    v38 = *(v8 + v34 + 40);
-    if ((v38 ^ v37) < 0x4000)
+    v35 = &v8[v33];
+    v36 = *&v8[v33 + 32];
+    v37 = *&v8[v33 + 40];
+    if ((v37 ^ v36) < 0x4000)
     {
       v44 = 0;
     }
 
     else
     {
-      v39 = *(v36 + 48);
-      v40 = *(v36 + 56);
-      if ((v40 & 0x1000000000000000) != 0)
+      v38 = *(v35 + 6);
+      v39 = *(v35 + 7);
+      if ((v39 & 0x1000000000000000) != 0)
       {
-        v52 = *(v36 + 56);
-        v53 = *(v8 + v34 + 40);
-        v54 = *(v8 + v34 + 32);
-        v55 = *(v36 + 48);
+        v53 = *(v35 + 7);
+        v54 = *&v8[v33 + 40];
+        v55 = *&v8[v33 + 32];
+        v56 = *(v35 + 6);
 
-        v56 = specialized _parseInteger<A, B>(ascii:radix:)(v54, v53, v55, v52, 10);
-        v43 = v57;
+        specialized _parseInteger<A, B>(ascii:radix:)(v55, v54, v56, v53, 10);
+        v58 = v57;
+        v43 = v59;
 
-        result = v56;
+        v41 = v58;
       }
 
       else
       {
-        if ((v40 & 0x2000000000000000) != 0)
+        if ((v39 & 0x2000000000000000) != 0)
         {
-          v73 = *(v36 + 48);
-          v74 = v40 & 0xFFFFFFFFFFFFFFLL;
-          v41 = &v73;
+          v75 = *(v35 + 6);
+          v76 = v39 & 0xFFFFFFFFFFFFFFLL;
+          v40 = &v75;
         }
 
-        else if ((v39 & 0x1000000000000000) != 0)
+        else if ((v38 & 0x1000000000000000) != 0)
         {
-          v41 = ((v40 & 0xFFFFFFFFFFFFFFFLL) + 32);
+          v40 = ((v39 & 0xFFFFFFFFFFFFFFFLL) + 32);
         }
 
         else
         {
-          v63 = *(v8 + v34 + 32);
-          v64 = *(v36 + 56);
-          v65 = *(v8 + v34 + 40);
-          v66 = *(v36 + 48);
-          v41 = _StringObject.sharedUTF8.getter();
-          v39 = v66;
-          v37 = v63;
-          v38 = v65;
-          v40 = v64;
+          v66 = *&v8[v33 + 32];
+          v67 = *(v35 + 7);
+          v68 = *&v8[v33 + 40];
+          v69 = *(v35 + 6);
+          v40 = _StringObject.sharedUTF8.getter();
+          v38 = v69;
+          v36 = v66;
+          v37 = v68;
+          v39 = v67;
         }
 
-        result = _ss5SliceV32withContiguousStorageIfAvailableyqd__Sgqd__SRy7ElementQzGKXEKlFqd__AGKXEfU_SRys5UInt8VGABySS8UTF8ViewVGSRyxGq_s5Error_pRi_zRi0_zRi__Ri0__r0_lyAIqd__Isgyrzo_qd__sAO_pALRszr__lIetyggrzo_Tpq5SiSg_Tg5061_ss17FixedWidthIntegerPsE_5radixxSgqd___SitcSyRd__lufcADSRys5H15VGXEfU_Si_SsTG5SiTf1nnc_nTf4xnn_n(v41, v37, v38, v39, v40, 10);
+        v41 = _ss5SliceV32withContiguousStorageIfAvailableyqd__Sgqd__SRy7ElementQzGKXEKlFqd__AGKXEfU_SRys5UInt8VGABySS8UTF8ViewVGSRyxGq_s5Error_pRi_zRi0_zRi__Ri0__r0_lyAIqd__Isgyrzo_qd__sAO_pALRszr__lIetyggrzo_Tpq5SiSg_Tg5061_ss17FixedWidthIntegerPsE_5radixxSgqd___SitcSyRd__lufcADSRys5H15VGXEfU_Si_SsTG5SiTf1nnc_nTf4xnn_n(v40, v36, v37, v38, v39, 10);
         v43 = v42 & 1;
       }
 
@@ -4805,32 +4772,60 @@ LABEL_50:
 
       else
       {
-        v44 = result;
+        v44 = v41;
       }
     }
 
-    if (v35 >= *(v10 + 16))
+    if (v34 >= *(v9 + 2))
     {
-      goto LABEL_55;
+      goto LABEL_53;
     }
 
-    v45 = v10 + v34;
-    v46 = *(v10 + v34 + 32);
-    v47 = *(v10 + v34 + 40);
+    v45 = &v9[v33];
+    v46 = *&v9[v33 + 32];
+    v47 = *&v9[v33 + 40];
     if ((v47 ^ v46) < 0x4000)
     {
-      goto LABEL_20;
+LABEL_20:
+      if (v44)
+      {
+        goto LABEL_50;
+      }
+
+      goto LABEL_21;
     }
 
-    v48 = *(v45 + 48);
-    v49 = *(v45 + 56);
-    if ((v49 & 0x1000000000000000) == 0)
+    v48 = *(v45 + 6);
+    v49 = *(v45 + 7);
+    if ((v49 & 0x1000000000000000) != 0)
+    {
+      v60 = *(v45 + 7);
+      v61 = *&v9[v33 + 40];
+      v62 = *&v9[v33 + 32];
+      v73 = *(v45 + 6);
+
+      specialized _parseInteger<A, B>(ascii:radix:)(v62, v61, v73, v60, 10);
+      v64 = v63;
+      LOBYTE(v62) = v65;
+
+      if (v62)
+      {
+        goto LABEL_20;
+      }
+
+      if (v44 != v64)
+      {
+        goto LABEL_50;
+      }
+    }
+
+    else
     {
       if ((v49 & 0x2000000000000000) != 0)
       {
-        v73 = *(v45 + 48);
-        v74 = v49 & 0xFFFFFFFFFFFFFFLL;
-        v50 = &v73;
+        v75 = *(v45 + 6);
+        v76 = v49 & 0xFFFFFFFFFFFFFFLL;
+        v50 = &v75;
       }
 
       else if ((v48 & 0x1000000000000000) != 0)
@@ -4840,93 +4835,60 @@ LABEL_50:
 
       else
       {
-        v72 = *(v10 + v34 + 32);
-        v67 = *(v45 + 56);
-        v68 = *(v10 + v34 + 40);
-        v69 = *(v45 + 48);
+        v74 = *&v9[v33 + 32];
+        v70 = *(v45 + 7);
+        v71 = *&v9[v33 + 40];
+        v72 = *(v45 + 6);
         v50 = _StringObject.sharedUTF8.getter();
-        v48 = v69;
-        v46 = v72;
-        v47 = v68;
-        v49 = v67;
+        v48 = v72;
+        v46 = v74;
+        v47 = v71;
+        v49 = v70;
       }
 
-      result = _ss5SliceV32withContiguousStorageIfAvailableyqd__Sgqd__SRy7ElementQzGKXEKlFqd__AGKXEfU_SRys5UInt8VGABySS8UTF8ViewVGSRyxGq_s5Error_pRi_zRi0_zRi__Ri0__r0_lyAIqd__Isgyrzo_qd__sAO_pALRszr__lIetyggrzo_Tpq5SiSg_Tg5061_ss17FixedWidthIntegerPsE_5radixxSgqd___SitcSyRd__lufcADSRys5H15VGXEfU_Si_SsTG5SiTf1nnc_nTf4xnn_n(v50, v46, v47, v48, v49, 10);
-      if ((v51 & 1) == 0)
+      v51 = _ss5SliceV32withContiguousStorageIfAvailableyqd__Sgqd__SRy7ElementQzGKXEKlFqd__AGKXEfU_SRys5UInt8VGABySS8UTF8ViewVGSRyxGq_s5Error_pRi_zRi0_zRi__Ri0__r0_lyAIqd__Isgyrzo_qd__sAO_pALRszr__lIetyggrzo_Tpq5SiSg_Tg5061_ss17FixedWidthIntegerPsE_5radixxSgqd___SitcSyRd__lufcADSRys5H15VGXEfU_Si_SsTG5SiTf1nnc_nTf4xnn_n(v50, v46, v47, v48, v49, 10);
+      if (v52)
       {
-        if (v44 != result)
-        {
-          goto LABEL_52;
-        }
-
-        goto LABEL_21;
+        goto LABEL_20;
       }
 
-LABEL_20:
-      if (v44)
+      if (v44 != v51)
       {
-        v70 = 0;
-LABEL_53:
-
-        return v44 < v70;
+        goto LABEL_50;
       }
-
-      goto LABEL_21;
-    }
-
-    v58 = *(v45 + 56);
-    v59 = *(v10 + v34 + 40);
-    v60 = *(v10 + v34 + 32);
-    v71 = *(v45 + 48);
-
-    v61 = specialized _parseInteger<A, B>(ascii:radix:)(v60, v59, v71, v58, 10);
-    LOBYTE(v60) = v62;
-
-    if (v60)
-    {
-      goto LABEL_20;
-    }
-
-    result = v61;
-    if (v44 != v61)
-    {
-LABEL_52:
-      v70 = result;
-      goto LABEL_53;
     }
 
 LABEL_21:
-    ++v35;
-    v34 += 32;
-    if (v33 == v35)
+    ++v34;
+    v33 += 32;
+    if (v32 == v34)
     {
       goto LABEL_50;
     }
   }
 
   __break(1u);
-LABEL_55:
+LABEL_53:
   __break(1u);
-  return result;
 }
 
-void *specialized static CloudDevice.newlyOnboardedDevices(in:)(uint64_t a1)
+uint64_t specialized static CloudDevice.newlyOnboardedDevices(in:)(uint64_t a1)
 {
   v2 = type metadata accessor for Logger();
   v3 = *(v2 - 8);
   MEMORY[0x28223BE20](v2);
-  v5 = &v49 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v5 = &v50 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   MEMORY[0x28223BE20](v6 - 8);
-  v8 = &v49 - v7;
+  v8 = &v50 - v7;
   v9 = type metadata accessor for Date();
   v10 = *(v9 - 8);
   v11 = MEMORY[0x28223BE20](v9);
-  v52 = &v49 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v53 = &v50 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   v13 = MEMORY[0x28223BE20](v11);
-  v15 = &v49 - v14;
+  v15 = &v50 - v14;
   MEMORY[0x28223BE20](v13);
-  v17 = &v49 - v16;
+  v17 = &v50 - v16;
   static Date.now.getter();
   v18 = COERCE_DOUBLE(specialized static DefaultsManager.MomentsUIDomain.doubleValueFor(_:)());
   if (v19)
@@ -4939,12 +4901,12 @@ void *specialized static CloudDevice.newlyOnboardedDevices(in:)(uint64_t a1)
     v20 = v18;
   }
 
-  v55 = v17;
-  v56 = a1;
-  v58 = v17;
-  v59 = v20;
-  v21 = specialized Sequence.compactMap<A>(_:)(partial apply for closure #1 in static CloudDevice.newlyOnboardedDevices(in:), v57, a1);
-  v54 = 0;
+  v56 = v17;
+  v57 = a1;
+  v59 = v17;
+  v60 = v20;
+  specialized Sequence.compactMap<A>(_:)(partial apply for closure #1 in static CloudDevice.newlyOnboardedDevices(in:), v58, a1);
+  v55 = 0;
   specialized Sequence<>.max()(v21, v8);
 
   v22 = *(v10 + 48);
@@ -4953,7 +4915,7 @@ void *specialized static CloudDevice.newlyOnboardedDevices(in:)(uint64_t a1)
     static Date.distantPast.getter();
     if (v22(v8, 1, v9) != 1)
     {
-      outlined destroy of UTType?(v8, &_s10Foundation4DateVSgMd);
+      outlined destroy of UTType?(v8, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     }
   }
 
@@ -4971,9 +4933,9 @@ void *specialized static CloudDevice.newlyOnboardedDevices(in:)(uint64_t a1)
   swift_beginAccess();
   (*(v3 + 16))(v5, v23, v2);
   v24 = *(v10 + 16);
-  v25 = v52;
-  v53 = v15;
-  v24(v52, v15, v9);
+  v25 = v53;
+  v54 = v15;
+  v24(v53, v15, v9);
   v26 = v5;
   v27 = v9;
   v28 = Logger.logObject.getter();
@@ -4982,16 +4944,16 @@ void *specialized static CloudDevice.newlyOnboardedDevices(in:)(uint64_t a1)
   if (os_log_type_enabled(v28, v29))
   {
     v31 = swift_slowAlloc();
-    v51 = v2;
+    v52 = v2;
     v32 = v25;
     v33 = v31;
-    v50 = swift_slowAlloc();
-    v60 = v50;
+    v51 = swift_slowAlloc();
+    v61 = v51;
     *v33 = 136446466;
-    *(v33 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000001ALL, 0x80000002165865F0, &v60);
+    *(v33 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000001ALL, 0x80000002165865F0, &v61);
     *(v33 + 12) = 2080;
-    lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
-    v49 = v26;
+    lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC95B8]);
+    v50 = v26;
     v34 = dispatch thunk of CustomStringConvertible.description.getter();
     v35 = v27;
     v37 = v36;
@@ -4999,16 +4961,16 @@ void *specialized static CloudDevice.newlyOnboardedDevices(in:)(uint64_t a1)
     v39 = v32;
     v40 = v35;
     v38(v39, v35);
-    v41 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v34, v37, &v60);
+    v41 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v34, v37, &v61);
 
     *(v33 + 14) = v41;
     _os_log_impl(&dword_21607C000, v28, v29, "CloudDevice.%{public}s lastInformedOfNewlyOnboardedDevices: %s", v33, 0x16u);
-    v42 = v50;
+    v42 = v51;
     swift_arrayDestroy();
     MEMORY[0x21CE94770](v42, -1, -1);
     MEMORY[0x21CE94770](v33, -1, -1);
 
-    v43 = (*(v30 + 8))(v49, v51);
+    v43 = (*(v30 + 8))(v50, v52);
     v27 = v40;
   }
 
@@ -5021,22 +4983,23 @@ void *specialized static CloudDevice.newlyOnboardedDevices(in:)(uint64_t a1)
   }
 
   MEMORY[0x28223BE20](v43);
-  v45 = v55;
-  v44 = v56;
-  *(&v49 - 4) = v55;
-  *(&v49 - 3) = v20;
-  v46 = v53;
-  *(&v49 - 2) = v53;
-  v47 = specialized Sequence.compactMap<A>(_:)(partial apply for closure #2 in static CloudDevice.newlyOnboardedDevices(in:), (&v49 - 6), v44);
+  v45 = v56;
+  v44 = v57;
+  *(&v50 - 4) = v56;
+  *(&v50 - 3) = v20;
+  v46 = v54;
+  *(&v50 - 2) = v54;
+  specialized Sequence.compactMap<A>(_:)(partial apply for closure #2 in static CloudDevice.newlyOnboardedDevices(in:), (&v50 - 6), v44);
+  v48 = v47;
   v38(v46, v27);
   v38(v45, v27);
-  return v47;
+  return v48;
 }
 
-uint64_t specialized static CloudDevice.diff(_:_:)(void *a1, void *a2)
+uint64_t specialized static CloudDevice.diff(_:_:)(void *a1, unint64_t *a2)
 {
   v291 = *MEMORY[0x277D85DE8];
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v5 = MEMORY[0x28223BE20](v4 - 8);
   v253 = &v239 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = MEMORY[0x28223BE20](v5);
@@ -5100,7 +5063,7 @@ uint64_t specialized static CloudDevice.diff(_:_:)(void *a1, void *a2)
   v58 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v60 = v59;
 
-  if ((v54 != v58 || v55 != v60) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  if (__PAIR128__(v55, v54) != __PAIR128__(v60, v58) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
   {
     v280[0] = 0;
     v280[1] = 0xE000000000000000;
@@ -5136,7 +5099,7 @@ uint64_t specialized static CloudDevice.diff(_:_:)(void *a1, void *a2)
   v66 = [v64 objectForKeyedSubscript_];
   swift_unknownObjectRelease();
 
-  if (v66 && (v290 = v66, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd), (swift_dynamicCast() & 1) != 0))
+  if (v66 && (v290 = v66, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR), (swift_dynamicCast() & 1) != 0))
   {
     v67 = v280[0];
     v68 = v280[1];
@@ -5151,7 +5114,7 @@ uint64_t specialized static CloudDevice.diff(_:_:)(void *a1, void *a2)
 
   if (one-time initialization token for productionSchema != -1)
   {
-LABEL_226:
+LABEL_225:
     swift_once();
   }
 
@@ -5196,7 +5159,7 @@ LABEL_226:
   v74 = [v72 objectForKeyedSubscript_];
   swift_unknownObjectRelease();
 
-  if (v74 && (v289 = v74, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd), (swift_dynamicCast() & 1) != 0))
+  if (v74 && (v289 = v74, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR), (swift_dynamicCast() & 1) != 0))
   {
     v76 = v280[0];
     v75 = v280[1];
@@ -5232,9 +5195,9 @@ LABEL_226:
     MEMORY[0x21CE92100](v280[0], v280[1]);
   }
 
-  v275 = type metadata accessor for CloudDevice();
+  v275 = type metadata accessor for CloudDevice(0);
   v78 = v273;
-  outlined init with copy of DateInterval?(v273 + v275[7], v29, &_s10Foundation4DateVSgMd);
+  outlined init with copy of DateInterval?(v273 + v275[7], v29, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v80 = v269;
   v79 = v270;
   v81 = v269 + 48;
@@ -5247,7 +5210,7 @@ LABEL_226:
     static Date.distantPast.getter();
     if (v82(v29, 1, v79) != 1)
     {
-      outlined destroy of UTType?(v29, &_s10Foundation4DateVSgMd);
+      outlined destroy of UTType?(v29, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     }
   }
 
@@ -5264,14 +5227,14 @@ LABEL_226:
   if (v86)
   {
     v280[0] = v86;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
     v87 = swift_dynamicCast();
     v271 = *(v80 + 56);
     v271(v27, v87 ^ 1u, 1, v79);
     if (v274(v27, 1, v79) != 1)
     {
       (*(v80 + 32))(v267, v27, v79);
-      goto LABEL_42;
+      goto LABEL_41;
     }
   }
 
@@ -5284,23 +5247,23 @@ LABEL_226:
   static Date.distantPast.getter();
   if (v274(v27, 1, v79) != 1)
   {
-    outlined destroy of UTType?(v27, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v27, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   }
 
-LABEL_42:
+LABEL_41:
   swift_beginAccess();
   v88 = specialized Dictionary.subscript.getter(0xD000000000000014, 0x8000000216585CF0, static CloudDevice.productionSchema);
   swift_endAccess();
   if (v88)
   {
-    lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+    lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9598]);
     if ((dispatch thunk of static Equatable.== infix(_:_:)() & 1) == 0)
     {
       v280[0] = 0;
       v280[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(62);
       MEMORY[0x21CE92100](0xD00000000000001DLL, 0x8000000216586530);
-      lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+      lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC95B8]);
       v89 = dispatch thunk of CustomStringConvertible.description.getter();
       MEMORY[0x21CE92100](v89);
 
@@ -5331,7 +5294,7 @@ LABEL_42:
   v96 = [v94 objectForKeyedSubscript_];
   swift_unknownObjectRelease();
 
-  if (v96 && (v288 = v96, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd), (swift_dynamicCast() & 1) != 0))
+  if (v96 && (v288 = v96, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR), (swift_dynamicCast() & 1) != 0))
   {
     v98 = v280[0];
     v97 = v280[1];
@@ -5386,7 +5349,7 @@ LABEL_42:
   v105 = [v103 objectForKeyedSubscript_];
   swift_unknownObjectRelease();
 
-  if (v105 && (v287 = v105, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd), (swift_dynamicCast() & 1) != 0))
+  if (v105 && (v287 = v105, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR), (swift_dynamicCast() & 1) != 0))
   {
     v107 = v280[0];
     v106 = v280[1];
@@ -5439,7 +5402,7 @@ LABEL_42:
   v114 = [v112 objectForKeyedSubscript_];
   swift_unknownObjectRelease();
 
-  if (v114 && (v280[0] = v114, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd), swift_dynamicCast()))
+  if (v114 && (v280[0] = v114, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR), swift_dynamicCast()))
   {
     v115 = v286;
   }
@@ -5493,7 +5456,7 @@ LABEL_42:
   v123 = [v122 objectForKeyedSubscript_];
   swift_unknownObjectRelease();
 
-  if (v123 && (v285 = v123, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd), (swift_dynamicCast() & 1) != 0))
+  if (v123 && (v285 = v123, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR), (swift_dynamicCast() & 1) != 0))
   {
     v125 = v280[0];
     v124 = v280[1];
@@ -5545,7 +5508,7 @@ LABEL_42:
   v130 = [v128 objectForKeyedSubscript_];
   swift_unknownObjectRelease();
 
-  if (v130 && (v283 = v130, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd), swift_dynamicCast()))
+  if (v130 && (v283 = v130, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR), swift_dynamicCast()))
   {
     v132 = v280[0];
     v131 = v280[1];
@@ -5572,38 +5535,38 @@ LABEL_42:
     v138 = _convertNSErrorToError(_:)();
 
     swift_willThrow();
-    goto LABEL_102;
+    goto LABEL_101;
   }
 
   v136 = v280[0];
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
   if ((swift_dynamicCast() & 1) == 0)
   {
-LABEL_102:
+LABEL_101:
     v240 = 0;
     v63 = MEMORY[0x277D84F90];
-    goto LABEL_103;
+    goto LABEL_102;
   }
 
   v240 = 0;
   v63 = v283;
-LABEL_103:
+LABEL_102:
   v29 = 0;
   v61 = *(v63 + 16);
   v139 = v63 + 40;
   v27 = MEMORY[0x277D84F90];
   v67 = &outlined read-only object #0 of CloudDevice.Capability.init(rawValue:);
   v241 = v63 + 40;
-LABEL_104:
+LABEL_103:
   v140 = (v139 + 16 * v29);
   while (v61 != v29)
   {
     if (v29 >= *(v63 + 16))
     {
       __break(1u);
-      goto LABEL_226;
+      goto LABEL_225;
     }
 
     ++v29;
@@ -5634,7 +5597,7 @@ LABEL_104:
       *(v27 + 2) = v62;
       v27[v145 + 32] = v68;
       v139 = v241;
-      goto LABEL_104;
+      goto LABEL_103;
     }
   }
 
@@ -5644,11 +5607,11 @@ LABEL_104:
   if (v146)
   {
     v147 = v243;
-    v148 = _sSasSQRzlE2eeoiySbSayxG_ABtFZ9MomentsUI11CloudDeviceV10CapabilityO_Tt1g5(v243, v27);
-    v150 = v269;
-    v149 = v270;
-    v151 = v273;
-    if (v148)
+    _sSasSQRzlE2eeoiySbSayxG_ABtFZ9MomentsUI11CloudDeviceV10CapabilityO_Tt1g5(v243, v27);
+    v149 = v269;
+    v148 = v270;
+    v150 = v273;
+    if (v151)
     {
     }
 
@@ -5659,13 +5622,13 @@ LABEL_104:
       _StringGuts.grow(_:)(58);
       MEMORY[0x21CE92100](0xD00000000000001BLL, 0x8000000216586430);
       v154 = MEMORY[0x21CE922B0](v147, &type metadata for CloudDevice.Capability);
-      v155 = v150;
-      v156 = v151;
+      v155 = v149;
+      v156 = v150;
       v158 = v157;
 
       MEMORY[0x21CE92100](v154, v158);
-      v151 = v156;
-      v150 = v155;
+      v150 = v156;
+      v149 = v155;
 
       MEMORY[0x21CE92100](0xD00000000000001BLL, 0x8000000216586450);
       v159 = MEMORY[0x21CE922B0](v27, &type metadata for CloudDevice.Capability);
@@ -5683,26 +5646,26 @@ LABEL_104:
   else
   {
 
-    v150 = v269;
-    v149 = v270;
-    v151 = v273;
+    v149 = v269;
+    v148 = v270;
+    v150 = v273;
     v152 = v274;
     v153 = v255;
   }
 
-  outlined init with copy of DateInterval?(v151 + v275[14], v153, &_s10Foundation4DateVSgMd);
-  if (v152(v153, 1, v149) == 1)
+  outlined init with copy of DateInterval?(v150 + v275[14], v153, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  if (v152(v153, 1, v148) == 1)
   {
     static Date.distantPast.getter();
-    if (v152(v153, 1, v149) != 1)
+    if (v152(v153, 1, v148) != 1)
     {
-      outlined destroy of UTType?(v153, &_s10Foundation4DateVSgMd);
+      outlined destroy of UTType?(v153, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     }
   }
 
   else
   {
-    (*(v150 + 32))(v257, v153, v149);
+    (*(v149 + 32))(v257, v153, v148);
   }
 
   v162 = [v276 encryptedValues];
@@ -5713,45 +5676,45 @@ LABEL_104:
   if (v164)
   {
     v280[0] = v164;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
     v165 = v246;
     v166 = swift_dynamicCast();
-    v271(v165, v166 ^ 1u, 1, v149);
+    v271(v165, v166 ^ 1u, 1, v148);
     v167 = v274;
-    if (v274(v165, 1, v149) != 1)
+    if (v274(v165, 1, v148) != 1)
     {
-      (*(v150 + 32))(v258, v165, v149);
-      goto LABEL_129;
+      (*(v149 + 32))(v258, v165, v148);
+      goto LABEL_128;
     }
   }
 
   else
   {
     v165 = v246;
-    v271(v246, 1, 1, v149);
+    v271(v246, 1, 1, v148);
     v167 = v274;
   }
 
   static Date.distantPast.getter();
-  if (v167(v165, 1, v149) != 1)
+  if (v167(v165, 1, v148) != 1)
   {
-    outlined destroy of UTType?(v165, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v165, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   }
 
-LABEL_129:
+LABEL_128:
   swift_beginAccess();
   v168 = specialized Dictionary.subscript.getter(0xD000000000000011, 0x8000000216585D30, static CloudDevice.productionSchema);
   swift_endAccess();
   if (v168)
   {
-    lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+    lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9598]);
     if ((dispatch thunk of static Equatable.== infix(_:_:)() & 1) == 0)
     {
       v280[0] = 0;
       v280[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(56);
       MEMORY[0x21CE92100](0xD00000000000001ALL, 0x80000002165863F0);
-      lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+      lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC95B8]);
       v169 = dispatch thunk of CustomStringConvertible.description.getter();
       MEMORY[0x21CE92100](v169);
       v167 = v274;
@@ -5765,19 +5728,19 @@ LABEL_129:
   }
 
   v171 = v247;
-  outlined init with copy of DateInterval?(v151 + v275[16], v247, &_s10Foundation4DateVSgMd);
-  if (v167(v171, 1, v149) == 1)
+  outlined init with copy of DateInterval?(v150 + v275[16], v247, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  if (v167(v171, 1, v148) == 1)
   {
     static Date.distantPast.getter();
-    if (v167(v171, 1, v149) != 1)
+    if (v167(v171, 1, v148) != 1)
     {
-      outlined destroy of UTType?(v171, &_s10Foundation4DateVSgMd);
+      outlined destroy of UTType?(v171, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     }
   }
 
   else
   {
-    (*(v150 + 32))(v259, v171, v149);
+    (*(v149 + 32))(v259, v171, v148);
   }
 
   v172 = [v276 encryptedValues];
@@ -5788,45 +5751,45 @@ LABEL_129:
   if (v174)
   {
     v280[0] = v174;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
     v175 = v248;
     v176 = swift_dynamicCast();
-    v271(v175, v176 ^ 1u, 1, v149);
+    v271(v175, v176 ^ 1u, 1, v148);
     v177 = v274;
-    if (v274(v175, 1, v149) != 1)
+    if (v274(v175, 1, v148) != 1)
     {
-      (*(v150 + 32))(v260, v175, v149);
-      goto LABEL_142;
+      (*(v149 + 32))(v260, v175, v148);
+      goto LABEL_141;
     }
   }
 
   else
   {
     v175 = v248;
-    v271(v248, 1, 1, v149);
+    v271(v248, 1, 1, v148);
     v177 = v274;
   }
 
   static Date.distantPast.getter();
-  if (v177(v175, 1, v149) != 1)
+  if (v177(v175, 1, v148) != 1)
   {
-    outlined destroy of UTType?(v175, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v175, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   }
 
-LABEL_142:
+LABEL_141:
   swift_beginAccess();
   v178 = specialized Dictionary.subscript.getter(0xD000000000000013, 0x8000000216585D50, static CloudDevice.productionSchema);
   swift_endAccess();
   if (v178)
   {
-    lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+    lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9598]);
     if ((dispatch thunk of static Equatable.== infix(_:_:)() & 1) == 0)
     {
       v280[0] = 0;
       v280[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(60);
       MEMORY[0x21CE92100](0xD00000000000001CLL, 0x80000002165863B0);
-      lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+      lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC95B8]);
       v179 = dispatch thunk of CustomStringConvertible.description.getter();
       MEMORY[0x21CE92100](v179);
 
@@ -5838,7 +5801,7 @@ LABEL_142:
     }
   }
 
-  v181 = (v151 + v275[17]);
+  v181 = (v150 + v275[17]);
   if (v181[1])
   {
     v182 = *v181;
@@ -5857,7 +5820,7 @@ LABEL_142:
   v186 = [v184 objectForKeyedSubscript_];
   swift_unknownObjectRelease();
 
-  if (v186 && (v281 = v186, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd), (swift_dynamicCast() & 1) != 0))
+  if (v186 && (v281 = v186, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR), (swift_dynamicCast() & 1) != 0))
   {
     v188 = v283;
     v187 = v284;
@@ -5893,7 +5856,7 @@ LABEL_142:
 
   v190 = v256;
 
-  outlined init with copy of DateInterval?(v273 + v275[18], v190, &_s10Foundation4DateVSgMd);
+  outlined init with copy of DateInterval?(v273 + v275[18], v190, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v191 = v270;
   v192 = v274;
   v193 = v274(v190, 1, v270);
@@ -5904,7 +5867,7 @@ LABEL_142:
     static Date.distantPast.getter();
     if (v192(v190, 1, v191) != 1)
     {
-      outlined destroy of UTType?(v190, &_s10Foundation4DateVSgMd);
+      outlined destroy of UTType?(v190, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     }
   }
 
@@ -5921,7 +5884,7 @@ LABEL_142:
   if (v198)
   {
     v281 = v198;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
     v199 = v249;
     v200 = swift_dynamicCast();
     v271(v199, v200 ^ 1u, 1, v191);
@@ -5930,7 +5893,7 @@ LABEL_142:
     if (v201 != 1)
     {
       (*(v194 + 32))(v262, v199, v191);
-      goto LABEL_167;
+      goto LABEL_166;
     }
   }
 
@@ -5944,16 +5907,16 @@ LABEL_142:
   static Date.distantPast.getter();
   if (v274(v199, 1, v191) != 1)
   {
-    outlined destroy of UTType?(v199, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v199, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   }
 
-LABEL_167:
+LABEL_166:
   swift_beginAccess();
   v203 = specialized Dictionary.subscript.getter(0x6974616E696D6F6ELL, 0xEE00657461446E6FLL, static CloudDevice.productionSchema);
   swift_endAccess();
   if (v203)
   {
-    lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+    lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9598]);
     if ((dispatch thunk of static Equatable.== infix(_:_:)() & 1) == 0)
     {
       v281 = 0;
@@ -5962,7 +5925,7 @@ LABEL_167:
 
       v281 = 0xD000000000000017;
       v282 = 0x8000000216586330;
-      lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+      lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC95B8]);
       v204 = dispatch thunk of CustomStringConvertible.description.getter();
       MEMORY[0x21CE92100](v204);
 
@@ -5974,14 +5937,14 @@ LABEL_167:
     }
   }
 
-  outlined init with copy of DateInterval?(v273 + v275[20], v202, &_s10Foundation4DateVSgMd);
+  outlined init with copy of DateInterval?(v273 + v275[20], v202, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v206 = v274;
   if (v274(v202, 1, v191) == 1)
   {
     static Date.distantPast.getter();
     if (v206(v202, 1, v191) != 1)
     {
-      outlined destroy of UTType?(v202, &_s10Foundation4DateVSgMd);
+      outlined destroy of UTType?(v202, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     }
   }
 
@@ -5998,7 +5961,7 @@ LABEL_167:
   if (v209)
   {
     v281 = v209;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
     v210 = v251;
     v211 = swift_dynamicCast();
     v271(v210, v211 ^ 1u, 1, v191);
@@ -6007,7 +5970,7 @@ LABEL_167:
     if (v212 != 1)
     {
       (*(v194 + 32))(v264, v210, v191);
-      goto LABEL_180;
+      goto LABEL_179;
     }
   }
 
@@ -6021,16 +5984,16 @@ LABEL_167:
   static Date.distantPast.getter();
   if (v274(v210, 1, v191) != 1)
   {
-    outlined destroy of UTType?(v210, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v210, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   }
 
-LABEL_180:
+LABEL_179:
   swift_beginAccess();
   v214 = specialized Dictionary.subscript.getter(0x696472616F626E6FLL, 0xEE0065746144676ELL, static CloudDevice.productionSchema);
   swift_endAccess();
   if (v214)
   {
-    lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+    lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9598]);
     if ((dispatch thunk of static Equatable.== infix(_:_:)() & 1) == 0)
     {
       v281 = 0;
@@ -6039,7 +6002,7 @@ LABEL_180:
 
       v281 = 0xD000000000000017;
       v282 = 0x80000002165862F0;
-      lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+      lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC95B8]);
       v215 = dispatch thunk of CustomStringConvertible.description.getter();
       MEMORY[0x21CE92100](v215);
 
@@ -6051,14 +6014,14 @@ LABEL_180:
     }
   }
 
-  outlined init with copy of DateInterval?(v273 + v275[21], v213, &_s10Foundation4DateVSgMd);
+  outlined init with copy of DateInterval?(v273 + v275[21], v213, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v217 = v274;
   if (v274(v213, 1, v191) == 1)
   {
     static Date.distantPast.getter();
     if (v217(v213, 1, v191) != 1)
     {
-      outlined destroy of UTType?(v213, &_s10Foundation4DateVSgMd);
+      outlined destroy of UTType?(v213, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     }
   }
 
@@ -6075,7 +6038,7 @@ LABEL_180:
   if (v220)
   {
     v281 = v220;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
     v221 = v253;
     v222 = swift_dynamicCast();
     v271(v221, v222 ^ 1u, 1, v191);
@@ -6083,7 +6046,7 @@ LABEL_180:
     if (v274(v221, 1, v191) != 1)
     {
       (*(v194 + 32))(v195, v221, v191);
-      goto LABEL_193;
+      goto LABEL_192;
     }
   }
 
@@ -6097,23 +6060,23 @@ LABEL_180:
   static Date.distantPast.getter();
   if (v223(v221, 1, v191) != 1)
   {
-    outlined destroy of UTType?(v221, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v221, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   }
 
-LABEL_193:
+LABEL_192:
   swift_beginAccess();
   v224 = specialized Dictionary.subscript.getter(0xD000000000000023, 0x8000000216585DB0, static CloudDevice.productionSchema);
   swift_endAccess();
   if (v224)
   {
-    lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+    lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9598]);
     if ((dispatch thunk of static Equatable.== infix(_:_:)() & 1) == 0)
     {
       v281 = 0;
       v282 = 0xE000000000000000;
       _StringGuts.grow(_:)(92);
       MEMORY[0x21CE92100](0xD00000000000002CLL, 0x8000000216586290);
-      lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+      lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC95B8]);
       v225 = dispatch thunk of CustomStringConvertible.description.getter();
       MEMORY[0x21CE92100](v225);
 
@@ -6136,8 +6099,8 @@ LABEL_193:
 
   if (v232)
   {
-    v277 = v232;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+    v277[0] = v232;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
     if (swift_dynamicCast())
     {
       v233 = v281;
@@ -6161,7 +6124,7 @@ LABEL_193:
   swift_endAccess();
   if (!v234)
   {
-    goto LABEL_207;
+    goto LABEL_206;
   }
 
   if (!v228)
@@ -6169,17 +6132,17 @@ LABEL_193:
     if (!v232)
     {
       outlined consume of Data._Representation(v244, v245);
-      goto LABEL_218;
+      goto LABEL_217;
     }
 
     v228 = 0xE300000000000000;
     v229 = 7104878;
-    goto LABEL_210;
+    goto LABEL_209;
   }
 
   if (!v232 || (v229 != v233 || v228 != v232) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
   {
-LABEL_210:
+LABEL_209:
     v281 = 0;
     v282 = 0xE000000000000000;
     _StringGuts.grow(_:)(58);
@@ -6211,15 +6174,15 @@ LABEL_210:
 
     MEMORY[0x21CE92100](v281, v282);
     outlined consume of Data._Representation(v244, v245);
-    goto LABEL_217;
+    goto LABEL_216;
   }
 
-LABEL_207:
+LABEL_206:
   outlined consume of Data._Representation(v244, v245);
 
-LABEL_217:
+LABEL_216:
 
-LABEL_218:
+LABEL_217:
   v237 = *(v194 + 8);
   v237(v195, v191);
   v237(v265, v191);
@@ -6239,14 +6202,14 @@ LABEL_218:
 uint64_t specialized CloudDevice.mergeFromServerRecord(_:force:primary:primaryID:blobFolderURL:cloudManager:)(void *a1, uint64_t a2, void (*a3)(char *, uint64_t, uint64_t, uint64_t), unint64_t a4)
 {
   v272 = a3;
-  v278[4] = *MEMORY[0x277D85DE8];
+  v279 = *MEMORY[0x277D85DE8];
   v271 = type metadata accessor for Date();
   v273 = *(v271 - 8);
   v6 = MEMORY[0x28223BE20](v271);
   v255 = &v249 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v6);
   v262 = &v249 - v8;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v10 = MEMORY[0x28223BE20](v9 - 8);
   v261 = &v249 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = MEMORY[0x28223BE20](v10);
@@ -6271,7 +6234,7 @@ uint64_t specialized CloudDevice.mergeFromServerRecord(_:force:primary:primaryID
   v250 = &v249 - v31;
   MEMORY[0x28223BE20](v30);
   v33 = &v249 - v32;
-  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x28223BE20](v34 - 8);
   v266 = &v249 - v35;
   v36 = type metadata accessor for CKSyncEngine.PendingRecordZoneChange();
@@ -6317,7 +6280,7 @@ uint64_t specialized CloudDevice.mergeFromServerRecord(_:force:primary:primaryID
     if (v70)
     {
       v276 = v70;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
       v71 = v271;
       v72 = swift_dynamicCast();
       v73 = *(v273 + 56);
@@ -6337,7 +6300,7 @@ uint64_t specialized CloudDevice.mergeFromServerRecord(_:force:primary:primaryID
     v272 = v73;
     v73(v75, v74, 1, v76);
     v105 = v274;
-    v51 = type metadata accessor for CloudDevice();
+    v51 = type metadata accessor for CloudDevice(0);
     outlined assign with take of Date?(v33, v105 + v51[7]);
     v106 = [v40 encryptedValues];
     v107 = MEMORY[0x21CE91FC0](1701667182, 0xE400000000000000);
@@ -6346,8 +6309,8 @@ uint64_t specialized CloudDevice.mergeFromServerRecord(_:force:primary:primaryID
 
     if (v108)
     {
-      v278[0] = v108;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+      v278 = v108;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
       v109 = swift_dynamicCast();
       if (v109)
       {
@@ -6386,8 +6349,8 @@ uint64_t specialized CloudDevice.mergeFromServerRecord(_:force:primary:primaryID
 
     if (v114)
     {
-      v278[0] = v114;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+      v278 = v114;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
       v115 = swift_dynamicCast();
       if (v115)
       {
@@ -6427,9 +6390,9 @@ uint64_t specialized CloudDevice.mergeFromServerRecord(_:force:primary:primaryID
     if (v120)
     {
       v276 = v120;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
       v121 = swift_dynamicCast();
-      v122 = v278[0];
+      v122 = v278;
       if (!v121)
       {
         v122 = 0;
@@ -6454,8 +6417,8 @@ uint64_t specialized CloudDevice.mergeFromServerRecord(_:force:primary:primaryID
 
     if (v127)
     {
-      v278[0] = v127;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+      v278 = v127;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
       v128 = swift_dynamicCast();
       if (v128)
       {
@@ -6503,7 +6466,7 @@ uint64_t specialized CloudDevice.mergeFromServerRecord(_:force:primary:primaryID
     v137 = [v135 objectForKeyedSubscript_];
     swift_unknownObjectRelease();
 
-    if (v137 && (v278[0] = v137, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd), swift_dynamicCast()))
+    if (v137 && (v278 = v137, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR), swift_dynamicCast()))
     {
       v138 = v276;
       v139 = v277;
@@ -6527,11 +6490,11 @@ uint64_t specialized CloudDevice.mergeFromServerRecord(_:force:primary:primaryID
       v143 = v276;
       _bridgeAnyObjectToAny(_:)();
       swift_unknownObjectRelease();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
       if (swift_dynamicCast())
       {
         v268 = 0;
-        v144 = v278[0];
+        v144 = v278;
 LABEL_58:
         v147 = 0;
         v44 = *(v144 + 16);
@@ -6547,7 +6510,7 @@ LABEL_58:
               v153 = v51[13];
               v154 = v274;
 
-              *&v154[v153] = i;
+              *(v154 + v153) = i;
               v53 = v275;
               v155 = [v275 encryptedValues];
               v156 = MEMORY[0x21CE91FC0](0xD000000000000011, 0x8000000216585D30);
@@ -6558,7 +6521,7 @@ LABEL_58:
               if (v157)
               {
                 v276 = v157;
-                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
                 v159 = v250;
                 v160 = swift_dynamicCast() ^ 1;
                 v161 = v159;
@@ -6572,7 +6535,7 @@ LABEL_58:
               }
 
               v272(v161, v160, 1, v158);
-              outlined assign with take of Date?(v159, &v154[v51[14]]);
+              outlined assign with take of Date?(v159, v154 + v51[14]);
               v162 = [v53 encryptedValues];
               v163 = MEMORY[0x21CE91FC0](0xD000000000000013, 0x8000000216585D50);
               v164 = [v162 objectForKeyedSubscript_];
@@ -6581,7 +6544,7 @@ LABEL_58:
               if (v164)
               {
                 v276 = v164;
-                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
                 v165 = v251;
                 v166 = swift_dynamicCast() ^ 1;
                 v167 = v165;
@@ -6595,7 +6558,7 @@ LABEL_58:
               }
 
               v272(v167, v166, 1, v158);
-              outlined assign with take of Date?(v165, &v154[v51[16]]);
+              outlined assign with take of Date?(v165, v154 + v51[16]);
               v168 = [v53 encryptedValues];
               v169 = MEMORY[0x21CE91FC0](0xD000000000000012, 0x8000000216585D70);
               v170 = [v168 objectForKeyedSubscript_];
@@ -6603,8 +6566,8 @@ LABEL_58:
 
               if (v170)
               {
-                v278[0] = v170;
-                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+                v278 = v170;
+                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
                 v171 = swift_dynamicCast();
                 if (v171)
                 {
@@ -6633,10 +6596,10 @@ LABEL_58:
                 v173 = 0;
               }
 
-              v174 = &v154[v51[17]];
+              v174 = (v154 + v51[17]);
 
               *v174 = v172;
-              *(v174 + 1) = v173;
+              v174[1] = v173;
               v175 = [v53 encryptedValues];
               v176 = MEMORY[0x21CE91FC0](0x6974616E696D6F6ELL, 0xEE00657461446E6FLL);
               v177 = [v175 objectForKeyedSubscript_];
@@ -6645,7 +6608,7 @@ LABEL_58:
               if (v177)
               {
                 v276 = v177;
-                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
                 v178 = v252;
                 v179 = v271;
                 v180 = swift_dynamicCast() ^ 1;
@@ -6662,7 +6625,7 @@ LABEL_58:
               }
 
               v272(v181, v180, 1, v182);
-              outlined assign with take of Date?(v178, &v154[v51[18]]);
+              outlined assign with take of Date?(v178, v154 + v51[18]);
               v183 = [v53 encryptedValues];
               v184 = MEMORY[0x21CE91FC0](0xD000000000000010, 0x8000000216585D90);
               v185 = [v183 objectForKeyedSubscript_];
@@ -6671,7 +6634,7 @@ LABEL_58:
               if (v185)
               {
                 v276 = v185;
-                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
                 v186 = v253;
                 v187 = v271;
                 v188 = swift_dynamicCast();
@@ -6692,8 +6655,8 @@ LABEL_58:
               v272(v191, v190, 1, v187);
               v192 = v254;
               v193 = v51[19];
-              outlined assign with take of Date?(v186, &v154[v193]);
-              outlined init with copy of DateInterval?(&v154[v193], v192, &_s10Foundation4DateVSgMd);
+              outlined assign with take of Date?(v186, v154 + v193);
+              outlined init with copy of DateInterval?(v154 + v193, v192, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
               v194 = *(v189 + 48);
               if (v194(v192, 1, v187) == 1)
               {
@@ -6703,7 +6666,7 @@ LABEL_58:
                 v197 = v255;
                 if (v196 != 1)
                 {
-                  outlined destroy of UTType?(v192, &_s10Foundation4DateVSgMd);
+                  outlined destroy of UTType?(v192, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
                 }
               }
 
@@ -6723,9 +6686,9 @@ LABEL_58:
 
                 if (static Date.< infix(_:_:)())
                 {
-                  outlined destroy of UTType?(&v154[v193], &_s10Foundation4DateVSgMd);
-                  (*(v273 + 32))(&v154[v193], v197, v187);
-                  v272(&v154[v193], 0, 1, v187);
+                  outlined destroy of UTType?(v154 + v193, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+                  (*(v273 + 32))(v154 + v193, v197, v187);
+                  v272(v154 + v193, 0, 1, v187);
                 }
 
                 else
@@ -6742,7 +6705,7 @@ LABEL_58:
               if (v203)
               {
                 v276 = v203;
-                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
                 v204 = v256;
                 v205 = swift_dynamicCast() ^ 1;
                 v206 = v204;
@@ -6756,7 +6719,7 @@ LABEL_58:
               }
 
               v272(v206, v205, 1, v187);
-              outlined assign with take of Date?(v204, &v154[v51[20]]);
+              outlined assign with take of Date?(v204, v154 + v51[20]);
               v207 = [v53 encryptedValues];
               v208 = MEMORY[0x21CE91FC0](0xD000000000000023, 0x8000000216585DB0);
               v209 = [v207 objectForKeyedSubscript_];
@@ -6765,7 +6728,7 @@ LABEL_58:
               if (v209)
               {
                 v276 = v209;
-                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
                 v210 = v257;
                 v211 = swift_dynamicCast() ^ 1;
                 v212 = v210;
@@ -6779,7 +6742,7 @@ LABEL_58:
               }
 
               v272(v212, v211, 1, v187);
-              outlined assign with take of Date?(v210, &v154[v51[21]]);
+              outlined assign with take of Date?(v210, v154 + v51[21]);
               v213 = [v53 encryptedValues];
               v214 = MEMORY[0x21CE91FC0](0xD000000000000021, 0x80000002165842C0);
               v215 = [v213 objectForKeyedSubscript_];
@@ -6788,7 +6751,7 @@ LABEL_58:
               if (v215)
               {
                 v276 = v215;
-                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
                 v216 = v258;
                 v217 = swift_dynamicCast() ^ 1;
                 v218 = v216;
@@ -6802,7 +6765,7 @@ LABEL_58:
               }
 
               v272(v218, v217, 1, v187);
-              outlined assign with take of Date?(v216, &v154[v51[22]]);
+              outlined assign with take of Date?(v216, v154 + v51[22]);
               v219 = [v53 encryptedValues];
               v220 = MEMORY[0x21CE91FC0](0xD000000000000020, 0x80000002165842F0);
               v221 = [v219 objectForKeyedSubscript_];
@@ -6811,7 +6774,7 @@ LABEL_58:
               if (v221)
               {
                 v276 = v221;
-                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
                 v222 = v259;
                 v223 = swift_dynamicCast() ^ 1;
                 v224 = v222;
@@ -6825,7 +6788,7 @@ LABEL_58:
               }
 
               v272(v224, v223, 1, v187);
-              outlined assign with take of Date?(v222, &v154[v51[23]]);
+              outlined assign with take of Date?(v222, v154 + v51[23]);
               v225 = [v53 encryptedValues];
               v226 = MEMORY[0x21CE91FC0](0xD000000000000018, 0x8000000216584320);
               v227 = [v225 objectForKeyedSubscript_];
@@ -6834,7 +6797,7 @@ LABEL_58:
               if (v227)
               {
                 v276 = v227;
-                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
                 v228 = v260;
                 v229 = swift_dynamicCast() ^ 1;
                 v230 = v228;
@@ -6848,7 +6811,7 @@ LABEL_58:
               }
 
               v272(v230, v229, 1, v187);
-              outlined assign with take of Date?(v228, &v154[v51[24]]);
+              outlined assign with take of Date?(v228, v154 + v51[24]);
               v231 = [v53 encryptedValues];
               v232 = MEMORY[0x21CE91FC0](0xD000000000000010, 0x8000000216584340);
               v233 = [v231 objectForKeyedSubscript_];
@@ -6857,7 +6820,7 @@ LABEL_58:
               if (v233)
               {
                 v276 = v233;
-                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
                 v234 = v261;
                 v235 = swift_dynamicCast() ^ 1;
                 v236 = v234;
@@ -6871,7 +6834,7 @@ LABEL_58:
               }
 
               v272(v236, v235, 1, v187);
-              outlined assign with take of Date?(v234, &v154[v51[25]]);
+              outlined assign with take of Date?(v234, v154 + v51[25]);
               v237 = [v53 encryptedValues];
               v238 = MEMORY[0x21CE91FC0](0xD00000000000001CLL, 0x8000000216585DE0);
               v239 = [v237 objectForKeyedSubscript_];
@@ -6879,8 +6842,8 @@ LABEL_58:
 
               if (v239)
               {
-                v278[0] = v239;
-                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+                v278 = v239;
+                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
                 if (swift_dynamicCast())
                 {
                   v239 = v276;
@@ -6893,7 +6856,7 @@ LABEL_58:
 
               v240 = 0xF000000000000000;
 LABEL_119:
-              v241 = &v154[v51[26]];
+              v241 = v154 + v51[26];
               outlined consume of Data?(*v241, *(v241 + 1));
               *v241 = v239;
               *(v241 + 1) = v240;
@@ -6906,17 +6869,17 @@ LABEL_119:
               (*(v273 + 8))(v195, v187);
               if (v244)
               {
-                v278[0] = v244;
-                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+                v278 = v244;
+                __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
                 if (swift_dynamicCast())
                 {
                   v244 = v276;
                   v245 = v277;
 LABEL_124:
-                  v246 = &v154[v51[27]];
+                  v246 = (v154 + v51[27]);
 
                   *v246 = v244;
-                  *(v246 + 1) = v245;
+                  v246[1] = v245;
                   goto LABEL_125;
                 }
 
@@ -6936,7 +6899,7 @@ LABEL_9:
               v58 = __swift_project_value_buffer(v40, static CloudDevice.Log);
               swift_beginAccess();
               v59 = v270;
-              v60 = v270[2];
+              v60 = *(v270 + 2);
               v271 = v58;
               v262 = v60;
               (v60)(v44, v58, v40);
@@ -6948,15 +6911,15 @@ LABEL_9:
               {
                 v63 = swift_slowAlloc();
                 v261 = swift_slowAlloc();
-                v278[0] = v261;
+                v278 = v261;
                 *v63 = 136315650;
-                *(v63 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000004CLL, 0x8000000216578810, v278);
+                *(v63 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000004CLL, 0x8000000216578810, &v278);
                 *(v63 + 12) = 2080;
-                v64 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v49, v51, v278);
+                v64 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v49, v51, &v278);
 
                 *(v63 + 14) = v64;
                 *(v63 + 22) = 2080;
-                v65 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a4, v56, v278);
+                v65 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a4, v56, &v278);
 
                 *(v63 + 24) = v65;
                 _os_log_impl(&dword_21607C000, v61, v62, "CloudDevice.%s: iCloud tried to clobber our device record:\nrecordName: %s\n%s", v63, 0x20u);
@@ -6995,10 +6958,10 @@ LABEL_9:
               v77(v80, v40);
               if (v272)
               {
-                type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordID);
+                type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordID, 0x277CBC5D0);
                 v85 = *v78;
                 v86 = v78[1];
-                type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordZoneID);
+                type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordZoneID, 0x277CBC5F8);
                 v87 = static String._unconditionallyBridgeFromObjectiveC(_:)();
                 v89 = v88;
                 v90 = v272;
@@ -7112,60 +7075,60 @@ LABEL_125:
   return CloudDevice.lastKnownCKRecord.setter(v53);
 }
 
-uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4, uint64_t a5)
+void specialized _merge<A>(low:mid:high:buffer:by:)(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4, uint64_t a5)
 {
-  v180 = a5;
-  v178 = type metadata accessor for CloudDevice();
-  v179 = *(v178 - 8);
-  v10 = MEMORY[0x28223BE20](v178);
-  v170 = v169 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v183 = a5;
+  v181 = type metadata accessor for CloudDevice(0);
+  v182 = *(v181 - 8);
+  v10 = MEMORY[0x28223BE20](v181);
+  v173 = v172 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = MEMORY[0x28223BE20](v10);
-  v183 = v169 - v13;
+  v186 = v172 - v13;
   v14 = MEMORY[0x28223BE20](v12);
-  v172 = v169 - v15;
+  v175 = v172 - v15;
   v16 = MEMORY[0x28223BE20](v14);
-  v184 = v169 - v17;
+  v187 = v172 - v17;
   v18 = MEMORY[0x28223BE20](v16);
-  v174 = v169 - v19;
+  v177 = v172 - v19;
   v20 = MEMORY[0x28223BE20](v18);
-  v190 = v169 - v21;
+  v193 = v172 - v21;
   v22 = MEMORY[0x28223BE20](v20);
-  v176 = v169 - v23;
+  v179 = v172 - v23;
   MEMORY[0x28223BE20](v22);
-  v191 = (v169 - v24);
-  v206 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_10Foundation4DateV5valuetMd);
-  v25 = MEMORY[0x28223BE20](v206);
-  v171 = (v169 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v194 = (v172 - v24);
+  v209 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_10Foundation4DateV5valuetMd, "j");
+  v25 = MEMORY[0x28223BE20](v209);
+  v174 = (v172 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0));
   v27 = MEMORY[0x28223BE20](v25);
-  v173 = (v169 - v28);
+  v176 = (v172 - v28);
   v29 = MEMORY[0x28223BE20](v27);
-  v185 = (v169 - v30);
+  v188 = (v172 - v30);
   v31 = MEMORY[0x28223BE20](v29);
-  v33 = v169 - v32;
+  v33 = v172 - v32;
   v34 = MEMORY[0x28223BE20](v31);
-  v189 = (v169 - v35);
+  v192 = (v172 - v35);
   v36 = MEMORY[0x28223BE20](v34);
-  v188 = (v169 - v37);
+  v191 = (v172 - v37);
   v38 = MEMORY[0x28223BE20](v36);
-  v187 = v169 - v39;
+  v190 = v172 - v39;
   v40 = MEMORY[0x28223BE20](v38);
-  v186 = v169 - v41;
+  v189 = v172 - v41;
   v42 = MEMORY[0x28223BE20](v40);
-  v175 = (v169 - v43);
+  v178 = (v172 - v43);
   v44 = MEMORY[0x28223BE20](v42);
-  v177 = (v169 - v45);
+  v180 = (v172 - v45);
   v46 = MEMORY[0x28223BE20](v44);
-  v193 = (v169 - v47);
+  v196 = (v172 - v47);
   v48 = MEMORY[0x28223BE20](v46);
-  v192 = (v169 - v49);
+  v195 = (v172 - v49);
   v50 = MEMORY[0x28223BE20](v48);
-  v197 = (v169 - v51);
+  v200 = (v172 - v51);
   v52 = MEMORY[0x28223BE20](v50);
-  v196 = (v169 - v53);
+  v199 = (v172 - v53);
   v54 = MEMORY[0x28223BE20](v52);
-  v195 = v169 - v55;
+  v198 = v172 - v55;
   MEMORY[0x28223BE20](v54);
-  v194 = v169 - v56;
+  v197 = v172 - v56;
   v58 = *(v57 + 72);
   if (!v58)
   {
@@ -7191,7 +7154,7 @@ LABEL_110:
 LABEL_111:
 
     __break(1u);
-    return result;
+    return;
   }
 
   v60 = a3 - a2;
@@ -7200,9 +7163,9 @@ LABEL_111:
     goto LABEL_107;
   }
 
-  v169[1] = v5;
-  v209 = a1;
-  v208 = a4;
+  v172[1] = v5;
+  v212 = a1;
+  v211 = a4;
   if (v59 / v58 >= v60 / v58)
   {
     v62 = v60 / v58 * v58;
@@ -7218,255 +7181,257 @@ LABEL_111:
 
     if (v62 < 1)
     {
-      v116 = a4 + v62;
+      v118 = a4 + v62;
     }
 
     else
     {
-      v114 = -v58;
-      v115 = a4 + v62;
-      v116 = a4 + v62;
-      v199 = a4;
-      v200 = a1;
-      v198 = v33;
-      v196 = v114;
+      v116 = -v58;
+      v117 = a4 + v62;
+      v118 = a4 + v62;
+      v202 = a4;
+      v203 = a1;
+      v201 = v33;
+      v199 = v116;
       do
       {
-        v177 = v116;
-        v117 = a2 + v114;
-        v201 = a2 + v114;
-        v190 = a2;
+        v180 = v118;
+        v119 = a2 + v116;
+        v204 = a2 + v116;
+        v193 = a2;
         while (1)
         {
           if (a2 <= a1)
           {
-            v209 = a2;
-            v207 = v177;
+            v212 = a2;
+            v210 = v180;
             goto LABEL_100;
           }
 
-          v194 = a3;
-          v182 = v116;
-          v195 = v115;
-          v193 = (v115 + v114);
-          v119 = v186;
-          outlined init with copy of DateInterval?(v115 + v114, v186, &_sSS3key_10Foundation4DateV5valuetMd);
-          v120 = v187;
-          outlined init with copy of DateInterval?(v117, v187, &_sSS3key_10Foundation4DateV5valuetMd);
-          v121 = v188;
-          outlined init with copy of DateInterval?(v119, v188, &_sSS3key_10Foundation4DateV5valuetMd);
-          v122 = v33;
-          v124 = *v121;
-          v205 = v121[1];
-          v123 = v205;
-          v125 = v206;
-          v203 = *(v206 + 48);
-          v126 = v189;
-          outlined init with copy of DateInterval?(v120, v189, &_sSS3key_10Foundation4DateV5valuetMd);
-          v127 = *v126;
-          v204 = v126[1];
-          v128 = *(v125 + 48);
-          v192 = v124;
-          *v122 = v124;
-          v122[1] = v123;
-          v129 = type metadata accessor for Date();
-          v197 = *(v129 - 8);
-          v130 = v197[2];
-          v130(&v198[v128], v121 + v203, v129);
-          v131 = v185;
-          v191 = v127;
-          *v185 = v127;
-          v131[1] = v204;
-          v130(v131 + *(v125 + 48), v126 + v128, v129);
-          v132 = v198;
-          lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+          v197 = a3;
+          v185 = v118;
+          v198 = v117;
+          v196 = (v117 + v116);
+          v121 = v189;
+          outlined init with copy of DateInterval?(v117 + v116, v189, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+          v122 = v190;
+          outlined init with copy of DateInterval?(v119, v190, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+          v123 = v191;
+          outlined init with copy of DateInterval?(v121, v191, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+          v124 = v33;
+          v126 = *v123;
+          v208 = v123[1];
+          v125 = v208;
+          v127 = v209;
+          v206 = *(v209 + 48);
+          v128 = v192;
+          outlined init with copy of DateInterval?(v122, v192, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+          v129 = *v128;
+          v207 = v128[1];
+          v130 = *(v127 + 48);
+          v195 = v126;
+          *v124 = v126;
+          v124[1] = v125;
+          v131 = type metadata accessor for Date();
+          v200 = *(v131 - 8);
+          v132 = v200[2];
+          v132(&v201[v130], v123 + v206, v131);
+          v133 = v188;
+          v194 = v129;
+          *v188 = v129;
+          v133[1] = v207;
+          v132(v133 + *(v127 + 48), v128 + v130, v131);
+          v134 = v201;
+          lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9598]);
 
-          v202 = v129;
+          v205 = v131;
           if (dispatch thunk of static Equatable.== infix(_:_:)())
           {
-            v181 = v128;
-            v133 = v173;
-            outlined init with copy of DateInterval?(v132, v173, &_sSS3key_10Foundation4DateV5valuetMd);
-            v134 = v180;
-            if (!*(v180 + 16))
+            v184 = v130;
+            v135 = v176;
+            outlined init with copy of DateInterval?(v134, v176, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+            v136 = v183;
+            if (!*(v183 + 16))
             {
               goto LABEL_110;
             }
 
-            v135 = *(v206 + 48);
-            v136 = specialized __RawDictionaryStorage.find<A>(_:)(*v133, v133[1]);
-            v138 = v137;
+            v137 = *(v209 + 48);
+            v138 = specialized __RawDictionaryStorage.find<A>(_:)(*v135, v135[1]);
+            v140 = v139;
 
-            if ((v138 & 1) == 0)
+            if ((v140 & 1) == 0)
             {
               goto LABEL_103;
             }
 
-            v139 = *(v179 + 72);
-            v140 = v172;
-            outlined init with copy of CloudDevice(*(v134 + 56) + v139 * v136, v172);
-            outlined init with take of CloudDevice(v140, v184);
-            v141 = v134;
-            v142 = v197[1];
-            v142(v133 + v135, v202);
-            v143 = v171;
-            outlined init with copy of DateInterval?(v185, v171, &_sSS3key_10Foundation4DateV5valuetMd);
-            if (!*(v134 + 16))
+            v141 = *(v182 + 72);
+            v142 = v175;
+            outlined init with copy of CloudDevice(*(v136 + 56) + v141 * v138, v175);
+            outlined init with take of CloudDevice(v142, v187);
+            v143 = v136;
+            v144 = v200[1];
+            v144(v135 + v137, v205);
+            v145 = v174;
+            outlined init with copy of DateInterval?(v188, v174, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+            if (!*(v136 + 16))
             {
               goto LABEL_111;
             }
 
-            v144 = *(v206 + 48);
-            v145 = specialized __RawDictionaryStorage.find<A>(_:)(*v143, v143[1]);
-            v147 = v146;
+            v146 = *(v209 + 48);
+            v147 = specialized __RawDictionaryStorage.find<A>(_:)(*v145, v145[1]);
+            v149 = v148;
 
-            if ((v147 & 1) == 0)
+            if ((v149 & 1) == 0)
             {
               goto LABEL_104;
             }
 
-            v148 = v170;
-            outlined init with copy of CloudDevice(*(v141 + 56) + v145 * v139, v170);
-            outlined init with take of CloudDevice(v148, v183);
-            v142(v143 + v144, v202);
-            v149 = *(v178 + 36);
-            v150 = (v184 + v149);
-            if (*(v184 + v149 + 8))
+            v150 = v173;
+            outlined init with copy of CloudDevice(*(v143 + 56) + v147 * v141, v173);
+            outlined init with take of CloudDevice(v150, v186);
+            v144(v145 + v146, v205);
+            v151 = *(v181 + 36);
+            v152 = (v187 + v151);
+            if (*(v187 + v151 + 8))
             {
-              v151 = *v150;
-              v152 = v150[1];
+              v153 = *v152;
+              v154 = v152[1];
             }
 
             else
             {
-              v151 = 0;
-              v152 = 0xE000000000000000;
+              v153 = 0;
+              v154 = 0xE000000000000000;
             }
 
-            v131 = v185;
-            v154 = v196;
-            v156 = (v183 + v149);
-            if (v156[1])
+            v133 = v188;
+            v156 = v199;
+            v158 = (v186 + v151);
+            if (v158[1])
             {
-              v157 = *v156;
-              v158 = v156[1];
+              v159 = *v158;
+              v160 = v158[1];
             }
 
             else
             {
-              v157 = 0;
-              v158 = 0xE000000000000000;
+              v159 = 0;
+              v160 = 0xE000000000000000;
             }
 
-            v153 = specialized static CloudDevice._compareVersions(_:_:)(v151, v152, v157, v158);
+            specialized static CloudDevice._compareVersions(_:_:)(v153, v154, v159, v160);
+            v155 = v161;
+            v162 = v161;
 
-            if (v153 == 2)
+            if (v162 == 2)
             {
-              v153 = v192 == v191 && v205 == v204 ? 0 : _stringCompareWithSmolCheck(_:_:expecting:)();
-              v155 = v198;
-              outlined destroy of CloudDevice(v183);
-              outlined destroy of CloudDevice(v184);
+              v155 = v195 == v194 && v208 == v207 ? 0 : _stringCompareWithSmolCheck(_:_:expecting:)();
+              v157 = v201;
+              outlined destroy of CloudDevice(v186);
+              outlined destroy of CloudDevice(v187);
             }
 
             else
             {
-              outlined destroy of CloudDevice(v183);
-              outlined destroy of CloudDevice(v184);
-              v155 = v198;
+              outlined destroy of CloudDevice(v186);
+              outlined destroy of CloudDevice(v187);
+              v157 = v201;
             }
 
-            v128 = v181;
+            v130 = v184;
           }
 
           else
           {
-            v153 = static Date.< infix(_:_:)();
-            v154 = v196;
-            v155 = v132;
+            v155 = static Date.< infix(_:_:)();
+            v156 = v199;
+            v157 = v134;
           }
 
-          v159 = v194;
-          a3 = v194 + v154;
-          outlined destroy of UTType?(v131, &_sSS3key_10Foundation4DateV5valuetMd);
-          v160 = v155;
-          outlined destroy of UTType?(v155, &_sSS3key_10Foundation4DateV5valuetMd);
+          v163 = v197;
+          a3 = v197 + v156;
+          outlined destroy of UTType?(v133, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+          v164 = v157;
+          outlined destroy of UTType?(v157, &_sSS3key_10Foundation4DateV5valuetMd, "j");
 
-          v161 = v197[1];
-          v162 = v189 + v128;
-          v163 = v202;
-          v161(v162, v202);
-          v161(v188 + v203, v163);
-          outlined destroy of UTType?(v187, &_sSS3key_10Foundation4DateV5valuetMd);
-          outlined destroy of UTType?(v186, &_sSS3key_10Foundation4DateV5valuetMd);
-          if ((v153 & 1) == 0)
+          v165 = v200[1];
+          v166 = v192 + v130;
+          v167 = v205;
+          v165(v166, v205);
+          v165(v191 + v206, v167);
+          outlined destroy of UTType?(v190, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+          outlined destroy of UTType?(v189, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+          if ((v155 & 1) == 0)
           {
             break;
           }
 
-          v164 = v193;
-          v116 = v193;
-          v165 = v199;
-          v117 = v201;
-          if (v159 < v195 || a3 >= v195)
+          v168 = v196;
+          v118 = v196;
+          v169 = v202;
+          v119 = v204;
+          if (v163 < v198 || a3 >= v198)
           {
             swift_arrayInitWithTakeFrontToBack();
-            v114 = v196;
-            v33 = v160;
+            v116 = v199;
+            v33 = v164;
           }
 
           else
           {
-            v166 = v159 == v195;
-            v114 = v196;
-            v33 = v160;
-            if (!v166)
+            v170 = v163 == v198;
+            v116 = v199;
+            v33 = v164;
+            if (!v170)
             {
               swift_arrayInitWithTakeBackToFront();
             }
           }
 
-          v115 = v116;
-          v118 = v164 > v165;
-          a2 = v190;
-          a1 = v200;
-          if (!v118)
+          v117 = v118;
+          v120 = v168 > v169;
+          a2 = v193;
+          a1 = v203;
+          if (!v120)
           {
             goto LABEL_98;
           }
         }
 
-        v167 = v199;
-        a2 = v201;
-        if (v159 < v190 || a3 >= v190)
+        v171 = v202;
+        a2 = v204;
+        if (v163 < v193 || a3 >= v193)
         {
           swift_arrayInitWithTakeFrontToBack();
-          v116 = v182;
-          v114 = v196;
-          v33 = v160;
+          v118 = v185;
+          v116 = v199;
+          v33 = v164;
         }
 
         else
         {
-          v166 = v159 == v190;
-          v116 = v182;
-          v114 = v196;
-          v33 = v160;
-          if (!v166)
+          v170 = v163 == v193;
+          v118 = v185;
+          v116 = v199;
+          v33 = v164;
+          if (!v170)
           {
             swift_arrayInitWithTakeBackToFront();
           }
         }
 
-        v115 = v195;
-        a1 = v200;
+        v117 = v198;
+        a1 = v203;
       }
 
-      while (v195 > v167);
+      while (v198 > v171);
     }
 
 LABEL_98:
-    v209 = a2;
-    v207 = v116;
+    v212 = a2;
+    v210 = v118;
   }
 
   else
@@ -7482,62 +7447,62 @@ LABEL_98:
       swift_arrayInitWithTakeBackToFront();
     }
 
-    v187 = a4 + v61;
-    v207 = (a4 + v61);
+    v190 = a4 + v61;
+    v210 = (a4 + v61);
     if (v61 >= 1 && a2 < a3)
     {
-      v182 = a3;
-      v181 = v58;
+      v185 = a3;
+      v184 = v58;
       do
       {
-        v200 = a1;
-        v201 = a2;
-        v64 = v194;
-        outlined init with copy of DateInterval?(a2, v194, &_sSS3key_10Foundation4DateV5valuetMd);
-        v199 = a4;
-        v65 = v195;
-        outlined init with copy of DateInterval?(a4, v195, &_sSS3key_10Foundation4DateV5valuetMd);
-        v66 = v196;
-        outlined init with copy of DateInterval?(v64, v196, &_sSS3key_10Foundation4DateV5valuetMd);
+        v203 = a1;
+        v204 = a2;
+        v64 = v197;
+        outlined init with copy of DateInterval?(a2, v197, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+        v202 = a4;
+        v65 = v198;
+        outlined init with copy of DateInterval?(a4, v198, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+        v66 = v199;
+        outlined init with copy of DateInterval?(v64, v199, &_sSS3key_10Foundation4DateV5valuetMd, "j");
         v67 = *v66;
-        v205 = v66[1];
-        v68 = v205;
-        v69 = v206;
-        v203 = *(v206 + 48);
-        v70 = v197;
-        outlined init with copy of DateInterval?(v65, v197, &_sSS3key_10Foundation4DateV5valuetMd);
+        v208 = v66[1];
+        v68 = v208;
+        v69 = v209;
+        v206 = *(v209 + 48);
+        v70 = v200;
+        outlined init with copy of DateInterval?(v65, v200, &_sSS3key_10Foundation4DateV5valuetMd, "j");
         v71 = *v70;
-        v204 = v70[1];
+        v207 = v70[1];
         v72 = *(v69 + 48);
-        v73 = v192;
-        v189 = v67;
-        *v192 = v67;
+        v73 = v195;
+        v192 = v67;
+        *v195 = v67;
         *(v73 + 8) = v68;
         v74 = type metadata accessor for Date();
-        v198 = *(v74 - 8);
-        v75 = *(v198 + 2);
-        v75(v73 + v72, v66 + v203, v74);
-        v76 = v193;
-        v188 = v71;
-        *v193 = v71;
-        v76[1] = v204;
+        v201 = *(v74 - 8);
+        v75 = *(v201 + 2);
+        v75(v73 + v72, v66 + v206, v74);
+        v76 = v196;
+        v191 = v71;
+        *v196 = v71;
+        v76[1] = v207;
         v77 = *(v69 + 48);
         v78 = v76;
         v75(v76 + v77, v70 + v72, v74);
-        lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+        lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9598]);
 
-        v202 = v74;
+        v205 = v74;
         if (dispatch thunk of static Equatable.== infix(_:_:)())
         {
-          v79 = v177;
-          outlined init with copy of DateInterval?(v73, v177, &_sSS3key_10Foundation4DateV5valuetMd);
-          v80 = v180;
-          if (!*(v180 + 16))
+          v79 = v180;
+          outlined init with copy of DateInterval?(v73, v180, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+          v80 = v183;
+          if (!*(v183 + 16))
           {
             goto LABEL_108;
           }
 
-          v81 = *(v206 + 48);
+          v81 = *(v209 + 48);
           v82 = specialized __RawDictionaryStorage.find<A>(_:)(*v79, v79[1]);
           v84 = v83;
 
@@ -7555,24 +7520,24 @@ LABEL_105:
             goto LABEL_106;
           }
 
-          v186 = v72;
+          v189 = v72;
           v85 = v79;
-          v86 = *(v179 + 72);
+          v86 = *(v182 + 72);
           v87 = v78;
-          v88 = v176;
-          outlined init with copy of CloudDevice(*(v80 + 56) + v86 * v82, v176);
-          outlined init with take of CloudDevice(v88, v191);
+          v88 = v179;
+          outlined init with copy of CloudDevice(*(v80 + 56) + v86 * v82, v179);
+          outlined init with take of CloudDevice(v88, v194);
           v89 = v80;
-          v90 = *(v198 + 1);
-          v90(v85 + v81, v202);
-          v91 = v175;
-          outlined init with copy of DateInterval?(v87, v175, &_sSS3key_10Foundation4DateV5valuetMd);
+          v90 = *(v201 + 1);
+          v90(v85 + v81, v205);
+          v91 = v178;
+          outlined init with copy of DateInterval?(v87, v178, &_sSS3key_10Foundation4DateV5valuetMd, "j");
           if (!*(v89 + 16))
           {
             goto LABEL_109;
           }
 
-          v92 = *(v206 + 48);
+          v92 = *(v209 + 48);
           v93 = v91;
           v94 = specialized __RawDictionaryStorage.find<A>(_:)(*v91, v91[1]);
           v96 = v95;
@@ -7583,13 +7548,13 @@ LABEL_105:
           }
 
           v97 = *(v89 + 56) + v94 * v86;
-          v98 = v174;
-          outlined init with copy of CloudDevice(v97, v174);
-          outlined init with take of CloudDevice(v98, v190);
-          v90(v93 + v92, v202);
-          v99 = *(v178 + 36);
-          v100 = (v191 + v99);
-          if (*(v191 + v99 + 8))
+          v98 = v177;
+          outlined init with copy of CloudDevice(v97, v177);
+          outlined init with take of CloudDevice(v98, v193);
+          v90(v93 + v92, v205);
+          v99 = *(v181 + 36);
+          v100 = (v194 + v99);
+          if (*(v194 + v99 + 8))
           {
             v101 = *v100;
             v102 = v100[1];
@@ -7601,8 +7566,8 @@ LABEL_105:
             v102 = 0xE000000000000000;
           }
 
-          v78 = v193;
-          v107 = (v190 + v99);
+          v78 = v196;
+          v107 = (v193 + v99);
           if (v107[1])
           {
             v108 = *v107;
@@ -7615,11 +7580,13 @@ LABEL_105:
             v109 = 0xE000000000000000;
           }
 
-          v103 = specialized static CloudDevice._compareVersions(_:_:)(v101, v102, v108, v109);
+          specialized static CloudDevice._compareVersions(_:_:)(v101, v102, v108, v109);
+          v103 = v110;
+          v111 = v110;
 
-          if (v103 == 2)
+          if (v111 == 2)
           {
-            if (v189 == v188 && v205 == v204)
+            if (v192 == v191 && v208 == v207)
             {
               v103 = 0;
             }
@@ -7629,48 +7596,48 @@ LABEL_105:
               v103 = _stringCompareWithSmolCheck(_:_:expecting:)();
             }
 
-            v106 = v200;
-            v105 = v201;
-            outlined destroy of CloudDevice(v190);
-            outlined destroy of CloudDevice(v191);
-            v104 = v192;
+            v106 = v203;
+            v105 = v204;
+            outlined destroy of CloudDevice(v193);
+            outlined destroy of CloudDevice(v194);
+            v104 = v195;
           }
 
           else
           {
-            outlined destroy of CloudDevice(v190);
-            outlined destroy of CloudDevice(v191);
-            v106 = v200;
-            v105 = v201;
-            v104 = v192;
+            outlined destroy of CloudDevice(v193);
+            outlined destroy of CloudDevice(v194);
+            v106 = v203;
+            v105 = v204;
+            v104 = v195;
           }
 
-          v72 = v186;
+          v72 = v189;
         }
 
         else
         {
           v103 = static Date.< infix(_:_:)();
           v104 = v73;
-          v106 = v200;
-          v105 = v201;
+          v106 = v203;
+          v105 = v204;
         }
 
-        outlined destroy of UTType?(v78, &_sSS3key_10Foundation4DateV5valuetMd);
-        outlined destroy of UTType?(v104, &_sSS3key_10Foundation4DateV5valuetMd);
+        outlined destroy of UTType?(v78, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+        outlined destroy of UTType?(v104, &_sSS3key_10Foundation4DateV5valuetMd, "j");
 
-        v110 = *(v198 + 1);
-        v111 = v197 + v72;
-        v112 = v202;
-        v110(v111, v202);
-        v110(v196 + v203, v112);
-        outlined destroy of UTType?(v195, &_sSS3key_10Foundation4DateV5valuetMd);
-        outlined destroy of UTType?(v194, &_sSS3key_10Foundation4DateV5valuetMd);
+        v112 = *(v201 + 1);
+        v113 = v200 + v72;
+        v114 = v205;
+        v112(v113, v205);
+        v112(v199 + v206, v114);
+        outlined destroy of UTType?(v198, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+        outlined destroy of UTType?(v197, &_sSS3key_10Foundation4DateV5valuetMd, "j");
         if ((v103 & 1) == 0)
         {
-          v113 = v181;
-          a4 = v199;
-          if (v106 < v105 || v106 >= v105 + v181)
+          v115 = v184;
+          a4 = v202;
+          if (v106 < v105 || v106 >= v105 + v184)
           {
             swift_arrayInitWithTakeFrontToBack();
           }
@@ -7680,68 +7647,66 @@ LABEL_105:
             swift_arrayInitWithTakeBackToFront();
           }
 
-          a2 = v105 + v113;
+          a2 = v105 + v115;
           goto LABEL_54;
         }
 
-        v113 = v181;
-        a4 = v199 + v181;
+        v115 = v184;
+        a4 = v202 + v184;
         a2 = v105;
-        if (v106 < v199 || v106 >= a4)
+        if (v106 < v202 || v106 >= a4)
         {
           swift_arrayInitWithTakeFrontToBack();
         }
 
-        else if (v106 != v199)
+        else if (v106 != v202)
         {
           swift_arrayInitWithTakeBackToFront();
-          v208 = a4;
+          v211 = a4;
           goto LABEL_54;
         }
 
-        v208 = a4;
+        v211 = a4;
 LABEL_54:
-        a1 = v106 + v113;
-        v209 = a1;
+        a1 = v106 + v115;
+        v212 = a1;
       }
 
-      while (a4 < v187 && a2 < v182);
+      while (a4 < v190 && a2 < v185);
     }
   }
 
 LABEL_100:
-  specialized $defer #1 <A>() in _merge<A>(low:mid:high:buffer:by:)(&v209, &v208, &v207);
-  return 1;
+  specialized $defer #1 <A>() in _merge<A>(low:mid:high:buffer:by:)(&v212, &v211, &v210);
 }
 
-uint64_t specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(char **a1, unint64_t a2, uint64_t *a3, uint64_t a4)
+void specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(uint64_t *a1, unint64_t a2, uint64_t *a3, uint64_t a4)
 {
   v5 = v4;
   v6 = a1;
   v7 = *a1;
 
-  v26 = v7;
+  v25 = v7;
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
   {
-LABEL_16:
-    v26 = specialized _ArrayBuffer._consumeAndCreateNew()(v26);
+LABEL_15:
+    v25 = specialized _ArrayBuffer._consumeAndCreateNew()(v25);
   }
 
-  v21 = v6;
-  *v6 = v26;
-  v6 = (v26 + 16);
-  v8 = *(v26 + 2);
+  v20 = v6;
+  *v6 = v25;
+  v6 = (v25 + 16);
+  v8 = *(v25 + 2);
   if (v8 < 2)
   {
 LABEL_10:
 
-    *v21 = v26;
-    return 1;
+    *v20 = v25;
   }
 
   else
   {
-    v22 = (v26 + 16);
+    v21 = (v25 + 16);
     while (1)
     {
       v9 = *a3;
@@ -7750,12 +7715,12 @@ LABEL_10:
         break;
       }
 
-      v10 = &v26[16 * v8];
+      v10 = &v25[16 * v8];
       v11 = *v10;
       v12 = &v6[2 * v8];
       v13 = *v12;
       v14 = v12[1];
-      v15 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_10Foundation4DateV5valuetMd) - 8) + 72);
+      v15 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_10Foundation4DateV5valuetMd, "j") - 8) + 72);
       v16 = v9 + v15 * v11;
       v6 = (v9 + v15 * v13);
       v17 = v9 + v15 * v14;
@@ -7764,26 +7729,26 @@ LABEL_10:
 
       if (v5)
       {
-        *v21 = v26;
+        *v20 = v25;
 
-        return 1;
+        return;
       }
 
       if (v14 < v11)
       {
         __break(1u);
+LABEL_13:
+        __break(1u);
 LABEL_14:
         __break(1u);
-LABEL_15:
-        __break(1u);
-        goto LABEL_16;
+        goto LABEL_15;
       }
 
-      v6 = (v26 + 16);
-      v18 = *v22;
-      if (v8 - 2 >= *v22)
+      v6 = (v25 + 16);
+      v18 = *v21;
+      if (v8 - 2 >= *v21)
       {
-        goto LABEL_14;
+        goto LABEL_13;
       }
 
       *v10 = v11;
@@ -7791,414 +7756,415 @@ LABEL_15:
       v19 = v18 - v8;
       if (v18 < v8)
       {
-        goto LABEL_15;
+        goto LABEL_14;
       }
 
       v8 = v18 - 1;
       memmove(v12, v12 + 2, 16 * v19);
-      *v22 = v8;
+      *v21 = v8;
       if (v8 <= 1)
       {
         goto LABEL_10;
       }
     }
 
-    *v21 = v26;
+    *v20 = v25;
     __break(1u);
   }
-
-  return result;
 }
 
-uint64_t specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(unint64_t *a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
+void specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(unint64_t *a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
 {
-  v281 = a1;
-  v311 = type metadata accessor for CloudDevice();
-  v312 = *(v311 - 8);
-  v8 = MEMORY[0x28223BE20](v311);
-  v308 = &v276 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v285 = a1;
+  v315 = type metadata accessor for CloudDevice(0);
+  v316 = *(v315 - 8);
+  v8 = MEMORY[0x28223BE20](v315);
+  v312 = &v280 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = MEMORY[0x28223BE20](v8);
-  v12 = &v276 - v11;
+  v12 = &v280 - v11;
   v13 = MEMORY[0x28223BE20](v10);
-  v310 = &v276 - v14;
+  v314 = &v280 - v14;
   v15 = MEMORY[0x28223BE20](v13);
-  v321 = &v276 - v16;
+  v325 = &v280 - v16;
   v17 = MEMORY[0x28223BE20](v15);
-  v284 = &v276 - v18;
+  v288 = &v280 - v18;
   v19 = MEMORY[0x28223BE20](v17);
-  v295 = &v276 - v20;
+  v299 = &v280 - v20;
   v21 = MEMORY[0x28223BE20](v19);
-  v286 = &v276 - v22;
+  v290 = &v280 - v22;
   MEMORY[0x28223BE20](v21);
-  v296 = &v276 - v23;
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_10Foundation4DateV5valuetMd);
-  v293 = *(v24 - 8);
+  v300 = &v280 - v23;
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_10Foundation4DateV5valuetMd, "j");
+  v297 = *(v24 - 8);
   v25 = MEMORY[0x28223BE20](v24);
-  v288 = &v276 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v292 = &v280 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
   v27 = MEMORY[0x28223BE20](v25);
-  v316 = &v276 - v28;
+  v320 = &v280 - v28;
   v29 = MEMORY[0x28223BE20](v27);
-  v309 = (&v276 - v30);
+  v313 = (&v280 - v30);
   v31 = MEMORY[0x28223BE20](v29);
-  v33 = (&v276 - v32);
+  v33 = (&v280 - v32);
   v34 = MEMORY[0x28223BE20](v31);
-  v36 = &v276 - v35;
+  v36 = &v280 - v35;
   v37 = MEMORY[0x28223BE20](v34);
-  v39 = &v276 - v38;
+  v39 = &v280 - v38;
   v40 = MEMORY[0x28223BE20](v37);
-  v329 = (&v276 - v41);
+  v333 = (&v280 - v41);
   v42 = MEMORY[0x28223BE20](v40);
-  v328 = &v276 - v43;
+  v332 = &v280 - v43;
   v44 = MEMORY[0x28223BE20](v42);
-  v327 = &v276 - v45;
+  v331 = &v280 - v45;
   v46 = MEMORY[0x28223BE20](v44);
-  v326 = &v276 - v47;
+  v330 = &v280 - v47;
   v48 = MEMORY[0x28223BE20](v46);
-  v285 = (&v276 - v49);
+  v289 = (&v280 - v49);
   v50 = MEMORY[0x28223BE20](v48);
-  v287 = (&v276 - v51);
+  v291 = (&v280 - v51);
   v52 = MEMORY[0x28223BE20](v50);
-  v54 = &v276 - v53;
+  v54 = &v280 - v53;
   v55 = MEMORY[0x28223BE20](v52);
-  v297 = (&v276 - v56);
+  v301 = (&v280 - v56);
   v57 = MEMORY[0x28223BE20](v55);
-  v305 = (&v276 - v58);
+  v309 = (&v280 - v58);
   v59 = MEMORY[0x28223BE20](v57);
-  v304 = (&v276 - v60);
+  v308 = (&v280 - v60);
   v61 = MEMORY[0x28223BE20](v59);
-  v303 = &v276 - v62;
+  v307 = &v280 - v62;
   v63 = MEMORY[0x28223BE20](v61);
-  v302 = &v276 - v64;
+  v306 = &v280 - v64;
   v65 = MEMORY[0x28223BE20](v63);
-  v277 = (&v276 - v66);
+  v281 = (&v280 - v66);
   v67 = MEMORY[0x28223BE20](v65);
-  v276 = (&v276 - v68);
+  v280 = (&v280 - v68);
   v69 = MEMORY[0x28223BE20](v67);
-  v279 = &v276 - v70;
+  v283 = &v280 - v70;
   MEMORY[0x28223BE20](v69);
-  v278 = &v276 - v71;
-  v337 = MEMORY[0x277D84F90];
-  v298 = a3;
+  v282 = &v280 - v71;
+  v341 = MEMORY[0x277D84F90];
+  v302 = a3;
   if (a3[1] >= 1)
   {
     v72 = a3[1];
     swift_bridgeObjectRetain_n();
     v73 = v72;
     v74 = 0;
-    v294 = MEMORY[0x277D84F90];
-    v313 = a5;
-    v280 = a4;
-    v306 = v12;
-    v331 = v24;
-    v307 = v33;
-    v325 = v36;
-    v320 = v39;
-    v300 = v54;
+    v298 = MEMORY[0x277D84F90];
+    v317 = a5;
+    v284 = a4;
+    v310 = v12;
+    v335 = v24;
+    v311 = v33;
+    v329 = v36;
+    v324 = v39;
+    v304 = v54;
     while (1)
     {
-      v283 = v74;
+      v287 = v74;
       if (v74 + 1 >= v73)
       {
-        v101 = v74 + 1;
-        v142 = v331;
+        v102 = v74 + 1;
+        v145 = v335;
       }
 
       else
       {
-        v299 = v73;
-        v75 = *v298;
-        v335 = v75;
-        v76 = *(v293 + 72);
-        v319 = v76;
+        v303 = v73;
+        v75 = *v302;
+        v339 = v75;
+        v76 = *(v297 + 72);
+        v323 = v76;
         v77 = v75 + v76 * (v74 + 1);
-        v78 = v278;
-        outlined init with copy of DateInterval?(v77, v278, &_sSS3key_10Foundation4DateV5valuetMd);
+        v78 = v282;
+        outlined init with copy of DateInterval?(v77, v282, &_sSS3key_10Foundation4DateV5valuetMd, "j");
         v79 = v75 + v76 * v74;
-        v80 = v279;
-        outlined init with copy of DateInterval?(v79, v279, &_sSS3key_10Foundation4DateV5valuetMd);
-        v81 = v276;
-        outlined init with copy of DateInterval?(v78, v276, &_sSS3key_10Foundation4DateV5valuetMd);
+        v80 = v283;
+        outlined init with copy of DateInterval?(v79, v283, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+        v81 = v280;
+        outlined init with copy of DateInterval?(v78, v280, &_sSS3key_10Foundation4DateV5valuetMd, "j");
         v82 = *v81;
         v83 = v81[1];
-        v84 = v331;
-        v85 = *(v331 + 48);
-        v336 = v85;
-        v86 = v277;
-        outlined init with copy of DateInterval?(v80, v277, &_sSS3key_10Foundation4DateV5valuetMd);
+        v84 = v335;
+        v85 = *(v335 + 48);
+        v340 = v85;
+        v86 = v281;
+        outlined init with copy of DateInterval?(v80, v281, &_sSS3key_10Foundation4DateV5valuetMd, "j");
         v87 = *(v84 + 48);
-        LODWORD(v315) = closure #1 in closure #1 in static CloudDevice.nominatedPhone(in:)(v82, v83, v81 + v85, *v86, v86[1], v86 + v87, v313);
-        v88 = v77;
+        closure #1 in closure #1 in static CloudDevice.nominatedPhone(in:)(v82, v83, v81 + v85, *v86, v86[1], v86 + v87, v317);
+        LODWORD(v319) = v88;
+        v89 = v77;
 
-        v89 = type metadata accessor for Date();
-        v90 = *(v89 - 8);
-        v91 = *(v90 + 8);
-        v92 = v90 + 8;
-        v91(v86 + v87, v89);
-        v93 = v81 + v336;
-        v336 = v89;
-        v334 = v91;
-        v91(v93, v89);
-        outlined destroy of UTType?(v279, &_sSS3key_10Foundation4DateV5valuetMd);
-        outlined destroy of UTType?(v278, &_sSS3key_10Foundation4DateV5valuetMd);
-        v333 = v92;
-        v314 = (v92 + 8);
-        v94 = v283 + 2;
-        v95 = v335 + v319 * (v283 + 2);
+        v90 = type metadata accessor for Date();
+        v91 = *(v90 - 8);
+        v92 = *(v91 + 8);
+        v93 = v91 + 8;
+        v92(v86 + v87, v90);
+        v94 = v81 + v340;
+        v340 = v90;
+        v338 = v92;
+        v92(v94, v90);
+        outlined destroy of UTType?(v283, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+        outlined destroy of UTType?(v282, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+        v337 = v93;
+        v318 = (v93 + 8);
+        v95 = v287 + 2;
+        v96 = v339 + v323 * (v287 + 2);
         while (1)
         {
-          v101 = v299;
-          if (v299 == v94)
+          v102 = v303;
+          if (v303 == v95)
           {
             break;
           }
 
-          v322 = v95;
-          v323 = v94;
-          v102 = v302;
-          outlined init with copy of DateInterval?(v95, v302, &_sSS3key_10Foundation4DateV5valuetMd);
-          v324 = v88;
-          v103 = v303;
-          outlined init with copy of DateInterval?(v88, v303, &_sSS3key_10Foundation4DateV5valuetMd);
-          v104 = v304;
-          outlined init with copy of DateInterval?(v102, v304, &_sSS3key_10Foundation4DateV5valuetMd);
-          v105 = *v104;
-          v332 = v104[1];
-          v106 = v332;
-          v107 = v331;
-          v335 = *(v331 + 48);
-          v108 = v305;
-          outlined init with copy of DateInterval?(v103, v305, &_sSS3key_10Foundation4DateV5valuetMd);
-          v109 = *v108;
-          v110 = v108[1];
-          v111 = *(v107 + 48);
-          v318 = v105;
-          v112 = v297;
-          *v297 = v105;
-          *(v112 + 8) = v106;
-          v113 = *v314;
-          v114 = v104 + v335;
-          v115 = v336;
-          (*v314)(v112 + v111, v114, v336);
-          v116 = v300;
-          v317 = v109;
-          *v300 = v109;
-          v116[1] = v110;
-          v117 = v108 + v111;
-          v118 = v116;
-          v113(v116 + *(v107 + 48), v117, v115);
-          v119 = v332;
-          v120 = v111;
-          lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+          v326 = v96;
+          v327 = v95;
+          v103 = v306;
+          outlined init with copy of DateInterval?(v96, v306, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+          v328 = v89;
+          v104 = v307;
+          outlined init with copy of DateInterval?(v89, v307, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+          v105 = v308;
+          outlined init with copy of DateInterval?(v103, v308, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+          v106 = *v105;
+          v336 = v105[1];
+          v107 = v336;
+          v108 = v335;
+          v339 = *(v335 + 48);
+          v109 = v309;
+          outlined init with copy of DateInterval?(v104, v309, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+          v110 = *v109;
+          v111 = v109[1];
+          v112 = *(v108 + 48);
+          v322 = v106;
+          v113 = v301;
+          *v301 = v106;
+          *(v113 + 8) = v107;
+          v114 = *v318;
+          v115 = v105 + v339;
+          v116 = v340;
+          (*v318)(v113 + v112, v115, v340);
+          v117 = v304;
+          v321 = v110;
+          *v304 = v110;
+          v117[1] = v111;
+          v118 = v109 + v112;
+          v119 = v117;
+          v114(v117 + *(v108 + 48), v118, v116);
+          v120 = v336;
+          v121 = v112;
+          lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9598]);
 
-          v330 = v110;
+          v334 = v111;
 
           if (dispatch thunk of static Equatable.== infix(_:_:)())
           {
-            v121 = v287;
-            outlined init with copy of DateInterval?(v112, v287, &_sSS3key_10Foundation4DateV5valuetMd);
-            v122 = v313;
-            if (!*(v313 + 16))
+            v122 = v291;
+            outlined init with copy of DateInterval?(v113, v291, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+            v123 = v317;
+            if (!*(v317 + 16))
             {
               goto LABEL_164;
             }
 
-            v123 = *(v331 + 48);
-            v124 = specialized __RawDictionaryStorage.find<A>(_:)(*v121, v121[1]);
-            v126 = v125;
+            v124 = *(v335 + 48);
+            v125 = specialized __RawDictionaryStorage.find<A>(_:)(*v122, v122[1]);
+            v127 = v126;
 
-            if ((v126 & 1) == 0)
+            if ((v127 & 1) == 0)
             {
               goto LABEL_141;
             }
 
-            v292 = v120;
-            v127 = *(v312 + 72);
-            v128 = v286;
-            outlined init with copy of CloudDevice(*(v122 + 56) + v127 * v124, v286);
-            outlined init with take of CloudDevice(v128, v296);
-            (v334)(v121 + v123, v336);
-            v129 = v285;
-            outlined init with copy of DateInterval?(v300, v285, &_sSS3key_10Foundation4DateV5valuetMd);
-            if (!*(v122 + 16))
+            v296 = v121;
+            v128 = *(v316 + 72);
+            v129 = v290;
+            outlined init with copy of CloudDevice(*(v123 + 56) + v128 * v125, v290);
+            outlined init with take of CloudDevice(v129, v300);
+            (v338)(v122 + v124, v340);
+            v130 = v289;
+            outlined init with copy of DateInterval?(v304, v289, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+            if (!*(v123 + 16))
             {
               goto LABEL_165;
             }
 
-            v130 = *(v331 + 48);
-            v131 = specialized __RawDictionaryStorage.find<A>(_:)(*v129, v129[1]);
-            v133 = v132;
+            v131 = *(v335 + 48);
+            v132 = specialized __RawDictionaryStorage.find<A>(_:)(*v130, v130[1]);
+            v134 = v133;
 
-            if ((v133 & 1) == 0)
+            if ((v134 & 1) == 0)
             {
               goto LABEL_142;
             }
 
-            v134 = v284;
-            outlined init with copy of CloudDevice(*(v122 + 56) + v131 * v127, v284);
-            outlined init with take of CloudDevice(v134, v295);
-            (v334)(v129 + v130, v336);
-            v135 = *(v311 + 36);
-            v136 = (v296 + v135);
-            if (*(v296 + v135 + 8))
+            v135 = v288;
+            outlined init with copy of CloudDevice(*(v123 + 56) + v132 * v128, v288);
+            outlined init with take of CloudDevice(v135, v299);
+            (v338)(v130 + v131, v340);
+            v136 = *(v315 + 36);
+            v137 = (v300 + v136);
+            if (*(v300 + v136 + 8))
             {
-              v137 = *v136;
-              v138 = v136[1];
+              v138 = *v137;
+              v139 = v137[1];
             }
 
             else
             {
-              v137 = 0;
-              v138 = 0xE000000000000000;
+              v138 = 0;
+              v139 = 0xE000000000000000;
             }
 
-            v139 = (v295 + v135);
-            if (v139[1])
+            v140 = (v299 + v136);
+            if (v140[1])
             {
-              v140 = *v139;
-              v141 = v139[1];
+              v141 = *v140;
+              v142 = v140[1];
             }
 
             else
             {
-              v140 = 0;
-              v141 = 0xE000000000000000;
+              v141 = 0;
+              v142 = 0xE000000000000000;
             }
 
-            v96 = specialized static CloudDevice._compareVersions(_:_:)(v137, v138, v140, v141);
+            specialized static CloudDevice._compareVersions(_:_:)(v138, v139, v141, v142);
+            v97 = v143;
+            v144 = v143;
 
-            if (v96 == 2)
+            if (v144 == 2)
             {
-              v118 = v300;
-              v97 = v297;
-              if (v318 == v317 && v119 == v330)
+              v119 = v304;
+              v98 = v301;
+              if (v322 == v321 && v120 == v334)
               {
-                v96 = 0;
+                v97 = 0;
               }
 
               else
               {
-                v96 = _stringCompareWithSmolCheck(_:_:expecting:)();
+                v97 = _stringCompareWithSmolCheck(_:_:expecting:)();
               }
 
-              v120 = v292;
-              outlined destroy of CloudDevice(v295);
-              outlined destroy of CloudDevice(v296);
+              v121 = v296;
+              outlined destroy of CloudDevice(v299);
+              outlined destroy of CloudDevice(v300);
             }
 
             else
             {
-              outlined destroy of CloudDevice(v295);
-              outlined destroy of CloudDevice(v296);
-              v118 = v300;
-              v97 = v297;
-              v120 = v292;
+              outlined destroy of CloudDevice(v299);
+              outlined destroy of CloudDevice(v300);
+              v119 = v304;
+              v98 = v301;
+              v121 = v296;
             }
           }
 
           else
           {
-            v96 = static Date.< infix(_:_:)();
-            v97 = v112;
+            v97 = static Date.< infix(_:_:)();
+            v98 = v113;
           }
 
-          outlined destroy of UTType?(v118, &_sSS3key_10Foundation4DateV5valuetMd);
-          outlined destroy of UTType?(v97, &_sSS3key_10Foundation4DateV5valuetMd);
+          outlined destroy of UTType?(v119, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+          outlined destroy of UTType?(v98, &_sSS3key_10Foundation4DateV5valuetMd, "j");
 
-          v98 = v336;
-          v99 = v334;
-          (v334)(v305 + v120, v336);
-          v99(v304 + v335, v98);
-          outlined destroy of UTType?(v303, &_sSS3key_10Foundation4DateV5valuetMd);
-          outlined destroy of UTType?(v302, &_sSS3key_10Foundation4DateV5valuetMd);
-          v100 = v315 ^ v96;
-          v94 = v323 + 1;
-          v95 = v322 + v319;
-          v88 = v324 + v319;
-          if (v100)
+          v99 = v340;
+          v100 = v338;
+          (v338)(v309 + v121, v340);
+          v100(v308 + v339, v99);
+          outlined destroy of UTType?(v307, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+          outlined destroy of UTType?(v306, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+          v101 = v319 ^ v97;
+          v95 = v327 + 1;
+          v96 = v326 + v323;
+          v89 = v328 + v323;
+          if (v101)
           {
-            v101 = v323;
+            v102 = v327;
             break;
           }
         }
 
-        a4 = v280;
-        v74 = v283;
-        v142 = v331;
-        if ((v315 & 1) == 0)
+        a4 = v284;
+        v74 = v287;
+        v145 = v335;
+        if ((v319 & 1) == 0)
         {
-          if (v101 < v283)
+          if (v102 < v287)
           {
             goto LABEL_159;
           }
 
-          if (v283 < v101)
+          if (v287 < v102)
           {
-            v143 = v319 * (v101 - 1);
-            v144 = v101 * v319;
-            v145 = v101;
-            v146 = v283;
-            v147 = v283 * v319;
+            v146 = v323 * (v102 - 1);
+            v147 = v102 * v323;
+            v148 = v102;
+            v149 = v287;
+            v150 = v287 * v323;
             do
             {
-              if (v146 != --v145)
+              if (v149 != --v148)
               {
-                v148 = *v298;
-                if (!*v298)
+                v151 = *v302;
+                if (!*v302)
                 {
                   goto LABEL_166;
                 }
 
-                v149 = v101;
-                outlined init with take of URL?(v148 + v147, v288, &_sSS3key_10Foundation4DateV5valuetMd);
-                if (v147 < v143 || v148 + v147 >= (v148 + v144))
+                v152 = v102;
+                outlined init with take of URL?(v151 + v150, v292, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+                if (v150 < v146 || v151 + v150 >= (v151 + v147))
                 {
                   swift_arrayInitWithTakeFrontToBack();
                 }
 
-                else if (v147 != v143)
+                else if (v150 != v146)
                 {
                   swift_arrayInitWithTakeBackToFront();
                 }
 
-                outlined init with take of URL?(v288, v148 + v143, &_sSS3key_10Foundation4DateV5valuetMd);
-                v74 = v283;
-                v101 = v149;
-                v142 = v331;
+                outlined init with take of URL?(v292, v151 + v146, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+                v74 = v287;
+                v102 = v152;
+                v145 = v335;
               }
 
-              ++v146;
-              v143 -= v319;
-              v144 -= v319;
-              v147 += v319;
+              ++v149;
+              v146 -= v323;
+              v147 -= v323;
+              v150 += v323;
             }
 
-            while (v146 < v145);
-            a4 = v280;
+            while (v149 < v148);
+            a4 = v284;
           }
         }
       }
 
-      v150 = v298[1];
-      if (v101 < v150)
+      v153 = v302[1];
+      if (v102 < v153)
       {
-        if (__OFSUB__(v101, v74))
+        if (__OFSUB__(v102, v74))
         {
           goto LABEL_156;
         }
 
-        if (v101 - v74 < a4)
+        if (v102 - v74 < a4)
         {
           if (__OFADD__(v74, a4))
           {
             goto LABEL_157;
           }
 
-          if (v74 + a4 < v150)
+          if (v74 + a4 < v153)
           {
-            v150 = v74 + a4;
+            v153 = v74 + a4;
           }
 
-          if (v150 < v74)
+          if (v153 < v74)
           {
 LABEL_158:
             __break(1u);
@@ -8229,90 +8195,90 @@ LABEL_167:
             swift_bridgeObjectRelease_n();
             __break(1u);
 LABEL_168:
-            result = swift_bridgeObjectRelease_n();
+            swift_bridgeObjectRelease_n();
             __break(1u);
-            return result;
+            return;
           }
 
-          if (v101 != v150)
+          if (v102 != v153)
           {
-            v289 = v150;
-            v151 = *v298;
-            v152 = v101;
-            v153 = type metadata accessor for Date();
-            v154 = v152;
-            v155 = *(v293 + 72);
-            v335 = v153;
-            v318 = v153 - 8;
-            v156 = v151 + v155 * (v152 - 1);
-            v314 = -v155;
-            v157 = v74 - v152;
-            v315 = v151;
-            v282 = v155;
-            v158 = v151 + v152 * v155;
+            v293 = v153;
+            v154 = *v302;
+            v155 = v102;
+            v156 = type metadata accessor for Date();
+            v157 = v155;
+            v158 = *(v297 + 72);
+            v339 = v156;
+            v322 = v156 - 8;
+            v159 = v154 + v158 * (v155 - 1);
+            v318 = -v158;
+            v160 = v74 - v155;
+            v319 = v154;
+            v286 = v158;
+            v161 = v154 + v155 * v158;
             do
             {
-              v299 = v154;
-              v290 = v158;
-              v291 = v157;
-              v159 = v157;
-              v292 = v156;
-              v160 = v156;
+              v303 = v157;
+              v294 = v161;
+              v295 = v160;
+              v162 = v160;
+              v296 = v159;
+              v163 = v159;
               do
               {
-                v323 = v158;
-                v324 = v159;
-                v161 = v326;
-                outlined init with copy of DateInterval?(v158, v326, &_sSS3key_10Foundation4DateV5valuetMd);
-                v322 = v160;
-                v162 = v327;
-                outlined init with copy of DateInterval?(v160, v327, &_sSS3key_10Foundation4DateV5valuetMd);
-                v163 = v161;
-                v164 = v328;
-                outlined init with copy of DateInterval?(v163, v328, &_sSS3key_10Foundation4DateV5valuetMd);
-                v166 = *v164;
-                v167 = *(v142 + 48);
-                v333 = *(v164 + 8);
-                v165 = v333;
-                v334 = v167;
-                v168 = v329;
-                outlined init with copy of DateInterval?(v162, v329, &_sSS3key_10Foundation4DateV5valuetMd);
-                v169 = v168[1];
-                v330 = *v168;
-                v336 = v169;
-                v170 = *(v142 + 48);
-                v171 = v320;
-                v319 = v166;
-                *v320 = v166;
-                *(v171 + 8) = v165;
-                v172 = v142;
-                v173 = v335;
-                v332 = *(v335 - 8);
-                v174 = *(v332 + 16);
-                v174(v171 + v170, &v334[v164], v335);
-                v175 = v325;
-                v176 = v336;
-                *v325 = v330;
-                v175[1] = v176;
-                v174(v175 + *(v172 + 48), v168 + v170, v173);
-                lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+                v327 = v161;
+                v328 = v162;
+                v164 = v330;
+                outlined init with copy of DateInterval?(v161, v330, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+                v326 = v163;
+                v165 = v331;
+                outlined init with copy of DateInterval?(v163, v331, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+                v166 = v164;
+                v167 = v332;
+                outlined init with copy of DateInterval?(v166, v332, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+                v169 = *v167;
+                v170 = *(v145 + 48);
+                v337 = *(v167 + 8);
+                v168 = v337;
+                v338 = v170;
+                v171 = v333;
+                outlined init with copy of DateInterval?(v165, v333, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+                v172 = v171[1];
+                v334 = *v171;
+                v340 = v172;
+                v173 = *(v145 + 48);
+                v174 = v324;
+                v323 = v169;
+                *v324 = v169;
+                *(v174 + 8) = v168;
+                v175 = v145;
+                v176 = v339;
+                v336 = *(v339 - 8);
+                v177 = *(v336 + 16);
+                v177(v174 + v173, &v338[v167], v339);
+                v178 = v329;
+                v179 = v340;
+                *v329 = v334;
+                v178[1] = v179;
+                v177(v178 + *(v175 + 48), v171 + v173, v176);
+                lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9598]);
 
                 if (dispatch thunk of static Equatable.== infix(_:_:)())
                 {
-                  v317 = v170;
-                  v177 = v307;
-                  outlined init with copy of DateInterval?(v171, v307, &_sSS3key_10Foundation4DateV5valuetMd);
-                  v178 = v313;
-                  if (!*(v313 + 16))
+                  v321 = v173;
+                  v180 = v311;
+                  outlined init with copy of DateInterval?(v174, v311, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+                  v181 = v317;
+                  if (!*(v317 + 16))
                   {
                     goto LABEL_161;
                   }
 
-                  v179 = *(v331 + 48);
-                  v180 = specialized __RawDictionaryStorage.find<A>(_:)(*v177, v177[1]);
-                  v182 = v181;
+                  v182 = *(v335 + 48);
+                  v183 = specialized __RawDictionaryStorage.find<A>(_:)(*v180, v180[1]);
+                  v185 = v184;
 
-                  if ((v182 & 1) == 0)
+                  if ((v185 & 1) == 0)
                   {
                     __break(1u);
 LABEL_136:
@@ -8362,235 +8328,237 @@ LABEL_157:
                     goto LABEL_158;
                   }
 
-                  v183 = v177;
-                  v184 = *(v312 + 72);
-                  v185 = v310;
-                  outlined init with copy of CloudDevice(*(v178 + 56) + v184 * v180, v310);
-                  outlined init with take of CloudDevice(v185, v321);
-                  v186 = *(v332 + 8);
-                  v186(v183 + v179, v335);
-                  v187 = v309;
-                  outlined init with copy of DateInterval?(v325, v309, &_sSS3key_10Foundation4DateV5valuetMd);
-                  if (!*(v178 + 16))
+                  v186 = v180;
+                  v187 = *(v316 + 72);
+                  v188 = v314;
+                  outlined init with copy of CloudDevice(*(v181 + 56) + v187 * v183, v314);
+                  outlined init with take of CloudDevice(v188, v325);
+                  v189 = *(v336 + 8);
+                  v189(v186 + v182, v339);
+                  v190 = v313;
+                  outlined init with copy of DateInterval?(v329, v313, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+                  if (!*(v181 + 16))
                   {
                     goto LABEL_162;
                   }
 
-                  v188 = v178;
-                  v189 = *(v331 + 48);
-                  v190 = specialized __RawDictionaryStorage.find<A>(_:)(*v187, v187[1]);
-                  v192 = v191;
+                  v191 = v181;
+                  v192 = *(v335 + 48);
+                  v193 = specialized __RawDictionaryStorage.find<A>(_:)(*v190, v190[1]);
+                  v195 = v194;
 
-                  if ((v192 & 1) == 0)
+                  if ((v195 & 1) == 0)
                   {
                     goto LABEL_136;
                   }
 
-                  v193 = v308;
-                  outlined init with copy of CloudDevice(*(v188 + 56) + v190 * v184, v308);
-                  v194 = v306;
-                  outlined init with take of CloudDevice(v193, v306);
-                  v186(v187 + v189, v335);
-                  v195 = *(v311 + 36);
-                  v196 = (v321 + v195);
-                  if (*(v321 + v195 + 8))
+                  v196 = v312;
+                  outlined init with copy of CloudDevice(*(v191 + 56) + v193 * v187, v312);
+                  v197 = v310;
+                  outlined init with take of CloudDevice(v196, v310);
+                  v189(v190 + v192, v339);
+                  v198 = *(v315 + 36);
+                  v199 = (v325 + v198);
+                  if (*(v325 + v198 + 8))
                   {
-                    v197 = *v196;
-                    v198 = v196[1];
+                    v200 = *v199;
+                    v201 = v199[1];
                   }
 
                   else
                   {
-                    v197 = 0;
-                    v198 = 0xE000000000000000;
+                    v200 = 0;
+                    v201 = 0xE000000000000000;
                   }
 
-                  v201 = v325;
-                  v171 = v320;
-                  v202 = (v194 + v195);
-                  if (v202[1])
+                  v204 = v329;
+                  v174 = v324;
+                  v205 = (v197 + v198);
+                  if (v205[1])
                   {
-                    v203 = *v202;
-                    v204 = v202[1];
+                    v206 = *v205;
+                    v207 = v205[1];
                   }
 
                   else
                   {
-                    v203 = 0;
-                    v204 = 0xE000000000000000;
+                    v206 = 0;
+                    v207 = 0xE000000000000000;
                   }
 
-                  v199 = specialized static CloudDevice._compareVersions(_:_:)(v197, v198, v203, v204);
+                  specialized static CloudDevice._compareVersions(_:_:)(v200, v201, v206, v207);
+                  v202 = v208;
+                  v209 = v208;
 
-                  if (v199 == 2)
+                  if (v209 == 2)
                   {
-                    v142 = v331;
-                    v200 = v317;
-                    if (v319 == v330 && v333 == v336)
+                    v145 = v335;
+                    v203 = v321;
+                    if (v323 == v334 && v337 == v340)
                     {
-                      v199 = 0;
+                      v202 = 0;
                     }
 
                     else
                     {
-                      v199 = _stringCompareWithSmolCheck(_:_:expecting:)();
+                      v202 = _stringCompareWithSmolCheck(_:_:expecting:)();
                     }
 
-                    outlined destroy of CloudDevice(v194);
-                    outlined destroy of CloudDevice(v321);
+                    outlined destroy of CloudDevice(v197);
+                    outlined destroy of CloudDevice(v325);
                   }
 
                   else
                   {
-                    outlined destroy of CloudDevice(v194);
-                    outlined destroy of CloudDevice(v321);
-                    v142 = v331;
-                    v200 = v317;
+                    outlined destroy of CloudDevice(v197);
+                    outlined destroy of CloudDevice(v325);
+                    v145 = v335;
+                    v203 = v321;
                   }
                 }
 
                 else
                 {
-                  v199 = static Date.< infix(_:_:)();
-                  v142 = v331;
-                  v200 = v170;
-                  v201 = v175;
+                  v202 = static Date.< infix(_:_:)();
+                  v145 = v335;
+                  v203 = v173;
+                  v204 = v178;
                 }
 
-                outlined destroy of UTType?(v201, &_sSS3key_10Foundation4DateV5valuetMd);
-                outlined destroy of UTType?(v171, &_sSS3key_10Foundation4DateV5valuetMd);
+                outlined destroy of UTType?(v204, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+                outlined destroy of UTType?(v174, &_sSS3key_10Foundation4DateV5valuetMd, "j");
 
-                v205 = *(v332 + 8);
-                v206 = v329 + v200;
-                v207 = v335;
-                v205(v206, v335);
-                v205(&v334[v328], v207);
-                outlined destroy of UTType?(v327, &_sSS3key_10Foundation4DateV5valuetMd);
-                outlined destroy of UTType?(v326, &_sSS3key_10Foundation4DateV5valuetMd);
-                if (v199)
+                v210 = *(v336 + 8);
+                v211 = v333 + v203;
+                v212 = v339;
+                v210(v211, v339);
+                v210(&v338[v332], v212);
+                outlined destroy of UTType?(v331, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+                outlined destroy of UTType?(v330, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+                if (v202)
                 {
                   break;
                 }
 
-                v208 = v324;
-                if (!v315)
+                v213 = v328;
+                if (!v319)
                 {
                   goto LABEL_160;
                 }
 
-                v209 = v323;
-                v210 = v316;
-                outlined init with take of URL?(v323, v316, &_sSS3key_10Foundation4DateV5valuetMd);
-                v211 = v322;
+                v214 = v327;
+                v215 = v320;
+                outlined init with take of URL?(v327, v320, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+                v216 = v326;
                 swift_arrayInitWithTakeFrontToBack();
-                outlined init with take of URL?(v210, v211, &_sSS3key_10Foundation4DateV5valuetMd);
-                v160 = v314 + v211;
-                v158 = v314 + v209;
-                v212 = __CFADD__(v208, 1);
-                v159 = v208 + 1;
+                outlined init with take of URL?(v215, v216, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+                v163 = v318 + v216;
+                v161 = v318 + v214;
+                v217 = __CFADD__(v213, 1);
+                v162 = v213 + 1;
               }
 
-              while (!v212);
-              v154 = v299 + 1;
-              v156 = v292 + v282;
-              v157 = v291 - 1;
-              v158 = v290 + v282;
+              while (!v217);
+              v157 = v303 + 1;
+              v159 = v296 + v286;
+              v160 = v295 - 1;
+              v161 = v294 + v286;
             }
 
-            while (v299 + 1 != v289);
-            v74 = v283;
-            v101 = v289;
+            while (v303 + 1 != v293);
+            v74 = v287;
+            v102 = v293;
           }
         }
       }
 
-      v213 = v294;
-      if (v101 < v74)
+      v218 = v298;
+      if (v102 < v74)
       {
         goto LABEL_155;
       }
 
-      v289 = v101;
+      v293 = v102;
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v213 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v213 + 2) + 1, 1, v213);
+        v218 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v218 + 2) + 1, 1, v218);
       }
 
-      v215 = *(v213 + 2);
-      v214 = *(v213 + 3);
-      v216 = v215 + 1;
-      if (v215 >= v214 >> 1)
+      v220 = *(v218 + 2);
+      v219 = *(v218 + 3);
+      v221 = v220 + 1;
+      if (v220 >= v219 >> 1)
       {
-        v213 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v214 > 1), v215 + 1, 1, v213);
+        v218 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v219 > 1), v220 + 1, 1, v218);
       }
 
-      *(v213 + 2) = v216;
-      v217 = v213 + 32;
-      v218 = &v213[16 * v215 + 32];
-      v219 = v289;
-      *v218 = v74;
-      *(v218 + 1) = v219;
-      v336 = *v281;
-      if (!v336)
+      *(v218 + 2) = v221;
+      v222 = v218 + 32;
+      v223 = &v218[16 * v220 + 32];
+      v224 = v293;
+      *v223 = v74;
+      *(v223 + 1) = v224;
+      v340 = *v285;
+      if (!v340)
       {
         goto LABEL_167;
       }
 
-      v294 = v213;
-      if (v215)
+      v298 = v218;
+      if (v220)
       {
         while (1)
         {
-          v220 = v216 - 1;
-          if (v216 >= 4)
+          v225 = v221 - 1;
+          if (v221 >= 4)
           {
             break;
           }
 
-          if (v216 == 3)
+          if (v221 == 3)
           {
-            v221 = *(v213 + 4);
-            v222 = *(v213 + 5);
-            v231 = __OFSUB__(v222, v221);
-            v223 = v222 - v221;
-            v224 = v231;
+            v226 = *(v218 + 4);
+            v227 = *(v218 + 5);
+            v236 = __OFSUB__(v227, v226);
+            v228 = v227 - v226;
+            v229 = v236;
 LABEL_99:
-            if (v224)
+            if (v229)
             {
               goto LABEL_145;
             }
 
-            v237 = &v213[16 * v216];
-            v239 = *v237;
-            v238 = *(v237 + 1);
-            v240 = __OFSUB__(v238, v239);
-            v241 = v238 - v239;
-            v242 = v240;
-            if (v240)
+            v242 = &v218[16 * v221];
+            v244 = *v242;
+            v243 = *(v242 + 1);
+            v245 = __OFSUB__(v243, v244);
+            v246 = v243 - v244;
+            v247 = v245;
+            if (v245)
             {
               goto LABEL_147;
             }
 
-            v243 = &v217[16 * v220];
-            v245 = *v243;
-            v244 = *(v243 + 1);
-            v231 = __OFSUB__(v244, v245);
-            v246 = v244 - v245;
-            if (v231)
+            v248 = &v222[16 * v225];
+            v250 = *v248;
+            v249 = *(v248 + 1);
+            v236 = __OFSUB__(v249, v250);
+            v251 = v249 - v250;
+            if (v236)
             {
               goto LABEL_150;
             }
 
-            if (__OFADD__(v241, v246))
+            if (__OFADD__(v246, v251))
             {
               goto LABEL_152;
             }
 
-            if (v241 + v246 >= v223)
+            if (v246 + v251 >= v228)
             {
-              if (v223 < v246)
+              if (v228 < v251)
               {
-                v220 = v216 - 2;
+                v225 = v221 - 2;
               }
 
               goto LABEL_121;
@@ -8599,151 +8567,151 @@ LABEL_99:
             goto LABEL_114;
           }
 
-          if (v216 < 2)
+          if (v221 < 2)
           {
             goto LABEL_153;
           }
 
-          v247 = &v213[16 * v216];
-          v249 = *v247;
-          v248 = *(v247 + 1);
-          v231 = __OFSUB__(v248, v249);
-          v241 = v248 - v249;
-          v242 = v231;
+          v252 = &v218[16 * v221];
+          v254 = *v252;
+          v253 = *(v252 + 1);
+          v236 = __OFSUB__(v253, v254);
+          v246 = v253 - v254;
+          v247 = v236;
 LABEL_114:
-          if (v242)
+          if (v247)
           {
             goto LABEL_149;
           }
 
-          v250 = &v217[16 * v220];
-          v252 = *v250;
-          v251 = *(v250 + 1);
-          v231 = __OFSUB__(v251, v252);
-          v253 = v251 - v252;
-          if (v231)
+          v255 = &v222[16 * v225];
+          v257 = *v255;
+          v256 = *(v255 + 1);
+          v236 = __OFSUB__(v256, v257);
+          v258 = v256 - v257;
+          if (v236)
           {
             goto LABEL_151;
           }
 
-          if (v253 < v241)
+          if (v258 < v246)
           {
             goto LABEL_3;
           }
 
 LABEL_121:
-          if (v220 - 1 >= v216)
+          if (v225 - 1 >= v221)
           {
             goto LABEL_137;
           }
 
-          v258 = *v298;
-          if (!*v298)
+          v263 = *v302;
+          if (!*v302)
           {
             goto LABEL_163;
           }
 
-          v259 = &v217[16 * v220 - 16];
-          v260 = *v259;
-          v261 = &v217[16 * v220];
-          v262 = *(v261 + 1);
-          v263 = *(v293 + 72);
-          v264 = v258 + v263 * *v259;
-          v265 = v258 + v263 * *v261;
-          v266 = v258 + v263 * v262;
-          v267 = v313;
+          v264 = &v222[16 * v225 - 16];
+          v265 = *v264;
+          v266 = &v222[16 * v225];
+          v267 = *(v266 + 1);
+          v268 = *(v297 + 72);
+          v269 = v263 + v268 * *v264;
+          v270 = v263 + v268 * *v266;
+          v271 = v263 + v268 * v267;
+          v272 = v317;
 
-          v268 = v264;
-          v269 = v301;
-          specialized _merge<A>(low:mid:high:buffer:by:)(v268, v265, v266, v336, v267);
-          v301 = v269;
-          if (v269)
+          v273 = v269;
+          v274 = v305;
+          specialized _merge<A>(low:mid:high:buffer:by:)(v273, v270, v271, v340, v272);
+          v305 = v274;
+          if (v274)
           {
 
-            v337 = v294;
+            v341 = v298;
             goto LABEL_133;
           }
 
-          if (v262 < v260)
+          if (v267 < v265)
           {
             goto LABEL_138;
           }
 
-          v213 = v294;
-          v270 = *(v294 + 2);
-          if (v220 > v270)
+          v218 = v298;
+          v275 = *(v298 + 16);
+          if (v225 > v275)
           {
             goto LABEL_139;
           }
 
-          *v259 = v260;
-          *(v259 + 1) = v262;
-          if (v220 >= v270)
+          *v264 = v265;
+          *(v264 + 1) = v267;
+          if (v225 >= v275)
           {
             goto LABEL_140;
           }
 
-          v216 = v270 - 1;
-          memmove(&v217[16 * v220], v261 + 16, 16 * (v270 - 1 - v220));
-          *(v213 + 2) = v270 - 1;
-          if (v270 <= 2)
+          v221 = v275 - 1;
+          memmove(&v222[16 * v225], v266 + 16, 16 * (v275 - 1 - v225));
+          *(v218 + 2) = v275 - 1;
+          if (v275 <= 2)
           {
             goto LABEL_3;
           }
         }
 
-        v225 = &v217[16 * v216];
-        v226 = *(v225 - 8);
-        v227 = *(v225 - 7);
-        v231 = __OFSUB__(v227, v226);
-        v228 = v227 - v226;
-        if (v231)
+        v230 = &v222[16 * v221];
+        v231 = *(v230 - 8);
+        v232 = *(v230 - 7);
+        v236 = __OFSUB__(v232, v231);
+        v233 = v232 - v231;
+        if (v236)
         {
           goto LABEL_143;
         }
 
-        v230 = *(v225 - 6);
-        v229 = *(v225 - 5);
-        v231 = __OFSUB__(v229, v230);
-        v223 = v229 - v230;
-        v224 = v231;
-        if (v231)
+        v235 = *(v230 - 6);
+        v234 = *(v230 - 5);
+        v236 = __OFSUB__(v234, v235);
+        v228 = v234 - v235;
+        v229 = v236;
+        if (v236)
         {
           goto LABEL_144;
         }
 
-        v232 = &v213[16 * v216];
-        v234 = *v232;
-        v233 = *(v232 + 1);
-        v231 = __OFSUB__(v233, v234);
-        v235 = v233 - v234;
-        if (v231)
+        v237 = &v218[16 * v221];
+        v239 = *v237;
+        v238 = *(v237 + 1);
+        v236 = __OFSUB__(v238, v239);
+        v240 = v238 - v239;
+        if (v236)
         {
           goto LABEL_146;
         }
 
-        v231 = __OFADD__(v223, v235);
-        v236 = v223 + v235;
-        if (v231)
+        v236 = __OFADD__(v228, v240);
+        v241 = v228 + v240;
+        if (v236)
         {
           goto LABEL_148;
         }
 
-        if (v236 >= v228)
+        if (v241 >= v233)
         {
-          v254 = &v217[16 * v220];
-          v256 = *v254;
-          v255 = *(v254 + 1);
-          v231 = __OFSUB__(v255, v256);
-          v257 = v255 - v256;
-          if (v231)
+          v259 = &v222[16 * v225];
+          v261 = *v259;
+          v260 = *(v259 + 1);
+          v236 = __OFSUB__(v260, v261);
+          v262 = v260 - v261;
+          if (v236)
           {
             goto LABEL_154;
           }
 
-          if (v223 < v257)
+          if (v228 < v262)
           {
-            v220 = v216 - 2;
+            v225 = v221 - 2;
           }
 
           goto LABEL_121;
@@ -8753,288 +8721,290 @@ LABEL_121:
       }
 
 LABEL_3:
-      v73 = v298[1];
-      v74 = v289;
-      a4 = v280;
-      if (v289 >= v73)
+      v73 = v302[1];
+      v74 = v293;
+      a4 = v284;
+      if (v293 >= v73)
       {
-        v337 = v294;
-        v271 = v313;
+        v341 = v298;
+        v276 = v317;
         goto LABEL_131;
       }
     }
   }
 
   swift_bridgeObjectRetain_n();
-  v271 = a5;
+  v276 = a5;
 LABEL_131:
-  v272 = *v281;
-  if (!*v281)
+  v277 = *v285;
+  if (!*v285)
   {
     goto LABEL_168;
   }
 
-  v273 = v272;
-  v274 = v301;
-  specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(&v337, v273, v298, v271);
-  v301 = v274;
+  v278 = v277;
+  v279 = v305;
+  specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(&v341, v278, v302, v276);
+  v305 = v279;
 
 LABEL_133:
   swift_bridgeObjectRelease_n();
 }
 
-uint64_t specialized MutableCollection<>._insertionSort(within:sortedEnd:by:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5)
+void specialized MutableCollection<>._insertionSort(within:sortedEnd:by:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5)
 {
-  v112 = a5;
-  v108 = type metadata accessor for CloudDevice();
-  v111 = *(v108 - 8);
-  v9 = MEMORY[0x28223BE20](v108);
-  v107 = &v98 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v113 = a5;
+  v109 = type metadata accessor for CloudDevice(0);
+  v112 = *(v109 - 8);
+  v9 = MEMORY[0x28223BE20](v109);
+  v108 = &v99 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = MEMORY[0x28223BE20](v9);
-  v106 = &v98 - v12;
+  v107 = &v99 - v12;
   v13 = MEMORY[0x28223BE20](v11);
-  v110 = &v98 - v14;
+  v111 = &v99 - v14;
   MEMORY[0x28223BE20](v13);
-  v120 = &v98 - v15;
-  v131 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_10Foundation4DateV5valuetMd);
-  v16 = *(v131 - 8);
-  v17 = MEMORY[0x28223BE20](v131);
-  v116 = &v98 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v121 = &v99 - v15;
+  v132 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_10Foundation4DateV5valuetMd, "j");
+  v16 = *(v132 - 8);
+  v17 = MEMORY[0x28223BE20](v132);
+  v117 = &v99 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   v19 = MEMORY[0x28223BE20](v17);
-  v109 = (&v98 - v20);
+  v110 = (&v99 - v20);
   v21 = MEMORY[0x28223BE20](v19);
-  v113 = (&v98 - v22);
+  v114 = (&v99 - v22);
   v23 = MEMORY[0x28223BE20](v21);
-  v135 = &v98 - v24;
+  v136 = &v99 - v24;
   v25 = MEMORY[0x28223BE20](v23);
-  v27 = (&v98 - v26);
+  v27 = (&v99 - v26);
   v28 = MEMORY[0x28223BE20](v25);
-  v126 = (&v98 - v29);
+  v127 = (&v99 - v29);
   v30 = MEMORY[0x28223BE20](v28);
-  v125 = (&v98 - v31);
+  v126 = (&v99 - v31);
   v32 = MEMORY[0x28223BE20](v30);
-  v124 = &v98 - v33;
-  result = MEMORY[0x28223BE20](v32);
-  v123 = &v98 - v35;
-  v100 = a2;
+  v125 = &v99 - v33;
+  MEMORY[0x28223BE20](v32);
+  v124 = &v99 - v34;
+  v101 = a2;
   if (a3 == a2)
   {
-    return result;
+    return;
   }
 
-  v36 = *a4;
-  v37 = type metadata accessor for Date();
-  v38 = *(v16 + 72);
-  v134 = v37;
-  v118 = v37 - 8;
-  v39 = v36 + v38 * (a3 - 1);
-  v114 = -v38;
-  v115 = v36;
-  v40 = a1 - a3;
-  v99 = v38;
-  v41 = v36 + v38 * a3;
-  v105 = v27;
+  v35 = *a4;
+  v36 = type metadata accessor for Date();
+  v37 = *(v16 + 72);
+  v135 = v36;
+  v119 = v36 - 8;
+  v38 = v35 + v37 * (a3 - 1);
+  v115 = -v37;
+  v116 = v35;
+  v39 = a1 - a3;
+  v100 = v37;
+  v40 = v35 + v37 * a3;
+  v106 = v27;
 LABEL_5:
-  v104 = a3;
-  v101 = v41;
-  v42 = v41;
+  v105 = a3;
   v102 = v40;
-  v43 = v40;
+  v41 = v40;
   v103 = v39;
-  v132 = v39;
+  v42 = v39;
+  v104 = v38;
+  v133 = v38;
   while (1)
   {
-    v121 = v42;
-    v122 = v43;
-    v44 = v123;
-    outlined init with copy of DateInterval?(v42, v123, &_sSS3key_10Foundation4DateV5valuetMd);
-    v45 = v124;
-    outlined init with copy of DateInterval?(v132, v124, &_sSS3key_10Foundation4DateV5valuetMd);
-    v46 = v125;
-    outlined init with copy of DateInterval?(v44, v125, &_sSS3key_10Foundation4DateV5valuetMd);
-    v47 = *v46;
-    v130 = v46[1];
-    v48 = v130;
-    v49 = v131;
-    v133 = *(v131 + 48);
-    v50 = v126;
-    outlined init with copy of DateInterval?(v45, v126, &_sSS3key_10Foundation4DateV5valuetMd);
-    v51 = *v50;
-    v129 = v50[1];
-    v52 = *(v49 + 48);
-    v119 = v47;
-    *v27 = v47;
-    v27[1] = v48;
-    v53 = v134;
-    v54 = *(v134 - 8);
-    v127 = v51;
-    v128 = v54;
-    v55 = *(v54 + 16);
-    v56 = v135;
-    v55(v27 + v52, v46 + v133, v134);
-    v57 = v129;
-    *v56 = v127;
-    *(v56 + 1) = v57;
-    v55(&v56[*(v49 + 48)], v50 + v52, v53);
-    lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+    v122 = v41;
+    v123 = v42;
+    v43 = v124;
+    outlined init with copy of DateInterval?(v41, v124, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+    v44 = v125;
+    outlined init with copy of DateInterval?(v133, v125, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+    v45 = v126;
+    outlined init with copy of DateInterval?(v43, v126, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+    v46 = *v45;
+    v131 = v45[1];
+    v47 = v131;
+    v48 = v132;
+    v134 = *(v132 + 48);
+    v49 = v127;
+    outlined init with copy of DateInterval?(v44, v127, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+    v50 = *v49;
+    v130 = v49[1];
+    v51 = *(v48 + 48);
+    v120 = v46;
+    *v27 = v46;
+    v27[1] = v47;
+    v52 = v135;
+    v53 = *(v135 - 8);
+    v128 = v50;
+    v129 = v53;
+    v54 = *(v53 + 16);
+    v55 = v136;
+    v54(v27 + v51, v45 + v134, v135);
+    v56 = v130;
+    *v55 = v128;
+    *(v55 + 1) = v56;
+    v54(&v55[*(v48 + 48)], v49 + v51, v52);
+    lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9598]);
 
     if ((dispatch thunk of static Equatable.== infix(_:_:)() & 1) == 0)
     {
-      v83 = static Date.< infix(_:_:)();
-      v84 = v52;
-      v85 = v122;
+      v82 = static Date.< infix(_:_:)();
+      v83 = v51;
+      v84 = v123;
 LABEL_23:
-      v90 = v133;
+      v91 = v134;
       goto LABEL_26;
     }
 
+    v57 = v114;
+    outlined init with copy of DateInterval?(v27, v114, &_sSS3key_10Foundation4DateV5valuetMd, "j");
     v58 = v113;
-    outlined init with copy of DateInterval?(v27, v113, &_sSS3key_10Foundation4DateV5valuetMd);
-    v59 = v112;
-    if (!*(v112 + 16))
+    if (!*(v113 + 16))
     {
       goto LABEL_34;
     }
 
-    v60 = *(v131 + 48);
-    v61 = specialized __RawDictionaryStorage.find<A>(_:)(*v58, v58[1]);
-    v63 = v62;
+    v59 = *(v132 + 48);
+    v60 = specialized __RawDictionaryStorage.find<A>(_:)(*v57, v57[1]);
+    v62 = v61;
 
-    if ((v63 & 1) == 0)
+    if ((v62 & 1) == 0)
     {
       break;
     }
 
-    v117 = v52;
-    v64 = v58;
-    v65 = *(v111 + 72);
-    v66 = *(v59 + 56) + v65 * v61;
-    v67 = v110;
-    outlined init with copy of CloudDevice(v66, v110);
-    outlined init with take of CloudDevice(v67, v120);
-    v68 = *(v128 + 8);
-    v68(v64 + v60, v134);
-    v69 = v109;
-    outlined init with copy of DateInterval?(v135, v109, &_sSS3key_10Foundation4DateV5valuetMd);
-    if (!*(v59 + 16))
+    v118 = v51;
+    v63 = v57;
+    v64 = *(v112 + 72);
+    v65 = *(v58 + 56) + v64 * v60;
+    v66 = v111;
+    outlined init with copy of CloudDevice(v65, v111);
+    outlined init with take of CloudDevice(v66, v121);
+    v67 = *(v129 + 8);
+    v67(v63 + v59, v135);
+    v68 = v110;
+    outlined init with copy of DateInterval?(v136, v110, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+    if (!*(v58 + 16))
     {
       goto LABEL_35;
     }
 
-    v70 = v59;
-    v71 = *(v131 + 48);
-    v72 = specialized __RawDictionaryStorage.find<A>(_:)(*v69, v69[1]);
-    v74 = v73;
+    v69 = v58;
+    v70 = *(v132 + 48);
+    v71 = specialized __RawDictionaryStorage.find<A>(_:)(*v68, v68[1]);
+    v73 = v72;
 
-    if ((v74 & 1) == 0)
+    if ((v73 & 1) == 0)
     {
       goto LABEL_32;
     }
 
-    v75 = *(v70 + 56) + v72 * v65;
-    v76 = v107;
-    outlined init with copy of CloudDevice(v75, v107);
-    v77 = v76;
-    v78 = v106;
-    outlined init with take of CloudDevice(v77, v106);
-    v68(v69 + v71, v134);
-    v79 = *(v108 + 36);
-    v80 = (v120 + v79);
-    if (*(v120 + v79 + 8))
+    v74 = *(v69 + 56) + v71 * v64;
+    v75 = v108;
+    outlined init with copy of CloudDevice(v74, v108);
+    v76 = v75;
+    v77 = v107;
+    outlined init with take of CloudDevice(v76, v107);
+    v67(v68 + v70, v135);
+    v78 = *(v109 + 36);
+    v79 = (v121 + v78);
+    if (*(v121 + v78 + 8))
     {
-      v81 = *v80;
-      v82 = v80[1];
+      v80 = *v79;
+      v81 = v79[1];
     }
 
     else
     {
-      v81 = 0;
-      v82 = 0xE000000000000000;
+      v80 = 0;
+      v81 = 0xE000000000000000;
     }
 
-    v86 = v129;
-    v87 = (v78 + v79);
-    if (v87[1])
+    v85 = v130;
+    v86 = (v77 + v78);
+    if (v86[1])
     {
-      v88 = *v87;
-      v89 = v87[1];
+      v87 = *v86;
+      v88 = v86[1];
     }
 
     else
     {
-      v88 = 0;
-      v89 = 0xE000000000000000;
+      v87 = 0;
+      v88 = 0xE000000000000000;
     }
 
-    v83 = specialized static CloudDevice._compareVersions(_:_:)(v81, v82, v88, v89);
+    specialized static CloudDevice._compareVersions(_:_:)(v80, v81, v87, v88);
+    v82 = v89;
+    v90 = v89;
 
-    if (v83 != 2)
+    if (v90 != 2)
     {
-      outlined destroy of CloudDevice(v78);
-      outlined destroy of CloudDevice(v120);
-      v27 = v105;
-      v85 = v122;
-      v84 = v117;
+      outlined destroy of CloudDevice(v77);
+      outlined destroy of CloudDevice(v121);
+      v27 = v106;
+      v84 = v123;
+      v83 = v118;
       goto LABEL_23;
     }
 
-    v27 = v105;
-    v85 = v122;
-    if (v119 == v127 && v130 == v86)
+    v27 = v106;
+    v84 = v123;
+    if (v120 == v128 && v131 == v85)
     {
-      v83 = 0;
+      v82 = 0;
     }
 
     else
     {
-      v83 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v82 = _stringCompareWithSmolCheck(_:_:expecting:)();
     }
 
-    v90 = v133;
-    outlined destroy of CloudDevice(v78);
-    outlined destroy of CloudDevice(v120);
-    v84 = v117;
+    v91 = v134;
+    outlined destroy of CloudDevice(v77);
+    outlined destroy of CloudDevice(v121);
+    v83 = v118;
 LABEL_26:
-    outlined destroy of UTType?(v135, &_sSS3key_10Foundation4DateV5valuetMd);
-    outlined destroy of UTType?(v27, &_sSS3key_10Foundation4DateV5valuetMd);
+    outlined destroy of UTType?(v136, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+    outlined destroy of UTType?(v27, &_sSS3key_10Foundation4DateV5valuetMd, "j");
 
-    v91 = *(v128 + 8);
-    v92 = v126 + v84;
-    v93 = v134;
-    v91(v92, v134);
-    v91(v125 + v90, v93);
-    outlined destroy of UTType?(v124, &_sSS3key_10Foundation4DateV5valuetMd);
-    result = outlined destroy of UTType?(v123, &_sSS3key_10Foundation4DateV5valuetMd);
-    v94 = v121;
-    if ((v83 & 1) == 0)
+    v92 = *(v129 + 8);
+    v93 = v127 + v83;
+    v94 = v135;
+    v92(v93, v135);
+    v92(v126 + v91, v94);
+    outlined destroy of UTType?(v125, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+    outlined destroy of UTType?(v124, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+    v95 = v122;
+    if ((v82 & 1) == 0)
     {
-      if (!v115)
+      if (!v116)
       {
         goto LABEL_33;
       }
 
-      v95 = v116;
-      outlined init with take of URL?(v121, v116, &_sSS3key_10Foundation4DateV5valuetMd);
-      v96 = v132;
+      v96 = v117;
+      outlined init with take of URL?(v122, v117, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+      v97 = v133;
       swift_arrayInitWithTakeFrontToBack();
-      result = outlined init with take of URL?(v95, v96, &_sSS3key_10Foundation4DateV5valuetMd);
-      v132 = v96 + v114;
-      v42 = v94 + v114;
-      v97 = __CFADD__(v85, 1);
-      v43 = v85 + 1;
-      if (!v97)
+      outlined init with take of URL?(v96, v97, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+      v133 = v97 + v115;
+      v41 = v95 + v115;
+      v98 = __CFADD__(v84, 1);
+      v42 = v84 + 1;
+      if (!v98)
       {
         continue;
       }
     }
 
-    a3 = v104 + 1;
-    v39 = v103 + v99;
-    v40 = v102 - 1;
-    v41 = v101 + v99;
-    if (v104 + 1 == v100)
+    a3 = v105 + 1;
+    v38 = v104 + v100;
+    v39 = v103 - 1;
+    v40 = v102 + v100;
+    if (v105 + 1 == v101)
     {
-      return result;
+      return;
     }
 
     goto LABEL_5;
@@ -9051,19 +9021,18 @@ LABEL_34:
 LABEL_35:
 
   __break(1u);
-  return result;
 }
 
-Swift::Int specialized UnsafeMutableBufferPointer._stableSortImpl(by:)(uint64_t *a1, uint64_t a2)
+void specialized UnsafeMutableBufferPointer._stableSortImpl(by:)(uint64_t *a1, uint64_t a2)
 {
   v4 = a1[1];
   swift_bridgeObjectRetain_n();
-  result = _minimumMergeRunLength(_:)(v4);
-  if (result < v4)
+  v5 = _minimumMergeRunLength(_:)(v4);
+  if (v5 < v4)
   {
     if (v4 >= -1)
     {
-      v6 = result;
+      v6 = v5;
       v7 = v4 / 2;
       if (v4 <= 1)
       {
@@ -9072,12 +9041,12 @@ Swift::Int specialized UnsafeMutableBufferPointer._stableSortImpl(by:)(uint64_t 
 
       else
       {
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_10Foundation4DateV5valuetMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_10Foundation4DateV5valuetMd, "j");
         v8 = static Array._allocateBufferUninitialized(minimumCapacity:)();
         *(v8 + 16) = v7;
       }
 
-      v9 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_10Foundation4DateV5valuetMd) - 8);
+      v9 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_10Foundation4DateV5valuetMd, "j") - 8);
       v10[0] = v8 + ((*(v9 + 80) + 32) & ~*(v9 + 80));
       v10[1] = v7;
 
@@ -9085,12 +9054,14 @@ Swift::Int specialized UnsafeMutableBufferPointer._stableSortImpl(by:)(uint64_t 
 
       *(v8 + 16) = 0;
       swift_bridgeObjectRelease_n();
+
+      return;
     }
 
     __break(1u);
 LABEL_12:
     __break(1u);
-    return result;
+    return;
   }
 
   if (v4 < 0)
@@ -9104,12 +9075,12 @@ LABEL_12:
     specialized MutableCollection<>._insertionSort(within:sortedEnd:by:)(0, v4, 1, a1, a2);
   }
 
-  return swift_bridgeObjectRelease_n();
+  swift_bridgeObjectRelease_n();
 }
 
-uint64_t specialized MutableCollection<>.sort(by:)(void **a1, uint64_t a2)
+uint64_t specialized MutableCollection<>.sort(by:)(uint64_t *a1, uint64_t a2)
 {
-  v4 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_10Foundation4DateV5valuetMd) - 8);
+  v4 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_10Foundation4DateV5valuetMd, "j") - 8);
   v5 = *a1;
   swift_bridgeObjectRetain_n();
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
@@ -9130,7 +9101,7 @@ uint64_t specialized MutableCollection<>.sort(by:)(void **a1, uint64_t a2)
 id specialized static CloudDevice.dumpRecord(_:)(void *a1)
 {
   v241 = *MEMORY[0x277D85DE8];
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v3 = MEMORY[0x28223BE20](v2);
   v5 = &v189 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = MEMORY[0x28223BE20](v3);
@@ -9182,7 +9153,7 @@ id specialized static CloudDevice.dumpRecord(_:)(void *a1)
   swift_unknownObjectRelease();
 
   v211 = v5;
-  if (v48 && (v240 = v48, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd), (swift_dynamicCast() & 1) != 0))
+  if (v48 && (v240 = v48, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR), (swift_dynamicCast() & 1) != 0))
   {
     v206 = v232;
     v207 = v233;
@@ -9200,7 +9171,7 @@ id specialized static CloudDevice.dumpRecord(_:)(void *a1)
   v51 = [v49 objectForKeyedSubscript_];
   swift_unknownObjectRelease();
 
-  if (v51 && (v239 = v51, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd), (swift_dynamicCast() & 1) != 0))
+  if (v51 && (v239 = v51, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR), (swift_dynamicCast() & 1) != 0))
   {
     v204 = v232;
     v205 = v233;
@@ -9221,7 +9192,7 @@ id specialized static CloudDevice.dumpRecord(_:)(void *a1)
   if (v54)
   {
     v232 = v54;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
     v55 = swift_dynamicCast();
     v227 = *(v31 + 56);
     v227(v29, v55 ^ 1u, 1, v30);
@@ -9243,7 +9214,7 @@ id specialized static CloudDevice.dumpRecord(_:)(void *a1)
   v225 = *(v31 + 48);
   if (v225(v29, 1, v30) != 1)
   {
-    outlined destroy of UTType?(v29, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v29, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   }
 
 LABEL_15:
@@ -9252,7 +9223,7 @@ LABEL_15:
   v58 = [v56 objectForKeyedSubscript_];
   swift_unknownObjectRelease();
 
-  if (v58 && (v238 = v58, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd), (swift_dynamicCast() & 1) != 0))
+  if (v58 && (v238 = v58, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR), (swift_dynamicCast() & 1) != 0))
   {
     v200 = v232;
     v201 = v233;
@@ -9270,7 +9241,7 @@ LABEL_15:
   v61 = [v59 objectForKeyedSubscript_];
   swift_unknownObjectRelease();
 
-  if (v61 && (v237 = v61, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd), (swift_dynamicCast() & 1) != 0))
+  if (v61 && (v237 = v61, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR), (swift_dynamicCast() & 1) != 0))
   {
     v197 = v232;
     v198 = v233;
@@ -9288,7 +9259,7 @@ LABEL_15:
   v64 = [v62 objectForKeyedSubscript_];
   swift_unknownObjectRelease();
 
-  if (v64 && (v232 = v64, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd), swift_dynamicCast()))
+  if (v64 && (v232 = v64, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR), swift_dynamicCast()))
   {
     v65 = v236;
   }
@@ -9304,7 +9275,7 @@ LABEL_15:
   v68 = [v66 objectForKeyedSubscript_];
   swift_unknownObjectRelease();
 
-  if (v68 && (v236 = v68, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd), (swift_dynamicCast() & 1) != 0))
+  if (v68 && (v236 = v68, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR), (swift_dynamicCast() & 1) != 0))
   {
     v193 = v232;
     v194 = v233;
@@ -9322,7 +9293,7 @@ LABEL_15:
   v71 = [v69 objectForKeyedSubscript_];
   swift_unknownObjectRelease();
 
-  if (v71 && (v234 = v71, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd), swift_dynamicCast()))
+  if (v71 && (v234 = v71, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR), swift_dynamicCast()))
   {
     v72 = v232;
     v73 = v233;
@@ -9354,7 +9325,7 @@ LABEL_15:
   v77 = v232;
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
   if ((swift_dynamicCast() & 1) == 0)
   {
 LABEL_39:
@@ -9503,7 +9474,7 @@ LABEL_70:
   if (v98)
   {
     v232 = v98;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
     v99 = v190;
     v100 = v210;
     v101 = swift_dynamicCast();
@@ -9532,7 +9503,7 @@ LABEL_70:
   static Date.distantPast.getter();
   if (v103(v99, 1, v100) != 1)
   {
-    outlined destroy of UTType?(v99, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v99, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   }
 
 LABEL_76:
@@ -9544,7 +9515,7 @@ LABEL_76:
   if (v108)
   {
     v232 = v108;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
     v109 = v191;
     v110 = swift_dynamicCast();
     v227(v109, v110 ^ 1u, 1, v100);
@@ -9564,7 +9535,7 @@ LABEL_76:
   static Date.distantPast.getter();
   if (v103(v109, 1, v100) != 1)
   {
-    outlined destroy of UTType?(v109, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v109, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   }
 
 LABEL_82:
@@ -9573,7 +9544,7 @@ LABEL_82:
   v113 = [v111 objectForKeyedSubscript_];
   swift_unknownObjectRelease();
 
-  if (v113 && (v234 = v113, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd), (swift_dynamicCast() & 1) != 0))
+  if (v113 && (v234 = v113, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR), (swift_dynamicCast() & 1) != 0))
   {
     v207 = v232;
     v210 = v233;
@@ -9594,7 +9565,7 @@ LABEL_82:
   if (v116)
   {
     v234 = v116;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
     v117 = v192;
     v118 = swift_dynamicCast();
     v227(v117, v118 ^ 1u, 1, v100);
@@ -9614,7 +9585,7 @@ LABEL_82:
   static Date.distantPast.getter();
   if (v103(v117, 1, v100) != 1)
   {
-    outlined destroy of UTType?(v117, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v117, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   }
 
 LABEL_92:
@@ -9626,7 +9597,7 @@ LABEL_92:
   if (v121)
   {
     v234 = v121;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
     v122 = v222;
     v123 = swift_dynamicCast() ^ 1;
     v124 = v122;
@@ -9648,7 +9619,7 @@ LABEL_92:
   if (v128)
   {
     v234 = v128;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
     v129 = v195;
     v130 = swift_dynamicCast();
     v227(v129, v130 ^ 1u, 1, v100);
@@ -9668,7 +9639,7 @@ LABEL_92:
   static Date.distantPast.getter();
   if (v225(v129, 1, v100) != 1)
   {
-    outlined destroy of UTType?(v129, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v129, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   }
 
 LABEL_101:
@@ -9680,7 +9651,7 @@ LABEL_101:
   if (v133)
   {
     v234 = v133;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
     v134 = v199;
     v135 = swift_dynamicCast();
     v227(v134, v135 ^ 1u, 1, v100);
@@ -9702,7 +9673,7 @@ LABEL_101:
   static Date.distantPast.getter();
   if (v136(v134, 1, v100) != 1)
   {
-    outlined destroy of UTType?(v134, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v134, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   }
 
 LABEL_107:
@@ -9714,7 +9685,7 @@ LABEL_107:
   if (v139)
   {
     v234 = v139;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
     v140 = v223;
     v141 = swift_dynamicCast() ^ 1;
     v142 = v140;
@@ -9735,7 +9706,7 @@ LABEL_107:
   if (v145)
   {
     v234 = v145;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
     v146 = v214;
     v147 = swift_dynamicCast() ^ 1;
     v148 = v146;
@@ -9756,7 +9727,7 @@ LABEL_107:
   if (v151)
   {
     v234 = v151;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
     v152 = v215;
     v153 = swift_dynamicCast() ^ 1;
     v154 = v152;
@@ -9777,7 +9748,7 @@ LABEL_107:
   if (v157)
   {
     v234 = v157;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
     v158 = v216;
     v159 = swift_dynamicCast() ^ 1;
     v160 = v158;
@@ -9796,7 +9767,7 @@ LABEL_107:
   v164 = [v162 objectForKeyedSubscript_];
   swift_unknownObjectRelease();
 
-  if (v164 && (v230 = v164, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd), (swift_dynamicCast() & 1) != 0))
+  if (v164 && (v230 = v164, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR), (swift_dynamicCast() & 1) != 0))
   {
     v165 = v235;
     v227 = v234;
@@ -9822,7 +9793,7 @@ LABEL_107:
   MEMORY[0x21CE92100](v204, v205);
 
   MEMORY[0x21CE92100](0xD000000000000017, 0x8000000216585E20);
-  lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+  lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC95B8]);
   v166 = dispatch thunk of CustomStringConvertible.description.getter();
   MEMORY[0x21CE92100](v166);
 
@@ -9864,7 +9835,7 @@ LABEL_107:
   MEMORY[0x21CE92100](0xD000000000000013, 0x8000000216585F40);
   v174 = v100;
   v175 = v211;
-  outlined init with copy of DateInterval?(v222, v211, &_s10Foundation4DateVSgMd);
+  outlined init with copy of DateInterval?(v222, v211, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v176 = String.init<A>(describing:)();
   MEMORY[0x21CE92100](v176);
 
@@ -9880,25 +9851,25 @@ LABEL_107:
   MEMORY[0x21CE92100](v178);
 
   MEMORY[0x21CE92100](0xD000000000000024, 0x8000000216585FD0);
-  outlined init with copy of DateInterval?(v223, v175, &_s10Foundation4DateVSgMd);
+  outlined init with copy of DateInterval?(v223, v175, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v179 = String.init<A>(describing:)();
   MEMORY[0x21CE92100](v179);
 
   MEMORY[0x21CE92100](0xD000000000000041, 0x8000000216586000);
   v180 = v214;
-  outlined init with copy of DateInterval?(v214, v175, &_s10Foundation4DateVSgMd);
+  outlined init with copy of DateInterval?(v214, v175, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v181 = String.init<A>(describing:)();
   MEMORY[0x21CE92100](v181);
 
   MEMORY[0x21CE92100](0xD00000000000001BLL, 0x8000000216586050);
   v182 = v215;
-  outlined init with copy of DateInterval?(v215, v175, &_s10Foundation4DateVSgMd);
+  outlined init with copy of DateInterval?(v215, v175, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v183 = String.init<A>(describing:)();
   MEMORY[0x21CE92100](v183);
 
   MEMORY[0x21CE92100](0xD000000000000013, 0x8000000216586070);
   v184 = v216;
-  outlined init with copy of DateInterval?(v216, v175, &_s10Foundation4DateVSgMd);
+  outlined init with copy of DateInterval?(v216, v175, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v185 = String.init<A>(describing:)();
   MEMORY[0x21CE92100](v185);
 
@@ -9911,10 +9882,10 @@ LABEL_107:
   v187(v218, v174);
   v187(v217, v174);
   v187(v224, v174);
-  outlined destroy of UTType?(v184, &_s10Foundation4DateVSgMd);
-  outlined destroy of UTType?(v182, &_s10Foundation4DateVSgMd);
-  outlined destroy of UTType?(v180, &_s10Foundation4DateVSgMd);
-  outlined destroy of UTType?(v223, &_s10Foundation4DateVSgMd);
-  outlined destroy of UTType?(v222, &_s10Foundation4DateVSgMd);
+  outlined destroy of UTType?(v184, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  outlined destroy of UTType?(v182, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  outlined destroy of UTType?(v180, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  outlined destroy of UTType?(v223, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  outlined destroy of UTType?(v222, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   return v186;
 }

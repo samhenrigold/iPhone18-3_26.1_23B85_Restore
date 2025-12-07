@@ -112,7 +112,7 @@
 - (id)_initWithQueue:(id)queue isSync:(BOOL)sync connectionCreationBlock:(id)block
 {
   syncCopy = sync;
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   blockCopy = block;
   v11 = _IDSRunningInDaemon();
@@ -137,9 +137,9 @@
       _os_log_impl(&dword_1959FF000, v13, OS_LOG_TYPE_DEFAULT, "Alloc'ing IDSXPCDaemonController {pointer: %p}", buf, 0xCu);
     }
 
-    v37.receiver = self;
-    v37.super_class = IDSXPCDaemonController;
-    v15 = [(IDSXPCDaemonController *)&v37 init];
+    v36.receiver = self;
+    v36.super_class = IDSXPCDaemonController;
+    v15 = [(IDSXPCDaemonController *)&v36 init];
     v16 = v15;
     if (v15)
     {
@@ -149,18 +149,18 @@
       [v17 setRemoteObjectInterface:v18];
 
       objc_initWeak(buf, v16);
-      v31 = MEMORY[0x1E69E9820];
-      v32 = 3221225472;
-      v33 = sub_195A8EBC4;
-      v34 = &unk_1E743EDC8;
-      objc_copyWeak(&v36, buf);
+      v30 = MEMORY[0x1E69E9820];
+      v31 = 3221225472;
+      v32 = sub_195A8EBC4;
+      v33 = &unk_1E743EDC8;
+      objc_copyWeak(&v35, buf);
       v19 = v16;
-      v35 = v19;
-      [v17 setInterruptionHandler:&v31];
+      v34 = v19;
+      [v17 setInterruptionHandler:&v30];
       v20 = [IDSXPCConnection alloc];
       if (syncCopy)
       {
-        v21 = [(IDSXPCConnection *)v20 initForSyncMessagingWithQueue:queueCopy takingOverAndResumingConnection:v17, v31, v32, v33, v34];
+        v21 = [(IDSXPCConnection *)v20 initForSyncMessagingWithQueue:queueCopy takingOverAndResumingConnection:v17, v30, v31, v32, v33];
         connection = v19->_connection;
         v19->_connection = v21;
 
@@ -174,7 +174,7 @@
 
       else
       {
-        v26 = [(IDSXPCConnection *)v20 initWithQueue:queueCopy takingOverAndResumingConnection:v17, v31, v32, v33, v34];
+        v26 = [(IDSXPCConnection *)v20 initWithQueue:queueCopy takingOverAndResumingConnection:v17, v30, v31, v32, v33];
         v27 = v19->_connection;
         v19->_connection = v26;
 
@@ -184,7 +184,7 @@
       collaboratorPromiseDictionary = v19->_collaboratorPromiseDictionary;
       v19->_collaboratorPromiseDictionary = v25;
 
-      objc_destroyWeak(&v36);
+      objc_destroyWeak(&v35);
       objc_destroyWeak(buf);
     }
 
@@ -192,13 +192,12 @@
     selfCopy2 = self;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E69A5270] xpc];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -207,10 +206,9 @@
     _os_log_impl(&dword_1959FF000, v3, OS_LOG_TYPE_DEFAULT, "Dealloc'ing IDSXPCDaemonController {pointer: %p}", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = IDSXPCDaemonController;
-  [(IDSXPCDaemonController *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = IDSXPCDaemonController;
+  [(IDSXPCDaemonController *)&v4 dealloc];
 }
 
 - (void)activateWithCompletion:(id)completion
@@ -472,17 +470,23 @@
 - (void)removeInterruptionHandlerForTarget:(id)target
 {
   targetCopy = target;
+  v5 = targetCopy;
   if (targetCopy)
   {
+    v7 = targetCopy;
     [(NSMapTable *)self->_interruptionHandlerByTarget removeObjectForKey:targetCopy];
-    if (![(NSMapTable *)self->_interruptionHandlerByTarget count])
+    targetCopy = [(NSMapTable *)self->_interruptionHandlerByTarget count];
+    v5 = v7;
+    if (!targetCopy)
     {
       interruptionHandlerByTarget = self->_interruptionHandlerByTarget;
       self->_interruptionHandlerByTarget = 0;
+
+      v5 = v7;
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](targetCopy, v5);
 }
 
 - (id)_daemonProxyWithErrorHandler:(id)handler
@@ -519,7 +523,7 @@
 
 - (id)_collaboratorWithIdentifier:(id)identifier interface:(id)interface timeout:(double)timeout errorHandler:(id)handler resolverBlock:(id)block
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   interfaceCopy = interface;
   handlerCopy = handler;
@@ -546,7 +550,7 @@
 
     v19 = [IDSXPCConnectionRemoteObjectPromise alloc];
     queue2 = [(IDSXPCDaemonController *)self queue];
-    v38 = [(IDSXPCConnectionRemoteObjectPromise *)v19 initWithInterface:interfaceCopy queue:queue2];
+    v37 = [(IDSXPCConnectionRemoteObjectPromise *)v19 initWithInterface:interfaceCopy queue:queue2];
 
     collaboratorPromiseDictionary = [(IDSXPCDaemonController *)self collaboratorPromiseDictionary];
     promise = [collaboratorPromiseDictionary objectForKeyedSubscript:identifierCopy];
@@ -565,33 +569,33 @@
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      v54 = 0;
+      v53 = 0;
       v25 = objc_alloc(MEMORY[0x1E69956D0]);
       queue3 = [(IDSXPCDaemonController *)self queue];
       v27 = [v25 initWithQueue:queue3];
 
-      v48[0] = MEMORY[0x1E69E9820];
-      v48[1] = 3221225472;
-      v48[2] = sub_195A90648;
-      v48[3] = &unk_1E74405A8;
-      v52 = buf;
+      v47[0] = MEMORY[0x1E69E9820];
+      v47[1] = 3221225472;
+      v47[2] = sub_195A90648;
+      v47[3] = &unk_1E74405A8;
+      v51 = buf;
       v28 = v27;
-      v49 = v28;
+      v48 = v28;
       selfCopy = self;
       v29 = identifierCopy;
-      v51 = v29;
-      v37 = [(IDSXPCDaemonController *)self _timingOutDaemonProxyWithTimeout:v48 errorHandler:timeout];
+      v50 = v29;
+      v36 = [(IDSXPCDaemonController *)self _timingOutDaemonProxyWithTimeout:v47 errorHandler:timeout];
       connection = [(IDSXPCDaemonController *)self connection];
-      v44[0] = MEMORY[0x1E69E9820];
-      v44[1] = 3221225472;
-      v44[2] = sub_195A906D4;
-      v44[3] = &unk_1E74413F0;
-      v47 = buf;
+      v43[0] = MEMORY[0x1E69E9820];
+      v43[1] = 3221225472;
+      v43[2] = sub_195A906D4;
+      v43[3] = &unk_1E74413F0;
+      v46 = buf;
       v31 = v28;
-      v45 = v31;
+      v44 = v31;
       v32 = connection;
-      v46 = v32;
-      blockCopy[2](blockCopy, v37, v44);
+      v45 = v32;
+      blockCopy[2](blockCopy, v36, v43);
       promise = [v31 promise];
       collaboratorPromiseDictionary2 = [(IDSXPCDaemonController *)self collaboratorPromiseDictionary];
       [collaboratorPromiseDictionary2 setObject:promise forKeyedSubscript:v29];
@@ -600,21 +604,19 @@
       v23 = &off_195B53000;
     }
 
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = *(v23 + 499);
-    v39[2] = sub_195A9076C;
-    v39[3] = &unk_1E7441418;
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = *(v23 + 499);
+    v38[2] = sub_195A9076C;
+    v38[3] = &unk_1E7441418;
     timeoutCopy = timeout;
-    v42 = handlerCopy;
-    v39[4] = self;
-    v40 = identifierCopy;
-    v41 = v38;
-    v34 = v38;
-    [promise registerResultBlock:v39];
+    v41 = handlerCopy;
+    v38[4] = self;
+    v39 = identifierCopy;
+    v40 = v37;
+    v34 = v37;
+    [promise registerResultBlock:v38];
     remoteObjectProxy = [(IDSXPCConnectionRemoteObjectPromise *)v34 remoteObjectProxy];
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 
   return remoteObjectProxy;
 }

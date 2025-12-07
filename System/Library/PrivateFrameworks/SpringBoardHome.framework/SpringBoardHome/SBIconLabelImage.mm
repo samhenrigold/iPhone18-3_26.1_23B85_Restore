@@ -14,8 +14,8 @@
 
 - (UIEdgeInsets)alignmentRectInsets
 {
-  metrics = [(SBIconLabelImageParameters *)self->_parameters metrics];
-  [metrics alignmentRectInsets];
+  v2 = objc_msgSend_metrics(self->_parameters, a2);
+  [v2 alignmentRectInsets];
   v4 = v3;
   v6 = v5;
   v8 = v7;
@@ -34,16 +34,16 @@
 
 - (BOOL)hasBaseline
 {
-  metrics = [(SBIconLabelImageParameters *)self->_parameters metrics];
-  hasBaseline = [metrics hasBaseline];
+  v2 = objc_msgSend_metrics(self->_parameters, a2);
+  hasBaseline = [v2 hasBaseline];
 
   return hasBaseline;
 }
 
 - (double)baselineOffsetFromBottom
 {
-  metrics = [(SBIconLabelImageParameters *)self->_parameters metrics];
-  [metrics baselineOffsetFromBottom];
+  v2 = objc_msgSend_metrics(self->_parameters, a2);
+  [v2 baselineOffsetFromBottom];
   v4 = v3;
 
   return v4;
@@ -288,11 +288,11 @@ LABEL_28:
     currentTraitCollection = 0;
   }
 
-  metrics = [parametersCopy metrics];
-  v11 = metrics;
-  if (metrics)
+  v10 = objc_msgSend_metrics(parametersCopy);
+  v11 = v10;
+  if (v10)
   {
-    v12 = metrics;
+    v12 = v10;
   }
 
   else

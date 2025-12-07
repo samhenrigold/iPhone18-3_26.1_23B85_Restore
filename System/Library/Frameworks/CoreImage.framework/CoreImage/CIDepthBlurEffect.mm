@@ -428,21 +428,21 @@ LABEL_21:
   v19 = v18;
   v20 = [(CIDepthBlurEffect *)self _getFocusRect:self->inputImage focusRect:self->inputFocusRect];
   inputImage = self->inputImage;
-  v249[0] = @"inputImage";
-  v249[1] = @"inputShiftmapImage";
+  v254[0] = @"inputImage";
+  v254[1] = @"inputShiftmapImage";
   v22 = self->inputDisparityImage;
-  v250[0] = inputImage;
-  v250[1] = v22;
-  v250[2] = v20;
-  v249[2] = @"inputFocusRect";
-  v249[3] = @"inputScale";
+  v255[0] = inputImage;
+  v255[1] = v22;
+  v255[2] = v20;
+  v254[2] = @"inputFocusRect";
+  v254[3] = @"inputScale";
   *&v23 = v6;
-  v250[3] = [MEMORY[0x1E696AD98] numberWithFloat:v23];
-  v249[4] = @"inputAperture";
+  v255[3] = [MEMORY[0x1E696AD98] numberWithFloat:v23];
+  v254[4] = @"inputAperture";
   LODWORD(v24) = v19;
-  v250[4] = [MEMORY[0x1E696AD98] numberWithFloat:v24];
+  v255[4] = [MEMORY[0x1E696AD98] numberWithFloat:v24];
   v25 = 0x1E695D000uLL;
-  v26 = +[CIFilter filterWithName:withInputParameters:](CIFilter, "filterWithName:withInputParameters:", @"CIDepthEffectMakeBlurMap", [MEMORY[0x1E695DF20] dictionaryWithObjects:v250 forKeys:v249 count:5]);
+  v26 = +[CIFilter filterWithName:withInputParameters:](CIFilter, "filterWithName:withInputParameters:", @"CIDepthEffectMakeBlurMap", [MEMORY[0x1E695DF20] dictionaryWithObjects:v255 forKeys:v254 count:5]);
   if (!self->inputAuxDataMetadata)
   {
     goto LABEL_58;
@@ -465,419 +465,419 @@ LABEL_21:
     inputDisparityImage = self->inputAuxDataMetadata;
 LABEL_59:
     [(CIFilter *)v26 setValue:inputDisparityImage forKey:@"inputAuxDataMetadata"];
-    v214 = 0;
+    v219 = 0;
     goto LABEL_61;
   }
 
   v29 = [objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Version", "intValue"}];
-  v30 = v29;
+  v31 = v29;
   if (v29 < 4)
   {
     switch(v29)
     {
       case 3:
-        v35 = malloc_type_calloc(1uLL, 0x1D8uLL, 0x1000040156972F5uLL);
-        *v35 = 0x3444E4552;
-        v35[2] = 472;
-        v35[3] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"radius", "intValue"}];
+        v38 = malloc_type_calloc(1uLL, 0x1D8uLL, 0x1000040156972F5uLL);
+        *v38 = 0x3444E4552;
+        v38[2] = 472;
+        v38[3] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"radius", "intValue"}];
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"disparitySigma", "floatValue"}];
-        v35[4] = v108;
+        v38[4] = v113;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"aaLumaSigma", "floatValue"}];
-        v35[5] = v109;
+        v38[5] = v114;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"aaChromaSigma", "floatValue"}];
-        v35[6] = v110;
+        v38[6] = v115;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"aaSpatialSigma", "floatValue"}];
-        v35[7] = v111;
+        v38[7] = v116;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"faces.linearBlurGrowthM", "floatValue"}];
-        v35[9] = v112;
+        v38[9] = v117;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"faces.linearBlurGrowthC", "floatValue"}];
-        v35[10] = v113;
+        v38[10] = v118;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"faces.distToBlurScaling", "floatValue"}];
-        v35[11] = v114;
+        v38[11] = v119;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"faces.eyeToEyebrowRatio", "floatValue"}];
-        v35[12] = v115;
-        v35[13] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"HighlightRecovery", "objectForKeyedSubscript:", @"iterations", "intValue"}];
+        v38[12] = v120;
+        v38[13] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"HighlightRecovery", "objectForKeyedSubscript:", @"iterations", "intValue"}];
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"HighlightRecovery", "objectForKeyedSubscript:", @"preFilterGain", "floatValue"}];
-        v35[14] = v116;
+        v38[14] = v121;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"HighlightRecovery", "objectForKeyedSubscript:", @"weightGain", "floatValue"}];
-        v35[15] = v117;
+        v38[15] = v122;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"HighlightRecovery", "objectForKeyedSubscript:", @"intensityGain", "floatValue"}];
-        v35[16] = v118;
-        v35[17] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"nRings", "intValue"}];
+        v38[16] = v123;
+        v38[17] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"nRings", "intValue"}];
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"relativeWeightThreshold", "floatValue"}];
-        v35[18] = v119;
+        v38[18] = v124;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"highlightBoostGain", "floatValue"}];
-        v35[19] = v120;
+        v38[19] = v125;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"shapeObstructionCoeff", "floatValue"}];
-        v35[20] = v121;
+        v38[20] = v126;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"ringAmplitude", "floatValue"}];
-        v35[21] = v122;
+        v38[21] = v127;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"ringSharpness", "floatValue"}];
-        v35[22] = v123;
+        v38[22] = v128;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"preFilterBlurStrength", "floatValue"}];
-        v35[23] = v124;
+        v38[23] = v129;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"antiAliasBlurStrength", "floatValue"}];
-        v35[24] = v125;
+        v38[24] = v130;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"minimumSimulatedAperture", "floatValue"}];
-        v35[25] = v126;
+        v38[25] = v131;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"blendingQuarterResAlphaGain", "floatValue"}];
-        v35[26] = v127;
+        v38[26] = v132;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"blendingFullResAlphaGain", "floatValue"}];
-        v35[27] = v128;
+        v38[27] = v133;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"weightScaling", "floatValue"}];
-        v35[28] = v129;
+        v38[28] = v134;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"maxReconstructionWeight", "floatValue"}];
-        v35[29] = v130;
+        v38[29] = v135;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"innerSamplingRadius", "floatValue"}];
-        v35[30] = v131;
+        v38[30] = v136;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"outerSamplingRadius", "floatValue"}];
-        v35[31] = v132;
-        v35[32] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"nSamples", "intValue"}];
+        v38[31] = v137;
+        v38[32] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"nSamples", "intValue"}];
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"lumaSigma", "floatValue"}];
-        v35[33] = v133;
+        v38[33] = v138;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"chromaSigma", "floatValue"}];
-        v35[34] = v134;
+        v38[34] = v139;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"accumulatedWeightT0", "floatValue"}];
-        v35[35] = v135;
+        v38[35] = v140;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"accumulatedWeightT1", "floatValue"}];
-        v35[36] = v136;
+        v38[36] = v141;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"aaSegmentationSigma", "floatValue"}];
-        v35[69] = v137;
+        v38[69] = v142;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"segmentationSigma", "floatValue"}];
-        v35[68] = v138;
-        v35[70] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"Version", "intValue"}];
+        v38[68] = v143;
+        v38[70] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"Version", "intValue"}];
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"SLM", "objectForKeyedSubscript:", @"shiftDeadZone", "floatValue"}];
-        v35[8] = v139;
+        v38[8] = v144;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"SLM", "objectForKeyedSubscript:", @"zeroShiftPercentile", "floatValue"}];
-        v35[37] = v140;
+        v38[37] = v145;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"SLM", "objectForKeyedSubscript:", @"maxFGBlur", "floatValue"}];
-        v35[38] = v141;
+        v38[38] = v146;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"SLM", "objectForKeyedSubscript:", @"maximumSimulatedAperture", "floatValue"}];
-        v35[67] = v142;
+        v38[67] = v147;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"SLM", "objectForKeyedSubscript:", @"defaultSimulatedAperture", "floatValue"}];
-        v35[71] = v143;
-        v35[39] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapSmoothing", "objectForKeyedSubscript:", @"nIterations", "intValue"}];
-        v35[40] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"preFilterRadius", "intValue"}];
+        v38[71] = v148;
+        v38[39] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapSmoothing", "objectForKeyedSubscript:", @"nIterations", "intValue"}];
+        v38[40] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"preFilterRadius", "intValue"}];
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"sharpRadius", "floatValue"}];
-        v35[41] = v144;
+        v38[41] = v149;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"softRadius", "floatValue"}];
-        v35[42] = v145;
+        v38[42] = v150;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"lumaNoiseModelCoeff", "floatValue"}];
-        v35[43] = v146;
-        v35[44] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"antiAliasRadius", "intValue"}];
+        v38[43] = v151;
+        v38[44] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"antiAliasRadius", "intValue"}];
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"alphaEpsilon", "floatValue"}];
-        v35[45] = v147;
+        v38[45] = v152;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"alphaGain", "floatValue"}];
-        v35[46] = v148;
+        v38[46] = v153;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"HighlightRecovery", "objectForKeyedSubscript:", @"blurRadiusT0", "floatValue"}];
-        v35[47] = v149;
+        v38[47] = v154;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"HighlightRecovery", "objectForKeyedSubscript:", @"blurRadiusT1", "floatValue"}];
-        v35[48] = v150;
+        v38[48] = v155;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"HighlightRecovery", "objectForKeyedSubscript:", @"maxIntensityT0", "floatValue"}];
-        v35[49] = v151;
+        v38[49] = v156;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"HighlightRecovery", "objectForKeyedSubscript:", @"maxIntensityT1", "floatValue"}];
-        v35[50] = v152;
+        v38[50] = v157;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"HighlightRecovery", "objectForKeyedSubscript:", @"minIntensityT0", "floatValue"}];
-        v35[51] = v153;
+        v38[51] = v158;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"HighlightRecovery", "objectForKeyedSubscript:", @"minIntensityT1", "floatValue"}];
-        v35[52] = v154;
+        v38[52] = v159;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"faces.maxBlurOnEyes", "floatValue"}];
-        v35[53] = v155;
+        v38[53] = v160;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"faces.maxBlurDistFromFocus", "floatValue"}];
-        v35[54] = v156;
+        v38[54] = v161;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"faces.capMultip", "floatValue"}];
-        v35[55] = v157;
+        v38[55] = v162;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"faces.gainMultip", "floatValue"}];
-        v35[56] = v158;
+        v38[56] = v163;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Fusion", "objectForKeyedSubscript:", @"subtractiveLowerAlpha", "floatValue"}];
-        v35[57] = v159;
+        v38[57] = v164;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Fusion", "objectForKeyedSubscript:", @"subtractiveUpperAlpha", "floatValue"}];
-        v35[58] = v160;
+        v38[58] = v165;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Fusion", "objectForKeyedSubscript:", @"subtractiveMaxBlur", "floatValue"}];
-        v35[59] = v161;
+        v38[59] = v166;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Fusion", "objectForKeyedSubscript:", @"additiveLowerAlpha", "floatValue"}];
-        v35[60] = v162;
+        v38[60] = v167;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Fusion", "objectForKeyedSubscript:", @"additiveUpperAlpha", "floatValue"}];
-        v35[61] = v163;
+        v38[61] = v168;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Fusion", "objectForKeyedSubscript:", @"additiveMaxBlur", "floatValue"}];
-        v35[62] = v164;
+        v38[62] = v169;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapSmoothing", "objectForKeyedSubscript:", @"originalBlurValueT0", "floatValue"}];
-        v35[63] = v165;
+        v38[63] = v170;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapSmoothing", "objectForKeyedSubscript:", @"originalBlurValueT1", "floatValue"}];
-        v35[64] = v166;
+        v38[64] = v171;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapSmoothing", "objectForKeyedSubscript:", @"localMinimumBlurValueT0", "floatValue"}];
-        v35[65] = v167;
+        v38[65] = v172;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapSmoothing", "objectForKeyedSubscript:", @"localMinimumBlurValueT1", "floatValue"}];
-        v35[66] = v168;
+        v38[66] = v173;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"subjectDistanceMinimumFocusDistance", "floatValue"}];
-        v35[73] = v169;
+        v38[73] = v174;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"subjectDistanceMaximumFocusDistance", "floatValue"}];
-        v35[74] = v170;
+        v38[74] = v175;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"subjectDistanceScalingFactor", "floatValue"}];
-        v35[75] = v171;
+        v38[75] = v176;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"subjectDistanceOffset", "floatValue"}];
-        v35[76] = v172;
+        v38[76] = v177;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"protectBodyStrength", "floatValue"}];
-        v35[77] = v173;
+        v38[77] = v178;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"maxBlur", "floatValue"}];
-        v35[78] = v174;
+        v38[78] = v179;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"smoothstepMin", "floatValue"}];
-        v35[79] = v175;
+        v38[79] = v180;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"smoothstepMax", "floatValue"}];
-        v35[80] = v176;
+        v38[80] = v181;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"distanceAdd", "floatValue"}];
-        v35[81] = v177;
+        v38[81] = v182;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"faceMaskAdditiveMaxBlur", "floatValue"}];
-        v35[82] = v178;
+        v38[82] = v183;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"faceMaskSubtractiveMaxBlur", "floatValue"}];
-        v35[83] = v179;
+        v38[83] = v184;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"personDistance", "floatValue"}];
-        v35[84] = v180;
+        v38[84] = v185;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"personThreshold", "floatValue"}];
-        v35[85] = v181;
+        v38[85] = v186;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"personMaxBlur", "floatValue"}];
-        v35[86] = v182;
+        v38[86] = v187;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"hairDistance", "floatValue"}];
-        v35[87] = v183;
+        v38[87] = v188;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"hairThreshold", "floatValue"}];
-        v35[88] = v184;
+        v38[88] = v189;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"hairMaxBlur", "floatValue"}];
-        v35[89] = v185;
+        v38[89] = v190;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"hairSubtractiveLowerAlpha", "floatValue"}];
-        v35[90] = v186;
+        v38[90] = v191;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"hairSubtractiveUpperAlpha", "floatValue"}];
-        v35[91] = v187;
+        v38[91] = v192;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"hairAdditiveLowerAlpha", "floatValue"}];
-        v35[92] = v188;
+        v38[92] = v193;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"hairAdditiveUpperAlpha", "floatValue"}];
-        v35[93] = v189;
+        v38[93] = v194;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"hairAdditiveMaxBlur", "floatValue"}];
-        v35[94] = v190;
+        v38[94] = v195;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"hairSubtractiveMaxBlur", "floatValue"}];
-        v35[95] = v191;
+        v38[95] = v196;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"relativeApertureScalingStrength", "floatValue"}];
-        v35[96] = v192;
-        v35[97] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"eyeProtectionMaxFaces", "intValue"}];
+        v38[96] = v197;
+        v38[97] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"eyeProtectionMaxFaces", "intValue"}];
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"eyeProtectionFaceWeightsSmoothStepMin", "floatValue"}];
-        v35[98] = v193;
+        v38[98] = v198;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"eyeProtectionFaceWeightsSmoothStepMax", "floatValue"}];
-        v35[99] = v194;
+        v38[99] = v199;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"eyeProtectionOvalDimsDistanceScale", "floatValue"}];
-        v35[100] = v195;
+        v38[100] = v200;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"beyeProtectionOvalDimsDistanceOffset", "floatValue"}];
-        v35[101] = v196;
+        v38[101] = v201;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"eyeProtectionOvalDimsRadiusHorizontal", "floatValue"}];
-        v35[102] = v197;
+        v38[102] = v202;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"eyeProtectionOvalDimsRadiusVertical", "floatValue"}];
-        v35[103] = v198;
+        v38[103] = v203;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"eyeProtectionOvalFallOffSmoothStepMin", "floatValue"}];
-        v35[104] = v199;
+        v38[104] = v204;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"eyeProtectionOvalFallOffSmoothStepMax", "floatValue"}];
-        v35[105] = v200;
+        v38[105] = v205;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"eyeProtectionPersonMaskSmoothStepMin", "floatValue"}];
-        v35[106] = v201;
+        v38[106] = v206;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"eyeProtectionPersonMaskSmoothStepMax", "floatValue"}];
-        v35[107] = v202;
+        v38[107] = v207;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"eyeProtectionPreventStrength", "floatValue"}];
-        v35[108] = v203;
+        v38[108] = v208;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"eyeProtectionSubtractiveMaxBlur", "floatValue"}];
-        v35[109] = v204;
+        v38[109] = v209;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapRefinement", "objectForKeyedSubscript:", @"eyeProtectionSubtractiveApertureScaling", "floatValue"}];
-        v35[110] = v205;
-        [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"SLM", "objectForKeyedSubscript:", @"disparityScalingFactor", "floatValue"}];
-        v35[72] = v206;
-        *(v35 + 111) = 0;
-        *(v35 + 113) = 0;
-        *(v35 + 115) = 0;
-        v35[117] = 0;
+        v38[110] = v210;
+        v46 = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"SLM", "objectForKeyedSubscript:", @"disparityScalingFactor", "floatValue"}];
+        v38[72] = v211;
+        *(v38 + 111) = 0;
+        *(v38 + 113) = 0;
+        *(v38 + 115) = 0;
+        v38[117] = 0;
         break;
       case 2:
-        v35 = malloc_type_calloc(1uLL, 0x140uLL, 0x1000040B2834900uLL);
-        *v35 = 0x2444E4552;
-        v35[2] = 320;
-        v35[3] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"radius", "intValue"}];
+        v38 = malloc_type_calloc(1uLL, 0x140uLL, 0x1000040B2834900uLL);
+        *v38 = 0x2444E4552;
+        v38[2] = 320;
+        v38[3] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"radius", "intValue"}];
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"disparitySigma", "floatValue"}];
-        v35[4] = v46;
+        v38[4] = v51;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"aaLumaSigma", "floatValue"}];
-        v35[5] = v47;
+        v38[5] = v52;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"aaChromaSigma", "floatValue"}];
-        v35[6] = v48;
+        v38[6] = v53;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"aaSpatialSigma", "floatValue"}];
-        v35[7] = v49;
+        v38[7] = v54;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"faces.linearBlurGrowthM", "floatValue"}];
-        v35[9] = v50;
+        v38[9] = v55;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"faces.linearBlurGrowthC", "floatValue"}];
-        v35[10] = v51;
+        v38[10] = v56;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"faces.distToBlurScaling", "floatValue"}];
-        v35[11] = v52;
+        v38[11] = v57;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"faces.eyeToEyebrowRatio", "floatValue"}];
-        v35[12] = v53;
-        v35[13] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"HighlightRecovery", "objectForKeyedSubscript:", @"iterations", "intValue"}];
+        v38[12] = v58;
+        v38[13] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"HighlightRecovery", "objectForKeyedSubscript:", @"iterations", "intValue"}];
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"HighlightRecovery", "objectForKeyedSubscript:", @"preFilterGain", "floatValue"}];
-        v35[14] = v54;
+        v38[14] = v59;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"HighlightRecovery", "objectForKeyedSubscript:", @"weightGain", "floatValue"}];
-        v35[15] = v55;
+        v38[15] = v60;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"HighlightRecovery", "objectForKeyedSubscript:", @"intensityGain", "floatValue"}];
-        v35[16] = v56;
-        v35[17] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"nRings", "intValue"}];
+        v38[16] = v61;
+        v38[17] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"nRings", "intValue"}];
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"relativeWeightThreshold", "floatValue"}];
-        v35[18] = v57;
+        v38[18] = v62;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"highlightBoostGain", "floatValue"}];
-        v35[19] = v58;
+        v38[19] = v63;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"shapeObstructionCoeff", "floatValue"}];
-        v35[20] = v59;
+        v38[20] = v64;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"ringAmplitude", "floatValue"}];
-        v35[21] = v60;
+        v38[21] = v65;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"ringSharpness", "floatValue"}];
-        v35[22] = v61;
+        v38[22] = v66;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"preFilterBlurStrength", "floatValue"}];
-        v35[23] = v62;
+        v38[23] = v67;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"antiAliasBlurStrength", "floatValue"}];
-        v35[24] = v63;
+        v38[24] = v68;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"minimumSimulatedAperture", "floatValue"}];
-        v35[25] = v64;
+        v38[25] = v69;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"blendingQuarterResAlphaGain", "floatValue"}];
-        v35[26] = v65;
+        v38[26] = v70;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"blendingFullResAlphaGain", "floatValue"}];
-        v35[27] = v66;
+        v38[27] = v71;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"weightScaling", "floatValue"}];
-        v35[28] = v67;
+        v38[28] = v72;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"maxReconstructionWeight", "floatValue"}];
-        v35[29] = v68;
+        v38[29] = v73;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"innerSamplingRadius", "floatValue"}];
-        v35[30] = v69;
+        v38[30] = v74;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"outerSamplingRadius", "floatValue"}];
-        v35[31] = v70;
-        v35[32] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"nSamples", "intValue"}];
+        v38[31] = v75;
+        v38[32] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"nSamples", "intValue"}];
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"lumaSigma", "floatValue"}];
-        v35[33] = v71;
+        v38[33] = v76;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"chromaSigma", "floatValue"}];
-        v35[34] = v72;
+        v38[34] = v77;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"accumulatedWeightT0", "floatValue"}];
-        v35[35] = v73;
+        v38[35] = v78;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"accumulatedWeightT1", "floatValue"}];
-        v35[36] = v74;
+        v38[36] = v79;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"aaSegmentationSigma", "floatValue"}];
-        v35[69] = v75;
+        v38[69] = v80;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"segmentationSigma", "floatValue"}];
-        v35[68] = v76;
-        v35[70] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"Version", "intValue"}];
+        v38[68] = v81;
+        v38[70] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparityRefinement", "objectForKeyedSubscript:", @"Version", "intValue"}];
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"SLM", "objectForKeyedSubscript:", @"shiftDeadZone", "floatValue"}];
-        v35[8] = v77;
+        v38[8] = v82;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"SLM", "objectForKeyedSubscript:", @"zeroShiftPercentile", "floatValue"}];
-        v35[37] = v78;
+        v38[37] = v83;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"SLM", "objectForKeyedSubscript:", @"maxFGBlur", "floatValue"}];
-        v35[38] = v79;
+        v38[38] = v84;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"SLM", "objectForKeyedSubscript:", @"maximumSimulatedAperture", "floatValue"}];
-        v35[67] = v80;
+        v38[67] = v85;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"SLM", "objectForKeyedSubscript:", @"defaultSimulatedAperture", "floatValue"}];
-        v35[71] = v81;
-        v35[39] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapSmoothing", "objectForKeyedSubscript:", @"nIterations", "intValue"}];
-        v35[40] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"preFilterRadius", "intValue"}];
+        v38[71] = v86;
+        v38[39] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapSmoothing", "objectForKeyedSubscript:", @"nIterations", "intValue"}];
+        v38[40] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"preFilterRadius", "intValue"}];
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"sharpRadius", "floatValue"}];
-        v35[41] = v82;
+        v38[41] = v87;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"softRadius", "floatValue"}];
-        v35[42] = v83;
+        v38[42] = v88;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"lumaNoiseModelCoeff", "floatValue"}];
-        v35[43] = v84;
-        v35[44] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"antiAliasRadius", "intValue"}];
+        v38[43] = v89;
+        v38[44] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"antiAliasRadius", "intValue"}];
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"alphaEpsilon", "floatValue"}];
-        v35[45] = v85;
+        v38[45] = v90;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"alphaGain", "floatValue"}];
-        v35[46] = v86;
+        v38[46] = v91;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"HighlightRecovery", "objectForKeyedSubscript:", @"blurRadiusT0", "floatValue"}];
-        v35[47] = v87;
+        v38[47] = v92;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"HighlightRecovery", "objectForKeyedSubscript:", @"blurRadiusT1", "floatValue"}];
-        v35[48] = v88;
+        v38[48] = v93;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"HighlightRecovery", "objectForKeyedSubscript:", @"maxIntensityT0", "floatValue"}];
-        v35[49] = v89;
+        v38[49] = v94;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"HighlightRecovery", "objectForKeyedSubscript:", @"maxIntensityT1", "floatValue"}];
-        v35[50] = v90;
+        v38[50] = v95;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"HighlightRecovery", "objectForKeyedSubscript:", @"minIntensityT0", "floatValue"}];
-        v35[51] = v91;
+        v38[51] = v96;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"HighlightRecovery", "objectForKeyedSubscript:", @"minIntensityT1", "floatValue"}];
-        v35[52] = v92;
+        v38[52] = v97;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"faces.maxBlurOnEyes", "floatValue"}];
-        v35[53] = v93;
+        v38[53] = v98;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"faces.maxBlurDistFromFocus", "floatValue"}];
-        v35[54] = v94;
+        v38[54] = v99;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"faces.capMultip", "floatValue"}];
-        v35[55] = v95;
+        v38[55] = v100;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"faces.gainMultip", "floatValue"}];
-        v35[56] = v96;
+        v38[56] = v101;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Fusion", "objectForKeyedSubscript:", @"subtractiveLowerAlpha", "floatValue"}];
-        v35[57] = v97;
+        v38[57] = v102;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Fusion", "objectForKeyedSubscript:", @"subtractiveUpperAlpha", "floatValue"}];
-        v35[58] = v98;
+        v38[58] = v103;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Fusion", "objectForKeyedSubscript:", @"subtractiveMaxBlur", "floatValue"}];
-        v35[59] = v99;
+        v38[59] = v104;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Fusion", "objectForKeyedSubscript:", @"additiveLowerAlpha", "floatValue"}];
-        v35[60] = v100;
+        v38[60] = v105;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Fusion", "objectForKeyedSubscript:", @"additiveUpperAlpha", "floatValue"}];
-        v35[61] = v101;
+        v38[61] = v106;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Fusion", "objectForKeyedSubscript:", @"additiveMaxBlur", "floatValue"}];
-        v35[62] = v102;
+        v38[62] = v107;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapSmoothing", "objectForKeyedSubscript:", @"originalBlurValueT0", "floatValue"}];
-        v35[63] = v103;
+        v38[63] = v108;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapSmoothing", "objectForKeyedSubscript:", @"originalBlurValueT1", "floatValue"}];
-        v35[64] = v104;
+        v38[64] = v109;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapSmoothing", "objectForKeyedSubscript:", @"localMinimumBlurValueT0", "floatValue"}];
-        v35[65] = v105;
+        v38[65] = v110;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"BlurMapSmoothing", "objectForKeyedSubscript:", @"localMinimumBlurValueT1", "floatValue"}];
-        v35[66] = v106;
-        [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"SLM", "objectForKeyedSubscript:", @"disparityScalingFactor", "floatValue"}];
-        v35[72] = v107;
-        *(v35 + 73) = 0;
-        *(v35 + 75) = 0;
-        *(v35 + 77) = 0;
-        v35[79] = 0;
+        v38[66] = v111;
+        v46 = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"SLM", "objectForKeyedSubscript:", @"disparityScalingFactor", "floatValue"}];
+        v38[72] = v112;
+        *(v38 + 73) = 0;
+        *(v38 + 75) = 0;
+        *(v38 + 77) = 0;
+        v38[79] = 0;
         break;
       case 1:
-        v35 = malloc_type_calloc(1uLL, 0x30uLL, 0x1000040EED21634uLL);
-        *v35 = 0x1444E4552;
-        v35[2] = 48;
-        v35[3] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparitySmoothing", "objectForKeyedSubscript:", @"nIterations", "unsignedIntValue"}];
+        v38 = malloc_type_calloc(1uLL, 0x30uLL, 0x1000040EED21634uLL);
+        *v38 = 0x1444E4552;
+        v38[2] = 48;
+        v38[3] = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"DisparitySmoothing", "objectForKeyedSubscript:", @"nIterations", "unsignedIntValue"}];
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"SLM", "objectForKeyedSubscript:", @"shiftDeadZone", "floatValue"}];
-        v35[4] = v36;
+        v38[4] = v39;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"faces.linearBlurGrowthC", "floatValue"}];
-        v35[6] = v37;
+        v38[6] = v40;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"faces.linearBlurGrowthM", "floatValue"}];
-        v35[5] = v38;
+        v38[5] = v41;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"faces.distToBlurScaling", "floatValue"}];
-        v35[7] = v39;
+        v38[7] = v42;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"faces.eyeToEyebrowRatio", "floatValue"}];
-        v35[8] = v40;
+        v38[8] = v43;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"relativeWeightThreshold", "floatValue"}];
-        v35[9] = v41;
+        v38[9] = v44;
         [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"highlightBoostGain", "floatValue"}];
-        v35[10] = v42;
-        [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"antiAliasBlurStrength", "floatValue"}];
-        v35[11] = v43;
+        v38[10] = v45;
+        v46 = [objc_msgSend(objc_msgSend(inputAuxDataMetadata objectForKeyedSubscript:{@"Rendering", "objectForKeyedSubscript:", @"antiAliasBlurStrength", "floatValue"}];
+        v38[11] = v48;
         break;
       default:
-        v31 = ci_logger_api();
-        if (!os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+        v32 = ci_logger_api(v29, v30);
+        if (!os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
         {
           goto LABEL_32;
         }
 
         LODWORD(valuePtr[0]) = 67109120;
-        HIDWORD(valuePtr[0]) = v30;
+        HIDWORD(valuePtr[0]) = v31;
         goto LABEL_31;
     }
 
-    if (*v35 == 1145980242)
+    if (*v38 == 1145980242)
     {
-      if (v35[2])
+      if (v38[2])
       {
-        v207 = [objc_msgSend(MEMORY[0x1E695DEF0] dataWithBytes:v35) length:{"base64EncodedDataWithOptions:", 0}];
-        v208 = malloc_type_malloc([v207 length] + 1, 0x100004077774924uLL);
-        v208[[v207 length]] = 0;
+        v212 = [objc_msgSend(MEMORY[0x1E695DEF0] dataWithBytes:v38) length:{"base64EncodedDataWithOptions:", 0}];
+        v213 = malloc_type_malloc([v212 length] + 1, 0x100004077774924uLL);
+        v213[[v212 length]] = 0;
         v25 = 0x1E695D000;
-        memcpy(v208, [v207 bytes], objc_msgSend(v207, "length"));
-        inputAuxDataMetadata = CGImageMetadataTagCreate(@"http://ns.apple.com/depthBlurEffect/1.0/", @"depthBlurEffect", @"RenderingParameters", kCGImageMetadataTypeString, [MEMORY[0x1E696AEC0] stringWithUTF8String:v208]);
-        free(v208);
-        free(v35);
+        memcpy(v213, [v212 bytes], objc_msgSend(v212, "length"));
+        inputAuxDataMetadata = CGImageMetadataTagCreate(@"http://ns.apple.com/depthBlurEffect/1.0/", @"depthBlurEffect", @"RenderingParameters", kCGImageMetadataTypeString, [MEMORY[0x1E696AEC0] stringWithUTF8String:v213]);
+        free(v213);
+        free(v38);
         if (!inputAuxDataMetadata)
         {
           goto LABEL_58;
@@ -886,81 +886,81 @@ LABEL_59:
         goto LABEL_32;
       }
 
-      v213 = ci_logger_api();
-      if (os_log_type_enabled(v213, OS_LOG_TYPE_INFO))
+      v218 = ci_logger_api(v46, v47);
+      if (os_log_type_enabled(v218, OS_LOG_TYPE_INFO))
       {
         valuePtr[0] = 67109120;
-        v210 = "Invalid rendering parameter header size (%d)";
-        v211 = v213;
-        v212 = 8;
+        v215 = "Invalid rendering parameter header size (%d)";
+        v216 = v218;
+        v217 = 8;
         goto LABEL_56;
       }
     }
 
     else
     {
-      v209 = ci_logger_api();
-      if (os_log_type_enabled(v209, OS_LOG_TYPE_INFO))
+      v214 = ci_logger_api(v46, v47);
+      if (os_log_type_enabled(v214, OS_LOG_TYPE_INFO))
       {
         LOWORD(valuePtr[0]) = 0;
-        v210 = "Invalid rendering parameter start marker.";
-        v211 = v209;
-        v212 = 2;
+        v215 = "Invalid rendering parameter start marker.";
+        v216 = v214;
+        v217 = 2;
 LABEL_56:
-        _os_log_impl(&dword_19CC36000, v211, OS_LOG_TYPE_INFO, v210, valuePtr, v212);
+        _os_log_impl(&dword_19CC36000, v216, OS_LOG_TYPE_INFO, v215, valuePtr, v217);
       }
     }
 
-    free(v35);
+    free(v38);
     goto LABEL_58;
   }
 
-  v31 = ci_logger_api();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+  v32 = ci_logger_api(v29, v30);
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
   {
     LODWORD(valuePtr[0]) = 67109120;
-    HIDWORD(valuePtr[0]) = v30;
+    HIDWORD(valuePtr[0]) = v31;
 LABEL_31:
-    _os_log_impl(&dword_19CC36000, v31, OS_LOG_TYPE_INFO, "Unknown depth blur effect rendering version %d", valuePtr, 8u);
+    _os_log_impl(&dword_19CC36000, v32, OS_LOG_TYPE_INFO, "Unknown depth blur effect rendering version %d", valuePtr, 8u);
   }
 
 LABEL_32:
   MutableCopy = CGImageMetadataCreateMutableCopy(inputDisparityImage);
   if (MutableCopy)
   {
-    v33 = MutableCopy;
-    v34 = CGImageMetadataSetTagWithPath(MutableCopy, 0, @"depthBlurEffect:RenderingParameters", inputAuxDataMetadata);
+    v34 = MutableCopy;
+    v35 = CGImageMetadataSetTagWithPath(MutableCopy, 0, @"depthBlurEffect:RenderingParameters", inputAuxDataMetadata);
     CFRelease(inputAuxDataMetadata);
-    if (v34)
+    if (v35)
     {
-      CFAutorelease(v33);
-      inputDisparityImage = v33;
+      CFAutorelease(v34);
+      inputDisparityImage = v34;
       goto LABEL_59;
     }
 
-    v45 = ci_logger_api();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+    v50 = ci_logger_api(v36, v37);
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
     {
       LOWORD(valuePtr[0]) = 0;
-      _os_log_impl(&dword_19CC36000, v45, OS_LOG_TYPE_INFO, "Unable to set new image metadata", valuePtr, 2u);
+      _os_log_impl(&dword_19CC36000, v50, OS_LOG_TYPE_INFO, "Unable to set new image metadata", valuePtr, 2u);
     }
 
-    v44 = v33;
+    v49 = v34;
   }
 
   else
   {
-    v44 = inputAuxDataMetadata;
+    v49 = inputAuxDataMetadata;
   }
 
-  CFRelease(v44);
+  CFRelease(v49);
 LABEL_58:
   if (inputDisparityImage)
   {
     goto LABEL_59;
   }
 
-  v214 = 1;
+  v219 = 1;
 LABEL_61:
   inputCalibrationData = self->inputCalibrationData;
   if (inputCalibrationData)
@@ -996,10 +996,10 @@ LABEL_61:
   if (inputMatteImage)
   {
     [(CIImage *)inputMatteImage extent];
-    if (v221 > 1.0)
+    if (v226 > 1.0)
     {
       [(CIImage *)self->inputMatteImage extent];
-      if (v222 > 1.0)
+      if (v227 > 1.0)
       {
         [(CIFilter *)v26 setValue:self->inputMatteImage forKey:@"inputMatteImage"];
       }
@@ -1010,10 +1010,10 @@ LABEL_61:
   if (inputHairImage)
   {
     [(CIImage *)inputHairImage extent];
-    if (v224 > 1.0)
+    if (v229 > 1.0)
     {
       [(CIImage *)self->inputHairImage extent];
-      if (v225 > 1.0)
+      if (v230 > 1.0)
       {
         [(CIFilter *)v26 setValue:self->inputHairImage forKey:@"inputHairImage"];
       }
@@ -1024,10 +1024,10 @@ LABEL_61:
   if (inputGlassesImage)
   {
     [(CIImage *)inputGlassesImage extent];
-    if (v227 > 1.0)
+    if (v232 > 1.0)
     {
       [(CIImage *)self->inputGlassesImage extent];
-      if (v228 > 1.0)
+      if (v233 > 1.0)
       {
         [(CIFilter *)v26 setValue:self->inputGlassesImage forKey:@"inputGlassesImage"];
       }
@@ -1038,10 +1038,10 @@ LABEL_61:
   if (inputGainMap)
   {
     [(CIImage *)inputGainMap extent];
-    if (v230 > 1.0)
+    if (v235 > 1.0)
     {
       [(CIImage *)self->inputGainMap extent];
-      if (v231 > 1.0)
+      if (v236 > 1.0)
       {
         [(CIFilter *)v26 setValue:self->inputGainMap forKey:@"inputGainMap"];
       }
@@ -1054,66 +1054,66 @@ LABEL_61:
     return self->inputImage;
   }
 
-  v248[0] = self->inputImage;
-  v248[1] = outputImage;
-  LODWORD(v233) = v19;
-  v248[2] = [MEMORY[0x1E696AD98] numberWithFloat:{v233, @"inputImage", @"inputBlurMap", @"inputAperture"}];
-  v247[3] = @"inputLumaNoiseScale";
-  *&v234 = v4;
-  v248[3] = [MEMORY[0x1E696AD98] numberWithFloat:v234];
-  v247[4] = @"inputScale";
-  *&v235 = v6;
-  v236 = [MEMORY[0x1E696AD98] numberWithFloat:v235];
+  v253[0] = self->inputImage;
+  v253[1] = outputImage;
+  LODWORD(v238) = v19;
+  v253[2] = [MEMORY[0x1E696AD98] numberWithFloat:{v238, @"inputImage", @"inputBlurMap", @"inputAperture"}];
+  v252[3] = @"inputLumaNoiseScale";
+  *&v239 = v4;
+  v253[3] = [MEMORY[0x1E696AD98] numberWithFloat:v239];
+  v252[4] = @"inputScale";
+  *&v240 = v6;
+  v241 = [MEMORY[0x1E696AD98] numberWithFloat:v240];
   inputShape = self->inputShape;
-  v247[5] = @"inputShape";
+  v252[5] = @"inputShape";
   if (inputShape)
   {
-    v238 = inputShape;
+    v243 = inputShape;
   }
 
   else
   {
-    v238 = &stru_1F1040378;
+    v243 = &stru_1F1040378;
   }
 
-  v248[4] = v236;
-  v248[5] = v238;
-  v239 = +[CIFilter filterWithName:withInputParameters:](CIFilter, "filterWithName:withInputParameters:", @"CIDepthEffectApplyBlurMap", [*(v25 + 3872) dictionaryWithObjects:v248 forKeys:v247 count:6]);
-  v240 = v239;
-  if ((v214 & 1) == 0)
+  v253[4] = v241;
+  v253[5] = v243;
+  v244 = +[CIFilter filterWithName:withInputParameters:](CIFilter, "filterWithName:withInputParameters:", @"CIDepthEffectApplyBlurMap", [*(v25 + 3872) dictionaryWithObjects:v253 forKeys:v252 count:6]);
+  v245 = v244;
+  if ((v219 & 1) == 0)
   {
-    [(CIFilter *)v239 setValue:inputDisparityImage forKey:@"inputAuxDataMetadata"];
+    [(CIFilter *)v244 setValue:inputDisparityImage forKey:@"inputAuxDataMetadata"];
   }
 
-  v241 = self->inputMatteImage;
-  if (v241)
+  v246 = self->inputMatteImage;
+  if (v246)
   {
-    [(CIImage *)v241 extent];
-    if (v242 > 1.0)
+    [(CIImage *)v246 extent];
+    if (v247 > 1.0)
     {
       [(CIImage *)self->inputMatteImage extent];
-      if (v243 > 1.0)
+      if (v248 > 1.0)
       {
-        [(CIFilter *)v240 setValue:self->inputMatteImage forKey:@"inputMatteImage"];
+        [(CIFilter *)v245 setValue:self->inputMatteImage forKey:@"inputMatteImage"];
       }
     }
   }
 
-  v244 = self->inputGainMap;
-  if (v244)
+  v249 = self->inputGainMap;
+  if (v249)
   {
-    [(CIImage *)v244 extent];
-    if (v245 > 1.0)
+    [(CIImage *)v249 extent];
+    if (v250 > 1.0)
     {
       [(CIImage *)self->inputGainMap extent];
-      if (v246 > 1.0)
+      if (v251 > 1.0)
       {
-        [(CIFilter *)v240 setValue:self->inputGainMap forKey:@"inputGainMap"];
+        [(CIFilter *)v245 setValue:self->inputGainMap forKey:@"inputGainMap"];
       }
     }
   }
 
-  return [(CIFilter *)v240 outputImage];
+  return [(CIFilter *)v245 outputImage];
 }
 
 + (CGImageMetadata)metadataFromDictionary:(id)dictionary metadata:(CGImageMetadata *)metadata

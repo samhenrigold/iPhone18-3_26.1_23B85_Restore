@@ -27,6 +27,7 @@
 - (void)checkForDiscoveredLanguages;
 - (void)dealloc;
 - (void)emitNavigationEventForRootController;
+- (void)inflectionSettingViewController:(id)controller shareSettingDidChange:(BOOL)change;
 - (void)inflectionSettingsViewController:(id)controller inflectionDidChange:(id)change;
 - (void)recordConfirmedLanguage:(id)language accepted:(BOOL)accepted;
 - (void)reloadLocale:(id)locale;
@@ -37,6 +38,9 @@
 - (void)showLanguageDiscoverySetupForDiscoveredLanguage:(id)language;
 - (void)showLanguageSheet:(id)sheet;
 - (void)showOfficialLanguageSheet:(id)sheet;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation InternationalSettingsController
@@ -83,6 +87,27 @@
 
   objc_destroyWeak(&v7);
   objc_destroyWeak(&location);
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = InternationalSettingsController;
+  [(InternationalSettingsController *)&v4 viewWillAppear:appear];
+  self->super._deviceLanguageIndex = -1;
+  if ([(InternationalSettingsController *)self shouldReloadSpecifiers])
+  {
+    [(InternationalSettingsController *)self reloadSpecifiers];
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = InternationalSettingsController;
+  [(InternationalSettingsController *)&v4 viewDidAppear:appear];
+  [(InternationalSettingsController *)self emitNavigationEventForRootController];
+  [(InternationalSettingsController *)self checkForDiscoveredLanguages];
 }
 
 - (void)checkForDiscoveredLanguages
@@ -159,6 +184,17 @@
   }
 
   return v5;
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = InternationalSettingsController;
+  [(InternationalSettingsController *)&v4 viewWillDisappear:disappear];
+  if (([(InternationalSettingsController *)self isMovingFromParentViewController]& 1) != 0 || [(InternationalSettingsController *)self isBeingDismissed])
+  {
+    [(InternationalSettingsController *)self logStatistics];
+  }
 }
 
 - (void)showLanguageSheet:(id)sheet
@@ -449,6 +485,14 @@
   [objc_opt_class() syncPreferencesForLanguageOrLocaleChange];
 }
 
+- (void)inflectionSettingViewController:(id)controller shareSettingDidChange:(BOOL)change
+{
+  [_NSAttributedStringGrammarInflection _setThirdPartyApplicationsCanAccessUserInflection:change];
+  v4 = objc_opt_class();
+
+  [v4 syncPreferencesForLanguageOrLocaleChange];
+}
+
 - (id)locale:(id)locale
 {
   localeCopy = locale;
@@ -577,18 +621,7 @@
 {
   specifierCopy = specifier;
   bOOLValue = [enabled BOOLValue];
-  if (!bOOLValue)
-  {
-    goto LABEL_3;
-  }
-
-  v8 = +[NSLocale _deviceLanguage];
-  v49 = v8;
-  v9 = [NSArray arrayWithObjects:&v49 count:1];
-  v10 = [NSLocale matchedLanguagesFromAvailableLanguages:&off_36E38 forPreferredLanguages:v9];
-
-  v11 = [v10 count];
-  if (!v11)
+  if (bOOLValue && (+[NSLocale _deviceLanguage](NSLocale, "_deviceLanguage"), v8 = objc_claimAutoreleasedReturnValue(), v49 = v8, +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", &v49, 1), v9 = objc_claimAutoreleasedReturnValue(), +[NSLocale matchedLanguagesFromAvailableLanguages:forPreferredLanguages:](NSLocale, "matchedLanguagesFromAvailableLanguages:forPreferredLanguages:", &off_36E38, v9), v10 = objc_claimAutoreleasedReturnValue(), v9, v8, v11 = [v10 count], v10, !v11))
   {
     v40 = specifierCopy;
     selfCopy = self;
@@ -668,7 +701,6 @@
 
   else
   {
-LABEL_3:
     v12 = +[NSUserDefaults standardUserDefaults];
     v13 = [NSNumber numberWithBool:bOOLValue];
     [v12 setObject:v13 forKey:@"AppleLiveTextEnabled" inDomain:NSGlobalDomain];

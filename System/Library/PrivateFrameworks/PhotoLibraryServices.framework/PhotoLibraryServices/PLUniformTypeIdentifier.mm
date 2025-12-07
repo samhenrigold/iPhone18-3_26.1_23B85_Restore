@@ -66,9 +66,9 @@
   identifier = [(PLUniformTypeIdentifier *)self identifier];
   supplementalResourceAAEType = [MEMORY[0x1E69C08F0] supplementalResourceAAEType];
   identifier2 = [supplementalResourceAAEType identifier];
-  if ([identifier isEqualToString:identifier2])
+  if (objc_msgSend_isEqualToString_(identifier))
   {
-    v6 = 1;
+    isEqualToString = 1;
   }
 
   else
@@ -76,11 +76,11 @@
     identifier3 = [(PLUniformTypeIdentifier *)self identifier];
     supplementalResourceXMPType = [MEMORY[0x1E69C08F0] supplementalResourceXMPType];
     identifier4 = [supplementalResourceXMPType identifier];
-    v6 = [identifier3 isEqualToString:identifier4];
+    isEqualToString = objc_msgSend_isEqualToString_(identifier3);
   }
 
   identifier5 = [(PLUniformTypeIdentifier *)self identifier];
-  if (v6)
+  if (isEqualToString)
   {
     v11 = 1;
   }
@@ -181,7 +181,7 @@
   identifier = [(PLUniformTypeIdentifier *)self identifier];
   identifier2 = [identifierCopy identifier];
 
-  LOBYTE(identifierCopy) = [identifier isEqualToString:identifier2];
+  LOBYTE(identifierCopy) = objc_msgSend_isEqualToString_(identifier);
   return identifierCopy;
 }
 

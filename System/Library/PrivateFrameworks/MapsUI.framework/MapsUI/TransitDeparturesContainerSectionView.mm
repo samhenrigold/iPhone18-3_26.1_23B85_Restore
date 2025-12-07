@@ -3,6 +3,7 @@
 - (_TtC6MapsUI37TransitDeparturesContainerSectionView)initWithCoder:(id)coder;
 - (_TtC6MapsUI37TransitDeparturesContainerSectionView)initWithConfiguration:(id)configuration;
 - (_TtC6MapsUI37TransitDeparturesContainerSectionView)initWithFrame:(CGRect)frame;
+- (_TtC6MapsUI37TransitDeparturesContainerSectionView)initWithShowsSeparators:(BOOL)separators;
 - (void)verticalCardContainerView:(id)view didSelectRow:(id)row atIndex:(int64_t)index;
 @end
 
@@ -65,6 +66,21 @@
   v8.receiver = self;
   v8.super_class = ObjectType;
   return [(MUPlaceVerticalCardContainerView *)&v8 initWithConfiguration:configuration];
+}
+
+- (_TtC6MapsUI37TransitDeparturesContainerSectionView)initWithShowsSeparators:(BOOL)separators
+{
+  separatorsCopy = separators;
+  ObjectType = swift_getObjectType();
+  *(&self->super.super.super.super._responderFlags + OBJC_IVAR____TtC6MapsUI37TransitDeparturesContainerSectionView_rowFeedbackDelegate) = 0;
+  swift_unknownObjectWeakInit();
+  v6 = self + OBJC_IVAR____TtC6MapsUI37TransitDeparturesContainerSectionView_departuresContainer;
+  *v6 = 0u;
+  *(v6 + 1) = 0u;
+  *(v6 + 4) = 0;
+  v8.receiver = self;
+  v8.super_class = ObjectType;
+  return [(MUPlaceVerticalCardContainerView *)&v8 initWithShowsSeparators:separatorsCopy];
 }
 
 - (_TtC6MapsUI37TransitDeparturesContainerSectionView)initWithFrame:(CGRect)frame

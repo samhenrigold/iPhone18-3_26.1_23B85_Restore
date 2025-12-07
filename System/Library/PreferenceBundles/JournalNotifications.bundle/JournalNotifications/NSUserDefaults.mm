@@ -101,7 +101,7 @@
     v7 = 0xF000000000000000;
   }
 
-  sub_87828();
+  sub_87828(dataCopy);
   sub_1D580(dataCopy, v7);
 }
 

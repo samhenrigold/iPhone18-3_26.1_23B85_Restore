@@ -210,7 +210,7 @@ LABEL_17:
       OUTLINED_FUNCTION_1_1();
       OUTLINED_FUNCTION_4_2();
       OUTLINED_FUNCTION_5_2();
-      OUTLINED_FUNCTION_7_2(&dword_1DB56E000, v1, v2, "VCRC [%s] %s:%d statisticsCollector[%p] is already started", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_7_2(&dword_1DB56E000, v1, v2, "VCRC [%s] %s:%d statisticsCollector[%p] is already started", v3, v4, v5, v6);
     }
   }
 }
@@ -225,7 +225,7 @@ LABEL_17:
       OUTLINED_FUNCTION_1_1();
       OUTLINED_FUNCTION_4_2();
       OUTLINED_FUNCTION_5_2();
-      OUTLINED_FUNCTION_7_2(&dword_1DB56E000, v1, v2, "VCRC [%s] %s:%d statisticsCollector[%p] is already stopped", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_7_2(&dword_1DB56E000, v1, v2, "VCRC [%s] %s:%d statisticsCollector[%p] is already stopped", v3, v4, v5, v6);
     }
   }
 }
@@ -495,14 +495,14 @@ uint64_t ___AVCStatisticsCollector_ProcessVCStatisticsInternal_block_invoke(uint
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCRC [%s] %s:%d setStatistics:newStatsistics is deprecated", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCRC [%s] %s:%d setStatistics:newStatsistics is deprecated", v2, v3, v4, v5);
 }
 
 - (void)getStatistics:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCRC [%s] %s:%d getStatistics:keys is deprecated", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCRC [%s] %s:%d getStatistics:keys is deprecated", v2, v3, v4, v5);
 }
 
 @end

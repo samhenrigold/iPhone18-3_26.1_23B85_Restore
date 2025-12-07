@@ -8,11 +8,15 @@
 - (void)endPlaybackSession:(id)session;
 - (void)fetchApplications:(id)applications;
 - (void)fetchLocationAuthorizationStatus:(id)status;
+- (void)fetchOffers:(BOOL)offers completion:(id)completion;
 - (void)fetchSettings:(id)settings;
+- (void)fetchSubscriptionData:(BOOL)data callerProcessID:(int)d completion:(id)completion;
+- (void)performSportsFavoritesAction:(unint64_t)action favoritesSyncEnabled:(BOOL)enabled caller:(id)caller completion:(id)completion;
 - (void)performSportsFavoritesAction:(unint64_t)action ids:(id)ids caller:(id)caller completion:(id)completion;
 - (void)postSettings:(id)settings replyHandler:(id)handler;
 - (void)prewarm;
 - (void)readSettingsStore:(id)store;
+- (void)refreshSubscriptionData:(BOOL)data;
 - (void)removeOfferByBadgeId:(id)id completionHandler:(id)handler;
 - (void)reportFederatedPunchout:(id)punchout;
 - (void)reportPlayback:(id)playback sessionID:(id)d completion:(id)completion;
@@ -548,6 +552,29 @@ void __62__WLDClientConnection_removeOfferByBadgeId_completionHandler___block_in
   *(v5 + 40) = 0;
 }
 
+- (void)fetchOffers:(BOOL)offers completion:(id)completion
+{
+  offersCopy = offers;
+  completionCopy = completion;
+  v11[0] = 0;
+  v11[1] = v11;
+  v11[2] = 0x3032000000;
+  v11[3] = __Block_byref_object_copy_;
+  v11[4] = __Block_byref_object_dispose_;
+  v12 = [[WLKTransactionScope alloc] initWithIdentifier:@"WLDClientConnection.fetchOffers"];
+  v6 = +[WLKOfferManager defaultOfferManager];
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = __46__WLDClientConnection_fetchOffers_completion___block_invoke;
+  v8[3] = &unk_100044CF8;
+  v7 = completionCopy;
+  v9 = v7;
+  v10 = v11;
+  [v6 fetchOffers:offersCopy completion:v8];
+
+  _Block_object_dispose(v11, 8);
+}
+
 void __46__WLDClientConnection_fetchOffers_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v4 = *(a1 + 32);
@@ -597,6 +624,29 @@ void __35__WLDClientConnection_clearOffers___block_invoke(uint64_t a1, uint64_t 
   v5 = *(*(a1 + 40) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = 0;
+}
+
+- (void)fetchSubscriptionData:(BOOL)data callerProcessID:(int)d completion:(id)completion
+{
+  dataCopy = data;
+  completionCopy = completion;
+  v13[0] = 0;
+  v13[1] = v13;
+  v13[2] = 0x3032000000;
+  v13[3] = __Block_byref_object_copy_;
+  v13[4] = __Block_byref_object_dispose_;
+  v14 = [[WLKTransactionScope alloc] initWithIdentifier:@"WLDClientConnection.fetchSubscriptionData"];
+  v8 = +[WLDSubscriptionStore sharedInstance];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = __72__WLDClientConnection_fetchSubscriptionData_callerProcessID_completion___block_invoke;
+  v10[3] = &unk_100044D20;
+  v9 = completionCopy;
+  v11 = v9;
+  v12 = v13;
+  [v8 fetchSubscriptionData:dataCopy callerProcessID:d completion:v10];
+
+  _Block_object_dispose(v13, 8);
 }
 
 void __72__WLDClientConnection_fetchSubscriptionData_callerProcessID_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -651,6 +701,26 @@ void __72__WLDClientConnection_fetchSubscriptionData_callerProcessID_completion_
   punchoutCopy = punchout;
   v4 = +[WLDFederatedPunchoutReporter sharedFederatedPunchoutReporter];
   [v4 recordPunchout:punchoutCopy];
+}
+
+- (void)refreshSubscriptionData:(BOOL)data
+{
+  dataCopy = data;
+  v6[0] = 0;
+  v6[1] = v6;
+  v6[2] = 0x3032000000;
+  v6[3] = __Block_byref_object_copy_;
+  v6[4] = __Block_byref_object_dispose_;
+  v7 = [[WLKTransactionScope alloc] initWithIdentifier:@"WLDClientConnection.refreshSubscriptionData"];
+  v4 = +[WLDSubscriptionStore sharedInstance];
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = __47__WLDClientConnection_refreshSubscriptionData___block_invoke;
+  v5[3] = &unk_100044D48;
+  v5[4] = v6;
+  [v4 fetchSubscriptionData:dataCopy callerProcessID:_WLKSystemSubscriptionPID completion:v5];
+
+  _Block_object_dispose(v6, 8);
 }
 
 void __47__WLDClientConnection_refreshSubscriptionData___block_invoke(uint64_t a1)
@@ -737,6 +807,30 @@ void __74__WLDClientConnection_performSportsFavoritesAction_ids_caller_completio
   v19 = *(*(a1 + 40) + 8);
   v20 = *(v19 + 40);
   *(v19 + 40) = 0;
+}
+
+- (void)performSportsFavoritesAction:(unint64_t)action favoritesSyncEnabled:(BOOL)enabled caller:(id)caller completion:(id)completion
+{
+  enabledCopy = enabled;
+  callerCopy = caller;
+  completionCopy = completion;
+  v16[0] = 0;
+  v16[1] = v16;
+  v16[2] = 0x3032000000;
+  v16[3] = __Block_byref_object_copy_;
+  v16[4] = __Block_byref_object_dispose_;
+  v17 = [[WLKTransactionScope alloc] initWithIdentifier:@"WLDClientConnection.performSportsFavoritesAction"];
+  v11 = +[WLKSportsFavoriteManager defaultManager];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = __91__WLDClientConnection_performSportsFavoritesAction_favoritesSyncEnabled_caller_completion___block_invoke;
+  v13[3] = &unk_100044C58;
+  v12 = completionCopy;
+  v14 = v12;
+  v15 = v16;
+  [v11 _performUserSettingsAction:action setFavoritesSyncEnabled:enabledCopy caller:callerCopy completion:v13];
+
+  _Block_object_dispose(v16, 8);
 }
 
 void __91__WLDClientConnection_performSportsFavoritesAction_favoritesSyncEnabled_caller_completion___block_invoke(uint64_t a1)

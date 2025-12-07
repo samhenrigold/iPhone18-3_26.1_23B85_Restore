@@ -27,13 +27,12 @@
 
 void __36__ATXSigtermListener_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = sharedInstance__pasExprOnceResult;
-  sharedInstance__pasExprOnceResult = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = sharedInstance__pasExprOnceResult;
+  sharedInstance__pasExprOnceResult = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 - (ATXSigtermListener)init
@@ -76,40 +75,39 @@ void __26__ATXSigtermListener_init__block_invoke(uint64_t a1)
 
 - (void)_notifyObserversOfSigterm
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v3 = selfCopy->_observers;
-  v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v4)
   {
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) handleSigterm];
+        [*(*(&v7 + 1) + 8 * v6++) handleSigterm];
       }
 
       while (v4 != v6);
-      v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
 
   objc_sync_exit(selfCopy);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerObserver:(id)observer

@@ -19,7 +19,7 @@
 
 - (_SFPBPunchout)initWithFacade:(id)facade
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBPunchout *)self init];
   if (v5)
@@ -59,33 +59,33 @@
       v13 = 0;
     }
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     urls2 = [facadeCopy urls];
-    v15 = [urls2 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v15 = [urls2 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v30;
+      v17 = *v29;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v30 != v17)
+          if (*v29 != v17)
           {
             objc_enumerationMutation(urls2);
           }
 
-          v19 = [[_SFPBURL alloc] initWithNSURL:*(*(&v29 + 1) + 8 * i)];
+          v19 = [[_SFPBURL alloc] initWithNSURL:*(*(&v28 + 1) + 8 * i)];
           if (v19)
           {
             [v13 addObject:v19];
           }
         }
 
-        v16 = [urls2 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v16 = [urls2 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v16);
@@ -128,17 +128,16 @@
     v26 = v5;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBPunchout)initWithDictionary:(id)dictionary
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v36.receiver = self;
-  v36.super_class = _SFPBPunchout;
-  v5 = [(_SFPBPunchout *)&v36 init];
+  v35.receiver = self;
+  v35.super_class = _SFPBPunchout;
+  v5 = [(_SFPBPunchout *)&v35 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"name"];
@@ -157,7 +156,7 @@
       [(_SFPBPunchout *)v5 setBundleIdentifier:v9];
     }
 
-    v31 = v8;
+    v30 = v8;
     v10 = [dictionaryCopy objectForKeyedSubscript:@"label"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -170,27 +169,27 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v30 = v6;
-      v34 = 0u;
-      v35 = 0u;
-      v32 = 0u;
+      v29 = v6;
       v33 = 0u;
+      v34 = 0u;
+      v31 = 0u;
+      v32 = 0u;
       v13 = v12;
-      v14 = [v13 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v31 objects:v36 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v33;
+        v16 = *v32;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v33 != v16)
+            if (*v32 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = *(*(&v32 + 1) + 8 * i);
+            v18 = *(*(&v31 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -199,13 +198,13 @@
             }
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v32 objects:v37 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v31 objects:v36 count:16];
         }
 
         while (v15);
       }
 
-      v6 = v30;
+      v6 = v29;
     }
 
     v20 = [dictionaryCopy objectForKeyedSubscript:@"userActivityData"];
@@ -248,7 +247,6 @@
     v27 = v5;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -288,7 +286,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_actionTarget)
   {
@@ -339,26 +337,26 @@
   if ([(NSArray *)self->_urls count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v16 = self->_urls;
-    v17 = [(NSArray *)v16 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v17 = [(NSArray *)v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v29;
+      v19 = *v28;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v29 != v19)
+          if (*v28 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          dictionaryRepresentation = [*(*(&v28 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v27 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation)
           {
             [array addObject:dictionaryRepresentation];
@@ -371,7 +369,7 @@
           }
         }
 
-        v18 = [(NSArray *)v16 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v18 = [(NSArray *)v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v18);
@@ -395,8 +393,6 @@
       [dictionary setObject:null2 forKeyedSubscript:@"userActivityData"];
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -619,7 +615,7 @@ LABEL_33:
 
 - (void)writeTo:(id)to
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   toCopy = to;
   name = [(_SFPBPunchout *)self name];
   if (name)
@@ -640,32 +636,31 @@ LABEL_33:
   }
 
   urls = [(_SFPBPunchout *)self urls];
+  v15 = 0u;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v9 = [urls countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [urls countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v16;
     do
     {
       v12 = 0;
       do
       {
-        if (*v18 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(urls);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * v12);
         PBDataWriterWriteSubmessage();
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [urls countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [urls countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
@@ -697,15 +692,11 @@ LABEL_33:
   {
     PBDataWriterWriteBOOLField();
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setActionTarget:(id)target
 {
-  v4 = [target copy];
-  actionTarget = self->_actionTarget;
-  self->_actionTarget = v4;
+  self->_actionTarget = [target copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -730,36 +721,28 @@ LABEL_33:
 
 - (void)setUrls:(id)urls
 {
-  v4 = [urls copy];
-  urls = self->_urls;
-  self->_urls = v4;
+  self->_urls = [urls copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setLabel:(id)label
 {
-  v4 = [label copy];
-  label = self->_label;
-  self->_label = v4;
+  self->_label = [label copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setBundleIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  bundleIdentifier = self->_bundleIdentifier;
-  self->_bundleIdentifier = v4;
+  self->_bundleIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setName:(id)name
 {
-  v4 = [name copy];
-  name = self->_name;
-  self->_name = v4;
+  self->_name = [name copy];
 
   MEMORY[0x1EEE66BB8]();
 }

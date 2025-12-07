@@ -2,6 +2,8 @@
 - (CGSize)articlePreferredSize;
 - (FRArticleNotificationArticleSource)articleSource;
 - (void)didReceiveNotification:(id)notification;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -55,6 +57,24 @@
   }
 
   return articleSource;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = FRArticleNotificationViewController;
+  [(FRArticleNotificationViewController *)&v4 viewDidAppear:appear];
+  [(FRArticleNotificationViewController *)self articlePreferredSize];
+  [(FRArticleNotificationViewController *)self setPreferredContentSize:?];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = FRArticleNotificationViewController;
+  [(FRArticleNotificationViewController *)&v5 viewDidDisappear:disappear];
+  articleSource = self->_articleSource;
+  self->_articleSource = 0;
 }
 
 - (void)didReceiveNotification:(id)notification

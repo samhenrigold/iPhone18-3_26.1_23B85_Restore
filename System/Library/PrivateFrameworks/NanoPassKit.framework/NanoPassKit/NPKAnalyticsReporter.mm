@@ -83,7 +83,7 @@
 + (void)sendToSubject:(id)subject event:(id)event
 {
   type metadata accessor for PKAnalyticsKey(0);
-  sub_25B558DD4(&qword_27FA44D88, type metadata accessor for PKAnalyticsKey);
+  sub_25B558DD4(&qword_27FA44D88, type metadata accessor for PKAnalyticsKey, &unk_25B59B504);
   v5 = sub_25B55ACCC();
   subjectCopy = subject;
   _s11NanoPassKit17AnalyticsReporterC4send_5eventySo18PKAnalyticsSubjecta_SDySo0H3KeyaSSGtFZ_0(subjectCopy, v5);
@@ -92,7 +92,7 @@
 + (void)sendToSubject:(id)subject event:(id)event category:(int64_t)category
 {
   type metadata accessor for PKAnalyticsKey(0);
-  sub_25B558DD4(&qword_27FA44D88, type metadata accessor for PKAnalyticsKey);
+  sub_25B558DD4(&qword_27FA44D88, type metadata accessor for PKAnalyticsKey, &unk_25B59B504);
   v7 = sub_25B55ACCC();
   subjectCopy = subject;
   _s11NanoPassKit17AnalyticsReporterC4send_5event8categoryySo18PKAnalyticsSubjecta_SDySo0I3KeyaSSGSo0I8CategoryatFZ_0(subjectCopy, v7, category);
@@ -103,7 +103,7 @@
   type metadata accessor for PKAnalyticsSubject(0);
   v4 = sub_25B55AD6C();
   type metadata accessor for PKAnalyticsKey(0);
-  sub_25B558DD4(&qword_27FA44D88, type metadata accessor for PKAnalyticsKey);
+  sub_25B558DD4(&qword_27FA44D88, type metadata accessor for PKAnalyticsKey, &unk_25B59B504);
   v5 = sub_25B55ACCC();
   _s11NanoPassKit17AnalyticsReporterC4send_5eventySaySo18PKAnalyticsSubjectaG_SDySo0H3KeyaSSGtFZ_0(v4, v5);
 }
@@ -113,7 +113,7 @@
   type metadata accessor for PKAnalyticsSubject(0);
   v6 = sub_25B55AD6C();
   type metadata accessor for PKAnalyticsKey(0);
-  sub_25B558DD4(&qword_27FA44D88, type metadata accessor for PKAnalyticsKey);
+  sub_25B558DD4(&qword_27FA44D88, type metadata accessor for PKAnalyticsKey, &unk_25B59B504);
   v7 = sub_25B55ACCC();
   _s11NanoPassKit17AnalyticsReporterC4send_5event8categoryySaySo18PKAnalyticsSubjectaG_SDySo0I3KeyaSSGSo0I8CategoryatFZ_0(v6, v7, category);
 }
@@ -121,7 +121,7 @@
 + (void)sendWithSingularEvent:(id)event
 {
   type metadata accessor for PKAnalyticsKey(0);
-  sub_25B558DD4(&qword_27FA44D88, type metadata accessor for PKAnalyticsKey);
+  sub_25B558DD4(&qword_27FA44D88, type metadata accessor for PKAnalyticsKey, &unk_25B59B504);
   v3 = sub_25B55ACCC();
   _s11NanoPassKit17AnalyticsReporterC4send13singularEventySDySo14PKAnalyticsKeyaSSG_tFZ_0(v3);
 }

@@ -11,6 +11,7 @@
 - (BOOL)isHighPriority;
 - (CPLResourceTransferTaskOptions)initWithCoder:(id)coder;
 - (CPLResourceTransferTaskOptions)initWithHighPriority:(BOOL)priority;
+- (CPLResourceTransferTaskOptions)initWithIntent:(unint64_t)intent bypassCaches:(BOOL)caches priority:(unint64_t)priority;
 - (CPLResourceTransferTaskOptions)initWithIntent:(unint64_t)intent priority:(unint64_t)priority;
 - (CPLResourceTransferTaskOptions)initWithIntent:(unint64_t)intent priority:(unint64_t)priority bypassCaches:(BOOL)caches timeRange:(id *)range;
 - (CPLResourceTransferTaskOptions)initWithIntent:(unint64_t)intent priority:(unint64_t)priority timeRange:(id *)range;
@@ -74,7 +75,7 @@
     v5->_priority = [coderCopy decodeInt64ForKey:@"priority"];
     if (coderCopy)
     {
-      [coderCopy decodeCMTimeRangeForKey:@"timeRange"];
+      objc_msgSend_decodeCMTimeRangeForKey_(coderCopy);
     }
 
     else
@@ -254,6 +255,15 @@
   v6[1] = v4;
   v6[2] = *(MEMORY[0x1E6960C98] + 32);
   return [(CPLResourceTransferTaskOptions *)self initWithIntent:intent priority:priority bypassCaches:0 timeRange:v6];
+}
+
+- (CPLResourceTransferTaskOptions)initWithIntent:(unint64_t)intent bypassCaches:(BOOL)caches priority:(unint64_t)priority
+{
+  v5 = *(MEMORY[0x1E6960C98] + 16);
+  v7[0] = *MEMORY[0x1E6960C98];
+  v7[1] = v5;
+  v7[2] = *(MEMORY[0x1E6960C98] + 32);
+  return [(CPLResourceTransferTaskOptions *)self initWithIntent:intent priority:priority bypassCaches:caches timeRange:v7];
 }
 
 - (CPLResourceTransferTaskOptions)initWithIntent:(unint64_t)intent priority:(unint64_t)priority timeRange:(id *)range

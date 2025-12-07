@@ -171,7 +171,7 @@ LABEL_6:
 
 - (void)_setupViews
 {
-  v21[4] = *MEMORY[0x1E69E9840];
+  v20[4] = *MEMORY[0x1E69E9840];
   v3 = [MUStackView alloc];
   v4 = [(MUStackView *)v3 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
   stackView = self->_stackView;
@@ -181,28 +181,27 @@ LABEL_6:
   [(MUScrollableStackView *)self addSubview:self->_stackView];
   [(MUScrollableStackView *)self setScrollEnabled:1];
   [(MUScrollableStackView *)self setShowsHorizontalScrollIndicator:0];
-  v16 = MEMORY[0x1E696ACD8];
+  v15 = MEMORY[0x1E696ACD8];
   leadingAnchor = [(MUStackView *)self->_stackView leadingAnchor];
   leadingAnchor2 = [(MUScrollableStackView *)self leadingAnchor];
-  v18 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v21[0] = v18;
+  v17 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v20[0] = v17;
   trailingAnchor = [(MUStackView *)self->_stackView trailingAnchor];
   trailingAnchor2 = [(MUScrollableStackView *)self trailingAnchor];
   v7 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v21[1] = v7;
+  v20[1] = v7;
   topAnchor = [(MUStackView *)self->_stackView topAnchor];
   topAnchor2 = [(MUScrollableStackView *)self topAnchor];
   v10 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v21[2] = v10;
+  v20[2] = v10;
   bottomAnchor = [(MUStackView *)self->_stackView bottomAnchor];
   bottomAnchor2 = [(MUScrollableStackView *)self bottomAnchor];
   v13 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v21[3] = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:4];
-  [v16 activateConstraints:v14];
+  v20[3] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:4];
+  [v15 activateConstraints:v14];
 
   [(MUScrollableStackView *)self _updateOrientationWithNewAxis:1];
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_commonInit

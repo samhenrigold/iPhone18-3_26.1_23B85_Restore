@@ -53,19 +53,19 @@
 
 - (TSCERelativeTractRef)initWithTableUID:(const TSKUIDStruct *)d preserveFlags:(const TSUPreserveFlags *)flags
 {
-  v16.receiver = self;
-  v16.super_class = TSCERelativeTractRef;
-  v6 = [(TSCERelativeTractRef *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = TSCERelativeTractRef;
+  v6 = [(TSCERelativeTractRef *)&v15 init];
   if (v6)
   {
-    TSUIndexSet::TSUIndexSet(&v15);
+    TSUIndexSet::TSUIndexSet(&v14);
     v7 = [TSCECellTractRef alloc];
-    v9 = objc_msgSend_initWithColumns_rows_tableUID_(v7, v8, &v15, &v15, d);
+    v9 = objc_msgSend_initWithColumns_rows_tableUID_(v7, v8, &v14, &v14, d);
     absTractRef = v6->_absTractRef;
     v6->_absTractRef = v9;
 
-    objc_msgSend_setPreserveFlags_(v6->_absTractRef, v11, flags->_flags, v12, v13);
-    TSUIndexSet::~TSUIndexSet(&v15);
+    objc_msgSend_setPreserveFlags_(v6->_absTractRef, v11, flags->_flags, v12);
+    TSUIndexSet::~TSUIndexSet(&v14);
   }
 
   return v6;
@@ -74,31 +74,31 @@
 - (TSCERelativeTractRef)initWithAbsoluteTractRef:(id)ref hostCell:(const TSUCellCoord *)cell
 {
   refCopy = ref;
-  TSUIndexSet::TSUIndexSet(&v123);
-  TSUIndexSet::TSUIndexSet(&v122);
-  TSUIndexSet::TSUIndexSet(&v121);
-  TSUIndexSet::TSUIndexSet(&v120);
-  if (!objc_msgSend_isValid(refCopy, v7, v8, v9, v10))
+  TSUIndexSet::TSUIndexSet(&v101);
+  TSUIndexSet::TSUIndexSet(&v100);
+  TSUIndexSet::TSUIndexSet(&v99);
+  TSUIndexSet::TSUIndexSet(&v98);
+  if (!objc_msgSend_isValid(refCopy, v7, v8, v9))
   {
     goto LABEL_6;
   }
 
-  if ((objc_msgSend_spansAllColumns(refCopy, v11, v12, v13, v14) & 1) != 0 || (objc_msgSend_preserveFlags(refCopy, v15, v16, v17, v18) & 1) != 0 && (objc_msgSend_preserveFlags(refCopy, v15, v16, v17, v18) & 4) != 0)
+  if ((objc_msgSend_spansAllColumns(refCopy, v10, v11, v12) & 1) != 0 || (objc_msgSend_preserveFlags(refCopy, v13, v14, v15) & 1) != 0 && (objc_msgSend_preserveFlags(refCopy, v13, v14, v15) & 4) != 0)
   {
     goto LABEL_3;
   }
 
-  if (objc_msgSend_preserveFlags(refCopy, v15, v16, v17, v18))
+  if (objc_msgSend_preserveFlags(refCopy, v13, v14, v15))
   {
-    v76 = objc_msgSend_columns(refCopy, v64, v65, v66, v67);
-    if (TSUIndexSet::count(v76))
+    v60 = objc_msgSend_columns(refCopy, v51, v52, v53);
+    if (TSUIndexSet::count(v60))
     {
-      v77 = objc_msgSend_columns(refCopy, v19, v20, v21, v22);
-      TSUIndexSet::firstIndex(v77);
-      TSUIndexSet::addIndex(&v123);
-      objc_msgSend_columns(refCopy, v78, v79, v80, v81);
+      v61 = objc_msgSend_columns(refCopy, v16, v17, v18);
+      TSUIndexSet::firstIndex(v61);
+      TSUIndexSet::addIndex(&v101);
+      objc_msgSend_columns(refCopy, v62, v63, v64);
       TSUIndexSet::operator=();
-      if (TSUIndexSet::count(&v121) >= 2)
+      if (TSUIndexSet::count(&v99) >= 2)
       {
         goto LABEL_27;
       }
@@ -107,47 +107,47 @@
 
   else
   {
-    if ((objc_msgSend_preserveFlags(refCopy, v64, v65, v66, v67) & 4) == 0)
+    if ((objc_msgSend_preserveFlags(refCopy, v51, v52, v53) & 4) == 0)
     {
 LABEL_3:
-      objc_msgSend_columns(refCopy, v15, v16, v17, v18);
+      objc_msgSend_columns(refCopy, v13, v14, v15);
       TSUIndexSet::operator=();
       goto LABEL_4;
     }
 
-    v92 = objc_msgSend_columns(refCopy, v15, v16, v17, v18);
-    if (TSUIndexSet::count(v92))
+    v73 = objc_msgSend_columns(refCopy, v13, v14, v15);
+    if (TSUIndexSet::count(v73))
     {
-      v93 = objc_msgSend_columns(refCopy, v19, v20, v21, v22);
-      TSUIndexSet::lastIndex(v93);
-      TSUIndexSet::addIndex(&v123);
-      objc_msgSend_columns(refCopy, v94, v95, v96, v97);
+      v74 = objc_msgSend_columns(refCopy, v16, v17, v18);
+      TSUIndexSet::lastIndex(v74);
+      TSUIndexSet::addIndex(&v101);
+      objc_msgSend_columns(refCopy, v75, v76, v77);
       TSUIndexSet::operator=();
-      if (TSUIndexSet::count(&v121) >= 2)
+      if (TSUIndexSet::count(&v99) >= 2)
       {
 LABEL_27:
-        TSUIndexSet::removeIndex(&v121);
+        TSUIndexSet::removeIndex(&v99);
       }
     }
   }
 
 LABEL_4:
-  if ((objc_msgSend_spansAllRows(refCopy, v19, v20, v21, v22) & 1) != 0 || (objc_msgSend_preserveFlags(refCopy, v23, v24, v25, v26) & 2) != 0 && (objc_msgSend_preserveFlags(refCopy, v23, v24, v25, v26) & 8) != 0)
+  if ((objc_msgSend_spansAllRows(refCopy, v16, v17, v18) & 1) != 0 || (objc_msgSend_preserveFlags(refCopy, v19, v20, v21) & 2) != 0 && (objc_msgSend_preserveFlags(refCopy, v19, v20, v21) & 8) != 0)
   {
     goto LABEL_5;
   }
 
-  if ((objc_msgSend_preserveFlags(refCopy, v23, v24, v25, v26) & 2) != 0)
+  if ((objc_msgSend_preserveFlags(refCopy, v19, v20, v21) & 2) != 0)
   {
-    v82 = objc_msgSend_rows(refCopy, v68, v69, v70, v71);
-    if (TSUIndexSet::count(v82))
+    v65 = objc_msgSend_rows(refCopy, v54, v55, v56);
+    if (TSUIndexSet::count(v65))
     {
-      v87 = objc_msgSend_rows(refCopy, v83, v84, v85, v86);
-      TSUIndexSet::firstIndex(v87);
-      TSUIndexSet::addIndex(&v122);
-      objc_msgSend_rows(refCopy, v88, v89, v90, v91);
+      v69 = objc_msgSend_rows(refCopy, v66, v67, v68);
+      TSUIndexSet::firstIndex(v69);
+      TSUIndexSet::addIndex(&v100);
+      objc_msgSend_rows(refCopy, v70, v71, v72);
       TSUIndexSet::operator=();
-      if (TSUIndexSet::count(&v120) >= 2)
+      if (TSUIndexSet::count(&v98) >= 2)
       {
         goto LABEL_30;
       }
@@ -156,110 +156,110 @@ LABEL_4:
 
   else
   {
-    if ((objc_msgSend_preserveFlags(refCopy, v68, v69, v70, v71) & 8) == 0)
+    if ((objc_msgSend_preserveFlags(refCopy, v54, v55, v56) & 8) == 0)
     {
 LABEL_5:
-      objc_msgSend_rows(refCopy, v23, v24, v25, v26);
+      objc_msgSend_rows(refCopy, v19, v20, v21);
       TSUIndexSet::operator=();
       goto LABEL_6;
     }
 
-    v98 = objc_msgSend_rows(refCopy, v23, v24, v25, v26);
-    if (TSUIndexSet::count(v98))
+    v78 = objc_msgSend_rows(refCopy, v19, v20, v21);
+    if (TSUIndexSet::count(v78))
     {
-      v103 = objc_msgSend_rows(refCopy, v99, v100, v101, v102);
-      TSUIndexSet::lastIndex(v103);
-      TSUIndexSet::addIndex(&v122);
-      objc_msgSend_rows(refCopy, v104, v105, v106, v107);
+      v82 = objc_msgSend_rows(refCopy, v79, v80, v81);
+      TSUIndexSet::lastIndex(v82);
+      TSUIndexSet::addIndex(&v100);
+      objc_msgSend_rows(refCopy, v83, v84, v85);
       TSUIndexSet::operator=();
-      if (TSUIndexSet::count(&v120) >= 2)
+      if (TSUIndexSet::count(&v98) >= 2)
       {
 LABEL_30:
-        TSUIndexSet::removeIndex(&v120);
+        TSUIndexSet::removeIndex(&v98);
       }
     }
   }
 
 LABEL_6:
-  v119.receiver = self;
-  v119.super_class = TSCERelativeTractRef;
-  v31 = [(TSCERelativeTractRef *)&v119 init];
-  if (v31 && objc_msgSend_isValid(refCopy, v27, v28, v29, v30))
+  v97.receiver = self;
+  v97.super_class = TSCERelativeTractRef;
+  v25 = [(TSCERelativeTractRef *)&v97 init];
+  if (v25 && objc_msgSend_isValid(refCopy, v22, v23, v24))
   {
-    v32 = [TSCECellTractRef alloc];
-    v112 = objc_msgSend_tableUID(refCopy, v33, v34, v35, v36);
-    v113 = v37;
-    v38 = objc_msgSend_initWithColumns_rows_tableUID_(v32, v37, &v123, &v122, &v112);
-    absTractRef = v31->_absTractRef;
-    v31->_absTractRef = v38;
+    v26 = [TSCECellTractRef alloc];
+    v90 = objc_msgSend_tableUID(refCopy, v27, v28, v29);
+    v91 = v30;
+    v31 = objc_msgSend_initWithColumns_rows_tableUID_(v26, v30, &v101, &v100, &v90);
+    absTractRef = v25->_absTractRef;
+    v25->_absTractRef = v31;
 
-    v44 = objc_msgSend_preserveFlags(refCopy, v40, v41, v42, v43);
-    objc_msgSend_setPreserveFlags_(v31->_absTractRef, v45, v44, v46, v47);
-    v112 = 0;
-    v113 = &v112;
-    v114 = 0x5012000000;
-    v115 = sub_22121A2E4;
-    v116 = sub_22121A308;
-    v117 = &unk_22188E88F;
-    TSUIndexSet::TSUIndexSet(&v118);
-    v110[0] = 0;
-    v110[1] = v110;
-    v110[2] = 0x5012000000;
-    v110[3] = sub_22121A2E4;
-    v110[4] = sub_22121A308;
-    v110[5] = &unk_22188E88F;
-    TSUIndexSet::TSUIndexSet(&v111);
-    v109 = MEMORY[0x277D85DD0];
+    v36 = objc_msgSend_preserveFlags(refCopy, v33, v34, v35);
+    objc_msgSend_setPreserveFlags_(v25->_absTractRef, v37, v36, v38);
+    v90 = 0;
+    v91 = &v90;
+    v92 = 0x5012000000;
+    v93 = sub_22121A2E4;
+    v94 = sub_22121A308;
+    v95 = &unk_22188E88F;
+    TSUIndexSet::TSUIndexSet(&v96);
+    v88[0] = 0;
+    v88[1] = v88;
+    v88[2] = 0x5012000000;
+    v88[3] = sub_22121A2E4;
+    v88[4] = sub_22121A308;
+    v88[5] = &unk_22188E88F;
+    TSUIndexSet::TSUIndexSet(&v89);
+    v87 = MEMORY[0x277D85DD0];
     TSUIndexSet::enumerateRangesUsingBlock();
-    v108 = MEMORY[0x277D85DD0];
+    v86 = MEMORY[0x277D85DD0];
     TSUIndexSet::enumerateRangesUsingBlock();
     TSUIndexSet::operator=();
     TSUIndexSet::operator=();
-    v52 = objc_msgSend_preserveRectangular(refCopy, v48, v49, v50, v51, v108, 3221225472, sub_22121A354, &unk_2784618D0, v110, cell, v109, 3221225472, sub_22121A310, &unk_2784618D0, &v112, cell);
-    objc_msgSend_setPreserveRectangular_(v31, v53, v52, v54, v55);
-    if (objc_msgSend_spansAllColumns(refCopy, v56, v57, v58, v59))
+    v42 = objc_msgSend_preserveRectangular(refCopy, v39, v40, v41, v86, 3221225472, sub_22121A354, &unk_2784618D0, v88, cell, v87, 3221225472, sub_22121A310, &unk_2784618D0, &v90, cell);
+    objc_msgSend_setPreserveRectangular_(v25, v43, v42, v44);
+    if (objc_msgSend_spansAllColumns(refCopy, v45, v46, v47))
     {
-      objc_msgSend_setSpansAllColumns_(v31, v60, 1, v62, v63);
+      objc_msgSend_setSpansAllColumns_(v25, v48, 1, v50);
     }
 
-    else if (objc_msgSend_spansAllRows(refCopy, v60, v61, v62, v63))
+    else if (objc_msgSend_spansAllRows(refCopy, v48, v49, v50))
     {
-      objc_msgSend_setSpansAllRows_(v31, v72, 1, v73, v74);
+      objc_msgSend_setSpansAllRows_(v25, v57, 1, v58);
     }
 
-    _Block_object_dispose(v110, 8);
-    TSUIndexSet::~TSUIndexSet(&v111);
-    _Block_object_dispose(&v112, 8);
-    TSUIndexSet::~TSUIndexSet(&v118);
+    _Block_object_dispose(v88, 8);
+    TSUIndexSet::~TSUIndexSet(&v89);
+    _Block_object_dispose(&v90, 8);
+    TSUIndexSet::~TSUIndexSet(&v96);
   }
 
   else
   {
 
-    v31 = 0;
+    v25 = 0;
   }
 
-  TSUIndexSet::~TSUIndexSet(&v120);
-  TSUIndexSet::~TSUIndexSet(&v121);
-  TSUIndexSet::~TSUIndexSet(&v122);
-  TSUIndexSet::~TSUIndexSet(&v123);
+  TSUIndexSet::~TSUIndexSet(&v98);
+  TSUIndexSet::~TSUIndexSet(&v99);
+  TSUIndexSet::~TSUIndexSet(&v100);
+  TSUIndexSet::~TSUIndexSet(&v101);
 
-  return v31;
+  return v25;
 }
 
 - (TSCERelativeTractRef)initWithRangeRef:(const TSCERangeRef *)ref hostCell:(const TSUCellCoord *)cell
 {
   v7 = [TSCECellTractRef alloc];
-  v11 = objc_msgSend_initWithRangeRef_(v7, v8, ref, v9, v10);
-  v14 = objc_msgSend_initWithAbsoluteTractRef_hostCell_(self, v12, v11, cell, v13);
+  v10 = objc_msgSend_initWithRangeRef_(v7, v8, ref, v9);
+  v12 = objc_msgSend_initWithAbsoluteTractRef_hostCell_(self, v11, v10, cell);
 
-  return v14;
+  return v12;
 }
 
 - (void)setSpansAllColumns:(BOOL)columns
 {
   columnsCopy = columns;
-  objc_msgSend_setSpansAllColumns_(self->_absTractRef, a2, columns, v3, v4);
+  objc_msgSend_setSpansAllColumns_(self->_absTractRef, a2, columns, v3);
   if (columnsCopy)
   {
 
@@ -270,7 +270,7 @@ LABEL_6:
 - (void)setSpansAllRows:(BOOL)rows
 {
   rowsCopy = rows;
-  objc_msgSend_setSpansAllRows_(self->_absTractRef, a2, rows, v3, v4);
+  objc_msgSend_setSpansAllRows_(self->_absTractRef, a2, rows, v3);
   if (rowsCopy)
   {
 
@@ -280,26 +280,26 @@ LABEL_6:
 
 - (TSKUIDStruct)tableUID
 {
-  v5 = objc_msgSend_tableUID(self->_absTractRef, a2, v2, v3, v4);
-  result._upper = v6;
-  result._lower = v5;
+  v4 = objc_msgSend_tableUID(self->_absTractRef, a2, v2, v3);
+  result._upper = v5;
+  result._lower = v4;
   return result;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [TSCERelativeTractRef alloc];
-  v24[0] = objc_msgSend_tableUID(self, v5, v6, v7, v8);
-  v24[1] = v9;
-  v23 = objc_msgSend_preserveFlags(self, v9, v10, v11, v12);
-  v15 = objc_msgSend_initWithTableUID_preserveFlags_(v4, v13, v24, &v23, v14);
-  v20 = objc_msgSend_copy(self->_absTractRef, v16, v17, v18, v19);
-  v21 = v15[1];
-  v15[1] = v20;
+  v20[0] = objc_msgSend_tableUID(self, v5, v6, v7);
+  v20[1] = v8;
+  v19 = objc_msgSend_preserveFlags(self, v8, v9, v10);
+  v12 = objc_msgSend_initWithTableUID_preserveFlags_(v4, v11, v20, &v19);
+  v16 = objc_msgSend_copy(self->_absTractRef, v13, v14, v15);
+  v17 = v12[1];
+  v12[1] = v16;
 
   TSUIndexSet::operator=();
   TSUIndexSet::operator=();
-  return v15;
+  return v12;
 }
 
 - (void)addRelativeColumn:(signed __int16)column
@@ -307,19 +307,19 @@ LABEL_6:
   if (column == 0x7FFF)
   {
 
-    objc_msgSend_setSpansAllColumns_(self, a2, 1, v3, v4);
+    objc_msgSend_setSpansAllColumns_(self, a2, 1, v3);
   }
 
-  else if (objc_msgSend_spansAllColumns(self, a2, column, v3, v4))
+  else if (objc_msgSend_spansAllColumns(self, a2, column, v3))
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSCERelativeTractRef addRelativeColumn:]", v7, v8);
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v12, v13);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v15, v10, v14, 266, 0, "Cannot mix spanning and non-spanning column");
+    v7 = MEMORY[0x277D81150];
+    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSCERelativeTractRef addRelativeColumn:]", v6);
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v10);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v12, v8, v11, 266, 0, "Cannot mix spanning and non-spanning column");
 
-    v20 = MEMORY[0x277D81150];
+    v16 = MEMORY[0x277D81150];
 
-    objc_msgSend_logBacktraceThrottled(v20, v16, v17, v18, v19);
+    objc_msgSend_logBacktraceThrottled(v16, v13, v14, v15);
   }
 
   else
@@ -334,19 +334,19 @@ LABEL_6:
   if (row == 0x7FFFFFFF)
   {
 
-    objc_msgSend_setSpansAllRows_(self, a2, 1, v3, v4);
+    objc_msgSend_setSpansAllRows_(self, a2, 1, v3);
   }
 
-  else if (objc_msgSend_spansAllRows(self, a2, *&row, v3, v4))
+  else if (objc_msgSend_spansAllRows(self, a2, *&row, v3))
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSCERelativeTractRef addRelativeRow:]", v7, v8);
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v12, v13);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v15, v10, v14, 276, 0, "Cannot mix spanning and non-spanning row");
+    v7 = MEMORY[0x277D81150];
+    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSCERelativeTractRef addRelativeRow:]", v6);
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v10);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v12, v8, v11, 276, 0, "Cannot mix spanning and non-spanning row");
 
-    v20 = MEMORY[0x277D81150];
+    v16 = MEMORY[0x277D81150];
 
-    objc_msgSend_logBacktraceThrottled(v20, v16, v17, v18, v19);
+    objc_msgSend_logBacktraceThrottled(v16, v13, v14, v15);
   }
 
   else
@@ -363,7 +363,7 @@ LABEL_6:
   {
     if (begin == 0x7FFF)
     {
-      objc_msgSend_setSpansAllColumns_(self, 0x7FFF, 1, v3, v4);
+      objc_msgSend_setSpansAllColumns_(self, 0x7FFF, 1, v3);
     }
 
     else
@@ -385,7 +385,7 @@ LABEL_6:
   {
     if (begin == 0x7FFFFFFF)
     {
-      objc_msgSend_setSpansAllRows_(self, 0x7FFFFFFF, 1, v3, v4);
+      objc_msgSend_setSpansAllRows_(self, 0x7FFFFFFF, 1, v3);
     }
 
     else
@@ -404,24 +404,24 @@ LABEL_6:
 {
   TSUIndexSet::removeIndexesInRange(&self->_relativeColumns, range);
 
-  objc_msgSend_normalizeSpanningSettings(self, v4, v5, v6, v7);
+  objc_msgSend_normalizeSpanningSettings(self, v4, v5, v6);
 }
 
 - (void)removeRelativeRowRange:(const TSUIndexRange *)range
 {
   TSUIndexSet::removeIndexesInRange(&self->_relativeRows, range);
 
-  objc_msgSend_normalizeSpanningSettings(self, v4, v5, v6, v7);
+  objc_msgSend_normalizeSpanningSettings(self, v4, v5, v6);
 }
 
 - (BOOL)isRectangularRange
 {
-  isRectangularRange = objc_msgSend_isRectangularRange(self->_absTractRef, a2, v2, v3, v4);
+  isRectangularRange = objc_msgSend_isRectangularRange(self->_absTractRef, a2, v2, v3);
   if (isRectangularRange)
   {
-    if ((objc_msgSend_spansAllColumns(self, v7, v8, v9, v10) & 1) != 0 || ((*&self->_relativeColumns & 2) != 0 || (*&self->_relativeColumns & 1) != 0 || *(self->_relativeColumns._multipleRanges + 1) <= 1uLL) && ((v19 = objc_msgSend_columns(self->_absTractRef, v11, v12, v13, v14), (*v19 & 2) != 0) || (*v19 & 1) != 0 || *(*(v19 + 24) + 8) <= 1uLL) && (!TSUIndexSet::count(&self->_relativeColumns) || (v20 = objc_msgSend_columns(self->_absTractRef, v11, v12, v13, v14), !TSUIndexSet::count(v20))))
+    if ((objc_msgSend_spansAllColumns(self, v6, v7, v8) & 1) != 0 || ((*&self->_relativeColumns & 2) != 0 || (*&self->_relativeColumns & 1) != 0 || *(self->_relativeColumns._multipleRanges + 1) <= 1uLL) && ((v15 = objc_msgSend_columns(self->_absTractRef, v9, v10, v11), (*v15 & 2) != 0) || (*v15 & 1) != 0 || *(*(v15 + 24) + 8) <= 1uLL) && (!TSUIndexSet::count(&self->_relativeColumns) || (v16 = objc_msgSend_columns(self->_absTractRef, v9, v10, v11), !TSUIndexSet::count(v16))))
     {
-      if (objc_msgSend_spansAllRows(self, v11, v12, v13, v14))
+      if (objc_msgSend_spansAllRows(self, v9, v10, v11))
       {
 LABEL_4:
         LOBYTE(isRectangularRange) = 1;
@@ -430,13 +430,13 @@ LABEL_4:
 
       if ((*&self->_relativeRows & 2) != 0 || (*&self->_relativeRows & 1) != 0 || *(self->_relativeRows._multipleRanges + 1) <= 1uLL)
       {
-        v21 = objc_msgSend_rows(self->_absTractRef, v15, v16, v17, v18);
-        if ((*v21 & 2) != 0 || (*v21 & 1) != 0 || *(*(v21 + 24) + 8) <= 1uLL)
+        v17 = objc_msgSend_rows(self->_absTractRef, v12, v13, v14);
+        if ((*v17 & 2) != 0 || (*v17 & 1) != 0 || *(*(v17 + 24) + 8) <= 1uLL)
         {
           if (TSUIndexSet::count(&self->_relativeRows))
           {
-            v26 = objc_msgSend_rows(self->_absTractRef, v22, v23, v24, v25);
-            LOBYTE(isRectangularRange) = TSUIndexSet::count(v26) == 0;
+            v21 = objc_msgSend_rows(self->_absTractRef, v18, v19, v20);
+            LOBYTE(isRectangularRange) = TSUIndexSet::count(v21) == 0;
             return isRectangularRange;
           }
 
@@ -453,10 +453,10 @@ LABEL_4:
 
 - (BOOL)isSingleCellOrSpanningRange
 {
-  if (objc_msgSend_spansAllRows(self, a2, v2, v3, v4) || ((v10 = objc_msgSend_spansAllColumns(self, v6, v7, v8, v9), v15 = objc_msgSend_numRows(self->_absTractRef, v11, v12, v13, v14), v16 = TSUIndexSet::count(&self->_relativeRows) + v15, v16 == 1) ? (result = v10) : (result = 0), (v10 & 1) == 0 && v16 == 1))
+  if (objc_msgSend_spansAllRows(self, a2, v2, v3) || ((v8 = objc_msgSend_spansAllColumns(self, v5, v6, v7), v12 = objc_msgSend_numRows(self->_absTractRef, v9, v10, v11), v13 = TSUIndexSet::count(&self->_relativeRows) + v12, v13 == 1) ? (result = v8) : (result = 0), (v8 & 1) == 0 && v13 == 1))
   {
-    v18 = objc_msgSend_numColumns(self->_absTractRef, v6, v7, v8, v9);
-    return TSUIndexSet::count(&self->_relativeColumns) + v18 == 1;
+    v15 = objc_msgSend_numColumns(self->_absTractRef, v5, v6, v7);
+    return TSUIndexSet::count(&self->_relativeColumns) + v15 == 1;
   }
 
   return result;
@@ -464,105 +464,105 @@ LABEL_4:
 
 - (void)normalizeSpanningSettings
 {
-  if ((objc_msgSend_spansAllColumns(self, a2, v2, v3, v4) & 1) == 0 && !TSUIndexSet::count(&self->_relativeColumns))
+  if ((objc_msgSend_spansAllColumns(self, a2, v2, v3) & 1) == 0 && !TSUIndexSet::count(&self->_relativeColumns))
   {
-    v10 = objc_msgSend_columns(self->_absTractRef, v6, v7, v8, v9);
-    v11 = TSUIndexSet::count(v10);
-    if (!v11 || v11 == 1 && (v12 = objc_msgSend_columns(self->_absTractRef, v6, v7, v8, v9), TSUIndexSet::firstIndex(v12) == 0x7FFF))
+    v8 = objc_msgSend_columns(self->_absTractRef, v5, v6, v7);
+    v9 = TSUIndexSet::count(v8);
+    if (!v9 || v9 == 1 && (v10 = objc_msgSend_columns(self->_absTractRef, v5, v6, v7), TSUIndexSet::firstIndex(v10) == 0x7FFF))
     {
-      objc_msgSend_setSpansAllColumns_(self, v6, 1, v8, v9);
+      objc_msgSend_setSpansAllColumns_(self, v5, 1, v7);
     }
   }
 
-  if ((objc_msgSend_spansAllRows(self, v6, v7, v8, v9) & 1) == 0 && !TSUIndexSet::count(&self->_relativeRows))
+  if ((objc_msgSend_spansAllRows(self, v5, v6, v7) & 1) == 0 && !TSUIndexSet::count(&self->_relativeRows))
   {
-    v17 = objc_msgSend_rows(self->_absTractRef, v13, v14, v15, v16);
-    v18 = TSUIndexSet::count(v17);
-    if (!v18 || v18 == 1 && (v23 = objc_msgSend_rows(self->_absTractRef, v19, v20, v21, v22), TSUIndexSet::firstIndex(v23) == 0x7FFFFFFF))
+    v14 = objc_msgSend_rows(self->_absTractRef, v11, v12, v13);
+    v15 = TSUIndexSet::count(v14);
+    if (!v15 || v15 == 1 && (v19 = objc_msgSend_rows(self->_absTractRef, v16, v17, v18), TSUIndexSet::firstIndex(v19) == 0x7FFFFFFF))
     {
 
-      objc_msgSend_setSpansAllRows_(self, v19, 1, v21, v22);
+      objc_msgSend_setSpansAllRows_(self, v16, 1, v18);
     }
   }
 }
 
 - (BOOL)verifySpanningSettings
 {
-  if (objc_msgSend_spansAllColumns(self, a2, v2, v3, v4) & 1) != 0 || (objc_msgSend_spansAllRows(self, v6, v7, v8, v9))
+  if (objc_msgSend_spansAllColumns(self, a2, v2, v3) & 1) != 0 || (objc_msgSend_spansAllRows(self, v5, v6, v7))
   {
-    v10 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v26 = objc_msgSend_relativeColumns(self, v6, v7, v8, v9);
-    v31 = TSUIndexSet::containsIndex(v26);
-    if (v31)
+    v21 = objc_msgSend_relativeColumns(self, v5, v6, v7);
+    v25 = TSUIndexSet::containsIndex(v21);
+    if (v25)
     {
-      v32 = MEMORY[0x277D81150];
-      v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "[TSCERelativeTractRef verifySpanningSettings]", v29, v30);
-      v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v35, v36);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v32, v38, v33, v37, 452, 0, "Invalid seen in non-spanning");
+      v26 = MEMORY[0x277D81150];
+      v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "[TSCERelativeTractRef verifySpanningSettings]", v24);
+      v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v29);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v26, v31, v27, v30, 452, 0, "Invalid seen in non-spanning");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v39, v40, v41, v42);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v32, v33, v34);
     }
 
-    v43 = objc_msgSend_relativeRows(self, v27, v28, v29, v30);
-    if (TSUIndexSet::containsIndex(v43))
+    v35 = objc_msgSend_relativeRows(self, v22, v23, v24);
+    if (TSUIndexSet::containsIndex(v35))
     {
-      v48 = MEMORY[0x277D81150];
-      v49 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v44, "[TSCERelativeTractRef verifySpanningSettings]", v46, v47);
-      v53 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v50, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v51, v52);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v48, v54, v49, v53, 457, 0, "Invalid seen in non-spanning");
+      v39 = MEMORY[0x277D81150];
+      v40 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, "[TSCERelativeTractRef verifySpanningSettings]", v38);
+      v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v42);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v39, v44, v40, v43, 457, 0, "Invalid seen in non-spanning");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v55, v56, v57, v58);
-      v10 = 0;
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v45, v46, v47);
+      v8 = 0;
     }
 
     else
     {
-      v10 = v31 ^ 1;
+      v8 = v25 ^ 1;
     }
 
-    v101 = objc_msgSend_columns(self, v44, v45, v46, v47);
-    if (TSUIndexSet::containsIndex(v101))
+    v81 = objc_msgSend_columns(self, v36, v37, v38);
+    if (TSUIndexSet::containsIndex(v81))
     {
-      v106 = MEMORY[0x277D81150];
-      v107 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v102, "[TSCERelativeTractRef verifySpanningSettings]", v104, v105);
-      v111 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v108, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v109, v110);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v106, v112, v107, v111, 462, 0, "Invalid seen in non-spanning");
+      v85 = MEMORY[0x277D81150];
+      v86 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v82, "[TSCERelativeTractRef verifySpanningSettings]", v84);
+      v89 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v87, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v88);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v85, v90, v86, v89, 462, 0, "Invalid seen in non-spanning");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v113, v114, v115, v116);
-      v10 = 0;
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v91, v92, v93);
+      v8 = 0;
     }
 
-    v117 = objc_msgSend_rows(self, v102, v103, v104, v105);
-    if (TSUIndexSet::containsIndex(v117))
+    v94 = objc_msgSend_rows(self, v82, v83, v84);
+    if (TSUIndexSet::containsIndex(v94))
     {
-      v118 = MEMORY[0x277D81150];
-      v119 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSCERelativeTractRef verifySpanningSettings]", v8, v9);
-      v123 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v120, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v121, v122);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v118, v124, v119, v123, 467, 0, "Invalid seen in non-spanning");
+      v95 = MEMORY[0x277D81150];
+      v96 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSCERelativeTractRef verifySpanningSettings]", v7);
+      v99 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v97, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v98);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v95, v100, v96, v99, 467, 0, "Invalid seen in non-spanning");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v125, v126, v127, v128);
-      v10 = 0;
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v101, v102, v103);
+      v8 = 0;
     }
   }
 
-  if ((objc_msgSend_spansAllColumns(self, v6, v7, v8, v9) & 1) == 0)
+  if ((objc_msgSend_spansAllColumns(self, v5, v6, v7) & 1) == 0)
   {
-    if (objc_msgSend_preserveFlags(self, v11, v12, v13, v14))
+    if (objc_msgSend_preserveFlags(self, v9, v10, v11))
     {
-      v59 = objc_msgSend_columns(self->_absTractRef, v15, v16, v17, v18);
-      if (TSUIndexSet::count(v59))
+      v48 = objc_msgSend_columns(self->_absTractRef, v12, v13, v14);
+      if (TSUIndexSet::count(v48))
       {
         goto LABEL_15;
       }
 
-      v60 = MEMORY[0x277D81150];
-      v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSCERelativeTractRef verifySpanningSettings]", v13, v14);
-      v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v61, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v62, v63);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v60, v64, v20, v24, 476, 0, "No absolute column found, but not marked as spanning");
+      v49 = MEMORY[0x277D81150];
+      v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSCERelativeTractRef verifySpanningSettings]", v11);
+      v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v50, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v51);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v49, v52, v16, v19, 476, 0, "No absolute column found, but not marked as spanning");
     }
 
     else
@@ -572,57 +572,57 @@ LABEL_4:
         goto LABEL_15;
       }
 
-      v19 = MEMORY[0x277D81150];
-      v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSCERelativeTractRef verifySpanningSettings]", v13, v14);
-      v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v22, v23);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v25, v20, v24, 481, 0, "No relative column found, but not marked as spanning");
+      v15 = MEMORY[0x277D81150];
+      v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSCERelativeTractRef verifySpanningSettings]", v11);
+      v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v18);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v20, v16, v19, 481, 0, "No relative column found, but not marked as spanning");
     }
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v65, v66, v67, v68);
-    v10 = 0;
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v53, v54, v55);
+    v8 = 0;
   }
 
 LABEL_15:
-  if ((objc_msgSend_spansAllRows(self, v11, v12, v13, v14) & 1) == 0)
+  if ((objc_msgSend_spansAllRows(self, v9, v10, v11) & 1) == 0)
   {
-    if ((objc_msgSend_preserveFlags(self, v69, v70, v71, v72) & 2) != 0)
+    if ((objc_msgSend_preserveFlags(self, v56, v57, v58) & 2) != 0)
     {
-      v87 = objc_msgSend_rows(self->_absTractRef, v73, v74, v75, v76);
-      if (!TSUIndexSet::count(v87))
+      v70 = objc_msgSend_rows(self->_absTractRef, v59, v60, v61);
+      if (!TSUIndexSet::count(v70))
       {
-        v91 = MEMORY[0x277D81150];
-        v81 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v88, "[TSCERelativeTractRef verifySpanningSettings]", v89, v90);
-        v85 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v92, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v93, v94);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v91, v95, v81, v85, 490, 0, "No absolute row found, but not marked as spanning");
+        v73 = MEMORY[0x277D81150];
+        v65 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v71, "[TSCERelativeTractRef verifySpanningSettings]", v72);
+        v68 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v74, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v75);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v73, v76, v65, v68, 490, 0, "No absolute row found, but not marked as spanning");
         goto LABEL_21;
       }
     }
 
     else if (!TSUIndexSet::count(&self->_relativeRows))
     {
-      v80 = MEMORY[0x277D81150];
-      v81 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v77, "[TSCERelativeTractRef verifySpanningSettings]", v78, v79);
-      v85 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v82, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v83, v84);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v80, v86, v81, v85, 495, 0, "No relative row found, but not marked as spanning");
+      v64 = MEMORY[0x277D81150];
+      v65 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v62, "[TSCERelativeTractRef verifySpanningSettings]", v63);
+      v68 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v66, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v67);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v64, v69, v65, v68, 495, 0, "No relative row found, but not marked as spanning");
 LABEL_21:
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v96, v97, v98, v99);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v77, v78, v79);
       return 0;
     }
   }
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash
 {
-  v6 = objc_msgSend_relativeColumns(self, a2, v2, v3, v4);
-  v7 = TSUIndexSet::hash(v6);
-  v12 = objc_msgSend_relativeRows(self, v8, v9, v10, v11);
-  v13 = TSUIndexSet::hash(v12);
-  v15.receiver = self;
-  v15.super_class = TSCERelativeTractRef;
-  return [(TSCERelativeTractRef *)&v15 hash]+ 3 * v7 + v13;
+  v5 = objc_msgSend_relativeColumns(self, a2, v2, v3);
+  v6 = TSUIndexSet::hash(v5);
+  v10 = objc_msgSend_relativeRows(self, v7, v8, v9);
+  v11 = TSUIndexSet::hash(v10);
+  v13.receiver = self;
+  v13.super_class = TSCERelativeTractRef;
+  return [(TSCERelativeTractRef *)&v13 hash]+ 3 * v6 + v11;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -632,45 +632,45 @@ LABEL_21:
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    if (objc_msgSend_isEqual_(self->_absTractRef, v6, v5[1], v7, v8) && (objc_msgSend_relativeColumns(self, v9, v10, v11, v12), objc_msgSend_relativeColumns(v5, v13, v14, v15, v16), TSUIndexSet::operator==()))
+    if (objc_msgSend_isEqual_(self->_absTractRef, v6, v5[1], v7) && (objc_msgSend_relativeColumns(self, v8, v9, v10), objc_msgSend_relativeColumns(v5, v11, v12, v13), TSUIndexSet::operator==()))
     {
-      objc_msgSend_relativeRows(self, v17, v18, v19, v20);
-      objc_msgSend_relativeRows(v5, v21, v22, v23, v24);
-      v25 = TSUIndexSet::operator==();
+      objc_msgSend_relativeRows(self, v14, v15, v16);
+      objc_msgSend_relativeRows(v5, v17, v18, v19);
+      v20 = TSUIndexSet::operator==();
     }
 
     else
     {
-      v25 = 0;
+      v20 = 0;
     }
   }
 
   else
   {
-    v25 = 0;
+    v20 = 0;
   }
 
-  return v25;
+  return v20;
 }
 
 - (TSCERelativeCellCoordinate)relativeTopLeft
 {
-  if ((objc_msgSend_spansAllColumns(self, a2, v2, v3, v4) & 1) == 0)
+  if ((objc_msgSend_spansAllColumns(self, a2, v2, v3) & 1) == 0)
   {
-    if (objc_msgSend_preserveFlags(self, v6, v7, v8, v9))
+    if (objc_msgSend_preserveFlags(self, v5, v6, v7))
     {
-      v18 = objc_msgSend_columns(self->_absTractRef, v10, v11, v12, v13);
-      if (TSUIndexSet::count(v18))
+      v14 = objc_msgSend_columns(self->_absTractRef, v8, v9, v10);
+      if (TSUIndexSet::count(v14))
       {
-        v23 = objc_msgSend_columns(self->_absTractRef, v19, v20, v21, v22);
-        Index = TSUIndexSet::firstIndex(v23);
+        v18 = objc_msgSend_columns(self->_absTractRef, v15, v16, v17);
+        Index = TSUIndexSet::firstIndex(v18);
         goto LABEL_11;
       }
 
-      v31 = MEMORY[0x277D81150];
-      v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "[TSCERelativeTractRef relativeTopLeft]", v21, v22);
-      v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v33, v34);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v31, v35, v25, v29, 533, 0, "No absolute column found, but not marked as spanning");
+      v25 = MEMORY[0x277D81150];
+      v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[TSCERelativeTractRef relativeTopLeft]", v17);
+      v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v27);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v28, v20, v23, 533, 0, "No absolute column found, but not marked as spanning");
     }
 
     else
@@ -681,72 +681,72 @@ LABEL_21:
         goto LABEL_11;
       }
 
-      v24 = MEMORY[0x277D81150];
-      v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[TSCERelativeTractRef relativeTopLeft]", v15, v16);
-      v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v27, v28);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v24, v30, v25, v29, 539, 0, "No relative column found, but not marked as spanning");
+      v19 = MEMORY[0x277D81150];
+      v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSCERelativeTractRef relativeTopLeft]", v12);
+      v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v22);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v24, v20, v23, 539, 0, "No relative column found, but not marked as spanning");
     }
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v36, v37, v38, v39);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v29, v30, v31);
   }
 
   Index = 0x7FFF;
 LABEL_11:
-  if (objc_msgSend_spansAllRows(self, v6, v7, v8, v9))
+  if (objc_msgSend_spansAllRows(self, v5, v6, v7))
   {
 LABEL_20:
-    v51 = 0x7FFFFFFFLL;
+    v40 = 0x7FFFFFFFLL;
     goto LABEL_21;
   }
 
-  if ((objc_msgSend_preserveFlags(self, v40, v41, v42, v43) & 2) != 0)
+  if ((objc_msgSend_preserveFlags(self, v32, v33, v34) & 2) != 0)
   {
-    v52 = objc_msgSend_rows(self->_absTractRef, v44, v45, v46, v47);
-    if (TSUIndexSet::count(v52))
+    v41 = objc_msgSend_rows(self->_absTractRef, v35, v36, v37);
+    if (TSUIndexSet::count(v41))
     {
-      v57 = objc_msgSend_rows(self->_absTractRef, v53, v54, v55, v56);
-      v51 = TSUIndexSet::firstIndex(v57);
+      v45 = objc_msgSend_rows(self->_absTractRef, v42, v43, v44);
+      v40 = TSUIndexSet::firstIndex(v45);
       goto LABEL_21;
     }
 
-    v65 = MEMORY[0x277D81150];
-    v59 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v53, "[TSCERelativeTractRef relativeTopLeft]", v55, v56);
-    v63 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v66, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v67, v68);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v65, v69, v59, v63, 549, 0, "No absolute row found, but not marked as spanning");
+    v52 = MEMORY[0x277D81150];
+    v47 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, "[TSCERelativeTractRef relativeTopLeft]", v44);
+    v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v53, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v54);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v52, v55, v47, v50, 549, 0, "No absolute row found, but not marked as spanning");
     goto LABEL_19;
   }
 
   if (!TSUIndexSet::count(&self->_relativeRows))
   {
-    v58 = MEMORY[0x277D81150];
-    v59 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v48, "[TSCERelativeTractRef relativeTopLeft]", v49, v50);
-    v63 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v60, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v61, v62);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v58, v64, v59, v63, 555, 0, "No relative row found, but not marked as spanning");
+    v46 = MEMORY[0x277D81150];
+    v47 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, "[TSCERelativeTractRef relativeTopLeft]", v39);
+    v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v48, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v49);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v46, v51, v47, v50, 555, 0, "No relative row found, but not marked as spanning");
 LABEL_19:
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v70, v71, v72, v73);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v56, v57, v58);
     goto LABEL_20;
   }
 
-  v51 = TSUIndexSet::firstIndex(&self->_relativeRows);
+  v40 = TSUIndexSet::firstIndex(&self->_relativeRows);
 LABEL_21:
-  v74 = objc_msgSend_preserveFlags(self, v40, v41, v42, v43) & 1;
-  v79 = objc_msgSend_preserveFlags(self, v75, v76, v77, v78);
-  sub_2210898C4(Index, v80, v81, v82, v83);
-  sub_2210899C8(v51, v84, v85, v86, v87);
-  sub_2210898C4(Index, v88, v89, v90, v91);
-  sub_2210899C8(v51, v92, v93, v94, v95);
-  return (((v79 & 2) << 47) | (v74 << 56) | (Index << 32) | v51);
+  v59 = objc_msgSend_preserveFlags(self, v32, v33, v34) & 1;
+  v63 = objc_msgSend_preserveFlags(self, v60, v61, v62);
+  sub_2210898C4(Index, v64, v65, v66);
+  sub_2210899C8(v40, v67, v68, v69);
+  sub_2210898C4(Index, v70, v71, v72);
+  sub_2210899C8(v40, v73, v74, v75);
+  return (((v63 & 2) << 47) | (v59 << 56) | (Index << 32) | v40);
 }
 
 - (TSCERelativeCellCoordinate)relativeBottomRight
 {
-  if (objc_msgSend_spansAllColumns(self, a2, v2, v3, v4))
+  if (objc_msgSend_spansAllColumns(self, a2, v2, v3))
   {
     goto LABEL_2;
   }
 
-  if ((objc_msgSend_preserveFlags(self, v6, v7, v8, v9) & 4) == 0)
+  if ((objc_msgSend_preserveFlags(self, v5, v6, v7) & 4) == 0)
   {
     if (TSUIndexSet::count(&self->_relativeColumns))
     {
@@ -754,49 +754,49 @@ LABEL_21:
       goto LABEL_3;
     }
 
-    v67 = objc_msgSend_columns(self->_absTractRef, v43, v44, v45, v46);
-    if (TSUIndexSet::count(v67))
+    v53 = objc_msgSend_columns(self->_absTractRef, v34, v35, v36);
+    if (TSUIndexSet::count(v53))
     {
-      v72 = MEMORY[0x277D81150];
-      v73 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v68, "[TSCERelativeTractRef relativeBottomRight]", v70, v71);
-      v77 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v74, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v75, v76);
-      v82 = objc_msgSend_columns(self->_absTractRef, v78, v79, v80, v81);
-      v83 = TSUIndexSet::count(v82);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v72, v84, v73, v77, 579, 0, "Non-spanning ref has %d absolute columns", v83);
+      v57 = MEMORY[0x277D81150];
+      v58 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v54, "[TSCERelativeTractRef relativeBottomRight]", v56);
+      v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v59, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v60);
+      v65 = objc_msgSend_columns(self->_absTractRef, v62, v63, v64);
+      v66 = TSUIndexSet::count(v65);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v57, v67, v58, v61, 579, 0, "Non-spanning ref has %d absolute columns", v66);
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v85, v86, v87, v88);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v68, v69, v70);
     }
 
-    v89 = objc_msgSend_columns(self->_absTractRef, v68, v69, v70, v71);
-    if (TSUIndexSet::count(v89))
+    v71 = objc_msgSend_columns(self->_absTractRef, v54, v55, v56);
+    if (TSUIndexSet::count(v71))
     {
       goto LABEL_2;
     }
 
-    v90 = MEMORY[0x277D81150];
-    v91 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSCERelativeTractRef relativeBottomRight]", v8, v9);
-    v95 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v92, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v93, v94);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v90, v96, v91, v95, 580, 0, "No absolute columns found, but not marked as spanning");
+    v72 = MEMORY[0x277D81150];
+    v73 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSCERelativeTractRef relativeBottomRight]", v7);
+    v76 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v74, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v75);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v72, v77, v73, v76, 580, 0, "No absolute columns found, but not marked as spanning");
 LABEL_24:
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v117, v118, v119, v120);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v94, v95, v96);
 LABEL_2:
     Index = 0x7FFF;
     goto LABEL_3;
   }
 
-  v55 = objc_msgSend_columns(self->_absTractRef, v39, v40, v41, v42);
-  if (!TSUIndexSet::count(v55))
+  v43 = objc_msgSend_columns(self->_absTractRef, v31, v32, v33);
+  if (!TSUIndexSet::count(v43))
   {
     if (TSUIndexSet::count(&self->_relativeColumns))
     {
-      v100 = MEMORY[0x277D81150];
-      v101 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v97, "[TSCERelativeTractRef relativeBottomRight]", v98, v99);
-      v105 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v102, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v103, v104);
-      v106 = TSUIndexSet::count(&self->_relativeColumns);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v100, v107, v101, v105, 572, 0, "Non-spanning ref has %d relative columns", v106);
+      v80 = MEMORY[0x277D81150];
+      v81 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v78, "[TSCERelativeTractRef relativeBottomRight]", v79);
+      v84 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v82, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v83);
+      v85 = TSUIndexSet::count(&self->_relativeColumns);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v80, v86, v81, v84, 572, 0, "Non-spanning ref has %d relative columns", v85);
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v108, v109, v110, v111);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v87, v88, v89);
     }
 
     if (TSUIndexSet::count(&self->_relativeColumns))
@@ -804,40 +804,40 @@ LABEL_2:
       goto LABEL_2;
     }
 
-    v112 = MEMORY[0x277D81150];
-    v91 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSCERelativeTractRef relativeBottomRight]", v8, v9);
-    v95 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v113, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v114, v115);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v112, v116, v91, v95, 573, 0, "No relative columns found, but not marked as spanning");
+    v90 = MEMORY[0x277D81150];
+    v73 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSCERelativeTractRef relativeBottomRight]", v7);
+    v76 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v91, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v92);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v90, v93, v73, v76, 573, 0, "No relative columns found, but not marked as spanning");
     goto LABEL_24;
   }
 
-  v60 = objc_msgSend_columns(self->_absTractRef, v56, v57, v58, v59);
-  Index = TSUIndexSet::lastIndex(v60);
+  v47 = objc_msgSend_columns(self->_absTractRef, v44, v45, v46);
+  Index = TSUIndexSet::lastIndex(v47);
 LABEL_3:
-  if (objc_msgSend_spansAllRows(self, v6, v7, v8, v9))
+  if (objc_msgSend_spansAllRows(self, v5, v6, v7))
   {
     goto LABEL_4;
   }
 
-  if ((objc_msgSend_preserveFlags(self, v11, v12, v13, v14) & 8) != 0)
+  if ((objc_msgSend_preserveFlags(self, v9, v10, v11) & 8) != 0)
   {
-    v61 = objc_msgSend_rows(self->_absTractRef, v47, v48, v49, v50);
-    if (TSUIndexSet::count(v61))
+    v48 = objc_msgSend_rows(self->_absTractRef, v37, v38, v39);
+    if (TSUIndexSet::count(v48))
     {
-      v66 = objc_msgSend_rows(self->_absTractRef, v62, v63, v64, v65);
-      v15 = TSUIndexSet::lastIndex(v66);
+      v52 = objc_msgSend_rows(self->_absTractRef, v49, v50, v51);
+      v12 = TSUIndexSet::lastIndex(v52);
       goto LABEL_5;
     }
 
     if (TSUIndexSet::count(&self->_relativeRows))
     {
-      v154 = MEMORY[0x277D81150];
-      v155 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v151, "[TSCERelativeTractRef relativeBottomRight]", v152, v153);
-      v159 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v156, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v157, v158);
-      v160 = TSUIndexSet::count(&self->_relativeRows);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v154, v161, v155, v159, 590, 0, "Non-spanning ref has %d relative rows", v160);
+      v124 = MEMORY[0x277D81150];
+      v125 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v122, "[TSCERelativeTractRef relativeBottomRight]", v123);
+      v128 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v126, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v127);
+      v129 = TSUIndexSet::count(&self->_relativeRows);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v124, v130, v125, v128, 590, 0, "Non-spanning ref has %d relative rows", v129);
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v162, v163, v164, v165);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v131, v132, v133);
     }
 
     if (TSUIndexSet::count(&self->_relativeRows))
@@ -845,288 +845,288 @@ LABEL_3:
       goto LABEL_4;
     }
 
-    v166 = MEMORY[0x277D81150];
-    v145 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSCERelativeTractRef relativeBottomRight]", v13, v14);
-    v149 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v167, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v168, v169);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v166, v170, v145, v149, 591, 0, "No relative rows found, but not marked as spanning");
+    v134 = MEMORY[0x277D81150];
+    v117 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSCERelativeTractRef relativeBottomRight]", v11);
+    v120 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v135, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v136);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v134, v137, v117, v120, 591, 0, "No relative rows found, but not marked as spanning");
     goto LABEL_33;
   }
 
   if (TSUIndexSet::count(&self->_relativeRows))
   {
-    v15 = TSUIndexSet::lastIndex(&self->_relativeRows);
+    v12 = TSUIndexSet::lastIndex(&self->_relativeRows);
     goto LABEL_5;
   }
 
-  v121 = objc_msgSend_rows(self->_absTractRef, v51, v52, v53, v54);
-  if (TSUIndexSet::count(v121))
+  v97 = objc_msgSend_rows(self->_absTractRef, v40, v41, v42);
+  if (TSUIndexSet::count(v97))
   {
-    v126 = MEMORY[0x277D81150];
-    v127 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v122, "[TSCERelativeTractRef relativeBottomRight]", v124, v125);
-    v131 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v128, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v129, v130);
-    v136 = objc_msgSend_rows(self->_absTractRef, v132, v133, v134, v135);
-    v137 = TSUIndexSet::count(v136);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v126, v138, v127, v131, 597, 0, "Non-spanning ref has %d absolute rows", v137);
+    v101 = MEMORY[0x277D81150];
+    v102 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v98, "[TSCERelativeTractRef relativeBottomRight]", v100);
+    v105 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v103, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v104);
+    v109 = objc_msgSend_rows(self->_absTractRef, v106, v107, v108);
+    v110 = TSUIndexSet::count(v109);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v101, v111, v102, v105, 597, 0, "Non-spanning ref has %d absolute rows", v110);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v139, v140, v141, v142);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v112, v113, v114);
   }
 
-  v143 = objc_msgSend_rows(self->_absTractRef, v122, v123, v124, v125);
-  if (!TSUIndexSet::count(v143))
+  v115 = objc_msgSend_rows(self->_absTractRef, v98, v99, v100);
+  if (!TSUIndexSet::count(v115))
   {
-    v144 = MEMORY[0x277D81150];
-    v145 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSCERelativeTractRef relativeBottomRight]", v13, v14);
-    v149 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v146, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v147, v148);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v144, v150, v145, v149, 598, 0, "No absolute rows found, but not marked as spanning");
+    v116 = MEMORY[0x277D81150];
+    v117 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSCERelativeTractRef relativeBottomRight]", v11);
+    v120 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v118, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCERelativeTractRef.mm", v119);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v116, v121, v117, v120, 598, 0, "No absolute rows found, but not marked as spanning");
 LABEL_33:
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v171, v172, v173, v174);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v138, v139, v140);
   }
 
 LABEL_4:
-  v15 = 0x7FFFFFFFLL;
+  v12 = 0x7FFFFFFFLL;
 LABEL_5:
-  v16 = objc_msgSend_preserveFlags(self, v11, v12, v13, v14);
-  v21 = objc_msgSend_preserveFlags(self, v17, v18, v19, v20);
-  sub_2210898C4(Index, v22, v23, v24, v25);
-  sub_2210899C8(v15, v26, v27, v28, v29);
-  sub_2210898C4(Index, v30, v31, v32, v33);
-  sub_2210899C8(v15, v34, v35, v36, v37);
-  return (((v16 & 4) << 54) | ((((v21 & 8) >> 3) & 1) << 48) | (Index << 32) | v15);
+  v13 = objc_msgSend_preserveFlags(self, v9, v10, v11);
+  v17 = objc_msgSend_preserveFlags(self, v14, v15, v16);
+  sub_2210898C4(Index, v18, v19, v20);
+  sub_2210899C8(v12, v21, v22, v23);
+  sub_2210898C4(Index, v24, v25, v26);
+  sub_2210899C8(v12, v27, v28, v29);
+  return (((v13 & 4) << 54) | ((((v17 & 8) >> 3) & 1) << 48) | (Index << 32) | v12);
 }
 
 - (TSCERelativeRangeCoordinate)relativeBoundingRangeWithContainingCell:(const TSUCellCoord *)cell
 {
-  RelativeCellCoordinateFromAbsoluteCoordinates = objc_msgSend_relativeTopLeft(self, a2, cell, v3, v4);
-  v12 = objc_msgSend_relativeBottomRight(self, v8, v9, v10, v11);
-  v17 = objc_msgSend_preserveFlags(self, v13, v14, v15, v16);
-  if (v17)
+  RelativeCellCoordinateFromAbsoluteCoordinates = objc_msgSend_relativeTopLeft(self, a2, cell, v3);
+  v10 = objc_msgSend_relativeBottomRight(self, v7, v8, v9);
+  v14 = objc_msgSend_preserveFlags(self, v11, v12, v13);
+  if (v14)
   {
-    v20 = v17;
-    v21 = *cell;
-    v37._flags = v20 & 3;
-    v22 = TSCEMakeAbsoluteCellCoordinateFromRelativeCellCoordinate(v21, RelativeCellCoordinateFromAbsoluteCoordinates, &v37, v18, v19);
-    v23 = *cell;
-    v36._flags = (v20 >> 2) & 3;
-    v26 = TSCEMakeAbsoluteCellCoordinateFromRelativeCellCoordinate(v23, v12, &v36, v24, v25);
-    v35 = 0;
-    v27 = &v35;
-    v28 = v22;
-    RelativeCellCoordinateFromAbsoluteCoordinates = TSCERelativeCellCoordinate::makeRelativeCellCoordinateFromAbsoluteCoordinates(*cell, v28, v27, v29);
-    v30 = &v35;
-    v31 = v26;
-    v12 = TSCERelativeCellCoordinate::makeRelativeCellCoordinateFromAbsoluteCoordinates(*cell, v31, v30, v32);
+    v16 = v14;
+    v17 = *cell;
+    v32._flags = v16 & 3;
+    v18 = TSCEMakeAbsoluteCellCoordinateFromRelativeCellCoordinate(v17, RelativeCellCoordinateFromAbsoluteCoordinates, &v32, v15);
+    v19 = *cell;
+    v31._flags = (v16 >> 2) & 3;
+    v21 = TSCEMakeAbsoluteCellCoordinateFromRelativeCellCoordinate(v19, v10, &v31, v20);
+    v30 = 0;
+    v22 = &v30;
+    v23 = v18;
+    RelativeCellCoordinateFromAbsoluteCoordinates = TSCERelativeCellCoordinate::makeRelativeCellCoordinateFromAbsoluteCoordinates(*cell, v23, v22, v24);
+    v25 = &v30;
+    v26 = v21;
+    v10 = TSCERelativeCellCoordinate::makeRelativeCellCoordinateFromAbsoluteCoordinates(*cell, v26, v25, v27);
   }
 
-  v33 = RelativeCellCoordinateFromAbsoluteCoordinates;
-  v34 = v12;
-  result.var1 = v34;
-  result.var0 = v33;
+  v28 = RelativeCellCoordinateFromAbsoluteCoordinates;
+  v29 = v10;
+  result.var1 = v29;
+  result.var0 = v28;
   return result;
 }
 
 - (void)preserveFlagsFixingInversionsForTract:(id)tract absFromRelColumns:(const TSUIndexSet *)columns absFromRelRows:(const TSUIndexSet *)rows
 {
   tractCopy = tract;
-  v16 = objc_msgSend_preserveFlags(self->_absTractRef, v8, v9, v10, v11);
-  if (((v16 ^ (v16 >> 2)) & 3) != 0)
+  v14 = objc_msgSend_preserveFlags(self->_absTractRef, v8, v9, v10);
+  if (((v14 ^ (v14 >> 2)) & 3) != 0)
   {
-    v17 = objc_msgSend_topLeft(tractCopy, v12, v13, v14, v15);
-    v23 = objc_msgSend_bottomRight(tractCopy, v18, v19, v20, v21);
-    if ((v16 & 1) == (v16 & 4) >> 2 || objc_msgSend_spansAllColumns(self, v12, v22, v14, v15))
+    v15 = objc_msgSend_topLeft(tractCopy, v11, v12, v13);
+    v20 = objc_msgSend_bottomRight(tractCopy, v16, v17, v18);
+    if ((v14 & 1) == (v14 & 4) >> 2 || objc_msgSend_spansAllColumns(self, v11, v19, v13))
     {
-      v24 = v16 & 5;
+      v21 = v14 & 5;
 LABEL_5:
-      if (((v16 >> 1) & 1) == (v16 & 8) >> 3 || objc_msgSend_spansAllRows(self, v12, v22, v14, v15))
+      if (((v14 >> 1) & 1) == (v14 & 8) >> 3 || objc_msgSend_spansAllRows(self, v11, v19, v13))
       {
-        LOBYTE(v16) = v16 & 0xA | v24;
+        LOBYTE(v14) = v14 & 0xA | v21;
         goto LABEL_8;
       }
 
       absTractRef = self->_absTractRef;
-      if (v23 == v17)
+      if (v20 == v15)
       {
-        v30 = objc_msgSend_rows(absTractRef, v12, v25, v14, v15);
-        if (TSUIndexSet::containsIndex(v30) != (v16 & 2) >> 1)
+        v26 = objc_msgSend_rows(absTractRef, v11, v22, v13);
+        if (TSUIndexSet::containsIndex(v26) != (v14 & 2) >> 1)
         {
 LABEL_27:
-          objc_msgSend_setMixedRowStartedWithPreserve_(tractCopy, v35, 0, v37, v38);
-          LOBYTE(v16) = v24 | 8;
+          objc_msgSend_setMixedRowStartedWithPreserve_(tractCopy, v31, 0, v33);
+          LOBYTE(v14) = v21 | 8;
           goto LABEL_8;
         }
       }
 
       else
       {
-        v33 = objc_msgSend_rows(absTractRef, v12, v25, v14, v15);
-        v34 = TSUIndexSet::containsIndex(v33);
-        if ((v34 & 1) == 0)
+        v29 = objc_msgSend_rows(absTractRef, v11, v22, v13);
+        v30 = TSUIndexSet::containsIndex(v29);
+        if ((v30 & 1) == 0)
         {
-          v40 = objc_msgSend_rows(self->_absTractRef, v35, v36, v37, v38);
-          if (TSUIndexSet::containsIndex(v40) & 1) != 0 || (TSUIndexSet::containsIndex(rows))
+          v35 = objc_msgSend_rows(self->_absTractRef, v31, v32, v33);
+          if (TSUIndexSet::containsIndex(v35) & 1) != 0 || (TSUIndexSet::containsIndex(rows))
           {
             goto LABEL_27;
           }
         }
       }
 
-      objc_msgSend_setMixedRowStartedWithPreserve_(tractCopy, v35, 1, v37, v38);
-      LOBYTE(v16) = v24 | 2;
+      objc_msgSend_setMixedRowStartedWithPreserve_(tractCopy, v31, 1, v33);
+      LOBYTE(v14) = v21 | 2;
       goto LABEL_8;
     }
 
-    if (WORD2(v23) == WORD2(v17))
+    if (WORD2(v20) == WORD2(v15))
     {
-      if ((v16 ^ TSUIndexSet::containsIndex(columns)))
+      if ((v14 ^ TSUIndexSet::containsIndex(columns)))
       {
 LABEL_24:
-        objc_msgSend_setMixedColumnStartedWithPreserve_(tractCopy, v26, 0, v27, v28);
-        v24 = 4;
+        objc_msgSend_setMixedColumnStartedWithPreserve_(tractCopy, v23, 0, v24);
+        v21 = 4;
         goto LABEL_5;
       }
     }
 
     else
     {
-      v31 = objc_msgSend_columns(self->_absTractRef, v12, v22, v14, v15);
-      if ((TSUIndexSet::containsIndex(v31) & 1) == 0)
+      v27 = objc_msgSend_columns(self->_absTractRef, v11, v19, v13);
+      if ((TSUIndexSet::containsIndex(v27) & 1) == 0)
       {
-        v39 = objc_msgSend_columns(self->_absTractRef, v26, v32, v27, v28);
-        if (TSUIndexSet::containsIndex(v39) & 1) != 0 || (TSUIndexSet::containsIndex(columns))
+        v34 = objc_msgSend_columns(self->_absTractRef, v23, v28, v24);
+        if (TSUIndexSet::containsIndex(v34) & 1) != 0 || (TSUIndexSet::containsIndex(columns))
         {
           goto LABEL_24;
         }
       }
     }
 
-    v24 = 1;
-    objc_msgSend_setMixedColumnStartedWithPreserve_(tractCopy, v26, 1, v27, v28);
+    v21 = 1;
+    objc_msgSend_setMixedColumnStartedWithPreserve_(tractCopy, v23, 1, v24);
     goto LABEL_5;
   }
 
 LABEL_8:
-  objc_msgSend_setPreserveFlags_(tractCopy, v12, v16, v14, v15);
+  objc_msgSend_setPreserveFlags_(tractCopy, v11, v14, v13);
 }
 
 - (id)absoluteCellTractRefForHostCell:(const TSUCellCoord *)cell offTable:(BOOL *)table
 {
-  v78 = 0;
-  v79 = &v78;
-  v80 = 0x5012000000;
-  v81 = sub_22121A2E4;
-  v82 = sub_22121A308;
-  v83 = &unk_22188E88F;
-  objc_msgSend_columns(self->_absTractRef, a2, cell, table, v4);
-  *&v84 |= 3u;
-  *&v8.f64[0] = 0x8000000080000000;
-  *&v8.f64[1] = 0x8000000080000000;
-  v51 = vnegq_f64(v8);
-  v84._singleRange = v51;
-  v84._multipleRanges = 0;
+  v68 = 0;
+  v69 = &v68;
+  v70 = 0x5012000000;
+  v71 = sub_22121A2E4;
+  v72 = sub_22121A308;
+  v73 = &unk_22188E88F;
+  objc_msgSend_columns(self->_absTractRef, a2, cell, table);
+  *&v74 |= 3u;
+  *&v7.f64[0] = 0x8000000080000000;
+  *&v7.f64[1] = 0x8000000080000000;
+  v41 = vnegq_f64(v7);
+  v74._singleRange = v41;
+  v74._multipleRanges = 0;
   TSUIndexSet::operator=();
-  v71 = 0;
-  v72 = &v71;
-  v73 = 0x5012000000;
-  v74 = sub_22121A2E4;
-  v75 = sub_22121A308;
-  v76 = &unk_22188E88F;
-  objc_msgSend_rows(self->_absTractRef, v9, v10, v11, v12);
-  *&v77 |= 3u;
-  v77._singleRange = v51;
-  v77._multipleRanges = 0;
+  v61 = 0;
+  v62 = &v61;
+  v63 = 0x5012000000;
+  v64 = sub_22121A2E4;
+  v65 = sub_22121A308;
+  v66 = &unk_22188E88F;
+  objc_msgSend_rows(self->_absTractRef, v8, v9, v10);
+  *&v67 |= 3u;
+  v67._singleRange = v41;
+  v67._multipleRanges = 0;
   TSUIndexSet::operator=();
-  v64 = 0;
-  v65 = &v64;
-  v66 = 0x5012000000;
-  v67 = sub_22121A2E4;
-  v68 = sub_22121A308;
-  v69 = &unk_22188E88F;
-  TSUIndexSet::TSUIndexSet(&v70);
-  v57 = 0;
-  v58 = &v57;
-  v59 = 0x5012000000;
-  v60 = sub_22121A2E4;
-  v61 = sub_22121A308;
-  v62 = &unk_22188E88F;
-  TSUIndexSet::TSUIndexSet(&v63);
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
-  v56 = 0;
+  v54 = 0;
+  v55 = &v54;
+  v56 = 0x5012000000;
+  v57 = sub_22121A2E4;
+  v58 = sub_22121A308;
+  v59 = &unk_22188E88F;
+  TSUIndexSet::TSUIndexSet(&v60);
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x5012000000;
+  v50 = sub_22121A2E4;
+  v51 = sub_22121A308;
+  v52 = &unk_22188E88F;
+  TSUIndexSet::TSUIndexSet(&v53);
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
+  v46 = 0;
   if (cell->row != 0x7FFFFFFF && (*cell & 0xFFFF00000000) != 0x7FFF00000000)
   {
-    if ((objc_msgSend_spansAllColumns(self, v13, v14, v15, v16) & 1) == 0 && TSUIndexSet::count(&self->_relativeColumns))
+    if ((objc_msgSend_spansAllColumns(self, v11, v12, v13) & 1) == 0 && TSUIndexSet::count(&self->_relativeColumns))
     {
-      v52[10] = MEMORY[0x277D85DD0];
-      v52[11] = 3221225472;
-      v52[12] = sub_22121C2B4;
-      v52[13] = &unk_2784618F8;
-      v52[14] = &v53;
-      v52[15] = &v78;
-      v52[16] = &v64;
-      v52[17] = cell;
+      v42[10] = MEMORY[0x277D85DD0];
+      v42[11] = 3221225472;
+      v42[12] = sub_22121C2B4;
+      v42[13] = &unk_2784618F8;
+      v42[14] = &v43;
+      v42[15] = &v68;
+      v42[16] = &v54;
+      v42[17] = cell;
       TSUIndexSet::enumerateRangesUsingBlock();
     }
 
-    if ((objc_msgSend_spansAllRows(self, v17, v18, v19, v20, v51) & 1) == 0 && TSUIndexSet::count(&self->_relativeRows))
+    if ((objc_msgSend_spansAllRows(self, v14, v15, v16, v41) & 1) == 0 && TSUIndexSet::count(&self->_relativeRows))
     {
-      v52[2] = MEMORY[0x277D85DD0];
-      v52[3] = 3221225472;
-      v52[4] = sub_22121C370;
-      v52[5] = &unk_2784618F8;
-      v52[6] = &v53;
-      v52[7] = &v71;
-      v52[8] = &v57;
-      v52[9] = cell;
+      v42[2] = MEMORY[0x277D85DD0];
+      v42[3] = 3221225472;
+      v42[4] = sub_22121C370;
+      v42[5] = &unk_2784618F8;
+      v42[6] = &v43;
+      v42[7] = &v61;
+      v42[8] = &v47;
+      v42[9] = cell;
       TSUIndexSet::enumerateRangesUsingBlock();
     }
   }
 
-  v21 = [TSCECellTractRef alloc];
-  v22 = v79;
-  v23 = v72;
-  v52[0] = objc_msgSend_tableUID(self, v24, v25, v26, v27);
-  v52[1] = v28;
-  v29 = objc_msgSend_initWithColumns_rows_tableUID_(v21, v28, (v22 + 6), (v23 + 6), v52);
-  objc_msgSend_preserveFlagsFixingInversionsForTract_absFromRelColumns_absFromRelRows_(self, v30, v29, (v65 + 6), (v58 + 6));
-  v35 = objc_msgSend_preserveRectangular(self, v31, v32, v33, v34);
-  objc_msgSend_setPreserveRectangular_(v29, v36, v35, v37, v38);
-  if (objc_msgSend_spansAllColumns(self, v39, v40, v41, v42))
+  v17 = [TSCECellTractRef alloc];
+  v18 = v69;
+  v19 = v62;
+  v42[0] = objc_msgSend_tableUID(self, v20, v21, v22);
+  v42[1] = v23;
+  v24 = objc_msgSend_initWithColumns_rows_tableUID_(v17, v23, (v18 + 6), (v19 + 6), v42);
+  objc_msgSend_preserveFlagsFixingInversionsForTract_absFromRelColumns_absFromRelRows_(self, v25, v24, (v55 + 6), v48 + 6);
+  v29 = objc_msgSend_preserveRectangular(self, v26, v27, v28);
+  objc_msgSend_setPreserveRectangular_(v24, v30, v29, v31);
+  if (objc_msgSend_spansAllColumns(self, v32, v33, v34))
   {
-    objc_msgSend_setSpansAllColumns_(v29, v43, 1, v45, v46);
+    objc_msgSend_setSpansAllColumns_(v24, v35, 1, v37);
   }
 
-  else if (objc_msgSend_spansAllRows(self, v43, v44, v45, v46))
+  else if (objc_msgSend_spansAllRows(self, v35, v36, v37))
   {
-    objc_msgSend_setSpansAllRows_(v29, v47, 1, v48, v49);
+    objc_msgSend_setSpansAllRows_(v24, v38, 1, v39);
   }
 
   if (table)
   {
-    *table = *(v54 + 24);
+    *table = *(v44 + 24);
   }
 
-  _Block_object_dispose(&v53, 8);
-  _Block_object_dispose(&v57, 8);
-  TSUIndexSet::~TSUIndexSet(&v63);
-  _Block_object_dispose(&v64, 8);
-  TSUIndexSet::~TSUIndexSet(&v70);
-  _Block_object_dispose(&v71, 8);
-  TSUIndexSet::~TSUIndexSet(&v77);
-  _Block_object_dispose(&v78, 8);
-  TSUIndexSet::~TSUIndexSet(&v84);
+  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v47, 8);
+  TSUIndexSet::~TSUIndexSet(&v53);
+  _Block_object_dispose(&v54, 8);
+  TSUIndexSet::~TSUIndexSet(&v60);
+  _Block_object_dispose(&v61, 8);
+  TSUIndexSet::~TSUIndexSet(&v67);
+  _Block_object_dispose(&v68, 8);
+  TSUIndexSet::~TSUIndexSet(&v74);
 
-  return v29;
+  return v24;
 }
 
 - (void)adjustRelativeIndexesBy:(const TSUColumnRowOffset *)by
 {
-  if (by->var0 && (objc_msgSend_spansAllColumns(self, a2, by, v3, v4) & 1) == 0)
+  if (by->var0 && (objc_msgSend_spansAllColumns(self, a2, by, v3) & 1) == 0)
   {
     TSUIndexSet::shiftAllIndexesBy(&self->_relativeColumns);
   }
 
-  if (by->var1 && (objc_msgSend_spansAllRows(self, a2, by, v3, v4) & 1) == 0)
+  if (by->var1 && (objc_msgSend_spansAllRows(self, a2, by, v3) & 1) == 0)
   {
 
     TSUIndexSet::shiftAllIndexesBy(&self->_relativeRows);

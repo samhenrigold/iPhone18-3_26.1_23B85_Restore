@@ -8,7 +8,6 @@
 - (BOOL)disposeWithError:(id *)error;
 - (BOOL)purgeContentsWithError:(id *)error;
 - (id)_initWithExistingFsRepPath:(char *)path identifier:(id)identifier;
-- (id)description;
 - (void)dealloc;
 - (void)disposeWithoutDeleting;
 @end
@@ -149,17 +148,16 @@
 
   else
   {
-    v16 = MBGetDefaultLog();
+    v16 = MBGetDefaultLog(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = *error;
       *buf = 138412546;
-      v27 = pathCopy;
-      v28 = 2112;
-      v29 = v17;
+      v20 = pathCopy;
+      v21 = 2112;
+      v22 = v17;
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "=tmpdir= could not find mount point for %@: %@", buf, 0x16u);
-      v25 = *error;
-      _MBLog(@"E ", "=tmpdir= could not find mount point for %@: %@", v18, v19, v20, v21, v22, v23, pathCopy);
+      _MBLog(@"E ", "=tmpdir= could not find mount point for %@: %@", pathCopy, *error);
     }
 
     v15 = 0;
@@ -206,78 +204,78 @@
   v7 = sub_10000764C([stringByDeletingLastPathComponent fileSystemRepresentation]);
   v8 = +[NSFileManager defaultManager];
   path2 = [(MBTemporaryDirectory *)self path];
-  v34 = 0;
-  v10 = [v8 moveItemAtPath:path2 toPath:v7 error:&v34];
-  v11 = v34;
+  v24 = 0;
+  v10 = [v8 moveItemAtPath:path2 toPath:v7 error:&v24];
+  v11 = v24;
 
   if (v10)
   {
     path3 = [(MBTemporaryDirectory *)self path];
-    v33 = v11;
-    v13 = [v8 createDirectoryAtPath:path3 withIntermediateDirectories:0 attributes:0 error:&v33];
-    v14 = v33;
+    v23 = v11;
+    v14 = [v8 createDirectoryAtPath:path3 withIntermediateDirectories:0 attributes:0 error:&v23];
+    v15 = v23;
 
-    if (v13)
+    if (v14)
     {
-      v15 = [(MBTemporaryDirectory *)self _purgeContentsAt:4294967294 rPath:v7 error:error];
+      v17 = [(MBTemporaryDirectory *)self _purgeContentsAt:4294967294 rPath:v7 error:error];
     }
 
     else
     {
-      v24 = MBGetDefaultLog();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v20 = MBGetDefaultLog(v16);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
         selfCopy2 = self;
-        v37 = 2112;
-        v38 = v14;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "=tmpdir= %@ failed to create new contents directory: %@", buf, 0x16u);
-        _MBLog(@"E ", "=tmpdir= %@ failed to create new contents directory: %@", v25, v26, v27, v28, v29, v30, self);
+        v27 = 2112;
+        v28 = v15;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "=tmpdir= %@ failed to create new contents directory: %@", buf, 0x16u);
+        _MBLog(@"E ", "=tmpdir= %@ failed to create new contents directory: %@", self, v15);
       }
 
       if (error)
       {
-        v31 = v14;
-        v15 = 0;
-        *error = v14;
+        v21 = v15;
+        v17 = 0;
+        *error = v15;
       }
 
       else
       {
-        v15 = 0;
+        v17 = 0;
       }
     }
 
-    v11 = v14;
+    v11 = v15;
   }
 
   else
   {
-    v16 = MBGetDefaultLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = MBGetDefaultLog(v12);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
       selfCopy2 = self;
-      v37 = 2112;
-      v38 = v11;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "=tmpdir= %@ failed to move contents aside to purge: %@", buf, 0x16u);
-      _MBLog(@"E ", "=tmpdir= %@ failed to move contents aside to purge: %@", v17, v18, v19, v20, v21, v22, self);
+      v27 = 2112;
+      v28 = v11;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "=tmpdir= %@ failed to move contents aside to purge: %@", buf, 0x16u);
+      _MBLog(@"E ", "=tmpdir= %@ failed to move contents aside to purge: %@", self, v11);
     }
 
     if (error)
     {
-      v23 = v11;
-      v15 = 0;
+      v19 = v11;
+      v17 = 0;
       *error = v11;
     }
 
     else
     {
-      v15 = 0;
+      v17 = 0;
     }
   }
 
-  return v15;
+  return v17;
 }
 
 - (BOOL)_purgeContentsAt:(int)at rPath:(id)path error:(id *)error
@@ -298,20 +296,20 @@
   if (v11)
   {
     v12 = [MBError errorWithErrors:v9];
-    v13 = MBGetDefaultLog();
+    v13 = MBGetDefaultLog(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
       selfCopy = self;
-      v24 = 2112;
-      v25 = v12;
+      v18 = 2112;
+      v19 = v12;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "=tmpdir= failed to delete %@: %@", buf, 0x16u);
-      _MBLog(@"E ", "=tmpdir= failed to delete %@: %@", v14, v15, v16, v17, v18, v19, self);
+      _MBLog(@"E ", "=tmpdir= failed to delete %@: %@", self, v12);
     }
 
     if (error)
     {
-      v20 = v12;
+      v14 = v12;
       *error = v12;
     }
   }
@@ -343,29 +341,21 @@
 {
   if (!self->_disposed)
   {
-    v3 = MBGetDefaultLog();
+    v3 = MBGetDefaultLog(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
       selfCopy = self;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "=tmpdir= %@ was not disposed before dealloc", buf, 0xCu);
-      _MBLog(@"E ", "=tmpdir= %@ was not disposed before dealloc", v4, v5, v6, v7, v8, v9, self);
+      _MBLog(@"E ", "=tmpdir= %@ was not disposed before dealloc", self);
     }
   }
 
   free(self->_fsRepPath);
   self->_fsRepPath = 0;
-  v10.receiver = self;
-  v10.super_class = MBTemporaryDirectory;
-  [(MBTemporaryDirectory *)&v10 dealloc];
-}
-
-- (id)description
-{
-  v3 = objc_opt_class();
-  Name = class_getName(v3);
-  identifier = self->_identifier;
-  return [NSString stringWithFormat:@"<%s: %@, path: %s>", Name, identifier, self->_fsRepPath];
+  v4.receiver = self;
+  v4.super_class = MBTemporaryDirectory;
+  [(MBTemporaryDirectory *)&v4 dealloc];
 }
 
 @end

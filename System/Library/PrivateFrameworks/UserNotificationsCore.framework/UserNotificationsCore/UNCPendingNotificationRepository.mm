@@ -119,10 +119,7 @@
 
 uint64_t __56__UNCPendingNotificationRepository_allBundleIdentifiers__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 8) allKeys];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 8) allKeys];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -155,10 +152,7 @@ uint64_t __56__UNCPendingNotificationRepository_allBundleIdentifiers__block_invo
 
 uint64_t __82__UNCPendingNotificationRepository_pendingNotificationRecordsForBundleIdentifier___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _queue_pendingNotificationRecordsForBundleIdentifier:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _queue_pendingNotificationRecordsForBundleIdentifier:*(a1 + 40)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -221,7 +215,7 @@ uint64_t __82__UNCPendingNotificationRepository_pendingNotificationRecordsForBun
 
 - (id)_queue_pendingNotificationDictionariesForBundleIdentifier:(id)identifier
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = [(UNCKeyedDataStoreRepository *)self->_repository objectsForKey:identifierCopy];
   if (v5)
@@ -238,37 +232,33 @@ uint64_t __82__UNCPendingNotificationRepository_pendingNotificationRecordsForBun
   if (os_log_type_enabled(*MEMORY[0x1E6983378], OS_LOG_TYPE_DEFAULT))
   {
     v8 = v7;
-    v11 = 138543618;
-    v12 = identifierCopy;
-    v13 = 2048;
-    v14 = [v6 count];
-    _os_log_impl(&dword_1DA7A9000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Load %ld pending notification dictionaries", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = identifierCopy;
+    v12 = 2048;
+    v13 = [v6 count];
+    _os_log_impl(&dword_1DA7A9000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Load %ld pending notification dictionaries", &v10, 0x16u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (void)_queue_setPendingNotificationDictionaries:(id)dictionaries forBundleIdentifier:(id)identifier
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dictionariesCopy = dictionaries;
   identifierCopy = identifier;
   v8 = *MEMORY[0x1E6983378];
   if (os_log_type_enabled(*MEMORY[0x1E6983378], OS_LOG_TYPE_DEFAULT))
   {
     v9 = v8;
-    v11 = 138543618;
-    v12 = identifierCopy;
-    v13 = 2048;
-    v14 = [dictionariesCopy count];
-    _os_log_impl(&dword_1DA7A9000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Save %ld pending notification dictionaries", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = identifierCopy;
+    v12 = 2048;
+    v13 = [dictionariesCopy count];
+    _os_log_impl(&dword_1DA7A9000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Save %ld pending notification dictionaries", &v10, 0x16u);
   }
 
   [(UNCKeyedDataStoreRepository *)self->_repository setObjects:dictionariesCopy forKey:identifierCopy];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_queue_pendingNotificationRecordsForBundleIdentifier:(id)identifier
@@ -304,33 +294,33 @@ uint64_t __82__UNCPendingNotificationRepository_pendingNotificationRecordsForBun
 
 - (void)_queue_notifyObserversOfChangesFrom:(id)from to:(id)to forBundleIdentifier:(id)identifier
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   toCopy = to;
   identifierCopy = identifier;
   array = [MEMORY[0x1E695DF70] array];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
   obj = fromCopy;
-  v10 = [obj countByEnumeratingWithState:&v55 objects:v65 count:16];
+  v10 = [obj countByEnumeratingWithState:&v54 objects:v64 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v56;
+    v12 = *v55;
     v13 = MEMORY[0x1E6983378];
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v56 != v12)
+        if (*v55 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v55 + 1) + 8 * i);
+        v15 = *(*(&v54 + 1) + 8 * i);
         identifier = [v15 identifier];
         v17 = [identifier length];
 
@@ -348,40 +338,40 @@ uint64_t __82__UNCPendingNotificationRepository_pendingNotificationRecordsForBun
           if (os_log_type_enabled(*v13, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v62 = identifierCopy;
-            v63 = 2112;
-            v64 = v15;
+            v61 = identifierCopy;
+            v62 = 2112;
+            v63 = v15;
             _os_log_error_impl(&dword_1DA7A9000, v19, OS_LOG_TYPE_ERROR, "[%{public}@] An invalid notification record was present in the pending notifications store (no identifier present), record=%@", buf, 0x16u);
           }
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v55 objects:v65 count:16];
+      v11 = [obj countByEnumeratingWithState:&v54 objects:v64 count:16];
     }
 
     while (v11);
   }
 
-  v53 = 0u;
-  v54 = 0u;
   v52 = 0u;
+  v53 = 0u;
   v51 = 0u;
+  v50 = 0u;
   v20 = toCopy;
-  v21 = [v20 countByEnumeratingWithState:&v51 objects:v60 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v50 objects:v59 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v52;
+    v23 = *v51;
     do
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v52 != v23)
+        if (*v51 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = *(*(&v51 + 1) + 8 * j);
+        v25 = *(*(&v50 + 1) + 8 * j);
         identifier3 = [v25 identifier];
         v27 = [dictionary bs_takeObjectForKey:identifier3];
 
@@ -406,88 +396,86 @@ uint64_t __82__UNCPendingNotificationRepository_pendingNotificationRecordsForBun
 LABEL_22:
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v51 objects:v60 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v50 objects:v59 count:16];
     }
 
     while (v22);
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   allValues = [dictionary allValues];
-  v31 = [allValues countByEnumeratingWithState:&v47 objects:v59 count:16];
+  v31 = [allValues countByEnumeratingWithState:&v46 objects:v58 count:16];
   if (v31)
   {
     v32 = v31;
-    v33 = *v48;
+    v33 = *v47;
     do
     {
       for (k = 0; k != v32; ++k)
       {
-        if (*v48 != v33)
+        if (*v47 != v33)
         {
           objc_enumerationMutation(allValues);
         }
 
-        toCopy = [UNSNotificationRecordRemoveUpdate updateWithNotificationRecord:*(*(&v47 + 1) + 8 * k) shouldSync:0, toCopy];
+        toCopy = [UNSNotificationRecordRemoveUpdate updateWithNotificationRecord:*(*(&v46 + 1) + 8 * k) shouldSync:0, toCopy];
         [array addObject:toCopy];
       }
 
-      v32 = [allValues countByEnumeratingWithState:&v47 objects:v59 count:16];
+      v32 = [allValues countByEnumeratingWithState:&v46 objects:v58 count:16];
     }
 
     while (v32);
   }
 
   observable = self->_observable;
-  v44[0] = MEMORY[0x1E69E9820];
-  v44[1] = 3221225472;
-  v44[2] = __95__UNCPendingNotificationRepository__queue_notifyObserversOfChangesFrom_to_forBundleIdentifier___block_invoke;
-  v44[3] = &unk_1E85D7050;
-  v44[4] = self;
-  v45 = array;
-  v46 = identifierCopy;
+  v43[0] = MEMORY[0x1E69E9820];
+  v43[1] = 3221225472;
+  v43[2] = __95__UNCPendingNotificationRepository__queue_notifyObserversOfChangesFrom_to_forBundleIdentifier___block_invoke;
+  v43[3] = &unk_1E85D7050;
+  v43[4] = self;
+  v44 = array;
+  v45 = identifierCopy;
   v37 = identifierCopy;
   v38 = array;
-  [(UNCKeyedObservable *)observable notifyObserversKey:v37 usingBlock:v44];
-
-  v39 = *MEMORY[0x1E69E9840];
+  [(UNCKeyedObservable *)observable notifyObserversKey:v37 usingBlock:v43];
 }
 
 - (void)_queue_notificationSourcesDidUninstall:(id)uninstall
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   uninstallCopy = uninstall;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v5 = [uninstallCopy countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v5 = [uninstallCopy countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v16;
+    v8 = *v15;
     v9 = MEMORY[0x1E6983378];
     *&v6 = 138543362;
-    v14 = v6;
+    v13 = v6;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(uninstallCopy);
         }
 
-        bundleIdentifier = [*(*(&v15 + 1) + 8 * v10) bundleIdentifier];
+        bundleIdentifier = [*(*(&v14 + 1) + 8 * v10) bundleIdentifier];
         v12 = *v9;
         if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v14;
-          v20 = bundleIdentifier;
+          *buf = v13;
+          v19 = bundleIdentifier;
           _os_log_impl(&dword_1DA7A9000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Remove all pending notification dictionaries", buf, 0xCu);
         }
 
@@ -497,13 +485,11 @@ LABEL_22:
       }
 
       while (v7 != v10);
-      v7 = [uninstallCopy countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v7 = [uninstallCopy countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

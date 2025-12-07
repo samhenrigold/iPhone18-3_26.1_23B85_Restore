@@ -100,7 +100,7 @@
   overridePreferences = self->_overridePreferences;
   if (preferencesCopy)
   {
-    if ([preferencesCopy isEqual:overridePreferences])
+    if (objc_msgSend_isEqual_(preferencesCopy))
     {
       preferredContentSizeCategory = [(UIContentSizeCategoryPreference *)self preferredContentSizeCategory];
       preferredContentSizeCategory2 = preferredContentSizeCategory;
@@ -165,9 +165,9 @@
   }
 
   preferredContentSizeCategory = [(UIContentSizeCategoryPreference *)self preferredContentSizeCategory];
-  v11 = [preferredContentSizeCategory isEqualToString:lhs];
+  isEqualToString = objc_msgSend_isEqualToString_(preferredContentSizeCategory);
 
-  if ((v11 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     [(_UIContentSizeCategoryPreferenceSystem *)self setPreferredContentSizeCategory:lhs];
     if (_UIScreenHasScreens())
@@ -184,7 +184,7 @@
   v12 = _UIContentSizeCategoryPreferenceSafeContentSizeCategory(playCopy);
 
   preferredContentSizeCategoryCarPlay = [(UIContentSizeCategoryPreference *)self preferredContentSizeCategoryCarPlay];
-  v14 = [preferredContentSizeCategoryCarPlay isEqualToString:v12];
+  v14 = objc_msgSend_isEqualToString_(preferredContentSizeCategoryCarPlay);
 
   if ((v14 & 1) == 0)
   {
@@ -286,9 +286,9 @@ LABEL_7:
     preferredContentSizeCategory = [UIApp preferredContentSizeCategory];
 
     preferredContentSizeCategory2 = [(UIContentSizeCategoryPreference *)self preferredContentSizeCategory];
-    v8 = [preferredContentSizeCategory2 isEqualToString:preferredContentSizeCategory];
+    isEqualToString = objc_msgSend_isEqualToString_(preferredContentSizeCategory2);
 
-    if ((v8 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v9.receiver = self;
       v9.super_class = _UIContentSizeCategoryPreferenceSystem;

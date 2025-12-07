@@ -33,11 +33,11 @@
 
 - (AXSSInterDeviceSwitchEvent)initWithDictionaryRepresentation:(id)representation
 {
-  v37[1] = *MEMORY[0x1E69E9840];
+  v36[1] = *MEMORY[0x1E69E9840];
   representationCopy = representation;
-  v36.receiver = self;
-  v36.super_class = AXSSInterDeviceSwitchEvent;
-  v5 = [(AXSSInterDeviceSwitchEvent *)&v36 init];
+  v35.receiver = self;
+  v35.super_class = AXSSInterDeviceSwitchEvent;
+  v5 = [(AXSSInterDeviceSwitchEvent *)&v35 init];
   if (!v5)
   {
     goto LABEL_21;
@@ -130,14 +130,13 @@ LABEL_8:
       [AXSSInterDeviceSwitchEvent initWithDictionaryRepresentation:];
     }
 
-    v37[0] = AXSSSwitchActionSelect;
-    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:1];
+    v36[0] = AXSSSwitchActionSelect;
+    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
     [(AXSSInterDeviceSwitchEvent *)v5 setActions:v33];
   }
 
 LABEL_21:
 
-  v34 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

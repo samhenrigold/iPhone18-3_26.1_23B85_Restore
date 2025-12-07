@@ -62,9 +62,9 @@
   {
     if (objc_msgSend_movementType(self, v9, v10, v11, v12) == 1)
     {
-      v29.receiver = self;
-      v29.super_class = XRFrameActivityBlockAgent;
-      [(XRMobileAgent *)&v29 executeStopOnItinerary:itineraryCopy];
+      v28.receiver = self;
+      v28.super_class = XRFrameActivityBlockAgent;
+      [(XRMobileAgent *)&v28 executeStopOnItinerary:itineraryCopy];
     }
 
     if (atomic_load_explicit(self->_yieldNow, memory_order_acquire))
@@ -74,30 +74,29 @@
 
     else
     {
-      yieldNow = self->_yieldNow;
       (*(self->_block + 2))();
-      v22 = 0;
-      atomic_compare_exchange_strong(&self->_opPtr, &v22, 0xFFFFFFFFFFFFFFFFLL);
-      if (v22)
+      v21 = 0;
+      atomic_compare_exchange_strong(&self->_opPtr, &v21, 0xFFFFFFFFFFFFFFFFLL);
+      if (v21)
       {
-        if (v22 == -1)
+        if (v21 == -1)
         {
           __assert_rtn("[XRFrameActivityBlockAgent executeStopOnItinerary:]", "XRFrameActivityBlockAgent.m", 81, "current != FINISHED_OPERATION");
         }
 
-        v23 = v22;
-        objc_msgSend_start(v23, v24, v25, v26, v27);
+        v22 = v21;
+        objc_msgSend_start(v22, v23, v24, v25, v26);
       }
 
-      objc_msgSend_finishedWithMode_(itineraryCopy, v19, @"Finished", v20, v21);
+      objc_msgSend_finishedWithMode_(itineraryCopy, v18, @"Finished", v19, v20);
     }
   }
 
   else
   {
-    v28.receiver = self;
-    v28.super_class = XRFrameActivityBlockAgent;
-    [(XRMobileAgent *)&v28 executeStopOnItinerary:itineraryCopy];
+    v27.receiver = self;
+    v27.super_class = XRFrameActivityBlockAgent;
+    [(XRMobileAgent *)&v27 executeStopOnItinerary:itineraryCopy];
   }
 }
 

@@ -164,35 +164,35 @@
     v27 = v49;
   }
 
-  if (![(__CFString *)v11 isEqualToString:@"grouping"])
+  if (!objc_msgSend_isEqualToString_(v11))
   {
-    if (![(__CFString *)v11 isEqualToString:@"room"])
+    if (!objc_msgSend_isEqualToString_(v11))
     {
-      if ([(__CFString *)v11 isEqualToString:@"multiroom"])
+      if (objc_msgSend_isEqualToString_(v11))
       {
         v29 = [(SUUIStorePageDataConsumer *)self _multiRoomComponentsForDictionary:dictionaryCopy items:v26];
         goto LABEL_43;
       }
 
-      if ([(__CFString *)v11 isEqualToString:@"artist"])
+      if (objc_msgSend_isEqualToString_(v11))
       {
         v29 = [(SUUIStorePageDataConsumer *)self _artistPageComponentsForDictionary:dictionaryCopy items:v26];
         goto LABEL_43;
       }
 
-      if ([(__CFString *)v11 isEqualToString:@"bannerRoom"])
+      if (objc_msgSend_isEqualToString_(v11))
       {
         v29 = [(SUUIStorePageDataConsumer *)self _bannerRoomComponentsForDictionary:dictionaryCopy items:v26];
         goto LABEL_43;
       }
 
-      if ([(__CFString *)v11 isEqualToString:@"custom"])
+      if (objc_msgSend_isEqualToString_(v11))
       {
         v29 = [(SUUIStorePageDataConsumer *)self _customPageComponentsForDictionary:dictionaryCopy items:v26];
         goto LABEL_43;
       }
 
-      if ([(__CFString *)v11 isEqualToString:@"trailerRoom"])
+      if (objc_msgSend_isEqualToString_(v11))
       {
         selfCopy2 = self;
         v31 = dictionaryCopy;
@@ -201,7 +201,7 @@
         goto LABEL_34;
       }
 
-      if (![(__CFString *)v11 isEqualToString:@"search-doc-type"])
+      if (!objc_msgSend_isEqualToString_(v11))
       {
         v34 = 0;
         goto LABEL_44;
@@ -451,7 +451,7 @@ LABEL_16:
             {
               v13 = [v12 objectForKey:@"type"];
               objc_opt_class();
-              if ((objc_opt_isKindOfClass() & 1) != 0 && [v13 isEqualToString:@"page"])
+              if ((objc_opt_isKindOfClass() & 1) != 0 && objc_msgSend_isEqualToString_(v13))
               {
                 v4 = [v12 objectForKey:@"backgroundImage"];
 
@@ -745,7 +745,7 @@ LABEL_22:
   return v29;
 }
 
-uint64_t __72__SUUIStorePageDataConsumer__groupingPageComponentsForDictionary_items___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__72__SUUIStorePageDataConsumer__groupingPageComponentsForDictionary_items___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 componentType];
   if (result != 6 && result != 13)

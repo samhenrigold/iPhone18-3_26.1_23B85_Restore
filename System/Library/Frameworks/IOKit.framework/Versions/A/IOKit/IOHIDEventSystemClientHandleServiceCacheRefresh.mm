@@ -24,25 +24,23 @@ const __CFDictionary *____IOHIDEventSystemClientHandleServiceCacheRefresh_block_
   v5 = *(a1 + 32);
   if (v5 && !CFDictionaryContainsKey(v5, a2))
   {
-    v6 = *(a1 + 40);
     os_unfair_recursive_lock_lock_with_options();
-    v7 = *(a1 + 40);
-    v8 = v7[22];
-    if (v8)
+    v6 = *(a1 + 40);
+    v7 = v6[22];
+    if (v7)
     {
-      (*(v8 + 16))(v8, v7[23], v7[24], a3);
+      (*(v7 + 16))(v7, v6[23], v6[24], a3);
     }
 
     else
     {
-      v9 = v7[21];
-      if (v9)
+      v8 = v6[21];
+      if (v8)
       {
-        v9(v7[23], v7[24], a3);
+        v8(v6[23], v6[24], a3);
       }
     }
 
-    v10 = *(a1 + 40);
     os_unfair_recursive_lock_unlock();
   }
 

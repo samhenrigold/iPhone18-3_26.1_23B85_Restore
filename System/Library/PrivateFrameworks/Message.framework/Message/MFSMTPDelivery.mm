@@ -59,16 +59,16 @@ void __21__MFSMTPDelivery_log__block_invoke(uint64_t a1)
 
 - (id)deliverMessageData:(id)data toRecipients:(id)recipients
 {
-  v92[6] = *MEMORY[0x1E69E9840];
+  v91[6] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   recipientsCopy = recipients;
   hostname = [(MFAccount *)self->super._account hostname];
-  v89 = 1030;
-  v88 = 0;
-  v81 = +[MFActivityMonitor currentMonitor];
-  [v81 resetConnectionStats];
-  v76 = [objc_alloc(MEMORY[0x1E699B310]) initWithDomain:21 type:21];
-  [v76 startActivity];
+  v88 = 1030;
+  v87 = 0;
+  v80 = +[MFActivityMonitor currentMonitor];
+  [v80 resetConnectionStats];
+  v75 = [objc_alloc(MEMORY[0x1E699B310]) initWithDomain:21 type:21];
+  [v75 startActivity];
   if (![(MFConnection *)self->_connection isValid])
   {
     [(MFSMTPDelivery *)self _openConnection];
@@ -81,7 +81,7 @@ void __21__MFSMTPDelivery_log__block_invoke(uint64_t a1)
 
   else
   {
-    v89 = 1044;
+    v88 = 1044;
     v6 = MFLookupLocalizedString(@"NO_SMTP_HOST", @"You have not specified an SMTP server in Mail Preferences. You must specify a server before you can send mail.", @"Delayed");
   }
 
@@ -98,42 +98,21 @@ void __21__MFSMTPDelivery_log__block_invoke(uint64_t a1)
     {
       v22 = 0;
       v23 = 0;
-      v78 = 0;
+      v77 = 0;
       v24 = 1;
       goto LABEL_30;
     }
 
     headers = [(MFMailMessage *)self->super._message headers];
     copyAddressListForResentFrom = [headers copyAddressListForResentFrom];
-    if (![copyAddressListForResentFrom count])
+    if ([copyAddressListForResentFrom count] && ((objc_msgSend(copyAddressListForResentFrom, "objectAtIndex:", 0), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "emailAddressValue"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "simpleAddress"), v14 = objc_claimAutoreleasedReturnValue(), (v15 = v14) == 0) ? (objc_msgSend(v12, "stringValue"), v16 = objc_claimAutoreleasedReturnValue()) : (v16 = v14), v25 = v16, v15, v13, v12, v12, v25))
     {
-      goto LABEL_21;
-    }
-
-    v12 = [copyAddressListForResentFrom objectAtIndex:0];
-    emailAddressValue = [v12 emailAddressValue];
-    simpleAddress = [emailAddressValue simpleAddress];
-    v15 = simpleAddress;
-    if (simpleAddress)
-    {
-      stringValue = simpleAddress;
-    }
-
-    else
-    {
-      stringValue = [v12 stringValue];
-    }
-
-    v25 = stringValue;
-
-    if (v25)
-    {
-      v79 = v25;
+      v78 = v25;
       if (![v25 isEqualToString:&stru_1F273A5E0])
       {
         v26 = v25;
 LABEL_29:
-        v78 = v26;
+        v77 = v26;
         v34 = [v26 dataUsingEncoding:1];
         v23 = v34 == 0;
 
@@ -145,8 +124,7 @@ LABEL_29:
 
     else
     {
-LABEL_21:
-      v79 = 0;
+      v78 = 0;
     }
 
     senders = [(MFMailMessage *)self->super._message senders];
@@ -154,26 +132,26 @@ LABEL_21:
     if ([senders count])
     {
       v28 = [senders objectAtIndex:0];
-      emailAddressValue2 = [v28 emailAddressValue];
-      simpleAddress2 = [emailAddressValue2 simpleAddress];
-      v31 = simpleAddress2;
-      if (simpleAddress2)
+      emailAddressValue = [v28 emailAddressValue];
+      simpleAddress = [emailAddressValue simpleAddress];
+      v31 = simpleAddress;
+      if (simpleAddress)
       {
-        stringValue2 = simpleAddress2;
+        stringValue = simpleAddress;
       }
 
       else
       {
-        stringValue2 = [v28 stringValue];
+        stringValue = [v28 stringValue];
       }
 
-      v33 = stringValue2;
+      v33 = stringValue;
     }
 
     else
     {
       v33 = 0;
-      v28 = v79;
+      v28 = v78;
     }
 
     copyAddressListForResentFrom = senders;
@@ -181,7 +159,7 @@ LABEL_21:
     goto LABEL_29;
   }
 
-  error = [v81 error];
+  error = [v80 error];
 
   if (!error)
   {
@@ -189,7 +167,7 @@ LABEL_21:
     v19 = MFLookupLocalizedString(@"SMTP_NO_CONNECTION", @"The connection to the outgoing server “%@” failed. Additional Outgoing Mail Servers can be configured for Mail accounts in Settings > Apps > Mail > Accounts.", @"Delayed");
     v20 = [v18 stringWithFormat:v19, hostname];
 
-    v89 = 1051;
+    v88 = 1051;
     v6 = v20;
   }
 
@@ -201,29 +179,29 @@ LABEL_21:
 
   v22 = 0;
   v23 = 0;
-  v78 = 0;
+  v77 = 0;
   v24 = 5;
 LABEL_30:
   v35 = *MEMORY[0x1E699B098];
-  v92[0] = *MEMORY[0x1E699B180];
-  v92[1] = v35;
+  v91[0] = *MEMORY[0x1E699B180];
+  v91[1] = v35;
   v36 = *MEMORY[0x1E699B170];
-  v92[2] = *MEMORY[0x1E699B088];
-  v92[3] = v36;
+  v91[2] = *MEMORY[0x1E699B088];
+  v91[3] = v36;
   v37 = *MEMORY[0x1E699B150];
-  v92[4] = *MEMORY[0x1E699B158];
-  v92[5] = v37;
-  v73 = [MEMORY[0x1E695DEC8] arrayWithObjects:v92 count:6];
+  v91[4] = *MEMORY[0x1E699B158];
+  v91[5] = v37;
+  v72 = [MEMORY[0x1E695DEC8] arrayWithObjects:v91 count:6];
   headersForDelivery = [(MFMailDelivery *)self headersForDelivery];
   headersRequiringSMTPUTF8Support = [headersForDelivery headersRequiringSMTPUTF8Support];
 
-  v86[0] = MEMORY[0x1E69E9820];
-  v86[1] = 3221225472;
-  v86[2] = __50__MFSMTPDelivery_deliverMessageData_toRecipients___block_invoke;
-  v86[3] = &unk_1E7AA66D0;
-  v72 = v73;
-  v87 = v72;
-  if ((v23 | [headersRequiringSMTPUTF8Support ef_any:v86]))
+  v85[0] = MEMORY[0x1E69E9820];
+  v85[1] = 3221225472;
+  v85[2] = __50__MFSMTPDelivery_deliverMessageData_toRecipients___block_invoke;
+  v85[3] = &unk_1E7AA66D0;
+  v71 = v72;
+  v86 = v71;
+  if ((v23 | [headersRequiringSMTPUTF8Support ef_any:v85]))
   {
     if (![(MFSMTPConnection *)self->_connection supportsSMTPUTF8])
     {
@@ -232,7 +210,7 @@ LABEL_30:
       {
         message = self->super._message;
         *buf = 138412290;
-        v91 = message;
+        v90 = message;
         _os_log_impl(&dword_1B0389000, v60, OS_LOG_TYPE_DEFAULT, "SMTPUTF8 is not supported: %@", buf, 0xCu);
       }
 
@@ -247,7 +225,7 @@ LABEL_30:
         v62 = 1049;
       }
 
-      v89 = v62;
+      v88 = v62;
       if (v23)
       {
         MFLookupLocalizedString(@"SMTP_INVALID_SENDER_ADDRESS", @"The sender address “%@” was rejected by the server.", @"Delayed");
@@ -267,7 +245,7 @@ LABEL_30:
     {
       v40 = self->super._message;
       *buf = 138412290;
-      v91 = v40;
+      v90 = v40;
       _os_log_impl(&dword_1B0389000, v39, OS_LOG_TYPE_DEFAULT, "Enabling SMTPUTF8 support for message delivery: %@", buf, 0xCu);
     }
 
@@ -322,16 +300,16 @@ LABEL_52:
   [(MFConnection *)self->_connection enableThroughputMonitoring:1];
   [(MFConnection *)self->_connection startActivity];
   v55 = self->_connection;
-  v84 = v6;
-  v85 = 0;
+  v83 = v6;
+  v84 = 0;
+  v81 = 0;
   v82 = 0;
-  v83 = 0;
-  v24 = [(MFSMTPConnection *)v55 mailFrom:v78 recipients:recipientsCopy withData:dataCopy host:hostname emailFormatStyle:v41 errorTitle:&v85 errorMessage:&v84 serverResponse:&v83 displayError:&v88 errorCode:&v89 errorUserInfo:&v82];
-  v42 = v85;
-  v46 = v84;
+  v24 = [(MFSMTPConnection *)v55 mailFrom:v77 recipients:recipientsCopy withData:dataCopy host:hostname emailFormatStyle:v41 errorTitle:&v84 errorMessage:&v83 serverResponse:&v82 displayError:&v87 errorCode:&v88 errorUserInfo:&v81];
+  v42 = v84;
+  v46 = v83;
 
-  v44 = v83;
-  v43 = v82;
+  v44 = v82;
+  v43 = v81;
   [(MFConnection *)self->_connection stopActivity];
   [(MFConnection *)self->_connection enableThroughputMonitoring:0];
   v56 = CFAbsoluteTimeGetCurrent();
@@ -347,8 +325,8 @@ LABEL_52:
     if (v46)
     {
 LABEL_56:
-      v63 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:v89 localizedDescription:0 title:v42 userInfo:v43];
-      if (v88 == 1)
+      v63 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:v88 localizedDescription:0 title:v42 userInfo:v43];
+      if (v87 == 1)
       {
         v64 = MFLookupLocalizedString(@"FAILED_SEND_TITLE", @"Cannot Send Mail", @"Delayed");
         [v63 setShortDescription:v64];
@@ -359,7 +337,7 @@ LABEL_56:
       v65 = [MEMORY[0x1E696AD98] numberWithBool:1];
       [v63 setUserInfoObject:v65 forKey:@"MailErrorHandlerDoNotSanitize"];
 
-      [v81 setError:v63];
+      [v80 setError:v63];
       v66 = +[MFSMTPDelivery log];
       if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
@@ -390,7 +368,7 @@ LABEL_53:
   }
 
   v63 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1028 localizedDescription:0];
-  [v81 setError:v63];
+  [v80 setError:v63];
   v58 = 0;
   v24 = 4;
 LABEL_61:
@@ -399,10 +377,8 @@ LABEL_61:
 LABEL_62:
   v69 = [[MFDeliveryResult alloc] initWithStatus:v24];
   [(MFDeliveryResult *)v69 setDuration:v45];
-  -[MFDeliveryResult setBytesSent:](v69, "setBytesSent:", [v81 bytesWritten]);
-  [v76 stopActivityWithSuccess:v58];
-
-  v70 = *MEMORY[0x1E69E9840];
+  -[MFDeliveryResult setBytesSent:](v69, "setBytesSent:", [v80 bytesWritten]);
+  [v75 stopActivityWithSuccess:v58];
 
   return v69;
 }

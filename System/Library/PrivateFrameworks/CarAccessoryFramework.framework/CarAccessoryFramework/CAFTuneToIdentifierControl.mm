@@ -52,25 +52,23 @@
 
 - (void)tuneToIdentifier:(id)identifier sourceIdentifier:(id)sourceIdentifier completion:(id)completion
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v17[0] = @"identifier";
-  v17[1] = @"sourceIdentifier";
-  v18[0] = identifier;
-  v18[1] = sourceIdentifier;
+  v16[0] = @"identifier";
+  v16[1] = @"sourceIdentifier";
+  v17[0] = identifier;
+  v17[1] = sourceIdentifier;
   v9 = MEMORY[0x277CBEAC0];
   sourceIdentifierCopy = sourceIdentifier;
   identifierCopy = identifier;
-  v12 = [v9 dictionaryWithObjects:v18 forKeys:v17 count:2];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __75__CAFTuneToIdentifierControl_tuneToIdentifier_sourceIdentifier_completion___block_invoke;
-  v15[3] = &unk_27890EFF8;
-  v16 = completionCopy;
+  v12 = [v9 dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __75__CAFTuneToIdentifierControl_tuneToIdentifier_sourceIdentifier_completion___block_invoke;
+  v14[3] = &unk_27890EFF8;
+  v15 = completionCopy;
   v13 = completionCopy;
-  [(CAFControl *)self requestWithValue:v12 response:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [(CAFControl *)self requestWithValue:v12 response:v14];
 }
 
 uint64_t __75__CAFTuneToIdentifierControl_tuneToIdentifier_sourceIdentifier_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)

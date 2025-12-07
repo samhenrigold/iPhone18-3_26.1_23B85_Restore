@@ -21,9 +21,9 @@
 - (CRSessionInfo)initWithNotification:(id)notification
 {
   notificationCopy = notification;
-  v11.receiver = self;
-  v11.super_class = CRSessionInfo;
-  v5 = [(CRSessionInfo *)&v11 init];
+  v13.receiver = self;
+  v13.super_class = CRSessionInfo;
+  v5 = [(CRSessionInfo *)&v13 init];
   if (v5)
   {
     request = [notificationCopy request];
@@ -46,7 +46,7 @@
 
     else
     {
-      sub_100005348();
+      sub_100005348(v10, v11);
     }
   }
 

@@ -17,7 +17,7 @@
   viewCopy = view;
   iconCopy = icon;
 
-  sub_21EA5BE14(viewCopy);
+  sub_21EA5BE14(viewCopy, v7);
 }
 
 @end

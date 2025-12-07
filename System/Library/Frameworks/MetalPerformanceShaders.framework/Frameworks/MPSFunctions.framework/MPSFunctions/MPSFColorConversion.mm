@@ -873,12 +873,12 @@ LABEL_33:
   v3 = MEMORY[0x28223BE20](self, a2, coder);
   v5 = v4;
   v6 = v3;
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   v7 = *(v3 + 32);
   *(v3 + 34) = 1;
-  v74.receiver = v3;
-  v74.super_class = MPSFColorConversion;
-  [(MPSFunction *)&v74 encodeWithCoder:?];
+  v73.receiver = v3;
+  v73.super_class = MPSFColorConversion;
+  [(MPSFunction *)&v73 encodeWithCoder:?];
   *(v6 + 32) = v7;
   objc_msgSend_encodeInt64_forKey_(v5, v8, *(v6 + 48), @"MPSFColorConversion.options");
   objc_msgSend_encodeInteger_forKey_(v5, v9, *(v6 + 56), @"MPSFColorConversion.inputChannels");
@@ -930,16 +930,16 @@ LABEL_33:
         v68 = v67;
         if (v67 <= 0x1000)
         {
-          v69 = v75;
+          v69 = v74;
 LABEL_9:
-          v72 = v68;
-          v73 = v69;
-          if ((*(*v60 + 88))(v60, &v73, &v72))
+          v71 = v68;
+          v72 = v69;
+          if ((*(*v60 + 88))(v60, &v72, &v71))
           {
             objc_msgSend_encodeBytes_length_forKey_(v5, v70, v69, v68, v66);
           }
 
-          if (v69 != v75)
+          if (v69 != v74)
           {
             free(v69);
           }
@@ -968,7 +968,6 @@ LABEL_3:
   v61 = 0;
 LABEL_14:
   objc_msgSend_encodeInteger_forKey_(v5, v59, v61, @"MPSFColorConversion.stageCount");
-  v71 = *MEMORY[0x277D85DE8];
 }
 
 - (void)optimizeStages
@@ -1009,50 +1008,50 @@ LABEL_14:
 
 - (id)newDAGUsingFunctionList:(id)list
 {
-  v75 = *MEMORY[0x277D85DE8];
-  v73 = 0;
+  v59 = *MEMORY[0x277D85DE8];
+  v57 = 0;
   v6 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"%@_f32", v3, self->super._name);
   v9 = objc_msgSend_cStringUsingEncoding_(v6, v7, 4, v8);
-  sub_239929E3C(&v73, "DAGS {\n\t%s {\n\t\tALWAYS_INLINE;\n\t\tNODE( tex1d_1) : FUNCTION( MPSFColorConversion_DeclareTex1d1), INPUT(%u);\n\t\tNODE( tex3d_1) : FUNCTION( MPSFColorConversion_DeclareTex3d1), INPUT(%u);\n\t\tNODE( tex3d_2) : FUNCTION( MPSFColorConversion_DeclareTex3d2), INPUT(%u);\n", v10, v11, v12, v13, v14, v15, v9);
-  v18 = objc_msgSend_newFunctionWithName_(self->super._library, v16, @"MPSFColorConversion_DeclareTex1d1", v17);
-  objc_msgSend_addObject_(list, v19, v18, v20);
-  v23 = objc_msgSend_newFunctionWithName_(self->super._library, v21, @"MPSFColorConversion_DeclareTex3d1", v22);
-  objc_msgSend_addObject_(list, v24, v23, v25);
-  v28 = objc_msgSend_newFunctionWithName_(self->super._library, v26, @"MPSFColorConversion_DeclareTex3d2", v27);
-  objc_msgSend_addObject_(list, v29, v28, v30);
-  v72 = 1;
-  v74[0] = *"INPUT(0)";
-  memset(&v74[1], 0, 240);
+  sub_239929E3C(&v57, "DAGS {\n\t%s {\n\t\tALWAYS_INLINE;\n\t\tNODE( tex1d_1) : FUNCTION( MPSFColorConversion_DeclareTex1d1), INPUT(%u);\n\t\tNODE( tex3d_1) : FUNCTION( MPSFColorConversion_DeclareTex3d1), INPUT(%u);\n\t\tNODE( tex3d_2) : FUNCTION( MPSFColorConversion_DeclareTex3d2), INPUT(%u);\n", v9, 1, 2, 3);
+  v12 = objc_msgSend_newFunctionWithName_(self->super._library, v10, @"MPSFColorConversion_DeclareTex1d1", v11);
+  objc_msgSend_addObject_(list, v13, v12, v14);
+  v17 = objc_msgSend_newFunctionWithName_(self->super._library, v15, @"MPSFColorConversion_DeclareTex3d1", v16);
+  objc_msgSend_addObject_(list, v18, v17, v19);
+  v22 = objc_msgSend_newFunctionWithName_(self->super._library, v20, @"MPSFColorConversion_DeclareTex3d2", v21);
+  objc_msgSend_addObject_(list, v23, v22, v24);
+  v56 = 1;
+  v58[0] = *"INPUT(0)";
+  memset(&v58[1], 0, 240);
   stageList = self->_stageList;
   if (stageList)
   {
-    v38 = 0;
-    v39 = 0;
+    v26 = 0;
+    v27 = 0;
     do
     {
-      v40 = v39 ^ 1;
+      v28 = v27 ^ 1;
       if (stageList->var1)
       {
-        snprintf(&v74[8 * (v39 ^ 1)], 0x80uLL, "NODE(f%lu)", v38);
+        snprintf(&v58[8 * (v27 ^ 1)], 0x80uLL, "NODE(f%lu)", v26);
       }
 
       else
       {
-        strcpy(&v74[8 * (v39 ^ 1)], "OUTPUT(o)");
+        strcpy(&v58[8 * (v27 ^ 1)], "OUTPUT(o)");
       }
 
-      v41 = (*(stageList->var0 + 7))(stageList, &v73, v38, &v72, &v74[8 * v39], &v74[8 * (v39 ^ 1)], list, self->super._library);
-      if (v41 && (self->_options & 0x200) != 0)
+      v29 = (*(stageList->var0 + 7))(stageList, &v57, v26, &v56, &v58[8 * v27], &v58[8 * (v27 ^ 1)], list, self->super._library);
+      if (v29 && (self->_options & 0x200) != 0)
       {
-        v49 = v41;
-        v71 = objc_msgSend_localizedDescription(v41, v42, v43, v44);
-        objc_msgSend_localizedFailureReason(v49, v50, v51, v52);
-        NSLog(&cfstr_DagBuildErrorN.isa);
+        v33 = v29;
+        v34 = objc_msgSend_localizedDescription(v29, v30, v31, v32);
+        v38 = objc_msgSend_localizedFailureReason(v33, v35, v36, v37);
+        NSLog(&cfstr_DagBuildErrorN.isa, v34, v38);
       }
 
       stageList = stageList->var1;
-      ++v38;
-      v39 = v40;
+      ++v26;
+      v27 = v28;
     }
 
     while (stageList);
@@ -1060,37 +1059,36 @@ LABEL_14:
 
   else
   {
-    sub_239929E3C(&v73, "\t\t\tOUTPUT(o) : FUNCTION( MPSFColorConversion_DoNothing_float4), INPUT(0);\n", v31, v32, v33, v34, v35, v36, v71);
-    v55 = objc_msgSend_newFunctionWithName_(self->super._library, v53, @"MPSFColorConversion_DoNothing_float4", v54);
-    objc_msgSend_addObject_(list, v56, v55, v57);
+    sub_239929E3C(&v57, "\t\t\tOUTPUT(o) : FUNCTION( MPSFColorConversion_DoNothing_float4), INPUT(0);\n");
+    v41 = objc_msgSend_newFunctionWithName_(self->super._library, v39, @"MPSFColorConversion_DoNothing_float4", v40);
+    objc_msgSend_addObject_(list, v42, v41, v43);
   }
 
-  sub_239929E3C(&v73, "\t}\n}", v43, v44, v45, v46, v47, v48, v71);
-  v58 = sub_239931734(&v73);
+  sub_239929E3C(&v57, "\t}\n}");
+  v44 = sub_239931734(&v57);
   if ((self->_options & 0x200) != 0)
   {
     device = self->super._device;
     objc_sync_enter(device);
-    v63 = objc_msgSend_description(self, v60, v61, v62);
-    v67 = objc_msgSend_debugDescription(list, v64, v65, v66);
-    NSLog(&cfstr_DagFunctionlis.isa, v58, v63, v67, 3, v72);
+    v49 = objc_msgSend_description(self, v46, v47, v48);
+    v53 = objc_msgSend_debugDescription(list, v50, v51, v52);
+    NSLog(&cfstr_DagFunctionlis.isa, v44, v49, v53);
     objc_sync_exit(device);
   }
 
   while (1)
   {
-    v68 = v73;
-    if (!v73)
+    v54 = v57;
+    if (!v57)
     {
       break;
     }
 
-    v73 = *v73;
-    free(v68);
+    v57 = *v57;
+    free(v54);
   }
 
-  v69 = *MEMORY[0x277D85DE8];
-  return v58;
+  return v44;
 }
 
 - (void)effectiveRange:(__n128)range
@@ -1337,83 +1335,82 @@ LABEL_14:
 
 - (id)debugDescription
 {
-  v77.receiver = self;
-  v77.super_class = MPSFColorConversion;
-  v72 = [(MPSFunction *)&v77 debugDescription];
-  v76 = 0;
+  v22.receiver = self;
+  v22.super_class = MPSFColorConversion;
+  v17 = [(MPSFunction *)&v22 debugDescription];
+  v21 = 0;
   v3 = *&self->_anon_50[16];
-  v74 = *self->_anon_50;
-  v75 = v3;
-  sub_239929E3C(&v76, "\tStarting range:  ", v4, v5, v6, v7, v8, v9, v66);
-  sub_239929E3C(&v76, "{ ", v10, v11, v12, v13, v14, v15, v67);
-  v78 = vzip1_s32(*&v75, *&v74);
-  sub_239931904(&v76, &v78);
-  v78 = __PAIR64__(DWORD1(v74), DWORD1(v75));
-  sub_239931904(&v76, &v78);
-  v78 = __PAIR64__(DWORD2(v74), DWORD2(v75));
-  sub_239931904(&v76, &v78);
-  v78 = __PAIR64__(HIDWORD(v74), HIDWORD(v75));
-  sub_239931904(&v76, &v78);
-  sub_239929E3C(&v76, "%s", v16, v17, v18, v19, v20, v21, "\n");
+  v19 = *self->_anon_50;
+  v20 = v3;
+  sub_239929E3C(&v21, "\tStarting range:  ");
+  sub_239929E3C(&v21, "{ ");
+  v23 = vzip1_s32(*&v20, *&v19);
+  sub_239931904(&v21, &v23, ", ");
+  v23 = __PAIR64__(DWORD1(v19), DWORD1(v20));
+  sub_239931904(&v21, &v23, ", ");
+  v23 = __PAIR64__(DWORD2(v19), DWORD2(v20));
+  sub_239931904(&v21, &v23, ", ");
+  v23 = __PAIR64__(HIDWORD(v19), HIDWORD(v20));
+  sub_239931904(&v21, &v23, " }");
+  sub_239929E3C(&v21, "%s", "\n");
   stageList = self->_stageList;
   if (stageList)
   {
     while (1)
     {
-      sub_239929E3C(&v76, "\n", v22, v23, v24, v25, v26, v27, v68);
-      (*(stageList->var0 + 6))(stageList, &v76);
-      v73 = 0;
-      *&v35 = (*(stageList->var0 + 8))(stageList, &v74, &v73);
-      v74 = v35;
-      v75 = v36;
+      sub_239929E3C(&v21, "\n");
+      (*(stageList->var0 + 6))(stageList, &v21);
+      v18 = 0;
+      *&v5 = (*(stageList->var0 + 8))(stageList, &v19, &v18);
+      v19 = v5;
+      v20 = v6;
       if (stageList->var1)
       {
-        v37 = "\n\tcurrent range:  ";
+        sub_239929E3C(&v21, "\n\tcurrent range:  ");
       }
 
       else
       {
-        v37 = "\n\tfinal range:   ";
+        sub_239929E3C(&v21, "\n\tfinal range:   ");
       }
 
-      sub_239929E3C(&v76, v37, v29, v30, v31, v32, v33, v34, v69);
-      sub_239929E3C(&v76, "{ ", v38, v39, v40, v41, v42, v43, v70);
-      v78 = vzip1_s32(*&v75, *&v74);
-      sub_239931904(&v76, &v78);
-      v78 = __PAIR64__(DWORD1(v74), DWORD1(v75));
-      sub_239931904(&v76, &v78);
-      v78 = __PAIR64__(DWORD2(v74), DWORD2(v75));
-      sub_239931904(&v76, &v78);
-      v78 = __PAIR64__(HIDWORD(v74), HIDWORD(v75));
-      sub_239931904(&v76, &v78);
-      sub_239929E3C(&v76, "%s", v44, v45, v46, v47, v48, v49, "\n");
-      if (!v73)
+      sub_239929E3C(&v21, "{ ");
+      v23 = vzip1_s32(*&v20, *&v19);
+      sub_239931904(&v21, &v23, ", ");
+      v23 = __PAIR64__(DWORD1(v19), DWORD1(v20));
+      sub_239931904(&v21, &v23, ", ");
+      v23 = __PAIR64__(DWORD2(v19), DWORD2(v20));
+      sub_239931904(&v21, &v23, ", ");
+      v23 = __PAIR64__(HIDWORD(v19), HIDWORD(v20));
+      sub_239931904(&v21, &v23, " }");
+      sub_239929E3C(&v21, "%s", "\n");
+      if (!v18)
       {
         goto LABEL_4;
       }
 
-      sub_239929E3C(&v76, "\tclamps applied: ", v22, v23, v24, v25, v26, v27, v68);
-      v56 = v73;
-      if (v73)
+      sub_239929E3C(&v21, "\tclamps applied: ");
+      v7 = v18;
+      if (v18)
       {
         break;
       }
 
-      v57 = &unk_2399382D3;
-      if ((v73 & 2) != 0)
+      v8 = &unk_2399382D3;
+      if ((v18 & 2) != 0)
       {
         goto LABEL_13;
       }
 
 LABEL_14:
-      if ((v56 & 4) != 0)
+      if ((v7 & 4) != 0)
       {
-        sub_239929E3C(&v76, "%soutput\n", v50, v51, v52, v53, v54, v55, v57);
+        sub_239929E3C(&v21, "%soutput\n", v8);
       }
 
       else
       {
-        sub_239929E3C(&v76, "\n", v50, v51, v52, v53, v54, v55, v71);
+        sub_239929E3C(&v21, "\n");
       }
 
 LABEL_4:
@@ -1424,34 +1421,34 @@ LABEL_4:
       }
     }
 
-    sub_239929E3C(&v76, "input ", v50, v51, v52, v53, v54, v55, v71);
-    v56 = v73;
-    v57 = ", ";
-    if ((v73 & 2) == 0)
+    sub_239929E3C(&v21, "input ");
+    v7 = v18;
+    v8 = ", ";
+    if ((v18 & 2) == 0)
     {
       goto LABEL_14;
     }
 
 LABEL_13:
-    sub_239929E3C(&v76, "%ssignedReflection", v50, v51, v52, v53, v54, v55, v57);
-    v56 = v73;
-    v57 = ", ";
+    sub_239929E3C(&v21, "%ssignedReflection", v8);
+    v7 = v18;
+    v8 = ", ";
     goto LABEL_14;
   }
 
 LABEL_16:
-  v58 = sub_239931734(&v76);
-  v59 = objc_alloc(MEMORY[0x277CCACA8]);
-  v62 = objc_msgSend_initWithFormat_(v59, v60, @"%@\n%@\n", v61, v72, v58);
+  v9 = sub_239931734(&v21);
+  v10 = objc_alloc(MEMORY[0x277CCACA8]);
+  v13 = objc_msgSend_initWithFormat_(v10, v11, @"%@\n%@\n", v12, v17, v9);
 
-  v63 = v62;
-  for (i = v76; v76; i = v76)
+  v14 = v13;
+  for (i = v21; v21; i = v21)
   {
-    v76 = *i;
+    v21 = *i;
     free(i);
   }
 
-  return v63;
+  return v14;
 }
 
 @end

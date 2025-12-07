@@ -25,80 +25,80 @@
 - (void)makeMLIROpWithBuilder:(void *)builder symbolTable:(void *)table inputValues:(void *)values opInitialization:(BOOL)initialization name:(id)name
 {
   nameCopy = name;
-  mpsFileLoc("[MPSGraphPadOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphTensorShapeOps.mm", v29);
+  mpsFileLoc(v30, "[MPSGraphPadOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphTensorShapeOps.mm");
   v11 = nameCopy;
   v35 = 260;
-  v34[0] = v29;
+  v34[0] = v30;
   StringAttr = mlir::Builder::getStringAttr(builder, v34);
-  v14 = mlir::FileLineColLoc::get(StringAttr, 0x3B9u, 0);
+  v15 = mlir::FileLineColLoc::get(StringAttr, 0x3B9u, 0);
   if (v11)
   {
     uTF8String = [v11 UTF8String];
-    v16 = strlen(uTF8String);
-    if (v16 >= 0x7FFFFFFFFFFFFFF8)
+    v17 = strlen(uTF8String);
+    if (v17 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v17 = v16;
-    if (v16 >= 0x17)
+    v18 = v17;
+    if (v17 >= 0x17)
     {
       operator new();
     }
 
-    v33 = v16;
-    if (v16)
+    *(&__dst.__r_.__value_.__s + 23) = v17;
+    if (v17)
     {
-      memmove(&__dst, uTF8String, v16);
+      memmove(&__dst, uTF8String, v17);
     }
 
-    v18 = &__dst + v17;
+    v19 = &__dst + v18;
   }
 
   else
   {
-    v33 = 7;
+    *(&__dst.__r_.__value_.__s + 23) = 7;
     qmemcpy(&__dst, "mps.pad", 7);
-    v18 = &__dst + 7;
+    v19 = &__dst.__r_.__value_.__s.__data_[7];
   }
 
-  *v18 = 0;
-  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, v13, &__p);
+  *v19 = 0;
+  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, &__p, v13, v14);
   p_p = __p.__r_.__value_.__r.__words[0];
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
   }
 
-  v20 = 1;
+  v21 = 1;
   HIBYTE(v35) = 1;
   if (p_p->__r_.__value_.__s.__data_[0])
   {
     v34[0] = p_p;
-    v20 = 3;
+    v21 = 3;
   }
 
-  LOBYTE(v35) = v20;
-  v21 = mlir::Builder::getStringAttr(builder, v34);
-  v22 = mlir::NameLoc::get(v21, v14);
+  LOBYTE(v35) = v21;
+  v22 = mlir::Builder::getStringAttr(builder, v34);
+  v23 = mlir::NameLoc::get(v22, v15);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if ((v33 & 0x80000000) == 0)
+    if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
 LABEL_16:
 
-      if ((v30 & 0x80000000) == 0)
+      if ((v31 & 0x80000000) == 0)
       {
         goto LABEL_17;
       }
 
 LABEL_21:
-      operator delete(v29[0]);
-      v23 = *values;
-      v24 = *(values + 1);
-      v25 = v24 - *values;
-      if (v25 == 16)
+      operator delete(v30[0]);
+      v24 = *values;
+      v25 = *(values + 1);
+      v26 = v25 - *values;
+      if (v26 == 16)
       {
         goto LABEL_25;
       }
@@ -107,36 +107,36 @@ LABEL_21:
     }
   }
 
-  else if ((v33 & 0x80000000) == 0)
+  else if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_16;
   }
 
-  operator delete(__dst);
+  operator delete(__dst.__r_.__value_.__l.__data_);
 
-  if (v30 < 0)
+  if (v31 < 0)
   {
     goto LABEL_21;
   }
 
 LABEL_17:
-  v23 = *values;
-  v24 = *(values + 1);
-  v25 = v24 - *values;
-  if (v25 == 16)
+  v24 = *values;
+  v25 = *(values + 1);
+  v26 = v25 - *values;
+  if (v26 == 16)
   {
     goto LABEL_25;
   }
 
 LABEL_22:
-  if (v24 == v23 || v25 <= 8)
+  if (v25 == v24 || v26 <= 8)
   {
 LABEL_25:
     std::vector<mlir::Value>::__throw_out_of_range[abi:ne200100]();
   }
 
-  LODWORD(__dst) = self->_paddingMode;
-  v34[0] = mlir::OpBuilder::create<mlir::mps::PadOp,mlir::Value &,mlir::Value &,mlir::Value &,mlir::mps::PaddingMode>(builder, v22, v23, v23 + 1, v23 + 2, &__dst) - 16;
+  LODWORD(__dst.__r_.__value_.__l.__data_) = self->_paddingMode;
+  v34[0] = (mlir::OpBuilder::create<mlir::mps::PadOp,mlir::Value &,mlir::Value &,mlir::Value &,mlir::mps::PaddingMode>(builder, v23, v24, v24 + 1, v24 + 2, &__dst) - 16);
   DefiningOp = mlir::Value::getDefiningOp(v34);
 
   return DefiningOp;

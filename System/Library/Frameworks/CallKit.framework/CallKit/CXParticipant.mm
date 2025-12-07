@@ -159,14 +159,14 @@
 
         if (v16)
         {
-          v17 = v12;
+          v18 = v12;
           p_super = &v5->_sandboxExtendedImageURL->super;
-          v5->_sandboxExtendedImageURL = v17;
+          v5->_sandboxExtendedImageURL = v18;
         }
 
         else
         {
-          p_super = CXDefaultLog();
+          p_super = CXDefaultLog(v17);
           if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
@@ -178,14 +178,13 @@
 
       else
       {
-        v19 = v12;
+        v20 = v12;
         sandboxExtendedImageURL = v5->_sandboxExtendedImageURL;
-        v5->_sandboxExtendedImageURL = v19;
+        v5->_sandboxExtendedImageURL = v20;
       }
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

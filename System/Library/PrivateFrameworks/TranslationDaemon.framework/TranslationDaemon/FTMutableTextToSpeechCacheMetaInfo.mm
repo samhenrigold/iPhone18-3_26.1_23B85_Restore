@@ -4,8 +4,10 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (int)audio_length;
 - (int64_t)audio_type;
+- (void)setAudio_length:(int)audio_length;
 - (void)setAudio_type:(int64_t)audio_type;
 - (void)setDecoder_description:(id)decoder_description;
+- (void)setEnable_word_timing_info:(BOOL)enable_word_timing_info;
 - (void)setMeta_info:(id)meta_info;
 - (void)setOriginal_session_id:(id)original_session_id;
 - (void)setPlayback_description:(id)playback_description;
@@ -67,6 +69,12 @@
   return bOOLValue;
 }
 
+- (void)setEnable_word_timing_info:(BOOL)enable_word_timing_info
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:enable_word_timing_info];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (void)setDecoder_description:(id)decoder_description
 {
   v4 = [decoder_description copy];
@@ -85,6 +93,12 @@
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setAudio_length:(int)audio_length
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&audio_length];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (void)setText:(id)text

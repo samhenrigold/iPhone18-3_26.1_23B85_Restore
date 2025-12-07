@@ -177,24 +177,24 @@
 {
   serverNameCopy = serverName;
   classCopy = class;
-  v11 = DMTFormattedEnrollmentOrganizationNameFrom(name);
-  v12 = DMTLocalizedOrganizationMarketingNameForOrganizationType(type);
+  v12 = DMTFormattedEnrollmentOrganizationNameFrom(name, v11);
+  v14 = DMTLocalizedOrganizationMarketingNameForOrganizationType(type, v13);
   if ([serverNameCopy length])
   {
-    v13 = DMTDetailTextSuccessfulEnrollmentWithMDMServerFor(classCopy);
+    v15 = DMTDetailTextSuccessfulEnrollmentWithMDMServerFor(classCopy);
 
-    [MEMORY[0x277CCACA8] stringWithValidatedFormat:v13 validFormatSpecifiers:@"%@%@%@" error:0, v11, serverNameCopy, v12];
+    [MEMORY[0x277CCACA8] stringWithValidatedFormat:v15 validFormatSpecifiers:@"%@%@%@" error:0, v12, serverNameCopy, v14];
   }
 
   else
   {
-    v13 = DMTDetailTextSuccessfulEnrollmentFor(classCopy);
+    v15 = DMTDetailTextSuccessfulEnrollmentFor(classCopy);
 
-    [MEMORY[0x277CCACA8] stringWithValidatedFormat:v13 validFormatSpecifiers:@"%@%@" error:0, v11, v12, v16];
+    [MEMORY[0x277CCACA8] stringWithValidatedFormat:v15 validFormatSpecifiers:@"%@%@" error:0, v12, v14, v18];
   }
-  v14 = ;
+  v16 = ;
 
-  return v14;
+  return v16;
 }
 
 @end

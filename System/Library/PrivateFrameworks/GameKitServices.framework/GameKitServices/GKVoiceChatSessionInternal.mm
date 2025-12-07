@@ -30,6 +30,7 @@
 - (void)sendConnectedPeers;
 - (void)sendMutedPeers;
 - (void)session:(id)session didReceiveOOBAudioPacket:(id)packet fromPeerID:(id)d;
+- (void)session:(id)session peer:(id)peer didChangeState:(unsigned int)state;
 - (void)setActiveSession:(BOOL)session;
 - (void)setDelegate:(id)delegate;
 - (void)setMute:(BOOL)mute forPeer:(id)peer;
@@ -40,10 +41,12 @@
 - (void)stopSessionInternal;
 - (void)unPauseAll;
 - (void)updatedConnectedPeers:(id)peers;
+- (void)updatedFocusID:(unsigned int)d;
 - (void)updatedFocusPeers:(id)peers;
 - (void)updatedMutedPeers:(id)peers forPeer:(id)peer;
 - (void)updatedSubscribedBeaconList:(id)list;
 - (void)voiceChatService:(id)service didNotStartWithParticipantID:(id)d error:(id)error;
+- (void)voiceChatService:(id)service didReceiveInvitationFromParticipantID:(id)d callID:(unsigned int)iD;
 - (void)voiceChatService:(id)service didStartWithParticipantID:(id)d;
 - (void)voiceChatService:(id)service didStopWithParticipantID:(id)d error:(id)error;
 - (void)voiceChatService:(id)service sendData:(id)data toParticipantID:(id)d;
@@ -54,51 +57,46 @@
 - (void)interfaceStateDidChangeWithWifiUp:(BOOL)up cellUp:(BOOL)cellUp
 {
   upCopy = up;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 5)
   {
     v6 = VRTraceErrorLogLevelToCSTR();
     v7 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315906;
-      v11 = v6;
-      v12 = 2080;
-      v13 = "[GKVoiceChatSessionInternal interfaceStateDidChangeWithWifiUp:cellUp:]";
-      v14 = 1024;
-      v15 = 79;
-      v16 = 1024;
-      v17 = upCopy;
-      _os_log_impl(&dword_24E50C000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKVoiceChatSesion_Internal current wifi state: %d", &v10, 0x22u);
+      v9 = 136315906;
+      v10 = v6;
+      v11 = 2080;
+      v12 = "[GKVoiceChatSessionInternal interfaceStateDidChangeWithWifiUp:cellUp:]";
+      v13 = 1024;
+      v14 = 79;
+      v15 = 1024;
+      v16 = upCopy;
+      _os_log_impl(&dword_24E50C000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKVoiceChatSesion_Internal current wifi state: %d", &v9, 0x22u);
     }
   }
 
   [(GKRWLock *)self->_rwLock wrlock];
   self->_currentWifiState = upCopy;
   sessionState = self->_sessionState;
-  if (!upCopy)
+  if (upCopy)
   {
-    if (sessionState == 1)
+    if (!sessionState)
     {
       [(GKRWLock *)self->_rwLock unlock];
-      [(GKVoiceChatSessionInternal *)self stopSessionInternal];
-      goto LABEL_10;
+      [(GKVoiceChatSessionInternal *)self startSessionInternal];
+      return;
     }
-
-LABEL_9:
-    [(GKRWLock *)self->_rwLock unlock];
-    goto LABEL_10;
   }
 
-  if (sessionState)
+  else if (sessionState == 1)
   {
-    goto LABEL_9;
+    [(GKRWLock *)self->_rwLock unlock];
+    [(GKVoiceChatSessionInternal *)self stopSessionInternal];
+    return;
   }
 
   [(GKRWLock *)self->_rwLock unlock];
-  [(GKVoiceChatSessionInternal *)self startSessionInternal];
-LABEL_10:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (GKVoiceChatSessionInternal)initWithGameStateSession:(id)session publicWrapper:(id)wrapper sessionName:(id)name
@@ -158,12 +156,11 @@ LABEL_10:
 
 - (void)calculateConferenceID
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 0xAAAAAAAAAAAAAAAALL;
   v4 = 0xAAAAAAAAAAAAAAAALL;
-  v5 = 0xAAAAAAAAAAAAAAAALL;
-  [GKVoiceChatSessionInternal brokenHash:self->_sessionName response:&v4];
-  self->_conferenceID = HIDWORD(v5);
-  v3 = *MEMORY[0x277D85DE8];
+  [GKVoiceChatSessionInternal brokenHash:self->_sessionName response:&v3];
+  self->_conferenceID = HIDWORD(v4);
 }
 
 - (id)encodePeerID:(id)d
@@ -192,7 +189,7 @@ LABEL_10:
 
 - (void)dealloc
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
 
   self->_roster = 0;
   objc_storeWeak(&self->_gameStateSession, 0);
@@ -224,19 +221,18 @@ LABEL_10:
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v9 = v4;
-      v10 = 2080;
-      v11 = "[GKVoiceChatSessionInternal dealloc]";
-      v12 = 1024;
-      v13 = 205;
+      v8 = v4;
+      v9 = 2080;
+      v10 = "[GKVoiceChatSessionInternal dealloc]";
+      v11 = 1024;
+      v12 = 205;
       _os_log_impl(&dword_24E50C000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKVoiceChatSessionInternal getting dealloced", buf, 0x1Cu);
     }
   }
 
-  v7.receiver = self;
-  v7.super_class = GKVoiceChatSessionInternal;
-  [(GKVoiceChatSessionInternal *)&v7 dealloc];
-  v6 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = GKVoiceChatSessionInternal;
+  [(GKVoiceChatSessionInternal *)&v6 dealloc];
 }
 
 - (void)cleanup
@@ -271,41 +267,41 @@ LABEL_10:
 
 - (void)startSession
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [(GKRWLock *)self->_rwLock wrlock];
   if (self->_sessionState >= 2)
   {
     ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
-    v6 = MEMORY[0x277CE5818];
+    v5 = MEMORY[0x277CE5818];
     if (ErrorLogLevelForModule >= 6)
     {
-      v7 = VRTraceErrorLogLevelToCSTR();
-      v8 = *v6;
-      if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
+      v6 = VRTraceErrorLogLevelToCSTR();
+      v7 = *v5;
+      if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 136315650;
-        v13 = v7;
-        v14 = 2080;
-        v15 = "[GKVoiceChatSessionInternal startSession]";
-        v16 = 1024;
-        v17 = 247;
-        _os_log_impl(&dword_24E50C000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d start-voice-chat-session", &v12, 0x1Cu);
+        v10 = 136315650;
+        v11 = v6;
+        v12 = 2080;
+        v13 = "[GKVoiceChatSessionInternal startSession]";
+        v14 = 1024;
+        v15 = 247;
+        _os_log_impl(&dword_24E50C000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d start-voice-chat-session", &v10, 0x1Cu);
       }
     }
 
     if (VRTraceGetErrorLogLevelForModule() >= 6)
     {
-      v9 = VRTraceErrorLogLevelToCSTR();
-      v10 = *v6;
-      if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
+      v8 = VRTraceErrorLogLevelToCSTR();
+      v9 = *v5;
+      if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 136315650;
-        v13 = v9;
-        v14 = 2080;
-        v15 = "[GKVoiceChatSessionInternal startSession]";
-        v16 = 1024;
-        v17 = 248;
-        _os_log_impl(&dword_24E50C000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Calling startSession!", &v12, 0x1Cu);
+        v10 = 136315650;
+        v11 = v8;
+        v12 = 2080;
+        v13 = "[GKVoiceChatSessionInternal startSession]";
+        v14 = 1024;
+        v15 = 248;
+        _os_log_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Calling startSession!", &v10, 0x1Cu);
       }
     }
 
@@ -314,13 +310,11 @@ LABEL_10:
     [(GKInterfaceListener *)self->_wifiListener startChangeListener];
     [(GKRWLock *)self->_rwLock unlock];
     [(GKVoiceChatSessionInternal *)self startSessionInternal];
-    v11 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     rwLock = self->_rwLock;
-    v4 = *MEMORY[0x277D85DE8];
 
     [(GKRWLock *)rwLock unlock];
   }
@@ -328,15 +322,14 @@ LABEL_10:
 
 - (void)startSessionInternal
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = 136315650;
   selfCopy = self;
-  v5 = 2080;
-  v6 = "[GKVoiceChatSessionInternal startSessionInternal]";
-  v7 = 1024;
-  v8 = 280;
-  _os_log_error_impl(&dword_24E50C000, a2, OS_LOG_TYPE_ERROR, " [%s] %s:%d Not starting voicechat. Don't have permission to use microphone", &v3, 0x1Cu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = 2080;
+  v5 = "[GKVoiceChatSessionInternal startSessionInternal]";
+  v6 = 1024;
+  v7 = 280;
+  _os_log_error_impl(&dword_24E50C000, a2, OS_LOG_TYPE_ERROR, " [%s] %s:%d Not starting voicechat. Don't have permission to use microphone", &v2, 0x1Cu);
 }
 
 - (void)stopSession
@@ -361,64 +354,64 @@ LABEL_10:
 
 - (void)stopSessionInternal
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   [(GKRWLock *)self->_rwLock wrlock];
   if (self->_sessionState == 1)
   {
     self->_sessionState = 0;
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   connectedFocusPeers = self->_connectedFocusPeers;
-  v4 = [(NSMutableArray *)connectedFocusPeers countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v4 = [(NSMutableArray *)connectedFocusPeers countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(connectedFocusPeers);
         }
 
-        [(GKVoiceChatSessionInternal *)self performSelectorOnMainThread:sel_informClientVoiceChatDidStop_ withObject:*(*(&v18 + 1) + 8 * i) waitUntilDone:0];
+        [(GKVoiceChatSessionInternal *)self performSelectorOnMainThread:sel_informClientVoiceChatDidStop_ withObject:*(*(&v17 + 1) + 8 * i) waitUntilDone:0];
       }
 
-      v5 = [(NSMutableArray *)connectedFocusPeers countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v5 = [(NSMutableArray *)connectedFocusPeers countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
     while (v5);
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   connectedPeers = self->_connectedPeers;
-  v9 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v14 objects:v22 count:16];
+  v9 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v13 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       for (j = 0; j != v10; ++j)
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(connectedPeers);
         }
 
-        [(GKVoiceChatServicePrivate *)self->_vcService stopVoiceChatWithParticipantID:[(GKVoiceChatSessionInternal *)self encodePeerID:*(*(&v14 + 1) + 8 * j)]];
+        [(GKVoiceChatServicePrivate *)self->_vcService stopVoiceChatWithParticipantID:[(GKVoiceChatSessionInternal *)self encodePeerID:*(*(&v13 + 1) + 8 * j)]];
       }
 
-      v10 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v10 = [(NSMutableArray *)connectedPeers countByEnumeratingWithState:&v13 objects:v21 count:16];
     }
 
     while (v10);
@@ -433,7 +426,6 @@ LABEL_10:
   [(NSMutableArray *)self->_connectedFocusPeers removeAllObjects];
   [(NSMutableDictionary *)self->_peerChannelQuality removeAllObjects];
   [(GKRWLock *)self->_rwLock unlock];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setMute:(BOOL)mute forPeer:(id)peer
@@ -577,7 +569,7 @@ LABEL_10:
 
 - (void)updatedSubscribedBeaconList:(id)list
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v5 = VRTraceErrorLogLevelToCSTR();
@@ -586,29 +578,7 @@ LABEL_10:
     {
       if (list)
       {
-        v7 = [objc_msgSend(list "description")];
-      }
-
-      else
-      {
-        v7 = "<nil>";
-      }
-
-      connectedPeers = self->_connectedPeers;
-      if (connectedPeers)
-      {
-        v9 = [-[NSMutableArray description](connectedPeers "description")];
-      }
-
-      else
-      {
-        v9 = "<nil>";
-      }
-
-      peerID = self->_peerID;
-      if (peerID)
-      {
-        uTF8String = [[(NSString *)peerID description] UTF8String];
+        uTF8String = [objc_msgSend_description(list) UTF8String];
       }
 
       else
@@ -616,18 +586,40 @@ LABEL_10:
         uTF8String = "<nil>";
       }
 
+      connectedPeers = self->_connectedPeers;
+      if (connectedPeers)
+      {
+        uTF8String2 = [objc_msgSend_description(connectedPeers) UTF8String];
+      }
+
+      else
+      {
+        uTF8String2 = "<nil>";
+      }
+
+      peerID = self->_peerID;
+      if (peerID)
+      {
+        uTF8String3 = [objc_msgSend_description(peerID) UTF8String];
+      }
+
+      else
+      {
+        uTF8String3 = "<nil>";
+      }
+
       *buf = 136316418;
       *&buf[4] = v5;
-      v47 = 2080;
-      v48 = "[GKVoiceChatSessionInternal updatedSubscribedBeaconList:]";
-      v49 = 1024;
-      v50 = 464;
-      v51 = 2080;
-      v52 = v7;
-      v53 = 2080;
-      v54 = v9;
-      v55 = 2080;
-      v56 = uTF8String;
+      v46 = 2080;
+      v47 = "[GKVoiceChatSessionInternal updatedSubscribedBeaconList:]";
+      v48 = 1024;
+      v49 = 464;
+      v50 = 2080;
+      v51 = uTF8String;
+      v52 = 2080;
+      v53 = uTF8String2;
+      v54 = 2080;
+      v55 = uTF8String3;
       _os_log_impl(&dword_24E50C000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKVoiceChatSession_Internal: updatedSubscribedBeaconList: newSubscribedList = %s (our existing members = %s) us (%s)", buf, 0x3Au);
     }
   }
@@ -636,58 +628,58 @@ LABEL_10:
   if (self->_sessionState == 1)
   {
     v12 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(list, "count")}];
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
     v13 = self->_connectedPeers;
-    v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v39 objects:v45 count:16];
+    v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v38 objects:v44 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v40;
+      v16 = *v39;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v40 != v16)
+          if (*v39 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v39 + 1) + 8 * i);
+          v18 = *(*(&v38 + 1) + 8 * i);
           if (([list containsObject:v18] & 1) == 0)
           {
             [v12 addObject:v18];
           }
         }
 
-        v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v39 objects:v45 count:16];
+        v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v38 objects:v44 count:16];
       }
 
       while (v15);
     }
 
     *buf = 0;
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
-    v19 = [list countByEnumeratingWithState:&v35 objects:v44 count:16];
+    v19 = [list countByEnumeratingWithState:&v34 objects:v43 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v36;
+      v21 = *v35;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v36 != v21)
+          if (*v35 != v21)
           {
             objc_enumerationMutation(list);
           }
 
-          v23 = *(*(&v35 + 1) + 8 * j);
+          v23 = *(*(&v34 + 1) + 8 * j);
           if (([(NSMutableArray *)self->_connectedPeers containsObject:v23]& 1) == 0)
           {
             longLongValue = [(NSString *)self->_peerID longLongValue];
@@ -701,37 +693,37 @@ LABEL_10:
           }
         }
 
-        v20 = [list countByEnumeratingWithState:&v35 objects:v44 count:16];
+        v20 = [list countByEnumeratingWithState:&v34 objects:v43 count:16];
       }
 
       while (v20);
     }
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
-    v25 = [v12 countByEnumeratingWithState:&v31 objects:v43 count:16];
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v25 = [v12 countByEnumeratingWithState:&v30 objects:v42 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v32;
+      v27 = *v31;
       do
       {
         for (k = 0; k != v26; ++k)
         {
-          if (*v32 != v27)
+          if (*v31 != v27)
           {
             objc_enumerationMutation(v12);
           }
 
-          v29 = *(*(&v31 + 1) + 8 * k);
+          v29 = *(*(&v30 + 1) + 8 * k);
           [(GKVoiceChatServicePrivate *)self->_vcService stopVoiceChatWithParticipantID:[(GKVoiceChatSessionInternal *)self encodePeerID:v29]];
           [(NSMutableArray *)self->_connectedPeers removeObject:v29];
           [(GKVoiceChatSessionInternal *)self handlePeerDisconnected:v29];
         }
 
-        v26 = [v12 countByEnumeratingWithState:&v31 objects:v43 count:16];
+        v26 = [v12 countByEnumeratingWithState:&v30 objects:v42 count:16];
       }
 
       while (v26);
@@ -739,45 +731,108 @@ LABEL_10:
   }
 
   [(GKRWLock *)self->_rwLock unlock];
-  v30 = *MEMORY[0x277D85DE8];
+}
+
+- (void)updatedFocusID:(unsigned int)d
+{
+  v3 = *&d;
+  v23 = *MEMORY[0x277D85DE8];
+  if (VRTraceGetErrorLogLevelForModule() >= 7)
+  {
+    v5 = VRTraceErrorLogLevelToCSTR();
+    v6 = *MEMORY[0x277CE5818];
+    if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = self->_sessionState == 1;
+      longLongValue = [(NSString *)self->_peerID longLongValue];
+      *buf = 136316418;
+      v9 = "NO";
+      v12 = v5;
+      v14 = "[GKVoiceChatSessionInternal updatedFocusID:]";
+      v13 = 2080;
+      v15 = 1024;
+      if (longLongValue == v3)
+      {
+        v9 = "YES";
+      }
+
+      v16 = 510;
+      v17 = 1024;
+      v18 = v3;
+      v19 = 1024;
+      v20 = v7;
+      v21 = 2080;
+      v22 = v9;
+      _os_log_impl(&dword_24E50C000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d My new focus = %u, _sessionState == kVoiceChatSessionRunning = %d.  Am I the focus?  %s", buf, 0x32u);
+    }
+  }
+
+  [(GKRWLock *)self->_rwLock wrlock];
+  if (self->_sessionState == 1)
+  {
+    [(GKVoiceChatServiceFocus *)self->_vcService setFocus:[(NSString *)self->_peerID longLongValue]== v3];
+    -[GKVoiceChatServiceFocus setCurrentFocus:](self->_vcService, "setCurrentFocus:", -[GKVoiceChatSessionInternal encodePeerID:](self, "encodePeerID:", [MEMORY[0x277CCACA8] stringWithFormat:@"%u", -[VoiceChatSessionRoster focusID](self->_roster, "focusID")]));
+    [(GKVoiceChatSessionInternal *)self unPauseAll];
+    if ([(GKVoiceChatServicePrivate *)self->_vcService isFocus])
+    {
+      [(GKVoiceChatSessionInternal *)self updatedMutedPeers:self->_mutedPeers forPeer:0];
+      v10 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:self->_connectedVoicePeers];
+      [v10 insertObject:self->_peerID atIndex:0];
+      [v10 removeObjectsInArray:self->_myPausedList];
+      [(GKVoiceChatSessionInternal *)self updatedFocusPeers:v10];
+
+      [(GKVoiceChatSessionInternal *)self sendConnectedPeers];
+      [(GKVoiceChatSessionInternal *)self updatedConnectedPeers:self->_connectedFocusPeers];
+    }
+
+    else
+    {
+      [(GKVoiceChatSessionInternal *)self sendMutedPeers];
+    }
+
+    if (self->focusCallbacks)
+    {
+      -[GKVoiceChatSessionInternal performSelectorOnMainThread:withObject:waitUntilDone:](self, "performSelectorOnMainThread:withObject:waitUntilDone:", sel_informClientVoiceChatFocusChange_, [MEMORY[0x277CCACA8] stringWithFormat:@"%u", v3], 0);
+    }
+  }
+
+  [(GKRWLock *)self->_rwLock unlock];
 }
 
 - (void)updatedMutedPeers:(id)peers forPeer:(id)peer
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(peers, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v8 = [peers countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [peers countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(peers);
         }
 
-        [v7 addObject:{-[GKVoiceChatSessionInternal encodePeerID:](self, "encodePeerID:", *(*(&v13 + 1) + 8 * v11++))}];
+        [v7 addObject:{-[GKVoiceChatSessionInternal encodePeerID:](self, "encodePeerID:", *(*(&v12 + 1) + 8 * v11++))}];
       }
 
       while (v9 != v11);
-      v9 = [peers countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [peers countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
 
   [(GKVoiceChatServiceFocus *)self->_vcService updatedMutedPeers:v7 forParticipantID:[(GKVoiceChatSessionInternal *)self encodePeerID:peer]];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendMutedPeers
@@ -787,8 +842,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_1_3(&dword_24E50C000, v1, v2, " [%s] %s:%d sendMutedPeers failed to serialize. %s", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_24E50C000, v1, v2, " [%s] %s:%d sendMutedPeers failed to serialize. %s", v3, v4, v5, v6);
 }
 
 - (void)parseMutedPeers:(id)peers forPeer:(id)peer
@@ -818,6 +872,38 @@ LABEL_10:
 
 - (void)pauseAll
 {
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  connectedVoicePeers = self->_connectedVoicePeers;
+  v4 = [(NSMutableArray *)connectedVoicePeers countByEnumeratingWithState:&v8 objects:v12 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v9;
+    do
+    {
+      for (i = 0; i != v5; ++i)
+      {
+        if (*v9 != v6)
+        {
+          objc_enumerationMutation(connectedVoicePeers);
+        }
+
+        [(GKVoiceChatServiceFocus *)self->_vcService pauseAudio:1 toParticipantID:[(GKVoiceChatSessionInternal *)self encodePeerID:*(*(&v8 + 1) + 8 * i)]];
+      }
+
+      v5 = [(NSMutableArray *)connectedVoicePeers countByEnumeratingWithState:&v8 objects:v12 count:16];
+    }
+
+    while (v5);
+  }
+}
+
+- (void)unPauseAll
+{
   v14 = *MEMORY[0x277D85DE8];
   v9 = 0u;
   v10 = 0u;
@@ -838,7 +924,11 @@ LABEL_10:
           objc_enumerationMutation(connectedVoicePeers);
         }
 
-        [(GKVoiceChatServiceFocus *)self->_vcService pauseAudio:1 toParticipantID:[(GKVoiceChatSessionInternal *)self encodePeerID:*(*(&v9 + 1) + 8 * i)]];
+        v8 = *(*(&v9 + 1) + 8 * i);
+        if (![(NSMutableArray *)self->_myPausedList containsObject:v8]|| ![(GKVoiceChatServicePrivate *)self->_vcService isFocus])
+        {
+          [(GKVoiceChatServiceFocus *)self->_vcService pauseAudio:0 toParticipantID:[(GKVoiceChatSessionInternal *)self encodePeerID:v8]];
+        }
       }
 
       v5 = [(NSMutableArray *)connectedVoicePeers countByEnumeratingWithState:&v9 objects:v13 count:16];
@@ -846,72 +936,32 @@ LABEL_10:
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)unPauseAll
-{
-  v15 = *MEMORY[0x277D85DE8];
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  connectedVoicePeers = self->_connectedVoicePeers;
-  v4 = [(NSMutableArray *)connectedVoicePeers countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v4)
-  {
-    v5 = v4;
-    v6 = *v11;
-    do
-    {
-      for (i = 0; i != v5; ++i)
-      {
-        if (*v11 != v6)
-        {
-          objc_enumerationMutation(connectedVoicePeers);
-        }
-
-        v8 = *(*(&v10 + 1) + 8 * i);
-        if (![(NSMutableArray *)self->_myPausedList containsObject:v8]|| ![(GKVoiceChatServicePrivate *)self->_vcService isFocus])
-        {
-          [(GKVoiceChatServiceFocus *)self->_vcService pauseAudio:0 toParticipantID:[(GKVoiceChatSessionInternal *)self encodePeerID:v8]];
-        }
-      }
-
-      v5 = [(NSMutableArray *)connectedVoicePeers countByEnumeratingWithState:&v10 objects:v14 count:16];
-    }
-
-    while (v5);
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pruneBadLinks
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   connectedVoicePeers = self->_connectedVoicePeers;
-  v4 = [(NSMutableArray *)connectedVoicePeers countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [(NSMutableArray *)connectedVoicePeers countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(connectedVoicePeers);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         [-[NSMutableDictionary objectForKeyedSubscript:](self->_peerChannelQuality objectForKeyedSubscript:{v9), "floatValue"}];
         if (v10 > 0.25 && (([(NSMutableArray *)self->_myPausedList containsObject:v9]| v6) & 1) == 0)
         {
@@ -929,7 +979,7 @@ LABEL_10:
         [(NSMutableDictionary *)self->_peerChannelQuality setObject:&unk_28619C0C8 forKeyedSubscript:v9];
       }
 
-      v5 = [(NSMutableArray *)connectedVoicePeers countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [(NSMutableArray *)connectedVoicePeers countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
@@ -937,7 +987,6 @@ LABEL_10:
 
   self->needsRecalculateGoodChannels = 1;
   [(GKVoiceChatSessionInternal *)self goodChannels];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addPeerToFocusPausedList:(id)list
@@ -967,35 +1016,35 @@ LABEL_10:
 
 - (void)updatedFocusPeers:(id)peers
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:peers];
   v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:self->_connectedFocusPeers];
   if ([peers containsObject:self->_peerID])
   {
     [v5 removeObjectsInArray:self->_connectedFocusPeers];
     [v5 removeObject:self->_peerID];
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
-    v7 = [v5 countByEnumeratingWithState:&v25 objects:v34 count:16];
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v7 = [v5 countByEnumeratingWithState:&v24 objects:v33 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v26;
+      v9 = *v25;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v26 != v9)
+          if (*v25 != v9)
           {
             objc_enumerationMutation(v5);
           }
 
-          [(GKVoiceChatSessionInternal *)self performSelectorOnMainThread:sel_informClientVoiceChatDidStart_ withObject:*(*(&v25 + 1) + 8 * i) waitUntilDone:0];
+          [(GKVoiceChatSessionInternal *)self performSelectorOnMainThread:sel_informClientVoiceChatDidStart_ withObject:*(*(&v24 + 1) + 8 * i) waitUntilDone:0];
         }
 
-        v8 = [v5 countByEnumeratingWithState:&v25 objects:v34 count:16];
+        v8 = [v5 countByEnumeratingWithState:&v24 objects:v33 count:16];
       }
 
       while (v8);
@@ -1003,28 +1052,28 @@ LABEL_10:
 
     [v6 removeObjectsInArray:peers];
     [v6 removeObject:self->_peerID];
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
-    v11 = [v6 countByEnumeratingWithState:&v21 objects:v33 count:16];
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v11 = [v6 countByEnumeratingWithState:&v20 objects:v32 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v22;
+      v13 = *v21;
       do
       {
         for (j = 0; j != v12; ++j)
         {
-          if (*v22 != v13)
+          if (*v21 != v13)
           {
             objc_enumerationMutation(v6);
           }
 
-          [(GKVoiceChatSessionInternal *)self performSelectorOnMainThread:sel_informClientVoiceChatDidStop_ withObject:*(*(&v21 + 1) + 8 * j) waitUntilDone:0];
+          [(GKVoiceChatSessionInternal *)self performSelectorOnMainThread:sel_informClientVoiceChatDidStop_ withObject:*(*(&v20 + 1) + 8 * j) waitUntilDone:0];
         }
 
-        v12 = [v6 countByEnumeratingWithState:&v21 objects:v33 count:16];
+        v12 = [v6 countByEnumeratingWithState:&v20 objects:v32 count:16];
       }
 
       while (v12);
@@ -1035,29 +1084,29 @@ LABEL_10:
 
   else
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     connectedFocusPeers = self->_connectedFocusPeers;
-    v16 = [(NSMutableArray *)connectedFocusPeers countByEnumeratingWithState:&v29 objects:v35 count:16];
+    v16 = [(NSMutableArray *)connectedFocusPeers countByEnumeratingWithState:&v28 objects:v34 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v30;
+      v18 = *v29;
       do
       {
         for (k = 0; k != v17; ++k)
         {
-          if (*v30 != v18)
+          if (*v29 != v18)
           {
             objc_enumerationMutation(connectedFocusPeers);
           }
 
-          [(GKVoiceChatSessionInternal *)self performSelectorOnMainThread:sel_informClientVoiceChatDidStop_ withObject:*(*(&v29 + 1) + 8 * k) waitUntilDone:0];
+          [(GKVoiceChatSessionInternal *)self performSelectorOnMainThread:sel_informClientVoiceChatDidStop_ withObject:*(*(&v28 + 1) + 8 * k) waitUntilDone:0];
         }
 
-        v17 = [(NSMutableArray *)connectedFocusPeers countByEnumeratingWithState:&v29 objects:v35 count:16];
+        v17 = [(NSMutableArray *)connectedFocusPeers countByEnumeratingWithState:&v28 objects:v34 count:16];
       }
 
       while (v17);
@@ -1065,38 +1114,36 @@ LABEL_10:
 
     [(NSMutableArray *)self->_connectedFocusPeers removeAllObjects];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updatedConnectedPeers:(id)peers
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(peers, "count")}];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v6 = [peers countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [peers countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(peers);
         }
 
-        [v5 addObject:{-[GKVoiceChatSessionInternal encodePeerID:](self, "encodePeerID:", *(*(&v11 + 1) + 8 * v9++))}];
+        [v5 addObject:{-[GKVoiceChatSessionInternal encodePeerID:](self, "encodePeerID:", *(*(&v10 + 1) + 8 * v9++))}];
       }
 
       while (v7 != v9);
-      v7 = [peers countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [peers countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -1108,8 +1155,6 @@ LABEL_10:
   }
 
   [(GKVoiceChatServiceFocus *)self->_vcService updatedConnectedPeers:v5];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendConnectedPeers
@@ -1119,8 +1164,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_1_3(&dword_24E50C000, v1, v2, " [%s] %s:%d sendConnectedPeers failed to serialize. %s", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_24E50C000, v1, v2, " [%s] %s:%d sendConnectedPeers failed to serialize. %s", v3, v4, v5, v6);
 }
 
 - (void)parseConnectedPeers:(id)peers
@@ -1149,9 +1193,58 @@ LABEL_10:
   }
 }
 
+- (void)session:(id)session peer:(id)peer didChangeState:(unsigned int)state
+{
+  v5 = *&state;
+  v23 = *MEMORY[0x277D85DE8];
+  if (VRTraceGetErrorLogLevelForModule() >= 7)
+  {
+    v8 = VRTraceErrorLogLevelToCSTR();
+    v9 = *MEMORY[0x277CE5818];
+    if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+    {
+      if (peer)
+      {
+        uTF8String = [objc_msgSend_description(peer) UTF8String];
+      }
+
+      else
+      {
+        uTF8String = "<nil>";
+      }
+
+      v11 = v5 == 2 || v5 == 5;
+      *v14 = 136316162;
+      v12 = v11;
+      *&v14[4] = v8;
+      v15 = 2080;
+      v16 = "[GKVoiceChatSessionInternal(GKSessionVoiceChatDelegate) session:peer:didChangeState:]";
+      v17 = 1024;
+      v18 = 791;
+      v19 = 2080;
+      v20 = uTF8String;
+      v21 = 1024;
+      v22 = v12;
+      _os_log_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d peerID %s didChangeState == connected (%d)", v14, 0x2Cu);
+    }
+  }
+
+  [(GKRWLock *)self->_rwLock wrlock];
+  if (v5 == 3 && [(NSMutableArray *)self->_connectedPeers containsObject:peer])
+  {
+    [(GKVoiceChatServiceFocus *)self->_vcService remoteCancelled:[(GKVoiceChatSessionInternal *)self encodePeerID:peer]];
+    [(NSMutableArray *)self->_connectedPeers removeObject:peer];
+    [(GKVoiceChatSessionInternal *)self handlePeerDisconnected:peer];
+  }
+
+  v13 = self->_roster;
+  [(GKRWLock *)self->_rwLock unlock];
+  [(VoiceChatSessionRoster *)v13 peer:peer didChangeState:v5];
+}
+
 - (void)session:(id)session didReceiveOOBAudioPacket:(id)packet fromPeerID:(id)d
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v8 = VRTraceErrorLogLevelToCSTR();
@@ -1161,17 +1254,17 @@ LABEL_10:
       subtype = [packet subtype];
       if (d)
       {
-        v11 = [objc_msgSend(d "description")];
+        uTF8String = [objc_msgSend_description(d) UTF8String];
       }
 
       else
       {
-        v11 = "<nil>";
+        uTF8String = "<nil>";
       }
 
       if ([(GKVoiceChatSessionInternal *)self encodePeerID:d])
       {
-        v12 = [objc_msgSend(-[GKVoiceChatSessionInternal encodePeerID:](self encodePeerID:{d), "description"), "UTF8String"}];
+        v12 = [objc_msgSend_description(-[GKVoiceChatSessionInternal encodePeerID:](self encodePeerID:{d)), "UTF8String"}];
       }
 
       else
@@ -1179,19 +1272,19 @@ LABEL_10:
         v12 = "<nil>";
       }
 
-      v16 = 136316418;
-      v17 = v8;
-      v18 = 2080;
-      v19 = "[GKVoiceChatSessionInternal(GKSessionVoiceChatDelegate) session:didReceiveOOBAudioPacket:fromPeerID:]";
-      v20 = 1024;
-      v21 = 817;
-      v22 = 1024;
-      v23 = subtype;
-      v24 = 2080;
-      v25 = v11;
-      v26 = 2080;
-      v27 = v12;
-      _os_log_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Session didReceiveOOBAudioPacket of type %u from %s %s", &v16, 0x36u);
+      v15 = 136316418;
+      v16 = v8;
+      v17 = 2080;
+      v18 = "[GKVoiceChatSessionInternal(GKSessionVoiceChatDelegate) session:didReceiveOOBAudioPacket:fromPeerID:]";
+      v19 = 1024;
+      v20 = 817;
+      v21 = 1024;
+      v22 = subtype;
+      v23 = 2080;
+      v24 = uTF8String;
+      v25 = 2080;
+      v26 = v12;
+      _os_log_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Session didReceiveOOBAudioPacket of type %u from %s %s", &v15, 0x36u);
     }
   }
 
@@ -1227,8 +1320,6 @@ LABEL_10:
       -[GKVoiceChatServiceFocus receivedData:fromParticipantID:](self->_vcService, "receivedData:fromParticipantID:", [packet payload], -[GKVoiceChatSessionInternal encodePeerID:](self, "encodePeerID:", d));
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)informClientVoiceChatConnecting:(id)connecting
@@ -1310,7 +1401,7 @@ LABEL_10:
 
 - (void)voiceChatService:(id)service didNotStartWithParticipantID:(id)d error:(id)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 5)
   {
     v6 = VRTraceErrorLogLevelToCSTR();
@@ -1319,27 +1410,25 @@ LABEL_10:
     {
       if (error)
       {
-        v8 = [objc_msgSend(error "description")];
+        uTF8String = [objc_msgSend_description(error) UTF8String];
       }
 
       else
       {
-        v8 = "<nil>";
+        uTF8String = "<nil>";
       }
 
-      v10 = 136315906;
-      v11 = v6;
-      v12 = 2080;
-      v13 = "[GKVoiceChatSessionInternal(VoiceChatClient) voiceChatService:didNotStartWithParticipantID:error:]";
-      v14 = 1024;
-      v15 = 939;
-      v16 = 2080;
-      v17 = v8;
-      _os_log_impl(&dword_24E50C000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d voiceChatService:didNotStartWithParticipantID %s", &v10, 0x26u);
+      v9 = 136315906;
+      v10 = v6;
+      v11 = 2080;
+      v12 = "[GKVoiceChatSessionInternal(VoiceChatClient) voiceChatService:didNotStartWithParticipantID:error:]";
+      v13 = 1024;
+      v14 = 939;
+      v15 = 2080;
+      v16 = uTF8String;
+      _os_log_impl(&dword_24E50C000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d voiceChatService:didNotStartWithParticipantID %s", &v9, 0x26u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)voiceChatService:(id)service didStopWithParticipantID:(id)d error:(id)error
@@ -1358,6 +1447,50 @@ LABEL_10:
   rwLock = self->_rwLock;
 
   [(GKRWLock *)rwLock unlock];
+}
+
+- (void)voiceChatService:(id)service didReceiveInvitationFromParticipantID:(id)d callID:(unsigned int)iD
+{
+  v19 = *MEMORY[0x277D85DE8];
+  v10 = 0;
+  sessionState = self->_sessionState;
+  vcService = self->_vcService;
+  if (sessionState == 1)
+  {
+    if (![(GKVoiceChatServiceFocus *)vcService acceptCallID:*&iD error:&v10]&& VRTraceGetErrorLogLevelForModule() >= 5)
+    {
+      v7 = VRTraceErrorLogLevelToCSTR();
+      v8 = *MEMORY[0x277CE5818];
+      if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+      {
+        if (v10)
+        {
+          uTF8String = [objc_msgSend_description(v10) UTF8String];
+        }
+
+        else
+        {
+          uTF8String = "<nil>";
+        }
+
+        *buf = 136315906;
+        v12 = v7;
+        v13 = 2080;
+        v14 = "[GKVoiceChatSessionInternal(VoiceChatClient) voiceChatService:didReceiveInvitationFromParticipantID:callID:]";
+        v15 = 1024;
+        v16 = 961;
+        v17 = 2080;
+        v18 = uTF8String;
+        _os_log_impl(&dword_24E50C000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d We have a problem when accepting the call %s", buf, 0x26u);
+      }
+    }
+  }
+
+  else
+  {
+
+    [(GKVoiceChatServiceFocus *)vcService denyCallID:*&iD, d];
+  }
 }
 
 - (void)setDelegate:(id)delegate
@@ -1425,28 +1558,28 @@ uint64_t __79__GKVoiceChatSessionInternal_VideoConferenceSpeakingDelegate__didSt
 
 - (int)calculateChannelQualities
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = [(NSMutableArray *)self->_connectedVoicePeers count];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   peerChannelQuality = self->_peerChannelQuality;
-  v5 = [(NSMutableDictionary *)peerChannelQuality countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSMutableDictionary *)peerChannelQuality countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(peerChannelQuality);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if (([(NSMutableArray *)self->_myPausedList containsObject:v9]& 1) == 0)
         {
           [-[NSMutableDictionary objectForKeyedSubscript:](self->_peerChannelQuality objectForKeyedSubscript:{v9), "floatValue"}];
@@ -1459,14 +1592,13 @@ uint64_t __79__GKVoiceChatSessionInternal_VideoConferenceSpeakingDelegate__didSt
         --v3;
       }
 
-      v6 = [(NSMutableDictionary *)peerChannelQuality countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSMutableDictionary *)peerChannelQuality countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   self->needsRecalculateGoodChannels = 0;
-  v11 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -1562,8 +1694,7 @@ uint64_t __95__GKVoiceChatSessionInternal_VideoConferenceChannelQualityDelegate_
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_1_3(&dword_24E50C000, v1, v2, " [%s] %s:%d parseMutedPeers failed to deserialize. %s", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_24E50C000, v1, v2, " [%s] %s:%d parseMutedPeers failed to deserialize. %s", v3, v4, v5, v6);
 }
 
 - (void)parseConnectedPeers:.cold.1()
@@ -1573,8 +1704,7 @@ uint64_t __95__GKVoiceChatSessionInternal_VideoConferenceChannelQualityDelegate_
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_1_3(&dword_24E50C000, v1, v2, " [%s] %s:%d parseConnectedPeers failed to deserialize. %s", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_24E50C000, v1, v2, " [%s] %s:%d parseConnectedPeers failed to deserialize. %s", v3, v4, v5, v6);
 }
 
 @end

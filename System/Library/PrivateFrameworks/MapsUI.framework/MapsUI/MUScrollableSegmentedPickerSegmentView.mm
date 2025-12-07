@@ -4,6 +4,8 @@
 - (void)_updateAppearance;
 - (void)_updateFont;
 - (void)_updateSelectionAppearance;
+- (void)setHighlighted:(BOOL)highlighted;
+- (void)setSelected:(BOOL)selected;
 - (void)setViewModel:(id)model;
 @end
 
@@ -37,6 +39,22 @@
   [(UILabel *)self->_label setTextColor:v4];
 }
 
+- (void)setHighlighted:(BOOL)highlighted
+{
+  v4.receiver = self;
+  v4.super_class = MUScrollableSegmentedPickerSegmentView;
+  [(MUScrollableSegmentedPickerSegmentView *)&v4 setHighlighted:highlighted];
+  [(MUScrollableSegmentedPickerSegmentView *)self _updateSelectionAppearance];
+}
+
+- (void)setSelected:(BOOL)selected
+{
+  v4.receiver = self;
+  v4.super_class = MUScrollableSegmentedPickerSegmentView;
+  [(MUScrollableSegmentedPickerSegmentView *)&v4 setSelected:selected];
+  [(MUScrollableSegmentedPickerSegmentView *)self _updateSelectionAppearance];
+}
+
 - (void)_updateFont
 {
   v3 = [MEMORY[0x1E69DB878] _mapsui_preferredFontForTextStyle:*MEMORY[0x1E69DDD40] maxContentSizeCategory:*MEMORY[0x1E69DDC58] weight:0 withSymbolicTraits:*MEMORY[0x1E69DB980]];
@@ -64,7 +82,7 @@
 
 - (void)_setupLabel
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   [(MUScrollableSegmentedPickerSegmentView *)self setClipsToBounds:1];
   v3 = objc_alloc(MEMORY[0x1E69DCC10]);
   v4 = [v3 initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
@@ -80,11 +98,9 @@
   [(MUEdgeLayout *)self->_edgeLayout setInsets:8.0, 16.0, 8.0, 16.0];
   [(MUConstraintLayout *)self->_edgeLayout activate];
   v8 = objc_opt_self();
-  v12[0] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[0] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   v10 = [(MUScrollableSegmentedPickerSegmentView *)self registerForTraitChanges:v9 withAction:sel__updateFont];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (MUScrollableSegmentedPickerSegmentView)initWithFrame:(CGRect)frame

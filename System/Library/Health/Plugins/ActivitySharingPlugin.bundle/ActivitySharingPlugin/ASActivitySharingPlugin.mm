@@ -73,26 +73,25 @@ LABEL_11:
 
 - (id)taskServerClasses
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   if (ASActivitySharingDaemonEnabled())
   {
-    v10 = objc_opt_class();
+    v9 = objc_opt_class();
     v2 = MEMORY[0x29EDB8D80];
-    v3 = &v10;
+    v3 = &v9;
     v4 = 1;
   }
 
   else
   {
+    v7 = objc_opt_class();
     v8 = objc_opt_class();
-    v9 = objc_opt_class();
     v2 = MEMORY[0x29EDB8D80];
-    v3 = &v8;
+    v3 = &v7;
     v4 = 2;
   }
 
-  v5 = [v2 arrayWithObjects:v3 count:{v4, v8, v9, v10, v11}];
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = [v2 arrayWithObjects:v3 count:{v4, v7, v8, v9, v10}];
 
   return v5;
 }
@@ -112,20 +111,18 @@ LABEL_11:
 
 - (id)databaseEntitiesForProtectionClass:(int64_t)class
 {
-  v6[2] = *MEMORY[0x29EDCA608];
+  v5[2] = *MEMORY[0x29EDCA608];
   if (class == 2)
   {
-    v6[0] = objc_opt_class();
-    v6[1] = objc_opt_class();
-    v3 = [MEMORY[0x29EDB8D80] arrayWithObjects:v6 count:2];
+    v5[0] = objc_opt_class();
+    v5[1] = objc_opt_class();
+    v3 = [MEMORY[0x29EDB8D80] arrayWithObjects:v5 count:2];
   }
 
   else
   {
     v3 = MEMORY[0x29EDB8E90];
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 
   return v3;
 }

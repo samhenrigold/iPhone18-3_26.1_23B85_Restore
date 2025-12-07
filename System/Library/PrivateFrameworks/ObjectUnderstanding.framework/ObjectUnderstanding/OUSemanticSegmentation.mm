@@ -74,42 +74,42 @@
     if ((deviceOrientation - 3) < 2)
     {
       [(SISceneSegmentationNetworkConfiguration *)self->semanticConfig setNetworkModeEnum:1];
-      v26 = objc_alloc(MEMORY[0x277D4B708]);
-      v27 = 192.0;
-      v28 = 256.0;
+      v27 = objc_alloc(MEMORY[0x277D4B708]);
+      v28 = 192.0;
+      v29 = 256.0;
       goto LABEL_11;
     }
 
     if ((deviceOrientation - 1) <= 1)
     {
       [(SISceneSegmentationNetworkConfiguration *)self->semanticConfig setNetworkModeEnum:2];
-      v26 = objc_alloc(MEMORY[0x277D4B708]);
-      v27 = 256.0;
-      v28 = 192.0;
+      v27 = objc_alloc(MEMORY[0x277D4B708]);
+      v28 = 256.0;
+      v29 = 192.0;
 LABEL_11:
-      v29 = [v26 initWithOutputResolution:{v28, v27}];
+      v30 = [v27 initWithOutputResolution:{v29, v28}];
       semResultData = self->semResultData;
-      self->semResultData = v29;
+      self->semResultData = v30;
 
       self->semanticModel = [(SISceneSegmentationNetworkConfiguration *)self->semanticConfig networkModeEnum];
       [(SISceneSegmentationNetworkConfiguration *)self->semanticConfig setEngineType:1];
       [(SISceneSegmentationNetworkConfiguration *)self->semanticConfig setRunByE5RT:1];
-      LODWORD(v31) = 1053609165;
-      [(SISceneSegmentationNetworkConfiguration *)self->semanticConfig setUncertaintyThreshold:v31];
+      LODWORD(v32) = 1053609165;
+      [(SISceneSegmentationNetworkConfiguration *)self->semanticConfig setUncertaintyThreshold:v32];
       [(SISceneSegmentationNetworkConfiguration *)self->semanticConfig setModelConfig:0];
-      v32 = objc_alloc(MEMORY[0x277D4B700]);
+      v33 = objc_alloc(MEMORY[0x277D4B700]);
       v22 = 1;
-      LODWORD(v33) = 1053609165;
-      v34 = [v32 initWithComputeEngine:1 andNetworkConfiguration:0 uncertaintyThreshold:v33];
+      LODWORD(v34) = 1053609165;
+      v35 = [v33 initWithComputeEngine:1 andNetworkConfiguration:0 uncertaintyThreshold:v34];
       siSceneSegmentationAlgorithm = self->siSceneSegmentationAlgorithm;
-      self->siSceneSegmentationAlgorithm = v34;
+      self->siSceneSegmentationAlgorithm = v35;
 
       self->_initSegModel = 1;
       goto LABEL_16;
     }
 
-    v36 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+    v37 = _OULoggingGetOSLogForCategoryObjectUnderstanding(deviceOrientation, v26);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
     {
       [OUSemanticSegmentation setupRotater:];
     }
@@ -128,11 +128,12 @@ LABEL_16:
 - (__CVBuffer)generateSemanticOnWideCameraWithFrame:(id)frame
 {
   frameCopy = frame;
-  if ([(OUSemanticSegmentation *)self setupRotater:frameCopy])
+  v5 = [(OUSemanticSegmentation *)self setupRotater:frameCopy];
+  if (v5)
   {
     sceneColorBuffer = [frameCopy sceneColorBuffer];
-    v6 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v9 = _OULoggingGetOSLogForCategoryObjectUnderstanding(sceneColorBuffer, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [OUSemanticSegmentation generateSemanticOnWideCameraWithFrame:];
     }
@@ -144,10 +145,10 @@ LABEL_16:
       {
         siSceneSegmentationAlgorithm = self->siSceneSegmentationAlgorithm;
         IOSurface = CVPixelBufferGetIOSurface([(SISceneSegmentationData *)self->semResultData semantic]);
-        v19 = CVPixelBufferGetIOSurface([(SISceneSegmentationData *)self->semResultData confidence]);
-        [(SISceneSegmentationAlgorithm *)siSceneSegmentationAlgorithm runWithInput:sceneColorBuffer output:IOSurface confidenceOutput:v19 uncertaintyOutput:CVPixelBufferGetIOSurface([(SISceneSegmentationData *)self->semResultData uncertainty]) resampleOutput:1 networkConfiguration:1];
+        v22 = CVPixelBufferGetIOSurface([(SISceneSegmentationData *)self->semResultData confidence]);
+        [(SISceneSegmentationAlgorithm *)siSceneSegmentationAlgorithm runWithInput:sceneColorBuffer output:IOSurface confidenceOutput:v22 uncertaintyOutput:CVPixelBufferGetIOSurface([(SISceneSegmentationData *)self->semResultData uncertainty]) resampleOutput:1 networkConfiguration:1];
         semantic = [(SISceneSegmentationData *)self->semResultData semantic];
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           [OUSemanticSegmentation generateSemanticOnWideCameraWithFrame:];
         }
@@ -157,8 +158,8 @@ LABEL_16:
 
       if (deviceOrientation == 4)
       {
-        v8 = 32;
-        v9 = 24;
+        v11 = 32;
+        v12 = 24;
         goto LABEL_18;
       }
     }
@@ -167,47 +168,47 @@ LABEL_16:
     {
       if (deviceOrientation == 1)
       {
-        v8 = 16;
-        v9 = 8;
+        v11 = 16;
+        v12 = 8;
         goto LABEL_18;
       }
 
       if (deviceOrientation == 2)
       {
-        v8 = 48;
-        v9 = 40;
+        v11 = 48;
+        v12 = 40;
 LABEL_18:
-        v10 = *(&self->super.isa + v9);
-        v12 = *(&self->super.isa + v8);
-        v13 = [v10 rotateImage:sceneColorBuffer];
-        v14 = self->siSceneSegmentationAlgorithm;
-        v15 = CVPixelBufferGetIOSurface([(SISceneSegmentationData *)self->semResultData semantic]);
-        v16 = CVPixelBufferGetIOSurface([(SISceneSegmentationData *)self->semResultData confidence]);
-        [(SISceneSegmentationAlgorithm *)v14 runWithInput:v13 output:v15 confidenceOutput:v16 uncertaintyOutput:CVPixelBufferGetIOSurface([(SISceneSegmentationData *)self->semResultData uncertainty]) resampleOutput:1 networkConfiguration:self->semanticModel];
-        semantic = [v12 rotateImage:{-[SISceneSegmentationData semantic](self->semResultData, "semantic")}];
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+        v13 = *(&self->super.isa + v12);
+        v15 = *(&self->super.isa + v11);
+        v16 = [v13 rotateImage:sceneColorBuffer];
+        v17 = self->siSceneSegmentationAlgorithm;
+        v18 = CVPixelBufferGetIOSurface([(SISceneSegmentationData *)self->semResultData semantic]);
+        v19 = CVPixelBufferGetIOSurface([(SISceneSegmentationData *)self->semResultData confidence]);
+        [(SISceneSegmentationAlgorithm *)v17 runWithInput:v16 output:v18 confidenceOutput:v19 uncertaintyOutput:CVPixelBufferGetIOSurface([(SISceneSegmentationData *)self->semResultData uncertainty]) resampleOutput:1 networkConfiguration:self->semanticModel];
+        semantic = [v15 rotateImage:{-[SISceneSegmentationData semantic](self->semResultData, "semantic")}];
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
-          *v21 = 0;
-          _os_log_impl(&dword_25D1DB000, v6, OS_LOG_TYPE_INFO, "Generating semantic over wide (rotation) camera end", v21, 2u);
+          *v24 = 0;
+          _os_log_impl(&dword_25D1DB000, v9, OS_LOG_TYPE_INFO, "Generating semantic over wide (rotation) camera end", v24, 2u);
         }
 
         goto LABEL_24;
       }
     }
 
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [OUSemanticSegmentation generateSemanticOnWideCameraWithFrame:];
     }
 
     semantic = 0;
 LABEL_23:
-    v10 = v6;
+    v13 = v9;
     goto LABEL_24;
   }
 
-  v10 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v13 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v5, v6);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [OUSemanticSegmentation generateSemanticOnWideCameraWithFrame:];
   }

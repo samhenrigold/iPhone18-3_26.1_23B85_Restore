@@ -131,46 +131,40 @@ LABEL_15:
 
 - (id)reshapeWithShape:(id)shape source:(id)source
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   v7 = [MLCReshapeLayer layerWithShape:shape];
-  v12[0] = sourceCopy;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = sourceCopy;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
 
   v9 = [(MLCInferenceGraph *)self nodeWithLayer:v7 sources:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)transposeWithDimensions:(id)dimensions source:(id)source
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   v7 = [MLCTransposeLayer layerWithDimensions:dimensions];
-  v12[0] = sourceCopy;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = sourceCopy;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
 
   v9 = [(MLCInferenceGraph *)self nodeWithLayer:v7 sources:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)nodeWithLayer:(id)layer source:(id)source
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   v6 = MEMORY[0x277CBEA60];
   sourceCopy2 = source;
   layerCopy = layer;
   v9 = [v6 arrayWithObjects:&sourceCopy count:1];
 
-  v10 = [(MLCInferenceGraph *)self nodeWithLayer:layerCopy sources:v9, sourceCopy, v14];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = [(MLCInferenceGraph *)self nodeWithLayer:layerCopy sources:v9, sourceCopy, v13];
 
   return v10;
 }
@@ -196,7 +190,7 @@ LABEL_15:
 - (BOOL)recompileWithOptions:(unint64_t)options
 {
   optionsCopy = options;
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if (([(MLCGraph *)self compilerOptions]& 1) != 0 || ([(MLCGraph *)self compilerOptions]& 2) != 0)
   {
     LOBYTE(v7) = 1;
@@ -292,7 +286,7 @@ LABEL_21:
       if (v13 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v30))
       {
         *buf = 134349056;
-        v35 = v19;
+        v34 = v19;
         _os_signpost_emit_with_name_impl(&dword_238C1D000, v9, OS_SIGNPOST_INTERVAL_END, spid, "RecompileInferenceGraph", "%{public,name=LayersRecompiled}lu", buf, 0xCu);
       }
     }
@@ -307,13 +301,12 @@ LABEL_21:
     }
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (BOOL)compileWithOptions:(MLCGraphCompilationOptions)options device:(MLCDevice *)device inputTensors:(NSDictionary *)inputTensors inputTensorsData:(NSDictionary *)inputTensorsData
 {
-  v189 = *MEMORY[0x277D85DE8];
+  v188 = *MEMORY[0x277D85DE8];
   v10 = device;
   v11 = inputTensors;
   v12 = inputTensorsData;
@@ -339,7 +332,7 @@ LABEL_21:
       v16 = +[MLCDevice cpuDevice];
     }
 
-    v154 = v16;
+    v153 = v16;
     [(MLCGraph *)self setCompilerOptions:options];
     v17 = +[MLCLog execution];
     v18 = os_signpost_id_generate(v17);
@@ -347,15 +340,15 @@ LABEL_21:
     v19 = +[MLCLog execution];
     v20 = v19;
     spid = v18;
-    v150 = v18 - 1;
+    v149 = v18 - 1;
     if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
     {
       v21 = objc_opt_class();
       v22 = NSStringFromClass(v21);
       *buf = 138543618;
-      v184 = v22;
-      v185 = 2050;
-      v186 = options;
+      v183 = v22;
+      v184 = 2050;
+      v185 = options;
       _os_signpost_emit_with_name_impl(&dword_238C1D000, v20, OS_SIGNPOST_INTERVAL_BEGIN, spid, "CompileWithOptions", "%{public,name=Device}@ %{public,name=Options}llu", buf, 0x16u);
     }
 
@@ -372,30 +365,30 @@ LABEL_21:
 
     if (v11 && v12)
     {
-      v165 = 0u;
-      v166 = 0u;
-      v163 = 0u;
       v164 = 0u;
+      v165 = 0u;
+      v162 = 0u;
+      v163 = 0u;
       v26 = v12;
-      v27 = [(NSDictionary *)v26 countByEnumeratingWithState:&v163 objects:v180 count:16];
+      v27 = [(NSDictionary *)v26 countByEnumeratingWithState:&v162 objects:v179 count:16];
       if (v27)
       {
         v28 = v27;
-        v29 = *v164;
+        v29 = *v163;
         do
         {
           for (i = 0; i != v28; ++i)
           {
-            if (*v164 != v29)
+            if (*v163 != v29)
             {
               objc_enumerationMutation(v26);
             }
 
-            aSelector = [(NSDictionary *)v11 objectForKeyedSubscript:*(*(&v163 + 1) + 8 * i), aSelector];
+            aSelector = [(NSDictionary *)v11 objectForKeyedSubscript:*(*(&v162 + 1) + 8 * i), aSelector];
             [aSelector setComputeFlags:{objc_msgSend(aSelector, "computeFlags") | 2}];
           }
 
-          v28 = [(NSDictionary *)v26 countByEnumeratingWithState:&v163 objects:v180 count:16];
+          v28 = [(NSDictionary *)v26 countByEnumeratingWithState:&v162 objects:v179 count:16];
         }
 
         while (v28);
@@ -406,8 +399,8 @@ LABEL_21:
 
     graphLayerList2 = [(MLCGraph *)selfCopy graphLayerList];
     v33 = [MLCDeviceGraph deviceGraphWithLayers:graphLayerList2 device:v15];
-    v179 = v33;
-    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v179 count:1];
+    v178 = v33;
+    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v178 count:1];
 
     computeEngine = [(MLCDevice *)v15 computeEngine];
     LOBYTE(graphLayerList2) = objc_opt_respondsToSelector();
@@ -415,14 +408,14 @@ LABEL_21:
     if (graphLayerList2)
     {
       computeEngine2 = [(MLCDevice *)v15 computeEngine];
-      v37 = [computeEngine2 partitionInferenceGraph:selfCopy startAtLayerIndex:-[MLCInferenceGraph inferenceNodeIndexInGraphLayerList](selfCopy aneDevice:"inferenceNodeIndexInGraphLayerList") secondaryDevice:{v15, v154}];
+      v37 = [computeEngine2 partitionInferenceGraph:selfCopy startAtLayerIndex:-[MLCInferenceGraph inferenceNodeIndexInGraphLayerList](selfCopy aneDevice:"inferenceNodeIndexInGraphLayerList") secondaryDevice:{v15, v153}];
 
-      v156 = v37;
+      v155 = v37;
     }
 
     else
     {
-      v156 = v34;
+      v155 = v34;
     }
 
     inferenceNodeIndexInGraphLayerList = [(MLCInferenceGraph *)selfCopy inferenceNodeIndexInGraphLayerList];
@@ -454,16 +447,16 @@ LABEL_21:
       while (inferenceNodeIndexInGraphLayerList < v44);
     }
 
-    v155 = v15;
-    v151 = v12;
-    v152 = v11;
-    v153 = v10;
-    v148 = (2 * (options & 1)) | options;
-    if ((v148 & 6) == 0)
+    v154 = v15;
+    v150 = v12;
+    v151 = v11;
+    v152 = v10;
+    v147 = (2 * (options & 1)) | options;
+    if ((v147 & 6) == 0)
     {
       inferenceNodeIndexInGraphLayerList2 = [(MLCInferenceGraph *)selfCopy inferenceNodeIndexInGraphLayerList];
-      v161 = selfCopy;
-      v46 = v156;
+      v160 = selfCopy;
+      v46 = v155;
       if ([v46 count] == 1)
       {
         v47 = inferenceNodeIndexInGraphLayerList2;
@@ -475,56 +468,56 @@ LABEL_21:
       }
 
       v48 = [MEMORY[0x277CBEBF8] mutableCopy];
+      v174 = 0u;
       v175 = 0u;
       v176 = 0u;
       v177 = 0u;
-      v178 = 0u;
       v49 = v46;
-      v50 = [v49 countByEnumeratingWithState:&v175 objects:buf count:16];
+      v50 = [v49 countByEnumeratingWithState:&v174 objects:buf count:16];
       if (v50)
       {
         v51 = v50;
-        v52 = *v176;
-        v159 = *v176;
-        v160 = v47;
+        v52 = *v175;
+        v158 = *v175;
+        v159 = v47;
         do
         {
           v53 = 0;
-          v162 = v51;
+          v161 = v51;
           do
           {
-            if (*v176 != v52)
+            if (*v175 != v52)
             {
               objc_enumerationMutation(v49);
             }
 
-            v54 = *(*(&v175 + 1) + 8 * v53);
+            v54 = *(*(&v174 + 1) + 8 * v53);
             if ([v49 count] >= 2)
             {
               v55 = MEMORY[0x277CBEB98];
               graphLayerList6 = [v54 graphLayerList];
               v57 = [v55 setWithArray:graphLayerList6];
 
-              v173 = 0u;
-              v174 = 0u;
-              v171 = 0u;
               v172 = 0u;
-              graphLayerList7 = [(MLCGraph *)v161 graphLayerList];
-              v59 = [graphLayerList7 countByEnumeratingWithState:&v171 objects:v182 count:16];
+              v173 = 0u;
+              v170 = 0u;
+              v171 = 0u;
+              graphLayerList7 = [(MLCGraph *)v160 graphLayerList];
+              v59 = [graphLayerList7 countByEnumeratingWithState:&v170 objects:v181 count:16];
               if (v59)
               {
                 v60 = v59;
-                v61 = *v172;
+                v61 = *v171;
                 do
                 {
                   for (j = 0; j != v60; ++j)
                   {
-                    if (*v172 != v61)
+                    if (*v171 != v61)
                     {
                       objc_enumerationMutation(graphLayerList7);
                     }
 
-                    v63 = *(*(&v171 + 1) + 8 * j);
+                    v63 = *(*(&v170 + 1) + 8 * j);
                     if (([v63 skipLayer] & 1) == 0 && (objc_msgSend(v57, "containsObject:", v63) & 1) == 0)
                     {
                       [v48 addObject:v63];
@@ -532,15 +525,15 @@ LABEL_21:
                     }
                   }
 
-                  v60 = [graphLayerList7 countByEnumeratingWithState:&v171 objects:v182 count:16];
+                  v60 = [graphLayerList7 countByEnumeratingWithState:&v170 objects:v181 count:16];
                 }
 
                 while (v60);
               }
 
-              v52 = v159;
-              v47 = v160;
-              v51 = v162;
+              v52 = v158;
+              v47 = v159;
+              v51 = v161;
             }
 
             device2 = [v54 device];
@@ -550,29 +543,29 @@ LABEL_21:
 
             if ([v49 count] >= 2)
             {
-              v169 = 0u;
-              v170 = 0u;
-              v167 = 0u;
               v168 = 0u;
+              v169 = 0u;
+              v166 = 0u;
+              v167 = 0u;
               v67 = v48;
-              v68 = [v67 countByEnumeratingWithState:&v167 objects:v181 count:16];
+              v68 = [v67 countByEnumeratingWithState:&v166 objects:v180 count:16];
               if (v68)
               {
                 v69 = v68;
-                v70 = *v168;
+                v70 = *v167;
                 do
                 {
                   for (k = 0; k != v69; ++k)
                   {
-                    if (*v168 != v70)
+                    if (*v167 != v70)
                     {
                       objc_enumerationMutation(v67);
                     }
 
-                    [*(*(&v167 + 1) + 8 * k) setSkipLayer:0];
+                    [*(*(&v166 + 1) + 8 * k) setSkipLayer:0];
                   }
 
-                  v69 = [v67 countByEnumeratingWithState:&v167 objects:v181 count:16];
+                  v69 = [v67 countByEnumeratingWithState:&v166 objects:v180 count:16];
                 }
 
                 while (v69);
@@ -585,7 +578,7 @@ LABEL_21:
           }
 
           while (v53 != v51);
-          v51 = [v49 countByEnumeratingWithState:&v175 objects:buf count:16];
+          v51 = [v49 countByEnumeratingWithState:&v174 objects:buf count:16];
         }
 
         while (v51);
@@ -597,7 +590,7 @@ LABEL_21:
     graphLayerList9 = [(MLCGraph *)selfCopy graphLayerList];
     v75 = [graphLayerList9 count];
 
-    v76 = v156;
+    v76 = v155;
     if (inferenceNodeIndexInGraphLayerList3 < v75)
     {
       do
@@ -624,7 +617,7 @@ LABEL_21:
           [lstmLayerIndexList setObject:v79 atIndexedSubscript:{objc_msgSend(lstmLayerIndexList2, "count")}];
         }
 
-        if ([(MLCDevice *)v155 type])
+        if ([(MLCDevice *)v154 type])
         {
           deviceOps = [v78 deviceOps];
           v83 = [deviceOps count];
@@ -666,8 +659,8 @@ LABEL_21:
         if (objc_opt_isKindOfClass())
         {
           v133 = +[MLCLog framework];
-          v13 = v154;
-          v76 = v156;
+          v13 = v153;
+          v76 = v155;
           if (os_log_type_enabled(v133, OS_LOG_TYPE_ERROR))
           {
             [MLCTrainingGraph compileWithOptions:? device:? inputTensors:? inputTensorsData:?];
@@ -675,9 +668,9 @@ LABEL_21:
 
           v134 = +[MLCLog execution];
           v135 = v134;
-          v11 = v152;
-          v10 = v153;
-          if (v150 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v134))
+          v11 = v151;
+          v10 = v152;
+          if (v149 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v134))
           {
             *buf = 0;
             goto LABEL_128;
@@ -691,11 +684,11 @@ LABEL_129:
         deviceOps2 = [v78 deviceOps];
         v97 = [deviceOps2 count];
 
-        v76 = v156;
+        v76 = v155;
         if (v97)
         {
           device3 = [v78 device];
-          v99 = [device3 isEqual:v155];
+          v99 = [device3 isEqual:v154];
 
           if ((v99 & 1) == 0)
           {
@@ -707,10 +700,10 @@ LABEL_129:
 
             v137 = +[MLCLog execution];
             v135 = v137;
-            v11 = v152;
-            v10 = v153;
-            v13 = v154;
-            if (v150 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v137))
+            v11 = v151;
+            v10 = v152;
+            v13 = v153;
+            if (v149 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v137))
             {
               *buf = 0;
 LABEL_128:
@@ -720,16 +713,16 @@ LABEL_128:
             goto LABEL_129;
           }
 
-          [v78 setDevice:v155];
+          [v78 setDevice:v154];
         }
 
-        v100 = v155;
-        if (v155)
+        v100 = v154;
+        if (v154)
         {
           p_super = &v100->super;
           if ([(MLCDevice *)v100 type]== MLCDeviceTypeANE)
           {
-            v102 = v154;
+            v102 = v153;
 
             p_super = v102;
           }
@@ -769,10 +762,10 @@ LABEL_131:
 
                 v139 = +[MLCLog execution];
                 v140 = v139;
-                v11 = v152;
-                v10 = v153;
-                v76 = v156;
-                if (v150 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v139))
+                v11 = v151;
+                v10 = v152;
+                v76 = v155;
+                if (v149 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v139))
                 {
                   *buf = 0;
                   _os_signpost_emit_with_name_impl(&dword_238C1D000, v140, OS_SIGNPOST_INTERVAL_END, spid, "CompileWithOptions", "", buf, 2u);
@@ -813,7 +806,7 @@ LABEL_131:
           }
         }
 
-        v76 = v156;
+        v76 = v155;
 LABEL_99:
 
         ++inferenceNodeIndexInGraphLayerList3;
@@ -825,35 +818,35 @@ LABEL_99:
       while (inferenceNodeIndexInGraphLayerList3 < v118);
     }
 
-    computeEngine4 = [(MLCDevice *)v155 computeEngine];
+    computeEngine4 = [(MLCDevice *)v154 computeEngine];
     v120 = objc_opt_respondsToSelector();
 
-    if ((v120 & 1) != 0 && (-[MLCDevice computeEngine](v155, "computeEngine"), v121 = objc_claimAutoreleasedReturnValue(), v122 = [v121 postProcessCompiledGraph:v72 compilerOptions:v148], v121, (v122 & 1) == 0))
+    if ((v120 & 1) != 0 && (-[MLCDevice computeEngine](v154, "computeEngine"), v121 = objc_claimAutoreleasedReturnValue(), v122 = [v121 postProcessCompiledGraph:v72 compilerOptions:v147], v121, (v122 & 1) == 0))
     {
       v131 = +[MLCLog framework];
-      v11 = v152;
-      v10 = v153;
+      v11 = v151;
+      v10 = v152;
       if (os_log_type_enabled(v131, OS_LOG_TYPE_ERROR))
       {
-        v143 = NSStringFromSelector(aSelectora);
-        computeEngine5 = [(MLCDevice *)v155 computeEngine];
-        v145 = [computeEngine5 description];
+        v142 = NSStringFromSelector(aSelectora);
+        computeEngine5 = [(MLCDevice *)v154 computeEngine];
+        v144 = [computeEngine5 description];
         *buf = 138412802;
-        v184 = v143;
-        v185 = 2112;
-        v186 = v72;
-        v187 = 2112;
-        v188 = v145;
+        v183 = v142;
+        v184 = 2112;
+        v185 = v72;
+        v186 = 2112;
+        v187 = v144;
         _os_log_error_impl(&dword_238C1D000, v131, OS_LOG_TYPE_ERROR, "%@: failed to post process the compiled graph=%@ on device=%@", buf, 0x20u);
 
-        v76 = v156;
+        v76 = v155;
       }
 
       v132 = +[MLCLog execution];
       v78 = v132;
-      if (v150 <= 0xFFFFFFFFFFFFFFFDLL)
+      if (v149 <= 0xFFFFFFFFFFFFFFFDLL)
       {
-        v13 = v154;
+        v13 = v153;
         if (os_signpost_enabled(v132))
         {
           *buf = 0;
@@ -872,37 +865,37 @@ LABEL_137:
     else
     {
       [(MLCGraph *)v72 setReadyForExecution:1];
-      [(MLCGraph *)v72 setDevice:v155];
-      [(MLCGraph *)v72 setAllocateDeviceMemoryForTensorsInGraph:[(MLCDevice *)v155 type]!= MLCDeviceTypeANE];
-      computeEngine6 = [(MLCDevice *)v155 computeEngine];
+      [(MLCGraph *)v72 setDevice:v154];
+      [(MLCGraph *)v72 setAllocateDeviceMemoryForTensorsInGraph:[(MLCDevice *)v154 type]!= MLCDeviceTypeANE];
+      computeEngine6 = [(MLCDevice *)v154 computeEngine];
       v124 = objc_opt_respondsToSelector();
 
-      v11 = v152;
-      v10 = v153;
+      v11 = v151;
+      v10 = v152;
       if (v124)
       {
-        computeEngine7 = [(MLCDevice *)v155 computeEngine];
+        computeEngine7 = [(MLCDevice *)v154 computeEngine];
         graphLayerList12 = [(MLCGraph *)v72 graphLayerList];
         [computeEngine7 allocateDeviceHeapForGraph:graphLayerList12 forInference:1];
       }
 
       if (([(MLCGraph *)v72 compilerOptions]& 4) != 0 || ![(MLCGraph *)v72 staticBatchSizeInGraph])
       {
-        computeEngine8 = [(MLCDevice *)v155 computeEngine];
+        computeEngine8 = [(MLCDevice *)v154 computeEngine];
         v128 = objc_opt_respondsToSelector();
 
         if (v128)
         {
-          computeEngine9 = [(MLCDevice *)v155 computeEngine];
+          computeEngine9 = [(MLCDevice *)v154 computeEngine];
           [computeEngine9 selectDevicesWithBatchSize:1];
         }
       }
 
       v130 = +[MLCLog execution];
       v78 = v130;
-      if (v150 <= 0xFFFFFFFFFFFFFFFDLL)
+      if (v149 <= 0xFFFFFFFFFFFFFFFDLL)
       {
-        v13 = v154;
+        v13 = v153;
         if (os_signpost_enabled(v130))
         {
           *buf = 0;
@@ -916,10 +909,10 @@ LABEL_137:
       v14 = 1;
     }
 
-    v13 = v154;
+    v13 = v153;
 LABEL_139:
 
-    v12 = v151;
+    v12 = v150;
     goto LABEL_140;
   }
 
@@ -932,7 +925,6 @@ LABEL_139:
   v14 = 0;
 LABEL_140:
 
-  v141 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -1008,7 +1000,7 @@ LABEL_140:
 
 - (BOOL)executeWithInputsData:(NSDictionary *)inputsData lossLabelsData:(NSDictionary *)lossLabelsData lossLabelWeightsData:(NSDictionary *)lossLabelWeightsData outputsData:(NSDictionary *)outputsData batchSize:(NSUInteger)batchSize options:(MLCExecutionOptions)options completionHandler:(MLCGraphCompletionHandler)completionHandler
 {
-  v356 = *MEMORY[0x277D85DE8];
+  v355 = *MEMORY[0x277D85DE8];
   v15 = inputsData;
   v16 = lossLabelsData;
   v17 = options;
@@ -1110,8 +1102,8 @@ LABEL_140:
 
     if (v20 && ![(MLCGraph *)self checkPageAlignmentAndSizeForOutputs:v20])
     {
-      v74 = +[MLCLog framework];
-      if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+      v73 = +[MLCLog framework];
+      if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
       {
         [MLCTrainingGraph executeForwardWithBatchSize:a2 options:? outputsData:? completionHandler:?];
       }
@@ -1121,105 +1113,105 @@ LABEL_140:
       goto LABEL_35;
     }
 
-    v324 = v17;
+    v323 = v17;
     aSelector = a2;
-    v315 = v21;
-    v328 = v20;
-    v317 = v19;
+    v314 = v21;
+    v327 = v20;
+    v316 = v19;
     [(MLCGraph *)self updateLSTMLayersForVariableSequenceLengthInGraph:self withInputData:v15];
     graphLayerList2 = [(MLCGraph *)self graphLayerList];
-    v42 = [graphLayerList2 count];
+    v41 = [graphLayerList2 count];
 
     graphLayerList3 = [(MLCGraph *)self graphLayerList];
-    v44 = [graphLayerList3 count];
+    v43 = [graphLayerList3 count];
 
-    v45 = 0;
-    if (v44)
+    v44 = 0;
+    if (v43)
     {
-      for (i = 0; i != v44; ++i)
+      for (i = 0; i != v43; ++i)
       {
         graphLayerList4 = [(MLCGraph *)self graphLayerList];
-        v48 = [graphLayerList4 objectAtIndexedSubscript:i];
-        skipLayer = [v48 skipLayer];
+        v47 = [graphLayerList4 objectAtIndexedSubscript:i];
+        skipLayer = [v47 skipLayer];
 
-        if (v45 <= i)
+        if (v44 <= i)
+        {
+          v49 = i;
+        }
+
+        else
+        {
+          v49 = v44;
+        }
+
+        if (v41 >= i)
         {
           v50 = i;
         }
 
         else
         {
-          v50 = v45;
-        }
-
-        if (v42 >= i)
-        {
-          v51 = i;
-        }
-
-        else
-        {
-          v51 = v42;
+          v50 = v41;
         }
 
         if (!skipLayer)
         {
-          v42 = v51;
-          v45 = v50;
+          v41 = v50;
+          v44 = v49;
         }
       }
     }
 
     graphLayerList5 = [(MLCGraph *)self graphLayerList];
-    v53 = [graphLayerList5 objectAtIndexedSubscript:v45];
+    v52 = [graphLayerList5 objectAtIndexedSubscript:v44];
 
-    resultTensors = [v53 resultTensors];
-    v333 = [resultTensors objectAtIndexedSubscript:0];
+    resultTensors = [v52 resultTensors];
+    v332 = [resultTensors objectAtIndexedSubscript:0];
 
-    v325 = v53;
+    v324 = v52;
     selfCopy = self;
-    v314 = v18;
-    if (v328)
+    v313 = v18;
+    if (v327)
     {
-      v346 = 0u;
-      v347 = 0u;
-      v344 = 0u;
       v345 = 0u;
-      v55 = v328;
-      v56 = [(NSDictionary *)v55 countByEnumeratingWithState:&v344 objects:v355 count:16];
-      if (v56)
+      v346 = 0u;
+      v343 = 0u;
+      v344 = 0u;
+      v54 = v327;
+      v55 = [(NSDictionary *)v54 countByEnumeratingWithState:&v343 objects:v354 count:16];
+      if (v55)
       {
-        v57 = v56;
-        v58 = *v345;
+        v56 = v55;
+        v57 = *v344;
         while (2)
         {
-          for (j = 0; j != v57; ++j)
+          for (j = 0; j != v56; ++j)
           {
-            if (*v345 != v58)
+            if (*v344 != v57)
             {
-              objc_enumerationMutation(v55);
+              objc_enumerationMutation(v54);
             }
 
-            v60 = *(*(&v344 + 1) + 8 * j);
+            v59 = *(*(&v343 + 1) + 8 * j);
             allOutputs = [(MLCGraph *)selfCopy allOutputs];
-            v62 = [allOutputs objectForKeyedSubscript:v60];
+            v61 = [allOutputs objectForKeyedSubscript:v59];
 
-            if (v62 == v333)
+            if (v61 == v332)
             {
-              v316 = [(NSDictionary *)v55 objectForKeyedSubscript:v60];
+              v315 = [(NSDictionary *)v54 objectForKeyedSubscript:v59];
 
-              resultTensors2 = [v325 resultTensors];
-              v326 = [resultTensors2 objectAtIndexedSubscript:0];
-              v311 = 1;
-              v18 = v314;
+              resultTensors2 = [v324 resultTensors];
+              v325 = [resultTensors2 objectAtIndexedSubscript:0];
+              v310 = 1;
+              v18 = v313;
               self = selfCopy;
               goto LABEL_69;
             }
           }
 
-          v57 = [(NSDictionary *)v55 countByEnumeratingWithState:&v344 objects:v355 count:16];
+          v56 = [(NSDictionary *)v54 countByEnumeratingWithState:&v343 objects:v354 count:16];
           self = selfCopy;
-          if (v57)
+          if (v56)
           {
             continue;
           }
@@ -1228,252 +1220,252 @@ LABEL_140:
         }
       }
 
-      v18 = v314;
-      v53 = v325;
+      v18 = v313;
+      v52 = v324;
     }
 
-    descriptor = [v333 descriptor];
-    v64 = malloc_type_malloc([descriptor tensorAllocationSizeInBytes], 0xC28EC5CEuLL);
+    descriptor = [v332 descriptor];
+    v63 = malloc_type_malloc([descriptor tensorAllocationSizeInBytes], 0xC28EC5CEuLL);
 
-    descriptor2 = [v333 descriptor];
-    resultTensors2 = +[MLCTensorData dataWithBytesNoCopy:length:freeWhenDone:](MLCTensorData, "dataWithBytesNoCopy:length:freeWhenDone:", v64, [descriptor2 tensorAllocationSizeInBytes], 1);
+    descriptor2 = [v332 descriptor];
+    resultTensors2 = +[MLCTensorData dataWithBytesNoCopy:length:freeWhenDone:](MLCTensorData, "dataWithBytesNoCopy:length:freeWhenDone:", v63, [descriptor2 tensorAllocationSizeInBytes], 1);
 
-    descriptor3 = [v333 descriptor];
-    v68 = [MLCTensor tensorWithDescriptor:descriptor3 data:resultTensors2];
-    [v68 setComputeFlags:1];
-    device = [v53 device];
-    v326 = v68;
-    [v68 setDevice:device];
+    descriptor3 = [v332 descriptor];
+    v67 = [MLCTensor tensorWithDescriptor:descriptor3 data:resultTensors2];
+    [v67 setComputeFlags:1];
+    device = [v52 device];
+    v325 = v67;
+    [v67 setDevice:device];
 
-    device2 = [v53 device];
-    LODWORD(v68) = [device2 type];
+    device2 = [v52 device];
+    LODWORD(v67) = [device2 type];
 
-    if (v68 == 3)
+    if (v67 == 3)
     {
-      device3 = [v53 device];
+      device3 = [v52 device];
       computeEngine = [device3 computeEngine];
-      resultTensors3 = [v53 resultTensors];
-      v73 = [resultTensors3 objectAtIndexedSubscript:0];
-      [computeEngine shareDeviceMemoryWithResultTensor:v326 sourceTensor:v73];
+      resultTensors3 = [v52 resultTensors];
+      v72 = [resultTensors3 objectAtIndexedSubscript:0];
+      [computeEngine shareDeviceMemoryWithResultTensor:v325 sourceTensor:v72];
     }
 
-    v316 = 0;
-    v311 = 0;
+    v315 = 0;
+    v310 = 0;
 LABEL_69:
 
-    v75 = v324;
-    if ((v324 & 4) != 0)
+    v74 = v323;
+    if ((v323 & 4) != 0)
     {
       *buf = Current;
       *&buf[16] = 0;
       *&buf[8] = 0;
-      v319 = [MEMORY[0x277CBEA90] dataWithBytes:buf length:24];
-      v76 = +[MLCLog execution];
-      spid = os_signpost_id_generate(v76);
+      v318 = [MEMORY[0x277CBEA90] dataWithBytes:buf length:24];
+      v75 = +[MLCLog execution];
+      spid = os_signpost_id_generate(v75);
     }
 
     else
     {
-      v319 = 0;
+      v318 = 0;
       spid = 0;
     }
 
-    if (v324)
+    if (v323)
     {
-      v92 = spid - 1;
+      v91 = spid - 1;
 LABEL_86:
-      v93 = +[MLCLog execution];
-      v94 = v93;
-      v309 = v92;
-      if (v92 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v93))
+      v92 = +[MLCLog execution];
+      v93 = v92;
+      v308 = v91;
+      if (v91 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v92))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_238C1D000, v94, OS_SIGNPOST_INTERVAL_BEGIN, spid, "ExecuteForward", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_238C1D000, v93, OS_SIGNPOST_INTERVAL_BEGIN, spid, "ExecuteForward", "", buf, 2u);
       }
 
       device4 = [(MLCGraph *)self device];
-      v96 = [device4 type] == 0;
+      v95 = [device4 type] == 0;
 
-      v97 = 0;
-      v98 = spid;
-      if ((v96 & (v75 >> 4)) == 0)
+      v96 = 0;
+      v97 = spid;
+      if ((v95 & (v74 >> 4)) == 0)
       {
-        v98 = 0;
+        v97 = 0;
       }
 
-      v310 = v98;
-      v99 = 0x278A68000uLL;
-      if (v42 < v45 + 1)
+      v309 = v97;
+      v98 = 0x278A68000uLL;
+      if (v41 < v44 + 1)
       {
-        v100 = 0;
-        v101 = v98 - 1;
-        v331 = v45;
-        v307 = v15;
-        v312 = v98 - 1;
+        v99 = 0;
+        v100 = v97 - 1;
+        v330 = v44;
+        v306 = v15;
+        v311 = v97 - 1;
         while (1)
         {
           graphLayerList6 = [(MLCGraph *)self graphLayerList];
-          v103 = [graphLayerList6 objectAtIndexedSubscript:v42];
+          v102 = [graphLayerList6 objectAtIndexedSubscript:v41];
 
-          execution = [*(v99 + 3024) execution];
-          v105 = execution;
-          if (v101 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(execution))
+          execution = [*(v98 + 3024) execution];
+          v104 = execution;
+          if (v100 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(execution))
           {
-            v106 = objc_opt_class();
-            v107 = NSStringFromClass(v106);
-            layerID = [v103 layerID];
+            v105 = objc_opt_class();
+            v106 = NSStringFromClass(v105);
+            layerID = [v102 layerID];
             *buf = 138543618;
-            *&buf[4] = v107;
+            *&buf[4] = v106;
             *&buf[12] = 2050;
             *&buf[14] = layerID;
-            _os_signpost_emit_with_name_impl(&dword_238C1D000, v105, OS_SIGNPOST_INTERVAL_BEGIN, v310, "ExecuteForward -- PerLayer", "%{public,name=MLCLayerType}@ %{public,name=LayerID}lu", buf, 0x16u);
+            _os_signpost_emit_with_name_impl(&dword_238C1D000, v104, OS_SIGNPOST_INTERVAL_BEGIN, v309, "ExecuteForward -- PerLayer", "%{public,name=MLCLayerType}@ %{public,name=LayerID}lu", buf, 0x16u);
           }
 
-          if ([v103 skipLayer])
+          if ([v102 skipLayer])
           {
-            v99 = 0x278A68000uLL;
-            v109 = +[MLCLog execution];
-            v110 = v109;
-            if (v312 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v109))
+            v98 = 0x278A68000uLL;
+            v108 = +[MLCLog execution];
+            v109 = v108;
+            if (v311 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v108))
             {
               *buf = 0;
-              _os_signpost_emit_with_name_impl(&dword_238C1D000, v110, OS_SIGNPOST_INTERVAL_END, v310, "ExecuteForward -- PerLayer", "", buf, 2u);
+              _os_signpost_emit_with_name_impl(&dword_238C1D000, v109, OS_SIGNPOST_INTERVAL_END, v309, "ExecuteForward -- PerLayer", "", buf, 2u);
             }
 
             goto LABEL_193;
           }
 
-          if (v42 == v45)
+          if (v41 == v44)
           {
-            v308 = v326;
+            v307 = v325;
           }
 
           else
           {
-            resultTensors4 = [v103 resultTensors];
-            v308 = [resultTensors4 objectAtIndexedSubscript:0];
+            resultTensors4 = [v102 resultTensors];
+            v307 = [resultTensors4 objectAtIndexedSubscript:0];
           }
 
-          device5 = [v103 device];
+          device5 = [v102 device];
 
-          v112 = [MEMORY[0x277CBEBF8] mutableCopy];
-          sourceTensors = [v103 sourceTensors];
-          v114 = [sourceTensors count];
+          v111 = [MEMORY[0x277CBEBF8] mutableCopy];
+          sourceTensors = [v102 sourceTensors];
+          v113 = [sourceTensors count];
 
-          if (v114)
+          if (v113)
           {
-            v115 = 0;
+            v114 = 0;
             do
             {
-              sourceTensors2 = [v103 sourceTensors];
-              v117 = [sourceTensors2 objectAtIndexedSubscript:v115];
+              sourceTensors2 = [v102 sourceTensors];
+              v116 = [sourceTensors2 objectAtIndexedSubscript:v114];
 
-              [v112 setObject:v117 atIndexedSubscript:v115];
-              ++v115;
-              sourceTensors3 = [v103 sourceTensors];
-              v119 = [sourceTensors3 count];
+              [v111 setObject:v116 atIndexedSubscript:v114];
+              ++v114;
+              sourceTensors3 = [v102 sourceTensors];
+              v118 = [sourceTensors3 count];
             }
 
-            while (v115 < v119);
+            while (v114 < v118);
           }
 
-          v342 = 0u;
-          v343 = 0u;
-          v340 = 0u;
           v341 = 0u;
-          obj = v112;
-          v120 = [obj countByEnumeratingWithState:&v340 objects:v354 count:16];
-          if (v120)
+          v342 = 0u;
+          v339 = 0u;
+          v340 = 0u;
+          obj = v111;
+          v119 = [obj countByEnumeratingWithState:&v339 objects:v353 count:16];
+          if (v119)
           {
-            v121 = v120;
-            v122 = *v341;
+            v120 = v119;
+            v121 = *v340;
             while (2)
             {
-              for (k = 0; k != v121; ++k)
+              for (k = 0; k != v120; ++k)
               {
-                if (*v341 != v122)
+                if (*v340 != v121)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v124 = *(*(&v340 + 1) + 8 * k);
-                device6 = [v124 device];
-                device7 = [v103 device];
+                v123 = *(*(&v339 + 1) + 8 * k);
+                device6 = [v123 device];
+                device7 = [v102 device];
 
                 if (device6 != device7)
                 {
-                  device8 = [v103 device];
+                  device8 = [v102 device];
                   computeEngine2 = [device8 computeEngine];
-                  device9 = [v124 device];
-                  v130 = [computeEngine2 transferTensor:v124 fromDevice:device9];
+                  device9 = [v123 device];
+                  v129 = [computeEngine2 transferTensor:v123 fromDevice:device9];
 
-                  if ((v130 & 1) == 0)
+                  if ((v129 & 1) == 0)
                   {
-                    v335 = v103;
-                    v269 = +[MLCLog framework];
-                    if (os_log_type_enabled(v269, OS_LOG_TYPE_ERROR))
+                    v334 = v102;
+                    v268 = +[MLCLog framework];
+                    if (os_log_type_enabled(v268, OS_LOG_TYPE_ERROR))
                     {
-                      v297 = NSStringFromSelector(aSelector);
-                      device10 = [v124 device];
-                      device11 = [v103 device];
+                      v296 = NSStringFromSelector(aSelector);
+                      device10 = [v123 device];
+                      device11 = [v102 device];
                       *buf = 138413058;
-                      *&buf[4] = v297;
+                      *&buf[4] = v296;
                       *&buf[12] = 2112;
-                      *&buf[14] = v124;
+                      *&buf[14] = v123;
                       *&buf[22] = 2112;
-                      v351 = device10;
-                      v352 = 2112;
-                      v353 = device11;
-                      _os_log_error_impl(&dword_238C1D000, v269, OS_LOG_TYPE_ERROR, "%@: Unable to transfer data of a tensor = %@ from device = %@ to device = %@", buf, 0x2Au);
+                      v350 = device10;
+                      v351 = 2112;
+                      v352 = device11;
+                      _os_log_error_impl(&dword_238C1D000, v268, OS_LOG_TYPE_ERROR, "%@: Unable to transfer data of a tensor = %@ from device = %@ to device = %@", buf, 0x2Au);
                     }
 
-                    v270 = +[MLCLog execution];
-                    v271 = v270;
-                    v15 = v307;
-                    v18 = v314;
-                    v19 = v317;
-                    if (v312 > 0xFFFFFFFFFFFFFFFDLL)
+                    v269 = +[MLCLog execution];
+                    v270 = v269;
+                    v15 = v306;
+                    v18 = v313;
+                    v19 = v316;
+                    if (v311 > 0xFFFFFFFFFFFFFFFDLL)
                     {
+                      v272 = obj;
                       v273 = obj;
-                      v274 = obj;
-                      v21 = v315;
-                      v253 = v325;
-                      v265 = v326;
-                      freeResourceList = v308;
+                      v21 = v314;
+                      v252 = v324;
+                      v264 = v325;
+                      freeResourceList = v307;
                     }
 
                     else
                     {
-                      v21 = v315;
-                      v253 = v325;
-                      v265 = v326;
-                      freeResourceList = v308;
-                      v273 = obj;
-                      if (os_signpost_enabled(v270))
+                      v21 = v314;
+                      v252 = v324;
+                      v264 = v325;
+                      freeResourceList = v307;
+                      v272 = obj;
+                      if (os_signpost_enabled(v269))
                       {
                         *buf = 0;
-                        _os_signpost_emit_with_name_impl(&dword_238C1D000, v271, OS_SIGNPOST_INTERVAL_END, v310, "ExecuteForward -- PerLayer", "", buf, 2u);
+                        _os_signpost_emit_with_name_impl(&dword_238C1D000, v270, OS_SIGNPOST_INTERVAL_END, v309, "ExecuteForward -- PerLayer", "", buf, 2u);
                       }
 
-                      v274 = obj;
+                      v273 = obj;
                     }
 
 LABEL_285:
 
                     v38 = 0;
-                    v20 = v328;
+                    v20 = v327;
                     goto LABEL_286;
                   }
 
-                  device12 = [v103 device];
-                  [v124 setDevice:device12];
+                  device12 = [v102 device];
+                  [v123 setDevice:device12];
 
-                  v45 = v331;
+                  v44 = v330;
                 }
               }
 
-              v121 = [obj countByEnumeratingWithState:&v340 objects:v354 count:16];
-              if (v121)
+              v120 = [obj countByEnumeratingWithState:&v339 objects:v353 count:16];
+              if (v120)
               {
                 continue;
               }
@@ -1482,85 +1474,85 @@ LABEL_285:
             }
           }
 
-          v338 = 0u;
-          v339 = 0u;
-          v336 = 0u;
           v337 = 0u;
-          resultTensors5 = [v103 resultTensors];
-          v133 = [resultTensors5 countByEnumeratingWithState:&v336 objects:v349 count:16];
-          if (v133)
+          v338 = 0u;
+          v335 = 0u;
+          v336 = 0u;
+          resultTensors5 = [v102 resultTensors];
+          v132 = [resultTensors5 countByEnumeratingWithState:&v335 objects:v348 count:16];
+          if (v132)
           {
-            v134 = v133;
-            v135 = *v337;
-            v320 = resultTensors5;
+            v133 = v132;
+            v134 = *v336;
+            v319 = resultTensors5;
             while (2)
             {
-              for (m = 0; m != v134; ++m)
+              for (m = 0; m != v133; ++m)
               {
-                if (*v337 != v135)
+                if (*v336 != v134)
                 {
-                  objc_enumerationMutation(v320);
+                  objc_enumerationMutation(v319);
                 }
 
-                v137 = *(*(&v336 + 1) + 8 * m);
-                device13 = [v137 device];
-                [v103 device];
-                v140 = v139 = v103;
+                v136 = *(*(&v335 + 1) + 8 * m);
+                device13 = [v136 device];
+                [v102 device];
+                v139 = v138 = v102;
 
-                if (device13 != v140)
+                if (device13 != v139)
                 {
-                  device14 = [v139 device];
+                  device14 = [v138 device];
                   computeEngine3 = [device14 computeEngine];
-                  v143 = [computeEngine3 updateDeviceMemoryForTensor:v137];
+                  v142 = [computeEngine3 updateDeviceMemoryForTensor:v136];
 
-                  if ((v143 & 1) == 0)
+                  if ((v142 & 1) == 0)
                   {
-                    v335 = v139;
-                    v277 = +[MLCLog execution];
-                    v271 = v277;
-                    if (v312 > 0xFFFFFFFFFFFFFFFDLL)
+                    v334 = v138;
+                    v276 = +[MLCLog execution];
+                    v270 = v276;
+                    if (v311 > 0xFFFFFFFFFFFFFFFDLL)
                     {
-                      v15 = v307;
-                      freeResourceList = v308;
-                      v18 = v314;
-                      v21 = v315;
-                      v19 = v317;
-                      v253 = v325;
-                      v265 = v326;
-                      v273 = obj;
+                      v15 = v306;
+                      freeResourceList = v307;
+                      v18 = v313;
+                      v21 = v314;
+                      v19 = v316;
+                      v252 = v324;
+                      v264 = v325;
+                      v272 = obj;
                     }
 
                     else
                     {
-                      v15 = v307;
-                      freeResourceList = v308;
-                      v18 = v314;
-                      v21 = v315;
-                      v19 = v317;
-                      v253 = v325;
-                      v265 = v326;
-                      v273 = obj;
-                      if (os_signpost_enabled(v277))
+                      v15 = v306;
+                      freeResourceList = v307;
+                      v18 = v313;
+                      v21 = v314;
+                      v19 = v316;
+                      v252 = v324;
+                      v264 = v325;
+                      v272 = obj;
+                      if (os_signpost_enabled(v276))
                       {
                         *buf = 0;
-                        _os_signpost_emit_with_name_impl(&dword_238C1D000, v271, OS_SIGNPOST_INTERVAL_END, v310, "ExecuteForward -- PerLayer", "", buf, 2u);
+                        _os_signpost_emit_with_name_impl(&dword_238C1D000, v270, OS_SIGNPOST_INTERVAL_END, v309, "ExecuteForward -- PerLayer", "", buf, 2u);
                       }
                     }
 
-                    v274 = v320;
+                    v273 = v319;
                     goto LABEL_285;
                   }
                 }
 
-                device15 = [v139 device];
-                [v137 setDevice:device15];
+                device15 = [v138 device];
+                [v136 setDevice:device15];
 
-                v103 = v139;
+                v102 = v138;
               }
 
-              resultTensors5 = v320;
-              v134 = [v320 countByEnumeratingWithState:&v336 objects:v349 count:16];
-              if (v134)
+              resultTensors5 = v319;
+              v133 = [v319 countByEnumeratingWithState:&v335 objects:v348 count:16];
+              if (v133)
               {
                 continue;
               }
@@ -1569,98 +1561,98 @@ LABEL_285:
             }
           }
 
-          [v103 setBatchSize:batchSize];
+          [v102 setBatchSize:batchSize];
           computeEngine4 = [device5 computeEngine];
-          v146 = objc_opt_respondsToSelector();
+          v145 = objc_opt_respondsToSelector();
 
-          if (v146)
+          if (v145)
           {
             computeEngine5 = [device5 computeEngine];
-            deviceOps = [v103 deviceOps];
+            deviceOps = [v102 deviceOps];
             [computeEngine5 dispatchForwardLayer:deviceOps];
 
-            v149 = +[MLCLog execution];
-            v150 = v149;
-            v15 = v307;
-            v18 = v314;
+            v148 = +[MLCLog execution];
+            v149 = v148;
+            v15 = v306;
+            v18 = v313;
             self = selfCopy;
-            if (v312 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v149))
+            if (v311 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v148))
             {
-              v151 = objc_opt_class();
-              v152 = NSStringFromClass(v151);
-              layerID2 = [v103 layerID];
-              [v103 label];
-              v155 = v154 = v103;
+              v150 = objc_opt_class();
+              v151 = NSStringFromClass(v150);
+              layerID2 = [v102 layerID];
+              [v102 label];
+              v154 = v153 = v102;
               *buf = 138543874;
-              *&buf[4] = v152;
+              *&buf[4] = v151;
               *&buf[12] = 2050;
               *&buf[14] = layerID2;
               *&buf[22] = 2114;
-              v351 = v155;
-              _os_signpost_emit_with_name_impl(&dword_238C1D000, v150, OS_SIGNPOST_INTERVAL_END, v310, "ExecuteForward -- PerLayer", "%{public,name=MLCLayerType}@ (%{public,name=LayerID}lu, %{public,name=MLCLayerName}@)", buf, 0x20u);
+              v350 = v154;
+              _os_signpost_emit_with_name_impl(&dword_238C1D000, v149, OS_SIGNPOST_INTERVAL_END, v309, "ExecuteForward -- PerLayer", "%{public,name=MLCLayerType}@ (%{public,name=LayerID}lu, %{public,name=MLCLayerName}@)", buf, 0x20u);
 
-              v103 = v154;
-              v45 = v331;
+              v102 = v153;
+              v44 = v330;
             }
 
             goto LABEL_190;
           }
 
           objc_opt_class();
-          v15 = v307;
-          v18 = v314;
+          v15 = v306;
+          v18 = v313;
           self = selfCopy;
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             if ([(MLCGraph *)selfCopy allocateDeviceMemoryForTensorsInGraph])
             {
-              if ([v103 compileForInferenceOnly])
+              if ([v102 compileForInferenceOnly])
               {
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
-                  [(MLCGraph *)selfCopy allocateDeviceMemoryForTensor:v308 device:device5];
-                  resultTensors6 = [v103 resultTensors];
-                  v162 = [resultTensors6 count];
+                  [(MLCGraph *)selfCopy allocateDeviceMemoryForTensor:v307 device:device5];
+                  resultTensors6 = [v102 resultTensors];
+                  v161 = [resultTensors6 count];
 
-                  if (v162 >= 2)
+                  if (v161 >= 2)
                   {
-                    v163 = 1;
+                    v162 = 1;
                     do
                     {
-                      resultTensors7 = [v103 resultTensors];
-                      v165 = [resultTensors7 objectAtIndexedSubscript:v163];
-                      [(MLCGraph *)selfCopy allocateDeviceMemoryForTensor:v165 device:device5];
+                      resultTensors7 = [v102 resultTensors];
+                      v164 = [resultTensors7 objectAtIndexedSubscript:v162];
+                      [(MLCGraph *)selfCopy allocateDeviceMemoryForTensor:v164 device:device5];
 
-                      ++v163;
-                      resultTensors8 = [v103 resultTensors];
-                      v167 = [resultTensors8 count];
+                      ++v162;
+                      resultTensors8 = [v102 resultTensors];
+                      v166 = [resultTensors8 count];
                     }
 
-                    while (v163 < v167);
+                    while (v162 < v166);
                   }
                 }
               }
 
-              [(MLCGraph *)selfCopy updateDeviceMemoryReadCountForTensor:v308];
-              resultTensors9 = [v103 resultTensors];
-              v169 = [resultTensors9 count];
+              [(MLCGraph *)selfCopy updateDeviceMemoryReadCountForTensor:v307];
+              resultTensors9 = [v102 resultTensors];
+              v168 = [resultTensors9 count];
 
-              if (v169 >= 2)
+              if (v168 >= 2)
               {
-                v170 = 1;
+                v169 = 1;
                 do
                 {
-                  resultTensors10 = [v103 resultTensors];
-                  v172 = [resultTensors10 objectAtIndexedSubscript:v170];
-                  [(MLCGraph *)selfCopy updateDeviceMemoryReadCountForTensor:v172];
+                  resultTensors10 = [v102 resultTensors];
+                  v171 = [resultTensors10 objectAtIndexedSubscript:v169];
+                  [(MLCGraph *)selfCopy updateDeviceMemoryReadCountForTensor:v171];
 
-                  ++v170;
-                  resultTensors11 = [v103 resultTensors];
-                  v174 = [resultTensors11 count];
+                  ++v169;
+                  resultTensors11 = [v102 resultTensors];
+                  v173 = [resultTensors11 count];
                 }
 
-                while (v170 < v174);
+                while (v169 < v173);
               }
             }
 
@@ -1668,34 +1660,34 @@ LABEL_285:
             if (objc_opt_isKindOfClass())
             {
               computeEngine6 = [device5 computeEngine];
-              deviceOps2 = [v103 deviceOps];
-              v176 = [obj objectAtIndexedSubscript:0];
-              v177 = 0;
-              binaryOperation = [v103 binaryOperation];
+              deviceOps2 = [v102 deviceOps];
+              v175 = [obj objectAtIndexedSubscript:0];
+              v176 = 0;
+              binaryOperation = [v102 binaryOperation];
               if (binaryOperation)
               {
-                v177 = [obj objectAtIndexedSubscript:1];
-                v304 = v177;
+                v176 = [obj objectAtIndexedSubscript:1];
+                v303 = v176;
               }
 
               if ([obj count] == 3)
               {
                 [obj objectAtIndexedSubscript:2];
-                v303 = v176;
-                v179 = v178 = deviceOps2;
-                LOBYTE(v300) = 0;
+                v302 = v175;
+                v178 = v177 = deviceOps2;
+                LOBYTE(v299) = 0;
                 computeEngine7 = computeEngine6;
-                [computeEngine6 dispatchForwardLayer:v178 sourceTensor:v303 secondaryTensor:v177 tertiaryTensor:v179 resultTensor:v308 resultStateIsTemporary:0 forTraining:v300];
+                [computeEngine6 dispatchForwardLayer:v177 sourceTensor:v302 secondaryTensor:v176 tertiaryTensor:v178 resultTensor:v307 resultStateIsTemporary:0 forTraining:v299];
 
-                deviceOps2 = v178;
-                v176 = v303;
+                deviceOps2 = v177;
+                v175 = v302;
               }
 
               else
               {
-                LOBYTE(v300) = 0;
+                LOBYTE(v299) = 0;
                 computeEngine7 = computeEngine6;
-                [computeEngine6 dispatchForwardLayer:deviceOps2 sourceTensor:v176 secondaryTensor:v177 tertiaryTensor:0 resultTensor:v308 resultStateIsTemporary:0 forTraining:v300];
+                [computeEngine6 dispatchForwardLayer:deviceOps2 sourceTensor:v175 secondaryTensor:v176 tertiaryTensor:0 resultTensor:v307 resultStateIsTemporary:0 forTraining:v299];
               }
 
               if (binaryOperation)
@@ -1706,89 +1698,89 @@ LABEL_285:
             }
 
             objc_opt_class();
-            v184 = obj;
+            v183 = obj;
             if (objc_opt_isKindOfClass())
             {
-              v322 = [MEMORY[0x277CBEBF8] mutableCopy];
-              [v322 setObject:v308 atIndexedSubscript:0];
-              sourceTensors4 = [v103 sourceTensors];
+              v321 = [MEMORY[0x277CBEBF8] mutableCopy];
+              [v321 setObject:v307 atIndexedSubscript:0];
+              sourceTensors4 = [v102 sourceTensors];
               if ([sourceTensors4 count] == 3)
               {
 
                 goto LABEL_166;
               }
 
-              sourceTensors5 = [v103 sourceTensors];
-              v187 = [sourceTensors5 count];
+              sourceTensors5 = [v102 sourceTensors];
+              v186 = [sourceTensors5 count];
 
-              v188 = v187 == 4;
-              v184 = obj;
-              if (v188)
+              v187 = v186 == 4;
+              v183 = obj;
+              if (v187)
               {
 LABEL_166:
-                sourceTensors6 = [v103 sourceTensors];
-                v190 = [sourceTensors6 objectAtIndexedSubscript:1];
-                [v184 setObject:v190 atIndexedSubscript:1];
+                sourceTensors6 = [v102 sourceTensors];
+                v189 = [sourceTensors6 objectAtIndexedSubscript:1];
+                [v183 setObject:v189 atIndexedSubscript:1];
 
-                sourceTensors7 = [v103 sourceTensors];
-                v192 = [sourceTensors7 objectAtIndexedSubscript:2];
-                [v184 setObject:v192 atIndexedSubscript:2];
+                sourceTensors7 = [v102 sourceTensors];
+                v191 = [sourceTensors7 objectAtIndexedSubscript:2];
+                [v183 setObject:v191 atIndexedSubscript:2];
               }
 
-              resultTensors12 = [v103 resultTensors];
-              v194 = [resultTensors12 count];
+              resultTensors12 = [v102 resultTensors];
+              v193 = [resultTensors12 count];
 
-              if (v194 == 3)
+              if (v193 == 3)
               {
-                resultTensors13 = [v103 resultTensors];
-                v196 = [resultTensors13 objectAtIndexedSubscript:1];
-                [v322 setObject:v196 atIndexedSubscript:1];
+                resultTensors13 = [v102 resultTensors];
+                v195 = [resultTensors13 objectAtIndexedSubscript:1];
+                [v321 setObject:v195 atIndexedSubscript:1];
 
-                resultTensors14 = [v103 resultTensors];
-                v198 = [resultTensors14 objectAtIndexedSubscript:2];
-                [v322 setObject:v198 atIndexedSubscript:2];
+                resultTensors14 = [v102 resultTensors];
+                v197 = [resultTensors14 objectAtIndexedSubscript:2];
+                [v321 setObject:v197 atIndexedSubscript:2];
               }
 
               deviceOps2 = [device5 computeEngine];
-              deviceOps3 = [v103 deviceOps];
-              [deviceOps2 dispatchRNNForwardLayer:deviceOps3 sourceTensors:obj resultTensors:v322];
+              deviceOps3 = [v102 deviceOps];
+              [deviceOps2 dispatchRNNForwardLayer:deviceOps3 sourceTensors:obj resultTensors:v321];
 
-              computeEngine7 = v322;
+              computeEngine7 = v321;
 LABEL_181:
 
 LABEL_182:
-              if (([v103 isDebuggingEnabled] & 1) == 0 && -[MLCGraph allocateDeviceMemoryForTensorsInGraph](self, "allocateDeviceMemoryForTensorsInGraph") && objc_msgSend(obj, "count"))
+              if (([v102 isDebuggingEnabled] & 1) == 0 && -[MLCGraph allocateDeviceMemoryForTensorsInGraph](self, "allocateDeviceMemoryForTensorsInGraph") && objc_msgSend(obj, "count"))
               {
-                v208 = 0;
+                v207 = 0;
                 do
                 {
-                  v209 = [obj objectAtIndexedSubscript:v208];
-                  [(MLCGraph *)self freeDeviceMemoryForTensorIfSafe:v209 device:device5];
+                  v208 = [obj objectAtIndexedSubscript:v207];
+                  [(MLCGraph *)self freeDeviceMemoryForTensorIfSafe:v208 device:device5];
 
-                  ++v208;
+                  ++v207;
                 }
 
-                while (v208 < [obj count]);
+                while (v207 < [obj count]);
               }
 
-              v210 = +[MLCLog execution];
-              v150 = v210;
-              if (v312 <= 0xFFFFFFFFFFFFFFFDLL)
+              v209 = +[MLCLog execution];
+              v149 = v209;
+              if (v311 <= 0xFFFFFFFFFFFFFFFDLL)
               {
-                v100 = device5;
-                v110 = v308;
-                if (os_signpost_enabled(v210))
+                v99 = device5;
+                v109 = v307;
+                if (os_signpost_enabled(v209))
                 {
                   *buf = 0;
-                  _os_signpost_emit_with_name_impl(&dword_238C1D000, v150, OS_SIGNPOST_INTERVAL_END, v310, "ExecuteForward -- PerLayer", "", buf, 2u);
+                  _os_signpost_emit_with_name_impl(&dword_238C1D000, v149, OS_SIGNPOST_INTERVAL_END, v309, "ExecuteForward -- PerLayer", "", buf, 2u);
                 }
 
                 goto LABEL_191;
               }
 
 LABEL_190:
-              v100 = device5;
-              v110 = v308;
+              v99 = device5;
+              v109 = v307;
               goto LABEL_191;
             }
 
@@ -1796,8 +1788,8 @@ LABEL_190:
             if (objc_opt_isKindOfClass())
             {
               computeEngine7 = [device5 computeEngine];
-              deviceOps2 = [v103 deviceOps];
-              [computeEngine7 dispatchForwardMHALayer:deviceOps2 sourceTensors:obj resultTensor:v308 resultStateIsTemporary:0 forTraining:0];
+              deviceOps2 = [v102 deviceOps];
+              [computeEngine7 dispatchForwardMHALayer:deviceOps2 sourceTensors:obj resultTensor:v307 resultStateIsTemporary:0 forTraining:0];
               goto LABEL_181;
             }
 
@@ -1805,24 +1797,24 @@ LABEL_190:
             if (objc_opt_isKindOfClass())
             {
               computeEngine7 = [device5 computeEngine];
-              deviceOps2 = [v103 deviceOps];
-              [computeEngine7 dispatchForwardMatMulLayer:deviceOps2 sourceTensors:obj resultTensor:v308];
+              deviceOps2 = [v102 deviceOps];
+              [computeEngine7 dispatchForwardMatMulLayer:deviceOps2 sourceTensors:obj resultTensor:v307];
 LABEL_180:
-              v15 = v307;
-              v18 = v314;
-              v45 = v331;
+              v15 = v306;
+              v18 = v313;
+              v44 = v330;
               self = selfCopy;
               goto LABEL_181;
             }
 
             objc_opt_class();
-            v200 = v103;
+            v199 = v102;
             if (objc_opt_isKindOfClass())
             {
               computeEngine8 = [device5 computeEngine];
-              deviceOps4 = [v103 deviceOps];
-              v203 = [obj objectAtIndexedSubscript:0];
-              [computeEngine8 dispatchForwardSliceLayer:deviceOps4 sourceTensor:v203 resultTensor:v308 forTraining:0];
+              deviceOps4 = [v102 deviceOps];
+              v202 = [obj objectAtIndexedSubscript:0];
+              [computeEngine8 dispatchForwardSliceLayer:deviceOps4 sourceTensor:v202 resultTensor:v307 forTraining:0];
 LABEL_174:
 
               computeEngine7 = computeEngine8;
@@ -1834,9 +1826,9 @@ LABEL_174:
             if (objc_opt_isKindOfClass())
             {
               computeEngine9 = [device5 computeEngine];
-              deviceOps5 = [v103 deviceOps];
+              deviceOps5 = [v102 deviceOps];
               weights = [obj objectAtIndexedSubscript:0];
-              resultTensors15 = [v103 resultTensors];
+              resultTensors15 = [v102 resultTensors];
               [computeEngine9 dispatchForwardSplitLayer:deviceOps5 sourceTensor:weights resultTensors:resultTensors15];
 LABEL_179:
 
@@ -1849,10 +1841,10 @@ LABEL_179:
             if (objc_opt_isKindOfClass())
             {
               computeEngine9 = [device5 computeEngine];
-              deviceOps5 = [v103 deviceOps];
-              weights = [v103 weights];
+              deviceOps5 = [v102 deviceOps];
+              weights = [v102 weights];
               resultTensors15 = [obj objectAtIndexedSubscript:0];
-              [computeEngine9 dispatchForwardEmbeddingLayer:deviceOps5 weight:weights sourceTensor:resultTensors15 resultTensor:v308];
+              [computeEngine9 dispatchForwardEmbeddingLayer:deviceOps5 weight:weights sourceTensor:resultTensors15 resultTensor:v307];
               goto LABEL_179;
             }
 
@@ -1860,47 +1852,47 @@ LABEL_179:
             if (objc_opt_isKindOfClass())
             {
               computeEngine10 = [device5 computeEngine];
-              deviceOps6 = [v103 deviceOps];
-              v213 = [obj objectAtIndexedSubscript:0];
-              [computeEngine10 dispatchForwardReshapeLayer:deviceOps6 sourceTensor:v213 resultTensor:v308 resultStateIsTemporary:1 forTraining:0];
+              deviceOps6 = [v102 deviceOps];
+              v212 = [obj objectAtIndexedSubscript:0];
+              [computeEngine10 dispatchForwardReshapeLayer:deviceOps6 sourceTensor:v212 resultTensor:v307 resultStateIsTemporary:1 forTraining:0];
 
-              sharedMemoryTensor = [v308 sharedMemoryTensor];
+              sharedMemoryTensor = [v307 sharedMemoryTensor];
 
               if (!sharedMemoryTensor)
               {
-                v15 = v307;
-                v18 = v314;
-                v45 = v331;
+                v15 = v306;
+                v18 = v313;
+                v44 = v330;
                 self = selfCopy;
-                v103 = v200;
+                v102 = v199;
                 goto LABEL_182;
               }
 
-              sharedMemoryTensor2 = [v308 sharedMemoryTensor];
-              childLayers = [v308 childLayers];
-              v215 = [childLayers count];
-              if (v215)
+              sharedMemoryTensor2 = [v307 sharedMemoryTensor];
+              childLayers = [v307 childLayers];
+              v214 = [childLayers count];
+              if (v214)
               {
-                childLayers2 = [v308 childLayers];
-                v216 = [childLayers2 count];
+                childLayers2 = [v307 childLayers];
+                v215 = [childLayers2 count];
               }
 
               else
               {
-                v216 = 1;
+                v215 = 1;
               }
 
-              [sharedMemoryTensor2 setReadCount:{objc_msgSend(sharedMemoryTensor2, "readCount") + v216}];
-              if (v215)
+              [sharedMemoryTensor2 setReadCount:{objc_msgSend(sharedMemoryTensor2, "readCount") + v215}];
+              if (v214)
               {
               }
 
 LABEL_215:
-              v15 = v307;
-              v18 = v314;
-              v45 = v331;
+              v15 = v306;
+              v18 = v313;
+              v44 = v330;
               self = selfCopy;
-              v103 = v200;
+              v102 = v199;
               computeEngine7 = sharedMemoryTensor2;
               deviceOps2 = childLayers;
               goto LABEL_181;
@@ -1910,26 +1902,26 @@ LABEL_215:
             if (objc_opt_isKindOfClass())
             {
               computeEngine7 = [device5 computeEngine];
-              deviceOps2 = [v103 deviceOps];
-              [computeEngine7 dispatchForwardConcatLayer:deviceOps2 sourceTensors:obj resultTensor:v308];
+              deviceOps2 = [v102 deviceOps];
+              [computeEngine7 dispatchForwardConcatLayer:deviceOps2 sourceTensors:obj resultTensor:v307];
               goto LABEL_180;
             }
 
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v217 = v103;
-              computeEngine13 = v103;
+              v216 = v102;
+              computeEngine13 = v102;
               computeEngine11 = [device5 computeEngine];
               deviceOps7 = [computeEngine13 deviceOps];
-              v221 = [obj objectAtIndexedSubscript:0];
+              v220 = [obj objectAtIndexedSubscript:0];
               reductionType = [computeEngine13 reductionType];
               dimensions = [computeEngine13 dimensions];
-              v224 = reductionType;
+              v223 = reductionType;
               deviceOps2 = computeEngine11;
-              [computeEngine11 dispatchForwardReduceLayer:deviceOps7 sourceTensor:v221 resultTensor:v308 reductionType:v224 reduceDimensions:dimensions forTraining:0];
+              [computeEngine11 dispatchForwardReduceLayer:deviceOps7 sourceTensor:v220 resultTensor:v307 reductionType:v223 reduceDimensions:dimensions forTraining:0];
 
-              v103 = v217;
+              v102 = v216;
             }
 
             else
@@ -1937,21 +1929,21 @@ LABEL_215:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v225 = v103;
+                v224 = v102;
                 childLayers = [device5 computeEngine];
-                sharedMemoryTensor2 = v225;
-                deviceOps8 = [v225 deviceOps];
-                v227 = [obj objectAtIndexedSubscript:0];
-                v228 = [obj count];
-                v229 = 0;
-                if (v228 == 2)
+                sharedMemoryTensor2 = v224;
+                deviceOps8 = [v224 deviceOps];
+                v226 = [obj objectAtIndexedSubscript:0];
+                v227 = [obj count];
+                v228 = 0;
+                if (v227 == 2)
                 {
-                  v229 = [obj objectAtIndexedSubscript:1];
-                  v301 = v229;
+                  v228 = [obj objectAtIndexedSubscript:1];
+                  v300 = v228;
                 }
 
-                [childLayers dispatchForwardCompareLayer:deviceOps8 sourceTensor:v227 secondaryTensor:v229 resultTensor:v308 compareOp:objc_msgSend(sharedMemoryTensor2 forTraining:{"operation"), 0}];
-                if (v228 == 2)
+                [childLayers dispatchForwardCompareLayer:deviceOps8 sourceTensor:v226 secondaryTensor:v228 resultTensor:v307 compareOp:objc_msgSend(sharedMemoryTensor2 forTraining:{"operation"), 0}];
+                if (v227 == 2)
                 {
                 }
 
@@ -1961,23 +1953,23 @@ LABEL_215:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v230 = v103;
-                computeEngine13 = v103;
+                v229 = v102;
+                computeEngine13 = v102;
                 lossLabels = [computeEngine13 lossLabels];
                 descriptor4 = [lossLabels descriptor];
                 stride = [descriptor4 stride];
-                v234 = [stride objectAtIndexedSubscript:0];
-                v235 = [v234 unsignedIntegerValue] >> 2;
+                v233 = [stride objectAtIndexedSubscript:0];
+                v234 = [v233 unsignedIntegerValue] >> 2;
 
                 computeEngine12 = [device5 computeEngine];
                 deviceOps7 = [computeEngine13 deviceOps];
-                v221 = [obj objectAtIndexedSubscript:0];
+                v220 = [obj objectAtIndexedSubscript:0];
                 lossLabels2 = [computeEngine13 lossLabels];
                 weights2 = [computeEngine13 weights];
-                LOWORD(v300) = 0;
-                [computeEngine12 dispatchForwardLossLayer:deviceOps7 sourceTensor:v221 labelsTensor:lossLabels2 labelsTensorStride:v235 weightsTensor:weights2 resultTensor:v308 resultStateIsTemporary:v300 forTraining:?];
+                LOWORD(v299) = 0;
+                [computeEngine12 dispatchForwardLossLayer:deviceOps7 sourceTensor:v220 labelsTensor:lossLabels2 labelsTensorStride:v234 weightsTensor:weights2 resultTensor:v307 resultStateIsTemporary:v299 forTraining:?];
 
-                v103 = v230;
+                v102 = v229;
                 deviceOps2 = computeEngine12;
               }
 
@@ -1987,9 +1979,9 @@ LABEL_215:
                 if (objc_opt_isKindOfClass())
                 {
                   computeEngine8 = [device5 computeEngine];
-                  deviceOps4 = [v103 deviceOps];
-                  v203 = [obj objectAtIndexedSubscript:0];
-                  [computeEngine8 dispatchForwardFullyConnectedLayer:deviceOps4 sourceTensor:v203 resultTensor:v308 forTraining:0];
+                  deviceOps4 = [v102 deviceOps];
+                  v202 = [obj objectAtIndexedSubscript:0];
+                  [computeEngine8 dispatchForwardFullyConnectedLayer:deviceOps4 sourceTensor:v202 resultTensor:v307 forTraining:0];
                   goto LABEL_174;
                 }
 
@@ -2000,8 +1992,8 @@ LABEL_215:
                   if (objc_opt_isKindOfClass())
                   {
                     computeEngine7 = [device5 computeEngine];
-                    deviceOps2 = [v103 deviceOps];
-                    [computeEngine7 dispatchForwardScatterLayer:deviceOps2 sourceTensors:obj resultTensor:v308 forTraining:0];
+                    deviceOps2 = [v102 deviceOps];
+                    [computeEngine7 dispatchForwardScatterLayer:deviceOps2 sourceTensors:obj resultTensor:v307 forTraining:0];
                     goto LABEL_180;
                   }
 
@@ -2009,28 +2001,28 @@ LABEL_215:
                   if (objc_opt_isKindOfClass())
                   {
                     computeEngine7 = [device5 computeEngine];
-                    deviceOps2 = [v103 deviceOps];
-                    [computeEngine7 dispatchForwardGatherLayer:deviceOps2 sourceTensors:obj resultTensor:v308 forTraining:0];
+                    deviceOps2 = [v102 deviceOps];
+                    [computeEngine7 dispatchForwardGatherLayer:deviceOps2 sourceTensors:obj resultTensor:v307 forTraining:0];
                     goto LABEL_180;
                   }
 
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    fusedLayers = [v103 fusedLayers];
+                    fusedLayers = [v102 fusedLayers];
                     if ([fusedLayers count])
                     {
-                      fusedLayers2 = [v103 fusedLayers];
-                      v245 = [fusedLayers2 objectAtIndexedSubscript:0];
+                      fusedLayers2 = [v102 fusedLayers];
+                      v244 = [fusedLayers2 objectAtIndexedSubscript:0];
                       objc_opt_class();
                       isKindOfClass = objc_opt_isKindOfClass();
 
                       if (isKindOfClass)
                       {
                         computeEngine7 = [device5 computeEngine];
-                        v103 = v200;
-                        deviceOps2 = [v200 deviceOps];
-                        [computeEngine7 dispatchForwardFusedArithmeticLayerNormalizationLayer:deviceOps2 sourceTensors:obj resultTensor:v308 forTraining:0];
+                        v102 = v199;
+                        deviceOps2 = [v199 deviceOps];
+                        [computeEngine7 dispatchForwardFusedArithmeticLayerNormalizationLayer:deviceOps2 sourceTensors:obj resultTensor:v307 forTraining:0];
                         goto LABEL_180;
                       }
                     }
@@ -2041,25 +2033,25 @@ LABEL_215:
                   }
 
                   computeEngine8 = [device5 computeEngine];
-                  v103 = v200;
-                  deviceOps4 = [v200 deviceOps];
-                  v203 = [obj objectAtIndexedSubscript:0];
-                  [computeEngine8 dispatchForwardLayer:deviceOps4 sourceTensor:v203 resultTensor:v308 resultStateIsTemporary:0 forTraining:0];
+                  v102 = v199;
+                  deviceOps4 = [v199 deviceOps];
+                  v202 = [obj objectAtIndexedSubscript:0];
+                  [computeEngine8 dispatchForwardLayer:deviceOps4 sourceTensor:v202 resultTensor:v307 resultStateIsTemporary:0 forTraining:0];
                   goto LABEL_174;
                 }
 
                 computeEngine13 = [device5 computeEngine];
-                v239 = v103;
-                deviceOps9 = [v103 deviceOps];
+                v238 = v102;
+                deviceOps9 = [v102 deviceOps];
                 deviceOps7 = [obj objectAtIndexedSubscript:0];
-                v221 = [obj objectAtIndexedSubscript:1];
-                v348[0] = v221;
-                v241 = [obj objectAtIndexedSubscript:2];
-                v348[1] = v241;
-                v242 = [MEMORY[0x277CBEA60] arrayWithObjects:v348 count:2];
-                [computeEngine13 dispatchForwardSelectLayer:deviceOps9 conditionTensor:deviceOps7 sourceTensors:v242 resultTensor:v308 forTraining:0];
+                v220 = [obj objectAtIndexedSubscript:1];
+                v347[0] = v220;
+                v240 = [obj objectAtIndexedSubscript:2];
+                v347[1] = v240;
+                v241 = [MEMORY[0x277CBEA60] arrayWithObjects:v347 count:2];
+                [computeEngine13 dispatchForwardSelectLayer:deviceOps9 conditionTensor:deviceOps7 sourceTensors:v241 resultTensor:v307 forTraining:0];
 
-                v103 = v239;
+                v102 = v238;
                 deviceOps2 = deviceOps9;
               }
             }
@@ -2069,217 +2061,217 @@ LABEL_215:
           }
 
           computeEngine14 = [device5 computeEngine];
-          v157 = [computeEngine14 needToAllocateDeviceMemoryForTensor:?];
+          v156 = [computeEngine14 needToAllocateDeviceMemoryForTensor:?];
 
-          if (v157)
+          if (v156)
           {
             break;
           }
 
-          sharedMemoryTensor3 = [v308 sharedMemoryTensor];
+          sharedMemoryTensor3 = [v307 sharedMemoryTensor];
 
           if (!sharedMemoryTensor3)
           {
             computeEngine15 = [device5 computeEngine];
-            deviceOps10 = [v103 deviceOps];
-            [computeEngine15 dispatchForwardConcatLayer:deviceOps10 sourceTensors:obj resultTensor:v308];
+            deviceOps10 = [v102 deviceOps];
+            [computeEngine15 dispatchForwardConcatLayer:deviceOps10 sourceTensors:obj resultTensor:v307];
             goto LABEL_148;
           }
 
 LABEL_149:
-          v99 = 0x278A68000uLL;
-          v182 = +[MLCLog execution];
-          v183 = v182;
-          if (v312 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v182))
+          v98 = 0x278A68000uLL;
+          v181 = +[MLCLog execution];
+          v182 = v181;
+          if (v311 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v181))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_238C1D000, v183, OS_SIGNPOST_INTERVAL_END, v310, "ExecuteForward -- PerLayer", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_238C1D000, v182, OS_SIGNPOST_INTERVAL_END, v309, "ExecuteForward -- PerLayer", "", buf, 2u);
           }
 
-          v100 = device5;
+          v99 = device5;
           if ([(MLCGraph *)selfCopy allocateDeviceMemoryForTensorsInGraph])
           {
-            v110 = v308;
-            [(MLCGraph *)selfCopy updateDeviceMemoryReadCountForTensor:v308];
-            v150 = [obj objectAtIndexedSubscript:0];
-            [(MLCGraph *)selfCopy freeDeviceMemoryForTensorIfSafe:v150 device:device5];
+            v109 = v307;
+            [(MLCGraph *)selfCopy updateDeviceMemoryReadCountForTensor:v307];
+            v149 = [obj objectAtIndexedSubscript:0];
+            [(MLCGraph *)selfCopy freeDeviceMemoryForTensorIfSafe:v149 device:device5];
 LABEL_191:
 
-            v99 = 0x278A68000;
+            v98 = 0x278A68000;
             goto LABEL_192;
           }
 
-          v110 = v308;
+          v109 = v307;
 LABEL_192:
 
 LABEL_193:
-          v97 = v100;
-          v188 = v42++ == v45;
-          v101 = v310 - 1;
-          if (v188)
+          v96 = v99;
+          v187 = v41++ == v44;
+          v100 = v309 - 1;
+          if (v187)
           {
             goto LABEL_232;
           }
         }
 
         computeEngine15 = [device5 computeEngine];
-        deviceOps10 = [v103 sourceTensors];
-        v160 = [deviceOps10 objectAtIndexedSubscript:0];
-        [computeEngine15 shareDeviceMemoryWithResultTensor:v308 sourceTensor:v160];
+        deviceOps10 = [v102 sourceTensors];
+        v159 = [deviceOps10 objectAtIndexedSubscript:0];
+        [computeEngine15 shareDeviceMemoryWithResultTensor:v307 sourceTensor:v159];
 
 LABEL_148:
         goto LABEL_149;
       }
 
 LABEL_232:
-      device5 = v97;
-      execution2 = [*(v99 + 3024) execution];
-      v248 = execution2;
-      if (v309 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(execution2))
+      device5 = v96;
+      execution2 = [*(v98 + 3024) execution];
+      v247 = execution2;
+      if (v308 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(execution2))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_238C1D000, v248, OS_SIGNPOST_INTERVAL_END, spid, "ExecuteForward", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_238C1D000, v247, OS_SIGNPOST_INTERVAL_END, spid, "ExecuteForward", "", buf, 2u);
       }
 
-      device16 = [v326 device];
+      device16 = [v325 device];
       computeEngine16 = [device16 computeEngine];
-      [computeEngine16 synchronizeTensor:v326];
+      [computeEngine16 synchronizeTensor:v325];
 
-      device17 = [v326 device];
+      device17 = [v325 device];
       computeEngine17 = [device17 computeEngine];
-      v253 = v325;
-      resultTensors16 = [v325 resultTensors];
-      v255 = [resultTensors16 objectAtIndexedSubscript:0];
-      [computeEngine17 shareDeviceMemoryWithResultTensor:v255 sourceTensor:v326];
+      v252 = v324;
+      resultTensors16 = [v324 resultTensors];
+      v254 = [resultTensors16 objectAtIndexedSubscript:0];
+      [computeEngine17 shareDeviceMemoryWithResultTensor:v254 sourceTensor:v325];
 
-      v19 = v317;
-      v20 = v328;
-      if (v311)
+      v19 = v316;
+      v20 = v327;
+      if (v310)
       {
-        v256 = selfCopy;
-        [(MLCGraph *)selfCopy dispatchReadsForMultipleTensorOutputs:v328 finalTensorInGraph:0 finalResultTensor:0 batchSize:batchSize];
-        v21 = v315;
-        v257 = v324;
-        if (v315)
+        v255 = selfCopy;
+        [(MLCGraph *)selfCopy dispatchReadsForMultipleTensorOutputs:v327 finalTensorInGraph:0 finalResultTensor:0 batchSize:batchSize];
+        v21 = v314;
+        v256 = v323;
+        if (v314)
         {
-          descriptor5 = [v326 descriptor];
-          v335 = [MLCTensor tensorWithDescriptor:descriptor5 data:v316];
+          descriptor5 = [v325 descriptor];
+          v334 = [MLCTensor tensorWithDescriptor:descriptor5 data:v315];
         }
 
         else
         {
-          v335 = 0;
+          v334 = 0;
         }
       }
 
       else
       {
-        resultTensors17 = [v325 resultTensors];
-        v276 = [resultTensors17 objectAtIndexedSubscript:0];
-        [(MLCGraph *)selfCopy dispatchReadsForMultipleTensorOutputs:v328 finalTensorInGraph:v276 finalResultTensor:v326 batchSize:batchSize];
+        resultTensors17 = [v324 resultTensors];
+        v275 = [resultTensors17 objectAtIndexedSubscript:0];
+        [(MLCGraph *)selfCopy dispatchReadsForMultipleTensorOutputs:v327 finalTensorInGraph:v275 finalResultTensor:v325 batchSize:batchSize];
 
-        v21 = v315;
-        v257 = v324;
-        if (v315)
+        v21 = v314;
+        v256 = v323;
+        if (v314)
         {
-          v335 = v326;
+          v334 = v325;
         }
 
         else
         {
-          v335 = 0;
+          v334 = 0;
         }
 
-        v256 = selfCopy;
+        v255 = selfCopy;
       }
 
-      if ((v257 & 2) != 0)
+      if ((v256 & 2) != 0)
       {
         if ((executeWithInputsData_lossLabelsData_lossLabelWeightsData_outputsData_batchSize_options_completionHandler__warnedAlready_0 & 1) == 0)
         {
-          v285 = +[MLCLog framework];
-          if (os_log_type_enabled(v285, OS_LOG_TYPE_INFO))
+          v284 = +[MLCLog framework];
+          if (os_log_type_enabled(v284, OS_LOG_TYPE_INFO))
           {
-            v286 = NSStringFromSelector(aSelector);
+            v285 = NSStringFromSelector(aSelector);
             *buf = 138412290;
-            *&buf[4] = v286;
-            _os_log_impl(&dword_238C1D000, v285, OS_LOG_TYPE_INFO, "%@: Synchronous Execution requested", buf, 0xCu);
+            *&buf[4] = v285;
+            _os_log_impl(&dword_238C1D000, v284, OS_LOG_TYPE_INFO, "%@: Synchronous Execution requested", buf, 0xCu);
           }
 
           executeWithInputsData_lossLabelsData_lossLabelWeightsData_outputsData_batchSize_options_completionHandler__warnedAlready_0 = 1;
-          v21 = v315;
+          v21 = v314;
         }
 
-        device18 = [(MLCGraph *)v256 device];
+        device18 = [(MLCGraph *)v255 device];
         computeEngine18 = [device18 computeEngine];
-        [computeEngine18 commitAndWaitForCompletion:v21 enableProfiling:(v324 >> 2) & 1 graphExecutionTime:v319 graphResultTensor:v335];
+        [computeEngine18 commitAndWaitForCompletion:v21 enableProfiling:(v323 >> 2) & 1 graphExecutionTime:v318 graphResultTensor:v334];
       }
 
       else
       {
-        v289 = (v257 >> 2) & 1;
-        device18 = [(MLCGraph *)v256 device];
+        v288 = (v256 >> 2) & 1;
+        device18 = [(MLCGraph *)v255 device];
         computeEngine18 = [device18 computeEngine];
-        [computeEngine18 commitWithCompletionHandler:v21 enableProfiling:v289 graphExecutionTime:v319 graphResultTensor:v335];
+        [computeEngine18 commitWithCompletionHandler:v21 enableProfiling:v288 graphExecutionTime:v318 graphResultTensor:v334];
       }
 
-      [(MLCGraph *)v256 setAllocateDeviceMemoryForTensorsInGraph:0];
-      freeResourceList = [(MLCGraph *)v256 freeResourceList];
+      [(MLCGraph *)v255 setAllocateDeviceMemoryForTensorsInGraph:0];
+      freeResourceList = [(MLCGraph *)v255 freeResourceList];
       [freeResourceList removeAllObjects];
       v38 = 1;
-      v265 = v326;
+      v264 = v325;
 LABEL_286:
 
       v37 = device5;
       goto LABEL_38;
     }
 
-    v77 = +[MLCLog execution];
-    v78 = v77;
-    v79 = spid - 1;
-    if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v77))
+    v76 = +[MLCLog execution];
+    v77 = v76;
+    v78 = spid - 1;
+    if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v76))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_238C1D000, v78, OS_SIGNPOST_INTERVAL_BEGIN, spid, "BindData", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_238C1D000, v77, OS_SIGNPOST_INTERVAL_BEGIN, spid, "BindData", "", buf, 2u);
     }
 
-    v80 = (v324 >> 1) & 1;
+    v79 = (v323 >> 1) & 1;
 
     allInputs2 = [(MLCGraph *)self allInputs];
     device19 = [(MLCGraph *)self device];
-    v83 = [(MLCGraph *)self bindAndWriteData:v15 forInputs:allInputs2 toDevice:device19 batchSize:batchSize synchronous:v80 skipWrite:0];
+    v82 = [(MLCGraph *)self bindAndWriteData:v15 forInputs:allInputs2 toDevice:device19 batchSize:batchSize synchronous:v79 skipWrite:0];
 
-    if (v83)
+    if (v82)
     {
-      if (v18 && ([(MLCGraph *)self allLossLabels], v84 = objc_claimAutoreleasedReturnValue(), [(MLCGraph *)self device], v85 = objc_claimAutoreleasedReturnValue(), v86 = [(MLCGraph *)self bindAndWriteData:v18 forInputs:v84 toDevice:v85 batchSize:batchSize synchronous:v80 skipWrite:0], v85, v84, !v86))
+      if (v18 && ([(MLCGraph *)self allLossLabels], v83 = objc_claimAutoreleasedReturnValue(), [(MLCGraph *)self device], v84 = objc_claimAutoreleasedReturnValue(), v85 = [(MLCGraph *)self bindAndWriteData:v18 forInputs:v83 toDevice:v84 batchSize:batchSize synchronous:v79 skipWrite:0], v84, v83, !v85))
       {
-        v278 = MEMORY[0x277CCACA8];
+        v277 = MEMORY[0x277CCACA8];
         allLossLabels2 = [(MLCGraph *)self allLossLabels];
-        v279 = [v278 stringWithFormat:@"loss label name missing from loss labels specified at compile time allLossLabels=%@", allLossLabels2];
+        v278 = [v277 stringWithFormat:@"loss label name missing from loss labels specified at compile time allLossLabels=%@", allLossLabels2];
 
-        v281 = +[MLCLog framework];
-        if (os_log_type_enabled(v281, OS_LOG_TYPE_ERROR))
+        v280 = +[MLCLog framework];
+        if (os_log_type_enabled(v280, OS_LOG_TYPE_ERROR))
         {
           [MLCTrainingGraph executeWithInputsData:lossLabelsData:lossLabelWeightsData:outputsData:batchSize:options:completionHandler:];
         }
 
-        v282 = NSStringFromSelector(aSelector);
-        v335 = v279;
-        v283 = [MLCErrors invalidInputErrorForMethod:v282 description:v279];
+        v281 = NSStringFromSelector(aSelector);
+        v334 = v278;
+        v282 = [MLCErrors invalidInputErrorForMethod:v281 description:v278];
 
-        v19 = v317;
-        v20 = v328;
-        v21 = v315;
-        v265 = v326;
-        if (v315)
+        v19 = v316;
+        v20 = v327;
+        v21 = v314;
+        v264 = v325;
+        if (v314)
         {
-          v315[2](v315, 0, v283, 0.0);
+          v314[2](v314, 0, v282, 0.0);
         }
 
-        v266 = v283;
-        v284 = +[MLCLog execution];
-        v268 = v284;
-        if (v79 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v284))
+        v265 = v282;
+        v283 = +[MLCLog execution];
+        v267 = v283;
+        if (v78 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v283))
         {
           goto LABEL_282;
         }
@@ -2287,55 +2279,55 @@ LABEL_286:
 
       else
       {
-        if (!v317 || ([(MLCGraph *)self allLossLabelWeights], v87 = objc_claimAutoreleasedReturnValue(), [(MLCGraph *)self device], v88 = objc_claimAutoreleasedReturnValue(), v89 = [(MLCGraph *)self bindAndWriteData:v317 forInputs:v87 toDevice:v88 batchSize:batchSize synchronous:v80 skipWrite:0], v88, v87, v89))
+        if (!v316 || ([(MLCGraph *)self allLossLabelWeights], v86 = objc_claimAutoreleasedReturnValue(), [(MLCGraph *)self device], v87 = objc_claimAutoreleasedReturnValue(), v88 = [(MLCGraph *)self bindAndWriteData:v316 forInputs:v86 toDevice:v87 batchSize:batchSize synchronous:v79 skipWrite:0], v87, v86, v88))
         {
-          v90 = +[MLCLog execution];
-          v91 = v90;
-          v92 = spid - 1;
-          if (v79 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v90))
+          v89 = +[MLCLog execution];
+          v90 = v89;
+          v91 = spid - 1;
+          if (v78 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v89))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_238C1D000, v91, OS_SIGNPOST_INTERVAL_END, spid, "BindData", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_238C1D000, v90, OS_SIGNPOST_INTERVAL_END, spid, "BindData", "", buf, 2u);
           }
 
-          v75 = v324;
+          v74 = v323;
           goto LABEL_86;
         }
 
-        v290 = MEMORY[0x277CCACA8];
+        v289 = MEMORY[0x277CCACA8];
         allLossLabelWeights2 = [(MLCGraph *)self allLossLabelWeights];
-        v291 = [v290 stringWithFormat:@"loss label weight name missing from loss label weights specified at compile time allLossLabelWeights=%@", allLossLabelWeights2];
+        v290 = [v289 stringWithFormat:@"loss label weight name missing from loss label weights specified at compile time allLossLabelWeights=%@", allLossLabelWeights2];
 
-        v293 = +[MLCLog framework];
-        if (os_log_type_enabled(v293, OS_LOG_TYPE_ERROR))
+        v292 = +[MLCLog framework];
+        if (os_log_type_enabled(v292, OS_LOG_TYPE_ERROR))
         {
           [MLCTrainingGraph executeWithInputsData:lossLabelsData:lossLabelWeightsData:outputsData:batchSize:options:completionHandler:];
         }
 
-        v294 = NSStringFromSelector(aSelector);
-        v335 = v291;
-        v295 = [MLCErrors invalidInputErrorForMethod:v294 description:v291];
+        v293 = NSStringFromSelector(aSelector);
+        v334 = v290;
+        v294 = [MLCErrors invalidInputErrorForMethod:v293 description:v290];
 
-        v19 = v317;
-        v20 = v328;
-        v21 = v315;
-        v265 = v326;
-        if (v315)
+        v19 = v316;
+        v20 = v327;
+        v21 = v314;
+        v264 = v325;
+        if (v314)
         {
-          v315[2](v315, 0, v295, 0.0);
+          v314[2](v314, 0, v294, 0.0);
         }
 
-        v266 = v295;
-        v296 = +[MLCLog execution];
-        v268 = v296;
-        if (v79 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v296))
+        v265 = v294;
+        v295 = +[MLCLog execution];
+        v267 = v295;
+        if (v78 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v295))
         {
 LABEL_282:
 
           device5 = 0;
           v38 = 0;
-          v253 = v325;
-          freeResourceList = v266;
+          v252 = v324;
+          freeResourceList = v265;
           goto LABEL_286;
         }
       }
@@ -2343,41 +2335,41 @@ LABEL_282:
 
     else
     {
-      v259 = MEMORY[0x277CCACA8];
+      v258 = MEMORY[0x277CCACA8];
       allInputs3 = [(MLCGraph *)self allInputs];
-      v260 = [v259 stringWithFormat:@"input name missing from inputs specified at compile time allInputs=%@", allInputs3];
+      v259 = [v258 stringWithFormat:@"input name missing from inputs specified at compile time allInputs=%@", allInputs3];
 
-      v262 = +[MLCLog framework];
-      if (os_log_type_enabled(v262, OS_LOG_TYPE_ERROR))
+      v261 = +[MLCLog framework];
+      if (os_log_type_enabled(v261, OS_LOG_TYPE_ERROR))
       {
         [MLCTrainingGraph executeWithInputsData:lossLabelsData:lossLabelWeightsData:outputsData:batchSize:options:completionHandler:];
       }
 
-      v263 = NSStringFromSelector(aSelector);
-      v335 = v260;
-      v264 = [MLCErrors invalidInputErrorForMethod:v263 description:v260];
+      v262 = NSStringFromSelector(aSelector);
+      v334 = v259;
+      v263 = [MLCErrors invalidInputErrorForMethod:v262 description:v259];
 
-      v19 = v317;
-      v20 = v328;
-      v21 = v315;
-      v265 = v326;
-      if (v315)
+      v19 = v316;
+      v20 = v327;
+      v21 = v314;
+      v264 = v325;
+      if (v314)
       {
-        v315[2](v315, 0, v264, 0.0);
+        v314[2](v314, 0, v263, 0.0);
       }
 
-      v266 = v264;
-      v267 = +[MLCLog execution];
-      v268 = v267;
-      if (v79 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v267))
+      v265 = v263;
+      v266 = +[MLCLog execution];
+      v267 = v266;
+      if (v78 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v266))
       {
         goto LABEL_282;
       }
     }
 
     *buf = 138543362;
-    *&buf[4] = v335;
-    _os_signpost_emit_with_name_impl(&dword_238C1D000, v268, OS_SIGNPOST_INTERVAL_END, spid, "BindData", "%{public,name=Error}@", buf, 0xCu);
+    *&buf[4] = v334;
+    _os_signpost_emit_with_name_impl(&dword_238C1D000, v267, OS_SIGNPOST_INTERVAL_END, spid, "BindData", "%{public,name=Error}@", buf, 0xCu);
     goto LABEL_282;
   }
 
@@ -2394,7 +2386,6 @@ LABEL_35:
   v38 = 0;
 LABEL_38:
 
-  v39 = *MEMORY[0x277D85DE8];
   return v38;
 }
 
@@ -2422,58 +2413,43 @@ LABEL_38:
 
 - (void)concatenateWithSources:(const char *)a1 dimension:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)concatenateWithSources:(const char *)a1 dimension:.cold.2(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)concatenateWithSources:(const char *)a1 dimension:.cold.3(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileWithOptions:device:inputTensors:inputTensorsData:.cold.1()
 {
   OUTLINED_FUNCTION_5_0();
-  v10 = *MEMORY[0x277D85DE8];
   v2 = NSStringFromSelector(v1);
-  v9 = [v0 device];
+  v8 = [v0 device];
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)executeWithInputsData:(const char *)a1 lossLabelsData:lossLabelWeightsData:outputsData:batchSize:options:completionHandler:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_0_6();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

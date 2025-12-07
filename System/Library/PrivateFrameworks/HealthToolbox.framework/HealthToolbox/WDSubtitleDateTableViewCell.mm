@@ -64,7 +64,7 @@
 
 - (void)setupConstraints
 {
-  v45[9] = *MEMORY[0x277D85DE8];
+  v44[9] = *MEMORY[0x277D85DE8];
   firstBaselineAnchor = [(UILabel *)self->_mainTextLabel firstBaselineAnchor];
   lastBaselineAnchor = [(UILabel *)self->_subtitleTextLabel lastBaselineAnchor];
   textLabel = [(WDSubtitleDateTableViewCell *)self textLabel];
@@ -73,55 +73,54 @@
   v7 = [firstBaselineAnchor constraintEqualToAnchor:lastBaselineAnchor constant:?];
   [(WDSubtitleDateTableViewCell *)self setBaselineConstraint:v7];
 
-  v30 = MEMORY[0x277CCAAD0];
+  v29 = MEMORY[0x277CCAAD0];
   leadingAnchor = [(UILabel *)self->_mainTextLabel leadingAnchor];
   contentView = [(WDSubtitleDateTableViewCell *)self contentView];
   layoutMarginsGuide = [contentView layoutMarginsGuide];
   leadingAnchor2 = [layoutMarginsGuide leadingAnchor];
-  v40 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v45[0] = v40;
+  v39 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v44[0] = v39;
   contentView2 = [(WDSubtitleDateTableViewCell *)self contentView];
   bottomAnchor = [contentView2 bottomAnchor];
   bottomAnchor2 = [(UILabel *)self->_mainTextLabel bottomAnchor];
-  v36 = [bottomAnchor constraintEqualToSystemSpacingBelowAnchor:bottomAnchor2 multiplier:1.0];
-  v45[1] = v36;
+  v35 = [bottomAnchor constraintEqualToSystemSpacingBelowAnchor:bottomAnchor2 multiplier:1.0];
+  v44[1] = v35;
   leadingAnchor3 = [(UILabel *)self->_subtitleTextLabel leadingAnchor];
   contentView3 = [(WDSubtitleDateTableViewCell *)self contentView];
   layoutMarginsGuide2 = [contentView3 layoutMarginsGuide];
   leadingAnchor4 = [layoutMarginsGuide2 leadingAnchor];
-  v31 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-  v45[2] = v31;
+  v30 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+  v44[2] = v30;
   topAnchor = [(UILabel *)self->_subtitleTextLabel topAnchor];
   contentView4 = [(WDSubtitleDateTableViewCell *)self contentView];
   topAnchor2 = [contentView4 topAnchor];
-  v26 = [topAnchor constraintEqualToSystemSpacingBelowAnchor:topAnchor2 multiplier:1.0];
-  v45[3] = v26;
+  v25 = [topAnchor constraintEqualToSystemSpacingBelowAnchor:topAnchor2 multiplier:1.0];
+  v44[3] = v25;
   baselineConstraint = [(WDSubtitleDateTableViewCell *)self baselineConstraint];
-  v45[4] = baselineConstraint;
+  v44[4] = baselineConstraint;
   contentView5 = [(WDSubtitleDateTableViewCell *)self contentView];
   trailingAnchor = [contentView5 trailingAnchor];
   trailingAnchor2 = [(UILabel *)self->_dateTextLabel trailingAnchor];
-  v21 = [trailingAnchor constraintEqualToSystemSpacingAfterAnchor:trailingAnchor2 multiplier:1.0];
-  v45[5] = v21;
+  v20 = [trailingAnchor constraintEqualToSystemSpacingAfterAnchor:trailingAnchor2 multiplier:1.0];
+  v44[5] = v20;
   leadingAnchor5 = [(UILabel *)self->_dateTextLabel leadingAnchor];
   trailingAnchor3 = [(UILabel *)self->_subtitleTextLabel trailingAnchor];
   v8 = [leadingAnchor5 constraintGreaterThanOrEqualToSystemSpacingAfterAnchor:trailingAnchor3 multiplier:1.0];
-  v45[6] = v8;
+  v44[6] = v8;
   leadingAnchor6 = [(UILabel *)self->_dateTextLabel leadingAnchor];
   trailingAnchor4 = [(UILabel *)self->_mainTextLabel trailingAnchor];
   v11 = [leadingAnchor6 constraintGreaterThanOrEqualToSystemSpacingAfterAnchor:trailingAnchor4 multiplier:1.0];
-  v45[7] = v11;
+  v44[7] = v11;
   contentView6 = [(WDSubtitleDateTableViewCell *)self contentView];
   centerYAnchor = [contentView6 centerYAnchor];
   centerYAnchor2 = [(UILabel *)self->_dateTextLabel centerYAnchor];
   v15 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v45[8] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:9];
-  [v30 activateConstraints:v16];
+  v44[8] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:9];
+  [v29 activateConstraints:v16];
 
   LODWORD(v17) = 1144766464;
   [(UILabel *)self->_dateTextLabel setContentCompressionResistancePriority:0 forAxis:v17];
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)traitCollectionDidChange:(id)change

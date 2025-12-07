@@ -25,7 +25,7 @@
 - (void)createAndCacheDataWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = _FALogSystem();
+  v5 = _FALogSystem(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -37,7 +37,7 @@
 
 - (void)generateMarqueeWith:(unint64_t)with
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (with < 3 || with == 1000)
   {
     v5 = @"Return-Valid-Cache-Else-Load";
@@ -48,16 +48,15 @@
     v5 = @"unknown";
   }
 
-  v6 = _FALogSystem();
+  v6 = _FALogSystem(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_21BB35000, v6, OS_LOG_TYPE_DEFAULT, "FACacheImageMarqueeOperationWrapper createAndCacheData with cachePolicy %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_21BB35000, v6, OS_LOG_TYPE_DEFAULT, "FACacheImageMarqueeOperationWrapper createAndCacheData with cachePolicy %@", &v7, 0xCu);
   }
 
   [(FACacheImageMarqueeOperation *)self->_cacheImageOperation generateMarqueeWith:with];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

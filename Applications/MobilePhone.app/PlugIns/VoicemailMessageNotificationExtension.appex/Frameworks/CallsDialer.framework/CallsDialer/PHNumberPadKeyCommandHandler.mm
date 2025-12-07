@@ -65,12 +65,12 @@ void __64__PHNumberPadKeyCommandHandler_initWithViewController_selector___block_
   commandCopy = command;
   blockCopy = block;
   characterBlockCopy = characterBlock;
-  v11 = PHDefaultLog();
+  v11 = PHDefaultLog(characterBlockCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 138412290;
-    v24 = commandCopy;
-    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Handling key command - %@", &v23, 0xCu);
+    v25 = 138412290;
+    v26 = commandCopy;
+    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Handling key command - %@", &v25, 0xCu);
   }
 
   if (characterBlockCopy)
@@ -80,33 +80,33 @@ void __64__PHNumberPadKeyCommandHandler_initWithViewController_selector___block_
 
     if (v13)
     {
-      v14 = PHDefaultLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = PHDefaultLog(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v23) = 0;
-        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Calling callback for PHNumberPadKeyCommandHandlerSpecialCharacterDial", &v23, 2u);
+        LOWORD(v25) = 0;
+        _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "Calling callback for PHNumberPadKeyCommandHandlerSpecialCharacterDial", &v25, 2u);
       }
 
-      v15 = 1;
+      v16 = 1;
 LABEL_12:
 
-      characterBlockCopy[2](characterBlockCopy, v15);
+      characterBlockCopy[2](characterBlockCopy, v16);
       goto LABEL_13;
     }
 
     input2 = [commandCopy input];
-    v17 = [input2 isEqualToString:@"\b"];
+    v18 = [input2 isEqualToString:@"\b"];
 
-    if (v17)
+    if (v18)
     {
-      v14 = PHDefaultLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = PHDefaultLog(v19);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v23) = 0;
-        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Calling callback for PHNumberPadKeyCommandHandlerSpecialCharacterBackspace", &v23, 2u);
+        LOWORD(v25) = 0;
+        _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "Calling callback for PHNumberPadKeyCommandHandlerSpecialCharacterBackspace", &v25, 2u);
       }
 
-      v15 = 0;
+      v16 = 0;
       goto LABEL_12;
     }
   }
@@ -115,21 +115,21 @@ LABEL_13:
   if (blockCopy)
   {
     input3 = [commandCopy input];
-    v19 = [(PHNumberPadKeyCommandHandler *)self numberPadCharacterForString:input3];
+    v21 = [(PHNumberPadKeyCommandHandler *)self numberPadCharacterForString:input3];
 
-    v20 = [(PHNumberPadKeyCommandHandler *)self characterForNumberPadCharacter:v19];
-    if (v20)
+    v22 = [(PHNumberPadKeyCommandHandler *)self characterForNumberPadCharacter:v21];
+    if (v22)
     {
-      v21 = v20;
-      v22 = PHDefaultLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v23 = v22;
+      v24 = PHDefaultLog(v22);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = 67109120;
-        LODWORD(v24) = v21;
-        _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "Calling callback for character '%c'", &v23, 8u);
+        v25 = 67109120;
+        LODWORD(v26) = v23;
+        _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "Calling callback for character '%c'", &v25, 8u);
       }
 
-      blockCopy[2](blockCopy, v21);
+      blockCopy[2](blockCopy, v23);
     }
   }
 }

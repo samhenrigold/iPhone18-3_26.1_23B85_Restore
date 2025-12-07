@@ -17,7 +17,7 @@
 {
   appearCopy = appear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for StaticLyricsViewController();
+  v5.super_class = type metadata accessor for StaticLyricsViewController(0);
   v4 = v5.receiver;
   [(StaticLyricsViewController *)&v5 viewDidAppear:appearCopy];
   v4[OBJC_IVAR____TtC5Music26StaticLyricsViewController_isVisible] = 1;
@@ -27,7 +27,7 @@
 {
   disappearCopy = disappear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for StaticLyricsViewController();
+  v5.super_class = type metadata accessor for StaticLyricsViewController(0);
   v4 = v5.receiver;
   [(StaticLyricsViewController *)&v5 viewDidDisappear:disappearCopy];
   sub_100333EB0();

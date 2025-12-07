@@ -109,74 +109,71 @@
 - (void)requestGameModeWithCompletionHandler:(id)handler
 {
   v5 = sub_100003870(&qword_100054460, &qword_10003E7B8);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v14 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = type metadata accessor for TaskPriority();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v13 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = type metadata accessor for TaskPriority();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_10003EC58;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_10003EC58;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_10003EC60;
-  v13[5] = v12;
+  v12[4] = &unk_10003EC60;
+  v12[5] = v11;
 
-  sub_100020540(0, 0, v8, &unk_10003EC68, v13);
+  sub_100020540(0, 0, v7, &unk_10003EC68, v12);
 }
 
 - (void)requestSetGameModeWithGameModeEnabled:(BOOL)enabled completionHandler:(id)handler
 {
   v7 = sub_100003870(&qword_100054460, &qword_10003E7B8);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v16 - v9;
-  v11 = _Block_copy(handler);
-  v12 = swift_allocObject();
-  *(v12 + 16) = enabled;
-  *(v12 + 24) = v11;
-  *(v12 + 32) = self;
-  v13 = type metadata accessor for TaskPriority();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v9 = &v15 - v8;
+  v10 = _Block_copy(handler);
+  v11 = swift_allocObject();
+  *(v11 + 16) = enabled;
+  *(v11 + 24) = v10;
+  *(v11 + 32) = self;
+  v12 = type metadata accessor for TaskPriority();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_10003EC08;
+  v13[5] = v11;
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_10003EC08;
-  v14[5] = v12;
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_10003EC18;
-  v15[5] = v14;
+  v14[4] = &unk_10003EC18;
+  v14[5] = v13;
 
-  sub_100020540(0, 0, v10, &unk_10003EC28, v15);
+  sub_100020540(0, 0, v9, &unk_10003EC28, v14);
 }
 
 - (id)requestLaunchGamesApp
 {
   v0 = type metadata accessor for Logger();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin(v0);
-  v4 = &v9 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = &v8 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Logger.tool.getter();
-  v5 = Logger.logObject.getter();
-  v6 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v5, v6))
+  v4 = Logger.logObject.getter();
+  v5 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v4, v5))
   {
-    v7 = swift_slowAlloc();
-    *v7 = 0;
-    _os_log_impl(&_mh_execute_header, v5, v6, "requestLaunchGamesApp", v7, 2u);
+    v6 = swift_slowAlloc();
+    *v6 = 0;
+    _os_log_impl(&_mh_execute_header, v4, v5, "requestLaunchGamesApp", v6, 2u);
   }
 
-  (*(v1 + 8))(v4, v0);
+  (*(v1 + 8))(v3, v0);
   if (qword_100053488 != -1)
   {
     swift_once();

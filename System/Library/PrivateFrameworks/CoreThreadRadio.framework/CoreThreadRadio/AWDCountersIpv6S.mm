@@ -326,7 +326,6 @@ LABEL_12:
   has = self->_has;
   if ((has & 0x100) != 0)
   {
-    txSuccess = self->_txSuccess;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x80) == 0)
@@ -346,7 +345,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  txFailure = self->_txFailure;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -361,7 +359,6 @@ LABEL_4:
   }
 
 LABEL_16:
-  rxSuccess = self->_rxSuccess;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -376,7 +373,6 @@ LABEL_5:
   }
 
 LABEL_17:
-  rxFailure = self->_rxFailure;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -391,7 +387,6 @@ LABEL_6:
   }
 
 LABEL_18:
-  txAppPktSucess = self->_txAppPktSucess;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -406,7 +401,6 @@ LABEL_7:
   }
 
 LABEL_19:
-  txDelaymin = self->_txDelaymin;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -421,7 +415,6 @@ LABEL_8:
   }
 
 LABEL_20:
-  txDelaymax = self->_txDelaymax;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -436,7 +429,6 @@ LABEL_9:
   }
 
 LABEL_21:
-  txDelayavg = self->_txDelayavg;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -451,7 +443,6 @@ LABEL_10:
   }
 
 LABEL_22:
-  txSuccessRate = self->_txSuccessRate;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 4) == 0)
   {
@@ -462,7 +453,6 @@ LABEL_11:
   }
 
 LABEL_23:
-  rxSuccessRate = self->_rxSuccessRate;
   PBDataWriterWriteUint32Field();
   v5 = toCopy;
 

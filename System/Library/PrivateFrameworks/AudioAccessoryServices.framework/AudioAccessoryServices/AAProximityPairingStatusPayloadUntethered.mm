@@ -12,10 +12,10 @@
 
 - (id)describeProperties
 {
-  v39.receiver = self;
-  v39.super_class = AAProximityPairingStatusPayloadUntethered;
-  describeProperties = [(AAProximityPairingStatusPayloadGeneral *)&v39 describeProperties];
-  v38 = describeProperties;
+  v33.receiver = self;
+  v33.super_class = AAProximityPairingStatusPayloadUntethered;
+  describeProperties = [(AAProximityPairingStatusPayloadGeneral *)&v33 describeProperties];
+  v32 = describeProperties;
   if ([(AAProximityPairingStatusPayloadUntethered *)self utpConnected])
   {
     v4 = "yes";
@@ -26,132 +26,130 @@
     v4 = "no";
   }
 
-  v24 = v4;
-  NSAppendPrintF_safe();
-  v5 = v38;
+  NSAppendPrintF_safe(&v32, ", UTP: %s", v4);
+  v5 = v32;
 
-  v37 = v5;
+  v31 = v5;
   budRole = [(AAProximityPairingStatusPayloadUntethered *)self budRole];
-  [(AAProximityPairingStatusPayloadUntethered *)self budSide];
+  budSide = [(AAProximityPairingStatusPayloadUntethered *)self budSide];
   primaryLocation = [(AAProximityPairingStatusPayloadUntethered *)self primaryLocation];
   secondaryLocation = [(AAProximityPairingStatusPayloadUntethered *)self secondaryLocation];
   if (budRole)
   {
-    v9 = secondaryLocation;
+    v10 = secondaryLocation;
   }
 
   else
-  {
-    v9 = primaryLocation;
-  }
-
-  if (budRole)
   {
     v10 = primaryLocation;
   }
 
-  else
+  if (budRole)
   {
-    v10 = secondaryLocation;
-  }
-
-  v40 = 0;
-  if (v9 > 3)
-  {
-    v11 = "?";
+    v11 = primaryLocation;
   }
 
   else
   {
-    v11 = off_278CDE210[v9];
+    v11 = secondaryLocation;
   }
 
-  v12 = "?";
-  if (v10 <= 3)
+  v34 = 0;
+  if (v10 > 3)
+  {
+    v12 = "?";
+  }
+
+  else
   {
     v12 = off_278CDE210[v10];
   }
 
-  v13 = "Secondary";
+  v13 = "?";
+  if (v11 <= 3)
+  {
+    v13 = off_278CDE210[v11];
+  }
+
+  v14 = "Secondary";
   if (budRole != 1)
   {
-    v13 = "?";
+    v14 = "?";
   }
 
   if (!budRole)
   {
-    v13 = "Primary";
+    v14 = "Primary";
   }
 
-  v30 = v11;
-  v31 = v12;
-  v28 = v13;
-  NSAppendPrintF_safe();
-  v25 = v40;
-  NSAppendPrintF_safe();
-  v14 = v37;
-
-  v36 = v14;
-  if ([(AAProximityPairingStatusPayloadUntethered *)self outOfBoxMode:v25])
+  v15 = "Left";
+  if (budSide != 1)
   {
-    v15 = "yes";
+    v15 = "?";
+  }
+
+  if (!budSide)
+  {
+    v15 = "Right";
+  }
+
+  NSAppendPrintF_safe(&v34, "This: %s - %s - %s, Other: %s", v15, v14, v12, v13);
+  v16 = v34;
+  NSAppendPrintF_safe(&v31, ", %@", v16);
+  v17 = v31;
+
+  v30 = v17;
+  if ([(AAProximityPairingStatusPayloadUntethered *)self outOfBoxMode])
+  {
+    v18 = "yes";
   }
 
   else
   {
-    v15 = "no";
+    v18 = "no";
   }
 
-  v26 = v15;
-  NSAppendPrintF_safe();
-  v16 = v36;
+  NSAppendPrintF_safe(&v30, ", Out of Box: %s", v18);
+  v19 = v30;
 
   if ([(AAProximityPairingStatusPayloadUntethered *)self leftBatteryValid])
   {
-    if ([(AAProximityPairingStatusPayloadUntethered *)self leftBatteryCharging])
-    {
-      v17 = "+";
-    }
-
-    else
-    {
-      v17 = "-";
-    }
-
-    v35 = v16;
-    v27 = v17;
-    leftBatteryLevel = [(AAProximityPairingStatusPayloadUntethered *)self leftBatteryLevel];
-    v18 = &v35;
+    [(AAProximityPairingStatusPayloadUntethered *)self leftBatteryCharging];
+    v29 = v19;
+    [(AAProximityPairingStatusPayloadUntethered *)self leftBatteryLevel];
+    v20 = &v29;
+    NSAppendPrintF_safe(&v29, ", L Batt: %s%d%%");
   }
 
   else
   {
-    v34 = v16;
-    v18 = &v34;
+    v28 = v19;
+    v20 = &v28;
+    NSAppendPrintF_safe(&v28, ", L Batt: invalid");
   }
 
-  NSAppendPrintF_safe();
-  v19 = *v18;
+  v21 = *v20;
 
   if ([(AAProximityPairingStatusPayloadUntethered *)self rightBatteryValid])
   {
     [(AAProximityPairingStatusPayloadUntethered *)self rightBatteryCharging];
-    v33 = v19;
-    [(AAProximityPairingStatusPayloadUntethered *)self rightBatteryLevel:v27];
-    v20 = &v33;
+    v27 = v21;
+    [(AAProximityPairingStatusPayloadUntethered *)self rightBatteryLevel];
+    v22 = &v27;
+    NSAppendPrintF_safe(&v27, ", R Batt: %s%d%%");
   }
 
   else
   {
-    v32 = v19;
-    v20 = &v32;
+    v26 = v21;
+    v22 = &v26;
+    NSAppendPrintF_safe(&v26, ", R Batt: invalid");
   }
 
-  NSAppendPrintF_safe();
-  v21 = *v20;
-  v22 = v21;
+  v23 = *v22;
+  v24 = v23;
 
-  return v21;
+  return v23;
 }
 
 - (BOOL)leftBatteryValid

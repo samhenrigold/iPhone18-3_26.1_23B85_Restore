@@ -23,7 +23,7 @@
   return bootVolumeType_bootVolumeType;
 }
 
-uint64_t __31__STYDeviceInfo_bootVolumeType__block_invoke(uint64_t a1)
+void *__31__STYDeviceInfo_bootVolumeType__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _determineBootVolumeType];
   bootVolumeType_bootVolumeType = result;
@@ -106,10 +106,10 @@ void __24__STYDeviceInfo_osBuild__block_invoke()
 
 void __36__STYDeviceInfo_isMemoryConstrained__block_invoke()
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v11 = 8;
-  v12 = 0;
-  v0 = sysctlbyname("hw.memsize", &v12, &v11, 0, 0);
+  v14 = *MEMORY[0x277D85DE8];
+  v10 = 8;
+  v11 = 0;
+  v0 = sysctlbyname("hw.memsize", &v11, &v10, 0, 0);
   if (v0)
   {
     v1 = v0;
@@ -133,17 +133,17 @@ void __36__STYDeviceInfo_isMemoryConstrained__block_invoke()
 
 LABEL_10:
     isMemoryConstrained_isMemoryConstrained = 1;
-    goto LABEL_11;
+    return;
   }
 
-  v7 = v12;
+  v7 = v11;
   v8 = +[STYFrameworkHelper sharedHelper];
   v9 = [v8 logHandle];
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v14 = v7 >> 20;
+    v13 = v7 >> 20;
     _os_log_impl(&dword_2656CE000, v9, OS_LOG_TYPE_DEFAULT, "physicalSizeinMB is %lld ", buf, 0xCu);
   }
 
@@ -151,22 +151,18 @@ LABEL_10:
   {
     goto LABEL_10;
   }
-
-LABEL_11:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __36__STYDeviceInfo_isMemoryConstrained__block_invoke_cold_1(int a1, int a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v5[0] = 67109634;
-  v5[1] = a2;
-  v6 = 1024;
-  v7 = a1;
-  v8 = 2080;
-  v9 = strerror(a1);
-  _os_log_error_impl(&dword_2656CE000, a3, OS_LOG_TYPE_ERROR, "Failed to retrieve memory size. return code : %d errNum : %d errStr: %s", v5, 0x18u);
-  v4 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v4[0] = 67109634;
+  v4[1] = a2;
+  v5 = 1024;
+  v6 = a1;
+  v7 = 2080;
+  v8 = strerror(a1);
+  _os_log_error_impl(&dword_2656CE000, a3, OS_LOG_TYPE_ERROR, "Failed to retrieve memory size. return code : %d errNum : %d errStr: %s", v4, 0x18u);
 }
 
 @end

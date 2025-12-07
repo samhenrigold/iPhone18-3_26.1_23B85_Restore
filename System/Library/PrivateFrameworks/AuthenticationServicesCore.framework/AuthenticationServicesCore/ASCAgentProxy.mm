@@ -117,41 +117,41 @@ void __34__ASCAgentProxy__setUpConnection___block_invoke(uint64_t a1)
 {
   handlerCopy = handler;
   _reconnectIfNecessary = [(ASCAgentProxy *)self _reconnectIfNecessary];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __52__ASCAgentProxy__remoteObjectProxyWithErrorHandler___block_invoke;
-  v13[3] = &unk_1E815FFF8;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __52__ASCAgentProxy__remoteObjectProxyWithErrorHandler___block_invoke;
+  v14[3] = &unk_1E815FFF8;
   v6 = handlerCopy;
-  v14 = v6;
-  v7 = [_reconnectIfNecessary remoteObjectProxyWithErrorHandler:v13];
-  v8 = v7;
+  v15 = v6;
+  v7 = [_reconnectIfNecessary remoteObjectProxyWithErrorHandler:v14];
+  v9 = v7;
   if (v7)
   {
-    v9 = v7;
+    v10 = v7;
   }
 
   else
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(0, v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [ASCAgentProxy _remoteObjectProxyWithErrorHandler:v10];
+      [ASCAgentProxy _remoteObjectProxyWithErrorHandler:v11];
     }
 
-    v11 = [MEMORY[0x1E696ABC0] safari_errorWithDomain:*MEMORY[0x1E696A798] code:14 privacyPreservingDescription:@"Failed to acquire remote object proxy."];
-    (*(v6 + 2))(v6, v11);
+    v12 = [MEMORY[0x1E696ABC0] safari_errorWithDomain:*MEMORY[0x1E696A798] code:14 privacyPreservingDescription:@"Failed to acquire remote object proxy."];
+    (*(v6 + 2))(v6, v12);
   }
 
-  return v8;
+  return v9;
 }
 
 void __52__ASCAgentProxy__remoteObjectProxyWithErrorHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __52__ASCAgentProxy__remoteObjectProxyWithErrorHandler___block_invoke_cold_1(v4);
+    __52__ASCAgentProxy__remoteObjectProxyWithErrorHandler___block_invoke_cold_1(v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -207,12 +207,12 @@ void __78__ASCAgentProxy_performAuthorizationRequestsForContext_withCompletionHa
   (*(*(a1 + 40) + 16))();
 }
 
-void __78__ASCAgentProxy_performAuthorizationRequestsForContext_withCompletionHandler___block_invoke_3(uint64_t a1)
+void __78__ASCAgentProxy_performAuthorizationRequestsForContext_withCompletionHandler___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __78__ASCAgentProxy_performAuthorizationRequestsForContext_withCompletionHandler___block_invoke_3_cold_1(a1, v2);
+    __78__ASCAgentProxy_performAuthorizationRequestsForContext_withCompletionHandler___block_invoke_3_cold_1(a1, v5);
   }
 }
 
@@ -257,12 +257,12 @@ void __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandl
   (*(a1[5] + 16))(a1[5], v7, v8, v9);
 }
 
-void __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandler___block_invoke_2(uint64_t a1)
+void __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandler___block_invoke_2_cold_1(a1, v2);
+    __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandler___block_invoke_2_cold_1(a1, v5);
   }
 }
 
@@ -294,12 +294,12 @@ void __75__ASCAgentProxy_getShouldUseAlternateCredentialStoreWithCompletionHandl
   (*(*(a1 + 40) + 16))();
 }
 
-void __75__ASCAgentProxy_getShouldUseAlternateCredentialStoreWithCompletionHandler___block_invoke_2(uint64_t a1)
+void __75__ASCAgentProxy_getShouldUseAlternateCredentialStoreWithCompletionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __78__ASCAgentProxy_performAuthorizationRequestsForContext_withCompletionHandler___block_invoke_3_cold_1(a1, v2);
+    __78__ASCAgentProxy_performAuthorizationRequestsForContext_withCompletionHandler___block_invoke_3_cold_1(a1, v5);
   }
 }
 
@@ -332,12 +332,12 @@ void __79__ASCAgentProxy_getArePasskeysDisallowedForRelyingParty_withCompletionH
   (*(*(a1 + 40) + 16))();
 }
 
-void __79__ASCAgentProxy_getArePasskeysDisallowedForRelyingParty_withCompletionHandler___block_invoke_2(uint64_t a1)
+void __79__ASCAgentProxy_getArePasskeysDisallowedForRelyingParty_withCompletionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __78__ASCAgentProxy_performAuthorizationRequestsForContext_withCompletionHandler___block_invoke_3_cold_1(a1, v2);
+    __78__ASCAgentProxy_performAuthorizationRequestsForContext_withCompletionHandler___block_invoke_3_cold_1(a1, v5);
   }
 }
 
@@ -378,22 +378,20 @@ void __79__ASCAgentProxy_getArePasskeysDisallowedForRelyingParty_withCompletionH
   }
 }
 
-void __74__ASCAgentProxy_openCABLEURL_fromSourceApplication_withCompletionHandler___block_invoke(uint64_t a1)
+void __74__ASCAgentProxy_openCABLEURL_fromSourceApplication_withCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v12 = *MEMORY[0x1E69E9840];
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v6 = 138478083;
-    v7 = v3;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_1C20AD000, v2, OS_LOG_TYPE_DEFAULT, "Open caBLE URL: %{private}@, sourceApplication: %@", &v6, 0x16u);
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 40);
+    v8 = 138478083;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
+    _os_log_impl(&dword_1C20AD000, v5, OS_LOG_TYPE_DEFAULT, "Open caBLE URL: %{private}@, sourceApplication: %@", &v8, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __74__ASCAgentProxy_openCABLEURL_fromSourceApplication_withCompletionHandler___block_invoke_10(void *a1, void *a2)
@@ -412,12 +410,12 @@ void __74__ASCAgentProxy_openCABLEURL_fromSourceApplication_withCompletionHandle
   (*(a1[5] + 16))(a1[5], v6, v7, v8);
 }
 
-void __74__ASCAgentProxy_openCABLEURL_fromSourceApplication_withCompletionHandler___block_invoke_2(uint64_t a1)
+void __74__ASCAgentProxy_openCABLEURL_fromSourceApplication_withCompletionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandler___block_invoke_2_cold_1(a1, v2);
+    __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandler___block_invoke_2_cold_1(a1, v5);
   }
 }
 
@@ -456,19 +454,17 @@ void __74__ASCAgentProxy_openCABLEURL_fromSourceApplication_withCompletionHandle
   }
 }
 
-void __78__ASCAgentProxy_browserPasskeysForRelyingParty_testOptions_completionHandler___block_invoke(uint64_t a1)
+void __78__ASCAgentProxy_browserPasskeysForRelyingParty_testOptions_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v9 = *MEMORY[0x1E69E9840];
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 32);
-    v5 = 138477827;
-    v6 = v3;
-    _os_log_impl(&dword_1C20AD000, v2, OS_LOG_TYPE_INFO, "Browser requested passkeys for %{private}@", &v5, 0xCu);
+    v6 = *(a1 + 32);
+    v7 = 138477827;
+    v8 = v6;
+    _os_log_impl(&dword_1C20AD000, v5, OS_LOG_TYPE_INFO, "Browser requested passkeys for %{private}@", &v7, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __78__ASCAgentProxy_browserPasskeysForRelyingParty_testOptions_completionHandler___block_invoke_11(void *a1, void *a2)
@@ -487,12 +483,12 @@ void __78__ASCAgentProxy_browserPasskeysForRelyingParty_testOptions_completionHa
   (*(a1[5] + 16))(a1[5], MEMORY[0x1E695E0F0], v7, v8);
 }
 
-void __78__ASCAgentProxy_browserPasskeysForRelyingParty_testOptions_completionHandler___block_invoke_2(uint64_t a1)
+void __78__ASCAgentProxy_browserPasskeysForRelyingParty_testOptions_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandler___block_invoke_2_cold_1(a1, v2);
+    __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandler___block_invoke_2_cold_1(a1, v5);
   }
 }
 
@@ -523,18 +519,16 @@ void __78__ASCAgentProxy_browserPasskeysForRelyingParty_testOptions_completionHa
   return v8;
 }
 
-void __62__ASCAgentProxy_isDeviceConfiguredForPasskeysWithTestOptions___block_invoke()
+void __62__ASCAgentProxy_isDeviceConfiguredForPasskeysWithTestOptions___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v7 = *MEMORY[0x1E69E9840];
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v2 = 136446210;
-    v3 = "[ASCAgentProxy isDeviceConfiguredForPasskeysWithTestOptions:]_block_invoke";
-    _os_log_impl(&dword_1C20AD000, v0, OS_LOG_TYPE_INFO, "Browser called %{public}s", &v2, 0xCu);
+    v5 = 136446210;
+    v6 = "[ASCAgentProxy isDeviceConfiguredForPasskeysWithTestOptions:]_block_invoke";
+    _os_log_impl(&dword_1C20AD000, v4, OS_LOG_TYPE_INFO, "Browser called %{public}s", &v5, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 void __62__ASCAgentProxy_isDeviceConfiguredForPasskeysWithTestOptions___block_invoke_12(uint64_t a1, void *a2)
@@ -552,12 +546,12 @@ void __62__ASCAgentProxy_isDeviceConfiguredForPasskeysWithTestOptions___block_in
   os_activity_apply(v4, v7);
 }
 
-void __62__ASCAgentProxy_isDeviceConfiguredForPasskeysWithTestOptions___block_invoke_2(uint64_t a1)
+void __62__ASCAgentProxy_isDeviceConfiguredForPasskeysWithTestOptions___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandler___block_invoke_2_cold_1(a1, v2);
+    __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandler___block_invoke_2_cold_1(a1, v5);
   }
 }
 
@@ -603,12 +597,12 @@ void __89__ASCAgentProxy_getCanCurrentProcessAccessPasskeysForRelyingParty_withC
   (*(a1[5] + 16))(a1[5], [v6 code] == 4099);
 }
 
-void __89__ASCAgentProxy_getCanCurrentProcessAccessPasskeysForRelyingParty_withCompletionHandler___block_invoke_2(uint64_t a1)
+void __89__ASCAgentProxy_getCanCurrentProcessAccessPasskeysForRelyingParty_withCompletionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandler___block_invoke_2_cold_1(a1, v2);
+    __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandler___block_invoke_2_cold_1(a1, v5);
   }
 }
 
@@ -616,37 +610,37 @@ void __89__ASCAgentProxy_getCanCurrentProcessAccessPasskeysForRelyingParty_withC
 {
   handlerCopy = handler;
   contextCopy = context;
-  v8 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = WBS_LOG_CHANNEL_PREFIXAuthorization(contextCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1C20AD000, v8, OS_LOG_TYPE_INFO, "Asked to perform silent request.", buf, 2u);
+    _os_log_impl(&dword_1C20AD000, v9, OS_LOG_TYPE_INFO, "Asked to perform silent request.", buf, 2u);
   }
 
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __84__ASCAgentProxy_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke;
   aBlock[3] = &unk_1E815FA38;
-  v9 = handlerCopy;
-  v19 = v9;
-  v10 = _Block_copy(aBlock);
-  v13 = MEMORY[0x1E69E9820];
-  v14 = 3221225472;
-  v15 = __84__ASCAgentProxy_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_2;
-  v16 = &unk_1E815FFF8;
-  v17 = v9;
-  v11 = v9;
-  v12 = [(ASCAgentProxy *)self _remoteObjectProxyWithErrorHandler:&v13];
-  [v12 performSilentAuthorizationRequestsForContext:contextCopy withCompletionHandler:{v10, v13, v14, v15, v16}];
+  v10 = handlerCopy;
+  v20 = v10;
+  v11 = _Block_copy(aBlock);
+  v14 = MEMORY[0x1E69E9820];
+  v15 = 3221225472;
+  v16 = __84__ASCAgentProxy_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_2;
+  v17 = &unk_1E815FFF8;
+  v18 = v10;
+  v12 = v10;
+  v13 = [(ASCAgentProxy *)self _remoteObjectProxyWithErrorHandler:&v14];
+  [v13 performSilentAuthorizationRequestsForContext:contextCopy withCompletionHandler:{v11, v14, v15, v16, v17}];
 }
 
 void __84__ASCAgentProxy_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __84__ASCAgentProxy_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_2_cold_1(v4);
+    __84__ASCAgentProxy_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_2_cold_1(v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -657,12 +651,12 @@ void __84__ASCAgentProxy_performSilentAuthorizationRequestsForContext_withComple
   v16 = *MEMORY[0x1E69E9840];
   partyCopy = party;
   handlerCopy = handler;
-  v8 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = WBS_LOG_CHANNEL_PREFIXAuthorization(handlerCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
     v15 = partyCopy;
-    _os_log_impl(&dword_1C20AD000, v8, OS_LOG_TYPE_INFO, "Asked to look up passkey data for %{public}@.", buf, 0xCu);
+    _os_log_impl(&dword_1C20AD000, v9, OS_LOG_TYPE_INFO, "Asked to look up passkey data for %{public}@.", buf, 0xCu);
   }
 
   v12[0] = MEMORY[0x1E69E9820];
@@ -670,20 +664,18 @@ void __84__ASCAgentProxy_performSilentAuthorizationRequestsForContext_withComple
   v12[2] = __70__ASCAgentProxy_getPasskeysDataForRelyingParty_withCompletionHandler___block_invoke;
   v12[3] = &unk_1E815FFF8;
   v13 = handlerCopy;
-  v9 = handlerCopy;
-  v10 = [(ASCAgentProxy *)self _remoteObjectProxyWithErrorHandler:v12];
-  [v10 getPasskeysDataForRelyingParty:partyCopy withCompletionHandler:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = handlerCopy;
+  v11 = [(ASCAgentProxy *)self _remoteObjectProxyWithErrorHandler:v12];
+  [v11 getPasskeysDataForRelyingParty:partyCopy withCompletionHandler:v10];
 }
 
 void __70__ASCAgentProxy_getPasskeysDataForRelyingParty_withCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __84__ASCAgentProxy_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_2_cold_1(v4);
+    __84__ASCAgentProxy_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_2_cold_1(v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -695,14 +687,14 @@ void __70__ASCAgentProxy_getPasskeysDataForRelyingParty_withCompletionHandler___
   partyCopy = party;
   dCopy = d;
   handlerCopy = handler;
-  v12 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v13 = WBS_LOG_CHANNEL_PREFIXAuthorization(handlerCopy, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 138543618;
     v22 = dCopy;
     v23 = 2114;
     v24 = partyCopy;
-    _os_log_impl(&dword_1C20AD000, v12, OS_LOG_TYPE_INFO, "Asked to delete passkey %{public}@ for %{public}@.", buf, 0x16u);
+    _os_log_impl(&dword_1C20AD000, v13, OS_LOG_TYPE_INFO, "Asked to delete passkey %{public}@ for %{public}@.", buf, 0x16u);
   }
 
   v18[0] = MEMORY[0x1E69E9820];
@@ -711,22 +703,20 @@ void __70__ASCAgentProxy_getPasskeysDataForRelyingParty_withCompletionHandler___
   v18[3] = &unk_1E8160098;
   v18[4] = self;
   v20 = a2;
-  v13 = handlerCopy;
-  v19 = v13;
-  v14 = [(ASCAgentProxy *)self _remoteObjectProxyWithErrorHandler:v18];
-  v15 = v14;
-  if (v14)
+  v14 = handlerCopy;
+  v19 = v14;
+  v15 = [(ASCAgentProxy *)self _remoteObjectProxyWithErrorHandler:v18];
+  v16 = v15;
+  if (v15)
   {
-    [v14 deletePasskeyForRelyingParty:partyCopy withCredentialID:dCopy completionHandler:v13];
+    [v15 deletePasskeyForRelyingParty:partyCopy withCredentialID:dCopy completionHandler:v14];
   }
 
   else
   {
-    v16 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:0];
-    (*(v13 + 2))(v13, 0, v16);
+    v17 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:0];
+    (*(v14 + 2))(v14, 0, v17);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __81__ASCAgentProxy_deletePasskeyForRelyingParty_withCredentialID_completionHandler___block_invoke(void *a1, void *a2)
@@ -745,12 +735,12 @@ void __81__ASCAgentProxy_deletePasskeyForRelyingParty_withCredentialID_completio
   (*(a1[5] + 16))(a1[5], 0, v6, v7);
 }
 
-void __81__ASCAgentProxy_deletePasskeyForRelyingParty_withCredentialID_completionHandler___block_invoke_2(uint64_t a1)
+void __81__ASCAgentProxy_deletePasskeyForRelyingParty_withCredentialID_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandler___block_invoke_2_cold_1(a1, v2);
+    __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandler___block_invoke_2_cold_1(a1, v5);
   }
 }
 
@@ -759,12 +749,12 @@ void __81__ASCAgentProxy_deletePasskeyForRelyingParty_withCredentialID_completio
   v20 = *MEMORY[0x1E69E9840];
   partyCopy = party;
   handlerCopy = handler;
-  v9 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = WBS_LOG_CHANNEL_PREFIXAuthorization(handlerCopy, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
     v19 = partyCopy;
-    _os_log_impl(&dword_1C20AD000, v9, OS_LOG_TYPE_INFO, "Asked to delete all passkeys for %{public}@.", buf, 0xCu);
+    _os_log_impl(&dword_1C20AD000, v10, OS_LOG_TYPE_INFO, "Asked to delete all passkeys for %{public}@.", buf, 0xCu);
   }
 
   v15[0] = MEMORY[0x1E69E9820];
@@ -773,22 +763,20 @@ void __81__ASCAgentProxy_deletePasskeyForRelyingParty_withCredentialID_completio
   v15[3] = &unk_1E8160098;
   v15[4] = self;
   v17 = a2;
-  v10 = handlerCopy;
-  v16 = v10;
-  v11 = [(ASCAgentProxy *)self _remoteObjectProxyWithErrorHandler:v15];
-  v12 = v11;
-  if (v11)
+  v11 = handlerCopy;
+  v16 = v11;
+  v12 = [(ASCAgentProxy *)self _remoteObjectProxyWithErrorHandler:v15];
+  v13 = v12;
+  if (v12)
   {
-    [v11 deleteAllPasskeysForRelyingParty:partyCopy completionHandler:v10];
+    [v12 deleteAllPasskeysForRelyingParty:partyCopy completionHandler:v11];
   }
 
   else
   {
-    v13 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:0];
-    (*(v10 + 2))(v10, 0, v13);
+    v14 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:0];
+    (*(v11 + 2))(v11, 0, v14);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __68__ASCAgentProxy_deleteAllPasskeysForRelyingParty_completionHandler___block_invoke(void *a1, void *a2)
@@ -807,42 +795,42 @@ void __68__ASCAgentProxy_deleteAllPasskeysForRelyingParty_completionHandler___bl
   (*(a1[5] + 16))(a1[5], 0, v6, v7);
 }
 
-void __68__ASCAgentProxy_deleteAllPasskeysForRelyingParty_completionHandler___block_invoke_2(uint64_t a1)
+void __68__ASCAgentProxy_deleteAllPasskeysForRelyingParty_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandler___block_invoke_2_cold_1(a1, v2);
+    __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandler___block_invoke_2_cold_1(a1, v5);
   }
 }
 
 - (void)preflightCanCreateICloudKeychainPasskeyWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = WBS_LOG_CHANNEL_PREFIXAuthorization(handlerCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1C20AD000, v5, OS_LOG_TYPE_INFO, "Asked to preflight creating passkey in iCloud Keychain.", buf, 2u);
+    _os_log_impl(&dword_1C20AD000, v6, OS_LOG_TYPE_INFO, "Asked to preflight creating passkey in iCloud Keychain.", buf, 2u);
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __78__ASCAgentProxy_preflightCanCreateICloudKeychainPasskeyWithCompletionHandler___block_invoke;
-  v8[3] = &unk_1E815FFF8;
-  v9 = handlerCopy;
-  v6 = handlerCopy;
-  v7 = [(ASCAgentProxy *)self _remoteObjectProxyWithErrorHandler:v8];
-  [v7 preflightCanCreateICloudKeychainPasskeyWithCompletionHandler:v6];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __78__ASCAgentProxy_preflightCanCreateICloudKeychainPasskeyWithCompletionHandler___block_invoke;
+  v9[3] = &unk_1E815FFF8;
+  v10 = handlerCopy;
+  v7 = handlerCopy;
+  v8 = [(ASCAgentProxy *)self _remoteObjectProxyWithErrorHandler:v9];
+  [v8 preflightCanCreateICloudKeychainPasskeyWithCompletionHandler:v7];
 }
 
 void __78__ASCAgentProxy_preflightCanCreateICloudKeychainPasskeyWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __84__ASCAgentProxy_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_2_cold_1(v4);
+    __84__ASCAgentProxy_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_2_cold_1(v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -889,12 +877,12 @@ void __72__ASCAgentProxy_openCredentialProviderAppSettingsWithCompletionHandler_
   (*(a1[5] + 16))(a1[5], v6, v7, v8);
 }
 
-void __72__ASCAgentProxy_openCredentialProviderAppSettingsWithCompletionHandler___block_invoke_2(uint64_t a1)
+void __72__ASCAgentProxy_openCredentialProviderAppSettingsWithCompletionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandler___block_invoke_2_cold_1(a1, v2);
+    __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandler___block_invoke_2_cold_1(a1, v5);
   }
 }
 
@@ -939,12 +927,12 @@ void __70__ASCAgentProxy_openVerificationCodeAppSettingsWithCompletionHandler___
   (*(a1[5] + 16))(a1[5], v6, v7, v8);
 }
 
-void __70__ASCAgentProxy_openVerificationCodeAppSettingsWithCompletionHandler___block_invoke_2(uint64_t a1)
+void __70__ASCAgentProxy_openVerificationCodeAppSettingsWithCompletionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandler___block_invoke_2_cold_1(a1, v2);
+    __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandler___block_invoke_2_cold_1(a1, v5);
   }
 }
 
@@ -989,12 +977,12 @@ void __81__ASCAgentProxy_requestToTurnOnCredentialProviderExtensionWithCompletio
   (*(a1[5] + 16))(a1[5], 0, v7, v8);
 }
 
-void __81__ASCAgentProxy_requestToTurnOnCredentialProviderExtensionWithCompletionHandler___block_invoke_2(uint64_t a1)
+void __81__ASCAgentProxy_requestToTurnOnCredentialProviderExtensionWithCompletionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandler___block_invoke_2_cold_1(a1, v2);
+    __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandler___block_invoke_2_cold_1(a1, v5);
   }
 }
 
@@ -1020,13 +1008,13 @@ void __81__ASCAgentProxy_requestToTurnOnCredentialProviderExtensionWithCompletio
   }
 }
 
-void __37__ASCAgentProxy_cancelCurrentRequest__block_invoke()
+void __37__ASCAgentProxy_cancelCurrentRequest__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1C20AD000, v0, OS_LOG_TYPE_DEFAULT, "Client asked to cancel request.", v1, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C20AD000, v4, OS_LOG_TYPE_DEFAULT, "Client asked to cancel request.", v5, 2u);
   }
 }
 
@@ -1045,12 +1033,12 @@ void __37__ASCAgentProxy_cancelCurrentRequest__block_invoke_15(uint64_t a1, void
   os_activity_apply(v4, v7);
 }
 
-void __37__ASCAgentProxy_cancelCurrentRequest__block_invoke_2(uint64_t a1)
+void __37__ASCAgentProxy_cancelCurrentRequest__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandler___block_invoke_2_cold_1(a1, v2);
+    __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandler___block_invoke_2_cold_1(a1, v5);
   }
 }
 
@@ -1118,50 +1106,37 @@ void __37__ASCAgentProxy_cancelCurrentRequest__block_invoke_2(uint64_t a1)
 
 void __52__ASCAgentProxy__remoteObjectProxyWithErrorHandler___block_invoke_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Remote proxy object error handler invoked with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Remote proxy object error handler invoked with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __78__ASCAgentProxy_performAuthorizationRequestsForContext_withCompletionHandler___block_invoke_3_cold_1(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v6, v7, "Connection to agent service interrupted with error: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v5, v6, "Connection to agent service interrupted with error: %{public}@", v7, v8, v9, v10);
 }
 
 void __75__ASCAgentProxy_clearAllPlatformPublicKeyCredentialsWithCompletionHandler___block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7_0(a1, a2);
-  v5 = OUTLINED_FUNCTION_4();
-  NSStringFromSelector(v5);
+  v4 = OUTLINED_FUNCTION_4();
+  NSStringFromSelector(v4);
   objc_claimAutoreleasedReturnValue();
-  v6 = [OUTLINED_FUNCTION_3_0() safari_privacyPreservingDescription];
+  v5 = [OUTLINED_FUNCTION_3_0() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_1(&dword_1C20AD000, v7, v8, "Could not create AuthenticationServicesAgent proxy object in %{public}@: %{public}@", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_1(&dword_1C20AD000, v6, v7, "Could not create AuthenticationServicesAgent proxy object in %{public}@: %{public}@", v8, v9, v10, v11);
 }
 
 void __84__ASCAgentProxy_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Connection to agent service interrupted with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Connection to agent service interrupted with error: %{public}@", v6, v7, v8, v9);
 }
 
 @end

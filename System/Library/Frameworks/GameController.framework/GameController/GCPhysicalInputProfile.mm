@@ -426,7 +426,7 @@ LABEL_10:
 
 - (BOOL)settingsProfile:(id)profile differsFrom:(id)from
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   profileCopy = profile;
   fromCopy = from;
   v7 = fromCopy;
@@ -444,55 +444,36 @@ LABEL_10:
       uuid2 = [v7 uuid];
       v11 = [uuid isEqual:uuid2];
 
-      if (!v11)
+      if (v11 && ([profileCopy name], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "name"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v12, "isEqual:", v13), v13, v12, v14) && (objc_msgSend(profileCopy, "elementMappings"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "count"), objc_msgSend(v7, "elementMappings"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "count"), v17, v15, v16 == v18))
       {
-        goto LABEL_25;
-      }
-
-      name = [profileCopy name];
-      name2 = [v7 name];
-      v14 = [name isEqual:name2];
-
-      if (!v14)
-      {
-        goto LABEL_25;
-      }
-
-      elementMappings = [profileCopy elementMappings];
-      v16 = [elementMappings count];
-      elementMappings2 = [v7 elementMappings];
-      v18 = [elementMappings2 count];
-
-      if (v16 == v18)
-      {
-        v44 = 0u;
-        v45 = 0u;
-        v42 = 0u;
-        v43 = 0u;
-        elementMappings3 = [profileCopy elementMappings];
-        keyEnumerator = [elementMappings3 keyEnumerator];
+        v48 = 0u;
+        v49 = 0u;
+        v46 = 0u;
+        v47 = 0u;
+        elementMappings = [profileCopy elementMappings];
+        keyEnumerator = [elementMappings keyEnumerator];
 
         obj = keyEnumerator;
-        v21 = [keyEnumerator countByEnumeratingWithState:&v42 objects:v46 count:16];
+        v21 = [keyEnumerator countByEnumeratingWithState:&v46 objects:v50 count:16];
         if (v21)
         {
           v22 = v21;
-          v23 = *v43;
+          v23 = *v47;
           while (2)
           {
             for (i = 0; i != v22; ++i)
             {
-              if (*v43 != v23)
+              if (*v47 != v23)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v25 = *(*(&v42 + 1) + 8 * i);
-              elementMappings4 = [profileCopy elementMappings];
-              v27 = [elementMappings4 objectForKeyedSubscript:v25];
+              v25 = *(*(&v46 + 1) + 8 * i);
+              elementMappings2 = [profileCopy elementMappings];
+              v27 = [elementMappings2 objectForKeyedSubscript:v25];
 
-              elementMappings5 = [v7 elementMappings];
-              v29 = [elementMappings5 objectForKeyedSubscript:v25];
+              elementMappings3 = [v7 elementMappings];
+              v29 = [elementMappings3 objectForKeyedSubscript:v25];
 
               if (!v29)
               {
@@ -500,12 +481,14 @@ LABEL_10:
               }
 
               remappingOrder = [v27 remappingOrder];
-              if (remappingOrder != [v29 remappingOrder] || (objc_msgSend(v27, "mappingKey"), v31 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v29, "mappingKey"), v32 = objc_claimAutoreleasedReturnValue(), v33 = objc_msgSend(v31, "isEqual:", v32), v32, v31, (v33 & 1) == 0))
+              remappingOrder2 = [v29 remappingOrder];
+              if (remappingOrder != remappingOrder2 || ([v27 mappingKey], v33 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v29, "mappingKey"), v34 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend(v33, "isEqual:", v34), v34, v33, (v35 & 1) == 0))
               {
-                if (gc_isInternalBuild())
+                isInternalBuild = gc_isInternalBuild(remappingOrder2, v32);
+                if (isInternalBuild)
                 {
-                  v34 = getGCLogger();
-                  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+                  v36 = getGCLogger(isInternalBuild);
+                  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
                   {
                     [GCPhysicalInputProfile settingsProfile:v27 differsFrom:v29];
                   }
@@ -525,14 +508,15 @@ LABEL_35:
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v34 = v27;
-                  v35 = v29;
-                  invertHorizontally = [v34 invertHorizontally];
-                  if (invertHorizontally != [v35 invertHorizontally] || (v37 = -[NSObject invertVertically](v34, "invertVertically"), v37 != objc_msgSend(v35, "invertVertically")) || (v38 = -[NSObject swapAxes](v34, "swapAxes"), v38 != objc_msgSend(v35, "swapAxes")))
+                  v36 = v27;
+                  v37 = v29;
+                  invertHorizontally = [v36 invertHorizontally];
+                  invertHorizontally2 = [v37 invertHorizontally];
+                  if (invertHorizontally != invertHorizontally2 || (v41 = -[NSObject invertVertically](v36, "invertVertically"), invertHorizontally2 = [v37 invertVertically], v41 != invertHorizontally2) || (v42 = -[NSObject swapAxes](v36, "swapAxes"), invertHorizontally2 = objc_msgSend(v37, "swapAxes"), v42 != invertHorizontally2))
                   {
-                    if (gc_isInternalBuild())
+                    if (gc_isInternalBuild(invertHorizontally2, v40))
                     {
-                      [GCPhysicalInputProfile settingsProfile:v34 differsFrom:?];
+                      [GCPhysicalInputProfile settingsProfile:v36 differsFrom:?];
                     }
 
                     goto LABEL_34;
@@ -541,7 +525,7 @@ LABEL_35:
               }
             }
 
-            v22 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+            v22 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
             v8 = 0;
             if (v22)
             {
@@ -562,13 +546,11 @@ LABEL_36:
 
       else
       {
-LABEL_25:
         v8 = 1;
       }
     }
   }
 
-  v39 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -597,41 +579,41 @@ LABEL_25:
 
 - (void)applySettingsProfile:(_BYTE *)profile
 {
-  v251 = *MEMORY[0x1E69E9840];
+  v250 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   profileCopy = profile;
   if (profile && v3)
   {
-    v220 = v3;
+    v219 = v3;
     profile[600] = 0;
+    v242 = 0u;
     v243 = 0u;
     v244 = 0u;
     v245 = 0u;
-    v246 = 0u;
     allButtons = [profile allButtons];
-    v6 = [allButtons countByEnumeratingWithState:&v243 objects:v250 count:16];
+    v6 = [allButtons countByEnumeratingWithState:&v242 objects:v249 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v244;
+      v8 = *v243;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v244 != v8)
+          if (*v243 != v8)
           {
             objc_enumerationMutation(allButtons);
           }
 
-          v10 = *(*(&v243 + 1) + 8 * i);
+          v10 = *(*(&v242 + 1) + 8 * i);
           if (([v10 remappingKey] & 0x80000000) == 0)
           {
             objc_storeStrong(&profileCopy[8 * [v10 remappingKey] + 184], v10);
           }
         }
 
-        v7 = [allButtons countByEnumeratingWithState:&v243 objects:v250 count:16];
+        v7 = [allButtons countByEnumeratingWithState:&v242 objects:v249 count:16];
       }
 
       while (v7);
@@ -643,10 +625,10 @@ LABEL_25:
     v12 = *(profileCopy + 72);
     *(profileCopy + 72) = 0;
 
-    v228 = objc_opt_new();
     v227 = objc_opt_new();
-    v222 = objc_opt_new();
+    v226 = objc_opt_new();
     v221 = objc_opt_new();
+    v220 = objc_opt_new();
     v13 = [*(profileCopy + 17) objectForKeyedSubscript:@"Button Share"];
 
     v14 = @"Button Options";
@@ -657,33 +639,33 @@ LABEL_25:
 
     v15 = v14;
     v16 = objc_alloc_init(GCReplayKitGestureSettings);
-    v210 = v15;
+    v209 = v15;
     [(GCReplayKitGestureSettings *)v16 setControllerElementMappingKey:v15];
     [(GCReplayKitGestureSettings *)v16 setSinglePressGesture:-1];
-    v4 = v220;
-    -[GCReplayKitGestureSettings setDoublePressGesture:](v16, "setDoublePressGesture:", [v220 doublePressShareGesture] - 1);
-    v229 = v16;
-    -[GCReplayKitGestureSettings setLongPressGesture:](v16, "setLongPressGesture:", [v220 longPressShareGesture] - 1);
-    v241 = 0u;
-    v242 = 0u;
-    v239 = 0u;
+    v4 = v219;
+    -[GCReplayKitGestureSettings setDoublePressGesture:](v16, "setDoublePressGesture:", [v219 doublePressShareGesture] - 1);
+    v228 = v16;
+    -[GCReplayKitGestureSettings setLongPressGesture:](v16, "setLongPressGesture:", [v219 longPressShareGesture] - 1);
     v240 = 0u;
+    v241 = 0u;
+    v238 = 0u;
+    v239 = 0u;
     obj = [profileCopy _topLevelButtons];
-    v17 = [obj countByEnumeratingWithState:&v239 objects:v249 count:16];
+    v17 = [obj countByEnumeratingWithState:&v238 objects:v248 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v240;
+      v19 = *v239;
       do
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v240 != v19)
+          if (*v239 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v239 + 1) + 8 * j);
+          v21 = *(*(&v238 + 1) + 8 * j);
           if ([v21 remappable])
           {
             v22 = [v4 elementMappingForPhysicalPress:v21];
@@ -704,85 +686,61 @@ LABEL_25:
               objc_storeStrong(&profileCopy[8 * [v21 remappingKey] + 184], v23);
               primaryAlias = [v21 primaryAlias];
               primaryAlias2 = [v24 primaryAlias];
-              [profileCopy registerPhysicalInputName:primaryAlias toElementAlias:primaryAlias2 withPhysicalToElementMapping:v228 withElementToPhysicalMapping:v227];
+              [profileCopy registerPhysicalInputName:primaryAlias toElementAlias:primaryAlias2 withPhysicalToElementMapping:v227 withElementToPhysicalMapping:v226];
 
               unmappedSfSymbolsName = [v24 unmappedSfSymbolsName];
-              if (!unmappedSfSymbolsName)
+              if (!unmappedSfSymbolsName || (v28 = unmappedSfSymbolsName, [v24 primaryAlias], v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v221, "objectForKeyedSubscript:", v29), v30 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v24, "unmappedSfSymbolsName"), v31 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend(v30, "isEqualToString:", v31), v31, v30, v29, v28, (v32 & 1) == 0))
               {
-                goto LABEL_26;
-              }
-
-              v28 = unmappedSfSymbolsName;
-              primaryAlias3 = [v24 primaryAlias];
-              v30 = [v222 objectForKeyedSubscript:primaryAlias3];
-              unmappedSfSymbolsName2 = [v24 unmappedSfSymbolsName];
-              v32 = [v30 isEqualToString:unmappedSfSymbolsName2];
-
-              if ((v32 & 1) == 0)
-              {
-LABEL_26:
-                unmappedSfSymbolsName3 = [v21 unmappedSfSymbolsName];
-                primaryAlias4 = [v24 primaryAlias];
-                [v222 setObject:unmappedSfSymbolsName3 forKeyedSubscript:primaryAlias4];
+                unmappedSfSymbolsName2 = [v21 unmappedSfSymbolsName];
+                primaryAlias3 = [v24 primaryAlias];
+                [v221 setObject:unmappedSfSymbolsName2 forKeyedSubscript:primaryAlias3];
               }
 
               unmappedNameLocalizationKey = [v24 unmappedNameLocalizationKey];
-              if (!unmappedNameLocalizationKey)
+              if (!unmappedNameLocalizationKey || (v36 = unmappedNameLocalizationKey, [v24 primaryAlias], v37 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v220, "objectForKeyedSubscript:", v37), v38 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v24, "unmappedNameLocalizationKey"), v39 = objc_claimAutoreleasedReturnValue(), v40 = objc_msgSend(v38, "isEqualToString:", v39), v39, v38, v37, v36, (v40 & 1) == 0))
               {
-                goto LABEL_29;
-              }
-
-              v36 = unmappedNameLocalizationKey;
-              primaryAlias5 = [v24 primaryAlias];
-              v38 = [v221 objectForKeyedSubscript:primaryAlias5];
-              unmappedNameLocalizationKey2 = [v24 unmappedNameLocalizationKey];
-              v40 = [v38 isEqualToString:unmappedNameLocalizationKey2];
-
-              if ((v40 & 1) == 0)
-              {
-LABEL_29:
-                unmappedNameLocalizationKey3 = [v21 unmappedNameLocalizationKey];
-                primaryAlias6 = [v24 primaryAlias];
-                [v221 setObject:unmappedNameLocalizationKey3 forKeyedSubscript:primaryAlias6];
+                unmappedNameLocalizationKey2 = [v21 unmappedNameLocalizationKey];
+                primaryAlias4 = [v24 primaryAlias];
+                [v220 setObject:unmappedNameLocalizationKey2 forKeyedSubscript:primaryAlias4];
               }
             }
 
-            v4 = v220;
+            v4 = v219;
           }
 
-          [profileCopy applyGestureSettingsToButton:v21 withSettings:v229];
+          [profileCopy applyGestureSettingsToButton:v21 withSettings:v228];
         }
 
-        v18 = [obj countByEnumeratingWithState:&v239 objects:v249 count:16];
+        v18 = [obj countByEnumeratingWithState:&v238 objects:v248 count:16];
       }
 
       while (v18);
     }
 
-    v237 = 0u;
-    v238 = 0u;
-    v235 = 0u;
     v236 = 0u;
-    v213 = *(profileCopy + 15);
-    v43 = [v213 countByEnumeratingWithState:&v235 objects:v248 count:16];
+    v237 = 0u;
+    v234 = 0u;
+    v235 = 0u;
+    v212 = *(profileCopy + 15);
+    v43 = [v212 countByEnumeratingWithState:&v234 objects:v247 count:16];
     if (v43)
     {
       v44 = v43;
-      v45 = *v236;
+      v45 = *v235;
       v46 = profileCopy + 184;
-      v211 = *v236;
+      v210 = *v235;
       do
       {
         v47 = 0;
-        v212 = v44;
+        v211 = v44;
         do
         {
-          if (*v236 != v45)
+          if (*v235 != v45)
           {
-            objc_enumerationMutation(v213);
+            objc_enumerationMutation(v212);
           }
 
-          v48 = *(*(&v235 + 1) + 8 * v47);
+          v48 = *(*(&v234 + 1) + 8 * v47);
           if ([v48 remappable])
           {
             v49 = [v4 directionPadMappingForPhysicalPress:v48];
@@ -799,15 +757,15 @@ LABEL_29:
             v51 = v50;
             if (v50)
             {
-              primaryAlias7 = [v48 primaryAlias];
-              primaryAlias8 = [v51 primaryAlias];
-              [profileCopy registerPhysicalInputName:primaryAlias7 toElementAlias:primaryAlias8 withPhysicalToElementMapping:v228 withElementToPhysicalMapping:v227];
+              primaryAlias5 = [v48 primaryAlias];
+              primaryAlias6 = [v51 primaryAlias];
+              [profileCopy registerPhysicalInputName:primaryAlias5 toElementAlias:primaryAlias6 withPhysicalToElementMapping:v227 withElementToPhysicalMapping:v226];
 
-              LODWORD(primaryAlias8) = [v49 swapAxes];
+              LODWORD(primaryAlias6) = [v49 swapAxes];
               invertHorizontally = [v49 invertHorizontally];
               invertVertically = [v49 invertVertically];
-              v217 = v49;
-              if (primaryAlias8)
+              v216 = v49;
+              if (primaryAlias6)
               {
                 yAxis = [v51 yAxis];
                 xAxis = [v51 xAxis];
@@ -848,7 +806,7 @@ LABEL_29:
 
                   [v48 left];
                 }
-                v216 = ;
+                v215 = ;
                 if (invertVertically)
                 {
                   v80 = [v51 up];
@@ -927,7 +885,7 @@ LABEL_29:
 
                   [v48 down];
                 }
-                v216 = ;
+                v215 = ;
                 if (invertHorizontally)
                 {
                   right5 = [v51 right];
@@ -965,140 +923,116 @@ LABEL_29:
                 }
               }
               v88 = ;
-              v214 = v88;
-              unmappedSfSymbolsName4 = [v51 unmappedSfSymbolsName];
-              if (!unmappedSfSymbolsName4)
+              v213 = v88;
+              unmappedSfSymbolsName3 = [v51 unmappedSfSymbolsName];
+              if (!unmappedSfSymbolsName3 || (v122 = unmappedSfSymbolsName3, [v51 primaryAlias], v123 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v221, "objectForKeyedSubscript:", v123), v124 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v51, "unmappedSfSymbolsName"), v125 = objc_claimAutoreleasedReturnValue(), v126 = objc_msgSend(v124, "isEqualToString:", v125), v125, v124, v123, v122, (v126 & 1) == 0))
               {
-                goto LABEL_59;
-              }
-
-              v122 = unmappedSfSymbolsName4;
-              primaryAlias9 = [v51 primaryAlias];
-              v124 = [v222 objectForKeyedSubscript:primaryAlias9];
-              unmappedSfSymbolsName5 = [v51 unmappedSfSymbolsName];
-              v126 = [v124 isEqualToString:unmappedSfSymbolsName5];
-
-              if ((v126 & 1) == 0)
-              {
-LABEL_59:
-                unmappedSfSymbolsName6 = [v48 unmappedSfSymbolsName];
-                primaryAlias10 = [v51 primaryAlias];
-                [v222 setObject:unmappedSfSymbolsName6 forKeyedSubscript:primaryAlias10];
+                unmappedSfSymbolsName4 = [v48 unmappedSfSymbolsName];
+                primaryAlias7 = [v51 primaryAlias];
+                [v221 setObject:unmappedSfSymbolsName4 forKeyedSubscript:primaryAlias7];
 
                 v129 = [v48 up];
-                unmappedSfSymbolsName7 = [v129 unmappedSfSymbolsName];
+                unmappedSfSymbolsName5 = [v129 unmappedSfSymbolsName];
                 v131 = [v48 up];
                 v132 = [*&v46[8 * objc_msgSend(v131 "remappingKey")]];
-                [v222 setObject:unmappedSfSymbolsName7 forKeyedSubscript:v132];
+                [v221 setObject:unmappedSfSymbolsName5 forKeyedSubscript:v132];
 
                 down10 = [v48 down];
-                unmappedSfSymbolsName8 = [down10 unmappedSfSymbolsName];
+                unmappedSfSymbolsName6 = [down10 unmappedSfSymbolsName];
                 down11 = [v48 down];
                 v136 = [*&v46[8 * objc_msgSend(down11 "remappingKey")]];
-                [v222 setObject:unmappedSfSymbolsName8 forKeyedSubscript:v136];
+                [v221 setObject:unmappedSfSymbolsName6 forKeyedSubscript:v136];
 
                 left10 = [v48 left];
-                unmappedSfSymbolsName9 = [left10 unmappedSfSymbolsName];
+                unmappedSfSymbolsName7 = [left10 unmappedSfSymbolsName];
                 left11 = [v48 left];
                 v140 = [*&v46[8 * objc_msgSend(left11 "remappingKey")]];
-                [v222 setObject:unmappedSfSymbolsName9 forKeyedSubscript:v140];
+                [v221 setObject:unmappedSfSymbolsName7 forKeyedSubscript:v140];
 
                 right9 = [v48 right];
-                unmappedSfSymbolsName10 = [right9 unmappedSfSymbolsName];
+                unmappedSfSymbolsName8 = [right9 unmappedSfSymbolsName];
                 right10 = [v48 right];
                 v144 = [*&v46[8 * objc_msgSend(right10 "remappingKey")]];
-                [v222 setObject:unmappedSfSymbolsName10 forKeyedSubscript:v144];
+                [v221 setObject:unmappedSfSymbolsName8 forKeyedSubscript:v144];
               }
 
-              unmappedNameLocalizationKey4 = [v51 unmappedNameLocalizationKey];
-              if (!unmappedNameLocalizationKey4)
+              unmappedNameLocalizationKey3 = [v51 unmappedNameLocalizationKey];
+              if (!unmappedNameLocalizationKey3 || (v146 = unmappedNameLocalizationKey3, [v51 primaryAlias], v147 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v220, "objectForKeyedSubscript:", v147), v148 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v51, "unmappedNameLocalizationKey"), v149 = objc_claimAutoreleasedReturnValue(), v150 = objc_msgSend(v148, "isEqualToString:", v149), v149, v148, v147, v146, (v150 & 1) == 0))
               {
-                goto LABEL_62;
-              }
+                unmappedNameLocalizationKey4 = [v48 unmappedNameLocalizationKey];
+                primaryAlias8 = [v51 primaryAlias];
+                [v220 setObject:unmappedNameLocalizationKey4 forKeyedSubscript:primaryAlias8];
 
-              v146 = unmappedNameLocalizationKey4;
-              primaryAlias11 = [v51 primaryAlias];
-              v148 = [v221 objectForKeyedSubscript:primaryAlias11];
-              unmappedNameLocalizationKey5 = [v51 unmappedNameLocalizationKey];
-              v150 = [v148 isEqualToString:unmappedNameLocalizationKey5];
-
-              if ((v150 & 1) == 0)
-              {
-LABEL_62:
-                unmappedNameLocalizationKey6 = [v48 unmappedNameLocalizationKey];
-                primaryAlias12 = [v51 primaryAlias];
-                [v221 setObject:unmappedNameLocalizationKey6 forKeyedSubscript:primaryAlias12];
-
-                primaryAlias13 = [v51 primaryAlias];
-                v154 = [v221 objectForKeyedSubscript:primaryAlias13];
+                primaryAlias9 = [v51 primaryAlias];
+                v154 = [v220 objectForKeyedSubscript:primaryAlias9];
 
                 if (v154)
                 {
                   v155 = [v48 up];
                   v156 = [*&v46[8 * objc_msgSend(v155 "remappingKey")]];
-                  [v221 setObject:@"DIRECTION_PAD_UP" forKeyedSubscript:v156];
+                  [v220 setObject:@"DIRECTION_PAD_UP" forKeyedSubscript:v156];
 
                   down12 = [v48 down];
                   v158 = [*&v46[8 * objc_msgSend(down12 "remappingKey")]];
-                  [v221 setObject:@"DIRECTION_PAD_DOWN" forKeyedSubscript:v158];
+                  [v220 setObject:@"DIRECTION_PAD_DOWN" forKeyedSubscript:v158];
 
                   left12 = [v48 left];
                   v160 = [*&v46[8 * objc_msgSend(left12 "remappingKey")]];
-                  [v221 setObject:@"DIRECTION_PAD_LEFT" forKeyedSubscript:v160];
+                  [v220 setObject:@"DIRECTION_PAD_LEFT" forKeyedSubscript:v160];
 
                   right11 = [v48 right];
                   v162 = [*&v46[8 * objc_msgSend(right11 "remappingKey")]];
-                  [v221 setObject:@"DIRECTION_PAD_RIGHT" forKeyedSubscript:v162];
+                  [v220 setObject:@"DIRECTION_PAD_RIGHT" forKeyedSubscript:v162];
 
                   v163 = MEMORY[0x1E696AEC0];
                   v164 = _GCFConvertStringToLocalizedString();
                   v154 = [v163 stringWithFormat:v164, v154];
-                  primaryAlias14 = [yAxis primaryAlias];
-                  [v221 setObject:v154 forKeyedSubscript:primaryAlias14];
+                  primaryAlias10 = [yAxis primaryAlias];
+                  [v220 setObject:v154 forKeyedSubscript:primaryAlias10];
 
                   v167 = MEMORY[0x1E696AEC0];
                   v168 = _GCFConvertStringToLocalizedString();
                   v1542 = [v167 stringWithFormat:v168, v154];
-                  primaryAlias15 = [xAxis primaryAlias];
-                  [v221 setObject:v1542 forKeyedSubscript:primaryAlias15];
+                  primaryAlias11 = [xAxis primaryAlias];
+                  [v220 setObject:v1542 forKeyedSubscript:primaryAlias11];
                 }
               }
 
-              primaryAlias16 = [obja primaryAlias];
+              primaryAlias12 = [obja primaryAlias];
               xAxis3 = [v51 xAxis];
-              primaryAlias17 = [xAxis3 primaryAlias];
-              [profileCopy registerPhysicalInputName:primaryAlias16 toElementAlias:primaryAlias17 withPhysicalToElementMapping:v228 withElementToPhysicalMapping:v227];
+              primaryAlias13 = [xAxis3 primaryAlias];
+              [profileCopy registerPhysicalInputName:primaryAlias12 toElementAlias:primaryAlias13 withPhysicalToElementMapping:v227 withElementToPhysicalMapping:v226];
 
-              primaryAlias18 = [xAxis2 primaryAlias];
+              primaryAlias14 = [xAxis2 primaryAlias];
               yAxis2 = [v51 yAxis];
-              primaryAlias19 = [yAxis2 primaryAlias];
-              [profileCopy registerPhysicalInputName:primaryAlias18 toElementAlias:primaryAlias19 withPhysicalToElementMapping:v228 withElementToPhysicalMapping:v227];
+              primaryAlias15 = [yAxis2 primaryAlias];
+              [profileCopy registerPhysicalInputName:primaryAlias14 toElementAlias:primaryAlias15 withPhysicalToElementMapping:v227 withElementToPhysicalMapping:v226];
 
-              primaryAlias20 = [left2 primaryAlias];
+              primaryAlias16 = [left2 primaryAlias];
               v178 = [v51 up];
-              primaryAlias21 = [v178 primaryAlias];
-              [profileCopy registerPhysicalInputName:primaryAlias20 toElementAlias:primaryAlias21 withPhysicalToElementMapping:v228 withElementToPhysicalMapping:v227];
+              primaryAlias17 = [v178 primaryAlias];
+              [profileCopy registerPhysicalInputName:primaryAlias16 toElementAlias:primaryAlias17 withPhysicalToElementMapping:v227 withElementToPhysicalMapping:v226];
 
-              primaryAlias22 = [v216 primaryAlias];
+              primaryAlias18 = [v215 primaryAlias];
               down13 = [v51 down];
-              primaryAlias23 = [down13 primaryAlias];
-              [profileCopy registerPhysicalInputName:primaryAlias22 toElementAlias:primaryAlias23 withPhysicalToElementMapping:v228 withElementToPhysicalMapping:v227];
+              primaryAlias19 = [down13 primaryAlias];
+              [profileCopy registerPhysicalInputName:primaryAlias18 toElementAlias:primaryAlias19 withPhysicalToElementMapping:v227 withElementToPhysicalMapping:v226];
 
-              primaryAlias24 = [down5 primaryAlias];
+              primaryAlias20 = [down5 primaryAlias];
               left13 = [v51 left];
-              primaryAlias25 = [left13 primaryAlias];
-              [profileCopy registerPhysicalInputName:primaryAlias24 toElementAlias:primaryAlias25 withPhysicalToElementMapping:v228 withElementToPhysicalMapping:v227];
+              primaryAlias21 = [left13 primaryAlias];
+              [profileCopy registerPhysicalInputName:primaryAlias20 toElementAlias:primaryAlias21 withPhysicalToElementMapping:v227 withElementToPhysicalMapping:v226];
 
-              primaryAlias26 = [v214 primaryAlias];
+              primaryAlias22 = [v213 primaryAlias];
               right12 = [v51 right];
-              primaryAlias27 = [right12 primaryAlias];
-              [profileCopy registerPhysicalInputName:primaryAlias26 toElementAlias:primaryAlias27 withPhysicalToElementMapping:v228 withElementToPhysicalMapping:v227];
+              primaryAlias23 = [right12 primaryAlias];
+              [profileCopy registerPhysicalInputName:primaryAlias22 toElementAlias:primaryAlias23 withPhysicalToElementMapping:v227 withElementToPhysicalMapping:v226];
 
               v46 = profileCopy + 184;
-              v4 = v220;
-              v45 = v211;
-              v44 = v212;
-              v49 = v217;
+              v4 = v219;
+              v45 = v210;
+              v44 = v211;
+              v49 = v216;
             }
           }
 
@@ -1106,32 +1040,32 @@ LABEL_62:
         }
 
         while (v44 != v47);
-        v44 = [v213 countByEnumeratingWithState:&v235 objects:v248 count:16];
+        v44 = [v212 countByEnumeratingWithState:&v234 objects:v247 count:16];
       }
 
       while (v44);
     }
 
-    v233 = 0u;
-    v234 = 0u;
-    v231 = 0u;
     v232 = 0u;
+    v233 = 0u;
+    v230 = 0u;
+    v231 = 0u;
     allElements = [profileCopy allElements];
-    v190 = [allElements countByEnumeratingWithState:&v231 objects:v247 count:16];
+    v190 = [allElements countByEnumeratingWithState:&v230 objects:v246 count:16];
     if (v190)
     {
       v191 = v190;
-      v192 = *v232;
+      v192 = *v231;
       do
       {
         for (k = 0; k != v191; ++k)
         {
-          if (*v232 != v192)
+          if (*v231 != v192)
           {
             objc_enumerationMutation(allElements);
           }
 
-          v194 = *(*(&v231 + 1) + 8 * k);
+          v194 = *(*(&v230 + 1) + 8 * k);
           if (([v194 remappable] & 1) == 0)
           {
             collection = [v194 collection];
@@ -1143,13 +1077,13 @@ LABEL_62:
             }
           }
 
-          primaryAlias28 = [v194 primaryAlias];
-          v198 = [v221 objectForKeyedSubscript:primaryAlias28];
+          primaryAlias24 = [v194 primaryAlias];
+          v198 = [v220 objectForKeyedSubscript:primaryAlias24];
 
           if (v198)
           {
-            primaryAlias29 = [v194 primaryAlias];
-            v200 = [v221 objectForKeyedSubscript:primaryAlias29];
+            primaryAlias25 = [v194 primaryAlias];
+            v200 = [v220 objectForKeyedSubscript:primaryAlias25];
             [v194 setNameLocalizationKey:v200];
           }
 
@@ -1158,13 +1092,13 @@ LABEL_62:
             [v194 setNameLocalizationKey:0];
           }
 
-          primaryAlias30 = [v194 primaryAlias];
-          v202 = [v222 objectForKeyedSubscript:primaryAlias30];
+          primaryAlias26 = [v194 primaryAlias];
+          v202 = [v221 objectForKeyedSubscript:primaryAlias26];
 
           if (v202)
           {
-            primaryAlias31 = [v194 primaryAlias];
-            v204 = [v222 objectForKeyedSubscript:primaryAlias31];
+            primaryAlias27 = [v194 primaryAlias];
+            v204 = [v221 objectForKeyedSubscript:primaryAlias27];
             [v194 setSfSymbolsName:v204];
           }
 
@@ -1174,42 +1108,40 @@ LABEL_62:
           }
         }
 
-        v191 = [allElements countByEnumeratingWithState:&v231 objects:v247 count:16];
+        v191 = [allElements countByEnumeratingWithState:&v230 objects:v246 count:16];
       }
 
       while (v191);
     }
 
     v205 = *(profileCopy + 72);
-    *(profileCopy + 72) = v227;
-    v206 = v227;
+    *(profileCopy + 72) = v226;
+    v206 = v226;
 
     v207 = *(profileCopy + 71);
-    *(profileCopy + 71) = v228;
-    v208 = v228;
+    *(profileCopy + 71) = v227;
+    v208 = v227;
   }
-
-  v209 = *MEMORY[0x1E69E9840];
 }
 
 void __45__GCPhysicalInputProfile_setSettingsProfile___block_invoke(uint64_t a1)
 {
   v2 = (a1 + 32);
-  v6 = [*(a1 + 32) controller];
-  if ([v6 isPublished])
+  v8 = [*(a1 + 32) controller];
+  if ([v8 isPublished])
   {
     v3 = [*(a1 + 32) settingsProfile:*(a1 + 40) differsFrom:*(a1 + 48)];
 
     if (v3)
     {
-      if (gc_isInternalBuild())
+      if (gc_isInternalBuild(v4, v5))
       {
         __45__GCPhysicalInputProfile_setSettingsProfile___block_invoke_cold_1(v2);
       }
 
-      v4 = [MEMORY[0x1E696AD88] defaultCenter];
-      v5 = [*v2 controller];
-      [v4 postNotificationName:@"GCControllerUserCustomizationsDidChangeNotification" object:v5 userInfo:0];
+      v6 = [MEMORY[0x1E696AD88] defaultCenter];
+      v7 = [*v2 controller];
+      [v6 postNotificationName:@"GCControllerUserCustomizationsDidChangeNotification" object:v7 userInfo:0];
     }
   }
 
@@ -1245,27 +1177,27 @@ void __45__GCPhysicalInputProfile_setSettingsProfile___block_invoke(uint64_t a1)
 
 - (void)applyGestureSettingsToButton:(id)button withSettings:(id)settings
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   buttonCopy = button;
   settingsCopy = settings;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v8 = buttonCopy;
-    v9 = getGCSettingsLogger();
+    v9 = getGCSettingsLogger(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v48 = v8;
+      v53 = v8;
       _os_log_impl(&dword_1D2CD5000, v9, OS_LOG_TYPE_INFO, "applyGestureSettingsToButton: %@", buf, 0xCu);
     }
 
-    v10 = getGCSettingsLogger();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = getGCSettingsLogger(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v48 = settingsCopy;
-      _os_log_impl(&dword_1D2CD5000, v10, OS_LOG_TYPE_INFO, "replayKitSettings: %@", buf, 0xCu);
+      v53 = settingsCopy;
+      _os_log_impl(&dword_1D2CD5000, v11, OS_LOG_TYPE_INFO, "replayKitSettings: %@", buf, 0xCu);
     }
 
     [v8 setSinglePressHandler:0];
@@ -1273,21 +1205,22 @@ void __45__GCPhysicalInputProfile_setSettingsProfile___block_invoke(uint64_t a1)
     [v8 setDoublePressHandler:0];
     controllerElementMappingKey = [settingsCopy controllerElementMappingKey];
     primaryAlias = [v8 primaryAlias];
-    v13 = [primaryAlias isEqualToString:controllerElementMappingKey];
+    v14 = [primaryAlias isEqualToString:controllerElementMappingKey];
 
-    if (v13)
+    if (v14)
     {
-      v14 = [settingsCopy gestureTypeForGestureMode:0];
-      v15 = [settingsCopy gestureTypeForGestureMode:1];
-      v16 = [settingsCopy gestureTypeForGestureMode:2];
-      if (v14 != -1)
+      v15 = [settingsCopy gestureTypeForGestureMode:0];
+      v16 = [settingsCopy gestureTypeForGestureMode:1];
+      v17 = [settingsCopy gestureTypeForGestureMode:2];
+      v18 = v17;
+      if (v15 != -1)
       {
-        v17 = getGCSettingsLogger();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+        v19 = getGCSettingsLogger(v17);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v48 = v8;
-          _os_log_impl(&dword_1D2CD5000, v17, OS_LOG_TYPE_INFO, "Configuring screenshot button: %@", buf, 0xCu);
+          v53 = v8;
+          _os_log_impl(&dword_1D2CD5000, v19, OS_LOG_TYPE_INFO, "Configuring screenshot button: %@", buf, 0xCu);
         }
 
         objc_initWeak(buf, self);
@@ -1295,115 +1228,117 @@ void __45__GCPhysicalInputProfile_setSettingsProfile___block_invoke(uint64_t a1)
         aBlock[1] = 3221225472;
         aBlock[2] = __68__GCPhysicalInputProfile_applyGestureSettingsToButton_withSettings___block_invoke;
         aBlock[3] = &unk_1E841B7D8;
-        objc_copyWeak(&v46, buf);
-        v18 = _Block_copy(aBlock);
-        switch(v14)
-        {
-          case 2:
-            v21 = getGCSettingsLogger();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
-            {
-              *v44 = 0;
-              _os_log_impl(&dword_1D2CD5000, v21, OS_LOG_TYPE_INFO, "Double press for screenshot", v44, 2u);
-            }
-
-            [v8 setDoublePressHandler:v18];
-            break;
-          case 1:
-            v20 = getGCSettingsLogger();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
-            {
-              *v44 = 0;
-              _os_log_impl(&dword_1D2CD5000, v20, OS_LOG_TYPE_INFO, "Long press for screenshot", v44, 2u);
-            }
-
-            [v8 setLongPressHandler:v18];
-            break;
-          case 0:
-            v19 = getGCSettingsLogger();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
-            {
-              *v44 = 0;
-              _os_log_impl(&dword_1D2CD5000, v19, OS_LOG_TYPE_INFO, "Single press for screenshot", v44, 2u);
-            }
-
-            [v8 setSinglePressHandler:v18];
-            break;
-        }
-
-        objc_destroyWeak(&v46);
-        objc_destroyWeak(buf);
-      }
-
-      if (v15 != -1)
-      {
-        v22 = getGCSettingsLogger();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
-        {
-          *buf = 138412290;
-          v48 = v8;
-          _os_log_impl(&dword_1D2CD5000, v22, OS_LOG_TYPE_INFO, "Configuring video recording button: %@", buf, 0xCu);
-        }
-
-        objc_initWeak(buf, self);
-        v42[0] = MEMORY[0x1E69E9820];
-        v42[1] = 3221225472;
-        v42[2] = __68__GCPhysicalInputProfile_applyGestureSettingsToButton_withSettings___block_invoke_132;
-        v42[3] = &unk_1E841B7D8;
-        objc_copyWeak(&v43, buf);
-        v23 = _Block_copy(v42);
+        objc_copyWeak(&v51, buf);
+        v20 = _Block_copy(aBlock);
+        v21 = v20;
         switch(v15)
         {
           case 2:
-            v26 = getGCSettingsLogger();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
-            {
-              *v44 = 0;
-              _os_log_impl(&dword_1D2CD5000, v26, OS_LOG_TYPE_INFO, "Double press for video", v44, 2u);
-            }
-
-            [v8 setDoublePressHandler:v23];
-            break;
-          case 1:
-            v25 = getGCSettingsLogger();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
-            {
-              *v44 = 0;
-              _os_log_impl(&dword_1D2CD5000, v25, OS_LOG_TYPE_INFO, "Long press for video", v44, 2u);
-            }
-
-            [v8 setLongPressHandler:v23];
-            break;
-          case 0:
-            v24 = getGCSettingsLogger();
+            v24 = getGCSettingsLogger(v20);
             if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
             {
-              *v44 = 0;
-              _os_log_impl(&dword_1D2CD5000, v24, OS_LOG_TYPE_INFO, "Single press for video", v44, 2u);
+              *v49 = 0;
+              _os_log_impl(&dword_1D2CD5000, v24, OS_LOG_TYPE_INFO, "Double press for screenshot", v49, 2u);
             }
 
-            [v8 setSinglePressHandler:v23];
+            [v8 setDoublePressHandler:v21];
+            break;
+          case 1:
+            v23 = getGCSettingsLogger(v20);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+            {
+              *v49 = 0;
+              _os_log_impl(&dword_1D2CD5000, v23, OS_LOG_TYPE_INFO, "Long press for screenshot", v49, 2u);
+            }
+
+            [v8 setLongPressHandler:v21];
+            break;
+          case 0:
+            v22 = getGCSettingsLogger(v20);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+            {
+              *v49 = 0;
+              _os_log_impl(&dword_1D2CD5000, v22, OS_LOG_TYPE_INFO, "Single press for screenshot", v49, 2u);
+            }
+
+            [v8 setSinglePressHandler:v21];
             break;
         }
 
-        objc_destroyWeak(&v43);
+        objc_destroyWeak(&v51);
         objc_destroyWeak(buf);
       }
 
       if (v16 != -1)
       {
-        v27 = getGCSettingsLogger();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+        v25 = getGCSettingsLogger(v17);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v48 = v8;
-          _os_log_impl(&dword_1D2CD5000, v27, OS_LOG_TYPE_INFO, "Configuring replay capture button: %@", buf, 0xCu);
+          v53 = v8;
+          _os_log_impl(&dword_1D2CD5000, v25, OS_LOG_TYPE_INFO, "Configuring video recording button: %@", buf, 0xCu);
         }
 
-        v28 = currentProcessBundleIdentifier();
-        v29 = [v28 isEqualToString:@"com.apple.Preferences"];
+        objc_initWeak(buf, self);
+        v47[0] = MEMORY[0x1E69E9820];
+        v47[1] = 3221225472;
+        v47[2] = __68__GCPhysicalInputProfile_applyGestureSettingsToButton_withSettings___block_invoke_132;
+        v47[3] = &unk_1E841B7D8;
+        objc_copyWeak(&v48, buf);
+        v26 = _Block_copy(v47);
+        v27 = v26;
+        switch(v16)
+        {
+          case 2:
+            v30 = getGCSettingsLogger(v26);
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+            {
+              *v49 = 0;
+              _os_log_impl(&dword_1D2CD5000, v30, OS_LOG_TYPE_INFO, "Double press for video", v49, 2u);
+            }
 
-        if ((v29 & 1) == 0)
+            [v8 setDoublePressHandler:v27];
+            break;
+          case 1:
+            v29 = getGCSettingsLogger(v26);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+            {
+              *v49 = 0;
+              _os_log_impl(&dword_1D2CD5000, v29, OS_LOG_TYPE_INFO, "Long press for video", v49, 2u);
+            }
+
+            [v8 setLongPressHandler:v27];
+            break;
+          case 0:
+            v28 = getGCSettingsLogger(v26);
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+            {
+              *v49 = 0;
+              _os_log_impl(&dword_1D2CD5000, v28, OS_LOG_TYPE_INFO, "Single press for video", v49, 2u);
+            }
+
+            [v8 setSinglePressHandler:v27];
+            break;
+        }
+
+        objc_destroyWeak(&v48);
+        objc_destroyWeak(buf);
+      }
+
+      if (v18 != -1)
+      {
+        v31 = getGCSettingsLogger(v17);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138412290;
+          v53 = v8;
+          _os_log_impl(&dword_1D2CD5000, v31, OS_LOG_TYPE_INFO, "Configuring replay capture button: %@", buf, 0xCu);
+        }
+
+        v33 = currentProcessBundleIdentifier(v32);
+        v34 = [v33 isEqualToString:@"com.apple.Preferences"];
+
+        if ((v34 & 1) == 0)
         {
           defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
           controller = [(GCPhysicalInputProfile *)self controller];
@@ -1411,53 +1346,52 @@ void __45__GCPhysicalInputProfile_setSettingsProfile___block_invoke(uint64_t a1)
         }
 
         objc_initWeak(buf, self);
-        v37 = MEMORY[0x1E69E9820];
-        v38 = 3221225472;
-        v39 = __68__GCPhysicalInputProfile_applyGestureSettingsToButton_withSettings___block_invoke_141;
-        v40 = &unk_1E841B7D8;
-        objc_copyWeak(&v41, buf);
-        v32 = _Block_copy(&v37);
-        switch(v16)
+        v42 = MEMORY[0x1E69E9820];
+        v43 = 3221225472;
+        v44 = __68__GCPhysicalInputProfile_applyGestureSettingsToButton_withSettings___block_invoke_141;
+        v45 = &unk_1E841B7D8;
+        objc_copyWeak(&v46, buf);
+        v37 = _Block_copy(&v42);
+        v38 = v37;
+        switch(v18)
         {
           case 2:
-            v35 = getGCSettingsLogger();
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+            v41 = getGCSettingsLogger(v37);
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
             {
-              *v44 = 0;
-              _os_log_impl(&dword_1D2CD5000, v35, OS_LOG_TYPE_INFO, "Double press for replay capture", v44, 2u);
+              *v49 = 0;
+              _os_log_impl(&dword_1D2CD5000, v41, OS_LOG_TYPE_INFO, "Double press for replay capture", v49, 2u);
             }
 
-            [v8 setDoublePressHandler:{v32, v37, v38, v39, v40}];
+            [v8 setDoublePressHandler:{v38, v42, v43, v44, v45}];
             break;
           case 1:
-            v34 = getGCSettingsLogger();
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+            v40 = getGCSettingsLogger(v37);
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
             {
-              *v44 = 0;
-              _os_log_impl(&dword_1D2CD5000, v34, OS_LOG_TYPE_INFO, "Long press for replay capture", v44, 2u);
+              *v49 = 0;
+              _os_log_impl(&dword_1D2CD5000, v40, OS_LOG_TYPE_INFO, "Long press for replay capture", v49, 2u);
             }
 
-            [v8 setLongPressHandler:{v32, v37, v38, v39, v40}];
+            [v8 setLongPressHandler:{v38, v42, v43, v44, v45}];
             break;
           case 0:
-            v33 = getGCSettingsLogger();
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+            v39 = getGCSettingsLogger(v37);
+            if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
             {
-              *v44 = 0;
-              _os_log_impl(&dword_1D2CD5000, v33, OS_LOG_TYPE_INFO, "Single press for replay capture", v44, 2u);
+              *v49 = 0;
+              _os_log_impl(&dword_1D2CD5000, v39, OS_LOG_TYPE_INFO, "Single press for replay capture", v49, 2u);
             }
 
-            [v8 setSinglePressHandler:{v32, v37, v38, v39, v40}];
+            [v8 setSinglePressHandler:{v38, v42, v43, v44, v45}];
             break;
         }
 
-        objc_destroyWeak(&v41);
+        objc_destroyWeak(&v46);
         objc_destroyWeak(buf);
       }
     }
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 void __68__GCPhysicalInputProfile_applyGestureSettingsToButton_withSettings___block_invoke(uint64_t a1)
@@ -1555,42 +1489,40 @@ void __68__GCPhysicalInputProfile_applyGestureSettingsToButton_withSettings___bl
 
 - (void)updateElementDeviceReferences
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = self->_allElements;
-  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * v7);
+        v8 = *(*(&v10 + 1) + 8 * v7);
         WeakRetained = objc_loadWeakRetained(&self->_device);
-        [v8 setDevice:{WeakRetained, v11}];
+        [v8 setDevice:{WeakRetained, v10}];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_directionPadWithInfo:(id *)info
@@ -2044,33 +1976,33 @@ LABEL_23:
 
 - (void)_registerDirectionPad:(id)pad
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   padCopy = pad;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   aliases = [padCopy aliases];
-  v6 = [aliases countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [aliases countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(aliases);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         [(NSMutableDictionary *)self->_elements setObject:padCopy forKeyedSubscript:v10];
         [(NSMutableDictionary *)self->_dpads setObject:padCopy forKeyedSubscript:v10];
       }
 
-      v7 = [aliases countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [aliases countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -2083,39 +2015,37 @@ LABEL_23:
 
   yAxis = [padCopy yAxis];
   [(GCPhysicalInputProfile *)self _registerAxis:yAxis];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_registerAxis:(id)axis
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   axisCopy = axis;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   aliases = [axisCopy aliases];
-  v6 = [aliases countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [aliases countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(aliases);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         [(NSMutableDictionary *)self->_elements setObject:axisCopy forKeyedSubscript:v10];
         [(NSMutableDictionary *)self->_axes setObject:axisCopy forKeyedSubscript:v10];
       }
 
-      v7 = [aliases countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [aliases countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -2128,39 +2058,37 @@ LABEL_23:
 
   negative = [axisCopy negative];
   [(GCPhysicalInputProfile *)self _registerButton:negative];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_registerButton:(id)button
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   buttonCopy = button;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   aliases = [buttonCopy aliases];
-  v6 = [aliases countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [aliases countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(aliases);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * i);
+        v10 = *(*(&v11 + 1) + 8 * i);
         [(NSMutableDictionary *)self->_elements setObject:buttonCopy forKeyedSubscript:v10];
         [(NSMutableDictionary *)self->_buttons setObject:buttonCopy forKeyedSubscript:v10];
       }
 
-      v7 = [aliases countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [aliases countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -2168,39 +2096,37 @@ LABEL_23:
 
   [(NSMutableSet *)self->_allElements addObject:buttonCopy];
   [(NSMutableSet *)self->_allButtons addObject:buttonCopy];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_registerTouchpad:(id)touchpad
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   touchpadCopy = touchpad;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   aliases = [touchpadCopy aliases];
-  v6 = [aliases countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [aliases countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(aliases);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         [(NSMutableDictionary *)self->_elements setObject:touchpadCopy forKeyedSubscript:v10];
         [(NSMutableDictionary *)self->_touchpads setObject:touchpadCopy forKeyedSubscript:v10];
       }
 
-      v7 = [aliases countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [aliases countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -2213,8 +2139,6 @@ LABEL_23:
 
   touchSurface = [touchpadCopy touchSurface];
   [(GCPhysicalInputProfile *)self _registerDirectionPad:touchSurface];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_triggerValueChangedHandlerForElement:(id)element queue:(id)queue
@@ -2256,41 +2180,37 @@ LABEL_23:
 
 void __71__GCPhysicalInputProfile__triggerValueChangedHandlerForElements_queue___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
-        v8 = *(a1 + 40);
         (*(*(a1 + 48) + 16))(*(a1 + 48));
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_receivedEventWithTimestamp:(unint64_t)timestamp
@@ -2347,7 +2267,7 @@ void __71__GCPhysicalInputProfile__triggerValueChangedHandlerForElements_queue__
 
 - (GCPhysicalInputProfile)capture
 {
-  v133 = *MEMORY[0x1E69E9840];
+  v132 = *MEMORY[0x1E69E9840];
   if (self->pooled)
   {
     WeakRetained = objc_loadWeakRetained(&self->weakPool);
@@ -2358,47 +2278,47 @@ void __71__GCPhysicalInputProfile__triggerValueChangedHandlerForElements_queue__
     WeakRetained = self->pool;
   }
 
-  v103 = WeakRetained;
+  v102 = WeakRetained;
   if (WeakRetained)
   {
-    v128[0] = MEMORY[0x1E69E9820];
-    v128[1] = 3221225472;
-    v128[2] = __33__GCPhysicalInputProfile_capture__block_invoke;
-    v128[3] = &unk_1E841B828;
-    v128[4] = self;
-    v129 = WeakRetained;
-    v103 = [(GCObjectPool *)v129 takeObjectOrCreateWith:v128, v103];
+    v127[0] = MEMORY[0x1E69E9820];
+    v127[1] = 3221225472;
+    v127[2] = __33__GCPhysicalInputProfile_capture__block_invoke;
+    v127[3] = &unk_1E841B828;
+    v127[4] = self;
+    v128 = WeakRetained;
+    v102 = [(GCObjectPool *)v128 takeObjectOrCreateWith:v127, v102];
   }
 
   else
   {
-    v103 = [objc_alloc(objc_opt_class()) initWithIdentifier:{self->_identifier, 0}];
+    v102 = [objc_alloc(objc_opt_class()) initWithIdentifier:{self->_identifier, 0}];
   }
 
   array = [MEMORY[0x1E695DF70] array];
   handlerQueue = [(GCPhysicalInputProfile *)self handlerQueue];
+  v123 = 0u;
   v124 = 0u;
   v125 = 0u;
   v126 = 0u;
-  v127 = 0u;
   selfCopy = self;
   v4 = self->__topLevelButtons;
-  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v124 objects:v132 count:16];
+  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v123 objects:v131 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v125;
+    v7 = *v124;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v125 != v7)
+        if (*v124 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v124 + 1) + 8 * i);
-        buttons = [v103 buttons];
+        v9 = *(*(&v123 + 1) + 8 * i);
+        buttons = [v102 buttons];
         primaryAlias = [v9 primaryAlias];
         v12 = [buttons objectForKeyedSubscript:primaryAlias];
 
@@ -2445,33 +2365,33 @@ void __71__GCPhysicalInputProfile__triggerValueChangedHandlerForElements_queue__
         }
       }
 
-      v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v124 objects:v132 count:16];
+      v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v123 objects:v131 count:16];
     }
 
     while (v6);
   }
 
-  v122 = 0u;
-  v123 = 0u;
-  v120 = 0u;
   v121 = 0u;
+  v122 = 0u;
+  v119 = 0u;
+  v120 = 0u;
   obj = selfCopy->__topLevelDirectionPads;
-  v28 = [(NSMutableSet *)obj countByEnumeratingWithState:&v120 objects:v131 count:16];
+  v28 = [(NSMutableSet *)obj countByEnumeratingWithState:&v119 objects:v130 count:16];
   if (v28)
   {
     v29 = v28;
-    v111 = *v121;
+    v110 = *v120;
     do
     {
       for (j = 0; j != v29; ++j)
       {
-        if (*v121 != v111)
+        if (*v120 != v110)
         {
           objc_enumerationMutation(obj);
         }
 
-        v31 = *(*(&v120 + 1) + 8 * j);
-        dpads = [v103 dpads];
+        v31 = *(*(&v119 + 1) + 8 * j);
+        dpads = [v102 dpads];
         primaryAlias2 = [v31 primaryAlias];
         v34 = [dpads objectForKeyedSubscript:primaryAlias2];
 
@@ -2548,32 +2468,32 @@ void __71__GCPhysicalInputProfile__triggerValueChangedHandlerForElements_queue__
         }
       }
 
-      v29 = [(NSMutableSet *)obj countByEnumeratingWithState:&v120 objects:v131 count:16];
+      v29 = [(NSMutableSet *)obj countByEnumeratingWithState:&v119 objects:v130 count:16];
     }
 
     while (v29);
   }
 
-  v118 = 0u;
-  v119 = 0u;
-  v116 = 0u;
   v117 = 0u;
-  v105 = selfCopy->__topLevelTouchpads;
-  v107 = [(NSMutableSet *)v105 countByEnumeratingWithState:&v116 objects:v130 count:16];
-  if (v107)
+  v118 = 0u;
+  v115 = 0u;
+  v116 = 0u;
+  v104 = selfCopy->__topLevelTouchpads;
+  v106 = [(NSMutableSet *)v104 countByEnumeratingWithState:&v115 objects:v129 count:16];
+  if (v106)
   {
-    v106 = *v117;
+    v105 = *v116;
     do
     {
-      for (k = 0; k != v107; ++k)
+      for (k = 0; k != v106; ++k)
       {
-        if (*v117 != v106)
+        if (*v116 != v105)
         {
-          objc_enumerationMutation(v105);
+          objc_enumerationMutation(v104);
         }
 
-        v73 = *(*(&v116 + 1) + 8 * k);
-        touchpads = [v103 touchpads];
+        v73 = *(*(&v115 + 1) + 8 * k);
+        touchpads = [v102 touchpads];
         primaryAlias3 = [v73 primaryAlias];
         v76 = [touchpads objectForKeyedSubscript:primaryAlias3];
 
@@ -2628,54 +2548,51 @@ void __71__GCPhysicalInputProfile__triggerValueChangedHandlerForElements_queue__
         }
       }
 
-      v107 = [(NSMutableSet *)v105 countByEnumeratingWithState:&v116 objects:v130 count:16];
+      v106 = [(NSMutableSet *)v104 countByEnumeratingWithState:&v115 objects:v129 count:16];
     }
 
-    while (v107);
+    while (v106);
   }
 
-  v101 = *MEMORY[0x1E69E9840];
-
-  return v103;
+  return v102;
 }
 
 id __33__GCPhysicalInputProfile_capture__block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [objc_alloc(objc_opt_class()) initWithIdentifier:*(*(a1 + 32) + 608) andPool:*(a1 + 40)];
+  v1 = [objc_alloc(objc_opt_class()) initWithIdentifier:*(*(a1 + 32) + 608) andPool:*(a1 + 40)];
 
-  return v3;
+  return v1;
 }
 
 - (void)setStateFromPhysicalInput:(GCPhysicalInputProfile *)physicalInput
 {
-  v99 = *MEMORY[0x1E69E9840];
-  v71 = physicalInput;
+  v98 = *MEMORY[0x1E69E9840];
+  v70 = physicalInput;
   device = [(GCPhysicalInputProfile *)self device];
   if (!device || (v5 = device, -[GCPhysicalInputProfile controller](self, "controller"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v6 isSnapshot], v6, v5, v7))
   {
     array = [MEMORY[0x1E695DF70] array];
     handlerQueue = [(GCPhysicalInputProfile *)self handlerQueue];
+    v91 = 0u;
     v92 = 0u;
     v93 = 0u;
     v94 = 0u;
-    v95 = 0u;
-    v8 = v71->__topLevelButtons;
-    v9 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v92 objects:v98 count:16];
+    v8 = v70->__topLevelButtons;
+    v9 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v91 objects:v97 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v93;
+      v11 = *v92;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v93 != v11)
+          if (*v92 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v92 + 1) + 8 * i);
+          v13 = *(*(&v91 + 1) + 8 * i);
           buttons = self->_buttons;
           primaryAlias = [v13 primaryAlias];
           v16 = [(NSMutableDictionary *)buttons objectForKeyedSubscript:primaryAlias];
@@ -2694,32 +2611,32 @@ id __33__GCPhysicalInputProfile_capture__block_invoke(uint64_t a1)
           }
         }
 
-        v10 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v92 objects:v98 count:16];
+        v10 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v91 objects:v97 count:16];
       }
 
       while (v10);
     }
 
-    v90 = 0u;
-    v91 = 0u;
-    v88 = 0u;
     v89 = 0u;
-    obj = v71->__topLevelDirectionPads;
-    v79 = [(NSMutableSet *)obj countByEnumeratingWithState:&v88 objects:v97 count:16];
+    v90 = 0u;
+    v87 = 0u;
+    v88 = 0u;
+    obj = v70->__topLevelDirectionPads;
+    v78 = [(NSMutableSet *)obj countByEnumeratingWithState:&v87 objects:v96 count:16];
     selfCopy = self;
-    if (v79)
+    if (v78)
     {
-      v77 = *v89;
+      v76 = *v88;
       do
       {
-        for (j = 0; j != v79; ++j)
+        for (j = 0; j != v78; ++j)
         {
-          if (*v89 != v77)
+          if (*v88 != v76)
           {
             objc_enumerationMutation(obj);
           }
 
-          v23 = *(*(&v88 + 1) + 8 * j);
+          v23 = *(*(&v87 + 1) + 8 * j);
           dpads = self->_dpads;
           primaryAlias2 = [v23 primaryAlias];
           v26 = [(NSMutableDictionary *)dpads objectForKeyedSubscript:primaryAlias2];
@@ -2752,31 +2669,31 @@ id __33__GCPhysicalInputProfile_capture__block_invoke(uint64_t a1)
           }
         }
 
-        v79 = [(NSMutableSet *)obj countByEnumeratingWithState:&v88 objects:v97 count:16];
+        v78 = [(NSMutableSet *)obj countByEnumeratingWithState:&v87 objects:v96 count:16];
       }
 
-      while (v79);
+      while (v78);
     }
 
-    v86 = 0u;
-    v87 = 0u;
-    v84 = 0u;
     v85 = 0u;
-    v72 = v71->__topLevelTouchpads;
-    v74 = [(NSMutableSet *)v72 countByEnumeratingWithState:&v84 objects:v96 count:16];
-    if (v74)
+    v86 = 0u;
+    v83 = 0u;
+    v84 = 0u;
+    v71 = v70->__topLevelTouchpads;
+    v73 = [(NSMutableSet *)v71 countByEnumeratingWithState:&v83 objects:v95 count:16];
+    if (v73)
     {
-      v73 = *v85;
+      v72 = *v84;
       do
       {
-        for (k = 0; k != v74; ++k)
+        for (k = 0; k != v73; ++k)
         {
-          if (*v85 != v73)
+          if (*v84 != v72)
           {
-            objc_enumerationMutation(v72);
+            objc_enumerationMutation(v71);
           }
 
-          v43 = *(*(&v84 + 1) + 8 * k);
+          v43 = *(*(&v83 + 1) + 8 * k);
           touchpads = self->_touchpads;
           primaryAlias3 = [v43 primaryAlias];
           v46 = [(NSMutableDictionary *)touchpads objectForKeyedSubscript:primaryAlias3];
@@ -2833,14 +2750,12 @@ id __33__GCPhysicalInputProfile_capture__block_invoke(uint64_t a1)
           }
         }
 
-        v74 = [(NSMutableSet *)v72 countByEnumeratingWithState:&v84 objects:v96 count:16];
+        v73 = [(NSMutableSet *)v71 countByEnumeratingWithState:&v83 objects:v95 count:16];
       }
 
-      while (v74);
+      while (v73);
     }
   }
-
-  v70 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSyntheticDeviceElementValueChangedHandler:(id)handler
@@ -2869,64 +2784,60 @@ id __33__GCPhysicalInputProfile_capture__block_invoke(uint64_t a1)
   objc_destroyWeak(&location);
 }
 
-void __56__GCPhysicalInputProfile_PubSub__setGamepadEventSource___block_invoke_2(uint64_t a1)
+void __56__GCPhysicalInputProfile_PubSub__setGamepadEventSource___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(a1, a2))
   {
     __56__GCPhysicalInputProfile_PubSub__setGamepadEventSource___block_invoke_2_cold_1(a1);
   }
 
-  v2 = [*(a1 + 32) __deprecated_controllerPausedHandler];
+  v3 = [*(a1 + 32) __deprecated_controllerPausedHandler];
 
-  if (v2)
+  if (v3)
   {
-    v3 = [*(a1 + 32) __deprecated_controllerPausedHandler];
-    v3[2](v3, *(a1 + 32));
+    v4 = [*(a1 + 32) __deprecated_controllerPausedHandler];
+    v4[2](v4, *(a1 + 32));
   }
 }
 
 void __56__GCPhysicalInputProfile_PubSub__setGamepadEventSource___block_invoke_430(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
-        v8 = *(a1 + 48);
         (*(*(a1 + 40) + 16))(*(a1 + 40));
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __56__GCPhysicalInputProfile_PubSub__setGamepadEventSource___block_invoke(uint64_t a1, void *a2)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -2936,7 +2847,7 @@ void __56__GCPhysicalInputProfile_PubSub__setGamepadEventSource___block_invoke(u
     v6 = [WeakRetained controller];
     if (v6)
     {
-      v33 = v5;
+      v32 = v5;
       v7 = [MEMORY[0x1E695DFA8] set];
       v8 = [v6 handlerQueue];
       for (i = 0; i != 47; ++i)
@@ -2988,7 +2899,7 @@ void __56__GCPhysicalInputProfile_PubSub__setGamepadEventSource___block_invoke(u
             block[1] = 3221225472;
             block[2] = __56__GCPhysicalInputProfile_PubSub__setGamepadEventSource___block_invoke_2;
             block[3] = &unk_1E8418C28;
-            v43 = v6;
+            v42 = v6;
             dispatch_async(v20, block);
           }
         }
@@ -3000,33 +2911,33 @@ void __56__GCPhysicalInputProfile_PubSub__setGamepadEventSource___block_invoke(u
       }
 
       v21 = [MEMORY[0x1E695DFA8] set];
+      v37 = 0u;
       v38 = 0u;
       v39 = 0u;
       v40 = 0u;
-      v41 = 0u;
       v22 = v7;
-      v23 = [v22 countByEnumeratingWithState:&v38 objects:v44 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v37 objects:v43 count:16];
       if (v23)
       {
         v24 = v23;
-        v25 = *v39;
+        v25 = *v38;
         do
         {
           for (j = 0; j != v24; ++j)
           {
-            if (*v39 != v25)
+            if (*v38 != v25)
             {
               objc_enumerationMutation(v22);
             }
 
-            v27 = *(*(&v38 + 1) + 8 * j);
+            v27 = *(*(&v37 + 1) + 8 * j);
             if ([v27 _commitPendingValueOnQueue:v8])
             {
               [v21 addObject:v27];
             }
           }
 
-          v24 = [v22 countByEnumeratingWithState:&v38 objects:v44 count:16];
+          v24 = [v22 countByEnumeratingWithState:&v37 objects:v43 count:16];
         }
 
         while (v24);
@@ -3044,9 +2955,9 @@ void __56__GCPhysicalInputProfile_PubSub__setGamepadEventSource___block_invoke(u
         aBlock[1] = 3221225472;
         aBlock[2] = __56__GCPhysicalInputProfile_PubSub__setGamepadEventSource___block_invoke_430;
         aBlock[3] = &unk_1E8419210;
-        v35 = v21;
-        v36 = v28;
-        v37 = v33;
+        v34 = v21;
+        v35 = v28;
+        v36 = v32;
         v29 = _Block_copy(aBlock);
         v30 = [WeakRetained syntheticDeviceHandlerQueue];
         v31 = v30;
@@ -3062,63 +2973,50 @@ void __56__GCPhysicalInputProfile_PubSub__setGamepadEventSource___block_invoke(u
       }
     }
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)settingsProfile:(void *)a1 differsFrom:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v4 = [a1 elementKey];
   v5 = [a1 mappingKey];
-  v12 = [a2 mappingKey];
+  v11 = [a2 mappingKey];
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v6, v7, v8, v9, v10, 0x20u);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)settingsProfile:(void *)a1 differsFrom:.cold.2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = getGCLogger();
+  v2 = getGCLogger(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v9 = [a1 elementKey];
+    v8 = [a1 elementKey];
     OUTLINED_FUNCTION_0();
-    _os_log_debug_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void __45__GCPhysicalInputProfile_setSettingsProfile___block_invoke_cold_1(id *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = getGCLogger();
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = getGCLogger(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*a1 controller];
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_INFO, "Posting GCControllerUserCustomizationsDidChangeNotification: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_INFO, "Posting GCControllerUserCustomizationsDidChangeNotification: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __56__GCPhysicalInputProfile_PubSub__setGamepadEventSource___block_invoke_2_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = getGCLogger();
+  v2 = getGCLogger(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v9 = [*(a1 + 32) debugName];
+    v8 = [*(a1 + 32) debugName];
     OUTLINED_FUNCTION_0();
-    _os_log_debug_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 @end

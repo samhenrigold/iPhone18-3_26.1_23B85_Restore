@@ -6,7 +6,7 @@
 - (GCCursorElement)initWithTemplate:(id)template context:(id)context;
 - (double)_positionDelta;
 - (id)_positionDidChangeHandler;
-- (uint64_t)_setPositionDelta:(double)delta;
+- (id)_setPositionDelta:(double)delta;
 - (void)postCommit:(const void *)commit sender:(id)sender;
 - (void)preCommit:(const void *)commit sender:(id)sender;
 @end
@@ -75,7 +75,7 @@ LABEL_3:
 
 LABEL_7:
   _positionDelta = [(GCCursorElement *)with _positionDelta];
-  v16 = [(GCCursorElement *)self _setPositionDelta:_positionDelta, v15];
+  v16 = [(GCCursorElement *)&self->super.super.super.isa _setPositionDelta:_positionDelta, v15];
   if (v16)
   {
     v17 = 2;
@@ -156,7 +156,7 @@ LABEL_7:
 - (BOOL)_setPositionDidChangeHandler:(id)handler
 {
   v4 = _Block_copy(handler);
-  LOBYTE(self) = [(_GCDevicePhysicalInputView *)self _testAndSetObjectValue:v4 forSlot:&self->_positionChangedHandlerSlot policy:771];
+  LOBYTE(self) = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetObjectValue:v4 forSlot:&self->_positionChangedHandlerSlot policy:771];
 
   return self;
 }
@@ -174,7 +174,7 @@ LABEL_7:
     MyUpdateContext_Offset_13 = v9;
   }
 
-  if (event->var1 == 1 && [(GCCursorElement *)self _setPositionDelta:event->var2.var0.var1])
+  if (event->var1 == 1 && [(GCCursorElement *)&self->super.super.super.isa _setPositionDelta:event->var2.var0.var1])
   {
     *(update + v9) |= 2u;
     return 1;
@@ -210,12 +210,12 @@ LABEL_7:
   return *&v2;
 }
 
-- (uint64_t)_setPositionDelta:(double)delta
+- (id)_setPositionDelta:(double)delta
 {
   if (result)
   {
     v4 = result;
-    if (([(_GCDevicePhysicalInputView *)result _testAndSetPrimitiveValue:result + 64 forSlot:?]& 1) != 0)
+    if (([(_GCDevicePhysicalInputView *)result _testAndSetPrimitiveValue:(result + 8) forSlot:?]& 1) != 0)
     {
       return 1;
     }
@@ -223,14 +223,14 @@ LABEL_7:
     else
     {
 
-      return [(_GCDevicePhysicalInputView *)v4 _testAndSetPrimitiveValue:v4 + 72 forSlot:?];
+      return [(_GCDevicePhysicalInputView *)v4 _testAndSetPrimitiveValue:(v4 + 9) forSlot:?];
     }
   }
 
   return result;
 }
 
-- (void)postCommit:(void *)a1 sender:.cold.1(void *a1)
+- (void)postCommit:(id *)a1 sender:.cold.1(id *a1)
 {
   v2 = [(GCCursorElement *)a1 _positionDidChangeHandler];
   if (v2)

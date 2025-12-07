@@ -88,9 +88,11 @@ CGColorSpaceRef __38__IFColor_deviceExtendedRGBColorSpace__block_invoke()
 
 uint64_t __16__IFColor_black__block_invoke(uint64_t a1)
 {
-  black_color = [objc_alloc(*(a1 + 32)) initWithWhite:0.0 alpha:1.0];
+  v1 = [objc_alloc(*(a1 + 32)) initWithWhite:0.0 alpha:1.0];
+  v2 = black_color;
+  black_color = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 + (id)white
@@ -112,9 +114,11 @@ uint64_t __16__IFColor_black__block_invoke(uint64_t a1)
 
 uint64_t __16__IFColor_white__block_invoke(uint64_t a1)
 {
-  white_color = [objc_alloc(*(a1 + 32)) initWithWhite:1.0 alpha:1.0];
+  v1 = [objc_alloc(*(a1 + 32)) initWithWhite:1.0 alpha:1.0];
+  v2 = white_color;
+  white_color = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 CGColorSpaceRef __31__IFColor_deviceSRGBColorSpace__block_invoke()
@@ -219,143 +223,145 @@ CGColorSpaceRef __31__IFColor_deviceGreyColorSpace__block_invoke()
 
 - (IFColor)initWithSystemColor:(int64_t)color appearance:(int64_t)appearance contrast:(int64_t)contrast vibrancy:(int64_t)vibrancy
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   switch(color)
   {
     case 11:
-      v13 = [(IFColor *)self initWithWhite:1.0 alpha:1.0];
+      v14 = [(IFColor *)self initWithWhite:1.0 alpha:1.0];
       goto LABEL_10;
     case 12:
-      v13 = [(IFColor *)self initWithWhite:0.0 alpha:1.0];
+      v14 = [(IFColor *)self initWithWhite:0.0 alpha:1.0];
 LABEL_10:
-      v11 = v13;
+      v12 = v14;
       break;
     default:
-      v14 = 0;
-      v7 = [MEMORY[0x1E6999378] colorWithName:0 designSystem:&v14 palette:? colorScheme:? contrast:? styling:? displayGamut:? error:?];
-      v8 = v14;
+      v15 = 0;
+      v7 = [MEMORY[0x1E6999378] colorWithName:0 designSystem:&v15 palette:? colorScheme:? contrast:? styling:? displayGamut:? error:?];
+      v8 = v15;
+      v9 = v8;
       if (!v7)
       {
-        v9 = IFDefaultLog();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+        v10 = IFDefaultLog(v8);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
-          localizedDescription = [v8 localizedDescription];
+          localizedDescription = [v9 localizedDescription];
           *buf = 138412290;
-          v16 = localizedDescription;
+          v17 = localizedDescription;
         }
       }
 
-      v11 = -[IFColor initWithCGColor:](self, "initWithCGColor:", [v7 cgColor]);
+      v12 = -[IFColor initWithCGColor:](self, "initWithCGColor:", [v7 cgColor]);
 
       break;
   }
 
-  return v11;
+  return v12;
 }
 
 - (id)_initWithColorStr:(id)str appearance:(int64_t)appearance contrast:(int64_t)contrast vibrancy:(int64_t)vibrancy
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   strCopy = str;
   if (![strCopy compare:@"systemBlackColor"])
   {
-    v13 = [(IFColor *)self initWithSystemColor:12 appearance:appearance contrast:contrast vibrancy:vibrancy];
+    v14 = [(IFColor *)self initWithSystemColor:12 appearance:appearance contrast:contrast vibrancy:vibrancy];
 LABEL_34:
-    self = v13;
+    self = v14;
     selfCopy = self;
     goto LABEL_35;
   }
 
   if (![strCopy compare:@"systemWhiteColor"])
   {
-    v13 = [(IFColor *)self initWithSystemColor:11 appearance:appearance contrast:contrast vibrancy:vibrancy];
+    v14 = [(IFColor *)self initWithSystemColor:11 appearance:appearance contrast:contrast vibrancy:vibrancy];
     goto LABEL_34;
   }
 
   if (![strCopy compare:@"systemRedColor"])
   {
-    v13 = [(IFColor *)self initWithSystemColor:0 appearance:appearance contrast:contrast vibrancy:vibrancy];
+    v14 = [(IFColor *)self initWithSystemColor:0 appearance:appearance contrast:contrast vibrancy:vibrancy];
     goto LABEL_34;
   }
 
   if (![strCopy compare:@"systemOrangeColor"])
   {
-    v13 = [(IFColor *)self initWithSystemColor:1 appearance:appearance contrast:contrast vibrancy:vibrancy];
+    v14 = [(IFColor *)self initWithSystemColor:1 appearance:appearance contrast:contrast vibrancy:vibrancy];
     goto LABEL_34;
   }
 
   if (![strCopy compare:@"systemYellowColor"])
   {
-    v13 = [(IFColor *)self initWithSystemColor:2 appearance:appearance contrast:contrast vibrancy:vibrancy];
+    v14 = [(IFColor *)self initWithSystemColor:2 appearance:appearance contrast:contrast vibrancy:vibrancy];
     goto LABEL_34;
   }
 
   if (![strCopy compare:@"systemGreenColor"])
   {
-    v13 = [(IFColor *)self initWithSystemColor:3 appearance:appearance contrast:contrast vibrancy:vibrancy];
+    v14 = [(IFColor *)self initWithSystemColor:3 appearance:appearance contrast:contrast vibrancy:vibrancy];
     goto LABEL_34;
   }
 
   if (![strCopy compare:@"systemMintColor"])
   {
-    v13 = [(IFColor *)self initWithSystemColor:5 appearance:appearance contrast:contrast vibrancy:vibrancy];
+    v14 = [(IFColor *)self initWithSystemColor:5 appearance:appearance contrast:contrast vibrancy:vibrancy];
     goto LABEL_34;
   }
 
   if (![strCopy compare:@"systemTealColor"])
   {
-    v13 = [(IFColor *)self initWithSystemColor:4 appearance:appearance contrast:contrast vibrancy:vibrancy];
+    v14 = [(IFColor *)self initWithSystemColor:4 appearance:appearance contrast:contrast vibrancy:vibrancy];
     goto LABEL_34;
   }
 
   if (![strCopy compare:@"systemCyanColor"])
   {
-    v13 = [(IFColor *)self initWithSystemColor:6 appearance:appearance contrast:contrast vibrancy:vibrancy];
+    v14 = [(IFColor *)self initWithSystemColor:6 appearance:appearance contrast:contrast vibrancy:vibrancy];
     goto LABEL_34;
   }
 
   if (![strCopy compare:@"systemBlueColor"])
   {
-    v13 = [(IFColor *)self initWithSystemColor:7 appearance:appearance contrast:contrast vibrancy:vibrancy];
+    v14 = [(IFColor *)self initWithSystemColor:7 appearance:appearance contrast:contrast vibrancy:vibrancy];
     goto LABEL_34;
   }
 
   if (![strCopy compare:@"systemIndigoColor"])
   {
-    v13 = [(IFColor *)self initWithSystemColor:8 appearance:appearance contrast:contrast vibrancy:vibrancy];
+    v14 = [(IFColor *)self initWithSystemColor:8 appearance:appearance contrast:contrast vibrancy:vibrancy];
     goto LABEL_34;
   }
 
   if (![strCopy compare:@"systemPurpleColor"])
   {
-    v13 = [(IFColor *)self initWithSystemColor:9 appearance:appearance contrast:contrast vibrancy:vibrancy];
+    v14 = [(IFColor *)self initWithSystemColor:9 appearance:appearance contrast:contrast vibrancy:vibrancy];
     goto LABEL_34;
   }
 
   if (![strCopy compare:@"systemPinkColor"])
   {
-    v13 = [(IFColor *)self initWithSystemColor:10 appearance:appearance contrast:contrast vibrancy:vibrancy];
+    v14 = [(IFColor *)self initWithSystemColor:10 appearance:appearance contrast:contrast vibrancy:vibrancy];
     goto LABEL_34;
   }
 
   if (![strCopy compare:@"systemBrownColor"])
   {
-    v13 = [(IFColor *)self initWithSystemColor:14 appearance:appearance contrast:contrast vibrancy:vibrancy];
+    v14 = [(IFColor *)self initWithSystemColor:14 appearance:appearance contrast:contrast vibrancy:vibrancy];
     goto LABEL_34;
   }
 
-  if (![strCopy compare:@"systemGrayColor"])
+  v11 = [strCopy compare:@"systemGrayColor"];
+  if (!v11)
   {
-    v13 = [(IFColor *)self initWithSystemColor:13 appearance:appearance contrast:contrast vibrancy:vibrancy];
+    v14 = [(IFColor *)self initWithSystemColor:13 appearance:appearance contrast:contrast vibrancy:vibrancy];
     goto LABEL_34;
   }
 
-  v11 = IFDefaultLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = IFDefaultLog(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412290;
-    v16 = strCopy;
-    _os_log_impl(&dword_1B9DEC000, v11, OS_LOG_TYPE_DEFAULT, "Unknown color: %@", &v15, 0xCu);
+    v16 = 138412290;
+    v17 = strCopy;
+    _os_log_impl(&dword_1B9DEC000, v12, OS_LOG_TYPE_DEFAULT, "Unknown color: %@", &v16, 0xCu);
   }
 
   selfCopy = 0;

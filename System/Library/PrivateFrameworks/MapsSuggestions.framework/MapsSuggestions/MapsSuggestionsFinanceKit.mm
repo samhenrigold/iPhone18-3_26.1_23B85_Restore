@@ -66,7 +66,7 @@
 
 - (void)updateOrdersWithOrders:(id)orders
 {
-  type metadata accessor for MapsSuggestionsOrderPickup();
+  type metadata accessor for MapsSuggestionsOrderPickup(0);
   v4 = sub_1C529D7DC();
   selfCopy = self;
   sub_1C5141FA0(v4);

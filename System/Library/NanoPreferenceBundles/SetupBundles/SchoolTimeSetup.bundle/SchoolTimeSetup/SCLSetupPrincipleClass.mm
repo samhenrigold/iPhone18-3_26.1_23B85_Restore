@@ -55,7 +55,7 @@
 
 - (void)skipSettingsConfiguration
 {
-  v3 = scl_setup_log();
+  v3 = scl_setup_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -70,52 +70,53 @@
 {
   modelCopy = model;
   isEnabled = [modelCopy isEnabled];
-  v6 = scl_setup_log();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-  if (isEnabled)
+  v6 = isEnabled;
+  v7 = scl_setup_log(isEnabled);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  if (v6)
   {
-    if (v7)
+    if (v8)
     {
       *buf = 138412290;
-      v22 = modelCopy;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Commit view model: %@", buf, 0xCu);
+      v23 = modelCopy;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Commit view model: %@", buf, 0xCu);
     }
 
-    v8 = objc_alloc_init(NSOperationQueue);
+    v9 = objc_alloc_init(NSOperationQueue);
     operationQueue = self->_operationQueue;
-    self->_operationQueue = v8;
+    self->_operationQueue = v9;
 
     [(NSOperationQueue *)self->_operationQueue setQualityOfService:25];
-    v10 = +[NSNotificationCenter defaultCenter];
-    v11 = NRPairedDeviceRegistryDeviceDidPairNotification;
-    v12 = self->_operationQueue;
+    v11 = +[NSNotificationCenter defaultCenter];
+    v12 = NRPairedDeviceRegistryDeviceDidPairNotification;
+    v13 = self->_operationQueue;
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_1420;
+    v20[3] = &unk_82B8;
+    v20[4] = self;
+    v21 = modelCopy;
+    v14 = [v11 addObserverForName:v12 object:0 queue:v13 usingBlock:v20];
+
+    [(SCLSetupPrincipleClass *)self setDeviceDidPairToken:v14];
+    v15 = +[NSNotificationCenter defaultCenter];
+    v16 = self->_operationQueue;
     v19[0] = _NSConcreteStackBlock;
     v19[1] = 3221225472;
-    v19[2] = sub_1420;
-    v19[3] = &unk_82B8;
+    v19[2] = sub_1594;
+    v19[3] = &unk_82E0;
     v19[4] = self;
-    v20 = modelCopy;
-    v13 = [v10 addObserverForName:v11 object:0 queue:v12 usingBlock:v19];
+    v17 = [v15 addObserverForName:NRPairedDeviceRegistryDeviceDidFailToPairNotification object:0 queue:v16 usingBlock:v19];
 
-    [(SCLSetupPrincipleClass *)self setDeviceDidPairToken:v13];
-    v14 = +[NSNotificationCenter defaultCenter];
-    v15 = self->_operationQueue;
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_1594;
-    v18[3] = &unk_82E0;
-    v18[4] = self;
-    v16 = [v14 addObserverForName:NRPairedDeviceRegistryDeviceDidFailToPairNotification object:0 queue:v15 usingBlock:v18];
-
-    [(SCLSetupPrincipleClass *)self setPairingDidFailToken:v16];
+    [(SCLSetupPrincipleClass *)self setPairingDidFailToken:v17];
   }
 
   else
   {
-    if (v7)
+    if (v8)
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Commit view model called with a disabled view model - skipping", buf, 2u);
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Commit view model called with a disabled view model - skipping", buf, 2u);
     }
   }
 

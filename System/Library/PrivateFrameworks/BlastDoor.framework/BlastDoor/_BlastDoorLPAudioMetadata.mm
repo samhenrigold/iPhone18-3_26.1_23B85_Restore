@@ -10,10 +10,10 @@
 
 - (_BlastDoorLPAudioMetadata)init
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = _BlastDoorLPAudioMetadata;
-  v2 = [(_BlastDoorLPAudioMetadata *)&v7 init];
+  v7 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = _BlastDoorLPAudioMetadata;
+  v2 = [(_BlastDoorLPAudioMetadata *)&v6 init];
   v3 = v2;
   if (v2)
   {
@@ -21,7 +21,6 @@
     v4 = v2;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -48,11 +47,11 @@
 
 - (_BlastDoorLPAudioMetadata)initWithCoder:(id)coder
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v15.receiver = self;
-  v15.super_class = _BlastDoorLPAudioMetadata;
-  v5 = [(_BlastDoorLPAudioMetadata *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = _BlastDoorLPAudioMetadata;
+  v5 = [(_BlastDoorLPAudioMetadata *)&v14 init];
   if (v5)
   {
     v5->_version = [coderCopy decodeInt32ForKey:@"version"];
@@ -71,7 +70,6 @@
     v12 = v5;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -87,11 +85,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v13.receiver = self;
-  v13.super_class = _BlastDoorLPAudioMetadata;
-  if ([(_BlastDoorLPAudioMetadata *)&v13 isEqual:equalCopy])
+  v12.receiver = self;
+  v12.super_class = _BlastDoorLPAudioMetadata;
+  if ([(_BlastDoorLPAudioMetadata *)&v12 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -129,7 +127,6 @@
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

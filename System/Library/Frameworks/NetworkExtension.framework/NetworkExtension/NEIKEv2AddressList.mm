@@ -1,6 +1,6 @@
 @interface NEIKEv2AddressList
-+ (CFStringRef)normalizeServerAddress:(void *)address path:;
 + (__CFString)getSynthesizedIPv6Address:(uint64_t)address outgoingIf:(void *)if nat64Prefixes:(uint64_t)prefixes numNat64Prefixes:(int)nat64Prefixes;
++ (__CFString)normalizeServerAddress:(void *)address path:;
 @end
 
 @implementation NEIKEv2AddressList
@@ -57,9 +57,9 @@ LABEL_12:
   return v8;
 }
 
-+ (CFStringRef)normalizeServerAddress:(void *)address path:
++ (__CFString)normalizeServerAddress:(void *)address path:
 {
-  v16.data = *MEMORY[0x1E69E9840];
+  v15.data = *MEMORY[0x1E69E9840];
   v4 = a2;
   addressCopy = address;
   objc_opt_self();
@@ -71,7 +71,7 @@ LABEL_12:
 
   if (NEGetAddressFamilyFromString(v4) == 30)
   {
-    v10 = NECreateAddressStructFromString(v4, 0, 0);
+    v9 = NECreateAddressStructFromString(v4, 0, 0);
     scopedInterface = [addressCopy scopedInterface];
     if (scopedInterface)
     {
@@ -82,34 +82,34 @@ LABEL_12:
     {
       [addressCopy interface];
     }
-    v12 = ;
-    [v12 interfaceIndex];
+    v11 = ;
+    [v11 interfaceIndex];
 
-    if (v10)
+    if (v9)
     {
-      v13 = nw_nat64_copy_prefixes();
-      if (v13 >= 1)
+      v12 = nw_nat64_copy_prefixes();
+      if (v12 >= 1)
       {
-        v14 = 0;
-        v16.info = 0;
-        v16.isa = 528;
-        v15 = 16 * v13;
+        v13 = 0;
+        v15.info = 0;
+        v15.isa = 528;
+        v14 = 16 * v12;
         while ((nw_nat64_extract_v4() & 1) == 0)
         {
-          v14 += 16;
-          if (v15 == v14)
+          v13 += 16;
+          if (v14 == v13)
           {
             free(0);
             goto LABEL_16;
           }
         }
 
-        v6 = NECreateAddressString(&v16);
+        v6 = NECreateAddressString(&v15);
         goto LABEL_4;
       }
 
 LABEL_16:
-      free(v10);
+      free(v9);
     }
   }
 
@@ -118,7 +118,6 @@ LABEL_4:
   v7 = v6;
 LABEL_6:
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

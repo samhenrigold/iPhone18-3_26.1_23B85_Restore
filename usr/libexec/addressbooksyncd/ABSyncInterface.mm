@@ -1467,7 +1467,7 @@ LABEL_27:
       if (!os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_35:
-        [(NDTServerState *)self->_serverState setIntegerValue:0 forKey:@"failureCount", *v37, *&v37[16]];
+        [(NDTServerState *)self->_serverState setIntegerValue:0 forKey:@"failureCount", *v37, *&v37[8]];
         if ([endedCopy isResetSync])
         {
           if (!shouldResetSyncBePartial)

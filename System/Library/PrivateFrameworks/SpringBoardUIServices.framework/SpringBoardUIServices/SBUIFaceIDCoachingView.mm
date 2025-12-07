@@ -21,11 +21,11 @@
   }
 
   _label2 = [(SBUIFaceIDCoachingView *)self _label];
-  v5 = SBUICoachingTextForSBUIFaceIDCoachingCondition(self->_coachingCondition);
-  [_label2 requiredWidthForText:v5];
-  v7 = v6;
+  v6 = SBUICoachingTextForSBUIFaceIDCoachingCondition(self->_coachingCondition, v5);
+  [_label2 requiredWidthForText:v6];
+  v8 = v7;
 
-  return v7;
+  return v8;
 }
 
 - (UIMorphingLabel)_label
@@ -103,7 +103,7 @@
   {
     animatedCopy = animated;
     self->_coachingCondition = condition;
-    v8 = SBUICoachingTextForSBUIFaceIDCoachingCondition(condition);
+    v8 = SBUICoachingTextForSBUIFaceIDCoachingCondition(condition, a2);
     labelText = self->_labelText;
     self->_labelText = v8;
 

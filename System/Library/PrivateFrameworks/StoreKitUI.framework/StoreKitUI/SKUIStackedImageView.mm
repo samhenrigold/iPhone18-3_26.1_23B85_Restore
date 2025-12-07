@@ -26,27 +26,27 @@
     [SKUIStackedImageView initWithFrame:];
   }
 
-  v16.receiver = self;
-  v16.super_class = SKUIStackedImageView;
-  height = [(SKUIStackedImageView *)&v16 initWithFrame:x, y, width, height];
-  v9 = height;
+  v17.receiver = self;
+  v17.super_class = SKUIStackedImageView;
+  height = [(SKUIStackedImageView *)&v17 initWithFrame:x, y, width, height];
+  v10 = height;
   if (height)
   {
     height->_stackDepth = 3;
-    v10 = SKUIMPUFoundationFramework();
-    v11 = SKUIWeakLinkedClassForString(&cfstr_Mpuborderedima.isa, v10);
-    v12 = objc_alloc(SKUIWeakLinkedClassForString(&cfstr_Mpustackview.isa, v10));
-    [(SKUIStackedImageView *)v9 bounds];
-    v13 = [v12 initWithFrame:v11 itemClass:@"0" itemReuseIdentifier:?];
-    stackView = v9->_stackView;
-    v9->_stackView = v13;
+    v11 = SKUIMPUFoundationFramework(height, v9);
+    v12 = SKUIWeakLinkedClassForString(&cfstr_Mpuborderedima.isa, v11);
+    v13 = objc_alloc(SKUIWeakLinkedClassForString(&cfstr_Mpustackview.isa, v11));
+    [(SKUIStackedImageView *)v10 bounds];
+    v14 = [v13 initWithFrame:v12 itemClass:@"0" itemReuseIdentifier:?];
+    stackView = v10->_stackView;
+    v10->_stackView = v14;
 
-    [(MPUStackView *)v9->_stackView setDataSource:v9];
-    [(MPUStackView *)v9->_stackView setForcesIntegralY:1];
-    [(SKUIStackedImageView *)v9 addSubview:v9->_stackView];
+    [(MPUStackView *)v10->_stackView setDataSource:v10];
+    [(MPUStackView *)v10->_stackView setForcesIntegralY:1];
+    [(SKUIStackedImageView *)v10 addSubview:v10->_stackView];
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)dealloc
@@ -64,7 +64,7 @@
   v5 = objc_opt_class();
   if (v5)
   {
-    [v5 _configurationForSize:{width, height, 0}];
+    objc_msgSend__configurationForSize_(v5, width, height, 0);
     v6 = 0.0 * 0;
   }
 
@@ -169,7 +169,7 @@
   v6 = objc_opt_class();
   if (v6)
   {
-    [v6 _configurationForSize:{width, height}];
+    objc_msgSend__configurationForSize_(v6, width, height);
     v8 = *(&v10 + 1);
     v7 = *&v10;
   }
@@ -245,20 +245,24 @@
 - (void)layoutSubviews
 {
   [(SKUIImageView *)self imageSize];
+  v5 = v4;
+  v6 = v3;
   if (v4 == *MEMORY[0x277CBF3A8] && v3 == *(MEMORY[0x277CBF3A8] + 8))
   {
     image = [(SKUIStackedImageView *)self image];
     [image size];
+    v5 = v9;
+    v6 = v10;
   }
 
   stackView = self->_stackView;
   [(SKUIStackedImageView *)self bounds];
-  SKUIImageRectForBounds();
+  SKUIImageRectForBounds(0, v12, v5, v6, v13, v14, v15, v16);
   [(MPUStackView *)stackView setFrame:?];
   [(MPUStackView *)self->_stackView updateForChangedDistanceFromVanishingPoint];
-  v8.receiver = self;
-  v8.super_class = SKUIStackedImageView;
-  [(SKUIImageView *)&v8 layoutSubviews];
+  v17.receiver = self;
+  v17.super_class = SKUIStackedImageView;
+  [(SKUIImageView *)&v17 layoutSubviews];
 }
 
 - (void)stackView:(id)view applyAttributesToItem:(id)item atIndex:(int64_t)index
@@ -268,30 +272,30 @@
   borderConfiguration = self->_borderConfiguration;
   if (!borderConfiguration)
   {
-    v11 = SKUIMPUFoundationFramework();
-    v12 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Mpuborderconfi.isa, v11));
-    v13 = self->_borderConfiguration;
-    self->_borderConfiguration = v12;
+    v12 = SKUIMPUFoundationFramework(0, v9);
+    v13 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Mpuborderconfi.isa, v12));
+    v14 = self->_borderConfiguration;
+    self->_borderConfiguration = v13;
 
     if (stackView_applyAttributesToItem_atIndex__sOnce != -1)
     {
       [SKUIStackedImageView stackView:applyAttributesToItem:atIndex:];
     }
 
-    v14 = self->_borderConfiguration;
+    v15 = self->_borderConfiguration;
     whiteColor = [MEMORY[0x277D75348] whiteColor];
-    [(MPUBorderConfiguration *)v14 setDropShadowColor:whiteColor];
+    [(MPUBorderConfiguration *)v15 setDropShadowColor:whiteColor];
 
     [(MPUBorderConfiguration *)self->_borderConfiguration setDropShadowEdges:11];
     [(MPUBorderConfiguration *)self->_borderConfiguration setDropShadowWidth:1.0 / *&stackView_applyAttributesToItem_atIndex__sScreenScale];
-    v16 = self->_borderConfiguration;
+    v17 = self->_borderConfiguration;
     whiteColor2 = [MEMORY[0x277D75348] whiteColor];
-    [(MPUBorderConfiguration *)v16 setBorderColor:whiteColor2];
+    [(MPUBorderConfiguration *)v17 setBorderColor:whiteColor2];
 
     [(MPUBorderConfiguration *)self->_borderConfiguration setBorderWidth:1.0 / *&stackView_applyAttributesToItem_atIndex__sScreenScale];
-    v18 = self->_borderConfiguration;
+    v19 = self->_borderConfiguration;
     whiteColor3 = [MEMORY[0x277D75348] whiteColor];
-    [(MPUBorderConfiguration *)v18 setFillColor:whiteColor3];
+    [(MPUBorderConfiguration *)v19 setFillColor:whiteColor3];
 
     borderConfiguration = self->_borderConfiguration;
   }
@@ -306,40 +310,40 @@
   [itemCopy setBorderConfiguration:self->_borderConfiguration];
   [itemCopy setImageAlpha:stackView_applyAttributesToItem_atIndex__sItemImageAlphas[index]];
   [itemCopy setImageContentsRect:{stackView_applyAttributesToItem_atIndex__sItemImageContentRects[4 * index], stackView_applyAttributesToItem_atIndex__sItemImageContentRects[4 * index + 1], stackView_applyAttributesToItem_atIndex__sItemImageContentRects[4 * index + 2], stackView_applyAttributesToItem_atIndex__sItemImageContentRects[4 * index + 3]}];
-  v20 = stackView_applyAttributesToItem_atIndex__sItemImageShouldFlipHorizontal[index];
-  v21 = stackView_applyAttributesToItem_atIndex__sItemImageShouldFlipVertical[index];
-  v22 = *MEMORY[0x277CBF2C0];
-  v23 = *(MEMORY[0x277CBF2C0] + 16);
-  *&v29.a = *MEMORY[0x277CBF2C0];
-  *&v29.c = v23;
-  v24 = *(MEMORY[0x277CBF2C0] + 32);
-  *&v29.tx = v24;
-  if ((v20 & 1) != 0 || v21)
+  v21 = stackView_applyAttributesToItem_atIndex__sItemImageShouldFlipHorizontal[index];
+  v22 = stackView_applyAttributesToItem_atIndex__sItemImageShouldFlipVertical[index];
+  v23 = *MEMORY[0x277CBF2C0];
+  v24 = *(MEMORY[0x277CBF2C0] + 16);
+  *&v30.a = *MEMORY[0x277CBF2C0];
+  *&v30.c = v24;
+  v25 = *(MEMORY[0x277CBF2C0] + 32);
+  *&v30.tx = v25;
+  if ((v21 & 1) != 0 || v22)
   {
-    v25 = 1.0;
-    if (v20)
+    v26 = 1.0;
+    if (v21)
     {
-      v26 = -1.0;
+      v27 = -1.0;
     }
 
     else
     {
-      v26 = 1.0;
+      v27 = 1.0;
     }
 
-    if (v21)
+    if (v22)
     {
-      v25 = -1.0;
+      v26 = -1.0;
     }
 
-    *&v28.a = v22;
-    *&v28.c = v23;
-    *&v28.tx = v24;
-    CGAffineTransformScale(&v29, &v28, v26, v25);
+    *&v29.a = v23;
+    *&v29.c = v24;
+    *&v29.tx = v25;
+    CGAffineTransformScale(&v30, &v29, v27, v26);
   }
 
-  v28 = v29;
-  [itemCopy setImageTransform:&v28];
+  v29 = v30;
+  [itemCopy setImageTransform:&v29];
   image = [(SKUIStackedImageView *)self image];
   [itemCopy setImage:image];
 }

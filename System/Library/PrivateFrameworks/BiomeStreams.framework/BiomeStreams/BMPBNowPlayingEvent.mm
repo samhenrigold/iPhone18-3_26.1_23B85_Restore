@@ -3,6 +3,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)itemMediaSubtypeAsString:(int)string;
+- (id)itemMediaTypeAsString:(int)string;
+- (id)playbackStateAsString:(int)string;
 - (int)StringAsItemMediaSubtype:(id)subtype;
 - (int)StringAsItemMediaType:(id)type;
 - (int)StringAsPlaybackState:(id)state;
@@ -51,6 +54,21 @@
   }
 
   *&self->_has = *&self->_has & 0xDF | v3;
+}
+
+- (id)playbackStateAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E6E53290 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsPlaybackState:(id)state
@@ -200,6 +218,21 @@
   *&self->_has = *&self->_has & 0xEF | v3;
 }
 
+- (id)itemMediaTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E6E532C0 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsItemMediaType:(id)type
 {
   typeCopy = type;
@@ -252,6 +285,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)itemMediaSubtypeAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E6E532D8 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsItemMediaSubtype:(id)subtype
@@ -319,7 +367,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v4 = dictionary;
   uniqueId = self->_uniqueId;
@@ -416,30 +464,30 @@
   if ([(NSMutableArray *)self->_outputDevices count])
   {
     v20 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_outputDevices, "count")}];
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
     v21 = self->_outputDevices;
-    v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v39 objects:v43 count:16];
+    v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v38 objects:v42 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v40;
+      v24 = *v39;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v40 != v24)
+          if (*v39 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          dictionaryRepresentation = [*(*(&v39 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v38 + 1) + 8 * i) dictionaryRepresentation];
           [v20 addObject:dictionaryRepresentation];
         }
 
-        v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v39 objects:v43 count:16];
+        v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v38 objects:v42 count:16];
       }
 
       while (v23);
@@ -530,14 +578,13 @@ LABEL_56:
   }
 
 LABEL_60:
-  v37 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_uniqueId)
   {
@@ -547,14 +594,12 @@ LABEL_60:
   has = self->_has;
   if (has)
   {
-    absoluteTimestamp = self->_absoluteTimestamp;
     PBDataWriterWriteDoubleField();
     has = self->_has;
   }
 
   if ((has & 0x20) != 0)
   {
-    playbackState = self->_playbackState;
     PBDataWriterWriteInt32Field();
   }
 
@@ -570,7 +615,6 @@ LABEL_60:
 
   if ((*&self->_has & 2) != 0)
   {
-    duration = self->_duration;
     PBDataWriterWriteUint32Field();
   }
 
@@ -586,7 +630,6 @@ LABEL_60:
 
   if ((*&self->_has & 4) != 0)
   {
-    elapsed = self->_elapsed;
     PBDataWriterWriteUint32Field();
   }
 
@@ -607,37 +650,35 @@ LABEL_60:
 
   if ((*&self->_has & 0x40) != 0)
   {
-    isAirPlayVideo = self->_isAirPlayVideo;
     PBDataWriterWriteBOOLField();
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v11 = self->_outputDevices;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
-  if (v12)
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v6 = self->_outputDevices;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v7)
   {
-    v13 = v12;
-    v14 = *v23;
+    v8 = v7;
+    v9 = *v13;
     do
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v14)
+        if (*v13 != v9)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v6);
         }
 
-        v16 = *(*(&v22 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v13);
+    while (v8);
   }
 
   if (self->_bundleId)
@@ -660,10 +701,10 @@ LABEL_60:
     PBDataWriterWriteStringField();
   }
 
-  v17 = self->_has;
-  if ((*&v17 & 0x80000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x80000000) == 0)
   {
-    if ((*&v17 & 0x10) == 0)
+    if ((*&v11 & 0x10) == 0)
     {
       goto LABEL_45;
     }
@@ -671,25 +712,20 @@ LABEL_60:
     goto LABEL_44;
   }
 
-  isRemoteControl = self->_isRemoteControl;
   PBDataWriterWriteBOOLField();
-  *&v17 = self->_has;
-  if ((*&v17 & 0x10) != 0)
+  *&v11 = self->_has;
+  if ((*&v11 & 0x10) != 0)
   {
 LABEL_44:
-    itemMediaType = self->_itemMediaType;
     PBDataWriterWriteInt32Field();
-    *&v17 = self->_has;
+    *&v11 = self->_has;
   }
 
 LABEL_45:
-  if ((*&v17 & 8) != 0)
+  if ((*&v11 & 8) != 0)
   {
-    itemMediaSubtype = self->_itemMediaSubtype;
     PBDataWriterWriteInt32Field();
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -847,7 +883,7 @@ LABEL_42:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_uniqueId copyWithZone:zone];
   v7 = *(v5 + 136);
@@ -913,30 +949,30 @@ LABEL_42:
     *(v5 + 148) |= 0x40u;
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v23 = self->_outputDevices;
-  v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v40 objects:v44 count:16];
+  v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v39 objects:v43 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v41;
+    v26 = *v40;
     do
     {
       for (i = 0; i != v25; ++i)
       {
-        if (*v41 != v26)
+        if (*v40 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v28 = [*(*(&v40 + 1) + 8 * i) copyWithZone:{zone, v40}];
+        v28 = [*(*(&v39 + 1) + 8 * i) copyWithZone:{zone, v39}];
         [v5 addOutputDevices:v28];
       }
 
-      v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v39 objects:v43 count:16];
     }
 
     while (v25);
@@ -987,7 +1023,6 @@ LABEL_21:
     *(v5 + 148) |= 8u;
   }
 
-  v38 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -1008,7 +1043,6 @@ LABEL_21:
     }
   }
 
-  v6 = *(equalCopy + 148);
   if (*&self->_has)
   {
     if ((*(equalCopy + 148) & 1) == 0 || self->_absoluteTimestamp != *(equalCopy + 1))
@@ -1050,7 +1084,6 @@ LABEL_21:
     }
   }
 
-  v9 = *(equalCopy + 148);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 148) & 2) == 0 || self->_duration != *(equalCopy + 10))
@@ -1079,7 +1112,6 @@ LABEL_21:
     }
   }
 
-  v12 = *(equalCopy + 148);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 148) & 4) == 0 || self->_elapsed != *(equalCopy + 11))
@@ -1117,7 +1149,6 @@ LABEL_21:
     }
   }
 
-  v16 = *(equalCopy + 148);
   if ((*&self->_has & 0x40) != 0)
   {
     if ((*(equalCopy + 148) & 0x40) == 0)
@@ -1125,7 +1156,6 @@ LABEL_21:
       goto LABEL_56;
     }
 
-    v25 = *(equalCopy + 144);
     if (self->_isAirPlayVideo)
     {
       if ((*(equalCopy + 144) & 1) == 0)
@@ -1195,7 +1225,6 @@ LABEL_21:
       goto LABEL_56;
     }
 
-    v26 = *(equalCopy + 145);
     if (self->_isRemoteControl)
     {
       if ((*(equalCopy + 145) & 1) == 0)
@@ -1230,21 +1259,21 @@ LABEL_21:
 
   if ((*&has & 8) == 0)
   {
-    v23 = (*(equalCopy + 148) & 8) == 0;
+    v19 = (*(equalCopy + 148) & 8) == 0;
     goto LABEL_57;
   }
 
   if ((*(equalCopy + 148) & 8) != 0 && self->_itemMediaSubtype == *(equalCopy + 24))
   {
-    v23 = 1;
+    v19 = 1;
     goto LABEL_57;
   }
 
 LABEL_56:
-  v23 = 0;
+  v19 = 0;
 LABEL_57:
 
-  return v23;
+  return v19;
 }
 
 - (unint64_t)hash
@@ -1376,7 +1405,7 @@ LABEL_24:
 
 - (void)mergeFrom:(id)from
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (*(fromCopy + 17))
   {
@@ -1450,29 +1479,29 @@ LABEL_24:
     *&self->_has |= 0x40u;
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = *(fromCopy + 14);
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(BMPBNowPlayingEvent *)self addOutputDevices:*(*(&v13 + 1) + 8 * i), v13];
+        [(BMPBNowPlayingEvent *)self addOutputDevices:*(*(&v12 + 1) + 8 * i), v12];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
@@ -1526,8 +1555,6 @@ LABEL_45:
     self->_itemMediaSubtype = *(fromCopy + 24);
     *&self->_has |= 8u;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

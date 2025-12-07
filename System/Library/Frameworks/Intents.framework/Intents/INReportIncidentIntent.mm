@@ -38,8 +38,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v18[5] = *MEMORY[0x1E69E9840];
-  v17[0] = @"incidentType";
+  v17[5] = *MEMORY[0x1E69E9840];
+  v16[0] = @"incidentType";
   incidentType = [(INReportIncidentIntent *)self incidentType];
   v4 = incidentType;
   if (!incidentType)
@@ -47,8 +47,8 @@
     incidentType = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[0] = incidentType;
-  v17[1] = @"startTime";
+  v17[0] = incidentType;
+  v16[1] = @"startTime";
   startTime = [(INReportIncidentIntent *)self startTime];
   null = startTime;
   if (!startTime)
@@ -56,8 +56,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[1] = null;
-  v17[2] = @"isClear";
+  v17[1] = null;
+  v16[2] = @"isClear";
   isClear = [(INReportIncidentIntent *)self isClear];
   null2 = isClear;
   if (!isClear)
@@ -65,8 +65,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[2] = null2;
-  v17[3] = @"userLocation";
+  v17[2] = null2;
+  v16[3] = @"userLocation";
   userLocation = [(INReportIncidentIntent *)self userLocation];
   null3 = userLocation;
   if (!userLocation)
@@ -74,8 +74,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[3] = null3;
-  v17[4] = @"additionalDetails";
+  v17[3] = null3;
+  v16[4] = @"additionalDetails";
   additionalDetails = [(INReportIncidentIntent *)self additionalDetails];
   null4 = additionalDetails;
   if (!additionalDetails)
@@ -83,8 +83,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[4] = null4;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:5];
+  v17[4] = null4;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:5];
   if (!additionalDetails)
   {
   }
@@ -104,8 +104,6 @@
   if (!v4)
   {
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

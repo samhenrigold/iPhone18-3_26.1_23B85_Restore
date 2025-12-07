@@ -12,13 +12,13 @@
 {
   v3 = sub_2150A3750();
   v4 = *(v3 - 8);
-  MEMORY[0x28223BE20](v3);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v6, self + OBJC_IVAR___ICSystemPaperSyncArchive_databaseArchive, v3);
-  v7 = sub_2150A36B0();
-  (*(v4 + 8))(v6, v3);
+  MEMORY[0x28223BE20](v3, v5);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 16))(v7, self + OBJC_IVAR___ICSystemPaperSyncArchive_databaseArchive, v3);
+  v8 = sub_2150A36B0();
+  (*(v4 + 8))(v7, v3);
 
-  return v7;
+  return v8;
 }
 
 - (NSArray)assetArchives
@@ -34,18 +34,18 @@
 {
   v5 = sub_2150A3750();
   v6 = *(v5 - 8);
-  MEMORY[0x28223BE20](v5);
-  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v5, v7);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_2150A36F0();
-  v9 = sub_2150A4ED0();
-  (*(v6 + 16))(self + OBJC_IVAR___ICSystemPaperSyncArchive_databaseArchive, v8, v5);
-  *(self + OBJC_IVAR___ICSystemPaperSyncArchive_assetArchives) = v9;
-  v10 = type metadata accessor for SystemPaperSyncArchive();
-  v13.receiver = self;
-  v13.super_class = v10;
-  v11 = [(ICSystemPaperSyncArchive *)&v13 init];
-  (*(v6 + 8))(v8, v5);
-  return v11;
+  v10 = sub_2150A4ED0();
+  (*(v6 + 16))(self + OBJC_IVAR___ICSystemPaperSyncArchive_databaseArchive, v9, v5);
+  *(self + OBJC_IVAR___ICSystemPaperSyncArchive_assetArchives) = v10;
+  v11 = type metadata accessor for SystemPaperSyncArchive(0);
+  v14.receiver = self;
+  v14.super_class = v11;
+  v12 = [(ICSystemPaperSyncArchive *)&v14 init];
+  (*(v6 + 8))(v9, v5);
+  return v12;
 }
 
 - (NSString)description

@@ -24,37 +24,37 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v21 = *MEMORY[0x29EDCA608];
-  v19.receiver = self;
-  v19.super_class = LUIClassTableViewControllerAccessibility;
-  [(LUIClassTableViewControllerAccessibility *)&v19 _accessibilityLoadAccessibilityInformation];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
+  v20 = *MEMORY[0x29EDCA608];
+  v18.receiver = self;
+  v18.super_class = LUIClassTableViewControllerAccessibility;
+  [(LUIClassTableViewControllerAccessibility *)&v18 _accessibilityLoadAccessibilityInformation];
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   objc_opt_class();
   v3 = [(LUIClassTableViewControllerAccessibility *)self safeValueForKey:@"view"];
   v4 = __UIAccessibilityCastAsClass();
 
   subviews = [v4 subviews];
 
-  v6 = [subviews countByEnumeratingWithState:&v15 objects:v20 count:16];
+  v6 = [subviews countByEnumeratingWithState:&v14 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v16;
+    v9 = *v15;
     v10 = 1;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(subviews);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * i);
+        v12 = *(*(&v14 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -70,7 +70,7 @@
         }
       }
 
-      v7 = [subviews countByEnumeratingWithState:&v15 objects:v20 count:16];
+      v7 = [subviews countByEnumeratingWithState:&v14 objects:v19 count:16];
     }
 
     while (v7);
@@ -87,8 +87,6 @@
 
     v8 = 0;
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 }
 
 - (BOOL)accessibilityPerformEscape
@@ -121,7 +119,7 @@
   return accessibilityPerformEscape;
 }
 
-uint64_t __70__LUIClassTableViewControllerAccessibility_accessibilityPerformEscape__block_invoke(uint64_t a1)
+void *__70__LUIClassTableViewControllerAccessibility_accessibilityPerformEscape__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) footerButtonPressed:0];
   *(*(*(a1 + 40) + 8) + 24) = 1;

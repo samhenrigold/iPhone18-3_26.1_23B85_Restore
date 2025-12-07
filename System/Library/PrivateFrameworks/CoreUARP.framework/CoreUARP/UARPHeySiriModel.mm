@@ -117,27 +117,27 @@
 
 - (void)expandSuperBinaryPayloads:(id)payloads
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   obj = payloads;
-  v4 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         v9 = [UARPHeySiriModel hsModelWithUarpPayload:v8];
         tlvs = [v8 tlvs];
         v11 = [UARPSuperBinaryAssetTLV findTLVWithType:1619725824 tlvs:tlvs];
@@ -154,18 +154,16 @@
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)expandURL:(id *)l
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = [[UARPSuperBinaryAsset alloc] initWithURL:self->_url];
   v6 = v5;
   if (v5 && [(UARPSuperBinaryAsset *)v5 expandHeadersAndTLVs:l])
@@ -180,7 +178,7 @@
       self->_minorVersion = [valueAsVersion minorVersion];
     }
 
-    v28 = v8;
+    v27 = v8;
     tlvs2 = [(UARPSuperBinaryAsset *)v6 tlvs];
     v11 = [UARPSuperBinaryAssetTLV findTLVWithType:1619725832 tlvs:tlvs2];
 
@@ -190,28 +188,28 @@
       self->_engineType = [valueAsNumber unsignedShortValue];
     }
 
-    v27 = v11;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
+    v26 = v11;
     v31 = 0u;
-    v29 = v6;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v28 = v6;
     payloads = [(UARPSuperBinaryAsset *)v6 payloads];
-    v14 = [payloads countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v14 = [payloads countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v31;
+      v16 = *v30;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v31 != v16)
+          if (*v30 != v16)
           {
             objc_enumerationMutation(payloads);
           }
 
-          v18 = *(*(&v30 + 1) + 8 * i);
+          v18 = *(*(&v29 + 1) + 8 * i);
           v19 = [UARPHeySiriModel hsModelWithUarpPayload:v18];
           tlvs3 = [v18 tlvs];
           v21 = [UARPSuperBinaryAssetTLV findTLVWithType:1619725824 tlvs:tlvs3];
@@ -227,14 +225,14 @@
           }
         }
 
-        v15 = [payloads countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v15 = [payloads countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v15);
     }
 
     v24 = 1;
-    v6 = v29;
+    v6 = v28;
   }
 
   else
@@ -242,7 +240,6 @@
     v24 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -320,18 +317,18 @@
 
 + (id)hsModelWithUarpPayload:(id)payload
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   tlvs = [payloadCopy tlvs];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v4 = [tlvs countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v4 = [tlvs countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (!v4)
   {
+    v26 = 0;
     v27 = 0;
-    v28 = 0;
     v6 = 0;
     v7 = 0;
     v8 = 0;
@@ -339,22 +336,22 @@
   }
 
   v5 = v4;
+  v26 = 0;
   v27 = 0;
-  v28 = 0;
   v6 = 0;
   v7 = 0;
   v8 = 0;
-  v9 = *v30;
+  v9 = *v29;
   do
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v30 != v9)
+      if (*v29 != v9)
       {
         objc_enumerationMutation(tlvs);
       }
 
-      v11 = *(*(&v29 + 1) + 8 * i);
+      v11 = *(*(&v28 + 1) + 8 * i);
       type = [v11 type];
       if (type <= 1619725827)
       {
@@ -389,13 +386,13 @@
             break;
           case 1619725829:
             valueAsData2 = [v11 valueAsData];
-            v14 = v28;
-            v28 = valueAsData2;
+            v14 = v27;
+            v27 = valueAsData2;
             break;
           case 1619725830:
             valueAsData3 = [v11 valueAsData];
-            v14 = v27;
-            v27 = valueAsData3;
+            v14 = v26;
+            v26 = valueAsData3;
             break;
           default:
             continue;
@@ -403,7 +400,7 @@
       }
     }
 
-    v5 = [tlvs countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v5 = [tlvs countByEnumeratingWithState:&v28 objects:v32 count:16];
   }
 
   while (v5);
@@ -412,19 +409,17 @@ LABEL_22:
   v20 = objc_alloc(getCSVoiceTriggerRTModelClass());
   if (payload)
   {
-    v22 = v27;
-    v21 = v28;
-    v23 = [v20 initWithData:payload hash:v7 locale:v8 digest:v6 signature:v28 certificate:v27];
+    v22 = v26;
+    v21 = v27;
+    v23 = [v20 initWithData:payload hash:v7 locale:v8 digest:v6 signature:v27 certificate:v26];
   }
 
   else
   {
     v23 = [v20 initWithHash:v7 locale:v8];
-    v22 = v27;
-    v21 = v28;
+    v22 = v26;
+    v21 = v27;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }

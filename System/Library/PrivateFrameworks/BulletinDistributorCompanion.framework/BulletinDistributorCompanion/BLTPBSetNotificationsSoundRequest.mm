@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)soundAsString:(int)string;
 - (int)StringAsSound:(id)sound;
 - (int)sound;
 - (unint64_t)hash;
@@ -24,6 +25,29 @@
   {
     return 0;
   }
+}
+
+- (id)soundAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"On";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"Off";
+  }
+
+  return v4;
 }
 
 - (int)StringAsSound:(id)sound
@@ -93,18 +117,17 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    sound = self->_sound;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_sectionID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -150,7 +173,6 @@
     goto LABEL_9;
   }
 
-  v5 = *(equalCopy + 20);
   if (*&self->_has)
   {
     if ((*(equalCopy + 20) & 1) == 0 || self->_sound != *(equalCopy + 4))
@@ -162,24 +184,24 @@
   else if (*(equalCopy + 20))
   {
 LABEL_9:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_10;
   }
 
   sectionID = self->_sectionID;
   if (sectionID | *(equalCopy + 1))
   {
-    v7 = [(NSString *)sectionID isEqual:?];
+    v6 = [(NSString *)sectionID isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_10:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

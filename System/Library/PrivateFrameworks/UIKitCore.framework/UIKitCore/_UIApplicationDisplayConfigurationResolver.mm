@@ -18,9 +18,9 @@
     dispatch_once(&qword_1ED49FC60, &__block_literal_global_451);
   }
 
-  v0 = _MergedGlobals_1237;
+  v1 = _MergedGlobals_1237;
 
-  return v0;
+  return v1;
 }
 
 - (id)_init

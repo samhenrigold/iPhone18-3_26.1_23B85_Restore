@@ -703,7 +703,7 @@ void __69__SBFluidSwitcherGestureManager_initWithSwitcherController_delegate___b
   windowScene = [WeakRetained windowScene];
   controlCenterController = [windowScene controlCenterController];
   _presentGestureRecognizers = [controlCenterController _presentGestureRecognizers];
-  v26 = [_presentGestureRecognizers containsObject:gestureRecognizerCopy];
+  v26 = objc_msgSend_containsObject_(_presentGestureRecognizers);
 
   v12 = +[SBCoverSheetPresentationManager sharedInstance];
   coverSheetSlidingViewController = [v12 coverSheetSlidingViewController];
@@ -754,29 +754,29 @@ LABEL_15:
 
 - (BOOL)gestureRecognizer:(id)recognizer shouldRequireFailureOfGestureRecognizer:(id)gestureRecognizer
 {
-  v94 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   recognizerCopy = recognizer;
   gestureRecognizerCopy = gestureRecognizer;
   WeakRetained = objc_loadWeakRetained(&self->_switcherController);
-  v87 = objc_loadWeakRetained(&self->_switcherContentController);
+  v88 = objc_loadWeakRetained(&self->_switcherContentController);
   windowScene = [WeakRetained windowScene];
   floatingDockController = [windowScene floatingDockController];
   presentFloatingDockIndirectPanGestureRecognizer = [floatingDockController presentFloatingDockIndirectPanGestureRecognizer];
   controlCenterController = [windowScene controlCenterController];
   _presentGestureRecognizers = [controlCenterController _presentGestureRecognizers];
-  v85 = [_presentGestureRecognizers containsObject:gestureRecognizerCopy];
+  v86 = objc_msgSend_containsObject_(_presentGestureRecognizers);
 
   v13 = +[SBCoverSheetPresentationManager sharedInstance];
   coverSheetSlidingViewController = [v13 coverSheetSlidingViewController];
   systemGesturesDelegate = [coverSheetSlidingViewController systemGesturesDelegate];
   presentGestureRecognizer = [systemGesturesDelegate presentGestureRecognizer];
-  v84 = [(SBFluidSwitcherPanGestureRecognizer *)gestureRecognizerCopy isEqual:presentGestureRecognizer];
+  v85 = [(SBFluidSwitcherPanGestureRecognizer *)gestureRecognizerCopy isEqual:presentGestureRecognizer];
 
   windowMoveClientGateRelationshipGestureRecognizer = self->_windowMoveClientGateRelationshipGestureRecognizer;
   liveWindowResizeGestureRecognizer = self->_liveWindowResizeGestureRecognizer;
   menuBarManager = [windowScene menuBarManager];
   presentGestureRecognizer2 = [menuBarManager presentGestureRecognizer];
-  v82 = [(SBFluidSwitcherPanGestureRecognizer *)gestureRecognizerCopy isEqual:presentGestureRecognizer2];
+  v83 = [(SBFluidSwitcherPanGestureRecognizer *)gestureRecognizerCopy isEqual:presentGestureRecognizer2];
 
   windowManagementContext = [WeakRetained windowManagementContext];
   isFlexibleWindowingEnabled = [windowManagementContext isFlexibleWindowingEnabled];
@@ -789,18 +789,18 @@ LABEL_15:
 
   if (self->_moveFloatingApplicationGestureRecognizer == recognizerCopy)
   {
-    LOBYTE(v25) = v85 | v84;
+    LOBYTE(v25) = v86 | v85;
     goto LABEL_11;
   }
 
   if (self->_pinFloatingApplicationGestureRecognizer == recognizerCopy)
   {
-    LOBYTE(v25) = v85 | v84;
+    LOBYTE(v25) = v86 | v85;
     goto LABEL_11;
   }
 
   v22 = self->_liveWindowResizeGestureRecognizer;
-  if (v22 != recognizerCopy || ((isFlexibleWindowingEnabled ^ 1) & 1) != 0 || ((v85 ^ 1) & 1) != 0)
+  if (v22 != recognizerCopy || ((isFlexibleWindowingEnabled ^ 1) & 1) != 0 || ((v86 ^ 1) & 1) != 0)
   {
     if (v22 == recognizerCopy)
     {
@@ -821,100 +821,117 @@ LABEL_15:
 
     if (windowMoveClientGateRelationshipGestureRecognizer == gestureRecognizerCopy)
     {
-      v81 = presentFloatingDockIndirectPanGestureRecognizer;
-      v26 = v87;
-      view = [v87 view];
-      v75 = [(SBIndirectPanGestureRecognizer *)recognizerCopy _activeEventOfType:0];
-      v33 = [v75 touchesForGestureRecognizer:recognizerCopy];
+      v82 = presentFloatingDockIndirectPanGestureRecognizer;
+      v26 = v88;
+      view = [v88 view];
+      v76 = [(SBIndirectPanGestureRecognizer *)recognizerCopy _activeEventOfType:0];
+      v33 = [v76 touchesForGestureRecognizer:recognizerCopy];
       anyObject = [v33 anyObject];
 
-      v77 = view;
+      v78 = view;
       _UISystemGestureLocationForTouchInView();
       v36 = v35;
       v38 = v37;
       v39 = [(SBFluidSwitcherGestureManager *)self _hitTestStageItemContainerForUnpinGestureWithTouch:anyObject atGestureLocation:?];
       if (v39)
       {
-        v79 = v39;
+        v80 = v39;
         _isPointerTouch = [anyObject _isPointerTouch];
-        [(SBFluidSwitcherGestureManager *)self _paddedHitTestRectForItemContainer:v79 forPointerTouch:_isPointerTouch];
-        v71.origin.x = v41;
-        v71.origin.y = v42;
-        v71.size.width = v43;
-        v71.size.height = v44;
-        [(SBFluidSwitcherGestureManager *)self _edgeSwipeHitTestRectForItemContainer:v79 forPointerTouch:_isPointerTouch];
-        v72.origin.x = v45;
-        v72.origin.y = v46;
-        v72.size.width = v47;
-        v72.size.height = v48;
-        [(SBFluidSwitcherGestureManager *)self _innerLeftEdgeDragHitTestRectForItemContainer:v79 forPointerTouch:_isPointerTouch];
+        [(SBFluidSwitcherGestureManager *)self _paddedHitTestRectForItemContainer:v80 forPointerTouch:_isPointerTouch];
+        v72.origin.x = v41;
+        v72.origin.y = v42;
+        v72.size.width = v43;
+        v72.size.height = v44;
+        [(SBFluidSwitcherGestureManager *)self _edgeSwipeHitTestRectForItemContainer:v80 forPointerTouch:_isPointerTouch];
+        v73.origin.x = v45;
+        v73.origin.y = v46;
+        v73.size.width = v47;
+        v73.size.height = v48;
+        [(SBFluidSwitcherGestureManager *)self _innerLeftEdgeDragHitTestRectForItemContainer:v80 forPointerTouch:_isPointerTouch];
         v49 = _isPointerTouch;
-        v39 = v79;
-        [(SBFluidSwitcherGestureManager *)self _innerRightEdgeDragHitTestRectForItemContainer:v79 forPointerTouch:v49];
-        [v79 frame];
-        v97.x = v36;
-        v97.y = v38;
-        if (CGRectContainsPoint(v98, v97) && (SBRectContainsPoint() & 1) == 0 && ![(SBFluidSwitcherGestureManager *)self _touchLocationIsWithinUnstashRegion:v36, v38]&& (SBRectContainsPoint() & 1) == 0 && (SBRectContainsPoint() & 1) == 0)
+        v39 = v80;
+        [(SBFluidSwitcherGestureManager *)self _innerRightEdgeDragHitTestRectForItemContainer:v80 forPointerTouch:v49];
+        objc_msgSend_frame(v80);
+        v98.x = v36;
+        v98.y = v38;
+        v50 = CGRectContainsPoint(v99, v98);
+        if (v50)
         {
-          v66 = SBLogSystemGestureAppSwitcher();
-          if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+          v50 = SBRectContainsPoint();
+          if ((v50 & 1) == 0)
           {
-            v96.x = v36;
-            v96.y = v38;
-            v67 = NSStringFromCGPoint(v96);
-            v68 = NSStringFromCGRect(v71);
-            NSStringFromCGRect(v72);
-            v69 = v74 = anyObject;
-            *buf = 138412802;
-            v89 = v67;
-            v90 = 2112;
-            v91 = v68;
-            v92 = 2112;
-            v93 = v69;
-            _os_log_impl(&dword_21ED4E000, v66, OS_LOG_TYPE_DEFAULT, "_unpinSplitViewApplicationGestureRecognizer requiring failure of _windowMoveClientGateRelationshipGestureRecognizer: touch (%@) hit-tested to item container (%@) and was outside edge swipe hit test rect (%@)", buf, 0x20u);
+            v50 = [(SBFluidSwitcherGestureManager *)self _touchLocationIsWithinUnstashRegion:v36, v38];
+            if ((v50 & 1) == 0)
+            {
+              v50 = SBRectContainsPoint();
+              if ((v50 & 1) == 0)
+              {
+                v50 = SBRectContainsPoint();
+                if ((v50 & 1) == 0)
+                {
+                  v67 = SBLogSystemGestureAppSwitcher(v50);
+                  if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+                  {
+                    v97.x = v36;
+                    v97.y = v38;
+                    v68 = NSStringFromCGPoint(v97);
+                    v69 = NSStringFromCGRect(v72);
+                    NSStringFromCGRect(v73);
+                    v70 = v75 = anyObject;
+                    *buf = 138412802;
+                    v90 = v68;
+                    v91 = 2112;
+                    v92 = v69;
+                    v93 = 2112;
+                    v94 = v70;
+                    _os_log_impl(&dword_21ED4E000, v67, OS_LOG_TYPE_DEFAULT, "_unpinSplitViewApplicationGestureRecognizer requiring failure of _windowMoveClientGateRelationshipGestureRecognizer: touch (%@) hit-tested to item container (%@) and was outside edge swipe hit test rect (%@)", buf, 0x20u);
 
-            anyObject = v74;
-            v39 = v79;
+                    anyObject = v75;
+                    v39 = v80;
 
-            v26 = v87;
-          }
+                    v26 = v88;
+                  }
 
 LABEL_22:
-          LOBYTE(v25) = 1;
+                  LOBYTE(v25) = 1;
 LABEL_56:
-          presentFloatingDockIndirectPanGestureRecognizer = v81;
-          goto LABEL_12;
+                  presentFloatingDockIndirectPanGestureRecognizer = v82;
+                  goto LABEL_12;
+                }
+              }
+            }
+          }
         }
 
-        v50 = SBLogSystemGestureAppSwitcher();
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+        v51 = SBLogSystemGestureAppSwitcher(v50);
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
         {
-          v95.x = v36;
-          v95.y = v38;
-          v70 = NSStringFromCGPoint(v95);
-          v51 = NSStringFromCGRect(v71);
-          NSStringFromCGRect(v72);
-          v52 = v73 = anyObject;
+          v96.x = v36;
+          v96.y = v38;
+          v71 = NSStringFromCGPoint(v96);
+          v52 = NSStringFromCGRect(v72);
+          NSStringFromCGRect(v73);
+          v53 = v74 = anyObject;
           *buf = 138412802;
-          v89 = v70;
-          v90 = 2112;
-          v91 = v51;
-          v92 = 2112;
-          v93 = v52;
-          _os_log_impl(&dword_21ED4E000, v50, OS_LOG_TYPE_DEFAULT, "_unpinSplitViewApplicationGestureRecognizer not requiring failure of _windowMoveClientGateRelationshipGestureRecognizer: touch (%@) hit-tested to item container (%@) but was inside edge swipe hit test rect (%@)", buf, 0x20u);
+          v90 = v71;
+          v91 = 2112;
+          v92 = v52;
+          v93 = 2112;
+          v94 = v53;
+          _os_log_impl(&dword_21ED4E000, v51, OS_LOG_TYPE_DEFAULT, "_unpinSplitViewApplicationGestureRecognizer not requiring failure of _windowMoveClientGateRelationshipGestureRecognizer: touch (%@) hit-tested to item container (%@) but was inside edge swipe hit test rect (%@)", buf, 0x20u);
 
-          anyObject = v73;
-          v39 = v79;
+          anyObject = v74;
+          v39 = v80;
         }
       }
 
       else
       {
-        v50 = SBLogSystemGestureAppSwitcher();
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+        v51 = SBLogSystemGestureAppSwitcher(0);
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_21ED4E000, v50, OS_LOG_TYPE_DEFAULT, "_unpinSplitViewApplicationGestureRecognizer not requiring failure of _windowMoveClientGateRelationshipGestureRecognizer: did not hit-test to item container", buf, 2u);
+          _os_log_impl(&dword_21ED4E000, v51, OS_LOG_TYPE_DEFAULT, "_unpinSplitViewApplicationGestureRecognizer not requiring failure of _windowMoveClientGateRelationshipGestureRecognizer: did not hit-test to item container", buf, 2u);
         }
       }
     }
@@ -923,7 +940,7 @@ LABEL_56:
     {
       edgePullGestureRecognizer2 = [(SBGrabberTongue *)self->_rightEdgeFloatingAppGrabberTongue edgePullGestureRecognizer];
       v30 = edgePullGestureRecognizer2;
-      v26 = v87;
+      v26 = v88;
       if (edgePullGestureRecognizer2 == gestureRecognizerCopy)
       {
 
@@ -931,7 +948,7 @@ LABEL_56:
         goto LABEL_12;
       }
 
-      v81 = presentFloatingDockIndirectPanGestureRecognizer;
+      v82 = presentFloatingDockIndirectPanGestureRecognizer;
       edgePullGestureRecognizer3 = [(SBGrabberTongue *)self->_leftEdgeFloatingAppGrabberTongue edgePullGestureRecognizer];
 
       if (edgePullGestureRecognizer3 == gestureRecognizerCopy)
@@ -951,7 +968,7 @@ LABEL_56:
     if (liveWindowResizeGestureRecognizer == gestureRecognizerCopy)
     {
       _slideOverDisplayItem = [WeakRetained _slideOverDisplayItem];
-      if (_slideOverDisplayItem && ([v26 view], v78 = objc_claimAutoreleasedReturnValue(), -[SBIndirectPanGestureRecognizer _activeEventOfType:](recognizerCopy, "_activeEventOfType:", 0), v80 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v80, "touchesForGestureRecognizer:", recognizerCopy), v58 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v58, "anyObject"), v59 = objc_claimAutoreleasedReturnValue(), v58, _UISystemGestureLocationForTouchInView(), -[SBFluidSwitcherGestureManager _hitTestStageItemContainerForUnpinGestureWithTouch:atGestureLocation:](self, "_hitTestStageItemContainerForUnpinGestureWithTouch:atGestureLocation:", v59), v60 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v60, "appLayout"), v61 = objc_claimAutoreleasedReturnValue(), v76 = objc_msgSend(v61, "containsItem:", _slideOverDisplayItem), v61, v60, v59, v80, v78, v76))
+      if (_slideOverDisplayItem && ([v26 view], v79 = objc_claimAutoreleasedReturnValue(), -[SBIndirectPanGestureRecognizer _activeEventOfType:](recognizerCopy, "_activeEventOfType:", 0), v81 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v81, "touchesForGestureRecognizer:", recognizerCopy), v59 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v59, "anyObject"), v60 = objc_claimAutoreleasedReturnValue(), v59, _UISystemGestureLocationForTouchInView(), -[SBFluidSwitcherGestureManager _hitTestStageItemContainerForUnpinGestureWithTouch:atGestureLocation:](self, "_hitTestStageItemContainerForUnpinGestureWithTouch:atGestureLocation:", v60), v61 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v61, "appLayout"), v62 = objc_claimAutoreleasedReturnValue(), v77 = objc_msgSend(v62, "containsItem:", _slideOverDisplayItem), v62, v61, v60, v81, v79, v77))
       {
       }
 
@@ -959,44 +976,44 @@ LABEL_56:
       {
         _isLiveResizeGestureWithinTopEdgeResizeRegionForTouch = [(SBFluidSwitcherGestureManager *)self _isLiveResizeGestureWithinTopEdgeResizeRegionForTouch];
 
-        v55 = v84;
-        v54 = v85;
-        v56 = v82;
+        v56 = v85;
+        v55 = v86;
+        v57 = v83;
         if (!_isLiveResizeGestureWithinTopEdgeResizeRegionForTouch)
         {
 LABEL_45:
-          v63 = @"(unexpected gesture recognizer)";
-          if (v56)
+          v64 = @"(unexpected gesture recognizer)";
+          if (v57)
           {
-            v63 = @"(Menu Bar presentation gesture recognizer)";
+            v64 = @"(Menu Bar presentation gesture recognizer)";
           }
 
           if (liveWindowResizeGestureRecognizer == gestureRecognizerCopy)
           {
-            v63 = @"_liveWindowResizeGestureRecognizer";
+            v64 = @"_liveWindowResizeGestureRecognizer";
+          }
+
+          if (v56)
+          {
+            v64 = @"(Cover Sheet presentation gesture recognizer)";
           }
 
           if (v55)
           {
-            v63 = @"(Cover Sheet presentation gesture recognizer)";
+            v64 = @"(some Control Center presentation gesture recognizer)";
           }
 
-          if (v54)
-          {
-            v63 = @"(some Control Center presentation gesture recognizer)";
-          }
-
-          v64 = v63;
-          v65 = SBLogSystemGestureAppSwitcher();
-          if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
+          v65 = v64;
+          v66 = SBLogSystemGestureAppSwitcher(v65);
+          if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v89 = v64;
-            _os_log_impl(&dword_21ED4E000, v65, OS_LOG_TYPE_DEFAULT, "_unpinSplitViewApplicationGestureRecognizer requiring failure of %{public}@", buf, 0xCu);
+            v90 = v65;
+            _os_log_impl(&dword_21ED4E000, v66, OS_LOG_TYPE_DEFAULT, "_unpinSplitViewApplicationGestureRecognizer requiring failure of %{public}@", buf, 0xCu);
           }
 
           LOBYTE(v25) = 1;
-          v26 = v87;
+          v26 = v88;
           goto LABEL_56;
         }
       }
@@ -1004,10 +1021,10 @@ LABEL_45:
 
     else
     {
-      v55 = v84;
-      v54 = v85;
-      v56 = v82;
-      if ((v85 | v84 | v82))
+      v56 = v85;
+      v55 = v86;
+      v57 = v83;
+      if ((v86 | v85 | v83))
       {
         goto LABEL_45;
       }
@@ -1023,7 +1040,7 @@ LABEL_45:
 
   LOBYTE(v25) = [anyObject2 type] == 0;
 LABEL_11:
-  v26 = v87;
+  v26 = v88;
 LABEL_12:
 
   return v25 & 1;
@@ -1724,7 +1741,7 @@ LABEL_8:
 {
   v8 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
-  v5 = SBLogSystemGesture();
+  v5 = SBLogSystemGesture(reasonCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = 138543362;
@@ -1986,7 +2003,7 @@ void __104__SBFluidSwitcherGestureManager_layoutStateTransitionCoordinator_trans
         }
 
         v12 = *(*(&v45 + 1) + 8 * i);
-        if (([viewsCopy containsObject:v12] & 1) == 0)
+        if ((objc_msgSend_containsObject_(viewsCopy) & 1) == 0)
         {
           [v6 addObject:v12];
         }
@@ -2019,7 +2036,7 @@ void __104__SBFluidSwitcherGestureManager_layoutStateTransitionCoordinator_trans
         }
 
         v19 = *(*(&v41 + 1) + 8 * j);
-        if (![(NSHashTable *)self->_currentHomeGrabberViews containsObject:v19])
+        if ((objc_msgSend_containsObject_(self->_currentHomeGrabberViews) & 1) == 0)
         {
           [v13 addObject:v19];
         }
@@ -2139,7 +2156,7 @@ LABEL_9:
 - (void)_handleSwitcherPanGestureBegan:(id)began
 {
   beganCopy = began;
-  v5 = SBLogSystemGestureAppSwitcher();
+  v5 = SBLogSystemGestureAppSwitcher(beganCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(SBFluidSwitcherGestureManager *)beganCopy _handleSwitcherPanGestureBegan:?];
@@ -2201,7 +2218,7 @@ LABEL_9:
 - (void)_handleSwitcherPanGestureEnded:(id)ended
 {
   endedCopy = ended;
-  v5 = SBLogSystemGestureAppSwitcher();
+  v5 = SBLogSystemGestureAppSwitcher(endedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(SBFluidSwitcherGestureManager *)endedCopy _handleSwitcherPanGestureEnded:?];
@@ -2306,14 +2323,14 @@ LABEL_7:
 
   v5 = @"user preference off";
 LABEL_11:
-  [(SBFluidSwitcherGestureManager *)self failMultitaskingGesturesForReason:v5];
+  v6 = [(SBFluidSwitcherGestureManager *)self failMultitaskingGesturesForReason:v5];
   if (self->_multitaskingGesturesRequireEducation)
   {
-    v6 = SBLogSystemGesture();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = SBLogSystemGesture(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Suggesting education for multitasking gesture instead of actually performing it", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Suggesting education for multitasking gesture instead of actually performing it", v9, 2u);
     }
 
     productivityGestureEducationController = [SBApp productivityGestureEducationController];
@@ -2335,7 +2352,7 @@ LABEL_8:
 {
   v11 = *MEMORY[0x277D85DE8];
   forwardCopy = forward;
-  v5 = SBLogSystemGestureAppSwitcher();
+  v5 = SBLogSystemGestureAppSwitcher(forwardCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     tapWasCommandModified = [forwardCopy tapWasCommandModified];
@@ -2429,13 +2446,13 @@ LABEL_8:
 
 - (BOOL)_shouldFlexibleWindowingSceneResizeGesture:(id)gesture receiveTouch:(id)touch
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   gestureCopy = gesture;
   touchCopy = touch;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
-  v46 = 0;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x2020000000;
+  v50 = 0;
   _currentLayoutState = [(SBFluidSwitcherGestureManager *)self _currentLayoutState];
   appLayout = [_currentLayoutState appLayout];
   WeakRetained = objc_loadWeakRetained(&self->_switcherContentController);
@@ -2445,29 +2462,34 @@ LABEL_8:
   v15 = v14;
 
   zStackParticipant = self->_zStackParticipant;
-  if (zStackParticipant && ([(SBFZStackParticipant *)zStackParticipant ownsHomeGesture]& 1) == 0)
+  if (zStackParticipant)
   {
-    *(v44 + 24) = 0;
-    v20 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    ownsHomeGesture = [(SBFZStackParticipant *)zStackParticipant ownsHomeGesture];
+    if ((ownsHomeGesture & 1) == 0)
     {
-      *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_DEFAULT, "Preventing the switcher resize gesture because the switcher doesn't own the home gesture.", buf, 2u);
-    }
+      *(v48 + 24) = 0;
+      v23 = SBLogSystemGestureAppSwitcher(ownsHomeGesture);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_21ED4E000, v23, OS_LOG_TYPE_DEFAULT, "Preventing the switcher resize gesture because the switcher doesn't own the home gesture.", buf, 2u);
+      }
 
-    goto LABEL_10;
+      goto LABEL_10;
+    }
   }
 
-  if ([(SBFluidSwitcherGestureManager *)self _currentUnlockedEnvironmentMode]!= 3)
+  _currentUnlockedEnvironmentMode = [(SBFluidSwitcherGestureManager *)self _currentUnlockedEnvironmentMode];
+  if (_currentUnlockedEnvironmentMode != 3)
   {
-    *(v44 + 24) = 0;
-    v20 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    *(v48 + 24) = 0;
+    v23 = SBLogSystemGestureAppSwitcher(_currentUnlockedEnvironmentMode);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      _currentUnlockedEnvironmentMode = [(SBFluidSwitcherGestureManager *)self _currentUnlockedEnvironmentMode];
+      _currentUnlockedEnvironmentMode2 = [(SBFluidSwitcherGestureManager *)self _currentUnlockedEnvironmentMode];
       *buf = 134217984;
-      v48 = _currentUnlockedEnvironmentMode;
-      _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_DEFAULT, "Preventing the switcher resize gesture because the switcher's unlocked environment mode is: %li", buf, 0xCu);
+      v52 = _currentUnlockedEnvironmentMode2;
+      _os_log_impl(&dword_21ED4E000, v23, OS_LOG_TYPE_DEFAULT, "Preventing the switcher resize gesture because the switcher's unlocked environment mode is: %li", buf, 0xCu);
     }
 
 LABEL_10:
@@ -2476,18 +2498,18 @@ LABEL_10:
   }
 
   allItems = [appLayout allItems];
-  v18 = [allItems count] < 2;
+  v20 = [allItems count] < 2;
 
-  if (v18)
+  if (v20)
   {
-    v19 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v22 = SBLogSystemGestureAppSwitcher(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "Preventing the switcher resize gesture because there are not multiple app scenes on stage.", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v22, OS_LOG_TYPE_DEFAULT, "Preventing the switcher resize gesture because there are not multiple app scenes on stage.", buf, 2u);
     }
 
-    *(v44 + 24) = 0;
+    *(v48 + 24) = 0;
   }
 
   else
@@ -2497,50 +2519,50 @@ LABEL_10:
     {
       +[SBSplitViewHandleNubView nubHitTestSize];
       SBRectWithSize();
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __89__SBFluidSwitcherGestureManager__shouldFlexibleWindowingSceneResizeGesture_receiveTouch___block_invoke;
-      v33[3] = &unk_2783C1F30;
-      v37 = v23;
-      v38 = v24;
-      v39 = v25;
-      v40 = v26;
-      v36 = &v43;
-      v41 = v13;
-      v42 = v15;
-      v34 = appLayout;
+      v37[0] = MEMORY[0x277D85DD0];
+      v37[1] = 3221225472;
+      v37[2] = __89__SBFluidSwitcherGestureManager__shouldFlexibleWindowingSceneResizeGesture_receiveTouch___block_invoke;
+      v37[3] = &unk_2783C1F30;
+      v41 = v26;
+      v42 = v27;
+      v43 = v28;
+      v44 = v29;
+      v40 = &v47;
+      v45 = v13;
+      v46 = v15;
+      v38 = appLayout;
       selfCopy = self;
-      [visibleSplitViewHandleNubViews enumerateKeysAndObjectsUsingBlock:v33];
+      [visibleSplitViewHandleNubViews enumerateKeysAndObjectsUsingBlock:v37];
     }
   }
 
 LABEL_17:
-  if (*(v44 + 24) == 1)
+  if (*(v48 + 24) == 1)
   {
     -[SBPanSystemGestureRecognizer setFailsPastMaximumPressDurationWithoutHysteresis:](self->_sceneResizePanGestureRecognizer, "setFailsPastMaximumPressDurationWithoutHysteresis:", [touchCopy _isPointerTouch] ^ 1);
   }
 
   else
   {
-    v27 = MEMORY[0x277CCACA8];
-    v50.x = v13;
-    v50.y = v15;
-    v28 = NSStringFromPoint(v50);
-    v29 = [v27 stringWithFormat:@"didn't find an SBSplitViewHandleNubView at location %@", v28];
+    v30 = MEMORY[0x277CCACA8];
+    v54.x = v13;
+    v54.y = v15;
+    v31 = NSStringFromPoint(v54);
+    v32 = [v30 stringWithFormat:@"didn't find an SBSplitViewHandleNubView at location %@", v31];
 
-    v30 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v34 = SBLogSystemGestureAppSwitcher(v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v48 = v29;
-      _os_log_impl(&dword_21ED4E000, v30, OS_LOG_TYPE_DEFAULT, "Preventing the switcher resize gesture because %@", buf, 0xCu);
+      v52 = v32;
+      _os_log_impl(&dword_21ED4E000, v34, OS_LOG_TYPE_DEFAULT, "Preventing the switcher resize gesture because %@", buf, 0xCu);
     }
   }
 
-  v31 = *(v44 + 24);
+  v35 = *(v48 + 24);
 
-  _Block_object_dispose(&v43, 8);
-  return v31 & 1;
+  _Block_object_dispose(&v47, 8);
+  return v35 & 1;
 }
 
 void __89__SBFluidSwitcherGestureManager__shouldFlexibleWindowingSceneResizeGesture_receiveTouch___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
@@ -2578,7 +2600,7 @@ void __89__SBFluidSwitcherGestureManager__shouldFlexibleWindowingSceneResizeGest
 
 - (BOOL)_shouldMedusaSceneResizeGesture:(id)gesture receiveTouch:(id)touch
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   touchCopy = touch;
   gestureCopy = gesture;
   _currentLayoutState = [(SBFluidSwitcherGestureManager *)self _currentLayoutState];
@@ -2589,29 +2611,34 @@ void __89__SBFluidSwitcherGestureManager__shouldFlexibleWindowingSceneResizeGest
   v14 = v13;
 
   zStackParticipant = self->_zStackParticipant;
-  if (zStackParticipant && ([(SBFZStackParticipant *)zStackParticipant ownsHomeGesture]& 1) == 0)
+  if (zStackParticipant)
   {
-    v18 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    ownsHomeGesture = [(SBFZStackParticipant *)zStackParticipant ownsHomeGesture];
+    if ((ownsHomeGesture & 1) == 0)
     {
-      *buf = 0;
-      v19 = "Preventing the switcher resize gesture because the switcher doesn't own the home gesture.";
-      goto LABEL_18;
-    }
+      v21 = SBLogSystemGestureAppSwitcher(ownsHomeGesture);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        v22 = "Preventing the switcher resize gesture because the switcher doesn't own the home gesture.";
+        goto LABEL_18;
+      }
 
 LABEL_19:
 
-    goto LABEL_20;
+      goto LABEL_20;
+    }
   }
 
-  if ([(SBFluidSwitcherGestureManager *)self _currentUnlockedEnvironmentMode]!= 3)
+  _currentUnlockedEnvironmentMode = [(SBFluidSwitcherGestureManager *)self _currentUnlockedEnvironmentMode];
+  if (_currentUnlockedEnvironmentMode != 3)
   {
-    v20 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v23 = SBLogSystemGestureAppSwitcher(_currentUnlockedEnvironmentMode);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      _currentUnlockedEnvironmentMode = [(SBFluidSwitcherGestureManager *)self _currentUnlockedEnvironmentMode];
-      _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_DEFAULT, "Preventing the switcher resize gesture because the switcher's unlocked environment mode is: %li", buf, 0xCu);
+      _currentUnlockedEnvironmentMode2 = [(SBFluidSwitcherGestureManager *)self _currentUnlockedEnvironmentMode];
+      _os_log_impl(&dword_21ED4E000, v23, OS_LOG_TYPE_DEFAULT, "Preventing the switcher resize gesture because the switcher's unlocked environment mode is: %li", buf, 0xCu);
     }
 
     goto LABEL_9;
@@ -2622,39 +2649,41 @@ LABEL_19:
 
   if (isFloatingSwitcherVisible)
   {
-    v18 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v21 = SBLogSystemGestureAppSwitcher(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v19 = "Preventing the switcher resize gesture because the floating switcher is visible.";
+      v22 = "Preventing the switcher resize gesture because the floating switcher is visible.";
 LABEL_18:
-      _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, v19, buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v21, OS_LOG_TYPE_DEFAULT, v22, buf, 2u);
       goto LABEL_19;
     }
 
     goto LABEL_19;
   }
 
-  if (([_currentLayoutState layoutContainsRole:2] & 1) == 0)
+  v24 = [_currentLayoutState layoutContainsRole:2];
+  if ((v24 & 1) == 0)
   {
-    v18 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v21 = SBLogSystemGestureAppSwitcher(v24);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v19 = "Preventing the switcher resize gesture because there isn't a side app.";
+      v22 = "Preventing the switcher resize gesture because there isn't a side app.";
       goto LABEL_18;
     }
 
     goto LABEL_19;
   }
 
-  if ([(SBFluidSwitcherGestureManager *)self _hasActiveModalFloatingApplication])
+  _hasActiveModalFloatingApplication = [(SBFluidSwitcherGestureManager *)self _hasActiveModalFloatingApplication];
+  if (_hasActiveModalFloatingApplication)
   {
-    v18 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v21 = SBLogSystemGestureAppSwitcher(_hasActiveModalFloatingApplication);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v19 = "Preventing the switcher resize gesture because there is an modal floating application presented.";
+      v22 = "Preventing the switcher resize gesture because there is an modal floating application presented.";
       goto LABEL_18;
     }
 
@@ -2662,112 +2691,112 @@ LABEL_18:
   }
 
   appLayout = [_currentLayoutState appLayout];
-  v20 = [appLayout leafAppLayoutForRole:1];
+  v23 = [appLayout leafAppLayoutForRole:1];
 
   appLayout2 = [_currentLayoutState appLayout];
-  v25 = [appLayout2 leafAppLayoutForRole:2];
+  v30 = [appLayout2 leafAppLayoutForRole:2];
 
   visibleItemContainers = [WeakRetained visibleItemContainers];
-  v27 = MEMORY[0x277D76620];
+  v32 = MEMORY[0x277D76620];
   if ([*MEMORY[0x277D76620] userInterfaceLayoutDirection] == 1)
   {
-    v28 = v20;
+    v33 = v23;
   }
 
   else
   {
-    v28 = v25;
+    v33 = v30;
   }
 
-  v29 = [visibleItemContainers objectForKey:v28];
+  v34 = [visibleItemContainers objectForKey:v33];
 
   visibleItemContainers2 = [WeakRetained visibleItemContainers];
-  if ([*v27 userInterfaceLayoutDirection] == 1)
+  if ([*v32 userInterfaceLayoutDirection] == 1)
   {
-    v31 = v25;
+    v36 = v30;
   }
 
   else
   {
-    v31 = v20;
+    v36 = v23;
   }
 
-  v32 = [visibleItemContainers2 objectForKey:v31];
+  v37 = [visibleItemContainers2 objectForKey:v36];
 
-  [v32 frame];
-  CGRectGetMaxX(v47);
-  [v29 frame];
-  CGRectGetMinX(v48);
+  objc_msgSend_frame(v37);
+  CGRectGetMaxX(v53);
+  objc_msgSend_frame(v34);
+  CGRectGetMinX(v54);
   +[SBSeparatorView nubHitTestSize];
   SBRectWithSize();
   switcherContentController = [(SBFluidSwitcherGestureManager *)self switcherContentController];
   [switcherContentController keyboardHeight];
 
-  [v32 frame];
-  CGRectGetMaxX(v49);
-  [v32 frame];
-  [v32 frame];
+  objc_msgSend_frame(v37);
+  CGRectGetMaxX(v55);
+  objc_msgSend_frame(v37);
+  objc_msgSend_frame(v37);
   UIRectCenteredAboutPoint();
-  v46.x = v12;
-  v46.y = v14;
-  if (!CGRectContainsPoint(v50, v46))
+  v52.x = v12;
+  v52.y = v14;
+  if (!CGRectContainsPoint(v56, v52))
   {
-    v37 = MEMORY[0x277CCACA8];
-    v45.x = v12;
-    v45.y = v14;
-    v38 = NSStringFromPoint(v45);
-    v39 = [v37 stringWithFormat:@"didn't find a SBSeparatorView at location %@", v38];
+    v42 = MEMORY[0x277CCACA8];
+    v51.x = v12;
+    v51.y = v14;
+    v43 = NSStringFromPoint(v51);
+    v44 = [v42 stringWithFormat:@"didn't find a SBSeparatorView at location %@", v43];
 
-    v40 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+    v46 = SBLogSystemGestureAppSwitcher(v45);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      _currentUnlockedEnvironmentMode = v39;
-      _os_log_impl(&dword_21ED4E000, v40, OS_LOG_TYPE_DEFAULT, "Preventing the switcher resize gesture because %@", buf, 0xCu);
+      _currentUnlockedEnvironmentMode2 = v44;
+      _os_log_impl(&dword_21ED4E000, v46, OS_LOG_TYPE_DEFAULT, "Preventing the switcher resize gesture because %@", buf, 0xCu);
     }
 
     goto LABEL_9;
   }
 
-  if (![_currentLayoutState layoutContainsRole:3] || (objc_msgSend(WeakRetained, "_itemContainerAtLocation:environment:", 2, v12, v14), (v34 = objc_claimAutoreleasedReturnValue()) == 0))
+  if (![_currentLayoutState layoutContainsRole:3] || (objc_msgSend(WeakRetained, "_itemContainerAtLocation:environment:", 2, v12, v14), (v39 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    if (![_currentLayoutState layoutContainsRole:4] || (objc_msgSend(WeakRetained, "_itemContainerAtLocation:environment:", 3, v12, v14), (v41 = objc_claimAutoreleasedReturnValue()) == 0))
+    if (![_currentLayoutState layoutContainsRole:4] || (objc_msgSend(WeakRetained, "_itemContainerAtLocation:environment:", 3, v12, v14), (v47 = objc_claimAutoreleasedReturnValue()) == 0))
     {
       -[SBPanSystemGestureRecognizer setFailsPastMaximumPressDurationWithoutHysteresis:](self->_sceneResizePanGestureRecognizer, "setFailsPastMaximumPressDurationWithoutHysteresis:", [touchCopy _isPointerTouch] ^ 1);
-      v21 = 1;
+      v26 = 1;
       goto LABEL_21;
     }
 
-    v20 = v41;
-    v35 = SBLogSystemGestureAppSwitcher();
-    if (!os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v23 = v47;
+    v40 = SBLogSystemGestureAppSwitcher(v47);
+    if (!os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_41;
     }
 
     *buf = 0;
-    v36 = "Preventing the switcher resize gesture because the separator nub is occluded by a center window application.";
+    v41 = "Preventing the switcher resize gesture because the separator nub is occluded by a center window application.";
     goto LABEL_40;
   }
 
-  v20 = v34;
-  v35 = SBLogSystemGestureAppSwitcher();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+  v23 = v39;
+  v40 = SBLogSystemGestureAppSwitcher(v39);
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    v36 = "Preventing the switcher resize gesture because the separator nub is occluded by a floating application.";
+    v41 = "Preventing the switcher resize gesture because the separator nub is occluded by a floating application.";
 LABEL_40:
-    _os_log_impl(&dword_21ED4E000, v35, OS_LOG_TYPE_DEFAULT, v36, buf, 2u);
+    _os_log_impl(&dword_21ED4E000, v40, OS_LOG_TYPE_DEFAULT, v41, buf, 2u);
   }
 
 LABEL_41:
 
 LABEL_9:
 LABEL_20:
-  v21 = 0;
+  v26 = 0;
 LABEL_21:
 
-  return v21;
+  return v26;
 }
 
 - (BOOL)_hasActiveModalFloatingApplication
@@ -2922,7 +2951,7 @@ LABEL_5:
   if (![(SBFluidSwitcherGestureManager *)self _isTransactionRunningForGestureRecognizer:recognizerCopy])
   {
     activeGestureTransaction = [(SBFluidSwitcherGestureManager *)self activeGestureTransaction];
-    v6 = SBLogSystemGestureAppSwitcher();
+    v6 = SBLogSystemGestureAppSwitcher(activeGestureTransaction);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = objc_opt_class();
@@ -2990,7 +3019,7 @@ BOOL __84__SBFluidSwitcherGestureManager__startFluidSwitcherTransactionForGestur
   if ((v4 - 1) > 1)
   {
     v7 = v4;
-    v8 = SBLogSystemGestureAppSwitcher();
+    v8 = SBLogSystemGestureAppSwitcher(v4);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = objc_opt_class();
@@ -3029,7 +3058,7 @@ id __84__SBFluidSwitcherGestureManager__startFluidSwitcherTransactionForGestureR
   v4 = *(a1 + 40);
   v5 = a2;
   v6 = [*(a1 + 32) _fluidSwitcherGestureTransactionClassForGestureType:{objc_msgSend(v3, "_gestureTypeForGestureRecognizer:", v4)}];
-  v7 = SBLogSystemGestureAppSwitcher();
+  v7 = SBLogSystemGestureAppSwitcher(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = NSStringFromClass(v6);
@@ -3149,9 +3178,9 @@ void __77__SBFluidSwitcherGestureManager__configureTransitionRequest_forGestureB
   recognizerCopy = recognizer;
   touchCopy = touch;
   zStackParticipant = self->_zStackParticipant;
-  if (!zStackParticipant || ([(SBFZStackParticipant *)zStackParticipant ownsHomeGesture]& 1) == 0)
+  if (!zStackParticipant || (zStackParticipant = [zStackParticipant ownsHomeGesture], (zStackParticipant & 1) == 0))
   {
-    v20 = SBLogSystemGestureAppSwitcher();
+    v20 = SBLogSystemGestureAppSwitcher(zStackParticipant);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       v21 = objc_opt_class();
@@ -3292,11 +3321,11 @@ LABEL_26:
 
   if (v14)
   {
-    v15 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v16 = SBLogSystemGestureAppSwitcher(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      *v17 = 0;
-      _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_INFO, "Preventing the in switcher gesture because the touch is on top of an item container.", v17, 2u);
+      *v18 = 0;
+      _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_INFO, "Preventing the in switcher gesture because the touch is on top of an item container.", v18, 2u);
     }
   }
 
@@ -3506,7 +3535,7 @@ LABEL_26:
 
 - (BOOL)_shouldSplitViewApplicationUnpinGesture:(id)gesture receiveTouch:(id)touch
 {
-  v105 = *MEMORY[0x277D85DE8];
+  v106 = *MEMORY[0x277D85DE8];
   gestureCopy = gesture;
   touchCopy = touch;
   [touchCopy locationInView:0];
@@ -3531,16 +3560,16 @@ LABEL_26:
   {
     visibleItemContainers = [v10 visibleItemContainers];
     allValues = [visibleItemContainers allValues];
-    v88[0] = MEMORY[0x277D85DD0];
-    v88[1] = 3221225472;
-    v88[2] = __86__SBFluidSwitcherGestureManager__shouldSplitViewApplicationUnpinGesture_receiveTouch___block_invoke;
-    v88[3] = &unk_2783C1F58;
+    v89[0] = MEMORY[0x277D85DD0];
+    v89[1] = 3221225472;
+    v89[2] = __86__SBFluidSwitcherGestureManager__shouldSplitViewApplicationUnpinGesture_receiveTouch___block_invoke;
+    v89[3] = &unk_2783C1F58;
     v19 = appLayout;
-    v89 = v19;
-    v90 = view;
-    v91 = v12;
-    v92 = v14;
-    v20 = [allValues bs_firstObjectPassingTest:v88];
+    v90 = v19;
+    v91 = view;
+    v92 = v12;
+    v93 = v14;
+    v20 = [allValues bs_firstObjectPassingTest:v89];
 
     if (v20)
     {
@@ -3555,14 +3584,14 @@ LABEL_26:
         v24 = [v10 adjustedAppLayoutForLeafAppLayout:appLayout2];
         if (v24)
         {
-          v77 = v10;
+          v78 = v10;
           v25 = WeakRetained;
           _currentFlexibleWindowingAutoLayoutSpace = [(SBFluidSwitcherGestureManager *)self _currentFlexibleWindowingAutoLayoutSpace];
           isStripVisible = [_currentFlexibleWindowingAutoLayoutSpace isStripVisible];
 
           _slideOverLeafAppLayout = (isStripVisible & 1) != 0 ? 0 : v20;
           WeakRetained = v25;
-          v10 = v77;
+          v10 = v78;
         }
 
         else
@@ -3599,9 +3628,9 @@ LABEL_26:
 
         else
         {
-          v62 = [(SBFluidSwitcherGestureManager *)self _touchIsWithinUnstashRegionOnHomeScreen:touchCopy];
+          v63 = [(SBFluidSwitcherGestureManager *)self _touchIsWithinUnstashRegionOnHomeScreen:touchCopy];
 
-          if (!v62)
+          if (!v63)
           {
             goto LABEL_22;
           }
@@ -3609,7 +3638,7 @@ LABEL_26:
 
         _slideOverLeafAppLayout = [(SBFluidSwitcherGestureManager *)self _slideOverLeafAppLayout];
         [gestureCopy setInitialTouchLeafAppLayout:_slideOverLeafAppLayout];
-        v61 = 1;
+        v62 = 1;
         goto LABEL_50;
       }
     }
@@ -3620,7 +3649,7 @@ LABEL_22:
   if (_slideOverLeafAppLayout && !self->_windowMoveClientGateRelationshipGestureRecognizer)
   {
     -[SBFluidSwitcherGestureManager _edgeSwipeHitTestRectForItemContainer:forPointerTouch:](self, "_edgeSwipeHitTestRectForItemContainer:forPointerTouch:", _slideOverLeafAppLayout, [touchCopy _isPointerTouch]);
-    v61 = 0;
+    v62 = 0;
     v32 = 0;
     if (SBRectContainsPoint())
     {
@@ -3630,7 +3659,7 @@ LABEL_22:
 LABEL_50:
 
     _slideOverLeafAppLayout = 0;
-    v32 = v61;
+    v32 = v62;
     goto LABEL_25;
   }
 
@@ -3644,21 +3673,21 @@ LABEL_25:
   {
     visibleItemContainers2 = [v10 visibleItemContainers];
     allValues2 = [visibleItemContainers2 allValues];
-    v83[0] = MEMORY[0x277D85DD0];
-    v83[1] = 3221225472;
-    v83[2] = __86__SBFluidSwitcherGestureManager__shouldSplitViewApplicationUnpinGesture_receiveTouch___block_invoke_2;
-    v83[3] = &unk_2783C1F58;
-    v84 = appLayout;
-    v85 = view;
-    v86 = v12;
-    v87 = v14;
-    _slideOverLeafAppLayout = [allValues2 bs_firstObjectPassingTest:v83];
+    v84[0] = MEMORY[0x277D85DD0];
+    v84[1] = 3221225472;
+    v84[2] = __86__SBFluidSwitcherGestureManager__shouldSplitViewApplicationUnpinGesture_receiveTouch___block_invoke_2;
+    v84[3] = &unk_2783C1F58;
+    v85 = appLayout;
+    v86 = view;
+    v87 = v12;
+    v88 = v14;
+    _slideOverLeafAppLayout = [allValues2 bs_firstObjectPassingTest:v84];
   }
 
   if (_slideOverLeafAppLayout)
   {
-    v76 = v32;
-    v78 = v10;
+    v77 = v32;
+    v79 = v10;
     appLayout3 = [_slideOverLeafAppLayout appLayout];
     [gestureCopy setInitialTouchLeafAppLayout:appLayout3];
 
@@ -3667,26 +3696,26 @@ LABEL_25:
     isChamoisOrFlexibleWindowing2 = [windowManagementContext4 isChamoisOrFlexibleWindowing];
 
     [(SBFluidSwitcherGestureManager *)self _edgeSwipeHitTestRectForItemContainer:_slideOverLeafAppLayout forPointerTouch:_isPointerTouch];
-    v42 = v41;
-    v44 = v43;
-    v46 = v45;
-    v48 = v47;
-    v49 = SBRectContainsPoint();
+    v43 = v42;
+    v45 = v44;
+    v47 = v46;
+    v49 = v48;
+    v50 = SBRectContainsPoint();
     appLayout4 = [_slideOverLeafAppLayout appLayout];
-    v51 = [appLayout isOrContainsAppLayout:appLayout4];
+    v52 = [appLayout isOrContainsAppLayout:appLayout4];
 
-    if (_isPointerTouch & [(SBFluidSwitcherGestureManager *)self _isTouchLocationInWindowControlsFrame:v12, v14]& 1 | ((isChamoisOrFlexibleWindowing2 & v51 & (_isPointerTouch | v49) & 1) == 0))
+    if (_isPointerTouch & [(SBFluidSwitcherGestureManager *)self _isTouchLocationInWindowControlsFrame:v12, v14]& 1 | ((isChamoisOrFlexibleWindowing2 & v52 & (_isPointerTouch | v50) & 1) == 0))
     {
-      v52 = 10.0;
+      v53 = 10.0;
     }
 
     else
     {
-      v52 = 1.0;
+      v53 = 1.0;
     }
 
-    [(SBFluidSwitcherPanGestureRecognizer *)self->_unpinSplitViewApplicationGestureRecognizer _setHysteresis:v52];
-    v53 = 0;
+    [(SBFluidSwitcherPanGestureRecognizer *)self->_unpinSplitViewApplicationGestureRecognizer _setHysteresis:v53];
+    v54 = 0;
     if (!isChamoisOrFlexibleWindowing2 || (_isPointerTouch & 1) != 0)
     {
       goto LABEL_54;
@@ -3695,108 +3724,107 @@ LABEL_25:
     _slideOverDisplayItem3 = [WeakRetained _slideOverDisplayItem];
     if (_slideOverDisplayItem3)
     {
-      v74 = WeakRetained;
+      v75 = WeakRetained;
       appLayout5 = [_slideOverLeafAppLayout appLayout];
-      v56 = [appLayout5 containsItem:_slideOverDisplayItem3];
+      v57 = [appLayout5 containsItem:_slideOverDisplayItem3];
 
-      if (!v56 || (*v94 = 0, memset(buf, 0, sizeof(buf)), [(SBFluidSwitcherGestureManager *)self _currentSlideOverConfiguration], (v94[1] & 1) != 0))
+      if (!v57 || (*v95 = 0, memset(buf, 0, sizeof(buf)), objc_msgSend__currentSlideOverConfiguration(self), (v95[1] & 1) != 0))
       {
-        v53 = 0;
-        WeakRetained = v74;
+        v54 = 0;
+        WeakRetained = v75;
 LABEL_53:
 
 LABEL_54:
-        [(SBPanSystemGestureRecognizer *)self->_unpinSplitViewApplicationGestureRecognizer setFailsPastMaximumPressDurationWithoutHysteresis:v53];
-        v57 = SBLogSystemGestureAppSwitcher();
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+        v58 = SBLogSystemGestureAppSwitcher([(SBPanSystemGestureRecognizer *)self->_unpinSplitViewApplicationGestureRecognizer setFailsPastMaximumPressDurationWithoutHysteresis:v54]);
+        if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
         {
-          v108.x = v12;
-          v108.y = v14;
-          v63 = NSStringFromCGPoint(v108);
+          v109.x = v12;
+          v109.y = v14;
+          v64 = NSStringFromCGPoint(v109);
           [(SBFluidSwitcherGestureManager *)self _paddedHitTestRectForItemContainer:_slideOverLeafAppLayout forPointerTouch:_isPointerTouch & 1];
-          v64 = NSStringFromCGRect(v109);
-          v65 = NSStringFromBOOL();
+          v65 = NSStringFromCGRect(v110);
+          v66 = NSStringFromBOOL();
           NSStringFromBOOL();
-          v66 = v73 = touchCopy;
-          v67 = NSStringFromBOOL();
+          v67 = v74 = touchCopy;
           v68 = NSStringFromBOOL();
-          v110.origin.x = v42;
-          v110.origin.y = v44;
-          v110.size.width = v46;
-          v110.size.height = v48;
-          v69 = NSStringFromCGRect(v110);
+          v69 = NSStringFromBOOL();
+          v111.origin.x = v43;
+          v111.origin.y = v45;
+          v111.size.width = v47;
+          v111.size.height = v49;
+          v70 = NSStringFromCGRect(v111);
           NSStringFromBOOL();
-          v70 = v75 = WeakRetained;
+          v71 = v76 = WeakRetained;
           *buf = 138414338;
-          *&buf[4] = v63;
+          *&buf[4] = v64;
           *&buf[12] = 2112;
-          *&buf[14] = v64;
+          *&buf[14] = v65;
           *&buf[22] = 2112;
-          *&buf[24] = v65;
-          *v94 = 2112;
-          *&v94[2] = v66;
-          v95 = 2112;
-          v96 = v67;
-          v97 = 2112;
-          v98 = v68;
-          v99 = 2112;
-          v100 = v69;
-          v101 = 2112;
-          v102 = v70;
-          v103 = 2048;
-          v104 = v52;
-          _os_log_impl(&dword_21ED4E000, v57, OS_LOG_TYPE_DEFAULT, "_unpinSplitViewApplicationGestureRecognizer receiving touch (%@): hit-tested to item container (%@); isChamoisWindowingUIEnabled: %@; isSelectedAppLayoutOnStage: %@; isPointerTouch: %@; isTouchWithinEdgeSwipeHitTestRect: %@ (%@); isTouchLocationInWindowControlsFrame: %@; hysteresis: %f", buf, 0x5Cu);
+          *&buf[24] = v66;
+          *v95 = 2112;
+          *&v95[2] = v67;
+          v96 = 2112;
+          v97 = v68;
+          v98 = 2112;
+          v99 = v69;
+          v100 = 2112;
+          v101 = v70;
+          v102 = 2112;
+          v103 = v71;
+          v104 = 2048;
+          v105 = v53;
+          _os_log_impl(&dword_21ED4E000, v58, OS_LOG_TYPE_DEFAULT, "_unpinSplitViewApplicationGestureRecognizer receiving touch (%@): hit-tested to item container (%@); isChamoisWindowingUIEnabled: %@; isSelectedAppLayoutOnStage: %@; isPointerTouch: %@; isTouchWithinEdgeSwipeHitTestRect: %@ (%@); isTouchLocationInWindowControlsFrame: %@; hysteresis: %f", buf, 0x5Cu);
 
-          WeakRetained = v75;
-          touchCopy = v73;
+          WeakRetained = v76;
+          touchCopy = v74;
         }
 
-        v10 = v78;
-        LOBYTE(v32) = v76;
+        v10 = v79;
+        LOBYTE(v32) = v77;
         goto LABEL_57;
       }
 
-      WeakRetained = v74;
+      WeakRetained = v75;
       if ((SBRectContainsPoint() & 1) == 0)
       {
         [(SBFluidSwitcherGestureManager *)self _innerLeftEdgeDragHitTestRectForItemContainer:_slideOverLeafAppLayout forPointerTouch:0];
         [(SBFluidSwitcherGestureManager *)self _innerRightEdgeDragHitTestRectForItemContainer:_slideOverLeafAppLayout forPointerTouch:0];
-        v72 = (SBRectContainsPoint() & 1) != 0 || SBRectContainsPoint();
+        v73 = (SBRectContainsPoint() & 1) != 0 || SBRectContainsPoint();
         [(SBFluidSwitcherGestureManager *)self _paddedHitTestRectForItemContainer:_slideOverLeafAppLayout forPointerTouch:1];
-        v53 = v72 | SBRectContainsPoint() ^ 1;
+        v54 = v73 | SBRectContainsPoint() ^ 1;
         goto LABEL_53;
       }
     }
 
-    v53 = 0;
+    v54 = 0;
     goto LABEL_53;
   }
 
-  v57 = SBLogSystemGestureAppSwitcher();
-  v58 = os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT);
+  v58 = SBLogSystemGestureAppSwitcher(v35);
+  v59 = os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT);
   if (v32)
   {
-    if (v58)
+    if (v59)
     {
-      v106.x = v12;
-      v106.y = v14;
-      v59 = NSStringFromCGPoint(v106);
+      v107.x = v12;
+      v107.y = v14;
+      v60 = NSStringFromCGPoint(v107);
       *buf = 138412290;
-      *&buf[4] = v59;
-      v60 = "_unpinSplitViewApplicationGestureRecognizer receiving touch (%@): hit-tested to slideover tongue region with a stashed slideover item";
+      *&buf[4] = v60;
+      v61 = "_unpinSplitViewApplicationGestureRecognizer receiving touch (%@): hit-tested to slideover tongue region with a stashed slideover item";
 LABEL_43:
-      _os_log_impl(&dword_21ED4E000, v57, OS_LOG_TYPE_DEFAULT, v60, buf, 0xCu);
+      _os_log_impl(&dword_21ED4E000, v58, OS_LOG_TYPE_DEFAULT, v61, buf, 0xCu);
     }
   }
 
-  else if (v58)
+  else if (v59)
   {
-    v107.x = v12;
-    v107.y = v14;
-    v59 = NSStringFromCGPoint(v107);
+    v108.x = v12;
+    v108.y = v14;
+    v60 = NSStringFromCGPoint(v108);
     *buf = 138412290;
-    *&buf[4] = v59;
-    v60 = "_unpinSplitViewApplicationGestureRecognizer not receiving touch (%@): did not hit-test to item container";
+    *&buf[4] = v60;
+    v61 = "_unpinSplitViewApplicationGestureRecognizer not receiving touch (%@): did not hit-test to item container";
     goto LABEL_43;
   }
 
@@ -3959,13 +3987,13 @@ LABEL_13:
 
 - (BOOL)_shouldLiveResizeItemContainerGestureWithTouch:(id)touch receiveTouch:(id)receiveTouch allowedCorners:(unint64_t)corners requiresVisibleCorner:(BOOL)corner allowedEdges:(unint64_t)edges
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   touchCopy = touch;
   receiveTouchCopy = receiveTouch;
   WeakRetained = objc_loadWeakRetained(&self->_switcherController);
   v14 = objc_loadWeakRetained(&self->_switcherContentController);
   view = [v14 view];
-  v54 = receiveTouchCopy;
+  v55 = receiveTouchCopy;
   _UISystemGestureLocationForTouchInView();
   v17 = v16;
   v19 = v18;
@@ -3979,130 +4007,130 @@ LABEL_13:
   {
     cornerCopy = corner;
     edgesCopy = edges;
-    v23 = [v14 _itemContainerAtLocation:0 environment:{v17, v19}];
+    v24 = [v14 _itemContainerAtLocation:0 environment:{v17, v19}];
     [touchCopy initialTouchLeafAppLayout];
-    v50 = v53 = WeakRetained;
-    if (!v50 || ![appLayout containsAnyItemFromAppLayout:v50] || (objc_msgSend(v14, "visibleItemContainers"), v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v24, "objectForKey:", v50), v25 = objc_claimAutoreleasedReturnValue(), v24, !v25) || (v74 = v25, objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", &v74, 1), v26 = objc_claimAutoreleasedReturnValue(), v25, !v26))
+    v51 = v54 = WeakRetained;
+    if (!v51 || ![appLayout containsAnyItemFromAppLayout:v51] || (objc_msgSend(v14, "visibleItemContainers"), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v25, "objectForKey:", v51), v26 = objc_claimAutoreleasedReturnValue(), v25, !v26) || (v75 = v26, objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", &v75, 1), v27 = objc_claimAutoreleasedReturnValue(), v26, !v27))
     {
       displayItemLayoutAttributesProvider = [WeakRetained displayItemLayoutAttributesProvider];
       interfaceOrientation = [_currentLayoutState interfaceOrientation];
       if ((interfaceOrientation - 1) < 2)
       {
-        v29 = 1;
+        v30 = 1;
       }
 
       else
       {
-        v29 = 2 * ((interfaceOrientation - 3) < 2);
+        v30 = 2 * ((interfaceOrientation - 3) < 2);
       }
 
-      v30 = [displayItemLayoutAttributesProvider zOrderedItemsInAppLayout:appLayout orientation:v29];
+      v31 = [displayItemLayoutAttributesProvider zOrderedItemsInAppLayout:appLayout orientation:v30];
 
-      v71[0] = MEMORY[0x277D85DD0];
-      v71[1] = 3221225472;
-      v71[2] = __143__SBFluidSwitcherGestureManager__shouldLiveResizeItemContainerGestureWithTouch_receiveTouch_allowedCorners_requiresVisibleCorner_allowedEdges___block_invoke;
-      v71[3] = &unk_2783B9DC8;
-      v72 = appLayout;
-      v73 = v14;
-      v31 = [v30 bs_compactMap:v71];
-      v26 = v31;
-      if (v23 && [v31 containsObject:v23])
+      v72[0] = MEMORY[0x277D85DD0];
+      v72[1] = 3221225472;
+      v72[2] = __143__SBFluidSwitcherGestureManager__shouldLiveResizeItemContainerGestureWithTouch_receiveTouch_allowedCorners_requiresVisibleCorner_allowedEdges___block_invoke;
+      v72[3] = &unk_2783B9DC8;
+      v73 = appLayout;
+      v74 = v14;
+      v32 = [v31 bs_compactMap:v72];
+      v27 = v32;
+      if (v24 && objc_msgSend_containsObject_(v32))
       {
-        v32 = [v26 sb_arrayByInsertingOrMovingObject:v23 toIndex:0];
+        v33 = [v27 sb_arrayByInsertingOrMovingObject:v24 toIndex:0];
 
-        v26 = v32;
+        v27 = v33;
       }
 
-      WeakRetained = v53;
+      WeakRetained = v54;
     }
 
     _slideOverDisplayItem = [WeakRetained _slideOverDisplayItem];
-    if (_slideOverDisplayItem && ([(SBFluidSwitcherGestureManager *)self _currentSlideOverConfiguration], (v70 & 1) == 0))
+    if (_slideOverDisplayItem && (objc_msgSend__currentSlideOverConfiguration(self), (v71 & 1) == 0))
     {
-      v33 = [(SBFluidSwitcherGestureManager *)self _hitTestStageItemContainerForUnpinGestureWithTouch:v54 atGestureLocation:v17, v19];
+      v34 = [(SBFluidSwitcherGestureManager *)self _hitTestStageItemContainerForUnpinGestureWithTouch:v55 atGestureLocation:v17, v19];
     }
 
     else
     {
-      v33 = 0;
+      v34 = 0;
     }
 
     _currentFlexibleWindowingAutoLayoutSpace = [(SBFluidSwitcherGestureManager *)self _currentFlexibleWindowingAutoLayoutSpace];
-    v55[0] = MEMORY[0x277D85DD0];
-    v55[1] = 3221225472;
-    v55[2] = __143__SBFluidSwitcherGestureManager__shouldLiveResizeItemContainerGestureWithTouch_receiveTouch_allowedCorners_requiresVisibleCorner_allowedEdges___block_invoke_2;
-    v55[3] = &unk_2783C1F80;
-    v56 = v33;
-    v57 = _currentFlexibleWindowingAutoLayoutSpace;
-    v58 = v23;
+    v56[0] = MEMORY[0x277D85DD0];
+    v56[1] = 3221225472;
+    v56[2] = __143__SBFluidSwitcherGestureManager__shouldLiveResizeItemContainerGestureWithTouch_receiveTouch_allowedCorners_requiresVisibleCorner_allowedEdges___block_invoke_2;
+    v56[3] = &unk_2783C1F80;
+    v57 = v34;
+    v58 = _currentFlexibleWindowingAutoLayoutSpace;
+    v59 = v24;
     cornersCopy = corners;
-    v69 = cornerCopy;
-    v66 = v17;
-    v67 = v19;
-    v59 = appLayout;
+    v70 = cornerCopy;
+    v67 = v17;
+    v68 = v19;
+    v60 = appLayout;
     selfCopy = self;
-    v61 = v53;
-    v68 = edgesCopy;
-    v36 = touchCopy;
-    v62 = v36;
-    v37 = v54;
+    v62 = v54;
+    v69 = edgesCopy;
+    v37 = touchCopy;
     v63 = v37;
-    v64 = v14;
-    v52 = v23;
-    v49 = _currentFlexibleWindowingAutoLayoutSpace;
-    v47 = v33;
-    v38 = [v26 bs_firstObjectPassingTest:v55];
-    v39 = v38;
-    v34 = v38 != 0;
-    if (v38)
+    v38 = v55;
+    v64 = v38;
+    v65 = v14;
+    v53 = v24;
+    v50 = _currentFlexibleWindowingAutoLayoutSpace;
+    v48 = v34;
+    v39 = [v27 bs_firstObjectPassingTest:v56];
+    v40 = v39;
+    v35 = v39 != 0;
+    if (v39)
     {
-      appLayout2 = [v38 appLayout];
-      [v36 setInitialTouchLeafAppLayout:appLayout2];
+      appLayout2 = [v39 appLayout];
+      [v37 setInitialTouchLeafAppLayout:appLayout2];
 
-      if (![v36 selectedEdge] || (objc_msgSend(v36, "hasEdgeResizeSeenTouchOutsideHittestedView") & 1) != 0 || (objc_msgSend(v37, "_isPointerTouch") & 1) != 0)
+      if (![v37 selectedEdge] || (objc_msgSend(v37, "hasEdgeResizeSeenTouchOutsideHittestedView") & 1) != 0 || (objc_msgSend(v38, "_isPointerTouch") & 1) != 0)
       {
-        [v36 _setHysteresis:0.0];
-        v41 = v36;
-        v42 = 0;
+        [v37 _setHysteresis:0.0];
+        v42 = v37;
+        v43 = 0;
       }
 
       else
       {
-        [v36 _setHysteresis:10.0];
-        v41 = v36;
-        v42 = 1;
+        [v37 _setHysteresis:10.0];
+        v42 = v37;
+        v43 = 1;
       }
 
-      [v41 setFailsPastMaximumPressDurationWithoutHysteresis:v42];
+      [v42 setFailsPastMaximumPressDurationWithoutHysteresis:v43];
     }
 
     else
     {
-      v43 = SBLogSystemGestureAppSwitcher();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+      v44 = SBLogSystemGestureAppSwitcher(0);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21ED4E000, v43, OS_LOG_TYPE_DEFAULT, "Preventing the switcher live resize touch gesture because no item container.", buf, 2u);
+        _os_log_impl(&dword_21ED4E000, v44, OS_LOG_TYPE_DEFAULT, "Preventing the switcher live resize touch gesture because no item container.", buf, 2u);
       }
     }
 
-    WeakRetained = v53;
+    WeakRetained = v54;
   }
 
   else
   {
-    v26 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v27 = SBLogSystemGestureAppSwitcher(v23);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v76 = appLayout;
-      _os_log_impl(&dword_21ED4E000, v26, OS_LOG_TYPE_DEFAULT, "Preventing the switcher live resize touch gesture because app layout doesn't contain only resizable apps. %@", buf, 0xCu);
+      v77 = appLayout;
+      _os_log_impl(&dword_21ED4E000, v27, OS_LOG_TYPE_DEFAULT, "Preventing the switcher live resize touch gesture because app layout doesn't contain only resizable apps. %@", buf, 0xCu);
     }
 
-    v34 = 0;
+    v35 = 0;
   }
 
-  return v34;
+  return v35;
 }
 
 id __143__SBFluidSwitcherGestureManager__shouldLiveResizeItemContainerGestureWithTouch_receiveTouch_allowedCorners_requiresVisibleCorner_allowedEdges___block_invoke(uint64_t a1, uint64_t a2)
@@ -4142,7 +4170,7 @@ uint64_t __143__SBFluidSwitcherGestureManager__shouldLiveResizeItemContainerGest
       {
         if (![v10 isOverlapped] || (v13 = *(a1 + 48)) == 0 || v13 == v4 || (v14 = *(a1 + 56), objc_msgSend(v13, "appLayout"), v15 = objc_claimAutoreleasedReturnValue(), LOBYTE(v14) = objc_msgSend(v14, "containsAnyItemFromAppLayout:", v15), v15, (v14 & 1) == 0))
         {
-          [v4 frame];
+          objc_msgSend_frame(v4);
           v17 = v16;
           v19 = v18;
           v21 = v20;
@@ -4235,7 +4263,7 @@ LABEL_56:
 
               else
               {
-                v41 = SBLogSystemGestureAppSwitcher();
+                v41 = SBLogSystemGestureAppSwitcher(v40);
                 if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
                 {
                   *v42 = 0;
@@ -4331,7 +4359,7 @@ LABEL_10:
 
 - (BOOL)_shouldLiveResizeItemContainerGestureWithPointer:(id)pointer receiveTouch:(id)touch
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if ([touch _isPointerTouch])
   {
     WeakRetained = objc_loadWeakRetained(&self->_switcherContentController);
@@ -4339,14 +4367,14 @@ LABEL_10:
     v7 = itemContainerToResizeUsingPointer;
     if (!itemContainerToResizeUsingPointer)
     {
-      appLayout = SBLogSystemGestureAppSwitcher();
+      appLayout = SBLogSystemGestureAppSwitcher(0);
       if (os_log_type_enabled(appLayout, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v20) = 0;
-        _os_log_impl(&dword_21ED4E000, appLayout, OS_LOG_TYPE_DEFAULT, "Preventing the switcher live resize pointer gesture because no item container.", &v20, 2u);
+        LOWORD(v22) = 0;
+        _os_log_impl(&dword_21ED4E000, appLayout, OS_LOG_TYPE_DEFAULT, "Preventing the switcher live resize pointer gesture because no item container.", &v22, 2u);
       }
 
-      v15 = 0;
+      v17 = 0;
       goto LABEL_16;
     }
 
@@ -4358,43 +4386,43 @@ LABEL_10:
 
     if (v12)
     {
-      v13 = +[SBApplicationController sharedInstance];
-      v14 = [v13 _appLayoutContainsOnlyResizableApps:v9];
+      v14 = +[SBApplicationController sharedInstance];
+      v15 = [v14 _appLayoutContainsOnlyResizableApps:v9];
 
-      if (v14)
+      if (v15)
       {
-        v15 = 1;
+        v17 = 1;
 LABEL_15:
 
 LABEL_16:
-        return v15;
+        return v17;
       }
 
-      v16 = SBLogSystemGestureAppSwitcher();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = SBLogSystemGestureAppSwitcher(v16);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = 138412290;
-        v21 = v9;
-        _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "Preventing the switcher live resize pointer gesture because app layout doesn't contain only resizable apps. %@", &v20, 0xCu);
+        v22 = 138412290;
+        v23 = v9;
+        _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "Preventing the switcher live resize pointer gesture because app layout doesn't contain only resizable apps. %@", &v22, 0xCu);
       }
     }
 
     else
     {
-      v16 = SBLogSystemGestureAppSwitcher();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = SBLogSystemGestureAppSwitcher(v13);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         _currentLayoutState2 = [(SBFluidSwitcherGestureManager *)self _currentLayoutState];
         appLayout3 = [_currentLayoutState2 appLayout];
-        v20 = 138412546;
-        v21 = appLayout3;
-        v22 = 2112;
-        v23 = appLayout;
-        _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "Preventing the switcher live resize pointer gesture because current layout state doesn't contain leaf app layout. %@ %@", &v20, 0x16u);
+        v22 = 138412546;
+        v23 = appLayout3;
+        v24 = 2112;
+        v25 = appLayout;
+        _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "Preventing the switcher live resize pointer gesture because current layout state doesn't contain leaf app layout. %@ %@", &v22, 0x16u);
       }
     }
 
-    v15 = 0;
+    v17 = 0;
     goto LABEL_15;
   }
 
@@ -4419,45 +4447,47 @@ LABEL_16:
 
   if ((isChamoisOrFlexibleWindowing & 1) == 0)
   {
-    v16 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v19 = SBLogSystemGestureAppSwitcher(v16);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v50 = 0;
-      v17 = "Preventing the switcher live resize gesture because neither Stage Manager nor Flexible Windowing was enabled.";
-      v18 = &v50;
+      v55 = 0;
+      v20 = "Preventing the switcher live resize gesture because neither Stage Manager nor Flexible Windowing was enabled.";
+      v21 = &v55;
       goto LABEL_11;
     }
 
 LABEL_12:
 
-    v19 = 0;
-    v20 = gestureCopy;
+    v22 = 0;
+    v23 = gestureCopy;
     goto LABEL_13;
   }
 
   [touchCopy locationInView:0];
-  if (([systemGestureManager shouldSystemGestureReceiveTouchWithLocation:?] & 1) == 0)
+  v17 = [systemGestureManager shouldSystemGestureReceiveTouchWithLocation:?];
+  if ((v17 & 1) == 0)
   {
-    v16 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v19 = SBLogSystemGestureAppSwitcher(v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v17 = "Preventing the switcher live resize gesture because covered by keyboard or PiP.";
-      v18 = buf;
+      v20 = "Preventing the switcher live resize gesture because covered by keyboard or PiP.";
+      v21 = buf;
       goto LABEL_11;
     }
 
     goto LABEL_12;
   }
 
-  if (([systemGestureManager isGestureWithTypeAllowed:31] & 1) == 0)
+  v18 = [systemGestureManager isGestureWithTypeAllowed:31];
+  if ((v18 & 1) == 0)
   {
-    v22 = SBLogSystemGestureAppSwitcher();
-    v20 = gestureCopy;
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v25 = SBLogSystemGestureAppSwitcher(v18);
+    v23 = gestureCopy;
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      *v48 = 0;
-      _os_log_impl(&dword_21ED4E000, v22, OS_LOG_TYPE_DEFAULT, "Preventing the switcher live resize gesture because not allowed.", v48, 2u);
+      *v53 = 0;
+      _os_log_impl(&dword_21ED4E000, v25, OS_LOG_TYPE_DEFAULT, "Preventing the switcher live resize gesture because not allowed.", v53, 2u);
     }
 
     goto LABEL_31;
@@ -4465,115 +4495,115 @@ LABEL_12:
 
   if (v13)
   {
-    v16 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v19 = SBLogSystemGestureAppSwitcher(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v47 = 0;
-      v17 = "Preventing the switcher live resize gesture because touch is inside floating dock.";
-      v18 = &v47;
+      v52 = 0;
+      v20 = "Preventing the switcher live resize gesture because touch is inside floating dock.";
+      v21 = &v52;
 LABEL_11:
-      _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, v17, v18, 2u);
+      _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, v20, v21, 2u);
       goto LABEL_12;
     }
 
     goto LABEL_12;
   }
 
-  v23 = objc_loadWeakRetained(&self->_switcherContentController);
-  itemContainerToResizeUsingPointer = [v23 itemContainerToResizeUsingPointer];
+  v26 = objc_loadWeakRetained(&self->_switcherContentController);
+  itemContainerToResizeUsingPointer = [v26 itemContainerToResizeUsingPointer];
   if (!itemContainerToResizeUsingPointer)
   {
-    view = [v23 view];
-    v20 = gestureCopy;
+    view = [v26 view];
+    v23 = gestureCopy;
     _UISystemGestureLocationInView();
-    v27 = v26;
-    v29 = v28;
+    v30 = v29;
+    v32 = v31;
 
-    itemContainerToResizeUsingPointer = [v23 _itemContainerNearestLocation:1 environment:1 prioritizeForegroundedItemContainers:{v27, v29}];
+    itemContainerToResizeUsingPointer = [v26 _itemContainerNearestLocation:1 environment:1 prioritizeForegroundedItemContainers:{v30, v32}];
     if (!itemContainerToResizeUsingPointer)
     {
-      v37 = SBLogSystemGestureAppSwitcher();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v42 = SBLogSystemGestureAppSwitcher(0);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
-        *v46 = 0;
-        _os_log_impl(&dword_21ED4E000, v37, OS_LOG_TYPE_DEFAULT, "Preventing the switcher live resize gesture because no item container.", v46, 2u);
+        *v51 = 0;
+        _os_log_impl(&dword_21ED4E000, v42, OS_LOG_TYPE_DEFAULT, "Preventing the switcher live resize gesture because no item container.", v51, 2u);
       }
 
       goto LABEL_30;
     }
   }
 
-  v41 = itemContainerToResizeUsingPointer;
+  v46 = itemContainerToResizeUsingPointer;
   appLayout = [itemContainerToResizeUsingPointer appLayout];
-  v42 = v23;
-  v39 = [v23 adjustedAppLayoutForLeafAppLayout:appLayout];
+  v47 = v26;
+  v44 = [v26 adjustedAppLayoutForLeafAppLayout:appLayout];
   _currentLayoutState = [(SBFluidSwitcherGestureManager *)self _currentLayoutState];
   appLayout2 = [_currentLayoutState appLayout];
-  v40 = appLayout;
+  v45 = appLayout;
   LOBYTE(appLayout) = [appLayout2 isOrContainsAppLayout:appLayout];
 
   if ((appLayout & 1) == 0)
   {
-    v34 = v39;
-    v36 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    v38 = v44;
+    v41 = SBLogSystemGestureAppSwitcher(v36);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
-      *v45 = 0;
-      _os_log_impl(&dword_21ED4E000, v36, OS_LOG_TYPE_DEFAULT, "Preventing the switcher live resize gesture because item container isn't on stage.", v45, 2u);
+      *v50 = 0;
+      _os_log_impl(&dword_21ED4E000, v41, OS_LOG_TYPE_DEFAULT, "Preventing the switcher live resize gesture because item container isn't on stage.", v50, 2u);
     }
 
-    v23 = v42;
-    v20 = gestureCopy;
+    v26 = v47;
+    v23 = gestureCopy;
     goto LABEL_29;
   }
 
-  v33 = +[SBApplicationController sharedInstance];
-  v34 = v39;
-  v35 = [v33 _appLayoutContainsOnlyResizableApps:v39];
+  v37 = +[SBApplicationController sharedInstance];
+  v38 = v44;
+  v39 = [v37 _appLayoutContainsOnlyResizableApps:v44];
 
-  if ((v35 & 1) == 0)
+  if ((v39 & 1) == 0)
   {
-    v36 = SBLogSystemGestureAppSwitcher();
-    v23 = v42;
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    v41 = SBLogSystemGestureAppSwitcher(v40);
+    v26 = v47;
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
-      *v44 = 0;
-      _os_log_impl(&dword_21ED4E000, v36, OS_LOG_TYPE_DEFAULT, "Preventing the switcher live resize gesture because app layout contains non resizable items.", v44, 2u);
+      *v49 = 0;
+      _os_log_impl(&dword_21ED4E000, v41, OS_LOG_TYPE_DEFAULT, "Preventing the switcher live resize gesture because app layout contains non resizable items.", v49, 2u);
     }
 
-    v20 = gestureCopy;
+    v23 = gestureCopy;
 LABEL_29:
 
 LABEL_30:
 LABEL_31:
-    v19 = 0;
+    v22 = 0;
     goto LABEL_13;
   }
 
-  v20 = gestureCopy;
+  v23 = gestureCopy;
   if ([(SBFluidSwitcherGestureManager *)self _shouldLiveResizeItemContainerGestureWithPointer:gestureCopy receiveTouch:touchCopy])
   {
-    v19 = 1;
+    v22 = 1;
   }
 
   else
   {
     if ([touchCopy _isPointerTouch])
     {
-      v38 = 0;
+      v43 = 0;
     }
 
     else
     {
-      v38 = 15;
+      v43 = 15;
     }
 
-    v19 = [(SBFluidSwitcherGestureManager *)self _shouldLiveResizeItemContainerGestureWithTouch:gestureCopy receiveTouch:touchCopy allowedCorners:-1 requiresVisibleCorner:0 allowedEdges:v38];
+    v22 = [(SBFluidSwitcherGestureManager *)self _shouldLiveResizeItemContainerGestureWithTouch:gestureCopy receiveTouch:touchCopy allowedCorners:-1 requiresVisibleCorner:0 allowedEdges:v43];
   }
 
 LABEL_13:
 
-  return v19;
+  return v22;
 }
 
 - (BOOL)_shouldClickDownToBringItemContainerForward:(id)forward receiveTouch:(id)touch
@@ -4586,7 +4616,7 @@ LABEL_13:
 
 - (BOOL)_shouldBringItemContainerForwardGesture:(id)gesture receiveTouch:(id)touch
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   gestureCopy = gesture;
   touchCopy = touch;
   WeakRetained = objc_loadWeakRetained(&self->_switcherController);
@@ -4601,7 +4631,7 @@ LABEL_13:
     v13 = v12;
     windowScene = [WeakRetained windowScene];
     systemGestureManager = [windowScene systemGestureManager];
-    v58 = [systemGestureManager shouldSystemGestureReceiveTouchWithLocation:{v11, v13}];
+    v59 = [systemGestureManager shouldSystemGestureReceiveTouchWithLocation:{v11, v13}];
 
     view = [v9 view];
     _UISystemGestureLocationForTouchInView();
@@ -4611,20 +4641,20 @@ LABEL_13:
     v21 = [v9 _itemContainerAtLocation:1 environment:{v18, v20}];
     _currentLayoutState = [(SBFluidSwitcherGestureManager *)self _currentLayoutState];
     appLayout = [v21 appLayout];
-    v65 = [v9 adjustedAppLayoutForLeafAppLayout:appLayout];
+    v66 = [v9 adjustedAppLayoutForLeafAppLayout:appLayout];
     liveContentOverlays = [v9 liveContentOverlays];
-    v66 = appLayout;
+    v67 = appLayout;
     v25 = [liveContentOverlays objectForKey:appLayout];
 
-    v62 = v25;
+    v63 = v25;
     [v25 touchBehavior];
     appLayout2 = [v21 appLayout];
     v27 = [appLayout2 itemForLayoutRole:1];
 
-    v61 = WeakRetained;
+    v62 = WeakRetained;
     displayItemLayoutAttributesProvider = [WeakRetained displayItemLayoutAttributesProvider];
     appLayout3 = [_currentLayoutState appLayout];
-    v64 = _currentLayoutState;
+    v65 = _currentLayoutState;
     interfaceOrientation = [_currentLayoutState interfaceOrientation];
     if ((interfaceOrientation - 1) < 2)
     {
@@ -4639,35 +4669,37 @@ LABEL_13:
     v32 = [displayItemLayoutAttributesProvider lastInteractedDisplayItemsInAppLayout:appLayout3 orientation:v31];
     firstObject = [v32 firstObject];
 
-    v55 = [(NSHashTable *)self->_presentedSceneBackedBanners count];
+    v56 = [(NSHashTable *)self->_presentedSceneBackedBanners count];
     screen = [windowScene screen];
     fixedCoordinateSpace = [screen fixedCoordinateSpace];
 
     floatingDockController = [windowScene floatingDockController];
-    v57 = [floatingDockController containsPoint:fixedCoordinateSpace fromCoordinateSpace:{v11, v13}];
+    v58 = [floatingDockController containsPoint:fixedCoordinateSpace fromCoordinateSpace:{v11, v13}];
     v36 = [(SBFluidSwitcherGestureManager *)self _isTouchLocationInSplitViewGutter:v18, v20];
-    v54 = [(SBFluidSwitcherGestureManager *)self _isTouchLocationInWindowControlsFrame:v18, v20];
-    v63 = v21;
+    v37 = [(SBFluidSwitcherGestureManager *)self _isTouchLocationInWindowControlsFrame:v18, v20];
+    v55 = v37;
+    v64 = v21;
     if (v21)
     {
+      v37 = BSEqualObjects();
       LOBYTE(v21) = 0;
-      v37 = v27;
-      if ((BSEqualObjects() & 1) == 0 && ((v58 ^ 1) & 1) == 0)
+      v38 = v27;
+      if ((v37 & 1) == 0 && ((v59 ^ 1) & 1) == 0)
       {
-        v38 = fixedCoordinateSpace;
-        appLayout4 = [v64 appLayout];
-        if ([appLayout4 isOrContainsAppLayout:v66])
+        v39 = fixedCoordinateSpace;
+        appLayout4 = [v65 appLayout];
+        if ([appLayout4 isOrContainsAppLayout:v67])
         {
-          v40 = +[SBApplicationController sharedInstance];
-          v41 = [v40 _appLayoutContainsOnlyResizableApps:v65] ^ 1;
-          if (v55)
+          v41 = +[SBApplicationController sharedInstance];
+          v42 = [v41 _appLayoutContainsOnlyResizableApps:v66] ^ 1;
+          if (v56)
           {
-            LOBYTE(v41) = 1;
+            LOBYTE(v42) = 1;
           }
 
-          LOBYTE(v21) = (v41 | v54 | v57 | v36) ^ 1;
+          LOBYTE(v21) = (v42 | v55 | v58 | v36) ^ 1;
 
-          v37 = v27;
+          v38 = v27;
         }
 
         else
@@ -4675,59 +4707,59 @@ LABEL_13:
           LOBYTE(v21) = 0;
         }
 
-        fixedCoordinateSpace = v38;
+        fixedCoordinateSpace = v39;
       }
     }
 
     else
     {
-      v37 = v27;
+      v38 = v27;
     }
 
-    v42 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    v43 = SBLogSystemGestureAppSwitcher(v37);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
+      v52 = NSStringFromBOOL();
       v51 = NSStringFromBOOL();
-      v50 = NSStringFromBOOL();
-      v43 = NSStringFromBOOL();
-      succinctDescription = [v65 succinctDescription];
-      [v66 succinctDescription];
-      v21 = v52 = v21;
+      v44 = NSStringFromBOOL();
+      succinctDescription = [v66 succinctDescription];
+      [v67 succinctDescription];
+      v21 = v53 = v21;
       NSStringFromBKSSceneHostTouchBehavior();
-      v45 = v56 = fixedCoordinateSpace;
+      v46 = v57 = fixedCoordinateSpace;
       NSStringFromBOOL();
-      v46 = v53 = firstObject;
+      v47 = v54 = firstObject;
       NSStringFromBOOL();
-      v47 = v59 = v9;
-      v48 = NSStringFromBOOL();
+      v48 = v60 = v9;
+      v49 = NSStringFromBOOL();
       *buf = 138414338;
-      v70 = v51;
-      v71 = 2112;
-      v72 = v50;
-      v73 = 2112;
-      v74 = v43;
-      v75 = 2112;
-      v76 = succinctDescription;
-      v77 = 2112;
-      v78 = v21;
-      v79 = 2112;
-      v80 = v45;
-      v81 = 2112;
-      v82 = v46;
-      v83 = 2112;
-      v84 = v47;
-      v85 = 2112;
-      v86 = v48;
-      _os_log_impl(&dword_21ED4E000, v42, OS_LOG_TYPE_DEFAULT, "Should bring item container forward:%@ TouchAllowedAtLocation:%@ SceneBackedBannersPresented:%@ AppLayout:%@ LeafAppLayoutToBringForward:%@ TouchBehavior:%@ ItemAlreadyOnTop:%@ TouchInsideWindowControls:%@ TouchInsideDock:%@", buf, 0x5Cu);
+      v71 = v52;
+      v72 = 2112;
+      v73 = v51;
+      v74 = 2112;
+      v75 = v44;
+      v76 = 2112;
+      v77 = succinctDescription;
+      v78 = 2112;
+      v79 = v21;
+      v80 = 2112;
+      v81 = v46;
+      v82 = 2112;
+      v83 = v47;
+      v84 = 2112;
+      v85 = v48;
+      v86 = 2112;
+      v87 = v49;
+      _os_log_impl(&dword_21ED4E000, v43, OS_LOG_TYPE_DEFAULT, "Should bring item container forward:%@ TouchAllowedAtLocation:%@ SceneBackedBannersPresented:%@ AppLayout:%@ LeafAppLayoutToBringForward:%@ TouchBehavior:%@ ItemAlreadyOnTop:%@ TouchInsideWindowControls:%@ TouchInsideDock:%@", buf, 0x5Cu);
 
-      v9 = v59;
-      firstObject = v53;
+      v9 = v60;
+      firstObject = v54;
 
-      fixedCoordinateSpace = v56;
-      LOBYTE(v21) = v52;
+      fixedCoordinateSpace = v57;
+      LOBYTE(v21) = v53;
     }
 
-    WeakRetained = v61;
+    WeakRetained = v62;
   }
 
   else
@@ -4899,7 +4931,7 @@ LABEL_14:
     if ([*MEMORY[0x277D76620] userInterfaceLayoutDirection] == 1)
     {
       view2 = [windowManagementContext view];
-      [view2 frame];
+      objc_msgSend_frame(view2);
       v33 = CGRectGetMaxX(v39) - v31;
 
       if (v26 < v33)
@@ -4937,7 +4969,7 @@ LABEL_15:
 {
   touchCopy = touch;
   containerCopy = container;
-  [containerCopy frame];
+  objc_msgSend_frame(containerCopy);
   x = v6;
   y = v8;
   v11 = v10;
@@ -5052,7 +5084,7 @@ LABEL_15:
 {
   touchCopy = touch;
   containerCopy = container;
-  [containerCopy frame];
+  objc_msgSend_frame(containerCopy);
   v8 = v7;
   +[SBNubView height];
   v10 = v9;
@@ -5118,7 +5150,7 @@ LABEL_15:
   if (containerCopy && !touch && ([containerCopy appLayout], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "allItems"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "firstObject"), v10 = objc_claimAutoreleasedReturnValue(), -[SBFluidSwitcherGestureManager _slideOverDisplayItem](self, "_slideOverDisplayItem"), v11 = objc_claimAutoreleasedReturnValue(), v12 = BSEqualObjects(), v11, v10, v9, v8, (v12 & 1) != 0))
   {
     v13 = +[SBMedusaDomain rootSettings];
-    [v7 frame];
+    objc_msgSend_frame(v7);
     v15 = v14;
     v17 = v16;
     v19 = v18;
@@ -5161,7 +5193,7 @@ LABEL_15:
   if (containerCopy && !touch && ([containerCopy appLayout], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "allItems"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "firstObject"), v10 = objc_claimAutoreleasedReturnValue(), -[SBFluidSwitcherGestureManager _slideOverDisplayItem](self, "_slideOverDisplayItem"), v11 = objc_claimAutoreleasedReturnValue(), v12 = BSEqualObjects(), v11, v10, v9, v8, (v12 & 1) != 0))
   {
     v13 = +[SBMedusaDomain rootSettings];
-    [v7 frame];
+    objc_msgSend_frame(v7);
     v15 = v14;
     v17 = v16;
     v19 = v18;
@@ -5374,7 +5406,7 @@ LABEL_11:
           v66[4] = v44;
           v22 = [allValues3 bs_firstObjectPassingTest:v66];
 
-          [v22 frame];
+          objc_msgSend_frame(v22);
           appLayout2 = [v22 appLayout];
           v48 = [appLayout2 itemForLayoutRole:1];
           v49 = [appLayout layoutRoleForItem:v48];
@@ -5700,7 +5732,7 @@ LABEL_46:
     goto LABEL_47;
   }
 
-  v8 = SBLogSystemGestureAppSwitcher();
+  v8 = SBLogSystemGestureAppSwitcher(state);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [(SBFluidSwitcherGestureManager *)beginCopy gestureRecognizerShouldBegin:gestureRecognizer, v8];
@@ -5725,7 +5757,7 @@ LABEL_48:
 
 - (BOOL)_shouldBeginBottomEdgePanGesture:(id)gesture
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   gestureCopy = gesture;
   _currentUnlockedEnvironmentMode = [(SBFluidSwitcherGestureManager *)self _currentUnlockedEnvironmentMode];
   v6 = objc_opt_class();
@@ -5734,84 +5766,88 @@ LABEL_48:
 
   touchedEdges = [v8 touchedEdges];
   zStackParticipant = self->_zStackParticipant;
-  if (zStackParticipant && ([(SBFZStackParticipant *)zStackParticipant ownsHomeGesture]& 1) == 0)
+  if (zStackParticipant && (v11 = [(SBFZStackParticipant *)zStackParticipant ownsHomeGesture], (v11 & 1) == 0))
   {
-    v15 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v19 = SBLogSystemGestureAppSwitcher(v11);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "Preventing the switcher bottom edge gesture because switcher doesn't own the home gesture.", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "Preventing the switcher bottom edge gesture because switcher doesn't own the home gesture.", buf, 2u);
     }
 
-    v16 = @"DeckSwitcherBottomEdgeGestureNotOwned";
-  }
-
-  else if ([(SBFluidSwitcherGestureManager *)self _shouldAllowDeckBottomEdgeGestureToRecognizeFromEdges:touchedEdges])
-  {
-    WeakRetained = objc_loadWeakRetained(&self->_switcherController);
-    windowScene = [WeakRetained windowScene];
-    systemGestureManager = [windowScene systemGestureManager];
-    v14 = [systemGestureManager isGestureWithTypeAllowed:39];
-
-    if (v14)
-    {
-      if (_currentUnlockedEnvironmentMode != 2 || !SBReduceMotion())
-      {
-        v16 = 0;
-        v17 = 1;
-        goto LABEL_20;
-      }
-
-      v15 = SBLogSystemGestureAppSwitcher();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "Preventing the switcher bottom edge gesture because we're in the app switcher in Reduce Motion.", buf, 2u);
-      }
-
-      v16 = @"SwitcherBottomEdgeGesturePreventedInAppSwitcherInReduceMotion";
-    }
-
-    else
-    {
-      v15 = SBLogSystemGestureAppSwitcher();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "Preventing the switcher bottom edge gesture because it's not allowed by the system gesture manager.", buf, 2u);
-      }
-
-      v16 = @"SwitcherBottomEdgeGestureNotAllowedBySystemGestureManager";
-    }
+    v20 = @"DeckSwitcherBottomEdgeGestureNotOwned";
   }
 
   else
   {
-    v15 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v12 = [(SBFluidSwitcherGestureManager *)self _shouldAllowDeckBottomEdgeGestureToRecognizeFromEdges:touchedEdges];
+    if (v12)
     {
-      *buf = 134217984;
-      v26 = touchedEdges;
-      _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "Preventing the switcher bottom edge gesture because the recognized edges (%ld) aren't supported.", buf, 0xCu);
+      WeakRetained = objc_loadWeakRetained(&self->_switcherController);
+      windowScene = [WeakRetained windowScene];
+      systemGestureManager = [windowScene systemGestureManager];
+      v16 = [systemGestureManager isGestureWithTypeAllowed:39];
+
+      if (v16)
+      {
+        if (_currentUnlockedEnvironmentMode != 2 || !(v18 = SBReduceMotion()))
+        {
+          v20 = 0;
+          v21 = 1;
+          goto LABEL_20;
+        }
+
+        v19 = SBLogSystemGestureAppSwitcher(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "Preventing the switcher bottom edge gesture because we're in the app switcher in Reduce Motion.", buf, 2u);
+        }
+
+        v20 = @"SwitcherBottomEdgeGesturePreventedInAppSwitcherInReduceMotion";
+      }
+
+      else
+      {
+        v19 = SBLogSystemGestureAppSwitcher(v17);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "Preventing the switcher bottom edge gesture because it's not allowed by the system gesture manager.", buf, 2u);
+        }
+
+        v20 = @"SwitcherBottomEdgeGestureNotAllowedBySystemGestureManager";
+      }
     }
 
-    v16 = @"DeckSwitcherRecognizedEdgesNotSupported";
+    else
+    {
+      v19 = SBLogSystemGestureAppSwitcher(v12);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 134217984;
+        v30 = touchedEdges;
+        _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "Preventing the switcher bottom edge gesture because the recognized edges (%ld) aren't supported.", buf, 0xCu);
+      }
+
+      v20 = @"DeckSwitcherRecognizedEdgesNotSupported";
+    }
   }
 
-  v17 = 0;
+  v21 = 0;
 LABEL_20:
   mEMORY[0x277D6A798] = [MEMORY[0x277D6A798] sharedInstance];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __66__SBFluidSwitcherGestureManager__shouldBeginBottomEdgePanGesture___block_invoke;
-  v21[3] = &unk_2783B77A8;
-  v24 = v17;
-  v22 = gestureCopy;
-  v23 = v16;
-  v19 = gestureCopy;
-  [mEMORY[0x277D6A798] logBlock:v21];
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __66__SBFluidSwitcherGestureManager__shouldBeginBottomEdgePanGesture___block_invoke;
+  v25[3] = &unk_2783B77A8;
+  v28 = v21;
+  v26 = gestureCopy;
+  v27 = v20;
+  v23 = gestureCopy;
+  [mEMORY[0x277D6A798] logBlock:v25];
 
-  return v17;
+  return v21;
 }
 
 id __66__SBFluidSwitcherGestureManager__shouldBeginBottomEdgePanGesture___block_invoke(uint64_t a1)
@@ -5855,52 +5891,57 @@ id __66__SBFluidSwitcherGestureManager__shouldBeginBottomEdgePanGesture___block_
 
 - (BOOL)_shouldBeginDeckInSwitcherPanGesture:(id)gesture
 {
-  if (SBReduceMotion())
+  v4 = SBReduceMotion();
+  if (v4)
   {
-    v4 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = SBLogSystemGestureAppSwitcher(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v17 = 0;
-      v5 = "Preventing the in switcher gesture because reduce motion is enabled.";
-      v6 = &v17;
+      v20 = 0;
+      v6 = "Preventing the in switcher gesture because reduce motion is enabled.";
+      v7 = &v20;
 LABEL_11:
-      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_INFO, v5, v6, 2u);
-    }
-  }
-
-  else if ([(SBFluidSwitcherGestureManager *)self _currentUnlockedEnvironmentMode]== 2)
-  {
-    deckInSwitcherPanGestureRecognizer = self->_deckInSwitcherPanGestureRecognizer;
-    WeakRetained = objc_loadWeakRetained(&self->_switcherContentController);
-    view = [WeakRetained view];
-    [(SBFluidSwitcherPanGestureRecognizer *)deckInSwitcherPanGestureRecognizer velocityInView:view];
-    v11 = v10;
-    v13 = v12;
-
-    if (fabs(v13) > fabs(v11))
-    {
-      return 1;
-    }
-
-    v4 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
-    {
-      *buf = 0;
-      v5 = "Preventing the in switcher gesture because we're scrolling horizontally.";
-      v6 = buf;
-      goto LABEL_11;
+      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_INFO, v6, v7, 2u);
     }
   }
 
   else
   {
-    v4 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    _currentUnlockedEnvironmentMode = [(SBFluidSwitcherGestureManager *)self _currentUnlockedEnvironmentMode];
+    if (_currentUnlockedEnvironmentMode == 2)
     {
-      v15 = 0;
-      v5 = "Preventing the in switcher gesture because we're not in in the app switcher.";
-      v6 = &v15;
-      goto LABEL_11;
+      deckInSwitcherPanGestureRecognizer = self->_deckInSwitcherPanGestureRecognizer;
+      WeakRetained = objc_loadWeakRetained(&self->_switcherContentController);
+      view = [WeakRetained view];
+      [(SBFluidSwitcherPanGestureRecognizer *)deckInSwitcherPanGestureRecognizer velocityInView:view];
+      v13 = v12;
+      v15 = v14;
+
+      if (fabs(v15) > fabs(v13))
+      {
+        return 1;
+      }
+
+      v5 = SBLogSystemGestureAppSwitcher(v16);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        v6 = "Preventing the in switcher gesture because we're scrolling horizontally.";
+        v7 = buf;
+        goto LABEL_11;
+      }
+    }
+
+    else
+    {
+      v5 = SBLogSystemGestureAppSwitcher(_currentUnlockedEnvironmentMode);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      {
+        v18 = 0;
+        v6 = "Preventing the in switcher gesture because we're not in in the app switcher.";
+        v7 = &v18;
+        goto LABEL_11;
+      }
     }
   }
 
@@ -5911,48 +5952,52 @@ LABEL_11:
 {
   gestureCopy = gesture;
   zStackParticipant = self->_zStackParticipant;
-  if (zStackParticipant && ([(SBFZStackParticipant *)zStackParticipant ownsHomeGesture]& 1) == 0)
+  if (zStackParticipant)
   {
-    v11 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    ownsHomeGesture = [(SBFZStackParticipant *)zStackParticipant ownsHomeGesture];
+    if ((ownsHomeGesture & 1) == 0)
     {
-      *buf = 0;
-      v12 = "Preventing the click and drag home gesture because switcher doesn't own the home gesture.";
-      v13 = buf;
-      goto LABEL_9;
-    }
+      v13 = SBLogSystemGestureAppSwitcher(ownsHomeGesture);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        v14 = "Preventing the click and drag home gesture because switcher doesn't own the home gesture.";
+        v15 = buf;
+        goto LABEL_9;
+      }
 
 LABEL_10:
 
-    v10 = 0;
-    goto LABEL_11;
+      v12 = 0;
+      goto LABEL_11;
+    }
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_switcherController);
   windowScene = [WeakRetained windowScene];
   systemGestureManager = [windowScene systemGestureManager];
-  v9 = [systemGestureManager isGestureWithTypeAllowed:42];
+  v10 = [systemGestureManager isGestureWithTypeAllowed:42];
 
-  if ((v9 & 1) == 0)
+  if ((v10 & 1) == 0)
   {
-    v11 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v13 = SBLogSystemGestureAppSwitcher(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v15 = 0;
-      v12 = "Preventing the click and drag home gesture because it's not allowed by the system gesture manager.";
-      v13 = &v15;
+      v17 = 0;
+      v14 = "Preventing the click and drag home gesture because it's not allowed by the system gesture manager.";
+      v15 = &v17;
 LABEL_9:
-      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_INFO, v12, v13, 2u);
+      _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_INFO, v14, v15, 2u);
       goto LABEL_10;
     }
 
     goto LABEL_10;
   }
 
-  v10 = 1;
+  v12 = 1;
 LABEL_11:
 
-  return v10;
+  return v12;
 }
 
 - (BOOL)_shouldBeginLiveWindowResizeGesture:(id)gesture
@@ -5964,124 +6009,128 @@ LABEL_11:
 
   if ((isChamoisOrFlexibleWindowing & 1) == 0)
   {
-    v12 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v15 = SBLogSystemGestureAppSwitcher(v8);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v38 = 0;
-      v16 = "Preventing the live window resize gesture because neither Chamois nor FlexibleWindowing is enabled.";
-      v17 = &v38;
+      v41 = 0;
+      v19 = "Preventing the live window resize gesture because neither Chamois nor FlexibleWindowing is enabled.";
+      v20 = &v41;
 LABEL_13:
-      _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_INFO, v16, v17, 2u);
+      _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_INFO, v19, v20, 2u);
     }
 
 LABEL_14:
-    v15 = 0;
+    v18 = 0;
     goto LABEL_15;
   }
 
   zStackParticipant = self->_zStackParticipant;
-  if (zStackParticipant && ([(SBFZStackParticipant *)zStackParticipant ownsHomeGesture]& 1) == 0)
+  if (zStackParticipant)
   {
-    v12 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    ownsHomeGesture = [(SBFZStackParticipant *)zStackParticipant ownsHomeGesture];
+    if ((ownsHomeGesture & 1) == 0)
     {
-      *buf = 0;
-      v16 = "Preventing the live window resize gesture because switcher doesn't own the home gesture.";
-      v17 = buf;
-      goto LABEL_13;
-    }
+      v15 = SBLogSystemGestureAppSwitcher(ownsHomeGesture);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        v19 = "Preventing the live window resize gesture because switcher doesn't own the home gesture.";
+        v20 = buf;
+        goto LABEL_13;
+      }
 
-    goto LABEL_14;
+      goto LABEL_14;
+    }
   }
 
   windowScene = [WeakRetained windowScene];
   systemGestureManager = [windowScene systemGestureManager];
-  v11 = [systemGestureManager isGestureWithTypeAllowed:42];
+  v13 = [systemGestureManager isGestureWithTypeAllowed:42];
 
-  if ((v11 & 1) == 0)
+  if ((v13 & 1) == 0)
   {
-    v12 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v15 = SBLogSystemGestureAppSwitcher(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v36 = 0;
-      v16 = "Preventing the live window resize gesture because it's not allowed by the system gesture manager.";
-      v17 = &v36;
+      v39 = 0;
+      v19 = "Preventing the live window resize gesture because it's not allowed by the system gesture manager.";
+      v20 = &v39;
       goto LABEL_13;
     }
 
     goto LABEL_14;
   }
 
-  v12 = objc_loadWeakRetained(&self->_switcherContentController);
-  itemContainerToResizeUsingPointer = [v12 itemContainerToResizeUsingPointer];
+  v15 = objc_loadWeakRetained(&self->_switcherContentController);
+  itemContainerToResizeUsingPointer = [v15 itemContainerToResizeUsingPointer];
   if (itemContainerToResizeUsingPointer)
   {
-    v14 = itemContainerToResizeUsingPointer;
-    v15 = 1;
+    v17 = itemContainerToResizeUsingPointer;
+    v18 = 1;
   }
 
   else
   {
-    view = [v12 view];
+    view = [v15 view];
     _UISystemGestureLocationInView();
-    v21 = v20;
-    v23 = v22;
+    v24 = v23;
+    v26 = v25;
 
-    v15 = 1;
-    v24 = [v12 _itemContainerNearestLocation:1 environment:1 prioritizeForegroundedItemContainers:v21, v23];
-    if (v24)
+    v18 = 1;
+    v27 = [v15 _itemContainerNearestLocation:1 environment:1 prioritizeForegroundedItemContainers:v24, v26];
+    if (v27)
     {
-      v14 = v24;
+      v17 = v27;
     }
 
     else
     {
-      v25 = SBLogSystemGestureAppSwitcher();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      v28 = SBLogSystemGestureAppSwitcher(0);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
-        *v35 = 0;
-        _os_log_impl(&dword_21ED4E000, v25, OS_LOG_TYPE_INFO, "Preventing the live window resize gesture because no item container.", v35, 2u);
+        *v38 = 0;
+        _os_log_impl(&dword_21ED4E000, v28, OS_LOG_TYPE_INFO, "Preventing the live window resize gesture because no item container.", v38, 2u);
       }
 
-      v14 = 0;
-      v15 = 0;
+      v17 = 0;
+      v18 = 0;
     }
   }
 
   selectedEdge = [gestureCopy selectedEdge];
   if (selectedEdge)
   {
-    v27 = selectedEdge;
+    v30 = selectedEdge;
     if ([gestureCopy hasEdgeResizeSeenTouchOutsideHittestedView])
     {
-      v15 = 1;
+      v18 = 1;
     }
 
     else
     {
-      view2 = [v12 view];
+      view2 = [v15 view];
       _UISystemGestureTranslationInView();
-      v30 = v29;
-      v32 = v31;
+      v33 = v32;
+      v35 = v34;
 
-      if (v27 == 8 || v27 == 2)
+      if (v30 == 8 || v30 == 2)
       {
-        v33 = fabs(v30);
-        v34 = fabs(v32);
+        v36 = fabs(v33);
+        v37 = fabs(v35);
       }
 
       else
       {
-        v33 = fabs(v32);
-        v34 = fabs(v30);
+        v36 = fabs(v35);
+        v37 = fabs(v33);
       }
 
-      v15 = v33 >= v34;
+      v18 = v36 >= v37;
     }
   }
 
 LABEL_15:
-  return v15;
+  return v18;
 }
 
 - (BOOL)_shouldBeginClickDownToBringItemContainerForwardGesture:(id)gesture
@@ -6090,31 +6139,32 @@ LABEL_15:
   if (![(SBFluidSwitcherGestureManager *)self _shouldBeginBringItemContainerForwardGesture:gestureCopy type:15])
   {
 LABEL_7:
-    v5 = 0;
+    v6 = 0;
     goto LABEL_8;
   }
 
-  if (([gestureCopy modifierFlags] & 0x100000) != 0)
+  modifierFlags = [gestureCopy modifierFlags];
+  if ((modifierFlags & 0x100000) != 0)
   {
-    v6 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = SBLogSystemGestureAppSwitcher(modifierFlags);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_INFO, "Preventing the click down to bring item container forward gesture because the command key is pressed.", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_INFO, "Preventing the click down to bring item container forward gesture because the command key is pressed.", v9, 2u);
     }
 
     goto LABEL_7;
   }
 
-  v5 = 1;
+  v6 = 1;
 LABEL_8:
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)_shouldBeginBringItemContainerForwardGesture:(id)gesture type:(unint64_t)type
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_switcherController);
   windowScene = [WeakRetained windowScene];
   homeScreenController = [windowScene homeScreenController];
@@ -6123,58 +6173,63 @@ LABEL_8:
 
   if ((isChamoisOrFlexibleWindowing & 1) == 0)
   {
-    v14 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v18 = SBLogSystemGestureAppSwitcher(v11);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v21) = 0;
-      v15 = "Preventing the bring item container forward gesture because neither Chamois nor FlexibleWindowing is enabled.";
+      LOWORD(v26) = 0;
+      v19 = "Preventing the bring item container forward gesture because neither Chamois nor FlexibleWindowing is enabled.";
       goto LABEL_14;
     }
 
 LABEL_15:
-    v16 = 0;
+    v20 = 0;
     goto LABEL_16;
   }
 
   zStackParticipant = self->_zStackParticipant;
-  if (zStackParticipant && ([(SBFZStackParticipant *)zStackParticipant ownsHomeGesture]& 1) == 0)
+  if (zStackParticipant)
   {
-    v14 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    ownsHomeGesture = [(SBFZStackParticipant *)zStackParticipant ownsHomeGesture];
+    if ((ownsHomeGesture & 1) == 0)
     {
-      LOWORD(v21) = 0;
-      v15 = "Preventing the bring item container forward gesture because switcher doesn't own the home gesture.";
-      goto LABEL_14;
-    }
+      v18 = SBLogSystemGestureAppSwitcher(ownsHomeGesture);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      {
+        LOWORD(v26) = 0;
+        v19 = "Preventing the bring item container forward gesture because switcher doesn't own the home gesture.";
+        goto LABEL_14;
+      }
 
-    goto LABEL_15;
+      goto LABEL_15;
+    }
   }
 
   systemGestureManager = [windowScene systemGestureManager];
-  v13 = [systemGestureManager isGestureWithTypeAllowed:type];
+  v15 = [systemGestureManager isGestureWithTypeAllowed:type];
 
-  if ((v13 & 1) == 0)
+  if ((v15 & 1) == 0)
   {
-    v14 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v18 = SBLogSystemGestureAppSwitcher(v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v21) = 0;
-      v15 = "Preventing the bring item container forward gesture because it's not allowed by the system gesture manager.";
+      LOWORD(v26) = 0;
+      v19 = "Preventing the bring item container forward gesture because it's not allowed by the system gesture manager.";
       goto LABEL_14;
     }
 
     goto LABEL_15;
   }
 
-  if ([homeScreenController areAnyIconViewContextMenusShowing])
+  areAnyIconViewContextMenusShowing = [homeScreenController areAnyIconViewContextMenusShowing];
+  if (areAnyIconViewContextMenusShowing)
   {
-    v14 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v18 = SBLogSystemGestureAppSwitcher(areAnyIconViewContextMenusShowing);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v21) = 0;
-      v15 = "Preventing the bring item container forward gesture because icon is showing context menu.";
+      LOWORD(v26) = 0;
+      v19 = "Preventing the bring item container forward gesture because icon is showing context menu.";
 LABEL_14:
-      _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_INFO, v15, &v21, 2u);
+      _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_INFO, v19, &v26, 2u);
       goto LABEL_15;
     }
 
@@ -6183,25 +6238,25 @@ LABEL_14:
 
   _currentLayoutState = [(SBFluidSwitcherGestureManager *)self _currentLayoutState];
   unlockedEnvironmentMode = [_currentLayoutState unlockedEnvironmentMode];
-  v16 = unlockedEnvironmentMode == 3;
+  v20 = unlockedEnvironmentMode == 3;
 
-  v14 = SBLogSystemGestureAppSwitcher();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v18 = SBLogSystemGestureAppSwitcher(v24);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = @"NO";
+    v25 = @"NO";
     if (unlockedEnvironmentMode == 3)
     {
-      v20 = @"YES";
+      v25 = @"YES";
     }
 
-    v21 = 138412290;
-    v22 = v20;
-    _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Should begin bring item container forward:%@", &v21, 0xCu);
+    v26 = 138412290;
+    v27 = v25;
+    _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "Should begin bring item container forward:%@", &v26, 0xCu);
   }
 
 LABEL_16:
 
-  return v16;
+  return v20;
 }
 
 - (BOOL)_shouldBeginHoverGesture:(id)gesture
@@ -6212,49 +6267,53 @@ LABEL_16:
 
   if ((isChamoisOrFlexibleWindowing & 1) == 0)
   {
-    v13 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v16 = SBLogSystemGestureAppSwitcher(v7);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v19 = 0;
-      v14 = "Preventing the hover gesture because neither Chamois nor FlexibleWindowing is enabled.";
-      v15 = &v19;
+      v22 = 0;
+      v17 = "Preventing the hover gesture because neither Chamois nor FlexibleWindowing is enabled.";
+      v18 = &v22;
 LABEL_12:
-      _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_INFO, v14, v15, 2u);
+      _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_INFO, v17, v18, 2u);
     }
 
 LABEL_13:
 
-    v12 = 0;
+    v15 = 0;
     goto LABEL_14;
   }
 
   zStackParticipant = self->_zStackParticipant;
-  if (zStackParticipant && ([(SBFZStackParticipant *)zStackParticipant ownsHomeGesture]& 1) == 0)
+  if (zStackParticipant)
   {
-    v13 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    ownsHomeGesture = [(SBFZStackParticipant *)zStackParticipant ownsHomeGesture];
+    if ((ownsHomeGesture & 1) == 0)
     {
-      *buf = 0;
-      v14 = "Preventing the hover gesture because switcher doesn't own the home gesture.";
-      v15 = buf;
-      goto LABEL_12;
-    }
+      v16 = SBLogSystemGestureAppSwitcher(ownsHomeGesture);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        v17 = "Preventing the hover gesture because switcher doesn't own the home gesture.";
+        v18 = buf;
+        goto LABEL_12;
+      }
 
-    goto LABEL_13;
+      goto LABEL_13;
+    }
   }
 
   windowScene = [WeakRetained windowScene];
   systemGestureManager = [windowScene systemGestureManager];
-  v10 = [systemGestureManager isGestureWithTypeAllowed:47];
+  v12 = [systemGestureManager isGestureWithTypeAllowed:47];
 
-  if ((v10 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
-    v13 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v16 = SBLogSystemGestureAppSwitcher(v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v17 = 0;
-      v14 = "Preventing the hover gesture because it's not allowed by the system gesture manager.";
-      v15 = &v17;
+      v20 = 0;
+      v17 = "Preventing the hover gesture because it's not allowed by the system gesture manager.";
+      v18 = &v20;
       goto LABEL_12;
     }
 
@@ -6262,10 +6321,10 @@ LABEL_13:
   }
 
   _currentLayoutState = [(SBFluidSwitcherGestureManager *)self _currentLayoutState];
-  v12 = [_currentLayoutState unlockedEnvironmentMode] == 3;
+  v15 = [_currentLayoutState unlockedEnvironmentMode] == 3;
 
 LABEL_14:
-  return v12;
+  return v15;
 }
 
 - (BOOL)_shouldBeginIndirectHomePanGesture:(id)gesture
@@ -6276,41 +6335,45 @@ LABEL_14:
 
   floatingDockController = [windowScene floatingDockController];
   zStackParticipant = self->_zStackParticipant;
-  if (zStackParticipant && ([(SBFZStackParticipant *)zStackParticipant ownsHomeGesture]& 1) == 0)
+  if (zStackParticipant)
   {
-    presentFloatingDockIndirectPanGestureRecognizer = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(presentFloatingDockIndirectPanGestureRecognizer, OS_LOG_TYPE_INFO))
+    ownsHomeGesture = [(SBFZStackParticipant *)zStackParticipant ownsHomeGesture];
+    if ((ownsHomeGesture & 1) == 0)
     {
-      *buf = 0;
-      v15 = "Preventing the indirect home pan gesture because switcher doesn't own the home gesture.";
-      v16 = buf;
-      goto LABEL_12;
-    }
+      presentFloatingDockIndirectPanGestureRecognizer = SBLogSystemGestureAppSwitcher(ownsHomeGesture);
+      if (os_log_type_enabled(presentFloatingDockIndirectPanGestureRecognizer, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        v18 = "Preventing the indirect home pan gesture because switcher doesn't own the home gesture.";
+        v19 = buf;
+        goto LABEL_12;
+      }
 
-    goto LABEL_13;
+      goto LABEL_13;
+    }
   }
 
   systemGestureManager = [windowScene systemGestureManager];
-  v10 = [systemGestureManager isGestureWithTypeAllowed:35];
+  v11 = [systemGestureManager isGestureWithTypeAllowed:35];
 
-  if (v10)
+  if (v11)
   {
-    v11 = +[SBSetupManager sharedInstance];
-    if ([v11 isInSetupMode])
+    v13 = +[SBSetupManager sharedInstance];
+    if ([v13 isInSetupMode])
     {
-      v12 = +[SBSetupManager sharedInstance];
-      isInSetupModeReadyToExit = [v12 isInSetupModeReadyToExit];
+      v14 = +[SBSetupManager sharedInstance];
+      isInSetupModeReadyToExit = [v14 isInSetupModeReadyToExit];
 
       if ((isInSetupModeReadyToExit & 1) == 0)
       {
-        presentFloatingDockIndirectPanGestureRecognizer = SBLogSystemGestureAppSwitcher();
+        presentFloatingDockIndirectPanGestureRecognizer = SBLogSystemGestureAppSwitcher(v16);
         if (os_log_type_enabled(presentFloatingDockIndirectPanGestureRecognizer, OS_LOG_TYPE_INFO))
         {
-          v38 = 0;
-          v15 = "Preventing the indirect home pan gesture because Buddy is not ready to exit.";
-          v16 = &v38;
+          v43 = 0;
+          v18 = "Preventing the indirect home pan gesture because Buddy is not ready to exit.";
+          v19 = &v43;
 LABEL_12:
-          _os_log_impl(&dword_21ED4E000, presentFloatingDockIndirectPanGestureRecognizer, OS_LOG_TYPE_INFO, v15, v16, 2u);
+          _os_log_impl(&dword_21ED4E000, presentFloatingDockIndirectPanGestureRecognizer, OS_LOG_TYPE_INFO, v18, v19, 2u);
           goto LABEL_13;
         }
 
@@ -6331,20 +6394,20 @@ LABEL_12:
 
       else
       {
-        v20 = +[SBSetupManager sharedInstance];
-        isInSetupMode = [v20 isInSetupMode];
+        v23 = +[SBSetupManager sharedInstance];
+        isInSetupMode = [v23 isInSetupMode];
 
         if ((isInSetupMode & 1) == 0)
         {
-          presentFloatingDockIndirectPanGestureRecognizer = SBLogSystemGestureAppSwitcher();
+          presentFloatingDockIndirectPanGestureRecognizer = SBLogSystemGestureAppSwitcher(v25);
           if (!os_log_type_enabled(presentFloatingDockIndirectPanGestureRecognizer, OS_LOG_TYPE_INFO))
           {
             goto LABEL_13;
           }
 
-          v37 = 0;
-          v15 = "Preventing the indirect home pan gesture because the floating dock is not fully presented.";
-          v16 = &v37;
+          v42 = 0;
+          v18 = "Preventing the indirect home pan gesture because the floating dock is not fully presented.";
+          v19 = &v42;
           goto LABEL_12;
         }
       }
@@ -6352,140 +6415,141 @@ LABEL_12:
 
     if ([gestureCopy currentInputType] != 1)
     {
-      v17 = 1;
+      v20 = 1;
       goto LABEL_15;
     }
 
     presentFloatingDockIndirectPanGestureRecognizer = [floatingDockController presentFloatingDockIndirectPanGestureRecognizer];
     BSContinuousMachTimeNow();
-    v23 = v22;
+    v27 = v26;
     [presentFloatingDockIndirectPanGestureRecognizer lastMouseActivationTimestamp];
-    v25 = v23 - v24;
-    v26 = +[SBCoverSheetPresentationManager sharedInstance];
-    coverSheetSlidingViewController = [v26 coverSheetSlidingViewController];
+    v29 = v27 - v28;
+    v30 = +[SBCoverSheetPresentationManager sharedInstance];
+    coverSheetSlidingViewController = [v30 coverSheetSlidingViewController];
     indirectDismissGestureRecognizer = [coverSheetSlidingViewController indirectDismissGestureRecognizer];
 
     BSContinuousMachTimeNow();
-    v30 = v29;
-    [indirectDismissGestureRecognizer lastMouseActivationTimestamp];
-    if (v25 >= 0.25)
+    v34 = v33;
+    lastMouseActivationTimestamp = [indirectDismissGestureRecognizer lastMouseActivationTimestamp];
+    if (v29 >= 0.25)
     {
-      if (v30 - v31 >= 0.5)
+      if (v34 - v36 >= 0.5)
       {
-        v17 = 1;
+        v20 = 1;
         goto LABEL_34;
       }
 
-      v32 = SBLogSystemGestureAppSwitcher();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+      v37 = SBLogSystemGestureAppSwitcher(lastMouseActivationTimestamp);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
       {
-        v35 = 0;
-        v33 = "Preventing the indirect home pan gesture because the dismiss cover sheet gesture was recently activated by a mouse.";
-        v34 = &v35;
+        v40 = 0;
+        v38 = "Preventing the indirect home pan gesture because the dismiss cover sheet gesture was recently activated by a mouse.";
+        v39 = &v40;
         goto LABEL_29;
       }
     }
 
     else
     {
-      v32 = SBLogSystemGestureAppSwitcher();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+      v37 = SBLogSystemGestureAppSwitcher(lastMouseActivationTimestamp);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
       {
-        v36 = 0;
-        v33 = "Preventing the indirect home pan gesture because the dock gesture was recently activated by a mouse.";
-        v34 = &v36;
+        v41 = 0;
+        v38 = "Preventing the indirect home pan gesture because the dock gesture was recently activated by a mouse.";
+        v39 = &v41;
 LABEL_29:
-        _os_log_impl(&dword_21ED4E000, v32, OS_LOG_TYPE_INFO, v33, v34, 2u);
+        _os_log_impl(&dword_21ED4E000, v37, OS_LOG_TYPE_INFO, v38, v39, 2u);
       }
     }
 
-    v17 = 0;
+    v20 = 0;
 LABEL_34:
 
     goto LABEL_14;
   }
 
-  presentFloatingDockIndirectPanGestureRecognizer = SBLogSystemGestureAppSwitcher();
+  presentFloatingDockIndirectPanGestureRecognizer = SBLogSystemGestureAppSwitcher(v12);
   if (os_log_type_enabled(presentFloatingDockIndirectPanGestureRecognizer, OS_LOG_TYPE_INFO))
   {
-    v39 = 0;
-    v15 = "Preventing the indirect home pan gesture because it's not allowed by the system gesture manager.";
-    v16 = &v39;
+    v44 = 0;
+    v18 = "Preventing the indirect home pan gesture because it's not allowed by the system gesture manager.";
+    v19 = &v44;
     goto LABEL_12;
   }
 
 LABEL_13:
-  v17 = 0;
+  v20 = 0;
 LABEL_14:
 
 LABEL_15:
-  return v17;
+  return v20;
 }
 
 - (BOOL)_shouldBeginIndirectFloatingAppScrunchGesture:(id)gesture
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  v4 = [(SBFluidSwitcherGestureManager *)self _shouldAllowFloatingApplicationGesture:gesture gestureType:13 failureReason:&v16];
-  v5 = v16;
+  v21 = *MEMORY[0x277D85DE8];
+  v18 = 0;
+  v4 = [(SBFluidSwitcherGestureManager *)self _shouldAllowFloatingApplicationGesture:gesture gestureType:13 failureReason:&v18];
+  v5 = v18;
+  v6 = v5;
   if (!v4)
   {
-    v11 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v13 = SBLogSystemGestureAppSwitcher(v5);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v18 = v5;
-      v12 = "Preventing the floating app scrunch gesture because: %@.";
-      v13 = v11;
-      v14 = 12;
+      v20 = v6;
+      v14 = "Preventing the floating app scrunch gesture because: %@.";
+      v15 = v13;
+      v16 = 12;
 LABEL_8:
-      _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_INFO, v12, buf, v14);
+      _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_INFO, v14, buf, v16);
     }
 
 LABEL_9:
 
-    v10 = 0;
+    v12 = 0;
     goto LABEL_10;
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_switcherController);
   windowScene = [WeakRetained windowScene];
   systemGestureManager = [windowScene systemGestureManager];
-  v9 = [systemGestureManager isGestureWithTypeAllowed:13];
+  v10 = [systemGestureManager isGestureWithTypeAllowed:13];
 
-  if ((v9 & 1) == 0)
+  if ((v10 & 1) == 0)
   {
-    v11 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v13 = SBLogSystemGestureAppSwitcher(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      v12 = "Preventing the floating app scrunch gesture because it's not allowed by the system gesture manager.";
-      v13 = v11;
-      v14 = 2;
+      v14 = "Preventing the floating app scrunch gesture because it's not allowed by the system gesture manager.";
+      v15 = v13;
+      v16 = 2;
       goto LABEL_8;
     }
 
     goto LABEL_9;
   }
 
-  v10 = 1;
+  v12 = 1;
 LABEL_10:
 
-  return v10;
+  return v12;
 }
 
 - (BOOL)_shouldBeginFluidScrunchGesture:(id)gesture
 {
   gestureCopy = gesture;
   zStackParticipant = self->_zStackParticipant;
-  if (zStackParticipant && ([(SBFZStackParticipant *)zStackParticipant ownsHomeGesture]& 1) == 0)
+  if (zStackParticipant && (v6 = [(SBFZStackParticipant *)zStackParticipant ownsHomeGesture], (v6 & 1) == 0))
   {
-    v10 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v13 = SBLogSystemGestureAppSwitcher(v6);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      v11 = "Preventing the scrunch gesture because switcher doesn't own the home gesture.";
-      v12 = buf;
+      v14 = "Preventing the scrunch gesture because switcher doesn't own the home gesture.";
+      v15 = buf;
       goto LABEL_11;
     }
   }
@@ -6495,44 +6559,45 @@ LABEL_10:
     WeakRetained = objc_loadWeakRetained(&self->_switcherController);
     windowScene = [WeakRetained windowScene];
     systemGestureManager = [windowScene systemGestureManager];
-    v9 = [systemGestureManager isGestureWithTypeAllowed:12];
+    v10 = [systemGestureManager isGestureWithTypeAllowed:12];
 
-    if (v9)
+    if (v10)
     {
-      if (![SBApp isTypingActive])
+      isTypingActive = [SBApp isTypingActive];
+      if (!isTypingActive)
       {
-        v13 = 1;
+        v16 = 1;
         goto LABEL_13;
       }
 
-      v10 = SBLogSystemGestureAppSwitcher();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v13 = SBLogSystemGestureAppSwitcher(isTypingActive);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v15 = 0;
-        v11 = "Preventing the scrunch gesture because typing is active.";
-        v12 = &v15;
+        v18 = 0;
+        v14 = "Preventing the scrunch gesture because typing is active.";
+        v15 = &v18;
 LABEL_11:
-        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_INFO, v11, v12, 2u);
+        _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_INFO, v14, v15, 2u);
       }
     }
 
     else
     {
-      v10 = SBLogSystemGestureAppSwitcher();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v13 = SBLogSystemGestureAppSwitcher(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v16 = 0;
-        v11 = "Preventing the scrunch gesture because it's not allowed by the system gesture manager.";
-        v12 = &v16;
+        v19 = 0;
+        v14 = "Preventing the scrunch gesture because it's not allowed by the system gesture manager.";
+        v15 = &v19;
         goto LABEL_11;
       }
     }
   }
 
-  v13 = 0;
+  v16 = 0;
 LABEL_13:
 
-  return v13;
+  return v16;
 }
 
 - (BOOL)_shouldAllowFloatingApplicationGesture:(id)gesture gestureType:(unint64_t)type failureReason:(id *)reason
@@ -6610,66 +6675,67 @@ LABEL_15:
 
 - (BOOL)_shouldBeginFloatingApplicationSwipeUpGesture:(id)gesture
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   gestureCopy = gesture;
-  v24 = 0;
-  v5 = [(SBFluidSwitcherGestureManager *)self _shouldAllowFloatingApplicationGesture:gestureCopy gestureType:26 failureReason:&v24];
-  v6 = v24;
+  v26 = 0;
+  v5 = [(SBFluidSwitcherGestureManager *)self _shouldAllowFloatingApplicationGesture:gestureCopy gestureType:26 failureReason:&v26];
+  v6 = v26;
+  v7 = v6;
   if (!v5)
   {
-    v12 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v14 = SBLogSystemGestureAppSwitcher(v6);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v26 = v6;
-      v13 = "Preventing the floating app swipe up gesture because: %@.";
-      v14 = v12;
-      v15 = 12;
+      v28 = v7;
+      v15 = "Preventing the floating app swipe up gesture because: %@.";
+      v16 = v14;
+      v17 = 12;
 LABEL_8:
-      _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_INFO, v13, buf, v15);
+      _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_INFO, v15, buf, v17);
     }
 
 LABEL_9:
 
-    v11 = 0;
+    v13 = 0;
     goto LABEL_10;
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_switcherController);
   windowScene = [WeakRetained windowScene];
   systemGestureManager = [windowScene systemGestureManager];
-  v10 = [systemGestureManager isGestureWithTypeAllowed:26];
+  v11 = [systemGestureManager isGestureWithTypeAllowed:26];
 
-  if ((v10 & 1) == 0)
+  if ((v11 & 1) == 0)
   {
-    v12 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v14 = SBLogSystemGestureAppSwitcher(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      v13 = "Preventing the floating app swipe up gesture because it's not allowed by the system gesture manager.";
-      v14 = v12;
-      v15 = 2;
+      v15 = "Preventing the floating app swipe up gesture because it's not allowed by the system gesture manager.";
+      v16 = v14;
+      v17 = 2;
       goto LABEL_8;
     }
 
     goto LABEL_9;
   }
 
-  v11 = 1;
+  v13 = 1;
 LABEL_10:
   mEMORY[0x277D6A798] = [MEMORY[0x277D6A798] sharedInstance];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __79__SBFluidSwitcherGestureManager__shouldBeginFloatingApplicationSwipeUpGesture___block_invoke;
-  v20[3] = &unk_2783B77A8;
-  v23 = v11;
-  v21 = gestureCopy;
-  v22 = v6;
-  v17 = v6;
-  v18 = gestureCopy;
-  [mEMORY[0x277D6A798] logBlock:v20];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __79__SBFluidSwitcherGestureManager__shouldBeginFloatingApplicationSwipeUpGesture___block_invoke;
+  v22[3] = &unk_2783B77A8;
+  v25 = v13;
+  v23 = gestureCopy;
+  v24 = v7;
+  v19 = v7;
+  v20 = gestureCopy;
+  [mEMORY[0x277D6A798] logBlock:v22];
 
-  return v11;
+  return v13;
 }
 
 id __79__SBFluidSwitcherGestureManager__shouldBeginFloatingApplicationSwipeUpGesture___block_invoke(uint64_t a1)
@@ -6713,7 +6779,7 @@ id __79__SBFluidSwitcherGestureManager__shouldBeginFloatingApplicationSwipeUpGes
 
 - (BOOL)_shouldBeginFloatingApplicationPresentGesture:(id)gesture
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   gestureCopy = gesture;
   indirectEdgePullGestureRecognizer = [(SBGrabberTongue *)self->_rightEdgeFloatingAppGrabberTongue indirectEdgePullGestureRecognizer];
 
@@ -6727,17 +6793,18 @@ id __79__SBFluidSwitcherGestureManager__shouldBeginFloatingApplicationSwipeUpGes
     v6 = 19;
   }
 
-  v51 = 0;
-  v7 = [(SBFluidSwitcherGestureManager *)self _shouldAllowFloatingApplicationGesture:gestureCopy gestureType:v6 failureReason:&v51];
-  v8 = v51;
+  v58 = 0;
+  v7 = [(SBFluidSwitcherGestureManager *)self _shouldAllowFloatingApplicationGesture:gestureCopy gestureType:v6 failureReason:&v58];
+  v8 = v58;
+  v9 = v8;
   if (!v7)
   {
-    v9 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = SBLogSystemGestureAppSwitcher(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      *&buf[4] = v8;
-      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_INFO, "Preventing the right floating app present gesture because: %@.", buf, 0xCu);
+      *&buf[4] = v9;
+      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_INFO, "Preventing the right floating app present gesture because: %@.", buf, 0xCu);
     }
   }
 
@@ -6745,41 +6812,41 @@ id __79__SBFluidSwitcherGestureManager__shouldBeginFloatingApplicationSwipeUpGes
 
   if (!v7)
   {
-    v13 = v8;
+    v14 = v9;
 LABEL_21:
-    v54 = 0;
-    v53 = 0u;
+    v61 = 0;
+    v60 = 0u;
     *buf = 0u;
-    [(SBFluidSwitcherGestureManager *)self _currentSlideOverConfiguration];
+    objc_msgSend__currentSlideOverConfiguration(self);
 LABEL_22:
-    LOBYTE(v20) = 0;
+    LOBYTE(v23) = 0;
     goto LABEL_23;
   }
 
   if (indirectEdgePullGestureRecognizer2 == gestureCopy)
   {
-    v11 = 37;
+    v12 = 37;
   }
 
   else
   {
-    v11 = 20;
+    v12 = 20;
   }
 
-  v50 = v8;
-  v12 = [(SBFluidSwitcherGestureManager *)self _shouldAllowFloatingApplicationGesture:gestureCopy gestureType:v11 failureReason:&v50];
-  v13 = v50;
+  v57 = v9;
+  v13 = [(SBFluidSwitcherGestureManager *)self _shouldAllowFloatingApplicationGesture:gestureCopy gestureType:v12 failureReason:&v57];
+  v14 = v57;
 
-  if (!v12)
+  if (!v13)
   {
-    v16 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v19 = SBLogSystemGestureAppSwitcher(v15);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      *&buf[4] = v13;
-      v17 = "Preventing the left floating app present gesture because: %@.";
-      v18 = v16;
-      v19 = 12;
+      *&buf[4] = v14;
+      v20 = "Preventing the left floating app present gesture because: %@.";
+      v21 = v19;
+      v22 = 12;
       goto LABEL_19;
     }
 
@@ -6793,34 +6860,34 @@ LABEL_20:
 
   if (isFloatingSwitcherVisible)
   {
-    v16 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v19 = SBLogSystemGestureAppSwitcher(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      v17 = "Preventing the floating app present gesture because the floating switcher is presented.";
-      v18 = v16;
-      v19 = 2;
+      v20 = "Preventing the floating app present gesture because the floating switcher is presented.";
+      v21 = v19;
+      v22 = 2;
 LABEL_19:
-      _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_INFO, v17, buf, v19);
+      _os_log_impl(&dword_21ED4E000, v21, OS_LOG_TYPE_INFO, v20, buf, v22);
       goto LABEL_20;
     }
 
     goto LABEL_20;
   }
 
-  v54 = 0;
-  v53 = 0u;
+  v61 = 0;
+  v60 = 0u;
   *buf = 0u;
-  [(SBFluidSwitcherGestureManager *)self _currentSlideOverConfiguration];
-  if ((v54 & 0x100) == 0)
+  v28 = objc_msgSend__currentSlideOverConfiguration(self);
+  if ((v61 & 0x100) == 0)
   {
-    v34 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+    v40 = SBLogSystemGestureAppSwitcher(v28);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
     {
-      *v47 = 0;
-      v35 = "Preventing the floating app present gesture because the slideover app is not stashed.";
+      *v54 = 0;
+      v41 = "Preventing the floating app present gesture because the slideover app is not stashed.";
 LABEL_46:
-      _os_log_impl(&dword_21ED4E000, v34, OS_LOG_TYPE_INFO, v35, v47, 2u);
+      _os_log_impl(&dword_21ED4E000, v40, OS_LOG_TYPE_INFO, v41, v54, 2u);
     }
 
 LABEL_47:
@@ -6831,20 +6898,21 @@ LABEL_47:
   if (indirectEdgePullGestureRecognizer2 == gestureCopy)
   {
 LABEL_28:
-    *v47 = *buf;
-    v48 = v53;
-    v49 = v54;
-    if (SBDisplayItemSlideOverIsLeftSided(v47))
+    *v54 = *buf;
+    v55 = v60;
+    v56 = v61;
+    IsLeftSided = SBDisplayItemSlideOverIsLeftSided(v54);
+    if (IsLeftSided)
     {
       goto LABEL_29;
     }
 
 LABEL_44:
-    v34 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+    v40 = SBLogSystemGestureAppSwitcher(IsLeftSided);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
     {
-      *v47 = 0;
-      v35 = "Preventing the floating app present gesture from the left edge because the slideover app is not stashed on the left.";
+      *v54 = 0;
+      v41 = "Preventing the floating app present gesture from the left edge because the slideover app is not stashed on the left.";
       goto LABEL_46;
     }
 
@@ -6855,7 +6923,7 @@ LABEL_44:
 
   if (edgePullGestureRecognizer == gestureCopy)
   {
-    if ((v54 & 0x100) == 0)
+    if ((v61 & 0x100) == 0)
     {
       goto LABEL_44;
     }
@@ -6874,13 +6942,13 @@ LABEL_29:
     }
   }
 
-  if (BYTE1(v54) != 1 || (*v47 = *buf, v48 = v53, v49 = v54, SBDisplayItemSlideOverIsLeftSided(v47)))
+  if (BYTE1(v61) != 1 || (*v54 = *buf, v55 = v60, v56 = v61, IsLeftSided = SBDisplayItemSlideOverIsLeftSided(v54)))
   {
-    v34 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+    v40 = SBLogSystemGestureAppSwitcher(IsLeftSided);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
     {
-      *v47 = 0;
-      v35 = "Preventing the floating app present gesture from the right edge because the slideover app is not stashed on the right.";
+      *v54 = 0;
+      v41 = "Preventing the floating app present gesture from the right edge because the slideover app is not stashed on the right.";
       goto LABEL_46;
     }
 
@@ -6890,36 +6958,36 @@ LABEL_29:
   if (indirectEdgePullGestureRecognizer != gestureCopy)
   {
 LABEL_31:
-    LOBYTE(v20) = 1;
+    LOBYTE(v23) = 1;
 LABEL_32:
     if (indirectEdgePullGestureRecognizer2 == gestureCopy)
     {
       indirectEdgePullGestureRecognizer3 = [(SBGrabberTongue *)self->_leftEdgeFloatingAppGrabberTongue indirectEdgePullGestureRecognizer];
       if ([indirectEdgePullGestureRecognizer3 currentInputType] == 1)
       {
-        v28 = self->_indirectDismissFloatingApplicationGestureRecognizer;
+        v33 = self->_indirectDismissFloatingApplicationGestureRecognizer;
         BSContinuousMachTimeNow();
-        v30 = v29;
-        [(SBIndirectPanGestureRecognizer *)v28 lastMouseActivationTimestamp];
-        v32 = v31;
+        v35 = v34;
+        [(SBIndirectPanGestureRecognizer *)v33 lastMouseActivationTimestamp];
+        v37 = v36;
 
-        LOBYTE(v20) = v30 - v32 >= 0.75;
-        if (v30 - v32 < 0.75)
+        LOBYTE(v23) = v35 - v37 >= 0.75;
+        if (v35 - v37 < 0.75)
         {
-          v33 = SBLogSystemGestureAppSwitcher();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+          v39 = SBLogSystemGestureAppSwitcher(v38);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
           {
-            *v47 = 0;
-            _os_log_impl(&dword_21ED4E000, v33, OS_LOG_TYPE_INFO, "Preventing the left indirect floating app present gesture because the dismiss gesture was very recently activated with a mouse.", v47, 2u);
+            *v54 = 0;
+            _os_log_impl(&dword_21ED4E000, v39, OS_LOG_TYPE_INFO, "Preventing the left indirect floating app present gesture because the dismiss gesture was very recently activated with a mouse.", v54, 2u);
           }
 
-          LOBYTE(v20) = 0;
+          LOBYTE(v23) = 0;
         }
       }
 
       else
       {
-        LOBYTE(v20) = 1;
+        LOBYTE(v23) = 1;
       }
     }
 
@@ -6929,50 +6997,50 @@ LABEL_32:
   indirectEdgePullGestureRecognizer4 = [(SBGrabberTongue *)self->_rightEdgeFloatingAppGrabberTongue indirectEdgePullGestureRecognizer];
   if ([indirectEdgePullGestureRecognizer4 currentInputType] == 1)
   {
-    v37 = self->_indirectDismissFloatingApplicationGestureRecognizer;
+    v43 = self->_indirectDismissFloatingApplicationGestureRecognizer;
     BSContinuousMachTimeNow();
-    v39 = v38;
-    [(SBIndirectPanGestureRecognizer *)v37 lastMouseActivationTimestamp];
-    v41 = v40;
+    v45 = v44;
+    [(SBIndirectPanGestureRecognizer *)v43 lastMouseActivationTimestamp];
+    v47 = v46;
 
-    v20 = v39 - v41 >= 0.75;
-    if (v39 - v41 < 0.75)
+    v23 = v45 - v47 >= 0.75;
+    if (v45 - v47 < 0.75)
     {
-      v42 = SBLogSystemGestureAppSwitcher();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+      v49 = SBLogSystemGestureAppSwitcher(v48);
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
       {
-        *v47 = 0;
-        _os_log_impl(&dword_21ED4E000, v42, OS_LOG_TYPE_INFO, "Preventing the right indirect floating app present gesture because the dismiss gesture was very recently activated with a mouse.", v47, 2u);
+        *v54 = 0;
+        _os_log_impl(&dword_21ED4E000, v49, OS_LOG_TYPE_INFO, "Preventing the right indirect floating app present gesture because the dismiss gesture was very recently activated with a mouse.", v54, 2u);
       }
 
-      v20 = 0;
+      v23 = 0;
     }
   }
 
   else
   {
-    v20 = 1;
+    v23 = 1;
   }
 
-  if (v20)
+  if (v23)
   {
     goto LABEL_32;
   }
 
 LABEL_23:
   mEMORY[0x277D6A798] = [MEMORY[0x277D6A798] sharedInstance];
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __79__SBFluidSwitcherGestureManager__shouldBeginFloatingApplicationPresentGesture___block_invoke;
-  v43[3] = &unk_2783B77A8;
-  v46 = v20;
-  v44 = gestureCopy;
-  v45 = v13;
-  v22 = v13;
-  v23 = gestureCopy;
-  [mEMORY[0x277D6A798] logBlock:v43];
+  v50[0] = MEMORY[0x277D85DD0];
+  v50[1] = 3221225472;
+  v50[2] = __79__SBFluidSwitcherGestureManager__shouldBeginFloatingApplicationPresentGesture___block_invoke;
+  v50[3] = &unk_2783B77A8;
+  v53 = v23;
+  v51 = gestureCopy;
+  v52 = v14;
+  v25 = v14;
+  v26 = gestureCopy;
+  [mEMORY[0x277D6A798] logBlock:v50];
 
-  return v20;
+  return v23;
 }
 
 id __79__SBFluidSwitcherGestureManager__shouldBeginFloatingApplicationPresentGesture___block_invoke(uint64_t a1)
@@ -7016,19 +7084,20 @@ id __79__SBFluidSwitcherGestureManager__shouldBeginFloatingApplicationPresentGes
 
 - (BOOL)_shouldBeginFloatingApplicationMoveGesture:(id)gesture
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   gestureCopy = gesture;
-  v35 = 0;
-  v5 = [(SBFluidSwitcherGestureManager *)self _shouldAllowFloatingApplicationGesture:gestureCopy gestureType:23 failureReason:&v35];
-  v6 = v35;
+  v40 = 0;
+  v5 = [(SBFluidSwitcherGestureManager *)self _shouldAllowFloatingApplicationGesture:gestureCopy gestureType:23 failureReason:&v40];
+  v6 = v40;
+  v7 = v6;
   if (!v5)
   {
-    v9 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v11 = SBLogSystemGestureAppSwitcher(v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      *&buf[4] = v6;
-      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_INFO, "Preventing the floating app move gesture because: %@.", buf, 0xCu);
+      *&buf[4] = v7;
+      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_INFO, "Preventing the floating app move gesture because: %@.", buf, 0xCu);
     }
 
     _currentLayoutState = [(SBFluidSwitcherGestureManager *)self _currentLayoutState];
@@ -7036,29 +7105,30 @@ id __79__SBFluidSwitcherGestureManager__shouldBeginFloatingApplicationPresentGes
   }
 
   _currentLayoutState = [(SBFluidSwitcherGestureManager *)self _currentLayoutState];
-  if ([_currentLayoutState isFloatingSwitcherVisible])
+  isFloatingSwitcherVisible = [_currentLayoutState isFloatingSwitcherVisible];
+  if (isFloatingSwitcherVisible)
   {
-    v8 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = SBLogSystemGestureAppSwitcher(isFloatingSwitcherVisible);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_INFO, "Preventing the floating app present move because the floating switcher is presented.", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_INFO, "Preventing the floating app present move because the floating switcher is presented.", buf, 2u);
     }
 
 LABEL_9:
-    LOBYTE(v10) = 0;
+    LOBYTE(v12) = 0;
 LABEL_10:
     mEMORY[0x277D6A798] = [MEMORY[0x277D6A798] sharedInstance];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __76__SBFluidSwitcherGestureManager__shouldBeginFloatingApplicationMoveGesture___block_invoke;
-    v28[3] = &unk_2783B77A8;
-    v31 = v10;
-    v29 = gestureCopy;
-    v30 = v6;
-    [mEMORY[0x277D6A798] logBlock:v28];
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __76__SBFluidSwitcherGestureManager__shouldBeginFloatingApplicationMoveGesture___block_invoke;
+    v33[3] = &unk_2783B77A8;
+    v36 = v12;
+    v34 = gestureCopy;
+    v35 = v7;
+    [mEMORY[0x277D6A798] logBlock:v33];
 
-    v12 = v29;
+    v14 = v34;
     goto LABEL_11;
   }
 
@@ -7069,73 +7139,74 @@ LABEL_10:
     indirectDismissFloatingApplicationGestureRecognizer = self->_indirectDismissFloatingApplicationGestureRecognizer;
     if (indirectDismissFloatingApplicationGestureRecognizer != gestureCopy)
     {
-      LOBYTE(v10) = 1;
+      LOBYTE(v12) = 1;
       goto LABEL_10;
     }
 
     if ([(SBIndirectPanGestureRecognizer *)indirectDismissFloatingApplicationGestureRecognizer currentInputType]== 1)
     {
-      v16 = [(SBFluidSwitcherGestureManager *)self _indirectPresentFloatingAppGestureRecognizerForEdge:[(SBIndirectPanGestureRecognizer *)self->_indirectDismissFloatingApplicationGestureRecognizer activatedEdge]];
+      v19 = [(SBFluidSwitcherGestureManager *)self _indirectPresentFloatingAppGestureRecognizerForEdge:[(SBIndirectPanGestureRecognizer *)self->_indirectDismissFloatingApplicationGestureRecognizer activatedEdge]];
       BSContinuousMachTimeNow();
-      v18 = v17;
-      [v16 lastMouseActivationTimestamp];
-      v20 = v18 - v19;
-      LODWORD(v10) = v20 >= 0.75;
-      if (v20 < 0.75)
+      v21 = v20;
+      lastMouseActivationTimestamp = [v19 lastMouseActivationTimestamp];
+      v24 = v21 - v23;
+      LODWORD(v12) = v24 >= 0.75;
+      if (v24 < 0.75)
       {
-        v21 = SBLogSystemGestureAppSwitcher();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        v25 = SBLogSystemGestureAppSwitcher(lastMouseActivationTimestamp);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_21ED4E000, v21, OS_LOG_TYPE_INFO, "Preventing the indirect floating app dismiss gesture because the present gesture was very recently activated with a mouse.", buf, 2u);
+          _os_log_impl(&dword_21ED4E000, v25, OS_LOG_TYPE_INFO, "Preventing the indirect floating app dismiss gesture because the present gesture was very recently activated with a mouse.", buf, 2u);
         }
       }
     }
 
     else
     {
-      LODWORD(v10) = 1;
+      LODWORD(v12) = 1;
     }
 
-    v22 = objc_opt_class();
-    v23 = SBSafeCast(v22, gestureCopy);
-    v24 = v23;
-    if (v10 && v23)
+    v26 = objc_opt_class();
+    v27 = SBSafeCast(v26, gestureCopy);
+    v28 = v27;
+    if (v12 && v27)
     {
-      v38 = 0;
+      v43 = 0;
       *buf = 0u;
-      v37 = 0u;
-      [(SBFluidSwitcherGestureManager *)self _currentSlideOverConfiguration];
-      *v32 = *buf;
-      v33 = v37;
-      v34 = v38;
-      IsLeftSided = SBDisplayItemSlideOverIsLeftSided(v32);
-      if ([v24 activatedEdge] == 2 && !IsLeftSided || objc_msgSend(v24, "activatedEdge") == 8 && IsLeftSided)
+      v42 = 0u;
+      objc_msgSend__currentSlideOverConfiguration(self);
+      *v37 = *buf;
+      v38 = v42;
+      v39 = v43;
+      IsLeftSided = SBDisplayItemSlideOverIsLeftSided(v37);
+      activatedEdge = [v28 activatedEdge];
+      if (activatedEdge == 2 && !IsLeftSided || (activatedEdge = [v28 activatedEdge], activatedEdge == 8 && IsLeftSided))
       {
-        _slideOverLeafAppLayout = SBLogSystemGestureAppSwitcher();
+        _slideOverLeafAppLayout = SBLogSystemGestureAppSwitcher(activatedEdge);
         if (os_log_type_enabled(_slideOverLeafAppLayout, OS_LOG_TYPE_INFO))
         {
-          *v32 = 0;
-          _os_log_impl(&dword_21ED4E000, _slideOverLeafAppLayout, OS_LOG_TYPE_INFO, "Preventing the indirect floating app dismiss gesture because it is at the opposite end of the visible SlideOver.", v32, 2u);
+          *v37 = 0;
+          _os_log_impl(&dword_21ED4E000, _slideOverLeafAppLayout, OS_LOG_TYPE_INFO, "Preventing the indirect floating app dismiss gesture because it is at the opposite end of the visible SlideOver.", v37, 2u);
         }
 
-        LOBYTE(v10) = 0;
+        LOBYTE(v12) = 0;
       }
 
       else
       {
-        v27 = self->_indirectDismissFloatingApplicationGestureRecognizer;
-        if (v27 != gestureCopy)
+        v32 = self->_indirectDismissFloatingApplicationGestureRecognizer;
+        if (v32 != gestureCopy)
         {
-          LOBYTE(v10) = 1;
+          LOBYTE(v12) = 1;
           goto LABEL_34;
         }
 
-        [(SBIndirectPanGestureRecognizer *)v27 setShouldInvertXAxis:BYTE1(v38)];
-        v10 = self->_indirectDismissFloatingApplicationGestureRecognizer;
+        [(SBIndirectPanGestureRecognizer *)v32 setShouldInvertXAxis:BYTE1(v43)];
+        v12 = self->_indirectDismissFloatingApplicationGestureRecognizer;
         _slideOverLeafAppLayout = [(SBFluidSwitcherGestureManager *)self _slideOverLeafAppLayout];
-        [(SBFluidSwitcherIndirectPanGestureRecognizer *)v10 setLeafAppLayout:_slideOverLeafAppLayout];
-        LOBYTE(v10) = 1;
+        [(SBFluidSwitcherIndirectPanGestureRecognizer *)v12 setLeafAppLayout:_slideOverLeafAppLayout];
+        LOBYTE(v12) = 1;
       }
     }
 
@@ -7144,17 +7215,17 @@ LABEL_34:
     goto LABEL_10;
   }
 
-  v12 = SBLogSystemGestureAppSwitcher();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v14 = SBLogSystemGestureAppSwitcher(v17);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_INFO, "Preventing the floating app move gesture because there's no slideover app.", buf, 2u);
+    _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_INFO, "Preventing the floating app move gesture because there's no slideover app.", buf, 2u);
   }
 
-  LOBYTE(v10) = 0;
+  LOBYTE(v12) = 0;
 LABEL_11:
 
-  return v10;
+  return v12;
 }
 
 id __76__SBFluidSwitcherGestureManager__shouldBeginFloatingApplicationMoveGesture___block_invoke(uint64_t a1)
@@ -7198,22 +7269,23 @@ id __76__SBFluidSwitcherGestureManager__shouldBeginFloatingApplicationMoveGestur
 
 - (BOOL)_shouldBeginFloatingApplicationPinGesture:(id)gesture
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  v4 = [(SBFluidSwitcherGestureManager *)self _shouldAllowFloatingApplicationGesture:gesture gestureType:24 failureReason:&v14];
-  v5 = v14;
+  v20 = *MEMORY[0x277D85DE8];
+  v17 = 0;
+  v4 = [(SBFluidSwitcherGestureManager *)self _shouldAllowFloatingApplicationGesture:gesture gestureType:24 failureReason:&v17];
+  v5 = v17;
+  v6 = v5;
   if (!v4)
   {
-    v8 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = SBLogSystemGestureAppSwitcher(v5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v16 = v5;
-      v9 = "Preventing the floating app pin gesture because: %@.";
-      v10 = v8;
-      v11 = 12;
+      v19 = v6;
+      v11 = "Preventing the floating app pin gesture because: %@.";
+      v12 = v10;
+      v13 = 12;
 LABEL_12:
-      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_INFO, v9, buf, v11);
+      _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_INFO, v11, buf, v13);
       goto LABEL_13;
     }
 
@@ -7225,40 +7297,41 @@ LABEL_12:
 
   if (isFloatingSwitcherVisible)
   {
-    v8 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = SBLogSystemGestureAppSwitcher(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      v9 = "Preventing the floating app pin gesture because the floating switcher is presented.";
+      v11 = "Preventing the floating app pin gesture because the floating switcher is presented.";
 LABEL_11:
-      v10 = v8;
-      v11 = 2;
+      v12 = v10;
+      v13 = 2;
       goto LABEL_12;
     }
 
     goto LABEL_13;
   }
 
-  if (![(SBFluidSwitcherDragAndDropManager *)self->_fluidDragAndDropManager shouldBeginWindowDragGesture])
+  shouldBeginWindowDragGesture = [(SBFluidSwitcherDragAndDropManager *)self->_fluidDragAndDropManager shouldBeginWindowDragGesture];
+  if ((shouldBeginWindowDragGesture & 1) == 0)
   {
-    v8 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = SBLogSystemGestureAppSwitcher(shouldBeginWindowDragGesture);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      v9 = "Preventing the floating app pin gesture because the drag and drop interaction manager prevents it.";
+      v11 = "Preventing the floating app pin gesture because the drag and drop interaction manager prevents it.";
       goto LABEL_11;
     }
 
 LABEL_13:
 
-    v12 = 0;
+    v15 = 0;
     goto LABEL_14;
   }
 
-  v12 = 1;
+  v15 = 1;
 LABEL_14:
 
-  return v12;
+  return v15;
 }
 
 - (BOOL)_shouldBeginSplitViewApplicationUnpinGesture:(id)gesture
@@ -7266,124 +7339,136 @@ LABEL_14:
   gestureCopy = gesture;
   _currentLayoutState = [(SBFluidSwitcherGestureManager *)self _currentLayoutState];
   WeakRetained = objc_loadWeakRetained(&self->_switcherContentController);
-  v59 = gestureCopy;
+  v60 = gestureCopy;
   initialTouchLeafAppLayout = [gestureCopy initialTouchLeafAppLayout];
   v8 = [WeakRetained adjustedAppLayoutForLeafAppLayout:initialTouchLeafAppLayout];
   v9 = 0;
   if (initialTouchLeafAppLayout && v8)
   {
-    v53 = v8;
+    v54 = v8;
     v10 = [initialTouchLeafAppLayout itemForLayoutRole:1];
     v11 = +[SBApplicationController sharedInstance];
     bundleIdentifier = [v10 bundleIdentifier];
     v13 = [v11 applicationWithBundleIdentifier:bundleIdentifier];
 
-    v58 = v10;
+    v59 = v10;
     uniqueIdentifier = [v10 uniqueIdentifier];
     v15 = [_currentLayoutState elementWithIdentifier:uniqueIdentifier];
 
-    v51 = v15;
+    v52 = v15;
     workspaceEntity = [v15 workspaceEntity];
     deviceApplicationSceneEntity = [workspaceEntity deviceApplicationSceneEntity];
 
-    v50 = deviceApplicationSceneEntity;
+    v51 = deviceApplicationSceneEntity;
     [deviceApplicationSceneEntity sceneHandle];
     v19 = v18 = _currentLayoutState;
     v20 = WeakRetained;
     v21 = objc_loadWeakRetained(&self->_switcherController);
     appLayout = [v18 appLayout];
     [v21 windowScene];
-    v48 = v57 = v18;
-    v49 = appLayout;
-    -[SBDisplayItemLayoutAttributesCalculator frameForLayoutRole:inAppLayout:containerOrientation:windowScene:](self->_displayItemLayoutAttributesCalculator, "frameForLayoutRole:inAppLayout:containerOrientation:windowScene:", 1, appLayout, [v18 interfaceOrientation], v48);
-    v55 = v20;
+    v49 = v58 = v18;
+    v50 = appLayout;
+    -[SBDisplayItemLayoutAttributesCalculator frameForLayoutRole:inAppLayout:containerOrientation:windowScene:](self->_displayItemLayoutAttributesCalculator, "frameForLayoutRole:inAppLayout:containerOrientation:windowScene:", 1, appLayout, [v18 interfaceOrientation], v49);
+    v56 = v20;
     view = [v20 view];
     [view bounds];
 
     v24 = BSSizeEqualToSize();
     windowManagementContext = [v21 windowManagementContext];
     isChamoisOrFlexibleWindowing = [windowManagementContext isChamoisOrFlexibleWindowing];
-    v56 = v21;
+    v57 = v21;
     displayIdentity = [v21 displayIdentity];
-    v52 = v13;
-    v54 = windowManagementContext;
+    v53 = v13;
+    v55 = windowManagementContext;
     LODWORD(windowManagementContext) = [v13 supportsMultiWindowLayoutsForSwitcherWindowManagementContext:windowManagementContext displayIdentity:displayIdentity];
 
-    v28 = v19;
-    if (!windowManagementContext || ([v19 screenEdgesDeferringSystemGestures] & 1) != 0 && ((isChamoisOrFlexibleWindowing ^ 1 | v24) & 1) != 0 || (SBGuidedAccessIsActive() & 1) != 0)
+    v29 = v19;
+    if (!windowManagementContext)
     {
       goto LABEL_7;
     }
 
-    v32 = v54;
-    if (![v54 isFlexibleWindowingEnabled])
+    IsActive = [v19 screenEdgesDeferringSystemGestures];
+    if (IsActive & 1) != 0 && ((isChamoisOrFlexibleWindowing ^ 1 | v24))
+    {
+      goto LABEL_7;
+    }
+
+    IsActive = SBGuidedAccessIsActive();
+    if (IsActive)
+    {
+      goto LABEL_7;
+    }
+
+    v33 = v55;
+    if (![v55 isFlexibleWindowingEnabled])
     {
       v9 = 1;
-      _currentLayoutState = v57;
-      v30 = v58;
-      WeakRetained = v55;
-      v31 = v56;
+      _currentLayoutState = v58;
+      v31 = v59;
+      WeakRetained = v56;
+      v32 = v57;
       goto LABEL_11;
     }
 
-    v31 = v21;
+    v32 = v21;
     _slideOverDisplayItem = [v21 _slideOverDisplayItem];
-    v30 = v58;
-    _currentLayoutState = v57;
-    WeakRetained = v55;
-    if (([(SBDisplayItem *)_slideOverDisplayItem isEqualToItem:v58]& 1) != 0)
+    v31 = v59;
+    _currentLayoutState = v58;
+    WeakRetained = v56;
+    if (([(SBDisplayItem *)_slideOverDisplayItem isEqualToItem:v59]& 1) != 0)
     {
-      v62 = 0;
+      v63 = 0;
       *buf = 0u;
-      v61 = 0u;
-      [(SBFluidSwitcherGestureManager *)self _currentSlideOverConfiguration];
-      v47 = _slideOverDisplayItem;
-      visibleItemContainers = [v55 visibleItemContainers];
-      v36 = [visibleItemContainers objectForKey:initialTouchLeafAppLayout];
+      v62 = 0u;
+      objc_msgSend__currentSlideOverConfiguration(self);
+      v48 = _slideOverDisplayItem;
+      visibleItemContainers = [v56 visibleItemContainers];
+      v37 = [visibleItemContainers objectForKey:initialTouchLeafAppLayout];
 
-      v46 = v36;
-      if (v36)
+      v47 = v37;
+      if (v37)
       {
-        v45 = [v59 _activeEventOfType:0];
-        v37 = [v45 touchesForGestureRecognizer:v59];
-        anyObject = [v37 anyObject];
+        v46 = [v60 _activeEventOfType:0];
+        v38 = [v46 touchesForGestureRecognizer:v60];
+        anyObject = [v38 anyObject];
 
         if (([anyObject _isPointerTouch] & 1) == 0)
         {
-          view2 = [v55 view];
+          view2 = [v56 view];
           _UISystemGestureLocationForTouchInView();
 
-          [(SBFluidSwitcherGestureManager *)self _edgeSwipeHitTestRectForItemContainer:v46 forPointerTouch:0];
-          [(SBFluidSwitcherGestureManager *)self _innerLeftEdgeDragHitTestRectForItemContainer:v46 forPointerTouch:0];
-          [(SBFluidSwitcherGestureManager *)self _innerRightEdgeDragHitTestRectForItemContainer:v46 forPointerTouch:0];
+          [(SBFluidSwitcherGestureManager *)self _edgeSwipeHitTestRectForItemContainer:v47 forPointerTouch:0];
+          [(SBFluidSwitcherGestureManager *)self _innerLeftEdgeDragHitTestRectForItemContainer:v47 forPointerTouch:0];
+          [(SBFluidSwitcherGestureManager *)self _innerRightEdgeDragHitTestRectForItemContainer:v47 forPointerTouch:0];
           if ((SBRectContainsPoint() & 1) == 0 && ((SBRectContainsPoint() & 1) != 0 || SBRectContainsPoint()))
           {
-            view3 = [v55 view];
+            view3 = [v56 view];
             _UISystemGestureTranslationInView();
-            v42 = v41;
-            v44 = v43;
+            v43 = v42;
+            v45 = v44;
 
-            if (fabs(v42) > fabs(v44))
+            if (fabs(v43) > fabs(v45))
             {
               v9 = 1;
 LABEL_10:
-              _currentLayoutState = v57;
-              v30 = v58;
-              WeakRetained = v55;
-              v31 = v56;
-              v32 = v54;
+              _currentLayoutState = v58;
+              v31 = v59;
+              WeakRetained = v56;
+              v32 = v57;
+              v33 = v55;
 LABEL_11:
 
-              v8 = v53;
+              v8 = v54;
               goto LABEL_12;
             }
 
 LABEL_7:
-            v29 = SBLogSystemGestureAppSwitcher();
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+            v30 = SBLogSystemGestureAppSwitcher(IsActive);
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_21ED4E000, v29, OS_LOG_TYPE_INFO, "Preventing the split view unpin gesture because the drag and drop interaction manager prevents it.", buf, 2u);
+              _os_log_impl(&dword_21ED4E000, v30, OS_LOG_TYPE_INFO, "Preventing the split view unpin gesture because the drag and drop interaction manager prevents it.", buf, 2u);
             }
 
             v9 = 0;
@@ -7408,81 +7493,83 @@ LABEL_12:
 
 - (BOOL)_shouldBeginContinuousExposeStripRevealGesture:(id)gesture
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  v4 = [(SBFluidSwitcherGestureManager *)self _areContinuousExposeStripsAvailableWithReason:&v12];
-  v5 = v12;
-  if (v4)
-  {
-    v11 = 0;
-    v6 = [(SBFluidSwitcherGestureManager *)self _areContinuousExposeStripsOccludedOrHiddenWithOutReason:&v11];
-    v7 = v11;
-    v8 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
-    {
-      v9 = NSStringFromBOOL();
-      *buf = 138543618;
-      v14 = v9;
-      v15 = 2114;
-      v16 = v7;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_INFO, "Begin continuous expose strip reveal gesture '%{public}@' because '%{public}@'", buf, 0x16u);
-    }
-  }
-
-  else
-  {
-    v7 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-    {
-      *buf = 138543362;
-      v14 = v5;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_INFO, "Won't begin continuous expose strip reveal gesture because '%{public}@'", buf, 0xCu);
-    }
-
-    v6 = 0;
-  }
-
-  return v6;
-}
-
-- (BOOL)_shouldBeginContinuousExposeStripOverflowGesture:(id)gesture
-{
   v18 = *MEMORY[0x277D85DE8];
   v13 = 0;
   v4 = [(SBFluidSwitcherGestureManager *)self _areContinuousExposeStripsAvailableWithReason:&v13];
   v5 = v13;
+  v6 = v5;
   if (v4)
   {
     v12 = 0;
-    v6 = [(SBFluidSwitcherGestureManager *)self _areContinuousExposeStripsOccludedOrHiddenWithOutReason:&v12];
-    v7 = v12;
-    v8 = !v6;
-    v9 = SBLogSystemGestureAppSwitcher();
+    v7 = [(SBFluidSwitcherGestureManager *)self _areContinuousExposeStripsOccludedOrHiddenWithOutReason:&v12];
+    v8 = v12;
+    v9 = SBLogSystemGestureAppSwitcher(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = NSStringFromBOOL();
       *buf = 138543618;
       v15 = v10;
       v16 = 2114;
-      v17 = v7;
-      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_INFO, "Begin continuous expose strip overflow gesture '%{public}@' because '%{public}@'", buf, 0x16u);
+      v17 = v8;
+      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_INFO, "Begin continuous expose strip reveal gesture '%{public}@' because '%{public}@'", buf, 0x16u);
     }
   }
 
   else
   {
-    v7 = SBLogSystemGestureAppSwitcher();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = SBLogSystemGestureAppSwitcher(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v15 = v5;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_INFO, "Won't begin continuous expose strip overflow gesture because '%{public}@'", buf, 0xCu);
+      v15 = v6;
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_INFO, "Won't begin continuous expose strip reveal gesture because '%{public}@'", buf, 0xCu);
     }
 
-    v8 = 0;
+    v7 = 0;
   }
 
-  return v8;
+  return v7;
+}
+
+- (BOOL)_shouldBeginContinuousExposeStripOverflowGesture:(id)gesture
+{
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0;
+  v4 = [(SBFluidSwitcherGestureManager *)self _areContinuousExposeStripsAvailableWithReason:&v14];
+  v5 = v14;
+  v6 = v5;
+  if (v4)
+  {
+    v13 = 0;
+    v7 = [(SBFluidSwitcherGestureManager *)self _areContinuousExposeStripsOccludedOrHiddenWithOutReason:&v13];
+    v8 = v13;
+    v9 = !v7;
+    v10 = SBLogSystemGestureAppSwitcher(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    {
+      v11 = NSStringFromBOOL();
+      *buf = 138543618;
+      v16 = v11;
+      v17 = 2114;
+      v18 = v8;
+      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_INFO, "Begin continuous expose strip overflow gesture '%{public}@' because '%{public}@'", buf, 0x16u);
+    }
+  }
+
+  else
+  {
+    v8 = SBLogSystemGestureAppSwitcher(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138543362;
+      v16 = v6;
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_INFO, "Won't begin continuous expose strip overflow gesture because '%{public}@'", buf, 0xCu);
+    }
+
+    v9 = 0;
+  }
+
+  return v9;
 }
 
 - (BOOL)_shouldBeginContinuousExposeStripOverflowPanGesture:(id)gesture
@@ -7848,7 +7935,7 @@ LABEL_14:
 - (BOOL)_touchLocationIsWithinSlideOverTongue:(double)tongue
 {
   _slideOverDisplayItem = [(SBFluidSwitcherGestureManager *)self _slideOverDisplayItem];
-  [(SBFluidSwitcherGestureManager *)self _currentSlideOverConfiguration:0];
+  objc_msgSend__currentSlideOverConfiguration(self, 0, 0, 0, 0, 0);
   if (_slideOverDisplayItem && v23 == 1)
   {
     displayItemLayoutAttributesCalculator = self->_displayItemLayoutAttributesCalculator;
@@ -7886,7 +7973,7 @@ LABEL_14:
   v16 = 0;
   v14 = 0u;
   v15 = 0u;
-  [(SBFluidSwitcherGestureManager *)self _currentSlideOverConfiguration];
+  objc_msgSend__currentSlideOverConfiguration(self);
   if (v5 && BYTE1(v16) == 1)
   {
     v12[0] = v14;
@@ -7920,7 +8007,7 @@ LABEL_14:
 {
   screenCopy = screen;
   _currentLayoutState = [(SBFluidSwitcherGestureManager *)self _currentLayoutState];
-  if ([_currentLayoutState unlockedEnvironmentMode] == 1 && (-[SBFluidSwitcherGestureManager _currentSlideOverConfiguration](self, "_currentSlideOverConfiguration"), v14 == 1))
+  if ([_currentLayoutState unlockedEnvironmentMode] == 1 && (objc_msgSend__currentSlideOverConfiguration(self), v14 == 1))
   {
     [screenCopy locationInView:0];
     window = [screenCopy window];
@@ -8033,7 +8120,7 @@ LABEL_14:
   return v6 & 1;
 }
 
-uint64_t __87__SBFluidSwitcherGestureManager__shouldAllowDeckBottomEdgeGestureToRecognizeFromEdges___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+uint64_t __87__SBFluidSwitcherGestureManager__shouldAllowDeckBottomEdgeGestureToRecognizeFromEdges___block_invoke(uint64_t a1, uint64_t a2, int a3, _BYTE *a4)
 {
   result = _interfaceOrientedRegionGivenScreenRegion();
   if ((result & 4) != 0)
@@ -8497,13 +8584,13 @@ id __78__SBFluidSwitcherGestureManager__updateZStackPolicyAssistantsWithLayoutSt
 {
   clickCopy = click;
   zStackParticipant = self->_zStackParticipant;
-  if (zStackParticipant && ([(SBFZStackParticipant *)zStackParticipant ownsHomeGesture]& 1) == 0)
+  if (zStackParticipant && (v6 = [(SBFZStackParticipant *)zStackParticipant ownsHomeGesture], (v6 & 1) == 0))
   {
-    v7 = SBLogSystemGesture();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = SBLogSystemGesture(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_INFO, "Preventing the switcher from dismissing due to a home grabber click because it doesn't own the home gesture.", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_INFO, "Preventing the switcher from dismissing due to a home grabber click because it doesn't own the home gesture.", v9, 2u);
     }
   }
 
@@ -8590,9 +8677,9 @@ LABEL_8:
 
           if (_continuousExposeStripEdge == 8)
           {
-            [v17 frame];
+            objc_msgSend_frame(v17);
             view = [WeakRetained view];
-            [view frame];
+            objc_msgSend_frame(view);
             v19 = BSFloatEqualToFloat();
 
             if (v19)
@@ -8603,7 +8690,7 @@ LABEL_8:
 
           else if (_continuousExposeStripEdge == 2)
           {
-            [v17 frame];
+            objc_msgSend_frame(v17);
             if (BSFloatIsZero())
             {
 LABEL_43:
@@ -8666,7 +8753,7 @@ LABEL_20:
   }
 
   v21 = objc_loadWeakRetained(&self->_switcherContentController);
-  [(SBFluidSwitcherGestureManager *)self _currentSlideOverConfiguration];
+  objc_msgSend__currentSlideOverConfiguration(self);
   IsLeftSided = SBDisplayItemSlideOverIsLeftSided(v66);
   v23 = IsLeftSided;
   if (IsLeftSided)
@@ -8712,7 +8799,7 @@ LABEL_27:
     visibleItemContainers2 = [v21 visibleItemContainers];
     v32 = [visibleItemContainers2 objectForKey:v30];
 
-    [v32 frame];
+    objc_msgSend_frame(v32);
     if (!v23)
     {
       break;
@@ -8741,7 +8828,7 @@ LABEL_34:
   }
 
   view2 = [v21 view];
-  [view2 frame];
+  objc_msgSend_frame(view2);
   v34 = BSFloatEqualToFloat();
 
   if ((v34 & 1) == 0)
@@ -9212,7 +9299,7 @@ LABEL_15:
           v52 = 0;
           v50 = 0u;
           v51 = 0u;
-          [(SBFluidSwitcherGestureManager *)self _currentSlideOverConfiguration];
+          objc_msgSend__currentSlideOverConfiguration(self);
           WeakRetained = [(SBFluidSwitcherGestureManager *)self _slideOverDisplayItem];
           if (WeakRetained)
           {
@@ -9263,7 +9350,7 @@ LABEL_16:
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_switcherContentController);
-  [(SBFluidSwitcherGestureManager *)self _currentSlideOverConfiguration];
+  objc_msgSend__currentSlideOverConfiguration(self);
   IsLeftSided = SBDisplayItemSlideOverIsLeftSided(&v50);
   v16 = IsLeftSided;
   if (IsLeftSided)
@@ -9312,7 +9399,7 @@ LABEL_22:
     visibleItemContainers = [WeakRetained visibleItemContainers];
     v27 = [visibleItemContainers objectForKey:v25];
 
-    [v27 frame];
+    objc_msgSend_frame(v27);
     if (v16)
     {
       if (BSFloatIsZero())
@@ -9324,7 +9411,7 @@ LABEL_22:
     }
 
     view = [WeakRetained view];
-    [view frame];
+    objc_msgSend_frame(view);
     v29 = BSFloatEqualToFloat();
 
     if (v29)
@@ -10475,7 +10562,7 @@ uint64_t __61__SBFluidSwitcherGestureManager_settings_changedValueForKey___block
     goto LABEL_8;
   }
 
-  [(SBFluidSwitcherGestureManager *)self _currentSlideOverConfiguration];
+  objc_msgSend__currentSlideOverConfiguration(self);
   if (v16 != 1)
   {
     goto LABEL_8;
@@ -10590,8 +10677,7 @@ LABEL_10:
   objc_copyWeak(&v16, &location);
   v9 = [(_SBFluidSwitcherSystemApertureSuppressionAssertion *)v8 initWithSceneID:sceneIdentifierCopy bundleID:identifierCopy invalidationBlock:&v12];
   [(NSMutableSet *)self->_suppressionAssertions addObject:v9, v12, v13, v14, v15];
-  [(SBFluidSwitcherGestureManager *)self _updateZStackParticipantWithReason:@"fluid switcher gesture manager system aperture suppression assertion creation"];
-  v10 = SBLogSystemApertureController();
+  v10 = SBLogSystemApertureController([(SBFluidSwitcherGestureManager *)self _updateZStackParticipantWithReason:@"fluid switcher gesture manager system aperture suppression assertion creation"]);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134349570;
@@ -10617,8 +10703,7 @@ void __110__SBFluidSwitcherGestureManager_acquireSystemApertureSuppressionAssert
   if (WeakRetained)
   {
     [WeakRetained[17] removeObject:v3];
-    [v5 _updateZStackParticipantWithReason:@"fluid switcher gesture manager system aperture suppression assertion invalidation"];
-    v6 = SBLogSystemApertureController();
+    v6 = SBLogSystemApertureController([v5 _updateZStackParticipantWithReason:@"fluid switcher gesture manager system aperture suppression assertion invalidation"]);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       __110__SBFluidSwitcherGestureManager_acquireSystemApertureSuppressionAssertionForBundleIdentifier_sceneIdentifier___block_invoke_cold_1(v3, v6);
@@ -10672,7 +10757,7 @@ void __110__SBFluidSwitcherGestureManager_acquireSystemApertureSuppressionAssert
   v6 = SBSystemGestureRecognizerStateDescription([a1 state]);
   v7 = [a2 activeGestureTransaction];
   OUTLINED_FUNCTION_0_52();
-  OUTLINED_FUNCTION_1_36(&dword_21ED4E000, v8, v9, "Switcher gesture recognizer did begin: <%{public}@:%{public}p> (%{public}@), active gesture transaction:%{public}@", v10, v11, v12, v13, v14);
+  OUTLINED_FUNCTION_1_36(&dword_21ED4E000, v8, v9, "Switcher gesture recognizer did begin: <%{public}@:%{public}p> (%{public}@), active gesture transaction:%{public}@", v10, v11, v12, v13);
 }
 
 - (void)_handleSwitcherPanGestureEnded:(void *)a1 .cold.1(void *a1, void *a2)
@@ -10682,7 +10767,7 @@ void __110__SBFluidSwitcherGestureManager_acquireSystemApertureSuppressionAssert
   v6 = SBSystemGestureRecognizerStateDescription([a1 state]);
   v7 = [a2 activeGestureTransaction];
   OUTLINED_FUNCTION_0_52();
-  OUTLINED_FUNCTION_1_36(&dword_21ED4E000, v8, v9, "Switcher gesture recognizer did end: <%{public}@:%{public}p> (%{public}@), active gesture transaction:%{public}@", v10, v11, v12, v13, v14);
+  OUTLINED_FUNCTION_1_36(&dword_21ED4E000, v8, v9, "Switcher gesture recognizer did end: <%{public}@:%{public}p> (%{public}@), active gesture transaction:%{public}@", v10, v11, v12, v13);
 }
 
 - (void)gestureRecognizerShouldBegin:(NSObject *)a3 .cold.1(void *a1, void *a2, NSObject *a3)

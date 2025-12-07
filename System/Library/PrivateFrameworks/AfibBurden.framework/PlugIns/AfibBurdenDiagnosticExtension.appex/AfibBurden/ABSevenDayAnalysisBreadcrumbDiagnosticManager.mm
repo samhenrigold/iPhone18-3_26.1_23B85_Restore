@@ -22,7 +22,7 @@
 
 - (id)extractDiagnosticContent
 {
-  v3 = ab_get_framework_log();
+  v3 = ab_get_framework_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -31,30 +31,31 @@
   }
 
   control = self->_control;
-  v10 = 0;
-  v5 = [(HKHRAFibBurdenControl *)control fetchSevenDayAnalysisBreadcrumbsWithError:&v10];
-  v6 = v10;
+  v11 = 0;
+  v5 = [(HKHRAFibBurdenControl *)control fetchSevenDayAnalysisBreadcrumbsWithError:&v11];
+  v6 = v11;
+  v7 = v6;
   if (v5)
   {
-    v7 = HKHRPrettyPrintedAFibBurdenSevenDayAnalysisBreadcrumbs();
+    v8 = HKHRPrettyPrintedAFibBurdenSevenDayAnalysisBreadcrumbs();
   }
 
   else
   {
-    v8 = ab_get_framework_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = ab_get_framework_log(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
       selfCopy2 = self;
-      v13 = 2112;
-      v14 = v6;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Seven day analysis breadcrumb extraction failed with error %@", buf, 0x16u);
+      v14 = 2112;
+      v15 = v7;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Seven day analysis breadcrumb extraction failed with error %@", buf, 0x16u);
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 @end

@@ -32,10 +32,10 @@
 
 - (SRSensorDescription)initWithDictionary:(id)dictionary
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = SRSensorDescription;
-  v4 = [(SRSensorDescription *)&v18 init];
+  v20 = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = SRSensorDescription;
+  v4 = [(SRSensorDescription *)&v17 init];
   if (v4)
   {
     v5 = [dictionary objectForKeyedSubscript:@"Name"];
@@ -115,25 +115,24 @@
     v4->_datastoreBackend = [objc_msgSend(dictionary objectForKeyedSubscript:{@"StorageBackend", "integerValue"}];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 + (id)sensorDescriptionForDeletionRecordFromDescription:(id)description
 {
-  v10[5] = *MEMORY[0x277D85DE8];
+  v9[5] = *MEMORY[0x277D85DE8];
   v4 = objc_alloc(MEMORY[0x277CBEB38]);
-  v9[0] = @"Name";
-  v10[0] = [objc_msgSend(description "name")];
-  v9[1] = @"AuthService";
-  v10[1] = [description authorizationService];
-  v10[2] = @"SRDeletionRecord";
-  v9[2] = @"SampleClass";
-  v9[3] = @"StorageBackend";
-  v10[3] = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(description, "datastoreBackend")}];
-  v9[4] = @"SRInfoPlistAuthCategory";
-  v10[4] = [description infoPlistAuthorizationCategory];
-  v5 = [v4 initWithDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v10, v9, 5)}];
+  v8[0] = @"Name";
+  v9[0] = [objc_msgSend(description "name")];
+  v8[1] = @"AuthService";
+  v9[1] = [description authorizationService];
+  v9[2] = @"SRDeletionRecord";
+  v8[2] = @"SampleClass";
+  v8[3] = @"StorageBackend";
+  v9[3] = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(description, "datastoreBackend")}];
+  v8[4] = @"SRInfoPlistAuthCategory";
+  v9[4] = [description infoPlistAuthorizationCategory];
+  v5 = [v4 initWithDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v9, v8, 5)}];
   if ([description legacyName])
   {
     [v5 setObject:objc_msgSend(objc_msgSend(description forKeyedSubscript:{"legacyName"), "sr_sensorForDeletionRecordsFromSensor"), @"LegacyName"}];
@@ -141,9 +140,7 @@
 
   v6 = [[SRSensorDescription alloc] initWithDictionary:v5];
 
-  result = v6;
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return v6;
 }
 
 - (NSString)localizedAdditionalSampleDataNote
@@ -253,44 +250,42 @@
 
 + (id)sensorDescriptionsForAuthorizationService:(id)service
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = +[SRSensorsCache defaultCache];
   allSensorDescriptions = [(SRSensorsCache *)v5 allSensorDescriptions];
-  v7 = [allSensorDescriptions countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [allSensorDescriptions countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(allSensorDescriptions);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
+        v11 = *(*(&v13 + 1) + 8 * i);
         if ([objc_msgSend(v11 authorizationService])
         {
           [array addObject:v11];
         }
       }
 
-      v8 = [allSensorDescriptions countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [allSensorDescriptions countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
 
-  result = [MEMORY[0x277CBEA60] arrayWithArray:{array, v14}];
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return [MEMORY[0x277CBEA60] arrayWithArray:{array, v13}];
 }
 
 + (id)allDescriptions

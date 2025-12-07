@@ -292,13 +292,13 @@ LABEL_48:
   return v2;
 }
 
-uint64_t __55__TUIPreferencesController_sharedPreferencesController__block_invoke()
+uint64_t __55__TUIPreferencesController_sharedPreferencesController__block_invoke(uint64_t a1, double a2)
 {
-  v0 = objc_opt_new();
-  v1 = sharedPreferencesController_sharedPreferencesController;
-  sharedPreferencesController_sharedPreferencesController = v0;
+  v2 = objc_opt_new();
+  v3 = sharedPreferencesController_sharedPreferencesController;
+  sharedPreferencesController_sharedPreferencesController = v2;
 
-  return MEMORY[0x1EEE66BB8](v0, v1);
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 @end

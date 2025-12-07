@@ -8,7 +8,13 @@
 - (BOOL)sendRTCLogsWithError:(id *)error;
 - (PPEventClient)init;
 - (void)_unblockPendingQueries;
+- (void)eventHighlightsBatch:(id)batch isLast:(BOOL)last error:(id)error queryId:(unint64_t)id completion:(id)completion;
+- (void)eventNameRecordBatch:(id)batch isLast:(BOOL)last error:(id)error queryId:(unint64_t)id completion:(id)completion;
+- (void)eventNameRecordChangesBatch:(id)batch isLast:(BOOL)last error:(id)error queryId:(unint64_t)id completion:(id)completion;
+- (void)interactionSummaryMetricsBatch:(id)batch isLast:(BOOL)last error:(id)error queryId:(unint64_t)id completion:(id)completion;
+- (void)logEventInteractionForEventWithEventIdentifier:(id)identifier interface:(unsigned __int16)interface actionType:(unsigned __int16)type;
 - (void)registerFeedback:(id)feedback completion:(id)completion;
+- (void)scoredEventsBatch:(id)batch isLast:(BOOL)last error:(id)error queryId:(unint64_t)id completion:(id)completion;
 @end
 
 @implementation PPEventClient
@@ -32,13 +38,12 @@
 
 void __31__PPEventClient_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = sharedInstance__pasExprOnceResult_442;
-  sharedInstance__pasExprOnceResult_442 = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = sharedInstance__pasExprOnceResult_442;
+  sharedInstance__pasExprOnceResult_442 = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 - (PPEventClient)init
@@ -196,6 +201,22 @@ void __38__PPEventClient_sendRTCLogsWithError___block_invoke_2(uint64_t a1, char
   }
 }
 
+- (void)interactionSummaryMetricsBatch:(id)batch isLast:(BOOL)last error:(id)error queryId:(unint64_t)id completion:(id)completion
+{
+  lastCopy = last;
+  completionCopy = completion;
+  errorCopy = error;
+  batchCopy = batch;
+  v15 = pp_xpc_client_log_handle();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  {
+    *v16 = 0;
+    _os_log_debug_impl(&dword_1A7FD3000, v15, OS_LOG_TYPE_DEBUG, "interactionSummaryMetrics batch called", v16, 2u);
+  }
+
+  [(PPXPCClientPipelinedBatchQueryManager *)self->_queryManager handleReplyWithName:@"interactionSummaryMetricsBatch" batch:batchCopy isLast:lastCopy error:errorCopy queryId:id completion:completionCopy];
+}
+
 - (BOOL)interactionSummaryMetricsWithError:(id *)error handleBatch:(id)batch
 {
   batchCopy = batch;
@@ -239,6 +260,31 @@ void __64__PPEventClient_interactionSummaryMetricsWithError_handleBatch___block_
   v5 = a2;
   [PPXPCClientPipelinedBatchQueryManager assertBatch:v5 forQueryName:v3 hasExpectedContainedType:v4];
   (*(a1[5] + 16))();
+}
+
+- (void)logEventInteractionForEventWithEventIdentifier:(id)identifier interface:(unsigned __int16)interface actionType:(unsigned __int16)type
+{
+  typeCopy = type;
+  interfaceCopy = interface;
+  identifierCopy = identifier;
+  _remoteObjectProxy = [(PPEventClient *)self _remoteObjectProxy];
+  [_remoteObjectProxy logEventInteractionForEventWithEventIdentifier:identifierCopy interface:interfaceCopy actionType:typeCopy];
+}
+
+- (void)scoredEventsBatch:(id)batch isLast:(BOOL)last error:(id)error queryId:(unint64_t)id completion:(id)completion
+{
+  lastCopy = last;
+  completionCopy = completion;
+  errorCopy = error;
+  batchCopy = batch;
+  v15 = pp_xpc_client_log_handle();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  {
+    *v16 = 0;
+    _os_log_debug_impl(&dword_1A7FD3000, v15, OS_LOG_TYPE_DEBUG, "suggestedEventsBatch called", v16, 2u);
+  }
+
+  [(PPXPCClientPipelinedBatchQueryManager *)self->_queryManager handleReplyWithName:@"scoredEventsBatch" batch:batchCopy isLast:lastCopy error:errorCopy queryId:id completion:completionCopy];
 }
 
 - (BOOL)scoredEventsWithQuery:(id)query error:(id *)error handleBatch:(id)batch
@@ -287,6 +333,22 @@ void __57__PPEventClient_scoredEventsWithQuery_error_handleBatch___block_invoke_
   v5 = a2;
   [PPXPCClientPipelinedBatchQueryManager assertBatch:v5 forQueryName:v3 hasExpectedContainedType:v4];
   (*(a1[5] + 16))();
+}
+
+- (void)eventHighlightsBatch:(id)batch isLast:(BOOL)last error:(id)error queryId:(unint64_t)id completion:(id)completion
+{
+  lastCopy = last;
+  completionCopy = completion;
+  errorCopy = error;
+  batchCopy = batch;
+  v15 = pp_xpc_client_log_handle();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  {
+    *v16 = 0;
+    _os_log_debug_impl(&dword_1A7FD3000, v15, OS_LOG_TYPE_DEBUG, "eventHighlightsBatch called", v16, 2u);
+  }
+
+  [(PPXPCClientPipelinedBatchQueryManager *)self->_queryManager handleReplyWithName:@"eventHighlightsBatch" batch:batchCopy isLast:lastCopy error:errorCopy queryId:id completion:completionCopy];
 }
 
 - (BOOL)eventHighlightsFrom:(id)from to:(id)to options:(int)options error:(id *)error handleBatch:(id)batch
@@ -341,9 +403,25 @@ void __66__PPEventClient_eventHighlightsFrom_to_options_error_handleBatch___bloc
   (*(a1[5] + 16))();
 }
 
+- (void)eventNameRecordChangesBatch:(id)batch isLast:(BOOL)last error:(id)error queryId:(unint64_t)id completion:(id)completion
+{
+  lastCopy = last;
+  completionCopy = completion;
+  errorCopy = error;
+  batchCopy = batch;
+  v15 = pp_xpc_client_log_handle();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  {
+    *v16 = 0;
+    _os_log_debug_impl(&dword_1A7FD3000, v15, OS_LOG_TYPE_DEBUG, "eventNameRecordChangesBatch called", v16, 2u);
+  }
+
+  [(PPXPCClientPipelinedBatchQueryManager *)self->_queryManager handleReplyWithName:@"eventNameRecordChangesBatch" batch:batchCopy isLast:lastCopy error:errorCopy queryId:id completion:completionCopy];
+}
+
 - (BOOL)resolveEventNameRecordChanges:(id)changes client:(id)client error:(id *)error handleBatch:(id)batch
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   changesCopy = changes;
   clientCopy = client;
   batchCopy = batch;
@@ -351,32 +429,31 @@ void __66__PPEventClient_eventHighlightsFrom_to_options_error_handleBatch___bloc
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v30 = clientCopy;
+    v29 = clientCopy;
     _os_log_debug_impl(&dword_1A7FD3000, v13, OS_LOG_TYPE_DEBUG, "eventNameRecordChangesForClient:%@ called", buf, 0xCu);
   }
 
   v14 = objc_opt_class();
   queryManager = self->_queryManager;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __72__PPEventClient_resolveEventNameRecordChanges_client_error_handleBatch___block_invoke;
-  v26[3] = &unk_1E77F7948;
-  v26[4] = self;
-  v27 = changesCopy;
-  v28 = clientCopy;
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __72__PPEventClient_resolveEventNameRecordChanges_client_error_handleBatch___block_invoke_2;
-  v22[3] = &unk_1E77F79C0;
-  v24 = batchCopy;
-  v25 = v14;
-  v23 = @"eventNameRecordChangesWithError";
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __72__PPEventClient_resolveEventNameRecordChanges_client_error_handleBatch___block_invoke;
+  v25[3] = &unk_1E77F7948;
+  v25[4] = self;
+  v26 = changesCopy;
+  v27 = clientCopy;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __72__PPEventClient_resolveEventNameRecordChanges_client_error_handleBatch___block_invoke_2;
+  v21[3] = &unk_1E77F79C0;
+  v23 = batchCopy;
+  v24 = v14;
+  v22 = @"eventNameRecordChangesWithError";
   v16 = batchCopy;
   v17 = clientCopy;
   v18 = changesCopy;
-  v19 = [(PPXPCClientPipelinedBatchQueryManager *)queryManager syncExecuteQueryWithName:@"eventNameRecordChangesWithError" error:error queryInitializer:v26 handleBatch:v22];
+  v19 = [(PPXPCClientPipelinedBatchQueryManager *)queryManager syncExecuteQueryWithName:@"eventNameRecordChangesWithError" error:error queryInitializer:v25 handleBatch:v21];
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -395,39 +472,54 @@ void __72__PPEventClient_resolveEventNameRecordChanges_client_error_handleBatch_
   (*(a1[5] + 16))();
 }
 
+- (void)eventNameRecordBatch:(id)batch isLast:(BOOL)last error:(id)error queryId:(unint64_t)id completion:(id)completion
+{
+  lastCopy = last;
+  completionCopy = completion;
+  errorCopy = error;
+  batchCopy = batch;
+  v15 = pp_xpc_client_log_handle();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  {
+    *v16 = 0;
+    _os_log_debug_impl(&dword_1A7FD3000, v15, OS_LOG_TYPE_DEBUG, "eventNameRecordBatch called", v16, 2u);
+  }
+
+  [(PPXPCClientPipelinedBatchQueryManager *)self->_queryManager handleReplyWithName:@"eventNameRecordBatch" batch:batchCopy isLast:lastCopy error:errorCopy queryId:id completion:completionCopy];
+}
+
 - (BOOL)eventNameRecordsForClient:(id)client error:(id *)error handleBatch:(id)batch
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   clientCopy = client;
   batchCopy = batch;
   v10 = pp_xpc_client_log_handle();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v25 = clientCopy;
+    v24 = clientCopy;
     _os_log_debug_impl(&dword_1A7FD3000, v10, OS_LOG_TYPE_DEBUG, "eventNameRecordsForClient:%@ called", buf, 0xCu);
   }
 
   v11 = objc_opt_class();
   queryManager = self->_queryManager;
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __61__PPEventClient_eventNameRecordsForClient_error_handleBatch___block_invoke;
-  v22[3] = &unk_1E77F7998;
-  v22[4] = self;
-  v23 = clientCopy;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __61__PPEventClient_eventNameRecordsForClient_error_handleBatch___block_invoke_2;
-  v18[3] = &unk_1E77F79C0;
-  v20 = batchCopy;
-  v21 = v11;
-  v19 = @"eventNameRecordsWithError";
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __61__PPEventClient_eventNameRecordsForClient_error_handleBatch___block_invoke;
+  v21[3] = &unk_1E77F7998;
+  v21[4] = self;
+  v22 = clientCopy;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __61__PPEventClient_eventNameRecordsForClient_error_handleBatch___block_invoke_2;
+  v17[3] = &unk_1E77F79C0;
+  v19 = batchCopy;
+  v20 = v11;
+  v18 = @"eventNameRecordsWithError";
   v13 = batchCopy;
   v14 = clientCopy;
-  v15 = [(PPXPCClientPipelinedBatchQueryManager *)queryManager syncExecuteQueryWithName:@"eventNameRecordsWithError" error:error queryInitializer:v22 handleBatch:v18];
+  v15 = [(PPXPCClientPipelinedBatchQueryManager *)queryManager syncExecuteQueryWithName:@"eventNameRecordsWithError" error:error queryInitializer:v21 handleBatch:v17];
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -448,51 +540,46 @@ void __61__PPEventClient_eventNameRecordsForClient_error_handleBatch___block_inv
 
 - (void)_unblockPendingQueries
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"connection to %@ was unexpectedly terminated", @"com.apple.proactive.PersonalizationPortrait.Event"];
   v4 = objc_alloc(MEMORY[0x1E696ABC0]);
   v5 = *MEMORY[0x1E696A798];
-  v9 = *MEMORY[0x1E696A588];
-  v10[0] = v3;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E696A588];
+  v9[0] = v3;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v7 = [v4 initWithDomain:v5 code:5 userInfo:v6];
 
   [(PPXPCClientPipelinedBatchQueryManager *)self->_queryManager cancelPendingQueriesWithError:v7];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __21__PPEventClient_init__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = pp_xpc_client_log_handle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = @"com.apple.proactive.PersonalizationPortrait.Event";
-    _os_log_error_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_ERROR, "Connection to %@ interrupted.", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = @"com.apple.proactive.PersonalizationPortrait.Event";
+    _os_log_error_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_ERROR, "Connection to %@ interrupted.", &v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _unblockPendingQueries];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __21__PPEventClient_init__block_invoke_111(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = pp_xpc_client_log_handle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
-    v6 = @"com.apple.proactive.PersonalizationPortrait.Event";
-    _os_log_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_INFO, "Connection to %@ invalidated.", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = @"com.apple.proactive.PersonalizationPortrait.Event";
+    _os_log_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_INFO, "Connection to %@ invalidated.", &v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _unblockPendingQueries];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

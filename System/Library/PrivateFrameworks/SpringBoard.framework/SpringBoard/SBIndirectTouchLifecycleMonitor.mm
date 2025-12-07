@@ -35,8 +35,7 @@
 {
   v16 = *MEMORY[0x277D85DE8];
   v4 = [event _activeEventOfType:11];
-  [v4 _hidEvent];
-  if (SBPointerHIDSubEventFromEvent())
+  if (SBPointerHIDSubEventFromEvent([v4 _hidEvent]))
   {
     v5 = BKSHIDEventGetPointerAttributes();
   }
@@ -91,7 +90,7 @@
 - (void)addObserver:(id)observer
 {
   observerCopy = observer;
-  if (![(NSHashTable *)self->_observers containsObject:?])
+  if ((objc_msgSend_containsObject_(self->_observers) & 1) == 0)
   {
     [(NSHashTable *)self->_observers addObject:observerCopy];
   }
@@ -100,7 +99,7 @@
 - (void)removeObserver:(id)observer
 {
   observerCopy = observer;
-  if ([(NSHashTable *)self->_observers containsObject:?])
+  if (objc_msgSend_containsObject_(self->_observers))
   {
     [(NSHashTable *)self->_observers removeObject:observerCopy];
   }

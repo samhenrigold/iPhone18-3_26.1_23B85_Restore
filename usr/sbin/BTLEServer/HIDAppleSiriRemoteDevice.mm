@@ -11,6 +11,8 @@
 - (BOOL)matchInstanceIDInHidEventDriver:(unsigned int)driver;
 - (HIDAppleSiriRemoteDevice)initWithProperties:(id)properties reports:(id)reports;
 - (id)desiredConnectionParameters;
+- (int)getReport:(char *)report reportLength:(int64_t *)length reportID:(unsigned int)d reportType:(int)type keyholeID:(unsigned __int8)iD;
+- (int)setReport:(char *)report reportLength:(int64_t)length reportID:(unsigned int)d reportType:(int)type keyholeID:(unsigned __int8)iD error:(id *)error;
 - (void)appleMultitouchDeviceArrived:(unsigned int)arrived;
 - (void)clearAppleMultitouchDeviceNotification;
 - (void)clearButtonInterestNotification;
@@ -25,12 +27,14 @@
 - (void)handleButtonData;
 - (void)handleDeviceManagementData:(char *)data dataLength:(int64_t)length;
 - (void)handleInertialData;
+- (void)handleInputReportData:(id)data reportID:(unsigned __int8)d timestamp:(unint64_t)timestamp;
 - (void)handleInputReportDataV1:(id)v1 reportID:(unsigned __int8)d;
 - (void)handleInputReportDataV2:(id)v2 reportID:(unsigned __int8)d;
 - (void)handleProximityData;
 - (void)handleTouchData;
 - (void)logHwFwVersions;
 - (void)logTouchData;
+- (void)sendButtonDataToUserDevice:(unsigned __int16)device withTimestamp:(unint64_t)timestamp;
 - (void)setNormalPeripheralLatency;
 - (void)setSleepPeripheralLatency;
 - (void)setZeroPeripheralLatency;
@@ -173,9 +177,9 @@
     kdebug_trace();
   }
 
-  v60.receiver = self;
-  v60.super_class = HIDAppleSiriRemoteDevice;
-  v16 = [(HIDBluetoothDevice *)&v60 initWithProperties:propertiesCopy reports:reportsCopy];
+  v59.receiver = self;
+  v59.super_class = HIDAppleSiriRemoteDevice;
+  v16 = [(HIDBluetoothDevice *)&v59 initWithProperties:propertiesCopy reports:reportsCopy];
   v17 = v16;
   if (v16)
   {
@@ -283,7 +287,6 @@
 
     if (byte_1000DDBC0 == 1)
     {
-      instanceID = v17->_instanceID;
       kdebug_trace();
     }
 
@@ -818,6 +821,62 @@
   dispatch_async(queue, block);
 }
 
+- (void)sendButtonDataToUserDevice:(unsigned __int16)device withTimestamp:(unint64_t)timestamp
+{
+  deviceCopy = device;
+  if ([(HIDAppleSiriRemoteDevice *)self firstButton]&& byte_1000DDBC0 == 1)
+  {
+    [(HIDAppleSiriRemoteDevice *)self instanceID];
+    kdebug_trace();
+  }
+
+  if ([(HIDBluetoothDevice *)self state]< 3 || (v7 = [(HIDBluetoothDevice *)self state], !deviceCopy) && v7 == 3)
+  {
+    v8 = [NSNumber numberWithUnsignedShort:deviceCopy];
+    v9 = +[SLGLog sharedInstance];
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_10000C814;
+    v17[3] = &unk_1000BD3E8;
+    v18 = v8;
+    v10 = v8;
+    [v9 logBlock:v17];
+
+    if ([(HIDAppleSiriRemoteDevice *)self productID]== 788 || [(HIDAppleSiriRemoteDevice *)self productID]== 789)
+    {
+      report = -5;
+      *report_1 = deviceCopy;
+      buttons = [(HIDAppleSiriRemoteDevice *)self buttons];
+      v12 = buttons;
+      timestampCopy2 = timestamp;
+      v14 = 3;
+    }
+
+    else
+    {
+      report = -6;
+      report_1[0] = deviceCopy;
+      buttons = [(HIDAppleSiriRemoteDevice *)self buttons];
+      v12 = buttons;
+      timestampCopy2 = timestamp;
+      v14 = 2;
+    }
+
+    IOHIDUserDeviceHandleReportWithTimeStamp(buttons, timestampCopy2, &report, v14);
+  }
+
+  if ([(HIDAppleSiriRemoteDevice *)self firstButton])
+  {
+    if (byte_1000DDBC0 == 1)
+    {
+      [(HIDAppleSiriRemoteDevice *)self instanceID];
+      kdebug_trace();
+    }
+
+    [(HIDAppleSiriRemoteDevice *)self setFirstButton:0];
+  }
+}
+
 - (void)handleButtonData
 {
   v3 = qword_1000DDBC8;
@@ -1163,7 +1222,7 @@ LABEL_36:
 
       else if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_ERROR))
       {
-        sub_100071968(&v69);
+        sub_100071968();
       }
     }
 
@@ -1348,6 +1407,32 @@ LABEL_19:
   }
 }
 
+- (void)handleInputReportData:(id)data reportID:(unsigned __int8)d timestamp:(unint64_t)timestamp
+{
+  dCopy = d;
+  dataCopy = data;
+  [(HIDAppleSiriRemoteDevice *)self setInputReportTimestamp:timestamp];
+  productID = [(HIDAppleSiriRemoteDevice *)self productID];
+  if (productID - 788 < 2)
+  {
+    [(HIDAppleSiriRemoteDevice *)self handleInputReportDataV2:dataCopy reportID:dCopy];
+  }
+
+  else if (productID == 621 || productID == 614)
+  {
+    [(HIDAppleSiriRemoteDevice *)self handleInputReportDataV1:dataCopy reportID:dCopy];
+  }
+
+  else
+  {
+    v10 = qword_1000DDBC8;
+    if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_ERROR))
+    {
+      sub_1000719E4(v10, self);
+    }
+  }
+}
+
 - (void)handleInputReportDataV1:(id)v1 reportID:(unsigned __int8)d
 {
   dCopy = d;
@@ -1474,6 +1559,354 @@ LABEL_12:
   }
 
 LABEL_17:
+}
+
+- (int)setReport:(char *)report reportLength:(int64_t)length reportID:(unsigned int)d reportType:(int)type keyholeID:(unsigned __int8)iD error:(id *)error
+{
+  iDCopy = iD;
+  v10 = *&type;
+  v11 = *&d;
+  v15 = qword_1000DDBC8;
+  if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 136316162;
+    v27 = "[HIDAppleSiriRemoteDevice setReport:reportLength:reportID:reportType:keyholeID:error:]";
+    v28 = 1024;
+    v29 = iDCopy;
+    v30 = 1024;
+    v31 = v11;
+    v32 = 1024;
+    v33 = v10;
+    v34 = 2048;
+    lengthCopy2 = length;
+    _os_log_debug_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "%s keyholeID 0x%02x reportID 0x%02x reportType %d reportLength %ld", buf, 0x28u);
+  }
+
+  v16 = -536870206;
+  if ([(HIDBluetoothDevice *)self state]<= 2)
+  {
+    v20 = length > 0 && report == 0;
+    if (!v20 && v11 <= 0xFF)
+    {
+      if (iDCopy == 241 && [(HIDAppleSiriRemoteDevice *)self latency]== 199)
+      {
+        v16 = -536870173;
+      }
+
+      else
+      {
+        v21 = [NSData dataWithBytesNoCopy:report length:length freeWhenDone:0];
+        if (byte_1000DDBC0 == 1)
+        {
+          [(HIDAppleSiriRemoteDevice *)self instanceID];
+          kdebug_trace();
+        }
+
+        v16 = [(HIDBluetoothDevice *)self setReportData:v21 reportID:iDCopy reportType:v10 error:error];
+        if (byte_1000DDBC0 == 1)
+        {
+          [(HIDAppleSiriRemoteDevice *)self instanceID];
+          kdebug_trace();
+        }
+
+        if (!v16)
+        {
+          v22 = qword_1000DDBC8;
+          if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
+          {
+            *buf = 136315906;
+            v27 = "[HIDAppleSiriRemoteDevice setReport:reportLength:reportID:reportType:keyholeID:error:]";
+            v28 = 1024;
+            v29 = iDCopy;
+            v30 = 1024;
+            v31 = v11;
+            v32 = 1024;
+            v33 = v10;
+            _os_log_debug_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "%s keyholeID 0x%02x reportID 0x%02x reportType %d success", buf, 0x1Eu);
+          }
+
+          return 0;
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v16 = -536870185;
+  }
+
+  v17 = qword_1000DDBC8;
+  if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136316418;
+    v27 = "[HIDAppleSiriRemoteDevice setReport:reportLength:reportID:reportType:keyholeID:error:]";
+    v28 = 1024;
+    v29 = iDCopy;
+    v30 = 1024;
+    v31 = v11;
+    v32 = 1024;
+    v33 = v10;
+    v34 = 2048;
+    lengthCopy2 = length;
+    v36 = 1024;
+    v37 = v16;
+    _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "%s keyholeID 0x%02x reportID 0x%02x reportType %d reportLength %ld failure 0x%08X", buf, 0x2Eu);
+    if (!error)
+    {
+      return v16;
+    }
+  }
+
+  else if (!error)
+  {
+    return v16;
+  }
+
+  if (!*error)
+  {
+    v18 = [NSString stringWithFormat:@"keyholeID 0x%02x reportID 0x%02x reportType %d reportLength %ld", iDCopy, v11, v10, length];
+    v24 = NSLocalizedDescriptionKey;
+    v25 = v18;
+    v19 = [NSDictionary dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    *error = [NSError errorWithDomain:NSMachErrorDomain code:v16 userInfo:v19];
+  }
+
+  return v16;
+}
+
+- (int)getReport:(char *)report reportLength:(int64_t *)length reportID:(unsigned int)d reportType:(int)type keyholeID:(unsigned __int8)iD
+{
+  iDCopy = iD;
+  v8 = *&type;
+  v9 = *&d;
+  v13 = qword_1000DDBC8;
+  if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
+  {
+    if (length)
+    {
+      v17 = *length;
+    }
+
+    else
+    {
+      v17 = 0;
+    }
+
+    *buf = 136316162;
+    v50 = "[HIDAppleSiriRemoteDevice getReport:reportLength:reportID:reportType:keyholeID:]";
+    v51 = 1024;
+    v52 = iDCopy;
+    v53 = 1024;
+    v54 = v9;
+    v55 = 1024;
+    v56 = v8;
+    v57 = 2048;
+    v58 = v17;
+    _os_log_debug_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "%s keyholeID 0x%02x reportID 0x%02x reportType %d length %ld", buf, 0x28u);
+  }
+
+  if ([(HIDBluetoothDevice *)self state]<= 2)
+  {
+    v14 = -536870206;
+    if (report && length)
+    {
+      if (*length == 0x7FFFFFFFFFFFFFFFLL)
+      {
+        v14 = -536870168;
+      }
+
+      else if (*length < 1)
+      {
+        v14 = -536870169;
+      }
+
+      else if (iDCopy == 241 && [(HIDAppleSiriRemoteDevice *)self latency]== 199)
+      {
+        v14 = -536870173;
+      }
+
+      else
+      {
+        if (byte_1000DDBC0 == 1)
+        {
+          [(HIDAppleSiriRemoteDevice *)self instanceID];
+          kdebug_trace();
+        }
+
+        v48[0] = -16;
+        v48[1] = v9;
+        v18 = [NSData dataWithBytesNoCopy:v48 length:2 freeWhenDone:0];
+        v19 = qword_1000DDBC8;
+        if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
+        {
+          v43 = *length;
+          *buf = 136316162;
+          v50 = "[HIDAppleSiriRemoteDevice getReport:reportLength:reportID:reportType:keyholeID:]";
+          v51 = 1024;
+          v52 = iDCopy;
+          v53 = 1024;
+          v54 = v9;
+          v55 = 1024;
+          v56 = v8;
+          v57 = 2048;
+          v58 = v43;
+          _os_log_debug_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "%s PART 1 SET keyholeID 0x%02x reportID 0x%02x reportType %d length %ld", buf, 0x28u);
+        }
+
+        v14 = [(HIDBluetoothDevice *)self setReportData:v18 reportID:240 reportType:v8 error:0];
+        if (byte_1000DDBC0 == 1)
+        {
+          [(HIDAppleSiriRemoteDevice *)self instanceID];
+          kdebug_trace();
+        }
+
+        v20 = qword_1000DDBC8;
+        if (v14)
+        {
+          if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_ERROR))
+          {
+            v21 = *length;
+            *buf = 136316418;
+            v50 = "[HIDAppleSiriRemoteDevice getReport:reportLength:reportID:reportType:keyholeID:]";
+            v51 = 1024;
+            v52 = iDCopy;
+            v53 = 1024;
+            v54 = v9;
+            v55 = 1024;
+            v56 = v8;
+            v57 = 2048;
+            v58 = v21;
+            v59 = 1024;
+            v60 = v14;
+            _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "%s PART 1 SET keyholeID 0x%02x reportID 0x%02x reportType %d length %ld failure 0x%08X", buf, 0x2Eu);
+          }
+        }
+
+        else
+        {
+          if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
+          {
+            sub_100071AEC(v20, v22, v23, v24, v25, v26, v27, v28);
+          }
+
+          if (byte_1000DDBC0 == 1)
+          {
+            [(HIDAppleSiriRemoteDevice *)self instanceID];
+            kdebug_trace();
+          }
+
+          v29 = qword_1000DDBC8;
+          if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
+          {
+            v44 = *length;
+            *buf = 136316162;
+            v50 = "[HIDAppleSiriRemoteDevice getReport:reportLength:reportID:reportType:keyholeID:]";
+            v51 = 1024;
+            v52 = iDCopy;
+            v53 = 1024;
+            v54 = v9;
+            v55 = 1024;
+            v56 = v8;
+            v57 = 2048;
+            v58 = v44;
+            _os_log_debug_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEBUG, "%s PART 2 GET keyholeID 0x%02x reportID 0x%02x reportType %d length %ld", buf, 0x28u);
+          }
+
+          v47 = 0;
+          v14 = [(HIDBluetoothDevice *)self getReportData:&v47 reportID:iDCopy reportType:v8 error:0];
+          v46 = v47;
+          if (byte_1000DDBC0 == 1)
+          {
+            [(HIDAppleSiriRemoteDevice *)self instanceID];
+            kdebug_trace();
+          }
+
+          v30 = qword_1000DDBC8;
+          if (v14)
+          {
+            if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_ERROR))
+            {
+              v45 = *length;
+              *buf = 136316418;
+              v50 = "[HIDAppleSiriRemoteDevice getReport:reportLength:reportID:reportType:keyholeID:]";
+              v51 = 1024;
+              v52 = iDCopy;
+              v53 = 1024;
+              v54 = v9;
+              v55 = 1024;
+              v56 = v8;
+              v57 = 2048;
+              v58 = v45;
+              v59 = 1024;
+              v60 = v14;
+              _os_log_error_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "%s PART 2 GET keyholeID 0x%02x reportID 0x%02x reportType %d length %ld failure 0x%08X", buf, 0x2Eu);
+            }
+
+            v31 = v46;
+          }
+
+          else
+          {
+            if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
+            {
+              sub_100071B64(v30, v32, v33, v34, v35, v36, v37, v38);
+            }
+
+            v31 = v46;
+            [v46 getBytes:report length:*length];
+            if (*report == v9)
+            {
+              v39 = *length;
+              v40 = [v46 length];
+              v14 = 0;
+              if (v39 >= v40)
+              {
+                v41 = v40;
+              }
+
+              else
+              {
+                v41 = v39;
+              }
+
+              *length = v41;
+            }
+
+            else
+            {
+              v42 = qword_1000DDBC8;
+              if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_ERROR))
+              {
+                sub_100071BDC(report, v9, v42);
+              }
+
+              v14 = -536870160;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v14 = -536870185;
+  }
+
+  if (v9 == 219 && iDCopy == 241)
+  {
+    gotDeviceExtendedInfoReport = [(HIDAppleSiriRemoteDevice *)self gotDeviceExtendedInfoReport];
+    dispatch_semaphore_signal(gotDeviceExtendedInfoReport);
+
+    if (byte_1000DDBC0 == 1)
+    {
+      [(HIDAppleSiriRemoteDevice *)self instanceID];
+      kdebug_trace();
+    }
+  }
+
+  return v14;
 }
 
 - (void)extractButtonDataFromReport:(char *)report buttonIndex:(unsigned __int8)index

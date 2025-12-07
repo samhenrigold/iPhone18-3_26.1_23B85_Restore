@@ -1,6 +1,8 @@
 @interface DYBreakpoint
 - (DYBreakpoint)init;
 - (DYBreakpoint)initWithCoder:(id)coder;
+- (id)_initWithPbuf:(Fbuf *)pbuf type:(int)type backtrace:(id)backtrace error:(int)error;
+- (id)_initWithType:(int)type backtrace:(id)backtrace error:(int)error;
 - (id)description;
 - (void)_commonInit:(int)init backtrace:(id)backtrace error:(int)error;
 - (void)dealloc;
@@ -30,6 +32,40 @@ LABEL_5:
 
   self->_glError = error;
   self->_backtrace = backtrace;
+}
+
+- (id)_initWithPbuf:(Fbuf *)pbuf type:(int)type backtrace:(id)backtrace error:(int)error
+{
+  v6 = *&error;
+  v8 = *&type;
+  v13.receiver = self;
+  v13.super_class = DYBreakpoint;
+  v10 = [(DYBreakpoint *)&v13 init];
+  v11 = v10;
+  if (v10)
+  {
+    [(DYBreakpoint *)v10 _commonInit:v8 backtrace:backtrace error:v6];
+    v11->_fenum = *(pbuf->var0.var0 + 1);
+    v11->_fbufData = [objc_alloc(MEMORY[0x277CBEB28]) initWithBytesNoCopy:pbuf->var0.var0 length:*pbuf->var0.var0 freeWhenDone:0];
+  }
+
+  return v11;
+}
+
+- (id)_initWithType:(int)type backtrace:(id)backtrace error:(int)error
+{
+  v5 = *&error;
+  v7 = *&type;
+  v11.receiver = self;
+  v11.super_class = DYBreakpoint;
+  v8 = [(DYBreakpoint *)&v11 init];
+  v9 = v8;
+  if (v8)
+  {
+    [(DYBreakpoint *)v8 _commonInit:v7 backtrace:backtrace error:v5];
+  }
+
+  return v9;
 }
 
 - (DYBreakpoint)init

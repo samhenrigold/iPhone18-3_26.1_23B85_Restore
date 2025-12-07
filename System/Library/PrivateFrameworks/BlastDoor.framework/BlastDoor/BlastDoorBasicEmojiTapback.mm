@@ -13,38 +13,38 @@
 {
   v2 = *&self->basicEmojiTapback[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback + 104];
   v3 = *&self->basicEmojiTapback[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback + 136];
-  v34 = *&self->basicEmojiTapback[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback + 120];
-  v35 = v3;
+  v25 = *&self->basicEmojiTapback[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback + 120];
+  v26 = v3;
   v4 = *&self->basicEmojiTapback[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback + 40];
   v5 = *&self->basicEmojiTapback[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback + 72];
-  v30 = *&self->basicEmojiTapback[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback + 56];
-  v31 = v5;
+  v21 = *&self->basicEmojiTapback[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback + 56];
+  v22 = v5;
   v6 = *&self->basicEmojiTapback[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback + 72];
   v7 = *&self->basicEmojiTapback[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback + 104];
-  v32 = *&self->basicEmojiTapback[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback + 88];
-  v33 = v7;
+  v23 = *&self->basicEmojiTapback[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback + 88];
+  v24 = v7;
   v8 = *&self->basicEmojiTapback[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback + 8];
-  v27[0] = *(&self->super.isa + OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback);
-  v27[1] = v8;
+  v18[0] = *(&self->super.isa + OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback);
+  v18[1] = v8;
   v9 = *&self->basicEmojiTapback[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback + 40];
   v11 = *(&self->super.isa + OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback);
   v10 = *&self->basicEmojiTapback[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback + 8];
-  v28 = *&self->basicEmojiTapback[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback + 24];
-  v29 = v9;
+  v19 = *&self->basicEmojiTapback[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback + 24];
+  v20 = v9;
   v12 = *&self->basicEmojiTapback[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback + 136];
-  v24 = v34;
-  v25 = v12;
-  v20 = v30;
-  v21 = v6;
-  v22 = v32;
-  v23 = v2;
-  v16 = v11;
-  v17 = v10;
-  v36 = *&self->basicEmojiTapback[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback + 152];
-  v26 = *&self->basicEmojiTapback[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback + 152];
-  v18 = v28;
-  v19 = v4;
-  sub_2142E58CC(v27, v15);
+  v16[8] = v25;
+  v16[9] = v12;
+  v16[4] = v21;
+  v16[5] = v6;
+  v16[6] = v23;
+  v16[7] = v2;
+  v16[0] = v11;
+  v16[1] = v10;
+  v27 = *&self->basicEmojiTapback[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback + 152];
+  v17 = *&self->basicEmojiTapback[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback + 152];
+  v16[2] = v19;
+  v16[3] = v4;
+  sub_2142E58CC(v18, v15);
   sub_2146D9608();
   v13 = sub_2146D9588();
 
@@ -102,12 +102,10 @@
 
 - (NSString)plainTextBody
 {
-  v2 = *&self->basicEmojiTapback[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback + 144];
-  v3 = *&self->basicEmojiTapback[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback + 152];
 
-  v4 = sub_2146D9588();
+  v2 = sub_2146D9588();
 
-  return v4;
+  return v2;
 }
 
 - (BlastDoorBasicEmojiTapback)init

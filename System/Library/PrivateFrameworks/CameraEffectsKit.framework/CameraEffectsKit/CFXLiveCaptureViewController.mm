@@ -307,9 +307,12 @@ void __51__CFXLiveCaptureViewController_willDropCameraFrame__block_invoke(uint64
 
 uint64_t __45__CFXLiveCaptureViewController_renderedImage__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) renderedImage_renderImageQ];
+  v2 = [*(a1 + 32) renderedImage_renderImageQ];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)currentRenderPresentationTime
@@ -335,24 +338,24 @@ uint64_t __45__CFXLiveCaptureViewController_renderedImage__block_invoke(uint64_t
   return result;
 }
 
-double __61__CFXLiveCaptureViewController_currentRenderPresentationTime__block_invoke(uint64_t a1)
+double __61__CFXLiveCaptureViewController_currentRenderPresentationTime__block_invoke(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 currentRenderPresentationTime_renderImageQ];
+    objc_msgSend_currentRenderPresentationTime_renderImageQ(v3, a2);
   }
 
   else
   {
-    v5 = 0uLL;
-    v6 = 0;
+    v6 = 0uLL;
+    v7 = 0;
   }
 
-  v3 = *(*(a1 + 40) + 8);
-  result = *&v5;
-  *(v3 + 32) = v5;
-  *(v3 + 48) = v6;
+  v4 = *(*(a1 + 40) + 8);
+  result = *&v6;
+  *(v4 + 32) = v6;
+  *(v4 + 48) = v7;
   return result;
 }
 
@@ -393,7 +396,7 @@ uint64_t __83__CFXLiveCaptureViewController_renderer_didPrepareToRenderFrameAtPr
   v26 = 0;
   if (frameCopy)
   {
-    [frameCopy timestamp];
+    objc_msgSend_timestamp(frameCopy);
   }
 
   if ([(CFXLiveCaptureViewController *)self useLocalCameraViewfinder])
@@ -608,7 +611,7 @@ void __58__CFXLiveCaptureViewController_setAnimojiBackgroundColor___block_invoke
   CMTimeMake(&v13, 1, [v5 frameRate]);
 
   memset(&v12, 0, sizeof(v12));
-  [(CFXLiveCaptureViewController *)self currentRenderPresentationTime];
+  objc_msgSend_currentRenderPresentationTime(self);
   memset(&v11, 0, sizeof(v11));
   lhs = v12;
   v9 = v13;
@@ -1197,7 +1200,7 @@ void __73__CFXLiveCaptureViewController_CFX_setupVideoWriterWithAudio_completion
 
 void __73__CFXLiveCaptureViewController_CFX_setupVideoWriterWithAudio_completion___block_invoke_3(uint64_t a1)
 {
-  v39[2] = *MEMORY[0x277D85DE8];
+  v38[2] = *MEMORY[0x277D85DE8];
   v2 = [JFXVideoWriter alloc];
   if (*(a1 + 72) == 1)
   {
@@ -1233,78 +1236,80 @@ void __73__CFXLiveCaptureViewController_CFX_setupVideoWriterWithAudio_completion
   }
 
 LABEL_8:
-  v34 = 0u;
-  v35 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v32 = 0u;
   v11 = +[JFXVideoCameraController sharedInstance];
-  v12 = [v11 cameraPosition];
-  v13 = +[JFXVideoCameraController sharedInstance];
-  +[JFXRotationTransforms transformFromCaptureDevicePosition:captureVideoOrientation:toInterfaceOrientation:](JFXRotationTransforms, "transformFromCaptureDevicePosition:captureVideoOrientation:toInterfaceOrientation:", v12, [v13 captureVideoOrientation], +[JFXOrientationMonitor deviceInterfaceOrientation](JFXOrientationMonitor, "deviceInterfaceOrientation"));
+  [v11 cameraPosition];
+  v12 = +[JFXVideoCameraController sharedInstance];
+  [v12 captureVideoOrientation];
+  +[JFXOrientationMonitor deviceInterfaceOrientation];
+  objc_msgSend_transformFromCaptureDevicePosition_captureVideoOrientation_toInterfaceOrientation_(JFXRotationTransforms);
 
-  v14 = [*(a1 + 32) composition];
-  v15 = [v14 jtEffectsForType:7];
+  v13 = [*(a1 + 32) composition];
+  v14 = [v13 jtEffectsForType:7];
 
-  if ([v15 count])
+  if ([v14 count])
   {
-    v16 = [v15 firstObject];
-    v38[0] = @"JFXAnimojiEffectDataRepresentationKey";
-    v17 = [v16 dataRepresentation];
-    v39[0] = v17;
-    v38[1] = @"JFXAnimojiEffectAvatarVersionNumberKey";
-    v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v16, "avatarVersionNumber")}];
-    v39[1] = v18;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
+    v15 = [v14 firstObject];
+    v37[0] = @"JFXAnimojiEffectDataRepresentationKey";
+    v16 = [v15 dataRepresentation];
+    v38[0] = v16;
+    v37[1] = @"JFXAnimojiEffectAvatarVersionNumberKey";
+    v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v15, "avatarVersionNumber")}];
+    v38[1] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
 
-    v32 = 0;
-    v20 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v19 requiringSecureCoding:1 error:&v32];
-    v21 = v32;
-    v22 = [*(a1 + 32) videoWriter];
-    [v22 setAnimojiMetadata:v20];
+    v31 = 0;
+    v19 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v18 requiringSecureCoding:1 error:&v31];
+    v20 = v31;
+    v21 = [*(a1 + 32) videoWriter];
+    [v21 setAnimojiMetadata:v19];
   }
 
-  v23 = [*(a1 + 32) videoWriter];
-  v31 = 0;
-  *buf = v33;
-  *&buf[16] = v34;
-  v37 = v35;
-  v24 = [v23 startWriterWithVideoTransform:buf error:&v31];
-  v25 = v31;
+  v22 = [*(a1 + 32) videoWriter];
+  v30 = 0;
+  *buf = v32;
+  *&buf[16] = v33;
+  v36 = v34;
+  v23 = [v22 startWriterWithVideoTransform:buf error:&v30];
+  v24 = v30;
 
-  if (!v24 || v25)
+  if (!v23 || v24)
   {
-    v26 = JFXLog_writer();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+    v25 = JFXLog_writer();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
-      v29 = *(*(*(a1 + 56) + 8) + 40);
+      v28 = *(*(*(a1 + 56) + 8) + 40);
       if (*(a1 + 72) == 1)
       {
-        v30 = *(*(*(a1 + 64) + 8) + 40);
+        v29 = *(*(*(a1 + 64) + 8) + 40);
       }
 
       else
       {
-        v30 = 0;
+        v29 = 0;
       }
 
       *buf = 138412802;
-      *&buf[4] = v25;
+      *&buf[4] = v24;
       *&buf[12] = 2112;
-      *&buf[14] = v29;
+      *&buf[14] = v28;
       *&buf[22] = 2112;
-      *&buf[24] = v30;
-      _os_log_debug_impl(&dword_242A3B000, v26, OS_LOG_TYPE_DEBUG, "error starting video writer: %@\n\tvideo settings: %@\n\taudio settings: %@", buf, 0x20u);
+      *&buf[24] = v29;
+      _os_log_debug_impl(&dword_242A3B000, v25, OS_LOG_TYPE_DEBUG, "error starting video writer: %@\n\tvideo settings: %@\n\taudio settings: %@", buf, 0x20u);
     }
 
     [*(a1 + 32) setVideoWriter:0];
   }
 
-  v27 = [*(a1 + 32) videoWriter];
-  [*(a1 + 32) setIsCapturingVideo_recordingQ:v27 != 0];
+  v26 = [*(a1 + 32) videoWriter];
+  [*(a1 + 32) setIsCapturingVideo_recordingQ:v26 != 0];
 
-  v28 = *(a1 + 48);
-  if (v28)
+  v27 = *(a1 + 48);
+  if (v27)
   {
-    (*(v28 + 16))();
+    (*(v27 + 16))();
   }
 }
 
@@ -1406,7 +1411,7 @@ void __56__CFXLiveCaptureViewController_CFX_tearDownVideoWriter___block_invoke_2
   v13 = v12;
   v15 = v14;
   +[JFXMediaSettings renderSize];
-  v18 = CGPointConvertToNormalizedCoordinateSpace(2uLL, 0, v9, v11, v13, v15, v16, v17);
+  v18 = CGPointConvertToNormalizedCoordinateSpace(v9, v11, v13, v15, v16, v17, 2uLL, 0);
   v20 = v19;
 
   v21 = v18;
@@ -1544,7 +1549,7 @@ void __56__CFXLiveCaptureViewController_CFX_tearDownVideoWriter___block_invoke_2
         v14 = renderEffect;
         if (renderEffect)
         {
-          [renderEffect effectRange];
+          objc_msgSend_effectRange(renderEffect);
         }
 
         else
@@ -1610,7 +1615,7 @@ void __75__CFXLiveCaptureViewController_CFX_executeRenderCallbacksQueuedBeforeTi
   memset(&v7, 0, sizeof(v7));
   if (v3)
   {
-    [v3 sendAfterRenderTime];
+    objc_msgSend_sendAfterRenderTime(v3);
   }
 
   time1 = *(a1 + 40);

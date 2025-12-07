@@ -74,7 +74,7 @@
   stateToSecureSequence = [(SBUISystemApertureSecureFlipBookClientDescription *)clientDescription stateToSecureSequence];
   v9 = [stateToSecureSequence objectForKey:secureCopy];
 
-  LOBYTE(secureCopy) = [v9 containsObject:stateCopy];
+  LOBYTE(secureCopy) = objc_msgSend_containsObject_(v9);
   return secureCopy;
 }
 
@@ -86,7 +86,7 @@
   stateToDelayedSequence = [(SBUISystemApertureSecureFlipBookClientDescription *)clientDescription stateToDelayedSequence];
   v9 = [stateToDelayedSequence objectForKey:delayedCopy];
 
-  LOBYTE(delayedCopy) = [v9 containsObject:stateCopy];
+  LOBYTE(delayedCopy) = objc_msgSend_containsObject_(v9);
   return delayedCopy;
 }
 
@@ -197,7 +197,7 @@ uint64_t __81__SBSystemApertureSceneElementSecureFlipBookDescription_resetToStat
   stateToSupportedConcurrentComposedSequences = [(SBUISystemApertureSecureFlipBookClientDescription *)clientDescription stateToSupportedConcurrentComposedSequences];
   v15 = SBUISystemApertureSecureFlipBookClientComposedSequence();
 
-  LOBYTE(sequenceCopy) = [stateToSupportedConcurrentComposedSequences containsObject:v15];
+  LOBYTE(sequenceCopy) = objc_msgSend_containsObject_(stateToSupportedConcurrentComposedSequences);
   return sequenceCopy;
 }
 

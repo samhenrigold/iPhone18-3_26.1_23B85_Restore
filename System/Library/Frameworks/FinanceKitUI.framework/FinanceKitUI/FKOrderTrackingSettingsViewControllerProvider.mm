@@ -15,18 +15,16 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  v2 = type metadata accessor for OrderTrackingSettingsView.Model();
-  v3 = *(v2 + 48);
-  v4 = *(v2 + 52);
+  type metadata accessor for OrderTrackingSettingsView.Model(0);
   swift_allocObject();
   sub_23869894C();
-  sub_23869ACEC(&qword_27DF137B0, type metadata accessor for OrderTrackingSettingsView.Model);
+  sub_23869ACEC(&qword_27DF137B0, type metadata accessor for OrderTrackingSettingsView.Model, &unk_23877DFA0);
   sub_23875C7A0();
-  swift_getKeyPath();
-  v5 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DF137B8, &qword_23877DE88));
-  v6 = sub_23875D080();
+  swift_getKeyPath(byte_23877DE60);
+  v2 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DF137B8, &qword_23877DE88));
+  v3 = sub_23875D080();
 
-  return v6;
+  return v3;
 }
 
 - (FKOrderTrackingSettingsViewControllerProvider)init

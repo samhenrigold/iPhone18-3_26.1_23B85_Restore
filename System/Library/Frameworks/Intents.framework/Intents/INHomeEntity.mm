@@ -18,31 +18,31 @@
 
 - (id)_dictionaryRepresentation
 {
-  v26[9] = *MEMORY[0x1E69E9840];
+  v25[9] = *MEMORY[0x1E69E9840];
   entityName = self->_entityName;
-  v24 = entityName;
-  v25[0] = @"entityName";
+  v23 = entityName;
+  v24[0] = @"entityName";
   if (!entityName)
   {
     entityName = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20 = entityName;
-  v26[0] = entityName;
-  v25[1] = @"type";
-  v23 = [MEMORY[0x1E696AD98] numberWithInteger:self->_type];
-  v26[1] = v23;
-  v25[2] = @"entityIdentifier";
+  v19 = entityName;
+  v25[0] = entityName;
+  v24[1] = @"type";
+  v22 = [MEMORY[0x1E696AD98] numberWithInteger:self->_type];
+  v25[1] = v22;
+  v24[2] = @"entityIdentifier";
   entityIdentifier = self->_entityIdentifier;
-  v22 = entityIdentifier;
+  v21 = entityIdentifier;
   if (!entityIdentifier)
   {
     entityIdentifier = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19 = entityIdentifier;
-  v26[2] = entityIdentifier;
-  v25[3] = @"deviceTypes";
+  v18 = entityIdentifier;
+  v25[2] = entityIdentifier;
+  v24[3] = @"deviceTypes";
   deviceTypes = self->_deviceTypes;
   null = deviceTypes;
   if (!deviceTypes)
@@ -50,12 +50,12 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18 = null;
-  v26[3] = null;
-  v25[4] = @"sceneType";
-  v21 = [MEMORY[0x1E696AD98] numberWithInteger:self->_sceneType];
-  v26[4] = v21;
-  v25[5] = @"room";
+  v17 = null;
+  v25[3] = null;
+  v24[4] = @"sceneType";
+  v20 = [MEMORY[0x1E696AD98] numberWithInteger:self->_sceneType];
+  v25[4] = v20;
+  v24[5] = @"room";
   room = self->_room;
   null2 = room;
   if (!room)
@@ -63,8 +63,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[5] = null2;
-  v25[6] = @"home";
+  v25[5] = null2;
+  v24[6] = @"home";
   home = self->_home;
   null3 = home;
   if (!home)
@@ -72,8 +72,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[6] = null3;
-  v25[7] = @"group";
+  v25[6] = null3;
+  v24[7] = @"group";
   group = self->_group;
   null4 = group;
   if (!group)
@@ -81,8 +81,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[7] = null4;
-  v25[8] = @"zones";
+  v25[7] = null4;
+  v24[8] = @"zones";
   zones = self->_zones;
   null5 = zones;
   if (!zones)
@@ -90,8 +90,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[8] = null5;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:9];
+  v25[8] = null5;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:9];
   if (zones)
   {
     if (group)
@@ -140,15 +140,13 @@ LABEL_19:
   {
   }
 
-  if (!v22)
+  if (!v21)
   {
   }
 
-  if (!v24)
+  if (!v23)
   {
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -168,7 +166,7 @@ LABEL_19:
 
 - (id)_intents_encodeWithJSONEncoder:(id)encoder codableDescription:(id)description
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   encoderCopy = encoder;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v7 = [encoderCopy encodeObject:self->_entityName];
@@ -188,31 +186,31 @@ LABEL_19:
   v10 = v9;
   [dictionary if_setObjectIfNonNil:v10 forKey:@"type"];
 
-  v30 = encoderCopy;
+  v29 = encoderCopy;
   v11 = [encoderCopy encodeObject:self->_entityIdentifier];
   [dictionary if_setObjectIfNonNil:v11 forKey:@"entityIdentifier"];
 
   array = [MEMORY[0x1E695DF70] array];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v13 = self->_deviceTypes;
-  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v32;
+    v16 = *v31;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v32 != v16)
+        if (*v31 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        integerValue = [*(*(&v31 + 1) + 8 * i) integerValue];
+        integerValue = [*(*(&v30 + 1) + 8 * i) integerValue];
         v19 = @"unknown";
         if ((integerValue - 1) <= 0x2C)
         {
@@ -223,7 +221,7 @@ LABEL_19:
         [array addObject:v20];
       }
 
-      v15 = [(NSArray *)v13 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v15 = [(NSArray *)v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v15);
@@ -244,19 +242,17 @@ LABEL_19:
   v23 = v22;
   [dictionary if_setObjectIfNonNil:v23 forKey:@"sceneType"];
 
-  v24 = [v30 encodeObject:self->_room];
+  v24 = [v29 encodeObject:self->_room];
   [dictionary if_setObjectIfNonNil:v24 forKey:@"room"];
 
-  v25 = [v30 encodeObject:self->_home];
+  v25 = [v29 encodeObject:self->_home];
   [dictionary if_setObjectIfNonNil:v25 forKey:@"home"];
 
-  v26 = [v30 encodeObject:self->_group];
+  v26 = [v29 encodeObject:self->_group];
   [dictionary if_setObjectIfNonNil:v26 forKey:@"group"];
 
-  v27 = [v30 encodeObject:self->_zones];
+  v27 = [v29 encodeObject:self->_zones];
   [dictionary if_setObjectIfNonNil:v27 forKey:@"zones"];
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -278,19 +274,19 @@ LABEL_19:
 
 - (INHomeEntity)initWithCoder:(id)coder
 {
-  v27[2] = *MEMORY[0x1E69E9840];
+  v26[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v24 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"entityName"];
-  v23 = [coderCopy decodeIntegerForKey:@"type"];
+  v23 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"entityName"];
+  v22 = [coderCopy decodeIntegerForKey:@"type"];
   v4 = MEMORY[0x1E695DFD8];
   v5 = objc_opt_class();
   v6 = [v4 setWithObjects:{v5, objc_opt_class(), 0}];
   v7 = [coderCopy decodeObjectOfClasses:v6 forKey:@"entityIdentifier"];
 
   v8 = MEMORY[0x1E695DFD8];
-  v27[0] = objc_opt_class();
-  v27[1] = objc_opt_class();
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
+  v26[0] = objc_opt_class();
+  v26[1] = objc_opt_class();
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
   v10 = [v8 setWithArray:v9];
   v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"deviceTypes"];
 
@@ -299,14 +295,13 @@ LABEL_19:
   v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"home"];
   v15 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"group"];
   v16 = MEMORY[0x1E695DFD8];
-  v26[0] = objc_opt_class();
-  v26[1] = objc_opt_class();
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+  v25[0] = objc_opt_class();
+  v25[1] = objc_opt_class();
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
   v18 = [v16 setWithArray:v17];
   v19 = [coderCopy decodeObjectOfClasses:v18 forKey:@"zones"];
 
-  v20 = [(INHomeEntity *)self initWithEntityName:v24 type:v23 entityIdentifier:v7 deviceTypes:v11 sceneType:v12 room:v13 home:v14 group:v15 zones:v19];
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = [(INHomeEntity *)self initWithEntityName:v23 type:v22 entityIdentifier:v7 deviceTypes:v11 sceneType:v12 room:v13 home:v14 group:v15 zones:v19];
   return v20;
 }
 
@@ -401,12 +396,12 @@ LABEL_19:
 
 - (INHomeEntity)initWithEntityName:(id)name type:(int64_t)type entityIdentifier:(id)identifier deviceTypes:(id)types sceneType:(int64_t)sceneType room:(id)room zone:(id)zone home:(id)self0 group:(id)self1
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   zoneCopy = zone;
   v18 = zoneCopy;
   if (zoneCopy)
   {
-    v40[0] = zoneCopy;
+    v39[0] = zoneCopy;
     sceneTypeCopy = sceneType;
     v19 = MEMORY[0x1E695DEC8];
     groupCopy = group;
@@ -415,7 +410,7 @@ LABEL_19:
     typesCopy = types;
     identifierCopy = identifier;
     nameCopy = name;
-    v26 = [v19 arrayWithObjects:v40 count:1];
+    v26 = [v19 arrayWithObjects:v39 count:1];
     v27 = [(INHomeEntity *)self initWithEntityName:nameCopy type:type entityIdentifier:identifierCopy deviceTypes:typesCopy sceneType:sceneTypeCopy room:roomCopy home:homeCopy group:groupCopy zones:v26];
 
     v28 = v27;
@@ -434,22 +429,20 @@ LABEL_19:
     v28 = v35;
   }
 
-  v36 = *MEMORY[0x1E69E9840];
   return v28;
 }
 
 - (INHomeEntity)initWithName:(id)name type:(int64_t)type deviceType:(int64_t)deviceType
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v9 = [[INSpeakableString alloc] initWithSpokenPhrase:nameCopy];
 
   v10 = [MEMORY[0x1E696AD98] numberWithInteger:deviceType];
-  v15[0] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+  v14[0] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
   v12 = [(INHomeEntity *)self initWithEntityName:v9 type:type entityIdentifier:0 deviceTypes:v11 sceneType:0 room:0 zone:0 home:0 group:0];
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -503,7 +496,7 @@ LABEL_19:
 
 + (id)_intents_decodeWithJSONDecoder:(id)decoder codableDescription:(id)description from:(id)from
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   decoderCopy = decoder;
   fromCopy = from;
   objc_opt_class();
@@ -512,44 +505,44 @@ LABEL_19:
     selfCopy = self;
     v9 = objc_opt_class();
     v10 = [fromCopy objectForKeyedSubscript:@"entityName"];
-    v38 = [decoderCopy decodeObjectOfClass:v9 from:v10];
+    v37 = [decoderCopy decodeObjectOfClass:v9 from:v10];
 
     v11 = [fromCopy objectForKeyedSubscript:@"type"];
-    v36 = INHomeEntityTypeWithString(v11);
+    v35 = INHomeEntityTypeWithString(v11);
 
-    v37 = [fromCopy objectForKeyedSubscript:@"entityIdentifier"];
+    v36 = [fromCopy objectForKeyedSubscript:@"entityIdentifier"];
     array = [MEMORY[0x1E695DF70] array];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v13 = [fromCopy objectForKeyedSubscript:@"deviceTypes"];
-    v14 = [v13 countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v39 objects:v43 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v41;
+      v16 = *v40;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v41 != v16)
+          if (*v40 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = [MEMORY[0x1E696AD98] numberWithInteger:INHomeDeviceTypeWithString(*(*(&v40 + 1) + 8 * i))];
+          v18 = [MEMORY[0x1E696AD98] numberWithInteger:INHomeDeviceTypeWithString(*(*(&v39 + 1) + 8 * i))];
           [array addObject:v18];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v40 objects:v44 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v39 objects:v43 count:16];
       }
 
       while (v15);
     }
 
     v19 = [fromCopy objectForKeyedSubscript:@"sceneType"];
-    v35 = INHomeSceneTypeWithString(v19);
+    v34 = INHomeSceneTypeWithString(v19);
 
     v20 = objc_opt_class();
     v21 = [fromCopy objectForKeyedSubscript:@"room"];
@@ -567,15 +560,13 @@ LABEL_19:
     v30 = [fromCopy objectForKeyedSubscript:@"zones"];
     v31 = [decoderCopy decodeObjectsOfClass:v29 from:v30];
 
-    v32 = [[selfCopy alloc] initWithEntityName:v38 type:v36 entityIdentifier:v37 deviceTypes:array sceneType:v35 room:v22 home:v25 group:v28 zones:v31];
+    v32 = [[selfCopy alloc] initWithEntityName:v37 type:v35 entityIdentifier:v36 deviceTypes:array sceneType:v34 room:v22 home:v25 group:v28 zones:v31];
   }
 
   else
   {
     v32 = 0;
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return v32;
 }

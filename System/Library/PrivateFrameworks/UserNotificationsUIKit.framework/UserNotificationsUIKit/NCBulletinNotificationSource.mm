@@ -1228,7 +1228,7 @@ void __85__NCBulletinNotificationSource_dispatcher_supportSectionPreloadForSecti
     v6 = *MEMORY[0x277D77DB8];
     if (os_log_type_enabled(*MEMORY[0x277D77DB8], OS_LOG_TYPE_ERROR))
     {
-      [NCBulletinNotificationSource _requestUUIDForBulletinPublisherMatchID:v6];
+      [(NCBulletinNotificationSource *)v6 _requestUUIDForBulletinPublisherMatchID:?];
     }
 
     v5 = objc_opt_new();
@@ -1541,15 +1541,15 @@ void __62__NCBulletinNotificationSource__queue_sectionInfoForBulletin___block_in
   return v13;
 }
 
-- (void)_requestUUIDForBulletinPublisherMatchID:(void *)a1 .cold.1(void *a1)
+- (void)_requestUUIDForBulletinPublisherMatchID:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  v4 = 138543362;
-  v5 = v3;
-  _os_log_error_impl(&dword_21E77E000, v1, OS_LOG_TYPE_ERROR, "[%{public}@] Requested uuid for bulletin without a publisherMatchID", &v4, 0xCu);
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_21E77E000, v2, OS_LOG_TYPE_ERROR, "[%{public}@] Requested uuid for bulletin without a publisherMatchID", &v5, 0xCu);
 }
 
 - (void)_applicationIconChanged:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)

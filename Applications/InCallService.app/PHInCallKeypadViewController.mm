@@ -306,21 +306,22 @@ LABEL_28:
   v4 = +[TUCallCenter sharedInstance];
   v5 = [v4 displayedCallFromCalls:0];
 
-  if ([v5 shouldPlayDTMFTone])
+  shouldPlayDTMFTone = [v5 shouldPlayDTMFTone];
+  if (shouldPlayDTMFTone)
   {
-    v6 = sub_100004F84();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100004F84(shouldPlayDTMFTone);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Will play DTMF tone due to phonePad keyDown event, and a supporting displayedCall", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Will play DTMF tone due to phonePad keyDown event, and a supporting displayedCall", buf, 2u);
     }
 
     [v5 playDTMFToneForKey:characterCopy];
   }
 
-  v7 = +[NSNotificationCenter defaultCenter];
+  v8 = +[NSNotificationCenter defaultCenter];
   characterCopy = [NSString stringWithFormat:@"%c", characterCopy];
-  [v7 postNotificationName:@"PHInCallKeypadDataSourceChangedNotification" object:characterCopy userInfo:0];
+  [v8 postNotificationName:@"PHInCallKeypadDataSourceChangedNotification" object:characterCopy userInfo:0];
 }
 
 @end

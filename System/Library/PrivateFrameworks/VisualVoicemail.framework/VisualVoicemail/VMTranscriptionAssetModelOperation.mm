@@ -6,6 +6,7 @@
 - (void)downloadAssetCatalog;
 - (void)downloadAssetCatalogComplete:(BOOL)complete;
 - (void)downloadAssetCatalogWithCompletion:(id)completion;
+- (void)downloadAssetComplete:(BOOL)complete;
 - (void)downloadComplete:(BOOL)complete;
 - (void)install;
 - (void)installAssetCatalogAndLanguages;
@@ -473,6 +474,26 @@ LABEL_19:
   v2[3] = &unk_1000EE888;
   v2[4] = self;
   [(VMTranscriptionAssetModelOperation *)self downloadAssetCatalogWithCompletion:v2];
+}
+
+- (void)downloadAssetComplete:(BOOL)complete
+{
+  completeCopy = complete;
+  v5 = vm_vmd_log();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = @"NO";
+    if (completeCopy)
+    {
+      v6 = @"YES";
+    }
+
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Download Asset complete, success %@", &v7, 0xCu);
+  }
+
+  [(VMTranscriptionAssetModelOperation *)self downloadComplete:completeCopy];
 }
 
 - (void)downloadAsset:(id)asset

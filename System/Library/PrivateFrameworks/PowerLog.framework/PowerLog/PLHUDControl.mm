@@ -4,6 +4,7 @@
 - (void)_ensureConnection;
 - (void)dealloc;
 - (void)internalHUDEnabled;
+- (void)setInternalHUDEnabled:(BOOL)enabled;
 @end
 
 @implementation PLHUDControl
@@ -88,15 +89,13 @@ void __33__PLHUDControl__ensureConnection__block_invoke_2(uint64_t a1, void *a2)
 
 - (id)_hudServer
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   [(PLHUDControl *)self _ensureConnection];
   connection = self->_connection;
   v4 = [MEMORY[0x1E69C7568] attributeWithDomain:@"com.apple.common" name:@"BasicAngelIPC"];
-  v9[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   v6 = [(BSServiceConnectionClient *)connection remoteTargetWithLaunchingAssertionAttributes:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -116,33 +115,45 @@ void __33__PLHUDControl__ensureConnection__block_invoke_2(uint64_t a1, void *a2)
   return v3;
 }
 
+- (void)setInternalHUDEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  _hudServer = [(PLHUDControl *)self _hudServer];
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:enabledCopy];
+  v7 = 0;
+  [_hudServer setHUDVisible:v5 withError:&v7];
+  v6 = v7;
+
+  if (v6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    [(PLHUDControl *)enabledCopy setInternalHUDEnabled:v6];
+  }
+}
+
 void __33__PLHUDControl__ensureConnection__block_invoke_2_cold_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138412290;
-  v3 = a1;
-  _os_log_error_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "HUD: Invalidated/Interrupted connection %@", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138412290;
+  v2 = a1;
+  _os_log_error_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "HUD: Invalidated/Interrupted connection %@", &v1, 0xCu);
 }
 
 - (void)internalHUDEnabled
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138412290;
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "HUD: service encountered error when querying state %@", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "HUD: service encountered error when querying state %@", &v1, 0xCu);
 }
 
 - (void)setInternalHUDEnabled:(char)a1 .cold.1(char a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109378;
-  v3[1] = a1 & 1;
-  v4 = 2112;
-  v5 = a2;
-  _os_log_error_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "HUD: service encountered error when setting enabled:%d %@", v3, 0x12u);
-  v2 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109378;
+  v2[1] = a1 & 1;
+  v3 = 2112;
+  v4 = a2;
+  _os_log_error_impl(&dword_1BACB7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "HUD: service encountered error when setting enabled:%d %@", v2, 0x12u);
 }
 
 @end

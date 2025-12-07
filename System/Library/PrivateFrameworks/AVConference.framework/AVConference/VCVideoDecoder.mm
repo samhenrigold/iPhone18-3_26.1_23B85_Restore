@@ -65,7 +65,7 @@
 - (void)dealloc
 {
   v4 = *MEMORY[0x1E69E9840];
-  VideoDecoder_Destroy();
+  VideoDecoder_Destroy(self->_videoPlayerHandle);
   v3.receiver = self;
   v3.super_class = VCVideoDecoder;
   [(VCVideoDecoder *)&v3 dealloc];

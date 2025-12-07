@@ -67,7 +67,7 @@
   return _isRunningInStoreDemoMode___isRunningInStoreDemoMode;
 }
 
-uint64_t __50__MPRestrictionsMonitor__isRunningInStoreDemoMode__block_invoke()
+void *__50__MPRestrictionsMonitor__isRunningInStoreDemoMode__block_invoke()
 {
   result = [MEMORY[0x1E69DC668] isRunningInStoreDemoMode];
   _isRunningInStoreDemoMode___isRunningInStoreDemoMode = result;

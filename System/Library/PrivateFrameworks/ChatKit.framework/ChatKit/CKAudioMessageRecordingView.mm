@@ -333,7 +333,7 @@ LABEL_10:
 
   sub_190D0F208();
 
-  sub_19022EEA4(v6, &unk_1EAD551C0);
+  sub_19022EEA4(v6, &unk_1EAD551C0, &unk_190DD9790);
 }
 
 - (void)setWithIntensities:(id)intensities

@@ -3,6 +3,7 @@
 - (RMUIProfileViewModel)initWithCoder:(id)coder;
 - (void)clearModel;
 - (void)encodeWithCoder:(id)coder;
+- (void)setInteractiveProfileActive:(BOOL)active profileIdentifier:(id)identifier;
 - (void)setIsInteractiveProfile:(BOOL)profile;
 @end
 
@@ -25,6 +26,45 @@
   }
 
   return v2;
+}
+
+- (void)setInteractiveProfileActive:(BOOL)active profileIdentifier:(id)identifier
+{
+  activeCopy = active;
+  [(RMUIProfileViewModel *)self setProfileIdentifier:identifier];
+  if (activeCopy)
+  {
+    v6 = @"RMUI_PROFILE_ON";
+  }
+
+  else
+  {
+    v6 = @"RMUI_PROFILE_OFF";
+  }
+
+  v7 = [RMUILocalizable string:v6];
+  [(RMUIProfileViewModel *)self setValue:v7];
+
+  toggleViewModel = [(RMUIProfileViewModel *)self toggleViewModel];
+  [toggleViewModel setToggleState:activeCopy];
+
+  if (activeCopy)
+  {
+    v9 = [RMUILocalizable string:@"RMUI_PROFILE_DETAILS"];
+    [(RMUIProfileViewModel *)self setInteractiveDetailsText:v9];
+
+    footerViewModel = [(RMUIProfileViewModel *)self footerViewModel];
+    [footerViewModel setTitle:0];
+  }
+
+  else
+  {
+    v10 = [RMUILocalizable string:@"RMUI_PROFILE_INSTALL_MESSAGE"];
+    footerViewModel2 = [(RMUIProfileViewModel *)self footerViewModel];
+    [footerViewModel2 setTitle:v10];
+
+    [(RMUIProfileViewModel *)self setInteractiveDetailsText:0];
+  }
 }
 
 - (void)clearModel

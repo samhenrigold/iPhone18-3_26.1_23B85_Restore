@@ -1,6 +1,8 @@
 @interface NCALTimelineEntryModel
 + (id)_entryForTemplateDescription:(id)description family:(int64_t)family;
 + (id)_extraLargeCalendarImageProviderWithConflicts:(BOOL)conflicts;
++ (id)_graphicCircularImageProviderWithConflicts:(BOOL)conflicts;
++ (id)_graphicExtraLargeImageProviderWithConflicts:(BOOL)conflicts;
 + (id)_graphicStackTextProvider:(id)provider;
 + (id)_modularSmallCalendarImageWithConflicts:(BOOL)conflicts;
 + (id)_signatureCornerImageProvider;
@@ -1000,6 +1002,29 @@ LABEL_30:
   return v7;
 }
 
++ (id)_graphicExtraLargeImageProviderWithConflicts:(BOOL)conflicts
+{
+  conflictsCopy = conflicts;
+  if (conflicts)
+  {
+    v5 = @"XLgraphicSmallCalendarConflict";
+  }
+
+  else
+  {
+    v5 = @"XLgraphicCalendar";
+  }
+
+  v6 = NCALComplicationImageNamed(v5);
+  v7 = +[UIColor systemRedColor];
+  v8 = [v6 imageWithTintColor:v7];
+
+  v9 = [self _extraLargeCalendarImageProviderWithConflicts:conflictsCopy];
+  v10 = [CLKFullColorImageProvider providerWithFullColorImage:v8 tintedImageProvider:v9];
+
+  return v10;
+}
+
 + (id)graphicCircular:(id)circular
 {
   circularCopy = circular;
@@ -1014,6 +1039,29 @@ LABEL_30:
   [v7 setMetadata:v8];
 
   return v7;
+}
+
++ (id)_graphicCircularImageProviderWithConflicts:(BOOL)conflicts
+{
+  conflictsCopy = conflicts;
+  if (conflicts)
+  {
+    v5 = @"graphicSmallCalendarConflict";
+  }
+
+  else
+  {
+    v5 = @"graphicCalendar";
+  }
+
+  v6 = NCALComplicationImageNamed(v5);
+  v7 = +[UIColor systemRedColor];
+  v8 = [v6 imageWithTintColor:v7];
+
+  v9 = [self _modularSmallCalendarImageWithConflicts:conflictsCopy];
+  v10 = [CLKFullColorImageProvider providerWithFullColorImage:v8 tintedImageProvider:v9];
+
+  return v10;
 }
 
 + (id)signatureBezel:(id)bezel

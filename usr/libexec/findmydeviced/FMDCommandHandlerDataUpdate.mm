@@ -50,75 +50,76 @@
   v19 = [commandParams5 objectForKey:off_100313178];
   bOOLValue3 = [v19 BOOLValue];
 
-  v21 = sub_100002880();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+  v22 = sub_100002880(v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
-    sub_10022BD8C(self, v21);
+    sub_10022BD8C(self, v22);
   }
 
   if (bOOLValue3)
   {
     commandParams6 = [(FMDCommandHandler *)self commandParams];
-    v23 = [commandParams6 objectForKey:off_100313170];
+    v24 = [commandParams6 objectForKey:off_100313170];
 
     commandParams7 = [(FMDCommandHandler *)self commandParams];
-    v25 = [commandParams7 objectForKey:off_100313180];
+    v26 = [commandParams7 objectForKey:off_100313180];
 
-    v26 = +[FMDMagSafeDataStore sharedInstance];
-    readLostModeAccessoriesListVersion = [v26 readLostModeAccessoriesListVersion];
+    v27 = +[FMDMagSafeDataStore sharedInstance];
+    readLostModeAccessoriesListVersion = [v27 readLostModeAccessoriesListVersion];
 
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && ([v25 isEqualToString:readLostModeAccessoriesListVersion] & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) != 0 && (isKindOfClass = [v26 isEqualToString:readLostModeAccessoriesListVersion], (isKindOfClass & 1) == 0))
     {
-      v55 = readLostModeAccessoriesListVersion;
-      v30 = sub_100002880();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+      v57 = readLostModeAccessoriesListVersion;
+      v32 = sub_100002880(isKindOfClass);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
       {
-        sub_10022BE24(v25, v23, v30);
+        sub_10022BE24(v26, v24, v32);
       }
 
-      v31 = +[FMDMagSafeDataStore sharedInstance];
-      v32 = [v31 writeLostModeInfo:v23 version:v25];
+      v33 = +[FMDMagSafeDataStore sharedInstance];
+      v34 = [v33 writeLostModeInfo:v24 version:v26];
 
-      v28 = +[FMDServiceProvider activeServiceProvider];
-      accessoryRegistry = [v28 accessoryRegistry];
+      v30 = +[FMDServiceProvider activeServiceProvider];
+      accessoryRegistry = [v30 accessoryRegistry];
       [accessoryRegistry allAccessories];
-      v56 = 0u;
-      v57 = 0u;
       v58 = 0u;
-      v33 = v59 = 0u;
-      v34 = [v33 countByEnumeratingWithState:&v56 objects:v68 count:16];
-      if (v34)
+      v59 = 0u;
+      v60 = 0u;
+      v35 = v61 = 0u;
+      v36 = [v35 countByEnumeratingWithState:&v58 objects:v70 count:16];
+      if (v36)
       {
-        v35 = v34;
-        v36 = *v57;
+        v37 = v36;
+        v38 = *v59;
         while (2)
         {
-          for (i = 0; i != v35; i = i + 1)
+          for (i = 0; i != v37; i = i + 1)
           {
-            if (*v57 != v36)
+            if (*v59 != v38)
             {
-              objc_enumerationMutation(v33);
+              objc_enumerationMutation(v35);
             }
 
-            v38 = *(*(&v56 + 1) + 8 * i);
-            if ([v38 connectionState] == 1)
+            v40 = *(*(&v58 + 1) + 8 * i);
+            if ([v40 connectionState] == 1)
             {
-              accessoryIdentifier = [v38 accessoryIdentifier];
-              v40 = [v23 containsObject:accessoryIdentifier];
+              accessoryIdentifier = [v40 accessoryIdentifier];
+              v42 = [v24 containsObject:accessoryIdentifier];
 
-              if (v40)
+              if (v42)
               {
-                v41 = +[NSNotificationCenter defaultCenter];
-                [v41 postNotificationName:@"com.apple.accessories.connection.passedMFi4Auth" object:0];
+                v43 = +[NSNotificationCenter defaultCenter];
+                [v43 postNotificationName:@"com.apple.accessories.connection.passedMFi4Auth" object:0];
 
                 goto LABEL_29;
               }
             }
           }
 
-          v35 = [v33 countByEnumeratingWithState:&v56 objects:v68 count:16];
-          if (v35)
+          v37 = [v35 countByEnumeratingWithState:&v58 objects:v70 count:16];
+          if (v37)
           {
             continue;
           }
@@ -129,75 +130,75 @@
 
 LABEL_29:
 
-      readLostModeAccessoriesListVersion = v55;
+      readLostModeAccessoriesListVersion = v57;
     }
 
     else
     {
-      v28 = sub_100002880();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v30 = sub_100002880(isKindOfClass);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         *buf = 138413058;
-        v61 = v23;
-        v62 = 2112;
-        v63 = objc_opt_class();
+        v63 = v24;
         v64 = 2112;
-        v65 = readLostModeAccessoriesListVersion;
+        v65 = objc_opt_class();
         v66 = 2112;
-        v67 = v25;
-        v29 = v63;
-        _os_log_error_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "lostModeInfo got unexpected info = %@, %@, cachedVersion = %@, newVersion = %@", buf, 0x2Au);
+        v67 = readLostModeAccessoriesListVersion;
+        v68 = 2112;
+        v69 = v26;
+        v31 = v65;
+        _os_log_error_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "lostModeInfo got unexpected info = %@, %@, cachedVersion = %@, newVersion = %@", buf, 0x2Au);
       }
     }
   }
 
   commandParams8 = [(FMDCommandHandler *)self commandParams];
-  v43 = [commandParams8 objectForKey:off_100313198];
+  v45 = [commandParams8 objectForKey:off_100313198];
 
   commandParams9 = [(FMDCommandHandler *)self commandParams];
-  v45 = commandParams9;
-  if (!v43)
+  v47 = commandParams9;
+  if (!v45)
   {
-    v49 = [commandParams9 objectForKey:off_100313190];
+    v51 = [commandParams9 objectForKey:off_100313190];
 
-    if (!v49)
+    if (!v51)
     {
 LABEL_45:
 
       goto LABEL_46;
     }
 
-    v51 = +[FMDLocalActivationLockInfoManager sharedInstance];
-    v52 = v51;
+    v53 = +[FMDLocalActivationLockInfoManager sharedInstance];
+    v54 = v53;
     goto LABEL_40;
   }
 
-  v46 = [commandParams9 objectForKey:off_100313198];
-  bOOLValue4 = [v46 BOOLValue];
+  v48 = [commandParams9 objectForKey:off_100313198];
+  bOOLValue4 = [v48 BOOLValue];
 
   if (bOOLValue4)
   {
     commandParams10 = [(FMDCommandHandler *)self commandParams];
-    v49 = [commandParams10 objectForKey:off_100313190];
+    v51 = [commandParams10 objectForKey:off_100313190];
 
-    v50 = v49 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) && [v49 length] != 0;
-    v51 = +[FMDLocalActivationLockInfoManager sharedInstance];
-    v52 = v51;
-    if (!v50)
+    v52 = v51 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) && [v51 length] != 0;
+    v53 = +[FMDLocalActivationLockInfoManager sharedInstance];
+    v54 = v53;
+    if (!v52)
     {
-      v53 = sub_100002880();
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+      v55 = sub_100002880(v53);
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "Clearing maskedAppleID via dataUpdate command", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "Clearing maskedAppleID via dataUpdate command", buf, 2u);
       }
 
-      [v52 clearMaskedAppleIDValue];
+      [v54 clearMaskedAppleIDValue];
       goto LABEL_44;
     }
 
 LABEL_40:
-    [v51 updateMaskedAppleID:v49];
+    [v53 updateMaskedAppleID:v51];
 LABEL_44:
 
     goto LABEL_45;
@@ -214,30 +215,31 @@ LABEL_46:
   v6 = [commandParams objectForKeyedSubscript:@"ackURL"];
 
   provider = [(FMDCommandHandler *)self provider];
+  v8 = provider;
   if (v6)
   {
-    v8 = [NSURL URLWithString:v6];
-    v9 = [FMDRequestAckDataUpdate alloc];
-    account = [provider account];
+    v9 = [NSURL URLWithString:v6];
+    v10 = [FMDRequestAckDataUpdate alloc];
+    account = [v8 account];
     commandParams2 = [(FMDCommandHandler *)self commandParams];
-    v12 = [(FMDRequestAckDataUpdate *)v9 initWithAccount:account dataUpdateCommand:commandParams2 ackURL:v8];
+    v13 = [(FMDRequestAckDataUpdate *)v10 initWithAccount:account dataUpdateCommand:commandParams2 ackURL:v9];
 
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100190990;
-    v14[3] = &unk_1002CD1D0;
-    v15 = completionCopy;
-    [(FMDRequest *)v12 setCompletionHandler:v14];
-    [provider enqueueRequest:v12];
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100190990;
+    v15[3] = &unk_1002CD1D0;
+    v16 = completionCopy;
+    [(FMDRequest *)v13 setCompletionHandler:v15];
+    [v8 enqueueRequest:v13];
   }
 
   else
   {
-    v8 = sub_100002880();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100002880(provider);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Not acking the dataUpdate command because there is no ack URL", v13, 2u);
+      *v14 = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Not acking the dataUpdate command because there is no ack URL", v14, 2u);
     }
   }
 }

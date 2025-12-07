@@ -83,7 +83,7 @@
 
 - (void)postOldFlags:(unint64_t)flags newFlags:(unint64_t)newFlags forMessage:(id)message
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   if (flags == newFlags)
   {
@@ -339,15 +339,13 @@ LABEL_71:
   if ([v9 count])
   {
 LABEL_74:
-    v34[0] = messageCopy;
-    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
+    v33[0] = messageCopy;
+    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
     v29 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{flags, messageCopy}];
-    v33 = v29;
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v32 = v29;
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
     [(MFMessageLibrary *)self postFlagsChangedForMessages:v28 flags:v9 oldFlagsByMessage:v30];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (id)accountForMessage:(id)message

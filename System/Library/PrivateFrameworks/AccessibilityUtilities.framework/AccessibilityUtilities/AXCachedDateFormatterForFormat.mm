@@ -5,9 +5,11 @@
 
 uint64_t ___AXCachedDateFormatterForFormat_block_invoke()
 {
-  _AXCachedDateFormatterForFormat_AXDateFormatterQueue = dispatch_queue_create("AXDateFormatter", 0);
+  v0 = dispatch_queue_create("AXDateFormatter", 0);
+  v1 = _AXCachedDateFormatterForFormat_AXDateFormatterQueue;
+  _AXCachedDateFormatterForFormat_AXDateFormatterQueue = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 void ___AXCachedDateFormatterForFormat_block_invoke_2(uint64_t a1)
@@ -41,9 +43,11 @@ void ___AXCachedDateFormatterForFormat_block_invoke_2(uint64_t a1)
 
 uint64_t ___AXCachedDateFormatterForFormat_block_invoke_3()
 {
-  _block_invoke_DateFormatters = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v0 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v1 = _block_invoke_DateFormatters;
+  _block_invoke_DateFormatters = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

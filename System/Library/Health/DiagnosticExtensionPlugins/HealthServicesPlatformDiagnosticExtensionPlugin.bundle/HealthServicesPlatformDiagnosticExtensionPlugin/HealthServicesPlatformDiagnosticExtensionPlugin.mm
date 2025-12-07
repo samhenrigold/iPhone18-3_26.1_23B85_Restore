@@ -1,6 +1,6 @@
-void sub_1210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -49,19 +49,19 @@ int64_t sub_17AC(id a1, HKOntologyShardRegistryEntry *a2, HKOntologyShardRegistr
   return v8;
 }
 
-uint64_t sub_1FBC(uint64_t a1)
+uint64_t sub_1FBC(uint64_t a1, uint64_t a2)
 {
-  v2 = HDSQLiteColumnAsString();
-  v3 = HDSQLiteColumnAsNumber();
+  v3 = HDSQLiteColumnAsString();
   v4 = HDSQLiteColumnAsNumber();
-  v5 = [*(a1 + 32) objectForKeyedSubscript:v3];
-  if (!v5)
+  v5 = HDSQLiteColumnAsNumber();
+  v6 = [*(a1 + 32) objectForKeyedSubscript:v4];
+  if (!v6)
   {
-    v5 = objc_alloc_init(NSMutableDictionary);
-    [*(a1 + 32) setObject:v5 forKeyedSubscript:v3];
+    v6 = objc_alloc_init(NSMutableDictionary);
+    [*(a1 + 32) setObject:v6 forKeyedSubscript:v4];
   }
 
-  [v5 setObject:v4 forKeyedSubscript:v2];
+  [v6 setObject:v5 forKeyedSubscript:v3];
 
   return 1;
 }
@@ -89,9 +89,9 @@ uint64_t sub_292C(uint64_t a1, void *a2, void *a3)
   return 1;
 }
 
-void sub_2B58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2B58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -103,11 +103,11 @@ void sub_2B74(uint64_t a1, void *a2)
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_35D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_35D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 

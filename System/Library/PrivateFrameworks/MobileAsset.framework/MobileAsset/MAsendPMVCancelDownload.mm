@@ -38,18 +38,16 @@ void ___MAsendPMVCancelDownload_block_invoke(uint64_t a1, void *a2)
 
   if (*(a1 + 32))
   {
-    v8 = _getClientCallbackQueue();
+    v9 = _getClientCallbackQueue(v8);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = ___MAsendPMVCancelDownload_block_invoke_1220;
     block[3] = &unk_1E74C9978;
     v11 = *(a1 + 32);
-    v9 = v11;
+    v10 = v11;
     v13 = v11;
-    dispatch_async(v8, block);
+    dispatch_async(v9, block);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void ___MAsendPMVCancelDownload_block_invoke_1220(uint64_t a1)
@@ -58,15 +56,14 @@ void ___MAsendPMVCancelDownload_block_invoke_1220(uint64_t a1)
   {
     v2 = *(*(*(a1 + 40) + 8) + 24);
     v3 = errorStringForMACancelDownloadResult(v2);
-    v10 = MAErrorForCancelDownloadResultWithUnderlying(v2, 0, @"During software lookup: %@", v4, v5, v6, v7, v8, v3);
+    v9 = MAErrorForCancelDownloadResultWithUnderlying(v2, 0, @"During software lookup: %@", v4, v5, v6, v7, v8, v3);
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  v9 = *(*(*(a1 + 40) + 8) + 24);
   (*(*(a1 + 32) + 16))();
 }
 

@@ -240,15 +240,15 @@ uint64_t __50__NTKValueEditOption__faceBundleStringToValueDict__block_invoke()
 
 - (id)_valueToFaceBundleStringDict
 {
-  OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_0_5();
+  v2 = OUTLINED_FUNCTION_1_6(self);
+  OUTLINED_FUNCTION_0_5(v2);
   return 0;
 }
 
 + (id)_snapshotKeyForValue:(unint64_t)value forDevice:(id)device
 {
-  OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_0_5();
+  v4 = OUTLINED_FUNCTION_1_6(self);
+  OUTLINED_FUNCTION_0_5(v4);
   return 0;
 }
 

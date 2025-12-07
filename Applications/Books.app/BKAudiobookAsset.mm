@@ -17,14 +17,14 @@
 {
   v3 = sub_1007969B4();
   v4 = *(v3 - 8);
-  __chkstk_darwin(v3);
-  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v6, self + OBJC_IVAR___BKAudiobookAsset_audiobookURL, v3);
-  sub_100796944(v7);
-  v9 = v8;
-  (*(v4 + 8))(v6, v3);
+  v5 = __chkstk_darwin(v3);
+  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 16))(v7, self + OBJC_IVAR___BKAudiobookAsset_audiobookURL, v3, v5);
+  sub_100796944(v8);
+  v10 = v9;
+  (*(v4 + 8))(v7, v3);
 
-  return v9;
+  return v10;
 }
 
 - (BKAudiobookAsset)init

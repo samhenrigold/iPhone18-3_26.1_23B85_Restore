@@ -58,51 +58,51 @@
   [(UITextView *)v12 setTextColor:v13];
 
   v14 = self->_primaryLabel;
-  v15 = PKOBKHeaderTitleFont();
-  [(UITextView *)v14 setFont:v15];
+  v16 = PKOBKHeaderTitleFont(v15);
+  [(UITextView *)v14 setFont:v16];
 
   textContainer2 = [(UITextView *)self->_primaryLabel textContainer];
   [textContainer2 setMaximumNumberOfLines:0];
   [textContainer2 setLineBreakMode:4];
   [(UIScrollView *)self->_scrollView addSubview:self->_primaryLabel];
-  v16 = objc_alloc_init(MEMORY[0x1E69DCC10]);
+  v17 = objc_alloc_init(MEMORY[0x1E69DCC10]);
   secondaryLabel = self->_secondaryLabel;
-  self->_secondaryLabel = v16;
+  self->_secondaryLabel = v17;
 
-  v18 = self->_secondaryLabel;
-  v19 = PKOBKHeaderSubtitleFont();
-  [(UILabel *)v18 setFont:v19];
+  v19 = self->_secondaryLabel;
+  v21 = PKOBKHeaderSubtitleFont(v20);
+  [(UILabel *)v19 setFont:v21];
 
-  [(UILabel *)self->_secondaryLabel setNumberOfLines:0];
-  v20 = self->_secondaryLabel;
-  v21 = PKOBKBodyTextColor();
-  [(UILabel *)v20 setTextColor:v21];
+  v22 = [(UILabel *)self->_secondaryLabel setNumberOfLines:0];
+  v23 = self->_secondaryLabel;
+  v24 = PKOBKBodyTextColor(v22);
+  [(UILabel *)v23 setTextColor:v24];
 
   [(UILabel *)self->_secondaryLabel setTextAlignment:4];
   [(UIScrollView *)self->_scrollView addSubview:self->_secondaryLabel];
-  v22 = [objc_alloc(MEMORY[0x1E69DCE48]) initWithProgressViewStyle:0];
+  v25 = [objc_alloc(MEMORY[0x1E69DCE48]) initWithProgressViewStyle:0];
   progressView = self->_progressView;
-  self->_progressView = v22;
+  self->_progressView = v25;
 
   [(PKProvisioningProgressView *)self addSubview:self->_progressView];
-  v24 = objc_alloc_init(MEMORY[0x1E69DCC10]);
+  v27 = objc_alloc_init(MEMORY[0x1E69DCC10]);
   progressLabel = self->_progressLabel;
-  self->_progressLabel = v24;
+  self->_progressLabel = v27;
 
-  v26 = self->_progressLabel;
-  v27 = PKOBKBulletSubtitleFont();
-  [(UILabel *)v26 setFont:v27];
+  v29 = self->_progressLabel;
+  v30 = PKOBKBulletSubtitleFont();
+  [(UILabel *)v29 setFont:v30];
 
   [(UILabel *)self->_progressLabel setNumberOfLines:1];
-  [(UILabel *)self->_progressLabel setTextAlignment:1];
-  v28 = self->_progressLabel;
-  v29 = PKOBKBodyTextColor();
-  [(UILabel *)v28 setTextColor:v29];
+  v31 = [(UILabel *)self->_progressLabel setTextAlignment:1];
+  v32 = self->_progressLabel;
+  v33 = PKOBKBodyTextColor(v31);
+  [(UILabel *)v32 setTextColor:v33];
 
   [(PKProvisioningProgressView *)self addSubview:self->_progressLabel];
-  v30 = objc_alloc_init(PKCheckmarkView);
+  v34 = objc_alloc_init(PKCheckmarkView);
   checkmarkView = self->_checkmarkView;
-  self->_checkmarkView = v30;
+  self->_checkmarkView = v34;
 
   [(UIScrollView *)self->_scrollView addSubview:self->_checkmarkView];
 }
@@ -134,8 +134,7 @@
   v7 = [defaultParagraphStyle mutableCopy];
 
   [v7 setLineBreakMode:0];
-  [v7 setAlignment:1];
-  v8 = PKOBKHeaderTitleFont();
+  v8 = PKOBKHeaderTitleFont([v7 setAlignment:1]);
   [v11 addAttribute:*MEMORY[0x1E69DB648] value:v8 range:{0, v5}];
   [v11 addAttribute:*MEMORY[0x1E69DB688] value:v7 range:{0, v5}];
   v9 = *MEMORY[0x1E69DB650];
@@ -185,60 +184,60 @@
   v15 = v14;
   [(UILabel *)self->_progressLabel sizeThatFits:v13];
   v17 = v16;
-  v71.origin.x = x;
-  v71.origin.y = y;
-  v71.size.width = width;
-  v71.size.height = height;
-  v68 = CGRectGetMaxY(v71) - v17 - v15 + -50.0 + -13.0 + -10.0;
+  v74.origin.x = x;
+  v74.origin.y = y;
+  v74.size.width = width;
+  v74.size.height = height;
+  v71 = CGRectGetMaxY(v74) - v17 - v15 + -50.0 + -13.0 + -10.0;
   if (layoutCopy)
   {
     [(UIScrollView *)self->_scrollView frame];
-    v75.origin.x = v18;
-    v75.origin.y = v19;
-    v75.size.width = v20;
-    v75.size.height = v21;
-    v72.origin.x = x;
-    v72.origin.y = y;
-    v72.size.width = width;
-    v72.size.height = height;
-    if (!CGRectEqualToRect(v72, v75))
+    v78.origin.x = v18;
+    v78.origin.y = v19;
+    v78.size.width = v20;
+    v78.size.height = v21;
+    v75.origin.x = x;
+    v75.origin.y = y;
+    v75.size.width = width;
+    v75.size.height = height;
+    if (!CGRectEqualToRect(v75, v78))
     {
-      [(UIScrollView *)self->_scrollView setFrame:x, y, width, v68];
+      [(UIScrollView *)self->_scrollView setFrame:x, y, width, v71];
     }
   }
 
   headerView = self->_headerView;
-  v69 = 0.0;
+  v72 = 0.0;
   if (headerView)
   {
     [(UIView *)headerView sizeThatFits:width, 1.79769313e308];
-    PKSizeRoundToPixel();
-    v69 = v23 + 25.0;
+    PKSizeRoundToPixel(v23, v24);
+    v72 = v25 + 25.0;
     if (layoutCopy)
     {
-      [(UIView *)self->_headerView setFrame:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), width, v23];
+      [(UIView *)self->_headerView setFrame:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), width, v25];
     }
   }
 
-  v24 = x + v11;
+  v26 = x + v11;
   [(UITextView *)self->_primaryLabel sizeThatFits:v13 + -20.0, 1.79769313e308];
-  v27 = v26;
+  v29 = v28;
   if (layoutCopy)
   {
-    [(UITextView *)self->_primaryLabel setFrame:v24, v69, v25, v26];
+    [(UITextView *)self->_primaryLabel setFrame:v26, v72, v27, v28];
   }
 
-  v65 = v27;
-  v28 = _UISolariumFeatureFlagEnabled();
-  v29 = 8.0;
-  if (v28)
+  v68 = v29;
+  v30 = _UISolariumFeatureFlagEnabled();
+  v31 = 8.0;
+  if (v30)
   {
-    v29 = 0.0;
+    v31 = 0.0;
   }
 
-  v66 = v29;
+  v69 = v31;
   checkmarkView = self->_checkmarkView;
-  v67 = v17;
+  v70 = v17;
   if (checkmarkView && layoutCopy)
   {
     [(PKCheckmarkView *)checkmarkView sizeThatFits:width, height];
@@ -248,78 +247,80 @@
 
     primaryLabel = self->_primaryLabel;
     endOfDocument = [(UITextView *)primaryLabel endOfDocument];
-    v35 = [(UITextView *)primaryLabel positionFromPosition:endOfDocument offset:-1];
+    v37 = [(UITextView *)primaryLabel positionFromPosition:endOfDocument offset:-1];
 
-    v36 = self->_primaryLabel;
-    endOfDocument2 = [(UITextView *)v36 endOfDocument];
-    v38 = [(UITextView *)v36 textRangeFromPosition:v35 toPosition:endOfDocument2];
+    v38 = self->_primaryLabel;
+    endOfDocument2 = [(UITextView *)v38 endOfDocument];
+    v40 = [(UITextView *)v38 textRangeFromPosition:v37 toPosition:endOfDocument2];
 
-    [(UITextView *)self->_primaryLabel firstRectForRange:v38];
+    [(UITextView *)self->_primaryLabel firstRectForRange:v40];
     [(PKProvisioningProgressView *)self convertRect:self->_primaryLabel fromView:?];
-    v40 = v39;
     v42 = v41;
     v44 = v43;
     v46 = v45;
+    v48 = v47;
     _shouldReverseLayoutDirection = [(PKProvisioningProgressView *)self _shouldReverseLayoutDirection];
-    v48 = v40;
-    v49 = v42;
-    v50 = v44;
-    v51 = v46;
+    v50 = v42;
+    v51 = v44;
+    v52 = v46;
+    v53 = v48;
     if (_shouldReverseLayoutDirection)
     {
-      CGRectGetMinX(*&v48);
+      CGRectGetMinX(*&v50);
     }
 
     else
     {
-      CGRectGetMaxX(*&v48);
+      CGRectGetMaxX(*&v50);
     }
 
     UIRectCenteredYInRect();
     [(PKCheckmarkView *)self->_checkmarkView setFrame:?];
 
-    v17 = v67;
+    v17 = v70;
   }
 
   [(UILabel *)self->_secondaryLabel sizeThatFits:v13, 1.79769313e308];
   if (layoutCopy)
   {
-    v53 = v52;
-    [(UILabel *)self->_secondaryLabel setFrame:v24, v69 + v65 + v66, v13, v52];
-    v73.origin.x = v24;
-    v73.origin.y = v69 + v65 + v66;
-    v17 = v67;
-    v73.size.width = v13;
-    v73.size.height = v53;
-    [(UIScrollView *)self->_scrollView setContentSize:width, CGRectGetMaxY(v73)];
+    v56 = v55.n128_f64[0];
+    [(UILabel *)self->_secondaryLabel setFrame:v26, v72 + v68 + v69, v13, v55.n128_f64[0]];
+    v76.origin.x = v26;
+    v76.origin.y = v72 + v68 + v69;
+    v17 = v70;
+    v76.size.width = v13;
+    v76.size.height = v56;
+    [(UIScrollView *)self->_scrollView setContentSize:width, CGRectGetMaxY(v76)];
   }
 
-  PKFloatRoundToPixel();
+  v55.n128_f64[0] = v71;
+  v54.n128_f64[0] = v13 * 0.65;
+  PKFloatRoundToPixel(v54, v55);
   UIRectCenteredXInRect();
-  v58 = v54;
-  v59 = v55;
-  v60 = v56;
   v61 = v57;
+  v62 = v58;
+  v63 = v59;
+  v64 = v60;
   if (layoutCopy)
   {
-    [(UIProgressView *)self->_progressView setFrame:v54, v55, v56, v57];
-    v74.origin.x = v58;
-    v74.origin.y = v59;
-    v74.size.width = v60;
-    v74.size.height = v61;
-    v62 = CGRectGetMaxY(v74) + 13.0;
-    [(UILabel *)self->_progressLabel setFrame:v24, v62, v13, v17];
+    [(UIProgressView *)self->_progressView setFrame:v57, v58, v59, v60];
+    v77.origin.x = v61;
+    v77.origin.y = v62;
+    v77.size.width = v63;
+    v77.size.height = v64;
+    v65 = CGRectGetMaxY(v77) + 13.0;
+    [(UILabel *)self->_progressLabel setFrame:v26, v65, v13, v17];
   }
 
   else
   {
-    v62 = CGRectGetMaxY(*&v54) + 13.0;
+    v65 = CGRectGetMaxY(*&v57) + 13.0;
   }
 
-  v63 = v17 + v62;
-  v64 = width;
-  result.height = v63;
-  result.width = v64;
+  v66 = v17 + v65;
+  v67 = width;
+  result.height = v66;
+  result.width = v67;
   return result;
 }
 

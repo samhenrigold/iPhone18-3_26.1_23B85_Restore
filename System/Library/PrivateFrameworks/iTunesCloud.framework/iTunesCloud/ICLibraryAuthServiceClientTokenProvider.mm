@@ -843,19 +843,19 @@ void __55__ICLibraryAuthServiceClientTokenProvider__commitCache__block_invoke(ui
     goto LABEL_5;
   }
 
-  [(ICLibraryAuthServiceClientTokenProvider *)self _devicePresetNonDiscriminatoryFailForConfiguration:dsCopy];
+  objc_msgSend__devicePresetNonDiscriminatoryFailForConfiguration_(self);
   retstr->var0 = v12;
   retstr->var1 = v13;
   retstr->var2 = v14;
   p_var2 = &retstr->var2;
   if (!v14)
   {
-    [(ICLibraryAuthServiceClientTokenProvider *)self _devicePresetNonDiscriminatorySucceedForConfiguration:dsCopy DSIDsToUse:v9];
+    objc_msgSend__devicePresetNonDiscriminatorySucceedForConfiguration_DSIDsToUse_(self);
     retstr->var0 = v12;
 
     retstr->var1 = v13;
     retstr->var2 = v14;
-    [(ICLibraryAuthServiceClientTokenProvider *)self _devicePresetErrorForConfiguration:dsCopy WithSpecifiedDSIDs:v9];
+    objc_msgSend__devicePresetErrorForConfiguration_WithSpecifiedDSIDs_(self);
     retstr->var0 = 0;
 
     retstr->var1 = 0;
@@ -1055,7 +1055,7 @@ LABEL_15:
       [v11 debugFetchConfiguration];
     }
     v12 = ;
-    [(ICLibraryAuthServiceClientTokenProvider *)self _devicePresetForConfiguration:v12 withDSIDs:refreshCopy];
+    objc_msgSend__devicePresetForConfiguration_withDSIDs_(self);
     *&retstr->var0 = v14;
     retstr->var2 = v15;
   }
@@ -1862,7 +1862,7 @@ void __96__ICLibraryAuthServiceClientTokenProvider__refreshTokensForDSIDs_forExt
   dispatch_group_leave(*(a1 + 64));
 }
 
-uint64_t __96__ICLibraryAuthServiceClientTokenProvider__refreshTokensForDSIDs_forExternalRequest_completion___block_invoke_88(uint64_t a1)
+void *__96__ICLibraryAuthServiceClientTokenProvider__refreshTokensForDSIDs_forExternalRequest_completion___block_invoke_88(uint64_t a1)
 {
   [*(a1 + 32) setObject:*(a1 + 40) forKey:*(a1 + 48)];
   result = [*(a1 + 56) _updateTokenCacheEntryForDSID:*(a1 + 48) tokenResult:*(a1 + 40) error:0];
@@ -2899,7 +2899,7 @@ void __68__ICLibraryAuthServiceClientTokenProvider_cachedTokenAndResetCache___bl
   }
 
   memset(buf, 0, sizeof(buf));
-  [(ICLibraryAuthServiceClientTokenProvider *)self _checkTokenPresetsForDSIDs:dsCopy forceRefresh:refreshCopy];
+  objc_msgSend__checkTokenPresetsForDSIDs_forceRefresh_(self);
   if (buf[16] == 1)
   {
     (*(completionCopy + 2))(completionCopy, *buf, *&buf[8]);
@@ -3149,7 +3149,6 @@ void __91__ICLibraryAuthServiceClientTokenProvider_getTokenResultsForDSIDs_force
 
 - (void)getTokenResultForDSID:(id)d forceRefresh:(BOOL)refresh completion:(id)completion
 {
-  refreshCopy = refresh;
   v27 = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
@@ -3172,7 +3171,7 @@ void __91__ICLibraryAuthServiceClientTokenProvider_getTokenResultsForDSIDs_force
 
   memset(buf, 0, sizeof(buf));
   v13 = [MEMORY[0x1E695DFD8] setWithObject:dCopy];
-  [(ICLibraryAuthServiceClientTokenProvider *)self _checkTokenPresetsForDSIDs:v13 forceRefresh:refreshCopy];
+  objc_msgSend__checkTokenPresetsForDSIDs_forceRefresh_(self);
 
   if (buf[16] == 1)
   {
@@ -3189,7 +3188,7 @@ void __91__ICLibraryAuthServiceClientTokenProvider_getTokenResultsForDSIDs_force
     v21 = &unk_1E7BF69F8;
     selfCopy = self;
     v23 = dCopy;
-    v25 = refreshCopy;
+    refreshCopy = refresh;
     v24 = completionCopy;
     v16 = [(ICAsyncBlockOperation *)v15 initWithStartHandler:&v18];
     [(ICAsyncBlockOperation *)v16 setName:@"com.apple.iTunesCloud.ICLibraryAuthServiceClientTokenProvider.getTokenResultForDSID", v18, v19, v20, v21, selfCopy];
@@ -3853,11 +3852,13 @@ void __93__ICLibraryAuthServiceClientTokenProvider_getAllTokensForAssistantForci
   return v2;
 }
 
-uint64_t __57__ICLibraryAuthServiceClientTokenProvider_sharedProvider__block_invoke()
+uint64_t __57__ICLibraryAuthServiceClientTokenProvider_sharedProvider__block_invoke(uint64_t a1)
 {
-  sharedProvider_sSharedProvider = objc_alloc_init(objc_opt_class());
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = sharedProvider_sSharedProvider;
+  sharedProvider_sSharedProvider = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 @end

@@ -52,64 +52,62 @@
   blockCopy = block;
   dCopy = d;
   tokenCopy = token;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(tokenCopy, v13) && _os_feature_enabled_impl())
   {
-    v13 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v13)
+    v14 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v14)
     {
-      v13 = +[SSLogConfig sharedConfig];
+      v14 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v13 shouldLog];
-    if ([v13 shouldLogToDisk])
+    shouldLog = [v14 shouldLog];
+    if ([v14 shouldLogToDisk])
     {
-      v15 = shouldLog | 2;
+      v16 = shouldLog | 2;
     }
 
     else
     {
-      v15 = shouldLog;
+      v16 = shouldLog;
     }
 
-    oSLogObject = [v13 OSLogObject];
+    oSLogObject = [v14 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v17 = v15;
+      v18 = v16;
     }
 
     else
     {
-      v17 = v15 & 2;
+      v18 = v16 & 2;
     }
 
-    if (v17)
+    if (v18)
     {
       v31 = 136446210;
       v32 = "[SSBiometrics getAllCachedBiometricHTTPHeadersWithToken:accountID:evict:completionBlock:]";
-      LODWORD(v28) = 12;
-      v18 = _os_log_send_and_compose_impl();
 
-      if (!v18)
+      if (!v19)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:{4, &v31, v28}];
-      free(v18);
-      SSFileLog(v13, @"%@", v19, v20, v21, v22, v23, v24, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:4];
+      free(v19);
+      SSFileLog(v14, @"%@", v20, v21, v22, v23, v24, v25, oSLogObject);
     }
 
     goto LABEL_15;
   }
 
 LABEL_16:
-  v25 = SSXPCCreateMessageDictionary(203);
-  SSXPCDictionarySetObject(v25, "1", tokenCopy);
+  v26 = SSXPCCreateMessageDictionary(203);
+  SSXPCDictionarySetObject(v26, "1", tokenCopy);
 
-  SSXPCDictionarySetObject(v25, "2", dCopy);
-  xpc_dictionary_set_BOOL(v25, "3", evict);
+  SSXPCDictionarySetObject(v26, "2", dCopy);
+  xpc_dictionary_set_BOOL(v26, "3", evict);
   connection = self->_connection;
   v29[0] = MEMORY[0x1E69E9820];
   v29[1] = 3221225472;
@@ -117,8 +115,8 @@ LABEL_16:
   v29[3] = &unk_1E84ABEF0;
   v29[4] = self;
   v30 = blockCopy;
-  v27 = blockCopy;
-  [(SSXPCConnection *)connection sendMessage:v25 withReply:v29];
+  v28 = blockCopy;
+  [(SSXPCConnection *)connection sendMessage:v26 withReply:v29];
 }
 
 void __90__SSBiometrics_getAllCachedBiometricHTTPHeadersWithToken_accountID_evict_completionBlock___block_invoke(uint64_t a1, void *a2)
@@ -167,63 +165,61 @@ LABEL_7:
   v30 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   tokenCopy = token;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(tokenCopy, v10) && _os_feature_enabled_impl())
   {
-    v10 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v10)
+    v11 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v11)
     {
-      v10 = +[SSLogConfig sharedConfig];
+      v11 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v10 shouldLog];
-    if ([v10 shouldLogToDisk])
+    shouldLog = [v11 shouldLog];
+    if ([v11 shouldLogToDisk])
     {
-      v12 = shouldLog | 2;
+      v13 = shouldLog | 2;
     }
 
     else
     {
-      v12 = shouldLog;
+      v13 = shouldLog;
     }
 
-    oSLogObject = [v10 OSLogObject];
+    oSLogObject = [v11 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v14 = v12;
+      v15 = v13;
     }
 
     else
     {
-      v14 = v12 & 2;
+      v15 = v13 & 2;
     }
 
-    if (v14)
+    if (v15)
     {
       v28 = 136446210;
       v29 = "[SSBiometrics getCachedBiometricAuthenticationContextWithToken:evict:completionBlock:]";
-      LODWORD(v25) = 12;
-      v15 = _os_log_send_and_compose_impl();
 
-      if (!v15)
+      if (!v16)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, &v28, v25}];
-      free(v15);
-      SSFileLog(v10, @"%@", v16, v17, v18, v19, v20, v21, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:4];
+      free(v16);
+      SSFileLog(v11, @"%@", v17, v18, v19, v20, v21, v22, oSLogObject);
     }
 
     goto LABEL_15;
   }
 
 LABEL_16:
-  v22 = SSXPCCreateMessageDictionary(195);
-  SSXPCDictionarySetObject(v22, "1", tokenCopy);
+  v23 = SSXPCCreateMessageDictionary(195);
+  SSXPCDictionarySetObject(v23, "1", tokenCopy);
 
-  xpc_dictionary_set_BOOL(v22, "2", evict);
+  xpc_dictionary_set_BOOL(v23, "2", evict);
   connection = self->_connection;
   v26[0] = MEMORY[0x1E69E9820];
   v26[1] = 3221225472;
@@ -231,8 +227,8 @@ LABEL_16:
   v26[3] = &unk_1E84ABEF0;
   v26[4] = self;
   v27 = blockCopy;
-  v24 = blockCopy;
-  [(SSXPCConnection *)connection sendMessage:v22 withReply:v26];
+  v25 = blockCopy;
+  [(SSXPCConnection *)connection sendMessage:v23 withReply:v26];
 }
 
 void __87__SSBiometrics_getCachedBiometricAuthenticationContextWithToken_evict_completionBlock___block_invoke(uint64_t a1, void *a2)
@@ -284,64 +280,62 @@ LABEL_7:
   blockCopy = block;
   dCopy = d;
   tokenCopy = token;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(tokenCopy, v13) && _os_feature_enabled_impl())
   {
-    v13 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v13)
+    v14 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v14)
     {
-      v13 = +[SSLogConfig sharedConfig];
+      v14 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v13 shouldLog];
-    if ([v13 shouldLogToDisk])
+    shouldLog = [v14 shouldLog];
+    if ([v14 shouldLogToDisk])
     {
-      v15 = shouldLog | 2;
+      v16 = shouldLog | 2;
     }
 
     else
     {
-      v15 = shouldLog;
+      v16 = shouldLog;
     }
 
-    oSLogObject = [v13 OSLogObject];
+    oSLogObject = [v14 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v17 = v15;
+      v18 = v16;
     }
 
     else
     {
-      v17 = v15 & 2;
+      v18 = v16 & 2;
     }
 
-    if (v17)
+    if (v18)
     {
       v31 = 136446210;
       v32 = "[SSBiometrics getCachedBiometricHTTPHeadersWithToken:accountID:evict:completionBlock:]";
-      LODWORD(v28) = 12;
-      v18 = _os_log_send_and_compose_impl();
 
-      if (!v18)
+      if (!v19)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:{4, &v31, v28}];
-      free(v18);
-      SSFileLog(v13, @"%@", v19, v20, v21, v22, v23, v24, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:4];
+      free(v19);
+      SSFileLog(v14, @"%@", v20, v21, v22, v23, v24, v25, oSLogObject);
     }
 
     goto LABEL_15;
   }
 
 LABEL_16:
-  v25 = SSXPCCreateMessageDictionary(196);
-  SSXPCDictionarySetObject(v25, "1", tokenCopy);
+  v26 = SSXPCCreateMessageDictionary(196);
+  SSXPCDictionarySetObject(v26, "1", tokenCopy);
 
-  SSXPCDictionarySetObject(v25, "2", dCopy);
-  xpc_dictionary_set_BOOL(v25, "3", evict);
+  SSXPCDictionarySetObject(v26, "2", dCopy);
+  xpc_dictionary_set_BOOL(v26, "3", evict);
   connection = self->_connection;
   v29[0] = MEMORY[0x1E69E9820];
   v29[1] = 3221225472;
@@ -349,8 +343,8 @@ LABEL_16:
   v29[3] = &unk_1E84ABEF0;
   v29[4] = self;
   v30 = blockCopy;
-  v27 = blockCopy;
-  [(SSXPCConnection *)connection sendMessage:v25 withReply:v29];
+  v28 = blockCopy;
+  [(SSXPCConnection *)connection sendMessage:v26 withReply:v29];
 }
 
 void __87__SSBiometrics_getCachedBiometricHTTPHeadersWithToken_accountID_evict_completionBlock___block_invoke(uint64_t a1, void *a2)
@@ -410,61 +404,59 @@ LABEL_7:
 {
   v27 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(completionCopy, v7) && _os_feature_enabled_impl())
   {
-    v7 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v7)
+    v8 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v8)
     {
-      v7 = +[SSLogConfig sharedConfig];
+      v8 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v7 shouldLog];
-    if ([v7 shouldLogToDisk])
+    shouldLog = [v8 shouldLog];
+    if ([v8 shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      v10 = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      v10 = shouldLog;
     }
 
-    oSLogObject = [v7 OSLogObject];
+    oSLogObject = [v8 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v11 = v9;
+      v12 = v10;
     }
 
     else
     {
-      v11 = v9 & 2;
+      v12 = v10 & 2;
     }
 
-    if (v11)
+    if (v12)
     {
       v25 = 136446210;
       v26 = "[SSBiometrics getConstraintsDictionaryForPurpose:completion:]";
-      LODWORD(v22) = 12;
-      v12 = _os_log_send_and_compose_impl();
 
-      if (!v12)
+      if (!v13)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v25, v22}];
-      free(v12);
-      SSFileLog(v7, @"%@", v13, v14, v15, v16, v17, v18, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
+      free(v13);
+      SSFileLog(v8, @"%@", v14, v15, v16, v17, v18, v19, oSLogObject);
     }
 
     goto LABEL_15;
   }
 
 LABEL_16:
-  v19 = SSXPCCreateMessageDictionary(214);
-  xpc_dictionary_set_BOOL(v19, "1", purpose == 0);
+  v20 = SSXPCCreateMessageDictionary(214);
+  xpc_dictionary_set_BOOL(v20, "1", purpose == 0);
   connection = self->_connection;
   v23[0] = MEMORY[0x1E69E9820];
   v23[1] = 3221225472;
@@ -472,8 +464,8 @@ LABEL_16:
   v23[3] = &unk_1E84ABEF0;
   v23[4] = self;
   v24 = completionCopy;
-  v21 = completionCopy;
-  [(SSXPCConnection *)connection sendMessage:v19 withReply:v23];
+  v22 = completionCopy;
+  [(SSXPCConnection *)connection sendMessage:v20 withReply:v23];
 }
 
 void __62__SSBiometrics_getConstraintsDictionaryForPurpose_completion___block_invoke(uint64_t a1, void *a2)
@@ -521,60 +513,58 @@ LABEL_7:
 {
   v25 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(completionCopy, v5) && _os_feature_enabled_impl())
   {
-    v5 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v5)
+    v6 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v6)
     {
-      v5 = +[SSLogConfig sharedConfig];
+      v6 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v5 shouldLog];
-    if ([v5 shouldLogToDisk])
+    shouldLog = [v6 shouldLog];
+    if ([v6 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      v8 = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      v8 = shouldLog;
     }
 
-    oSLogObject = [v5 OSLogObject];
+    oSLogObject = [v6 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v9 = v7;
+      v10 = v8;
     }
 
     else
     {
-      v9 = v7 & 2;
+      v10 = v8 & 2;
     }
 
-    if (v9)
+    if (v10)
     {
       v23 = 136446210;
       v24 = "[SSBiometrics getCurrentACLVersionWithCompletion:]";
-      LODWORD(v20) = 12;
-      v10 = _os_log_send_and_compose_impl();
 
-      if (!v10)
+      if (!v11)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v23, v20}];
-      free(v10);
-      SSFileLog(v5, @"%@", v11, v12, v13, v14, v15, v16, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v11);
+      SSFileLog(v6, @"%@", v12, v13, v14, v15, v16, v17, oSLogObject);
     }
 
     goto LABEL_15;
   }
 
 LABEL_16:
-  v17 = SSXPCCreateMessageDictionary(213);
+  v18 = SSXPCCreateMessageDictionary(213);
   connection = self->_connection;
   v21[0] = MEMORY[0x1E69E9820];
   v21[1] = 3221225472;
@@ -582,8 +572,8 @@ LABEL_16:
   v21[3] = &unk_1E84ABEF0;
   v21[4] = self;
   v22 = completionCopy;
-  v19 = completionCopy;
-  [(SSXPCConnection *)connection sendMessage:v17 withReply:v21];
+  v20 = completionCopy;
+  [(SSXPCConnection *)connection sendMessage:v18 withReply:v21];
 }
 
 void __51__SSBiometrics_getCurrentACLVersionWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -631,60 +621,58 @@ LABEL_7:
 {
   v25 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(blockCopy, v5) && _os_feature_enabled_impl())
   {
-    v5 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v5)
+    v6 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v6)
     {
-      v5 = +[SSLogConfig sharedConfig];
+      v6 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v5 shouldLog];
-    if ([v5 shouldLogToDisk])
+    shouldLog = [v6 shouldLog];
+    if ([v6 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      v8 = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      v8 = shouldLog;
     }
 
-    oSLogObject = [v5 OSLogObject];
+    oSLogObject = [v6 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v9 = v7;
+      v10 = v8;
     }
 
     else
     {
-      v9 = v7 & 2;
+      v10 = v8 & 2;
     }
 
-    if (v9)
+    if (v10)
     {
       v23 = 136446210;
       v24 = "[SSBiometrics getStateWithCompletionBlock:]";
-      LODWORD(v20) = 12;
-      v10 = _os_log_send_and_compose_impl();
 
-      if (!v10)
+      if (!v11)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v23, v20}];
-      free(v10);
-      SSFileLog(v5, @"%@", v11, v12, v13, v14, v15, v16, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v11);
+      SSFileLog(v6, @"%@", v12, v13, v14, v15, v16, v17, oSLogObject);
     }
 
     goto LABEL_15;
   }
 
 LABEL_16:
-  v17 = SSXPCCreateMessageDictionary(122);
+  v18 = SSXPCCreateMessageDictionary(122);
   connection = self->_connection;
   v21[0] = MEMORY[0x1E69E9820];
   v21[1] = 3221225472;
@@ -692,8 +680,8 @@ LABEL_16:
   v21[3] = &unk_1E84ABEF0;
   v21[4] = self;
   v22 = blockCopy;
-  v19 = blockCopy;
-  [(SSXPCConnection *)connection sendMessage:v17 withReply:v21];
+  v20 = blockCopy;
+  [(SSXPCConnection *)connection sendMessage:v18 withReply:v21];
 }
 
 void __44__SSBiometrics_getStateWithCompletionBlock___block_invoke(uint64_t a1, void *a2)
@@ -741,124 +729,120 @@ LABEL_7:
   v24 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   accountCopy = account;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(accountCopy, v8) && _os_feature_enabled_impl())
   {
-    v8 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v8)
+    v9 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v9)
     {
-      v8 = +[SSLogConfig sharedConfig];
+      v9 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v8 shouldLog];
-    if ([v8 shouldLogToDisk])
+    shouldLog = [v9 shouldLog];
+    if ([v9 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      v11 = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      v11 = shouldLog;
     }
 
-    oSLogObject = [v8 OSLogObject];
+    oSLogObject = [v9 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v12 = v10;
+      v13 = v11;
     }
 
     else
     {
-      v12 = v10 & 2;
+      v13 = v11 & 2;
     }
 
-    if (v12)
+    if (v13)
     {
       v22 = 136446210;
       v23 = "[SSBiometrics resetAccount:withCompletionBlock:]";
-      LODWORD(v21) = 12;
-      v13 = _os_log_send_and_compose_impl();
 
-      if (!v13)
+      if (!v14)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v22, v21}];
-      free(v13);
-      SSFileLog(v8, @"%@", v14, v15, v16, v17, v18, v19, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+      free(v14);
+      SSFileLog(v9, @"%@", v15, v16, v17, v18, v19, v20, oSLogObject);
     }
 
     goto LABEL_15;
   }
 
 LABEL_16:
-  v20 = SSXPCCreateMessageDictionary(125);
-  SSXPCDictionarySetObject(v20, "1", accountCopy);
+  v21 = SSXPCCreateMessageDictionary(125);
+  SSXPCDictionarySetObject(v21, "1", accountCopy);
 
-  [(SSBiometrics *)self _sendMessage:v20 withCompletionBlock:blockCopy];
+  [(SSBiometrics *)self _sendMessage:v21 withCompletionBlock:blockCopy];
 }
 
 - (void)resetWithCompletionBlock:(id)block
 {
   v21 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(blockCopy, v5) && _os_feature_enabled_impl())
   {
-    v5 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v5)
+    v6 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v6)
     {
-      v5 = +[SSLogConfig sharedConfig];
+      v6 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v5 shouldLog];
-    if ([v5 shouldLogToDisk])
+    shouldLog = [v6 shouldLog];
+    if ([v6 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      v8 = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      v8 = shouldLog;
     }
 
-    oSLogObject = [v5 OSLogObject];
+    oSLogObject = [v6 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v9 = v7;
+      v10 = v8;
     }
 
     else
     {
-      v9 = v7 & 2;
+      v10 = v8 & 2;
     }
 
-    if (v9)
+    if (v10)
     {
       v19 = 136446210;
       v20 = "[SSBiometrics resetWithCompletionBlock:]";
-      LODWORD(v18) = 12;
-      v10 = _os_log_send_and_compose_impl();
 
-      if (!v10)
+      if (!v11)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v19, v18}];
-      free(v10);
-      SSFileLog(v5, @"%@", v11, v12, v13, v14, v15, v16, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v11);
+      SSFileLog(v6, @"%@", v12, v13, v14, v15, v16, v17, oSLogObject);
     }
 
     goto LABEL_15;
   }
 
 LABEL_16:
-  v17 = SSXPCCreateMessageDictionary(124);
-  [(SSBiometrics *)self _sendMessage:v17 withCompletionBlock:blockCopy];
+  v18 = SSXPCCreateMessageDictionary(124);
+  [(SSBiometrics *)self _sendMessage:v18 withCompletionBlock:blockCopy];
 }
 
 - (void)setEnabled:(BOOL)enabled withCompletionBlock:(id)block
@@ -875,134 +859,69 @@ LABEL_16:
   v26 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   tokenCopy = token;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(tokenCopy, v10) && _os_feature_enabled_impl())
   {
-    v10 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v10)
+    v11 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v11)
     {
-      v10 = +[SSLogConfig sharedConfig];
+      v11 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v10 shouldLog];
-    if ([v10 shouldLogToDisk])
+    shouldLog = [v11 shouldLog];
+    if ([v11 shouldLogToDisk])
     {
-      v12 = shouldLog | 2;
+      v13 = shouldLog | 2;
     }
 
     else
     {
-      v12 = shouldLog;
+      v13 = shouldLog;
     }
 
-    oSLogObject = [v10 OSLogObject];
+    oSLogObject = [v11 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v14 = v12;
+      v15 = v13;
     }
 
     else
     {
-      v14 = v12 & 2;
+      v15 = v13 & 2;
     }
 
-    if (v14)
+    if (v15)
     {
       v24 = 136446210;
       v25 = "[SSBiometrics setEnabled:withAuthToken:completionBlock:]";
-      LODWORD(v23) = 12;
-      v15 = _os_log_send_and_compose_impl();
 
-      if (!v15)
+      if (!v16)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, &v24, v23}];
-      free(v15);
-      SSFileLog(v10, @"%@", v16, v17, v18, v19, v20, v21, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:4];
+      free(v16);
+      SSFileLog(v11, @"%@", v17, v18, v19, v20, v21, v22, oSLogObject);
     }
 
     goto LABEL_15;
   }
 
 LABEL_16:
-  v22 = SSXPCCreateMessageDictionary(123);
-  xpc_dictionary_set_BOOL(v22, "1", enabled);
-  SSXPCDictionarySetCFObject(v22, "2", tokenCopy);
+  v23 = SSXPCCreateMessageDictionary(123);
+  xpc_dictionary_set_BOOL(v23, "1", enabled);
+  SSXPCDictionarySetCFObject(v23, "2", tokenCopy);
 
-  [(SSBiometrics *)self _sendMessage:v22 withCompletionBlock:blockCopy];
+  [(SSBiometrics *)self _sendMessage:v23 withCompletionBlock:blockCopy];
 }
 
 - (void)setAllowed:(BOOL)allowed completionBlock:(id)block
 {
   v23 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
-  {
-    v7 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v7)
-    {
-      v7 = +[SSLogConfig sharedConfig];
-    }
-
-    shouldLog = [v7 shouldLog];
-    if ([v7 shouldLogToDisk])
-    {
-      v9 = shouldLog | 2;
-    }
-
-    else
-    {
-      v9 = shouldLog;
-    }
-
-    oSLogObject = [v7 OSLogObject];
-    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
-    {
-      v11 = v9;
-    }
-
-    else
-    {
-      v11 = v9 & 2;
-    }
-
-    if (v11)
-    {
-      v21 = 136446210;
-      v22 = "[SSBiometrics setAllowed:completionBlock:]";
-      LODWORD(v20) = 12;
-      v12 = _os_log_send_and_compose_impl();
-
-      if (!v12)
-      {
-LABEL_15:
-
-        goto LABEL_16;
-      }
-
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v21, v20}];
-      free(v12);
-      SSFileLog(v7, @"%@", v13, v14, v15, v16, v17, v18, oSLogObject);
-    }
-
-    goto LABEL_15;
-  }
-
-LABEL_16:
-  v19 = SSXPCCreateMessageDictionary(126);
-  xpc_dictionary_set_BOOL(v19, "1", allowed);
-  [(SSBiometrics *)self _sendMessage:v19 withCompletionBlock:blockCopy];
-}
-
-- (void)tokenUpdateDidFinishWithLogKey:(id)key completion:(id)completion
-{
-  v28 = *MEMORY[0x1E69E9840];
-  completionCopy = completion;
-  keyCopy = key;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(blockCopy, v7) && _os_feature_enabled_impl())
   {
     v8 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v8)
@@ -1022,7 +941,7 @@ LABEL_16:
     }
 
     oSLogObject = [v8 OSLogObject];
-    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
       v12 = v10;
     }
@@ -1034,10 +953,8 @@ LABEL_16:
 
     if (v12)
     {
-      v26 = 136446210;
-      v27 = "[SSBiometrics tokenUpdateDidFinishWithLogKey:completion:]";
-      LODWORD(v23) = 12;
-      v13 = _os_log_send_and_compose_impl();
+      v21 = 136446210;
+      v22 = "[SSBiometrics setAllowed:completionBlock:]";
 
       if (!v13)
       {
@@ -1046,7 +963,7 @@ LABEL_15:
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v26, v23}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
       free(v13);
       SSFileLog(v8, @"%@", v14, v15, v16, v17, v18, v19, oSLogObject);
     }
@@ -1055,8 +972,69 @@ LABEL_15:
   }
 
 LABEL_16:
-  v20 = SSXPCCreateMessageDictionary(206);
-  SSXPCDictionarySetObject(v20, "1", keyCopy);
+  v20 = SSXPCCreateMessageDictionary(126);
+  xpc_dictionary_set_BOOL(v20, "1", allowed);
+  [(SSBiometrics *)self _sendMessage:v20 withCompletionBlock:blockCopy];
+}
+
+- (void)tokenUpdateDidFinishWithLogKey:(id)key completion:(id)completion
+{
+  v28 = *MEMORY[0x1E69E9840];
+  completionCopy = completion;
+  keyCopy = key;
+  if (SSIsInternalBuild(keyCopy, v8) && _os_feature_enabled_impl())
+  {
+    v9 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v9)
+    {
+      v9 = +[SSLogConfig sharedConfig];
+    }
+
+    shouldLog = [v9 shouldLog];
+    if ([v9 shouldLogToDisk])
+    {
+      v11 = shouldLog | 2;
+    }
+
+    else
+    {
+      v11 = shouldLog;
+    }
+
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v13 = v11;
+    }
+
+    else
+    {
+      v13 = v11 & 2;
+    }
+
+    if (v13)
+    {
+      v26 = 136446210;
+      v27 = "[SSBiometrics tokenUpdateDidFinishWithLogKey:completion:]";
+
+      if (!v14)
+      {
+LABEL_15:
+
+        goto LABEL_16;
+      }
+
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+      free(v14);
+      SSFileLog(v9, @"%@", v15, v16, v17, v18, v19, v20, oSLogObject);
+    }
+
+    goto LABEL_15;
+  }
+
+LABEL_16:
+  v21 = SSXPCCreateMessageDictionary(206);
+  SSXPCDictionarySetObject(v21, "1", keyCopy);
 
   connection = self->_connection;
   v24[0] = MEMORY[0x1E69E9820];
@@ -1065,8 +1043,8 @@ LABEL_16:
   v24[3] = &unk_1E84ABEF0;
   v24[4] = self;
   v25 = completionCopy;
-  v22 = completionCopy;
-  [(SSXPCConnection *)connection sendMessage:v20 withReply:v24];
+  v23 = completionCopy;
+  [(SSXPCConnection *)connection sendMessage:v21 withReply:v24];
 }
 
 void __58__SSBiometrics_tokenUpdateDidFinishWithLogKey_completion___block_invoke(uint64_t a1, void *a2)
@@ -1111,61 +1089,59 @@ LABEL_7:
   v28 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   keyCopy = key;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(keyCopy, v8) && _os_feature_enabled_impl())
   {
-    v8 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v8)
+    v9 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v9)
     {
-      v8 = +[SSLogConfig sharedConfig];
+      v9 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v8 shouldLog];
-    if ([v8 shouldLogToDisk])
+    shouldLog = [v9 shouldLog];
+    if ([v9 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      v11 = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      v11 = shouldLog;
     }
 
-    oSLogObject = [v8 OSLogObject];
+    oSLogObject = [v9 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v12 = v10;
+      v13 = v11;
     }
 
     else
     {
-      v12 = v10 & 2;
+      v13 = v11 & 2;
     }
 
-    if (v12)
+    if (v13)
     {
       v26 = 136446210;
       v27 = "[SSBiometrics tokenUpdateShouldStartWithLogKey:completion:]";
-      LODWORD(v23) = 12;
-      v13 = _os_log_send_and_compose_impl();
 
-      if (!v13)
+      if (!v14)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v26, v23}];
-      free(v13);
-      SSFileLog(v8, @"%@", v14, v15, v16, v17, v18, v19, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+      free(v14);
+      SSFileLog(v9, @"%@", v15, v16, v17, v18, v19, v20, oSLogObject);
     }
 
     goto LABEL_15;
   }
 
 LABEL_16:
-  v20 = SSXPCCreateMessageDictionary(207);
-  SSXPCDictionarySetObject(v20, "1", keyCopy);
+  v21 = SSXPCCreateMessageDictionary(207);
+  SSXPCDictionarySetObject(v21, "1", keyCopy);
 
   connection = self->_connection;
   v24[0] = MEMORY[0x1E69E9820];
@@ -1174,8 +1150,8 @@ LABEL_16:
   v24[3] = &unk_1E84ABEF0;
   v24[4] = self;
   v25 = completionCopy;
-  v22 = completionCopy;
-  [(SSXPCConnection *)connection sendMessage:v20 withReply:v24];
+  v23 = completionCopy;
+  [(SSXPCConnection *)connection sendMessage:v21 withReply:v24];
 }
 
 void __60__SSBiometrics_tokenUpdateShouldStartWithLogKey_completion___block_invoke(uint64_t a1, void *a2)
@@ -1222,60 +1198,58 @@ LABEL_7:
 {
   v25 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(blockCopy, v5) && _os_feature_enabled_impl())
   {
-    v5 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v5)
+    v6 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v6)
     {
-      v5 = +[SSLogConfig sharedConfig];
+      v6 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v5 shouldLog];
-    if ([v5 shouldLogToDisk])
+    shouldLog = [v6 shouldLog];
+    if ([v6 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      v8 = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      v8 = shouldLog;
     }
 
-    oSLogObject = [v5 OSLogObject];
+    oSLogObject = [v6 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v9 = v7;
+      v10 = v8;
     }
 
     else
     {
-      v9 = v7 & 2;
+      v10 = v8 & 2;
     }
 
-    if (v9)
+    if (v10)
     {
       v23 = 136446210;
       v24 = "[SSBiometrics tokenUpdateStateWithCompletionBlock:]";
-      LODWORD(v20) = 12;
-      v10 = _os_log_send_and_compose_impl();
 
-      if (!v10)
+      if (!v11)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v23, v20}];
-      free(v10);
-      SSFileLog(v5, @"%@", v11, v12, v13, v14, v15, v16, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v11);
+      SSFileLog(v6, @"%@", v12, v13, v14, v15, v16, v17, oSLogObject);
     }
 
     goto LABEL_15;
   }
 
 LABEL_16:
-  v17 = SSXPCCreateMessageDictionary(208);
+  v18 = SSXPCCreateMessageDictionary(208);
   connection = self->_connection;
   v21[0] = MEMORY[0x1E69E9820];
   v21[1] = 3221225472;
@@ -1283,8 +1257,8 @@ LABEL_16:
   v21[3] = &unk_1E84ABEF0;
   v21[4] = self;
   v22 = blockCopy;
-  v19 = blockCopy;
-  [(SSXPCConnection *)connection sendMessage:v17 withReply:v21];
+  v20 = blockCopy;
+  [(SSXPCConnection *)connection sendMessage:v18 withReply:v21];
 }
 
 void __52__SSBiometrics_tokenUpdateStateWithCompletionBlock___block_invoke(uint64_t a1, void *a2)
@@ -1331,60 +1305,58 @@ LABEL_7:
 {
   v25 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(blockCopy, v5) && _os_feature_enabled_impl())
   {
-    v5 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v5)
+    v6 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v6)
     {
-      v5 = +[SSLogConfig sharedConfig];
+      v6 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v5 shouldLog];
-    if ([v5 shouldLogToDisk])
+    shouldLog = [v6 shouldLog];
+    if ([v6 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      v8 = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      v8 = shouldLog;
     }
 
-    oSLogObject = [v5 OSLogObject];
+    oSLogObject = [v6 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v9 = v7;
+      v10 = v8;
     }
 
     else
     {
-      v9 = v7 & 2;
+      v10 = v8 & 2;
     }
 
-    if (v9)
+    if (v10)
     {
       v23 = 136446210;
       v24 = "[SSBiometrics getIdentityMapCountWithCompletionBlock:]";
-      LODWORD(v20) = 12;
-      v10 = _os_log_send_and_compose_impl();
 
-      if (!v10)
+      if (!v11)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v23, v20}];
-      free(v10);
-      SSFileLog(v5, @"%@", v11, v12, v13, v14, v15, v16, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v11);
+      SSFileLog(v6, @"%@", v12, v13, v14, v15, v16, v17, oSLogObject);
     }
 
     goto LABEL_15;
   }
 
 LABEL_16:
-  v17 = SSXPCCreateMessageDictionary(182);
+  v18 = SSXPCCreateMessageDictionary(182);
   connection = self->_connection;
   v21[0] = MEMORY[0x1E69E9820];
   v21[1] = 3221225472;
@@ -1392,8 +1364,8 @@ LABEL_16:
   v21[3] = &unk_1E84ABEF0;
   v21[4] = self;
   v22 = blockCopy;
-  v19 = blockCopy;
-  [(SSXPCConnection *)connection sendMessage:v17 withReply:v21];
+  v20 = blockCopy;
+  [(SSXPCConnection *)connection sendMessage:v18 withReply:v21];
 }
 
 void __55__SSBiometrics_getIdentityMapCountWithCompletionBlock___block_invoke(uint64_t a1, void *a2)
@@ -1417,7 +1389,7 @@ LABEL_6:
 
   v10 = objc_opt_class();
   v11 = SSXPCDictionaryCopyObjectWithClass(v4, "0", v10);
-  v7 = [v11 unsignedIntegerValue];
+  v7 = [(__CFDate *)v11 unsignedIntegerValue];
 
   v12 = objc_alloc(MEMORY[0x1E696ABC0]);
   v13 = xpc_dictionary_get_value(v4, "1");
@@ -1444,63 +1416,61 @@ LABEL_7:
   v24 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   identifierCopy = identifier;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(identifierCopy, v8) && _os_feature_enabled_impl())
   {
-    v8 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v8)
+    v9 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v9)
     {
-      v8 = +[SSLogConfig sharedConfig];
+      v9 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v8 shouldLog];
-    if ([v8 shouldLogToDisk])
+    shouldLog = [v9 shouldLog];
+    if ([v9 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      v11 = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      v11 = shouldLog;
     }
 
-    oSLogObject = [v8 OSLogObject];
+    oSLogObject = [v9 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v12 = v10;
+      v13 = v11;
     }
 
     else
     {
-      v12 = v10 & 2;
+      v13 = v11 & 2;
     }
 
-    if (v12)
+    if (v13)
     {
       v22 = 136446210;
       v23 = "[SSBiometrics isIdentityMapValidForAccountIdentifier:completionBlock:]";
-      LODWORD(v21) = 12;
-      v13 = _os_log_send_and_compose_impl();
 
-      if (!v13)
+      if (!v14)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v22, v21}];
-      free(v13);
-      SSFileLog(v8, @"%@", v14, v15, v16, v17, v18, v19, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+      free(v14);
+      SSFileLog(v9, @"%@", v15, v16, v17, v18, v19, v20, oSLogObject);
     }
 
     goto LABEL_15;
   }
 
 LABEL_16:
-  v20 = SSXPCCreateMessageDictionary(183);
-  SSXPCDictionarySetObject(v20, "1", identifierCopy);
+  v21 = SSXPCCreateMessageDictionary(183);
+  SSXPCDictionarySetObject(v21, "1", identifierCopy);
 
-  [(SSBiometrics *)self _sendMessage:v20 withCompletionBlock:blockCopy];
+  [(SSBiometrics *)self _sendMessage:v21 withCompletionBlock:blockCopy];
 }
 
 - (void)saveIdentityMapForAccountIdentifier:(id)identifier completionBlock:(id)block
@@ -1508,63 +1478,61 @@ LABEL_16:
   v24 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   identifierCopy = identifier;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(identifierCopy, v8) && _os_feature_enabled_impl())
   {
-    v8 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v8)
+    v9 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v9)
     {
-      v8 = +[SSLogConfig sharedConfig];
+      v9 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v8 shouldLog];
-    if ([v8 shouldLogToDisk])
+    shouldLog = [v9 shouldLog];
+    if ([v9 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      v11 = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      v11 = shouldLog;
     }
 
-    oSLogObject = [v8 OSLogObject];
+    oSLogObject = [v9 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v12 = v10;
+      v13 = v11;
     }
 
     else
     {
-      v12 = v10 & 2;
+      v13 = v11 & 2;
     }
 
-    if (v12)
+    if (v13)
     {
       v22 = 136446210;
       v23 = "[SSBiometrics saveIdentityMapForAccountIdentifier:completionBlock:]";
-      LODWORD(v21) = 12;
-      v13 = _os_log_send_and_compose_impl();
 
-      if (!v13)
+      if (!v14)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v22, v21}];
-      free(v13);
-      SSFileLog(v8, @"%@", v14, v15, v16, v17, v18, v19, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+      free(v14);
+      SSFileLog(v9, @"%@", v15, v16, v17, v18, v19, v20, oSLogObject);
     }
 
     goto LABEL_15;
   }
 
 LABEL_16:
-  v20 = SSXPCCreateMessageDictionary(184);
-  SSXPCDictionarySetObject(v20, "1", identifierCopy);
+  v21 = SSXPCCreateMessageDictionary(184);
+  SSXPCDictionarySetObject(v21, "1", identifierCopy);
 
-  [(SSBiometrics *)self _sendMessage:v20 withCompletionBlock:blockCopy];
+  [(SSBiometrics *)self _sendMessage:v21 withCompletionBlock:blockCopy];
 }
 
 - (void)_sendMessage:(id)message withCompletionBlock:(id)block

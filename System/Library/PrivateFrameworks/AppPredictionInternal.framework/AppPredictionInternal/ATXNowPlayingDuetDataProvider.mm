@@ -81,29 +81,29 @@ uint64_t __97__ATXNowPlayingDuetDataProvider_playbackEventsAfterSecondsOfInactiv
 
 - (id)convertNowPlayingEventsToAppLaunchEvents:(id)events
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   v4 = objc_opt_new();
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = eventsCopy;
-  v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v21;
+    v7 = *v20;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v20 + 1) + 8 * i);
+        v9 = *(*(&v19 + 1) + 8 * i);
         v10 = objc_autoreleasePoolPush();
         v11 = [ATXAppLaunchDuetEvent alloc];
         bundleId = [v9 bundleId];
@@ -115,14 +115,13 @@ uint64_t __97__ATXNowPlayingDuetDataProvider_playbackEventsAfterSecondsOfInactiv
         objc_autoreleasePoolPop(v10);
       }
 
-      v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v6);
   }
 
   v16 = [v4 copy];
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

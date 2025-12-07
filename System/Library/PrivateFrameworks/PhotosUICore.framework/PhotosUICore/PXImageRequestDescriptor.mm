@@ -37,8 +37,8 @@
   [(PXImageRequestDescriptor *)self targetSize];
   v10 = v9;
   v11 = [MEMORY[0x1E696AD98] numberWithInteger:{-[PXImageRequestDescriptor contentMode](self, "contentMode")}];
-  options = [(PXImageRequestDescriptor *)self options];
-  v13 = [v3 initWithFormat:@"<%@ %p; asset: %@, targetSize: {%.2f, %.2f}; contentMode: %@; options: %@>", v5, self, asset, v8, v10, v11, options];
+  v12 = objc_msgSend_options(self);
+  v13 = [v3 initWithFormat:@"<%@ %p; asset: %@, targetSize: {%.2f, %.2f}; contentMode: %@; options: %@>", v5, self, asset, v8, v10, v11, v12];
 
   return v13;
 }

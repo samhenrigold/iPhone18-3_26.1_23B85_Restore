@@ -37,8 +37,8 @@
 
 uint64_t __59__HFDiskCache_initWithCacheDirectoryURL_diskCacheDelegate___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5, void *a6, uint64_t a7)
 {
-  v56 = *MEMORY[0x277D85DE8];
-  v44 = a2;
+  v55 = *MEMORY[0x277D85DE8];
+  v43 = a2;
   v11 = a3;
   v12 = a5;
   v13 = a6;
@@ -77,7 +77,7 @@ LABEL_7:
   if (!v22)
   {
 LABEL_14:
-    v45 = 0;
+    v44 = 0;
     goto LABEL_15;
   }
 
@@ -91,7 +91,7 @@ LABEL_14:
     v23 = 0;
   }
 
-  v45 = v22;
+  v44 = v22;
   if (!v23)
   {
     v24 = [MEMORY[0x277CCA890] currentHandler];
@@ -103,49 +103,49 @@ LABEL_14:
 
 LABEL_15:
 
-  v49 = 0;
-  v26 = *MEMORY[0x277CBE7A8];
   v48 = 0;
-  v27 = [v18 getResourceValue:&v49 forKey:v26 error:&v48];
-  v28 = v49;
-  v29 = v48;
+  v26 = *MEMORY[0x277CBE7A8];
+  v47 = 0;
+  v27 = [v18 getResourceValue:&v48 forKey:v26 error:&v47];
+  v28 = v48;
+  v29 = v47;
   if (v27)
   {
+    v45 = 0;
     v46 = 0;
-    v47 = 0;
-    v30 = [v45 getResourceValue:&v47 forKey:v26 error:&v46];
-    v31 = v47;
-    v32 = v46;
+    v30 = [v44 getResourceValue:&v46 forKey:v26 error:&v45];
+    v31 = v46;
+    v32 = v45;
 
     if (v30)
     {
       v33 = [v28 compare:v31];
       v29 = v32;
-      v34 = v44;
+      v34 = v43;
     }
 
     else
     {
-      v41 = v28;
+      v40 = v28;
       v36 = HFLogForCategory(0xDuLL);
       if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v51 = "[HFDiskCache initWithCacheDirectoryURL:diskCacheDelegate:]_block_invoke";
-        v52 = 2112;
-        v53 = v32;
-        v54 = 2112;
-        v55 = v45;
+        v50 = "[HFDiskCache initWithCacheDirectoryURL:diskCacheDelegate:]_block_invoke";
+        v51 = 2112;
+        v52 = v32;
+        v53 = 2112;
+        v54 = v44;
         _os_log_error_impl(&dword_20D9BF000, v36, OS_LOG_TYPE_ERROR, "%s error: %@; %@", buf, 0x20u);
       }
 
       v37 = [WeakRetained defaultObjectEvictionComparator];
       v38 = v32;
-      v34 = v44;
-      v33 = (v37)[2](v37, v44, v16, a4, v12, v22, a7);
+      v34 = v43;
+      v33 = (v37)[2](v37, v43, v16, a4, v12, v22, a7);
 
       v29 = v38;
-      v28 = v41;
+      v28 = v40;
     }
   }
 
@@ -155,20 +155,19 @@ LABEL_15:
     if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v51 = "[HFDiskCache initWithCacheDirectoryURL:diskCacheDelegate:]_block_invoke";
-      v52 = 2112;
-      v53 = v29;
-      v54 = 2112;
-      v55 = v18;
+      v50 = "[HFDiskCache initWithCacheDirectoryURL:diskCacheDelegate:]_block_invoke";
+      v51 = 2112;
+      v52 = v29;
+      v53 = 2112;
+      v54 = v18;
       _os_log_error_impl(&dword_20D9BF000, v35, OS_LOG_TYPE_ERROR, "%s error: %@; %@", buf, 0x20u);
     }
 
     v31 = [WeakRetained defaultObjectEvictionComparator];
-    v34 = v44;
-    v33 = v31[2](v31, v44, v16, a4, v12, v22, a7);
+    v34 = v43;
+    v33 = v31[2](v31, v43, v16, a4, v12, v22, a7);
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return v33;
 }
 
@@ -188,7 +187,7 @@ LABEL_15:
 
 - (void)_createCacheEntriesFromFilesOnDisk
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   accessQueue = [(HFCache *)self accessQueue];
   dispatch_assert_queue_V2(accessQueue);
 
@@ -198,45 +197,42 @@ LABEL_15:
 
   defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
   directoryURL2 = [(HFDiskCache *)self directoryURL];
-  v12[0] = *MEMORY[0x277CBE838];
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = *MEMORY[0x277CBE838];
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v9 = [defaultManager2 enumeratorAtURL:directoryURL2 includingPropertiesForKeys:v8 options:20 errorHandler:&__block_literal_global_34];
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __49__HFDiskCache__createCacheEntriesFromFilesOnDisk__block_invoke_5;
-  v11[3] = &unk_277DF5548;
-  v11[4] = self;
-  [v9 na_each:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __49__HFDiskCache__createCacheEntriesFromFilesOnDisk__block_invoke_5;
+  v10[3] = &unk_277DF5548;
+  v10[4] = self;
+  [v9 na_each:v10];
 }
 
 uint64_t __49__HFDiskCache__createCacheEntriesFromFilesOnDisk__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = HFLogForCategory(0xDuLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v9 = [v4 path];
-    v10 = 136315650;
-    v11 = "[HFDiskCache _createCacheEntriesFromFilesOnDisk]_block_invoke";
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v9;
-    _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "%s error: %@; %@", &v10, 0x20u);
+    v8 = [v4 path];
+    v9 = 136315650;
+    v10 = "[HFDiskCache _createCacheEntriesFromFilesOnDisk]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v8;
+    _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "%s error: %@; %@", &v9, 0x20u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 void __49__HFDiskCache__createCacheEntriesFromFilesOnDisk__block_invoke_5(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) diskCacheDelegate];
   v5 = objc_opt_respondsToSelector();
@@ -248,9 +244,9 @@ void __49__HFDiskCache__createCacheEntriesFromFilesOnDisk__block_invoke_5(uint64
     {
       v18 = [v3 path];
       *buf = 136315394;
-      v24 = "[HFDiskCache _createCacheEntriesFromFilesOnDisk]_block_invoke";
-      v25 = 2112;
-      v26 = v18;
+      v23 = "[HFDiskCache _createCacheEntriesFromFilesOnDisk]_block_invoke";
+      v24 = 2112;
+      v25 = v18;
       _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "%s delegate declined to add existing file to cache: %@", buf, 0x16u);
     }
   }
@@ -278,12 +274,12 @@ void __49__HFDiskCache__createCacheEntriesFromFilesOnDisk__block_invoke_5(uint64
 
     if (v13)
     {
-      v22 = 0;
-      v14 = *MEMORY[0x277CBE838];
       v21 = 0;
-      v15 = [v3 getResourceValue:&v22 forKey:v14 error:&v21];
-      v16 = v22;
-      v17 = v21;
+      v14 = *MEMORY[0x277CBE838];
+      v20 = 0;
+      v15 = [v3 getResourceValue:&v21 forKey:v14 error:&v20];
+      v16 = v21;
+      v17 = v20;
       if (v15)
       {
         [*(a1 + 32) _setObject:v3 forKey:v13 cost:objc_msgSend(v16 removeObjectsToAccommodateCost:{"unsignedIntegerValue"), 0}];
@@ -295,23 +291,21 @@ void __49__HFDiskCache__createCacheEntriesFromFilesOnDisk__block_invoke_5(uint64
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v24 = "[HFDiskCache _createCacheEntriesFromFilesOnDisk]_block_invoke";
-          v25 = 2112;
-          v26 = v14;
-          v27 = 2112;
-          v28 = v17;
+          v23 = "[HFDiskCache _createCacheEntriesFromFilesOnDisk]_block_invoke";
+          v24 = 2112;
+          v25 = v14;
+          v26 = 2112;
+          v27 = v17;
           _os_log_error_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_ERROR, "%s %@ error: %@", buf, 0x20u);
         }
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cache:(id)cache didEvictObject:(id)object forKey:(id)key cost:(unint64_t)cost
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   keyCopy = key;
   accessQueue = [(HFCache *)self accessQueue];
@@ -346,9 +340,9 @@ LABEL_7:
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v35 = 0;
-  v19 = [defaultManager removeItemAtURL:v15 error:&v35];
-  v20 = v35;
+  v34 = 0;
+  v19 = [defaultManager removeItemAtURL:v15 error:&v34];
+  v20 = v34;
 
   v21 = HFLogForCategory(0xDuLL);
   v22 = v21;
@@ -358,11 +352,11 @@ LABEL_7:
     {
       relativePath = [v15 relativePath];
       *buf = 136315650;
-      v37 = "[HFDiskCache cache:didEvictObject:forKey:cost:]";
-      v38 = 2112;
-      v39 = v20;
-      v40 = 2112;
-      v41 = relativePath;
+      v36 = "[HFDiskCache cache:didEvictObject:forKey:cost:]";
+      v37 = 2112;
+      v38 = v20;
+      v39 = 2112;
+      v40 = relativePath;
       _os_log_error_impl(&dword_20D9BF000, v22, OS_LOG_TYPE_ERROR, "%s could not remove file at %@: %@", buf, 0x20u);
     }
 
@@ -374,11 +368,11 @@ LABEL_7:
     relativePath2 = [v15 relativePath];
     v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:cost];
     *buf = 136315650;
-    v37 = "[HFDiskCache cache:didEvictObject:forKey:cost:]";
-    v38 = 2112;
-    v39 = relativePath2;
-    v40 = 2112;
-    v41 = v24;
+    v36 = "[HFDiskCache cache:didEvictObject:forKey:cost:]";
+    v37 = 2112;
+    v38 = relativePath2;
+    v39 = 2112;
+    v40 = v24;
     _os_log_impl(&dword_20D9BF000, v22, OS_LOG_TYPE_DEFAULT, "%s removed file at %@; size: %@", buf, 0x20u);
   }
 
@@ -420,8 +414,6 @@ LABEL_19:
 
 LABEL_22:
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (HFDiskCacheDelegate)diskCacheDelegate

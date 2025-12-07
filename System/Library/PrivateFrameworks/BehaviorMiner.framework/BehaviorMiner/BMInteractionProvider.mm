@@ -73,49 +73,49 @@
 
 - (id)batchFetchedPhotoSuggestionsForInteractions:(id)interactions
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   interactionsCopy = interactions;
   array = [MEMORY[0x277CBEB18] array];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = interactionsCopy;
-  v5 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v5 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v30;
+    v7 = *v29;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v30 != v7)
+        if (*v29 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v29 + 1) + 8 * i);
+        v9 = *(*(&v28 + 1) + 8 * i);
+        v24 = 0u;
         v25 = 0u;
         v26 = 0u;
         v27 = 0u;
-        v28 = 0u;
         attachments = [v9 attachments];
-        v11 = [attachments countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v11 = [attachments countByEnumeratingWithState:&v24 objects:v32 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v26;
+          v13 = *v25;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v26 != v13)
+              if (*v25 != v13)
               {
                 objc_enumerationMutation(attachments);
               }
 
-              v15 = *(*(&v25 + 1) + 8 * j);
+              v15 = *(*(&v24 + 1) + 8 * j);
               identifier = [v15 identifier];
 
               if (identifier)
@@ -126,14 +126,14 @@
               }
             }
 
-            v12 = [attachments countByEnumeratingWithState:&v25 objects:v33 count:16];
+            v12 = [attachments countByEnumeratingWithState:&v24 objects:v32 count:16];
           }
 
           while (v12);
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v6 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v6);
@@ -143,8 +143,6 @@
   v20 = objc_opt_new();
   [v20 setSharingStream:3];
   v21 = [MEMORY[0x277CD9938] batchFetchSuggestedRecipientsForAssets:v19 options:v20];
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -169,28 +167,28 @@
   v12 = v5;
   [requestCopy executeWithReply:v11];
   v6 = dispatch_time(0, 5000000000);
-  if (dispatch_semaphore_wait(v5, v6))
+  v7 = dispatch_semaphore_wait(v5, v6);
+  if (v7)
   {
-    v7 = BMLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = BMLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
       v21 = &unk_2853B5AB0;
-      _os_log_impl(&dword_241ACA000, v7, OS_LOG_TYPE_INFO, "Timeout after %@ msec waiting for an answer from ContextKit", buf, 0xCu);
+      _os_log_impl(&dword_241ACA000, v8, OS_LOG_TYPE_INFO, "Timeout after %@ msec waiting for an answer from ContextKit", buf, 0xCu);
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v8 = v15[5];
+    v9 = v15[5];
   }
 
   _Block_object_dispose(&v14, 8);
-  v9 = *MEMORY[0x277D85DE8];
 
-  return v8;
+  return v9;
 }
 
 void __46__BMInteractionProvider_getResultsForRequest___block_invoke(uint64_t a1, void *a2)
@@ -202,7 +200,7 @@ void __46__BMInteractionProvider_getResultsForRequest___block_invoke(uint64_t a1
 
 - (id)interactionEventsForTypes:(id)types error:(id *)error
 {
-  v389[1] = *MEMORY[0x277D85DE8];
+  v392[1] = *MEMORY[0x277D85DE8];
   typesCopy = types;
   v6 = objc_autoreleasePoolPush();
   v7 = 0x278D06000uLL;
@@ -212,36 +210,36 @@ void __46__BMInteractionProvider_getResultsForRequest___block_invoke(uint64_t a1
   if (v9)
   {
     defaultConfiguration = [MEMORY[0x277D3A0D8] defaultConfiguration];
-    v284 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.PeopleSuggester"];
-    [v284 BOOLForKey:@"_PSAllowNonSupportedBundleIDs"];
+    v287 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.PeopleSuggester"];
+    [v287 BOOLForKey:@"_PSAllowNonSupportedBundleIDs"];
     v11 = _PSShareSheetSuggestionBundleIDs();
     selfCopy = self;
     v12 = [MEMORY[0x277CBEB98] setWithObjects:{@"com.apple.mobilemail", @"com.apple.UIKit.activity.Mail", 0}];
-    v293 = [MEMORY[0x277CBEB98] setWithObjects:{@"com.apple.MobileSMS", @"com.apple.UIKit.activity.Message", 0}];
-    v283 = v11;
+    v296 = [MEMORY[0x277CBEB98] setWithObjects:{@"com.apple.MobileSMS", @"com.apple.UIKit.activity.Message", 0}];
+    v286 = v11;
     v13 = [v11 mutableCopy];
-    v298 = v12;
+    v301 = v12;
     [v13 minusSet:v12];
-    v292 = _PSShareSheetExtensionBundleIDToAppBundleIDMapping();
-    v282 = v13;
+    v295 = _PSShareSheetExtensionBundleIDToAppBundleIDMapping();
+    v285 = v13;
     v14 = BMInteractionPredicate(4, v13, defaultConfiguration);
     v15 = MEMORY[0x277CBEB98];
-    v374 = @"com.apple.UIKit.activity.Mail";
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v374 count:1];
+    v377 = @"com.apple.UIKit.activity.Mail";
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v377 count:1];
     v17 = [v15 setWithArray:v16];
     v18 = BMInteractionPredicate(1, v17, defaultConfiguration);
 
     v19 = MEMORY[0x277CCA920];
-    v280 = v18;
-    v281 = v14;
-    v373[0] = v14;
-    v373[1] = v18;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v373 count:2];
+    v283 = v18;
+    v284 = v14;
+    v376[0] = v14;
+    v376[1] = v18;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v376 count:2];
     v21 = [v19 orPredicateWithSubpredicates:v20];
 
     v22 = MEMORY[0x277CCAC30];
     v23 = MEMORY[0x277CBEB98];
-    v285 = defaultConfiguration;
+    v288 = defaultConfiguration;
     suggestionModel = [defaultConfiguration suggestionModel];
     messageDirections = [suggestionModel messageDirections];
     v26 = [v23 setWithArray:messageDirections];
@@ -249,52 +247,52 @@ void __46__BMInteractionProvider_getResultsForRequest___block_invoke(uint64_t a1
 
     v28 = selfCopy;
     v29 = MEMORY[0x277CCA920];
-    v278 = v27;
-    v279 = v21;
-    v372[0] = v27;
-    v372[1] = v21;
-    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v372 count:2];
+    v281 = v27;
+    v282 = v21;
+    v375[0] = v27;
+    v375[1] = v21;
+    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v375 count:2];
     v31 = [v29 andPredicateWithSubpredicates:v30];
 
     interactionStore = [(BMInteractionProvider *)selfCopy interactionStore];
-    v355 = 0;
-    v276 = v31;
-    v33 = [interactionStore queryInteractionsUsingPredicate:v31 sortDescriptors:0 limit:0 error:&v355];
-    v277 = v355;
+    v358 = 0;
+    v279 = v31;
+    v33 = [interactionStore queryInteractionsUsingPredicate:v31 sortDescriptors:0 limit:0 error:&v358];
+    v280 = v358;
 
     if (v33)
     {
-      v291 = [(BMInteractionProvider *)selfCopy batchFetchedPhotoSuggestionsForInteractions:v33];
+      v294 = [(BMInteractionProvider *)selfCopy batchFetchedPhotoSuggestionsForInteractions:v33];
       array = [MEMORY[0x277CBEB18] array];
-      v351 = 0u;
-      v352 = 0u;
-      v353 = 0u;
       v354 = 0u;
-      v275 = v33;
+      v355 = 0u;
+      v356 = 0u;
+      v357 = 0u;
+      v278 = v33;
       obj = v33;
-      v297 = [obj countByEnumeratingWithState:&v351 objects:v371 count:16];
+      v300 = [obj countByEnumeratingWithState:&v354 objects:v374 count:16];
       v34 = 0;
-      if (!v297)
+      if (!v300)
       {
         goto LABEL_201;
       }
 
-      v296 = *v352;
+      v299 = *v355;
       v35 = 0x278D06000uLL;
-      v287 = *MEMORY[0x277CD9B10];
-      v304 = typesCopy;
-      v295 = v6;
+      v290 = *MEMORY[0x277CD9B10];
+      v307 = typesCopy;
+      v298 = v6;
       while (1)
       {
-        for (i = 0; i != v297; ++i)
+        for (i = 0; i != v300; ++i)
         {
-          if (*v352 != v296)
+          if (*v355 != v299)
           {
             objc_enumerationMutation(obj);
           }
 
-          v37 = *(*(&v351 + 1) + 8 * i);
-          v300 = objc_autoreleasePoolPush();
+          v37 = *(*(&v354 + 1) + 8 * i);
+          v303 = objc_autoreleasePoolPush();
           if ([v37 mechanism] == 13)
           {
             [v37 targetBundleId];
@@ -306,15 +304,15 @@ void __46__BMInteractionProvider_getResultsForRequest___block_invoke(uint64_t a1
           }
           v38 = ;
 
-          v301 = v38;
-          v302 = v37;
-          if ([v298 containsObject:v38])
+          v304 = v38;
+          v305 = v37;
+          if ([v301 containsObject:v38])
           {
             recipients = [v37 recipients];
             v40 = [recipients count];
 
             v41 = v40 > 1;
-            v37 = v302;
+            v37 = v305;
             if (v41)
             {
               goto LABEL_199;
@@ -341,7 +339,7 @@ void __46__BMInteractionProvider_getResultsForRequest___block_invoke(uint64_t a1
           {
             v46 = *(v35 + 824);
             interactionMechanism2 = [*(v7 + 840) interactionMechanism];
-            v48 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v302, "mechanism")}];
+            v48 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v305, "mechanism")}];
             v49 = [v46 itemWithType:interactionMechanism2 numberValue:v48];
 
             v50 = [[BMEvent alloc] initWithStartDate:startDate endDate:startDate2 item:v49];
@@ -355,11 +353,11 @@ void __46__BMInteractionProvider_getResultsForRequest___block_invoke(uint64_t a1
           {
             v53 = *(v35 + 824);
             interactionDirection2 = [*(v7 + 840) interactionDirection];
-            v55 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v302, "direction")}];
+            v55 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v305, "direction")}];
             v56 = [v53 itemWithType:interactionDirection2 numberValue:v55];
 
             v57 = [BMEvent alloc];
-            endDate2 = [v302 endDate];
+            endDate2 = [v305 endDate];
             v59 = [(BMEvent *)v57 initWithStartDate:startDate endDate:endDate2 item:v56];
 
             [array addObject:v59];
@@ -370,19 +368,19 @@ void __46__BMInteractionProvider_getResultsForRequest___block_invoke(uint64_t a1
 
           if (v61)
           {
-            if ([v302 mechanism] == 13)
+            if ([v305 mechanism] == 13)
             {
-              bundleId = [v302 bundleId];
+              bundleId = [v305 bundleId];
 
               if (bundleId)
               {
                 v63 = *(v35 + 824);
                 interactionSharingSourceBundleID2 = [*(v7 + 840) interactionSharingSourceBundleID];
-                bundleId2 = [v302 bundleId];
+                bundleId2 = [v305 bundleId];
                 v66 = [v63 itemWithType:interactionSharingSourceBundleID2 stringValue:bundleId2];
 
                 v67 = [BMEvent alloc];
-                endDate3 = [v302 endDate];
+                endDate3 = [v305 endDate];
                 v69 = [(BMEvent *)v67 initWithStartDate:startDate endDate:endDate3 item:v66];
 
                 [array addObject:v69];
@@ -395,7 +393,7 @@ void __46__BMInteractionProvider_getResultsForRequest___block_invoke(uint64_t a1
 
           if (v71)
           {
-            v72 = [v292 objectForKeyedSubscript:v301];
+            v72 = [v295 objectForKeyedSubscript:v304];
             v73 = v72;
             if (v72)
             {
@@ -404,7 +402,7 @@ void __46__BMInteractionProvider_getResultsForRequest___block_invoke(uint64_t a1
 
             else
             {
-              v74 = v301;
+              v74 = v304;
             }
 
             v75 = v74;
@@ -420,8 +418,8 @@ void __46__BMInteractionProvider_getResultsForRequest___block_invoke(uint64_t a1
             }
           }
 
-          v299 = i;
-          sender = [v302 sender];
+          v302 = i;
+          sender = [v305 sender];
           identifier = [sender identifier];
           if (identifier)
           {
@@ -436,7 +434,7 @@ void __46__BMInteractionProvider_getResultsForRequest___block_invoke(uint64_t a1
 
             v85 = *(v35 + 824);
             interactionSender2 = [*(v7 + 840) interactionSender];
-            sender2 = [v302 sender];
+            sender2 = [v305 sender];
             identifier2 = [sender2 identifier];
             sender = [v85 itemWithType:interactionSender2 stringValue:identifier2];
 
@@ -450,9 +448,9 @@ LABEL_35:
 
           if (v91)
           {
-            if ([v298 containsObject:v301])
+            if ([v301 containsObject:v304])
             {
-              recipients2 = [v302 recipients];
+              recipients2 = [v305 recipients];
               v93 = [recipients2 count];
 
               if (v93 == 1)
@@ -460,7 +458,7 @@ LABEL_35:
                 v94 = *(v35 + 824);
                 interactionRecipients2 = [*(v7 + 840) interactionRecipients];
                 v96 = MEMORY[0x277CFE0A8];
-                recipients3 = [v302 recipients];
+                recipients3 = [v305 recipients];
                 v98 = [v96 generateConversationIdFromInteractionRecipients:recipients3];
                 v99 = [v94 itemWithType:interactionRecipients2 stringValue:v98];
 
@@ -468,20 +466,20 @@ LABEL_35:
               }
             }
 
-            if ([v293 containsObject:v301] && (objc_msgSend(v302, "domainIdentifier"), v100 = objc_claimAutoreleasedReturnValue(), v100, v100))
+            if ([v296 containsObject:v304] && (objc_msgSend(v305, "domainIdentifier"), v100 = objc_claimAutoreleasedReturnValue(), v100, v100))
             {
-              domainIdentifier = [v302 domainIdentifier];
+              domainIdentifier = [v305 domainIdentifier];
               if ([domainIdentifier containsString:@"SMS"])
               {
 
 LABEL_47:
                 v105 = *(v35 + 824);
                 interactionRecipients2 = [*(v7 + 840) interactionRecipients];
-                domainIdentifier2 = [v302 domainIdentifier];
+                domainIdentifier2 = [v305 domainIdentifier];
                 goto LABEL_48;
               }
 
-              domainIdentifier3 = [v302 domainIdentifier];
+              domainIdentifier3 = [v305 domainIdentifier];
               v108 = [domainIdentifier3 containsString:@"iMessage"];
 
               if (v108)
@@ -492,17 +490,17 @@ LABEL_47:
 
             else
             {
-              derivedIntentIdentifier = [v302 derivedIntentIdentifier];
+              derivedIntentIdentifier = [v305 derivedIntentIdentifier];
               if (derivedIntentIdentifier)
               {
                 v103 = derivedIntentIdentifier;
-                v104 = [v293 containsObject:v301];
+                v104 = [v296 containsObject:v304];
 
                 if ((v104 & 1) == 0)
                 {
                   v105 = *(v35 + 824);
                   interactionRecipients2 = [*(v7 + 840) interactionRecipients];
-                  domainIdentifier2 = [v302 derivedIntentIdentifier];
+                  domainIdentifier2 = [v305 derivedIntentIdentifier];
 LABEL_48:
                   recipients3 = domainIdentifier2;
                   v99 = [v105 itemWithType:interactionRecipients2 stringValue:domainIdentifier2];
@@ -518,31 +516,31 @@ LABEL_49:
             }
           }
 
-          v349 = 0u;
+          v352 = 0u;
+          v353 = 0u;
           v350 = 0u;
-          v347 = 0u;
-          v348 = 0u;
-          attachments = [v302 attachments];
-          v310 = v34;
-          v316 = [attachments countByEnumeratingWithState:&v347 objects:v370 count:16];
-          if (!v316)
+          v351 = 0u;
+          attachments = [v305 attachments];
+          v313 = v34;
+          v319 = [attachments countByEnumeratingWithState:&v350 objects:v373 count:16];
+          if (!v319)
           {
             goto LABEL_99;
           }
 
-          v314 = *v348;
+          v317 = *v351;
           do
           {
             v110 = 0;
             do
             {
-              if (*v348 != v314)
+              if (*v351 != v317)
               {
                 objc_enumerationMutation(attachments);
               }
 
               context = v110;
-              v111 = *(*(&v347 + 1) + 8 * v110);
+              v111 = *(*(&v350 + 1) + 8 * v110);
               contentURL = [v111 contentURL];
               if (contentURL)
               {
@@ -564,7 +562,7 @@ LABEL_49:
                     v123 = [v119 itemWithType:v120 stringValue:host2];
 
                     v7 = 0x278D06000uLL;
-                    v34 = v310;
+                    v34 = v313;
                     goto LABEL_68;
                   }
                 }
@@ -626,10 +624,10 @@ LABEL_68:
 
                   if (interactionExtractedTopicFromAttachmentFactorInUse)
                   {
-                    v141 = BMLog();
+                    v141 = BMLog(contextKitClient);
                     if (os_log_type_enabled(v141, OS_LOG_TYPE_DEBUG))
                     {
-                      [BMInteractionProvider interactionEventsForTypes:v346 error:?];
+                      [BMInteractionProvider interactionEventsForTypes:v349 error:?];
                     }
 
                     contentText = [v111 contentText];
@@ -649,73 +647,73 @@ LABEL_68:
                         [newRequest setUrl:absoluteString];
 
                         [newRequest setIncludeHigherLevelTopics:1];
-                        v308 = newRequest;
+                        v311 = newRequest;
                         v150 = [(BMInteractionProvider *)v28 getResultsForRequest:newRequest];
                         error = [v150 error];
 
                         if (error)
                         {
-                          v152 = BMLog();
-                          if (os_log_type_enabled(v152, OS_LOG_TYPE_ERROR))
+                          v153 = BMLog(v152);
+                          if (os_log_type_enabled(v153, OS_LOG_TYPE_ERROR))
                           {
-                            [(BMInteractionProvider *)v368 interactionEventsForTypes:v150 error:&v369, v152];
+                            [(BMInteractionProvider *)v371 interactionEventsForTypes:v150 error:&v372, v153];
                           }
                         }
 
-                        v343 = 0u;
+                        v346 = 0u;
+                        v347 = 0u;
                         v344 = 0u;
-                        v341 = 0u;
-                        v342 = 0u;
-                        v306 = v150;
+                        v345 = 0u;
+                        v309 = v150;
                         level1Topics = [v150 level1Topics];
-                        v154 = [level1Topics countByEnumeratingWithState:&v341 objects:v367 count:16];
-                        if (v154)
+                        v155 = [level1Topics countByEnumeratingWithState:&v344 objects:v370 count:16];
+                        if (v155)
                         {
-                          v155 = v154;
-                          v156 = *v342;
+                          v156 = v155;
+                          v157 = *v345;
                           do
                           {
-                            for (j = 0; j != v155; ++j)
+                            for (j = 0; j != v156; ++j)
                             {
-                              if (*v342 != v156)
+                              if (*v345 != v157)
                               {
                                 objc_enumerationMutation(level1Topics);
                               }
 
-                              v158 = *(*(&v341 + 1) + 8 * j);
-                              v159 = *(v35 + 824);
+                              v159 = *(*(&v344 + 1) + 8 * j);
+                              v160 = *(v35 + 824);
                               interactionExtractedTopicFromAttachment = [*(v7 + 840) interactionExtractedTopicFromAttachment];
-                              topicId = [v158 topicId];
-                              v162 = [v159 itemWithType:interactionExtractedTopicFromAttachment stringValue:topicId];
+                              topicId = [v159 topicId];
+                              v163 = [v160 itemWithType:interactionExtractedTopicFromAttachment stringValue:topicId];
 
-                              v163 = [[BMEvent alloc] initWithStartDate:startDate endDate:startDate2 item:v162];
-                              v164 = BMLog();
-                              if (os_log_type_enabled(v164, OS_LOG_TYPE_INFO))
+                              v164 = [[BMEvent alloc] initWithStartDate:startDate endDate:startDate2 item:v163];
+                              v165 = BMLog(v164);
+                              if (os_log_type_enabled(v165, OS_LOG_TYPE_INFO))
                               {
-                                title = [v158 title];
-                                topicId2 = [v158 topicId];
+                                title = [v159 title];
+                                topicId2 = [v159 topicId];
                                 *buf = 138412546;
-                                v386 = title;
-                                v387 = 2112;
-                                v388 = topicId2;
-                                _os_log_impl(&dword_241ACA000, v164, OS_LOG_TYPE_INFO, "Topic extracted from content URL via contextKit: %@, %@", buf, 0x16u);
+                                v389 = title;
+                                v390 = 2112;
+                                v391 = topicId2;
+                                _os_log_impl(&dword_241ACA000, v165, OS_LOG_TYPE_INFO, "Topic extracted from content URL via contextKit: %@, %@", buf, 0x16u);
 
                                 v7 = 0x278D06000;
                               }
 
-                              [array addObject:v163];
+                              [array addObject:v164];
                             }
 
-                            v155 = [level1Topics countByEnumeratingWithState:&v341 objects:v367 count:16];
+                            v156 = [level1Topics countByEnumeratingWithState:&v344 objects:v370 count:16];
                           }
 
-                          while (v155);
+                          while (v156);
                         }
 
-                        typesCopy = v304;
+                        typesCopy = v307;
                         v28 = selfCopy;
-                        v167 = v308;
-                        v34 = v310;
+                        v168 = v311;
+                        v34 = v313;
 LABEL_96:
 
                         goto LABEL_97;
@@ -731,20 +729,20 @@ LABEL_96:
                 }
               }
 
-              v168 = BMLog();
-              if (os_log_type_enabled(v168, OS_LOG_TYPE_DEBUG))
+              v169 = BMLog(contextKitClient);
+              if (os_log_type_enabled(v169, OS_LOG_TYPE_DEBUG))
               {
-                [BMInteractionProvider interactionEventsForTypes:v340 error:?];
+                [BMInteractionProvider interactionEventsForTypes:v343 error:?];
               }
 
               bmMiningTaskConfig3 = [(BMInteractionProvider *)v28 bmMiningTaskConfig];
 
               if (!bmMiningTaskConfig3)
               {
-                v167 = BMLog();
-                if (os_log_type_enabled(v167, OS_LOG_TYPE_DEBUG))
+                v168 = BMLog(v171);
+                if (os_log_type_enabled(v168, OS_LOG_TYPE_DEBUG))
                 {
-                  [BMInteractionProvider interactionEventsForTypes:v338 error:?];
+                  [BMInteractionProvider interactionEventsForTypes:v341 error:?];
                 }
 
                 goto LABEL_96;
@@ -754,140 +752,140 @@ LABEL_97:
               v110 = context + 1;
             }
 
-            while (context + 1 != v316);
-            v316 = [attachments countByEnumeratingWithState:&v347 objects:v370 count:16];
+            while (context + 1 != v319);
+            v319 = [attachments countByEnumeratingWithState:&v350 objects:v373 count:16];
           }
 
-          while (v316);
+          while (v319);
 LABEL_99:
 
           interactionPhotoScene = [*(v7 + 840) interactionPhotoScene];
-          v171 = [typesCopy containsObject:interactionPhotoScene];
+          v173 = [typesCopy containsObject:interactionPhotoScene];
 
-          if (v171)
+          if (v173)
           {
-            v172 = MEMORY[0x277CBEB18];
-            attachments2 = [v302 attachments];
-            v174 = [v172 arrayWithCapacity:{objc_msgSend(attachments2, "count")}];
+            v174 = MEMORY[0x277CBEB18];
+            attachments2 = [v305 attachments];
+            v176 = [v174 arrayWithCapacity:{objc_msgSend(attachments2, "count")}];
 
-            v335 = 0u;
+            v338 = 0u;
+            v339 = 0u;
             v336 = 0u;
-            v333 = 0u;
-            v334 = 0u;
-            attachments3 = [v302 attachments];
-            v176 = [attachments3 countByEnumeratingWithState:&v333 objects:v366 count:16];
-            if (v176)
+            v337 = 0u;
+            attachments3 = [v305 attachments];
+            v178 = [attachments3 countByEnumeratingWithState:&v336 objects:v369 count:16];
+            if (v178)
             {
-              v177 = v176;
-              v178 = *v334;
+              v179 = v178;
+              v180 = *v337;
               do
               {
-                for (k = 0; k != v177; ++k)
+                for (k = 0; k != v179; ++k)
                 {
-                  if (*v334 != v178)
+                  if (*v337 != v180)
                   {
                     objc_enumerationMutation(attachments3);
                   }
 
-                  v180 = *(*(&v333 + 1) + 8 * k);
-                  identifier3 = [v180 identifier];
+                  v182 = *(*(&v336 + 1) + 8 * k);
+                  identifier3 = [v182 identifier];
 
                   if (identifier3)
                   {
-                    identifier4 = [v180 identifier];
+                    identifier4 = [v182 identifier];
                     uUIDString = [identifier4 UUIDString];
-                    [v174 addObject:uUIDString];
+                    [v176 addObject:uUIDString];
                   }
                 }
 
-                v177 = [attachments3 countByEnumeratingWithState:&v333 objects:v366 count:16];
+                v179 = [attachments3 countByEnumeratingWithState:&v336 objects:v369 count:16];
               }
 
-              while (v177);
+              while (v179);
             }
 
-            if ([v174 count])
+            if ([v176 count])
             {
-              v184 = v174;
-              v185 = v291;
-              v186 = objc_autoreleasePoolPush();
-              v307 = v174;
-              if (v184 && [v184 count])
+              v186 = v176;
+              v187 = v294;
+              v188 = objc_autoreleasePoolPush();
+              v310 = v176;
+              if (v186 && [v186 count])
               {
-                contexta = v186;
+                contexta = v188;
                 array2 = [MEMORY[0x277CBEB18] array];
-                v375 = 0u;
-                v376 = 0u;
-                v377 = 0u;
                 v378 = 0u;
-                v188 = v184;
-                v189 = [v188 countByEnumeratingWithState:&v375 objects:buf count:16];
-                if (v189)
+                v379 = 0u;
+                v380 = 0u;
+                v381 = 0u;
+                v190 = v186;
+                v191 = [v190 countByEnumeratingWithState:&v378 objects:buf count:16];
+                if (v191)
                 {
-                  v190 = v189;
-                  v191 = *v376;
+                  v192 = v191;
+                  v193 = *v379;
                   do
                   {
-                    for (m = 0; m != v190; ++m)
+                    for (m = 0; m != v192; ++m)
                     {
-                      if (*v376 != v191)
+                      if (*v379 != v193)
                       {
-                        objc_enumerationMutation(v188);
+                        objc_enumerationMutation(v190);
                       }
 
-                      v193 = [MEMORY[0x277CD97A8] localIdentifierWithUUID:*(*(&v375 + 1) + 8 * m)];
-                      v194 = [v185 objectForKeyedSubscript:v193];
+                      v195 = [MEMORY[0x277CD97A8] localIdentifierWithUUID:*(*(&v378 + 1) + 8 * m)];
+                      v196 = [v187 objectForKeyedSubscript:v195];
 
-                      [array2 addObjectsFromArray:v194];
+                      [array2 addObjectsFromArray:v196];
                     }
 
-                    v190 = [v188 countByEnumeratingWithState:&v375 objects:buf count:16];
+                    v192 = [v190 countByEnumeratingWithState:&v378 objects:buf count:16];
                   }
 
-                  while (v190);
+                  while (v192);
                 }
 
                 array3 = [MEMORY[0x277CBEB18] array];
-                v360 = 0u;
-                v361 = 0u;
-                v362 = 0u;
                 v363 = 0u;
-                v196 = array2;
-                v197 = [v196 countByEnumeratingWithState:&v360 objects:v381 count:16];
-                v34 = v310;
-                if (v197)
+                v364 = 0u;
+                v365 = 0u;
+                v366 = 0u;
+                v198 = array2;
+                v199 = [v198 countByEnumeratingWithState:&v363 objects:v384 count:16];
+                v34 = v313;
+                if (v199)
                 {
-                  v198 = v197;
-                  v199 = *v361;
+                  v200 = v199;
+                  v201 = *v364;
 LABEL_121:
-                  v200 = 0;
+                  v202 = 0;
                   while (1)
                   {
-                    if (*v361 != v199)
+                    if (*v364 != v201)
                     {
-                      objc_enumerationMutation(v196);
+                      objc_enumerationMutation(v198);
                     }
 
-                    v201 = [*(*(&v360 + 1) + 8 * v200) objectForKeyedSubscript:@"localIdentifier"];
-                    v202 = v201;
-                    if (v201 && [v201 length])
+                    v203 = [*(*(&v363 + 1) + 8 * v202) objectForKeyedSubscript:@"localIdentifier"];
+                    v204 = v203;
+                    if (v203 && [v203 length])
                     {
-                      [array3 addObject:v202];
+                      [array3 addObject:v204];
                     }
 
-                    v203 = [array3 count];
+                    v205 = [array3 count];
 
-                    v244 = v203 == 4;
-                    v34 = v310;
-                    if (v244)
+                    v248 = v205 == 4;
+                    v34 = v313;
+                    if (v248)
                     {
                       break;
                     }
 
-                    if (v198 == ++v200)
+                    if (v200 == ++v202)
                     {
-                      v198 = [v196 countByEnumeratingWithState:&v360 objects:v381 count:16];
-                      if (v198)
+                      v200 = [v198 countByEnumeratingWithState:&v363 objects:v384 count:16];
+                      if (v200)
                       {
                         goto LABEL_121;
                       }
@@ -897,189 +895,190 @@ LABEL_121:
                   }
                 }
 
-                v204 = BMLog();
-                if (os_log_type_enabled(v204, OS_LOG_TYPE_DEBUG))
+                v207 = BMLog(v206);
+                if (os_log_type_enabled(v207, OS_LOG_TYPE_DEBUG))
                 {
-                  v269 = [array3 count];
-                  *v382 = 138412546;
-                  *&v382[4] = array3;
-                  *&v382[12] = 2048;
-                  *&v382[14] = v269;
-                  _os_log_debug_impl(&dword_241ACA000, v204, OS_LOG_TYPE_DEBUG, "People Array = %@,%lu", v382, 0x16u);
+                  v273 = [array3 count];
+                  *v385 = 138412546;
+                  *&v385[4] = array3;
+                  *&v385[12] = 2048;
+                  *&v385[14] = v273;
+                  _os_log_debug_impl(&dword_241ACA000, v207, OS_LOG_TYPE_DEBUG, "People Array = %@,%lu", v385, 0x16u);
                 }
 
-                v205 = [array3 copy];
+                v208 = [array3 copy];
                 v7 = 0x278D06000;
-                v186 = contexta;
+                v188 = contexta;
               }
 
               else
               {
-                v205 = MEMORY[0x277CBEBF8];
+                v208 = MEMORY[0x277CBEBF8];
               }
 
-              objc_autoreleasePoolPop(v186);
+              objc_autoreleasePoolPop(v188);
 
-              v329 = 0u;
-              v330 = 0u;
-              v331 = 0u;
               v332 = 0u;
-              v317 = v205;
-              v206 = [v317 countByEnumeratingWithState:&v329 objects:v365 count:16];
-              if (v206)
+              v333 = 0u;
+              v334 = 0u;
+              v335 = 0u;
+              v320 = v208;
+              v209 = [v320 countByEnumeratingWithState:&v332 objects:v368 count:16];
+              if (v209)
               {
-                v207 = v206;
-                v208 = *v330;
+                v210 = v209;
+                v211 = *v333;
                 do
                 {
-                  for (n = 0; n != v207; ++n)
+                  for (n = 0; n != v210; ++n)
                   {
-                    if (*v330 != v208)
+                    if (*v333 != v211)
                     {
-                      objc_enumerationMutation(v317);
+                      objc_enumerationMutation(v320);
                     }
 
-                    v210 = *(*(&v329 + 1) + 8 * n);
-                    v211 = *(v35 + 824);
+                    v213 = *(*(&v332 + 1) + 8 * n);
+                    v214 = *(v35 + 824);
                     interactionPhotoContact = [*(v7 + 840) interactionPhotoContact];
-                    v213 = [v211 itemWithType:interactionPhotoContact stringValue:v210];
+                    v216 = [v214 itemWithType:interactionPhotoContact stringValue:v213];
 
-                    v214 = [[BMEvent alloc] initWithStartDate:startDate endDate:startDate2 item:v213];
-                    [array addObject:v214];
+                    v217 = [[BMEvent alloc] initWithStartDate:startDate endDate:startDate2 item:v216];
+                    [array addObject:v217];
                   }
 
-                  v207 = [v317 countByEnumeratingWithState:&v329 objects:v365 count:16];
+                  v210 = [v320 countByEnumeratingWithState:&v332 objects:v368 count:16];
                 }
 
-                while (v207);
+                while (v210);
               }
 
-              if (![v317 count])
+              if (![v320 count])
               {
                 if (!v34)
                 {
-                  v215 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-                  v216 = [v215 URLForResource:@"blacklistedPhotoScenes" withExtension:@"plist"];
+                  v218 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+                  v219 = [v218 URLForResource:@"blacklistedPhotoScenes" withExtension:@"plist"];
 
-                  v328 = 0;
-                  v34 = [MEMORY[0x277CBEA60] arrayWithContentsOfURL:v216 error:&v328];
-                  v217 = v328;
-                  if (v217)
+                  v331 = 0;
+                  v34 = [MEMORY[0x277CBEA60] arrayWithContentsOfURL:v219 error:&v331];
+                  v220 = v331;
+                  v221 = v220;
+                  if (v220)
                   {
-                    v218 = BMLog();
-                    if (os_log_type_enabled(v218, OS_LOG_TYPE_ERROR))
+                    v222 = BMLog(v220);
+                    if (os_log_type_enabled(v222, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138412546;
-                      v386 = v216;
-                      v387 = 2112;
-                      v388 = v217;
-                      _os_log_error_impl(&dword_241ACA000, v218, OS_LOG_TYPE_ERROR, "Error loading photo scene blacklist from URL %@, %@", buf, 0x16u);
+                      v389 = v219;
+                      v390 = 2112;
+                      v391 = v221;
+                      _os_log_error_impl(&dword_241ACA000, v222, OS_LOG_TYPE_ERROR, "Error loading photo scene blacklist from URL %@, %@", buf, 0x16u);
                     }
                   }
                 }
 
-                v219 = v184;
+                v223 = v186;
                 v34 = v34;
-                v220 = objc_autoreleasePoolPush();
-                if (v184 && (v221 = [v219 count], v34))
+                v224 = objc_autoreleasePoolPush();
+                if (v186 && (v225 = [v223 count], v34))
                 {
-                  v222 = MEMORY[0x277CBEBF8];
-                  if (v221)
+                  v226 = MEMORY[0x277CBEBF8];
+                  if (v225)
                   {
-                    v290 = v220;
-                    v223 = MEMORY[0x277CD9880];
+                    v293 = v224;
+                    v227 = MEMORY[0x277CD9880];
                     mEMORY[0x277CD9948] = [MEMORY[0x277CD9948] sharedPhotoLibrary];
-                    v225 = [v223 fetchOptionsWithInclusiveDefaultsForPhotoLibrary:mEMORY[0x277CD9948]];
+                    v229 = [v227 fetchOptionsWithInclusiveDefaultsForPhotoLibrary:mEMORY[0x277CD9948]];
 
-                    v389[0] = v287;
-                    v226 = [MEMORY[0x277CBEA60] arrayWithObjects:v389 count:1];
-                    [v225 setFetchPropertySets:v226];
+                    v392[0] = v290;
+                    v230 = [MEMORY[0x277CBEA60] arrayWithObjects:v392 count:1];
+                    [v229 setFetchPropertySets:v230];
 
-                    v303 = v219;
-                    v289 = v225;
-                    v227 = [MEMORY[0x277CD97A8] fetchAssetsWithLocalIdentifiers:v219 options:v225];
+                    v306 = v223;
+                    v292 = v229;
+                    v231 = [MEMORY[0x277CD97A8] fetchAssetsWithLocalIdentifiers:v223 options:v229];
                     contextb = [MEMORY[0x277CBEB18] arrayWithCapacity:4];
-                    v360 = 0u;
-                    v361 = 0u;
-                    v362 = 0u;
                     v363 = 0u;
-                    v288 = v227;
-                    fetchedObjects = [v227 fetchedObjects];
-                    v228 = 0x277D3B000uLL;
-                    v313 = [fetchedObjects countByEnumeratingWithState:&v360 objects:buf count:16];
-                    if (v313)
+                    v364 = 0u;
+                    v365 = 0u;
+                    v366 = 0u;
+                    v291 = v231;
+                    fetchedObjects = [v231 fetchedObjects];
+                    v232 = 0x277D3B000uLL;
+                    v316 = [fetchedObjects countByEnumeratingWithState:&v363 objects:buf count:16];
+                    if (v316)
                     {
-                      v311 = *v361;
+                      v314 = *v364;
                       do
                       {
-                        v229 = 0;
+                        v233 = 0;
                         do
                         {
-                          if (*v361 != v311)
+                          if (*v364 != v314)
                           {
                             objc_enumerationMutation(fetchedObjects);
                           }
 
-                          v315 = v229;
-                          v230 = *(*(&v360 + 1) + 8 * v229);
-                          memset(v382, 0, sizeof(v382));
-                          v383 = 0u;
-                          v384 = 0u;
-                          sceneClassifications = [v230 sceneClassifications];
-                          v232 = [sceneClassifications countByEnumeratingWithState:v382 objects:v381 count:16];
-                          if (v232)
+                          v318 = v233;
+                          v234 = *(*(&v363 + 1) + 8 * v233);
+                          memset(v385, 0, sizeof(v385));
+                          v386 = 0u;
+                          v387 = 0u;
+                          sceneClassifications = [v234 sceneClassifications];
+                          v236 = [sceneClassifications countByEnumeratingWithState:v385 objects:v384 count:16];
+                          if (v236)
                           {
-                            v233 = v232;
-                            v234 = **&v382[16];
+                            v237 = v236;
+                            v238 = **&v385[16];
                             do
                             {
-                              for (ii = 0; ii != v233; ++ii)
+                              for (ii = 0; ii != v237; ++ii)
                               {
-                                if (**&v382[16] != v234)
+                                if (**&v385[16] != v238)
                                 {
                                   objc_enumerationMutation(sceneClassifications);
                                 }
 
-                                v236 = *(*&v382[8] + 8 * ii);
-                                [v236 confidence];
-                                v238 = v237;
-                                sceneIdentifier = [v236 sceneIdentifier];
-                                sharedTaxonomy = [*(v228 + 1224) sharedTaxonomy];
-                                v241 = [sharedTaxonomy nodeForSceneClassId:sceneIdentifier];
+                                v240 = *(*&v385[8] + 8 * ii);
+                                [v240 confidence];
+                                v242 = v241;
+                                sceneIdentifier = [v240 sceneIdentifier];
+                                sharedTaxonomy = [*(v232 + 1224) sharedTaxonomy];
+                                v245 = [sharedTaxonomy nodeForSceneClassId:sceneIdentifier];
 
-                                name = [v241 name];
-                                v243 = name;
-                                if (v241)
+                                name = [v245 name];
+                                v247 = name;
+                                if (v245)
                                 {
-                                  v244 = name == 0;
+                                  v248 = name == 0;
                                 }
 
                                 else
                                 {
-                                  v244 = 1;
+                                  v248 = 1;
                                 }
 
-                                if (!v244 && ([v34 containsObject:name] & 1) == 0)
+                                if (!v248 && ([v34 containsObject:name] & 1) == 0)
                                 {
-                                  [v241 highPrecisionThreshold];
-                                  if (v238 >= v245)
+                                  [v245 highPrecisionThreshold];
+                                  if (v242 >= v249)
                                   {
-                                    [v241 highRecallThreshold];
-                                    if (v238 >= v246)
+                                    [v245 highRecallThreshold];
+                                    if (v242 >= v250)
                                     {
-                                      v247 = v35;
-                                      v248 = v34;
-                                      v380[0] = v243;
-                                      v379[0] = @"name";
-                                      v379[1] = @"confidence";
-                                      v249 = [MEMORY[0x277CCABB0] numberWithDouble:v238];
-                                      v380[1] = v249;
-                                      v250 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v380 forKeys:v379 count:2];
+                                      v251 = v35;
+                                      v252 = v34;
+                                      v383[0] = v247;
+                                      v382[0] = @"name";
+                                      v382[1] = @"confidence";
+                                      v253 = [MEMORY[0x277CCABB0] numberWithDouble:v242];
+                                      v383[1] = v253;
+                                      v254 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v383 forKeys:v382 count:2];
 
-                                      v251 = [contextb indexOfObject:v250 inSortedRange:0 options:objc_msgSend(contextb usingComparator:{"count"), 1024, &__block_literal_global_12}];
-                                      if (v251 != 0x7FFFFFFFFFFFFFFFLL)
+                                      v255 = [contextb indexOfObject:v254 inSortedRange:0 options:objc_msgSend(contextb usingComparator:{"count"), 1024, &__block_literal_global_12}];
+                                      if (v255 != 0x7FFFFFFFFFFFFFFFLL)
                                       {
-                                        [contextb insertObject:v250 atIndex:v251];
+                                        [contextb insertObject:v254 atIndex:v255];
                                       }
 
                                       if ([contextb count] >= 5)
@@ -1087,168 +1086,166 @@ LABEL_121:
                                         [contextb removeLastObject];
                                       }
 
-                                      v34 = v248;
-                                      v35 = v247;
-                                      v228 = 0x277D3B000;
+                                      v34 = v252;
+                                      v35 = v251;
+                                      v232 = 0x277D3B000;
                                     }
                                   }
                                 }
                               }
 
-                              v233 = [sceneClassifications countByEnumeratingWithState:v382 objects:v381 count:16];
+                              v237 = [sceneClassifications countByEnumeratingWithState:v385 objects:v384 count:16];
                             }
 
-                            while (v233);
+                            while (v237);
                           }
 
-                          v229 = v315 + 1;
+                          v233 = v318 + 1;
                         }
 
-                        while ((v315 + 1) != v313);
-                        v313 = [fetchedObjects countByEnumeratingWithState:&v360 objects:buf count:16];
+                        while ((v318 + 1) != v316);
+                        v316 = [fetchedObjects countByEnumeratingWithState:&v363 objects:buf count:16];
                       }
 
-                      while (v313);
+                      while (v316);
                     }
 
-                    v252 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(contextb, "count")}];
-                    v356 = 0u;
-                    v357 = 0u;
-                    v358 = 0u;
+                    v256 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(contextb, "count")}];
                     v359 = 0u;
-                    v253 = contextb;
-                    v254 = [v253 countByEnumeratingWithState:&v356 objects:&v375 count:16];
+                    v360 = 0u;
+                    v361 = 0u;
+                    v362 = 0u;
+                    v257 = contextb;
+                    v258 = [v257 countByEnumeratingWithState:&v359 objects:&v378 count:16];
                     v7 = 0x278D06000;
-                    if (v254)
+                    if (v258)
                     {
-                      v255 = v254;
-                      v256 = *v357;
+                      v259 = v258;
+                      v260 = *v360;
                       do
                       {
-                        for (jj = 0; jj != v255; ++jj)
+                        for (jj = 0; jj != v259; ++jj)
                         {
-                          if (*v357 != v256)
+                          if (*v360 != v260)
                           {
-                            objc_enumerationMutation(v253);
+                            objc_enumerationMutation(v257);
                           }
 
-                          v258 = [*(*(&v356 + 1) + 8 * jj) objectForKeyedSubscript:@"name"];
-                          [v252 addObject:v258];
+                          v262 = [*(*(&v359 + 1) + 8 * jj) objectForKeyedSubscript:@"name"];
+                          [v256 addObject:v262];
                         }
 
-                        v255 = [v253 countByEnumeratingWithState:&v356 objects:&v375 count:16];
+                        v259 = [v257 countByEnumeratingWithState:&v359 objects:&v378 count:16];
                       }
 
-                      while (v255);
+                      while (v259);
                     }
 
-                    v222 = [v252 copy];
-                    v219 = v303;
-                    v220 = v290;
+                    v226 = [v256 copy];
+                    v223 = v306;
+                    v224 = v293;
                   }
                 }
 
                 else
                 {
-                  v222 = MEMORY[0x277CBEBF8];
+                  v226 = MEMORY[0x277CBEBF8];
                 }
 
-                objc_autoreleasePoolPop(v220);
+                objc_autoreleasePoolPop(v224);
 
-                v324 = 0u;
-                v325 = 0u;
-                v326 = 0u;
                 v327 = 0u;
-                v259 = v222;
-                v260 = [v259 countByEnumeratingWithState:&v324 objects:v364 count:16];
-                if (v260)
+                v328 = 0u;
+                v329 = 0u;
+                v330 = 0u;
+                v263 = v226;
+                v264 = [v263 countByEnumeratingWithState:&v327 objects:v367 count:16];
+                if (v264)
                 {
-                  v261 = v260;
-                  v262 = *v325;
+                  v265 = v264;
+                  v266 = *v328;
                   do
                   {
-                    for (kk = 0; kk != v261; ++kk)
+                    for (kk = 0; kk != v265; ++kk)
                     {
-                      if (*v325 != v262)
+                      if (*v328 != v266)
                       {
-                        objc_enumerationMutation(v259);
+                        objc_enumerationMutation(v263);
                       }
 
-                      v264 = *(*(&v324 + 1) + 8 * kk);
-                      v265 = *(v35 + 824);
+                      v268 = *(*(&v327 + 1) + 8 * kk);
+                      v269 = *(v35 + 824);
                       interactionPhotoScene2 = [*(v7 + 840) interactionPhotoScene];
-                      v267 = [v265 itemWithType:interactionPhotoScene2 stringValue:v264];
+                      v271 = [v269 itemWithType:interactionPhotoScene2 stringValue:v268];
 
-                      v268 = [[BMEvent alloc] initWithStartDate:startDate endDate:startDate2 item:v267];
-                      [array addObject:v268];
+                      v272 = [[BMEvent alloc] initWithStartDate:startDate endDate:startDate2 item:v271];
+                      [array addObject:v272];
                     }
 
-                    v261 = [v259 countByEnumeratingWithState:&v324 objects:v364 count:16];
+                    v265 = [v263 countByEnumeratingWithState:&v327 objects:v367 count:16];
                   }
 
-                  while (v261);
+                  while (v265);
                 }
               }
 
-              typesCopy = v304;
+              typesCopy = v307;
               v28 = selfCopy;
-              v174 = v307;
+              v176 = v310;
             }
 
             else
             {
-              typesCopy = v304;
+              typesCopy = v307;
               v28 = selfCopy;
             }
 
-            i = v299;
+            i = v302;
           }
 
           else
           {
-            i = v299;
+            i = v302;
           }
 
-          v6 = v295;
+          v6 = v298;
 LABEL_199:
 
-          objc_autoreleasePoolPop(v300);
+          objc_autoreleasePoolPop(v303);
         }
 
-        v297 = [obj countByEnumeratingWithState:&v351 objects:v371 count:16];
-        if (!v297)
+        v300 = [obj countByEnumeratingWithState:&v354 objects:v374 count:16];
+        if (!v300)
         {
 LABEL_201:
 
-          v270 = [array copy];
-          v33 = v275;
+          v274 = [array copy];
+          v33 = v278;
           goto LABEL_204;
         }
       }
     }
 
-    v270 = 0;
+    v274 = 0;
 LABEL_204:
 
     objc_autoreleasePoolPop(v6);
     if (error)
     {
-      v272 = v277;
-      *error = v277;
+      v276 = v280;
+      *error = v280;
     }
 
-    v271 = v270;
+    v275 = v274;
   }
 
   else
   {
     objc_autoreleasePoolPop(v6);
-    v271 = MEMORY[0x277CBEBF8];
+    v275 = MEMORY[0x277CBEBF8];
   }
 
-  v273 = *MEMORY[0x277D85DE8];
-
-  return v271;
+  return v275;
 }
 
 - (void)interactionEventsForTypes:(void *)a3 error:(NSObject *)a4 .cold.2(uint8_t *a1, void *a2, void *a3, NSObject *a4)

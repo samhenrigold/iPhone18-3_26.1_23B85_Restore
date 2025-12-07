@@ -65,38 +65,36 @@ uint64_t __50__SGInMemoryAdapter_rejectReminderFromThisDevice___block_invoke(uin
 
 - (void)cancelEvents:(id)events
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [eventsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [eventsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(eventsCopy);
         }
 
-        [(SGInMemoryAdapter *)self cancelEvent:*(*(&v10 + 1) + 8 * v8++)];
+        [(SGInMemoryAdapter *)self cancelEvent:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [eventsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [eventsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelEvent:(id)event
@@ -136,55 +134,53 @@ uint64_t __33__SGInMemoryAdapter_cancelEvent___block_invoke(uint64_t a1, void *a
 
 - (void)addEvents:(id)events
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [eventsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [eventsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(eventsCopy);
         }
 
-        [(SGInMemoryAdapter *)self addEvent:*(*(&v10 + 1) + 8 * v8++)];
+        [(SGInMemoryAdapter *)self addEvent:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [eventsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [eventsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addEvent:(id)event
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   duplicateKey = [eventCopy duplicateKey];
   entityKey = [duplicateKey entityKey];
   serialize = [entityKey serialize];
 
   v8 = objc_opt_new();
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v9 = self->_events;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (!v10)
   {
 
@@ -203,19 +199,19 @@ LABEL_15:
 
   v11 = v10;
   selfCopy = self;
-  v31 = v8;
-  v12 = *v33;
+  v30 = v8;
+  v12 = *v32;
   v13 = 1;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v33 != v12)
+      if (*v32 != v12)
       {
         objc_enumerationMutation(v9);
       }
 
-      v15 = *(*(&v32 + 1) + 8 * i);
+      v15 = *(*(&v31 + 1) + 8 * i);
       first = [v15 first];
       v17 = [first isEqualToString:serialize];
 
@@ -234,27 +230,25 @@ LABEL_15:
 
         else
         {
-          [v31 addObject:v15];
+          [v30 addObject:v15];
         }
       }
     }
 
-    v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v31 objects:v35 count:16];
   }
 
   while (v11);
 
   self = selfCopy;
-  v8 = v31;
-  [(NSMutableArray *)selfCopy->_events removeObjectsInArray:v31];
+  v8 = v30;
+  [(NSMutableArray *)selfCopy->_events removeObjectsInArray:v30];
   if (v13)
   {
     goto LABEL_15;
   }
 
 LABEL_16:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (SGInMemoryAdapter)init

@@ -8,7 +8,7 @@
 
 - (void)touchesBegan:(id)began withEvent:(id)event
 {
-  sub_2151A6C9C(0, &unk_27CA5A330);
+  sub_2151A6C9C(0, &unk_27CA5A330, 0x277D75C68);
   sub_215433E44();
   v5 = sub_2154A20CC();
   v6 = OBJC_IVAR____TtCC11NotesEditor30NestedScrollViewPanInteraction26ExclusionGestureRecognizer_touch;

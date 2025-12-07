@@ -562,9 +562,7 @@ LABEL_18:
 
 - (void)setCondition:(id)condition
 {
-  v4 = [condition copy];
-  condition = self->_condition;
-  self->_condition = v4;
+  self->_condition = [condition copy];
 
   MEMORY[0x1EEE66BB8]();
 }

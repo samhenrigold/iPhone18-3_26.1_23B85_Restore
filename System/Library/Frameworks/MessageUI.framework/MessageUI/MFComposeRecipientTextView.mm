@@ -1939,11 +1939,11 @@ uint64_t __63__MFComposeRecipientTextView__setTextViewIsCollapsed_animated___blo
   return [v4 setAlpha:v3];
 }
 
-uint64_t __63__MFComposeRecipientTextView__setTextViewIsCollapsed_animated___block_invoke_2(uint64_t result, int a2)
+void *__63__MFComposeRecipientTextView__setTextViewIsCollapsed_animated___block_invoke_2(void *result, int a2)
 {
   if (a2)
   {
-    return [*(*(result + 32) + 464) setHidden:(*(result + 40) & 1) == 0];
+    return [*(result[4] + 464) setHidden:(result[5] & 1) == 0];
   }
 
   return result;
@@ -2846,7 +2846,7 @@ uint64_t __84__MFComposeRecipientTextView_layoutManager_didCompleteLayoutForText
   }
 }
 
-uint64_t __57__MFComposeRecipientTextView__notifyDelegateOfSizeChange__block_invoke(uint64_t a1)
+void *__57__MFComposeRecipientTextView__notifyDelegateOfSizeChange__block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 456) frame];
   v3 = v2;

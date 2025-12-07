@@ -222,7 +222,7 @@
   [(HROnboardingElectrocardiogramResultView *)self setLearnMoreButton:v54];
 
   learnMoreButton = [(HROnboardingElectrocardiogramResultView *)self learnMoreButton];
-  v56 = HRHeartRhythmUIFrameworkBundle();
+  v56 = HRHeartRhythmUIFrameworkBundle(learnMoreButton);
   v57 = [v56 localizedStringForKey:@"ONBOARDING_LEARN_MORE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable"];
   [learnMoreButton setTitle:v57 forState:0];
 

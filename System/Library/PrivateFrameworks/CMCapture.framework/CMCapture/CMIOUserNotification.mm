@@ -2,7 +2,6 @@
 - (id)_createOrUpdate:(const char *)update withTimeout:(double)timeout flags:(unint64_t)flags dictionary:(id)dictionary;
 - (id)cancel;
 - (id)initNotificationWithTimeout:(double)timeout flags:(unint64_t)flags dictionary:(id)dictionary error:(id *)error;
-- (uint64_t)cancel;
 - (unint64_t)receiveResponseWithTimeout:(double)timeout error:(id *)error;
 - (void)_closeConnection;
 - (void)_handleXPCEvent:(id)event;
@@ -353,7 +352,7 @@ LABEL_8:
   return v9;
 }
 
-- (uint64_t)_createOrUpdate:(uint64_t)a1 withTimeout:(void *)a2 flags:(void *)a3 dictionary:(uint64_t *)a4 .cold.1(uint64_t a1, void *a2, void *a3, uint64_t *a4)
+- (void)_createOrUpdate:(uint64_t)a1 withTimeout:(void *)a2 flags:(void *)a3 dictionary:(void *)a4 .cold.1(uint64_t a1, void *a2, void *a3, void *a4)
 {
   *a2 = @"description";
   *a3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s %s:%d", "-[CMIOUserNotification _createOrUpdate:withTimeout:flags:dictionary:]", "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Common/CMCaptureUserNotification.m", 529];
@@ -363,24 +362,6 @@ LABEL_8:
 }
 
 - (void)cancel
-{
-  v4 = MEMORY[0x1B26F2E20]();
-  if (MEMORY[0x1E69E9E98] != MEMORY[0x1E69E9E80] && v4 == MEMORY[0x1E69E9E80])
-  {
-    int64 = xpc_dictionary_get_int64(self, "errorReturn");
-  }
-
-  else
-  {
-    int64 = -12788;
-  }
-
-  *a2 = int64;
-
-  xpc_release(self);
-}
-
-- (uint64_t)cancel
 {
   *a2 = @"description";
   *a3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s %s:%d", "-[CMIOUserNotification cancel]", "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Common/CMCaptureUserNotification.m", 578];

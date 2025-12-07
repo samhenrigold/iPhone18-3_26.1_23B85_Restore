@@ -188,51 +188,41 @@ LABEL_9:
 - (id)copyWithReplacementParentId:(id)id
 {
   idCopy = id;
-  v5 = objc_alloc(objc_opt_class());
-  v6 = *&self->_carrierBundleIdentifier;
-  v7 = [v5 initWithParentId:idCopy factorPackSetId:self->_factorPackSetId deploymentId:self->_deploymentId osBuild:self->_osBuild languageCode:self->_languageCode regionCode:self->_regionCode carrierBundleIdentifier:self->_carrierBundleIdentifier carrierCountryIsoCode:self->_carrierCountryIsoCode diagnosticsUsageEnabled:self->_diagnosticsUsageEnabled hasAne:self->_hasAne aneVersion:self->_aneVersion];
+  v5 = [objc_alloc(objc_opt_class()) initWithParentId:idCopy factorPackSetId:self->_factorPackSetId deploymentId:self->_deploymentId osBuild:self->_osBuild languageCode:self->_languageCode regionCode:self->_regionCode carrierBundleIdentifier:self->_carrierBundleIdentifier carrierCountryIsoCode:self->_carrierCountryIsoCode diagnosticsUsageEnabled:self->_diagnosticsUsageEnabled hasAne:self->_hasAne aneVersion:self->_aneVersion];
 
-  return v7;
+  return v5;
 }
 
 - (id)copyWithReplacementFactorPackSetId:(id)id
 {
   idCopy = id;
-  v5 = objc_alloc(objc_opt_class());
-  v6 = *&self->_carrierBundleIdentifier;
-  v7 = [v5 initWithParentId:self->_parentId factorPackSetId:idCopy deploymentId:self->_deploymentId osBuild:self->_osBuild languageCode:self->_languageCode regionCode:self->_regionCode carrierBundleIdentifier:self->_carrierBundleIdentifier carrierCountryIsoCode:self->_carrierCountryIsoCode diagnosticsUsageEnabled:self->_diagnosticsUsageEnabled hasAne:self->_hasAne aneVersion:self->_aneVersion];
+  v5 = [objc_alloc(objc_opt_class()) initWithParentId:self->_parentId factorPackSetId:idCopy deploymentId:self->_deploymentId osBuild:self->_osBuild languageCode:self->_languageCode regionCode:self->_regionCode carrierBundleIdentifier:self->_carrierBundleIdentifier carrierCountryIsoCode:self->_carrierCountryIsoCode diagnosticsUsageEnabled:self->_diagnosticsUsageEnabled hasAne:self->_hasAne aneVersion:self->_aneVersion];
 
-  return v7;
+  return v5;
 }
 
 - (id)copyWithReplacementOsBuild:(id)build
 {
   buildCopy = build;
-  v5 = objc_alloc(objc_opt_class());
-  v6 = *&self->_carrierBundleIdentifier;
-  v7 = [v5 initWithParentId:self->_parentId factorPackSetId:self->_factorPackSetId deploymentId:self->_deploymentId osBuild:buildCopy languageCode:self->_languageCode regionCode:self->_regionCode carrierBundleIdentifier:self->_carrierBundleIdentifier carrierCountryIsoCode:self->_carrierCountryIsoCode diagnosticsUsageEnabled:self->_diagnosticsUsageEnabled hasAne:self->_hasAne aneVersion:self->_aneVersion];
+  v5 = [objc_alloc(objc_opt_class()) initWithParentId:self->_parentId factorPackSetId:self->_factorPackSetId deploymentId:self->_deploymentId osBuild:buildCopy languageCode:self->_languageCode regionCode:self->_regionCode carrierBundleIdentifier:self->_carrierBundleIdentifier carrierCountryIsoCode:self->_carrierCountryIsoCode diagnosticsUsageEnabled:self->_diagnosticsUsageEnabled hasAne:self->_hasAne aneVersion:self->_aneVersion];
 
-  return v7;
+  return v5;
 }
 
 - (id)copyWithReplacementLanguageCode:(id)code
 {
   codeCopy = code;
-  v5 = objc_alloc(objc_opt_class());
-  v6 = *&self->_carrierBundleIdentifier;
-  v7 = [v5 initWithParentId:self->_parentId factorPackSetId:self->_factorPackSetId deploymentId:self->_deploymentId osBuild:self->_osBuild languageCode:codeCopy regionCode:self->_regionCode carrierBundleIdentifier:self->_carrierBundleIdentifier carrierCountryIsoCode:self->_carrierCountryIsoCode diagnosticsUsageEnabled:self->_diagnosticsUsageEnabled hasAne:self->_hasAne aneVersion:self->_aneVersion];
+  v5 = [objc_alloc(objc_opt_class()) initWithParentId:self->_parentId factorPackSetId:self->_factorPackSetId deploymentId:self->_deploymentId osBuild:self->_osBuild languageCode:codeCopy regionCode:self->_regionCode carrierBundleIdentifier:self->_carrierBundleIdentifier carrierCountryIsoCode:self->_carrierCountryIsoCode diagnosticsUsageEnabled:self->_diagnosticsUsageEnabled hasAne:self->_hasAne aneVersion:self->_aneVersion];
 
-  return v7;
+  return v5;
 }
 
 - (id)copyWithReplacementRegionCode:(id)code
 {
   codeCopy = code;
-  v5 = objc_alloc(objc_opt_class());
-  v6 = *&self->_carrierBundleIdentifier;
-  v7 = [v5 initWithParentId:self->_parentId factorPackSetId:self->_factorPackSetId deploymentId:self->_deploymentId osBuild:self->_osBuild languageCode:self->_languageCode regionCode:codeCopy carrierBundleIdentifier:self->_carrierBundleIdentifier carrierCountryIsoCode:self->_carrierCountryIsoCode diagnosticsUsageEnabled:self->_diagnosticsUsageEnabled hasAne:self->_hasAne aneVersion:self->_aneVersion];
+  v5 = [objc_alloc(objc_opt_class()) initWithParentId:self->_parentId factorPackSetId:self->_factorPackSetId deploymentId:self->_deploymentId osBuild:self->_osBuild languageCode:self->_languageCode regionCode:codeCopy carrierBundleIdentifier:self->_carrierBundleIdentifier carrierCountryIsoCode:self->_carrierCountryIsoCode diagnosticsUsageEnabled:self->_diagnosticsUsageEnabled hasAne:self->_hasAne aneVersion:self->_aneVersion];
 
-  return v7;
+  return v5;
 }
 
 - (id)copyWithReplacementCarrierBundleIdentifier:(id)identifier
@@ -263,168 +253,8 @@ LABEL_9:
 {
   recordCopy = record;
   v5 = recordCopy;
-  if (!recordCopy)
+  if (!recordCopy || (v6 = self->_parentId == 0, [recordCopy parentId], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (parentId = self->_parentId) != 0 && (objc_msgSend(v5, "parentId"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](parentId, "isEqual:", v10), v10, !v11) || (v12 = self->_factorPackSetId == 0, objc_msgSend(v5, "factorPackSetId"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14) || (factorPackSetId = self->_factorPackSetId) != 0 && (objc_msgSend(v5, "factorPackSetId"), v16 = objc_claimAutoreleasedReturnValue(), v17 = -[NSString isEqual:](factorPackSetId, "isEqual:", v16), v16, !v17) || (deploymentId = self->_deploymentId, deploymentId != objc_msgSend(v5, "deploymentId")) || (v19 = self->_osBuild == 0, objc_msgSend(v5, "osBuild"), v20 = objc_claimAutoreleasedReturnValue(), v21 = v20 != 0, v20, v19 == v21) || (osBuild = self->_osBuild) != 0 && (objc_msgSend(v5, "osBuild"), v23 = objc_claimAutoreleasedReturnValue(), v24 = -[NSString isEqual:](osBuild, "isEqual:", v23), v23, !v24) || (v25 = self->_languageCode == 0, objc_msgSend(v5, "languageCode"), v26 = objc_claimAutoreleasedReturnValue(), v27 = v26 != 0, v26, v25 == v27) || (languageCode = self->_languageCode) != 0 && (objc_msgSend(v5, "languageCode"), v29 = objc_claimAutoreleasedReturnValue(), v30 = -[NSString isEqual:](languageCode, "isEqual:", v29), v29, !v30) || (v31 = self->_regionCode == 0, objc_msgSend(v5, "regionCode"), v32 = objc_claimAutoreleasedReturnValue(), v33 = v32 != 0, v32, v31 == v33) || (regionCode = self->_regionCode) != 0 && (objc_msgSend(v5, "regionCode"), v35 = objc_claimAutoreleasedReturnValue(), v36 = -[NSString isEqual:](regionCode, "isEqual:", v35), v35, !v36) || (v37 = self->_carrierBundleIdentifier == 0, objc_msgSend(v5, "carrierBundleIdentifier"), v38 = objc_claimAutoreleasedReturnValue(), v39 = v38 != 0, v38, v37 == v39) || (carrierBundleIdentifier = self->_carrierBundleIdentifier) != 0 && (objc_msgSend(v5, "carrierBundleIdentifier"), v41 = objc_claimAutoreleasedReturnValue(), v42 = -[NSString isEqual:](carrierBundleIdentifier, "isEqual:", v41), v41, !v42) || (v43 = self->_carrierCountryIsoCode == 0, objc_msgSend(v5, "carrierCountryIsoCode"), v44 = objc_claimAutoreleasedReturnValue(), v45 = v44 != 0, v44, v43 == v45) || (carrierCountryIsoCode = self->_carrierCountryIsoCode) != 0 && (objc_msgSend(v5, "carrierCountryIsoCode"), v47 = objc_claimAutoreleasedReturnValue(), v48 = -[NSString isEqual:](carrierCountryIsoCode, "isEqual:", v47), v47, !v48) || (diagnosticsUsageEnabled = self->_diagnosticsUsageEnabled, diagnosticsUsageEnabled != objc_msgSend(v5, "diagnosticsUsageEnabled")) || (hasAne = self->_hasAne, hasAne != objc_msgSend(v5, "hasAne")) || (v51 = self->_aneVersion == 0, objc_msgSend(v5, "aneVersion"), v52 = objc_claimAutoreleasedReturnValue(), v53 = v52 != 0, v52, v51 == v53))
   {
-    goto LABEL_29;
-  }
-
-  v6 = self->_parentId == 0;
-  parentId = [recordCopy parentId];
-  v8 = parentId != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_29;
-  }
-
-  parentId = self->_parentId;
-  if (parentId)
-  {
-    parentId2 = [v5 parentId];
-    v11 = [(NSString *)parentId isEqual:parentId2];
-
-    if (!v11)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  v12 = self->_factorPackSetId == 0;
-  factorPackSetId = [v5 factorPackSetId];
-  v14 = factorPackSetId != 0;
-
-  if (v12 == v14)
-  {
-    goto LABEL_29;
-  }
-
-  factorPackSetId = self->_factorPackSetId;
-  if (factorPackSetId)
-  {
-    factorPackSetId2 = [v5 factorPackSetId];
-    v17 = [(NSString *)factorPackSetId isEqual:factorPackSetId2];
-
-    if (!v17)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  deploymentId = self->_deploymentId;
-  if (deploymentId != [v5 deploymentId])
-  {
-    goto LABEL_29;
-  }
-
-  v19 = self->_osBuild == 0;
-  osBuild = [v5 osBuild];
-  v21 = osBuild != 0;
-
-  if (v19 == v21)
-  {
-    goto LABEL_29;
-  }
-
-  osBuild = self->_osBuild;
-  if (osBuild)
-  {
-    osBuild2 = [v5 osBuild];
-    v24 = [(NSString *)osBuild isEqual:osBuild2];
-
-    if (!v24)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  v25 = self->_languageCode == 0;
-  languageCode = [v5 languageCode];
-  v27 = languageCode != 0;
-
-  if (v25 == v27)
-  {
-    goto LABEL_29;
-  }
-
-  languageCode = self->_languageCode;
-  if (languageCode)
-  {
-    languageCode2 = [v5 languageCode];
-    v30 = [(NSString *)languageCode isEqual:languageCode2];
-
-    if (!v30)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  v31 = self->_regionCode == 0;
-  regionCode = [v5 regionCode];
-  v33 = regionCode != 0;
-
-  if (v31 == v33)
-  {
-    goto LABEL_29;
-  }
-
-  regionCode = self->_regionCode;
-  if (regionCode)
-  {
-    regionCode2 = [v5 regionCode];
-    v36 = [(NSString *)regionCode isEqual:regionCode2];
-
-    if (!v36)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  v37 = self->_carrierBundleIdentifier == 0;
-  carrierBundleIdentifier = [v5 carrierBundleIdentifier];
-  v39 = carrierBundleIdentifier != 0;
-
-  if (v37 == v39)
-  {
-    goto LABEL_29;
-  }
-
-  carrierBundleIdentifier = self->_carrierBundleIdentifier;
-  if (carrierBundleIdentifier)
-  {
-    carrierBundleIdentifier2 = [v5 carrierBundleIdentifier];
-    v42 = [(NSString *)carrierBundleIdentifier isEqual:carrierBundleIdentifier2];
-
-    if (!v42)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  v43 = self->_carrierCountryIsoCode == 0;
-  carrierCountryIsoCode = [v5 carrierCountryIsoCode];
-  v45 = carrierCountryIsoCode != 0;
-
-  if (v43 == v45)
-  {
-    goto LABEL_29;
-  }
-
-  carrierCountryIsoCode = self->_carrierCountryIsoCode;
-  if (carrierCountryIsoCode)
-  {
-    carrierCountryIsoCode2 = [v5 carrierCountryIsoCode];
-    v48 = [(NSString *)carrierCountryIsoCode isEqual:carrierCountryIsoCode2];
-
-    if (!v48)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  diagnosticsUsageEnabled = self->_diagnosticsUsageEnabled;
-  if (diagnosticsUsageEnabled != [v5 diagnosticsUsageEnabled] || (hasAne = self->_hasAne, hasAne != objc_msgSend(v5, "hasAne")) || (v51 = self->_aneVersion == 0, objc_msgSend(v5, "aneVersion"), v52 = objc_claimAutoreleasedReturnValue(), v53 = v52 != 0, v52, v51 == v53))
-  {
-LABEL_29:
     v56 = 0;
   }
 

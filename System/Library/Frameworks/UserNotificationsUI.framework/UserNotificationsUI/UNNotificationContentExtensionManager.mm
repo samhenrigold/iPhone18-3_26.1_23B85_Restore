@@ -5,9 +5,11 @@
 
 uint64_t __56___UNNotificationContentExtensionManager_sharedInstance__block_invoke()
 {
-  sharedInstance_instance = objc_alloc_init(_UNNotificationContentExtensionManager);
+  v0 = objc_alloc_init(_UNNotificationContentExtensionManager);
+  v1 = sharedInstance_instance;
+  sharedInstance_instance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void __66___UNNotificationContentExtensionManager__beginMatchingExtensions__block_invoke(uint64_t a1, void *a2, void *a3)

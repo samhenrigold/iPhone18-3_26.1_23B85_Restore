@@ -5,6 +5,7 @@
 - (_BSActionResponder)init;
 - (const)_lock_canSendResponse;
 - (const)_lock_invalidateForEncode:(const os_unfair_lock *)result;
+- (const)_lock_isValid;
 - (id)_descriptionBuilderOfType:(os_unfair_lock_s *)type withMultilinePrefix:(uint64_t)prefix;
 - (id)action_encode:(uint64_t)action_encode;
 - (id)action_fullIdentifier;
@@ -17,7 +18,6 @@
 - (os_unfair_lock_s)action_canSendResponse;
 - (os_unfair_lock_s)action_isValid;
 - (uint64_t)_consumeLock_trySendResponse:(int)response alreadyLocked:(int)locked alreadyOnResponseQueue:(int)queue fireLegacyInvalidationHandler:;
-- (uint64_t)_lock_isValid;
 - (uint64_t)action:(void *)action sendResponse:;
 - (void)_consumeLock_originator_annulWithCode:(int)code alreadyOnResponseQueue:;
 - (void)_initWithQueue:(void *)queue handler:;
@@ -26,7 +26,7 @@
 - (void)action_didDealloc;
 - (void)action_invalidate;
 - (void)dealloc;
-- (void)originator_annulWithErrorCode:(os_unfair_lock_s *)code;
+- (void)originator_annulWithErrorCode:(os_unfair_lock_s *)result;
 - (void)originator_didInit:(uint64_t)init;
 - (void)originator_setTimeout:(uint64_t)timeout;
 @end
@@ -261,7 +261,7 @@ LABEL_20:
     v1 = result;
     os_unfair_lock_lock(result + 24);
     _lock_canSendResponse = [(_BSActionResponder *)v1 _lock_canSendResponse];
-    os_unfair_lock_unlock(&v1[24]);
+    os_unfair_lock_unlock(v1 + 24);
     return _lock_canSendResponse;
   }
 
@@ -282,26 +282,26 @@ LABEL_20:
   return result;
 }
 
-- (uint64_t)_lock_isValid
+- (const)_lock_isValid
 {
   if (result)
   {
     v1 = result;
-    os_unfair_lock_assert_owner((result + 96));
-    os_unfair_lock_assert_owner((v1 + 96));
-    if (*(v1 + 104) & 1) != 0 || (*(v1 + 103) & 1) != 0 || (*(v1 + 105) & 1) != 0 || (*(v1 + 106))
+    os_unfair_lock_assert_owner(result + 24);
+    os_unfair_lock_assert_owner(v1 + 24);
+    if ((v1[26]._os_unfair_lock_opaque & 1) != 0 || (v1[25]._os_unfair_lock_opaque & 0x1000000) != 0 || (v1[26]._os_unfair_lock_opaque & 0x100) != 0 || (v1[26]._os_unfair_lock_opaque & 0x10000) != 0)
     {
       return 0;
     }
 
-    else if (*(v1 + 100) & 1) != 0 || (*(v1 + 101))
+    else if ((v1[25]._os_unfair_lock_opaque & 1) != 0 || (v1[25]._os_unfair_lock_opaque & 0x100) != 0)
     {
       return 1;
     }
 
     else
     {
-      v2 = *(v1 + 40);
+      v2 = *&v1[10]._os_unfair_lock_opaque;
 
       return [v2 isUsable];
     }
@@ -313,9 +313,9 @@ LABEL_20:
 + (void)originator_nullResponder
 {
   objc_opt_self();
-  v0 = [[_BSActionResponder alloc] _initWithQueue:0 handler:?];
+  v1 = [[_BSActionResponder alloc] _initWithQueue:0 handler:?];
 
-  return v0;
+  return v1;
 }
 
 - (_BSActionResponder)init
@@ -613,7 +613,7 @@ LABEL_10:
 
   extractPortAndIKnowWhatImDoingISwear = [v16 extractPortAndIKnowWhatImDoingISwear];
   v18 = extractPortAndIKnowWhatImDoingISwear;
-  if (extractPortAndIKnowWhatImDoingISwear - 1 > 0xFFFFFFFD)
+  if ((extractPortAndIKnowWhatImDoingISwear - 1) > 0xFFFFFFFD)
   {
     if (extractPortAndIKnowWhatImDoingISwear)
     {
@@ -1701,10 +1701,10 @@ LABEL_20:
   }
 }
 
-- (void)originator_annulWithErrorCode:(os_unfair_lock_s *)code
+- (void)originator_annulWithErrorCode:(os_unfair_lock_s *)result
 {
   v21 = *MEMORY[0x1E69E9840];
-  if (code)
+  if (result)
   {
     if (!a2)
     {
@@ -1719,7 +1719,7 @@ LABEL_20:
         v11 = 2114;
         v12 = v7;
         v13 = 2048;
-        codeCopy = code;
+        v14 = result;
         v15 = 2114;
         v16 = @"BSActionResponder.m";
         v17 = 1024;
@@ -1735,9 +1735,9 @@ LABEL_20:
       JUMPOUT(0x18FF66E54);
     }
 
-    os_unfair_lock_lock(code + 24);
+    os_unfair_lock_lock(result + 24);
 
-    [(_BSActionResponder *)code _consumeLock_originator_annulWithCode:a2 alreadyOnResponseQueue:0];
+    [(_BSActionResponder *)result _consumeLock_originator_annulWithCode:a2 alreadyOnResponseQueue:0];
   }
 }
 

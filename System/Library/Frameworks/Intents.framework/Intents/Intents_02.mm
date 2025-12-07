@@ -97,67 +97,65 @@ LABEL_25:
 
 void INImageProxyInjectionUtilitiesInjectProxiesIntoSlotComposer(void *a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a1;
-  v19 = a2;
-  v17 = a3;
-  v18 = [v5 copyWithZone:0];
+  v18 = a2;
+  v16 = a3;
+  v17 = [v5 copyWithZone:0];
   v6 = dispatch_group_create();
-  v16 = dispatch_queue_create("com.apple.intents.slot-composer-queue", MEMORY[0x1E69E96A8]);
+  v15 = dispatch_queue_create("com.apple.intents.slot-composer-queue", MEMORY[0x1E69E96A8]);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v7 = [v5 intentSlotDescriptions];
-  v8 = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v27;
+    v10 = *v26;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v27 != v10)
+        if (*v26 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v26 + 1) + 8 * i);
+        v12 = *(*(&v25 + 1) + 8 * i);
         v13 = [v12 valueForSlotComposer:v5];
         v14 = v13;
         if (v13 && [v13 conformsToProtocol:&unk_1F02E20C8])
         {
           dispatch_group_enter(v6);
-          v23[0] = MEMORY[0x1E69E9820];
-          v23[1] = 3221225472;
-          v23[2] = __INImageProxyInjectionUtilitiesInjectProxiesIntoSlotComposer_block_invoke;
-          v23[3] = &unk_1E727D7F8;
-          v23[4] = v12;
-          v24 = v18;
-          v25 = v6;
-          [v14 _injectProxiesForImages:v19 completion:v23];
+          v22[0] = MEMORY[0x1E69E9820];
+          v22[1] = 3221225472;
+          v22[2] = __INImageProxyInjectionUtilitiesInjectProxiesIntoSlotComposer_block_invoke;
+          v22[3] = &unk_1E727D7F8;
+          v22[4] = v12;
+          v23 = v17;
+          v24 = v6;
+          [v14 _injectProxiesForImages:v18 completion:v22];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v9);
   }
 
-  if (v17)
+  if (v16)
   {
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __INImageProxyInjectionUtilitiesInjectProxiesIntoSlotComposer_block_invoke_2;
     block[3] = &unk_1E7287140;
-    v22 = v17;
-    v21 = v18;
-    dispatch_group_notify(v6, v16, block);
+    v21 = v16;
+    v20 = v17;
+    dispatch_group_notify(v6, v15, block);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 INPrivatePlayMediaIntentData *INIntentSlotValueTransformFromPrivatePlayMediaIntentData(INPrivatePlayMediaIntentData *a1)
@@ -199,38 +197,38 @@ INPrivatePlayMediaIntentData *INIntentSlotValueTransformFromPrivatePlayMediaInte
 
 id INIntentSlotValueTransformFromMediaItemValues(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (v1)
   {
     v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v3 = v1;
-    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v13;
+      v6 = *v12;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = INIntentSlotValueTransformFromMediaItemValue(*(*(&v12 + 1) + 8 * i));
+          v8 = INIntentSlotValueTransformFromMediaItemValue(*(*(&v11 + 1) + 8 * i));
           if (v8)
           {
-            [v2 addObject:{v8, v12}];
+            [v2 addObject:{v8, v11}];
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v5);
@@ -243,8 +241,6 @@ id INIntentSlotValueTransformFromMediaItemValues(void *a1)
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -493,26 +489,26 @@ id INMediaDomainGetIntentDescriptionWithName(void *a1)
 
 id _INVCIntentDefinitionManagerClass()
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2050000000;
+  v13 = *MEMORY[0x1E69E9840];
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2050000000;
   v0 = getVCIntentDefinitionManagerClass_softClass;
-  v9 = getVCIntentDefinitionManagerClass_softClass;
+  v8 = getVCIntentDefinitionManagerClass_softClass;
   if (!getVCIntentDefinitionManagerClass_softClass)
   {
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v11 = __getVCIntentDefinitionManagerClass_block_invoke;
-    v12 = &unk_1E72888B8;
-    v13 = &v6;
+    v10 = __getVCIntentDefinitionManagerClass_block_invoke;
+    v11 = &unk_1E72888B8;
+    v12 = &v5;
     __getVCIntentDefinitionManagerClass_block_invoke(&buf);
-    v0 = v7[3];
+    v0 = v6[3];
   }
 
   v1 = v0;
-  _Block_object_dispose(&v6, 8);
-  if ([v1 conformsToProtocol:{&unk_1F0361818, v6}])
+  _Block_object_dispose(&v5, 8);
+  if ([v1 conformsToProtocol:{&unk_1F0361818, v5}])
   {
     v2 = v1;
   }
@@ -530,19 +526,17 @@ id _INVCIntentDefinitionManagerClass()
     v2 = 0;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return v2;
 }
 
 id INLocalizedFormatStringFromCodable(void *a1, void *a2, void *a3, __CFBundle *a4, void *a5, void *a6, void *a7, __CFString **a8, unsigned __int8 a9)
 {
-  v99 = *MEMORY[0x1E69E9840];
-  v73 = a1;
+  v98 = *MEMORY[0x1E69E9840];
+  v72 = a1;
   v16 = a2;
   v17 = a3;
-  v81 = a5;
-  v82 = a6;
+  v80 = a5;
+  v81 = a6;
   v18 = a7;
   if (a4)
   {
@@ -553,42 +547,42 @@ id INLocalizedFormatStringFromCodable(void *a1, void *a2, void *a3, __CFBundle *
       v21 = [MEMORY[0x1E696AAE8] bundleWithURL:v19];
       CFRelease(v20);
       v22 = MEMORY[0x1E69AA8A8];
-      v23 = [v81 languageCode];
+      v23 = [v80 languageCode];
       v24 = [v22 grammarCollectionNamed:v17 bundle:v21 language:v23];
 
-      v25 = v73;
+      v25 = v72;
       if (v24)
       {
-        v76 = [v24 sentenceWithIdentifier:v73];
-        if (v76 || ([v24 sentenceWithIdentifier:v16], (v76 = objc_claimAutoreleasedReturnValue()) != 0))
+        v75 = [v24 sentenceWithIdentifier:v72];
+        if (v75 || ([v24 sentenceWithIdentifier:v16], (v75 = objc_claimAutoreleasedReturnValue()) != 0))
         {
-          v69 = v18;
-          v71 = v17;
-          v94 = 0u;
-          v95 = 0u;
-          v92 = 0u;
+          v68 = v18;
+          v70 = v17;
           v93 = 0u;
-          v26 = [v82 _nonNilAttributes];
-          v27 = v76;
-          v80 = [v26 countByEnumeratingWithState:&v92 objects:v98 count:16];
-          if (!v80)
+          v94 = 0u;
+          v91 = 0u;
+          v92 = 0u;
+          v26 = [v81 _nonNilAttributes];
+          v27 = v75;
+          v79 = [v26 countByEnumeratingWithState:&v91 objects:v97 count:16];
+          if (!v79)
           {
             goto LABEL_23;
           }
 
-          obj = *v93;
-          v74 = v26;
+          obj = *v92;
+          v73 = v26;
           while (1)
           {
-            for (i = 0; i != v80; ++i)
+            for (i = 0; i != v79; ++i)
             {
-              if (*v93 != obj)
+              if (*v92 != obj)
               {
                 objc_enumerationMutation(v26);
               }
 
-              v29 = *(*(&v92 + 1) + 8 * i);
-              v30 = [v82 _objectDescription];
+              v29 = *(*(&v91 + 1) + 8 * i);
+              v30 = [v81 _objectDescription];
               v31 = [v30 attributeByName:v29];
 
               objc_opt_class();
@@ -610,7 +604,7 @@ id INLocalizedFormatStringFromCodable(void *a1, void *a2, void *a3, __CFBundle *
                   }
                 }
 
-                v34 = [v82 valueForKey:v29];
+                v34 = [v81 valueForKey:v29];
                 [v27 setNumber:v34 forPlaceholder:v29];
               }
 
@@ -623,7 +617,7 @@ id INLocalizedFormatStringFromCodable(void *a1, void *a2, void *a3, __CFBundle *
                 }
 
                 v33 = v21;
-                v34 = [v82 valueForKey:v29];
+                v34 = [v81 valueForKey:v29];
                 v35 = [v31 valueForIndex:{objc_msgSend(v34, "unsignedIntegerValue")}];
                 v36 = [v35 displayNameLocID];
                 v37 = [v24 tokenWithIdentifier:v36];
@@ -634,33 +628,33 @@ id INLocalizedFormatStringFromCodable(void *a1, void *a2, void *a3, __CFBundle *
                   v37 = [v24 tokenWithIdentifier:v38];
                 }
 
-                v27 = v76;
-                [v76 setToken:v37 forPlaceholder:v29];
+                v27 = v75;
+                [v75 setToken:v37 forPlaceholder:v29];
 
                 v21 = v33;
-                v26 = v74;
+                v26 = v73;
               }
 
 LABEL_21:
             }
 
-            v80 = [v26 countByEnumeratingWithState:&v92 objects:v98 count:16];
-            if (!v80)
+            v79 = [v26 countByEnumeratingWithState:&v91 objects:v97 count:16];
+            if (!v79)
             {
 LABEL_23:
 
               v41 = [v27 resolvedSentence];
-              v18 = v69;
-              v17 = v71;
+              v18 = v68;
+              v17 = v70;
               v42 = v27;
-              v16 = v67;
+              v16 = v66;
               goto LABEL_53;
             }
           }
         }
       }
 
-      v77 = [v16 mutableCopy];
+      v76 = [v16 mutableCopy];
       if (a8)
       {
         goto LABEL_29;
@@ -669,8 +663,8 @@ LABEL_23:
 
     else
     {
-      v77 = [v16 mutableCopy];
-      v25 = v73;
+      v76 = [v16 mutableCopy];
+      v25 = v72;
       if (a8)
       {
 LABEL_29:
@@ -688,8 +682,8 @@ LABEL_31:
 LABEL_47:
     v21 = 0;
     v24 = 0;
-    v63 = v77;
-    if (v77)
+    v63 = v76;
+    if (v76)
     {
       goto LABEL_52;
     }
@@ -699,45 +693,45 @@ LABEL_48:
     goto LABEL_54;
   }
 
-  v77 = [v16 mutableCopy];
+  v76 = [v16 mutableCopy];
   if (a8)
   {
     v43 = @"en";
-    v25 = v73;
+    v25 = v72;
 LABEL_30:
     *a8 = v43;
     goto LABEL_31;
   }
 
-  v25 = v73;
-  if (!v73)
+  v25 = v72;
+  if (!v72)
   {
     goto LABEL_47;
   }
 
 LABEL_32:
-  v75 = a4;
-  v70 = v18;
-  v72 = v17;
+  v74 = a4;
+  v69 = v18;
+  v71 = v17;
   v44 = [v25 mutableCopy];
   v45 = v16;
   v24 = [v16 mutableCopy];
-  v46 = [v82 _nonNilAttributes];
+  v46 = [v81 _nonNilAttributes];
   v47 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:0 ascending:1];
-  v97 = v47;
-  v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v97 count:1];
+  v96 = v47;
+  v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v96 count:1];
   v49 = [v46 sortedArrayUsingDescriptors:v48];
 
-  v90 = 0u;
-  v91 = 0u;
-  v88 = 0u;
   v89 = 0u;
+  v90 = 0u;
+  v87 = 0u;
+  v88 = 0u;
   obja = v49;
-  v50 = [obja countByEnumeratingWithState:&v88 objects:v96 count:16];
+  v50 = [obja countByEnumeratingWithState:&v87 objects:v95 count:16];
   if (v50)
   {
     v51 = v50;
-    v52 = *v89;
+    v52 = *v88;
     v21 = v44;
     do
     {
@@ -746,28 +740,28 @@ LABEL_32:
       v55 = v24;
       do
       {
-        if (*v89 != v52)
+        if (*v88 != v52)
         {
           objc_enumerationMutation(obja);
         }
 
-        v56 = *(*(&v88 + 1) + 8 * v53);
-        v57 = [v82 _objectDescription];
+        v56 = *(*(&v87 + 1) + 8 * v53);
+        v57 = [v81 _objectDescription];
         v58 = [v57 attributeByName:v56];
 
-        v86 = v55;
-        v87 = v54;
-        _INUpdateFinalLocalizedString(v82, v45, v58, v56, a9, v81, &v87, &v86);
-        v21 = v87;
+        v85 = v55;
+        v86 = v54;
+        _INUpdateFinalLocalizedString(v81, v45, v58, v56, a9, v80, &v86, &v85);
+        v21 = v86;
 
-        v24 = v86;
+        v24 = v85;
         ++v53;
         v54 = v21;
         v55 = v24;
       }
 
       while (v51 != v53);
-      v51 = [obja countByEnumeratingWithState:&v88 objects:v96 count:16];
+      v51 = [obja countByEnumeratingWithState:&v87 objects:v95 count:16];
     }
 
     while (v51);
@@ -778,12 +772,12 @@ LABEL_32:
     v21 = v44;
   }
 
-  if (v75)
+  if (v74)
   {
-    v17 = v72;
-    v59 = INLocalizedStringFromBundle(v21, v21, v72, v81, v75, v68);
-    v18 = v70;
-    v60 = v77;
+    v17 = v71;
+    v59 = INLocalizedStringFromBundle(v21, v21, v71, v80, v74, v67);
+    v18 = v69;
+    v60 = v76;
     if ([v59 length] && (objc_msgSend(v21, "isEqualToString:", v59) & 1) == 0)
     {
       v63 = [v59 mutableCopy];
@@ -791,7 +785,7 @@ LABEL_32:
 
     else
     {
-      INLocalizedStringFromBundle(v24, v24, v72, v81, v75, v68);
+      INLocalizedStringFromBundle(v24, v24, v71, v80, v74, v67);
       v62 = v61 = v21;
       v63 = [v62 mutableCopy];
 
@@ -805,9 +799,9 @@ LABEL_32:
   else
   {
     v16 = v45;
-    v18 = v70;
-    v17 = v72;
-    v63 = v77;
+    v18 = v69;
+    v17 = v71;
+    v63 = v76;
   }
 
   if (!v63)
@@ -816,20 +810,19 @@ LABEL_32:
   }
 
 LABEL_52:
-  v83[0] = MEMORY[0x1E69E9820];
-  v83[1] = 3221225472;
-  v83[2] = __INLocalizedFormatStringFromCodable_block_invoke;
-  v83[3] = &unk_1E7281EC8;
-  v84 = v18;
-  v85 = v82;
-  v64 = INFillOutStringWithStringsDict(v24, v63, v83);
+  v82[0] = MEMORY[0x1E69E9820];
+  v82[1] = 3221225472;
+  v82[2] = __INLocalizedFormatStringFromCodable_block_invoke;
+  v82[3] = &unk_1E7281EC8;
+  v83 = v18;
+  v84 = v81;
+  v64 = INFillOutStringWithStringsDict(v24, v63, v82);
   v41 = [v64 mutableCopy];
 
-  v42 = v84;
+  v42 = v83;
 LABEL_53:
 
 LABEL_54:
-  v65 = *MEMORY[0x1E69E9840];
 
   return v41;
 }
@@ -1112,16 +1105,17 @@ id INLocalizedDeferredString(void *a1, id *a2, void *a3, void *a4, void *a5, voi
   return v36;
 }
 
-void sub_18E9C5054(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_18E9C5054(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
-  _Block_object_dispose(&a28, 8);
-  _Block_object_dispose((v28 - 120), 8);
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v27 - 120), 8);
   _Unwind_Resume(a1);
 }
 
 id INLocalizedFormat(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   v15 = a1;
   v16 = a2;
   v17 = a3;
@@ -1144,67 +1138,67 @@ id INLocalizedFormat(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6,
       goto LABEL_14;
     }
 
-    v49 = 0;
-    v50 = &v49;
-    v51 = 0x3032000000;
-    v52 = __Block_byref_object_copy__26718;
-    v53 = __Block_byref_object_dispose__26719;
-    v54 = 0;
-    v43 = 0;
-    v44 = &v43;
-    v45 = 0x3032000000;
-    v46 = __Block_byref_object_copy__26718;
-    v47 = __Block_byref_object_dispose__26719;
     v48 = 0;
+    v49 = &v48;
+    v50 = 0x3032000000;
+    v51 = __Block_byref_object_copy__26718;
+    v52 = __Block_byref_object_dispose__26719;
+    v53 = 0;
+    v42 = 0;
+    v43 = &v42;
+    v44 = 0x3032000000;
+    v45 = __Block_byref_object_copy__26718;
+    v46 = __Block_byref_object_dispose__26719;
+    v47 = 0;
     v24 = [MEMORY[0x1E695DFD8] setWithObject:v17];
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __INLocalizedFormat_block_invoke;
-    v35[3] = &unk_1E727F870;
-    v32 = v17;
-    v36 = v32;
-    v37 = v18;
-    v41 = &v49;
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __INLocalizedFormat_block_invoke;
+    v34[3] = &unk_1E727F870;
+    v31 = v17;
+    v35 = v31;
+    v36 = v18;
+    v40 = &v48;
     v25 = v15;
-    v38 = v25;
-    v39 = v16;
-    v40 = v19;
-    v42 = &v43;
-    v34 = 0;
-    [v21 accessBundleContentForBundleIdentifiers:v24 withBlock:v35 error:&v34];
-    v31 = v25;
-    v33 = v34;
+    v37 = v25;
+    v38 = v16;
+    v39 = v19;
+    v41 = &v42;
+    v33 = 0;
+    [v21 accessBundleContentForBundleIdentifiers:v24 withBlock:v34 error:&v33];
+    v30 = v25;
+    v32 = v33;
 
-    v26 = v50[5];
+    v26 = v49[5];
     if (v26)
     {
       if (a8)
       {
-        *a8 = v44[5];
+        *a8 = v43[5];
       }
 
-      v24 = v50[5];
+      v24 = v49[5];
     }
 
-    else if (v33)
+    else if (v32)
     {
       log = INSiriLogContextIntents;
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315906;
-        v56 = "INLocalizedFormat";
-        v57 = 2114;
-        v58 = v32;
-        v59 = 2114;
-        v60 = v31;
-        v61 = 2114;
-        v62 = v33;
+        v55 = "INLocalizedFormat";
+        v56 = 2114;
+        v57 = v31;
+        v58 = 2114;
+        v59 = v30;
+        v60 = 2114;
+        v61 = v32;
         _os_log_error_impl(&dword_18E991000, log, OS_LOG_TYPE_ERROR, "%s Failed to access bundle %{public}@ to localize %{public}@: %{public}@", buf, 0x2Au);
       }
     }
 
-    _Block_object_dispose(&v43, 8);
-    _Block_object_dispose(&v49, 8);
+    _Block_object_dispose(&v42, 8);
+    _Block_object_dispose(&v48, 8);
 
     if (!v26)
     {
@@ -1228,15 +1222,14 @@ LABEL_14:
     }
   }
 
-  v28 = *MEMORY[0x1E69E9840];
-
   return v24;
 }
 
-void sub_18E9C5440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_18E9C5440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a33, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1260,7 +1253,6 @@ uint64_t INCreateUniqueBundle(void *a1, void *a2)
     v9 = [v5 bundleURL];
     if ([v9 isFileURL] && (objc_msgSend(MEMORY[0x1E696AC08], "defaultManager"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "path"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "isReadableFileAtPath:", v11), v11, v10, (v12 & 1) != 0))
     {
-      v13 = *MEMORY[0x1E695E480];
       Unique = _CFBundleCreateUnique();
 
       if (Unique)
@@ -1274,9 +1266,8 @@ uint64_t INCreateUniqueBundle(void *a1, void *a2)
     }
   }
 
-  if ([v4 isFileURL] && (objc_msgSend(MEMORY[0x1E696AC08], "defaultManager"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "path"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "isReadableFileAtPath:", v16), v16, v15, v17))
+  if ([v4 isFileURL] && (objc_msgSend(MEMORY[0x1E696AC08], "defaultManager"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "path"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v14, "isReadableFileAtPath:", v15), v15, v14, v16))
   {
-    v18 = *MEMORY[0x1E695E480];
     Unique = _CFBundleCreateUnique();
   }
 
@@ -1292,55 +1283,55 @@ LABEL_13:
 
 __CFString *INLocalizedFormatForBundle(__CFBundle *a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v9 = a2;
   v10 = a3;
   v11 = a4;
   if (v11)
   {
-    v26 = a5;
+    v25 = a5;
     v12 = [MEMORY[0x1E695DF58] preferredLanguages];
     v13 = [v12 mutableCopy];
 
     [v13 insertObject:v11 atIndex:0];
     v14 = CFBundleCopyBundleLocalizations(a1);
-    v27 = v13;
+    v26 = v13;
     v15 = CFBundleCopyLocalizationsForPreferences(v14, v13);
     CFRelease(v14);
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v16 = v15;
-    v17 = [(__CFArray *)v16 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v17 = [(__CFArray *)v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v29;
+      v19 = *v28;
       while (2)
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v29 != v19)
+          if (*v28 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v28 + 1) + 8 * i);
+          v21 = *(*(&v27 + 1) + 8 * i);
           v22 = CFBundleCopyLocalizedStringForLocalization();
           if (v22)
           {
             v23 = v22;
-            if (v26)
+            if (v25)
             {
-              *v26 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:v21];
+              *v25 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:v21];
             }
 
             goto LABEL_14;
           }
         }
 
-        v18 = [(__CFArray *)v16 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v18 = [(__CFArray *)v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
         if (v18)
         {
           continue;
@@ -1363,8 +1354,6 @@ LABEL_14:
 
     v23 = CFBundleCopyLocalizedString(a1, v9, v9, v10);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v23;
 }
@@ -1935,7 +1924,7 @@ INCallRecordFilter *INIntentSlotValueTransformFromCallRecordFilter(void *a1)
   return v15;
 }
 
-id INIntentSlotValueTransformFromCallRecordValue(void *a1)
+INCallRecord *INIntentSlotValueTransformFromCallRecordValue(void *a1)
 {
   v1 = a1;
   if (v1)
@@ -2049,38 +2038,38 @@ id INCallsDomainGetIntentDescriptionWithType(void *a1)
 
 id INIntentSlotValueTransformFromCallGroups(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (v1)
   {
     v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v3 = v1;
-    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v13;
+      v6 = *v12;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = INIntentSlotValueTransformFromCallGroup(*(*(&v12 + 1) + 8 * i));
+          v8 = INIntentSlotValueTransformFromCallGroup(*(*(&v11 + 1) + 8 * i));
           if (v8)
           {
-            [v2 addObject:{v8, v12}];
+            [v2 addObject:{v8, v11}];
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v5);
@@ -2093,8 +2082,6 @@ id INIntentSlotValueTransformFromCallGroups(void *a1)
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -2124,7 +2111,7 @@ uint64_t INThisProcessIsAssistantd()
   return INThisProcessIsAssistantd_isAssistantd;
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -2138,118 +2125,118 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-void *std::__tree<std::__value_type<std::string,INSystemApp>,std::__map_value_compare<std::string,std::__value_type<std::string,INSystemApp>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,INSystemApp>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t *std::__tree<std::__value_type<std::string,INSystemApp>,std::__map_value_compare<std::string,std::__value_type<std::string,INSystemApp>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,INSystemApp>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, const void **a2, _OWORD **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_26:
     operator new();
   }
 
-  v3 = *(a2 + 23);
-  if (v3 >= 0)
+  v4 = *(a2 + 23);
+  if (v4 >= 0)
   {
-    v4 = *(a2 + 23);
+    v5 = *(a2 + 23);
   }
 
   else
   {
-    v4 = a2[1];
+    v5 = a2[1];
   }
 
-  if (v3 >= 0)
+  if (v4 >= 0)
   {
-    v5 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v5 = *a2;
+    v6 = *a2;
   }
 
   while (1)
   {
     while (1)
     {
-      v6 = v2;
-      v9 = v2[4];
-      v7 = v2 + 4;
-      v8 = v9;
-      v10 = *(v7 + 23);
-      if (v10 >= 0)
+      v7 = v3;
+      v10 = v3[4];
+      v8 = v3 + 4;
+      v9 = v10;
+      v11 = *(v8 + 23);
+      if (v11 >= 0)
       {
-        v11 = *(v7 + 23);
+        v12 = *(v8 + 23);
       }
 
       else
       {
-        v11 = v7[1];
+        v12 = v8[1];
       }
 
-      if (v10 >= 0)
+      if (v11 >= 0)
       {
-        v12 = v7;
+        v13 = v8;
       }
 
       else
       {
-        v12 = v8;
+        v13 = v9;
       }
 
-      if (v11 >= v4)
+      if (v12 >= v5)
       {
-        v13 = v4;
+        v14 = v5;
       }
 
       else
       {
-        v13 = v11;
+        v14 = v12;
       }
 
-      v14 = memcmp(v5, v12, v13);
-      v15 = v4 < v11;
-      if (v14)
+      v15 = memcmp(v6, v13, v14);
+      v16 = v5 < v12;
+      if (v15)
       {
-        v15 = v14 < 0;
+        v16 = v15 < 0;
       }
 
-      if (!v15)
+      if (!v16)
       {
         break;
       }
 
-      v2 = *v6;
-      if (!*v6)
+      v3 = *v7;
+      if (!*v7)
       {
         goto LABEL_26;
       }
     }
 
-    v16 = memcmp(v12, v5, v13);
-    v17 = v11 < v4;
-    if (v16)
+    v17 = memcmp(v13, v6, v14);
+    v18 = v12 < v5;
+    if (v17)
     {
-      v17 = v16 < 0;
+      v18 = v17 < 0;
     }
 
-    if (!v17)
+    if (!v18)
     {
-      return v6;
+      return v7;
     }
 
-    v2 = v6[1];
-    if (!v2)
+    v3 = v7[1];
+    if (!v3)
     {
       goto LABEL_26;
     }
@@ -2326,7 +2313,7 @@ void __INIntentSchemaGetIntentDescriptionWithName_block_invoke()
 
 id _INExtensionContextWithContext(void *a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (v1)
   {
@@ -2348,28 +2335,28 @@ id _INExtensionContextWithContext(void *a1)
   }
 
   v3 = v2;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v4 = [v3 inputItems];
-  v5 = [v4 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v5)
   {
     v6 = v5;
-    v19 = v3;
-    v20 = v1;
-    v7 = *v23;
+    v18 = v3;
+    v19 = v1;
+    v7 = *v22;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [*(*(&v22 + 1) + 8 * i) userInfo];
+        v9 = [*(*(&v21 + 1) + 8 * i) userInfo];
         v10 = [v9 objectForKey:@"_INExtensionItemExtensionContextData"];
 
         if (v10)
@@ -2379,9 +2366,9 @@ id _INExtensionContextWithContext(void *a1)
           {
             v11 = MEMORY[0x1E696ACD0];
             v12 = objc_opt_class();
-            v21 = 0;
-            v13 = [v11 unarchivedObjectOfClass:v12 fromData:v10 error:&v21];
-            v14 = v21;
+            v20 = 0;
+            v13 = [v11 unarchivedObjectOfClass:v12 fromData:v10 error:&v20];
+            v14 = v20;
             v15 = v14;
             if (v13)
             {
@@ -2395,9 +2382,9 @@ id _INExtensionContextWithContext(void *a1)
               if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315394;
-                v27 = "_INExtensionContextWithContext";
-                v28 = 2112;
-                v29 = v15;
+                v26 = "_INExtensionContextWithContext";
+                v27 = 2112;
+                v28 = v15;
                 _os_log_error_impl(&dword_18E991000, v16, OS_LOG_TYPE_ERROR, "%s Error decoding extension context: %@", buf, 0x16u);
               }
             }
@@ -2405,7 +2392,7 @@ id _INExtensionContextWithContext(void *a1)
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v21 objects:v29 count:16];
       if (v6)
       {
         continue;
@@ -2416,8 +2403,8 @@ id _INExtensionContextWithContext(void *a1)
 
     v13 = 0;
 LABEL_22:
-    v3 = v19;
-    v1 = v20;
+    v3 = v18;
+    v1 = v19;
   }
 
   else
@@ -2425,45 +2412,43 @@ LABEL_22:
     v13 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 id INIntentSlotValueTransformFromSendMessageAttachments(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (v1)
   {
     v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v3 = v1;
-    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v13;
+      v6 = *v12;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = INIntentSlotValueTransformFromSendMessageAttachment(*(*(&v12 + 1) + 8 * i));
+          v8 = INIntentSlotValueTransformFromSendMessageAttachment(*(*(&v11 + 1) + 8 * i));
           if (v8)
           {
-            [v2 addObject:{v8, v12}];
+            [v2 addObject:{v8, v11}];
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v5);
@@ -2476,8 +2461,6 @@ id INIntentSlotValueTransformFromSendMessageAttachments(void *a1)
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -3605,27 +3588,27 @@ LABEL_15:
 
 id INIntentSlotValueTransformFromLong(void *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v1 = [a1 values];
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v11;
+    v4 = *v10;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = INIntentSlotValueTransformFromLongValue(*(*(&v10 + 1) + 8 * i));
+        v6 = INIntentSlotValueTransformFromLongValue(*(*(&v9 + 1) + 8 * i));
         if (v6)
         {
           v7 = v6;
@@ -3633,7 +3616,7 @@ id INIntentSlotValueTransformFromLong(void *a1)
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v3)
       {
         continue;
@@ -3645,8 +3628,6 @@ id INIntentSlotValueTransformFromLong(void *a1)
 
   v7 = 0;
 LABEL_11:
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -4808,38 +4789,38 @@ _INPBDataString *INIntentSlotValueTransformToDataString(void *a1)
 
 id INIntentSlotValueTransformToSendMessageAttachments(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (v1)
   {
     v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v3 = v1;
-    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v13;
+      v6 = *v12;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = INIntentSlotValueTransformToSendMessageAttachment(*(*(&v12 + 1) + 8 * i));
+          v8 = INIntentSlotValueTransformToSendMessageAttachment(*(*(&v11 + 1) + 8 * i));
           if (v8)
           {
-            [v2 addObject:{v8, v12}];
+            [v2 addObject:{v8, v11}];
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v5);
@@ -4852,8 +4833,6 @@ id INIntentSlotValueTransformToSendMessageAttachments(void *a1)
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -5965,43 +5944,42 @@ INDateComponentsRange *INIntentSlotValueTransformFromDateTimeRangeValue(void *a1
 
 id INIntentSlotValueTransformToMessages(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = INIntentSlotValueTransformToMessage(*(*(&v12 + 1) + 8 * i));
+        v8 = INIntentSlotValueTransformToMessage(*(*(&v11 + 1) + 8 * i));
         if (v8)
         {
-          [v2 addObject:{v8, v12}];
+          [v2 addObject:{v8, v11}];
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
 
   v9 = [v2 copy];
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -6020,12 +5998,12 @@ id INCacheableGetSerializationQueue()
 
 id INSchemaWithTypeName(void *a1, NSString **a2, void *a3)
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
+  v52 = 0;
   v53 = 0;
-  v54 = 0;
-  v5 = INParseCustomIntentTypeName(a1, &v54, &v53);
-  v6 = v54;
-  v7 = v53;
+  v5 = INParseCustomIntentTypeName(a1, &v53, &v52);
+  v6 = v53;
+  v7 = v52;
   v8 = 0;
   if (v5)
   {
@@ -6087,9 +6065,9 @@ LABEL_47:
       v24 = v46;
       v29 = [v18 bundleURL];
       *buf = 136315394;
-      v56 = "INSchemaWithTypeName";
-      v57 = 2112;
-      v58 = v29;
+      v55 = "INSchemaWithTypeName";
+      v56 = 2112;
+      v57 = v29;
       _os_log_error_impl(&dword_18E991000, v24, OS_LOG_TYPE_ERROR, "%s Did not find schema inside of bundle URL: %@", buf, 0x16u);
 LABEL_46:
 
@@ -6108,9 +6086,9 @@ LABEL_46:
 
       if (CanMapLSDatabase)
       {
-        v52 = 0;
-        v27 = [MEMORY[0x1E6963620] bundleRecordWithBundleIdentifier:v7 allowPlaceholder:0 error:&v52];
-        v18 = v52;
+        v51 = 0;
+        v27 = [MEMORY[0x1E6963620] bundleRecordWithBundleIdentifier:v7 allowPlaceholder:0 error:&v51];
+        v18 = v51;
 
         if (v18)
         {
@@ -6118,11 +6096,11 @@ LABEL_46:
           if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315650;
-            v56 = "INSchemaWithTypeName";
-            v57 = 2112;
-            v58 = v7;
-            v59 = 2112;
-            v60 = v18;
+            v55 = "INSchemaWithTypeName";
+            v56 = 2112;
+            v57 = v7;
+            v58 = 2112;
+            v59 = v18;
             _os_log_error_impl(&dword_18E991000, v28, OS_LOG_TYPE_ERROR, "%s Unable to create bundle record for bundle identifier: %@, %@", buf, 0x20u);
           }
         }
@@ -6141,9 +6119,9 @@ LABEL_41:
           }
 
           *buf = 136315394;
-          v56 = "INSchemaWithTypeName";
-          v57 = 2112;
-          v58 = v7;
+          v55 = "INSchemaWithTypeName";
+          v56 = 2112;
+          v57 = v7;
           v33 = "%s Unable to find bundle URL for bundle identifier: %@";
 LABEL_55:
           _os_log_error_impl(&dword_18E991000, v32, OS_LOG_TYPE_ERROR, v33, buf, 0x16u);
@@ -6163,9 +6141,9 @@ LABEL_55:
 
           v35 = +[INImageServiceConnection sharedConnection];
           v36 = [MEMORY[0x1E695DFD8] setWithObject:v7];
-          v51 = 0;
-          v31 = [v35 loadSchemasForBundleIdentifiers:v36 error:&v51];
-          v30 = v51;
+          v50 = 0;
+          v31 = [v35 loadSchemasForBundleIdentifiers:v36 error:&v50];
+          v30 = v50;
 
           if ([v31 count])
           {
@@ -6176,14 +6154,14 @@ LABEL_42:
             goto LABEL_48;
           }
 
-          v50 = INSiriLogContextIntents;
+          v49 = INSiriLogContextIntents;
           if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315394;
-            v56 = "INSchemaWithTypeName";
-            v57 = 2114;
-            v58 = v30;
-            _os_log_error_impl(&dword_18E991000, v50, OS_LOG_TYPE_ERROR, "%s Unable to load schema using intents helper: %{public}@", buf, 0x16u);
+            v55 = "INSchemaWithTypeName";
+            v56 = 2114;
+            v57 = v30;
+            _os_log_error_impl(&dword_18E991000, v49, OS_LOG_TYPE_ERROR, "%s Unable to load schema using intents helper: %{public}@", buf, 0x16u);
           }
         }
 
@@ -6213,9 +6191,9 @@ LABEL_34:
           if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315394;
-            v56 = "INSchemaWithTypeName";
-            v57 = 2112;
-            v58 = v29;
+            v55 = "INSchemaWithTypeName";
+            v56 = 2112;
+            v57 = v29;
             _os_log_error_impl(&dword_18E991000, v47, OS_LOG_TYPE_ERROR, "%s Did not find schema inside of bundle URL: %@", buf, 0x16u);
           }
 
@@ -6229,9 +6207,9 @@ LABEL_34:
         }
 
         *buf = 136315394;
-        v56 = "INSchemaWithTypeName";
-        v57 = 2112;
-        v58 = v7;
+        v55 = "INSchemaWithTypeName";
+        v56 = 2112;
+        v57 = v7;
         v33 = "%s Intent Definition URLs count == 0 for %@";
         goto LABEL_55;
       }
@@ -6242,8 +6220,6 @@ LABEL_34:
   }
 
 LABEL_49:
-
-  v48 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -6319,7 +6295,7 @@ id INUserActivitySerializeToData(void *a1)
 
 _INPBMessage *INIntentSlotValueTransformToMessage(void *a1)
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (v1)
   {
@@ -6342,7 +6318,7 @@ _INPBMessage *INIntentSlotValueTransformToMessage(void *a1)
       [(_INPBMessage *)v2 setContent:v5];
     }
 
-    v68 = v5;
+    v67 = v5;
     v6 = [v1 dateSent];
     if (v6)
     {
@@ -6360,9 +6336,9 @@ _INPBMessage *INIntentSlotValueTransformToMessage(void *a1)
       [(_INPBMessage *)v2 setSender:v12];
     }
 
-    v66 = v11;
-    v65 = [v1 recipients];
-    v13 = INIntentSlotValueTransformToContacts(v65);
+    v65 = v11;
+    v64 = [v1 recipients];
+    v13 = INIntentSlotValueTransformToContacts(v64);
     [(_INPBMessage *)v2 setRecipients:v13];
 
     v14 = [v1 groupName];
@@ -6373,8 +6349,8 @@ _INPBMessage *INIntentSlotValueTransformToMessage(void *a1)
       [(_INPBMessage *)v2 setSpeakableGroupName:v16];
     }
 
-    v64 = v15;
-    v67 = v6;
+    v63 = v15;
+    v66 = v6;
     v17 = [v1 dateMessageWasLastRead];
     if (v17)
     {
@@ -6393,8 +6369,8 @@ _INPBMessage *INIntentSlotValueTransformToMessage(void *a1)
     }
 
     v24 = [v1 messageType];
-    v69 = v4;
-    v70 = v3;
+    v68 = v4;
+    v69 = v3;
     if (v24 > 999)
     {
       if (v24 == 1100)
@@ -6591,7 +6567,7 @@ _INPBMessage *INIntentSlotValueTransformToMessage(void *a1)
 
     [(_INPBMessage *)v2 setEffect:v34];
     v35 = [v1 referencedMessage];
-    v36 = INIntentSlotValueTransformToMessage();
+    v36 = INIntentSlotValueTransformToMessage(v35);
     [(_INPBMessage *)v2 setReferencedMessage:v36];
 
     v37 = [v1 linkMetadata];
@@ -6635,30 +6611,30 @@ _INPBMessage *INIntentSlotValueTransformToMessage(void *a1)
     [(_INPBMessage *)v2 setTranslatedToLanguage:v54];
 
     v55 = [MEMORY[0x1E695DF70] array];
+    v70 = 0u;
     v71 = 0u;
     v72 = 0u;
     v73 = 0u;
-    v74 = 0u;
     v56 = [v1 inlineGlyphContent];
-    v57 = [v56 countByEnumeratingWithState:&v71 objects:v75 count:16];
+    v57 = [v56 countByEnumeratingWithState:&v70 objects:v74 count:16];
     if (v57)
     {
       v58 = v57;
-      v59 = *v72;
+      v59 = *v71;
       do
       {
         for (i = 0; i != v58; ++i)
         {
-          if (*v72 != v59)
+          if (*v71 != v59)
           {
             objc_enumerationMutation(v56);
           }
 
-          v61 = INIntentSlotValueTransformToDictionary(*(*(&v71 + 1) + 8 * i));
+          v61 = INIntentSlotValueTransformToDictionary(*(*(&v70 + 1) + 8 * i));
           [v55 addObject:v61];
         }
 
-        v58 = [v56 countByEnumeratingWithState:&v71 objects:v75 count:16];
+        v58 = [v56 countByEnumeratingWithState:&v70 objects:v74 count:16];
       }
 
       while (v58);
@@ -6671,8 +6647,6 @@ _INPBMessage *INIntentSlotValueTransformToMessage(void *a1)
   {
     v2 = 0;
   }
-
-  v62 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -7046,38 +7020,38 @@ _INPBFile *INIntentSlotValueTransformToFile(void *a1)
 
 id INIntentSlotValueTransformToFiles(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (v1)
   {
     v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v3 = v1;
-    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v13;
+      v6 = *v12;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = INIntentSlotValueTransformToFile(*(*(&v12 + 1) + 8 * i));
+          v8 = INIntentSlotValueTransformToFile(*(*(&v11 + 1) + 8 * i));
           if (v8)
           {
-            [v2 addObject:{v8, v12}];
+            [v2 addObject:{v8, v11}];
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v5);
@@ -7090,8 +7064,6 @@ id INIntentSlotValueTransformToFiles(void *a1)
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -8498,7 +8470,7 @@ void __INImageProxyInjectionQueue_block_invoke()
 
 void __INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = [MEMORY[0x1E696AD98] numberWithDouble:*(a1 + 48)];
   v4 = [v2 stringWithFormat:@"Timing out after %@ seconds during proxy injection to %@", v3, *(a1 + 32)];
@@ -8507,52 +8479,51 @@ void __INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHand
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v15 = "INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke";
-    v16 = 2112;
-    v17 = v4;
+    v14 = "INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler_block_invoke";
+    v15 = 2112;
+    v16 = v4;
     _os_log_error_impl(&dword_18E991000, v5, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
   }
 
   v7 = *(a1 + 32);
   v6 = *(a1 + 40);
   v8 = MEMORY[0x1E696ABC0];
-  v12 = *MEMORY[0x1E696A278];
-  v13 = v4;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v11 = *MEMORY[0x1E696A278];
+  v12 = v4;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
   v10 = [v8 errorWithDomain:@"IntentsErrorDomain" code:6007 userInfo:v9];
   (*(v6 + 16))(v6, v7, v10);
 
   os_activity_scope_leave((a1 + 56));
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 id INTrimToKeyImage(void *a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = dispatch_semaphore_create(0);
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy_;
-  v21 = __Block_byref_object_dispose_;
-  v22 = 0;
-  v3 = [v1 _keyImage];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __INTrimToKeyImage_block_invoke;
-  v14[3] = &unk_1E727D910;
-  v4 = v3;
-  v15 = v4;
   v16 = 0;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __INTrimToKeyImage_block_invoke_2;
-  v11[3] = &unk_1E727D938;
-  v13 = &v17;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy_;
+  v20 = __Block_byref_object_dispose_;
+  v21 = 0;
+  v3 = [v1 _keyImage];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __INTrimToKeyImage_block_invoke;
+  v13[3] = &unk_1E727D910;
+  v4 = v3;
+  v14 = v4;
+  v15 = 0;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __INTrimToKeyImage_block_invoke_2;
+  v10[3] = &unk_1E727D938;
+  v12 = &v16;
   v5 = v2;
-  v12 = v5;
-  [v1 _injectProxiesForImages:v14 completion:v11];
+  v11 = v5;
+  [v1 _injectProxiesForImages:v13 completion:v10];
   v6 = dispatch_time(0, 1000000000);
   if (dispatch_semaphore_wait(v5, v6))
   {
@@ -8560,26 +8531,25 @@ id INTrimToKeyImage(void *a1)
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v24 = "INTrimToKeyImage";
-      v25 = 2112;
-      v26 = &unk_1F02D8458;
-      v27 = 2112;
-      v28 = v1;
+      v23 = "INTrimToKeyImage";
+      v24 = 2112;
+      v25 = &unk_1F02D8458;
+      v26 = 2112;
+      v27 = v1;
       _os_log_error_impl(&dword_18E991000, v7, OS_LOG_TYPE_ERROR, "%s Timing out after %@ seconds during trimming to key image of %@", buf, 0x20u);
     }
   }
 
-  v8 = v18[5];
+  v8 = v17[5];
 
-  _Block_object_dispose(&v17, 8);
-  v9 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v16, 8);
 
   return v8;
 }
 
-void sub_18E9DFB38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_18E9DFB38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8610,38 +8580,38 @@ void __INTrimToKeyImage_block_invoke_2(uint64_t a1, void *a2)
 
 id INExtractKeyImage(void *a1, void *a2)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = dispatch_semaphore_create(0);
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy_;
-  v30 = __Block_byref_object_dispose_;
-  v31 = 0;
-  v5 = [v3 _keyImage];
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy_;
-  v24 = __Block_byref_object_dispose_;
   v25 = 0;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __INExtractKeyImage_block_invoke;
-  v16[3] = &unk_1E727D960;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy_;
+  v29 = __Block_byref_object_dispose_;
+  v30 = 0;
+  v5 = [v3 _keyImage];
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy_;
+  v23 = __Block_byref_object_dispose_;
+  v24 = 0;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __INExtractKeyImage_block_invoke;
+  v15[3] = &unk_1E727D960;
   v6 = v5;
-  v17 = v6;
-  v18 = 0;
-  v19 = &v20;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __INExtractKeyImage_block_invoke_2;
-  v13[3] = &unk_1E727D938;
-  v15 = &v26;
+  v16 = v6;
+  v17 = 0;
+  v18 = &v19;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __INExtractKeyImage_block_invoke_2;
+  v12[3] = &unk_1E727D938;
+  v14 = &v25;
   v7 = v4;
-  v14 = v7;
-  [v3 _injectProxiesForImages:v16 completion:v13];
+  v13 = v7;
+  [v3 _injectProxiesForImages:v15 completion:v12];
   v8 = dispatch_time(0, 1000000000);
   if (dispatch_semaphore_wait(v7, v8))
   {
@@ -8649,30 +8619,29 @@ id INExtractKeyImage(void *a1, void *a2)
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v33 = "INExtractKeyImage";
-      v34 = 2112;
-      v35 = &unk_1F02D8458;
-      v36 = 2112;
-      v37 = v3;
+      v32 = "INExtractKeyImage";
+      v33 = 2112;
+      v34 = &unk_1F02D8458;
+      v35 = 2112;
+      v36 = v3;
       _os_log_error_impl(&dword_18E991000, v9, OS_LOG_TYPE_ERROR, "%s Timing out after %@ seconds during key image extraction from %@", buf, 0x20u);
     }
   }
 
-  *a2 = v21[5];
-  v10 = v27[5];
+  *a2 = v20[5];
+  v10 = v26[5];
 
-  _Block_object_dispose(&v20, 8);
-  _Block_object_dispose(&v26, 8);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v25, 8);
 
   return v10;
 }
 
-void sub_18E9DFF18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_18E9DFF18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -8737,30 +8706,30 @@ void __INExtractKeyImage_block_invoke_2(uint64_t a1, void *a2)
 
 id INInsertKeyImageExtraction(void *a1, void *a2)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy_;
-  v22 = __Block_byref_object_dispose_;
-  v23 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy_;
+  v21 = __Block_byref_object_dispose_;
+  v22 = 0;
   v5 = dispatch_semaphore_create(0);
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __INInsertKeyImageExtraction_block_invoke;
-  v16[3] = &unk_1E727D988;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __INInsertKeyImageExtraction_block_invoke;
+  v15[3] = &unk_1E727D988;
   v6 = v4;
-  v17 = v6;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __INInsertKeyImageExtraction_block_invoke_2;
-  v13[3] = &unk_1E727D938;
-  v15 = &v18;
+  v16 = v6;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __INInsertKeyImageExtraction_block_invoke_2;
+  v12[3] = &unk_1E727D938;
+  v14 = &v17;
   v7 = v5;
-  v14 = v7;
-  [v3 _injectProxiesForImages:v16 completion:v13];
+  v13 = v7;
+  [v3 _injectProxiesForImages:v15 completion:v12];
   v8 = dispatch_time(0, 1000000000);
   if (dispatch_semaphore_wait(v7, v8))
   {
@@ -8768,28 +8737,27 @@ id INInsertKeyImageExtraction(void *a1, void *a2)
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
-      v25 = "INInsertKeyImageExtraction";
-      v26 = 2112;
-      v27 = &unk_1F02D8458;
-      v28 = 2112;
-      v29 = v6;
-      v30 = 2112;
-      v31 = v3;
+      v24 = "INInsertKeyImageExtraction";
+      v25 = 2112;
+      v26 = &unk_1F02D8458;
+      v27 = 2112;
+      v28 = v6;
+      v29 = 2112;
+      v30 = v3;
       _os_log_error_impl(&dword_18E991000, v9, OS_LOG_TYPE_ERROR, "%s Timing out after %@ seconds during insertion of key image extraction %@ to %@", buf, 0x2Au);
     }
   }
 
-  v10 = v19[5];
+  v10 = v18[5];
 
-  _Block_object_dispose(&v18, 8);
-  v11 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v17, 8);
 
   return v10;
 }
 
-void sub_18E9E034C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_18E9E034C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9030,38 +8998,38 @@ _INPBFinancialAccountValue *INIntentSlotValueTransformToFinancialAccountValue(vo
 
 id INIntentSlotValueTransformFromFinancialAccountValues(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (v1)
   {
     v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v3 = v1;
-    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v13;
+      v6 = *v12;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = INIntentSlotValueTransformFromFinancialAccountValue(*(*(&v12 + 1) + 8 * i));
+          v8 = INIntentSlotValueTransformFromFinancialAccountValue(*(*(&v11 + 1) + 8 * i));
           if (v8)
           {
-            [v2 addObject:{v8, v12}];
+            [v2 addObject:{v8, v11}];
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v5);
@@ -9074,46 +9042,44 @@ id INIntentSlotValueTransformFromFinancialAccountValues(void *a1)
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 id INIntentSlotValueTransformToFinancialAccountValues(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (v1)
   {
     v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v1, "count")}];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v3 = v1;
-    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v13;
+      v6 = *v12;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = INIntentSlotValueTransformToFinancialAccountValue(*(*(&v12 + 1) + 8 * i));
+          v8 = INIntentSlotValueTransformToFinancialAccountValue(*(*(&v11 + 1) + 8 * i));
           if (v8)
           {
-            [v2 addObject:{v8, v12}];
+            [v2 addObject:{v8, v11}];
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v5);
@@ -9126,8 +9092,6 @@ id INIntentSlotValueTransformToFinancialAccountValues(void *a1)
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

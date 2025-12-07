@@ -48,7 +48,7 @@
 
 - (void)updateSubtitleWithViewMode:(int64_t)mode currentLocation:(CLLocation *)location completionHandler:(id)handler
 {
-  v9 = sub_1000CE6B8(&unk_10190BA50);
+  v9 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
@@ -130,7 +130,7 @@ LABEL_6:
 - (int64_t)entryType
 {
   selfCopy = self;
-  v3 = sub_100093DC8();
+  v3 = sub_100093DC8(selfCopy);
 
   return v3;
 }
@@ -195,7 +195,7 @@ LABEL_6:
 
 - (void)saveWithCompletionHandler:(id)handler
 {
-  v5 = sub_1000CE6B8(&unk_10190BA50);
+  v5 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -220,7 +220,7 @@ LABEL_6:
 
 - (void)deleteWithCompletionHandler:(id)handler
 {
-  v5 = sub_1000CE6B8(&unk_10190BA50);
+  v5 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -245,7 +245,7 @@ LABEL_6:
 
 - (void)deleteWithDeleteFromLibrary:(BOOL)library completionHandler:(id)handler
 {
-  v7 = sub_1000CE6B8(&unk_10190BA50);
+  v7 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -271,7 +271,7 @@ LABEL_6:
 
 - (void)moveToBackWithCompletionHandler:(id)handler
 {
-  v5 = sub_1000CE6B8(&unk_10190BA50);
+  v5 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -414,7 +414,7 @@ LABEL_7:
 
 - (NSUUID)storageIdentifier
 {
-  v3 = sub_1000CE6B8(&unk_101918E50);
+  v3 = sub_1000CE6B8(&unk_101918E50, &unk_1011E4770);
   __chkstk_darwin(v3 - 8);
   v5 = &v13 - v4;
   selfCopy = self;
@@ -436,7 +436,7 @@ LABEL_7:
 
 - (void)setStorageIdentifier:(id)identifier
 {
-  v5 = sub_1000CE6B8(&unk_101918E50);
+  v5 = sub_1000CE6B8(&unk_101918E50, &unk_1011E4770);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v8);
@@ -454,10 +454,10 @@ LABEL_7:
     (*(*(v12 - 8) + 56))(v10, 1, 1, v12);
   }
 
-  sub_1000D2DFC(v10, v7, &unk_101918E50);
+  sub_1000D2DFC(v10, v7, &unk_101918E50, &unk_1011E4770);
   selfCopy = self;
   dispatch thunk of MapsSyncObject.identifier.setter();
-  sub_100024F64(v10, &unk_101918E50);
+  sub_100024F64(v10, &unk_101918E50, &unk_1011E4770);
 }
 
 - (void)setGeoMapItem:(id)item

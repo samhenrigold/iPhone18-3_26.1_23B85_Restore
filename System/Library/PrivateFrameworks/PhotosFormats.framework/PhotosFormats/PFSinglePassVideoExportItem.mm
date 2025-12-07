@@ -27,7 +27,7 @@
   v3 = inputAsset;
   if (inputAsset)
   {
-    [inputAsset duration];
+    objc_msgSend_duration(inputAsset);
   }
 
   else
@@ -558,7 +558,7 @@ void __80__PFSinglePassVideoExportItem_startReadingInputAssetWithOutputAvailable
     v8 = v7;
     if (v7)
     {
-      [v7 CMTimeValue];
+      objc_msgSend_CMTimeValue(v7);
     }
 
     else
@@ -840,7 +840,7 @@ void __80__PFSinglePassVideoExportItem_startReadingInputAssetWithOutputAvailable
   inputAsset = self->_inputAsset;
   if (inputAsset)
   {
-    [(AVAsset *)inputAsset duration];
+    objc_msgSend_duration(inputAsset, a2);
   }
 
   else
@@ -1184,7 +1184,7 @@ void __80__PFSinglePassVideoExportItem_startReadingInputAssetWithOutputAvailable
         v53 = v94->_inputAsset;
         if (v53)
         {
-          [(AVAsset *)v53 duration];
+          objc_msgSend_duration(v53);
         }
 
         else
@@ -1232,7 +1232,7 @@ void __80__PFSinglePassVideoExportItem_startReadingInputAssetWithOutputAvailable
           videoTrack = v94->_videoTrack;
           if (videoTrack)
           {
-            [(AVAssetTrack *)videoTrack preferredTransform];
+            objc_msgSend_preferredTransform(videoTrack);
           }
 
           else
@@ -1274,7 +1274,7 @@ void __80__PFSinglePassVideoExportItem_startReadingInputAssetWithOutputAvailable
           v74 = v70->_inputAsset;
           if (v74)
           {
-            [(AVAsset *)v74 duration];
+            objc_msgSend_duration(v74);
           }
 
           else

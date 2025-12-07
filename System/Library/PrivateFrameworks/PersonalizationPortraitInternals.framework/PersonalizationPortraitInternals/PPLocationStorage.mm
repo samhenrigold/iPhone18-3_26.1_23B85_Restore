@@ -10,6 +10,7 @@
 - (BOOL)iterLocationRecordsWithQuery:(id)query error:(id *)error block:(id)block;
 - (BOOL)pruneOrphanedLocationFeedbackCountRecordsWithLimit:(unint64_t)limit rowOffset:(unint64_t)offset deletedCount:(unint64_t *)count isComplete:(BOOL *)complete;
 - (PPLocationStorage)initWithDatabase:(id)database;
+- (PPLocationStorage)initWithDatabase:(id)database maxRecords:(unsigned int)records dkStorage:(id)storage loadEmptyDatabaseFromDK:(BOOL)k trialWrapper:(id)wrapper;
 - (id)sourceStats:(unint64_t)stats withExcludedAlgorithms:(id)algorithms;
 - (id)tempViewForSourceIdsExcludedAlgorithms:(id)algorithms txnWitness:(id)witness;
 - (void)_deleteLocationsWithRowIds:(void *)ids txnWitness:(uint64_t)witness atLeastOneLocationRemoved:(uint64_t)removed deletedCount:;
@@ -63,7 +64,7 @@
   return v7;
 }
 
-uint64_t __106__PPLocationStorage_pruneOrphanedLocationFeedbackCountRecordsWithLimit_rowOffset_deletedCount_isComplete___block_invoke(void *a1, uint64_t a2)
+void *__106__PPLocationStorage_pruneOrphanedLocationFeedbackCountRecordsWithLimit_rowOffset_deletedCount_isComplete___block_invoke(void *a1, uint64_t a2)
 {
   result = [*(a1[4] + 32) pruneOrphanedFeedbackCountRecordsWithLimit:a1[6] rowOffset:a1[7] deletedCount:a1[8] txnWitness:a2 isComplete:a1[9]];
   *(*(a1[5] + 8) + 24) = result;
@@ -93,7 +94,7 @@ uint64_t __106__PPLocationStorage_pruneOrphanedLocationFeedbackCountRecordsWithL
   return db;
 }
 
-uint64_t __72__PPLocationStorage_deleteAllLocationFeedbackCountRecordsOlderThanDate___block_invoke(void *a1, uint64_t a2)
+void *__72__PPLocationStorage_deleteAllLocationFeedbackCountRecordsOlderThanDate___block_invoke(void *a1, uint64_t a2)
 {
   result = [*(a1[4] + 32) deleteFeedbackCountRecordsOlderThanDate:a1[5] txnWitness:a2];
   *(*(a1[6] + 8) + 24) = result;
@@ -176,7 +177,7 @@ void __56__PPLocationStorage_sourceStats_withExcludedAlgorithms___block_invoke(u
   return 1;
 }
 
-void __130__PPLocationStorage_deleteAllLocationsFromSourcesWithBundleId_groupId_olderThanDate_atLeastOneLocationRemoved_deletedCount_error___block_invoke(uint64_t *a1, void *a2)
+void __130__PPLocationStorage_deleteAllLocationsFromSourcesWithBundleId_groupId_olderThanDate_atLeastOneLocationRemoved_deletedCount_error___block_invoke(void *a1, void *a2)
 {
   v3 = a1[5];
   v4 = *(a1[4] + 32);
@@ -189,7 +190,7 @@ void __130__PPLocationStorage_deleteAllLocationsFromSourcesWithBundleId_groupId_
 
 - (void)_deleteLocationsWithRowIds:(void *)ids txnWitness:(uint64_t)witness atLeastOneLocationRemoved:(uint64_t)removed deletedCount:
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v7 = a2;
   idsCopy = ids;
   selfCopy = self;
@@ -197,40 +198,40 @@ void __130__PPLocationStorage_deleteAllLocationsFromSourcesWithBundleId_groupId_
   {
     if ([v7 count])
     {
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
       v23 = 0u;
-      v9 = [&unk_284785E08 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
+      v9 = [&unk_284785E08 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v23;
+        v11 = *v22;
         do
         {
           v12 = 0;
           do
           {
-            if (*v23 != v11)
+            if (*v22 != v11)
             {
               objc_enumerationMutation(&unk_284785E08);
             }
 
-            v13 = *(*(&v22 + 1) + 8 * v12);
+            v13 = *(*(&v21 + 1) + 8 * v12);
             v14 = [idsCopy db];
             v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"DELETE FROM %@ WHERE loc_id IN _pas_nsindexset(:rowIds)", v13];
-            v20[0] = MEMORY[0x277D85DD0];
-            v20[1] = 3221225472;
-            v20[2] = __98__PPLocationStorage__deleteLocationsWithRowIds_txnWitness_atLeastOneLocationRemoved_deletedCount___block_invoke;
-            v20[3] = &unk_278978CF8;
-            v21 = v7;
-            [v14 prepAndRunQuery:v15 onPrep:v20 onRow:0 onError:0];
+            v19[0] = MEMORY[0x277D85DD0];
+            v19[1] = 3221225472;
+            v19[2] = __98__PPLocationStorage__deleteLocationsWithRowIds_txnWitness_atLeastOneLocationRemoved_deletedCount___block_invoke;
+            v19[3] = &unk_278978CF8;
+            v20 = v7;
+            [v14 prepAndRunQuery:v15 onPrep:v19 onRow:0 onError:0];
 
             ++v12;
           }
 
           while (v10 != v12);
-          v10 = [&unk_284785E08 countByEnumeratingWithState:&v22 objects:v26 count:16];
+          v10 = [&unk_284785E08 countByEnumeratingWithState:&v21 objects:v25 count:16];
         }
 
         while (v10);
@@ -239,8 +240,6 @@ void __130__PPLocationStorage_deleteAllLocationsFromSourcesWithBundleId_groupId_
 
     [*(selfCopy + 32) deleteRecordsForRowIds:v7 txnWitness:idsCopy atLeastOneClusterRemoved:witness deletedCount:removed];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)deleteAllLocationsFromSourcesWithBundleId:(id)id atLeastOneLocationRemoved:(BOOL *)removed deletedCount:(unint64_t *)count error:(id *)error
@@ -388,61 +387,60 @@ void __98__PPLocationStorage_deleteAllLocationsOlderThanDate_atLeastOneLocationR
 
 - (BOOL)donateLocations:(id)locations source:(id)source contextualNamedEntities:(id)entities algorithm:(unsigned __int16)algorithm cloudSync:(BOOL)sync error:(id *)error
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   locationsCopy = locations;
   sourceCopy = source;
   entitiesCopy = entities;
   v17 = 1;
   if ([locationsCopy count])
   {
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x2020000000;
-    v33 = 1;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x2020000000;
+    v32 = 1;
     db = self->_db;
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __94__PPLocationStorage_donateLocations_source_contextualNamedEntities_algorithm_cloudSync_error___block_invoke;
-    v23[3] = &unk_278978E48;
-    v27 = &v30;
-    v23[4] = self;
-    v24 = locationsCopy;
-    v25 = sourceCopy;
-    v26 = entitiesCopy;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __94__PPLocationStorage_donateLocations_source_contextualNamedEntities_algorithm_cloudSync_error___block_invoke;
+    v22[3] = &unk_278978E48;
+    v26 = &v29;
+    v22[4] = self;
+    v23 = locationsCopy;
+    v24 = sourceCopy;
+    v25 = entitiesCopy;
     algorithmCopy = algorithm;
     syncCopy = sync;
-    [(PPSQLDatabase *)db writeTransactionWithClient:5 block:v23];
-    v17 = *(v31 + 24);
-    if (error && (v31[3] & 1) == 0)
+    [(PPSQLDatabase *)db writeTransactionWithClient:5 block:v22];
+    v17 = *(v30 + 24);
+    if (error && (v30[3] & 1) == 0)
     {
       v19 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v34 = *MEMORY[0x277CCA450];
-      v35[0] = @"The donated data is invalid.";
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+      v33 = *MEMORY[0x277CCA450];
+      v34[0] = @"The donated data is invalid.";
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
       *error = [v19 initWithDomain:*MEMORY[0x277D3A580] code:9 userInfo:v20];
 
-      v17 = *(v31 + 24);
+      v17 = *(v30 + 24);
     }
 
-    _Block_object_dispose(&v30, 8);
+    _Block_object_dispose(&v29, 8);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v17 & 1;
 }
 
 void __94__PPLocationStorage_donateLocations_source_contextualNamedEntities_algorithm_cloudSync_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a1;
-  v142 = *MEMORY[0x277D85DE8];
+  v141 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = *(a1 + 48);
   v6 = *(a1 + 56);
-  v118 = *(a1 + 72);
+  v117 = *(a1 + 72);
   v7 = *(a1 + 74);
   v8 = *(a1 + 40);
   v9 = v5;
-  v119 = v6;
+  v118 = v6;
   v10 = a2;
   if (v4)
   {
@@ -450,19 +448,19 @@ void __94__PPLocationStorage_donateLocations_source_contextualNamedEntities_algo
     v12 = v10;
     v13 = [v12 db];
     *buf = MEMORY[0x277D85DD0];
-    v130 = 3221225472;
-    v131 = __83__PPLocationStorage__truncateRecordsByDroppingOldestMakingRoomForCount_txnWitness___block_invoke;
-    v132 = &unk_278978E70;
-    v133 = v4;
-    v135 = v11;
+    v129 = 3221225472;
+    v130 = __83__PPLocationStorage__truncateRecordsByDroppingOldestMakingRoomForCount_txnWitness___block_invoke;
+    v131 = &unk_278978E70;
+    v132 = v4;
+    v134 = v11;
     v14 = v12;
-    v134 = v14;
+    v133 = v14;
     [v13 writeTransaction:buf];
 
-    v117 = v14;
-    v116 = [*(v4 + 40) updateOrCreateRowForSource:v9 addingRefCount:objc_msgSend(v8 txnWitness:{"count"), v14}];
-    v15 = v116 != 0x7FFFFFFFFFFFFFFFLL;
-    if (v116 == 0x7FFFFFFFFFFFFFFFLL)
+    v116 = v14;
+    v115 = [*(v4 + 40) updateOrCreateRowForSource:v9 addingRefCount:objc_msgSend(v8 txnWitness:{"count"), v14}];
+    v15 = v115 != 0x7FFFFFFFFFFFFFFFLL;
+    if (v115 == 0x7FFFFFFFFFFFFFFFLL)
     {
       obj = pp_locations_log_handle();
       if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
@@ -478,20 +476,20 @@ void __94__PPLocationStorage_donateLocations_source_contextualNamedEntities_algo
       [v16 weightMultiplier];
       v18 = v17;
 
-      v127 = 0u;
-      v128 = 0u;
-      v125 = 0u;
       v126 = 0u;
+      v127 = 0u;
+      v124 = 0u;
+      v125 = 0u;
       obj = v8;
-      v120 = [obj countByEnumeratingWithState:&v125 objects:buf count:16];
-      if (v120)
+      v119 = [obj countByEnumeratingWithState:&v124 objects:buf count:16];
+      if (v119)
       {
-        v108 = v10;
-        v109 = v9;
-        v110 = v8;
-        v111 = v3;
-        v114 = *v126;
-        v115 = v4;
+        v107 = v10;
+        v108 = v9;
+        v109 = v8;
+        v110 = v3;
+        v113 = *v125;
+        v114 = v4;
         if (v7)
         {
           v19 = &unk_284785148;
@@ -502,26 +500,26 @@ void __94__PPLocationStorage_donateLocations_source_contextualNamedEntities_algo
           v19 = &unk_284785118;
         }
 
-        v113 = v19;
+        v112 = v19;
         do
         {
           v20 = 0;
           do
           {
-            if (*v126 != v114)
+            if (*v125 != v113)
             {
               objc_enumerationMutation(obj);
             }
 
-            v123 = v20;
-            v21 = *(*(&v125 + 1) + 8 * v20);
+            v122 = v20;
+            v21 = *(*(&v124 + 1) + 8 * v20);
             context = objc_autoreleasePoolPush();
             v22 = objc_opt_new();
+            v135 = 0;
             v136 = 0;
-            v137 = 0;
-            v121 = v22;
-            [v22 getUUIDBytes:&v136];
-            v124 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:&v136 length:16];
+            v120 = v22;
+            [v22 getUUIDBytes:&v135];
+            v123 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:&v135 length:16];
             v23 = objc_opt_new();
             v24 = [v21 location];
             v25 = [v24 placemark];
@@ -626,13 +624,13 @@ void __94__PPLocationStorage_donateLocations_source_contextualNamedEntities_algo
             v79 = [v78 ocean];
             [v23 setObject:v79 forKeyedSubscript:@"clp_ocean"];
 
-            [v23 setObject:v124 forKeyedSubscript:@"uuid"];
+            [v23 setObject:v123 forKeyedSubscript:@"uuid"];
             v80 = MEMORY[0x277CCABB0];
             v81 = [v21 location];
             v82 = [v80 numberWithUnsignedShort:{objc_msgSend(v81, "category")}];
             [v23 setObject:v82 forKeyedSubscript:@"category"];
 
-            v83 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v118];
+            v83 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v117];
             [v23 setObject:v83 forKeyedSubscript:@"algorithm"];
 
             v84 = MEMORY[0x277CCABB0];
@@ -648,15 +646,15 @@ void __94__PPLocationStorage_donateLocations_source_contextualNamedEntities_algo
             v89 = [MEMORY[0x277D3A578] osBuild];
             [v23 setObject:v89 forKeyedSubscript:@"extraction_os_build"];
 
-            v90 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(*(v115 + 48), "treatmentsHash")}];
+            v90 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(*(v114 + 48), "treatmentsHash")}];
             [v23 setObject:v90 forKeyedSubscript:@"extraction_asset_version"];
 
-            v91 = [MEMORY[0x277CCABB0] numberWithLongLong:v116];
+            v91 = [MEMORY[0x277CCABB0] numberWithLongLong:v115];
             [v23 setObject:v91 forKeyedSubscript:@"source_id"];
 
             [v23 setObject:&unk_284785118 forKeyedSubscript:@"is_remote"];
             [v23 setObject:&unk_284785130 forKeyedSubscript:@"decay_rate"];
-            [v23 setObject:v113 forKeyedSubscript:@"is_sync_eligible"];
+            [v23 setObject:v112 forKeyedSubscript:@"is_sync_eligible"];
             v92 = [v21 location];
             v93 = [v92 clusterIdentifier];
             if (v93)
@@ -666,29 +664,29 @@ void __94__PPLocationStorage_donateLocations_source_contextualNamedEntities_algo
 
             else
             {
-              v94 = [v121 UUIDString];
+              v94 = [v120 UUIDString];
               v95 = [v94 lowercaseString];
               [v23 setObject:v95 forKeyedSubscript:@"lc_description"];
             }
 
-            v96 = [v117 db];
+            v96 = [v116 db];
             [v96 insertIntoTable:@"loc_records" dictionary:v23];
 
-            v97 = [v117 db];
+            v97 = [v116 db];
             v98 = [v97 lastInsertRowId];
 
-            v99 = v119;
-            v100 = v117;
+            v99 = v118;
+            v100 = v116;
             if ([v99 count])
             {
               v101 = [v100 db];
-              v136 = MEMORY[0x277D85DD0];
-              v137 = 3221225472;
-              v138 = __84__PPLocationStorage__insertContextualNamedEntities_forLocationWithRowId_txnWitness___block_invoke;
-              v139 = &unk_278978E98;
-              v141 = v98;
-              v140 = v99;
-              [v101 prepAndRunQuery:@"INSERT INTO loc_records_contextual_ne (loc_id onPrep:name) SELECT :locId onRow:value FROM _pas_nsset(:contextualNamedEntities)" onError:{&v136, 0, 0}];
+              v135 = MEMORY[0x277D85DD0];
+              v136 = 3221225472;
+              v137 = __84__PPLocationStorage__insertContextualNamedEntities_forLocationWithRowId_txnWitness___block_invoke;
+              v138 = &unk_278978E98;
+              v140 = v98;
+              v139 = v99;
+              [v101 prepAndRunQuery:@"INSERT INTO loc_records_contextual_ne (loc_id onPrep:name) SELECT :locId onRow:value FROM _pas_nsset(:contextualNamedEntities)" onError:{&v135, 0, 0}];
             }
 
             v102 = [v21 location];
@@ -698,29 +696,29 @@ void __94__PPLocationStorage_donateLocations_source_contextualNamedEntities_algo
             if ([v104 count])
             {
               v106 = [v105 db];
-              v136 = MEMORY[0x277D85DD0];
-              v137 = 3221225472;
-              v138 = __76__PPLocationStorage__insertAreasOfInterest_forLocationWithRowId_txnWitness___block_invoke;
-              v139 = &unk_278978E98;
-              v141 = v98;
-              v140 = v104;
-              [v106 prepAndRunQuery:@"INSERT INTO loc_records_clp_areasOfInterest (loc_id onPrep:name) SELECT :locId onRow:value FROM _pas_nsarray(:areasOfInterest)" onError:{&v136, 0, 0}];
+              v135 = MEMORY[0x277D85DD0];
+              v136 = 3221225472;
+              v137 = __76__PPLocationStorage__insertAreasOfInterest_forLocationWithRowId_txnWitness___block_invoke;
+              v138 = &unk_278978E98;
+              v140 = v98;
+              v139 = v104;
+              [v106 prepAndRunQuery:@"INSERT INTO loc_records_clp_areasOfInterest (loc_id onPrep:name) SELECT :locId onRow:value FROM _pas_nsarray(:areasOfInterest)" onError:{&v135, 0, 0}];
             }
 
             objc_autoreleasePoolPop(context);
-            v20 = v123 + 1;
+            v20 = v122 + 1;
           }
 
-          while (v120 != v123 + 1);
-          v120 = [obj countByEnumeratingWithState:&v125 objects:buf count:16];
+          while (v119 != v122 + 1);
+          v119 = [obj countByEnumeratingWithState:&v124 objects:buf count:16];
         }
 
-        while (v120);
-        v8 = v110;
-        v3 = v111;
-        v10 = v108;
-        v9 = v109;
-        v15 = v116 != 0x7FFFFFFFFFFFFFFFLL;
+        while (v119);
+        v8 = v109;
+        v3 = v110;
+        v10 = v107;
+        v9 = v108;
+        v15 = v115 != 0x7FFFFFFFFFFFFFFFLL;
       }
     }
   }
@@ -731,7 +729,6 @@ void __94__PPLocationStorage_donateLocations_source_contextualNamedEntities_algo
   }
 
   *(*(*(v3 + 64) + 8) + 24) = v15;
-  v107 = *MEMORY[0x277D85DE8];
 }
 
 void __76__PPLocationStorage__insertAreasOfInterest_forLocationWithRowId_txnWitness___block_invoke(uint64_t a1, void *a2)
@@ -769,7 +766,7 @@ void __49__PPLocationStorage_clearWithError_deletedCount___block_invoke(uint64_t
 
 - (BOOL)iterLocationRecordsWithQuery:(id)query error:(id *)error block:(id)block
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   blockCopy = block;
   if ([queryCopy limit])
@@ -795,7 +792,7 @@ void __49__PPLocationStorage_clearWithError_deletedCount___block_invoke(uint64_t
       aBlock[1] = 3221225472;
       aBlock[2] = __62__PPLocationStorage_iterLocationRecordsWithQuery_error_block___block_invoke;
       aBlock[3] = &unk_278978CF8;
-      v74 = queryCopy;
+      v73 = queryCopy;
       v13 = _Block_copy(aBlock);
       [v10 addObject:v13];
     }
@@ -815,12 +812,12 @@ void __49__PPLocationStorage_clearWithError_deletedCount___block_invoke(uint64_t
       }
 
       [v9 appendString:v15];
-      v71[0] = MEMORY[0x277D85DD0];
-      v71[1] = 3221225472;
-      v71[2] = __62__PPLocationStorage_iterLocationRecordsWithQuery_error_block___block_invoke_2;
-      v71[3] = &unk_278978CF8;
-      v72 = queryCopy;
-      v16 = _Block_copy(v71);
+      v70[0] = MEMORY[0x277D85DD0];
+      v70[1] = 3221225472;
+      v70[2] = __62__PPLocationStorage_iterLocationRecordsWithQuery_error_block___block_invoke_2;
+      v70[3] = &unk_278978CF8;
+      v71 = queryCopy;
+      v16 = _Block_copy(v70);
       [v10 addObject:v16];
     }
 
@@ -839,12 +836,12 @@ void __49__PPLocationStorage_clearWithError_deletedCount___block_invoke(uint64_t
     if ([matchingSourceBundleIds count])
     {
       [v9 appendString:@"AND src.bundle_id IN _pas_nsset(:matchingSourceBundleIds) "];
-      v69[0] = MEMORY[0x277D85DD0];
-      v69[1] = 3221225472;
-      v69[2] = __62__PPLocationStorage_iterLocationRecordsWithQuery_error_block___block_invoke_3;
-      v69[3] = &unk_278978CF8;
-      v70 = matchingSourceBundleIds;
-      v19 = _Block_copy(v69);
+      v68[0] = MEMORY[0x277D85DD0];
+      v68[1] = 3221225472;
+      v68[2] = __62__PPLocationStorage_iterLocationRecordsWithQuery_error_block___block_invoke_3;
+      v68[3] = &unk_278978CF8;
+      v69 = matchingSourceBundleIds;
+      v19 = _Block_copy(v68);
       [v10 addObject:v19];
     }
 
@@ -852,12 +849,12 @@ void __49__PPLocationStorage_clearWithError_deletedCount___block_invoke(uint64_t
     if ([excludingSourceBundleIds count])
     {
       [v9 appendString:@"AND src.bundle_id NOT IN _pas_nsset(:excludingSourceBundleIds) "];
-      v67[0] = MEMORY[0x277D85DD0];
-      v67[1] = 3221225472;
-      v67[2] = __62__PPLocationStorage_iterLocationRecordsWithQuery_error_block___block_invoke_4;
-      v67[3] = &unk_278978CF8;
-      v68 = excludingSourceBundleIds;
-      v21 = _Block_copy(v67);
+      v66[0] = MEMORY[0x277D85DD0];
+      v66[1] = 3221225472;
+      v66[2] = __62__PPLocationStorage_iterLocationRecordsWithQuery_error_block___block_invoke_4;
+      v66[3] = &unk_278978CF8;
+      v67 = excludingSourceBundleIds;
+      v21 = _Block_copy(v66);
       [v10 addObject:v21];
     }
 
@@ -878,12 +875,12 @@ void __49__PPLocationStorage_clearWithError_deletedCount___block_invoke(uint64_t
     if ([matchingCategories count])
     {
       [v9 appendString:@"AND loc.category IN _pas_nsset(:matchingCategories) "];
-      v65[0] = MEMORY[0x277D85DD0];
-      v65[1] = 3221225472;
-      v65[2] = __62__PPLocationStorage_iterLocationRecordsWithQuery_error_block___block_invoke_6;
-      v65[3] = &unk_278978CF8;
-      v66 = matchingCategories;
-      v29 = _Block_copy(v65);
+      v64[0] = MEMORY[0x277D85DD0];
+      v64[1] = 3221225472;
+      v64[2] = __62__PPLocationStorage_iterLocationRecordsWithQuery_error_block___block_invoke_6;
+      v64[3] = &unk_278978CF8;
+      v65 = matchingCategories;
+      v29 = _Block_copy(v64);
       [v10 addObject:v29];
     }
 
@@ -891,12 +888,12 @@ void __49__PPLocationStorage_clearWithError_deletedCount___block_invoke(uint64_t
     if ([matchingAlgorithms count])
     {
       [v9 appendString:@"AND loc.algorithm IN _pas_nsset(:matchingAlgorithms) "];
-      v63[0] = MEMORY[0x277D85DD0];
-      v63[1] = 3221225472;
-      v63[2] = __62__PPLocationStorage_iterLocationRecordsWithQuery_error_block___block_invoke_7;
-      v63[3] = &unk_278978CF8;
-      v64 = matchingAlgorithms;
-      v31 = _Block_copy(v63);
+      v62[0] = MEMORY[0x277D85DD0];
+      v62[1] = 3221225472;
+      v62[2] = __62__PPLocationStorage_iterLocationRecordsWithQuery_error_block___block_invoke_7;
+      v62[3] = &unk_278978CF8;
+      v63 = matchingAlgorithms;
+      v31 = _Block_copy(v62);
       [v10 addObject:v31];
     }
 
@@ -904,12 +901,12 @@ void __49__PPLocationStorage_clearWithError_deletedCount___block_invoke(uint64_t
     if ([excludingAlgorithms count])
     {
       [v9 appendString:@"AND loc.algorithm NOT IN _pas_nsset(:excludingAlgorithms) "];
-      v61[0] = MEMORY[0x277D85DD0];
-      v61[1] = 3221225472;
-      v61[2] = __62__PPLocationStorage_iterLocationRecordsWithQuery_error_block___block_invoke_8;
-      v61[3] = &unk_278978CF8;
-      v62 = excludingAlgorithms;
-      v33 = _Block_copy(v61);
+      v60[0] = MEMORY[0x277D85DD0];
+      v60[1] = 3221225472;
+      v60[2] = __62__PPLocationStorage_iterLocationRecordsWithQuery_error_block___block_invoke_8;
+      v60[3] = &unk_278978CF8;
+      v61 = excludingAlgorithms;
+      v33 = _Block_copy(v60);
       [v10 addObject:v33];
     }
 
@@ -918,12 +915,12 @@ void __49__PPLocationStorage_clearWithError_deletedCount___block_invoke(uint64_t
     if (fuzzyMatchingString)
     {
       [v9 appendString:@"AND loc.lc_description || loc.clp_locality || loc.clp_administrativeArea LIKE :fuzzyString "];
-      v59[0] = MEMORY[0x277D85DD0];
-      v59[1] = 3221225472;
-      v59[2] = __62__PPLocationStorage_iterLocationRecordsWithQuery_error_block___block_invoke_9;
-      v59[3] = &unk_278978CF8;
-      v60 = queryCopy;
-      v35 = _Block_copy(v59);
+      v58[0] = MEMORY[0x277D85DD0];
+      v58[1] = 3221225472;
+      v58[2] = __62__PPLocationStorage_iterLocationRecordsWithQuery_error_block___block_invoke_9;
+      v58[3] = &unk_278978CF8;
+      v59 = queryCopy;
+      v35 = _Block_copy(v58);
       [v10 addObject:v35];
     }
 
@@ -938,51 +935,50 @@ void __49__PPLocationStorage_clearWithError_deletedCount___block_invoke(uint64_t
     }
 
     [v9 appendString:v36];
-    v53 = 0;
-    v54 = &v53;
-    v55 = 0x3032000000;
-    v56 = __Block_byref_object_copy__24528;
-    v57 = __Block_byref_object_dispose__24529;
-    v58 = 0;
+    v52 = 0;
+    v53 = &v52;
+    v54 = 0x3032000000;
+    v55 = __Block_byref_object_copy__24528;
+    v56 = __Block_byref_object_dispose__24529;
+    v57 = 0;
     db = self->_db;
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __62__PPLocationStorage_iterLocationRecordsWithQuery_error_block___block_invoke_191;
-    v46[3] = &unk_278978D68;
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __62__PPLocationStorage_iterLocationRecordsWithQuery_error_block___block_invoke_191;
+    v45[3] = &unk_278978D68;
     v38 = v9;
-    v47 = v38;
+    v46 = v38;
     v39 = v10;
-    v48 = v39;
+    v47 = v39;
     selfCopy = self;
-    v52 = &v53;
-    v51 = blockCopy;
-    v50 = queryCopy;
-    [(PPSQLDatabase *)db readTransactionWithClient:5 block:v46];
-    if (v54[5])
+    v51 = &v52;
+    v50 = blockCopy;
+    v49 = queryCopy;
+    [(PPSQLDatabase *)db readTransactionWithClient:5 block:v45];
+    if (v53[5])
     {
       v40 = pp_default_log_handle();
       if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
       {
-        v44 = [v54[5] count];
+        v43 = [v53[5] count];
         *buf = 134217984;
-        v76 = v44;
+        v75 = v43;
         _os_log_fault_impl(&dword_23224A000, v40, OS_LOG_TYPE_FAULT, "iterLocationRecordsWithQuery encountered %tu sources which did not validate; deleting associated location records now.", buf, 0xCu);
       }
 
       v41 = self->_db;
-      v45[0] = MEMORY[0x277D85DD0];
-      v45[1] = 3221225472;
-      v45[2] = __62__PPLocationStorage_iterLocationRecordsWithQuery_error_block___block_invoke_210;
-      v45[3] = &unk_278978DE0;
-      v45[4] = self;
-      v45[5] = &v53;
-      [(PPSQLDatabase *)v41 writeTransactionWithClient:5 block:v45];
+      v44[0] = MEMORY[0x277D85DD0];
+      v44[1] = 3221225472;
+      v44[2] = __62__PPLocationStorage_iterLocationRecordsWithQuery_error_block___block_invoke_210;
+      v44[3] = &unk_278978DE0;
+      v44[4] = self;
+      v44[5] = &v52;
+      [(PPSQLDatabase *)v41 writeTransactionWithClient:5 block:v44];
     }
 
-    _Block_object_dispose(&v53, 8);
+    _Block_object_dispose(&v52, 8);
   }
 
-  v42 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1068,50 +1064,48 @@ void __62__PPLocationStorage_iterLocationRecordsWithQuery_error_block___block_in
 
 void __62__PPLocationStorage_iterLocationRecordsWithQuery_error_block___block_invoke_2_192(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(*(*(&v10 + 1) + 8 * v8) + 16))(*(*(&v10 + 1) + 8 * v8));
+        (*(*(*(&v9 + 1) + 8 * v8) + 16))(*(*(&v9 + 1) + 8 * v8));
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __62__PPLocationStorage_iterLocationRecordsWithQuery_error_block___block_invoke_3_193(uint64_t a1, void *a2)
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v6 = *(a1 + 32);
   v5 = *(a1 + 40);
-  v62 = a1;
+  v60 = a1;
   v7 = v3;
   v8 = v7;
   if (!v6)
@@ -1123,15 +1117,15 @@ LABEL_55:
     goto LABEL_56;
   }
 
-  v61 = v6;
+  v59 = v6;
   v9 = v5;
   v10 = [v8 getNSDataForColumnName:"clp_location" table:"loc_records"];
-  v66 = v4;
+  v64 = v4;
   if (v10)
   {
-    v72 = 0;
-    v11 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v10 error:&v72];
-    v12 = v72;
+    v70 = 0;
+    v11 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v10 error:&v70];
+    v12 = v70;
     if (!v11)
     {
       v13 = pp_locations_log_handle();
@@ -1143,23 +1137,23 @@ LABEL_55:
       }
     }
 
-    v65 = v11;
+    v63 = v11;
   }
 
   else
   {
-    v65 = 0;
+    v63 = 0;
   }
 
-  v64 = [v8 getNSStringForColumnName:"clp_name" table:"loc_records"];
-  v71 = [v8 getNSStringForColumnName:"clp_thoroughfare" table:"loc_records"];
-  v70 = [v8 getNSStringForColumnName:"clp_subThoroughfare" table:"loc_records"];
-  v69 = [v8 getNSStringForColumnName:"clp_locality" table:"loc_records"];
-  v63 = [v8 getNSStringForColumnName:"clp_subLocality" table:"loc_records"];
+  v62 = [v8 getNSStringForColumnName:"clp_name" table:"loc_records"];
+  v69 = [v8 getNSStringForColumnName:"clp_thoroughfare" table:"loc_records"];
+  v68 = [v8 getNSStringForColumnName:"clp_subThoroughfare" table:"loc_records"];
+  v67 = [v8 getNSStringForColumnName:"clp_locality" table:"loc_records"];
+  v61 = [v8 getNSStringForColumnName:"clp_subLocality" table:"loc_records"];
   v14 = [v8 getNSStringForColumnName:"clp_administrativeArea" table:"loc_records"];
   v15 = [v8 getNSStringForColumnName:"clp_subAdministrativeArea" table:"loc_records"];
-  v68 = [v8 getNSStringForColumnName:"clp_postalCode" table:"loc_records"];
-  v67 = [v8 getNSStringForColumnName:"clp_ISOcountryCode" table:"loc_records"];
+  v66 = [v8 getNSStringForColumnName:"clp_postalCode" table:"loc_records"];
+  v65 = [v8 getNSStringForColumnName:"clp_ISOcountryCode" table:"loc_records"];
   v16 = [v8 getNSStringForColumnName:"clp_country" table:"loc_records"];
   v17 = [v8 getNSStringForColumnName:"clp_inlandWater" table:"loc_records"];
   v18 = [v8 getNSStringForColumnName:"clp_ocean" table:"loc_records"];
@@ -1170,21 +1164,21 @@ LABEL_55:
 
   *&buf = MEMORY[0x277D85DD0];
   *(&buf + 1) = 3221225472;
-  v79 = __68__PPLocationStorage__areasOfInterestForLocationRecordId_txnWitness___block_invoke;
-  v80 = &__block_descriptor_40_e29_v16__0___PASSqliteStatement_8l;
-  v81 = v19;
-  v73 = MEMORY[0x277D85DD0];
-  v74 = 3221225472;
-  v75 = __68__PPLocationStorage__areasOfInterestForLocationRecordId_txnWitness___block_invoke_2;
-  v76 = &unk_278978DB8;
-  v77 = v21;
+  v77 = __68__PPLocationStorage__areasOfInterestForLocationRecordId_txnWitness___block_invoke;
+  v78 = &__block_descriptor_40_e29_v16__0___PASSqliteStatement_8l;
+  v79 = v19;
+  v71 = MEMORY[0x277D85DD0];
+  v72 = 3221225472;
+  v73 = __68__PPLocationStorage__areasOfInterestForLocationRecordId_txnWitness___block_invoke_2;
+  v74 = &unk_278978DB8;
+  v75 = v21;
   v23 = v21;
-  [v22 prepAndRunQuery:@"SELECT name FROM loc_records_clp_areasOfInterest WHERE loc_id = :locId" onPrep:&buf onRow:&v73 onError:0];
+  [v22 prepAndRunQuery:@"SELECT name FROM loc_records_clp_areasOfInterest WHERE loc_id = :locId" onPrep:&buf onRow:&v71 onError:0];
 
   v24 = v14;
-  if (!v65 && ![v64 length] && !objc_msgSend(v71, "length") && !objc_msgSend(v70, "length") && !objc_msgSend(v69, "length") && !objc_msgSend(v63, "length") && !objc_msgSend(v14, "length") && !objc_msgSend(v15, "length") && !objc_msgSend(v68, "length") && !objc_msgSend(v67, "length") && !objc_msgSend(v16, "length") && !objc_msgSend(v17, "length") && !objc_msgSend(v18, "length") || (objc_msgSend(MEMORY[0x277D3A3F8], "placemarkWithLocation:name:thoroughfare:subthoroughFare:locality:subLocality:administrativeArea:subAdministrativeArea:postalCode:countryCode:country:inlandWater:ocean:areasOfInterest:", v65, v64, v71, v70, v69, v63, v14, v15, v68, v67, v16, v17, v18, 0), (v25 = objc_claimAutoreleasedReturnValue()) == 0))
+  if (!v63 && ![v62 length] && !objc_msgSend(v69, "length") && !objc_msgSend(v68, "length") && !objc_msgSend(v67, "length") && !objc_msgSend(v61, "length") && !objc_msgSend(v14, "length") && !objc_msgSend(v15, "length") && !objc_msgSend(v66, "length") && !objc_msgSend(v65, "length") && !objc_msgSend(v16, "length") && !objc_msgSend(v17, "length") && !objc_msgSend(v18, "length") || (objc_msgSend(MEMORY[0x277D3A3F8], "placemarkWithLocation:name:thoroughfare:subthoroughFare:locality:subLocality:administrativeArea:subAdministrativeArea:postalCode:countryCode:country:inlandWater:ocean:areasOfInterest:", v63, v62, v69, v68, v67, v61, v14, v15, v66, v65, v16, v17, v18, 0), (v25 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    v26 = [*(v61 + 32) uuidForStatement:v8 columnName:"uuid" tableName:"loc_records"];
+    v26 = [*(v59 + 32) uuidForStatement:v8 columnName:"uuid" tableName:"loc_records"];
     v27 = pp_locations_log_handle();
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
@@ -1197,7 +1191,7 @@ LABEL_55:
     v24 = v14;
   }
 
-  v4 = v66;
+  v4 = v64;
   if (!v25)
   {
     goto LABEL_55;
@@ -1211,11 +1205,11 @@ LABEL_55:
     goto LABEL_55;
   }
 
-  v30 = [*(*(v62 + 32) + 40) createSourceWithStatement:v8 txnWitness:*(v62 + 40)];
+  v30 = [*(*(v60 + 32) + 40) createSourceWithStatement:v8 txnWitness:*(v60 + 40)];
   if (v30)
   {
     v31 = objc_opt_new();
-    v32 = [*(*(v62 + 32) + 32) uuidForStatement:v8 columnName:"uuid" tableName:"loc_records"];
+    v32 = [*(*(v60 + 32) + 32) uuidForStatement:v8 columnName:"uuid" tableName:"loc_records"];
     [v31 setUuid:v32];
 
     [v31 setLocation:v29];
@@ -1263,25 +1257,25 @@ LABEL_55:
 
     [v31 setExtractionAssetVersion:v37];
     v45 = [v8 getInt64ForColumnName:"id" table:"loc_records"];
-    if (*(v62 + 32))
+    if (*(v60 + 32))
     {
       v46 = v45;
-      v47 = *(v62 + 40);
+      v47 = *(v60 + 40);
       v48 = objc_opt_new();
       v49 = [v47 db];
 
       *&buf = MEMORY[0x277D85DD0];
       *(&buf + 1) = 3221225472;
-      v79 = __76__PPLocationStorage__contextualNamedEntitiesForLocationRecordId_txnWitness___block_invoke;
-      v80 = &__block_descriptor_40_e29_v16__0___PASSqliteStatement_8l;
-      v81 = v46;
-      v73 = MEMORY[0x277D85DD0];
-      v74 = 3221225472;
-      v75 = __76__PPLocationStorage__contextualNamedEntitiesForLocationRecordId_txnWitness___block_invoke_2;
-      v76 = &unk_278978DB8;
-      v77 = v48;
+      v77 = __76__PPLocationStorage__contextualNamedEntitiesForLocationRecordId_txnWitness___block_invoke;
+      v78 = &__block_descriptor_40_e29_v16__0___PASSqliteStatement_8l;
+      v79 = v46;
+      v71 = MEMORY[0x277D85DD0];
+      v72 = 3221225472;
+      v73 = __76__PPLocationStorage__contextualNamedEntitiesForLocationRecordId_txnWitness___block_invoke_2;
+      v74 = &unk_278978DB8;
+      v75 = v48;
       v50 = v48;
-      [v49 prepAndRunQuery:@"SELECT name FROM loc_records_contextual_ne WHERE loc_id = :locId" onPrep:&buf onRow:&v73 onError:0];
+      [v49 prepAndRunQuery:@"SELECT name FROM loc_records_contextual_ne WHERE loc_id = :locId" onPrep:&buf onRow:&v71 onError:0];
 
       if ([v50 count])
       {
@@ -1304,21 +1298,20 @@ LABEL_55:
     [v31 setContextualNamedEntities:v52];
 
     LOBYTE(buf) = 0;
-    v53 = *(v62 + 56);
+    v53 = *(v60 + 56);
     v54 = [v31 copy];
     (*(v53 + 16))(v53, v54, &buf);
 
-    v55 = ++*(*(*(v62 + 72) + 8) + 24);
-    v56 = [*(v62 + 48) limit];
-    v57 = *MEMORY[0x277D42698];
+    v55 = ++*(*(*(v60 + 72) + 8) + 24);
+    v56 = [*(v60 + 48) limit];
     if (buf)
     {
-      v58 = *MEMORY[0x277D42698];
+      v57 = *MEMORY[0x277D42698];
     }
 
     else
     {
-      v58 = *MEMORY[0x277D42690];
+      v57 = *MEMORY[0x277D42690];
     }
 
     if (v55 >= v56)
@@ -1328,22 +1321,22 @@ LABEL_55:
 
     else
     {
-      v44 = v58;
+      v44 = v57;
     }
   }
 
   else
   {
-    if (!*(*(*(v62 + 64) + 8) + 40))
+    if (!*(*(*(v60 + 64) + 8) + 40))
     {
       v38 = objc_opt_new();
-      v39 = *(*(v62 + 64) + 8);
+      v39 = *(*(v60 + 64) + 8);
       v40 = *(v39 + 40);
       *(v39 + 40) = v38;
     }
 
     v41 = [v8 getInt64ForColumnName:"id" table:"sources"];
-    v42 = *(*(*(v62 + 64) + 8) + 40);
+    v42 = *(*(*(v60 + 64) + 8) + 40);
     v43 = [MEMORY[0x277CCABB0] numberWithLongLong:v41];
     [v42 addObject:v43];
 
@@ -1353,7 +1346,6 @@ LABEL_55:
 LABEL_56:
   objc_autoreleasePoolPop(v4);
 
-  v59 = *MEMORY[0x277D85DE8];
   return v44;
 }
 
@@ -1393,6 +1385,57 @@ uint64_t __68__PPLocationStorage__areasOfInterestForLocationRecordId_txnWitness_
 
   v9 = [(PPLocationStorage *)self initWithDatabase:databaseCopy maxRecords:1000 dkStorage:0 loadEmptyDatabaseFromDK:0 trialWrapper:v8];
   return v9;
+}
+
+- (PPLocationStorage)initWithDatabase:(id)database maxRecords:(unsigned int)records dkStorage:(id)storage loadEmptyDatabaseFromDK:(BOOL)k trialWrapper:(id)wrapper
+{
+  v9 = *&records;
+  databaseCopy = database;
+  storageCopy = storage;
+  wrapperCopy = wrapper;
+  if (databaseCopy)
+  {
+    if (!storageCopy)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"PPLocationStorage.m" lineNumber:63 description:{@"Invalid parameter not satisfying: %@", @"database"}];
+
+    if (!storageCopy)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler2 handleFailureInMethod:a2 object:self file:@"PPLocationStorage.m" lineNumber:64 description:@"_DK sync not yet supported for this store"];
+
+LABEL_3:
+  v25.receiver = self;
+  v25.super_class = PPLocationStorage;
+  v16 = [(PPLocationStorage *)&v25 init];
+  v17 = v16;
+  if (v16)
+  {
+    objc_storeStrong(&v16->_db, database);
+    objc_storeStrong(&v17->_dkStorage, storage);
+    v18 = [[PPSourceStorage alloc] initWithDatabase:v17->_db];
+    sourceStorage = v17->_sourceStorage;
+    v17->_sourceStorage = v18;
+
+    v20 = [[PPRecordStorageHelper alloc] initWithName:@"Location" table:@"loc_records" clusterIdentifierColumn:@"lc_description" maxRecords:v9 duetStorage:v17->_dkStorage duetStream:0 sourceStorage:v17->_sourceStorage];
+    storageHelper = v17->_storageHelper;
+    v17->_storageHelper = v20;
+
+    objc_storeStrong(&v17->_trialWrapper, wrapper);
+  }
+
+  return v17;
 }
 
 @end

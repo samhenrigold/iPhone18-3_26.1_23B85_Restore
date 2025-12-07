@@ -60,7 +60,7 @@
 
 - (void)_evaluateCurrentStateEvent
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDUserActivityStateDetector *)self dataSource];
   queue = [dataSource queue];
   dispatch_assert_queue_V2(queue);
@@ -74,11 +74,11 @@
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v47 = 138543618;
-    v48 = v10;
-    v49 = 2112;
-    v50 = currentStateEvent;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@State has updated %@", &v47, 0x16u);
+    v46 = 138543618;
+    v47 = v10;
+    v48 = 2112;
+    v49 = currentStateEvent;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@State has updated %@", &v46, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -106,11 +106,11 @@
           {
             v31 = HMFGetLogIdentifier();
             previousStateEvent4 = [(HMDUserActivityType6Detector *)v29 previousStateEvent];
-            v47 = 138543618;
-            v48 = v31;
-            v49 = 2112;
-            v50 = previousStateEvent4;
-            _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@State has not changed, not sending report %@", &v47, 0x16u);
+            v46 = 138543618;
+            v47 = v31;
+            v48 = 2112;
+            v49 = previousStateEvent4;
+            _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@State has not changed, not sending report %@", &v46, 0x16u);
           }
 
           v33 = v28;
@@ -133,9 +133,9 @@
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = HMFGetLogIdentifier();
-    v47 = 138543362;
-    v48 = v14;
-    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@State suppressed to not coming home", &v47, 0xCu);
+    v46 = 138543362;
+    v47 = v14;
+    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@State suppressed to not coming home", &v46, 0xCu);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -155,11 +155,11 @@
       {
         v37 = HMFGetLogIdentifier();
         previousStateEvent7 = [(HMDUserActivityType6Detector *)v35 previousStateEvent];
-        v47 = 138543618;
-        v48 = v37;
-        v49 = 2112;
-        v50 = previousStateEvent7;
-        _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_INFO, "%{public}@State has not changed, not sending report %@", &v47, 0x16u);
+        v46 = 138543618;
+        v47 = v37;
+        v48 = 2112;
+        v49 = previousStateEvent7;
+        _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_INFO, "%{public}@State has not changed, not sending report %@", &v46, 0x16u);
       }
 
       v33 = v34;
@@ -193,13 +193,11 @@ LABEL_22:
     previousStateEvent8 = [(HMDUserActivityType6Detector *)selfCopy previousStateEvent];
     -[HMDUserActivityType6Detector updateLatestReportWithReason:](selfCopy, "updateLatestReportWithReason:", [previousStateEvent8 reason]);
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldSuppressCurrentStateEvent:(id)event
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   dataSource = [(HMDUserActivityStateDetector *)self dataSource];
   queue = [dataSource queue];
@@ -244,31 +242,20 @@ LABEL_4:
   {
     v24 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v50 = v24;
-    v51 = 2048;
-    v52 = v11;
-    v53 = 2048;
-    v54 = v16;
+    v49 = v24;
+    v50 = 2048;
+    v51 = v11;
+    v52 = 2048;
+    v53 = v16;
     _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@ETA is not within required range %lf sec (> %lf sec), suppressing report", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v21);
   reportSuppressionTimerPreviousStateEnd = [(HMDUserActivityType6Detector *)selfCopy reportSuppressionTimerPreviousStateEnd];
-  if (!reportSuppressionTimerPreviousStateEnd)
+  if (!reportSuppressionTimerPreviousStateEnd || (v26 = reportSuppressionTimerPreviousStateEnd, -[HMDUserActivityType6Detector reportSuppressionTimerPreviousStateEnd](selfCopy, "reportSuppressionTimerPreviousStateEnd"), v27 = objc_claimAutoreleasedReturnValue(), [eventCopy stateEnd], v28 = objc_claimAutoreleasedReturnValue(), v29 = HMFEqualObjects(), v28, v27, v26, (v29 & 1) == 0))
   {
-    goto LABEL_9;
-  }
-
-  v26 = reportSuppressionTimerPreviousStateEnd;
-  reportSuppressionTimerPreviousStateEnd2 = [(HMDUserActivityType6Detector *)selfCopy reportSuppressionTimerPreviousStateEnd];
-  stateEnd2 = [eventCopy stateEnd];
-  v29 = HMFEqualObjects();
-
-  if ((v29 & 1) == 0)
-  {
-LABEL_9:
-    stateEnd3 = [eventCopy stateEnd];
-    [(HMDUserActivityType6Detector *)selfCopy setReportSuppressionTimerPreviousStateEnd:stateEnd3];
+    stateEnd2 = [eventCopy stateEnd];
+    [(HMDUserActivityType6Detector *)selfCopy setReportSuppressionTimerPreviousStateEnd:stateEnd2];
 
     v31 = [currentDate dateByAddingTimeInterval:v11 - v16];
     v32 = objc_autoreleasePoolPush();
@@ -279,9 +266,9 @@ LABEL_9:
       v35 = HMFGetLogIdentifier();
       hmf_localTimeDescription = [v31 hmf_localTimeDescription];
       *buf = 138543618;
-      v50 = v35;
-      v51 = 2112;
-      v52 = *&hmf_localTimeDescription;
+      v49 = v35;
+      v50 = 2112;
+      v51 = *&hmf_localTimeDescription;
       _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_INFO, "%{public}@Scheduling coming home report suppression timer firing at %@", buf, 0x16u);
     }
 
@@ -289,9 +276,9 @@ LABEL_9:
     dataSource4 = [(HMDUserActivityStateDetector *)v33 dataSource];
     backgroundTaskManager2 = [dataSource4 backgroundTaskManager];
     reportSuppressedTimerIdentifier2 = [(HMDUserActivityType6Detector *)v33 reportSuppressedTimerIdentifier];
-    v48 = 0;
-    v40 = [backgroundTaskManager2 scheduleTaskWithIdentifier:reportSuppressedTimerIdentifier2 fireDate:v31 onObserver:v33 selector:sel_handleBackgroundTaskTimerFired_ error:&v48];
-    v41 = v48;
+    v47 = 0;
+    v40 = [backgroundTaskManager2 scheduleTaskWithIdentifier:reportSuppressedTimerIdentifier2 fireDate:v31 onObserver:v33 selector:sel_handleBackgroundTaskTimerFired_ error:&v47];
+    v41 = v47;
 
     if ((v40 & 1) == 0)
     {
@@ -302,9 +289,9 @@ LABEL_9:
       {
         v45 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v50 = v45;
-        v51 = 2112;
-        v52 = *&v41;
+        v49 = v45;
+        v50 = 2112;
+        v51 = *&v41;
         _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_ERROR, "%{public}@Failed to schedule coming home report suppression timer with error: %@", buf, 0x16u);
       }
 
@@ -315,13 +302,12 @@ LABEL_9:
   v20 = 1;
 LABEL_17:
 
-  v46 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (void)updateLatestReportWithReason:(unint64_t)reason
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDUserActivityStateDetector *)self dataSource];
   queue = [dataSource queue];
   dispatch_assert_queue_V2(queue);
@@ -345,13 +331,13 @@ LABEL_17:
         if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           v15 = HMFGetLogIdentifier();
-          v28 = 138543362;
-          v29 = v15;
+          v27 = 138543362;
+          v28 = v15;
           v16 = "%{public}@Not sending report because Coming Home ETA is not known yet.";
           v17 = v14;
           v18 = OS_LOG_TYPE_INFO;
 LABEL_8:
-          _os_log_impl(&dword_229538000, v17, v18, v16, &v28, 0xCu);
+          _os_log_impl(&dword_229538000, v17, v18, v16, &v27, 0xCu);
 
           goto LABEL_9;
         }
@@ -385,8 +371,8 @@ LABEL_8:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     v15 = HMFGetLogIdentifier();
-    v28 = 138543362;
-    v29 = v15;
+    v27 = 138543362;
+    v28 = v15;
     v16 = "%{public}@Home is nil, unable to send the coming home report to primary";
     v17 = v14;
     v18 = OS_LOG_TYPE_ERROR;
@@ -397,13 +383,11 @@ LABEL_9:
 
   objc_autoreleasePoolPop(v12);
 LABEL_12:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithCompletion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   dataSource = [(HMDUserActivityStateDetector *)self dataSource];
   queue = [dataSource queue];
@@ -415,9 +399,9 @@ LABEL_12:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v24 = 138543362;
-    v25 = v10;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Configuring ComingHomeDetector", &v24, 0xCu);
+    v23 = 138543362;
+    v24 = v10;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Configuring ComingHomeDetector", &v23, 0xCu);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -438,11 +422,11 @@ LABEL_12:
     v18 = MEMORY[0x277CCABB0];
     previousStateEvent = [(HMDUserActivityType6Detector *)v15 previousStateEvent];
     v20 = [v18 numberWithUnsignedInteger:{objc_msgSend(previousStateEvent, "state")}];
-    v24 = 138543618;
-    v25 = v17;
-    v26 = 2112;
-    v27 = v20;
-    _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Configured ComingHomeDetector with initial state %@", &v24, 0x16u);
+    v23 = 138543618;
+    v24 = v17;
+    v25 = 2112;
+    v26 = v20;
+    _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Configured ComingHomeDetector with initial state %@", &v23, 0x16u);
   }
 
   objc_autoreleasePoolPop(v14);
@@ -452,18 +436,16 @@ LABEL_12:
   {
     (*(v21 + 2))(v21);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDUserActivityType6Detector)initWithDataSource:(id)source locationManager:(id)manager
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   managerCopy = manager;
-  v26.receiver = self;
-  v26.super_class = HMDUserActivityType6Detector;
-  v8 = [(HMDUserActivityStateDetector *)&v26 initWithDataSource:sourceCopy];
+  v25.receiver = self;
+  v25.super_class = HMDUserActivityType6Detector;
+  v8 = [(HMDUserActivityStateDetector *)&v25 initWithDataSource:sourceCopy];
   if (v8)
   {
     home = [sourceCopy home];
@@ -479,7 +461,7 @@ LABEL_12:
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v28 = v15;
+        v27 = v15;
         _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Initializing ComingHomeDetector with CoreRoutine Tracker", buf, 0xCu);
       }
 
@@ -507,7 +489,6 @@ LABEL_12:
     v23 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -534,10 +515,9 @@ LABEL_12:
 
 void __43__HMDUserActivityType6Detector_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v14_161907;
-  logCategory__hmf_once_v14_161907 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v14_161907;
+  logCategory__hmf_once_v14_161907 = v0;
 }
 
 + (BOOL)supportsDataSource:(id)source

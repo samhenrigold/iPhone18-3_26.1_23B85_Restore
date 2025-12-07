@@ -17,17 +17,17 @@
 - (BOOL)hf_isValidObject
 {
   accessory = [self accessory];
-  home = [accessory home];
+  v3 = objc_msgSend_home(accessory);
 
-  if (!home)
+  if (!v3)
   {
     return 0;
   }
 
   uniqueIdentifier = [self uniqueIdentifier];
   accessory2 = [self accessory];
-  home2 = [accessory2 home];
-  v7 = [home2 hf_serviceWithIdentifier:uniqueIdentifier];
+  v6 = objc_msgSend_home(accessory2);
+  v7 = [v6 hf_serviceWithIdentifier:uniqueIdentifier];
   v8 = v7 != 0;
 
   return v8;
@@ -36,9 +36,9 @@
 - (id)home
 {
   accessory = [self accessory];
-  home = [accessory home];
+  v2 = objc_msgSend_home(accessory);
 
-  return home;
+  return v2;
 }
 
 @end

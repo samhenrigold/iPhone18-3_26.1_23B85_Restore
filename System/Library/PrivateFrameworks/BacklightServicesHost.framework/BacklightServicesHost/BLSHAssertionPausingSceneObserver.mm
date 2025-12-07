@@ -39,7 +39,7 @@
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        [BLSHAssertionPausingSceneObserver initForAttribute:v7 fromAssertion:sel_initForAttribute_fromAssertion_forService_ forService:?];
+        [BLSHAssertionPausingSceneObserver initForAttribute:v7 fromAssertion:sel_initForAttribute_fromAssertion_forService_ forService:self];
       }
 
       objc_storeWeak(self + 5, v7);
@@ -112,18 +112,16 @@ void __79__BLSHAssertionPausingSceneObserver_initForAttribute_fromAssertion_forS
 
 - (void)sceneDidInvalidate:(id)invalidate
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_service);
   v5 = objc_loadWeakRetained(&self->_assertion);
   v6 = MEMORY[0x277CCA9B8];
   v7 = *MEMORY[0x277CF0828];
-  v11 = *MEMORY[0x277CCA450];
-  v12[0] = @"scene invalidated";
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = *MEMORY[0x277CCA450];
+  v11[0] = @"scene invalidated";
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v9 = [v6 errorWithDomain:v7 code:20 userInfo:v8];
   [WeakRetained cancelAssertion:v5 withError:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BLSAssertionServiceResponding)assertion
@@ -149,7 +147,7 @@ void __79__BLSHAssertionPausingSceneObserver_initForAttribute_fromAssertion_forS
 
 - (void)updateAssertionPauseStateForScene:(uint64_t)scene
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (scene)
@@ -167,19 +165,19 @@ void __79__BLSHAssertionPausingSceneObserver_initForAttribute_fromAssertion_forS
     {
       identifier = [v4 identifier];
       settings2 = [v4 settings];
-      v17 = 134219266;
+      v16 = 134219266;
       sceneCopy = scene;
-      v19 = 1024;
-      v20 = v9;
-      v21 = 1024;
-      v22 = v10 != v8;
-      v23 = 1024;
-      v24 = v8;
-      v25 = 2114;
-      v26 = identifier;
-      v27 = 2114;
-      v28 = settings2;
-      _os_log_debug_impl(&dword_21FD11000, v11, OS_LOG_TYPE_DEBUG, "%p invalidated:%{BOOL}u needUpdate:%{BOOL}u shouldBePaused:%{BOOL}u for scene:%{public}@ settings:%{public}@", &v17, 0x32u);
+      v18 = 1024;
+      v19 = v9;
+      v20 = 1024;
+      v21 = v10 != v8;
+      v22 = 1024;
+      v23 = v8;
+      v24 = 2114;
+      v25 = identifier;
+      v26 = 2114;
+      v27 = settings2;
+      _os_log_debug_impl(&dword_21FD11000, v11, OS_LOG_TYPE_DEBUG, "%p invalidated:%{BOOL}u needUpdate:%{BOOL}u shouldBePaused:%{BOOL}u for scene:%{public}@ settings:%{public}@", &v16, 0x32u);
     }
 
     *(scene + 21) = v8;
@@ -199,28 +197,26 @@ void __79__BLSHAssertionPausingSceneObserver_initForAttribute_fromAssertion_forS
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-- (void)initForAttribute:(uint64_t)a1 fromAssertion:(const char *)a2 forService:.cold.1(uint64_t a1, const char *a2)
+- (void)initForAttribute:(uint64_t)a1 fromAssertion:(const char *)a2 forService:(uint64_t)a3 .cold.1(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"BLSPauseWhenSceneBackgroundAttribute not class for %@", a1];
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"BLSPauseWhenSceneBackgroundAttribute not class for %@", a1];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v4 = NSStringFromSelector(a2);
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
+    v5 = NSStringFromSelector(a2);
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_0_0();
-    v9 = @"BLSHPauseWhenSceneBackgroundAttributeHandler.m";
-    v10 = 1024;
-    v11 = 64;
-    v12 = v7;
-    v13 = v3;
+    v10 = @"BLSHPauseWhenSceneBackgroundAttributeHandler.m";
+    v11 = 1024;
+    v12 = 64;
+    v13 = v8;
+    v14 = v4;
     _os_log_error_impl(&dword_21FD11000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v3 UTF8String];
+  [v4 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

@@ -8,6 +8,7 @@
 - (BOOL)acknowledgeSystemTaskLaunchWithIdentifier:(id)identifier error:(id *)error;
 - (BOOL)deferActivities:(id)activities;
 - (BOOL)deleteLimitForActivity:(id)activity forLimiterWithName:(id)name;
+- (BOOL)enableTaskRegistryMode:(BOOL)mode processes:(id)processes;
 - (BOOL)evaluateAllActivitiesWithHandle:(id)handle;
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
 - (BOOL)reportCustomCheckpoint:(unint64_t)checkpoint forTask:(id)task error:(id *)error;
@@ -55,6 +56,7 @@
 - (id)policies;
 - (id)queryDependenciesOfTaskIdentifier:(id)identifier;
 - (id)queryStatusOfResultIdentifier:(id)identifier;
+- (id)resetFastPassActivities:(id)activities resetAll:(BOOL)all;
 - (id)runProceedableActivities:(id)activities;
 - (id)runningActivities;
 - (id)runningGroupActivities;
@@ -78,6 +80,7 @@
 - (void)cancelTaskRequestWithIdentifier:(id)identifier;
 - (void)clientFailedtoExpireTaskWithIdentifier:(id)identifier;
 - (void)completeSystemTaskWithIdentifier:(id)identifier;
+- (void)completeTaskRequest:(id)request withSuccess:(BOOL)success;
 - (void)connectToDaemon:(BOOL)daemon;
 - (void)continuedProcessingDeviceCapabilities:(id)capabilities;
 - (void)createActivityGroup:(id)group;
@@ -85,6 +88,7 @@
 - (void)decrementBy:(double)by forBudgetWithName:(id)name;
 - (void)disableAppRefreshForApps:(id)apps;
 - (void)endLaunchWithReason:(id)reason forApp:(id)app;
+- (void)enterTestModeWithParameters:(id)parameters reset:(BOOL)reset;
 - (void)forceResetOfResultIdentifier:(id)identifier;
 - (void)forceRunActivities:(id)activities;
 - (void)getPendingTaskRequestsWithCompletionHandler:(id)handler;
@@ -171,16 +175,16 @@
 
 - (void)unprotectedEstablishDaemonConnectionIfInterrupted
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (self->_interrupted)
   {
     v3 = [objc_opt_class() log];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       interrupted = self->_interrupted;
-      v7[0] = 67109120;
-      v7[1] = interrupted;
-      _os_log_impl(&dword_1B6E2F000, v3, OS_LOG_TYPE_DEFAULT, "Establish daemon connection; interrupted: %d", v7, 8u);
+      v6[0] = 67109120;
+      v6[1] = interrupted;
+      _os_log_impl(&dword_1B6E2F000, v3, OS_LOG_TYPE_DEFAULT, "Establish daemon connection; interrupted: %d", v6, 8u);
     }
 
     [(_DASScheduler *)self setupXPCConnectionWithEndpoint:self->_endpoint];
@@ -194,8 +198,6 @@
       [(_DASScheduler *)self connectToDaemon:1];
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (id)scheduler
@@ -236,7 +238,7 @@
 
 - (void)setupXPCConnectionWithEndpoint:(id)endpoint
 {
-  v137[2] = *MEMORY[0x1E69E9840];
+  v136[2] = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   [(NSXPCConnection *)self->_xpcConnection invalidate];
   v6 = objc_alloc(MEMORY[0x1E696B0B8]);
@@ -256,139 +258,139 @@
   objc_storeStrong(&self->_endpoint, endpoint);
   v9 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F2EE1250];
   v10 = MEMORY[0x1E695DFD8];
-  v137[0] = objc_opt_class();
-  v137[1] = objc_opt_class();
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v137 count:2];
+  v136[0] = objc_opt_class();
+  v136[1] = objc_opt_class();
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v136 count:2];
   v12 = [v10 setWithArray:v11];
   [v9 setClasses:v12 forSelector:sel_submittedActivitiesWithHandler_ argumentIndex:0 ofReply:1];
 
   v13 = MEMORY[0x1E695DFD8];
-  v136[0] = objc_opt_class();
-  v136[1] = objc_opt_class();
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v136 count:2];
+  v135[0] = objc_opt_class();
+  v135[1] = objc_opt_class();
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v135 count:2];
   v15 = [v13 setWithArray:v14];
   [v9 setClasses:v15 forSelector:sel_delayedRunningActivitiesWithHandler_ argumentIndex:0 ofReply:1];
 
   v16 = MEMORY[0x1E695DFD8];
-  v135[0] = objc_opt_class();
-  v135[1] = objc_opt_class();
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v135 count:2];
+  v134[0] = objc_opt_class();
+  v134[1] = objc_opt_class();
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v134 count:2];
   v18 = [v16 setWithArray:v17];
   [v9 setClasses:v18 forSelector:sel_runningActivitiesWithHandler_ argumentIndex:0 ofReply:1];
 
   v19 = MEMORY[0x1E695DFD8];
-  v134[0] = objc_opt_class();
-  v134[1] = objc_opt_class();
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v134 count:2];
+  v133[0] = objc_opt_class();
+  v133[1] = objc_opt_class();
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v133 count:2];
   v21 = [v19 setWithArray:v20];
   [v9 setClasses:v21 forSelector:sel_runningGroupActivitiesWithHandler_ argumentIndex:0 ofReply:1];
 
   v22 = MEMORY[0x1E695DFD8];
-  v133[0] = objc_opt_class();
-  v133[1] = objc_opt_class();
-  v133[2] = objc_opt_class();
-  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v133 count:3];
+  v132[0] = objc_opt_class();
+  v132[1] = objc_opt_class();
+  v132[2] = objc_opt_class();
+  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v132 count:3];
   v24 = [v22 setWithArray:v23];
   [v9 setClasses:v24 forSelector:sel_submitActivity_inGroup_withHandler_ argumentIndex:1 ofReply:1];
 
   v25 = MEMORY[0x1E695DFD8];
-  v132[0] = objc_opt_class();
-  v132[1] = objc_opt_class();
-  v132[2] = objc_opt_class();
-  v132[3] = objc_opt_class();
-  v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v132 count:4];
-  v27 = [v25 setWithArray:v26];
-  [v9 setClasses:v27 forSelector:sel_currentPredictionsWithHandler_ argumentIndex:0 ofReply:1];
-
-  v28 = MEMORY[0x1E695DFD8];
   v131[0] = objc_opt_class();
   v131[1] = objc_opt_class();
   v131[2] = objc_opt_class();
   v131[3] = objc_opt_class();
-  v131[4] = objc_opt_class();
-  v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v131 count:5];
+  v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v131 count:4];
+  v27 = [v25 setWithArray:v26];
+  [v9 setClasses:v27 forSelector:sel_currentPredictionsWithHandler_ argumentIndex:0 ofReply:1];
+
+  v28 = MEMORY[0x1E695DFD8];
+  v130[0] = objc_opt_class();
+  v130[1] = objc_opt_class();
+  v130[2] = objc_opt_class();
+  v130[3] = objc_opt_class();
+  v130[4] = objc_opt_class();
+  v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v130 count:5];
   v30 = [v28 setWithArray:v29];
   [v9 setClasses:v30 forSelector:sel_statisticsWithHandler_ argumentIndex:0 ofReply:1];
 
   v31 = MEMORY[0x1E695DFD8];
-  v130[0] = objc_opt_class();
-  v130[1] = objc_opt_class();
-  v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v130 count:2];
+  v129[0] = objc_opt_class();
+  v129[1] = objc_opt_class();
+  v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v129 count:2];
   v33 = [v31 setWithArray:v32];
   [v9 setClasses:v33 forSelector:sel_submitActivities_ argumentIndex:0 ofReply:0];
 
   v34 = MEMORY[0x1E695DFD8];
-  v129[0] = objc_opt_class();
-  v129[1] = objc_opt_class();
-  v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v129 count:2];
+  v128[0] = objc_opt_class();
+  v128[1] = objc_opt_class();
+  v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v128 count:2];
   v36 = [v34 setWithArray:v35];
   [v9 setClasses:v36 forSelector:sel_startedActivities_ argumentIndex:0 ofReply:0];
 
   v37 = MEMORY[0x1E695DFD8];
-  v128[0] = objc_opt_class();
-  v128[1] = objc_opt_class();
-  v128[2] = objc_opt_class();
-  v128[3] = objc_opt_class();
-  v128[4] = objc_opt_class();
-  v128[5] = objc_opt_class();
-  v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:v128 count:6];
-  v39 = [v37 setWithArray:v38];
-  [v9 setClasses:v39 forSelector:sel_updateSystemConstraintsWithParameters_ argumentIndex:0 ofReply:0];
-
-  v40 = MEMORY[0x1E695DFD8];
   v127[0] = objc_opt_class();
   v127[1] = objc_opt_class();
   v127[2] = objc_opt_class();
   v127[3] = objc_opt_class();
   v127[4] = objc_opt_class();
   v127[5] = objc_opt_class();
-  v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v127 count:6];
+  v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:v127 count:6];
+  v39 = [v37 setWithArray:v38];
+  [v9 setClasses:v39 forSelector:sel_updateSystemConstraintsWithParameters_ argumentIndex:0 ofReply:0];
+
+  v40 = MEMORY[0x1E695DFD8];
+  v126[0] = objc_opt_class();
+  v126[1] = objc_opt_class();
+  v126[2] = objc_opt_class();
+  v126[3] = objc_opt_class();
+  v126[4] = objc_opt_class();
+  v126[5] = objc_opt_class();
+  v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v126 count:6];
   v42 = [v40 setWithArray:v41];
   [v9 setClasses:v42 forSelector:sel_enterTestModeWithParameters_reset_handler_ argumentIndex:0 ofReply:0];
 
   v43 = MEMORY[0x1E695DFD8];
-  v126[0] = objc_opt_class();
-  v126[1] = objc_opt_class();
-  v126[2] = objc_opt_class();
-  v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v126 count:3];
+  v125[0] = objc_opt_class();
+  v125[1] = objc_opt_class();
+  v125[2] = objc_opt_class();
+  v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v125 count:3];
   v45 = [v43 setWithArray:v44];
   [v9 setClasses:v45 forSelector:sel_blockingPoliciesWithParameters_handler_ argumentIndex:0 ofReply:0];
 
   v46 = MEMORY[0x1E695DFD8];
-  v125[0] = objc_opt_class();
-  v125[1] = objc_opt_class();
-  v125[2] = objc_opt_class();
-  v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:v125 count:3];
+  v124[0] = objc_opt_class();
+  v124[1] = objc_opt_class();
+  v124[2] = objc_opt_class();
+  v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:v124 count:3];
   v48 = [v46 setWithArray:v47];
   [v9 setClasses:v48 forSelector:sel_pauseWithParameters_handler_ argumentIndex:0 ofReply:0];
 
   v49 = MEMORY[0x1E695DFD8];
-  v124[0] = objc_opt_class();
-  v124[1] = objc_opt_class();
-  v124[2] = objc_opt_class();
-  v124[3] = objc_opt_class();
-  v50 = [MEMORY[0x1E695DEC8] arrayWithObjects:v124 count:4];
+  v123[0] = objc_opt_class();
+  v123[1] = objc_opt_class();
+  v123[2] = objc_opt_class();
+  v123[3] = objc_opt_class();
+  v50 = [MEMORY[0x1E695DEC8] arrayWithObjects:v123 count:4];
   v51 = [v49 setWithArray:v50];
   [v9 setClasses:v51 forSelector:sel_submitRateLimitConfiguration_handler_ argumentIndex:0 ofReply:0];
 
   v52 = MEMORY[0x1E695DFD8];
-  v123[0] = objc_opt_class();
-  v123[1] = objc_opt_class();
-  v53 = [MEMORY[0x1E695DEC8] arrayWithObjects:v123 count:2];
+  v122[0] = objc_opt_class();
+  v122[1] = objc_opt_class();
+  v53 = [MEMORY[0x1E695DEC8] arrayWithObjects:v122 count:2];
   v54 = [v52 setWithArray:v53];
   [v9 setClasses:v54 forSelector:sel_delayedStartActivities_ argumentIndex:0 ofReply:0];
 
   v55 = MEMORY[0x1E695DFD8];
-  v122[0] = objc_opt_class();
-  v122[1] = objc_opt_class();
-  v56 = [MEMORY[0x1E695DEC8] arrayWithObjects:v122 count:2];
+  v121[0] = objc_opt_class();
+  v121[1] = objc_opt_class();
+  v56 = [MEMORY[0x1E695DEC8] arrayWithObjects:v121 count:2];
   v57 = [v55 setWithArray:v56];
   [v9 setClasses:v57 forSelector:sel_submitActivity_inGroup_withHandler_ argumentIndex:0 ofReply:0];
 
   v58 = MEMORY[0x1E695DFD8];
-  v121[0] = objc_opt_class();
-  v121[1] = objc_opt_class();
-  v59 = [MEMORY[0x1E695DEC8] arrayWithObjects:v121 count:2];
+  v120[0] = objc_opt_class();
+  v120[1] = objc_opt_class();
+  v59 = [MEMORY[0x1E695DEC8] arrayWithObjects:v120 count:2];
   v60 = [v58 setWithArray:v59];
   [v9 setClasses:v60 forSelector:sel_submitTaskRequest_withHandler_ argumentIndex:0 ofReply:0];
 
@@ -396,127 +398,125 @@
   [v9 setClasses:v61 forSelector:sel_updateProgressForOngoingTask_completionHandler_ argumentIndex:0 ofReply:0];
 
   v62 = MEMORY[0x1E695DFD8];
-  v120[0] = objc_opt_class();
-  v120[1] = objc_opt_class();
-  v63 = [MEMORY[0x1E695DEC8] arrayWithObjects:v120 count:2];
+  v119[0] = objc_opt_class();
+  v119[1] = objc_opt_class();
+  v63 = [MEMORY[0x1E695DEC8] arrayWithObjects:v119 count:2];
   v64 = [v62 setWithArray:v63];
   [v9 setClasses:v64 forSelector:sel_getPendingTaskRequestsWithCompletionHandler_ argumentIndex:0 ofReply:1];
 
   v65 = MEMORY[0x1E695DFD8];
-  v119[0] = objc_opt_class();
-  v119[1] = objc_opt_class();
-  v66 = [MEMORY[0x1E695DEC8] arrayWithObjects:v119 count:2];
+  v118[0] = objc_opt_class();
+  v118[1] = objc_opt_class();
+  v66 = [MEMORY[0x1E695DEC8] arrayWithObjects:v118 count:2];
   v67 = [v65 setWithArray:v66];
   [v9 setClasses:v67 forSelector:sel_disableAppRefreshForApps_ argumentIndex:0 ofReply:0];
 
   [v9 setXPCType:MEMORY[0x1E69E9E80] forSelector:sel_submitTaskRequestWithIdentifier_descriptor_completionHandler_ argumentIndex:1 ofReply:0];
   [v9 setXPCType:MEMORY[0x1E69E9E80] forSelector:sel_updateTaskRequestWithIdentifier_descriptor_completionHandler_ argumentIndex:1 ofReply:0];
   v68 = MEMORY[0x1E695DFD8];
-  v118[0] = objc_opt_class();
-  v118[1] = objc_opt_class();
-  v69 = [MEMORY[0x1E695DEC8] arrayWithObjects:v118 count:2];
+  v117[0] = objc_opt_class();
+  v117[1] = objc_opt_class();
+  v69 = [MEMORY[0x1E695DEC8] arrayWithObjects:v117 count:2];
   v70 = [v68 setWithArray:v69];
   [v9 setClasses:v70 forSelector:sel_reportSystemTaskWithIdentifier_producedResults_completionHandler_ argumentIndex:1 ofReply:0];
 
   v71 = MEMORY[0x1E695DFD8];
-  v117[0] = objc_opt_class();
-  v117[1] = objc_opt_class();
-  v72 = [MEMORY[0x1E695DEC8] arrayWithObjects:v117 count:2];
+  v116[0] = objc_opt_class();
+  v116[1] = objc_opt_class();
+  v72 = [MEMORY[0x1E695DEC8] arrayWithObjects:v116 count:2];
   v73 = [v71 setWithArray:v72];
   [v9 setClasses:v73 forSelector:sel_reportSystemTaskWithIdentifier_consumedResults_completionHandler_ argumentIndex:1 ofReply:0];
 
   v74 = MEMORY[0x1E695DFD8];
-  v116[0] = objc_opt_class();
-  v116[1] = objc_opt_class();
-  v116[2] = objc_opt_class();
-  v116[3] = objc_opt_class();
-  v116[4] = objc_opt_class();
-  v75 = [MEMORY[0x1E695DEC8] arrayWithObjects:v116 count:5];
+  v115[0] = objc_opt_class();
+  v115[1] = objc_opt_class();
+  v115[2] = objc_opt_class();
+  v115[3] = objc_opt_class();
+  v115[4] = objc_opt_class();
+  v75 = [MEMORY[0x1E695DEC8] arrayWithObjects:v115 count:5];
   v76 = [v74 setWithArray:v75];
   [v9 setClasses:v76 forSelector:sel_inspect_withHandler_ argumentIndex:0 ofReply:1];
 
   v77 = MEMORY[0x1E695DFD8];
-  v115[0] = objc_opt_class();
-  v115[1] = objc_opt_class();
-  v115[2] = objc_opt_class();
-  v78 = [MEMORY[0x1E695DEC8] arrayWithObjects:v115 count:3];
+  v114[0] = objc_opt_class();
+  v114[1] = objc_opt_class();
+  v114[2] = objc_opt_class();
+  v78 = [MEMORY[0x1E695DEC8] arrayWithObjects:v114 count:3];
   v79 = [v77 setWithArray:v78];
   [v9 setClasses:v79 forSelector:sel_resetFastPassActivities_resetAll_withHandler_ argumentIndex:0 ofReply:1];
 
   v80 = MEMORY[0x1E695DFD8];
-  v114[0] = objc_opt_class();
-  v114[1] = objc_opt_class();
-  v81 = [MEMORY[0x1E695DEC8] arrayWithObjects:v114 count:2];
+  v113[0] = objc_opt_class();
+  v113[1] = objc_opt_class();
+  v81 = [MEMORY[0x1E695DEC8] arrayWithObjects:v113 count:2];
   v82 = [v80 setWithArray:v81];
   [v9 setClasses:v82 forSelector:sel_resubmitRunningTasks_ argumentIndex:0 ofReply:0];
 
   v83 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F2EDB780];
   v84 = MEMORY[0x1E695DFD8];
-  v113[0] = objc_opt_class();
-  v113[1] = objc_opt_class();
-  v113[2] = objc_opt_class();
-  v85 = [MEMORY[0x1E695DEC8] arrayWithObjects:v113 count:3];
+  v112[0] = objc_opt_class();
+  v112[1] = objc_opt_class();
+  v112[2] = objc_opt_class();
+  v85 = [MEMORY[0x1E695DEC8] arrayWithObjects:v112 count:3];
   v86 = [v84 setWithArray:v85];
   [v83 setClasses:v86 forSelector:sel_runActivities_ argumentIndex:0 ofReply:0];
 
   v87 = MEMORY[0x1E695DFD8];
-  v112[0] = objc_opt_class();
-  v112[1] = objc_opt_class();
-  v112[2] = objc_opt_class();
-  v88 = [MEMORY[0x1E695DEC8] arrayWithObjects:v112 count:3];
+  v111[0] = objc_opt_class();
+  v111[1] = objc_opt_class();
+  v111[2] = objc_opt_class();
+  v88 = [MEMORY[0x1E695DEC8] arrayWithObjects:v111 count:3];
   v89 = [v87 setWithArray:v88];
   [v83 setClasses:v89 forSelector:sel_suspendActivities_ argumentIndex:0 ofReply:0];
 
   v90 = MEMORY[0x1E695DFD8];
-  v111[0] = objc_opt_class();
-  v111[1] = objc_opt_class();
-  v111[2] = objc_opt_class();
-  v91 = [MEMORY[0x1E695DEC8] arrayWithObjects:v111 count:3];
+  v110[0] = objc_opt_class();
+  v110[1] = objc_opt_class();
+  v110[2] = objc_opt_class();
+  v91 = [MEMORY[0x1E695DEC8] arrayWithObjects:v110 count:3];
   v92 = [v90 setWithArray:v91];
   [v83 setClasses:v92 forSelector:sel_cancelActivities_ argumentIndex:0 ofReply:0];
 
   v93 = MEMORY[0x1E695DFD8];
-  v110[0] = objc_opt_class();
-  v110[1] = objc_opt_class();
-  v110[2] = objc_opt_class();
-  v94 = [MEMORY[0x1E695DEC8] arrayWithObjects:v110 count:3];
+  v109[0] = objc_opt_class();
+  v109[1] = objc_opt_class();
+  v109[2] = objc_opt_class();
+  v94 = [MEMORY[0x1E695DEC8] arrayWithObjects:v109 count:3];
   v95 = [v93 setWithArray:v94];
   [v83 setClasses:v95 forSelector:sel_runActivitiesWithDelayedStart_ argumentIndex:0 ofReply:0];
 
   v96 = MEMORY[0x1E695DFD8];
-  v109[0] = objc_opt_class();
-  v109[1] = objc_opt_class();
-  v109[2] = objc_opt_class();
-  v97 = [MEMORY[0x1E695DEC8] arrayWithObjects:v109 count:3];
+  v108[0] = objc_opt_class();
+  v108[1] = objc_opt_class();
+  v108[2] = objc_opt_class();
+  v97 = [MEMORY[0x1E695DEC8] arrayWithObjects:v108 count:3];
   v98 = [v96 setWithArray:v97];
   [v83 setClasses:v98 forSelector:sel_handleLaunchFromDaemonForActivities_ argumentIndex:0 ofReply:0];
 
   v99 = MEMORY[0x1E695DFD8];
-  v108[0] = objc_opt_class();
-  v108[1] = objc_opt_class();
-  v108[2] = objc_opt_class();
-  v100 = [MEMORY[0x1E695DEC8] arrayWithObjects:v108 count:3];
+  v107[0] = objc_opt_class();
+  v107[1] = objc_opt_class();
+  v107[2] = objc_opt_class();
+  v100 = [MEMORY[0x1E695DEC8] arrayWithObjects:v107 count:3];
   v101 = [v99 setWithArray:v100];
   [v83 setClasses:v101 forSelector:sel_willExpireBGTaskActivities_ argumentIndex:0 ofReply:0];
 
   [(NSXPCConnection *)self->_xpcConnection _setQueue:self->_queue];
   objc_initWeak(&location, self);
   v102 = self->_xpcConnection;
-  v105[0] = MEMORY[0x1E69E9820];
-  v105[1] = 3221225472;
-  v105[2] = __48___DASScheduler_setupXPCConnectionWithEndpoint___block_invoke;
-  v105[3] = &unk_1E7C8F6F0;
-  objc_copyWeak(&v106, &location);
-  [(NSXPCConnection *)v102 setInterruptionHandler:v105];
+  v104[0] = MEMORY[0x1E69E9820];
+  v104[1] = 3221225472;
+  v104[2] = __48___DASScheduler_setupXPCConnectionWithEndpoint___block_invoke;
+  v104[3] = &unk_1E7C8F6F0;
+  objc_copyWeak(&v105, &location);
+  [(NSXPCConnection *)v102 setInterruptionHandler:v104];
   [(NSXPCConnection *)self->_xpcConnection setRemoteObjectInterface:v9];
   [(NSXPCConnection *)self->_xpcConnection setExportedInterface:v83];
   [(NSXPCConnection *)self->_xpcConnection setExportedObject:self];
   [(NSXPCConnection *)self->_xpcConnection resume];
   [(_DASScheduler *)self setInterrupted:0];
-  objc_destroyWeak(&v106);
+  objc_destroyWeak(&v105);
   objc_destroyWeak(&location);
-
-  v103 = *MEMORY[0x1E69E9840];
 }
 
 - (_DASScheduler)initWithListenerEndpoint:(id)endpoint
@@ -798,32 +798,32 @@ LABEL_18:
 
 - (void)submitActivitiesInternal:(id)internal
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   internalCopy = internal;
   date = [MEMORY[0x1E695DF00] date];
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = internalCopy;
-  v7 = [obj countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v7 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v7)
   {
-    v9 = *v27;
+    v9 = *v26;
     *&v8 = 138412546;
-    v24 = v8;
+    v23 = v8;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * i);
+        v11 = *(*(&v25 + 1) + 8 * i);
         limitationResponse = [v11 limitationResponse];
         v13 = [_DASLimiterResponse queryActivityDecision:4 fromResponses:limitationResponse];
 
@@ -834,10 +834,10 @@ LABEL_18:
           {
             name = [v11 name];
             limitationResponse2 = [v11 limitationResponse];
-            *buf = v24;
-            v31 = name;
-            v32 = 2112;
-            v33 = limitationResponse2;
+            *buf = v23;
+            v30 = name;
+            v31 = 2112;
+            v32 = limitationResponse2;
             _os_log_error_impl(&dword_1B6E2F000, v14, OS_LOG_TYPE_ERROR, "ERROR Submitting %@: Please contact das-core@group.apple.com to prevent this activity from getting rejected. Configuration: %@", buf, 0x16u);
           }
         }
@@ -857,10 +857,10 @@ LABEL_18:
           {
             name2 = [v11 name];
             limitationResponse4 = [v11 limitationResponse];
-            *buf = v24;
-            v31 = name2;
-            v32 = 2112;
-            v33 = limitationResponse4;
+            *buf = v23;
+            v30 = name2;
+            v31 = 2112;
+            v32 = limitationResponse4;
             _os_log_error_impl(&dword_1B6E2F000, v14, OS_LOG_TYPE_ERROR, "WARNING Submitting %@: %@", buf, 0x16u);
           }
         }
@@ -878,19 +878,18 @@ LABEL_13:
         [v11 setSubmitDate:date];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v7 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v7);
   }
 
   objc_sync_exit(selfCopy);
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)submitActivity:(id)activity
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   v5 = [(_DASScheduler *)self submitActivityInternal:activityCopy];
   dasFrameworkLog = [(_DASScheduler *)self dasFrameworkLog];
@@ -899,9 +898,9 @@ LABEL_13:
   {
     if (v7)
     {
-      v11 = 138543362;
-      v12 = activityCopy;
-      _os_log_impl(&dword_1B6E2F000, dasFrameworkLog, OS_LOG_TYPE_DEFAULT, "SUBMITTING: %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = activityCopy;
+      _os_log_impl(&dword_1B6E2F000, dasFrameworkLog, OS_LOG_TYPE_DEFAULT, "SUBMITTING: %{public}@", &v10, 0xCu);
     }
 
     if ([activityCopy preClearedMode])
@@ -921,41 +920,39 @@ LABEL_13:
 
   else if (v7)
   {
-    v11 = 138412290;
-    v12 = activityCopy;
-    _os_log_impl(&dword_1B6E2F000, dasFrameworkLog, OS_LOG_TYPE_DEFAULT, "Duplicate Activity: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = activityCopy;
+    _os_log_impl(&dword_1B6E2F000, dasFrameworkLog, OS_LOG_TYPE_DEFAULT, "Duplicate Activity: %@", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)submitActivities:(id)activities
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   activitiesCopy = activities;
   v5 = [MEMORY[0x1E695DFA8] set];
   array = [MEMORY[0x1E695DF70] array];
   [(_DASScheduler *)self submitActivitiesInternal:activitiesCopy];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v7 = activitiesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         if ([v12 preClearedMode])
         {
           v13 = v5;
@@ -969,7 +966,7 @@ LABEL_13:
         [v13 addObject:v12];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
@@ -979,8 +976,6 @@ LABEL_13:
   currentConnection = [(_DASScheduler *)self currentConnection];
   remoteObjectProxy = [currentConnection remoteObjectProxy];
   [remoteObjectProxy submitActivities:array];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleNoLongerRunningActivities:(id)activities
@@ -1018,7 +1013,7 @@ LABEL_13:
 
 - (void)activityStarted:(id)started
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   startedCopy = started;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -1042,9 +1037,9 @@ LABEL_13:
     dasFrameworkLog = selfCopy->_dasFrameworkLog;
     if (os_log_type_enabled(dasFrameworkLog, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412290;
-      v20 = startedCopy;
-      _os_log_impl(&dword_1B6E2F000, dasFrameworkLog, OS_LOG_TYPE_DEFAULT, "startActivity: %@ activity was not found", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = startedCopy;
+      _os_log_impl(&dword_1B6E2F000, dasFrameworkLog, OS_LOG_TYPE_DEFAULT, "startActivity: %@ activity was not found", &v18, 0xCu);
     }
   }
 
@@ -1054,9 +1049,9 @@ LABEL_13:
     dasFrameworkLog = [(_DASScheduler *)selfCopy dasFrameworkLog];
     if (os_log_type_enabled(dasFrameworkLog, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412290;
-      v20 = startedCopy;
-      _os_log_impl(&dword_1B6E2F000, dasFrameworkLog, OS_LOG_TYPE_DEFAULT, "STARTING: %@", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = startedCopy;
+      _os_log_impl(&dword_1B6E2F000, dasFrameworkLog, OS_LOG_TYPE_DEFAULT, "STARTING: %@", &v18, 0xCu);
     }
 
     date = [MEMORY[0x1E695DF00] date];
@@ -1066,8 +1061,6 @@ LABEL_13:
     remoteObjectProxy = [currentConnection remoteObjectProxy];
     [remoteObjectProxy activityStarted:startedCopy];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activityCanceled:(id)canceled
@@ -1154,39 +1147,39 @@ LABEL_13:
 
 - (void)updateActivity:(id)activity withParameters:(id)parameters
 {
-  v35[6] = *MEMORY[0x1E69E9840];
+  v34[6] = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   parametersCopy = parameters;
   allKeys = [parametersCopy allKeys];
-  v35[0] = @"DownloadedOnWifi";
-  v35[1] = @"DownloadedOnCell";
-  v35[2] = @"UploadedOnWifi";
-  v35[3] = @"UploadedOnCell";
-  v35[4] = @"Cell";
-  v35[5] = @"WiFi";
-  [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:6];
+  v34[0] = @"DownloadedOnWifi";
+  v34[1] = @"DownloadedOnCell";
+  v34[2] = @"UploadedOnWifi";
+  v34[3] = @"UploadedOnCell";
+  v34[4] = @"Cell";
+  v34[5] = @"WiFi";
+  [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:6];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
-  v9 = v31 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v9 = v30 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v27 objects:v33 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v29;
+    v12 = *v28;
     selfCopy = self;
-    v27 = activityCopy;
+    v26 = activityCopy;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v29 != v12)
+        if (*v28 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v28 + 1) + 8 * i);
-        if ([allKeys containsObject:{v14, selfCopy, v27, v28}])
+        v14 = *(*(&v27 + 1) + 8 * i);
+        if ([allKeys containsObject:{v14, selfCopy, v26, v27}])
         {
           v15 = [parametersCopy objectForKeyedSubscript:v14];
           [v15 doubleValue];
@@ -1195,8 +1188,8 @@ LABEL_13:
 
 LABEL_17:
             self = selfCopy;
-            activityCopy = v27;
-            [(_DASScheduler *)selfCopy updateBytesConsumedForActivity:v27 withParameters:parametersCopy];
+            activityCopy = v26;
+            [(_DASScheduler *)selfCopy updateBytesConsumedForActivity:v26 withParameters:parametersCopy];
             goto LABEL_18;
           }
 
@@ -1214,9 +1207,9 @@ LABEL_17:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v27 objects:v33 count:16];
       self = selfCopy;
-      activityCopy = v27;
+      activityCopy = v26;
       if (v11)
       {
         continue;
@@ -1238,15 +1231,13 @@ LABEL_18:
     {
       currentConnection = [(_DASScheduler *)self currentConnection];
       remoteObjectProxy = [currentConnection remoteObjectProxy];
-      v32 = @"PercentCompleted";
+      v31 = @"PercentCompleted";
       v23 = [parametersCopy objectForKeyedSubscript:@"PercentCompleted"];
-      v33 = v23;
-      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+      v32 = v23;
+      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
       [remoteObjectProxy updateActivity:activityCopy withParameters:v24];
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateSystemConstraintsWithParameters:(id)parameters
@@ -1259,23 +1250,23 @@ LABEL_18:
 
 - (id)extendUpdateActivityDictionary:(id)dictionary
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v79 = dictionaryCopy;
+  v78 = dictionaryCopy;
   [dictionaryCopy allKeys];
+  v79 = 0u;
   v80 = 0u;
   v81 = 0u;
-  v82 = 0u;
-  obj = v83 = 0u;
-  v4 = [obj countByEnumeratingWithState:&v80 objects:v84 count:16];
+  obj = v82 = 0u;
+  v4 = [obj countByEnumeratingWithState:&v79 objects:v83 count:16];
   if (!v4)
   {
+    v71 = 0.0;
     v72 = 0.0;
-    v73 = 0.0;
     v6 = 0.0;
+    v76 = 0.0;
     v77 = 0.0;
-    v78 = 0.0;
     v8 = 0.0;
     v9 = 0.0;
     v10 = 0.0;
@@ -1285,12 +1276,12 @@ LABEL_18:
   }
 
   v5 = v4;
+  v71 = 0.0;
   v72 = 0.0;
-  v73 = 0.0;
   v6 = 0.0;
-  v7 = *v81;
+  v7 = *v80;
+  v76 = 0.0;
   v77 = 0.0;
-  v78 = 0.0;
   v8 = 0.0;
   v9 = 0.0;
   v10 = 0.0;
@@ -1300,15 +1291,15 @@ LABEL_18:
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v81 != v7)
+      if (*v80 != v7)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v80 + 1) + 8 * i);
+      v14 = *(*(&v79 + 1) + 8 * i);
       if ([v14 isEqualToString:@"Cell"])
       {
-        v15 = [v79 objectForKeyedSubscript:v14];
+        v15 = [v78 objectForKeyedSubscript:v14];
         v16 = [v15 objectForKeyedSubscript:@"Inexpensive"];
         v17 = v16;
         if (v16)
@@ -1320,7 +1311,7 @@ LABEL_18:
           v21 = v8 + v20;
           v12 = v12 + v20;
           v22 = v10 + v20;
-          v23 = v78 + v20;
+          v23 = v77 + v20;
           v24 = [v17 objectForKeyedSubscript:@"Download"];
           [v24 doubleValue];
           v26 = v25;
@@ -1328,7 +1319,7 @@ LABEL_18:
           v8 = v21 + v26;
           v11 = v11 + v26;
           v10 = v22 + v26;
-          v78 = v23 + v26;
+          v77 = v23 + v26;
         }
 
         v27 = [v15 objectForKeyedSubscript:@"Expensive"];
@@ -1361,9 +1352,9 @@ LABEL_18:
           continue;
         }
 
-        v74 = v10;
-        v75 = v6;
-        v15 = [v79 objectForKeyedSubscript:v14];
+        v73 = v10;
+        v74 = v6;
+        v15 = [v78 objectForKeyedSubscript:v14];
         v38 = [v15 objectForKeyedSubscript:@"Inexpensive"];
         v17 = v38;
         if (v38)
@@ -1374,16 +1365,16 @@ LABEL_18:
 
           v42 = v8 + v41;
           v12 = v12 + v41;
-          v43 = v77 + v41;
-          v44 = v73 + v41;
+          v43 = v76 + v41;
+          v44 = v72 + v41;
           v45 = [v17 objectForKeyedSubscript:@"Download"];
           [v45 doubleValue];
           v47 = v46;
 
           v48 = v42 + v47;
           v11 = v11 + v47;
-          v77 = v43 + v47;
-          v73 = v44 + v47;
+          v76 = v43 + v47;
+          v72 = v44 + v47;
         }
 
         else
@@ -1401,25 +1392,25 @@ LABEL_18:
 
           v53 = v9 + v52;
           v12 = v12 + v52;
-          v54 = v77 + v52;
-          v55 = v72 + v52;
+          v54 = v76 + v52;
+          v55 = v71 + v52;
           v56 = [v28 objectForKeyedSubscript:@"Download"];
           [v56 doubleValue];
           v58 = v57;
 
           v9 = v53 + v58;
           v11 = v11 + v58;
-          v77 = v54 + v58;
-          v72 = v55 + v58;
+          v76 = v54 + v58;
+          v71 = v55 + v58;
         }
 
         v8 = v48;
-        v10 = v74;
-        v6 = v75;
+        v10 = v73;
+        v6 = v74;
       }
     }
 
-    v5 = [obj countByEnumeratingWithState:&v80 objects:v84 count:16];
+    v5 = [obj countByEnumeratingWithState:&v79 objects:v83 count:16];
   }
 
   while (v5);
@@ -1427,7 +1418,7 @@ LABEL_23:
   v59 = [MEMORY[0x1E696AD98] numberWithDouble:v10];
   [dictionary setObject:v59 forKeyedSubscript:@"Cell"];
 
-  v60 = [MEMORY[0x1E696AD98] numberWithDouble:v77];
+  v60 = [MEMORY[0x1E696AD98] numberWithDouble:v76];
   [dictionary setObject:v60 forKeyedSubscript:@"WiFi"];
 
   v61 = [MEMORY[0x1E696AD98] numberWithDouble:v12];
@@ -1445,16 +1436,14 @@ LABEL_23:
   v65 = [MEMORY[0x1E696AD98] numberWithDouble:v6];
   [dictionary setObject:v65 forKeyedSubscript:@"CellExpensive"];
 
-  v66 = [MEMORY[0x1E696AD98] numberWithDouble:v72];
+  v66 = [MEMORY[0x1E696AD98] numberWithDouble:v71];
   [dictionary setObject:v66 forKeyedSubscript:@"WiFiExpensive"];
 
-  v67 = [MEMORY[0x1E696AD98] numberWithDouble:v78];
+  v67 = [MEMORY[0x1E696AD98] numberWithDouble:v77];
   [dictionary setObject:v67 forKeyedSubscript:@"CellInexpensive"];
 
-  v68 = [MEMORY[0x1E696AD98] numberWithDouble:v73];
+  v68 = [MEMORY[0x1E696AD98] numberWithDouble:v72];
   [dictionary setObject:v68 forKeyedSubscript:@"WiFiInexpensive"];
-
-  v69 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -1737,7 +1726,7 @@ LABEL_5:
 
 - (void)updateBytesConsumedForActivity:(id)activity withParameters:(id)parameters
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   parametersCopy = parameters;
   if ([activityCopy dataBudgetingEnabled])
@@ -1753,13 +1742,13 @@ LABEL_5:
     dasFrameworkLog = [(_DASScheduler *)self dasFrameworkLog];
     if (os_log_type_enabled(dasFrameworkLog, OS_LOG_TYPE_DEBUG))
     {
-      v24 = 138412802;
-      v25 = activityCopy;
-      v26 = 2112;
-      v27 = dictionary;
-      v28 = 2112;
-      v29 = parametersCopy;
-      _os_log_debug_impl(&dword_1B6E2F000, dasFrameworkLog, OS_LOG_TYPE_DEBUG, "Activity %@ had %@. Updating with new parameter: %@", &v24, 0x20u);
+      v23 = 138412802;
+      v24 = activityCopy;
+      v25 = 2112;
+      v26 = dictionary;
+      v27 = 2112;
+      v28 = parametersCopy;
+      _os_log_debug_impl(&dword_1B6E2F000, dasFrameworkLog, OS_LOG_TYPE_DEBUG, "Activity %@ had %@. Updating with new parameter: %@", &v23, 0x20u);
     }
 
     v11 = [(_DASScheduler *)self evaluateBytesConsumed:parametersCopy withPreviousParameters:dictionary];
@@ -1779,13 +1768,13 @@ LABEL_5:
       if (os_log_type_enabled(dasFrameworkLog2, OS_LOG_TYPE_DEFAULT))
       {
         v20 = [MEMORY[0x1E696AD98] numberWithDouble:v18];
-        v24 = 138412802;
-        v25 = activityCopy;
-        v26 = 2112;
-        v27 = v20;
-        v28 = 2112;
-        v29 = &unk_1F2ED4A78;
-        _os_log_impl(&dword_1B6E2F000, dasFrameworkLog2, OS_LOG_TYPE_DEFAULT, "%@: %@ > %@", &v24, 0x20u);
+        v23 = 138412802;
+        v24 = activityCopy;
+        v25 = 2112;
+        v26 = v20;
+        v27 = 2112;
+        v28 = &unk_1F2ED4A78;
+        _os_log_impl(&dword_1B6E2F000, dasFrameworkLog2, OS_LOG_TYPE_DEFAULT, "%@: %@ > %@", &v23, 0x20u);
       }
 
       currentConnection = [(_DASScheduler *)self currentConnection];
@@ -1797,8 +1786,6 @@ LABEL_5:
 
     objc_sync_exit(v8);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createActivityGroup:(id)group
@@ -1820,7 +1807,7 @@ LABEL_5:
 
 - (void)submitActivity:(id)activity inGroup:(id)group
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   groupCopy = group;
   [(_DASScheduler *)self submitActivityInternal:activityCopy];
@@ -1831,11 +1818,11 @@ LABEL_5:
   if (os_log_type_enabled(dasFrameworkLog, OS_LOG_TYPE_DEFAULT))
   {
     name2 = [groupCopy name];
-    v15 = 138543618;
-    v16 = activityCopy;
-    v17 = 2114;
-    v18 = name2;
-    _os_log_impl(&dword_1B6E2F000, dasFrameworkLog, OS_LOG_TYPE_DEFAULT, "SUBMITTING: %{public}@ in group %{public}@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = activityCopy;
+    v16 = 2114;
+    v17 = name2;
+    _os_log_impl(&dword_1B6E2F000, dasFrameworkLog, OS_LOG_TYPE_DEFAULT, "SUBMITTING: %{public}@ in group %{public}@", &v14, 0x16u);
   }
 
   if ([activityCopy preClearedMode])
@@ -1851,13 +1838,11 @@ LABEL_5:
     remoteObjectProxy = [currentConnection remoteObjectProxy];
     [(_DASSubmissionManager *)submissionManager submitActivity:activityCopy inGroup:groupCopy withScheduler:remoteObjectProxy];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)submitActivity:(id)activity inGroup:(id)group error:(id *)error
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   groupCopy = group;
   [activityCopy setClientName:self->_clientName];
@@ -1868,25 +1853,25 @@ LABEL_5:
   objc_sync_enter(selfCopy);
   if ([activityCopy requestsApplicationLaunch] && objc_msgSend(activityCopy, "keepsPrevious"))
   {
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     v12 = selfCopy->_submittedActivities;
-    v13 = [(NSMutableDictionary *)v12 countByEnumeratingWithState:&v49 objects:v58 count:16];
+    v13 = [(NSMutableDictionary *)v12 countByEnumeratingWithState:&v48 objects:v57 count:16];
     if (v13)
     {
-      v14 = *v50;
+      v14 = *v49;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v50 != v14)
+          if (*v49 != v14)
           {
             objc_enumerationMutation(v12);
           }
 
-          v16 = *(*(&v49 + 1) + 8 * i);
+          v16 = *(*(&v48 + 1) + 8 * i);
           if (([v16 requestsApplicationLaunch] & 1) != 0 && objc_msgSend(v16, "isIdenticalLaunchTo:", activityCopy))
           {
             if (os_log_type_enabled(selfCopy->_dasFrameworkLog, OS_LOG_TYPE_ERROR))
@@ -1905,7 +1890,7 @@ LABEL_5:
           }
         }
 
-        v13 = [(NSMutableDictionary *)v12 countByEnumeratingWithState:&v49 objects:v58 count:16];
+        v13 = [(NSMutableDictionary *)v12 countByEnumeratingWithState:&v48 objects:v57 count:16];
         if (v13)
         {
           continue;
@@ -1936,39 +1921,39 @@ LABEL_5:
   [(NSMutableDictionary *)submittedActivities setObject:activityCopy forKeyedSubscript:uuid];
 
   objc_sync_exit(v19);
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x2020000000;
-  v48 = 0;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x2020000000;
+  v47 = 0;
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v54 = 0x3032000000;
-  v55 = __Block_byref_object_copy__1;
-  v56 = __Block_byref_object_dispose__1;
-  v57 = 0;
+  v53 = 0x3032000000;
+  v54 = __Block_byref_object_copy__1;
+  v55 = __Block_byref_object_dispose__1;
+  v56 = 0;
   currentConnection = [(_DASScheduler *)v19 currentConnection];
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = 3221225472;
-  v41[2] = __46___DASScheduler_submitActivity_inGroup_error___block_invoke;
-  v41[3] = &unk_1E7C8F7B8;
-  v43 = &v45;
-  v41[4] = v19;
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __46___DASScheduler_submitActivity_inGroup_error___block_invoke;
+  v40[3] = &unk_1E7C8F7B8;
+  v42 = &v44;
+  v40[4] = v19;
   v23 = activityCopy;
-  v42 = v23;
+  v41 = v23;
   p_buf = &buf;
-  v24 = [currentConnection synchronousRemoteObjectProxyWithErrorHandler:v41];
-  v33 = MEMORY[0x1E69E9820];
-  v34 = 3221225472;
-  v35 = __46___DASScheduler_submitActivity_inGroup_error___block_invoke_340;
-  v36 = &unk_1E7C8F7E0;
-  v39 = &v45;
-  v37 = v19;
+  v24 = [currentConnection synchronousRemoteObjectProxyWithErrorHandler:v40];
+  v32 = MEMORY[0x1E69E9820];
+  v33 = 3221225472;
+  v34 = __46___DASScheduler_submitActivity_inGroup_error___block_invoke_340;
+  v35 = &unk_1E7C8F7E0;
+  v38 = &v44;
+  v36 = v19;
   v25 = v23;
-  v38 = v25;
-  v40 = &buf;
-  [v24 submitActivity:v25 inGroup:groupCopy withHandler:&v33];
+  v37 = v25;
+  v39 = &buf;
+  [v24 submitActivity:v25 inGroup:groupCopy withHandler:&v32];
 
-  if ((v46[3] & 1) == 0)
+  if ((v45[3] & 1) == 0)
   {
     v26 = v19;
     objc_sync_enter(v26);
@@ -1988,13 +1973,12 @@ LABEL_5:
     }
   }
 
-  v30 = *(v46 + 24);
+  v30 = *(v45 + 24);
 
   _Block_object_dispose(&buf, 8);
-  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(&v44, 8);
 LABEL_21:
 
-  v31 = *MEMORY[0x1E69E9840];
   return v30 & 1;
 }
 
@@ -2258,6 +2242,36 @@ LABEL_21:
   _Block_object_dispose(&v9, 8);
 
   return v5;
+}
+
+- (id)resetFastPassActivities:(id)activities resetAll:(BOOL)all
+{
+  allCopy = all;
+  activitiesCopy = activities;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__1;
+  v17 = __Block_byref_object_dispose__1;
+  array = [MEMORY[0x1E695DF70] array];
+  currentConnection = [(_DASScheduler *)self currentConnection];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __50___DASScheduler_resetFastPassActivities_resetAll___block_invoke;
+  v12[3] = &unk_1E7C8F808;
+  v12[4] = self;
+  v8 = [currentConnection synchronousRemoteObjectProxyWithErrorHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __50___DASScheduler_resetFastPassActivities_resetAll___block_invoke_351;
+  v11[3] = &unk_1E7C8F8F8;
+  v11[4] = &v13;
+  [v8 resetFastPassActivities:activitiesCopy resetAll:allCopy withHandler:v11];
+
+  v9 = v14[5];
+  _Block_object_dispose(&v13, 8);
+
+  return v9;
 }
 
 - (id)inspect:(id)inspect
@@ -2658,6 +2672,56 @@ LABEL_21:
   return v7;
 }
 
+- (void)enterTestModeWithParameters:(id)parameters reset:(BOOL)reset
+{
+  resetCopy = reset;
+  parametersCopy = parameters;
+  currentConnection = [(_DASScheduler *)self currentConnection];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __51___DASScheduler_enterTestModeWithParameters_reset___block_invoke;
+  v12[3] = &unk_1E7C8F808;
+  v12[4] = self;
+  v8 = [currentConnection synchronousRemoteObjectProxyWithErrorHandler:v12];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __51___DASScheduler_enterTestModeWithParameters_reset___block_invoke_365;
+  v10[3] = &unk_1E7C8F998;
+  v10[4] = self;
+  v11 = parametersCopy;
+  v9 = parametersCopy;
+  [v8 enterTestModeWithParameters:v9 reset:resetCopy handler:v10];
+}
+
+- (BOOL)enableTaskRegistryMode:(BOOL)mode processes:(id)processes
+{
+  modeCopy = mode;
+  processesCopy = processes;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
+  currentConnection = [(_DASScheduler *)self currentConnection];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __50___DASScheduler_enableTaskRegistryMode_processes___block_invoke;
+  v11[3] = &unk_1E7C8F9C0;
+  v11[4] = self;
+  v12 = modeCopy;
+  v8 = [currentConnection synchronousRemoteObjectProxyWithErrorHandler:v11];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __50___DASScheduler_enableTaskRegistryMode_processes___block_invoke_366;
+  v10[3] = &unk_1E7C8F830;
+  v10[4] = &v13;
+  [v8 enableTaskRegistryMode:modeCopy processes:processesCopy handler:v10];
+
+  LOBYTE(modeCopy) = *(v14 + 24);
+  _Block_object_dispose(&v13, 8);
+
+  return modeCopy;
+}
+
 - (void)submitRateLimitConfiguration:(id)configuration
 {
   configurationCopy = configuration;
@@ -2720,32 +2784,32 @@ LABEL_21:
 
 - (void)runActivitiesWithDelayedStart:(id)start
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   startCopy = start;
   v5 = [MEMORY[0x1E695DFA8] set];
-  v32 = [startCopy mutableCopy];
-  v33 = [MEMORY[0x1E695DFA8] set];
+  v31 = [startCopy mutableCopy];
+  v32 = [MEMORY[0x1E695DFA8] set];
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   obj = startCopy;
-  v7 = [obj countByEnumeratingWithState:&v39 objects:v48 count:16];
+  v7 = [obj countByEnumeratingWithState:&v38 objects:v47 count:16];
   if (v7)
   {
-    v8 = *v40;
+    v8 = *v39;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v40 != v8)
+        if (*v39 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v39 + 1) + 8 * i);
+        v10 = *(*(&v38 + 1) + 8 * i);
         submittedActivities = selfCopy->_submittedActivities;
         uuid = [v10 uuid];
         v13 = [(NSMutableDictionary *)submittedActivities objectForKeyedSubscript:uuid];
@@ -2759,42 +2823,42 @@ LABEL_21:
 
           else
           {
-            v14 = v33;
+            v14 = v32;
           }
 
           [v14 addObject:v13];
-          [v32 removeObject:v13];
+          [v31 removeObject:v13];
           v15 = selfCopy->_submittedActivities;
           uuid2 = [v10 uuid];
           [(NSMutableDictionary *)v15 removeObjectForKey:uuid2];
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v39 objects:v48 count:16];
+      v7 = [obj countByEnumeratingWithState:&v38 objects:v47 count:16];
     }
 
     while (v7);
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
-  v30 = v5;
-  v17 = [v30 countByEnumeratingWithState:&v35 objects:v47 count:16];
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v29 = v5;
+  v17 = [v29 countByEnumeratingWithState:&v34 objects:v46 count:16];
   if (v17)
   {
-    v18 = *v36;
+    v18 = *v35;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v36 != v18)
+        if (*v35 != v18)
         {
-          objc_enumerationMutation(v30);
+          objc_enumerationMutation(v29);
         }
 
-        v20 = *(*(&v35 + 1) + 8 * j);
+        v20 = *(*(&v34 + 1) + 8 * j);
         delayedStartTasks = selfCopy->_delayedStartTasks;
         uuid3 = [v20 uuid];
         [(NSMutableDictionary *)delayedStartTasks setObject:v20 forKeyedSubscript:uuid3];
@@ -2815,65 +2879,63 @@ LABEL_21:
         dispatch_async(runQueue, block);
       }
 
-      v17 = [v30 countByEnumeratingWithState:&v35 objects:v47 count:16];
+      v17 = [v29 countByEnumeratingWithState:&v34 objects:v46 count:16];
     }
 
     while (v17);
   }
 
   objc_sync_exit(selfCopy);
-  if ([v32 count])
+  if ([v31 count])
   {
     dasFrameworkLog = selfCopy->_dasFrameworkLog;
     if (os_log_type_enabled(dasFrameworkLog, OS_LOG_TYPE_DEFAULT))
     {
       v26 = MEMORY[0x1E696AD98];
       v27 = dasFrameworkLog;
-      v28 = [v26 numberWithUnsignedInteger:{objc_msgSend(v32, "count")}];
+      v28 = [v26 numberWithUnsignedInteger:{objc_msgSend(v31, "count")}];
       *buf = 138412546;
-      v44 = v28;
-      v45 = 2112;
-      v46 = v32;
+      v43 = v28;
+      v44 = 2112;
+      v45 = v31;
       _os_log_impl(&dword_1B6E2F000, v27, OS_LOG_TYPE_DEFAULT, "runActivitiesWithDelayedStart: %@ activities were not found: %@", buf, 0x16u);
     }
   }
 
-  if ([v33 count])
+  if ([v32 count])
   {
-    [(_DASScheduler *)selfCopy runActivities:v33];
+    [(_DASScheduler *)selfCopy runActivities:v32];
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)runActivities:(id)activities
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   activitiesCopy = activities;
   date = [MEMORY[0x1E695DF00] date];
   v5 = [MEMORY[0x1E695DFA8] set];
-  v42 = [activitiesCopy mutableCopy];
+  v41 = [activitiesCopy mutableCopy];
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v58 = 0u;
   v59 = 0u;
   v60 = 0u;
   v61 = 0u;
-  v62 = 0u;
   obj = activitiesCopy;
-  v7 = [obj countByEnumeratingWithState:&v59 objects:v70 count:16];
+  v7 = [obj countByEnumeratingWithState:&v58 objects:v69 count:16];
   if (v7)
   {
-    v8 = *v60;
+    v8 = *v59;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v60 != v8)
+        if (*v59 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v59 + 1) + 8 * i);
+        v10 = *(*(&v58 + 1) + 8 * i);
         submittedActivities = selfCopy->_submittedActivities;
         uuid = [v10 uuid];
         v13 = [(NSMutableDictionary *)submittedActivities objectForKeyedSubscript:uuid];
@@ -2881,38 +2943,38 @@ LABEL_21:
         if (v13)
         {
           [v5 addObject:v13];
-          [v42 removeObject:v13];
+          [v41 removeObject:v13];
           v14 = selfCopy->_submittedActivities;
           uuid2 = [v10 uuid];
           [(NSMutableDictionary *)v14 removeObjectForKey:uuid2];
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v59 objects:v70 count:16];
+      v7 = [obj countByEnumeratingWithState:&v58 objects:v69 count:16];
     }
 
     while (v7);
   }
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
-  v40 = v5;
-  v16 = [v40 countByEnumeratingWithState:&v55 objects:v69 count:16];
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  v39 = v5;
+  v16 = [v39 countByEnumeratingWithState:&v54 objects:v68 count:16];
   if (v16)
   {
-    v17 = *v56;
+    v17 = *v55;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v56 != v17)
+        if (*v55 != v17)
         {
-          objc_enumerationMutation(v40);
+          objc_enumerationMutation(v39);
         }
 
-        v19 = *(*(&v55 + 1) + 8 * j);
+        v19 = *(*(&v54 + 1) + 8 * j);
         startedActivities = selfCopy->_startedActivities;
         uuid3 = [v19 uuid];
         [(NSMutableDictionary *)startedActivities setObject:v19 forKeyedSubscript:uuid3];
@@ -2929,44 +2991,44 @@ LABEL_21:
         block[2] = __31___DASScheduler_runActivities___block_invoke;
         block[3] = &unk_1E7C8F9E8;
         block[4] = v19;
-        v53 = date;
-        v54 = selfCopy;
+        v52 = date;
+        v53 = selfCopy;
         dispatch_async(runQueue, block);
       }
 
-      v16 = [v40 countByEnumeratingWithState:&v55 objects:v69 count:16];
+      v16 = [v39 countByEnumeratingWithState:&v54 objects:v68 count:16];
     }
 
     while (v16);
   }
 
   v24 = [MEMORY[0x1E695DFA8] set];
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
-  v25 = v42;
-  v26 = [v25 countByEnumeratingWithState:&v48 objects:v68 count:16];
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v25 = v41;
+  v26 = [v25 countByEnumeratingWithState:&v47 objects:v67 count:16];
   if (v26)
   {
-    v27 = *v49;
+    v27 = *v48;
     do
     {
       for (k = 0; k != v26; ++k)
       {
-        if (*v49 != v27)
+        if (*v48 != v27)
         {
           objc_enumerationMutation(v25);
         }
 
-        v29 = *(*(&v48 + 1) + 8 * k);
+        v29 = *(*(&v47 + 1) + 8 * k);
         if ([v29 isContinuedProcessingTask])
         {
           [v24 addObject:v29];
         }
       }
 
-      v26 = [v25 countByEnumeratingWithState:&v48 objects:v68 count:16];
+      v26 = [v25 countByEnumeratingWithState:&v47 objects:v67 count:16];
     }
 
     while (v26);
@@ -2990,71 +3052,69 @@ LABEL_21:
       v33 = dasFrameworkLog;
       v34 = [v32 numberWithUnsignedInteger:{objc_msgSend(v25, "count")}];
       *buf = 138412546;
-      v65 = v34;
-      v66 = 2112;
-      v67 = v25;
+      v64 = v34;
+      v65 = 2112;
+      v66 = v25;
       _os_log_impl(&dword_1B6E2F000, v33, OS_LOG_TYPE_DEFAULT, "runActivities: %@ activities were not found: %@", buf, 0x16u);
     }
 
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     v35 = v25;
-    v36 = [v35 countByEnumeratingWithState:&v44 objects:v63 count:16];
+    v36 = [v35 countByEnumeratingWithState:&v43 objects:v62 count:16];
     if (v36)
     {
-      v37 = *v45;
+      v37 = *v44;
       do
       {
         for (m = 0; m != v36; ++m)
         {
-          if (*v45 != v37)
+          if (*v44 != v37)
           {
             objc_enumerationMutation(v35);
           }
 
-          [(_DASScheduler *)selfCopy activityCanceled:*(*(&v44 + 1) + 8 * m)];
+          [(_DASScheduler *)selfCopy activityCanceled:*(*(&v43 + 1) + 8 * m)];
         }
 
-        v36 = [v35 countByEnumeratingWithState:&v44 objects:v63 count:16];
+        v36 = [v35 countByEnumeratingWithState:&v43 objects:v62 count:16];
       }
 
       while (v36);
     }
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (void)suspendActivities:(id)activities
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   activitiesCopy = activities;
   v5 = [activitiesCopy mutableCopy];
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   v7 = activitiesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v42 objects:v51 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v41 objects:v50 count:16];
   if (v8)
   {
-    v10 = *v43;
+    v10 = *v42;
     *&v9 = 138543362;
-    v33 = v9;
+    v32 = v9;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v43 != v10)
+        if (*v42 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v42 + 1) + 8 * i);
+        v12 = *(*(&v41 + 1) + 8 * i);
         startedActivities = selfCopy->_startedActivities;
         uuid = [v12 uuid];
         v15 = [(NSMutableDictionary *)startedActivities objectForKeyedSubscript:uuid];
@@ -3078,12 +3138,12 @@ LABEL_21:
             block[1] = 3221225472;
             block[2] = __35___DASScheduler_suspendActivities___block_invoke;
             block[3] = &unk_1E7C8F9E8;
-            v39 = v15;
-            v40 = selfCopy;
-            v41 = v12;
+            v38 = v15;
+            v39 = selfCopy;
+            v40 = v12;
             dispatch_async(runQueue, block);
 
-            dasFrameworkLog = v39;
+            dasFrameworkLog = v38;
           }
 
           else
@@ -3091,47 +3151,47 @@ LABEL_21:
             dasFrameworkLog = [(_DASScheduler *)selfCopy dasFrameworkLog];
             if (os_log_type_enabled(dasFrameworkLog, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v33;
-              v47 = v15;
+              *buf = v32;
+              v46 = v15;
               _os_log_impl(&dword_1B6E2F000, dasFrameworkLog, OS_LOG_TYPE_DEFAULT, "Already requested suspension for %{public}@", buf, 0xCu);
             }
           }
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v42 objects:v51 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v41 objects:v50 count:16];
     }
 
     while (v8);
   }
 
   v21 = [MEMORY[0x1E695DFA8] set];
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v22 = v5;
-  v23 = [v22 countByEnumeratingWithState:&v34 objects:v50 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v33 objects:v49 count:16];
   if (v23)
   {
-    v24 = *v35;
+    v24 = *v34;
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v35 != v24)
+        if (*v34 != v24)
         {
           objc_enumerationMutation(v22);
         }
 
-        v26 = *(*(&v34 + 1) + 8 * j);
+        v26 = *(*(&v33 + 1) + 8 * j);
         if ([v26 isContinuedProcessingTask])
         {
           [v21 addObject:v26];
         }
       }
 
-      v23 = [v22 countByEnumeratingWithState:&v34 objects:v50 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v33 objects:v49 count:16];
     }
 
     while (v23);
@@ -3155,70 +3215,58 @@ LABEL_21:
       v30 = dasFrameworkLog;
       v31 = [v29 numberWithUnsignedInteger:{objc_msgSend(v22, "count")}];
       *buf = 138412546;
-      v47 = v31;
-      v48 = 2112;
-      v49 = v22;
+      v46 = v31;
+      v47 = 2112;
+      v48 = v22;
       _os_log_impl(&dword_1B6E2F000, v30, OS_LOG_TYPE_DEFAULT, "suspendActivities: %@ activities were not running: %@", buf, 0x16u);
     }
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelActivities:(id)activities
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   activitiesCopy = activities;
   v5 = [activitiesCopy mutableCopy];
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v7 = activitiesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v8)
   {
-    v9 = *v32;
+    v9 = *v31;
     do
     {
       v10 = 0;
       do
       {
-        if (*v32 != v9)
+        if (*v31 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v31 + 1) + 8 * v10);
+        v11 = *(*(&v30 + 1) + 8 * v10);
         submittedActivities = selfCopy->_submittedActivities;
         uuid = [v11 uuid];
         v14 = [(NSMutableDictionary *)submittedActivities objectForKeyedSubscript:uuid];
 
-        if (v14)
+        if (v14 || (v15 = selfCopy->_startedActivities, [v11 uuid], v16 = objc_claimAutoreleasedReturnValue(), -[NSMutableDictionary objectForKeyedSubscript:](v15, "objectForKeyedSubscript:", v16), v14 = objc_claimAutoreleasedReturnValue(), v16, v14) || (v17 = selfCopy->_delayedStartTasks, objc_msgSend(v11, "uuid"), v18 = objc_claimAutoreleasedReturnValue(), -[NSMutableDictionary objectForKeyedSubscript:](v17, "objectForKeyedSubscript:", v18), v14 = objc_claimAutoreleasedReturnValue(), v18, v14))
         {
-          goto LABEL_9;
-        }
-
-        startedActivities = selfCopy->_startedActivities;
-        uuid2 = [v11 uuid];
-        v14 = [(NSMutableDictionary *)startedActivities objectForKeyedSubscript:uuid2];
-
-        if (v14 || (v17 = selfCopy->_delayedStartTasks, [v11 uuid], v18 = objc_claimAutoreleasedReturnValue(), -[NSMutableDictionary objectForKeyedSubscript:](v17, "objectForKeyedSubscript:", v18), v14 = objc_claimAutoreleasedReturnValue(), v18, v14))
-        {
-LABEL_9:
           v19 = selfCopy->_submittedActivities;
-          uuid3 = [v11 uuid];
-          [(NSMutableDictionary *)v19 removeObjectForKey:uuid3];
+          uuid2 = [v11 uuid];
+          [(NSMutableDictionary *)v19 removeObjectForKey:uuid2];
 
-          v21 = selfCopy->_startedActivities;
-          uuid4 = [v11 uuid];
-          [(NSMutableDictionary *)v21 removeObjectForKey:uuid4];
+          startedActivities = selfCopy->_startedActivities;
+          uuid3 = [v11 uuid];
+          [(NSMutableDictionary *)startedActivities removeObjectForKey:uuid3];
 
           delayedStartTasks = selfCopy->_delayedStartTasks;
-          uuid5 = [v11 uuid];
-          [(NSMutableDictionary *)delayedStartTasks removeObjectForKey:uuid5];
+          uuid4 = [v11 uuid];
+          [(NSMutableDictionary *)delayedStartTasks removeObjectForKey:uuid4];
         }
 
         else
@@ -3230,7 +3278,7 @@ LABEL_9:
       }
 
       while (v8 != v10);
-      v25 = [v7 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v25 = [v7 countByEnumeratingWithState:&v30 objects:v38 count:16];
       v8 = v25;
     }
 
@@ -3247,70 +3295,58 @@ LABEL_9:
       v28 = dasFrameworkLog;
       v29 = [v27 numberWithUnsignedInteger:{objc_msgSend(v5, "count")}];
       *buf = 138412546;
-      v36 = v29;
-      v37 = 2112;
-      v38 = v5;
+      v35 = v29;
+      v36 = 2112;
+      v37 = v5;
       _os_log_impl(&dword_1B6E2F000, v28, OS_LOG_TYPE_DEFAULT, "cancelActivities: %@ activities were not found: %@", buf, 0x16u);
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelActivitiesWithReason:(id)reason cancellationReason:(int64_t)cancellationReason
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   v6 = [reasonCopy mutableCopy];
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v8 = reasonCopy;
-  v9 = [v8 countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v9)
   {
-    v10 = *v33;
+    v10 = *v32;
     do
     {
       v11 = 0;
       do
       {
-        if (*v33 != v10)
+        if (*v32 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v32 + 1) + 8 * v11);
+        v12 = *(*(&v31 + 1) + 8 * v11);
         submittedActivities = selfCopy->_submittedActivities;
         uuid = [v12 uuid];
         v15 = [(NSMutableDictionary *)submittedActivities objectForKeyedSubscript:uuid];
 
-        if (v15)
+        if (v15 || (v16 = selfCopy->_startedActivities, [v12 uuid], v17 = objc_claimAutoreleasedReturnValue(), -[NSMutableDictionary objectForKeyedSubscript:](v16, "objectForKeyedSubscript:", v17), v15 = objc_claimAutoreleasedReturnValue(), v17, v15) || (v18 = selfCopy->_delayedStartTasks, objc_msgSend(v12, "uuid"), v19 = objc_claimAutoreleasedReturnValue(), -[NSMutableDictionary objectForKeyedSubscript:](v18, "objectForKeyedSubscript:", v19), v15 = objc_claimAutoreleasedReturnValue(), v19, v15))
         {
-          goto LABEL_9;
-        }
-
-        startedActivities = selfCopy->_startedActivities;
-        uuid2 = [v12 uuid];
-        v15 = [(NSMutableDictionary *)startedActivities objectForKeyedSubscript:uuid2];
-
-        if (v15 || (v18 = selfCopy->_delayedStartTasks, [v12 uuid], v19 = objc_claimAutoreleasedReturnValue(), -[NSMutableDictionary objectForKeyedSubscript:](v18, "objectForKeyedSubscript:", v19), v15 = objc_claimAutoreleasedReturnValue(), v19, v15))
-        {
-LABEL_9:
           v20 = selfCopy->_submittedActivities;
-          uuid3 = [v12 uuid];
-          [(NSMutableDictionary *)v20 removeObjectForKey:uuid3];
+          uuid2 = [v12 uuid];
+          [(NSMutableDictionary *)v20 removeObjectForKey:uuid2];
 
-          v22 = selfCopy->_startedActivities;
-          uuid4 = [v12 uuid];
-          [(NSMutableDictionary *)v22 removeObjectForKey:uuid4];
+          startedActivities = selfCopy->_startedActivities;
+          uuid3 = [v12 uuid];
+          [(NSMutableDictionary *)startedActivities removeObjectForKey:uuid3];
 
           delayedStartTasks = selfCopy->_delayedStartTasks;
-          uuid5 = [v12 uuid];
-          [(NSMutableDictionary *)delayedStartTasks removeObjectForKey:uuid5];
+          uuid4 = [v12 uuid];
+          [(NSMutableDictionary *)delayedStartTasks removeObjectForKey:uuid4];
         }
 
         else
@@ -3322,7 +3358,7 @@ LABEL_9:
       }
 
       while (v9 != v11);
-      v26 = [v8 countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v26 = [v8 countByEnumeratingWithState:&v31 objects:v39 count:16];
       v9 = v26;
     }
 
@@ -3339,14 +3375,12 @@ LABEL_9:
       v29 = dasFrameworkLog;
       v30 = [v28 numberWithUnsignedInteger:{objc_msgSend(v6, "count")}];
       *buf = 138412546;
-      v37 = v30;
-      v38 = 2112;
-      v39 = v6;
+      v36 = v30;
+      v37 = 2112;
+      v38 = v6;
       _os_log_impl(&dword_1B6E2F000, v29, OS_LOG_TYPE_DEFAULT, "cancelActivities: %@ activities were not found: %@", buf, 0x16u);
     }
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)wasActivityAllowedToRun:(id)run
@@ -3365,38 +3399,34 @@ LABEL_9:
 
 - (void)activity:(id)activity runWithoutHonoringPolicies:(id)policies
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   policiesCopy = policies;
   dasFrameworkLog = [(_DASScheduler *)self dasFrameworkLog];
   if (os_log_type_enabled(dasFrameworkLog, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412546;
-    v11 = activityCopy;
-    v12 = 2112;
-    v13 = policiesCopy;
-    _os_log_impl(&dword_1B6E2F000, dasFrameworkLog, OS_LOG_TYPE_DEFAULT, "Activity: %@ ignoring policies: %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = activityCopy;
+    v11 = 2112;
+    v12 = policiesCopy;
+    _os_log_impl(&dword_1B6E2F000, dasFrameworkLog, OS_LOG_TYPE_DEFAULT, "Activity: %@ ignoring policies: %@", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activity:(id)activity blockedOnPolicies:(id)policies
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   policiesCopy = policies;
   dasFrameworkLog = [(_DASScheduler *)self dasFrameworkLog];
   if (os_log_type_enabled(dasFrameworkLog, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412546;
-    v11 = activityCopy;
-    v12 = 2112;
-    v13 = policiesCopy;
-    _os_log_impl(&dword_1B6E2F000, dasFrameworkLog, OS_LOG_TYPE_DEFAULT, "Activity: %@ blocked on policies: %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = activityCopy;
+    v11 = 2112;
+    v12 = policiesCopy;
+    _os_log_impl(&dword_1B6E2F000, dasFrameworkLog, OS_LOG_TYPE_DEFAULT, "Activity: %@ blocked on policies: %@", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setMinimumBackgroundFetchInterval:(double)interval forApp:(id)app
@@ -3445,7 +3475,7 @@ LABEL_9:
 
 - (id)submitTaskRequest:(id)request
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v5 = [objc_opt_class() log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -3457,32 +3487,30 @@ LABEL_9:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__1;
-  v17 = __Block_byref_object_dispose__1;
-  v18 = 0;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__1;
+  v16 = __Block_byref_object_dispose__1;
+  v17 = 0;
   date = [MEMORY[0x1E695DF00] date];
   [requestCopy setSubmitDate:date];
 
   currentConnection = [(_DASScheduler *)self currentConnection];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __35___DASScheduler_submitTaskRequest___block_invoke;
-  v13[3] = &unk_1E7C8F948;
-  v13[4] = self;
-  v13[5] = &buf;
-  v8 = [currentConnection remoteObjectProxyWithErrorHandler:v13];
   v12[0] = MEMORY[0x1E69E9820];
   v12[1] = 3221225472;
-  v12[2] = __35___DASScheduler_submitTaskRequest___block_invoke_376;
-  v12[3] = &unk_1E7C8F790;
-  v12[4] = &buf;
-  [v8 submitTaskRequest:requestCopy withHandler:v12];
+  v12[2] = __35___DASScheduler_submitTaskRequest___block_invoke;
+  v12[3] = &unk_1E7C8F948;
+  v12[4] = self;
+  v12[5] = &buf;
+  v8 = [currentConnection remoteObjectProxyWithErrorHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __35___DASScheduler_submitTaskRequest___block_invoke_376;
+  v11[3] = &unk_1E7C8F790;
+  v11[4] = &buf;
+  [v8 submitTaskRequest:requestCopy withHandler:v11];
 
   v9 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -3537,12 +3565,12 @@ LABEL_9:
 - (void)connectToDaemon:(BOOL)daemon
 {
   daemonCopy = daemon;
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = [objc_opt_class() log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v11 = daemonCopy;
+    v10 = daemonCopy;
     _os_log_impl(&dword_1B6E2F000, v5, OS_LOG_TYPE_DEFAULT, "Connecting to daemon; reconnect: %d", buf, 8u);
   }
 
@@ -3557,50 +3585,82 @@ LABEL_9:
   }
   v6 = ;
   remoteObjectProxy = [v6 remoteObjectProxy];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __33___DASScheduler_connectToDaemon___block_invoke;
-  v9[3] = &unk_1E7C8F0B0;
-  v9[4] = self;
-  [remoteObjectProxy establishConnection:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __33___DASScheduler_connectToDaemon___block_invoke;
+  v8[3] = &unk_1E7C8F0B0;
+  v8[4] = self;
+  [remoteObjectProxy establishConnection:v8];
 }
 
 - (void)handleLaunchFromDaemonForActivities:(id)activities
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   activitiesCopy = activities;
   v5 = [objc_opt_class() log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = activitiesCopy;
-    _os_log_impl(&dword_1B6E2F000, v5, OS_LOG_TYPE_DEFAULT, "Handling launch from daemon for activities: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = activitiesCopy;
+    _os_log_impl(&dword_1B6E2F000, v5, OS_LOG_TYPE_DEFAULT, "Handling launch from daemon for activities: %@", &v7, 0xCu);
   }
 
   backgroundTaskSchedulerDelegate = [(_DASScheduler *)self backgroundTaskSchedulerDelegate];
   [backgroundTaskSchedulerDelegate scheduler:self handleLaunchForActivities:activitiesCopy];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)willExpireBGTaskActivities:(id)activities
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   activitiesCopy = activities;
   v5 = [objc_opt_class() log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = activitiesCopy;
-    _os_log_impl(&dword_1B6E2F000, v5, OS_LOG_TYPE_DEFAULT, "Will expire BGTask activities: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = activitiesCopy;
+    _os_log_impl(&dword_1B6E2F000, v5, OS_LOG_TYPE_DEFAULT, "Will expire BGTask activities: %@", &v7, 0xCu);
   }
 
   backgroundTaskSchedulerDelegate = [(_DASScheduler *)self backgroundTaskSchedulerDelegate];
   [backgroundTaskSchedulerDelegate scheduler:self willExpireActivities:activitiesCopy];
+}
 
-  v7 = *MEMORY[0x1E69E9840];
+- (void)completeTaskRequest:(id)request withSuccess:(BOOL)success
+{
+  successCopy = success;
+  v19 = *MEMORY[0x1E69E9840];
+  requestCopy = request;
+  v7 = [objc_opt_class() log];
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = @"Failed";
+    if (successCopy)
+    {
+      v8 = @"Succeeded";
+    }
+
+    *buf = 138412546;
+    v16 = requestCopy;
+    v17 = 2112;
+    v18 = v8;
+    _os_log_impl(&dword_1B6E2F000, v7, OS_LOG_TYPE_DEFAULT, "Complete task request activity: %@ (%@)", buf, 0x16u);
+  }
+
+  currentConnection = [(_DASScheduler *)self currentConnection];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __49___DASScheduler_completeTaskRequest_withSuccess___block_invoke;
+  v14[3] = &unk_1E7C8F808;
+  v14[4] = self;
+  v10 = [currentConnection synchronousRemoteObjectProxyWithErrorHandler:v14];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __49___DASScheduler_completeTaskRequest_withSuccess___block_invoke_385;
+  v12[3] = &unk_1E7C8F1A0;
+  v12[4] = self;
+  v13 = requestCopy;
+  v11 = requestCopy;
+  [v10 completeTaskRequest:v11 withSuccess:successCopy completionHandler:v12];
 }
 
 - (void)updateOngoingTask:(id)task
@@ -3961,31 +4021,31 @@ LABEL_9:
 
 - (void)resubmitRunningActivities:(id)activities
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   activitiesCopy = activities;
   if ([activitiesCopy count])
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v6 = activitiesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v7)
     {
-      v8 = *v21;
+      v8 = *v20;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v21 != v8)
+          if (*v20 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v20 + 1) + 8 * i);
+          v10 = *(*(&v19 + 1) + 8 * i);
           delayedStartTasks = selfCopy->_delayedStartTasks;
           uuid = [v10 uuid];
           [(NSMutableDictionary *)delayedStartTasks removeObjectForKey:uuid];
@@ -3999,7 +4059,7 @@ LABEL_9:
           [(NSMutableDictionary *)startedActivities setObject:v10 forKeyedSubscript:uuid3];
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v7);
@@ -4010,8 +4070,6 @@ LABEL_9:
     remoteObjectProxy = [xpcConnection remoteObjectProxy];
     [remoteObjectProxy startedActivities:v6];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)reportFeatureCheckpoint:(unint64_t)checkpoint forFeature:(unint64_t)feature atDate:(id)date error:(id *)error
@@ -4943,35 +5001,27 @@ LABEL_9:
 
 - (void)submitActivityInternal:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 name];
   v5 = [a2 limitationResponse];
   OUTLINED_FUNCTION_12();
-  OUTLINED_FUNCTION_1_0(&dword_1B6E2F000, v6, v7, "WARNING Submitting %@: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1B6E2F000, v6, v7, "WARNING Submitting %@: %@", v8, v9, v10, v11);
 }
 
 - (void)submitActivityInternal:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 name];
   v5 = [a2 limitationResponse];
   OUTLINED_FUNCTION_12();
-  OUTLINED_FUNCTION_1_0(&dword_1B6E2F000, v6, v7, "ERROR Submitting %@: Please contact das-core@group.apple.com to prevent this activity from getting rejected. Configuration: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1B6E2F000, v6, v7, "ERROR Submitting %@: Please contact das-core@group.apple.com to prevent this activity from getting rejected. Configuration: %@", v8, v9, v10, v11);
 }
 
 - (void)submitActivity:inGroup:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

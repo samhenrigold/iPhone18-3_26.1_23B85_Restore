@@ -440,9 +440,9 @@ LABEL_19:
       v71 = v78;
       CMTimeRangeMake(&v83, &rhs.start, &v71);
       v39 = MEMORY[0x1E69B3D40];
-      [firstObject timeRange];
+      objc_msgSend_timeRange(firstObject);
       v70 = v83;
-      [v39 conformRange:&v70 inRange:&v71];
+      objc_msgSend_conformRange_inRange_(v39);
       v83 = rhs;
       v69 = 0;
       v71 = **&MEMORY[0x1E6960CC0];
@@ -542,7 +542,7 @@ LABEL_39:
   if (v7)
   {
     memset(&v42, 0, sizeof(v42));
-    [v7 livePhotoKeyFrameTime];
+    objc_msgSend_livePhotoKeyFrameTime(v7);
     bakedRecipe = [(PIAutoLoopStabVideoNode *)self bakedRecipe];
     v10 = [bakedRecipe objectForKeyedSubscript:@"loopRecipe_loopParams"];
     v11 = v10;
@@ -664,11 +664,11 @@ LABEL_39:
     orientation = [v7 orientation];
     renderScale = [v7 renderScale];
     v13 = v12;
-    v14 = PIAutoLoopRecipeComputeOutputGeometry(bakedRecipe);
+    v14 = PIAutoLoopRecipeComputeOutputGeometry(bakedRecipe, renderScale, v12);
     v15 = objc_alloc(MEMORY[0x1E69B3B18]);
     if (v14)
     {
-      [v14 extent];
+      objc_msgSend_extent(v14);
     }
 
     else
@@ -757,7 +757,7 @@ LABEL_39:
 
     bakedRecipe = [(PIAutoLoopStabVideoNode *)self bakedRecipe];
     memset(&buf, 0, sizeof(buf));
-    if (!v10 || ([v10 time], (buf.flags & 1) == 0))
+    if (!v10 || (objc_msgSend_time(v10), (buf.flags & 1) == 0))
     {
       buf = **&MEMORY[0x1E6960CC0];
     }
@@ -1108,7 +1108,7 @@ LABEL_14:
   v10 = v9;
   if (v9)
   {
-    [v9 cleanAperture];
+    objc_msgSend_cleanAperture(v9);
     v27[0] = stringValue;
     v26[0] = @"recipeDigest";
     v26[1] = @"cleanAperture";

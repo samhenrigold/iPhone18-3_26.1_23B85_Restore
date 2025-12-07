@@ -1,8 +1,8 @@
 @interface PKFloatingLabelView
-+ (PKFloatingLabelView)floatingLabelViewWithAttributedString:(uint64_t)string font:(void *)font location:(void *)location traitCollection:(void *)collection;
++ (PKFloatingLabelView)floatingLabelViewWithAttributedString:(void *)string font:(void *)font location:(double)location traitCollection:(double)collection;
 + (id)attributedStringFromString:(void *)string font:;
 + (id)defaultFloatingLabelFont;
-+ (id)floatingLabelViewWithString:(uint64_t)string font:(void *)font location:(void *)location traitCollection:(void *)collection;
++ (id)floatingLabelViewWithString:(void *)string font:(void *)font location:(double)location traitCollection:(double)collection;
 @end
 
 @implementation PKFloatingLabelView
@@ -10,14 +10,14 @@
 + (id)defaultFloatingLabelFont
 {
   objc_opt_self();
-  v0 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDD28]];
-  v1 = MEMORY[0x1E69DB878];
-  fontDescriptor = [v0 fontDescriptor];
-  v3 = [fontDescriptor fontDescriptorWithSymbolicTraits:2];
-  [v0 pointSize];
-  v4 = [v1 fontWithDescriptor:v3 size:?];
+  v1 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDD28]];
+  v2 = MEMORY[0x1E69DB878];
+  fontDescriptor = [v1 fontDescriptor];
+  v4 = [fontDescriptor fontDescriptorWithSymbolicTraits:2];
+  [v1 pointSize];
+  v5 = [v2 fontWithDescriptor:v4 size:?];
 
-  return v4;
+  return v5;
 }
 
 + (id)attributedStringFromString:(void *)string font:
@@ -47,49 +47,50 @@
   return v10;
 }
 
-+ (id)floatingLabelViewWithString:(uint64_t)string font:(void *)font location:(void *)location traitCollection:(void *)collection
++ (id)floatingLabelViewWithString:(void *)string font:(void *)font location:(double)location traitCollection:(double)collection
 {
+  v10 = a2;
+  stringCopy = string;
   fontCopy = font;
-  locationCopy = location;
-  collectionCopy = collection;
   v13 = objc_opt_self();
-  if (!locationCopy)
+  v14 = v13;
+  if (!stringCopy)
   {
-    locationCopy = +[PKFloatingLabelView defaultFloatingLabelFont];
+    stringCopy = +[(PKFloatingLabelView *)v13];
   }
 
-  v14 = [(PKFloatingLabelView *)v13 attributedStringFromString:fontCopy font:locationCopy];
-  collectionCopy = [(PKFloatingLabelView *)self floatingLabelViewWithAttributedString:a2 font:v13 location:v14 traitCollection:locationCopy, collectionCopy];
+  v15 = [(PKFloatingLabelView *)v14 attributedStringFromString:v10 font:stringCopy];
+  collection = [(PKFloatingLabelView *)v14 floatingLabelViewWithAttributedString:v15 font:stringCopy location:fontCopy traitCollection:location, collection];
 
-  return collectionCopy;
+  return collection;
 }
 
-+ (PKFloatingLabelView)floatingLabelViewWithAttributedString:(uint64_t)string font:(void *)font location:(void *)location traitCollection:(void *)collection
++ (PKFloatingLabelView)floatingLabelViewWithAttributedString:(void *)string font:(void *)font location:(double)location traitCollection:(double)collection
 {
-  collectionCopy = collection;
-  locationCopy = location;
   fontCopy = font;
+  stringCopy = string;
+  v11 = a2;
   objc_opt_self();
   v12 = objc_alloc_init(MEMORY[0x1E69DCC10]);
-  string = [fontCopy string];
+  string = [v11 string];
   newlineCharacterSet = [MEMORY[0x1E696AB08] newlineCharacterSet];
   v15 = [string componentsSeparatedByCharactersInSet:newlineCharacterSet];
   v16 = [v15 count];
 
   [v12 setNumberOfLines:v16];
-  [v12 setAttributedText:fontCopy];
+  [v12 setAttributedText:v11];
 
   v51 = *(MEMORY[0x1E695F060] + 8);
   v52 = *MEMORY[0x1E695F060];
   [v12 sizeThatFits:?];
   v18 = v17;
   v20 = v19;
-  [locationCopy pointSize];
+  [stringCopy pointSize];
   v22 = fmax((v21 + 16.0) * 0.5, 16.0);
-  [locationCopy descender];
+  [stringCopy descender];
   v24 = v23;
 
-  v25 = collectionCopy;
+  v25 = fontCopy;
   v26 = v12;
   objc_opt_self();
   v27 = [MEMORY[0x1E69DC730] effectWithStyle:9];
@@ -109,8 +110,8 @@
   [layer2 setBorderWidth:v34];
 
   [(PKFloatingLabelView *)v29 _setContinuousCornerRadius:v22];
-  v55.origin.x = self - v18 * 0.5;
-  v55.origin.y = a2 - v20 * 0.5;
+  v55.origin.x = location - v18 * 0.5;
+  v55.origin.y = collection - v20 * 0.5;
   v55.size.width = v18;
   v55.size.height = v20;
   v56 = CGRectInset(v55, -16.0, 0.0);

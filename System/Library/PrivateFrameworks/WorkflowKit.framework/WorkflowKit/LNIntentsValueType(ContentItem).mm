@@ -175,39 +175,10 @@ LABEL_40:
 
 - (id)wf_contentItemClassWithAppBundleIdentifier:()ContentItem
 {
-  typeIdentifier = [self typeIdentifier];
-  v2 = 0x1E6996E50;
-  v3 = 0x1E6996EF0uLL;
-  v4 = 0x1E6996DA8uLL;
-  if (typeIdentifier != 14)
-  {
-    v4 = 0x1E6996E50uLL;
-  }
+  [self typeIdentifier];
+  v1 = objc_opt_class();
 
-  if (typeIdentifier != 13)
-  {
-    v3 = v4;
-  }
-
-  if (typeIdentifier == 3)
-  {
-    v2 = 0x1E6996D08;
-  }
-
-  if (!typeIdentifier)
-  {
-    v2 = 0x1E6996C88;
-  }
-
-  if (typeIdentifier > 12)
-  {
-    v2 = v3;
-  }
-
-  v5 = *v2;
-  v6 = objc_opt_class();
-
-  return v6;
+  return v1;
 }
 
 @end

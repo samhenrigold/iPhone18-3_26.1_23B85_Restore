@@ -85,11 +85,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:v6 clusterID:257 commandID:18 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v17)
   {
     sub_2393C5AAC(v16);
-    sub_2393C5ADC(v16, *(v17 + 1), *(v17 + 3));
+    sub_2393C5ADC(v16, *(v17 + 8), *(v17 + 24));
     v8 = sub_2393C6FD0(v16, 256);
     if (!v8)
     {
@@ -154,8 +154,8 @@ LABEL_6:
 
   if (*(struct + 4) == 1)
   {
-    v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*sub_238DE3698(struct + 4)];
-    [(MTRDoorLockClusterGetHolidayScheduleResponseParams *)self setLocalStartTime:v7];
+    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{*sub_238DE3698(struct + 4, v7)}];
+    [(MTRDoorLockClusterGetHolidayScheduleResponseParams *)self setLocalStartTime:v8];
   }
 
   else
@@ -165,8 +165,8 @@ LABEL_6:
 
   if (*(struct + 12) == 1)
   {
-    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*sub_238DE3698(struct + 12)];
-    [(MTRDoorLockClusterGetHolidayScheduleResponseParams *)self setLocalEndTime:v8];
+    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{*sub_238DE3698(struct + 12, v9)}];
+    [(MTRDoorLockClusterGetHolidayScheduleResponseParams *)self setLocalEndTime:v10];
   }
 
   else
@@ -174,12 +174,12 @@ LABEL_6:
     [(MTRDoorLockClusterGetHolidayScheduleResponseParams *)self setLocalEndTime:0];
   }
 
-  v10 = *(struct + 20);
-  v9 = struct + 20;
-  if (v10 == 1)
+  v13 = *(struct + 20);
+  v12 = struct + 20;
+  if (v13 == 1)
   {
-    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*sub_238DE36D8(v9)];
-    [(MTRDoorLockClusterGetHolidayScheduleResponseParams *)self setOperatingMode:v11];
+    v14 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{LOBYTE(sub_238DE36D8(v12, v11)->super.isa)}];
+    [(MTRDoorLockClusterGetHolidayScheduleResponseParams *)self setOperatingMode:v14];
   }
 
   else
@@ -187,11 +187,11 @@ LABEL_6:
     [(MTRDoorLockClusterGetHolidayScheduleResponseParams *)self setOperatingMode:0];
   }
 
-  v12 = 0;
-  v13 = 0;
-  result.mFile = v13;
-  result.mError = v12;
-  result.mLine = HIDWORD(v12);
+  v15 = 0;
+  v16 = 0;
+  result.mFile = v16;
+  result.mError = v15;
+  result.mLine = HIDWORD(v15);
   return result;
 }
 

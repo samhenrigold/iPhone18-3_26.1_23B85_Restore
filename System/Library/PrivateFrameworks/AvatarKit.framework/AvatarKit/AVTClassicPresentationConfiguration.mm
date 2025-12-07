@@ -18,7 +18,7 @@
 
 uint64_t __58__AVTClassicPresentationConfiguration_sharedConfiguration__block_invoke()
 {
-  v0 = [(AVTPresentationConfiguration *)[AVTClassicPresentationConfiguration alloc] _initWithStyle:0];
+  v0 = [(AVTPresentationConfiguration *)[AVTClassicPresentationConfiguration alloc] _initWithStyle:?];
   v1 = sharedConfiguration_sharedConfiguration;
   sharedConfiguration_sharedConfiguration = v0;
 

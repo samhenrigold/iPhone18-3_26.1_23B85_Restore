@@ -12,10 +12,9 @@
 
 + (id)validProgressTypes
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"AutoAsset";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"AutoAsset";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -42,16 +41,16 @@ void __37__UAFAssetSetProgress_getSerialQueue__block_invoke()
 
 - (UAFAssetSetProgress)initWithName:(id)name maxProgressBeforeComplete:(unint64_t)complete progressWithStatus:(id)status
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   statusCopy = status;
-  v39.receiver = self;
-  v39.super_class = UAFAssetSetProgress;
-  v11 = [(UAFAssetSetProgress *)&v39 init];
+  v38.receiver = self;
+  v38.super_class = UAFAssetSetProgress;
+  v11 = [(UAFAssetSetProgress *)&v38 init];
   v12 = v11;
   if (v11)
   {
-    v33 = statusCopy;
+    v32 = statusCopy;
     objc_storeStrong(&v11->_name, name);
     v12->_completed = 0;
     v12->_total = 0;
@@ -64,26 +63,26 @@ void __37__UAFAssetSetProgress_getSerialQueue__block_invoke()
     statuses = v12->_statuses;
     v12->_statuses = v15;
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     obj = [objc_opt_class() validProgressTypes];
-    v17 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+    v17 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v36;
+      v19 = *v35;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v36 != v19)
+          if (*v35 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v35 + 1) + 8 * i);
+          v21 = *(*(&v34 + 1) + 8 * i);
           v22 = objc_opt_new();
           [(NSMutableDictionary *)v12->_progresses setObject:v22 forKeyedSubscript:v21];
 
@@ -99,7 +98,7 @@ void __37__UAFAssetSetProgress_getSerialQueue__block_invoke()
           [(NSMutableDictionary *)v12->_statuses setObject:v27 forKeyedSubscript:v21];
         }
 
-        v18 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v18 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
       }
 
       while (v18);
@@ -107,49 +106,48 @@ void __37__UAFAssetSetProgress_getSerialQueue__block_invoke()
 
     *&v12->_reportedStatus = 0u;
     *&v12->_reportedComplete = 0u;
-    statusCopy = v33;
-    v28 = MEMORY[0x1BFB33950](v33);
+    statusCopy = v32;
+    v28 = MEMORY[0x1BFB33950](v32);
     progressWithStatus = v12->_progressWithStatus;
     v12->_progressWithStatus = v28;
 
     v30 = v12;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (void)reportPercent:(unint64_t)percent status:(unint64_t)status totalKnown:(BOOL)known
 {
   knownCopy = known;
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v6 = objc_opt_new();
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   validProgressTypes = [objc_opt_class() validProgressTypes];
-  v8 = [validProgressTypes countByEnumeratingWithState:&v30 objects:v46 count:16];
+  v8 = [validProgressTypes countByEnumeratingWithState:&v29 objects:v45 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v31;
+    v10 = *v30;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v31 != v10)
+        if (*v30 != v10)
         {
           objc_enumerationMutation(validProgressTypes);
         }
 
-        v12 = *(*(&v30 + 1) + 8 * i);
+        v12 = *(*(&v29 + 1) + 8 * i);
         v13 = [(NSMutableDictionary *)self->_progresses objectForKeyedSubscript:v12];
         v14 = [v13 objectForKeyedSubscript:@"Context"];
         [v6 setObject:v14 forKeyedSubscript:v12];
       }
 
-      v9 = [validProgressTypes countByEnumeratingWithState:&v30 objects:v46 count:16];
+      v9 = [validProgressTypes countByEnumeratingWithState:&v29 objects:v45 count:16];
     }
 
     while (v9);
@@ -165,17 +163,17 @@ void __37__UAFAssetSetProgress_getSerialQueue__block_invoke()
       completed = self->_completed;
       total = self->_total;
       *buf = 136316418;
-      v35 = "[UAFAssetSetProgress reportPercent:status:totalKnown:]";
-      v36 = 2048;
-      v37 = reportedComplete;
-      v38 = 2048;
+      v34 = "[UAFAssetSetProgress reportPercent:status:totalKnown:]";
+      v35 = 2048;
+      v36 = reportedComplete;
+      v37 = 2048;
       percentCopy = completed;
-      v40 = 2048;
-      v41 = reportedTotal;
-      v42 = 2048;
-      v43 = total;
-      v44 = 1024;
-      LODWORD(v45) = status;
+      v39 = 2048;
+      v40 = reportedTotal;
+      v41 = 2048;
+      v42 = total;
+      v43 = 1024;
+      LODWORD(v44) = status;
       _os_log_debug_impl(&dword_1BCF2C000, v15, OS_LOG_TYPE_DEBUG, "%s Progress and status has not changed, suppressing update: %llu/%llu %llu/%llu %u", buf, 0x3Au);
     }
   }
@@ -190,17 +188,17 @@ void __37__UAFAssetSetProgress_getSerialQueue__block_invoke()
       v18 = self->_total;
       v19 = UAFSubscriptionDownloadStatusDescription(status);
       *buf = 136316418;
-      v35 = "[UAFAssetSetProgress reportPercent:status:totalKnown:]";
-      v36 = 2114;
-      v37 = name;
-      v38 = 2048;
+      v34 = "[UAFAssetSetProgress reportPercent:status:totalKnown:]";
+      v35 = 2114;
+      v36 = name;
+      v37 = 2048;
       percentCopy = percent;
-      v40 = 2048;
-      v41 = v17;
-      v42 = 2048;
-      v43 = v18;
-      v44 = 2114;
-      v45 = v19;
+      v39 = 2048;
+      v40 = v17;
+      v41 = 2048;
+      v42 = v18;
+      v43 = 2114;
+      v44 = v19;
       _os_log_impl(&dword_1BCF2C000, v15, OS_LOG_TYPE_DEFAULT, "%s Progress for %{public}@: %lu percent (%llu / %llu) . Status: %{public}@", buf, 0x3Eu);
     }
   }
@@ -214,37 +212,35 @@ void __37__UAFAssetSetProgress_getSerialQueue__block_invoke()
   {
     progressWithStatus[2](percent);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)summarize
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v3 = +[UAFAssetSetProgress validProgressTypes];
-  v4 = [v3 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v4)
   {
     v5 = v4;
-    v24 = 0;
+    v23 = 0;
     v6 = 0;
     v7 = 0;
     obj = v3;
-    v26 = *v28;
+    v25 = *v27;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v28 != v26)
+        if (*v27 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v27 + 1) + 8 * i);
+        v9 = *(*(&v26 + 1) + 8 * i);
         v10 = [(NSMutableDictionary *)self->_progresses objectForKeyedSubscript:v9];
         v11 = [v10 objectForKeyedSubscript:@"Completed"];
         unsignedLongLongValue = [v11 unsignedLongLongValue];
@@ -261,7 +257,7 @@ void __37__UAFAssetSetProgress_getSerialQueue__block_invoke()
             v17 = [(NSMutableDictionary *)self->_statuses objectForKeyedSubscript:v9];
             v18 = [v17 unsignedIntegerValue] != 5;
 
-            v24 |= v18;
+            v23 |= v18;
           }
         }
 
@@ -269,7 +265,7 @@ void __37__UAFAssetSetProgress_getSerialQueue__block_invoke()
         v6 += unsignedLongLongValue2;
       }
 
-      v5 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v5 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v5);
@@ -285,7 +281,7 @@ void __37__UAFAssetSetProgress_getSerialQueue__block_invoke()
       *p_total = v6;
     }
 
-    v20 = v24;
+    v20 = v23;
   }
 
   else
@@ -321,12 +317,11 @@ void __37__UAFAssetSetProgress_getSerialQueue__block_invoke()
 
   self->_reportedPercent = reportedPercent;
   [UAFAssetSetProgress reportPercent:"reportPercent:status:totalKnown:" status:? totalKnown:?];
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)progress:(id)progress completed:(unint64_t)completed total:(unint64_t)total status:(unint64_t)status context:(id)context
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   progressCopy = progress;
   contextCopy = context;
   v14 = +[UAFAssetSetProgress validProgressTypes];
@@ -335,17 +330,17 @@ void __37__UAFAssetSetProgress_getSerialQueue__block_invoke()
   if (v15)
   {
     v16 = +[UAFAssetSetProgress getSerialQueue];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __63__UAFAssetSetProgress_progress_completed_total_status_context___block_invoke;
-    v20[3] = &unk_1E7FFEAB0;
-    v20[4] = self;
-    v21 = progressCopy;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __63__UAFAssetSetProgress_progress_completed_total_status_context___block_invoke;
+    v19[3] = &unk_1E7FFEAB0;
+    v19[4] = self;
+    v20 = progressCopy;
     completedCopy = completed;
     totalCopy = total;
-    v22 = contextCopy;
+    v21 = contextCopy;
     statusCopy = status;
-    dispatch_async(v16, v20);
+    dispatch_async(v16, v19);
   }
 
   else
@@ -355,16 +350,14 @@ void __37__UAFAssetSetProgress_getSerialQueue__block_invoke()
     {
       name = self->_name;
       *buf = 136315650;
-      v27 = "[UAFAssetSetProgress progress:completed:total:status:context:]";
-      v28 = 2114;
-      v29 = progressCopy;
-      v30 = 2114;
-      v31 = name;
+      v26 = "[UAFAssetSetProgress progress:completed:total:status:context:]";
+      v27 = 2114;
+      v28 = progressCopy;
+      v29 = 2114;
+      v30 = name;
       _os_log_error_impl(&dword_1BCF2C000, v17, OS_LOG_TYPE_ERROR, "%s Invalid progress type %{public}@ used for %{public}@", buf, 0x20u);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __63__UAFAssetSetProgress_progress_completed_total_status_context___block_invoke(uint64_t a1)

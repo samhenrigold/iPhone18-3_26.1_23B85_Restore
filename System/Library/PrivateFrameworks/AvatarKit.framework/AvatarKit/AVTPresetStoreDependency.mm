@@ -17,9 +17,9 @@
   if (v9)
   {
     v13 = objc_alloc_init(AVTPresetStoreDependencyCondition);
-    [(AVTPresetStoreDependencyCondition *)v13 setPresetOfOtherCategory:onPresetCopy];
+    [(AVTPresetStoreDependencyCondition *)v13 setPresetOfOtherCategory:?];
     objc_storeStrong(&v9->_overridePreset, preset);
-    v10 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:&v13 count:1];
+    v10 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:? count:?];
     conditions = v9->_conditions;
     v9->_conditions = v10;
   }
@@ -38,10 +38,10 @@
   if (v12)
   {
     v16 = objc_alloc_init(AVTPresetStoreDependencyCondition);
-    [(AVTPresetStoreDependencyCondition *)v16 setPresetOfOtherCategory:onPresetCopy];
-    [(AVTPresetStoreDependencyCondition *)v16 setSpecificPresetIdentifier:identifierCopy];
+    [(AVTPresetStoreDependencyCondition *)v16 setPresetOfOtherCategory:?];
+    [(AVTPresetStoreDependencyCondition *)v16 setSpecificPresetIdentifier:?];
     objc_storeStrong(&v12->_overridePreset, preset);
-    v13 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:&v16 count:1];
+    v13 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:? count:?];
     conditions = v12->_conditions;
     v12->_conditions = v13;
   }
@@ -51,28 +51,23 @@
 
 - (void)addConditionOnPreset:(id)preset
 {
-  v20 = *MEMORY[0x1E69E9840];
   presetCopy = preset;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
   v5 = self->_conditions;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [NSMutableArray countByEnumeratingWithState:v5 objects:"countByEnumeratingWithState:objects:count:" count:0];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = MEMORY[0];
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v7; i = (i + 1))
       {
-        if (*v16 != v8)
+        if (MEMORY[0] != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(8 * i);
         presetOfOtherCategory = [v10 presetOfOtherCategory];
         v12 = presetOfOtherCategory;
         if (presetOfOtherCategory == presetCopy)
@@ -90,51 +85,44 @@
         }
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [NSMutableArray countByEnumeratingWithState:v5 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
     while (v7);
   }
 
   v5 = objc_alloc_init(AVTPresetStoreDependencyCondition);
-  [(NSMutableArray *)v5 setPresetOfOtherCategory:presetCopy];
-  [(NSMutableArray *)self->_conditions addObject:v5];
+  [(NSMutableArray *)v5 setPresetOfOtherCategory:?];
+  [(NSMutableArray *)self->_conditions addObject:?];
 LABEL_12:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addConditionOnPreset:(id)preset forSpecificPresetIdentifier:(id)identifier
 {
-  v24 = *MEMORY[0x1E69E9840];
   presetCopy = preset;
   identifierCopy = identifier;
-  v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
   v8 = self->_conditions;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [NSMutableArray countByEnumeratingWithState:v8 objects:"countByEnumeratingWithState:objects:count:" count:0];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = MEMORY[0];
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v10; i = (i + 1))
       {
-        if (*v20 != v11)
+        if (MEMORY[0] != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(8 * i);
         presetOfOtherCategory = [v13 presetOfOtherCategory];
         v15 = presetOfOtherCategory;
         if (presetOfOtherCategory == presetCopy)
         {
           specificPresetIdentifier = [v13 specificPresetIdentifier];
-          v17 = [specificPresetIdentifier isEqualToString:identifierCopy];
+          v17 = [specificPresetIdentifier isEqualToString:?];
 
           if (v17)
           {
@@ -147,19 +135,17 @@ LABEL_12:
         }
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [NSMutableArray countByEnumeratingWithState:v8 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
     while (v10);
   }
 
   v8 = objc_alloc_init(AVTPresetStoreDependencyCondition);
-  [(NSMutableArray *)v8 setPresetOfOtherCategory:presetCopy];
-  [(NSMutableArray *)v8 setSpecificPresetIdentifier:identifierCopy];
-  [(NSMutableArray *)self->_conditions addObject:v8];
+  [(NSMutableArray *)v8 setPresetOfOtherCategory:?];
+  [(NSMutableArray *)v8 setSpecificPresetIdentifier:?];
+  [(NSMutableArray *)self->_conditions addObject:?];
 LABEL_12:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 @end

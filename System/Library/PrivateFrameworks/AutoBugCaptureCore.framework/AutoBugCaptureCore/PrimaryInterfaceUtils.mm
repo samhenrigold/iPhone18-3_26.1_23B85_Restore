@@ -68,31 +68,31 @@ uint64_t __39__PrimaryInterfaceUtils_sharedInstance__block_invoke()
     path3 = [mEMORY[0x277CD9200] path];
     secondsSinceInterfaceChange = [path3 secondsSinceInterfaceChange];
 
-    v11 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-secondsSinceInterfaceChange];
+    v12 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-secondsSinceInterfaceChange];
     date = [MEMORY[0x277CBEAA8] date];
-    v13 = symptomsLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v14 = symptomsLogHandle(date);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v14 = [InterfaceUtils stringForInterfaceType:type];
+      v15 = [InterfaceUtils stringForInterfaceType:type];
       v18 = 138412802;
-      v19 = v14;
+      v19 = v15;
       v20 = 2048;
       status2 = *&secondsSinceInterfaceChange;
       v22 = 2112;
-      v23 = v11;
-      _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_INFO, "PrimaryInterfaceUtils: Informed that interfaceType %@ became primary %.1fs ago at %@", &v18, 0x20u);
+      v23 = v12;
+      _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_INFO, "PrimaryInterfaceUtils: Informed that interfaceType %@ became primary %.1fs ago at %@", &v18, 0x20u);
     }
 
     [(PrimaryInterfaceUtils *)self _setHasPrimaryInterface:(type & 0xFFFFFFFFFFFFFFFBLL) != 0];
     [(PrimaryInterfaceUtils *)self _setPrimaryInterfaceType:type];
-    [(PrimaryInterfaceUtils *)self _setInterfaceBecamePrimaryDate:v11];
+    [(PrimaryInterfaceUtils *)self _setInterfaceBecamePrimaryDate:v12];
     [(PrimaryInterfaceUtils *)self _setEstimatedInterfaceBecamePrimaryDate:date];
   }
 
   else
   {
-    v11 = symptomsLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = symptomsLogHandle(v6);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       path4 = [mEMORY[0x277CD9200] path];
       path5 = [mEMORY[0x277CD9200] path];
@@ -100,11 +100,9 @@ uint64_t __39__PrimaryInterfaceUtils_sharedInstance__block_invoke()
       v19 = path4;
       v20 = 2048;
       status2 = [path5 status];
-      _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_INFO, "PrimaryInterfaceUtils: path [%@] not satisfied (%ld)", &v18, 0x16u);
+      _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_INFO, "PrimaryInterfaceUtils: path [%@] not satisfied (%ld)", &v18, 0x16u);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context

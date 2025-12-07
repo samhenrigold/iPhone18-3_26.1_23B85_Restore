@@ -2800,7 +2800,7 @@ void __34__PNPersonPromoter_advancedStatus__block_invoke(uint64_t a1, void *a2, 
   return v25;
 }
 
-unint64_t __78__PNPersonPromoter__promoteUnverifiedPersons_withVerifiedPersons_updateBlock___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__78__PNPersonPromoter__promoteUnverifiedPersons_withVerifiedPersons_updateBlock___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 faceCount];
   if (result >= 0x64)

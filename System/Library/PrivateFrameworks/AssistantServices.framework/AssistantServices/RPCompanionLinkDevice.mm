@@ -28,7 +28,7 @@
 - (id)_ad_siriSharedDataProtobuf
 {
   siriInfo = [(RPCompanionLinkDevice *)self siriInfo];
-  v3 = [siriInfo objectForKey:@"sharedDataProtoBuf"];
+  v3 = objc_msgSend_objectForKey_(siriInfo);
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -333,10 +333,10 @@
 
     if ([(RPCompanionLinkDevice *)self hasIOS])
     {
-      [(RPCompanionLinkDevice *)self operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(self);
       if (v23)
       {
-        [(RPCompanionLinkDevice *)self operatingSystemVersion];
+        objc_msgSend_operatingSystemVersion(self);
         v12 = v22 > 17;
 LABEL_16:
         v14 = [(RPCompanionLinkDevice *)self isDiscoveredOverWifiP2P]& v8 & v9 & v12;

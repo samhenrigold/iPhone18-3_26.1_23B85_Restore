@@ -1,6 +1,7 @@
 @interface WFConfiguredTrigger
 - (BOOL)isEqual:(id)equal;
 - (WFConfiguredTrigger)initWithCoder:(id)coder;
+- (WFConfiguredTrigger)initWithIdentifier:(id)identifier workflowID:(id)d trigger:(id)trigger shouldPrompt:(BOOL)prompt shouldNotify:(BOOL)notify shouldRecur:(BOOL)recur potentialLoopDetected:(BOOL)detected enabled:(BOOL)self0 disablementReason:(id)self1 editableShortcut:(BOOL)self2 selectedEntryMetadata:(id)self3;
 - (WFConfiguredTrigger)initWithIdentifier:(id)identifier workflowID:(id)d trigger:(id)trigger shouldPrompt:(BOOL)prompt shouldNotify:(BOOL)notify shouldRecur:(BOOL)recur potentialLoopDetected:(BOOL)detected enabled:(BOOL)self0 disablementReason:(id)self1 triggerSource:(int)self2 notificationLevel:(int)self3 editableShortcut:(BOOL)self4 selectedEntryMetadata:(id)self5;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -82,7 +83,7 @@
   equalCopy = equal;
   if (equalCopy == self)
   {
-    LOBYTE(v17) = 1;
+    LOBYTE(isEqualToString) = 1;
   }
 
   else
@@ -95,7 +96,7 @@
       v32.super_class = WFConfiguredTrigger;
       if (![(WFConfiguredTrigger *)&v32 isEqual:v5])
       {
-        LOBYTE(v17) = 0;
+        LOBYTE(isEqualToString) = 0;
 LABEL_32:
 
         goto LABEL_33;
@@ -107,7 +108,7 @@ LABEL_32:
       serializedData2 = [trigger2 serializedData];
       if (![serializedData isEqual:serializedData2])
       {
-        LOBYTE(v17) = 0;
+        LOBYTE(isEqualToString) = 0;
 LABEL_31:
 
         goto LABEL_32;
@@ -117,7 +118,7 @@ LABEL_31:
       selectedEntryMetadata2 = [(WFConfiguredTrigger *)self selectedEntryMetadata];
       if (![selectedEntryMetadata isEqual:selectedEntryMetadata2])
       {
-        LOBYTE(v17) = 0;
+        LOBYTE(isEqualToString) = 0;
 LABEL_30:
 
         goto LABEL_31;
@@ -137,7 +138,7 @@ LABEL_30:
 
       else
       {
-        LOBYTE(v17) = 0;
+        LOBYTE(isEqualToString) = 0;
         v28 = disablementReason2;
         if (!disablementReason)
         {
@@ -157,9 +158,9 @@ LABEL_28:
         }
 
         v16 = disablementReason2;
-        v17 = [disablementReason isEqualToString:disablementReason2];
+        isEqualToString = objc_msgSend_isEqualToString_(disablementReason);
 
-        if (!v17)
+        if (!isEqualToString)
         {
           selectedEntryMetadata2 = v31;
 LABEL_29:
@@ -173,7 +174,7 @@ LABEL_29:
       selectedEntryMetadata2 = v31;
       if (isEnabled != [(WFConfiguredTrigger *)v5 isEnabled])
       {
-        LOBYTE(v17) = 0;
+        LOBYTE(isEqualToString) = 0;
         goto LABEL_29;
       }
 
@@ -191,18 +192,18 @@ LABEL_29:
           if (notificationLevel == [(WFConfiguredTrigger *)v5 notificationLevel])
           {
             editableShortcut = [(WFConfiguredTrigger *)self editableShortcut];
-            v17 = editableShortcut ^ [(WFConfiguredTrigger *)v5 editableShortcut]^ 1;
+            isEqualToString = editableShortcut ^ [(WFConfiguredTrigger *)v5 editableShortcut]^ 1;
           }
 
           else
           {
-            LOBYTE(v17) = 0;
+            LOBYTE(isEqualToString) = 0;
           }
         }
 
         else
         {
-          LOBYTE(v17) = 0;
+          LOBYTE(isEqualToString) = 0;
           v18 = disablementReason;
         }
 
@@ -210,16 +211,16 @@ LABEL_29:
         goto LABEL_28;
       }
 
-      LOBYTE(v17) = 0;
+      LOBYTE(isEqualToString) = 0;
       goto LABEL_21;
     }
 
-    LOBYTE(v17) = 0;
+    LOBYTE(isEqualToString) = 0;
   }
 
 LABEL_33:
 
-  return v17;
+  return isEqualToString;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -329,6 +330,13 @@ LABEL_6:
   }
 
   return selfCopy;
+}
+
+- (WFConfiguredTrigger)initWithIdentifier:(id)identifier workflowID:(id)d trigger:(id)trigger shouldPrompt:(BOOL)prompt shouldNotify:(BOOL)notify shouldRecur:(BOOL)recur potentialLoopDetected:(BOOL)detected enabled:(BOOL)self0 disablementReason:(id)self1 editableShortcut:(BOOL)self2 selectedEntryMetadata:(id)self3
+{
+  LOBYTE(v15) = shortcut;
+  LOWORD(v14) = __PAIR16__(enabled, detected);
+  return [WFConfiguredTrigger initWithIdentifier:"initWithIdentifier:workflowID:trigger:shouldPrompt:shouldNotify:shouldRecur:potentialLoopDetected:enabled:disablementReason:triggerSource:notificationLevel:editableShortcut:selectedEntryMetadata:" workflowID:identifier trigger:d shouldPrompt:trigger shouldNotify:prompt shouldRecur:notify potentialLoopDetected:recur enabled:v14 disablementReason:reason triggerSource:0 notificationLevel:v15 editableShortcut:metadata selectedEntryMetadata:?];
 }
 
 @end

@@ -1547,7 +1547,7 @@ void __65__SMReplayManager__fetchEstimatedLocationAtDate_options_handler___block
   v13 = 0u;
   if (v5)
   {
-    [v5 clientLocation];
+    objc_msgSend_clientLocation(v5);
   }
 
   LODWORD(v13) = v8;

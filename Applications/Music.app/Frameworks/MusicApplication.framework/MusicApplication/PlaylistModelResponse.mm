@@ -33,7 +33,7 @@
   responseCopy = response;
   selfCopy = self;
   sub_B5160(response, v6, v7);
-  sub_17654(v6);
+  sub_17654(v6, v7);
 }
 
 - (id)newOperationForDetailedKeepLocalStatusConfigurationForSectionAtIndex:(int64_t)index responseHandler:(id)handler
@@ -58,7 +58,7 @@
 {
   v7 = sub_AB3820();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &aBlock[-1] - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   aBlock[6] = &OBJC_PROTOCOL____TtP16MusicApplication40ContainerDetailAlbumNavigationHandleable_;

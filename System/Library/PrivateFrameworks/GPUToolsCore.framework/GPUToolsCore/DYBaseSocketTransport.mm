@@ -2,6 +2,7 @@
 - (BOOL)connected;
 - (DYBaseSocketTransport)init;
 - (DYBaseSocketTransportSharedMemoryURLs)createNewSharedMemoryTransportWithURLs:(DYBaseSocketTransportSharedMemoryURLs)ls uniqueIdentifier:(id)identifier loadCapture:(BOOL)capture loadDiagnostics:(BOOL)diagnostics;
+- (DYBaseSocketTransportSharedMemoryURLs)createNewSharedMemoryTransportWithUniqueIdentifier:(id)identifier loadCapture:(BOOL)capture loadDiagnostics:(BOOL)diagnostics;
 - (int64_t)_read:(void *)_read size:(unint64_t)size;
 - (int64_t)_write:(const void *)_write size:(unint64_t)size;
 - (unsigned)_nextMessageSerial;
@@ -13,6 +14,7 @@
 - (void)destroySharedMemoryTransport;
 - (void)runWithSocket:(int)socket;
 - (void)scheduleReadOnWritableSocket;
+- (void)setPrioritizeOutgoingMessages:(BOOL)messages;
 @end
 
 @implementation DYBaseSocketTransport
@@ -184,6 +186,22 @@ _BYTE *__39__DYBaseSocketTransport_runWithSocket___block_invoke_4(uint64_t a1)
   return readSource;
 }
 
+- (void)setPrioritizeOutgoingMessages:(BOOL)messages
+{
+  messagesCopy = messages;
+  queue = self->super.super._queue;
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __55__DYBaseSocketTransport_setPrioritizeOutgoingMessages___block_invoke;
+  block[3] = &unk_27930C710;
+  block[4] = self;
+  messagesCopy2 = messages;
+  dispatch_sync(queue, block);
+  v6.receiver = self;
+  v6.super_class = DYBaseSocketTransport;
+  [(DYTransport *)&v6 setPrioritizeOutgoingMessages:messagesCopy];
+}
+
 uint64_t __55__DYBaseSocketTransport_setPrioritizeOutgoingMessages___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 248) setPrioritizeOutgoingMessages:*(a1 + 40)];
@@ -214,6 +232,14 @@ uint64_t __55__DYBaseSocketTransport_setPrioritizeOutgoingMessages___block_invok
   v4.receiver = self;
   v4.super_class = DYBaseSocketTransport;
   [(DYBaseStreamTransport *)&v4 _invalidate];
+}
+
+- (DYBaseSocketTransportSharedMemoryURLs)createNewSharedMemoryTransportWithUniqueIdentifier:(id)identifier loadCapture:(BOOL)capture loadDiagnostics:(BOOL)diagnostics
+{
+  diagnostics = [(DYBaseSocketTransport *)self createNewSharedMemoryTransportWithURLs:0 uniqueIdentifier:0 loadCapture:identifier loadDiagnostics:capture, diagnostics];
+  result.var1 = v6;
+  result.var0 = diagnostics;
+  return result;
 }
 
 - (DYBaseSocketTransportSharedMemoryURLs)createNewSharedMemoryTransportWithURLs:(DYBaseSocketTransportSharedMemoryURLs)ls uniqueIdentifier:(id)identifier loadCapture:(BOOL)capture loadDiagnostics:(BOOL)diagnostics

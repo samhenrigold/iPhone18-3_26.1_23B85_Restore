@@ -4,6 +4,7 @@
 - (void)createCacheDirAtPath:(id)path;
 - (void)createNewDataCache;
 - (void)ping;
+- (void)setCacheLockState:(BOOL)state;
 - (void)shareStatusWithPeers;
 - (void)triggerUpdateToEligibilityEngine;
 - (void)update:(int64_t)update withCountryCode:(id)code;
@@ -1026,6 +1027,113 @@ LABEL_41:
 
   dataCache = [(RDXPCHandler *)self dataCache];
   [dataCache postResultsToEligibilityEngine];
+}
+
+- (void)setCacheLockState:(BOOL)state
+{
+  stateCopy = state;
+  v4 = +[NSXPCConnection currentConnection];
+  v5 = [v4 valueForEntitlement:@"com.apple.countryd.lock"];
+  if (!v5 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || ([v5 BOOLValue] & 1) == 0)
+  {
+    if (qword_100019008 != -1)
+    {
+      dispatch_once(&qword_100019008, &stru_100014A98);
+    }
+
+    v8 = qword_100019010;
+    if (os_log_type_enabled(qword_100019010, OS_LOG_TYPE_FAULT))
+    {
+      v9 = v8;
+      v14 = 68289538;
+      v15 = 0;
+      v16 = 2082;
+      v17 = "";
+      v18 = 2082;
+      v19 = "com.apple.countryd.lock";
+      v20 = 1026;
+      processIdentifier = [v4 processIdentifier];
+      _os_log_impl(&dword_100000000, v9, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:peer process is missing entitlement lock our cache, entitlement:%{public, location:escape_only}s, process:%{public}d}", &v14, 0x22u);
+
+      if (qword_100019008 != -1)
+      {
+        dispatch_once(&qword_100019008, &stru_100014A98);
+      }
+    }
+
+    v10 = qword_100019010;
+    if (os_signpost_enabled(qword_100019010))
+    {
+      v11 = v10;
+      processIdentifier2 = [v4 processIdentifier];
+      v14 = 68289538;
+      v15 = 0;
+      v16 = 2082;
+      v17 = "";
+      v18 = 2082;
+      v19 = "com.apple.countryd.lock";
+      v20 = 1026;
+      processIdentifier = processIdentifier2;
+      _os_signpost_emit_with_name_impl(&dword_100000000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "peer process is missing entitlement lock our cache", "{msg%{public}.0s:peer process is missing entitlement lock our cache, entitlement:%{public, location:escape_only}s, process:%{public}d}", &v14, 0x22u);
+    }
+
+    goto LABEL_20;
+  }
+
+  if (!geteuid())
+  {
+    if (qword_100018FF8 != -1)
+    {
+      dispatch_once(&qword_100018FF8, &stru_100014AD8);
+    }
+
+    v13 = qword_100019000;
+    if (os_log_type_enabled(qword_100019000, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = 68289282;
+      v15 = 0;
+      v16 = 2082;
+      v17 = "";
+      v18 = 1026;
+      LODWORD(v19) = stateCopy;
+      _os_log_impl(&dword_100000000, v13, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:updating lock state, locked:%{public}hhd}", &v14, 0x18u);
+    }
+
+    v4 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.RegulatoryDomain"];
+    [v4 setBool:stateCopy forKey:@"UpdatesLocked"];
+LABEL_20:
+
+    return;
+  }
+
+  if (qword_100018FF8 != -1)
+  {
+    dispatch_once(&qword_100018FF8, &stru_100014AD8);
+  }
+
+  v6 = qword_100019000;
+  if (os_log_type_enabled(qword_100019000, OS_LOG_TYPE_FAULT))
+  {
+    v14 = 68289026;
+    v15 = 0;
+    v16 = 2082;
+    v17 = "";
+    _os_log_impl(&dword_100000000, v6, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:lock state can only be modified by root user}", &v14, 0x12u);
+    if (qword_100018FF8 != -1)
+    {
+      dispatch_once(&qword_100018FF8, &stru_100014AD8);
+    }
+  }
+
+  v7 = qword_100019000;
+  if (os_signpost_enabled(qword_100019000))
+  {
+    v14 = 68289026;
+    v15 = 0;
+    v16 = 2082;
+    v17 = "";
+    _os_signpost_emit_with_name_impl(&dword_100000000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "lock state can only be modified by root user", "{msg%{public}.0s:lock state can only be modified by root user}", &v14, 0x12u);
+  }
 }
 
 @end

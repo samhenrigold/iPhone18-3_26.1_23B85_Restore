@@ -36,7 +36,7 @@
   [v4 invalidate];
 
   v5.receiver = selfCopy;
-  v5.super_class = type metadata accessor for Daemon();
+  v5.super_class = type metadata accessor for Daemon(0);
   [(Daemon *)&v5 dealloc];
 }
 
@@ -120,9 +120,8 @@ LABEL_6:
 - (void)service:(id)service account:(id)account incomingData:(id)data fromID:(id)d context:(id)context
 {
   v13 = sub_1000A0F2C(&unk_1001DF9B0, &qword_100140000);
-  v14 = *(*(v13 - 8) + 64);
   __chkstk_darwin(v13 - 8);
-  v16 = &v35 - v15;
+  v15 = &v34 - v14;
   if (!data)
   {
     serviceCopy = service;
@@ -130,15 +129,15 @@ LABEL_6:
     dCopy = d;
     contextCopy = context;
     selfCopy = self;
-    v24 = 0xF000000000000000;
+    v23 = 0xF000000000000000;
     if (d)
     {
       goto LABEL_3;
     }
 
 LABEL_5:
-    v25 = 0;
-    v27 = 0;
+    v24 = 0;
+    v26 = 0;
     goto LABEL_6;
   }
 
@@ -149,7 +148,7 @@ LABEL_5:
   selfCopy2 = self;
   dataCopy = data;
   data = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-  v24 = v23;
+  v23 = v22;
 
   if (!d)
   {
@@ -157,43 +156,42 @@ LABEL_5:
   }
 
 LABEL_3:
-  v25 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v27 = v26;
+  v24 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v26 = v25;
 
 LABEL_6:
-  v33 = type metadata accessor for TaskPriority();
-  (*(*(v33 - 8) + 56))(v16, 1, 1, v33);
-  v34 = swift_allocObject();
-  v34[2] = 0;
-  v34[3] = 0;
-  v34[4] = self;
-  v34[5] = service;
-  v34[6] = account;
-  v34[7] = data;
-  v34[8] = v24;
-  v34[9] = v25;
-  v34[10] = v27;
-  v34[11] = context;
-  sub_1000D4310(0, 0, v16, &unk_100141EF0, v34);
+  v32 = type metadata accessor for TaskPriority();
+  (*(*(v32 - 8) + 56))(v15, 1, 1, v32);
+  v33 = swift_allocObject();
+  v33[2] = 0;
+  v33[3] = 0;
+  v33[4] = self;
+  v33[5] = service;
+  v33[6] = account;
+  v33[7] = data;
+  v33[8] = v23;
+  v33[9] = v24;
+  v33[10] = v26;
+  v33[11] = context;
+  sub_1000D4310(0, 0, v15, &unk_100141EF0, v33);
 }
 
 - (void)service:(id)service account:(id)account incomingResourceAtURL:(id)l fromID:(id)d context:(id)context
 {
   v13 = sub_1000A0F2C(&qword_1001E1850, &qword_100141EE0);
-  v14 = *(*(v13 - 8) + 64);
   __chkstk_darwin(v13 - 8);
-  v16 = &v23 - v15;
+  v15 = &v22 - v14;
   if (l)
   {
     static URL._unconditionallyBridgeFromObjectiveC(_:)();
-    v17 = type metadata accessor for URL();
-    (*(*(v17 - 8) + 56))(v16, 0, 1, v17);
+    v16 = type metadata accessor for URL();
+    (*(*(v16 - 8) + 56))(v15, 0, 1, v16);
   }
 
   else
   {
-    v18 = type metadata accessor for URL();
-    (*(*(v18 - 8) + 56))(v16, 1, 1, v18);
+    v17 = type metadata accessor for URL();
+    (*(*(v17 - 8) + 56))(v15, 1, 1, v17);
   }
 
   if (d)
@@ -207,57 +205,54 @@ LABEL_6:
   selfCopy = self;
   sub_1000DDE70();
 
-  sub_1000A5148(v16, &qword_1001E1850, &qword_100141EE0);
+  sub_1000A5148(v15, &qword_1001E1850, &qword_100141EE0);
 }
 
 - (void)service:(id)service activeAccountsChanged:(id)changed
 {
   v6 = sub_1000A0F2C(&unk_1001DF9B0, &qword_100140000);
-  v7 = *(*(v6 - 8) + 64);
   __chkstk_darwin(v6 - 8);
-  v9 = &v14 - v8;
-  v10 = type metadata accessor for TaskPriority();
-  (*(*(v10 - 8) + 56))(v9, 1, 1, v10);
-  v11 = swift_allocObject();
-  v11[2] = 0;
-  v11[3] = 0;
-  v11[4] = service;
-  v11[5] = self;
+  v8 = &v13 - v7;
+  v9 = type metadata accessor for TaskPriority();
+  (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
+  v10 = swift_allocObject();
+  v10[2] = 0;
+  v10[3] = 0;
+  v10[4] = service;
+  v10[5] = self;
   serviceCopy = service;
   selfCopy = self;
-  sub_1000D4310(0, 0, v9, &unk_100141ED0, v11);
+  sub_1000D4310(0, 0, v8, &unk_100141ED0, v10);
 }
 
 - (void)containerEventChanged:(id)changed
 {
   v4 = type metadata accessor for Notification();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   sub_1000D8244();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)configurationSourceDidFailToRegister:(id)register withError:(id)error
 {
   v6 = sub_1000A0F2C(&unk_1001DF9B0, &qword_100140000);
-  v7 = *(*(v6 - 8) + 64);
   __chkstk_darwin(v6 - 8);
-  v9 = &v14 - v8;
-  v10 = type metadata accessor for TaskPriority();
-  (*(*(v10 - 8) + 56))(v9, 1, 1, v10);
-  v11 = swift_allocObject();
-  v11[2] = 0;
-  v11[3] = 0;
-  v11[4] = error;
-  v11[5] = self;
+  v8 = &v13 - v7;
+  v9 = type metadata accessor for TaskPriority();
+  (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
+  v10 = swift_allocObject();
+  v10[2] = 0;
+  v10[3] = 0;
+  v10[4] = error;
+  v10[5] = self;
   errorCopy = error;
   selfCopy = self;
-  sub_1000D45CC(0, 0, v9, &unk_100141EB0, v11);
+  sub_1000D45CC(0, 0, v8, &unk_100141EB0, v10);
 }
 
 - (id)operationToSendStatusUpdate:(id)update
@@ -294,31 +289,30 @@ LABEL_6:
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(id)handler
 {
   v9 = sub_1000A0F2C(&unk_1001DF9B0, &qword_100140000);
-  v10 = *(*(v9 - 8) + 64);
   __chkstk_darwin(v9 - 8);
-  v12 = &v21 - v11;
-  v13 = _Block_copy(handler);
-  v14 = swift_allocObject();
-  v14[2] = center;
-  v14[3] = response;
-  v14[4] = v13;
-  v14[5] = self;
-  v15 = type metadata accessor for TaskPriority();
-  (*(*(v15 - 8) + 56))(v12, 1, 1, v15);
+  v11 = &v20 - v10;
+  v12 = _Block_copy(handler);
+  v13 = swift_allocObject();
+  v13[2] = center;
+  v13[3] = response;
+  v13[4] = v12;
+  v13[5] = self;
+  v14 = type metadata accessor for TaskPriority();
+  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
+  v15 = swift_allocObject();
+  v15[2] = 0;
+  v15[3] = 0;
+  v15[4] = &unk_100141E98;
+  v15[5] = v13;
   v16 = swift_allocObject();
   v16[2] = 0;
   v16[3] = 0;
-  v16[4] = &unk_100141E98;
-  v16[5] = v14;
-  v17 = swift_allocObject();
-  v17[2] = 0;
-  v17[3] = 0;
-  v17[4] = &unk_100140550;
-  v17[5] = v16;
+  v16[4] = &unk_100140550;
+  v16[5] = v15;
   centerCopy = center;
   responseCopy = response;
   selfCopy = self;
-  sub_10010D4C0(0, 0, v12, &unk_100140230, v17);
+  sub_10010D4C0(0, 0, v11, &unk_100140230, v16);
 }
 
 @end

@@ -11,12 +11,13 @@
 {
   sub_226A4();
   storeCopy = store;
-  *(&self->super.isa + OBJC_IVAR___WOCyclingPowerZonesConfigurationStore_configurationStore) = sub_22694();
-  v8.receiver = self;
-  v8.super_class = type metadata accessor for CyclingPowerZonesConfigurationStoreBridge();
-  v6 = [(WOCyclingPowerZonesConfigurationStore *)&v8 init];
+  v6 = sub_22694();
+  *(&self->super.isa + OBJC_IVAR___WOCyclingPowerZonesConfigurationStore_configurationStore) = v6;
+  v10.receiver = self;
+  v10.super_class = type metadata accessor for CyclingPowerZonesConfigurationStoreBridge(v6, v7);
+  v8 = [(WOCyclingPowerZonesConfigurationStore *)&v10 init];
 
-  return v6;
+  return v8;
 }
 
 - (void)fetchCyclingPowerZonesConfigurationWithCompletion:(id)completion
@@ -24,10 +25,9 @@
   v4 = _Block_copy(completion);
   v5 = swift_allocObject();
   *(v5 + 16) = v4;
-  v6 = *(&self->super.isa + OBJC_IVAR___WOCyclingPowerZonesConfigurationStore_configurationStore);
-  v7 = swift_allocObject();
-  *(v7 + 16) = sub_1E014;
-  *(v7 + 24) = v5;
+  v6 = swift_allocObject();
+  *(v6 + 16) = sub_1E014;
+  *(v6 + 24) = v5;
   selfCopy = self;
 
   sub_22684();
@@ -35,8 +35,6 @@
 
 - (void)saveCyclingPowerZonesConfiguration:(id)configuration
 {
-  v4 = *(&self->super.isa + OBJC_IVAR___WOCyclingPowerZonesConfigurationStore_configurationStore);
-  v5 = *(configuration + OBJC_IVAR___WOCyclingPowerZonesConfiguration_configuration);
   configurationCopy = configuration;
   selfCopy = self;
   sub_22674();

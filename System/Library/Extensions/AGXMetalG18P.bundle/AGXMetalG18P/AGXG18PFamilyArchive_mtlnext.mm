@@ -109,40 +109,40 @@
 {
   archive_pipeline_factory = self->_archive_pipeline_factory;
   v13 = 0;
-  MTLComputePipelineDescriptor = AGX::Metal4To3ConversionUtility<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createMTLComputePipelineDescriptor(descriptor, linkingDescriptor, 0, 0, *(archive_pipeline_factory[2] + 40), 0, 0);
+  MTLComputePipelineDescriptor = AGX::Metal4To3ConversionUtility<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createMTLComputePipelineDescriptor(descriptor, linkingDescriptor, 0, 0, *(*(archive_pipeline_factory + 2) + 40), 0, 0);
   v10 = AGX::Metal4To3ConversionUtility<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::convertPipelineOptions<MTLComputePipelineDescriptor>([descriptor options], MTLComputePipelineDescriptor);
-  v14 = archive_pipeline_factory[2];
+  v14.isa = *(archive_pipeline_factory + 2);
   v15 = 0;
   descriptorCopy = descriptor;
-  ComputePipeline_impl = AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createComputePipeline_impl(*archive_pipeline_factory, MTLComputePipelineDescriptor, *(v14 + 40), 0, v10, &v13, error, &v14, 0, 0);
+  v11 = AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createComputePipeline_impl(*archive_pipeline_factory, MTLComputePipelineDescriptor, *(v14.isa + 5), 0, v10, &v13, error, &v14, 0, 0);
 
-  if (ComputePipeline_impl)
+  if (v11)
   {
-    [ComputePipeline_impl setReflection:v13];
+    [v11 setReflection:v13];
   }
 
-  [(AGXG18PFamilyDevice *)self->_device _storeComputePipelineState:ComputePipeline_impl];
-  return ComputePipeline_impl;
+  [(AGXG18PFamilyDevice *)self->_device _storeComputePipelineState:v11];
+  return v11;
 }
 
 - (id)newComputePipelineStateWithDescriptor:(id)descriptor error:(id *)error
 {
   archive_pipeline_factory = self->_archive_pipeline_factory;
   v12 = 0;
-  MTLComputePipelineDescriptor = AGX::Metal4To3ConversionUtility<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createMTLComputePipelineDescriptor(descriptor, 0, 0, 0, *(archive_pipeline_factory[2] + 40), 0, 0);
+  MTLComputePipelineDescriptor = AGX::Metal4To3ConversionUtility<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createMTLComputePipelineDescriptor(descriptor, 0, 0, 0, *(*(archive_pipeline_factory + 2) + 40), 0, 0);
   v9 = AGX::Metal4To3ConversionUtility<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::convertPipelineOptions<MTLComputePipelineDescriptor>([descriptor options], MTLComputePipelineDescriptor);
-  v13 = archive_pipeline_factory[2];
+  v13.isa = *(archive_pipeline_factory + 2);
   v14 = 0;
   descriptorCopy = descriptor;
-  ComputePipeline_impl = AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createComputePipeline_impl(*archive_pipeline_factory, MTLComputePipelineDescriptor, *(v13 + 40), 0, v9, &v12, error, &v13, 0, 0);
+  v10 = AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createComputePipeline_impl(*archive_pipeline_factory, MTLComputePipelineDescriptor, *(v13.isa + 5), 0, v9, &v12, error, &v13, 0, 0);
 
-  if (ComputePipeline_impl)
+  if (v10)
   {
-    [ComputePipeline_impl setReflection:v12];
+    [v10 setReflection:v12];
   }
 
-  [(AGXG18PFamilyDevice *)self->_device _storeComputePipelineState:ComputePipeline_impl];
-  return ComputePipeline_impl;
+  [(AGXG18PFamilyDevice *)self->_device _storeComputePipelineState:v10];
+  return v10;
 }
 
 - (void)dealloc

@@ -38,7 +38,7 @@
 
   v6 = PointerIdentifier.isEqual(_:)(v8);
 
-  outlined destroy of AnyAccessibilityValue?(v8, &lazy cache variable for type metadata for Any?);
+  outlined destroy of AnyAccessibilityValue?(v8, &lazy cache variable for type metadata for Any?, MEMORY[0x1E69E7CA0] + 8);
   return v6;
 }
 

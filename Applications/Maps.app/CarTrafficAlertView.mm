@@ -837,7 +837,7 @@ LABEL_17:
   v66 = self->_cancelButton;
   if (v66)
   {
-    [(CarCardRoundedButton *)v66 buttonMetrics];
+    objc_msgSend_buttonMetrics(v66);
     v41 = v144;
   }
 
@@ -848,7 +848,7 @@ LABEL_17:
   v102 = heightAnchor4;
   if (v68)
   {
-    [(CarCardRoundedButton *)v68 buttonMetrics];
+    objc_msgSend_buttonMetrics(v68);
     v69 = v143;
   }
 

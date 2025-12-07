@@ -7,6 +7,7 @@
 - (void)deleteAllTopicsFromSourcesWithBundleId:(id)id groupId:(id)groupId olderThanDate:(id)date completion:(id)completion;
 - (void)deleteAllTopicsFromSourcesWithBundleId:(id)id groupIds:(id)ids completion:(id)completion;
 - (void)deleteAllTopicsWithTopicId:(id)id completion:(id)completion;
+- (void)donateTopics:(id)topics source:(id)source algorithm:(unint64_t)algorithm cloudSync:(BOOL)sync sentimentScore:(double)score exactMatchesInSourceText:(id)text completion:(id)completion;
 @end
 
 @implementation PPTopicReadWriteServerRequestHandler
@@ -168,6 +169,30 @@
 
   v13 = v14;
   completionCopy[2](completionCopy, v12, *buf, v13);
+}
+
+- (void)donateTopics:(id)topics source:(id)source algorithm:(unint64_t)algorithm cloudSync:(BOOL)sync sentimentScore:(double)score exactMatchesInSourceText:(id)text completion:(id)completion
+{
+  syncCopy = sync;
+  v26 = *MEMORY[0x277D85DE8];
+  topicsCopy = topics;
+  completionCopy = completion;
+  textCopy = text;
+  sourceCopy = source;
+  v19 = pp_xpc_server_log_handle();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134217984;
+    v25 = [topicsCopy count];
+    _os_log_impl(&dword_23224A000, v19, OS_LOG_TYPE_DEFAULT, "PPTopicReadWriteServer: donateTopics: %tu topics", buf, 0xCu);
+  }
+
+  v20 = +[PPLocalTopicStore defaultStore];
+  v23 = 0;
+  v21 = [v20 donateTopics:topicsCopy source:sourceCopy algorithm:algorithm cloudSync:syncCopy sentimentScore:textCopy exactMatchesInSourceText:&v23 error:score];
+
+  v22 = v23;
+  completionCopy[2](completionCopy, v21, v22);
 }
 
 @end

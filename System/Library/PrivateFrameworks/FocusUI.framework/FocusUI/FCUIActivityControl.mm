@@ -278,7 +278,7 @@ void __36__FCUIActivityControl_optionsAction__block_invoke(uint64_t a1, void *a2
     contentView = self->_contentView;
     if (contentView)
     {
-      [(UIView *)contentView transform];
+      objc_msgSend_transform(contentView, a2);
     }
 
     else

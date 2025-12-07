@@ -1,5 +1,9 @@
 @interface MLCActivationDescriptor
-+ (double)defaultParametersForType:(int)type;
++ (MLCActivationDescriptor)descriptorWithType:(MLCActivationType)activationType;
++ (MLCActivationDescriptor)descriptorWithType:(MLCActivationType)activationType a:(float)a;
++ (MLCActivationDescriptor)descriptorWithType:(MLCActivationType)activationType a:(float)a b:(float)b;
++ (MLCActivationDescriptor)descriptorWithType:(MLCActivationType)activationType a:(float)a b:(float)b c:(float)c;
++ (double)defaultParametersForType:(unsigned int)type;
 - (BOOL)isEqual:(id)equal;
 - (MLCActivationDescriptor)initWithType:(int)type a:(float)a b:(float)b c:(float)c;
 - (id)copyWithZone:(_NSZone *)zone;
@@ -25,7 +29,7 @@
   return v12;
 }
 
-+ (double)defaultParametersForType:(int)type
++ (double)defaultParametersForType:(unsigned int)type
 {
   __asm { FMOV            V0.4S, #1.0 }
 
@@ -73,6 +77,57 @@ LABEL_11:
   }
 
   return *&_Q0;
+}
+
++ (MLCActivationDescriptor)descriptorWithType:(MLCActivationType)activationType
+{
+  v3 = *&activationType;
+  [self defaultParametersForType:?];
+  v11 = v5;
+  v6 = [self alloc];
+  LODWORD(v8) = DWORD2(v11);
+  LODWORD(v7) = DWORD1(v11);
+  v9 = [v6 initWithType:v3 a:*&v11 b:v7 c:v8];
+
+  return v9;
+}
+
++ (MLCActivationDescriptor)descriptorWithType:(MLCActivationType)activationType a:(float)a
+{
+  v5 = *&activationType;
+  [self defaultParametersForType:?];
+  v13 = v7;
+  v8 = [self alloc];
+  LODWORD(v10) = DWORD2(v13);
+  LODWORD(v9) = DWORD1(v13);
+  v11 = [v8 initWithType:v5 a:COERCE_DOUBLE(__PAIR64__(DWORD1(v13) b:LODWORD(a))) c:{v9, v10}];
+
+  return v11;
+}
+
++ (MLCActivationDescriptor)descriptorWithType:(MLCActivationType)activationType a:(float)a b:(float)b
+{
+  v7 = *&activationType;
+  [self defaultParametersForType:?];
+  v15 = v9;
+  v10 = [self alloc];
+  LODWORD(v11) = DWORD2(v15);
+  *&v12 = b;
+  v13 = [v10 initWithType:v7 a:COERCE_DOUBLE(__PAIR64__(DWORD1(v15) b:LODWORD(a))) c:{v12, v11}];
+
+  return v13;
+}
+
++ (MLCActivationDescriptor)descriptorWithType:(MLCActivationType)activationType a:(float)a b:(float)b c:(float)c
+{
+  v9 = *&activationType;
+  v10 = [self alloc];
+  *&v11 = a;
+  *&v12 = b;
+  *&v13 = c;
+  v14 = [v10 initWithType:v9 a:v11 b:v12 c:v13];
+
+  return v14;
 }
 
 - (MLCActivationDescriptor)initWithType:(int)type a:(float)a b:(float)b c:(float)c
@@ -179,15 +234,13 @@ LABEL_11:
 
 - (void)initWithType:(const char *)a1 a:(NSObject *)a2 b:c:.cold.1(const char *a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromSelector(a1);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 1024;
-  v8 = 21;
-  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%@: Requested activation type: (%d) not supported", &v5, 0x12u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 1024;
+  v7 = 21;
+  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%@: Requested activation type: (%d) not supported", &v4, 0x12u);
 }
 
 @end

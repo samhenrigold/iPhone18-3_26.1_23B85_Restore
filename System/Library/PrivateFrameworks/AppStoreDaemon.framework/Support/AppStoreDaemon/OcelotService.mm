@@ -37,7 +37,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%@] flushMetricsWithCompletionBlock for client: %{public}@", &v10, 0x16u);
   }
 
-  v9 = sub_100355E58();
+  v9 = sub_100355E58(ArcadeManager);
   sub_100356338(v9, @"User Request", blockCopy);
 }
 
@@ -57,7 +57,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%@] getAppPayoutEventsWithCompletionBlock for client: %{public}@", &v10, 0x16u);
   }
 
-  v9 = sub_100355E58();
+  v9 = sub_100355E58(ArcadeManager);
   sub_100356614(v9, blockCopy);
 }
 
@@ -77,7 +77,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%@] getAppSummaryEventsWithCompletionBlock for client: %{public}@", &v10, 0x16u);
   }
 
-  v9 = sub_100355E58();
+  v9 = sub_100355E58(ArcadeManager);
   sub_100356DDC(v9, blockCopy);
 }
 
@@ -98,7 +98,7 @@
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[%@] recordLaunch for client: %{public}@", &v15, 0x16u);
   }
 
-  v14 = sub_100355E58();
+  v14 = sub_100355E58(ArcadeManager);
   sub_100358C08(v14, dCopy, v11, metricsCopy, handlerCopy);
 }
 
@@ -118,7 +118,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%@] recordLaunchesWithCompletionBlock for client: %{public}@", &v10, 0x16u);
   }
 
-  v9 = sub_100355E58();
+  v9 = sub_100355E58(ArcadeManager);
   sub_1003588AC(v9, blockCopy);
 }
 
@@ -138,7 +138,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%@] recordMetricsWithCompletionBlock for client: %{public}@", &v10, 0x16u);
   }
 
-  v9 = sub_100355E58();
+  v9 = sub_100355E58(ArcadeManager);
   sub_100359424(v9, blockCopy);
 }
 
@@ -159,7 +159,7 @@
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[%@] reportAppEvent for client: %{public}@", &v13, 0x16u);
   }
 
-  v12 = sub_100355E58();
+  v12 = sub_100355E58(ArcadeManager);
   sub_1003585D4(v12, eventCopy, blockCopy);
 }
 
@@ -179,7 +179,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%@] resetMetricsWithCompletionBlock for client: %{public}@", &v10, 0x16u);
   }
 
-  v9 = sub_100355E58();
+  v9 = sub_100355E58(ArcadeManager);
   sub_10035963C(v9, blockCopy);
 }
 
@@ -199,7 +199,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%@] recordLaunchesWithCompletionBlock for client: %{public}@", &v10, 0x16u);
   }
 
-  v9 = sub_100355E58();
+  v9 = sub_100355E58(ArcadeManager);
   sub_100359BEC(v9, blockCopy);
 }
 
@@ -219,7 +219,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%@] sendPayoutMetricsWithCompletionBlock for client: %{public}@", &v10, 0x16u);
   }
 
-  v9 = sub_100355E58();
+  v9 = sub_100355E58(ArcadeManager);
   sub_10035AFF4(v9, blockCopy);
 }
 
@@ -239,7 +239,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%@] sendSummaryMetricsWithCompletionBlock for client: %{public}@", &v10, 0x16u);
   }
 
-  v9 = sub_100355E58();
+  v9 = sub_100355E58(ArcadeManager);
   sub_10035B23C(v9, blockCopy);
 }
 
@@ -260,7 +260,7 @@
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[%@]: sbsyncIfSubscribedWithAccount:completionBlock for client: %{public}@", &v13, 0x16u);
   }
 
-  v12 = sub_100355E58();
+  v12 = sub_100355E58(ArcadeManager);
   sub_100359E70(v12, accountCopy, blockCopy);
 }
 
@@ -280,7 +280,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%@] sbsyncWithCompletionBlock for client: %{public}@", &v10, 0x16u);
   }
 
-  v9 = sub_100355E58();
+  v9 = sub_100355E58(ArcadeManager);
   sub_10035A248(v9, @"Manual", 0, blockCopy);
 }
 
@@ -301,7 +301,7 @@
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[%@] sbsyncWithDuration:completionBlock for client: %{public}@", &v13, 0x16u);
   }
 
-  v12 = sub_100355E58();
+  v12 = sub_100355E58(ArcadeManager);
   sub_10035A248(v12, @"Manual", durationCopy, blockCopy);
 }
 
@@ -323,7 +323,7 @@
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] showUpsellForItemID: %{public}@ for client: %{public}@", &v13, 0x20u);
   }
 
-  v11 = sub_100355E58();
+  v11 = sub_100355E58(ArcadeManager);
   sub_10035CBE0(v11, dCopy, &__NSDictionary0__struct, v8);
 
   v12 = ASDLogHandleForCategory();
@@ -379,7 +379,7 @@
     v17 = @"N/A";
   }
 
-  v18 = sub_100355E58();
+  v18 = sub_100355E58(ArcadeManager);
   v19 = sub_100355F34(v18);
 
   v20 = [NSMutableDictionary alloc];
@@ -454,7 +454,7 @@
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "topAppForAccount for client: %{public}@", &v11, 0xCu);
   }
 
-  v10 = sub_100355E58();
+  v10 = sub_100355E58(ArcadeManager);
   sub_10035D818(v10, accountCopy, blockCopy);
 }
 

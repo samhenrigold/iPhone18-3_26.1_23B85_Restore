@@ -37,19 +37,19 @@
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
-  v25.receiver = self;
-  v25.super_class = QLThumbnailRepresentation;
-  v19 = [(QLThumbnailRepresentation *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = QLThumbnailRepresentation;
+  v19 = [(QLThumbnailRepresentation *)&v24 init];
   v20 = v19;
   if (v19)
   {
     v19->_type = type;
     if (image)
     {
-      v26[0] = image;
-      v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
+      v25[0] = image;
+      v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
     }
 
     else
@@ -69,7 +69,6 @@
     objc_storeStrong(&v20->_generatedProperties, properties);
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v20;
 }
 

@@ -20,16 +20,14 @@
 
 - (void)armInContext:(id)context completion:(id)completion
 {
-  v12[1] = *MEMORY[0x1E69E9840];
-  v11 = &unk_1F1A6FBA8;
-  v12[0] = MEMORY[0x1E695E118];
+  v11[1] = *MEMORY[0x1E69E9840];
+  v10 = &unk_1F1A6FBA8;
+  v11[0] = MEMORY[0x1E695E118];
   v6 = MEMORY[0x1E695DF20];
   completionCopy = completion;
   contextCopy = context;
-  v9 = [v6 dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v9 = [v6 dictionaryWithObjects:v11 forKeys:&v10 count:1];
   [(LAAccessKey *)self armInContext:contextCopy options:v9 completion:completionCopy];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unlockKey:(id)key inContext:(id)context userInfo:(id)info completion:(id)completion
@@ -51,28 +49,27 @@ void __55__LAAccessKey_unlockKey_inContext_userInfo_completion___block_invoke(ui
 {
   if (a2)
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = [*(a1 + 32) objectForKeyedSubscript:@"kLAAccessKeyNonce"];
+    v4 = [*(a1 + 32) objectForKeyedSubscript:@"kLAAccessKeyNonce"];
 
-    v6 = *(a1 + 40);
-    if (v5)
+    v5 = *(a1 + 40);
+    if (v4)
     {
-      v8 = +[LAAuthorizationError missingImplementation];
-      (*(v6 + 16))(v6, v8);
+      v7 = +[LAAuthorizationError missingImplementation];
+      (*(v5 + 16))(v5, v7);
     }
 
     else
     {
-      v7 = *(v6 + 16);
+      v6 = *(v5 + 16);
 
-      v7(v6, 0);
+      v6(v5, 0);
     }
   }
 }

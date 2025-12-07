@@ -10,11 +10,11 @@
 
 - (DDUIEndpointPairingListener)initWithTransport:(id)transport
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   transportCopy = transport;
-  v11.receiver = self;
-  v11.super_class = DDUIEndpointPairingListener;
-  v6 = [(DDUIEndpointPairingListener *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = DDUIEndpointPairingListener;
+  v6 = [(DDUIEndpointPairingListener *)&v10 init];
   v7 = v6;
   if (v6)
   {
@@ -23,20 +23,19 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v13 = v7;
-      v14 = 2112;
-      v15 = transportCopy;
+      v12 = v7;
+      v13 = 2112;
+      v14 = transportCopy;
       _os_log_impl(&dword_230EF9000, v8, OS_LOG_TYPE_DEFAULT, "[DDUIEndpointPairingListener init] {self: %p, transport: %@}", buf, 0x16u);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)beginListeningWithErrorHandler:(id)handler pairingHandler:(id)pairingHandler completion:(id)completion
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   pairingHandlerCopy = pairingHandler;
   completionCopy = completion;
@@ -48,36 +47,34 @@
     v14 = _Block_copy(completionCopy);
     *buf = 134218754;
     selfCopy = self;
-    v28 = 2112;
-    v29 = v12;
-    v30 = 2112;
-    v31 = v13;
-    v32 = 2112;
-    v33 = v14;
+    v27 = 2112;
+    v28 = v12;
+    v29 = 2112;
+    v30 = v13;
+    v31 = 2112;
+    v32 = v14;
     _os_log_impl(&dword_230EF9000, v11, OS_LOG_TYPE_DEFAULT, "DDUIEndpointPairingListener beginning {self: %p, errorHandler: %@, pairingHandler: %@, completion: %@}", buf, 0x2Au);
   }
 
   transport = self->_transport;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __88__DDUIEndpointPairingListener_beginListeningWithErrorHandler_pairingHandler_completion___block_invoke;
-  v24[3] = &unk_2788F5D08;
-  v25 = pairingHandlerCopy;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __88__DDUIEndpointPairingListener_beginListeningWithErrorHandler_pairingHandler_completion___block_invoke;
+  v23[3] = &unk_2788F5D08;
+  v24 = pairingHandlerCopy;
   v16 = pairingHandlerCopy;
-  [(DDUIEndpointPairingListeningTransport *)transport setupListeningForSessionsWithHandler:v24];
+  [(DDUIEndpointPairingListeningTransport *)transport setupListeningForSessionsWithHandler:v23];
   v17 = self->_transport;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __88__DDUIEndpointPairingListener_beginListeningWithErrorHandler_pairingHandler_completion___block_invoke_2;
-  v21[3] = &unk_2788F5D30;
-  v21[4] = self;
-  v22 = handlerCopy;
-  v23 = completionCopy;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __88__DDUIEndpointPairingListener_beginListeningWithErrorHandler_pairingHandler_completion___block_invoke_2;
+  v20[3] = &unk_2788F5D30;
+  v20[4] = self;
+  v21 = handlerCopy;
+  v22 = completionCopy;
   v18 = completionCopy;
   v19 = handlerCopy;
-  [(DDUIEndpointPairingListeningTransport *)v17 activateForDeviceTypes:0xFFFFFFFFLL withCompletion:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  [(DDUIEndpointPairingListeningTransport *)v17 activateForDeviceTypes:0xFFFFFFFFLL withCompletion:v20];
 }
 
 void __88__DDUIEndpointPairingListener_beginListeningWithErrorHandler_pairingHandler_completion___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
@@ -95,7 +92,7 @@ void __88__DDUIEndpointPairingListener_beginListeningWithErrorHandler_pairingHan
 
 void __88__DDUIEndpointPairingListener_beginListeningWithErrorHandler_pairingHandler_completion___block_invoke_2(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _DDUICoreLog();
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -104,11 +101,11 @@ void __88__DDUIEndpointPairingListener_beginListeningWithErrorHandler_pairingHan
     if (v5)
     {
       v6 = a1[4];
-      v9 = 134218242;
-      v10 = v6;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "DDUIEndpointPairingListener failed to activate {self: %p, inError: %@}", &v9, 0x16u);
+      v8 = 134218242;
+      v9 = v6;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "DDUIEndpointPairingListener failed to activate {self: %p, inError: %@}", &v8, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -119,15 +116,13 @@ void __88__DDUIEndpointPairingListener_beginListeningWithErrorHandler_pairingHan
     if (v5)
     {
       v7 = a1[4];
-      v9 = 134217984;
-      v10 = v7;
-      _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "DDUIEndpointPairingListener activated {self: %p}", &v9, 0xCu);
+      v8 = 134217984;
+      v9 = v7;
+      _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "DDUIEndpointPairingListener activated {self: %p}", &v8, 0xCu);
     }
 
     (*(a1[6] + 16))();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkIfUserNeedsReconfirmationForSession:(id)session withServiceIdentifier:(id)identifier completion:(id)completion
@@ -147,7 +142,7 @@ void __88__DDUIEndpointPairingListener_beginListeningWithErrorHandler_pairingHan
 
 void __105__DDUIEndpointPairingListener_checkIfUserNeedsReconfirmationForSession_withServiceIdentifier_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = _DDUICoreLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -158,15 +153,14 @@ void __105__DDUIEndpointPairingListener_checkIfUserNeedsReconfirmationForSession
       v7 = @"Yes";
     }
 
-    v9 = 138412546;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v5;
-    _os_log_impl(&dword_230EF9000, v6, OS_LOG_TYPE_DEFAULT, "Should reauthenticate user session? %@ Found listenerID %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v5;
+    _os_log_impl(&dword_230EF9000, v6, OS_LOG_TYPE_DEFAULT, "Should reauthenticate user session? %@ Found listenerID %@", &v8, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createListenerMappingForSession:(id)session withServiceIdentifier:(id)identifier completion:(id)completion
@@ -186,17 +180,16 @@ void __105__DDUIEndpointPairingListener_checkIfUserNeedsReconfirmationForSession
 
 - (void)invalidate
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = _DDUICoreLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 134217984;
+    v4 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_230EF9000, v3, OS_LOG_TYPE_DEFAULT, "DDUIEndpointPairingListener invalidating {self: %p}", &v5, 0xCu);
+    _os_log_impl(&dword_230EF9000, v3, OS_LOG_TYPE_DEFAULT, "DDUIEndpointPairingListener invalidating {self: %p}", &v4, 0xCu);
   }
 
   [(DDUIEndpointPairingListeningTransport *)self->_transport invalidate];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

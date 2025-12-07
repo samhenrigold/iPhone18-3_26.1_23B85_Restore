@@ -7,7 +7,7 @@
 
 - (OrgApacheLuceneSearchTwoPhaseIterator)initWithOrgApacheLuceneSearchDocIdSetIterator:(id)iterator
 {
-  v4 = OrgLukhnosPortmobileUtilObjects_requireNonNullWithId_(iterator);
+  v4 = OrgLukhnosPortmobileUtilObjects_requireNonNullWithId_(iterator, a2);
   JreStrongAssign(&self->approximation_, v4);
   return self;
 }

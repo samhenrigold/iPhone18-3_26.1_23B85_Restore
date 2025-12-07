@@ -11,13 +11,13 @@
 {
   v3 = sub_264CC2FCC();
   v4 = *(v3 - 8);
-  MEMORY[0x28223BE20](v3);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v6, self + OBJC_IVAR____TtC20ScreenTimeSettingsUI13DeviceDetails_lastUpdatedDate, v3);
-  v7 = sub_264CC2F7C();
-  (*(v4 + 8))(v6, v3);
+  v5 = MEMORY[0x28223BE20](v3);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 16))(v7, self + OBJC_IVAR____TtC20ScreenTimeSettingsUI13DeviceDetails_lastUpdatedDate, v3, v5);
+  v8 = sub_264CC2F7C();
+  (*(v4 + 8))(v7, v3);
 
-  return v7;
+  return v8;
 }
 
 - (_TtC20ScreenTimeSettingsUI13DeviceDetails)initWithCoreDuetIdentifier:(id)identifier identifier:(id)a4 name:(id)name platform:(signed __int16)platform isLocalDevice:(BOOL)device lastUpdatedDate:(id)date
@@ -49,7 +49,7 @@
   *(self + OBJC_IVAR____TtC20ScreenTimeSettingsUI13DeviceDetails_platform) = platformCopy;
   *(self + OBJC_IVAR____TtC20ScreenTimeSettingsUI13DeviceDetails_isLocalDevice) = v25;
   (*(v10 + 16))(self + OBJC_IVAR____TtC20ScreenTimeSettingsUI13DeviceDetails_lastUpdatedDate, v12, v9);
-  v26 = type metadata accessor for DeviceDetails();
+  v26 = type metadata accessor for DeviceDetails(0);
   v32.receiver = self;
   v32.super_class = v26;
   v27 = [(DeviceDetails *)&v32 init];
@@ -61,15 +61,22 @@
 {
   if (d)
   {
-    sub_264CC45DC();
+    v4 = sub_264CC45DC();
+    v6 = v5;
   }
 
-  sub_264C6F474();
+  else
+  {
+    v4 = 0;
+    v6 = 0;
+  }
 
-  type metadata accessor for DeviceDetails();
-  v4 = sub_264CC468C();
+  sub_264C6F474(v4, v6);
 
-  return v4;
+  type metadata accessor for DeviceDetails(0);
+  v7 = sub_264CC468C();
+
+  return v7;
 }
 
 - (_TtC20ScreenTimeSettingsUI13DeviceDetails)init

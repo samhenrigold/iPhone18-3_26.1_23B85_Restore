@@ -191,18 +191,16 @@ LABEL_18:
 
   if (gate)
   {
-    gate = self->_gate;
     PBDataWriterWriteStringField();
   }
 
   terminal = [(_INPBAirportGate *)self terminal];
 
-  v9 = toCopy;
+  v8 = toCopy;
   if (terminal)
   {
-    terminal = self->_terminal;
     PBDataWriterWriteStringField();
-    v9 = toCopy;
+    v8 = toCopy;
   }
 }
 

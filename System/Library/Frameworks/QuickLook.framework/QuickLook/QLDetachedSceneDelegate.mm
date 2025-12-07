@@ -90,27 +90,27 @@
 
 - (id)activityFromOptions:(id)options
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   userActivities = [options userActivities];
-  v4 = [userActivities countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [userActivities countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(userActivities);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         activityType = [v8 activityType];
         v10 = [activityType isEqualToString:@"com.apple.quicklook.private.scene.detachedActivityType"];
 
@@ -121,7 +121,7 @@
         }
       }
 
-      v5 = [userActivities countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [userActivities countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v5)
       {
         continue;
@@ -133,8 +133,6 @@
 
   v11 = 0;
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -176,18 +174,16 @@ LABEL_11:
 
 - (id)stateRestorationActivityForScene:(id)scene
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v4 = [objc_alloc(MEMORY[0x277CC1EF0]) initWithActivityType:@"com.apple.quicklook.private.scene.detachedActivityType"];
-  v10[0] = @"com.apple.quicklook.private.activity.URLsKey";
+  v9[0] = @"com.apple.quicklook.private.activity.URLsKey";
   urls = [(QLDetachedSceneDelegate *)self urls];
-  v10[1] = @"com.apple.quicklook.private.activity.IndexKey";
-  v11[0] = urls;
+  v9[1] = @"com.apple.quicklook.private.activity.IndexKey";
+  v10[0] = urls;
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[QLDetachedSceneDelegate selectedURLIndex](self, "selectedURLIndex")}];
-  v11[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
   [v4 addUserInfoEntriesFromDictionary:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

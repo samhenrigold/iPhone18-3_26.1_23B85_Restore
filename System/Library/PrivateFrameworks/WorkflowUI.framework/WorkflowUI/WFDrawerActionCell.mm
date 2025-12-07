@@ -17,13 +17,14 @@
 - (CGSize)sizeThatFits:(CGSize)fits
 {
   selfCopy = self;
-  v4 = sub_27484865C();
-  v6 = v5;
+  sub_27484865C();
+  v5 = v4;
+  v7 = v6;
 
-  v7 = v4;
-  v8 = v6;
-  result.height = v8;
-  result.width = v7;
+  v8 = v5;
+  v9 = v7;
+  result.height = v9;
+  result.width = v8;
   return result;
 }
 
@@ -35,7 +36,7 @@
   sub_2748491E8();
 
   swift_unknownObjectRelease();
-  sub_27471CF08(0, &qword_28096B138);
+  sub_27471CF08(0, &qword_28096B138, 0x277D75470);
   v7 = sub_2749FCF74();
 
   return v7;

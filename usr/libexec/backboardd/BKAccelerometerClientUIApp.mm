@@ -1,4 +1,5 @@
 @interface BKAccelerometerClientUIApp
+- (BKAccelerometerClientUIApp)initWithPid:(int)pid sendRight:(id)right queue:(id)queue;
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix;
 - (void)_queue_invalidate;
 - (void)handleOrientationEvent:(int64_t)event orientationLocked:(BOOL)locked;
@@ -64,6 +65,21 @@
   v5 = [v4 appendInt:*(&self->super._lastAccelerometerEventTimestamp + 6) withName:@"lastOrientation"];
 
   return v4;
+}
+
+- (BKAccelerometerClientUIApp)initWithPid:(int)pid sendRight:(id)right queue:(id)queue
+{
+  v8.receiver = self;
+  v8.super_class = BKAccelerometerClientUIApp;
+  v5 = [(BKHIDEventClient *)&v8 initWithPid:*&pid sendRight:right queue:queue];
+  v6 = v5;
+  if (v5)
+  {
+    [(BKAccelerometerClient *)v5 setPassiveOrientationEvents:0];
+    *(&v6->super._lastAccelerometerEventTimestamp + 6) = 0.0;
+  }
+
+  return v6;
 }
 
 @end

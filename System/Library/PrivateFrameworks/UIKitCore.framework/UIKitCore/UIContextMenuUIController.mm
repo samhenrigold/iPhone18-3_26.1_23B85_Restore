@@ -171,7 +171,7 @@ void __59___UIContextMenuUIController_gestureRecognizerShouldBegin___block_invok
   }
 }
 
-uint64_t __79___UIContextMenuUIController_shouldMaintainKeyboardAssertionForFirstResponder___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__79___UIContextMenuUIController_shouldMaintainKeyboardAssertionForFirstResponder___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) isDescendantOfView:a2];
   if (result)
@@ -199,7 +199,7 @@ uint64_t __76___UIContextMenuUIController__adjustViewForKeyboardVisibility_keybo
   return [UIView _modifyAnimationsWithPreferredFrameRateRange:1048614 updateReason:v2 animations:*&v5.minimum, *&v5.maximum, *&v5.preferred];
 }
 
-uint64_t __64___UIContextMenuUIController__needsToAvoidKeyboardForResponder___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__64___UIContextMenuUIController__needsToAvoidKeyboardForResponder___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) isDescendantOfView:a2];
   if (result)
@@ -221,7 +221,7 @@ void __99___UIContextMenuUIController__updatePlatterAndActionViewLayoutForce_upd
   v4 = *(a1 + 32);
   if (v2)
   {
-    [v2 preview];
+    objc_msgSend_preview(v2);
     v6 = *(&v58 + 1);
     v5 = *&v58;
   }
@@ -254,7 +254,7 @@ void __99___UIContextMenuUIController__updatePlatterAndActionViewLayoutForce_upd
   v50 = 0u;
   if (v7)
   {
-    [v7 transform3D];
+    objc_msgSend_transform3D(v7);
   }
 
   v9 = [v7 layer];
@@ -263,7 +263,7 @@ void __99___UIContextMenuUIController__updatePlatterAndActionViewLayoutForce_upd
 
   if (v2)
   {
-    [v2 preview];
+    objc_msgSend_preview(v2);
   }
 
   else
@@ -307,7 +307,7 @@ void __99___UIContextMenuUIController__updatePlatterAndActionViewLayoutForce_upd
 
   if (v2)
   {
-    [v2 menu];
+    objc_msgSend_menu(v2);
   }
 
   else
@@ -452,7 +452,7 @@ void __54___UIContextMenuUIController__displayMenu_updateType___block_invoke(uin
   v9 = v8;
   if (v8)
   {
-    [v8 menu];
+    objc_msgSend_menu(v8);
   }
 
   else

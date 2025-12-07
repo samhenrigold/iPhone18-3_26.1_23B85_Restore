@@ -108,52 +108,65 @@
   v12 = v11;
   v14 = v13;
   [(PKHorizontalScrollingFooterViewComparator *)self->_nextFooter sizeThatFits:v9, v10];
-  v16 = v15;
-  v18 = fmax(self->_minimumFooterHeight, fmax(v14, v17));
-  v19 = v7;
-  v20 = v8;
-  v21 = v9;
-  v22 = v18;
+  v18 = v21.n128_f64[0];
+  v19 = v22.n128_u64[0];
+  v20 = fmax(self->_minimumFooterHeight, fmax(v14, v22.n128_f64[0]));
+  v21.n128_f64[0] = v7;
+  v22.n128_f64[0] = v8;
+  v23.n128_f64[0] = v9;
+  v24.n128_f64[0] = v20;
   if (self->_currentFooter)
   {
-    v19 = v7;
-    v20 = v8;
-    v21 = v9;
-    v22 = v18;
+    v21.n128_f64[0] = v7;
+    v22.n128_f64[0] = v8;
+    v23.n128_f64[0] = v9;
+    v24.n128_f64[0] = v20;
     if (v12 < v9)
     {
-      PKSizeAlignedInRect();
+      v21.n128_f64[0] = v12;
+      v22.n128_f64[0] = v14;
+      v23.n128_f64[0] = v7;
+      v24.n128_f64[0] = v8;
+      v15.n128_f64[0] = v9;
+      v16.n128_f64[0] = v20;
+      PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v21, v22, v23, v24, v15, v16, v17);
     }
   }
 
-  v39 = v22;
-  v40 = v21;
-  if (self->_nextFooter && v16 < v9)
+  v41 = v24.n128_f64[0];
+  v42 = v23.n128_f64[0];
+  if (self->_nextFooter && v18 < v9)
   {
-    v23 = v20;
-    v24 = v19;
-    PKSizeAlignedInRect();
-    v26 = v25;
+    v25 = v22.n128_f64[0];
+    v26 = v21.n128_f64[0];
+    v21.n128_f64[0] = v18;
+    v22.n128_u64[0] = v19;
+    v23.n128_f64[0] = v7;
+    v24.n128_f64[0] = v8;
+    v15.n128_f64[0] = v9;
+    v16.n128_f64[0] = v20;
+    PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v21, v22, v23, v24, v15, v16, v17);
     v28 = v27;
-    v37 = v30;
-    v38 = v29;
+    v30 = v29;
+    v39 = v32;
+    v40 = v31;
   }
 
   else
   {
-    v23 = v20;
-    v24 = v19;
-    v26 = v7;
-    v28 = v8;
-    v37 = v18;
-    v38 = v9;
+    v25 = v22.n128_f64[0];
+    v26 = v21.n128_f64[0];
+    v28 = v7;
+    v30 = v8;
+    v39 = v20;
+    v40 = v9;
   }
 
-  v45.origin.x = v7;
-  v45.origin.y = v8;
-  v45.size.width = v9;
-  v45.size.height = v18;
-  MaxY = CGRectGetMaxY(v45);
+  v47.origin.x = v7;
+  v47.origin.y = v8;
+  v47.size.width = v9;
+  v47.size.height = v20;
+  MaxY = CGRectGetMaxY(v47);
   if (!layout)
   {
     backdropView = self->_backdropView;
@@ -171,13 +184,13 @@
     currentFooter = self->_currentFooter;
     if (currentFooter)
     {
-      [(PKHorizontalScrollingFooterViewComparator *)currentFooter setFrame:v24, v23, v40, v39];
+      [(PKHorizontalScrollingFooterViewComparator *)currentFooter setFrame:v26, v25, v42, v41];
     }
 
     nextFooter = self->_nextFooter;
     if (nextFooter)
     {
-      [(PKHorizontalScrollingFooterViewComparator *)nextFooter setFrame:v26, v28, v38, v37];
+      [(PKHorizontalScrollingFooterViewComparator *)nextFooter setFrame:v28, v30, v40, v39];
     }
   }
 

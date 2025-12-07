@@ -886,7 +886,7 @@ void __162__SBDashBoardHostableEntityHostingFluidSwitcherViewController_switcher
 - (CGRect)switcherContentController:(id)controller frameForItemWithRole:(int64_t)role inMainAppLayout:(id)layout interfaceOrientation:(int64_t)orientation
 {
   v6 = [(SBDashBoardSecureFluidSwitcherViewController *)self->_switcherViewController view:controller];
-  [v6 frame];
+  objc_msgSend_frame(v6);
   v8 = v7;
   v10 = v9;
   v12 = v11;
@@ -987,7 +987,7 @@ void __162__SBDashBoardHostableEntityHostingFluidSwitcherViewController_switcher
   v4 = [(UIViewController *)self _sbWindowScene:context];
   _FBSScene = [v4 _FBSScene];
   settings = [_FBSScene settings];
-  [settings frame];
+  objc_msgSend_frame(settings);
   v8 = v7;
   v10 = v9;
   v12 = v11;

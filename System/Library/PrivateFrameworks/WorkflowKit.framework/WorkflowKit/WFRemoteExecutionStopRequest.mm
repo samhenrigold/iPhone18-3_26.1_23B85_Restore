@@ -21,15 +21,15 @@
 
 - (BOOL)readMessageFromData:(id)data error:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E69C65B8];
   dataCopy = data;
   v8 = [[v6 alloc] initWithData:dataCopy];
 
   v9 = objc_alloc_init(WFREPBStopRequest);
-  v18 = 0;
-  v10 = [(PBCodable *)v9 readFrom:v8 error:&v18];
-  v11 = v18;
+  v17 = 0;
+  v10 = [(PBCodable *)v9 readFrom:v8 error:&v17];
+  v11 = v17;
   if (v10)
   {
     requestIdentifier = [(WFREPBStopRequest *)v9 requestIdentifier];
@@ -43,9 +43,9 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v20 = "[WFRemoteExecutionStopRequest readMessageFromData:error:]";
-      v21 = 2114;
-      v22 = v11;
+      v19 = "[WFRemoteExecutionStopRequest readMessageFromData:error:]";
+      v20 = 2114;
+      v21 = v11;
       _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_FAULT, "%s Failed to read stop request protobuf, %{public}@", buf, 0x16u);
     }
 
@@ -56,7 +56,6 @@
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

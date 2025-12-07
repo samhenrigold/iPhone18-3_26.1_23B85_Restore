@@ -7,13 +7,12 @@
 
 - (id)orderedProperties
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  v5[0] = @"device_uuid";
-  v5[1] = @"device_name";
-  v5[2] = @"device_service";
-  v5[3] = @"device_last_connect";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:4];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  v4[0] = @"device_uuid";
+  v4[1] = @"device_name";
+  v4[2] = @"device_service";
+  v4[3] = @"device_last_connect";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:4];
 
   return v2;
 }

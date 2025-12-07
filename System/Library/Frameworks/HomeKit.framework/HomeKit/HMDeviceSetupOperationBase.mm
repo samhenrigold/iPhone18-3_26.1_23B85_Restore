@@ -62,7 +62,7 @@
 
 void __84__HMDeviceSetupOperationBase_setupSession_didReceiveExchangeData_completionHandler___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) sessionTransport];
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
@@ -74,22 +74,22 @@ void __84__HMDeviceSetupOperationBase_setupSession_didReceiveExchangeData_comple
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v17 = v7;
-      v18 = 2112;
-      v19 = v2;
+      v16 = v7;
+      v17 = 2112;
+      v18 = v2;
       _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Sending exchange data using session transport: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v3);
     v8 = *(a1 + 40);
     v9 = [*(a1 + 32) qualityOfService];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __84__HMDeviceSetupOperationBase_setupSession_didReceiveExchangeData_completionHandler___block_invoke_33;
-    v14[3] = &unk_1E7546F20;
-    v15 = *(a1 + 48);
-    [v2 sendRequestData:v8 qualityOfService:v9 responseHandler:v14];
-    v10 = v15;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __84__HMDeviceSetupOperationBase_setupSession_didReceiveExchangeData_completionHandler___block_invoke_33;
+    v13[3] = &unk_1E7546F20;
+    v14 = *(a1 + 48);
+    [v2 sendRequestData:v8 qualityOfService:v9 responseHandler:v13];
+    v10 = v14;
     goto LABEL_9;
   }
 
@@ -97,7 +97,7 @@ void __84__HMDeviceSetupOperationBase_setupSession_didReceiveExchangeData_comple
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v17 = v11;
+    v16 = v11;
     _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_FAULT, "%{public}@Session transport is unexpectedly nil", buf, 0xCu);
   }
 
@@ -109,8 +109,6 @@ void __84__HMDeviceSetupOperationBase_setupSession_didReceiveExchangeData_comple
     (*(v12 + 16))(v12, 0, v10);
 LABEL_9:
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __84__HMDeviceSetupOperationBase_setupSession_didReceiveExchangeData_completionHandler___block_invoke_33(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -146,87 +144,84 @@ uint64_t __84__HMDeviceSetupOperationBase_setupSession_didReceiveExchangeData_co
 
 void __61__HMDeviceSetupOperationBase_setupSession_didCloseWithError___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     [*(a1 + 40) setExecuting:0];
     v3 = *(a1 + 32);
     v2 = *(a1 + 40);
-    v4 = *MEMORY[0x1E69E9840];
 
     [v2 cancelWithError:v3];
   }
 
   else
   {
-    v5 = [*(a1 + 48) userInfo];
-    v6 = [v5 hmf_dataForKey:@"kAccessoryDataKey"];
+    v4 = [*(a1 + 48) userInfo];
+    v5 = [v4 hmf_dataForKey:@"kAccessoryDataKey"];
 
-    if (v6)
+    if (v5)
     {
-      v23 = 0;
-      v7 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v6 error:&v23];
-      v8 = v23;
-      if (v7)
+      v21 = 0;
+      v6 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v21];
+      v7 = v21;
+      if (v6)
       {
-        v9 = v7;
-        if (![v9 supportedStereoPairVersions])
+        v8 = v6;
+        if (![v8 supportedStereoPairVersions])
         {
-          v10 = objc_alloc(MEMORY[0x1E69A2A60]);
+          v9 = objc_alloc(MEMORY[0x1E69A2A60]);
           *buf = *MEMORY[0x1E69A29B0];
           *&buf[16] = *(MEMORY[0x1E69A29B0] + 16);
-          v11 = [v10 initWithOperatingSystemVersion:buf];
-          if ([HMMediaSystemBuilder supportsMediaSystem:v9])
+          v10 = [v9 initWithOperatingSystemVersion:buf];
+          if ([HMMediaSystemBuilder supportsMediaSystem:v8])
           {
-            v12 = [v9 softwareVersion];
-            v13 = [v12 isAtLeastVersion:v11];
+            v11 = [v8 softwareVersion];
+            v12 = [v11 isAtLeastVersion:v10];
 
-            if ((v13 & 1) == 0)
+            if ((v12 & 1) == 0)
             {
-              [v9 setSupportedStereoPairVersions:1];
+              [v8 setSupportedStereoPairVersions:1];
             }
           }
         }
 
-        v14 = objc_autoreleasePoolPush();
-        v15 = *(a1 + 40);
-        v16 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+        v13 = objc_autoreleasePoolPush();
+        v14 = *(a1 + 40);
+        v15 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
-          v17 = HMFGetLogIdentifier();
+          v16 = HMFGetLogIdentifier();
           *buf = 138543618;
-          *&buf[4] = v17;
+          *&buf[4] = v16;
           *&buf[12] = 2112;
-          *&buf[14] = v9;
-          _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_INFO, "%{public}@Finished setup operation with accessory: %@", buf, 0x16u);
+          *&buf[14] = v8;
+          _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_INFO, "%{public}@Finished setup operation with accessory: %@", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v14);
-        [*(a1 + 40) setAccessory:v9];
+        objc_autoreleasePoolPop(v13);
+        [*(a1 + 40) setAccessory:v8];
       }
 
       else
       {
-        v18 = objc_autoreleasePoolPush();
-        v19 = *(a1 + 40);
-        v20 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v17 = objc_autoreleasePoolPush();
+        v18 = *(a1 + 40);
+        v19 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          v21 = HMFGetLogIdentifier();
+          v20 = HMFGetLogIdentifier();
           *buf = 138543618;
-          *&buf[4] = v21;
+          *&buf[4] = v20;
           *&buf[12] = 2112;
-          *&buf[14] = v8;
-          _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive accessory from accessory data: %@", buf, 0x16u);
+          *&buf[14] = v7;
+          _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive accessory from accessory data: %@", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v18);
+        objc_autoreleasePoolPop(v17);
       }
     }
 
     [*(a1 + 40) finish];
-
-    v22 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -249,7 +244,7 @@ void __61__HMDeviceSetupOperationBase_setupSession_didCloseWithError___block_inv
 
 void __46__HMDeviceSetupOperationBase_cancelWithError___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (([*(a1 + 32) isFinished] & 1) == 0 && (objc_msgSend(*(a1 + 32), "isCancelled") & 1) == 0)
   {
     v2 = objc_autoreleasePoolPush();
@@ -260,9 +255,9 @@ void __46__HMDeviceSetupOperationBase_cancelWithError___block_invoke(uint64_t a1
       v5 = HMFGetLogIdentifier();
       v6 = *(a1 + 40);
       *buf = 138543618;
-      v13 = v5;
-      v14 = 2112;
-      v15 = v6;
+      v12 = v5;
+      v13 = 2112;
+      v14 = v6;
       _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Cancelling with error: %@", buf, 0x16u);
     }
 
@@ -272,9 +267,9 @@ void __46__HMDeviceSetupOperationBase_cancelWithError___block_invoke(uint64_t a1
       [*(a1 + 32) setError:?];
     }
 
-    v11.receiver = *(a1 + 32);
-    v11.super_class = HMDeviceSetupOperationBase;
-    objc_msgSendSuper2(&v11, sel_cancel);
+    v10.receiver = *(a1 + 32);
+    v10.super_class = HMDeviceSetupOperationBase;
+    objc_msgSendSuper2(&v10, sel_cancel);
     v7 = [*(a1 + 32) isExecuting];
     v8 = *(a1 + 32);
     if (v7)
@@ -288,8 +283,6 @@ void __46__HMDeviceSetupOperationBase_cancelWithError___block_invoke(uint64_t a1
       [v8 finish];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancel
@@ -300,43 +293,43 @@ void __46__HMDeviceSetupOperationBase_cancelWithError___block_invoke(uint64_t a1
 
 - (void)start
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if ([(HMDeviceSetupOperationBase *)self isExecuting])
   {
-    v6 = objc_autoreleasePoolPush();
+    v5 = objc_autoreleasePoolPush();
     selfCopy2 = self;
-    v8 = HMFGetOSLogHandle();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = HMFGetOSLogHandle();
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_9;
     }
 
-    v9 = HMFGetLogIdentifier();
+    v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v13 = v9;
-    v10 = "%{public}@Operation is already executing";
+    v12 = v8;
+    v9 = "%{public}@Operation is already executing";
     goto LABEL_8;
   }
 
   if (([(HMDeviceSetupOperationBase *)self isReady]& 1) == 0)
   {
-    v6 = objc_autoreleasePoolPush();
+    v5 = objc_autoreleasePoolPush();
     selfCopy2 = self;
-    v8 = HMFGetOSLogHandle();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = HMFGetOSLogHandle();
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_9;
     }
 
-    v9 = HMFGetLogIdentifier();
+    v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v13 = v9;
-    v10 = "%{public}@Operation is not ready";
+    v12 = v8;
+    v9 = "%{public}@Operation is not ready";
 LABEL_8:
-    _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_ERROR, v10, buf, 0xCu);
+    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_ERROR, v9, buf, 0xCu);
 
 LABEL_9:
-    objc_autoreleasePoolPop(v6);
+    objc_autoreleasePoolPop(v5);
     objc_exception_throw(*MEMORY[0x1E695D940]);
   }
 
@@ -350,13 +343,11 @@ LABEL_9:
   block[3] = &unk_1E754E2A8;
   block[4] = self;
   dispatch_async(clientQueue2, block);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __35__HMDeviceSetupOperationBase_start__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = v1;
   if (v1)
@@ -369,9 +360,9 @@ void __35__HMDeviceSetupOperationBase_start__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         v6 = HMFGetLogIdentifier();
-        v14 = 138543362;
-        v15 = v6;
-        _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_INFO, "%{public}@Operation is already complete, aborting.", &v14, 0xCu);
+        v13 = 138543362;
+        v14 = v6;
+        _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_INFO, "%{public}@Operation is already complete, aborting.", &v13, 0xCu);
       }
 
       objc_autoreleasePoolPop(v3);
@@ -385,9 +376,9 @@ void __35__HMDeviceSetupOperationBase_start__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         v10 = HMFGetLogIdentifier();
-        v14 = 138543362;
-        v15 = v10;
-        _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Starting operation", &v14, 0xCu);
+        v13 = 138543362;
+        v14 = v10;
+        _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Starting operation", &v13, 0xCu);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -399,8 +390,6 @@ void __35__HMDeviceSetupOperationBase_start__block_invoke(uint64_t a1)
       [v12 open];
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAccessory:(id)accessory
@@ -595,10 +584,11 @@ HMDeviceSetupSession *__73__HMDeviceSetupOperationBase_initWithSessionTransport_
 
 uint64_t __41__HMDeviceSetupOperationBase_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  logCategory__hmf_once_v18 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v18;
+  logCategory__hmf_once_v18 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (BOOL)automaticallyNotifiesObserversForKey:(id)key

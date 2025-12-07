@@ -2,6 +2,7 @@
 + (id)sharedInstance;
 - (_APRSFreezerInterface)init;
 - (void)updateFreezer:(id)freezer;
+- (void)updateFreezer:(id)freezer forDemotion:(BOOL)demotion;
 - (void)updateFreezerRecommendations:(id)recommendations forDemotion:(BOOL)demotion;
 @end
 
@@ -74,9 +75,9 @@
 
   _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, v9, v36, 0xCu);
 LABEL_7:
-  if ([recommendationsCopy count])
+  if (objc_msgSend_count(recommendationsCopy))
   {
-    v10 = [recommendationsCopy count];
+    v10 = objc_msgSend_count(recommendationsCopy);
     v11 = v10;
     v30 = &v25[-6 * v10];
     v34 = 0u;
@@ -152,6 +153,63 @@ LABEL_7:
     {
       *v36 = 0;
       _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "No updates!", v36, 2u);
+    }
+  }
+}
+
+- (void)updateFreezer:(id)freezer forDemotion:(BOOL)demotion
+{
+  demotionCopy = demotion;
+  freezerCopy = freezer;
+  log = self->_log;
+  if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v21 = freezerCopy;
+    _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "Updating recommendations to %@", buf, 0xCu);
+  }
+
+  if (objc_msgSend_count(freezerCopy))
+  {
+    v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v8 = freezerCopy;
+    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v9)
+    {
+      v10 = v9;
+      v11 = *v16;
+      do
+      {
+        for (i = 0; i != v10; i = i + 1)
+        {
+          if (*v16 != v11)
+          {
+            objc_enumerationMutation(v8);
+          }
+
+          v13 = [*(*(&v15 + 1) + 8 * i) objectForKeyedSubscript:{@"app", v15}];
+          [0 addObject:v13];
+        }
+
+        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      }
+
+      while (v10);
+    }
+
+    [(_APRSFreezerInterface *)self updateFreezerRecommendations:0 forDemotion:demotionCopy];
+  }
+
+  else
+  {
+    v14 = self->_log;
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "No recommendations to update!", buf, 2u);
     }
   }
 }

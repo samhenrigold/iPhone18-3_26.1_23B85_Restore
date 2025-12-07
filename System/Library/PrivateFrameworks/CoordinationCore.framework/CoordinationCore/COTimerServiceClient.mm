@@ -9,9 +9,9 @@
 
 - (COTimerServiceClient)initWithConnection:(id)connection
 {
-  v14.receiver = self;
-  v14.super_class = COTimerServiceClient;
-  v3 = [(COCoordinationServiceClient *)&v14 initWithConnection:connection];
+  v13.receiver = self;
+  v13.super_class = COTimerServiceClient;
+  v3 = [(COCoordinationServiceClient *)&v13 initWithConnection:connection];
   v4 = v3;
   if (v3)
   {
@@ -20,19 +20,18 @@
     clientLifetimeActivity = v4->_clientLifetimeActivity;
     v4->_clientLifetimeActivity = v5;
 
-    v7 = v4->_clientLifetimeActivity;
     nw_activity_activate();
-    v8 = xpc_dictionary_create(0, 0, 0);
+    v7 = xpc_dictionary_create(0, 0, 0);
     clientLifetimeActivityMetrics = v4->_clientLifetimeActivityMetrics;
-    v4->_clientLifetimeActivityMetrics = v8;
+    v4->_clientLifetimeActivityMetrics = v7;
 
-    v10 = v4->_clientLifetimeActivityMetrics;
-    if (v10)
+    v9 = v4->_clientLifetimeActivityMetrics;
+    if (v9)
     {
-      xpc_dictionary_set_uint64(v10, "service", 1uLL);
-      v11 = v4->_clientLifetimeActivityMetrics;
+      xpc_dictionary_set_uint64(v9, "service", 1uLL);
+      v10 = v4->_clientLifetimeActivityMetrics;
       clientBundleIdentifier = [(COCoordinationServiceClient *)v4 clientBundleIdentifier];
-      xpc_dictionary_set_string(v11, "client", [clientBundleIdentifier UTF8String]);
+      xpc_dictionary_set_string(v10, "client", [clientBundleIdentifier UTF8String]);
     }
   }
 
@@ -43,16 +42,13 @@
 {
   if (self->_clientLifetimeActivityMetrics)
   {
-    clientLifetimeActivity = self->_clientLifetimeActivity;
     nw_activity_submit_metrics();
   }
 
-  v4 = self->_clientLifetimeActivity;
-  clientLifetimeActivityCompletionReason = self->_clientLifetimeActivityCompletionReason;
   nw_activity_complete_with_reason();
-  v6.receiver = self;
-  v6.super_class = COTimerServiceClient;
-  [(COTimerServiceClient *)&v6 dealloc];
+  v3.receiver = self;
+  v3.super_class = COTimerServiceClient;
+  [(COTimerServiceClient *)&v3 dealloc];
 }
 
 - (void)donateClientLifetimeActivityCompletionReason:(int)reason
@@ -66,10 +62,10 @@
   [(COCoordinationServiceClient *)self _withLock:v3];
 }
 
-uint64_t __69__COTimerServiceClient_donateClientLifetimeActivityCompletionReason___block_invoke(uint64_t result)
+id *__69__COTimerServiceClient_donateClientLifetimeActivityCompletionReason___block_invoke(id *result)
 {
   v1 = result;
-  v2 = *(result + 40);
+  v2 = *(result + 10);
   if (v2 != 3)
   {
     if (v2 != 2)
@@ -77,16 +73,16 @@ uint64_t __69__COTimerServiceClient_donateClientLifetimeActivityCompletionReason
       return result;
     }
 
-    result = [*(result + 32) clientLifetimeActivityCompletionReason];
+    result = [result[4] clientLifetimeActivityCompletionReason];
     if (result == 3)
     {
       return result;
     }
 
-    v2 = *(v1 + 40);
+    v2 = *(v1 + 10);
   }
 
-  v3 = *(v1 + 32);
+  v3 = v1[4];
 
   return [v3 setClientLifetimeActivityCompletionReason:v2];
 }

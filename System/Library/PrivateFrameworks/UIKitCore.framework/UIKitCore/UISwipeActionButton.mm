@@ -228,9 +228,9 @@ void __37__UISwipeActionButton_initWithFrame___block_invoke(uint64_t a1, void *a
 {
   colorCopy = color;
   v4 = +[UIColor clearColor];
-  v5 = [colorCopy isEqual:v4];
+  isEqual = objc_msgSend_isEqual_(colorCopy);
 
-  if ((v5 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     backgroundView = [(UISwipeActionButton *)self backgroundView];
     [backgroundView setBackgroundColor:colorCopy];

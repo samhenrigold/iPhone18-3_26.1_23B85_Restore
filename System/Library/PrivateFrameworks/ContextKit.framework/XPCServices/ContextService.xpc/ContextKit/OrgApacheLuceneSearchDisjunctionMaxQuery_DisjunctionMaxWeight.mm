@@ -1,5 +1,6 @@
 @interface OrgApacheLuceneSearchDisjunctionMaxQuery_DisjunctionMaxWeight
 - (float)getValueForNormalization;
+- (id)explainWithOrgApacheLuceneIndexLeafReaderContext:(id)context withInt:(int)int;
 - (id)scorerWithOrgApacheLuceneIndexLeafReaderContext:(id)context;
 - (void)dealloc;
 - (void)extractTermsWithJavaUtilSet:(id)set;
@@ -53,10 +54,10 @@ LABEL_11:
 
 - (float)getValueForNormalization
 {
-  v15 = 0u;
-  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   weights = self->weights_;
   if (!weights)
   {
@@ -64,35 +65,35 @@ LABEL_13:
     JreThrowNullPointerException();
   }
 
-  v4 = [(JavaUtilArrayList *)self->weights_ countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [(JavaUtilArrayList *)self->weights_ countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v18;
     v7 = 0.0;
     v8 = 0.0;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v16 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(weights);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         if (!v10)
         {
           goto LABEL_13;
         }
 
-        [v10 getValueForNormalization];
-        v7 = v7 + v11;
-        JavaLangMath_maxWithFloat_withFloat_(v8, v11);
-        v8 = v12;
+        getValueForNormalization = [v10 getValueForNormalization];
+        v7 = v7 + v12;
+        JavaLangMath_maxWithFloat_withFloat_(v8, v12, getValueForNormalization, v13);
+        v8 = v14;
       }
 
-      v5 = [(JavaUtilArrayList *)weights countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [(JavaUtilArrayList *)weights countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
@@ -105,7 +106,7 @@ LABEL_13:
   }
 
   [(OrgApacheLuceneSearchQuery *)self->this$0_ getBoost];
-  return v13 * (v13 * (v8 + (((v7 - v8) * *(&self->this$0_->disjuncts_ + 1)) * *(&self->this$0_->disjuncts_ + 1))));
+  return v15 * (v15 * (v8 + (((v7 - v8) * *(&self->this$0_->disjuncts_ + 1)) * *(&self->this$0_->disjuncts_ + 1))));
 }
 
 - (void)normalizeWithFloat:(float)float withFloat:(float)withFloat
@@ -215,6 +216,101 @@ LABEL_16:
   }
 
   return new_OrgApacheLuceneSearchDisjunctionMaxScorer_initWithOrgApacheLuceneSearchWeight_withFloat_withJavaUtilList_withBoolean_(self, v7, self->needsScores_, *(&self->this$0_->disjuncts_ + 1));
+}
+
+- (id)explainWithOrgApacheLuceneIndexLeafReaderContext:(id)context withInt:(int)int
+{
+  v4 = *&int;
+  v7 = new_JavaUtilArrayList_init();
+  v37 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  weights = self->weights_;
+  if (!weights)
+  {
+LABEL_17:
+    JreThrowNullPointerException();
+  }
+
+  v9 = v7;
+  v10 = [(JavaUtilArrayList *)self->weights_ countByEnumeratingWithState:&v37 objects:v41 count:16];
+  if (!v10)
+  {
+    goto LABEL_16;
+  }
+
+  v12 = v10;
+  v13 = 0;
+  v14 = *v38;
+  v15 = 0.0;
+  v16 = 0.0;
+  do
+  {
+    v17 = 0;
+    do
+    {
+      if (*v38 != v14)
+      {
+        objc_enumerationMutation(weights);
+      }
+
+      v18 = *(*(&v37 + 1) + 8 * v17);
+      if (!v18)
+      {
+        goto LABEL_17;
+      }
+
+      v19 = [v18 explainWithOrgApacheLuceneIndexLeafReaderContext:context withInt:v4];
+      if (!v19)
+      {
+        goto LABEL_17;
+      }
+
+      v20 = v19;
+      if ([v19 isMatch])
+      {
+        [(JavaUtilArrayList *)v9 addWithId:v20];
+        [v20 getValue];
+        v15 = v15 + v21;
+        getValue = [v20 getValue];
+        JavaLangMath_maxWithFloat_withFloat_(v16, v24, getValue, v23);
+        v16 = v25;
+        v13 = 1;
+      }
+
+      ++v17;
+    }
+
+    while (v12 != v17);
+    v10 = [(JavaUtilArrayList *)weights countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v12 = v10;
+  }
+
+  while (v10);
+  if (v13)
+  {
+    v32 = *(&self->this$0_->disjuncts_ + 1);
+    v33 = v16 + ((v15 - v16) * v32);
+    if (v32 == 0.0)
+    {
+      v34 = @"max of:";
+    }
+
+    else
+    {
+      v34 = JreStrcat("$F$", v11, v26, v27, v28, v29, v30, v31, @"max plus ");
+    }
+
+    return OrgApacheLuceneSearchExplanation_matchWithFloat_withNSString_withJavaUtilCollection_(v33, v34, v9);
+  }
+
+  else
+  {
+LABEL_16:
+    v35 = [IOSObjectArray arrayWithLength:0 type:OrgApacheLuceneSearchExplanation_class_(v10, v11)];
+    return OrgApacheLuceneSearchExplanation_noMatchWithNSString_withOrgApacheLuceneSearchExplanationArray_(@"No matching clause", v35);
+  }
 }
 
 - (void)dealloc

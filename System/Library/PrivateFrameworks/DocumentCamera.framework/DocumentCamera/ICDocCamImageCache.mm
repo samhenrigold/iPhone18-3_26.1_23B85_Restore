@@ -574,23 +574,23 @@ void __31__ICDocCamImageCache_getImage___block_invoke(uint64_t a1)
   return v15 & 1;
 }
 
-void __34__ICDocCamImageCache_deleteImage___block_invoke(uint64_t a1)
+void __34__ICDocCamImageCache_deleteImage___block_invoke(void *a1)
 {
-  v2 = a1 + 40;
-  v3 = *(a1 + 32);
-  v4 = [*(a1 + 40) path];
+  v2 = a1 + 5;
+  v3 = a1[4];
+  v4 = [a1[5] path];
   LOBYTE(v3) = [v3 fileExistsAtPath:v4];
 
   if (v3)
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
+    v5 = a1[4];
+    v6 = a1[5];
     v16 = 0;
     v7 = [v5 removeItemAtURL:v6 error:&v16];
     v8 = v16;
     if (v7)
     {
-      *(*(*(a1 + 48) + 8) + 24) = 1;
+      *(*(a1[6] + 8) + 24) = 1;
     }
 
     else
@@ -947,11 +947,32 @@ void __68__ICDocCamImageCache_setImage_metaData_addToMemoryCache_completion___bl
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
+void __34__ICDocCamImageCache_deleteImage___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0(&dword_249253000, a2, a3, "deleteImage: unable to find file: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void __37__ICDocCamImageCache_deleteAllImages__block_invoke_cold_2(uint8_t *buf, _BYTE *a2, os_log_t log)
 {
   *buf = 0;
   *a2 = 0;
   _os_log_error_impl(&dword_249253000, log, OS_LOG_TYPE_ERROR, "Removal failed", buf, 2u);
+}
+
+- (void)writeImage:(uint64_t)a3 metaData:(uint64_t)a4 toURL:(uint64_t)a5 error:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ICDocCamImageCache writeImage:metaData:toURL:error:]";
+  OUTLINED_FUNCTION_0(&dword_249253000, a1, a3, "%s -- Failed to finalize image", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)createNSDataFrom:(uint64_t)a3 metaData:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ICDocCamImageCache createNSDataFrom:metaData:]";
+  OUTLINED_FUNCTION_0(&dword_249253000, a1, a3, "%s -- Failed to finalize image", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

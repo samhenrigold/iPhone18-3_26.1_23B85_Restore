@@ -77,7 +77,7 @@ void __57__WBSNetscapeBookmarkFileReader_chromeBookmarksBarTitles__block_invoke(
 
 - (BOOL)readFromFileHandle:(id)handle error:(id *)error
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   sax = *byte_1F305FC30;
   v7 = htmlCreatePushParserCtxt(&sax, self, 0, 0, 0, XML_CHAR_ENCODING_NONE);
@@ -97,10 +97,10 @@ void __57__WBSNetscapeBookmarkFileReader_chromeBookmarksBarTitles__block_invoke(
       }
 
       v11 = objc_autoreleasePoolPush();
-      v21 = 0;
-      v12 = [handleCopy readDataUpToLength:4096 error:&v21];
-      v13 = v21;
-      v14 = v21;
+      v20 = 0;
+      v12 = [handleCopy readDataUpToLength:4096 error:&v20];
+      v13 = v20;
+      v14 = v20;
       v15 = [v12 length];
       if (v15)
       {
@@ -130,34 +130,31 @@ void __57__WBSNetscapeBookmarkFileReader_chromeBookmarksBarTitles__block_invoke(
   else if (error)
   {
     v17 = MEMORY[0x1E696ABC0];
-    v23 = *MEMORY[0x1E696A578];
-    v24[0] = @"Failed to create parser context";
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v22 = *MEMORY[0x1E696A578];
+    v23[0] = @"Failed to create parser context";
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
     *error = [v17 errorWithDomain:*MEMORY[0x1E696A798] code:14 userInfo:v18];
 
     LOBYTE(error) = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return error;
 }
 
 - (void)_handleDoctype:(id)doctype
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   doctypeCopy = doctype;
   if ([doctypeCopy caseInsensitiveCompare:@"NETSCAPE-Bookmark-file-1"])
   {
     v5 = MEMORY[0x1E696ABC0];
     v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid document type. Expected 'NETSCAPE-Bookmark-file-1'. Got '%@'", doctypeCopy, *MEMORY[0x1E696A578]];
-    v12[0] = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v11[0] = v6;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v8 = [v5 errorWithDomain:*MEMORY[0x1E696A250] code:259 userInfo:v7];
     error = self->_error;
     self->_error = v8;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleStartElement:(id)element attributes:(id)attributes

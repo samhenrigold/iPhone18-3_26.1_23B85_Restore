@@ -15,7 +15,7 @@
 {
   stringCopy = string;
   actionString = [(SUUIProductPageTableExpandableHeaderView *)self actionString];
-  if (actionString != stringCopy && ([actionString isEqualToString:stringCopy] & 1) == 0)
+  if (actionString != stringCopy && (objc_msgSend_isEqualToString_(actionString) & 1) == 0)
   {
     v5 = [stringCopy length];
     actionLabel = self->_actionLabel;
@@ -137,7 +137,7 @@
 {
   titleCopy = title;
   title = [(SUUIProductPageTableExpandableHeaderView *)self title];
-  if (title != titleCopy && ([title isEqualToString:titleCopy] & 1) == 0)
+  if (title != titleCopy && (objc_msgSend_isEqualToString_(title) & 1) == 0)
   {
     v5 = [titleCopy length];
     titleLabel = self->_titleLabel;

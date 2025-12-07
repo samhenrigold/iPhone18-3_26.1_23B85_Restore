@@ -1,7 +1,6 @@
 @interface IMRemoteURLConnection
 - (IMRemoteURLConnection)initWithURLRequest:(id)request completionBlock:(id)block;
 - (IMRemoteURLConnection)initWithURLRequest:(id)request completionBlockWithTimingData:(id)data;
-- (void)_direct_cancel;
 - (void)_direct_load;
 - (void)cancel;
 - (void)dealloc;
@@ -21,7 +20,7 @@
 
 - (void)_direct_load
 {
-  v130 = *MEMORY[0x1E69E9840];
+  v129 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_mutableCopy(self->_request, a2, v2);
   if (objc_msgSend_forceCellularIfPossible(self, v5, v6) && (objc_msgSend_sharedInstance(IMMobileNetworkManager, v7, v8), v9 = objc_claimAutoreleasedReturnValue(), isDataConnectionActive = objc_msgSend_isDataConnectionActive(v9, v10, v11), v9, isDataConnectionActive))
   {
@@ -89,7 +88,7 @@
   {
     request = self->_request;
     *buf = 138412290;
-    v129 = request;
+    v128 = request;
     _os_log_impl(&dword_195988000, v51, OS_LOG_TYPE_DEFAULT, "Beginning direct load of URL request: %@", buf, 0xCu);
   }
 
@@ -107,7 +106,7 @@
     }
 
     *buf = 138412290;
-    v129 = v58;
+    v128 = v58;
     _os_log_impl(&dword_195988000, v55, OS_LOG_TYPE_DEFAULT, " Try force cell: %@", buf, 0xCu);
   }
 
@@ -116,7 +115,7 @@
   {
     v64 = objc_msgSend_bundleIdentifierForDataUsage(self, v62, v63);
     *buf = 138412290;
-    v129 = v64;
+    v128 = v64;
     _os_log_impl(&dword_195988000, v61, OS_LOG_TYPE_DEFAULT, " data usage identifier: %@", buf, 0xCu);
   }
 
@@ -134,7 +133,7 @@
     }
 
     *buf = 138412290;
-    v129 = v70;
+    v128 = v70;
     _os_log_impl(&dword_195988000, v67, OS_LOG_TYPE_DEFAULT, " requireIDSHost: %@", buf, 0xCu);
   }
 
@@ -152,7 +151,7 @@
     }
 
     *buf = 138412290;
-    v129 = v76;
+    v128 = v76;
     _os_log_impl(&dword_195988000, v73, OS_LOG_TYPE_DEFAULT, " shouldUsePipelining: %@", buf, 0xCu);
   }
 
@@ -161,7 +160,7 @@
   {
     v82 = objc_msgSend_concurrentConnections(self, v80, v81);
     *buf = 67109120;
-    LODWORD(v129) = v82;
+    LODWORD(v128) = v82;
     _os_log_impl(&dword_195988000, v79, OS_LOG_TYPE_DEFAULT, " concurreentConnection: %d", buf, 8u);
   }
 
@@ -179,7 +178,7 @@
     }
 
     *buf = 138412290;
-    v129 = v88;
+    v128 = v88;
     _os_log_impl(&dword_195988000, v85, OS_LOG_TYPE_DEFAULT, " disableKeepAlive: %@", buf, 0xCu);
   }
 
@@ -190,7 +189,7 @@
     v95 = objc_msgSend_keepAliveWifi(self, v92, v93);
     v97 = objc_msgSend_numberWithInt_(v94, v96, v95);
     *buf = 138412290;
-    v129 = v97;
+    v128 = v97;
     _os_log_impl(&dword_195988000, v91, OS_LOG_TYPE_DEFAULT, " keepAliveWifi: %@", buf, 0xCu);
   }
 
@@ -201,7 +200,7 @@
     v104 = objc_msgSend_keepAliveCell(self, v101, v102);
     v106 = objc_msgSend_numberWithInt_(v103, v105, v104);
     *buf = 138412290;
-    v129 = v106;
+    v128 = v106;
     _os_log_impl(&dword_195988000, v100, OS_LOG_TYPE_DEFAULT, " keepAliveCell: %@", buf, 0xCu);
   }
 
@@ -216,7 +215,7 @@
     }
 
     *buf = 138412290;
-    v129 = v113;
+    v128 = v113;
     _os_log_impl(&dword_195988000, v109, OS_LOG_TYPE_DEFAULT, " shouldReturnTimingData: %@", buf, 0xCu);
   }
 
@@ -228,15 +227,13 @@
 
   v121 = self->_URLSession;
   v122 = self->_request;
-  v127[0] = MEMORY[0x1E69E9820];
-  v127[1] = 3221225472;
-  v127[2] = sub_1959C9D0C;
-  v127[3] = &unk_1E7439BC8;
-  v127[4] = self;
-  objc_msgSend_performRequest_completionBlockWithTimingData_(v121, v123, v122, v127);
+  v126[0] = MEMORY[0x1E69E9820];
+  v126[1] = 3221225472;
+  v126[2] = sub_1959C9D0C;
+  v126[3] = &unk_1E7439BC8;
+  v126[4] = self;
+  objc_msgSend_performRequest_completionBlockWithTimingData_(v121, v123, v122, v126);
   objc_msgSend_finishTasksAndInvalidate(self->_URLSession, v124, v125);
-
-  v126 = *MEMORY[0x1E69E9840];
 }
 
 - (IMRemoteURLConnection)initWithURLRequest:(id)request completionBlock:(id)block
@@ -255,12 +252,12 @@
 
 - (IMRemoteURLConnection)initWithURLRequest:(id)request completionBlockWithTimingData:(id)data
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   dataCopy = data;
-  v20.receiver = self;
-  v20.super_class = IMRemoteURLConnection;
-  v9 = [(IMRemoteURLConnection *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = IMRemoteURLConnection;
+  v9 = [(IMRemoteURLConnection *)&v19 init];
   v10 = v9;
   if (v9)
   {
@@ -269,9 +266,9 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v22 = requestCopy;
-      v23 = 2048;
-      v24 = v10;
+      v21 = requestCopy;
+      v22 = 2048;
+      v23 = v10;
       _os_log_impl(&dword_195988000, v13, OS_LOG_TYPE_DEFAULT, "Init with URL request: %@  (%p)", buf, 0x16u);
     }
 
@@ -280,42 +277,40 @@
     v10->_block = v16;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (void)dealloc
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_URLLoading(IMIDSLog, a2, v2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     request = self->_request;
     *buf = 138412546;
-    v9 = request;
-    v10 = 2048;
+    v8 = request;
+    v9 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_195988000, v4, OS_LOG_TYPE_DEFAULT, "Released URL request: %@  (%p)", buf, 0x16u);
   }
 
-  v7.receiver = self;
-  v7.super_class = IMRemoteURLConnection;
-  [(IMRemoteURLConnection *)&v7 dealloc];
-  v6 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = IMRemoteURLConnection;
+  [(IMRemoteURLConnection *)&v6 dealloc];
 }
 
 - (void)cancel
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_URLLoading(IMIDSLog, a2, v2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     request = self->_request;
-    v10 = 138412546;
-    v11 = request;
-    v12 = 2048;
+    v9 = 138412546;
+    v10 = request;
+    v11 = 2048;
     selfCopy = self;
-    _os_log_impl(&dword_195988000, v4, OS_LOG_TYPE_DEFAULT, "Cancelling URL request: %@  (%p)", &v10, 0x16u);
+    _os_log_impl(&dword_195988000, v4, OS_LOG_TYPE_DEFAULT, "Cancelling URL request: %@  (%p)", &v9, 0x16u);
   }
 
   self->_cancelled = 1;
@@ -326,14 +321,6 @@
   }
 
   objc_msgSend__direct_cancel(self, v6, v7);
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_direct_cancel
-{
-  URLSession = self->_URLSession;
-  self->_URLSession = 0;
-  MEMORY[0x1EEE66BB8]();
 }
 
 @end

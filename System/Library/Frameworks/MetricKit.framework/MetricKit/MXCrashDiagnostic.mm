@@ -1,12 +1,48 @@
 @interface MXCrashDiagnostic
 - (MXCrashDiagnostic)initWithCoder:(id)coder;
 - (MXCrashDiagnostic)initWithMetaData:(id)data applicationVersion:(id)version signpostData:(id)signpostData pid:(int)pid terminationReason:(id)reason applicationSpecificInfo:(id)info virtualMemoryRegionInfo:(id)regionInfo exceptionType:(id)self0 exceptionCode:(id)self1 exceptionReason:(id)self2 signal:(id)self3 stackTrace:(id)self4;
+- (MXCrashDiagnostic)initWithMetaData:(id)data applicationVersion:(id)version signpostData:(id)signpostData pid:(int)pid terminationReason:(id)reason applicationSpecificInfo:(id)info virtualMemoryRegionInfo:(id)regionInfo exceptionType:(id)self0 exceptionCode:(id)self1 signal:(id)self2 stackTrace:(id)self3;
 - (MXCrashDiagnostic)initWithMetaData:(id)data applicationVersion:(id)version terminationReason:(id)reason applicationSpecificInfo:(id)info virtualMemoryRegionInfo:(id)regionInfo exceptionType:(id)type exceptionCode:(id)code signal:(id)self0 stackTrace:(id)self1;
 - (id)toDictionary;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation MXCrashDiagnostic
+
+- (MXCrashDiagnostic)initWithMetaData:(id)data applicationVersion:(id)version signpostData:(id)signpostData pid:(int)pid terminationReason:(id)reason applicationSpecificInfo:(id)info virtualMemoryRegionInfo:(id)regionInfo exceptionType:(id)self0 exceptionCode:(id)self1 signal:(id)self2 stackTrace:(id)self3
+{
+  v13 = *&pid;
+  reasonCopy = reason;
+  regionInfoCopy = regionInfo;
+  typeCopy = type;
+  codeCopy = code;
+  signalCopy = signal;
+  traceCopy = trace;
+  v29.receiver = self;
+  v29.super_class = MXCrashDiagnostic;
+  v20 = [(MXDiagnostic *)&v29 initWithMetaData:data applicationVersion:version signpostData:signpostData andPID:v13];
+  p_isa = &v20->super.super.isa;
+  if (v20)
+  {
+    if (!traceCopy)
+    {
+      v22 = 0;
+      goto LABEL_6;
+    }
+
+    objc_storeStrong(&v20->_terminationReason, reason);
+    objc_storeStrong(p_isa + 8, regionInfo);
+    objc_storeStrong(p_isa + 9, type);
+    objc_storeStrong(p_isa + 10, code);
+    objc_storeStrong(p_isa + 11, signal);
+    objc_storeStrong(p_isa + 6, trace);
+  }
+
+  v22 = p_isa;
+LABEL_6:
+
+  return v22;
+}
 
 - (MXCrashDiagnostic)initWithMetaData:(id)data applicationVersion:(id)version signpostData:(id)signpostData pid:(int)pid terminationReason:(id)reason applicationSpecificInfo:(id)info virtualMemoryRegionInfo:(id)regionInfo exceptionType:(id)self0 exceptionCode:(id)self1 exceptionReason:(id)self2 signal:(id)self3 stackTrace:(id)self4
 {

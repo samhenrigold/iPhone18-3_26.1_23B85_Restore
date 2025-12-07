@@ -18,6 +18,7 @@
 - (void)autocompleteSearchResultsWithPredictionContext:(id)context reply:(id)reply;
 - (void)candidatesForShareSheetRanking:(id)ranking;
 - (void)contactSuggestionsWithMaxSuggestions:(id)suggestions excludedContactIds:(id)ids reply:(id)reply;
+- (void)contactSuggestionsWithMaxSuggestions:(int64_t)suggestions interactionDomains:(id)domains referenceDate:(id)date appleUsersOnly:(BOOL)only includeGroups:(BOOL)groups excludeContactsByIdentifiers:(id)identifiers reply:(id)reply;
 - (void)countContactsUsingPredicate:(id)predicate reply:(id)reply;
 - (void)countInteractionsUsingPredicate:(id)predicate reply:(id)reply;
 - (void)deleteInteractionsMatchingPredicate:(id)predicate sortDescriptors:(id)descriptors limit:(unint64_t)limit reply:(id)reply;
@@ -43,19 +44,24 @@
 - (void)rankCandidateContacts:(id)contacts usingSettings:(id)settings reply:(id)reply;
 - (void)rankedAutocompleteSuggestionsFromContext:(id)context candidates:(id)candidates reply:(id)reply;
 - (void)rankedFamilySuggestionsWithReply:(id)reply;
+- (void)rankedGlobalSuggestionsFromContext:(id)context contactsOnly:(BOOL)only maxSuggestions:(id)suggestions excludeBackfillSuggestions:(BOOL)backfillSuggestions reply:(id)reply;
+- (void)rankedGlobalSuggestionsFromContext:(id)context contactsOnly:(BOOL)only maxSuggestions:(id)suggestions reply:(id)reply;
 - (void)rankedHandlesFromCandidateHandles:(id)handles reply:(id)reply;
 - (void)rankedMessagesPinsWithMaxSuggestions:(id)suggestions reply:(id)reply;
 - (void)rankedNameSuggestionsFromContext:(id)context name:(id)name reply:(id)reply;
 - (void)rankedSiriMLCRHandlesFromContext:(id)context handles:(id)handles reply:(id)reply;
 - (void)rankedSiriNLContactSuggestionsFromContext:(id)context maxSuggestions:(id)suggestions interactionId:(id)id reply:(id)reply;
+- (void)recordInteractions:(id)interactions enforceDataLimits:(BOOL)limits enforcePrivacy:(BOOL)privacy reply:(id)reply;
 - (void)refreshPeopleSuggesterCaches;
 - (void)relativeAppUsageProbabilitiesForCandidateBundleIds:(id)ids daysAgo:(id)ago reply:(id)reply;
 - (void)reportPeopleStatistics;
 - (void)reportShareSheetTimeoutWithReply:(id)reply;
+- (void)saveFeedbackInCoreDuetd:(id)duetd forSessionId:(id)id feedbackActionType:(int64_t)type transportBundleId:(id)bundleId isFallbackFetch:(BOOL)fetch reply:(id)reply;
 - (void)setupDataProtectionChangeHandler;
 - (void)shareExtensionSuggestionsFromContext:(id)context reply:(id)reply;
 - (void)suggestInteractionsFromContext:(id)context maxSuggestions:(id)suggestions reply:(id)reply;
 - (void)tuneSocialAdvisorUsingSettings:(id)settings heartBeatHandler:(id)handler reply:(id)reply;
+- (void)updateInteractions:(id)interactions enforceDataLimits:(BOOL)limits enforcePrivacy:(BOOL)privacy reply:(id)reply;
 - (void)writeVersionNumberToDefaults:(unint64_t)defaults;
 - (void)zkwSuggestionsFromContext:(id)context maxSuggestions:(id)suggestions reply:(id)reply;
 @end
@@ -724,6 +730,76 @@ LABEL_30:
   return v5;
 }
 
+- (void)recordInteractions:(id)interactions enforceDataLimits:(BOOL)limits enforcePrivacy:(BOOL)privacy reply:(id)reply
+{
+  privacyCopy = privacy;
+  limitsCopy = limits;
+  interactionsCopy = interactions;
+  replyCopy = reply;
+  if ([(CDPeopleDaemon *)self isClassCLocked])
+  {
+    replyCopy[2](replyCopy, 0);
+  }
+
+  else
+  {
+    v12 = [(_CDInteractionPolicies *)self->_policies filterAndModifyInteractionsWithPolicies:interactionsCopy enforceDataLimits:limitsCopy enforcePrivacy:privacyCopy];
+    v13 = +[_CDLogging instrumentationChannel];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    {
+      v14 = [v12 count];
+      v15 = _CDCurrentOrXPCProcessName();
+      *buf = 134218242;
+      v21 = v14;
+      v22 = 2114;
+      v23 = v15;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Saving %lu interactions for client %{public}@", buf, 0x16u);
+    }
+
+    store = self->_store;
+    v19 = 0;
+    v17 = [(_CDInteractionStore *)store recordInteractions:v12 error:&v19];
+    v18 = v19;
+    (replyCopy)[2](replyCopy, v17);
+    [(CDPeopleDaemon *)self handleError:v18];
+  }
+}
+
+- (void)updateInteractions:(id)interactions enforceDataLimits:(BOOL)limits enforcePrivacy:(BOOL)privacy reply:(id)reply
+{
+  privacyCopy = privacy;
+  limitsCopy = limits;
+  interactionsCopy = interactions;
+  replyCopy = reply;
+  if ([(CDPeopleDaemon *)self isClassCLocked])
+  {
+    replyCopy[2](replyCopy, 0);
+  }
+
+  else
+  {
+    v12 = [(_CDInteractionPolicies *)self->_policies filterAndModifyInteractionsWithPolicies:interactionsCopy enforceDataLimits:limitsCopy enforcePrivacy:privacyCopy];
+    v13 = +[_CDLogging instrumentationChannel];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = [v12 count];
+      v15 = _CDCurrentOrXPCProcessName();
+      *buf = 134218242;
+      v21 = v14;
+      v22 = 2114;
+      v23 = v15;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Updating %lu interactions for client %{public}@", buf, 0x16u);
+    }
+
+    store = self->_store;
+    v19 = 0;
+    v17 = [(_CDInteractionStore *)store updateInteractions:v12 error:&v19];
+    v18 = v19;
+    (replyCopy)[2](replyCopy, v17);
+    [(CDPeopleDaemon *)self handleError:v18];
+  }
+}
+
 - (void)queryInteractionsUsingPredicate:(id)predicate sortDescriptors:(id)descriptors limit:(unint64_t)limit reply:(id)reply
 {
   predicateCopy = predicate;
@@ -1242,6 +1318,14 @@ LABEL_30:
   }
 }
 
+- (void)saveFeedbackInCoreDuetd:(id)duetd forSessionId:(id)id feedbackActionType:(int64_t)type transportBundleId:(id)bundleId isFallbackFetch:(BOOL)fetch reply:(id)reply
+{
+  fetchCopy = fetch;
+  replyCopy = reply;
+  [_PSEnsembleModel saveFeedback:duetd forSessionId:id feedbackActionType:type transportBundleId:bundleId isFallbackFetch:fetchCopy];
+  replyCopy[2](replyCopy, 1);
+}
+
 - (void)provideFeedbackForContactsAutocompleteSuggestions:(id)suggestions
 {
   suggestionsCopy = suggestions;
@@ -1282,6 +1366,63 @@ LABEL_30:
     ensembleModel = [(CDPeopleDaemon *)self ensembleModel];
     v14 = [ensembleModel rankedNameSuggestionsWithPredictionContext:contextCopy name:nameCopy];
     replyCopy[2](replyCopy, v14);
+  }
+}
+
+- (void)rankedGlobalSuggestionsFromContext:(id)context contactsOnly:(BOOL)only maxSuggestions:(id)suggestions reply:(id)reply
+{
+  onlyCopy = only;
+  contextCopy = context;
+  suggestionsCopy = suggestions;
+  replyCopy = reply;
+  if ([(CDPeopleDaemon *)self isClassCLocked])
+  {
+    replyCopy[2](replyCopy, &__NSArray0__struct);
+  }
+
+  else
+  {
+    v13 = +[_CDLogging instrumentationChannel];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    {
+      v14 = _CDCurrentOrXPCProcessName();
+      v17 = 138543362;
+      v18 = v14;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Suggesting ranked global suggestions for client %{public}@", &v17, 0xCu);
+    }
+
+    ensembleModel = [(CDPeopleDaemon *)self ensembleModel];
+    v16 = [ensembleModel rankedGlobalSuggestionsWithPredictionContext:contextCopy contactsOnly:onlyCopy maxSuggestions:{objc_msgSend(suggestionsCopy, "integerValue")}];
+    replyCopy[2](replyCopy, v16);
+  }
+}
+
+- (void)rankedGlobalSuggestionsFromContext:(id)context contactsOnly:(BOOL)only maxSuggestions:(id)suggestions excludeBackfillSuggestions:(BOOL)backfillSuggestions reply:(id)reply
+{
+  backfillSuggestionsCopy = backfillSuggestions;
+  onlyCopy = only;
+  contextCopy = context;
+  suggestionsCopy = suggestions;
+  replyCopy = reply;
+  if ([(CDPeopleDaemon *)self isClassCLocked])
+  {
+    replyCopy[2](replyCopy, &__NSArray0__struct);
+  }
+
+  else
+  {
+    v15 = +[_CDLogging instrumentationChannel];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    {
+      v16 = _CDCurrentOrXPCProcessName();
+      v19 = 138543362;
+      v20 = v16;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Suggesting ranked global suggestions with backfill option for client %{public}@", &v19, 0xCu);
+    }
+
+    ensembleModel = [(CDPeopleDaemon *)self ensembleModel];
+    v18 = [ensembleModel rankedGlobalSuggestionsWithPredictionContext:contextCopy contactsOnly:onlyCopy maxSuggestions:objc_msgSend(suggestionsCopy excludeBackfillSuggestions:{"integerValue"), backfillSuggestionsCopy}];
+    replyCopy[2](replyCopy, v18);
   }
 }
 
@@ -1592,6 +1733,45 @@ LABEL_30:
     contactSuggester = [(CDPeopleDaemon *)self contactSuggester];
     v14 = [contactSuggester contactSuggestionsWithMaxSuggestions:objc_msgSend(suggestionsCopy excludeContactsByIdentifiers:{"integerValue"), idsCopy}];
     replyCopy[2](replyCopy, v14);
+  }
+}
+
+- (void)contactSuggestionsWithMaxSuggestions:(int64_t)suggestions interactionDomains:(id)domains referenceDate:(id)date appleUsersOnly:(BOOL)only includeGroups:(BOOL)groups excludeContactsByIdentifiers:(id)identifiers reply:(id)reply
+{
+  groupsCopy = groups;
+  onlyCopy = only;
+  domainsCopy = domains;
+  dateCopy = date;
+  identifiersCopy = identifiers;
+  replyCopy = reply;
+  if ([(CDPeopleDaemon *)self isClassCLocked])
+  {
+    replyCopy[2](replyCopy, &__NSArray0__struct);
+  }
+
+  else
+  {
+    v19 = +[_CDLogging instrumentationChannel];
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      v22 = 134219267;
+      suggestionsCopy = suggestions;
+      v24 = 2114;
+      v25 = domainsCopy;
+      v26 = 2114;
+      v27 = dateCopy;
+      v28 = 1024;
+      v29 = onlyCopy;
+      v30 = 1024;
+      v31 = groupsCopy;
+      v32 = 2113;
+      v33 = identifiersCopy;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "contactSuggestionsWithMaxSuggestions:%tu interactionDomains:%{public}@ referenceDate:%{public}@ appleUsersOnly:%d includeGroups:%d excludeContactsByIdentifiers:%{private}@", &v22, 0x36u);
+    }
+
+    contactSuggester = [(CDPeopleDaemon *)self contactSuggester];
+    v21 = [contactSuggester contactSuggestionsWithMaxSuggestions:suggestions interactionDomains:domainsCopy referenceDate:dateCopy appleUsersOnly:onlyCopy includeGroups:groupsCopy excludeContactsByIdentifiers:identifiersCopy];
+    replyCopy[2](replyCopy, v21);
   }
 }
 

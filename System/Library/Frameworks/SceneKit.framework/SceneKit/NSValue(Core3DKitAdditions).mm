@@ -146,7 +146,7 @@
       v10 = 0u;
       if (self)
       {
-        result = [self CATransform3DValue];
+        result = objc_msgSend_CATransform3DValue(self);
         v5 = vcvt_hight_f32_f64(vcvt_f32_f64(v9), v10);
         v6 = vcvt_hight_f32_f64(vcvt_f32_f64(v11), v12);
         v7 = vcvt_hight_f32_f64(vcvt_f32_f64(v13), v14);
@@ -204,7 +204,7 @@
   {
     if (self)
     {
-      [self CATransform3DValue];
+      objc_msgSend_CATransform3DValue(self);
       v4 = vcvt_hight_f32_f64(vcvt_f32_f64(v15), v16);
       v5 = vcvt_hight_f32_f64(vcvt_f32_f64(v13), v14);
       v6 = vcvt_hight_f32_f64(vcvt_f32_f64(v11), v12);

@@ -81,30 +81,30 @@
 
 - (id)insertSQL
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   v4 = objc_opt_new();
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   selfCopy = self;
   v5 = self->_columns;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         v11 = objc_alloc(MEMORY[0x1E696AEC0]);
         name = [v10 name];
         v13 = [v11 initWithFormat:@"%@", name];
@@ -113,7 +113,7 @@
         [v4 addObject:@"?"];
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v7);
@@ -124,8 +124,6 @@
   v16 = [v3 componentsJoinedByString:{@", "}];
   v17 = [v4 componentsJoinedByString:{@", "}];
   v18 = [v14 initWithFormat:@"INSERT INTO %@ (%@) VALUES (%@)", tableName, v16, v17];
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -142,39 +140,38 @@
 
 - (unint64_t)hash
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = [(NSString *)self->_tableName hash];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v4 = self->_columns;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v3 ^= [*(*(&v11 + 1) + 8 * v8++) hash];
+        v3 ^= [*(*(&v10 + 1) + 8 * v8++) hash];
       }
 
       while (v6 != v8);
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

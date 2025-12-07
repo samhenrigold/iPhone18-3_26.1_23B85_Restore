@@ -50,7 +50,6 @@ id INSExtensionServiceTraceCompletionHandlerWithCode(void *a1, int a2)
 uint64_t __INSExtensionServiceTraceCompletionHandlerWithCode_block_invoke(uint64_t a1)
 {
   (*(*(a1 + 32) + 16))();
-  v2 = *(a1 + 40);
 
   return kdebug_trace();
 }
@@ -75,23 +74,23 @@ float INSGetAceVersionNumberFromString(void *a1)
 
 void *__getFBSOpenApplicationErrorDomainSymbolLoc_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v6[0] = 0;
+  v8 = *MEMORY[0x277D85DE8];
+  v5[0] = 0;
   if (!FrontBoardServicesLibraryCore_frameworkLibrary)
   {
-    v6[1] = MEMORY[0x277D85DD0];
-    v6[2] = 3221225472;
-    v6[3] = __FrontBoardServicesLibraryCore_block_invoke;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_2797EA890;
-    v8 = 0;
+    v5[1] = MEMORY[0x277D85DD0];
+    v5[2] = 3221225472;
+    v5[3] = __FrontBoardServicesLibraryCore_block_invoke;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_2797EA890;
+    v7 = 0;
     FrontBoardServicesLibraryCore_frameworkLibrary = _sl_dlopen();
-    v3 = v6[0];
+    v3 = v5[0];
     v2 = FrontBoardServicesLibraryCore_frameworkLibrary;
     if (FrontBoardServicesLibraryCore_frameworkLibrary)
     {
-      if (!v6[0])
+      if (!v5[0])
       {
         goto LABEL_5;
       }
@@ -99,7 +98,7 @@ void *__getFBSOpenApplicationErrorDomainSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -111,39 +110,35 @@ LABEL_5:
   result = dlsym(v2, "FBSOpenApplicationErrorDomain");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getFBSOpenApplicationErrorDomainSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __FrontBoardServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   FrontBoardServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void *__getFBSOpenApplicationErrorDomainSymbolLoc_block_invoke_273(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v6[0] = 0;
+  v8 = *MEMORY[0x277D85DE8];
+  v5[0] = 0;
   if (!FrontBoardServicesLibraryCore_frameworkLibrary_275)
   {
-    v6[1] = MEMORY[0x277D85DD0];
-    v6[2] = 3221225472;
-    v6[3] = __FrontBoardServicesLibraryCore_block_invoke_276;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_2797EA9C0;
-    v8 = 0;
+    v5[1] = MEMORY[0x277D85DD0];
+    v5[2] = 3221225472;
+    v5[3] = __FrontBoardServicesLibraryCore_block_invoke_276;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_2797EA9C0;
+    v7 = 0;
     FrontBoardServicesLibraryCore_frameworkLibrary_275 = _sl_dlopen();
-    v3 = v6[0];
+    v3 = v5[0];
     v2 = FrontBoardServicesLibraryCore_frameworkLibrary_275;
     if (FrontBoardServicesLibraryCore_frameworkLibrary_275)
     {
-      if (!v6[0])
+      if (!v5[0])
       {
         goto LABEL_5;
       }
@@ -151,7 +146,7 @@ void *__getFBSOpenApplicationErrorDomainSymbolLoc_block_invoke_273(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -163,17 +158,13 @@ LABEL_5:
   result = dlsym(v2, "FBSOpenApplicationErrorDomain");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getFBSOpenApplicationErrorDomainSymbolLoc_ptr_272 = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __FrontBoardServicesLibraryCore_block_invoke_276(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   FrontBoardServicesLibraryCore_frameworkLibrary_275 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 

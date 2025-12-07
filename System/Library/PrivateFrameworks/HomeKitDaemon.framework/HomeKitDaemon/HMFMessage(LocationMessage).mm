@@ -62,7 +62,7 @@
   v11 = [objc_alloc(MEMORY[0x277D0F820]) initWithTarget:v8];
 
   [v9 setDestination:v11];
-  v12 = [v9 copy];
+  v12 = objc_msgSend_copy(v9);
 
   return v12;
 }
@@ -71,7 +71,7 @@
 {
   v0 = [MEMORY[0x277D0F848] messageWithName:? messagePayload:?];
   [v0 setUserInfoValue:MEMORY[0x277CBEC38] forKey:@"locationAuthorized"];
-  v1 = [v0 copy];
+  v1 = objc_msgSend_copy(v0);
 
   return v1;
 }

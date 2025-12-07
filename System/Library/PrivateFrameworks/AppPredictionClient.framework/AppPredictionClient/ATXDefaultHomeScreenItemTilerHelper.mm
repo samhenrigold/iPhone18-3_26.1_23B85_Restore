@@ -111,7 +111,7 @@ LABEL_8:
   appBundleId = [usedCopy appBundleId];
   if (appBundleId)
   {
-    if (([(NSMutableSet *)self->_usedBundleIds containsObject:appBundleId]& 1) == 0)
+    if ((objc_msgSend_containsObject_(self->_usedBundleIds) & 1) == 0)
     {
 LABEL_7:
       v12 = 0;
@@ -133,7 +133,7 @@ LABEL_7:
     usedSpecialKinds = self->_usedSpecialKinds;
     avocadoDescriptor2 = [usedCopy avocadoDescriptor];
     kind2 = [avocadoDescriptor2 kind];
-    LOBYTE(usedSpecialKinds) = [(NSMutableSet *)usedSpecialKinds containsObject:kind2];
+    LOBYTE(usedSpecialKinds) = objc_msgSend_containsObject_(usedSpecialKinds);
 
     if ((usedSpecialKinds & 1) == 0)
     {

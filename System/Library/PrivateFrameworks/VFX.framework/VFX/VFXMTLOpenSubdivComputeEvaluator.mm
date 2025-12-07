@@ -9,7 +9,7 @@
   computeEvaluator = self->_computeEvaluator;
   if (computeEvaluator)
   {
-    v4 = sub_1AFDB0C1C(computeEvaluator);
+    v4 = sub_1AFDB0C1C(&computeEvaluator->var0);
     MEMORY[0x1B271C6B0](v4, 0x1080C40AA79BA9DLL);
   }
 

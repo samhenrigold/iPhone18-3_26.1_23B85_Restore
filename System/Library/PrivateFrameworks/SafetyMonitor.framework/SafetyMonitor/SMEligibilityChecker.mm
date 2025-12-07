@@ -100,21 +100,21 @@ void __46__SMEligibilityChecker_convertToPushTokenMap___block_invoke(uint64_t a1
 
 - (void)checkReceiverEligibility:(id)eligibility handler:(id)handler
 {
-  v73[1] = *MEMORY[0x277D85DE8];
+  v72[1] = *MEMORY[0x277D85DE8];
   eligibilityCopy = eligibility;
   handlerCopy = handler;
   if (eligibilityCopy && ([eligibilityCopy primaryHandle], v9 = objc_claimAutoreleasedReturnValue(), v9, v9))
   {
-    v58 = 0;
-    v59 = &v58;
-    v60 = 0x2020000000;
+    v57 = 0;
+    v58 = &v57;
+    v59 = 0x2020000000;
     v10 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
     v11 = os_signpost_id_generate(v10);
 
-    v61 = v11;
+    v60 = v11;
     v12 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
     v13 = v12;
-    v14 = v59[3];
+    v14 = v58[3];
     if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
     {
       LOWORD(buf) = 0;
@@ -129,57 +129,57 @@ void __46__SMEligibilityChecker_convertToPushTokenMap___block_invoke(uint64_t a1
       v17 = dispatch_group_create();
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v66 = 0x3032000000;
-      v67 = __Block_byref_object_copy_;
-      v68 = __Block_byref_object_dispose_;
-      v69 = MEMORY[0x277CBEC10];
-      v57[0] = 0;
-      v57[1] = v57;
-      v57[2] = 0x2020000000;
-      v57[3] = 0;
+      v65 = 0x3032000000;
+      v66 = __Block_byref_object_copy_;
+      v67 = __Block_byref_object_dispose_;
+      v68 = MEMORY[0x277CBEC10];
+      v56[0] = 0;
+      v56[1] = v56;
+      v56[2] = 0x2020000000;
+      v56[3] = 0;
       dispatch_group_enter(v17);
       primaryHandle2 = [eligibilityCopy primaryHandle];
-      v64 = primaryHandle2;
-      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v64 count:1];
-      v63 = *MEMORY[0x277D18918];
-      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v63 count:1];
-      v52[0] = MEMORY[0x277D85DD0];
-      v52[1] = 3221225472;
-      v52[2] = __57__SMEligibilityChecker_checkReceiverEligibility_handler___block_invoke;
-      v52[3] = &unk_279B64A00;
+      v63 = primaryHandle2;
+      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v63 count:1];
+      v62 = *MEMORY[0x277D18918];
+      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v62 count:1];
+      v51[0] = MEMORY[0x277D85DD0];
+      v51[1] = 3221225472;
+      v51[2] = __57__SMEligibilityChecker_checkReceiverEligibility_handler___block_invoke;
+      v51[3] = &unk_279B64A00;
       v21 = eligibilityCopy;
-      v53 = v21;
-      v55 = v57;
+      v52 = v21;
+      v54 = v56;
       p_buf = &buf;
       v22 = v17;
-      v54 = v22;
-      [(SMEligibilityChecker *)self resolveEndpointsForDestinations:v19 service:@"com.apple.private.alloy.safetymonitor" requiredCapabilities:v20 completionBlock:v52];
+      v53 = v22;
+      [(SMEligibilityChecker *)self resolveEndpointsForDestinations:v19 service:@"com.apple.private.alloy.safetymonitor" requiredCapabilities:v20 completionBlock:v51];
 
-      v50[0] = 0;
-      v50[1] = v50;
-      v50[2] = 0x3032000000;
-      v50[3] = __Block_byref_object_copy_;
-      v50[4] = __Block_byref_object_dispose_;
-      v51 = MEMORY[0x277CBEC10];
       v49[0] = 0;
       v49[1] = v49;
-      v49[2] = 0x2020000000;
-      v49[3] = 0;
+      v49[2] = 0x3032000000;
+      v49[3] = __Block_byref_object_copy_;
+      v49[4] = __Block_byref_object_dispose_;
+      v50 = MEMORY[0x277CBEC10];
+      v48[0] = 0;
+      v48[1] = v48;
+      v48[2] = 0x2020000000;
+      v48[3] = 0;
       dispatch_group_enter(v22);
       primaryHandle3 = [v21 primaryHandle];
-      v62 = primaryHandle3;
-      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v62 count:1];
-      v44[0] = MEMORY[0x277D85DD0];
-      v44[1] = 3221225472;
-      v44[2] = __57__SMEligibilityChecker_checkReceiverEligibility_handler___block_invoke_21;
-      v44[3] = &unk_279B64A00;
+      v61 = primaryHandle3;
+      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __57__SMEligibilityChecker_checkReceiverEligibility_handler___block_invoke_21;
+      v43[3] = &unk_279B64A00;
       v25 = v21;
-      v45 = v25;
+      v44 = v25;
+      v46 = v48;
       v47 = v49;
-      v48 = v50;
       v26 = v22;
-      v46 = v26;
-      [(SMEligibilityChecker *)self resolveEndpointsForDestinations:v24 service:@"com.apple.private.alloy.safetymonitor.multiplex" requiredCapabilities:MEMORY[0x277CBEBF8] completionBlock:v44];
+      v45 = v26;
+      [(SMEligibilityChecker *)self resolveEndpointsForDestinations:v24 service:@"com.apple.private.alloy.safetymonitor.multiplex" requiredCapabilities:MEMORY[0x277CBEBF8] completionBlock:v43];
 
       queue = [(SMEligibilityChecker *)self queue];
       block[0] = MEMORY[0x277D85DD0];
@@ -187,32 +187,32 @@ void __46__SMEligibilityChecker_convertToPushTokenMap___block_invoke(uint64_t a1
       block[2] = __57__SMEligibilityChecker_checkReceiverEligibility_handler___block_invoke_22;
       block[3] = &unk_279B64A28;
       block[4] = self;
-      v38 = v57;
-      v39 = v49;
-      v40 = &buf;
-      v41 = v50;
-      v43 = a2;
-      v36 = v25;
-      v42 = &v58;
-      v37 = handlerCopy;
+      v37 = v56;
+      v38 = v48;
+      v39 = &buf;
+      v40 = v49;
+      v42 = a2;
+      v35 = v25;
+      v41 = &v57;
+      v36 = handlerCopy;
       dispatch_group_notify(v26, queue, block);
 
+      _Block_object_dispose(v48, 8);
       _Block_object_dispose(v49, 8);
-      _Block_object_dispose(v50, 8);
 
-      _Block_object_dispose(v57, 8);
+      _Block_object_dispose(v56, 8);
       _Block_object_dispose(&buf, 8);
     }
 
     else
     {
-      v70 = *MEMORY[0x277CCA450];
-      v71 = @"Receiver handle overlaps with initiator iMessage or iCloud account";
-      v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
+      v69 = *MEMORY[0x277CCA450];
+      v70 = @"Receiver handle overlaps with initiator iMessage or iCloud account";
+      v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
       v30 = [MEMORY[0x277CCA9B8] errorWithDomain:@"SMErrorDomain" code:1 userInfo:v26];
       v31 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitorAnalytics);
       v32 = v31;
-      v33 = v59[3];
+      v33 = v58[3];
       if (v33 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
       {
         LODWORD(buf) = 134349056;
@@ -223,24 +223,22 @@ void __46__SMEligibilityChecker_convertToPushTokenMap___block_invoke(uint64_t a1
       (*(handlerCopy + 2))(handlerCopy, 2, MEMORY[0x277CBEBF8], v30);
     }
 
-    _Block_object_dispose(&v58, 8);
+    _Block_object_dispose(&v57, 8);
   }
 
   else
   {
-    v72 = *MEMORY[0x277CCA450];
-    v73[0] = @"No handles in the query";
-    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:&v72 count:1];
+    v71 = *MEMORY[0x277CCA450];
+    v72[0] = @"No handles in the query";
+    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:&v71 count:1];
     v29 = [MEMORY[0x277CCA9B8] errorWithDomain:@"SMErrorDomain" code:7 userInfo:v28];
     (*(handlerCopy + 2))(handlerCopy, 2, MEMORY[0x277CBEBF8], v29);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __57__SMEligibilityChecker_checkReceiverEligibility_handler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
@@ -250,14 +248,14 @@ void __57__SMEligibilityChecker_checkReceiverEligibility_handler___block_invoke(
     {
       v8 = [v5 count];
       v9 = [*(a1 + 32) primaryHandle];
-      v20 = v9;
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+      v19 = v9;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
       *buf = 134218498;
-      v22 = v8;
-      v23 = 2112;
-      v24 = v10;
-      v25 = 2112;
-      v26 = v6;
+      v21 = v8;
+      v22 = 2112;
+      v23 = v10;
+      v24 = 2112;
+      v25 = v6;
       _os_log_impl(&dword_26455D000, v7, OS_LOG_TYPE_INFO, "Got %lu zelkova endpoints for %@, error, %@", buf, 0x20u);
     }
   }
@@ -304,12 +302,11 @@ LABEL_14:
   *(v17 + 40) = v16;
 
   dispatch_group_leave(*(a1 + 40));
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __57__SMEligibilityChecker_checkReceiverEligibility_handler___block_invoke_21(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
@@ -319,14 +316,14 @@ void __57__SMEligibilityChecker_checkReceiverEligibility_handler___block_invoke_
     {
       v8 = [v5 count];
       v9 = [*(a1 + 32) primaryHandle];
-      v19 = v9;
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+      v18 = v9;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
       *buf = 134218498;
-      v21 = v8;
-      v22 = 2112;
-      v23 = v10;
-      v24 = 2112;
-      v25 = v6;
+      v20 = v8;
+      v21 = 2112;
+      v22 = v10;
+      v23 = 2112;
+      v24 = v6;
       _os_log_impl(&dword_26455D000, v7, OS_LOG_TYPE_INFO, "Got %lu nice endpoints for %@, error, %@", buf, 0x20u);
     }
   }
@@ -360,12 +357,11 @@ void __57__SMEligibilityChecker_checkReceiverEligibility_handler___block_invoke_
   *(v16 + 40) = v15;
 
   dispatch_group_leave(*(a1 + 40));
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __57__SMEligibilityChecker_checkReceiverEligibility_handler___block_invoke_22(uint64_t a1)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) reportedEligibilityWithiMessageEligibility:*(*(*(a1 + 56) + 8) + 24) iCloudEligibility:*(*(*(a1 + 64) + 8) + 24)];
   v3 = MEMORY[0x277CBEB98];
   v4 = [*(*(*(a1 + 72) + 8) + 40) allKeys];
@@ -378,34 +374,34 @@ void __57__SMEligibilityChecker_checkReceiverEligibility_handler___block_invoke_
   v9 = [v5 mutableCopy];
   [v9 intersectSet:v8];
   v10 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v9, "count")}];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v11 = v9;
-  v12 = [v11 countByEnumeratingWithState:&v31 objects:v49 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v30 objects:v48 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v32;
+    v14 = *v31;
     do
     {
       v15 = 0;
       do
       {
-        if (*v32 != v14)
+        if (*v31 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = [*(*(*(a1 + 72) + 8) + 40) objectForKeyedSubscript:{*(*(&v31 + 1) + 8 * v15), v31}];
+        v16 = [*(*(*(a1 + 72) + 8) + 40) objectForKeyedSubscript:{*(*(&v30 + 1) + 8 * v15), v30}];
         [v10 addObject:v16];
 
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v31 objects:v49 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v30 objects:v48 count:16];
     }
 
     while (v13);
@@ -416,24 +412,24 @@ void __57__SMEligibilityChecker_checkReceiverEligibility_handler___block_invoke_
     v17 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      v27 = NSStringFromSelector(*(a1 + 96));
-      v28 = *(a1 + 40);
-      v29 = *(*(*(a1 + 56) + 8) + 24);
-      v30 = *(*(*(a1 + 64) + 8) + 24);
+      v26 = NSStringFromSelector(*(a1 + 96));
+      v27 = *(a1 + 40);
+      v28 = *(*(*(a1 + 56) + 8) + 24);
+      v29 = *(*(*(a1 + 64) + 8) + 24);
       *buf = 138413826;
-      v36 = v27;
-      v37 = 2112;
-      v38 = v28;
-      v39 = 2048;
-      v40 = v29;
-      v41 = 2048;
-      v42 = v30;
-      v43 = 2112;
-      v44 = v5;
-      v45 = 2112;
-      v46 = v8;
-      v47 = 2112;
-      v48 = v11;
+      v35 = v26;
+      v36 = 2112;
+      v37 = v27;
+      v38 = 2048;
+      v39 = v28;
+      v40 = 2048;
+      v41 = v29;
+      v42 = 2112;
+      v43 = v5;
+      v44 = 2112;
+      v45 = v8;
+      v46 = 2112;
+      v47 = v11;
       _os_log_debug_impl(&dword_26455D000, v17, OS_LOG_TYPE_DEBUG, "%@, handle, %@, iMessageEligibilityError, %ld, iCloudEligibilityError, %ld, pushTokenSetForZelkova, %@, pushTokenSetForNice, %@, pushTokenSetIntersection, %@", buf, 0x48u);
     }
   }
@@ -457,7 +453,7 @@ void __57__SMEligibilityChecker_checkReceiverEligibility_handler___block_invoke_
   if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
     *buf = 134349056;
-    v36 = v2;
+    v35 = v2;
     _os_signpost_emit_with_name_impl(&dword_26455D000, v19, OS_SIGNPOST_INTERVAL_END, v20, "SMCheckReceiverEligibility", " enableTelemetry=YES {receiverEligibility:%{public,signpost.telemetry:number1}ld}", buf, 0xCu);
   }
 
@@ -469,11 +465,11 @@ void __57__SMEligibilityChecker_checkReceiverEligibility_handler___block_invoke_
       v22 = NSStringFromSelector(*(a1 + 96));
       v23 = *(a1 + 40);
       *buf = 138412802;
-      v36 = v22;
-      v37 = 2112;
-      v38 = v23;
-      v39 = 2048;
-      v40 = v2;
+      v35 = v22;
+      v36 = 2112;
+      v37 = v23;
+      v38 = 2048;
+      v39 = v2;
       _os_log_impl(&dword_26455D000, v21, OS_LOG_TYPE_INFO, "%@, handle, %@, eligibility, %ld", buf, 0x20u);
     }
   }
@@ -481,13 +477,11 @@ void __57__SMEligibilityChecker_checkReceiverEligibility_handler___block_invoke_
   v24 = *(a1 + 48);
   v25 = [v10 copy];
   (*(v24 + 16))(v24, v2, v25, 0);
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkConversationEligibility:(id)eligibility handler:(id)handler
 {
-  v44[1] = *MEMORY[0x277D85DE8];
+  v43[1] = *MEMORY[0x277D85DE8];
   eligibilityCopy = eligibility;
   handlerCopy = handler;
   if (eligibilityCopy && ([eligibilityCopy receiverHandles], v6 = objc_claimAutoreleasedReturnValue(), v6, v6))
@@ -510,49 +504,49 @@ void __57__SMEligibilityChecker_checkReceiverEligibility_handler___block_invoke_
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v40 = __Block_byref_object_copy_;
-    v41 = __Block_byref_object_dispose_;
-    v42 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v36[0] = 0;
-    v36[1] = v36;
-    v36[2] = 0x3032000000;
-    v36[3] = __Block_byref_object_copy_;
-    v36[4] = __Block_byref_object_dispose_;
-    v37 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v39 = __Block_byref_object_copy_;
+    v40 = __Block_byref_object_dispose_;
+    v41 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v35[0] = 0;
+    v35[1] = v35;
+    v35[2] = 0x3032000000;
+    v35[3] = __Block_byref_object_copy_;
+    v35[4] = __Block_byref_object_dispose_;
+    v36 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     receiverHandles = [eligibilityCopy receiverHandles];
-    v11 = [receiverHandles countByEnumeratingWithState:&v32 objects:v38 count:16];
+    v11 = [receiverHandles countByEnumeratingWithState:&v31 objects:v37 count:16];
     if (v11)
     {
-      v12 = *v33;
+      v12 = *v32;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v33 != v12)
+          if (*v32 != v12)
           {
             objc_enumerationMutation(receiverHandles);
           }
 
-          v14 = *(*(&v32 + 1) + 8 * i);
+          v14 = *(*(&v31 + 1) + 8 * i);
           [*(*&buf[8] + 40) setObject:&unk_287611A58 forKey:{v14, handlerCopy}];
           dispatch_group_enter(v9);
-          v27[0] = MEMORY[0x277D85DD0];
-          v27[1] = 3221225472;
-          v27[2] = __61__SMEligibilityChecker_checkConversationEligibility_handler___block_invoke;
-          v27[3] = &unk_279B64A50;
-          v27[4] = v14;
-          v29 = buf;
-          v30 = v36;
-          v31 = a2;
-          v28 = v9;
-          [(SMEligibilityChecker *)self checkReceiverEligibility:v14 handler:v27];
+          v26[0] = MEMORY[0x277D85DD0];
+          v26[1] = 3221225472;
+          v26[2] = __61__SMEligibilityChecker_checkConversationEligibility_handler___block_invoke;
+          v26[3] = &unk_279B64A50;
+          v26[4] = v14;
+          v28 = buf;
+          v29 = v35;
+          v30 = a2;
+          v27 = v9;
+          [(SMEligibilityChecker *)self checkReceiverEligibility:v14 handler:v26];
         }
 
-        v11 = [receiverHandles countByEnumeratingWithState:&v32 objects:v38 count:16];
+        v11 = [receiverHandles countByEnumeratingWithState:&v31 objects:v37 count:16];
       }
 
       while (v11);
@@ -563,32 +557,30 @@ void __57__SMEligibilityChecker_checkReceiverEligibility_handler___block_invoke_
     block[1] = 3221225472;
     block[2] = __61__SMEligibilityChecker_checkConversationEligibility_handler___block_invoke_32;
     block[3] = &unk_279B64A78;
-    v24 = buf;
-    v25 = v36;
-    v26 = a2;
-    v22 = eligibilityCopy;
-    v23 = handlerCopy;
+    v23 = buf;
+    v24 = v35;
+    v25 = a2;
+    v21 = eligibilityCopy;
+    v22 = handlerCopy;
     dispatch_group_notify(v9, queue, block);
 
-    _Block_object_dispose(v36, 8);
+    _Block_object_dispose(v35, 8);
     _Block_object_dispose(buf, 8);
   }
 
   else
   {
-    v43 = *MEMORY[0x277CCA450];
-    v44[0] = @"No conversation or missing conversation data in the query";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:{1, handlerCopy}];
+    v42 = *MEMORY[0x277CCA450];
+    v43[0] = @"No conversation or missing conversation data in the query";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:&v42 count:{1, handlerCopy}];
     v16 = [MEMORY[0x277CCA9B8] errorWithDomain:@"SMErrorDomain" code:7 userInfo:v9];
     (*(handlerCopy + 2))(handlerCopy, 2, v16);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __61__SMEligibilityChecker_checkConversationEligibility_handler___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
@@ -596,17 +588,17 @@ void __61__SMEligibilityChecker_checkConversationEligibility_handler___block_inv
     v9 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v13 = NSStringFromSelector(*(a1 + 64));
-      v14 = *(a1 + 32);
-      v15 = 138413058;
-      v16 = v13;
-      v17 = 2112;
-      v18 = v14;
-      v19 = 2048;
-      v20 = a2;
-      v21 = 2112;
-      v22 = v8;
-      _os_log_debug_impl(&dword_26455D000, v9, OS_LOG_TYPE_DEBUG, "%@, handle, %@, eligibility, %ld, error, %@", &v15, 0x2Au);
+      v12 = NSStringFromSelector(*(a1 + 64));
+      v13 = *(a1 + 32);
+      v14 = 138413058;
+      v15 = v12;
+      v16 = 2112;
+      v17 = v13;
+      v18 = 2048;
+      v19 = a2;
+      v20 = 2112;
+      v21 = v8;
+      _os_log_debug_impl(&dword_26455D000, v9, OS_LOG_TYPE_DEBUG, "%@, handle, %@, eligibility, %ld, error, %@", &v14, 0x2Au);
     }
   }
 
@@ -620,35 +612,33 @@ void __61__SMEligibilityChecker_checkConversationEligibility_handler___block_inv
   }
 
   dispatch_group_leave(*(a1 + 40));
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __61__SMEligibilityChecker_checkConversationEligibility_handler___block_invoke_32(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v2 = *(*(*(a1 + 48) + 8) + 40);
-  v3 = [v2 countByEnumeratingWithState:&v17 objects:v29 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v16 objects:v28 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v18;
+    v6 = *v17;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v18 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
-        v9 = [*(*(*(a1 + 48) + 8) + 40) objectForKey:{v8, v17}];
+        v8 = *(*(&v16 + 1) + 8 * i);
+        v9 = [*(*(*(a1 + 48) + 8) + 40) objectForKey:{v8, v16}];
         v10 = [v9 intValue];
 
         v11 = [*(*(*(a1 + 56) + 8) + 40) objectForKey:v8];
@@ -670,7 +660,7 @@ void __61__SMEligibilityChecker_checkConversationEligibility_handler___block_inv
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v17 objects:v29 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v16 objects:v28 count:16];
       if (v4)
       {
         continue;
@@ -698,20 +688,18 @@ LABEL_15:
       v14 = NSStringFromSelector(*(a1 + 64));
       v15 = *(a1 + 32);
       *buf = 138413058;
-      v22 = v14;
-      v23 = 2112;
-      v24 = v15;
-      v25 = 2048;
-      v26 = v5;
-      v27 = 2112;
-      v28 = v12;
+      v21 = v14;
+      v22 = 2112;
+      v23 = v15;
+      v24 = 2048;
+      v25 = v5;
+      v26 = 2112;
+      v27 = v12;
       _os_log_impl(&dword_26455D000, v13, OS_LOG_TYPE_INFO, "%@, conversation, %@, eligibility, %ld, error, %@", buf, 0x2Au);
     }
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resolveEndpointsForDestinations:(id)destinations service:(id)service requiredCapabilities:(id)capabilities completionBlock:(id)block
@@ -740,7 +728,7 @@ LABEL_15:
 
 void __101__SMEligibilityChecker_resolveEndpointsForDestinations_service_requiredCapabilities_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -756,39 +744,37 @@ void __101__SMEligibilityChecker_resolveEndpointsForDestinations_service_require
       v8 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        v10 = NSStringFromSelector(*(a1 + 64));
-        v11 = [*(a1 + 32) description];
-        v12 = *(a1 + 40);
-        v15 = *(a1 + 48);
-        v13 = [v5 count];
-        v14 = [0 description];
+        v9 = NSStringFromSelector(*(a1 + 64));
+        v10 = [*(a1 + 32) description];
+        v11 = *(a1 + 40);
+        v14 = *(a1 + 48);
+        v12 = [v5 count];
+        v13 = [0 description];
         *buf = 138413570;
-        v20 = v10;
-        v21 = 2112;
-        v22 = v11;
-        v23 = 2112;
-        v24 = v12;
-        v25 = 2112;
-        v26 = v15;
-        v27 = 2048;
-        v28 = v13;
-        v29 = 2112;
-        v30 = v14;
+        v19 = v9;
+        v20 = 2112;
+        v21 = v10;
+        v22 = 2112;
+        v23 = v11;
+        v24 = 2112;
+        v25 = v14;
+        v26 = 2048;
+        v27 = v12;
+        v28 = 2112;
+        v29 = v13;
         _os_log_debug_impl(&dword_26455D000, v8, OS_LOG_TYPE_DEBUG, "%@, destinations, %@, service, %@, capabilities, %@, numResults, %ld, error, %@", buf, 0x3Eu);
       }
     }
 
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __101__SMEligibilityChecker_resolveEndpointsForDestinations_service_requiredCapabilities_completionBlock___block_invoke_33;
-    v16[3] = &unk_279B64AC8;
-    v17 = *(a1 + 48);
-    v18 = v7;
-    [v5 enumerateKeysAndObjectsUsingBlock:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __101__SMEligibilityChecker_resolveEndpointsForDestinations_service_requiredCapabilities_completionBlock___block_invoke_33;
+    v15[3] = &unk_279B64AC8;
+    v16 = *(a1 + 48);
+    v17 = v7;
+    [v5 enumerateKeysAndObjectsUsingBlock:v15];
     (*(*(a1 + 56) + 16))();
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __101__SMEligibilityChecker_resolveEndpointsForDestinations_service_requiredCapabilities_completionBlock___block_invoke_33(uint64_t a1, uint64_t a2, void *a3)
@@ -804,39 +790,39 @@ void __101__SMEligibilityChecker_resolveEndpointsForDestinations_service_require
 
 void __101__SMEligibilityChecker_resolveEndpointsForDestinations_service_requiredCapabilities_completionBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 capabilities];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v5 = *(a1 + 32);
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (!v6)
   {
 
 LABEL_11:
-    [*(a1 + 40) addObject:{v3, v12}];
+    [*(a1 + 40) addObject:{v3, v11}];
     goto LABEL_12;
   }
 
   v7 = v6;
-  v8 = *v13;
+  v8 = *v12;
   v9 = 1;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v13 != v8)
+      if (*v12 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v9 &= [v4 valueForCapability:{*(*(&v12 + 1) + 8 * i), v12}];
+      v9 &= [v4 valueForCapability:{*(*(&v11 + 1) + 8 * i), v11}];
     }
 
-    v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   }
 
   while (v7);
@@ -847,8 +833,6 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (id)convertEligibilityTypeToString:(int64_t)string
@@ -915,7 +899,7 @@ LABEL_12:
 
 - (BOOL)checkRecipientAccountIsUnique:(id)unique
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   uniqueCopy = unique;
   v6 = objc_alloc_init(MEMORY[0x277CBEB58]);
   iMessageIDSService = [(SMEligibilityChecker *)self iMessageIDSService];
@@ -931,20 +915,19 @@ LABEL_12:
     v11 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v15 = NSStringFromSelector(a2);
-      v16 = 138412802;
-      v17 = v15;
-      v18 = 2112;
-      v19 = uniqueCopy;
-      v20 = 2112;
-      v21 = v6;
-      _os_log_debug_impl(&dword_26455D000, v11, OS_LOG_TYPE_DEBUG, "%@, checking recipient handle, recipientHandle, %@, self aliases, %@", &v16, 0x20u);
+      v14 = NSStringFromSelector(a2);
+      v15 = 138412802;
+      v16 = v14;
+      v17 = 2112;
+      v18 = uniqueCopy;
+      v19 = 2112;
+      v20 = v6;
+      _os_log_debug_impl(&dword_26455D000, v11, OS_LOG_TYPE_DEBUG, "%@, checking recipient handle, recipientHandle, %@, self aliases, %@", &v15, 0x20u);
     }
   }
 
   v12 = [v6 containsObject:uniqueCopy];
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12 ^ 1;
 }
 

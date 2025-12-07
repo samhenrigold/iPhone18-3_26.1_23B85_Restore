@@ -85,7 +85,7 @@
 
 - (void)networkPathUpdate:(id)update
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (update)
   {
     mNetworkReachable = self->mNetworkReachable;
@@ -96,26 +96,26 @@
       self->mCurrentPath = 0;
     }
 
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x2020000000;
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x2020000000;
     v7 = getnw_retainSymbolLoc_ptr;
-    v21 = getnw_retainSymbolLoc_ptr;
+    v20[0] = getnw_retainSymbolLoc_ptr;
     if (!getnw_retainSymbolLoc_ptr)
     {
-      v22 = MEMORY[0x1E69E9820];
-      v23 = 3221225472;
-      v24 = __getnw_retainSymbolLoc_block_invoke;
-      v25 = &unk_1E7AE73A0;
-      v26 = &v18;
+      v21 = MEMORY[0x1E69E9820];
+      v22 = 3221225472;
+      v23 = __getnw_retainSymbolLoc_block_invoke;
+      v24 = &unk_1E7AE73A0;
+      v25 = &v17;
       v8 = NetworkLibrary();
       v9 = dlsym(v8, "nw_retain");
-      *(v26[1] + 24) = v9;
-      getnw_retainSymbolLoc_ptr = *(v26[1] + 24);
-      v7 = v19[3];
+      *(v25[1] + 24) = v9;
+      getnw_retainSymbolLoc_ptr = *(v25[1] + 24);
+      v7 = v18[3];
     }
 
-    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v17, 8);
     if (!v7)
     {
       goto LABEL_16;
@@ -123,26 +123,26 @@
 
     v10 = v7(update);
     self->mCurrentPath = v10;
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x2020000000;
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x2020000000;
     v11 = getnw_path_get_statusSymbolLoc_ptr;
-    v21 = getnw_path_get_statusSymbolLoc_ptr;
+    v20[0] = getnw_path_get_statusSymbolLoc_ptr;
     if (!getnw_path_get_statusSymbolLoc_ptr)
     {
-      v22 = MEMORY[0x1E69E9820];
-      v23 = 3221225472;
-      v24 = __getnw_path_get_statusSymbolLoc_block_invoke;
-      v25 = &unk_1E7AE73A0;
-      v26 = &v18;
+      v21 = MEMORY[0x1E69E9820];
+      v22 = 3221225472;
+      v23 = __getnw_path_get_statusSymbolLoc_block_invoke;
+      v24 = &unk_1E7AE73A0;
+      v25 = &v17;
       v12 = NetworkLibrary();
       v13 = dlsym(v12, "nw_path_get_status");
-      *(v26[1] + 24) = v13;
-      getnw_path_get_statusSymbolLoc_ptr = *(v26[1] + 24);
-      v11 = v19[3];
+      *(v25[1] + 24) = v13;
+      getnw_path_get_statusSymbolLoc_ptr = *(v25[1] + 24);
+      v11 = v18[3];
     }
 
-    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v17, 8);
     if (!v11)
     {
 LABEL_16:
@@ -159,8 +159,6 @@ LABEL_16:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isCarrierNetworkReachable

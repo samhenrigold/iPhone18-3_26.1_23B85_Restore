@@ -348,25 +348,26 @@ LABEL_30:
     }
 
     [offsetCopy relativeCellAnchor];
+    v10 = v9;
     [offsetCopy relativeDistanceFromTop];
+    v12 = v11;
     [(UICollectionView *)self mui_safeVisibleBounds];
-    CGRectGetHeight(v14);
-    UIRoundToViewScale();
-    v7 = v9;
-    v10 = +[UICollectionView mf_offsetLog];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    Height = CGRectGetHeight(v18);
+    v7 = UIRoundToViewScale(v10 * height - v12 * Height);
+    v14 = +[UICollectionView mf_offsetLog];
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       sub_10048D9BC();
     }
 
-    v11 = +[UICollectionView mf_offsetLog];
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v15 = +[UICollectionView mf_offsetLog];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       sub_10048DA28();
     }
 
-    v12 = +[UICollectionView mf_offsetLog];
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v16 = +[UICollectionView mf_offsetLog];
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       sub_10048DA94();
     }
@@ -390,48 +391,48 @@ LABEL_30:
 
     [v8 size];
     [(UICollectionView *)self mf_cellOffsetByApplyingDynamicOffset:offsetCopy cellHeight:v10];
-    [v8 frame];
-    CGRectGetMinY(v22);
-    [(UICollectionView *)self contentInset];
-    UIRoundToViewScale();
     v12 = v11;
-    v13 = +[UICollectionView mf_offsetLog];
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    [v8 frame];
+    MinY = CGRectGetMinY(v25);
+    [(UICollectionView *)self contentInset];
+    v15 = UIRoundToViewScale(v12 + MinY - v14);
+    v16 = +[UICollectionView mf_offsetLog];
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       sub_10048DB88();
     }
 
-    v14 = +[UICollectionView mf_offsetLog];
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v17 = +[UICollectionView mf_offsetLog];
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       sub_10048DBF4();
     }
 
     [(UICollectionView *)self mf_minContentOffset];
-    v16 = v15;
+    v19 = v18;
     [(UICollectionView *)self mf_maxContentOffset];
-    if (v12 >= v17)
+    if (v15 >= v20)
     {
-      v18 = v17;
+      v21 = v20;
     }
 
     else
     {
-      v18 = v12;
+      v21 = v15;
     }
 
-    if (v16 >= v18)
+    if (v19 >= v21)
     {
-      v19 = v16;
+      v22 = v19;
     }
 
     else
     {
-      v19 = v18;
+      v22 = v21;
     }
 
-    v20 = +[UICollectionView mf_offsetLog];
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v23 = +[UICollectionView mf_offsetLog];
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       sub_10048DC60();
     }
@@ -439,10 +440,10 @@ LABEL_30:
 
   else
   {
-    v19 = 0.0;
+    v22 = 0.0;
   }
 
-  return v19;
+  return v22;
 }
 
 - (BOOL)mf_isIndexPathValid:(id)valid

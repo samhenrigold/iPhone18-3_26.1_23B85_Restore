@@ -105,15 +105,15 @@
 
   if (!v24)
   {
-    v25 = WBS_LOG_CHANNEL_PREFIXWebApps();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v27 = WBS_LOG_CHANNEL_PREFIXWebApps(v25, v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      [_WKApplicationManifest(SafariSharedUIExtras) _manifestWithInfoDictionary:v25 withSynthesizedProperties:?];
+      [_WKApplicationManifest(SafariSharedUIExtras) _manifestWithInfoDictionary:v27 withSynthesizedProperties:?];
     }
   }
 
-  v26 = [v5 safari_stringForKey:@"WKManifestIconKind"];
-  [v24 safari_setIconKind:v26];
+  v28 = [v5 safari_stringForKey:@"WKManifestIconKind"];
+  [v24 safari_setIconKind:v28];
 
   return v24;
 }
@@ -136,17 +136,17 @@
     goto LABEL_9;
   }
 
-  v18 = 0;
-  v4 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v3 options:0 error:&v18];
-  v5 = v18;
+  v20 = 0;
+  v4 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v3 options:0 error:&v20];
+  v5 = v20;
   dictionary = [v4 mutableCopy];
 
   if (v5)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXWebApps();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXWebApps(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(_WKApplicationManifest(SafariSharedUIExtras) *)v7 safari_dictionaryRepresentation];
+      [(_WKApplicationManifest(SafariSharedUIExtras) *)v9 safari_dictionaryRepresentation];
     }
   }
 
@@ -157,20 +157,20 @@ LABEL_9:
   }
 
   name = [self name];
-  v9 = [self _safari_quirkedNameFrom:name];
-  [dictionary setObject:v9 forKeyedSubscript:@"name"];
+  v11 = [self _safari_quirkedNameFrom:name];
+  [dictionary setObject:v11 forKeyedSubscript:@"name"];
 
-  v10 = objc_getAssociatedObject(self, safariNameKey);
-  if (v10)
+  v12 = objc_getAssociatedObject(self, safariNameKey);
+  if (v12)
   {
-    [dictionary setObject:v10 forKeyedSubscript:@"short_name"];
+    [dictionary setObject:v12 forKeyedSubscript:@"short_name"];
   }
 
   else
   {
     shortName = [self shortName];
-    v12 = [self _safari_quirkedNameFrom:shortName];
-    [dictionary setObject:v12 forKeyedSubscript:@"short_name"];
+    v14 = [self _safari_quirkedNameFrom:shortName];
+    [dictionary setObject:v14 forKeyedSubscript:@"short_name"];
   }
 
   safari_startURL = [self safari_startURL];
@@ -178,9 +178,9 @@ LABEL_9:
   [dictionary setObject:safari_originalDataAsString forKeyedSubscript:@"start_url"];
 
   safari_dictionaryByRemovingNullObjects = [dictionary safari_dictionaryByRemovingNullObjects];
-  v16 = [safari_dictionaryByRemovingNullObjects mutableCopy];
+  v18 = [safari_dictionaryByRemovingNullObjects mutableCopy];
 
-  return v16;
+  return v18;
 }
 
 - (uint64_t)safari_respectsHasOpener

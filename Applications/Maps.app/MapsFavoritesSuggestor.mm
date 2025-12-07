@@ -16,7 +16,7 @@
 - (char)suggestShortcutsOfType:(int64_t)type handler:(id)handler
 {
   v4 = _Block_copy(handler);
-  sub_100014C84(0, &qword_101918E00);
+  sub_100014C84(0, &qword_101918E00, MapsSuggestionsShortcut_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
   v4[2](v4, isa, 0);
 

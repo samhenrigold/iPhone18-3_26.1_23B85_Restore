@@ -10,23 +10,23 @@
 
 - (VFXMTLBufferAllocator)initWithDevice:(__CFXGPUDevice *)device fixedSizeElement:(unint64_t)element buffersize:(unint64_t)buffersize name:(id)name
 {
-  v20.receiver = self;
-  v20.super_class = VFXMTLBufferAllocator;
-  v10 = [(VFXMTLBufferAllocator *)&v20 init];
+  v18.receiver = self;
+  v18.super_class = VFXMTLBufferAllocator;
+  v10 = [(VFXMTLBufferAllocator *)&v18 init];
   v10->_gpuDevice = device;
-  v10->_name = objc_msgSend_copy(name, v11, v12, v13);
+  v10->_name = objc_msgSend_copy(name, v11, v12);
   CFXGPUDeviceGetMTLDevice(device);
-  v14 = (element + 15) & 0xFFFFFFFFFFFFFFF0;
-  v15 = buffersize / element;
+  v13 = (element + 15) & 0xFFFFFFFFFFFFFFF0;
+  v14 = buffersize / element;
   if (element > buffersize)
   {
-    v15 = 100;
+    v14 = 100;
   }
 
-  v10->_bufferSize = v15 * v14;
-  v10->_elementSize = v14;
-  v16 = objc_alloc(MEMORY[0x1E695DF70]);
-  v10->_pages = objc_msgSend_initWithCapacity_(v16, v17, 10, v18);
+  v10->_bufferSize = v14 * v13;
+  v10->_elementSize = v13;
+  v15 = objc_alloc(MEMORY[0x1E695DF70]);
+  v10->_pages = objc_msgSend_initWithCapacity_(v15, v16, 10);
   v10->_allocatorLock._os_unfair_lock_opaque = 0;
   return v10;
 }
@@ -40,41 +40,41 @@
 
 - (id)_newSubBuffer
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_allocatorLock);
   currentAllocatorPage = self->_currentAllocatorPage;
-  if (!currentAllocatorPage || !objc_msgSend_count(currentAllocatorPage->_freeIndices, v3, v4, v5))
+  if (!currentAllocatorPage || !objc_msgSend_count(currentAllocatorPage->_freeIndices, v3, v4))
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
-    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     pages = self->_pages;
-    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(pages, v3, &v25, v29, 16);
-    if (v10)
+    v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(pages, v3, &v21, v25, 16);
+    if (v8)
     {
-      v14 = v10;
-      v15 = *v26;
+      v11 = v8;
+      v12 = *v22;
       while (2)
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v26 != v15)
+          if (*v22 != v12)
           {
             objc_enumerationMutation(pages);
           }
 
-          v17 = *(*(&v25 + 1) + 8 * i);
-          if (v17 && objc_msgSend_count(v17->_freeIndices, v11, v12, v13))
+          v14 = *(*(&v21 + 1) + 8 * i);
+          if (v14 && objc_msgSend_count(v14->_freeIndices, v9, v10))
           {
-            self->_currentAllocatorPage = v17;
-            v8 = objc_msgSend_newSubBufferForAllocator_(v17, v11, self, v13);
+            self->_currentAllocatorPage = v14;
+            v6 = objc_msgSend_newSubBufferForAllocator_(v14, v9, self);
             goto LABEL_15;
           }
         }
 
-        v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(pages, v11, &v25, v29, 16);
-        if (v14)
+        v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(pages, v9, &v21, v25, 16);
+        if (v11)
         {
           continue;
         }
@@ -84,17 +84,17 @@
     }
 
     BufferWithLength = CFXGPUDeviceCreateBufferWithLength(self->_gpuDevice, self->_bufferSize, 32);
-    v19 = [VFXFixedSizePage alloc];
-    self->_currentAllocatorPage = objc_msgSend_initWithBuffer_elementSize_(v19, v20, BufferWithLength, self->_elementSize);
+    v16 = [VFXFixedSizePage alloc];
+    self->_currentAllocatorPage = objc_msgSend_initWithBuffer_elementSize_(v16, v17, BufferWithLength, self->_elementSize);
 
-    objc_msgSend_addObject_(self->_pages, v21, self->_currentAllocatorPage, v22);
+    objc_msgSend_addObject_(self->_pages, v18, self->_currentAllocatorPage);
   }
 
-  v8 = objc_msgSend_newSubBufferForAllocator_(self->_currentAllocatorPage, v3, self, v7);
+  v6 = objc_msgSend_newSubBufferForAllocator_(self->_currentAllocatorPage, v3, self);
 LABEL_15:
-  v23 = v8;
+  v19 = v6;
   os_unfair_lock_unlock(&self->_allocatorLock);
-  return v23;
+  return v19;
 }
 
 - (id)newSubBufferWithBytes:(const void *)bytes length:(unint64_t)length renderContext:(id)context
@@ -102,31 +102,32 @@ LABEL_15:
   p_elementSize = &self->_elementSize;
   if (self->_elementSize < length)
   {
-    v10 = sub_1AF0D5194();
+    v10 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       sub_1AFDE5754(length, p_elementSize, v10);
     }
   }
 
-  v11 = objc_msgSend__newSubBuffer(self, a2, bytes, length);
-  v15 = objc_msgSend_frameConstantBufferPool(context, v12, v13, v14);
-  v16 = v15;
-  if (v15)
+  v11 = objc_msgSend__newSubBuffer(self, a2, bytes);
+  v14 = objc_msgSend_frameConstantBufferPool(context, v12, v13);
+  v15 = v14;
+  if (v14)
   {
-    CFRetain(v15);
+    CFRetain(v14);
   }
 
-  v17 = CFXBufferAllocatorPerFrameAllocateWithBytes(v16, bytes, length);
-  v19 = v18;
-  v22 = objc_msgSend_resourceBlitEncoder(context, v18, v20, v21);
-  MTLBuffer = CFXBufferSliceGetMTLBuffer(v17, v19);
-  v27 = objc_msgSend_buffer(v11, v24, v25, v26);
-  v31 = objc_msgSend_offset(v11, v28, v29, v30);
-  objc_msgSend_copyFromBuffer_sourceOffset_toBuffer_destinationOffset_size_(*v22, v32, MTLBuffer, v19, v27, v31, length);
-  if (v16)
+  CFXBufferAllocatorPerFrameAllocateWithBytes(v15, bytes, length);
+  v17 = v16;
+  v19 = objc_msgSend_resourceBlitEncoder(context, v16, v18);
+  CFXBufferSliceGetMTLBuffer();
+  v21 = v20;
+  v24 = objc_msgSend_buffer(v11, v22, v23);
+  v27 = objc_msgSend_offset(v11, v25, v26);
+  objc_msgSend_copyFromBuffer_sourceOffset_toBuffer_destinationOffset_size_(*v19, v28, v21, v17, v24, v27, length);
+  if (v15)
   {
-    CFRelease(v16);
+    CFRelease(v15);
   }
 
   return v11;
@@ -135,7 +136,7 @@ LABEL_15:
 - (void)deallocateElementAtOffset:(unint64_t)offset inPage:(id)page
 {
   os_unfair_lock_lock(&self->_allocatorLock);
-  sub_1AFDE54C4(page, offset, v7, v8);
+  sub_1AFDE54C4(page, offset);
 
   os_unfair_lock_unlock(&self->_allocatorLock);
 }

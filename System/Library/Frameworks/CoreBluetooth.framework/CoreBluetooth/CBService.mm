@@ -59,63 +59,63 @@
 
 - (void)invalidate
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v3 = self->_includedServices;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v20;
+    v6 = *v19;
     do
     {
       v7 = 0;
       do
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v19 + 1) + 8 * v7++) invalidate];
+        [*(*(&v18 + 1) + 8 * v7++) invalidate];
       }
 
       while (v5 != v7);
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
     while (v5);
   }
 
   [(CBService *)self setIncludedServices:0];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v8 = self->_characteristics;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v15 objects:v23 count:16];
+  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v14 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       v12 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [*(*(&v15 + 1) + 8 * v12++) invalidate];
+        [*(*(&v14 + 1) + 8 * v12++) invalidate];
       }
 
       while (v10 != v12);
-      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v15 objects:v23 count:16];
+      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v14 objects:v22 count:16];
     }
 
     while (v10);
@@ -124,22 +124,20 @@
   [(CBService *)self setCharacteristics:0];
   WeakRetained = objc_loadWeakRetained(&self->_peripheral);
   [WeakRetained removeAttributeForHandle:self->_startHandle];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)handleIncludedServicesDiscovered:(id)discovered
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v4 = [discovered objectForKeyedSubscript:@"kCBMsgArgServices"];
   v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithArray:self->_includedServices];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v6 = v4;
-  v28 = [v6 countByEnumeratingWithState:&v29 objects:v37 count:16];
-  if (!v28)
+  v27 = [v6 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  if (!v27)
   {
 LABEL_25:
 
@@ -150,21 +148,21 @@ LABEL_25:
     goto LABEL_26;
   }
 
-  v8 = *v30;
+  v8 = *v29;
   *&v7 = 138412546;
-  v26 = v7;
-  v27 = *v30;
+  v25 = v7;
+  v26 = *v29;
 LABEL_4:
   v9 = 0;
   while (1)
   {
-    if (*v30 != v8)
+    if (*v29 != v8)
     {
       objc_enumerationMutation(v6);
     }
 
-    v10 = *(*(&v29 + 1) + 8 * v9);
-    v11 = [v10 objectForKeyedSubscript:{@"kCBMsgArgServiceStartHandle", v26}];
+    v10 = *(*(&v28 + 1) + 8 * v9);
+    v11 = [v10 objectForKeyedSubscript:{@"kCBMsgArgServiceStartHandle", v25}];
     WeakRetained = objc_loadWeakRetained(&self->_peripheral);
     v13 = [WeakRetained attributeForHandle:v11];
 
@@ -197,7 +195,7 @@ LABEL_4:
 
     v6 = v17;
     v5 = v16;
-    v8 = v27;
+    v8 = v26;
 
     if (([v5 containsObject:v13] & 1) == 0)
     {
@@ -211,9 +209,9 @@ LABEL_16:
       v21 = CBLogComponent;
       if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEBUG))
       {
-        *buf = v26;
-        v34 = v13;
-        v35 = 2112;
+        *buf = v25;
+        v33 = v13;
+        v34 = 2112;
         selfCopy2 = self;
         _os_log_debug_impl(&dword_1C0AC1000, v21, OS_LOG_TYPE_DEBUG, "Added %@ to %@", buf, 0x16u);
       }
@@ -221,10 +219,10 @@ LABEL_16:
 
 LABEL_5:
 
-    if (v28 == ++v9)
+    if (v27 == ++v9)
     {
-      v28 = [v6 countByEnumeratingWithState:&v29 objects:v37 count:16];
-      if (!v28)
+      v27 = [v6 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      if (!v27)
       {
         goto LABEL_25;
       }
@@ -246,23 +244,21 @@ LABEL_5:
   selfCopy = 0;
 LABEL_26:
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return selfCopy;
 }
 
 - (id)handleCharacteristicsDiscovered:(id)discovered
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v4 = [discovered objectForKeyedSubscript:@"kCBMsgArgCharacteristics"];
   v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithArray:self->_characteristics];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = v4;
-  v27 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
-  if (!v27)
+  v26 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
+  if (!v26)
   {
 LABEL_25:
 
@@ -273,20 +269,20 @@ LABEL_25:
     goto LABEL_26;
   }
 
-  v7 = *v29;
+  v7 = *v28;
   *&v6 = 138412546;
-  v25 = v6;
+  v24 = v6;
 LABEL_4:
   v8 = 0;
   while (1)
   {
-    if (*v29 != v7)
+    if (*v28 != v7)
     {
       objc_enumerationMutation(obj);
     }
 
-    v9 = *(*(&v28 + 1) + 8 * v8);
-    v10 = [v9 objectForKeyedSubscript:{@"kCBMsgArgCharacteristicHandle", v25}];
+    v9 = *(*(&v27 + 1) + 8 * v8);
+    v10 = [v9 objectForKeyedSubscript:{@"kCBMsgArgCharacteristicHandle", v24}];
     WeakRetained = objc_loadWeakRetained(&self->_peripheral);
     v12 = v10;
     v13 = [WeakRetained attributeForHandle:v10];
@@ -331,9 +327,9 @@ LABEL_16:
       v20 = CBLogComponent;
       if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEBUG))
       {
-        *buf = v25;
-        v33 = v13;
-        v34 = 2112;
+        *buf = v24;
+        v32 = v13;
+        v33 = 2112;
         selfCopy2 = self;
         _os_log_debug_impl(&dword_1C0AC1000, v20, OS_LOG_TYPE_DEBUG, "Added %@ to %@", buf, 0x16u);
       }
@@ -341,10 +337,10 @@ LABEL_16:
 
 LABEL_5:
 
-    if (v27 == ++v8)
+    if (v26 == ++v8)
     {
-      v27 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
-      if (!v27)
+      v26 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
+      if (!v26)
       {
         goto LABEL_25;
       }
@@ -366,8 +362,6 @@ LABEL_5:
   selfCopy = 0;
 LABEL_26:
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return selfCopy;
 }
 
@@ -376,22 +370,6 @@ LABEL_26:
   WeakRetained = objc_loadWeakRetained(&self->_peripheral);
 
   return WeakRetained;
-}
-
-- (void)handleIncludedServicesDiscovered:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_5();
-  OUTLINED_FUNCTION_2_5(&dword_1C0AC1000, v0, v1, "Data in %@ does not contain a valid UUID for included service handle = %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)handleCharacteristicsDiscovered:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_5();
-  OUTLINED_FUNCTION_2_5(&dword_1C0AC1000, v0, v1, "Data in %@ does not contain a valid UUID for characteristic handle = %@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

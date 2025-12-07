@@ -464,7 +464,7 @@ LABEL_94:
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v87, *a2);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v69, a2[1]);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v69, a2[2]);
-  result = IPC::Connection::sendSyncMessage(v68, v88, &v87, 0, &v85, v9);
+  result = IPC::Connection::sendSyncMessage(&v85, v68, v88, &v87, 0, v9);
   if (v86)
   {
     if (v86 != 1)
@@ -854,7 +854,7 @@ LABEL_92:
   v62 = *(a1 + 8);
   IPC::Connection::createSyncMessageEncoder(0xFD6, a3, &v82);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v82, *a2);
-  result = IPC::Connection::sendSyncMessage(v62, v83, &v82, 0, &v80, v9);
+  result = IPC::Connection::sendSyncMessage(&v80, v62, v83, &v82, 0, v9);
   if (v81)
   {
     if (v81 != 1)
@@ -1254,7 +1254,7 @@ LABEL_94:
   v65 = v83;
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v83, *a2);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v65, a2[1]);
-  result = IPC::Connection::sendSyncMessage(v64, v84, &v83, 0, &v81, v9);
+  result = IPC::Connection::sendSyncMessage(&v81, v64, v84, &v83, 0, v9);
   if (v82)
   {
     if (v82 != 1)
@@ -1651,7 +1651,7 @@ LABEL_94:
   v65 = v83;
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v83, *a2);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v65, a2[1]);
-  result = IPC::Connection::sendSyncMessage(v64, v84, &v83, 0, &v81, v9);
+  result = IPC::Connection::sendSyncMessage(&v81, v64, v84, &v83, 0, v9);
   if (v82)
   {
     if (v82 != 1)
@@ -2041,7 +2041,7 @@ LABEL_92:
   v62 = *(a1 + 8);
   IPC::Connection::createSyncMessageEncoder(0xFE0, a3, &v82);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v82, *a2);
-  result = IPC::Connection::sendSyncMessage(v62, v83, &v82, 0, &v80, v9);
+  result = IPC::Connection::sendSyncMessage(&v80, v62, v83, &v82, 0, v9);
   if (v81)
   {
     if (v81 != 1)
@@ -2445,7 +2445,7 @@ LABEL_94:
   v66 = v85[0];
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v85[0], *a3);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v66, a3[1]);
-  result = IPC::Connection::sendSyncMessage(v65, v85[1], v85, 0, &v83, v9);
+  result = IPC::Connection::sendSyncMessage(&v83, v65, v85[1], v85, 0, v9);
   if (v84)
   {
     if (v84 != 1)
@@ -2936,7 +2936,7 @@ LABEL_92:
   v62 = *(a1 + 8);
   IPC::Connection::createSyncMessageEncoder(0xFE2, a3, &v82);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v82, *a2);
-  result = IPC::Connection::sendSyncMessage(v62, v83, &v82, 0, &v80, v9);
+  result = IPC::Connection::sendSyncMessage(&v80, v62, v83, &v82, 0, v9);
   if (v81)
   {
     if (v81 != 1)
@@ -3339,7 +3339,7 @@ LABEL_94:
   v66 = v86;
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v86, *a2);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v66, a2[1]);
-  result = IPC::Connection::sendSyncMessage(v65, v87, &v86, 0, &v84, v9);
+  result = IPC::Connection::sendSyncMessage(&v84, v65, v87, &v86, 0, v9);
   if (v85)
   {
     if (v85 != 1)
@@ -3848,7 +3848,7 @@ LABEL_94:
   v65 = v83;
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v83, *a2);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v65, a2[1]);
-  result = IPC::Connection::sendSyncMessage(v64, v84, &v83, 0, &v81, v9);
+  result = IPC::Connection::sendSyncMessage(&v81, v64, v84, &v83, 0, v9);
   if (v82)
   {
     if (v82 != 1)
@@ -4240,7 +4240,7 @@ LABEL_95:
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v89[0], *a2);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v60, *(a2 + 4));
   IPC::ArgumentCoder<unsigned long long,void>::encode<IPC::Encoder>(v60, *(a2 + 8));
-  result = IPC::Connection::sendSyncMessage(v59, v89[1], v89, 0, &v87, v9);
+  result = IPC::Connection::sendSyncMessage(&v87, v59, v89[1], v89, 0, v9);
   if (v88)
   {
     if (v88 != 1)
@@ -4634,7 +4634,7 @@ LABEL_95:
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v89[0], *a2);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v60, *(a2 + 4));
   IPC::ArgumentCoder<unsigned long long,void>::encode<IPC::Encoder>(v60, *(a2 + 8));
-  result = IPC::Connection::sendSyncMessage(v59, v89[1], v89, 0, &v87, v9);
+  result = IPC::Connection::sendSyncMessage(&v87, v59, v89[1], v89, 0, v9);
   if (v88)
   {
     if (v88 != 1)
@@ -5029,7 +5029,7 @@ LABEL_95:
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v89[0], *a2);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v61, *(a2 + 4));
   IPC::ArgumentCoder<unsigned long long,void>::encode<IPC::Encoder>(v61, *(a2 + 8));
-  result = IPC::Connection::sendSyncMessage(v60, v89[1], v89, 0, &v87, v9);
+  result = IPC::Connection::sendSyncMessage(&v87, v60, v89[1], v89, 0, v9);
   if (v88)
   {
     if (v88 != 1)
@@ -5437,7 +5437,7 @@ LABEL_99:
   v48 = v79;
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v79, *a2);
   IPC::ArgumentCoder<WTF::String,void>::encode<IPC::Encoder>(v48, *(a2 + 8));
-  result = IPC::Connection::sendSyncMessage(v47, v80, &v79, 0, &v82, v9);
+  result = IPC::Connection::sendSyncMessage(&v82, v47, v80, &v79, 0, v9);
   if (v83)
   {
     if (v83 != 1)
@@ -5834,7 +5834,7 @@ LABEL_94:
   v66 = v84;
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v84, *a2);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v66, a2[1]);
-  result = IPC::Connection::sendSyncMessage(v65, v85, &v84, 0, &v82, v9);
+  result = IPC::Connection::sendSyncMessage(&v82, v65, v85, &v84, 0, v9);
   if (v83)
   {
     if (v83 != 1)
@@ -6409,7 +6409,7 @@ LABEL_92:
   v61 = *(a1 + 8);
   IPC::Connection::createSyncMessageEncoder(0xFF1, a3, &v79);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v79, *a2);
-  result = IPC::Connection::sendSyncMessage(v61, v80, &v79, 0, &v77, v9);
+  result = IPC::Connection::sendSyncMessage(&v77, v61, v80, &v79, 0, v9);
   if (!v78)
   {
     v63 = v77;
@@ -6789,7 +6789,7 @@ LABEL_92:
   v61 = *(a1 + 8);
   IPC::Connection::createSyncMessageEncoder(0xFF2, a3, &v79);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v79, *a2);
-  result = IPC::Connection::sendSyncMessage(v61, v80, &v79, 0, &v77, v9);
+  result = IPC::Connection::sendSyncMessage(&v77, v61, v80, &v79, 0, v9);
   if (!v78)
   {
     v63 = v77;
@@ -7169,7 +7169,7 @@ LABEL_92:
   v61 = *(a1 + 8);
   IPC::Connection::createSyncMessageEncoder(0xFF3, a3, &v79);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v79, *a2);
-  result = IPC::Connection::sendSyncMessage(v61, v80, &v79, 0, &v77, v9);
+  result = IPC::Connection::sendSyncMessage(&v77, v61, v80, &v79, 0, v9);
   if (!v78)
   {
     v63 = v77;
@@ -7549,7 +7549,7 @@ LABEL_92:
   v61 = *(a1 + 8);
   IPC::Connection::createSyncMessageEncoder(0xFF4, a3, &v79);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v79, *a2);
-  result = IPC::Connection::sendSyncMessage(v61, v80, &v79, 0, &v77, v9);
+  result = IPC::Connection::sendSyncMessage(&v77, v61, v80, &v79, 0, v9);
   if (!v78)
   {
     v63 = v77;
@@ -7929,7 +7929,7 @@ LABEL_92:
   v61 = *(a1 + 8);
   IPC::Connection::createSyncMessageEncoder(0xFF7, a3, &v79);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v79, *a2);
-  result = IPC::Connection::sendSyncMessage(v61, v80, &v79, 0, &v77, v9);
+  result = IPC::Connection::sendSyncMessage(&v77, v61, v80, &v79, 0, v9);
   if (!v78)
   {
     v63 = v77;
@@ -8309,7 +8309,7 @@ LABEL_92:
   v61 = *(a1 + 8);
   IPC::Connection::createSyncMessageEncoder(0xFF9, a3, &v79);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v79, *a2);
-  result = IPC::Connection::sendSyncMessage(v61, v80, &v79, 0, &v77, v9);
+  result = IPC::Connection::sendSyncMessage(&v77, v61, v80, &v79, 0, v9);
   if (!v78)
   {
     v63 = v77;
@@ -8689,7 +8689,7 @@ LABEL_92:
   v61 = *(a1 + 8);
   IPC::Connection::createSyncMessageEncoder(0xFFB, a3, &v79);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v79, *a2);
-  result = IPC::Connection::sendSyncMessage(v61, v80, &v79, 0, &v77, v9);
+  result = IPC::Connection::sendSyncMessage(&v77, v61, v80, &v79, 0, v9);
   if (!v78)
   {
     v63 = v77;

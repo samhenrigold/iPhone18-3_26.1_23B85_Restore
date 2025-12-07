@@ -28,13 +28,13 @@
 
   if (verboseLoggingEnabled)
   {
-    v7 = sub_10000DB80();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_10000DB80(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       entityName = [(BCCloudKitTransaction *)self entityName];
-      v10 = 138412290;
-      v11 = entityName;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "\\Transaction - Signaling Sync Manager for  %@\\"", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = entityName;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "\\Transaction - Signaling Sync Manager for  %@\", &v11, 0xCu);
     }
   }
 

@@ -91,7 +91,7 @@ void __49__PLCoreDataChangeMerger_handleUnknownMergeEvent__block_invoke(uint64_t
   {
     *(v1 + 25) = 1;
     v3 = [*(a1 + 32) allContexts];
-    if ([v3 count])
+    if (objc_msgSend_count(v3))
     {
       v4 = [MEMORY[0x1E695DF90] dictionary];
       v37 = 0u;
@@ -134,7 +134,7 @@ void __49__PLCoreDataChangeMerger_handleUnknownMergeEvent__block_invoke(uint64_t
         while (v7);
       }
 
-      v11 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v4, "count")}];
+      v11 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(v4)];
       v12 = [v5 objectAtIndex:0];
       v31[0] = MEMORY[0x1E69E9820];
       v31[1] = 3221225472;
@@ -224,7 +224,7 @@ void __49__PLCoreDataChangeMerger_handleUnknownMergeEvent__block_invoke_2(uint64
         v7 = *(*(&v12 + 1) + 8 * i);
         if (([v7 isDeleted] & 1) == 0)
         {
-          v8 = [v7 entity];
+          v8 = objc_msgSend_entity(v7);
           v9 = [v8 name];
 
           v10 = [*(a1 + 40) objectForKey:v9];
@@ -370,14 +370,14 @@ void __119__PLCoreDataChangeMerger_mergeChangesFromRemoteContextSave_intoAllCont
     WeakRetained = objc_loadWeakRetained((a1 + 64));
     v6 = [v4 allContextsNotIdenticalTo:WeakRetained];
 
-    [*(a1 + 32) setMergedContextCount:{objc_msgSend(v6, "count")}];
+    [*(a1 + 32) setMergedContextCount:objc_msgSend_count(v6)];
     v19[0] = MEMORY[0x1E69E9820];
     v19[1] = 3221225472;
     v19[2] = __119__PLCoreDataChangeMerger_mergeChangesFromRemoteContextSave_intoAllContextsNotIdenticalTo_debugEvent_completionHandler___block_invoke_2;
     v19[3] = &unk_1E756B858;
     v20 = *(a1 + 48);
     v7 = [v6 _pl_filter:v19];
-    [*(a1 + 32) setReleventContextCount:{objc_msgSend(v7, "count")}];
+    [*(a1 + 32) setReleventContextCount:objc_msgSend_count(v7)];
     v8 = [*(a1 + 48) objectForKey:@"coalescedEvent"];
     *(*(a1 + 40) + 25) = [v8 BOOLValue];
 
@@ -386,7 +386,7 @@ void __119__PLCoreDataChangeMerger_mergeChangesFromRemoteContextSave_intoAllCont
     v11 = *(v10 + 32);
     *(v10 + 32) = v9;
 
-    if ([v7 count])
+    if (objc_msgSend_count(v7))
     {
       v12 = +[PLConcurrencyLimiter sharedLimiter];
       v16[0] = MEMORY[0x1E69E9820];
@@ -467,20 +467,20 @@ void __119__PLCoreDataChangeMerger_mergeChangesFromRemoteContextSave_intoAllCont
   pl_dispatch_sync();
 }
 
-void __36__PLCoreDataChangeMerger_invalidate__block_invoke(uint64_t a1)
+void __36__PLCoreDataChangeMerger_invalidate__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   *(*(a1 + 32) + 24) = 1;
-  v2 = PLPhotosObjectLifecycleGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = PLPhotosObjectLifecycleGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v3 = objc_opt_class();
-    v4 = *(a1 + 32);
-    v5 = 138412546;
-    v6 = v3;
-    v7 = 2048;
-    v8 = v4;
-    _os_log_impl(&dword_19BF1F000, v2, OS_LOG_TYPE_DEBUG, "%@ %p invalidate END", &v5, 0x16u);
+    v4 = objc_opt_class();
+    v5 = *(a1 + 32);
+    v6 = 138412546;
+    v7 = v4;
+    v8 = 2048;
+    v9 = v5;
+    _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEBUG, "%@ %p invalidate END", &v6, 0x16u);
   }
 }
 

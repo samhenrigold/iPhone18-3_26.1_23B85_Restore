@@ -6,10 +6,10 @@
 - (id)fc_encryptAESSIVWithKey:()FCAdditions additionalData:;
 - (id)fc_gzipDeflate;
 - (id)fc_gzipInflate;
-- (id)fc_sha256;
 - (id)fc_zlibDeflate;
 - (id)fc_zlibInflate;
 - (uint64_t)fc_bigEndianCompareAsUnsignedInteger:()FCAdditions;
+- (unsigned)fc_sha256;
 @end
 
 @implementation NSData(FCAdditions)
@@ -252,7 +252,7 @@ LABEL_14:
 
 - (id)fc_encryptAESSIVWithKey:()FCAdditions additionalData:
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   if (v6)
@@ -283,13 +283,13 @@ LABEL_14:
 
     v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "key != nil"];
     *buf = 136315906;
-    v12 = "[NSData(FCAdditions) fc_encryptAESSIVWithKey:additionalData:]";
-    v13 = 2080;
-    v14 = "NSData+FCAdditions.m";
-    v15 = 1024;
-    v16 = 250;
-    v17 = 2114;
-    v18 = v8;
+    v11 = "[NSData(FCAdditions) fc_encryptAESSIVWithKey:additionalData:]";
+    v12 = 2080;
+    v13 = "NSData+FCAdditions.m";
+    v14 = 1024;
+    v15 = 250;
+    v16 = 2114;
+    v17 = v8;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -297,14 +297,12 @@ LABEL_5:
   v8 = 0;
 LABEL_6:
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 - (id)fc_decryptAESSIVWithKey:()FCAdditions additionalData:
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   if (v6)
@@ -335,13 +333,13 @@ LABEL_6:
 
     v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "key != nil"];
     *buf = 136315906;
-    v12 = "[NSData(FCAdditions) fc_decryptAESSIVWithKey:additionalData:]";
-    v13 = 2080;
-    v14 = "NSData+FCAdditions.m";
-    v15 = 1024;
-    v16 = 275;
-    v17 = 2114;
-    v18 = v8;
+    v11 = "[NSData(FCAdditions) fc_decryptAESSIVWithKey:additionalData:]";
+    v12 = 2080;
+    v13 = "NSData+FCAdditions.m";
+    v14 = 1024;
+    v15 = 275;
+    v16 = 2114;
+    v17 = v8;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -349,22 +347,18 @@ LABEL_5:
   v8 = 0;
 LABEL_6:
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
-- (id)fc_sha256
+- (unsigned)fc_sha256
 {
-  v5 = *MEMORY[0x1E69E9840];
-  memset(v4, 0, sizeof(v4));
-  v1 = CC_SHA256([self bytes], objc_msgSend(self, "length"), v4);
+  v4 = *MEMORY[0x1E69E9840];
+  memset(v3, 0, sizeof(v3));
+  v1 = CC_SHA256([self bytes], objc_msgSend(self, "length"), v3);
   if (v1)
   {
-    v1 = [MEMORY[0x1E695DEF0] dataWithBytes:v4 length:32];
+    v1 = [MEMORY[0x1E695DEF0] dataWithBytes:v3 length:32];
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 
   return v1;
 }

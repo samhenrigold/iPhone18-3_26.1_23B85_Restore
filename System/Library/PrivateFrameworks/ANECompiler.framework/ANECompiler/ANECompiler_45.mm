@@ -1,3 +1,2698 @@
+void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<operations_research::sat::LiteralValueValue>>,std::vector<operations_research::sat::LiteralValueValue>*,std::vector<operations_research::sat::LiteralValueValue>*,std::vector<operations_research::sat::LiteralValueValue>*>(uint64_t a1, void *a2, void *a3, void *a4)
+{
+  if (a2 != a3)
+  {
+    v5 = a2;
+    do
+    {
+      *a4 = 0;
+      a4[1] = 0;
+      a4[2] = 0;
+      v6 = v5[1];
+      if (v6 != *v5)
+      {
+        if (0xAAAAAAAAAAAAAAABLL * ((v6 - *v5) >> 3) < 0xAAAAAAAAAAAAAABLL)
+        {
+          operator new();
+        }
+
+        std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
+      }
+
+      v5 += 3;
+      a4 += 3;
+    }
+
+    while (v5 != a3);
+  }
+
+  return a4;
+}
+
+void sub_23CB6BB9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  v11 = *v9;
+  if (*v9)
+  {
+    *(v9 + 8) = v11;
+    operator delete(v11);
+  }
+
+  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<operations_research::sat::Literal>>,std::vector<operations_research::sat::Literal>*>>::~__exception_guard_exceptions[abi:ne200100](&a9);
+  _Unwind_Resume(a1);
+}
+
+void *std::__function::__func<operations_research::sat::CreateNoOverlap2dEnergyCutGenerator(operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingDemandHelper *,operations_research::sat::SchedulingDemandHelper *,std::vector<std::vector<operations_research::sat::LiteralValueValue>> const&,operations_research::sat::Model *)::$_0,std::allocator<operations_research::sat::CreateNoOverlap2dEnergyCutGenerator(operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingDemandHelper *,operations_research::sat::SchedulingDemandHelper *,std::vector<std::vector<operations_research::sat::LiteralValueValue>> const&,operations_research::sat::Model *)::$_0>,BOOL ()(operations_research::sat::LinearConstraintManager *)>::~__func(void *a1)
+{
+  *a1 = &unk_284F40CF0;
+  v2 = a1[6];
+  if (v2)
+  {
+    v3 = a1[7];
+    v4 = a1[6];
+    if (v3 != v2)
+    {
+      v5 = a1[7];
+      do
+      {
+        v7 = *(v5 - 24);
+        v5 -= 24;
+        v6 = v7;
+        if (v7)
+        {
+          *(v3 - 16) = v6;
+          operator delete(v6);
+        }
+
+        v3 = v5;
+      }
+
+      while (v5 != v2);
+      v4 = a1[6];
+    }
+
+    a1[7] = v2;
+    operator delete(v4);
+  }
+
+  return a1;
+}
+
+void std::__function::__func<operations_research::sat::CreateNoOverlap2dEnergyCutGenerator(operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingDemandHelper *,operations_research::sat::SchedulingDemandHelper *,std::vector<std::vector<operations_research::sat::LiteralValueValue>> const&,operations_research::sat::Model *)::$_0,std::allocator<operations_research::sat::CreateNoOverlap2dEnergyCutGenerator(operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingDemandHelper *,operations_research::sat::SchedulingDemandHelper *,std::vector<std::vector<operations_research::sat::LiteralValueValue>> const&,operations_research::sat::Model *)::$_0>,BOOL ()(operations_research::sat::LinearConstraintManager *)>::~__func(void *a1)
+{
+  *a1 = &unk_284F40CF0;
+  v2 = a1[6];
+  if (v2)
+  {
+    v3 = a1[7];
+    v4 = a1[6];
+    if (v3 != v2)
+    {
+      v5 = a1[7];
+      do
+      {
+        v7 = *(v5 - 24);
+        v5 -= 24;
+        v6 = v7;
+        if (v7)
+        {
+          *(v3 - 16) = v6;
+          operator delete(v6);
+        }
+
+        v3 = v5;
+      }
+
+      while (v5 != v2);
+      v4 = a1[6];
+    }
+
+    a1[7] = v2;
+    operator delete(v4);
+  }
+
+  JUMPOUT(0x23EED9460);
+}
+
+void sub_23CB6BE24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+{
+  v9[7] = v10;
+  std::__exception_guard_exceptions<std::vector<std::vector<int>>::__destroy_vector>::~__exception_guard_exceptions[abi:ne200100](&a9);
+  operator delete(v9);
+  _Unwind_Resume(a1);
+}
+
+void sub_23CB6BE44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+{
+  std::__exception_guard_exceptions<std::vector<std::vector<int>>::__destroy_vector>::~__exception_guard_exceptions[abi:ne200100](&a9);
+  operator delete(v9);
+  _Unwind_Resume(a1);
+}
+
+__n128 std::__function::__func<operations_research::sat::CreateNoOverlap2dEnergyCutGenerator(operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingDemandHelper *,operations_research::sat::SchedulingDemandHelper *,std::vector<std::vector<operations_research::sat::LiteralValueValue>> const&,operations_research::sat::Model *)::$_0,std::allocator<operations_research::sat::CreateNoOverlap2dEnergyCutGenerator(operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingDemandHelper *,operations_research::sat::SchedulingDemandHelper *,std::vector<std::vector<operations_research::sat::LiteralValueValue>> const&,operations_research::sat::Model *)::$_0>,BOOL ()(operations_research::sat::LinearConstraintManager *)>::__clone(void *result, uint64_t a2)
+{
+  *a2 = &unk_284F40CF0;
+  v2 = *(result + 1);
+  v3 = *(result + 3);
+  v4 = result[5];
+  *(a2 + 48) = 0;
+  *(a2 + 40) = v4;
+  *(a2 + 24) = v3;
+  *(a2 + 8) = v2;
+  *(a2 + 56) = 0;
+  *(a2 + 64) = 0;
+  v5 = result[6];
+  v6 = result[7];
+  if (v6 != v5)
+  {
+    if (0xAAAAAAAAAAAAAAABLL * ((v6 - v5) >> 3) < 0xAAAAAAAAAAAAAABLL)
+    {
+      operator new();
+    }
+
+    std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
+  }
+
+  return v2;
+}
+
+void sub_23CB6BF58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+{
+  *(v9 + 56) = v10;
+  std::__exception_guard_exceptions<std::vector<std::vector<int>>::__destroy_vector>::~__exception_guard_exceptions[abi:ne200100](&a9);
+  _Unwind_Resume(a1);
+}
+
+void std::__function::__func<operations_research::sat::CreateNoOverlap2dEnergyCutGenerator(operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingDemandHelper *,operations_research::sat::SchedulingDemandHelper *,std::vector<std::vector<operations_research::sat::LiteralValueValue>> const&,operations_research::sat::Model *)::$_0,std::allocator<operations_research::sat::CreateNoOverlap2dEnergyCutGenerator(operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingDemandHelper *,operations_research::sat::SchedulingDemandHelper *,std::vector<std::vector<operations_research::sat::LiteralValueValue>> const&,operations_research::sat::Model *)::$_0>,BOOL ()(operations_research::sat::LinearConstraintManager *)>::destroy(uint64_t a1)
+{
+  v1 = *(a1 + 48);
+  if (v1)
+  {
+    v3 = *(a1 + 56);
+    v4 = *(a1 + 48);
+    if (v3 != v1)
+    {
+      v5 = v3;
+      do
+      {
+        v7 = *(v5 - 24);
+        v5 -= 24;
+        v6 = v7;
+        if (v7)
+        {
+          *(v3 - 16) = v6;
+          operator delete(v6);
+        }
+
+        v3 = v5;
+      }
+
+      while (v5 != v1);
+      v4 = *(a1 + 48);
+    }
+
+    *(a1 + 56) = v1;
+
+    operator delete(v4);
+  }
+}
+
+void std::__function::__func<operations_research::sat::CreateNoOverlap2dEnergyCutGenerator(operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingDemandHelper *,operations_research::sat::SchedulingDemandHelper *,std::vector<std::vector<operations_research::sat::LiteralValueValue>> const&,operations_research::sat::Model *)::$_0,std::allocator<operations_research::sat::CreateNoOverlap2dEnergyCutGenerator(operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingDemandHelper *,operations_research::sat::SchedulingDemandHelper *,std::vector<std::vector<operations_research::sat::LiteralValueValue>> const&,operations_research::sat::Model *)::$_0>,BOOL ()(operations_research::sat::LinearConstraintManager *)>::destroy_deallocate(void *__p)
+{
+  v2 = __p[6];
+  if (v2)
+  {
+    v3 = __p[7];
+    v4 = __p[6];
+    if (v3 != v2)
+    {
+      v5 = __p[7];
+      do
+      {
+        v7 = *(v5 - 24);
+        v5 -= 24;
+        v6 = v7;
+        if (v7)
+        {
+          *(v3 - 16) = v6;
+          operator delete(v6);
+        }
+
+        v3 = v5;
+      }
+
+      while (v5 != v2);
+      v4 = __p[6];
+    }
+
+    __p[7] = v2;
+    operator delete(v4);
+  }
+
+  operator delete(__p);
+}
+
+uint64_t std::__function::__func<operations_research::sat::CreateNoOverlap2dEnergyCutGenerator(operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingDemandHelper *,operations_research::sat::SchedulingDemandHelper *,std::vector<std::vector<operations_research::sat::LiteralValueValue>> const&,operations_research::sat::Model *)::$_0,std::allocator<operations_research::sat::CreateNoOverlap2dEnergyCutGenerator(operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingDemandHelper *,operations_research::sat::SchedulingDemandHelper *,std::vector<std::vector<operations_research::sat::LiteralValueValue>> const&,operations_research::sat::Model *)::$_0>,BOOL ()(operations_research::sat::LinearConstraintManager *)>::operator()(uint64_t a1, operations_research::sat::LinearConstraintManager **a2)
+{
+  result = operations_research::sat::SchedulingConstraintHelper::SynchronizeAndSetTimeDirection(*(a1 + 8), 1);
+  if (result)
+  {
+    result = operations_research::sat::SchedulingConstraintHelper::SynchronizeAndSetTimeDirection(*(a1 + 16), 1);
+    if (result)
+    {
+      operations_research::sat::SchedulingDemandHelper::CacheAllEnergyValues(*(a1 + 24));
+      operations_research::sat::SchedulingDemandHelper::CacheAllEnergyValues(*(a1 + 32));
+      v4 = 0xAAAAAAAAAAAAAAABLL * ((*(*(a1 + 8) + 88) - *(*(a1 + 8) + 80)) >> 3);
+      v5 = 0xAAAAAAAB00000000 * ((*(*(a1 + 8) + 88) - *(*(a1 + 8) + 80)) >> 3);
+      if (v5)
+      {
+        if ((v5 & 0x8000000000000000) == 0)
+        {
+          operator new();
+        }
+
+        std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
+      }
+
+      if (v4 >= 1)
+      {
+        v6 = 0;
+        v7 = 16;
+        do
+        {
+          v8 = *(a1 + 16);
+          v9 = *(v8[19] + 4 * v6);
+          v10 = v9;
+          if (v9 == -1 || ((*(*(v8[3] + 24) + ((v9 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v9 & 0x3F ^ 1u)) & 1) == 0)
+          {
+            v11 = *(a1 + 8);
+            v12 = *(v11[19] + 4 * v6);
+            if (v12 == -1 || (v10 != -1 ? (v13 = (*(*(v11[3] + 24) + ((v12 >> 3) & 0x1FFFFFFFFFFFFFF8)) & (1 << v12)) == 0) : (v13 = 0), !v13 || (v12 != v10 ? (v14 = (*(*(v8[3] + 24) + ((v10 >> 3) & 0x1FFFFFFFFFFFFFF8)) & (1 << v10)) == 0) : (v14 = 0), !v14)))
+            {
+              *(v7 - 16) = *(v11[30] + 8 * v6);
+              *(v7 - 8) = -*(v11[33] + 8 * v6);
+              *v7 = *(v8[30] + 8 * v6);
+              *(v7 + 8) = -*(v8[33] + 8 * v6);
+              operator new();
+            }
+          }
+
+          ++v6;
+          v7 += 32;
+        }
+
+        while ((v4 & 0x7FFFFFFF) != v6);
+      }
+
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+void sub_23CB6C488(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, void *a14, uint64_t a15)
+{
+  if (__p)
+  {
+    operator delete(__p);
+    if (!v15)
+    {
+LABEL_3:
+      _Unwind_Resume(exception_object);
+    }
+  }
+
+  else if (!v15)
+  {
+    goto LABEL_3;
+  }
+
+  operator delete(v15);
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::__function::__func<operations_research::sat::CreateNoOverlap2dEnergyCutGenerator(operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingDemandHelper *,operations_research::sat::SchedulingDemandHelper *,std::vector<std::vector<operations_research::sat::LiteralValueValue>> const&,operations_research::sat::Model *)::$_0,std::allocator<operations_research::sat::CreateNoOverlap2dEnergyCutGenerator(operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingDemandHelper *,operations_research::sat::SchedulingDemandHelper *,std::vector<std::vector<operations_research::sat::LiteralValueValue>> const&,operations_research::sat::Model *)::$_0>,BOOL ()(operations_research::sat::LinearConstraintManager *)>::target(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 8);
+  if (v2 == "ZN19operations_research3sat35CreateNoOverlap2dEnergyCutGeneratorEPNS0_26SchedulingConstraintHelperES2_PNS0_22SchedulingDemandHelperES4_RKNSt3__16vectorINS6_INS0_17LiteralValueValueENS5_9allocatorIS7_EEEENS8_ISA_EEEEPNS0_5ModelEE3$_0")
+  {
+    return a1 + 8;
+  }
+
+  if (((v2 & "ZN19operations_research3sat35CreateNoOverlap2dEnergyCutGeneratorEPNS0_26SchedulingConstraintHelperES2_PNS0_22SchedulingDemandHelperES4_RKNSt3__16vectorINS6_INS0_17LiteralValueValueENS5_9allocatorIS7_EEEENS8_ISA_EEEEPNS0_5ModelEE3$_0" & 0x8000000000000000) != 0) == __OFSUB__(v2, "ZN19operations_research3sat35CreateNoOverlap2dEnergyCutGeneratorEPNS0_26SchedulingConstraintHelperES2_PNS0_22SchedulingDemandHelperES4_RKNSt3__16vectorINS6_INS0_17LiteralValueValueENS5_9allocatorIS7_EEEENS8_ISA_EEEEPNS0_5ModelEE3$_0"))
+  {
+    return 0;
+  }
+
+  v4 = a1;
+  v5 = strcmp((v2 & 0x7FFFFFFFFFFFFFFFLL), ("ZN19operations_research3sat35CreateNoOverlap2dEnergyCutGeneratorEPNS0_26SchedulingConstraintHelperES2_PNS0_22SchedulingDemandHelperES4_RKNSt3__16vectorINS6_INS0_17LiteralValueValueENS5_9allocatorIS7_EEEENS8_ISA_EEEEPNS0_5ModelEE3$_0" & 0x7FFFFFFFFFFFFFFFLL));
+  a1 = v4;
+  if (!v5)
+  {
+    return a1 + 8;
+  }
+
+  return 0;
+}
+
+void std::__introsort<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_0 &,operations_research::sat::DiffnCtEvent*,false>(_OWORD *a1, __int128 *a2, uint64_t a3, char a4)
+{
+LABEL_1:
+  v240 = (a2 - 136);
+  v227 = (a2 - 408);
+  v228 = a2 - 17;
+  i = a1;
+  v246 = a2;
+  while (1)
+  {
+    a1 = i;
+    v8 = a2 - i;
+    v9 = 0xF0F0F0F0F0F0F0F1 * ((a2 - i) >> 3);
+    if (v9 > 2)
+    {
+      switch(v9)
+      {
+        case 3:
+
+          std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_0 &,operations_research::sat::DiffnCtEvent*,0>(i, (i + 136), v240);
+          return;
+        case 4:
+
+          std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_0 &,operations_research::sat::DiffnCtEvent*,0>(i, (i + 136), (i + 272), v240);
+          return;
+        case 5:
+
+          std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_0 &,operations_research::sat::DiffnCtEvent*,0>(i, (i + 136), (i + 272), (i + 408), v240);
+          return;
+      }
+    }
+
+    else
+    {
+      if (v9 < 2)
+      {
+        return;
+      }
+
+      if (v9 == 2)
+      {
+        v96 = (a2 - 136);
+        v97 = *(a2 - 17);
+        if (v97 < *i || *i >= v97 && ((v207 = *(a2 - 10), v208 = *(i + 56), v207 < v208) || v208 >= v207 && *(a2 - 2) < *(i + 120)))
+        {
+          v302 = *i;
+          v331 = *(i + 64);
+          v318 = *(i + 32);
+          v326 = *(i + 48);
+          v310 = *(i + 16);
+          v98 = *(i + 72);
+          v99 = *(i + 88);
+          *(i + 72) = 0;
+          *(i + 80) = 0;
+          *(i + 88) = 0;
+          v271 = *(i + 96);
+          *v279 = *(i + 112);
+          *&v279[15] = *(i + 127);
+          v101 = *(a2 - 104);
+          v100 = *(a2 - 88);
+          v102 = *(a2 - 120);
+          *(i + 64) = *(a2 - 9);
+          *(i + 32) = v101;
+          *(i + 48) = v100;
+          *(i + 16) = v102;
+          *i = *v96;
+          *(i + 72) = *(a2 - 4);
+          *(i + 88) = *(a2 - 6);
+          *(a2 - 7) = 0;
+          *(a2 - 6) = 0;
+          *(a2 - 8) = 0;
+          v103 = *(a2 - 40);
+          v104 = *(a2 - 24);
+          *(i + 127) = *(a2 - 9);
+          *(i + 96) = v103;
+          *(i + 112) = v104;
+          *v96 = v302;
+          *(a2 - 9) = v331;
+          *(a2 - 104) = v318;
+          *(a2 - 88) = v326;
+          *(a2 - 120) = v310;
+          v105 = *(a2 - 8);
+          if (v105)
+          {
+            *(a2 - 7) = v105;
+            v251 = v98;
+            operator delete(v105);
+            v98 = v251;
+          }
+
+          *(a2 - 4) = v98;
+          *(a2 - 6) = v99;
+          *(a2 - 9) = *&v279[15];
+          *(a2 - 40) = v271;
+          *(a2 - 24) = *v279;
+        }
+
+        return;
+      }
+    }
+
+    if (v8 <= 3263)
+    {
+      break;
+    }
+
+    if (!a3)
+    {
+      if (i == a2)
+      {
+        return;
+      }
+
+      v131 = (v9 - 2) >> 1;
+      v132 = v131;
+      while (2)
+      {
+        v133 = v132;
+        v134 = 17 * v132;
+        v135 = 0xF0F0F0F0F0F0F0F1 * ((136 * v132) >> 3);
+        if (v131 >= v135)
+        {
+          v136 = 2 * v135;
+          v137 = (2 * v135) | 1;
+          v138 = a1 + 136 * v137;
+          v139 = v136 + 2;
+          if (v139 < v9)
+          {
+            v140 = *(v138 + 17);
+            if (*v138 < v140 || v140 >= *v138 && ((v161 = *(v138 + 7), v162 = *(v138 + 24), v161 < v162) || v162 >= v161 && *(v138 + 15) < *(v138 + 32)))
+            {
+              v138 += 136;
+              v137 = v139;
+            }
+          }
+
+          v141 = a1 + 8 * v134;
+          v142 = *v141;
+          if (*v138 >= *v141)
+          {
+            v143 = *(v141 + 7);
+            if (v142 >= *v138)
+            {
+              v160 = *(v138 + 7);
+              if (v160 >= v143)
+              {
+                v144 = *(v141 + 15);
+                if (v143 < v160 || *(v138 + 15) >= v144)
+                {
+                  goto LABEL_190;
+                }
+              }
+            }
+
+            else
+            {
+              v144 = *(v141 + 15);
+LABEL_190:
+              v145 = 0;
+              v312 = *(v141 + 24);
+              v320 = *(v141 + 40);
+              v304 = *(v141 + 8);
+              v234 = *(v141 + 8);
+              v242 = *(v141 + 72);
+              v237 = *(v141 + 11);
+              *(v141 + 9) = 0;
+              *(v141 + 10) = 0;
+              *(v141 + 11) = 0;
+              v281 = *(v141 + 14);
+              v273 = *(v141 + 6);
+              v294 = v141[130];
+              v290 = *(v141 + 64);
+              while (1)
+              {
+                v146 = v138;
+                *v141 = *v138;
+                v147 = *(v138 + 1);
+                v148 = *(v138 + 2);
+                v149 = *(v138 + 3);
+                *(v141 + 8) = *(v138 + 8);
+                *(v141 + 2) = v148;
+                *(v141 + 3) = v149;
+                *(v141 + 1) = v147;
+                if (v145)
+                {
+                  *(v141 + 10) = v145;
+                  v150 = v143;
+                  operator delete(v145);
+                  v143 = v150;
+                  v131 = (v9 - 2) >> 1;
+                  *(v141 + 9) = 0;
+                  *(v141 + 10) = 0;
+                  *(v141 + 11) = 0;
+                }
+
+                *(v141 + 72) = *(v146 + 72);
+                *(v141 + 11) = *(v146 + 11);
+                *(v146 + 9) = 0;
+                *(v146 + 10) = 0;
+                *(v146 + 11) = 0;
+                v151 = *(v146 + 6);
+                v152 = *(v146 + 7);
+                *(v141 + 127) = *(v146 + 127);
+                *(v141 + 6) = v151;
+                *(v141 + 7) = v152;
+                if (v131 < v137)
+                {
+                  break;
+                }
+
+                v153 = 2 * v137;
+                v137 = (2 * v137) | 1;
+                v138 = a1 + 136 * v137;
+                v154 = v153 + 2;
+                if (v154 < v9)
+                {
+                  v155 = *(v138 + 17);
+                  if (*v138 < v155 || v155 >= *v138 && ((v157 = *(v138 + 7), v158 = *(v138 + 24), v157 < v158) || v158 >= v157 && *(v138 + 15) < *(v138 + 32)))
+                  {
+                    v138 += 136;
+                    v137 = v154;
+                  }
+                }
+
+                if (*v138 < v142)
+                {
+                  break;
+                }
+
+                if (v142 >= *v138)
+                {
+                  v156 = *(v138 + 7);
+                  if (v156 < v143 || v143 >= v156 && *(v138 + 15) < v144)
+                  {
+                    break;
+                  }
+                }
+
+                v145 = *(v146 + 9);
+                v141 = v146;
+              }
+
+              *v146 = v142;
+              *(v146 + 40) = v320;
+              *(v146 + 24) = v312;
+              *(v146 + 8) = v304;
+              *(v146 + 7) = v143;
+              *(v146 + 8) = v234;
+              v159 = *(v146 + 9);
+              if (v159)
+              {
+                *(v146 + 10) = v159;
+                operator delete(v159);
+                v131 = (v9 - 2) >> 1;
+              }
+
+              *(v146 + 72) = v242;
+              *(v146 + 11) = v237;
+              *(v146 + 6) = v273;
+              *(v146 + 14) = v281;
+              *(v146 + 15) = v144;
+              *(v146 + 64) = v290;
+              v146[130] = v294;
+              a2 = v246;
+            }
+          }
+        }
+
+        v132 = v133 - 1;
+        if (v133)
+        {
+          continue;
+        }
+
+        break;
+      }
+
+      v163 = 0xF0F0F0F0F0F0F0F1 * (v8 >> 3);
+      while (2)
+      {
+        v165 = 0;
+        v305 = *a1;
+        v253 = *(a1 + 9);
+        v332 = *(a1 + 8);
+        v321 = a1[2];
+        v327 = a1[3];
+        v313 = a1[1];
+        v243 = *(a1 + 10);
+        v238 = *(a1 + 11);
+        *(a1 + 10) = 0;
+        *(a1 + 11) = 0;
+        *(a1 + 9) = 0;
+        *&v298[15] = *(a1 + 127);
+        v166 = a1;
+        v291 = a1[6];
+        *v298 = a1[7];
+        do
+        {
+          v170 = v166 + 136 * v165;
+          v171 = v170 + 136;
+          v172 = 2 * v165;
+          v165 = (2 * v165) | 1;
+          v173 = v172 + 2;
+          if (v173 < v163)
+          {
+            v174 = *(v170 + 136);
+            v175 = *(v170 + 272);
+            if (v174 < v175 || v175 >= v174 && ((v180 = *(v170 + 192), v181 = *(v170 + 328), v180 < v181) || v181 >= v180 && *(v170 + 256) < *(v170 + 392)))
+            {
+              v171 = v170 + 272;
+              v165 = v173;
+            }
+          }
+
+          *v166 = *v171;
+          v176 = *(v171 + 16);
+          v177 = *(v171 + 32);
+          v178 = *(v171 + 48);
+          *(v166 + 64) = *(v171 + 64);
+          *(v166 + 32) = v177;
+          *(v166 + 48) = v178;
+          *(v166 + 16) = v176;
+          v179 = *(v166 + 72);
+          if (v179)
+          {
+            *(v166 + 80) = v179;
+            operator delete(v179);
+            *(v166 + 72) = 0;
+            *(v166 + 80) = 0;
+            *(v166 + 88) = 0;
+          }
+
+          v167 = (v171 + 72);
+          *(v166 + 72) = *(v171 + 72);
+          *(v166 + 88) = *(v171 + 88);
+          *(v171 + 72) = 0;
+          *(v171 + 80) = 0;
+          *(v171 + 88) = 0;
+          v168 = *(v171 + 96);
+          v169 = *(v171 + 112);
+          *(v166 + 127) = *(v171 + 127);
+          *(v166 + 96) = v168;
+          *(v166 + 112) = v169;
+          v166 = v171;
+        }
+
+        while (v165 <= ((v163 - 2) >> 1));
+        v247 = (a2 - 136);
+        if (v171 == (a2 - 136))
+        {
+          *v171 = v305;
+          *(v171 + 64) = v332;
+          *(v171 + 32) = v321;
+          *(v171 + 48) = v327;
+          *(v171 + 16) = v313;
+          v205 = *(v171 + 72);
+          if (v205)
+          {
+            *(v171 + 80) = v205;
+            operator delete(v205);
+          }
+
+          *(v171 + 72) = v253;
+          *(v171 + 80) = v243;
+          *(v171 + 88) = v238;
+          *(v171 + 127) = *&v298[15];
+          *(v171 + 112) = *v298;
+          *(v171 + 96) = v291;
+        }
+
+        else
+        {
+          *v171 = *(a2 - 136);
+          v182 = *(a2 - 120);
+          v183 = *(a2 - 104);
+          v184 = *(a2 - 88);
+          *(v171 + 64) = *(a2 - 9);
+          *(v171 + 32) = v183;
+          *(v171 + 48) = v184;
+          *(v171 + 16) = v182;
+          v185 = *(v171 + 72);
+          if (v185)
+          {
+            *(v171 + 80) = v185;
+            operator delete(v185);
+            *v167 = 0;
+            *(v171 + 80) = 0;
+            *(v171 + 88) = 0;
+          }
+
+          *(v171 + 72) = *(a2 - 4);
+          *(v171 + 88) = *(a2 - 6);
+          *(a2 - 8) = 0;
+          *(a2 - 7) = 0;
+          *(a2 - 6) = 0;
+          v186 = *(a2 - 40);
+          v187 = *(a2 - 24);
+          *(v171 + 127) = *(a2 - 9);
+          *(v171 + 112) = v187;
+          *(v171 + 96) = v186;
+          *(a2 - 9) = v332;
+          *(a2 - 104) = v321;
+          *(a2 - 88) = v327;
+          *(a2 - 120) = v313;
+          *v247 = v305;
+          v188 = *(a2 - 8);
+          if (v188)
+          {
+            *(a2 - 7) = v188;
+            operator delete(v188);
+          }
+
+          v189 = a2 - 40;
+          *(a2 - 8) = v253;
+          *(a2 - 7) = v243;
+          *(a2 - 6) = v238;
+          *(v189 + 31) = *&v298[15];
+          *v189 = v291;
+          *(v189 + 1) = *v298;
+          v190 = v171 + 136 - a1;
+          if (v190 >= 137)
+          {
+            v191 = (-2 - 0xF0F0F0F0F0F0F0FLL * (v190 >> 3)) >> 1;
+            v192 = a1 + 136 * v191;
+            v193 = *v171;
+            if (*v192 >= *v171)
+            {
+              if (v193 >= *v192)
+              {
+                v206 = *(v192 + 7);
+                v194 = *(v171 + 56);
+                if (v206 < v194 || v194 >= v206 && *(v192 + 15) < *(v171 + 120))
+                {
+                  goto LABEL_242;
+                }
+              }
+            }
+
+            else
+            {
+              v194 = *(v171 + 56);
+LABEL_242:
+              v282 = *(v171 + 24);
+              v286 = *(v171 + 40);
+              v274 = *(v171 + 8);
+              v239 = *(v171 + 64);
+              v254 = *(v171 + 72);
+              v244 = *(v171 + 88);
+              *(v171 + 80) = 0;
+              *(v171 + 88) = 0;
+              *v167 = 0;
+              v267 = *(v171 + 112);
+              v264 = *(v171 + 96);
+              v195 = *(v171 + 120);
+              v261 = *(v171 + 130);
+              v258 = *(v171 + 128);
+              while (1)
+              {
+                v196 = v192;
+                *v171 = *v192;
+                v197 = *(v192 + 1);
+                v198 = *(v192 + 2);
+                v199 = *(v192 + 3);
+                *(v171 + 64) = *(v192 + 8);
+                *(v171 + 32) = v198;
+                *(v171 + 48) = v199;
+                *(v171 + 16) = v197;
+                v200 = *(v171 + 72);
+                if (v200)
+                {
+                  *(v171 + 80) = v200;
+                  operator delete(v200);
+                  *(v171 + 72) = 0;
+                  *(v171 + 80) = 0;
+                  *(v171 + 88) = 0;
+                }
+
+                *(v171 + 72) = *(v196 + 72);
+                *(v171 + 88) = *(v196 + 88);
+                *(v196 + 72) = 0;
+                *(v196 + 80) = 0;
+                *(v196 + 88) = 0;
+                v201 = *(v196 + 96);
+                v202 = *(v196 + 112);
+                *(v171 + 127) = *(v196 + 127);
+                *(v171 + 96) = v201;
+                *(v171 + 112) = v202;
+                if (!v191)
+                {
+                  break;
+                }
+
+                v191 = (v191 - 1) >> 1;
+                v192 = a1 + 136 * v191;
+                v171 = v196;
+                if (*v192 >= v193)
+                {
+                  if (v193 < *v192)
+                  {
+                    break;
+                  }
+
+                  v203 = *(v192 + 7);
+                  v171 = v196;
+                  if (v203 >= v194)
+                  {
+                    if (v194 < v203)
+                    {
+                      break;
+                    }
+
+                    v171 = v196;
+                    if (*(v192 + 15) >= v195)
+                    {
+                      break;
+                    }
+                  }
+                }
+              }
+
+              *v196 = v193;
+              *(v196 + 40) = v286;
+              *(v196 + 24) = v282;
+              *(v196 + 8) = v274;
+              *(v196 + 56) = v194;
+              *(v196 + 64) = v239;
+              v204 = *(v196 + 72);
+              if (v204)
+              {
+                *(v196 + 80) = v204;
+                operator delete(v204);
+              }
+
+              *(v196 + 72) = v254;
+              *(v196 + 88) = v244;
+              *(v196 + 96) = v264;
+              *(v196 + 112) = v267;
+              *(v196 + 120) = v195;
+              *(v196 + 128) = v258;
+              *(v196 + 130) = v261;
+            }
+          }
+        }
+
+        v164 = v163-- <= 2;
+        a2 = v247;
+        if (v164)
+        {
+          return;
+        }
+
+        continue;
+      }
+    }
+
+    v10 = v9 >> 1;
+    v11 = i + 136 * v10;
+    if (v8 < 0x4401)
+    {
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_0 &,operations_research::sat::DiffnCtEvent*,0>((a1 + 136 * v10), a1, v240);
+      --a3;
+      v20 = *a1;
+      if (a4)
+      {
+        goto LABEL_22;
+      }
+
+LABEL_17:
+      v21 = *(a1 - 17);
+      if (v21 < v20)
+      {
+        goto LABEL_22;
+      }
+
+      v22 = *(a1 + 7);
+      if (v20 < v21)
+      {
+        v24 = *(a1 + 15);
+      }
+
+      else
+      {
+        v23 = *(a1 - 10);
+        if (v23 < v22)
+        {
+          goto LABEL_22;
+        }
+
+        v24 = *(a1 + 15);
+        if (v22 >= v23 && *(a1 - 2) < v24)
+        {
+          goto LABEL_22;
+        }
+      }
+
+      v236 = *(a1 + 72);
+      v278 = *(a1 + 24);
+      v285 = *(a1 + 40);
+      v270 = *(a1 + 8);
+      v64 = *(a1 + 8);
+      v233 = *(a1 + 11);
+      *(a1 + 9) = 0;
+      *(a1 + 10) = 0;
+      *(a1 + 11) = 0;
+      v263 = a1[6];
+      v266 = *(a1 + 14);
+      v260 = *(a1 + 130);
+      v257 = *(a1 + 64);
+      v65 = *v240;
+      if (v20 < *v240 || v65 >= v20 && ((v95 = *(a2 - 10), v22 < v95) || v95 >= v22 && v24 < *(a2 - 2)))
+      {
+        i = a1;
+        while (1)
+        {
+          v67 = *(i + 136);
+          i += 136;
+          v66 = v67;
+          if (v20 < v67)
+          {
+            break;
+          }
+
+          if (v66 >= v20)
+          {
+            v68 = *(i + 56);
+            if (v22 < v68 || v68 >= v22 && v24 < *(i + 120))
+            {
+              break;
+            }
+          }
+        }
+      }
+
+      else
+      {
+        for (i = a1 + 136; i < a2; i += 136)
+        {
+          if (v20 < *i)
+          {
+            break;
+          }
+
+          if (*i >= v20)
+          {
+            v69 = *(i + 56);
+            if (v22 < v69 || v69 >= v22 && v24 < *(i + 120))
+            {
+              break;
+            }
+          }
+        }
+      }
+
+      j = a2;
+      if (i < a2)
+      {
+        for (j = v240; ; j = (j - 136))
+        {
+          if (v20 >= v65)
+          {
+            if (v65 < v20)
+            {
+              break;
+            }
+
+            v72 = *(j + 7);
+            if (v22 >= v72 && (v72 < v22 || v24 >= *(j + 15)))
+            {
+              break;
+            }
+          }
+
+          v71 = *(j - 17);
+          v65 = v71;
+        }
+      }
+
+      while (i < j)
+      {
+        v301 = *i;
+        v330 = *(i + 64);
+        v317 = *(i + 32);
+        v325 = *(i + 48);
+        v309 = *(i + 16);
+        v73 = *(i + 72);
+        v74 = *(i + 88);
+        *(i + 72) = 0;
+        *(i + 80) = 0;
+        *(i + 88) = 0;
+        v288 = *(i + 96);
+        *v297 = *(i + 112);
+        *&v297[15] = *(i + 127);
+        v76 = j[2];
+        v75 = j[3];
+        v77 = j[1];
+        *(i + 64) = *(j + 8);
+        *(i + 32) = v76;
+        *(i + 48) = v75;
+        *(i + 16) = v77;
+        *i = *j;
+        *(i + 72) = *(j + 72);
+        *(i + 88) = *(j + 11);
+        *(j + 9) = 0;
+        *(j + 10) = 0;
+        *(j + 11) = 0;
+        v78 = j[6];
+        v79 = j[7];
+        *(i + 127) = *(j + 127);
+        *(i + 96) = v78;
+        *(i + 112) = v79;
+        *j = v301;
+        *(j + 8) = v330;
+        j[2] = v317;
+        j[3] = v325;
+        j[1] = v309;
+        v80 = *(j + 9);
+        if (v80)
+        {
+          *(j + 10) = v80;
+          v250 = v73;
+          operator delete(v80);
+          v73 = v250;
+        }
+
+        *(j + 72) = v73;
+        *(j + 11) = v74;
+        j[6] = v288;
+        j[7] = *v297;
+        *(j + 127) = *&v297[15];
+        v82 = *(i + 136);
+        i += 136;
+        v81 = v82;
+        if (v20 >= v82)
+        {
+          a2 = v246;
+          do
+          {
+            if (v81 >= v20)
+            {
+              v87 = *(i + 56);
+              if (v22 < v87 || v87 >= v22 && v24 < *(i + 120))
+              {
+                break;
+              }
+            }
+
+            v86 = *(i + 136);
+            i += 136;
+            v81 = v86;
+          }
+
+          while (v20 >= v86);
+        }
+
+        else
+        {
+          a2 = v246;
+        }
+
+        do
+        {
+          do
+          {
+            v84 = *(j - 17);
+            j = (j - 136);
+            v83 = v84;
+          }
+
+          while (v20 < v84);
+          if (v83 < v20)
+          {
+            break;
+          }
+
+          v85 = *(j + 7);
+        }
+
+        while (v22 < v85 || v85 >= v22 && v24 < *(j + 15));
+      }
+
+      if ((i - 136) != a1)
+      {
+        *a1 = *(i - 136);
+        v88 = *(i - 120);
+        v89 = *(i - 104);
+        v90 = *(i - 88);
+        *(a1 + 8) = *(i - 72);
+        a1[2] = v89;
+        a1[3] = v90;
+        a1[1] = v88;
+        v91 = *(a1 + 9);
+        if (v91)
+        {
+          *(a1 + 10) = v91;
+          operator delete(v91);
+          *(a1 + 9) = 0;
+          *(a1 + 10) = 0;
+          *(a1 + 11) = 0;
+        }
+
+        *(a1 + 72) = *(i - 64);
+        *(a1 + 11) = *(i - 48);
+        *(i - 64) = 0;
+        *(i - 56) = 0;
+        *(i - 48) = 0;
+        v92 = *(i - 40);
+        v93 = *(i - 24);
+        *(a1 + 127) = *(i - 9);
+        a1[7] = v93;
+        a1[6] = v92;
+      }
+
+      *(i - 136) = v20;
+      *(i - 112) = v278;
+      *(i - 96) = v285;
+      *(i - 128) = v270;
+      *(i - 80) = v22;
+      *(i - 72) = v64;
+      v94 = *(i - 64);
+      if (v94)
+      {
+        *(i - 56) = v94;
+        operator delete(v94);
+      }
+
+      a4 = 0;
+      *(i - 64) = v236;
+      *(i - 48) = v233;
+      *(i - 24) = v266;
+      *(i - 40) = v263;
+      *(i - 16) = v24;
+      *(i - 6) = v260;
+      *(i - 8) = v257;
+    }
+
+    else
+    {
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_0 &,operations_research::sat::DiffnCtEvent*,0>(a1, a1 + 17 * v10, v240);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_0 &,operations_research::sat::DiffnCtEvent*,0>((a1 + 136), a1 + 17 * v10 - 17, v228);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_0 &,operations_research::sat::DiffnCtEvent*,0>(a1 + 17, a1 + 17 * v10 + 17, v227);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_0 &,operations_research::sat::DiffnCtEvent*,0>((a1 + 136 * v10 - 136), a1 + 17 * v10, (a1 + 136 * v10 + 136));
+      v299 = *a1;
+      v328 = *(a1 + 8);
+      v315 = a1[2];
+      v323 = a1[3];
+      v307 = a1[1];
+      v12 = *(a1 + 72);
+      v13 = *(a1 + 11);
+      *(a1 + 9) = 0;
+      *(a1 + 10) = 0;
+      *(a1 + 11) = 0;
+      v268 = a1[6];
+      *v276 = a1[7];
+      *&v276[15] = *(a1 + 127);
+      v15 = *(v11 + 32);
+      v14 = *(v11 + 48);
+      v16 = *(v11 + 16);
+      *(a1 + 8) = *(v11 + 64);
+      a1[2] = v15;
+      a1[3] = v14;
+      a1[1] = v16;
+      *a1 = *v11;
+      *(a1 + 72) = *(v11 + 72);
+      *(a1 + 11) = *(v11 + 88);
+      *(v11 + 80) = 0;
+      *(v11 + 88) = 0;
+      *(v11 + 72) = 0;
+      v17 = *(v11 + 96);
+      v18 = *(v11 + 112);
+      *(a1 + 127) = *(v11 + 127);
+      a1[6] = v17;
+      a1[7] = v18;
+      *v11 = v299;
+      *(v11 + 64) = v328;
+      *(v11 + 32) = v315;
+      *(v11 + 48) = v323;
+      *(v11 + 16) = v307;
+      v19 = *(v11 + 72);
+      if (v19)
+      {
+        *(v11 + 80) = v19;
+        v248 = v12;
+        operator delete(v19);
+        v12 = v248;
+      }
+
+      *(v11 + 72) = v12;
+      *(v11 + 88) = v13;
+      *(v11 + 127) = *&v276[15];
+      *(v11 + 96) = v268;
+      *(v11 + 112) = *v276;
+      --a3;
+      v20 = *a1;
+      if ((a4 & 1) == 0)
+      {
+        goto LABEL_17;
+      }
+
+LABEL_22:
+      v25 = 0;
+      v232 = *(a1 + 72);
+      v26 = *(a1 + 56);
+      v277 = *(a1 + 24);
+      v284 = *(a1 + 40);
+      v269 = *(a1 + 8);
+      v231 = *(a1 + 11);
+      *(a1 + 9) = 0;
+      *(a1 + 10) = 0;
+      *(a1 + 11) = 0;
+      v262 = a1[6];
+      v265 = *(a1 + 14);
+      v259 = *(a1 + 130);
+      v256 = *(a1 + 64);
+      v230 = v26;
+      v27 = v26;
+      v28 = *(a1 + 15);
+      while (1)
+      {
+        v29 = a1 + v25;
+        v30 = *(a1 + v25 + 136);
+        if (v30 >= v20)
+        {
+          if (v20 < v30)
+          {
+            break;
+          }
+
+          v31 = *(v29 + 24);
+          if (v31 >= v26 && (v26 < v31 || *(v29 + 32) >= v28))
+          {
+            break;
+          }
+        }
+
+        v25 += 136;
+      }
+
+      v235 = a3;
+      v32 = a1 + v25 + 136;
+      if (v25)
+      {
+        v33 = v240;
+        for (k = *v240; k >= v20; k = v35)
+        {
+          if (v20 >= k)
+          {
+            v36 = *(v33 + 7);
+            if (v36 < v26 || v26 >= v36 && *(v33 + 15) < v28)
+            {
+              break;
+            }
+          }
+
+          v35 = *(v33 - 17);
+          v33 = (v33 - 136);
+        }
+      }
+
+      else
+      {
+        v33 = a2;
+        if (v32 < a2)
+        {
+          v33 = v240;
+          v37 = *v240;
+          if (*v240 >= v20)
+          {
+            v33 = v240;
+            do
+            {
+              if (v20 < v37)
+              {
+                goto LABEL_69;
+              }
+
+              v63 = *(v33 + 7);
+              if (v63 < v26)
+              {
+                break;
+              }
+
+              if (v26 < v63)
+              {
+LABEL_69:
+                if (v32 >= v33)
+                {
+                  break;
+                }
+              }
+
+              else if (v32 >= v33 || *(v33 + 15) < v28)
+              {
+                break;
+              }
+
+              v62 = *(v33 - 17);
+              v33 = (v33 - 136);
+              v37 = v62;
+            }
+
+            while (v62 >= v20);
+          }
+        }
+      }
+
+      i = v32;
+      if (v32 < v33)
+      {
+        v38 = v33;
+        do
+        {
+          v300 = *i;
+          v329 = *(i + 64);
+          v316 = *(i + 32);
+          v324 = *(i + 48);
+          v308 = *(i + 16);
+          v39 = *(i + 72);
+          v40 = *(i + 88);
+          *(i + 72) = 0;
+          *(i + 80) = 0;
+          *(i + 88) = 0;
+          v287 = *(i + 96);
+          *v296 = *(i + 112);
+          *&v296[15] = *(i + 127);
+          v42 = v38[2];
+          v41 = v38[3];
+          v43 = v38[1];
+          *(i + 64) = *(v38 + 8);
+          *(i + 32) = v42;
+          *(i + 48) = v41;
+          *(i + 16) = v43;
+          *i = *v38;
+          *(i + 72) = *(v38 + 72);
+          *(i + 88) = *(v38 + 11);
+          *(v38 + 9) = 0;
+          *(v38 + 10) = 0;
+          *(v38 + 11) = 0;
+          v44 = v38[6];
+          v45 = v38[7];
+          *(i + 127) = *(v38 + 127);
+          *(i + 96) = v44;
+          *(i + 112) = v45;
+          *v38 = v300;
+          *(v38 + 8) = v329;
+          v38[2] = v316;
+          v38[3] = v324;
+          v38[1] = v308;
+          v46 = *(v38 + 9);
+          if (v46)
+          {
+            *(v38 + 10) = v46;
+            v249 = v39;
+            operator delete(v46);
+            v39 = v249;
+          }
+
+          *(v38 + 72) = v39;
+          *(v38 + 11) = v40;
+          v38[6] = v287;
+          v38[7] = *v296;
+          *(v38 + 127) = *&v296[15];
+          do
+          {
+            do
+            {
+              v48 = *(i + 136);
+              i += 136;
+              v47 = v48;
+            }
+
+            while (v48 < v20);
+            if (v20 < v47)
+            {
+              break;
+            }
+
+            v49 = *(i + 56);
+          }
+
+          while (v49 < v27 || v27 >= v49 && *(i + 120) < v28);
+          while (1)
+          {
+            v51 = *(v38 - 17);
+            v38 = (v38 - 136);
+            v50 = v51;
+            if (v51 < v20)
+            {
+              break;
+            }
+
+            if (v20 >= v50)
+            {
+              v52 = *(v38 + 7);
+              if (v52 < v27 || v27 >= v52 && *(v38 + 15) < v28)
+              {
+                break;
+              }
+            }
+          }
+        }
+
+        while (i < v38);
+      }
+
+      a2 = v246;
+      if ((i - 136) != a1)
+      {
+        *a1 = *(i - 136);
+        v53 = *(i - 120);
+        v54 = *(i - 104);
+        v55 = *(i - 88);
+        *(a1 + 8) = *(i - 72);
+        a1[2] = v54;
+        a1[3] = v55;
+        a1[1] = v53;
+        v56 = *(a1 + 9);
+        if (v56)
+        {
+          *(a1 + 10) = v56;
+          operator delete(v56);
+          *(a1 + 9) = 0;
+          *(a1 + 10) = 0;
+          *(a1 + 11) = 0;
+        }
+
+        *(a1 + 72) = *(i - 64);
+        *(a1 + 11) = *(i - 48);
+        *(i - 64) = 0;
+        *(i - 56) = 0;
+        *(i - 48) = 0;
+        v57 = *(i - 40);
+        v58 = *(i - 24);
+        *(a1 + 127) = *(i - 9);
+        a1[7] = v58;
+        a1[6] = v57;
+      }
+
+      *(i - 136) = v20;
+      *(i - 128) = v269;
+      *(i - 112) = v277;
+      *(i - 96) = v284;
+      *(i - 80) = v230;
+      v59 = *(i - 64);
+      if (v59)
+      {
+        *(i - 56) = v59;
+        operator delete(v59);
+      }
+
+      *(i - 64) = v232;
+      *(i - 48) = v231;
+      *(i - 24) = v265;
+      *(i - 40) = v262;
+      *(i - 16) = v28;
+      *(i - 6) = v259;
+      *(i - 8) = v256;
+      v60 = v32 >= v33;
+      a3 = v235;
+      if (!v60)
+      {
+        goto LABEL_67;
+      }
+
+      v61 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_0 &,operations_research::sat::DiffnCtEvent*>(a1, i - 136);
+      if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_0 &,operations_research::sat::DiffnCtEvent*>(i, v246))
+      {
+        a2 = (i - 136);
+        if (v61)
+        {
+          return;
+        }
+
+        goto LABEL_1;
+      }
+
+      if ((v61 & 1) == 0)
+      {
+LABEL_67:
+        std::__introsort<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_0 &,operations_research::sat::DiffnCtEvent*,false>(a1, (i - 136), v235, a4 & 1);
+        a4 = 0;
+      }
+    }
+  }
+
+  v106 = (i + 136);
+  v108 = i == a2 || v106 == a2;
+  if (a4)
+  {
+    if (!v108)
+    {
+      v109 = 0;
+      v110 = i;
+      do
+      {
+        v111 = v110;
+        v110 = v106;
+        v112 = *(v111 + 17);
+        if (v112 < *v111 || *v111 >= v112 && ((v127 = *(v111 + 24), v128 = *(v111 + 7), v127 < v128) || v128 >= v127 && *(v111 + 32) < *(v111 + 15)))
+        {
+          v311 = v111[10];
+          v319 = v111[11];
+          v303 = v111[9];
+          v113 = v111[12];
+          v114 = *(v111 + 26);
+          v252 = *(v111 + 216);
+          *(v111 + 26) = 0;
+          *(v111 + 27) = 0;
+          *(v111 + 28) = 0;
+          v280 = *(v111 + 31);
+          v272 = *(v111 + 232);
+          v115 = *(v111 + 32);
+          v293 = *(v111 + 266);
+          v289 = *(v111 + 132);
+          v241 = v113;
+          v116 = v113;
+          for (m = v109; ; m -= 136)
+          {
+            v118 = a1 + m;
+            v119 = *(a1 + m);
+            *(v118 + 152) = *(a1 + m + 16);
+            v120 = *(a1 + m + 48);
+            *(v118 + 168) = *(a1 + m + 32);
+            *(v118 + 184) = v120;
+            *(v118 + 25) = *(a1 + m + 64);
+            *(v118 + 136) = v119;
+            v121 = *(a1 + m + 208);
+            if (v121)
+            {
+              *(v118 + 27) = v121;
+              operator delete(v121);
+              *(v118 + 27) = 0;
+              *(v118 + 28) = 0;
+            }
+
+            *(v118 + 13) = *(v118 + 72);
+            *(v118 + 28) = *(v118 + 11);
+            *(v118 + 10) = 0;
+            *(v118 + 11) = 0;
+            *(v118 + 9) = 0;
+            v122 = *(v118 + 7);
+            *(v118 + 232) = *(v118 + 6);
+            *(v118 + 248) = v122;
+            *(v118 + 263) = *(v118 + 127);
+            if (!m)
+            {
+              break;
+            }
+
+            v123 = a1 + m;
+            v124 = *(a1 + m - 136);
+            if (v112 >= v124)
+            {
+              if (v124 < v112 || (v125 = *(v123 - 10), v116 >= v125) && (v125 < v116 || v115 >= *(v123 - 2)))
+              {
+                v126 = a1 + m;
+                goto LABEL_176;
+              }
+            }
+          }
+
+          v126 = a1;
+LABEL_176:
+          v129 = a1 + m;
+          *v126 = v112;
+          *(v126 + 40) = v319;
+          *(v126 + 24) = v311;
+          *(v126 + 8) = v303;
+          *(v126 + 56) = v241;
+          v130 = *(v129 + 9);
+          if (v130)
+          {
+            *(v126 + 80) = v130;
+            operator delete(v130);
+            *(v129 + 10) = 0;
+            *(v129 + 11) = 0;
+          }
+
+          *(v129 + 9) = v114;
+          *(v126 + 80) = v252;
+          *(v129 + 14) = v280;
+          *(v129 + 6) = v272;
+          *(v126 + 120) = v115;
+          *(v126 + 128) = v289;
+          *(v126 + 130) = v293;
+        }
+
+        v106 = (v110 + 136);
+        v109 += 136;
+      }
+
+      while ((v110 + 136) != v246);
+    }
+  }
+
+  else if (!v108)
+  {
+    v209 = i + 232;
+    do
+    {
+      v211 = a1;
+      a1 = v106;
+      v212 = *(v211 + 136);
+      if (v212 < *v211 || *v211 >= v212 && ((v225 = *(v211 + 192), v226 = *(v211 + 56), v225 < v226) || v226 >= v225 && *(v211 + 256) < *(v211 + 120)))
+      {
+        v314 = *(v211 + 160);
+        v322 = *(v211 + 176);
+        v306 = *(v211 + 144);
+        v213 = *(v211 + 192);
+        v255 = *(v211 + 208);
+        v214 = *(v211 + 224);
+        *(v211 + 208) = 0;
+        *(v211 + 216) = 0;
+        *(v211 + 224) = 0;
+        v283 = *(v211 + 248);
+        v275 = *(v211 + 232);
+        v215 = *(v211 + 256);
+        v295 = *(v211 + 266);
+        v292 = *(v211 + 264);
+        v245 = v213;
+        v216 = v213;
+        for (n = v209; ; n -= 136)
+        {
+          v218 = *(n - 216);
+          v219 = *(n - 184);
+          *(n - 64) = *(n - 200);
+          *(n - 48) = v219;
+          *(n - 32) = *(n - 168);
+          *(n - 96) = *(n - 232);
+          *(n - 80) = v218;
+          v220 = *(n - 24);
+          if (v220)
+          {
+            *(n - 16) = v220;
+            operator delete(v220);
+            *(n - 16) = 0;
+            *(n - 8) = 0;
+          }
+
+          *(n - 24) = *(n - 160);
+          *(n - 8) = *(n - 144);
+          *(n - 152) = 0;
+          *(n - 144) = 0;
+          *(n - 160) = 0;
+          v221 = *(n - 120);
+          *n = *(n - 136);
+          *(n + 16) = v221;
+          *(n + 31) = *(n - 105);
+          v222 = *(n - 368);
+          if (v212 >= v222)
+          {
+            if (v222 < v212)
+            {
+              break;
+            }
+
+            v223 = *(n - 312);
+            if (v216 >= v223 && (v223 < v216 || v215 >= *(n - 248)))
+            {
+              break;
+            }
+          }
+        }
+
+        *(n - 232) = v212;
+        *(n - 224) = v306;
+        *(n - 208) = v314;
+        *(n - 192) = v322;
+        *(n - 176) = v245;
+        v224 = *(n - 160);
+        if (v224)
+        {
+          *(n - 152) = v224;
+          operator delete(v224);
+        }
+
+        v210 = n - 136;
+        *(n - 160) = v255;
+        *(n - 144) = v214;
+        *(v210 + 16) = v283;
+        *v210 = v275;
+        *(n - 112) = v215;
+        *(n - 102) = v295;
+        *(n - 104) = v292;
+        a2 = v246;
+      }
+
+      v106 = (a1 + 136);
+      v209 += 136;
+    }
+
+    while ((a1 + 136) != a2);
+  }
+}
+
+__n128 std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_0 &,operations_research::sat::DiffnCtEvent*,0>(__int128 *a1, uint64_t *a2, __int128 *a3)
+{
+  v4 = *a2;
+  if (*a2 >= *a1)
+  {
+    if (*a1 < v4 || (v53 = a2[7], v54 = *(a1 + 7), v53 >= v54) && (v54 < v53 || (result.n128_u64[0] = a2[15], result.n128_f64[0] >= *(a1 + 15))))
+    {
+      if (*a3 < v4 || v4 >= *a3 && ((v55 = *(a3 + 7), v56 = a2[7], v55 < v56) || v56 >= v55 && (result.n128_u64[0] = *(a3 + 15), result.n128_f64[0] < *(a2 + 15))))
+      {
+        v85 = *(a2 + 2);
+        v90 = *(a2 + 3);
+        v95 = a2[8];
+        v75 = *a2;
+        v80 = *(a2 + 1);
+        v13 = a2 + 9;
+        v14 = *(a2 + 9);
+        v15 = a2[11];
+        a2[9] = 0;
+        a2[10] = 0;
+        a2[11] = 0;
+        *&v71[15] = *(a2 + 127);
+        v67 = *(a2 + 6);
+        *v71 = *(a2 + 7);
+        *a2 = *a3;
+        v16 = a3[1];
+        v17 = a3[2];
+        v18 = a3[3];
+        a2[8] = *(a3 + 8);
+        *(a2 + 2) = v17;
+        *(a2 + 3) = v18;
+        *(a2 + 1) = v16;
+        *(a2 + 9) = *(a3 + 72);
+        a2[11] = *(a3 + 11);
+        *(a3 + 72) = 0uLL;
+        *(a3 + 11) = 0;
+        v19 = a3[6];
+        v20 = a3[7];
+        *(a2 + 127) = *(a3 + 127);
+        *(a2 + 6) = v19;
+        *(a2 + 7) = v20;
+        a3[2] = v85;
+        a3[3] = v90;
+        *(a3 + 8) = v95;
+        *a3 = v75;
+        a3[1] = v80;
+        v21 = *(a3 + 9);
+        if (v21)
+        {
+          *(a3 + 10) = v21;
+          v22 = a1;
+          v23 = a2;
+          v64 = v14;
+          operator delete(v21);
+          v14 = v64;
+          a1 = v22;
+          a2 = v23;
+        }
+
+        *(a3 + 72) = v14;
+        *(a3 + 11) = v15;
+        result = v67;
+        a3[6] = v67;
+        a3[7] = *v71;
+        *(a3 + 127) = *&v71[15];
+        if (*a2 < *a1 || *a1 >= *a2 && ((v59 = a2[7], v60 = *(a1 + 7), v59 < v60) || v60 >= v59 && (result.n128_u64[0] = a2[15], result.n128_f64[0] < *(a1 + 15))))
+        {
+          v86 = a1[2];
+          v91 = a1[3];
+          v96 = *(a1 + 8);
+          v76 = *a1;
+          v81 = a1[1];
+          v25 = *(a1 + 72);
+          v26 = *(a1 + 11);
+          *(a1 + 72) = 0uLL;
+          *(a1 + 11) = 0;
+          *&v72[15] = *(a1 + 127);
+          v68 = a1[6];
+          *v72 = a1[7];
+          *a1 = *a2;
+          v27 = *(a2 + 1);
+          v28 = *(a2 + 2);
+          v29 = *(a2 + 3);
+          *(a1 + 8) = a2[8];
+          a1[2] = v28;
+          a1[3] = v29;
+          a1[1] = v27;
+          *(a1 + 72) = *(a2 + 9);
+          *(a1 + 11) = a2[11];
+          *v13 = 0;
+          v13[1] = 0;
+          v13[2] = 0;
+          v30 = *(a2 + 6);
+          v31 = *(a2 + 7);
+          *(a1 + 127) = *(a2 + 127);
+          a1[6] = v30;
+          a1[7] = v31;
+          *(a2 + 2) = v86;
+          *(a2 + 3) = v91;
+          a2[8] = v96;
+          *a2 = v76;
+          *(a2 + 1) = v81;
+          v32 = a2[9];
+          if (v32)
+          {
+            a2[10] = v32;
+            v33 = a2;
+            v65 = v25;
+            operator delete(v32);
+            v25 = v65;
+            a2 = v33;
+          }
+
+          *(a2 + 9) = v25;
+          a2[11] = v26;
+          result = v68;
+          *(a2 + 6) = v68;
+          *(a2 + 7) = *v72;
+          *(a2 + 127) = *&v72[15];
+        }
+      }
+
+      return result;
+    }
+  }
+
+  if (*a3 < v4 || v4 >= *a3 && ((v57 = *(a3 + 7), v58 = a2[7], v57 < v58) || v58 >= v57 && *(a3 + 15) < *(a2 + 15)))
+  {
+    v84 = a1[2];
+    v89 = a1[3];
+    v94 = *(a1 + 8);
+    v74 = *a1;
+    v79 = a1[1];
+    v5 = *(a1 + 72);
+    v6 = *(a1 + 11);
+    *(a1 + 72) = 0uLL;
+    *(a1 + 11) = 0;
+    *&v70[15] = *(a1 + 127);
+    v66 = a1[6];
+    *v70 = a1[7];
+    *a1 = *a3;
+    v7 = a3[1];
+    v8 = a3[2];
+    v9 = a3[3];
+    *(a1 + 8) = *(a3 + 8);
+    a1[2] = v8;
+    a1[3] = v9;
+    a1[1] = v7;
+    *(a1 + 72) = *(a3 + 72);
+    *(a1 + 11) = *(a3 + 11);
+    *(a3 + 72) = 0uLL;
+    *(a3 + 11) = 0;
+    v10 = a3[6];
+    v11 = a3[7];
+    *(a1 + 127) = *(a3 + 127);
+    a1[6] = v10;
+    a1[7] = v11;
+    a3[2] = v84;
+    a3[3] = v89;
+    *(a3 + 8) = v94;
+    *a3 = v74;
+    a3[1] = v79;
+    v12 = *(a3 + 9);
+    if (v12)
+    {
+      *(a3 + 10) = v12;
+      v63 = v5;
+      operator delete(v12);
+      v5 = v63;
+    }
+
+    *(a3 + 72) = v5;
+    *(a3 + 11) = v6;
+LABEL_22:
+    result = v66;
+    a3[6] = v66;
+    a3[7] = *v70;
+    *(a3 + 127) = *&v70[15];
+    return result;
+  }
+
+  v87 = a1[2];
+  v92 = a1[3];
+  v34 = *(a1 + 9);
+  v97 = *(a1 + 8);
+  v77 = *a1;
+  v82 = a1[1];
+  v35 = *(a1 + 10);
+  v36 = *(a1 + 11);
+  *(a1 + 72) = 0uLL;
+  *(a1 + 11) = 0;
+  *a1 = *a2;
+  v37 = *(a2 + 1);
+  v38 = *(a2 + 3);
+  v39 = a2[8];
+  a1[2] = *(a2 + 2);
+  a1[3] = v38;
+  v40 = a1[6];
+  v41 = a1[7];
+  *&v73[15] = *(a1 + 127);
+  *(a1 + 8) = v39;
+  a1[1] = v37;
+  v42 = a2 + 9;
+  v69 = v40;
+  *v73 = v41;
+  *(a1 + 72) = *(a2 + 9);
+  *(a1 + 11) = a2[11];
+  a2[9] = 0;
+  a2[10] = 0;
+  a2[11] = 0;
+  v43 = *(a2 + 6);
+  v44 = *(a2 + 7);
+  *(a1 + 127) = *(a2 + 127);
+  a1[6] = v43;
+  a1[7] = v44;
+  *(a2 + 2) = v87;
+  *(a2 + 3) = v92;
+  a2[8] = v97;
+  *a2 = v77;
+  *(a2 + 1) = v82;
+  v45 = a2[9];
+  if (v45)
+  {
+    a2[10] = v45;
+    v46 = a2;
+    operator delete(v45);
+    a2 = v46;
+  }
+
+  a2[9] = v34;
+  a2[10] = v35;
+  a2[11] = v36;
+  result = v69;
+  *(a2 + 6) = v69;
+  *(a2 + 7) = *v73;
+  *(a2 + 127) = *&v73[15];
+  if (*a3 < *a2 || *a2 >= *a3 && ((v61 = *(a3 + 7), v62 = a2[7], v61 < v62) || v62 >= v61 && (result.n128_u64[0] = *(a3 + 15), result.n128_f64[0] < *(a2 + 15))))
+  {
+    v88 = *(a2 + 2);
+    v93 = *(a2 + 3);
+    v98 = a2[8];
+    v78 = *a2;
+    v83 = *(a2 + 1);
+    v42[1] = 0;
+    v42[2] = 0;
+    *v42 = 0;
+    *&v70[15] = *(a2 + 127);
+    v66 = *(a2 + 6);
+    *v70 = *(a2 + 7);
+    *a2 = *a3;
+    v47 = a3[1];
+    v48 = a3[2];
+    v49 = a3[3];
+    a2[8] = *(a3 + 8);
+    *(a2 + 2) = v48;
+    *(a2 + 3) = v49;
+    *(a2 + 1) = v47;
+    *(a2 + 9) = *(a3 + 72);
+    a2[11] = *(a3 + 11);
+    *(a3 + 9) = 0;
+    *(a3 + 10) = 0;
+    *(a3 + 11) = 0;
+    v50 = a3[6];
+    v51 = a3[7];
+    *(a2 + 127) = *(a3 + 127);
+    *(a2 + 6) = v50;
+    *(a2 + 7) = v51;
+    a3[2] = v88;
+    a3[3] = v93;
+    *(a3 + 8) = v98;
+    *a3 = v78;
+    a3[1] = v83;
+    v52 = *(a3 + 9);
+    if (v52)
+    {
+      *(a3 + 10) = v52;
+      operator delete(v52);
+    }
+
+    *(a3 + 9) = v34;
+    *(a3 + 10) = v35;
+    *(a3 + 11) = v36;
+    goto LABEL_22;
+  }
+
+  return result;
+}
+
+double std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_0 &,operations_research::sat::DiffnCtEvent*,0>(uint64_t a1, __int128 *a2, __int128 *a3, __int128 *a4)
+{
+  *&result = std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_0 &,operations_research::sat::DiffnCtEvent*,0>(a1, a2, a3).n128_u64[0];
+  if (*a4 < *a3 || *a3 >= *a4 && ((v33 = *(a4 + 7), v34 = *(a3 + 7), v33 < v34) || v34 >= v33 && (result = *(a4 + 15), result < *(a3 + 15))))
+  {
+    v54 = a3[2];
+    v57 = a3[3];
+    v60 = *(a3 + 8);
+    v48 = *a3;
+    v51 = a3[1];
+    v9 = *(a3 + 72);
+    v10 = *(a3 + 11);
+    *(a3 + 9) = 0;
+    *(a3 + 10) = 0;
+    *(a3 + 11) = 0;
+    *&v45[15] = *(a3 + 127);
+    v42 = a3[6];
+    *v45 = a3[7];
+    *a3 = *a4;
+    v11 = a4[1];
+    v12 = a4[2];
+    v13 = a4[3];
+    *(a3 + 8) = *(a4 + 8);
+    a3[2] = v12;
+    a3[3] = v13;
+    a3[1] = v11;
+    *(a3 + 72) = *(a4 + 72);
+    *(a3 + 11) = *(a4 + 11);
+    *(a4 + 9) = 0;
+    *(a4 + 10) = 0;
+    *(a4 + 11) = 0;
+    v14 = a4[6];
+    v15 = a4[7];
+    *(a3 + 127) = *(a4 + 127);
+    a3[6] = v14;
+    a3[7] = v15;
+    a4[2] = v54;
+    a4[3] = v57;
+    *(a4 + 8) = v60;
+    *a4 = v48;
+    a4[1] = v51;
+    v16 = *(a4 + 9);
+    if (v16)
+    {
+      *(a4 + 10) = v16;
+      v39 = v9;
+      operator delete(v16);
+      v9 = v39;
+    }
+
+    *(a4 + 72) = v9;
+    *(a4 + 11) = v10;
+    result = *&v42;
+    a4[6] = v42;
+    a4[7] = *v45;
+    *(a4 + 127) = *&v45[15];
+    if (*a3 < *a2 || *a2 >= *a3 && ((v35 = *(a3 + 7), v36 = *(a2 + 7), v35 < v36) || v36 >= v35 && (result = *(a3 + 15), result < *(a2 + 15))))
+    {
+      v55 = a2[2];
+      v58 = a2[3];
+      v61 = *(a2 + 8);
+      v49 = *a2;
+      v52 = a2[1];
+      v17 = *(a2 + 72);
+      v18 = *(a2 + 11);
+      *(a2 + 9) = 0;
+      *(a2 + 10) = 0;
+      *(a2 + 11) = 0;
+      *&v46[15] = *(a2 + 127);
+      v43 = a2[6];
+      *v46 = a2[7];
+      *a2 = *a3;
+      v19 = a3[1];
+      v20 = a3[2];
+      v21 = a3[3];
+      *(a2 + 8) = *(a3 + 8);
+      a2[2] = v20;
+      a2[3] = v21;
+      a2[1] = v19;
+      *(a2 + 72) = *(a3 + 72);
+      *(a2 + 11) = *(a3 + 11);
+      *(a3 + 9) = 0;
+      *(a3 + 10) = 0;
+      *(a3 + 11) = 0;
+      v22 = a3[6];
+      v23 = a3[7];
+      *(a2 + 127) = *(a3 + 127);
+      a2[6] = v22;
+      a2[7] = v23;
+      a3[2] = v55;
+      a3[3] = v58;
+      *(a3 + 8) = v61;
+      *a3 = v49;
+      a3[1] = v52;
+      v24 = *(a3 + 9);
+      if (v24)
+      {
+        *(a3 + 10) = v24;
+        v40 = v17;
+        operator delete(v24);
+        v17 = v40;
+      }
+
+      *(a3 + 72) = v17;
+      *(a3 + 11) = v18;
+      result = *&v43;
+      a3[6] = v43;
+      a3[7] = *v46;
+      *(a3 + 127) = *&v46[15];
+      if (*a2 < *a1 || *a1 >= *a2 && ((v37 = *(a2 + 7), v38 = *(a1 + 56), v37 < v38) || v38 >= v37 && (result = *(a2 + 15), result < *(a1 + 120))))
+      {
+        v56 = *(a1 + 32);
+        v59 = *(a1 + 48);
+        v62 = *(a1 + 64);
+        v50 = *a1;
+        v53 = *(a1 + 16);
+        v25 = *(a1 + 72);
+        v26 = *(a1 + 88);
+        *(a1 + 72) = 0;
+        *(a1 + 80) = 0;
+        *(a1 + 88) = 0;
+        *&v47[15] = *(a1 + 127);
+        v44 = *(a1 + 96);
+        *v47 = *(a1 + 112);
+        *a1 = *a2;
+        v27 = a2[1];
+        v28 = a2[2];
+        v29 = a2[3];
+        *(a1 + 64) = *(a2 + 8);
+        *(a1 + 32) = v28;
+        *(a1 + 48) = v29;
+        *(a1 + 16) = v27;
+        *(a1 + 72) = *(a2 + 72);
+        *(a1 + 88) = *(a2 + 11);
+        *(a2 + 9) = 0;
+        *(a2 + 10) = 0;
+        *(a2 + 11) = 0;
+        v30 = a2[6];
+        v31 = a2[7];
+        *(a1 + 127) = *(a2 + 127);
+        *(a1 + 96) = v30;
+        *(a1 + 112) = v31;
+        a2[2] = v56;
+        a2[3] = v59;
+        *(a2 + 8) = v62;
+        *a2 = v50;
+        a2[1] = v53;
+        v32 = *(a2 + 9);
+        if (v32)
+        {
+          *(a2 + 10) = v32;
+          v41 = v25;
+          operator delete(v32);
+          v25 = v41;
+        }
+
+        *(a2 + 72) = v25;
+        *(a2 + 11) = v26;
+        result = *&v44;
+        a2[6] = v44;
+        a2[7] = *v47;
+        *(a2 + 127) = *&v47[15];
+      }
+    }
+  }
+
+  return result;
+}
+
+double std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_0 &,operations_research::sat::DiffnCtEvent*,0>(__int128 *a1, __int128 *a2, __int128 *a3, __int128 *a4, __int128 *a5)
+{
+  result = std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_0 &,operations_research::sat::DiffnCtEvent*,0>(a1, a2, a3, a4);
+  if (*a5 < *a4 || *a4 >= *a5 && ((v43 = *(a5 + 7), v44 = *(a4 + 7), v43 < v44) || v44 >= v43 && (result = *(a5 + 15), result < *(a4 + 15))))
+  {
+    v71 = a4[2];
+    v75 = a4[3];
+    v79 = *(a4 + 8);
+    v63 = *a4;
+    v67 = a4[1];
+    v11 = *(a4 + 72);
+    v12 = *(a4 + 11);
+    *(a4 + 9) = 0;
+    *(a4 + 10) = 0;
+    *(a4 + 11) = 0;
+    *&v59[15] = *(a4 + 127);
+    v55 = a4[6];
+    *v59 = a4[7];
+    *a4 = *a5;
+    v13 = a5[1];
+    v14 = a5[2];
+    v15 = a5[3];
+    *(a4 + 8) = *(a5 + 8);
+    a4[2] = v14;
+    a4[3] = v15;
+    a4[1] = v13;
+    *(a4 + 72) = *(a5 + 72);
+    *(a4 + 11) = *(a5 + 11);
+    *(a5 + 9) = 0;
+    *(a5 + 10) = 0;
+    *(a5 + 11) = 0;
+    v16 = a5[6];
+    v17 = a5[7];
+    *(a4 + 127) = *(a5 + 127);
+    a4[6] = v16;
+    a4[7] = v17;
+    a5[2] = v71;
+    a5[3] = v75;
+    *(a5 + 8) = v79;
+    *a5 = v63;
+    a5[1] = v67;
+    v18 = *(a5 + 9);
+    if (v18)
+    {
+      *(a5 + 10) = v18;
+      v51 = v11;
+      operator delete(v18);
+      v11 = v51;
+    }
+
+    *(a5 + 72) = v11;
+    *(a5 + 11) = v12;
+    result = *&v55;
+    a5[6] = v55;
+    a5[7] = *v59;
+    *(a5 + 127) = *&v59[15];
+    if (*a4 < *a3 || *a3 >= *a4 && ((v45 = *(a4 + 7), v46 = *(a3 + 7), v45 < v46) || v46 >= v45 && (result = *(a4 + 15), result < *(a3 + 15))))
+    {
+      v72 = a3[2];
+      v76 = a3[3];
+      v80 = *(a3 + 8);
+      v64 = *a3;
+      v68 = a3[1];
+      v19 = *(a3 + 72);
+      v20 = *(a3 + 11);
+      *(a3 + 9) = 0;
+      *(a3 + 10) = 0;
+      *(a3 + 11) = 0;
+      *&v60[15] = *(a3 + 127);
+      v56 = a3[6];
+      *v60 = a3[7];
+      *a3 = *a4;
+      v21 = a4[1];
+      v22 = a4[2];
+      v23 = a4[3];
+      *(a3 + 8) = *(a4 + 8);
+      a3[2] = v22;
+      a3[3] = v23;
+      a3[1] = v21;
+      *(a3 + 72) = *(a4 + 72);
+      *(a3 + 11) = *(a4 + 11);
+      *(a4 + 9) = 0;
+      *(a4 + 10) = 0;
+      *(a4 + 11) = 0;
+      v24 = a4[6];
+      v25 = a4[7];
+      *(a3 + 127) = *(a4 + 127);
+      a3[6] = v24;
+      a3[7] = v25;
+      a4[2] = v72;
+      a4[3] = v76;
+      *(a4 + 8) = v80;
+      *a4 = v64;
+      a4[1] = v68;
+      v26 = *(a4 + 9);
+      if (v26)
+      {
+        *(a4 + 10) = v26;
+        v52 = v19;
+        operator delete(v26);
+        v19 = v52;
+      }
+
+      *(a4 + 72) = v19;
+      *(a4 + 11) = v20;
+      result = *&v56;
+      a4[6] = v56;
+      a4[7] = *v60;
+      *(a4 + 127) = *&v60[15];
+      if (*a3 < *a2 || *a2 >= *a3 && ((v47 = *(a3 + 7), v48 = *(a2 + 7), v47 < v48) || v48 >= v47 && (result = *(a3 + 15), result < *(a2 + 15))))
+      {
+        v73 = a2[2];
+        v77 = a2[3];
+        v81 = *(a2 + 8);
+        v65 = *a2;
+        v69 = a2[1];
+        v27 = *(a2 + 72);
+        v28 = *(a2 + 11);
+        *(a2 + 9) = 0;
+        *(a2 + 10) = 0;
+        *(a2 + 11) = 0;
+        *&v61[15] = *(a2 + 127);
+        v57 = a2[6];
+        *v61 = a2[7];
+        *a2 = *a3;
+        v29 = a3[1];
+        v30 = a3[2];
+        v31 = a3[3];
+        *(a2 + 8) = *(a3 + 8);
+        a2[2] = v30;
+        a2[3] = v31;
+        a2[1] = v29;
+        *(a2 + 72) = *(a3 + 72);
+        *(a2 + 11) = *(a3 + 11);
+        *(a3 + 9) = 0;
+        *(a3 + 10) = 0;
+        *(a3 + 11) = 0;
+        v32 = a3[6];
+        v33 = a3[7];
+        *(a2 + 127) = *(a3 + 127);
+        a2[6] = v32;
+        a2[7] = v33;
+        a3[2] = v73;
+        a3[3] = v77;
+        *(a3 + 8) = v81;
+        *a3 = v65;
+        a3[1] = v69;
+        v34 = *(a3 + 9);
+        if (v34)
+        {
+          *(a3 + 10) = v34;
+          v53 = v27;
+          operator delete(v34);
+          v27 = v53;
+        }
+
+        *(a3 + 72) = v27;
+        *(a3 + 11) = v28;
+        result = *&v57;
+        a3[6] = v57;
+        a3[7] = *v61;
+        *(a3 + 127) = *&v61[15];
+        if (*a2 < *a1 || *a1 >= *a2 && ((v49 = *(a2 + 7), v50 = *(a1 + 7), v49 < v50) || v50 >= v49 && (result = *(a2 + 15), result < *(a1 + 15))))
+        {
+          v74 = a1[2];
+          v78 = a1[3];
+          v82 = *(a1 + 8);
+          v66 = *a1;
+          v70 = a1[1];
+          v35 = *(a1 + 72);
+          v36 = *(a1 + 11);
+          *(a1 + 9) = 0;
+          *(a1 + 10) = 0;
+          *(a1 + 11) = 0;
+          *&v62[15] = *(a1 + 127);
+          v58 = a1[6];
+          *v62 = a1[7];
+          *a1 = *a2;
+          v37 = a2[1];
+          v38 = a2[2];
+          v39 = a2[3];
+          *(a1 + 8) = *(a2 + 8);
+          a1[2] = v38;
+          a1[3] = v39;
+          a1[1] = v37;
+          *(a1 + 72) = *(a2 + 72);
+          *(a1 + 11) = *(a2 + 11);
+          *(a2 + 9) = 0;
+          *(a2 + 10) = 0;
+          *(a2 + 11) = 0;
+          v40 = a2[6];
+          v41 = a2[7];
+          *(a1 + 127) = *(a2 + 127);
+          a1[6] = v40;
+          a1[7] = v41;
+          a2[2] = v74;
+          a2[3] = v78;
+          *(a2 + 8) = v82;
+          *a2 = v66;
+          a2[1] = v70;
+          v42 = *(a2 + 9);
+          if (v42)
+          {
+            *(a2 + 10) = v42;
+            v54 = v35;
+            operator delete(v42);
+            v35 = v54;
+          }
+
+          *(a2 + 72) = v35;
+          *(a2 + 11) = v36;
+          result = *&v58;
+          a2[6] = v58;
+          a2[7] = *v62;
+          *(a2 + 127) = *&v62[15];
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_0 &,operations_research::sat::DiffnCtEvent*>(uint64_t a1, uint64_t a2)
+{
+  v3 = 0xF0F0F0F0F0F0F0F1 * ((a2 - a1) >> 3);
+  if (v3 > 2)
+  {
+    switch(v3)
+    {
+      case 3:
+        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_0 &,operations_research::sat::DiffnCtEvent*,0>(a1, (a1 + 136), (a2 - 136));
+        v4 = 1;
+        return v4 & 1;
+      case 4:
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_0 &,operations_research::sat::DiffnCtEvent*,0>(a1, (a1 + 136), (a1 + 272), (a2 - 136));
+        v4 = 1;
+        return v4 & 1;
+      case 5:
+        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_0 &,operations_research::sat::DiffnCtEvent*,0>(a1, (a1 + 136), (a1 + 272), (a1 + 408), (a2 - 136));
+        v4 = 1;
+        return v4 & 1;
+    }
+  }
+
+  else
+  {
+    if (v3 < 2)
+    {
+      goto LABEL_3;
+    }
+
+    if (v3 == 2)
+    {
+      v5 = (a2 - 136);
+      v6 = *(a2 - 136);
+      if (v6 < *a1 || *a1 >= v6 && ((v44 = *(a2 - 80), v45 = *(a1 + 56), v44 < v45) || v45 >= v44 && *(a2 - 16) < *(a1 + 120)))
+      {
+        v60 = *(a1 + 32);
+        v62 = *(a1 + 48);
+        v63 = *(a1 + 64);
+        v56 = *a1;
+        v58 = *(a1 + 16);
+        v7 = *(a1 + 72);
+        v8 = *(a1 + 88);
+        *(a1 + 72) = 0;
+        *(a1 + 80) = 0;
+        *(a1 + 88) = 0;
+        *&v54[15] = *(a1 + 127);
+        v52 = *(a1 + 96);
+        *v54 = *(a1 + 112);
+        *a1 = *v5;
+        v9 = *(a2 - 120);
+        v10 = *(a2 - 104);
+        v11 = *(a2 - 88);
+        *(a1 + 64) = *(a2 - 72);
+        *(a1 + 32) = v10;
+        *(a1 + 48) = v11;
+        *(a1 + 16) = v9;
+        *(a1 + 72) = *(a2 - 64);
+        *(a1 + 88) = *(a2 - 48);
+        *(a2 - 64) = 0;
+        *(a2 - 56) = 0;
+        *(a2 - 48) = 0;
+        v12 = a2 - 40;
+        v13 = *(a2 - 40);
+        v14 = *(a2 - 24);
+        *(a1 + 127) = *(a2 - 9);
+        *(a1 + 96) = v13;
+        *(a1 + 112) = v14;
+        *(a2 - 104) = v60;
+        *(a2 - 88) = v62;
+        *(a2 - 72) = v63;
+        *v5 = v56;
+        *(a2 - 120) = v58;
+        v15 = *(a2 - 64);
+        if (v15)
+        {
+          *(a2 - 56) = v15;
+          v16 = a2;
+          v48 = v7;
+          operator delete(v15);
+          v7 = v48;
+          a2 = v16;
+        }
+
+        *(a2 - 64) = v7;
+        *(a2 - 48) = v8;
+        *v12 = v52;
+        *(v12 + 16) = *v54;
+        *(v12 + 31) = *&v54[15];
+        v4 = 1;
+        return v4 & 1;
+      }
+
+LABEL_3:
+      v4 = 1;
+      return v4 & 1;
+    }
+  }
+
+  v17 = (a1 + 272);
+  v18 = a2;
+  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_0 &,operations_research::sat::DiffnCtEvent*,0>(a1, (a1 + 136), (a1 + 272));
+  v20 = (a1 + 408);
+  if (a1 + 408 == v18)
+  {
+LABEL_40:
+    v43 = 1;
+    goto LABEL_47;
+  }
+
+  v21 = v18;
+  v22 = 0;
+  v23 = 0;
+  v47 = v18;
+  while (1)
+  {
+    v24 = *v20;
+    if (*v20 < *v17)
+    {
+      break;
+    }
+
+    if (*v17 >= *&v24)
+    {
+      v25 = v20[7];
+      v40 = *(v17 + 7);
+      if (v25 < v40 || v40 >= v25 && *(v20 + 15) < v17[15])
+      {
+        goto LABEL_20;
+      }
+    }
+
+LABEL_17:
+    v17 = v20;
+    v22 += 136;
+    v20 += 17;
+    if (v20 == v21)
+    {
+      goto LABEL_40;
+    }
+  }
+
+  v25 = v20[7];
+LABEL_20:
+  v26 = 0;
+  v57 = *(v20 + 1);
+  v59 = *(v20 + 3);
+  v61 = *(v20 + 5);
+  v28 = v20[8];
+  v27 = v20[9];
+  v29 = *(v20 + 6);
+  v49 = *(v20 + 5);
+  v20[9] = 0;
+  v20[10] = 0;
+  v20[11] = 0;
+  v53 = v29;
+  v55 = v20[14];
+  v51 = *(v20 + 130);
+  v50 = *(v20 + 64);
+  v30 = v22;
+  v31 = *(v20 + 15);
+  while (1)
+  {
+    v32 = a1 + v30;
+    v33 = (a1 + v30 + 408);
+    v34 = *(a1 + v30 + 320);
+    v33[2] = *(a1 + v30 + 304);
+    v33[3] = v34;
+    *(a1 + v30 + 472) = *(a1 + v30 + 336);
+    v35 = *(a1 + v30 + 288);
+    *v33 = *(a1 + v30 + 272);
+    v33[1] = v35;
+    if (v26)
+    {
+      *(v32 + 488) = v26;
+      operator delete(v26);
+      *(v32 + 488) = 0;
+      *(v32 + 496) = 0;
+    }
+
+    *(v32 + 480) = *(v32 + 344);
+    *(v32 + 496) = *(v32 + 360);
+    *(v32 + 352) = 0;
+    *(v32 + 360) = 0;
+    *(v32 + 344) = 0;
+    LOBYTE(v19) = v32 - 8;
+    v36 = *(v32 + 384);
+    *(v32 + 504) = *(v32 + 368);
+    *(v32 + 520) = v36;
+    *(v32 + 535) = *(v32 + 399);
+    if (v30 == -272)
+    {
+      break;
+    }
+
+    v19 = a1 + v30;
+    v37 = *(a1 + v30 + 136);
+    if (*&v24 >= *&v37)
+    {
+      if (*&v37 < *&v24 || (v38 = *(v19 + 192), v25 >= v38) && (v38 < v25 || v31 >= *(v19 + 256)))
+      {
+        v39 = a1 + v30 + 272;
+        goto LABEL_37;
+      }
+    }
+
+    v26 = *(v32 + 344);
+    v30 -= 136;
+  }
+
+  v39 = a1;
+LABEL_37:
+  v41 = a1 + v30;
+  *v39 = v24;
+  *(v39 + 8) = v57;
+  *(v39 + 24) = v59;
+  *(v39 + 40) = v61;
+  *(v39 + 56) = v25;
+  *(v39 + 64) = v28;
+  v42 = *(v41 + 344);
+  if (v42)
+  {
+    *(v39 + 80) = v42;
+    operator delete(v42);
+    *(v41 + 352) = 0;
+    *(v41 + 360) = 0;
+  }
+
+  *(v41 + 344) = v27;
+  *(v39 + 80) = v49;
+  *(v41 + 368) = v53;
+  *(v41 + 384) = v55;
+  *(v39 + 120) = v31;
+  *(v39 + 128) = v50;
+  ++v23;
+  *(v39 + 130) = v51;
+  v21 = v47;
+  if (v23 != 8)
+  {
+    goto LABEL_17;
+  }
+
+  v43 = 0;
+  LOBYTE(v19) = v20 + 17 == v47;
+LABEL_47:
+  v4 = v43 | v19;
+  return v4 & 1;
+}
+
+void ***std::__exception_guard_exceptions<std::vector<operations_research::sat::DiffnCtEvent>::__destroy_vector>::~__exception_guard_exceptions[abi:ne200100](void ***a1)
+{
+  if ((a1[1] & 1) == 0)
+  {
+    v2 = *a1;
+    v3 = **a1;
+    if (v3)
+    {
+      v4 = v2[1];
+      v5 = **a1;
+      if (v4 != v3)
+      {
+        do
+        {
+          v6 = *(v4 - 8);
+          if (v6)
+          {
+            *(v4 - 7) = v6;
+            operator delete(v6);
+          }
+
+          v4 -= 136;
+        }
+
+        while (v4 != v3);
+        v5 = **a1;
+      }
+
+      v2[1] = v3;
+      operator delete(v5);
+    }
+  }
+
+  return a1;
+}
+
 uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<operations_research::sat::DiffnCtEvent>,operations_research::sat::DiffnCtEvent*,operations_research::sat::DiffnCtEvent*,operations_research::sat::DiffnCtEvent*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2 != a3)
@@ -78,7 +2773,7 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
   return a1;
 }
 
-uint64_t std::vector<operations_research::sat::DiffnCtEvent>::__emplace_back_slow_path<operations_research::sat::DiffnCtEvent const&>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<operations_research::sat::DiffnCtEvent>::__emplace_back_slow_path<operations_research::sat::DiffnCtEvent const&>(unint64_t *a1, uint64_t a2)
 {
   v2 = 0xF0F0F0F0F0F0F0F1 * ((a1[1] - *a1) >> 3) + 1;
   if (v2 > 0x1E1E1E1E1E1E1E1)
@@ -200,14 +2895,14 @@ uint64_t std::vector<operations_research::sat::DiffnCtEvent>::__emplace_back_slo
   return v5 + 136;
 }
 
-void sub_23CB6F37C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23CB6F37C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v5 = *v3;
-  if (*v3)
+  va_start(va, a3);
+  v6 = *v4;
+  if (*v4)
   {
-    *(v2 + 80) = v5;
-    operator delete(v5);
+    *(v3 + 80) = v6;
+    operator delete(v6);
   }
 
   std::__split_buffer<operations_research::sat::DiffnCtEvent>::~__split_buffer(va);
@@ -256,15 +2951,15 @@ LABEL_6:
   return a1;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,false>(uint64_t a1, unint64_t a2, uint64_t a3, char a4)
+void std::__introsort<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,false>(double *a1, double *a2, uint64_t a3, char a4)
 {
   while (2)
   {
-    v178 = (a2 - 272);
-    v179 = (a2 - 136);
-    v177 = (a2 - 408);
+    v177 = (a2 - 34);
+    v178 = (a2 - 17);
+    v176 = (a2 - 51);
     v7 = a1;
-    v185 = a2;
+    v184 = a2;
     while (1)
     {
       while (1)
@@ -273,7 +2968,7 @@ void std::__introsort<std::_ClassicAlgPolicy,operations_research::sat::GenerateN
         {
           a1 = v7;
           v8 = a2 - v7;
-          v9 = 0xF0F0F0F0F0F0F0F1 * ((a2 - v7) >> 3);
+          v9 = 0xF0F0F0F0F0F0F0F1 * (a2 - v7);
           v10 = v9 - 2;
           if (v9 > 2)
           {
@@ -281,15 +2976,15 @@ void std::__introsort<std::_ClassicAlgPolicy,operations_research::sat::GenerateN
             {
               case 3:
 
-                std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,0>(a1, (a1 + 136), v179);
+                std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,0>(a1, (a1 + 17), v178);
                 return;
               case 4:
 
-                std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,0>(a1, a1 + 136, a1 + 272, v179);
+                std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,0>(a1, (a1 + 17), (a1 + 34), v178);
                 return;
               case 5:
 
-                std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,0>(a1, a1 + 136, a1 + 272, a1 + 408, v179);
+                std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,0>(a1, (a1 + 17), a1 + 17, (a1 + 51), v178);
                 return;
             }
           }
@@ -303,58 +2998,58 @@ void std::__introsort<std::_ClassicAlgPolicy,operations_research::sat::GenerateN
 
             if (v9 == 2)
             {
-              if (*(a2 - 16) < *(a1 + 120))
+              if (*(a2 - 2) < a1[15])
               {
-                v248 = *a1;
-                v280 = *(a1 + 64);
-                v264 = *(a1 + 32);
-                v272 = *(a1 + 48);
-                v256 = *(a1 + 16);
-                v79 = *(a1 + 72);
-                v80 = *(a1 + 88);
-                *(a1 + 72) = 0;
-                *(a1 + 80) = 0;
-                *(a1 + 88) = 0;
-                v211 = *(a1 + 96);
-                *v219 = *(a1 + 112);
-                *&v219[15] = *(a1 + 127);
-                v81 = *(a2 - 104);
-                v82 = *(a2 - 88);
-                v83 = *(a2 - 120);
-                *(a1 + 64) = *(a2 - 72);
-                *(a1 + 32) = v81;
-                *(a1 + 48) = v82;
-                *(a1 + 16) = v83;
-                *a1 = *(a2 - 136);
-                *(a1 + 72) = *(a2 - 64);
-                *(a1 + 88) = *(a2 - 48);
-                *(a2 - 56) = 0;
-                *(a2 - 48) = 0;
-                *(a2 - 64) = 0;
-                v84 = *(a2 - 40);
-                v85 = *(a2 - 24);
+                v247 = *a1;
+                v279 = *(a1 + 8);
+                v263 = *(a1 + 2);
+                v271 = *(a1 + 3);
+                v255 = *(a1 + 1);
+                v79 = *(a1 + 9);
+                v80 = *(a1 + 11);
+                a1[9] = 0.0;
+                a1[10] = 0.0;
+                a1[11] = 0.0;
+                v210 = *(a1 + 6);
+                *v218 = *(a1 + 7);
+                *&v218[15] = *(a1 + 127);
+                v81 = *(a2 - 13);
+                v82 = *(a2 - 11);
+                v83 = *(a2 - 15);
+                a1[8] = *(a2 - 9);
+                *(a1 + 2) = v81;
+                *(a1 + 3) = v82;
+                *(a1 + 1) = v83;
+                *a1 = *(a2 - 17);
+                *(a1 + 9) = *(a2 - 4);
+                a1[11] = *(a2 - 6);
+                *(a2 - 7) = 0.0;
+                *(a2 - 6) = 0.0;
+                *(a2 - 8) = 0.0;
+                v84 = *(a2 - 5);
+                v85 = *(a2 - 3);
                 *(a1 + 127) = *(a2 - 9);
-                *(a1 + 96) = v84;
-                *(a1 + 112) = v85;
-                *(a2 - 136) = v248;
-                *(a2 - 120) = v256;
-                *(a2 - 72) = v280;
-                *(a2 - 88) = v272;
-                *(a2 - 104) = v264;
-                v86 = *(a2 - 64);
+                *(a1 + 6) = v84;
+                *(a1 + 7) = v85;
+                *(a2 - 17) = v247;
+                *(a2 - 15) = v255;
+                *(a2 - 9) = v279;
+                *(a2 - 11) = v271;
+                *(a2 - 13) = v263;
+                v86 = *(a2 - 8);
                 if (v86)
                 {
-                  *(a2 - 56) = v86;
-                  v190 = v79;
+                  *(a2 - 7) = v86;
+                  v189 = v79;
                   operator delete(v86);
-                  v79 = v190;
+                  v79 = v189;
                 }
 
-                *(a2 - 64) = v79;
-                *(a2 - 48) = v80;
-                *(a2 - 9) = *&v219[15];
-                *(a2 - 40) = v211;
-                *(a2 - 24) = *v219;
+                *(a2 - 4) = v79;
+                *(a2 - 6) = v80;
+                *(a2 - 9) = *&v218[15];
+                *(a2 - 5) = v210;
+                *(a2 - 3) = *v218;
               }
 
               return;
@@ -363,7 +3058,7 @@ void std::__introsort<std::_ClassicAlgPolicy,operations_research::sat::GenerateN
 
           if (v8 <= 3263)
           {
-            v87 = a1 + 136;
+            v87 = a1 + 17;
             v89 = a1 == a2 || v87 == a2;
             if (a4)
             {
@@ -374,23 +3069,23 @@ void std::__introsort<std::_ClassicAlgPolicy,operations_research::sat::GenerateN
                 do
                 {
                   v92 = v87;
-                  if (*(v91 + 256) < *(v91 + 120))
+                  if (v91[32] < v91[15])
                   {
-                    v249 = *v87;
-                    v281 = *(v87 + 64);
-                    v265 = *(v87 + 32);
-                    v273 = *(v87 + 48);
-                    v257 = *(v87 + 16);
-                    v93 = *(v91 + 208);
-                    v191 = *(v91 + 216);
-                    *(v91 + 216) = 0;
-                    *(v91 + 224) = 0;
-                    *(v91 + 208) = 0;
-                    v220 = *(v91 + 248);
-                    v212 = *(v91 + 232);
-                    v94 = *(v91 + 256);
-                    v239 = *(v91 + 266);
-                    v235 = *(v91 + 264);
+                    v248 = *v87;
+                    v280 = *(v87 + 8);
+                    v264 = *(v87 + 2);
+                    v272 = *(v87 + 3);
+                    v256 = *(v87 + 1);
+                    v93 = *(v91 + 26);
+                    v190 = *(v91 + 27);
+                    v91[27] = 0.0;
+                    v91[28] = 0.0;
+                    v91[26] = 0.0;
+                    v219 = *(v91 + 31);
+                    v211 = *(v91 + 29);
+                    v94 = v91[32];
+                    v238 = *(v91 + 266);
+                    v234 = *(v91 + 132);
                     v95 = v90;
                     while (1)
                     {
@@ -401,24 +3096,24 @@ void std::__introsort<std::_ClassicAlgPolicy,operations_research::sat::GenerateN
                       v99 = *(a1 + v95 + 48);
                       *(v97 + 168) = *(a1 + v95 + 32);
                       *(v97 + 184) = v99;
-                      *(v97 + 200) = *(a1 + v95 + 64);
+                      *(v97 + 25) = *(a1 + v95 + 64);
                       *(v97 + 136) = v98;
                       v100 = *(a1 + v95 + 208);
                       if (v100)
                       {
-                        *(v97 + 216) = v100;
+                        *(v97 + 27) = v100;
                         operator delete(v100);
-                        *(v97 + 216) = 0;
-                        *(v97 + 224) = 0;
+                        *(v97 + 27) = 0;
+                        *(v97 + 28) = 0;
                       }
 
-                      *(v97 + 208) = *(v97 + 72);
-                      *(v97 + 224) = *(v97 + 88);
-                      *(v97 + 80) = 0;
-                      *(v97 + 88) = 0;
-                      *(v97 + 72) = 0;
-                      v101 = *(v97 + 112);
-                      *(v97 + 232) = *(v97 + 96);
+                      *(v97 + 13) = *(v97 + 72);
+                      *(v97 + 28) = *(v97 + 11);
+                      *(v97 + 10) = 0;
+                      *(v97 + 11) = 0;
+                      *(v97 + 9) = 0;
+                      v101 = *(v97 + 7);
+                      *(v97 + 232) = *(v97 + 6);
                       *(v97 + 248) = v101;
                       *(v97 + 263) = *(v97 + 127);
                       if (!v96)
@@ -429,7 +3124,7 @@ void std::__introsort<std::_ClassicAlgPolicy,operations_research::sat::GenerateN
                       v95 = v96 - 136;
                       if (v94 >= *(a1 + v96 - 16))
                       {
-                        v102 = a1 + v96;
+                        v102 = (a1 + v96);
                         goto LABEL_103;
                       }
                     }
@@ -437,36 +3132,36 @@ void std::__introsort<std::_ClassicAlgPolicy,operations_research::sat::GenerateN
                     v102 = a1;
 LABEL_103:
                     v103 = a1 + v96;
-                    *v102 = v249;
-                    *(v102 + 64) = v281;
-                    *(v102 + 32) = v265;
-                    *(v102 + 48) = v273;
-                    *(v102 + 16) = v257;
-                    v104 = *(v103 + 72);
+                    *v102 = v248;
+                    *(v102 + 8) = v280;
+                    *(v102 + 2) = v264;
+                    *(v102 + 3) = v272;
+                    *(v102 + 1) = v256;
+                    v104 = *(v103 + 9);
                     if (v104)
                     {
-                      *(v102 + 80) = v104;
+                      *(v102 + 10) = v104;
                       operator delete(v104);
-                      *(v103 + 80) = 0;
-                      *(v103 + 88) = 0;
+                      *(v103 + 10) = 0;
+                      *(v103 + 11) = 0;
                     }
 
-                    *(v103 + 72) = v93;
-                    *(v102 + 80) = v191;
-                    *(v103 + 112) = v220;
-                    *(v103 + 96) = v212;
-                    *(v102 + 120) = v94;
-                    *(v102 + 128) = v235;
-                    *(v102 + 130) = v239;
-                    a2 = v185;
+                    *(v103 + 9) = v93;
+                    *(v102 + 5) = v190;
+                    *(v103 + 14) = v219;
+                    *(v103 + 6) = v211;
+                    v102[15] = v94;
+                    *(v102 + 64) = v234;
+                    *(v102 + 130) = v238;
+                    a2 = v184;
                   }
 
-                  v87 = v92 + 136;
+                  v87 = v92 + 17;
                   v90 += 136;
                   v91 = v92;
                 }
 
-                while (v92 + 136 != a2);
+                while (v92 + 17 != a2);
               }
             }
 
@@ -474,83 +3169,83 @@ LABEL_103:
             {
               do
               {
-                v167 = v87;
-                if (*(a1 + 256) < *(a1 + 120))
+                v166 = v87;
+                if (a1[32] < a1[15])
                 {
-                  v252 = *v87;
-                  v284 = *(v87 + 64);
-                  v268 = *(v87 + 32);
-                  v276 = *(v87 + 48);
-                  v260 = *(v87 + 16);
-                  v195 = *(a1 + 208);
-                  v168 = *(a1 + 224);
-                  *(a1 + 216) = 0;
-                  *(a1 + 224) = 0;
-                  *(a1 + 208) = 0;
-                  v223 = *(a1 + 248);
-                  v215 = *(a1 + 232);
-                  v169 = *(a1 + 256);
-                  v241 = *(a1 + 266);
-                  v238 = *(a1 + 264);
-                  v170 = v87;
+                  v251 = *v87;
+                  v283 = *(v87 + 8);
+                  v267 = *(v87 + 2);
+                  v275 = *(v87 + 3);
+                  v259 = *(v87 + 1);
+                  v194 = *(a1 + 13);
+                  v167 = *(a1 + 28);
+                  a1[27] = 0.0;
+                  a1[28] = 0.0;
+                  a1[26] = 0.0;
+                  v222 = *(a1 + 31);
+                  v214 = *(a1 + 29);
+                  v168 = a1[32];
+                  v240 = *(a1 + 266);
+                  v237 = *(a1 + 132);
+                  v169 = v87;
                   do
                   {
-                    v173 = *(v170 - 120);
-                    v174 = *(v170 - 88);
-                    *(v170 + 32) = *(v170 - 104);
-                    *(v170 + 48) = v174;
-                    *(v170 + 64) = *(v170 - 72);
-                    *v170 = *(v170 - 136);
-                    *(v170 + 16) = v173;
-                    v175 = *(v170 + 72);
-                    if (v175)
+                    v172 = *(v169 - 15);
+                    v173 = *(v169 - 11);
+                    *(v169 + 2) = *(v169 - 13);
+                    *(v169 + 3) = v173;
+                    v169[8] = *(v169 - 9);
+                    *v169 = *(v169 - 17);
+                    *(v169 + 1) = v172;
+                    v174 = *(v169 + 9);
+                    if (v174)
                     {
-                      *(v170 + 80) = v175;
-                      operator delete(v175);
-                      *(v170 + 80) = 0;
-                      *(v170 + 88) = 0;
+                      *(v169 + 10) = v174;
+                      operator delete(v174);
+                      v169[10] = 0.0;
+                      v169[11] = 0.0;
                     }
 
-                    *(v170 + 72) = *(v170 - 64);
-                    *(v170 + 88) = *(v170 - 48);
-                    *(v170 - 56) = 0;
-                    *(v170 - 48) = 0;
-                    *(v170 - 64) = 0;
-                    v171 = *(v170 - 24);
-                    *(v170 + 96) = *(v170 - 40);
-                    *(v170 + 112) = v171;
-                    *(v170 + 127) = *(v170 - 9);
-                    v172 = *(v170 - 152);
-                    v170 -= 136;
+                    *(v169 + 9) = *(v169 - 4);
+                    v169[11] = *(v169 - 6);
+                    *(v169 - 7) = 0.0;
+                    *(v169 - 6) = 0.0;
+                    *(v169 - 8) = 0.0;
+                    v170 = *(v169 - 3);
+                    *(v169 + 6) = *(v169 - 5);
+                    *(v169 + 7) = v170;
+                    *(v169 + 127) = *(v169 - 9);
+                    v171 = *(v169 - 19);
+                    v169 -= 17;
                   }
 
-                  while (v169 < v172);
-                  *v170 = v252;
-                  *(v170 + 64) = v284;
-                  *(v170 + 32) = v268;
-                  *(v170 + 48) = v276;
-                  *(v170 + 16) = v260;
-                  v176 = *(v170 + 72);
-                  if (v176)
+                  while (v168 < v171);
+                  *v169 = v251;
+                  *(v169 + 8) = v283;
+                  *(v169 + 2) = v267;
+                  *(v169 + 3) = v275;
+                  *(v169 + 1) = v259;
+                  v175 = *(v169 + 9);
+                  if (v175)
                   {
-                    *(v170 + 80) = v176;
-                    operator delete(v176);
+                    *(v169 + 10) = v175;
+                    operator delete(v175);
                   }
 
-                  *(v170 + 72) = v195;
-                  *(v170 + 88) = v168;
-                  *(v170 + 112) = v223;
-                  *(v170 + 96) = v215;
-                  *(v170 + 120) = v169;
-                  *(v170 + 130) = v241;
-                  *(v170 + 128) = v238;
+                  *(v169 + 9) = v194;
+                  *(v169 + 11) = v167;
+                  *(v169 + 14) = v222;
+                  *(v169 + 6) = v214;
+                  v169[15] = v168;
+                  *(v169 + 130) = v240;
+                  *(v169 + 64) = v237;
                 }
 
-                v87 = v167 + 136;
-                a1 = v167;
+                v87 = v166 + 17;
+                a1 = v166;
               }
 
-              while (v167 + 136 != a2);
+              while (v166 + 17 != a2);
             }
 
             return;
@@ -571,64 +3266,64 @@ LABEL_103:
                 {
                   v110 = 2 * v109;
                   v111 = (2 * v109) | 1;
-                  v112 = a1 + 136 * v111;
+                  v112 = &a1[17 * v111];
                   v113 = v110 + 2;
-                  if (v113 < v9 && *(v112 + 120) < *(v112 + 256))
+                  if (v113 < v9 && v112[15] < v112[32])
                   {
-                    v112 += 136;
+                    v112 += 17;
                     v111 = v113;
                   }
 
-                  v114 = a1 + 8 * v108;
-                  v115 = *(v114 + 120);
-                  if (*(v112 + 120) >= v115)
+                  v114 = &a1[v108];
+                  v115 = v114[15];
+                  if (v112[15] >= v115)
                   {
-                    v250 = *v114;
-                    v282 = *(v114 + 64);
-                    v266 = *(v114 + 32);
-                    v274 = *(v114 + 48);
-                    v258 = *(v114 + 16);
-                    v192 = *(v114 + 72);
-                    v183 = *(v114 + 88);
-                    *(v114 + 80) = 0;
-                    *(v114 + 88) = 0;
-                    *(v114 + 72) = 0;
-                    v221 = *(v114 + 112);
-                    v213 = *(v114 + 96);
-                    v240 = *(v114 + 130);
-                    v236 = *(v114 + 128);
+                    v249 = *v114;
+                    v281 = *(v114 + 8);
+                    v265 = *(v114 + 2);
+                    v273 = *(v114 + 3);
+                    v257 = *(v114 + 1);
+                    v191 = *(v114 + 9);
+                    v182 = *(v114 + 11);
+                    v114[10] = 0.0;
+                    v114[11] = 0.0;
+                    v114[9] = 0.0;
+                    v220 = *(v114 + 14);
+                    v212 = *(v114 + 6);
+                    v239 = *(v114 + 130);
+                    v235 = *(v114 + 64);
                     do
                     {
                       v116 = v114;
                       v114 = v112;
                       *v116 = *v112;
-                      v117 = *(v112 + 16);
-                      v118 = *(v112 + 32);
-                      v119 = *(v112 + 48);
-                      *(v116 + 64) = *(v112 + 64);
-                      *(v116 + 32) = v118;
-                      *(v116 + 48) = v119;
-                      *(v116 + 16) = v117;
-                      v120 = *(v116 + 72);
+                      v117 = *(v112 + 1);
+                      v118 = *(v112 + 2);
+                      v119 = *(v112 + 3);
+                      v116[8] = v112[8];
+                      *(v116 + 2) = v118;
+                      *(v116 + 3) = v119;
+                      *(v116 + 1) = v117;
+                      v120 = *(v116 + 9);
                       if (v120)
                       {
-                        *(v116 + 80) = v120;
+                        *(v116 + 10) = v120;
                         operator delete(v120);
-                        *(v116 + 72) = 0;
-                        *(v116 + 80) = 0;
-                        *(v116 + 88) = 0;
+                        v116[9] = 0.0;
+                        v116[10] = 0.0;
+                        v116[11] = 0.0;
                       }
 
-                      *(v116 + 72) = *(v114 + 72);
-                      *(v116 + 88) = *(v114 + 88);
-                      *(v114 + 72) = 0;
-                      *(v114 + 80) = 0;
-                      *(v114 + 88) = 0;
-                      v121 = *(v114 + 96);
-                      v122 = *(v114 + 112);
+                      *(v116 + 9) = *(v114 + 9);
+                      v116[11] = v114[11];
+                      v114[9] = 0.0;
+                      v114[10] = 0.0;
+                      v114[11] = 0.0;
+                      v121 = *(v114 + 6);
+                      v122 = *(v114 + 7);
                       *(v116 + 127) = *(v114 + 127);
-                      *(v116 + 96) = v121;
-                      *(v116 + 112) = v122;
+                      *(v116 + 6) = v121;
+                      *(v116 + 7) = v122;
                       if (v105 < v111)
                       {
                         break;
@@ -636,35 +3331,35 @@ LABEL_103:
 
                       v123 = 2 * v111;
                       v111 = (2 * v111) | 1;
-                      v112 = a1 + 136 * v111;
+                      v112 = &a1[17 * v111];
                       v124 = v123 + 2;
-                      if (v124 < v9 && *(v112 + 120) < *(v112 + 256))
+                      if (v124 < v9 && v112[15] < v112[32])
                       {
-                        v112 += 136;
+                        v112 += 17;
                         v111 = v124;
                       }
                     }
 
-                    while (*(v112 + 120) >= v115);
-                    *v114 = v250;
-                    *(v114 + 64) = v282;
-                    *(v114 + 32) = v266;
-                    *(v114 + 48) = v274;
-                    *(v114 + 16) = v258;
-                    v125 = *(v114 + 72);
+                    while (v112[15] >= v115);
+                    *v114 = v249;
+                    *(v114 + 8) = v281;
+                    *(v114 + 2) = v265;
+                    *(v114 + 3) = v273;
+                    *(v114 + 1) = v257;
+                    v125 = *(v114 + 9);
                     if (v125)
                     {
-                      *(v114 + 80) = v125;
+                      *(v114 + 10) = v125;
                       operator delete(v125);
                     }
 
-                    *(v114 + 72) = v192;
-                    *(v114 + 88) = v183;
-                    *(v114 + 96) = v213;
-                    *(v114 + 112) = v221;
-                    *(v114 + 120) = v115;
-                    *(v114 + 128) = v236;
-                    *(v114 + 130) = v240;
+                    *(v114 + 9) = v191;
+                    *(v114 + 11) = v182;
+                    *(v114 + 6) = v212;
+                    *(v114 + 14) = v220;
+                    v114[15] = v115;
+                    *(v114 + 64) = v235;
+                    *(v114 + 130) = v239;
                   }
                 }
 
@@ -673,30 +3368,29 @@ LABEL_103:
 
               while (v107);
               v126 = 0xF0F0F0F0F0F0F0F1 * (v8 >> 3);
-              v127 = v185;
+              v127 = v184;
               do
               {
                 v129 = 0;
-                v214 = *a1;
-                v232 = *(a1 + 64);
-                v226 = *(a1 + 32);
-                v229 = *(a1 + 48);
-                v222 = *(a1 + 16);
-                v130 = *(a1 + 80);
-                v186 = v130;
-                v193 = *(a1 + 72);
-                v184 = *(a1 + 88);
-                *(a1 + 80) = 0;
-                *(a1 + 88) = 0;
-                *(a1 + 72) = 0;
-                *&v244[15] = *(a1 + 127);
-                *v244 = *(a1 + 112);
-                v131 = a1;
-                v237 = *(a1 + 96);
+                v213 = *a1;
+                v231 = *(a1 + 8);
+                v225 = *(a1 + 2);
+                v228 = *(a1 + 3);
+                v221 = *(a1 + 1);
+                v185 = *(a1 + 10);
+                v192 = *(a1 + 9);
+                v183 = *(a1 + 11);
+                a1[10] = 0.0;
+                a1[11] = 0.0;
+                a1[9] = 0.0;
+                *&v243[15] = *(a1 + 127);
+                *v243 = *(a1 + 7);
+                v130 = a1;
+                v236 = *(a1 + 6);
                 do
                 {
-                  v135 = v131 + 136 * v129;
-                  v136 = v135 + 136;
+                  v134 = &v130[17 * v129];
+                  v135 = v134 + 17;
                   if (2 * v129 + 2 >= v126)
                   {
                     v129 = (2 * v129) | 1;
@@ -704,215 +3398,215 @@ LABEL_103:
 
                   else
                   {
-                    v137 = *(v135 + 256);
-                    v138 = *(v135 + 392);
-                    v139 = v135 + 272;
-                    if (v137 >= v138)
+                    v136 = v134[32];
+                    v137 = v134[49];
+                    v138 = v134 + 34;
+                    if (v136 >= v137)
                     {
                       v129 = (2 * v129) | 1;
                     }
 
                     else
                     {
-                      v136 = v139;
+                      v135 = v138;
                       v129 = 2 * v129 + 2;
                     }
                   }
 
-                  *v131 = *v136;
-                  v140 = *(v136 + 16);
-                  v141 = *(v136 + 32);
-                  v142 = *(v136 + 48);
-                  *(v131 + 64) = *(v136 + 64);
-                  *(v131 + 32) = v141;
-                  *(v131 + 48) = v142;
-                  *(v131 + 16) = v140;
-                  v143 = *(v131 + 72);
-                  if (v143)
+                  *v130 = *v135;
+                  v139 = *(v135 + 1);
+                  v140 = *(v135 + 2);
+                  v141 = *(v135 + 3);
+                  v130[8] = v135[8];
+                  *(v130 + 2) = v140;
+                  *(v130 + 3) = v141;
+                  *(v130 + 1) = v139;
+                  v142 = *(v130 + 9);
+                  if (v142)
                   {
-                    *(v131 + 80) = v143;
-                    operator delete(v143);
-                    *(v131 + 72) = 0;
-                    *(v131 + 80) = 0;
-                    *(v131 + 88) = 0;
+                    *(v130 + 10) = v142;
+                    operator delete(v142);
+                    v130[9] = 0.0;
+                    v130[10] = 0.0;
+                    v130[11] = 0.0;
                   }
 
-                  v132 = (v136 + 72);
-                  *(v131 + 72) = *(v136 + 72);
-                  *(v131 + 88) = *(v136 + 88);
-                  *(v136 + 72) = 0;
-                  *(v136 + 80) = 0;
-                  *(v136 + 88) = 0;
-                  v133 = *(v136 + 96);
-                  v134 = *(v136 + 112);
-                  *(v131 + 127) = *(v136 + 127);
-                  *(v131 + 96) = v133;
-                  *(v131 + 112) = v134;
-                  v131 = v136;
+                  v131 = v135 + 9;
+                  *(v130 + 9) = *(v135 + 9);
+                  v130[11] = v135[11];
+                  v135[9] = 0.0;
+                  v135[10] = 0.0;
+                  v135[11] = 0.0;
+                  v132 = *(v135 + 6);
+                  v133 = *(v135 + 7);
+                  *(v130 + 127) = *(v135 + 127);
+                  *(v130 + 6) = v132;
+                  *(v130 + 7) = v133;
+                  v130 = v135;
                 }
 
                 while (v129 <= ((v126 - 2) >> 1));
-                v144 = (v127 - 136);
-                if (v136 == (v127 - 136))
+                v143 = (v127 - 136);
+                if (v135 == (v127 - 136))
                 {
-                  *v136 = v214;
-                  *(v136 + 64) = v232;
-                  *(v136 + 32) = v226;
-                  *(v136 + 48) = v229;
-                  *(v136 + 16) = v222;
-                  v166 = *(v136 + 72);
-                  if (v166)
+                  *v135 = v213;
+                  *(v135 + 8) = v231;
+                  *(v135 + 2) = v225;
+                  *(v135 + 3) = v228;
+                  *(v135 + 1) = v221;
+                  v165 = *(v135 + 9);
+                  if (v165)
                   {
-                    *(v136 + 80) = v166;
-                    operator delete(v166);
+                    *(v135 + 10) = v165;
+                    operator delete(v165);
                   }
 
-                  *(v136 + 72) = v193;
-                  *(v136 + 80) = v186;
-                  *(v136 + 88) = v184;
-                  *(v136 + 127) = *&v244[15];
-                  *(v136 + 112) = *v244;
-                  *(v136 + 96) = v237;
+                  *(v135 + 9) = v192;
+                  *(v135 + 10) = v185;
+                  *(v135 + 11) = v183;
+                  *(v135 + 127) = *&v243[15];
+                  *(v135 + 7) = *v243;
+                  *(v135 + 6) = v236;
                 }
 
                 else
                 {
-                  *v136 = *(v127 - 136);
-                  v145 = *(v127 - 120);
-                  v146 = *(v127 - 104);
-                  v147 = *(v127 - 88);
-                  *(v136 + 64) = *(v127 - 9);
-                  *(v136 + 32) = v146;
-                  *(v136 + 48) = v147;
-                  *(v136 + 16) = v145;
-                  v148 = *(v136 + 72);
-                  if (v148)
+                  *v135 = *(v127 - 136);
+                  v144 = *(v127 - 120);
+                  v145 = *(v127 - 104);
+                  v146 = *(v127 - 88);
+                  v135[8] = *(v127 - 9);
+                  *(v135 + 2) = v145;
+                  *(v135 + 3) = v146;
+                  *(v135 + 1) = v144;
+                  v147 = *(v135 + 9);
+                  if (v147)
                   {
-                    *(v136 + 80) = v148;
-                    operator delete(v148);
-                    *v132 = 0;
-                    *(v136 + 80) = 0;
-                    *(v136 + 88) = 0;
+                    *(v135 + 10) = v147;
+                    operator delete(v147);
+                    *v131 = 0;
+                    v135[10] = 0.0;
+                    v135[11] = 0.0;
                   }
 
-                  *(v136 + 72) = *(v127 - 4);
-                  *(v136 + 88) = *(v127 - 6);
+                  *(v135 + 9) = *(v127 - 4);
+                  v135[11] = *(v127 - 6);
                   *(v127 - 8) = 0;
                   *(v127 - 7) = 0;
                   *(v127 - 6) = 0;
-                  v149 = *(v127 - 40);
-                  v150 = *(v127 - 24);
-                  *(v136 + 127) = *(v127 - 9);
-                  *(v136 + 112) = v150;
-                  *(v136 + 96) = v149;
-                  *(v127 - 9) = v232;
-                  *(v127 - 104) = v226;
-                  *(v127 - 88) = v229;
-                  *(v127 - 120) = v222;
-                  *v144 = v214;
-                  v151 = *(v127 - 8);
-                  if (v151)
+                  v148 = *(v127 - 40);
+                  v149 = *(v127 - 24);
+                  *(v135 + 127) = *(v127 - 9);
+                  *(v135 + 7) = v149;
+                  *(v135 + 6) = v148;
+                  *(v127 - 9) = v231;
+                  *(v127 - 104) = v225;
+                  *(v127 - 88) = v228;
+                  *(v127 - 120) = v221;
+                  *v143 = v213;
+                  v150 = *(v127 - 8);
+                  if (v150)
                   {
-                    *(v127 - 7) = v151;
-                    operator delete(v151);
+                    *(v127 - 7) = v150;
+                    operator delete(v150);
                   }
 
-                  v152 = v127 - 40;
-                  *(v127 - 8) = v193;
-                  *(v127 - 7) = v186;
-                  *(v127 - 6) = v184;
-                  *(v152 + 31) = *&v244[15];
-                  *v152 = v237;
-                  *(v152 + 1) = *v244;
-                  v153 = v136 + 136 - a1;
-                  if (v153 >= 137)
+                  v151 = v127 - 40;
+                  *(v127 - 8) = v192;
+                  *(v127 - 7) = v185;
+                  *(v127 - 6) = v183;
+                  *(v151 + 31) = *&v243[15];
+                  *v151 = v236;
+                  *(v151 + 1) = *v243;
+                  v152 = (v135 + 17) - a1;
+                  if (v152 >= 137)
                   {
-                    v154 = (-2 - 0xF0F0F0F0F0F0F0FLL * (v153 >> 3)) >> 1;
-                    v155 = a1 + 136 * v154;
-                    v156 = *(v136 + 120);
-                    if (*(v155 + 120) < v156)
+                    v153 = (-2 - 0xF0F0F0F0F0F0F0FLL * (v152 >> 3)) >> 1;
+                    v154 = &a1[17 * v153];
+                    v155 = v135[15];
+                    if (v154[15] < v155)
                     {
-                      v251 = *v136;
-                      v283 = *(v136 + 64);
-                      v267 = *(v136 + 32);
-                      v275 = *(v136 + 48);
-                      v259 = *(v136 + 16);
-                      v194 = *(v136 + 72);
-                      v157 = *(v136 + 88);
-                      *(v136 + 80) = 0;
-                      *(v136 + 88) = 0;
-                      *v132 = 0;
-                      v207 = *(v136 + 112);
-                      v204 = *(v136 + 96);
-                      v201 = *(v136 + 130);
-                      v198 = *(v136 + 128);
+                      v250 = *v135;
+                      v282 = *(v135 + 8);
+                      v266 = *(v135 + 2);
+                      v274 = *(v135 + 3);
+                      v258 = *(v135 + 1);
+                      v193 = *(v135 + 9);
+                      v156 = *(v135 + 11);
+                      v135[10] = 0.0;
+                      v135[11] = 0.0;
+                      *v131 = 0;
+                      v206 = *(v135 + 14);
+                      v203 = *(v135 + 6);
+                      v200 = *(v135 + 130);
+                      v197 = *(v135 + 64);
                       do
                       {
-                        v158 = v155;
-                        *v136 = *v155;
-                        v159 = *(v155 + 16);
-                        v160 = *(v155 + 32);
-                        v161 = *(v155 + 48);
-                        *(v136 + 64) = *(v155 + 64);
-                        *(v136 + 32) = v160;
-                        *(v136 + 48) = v161;
-                        *(v136 + 16) = v159;
-                        v162 = *(v136 + 72);
-                        if (v162)
+                        v157 = v154;
+                        *v135 = *v154;
+                        v158 = *(v154 + 1);
+                        v159 = *(v154 + 2);
+                        v160 = *(v154 + 3);
+                        v135[8] = v154[8];
+                        *(v135 + 2) = v159;
+                        *(v135 + 3) = v160;
+                        *(v135 + 1) = v158;
+                        v161 = *(v135 + 9);
+                        if (v161)
                         {
-                          *(v136 + 80) = v162;
-                          operator delete(v162);
-                          *(v136 + 72) = 0;
-                          *(v136 + 80) = 0;
-                          *(v136 + 88) = 0;
+                          *(v135 + 10) = v161;
+                          operator delete(v161);
+                          v135[9] = 0.0;
+                          v135[10] = 0.0;
+                          v135[11] = 0.0;
                         }
 
-                        *(v136 + 72) = *(v158 + 72);
-                        *(v136 + 88) = *(v158 + 88);
-                        *(v158 + 72) = 0;
-                        *(v158 + 80) = 0;
-                        *(v158 + 88) = 0;
-                        v163 = *(v158 + 96);
-                        v164 = *(v158 + 112);
-                        *(v136 + 127) = *(v158 + 127);
-                        *(v136 + 96) = v163;
-                        *(v136 + 112) = v164;
-                        if (!v154)
+                        *(v135 + 9) = *(v157 + 9);
+                        v135[11] = v157[11];
+                        v157[9] = 0.0;
+                        v157[10] = 0.0;
+                        v157[11] = 0.0;
+                        v162 = *(v157 + 6);
+                        v163 = *(v157 + 7);
+                        *(v135 + 127) = *(v157 + 127);
+                        *(v135 + 6) = v162;
+                        *(v135 + 7) = v163;
+                        if (!v153)
                         {
                           break;
                         }
 
-                        v154 = (v154 - 1) >> 1;
-                        v155 = a1 + 136 * v154;
-                        v136 = v158;
+                        v153 = (v153 - 1) >> 1;
+                        v154 = &a1[17 * v153];
+                        v135 = v157;
                       }
 
-                      while (*(v155 + 120) < v156);
-                      *v158 = v251;
-                      *(v158 + 64) = v283;
-                      *(v158 + 32) = v267;
-                      *(v158 + 48) = v275;
-                      *(v158 + 16) = v259;
-                      v165 = *(v158 + 72);
-                      if (v165)
+                      while (v154[15] < v155);
+                      *v157 = v250;
+                      *(v157 + 8) = v282;
+                      *(v157 + 2) = v266;
+                      *(v157 + 3) = v274;
+                      *(v157 + 1) = v258;
+                      v164 = *(v157 + 9);
+                      if (v164)
                       {
-                        *(v158 + 80) = v165;
-                        operator delete(v165);
+                        *(v157 + 10) = v164;
+                        operator delete(v164);
                       }
 
-                      *(v158 + 72) = v194;
-                      *(v158 + 88) = v157;
-                      *(v158 + 96) = v204;
-                      *(v158 + 112) = v207;
-                      *(v158 + 120) = v156;
-                      *(v158 + 128) = v198;
-                      *(v158 + 130) = v201;
+                      *(v157 + 9) = v193;
+                      *(v157 + 11) = v156;
+                      *(v157 + 6) = v203;
+                      *(v157 + 14) = v206;
+                      v157[15] = v155;
+                      *(v157 + 64) = v197;
+                      *(v157 + 130) = v200;
                     }
                   }
                 }
 
                 v128 = v126-- <= 2;
-                v127 = v144;
+                v127 = v143;
               }
 
               while (!v128);
@@ -922,10 +3616,10 @@ LABEL_103:
           }
 
           v11 = v9 >> 1;
-          v12 = a1 + 136 * (v9 >> 1);
+          v12 = &a1[17 * (v9 >> 1)];
           if (v8 < 0x4401)
           {
-            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,0>(v12, a1, v179);
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,0>(v12, a1, v178);
             --a3;
             if (a4)
             {
@@ -935,94 +3629,94 @@ LABEL_103:
 
           else
           {
-            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,0>(a1, v12, v179);
-            v13 = 136 * v11;
-            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,0>((a1 + 136), (v13 + a1 - 136), v178);
-            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,0>((a1 + 272), (a1 + 136 + v13), v177);
-            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,0>((v13 + a1 - 136), v12, (a1 + 136 + v13));
-            v245 = *a1;
-            v277 = *(a1 + 64);
-            v261 = *(a1 + 32);
-            v269 = *(a1 + 48);
-            v253 = *(a1 + 16);
-            v14 = *(a1 + 72);
-            v15 = *(a1 + 88);
-            *(a1 + 72) = 0;
-            *(a1 + 80) = 0;
-            *(a1 + 88) = 0;
-            v208 = *(a1 + 96);
-            *v216 = *(a1 + 112);
-            *&v216[15] = *(a1 + 127);
-            v17 = *(v12 + 32);
-            v16 = *(v12 + 48);
-            v18 = *(v12 + 16);
-            *(a1 + 64) = *(v12 + 64);
-            *(a1 + 32) = v17;
-            *(a1 + 48) = v16;
-            *(a1 + 16) = v18;
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,0>(a1, v12, v178);
+            v13 = 17 * v11;
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,0>((a1 + 17), &a1[v13 - 17], v177);
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,0>(a1 + 17, &a1[v13 + 17], v176);
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,0>(&a1[v13 - 17], v12, &a1[v13 + 17]);
+            v244 = *a1;
+            v276 = *(a1 + 8);
+            v260 = *(a1 + 2);
+            v268 = *(a1 + 3);
+            v252 = *(a1 + 1);
+            v14 = *(a1 + 9);
+            v15 = *(a1 + 11);
+            a1[9] = 0.0;
+            a1[10] = 0.0;
+            a1[11] = 0.0;
+            v207 = *(a1 + 6);
+            *v215 = *(a1 + 7);
+            *&v215[15] = *(a1 + 127);
+            v17 = *(v12 + 2);
+            v16 = *(v12 + 3);
+            v18 = *(v12 + 1);
+            a1[8] = v12[8];
+            *(a1 + 2) = v17;
+            *(a1 + 3) = v16;
+            *(a1 + 1) = v18;
             *a1 = *v12;
-            *(a1 + 72) = *(v12 + 72);
-            *(a1 + 88) = *(v12 + 88);
-            *(v12 + 80) = 0;
-            *(v12 + 88) = 0;
-            *(v12 + 72) = 0;
-            v19 = *(v12 + 96);
-            v20 = *(v12 + 112);
+            *(a1 + 9) = *(v12 + 9);
+            a1[11] = v12[11];
+            v12[10] = 0.0;
+            v12[11] = 0.0;
+            v12[9] = 0.0;
+            v19 = *(v12 + 6);
+            v20 = *(v12 + 7);
             *(a1 + 127) = *(v12 + 127);
-            *(a1 + 96) = v19;
-            *(a1 + 112) = v20;
-            *v12 = v245;
-            *(v12 + 64) = v277;
-            *(v12 + 32) = v261;
-            *(v12 + 48) = v269;
-            *(v12 + 16) = v253;
-            v21 = *(v12 + 72);
+            *(a1 + 6) = v19;
+            *(a1 + 7) = v20;
+            *v12 = v244;
+            *(v12 + 8) = v276;
+            *(v12 + 2) = v260;
+            *(v12 + 3) = v268;
+            *(v12 + 1) = v252;
+            v21 = *(v12 + 9);
             if (v21)
             {
-              *(v12 + 80) = v21;
-              v187 = v14;
+              *(v12 + 10) = v21;
+              v186 = v14;
               operator delete(v21);
-              v14 = v187;
+              v14 = v186;
             }
 
-            *(v12 + 72) = v14;
-            *(v12 + 88) = v15;
-            *(v12 + 127) = *&v216[15];
-            *(v12 + 96) = v208;
-            *(v12 + 112) = *v216;
+            *(v12 + 9) = v14;
+            *(v12 + 11) = v15;
+            *(v12 + 127) = *&v215[15];
+            *(v12 + 6) = v207;
+            *(v12 + 7) = *v215;
             --a3;
             if (a4)
             {
 LABEL_21:
-              v22 = *(a1 + 120);
+              v22 = a1[15];
               break;
             }
           }
 
-          v22 = *(a1 + 120);
-          if (*(a1 - 16) < v22)
+          v22 = a1[15];
+          if (*(a1 - 2) < v22)
           {
             break;
           }
 
-          v209 = *a1;
-          v230 = *(a1 + 64);
-          v224 = *(a1 + 32);
-          v227 = *(a1 + 48);
-          v217 = *(a1 + 16);
-          v181 = *(a1 + 72);
-          v23 = *(a1 + 88);
-          *(a1 + 72) = 0;
-          *(a1 + 80) = 0;
-          *(a1 + 88) = 0;
-          v205 = *(a1 + 112);
-          v202 = *(a1 + 96);
-          v24 = *(a1 + 120);
-          v196 = *(a1 + 128);
-          v199 = *(a1 + 130);
-          if (v24 >= *(a2 - 16))
+          v208 = *a1;
+          v229 = *(a1 + 8);
+          v223 = *(a1 + 2);
+          v226 = *(a1 + 3);
+          v216 = *(a1 + 1);
+          v180 = *(a1 + 9);
+          v23 = *(a1 + 11);
+          a1[9] = 0.0;
+          a1[10] = 0.0;
+          a1[11] = 0.0;
+          v204 = *(a1 + 14);
+          v201 = *(a1 + 6);
+          v24 = a1[15];
+          v195 = *(a1 + 64);
+          v198 = *(a1 + 130);
+          if (v24 >= *(a2 - 2))
           {
-            v56 = a1 + 136;
+            v56 = a1 + 17;
             do
             {
               v7 = v56;
@@ -1031,8 +3725,8 @@ LABEL_21:
                 break;
               }
 
-              v57 = *(v56 + 120);
-              v56 += 136;
+              v57 = v56[15];
+              v56 += 17;
             }
 
             while (v24 >= v57);
@@ -1043,9 +3737,9 @@ LABEL_21:
             v25 = a1;
             do
             {
-              v7 = v25 + 136;
-              v26 = *(v25 + 256);
-              v25 += 136;
+              v7 = v25 + 17;
+              v26 = v25[32];
+              v25 += 17;
             }
 
             while (v24 >= v26);
@@ -1057,9 +3751,9 @@ LABEL_21:
             v59 = a2;
             do
             {
-              v58 = v59 - 136;
-              v60 = *(v59 - 16);
-              v59 -= 136;
+              v58 = v59 - 17;
+              v60 = *(v59 - 2);
+              v59 -= 17;
             }
 
             while (v24 < v60);
@@ -1067,159 +3761,159 @@ LABEL_21:
 
           while (v7 < v58)
           {
-            v247 = *v7;
-            v279 = *(v7 + 64);
-            v263 = *(v7 + 32);
-            v271 = *(v7 + 48);
-            v255 = *(v7 + 16);
-            v61 = *(v7 + 72);
-            v62 = *(v7 + 88);
-            *(v7 + 72) = 0;
-            *(v7 + 80) = 0;
-            *(v7 + 88) = 0;
-            *v243 = *(v7 + 112);
-            *&v243[15] = *(v7 + 127);
-            v234 = *(v7 + 96);
-            v64 = *(v58 + 32);
-            v63 = *(v58 + 48);
-            v65 = *(v58 + 16);
-            *(v7 + 64) = *(v58 + 64);
-            *(v7 + 32) = v64;
-            *(v7 + 48) = v63;
-            *(v7 + 16) = v65;
+            v246 = *v7;
+            v278 = *(v7 + 8);
+            v262 = *(v7 + 2);
+            v270 = *(v7 + 3);
+            v254 = *(v7 + 1);
+            v61 = *(v7 + 9);
+            v62 = *(v7 + 11);
+            v7[9] = 0.0;
+            v7[10] = 0.0;
+            v7[11] = 0.0;
+            *v242 = *(v7 + 7);
+            *&v242[15] = *(v7 + 127);
+            v233 = *(v7 + 6);
+            v64 = *(v58 + 2);
+            v63 = *(v58 + 3);
+            v65 = *(v58 + 1);
+            v7[8] = v58[8];
+            *(v7 + 2) = v64;
+            *(v7 + 3) = v63;
+            *(v7 + 1) = v65;
             *v7 = *v58;
-            *(v7 + 72) = *(v58 + 72);
-            *(v7 + 88) = *(v58 + 88);
-            *(v58 + 72) = 0;
-            *(v58 + 80) = 0;
-            *(v58 + 88) = 0;
-            v66 = *(v58 + 96);
-            v67 = *(v58 + 112);
+            *(v7 + 9) = *(v58 + 9);
+            v7[11] = v58[11];
+            v58[9] = 0.0;
+            v58[10] = 0.0;
+            v58[11] = 0.0;
+            v66 = *(v58 + 6);
+            v67 = *(v58 + 7);
             *(v7 + 127) = *(v58 + 127);
-            *(v7 + 96) = v66;
-            *(v7 + 112) = v67;
-            *v58 = v247;
-            *(v58 + 64) = v279;
-            *(v58 + 32) = v263;
-            *(v58 + 48) = v271;
-            *(v58 + 16) = v255;
-            v68 = *(v58 + 72);
+            *(v7 + 6) = v66;
+            *(v7 + 7) = v67;
+            *v58 = v246;
+            *(v58 + 8) = v278;
+            *(v58 + 2) = v262;
+            *(v58 + 3) = v270;
+            *(v58 + 1) = v254;
+            v68 = *(v58 + 9);
             if (v68)
             {
-              *(v58 + 80) = v68;
-              v189 = v61;
+              *(v58 + 10) = v68;
+              v188 = v61;
               operator delete(v68);
-              v61 = v189;
+              v61 = v188;
             }
 
-            *(v58 + 72) = v61;
-            *(v58 + 88) = v62;
-            *(v58 + 96) = v234;
-            *(v58 + 112) = *v243;
-            *(v58 + 127) = *&v243[15];
+            *(v58 + 9) = v61;
+            *(v58 + 11) = v62;
+            *(v58 + 6) = v233;
+            *(v58 + 7) = *v242;
+            *(v58 + 127) = *&v242[15];
             do
             {
-              v69 = *(v7 + 256);
-              v7 += 136;
+              v69 = v7[32];
+              v7 += 17;
             }
 
             while (v24 >= v69);
             do
             {
-              v70 = *(v58 - 16);
-              v58 -= 136;
+              v70 = *(v58 - 2);
+              v58 -= 17;
             }
 
             while (v24 < v70);
           }
 
-          v71 = (v7 - 136);
-          if (v7 - 136 != a1)
+          v71 = v7 - 17;
+          if (v7 - 17 != a1)
           {
             *a1 = *v71;
-            v72 = *(v7 - 120);
-            v73 = *(v7 - 104);
-            v74 = *(v7 - 88);
-            *(a1 + 64) = *(v7 - 72);
-            *(a1 + 32) = v73;
-            *(a1 + 48) = v74;
-            *(a1 + 16) = v72;
-            v75 = *(a1 + 72);
+            v72 = *(v7 - 15);
+            v73 = *(v7 - 13);
+            v74 = *(v7 - 11);
+            a1[8] = *(v7 - 9);
+            *(a1 + 2) = v73;
+            *(a1 + 3) = v74;
+            *(a1 + 1) = v72;
+            v75 = *(a1 + 9);
             if (v75)
             {
-              *(a1 + 80) = v75;
+              *(a1 + 10) = v75;
               operator delete(v75);
-              *(a1 + 72) = 0;
-              *(a1 + 80) = 0;
-              *(a1 + 88) = 0;
+              a1[9] = 0.0;
+              a1[10] = 0.0;
+              a1[11] = 0.0;
             }
 
-            *(a1 + 72) = *(v7 - 64);
-            *(a1 + 88) = *(v7 - 48);
-            *(v7 - 64) = 0;
-            *(v7 - 56) = 0;
-            *(v7 - 48) = 0;
-            v76 = *(v7 - 40);
-            v77 = *(v7 - 24);
+            *(a1 + 9) = *(v7 - 4);
+            a1[11] = *(v7 - 6);
+            *(v7 - 8) = 0.0;
+            *(v7 - 7) = 0.0;
+            *(v7 - 6) = 0.0;
+            v76 = *(v7 - 5);
+            v77 = *(v7 - 3);
             *(a1 + 127) = *(v7 - 9);
-            *(a1 + 96) = v76;
-            *(a1 + 112) = v77;
+            *(a1 + 6) = v76;
+            *(a1 + 7) = v77;
           }
 
-          *v71 = v209;
-          *(v7 - 72) = v230;
-          *(v7 - 104) = v224;
-          *(v7 - 88) = v227;
-          *(v7 - 120) = v217;
-          v78 = *(v7 - 64);
+          *v71 = v208;
+          *(v7 - 9) = v229;
+          *(v7 - 13) = v223;
+          *(v7 - 11) = v226;
+          *(v7 - 15) = v216;
+          v78 = *(v7 - 8);
           if (v78)
           {
-            *(v7 - 56) = v78;
+            *(v7 - 7) = v78;
             operator delete(v78);
           }
 
           a4 = 0;
-          *(v7 - 64) = v181;
-          *(v7 - 48) = v23;
-          *(v7 - 24) = v205;
-          *(v7 - 40) = v202;
-          *(v7 - 16) = v24;
-          *(v7 - 6) = v199;
-          *(v7 - 8) = v196;
+          *(v7 - 4) = v180;
+          *(v7 - 6) = v23;
+          *(v7 - 3) = v204;
+          *(v7 - 5) = v201;
+          *(v7 - 2) = v24;
+          *(v7 - 6) = v198;
+          *(v7 - 4) = v195;
         }
 
         v27 = 0;
-        v210 = *a1;
-        v231 = *(a1 + 64);
-        v225 = *(a1 + 32);
-        v228 = *(a1 + 48);
-        v218 = *(a1 + 16);
-        v182 = *(a1 + 72);
-        v28 = *(a1 + 88);
-        *(a1 + 72) = 0;
-        *(a1 + 80) = 0;
-        *(a1 + 88) = 0;
-        v206 = *(a1 + 112);
-        v203 = *(a1 + 96);
-        v200 = *(a1 + 130);
-        v197 = *(a1 + 128);
+        v209 = *a1;
+        v230 = *(a1 + 8);
+        v224 = *(a1 + 2);
+        v227 = *(a1 + 3);
+        v217 = *(a1 + 1);
+        v181 = *(a1 + 9);
+        v28 = *(a1 + 11);
+        a1[9] = 0.0;
+        a1[10] = 0.0;
+        a1[11] = 0.0;
+        v205 = *(a1 + 14);
+        v202 = *(a1 + 6);
+        v199 = *(a1 + 130);
+        v196 = *(a1 + 64);
         do
         {
-          v29 = *(a1 + v27 + 256);
-          v27 += 136;
+          v29 = a1[v27 + 32];
+          v27 += 17;
         }
 
         while (v29 < v22);
-        v30 = a1 + v27;
-        v31 = v185;
-        if (v27 == 136)
+        v30 = &a1[v27];
+        v31 = v184;
+        if (v27 == 17)
         {
-          v34 = v185;
+          v34 = v184;
           while (v30 < v34)
           {
             v32 = v34 - 136;
-            v35 = *(v34 - 16);
-            v34 -= 136;
+            v35 = *(v34 - 2);
+            v34 = (v34 - 136);
             if (v35 < v22)
             {
               goto LABEL_30;
@@ -1235,8 +3929,8 @@ LABEL_21:
           do
           {
             v32 = v31 - 136;
-            v33 = *(v31 - 16);
-            v31 -= 136;
+            v33 = *(v31 - 2);
+            v31 = (v31 - 136);
           }
 
           while (v33 >= v22);
@@ -1247,60 +3941,60 @@ LABEL_30:
             v36 = v32;
             do
             {
-              v246 = *v7;
-              v278 = *(v7 + 64);
-              v262 = *(v7 + 32);
-              v270 = *(v7 + 48);
-              v254 = *(v7 + 16);
-              v37 = *(v7 + 72);
-              v38 = *(v7 + 88);
-              *(v7 + 72) = 0;
-              *(v7 + 80) = 0;
-              *(v7 + 88) = 0;
-              *v242 = *(v7 + 112);
-              *&v242[15] = *(v7 + 127);
-              v233 = *(v7 + 96);
+              v245 = *v7;
+              v277 = *(v7 + 8);
+              v261 = *(v7 + 2);
+              v269 = *(v7 + 3);
+              v253 = *(v7 + 1);
+              v37 = *(v7 + 9);
+              v38 = *(v7 + 11);
+              v7[9] = 0.0;
+              v7[10] = 0.0;
+              v7[11] = 0.0;
+              *v241 = *(v7 + 7);
+              *&v241[15] = *(v7 + 127);
+              v232 = *(v7 + 6);
               v40 = *(v36 + 32);
               v39 = *(v36 + 48);
               v41 = *(v36 + 16);
-              *(v7 + 64) = *(v36 + 64);
-              *(v7 + 32) = v40;
-              *(v7 + 48) = v39;
-              *(v7 + 16) = v41;
+              v7[8] = *(v36 + 64);
+              *(v7 + 2) = v40;
+              *(v7 + 3) = v39;
+              *(v7 + 1) = v41;
               *v7 = *v36;
-              *(v7 + 72) = *(v36 + 72);
-              *(v7 + 88) = *(v36 + 88);
+              *(v7 + 9) = *(v36 + 72);
+              v7[11] = *(v36 + 88);
               *(v36 + 72) = 0;
               *(v36 + 80) = 0;
               *(v36 + 88) = 0;
               v42 = *(v36 + 96);
               v43 = *(v36 + 112);
               *(v7 + 127) = *(v36 + 127);
-              *(v7 + 96) = v42;
-              *(v7 + 112) = v43;
-              *v36 = v246;
-              *(v36 + 64) = v278;
-              *(v36 + 32) = v262;
-              *(v36 + 48) = v270;
-              *(v36 + 16) = v254;
+              *(v7 + 6) = v42;
+              *(v7 + 7) = v43;
+              *v36 = v245;
+              *(v36 + 64) = v277;
+              *(v36 + 32) = v261;
+              *(v36 + 48) = v269;
+              *(v36 + 16) = v253;
               v44 = *(v36 + 72);
               if (v44)
               {
                 *(v36 + 80) = v44;
-                v188 = v37;
+                v187 = v37;
                 operator delete(v44);
-                v37 = v188;
+                v37 = v187;
               }
 
               *(v36 + 72) = v37;
               *(v36 + 88) = v38;
-              *(v36 + 96) = v233;
-              *(v36 + 112) = *v242;
-              *(v36 + 127) = *&v242[15];
+              *(v36 + 96) = v232;
+              *(v36 + 112) = *v241;
+              *(v36 + 127) = *&v241[15];
               do
               {
-                v45 = *(v7 + 256);
-                v7 += 136;
+                v45 = v7[32];
+                v7 += 17;
               }
 
               while (v45 < v22);
@@ -1317,71 +4011,71 @@ LABEL_30:
           }
         }
 
-        v47 = (v7 - 136);
-        if (v7 - 136 != a1)
+        v47 = v7 - 17;
+        if (v7 - 17 != a1)
         {
           *a1 = *v47;
-          v48 = *(v7 - 120);
-          v49 = *(v7 - 104);
-          v50 = *(v7 - 88);
-          *(a1 + 64) = *(v7 - 72);
-          *(a1 + 32) = v49;
-          *(a1 + 48) = v50;
-          *(a1 + 16) = v48;
-          v51 = *(a1 + 72);
+          v48 = *(v7 - 15);
+          v49 = *(v7 - 13);
+          v50 = *(v7 - 11);
+          a1[8] = *(v7 - 9);
+          *(a1 + 2) = v49;
+          *(a1 + 3) = v50;
+          *(a1 + 1) = v48;
+          v51 = *(a1 + 9);
           if (v51)
           {
-            *(a1 + 80) = v51;
+            *(a1 + 10) = v51;
             operator delete(v51);
-            *(a1 + 72) = 0;
-            *(a1 + 80) = 0;
-            *(a1 + 88) = 0;
+            a1[9] = 0.0;
+            a1[10] = 0.0;
+            a1[11] = 0.0;
           }
 
-          *(a1 + 72) = *(v7 - 64);
-          *(a1 + 88) = *(v7 - 48);
-          *(v7 - 64) = 0;
-          *(v7 - 56) = 0;
-          *(v7 - 48) = 0;
-          v52 = *(v7 - 40);
-          v53 = *(v7 - 24);
+          *(a1 + 9) = *(v7 - 4);
+          a1[11] = *(v7 - 6);
+          *(v7 - 8) = 0.0;
+          *(v7 - 7) = 0.0;
+          *(v7 - 6) = 0.0;
+          v52 = *(v7 - 5);
+          v53 = *(v7 - 3);
           *(a1 + 127) = *(v7 - 9);
-          *(a1 + 96) = v52;
-          *(a1 + 112) = v53;
+          *(a1 + 6) = v52;
+          *(a1 + 7) = v53;
         }
 
-        *v47 = v210;
-        *(v7 - 72) = v231;
-        *(v7 - 104) = v225;
-        *(v7 - 88) = v228;
-        *(v7 - 120) = v218;
-        v54 = *(v7 - 64);
+        *v47 = v209;
+        *(v7 - 9) = v230;
+        *(v7 - 13) = v224;
+        *(v7 - 11) = v227;
+        *(v7 - 15) = v217;
+        v54 = *(v7 - 8);
         if (v54)
         {
-          *(v7 - 56) = v54;
+          *(v7 - 7) = v54;
           operator delete(v54);
         }
 
-        *(v7 - 64) = v182;
-        *(v7 - 48) = v28;
-        *(v7 - 24) = v206;
-        *(v7 - 40) = v203;
-        *(v7 - 16) = v22;
-        *(v7 - 6) = v200;
-        *(v7 - 8) = v197;
-        a2 = v185;
+        *(v7 - 4) = v181;
+        *(v7 - 6) = v28;
+        *(v7 - 3) = v205;
+        *(v7 - 5) = v202;
+        *(v7 - 2) = v22;
+        *(v7 - 6) = v199;
+        *(v7 - 4) = v196;
+        a2 = v184;
         if (v30 >= v32)
         {
           break;
         }
 
 LABEL_47:
-        std::__introsort<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,false>(a1, v7 - 136, a3, a4 & 1);
+        std::__introsort<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,false>(a1, (v7 - 17), a3, a4 & 1);
         a4 = 0;
       }
 
-      v55 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*>(a1, v7 - 136);
-      if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*>(v7, v185))
+      v55 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*>(a1, (v7 - 17));
+      if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*>(v7, v184))
       {
         break;
       }
@@ -1392,7 +4086,7 @@ LABEL_47:
       }
     }
 
-    a2 = v7 - 136;
+    a2 = v7 - 17;
     if ((v55 & 1) == 0)
     {
       continue;
@@ -1418,8 +4112,7 @@ __n128 std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sa
       v15 = a2 + 9;
       v16 = *(a2 + 72);
       v17 = *(a2 + 11);
-      *(a2 + 9) = 0;
-      *(a2 + 10) = 0;
+      *(a2 + 72) = 0uLL;
       *(a2 + 11) = 0;
       *&v58[15] = *(a2 + 127);
       v54 = a2[6];
@@ -1434,8 +4127,7 @@ __n128 std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sa
       a2[1] = v18;
       *(a2 + 72) = *(a3 + 72);
       *(a2 + 11) = *(a3 + 11);
-      *(a3 + 9) = 0;
-      *(a3 + 10) = 0;
+      *(a3 + 72) = 0uLL;
       *(a3 + 11) = 0;
       v21 = a3[6];
       v22 = a3[7];
@@ -1474,8 +4166,7 @@ __n128 std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sa
         v68 = a1[1];
         v25 = *(a1 + 72);
         v26 = *(a1 + 11);
-        *(a1 + 9) = 0;
-        *(a1 + 10) = 0;
+        *(a1 + 72) = 0uLL;
         *(a1 + 11) = 0;
         *&v59[15] = *(a1 + 127);
         v55 = a1[6];
@@ -1533,8 +4224,7 @@ __n128 std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sa
       v66 = a1[1];
       v7 = *(a1 + 72);
       v8 = *(a1 + 11);
-      *(a1 + 10) = 0;
-      *(a1 + 11) = 0;
+      a1[5] = 0uLL;
       *(a1 + 9) = 0;
       *&v57[15] = *(a1 + 127);
       v53 = a1[6];
@@ -1549,8 +4239,7 @@ __n128 std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sa
       a1[1] = v9;
       *(a1 + 72) = *(a3 + 72);
       *(a1 + 11) = *(a3 + 11);
-      *(a3 + 9) = 0;
-      *(a3 + 10) = 0;
+      *(a3 + 72) = 0uLL;
       *(a3 + 11) = 0;
       v12 = a3[6];
       v13 = a3[7];
@@ -1589,8 +4278,7 @@ LABEL_20:
     v69 = a1[1];
     v34 = *(a1 + 10);
     v35 = *(a1 + 11);
-    *(a1 + 10) = 0;
-    *(a1 + 11) = 0;
+    a1[5] = 0uLL;
     *(a1 + 9) = 0;
     *a1 = *a2;
     v36 = a2[1];
@@ -1607,8 +4295,7 @@ LABEL_20:
     *v60 = v40;
     *(a1 + 72) = *(a2 + 72);
     *(a1 + 11) = *(a2 + 11);
-    *(a2 + 9) = 0;
-    *(a2 + 10) = 0;
+    *(a2 + 72) = 0uLL;
     *(a2 + 11) = 0;
     v41 = a2[6];
     v42 = a2[7];
@@ -1860,224 +4547,224 @@ __n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sa
   return result;
 }
 
-__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,0>(__int128 *a1, __int128 *a2, __int128 *a3, __int128 *a4, __int128 *a5)
 {
   std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,0>(a1, a2, a3, a4);
-  result.n128_u64[0] = *(a5 + 120);
-  if (result.n128_f64[0] < *(a4 + 120))
+  result.n128_u64[0] = *(a5 + 15);
+  if (result.n128_f64[0] < *(a4 + 15))
   {
-    v63 = *(a4 + 32);
-    v67 = *(a4 + 48);
-    v71 = *(a4 + 64);
+    v63 = a4[2];
+    v67 = a4[3];
+    v71 = *(a4 + 8);
     v55 = *a4;
-    v59 = *(a4 + 16);
+    v59 = a4[1];
     v11 = *(a4 + 72);
-    v12 = *(a4 + 88);
-    *(a4 + 72) = 0;
-    *(a4 + 80) = 0;
-    *(a4 + 88) = 0;
+    v12 = *(a4 + 11);
+    *(a4 + 9) = 0;
+    *(a4 + 10) = 0;
+    *(a4 + 11) = 0;
     *&v51[15] = *(a4 + 127);
-    v47 = *(a4 + 96);
-    *v51 = *(a4 + 112);
+    v47 = a4[6];
+    *v51 = a4[7];
     *a4 = *a5;
-    v13 = *(a5 + 16);
-    v14 = *(a5 + 32);
-    v15 = *(a5 + 48);
-    *(a4 + 64) = *(a5 + 64);
-    *(a4 + 32) = v14;
-    *(a4 + 48) = v15;
-    *(a4 + 16) = v13;
+    v13 = a5[1];
+    v14 = a5[2];
+    v15 = a5[3];
+    *(a4 + 8) = *(a5 + 8);
+    a4[2] = v14;
+    a4[3] = v15;
+    a4[1] = v13;
     *(a4 + 72) = *(a5 + 72);
-    *(a4 + 88) = *(a5 + 88);
-    *(a5 + 72) = 0;
-    *(a5 + 80) = 0;
-    *(a5 + 88) = 0;
-    v16 = *(a5 + 96);
-    v17 = *(a5 + 112);
+    *(a4 + 11) = *(a5 + 11);
+    *(a5 + 9) = 0;
+    *(a5 + 10) = 0;
+    *(a5 + 11) = 0;
+    v16 = a5[6];
+    v17 = a5[7];
     *(a4 + 127) = *(a5 + 127);
-    *(a4 + 96) = v16;
-    *(a4 + 112) = v17;
-    *(a5 + 32) = v63;
-    *(a5 + 48) = v67;
-    *(a5 + 64) = v71;
+    a4[6] = v16;
+    a4[7] = v17;
+    a5[2] = v63;
+    a5[3] = v67;
+    *(a5 + 8) = v71;
     *a5 = v55;
-    *(a5 + 16) = v59;
-    v18 = *(a5 + 72);
+    a5[1] = v59;
+    v18 = *(a5 + 9);
     if (v18)
     {
-      *(a5 + 80) = v18;
+      *(a5 + 10) = v18;
       v43 = v11;
       operator delete(v18);
       v11 = v43;
     }
 
     *(a5 + 72) = v11;
-    *(a5 + 88) = v12;
+    *(a5 + 11) = v12;
     result.n128_u64[1] = *(&v47 + 1);
-    *(a5 + 96) = v47;
-    *(a5 + 112) = *v51;
+    a5[6] = v47;
+    a5[7] = *v51;
     *(a5 + 127) = *&v51[15];
-    result.n128_u64[0] = *(a4 + 120);
-    if (result.n128_f64[0] < *(a3 + 120))
+    result.n128_u64[0] = *(a4 + 15);
+    if (result.n128_f64[0] < *(a3 + 15))
     {
-      v64 = *(a3 + 32);
-      v68 = *(a3 + 48);
-      v72 = *(a3 + 64);
+      v64 = a3[2];
+      v68 = a3[3];
+      v72 = *(a3 + 8);
       v56 = *a3;
-      v60 = *(a3 + 16);
+      v60 = a3[1];
       v19 = *(a3 + 72);
-      v20 = *(a3 + 88);
-      *(a3 + 72) = 0;
-      *(a3 + 80) = 0;
-      *(a3 + 88) = 0;
+      v20 = *(a3 + 11);
+      *(a3 + 9) = 0;
+      *(a3 + 10) = 0;
+      *(a3 + 11) = 0;
       *&v52[15] = *(a3 + 127);
-      v48 = *(a3 + 96);
-      *v52 = *(a3 + 112);
+      v48 = a3[6];
+      *v52 = a3[7];
       *a3 = *a4;
-      v21 = *(a4 + 16);
-      v22 = *(a4 + 32);
-      v23 = *(a4 + 48);
-      *(a3 + 64) = *(a4 + 64);
-      *(a3 + 32) = v22;
-      *(a3 + 48) = v23;
-      *(a3 + 16) = v21;
+      v21 = a4[1];
+      v22 = a4[2];
+      v23 = a4[3];
+      *(a3 + 8) = *(a4 + 8);
+      a3[2] = v22;
+      a3[3] = v23;
+      a3[1] = v21;
       *(a3 + 72) = *(a4 + 72);
-      *(a3 + 88) = *(a4 + 88);
-      *(a4 + 72) = 0;
-      *(a4 + 80) = 0;
-      *(a4 + 88) = 0;
-      v24 = *(a4 + 96);
-      v25 = *(a4 + 112);
+      *(a3 + 11) = *(a4 + 11);
+      *(a4 + 9) = 0;
+      *(a4 + 10) = 0;
+      *(a4 + 11) = 0;
+      v24 = a4[6];
+      v25 = a4[7];
       *(a3 + 127) = *(a4 + 127);
-      *(a3 + 96) = v24;
-      *(a3 + 112) = v25;
-      *(a4 + 32) = v64;
-      *(a4 + 48) = v68;
-      *(a4 + 64) = v72;
+      a3[6] = v24;
+      a3[7] = v25;
+      a4[2] = v64;
+      a4[3] = v68;
+      *(a4 + 8) = v72;
       *a4 = v56;
-      *(a4 + 16) = v60;
-      v26 = *(a4 + 72);
+      a4[1] = v60;
+      v26 = *(a4 + 9);
       if (v26)
       {
-        *(a4 + 80) = v26;
+        *(a4 + 10) = v26;
         v44 = v19;
         operator delete(v26);
         v19 = v44;
       }
 
       *(a4 + 72) = v19;
-      *(a4 + 88) = v20;
+      *(a4 + 11) = v20;
       result.n128_u64[1] = *(&v48 + 1);
-      *(a4 + 96) = v48;
-      *(a4 + 112) = *v52;
+      a4[6] = v48;
+      a4[7] = *v52;
       *(a4 + 127) = *&v52[15];
-      result.n128_u64[0] = *(a3 + 120);
-      if (result.n128_f64[0] < *(a2 + 120))
+      result.n128_u64[0] = *(a3 + 15);
+      if (result.n128_f64[0] < *(a2 + 15))
       {
-        v65 = *(a2 + 32);
-        v69 = *(a2 + 48);
-        v73 = *(a2 + 64);
+        v65 = a2[2];
+        v69 = a2[3];
+        v73 = *(a2 + 8);
         v57 = *a2;
-        v61 = *(a2 + 16);
+        v61 = a2[1];
         v27 = *(a2 + 72);
-        v28 = *(a2 + 88);
-        *(a2 + 72) = 0;
-        *(a2 + 80) = 0;
-        *(a2 + 88) = 0;
+        v28 = *(a2 + 11);
+        *(a2 + 9) = 0;
+        *(a2 + 10) = 0;
+        *(a2 + 11) = 0;
         *&v53[15] = *(a2 + 127);
-        v49 = *(a2 + 96);
-        *v53 = *(a2 + 112);
+        v49 = a2[6];
+        *v53 = a2[7];
         *a2 = *a3;
-        v29 = *(a3 + 16);
-        v30 = *(a3 + 32);
-        v31 = *(a3 + 48);
-        *(a2 + 64) = *(a3 + 64);
-        *(a2 + 32) = v30;
-        *(a2 + 48) = v31;
-        *(a2 + 16) = v29;
+        v29 = a3[1];
+        v30 = a3[2];
+        v31 = a3[3];
+        *(a2 + 8) = *(a3 + 8);
+        a2[2] = v30;
+        a2[3] = v31;
+        a2[1] = v29;
         *(a2 + 72) = *(a3 + 72);
-        *(a2 + 88) = *(a3 + 88);
-        *(a3 + 72) = 0;
-        *(a3 + 80) = 0;
-        *(a3 + 88) = 0;
-        v32 = *(a3 + 96);
-        v33 = *(a3 + 112);
+        *(a2 + 11) = *(a3 + 11);
+        *(a3 + 9) = 0;
+        *(a3 + 10) = 0;
+        *(a3 + 11) = 0;
+        v32 = a3[6];
+        v33 = a3[7];
         *(a2 + 127) = *(a3 + 127);
-        *(a2 + 96) = v32;
-        *(a2 + 112) = v33;
-        *(a3 + 32) = v65;
-        *(a3 + 48) = v69;
-        *(a3 + 64) = v73;
+        a2[6] = v32;
+        a2[7] = v33;
+        a3[2] = v65;
+        a3[3] = v69;
+        *(a3 + 8) = v73;
         *a3 = v57;
-        *(a3 + 16) = v61;
-        v34 = *(a3 + 72);
+        a3[1] = v61;
+        v34 = *(a3 + 9);
         if (v34)
         {
-          *(a3 + 80) = v34;
+          *(a3 + 10) = v34;
           v45 = v27;
           operator delete(v34);
           v27 = v45;
         }
 
         *(a3 + 72) = v27;
-        *(a3 + 88) = v28;
+        *(a3 + 11) = v28;
         result.n128_u64[1] = *(&v49 + 1);
-        *(a3 + 96) = v49;
-        *(a3 + 112) = *v53;
+        a3[6] = v49;
+        a3[7] = *v53;
         *(a3 + 127) = *&v53[15];
-        result.n128_u64[0] = *(a2 + 120);
-        if (result.n128_f64[0] < *(a1 + 120))
+        result.n128_u64[0] = *(a2 + 15);
+        if (result.n128_f64[0] < *(a1 + 15))
         {
-          v66 = *(a1 + 32);
-          v70 = *(a1 + 48);
-          v74 = *(a1 + 64);
+          v66 = a1[2];
+          v70 = a1[3];
+          v74 = *(a1 + 8);
           v58 = *a1;
-          v62 = *(a1 + 16);
+          v62 = a1[1];
           v35 = *(a1 + 72);
-          v36 = *(a1 + 88);
-          *(a1 + 72) = 0;
-          *(a1 + 80) = 0;
-          *(a1 + 88) = 0;
+          v36 = *(a1 + 11);
+          *(a1 + 9) = 0;
+          *(a1 + 10) = 0;
+          *(a1 + 11) = 0;
           *&v54[15] = *(a1 + 127);
-          v50 = *(a1 + 96);
-          *v54 = *(a1 + 112);
+          v50 = a1[6];
+          *v54 = a1[7];
           *a1 = *a2;
-          v37 = *(a2 + 16);
-          v38 = *(a2 + 32);
-          v39 = *(a2 + 48);
-          *(a1 + 64) = *(a2 + 64);
-          *(a1 + 32) = v38;
-          *(a1 + 48) = v39;
-          *(a1 + 16) = v37;
+          v37 = a2[1];
+          v38 = a2[2];
+          v39 = a2[3];
+          *(a1 + 8) = *(a2 + 8);
+          a1[2] = v38;
+          a1[3] = v39;
+          a1[1] = v37;
           *(a1 + 72) = *(a2 + 72);
-          *(a1 + 88) = *(a2 + 88);
-          *(a2 + 72) = 0;
-          *(a2 + 80) = 0;
-          *(a2 + 88) = 0;
-          v40 = *(a2 + 96);
-          v41 = *(a2 + 112);
+          *(a1 + 11) = *(a2 + 11);
+          *(a2 + 9) = 0;
+          *(a2 + 10) = 0;
+          *(a2 + 11) = 0;
+          v40 = a2[6];
+          v41 = a2[7];
           *(a1 + 127) = *(a2 + 127);
-          *(a1 + 96) = v40;
-          *(a1 + 112) = v41;
-          *(a2 + 32) = v66;
-          *(a2 + 48) = v70;
-          *(a2 + 64) = v74;
+          a1[6] = v40;
+          a1[7] = v41;
+          a2[2] = v66;
+          a2[3] = v70;
+          *(a2 + 8) = v74;
           *a2 = v58;
-          *(a2 + 16) = v62;
-          v42 = *(a2 + 72);
+          a2[1] = v62;
+          v42 = *(a2 + 9);
           if (v42)
           {
-            *(a2 + 80) = v42;
+            *(a2 + 10) = v42;
             v46 = v35;
             operator delete(v42);
             v35 = v46;
           }
 
           *(a2 + 72) = v35;
-          *(a2 + 88) = v36;
+          *(a2 + 11) = v36;
           result = v50;
-          *(a2 + 96) = v50;
-          *(a2 + 112) = *v54;
+          a2[6] = v50;
+          a2[7] = *v54;
           *(a2 + 127) = *&v54[15];
         }
       }
@@ -2087,7 +4774,7 @@ __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sa
   return result;
 }
 
-uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*>(uint64_t a1, uint64_t a2)
+uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*>(uint64_t a1, __int128 *a2)
 {
   v4 = 0xF0F0F0F0F0F0F0F1 * ((a2 - a1) >> 3);
   if (v4 > 2)
@@ -2103,16 +4790,16 @@ uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,o
         v5 = 1;
         return v5 & 1;
       case 5:
-        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,0>(a1, a1 + 136, a1 + 272, a1 + 408, a2 - 136);
+        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,0>(a1, (a1 + 136), (a1 + 272), (a1 + 408), (a2 - 136));
         v5 = 1;
         return v5 & 1;
     }
 
 LABEL_14:
-    v15 = a1 + 272;
+    v15 = (a1 + 272);
     std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::GenerateNoOvelap2dCompletionTimeCutsWithEnergy(std::string_view,std::vector<operations_research::sat::DiffnCtEvent>,BOOL,BOOL,operations_research::sat::Model *,operations_research::sat::LinearConstraintManager *)::$_1 &,operations_research::sat::DiffnCtEvent*,0>(a1, (a1 + 136), (a1 + 272));
-    v17 = a1 + 408;
-    if (a1 + 408 == a2)
+    v17 = (a1 + 408);
+    if ((a1 + 408) == a2)
     {
 LABEL_29:
       v34 = 1;
@@ -2124,25 +4811,25 @@ LABEL_29:
       v19 = 0;
       while (1)
       {
-        v20 = *(v17 + 120);
-        if (v20 < *(v15 + 120))
+        v20 = *(v17 + 15);
+        if (v20 < v15[15])
         {
-          v49 = *(v17 + 32);
-          v51 = *(v17 + 48);
-          v21 = *(v17 + 72);
-          v53 = *(v17 + 64);
+          v49 = v17[2];
+          v51 = v17[3];
+          v21 = *(v17 + 9);
+          v53 = *(v17 + 8);
           v45 = *v17;
-          v47 = *(v17 + 16);
-          v22 = *(v17 + 96);
-          v37 = *(v17 + 80);
-          *(v17 + 72) = 0;
-          *(v17 + 80) = 0;
-          *(v17 + 88) = 0;
-          v43 = *(v17 + 112);
+          v47 = v17[1];
+          v22 = v17[6];
+          v37 = v17[5];
+          *(v17 + 9) = 0;
+          *(v17 + 10) = 0;
+          *(v17 + 11) = 0;
+          v43 = *(v17 + 14);
           v41 = v22;
           v39 = *(v17 + 130);
           v23 = v18;
-          v38 = *(v17 + 128);
+          v38 = *(v17 + 64);
           while (1)
           {
             v24 = v23;
@@ -2220,7 +4907,7 @@ LABEL_26:
 
         v15 = v17;
         v18 += 136;
-        v17 += 136;
+        v17 = (v17 + 136);
         if (v17 == a2)
         {
           goto LABEL_29;
@@ -2228,7 +4915,7 @@ LABEL_26:
       }
 
       v34 = 0;
-      LOBYTE(v16) = v17 + 136 == a2;
+      LOBYTE(v16) = (v17 + 136) == a2;
     }
 
     v5 = v34 | v16;
@@ -2247,7 +4934,7 @@ LABEL_3:
     goto LABEL_14;
   }
 
-  if (*(a2 - 16) >= *(a1 + 120))
+  if (*(a2 - 2) >= *(a1 + 120))
   {
     goto LABEL_3;
   }
@@ -2269,15 +4956,15 @@ LABEL_3:
   v8 = *(a2 - 120);
   v9 = *(a2 - 104);
   v10 = *(a2 - 88);
-  *(a1 + 64) = *(a2 - 72);
+  *(a1 + 64) = *(a2 - 9);
   *(a1 + 32) = v9;
   *(a1 + 48) = v10;
   *(a1 + 16) = v8;
-  *(a1 + 72) = *(a2 - 64);
-  *(a1 + 88) = *(a2 - 48);
-  *(a2 - 64) = 0;
-  *(a2 - 56) = 0;
-  *(a2 - 48) = 0;
+  *(a1 + 72) = *(a2 - 4);
+  *(a1 + 88) = *(a2 - 6);
+  *(a2 - 8) = 0;
+  *(a2 - 7) = 0;
+  *(a2 - 6) = 0;
   v11 = (a2 - 40);
   v12 = *(a2 - 40);
   v13 = *(a2 - 24);
@@ -2287,19 +4974,19 @@ LABEL_3:
   *(a2 - 120) = v46;
   *(a2 - 104) = v48;
   *(a2 - 88) = v50;
-  *(a2 - 72) = v52;
+  *(a2 - 9) = v52;
   *(a2 - 136) = v44;
-  v14 = *(a2 - 64);
+  v14 = *(a2 - 8);
   if (v14)
   {
-    *(a2 - 56) = v14;
+    *(a2 - 7) = v14;
     v36 = v6;
     operator delete(v14);
     v6 = v36;
   }
 
-  *(a2 - 64) = v6;
-  *(a2 - 48) = v7;
+  *(a2 - 4) = v6;
+  *(a2 - 6) = v7;
   *v11 = v40;
   *(a2 - 24) = *v42;
   *(a2 - 9) = *&v42[15];
@@ -2318,17 +5005,16 @@ __n128 std::__function::__func<operations_research::sat::CreateNoOverlap2dComple
 
 uint64_t std::__function::__func<operations_research::sat::CreateNoOverlap2dCompletionTimeCutGenerator(operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::Model *)::$_0,std::allocator<operations_research::sat::CreateNoOverlap2dCompletionTimeCutGenerator(operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::Model *)::$_0>,BOOL ()(operations_research::sat::LinearConstraintManager *)>::operator()(uint64_t a1, uint64_t *a2)
 {
-  v3 = *a2;
   if (!operations_research::sat::SchedulingConstraintHelper::SynchronizeAndSetTimeDirection(*(a1 + 8), 1) || !operations_research::sat::SchedulingConstraintHelper::SynchronizeAndSetTimeDirection(*(a1 + 16), 1))
   {
     return 0;
   }
 
-  v4 = (*(*(a1 + 8) + 88) - *(*(a1 + 8) + 80)) >> 3;
-  v5 = -1431655765 * v4;
-  if (0xAAAAAAAB00000000 * v4)
+  v3 = (*(*(a1 + 8) + 88) - *(*(a1 + 8) + 80)) >> 3;
+  v4 = -1431655765 * v3;
+  if (0xAAAAAAAB00000000 * v3)
   {
-    if (((0xAAAAAAAB00000000 * v4) & 0x8000000000000000) == 0)
+    if (((0xAAAAAAAB00000000 * v3) & 0x8000000000000000) == 0)
     {
       operator new();
     }
@@ -2336,35 +5022,35 @@ uint64_t std::__function::__func<operations_research::sat::CreateNoOverlap2dComp
     std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
   }
 
-  if (v5 >= 1)
+  if (v4 >= 1)
   {
-    v6 = 0;
-    v7 = v5 & 0x7FFFFFFF;
-    v8 = 16;
+    v5 = 0;
+    v6 = v4 & 0x7FFFFFFF;
+    v7 = 16;
     do
     {
-      v9 = *(a1 + 16);
-      v10 = *(v9[19] + 4 * v6);
-      if (v10 == -1 || (v11 = *(v9[19] + 4 * v6), ((*(*(v9[3] + 24) + ((v10 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v10) & 1) != 0))
+      v8 = *(a1 + 16);
+      v9 = *(v8[19] + 4 * v5);
+      if (v9 == -1 || ((*(*(v8[3] + 24) + ((v9 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v9) & 1) != 0)
       {
-        v12 = *(a1 + 8);
-        v13 = *(v9[29] + 8 * v6) * *(v12[29] + 8 * v6);
-        *(8 * v6) = v13;
-        if (v13)
+        v10 = *(a1 + 8);
+        v11 = *(v8[29] + 8 * v5) * *(v10[29] + 8 * v5);
+        *(8 * v5) = v11;
+        if (v11)
         {
-          *(v8 - 16) = *(v12[30] + 8 * v6);
-          *(v8 - 8) = -*(v12[33] + 8 * v6);
-          *v8 = *(v9[30] + 8 * v6);
-          *(v8 + 8) = -*(v9[33] + 8 * v6);
+          *(v7 - 16) = *(v10[30] + 8 * v5);
+          *(v7 - 8) = -*(v10[33] + 8 * v5);
+          *v7 = *(v8[30] + 8 * v5);
+          *(v7 + 8) = -*(v8[33] + 8 * v5);
           operator new();
         }
       }
 
-      ++v6;
-      v8 += 32;
+      ++v5;
+      v7 += 32;
     }
 
-    while (v7 != v6);
+    while (v6 != v5);
   }
 
   return 1;
@@ -2428,7 +5114,7 @@ uint64_t std::__function::__func<operations_research::sat::CreateNoOverlap2dComp
   return 0;
 }
 
-void operations_research::sat::CreateNoOverlap2dCompletionTimeCutGenerator(operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::Model *)::$_0::operator() const(operations_research::sat::LinearConstraintManager *)::{lambda(std::string_view,operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingConstraintHelper *)#1}::operator()(uint64_t a1, const void *a2, unint64_t a3, void *a4, void *a5)
+void operations_research::sat::CreateNoOverlap2dCompletionTimeCutGenerator(operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::Model *)::$_0::operator() const(operations_research::sat::LinearConstraintManager *)::{lambda(std::string_view,operations_research::sat::SchedulingConstraintHelper *,operations_research::sat::SchedulingConstraintHelper *)#1}::operator()(uint64_t a1, const void *a2, size_t a3, void *a4, void *a5)
 {
   v5 = a3;
   v7 = 0uLL;
@@ -2513,7 +5199,7 @@ void operations_research::sat::CreateNoOverlap2dCompletionTimeCutGenerator(opera
       *(&v41 + 1) = -*(a5[33] + 8 * v16);
       *&v42 = *(v25 + 8 * v16);
       *(&v42 + 1) = v42 * v19;
-      operations_research::sat::ProductDecomposer::TryToDecompose(*a1, (a4[16] + 24 * v16), (a5[16] + 24 * v16), &v38);
+      operations_research::sat::ProductDecomposer::TryToDecompose(&v38, *a1, (a4[16] + 24 * v16), (a5[16] + 24 * v16));
       if (__p)
       {
         *(&__p + 1) = __p;
@@ -2594,11 +5280,11 @@ void operations_research::sat::CreateNoOverlap2dCompletionTimeCutGenerator(opera
   }
 }
 
-void sub_23CB71E70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_23CB71E70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::vector<operations_research::sat::DiffnCtEvent>::~vector[abi:ne200100](va);
-  std::vector<operations_research::sat::DiffnCtEvent>::~vector[abi:ne200100]((v6 - 120));
+  std::vector<operations_research::sat::DiffnCtEvent>::~vector[abi:ne200100]((v11 - 120));
   _Unwind_Resume(a1);
 }
 
@@ -2613,7 +5299,7 @@ void sub_23CB71E8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void operations_research::sat::GetOverlappingRectangleComponents(uint64_t a1@<X0>, const char *a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, void *a5@<X8>)
+void operations_research::sat::GetOverlappingRectangleComponents(uint64_t result@<X0>, const char *a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, void *a5@<X8>)
 {
   *a5 = 0;
   a5[1] = 0;
@@ -2634,9 +5320,9 @@ void operations_research::sat::GetOverlappingRectangleComponents(uint64_t a1@<X0
           v14 = (a4 & 0x7FFFFFFF) - v9;
           do
           {
-            v15 = (a1 + 32 * *(a3 + 4 * v12));
+            v15 = (result + 32 * *(a3 + 4 * v12));
             v16 = *v13;
-            v17 = (a1 + 32 * v16);
+            v17 = (result + 32 * v16);
             if (*v15 < v17[1] && *v17 < v15[1] && v15[2] < v17[3] && v17[2] < v15[3])
             {
               v18 = *(a3 + 4 * v9);
@@ -2756,7 +5442,7 @@ LABEL_3:
   *(a1 + 8) = v5;
 }
 
-void operations_research::sat::ConstructOverlappingSets(char a1, uint64_t a2, void **a3, __n128 a4)
+void operations_research::sat::ConstructOverlappingSets(char a1, __n128 **a2, void **a3, __n128 a4)
 {
   v4 = a3;
   v8 = *a3;
@@ -2784,8 +5470,8 @@ void operations_research::sat::ConstructOverlappingSets(char a1, uint64_t a2, vo
   v4[1] = v8;
   if ((a1 & 1) == 0)
   {
-    v12 = *(a2 + 8);
-    v13 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * (&v12[-*a2] >> 3));
+    v12 = a2[1];
+    v13 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v12 - *a2) >> 3));
     if (v12 == *a2)
     {
       v14 = 0;
@@ -2803,7 +5489,7 @@ void operations_research::sat::ConstructOverlappingSets(char a1, uint64_t a2, vo
   v68 = vdupq_n_s64(0x7FFFFFFFFFFFFFFEuLL);
   std::vector<operations_research::sat::OrthogonalPackingResult::Item>::push_back[abi:ne200100](a2, &v67);
   v15 = *a2;
-  v16 = -1431655765 * ((*(a2 + 8) - *a2) >> 3);
+  v16 = -1431655765 * ((a2[1] - *a2) >> 3);
   if (v16 < 1)
   {
     return;
@@ -2891,11 +5577,11 @@ LABEL_49:
 
     else
     {
-      v23 = v21 + 3;
+      v23 = v21 + 24;
       *v21 = 0;
-      v21[1] = 0;
-      v21[2] = 0;
-      v4[1] = v21 + 3;
+      *(v21 + 1) = 0;
+      *(v21 + 2) = 0;
+      v4[1] = v21 + 24;
       v24 = v18 - v17;
       if (v18 <= v17)
       {
@@ -2978,7 +5664,7 @@ LABEL_49:
         *(v26 - 2) = v44;
         v30 = *v64;
         v31 = *v64 + v25 * 4;
-        v32 = *(v31 + 16);
+        v32 = *(v31 + 2);
         if (v32 > v65)
         {
           goto LABEL_17;
@@ -2989,11 +5675,11 @@ LABEL_35:
         v46 = (v17 + 1);
         v47 = *(v45 + 2);
         v48 = *v45;
-        v49 = *(v31 + 16);
+        v49 = *(v31 + 2);
         *v45 = *v31;
         *(v45 + 2) = v49;
         *v31 = v48;
-        *(v31 + 16) = v47;
+        *(v31 + 2) = v47;
         v17 = v46;
         v25 += 6;
         if (!--v24)
@@ -3006,7 +5692,7 @@ LABEL_35:
       *(v26 - 2) = v29 + 4;
       v30 = *a2;
       v31 = *a2 + v25 * 4;
-      v32 = *(v31 + 16);
+      v32 = *(v31 + 2);
       if (v32 <= v20)
       {
         goto LABEL_35;
@@ -3077,7 +5763,7 @@ LABEL_54:
   while (v18 < v16);
 }
 
-char *operations_research::sat::GetOverlappingIntervalComponents(__int128 **a1, uint64_t *a2)
+void operations_research::sat::GetOverlappingIntervalComponents(int **a1, char **a2)
 {
   v5 = *a2;
   v4 = a2[1];
@@ -3086,12 +5772,12 @@ char *operations_research::sat::GetOverlappingIntervalComponents(__int128 **a1, 
     v6 = a2[1];
     do
     {
-      v8 = *(v6 - 24);
+      v8 = *(v6 - 3);
       v6 -= 24;
       v7 = v8;
       if (v8)
       {
-        *(v4 - 16) = v7;
+        *(v4 - 2) = v7;
         operator delete(v7);
       }
 
@@ -3102,27 +5788,21 @@ char *operations_research::sat::GetOverlappingIntervalComponents(__int128 **a1, 
   }
 
   a2[1] = v5;
-  v9 = *a1;
-  v10 = a1[1];
-  result = *a1;
-  if (*a1 != v10)
+  v9 = a1[1];
+  v10 = *a1;
+  if (*a1 != v9)
   {
-    if (v10 - result == 24)
+    if ((v9 - v10) == 24)
     {
-      v12 = *result;
       operator new();
     }
 
-    std::__introsort<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &,operations_research::sat::IndexedInterval*,false>(result, v10, &v15, 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v10 - result) >> 3)), 1);
-    v13 = *(*a1 + 2);
-    v14 = **a1;
+    std::__introsort<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &,operations_research::sat::IndexedInterval*,false>(v10, v9, &v11, 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v9 - v10) >> 3)), 1);
     operator new();
   }
-
-  return result;
 }
 
-void operations_research::sat::AppendPairwiseRestrictions(uint64_t a1, unint64_t a2, uint64_t a3)
+void operations_research::sat::AppendPairwiseRestrictions(uint64_t result, unint64_t a2, uint64_t a3)
 {
   if (a2 >= 2)
   {
@@ -3136,7 +5816,7 @@ void operations_research::sat::AppendPairwiseRestrictions(uint64_t a1, unint64_t
       v10 = v7;
       if (a2 > v7)
       {
-        v11 = a1 + 72 * v9;
+        v11 = result + 72 * v9;
         v12 = v8;
         v7 = v7;
         do
@@ -3155,16 +5835,16 @@ void operations_research::sat::AppendPairwiseRestrictions(uint64_t a1, unint64_t
   }
 }
 
-void operations_research::sat::anonymous namespace::AppendPairwiseRestriction(uint64_t a1, int *a2, uint64_t a3)
+void operations_research::sat::anonymous namespace::AppendPairwiseRestriction(uint64_t result, int *a2, uint64_t a3)
 {
   v3 = *(a2 + 2);
   v4 = *(a2 + 3);
-  v6 = *(a1 + 16);
-  v5 = *(a1 + 24);
+  v6 = *(result + 16);
+  v5 = *(result + 24);
   v7 = *(a2 + 6);
   v8 = *(a2 + 7);
-  v9 = *(a1 + 48);
-  v10 = *(a1 + 56);
+  v9 = *(result + 48);
+  v10 = *(result + 56);
   v11 = (v5 <= v3) | (2 * (v4 <= v6)) | (4 * (v10 <= v7)) | (8 * (v8 <= v9));
   if ((v11 & (v11 - 1)) == 0)
   {
@@ -3173,17 +5853,17 @@ void operations_research::sat::anonymous namespace::AppendPairwiseRestriction(ui
       if (!v11)
       {
         v16 = *a2;
-        LODWORD(v18) = *a1;
+        LODWORD(v18) = *result;
         HIDWORD(v18) = v16;
         v19 = 0;
         std::vector<operations_research::sat::PairwiseRestriction>::push_back[abi:ne200100](a3, &v18);
         return;
       }
 
-      if (v11 == 1 && (v5 > *(a2 + 1) || v3 < *(a1 + 32)))
+      if (v11 == 1 && (v5 > *(a2 + 1) || v3 < *(result + 32)))
       {
         v12 = *a2;
-        LODWORD(v18) = *a1;
+        LODWORD(v18) = *result;
         HIDWORD(v18) = v12;
         v13 = 3;
         goto LABEL_22;
@@ -3192,10 +5872,10 @@ void operations_research::sat::anonymous namespace::AppendPairwiseRestriction(ui
 
     else if (v11 == 2)
     {
-      if (v4 > *(a1 + 8) || v6 < *(a2 + 4))
+      if (v4 > *(result + 8) || v6 < *(a2 + 4))
       {
         v14 = *a2;
-        LODWORD(v18) = *a1;
+        LODWORD(v18) = *result;
         HIDWORD(v18) = v14;
         v13 = 4;
         goto LABEL_22;
@@ -3206,13 +5886,13 @@ void operations_research::sat::anonymous namespace::AppendPairwiseRestriction(ui
     {
       if (v11 != 4)
       {
-        if (v11 != 8 || v8 <= *(a1 + 40) && v9 >= *(a2 + 8))
+        if (v11 != 8 || v8 <= *(result + 40) && v9 >= *(a2 + 8))
         {
           return;
         }
 
         v17 = *a2;
-        LODWORD(v18) = *a1;
+        LODWORD(v18) = *result;
         HIDWORD(v18) = v17;
         v13 = 2;
 LABEL_22:
@@ -3221,10 +5901,10 @@ LABEL_22:
         return;
       }
 
-      if (v10 > *(a2 + 5) || v7 < *(a1 + 64))
+      if (v10 > *(a2 + 5) || v7 < *(result + 64))
       {
         v15 = *a2;
-        LODWORD(v18) = *a1;
+        LODWORD(v18) = *result;
         HIDWORD(v18) = v15;
         v13 = 1;
         goto LABEL_22;
@@ -3233,7 +5913,7 @@ LABEL_22:
   }
 }
 
-void operations_research::sat::AppendPairwiseRestrictions(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5)
+void operations_research::sat::AppendPairwiseRestrictions(uint64_t result, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5)
 {
   if (a2 && a4)
   {
@@ -3241,7 +5921,7 @@ void operations_research::sat::AppendPairwiseRestrictions(uint64_t a1, unint64_t
     for (i = 0; i < a2; v10 = ++i)
     {
       v12 = 0;
-      v13 = a1 + 72 * v10;
+      v13 = result + 72 * v10;
       v14 = 1;
       do
       {
@@ -3260,26 +5940,26 @@ uint64_t operations_research::sat::CapacityProfile::Clear(uint64_t this)
   return this;
 }
 
-void operations_research::sat::CapacityProfile::AddRectangle(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void operations_research::sat::CapacityProfile::AddRectangle(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (a2 != a3)
   {
     v15 = v5;
     v16 = v6;
-    v8 = *(a1 + 24);
+    v8 = *(result + 24);
     v11 = a2;
     v12.i64[0] = a4;
     v12.i64[1] = a5;
     v13 = 0;
     v14 = v8;
-    std::vector<operations_research::sat::CapacityProfile::Event>::push_back[abi:ne200100](a1, &v11);
-    v10 = *(a1 + 24);
+    std::vector<operations_research::sat::CapacityProfile::Event>::push_back[abi:ne200100](result, &v11);
+    v10 = *(result + 24);
     v11 = a3;
     v12 = vdupq_n_s64(0x8000000000000002);
     v13 = 1;
     v14 = v10;
-    std::vector<operations_research::sat::CapacityProfile::Event>::push_back[abi:ne200100](a1, &v11);
-    ++*(a1 + 24);
+    std::vector<operations_research::sat::CapacityProfile::Event>::push_back[abi:ne200100](result, &v11);
+    ++*(result + 24);
   }
 }
 
@@ -3355,7 +6035,7 @@ uint64_t operations_research::sat::CapacityProfile::GetBoundingArea(operations_r
 {
   v3 = *this;
   v4 = *(this + 1);
-  v5 = 126 - 2 * __clz(&v4[-v3] >> 5);
+  v5 = 126 - 2 * __clz((v4 - v3) >> 5);
   if (v4 == v3)
   {
     v6 = 0;
@@ -3800,33 +6480,33 @@ LABEL_73:
   return v13;
 }
 
-void sub_23CB7352C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_23CB7352C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   operations_research::SparseBitset<operations_research::StrongIndex<operations_research::sat::IntegerVariable_index_tag_>>::~SparseBitset(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t operations_research::sat::ProbingRectangle::ProbingRectangle(uint64_t result, void *a2)
+uint64_t operations_research::sat::ProbingRectangle::ProbingRectangle(uint64_t a1, void *a2)
 {
-  *(result + 48) = 0u;
-  *(result + 64) = 0u;
-  *(result + 80) = 0u;
-  *(result + 16) = 0u;
-  *(result + 32) = 0u;
-  *result = 0u;
-  *(result + 96) = a2;
-  *(result + 104) = 0;
-  *(result + 112) = 0;
-  *(result + 120) = 0;
-  *(result + 160) = xmmword_23CE306D0;
-  *(result + 192) = xmmword_23CE306D0;
-  *(result + 224) = 0u;
-  *(result + 240) = 0u;
-  *(result + 256) = 0u;
-  *(result + 272) = 0u;
-  *(result + 288) = 0u;
-  *(result + 304) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 64) = 0u;
+  *(a1 + 80) = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *a1 = 0u;
+  *(a1 + 96) = a2;
+  *(a1 + 104) = 0;
+  *(a1 + 112) = 0;
+  *(a1 + 120) = 0;
+  *(a1 + 160) = xmmword_23CE306D0;
+  *(a1 + 192) = xmmword_23CE306D0;
+  *(a1 + 224) = 0u;
+  *(a1 + 240) = 0u;
+  *(a1 + 256) = 0u;
+  *(a1 + 272) = 0u;
+  *(a1 + 288) = 0u;
+  *(a1 + 304) = 0u;
   v2 = a2[1];
   if (*a2 != v2)
   {
@@ -3838,7 +6518,7 @@ uint64_t operations_research::sat::ProbingRectangle::ProbingRectangle(uint64_t r
     std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23CB73D88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, _Unwind_Exception *exception_object)
@@ -4061,21 +6741,21 @@ LABEL_3:
 uint64_t operations_research::sat::ProbingRectangle::Reset(int64x2_t *this)
 {
   v4 = this[10].u64[0];
-  i64 = this[10].i64;
+  v2 = &this[10];
   v3 = v4;
-  v5 = -1431655765 * ((*(i64 - 13) - *(i64 - 14)) >> 3);
-  *(i64 - 5) = v5 - 1;
-  *(i64 - 28) = 0;
-  v6 = -1431655765 * ((*(i64 - 10) - *(i64 - 11)) >> 3);
-  *(i64 - 8) = v6 - 1;
-  *(i64 - 1) = v5 - 2;
-  *(i64 - 12) = 0x100000001;
-  *(i64 - 4) = v6 - 2;
-  *(i64 - 6) = *(i64 - 7);
+  v5 = -1431655765 * ((*(v2 - 13) - *(v2 - 14)) >> 3);
+  *(v2 - 5) = v5 - 1;
+  *(v2 - 28) = 0;
+  v6 = -1431655765 * ((*(v2 - 10) - *(v2 - 11)) >> 3);
+  *(v2 - 8) = v6 - 1;
+  *(v2 - 1) = v5 - 2;
+  *(v2 - 12) = 0x100000001;
+  *(v2 - 4) = v6 - 2;
+  *(v2 - 6) = *(v2 - 7);
   if (v4 > 1)
   {
-    absl::lts_20240722::container_internal::ClearBackingArray(i64, &absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::GetPolicyFunctions(void)::value, v3 < 0x80, 1u);
-    v7 = this[12].i64;
+    absl::lts_20240722::container_internal::ClearBackingArray(v2, &absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::GetPolicyFunctions(void)::value, v3 < 0x80, 1u);
+    v7 = &this[12];
     v8 = this[12].u64[0];
     if (v8 > 1)
     {
@@ -4086,7 +6766,7 @@ uint64_t operations_research::sat::ProbingRectangle::Reset(int64x2_t *this)
   else
   {
     this[10].i64[1] = 0;
-    v7 = this[12].i64;
+    v7 = &this[12];
     v8 = this[12].u64[0];
     if (v8 > 1)
     {
@@ -4133,12 +6813,12 @@ uint64_t operations_research::sat::ProbingRectangle::CacheShrinkDeltaEnergy(uint
 
     v11 = *(v7 + 24 * v10);
     v12 = *(v7 + 24 * *(this + 144));
-    v77 = v11 - v8;
-    v76 = v9 - v12;
+    v76 = v11 - v8;
+    v75 = v9 - v12;
     v13 = (this + 256);
     v14 = (this + 272);
-    v74 = (this + 304);
-    v75 = (this + 288);
+    v73 = (this + 304);
+    v74 = (this + 288);
     v15 = v6;
     v16 = v5;
   }
@@ -4155,363 +6835,362 @@ uint64_t operations_research::sat::ProbingRectangle::CacheShrinkDeltaEnergy(uint
 
     v16 = *(v2 + 24 * *(this + 148));
     v15 = *(v2 + 24 * v17);
-    v77 = v16 - v5;
-    v76 = v6 - v15;
+    v76 = v16 - v5;
+    v75 = v6 - v15;
     v14 = (this + 264);
     v13 = (this + 280);
-    v74 = (this + 296);
-    v75 = (this + 312);
+    v73 = (this + 296);
+    v74 = (this + 312);
     v12 = v9;
     v11 = v8;
   }
 
-  v18 = *v13;
-  v72 = *v13;
-  v73 = *v14;
-  v19 = this + 32 * a2;
-  if (*(v19 + 168) < 2uLL)
+  v71 = *v13;
+  v72 = *v14;
+  v18 = this + 32 * a2;
+  if (*(v18 + 168) < 2uLL)
   {
-    v27 = 0;
     v26 = 0;
+    v25 = 0;
   }
 
   else
   {
-    v79 = v8;
-    v20 = v19 + 160;
-    v21 = (v19 + 160);
-    v23 = *v21;
-    v22 = (v21 + 2);
-    if (v23 >= 2)
+    v78 = v8;
+    v19 = v18 + 160;
+    v20 = (v18 + 160);
+    v22 = *v20;
+    v21 = (v20 + 2);
+    if (v22 >= 2)
     {
-      v24 = *(v20 + 16);
-      v22 = *(v20 + 24);
-      if (*v24 <= -2)
+      v23 = *(v19 + 16);
+      v21 = *(v19 + 24);
+      if (*v23 <= -2)
       {
         do
         {
-          v25 = __clz(__rbit64((*v24 | ~(*v24 >> 7)) & 0x101010101010101)) >> 3;
-          v24 = (v24 + v25);
-          v22 += v25;
+          v24 = __clz(__rbit64((*v23 | ~(*v23 >> 7)) & 0x101010101010101)) >> 3;
+          v23 = (v23 + v24);
+          v21 += v24;
         }
 
-        while (*v24 < -1);
+        while (*v23 < -1);
       }
     }
 
     else
     {
-      v24 = &absl::lts_20240722::container_internal::kSooControl;
+      v23 = &absl::lts_20240722::container_internal::kSooControl;
     }
 
+    v25 = 0;
     v26 = 0;
-    v27 = 0;
-    v78 = **(this + 96);
-    v80 = v6;
-    v81 = v5;
+    v77 = **(this + 96);
+    v79 = v6;
+    v80 = v5;
     do
     {
-      v28 = (v78 + 56 * *v22);
-      v30 = v28[1];
-      v29 = v28[2];
-      v31 = v28[5];
-      v32 = v28[6];
-      v33 = v31 + v30;
-      if (v31 + v30 >= v6)
+      v27 = (v77 + 56 * *v21);
+      v29 = v27[1];
+      v28 = v27[2];
+      v30 = v27[5];
+      v31 = v27[6];
+      v32 = v30 + v29;
+      if (v30 + v29 >= v6)
       {
-        v34 = v6;
+        v33 = v6;
       }
 
       else
       {
-        v34 = v31 + v30;
+        v33 = v30 + v29;
       }
 
-      if (v30 <= v5)
+      if (v29 <= v5)
       {
-        v35 = v5;
+        v34 = v5;
       }
 
       else
       {
-        v35 = v28[1];
+        v34 = v27[1];
       }
 
-      v36 = v34 - v35;
-      if (v6 >= v29)
+      v35 = v33 - v34;
+      if (v6 >= v28)
       {
-        v37 = v28[2];
+        v36 = v27[2];
       }
 
       else
       {
-        v37 = v6;
+        v36 = v6;
       }
 
-      v38 = v29 - v31;
-      if (v38 <= v5)
+      v37 = v28 - v30;
+      if (v37 <= v5)
       {
-        v39 = v5;
+        v38 = v5;
       }
 
       else
       {
-        v39 = v38;
+        v38 = v37;
       }
 
-      if (v37 - v39 < v36)
+      if (v36 - v38 < v35)
       {
-        v36 = v37 - v39;
+        v35 = v36 - v38;
       }
 
-      v40 = v28[3];
-      v41 = v28[4];
-      v42 = v32 + v40;
-      if (v32 + v40 >= v9)
+      v39 = v27[3];
+      v40 = v27[4];
+      v41 = v31 + v39;
+      if (v31 + v39 >= v9)
       {
-        v43 = v9;
+        v42 = v9;
       }
 
       else
       {
-        v43 = v32 + v40;
+        v42 = v31 + v39;
       }
 
-      if (v40 <= v79)
+      if (v39 <= v78)
       {
-        v44 = v79;
+        v43 = v78;
       }
 
       else
+      {
+        v43 = v39;
+      }
+
+      if (v9 >= v40)
       {
         v44 = v40;
       }
 
-      if (v9 >= v41)
+      else
       {
-        v45 = v41;
+        v44 = v9;
+      }
+
+      v45 = v40 - v31;
+      v46 = a2;
+      if (v45 <= v78)
+      {
+        v47 = v78;
       }
 
       else
       {
-        v45 = v9;
+        v47 = v45;
       }
 
-      v46 = v41 - v32;
-      v47 = a2;
-      if (v46 <= v79)
+      v48 = v44 - v47;
+      if (v44 - v47 >= v42 - v43)
       {
-        v48 = v79;
+        v48 = v42 - v43;
+      }
+
+      if (v39 <= v11)
+      {
+        v39 = v11;
+      }
+
+      v49 = v42 - v39;
+      if (v45 <= v11)
+      {
+        v50 = v11;
       }
 
       else
       {
-        v48 = v46;
+        v50 = v45;
       }
 
-      v49 = v45 - v48;
-      if (v45 - v48 >= v43 - v44)
+      v51 = v44 - v50;
+      if (v51 >= v49)
       {
-        v49 = v43 - v44;
+        v51 = v49;
       }
 
-      if (v40 <= v11)
+      if (v41 >= v12)
       {
-        v40 = v11;
-      }
-
-      v50 = v43 - v40;
-      if (v46 <= v11)
-      {
-        v51 = v11;
+        v52 = v12;
       }
 
       else
       {
-        v51 = v46;
+        v52 = v41;
       }
 
-      v52 = v45 - v51;
-      if (v52 >= v50)
+      v53 = v52 - v43;
+      if (v12 >= v40)
       {
-        v52 = v50;
-      }
-
-      if (v42 >= v12)
-      {
-        v53 = v12;
+        v54 = v40;
       }
 
       else
       {
-        v53 = v42;
+        v54 = v12;
       }
 
-      v54 = v53 - v44;
-      if (v12 >= v41)
+      v55 = v54 - v47;
+      if (v55 < v53)
       {
-        v55 = v41;
+        v53 = v55;
+      }
+
+      if (v29 <= v16)
+      {
+        v56 = v16;
       }
 
       else
       {
-        v55 = v12;
+        v56 = v29;
       }
 
-      v56 = v55 - v48;
-      if (v56 < v54)
+      v57 = v33 - v56;
+      if (v37 <= v16)
       {
-        v54 = v56;
-      }
-
-      if (v30 <= v16)
-      {
-        v57 = v16;
+        v58 = v16;
       }
 
       else
       {
-        v57 = v30;
+        v58 = v37;
       }
 
-      v58 = v34 - v57;
-      if (v38 <= v16)
+      v59 = v36 - v58;
+      if (v59 >= v57)
       {
-        v59 = v16;
+        v59 = v57;
+      }
+
+      if (v32 >= v15)
+      {
+        v60 = v15;
       }
 
       else
       {
-        v59 = v38;
+        v60 = v32;
       }
 
-      v60 = v37 - v59;
-      if (v60 >= v58)
+      this = v60 - v34;
+      if (v15 >= v28)
       {
-        v60 = v58;
+        v61 = v28;
       }
 
-      if (v33 >= v15)
+      else
       {
         v61 = v15;
       }
 
-      else
+      v62 = v61 - v38;
+      a2 = v46;
+      if (v62 >= this)
       {
-        v61 = v33;
+        v62 = this;
       }
 
-      this = v61 - v35;
-      if (v15 >= v29)
+      v63 = v35 & ~(v35 >> 63);
+      v64 = v48 & ~(v48 >> 63);
+      if (v46)
       {
-        v62 = v29;
-      }
-
-      else
-      {
-        v62 = v15;
-      }
-
-      v63 = v62 - v39;
-      a2 = v47;
-      if (v63 >= this)
-      {
-        v63 = this;
-      }
-
-      v64 = v36 & ~(v36 >> 63);
-      v65 = v49 & ~(v49 >> 63);
-      if (v47)
-      {
-        v66 = (v54 & ~(v54 >> 63)) * v64;
+        v65 = (v53 & ~(v53 >> 63)) * v63;
       }
 
       else
       {
-        v66 = v65 * (v63 & ~(v63 >> 63));
+        v65 = v64 * (v62 & ~(v62 >> 63));
       }
 
-      v67 = (v52 & ~(v52 >> 63)) * v64;
-      if (v47)
+      v66 = (v51 & ~(v51 >> 63)) * v63;
+      if (v46)
       {
-        v68 = v67;
+        v67 = v66;
       }
 
       else
       {
-        v68 = v65 * (v60 & ~(v60 >> 63));
+        v67 = v64 * (v59 & ~(v59 >> 63));
       }
 
-      v70 = *(v24 + 1);
-      v24 = (v24 + 1);
-      LOBYTE(v69) = v70;
-      ++v22;
-      if (v70 <= -2)
+      v69 = *(v23 + 1);
+      v23 = (v23 + 1);
+      LOBYTE(v68) = v69;
+      ++v21;
+      if (v69 <= -2)
       {
         do
         {
-          v71 = __clz(__rbit64((*v24 | ~(*v24 >> 7)) & 0x101010101010101)) >> 3;
-          v24 = (v24 + v71);
-          v22 += v71;
-          v69 = *v24;
+          v70 = __clz(__rbit64((*v23 | ~(*v23 >> 7)) & 0x101010101010101)) >> 3;
+          v23 = (v23 + v70);
+          v21 += v70;
+          v68 = *v23;
         }
 
-        while (v69 < -1);
+        while (v68 < -1);
       }
 
-      v26 = v65 * v64 + v26 - v68;
-      v27 = v65 * v64 + v27 - v66;
-      v6 = v80;
-      v5 = v81;
+      v25 = v64 * v63 + v25 - v67;
+      v26 = v64 * v63 + v26 - v65;
+      v6 = v79;
+      v5 = v80;
     }
 
-    while (v69 != 255);
+    while (v68 != 255);
   }
 
-  *v74 = v26 + v73 * v77;
-  *v75 = v27 + v72 * v76;
+  *v73 = v25 + v72 * v76;
+  *v74 = v26 + v71 * v75;
   return this;
 }
 
-void operations_research::sat::FindRectanglesWithEnergyConflictMC(void *a1@<X0>, __n128 *a2@<X1>, _OWORD *a3@<X8>, double a4@<D0>, double a5@<D1>)
+void operations_research::sat::FindRectanglesWithEnergyConflictMC(void *a1@<X0>, __int128 *a2@<X1>, _OWORD *a3@<X8>, double a4@<D0>, double a5@<D1>)
 {
   v7 = a3;
-  v106[3] = *MEMORY[0x277D85DE8];
+  v134[3] = *MEMORY[0x277D85DE8];
   a3[1] = 0u;
   a3[2] = 0u;
   *a3 = 0u;
-  operations_research::sat::ProbingRectangle::ProbingRectangle(&v75, a1);
+  operations_research::sat::ProbingRectangle::ProbingRectangle(&v107, a1);
   if ((atomic_load_explicit(&qword_27E25F630, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27E25F630))
   {
     operator new();
   }
 
-  v72 = 0;
   v104 = 0;
-  v102 = 0;
+  v132 = 0;
+  v130 = 0;
   v8 = 1.0 / a4;
-  while (v84 > v90 || v91 > v85)
+  while (v116 > v121 || v122 > v117)
   {
-    v9 = v82;
-    if (v82 <= v83)
+    v9 = v114;
+    if (v114 <= v115)
     {
-      if (v83 * a5 < v82)
+      if (v115 * a5 < v114)
       {
-        v69.n128_u64[0] = *(v78 + 3 * v85);
-        v69.n128_u64[1] = *(v78 + 3 * v87);
-        v70 = v80[3 * v86];
-        v71 = v80[3 * v84];
-        std::vector<operations_research::sat::CapacityProfile::Event>::push_back[abi:ne200100](v7 + 24, &v69);
+        v101.n128_u64[0] = *(v110 + 3 * v117);
+        v101.n128_u64[1] = *(v110 + 3 * v119);
+        v102 = *&v112[24 * v118];
+        v103 = *&v112[24 * v116];
+        std::vector<operations_research::sat::CapacityProfile::Event>::push_back[abi:ne200100](v7 + 24, &v101);
       }
     }
 
     else
     {
-      v69.n128_u64[0] = *(v78 + 3 * v85);
-      v69.n128_u64[1] = *(v78 + 3 * v87);
-      v70 = v80[3 * v86];
-      v71 = v80[3 * v84];
-      std::vector<operations_research::sat::CapacityProfile::Event>::push_back[abi:ne200100](v7, &v69);
+      v101.n128_u64[0] = *(v110 + 3 * v117);
+      v101.n128_u64[1] = *(v110 + 3 * v119);
+      v102 = *&v112[24 * v118];
+      v103 = *&v112[24 * v116];
+      std::vector<operations_research::sat::CapacityProfile::Event>::push_back[abi:ne200100](v7, &v101);
     }
 
     if (!v9)
@@ -4519,17 +7198,19 @@ void operations_research::sat::FindRectanglesWithEnergyConflictMC(void *a1@<X0>,
       break;
     }
 
-    if (v72)
+    if (v104)
     {
       operator delete(__p);
-      v72 = 0;
-      if ((v104 & 1) == 0)
+      v104 = 0;
+      if (v132)
       {
-LABEL_13:
-        v104 = 0;
-        if (v84 <= v90)
+LABEL_16:
+        operator delete(v133);
+        v132 = 0;
+        v100 = 0;
+        if (v116 <= v121)
         {
-          goto LABEL_30;
+          goto LABEL_43;
         }
 
         goto LABEL_17;
@@ -4538,25 +7219,25 @@ LABEL_13:
 
     else
     {
-      v72 = 0;
-      if ((v104 & 1) == 0)
+      v104 = 0;
+      if (v132)
       {
-        goto LABEL_13;
+        goto LABEL_16;
       }
     }
 
-    operator delete(v105);
-    v104 = 0;
-    if (v84 <= v90)
+    v132 = 0;
+    v100 = 0;
+    if (v116 <= v121)
     {
-      goto LABEL_30;
+      goto LABEL_43;
     }
 
 LABEL_17:
-    v10 = v72;
-    if (v72)
+    v10 = v104;
+    if (v104)
     {
-      v11 = v74;
+      v11 = v106;
     }
 
     else
@@ -4564,491 +7245,680 @@ LABEL_17:
       v11 = 4;
     }
 
-    if (v72 >> 1 == v11)
+    if (v104 >> 1 == v11)
     {
-      absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::ProbingRectangle::Edge,4ul,std::allocator<operations_research::sat::ProbingRectangle::Edge>>::EmplaceBackSlow<operations_research::sat::ProbingRectangle::Edge const&>(&v72);
+      absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::ProbingRectangle::Edge,4ul,std::allocator<operations_research::sat::ProbingRectangle::Edge>>::EmplaceBackSlow<operations_research::sat::ProbingRectangle::Edge const&>(&v104, &v100);
     }
 
     p_p = __p;
-    if ((v72 & 1) == 0)
+    if ((v104 & 1) == 0)
     {
       p_p = &__p;
     }
 
-    p_p[v72 >> 1] = 0;
-    v72 = v10 + 2;
-    v13 = v80[3 * v86];
-    v14 = (v80[3 * v84] - v80[3 * v88]) * (*(v78 + 3 * v85) - *(v78 + 3 * v87));
-    v69.n128_u64[0] = v98 + v14;
-    v15 = v104;
-    if (v104)
+    p_p[v104 >> 1] = 0;
+    v104 = v10 + 2;
+    v13 = v110;
+    v14 = *(v110 + 3 * v117);
+    v15 = *(v110 + 3 * v119);
+    v16 = *&v112[24 * v118];
+    v17 = *&v112[24 * v116];
+    if ((v100 & 0xFFFFFFFD) != 1)
     {
-      v16 = v106[0];
+      v13 = v112;
+    }
+
+    v18 = 24 * v120[v100];
+    v19 = *&v13[v18];
+    if (v100 > 1)
+    {
+      if (v100 == 2)
+      {
+        v21 = v19 - v16;
+        goto LABEL_35;
+      }
+
+      if (v100 == 3)
+      {
+        v20 = v15 - v19;
+        goto LABEL_32;
+      }
     }
 
     else
     {
-      v16 = 4;
+      if (!v100)
+      {
+        v21 = v17 - v19;
+LABEL_35:
+        v18 = v21 * (v14 - v15);
+        goto LABEL_36;
+      }
+
+      if (v100 == 1)
+      {
+        v20 = v19 - v14;
+LABEL_32:
+        v18 = v20 * (v16 - v17);
+      }
     }
 
-    if (v104 >> 1 == v16)
+LABEL_36:
+    v22 = v129[v100] + v18;
+    v101.n128_u64[0] = v22;
+    v23 = v132;
+    if (v132)
     {
-      absl::lts_20240722::inlined_vector_internal::Storage<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>,4ul,std::allocator<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>::EmplaceBackSlow<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>(&v104);
-    }
-
-    v17 = v105;
-    if ((v104 & 1) == 0)
-    {
-      v17 = &v105;
-    }
-
-    v17[v104 >> 1] = (v98 + v14);
-    v104 = v15 + 2;
-LABEL_30:
-    if (v91 > v85)
-    {
-      v18 = v72;
-      if (v72)
-      {
-        v19 = v74;
-      }
-
-      else
-      {
-        v19 = 4;
-      }
-
-      if (v72 >> 1 == v19)
-      {
-        absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::ProbingRectangle::Edge,4ul,std::allocator<operations_research::sat::ProbingRectangle::Edge>>::EmplaceBackSlow<operations_research::sat::ProbingRectangle::Edge const&>(&v72);
-      }
-
-      v20 = __p;
-      if ((v72 & 1) == 0)
-      {
-        v20 = &__p;
-      }
-
-      v20[v72 >> 1] = 1;
-      v72 = v18 + 2;
-      v21 = *(v78 + 3 * v87);
-      v22 = (*(v78 + 3 * v89) - *(v78 + 3 * v85)) * (v80[3 * v86] - v80[3 * v84]);
-      v69.n128_u64[0] = v99 + v22;
-      v23 = v104;
-      if (v104)
-      {
-        v24 = v106[0];
-      }
-
-      else
-      {
-        v24 = 4;
-      }
-
-      if (v104 >> 1 == v24)
-      {
-        absl::lts_20240722::inlined_vector_internal::Storage<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>,4ul,std::allocator<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>::EmplaceBackSlow<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>(&v104);
-      }
-
-      v25 = v105;
-      if ((v104 & 1) == 0)
-      {
-        v25 = &v105;
-      }
-
-      v25[v104 >> 1] = (v99 + v22);
-      v104 = v23 + 2;
-    }
-
-    if (v84 > v90)
-    {
-      v26 = v72;
-      if (v72)
-      {
-        v27 = v74;
-      }
-
-      else
-      {
-        v27 = 4;
-      }
-
-      if (v72 >> 1 == v27)
-      {
-        absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::ProbingRectangle::Edge,4ul,std::allocator<operations_research::sat::ProbingRectangle::Edge>>::EmplaceBackSlow<operations_research::sat::ProbingRectangle::Edge const&>(&v72);
-      }
-
-      v28 = __p;
-      if ((v72 & 1) == 0)
-      {
-        v28 = &__p;
-      }
-
-      v28[v72 >> 1] = 2;
-      v72 = v26 + 2;
-      v29 = v80[3 * v84];
-      v30 = (v80[3 * v90] - v80[3 * v86]) * (*(v78 + 3 * v85) - *(v78 + 3 * v87));
-      v69.n128_u64[0] = v100 + v30;
-      v31 = v104;
-      if (v104)
-      {
-        v32 = v106[0];
-      }
-
-      else
-      {
-        v32 = 4;
-      }
-
-      if (v104 >> 1 == v32)
-      {
-        absl::lts_20240722::inlined_vector_internal::Storage<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>,4ul,std::allocator<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>::EmplaceBackSlow<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>(&v104);
-      }
-
-      v33 = v105;
-      if ((v104 & 1) == 0)
-      {
-        v33 = &v105;
-      }
-
-      v33[v104 >> 1] = (v100 + v30);
-      v104 = v31 + 2;
-    }
-
-    if (v91 > v85)
-    {
-      v34 = v72;
-      if (v72)
-      {
-        v35 = v74;
-      }
-
-      else
-      {
-        v35 = 4;
-      }
-
-      if (v72 >> 1 == v35)
-      {
-        absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::ProbingRectangle::Edge,4ul,std::allocator<operations_research::sat::ProbingRectangle::Edge>>::EmplaceBackSlow<operations_research::sat::ProbingRectangle::Edge const&>(&v72);
-      }
-
-      v36 = __p;
-      if ((v72 & 1) == 0)
-      {
-        v36 = &__p;
-      }
-
-      v36[v72 >> 1] = 3;
-      v72 = v34 + 2;
-      v37 = *(v78 + 3 * v85);
-      v38 = (*(v78 + 3 * v87) - *(v78 + 3 * v91)) * (v80[3 * v86] - v80[3 * v84]);
-      v69.n128_u64[0] = v101 + v38;
-      v39 = v104;
-      if (v104)
-      {
-        v40 = v106[0];
-      }
-
-      else
-      {
-        v40 = 4;
-      }
-
-      if (v104 >> 1 == v40)
-      {
-        absl::lts_20240722::inlined_vector_internal::Storage<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>,4ul,std::allocator<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>::EmplaceBackSlow<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>(&v104);
-      }
-
-      v41 = v105;
-      if ((v104 & 1) == 0)
-      {
-        v41 = &v105;
-      }
-
-      v41[v104 >> 1] = (v101 + v38);
-      v104 = v39 + 2;
-    }
-
-    v42 = v105;
-    v43 = v104 & 1;
-    if (v104)
-    {
-      v44 = v105;
+      v24 = v134[0];
     }
 
     else
     {
-      v44 = &v105;
+      v24 = 4;
     }
 
-    v45 = v104 >> 1;
-    v46 = v105 + 8;
+    if (v132 >> 1 == v24)
+    {
+      absl::lts_20240722::inlined_vector_internal::Storage<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>,4ul,std::allocator<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>::EmplaceBackSlow<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>(&v132, &v101);
+    }
+
+    v25 = v133;
+    if ((v132 & 1) == 0)
+    {
+      v25 = &v133;
+    }
+
+    v25[v132 >> 1] = v22;
+    v132 = v23 + 2;
+LABEL_43:
+    v100 = 1;
+    if (v122 <= v117)
+    {
+      goto LABEL_70;
+    }
+
+    v26 = v104;
+    if (v104)
+    {
+      v27 = v106;
+    }
+
+    else
+    {
+      v27 = 4;
+    }
+
+    if (v104 >> 1 == v27)
+    {
+      absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::ProbingRectangle::Edge,4ul,std::allocator<operations_research::sat::ProbingRectangle::Edge>>::EmplaceBackSlow<operations_research::sat::ProbingRectangle::Edge const&>(&v104, &v100);
+    }
+
+    v28 = __p;
     if ((v104 & 1) == 0)
     {
-      v46 = v106;
+      v28 = &__p;
     }
 
-    if ((v104 & 0x3FFFFFFFFFFFFFFELL) != 0)
+    v28[v104 >> 1] = 1;
+    v104 = v26 + 2;
+    v29 = v110;
+    v30 = *(v110 + 3 * v117);
+    v31 = *(v110 + 3 * v119);
+    v32 = *&v112[24 * v118];
+    v33 = *&v112[24 * v116];
+    if ((v100 & 0xFFFFFFFD) != 1)
     {
-      v47 = &v44[v45];
-      if (v46 != v47)
+      v29 = v112;
+    }
+
+    v34 = 24 * v120[v100];
+    v35 = *&v29[v34];
+    if (v100 > 1)
+    {
+      if (v100 == 2)
       {
-        v48 = *v44;
-        v49 = v46;
+        v37 = v35 - v32;
+        goto LABEL_62;
+      }
+
+      if (v100 == 3)
+      {
+        v36 = v31 - v35;
+        goto LABEL_59;
+      }
+    }
+
+    else
+    {
+      if (!v100)
+      {
+        v37 = v33 - v35;
+LABEL_62:
+        v34 = v37 * (v30 - v31);
+        goto LABEL_63;
+      }
+
+      if (v100 == 1)
+      {
+        v36 = v35 - v30;
+LABEL_59:
+        v34 = v36 * (v32 - v33);
+      }
+    }
+
+LABEL_63:
+    v38 = v129[v100] + v34;
+    v101.n128_u64[0] = v38;
+    v39 = v132;
+    if (v132)
+    {
+      v40 = v134[0];
+    }
+
+    else
+    {
+      v40 = 4;
+    }
+
+    if (v132 >> 1 == v40)
+    {
+      absl::lts_20240722::inlined_vector_internal::Storage<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>,4ul,std::allocator<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>::EmplaceBackSlow<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>(&v132, &v101);
+    }
+
+    v41 = v133;
+    if ((v132 & 1) == 0)
+    {
+      v41 = &v133;
+    }
+
+    v41[v132 >> 1] = v38;
+    v132 = v39 + 2;
+LABEL_70:
+    v100 = 2;
+    if (v116 <= v121)
+    {
+      goto LABEL_97;
+    }
+
+    v42 = v104;
+    if (v104)
+    {
+      v43 = v106;
+    }
+
+    else
+    {
+      v43 = 4;
+    }
+
+    if (v104 >> 1 == v43)
+    {
+      absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::ProbingRectangle::Edge,4ul,std::allocator<operations_research::sat::ProbingRectangle::Edge>>::EmplaceBackSlow<operations_research::sat::ProbingRectangle::Edge const&>(&v104, &v100);
+    }
+
+    v44 = __p;
+    if ((v104 & 1) == 0)
+    {
+      v44 = &__p;
+    }
+
+    v44[v104 >> 1] = 2;
+    v104 = v42 + 2;
+    v45 = v110;
+    v46 = *(v110 + 3 * v117);
+    v47 = *(v110 + 3 * v119);
+    v48 = *&v112[24 * v118];
+    v49 = *&v112[24 * v116];
+    if ((v100 & 0xFFFFFFFD) != 1)
+    {
+      v45 = v112;
+    }
+
+    v50 = 24 * v120[v100];
+    v51 = *&v45[v50];
+    if (v100 > 1)
+    {
+      if (v100 == 2)
+      {
+        v53 = v51 - v48;
+        goto LABEL_89;
+      }
+
+      if (v100 == 3)
+      {
+        v52 = v47 - v51;
+        goto LABEL_86;
+      }
+    }
+
+    else
+    {
+      if (!v100)
+      {
+        v53 = v49 - v51;
+LABEL_89:
+        v50 = v53 * (v46 - v47);
+        goto LABEL_90;
+      }
+
+      if (v100 == 1)
+      {
+        v52 = v51 - v46;
+LABEL_86:
+        v50 = v52 * (v48 - v49);
+      }
+    }
+
+LABEL_90:
+    v54 = v129[v100] + v50;
+    v101.n128_u64[0] = v54;
+    v55 = v132;
+    if (v132)
+    {
+      v56 = v134[0];
+    }
+
+    else
+    {
+      v56 = 4;
+    }
+
+    if (v132 >> 1 == v56)
+    {
+      absl::lts_20240722::inlined_vector_internal::Storage<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>,4ul,std::allocator<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>::EmplaceBackSlow<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>(&v132, &v101);
+    }
+
+    v57 = v133;
+    if ((v132 & 1) == 0)
+    {
+      v57 = &v133;
+    }
+
+    v57[v132 >> 1] = v54;
+    v132 = v55 + 2;
+LABEL_97:
+    v100 = 3;
+    if (v122 <= v117)
+    {
+      goto LABEL_124;
+    }
+
+    v58 = v104;
+    if (v104)
+    {
+      v59 = v106;
+    }
+
+    else
+    {
+      v59 = 4;
+    }
+
+    if (v104 >> 1 == v59)
+    {
+      absl::lts_20240722::inlined_vector_internal::Storage<operations_research::sat::ProbingRectangle::Edge,4ul,std::allocator<operations_research::sat::ProbingRectangle::Edge>>::EmplaceBackSlow<operations_research::sat::ProbingRectangle::Edge const&>(&v104, &v100);
+    }
+
+    v60 = __p;
+    if ((v104 & 1) == 0)
+    {
+      v60 = &__p;
+    }
+
+    v60[v104 >> 1] = 3;
+    v104 = v58 + 2;
+    v61 = v110;
+    v62 = *(v110 + 3 * v117);
+    v63 = *(v110 + 3 * v119);
+    v64 = *&v112[24 * v118];
+    v65 = *&v112[24 * v116];
+    if ((v100 & 0xFFFFFFFD) != 1)
+    {
+      v61 = v112;
+    }
+
+    v66 = 24 * v120[v100];
+    v67 = *&v61[v66];
+    if (v100 > 1)
+    {
+      if (v100 == 2)
+      {
+        v69 = v67 - v64;
+        goto LABEL_116;
+      }
+
+      if (v100 == 3)
+      {
+        v68 = v63 - v67;
+        goto LABEL_113;
+      }
+    }
+
+    else
+    {
+      if (!v100)
+      {
+        v69 = v65 - v67;
+LABEL_116:
+        v66 = v69 * (v62 - v63);
+        goto LABEL_117;
+      }
+
+      if (v100 == 1)
+      {
+        v68 = v67 - v62;
+LABEL_113:
+        v66 = v68 * (v64 - v65);
+      }
+    }
+
+LABEL_117:
+    v70 = v129[v100] + v66;
+    v101.n128_u64[0] = v70;
+    v71 = v132;
+    if (v132)
+    {
+      v72 = v134[0];
+    }
+
+    else
+    {
+      v72 = 4;
+    }
+
+    if (v132 >> 1 == v72)
+    {
+      absl::lts_20240722::inlined_vector_internal::Storage<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>,4ul,std::allocator<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>>::EmplaceBackSlow<operations_research::StrongInt64<operations_research::sat::IntegerValue_integer_tag_>>(&v132, &v101);
+    }
+
+    v73 = v133;
+    if ((v132 & 1) == 0)
+    {
+      v73 = &v133;
+    }
+
+    v73[v132 >> 1] = v70;
+    v132 = v71 + 2;
+LABEL_124:
+    v74 = v133;
+    v75 = v132 & 1;
+    if (v132)
+    {
+      v76 = v133;
+    }
+
+    else
+    {
+      v76 = &v133;
+    }
+
+    v77 = v132 >> 1;
+    v78 = v133 + 8;
+    if ((v132 & 1) == 0)
+    {
+      v78 = v134;
+    }
+
+    if ((v132 & 0x3FFFFFFFFFFFFFFELL) != 0)
+    {
+      v79 = &v76[v77];
+      if (v78 != v79)
+      {
+        v80 = *v76;
+        v81 = v78;
         do
         {
-          v51 = *v49;
-          v49 += 8;
-          v50 = v51;
-          if (v51 < v48)
+          v83 = *v81;
+          v81 += 8;
+          v82 = v83;
+          if (v83 < v80)
           {
-            v48 = v50;
-            v44 = v46;
+            v80 = v82;
+            v76 = v78;
           }
 
-          v46 = v49;
+          v78 = v81;
         }
 
-        while (v49 != v47);
+        while (v81 != v79);
       }
     }
 
-    v52 = *v44;
-    if (v102)
+    v84 = *v76;
+    if (v130)
     {
-      operator delete(v103[0]);
-      v42 = v105;
-      v43 = v104 & 1;
-      v45 = v104 >> 1;
+      operator delete(v131[0]);
+      v74 = v133;
+      v75 = v132 & 1;
+      v77 = v132 >> 1;
     }
 
-    v102 = 0;
-    if (v43)
+    v130 = 0;
+    if (v75)
     {
-      v53 = v42;
+      v85 = v74;
     }
 
     else
     {
-      v53 = &v105;
+      v85 = &v133;
     }
 
-    if ((v45 & 0x1FFFFFFFFFFFFFFFLL) != 0)
+    if ((v77 & 0x1FFFFFFFFFFFFFFFLL) != 0)
     {
-      v54 = 8 * v45;
+      v86 = 8 * v77;
       do
       {
-        v55 = ((5 * &(*v53)[-v52]) * v8 + 50.0);
-        if (v55 >= 100)
+        v87 = ((5 * &(*v85)[-v84]) * v8 + 50.0);
+        if (v87 >= 100)
         {
-          v55 = 100;
+          v87 = 100;
         }
 
-        v56 = (*_MergedGlobals_111 + 8 * (v55 & ~(v55 >> 63)));
-        v57 = v102;
-        if (v102)
+        v88 = (*_MergedGlobals_111 + 8 * (v87 & ~(v87 >> 63)));
+        v89 = v130;
+        if (v130)
         {
-          v58 = v103[1];
+          v90 = v131[1];
         }
 
         else
         {
-          v58 = 4;
+          v90 = 4;
         }
 
-        if (v102 >> 1 == v58)
+        if (v130 >> 1 == v90)
         {
-          absl::lts_20240722::inlined_vector_internal::Storage<double,4ul,std::allocator<double>>::EmplaceBackSlow<double const&>(&v102);
+          absl::lts_20240722::inlined_vector_internal::Storage<double,4ul,std::allocator<double>>::EmplaceBackSlow<double const&>(&v130, v88);
         }
 
-        v59 = v103[0];
-        if ((v102 & 1) == 0)
+        v91 = v131[0];
+        if ((v130 & 1) == 0)
         {
-          v59 = v103;
+          v91 = v131;
         }
 
-        v59[v102 >> 1] = *v56;
-        v102 = v57 + 2;
-        ++v53;
-        v54 -= 8;
+        v91[v130 >> 1] = *v88;
+        v130 = v89 + 2;
+        ++v85;
+        v86 -= 8;
       }
 
-      while (v54);
-      v60 = v102;
+      while (v86);
+      v92 = v130;
       v7 = a3;
     }
 
     else
     {
-      v60 = 0;
+      v92 = 0;
     }
 
-    if (v60)
+    if (v92)
     {
-      v61 = v103[0];
+      v93 = v131[0];
     }
 
     else
     {
-      v61 = v103;
+      v93 = v131;
     }
 
-    v69 = *a2;
-    v70 = a2[1].n128_u64[0];
-    v62 = operations_research::sat::WeightedPick(v61, v60 >> 1, &v69, v69);
-    v63 = __p;
-    if ((v72 & 1) == 0)
+    v101 = *a2;
+    v102 = *(a2 + 2);
+    v94 = operations_research::sat::WeightedPick(v93, v92 >> 1, &v101, v101);
+    v95 = __p;
+    if ((v104 & 1) == 0)
     {
-      v63 = &__p;
+      v95 = &__p;
     }
 
-    v64 = v63[v62];
-    if (v64 > 1)
+    v96 = v95[v94];
+    if (v96 > 1)
     {
-      if (v64 == 2)
+      if (v96 == 2)
       {
-        operations_research::sat::ProbingRectangle::ShrinkImpl<(operations_research::sat::ProbingRectangle::Edge)2>(&v75);
+        operations_research::sat::ProbingRectangle::ShrinkImpl<(operations_research::sat::ProbingRectangle::Edge)2>(&v107);
       }
 
-      else if (v64 == 3)
+      else if (v96 == 3)
       {
-        operations_research::sat::ProbingRectangle::ShrinkImpl<(operations_research::sat::ProbingRectangle::Edge)3>(&v75);
+        operations_research::sat::ProbingRectangle::ShrinkImpl<(operations_research::sat::ProbingRectangle::Edge)3>(&v107);
       }
     }
 
-    else if (v64)
+    else if (v96)
     {
-      if (v64 == 1)
+      if (v96 == 1)
       {
-        operations_research::sat::ProbingRectangle::ShrinkImpl<(operations_research::sat::ProbingRectangle::Edge)1>(&v75);
+        operations_research::sat::ProbingRectangle::ShrinkImpl<(operations_research::sat::ProbingRectangle::Edge)1>(&v107);
       }
     }
 
     else
     {
-      operations_research::sat::ProbingRectangle::ShrinkImpl<(operations_research::sat::ProbingRectangle::Edge)0>(&v75);
+      operations_research::sat::ProbingRectangle::ShrinkImpl<(operations_research::sat::ProbingRectangle::Edge)0>(&v107);
     }
   }
 
-  if (v82 > v83)
+  if (v114 > v115)
   {
-    v69.n128_u64[0] = *(v78 + 3 * v85);
-    v69.n128_u64[1] = *(v78 + 3 * v87);
-    v70 = v80[3 * v86];
-    v71 = v80[3 * v84];
-    std::vector<operations_research::sat::CapacityProfile::Event>::push_back[abi:ne200100](v7, &v69);
+    v101.n128_u64[0] = *(v110 + 3 * v117);
+    v101.n128_u64[1] = *(v110 + 3 * v119);
+    v102 = *&v112[24 * v118];
+    v103 = *&v112[24 * v116];
+    std::vector<operations_research::sat::CapacityProfile::Event>::push_back[abi:ne200100](v7, &v101);
   }
 
-  if (v102)
+  if (v130)
   {
-    operator delete(v103[0]);
-    if (v104)
+    operator delete(v131[0]);
+    if (v132)
     {
-      goto LABEL_140;
+      goto LABEL_192;
     }
 
-LABEL_127:
-    if ((v72 & 1) == 0)
+LABEL_179:
+    if ((v104 & 1) == 0)
     {
-      goto LABEL_128;
+      goto LABEL_180;
     }
 
-LABEL_141:
+LABEL_193:
     operator delete(__p);
-    if (v95 >= 2)
+    if (v126 >= 2)
     {
-      goto LABEL_142;
+      goto LABEL_194;
     }
 
-LABEL_129:
-    if (v92 < 2)
+LABEL_181:
+    if (v123 < 2)
     {
-      goto LABEL_130;
+      goto LABEL_182;
     }
 
-LABEL_143:
-    operator delete((v94 - (v93 & 1) - 8));
-    v65 = v80;
-    if (v80)
+LABEL_195:
+    operator delete((v125 - (v124 & 1) - 8));
+    v97 = v112;
+    if (v112)
     {
-LABEL_131:
-      v81 = v65;
-      operator delete(v65);
+LABEL_183:
+      v113 = v97;
+      operator delete(v97);
     }
   }
 
   else
   {
-    if ((v104 & 1) == 0)
+    if ((v132 & 1) == 0)
     {
-      goto LABEL_127;
+      goto LABEL_179;
     }
 
-LABEL_140:
-    operator delete(v105);
-    if (v72)
+LABEL_192:
+    operator delete(v133);
+    if (v104)
     {
-      goto LABEL_141;
+      goto LABEL_193;
     }
 
-LABEL_128:
-    if (v95 < 2)
+LABEL_180:
+    if (v126 < 2)
     {
-      goto LABEL_129;
+      goto LABEL_181;
     }
 
-LABEL_142:
-    operator delete((v97 - (v96 & 1) - 8));
-    if (v92 >= 2)
+LABEL_194:
+    operator delete((v128 - (v127 & 1) - 8));
+    if (v123 >= 2)
     {
-      goto LABEL_143;
+      goto LABEL_195;
     }
 
-LABEL_130:
-    v65 = v80;
-    if (v80)
+LABEL_182:
+    v97 = v112;
+    if (v112)
     {
-      goto LABEL_131;
+      goto LABEL_183;
     }
   }
 
-  if (v78)
+  if (v110)
   {
-    v79 = v78;
-    operator delete(v78);
+    v111 = v110;
+    operator delete(v110);
   }
 
-  if (v76)
+  if (v108)
   {
-    v77 = v76;
-    operator delete(v76);
+    v109 = v108;
+    operator delete(v108);
   }
 
-  if (v75.i64[0])
+  if (v107.i64[0])
   {
-    v75.i64[1] = v75.i64[0];
-    operator delete(v75.i64[0]);
+    v107.i64[1] = v107.i64[0];
+    operator delete(v107.i64[0]);
   }
-
-  v66 = *MEMORY[0x277D85DE8];
 }
 
-void sub_23CB750C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, operations_research::sat::LinearExpr *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24)
+void sub_23CB750C0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, operations_research::sat::LinearExpr *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  MEMORY[0x23EED9460](v24, 0x80C40D6874129);
+  va_start(va, a23);
+  MEMORY[0x23EED9460](v23, 0x80C40D6874129, a3, a4, a5, a6, a7, a8);
   __cxa_guard_abort(&qword_27E25F630);
-  operations_research::sat::ProbingRectangle::~ProbingRectangle(&a24);
+  operations_research::sat::ProbingRectangle::~ProbingRectangle(va);
   operations_research::sat::LinearExpr::~LinearExpr(a9);
   _Unwind_Resume(a1);
 }
 
-void sub_23CB75108(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, operations_research::sat::LinearExpr *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, void *__p, uint64_t a23, char a24)
+void sub_23CB75108(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, operations_research::sat::LinearExpr *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, void *__p, uint64_t a23, ...)
 {
-  if (*(v25 - 200))
+  va_start(va, a23);
+  if (*(v24 - 200))
   {
-    operator delete(*(v24 + 328));
-    if ((*(v25 - 160) & 1) == 0)
+    operator delete(*(v23 + 328));
+    if ((*(v24 - 160) & 1) == 0)
     {
 LABEL_3:
       if ((a21 & 1) == 0)
@@ -5060,16 +7930,16 @@ LABEL_3:
     }
   }
 
-  else if ((*(v25 - 160) & 1) == 0)
+  else if ((*(v24 - 160) & 1) == 0)
   {
     goto LABEL_3;
   }
 
-  operator delete(*(v24 + 368));
+  operator delete(*(v23 + 368));
   if ((a21 & 1) == 0)
   {
 LABEL_5:
-    operations_research::sat::ProbingRectangle::~ProbingRectangle(&a24);
+    operations_research::sat::ProbingRectangle::~ProbingRectangle(va);
     operations_research::sat::LinearExpr::~LinearExpr(a9);
     _Unwind_Resume(a1);
   }
@@ -5087,18 +7957,18 @@ void operations_research::sat::anonymous namespace::GetExpTable(operations_resea
   operator new();
 }
 
-void sub_23CB75770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23CB75770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__exception_guard_exceptions<std::vector<std::string>::__destroy_vector>::~__exception_guard_exceptions[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_23CB75784(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23CB75784(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
-  std::vector<std::string>::~vector[abi:ne200100]((v4 - 112));
+  std::vector<std::string>::~vector[abi:ne200100]((v7 - 112));
   _Unwind_Resume(a1);
 }
 
@@ -5422,17 +8292,17 @@ LABEL_61:
 
       if (v19 >= a2[-1].n128_u64[1])
       {
-        v45 = v13 + 1;
+        n128_u64 = v13[1].n128_u64;
         do
         {
-          v13 = v45;
-          if (v45 >= a2)
+          v13 = n128_u64;
+          if (n128_u64 >= a2)
           {
             break;
           }
 
-          v46 = v45->n128_i64[1];
-          ++v45;
+          v46 = *(n128_u64 + 8);
+          n128_u64 += 16;
         }
 
         while (v19 >= v46);
@@ -5790,7 +8660,7 @@ LABEL_70:
       if (!v41)
       {
 LABEL_81:
-        std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,operations_research::sat::TaskTime *,false>(a1, &v13[-1], a3, a4, a5 & 1);
+        result = std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,operations_research::sat::TaskTime *,false>(a1, v13 - 1, a3, a4, a5 & 1);
         a5 = 0;
       }
     }
@@ -6293,9 +9163,9 @@ char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<
         v9 = &a1[16 * v8];
         if ((v7 >> 3) + 2 < v3)
         {
-          v10 = v9[3];
-          v11 = v9[1];
-          v9 += 2 * (v11 < v10);
+          v10 = *(v9 + 3);
+          v11 = *(v9 + 1);
+          v9 += 16 * (v11 < v10);
           if (v11 < v10)
           {
             v8 = (v7 >> 3) + 2;
@@ -6303,8 +9173,8 @@ char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<
         }
 
         v12 = &a1[v7];
-        v13 = v12[1];
-        if (v9[1] >= v13)
+        v13 = *(v12 + 1);
+        if (*(v9 + 1) >= v13)
         {
           v14 = *v12;
           do
@@ -6322,9 +9192,9 @@ char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<
             v17 = 2 * v8 + 2;
             if (v17 < v3)
             {
-              v18 = v9[3];
-              v19 = v9[1];
-              v9 += 2 * (v19 < v18);
+              v18 = *(v9 + 3);
+              v19 = *(v9 + 1);
+              v9 += 16 * (v19 < v18);
               if (v19 < v18)
               {
                 v16 = v17;
@@ -6334,9 +9204,9 @@ char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<
             v8 = v16;
           }
 
-          while (v9[1] >= v13);
+          while (*(v9 + 1) >= v13);
           *v12 = v14;
-          v12[1] = v13;
+          *(v12 + 1) = v13;
         }
       }
 
@@ -6377,7 +9247,7 @@ char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<
         *a1 = v22;
         if (a2 - a1 == 32)
         {
-          v23 = (a1 + 16);
+          v23 = a1 + 16;
           v24 = 1;
           v25 = *(a1 + 1);
           if (*(a1 + 3) >= v25)
@@ -6400,7 +9270,7 @@ char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<
           }
 
           v25 = *(a1 + 1);
-          if (*(v23 + 8) >= v25)
+          if (*(v23 + 1) >= v25)
           {
 LABEL_35:
             v26 = *a1;
@@ -6420,8 +9290,8 @@ LABEL_35:
               v30 = 2 * v24 + 2;
               if (v30 < v3)
               {
-                v31 = *(v23 + 24);
-                v32 = *(v23 + 8);
+                v31 = *(v23 + 3);
+                v32 = *(v23 + 1);
                 v23 += 16 * (v32 < v31);
                 if (v32 < v31)
                 {
@@ -6432,9 +9302,9 @@ LABEL_35:
               v24 = v29;
             }
 
-            while (*(v23 + 8) >= v25);
+            while (*(v23 + 1) >= v25);
             *v27 = v26;
-            v27[1] = v25;
+            *(v27 + 1) = v25;
           }
         }
       }
@@ -6455,7 +9325,7 @@ LABEL_42:
         while (1)
         {
           v41 = &v36[16 * v34];
-          v40 = (v41 + 16);
+          v40 = v41 + 16;
           v42 = (2 * v34) | 1;
           v34 = 2 * v34 + 2;
           if (v34 < v3)
@@ -6474,7 +9344,7 @@ LABEL_42:
 
         v37 = *(v41 + 5);
         v38 = *(v41 + 3);
-        v39 = (v41 + 32);
+        v39 = v41 + 32;
         if (v38 >= v37)
         {
           v34 = v42;
@@ -6508,8 +9378,8 @@ LABEL_54:
         {
           v45 = v44 >> 1;
           v46 = &a1[16 * (v44 >> 1)];
-          v47 = v40[1];
-          if (v46[1] < v47)
+          v47 = *(v40 + 1);
+          if (*(v46 + 1) < v47)
           {
             v48 = *v40;
             do
@@ -6526,9 +9396,9 @@ LABEL_54:
               v46 = &a1[16 * v45];
             }
 
-            while (v46[1] < v47);
+            while (*(v46 + 1) < v47);
             *v40 = v48;
-            v40[1] = v47;
+            *(v40 + 1) = v47;
           }
         }
       }
@@ -6545,7 +9415,7 @@ LABEL_54:
 __n128 std::__introsort<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStart &,operations_research::sat::IndexedInterval*,false>(__n128 *a1, char *a2, uint64_t a3, uint64_t a4, char a5, __n128 result)
 {
 LABEL_1:
-  v11 = (a2 - 24);
+  v11 = a2 - 24;
   v108 = a2 - 48;
   v12 = a2 - 72;
   v13 = a1;
@@ -6814,7 +9684,7 @@ LABEL_61:
       }
 
       v76 = a1->n128_u64[0];
-      v77 = a1[1].n128_i64[0];
+      v77 = a1[1].n128_u64[0];
       while (v13 < v73)
       {
         v165 = *(v13 + 16);
@@ -7229,7 +10099,7 @@ LABEL_70:
       if (!v67)
       {
 LABEL_81:
-        std::__introsort<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStart &,operations_research::sat::IndexedInterval*,false>(a1, v13 - 24, a3, a4, a5 & 1);
+        result = std::__introsort<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStart &,operations_research::sat::IndexedInterval*,false>(a1, (v13 - 24), a3, a4, a5 & 1);
         a5 = 0;
       }
     }
@@ -7399,2988 +10269,5 @@ LABEL_157:
   result = v133;
   *(a2 - 1) = v167;
   *v11 = v133;
-  return result;
-}
-
-__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStart &,operations_research::sat::IndexedInterval*,0>(__n128 *a1, __n128 *a2, __n128 *a3, __n128 *a4, __n128 *a5, __n128 result)
-{
-  v6 = a2->n128_i64[1];
-  v7 = a3->n128_i64[1];
-  if (v6 >= a1->n128_u64[1])
-  {
-    if (v7 < v6)
-    {
-      v10 = a2[1].n128_u64[0];
-      result = *a2;
-      v11 = a3[1].n128_u64[0];
-      *a2 = *a3;
-      a2[1].n128_u64[0] = v11;
-      *a3 = result;
-      a3[1].n128_u64[0] = v10;
-      if (a2->n128_u64[1] < a1->n128_u64[1])
-      {
-        v12 = a1[1].n128_u64[0];
-        result = *a1;
-        v13 = a2[1].n128_u64[0];
-        *a1 = *a2;
-        a1[1].n128_u64[0] = v13;
-        *a2 = result;
-        a2[1].n128_u64[0] = v12;
-      }
-    }
-  }
-
-  else
-  {
-    if (v7 < v6)
-    {
-      v8 = a1[1].n128_u64[0];
-      result = *a1;
-      v9 = a3[1].n128_u64[0];
-      *a1 = *a3;
-      a1[1].n128_u64[0] = v9;
-LABEL_9:
-      *a3 = result;
-      a3[1].n128_u64[0] = v8;
-      goto LABEL_10;
-    }
-
-    v14 = a1[1].n128_u64[0];
-    result = *a1;
-    v15 = a2[1].n128_u64[0];
-    *a1 = *a2;
-    a1[1].n128_u64[0] = v15;
-    *a2 = result;
-    a2[1].n128_u64[0] = v14;
-    if (a3->n128_u64[1] < a2->n128_u64[1])
-    {
-      v8 = a2[1].n128_u64[0];
-      result = *a2;
-      v16 = a3[1].n128_u64[0];
-      *a2 = *a3;
-      a2[1].n128_u64[0] = v16;
-      goto LABEL_9;
-    }
-  }
-
-LABEL_10:
-  if (a4->n128_u64[1] < a3->n128_u64[1])
-  {
-    v17 = a3[1].n128_u64[0];
-    result = *a3;
-    v18 = a4[1].n128_u64[0];
-    *a3 = *a4;
-    a3[1].n128_u64[0] = v18;
-    *a4 = result;
-    a4[1].n128_u64[0] = v17;
-    if (a3->n128_u64[1] < a2->n128_u64[1])
-    {
-      v19 = a2[1].n128_u64[0];
-      result = *a2;
-      v20 = a3[1].n128_u64[0];
-      *a2 = *a3;
-      a2[1].n128_u64[0] = v20;
-      *a3 = result;
-      a3[1].n128_u64[0] = v19;
-      if (a2->n128_u64[1] < a1->n128_u64[1])
-      {
-        v21 = a1[1].n128_u64[0];
-        result = *a1;
-        v22 = a2[1].n128_u64[0];
-        *a1 = *a2;
-        a1[1].n128_u64[0] = v22;
-        *a2 = result;
-        a2[1].n128_u64[0] = v21;
-      }
-    }
-  }
-
-  if (a5->n128_u64[1] < a4->n128_u64[1])
-  {
-    v23 = a4[1].n128_i64[0];
-    result = *a4;
-    v24 = a5[1].n128_u64[0];
-    *a4 = *a5;
-    a4[1].n128_u64[0] = v24;
-    *a5 = result;
-    a5[1].n128_u64[0] = v23;
-    if (a4->n128_u64[1] < a3->n128_u64[1])
-    {
-      v25 = a3[1].n128_u64[0];
-      result = *a3;
-      v26 = a4[1].n128_u64[0];
-      *a3 = *a4;
-      a3[1].n128_u64[0] = v26;
-      *a4 = result;
-      a4[1].n128_u64[0] = v25;
-      if (a3->n128_u64[1] < a2->n128_u64[1])
-      {
-        v27 = a2[1].n128_u64[0];
-        result = *a2;
-        v28 = a3[1].n128_u64[0];
-        *a2 = *a3;
-        a2[1].n128_u64[0] = v28;
-        *a3 = result;
-        a3[1].n128_u64[0] = v27;
-        if (a2->n128_u64[1] < a1->n128_u64[1])
-        {
-          v29 = a1[1].n128_u64[0];
-          result = *a1;
-          v30 = a2[1].n128_u64[0];
-          *a1 = *a2;
-          a1[1].n128_u64[0] = v30;
-          *a2 = result;
-          a2[1].n128_u64[0] = v29;
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStart &,operations_research::sat::IndexedInterval*>(uint64_t a1, void *a2, __n128 a3)
-{
-  v3 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 3);
-  if (v3 > 2)
-  {
-    if (v3 == 3)
-    {
-      v8 = (a2 - 3);
-      v9 = *(a1 + 32);
-      v10 = *(a2 - 2);
-      if (v9 < *(a1 + 8))
-      {
-        if (v10 >= v9)
-        {
-          v38 = *(a1 + 16);
-          v39 = *a1;
-          *a1 = *(a1 + 24);
-          *(a1 + 24) = v39;
-          v40 = *(a1 + 32);
-          *(a1 + 16) = *(a1 + 40);
-          *(a1 + 40) = v38;
-          if (*(a2 - 2) >= v40)
-          {
-            return 1;
-          }
-
-          v11 = *(a1 + 40);
-          v12 = *(a1 + 24);
-          v41 = *(a2 - 1);
-          *(a1 + 24) = *v8;
-          *(a1 + 40) = v41;
-        }
-
-        else
-        {
-          v11 = *(a1 + 16);
-          v12 = *a1;
-          v13 = *(a2 - 1);
-          *a1 = *v8;
-          *(a1 + 16) = v13;
-        }
-
-        *v8 = v12;
-        *(a2 - 1) = v11;
-        return 1;
-      }
-
-      if (v10 >= v9)
-      {
-        return 1;
-      }
-
-      v25 = *(a1 + 40);
-      v26 = *(a1 + 24);
-      v27 = *(a2 - 1);
-      *(a1 + 24) = *v8;
-      *(a1 + 40) = v27;
-      *v8 = v26;
-      *(a2 - 1) = v25;
-      if (*(a1 + 32) >= *(a1 + 8))
-      {
-        return 1;
-      }
-
-LABEL_52:
-      v64 = *(a1 + 16);
-      v65 = *a1;
-      *a1 = *(a1 + 24);
-      *(a1 + 16) = *(a1 + 40);
-      *(a1 + 24) = v65;
-      *(a1 + 40) = v64;
-      return 1;
-    }
-
-    if (v3 != 4)
-    {
-      if (v3 == 5)
-      {
-        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStart &,operations_research::sat::IndexedInterval*,0>(a1, (a1 + 24), (a1 + 48), (a1 + 72), (a2 - 3), a3);
-        return 1;
-      }
-
-LABEL_14:
-      v14 = (a1 + 48);
-      v15 = *(a1 + 32);
-      v16 = *(a1 + 8);
-      v17 = *(a1 + 56);
-      if (v15 >= v16)
-      {
-        if (v17 < v15)
-        {
-          v28 = *(a1 + 24);
-          *(a1 + 24) = *v14;
-          v30 = *(a1 + 32);
-          v29 = *(a1 + 40);
-          *(a1 + 40) = *(a1 + 64);
-          *v14 = v28;
-          *(a1 + 64) = v29;
-          if (v30 < v16)
-          {
-            v31 = *(a1 + 16);
-            v32 = *a1;
-            *a1 = *(a1 + 24);
-            *(a1 + 16) = *(a1 + 40);
-            *(a1 + 24) = v32;
-            *(a1 + 40) = v31;
-          }
-        }
-      }
-
-      else
-      {
-        if (v17 >= v15)
-        {
-          v42 = *(a1 + 16);
-          v43 = *a1;
-          *a1 = *(a1 + 24);
-          *(a1 + 24) = v43;
-          v44 = *(a1 + 32);
-          *(a1 + 16) = *(a1 + 40);
-          *(a1 + 40) = v42;
-          if (v17 >= v44)
-          {
-            goto LABEL_35;
-          }
-
-          v18 = *(a1 + 40);
-          v19 = *(a1 + 24);
-          *(a1 + 24) = *v14;
-          *(a1 + 40) = *(a1 + 64);
-        }
-
-        else
-        {
-          v18 = *(a1 + 16);
-          v19 = *a1;
-          *a1 = *v14;
-          *(a1 + 16) = *(a1 + 64);
-        }
-
-        *v14 = v19;
-        *(a1 + 64) = v18;
-      }
-
-LABEL_35:
-      v45 = (a1 + 72);
-      if ((a1 + 72) == a2)
-      {
-        return 1;
-      }
-
-      v46 = 0;
-      v47 = 0;
-      while (1)
-      {
-        v48 = v45[1];
-        if (v48 < v14[1])
-        {
-          break;
-        }
-
-LABEL_38:
-        v14 = v45;
-        v46 += 24;
-        v45 += 3;
-        if (v45 == a2)
-        {
-          return 1;
-        }
-      }
-
-      v49 = *v45;
-      v50 = v45[2];
-      v51 = v46;
-      do
-      {
-        v52 = a1 + v51;
-        *(v52 + 72) = *(a1 + v51 + 48);
-        *(v52 + 88) = *(a1 + v51 + 64);
-        if (v51 == -48)
-        {
-          *a1 = v49;
-          *(a1 + 8) = v48;
-          *(a1 + 16) = v50;
-          if (++v47 != 8)
-          {
-            goto LABEL_38;
-          }
-
-          return v45 + 3 == a2;
-        }
-
-        v51 -= 24;
-      }
-
-      while (v48 < *(v52 + 32));
-      v53 = (a1 + v51);
-      v53[9] = v49;
-      v53[10] = v48;
-      v53[11] = v50;
-      if (++v47 != 8)
-      {
-        goto LABEL_38;
-      }
-
-      return v45 + 3 == a2;
-    }
-
-    v20 = *(a1 + 32);
-    v21 = *(a1 + 8);
-    v22 = *(a1 + 56);
-    if (v20 >= v21)
-    {
-      if (v22 < v20)
-      {
-        v33 = *(a1 + 24);
-        *(a1 + 24) = *(a1 + 48);
-        v35 = *(a1 + 32);
-        v34 = *(a1 + 40);
-        *(a1 + 40) = *(a1 + 64);
-        *(a1 + 48) = v33;
-        *(a1 + 64) = v34;
-        if (v35 < v21)
-        {
-          v36 = *(a1 + 16);
-          v37 = *a1;
-          *a1 = *(a1 + 24);
-          *(a1 + 16) = *(a1 + 40);
-          *(a1 + 24) = v37;
-          *(a1 + 40) = v36;
-        }
-      }
-    }
-
-    else
-    {
-      if (v22 < v20)
-      {
-        v23 = *(a1 + 16);
-        v24 = *a1;
-        *a1 = *(a1 + 48);
-        *(a1 + 16) = *(a1 + 64);
-LABEL_48:
-        *(a1 + 48) = v24;
-        *(a1 + 64) = v23;
-        goto LABEL_49;
-      }
-
-      v54 = *(a1 + 16);
-      v55 = *a1;
-      *a1 = *(a1 + 24);
-      *(a1 + 24) = v55;
-      v56 = *(a1 + 32);
-      *(a1 + 16) = *(a1 + 40);
-      *(a1 + 40) = v54;
-      if (v22 < v56)
-      {
-        v23 = *(a1 + 40);
-        v24 = *(a1 + 24);
-        *(a1 + 24) = *(a1 + 48);
-        *(a1 + 40) = *(a1 + 64);
-        goto LABEL_48;
-      }
-    }
-
-LABEL_49:
-    if (*(a2 - 2) >= *(a1 + 56))
-    {
-      return 1;
-    }
-
-    v57 = a2 - 3;
-    v58 = *(a1 + 64);
-    v59 = *(a1 + 48);
-    v60 = *(a2 - 1);
-    *(a1 + 48) = *(a2 - 3);
-    *(a1 + 64) = v60;
-    *v57 = v59;
-    v57[2] = v58;
-    if (*(a1 + 56) >= *(a1 + 32))
-    {
-      return 1;
-    }
-
-    v61 = *(a1 + 24);
-    *(a1 + 24) = *(a1 + 48);
-    v63 = *(a1 + 32);
-    v62 = *(a1 + 40);
-    *(a1 + 40) = *(a1 + 64);
-    *(a1 + 48) = v61;
-    *(a1 + 64) = v62;
-    if (v63 >= *(a1 + 8))
-    {
-      return 1;
-    }
-
-    goto LABEL_52;
-  }
-
-  if (v3 < 2)
-  {
-    return 1;
-  }
-
-  if (v3 != 2)
-  {
-    goto LABEL_14;
-  }
-
-  if (*(a2 - 2) >= *(a1 + 8))
-  {
-    return 1;
-  }
-
-  v5 = *(a1 + 16);
-  v6 = *a1;
-  v7 = *(a2 - 1);
-  *a1 = *(a2 - 3);
-  *(a1 + 16) = v7;
-  *(a2 - 3) = v6;
-  *(a2 - 1) = v5;
-  return 1;
-}
-
-char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStart &,operations_research::sat::IndexedInterval*,operations_research::sat::IndexedInterval*>(char *a1, char *a2, char *a3)
-{
-  if (a1 == a2)
-  {
-    return a3;
-  }
-
-  v3 = a2 - a1;
-  v4 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 3);
-  if (a2 - a1 >= 25 && v3 >= 0x30)
-  {
-    v50 = (v4 - 2) >> 1;
-    v51 = v50;
-    do
-    {
-      if (v50 >= (0xAAAAAAAAAAAAAAABLL * ((24 * v51) >> 3)))
-      {
-        v52 = (0x5555555555555556 * ((24 * v51) >> 3)) | 1;
-        v53 = &a1[24 * v52];
-        if (0x5555555555555556 * ((24 * v51) >> 3) + 2 < v4)
-        {
-          v54 = *(v53 + 1);
-          v55 = *(v53 + 4);
-          v56 = v54 < v55;
-          v57 = v54 >= v55 ? 0 : 24;
-          v53 += v57;
-          if (v56)
-          {
-            v52 = 0x5555555555555556 * ((24 * v51) >> 3) + 2;
-          }
-        }
-
-        v58 = &a1[24 * v51];
-        v59 = *(v58 + 1);
-        if (*(v53 + 1) >= v59)
-        {
-          v60 = *v58;
-          v61 = *(v58 + 2);
-          do
-          {
-            v62 = v58;
-            v58 = v53;
-            v63 = *v53;
-            *(v62 + 2) = *(v53 + 2);
-            *v62 = v63;
-            if (v50 < v52)
-            {
-              break;
-            }
-
-            v64 = (2 * v52) | 1;
-            v53 = &a1[24 * v64];
-            v65 = 2 * v52 + 2;
-            if (v65 < v4)
-            {
-              v66 = *(v53 + 1);
-              v67 = *(v53 + 4);
-              v68 = v66 < v67;
-              v69 = v66 >= v67 ? 0 : 24;
-              v53 += v69;
-              if (v68)
-              {
-                v64 = v65;
-              }
-            }
-
-            v52 = v64;
-          }
-
-          while (*(v53 + 1) >= v59);
-          *v58 = v60;
-          *(v58 + 1) = v59;
-          *(v58 + 2) = v61;
-        }
-      }
-
-      v14 = v51-- <= 0;
-    }
-
-    while (!v14);
-  }
-
-  i = a2;
-  if (a2 != a3)
-  {
-    if (v3 < 48)
-    {
-      i = a2;
-      do
-      {
-        if (*(i + 1) < *(a1 + 1))
-        {
-          v6 = *(i + 2);
-          v7 = *i;
-          v8 = *(a1 + 2);
-          *i = *a1;
-          *(i + 2) = v8;
-          *a1 = v7;
-          *(a1 + 2) = v6;
-        }
-
-        i += 24;
-      }
-
-      while (i != a3);
-      goto LABEL_34;
-    }
-
-    for (i = a2; i != a3; i += 24)
-    {
-      if (*(i + 1) < *(a1 + 1))
-      {
-        v9 = *(i + 2);
-        v10 = *i;
-        v11 = *(a1 + 2);
-        *i = *a1;
-        *(i + 2) = v11;
-        *a1 = v10;
-        *(a1 + 2) = v9;
-        if (v4 < 3)
-        {
-          v16 = a1 + 24;
-          v17 = 1;
-          v18 = *(a1 + 1);
-          if (*(a1 + 4) >= v18)
-          {
-            goto LABEL_24;
-          }
-        }
-
-        else
-        {
-          v12 = *(a1 + 4);
-          v13 = *(a1 + 7);
-          v14 = v12 < v13;
-          if (v12 >= v13)
-          {
-            v15 = 0;
-          }
-
-          else
-          {
-            v15 = 24;
-          }
-
-          v16 = &a1[v15 + 24];
-          if (v14)
-          {
-            v17 = 2;
-          }
-
-          else
-          {
-            v17 = 1;
-          }
-
-          v18 = *(a1 + 1);
-          if (*(v16 + 1) >= v18)
-          {
-LABEL_24:
-            v19 = *a1;
-            v20 = *(a1 + 2);
-            v21 = a1;
-            do
-            {
-              v22 = v21;
-              v21 = v16;
-              v23 = *v16;
-              *(v22 + 2) = *(v16 + 2);
-              *v22 = v23;
-              if (((v4 - 2) >> 1) < v17)
-              {
-                break;
-              }
-
-              v24 = (2 * v17) | 1;
-              v16 = &a1[24 * v24];
-              v25 = 2 * v17 + 2;
-              if (v25 < v4)
-              {
-                v26 = *(v16 + 1);
-                v27 = *(v16 + 4);
-                v28 = v26 < v27;
-                v29 = v26 >= v27 ? 0 : 24;
-                v16 += v29;
-                if (v28)
-                {
-                  v24 = v25;
-                }
-              }
-
-              v17 = v24;
-            }
-
-            while (*(v16 + 1) >= v18);
-            *v21 = v19;
-            *(v21 + 1) = v18;
-            *(v21 + 2) = v20;
-          }
-        }
-      }
-    }
-  }
-
-LABEL_34:
-  if (v3 >= 25)
-  {
-    v30 = 0xAAAAAAAAAAAAAAABLL * (v3 >> 3);
-    do
-    {
-      v31 = 0;
-      v70 = *a1;
-      v71 = *(a1 + 2);
-      v32 = a1;
-      do
-      {
-        v38 = &v32[24 * v31];
-        v36 = v38 + 24;
-        v39 = (2 * v31) | 1;
-        v31 = 2 * v31 + 2;
-        if (v31 < v30)
-        {
-          v33 = *(v38 + 4);
-          v34 = *(v38 + 7);
-          v35 = v38 + 48;
-          if (v33 >= v34)
-          {
-            v31 = v39;
-          }
-
-          else
-          {
-            v36 = v35;
-          }
-        }
-
-        else
-        {
-          v31 = v39;
-        }
-
-        v37 = *v36;
-        *(v32 + 2) = *(v36 + 2);
-        *v32 = v37;
-        v32 = v36;
-      }
-
-      while (v31 <= ((v30 - 2) >> 1));
-      a2 -= 24;
-      if (v36 == a2)
-      {
-        *(v36 + 2) = v71;
-        *v36 = v70;
-      }
-
-      else
-      {
-        v40 = *a2;
-        *(v36 + 2) = *(a2 + 2);
-        *v36 = v40;
-        *a2 = v70;
-        *(a2 + 2) = v71;
-        v41 = v36 - a1 + 24;
-        if (v41 >= 25)
-        {
-          v42 = (-2 - 0x5555555555555555 * (v41 >> 3)) >> 1;
-          v43 = &a1[24 * v42];
-          v44 = *(v36 + 1);
-          if (*(v43 + 1) < v44)
-          {
-            v45 = *v36;
-            v46 = *(v36 + 2);
-            do
-            {
-              v47 = v36;
-              v36 = v43;
-              v48 = *v43;
-              *(v47 + 2) = *(v43 + 2);
-              *v47 = v48;
-              if (!v42)
-              {
-                break;
-              }
-
-              v42 = (v42 - 1) >> 1;
-              v43 = &a1[24 * v42];
-            }
-
-            while (*(v43 + 1) < v44);
-            *v36 = v45;
-            *(v36 + 1) = v44;
-            *(v36 + 2) = v46;
-          }
-        }
-      }
-
-      v14 = v30-- <= 2;
-    }
-
-    while (!v14);
-  }
-
-  return i;
-}
-
-uint64_t std::__introsort<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &,operations_research::sat::IndexedInterval*,false>(uint64_t result, __int128 *a2, uint64_t a3, uint64_t a4, char a5)
-{
-  v8 = result;
-LABEL_2:
-  v9 = (a2 - 24);
-  v10 = v8;
-LABEL_3:
-  v11 = 1 - a4;
-  while (1)
-  {
-    v8 = v10;
-    v12 = v11;
-    v13 = a2 - v10;
-    v14 = 0xAAAAAAAAAAAAAAABLL * (v13 >> 3);
-    if (v14 <= 2)
-    {
-      if (v14 < 2)
-      {
-        return result;
-      }
-
-      if (v14 == 2)
-      {
-        v27 = *(a2 - 2);
-        v28 = *(v8 + 8);
-        if (v27 < v28 || v28 >= v27 && ((v59 = *(a2 - 1), v60 = *(v8 + 16), v59 < v60) || v60 >= v59 && *v9 < *v8))
-        {
-          v83 = *(v8 + 16);
-          v78 = *v8;
-          v29 = *v9;
-          *(v8 + 16) = *(a2 - 1);
-          *v8 = v29;
-          *v9 = v78;
-          *(a2 - 1) = v83;
-        }
-
-        return result;
-      }
-
-      goto LABEL_11;
-    }
-
-    if (v14 == 3)
-    {
-      break;
-    }
-
-    if (v14 == 4)
-    {
-      result = std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &,operations_research::sat::IndexedInterval*,0>(v8, (v8 + 24), (v8 + 48));
-      v30 = *(a2 - 2);
-      v31 = *(v8 + 56);
-      if (v30 < v31 || v31 >= v30 && ((v61 = *(a2 - 1), v62 = *(v8 + 64), v61 < v62) || v62 >= v61 && *v9 < *(v8 + 48)))
-      {
-        v84 = *(v8 + 64);
-        v79 = *(v8 + 48);
-        v32 = *v9;
-        *(v8 + 64) = *(a2 - 1);
-        *(v8 + 48) = v32;
-        *v9 = v79;
-        *(a2 - 1) = v84;
-        v33 = *(v8 + 56);
-        v34 = *(v8 + 32);
-        if (v33 < v34 || v34 >= v33 && ((v73 = *(v8 + 64), v74 = *(v8 + 40), v73 < v74) || v74 >= v73 && *(v8 + 48) < *(v8 + 24)))
-        {
-          v85 = *(v8 + 40);
-          v80 = *(v8 + 24);
-          *(v8 + 24) = *(v8 + 48);
-          *(v8 + 40) = *(v8 + 64);
-          *(v8 + 64) = v85;
-          *(v8 + 48) = v80;
-          v35 = *(v8 + 32);
-          v36 = *(v8 + 8);
-          if (v35 < v36 || v36 >= v35 && ((v75 = *(v8 + 40), v76 = *(v8 + 16), v75 < v76) || v76 >= v75 && *(v8 + 24) < *v8))
-          {
-            v86 = *(v8 + 16);
-            v81 = *v8;
-            *v8 = *(v8 + 24);
-            *(v8 + 16) = *(v8 + 40);
-            *(v8 + 40) = v86;
-            *(v8 + 24) = v81;
-          }
-        }
-      }
-
-      return result;
-    }
-
-    if (v14 == 5)
-    {
-
-      return std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &,operations_research::sat::IndexedInterval*,0>(v8, v8 + 24, v8 + 48, (v8 + 72), (a2 - 24));
-    }
-
-LABEL_11:
-    if (v13 <= 575)
-    {
-      v37 = (v8 + 24);
-      v39 = v8 == a2 || v37 == a2;
-      if (a5)
-      {
-        if (v39)
-        {
-          return result;
-        }
-
-        v40 = 0;
-        v41 = v8;
-LABEL_54:
-        v43 = v41;
-        v41 = v37;
-        v44 = v43[4];
-        v45 = v43[1];
-        if (v44 >= v45)
-        {
-          if (v45 < v44)
-          {
-            goto LABEL_53;
-          }
-
-          v46 = v43[5];
-          v53 = v43[2];
-          if (v46 >= v53 && (v53 < v46 || *v41 >= *v43))
-          {
-            goto LABEL_53;
-          }
-        }
-
-        else
-        {
-          v46 = v43[5];
-        }
-
-        v47 = v43[3];
-        *v41 = *v43;
-        *(v41 + 16) = v43[2];
-        v42 = v8;
-        if (v43 == v8)
-        {
-          goto LABEL_52;
-        }
-
-        v48 = v40;
-        while (1)
-        {
-          v49 = v8 + v48;
-          v50 = (v8 + v48 - 24);
-          v51 = *(v8 + v48 - 16);
-          if (v44 >= v51)
-          {
-            if (v51 < v44)
-            {
-              goto LABEL_64;
-            }
-
-            v52 = *(v49 - 8);
-            if (v46 >= v52)
-            {
-              if (v52 < v46)
-              {
-                v42 = (v8 + v48);
-LABEL_52:
-                *v42 = v47;
-                v42[1] = v44;
-                v42[2] = v46;
-LABEL_53:
-                v37 = (v41 + 24);
-                v40 += 24;
-                if ((v41 + 24) == a2)
-                {
-                  return result;
-                }
-
-                goto LABEL_54;
-              }
-
-              if (v47 >= *v50)
-              {
-LABEL_64:
-                v42 = v43;
-                goto LABEL_52;
-              }
-            }
-          }
-
-          v43 -= 3;
-          *v49 = *v50;
-          *(v49 + 16) = *(v8 + v48 - 8);
-          v48 -= 24;
-          if (!v48)
-          {
-            v42 = v8;
-            goto LABEL_52;
-          }
-        }
-      }
-
-      if (v39)
-      {
-        return result;
-      }
-
-      while (2)
-      {
-        v63 = v8;
-        v8 = v37;
-        v64 = *(v63 + 32);
-        v65 = *(v63 + 8);
-        if (v64 >= v65)
-        {
-          if (v65 >= v64)
-          {
-            v66 = *(v63 + 40);
-            v72 = *(v63 + 16);
-            if (v66 < v72 || v72 >= v66 && *v8 < *v63)
-            {
-              goto LABEL_93;
-            }
-          }
-        }
-
-        else
-        {
-          v66 = *(v63 + 40);
-LABEL_93:
-          v67 = *v8;
-          v68 = *v8;
-          for (i = v8; ; i -= 24)
-          {
-            *i = *(i - 24);
-            *(i + 16) = *(i - 8);
-            v70 = *(i - 40);
-            if (v64 >= v70)
-            {
-              if (v70 < v64)
-              {
-                break;
-              }
-
-              v71 = *(i - 32);
-              if (v66 >= v71 && (v71 < v66 || v68 >= *(i - 48)))
-              {
-                break;
-              }
-            }
-          }
-
-          *(i - 24) = v67;
-          *(i - 16) = v64;
-          *(i - 8) = v66;
-        }
-
-        v37 = (v8 + 24);
-        if ((v8 + 24) == a2)
-        {
-          return result;
-        }
-
-        continue;
-      }
-    }
-
-    if (v11 == 1)
-    {
-      if (v8 != a2)
-      {
-        v54 = (v14 - 2) >> 1;
-        v55 = v54 + 1;
-        v56 = (v8 + 24 * v54);
-        do
-        {
-          std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &,operations_research::sat::IndexedInterval*>(v8, a3, 0xAAAAAAAAAAAAAAABLL * (v13 >> 3), v56);
-          v56 -= 3;
-          --v55;
-        }
-
-        while (v55);
-        v57 = 0xAAAAAAAAAAAAAAABLL * (v13 >> 3);
-        do
-        {
-          result = std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex,operations_research::sat::IndexedInterval*>(v8, a2, a3, v57);
-          a2 = (a2 - 24);
-        }
-
-        while (v57-- > 2);
-      }
-
-      return result;
-    }
-
-    v15 = v14 >> 1;
-    v16 = v8 + 24 * (v14 >> 1);
-    if (v13 < 0xC01)
-    {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &,operations_research::sat::IndexedInterval*,0>(v16, v8, (a2 - 24));
-      if (a5)
-      {
-        goto LABEL_22;
-      }
-    }
-
-    else
-    {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &,operations_research::sat::IndexedInterval*,0>(v8, v16, (a2 - 24));
-      v17 = 24 * v15;
-      v18 = (24 * v15 + v8 - 24);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &,operations_research::sat::IndexedInterval*,0>((v8 + 24), v18, a2 - 3);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &,operations_research::sat::IndexedInterval*,0>((v8 + 48), (v8 + 24 + v17), (a2 - 72));
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &,operations_research::sat::IndexedInterval*,0>(v18, v16, (v8 + 24 + v17));
-      v82 = *(v8 + 16);
-      v77 = *v8;
-      v19 = *v16;
-      *(v8 + 16) = *(v16 + 16);
-      *v8 = v19;
-      *(v16 + 16) = v82;
-      *v16 = v77;
-      if (a5)
-      {
-        goto LABEL_22;
-      }
-    }
-
-    v20 = *(v8 - 16);
-    v21 = *(v8 + 8);
-    if (v20 >= v21)
-    {
-      if (v21 < v20 || (v22 = *(v8 - 8), v23 = *(v8 + 16), v22 >= v23) && (v23 < v22 || *(v8 - 24) >= *v8))
-      {
-        result = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval *,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &>(v8, a2);
-        v10 = result;
-        goto LABEL_27;
-      }
-    }
-
-LABEL_22:
-    started = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval *,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &>(v8, a2);
-    if ((v25 & 1) == 0)
-    {
-      goto LABEL_25;
-    }
-
-    v26 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &,operations_research::sat::IndexedInterval*>(v8, started);
-    v10 = started + 24;
-    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &,operations_research::sat::IndexedInterval*>(started + 24, a2);
-    if (result)
-    {
-      a4 = -v12;
-      a2 = started;
-      if (v26)
-      {
-        return result;
-      }
-
-      goto LABEL_2;
-    }
-
-    v11 = v12 + 1;
-    if ((v26 & 1) == 0)
-    {
-LABEL_25:
-      result = std::__introsort<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &,operations_research::sat::IndexedInterval*,false>(v8, started, a3, -v12, a5 & 1);
-      v10 = started + 24;
-LABEL_27:
-      a5 = 0;
-      a4 = -v12;
-      goto LABEL_3;
-    }
-  }
-
-  return std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &,operations_research::sat::IndexedInterval*,0>(v8, (v8 + 24), (a2 - 24));
-}
-
-uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &,operations_research::sat::IndexedInterval*,0>(__int128 *a1, __int128 *a2, __int128 *a3)
-{
-  v3 = *(a2 + 1);
-  v4 = *(a1 + 1);
-  if (v3 < v4 || v4 >= v3 && ((v27 = *(a2 + 2), v28 = *(a1 + 2), v27 < v28) || v28 >= v27 && *a2 < *a1))
-  {
-    v5 = *(a3 + 1);
-    if (v5 < v3 || v3 >= v5 && ((v29 = *(a3 + 2), v30 = *(a2 + 2), v29 < v30) || v30 >= v29 && *a3 < *a2))
-    {
-      v6 = *(a1 + 2);
-      v7 = *a1;
-      v8 = *(a3 + 2);
-      *a1 = *a3;
-      *(a1 + 2) = v8;
-      *a3 = v7;
-      *(a3 + 2) = v6;
-      return 1;
-    }
-
-    v19 = *(a1 + 2);
-    v20 = *a1;
-    v21 = *(a2 + 2);
-    *a1 = *a2;
-    *(a1 + 2) = v21;
-    *a2 = v20;
-    *(a2 + 2) = v19;
-    v22 = *(a3 + 1);
-    v23 = *(a2 + 1);
-    if (v22 >= v23)
-    {
-      if (v23 < v22)
-      {
-        return 1;
-      }
-
-      v33 = *(a3 + 2);
-      v34 = *(a2 + 2);
-      if (v33 >= v34 && (v34 < v33 || *a3 >= *a2))
-      {
-        return 1;
-      }
-    }
-
-    v24 = *(a2 + 2);
-    v25 = *a2;
-    v26 = *(a3 + 2);
-    *a2 = *a3;
-    *(a2 + 2) = v26;
-    *a3 = v25;
-    *(a3 + 2) = v24;
-    return 1;
-  }
-
-  else
-  {
-    v10 = *(a3 + 1);
-    if (v10 < v3)
-    {
-LABEL_6:
-      v11 = *(a2 + 2);
-      v12 = *a2;
-      v13 = *(a3 + 2);
-      *a2 = *a3;
-      *(a2 + 2) = v13;
-      *a3 = v12;
-      *(a3 + 2) = v11;
-      v14 = *(a2 + 1);
-      v15 = *(a1 + 1);
-      if (v14 < v15 || v15 >= v14 && ((v31 = *(a2 + 2), v32 = *(a1 + 2), v31 < v32) || v32 >= v31 && *a2 < *a1))
-      {
-        v16 = *(a1 + 2);
-        v17 = *a1;
-        v18 = *(a2 + 2);
-        *a1 = *a2;
-        *(a1 + 2) = v18;
-        *a2 = v17;
-        *(a2 + 2) = v16;
-      }
-
-      return 1;
-    }
-
-    if (v3 >= v10)
-    {
-      v35 = *(a3 + 2);
-      v36 = *(a2 + 2);
-      if (v35 < v36)
-      {
-        goto LABEL_6;
-      }
-
-      if (v36 >= v35)
-      {
-        if (*a3 < *a2)
-        {
-          goto LABEL_6;
-        }
-
-        return 0;
-      }
-
-      else
-      {
-        return 0;
-      }
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-}
-
-uint64_t std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &,operations_research::sat::IndexedInterval*,0>(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4, __int128 *a5)
-{
-  result = std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &,operations_research::sat::IndexedInterval*,0>(a1, a2, a3);
-  v11 = *(a4 + 1);
-  v12 = *(a3 + 8);
-  if (v11 < v12 || v12 >= v11 && ((v26 = *(a4 + 2), v27 = *(a3 + 16), v26 < v27) || v27 >= v26 && *a4 < *a3))
-  {
-    v13 = *(a3 + 16);
-    v14 = *a3;
-    v15 = *(a4 + 2);
-    *a3 = *a4;
-    *(a3 + 16) = v15;
-    *a4 = v14;
-    *(a4 + 2) = v13;
-    v16 = *(a3 + 8);
-    v17 = *(a2 + 8);
-    if (v16 < v17 || v17 >= v16 && ((v28 = *(a3 + 16), v29 = *(a2 + 16), v28 < v29) || v29 >= v28 && *a3 < *a2))
-    {
-      v18 = *(a2 + 16);
-      v19 = *a2;
-      v20 = *(a3 + 16);
-      *a2 = *a3;
-      *(a2 + 16) = v20;
-      *a3 = v19;
-      *(a3 + 16) = v18;
-      v21 = *(a2 + 8);
-      v22 = *(a1 + 8);
-      if (v21 < v22 || v22 >= v21 && ((v58 = *(a2 + 16), v59 = *(a1 + 16), v58 < v59) || v59 >= v58 && *a2 < *a1))
-      {
-        v23 = *(a1 + 16);
-        v24 = *a1;
-        v25 = *(a2 + 16);
-        *a1 = *a2;
-        *(a1 + 16) = v25;
-        *a2 = v24;
-        *(a2 + 16) = v23;
-      }
-    }
-  }
-
-  v30 = *(a5 + 1);
-  v31 = *(a4 + 1);
-  if (v30 < v31 || v31 >= v30 && ((v50 = *(a5 + 2), v51 = *(a4 + 2), v50 < v51) || v51 >= v50 && *a5 < *a4))
-  {
-    v32 = *(a4 + 2);
-    v33 = *a4;
-    v34 = *(a5 + 2);
-    *a4 = *a5;
-    *(a4 + 2) = v34;
-    *a5 = v33;
-    *(a5 + 2) = v32;
-    v35 = *(a4 + 1);
-    v36 = *(a3 + 8);
-    if (v35 < v36 || v36 >= v35 && ((v52 = *(a4 + 2), v53 = *(a3 + 16), v52 < v53) || v53 >= v52 && *a4 < *a3))
-    {
-      v37 = *(a3 + 16);
-      v38 = *a3;
-      v39 = *(a4 + 2);
-      *a3 = *a4;
-      *(a3 + 16) = v39;
-      *a4 = v38;
-      *(a4 + 2) = v37;
-      v40 = *(a3 + 8);
-      v41 = *(a2 + 8);
-      if (v40 < v41 || v41 >= v40 && ((v54 = *(a3 + 16), v55 = *(a2 + 16), v54 < v55) || v55 >= v54 && *a3 < *a2))
-      {
-        v42 = *(a2 + 16);
-        v43 = *a2;
-        v44 = *(a3 + 16);
-        *a2 = *a3;
-        *(a2 + 16) = v44;
-        *a3 = v43;
-        *(a3 + 16) = v42;
-        v45 = *(a2 + 8);
-        v46 = *(a1 + 8);
-        if (v45 < v46 || v46 >= v45 && ((v56 = *(a2 + 16), v57 = *(a1 + 16), v56 < v57) || v57 >= v56 && *a2 < *a1))
-        {
-          v47 = *(a1 + 16);
-          v48 = *a1;
-          v49 = *(a2 + 16);
-          *a1 = *a2;
-          *(a1 + 16) = v49;
-          *a2 = v48;
-          *(a2 + 16) = v47;
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-void *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval *,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &>(uint64_t *a1, void *a2)
-{
-  v2 = *a1;
-  v3 = a1[1];
-  v4 = a1[2];
-  v5 = *(a2 - 2);
-  if (v3 < v5 || v5 >= v3 && ((v20 = *(a2 - 1), v4 < v20) || v20 >= v4 && v2 < *(a2 - 6)))
-  {
-    i = a1 + 3;
-    v7 = a1[4];
-    if (v3 < v7)
-    {
-      goto LABEL_21;
-    }
-
-    v8 = a1 + 5;
-    while (1)
-    {
-      if (v7 >= v3)
-      {
-        if (v4 < *v8)
-        {
-LABEL_20:
-          i = v8 - 2;
-          goto LABEL_21;
-        }
-
-        if (*v8 >= v4 && v2 < *(v8 - 4))
-        {
-          goto LABEL_21;
-        }
-      }
-
-      i += 3;
-      v7 = v8[2];
-      v8 += 3;
-      if (v3 < v7)
-      {
-        goto LABEL_20;
-      }
-    }
-  }
-
-  for (i = a1 + 3; i < a2; i += 3)
-  {
-    v9 = i[1];
-    if (v3 < v9)
-    {
-      break;
-    }
-
-    if (v9 >= v3)
-    {
-      v10 = i[2];
-      if (v4 < v10 || v10 >= v4 && v2 < *i)
-      {
-        break;
-      }
-    }
-  }
-
-LABEL_21:
-  if (i < a2)
-  {
-    for (j = a2 - 1; v3 < v5 || v5 >= v3 && (v4 < *j || *j >= v4 && v2 < *(j - 4)); j -= 3)
-    {
-      v5 = *(j - 4);
-    }
-
-    a2 = j - 2;
-  }
-
-  if (i < a2)
-  {
-LABEL_33:
-    v22 = i[2];
-    v21 = *i;
-    v12 = *a2;
-    i[2] = a2[2];
-    *i = v12;
-    a2[2] = v22;
-    *a2 = v21;
-    v13 = i + 3;
-    v14 = i[4];
-    if (v3 < v14)
-    {
-      i += 3;
-      goto LABEL_43;
-    }
-
-    v15 = i + 5;
-    while (1)
-    {
-      if (v14 >= v3)
-      {
-        if (v4 < *v15)
-        {
-          i = v13;
-          do
-          {
-            do
-            {
-LABEL_43:
-              a2 -= 3;
-              v16 = a2[1];
-            }
-
-            while (v3 < v16);
-            if (v16 < v3)
-            {
-              break;
-            }
-
-            v17 = a2[2];
-          }
-
-          while (v4 < v17 || v17 >= v4 && v2 < *a2);
-          if (i >= a2)
-          {
-            break;
-          }
-
-          goto LABEL_33;
-        }
-
-        if (*v15 >= v4 && v2 < *(v15 - 4))
-        {
-LABEL_41:
-          i = v15 - 2;
-          goto LABEL_43;
-        }
-      }
-
-      v13 += 3;
-      v14 = v15[2];
-      v15 += 3;
-      if (v3 < v14)
-      {
-        goto LABEL_41;
-      }
-    }
-  }
-
-  if (i - 3 != a1)
-  {
-    v18 = *(i - 3);
-    a1[2] = *(i - 1);
-    *a1 = v18;
-  }
-
-  *(i - 3) = v2;
-  *(i - 2) = v3;
-  *(i - 1) = v4;
-  return i;
-}
-
-unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval *,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &>(uint64_t *a1, unint64_t a2)
-{
-  v2 = 0;
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = a1[2];
-  v6 = *a1;
-  while (1)
-  {
-    v7 = &a1[v2];
-    v8 = a1[v2 + 4];
-    if (v8 >= v4)
-    {
-      if (v4 < v8)
-      {
-        break;
-      }
-
-      v9 = v7[5];
-      if (v9 >= v5 && (v5 < v9 || *(v7 + 6) >= v6))
-      {
-        break;
-      }
-    }
-
-    v2 += 3;
-  }
-
-  v10 = &a1[v2 + 3];
-  if (v2 * 8)
-  {
-    v11 = (a2 - 24);
-    v12 = *(a2 - 16);
-    if (v12 >= v4)
-    {
-      v13 = (a2 - 8);
-      while (1)
-      {
-        if (v4 >= v12)
-        {
-          if (*v13 < v5)
-          {
-            goto LABEL_31;
-          }
-
-          if (v5 >= *v13 && *(v13 - 4) < v6)
-          {
-            break;
-          }
-        }
-
-        v11 -= 3;
-        v12 = *(v13 - 4);
-        v13 -= 3;
-        if (v12 < v4)
-        {
-          goto LABEL_31;
-        }
-      }
-    }
-  }
-
-  else if (v10 >= a2)
-  {
-    v11 = a2;
-  }
-
-  else
-  {
-    v11 = (a2 - 24);
-    v14 = *(a2 - 16);
-    if (v14 >= v4)
-    {
-      v13 = (a2 - 8);
-      while (1)
-      {
-        v15 = v13 - 2;
-        if (v4 < v14)
-        {
-          goto LABEL_20;
-        }
-
-        if (*v13 < v5)
-        {
-          v11 = v13 - 2;
-          v17 = v10;
-          if (v10 < v15)
-          {
-            goto LABEL_35;
-          }
-
-          goto LABEL_53;
-        }
-
-        if (v5 < *v13)
-        {
-LABEL_20:
-          if (v10 >= v15)
-          {
-            break;
-          }
-        }
-
-        else if (*v15 < v6 || v10 >= v15)
-        {
-          break;
-        }
-
-        v11 -= 3;
-        v14 = *(v13 - 4);
-        v13 -= 3;
-        if (v14 < v4)
-        {
-LABEL_31:
-          v11 = v13 - 2;
-          v17 = v10;
-          if (v10 < v11)
-          {
-            goto LABEL_35;
-          }
-
-          goto LABEL_53;
-        }
-      }
-    }
-  }
-
-  v17 = v10;
-  if (v10 < v11)
-  {
-LABEL_35:
-    v18 = v11;
-    do
-    {
-      v28 = *(v17 + 16);
-      v27 = *v17;
-      v20 = *v18;
-      *(v17 + 16) = v18[2];
-      *v17 = v20;
-      v18[2] = v28;
-      *v18 = v27;
-      do
-      {
-        do
-        {
-          v17 += 24;
-          v21 = *(v17 + 8);
-        }
-
-        while (v21 < v4);
-        if (v4 < v21)
-        {
-          break;
-        }
-
-        v22 = *(v17 + 16);
-      }
-
-      while (v22 < v5 || v5 >= v22 && *v17 < v6);
-      v19 = v18 - 3;
-      v23 = *(v18 - 2);
-      if (v23 >= v4)
-      {
-        v24 = v18 - 1;
-        do
-        {
-          if (v4 >= v23)
-          {
-            if (*v24 < v5)
-            {
-              goto LABEL_37;
-            }
-
-            if (v5 >= *v24 && *(v24 - 4) < v6)
-            {
-              break;
-            }
-          }
-
-          v19 -= 3;
-          v23 = *(v24 - 4);
-          v24 -= 3;
-        }
-
-        while (v23 >= v4);
-        v19 = v24 - 2;
-      }
-
-LABEL_37:
-      v18 = v19;
-    }
-
-    while (v17 < v19);
-  }
-
-LABEL_53:
-  if ((v17 - 24) != a1)
-  {
-    v25 = *(v17 - 24);
-    a1[2] = *(v17 - 8);
-    *a1 = v25;
-  }
-
-  *(v17 - 24) = v3;
-  *(v17 - 16) = v4;
-  *(v17 - 8) = v5;
-  return v17 - 24;
-}
-
-uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &,operations_research::sat::IndexedInterval*>(uint64_t a1, uint64_t a2)
-{
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 3);
-  if (v2 <= 2)
-  {
-    if (v2 >= 2)
-    {
-      if (v2 == 2)
-      {
-        v3 = (a2 - 24);
-        v4 = *(a2 - 16);
-        v5 = *(a1 + 8);
-        if (v4 < v5 || v5 >= v4 && ((v43 = *(a2 - 8), v44 = *(a1 + 16), v43 < v44) || v44 >= v43 && *v3 < *a1))
-        {
-          v6 = *(a1 + 16);
-          v7 = *a1;
-          v8 = *(a2 - 8);
-          *a1 = *v3;
-          *(a1 + 16) = v8;
-          *v3 = v7;
-          *(a2 - 8) = v6;
-        }
-
-        return 1;
-      }
-
-      goto LABEL_11;
-    }
-
-    return 1;
-  }
-
-  switch(v2)
-  {
-    case 3:
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &,operations_research::sat::IndexedInterval*,0>(a1, (a1 + 24), (a2 - 24));
-      return 1;
-    case 4:
-      v26 = a2 - 24;
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &,operations_research::sat::IndexedInterval*,0>(a1, (a1 + 24), (a1 + 48));
-      v29 = *(a2 - 16);
-      v30 = *(a1 + 56);
-      if (v29 < v30 || v30 >= v29 && ((v45 = *(a2 - 8), v46 = *(a1 + 64), v45 < v46) || v46 >= v45 && *v26 < *(a1 + 48)))
-      {
-        v31 = *(a1 + 64);
-        v32 = *(a1 + 48);
-        v33 = *(v26 + 16);
-        *(a1 + 48) = *v26;
-        *(a1 + 64) = v33;
-        *v26 = v32;
-        *(v26 + 16) = v31;
-        v34 = *(a1 + 56);
-        v35 = *(a1 + 32);
-        if (v34 < v35 || v35 >= v34 && ((v47 = *(a1 + 64), v48 = *(a1 + 40), v47 < v48) || v48 >= v47 && *(a1 + 48) < *(a1 + 24)))
-        {
-          v36 = *(a1 + 24);
-          *(a1 + 24) = *(a1 + 48);
-          v37 = *(a1 + 32);
-          v38 = *(a1 + 40);
-          *(a1 + 40) = *(a1 + 64);
-          *(a1 + 48) = v36;
-          *(a1 + 64) = v38;
-          v39 = *(a1 + 8);
-          if (v37 < v39 || v39 >= v37 && ((v50 = *(a1 + 40), v51 = *(a1 + 16), v50 < v51) || v51 >= v50 && *(a1 + 24) < *a1))
-          {
-            v40 = *(a1 + 16);
-            v41 = *a1;
-            *a1 = *(a1 + 24);
-            *(a1 + 16) = *(a1 + 40);
-            *(a1 + 24) = v41;
-            *(a1 + 40) = v40;
-          }
-        }
-      }
-
-      return 1;
-    case 5:
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &,operations_research::sat::IndexedInterval*,0>(a1, a1 + 24, a1 + 48, (a1 + 72), (a2 - 24));
-      return 1;
-  }
-
-LABEL_11:
-  v9 = (a1 + 48);
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &,operations_research::sat::IndexedInterval*,0>(a1, (a1 + 24), (a1 + 48));
-  v13 = a1 + 72;
-  if (a1 + 72 == a2)
-  {
-LABEL_37:
-    v42 = 1;
-    return (v42 | v12) & 1;
-  }
-
-  v12 = a2;
-  v14 = 0;
-  v15 = 0;
-  while (2)
-  {
-    v17 = *(v13 + 8);
-    v18 = v9[1];
-    if (v17 >= v18)
-    {
-      if (v18 < v17)
-      {
-        goto LABEL_15;
-      }
-
-      v19 = *(v13 + 16);
-      v25 = v9[2];
-      if (v19 >= v25 && (v25 < v19 || *v13 >= *v9))
-      {
-        goto LABEL_15;
-      }
-    }
-
-    else
-    {
-      v19 = *(v13 + 16);
-    }
-
-    v20 = *v13;
-    *v13 = *v9;
-    *(v13 + 16) = v9[2];
-    v16 = a1;
-    if (v9 == a1)
-    {
-      goto LABEL_14;
-    }
-
-    v21 = v14;
-    while (1)
-    {
-      v22 = a1 + v21;
-      v23 = *(a1 + v21 + 32);
-      if (v17 >= v23)
-      {
-        if (v23 < v17)
-        {
-          goto LABEL_32;
-        }
-
-        v24 = *(v22 + 40);
-        if (v19 >= v24)
-        {
-          break;
-        }
-      }
-
-LABEL_20:
-      v9 -= 3;
-      *(v22 + 48) = *(v22 + 24);
-      *(v22 + 64) = *(v22 + 40);
-      v21 -= 24;
-      if (v21 == -48)
-      {
-        v16 = a1;
-        goto LABEL_14;
-      }
-    }
-
-    if (v24 >= v19)
-    {
-      if (v20 >= *(v22 + 24))
-      {
-        v16 = (a1 + v21 + 48);
-        goto LABEL_14;
-      }
-
-      goto LABEL_20;
-    }
-
-LABEL_32:
-    v16 = v9;
-LABEL_14:
-    *v16 = v20;
-    v16[1] = v17;
-    v16[2] = v19;
-    if (++v15 != 8)
-    {
-LABEL_15:
-      v9 = v13;
-      v14 += 24;
-      v13 += 24;
-      if (v13 == a2)
-      {
-        goto LABEL_37;
-      }
-
-      continue;
-    }
-
-    break;
-  }
-
-  v42 = 0;
-  v12 = v13 + 24 == a2;
-  return (v42 | v12) & 1;
-}
-
-uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex &,operations_research::sat::IndexedInterval*>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
-{
-  if (a3 >= 2)
-  {
-    v4 = (a3 - 2) >> 1;
-    if (v4 >= (0xAAAAAAAAAAAAAAABLL * ((a4 - result) >> 3)))
-    {
-      v5 = (0x5555555555555556 * ((a4 - result) >> 3)) | 1;
-      v6 = (result + 24 * v5);
-      if (0x5555555555555556 * ((a4 - result) >> 3) + 2 < a3)
-      {
-        v7 = *(v6 + 1);
-        v8 = *(v6 + 4);
-        if (v7 < v8 || v8 >= v7 && ((v25 = *(v6 + 2), v26 = *(v6 + 5), v25 < v26) || v26 >= v25 && *v6 < *(v6 + 6)))
-        {
-          v6 = (v6 + 24);
-          v5 = 0x5555555555555556 * ((a4 - result) >> 3) + 2;
-        }
-      }
-
-      v9 = *(v6 + 1);
-      v10 = a4[1];
-      if (v9 >= v10)
-      {
-        v11 = a4[2];
-        if (v10 < v9 || (v24 = *(v6 + 2), v24 >= v11) && (v11 < v24 || *v6 >= *a4))
-        {
-          v12 = *a4;
-          v13 = *v6;
-          a4[2] = *(v6 + 2);
-          *a4 = v13;
-          if (v4 >= v5)
-          {
-            while (1)
-            {
-              v15 = v6;
-              v16 = 2 * v5;
-              v5 = (2 * v5) | 1;
-              v6 = (result + 24 * v5);
-              v17 = v16 + 2;
-              if (v17 < a3)
-              {
-                v18 = *(v6 + 1);
-                v19 = *(v6 + 4);
-                if (v18 < v19 || v19 >= v18 && ((v22 = *(v6 + 2), v23 = *(v6 + 5), v22 < v23) || v23 >= v22 && *v6 < *(v6 + 6)))
-                {
-                  v6 = (v6 + 24);
-                  v5 = v17;
-                }
-              }
-
-              v20 = *(v6 + 1);
-              if (v20 < v10)
-              {
-                break;
-              }
-
-              if (v10 >= v20)
-              {
-                v21 = *(v6 + 2);
-                if (v21 < v11 || v11 >= v21 && *v6 < v12)
-                {
-                  break;
-                }
-              }
-
-              v14 = *v6;
-              *(v15 + 2) = *(v6 + 2);
-              *v15 = v14;
-              if (v4 < v5)
-              {
-                goto LABEL_35;
-              }
-            }
-
-            v6 = v15;
-          }
-
-LABEL_35:
-          *v6 = v12;
-          *(v6 + 1) = v10;
-          *(v6 + 2) = v11;
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-void *std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,operations_research::sat::IndexedInterval::ComparatorByStartThenEndThenIndex,operations_research::sat::IndexedInterval*>(void *result, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  if (a4 >= 2)
-  {
-    v4 = 0;
-    v33 = *result;
-    v34 = result[2];
-    v5 = result;
-    do
-    {
-      v7 = v5;
-      v8 = &v5[3 * v4];
-      v5 = v8 + 3;
-      v9 = 2 * v4;
-      v4 = (2 * v4) | 1;
-      v10 = v9 + 2;
-      if (v10 < a4)
-      {
-        v11 = v8 + 6;
-        v12 = v8[4];
-        v13 = v8[7];
-        if (v12 < v13 || v13 >= v12 && ((v14 = v8[5], v15 = v8[8], v14 < v15) || v15 >= v14 && *v5 < *v11))
-        {
-          v5 = v11;
-          v4 = v10;
-        }
-      }
-
-      v6 = *v5;
-      v7[2] = v5[2];
-      *v7 = v6;
-    }
-
-    while (v4 <= ((a4 - 2) >> 1));
-    v16 = (a2 - 24);
-    if (v5 == (a2 - 24))
-    {
-      v5[2] = v34;
-      *v5 = v33;
-      return result;
-    }
-
-    v17 = *v16;
-    v5[2] = *(a2 - 8);
-    *v5 = v17;
-    *v16 = v33;
-    *(a2 - 8) = v34;
-    v18 = v5 - result + 24;
-    if (v18 < 25)
-    {
-      return result;
-    }
-
-    v19 = 0xAAAAAAAAAAAAAAABLL * (v18 >> 3) - 2;
-    v20 = v19 >> 1;
-    v21 = &result[3 * (v19 >> 1)];
-    v22 = v21[1];
-    v23 = v5[1];
-    if (v22 >= v23)
-    {
-      if (v23 < v22)
-      {
-        return result;
-      }
-
-      v32 = v21[2];
-      v24 = v5[2];
-      if (v32 >= v24 && (v24 < v32 || *v21 >= *v5))
-      {
-        return result;
-      }
-    }
-
-    else
-    {
-      v24 = v5[2];
-    }
-
-    v25 = *v5;
-    v26 = *v21;
-    v5[2] = v21[2];
-    *v5 = v26;
-    if (v19 >= 2)
-    {
-      while (1)
-      {
-        v28 = v21;
-        v29 = v20 - 1;
-        v20 = (v20 - 1) >> 1;
-        v21 = &result[3 * v20];
-        v30 = v21[1];
-        if (v30 >= v23)
-        {
-          if (v23 < v30)
-          {
-            break;
-          }
-
-          v31 = v21[2];
-          if (v31 >= v24 && (v24 < v31 || *v21 >= v25))
-          {
-            break;
-          }
-        }
-
-        v27 = *v21;
-        v28[2] = v21[2];
-        *v28 = v27;
-        if (v29 <= 1)
-        {
-          goto LABEL_25;
-        }
-      }
-
-      v21 = v28;
-    }
-
-LABEL_25:
-    *v21 = v25;
-    v21[1] = v23;
-    v21[2] = v24;
-  }
-
-  return result;
-}
-
-__n128 std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,operations_research::sat::CapacityProfile::Event *,false>(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, char a5, __n128 result)
-{
-LABEL_1:
-  v10 = a2 - 32;
-  v11 = a2 - 64;
-  v12 = a2 - 96;
-  v13 = a1;
-  while (1)
-  {
-    a1 = v13;
-    v14 = &a2[-v13] >> 5;
-    if (v14 > 2)
-    {
-      break;
-    }
-
-    if (v14 < 2)
-    {
-      return result;
-    }
-
-    if (v14 == 2)
-    {
-      v80 = *(a2 - 4);
-      v79 = (a2 - 32);
-      if (v80 >= *v13)
-      {
-        return result;
-      }
-
-LABEL_108:
-      v143 = *v13;
-      v178 = *(v13 + 16);
-      v85 = v79[1];
-      *v13 = *v79;
-      *(v13 + 16) = v85;
-LABEL_109:
-      result = v143;
-      *v79 = v143;
-      v79[1] = v178;
-      return result;
-    }
-
-LABEL_9:
-    if (v14 <= 23)
-    {
-      v90 = (v13 + 32);
-      v92 = v13 == a2 || v90 == a2;
-      if (a5)
-      {
-        if (!v92)
-        {
-          v93 = 0;
-          v94 = v13;
-          do
-          {
-            v96 = v90;
-            v97 = *(v94 + 32);
-            if (v97 < *v94)
-            {
-              v180 = *(v94 + 56);
-              v145 = *(v94 + 40);
-              v98 = v93;
-              do
-              {
-                v99 = v13 + v98;
-                v100 = *(v13 + v98 + 16);
-                *(v99 + 32) = *(v13 + v98);
-                *(v99 + 48) = v100;
-                if (!v98)
-                {
-                  v95 = v13;
-                  goto LABEL_123;
-                }
-
-                v98 -= 32;
-              }
-
-              while (v97 < *(v99 - 32));
-              v95 = v13 + v98 + 32;
-LABEL_123:
-              *v95 = v97;
-              result = v145;
-              *(v95 + 24) = v180;
-              *(v95 + 8) = v145;
-            }
-
-            v90 = v96 + 32;
-            v93 += 32;
-            v94 = v96;
-          }
-
-          while (v96 + 32 != a2);
-        }
-      }
-
-      else if (!v92)
-      {
-        do
-        {
-          v104 = v90;
-          v105 = *(a1 + 32);
-          if (v105 < *a1)
-          {
-            v184 = *(a1 + 56);
-            v149 = *(a1 + 40);
-            do
-            {
-              v106 = *(v90 - 1);
-              *v90 = *(v90 - 2);
-              *(v90 + 1) = v106;
-              v107 = *(v90 - 8);
-              v90 -= 32;
-            }
-
-            while (v105 < v107);
-            *v90 = v105;
-            result = v149;
-            *(v90 + 3) = v184;
-            *(v90 + 8) = v149;
-          }
-
-          v90 = (v104 + 32);
-          a1 = v104;
-        }
-
-        while ((v104 + 32) != a2);
-      }
-
-      return result;
-    }
-
-    if (!a4)
-    {
-      if (v13 != a2)
-      {
-
-        std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,operations_research::sat::CapacityProfile::Event *,operations_research::sat::CapacityProfile::Event *>(v13, a2, a2);
-      }
-
-      return result;
-    }
-
-    v15 = (v13 + 32 * (v14 >> 1));
-    v16 = v15;
-    v17 = *v10;
-    if (v14 < 0x81)
-    {
-      v20 = *v13;
-      if (*v13 < v16->n128_u64[0])
-      {
-        if (v17 < v20)
-        {
-          v121 = *v16;
-          v156 = v16[1];
-          v21 = *(a2 - 1);
-          *v16 = *v10;
-          v16[1] = v21;
-          goto LABEL_36;
-        }
-
-        v130 = *v16;
-        v165 = v16[1];
-        v36 = *(v13 + 16);
-        *v16 = *v13;
-        v16[1] = v36;
-        *v13 = v130;
-        *(v13 + 16) = v165;
-        if (*v10 < *v13)
-        {
-          v121 = *v13;
-          v156 = *(v13 + 16);
-          v37 = *(a2 - 1);
-          *v13 = *v10;
-          *(v13 + 16) = v37;
-LABEL_36:
-          *v10 = v121;
-          *(a2 - 1) = v156;
-        }
-
-LABEL_37:
-        --a4;
-        v26 = *v13;
-        if (a5)
-        {
-          goto LABEL_62;
-        }
-
-        goto LABEL_61;
-      }
-
-      if (v17 >= v20)
-      {
-        goto LABEL_37;
-      }
-
-      v124 = *v13;
-      v159 = *(v13 + 16);
-      v24 = *(a2 - 1);
-      *v13 = *v10;
-      *(v13 + 16) = v24;
-      *v10 = v124;
-      *(a2 - 1) = v159;
-      if (*v13 >= v16->n128_u64[0])
-      {
-        goto LABEL_37;
-      }
-
-      v125 = *v16;
-      v160 = v16[1];
-      v25 = *(v13 + 16);
-      *v16 = *v13;
-      v16[1] = v25;
-      *v13 = v125;
-      *(v13 + 16) = v160;
-      --a4;
-      v26 = *v13;
-      if (a5)
-      {
-        goto LABEL_62;
-      }
-
-LABEL_61:
-      if (*(v13 - 32) < v26)
-      {
-        goto LABEL_62;
-      }
-
-      v119 = *(v13 + 24);
-      v117 = *(v13 + 8);
-      if (v26 >= *v10)
-      {
-        v72 = v13 + 32;
-        do
-        {
-          v13 = v72;
-          if (v72 >= a2)
-          {
-            break;
-          }
-
-          v72 += 32;
-        }
-
-        while (v26 >= *v13);
-      }
-
-      else
-      {
-        do
-        {
-          v71 = *(v13 + 32);
-          v13 += 32;
-        }
-
-        while (v26 >= v71);
-      }
-
-      v73 = a2;
-      if (v13 < a2)
-      {
-        v73 = a2;
-        do
-        {
-          v74 = *(v73 - 4);
-          v73 -= 32;
-        }
-
-        while (v26 < v74);
-      }
-
-      while (v13 < v73)
-      {
-        v142 = *v13;
-        v177 = *(v13 + 16);
-        v75 = *(v73 + 1);
-        *v13 = *v73;
-        *(v13 + 16) = v75;
-        *v73 = v142;
-        *(v73 + 1) = v177;
-        do
-        {
-          v76 = *(v13 + 32);
-          v13 += 32;
-        }
-
-        while (v26 >= v76);
-        do
-        {
-          v77 = *(v73 - 4);
-          v73 -= 32;
-        }
-
-        while (v26 < v77);
-      }
-
-      if (v13 - 32 != a1)
-      {
-        v78 = *(v13 - 16);
-        *a1 = *(v13 - 32);
-        *(a1 + 16) = v78;
-      }
-
-      a5 = 0;
-      *(v13 - 32) = v26;
-      result = v117;
-      *(v13 - 8) = v119;
-      *(v13 - 24) = v117;
-    }
-
-    else
-    {
-      v18 = v15->n128_u64[0];
-      if (v15->n128_u64[0] >= *v13)
-      {
-        if (v17 < v18)
-        {
-          v122 = *v15;
-          v157 = v15[1];
-          v22 = *(a2 - 1);
-          *v15 = *v10;
-          v15[1] = v22;
-          *v10 = v122;
-          *(a2 - 1) = v157;
-          if (v15->n128_u64[0] < *v13)
-          {
-            v123 = *v13;
-            v158 = *(v13 + 16);
-            v23 = v15[1];
-            *v13 = *v15;
-            *(v13 + 16) = v23;
-            *v15 = v123;
-            v15[1] = v158;
-          }
-        }
-      }
-
-      else
-      {
-        if (v17 >= v18)
-        {
-          v126 = *v13;
-          v161 = *(v13 + 16);
-          v27 = v15[1];
-          *v13 = *v15;
-          *(v13 + 16) = v27;
-          *v15 = v126;
-          v15[1] = v161;
-          if (*v10 >= v15->n128_u64[0])
-          {
-            goto LABEL_28;
-          }
-
-          v120 = *v15;
-          v155 = v15[1];
-          v28 = *(a2 - 1);
-          *v15 = *v10;
-          v15[1] = v28;
-        }
-
-        else
-        {
-          v120 = *v13;
-          v155 = *(v13 + 16);
-          v19 = *(a2 - 1);
-          *v13 = *v10;
-          *(v13 + 16) = v19;
-        }
-
-        *v10 = v120;
-        *(a2 - 1) = v155;
-      }
-
-LABEL_28:
-      v29 = (v13 + 32);
-      v30 = v15 - 2;
-      v31 = v15[-2].n128_i64[0];
-      v32 = *v11;
-      if (v31 >= *(v13 + 32))
-      {
-        if (v32 < v31)
-        {
-          v128 = *v30;
-          v163 = v15[-1];
-          v34 = *(a2 - 3);
-          *v30 = *v11;
-          v15[-1] = v34;
-          *v11 = v128;
-          *(a2 - 3) = v163;
-          if (v30->n128_u64[0] < v29->n128_u64[0])
-          {
-            v129 = *v29;
-            v164 = *(v13 + 48);
-            v35 = v15[-1];
-            *v29 = *v30;
-            *(v13 + 48) = v35;
-            *v30 = v129;
-            v15[-1] = v164;
-          }
-        }
-      }
-
-      else
-      {
-        if (v32 >= v31)
-        {
-          v131 = *v29;
-          v166 = *(v13 + 48);
-          v38 = v15[-1];
-          *v29 = *v30;
-          *(v13 + 48) = v38;
-          *v30 = v131;
-          v15[-1] = v166;
-          if (*v11 >= v30->n128_u64[0])
-          {
-            goto LABEL_42;
-          }
-
-          v127 = *v30;
-          v162 = v15[-1];
-          v39 = *(a2 - 3);
-          *v30 = *v11;
-          v15[-1] = v39;
-        }
-
-        else
-        {
-          v127 = *v29;
-          v162 = *(v13 + 48);
-          v33 = *(a2 - 3);
-          *v29 = *v11;
-          *(v13 + 48) = v33;
-        }
-
-        *v11 = v127;
-        *(a2 - 3) = v162;
-      }
-
-LABEL_42:
-      v40 = (v13 + 64);
-      v43 = v15[2].n128_i64[0];
-      v41 = v15 + 2;
-      v42 = v43;
-      v44 = *v12;
-      if (v43 >= *(v13 + 64))
-      {
-        if (v44 < v42)
-        {
-          v133 = *v41;
-          v168 = v41[1];
-          v46 = *(a2 - 5);
-          *v41 = *v12;
-          v41[1] = v46;
-          *v12 = v133;
-          *(a2 - 5) = v168;
-          if (v41->n128_u64[0] < v40->n128_u64[0])
-          {
-            v134 = *v40;
-            v169 = *(v13 + 80);
-            v47 = v41[1];
-            *v40 = *v41;
-            *(v13 + 80) = v47;
-            *v41 = v134;
-            v41[1] = v169;
-          }
-        }
-      }
-
-      else
-      {
-        if (v44 >= v42)
-        {
-          v135 = *v40;
-          v170 = *(v13 + 80);
-          v48 = v41[1];
-          *v40 = *v41;
-          *(v13 + 80) = v48;
-          *v41 = v135;
-          v41[1] = v170;
-          if (*v12 >= v41->n128_u64[0])
-          {
-            goto LABEL_51;
-          }
-
-          v132 = *v41;
-          v167 = v41[1];
-          v49 = *(a2 - 5);
-          *v41 = *v12;
-          v41[1] = v49;
-        }
-
-        else
-        {
-          v132 = *v40;
-          v167 = *(v13 + 80);
-          v45 = *(a2 - 5);
-          *v40 = *v12;
-          *(v13 + 80) = v45;
-        }
-
-        *v12 = v132;
-        *(a2 - 5) = v167;
-      }
-
-LABEL_51:
-      v50 = v16->n128_u64[0];
-      v51 = v41->n128_u64[0];
-      if (v16->n128_u64[0] >= v30->n128_u64[0])
-      {
-        if (v51 < v50)
-        {
-          v137 = *v16;
-          v172 = v16[1];
-          v53 = v41[1];
-          *v16 = *v41;
-          v16[1] = v53;
-          *v41 = v137;
-          v41[1] = v172;
-          if (v16->n128_u64[0] < v30->n128_u64[0])
-          {
-            v138 = *v30;
-            v173 = v30[1];
-            v54 = v16[1];
-            *v30 = *v16;
-            v30[1] = v54;
-            *v16 = v138;
-            v16[1] = v173;
-          }
-        }
-      }
-
-      else
-      {
-        if (v51 >= v50)
-        {
-          v139 = *v30;
-          v174 = v30[1];
-          v55 = v16[1];
-          *v30 = *v16;
-          v30[1] = v55;
-          *v16 = v139;
-          v16[1] = v174;
-          if (v41->n128_u64[0] >= v16->n128_u64[0])
-          {
-            goto LABEL_60;
-          }
-
-          v136 = *v16;
-          v171 = v16[1];
-          v56 = v41[1];
-          *v16 = *v41;
-          v16[1] = v56;
-        }
-
-        else
-        {
-          v136 = *v30;
-          v171 = v30[1];
-          v52 = v41[1];
-          *v30 = *v41;
-          v30[1] = v52;
-        }
-
-        *v41 = v136;
-        v41[1] = v171;
-      }
-
-LABEL_60:
-      v140 = *v13;
-      v175 = *(v13 + 16);
-      v57 = v16[1];
-      *v13 = *v16;
-      *(v13 + 16) = v57;
-      *v16 = v140;
-      v16[1] = v175;
-      --a4;
-      v26 = *v13;
-      if ((a5 & 1) == 0)
-      {
-        goto LABEL_61;
-      }
-
-LABEL_62:
-      v58 = 0;
-      v118 = *(v13 + 24);
-      v116 = *(v13 + 8);
-      do
-      {
-        v59 = *(v13 + v58 + 32);
-        v58 += 32;
-      }
-
-      while (v59 < v26);
-      v60 = v13 + v58;
-      v61 = a2;
-      if (v58 == 32)
-      {
-        v61 = a2;
-        do
-        {
-          if (v60 >= v61)
-          {
-            break;
-          }
-
-          v63 = *(v61 - 4);
-          v61 -= 32;
-        }
-
-        while (v63 >= v26);
-      }
-
-      else
-      {
-        do
-        {
-          v62 = *(v61 - 4);
-          v61 -= 32;
-        }
-
-        while (v62 >= v26);
-      }
-
-      v13 += v58;
-      if (v60 < v61)
-      {
-        v64 = v61;
-        do
-        {
-          v141 = *v13;
-          v176 = *(v13 + 16);
-          v65 = v64[1];
-          *v13 = *v64;
-          *(v13 + 16) = v65;
-          *v64 = v141;
-          v64[1] = v176;
-          do
-          {
-            v66 = *(v13 + 32);
-            v13 += 32;
-          }
-
-          while (v66 < v26);
-          do
-          {
-            v67 = v64[-2].n128_i64[0];
-            v64 -= 2;
-          }
-
-          while (v67 >= v26);
-        }
-
-        while (v13 < v64);
-      }
-
-      if (v13 - 32 != a1)
-      {
-        v68 = *(v13 - 16);
-        *a1 = *(v13 - 32);
-        *(a1 + 16) = v68;
-      }
-
-      *(v13 - 32) = v26;
-      *(v13 - 8) = v118;
-      *(v13 - 24) = v116;
-      if (v60 < v61)
-      {
-        goto LABEL_81;
-      }
-
-      v69 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,operations_research::sat::CapacityProfile::Event *>(a1, v13 - 32, v116);
-      if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,operations_research::sat::CapacityProfile::Event *>(v13, a2, v70))
-      {
-        a2 = (v13 - 32);
-        if (!v69)
-        {
-          goto LABEL_1;
-        }
-
-        return result;
-      }
-
-      if (!v69)
-      {
-LABEL_81:
-        std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,operations_research::sat::CapacityProfile::Event *,false>(a1, v13 - 32, a3, a4, a5 & 1);
-        a5 = 0;
-      }
-    }
-  }
-
-  if (v14 != 3)
-  {
-    if (v14 == 4)
-    {
-      v81 = (v13 + 32);
-      v86 = *(v13 + 32);
-      v87 = (v13 + 64);
-      v88 = *(v13 + 64);
-      if (v86 >= *v13)
-      {
-        if (v88 < v86)
-        {
-          v147 = *v81;
-          v182 = *(v13 + 48);
-          v102 = *(v13 + 80);
-          *v81 = *v87;
-          *(v13 + 48) = v102;
-          result = v147;
-          *v87 = v147;
-          *(v13 + 80) = v182;
-          if (*(v13 + 32) < *v13)
-          {
-            v148 = *v13;
-            v183 = *(v13 + 16);
-            v103 = *(v13 + 48);
-            *v13 = *v81;
-            *(v13 + 16) = v103;
-            result = v148;
-            *v81 = v148;
-            *(v13 + 48) = v183;
-          }
-        }
-      }
-
-      else
-      {
-        if (v88 < v86)
-        {
-          v144 = *v13;
-          v179 = *(v13 + 16);
-          v89 = *(v13 + 80);
-          *v13 = *v87;
-          *(v13 + 16) = v89;
-          goto LABEL_150;
-        }
-
-        v151 = *v13;
-        v186 = *(v13 + 16);
-        v110 = *(v13 + 48);
-        *v13 = *v81;
-        *(v13 + 16) = v110;
-        result = v151;
-        *v81 = v151;
-        *(v13 + 48) = v186;
-        if (*(v13 + 64) < *(v13 + 32))
-        {
-          v144 = *v81;
-          v179 = *(v13 + 48);
-          v111 = *(v13 + 80);
-          *v81 = *v87;
-          *(v13 + 48) = v111;
-LABEL_150:
-          result = v144;
-          *v87 = v144;
-          *(v13 + 80) = v179;
-        }
-      }
-
-      if (*v10 >= v87->n128_u64[0])
-      {
-        return result;
-      }
-
-      v152 = *v87;
-      v187 = *(v13 + 80);
-      v112 = *(a2 - 1);
-      *v87 = *v10;
-      *(v13 + 80) = v112;
-      result = v152;
-      *v10 = v152;
-      *(a2 - 1) = v187;
-      if (v87->n128_u64[0] >= v81->n128_u64[0])
-      {
-        return result;
-      }
-
-      v153 = *v81;
-      v188 = *(v13 + 48);
-      v113 = *(v13 + 80);
-      *v81 = *v87;
-      *(v13 + 48) = v113;
-      result = v153;
-      *v87 = v153;
-      *(v13 + 80) = v188;
-LABEL_154:
-      if (*(v13 + 32) < *v13)
-      {
-        v154 = *v13;
-        v189 = *(v13 + 16);
-        v114 = v81[1];
-        *v13 = *v81;
-        *(v13 + 16) = v114;
-        result = v154;
-        *v81 = v154;
-        v81[1] = v189;
-      }
-
-      return result;
-    }
-
-    if (v14 == 5)
-    {
-
-      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,operations_research::sat::CapacityProfile::Event *,0>(v13, (v13 + 32), (v13 + 64), (v13 + 96), a2 - 2, result).n128_u64[0];
-      return result;
-    }
-
-    goto LABEL_9;
-  }
-
-  v81 = (v13 + 32);
-  v82 = *(v13 + 32);
-  v84 = *(a2 - 4);
-  v79 = (a2 - 32);
-  v83 = v84;
-  if (v82 >= *v13)
-  {
-    if (v83 >= v82)
-    {
-      return result;
-    }
-
-    v146 = *v81;
-    v181 = *(v13 + 48);
-    v101 = v79[1];
-    *v81 = *v79;
-    *(v13 + 48) = v101;
-    result = v146;
-    *v79 = v146;
-    v79[1] = v181;
-    goto LABEL_154;
-  }
-
-  if (v83 < v82)
-  {
-    goto LABEL_108;
-  }
-
-  v150 = *v13;
-  v185 = *(v13 + 16);
-  v108 = *(v13 + 48);
-  *v13 = *v81;
-  *(v13 + 16) = v108;
-  result = v150;
-  *v81 = v150;
-  *(v13 + 48) = v185;
-  if (v79->n128_u64[0] < *(v13 + 32))
-  {
-    v143 = *v81;
-    v178 = *(v13 + 48);
-    v109 = v79[1];
-    *v81 = *v79;
-    *(v13 + 48) = v109;
-    goto LABEL_109;
-  }
-
   return result;
 }

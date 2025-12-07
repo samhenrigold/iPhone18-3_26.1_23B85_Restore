@@ -38,7 +38,7 @@
 LABEL_7:
     v9 = [v7 exceptionWithName:v8 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
 
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v10, v11))
     {
       objc_exception_throw(v9);
     }
@@ -47,21 +47,21 @@ LABEL_7:
     return 0;
   }
 
-  v15.receiver = self;
-  v15.super_class = AVCaptureMetadataInput;
-  initSubclass = [(AVCaptureInput *)&v15 initSubclass];
+  v17.receiver = self;
+  v17.super_class = AVCaptureMetadataInput;
+  initSubclass = [(AVCaptureInput *)&v17 initSubclass];
   if (!initSubclass)
   {
     return initSubclass;
   }
 
-  v12 = objc_alloc_init(AVCaptureMetadataInputInternal);
-  initSubclass->_internal = v12;
-  if (v12)
+  v14 = objc_alloc_init(AVCaptureMetadataInputInternal);
+  initSubclass->_internal = v14;
+  if (v14)
   {
-    v13 = objc_alloc(MEMORY[0x1E696AEC0]);
-    v14 = objc_opt_class();
-    initSubclass->_internal->sourceID = [v13 initWithFormat:@"<%@ %p>", NSStringFromClass(v14), initSubclass];
+    v15 = objc_alloc(MEMORY[0x1E696AEC0]);
+    v16 = objc_opt_class();
+    initSubclass->_internal->sourceID = [v15 initWithFormat:@"<%@ %p>", NSStringFromClass(v16), initSubclass];
     initSubclass->_internal->desc = CFRetain(desc);
     initSubclass->_internal->clock = CFRetain(clock);
     return initSubclass;
@@ -120,62 +120,66 @@ LABEL_7:
 
 - (BOOL)appendTimedMetadataGroup:(AVTimedMetadataGroup *)metadata error:(NSError *)outError
 {
-  v46 = 0;
-  v47 = 0;
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x2020000000;
-  v45 = 0;
+  v58 = 0;
+  v59[0] = 0;
+  v54 = 0;
+  v55 = &v54;
+  v56 = 0x2020000000;
+  v57 = 0;
   if (!metadata)
   {
-    v7 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    v9 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
+    if (AVCaptureShouldThrowForAPIViolations(v9, v11))
     {
-      objc_exception_throw(v7);
+      objc_exception_throw(v9);
     }
 
     goto LABEL_6;
   }
 
-  v6 = metadata;
-  [(AVTimedMetadataGroup *)metadata timeRange];
-  if ((v41 & 1) == 0)
+  v6 = v4;
+  v8 = metadata;
+  objc_msgSend_timeRange(metadata, a2);
+  if ((v53 & 1) == 0)
   {
-    v7 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    v9 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
+    if (AVCaptureShouldThrowForAPIViolations(v9, v10))
     {
-      objc_exception_throw(v7);
+      objc_exception_throw(v9);
     }
 
 LABEL_6:
-    NSLog(&cfstr_SuppressingExc.isa, v7);
-    v8 = 0;
+    NSLog(&cfstr_SuppressingExc.isa, v9);
+    v12 = 0;
     goto LABEL_41;
   }
 
-  items = [(AVTimedMetadataGroup *)v6 items];
-  v10 = items;
+  items = [(AVTimedMetadataGroup *)v8 items];
+  v14 = items;
   if (!items || ![(NSArray *)items count])
   {
     internal = self->_internal;
     emptyBoxedMetadata = internal->emptyBoxedMetadata;
-    blockBufferOut = &internal->emptyBoxedMetadata;
+    p_emptyBoxedMetadata = &internal->emptyBoxedMetadata;
     BlockBuffer = emptyBoxedMetadata;
     if (!emptyBoxedMetadata)
     {
-      v23 = CMBlockBufferCreateWithMemoryBlock(*MEMORY[0x1E695E480], 0, 8uLL, *MEMORY[0x1E695E480], 0, 0, 8uLL, 1u, blockBufferOut);
-      *(v43 + 6) = v23;
-      if (v23)
+      v27 = CMBlockBufferCreateWithMemoryBlock(*MEMORY[0x1E695E480], 0, 8uLL, *MEMORY[0x1E695E480], 0, 0, 8uLL, 1u, p_emptyBoxedMetadata);
+      *(v55 + 6) = v27;
+      if (v27)
       {
-        goto LABEL_43;
+        LODWORD(blockBufferOut) = v27;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", blockBufferOut, v4, sampleSizeArray, v35, v37, v38, v39, v40);
+        goto LABEL_32;
       }
 
       dataPointerOut = 0;
       DataPointer = CMBlockBufferGetDataPointer(self->_internal->emptyBoxedMetadata, 0, 0, 0, &dataPointerOut);
-      *(v43 + 6) = DataPointer;
+      *(v55 + 6) = DataPointer;
       if (DataPointer)
       {
-        FigDebugAssert3();
+        LODWORD(blockBufferOut) = DataPointer;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", blockBufferOut, v4, sampleSizeArray, v35, v37, v38, v39, v40);
         goto LABEL_32;
       }
 
@@ -185,133 +189,139 @@ LABEL_6:
 
 LABEL_29:
     memset(&sampleTimingArray, 0, sizeof(sampleTimingArray));
-    [(AVTimedMetadataGroup *)v6 timeRange];
-    *&sampleTimingArray.duration.value = v32;
-    sampleTimingArray.duration.epoch = v33;
-    [(AVTimedMetadataGroup *)v6 timeRange];
-    sampleTimingArray.presentationTimeStamp = v31;
+    objc_msgSend_timeRange(v8);
+    *&sampleTimingArray.duration.value = v44;
+    sampleTimingArray.duration.epoch = v45;
+    objc_msgSend_timeRange(v8);
+    sampleTimingArray.presentationTimeStamp = v43;
     sampleTimingArray.decodeTimeStamp = **&MEMORY[0x1E6960C70];
-    sampleSizeArray = CMBlockBufferGetDataLength(BlockBuffer);
-    v25 = CMSampleBufferCreate(*MEMORY[0x1E695E480], BlockBuffer, 1u, 0, 0, self->_internal->desc, 1, 1, &sampleTimingArray, 1, &sampleSizeArray, &v46);
-    *(v43 + 6) = v25;
-    if (v25)
+    DataLength = CMBlockBufferGetDataLength(BlockBuffer);
+    v29 = CMSampleBufferCreate(*MEMORY[0x1E695E480], BlockBuffer, 1u, 0, 0, self->_internal->desc, 1, 1, &sampleTimingArray, 1, &DataLength, &v58);
+    *(v55 + 6) = v29;
+    if (v29)
     {
-      FigDebugAssert3();
+      LODWORD(blockBufferOuta) = v29;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", blockBufferOuta, v6, sampleSizeArraya, v36, v37, v38, v39, v40);
     }
 
     else
     {
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v29[2] = __57__AVCaptureMetadataInput_appendTimedMetadataGroup_error___block_invoke;
-      v29[3] = &unk_1E786ECF8;
-      v29[4] = self;
-      v29[5] = &v42;
-      v29[6] = v46;
-      [(AVCaptureInput *)self performFigCaptureSessionOperationSafelyUsingBlock:v29];
-      if (*(v43 + 6))
+      v41[0] = MEMORY[0x1E69E9820];
+      v41[1] = 3221225472;
+      v41[2] = __57__AVCaptureMetadataInput_appendTimedMetadataGroup_error___block_invoke;
+      v41[3] = &unk_1E786ECF8;
+      v41[4] = self;
+      v41[5] = &v54;
+      v41[6] = v58;
+      [(AVCaptureInput *)self performFigCaptureSessionOperationSafelyUsingBlock:v41];
+      if (*(v55 + 6))
       {
-        FigDebugAssert3();
+        LODWORD(blockBufferOuta) = *(v55 + 6);
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", blockBufferOuta, v6, sampleSizeArraya, v36, v37, v38, v39, v40);
       }
     }
 
     goto LABEL_32;
   }
 
-  v11 = FigBoxedMetadataCreateForConstruction();
-  *(v43 + 6) = v11;
-  if (v11)
+  v15 = FigBoxedMetadataCreateForConstruction();
+  v40 = v4;
+  *(v55 + 6) = v15;
+  if (v15)
   {
-LABEL_43:
-    FigDebugAssert3();
-    goto LABEL_32;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v15, v4, sampleSizeArray, v35, v37, v38, v39, v4);
   }
 
-  v27 = v6;
-  v28 = outError;
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v12 = [(NSArray *)v10 countByEnumeratingWithState:&v36 objects:v35 count:16];
-  if (v12)
+  else
   {
-    v13 = *v37;
-    do
+    v38 = v8;
+    v39 = outError;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v16 = [(NSArray *)v14 countByEnumeratingWithState:&v48 objects:v47 count:16];
+    if (v16)
     {
-      for (i = 0; i != v12; ++i)
+      v17 = *v49;
+      do
       {
-        if (*v37 != v13)
+        for (i = 0; i != v16; ++i)
         {
-          objc_enumerationMutation(v10);
-        }
-
-        v15 = *(*(&v36 + 1) + 8 * i);
-        [v15 identifier];
-        [v15 dataType];
-        [v15 locale];
-        if (FigMetadataFormatDescriptionGetLocalIDForMetadataIdentifyingFactors())
-        {
-          value = [v15 value];
-          objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          if (*v49 != v17)
           {
-            BoxedMetadataFromFaceObjectAndFormatDescription = AVMetadataObjectCreateBoxedMetadataFromFaceObjectAndFormatDescription(value, self->_internal->desc, 0);
-            if (BoxedMetadataFromFaceObjectAndFormatDescription)
-            {
-              *(v43 + 6) = FigBoxedMetadataAppendCFTypedValue();
-              CFRelease(BoxedMetadataFromFaceObjectAndFormatDescription);
-            }
+            objc_enumerationMutation(v14);
           }
 
-          else
+          v19 = *(*(&v48 + 1) + 8 * i);
+          [v19 identifier];
+          [v19 dataType];
+          [v19 locale];
+          if (FigMetadataFormatDescriptionGetLocalIDForMetadataIdentifyingFactors())
           {
+            value = [v19 value];
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) == 0)
+            if (objc_opt_isKindOfClass())
             {
-              *(v43 + 6) = FigBoxedMetadataAppendCFTypedValue();
+              BoxedMetadataFromFaceObjectAndFormatDescription = AVMetadataObjectCreateBoxedMetadataFromFaceObjectAndFormatDescription(value, self->_internal->desc, 0);
+              if (BoxedMetadataFromFaceObjectAndFormatDescription)
+              {
+                *(v55 + 6) = FigBoxedMetadataAppendCFTypedValue();
+                CFRelease(BoxedMetadataFromFaceObjectAndFormatDescription);
+              }
+            }
+
+            else
+            {
+              objc_opt_class();
+              if ((objc_opt_isKindOfClass() & 1) == 0)
+              {
+                *(v55 + 6) = FigBoxedMetadataAppendCFTypedValue();
+              }
             }
           }
         }
+
+        v16 = [(NSArray *)v14 countByEnumeratingWithState:&v48 objects:v47 count:16];
       }
 
-      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v36 objects:v35 count:16];
+      while (v16);
     }
 
-    while (v12);
+    v22 = FigBoxedMetadataEndConstruction();
+    outError = v39;
+    v6 = v4;
+    v8 = v38;
+    *(v55 + 6) = v22;
+    if (!v22)
+    {
+      BlockBuffer = FigBoxedMetadataGetBlockBuffer();
+      goto LABEL_29;
+    }
+
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v22, v4, sampleSizeArray, v35, v37, v38, v39, v4);
   }
 
-  v18 = FigBoxedMetadataEndConstruction();
-  outError = v28;
-  v6 = v27;
-  *(v43 + 6) = v18;
-  if (!v18)
-  {
-    BlockBuffer = FigBoxedMetadataGetBlockBuffer();
-    goto LABEL_29;
-  }
-
-  FigDebugAssert3();
 LABEL_32:
-  if (outError && *(v43 + 6) && !*outError)
+  if (outError && *(v55 + 6) && !*outError)
   {
     *outError = AVLocalizedErrorWithUnderlyingOSStatus();
   }
 
-  if (v47)
+  if (v59[0])
   {
-    CFRelease(v47);
+    CFRelease(v59[0]);
   }
 
-  if (v46)
+  if (v58)
   {
-    CFRelease(v46);
+    CFRelease(v58);
   }
 
-  v8 = *(v43 + 6) == 0;
+  v12 = *(v55 + 6) == 0;
 LABEL_41:
-  _Block_object_dispose(&v42, 8);
-  return v8;
+  _Block_object_dispose(&v54, 8);
+  return v12;
 }
 
 uint64_t __57__AVCaptureMetadataInput_appendTimedMetadataGroup_error___block_invoke(uint64_t result, uint64_t a2)

@@ -8,8 +8,7 @@
 {
   v24[2] = *MEMORY[0x1E69E9840];
   v4 = a3;
-  [self workoutActivityType];
-  v21 = HKUILocalizedWorkoutTypeName();
+  v21 = HKUILocalizedWorkoutTypeName([self workoutActivityType]);
   v5 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.HealthUI"];
   v6 = [v5 localizedStringForKey:@"WORKOUT_TYPE" value:&stru_1F42FFBE0 table:@"HealthUI-Localizable"];
   sampleType = [self sampleType];

@@ -24,6 +24,7 @@
 - (void)bumpEncryptionKeyCounterValue;
 - (void)dealloc;
 - (void)generateNewEncryptionKey;
+- (void)getTagAndCounterWhileEncryptingBytesInPlace:(unsigned __int8)place[10] forAdvertisementWithVersion:(unsigned __int8)version handler:(id)handler;
 - (void)removeObservers;
 - (void)setDecryptionKey:(id)key forDeviceIdentifier:(id)identifier;
 @end
@@ -44,51 +45,55 @@
 
 - (NSString)state
 {
+  v25 = 0;
   v3 = objc_opt_class();
-  v17 = NSStringFromClass(v3);
-  NSAppendPrintF();
-  v4 = 0;
+  v4 = NSStringFromClass(v3);
+  NSAppendPrintF(&v25, "%@\n", v4);
+  v5 = v25;
 
-  NSAppendPrintF();
-  v5 = v4;
+  v24 = v5;
+  NSAppendPrintF(&v24, "-------------\n");
+  v6 = v24;
 
-  v6 = @"YES";
+  v23 = v6;
+  v7 = @"YES";
   if (self->_wrappingKey)
   {
-    v7 = @"YES";
+    v8 = @"YES";
   }
 
   else
   {
-    v7 = @"NO";
+    v8 = @"NO";
   }
 
   if (!self->_shouldRefreshWrappingKey)
   {
-    v6 = @"NO";
+    v7 = @"NO";
   }
 
-  v18 = v7;
-  v21 = v6;
-  NSAppendPrintF();
-  v8 = v5;
+  NSAppendPrintF(&v23, "Has Wrapping Key: %@, Should Refresh: %@\n", v8, v7);
+  v9 = v23;
 
-  v9 = [(SDActivityEncryptionManager *)self allKeys:v18];
+  v22 = v9;
+  allKeys = [(SDActivityEncryptionManager *)self allKeys];
   kSecAttrLabel = [NSString stringWithFormat:@"@unionOfObjects.%@", kSecAttrLabel];
-  v11 = [v9 valueForKeyPath:kSecAttrLabel];
-  v19 = SFCompactStringFromCollection();
-  NSAppendPrintF();
-  v12 = v8;
+  v12 = [allKeys valueForKeyPath:kSecAttrLabel];
+  v13 = SFCompactStringFromCollection();
+  NSAppendPrintF(&v22, "Keychain Items: %@\n", v13);
+  v14 = v22;
 
+  v21 = v14;
   encryptionKey = [(SDActivityEncryptionManager *)self encryptionKey];
-  NSAppendPrintF();
-  v14 = v12;
+  NSAppendPrintF(&v21, "Encryption Key: %@\n", encryptionKey);
+  v16 = v21;
 
-  deviceIdentifierToDecryptionKey = self->_deviceIdentifierToDecryptionKey;
-  NSAppendPrintF();
-  v15 = v14;
+  v20 = v16;
+  NSAppendPrintF(&v20, "Device Identifier To Decryption Key: %@\n", self->_deviceIdentifierToDecryptionKey);
+  v17 = v20;
+  v18 = v20;
 
-  return v14;
+  return v17;
 }
 
 - (id)allKeys
@@ -408,6 +413,53 @@
     encryptionKey3 = [(SDActivityEncryptionManager *)self encryptionKey];
     [encryptionKey3 setLastUsedCounter:v5];
   }
+}
+
+- (void)getTagAndCounterWhileEncryptingBytesInPlace:(unsigned __int8)place[10] forAdvertisementWithVersion:(unsigned __int8)version handler:(id)handler
+{
+  versionCopy = version;
+  handlerCopy = handler;
+  encryptionKey = [(SDActivityEncryptionManager *)self encryptionKey];
+  [encryptionKey prepareForNewEncryptionRequest];
+
+  encryptionKey2 = [(SDActivityEncryptionManager *)self encryptionKey];
+  isValidKey = [encryptionKey2 isValidKey];
+
+  if ((isValidKey & 1) == 0)
+  {
+    v12 = handoff_log();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      sub_1001B5988(self, v12);
+    }
+
+    [(SDActivityEncryptionManager *)self generateNewEncryptionKey];
+  }
+
+  v21 = 0;
+  encryptionKey3 = [(SDActivityEncryptionManager *)self encryptionKey];
+  v14 = [encryptionKey3 getTagWhileEncryptingBytesInPlace:place counterValue:&v21 forAdvertisementWithVersion:versionCopy];
+
+  encryptionKey4 = [(SDActivityEncryptionManager *)self encryptionKey];
+  LODWORD(encryptionKey3) = [encryptionKey4 lastUsedCounter] + 10;
+
+  HIDWORD(v16) = -1030792151 * encryptionKey3;
+  LODWORD(v16) = -1030792151 * encryptionKey3;
+  if ((v16 >> 2) <= 0x28F5C28)
+  {
+    encryptionKey5 = [(SDActivityEncryptionManager *)self encryptionKey];
+    v18 = [(SDActivityEncryptionManager *)self unwrappedDataRepresentationForKey:encryptionKey5];
+    [(SDActivityEncryptionManager *)self saveEncryptionKeyDataRepresentation:v18];
+
+    v19 = handoff_log();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    {
+      sub_1001B5A40(self, v19);
+    }
+  }
+
+  encryptionKey6 = [(SDActivityEncryptionManager *)self encryptionKey];
+  handlerCopy[2](handlerCopy, v14, &v21, [encryptionKey6 lastUsedCounter]);
 }
 
 - (void)setDecryptionKey:(id)key forDeviceIdentifier:(id)identifier

@@ -14,9 +14,11 @@
 
 - (void)renderer:(id)renderer didReceiveTapAtPoint:(CGPoint)point
 {
+  y = point.y;
+  x = point.x;
   rendererCopy = renderer;
   selfCopy = self;
-  sub_100003EAC(rendererCopy);
+  sub_100003EAC(rendererCopy, x, y);
 }
 
 @end

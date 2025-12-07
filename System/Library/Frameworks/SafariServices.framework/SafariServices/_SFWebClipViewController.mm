@@ -496,12 +496,13 @@
   pageURL = [(UIWebClip *)self->_webClip pageURL];
   absoluteString = [pageURL absoluteString];
 
-  if (![absoluteString length] || (-[UIWebClip title](self->_webClip, "title"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "length"), v5, !v6))
+  v5 = [absoluteString length];
+  if (!v5 || (-[UIWebClip title](self->_webClip, "title"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 length], v7, !v8))
   {
-    v16 = WBS_LOG_CHANNEL_PREFIXWebApp();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = WBS_LOG_CHANNEL_PREFIXWebApp(v5, v6);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [(_SFWebClipViewController *)v16 createAndAddToHomeScreenBundle];
+      [(_SFWebClipViewController *)v18 createAndAddToHomeScreenBundle];
     }
 
     goto LABEL_9;
@@ -510,33 +511,33 @@
   if (![(UIWebClip *)self->_webClip createOnDisk])
   {
 LABEL_9:
-    v15 = 0;
+    v17 = 0;
     goto LABEL_10;
   }
 
-  v7 = *MEMORY[0x1E69DDA98];
+  v9 = *MEMORY[0x1E69DDA98];
   identifier = [(UIWebClip *)self->_webClip identifier];
-  [v7 addWebClipToHomeScreen:identifier];
+  [v9 addWebClipToHomeScreen:identifier];
 
   _sf_applicationManifest = [(UIWebClip *)self->_webClip _sf_applicationManifest];
 
   if (_sf_applicationManifest)
   {
-    v10 = MEMORY[0x1E696ACC8];
+    v12 = MEMORY[0x1E696ACC8];
     _sf_applicationManifest2 = [(UIWebClip *)self->_webClip _sf_applicationManifest];
-    v12 = [v10 archivedDataWithRootObject:_sf_applicationManifest2 requiringSecureCoding:0 error:0];
+    v14 = [v12 archivedDataWithRootObject:_sf_applicationManifest2 requiringSecureCoding:0 error:0];
 
     _sf_applicationManifestPath = [(UIWebClip *)self->_webClip _sf_applicationManifestPath];
-    [v12 writeToURL:_sf_applicationManifestPath atomically:1];
+    [v14 writeToURL:_sf_applicationManifestPath atomically:1];
   }
 
   mEMORY[0x1E69C8810] = [MEMORY[0x1E69C8810] sharedLogger];
   [mEMORY[0x1E69C8810] didAddWebClip];
 
-  v15 = 1;
+  v17 = 1;
 LABEL_10:
 
-  return v15;
+  return v17;
 }
 
 - (BOOL)_canAddWebClip

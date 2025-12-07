@@ -130,16 +130,17 @@
 
 - (BOOL)_isWidgetAvailable:(id)available
 {
-  v6 = (![v3 hiddenBySensitiveUI] || (objc_msgSend(MEMORY[0x277CBBB70], "sharedMonitor"), v4 = v3 = available;
+  availableCopy = available;
+  v8 = (!v4 || ([MEMORY[0x277CBBB70] sharedMonitor], v6 = v4 = [availableCopy hiddenBySensitiveUI];
 
-  return v6;
+  return v8;
 }
 
 - (BOOL)vendorExistsWithDescriptor:(id)descriptor
 {
   descriptorCopy = descriptor;
   extensionBundleIdentifier = [descriptorCopy extensionBundleIdentifier];
-  v6 = NTKDebugSimulatedTombstoneExtensionBundleIdentifier();
+  v6 = NTKDebugSimulatedTombstoneExtensionBundleIdentifier(extensionBundleIdentifier);
   v7 = [extensionBundleIdentifier isEqual:v6];
 
   if (v7)
@@ -191,7 +192,7 @@ void __59__NTKWidgetComplicationManager_vendorExistsWithDescriptor___block_invok
   availableCopy = available;
   familiesCopy = families;
   extensionBundleIdentifier = [availableCopy extensionBundleIdentifier];
-  v9 = NTKDebugSimulatedTombstoneExtensionBundleIdentifier();
+  v9 = NTKDebugSimulatedTombstoneExtensionBundleIdentifier(extensionBundleIdentifier);
   v10 = [extensionBundleIdentifier isEqual:v9];
 
   if ((v10 & 1) == 0)
@@ -264,35 +265,35 @@ void __68__NTKWidgetComplicationManager_isComplicationAvailable_forFamilies___bl
 {
   configurableCopy = configurable;
   extensionBundleIdentifier = [configurableCopy extensionBundleIdentifier];
-  v6 = NTKDebugSimulatedTombstoneExtensionBundleIdentifier();
+  v6 = NTKDebugSimulatedTombstoneExtensionBundleIdentifier(extensionBundleIdentifier);
   v7 = [extensionBundleIdentifier isEqual:v6];
 
-  if ((v7 & 1) != 0 || !NTKUseComplicationEditor())
+  if ((v7 & 1) != 0 || !NTKUseComplicationEditor(v8, v9))
   {
     isConfigurable = 0;
   }
 
   else
   {
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x3032000000;
-    v21 = __Block_byref_object_copy__56;
-    v22 = __Block_byref_object_dispose__56;
-    v23 = 0;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x3032000000;
+    v23 = __Block_byref_object_copy__56;
+    v24 = __Block_byref_object_dispose__56;
+    v25 = 0;
     extensions = [(CHSWidgetExtensionProvider *)self->_widgetExtensionProvider extensions];
-    v12 = MEMORY[0x277D85DD0];
-    v13 = 3221225472;
-    v14 = __59__NTKWidgetComplicationManager_isComplicationConfigurable___block_invoke;
-    v15 = &unk_2787893F8;
-    v16 = configurableCopy;
-    v17 = &v18;
-    [extensions enumerateObjectsUsingBlock:&v12];
+    v14 = MEMORY[0x277D85DD0];
+    v15 = 3221225472;
+    v16 = __59__NTKWidgetComplicationManager_isComplicationConfigurable___block_invoke;
+    v17 = &unk_2787893F8;
+    v18 = configurableCopy;
+    v19 = &v20;
+    [extensions enumerateObjectsUsingBlock:&v14];
 
-    v9 = v19[5];
-    if (v9)
+    v11 = v21[5];
+    if (v11)
     {
-      isConfigurable = [v9 isConfigurable];
+      isConfigurable = [v11 isConfigurable];
     }
 
     else
@@ -300,7 +301,7 @@ void __68__NTKWidgetComplicationManager_isComplicationAvailable_forFamilies___bl
       isConfigurable = 0;
     }
 
-    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v20, 8);
   }
 
   return isConfigurable;

@@ -11,7 +11,7 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   v6 = [connectionCopy valueForEntitlement:@"com.apple.siri.task.client"];
   bOOLValue = [v6 BOOLValue];
@@ -19,21 +19,21 @@
   if (bOOLValue)
   {
     queue = self->_queue;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __56__AFSiriTaskService_listener_shouldAcceptNewConnection___block_invoke;
-    v14[3] = &unk_1E7349860;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __56__AFSiriTaskService_listener_shouldAcceptNewConnection___block_invoke;
+    v13[3] = &unk_1E7349860;
     v9 = connectionCopy;
-    v15 = v9;
+    v14 = v9;
     selfCopy = self;
-    dispatch_async(queue, v14);
+    dispatch_async(queue, v13);
     v10 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v18 = "[AFSiriTaskService listener:shouldAcceptNewConnection:]";
-      v19 = 2112;
-      v20 = v9;
+      v17 = "[AFSiriTaskService listener:shouldAcceptNewConnection:]";
+      v18 = 2112;
+      v19 = v9;
       _os_log_impl(&dword_1912FE000, v10, OS_LOG_TYPE_INFO, "%s accepting incoming connection (%@)", buf, 0x16u);
     }
   }
@@ -44,16 +44,15 @@
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v18 = "[AFSiriTaskService listener:shouldAcceptNewConnection:]";
-      v19 = 2112;
-      v20 = connectionCopy;
-      v21 = 2112;
-      v22 = @"com.apple.siri.task.client";
+      v17 = "[AFSiriTaskService listener:shouldAcceptNewConnection:]";
+      v18 = 2112;
+      v19 = connectionCopy;
+      v20 = 2112;
+      v21 = @"com.apple.siri.task.client";
       _os_log_impl(&dword_1912FE000, v11, OS_LOG_TYPE_INFO, "%s rejecting incoming connection (%@) because it doesn't have the %@ entitlement", buf, 0x20u);
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return bOOLValue;
 }
 
@@ -105,21 +104,21 @@ uint64_t __56__AFSiriTaskService_listener_shouldAcceptNewConnection___block_invo
 
 - (AFSiriTaskService)initWithMachServiceName:(id)name
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v20 = "[AFSiriTaskService initWithMachServiceName:]";
-    v21 = 2112;
-    v22 = nameCopy;
+    v19 = "[AFSiriTaskService initWithMachServiceName:]";
+    v20 = 2112;
+    v21 = nameCopy;
     _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s %@", buf, 0x16u);
   }
 
-  v18.receiver = self;
-  v18.super_class = AFSiriTaskService;
-  v6 = [(AFSiriTaskService *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = AFSiriTaskService;
+  v6 = [(AFSiriTaskService *)&v17 init];
   if (v6)
   {
     v7 = [@"SiriTaskService-" stringByAppendingString:nameCopy];
@@ -143,7 +142,6 @@ uint64_t __56__AFSiriTaskService_listener_shouldAcceptNewConnection___block_invo
     [(AFSiriTaskDeliveryHandler *)v6->_deliveryHandler setService:v6];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

@@ -1,6 +1,6 @@
 @interface MPAVRoute(MediaControls)
+- (BOOL)isActiveGroupSession;
 - (BOOL)isWiredDevice;
-- (uint64_t)isActiveGroupSession;
 - (uint64_t)isGroupSession;
 - (uint64_t)isHostedGroupSession;
 - (uint64_t)isLocalDeviceOrHeadphone;
@@ -43,7 +43,7 @@
   return [self isActiveGroupSession];
 }
 
-- (uint64_t)isActiveGroupSession
+- (BOOL)isActiveGroupSession
 {
   objc_opt_class();
   if (objc_opt_isKindOfClass())

@@ -146,7 +146,6 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  v11 = *(equalCopy + 41);
   if (self->_shouldIgnoreUserTokenCache)
   {
     if ((*(equalCopy + 41) & 1) == 0)
@@ -229,45 +228,43 @@ LABEL_19:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_clientIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_clientVersion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_bagProfile)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_bagProfileVersion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    shouldIgnoreUserTokenCache = self->_shouldIgnoreUserTokenCache;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    shouldIgnoreDeveloperTokenCache = self->_shouldIgnoreDeveloperTokenCache;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

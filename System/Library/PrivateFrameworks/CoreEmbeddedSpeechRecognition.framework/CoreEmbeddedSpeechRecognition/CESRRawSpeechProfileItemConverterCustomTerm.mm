@@ -7,7 +7,7 @@
 
 - (id)vocabularyItemFromSpeechWords:(id)words speechNamespace:(id)namespace error:(id *)error
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   wordsCopy = words;
   namespaceCopy = namespace;
   if (!wordsCopy || ![wordsCopy count])
@@ -16,9 +16,9 @@
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v58 = "[CESRRawSpeechProfileItemConverterCustomTerm vocabularyItemFromSpeechWords:speechNamespace:error:]";
-      v59 = 2112;
-      v60 = namespaceCopy;
+      v57 = "[CESRRawSpeechProfileItemConverterCustomTerm vocabularyItemFromSpeechWords:speechNamespace:error:]";
+      v58 = 2112;
+      v59 = namespaceCopy;
       _os_log_debug_impl(&dword_225EEB000, v20, OS_LOG_TYPE_DEBUG, "%s rawSpeechProfile contains a SiriKit custom vocabulary item missing speech words. namespace: %@", buf, 0x16u);
     }
 
@@ -28,10 +28,10 @@
   if ([wordsCopy count] != 1)
   {
     v21 = MEMORY[0x277CCA9B8];
-    v55 = *MEMORY[0x277CCA068];
+    v54 = *MEMORY[0x277CCA068];
     namespaceCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"rawSpeechProfile contains a SiriKit custom vocabulary item with an unexpected number of speech words (expected only 1): %@ namespace: %@", wordsCopy, namespaceCopy];
-    v56 = namespaceCopy;
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+    v55 = namespaceCopy;
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
     v24 = [v21 errorWithDomain:@"com.apple.siri.speech-profile.tools" code:1 userInfo:v23];
     if (error && v24)
     {
@@ -53,27 +53,27 @@ LABEL_36:
   v11 = [_reverseLookupFieldTypeFromOntologyLabel_lookupCache objectForKey:v10];
   if (([v11 BOOLValue] & 1) == 0)
   {
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     v12 = _reverseLookupFieldTypeFromOntologyLabel_validFieldTypes;
-    v13 = [v12 countByEnumeratingWithState:&v49 objects:buf count:16];
+    v13 = [v12 countByEnumeratingWithState:&v48 objects:buf count:16];
     if (v13)
     {
       v14 = v13;
       selfCopy = self;
-      v15 = *v50;
+      v15 = *v49;
       while (2)
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v50 != v15)
+          if (*v49 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v49 + 1) + 8 * i);
+          v17 = *(*(&v48 + 1) + 8 * i);
           v18 = KVFieldTypeFromNumber() - 1;
           if (v18 > 0x10)
           {
@@ -95,7 +95,7 @@ LABEL_36:
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v49 objects:buf count:16];
+        v14 = [v12 countByEnumeratingWithState:&v48 objects:buf count:16];
         if (v14)
         {
           continue;
@@ -118,38 +118,26 @@ LABEL_26:
 
   v27 = [CESRRawSpeechProfileTools placeholderItemIdWithCategoryName:@"customterm"];
   builder = self->_builder;
-  v48 = 0;
-  v29 = [(KVItemBuilder *)builder setItemType:1 itemId:v27 error:&v48];
-  v30 = v48;
+  v47 = 0;
+  v29 = [(KVItemBuilder *)builder setItemType:1 itemId:v27 error:&v47];
+  v30 = v47;
   firstObject = [wordsCopy firstObject];
   orthography = [firstObject orthography];
 
   v33 = self->_builder;
-  v47 = v30;
-  v34 = [(KVItemBuilder *)v33 addFieldWithType:v26 value:orthography error:&v47];
-  v35 = v47;
+  v46 = v30;
+  v34 = [(KVItemBuilder *)v33 addFieldWithType:v26 value:orthography error:&v46];
+  v35 = v46;
 
-  if (!v34)
+  if (!v34 || (v36 = self->_builder, v45 = v35, [(KVItemBuilder *)v36 buildItemWithError:&v45], v37 = objc_claimAutoreleasedReturnValue(), v38 = v45, v35, v34, v35 = v38, !v37))
   {
-    goto LABEL_31;
-  }
-
-  v36 = self->_builder;
-  v46 = v35;
-  v37 = [(KVItemBuilder *)v36 buildItemWithError:&v46];
-  v38 = v46;
-
-  v35 = v38;
-  if (!v37)
-  {
-LABEL_31:
     v39 = MEMORY[0x277CCA9B8];
-    v53[0] = *MEMORY[0x277CCA068];
+    v52[0] = *MEMORY[0x277CCA068];
     v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"failed to process word: %@ due to builder error.", orthography];
-    v53[1] = *MEMORY[0x277CCA7E8];
-    v54[0] = v40;
-    v54[1] = v35;
-    v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:2];
+    v52[1] = *MEMORY[0x277CCA7E8];
+    v53[0] = v40;
+    v53[1] = v35;
+    v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:2];
     v42 = [v39 errorWithDomain:@"com.apple.siri.speech-profile.tools" code:6 userInfo:v41];
     if (error && v42)
     {
@@ -161,7 +149,6 @@ LABEL_31:
   }
 
 LABEL_37:
-  v43 = *MEMORY[0x277D85DE8];
 
   return v37;
 }

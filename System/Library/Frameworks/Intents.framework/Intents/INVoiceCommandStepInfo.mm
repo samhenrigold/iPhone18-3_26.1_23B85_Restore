@@ -14,8 +14,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v12[3] = *MEMORY[0x1E69E9840];
-  v11[0] = @"applicationIdentifier";
+  v11[3] = *MEMORY[0x1E69E9840];
+  v10[0] = @"applicationIdentifier";
   applicationIdentifier = self->_applicationIdentifier;
   null = applicationIdentifier;
   if (!applicationIdentifier)
@@ -23,11 +23,11 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[0] = null;
-  v11[1] = @"category";
+  v11[0] = null;
+  v10[1] = @"category";
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:self->_category];
-  v12[1] = v5;
-  v11[2] = @"name";
+  v11[1] = v5;
+  v10[2] = @"name";
   name = self->_name;
   null2 = name;
   if (!name)
@@ -35,8 +35,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[2] = null2;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v11[2] = null2;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
   if (!name)
   {
   }
@@ -44,8 +44,6 @@
   if (!applicationIdentifier)
   {
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

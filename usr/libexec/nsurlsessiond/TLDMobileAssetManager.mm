@@ -4,6 +4,7 @@
 - (void)findBestAssetFrom:(id)from skipDownload:(BOOL)download;
 - (void)moveFileAtomically:(id)atomically toLocation:(id)location;
 - (void)moveInstalledAsset:(id)asset withVersion:(unint64_t)version;
+- (void)queryAndFindBestAsset:(BOOL)asset;
 @end
 
 @implementation TLDMobileAssetManager
@@ -264,6 +265,56 @@ LABEL_6:
     v26 = 0;
     v30 = 0;
   }
+}
+
+- (void)queryAndFindBestAsset:(BOOL)asset
+{
+  assetCopy = asset;
+  v5 = [[MAAssetQuery alloc] initWithType:@"com.apple.MobileAsset.TopLevelDomainDafsa"];
+  [v5 returnTypes:2];
+  queryMetaDataSync = [v5 queryMetaDataSync];
+  v7 = [v5 isCatalogFetchedWithinThePastFewDays:5];
+  if (queryMetaDataSync)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    v8 = v7;
+  }
+
+  if (v8 != 1)
+  {
+LABEL_9:
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_1000591C8;
+    v12[3] = &unk_1000D5908;
+    v12[4] = self;
+    v13 = assetCopy;
+    [MAAsset startCatalogDownload:@"com.apple.MobileAsset.TopLevelDomainDafsa" then:v12];
+    goto LABEL_10;
+  }
+
+  results = [v5 results];
+  v10 = [results count];
+
+  if (!v10)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 0;
+      _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, "Empty results for asset update query", buf, 2u);
+    }
+
+    goto LABEL_9;
+  }
+
+  results2 = [v5 results];
+  [(TLDMobileAssetManager *)self findBestAssetFrom:results2 skipDownload:assetCopy];
+
+LABEL_10:
 }
 
 - (TLDMobileAssetManager)init

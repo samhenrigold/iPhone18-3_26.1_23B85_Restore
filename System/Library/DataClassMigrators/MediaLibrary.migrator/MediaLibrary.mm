@@ -20,7 +20,6 @@ void sub_140C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t 
 
     *(a10 + 24) = 0;
     objc_end_catch();
-    v13 = *(a10 + 24);
     JUMPOUT(0x13CCLL);
   }
 

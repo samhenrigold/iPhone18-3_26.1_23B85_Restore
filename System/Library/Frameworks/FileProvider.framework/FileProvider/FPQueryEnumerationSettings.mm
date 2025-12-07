@@ -8,20 +8,19 @@
 
 - (FPQueryEnumerationSettings)init
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8.receiver = self;
-  v8.super_class = FPQueryEnumerationSettings;
-  v2 = [(FPEnumerationSettings *)&v8 init];
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = FPQueryEnumerationSettings;
+  v2 = [(FPEnumerationSettings *)&v7 init];
   if (v2)
   {
     identifier = [*MEMORY[0x1E6982E48] identifier];
-    v9[0] = identifier;
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+    v8[0] = identifier;
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
     allowedFileTypes = v2->_allowedFileTypes;
     v2->_allowedFileTypes = v4;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

@@ -211,38 +211,36 @@ void __47__SGRemoteObjectProxy__forwardStackInvocation___block_invoke_6(uint64_t
 
 void __47__SGRemoteObjectProxy__forwardStackInvocation___block_invoke_8(void *a1, void *a2)
 {
-  v7 = a2;
+  v6 = a2;
   (*(a1[6] + 16))();
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v6 = [MEMORY[0x1E696AAA8] currentHandler];
-    [v6 handleFailureInMethod:a1[8] object:a1[4] file:@"SGSuggestionsService.m" lineNumber:287 description:{@"Invalid parameter not satisfying: %@", @"[response isKindOfClass:[SGXPCResponse class]]"}];
+    v5 = [MEMORY[0x1E696AAA8] currentHandler];
+    [v5 handleFailureInMethod:a1[8] object:a1[4] file:@"SGSuggestionsService.m" lineNumber:287 description:{@"Invalid parameter not satisfying: %@", @"[response isKindOfClass:[SGXPCResponse class]]"}];
   }
 
   v3 = a1[7];
   if (v3)
   {
-    (*(v3 + 16))(v3, v7);
+    (*(v3 + 16))(v3, v6);
   }
 
-  v4 = a1[5];
-  v5 = objc_opt_self();
+  v4 = objc_opt_self();
 }
 
 void __47__SGRemoteObjectProxy__forwardStackInvocation___block_invoke_9(void *a1, void *a2)
 {
-  v7 = a2;
+  v6 = a2;
   (*(a1[5] + 16))();
   v3 = a1[6];
   if (v3)
   {
-    v4 = [SGXPCResponse3 responseWithError:v7];
+    v4 = [SGXPCResponse3 responseWithError:v6];
     (*(v3 + 16))(v3, v4);
   }
 
-  v5 = a1[4];
-  v6 = objc_opt_self();
+  v5 = objc_opt_self();
 }
 
 void __47__SGRemoteObjectProxy__forwardStackInvocation___block_invoke_5()
@@ -318,116 +316,111 @@ void __47__SGRemoteObjectProxy__forwardStackInvocation___block_invoke()
 
 + (id)_copyInvocationToHeapIfNeeded:(id)needed
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   neededCopy = needed;
   if (malloc_size(neededCopy))
   {
-    v6 = neededCopy;
+    return neededCopy;
   }
 
-  else
-  {
-    v7 = objc_autoreleasePoolPush();
-    methodSignature = [neededCopy methodSignature];
-    v9 = [MEMORY[0x1E695DF50] invocationWithMethodSignature:methodSignature];
-    target = [neededCopy target];
-    [v9 setTarget:target];
+  v7 = objc_autoreleasePoolPush();
+  methodSignature = [neededCopy methodSignature];
+  v9 = [MEMORY[0x1E695DF50] invocationWithMethodSignature:methodSignature];
+  target = [neededCopy target];
+  [v9 setTarget:target];
 
+  if ([methodSignature numberOfArguments])
+  {
+    v11 = 0;
     if ([methodSignature numberOfArguments])
     {
-      v11 = 0;
-      if ([methodSignature numberOfArguments])
+      v12 = 0;
+      v13 = 1;
+      do
       {
-        v12 = 0;
-        v13 = 1;
-        do
+        sizep[0] = 0;
+        NSGetSizeAndAlignment([methodSignature getArgumentTypeAtIndex:{v12, 0}], sizep, alignp);
+        if (v11 <= sizep[0])
         {
-          sizep[0] = 0;
-          NSGetSizeAndAlignment([methodSignature getArgumentTypeAtIndex:{v12, 0}], sizep, alignp);
-          if (v11 <= sizep[0])
-          {
-            v11 = sizep[0];
-          }
-
-          if (v13 <= alignp[0])
-          {
-            v13 = alignp[0];
-          }
-
-          ++v12;
+          v11 = sizep[0];
         }
 
-        while (v12 < [methodSignature numberOfArguments]);
-      }
-
-      else
-      {
-        v13 = 1;
-      }
-
-      v14 = v13 - 1 + v11;
-      alignp[0] = 0;
-      alignp[1] = 0;
-      if (v14 >= 0x201)
-      {
-        if (v13 <= 8)
+        if (v13 <= alignp[0])
         {
-          v20 = 8;
+          v13 = alignp[0];
         }
 
-        else
-        {
-          v20 = v13;
-        }
-
-        v21 = malloc_type_posix_memalign(alignp, v20, v11, 0xE2354123uLL);
-        LOBYTE(alignp[1]) = 0;
-        if (v21)
-        {
-          v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA18] reason:@"malloc failed" userInfo:0];
-          objc_exception_throw(v22);
-        }
+        ++v12;
       }
 
-      else
-      {
-        v15 = alignp - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-        bzero(v15, v14);
-        alignp[0] = &v15[v13 - 1] / v13 * v13;
-        LOBYTE(alignp[1]) = 1;
-      }
-
-      *sizep = *alignp;
-      if ([methodSignature numberOfArguments])
-      {
-        v16 = 0;
-        do
-        {
-          [neededCopy getArgument:sizep atIndex:v16];
-          [v9 setArgument:sizep atIndex:v16++];
-        }
-
-        while (v16 < [methodSignature numberOfArguments]);
-      }
-
-      if ((sizep[1] & 1) == 0)
-      {
-        free(sizep[0]);
-      }
+      while (v12 < [methodSignature numberOfArguments]);
     }
 
-    v6 = v9;
-
-    if (!malloc_size(v6))
+    else
     {
-      currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      [currentHandler handleFailureInMethod:a2 object:self file:@"SGSuggestionsService.m" lineNumber:177 description:{@"expected invocation copy %p (%@) to be heap allocated", v6, v6}];
+      v13 = 1;
     }
 
-    objc_autoreleasePoolPop(v7);
+    v14 = v13 - 1 + v11;
+    alignp[0] = 0;
+    alignp[1] = 0;
+    if (v14 >= 0x201)
+    {
+      if (v13 <= 8)
+      {
+        v19 = 8;
+      }
+
+      else
+      {
+        v19 = v13;
+      }
+
+      v20 = malloc_type_posix_memalign(alignp, v19, v11, 0xE2354123uLL);
+      LOBYTE(alignp[1]) = 0;
+      if (v20)
+      {
+        v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA18] reason:@"malloc failed" userInfo:0];
+        objc_exception_throw(v21);
+      }
+    }
+
+    else
+    {
+      v15 = alignp - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+      bzero(v15, v14);
+      alignp[0] = &v15[v13 - 1] / v13 * v13;
+      LOBYTE(alignp[1]) = 1;
+    }
+
+    *sizep = *alignp;
+    if ([methodSignature numberOfArguments])
+    {
+      v16 = 0;
+      do
+      {
+        [neededCopy getArgument:sizep atIndex:v16];
+        [v9 setArgument:sizep atIndex:v16++];
+      }
+
+      while (v16 < [methodSignature numberOfArguments]);
+    }
+
+    if ((sizep[1] & 1) == 0)
+    {
+      free(sizep[0]);
+    }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
+  v6 = v9;
+
+  if (!malloc_size(v6))
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"SGSuggestionsService.m" lineNumber:177 description:{@"expected invocation copy %p (%@) to be heap allocated", v6, v6}];
+  }
+
+  objc_autoreleasePoolPop(v7);
   return v6;
 }
 

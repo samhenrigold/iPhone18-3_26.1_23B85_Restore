@@ -108,7 +108,7 @@ LABEL_10:
   return v4;
 }
 
-uint64_t __41__RCBackgroundFetchConfiguration_timeout__block_invoke(uint64_t a1)
+void *__41__RCBackgroundFetchConfiguration_timeout__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) internalTimeout];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -129,55 +129,44 @@ uint64_t __41__RCBackgroundFetchConfiguration_timeout__block_invoke(uint64_t a1)
 
 - (void)initWithTaskIdentifier:sessionIdentifier:sharedContainerIdentifier:earliestBeginDate:timeout:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "taskIdentifier"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, "taskIdentifier", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)initWithTaskIdentifier:sessionIdentifier:sharedContainerIdentifier:earliestBeginDate:timeout:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "sessionIdentifier"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, "sessionIdentifier", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)initWithTaskIdentifier:sessionIdentifier:sharedContainerIdentifier:earliestBeginDate:timeout:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "sharedContainerIdentifier"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, "sharedContainerIdentifier", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)initWithTaskIdentifier:sessionIdentifier:sharedContainerIdentifier:earliestBeginDate:timeout:.cold.4()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Background request timeout must take delay for scheduled requests into account."];
-  v2 = 136315906;
-  v3 = "[RCBackgroundFetchConfiguration initWithTaskIdentifier:sessionIdentifier:sharedContainerIdentifier:earliestBeginDate:timeout:]";
-  v4 = 2080;
-  v5 = "/Library/Caches/com.apple.xbs/Sources/RemoteConfiguration/RemoteConfiguration/BackgroundURLSessionSupport/RCBackgroundFetchConfiguration.m";
-  v6 = 1024;
-  v7 = 42;
-  v8 = 2114;
-  v9 = v0;
-  _os_log_error_impl(&dword_2179FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure: %s %s:%d %{public}@", &v2, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = 136315906;
+  v2 = "[RCBackgroundFetchConfiguration initWithTaskIdentifier:sessionIdentifier:sharedContainerIdentifier:earliestBeginDate:timeout:]";
+  v3 = 2080;
+  v4 = "/Library/Caches/com.apple.xbs/Sources/RemoteConfiguration/RemoteConfiguration/BackgroundURLSessionSupport/RCBackgroundFetchConfiguration.m";
+  v5 = 1024;
+  v6 = 42;
+  v7 = 2114;
+  v8 = v0;
+  _os_log_error_impl(&dword_2179FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure: %s %s:%d %{public}@", &v1, 0x26u);
 }
 
 @end

@@ -27,12 +27,12 @@
   return v2;
 }
 
-void __58__TTRICustomRecurrenceEditorTableViewCell_reuseIdentifier__block_invoke()
+void __58__TTRICustomRecurrenceEditorTableViewCell_reuseIdentifier__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  v2 = reuseIdentifier_reuseIdentifier;
-  reuseIdentifier_reuseIdentifier = v1;
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = reuseIdentifier_reuseIdentifier;
+  reuseIdentifier_reuseIdentifier = v3;
 }
 
 - (void)layoutSubviews

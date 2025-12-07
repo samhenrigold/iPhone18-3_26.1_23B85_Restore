@@ -29,22 +29,22 @@
 + (id)monogramPosterConfigurationDataFromUserInfo:(id)info
 {
   v3 = sub_199DF9E9C();
-  v4 = sub_199A9ED44(v3);
-  v6 = v5;
+  v5 = sub_199A9ED44(v3, v4);
+  v7 = v6;
 
-  if (v6 >> 60 == 15)
+  if (v7 >> 60 == 15)
   {
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v8 = sub_199DF71DC();
-    sub_199A9EF20(v4, v6);
-    v7 = v8;
+    v9 = sub_199DF71DC();
+    sub_199A9EF20(v5, v7);
+    v8 = v9;
   }
 
-  return v7;
+  return v8;
 }
 
 - (_TtC10ContactsUI35CNMonogramPosterConfigurationReader)init

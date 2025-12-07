@@ -129,7 +129,7 @@ LABEL_7:
 {
   v4 = *&status;
   v12 = *MEMORY[0x1E69E9840];
-  v6 = MCLogCategoryDefault();
+  v6 = MCLogCategoryDefault(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v8 = 138412546;

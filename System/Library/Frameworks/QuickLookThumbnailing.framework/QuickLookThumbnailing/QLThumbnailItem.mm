@@ -214,11 +214,11 @@ LABEL_5:
 
 - (QLThumbnailItem)initWithCoder:(id)coder
 {
-  v25[1] = *MEMORY[0x1E69E9840];
-  v23.receiver = self;
-  v23.super_class = QLThumbnailItem;
+  v24[1] = *MEMORY[0x1E69E9840];
+  v22.receiver = self;
+  v22.super_class = QLThumbnailItem;
   coderCopy = coder;
-  v4 = [(QLThumbnailItem *)&v23 init];
+  v4 = [(QLThumbnailItem *)&v22 init];
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"d"];
   data = v4->_data;
   v4->_data = v5;
@@ -236,19 +236,18 @@ LABEL_5:
   v4->_contentType = v11;
 
   v13 = MEMORY[0x1E695DFD8];
-  v25[0] = objc_opt_class();
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
+  v24[0] = objc_opt_class();
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
   v15 = [v13 setWithArray:v14];
   v16 = MEMORY[0x1E695DFD8];
-  v24 = objc_opt_class();
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
+  v23 = objc_opt_class();
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
   v18 = [v16 setWithArray:v17];
   v19 = [coderCopy decodeDictionaryWithKeysOfClasses:v15 objectsOfClasses:v18 forKey:@"a"];
 
   attachments = v4->_attachments;
   v4->_attachments = v19;
 
-  v21 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

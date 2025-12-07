@@ -20,7 +20,7 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  sub_1C3C27CB4(0, &unk_1EC085700);
+  sub_1C3C27CB4(0, &unk_1EC085700, off_1E81B25F8);
   sub_1C3D202B4();
   selfCopy = self;
   v9 = sub_1C3D202A4();
@@ -210,8 +210,8 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  sub_1C3C27CB4(0, &qword_1EC0855F0);
-  sub_1C3C27CB4(0, &qword_1EC085BF0);
+  sub_1C3C27CB4(0, &qword_1EC0855F0, 0x1E696AD98);
+  sub_1C3C27CB4(0, &qword_1EC085BF0, off_1E81B2FD0);
   sub_1C3C381FC();
   v34 = sub_1C3D1FEF4();
   if (value)
@@ -268,11 +268,11 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  sub_1C3C446CC();
+  sub_1C3C446CC(0);
   v47 = sub_1C3D202B4();
   if (heights)
   {
-    sub_1C3C27CB4(0, &qword_1EC085BF8);
+    sub_1C3C27CB4(0, &qword_1EC085BF8, off_1E81B29E0);
     v46 = sub_1C3D202B4();
   }
 
@@ -329,8 +329,8 @@ LABEL_8:
 LABEL_11:
   if (ranges)
   {
-    sub_1C3C27CB4(0, &qword_1EC0855F0);
-    sub_1C3C27CB4(0, &qword_1EC085BF0);
+    sub_1C3C27CB4(0, &qword_1EC0855F0, 0x1E696AD98);
+    sub_1C3C27CB4(0, &qword_1EC085BF0, off_1E81B2FD0);
     sub_1C3C381FC();
     v41 = sub_1C3D1FEF4();
   }

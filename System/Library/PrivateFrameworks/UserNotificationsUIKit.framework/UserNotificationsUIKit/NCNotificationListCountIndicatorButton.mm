@@ -154,7 +154,7 @@ uint64_t __73__NCNotificationListCountIndicatorButton_hideContentAnimated_comple
   label = self->_label;
   if (label)
   {
-    [(SBUILegibilityLabel *)label transform];
+    objc_msgSend_transform(label);
     label = self->_label;
   }
 
@@ -280,7 +280,7 @@ uint64_t __73__NCNotificationListCountIndicatorButton_hideContentAnimated_comple
   label = self->_label;
   if (label)
   {
-    [(SBUILegibilityLabel *)label transform];
+    objc_msgSend_transform(label);
   }
 
   else

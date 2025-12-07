@@ -1,13 +1,13 @@
-id sub_100000998()
+id sub_100000998(uint64_t a1)
 {
   if (qword_100008028 != -1)
   {
     sub_100000DA0();
   }
 
-  v1 = qword_100008030;
+  v2 = qword_100008030;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000009DC(id a1)
@@ -19,43 +19,44 @@ void sub_1000009DC(id a1)
 
 uint64_t start()
 {
-  if ((_set_user_dir_suffix() & 1) == 0)
+  v0 = _set_user_dir_suffix();
+  if ((v0 & 1) == 0)
   {
-    v5 = sub_100000998();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_100000998(v0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v6.version) = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Failed to fixup temporary directory to conform to sandbox", &v6, 2u);
+      LOWORD(v7.version) = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to fixup temporary directory to conform to sandbox", &v7, 2u);
     }
 
     exit(1);
   }
 
-  v0 = NSTemporaryDirectory();
-  v1 = sub_100000998();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  v1 = NSTemporaryDirectory();
+  v2 = sub_100000998(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    LODWORD(v6.version) = 138412290;
-    *(&v6.version + 4) = v0;
-    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "Updated temporary directory to: %@", &v6, 0xCu);
+    LODWORD(v7.version) = 138412290;
+    *(&v7.version + 4) = v1;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Updated temporary directory to: %@", &v7, 0xCu);
   }
 
   dispatch_async(&_dispatch_main_q, &stru_100004168);
-  v2 = qword_100008040;
+  v3 = qword_100008040;
   if (!qword_100008040)
   {
-    memset(&v6, 0, 72);
-    v6.perform = nullsub_1;
-    v2 = CFRunLoopSourceCreate(kCFAllocatorDefault, 0, &v6);
-    qword_100008040 = v2;
-    if (!v2)
+    memset(&v7, 0, 72);
+    v7.perform = nullsub_1;
+    v3 = CFRunLoopSourceCreate(kCFAllocatorDefault, 0, &v7);
+    qword_100008040 = v3;
+    if (!v3)
     {
       dispatch_main();
     }
   }
 
   Main = CFRunLoopGetMain();
-  CFRunLoopAddSource(Main, v2, kCFRunLoopCommonModes);
+  CFRunLoopAddSource(Main, v3, kCFRunLoopCommonModes);
   CFRunLoopRun();
   return 0;
 }
@@ -63,7 +64,7 @@ uint64_t start()
 void sub_100000BB0(id a1)
 {
   v1 = objc_autoreleasePoolPush();
-  v2 = sub_100000998();
+  v2 = sub_100000998(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -96,7 +97,7 @@ void sub_100000BB0(id a1)
 
 void sub_100000CE0(id a1)
 {
-  v1 = sub_100000998();
+  v1 = sub_100000998(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

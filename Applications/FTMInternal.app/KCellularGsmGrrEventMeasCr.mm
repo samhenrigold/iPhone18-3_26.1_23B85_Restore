@@ -223,109 +223,104 @@
   toCopy = to;
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v6 = self->_gsmNcellMeas;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v33 objects:v39 count:16];
-  if (v7)
-  {
-    v8 = v7;
-    v9 = *v34;
-    do
-    {
-      v10 = 0;
-      do
-      {
-        if (*v34 != v9)
-        {
-          objc_enumerationMutation(v6);
-        }
-
-        v11 = *(*(&v33 + 1) + 8 * v10);
-        PBDataWriterWriteSubmessage();
-        v10 = v10 + 1;
-      }
-
-      while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v33 objects:v39 count:16];
-    }
-
-    while (v8);
-  }
-
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
-  v12 = self->_umtsNcellMeas;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v29 objects:v38 count:16];
-  if (v13)
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v5 = self->_gsmNcellMeas;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
+  if (v6)
   {
-    v14 = v13;
-    v15 = *v30;
+    v7 = v6;
+    v8 = *v29;
     do
     {
-      v16 = 0;
+      v9 = 0;
       do
       {
-        if (*v30 != v15)
+        if (*v29 != v8)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v5);
         }
 
-        v17 = *(*(&v29 + 1) + 8 * v16);
         PBDataWriterWriteSubmessage();
-        v16 = v16 + 1;
+        ++v9;
       }
 
-      while (v14 != v16);
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v29 objects:v38 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
-    while (v14);
+    while (v7);
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
-  v18 = self->_lteNcellMeas;
-  v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v25 objects:v37 count:16];
-  if (v19)
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v10 = self->_umtsNcellMeas;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v24 objects:v33 count:16];
+  if (v11)
   {
-    v20 = v19;
-    v21 = *v26;
+    v12 = v11;
+    v13 = *v25;
     do
     {
-      v22 = 0;
+      v14 = 0;
       do
       {
-        if (*v26 != v21)
+        if (*v25 != v13)
         {
-          objc_enumerationMutation(v18);
+          objc_enumerationMutation(v10);
         }
 
-        v23 = *(*(&v25 + 1) + 8 * v22);
         PBDataWriterWriteSubmessage();
-        v22 = v22 + 1;
+        ++v14;
       }
 
-      while (v20 != v22);
-      v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v25 objects:v37 count:16];
+      while (v12 != v14);
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v24 objects:v33 count:16];
     }
 
-    while (v20);
+    while (v12);
+  }
+
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v15 = self->_lteNcellMeas;
+  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v20 objects:v32 count:16];
+  if (v16)
+  {
+    v17 = v16;
+    v18 = *v21;
+    do
+    {
+      v19 = 0;
+      do
+      {
+        if (*v21 != v18)
+        {
+          objc_enumerationMutation(v15);
+        }
+
+        PBDataWriterWriteSubmessage();
+        ++v19;
+      }
+
+      while (v17 != v19);
+      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v20 objects:v32 count:16];
+    }
+
+    while (v17);
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 }
@@ -518,7 +513,6 @@
     goto LABEL_17;
   }
 
-  v5 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -530,7 +524,7 @@
   else if (*(equalCopy + 48))
   {
 LABEL_17:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_18;
   }
 
@@ -558,7 +552,7 @@ LABEL_17:
     }
   }
 
-  v9 = (*(equalCopy + 48) & 2) == 0;
+  v8 = (*(equalCopy + 48) & 2) == 0;
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 48) & 2) == 0 || self->_subsId != *(equalCopy + 8))
@@ -566,12 +560,12 @@ LABEL_17:
       goto LABEL_17;
     }
 
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_18:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

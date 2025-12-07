@@ -860,8 +860,8 @@ LABEL_67:
             *&v100 = v57 + *&v100;
             *(&v100 + 1) = v56 + *(&v100 + 1);
             CGPathAddQuadCurveToPointSafe();
-            v35 = v101[1];
             v34 = v101[0];
+            v35 = v101[1];
             goto LABEL_105;
           }
 
@@ -897,7 +897,8 @@ LABEL_75:
             v35 = y;
           }
 
-          *v101 = 0uLL;
+          v101[0] = 0.0;
+          v101[1] = 0.0;
           if (objc_msgSend_tsu_scanCGFloat_(v8, v55, v101))
           {
             v19 = objc_msgSend_tsu_scanCGFloat_(v8, v80, &v101[1]) ^ 1;
@@ -1122,12 +1123,12 @@ LABEL_3:
   v11 = objc_msgSend_characterSetWithCharactersInString_(v7, v10, v9);
   objc_msgSend_setCharactersToBeSkipped_(v6, v12, v11);
 
-  if (objc_msgSend_tsu_scanCGFloat_(v6, v13, &v30) && (objc_msgSend_tsu_scanCGFloat_(v6, v14, &v30 + 8) & 1) != 0)
+  if (objc_msgSend_tsu_scanCGFloat_(v6, v13, v30) && (objc_msgSend_tsu_scanCGFloat_(v6, v14, &v30[1]) & 1) != 0)
   {
     CGPathMoveToPointSafe();
     if ((objc_msgSend_isAtEnd(v6, v15, v16) & 1) == 0)
     {
-      while (objc_msgSend_tsu_scanCGFloat_(v6, v17, &v30) && (objc_msgSend_tsu_scanCGFloat_(v6, v18, &v30 + 8) & 1) != 0)
+      while (objc_msgSend_tsu_scanCGFloat_(v6, v17, v30) && (objc_msgSend_tsu_scanCGFloat_(v6, v18, &v30[1]) & 1) != 0)
       {
         CGPathAddLineToPointSafe();
         if (objc_msgSend_isAtEnd(v6, v20, v21))

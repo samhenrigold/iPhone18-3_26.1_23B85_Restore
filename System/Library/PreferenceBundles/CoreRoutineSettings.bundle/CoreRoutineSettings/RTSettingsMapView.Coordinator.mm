@@ -10,11 +10,11 @@
   viewCopy = view;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = sub_91AC();
+  v8 = sub_91AC(overlay);
 
   swift_unknownObjectRelease();
 
-  return v7;
+  return v8;
 }
 
 - (_TtCV19CoreRoutineSettings17RTSettingsMapView11Coordinator)init

@@ -15,7 +15,7 @@
 
 - (_SFPBRFExpandableStandardCardSection)initWithFacade:(id)facade
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBRFExpandableStandardCardSection *)self init];
   if (v5)
@@ -44,33 +44,33 @@
       v11 = 0;
     }
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v12 = [facadeCopy expanding:0 component:?content];
-    v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v22;
+      v15 = *v21;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v22 != v15)
+          if (*v21 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = [[_SFPBRFExpandingComponentContent alloc] initWithFacade:*(*(&v21 + 1) + 8 * i)];
+          v17 = [[_SFPBRFExpandingComponentContent alloc] initWithFacade:*(*(&v20 + 1) + 8 * i)];
           if (v17)
           {
             [v11 addObject:v17];
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v14);
@@ -80,17 +80,16 @@
     v18 = v5;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBRFExpandableStandardCardSection)initWithDictionary:(id)dictionary
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v24.receiver = self;
-  v24.super_class = _SFPBRFExpandableStandardCardSection;
-  v5 = [(_SFPBRFExpandableStandardCardSection *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = _SFPBRFExpandableStandardCardSection;
+  v5 = [(_SFPBRFExpandableStandardCardSection *)&v23 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"summaryItemStandardCardSection"];
@@ -105,28 +104,28 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v19 = v6;
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
+      v18 = v6;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       v9 = v8;
-      v10 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v21;
+        v12 = *v20;
         do
         {
           v13 = 0;
           do
           {
-            if (*v21 != v12)
+            if (*v20 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v14 = *(*(&v20 + 1) + 8 * v13);
+            v14 = *(*(&v19 + 1) + 8 * v13);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -138,19 +137,18 @@
           }
 
           while (v11 != v13);
-          v11 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
         }
 
         while (v11);
       }
 
-      v6 = v19;
+      v6 = v18;
     }
 
     v16 = v5;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -190,31 +188,31 @@
 
 - (id)dictionaryRepresentation
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSArray *)self->_expanding_component_contents count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v5 = self->_expanding_component_contents;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v18;
+      v8 = *v17;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v17 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v16 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation)
           {
             [array addObject:dictionaryRepresentation];
@@ -227,7 +225,7 @@
           }
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v7);
@@ -251,8 +249,6 @@
       [dictionary setObject:null2 forKeyedSubscript:@"summaryItemStandardCardSection"];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -328,7 +324,7 @@ LABEL_13:
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
   summary_item_standard_card_section = [(_SFPBRFExpandableStandardCardSection *)self summary_item_standard_card_section];
   if (summary_item_standard_card_section)
@@ -337,38 +333,35 @@ LABEL_13:
   }
 
   expanding_component_contents = [(_SFPBRFExpandableStandardCardSection *)self expanding_component_contents];
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v7 = [expanding_component_contents countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [expanding_component_contents countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(expanding_component_contents);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
         PBDataWriterWriteSubmessage();
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [expanding_component_contents countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [expanding_component_contents countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addExpanding_component_content:(id)expanding_component_content
@@ -391,9 +384,7 @@ LABEL_13:
 
 - (void)setExpanding_component_content:(id)expanding_component_content
 {
-  v4 = [expanding_component_content copy];
-  expanding_component_contents = self->_expanding_component_contents;
-  self->_expanding_component_contents = v4;
+  self->_expanding_component_contents = [expanding_component_content copy];
 
   MEMORY[0x1EEE66BB8]();
 }

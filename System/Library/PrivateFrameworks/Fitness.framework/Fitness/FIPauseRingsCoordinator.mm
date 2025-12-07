@@ -97,28 +97,27 @@
 {
   v6 = sub_24B3AB4C4();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = _Block_copy(handler);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = _Block_copy(handler);
   sub_24B3AB494();
-  if (v11)
+  if (v10)
   {
-    v12 = swift_allocObject();
-    *(v12 + 16) = v11;
-    v11 = sub_24B3A6FB4;
+    v11 = swift_allocObject();
+    *(v11 + 16) = v10;
+    v10 = sub_24B3A6FB4;
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
   selfCopy = self;
-  sub_24B3A05E8(v10, v11, v12);
-  sub_24B3A68E4(v11);
+  sub_24B3A05E8(v9, v10, v11);
+  sub_24B3A68E4(v10, v11);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)unpauseRingsWithCompletionHandler:(id)handler
@@ -140,30 +139,29 @@
 
   selfCopy = self;
   sub_24B3A1FBC(v7, v6);
-  sub_24B3A68E4(v7);
+  sub_24B3A68E4(v7, v6);
 }
 
 - (NSDate)resumeDate
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EFE4F08, &qword_24B3AF450);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
+  v5 = &v13 - v4;
   selfCopy = self;
-  sub_24B3A2BA4(v6);
+  sub_24B3A2BA4(v5);
 
-  v8 = sub_24B3AB4C4();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  v7 = sub_24B3AB4C4();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_24B3AB474();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_24B3AB474();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (id)formattedResumeDate

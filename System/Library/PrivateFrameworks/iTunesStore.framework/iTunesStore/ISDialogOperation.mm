@@ -17,7 +17,7 @@
 
 - (ISDialogOperation)init
 {
-  __ISRecordSPIClassUsage(self);
+  __ISRecordSPIClassUsage(self, "/Library/Caches/com.apple.xbs/Sources/iTunesStore/src/ISDialogOperation.m", 43, a2);
   v4.receiver = self;
   v4.super_class = ISDialogOperation;
   result = [(ISOperation *)&v4 init];
@@ -139,7 +139,7 @@
 
 - (void)run
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   copySerializationLocks = [(ISOperation *)self copySerializationLocks];
   v4 = copySerializationLocks;
   if (copySerializationLocks)
@@ -154,34 +154,38 @@
     shouldLog = [mEMORY[0x277D69B38] shouldLog];
     if ([mEMORY[0x277D69B38] shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x277D69B38] OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
 
     if (v7)
     {
-      v23 = 138412546;
-      v24 = objc_opt_class();
-      v25 = 2112;
+      v24 = 138412546;
+      v25 = objc_opt_class();
+      v26 = 2112;
       serializationLockIdentifiers = [(ISOperation *)self serializationLockIdentifiers];
-      LODWORD(v22) = 22;
-      v21 = &v23;
-      v8 = _os_log_send_and_compose_impl();
-      if (v8)
+      v9 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_275BC3000, oSLogObject, 1, "%@: Took serialization locks: %@", &v24, 22);
+      if (v9)
       {
-        v9 = v8;
-        v10 = [MEMORY[0x277CCACA8] stringWithCString:v8 encoding:{4, &v23, v22}];
-        free(v9);
-        v21 = v10;
+        v10 = v9;
+        v11 = [MEMORY[0x277CCACA8] stringWithCString:v9 encoding:4];
+        free(v10);
+        v22 = v11;
         SSFileLog();
       }
     }
@@ -198,44 +202,47 @@
       mEMORY[0x277D69B38]2 = [MEMORY[0x277D69B38] sharedConfig];
     }
 
-    shouldLog2 = [mEMORY[0x277D69B38]2 shouldLog];
+    LODWORD(v13) = [mEMORY[0x277D69B38]2 shouldLog];
     shouldLogToDisk = [mEMORY[0x277D69B38]2 shouldLogToDisk];
-    oSLogObject = [mEMORY[0x277D69B38]2 OSLogObject];
+    oSLogObject2 = [mEMORY[0x277D69B38]2 OSLogObject];
+    v16 = oSLogObject2;
     if (shouldLogToDisk)
     {
-      shouldLog2 |= 2u;
+      LODWORD(v13) = v13 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
     {
-      shouldLog2 &= 2u;
+      v13 = v13;
     }
 
-    if (shouldLog2)
+    else
     {
-      v15 = objc_opt_class();
+      v13 &= 2u;
+    }
+
+    if (v13)
+    {
+      v17 = objc_opt_class();
       serializationLockIdentifiers2 = [(ISOperation *)self serializationLockIdentifiers];
-      v23 = 138412546;
-      v24 = v15;
-      v25 = 2112;
+      v24 = 138412546;
+      v25 = v17;
+      v26 = 2112;
       serializationLockIdentifiers = serializationLockIdentifiers2;
-      LODWORD(v22) = 22;
-      v21 = &v23;
-      v17 = _os_log_send_and_compose_impl();
-      if (v17)
+      LODWORD(v23) = 22;
+      v19 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_275BC3000, v16, 1, "%@: Releasing serialization locks: %@", &v24, v23);
+      if (v19)
       {
-        v18 = v17;
-        v19 = [MEMORY[0x277CCACA8] stringWithCString:v17 encoding:{4, &v23, v22}];
-        free(v18);
-        v21 = v19;
+        v20 = v19;
+        v21 = [MEMORY[0x277CCACA8] stringWithCString:v19 encoding:4];
+        free(v20);
+        v22 = v21;
         SSFileLog();
       }
     }
 
-    [v4 makeObjectsPerformSelector:{sel_unlock, v21}];
+    [v4 makeObjectsPerformSelector:{sel_unlock, v22}];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleResponseForNotification:(__CFUserNotification *)notification responseFlags:(unint64_t)flags
@@ -289,7 +296,7 @@ LABEL_14:
 
 - (void)_run
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   dialog = [(ISDialogOperation *)self dialog];
   if (dialog && (v4 = dialog, [(ISDialog *)dialog isDisplayable]))
   {
@@ -310,91 +317,95 @@ LABEL_14:
         shouldLog = [mEMORY[0x277D69B38] shouldLog];
         if ([mEMORY[0x277D69B38] shouldLogToDisk])
         {
-          v11 = shouldLog | 2;
+          LODWORD(v11) = shouldLog | 2;
         }
 
         else
         {
-          v11 = shouldLog;
+          LODWORD(v11) = shouldLog;
         }
 
-        if (!os_log_type_enabled([mEMORY[0x277D69B38] OSLogObject], OS_LOG_TYPE_DEBUG))
+        oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+        {
+          v11 = v11;
+        }
+
+        else
         {
           v11 &= 2u;
         }
 
         if (v11)
         {
-          v47 = 138412546;
-          v48 = objc_opt_class();
-          v49 = 2048;
-          v50 = [copyActivePowerAssertionIdentifiers count];
-          LODWORD(v36) = 22;
-          v35 = &v47;
-          v12 = _os_log_send_and_compose_impl();
-          if (v12)
+          v48 = 138412546;
+          v49 = objc_opt_class();
+          v50 = 2048;
+          v51 = [copyActivePowerAssertionIdentifiers count];
+          v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_275BC3000, oSLogObject, 2, "%@: Disabling %lu power assertions before user interaction", &v48, 22);
+          if (v13)
           {
-            v13 = v12;
-            v14 = [MEMORY[0x277CCACA8] stringWithCString:v12 encoding:{4, &v47, v36}];
-            free(v13);
-            v35 = v14;
+            v14 = v13;
+            v15 = [MEMORY[0x277CCACA8] stringWithCString:v13 encoding:4];
+            free(v14);
+            v37 = v15;
             SSFileLog();
           }
         }
 
-        v43 = 0u;
         v44 = 0u;
-        v41 = 0u;
+        v45 = 0u;
         v42 = 0u;
-        v15 = [copyActivePowerAssertionIdentifiers countByEnumeratingWithState:&v41 objects:v46 count:{16, v35}];
-        if (v15)
+        v43 = 0u;
+        v16 = [copyActivePowerAssertionIdentifiers countByEnumeratingWithState:&v42 objects:v47 count:{16, v37}];
+        if (v16)
         {
-          v16 = *v42;
+          v17 = *v43;
           do
           {
-            for (i = 0; i != v15; ++i)
+            for (i = 0; i != v16; ++i)
             {
-              if (*v42 != v16)
+              if (*v43 != v17)
               {
                 objc_enumerationMutation(copyActivePowerAssertionIdentifiers);
               }
 
-              [(ISDevice *)v7 releasePowerAssertion:*(*(&v41 + 1) + 8 * i)];
+              [(ISDevice *)v7 releasePowerAssertion:*(*(&v42 + 1) + 8 * i)];
             }
 
-            v15 = [copyActivePowerAssertionIdentifiers countByEnumeratingWithState:&v41 objects:v46 count:16];
+            v16 = [copyActivePowerAssertionIdentifiers countByEnumeratingWithState:&v42 objects:v47 count:16];
           }
 
-          while (v15);
+          while (v16);
         }
 
         daemon = [NSClassFromString(&cfstr_Daemon.isa) daemon];
         [daemon beginShowingDialog];
         [(ISDialogOperation *)self _showUserNotification:copyUserNotification];
-        v39 = 0u;
         v40 = 0u;
-        v37 = 0u;
+        v41 = 0u;
         v38 = 0u;
-        v19 = [copyActivePowerAssertionIdentifiers countByEnumeratingWithState:&v37 objects:v45 count:16];
-        if (v19)
+        v39 = 0u;
+        v20 = [copyActivePowerAssertionIdentifiers countByEnumeratingWithState:&v38 objects:v46 count:16];
+        if (v20)
         {
-          v20 = *v38;
+          v21 = *v39;
           do
           {
-            for (j = 0; j != v19; ++j)
+            for (j = 0; j != v20; ++j)
             {
-              if (*v38 != v20)
+              if (*v39 != v21)
               {
                 objc_enumerationMutation(copyActivePowerAssertionIdentifiers);
               }
 
-              [(ISDevice *)v7 takePowerAssertion:*(*(&v37 + 1) + 8 * j)];
+              [(ISDevice *)v7 takePowerAssertion:*(*(&v38 + 1) + 8 * j)];
             }
 
-            v19 = [copyActivePowerAssertionIdentifiers countByEnumeratingWithState:&v37 objects:v45 count:16];
+            v20 = [copyActivePowerAssertionIdentifiers countByEnumeratingWithState:&v38 objects:v46 count:16];
           }
 
-          while (v19);
+          while (v20);
         }
 
         [(objc_class *)v5 checkOutDialog:v4];
@@ -412,37 +423,41 @@ LABEL_14:
         shouldLog2 = [mEMORY[0x277D69B38]2 shouldLog];
         if ([mEMORY[0x277D69B38]2 shouldLogToDisk])
         {
-          v30 = shouldLog2 | 2;
+          LODWORD(v32) = shouldLog2 | 2;
         }
 
         else
         {
-          v30 = shouldLog2;
+          LODWORD(v32) = shouldLog2;
         }
 
-        if (!os_log_type_enabled([mEMORY[0x277D69B38]2 OSLogObject], OS_LOG_TYPE_INFO))
+        oSLogObject2 = [mEMORY[0x277D69B38]2 OSLogObject];
+        if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
         {
-          v30 &= 2u;
+          v32 = v32;
         }
 
-        if (v30)
+        else
         {
-          v47 = 138412290;
-          v48 = objc_opt_class();
-          LODWORD(v36) = 12;
-          v35 = &v47;
-          v31 = _os_log_send_and_compose_impl();
-          if (v31)
+          v32 &= 2u;
+        }
+
+        if (v32)
+        {
+          v48 = 138412290;
+          v49 = objc_opt_class();
+          v34 = _os_log_send_and_compose_impl(v32, 0, 0, 0, &dword_275BC3000, oSLogObject2, 1, "%@: Skipping non-unique dialog", &v48, 12);
+          if (v34)
           {
-            v32 = v31;
-            v33 = [MEMORY[0x277CCACA8] stringWithCString:v31 encoding:{4, &v47, v36}];
-            free(v32);
-            v35 = v33;
+            v35 = v34;
+            v36 = [MEMORY[0x277CCACA8] stringWithCString:v34 encoding:4];
+            free(v35);
+            v37 = v36;
             SSFileLog();
           }
         }
 
-        [(ISOperation *)self setSuccess:1, v35];
+        [(ISOperation *)self setSuccess:1, v37];
       }
     }
 
@@ -463,45 +478,47 @@ LABEL_14:
     shouldLog3 = [mEMORY[0x277D69B38]3 shouldLog];
     if ([mEMORY[0x277D69B38]3 shouldLogToDisk])
     {
-      v24 = shouldLog3 | 2;
+      LODWORD(v25) = shouldLog3 | 2;
     }
 
     else
     {
-      v24 = shouldLog3;
+      LODWORD(v25) = shouldLog3;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x277D69B38]3 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject3 = [mEMORY[0x277D69B38]3 OSLogObject];
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
     {
-      v24 &= 2u;
+      v25 = v25;
     }
 
-    if (v24)
+    else
     {
-      v47 = 138412290;
-      v48 = objc_opt_class();
-      LODWORD(v36) = 12;
-      v35 = &v47;
-      v25 = _os_log_send_and_compose_impl();
-      if (v25)
+      v25 &= 2u;
+    }
+
+    if (v25)
+    {
+      v48 = 138412290;
+      v49 = objc_opt_class();
+      v27 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &dword_275BC3000, oSLogObject3, 1, "%@: Skipping non-displayable dialog", &v48, 12);
+      if (v27)
       {
-        v26 = v25;
-        v27 = [MEMORY[0x277CCACA8] stringWithCString:v25 encoding:{4, &v47, v36}];
-        free(v26);
-        v35 = v27;
+        v28 = v27;
+        v29 = [MEMORY[0x277CCACA8] stringWithCString:v27 encoding:4];
+        free(v28);
+        v37 = v29;
         SSFileLog();
       }
     }
 
-    [(ISOperation *)self setSuccess:1, v35];
+    [(ISOperation *)self setSuccess:1, v37];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_showUserNotification:(id)notification
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   copyUserNotification = [notification copyUserNotification];
   if (copyUserNotification)
   {
@@ -509,7 +526,6 @@ LABEL_14:
     [(ISDialogOperation *)self setUserNotification:copyUserNotification];
     [(ISDialogOperation *)self _waitForUserNotificationResponse:v6];
     [(ISDialogOperation *)self setUserNotification:0];
-    v7 = *MEMORY[0x277D85DE8];
 
     CFRelease(v6);
   }
@@ -530,30 +546,35 @@ LABEL_14:
       shouldLog = [mEMORY[0x277D69B38]2 shouldLog];
       if ([mEMORY[0x277D69B38]2 shouldLogToDisk])
       {
-        v18 = shouldLog | 2;
+        LODWORD(v18) = shouldLog | 2;
       }
 
       else
       {
-        v18 = shouldLog;
+        LODWORD(v18) = shouldLog;
       }
 
-      if (!os_log_type_enabled([mEMORY[0x277D69B38]2 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject = [mEMORY[0x277D69B38]2 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      {
+        v18 = v18;
+      }
+
+      else
       {
         v18 &= 2u;
       }
 
       if (v18)
       {
-        v24 = 138412290;
-        v25 = objc_opt_class();
-        LODWORD(v23) = 12;
-        v19 = _os_log_send_and_compose_impl();
-        if (v19)
+        v23 = 138412290;
+        v24 = objc_opt_class();
+        v20 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_275BC3000, oSLogObject, 0, "%@: Retried user notification too many times", &v23, 12);
+        if (v20)
         {
-          v20 = v19;
-          [MEMORY[0x277CCACA8] stringWithCString:v19 encoding:{4, &v24, v23}];
-          free(v20);
+          v21 = v20;
+          [MEMORY[0x277CCACA8] stringWithCString:v20 encoding:4];
+          free(v21);
           SSFileLog();
         }
       }
@@ -571,30 +592,34 @@ LABEL_14:
       shouldLog2 = [mEMORY[0x277D69B38]2 shouldLog];
       if ([mEMORY[0x277D69B38]2 shouldLogToDisk])
       {
-        v13 = shouldLog2 | 2;
+        LODWORD(v12) = shouldLog2 | 2;
       }
 
       else
       {
-        v13 = shouldLog2;
+        LODWORD(v12) = shouldLog2;
       }
 
-      if (!os_log_type_enabled([mEMORY[0x277D69B38]2 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject2 = [mEMORY[0x277D69B38]2 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
       {
-        v13 &= 2u;
+        v12 = v12;
       }
 
-      if (v13)
+      else
       {
-        v24 = 138412290;
-        v25 = objc_opt_class();
-        LODWORD(v23) = 12;
-        v22 = &v24;
-        v14 = _os_log_send_and_compose_impl();
+        v12 &= 2u;
+      }
+
+      if (v12)
+      {
+        v23 = 138412290;
+        v24 = objc_opt_class();
+        v14 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_275BC3000, oSLogObject2, 0, "%@: Will retry user notification", &v23, 12);
         if (v14)
         {
           v15 = v14;
-          v16 = [MEMORY[0x277CCACA8] stringWithCString:v14 encoding:{4, &v24, v23}];
+          v16 = [MEMORY[0x277CCACA8] stringWithCString:v14 encoding:4];
           free(v15);
           v22 = v16;
           SSFileLog();
@@ -605,8 +630,6 @@ LABEL_14:
       [MEMORY[0x277CCACC8] sleepForTimeInterval:3.0];
       [(ISDialogOperation *)self _showUserNotification:notification];
     }
-
-    v21 = *MEMORY[0x277D85DE8];
   }
 }
 

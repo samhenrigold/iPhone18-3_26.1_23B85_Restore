@@ -39,7 +39,7 @@
 
 - (void)application:(id)application didDiscardSceneSessions:(id)sessions
 {
-  sub_10000C70C(0, &qword_100CAF470);
+  sub_10000C70C(0, &qword_100CAF470, UISceneSession_ptr);
   sub_10016B300();
   static Set._unconditionallyBridgeFromObjectiveC(_:)();
 }

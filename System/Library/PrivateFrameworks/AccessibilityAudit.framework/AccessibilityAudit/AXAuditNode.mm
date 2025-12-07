@@ -298,42 +298,40 @@ void __54__AXAuditNode_registerTransportableObjectWithManager___block_invoke_12(
 
 - (void)_printDescendantsWithLevel:(unint64_t)level
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   humanReadableDescription = [(AXAuditNode *)self humanReadableDescription];
   humanReadableRoleDescription = [(AXAuditNode *)self humanReadableRoleDescription];
   NSLog(&cfstr_AxauditnodeLd.isa, level, humanReadableDescription, humanReadableRoleDescription);
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   children = [(AXAuditNode *)self children];
-  v8 = [children countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [children countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(children);
         }
 
-        [*(*(&v13 + 1) + 8 * v11++) _printDescendantsWithLevel:level + 1];
+        [*(*(&v12 + 1) + 8 * v11++) _printDescendantsWithLevel:level + 1];
       }
 
       while (v9 != v11);
-      v9 = [children countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [children countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)description

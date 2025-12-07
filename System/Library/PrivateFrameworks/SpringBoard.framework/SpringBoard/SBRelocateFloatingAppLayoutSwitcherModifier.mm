@@ -39,7 +39,7 @@
   if ([(SBRelocateFloatingAppLayoutSwitcherModifier *)self _goingToSwitcherWithLeadingFloatingApp])
   {
     v4 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:4 updateMode:2];
-    v5 = SBAppendSwitcherModifierResponse(v4, transitionWillBegin);
+    v5 = SBAppendSwitcherModifierResponse();
 
     transitionWillBegin = v5;
   }
@@ -59,7 +59,7 @@
     v6 = v5;
 
     v7 = [[SBTimerEventSwitcherEventResponse alloc] initWithDelay:0 validator:@"SBRelocateFloatingAppLayoutSwitcherModifierTimerReason" reason:v6];
-    v8 = SBAppendSwitcherModifierResponse(v7, transitionWillUpdate);
+    v8 = SBAppendSwitcherModifierResponse();
 
     transitionWillUpdate = v8;
   }
@@ -75,7 +75,7 @@
   if ([(SBRelocateFloatingAppLayoutSwitcherModifier *)self _comingFromSwitcherWithLeadingFloatingApp])
   {
     v4 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:12 updateMode:3];
-    v5 = SBAppendSwitcherModifierResponse(v4, transitionDidEnd);
+    v5 = SBAppendSwitcherModifierResponse();
 
     transitionDidEnd = v5;
   }
@@ -102,7 +102,7 @@
 
     self->_moveFloatingAppToLeadingSide = 1;
     reason = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:4 updateMode:2];
-    v8 = SBAppendSwitcherModifierResponse(reason, v5);
+    v8 = SBAppendSwitcherModifierResponse();
 
     v5 = v8;
   }
@@ -273,7 +273,7 @@ void __61__SBRelocateFloatingAppLayoutSwitcherModifier_frameForIndex___block_inv
   return v8;
 }
 
-uint64_t __61__SBRelocateFloatingAppLayoutSwitcherModifier_scaleForIndex___block_invoke(void *a1)
+void *__61__SBRelocateFloatingAppLayoutSwitcherModifier_scaleForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 192) scaleForIndex:a1[6]];
   *(*(a1[5] + 8) + 24) = v3;

@@ -1,4 +1,5 @@
 @interface NSObject(MusicKit_SoftLinking_MPCPlayerResponseTracklist)
+- (char)musicKit_responseTracklist_actionAtQueueEnd;
 - (id)_musicKit_self_responseTracklist;
 - (id)musicKit_responseTracklist_actionAtQueueEndCommand;
 - (id)musicKit_responseTracklist_changeItemCommand;
@@ -11,7 +12,6 @@
 - (id)musicKit_responseTracklist_shuffleCommand;
 - (id)musicKit_responseTracklist_underlyingSectionObjectAtIndexPathBlock;
 - (uint64_t)musicKit_globalItemCount;
-- (uint64_t)musicKit_responseTracklist_actionAtQueueEnd;
 - (uint64_t)musicKit_responseTracklist_repeatType;
 - (uint64_t)musicKit_responseTracklist_shuffleType;
 @end
@@ -74,7 +74,7 @@
   }
 }
 
-- (uint64_t)musicKit_responseTracklist_actionAtQueueEnd
+- (char)musicKit_responseTracklist_actionAtQueueEnd
 {
   _musicKit_self_responseTracklist = [self _musicKit_self_responseTracklist];
   actionAtQueueEnd = [_musicKit_self_responseTracklist actionAtQueueEnd];

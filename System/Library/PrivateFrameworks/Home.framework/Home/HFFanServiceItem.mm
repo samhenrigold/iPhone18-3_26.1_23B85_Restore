@@ -7,33 +7,33 @@
 
 - (id)createControlItemsWithOptions:(id)options
 {
-  v70[2] = *MEMORY[0x277D85DE8];
+  v69[2] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   controlItemValueSourceForPrimaryService = [(HFServiceItem *)self controlItemValueSourceForPrimaryService];
   v6 = [HFPowerStateControlItem alloc];
   v7 = [(HFPowerStateControlItem *)v6 initWithValueSource:controlItemValueSourceForPrimaryService displayResults:MEMORY[0x277CBEC10]];
-  v69[0] = @"title";
+  v68[0] = @"title";
   v8 = HFItemOptionalLocalizedString(@"HFControlShortTitleRotationSpeed", optionsCopy);
-  v70[0] = v8;
-  v69[1] = @"controlItemPurpose";
+  v69[0] = v8;
+  v68[1] = @"controlItemPurpose";
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:10];
-  v70[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:v69 count:2];
+  v69[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:v68 count:2];
 
   v11 = [HFIncrementalStateControlItem alloc];
-  v58 = v10;
+  v57 = v10;
   v12 = [(HFIncrementalStateControlItem *)v11 initWithValueSource:controlItemValueSourceForPrimaryService primaryStateControlItem:v7 incrementalCharacteristicType:*MEMORY[0x277CCFA20] displayResults:v10];
   v13 = MEMORY[0x277CBEB58];
-  v59 = v7;
-  v68[0] = v7;
-  v68[1] = v12;
-  v57 = v12;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:2];
-  v60 = [v13 setWithArray:v14];
+  v58 = v7;
+  v67[0] = v7;
+  v67[1] = v12;
+  v56 = v12;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:2];
+  v59 = [v13 setWithArray:v14];
 
   selfCopy = self;
-  service = [(HFServiceItem *)self service];
-  v16 = [service hf_characteristicOfType:*MEMORY[0x277CCFA18]];
+  v15 = objc_msgSend_service(self);
+  v16 = [v15 hf_characteristicOfType:*MEMORY[0x277CCFA18]];
 
   metadata = [v16 metadata];
   v18 = HFItemOptionalLocalizedString(@"HFCharacteristicValueRotationDirectionClockwise", optionsCopy);
@@ -44,21 +44,21 @@
   {
     v21 = [HFMultiStateControlItem alloc];
     characteristicType = [v16 characteristicType];
-    v66[0] = @"title";
+    v65[0] = @"title";
     v23 = HFItemOptionalLocalizedString(@"HFControlShortTitleRotationDirection", optionsCopy);
-    v66[1] = @"controlItemPurpose";
-    v67[0] = v23;
+    v65[1] = @"controlItemPurpose";
+    v66[0] = v23;
     v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:4];
-    v67[1] = v24;
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:2];
+    v66[1] = v24;
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:2];
     v26 = [(HFMultiStateControlItem *)v21 initWithValueSource:controlItemValueSourceForPrimaryService characteristicType:characteristicType possibleValueSet:v20 displayResults:v25];
-    [v60 na_safeAddObject:v26];
+    [v59 na_safeAddObject:v26];
   }
 
-  v55 = v20;
-  v56 = v16;
-  service2 = [(HFServiceItem *)selfCopy service];
-  [service2 hf_characteristicOfType:*MEMORY[0x277CCFB10]];
+  v54 = v20;
+  v55 = v16;
+  v27 = objc_msgSend_service(selfCopy);
+  [v27 hf_characteristicOfType:*MEMORY[0x277CCFB10]];
   v29 = v28 = controlItemValueSourceForPrimaryService;
 
   metadata2 = [v29 metadata];
@@ -70,21 +70,21 @@
   {
     v34 = [HFMultiStateControlItem alloc];
     characteristicType2 = [v29 characteristicType];
-    v64 = @"title";
+    v63 = @"title";
     v36 = HFItemOptionalLocalizedString(@"HFControlShortTitleFanMode", optionsCopy);
-    v65 = v36;
-    v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+    v64 = v36;
+    v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
     v38 = [(HFMultiStateControlItem *)v34 initWithValueSource:v28 characteristicType:characteristicType2 possibleValueSet:v33 displayResults:v37];
-    [v60 na_safeAddObject:v38];
+    [v59 na_safeAddObject:v38];
   }
 
-  v53 = v33;
-  v54 = v29;
+  v52 = v33;
+  v53 = v29;
   v39 = [[HFSwingModeControlItem alloc] initWithValueSource:v28];
-  [v60 na_safeAddObject:v39];
+  [v59 na_safeAddObject:v39];
 
-  service3 = [(HFServiceItem *)selfCopy service];
-  v41 = [service3 hf_characteristicOfType:*MEMORY[0x277CCF958]];
+  v40 = objc_msgSend_service(selfCopy);
+  v41 = [v40 hf_characteristicOfType:*MEMORY[0x277CCF958]];
 
   metadata3 = [v41 metadata];
   v43 = HFItemOptionalLocalizedString(@"HFCharacteristicValueLockPhysicalControlsUnlocked", optionsCopy);
@@ -95,45 +95,43 @@
   {
     v46 = [HFMultiStateControlItem alloc];
     characteristicType3 = [v41 characteristicType];
-    v62 = @"title";
+    v61 = @"title";
     v48 = HFItemOptionalLocalizedString(@"HFControlShortTitleLockPhysicalControls", optionsCopy);
-    v63 = v48;
-    v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+    v62 = v48;
+    v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
     v50 = [(HFMultiStateControlItem *)v46 initWithValueSource:v28 characteristicType:characteristicType3 possibleValueSet:v45 displayResults:v49];
-    [v60 na_safeAddObject:v50];
+    [v59 na_safeAddObject:v50];
   }
 
-  v51 = *MEMORY[0x277D85DE8];
-
-  return v60;
+  return v59;
 }
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB58];
   v5 = *MEMORY[0x277CCFA20];
   optionsCopy = options;
   v7 = [v4 setWithObjects:{v5, 0}];
-  service = [(HFServiceItem *)self service];
+  v8 = objc_msgSend_service(self);
   v9 = *MEMORY[0x277CCF9F0];
-  v10 = [service hf_characteristicOfType:*MEMORY[0x277CCF9F0]];
+  v10 = [v8 hf_characteristicOfType:*MEMORY[0x277CCF9F0]];
 
-  if (v10 || (-[HFServiceItem service](self, "service"), v11 = objc_claimAutoreleasedReturnValue(), v9 = *MEMORY[0x277CCF748], [v11 hf_characteristicOfType:*MEMORY[0x277CCF748]], v12 = objc_claimAutoreleasedReturnValue(), v12, v11, v12))
+  if (v10 || (objc_msgSend_service(self), v11 = objc_claimAutoreleasedReturnValue(), v9 = *MEMORY[0x277CCF748], [v11 hf_characteristicOfType:*MEMORY[0x277CCF748]], v12 = objc_claimAutoreleasedReturnValue(), v12, v11, v12))
   {
     v13 = v9;
   }
 
   else
   {
-    v19 = HFLogForCategory(0x2CuLL);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v18 = HFLogForCategory(0x2CuLL);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      service2 = [(HFServiceItem *)self service];
-      hf_prettyDescription = [service2 hf_prettyDescription];
+      v19 = objc_msgSend_service(self);
+      hf_prettyDescription = [v19 hf_prettyDescription];
       *buf = 138412290;
-      v26 = hf_prettyDescription;
-      _os_log_error_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_ERROR, "Fan (%@) has neither a powerState nor an active characteristic type!", buf, 0xCu);
+      v25 = hf_prettyDescription;
+      _os_log_error_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_ERROR, "Fan (%@) has neither a powerState nor an active characteristic type!", buf, 0xCu);
     }
 
     v13 = 0;
@@ -142,16 +140,14 @@
   [v7 na_safeAddObject:v13];
   v14 = [(HFServiceItem *)self performStandardUpdateWithCharacteristicTypes:v7 options:optionsCopy];
 
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __48__HFFanServiceItem__subclass_updateWithOptions___block_invoke;
-  v22[3] = &unk_277DF5578;
-  v23 = v13;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __48__HFFanServiceItem__subclass_updateWithOptions___block_invoke;
+  v21[3] = &unk_277DF5578;
+  v22 = v13;
   selfCopy = self;
   v15 = v13;
-  v16 = [v14 flatMap:v22];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = [v14 flatMap:v21];
 
   return v16;
 }

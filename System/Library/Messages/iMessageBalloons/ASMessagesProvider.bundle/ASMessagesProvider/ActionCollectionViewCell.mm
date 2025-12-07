@@ -34,12 +34,13 @@
   v3 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider24ActionCollectionViewCell_accessoryAction);
   if (v3)
   {
+    v5 = *&self->textLabel[OBJC_IVAR____TtC18ASMessagesProvider24ActionCollectionViewCell_accessoryAction];
     senderCopy = sender;
     selfCopy = self;
-    sub_F714(v3);
-    v3(senderCopy);
+    v8 = sub_F714(v3, v5);
+    v3(senderCopy, v8);
 
-    sub_F704(v3);
+    sub_F704(v3, v5);
   }
 }
 

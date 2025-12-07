@@ -129,11 +129,11 @@
   if (!deferLoadCount)
   {
     self->_deferStats = 0;
-    v4 = TUIImageCacheLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = TUIImageCacheLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "Pausing Loads", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "Pausing Loads", v6, 2u);
     }
   }
 
@@ -159,44 +159,44 @@
     os_unfair_lock_unlock(&self->_deferLoadLock);
     if (allObjects)
     {
-      v6 = TUIImageCacheLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      v7 = TUIImageCacheLog(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        v7 = [NSNumber numberWithUnsignedInteger:deferStats];
-        v8 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [allObjects count]);
+        v8 = [NSNumber numberWithUnsignedInteger:deferStats];
+        v9 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [allObjects count]);
         *buf = 138412546;
-        v21 = v7;
-        v22 = 2112;
-        v23 = v8;
-        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "Resuming Loads: deferred-loads / post-loads : %@ / %@", buf, 0x16u);
+        v22 = v8;
+        v23 = 2112;
+        v24 = v9;
+        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "Resuming Loads: deferred-loads / post-loads : %@ / %@", buf, 0x16u);
       }
 
-      v17 = 0u;
       v18 = 0u;
-      v15 = 0u;
+      v19 = 0u;
       v16 = 0u;
-      v9 = allObjects;
-      v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
-      if (v10)
+      v17 = 0u;
+      v10 = allObjects;
+      v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      if (v11)
       {
-        v11 = v10;
-        v12 = *v16;
+        v12 = v11;
+        v13 = *v17;
         do
         {
-          for (i = 0; i != v11; i = i + 1)
+          for (i = 0; i != v12; i = i + 1)
           {
-            if (*v16 != v12)
+            if (*v17 != v13)
             {
-              objc_enumerationMutation(v9);
+              objc_enumerationMutation(v10);
             }
 
-            loadImage = [*(*(&v15 + 1) + 8 * i) loadImage];
+            loadImage = [*(*(&v16 + 1) + 8 * i) loadImage];
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
         }
 
-        while (v11);
+        while (v12);
       }
     }
   }

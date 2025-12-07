@@ -89,45 +89,43 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_uuid)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    deleted = self->_deleted;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    modificationDate = self->_modificationDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_syncIdentity)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_appleID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_callerID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -227,7 +225,6 @@
     }
   }
 
-  v6 = *(equalCopy + 52);
   if ((*&self->_has & 2) == 0)
   {
     if ((*(equalCopy + 52) & 2) == 0)
@@ -236,7 +233,7 @@
     }
 
 LABEL_22:
-    v11 = 0;
+    v9 = 0;
     goto LABEL_23;
   }
 
@@ -245,7 +242,6 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v7 = *(equalCopy + 48);
   if (self->_deleted)
   {
     if ((*(equalCopy + 48) & 1) == 0)
@@ -291,17 +287,17 @@ LABEL_6:
   callerID = self->_callerID;
   if (callerID | *(equalCopy + 3))
   {
-    v11 = [(NSString *)callerID isEqual:?];
+    v9 = [(NSString *)callerID isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v9 = 1;
   }
 
 LABEL_23:
 
-  return v11;
+  return v9;
 }
 
 - (unint64_t)hash

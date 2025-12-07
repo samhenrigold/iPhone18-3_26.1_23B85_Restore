@@ -20,38 +20,39 @@
   dCopy = d;
   delegateCopy = delegate;
   blockCopy = block;
-  v27.receiver = self;
-  v27.super_class = _LTDContinuationOperation;
-  v11 = [(NSBlockOperation *)&v27 init];
+  v29.receiver = self;
+  v29.super_class = _LTDContinuationOperation;
+  v11 = [(NSBlockOperation *)&v29 init];
+  v13 = v11;
   if (v11)
   {
-    v12 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v14 = _LTOSLogTranslationEngine(v11, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      [(_LTDContinuationOperation *)v11 initWithGroupID:v12 delegate:v13 continuationBlock:v14, v15, v16, v17, v18];
+      [(_LTDContinuationOperation *)v13 initWithGroupID:v14 delegate:v15 continuationBlock:v16, v17, v18, v19, v20];
     }
 
-    v11->_lock._os_unfair_lock_opaque = 0;
-    objc_storeWeak(&v11->_delegate, delegateCopy);
-    v19 = [dCopy copy];
-    groupID = v11->_groupID;
-    v11->_groupID = v19;
+    v13->_lock._os_unfair_lock_opaque = 0;
+    objc_storeWeak(&v13->_delegate, delegateCopy);
+    v21 = [dCopy copy];
+    groupID = v13->_groupID;
+    v13->_groupID = v21;
 
-    objc_initWeak(&location, v11);
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __72___LTDContinuationOperation_initWithGroupID_delegate_continuationBlock___block_invoke;
-    v23[3] = &unk_2789B5F18;
-    objc_copyWeak(&v25, &location);
-    v24 = blockCopy;
-    [(NSBlockOperation *)v11 addExecutionBlock:v23];
-    v21 = v11;
+    objc_initWeak(&location, v13);
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __72___LTDContinuationOperation_initWithGroupID_delegate_continuationBlock___block_invoke;
+    v25[3] = &unk_2789B5F18;
+    objc_copyWeak(&v27, &location);
+    v26 = blockCopy;
+    [(NSBlockOperation *)v13 addExecutionBlock:v25];
+    v23 = v13;
 
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(&location);
   }
 
-  return v11;
+  return v13;
 }
 
 + (id)continuationOperationWithGroupID:(id)d delegate:(id)delegate block:(id)block
@@ -66,9 +67,9 @@
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5(&dword_232E53000, a2, a3, "Continuation operation dealloc: %p", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_5(&dword_232E53000, a2, a3, "Continuation operation dealloc: %p", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (BOOL)isAsynchronous
@@ -136,9 +137,9 @@
 
 - (void)start
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5(&dword_232E53000, a2, a3, "Continuation operation start: %p", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_5(&dword_232E53000, a2, a3, "Continuation operation start: %p", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)cancel
@@ -160,9 +161,9 @@
 
 - (void)initWithGroupID:(uint64_t)a3 delegate:(uint64_t)a4 continuationBlock:(uint64_t)a5 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5(&dword_232E53000, a2, a3, "Continuation operation initialized: %p", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_5(&dword_232E53000, a2, a3, "Continuation operation initialized: %p", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -16,14 +16,14 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_1007043AC();
+  sub_1007043AC(selfCopy);
 }
 
 - (void)feedbackButtonSelectedWithFeedbackOptioButton:(id)button
 {
   buttonCopy = button;
   selfCopy = self;
-  sub_1007045D8();
+  sub_1007045D8(buttonCopy);
 }
 
 - (void)didTapSubmitButton:(id)button

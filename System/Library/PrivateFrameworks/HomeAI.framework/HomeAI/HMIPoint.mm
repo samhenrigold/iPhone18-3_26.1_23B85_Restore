@@ -32,7 +32,7 @@
   [(HMIPoint *)self point];
   v5 = v4;
   [(HMIPoint *)self point];
-  return [v3 stringWithFormat:@"<%0.3f %0.3f>", v5, v6];
+  return [v3 stringWithFormat:v5, v6];
 }
 
 - (CGPoint)point
@@ -48,21 +48,19 @@
 - (HMIPoint)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  [coderCopy decodeDoubleForKey:@"HMIP.x"];
-  v6 = v5;
-  [coderCopy decodeDoubleForKey:@"HMIP.y"];
-  v8 = v7;
+  [coderCopy decodeDoubleForKey:?];
+  [coderCopy decodeDoubleForKey:?];
 
-  return [(HMIPoint *)self initWithPoint:v6, v8];
+  return [(HMIPoint *)self initWithPoint:?];
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
   [(HMIPoint *)self x];
-  [coderCopy encodeDouble:@"HMIP.x" forKey:?];
+  [coderCopy encodeDouble:? forKey:?];
   [(HMIPoint *)self y];
-  [coderCopy encodeDouble:@"HMIP.y" forKey:?];
+  [coderCopy encodeDouble:? forKey:?];
 }
 
 - (BOOL)isEqual:(id)equal

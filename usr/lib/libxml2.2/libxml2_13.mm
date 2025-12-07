@@ -1,3 +1,481 @@
+int *xmlRegEpxFromParse(uint64_t a1)
+{
+  v2 = malloc_type_malloc(0x68uLL, 0x10B0040C35ADC19uLL);
+  v3 = v2;
+  if (v2)
+  {
+    *(v2 + 12) = 0;
+    *(v2 + 4) = 0u;
+    *(v2 + 5) = 0u;
+    *(v2 + 2) = 0u;
+    *(v2 + 3) = 0u;
+    *v2 = 0u;
+    *(v2 + 1) = 0u;
+    *v2 = *a1;
+    v2[2] = *(a1 + 76);
+    *(v2 + 2) = *(a1 + 80);
+    v2[6] = *(a1 + 60);
+    *(v2 + 4) = *(a1 + 64);
+    v2[10] = *(a1 + 92);
+    *(v2 + 6) = *(a1 + 96);
+    v4 = *(a1 + 104);
+    v5 = *(a1 + 112);
+    v2[14] = v4;
+    v2[15] = v5;
+    if (v4 == -1)
+    {
+      xmlRegexpIsDeterminist(v2);
+      if (!v3[14])
+      {
+LABEL_9:
+        *a1 = 0;
+        *(a1 + 76) = 0;
+        *(a1 + 80) = 0;
+        *(a1 + 60) = 0;
+        *(a1 + 64) = 0;
+        *(a1 + 92) = 0;
+        *(a1 + 96) = 0;
+        return v3;
+      }
+    }
+
+    else if (!v4)
+    {
+      goto LABEL_9;
+    }
+
+    if (v3[10])
+    {
+      goto LABEL_9;
+    }
+
+    if (*(a1 + 108))
+    {
+      goto LABEL_9;
+    }
+
+    v7 = *(v3 + 4);
+    if (!v7)
+    {
+      goto LABEL_9;
+    }
+
+    v8 = *v7;
+    if (!v8 || *(v8 + 4) != 5)
+    {
+      goto LABEL_9;
+    }
+
+    v9 = malloc_type_malloc(4 * v3[2], 0x100004052888210uLL);
+    if (!v9)
+    {
+      xmlRegexpErrMemory(a1, "compiling regexp");
+LABEL_89:
+      free(v3);
+      return 0;
+    }
+
+    v10 = v9;
+    if (v3[2] < 1)
+    {
+      v12 = 0;
+    }
+
+    else
+    {
+      v11 = 0;
+      v12 = 0;
+      v13 = *(v3 + 2);
+      do
+      {
+        v14 = *(v13 + 8 * v11);
+        v15 = v14 == 0;
+        if (v14)
+        {
+          v16 = v12;
+        }
+
+        else
+        {
+          v16 = -1;
+        }
+
+        if (!v15)
+        {
+          ++v12;
+        }
+
+        *(v9 + v11++) = v16;
+      }
+
+      while (v11 < v3[2]);
+    }
+
+    v17 = malloc_type_malloc(8 * v3[6], 0x10040436913F5uLL);
+    if (v17)
+    {
+      v18 = v17;
+      v71 = malloc_type_malloc(4 * v3[6], 0x100004052888210uLL);
+      if (v71)
+      {
+        if (v3[6] >= 1)
+        {
+          v19 = 0;
+          v20 = 0;
+          while (1)
+          {
+            v21 = v20;
+            v22 = *(*(v3 + 4) + 8 * v19);
+            if (*(v22 + 4) != 5 || *(v22 + 8) != 2)
+            {
+              break;
+            }
+
+            v23 = *(v22 + 24);
+            if (v20 < 1)
+            {
+LABEL_36:
+              v71[v19] = v20;
+              v25 = xmlStrdup(v23);
+              v18[v20] = v25;
+              if (!v25)
+              {
+                if (v20 >= 1)
+                {
+                  v53 = v18;
+                  do
+                  {
+                    v54 = *v53++;
+                    free(v54);
+                    --v21;
+                  }
+
+                  while (v21);
+                }
+
+                free(v71);
+                goto LABEL_43;
+              }
+
+              ++v20;
+            }
+
+            else
+            {
+              v24 = 0;
+              while (!xmlStrEqual(v18[v24], v23))
+              {
+                if (v20 == ++v24)
+                {
+                  goto LABEL_36;
+                }
+              }
+
+              v71[v19] = v24;
+            }
+
+            if (++v19 >= v3[6])
+            {
+              goto LABEL_46;
+            }
+          }
+
+          free(v10);
+          free(v71);
+          if (v20 >= 1)
+          {
+            v51 = v18;
+            do
+            {
+              v52 = *v51++;
+              free(v52);
+              --v21;
+            }
+
+            while (v21);
+          }
+
+          goto LABEL_87;
+        }
+
+        v20 = 0;
+LABEL_46:
+        if (v12 == 0x7FFFFFFF || v20 == 0x7FFFFFFF || (v65 = v20 + 1, v12 >= 0x7FFFFFFF / (v20 + 1)))
+        {
+          xmlRegexpErrMemory(a1, "Regular expression too long to compile");
+          free(v10);
+          free(v71);
+          if (v20 >= 1)
+          {
+            v48 = v20;
+            v49 = v18;
+            do
+            {
+              v50 = *v49++;
+              free(v50);
+              --v48;
+            }
+
+            while (v48);
+          }
+        }
+
+        else
+        {
+          v72[0] = MEMORY[0x1E69E9820];
+          v72[1] = 0x40000000;
+          v72[2] = __xmlRegEpxFromParse_block_invoke;
+          v72[3] = &__block_descriptor_tmp_1;
+          v73 = v12;
+          v74 = v20;
+          v66 = __xmlRegEpxFromParse_block_invoke(v72);
+          if (v66)
+          {
+            if (v3[2] < 1)
+            {
+              v45 = 0;
+              v3[14] = 1;
+              v46 = *(v3 + 2);
+              if (!v46)
+              {
+                goto LABEL_100;
+              }
+            }
+
+            else
+            {
+              v27 = 0;
+              v28 = 0;
+              v29 = v66 + 4;
+              do
+              {
+                v30 = *(v10 + v27);
+                v69 = v27;
+                if (v30 != -1)
+                {
+                  v31 = *(*(v3 + 2) + 8 * v27);
+                  v32 = v30 * v65;
+                  *&v66[4 * v30 * v65] = *v31;
+                  if (*(v31 + 24) >= 1)
+                  {
+                    v33 = 0;
+                    v34 = 0;
+                    v35 = v32;
+                    v64 = v30 * v20;
+                    v67 = v32;
+                    v68 = v31;
+                    do
+                    {
+                      v36 = *(v31 + 32);
+                      v37 = *(v36 + v33 + 8);
+                      if (v37 != -1)
+                      {
+                        v38 = *(v36 + v33);
+                        if (v38)
+                        {
+                          v39 = *v38;
+                          v40 = v71[v39];
+                          if (*(v38 + 11))
+                          {
+                            v41 = v28 == 0;
+                          }
+
+                          else
+                          {
+                            v41 = 0;
+                          }
+
+                          if (v41)
+                          {
+                            if (v12 > 0x7FFFFFFF / v20)
+                            {
+                              xmlRegexpErrMemory(a1, "Regular expression too long to compile");
+                              free(v66);
+                              free(v10);
+                              free(v71);
+                              if (v20 >= 1)
+                              {
+                                v61 = v20;
+                                v62 = v18;
+                                do
+                                {
+                                  v63 = *v62++;
+                                  free(v63);
+                                  --v61;
+                                }
+
+                                while (v61);
+                              }
+
+                              goto LABEL_87;
+                            }
+
+                            v70 = v71[v39];
+                            if (v12 > (0x7FFFFFFFuLL / v20) >> 3 || (v28 = malloc_type_calloc(v20 * v12, 8uLL, 0x80040B8603338uLL)) == 0)
+                            {
+                              xmlRegexpErrMemory(a1, "compiling regexp");
+                              v28 = 0;
+                              v29 = v66 + 4;
+                              break;
+                            }
+
+                            v37 = *(v36 + v33 + 8);
+                            v29 = v66 + 4;
+                            v35 = v67;
+                            v31 = v68;
+                            v40 = v70;
+                          }
+
+                          v42 = *&v29[4 * v40 + 4 * v35];
+                          v43 = *(v10 + v37) + 1;
+                          if (v42)
+                          {
+                            if (v42 != v43)
+                            {
+                              v3[14] = 0;
+                              if (v28)
+                              {
+                                free(v28);
+                              }
+
+                              free(v66);
+                              free(v10);
+                              free(v71);
+                              if (v20 >= 1)
+                              {
+                                for (i = 0; i != v20; ++i)
+                                {
+                                  free(v18[i]);
+                                }
+                              }
+
+                              v71 = v18;
+                              goto LABEL_113;
+                            }
+                          }
+
+                          else
+                          {
+                            *&v29[4 * v40 + 4 * v35] = v43;
+                            if (v28)
+                            {
+                              *(v28 + v40 + v64) = *(*(v36 + v33) + 88);
+                            }
+                          }
+                        }
+                      }
+
+                      ++v34;
+                      v33 += 24;
+                    }
+
+                    while (v34 < *(v31 + 24));
+                  }
+                }
+
+                v27 = v69 + 1;
+                v44 = v3[2];
+              }
+
+              while (v69 + 1 < v44);
+              v45 = v28;
+              v3[14] = 1;
+              v46 = *(v3 + 2);
+              if (!v46)
+              {
+                goto LABEL_100;
+              }
+
+              if (v44 >= 1)
+              {
+                v47 = 0;
+                do
+                {
+                  xmlRegFreeState(*(*(v3 + 2) + 8 * v47++));
+                }
+
+                while (v47 < v3[2]);
+                v46 = *(v3 + 2);
+              }
+            }
+
+            free(v46);
+LABEL_100:
+            *(v3 + 2) = 0;
+            v3[2] = 0;
+            v58 = *(v3 + 4);
+            if (v58)
+            {
+              if (v3[6] >= 1)
+              {
+                v59 = 0;
+                do
+                {
+                  xmlRegFreeAtom(*(*(v3 + 4) + 8 * v59++));
+                }
+
+                while (v59 < v3[6]);
+                v58 = *(v3 + 4);
+              }
+
+              free(v58);
+            }
+
+            *(v3 + 4) = 0;
+            v3[6] = 0;
+            *(v3 + 9) = v66;
+            *(v3 + 10) = v45;
+            *(v3 + 12) = v18;
+            v3[22] = v20;
+            v3[16] = v12;
+            free(v10);
+LABEL_113:
+            free(v71);
+            goto LABEL_9;
+          }
+
+          free(v10);
+          free(v71);
+          if (v20 >= 1)
+          {
+            v55 = v20;
+            v56 = v18;
+            do
+            {
+              v57 = *v56++;
+              free(v57);
+              --v55;
+            }
+
+            while (v55);
+          }
+        }
+
+LABEL_87:
+        v26 = v18;
+        goto LABEL_88;
+      }
+
+      xmlRegexpErrMemory(a1, "compiling regexp");
+LABEL_43:
+      free(v18);
+    }
+
+    else
+    {
+      xmlRegexpErrMemory(a1, "compiling regexp");
+    }
+
+    v26 = v10;
+LABEL_88:
+    free(v26);
+    goto LABEL_89;
+  }
+
+  xmlRegexpErrMemory(a1, "compiling regexp");
+  return v3;
+}
+
 int xmlRegexpExec(xmlRegexpPtr comp, const xmlChar *value)
 {
   result = -1;
@@ -530,7 +1008,7 @@ uint64_t xmlFAComputesDeterminism(_DWORD *a1)
     v5 = a1[28];
     while (1)
     {
-      v6 = *(*(v2 + 80) + 8 * v4);
+      v6 = *(*(v2 + 10) + 8 * v4);
       if (v6)
       {
         v7 = *(v6 + 24);
@@ -550,7 +1028,7 @@ LABEL_37:
           v85 = v2;
           while (1)
           {
-            v23 = *(*(v2 + 80) + 8 * v22);
+            v23 = *(*(v2 + 10) + 8 * v22);
             if (!v23)
             {
               goto LABEL_247;
@@ -592,8 +1070,8 @@ LABEL_37:
                     if (v44 != -1)
                     {
                       v45 = v30;
-                      v46 = xmlFARecurseDeterminism(v2, *(*(v2 + 80) + 8 * v44));
-                      xmlFAFinishRecurseDeterminism(v2, *(*(v2 + 80) + 8 * *(v27 + 8)));
+                      v46 = xmlFARecurseDeterminism(v2, *(*(v2 + 10) + 8 * v44));
+                      xmlFAFinishRecurseDeterminism(v2, *(*(v2 + 10) + 8 * *(v27 + 8)));
                       v30 = v45;
                       v47 = v45;
                       if (!v46)
@@ -1232,10 +1710,10 @@ LABEL_243:
 
             v22 = v84;
 LABEL_247:
-            if (++v22 >= *(v2 + 76))
+            if (++v22 >= v2[19])
             {
 LABEL_250:
-              *(v2 + 104) = v1;
+              v2[26] = v1;
               return v1;
             }
           }
@@ -1265,7 +1743,7 @@ LABEL_35:
       v8 += 24;
       if (v9 >= v7)
       {
-        v3 = *(v2 + 76);
+        v3 = v2[19];
         goto LABEL_37;
       }
     }
@@ -1638,7 +2116,7 @@ uint64_t xmlFAGenerateTransitions(uint64_t a1, uint64_t a2, char *a3, uint64_t a
             xmlFAGenerateEpsilonTransition(a1, v20, 0);
             v21 = *(a4 + 64);
             v22 = *(a1 + 40);
-            goto LABEL_54;
+            goto LABEL_53;
           }
 
           xmlRegStateAddTrans(a1, v20, 0, v6, -1, -1);
@@ -1648,26 +2126,26 @@ uint64_t xmlFAGenerateTransitions(uint64_t a1, uint64_t a2, char *a3, uint64_t a
         {
           *(a4 + 8) = 2;
           xmlFAGenerateEpsilonTransition(a1, *(a4 + 48), *(a4 + 64));
-LABEL_53:
+LABEL_52:
           v21 = *(a4 + 64);
           v22 = *(a4 + 48);
-LABEL_54:
+LABEL_53:
           xmlFAGenerateEpsilonTransition(a1, v21, v22);
-          goto LABEL_55;
+          goto LABEL_54;
         }
 
-        goto LABEL_55;
+        goto LABEL_54;
       }
 
       if (v8 == 5)
       {
         *(a4 + 8) = 2;
-        goto LABEL_53;
+        goto LABEL_52;
       }
 
       if (v8 != 8)
       {
-LABEL_55:
+LABEL_54:
         result = 0;
         *(a4 + 48) = 0;
         *(a4 + 56) = 0;
@@ -1692,17 +2170,17 @@ LABEL_55:
           xmlFAGenerateCountedTransition(a1, *(a4 + 64), v6, v18);
           if (*(a4 + 12))
           {
-LABEL_45:
+LABEL_44:
             *(a4 + 16) = 0;
             *(a4 + 8) = 2;
             *(a1 + 40) = v6;
-            goto LABEL_55;
+            goto LABEL_54;
           }
 
           v19 = (a4 + 56);
-LABEL_44:
+LABEL_43:
           xmlFAGenerateEpsilonTransition(a1, *v19, v6);
-          goto LABEL_45;
+          goto LABEL_44;
         }
       }
 
@@ -1724,7 +2202,7 @@ LABEL_44:
               *(*(a1 + 96) + 8 * v26) = vadd_s32(*(a4 + 12), -1);
               xmlFAGenerateCountedEpsilonTransition(a1, v25, *(a4 + 64), v26);
               xmlFAGenerateCountedTransition(a1, v25, v6, v27);
-              goto LABEL_44;
+              goto LABEL_43;
             }
           }
         }
@@ -1734,7 +2212,7 @@ LABEL_44:
     return 0xFFFFFFFFLL;
   }
 
-  if (!*(a4 + 12) && !*(a4 + 16) && *(a4 + 8) == 8)
+  if (!*(a4 + 12) && *(a4 + 8) == 8)
   {
     if (!a3)
     {
@@ -1820,11 +2298,11 @@ LABEL_44:
 
       *(a4 + 8) = 2;
       xmlFAGenerateEpsilonTransition(a1, a2, v13);
-      goto LABEL_59;
+      goto LABEL_58;
     }
 
     *(a4 + 8) = 2;
-LABEL_57:
+LABEL_56:
     xmlFAGenerateEpsilonTransition(a1, a2, v13);
     return 0;
   }
@@ -1832,7 +2310,7 @@ LABEL_57:
   if (v16 == 5)
   {
     *(a4 + 8) = 2;
-LABEL_59:
+LABEL_58:
     xmlRegStateAddTrans(a1, v13, a4, v13, -1, -1);
     return 0;
   }
@@ -1844,7 +2322,7 @@ LABEL_59:
 
   if ((v15 & 1) == 0)
   {
-    goto LABEL_57;
+    goto LABEL_56;
   }
 
   return 0;
@@ -1912,86 +2390,77 @@ LABEL_13:
 xmlAutomataStatePtr xmlAutomataNewNegTrans(xmlAutomataPtr am, xmlAutomataStatePtr from, xmlAutomataStatePtr to, const xmlChar *token, const xmlChar *token2, void *data)
 {
   result = 0;
-  v31 = *MEMORY[0x1E69E9840];
-  if (!am)
+  v30 = *MEMORY[0x1E69E9840];
+  if (am)
   {
-    goto LABEL_14;
-  }
-
-  if (!from)
-  {
-    goto LABEL_14;
-  }
-
-  if (!token)
-  {
-    goto LABEL_14;
-  }
-
-  result = xmlRegNewAtom(am, 5);
-  if (!result)
-  {
-    goto LABEL_14;
-  }
-
-  v13 = result;
-  v29 = 0u;
-  memset(v30, 0, 23);
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  *__str = 0u;
-  v20 = 0u;
-  *(result + 11) = data;
-  *(result + 10) = 1;
-  if (token2 && *token2)
-  {
-    v14 = strlen(token2);
-    v15 = strlen(token);
-    v16 = malloc_type_malloc(v15 + v14 + 2, 0x100004077774924uLL);
-    if (!v16)
+    if (from)
     {
+      if (token)
+      {
+        result = xmlRegNewAtom(am, 5);
+        if (result)
+        {
+          v13 = result;
+          v28 = 0u;
+          memset(v29, 0, 23);
+          v26 = 0u;
+          v27 = 0u;
+          v24 = 0u;
+          v25 = 0u;
+          v22 = 0u;
+          v23 = 0u;
+          v20 = 0u;
+          v21 = 0u;
+          *__str = 0u;
+          v19 = 0u;
+          *(result + 11) = data;
+          *(result + 10) = 1;
+          if (token2 && *token2)
+          {
+            v14 = strlen(token2);
+            v15 = strlen(token);
+            v16 = malloc_type_malloc(v15 + v14 + 2, 0x100004077774924uLL);
+            if (!v16)
+            {
+              goto LABEL_13;
+            }
+
+            v17 = v16;
+            memcpy(v16, token, v15);
+            v17[v15] = 124;
+            memcpy(&v17[v15 + 1], token2, v14);
+            v17[v15 + 1 + v14] = 0;
+          }
+
+          else
+          {
+            v17 = xmlStrdup(token);
+          }
+
+          *(v13 + 3) = v17;
+          snprintf(__str, 0xC7uLL, "not %s", v17);
+          v29[23] = 0;
+          *(v13 + 4) = xmlStrdup(__str);
+          if ((xmlFAGenerateTransitions(am, from, to, v13) & 0x80000000) == 0)
+          {
+            ++*(am + 27);
+            result = to;
+            if (!to)
+            {
+              return *(am + 5);
+            }
+
+            return result;
+          }
+
 LABEL_13:
-      xmlRegFreeAtom(v13);
-      result = 0;
-      goto LABEL_14;
+          xmlRegFreeAtom(v13);
+          return 0;
+        }
+      }
     }
-
-    v17 = v16;
-    memcpy(v16, token, v15);
-    v17[v15] = 124;
-    memcpy(&v17[v15 + 1], token2, v14);
-    v17[v15 + 1 + v14] = 0;
   }
 
-  else
-  {
-    v17 = xmlStrdup(token);
-  }
-
-  *(v13 + 3) = v17;
-  snprintf(__str, 0xC7uLL, "not %s", v17);
-  v30[23] = 0;
-  *(v13 + 4) = xmlStrdup(__str);
-  if ((xmlFAGenerateTransitions(am, from, to, v13) & 0x80000000) != 0)
-  {
-    goto LABEL_13;
-  }
-
-  ++*(am + 27);
-  result = to;
-  if (!to)
-  {
-    result = *(am + 5);
-  }
-
-LABEL_14:
-  v18 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2155,12 +2624,12 @@ LABEL_12:
   return 0xFFFFFFFFLL;
 }
 
-_DWORD *xmlRegStateAddTrans(_DWORD *result, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6)
+xmlError *xmlRegStateAddTrans(xmlError *result, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6)
 {
   v6 = result;
   if (!a2)
   {
-    result[4] = 1450;
+    result->level = 1450;
     v17 = "add state: state is NULL";
 LABEL_14:
 
@@ -2169,7 +2638,7 @@ LABEL_14:
 
   if (!a4)
   {
-    result[4] = 1450;
+    result->level = 1450;
     v17 = "add state: target is NULL";
     goto LABEL_14;
   }
@@ -2234,7 +2703,7 @@ LABEL_10:
     {
       result = *(a4 + 48);
 LABEL_35:
-      result[v21] = v20;
+      *(&result->domain + v21) = v20;
       ++*(a4 + 44);
       return result;
     }
@@ -2345,14 +2814,14 @@ LABEL_12:
   return v9;
 }
 
-_DWORD *xmlFAGenerateEpsilonTransition(uint64_t a1, uint64_t a2, char *a3)
+xmlError *xmlFAGenerateEpsilonTransition(xmlError *a1, uint64_t a2, char *a3)
 {
   v3 = a3;
   if (!a3)
   {
     v3 = xmlRegNewState(a1);
     xmlRegStatePush(a1, v3);
-    *(a1 + 40) = v3;
+    a1->str1 = v3;
   }
 
   return xmlRegStateAddTrans(a1, a2, 0, v3, -1, -1);
@@ -2674,14 +3143,14 @@ xmlAutomataStatePtr xmlAutomataNewCountedTrans(xmlAutomataPtr am, xmlAutomataSta
   return result;
 }
 
-_DWORD *xmlFAGenerateCountedEpsilonTransition(uint64_t a1, uint64_t a2, char *a3, int a4)
+xmlError *xmlFAGenerateCountedEpsilonTransition(xmlError *a1, uint64_t a2, char *a3, int a4)
 {
   v5 = a3;
   if (!a3)
   {
     v5 = xmlRegNewState(a1);
     xmlRegStatePush(a1, v5);
-    *(a1 + 40) = v5;
+    a1->str1 = v5;
   }
 
   return xmlRegStateAddTrans(a1, a2, 0, v5, a4, -1);
@@ -2703,14 +3172,14 @@ xmlAutomataStatePtr xmlAutomataNewCounterTrans(xmlAutomataPtr am, xmlAutomataSta
   return result;
 }
 
-_DWORD *xmlFAGenerateCountedTransition(uint64_t a1, uint64_t a2, char *a3, int a4)
+xmlError *xmlFAGenerateCountedTransition(xmlError *a1, uint64_t a2, char *a3, int a4)
 {
   v5 = a3;
   if (!a3)
   {
     v5 = xmlRegNewState(a1);
     xmlRegStatePush(a1, v5);
-    *(a1 + 40) = v5;
+    a1->str1 = v5;
   }
 
   return xmlRegStateAddTrans(a1, a2, 0, v5, -1, a4);
@@ -2796,7 +3265,7 @@ LABEL_12:
   return xmlRegexpErrMemory(0, "pushing input string");
 }
 
-uint64_t xmlRegStrEqualWildcard(_BYTE *a1, _BYTE *a2)
+BOOL xmlRegStrEqualWildcard(_BYTE *a1, _BYTE *a2)
 {
   if (a1 == a2)
   {
@@ -3459,46 +3928,46 @@ LABEL_50:
   return 1;
 }
 
-_DWORD *xmlFAParseCharGroup(_DWORD *result)
+xmlError *xmlFAParseCharGroup(xmlError *result)
 {
   v1 = result;
-  v2 = result[5];
-  v3 = *(result + 1);
-  v4 = *v3;
+  v2 = *(&result->level + 1);
+  message = result->message;
+  v4 = *message;
   if (v4 != 94)
   {
     goto LABEL_4;
   }
 
-  *(result + 1) = v3 + 1;
-  result[5] = v2 == 0;
+  result->message = message + 1;
+  *(&result->level + 1) = v2 == 0;
   result = xmlFAParsePosCharGroup(result);
-  *(v1 + 20) = v2;
+  *(&v1->level + 1) = v2;
   while (1)
   {
-    v3 = *(v1 + 8);
-    v4 = *v3;
+    message = v1->message;
+    v4 = *message;
 LABEL_4:
-    if (v4 == 93 || *(v1 + 16))
+    if (v4 == 93 || v1->level)
     {
       break;
     }
 
-    if (v4 == 45 && v3[1] == 91)
+    if (v4 == 45 && message[1] == 91)
     {
-      *(v1 + 8) = v3 + 2;
-      *(v1 + 20) = 2;
+      v1->message = message + 2;
+      *(&v1->level + 1) = 2;
       result = xmlFAParseCharGroup(v1);
-      *(v1 + 20) = v2;
-      v5 = *(v1 + 8);
+      *(&v1->level + 1) = v2;
+      v5 = v1->message;
       if (*v5 == 93)
       {
-        *(v1 + 8) = v5 + 1;
+        v1->message = v5 + 1;
       }
 
       else
       {
-        *(v1 + 16) = 1450;
+        v1->level = 1450;
 
         return xmlRegexpErrCompile(v1, "charClassExpr: ']' expected");
       }
@@ -3512,64 +3981,64 @@ LABEL_4:
   return result;
 }
 
-_DWORD *xmlFAParseCharClassEsc(_DWORD *result)
+xmlError *xmlFAParseCharClassEsc(xmlError *result)
 {
   v1 = result;
-  v2 = *(result + 1);
-  v3 = *v2;
+  message = result->message;
+  v3 = *message;
   if (v3 != 92)
   {
     if (v3 == 46)
     {
-      v4 = *(result + 6);
-      if (!v4)
+      str2 = result->str2;
+      if (!str2)
       {
         result = xmlRegNewAtom(result, 6);
-        *(v1 + 6) = result;
+        v1->str2 = result;
         goto LABEL_41;
       }
 
-      if (*(v4 + 4) != 3)
+      if (*(str2 + 4) != 3)
       {
         goto LABEL_41;
       }
 
-      v5 = result[5];
+      v5 = *(&result->level + 1);
       v6 = 6;
       v7 = 0;
       v8 = 0;
 LABEL_40:
-      result = xmlRegAtomAddRange(result, v4, v5, v6, v7, v8, 0);
+      result = xmlRegAtomAddRange(result, str2, v5, v6, v7, v8, 0);
       goto LABEL_41;
     }
 
-    result[4] = 1450;
-    v12 = "Escaped sequence: expecting \";
+    result->level = 1450;
+    v12 = "Escaped sequence: expecting \"";
 LABEL_12:
 
     return xmlRegexpErrCompile(v1, v12);
   }
 
-  *(result + 1) = v2 + 1;
-  v9 = v2[1];
-  if (v9 > 0x43)
+  result->message = message + 1;
+  v9 = message[1];
+  if (message[1] > 0x43u)
   {
     v10 = 7;
-    switch(v2[1])
+    switch(message[1])
     {
       case 'P':
-        *(result + 1) = v2 + 2;
-        if (v2[2] != 123)
+        result->message = message + 2;
+        if (message[2] != 123)
         {
           goto LABEL_58;
         }
 
-        *(result + 1) = v2 + 3;
+        result->message = message + 3;
         result = xmlFAParseCharProp(result);
-        v11 = *(v1 + 6);
+        v11 = v1->str2;
         if (v11)
         {
-          *(v11 + 40) = 1;
+          *(v11 + 10) = 1;
         }
 
         goto LABEL_54;
@@ -3627,22 +4096,22 @@ LABEL_12:
         v10 = 9;
         goto LABEL_61;
       case 'p':
-        *(result + 1) = v2 + 2;
-        if (v2[2] != 123)
+        result->message = message + 2;
+        if (message[2] != 123)
         {
 LABEL_58:
-          result[4] = 1450;
+          result->level = 1450;
           v12 = "Expecting '{'";
           goto LABEL_12;
         }
 
-        *(result + 1) = v2 + 3;
+        result->message = message + 3;
         result = xmlFAParseCharProp(result);
 LABEL_54:
-        v14 = *(v1 + 1);
+        v14 = v1->message;
         if (*v14 != 125)
         {
-          v1[4] = 1450;
+          v1->level = 1450;
           v12 = "Expecting '}'";
           goto LABEL_12;
         }
@@ -3675,21 +4144,21 @@ LABEL_54:
     goto LABEL_61;
   }
 
-  if (v2[1] > 0x2Cu)
+  if (message[1] > 0x2Cu)
   {
-    if (v9 - 45 >= 2 && v9 != 63)
+    if ((v9 - 45) >= 2 && v9 != 63)
     {
       if (v9 == 67)
       {
         v10 = 12;
 LABEL_61:
-        *(result + 1) = v2 + 2;
-        v15 = *(result + 6);
+        result->message = message + 2;
+        v15 = result->str2;
         if (v15)
         {
           if (*(v15 + 4) == 3)
           {
-            v16 = result[5];
+            v16 = *(&result->level + 1);
 
             return xmlRegAtomAddRange(result, v15, v16, v10, 0, 0, 0);
           }
@@ -3698,29 +4167,29 @@ LABEL_61:
         else
         {
           result = xmlRegNewAtom(result, v10);
-          *(v1 + 6) = result;
+          v1->str2 = result;
         }
 
         return result;
       }
 
 LABEL_44:
-      result[4] = 1450;
+      result->level = 1450;
       v12 = "Wrong escape sequence, misuse of character '\\'";
       goto LABEL_12;
     }
   }
 
-  else if (v9 - 40 >= 4)
+  else if ((v9 - 40) >= 4)
   {
     goto LABEL_44;
   }
 
 LABEL_23:
-  v4 = *(result + 6);
-  if (v4)
+  str2 = result->str2;
+  if (str2)
   {
-    if (*(v4 + 4) != 3)
+    if (*(str2 + 4) != 3)
     {
       goto LABEL_41;
     }
@@ -3738,7 +4207,7 @@ LABEL_23:
         break;
     }
 
-    v5 = result[5];
+    v5 = *(&result->level + 1);
     v6 = 2;
     v7 = v9;
     v8 = v9;
@@ -3746,7 +4215,7 @@ LABEL_23:
   }
 
   result = xmlRegNewAtom(result, 2);
-  *(v1 + 6) = result;
+  v1->str2 = result;
   if (!result)
   {
     goto LABEL_41;
@@ -3763,39 +4232,39 @@ LABEL_23:
     case 'n':
       v13 = 10;
 LABEL_47:
-      result[11] = v13;
+      HIDWORD(result->str1) = v13;
       goto LABEL_41;
   }
 
-  result[11] = v9;
+  HIDWORD(result->str1) = v9;
 LABEL_41:
-  v14 = *(v1 + 1);
+  v14 = v1->message;
 LABEL_42:
-  *(v1 + 1) = v14 + 1;
+  v1->message = v14 + 1;
   return result;
 }
 
-uint64_t xmlFAParsePosCharGroup(uint64_t result)
+xmlError *xmlFAParsePosCharGroup(xmlError *result)
 {
   v1 = result;
-  v2 = *(result + 8);
-  v3 = *v2;
+  message = result->message;
+  v3 = *message;
   do
   {
     if (v3 != 92)
     {
       len = 0;
-      v4 = *v2;
+      v4 = *message;
       if (v4 > 0x5B)
       {
         if (v4 == 92)
         {
-          v6 = (v2 + 1);
-          *(v1 + 8) = v2 + 1;
-          v5 = v2[1];
-          if (v5 > 0x71)
+          v6 = (message + 1);
+          *(v1 + 8) = message + 1;
+          v5 = message[1];
+          if (message[1] > 0x71u)
           {
-            if (v5 - 123 >= 3)
+            if ((v5 - 123) >= 3)
             {
               if (v5 == 116)
               {
@@ -3814,7 +4283,7 @@ uint64_t xmlFAParsePosCharGroup(uint64_t result)
             }
           }
 
-          else if (v5 - 40 > 0x36 || ((1 << (v5 - 40)) & 0x7800000080006FLL) == 0)
+          else if ((v5 - 40) > 0x36 || ((1 << (v5 - 40)) & 0x7800000080006FLL) == 0)
           {
             if (v5 != 110)
             {
@@ -3863,9 +4332,9 @@ LABEL_30:
             {
               *(v1 + 8) = v10 + 2;
               v16 = v10[2];
-              if (v16 > 0x71)
+              if (v10[2] > 0x71u)
               {
-                if (v16 - 123 >= 3)
+                if ((v16 - 123) >= 3)
                 {
                   if (v16 == 116)
                   {
@@ -3888,7 +4357,7 @@ LABEL_49:
                 }
               }
 
-              else if (v16 - 40 > 0x36 || ((1 << (v16 - 40)) & 0x7800000080006FLL) == 0)
+              else if ((v16 - 40) > 0x36 || ((1 << (v16 - 40)) & 0x7800000080006FLL) == 0)
               {
                 if (v16 != 110)
                 {
@@ -3933,7 +4402,7 @@ LABEL_52:
         if (v4 != 93)
         {
 LABEL_7:
-          result = xmlStringCurrentChar(0, v2, &len);
+          result = xmlStringCurrentChar(0, message, &len);
           v5 = result;
           v6 = *(v1 + 8);
           goto LABEL_23;
@@ -3947,7 +4416,7 @@ LABEL_10:
 
       else
       {
-        if (*v2)
+        if (*message)
         {
           if (v4 == 91)
           {
@@ -3969,15 +4438,15 @@ LABEL_54:
 
     result = xmlFAParseCharClassEsc(v1);
 LABEL_55:
-    v2 = *(v1 + 8);
-    v3 = *v2;
+    message = *(v1 + 8);
+    v3 = *message;
   }
 
-  while (*v2 && v3 != 45 && v3 != 93 && !*(v1 + 16));
+  while (*message && v3 != 45 && v3 != 93 && !*(v1 + 16));
   return result;
 }
 
-_DWORD *xmlRegAtomAddRange(uint64_t a1, uint64_t a2, int a3, int a4, int a5, int a6, uint64_t a7)
+xmlError *xmlRegAtomAddRange(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   if (!a2)
   {
@@ -3995,6 +4464,10 @@ LABEL_11:
     goto LABEL_11;
   }
 
+  v10 = a6;
+  v11 = a5;
+  v12 = a4;
+  v13 = a3;
   v14 = *(a2 + 72);
   if (*(a2 + 76) >= v14)
   {
@@ -4034,10 +4507,10 @@ LABEL_11:
     *(a2 + 72) = v17;
   }
 
-  result = xmlRegNewRange(a1, a3, a4, a5, a6);
+  result = xmlRegNewRange(a1, v13, v12, v11, v10);
   if (result)
   {
-    *(result + 2) = a7;
+    *&result->level = a7;
     v19 = *(a2 + 80);
     v20 = *(a2 + 76);
     *(a2 + 76) = v20 + 1;
@@ -4067,44 +4540,44 @@ _DWORD *xmlRegNewRange(uint64_t a1, int a2, int a3, int a4, int a5)
   return v11;
 }
 
-_DWORD *xmlFAParseCharProp(_DWORD *result)
+xmlError *xmlFAParseCharProp(xmlError *result)
 {
   v1 = result;
-  v2 = *(result + 1);
-  v3 = *v2;
+  message = result->message;
+  v3 = *message;
   if (v3 > 0x4D)
   {
-    if (*v2 > 0x52u)
+    if (*message > 0x52u)
     {
       if (v3 == 83)
       {
         v11 = 0;
-        *(result + 1) = v2 + 1;
-        v19 = (((v2[1] - 99) >> 1) | ((v2[1] - 99) << 7));
+        result->message = message + 1;
+        v19 = (((message[1] - 99) >> 1) | ((message[1] - 99) << 7));
         v13 = 126;
         if (v19 > 4)
         {
           if (v19 == 6)
           {
             v11 = 0;
-            *(result + 1) = v2 + 2;
+            result->message = message + 2;
             v13 = 130;
           }
 
           else if (v19 == 5)
           {
             v11 = 0;
-            *(result + 1) = v2 + 2;
+            result->message = message + 2;
             v13 = 127;
           }
         }
 
-        else if (((v2[1] - 99) >> 1) | ((v2[1] - 99) << 7))
+        else if (((message[1] - 99) >> 1) | ((message[1] - 99) << 7))
         {
           if (v19 == 4)
           {
             v11 = 0;
-            *(result + 1) = v2 + 2;
+            result->message = message + 2;
             v13 = 129;
           }
         }
@@ -4112,7 +4585,7 @@ _DWORD *xmlFAParseCharProp(_DWORD *result)
         else
         {
           v11 = 0;
-          *(result + 1) = v2 + 2;
+          result->message = message + 2;
           v13 = 128;
         }
 
@@ -4124,19 +4597,19 @@ _DWORD *xmlFAParseCharProp(_DWORD *result)
         goto LABEL_55;
       }
 
-      *(result + 1) = v2 + 1;
-      v15 = v2[1];
+      result->message = message + 1;
+      v15 = message[1];
       if (v15 == 108)
       {
         v11 = 0;
-        *(result + 1) = v2 + 2;
+        result->message = message + 2;
         v13 = 124;
       }
 
       else if (v15 == 112)
       {
         v11 = 0;
-        *(result + 1) = v2 + 2;
+        result->message = message + 2;
         v13 = 125;
       }
 
@@ -4145,7 +4618,7 @@ _DWORD *xmlFAParseCharProp(_DWORD *result)
         v11 = 0;
         if (v15 == 115)
         {
-          *(result + 1) = v2 + 2;
+          result->message = message + 2;
           v13 = 123;
         }
 
@@ -4163,8 +4636,8 @@ _DWORD *xmlFAParseCharProp(_DWORD *result)
         if (v3 == 80)
         {
           v11 = 0;
-          *(result + 1) = v2 + 1;
-          v12 = v2[1];
+          result->message = message + 1;
+          v12 = message[1];
           v13 = 114;
           if (v12 <= 0x65)
           {
@@ -4172,35 +4645,35 @@ _DWORD *xmlFAParseCharProp(_DWORD *result)
             {
               case 'c':
                 v11 = 0;
-                *(result + 1) = v2 + 2;
+                result->message = message + 2;
                 v13 = 115;
                 break;
               case 'd':
                 v11 = 0;
-                *(result + 1) = v2 + 2;
+                result->message = message + 2;
                 v13 = 116;
                 break;
               case 'e':
                 v11 = 0;
-                *(result + 1) = v2 + 2;
+                result->message = message + 2;
                 v13 = 118;
                 break;
             }
           }
 
-          else if (v2[1] > 0x6Eu)
+          else if (message[1] > 0x6Eu)
           {
             if (v12 == 111)
             {
               v11 = 0;
-              *(result + 1) = v2 + 2;
+              result->message = message + 2;
               v13 = 121;
             }
 
             else if (v12 == 115)
             {
               v11 = 0;
-              *(result + 1) = v2 + 2;
+              result->message = message + 2;
               v13 = 117;
             }
           }
@@ -4208,14 +4681,14 @@ _DWORD *xmlFAParseCharProp(_DWORD *result)
           else if (v12 == 102)
           {
             v11 = 0;
-            *(result + 1) = v2 + 2;
+            result->message = message + 2;
             v13 = 120;
           }
 
           else if (v12 == 105)
           {
             v11 = 0;
-            *(result + 1) = v2 + 2;
+            result->message = message + 2;
             v13 = 119;
           }
 
@@ -4225,19 +4698,19 @@ _DWORD *xmlFAParseCharProp(_DWORD *result)
         goto LABEL_55;
       }
 
-      *(result + 1) = v2 + 1;
-      v17 = v2[1];
+      result->message = message + 1;
+      v17 = message[1];
       if (v17 == 111)
       {
         v11 = 0;
-        *(result + 1) = v2 + 2;
+        result->message = message + 2;
         v13 = 113;
       }
 
       else if (v17 == 108)
       {
         v11 = 0;
-        *(result + 1) = v2 + 2;
+        result->message = message + 2;
         v13 = 112;
       }
 
@@ -4246,7 +4719,7 @@ _DWORD *xmlFAParseCharProp(_DWORD *result)
         v11 = 0;
         if (v17 == 100)
         {
-          *(result + 1) = v2 + 2;
+          result->message = message + 2;
           v13 = 111;
         }
 
@@ -4258,51 +4731,51 @@ _DWORD *xmlFAParseCharProp(_DWORD *result)
     }
 
 LABEL_97:
-    v21 = *(v1 + 6);
-    if (v21)
+    str2 = v1->str2;
+    if (str2)
     {
-      if (*(v21 + 4) == 3)
+      if (*(str2 + 4) == 3)
       {
-        v22 = v1[5];
+        v22 = *(&v1->level + 1);
 
-        return xmlRegAtomAddRange(v1, v21, v22, v13, 0, 0, v11);
+        return xmlRegAtomAddRange(v1, str2, v22, v13, 0, 0, v11);
       }
     }
 
     else
     {
       result = xmlRegNewAtom(v1, v13);
-      *(v1 + 6) = result;
+      v1->str2 = result;
       if (result)
       {
-        *(result + 3) = v11;
+        result->file = v11;
       }
     }
 
     return result;
   }
 
-  if (*v2 > 0x4Bu)
+  if (*message > 0x4Bu)
   {
     if (v3 == 76)
     {
       v11 = 0;
-      *(result + 1) = v2 + 1;
-      v18 = v2[1];
+      result->message = message + 1;
+      v18 = message[1];
       v13 = 100;
       if (v18 <= 0x6E)
       {
         if (v18 == 108)
         {
           v11 = 0;
-          *(result + 1) = v2 + 2;
+          result->message = message + 2;
           v13 = 102;
         }
 
         else if (v18 == 109)
         {
           v11 = 0;
-          *(result + 1) = v2 + 2;
+          result->message = message + 2;
           v13 = 104;
         }
       }
@@ -4313,17 +4786,17 @@ LABEL_97:
         {
           case 'o':
             v11 = 0;
-            *(result + 1) = v2 + 2;
+            result->message = message + 2;
             v13 = 105;
             break;
           case 't':
             v11 = 0;
-            *(result + 1) = v2 + 2;
+            result->message = message + 2;
             v13 = 103;
             break;
           case 'u':
             v11 = 0;
-            *(result + 1) = v2 + 2;
+            result->message = message + 2;
             v13 = 101;
             break;
         }
@@ -4334,19 +4807,19 @@ LABEL_97:
 
     if (v3 == 77)
     {
-      *(result + 1) = v2 + 1;
-      v14 = v2[1];
+      result->message = message + 1;
+      v14 = message[1];
       if (v14 == 99)
       {
         v11 = 0;
-        *(result + 1) = v2 + 2;
+        result->message = message + 2;
         v13 = 108;
       }
 
       else if (v14 == 101)
       {
         v11 = 0;
-        *(result + 1) = v2 + 2;
+        result->message = message + 2;
         v13 = 109;
       }
 
@@ -4355,7 +4828,7 @@ LABEL_97:
         v11 = 0;
         if (v14 == 110)
         {
-          *(result + 1) = v2 + 2;
+          result->message = message + 2;
           v13 = 107;
         }
 
@@ -4369,7 +4842,7 @@ LABEL_97:
     }
 
 LABEL_55:
-    result[4] = 1450;
+    result->level = 1450;
     v20 = "Unknown char property";
     goto LABEL_63;
   }
@@ -4377,22 +4850,22 @@ LABEL_55:
   if (v3 == 67)
   {
     v11 = 0;
-    *(result + 1) = v2 + 1;
-    v16 = v2[1];
+    result->message = message + 1;
+    v16 = message[1];
     v13 = 131;
     if (v16 > 0x6D)
     {
       if (v16 == 110)
       {
         v11 = 0;
-        *(result + 1) = v2 + 2;
+        result->message = message + 2;
         v13 = 135;
       }
 
       else if (v16 == 111)
       {
         v11 = 0;
-        *(result + 1) = v2 + 2;
+        result->message = message + 2;
         v13 = 134;
       }
     }
@@ -4400,14 +4873,14 @@ LABEL_55:
     else if (v16 == 99)
     {
       v11 = 0;
-      *(result + 1) = v2 + 2;
+      result->message = message + 2;
       v13 = 132;
     }
 
     else if (v16 == 102)
     {
       v11 = 0;
-      *(result + 1) = v2 + 2;
+      result->message = message + 2;
       v13 = 133;
     }
 
@@ -4419,12 +4892,12 @@ LABEL_55:
     goto LABEL_55;
   }
 
-  *(result + 1) = v2 + 1;
-  if (v2[1] == 115)
+  result->message = message + 1;
+  if (message[1] == 115)
   {
-    v4 = v2 + 2;
-    *(v1 + 1) = v2 + 2;
-    v5 = v2[2];
+    v4 = (message + 2);
+    v1->message = message + 2;
+    v5 = message[2];
     if ((v5 & 0xFFFFFFDF) - 65 > 0x19 && (v5 != 45 ? (v6 = (v5 - 48) >= 0xA) : (v6 = 0), v6))
     {
       i = 0;
@@ -4432,10 +4905,10 @@ LABEL_55:
 
     else
     {
-      v7 = v2 + 3;
+      v7 = message + 3;
       for (i = 1; ; ++i)
       {
-        *(v1 + 1) = v7;
+        v1->message = v7;
         v9 = *v7;
         if ((v9 & 0xFFFFFFDF) - 65 > 0x19 && v9 != 45 && (v9 - 48) >= 0xA)
         {
@@ -4452,7 +4925,7 @@ LABEL_55:
     goto LABEL_97;
   }
 
-  result[4] = 1450;
+  result->level = 1450;
   v20 = "IsXXXX expected";
 LABEL_63:
 
@@ -4513,13 +4986,13 @@ uint64_t xmlFAParseQuantExact(uint64_t a1)
   }
 }
 
-_DWORD *xmlFAReduceEpsilonTransitions(_DWORD *result, uint64_t a2, unsigned int a3, int a4)
+xmlError *xmlFAReduceEpsilonTransitions(xmlError *result, uint64_t a2, unsigned int a3, int a4)
 {
-  v4 = *(result + 10);
-  v5 = *(v4 + 8 * a2);
+  node = result->node;
+  v5 = node[a2];
   if (v5)
   {
-    v6 = *(v4 + 8 * a3);
+    v6 = node[a3];
     if (v6)
     {
       if ((*(v6 + 4) - 1) >= 2)
@@ -4543,7 +5016,7 @@ _DWORD *xmlFAReduceEpsilonTransitions(_DWORD *result, uint64_t a2, unsigned int 
               if (*(v12 + v10))
               {
                 v14 = *(v12 + v10 + 12);
-                v15 = *(*(v9 + 10) + 8 * v13);
+                v15 = *(v9->node + v13);
                 v16 = v9;
                 v17 = v5;
                 v18 = *(v12 + v10);
@@ -4559,18 +5032,23 @@ _DWORD *xmlFAReduceEpsilonTransitions(_DWORD *result, uint64_t a2, unsigned int 
               {
                 if (v13 == a2)
                 {
-                  goto LABEL_18;
+                  goto LABEL_20;
                 }
 
                 v19 = *(v12 + v10 + 16);
                 if (v19 < 0)
                 {
-                  *(v12 + v10 + 12);
-                  result = xmlFAReduceEpsilonTransitions(v9, a2);
-                  goto LABEL_18;
+                  v20 = *(v12 + v10 + 12);
+                  if (v20 < 0)
+                  {
+                    v20 = a4;
+                  }
+
+                  result = xmlFAReduceEpsilonTransitions(v9, a2, v13, v20);
+                  goto LABEL_20;
                 }
 
-                v15 = *(*(v9 + 10) + 8 * v13);
+                v15 = *(v9->node + v13);
                 v16 = v9;
                 v17 = v5;
                 v18 = 0;
@@ -4580,7 +5058,7 @@ _DWORD *xmlFAReduceEpsilonTransitions(_DWORD *result, uint64_t a2, unsigned int 
               result = xmlRegStateAddTrans(v16, v17, v18, v15, v14, v19);
             }
 
-LABEL_18:
+LABEL_20:
             v10 += 24;
           }
         }
@@ -4623,7 +5101,7 @@ void *__xmlRegEpxFromParse_block_invoke_2(uint64_t a1)
   }
 }
 
-uint64_t xmlRegCheckCharacter(uint64_t a1, unsigned int code)
+uint64_t xmlRegCheckCharacter(uint64_t a1, int code)
 {
   if (code > 255)
   {
@@ -6685,152 +7163,142 @@ void xmlElemDump(FILE *f, xmlDocPtr doc, xmlNodePtr cur)
 
 void xmlDocDumpFormatMemoryEnc(xmlDocPtr out_doc, xmlChar **doc_txt_ptr, int *doc_txt_len, const char *txt_encoding, int format)
 {
-  v38 = *MEMORY[0x1E69E9840];
-  if (!doc_txt_ptr)
+  v35 = *MEMORY[0x1E69E9840];
+  if (doc_txt_ptr)
   {
+    encoding = txt_encoding;
+    *doc_txt_ptr = 0;
     if (doc_txt_len)
     {
       *doc_txt_len = 0;
     }
 
-    goto LABEL_30;
-  }
-
-  encoding = txt_encoding;
-  *doc_txt_ptr = 0;
-  if (doc_txt_len)
-  {
-    *doc_txt_len = 0;
-  }
-
-  if (!out_doc)
-  {
-    goto LABEL_30;
-  }
-
-  if (!txt_encoding)
-  {
-    encoding = out_doc->encoding;
-    if (!encoding)
+    if (out_doc)
     {
-      CharEncodingHandler = 0;
-LABEL_12:
-      v16 = xmlAllocOutputBuffer(CharEncodingHandler);
-      if (!v16)
+      if (txt_encoding || (encoding = out_doc->encoding) != 0)
       {
-        v23 = *MEMORY[0x1E69E9840];
-        v15 = "creating buffer";
-        v13 = 2;
-        v14 = 0;
-        v12 = 0;
-        goto LABEL_17;
-      }
-
-      v17 = v16;
-      v29 = 0;
-      v31 = 0u;
-      v37 = 0;
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
-      v34 = 0u;
-      v32 = 0u;
-      v26 = 0u;
-      v27 = 0;
-      v30 = v16;
-      DWORD2(v31) = format != 0;
-      v28 = encoding;
-      xmlSaveCtxtInit(&v26);
-      LODWORD(v31) = v31 | 0x20;
-      xmlDocContentDumpOutput(&v26, out_doc);
-      xmlOutputBufferFlush(v17);
-      conv = v17->conv;
-      if (conv)
-      {
-        v19 = xmlBufUse(conv);
-        v20 = v19;
-        if (doc_txt_len)
+        CharEncodingHandler = xmlFindCharEncodingHandler(encoding);
+        if (!CharEncodingHandler)
         {
-          *doc_txt_len = v19;
-          v21 = xmlBufContent(v17->conv);
-          v20 = 0;
-          v22 = *doc_txt_len;
-        }
+          v11 = "unknown encoding %s\n";
+          v12 = 1403;
+          v13 = out_doc;
+          v14 = encoding;
+LABEL_17:
 
-        else
-        {
-          v21 = xmlBufContent(v17->conv);
-          v22 = v20;
+          __xmlSimpleError(7u, v12, v13, v11, v14);
+          return;
         }
       }
 
       else
       {
-        v24 = xmlBufUse(v17->buffer);
-        v20 = v24;
+        CharEncodingHandler = 0;
+      }
+
+      v15 = xmlAllocOutputBuffer(CharEncodingHandler);
+      if (!v15)
+      {
+        v14 = "creating buffer";
+        v12 = 2;
+        v13 = 0;
+        v11 = 0;
+        goto LABEL_17;
+      }
+
+      v16 = v15;
+      v26 = 0;
+      v28 = 0u;
+      v34 = 0;
+      v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
+      v29 = 0u;
+      v23 = 0u;
+      v24 = 0;
+      v27 = v15;
+      DWORD2(v28) = format != 0;
+      v25 = encoding;
+      xmlSaveCtxtInit(&v23);
+      LODWORD(v28) = v28 | 0x20;
+      xmlDocContentDumpOutput(&v23, out_doc);
+      xmlOutputBufferFlush(v16);
+      conv = v16->conv;
+      if (conv)
+      {
+        v18 = xmlBufUse(conv);
+        v19 = v18;
         if (doc_txt_len)
         {
-          *doc_txt_len = v24;
-          v21 = xmlBufContent(v17->buffer);
-          v20 = 0;
-          v22 = *doc_txt_len;
+          *doc_txt_len = v18;
+          v20 = xmlBufContent(v16->conv);
+          v19 = 0;
+          v21 = *doc_txt_len;
         }
 
         else
         {
-          v21 = xmlBufContent(v17->buffer);
-          v22 = v20;
+          v20 = xmlBufContent(v16->conv);
+          v21 = v19;
         }
       }
 
-      *doc_txt_ptr = xmlStrndup(v21, v22);
-      xmlOutputBufferClose(v17);
+      else
+      {
+        v22 = xmlBufUse(v16->buffer);
+        v19 = v22;
+        if (doc_txt_len)
+        {
+          *doc_txt_len = v22;
+          v20 = xmlBufContent(v16->buffer);
+          v19 = 0;
+          v21 = *doc_txt_len;
+        }
+
+        else
+        {
+          v20 = xmlBufContent(v16->buffer);
+          v21 = v19;
+        }
+      }
+
+      *doc_txt_ptr = xmlStrndup(v20, v21);
+      xmlOutputBufferClose(v16);
       if (!*doc_txt_ptr)
       {
         if (doc_txt_len)
         {
-          if (*doc_txt_len >= 1)
+          if (*doc_txt_len < 1)
           {
-            *doc_txt_len = 0;
-LABEL_29:
-            __xmlSimpleError(7u, 2, 0, 0, "creating output");
+            return;
           }
+
+          *doc_txt_len = 0;
         }
 
-        else if (v20 > 0)
+        else if (v19 <= 0)
         {
-          goto LABEL_29;
+          return;
         }
-      }
 
-LABEL_30:
-      v25 = *MEMORY[0x1E69E9840];
-      return;
+        __xmlSimpleError(7u, 2, 0, 0, "creating output");
+      }
     }
   }
 
-  CharEncodingHandler = xmlFindCharEncodingHandler(encoding);
-  if (CharEncodingHandler)
+  else if (doc_txt_len)
   {
-    goto LABEL_12;
+    *doc_txt_len = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
-  v12 = "unknown encoding %s\n";
-  v13 = 1403;
-  v14 = out_doc;
-  v15 = encoding;
-LABEL_17:
-
-  __xmlSimpleError(7u, v13, v14, v12, v15);
 }
 
 int xmlDocFormatDump(FILE *f, xmlDocPtr cur, int format)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (!cur)
   {
-    goto LABEL_8;
+    return -1;
   }
 
   encoding = cur->encoding;
@@ -6852,120 +7320,101 @@ int xmlDocFormatDump(FILE *f, xmlDocPtr cur, int format)
   }
 
   File = xmlOutputBufferCreateFile(f, CharEncodingHandler);
-  if (File)
+  if (!File)
   {
-    v9 = File;
-    v15 = 0;
-    v17 = 0u;
-    v23 = 0;
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
-    v20 = 0u;
-    v18 = 0u;
-    v12 = 0u;
-    v13 = 0;
-    v16 = File;
-    DWORD2(v17) = format != 0;
-    v14 = encoding;
-    xmlSaveCtxtInit(&v12);
-    LODWORD(v17) = v17 | 0x20;
-    xmlDocContentDumpOutput(&v12, cur);
-    result = xmlOutputBufferClose(v9);
+    return -1;
   }
 
-  else
-  {
-LABEL_8:
-    result = -1;
-  }
-
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  v9 = File;
+  v14 = 0;
+  v16 = 0u;
+  v22 = 0;
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v17 = 0u;
+  v11 = 0u;
+  v12 = 0;
+  v15 = File;
+  DWORD2(v16) = format != 0;
+  v13 = encoding;
+  xmlSaveCtxtInit(&v11);
+  LODWORD(v16) = v16 | 0x20;
+  xmlDocContentDumpOutput(&v11, cur);
+  return xmlOutputBufferClose(v9);
 }
 
 int xmlSaveFileTo(xmlOutputBufferPtr buf, xmlDocPtr cur, const char *encoding)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  if (!buf)
+  v18 = *MEMORY[0x1E69E9840];
+  if (buf)
   {
-    goto LABEL_5;
-  }
+    if (cur)
+    {
+      v9 = 0;
+      v11 = 0u;
+      v17 = 0;
+      v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
+      v12 = 0u;
+      v6 = 0u;
+      v7 = 0;
+      v10 = buf;
+      DWORD2(v11) = 0;
+      v8 = encoding;
+      xmlSaveCtxtInit(&v6);
+      LODWORD(v11) = v11 | 0x20;
+      xmlDocContentDumpOutput(&v6, cur);
+      return xmlOutputBufferClose(buf);
+    }
 
-  if (!cur)
-  {
     xmlOutputBufferClose(buf);
-LABEL_5:
-    result = -1;
-    goto LABEL_6;
   }
 
-  v10 = 0;
-  v12 = 0u;
-  v18 = 0;
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v13 = 0u;
-  v7 = 0u;
-  v8 = 0;
-  v11 = buf;
-  DWORD2(v12) = 0;
-  v9 = encoding;
-  xmlSaveCtxtInit(&v7);
-  LODWORD(v12) = v12 | 0x20;
-  xmlDocContentDumpOutput(&v7, cur);
-  result = xmlOutputBufferClose(buf);
-LABEL_6:
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return -1;
 }
 
 int xmlSaveFormatFileTo(xmlOutputBufferPtr buf, xmlDocPtr cur, const char *encoding, int format)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  if (!buf)
+  v19 = *MEMORY[0x1E69E9840];
+  if (buf)
   {
-    goto LABEL_6;
-  }
+    if (cur && (cur->type | 4) == 0xD)
+    {
+      v10 = 0;
+      v12 = 0u;
+      v18 = 0;
+      v16 = 0u;
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
+      v13 = 0u;
+      v7 = 0u;
+      v8 = 0;
+      v11 = buf;
+      DWORD2(v12) = format != 0;
+      v9 = encoding;
+      xmlSaveCtxtInit(&v7);
+      LODWORD(v12) = v12 | 0x20;
+      xmlDocContentDumpOutput(&v7, cur);
+      return xmlOutputBufferClose(buf);
+    }
 
-  if (!cur || (cur->type | 4) != 0xD)
-  {
     xmlOutputBufferClose(buf);
-LABEL_6:
-    result = -1;
-    goto LABEL_7;
   }
 
-  v11 = 0;
-  v13 = 0u;
-  v19 = 0;
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v14 = 0u;
-  v8 = 0u;
-  v9 = 0;
-  v12 = buf;
-  DWORD2(v13) = format != 0;
-  v10 = encoding;
-  xmlSaveCtxtInit(&v8);
-  LODWORD(v13) = v13 | 0x20;
-  xmlDocContentDumpOutput(&v8, cur);
-  result = xmlOutputBufferClose(buf);
-LABEL_7:
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return -1;
 }
 
 int xmlSaveFormatFileEnc(const char *filename, xmlDocPtr cur, const char *encoding, int format)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (!cur)
   {
-    goto LABEL_11;
+    return -1;
   }
 
   v5 = encoding;
@@ -6974,9 +7423,7 @@ int xmlSaveFormatFileEnc(const char *filename, xmlDocPtr cur, const char *encodi
     CharEncodingHandler = xmlFindCharEncodingHandler(v5);
     if (!CharEncodingHandler)
     {
-LABEL_11:
-      result = -1;
-      goto LABEL_12;
+      return -1;
     }
   }
 
@@ -6993,32 +7440,29 @@ LABEL_11:
   }
 
   v10 = xmlOutputBufferCreateFilename(filename, CharEncodingHandler, compression);
-  if (!v10)
+  if (v10)
   {
-    goto LABEL_11;
+    v11 = v10;
+    v16 = 0;
+    v18 = 0u;
+    v24 = 0;
+    v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v19 = 0u;
+    v13 = 0u;
+    v14 = 0;
+    v17 = v10;
+    DWORD2(v18) = format != 0;
+    v15 = v5;
+    xmlSaveCtxtInit(&v13);
+    LODWORD(v18) = v18 | 0x20;
+    xmlDocContentDumpOutput(&v13, cur);
+    return xmlOutputBufferClose(v11);
   }
 
-  v11 = v10;
-  v17 = 0;
-  v19 = 0u;
-  v25 = 0;
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v20 = 0u;
-  v14 = 0u;
-  v15 = 0;
-  v18 = v10;
-  DWORD2(v19) = format != 0;
-  v16 = v5;
-  xmlSaveCtxtInit(&v14);
-  LODWORD(v19) = v19 | 0x20;
-  xmlDocContentDumpOutput(&v14, cur);
-  result = xmlOutputBufferClose(v11);
-LABEL_12:
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return -1;
 }
 
 xmlBufPtr xmlOutputBufferWriteWSNonSig(xmlBufPtr result, int a2)
@@ -7125,7 +7569,7 @@ LABEL_6:
     switch(v16)
     {
       case '&':
-        if ((v14 - v12) < 5)
+        if (v14 - v12 < 5)
         {
           goto LABEL_6;
         }
@@ -7135,7 +7579,7 @@ LABEL_6:
         v12 += 5;
         goto LABEL_17;
       case '>':
-        if ((v14 - v12) < 4)
+        if (v14 - v12 < 4)
         {
           goto LABEL_6;
         }
@@ -7144,7 +7588,7 @@ LABEL_6:
         v12 += 4;
         goto LABEL_17;
       case '<':
-        if ((v14 - v12) < 4)
+        if (v14 - v12 < 4)
         {
           goto LABEL_6;
         }
@@ -7165,7 +7609,7 @@ LABEL_17:
 
     if ((v16 & 0x80) != 0)
     {
-      if ((v14 - v12) < 11)
+      if (v14 - v12 < 11)
       {
         goto LABEL_6;
       }
@@ -7186,7 +7630,7 @@ LABEL_17:
             goto LABEL_49;
           }
 
-          if ((v15 - v11) < 4)
+          if (v15 - v11 < 4)
           {
             goto LABEL_6;
           }
@@ -7198,7 +7642,7 @@ LABEL_17:
 
         else
         {
-          if ((v15 - v11) < 3)
+          if (v15 - v11 < 3)
           {
             goto LABEL_6;
           }
@@ -7211,7 +7655,7 @@ LABEL_17:
 
       else
       {
-        if ((v15 - v11) < 2)
+        if (v15 - v11 < 2)
         {
           goto LABEL_6;
         }
@@ -7249,7 +7693,7 @@ LABEL_51:
       break;
     }
 
-    if ((v14 - v12) < 6)
+    if (v14 - v12 < 6)
     {
       goto LABEL_6;
     }
@@ -7627,25 +8071,25 @@ void xmlSchemaFree(xmlSchemaPtr schema)
   }
 }
 
-void xmlSchemaBucketFree(void *a1)
+void xmlSchemaBucketFree(void ***a1)
 {
   if (a1)
   {
-    v2 = *(a1 + 8);
+    v2 = a1[8];
     if (v2)
     {
       xmlSchemaComponentListFree(v2);
-      xmlSchemaItemListFree(*(a1 + 8));
+      xmlSchemaItemListFree(a1[8]);
     }
 
-    v3 = *(a1 + 9);
+    v3 = a1[9];
     if (v3)
     {
       xmlSchemaComponentListFree(v3);
-      xmlSchemaItemListFree(*(a1 + 9));
+      xmlSchemaItemListFree(a1[9]);
     }
 
-    v4 = *(a1 + 5);
+    v4 = a1[5];
     if (v4)
     {
       do
@@ -7660,7 +8104,7 @@ void xmlSchemaBucketFree(void *a1)
 
     if (!*(a1 + 15))
     {
-      v6 = *(a1 + 4);
+      v6 = a1[4];
       if (v6)
       {
         xmlFreeDoc(v6);
@@ -7669,7 +8113,7 @@ void xmlSchemaBucketFree(void *a1)
 
     if (*a1 == 1)
     {
-      v7 = *(a1 + 10);
+      v7 = a1[10];
       if (v7)
       {
         xmlSchemaFree(v7);
@@ -7747,34 +8191,34 @@ void xmlSchemaAnnotDump(FILE *a1, uint64_t a2)
   }
 }
 
-void xmlSchemaElementDump(uint64_t a1, FILE *__stream, uint64_t a3, const char *a4)
+void xmlSchemaElementDump(uint64_t result, FILE *__stream, uint64_t a3, const char *a4)
 {
-  if (!a1)
+  if (!result)
   {
     return;
   }
 
   fwrite("Element", 7uLL, 1uLL, __stream);
-  if ((*(a1 + 88) & 2) != 0)
+  if ((*(result + 88) & 2) != 0)
   {
     fwrite(" (global)", 9uLL, 1uLL, __stream);
   }
 
-  fprintf(__stream, ": '%s' ", *(a1 + 16));
+  fprintf(__stream, ": '%s' ", *(result + 16));
   if (a4)
   {
     fprintf(__stream, "ns '%s'", a4);
   }
 
   fputc(10, __stream);
-  if ((*(a1 + 88) & 0x1D) != 0)
+  if ((*(result + 88) & 0x1D) != 0)
   {
     fwrite("  props: ", 9uLL, 1uLL, __stream);
-    v7 = *(a1 + 88);
+    v7 = *(result + 88);
     if ((v7 & 8) != 0)
     {
       fwrite("[fixed] ", 8uLL, 1uLL, __stream);
-      v7 = *(a1 + 88);
+      v7 = *(result + 88);
       if ((v7 & 4) == 0)
       {
 LABEL_9:
@@ -7793,7 +8237,7 @@ LABEL_9:
     }
 
     fwrite("[default] ", 0xAuLL, 1uLL, __stream);
-    v7 = *(a1 + 88);
+    v7 = *(result + 88);
     if ((v7 & 0x10) == 0)
     {
 LABEL_10:
@@ -7811,7 +8255,7 @@ LABEL_11:
 
 LABEL_22:
     fwrite("[abstract] ", 0xBuLL, 1uLL, __stream);
-    if ((*(a1 + 88) & 1) == 0)
+    if ((*(result + 88) & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -7820,17 +8264,17 @@ LABEL_22:
   }
 
 LABEL_13:
-  if (*(a1 + 144))
+  if (*(result + 144))
   {
-    fprintf(__stream, "  value: '%s'\n", *(a1 + 144));
+    fprintf(__stream, "  value: '%s'\n", *(result + 144));
   }
 
-  if (*(a1 + 104))
+  if (*(result + 104))
   {
-    fprintf(__stream, "  type: '%s' ", *(a1 + 104));
-    if (*(a1 + 112))
+    fprintf(__stream, "  type: '%s' ", *(result + 104));
+    if (*(result + 112))
     {
-      fprintf(__stream, "ns '%s'\n", *(a1 + 112));
+      fprintf(__stream, "ns '%s'\n", *(result + 112));
     }
 
     else
@@ -7841,19 +8285,19 @@ LABEL_13:
 
   else
   {
-    v8 = *(a1 + 56);
+    v8 = *(result + 56);
     if (v8)
     {
       xmlSchemaTypeDump(v8, __stream);
     }
   }
 
-  if (*(a1 + 120))
+  if (*(result + 120))
   {
-    fprintf(__stream, "  substitutionGroup: '%s' ", *(a1 + 120));
-    if (*(a1 + 128))
+    fprintf(__stream, "  substitutionGroup: '%s' ", *(result + 120));
+    if (*(result + 128))
     {
-      fprintf(__stream, "ns '%s'\n", *(a1 + 128));
+      fprintf(__stream, "ns '%s'\n", *(result + 128));
     }
 
     else
@@ -8361,7 +8805,7 @@ LABEL_49:
         }
 
         v4 = 1717;
-        xmlSchemaCustomErr4(ctxt, 1717, v18, baseType, "The value '%s' of the facet '%s' is not a valid '%s'", v19, v21, v22, 0);
+        xmlSchemaCustomErr4(ctxt, 0x6B5u, v18, baseType, "The value '%s' of the facet '%s' is not a valid '%s'", v19, v21, v22, 0);
         return v4;
       }
 
@@ -8406,7 +8850,7 @@ LABEL_5:
         v11 = facet->node;
         v12 = facet->value;
         v13 = xmlSchemaFormatQName(&v36, baseType->targetNamespace, baseType->name);
-        xmlSchemaCustomErr4(v9, 1717, v11, facet, "The value '%s' of the facet does not validate against the base type '%s'", v12, v13, 0, 0);
+        xmlSchemaCustomErr4(v9, 0x6B5u, v11, facet, "The value '%s' of the facet does not validate against the base type '%s'", v12, v13, 0, 0);
         if (v36)
         {
           free(v36);
@@ -8424,7 +8868,7 @@ LABEL_5:
       v32 = facet->node;
       v33 = facet->value;
       v34 = xmlSchemaFacetTypeToString(facet->type);
-      xmlSchemaCustomErr4(v9, 3069, v32, 0, "Internal error: xmlSchemaCheckFacet, failed to validate the value '%s' of the facet '%s' against the base type", v33, v34, 0, 0);
+      xmlSchemaCustomErr4(v9, 0xBFDu, v32, 0, "Internal error: xmlSchemaCheckFacet, failed to validate the value '%s' of the facet '%s' against the base type", v33, v34, 0, 0);
     }
 
     else
@@ -8457,7 +8901,7 @@ LABEL_61:
   return v4;
 }
 
-uint64_t xmlSchemaVCheckCVCSimpleType(uint64_t a1, xmlNode *a2, uint64_t a3, xmlChar *a4, xmlSchemaValPtr *a5, unsigned int a6, int a7, int a8)
+uint64_t xmlSchemaVCheckCVCSimpleType(uint64_t a1, xmlNode *a2, int *a3, xmlChar *a4, xmlSchemaValPtr *a5, unsigned int a6, int a7, int a8)
 {
   val = 0;
   if (a5)
@@ -8488,9 +8932,9 @@ uint64_t xmlSchemaVCheckCVCSimpleType(uint64_t a1, xmlNode *a2, uint64_t a3, xml
   }
 
   v16 = *a3;
-  if (*a3 != 1 || *(a3 + 160) != 46)
+  if (*a3 != 1 || a3[40] != 46)
   {
-    v17 = *(a3 + 88);
+    v17 = a3[22];
     if ((v17 & 0x100) == 0)
     {
       if ((v17 & 0x40) == 0)
@@ -8509,13 +8953,13 @@ LABEL_19:
               goto LABEL_78;
             }
 
-            v19 = *(v18 + 168);
+            v19 = *(v18 + 21);
             if (v19)
             {
               break;
             }
 
-            v18 = *(v18 + 112);
+            v18 = *(v18 + 14);
             if (!v18)
             {
               goto LABEL_18;
@@ -8560,7 +9004,7 @@ LABEL_19:
             goto LABEL_19;
           }
 
-          v71 = *(a3 + 88);
+          v71 = a3[22];
           if ((v71 & 0x8000000) == 0)
           {
             goto LABEL_156;
@@ -8639,7 +9083,7 @@ LABEL_132:
 
       v50 = 0;
       v51 = 0;
-      v52 = *(a3 + 56);
+      v52 = *(a3 + 7);
       v53 = cur;
       v79 = a1;
       do
@@ -8804,13 +9248,13 @@ LABEL_150:
     v28 = a3;
     while (1)
     {
-      v28 = v28->baseType;
+      v28 = *(v28 + 14);
       if (!v28)
       {
         break;
       }
 
-      if (v28->type == XML_SCHEMA_TYPE_BASIC)
+      if (*v28 == 1)
       {
         goto LABEL_38;
       }
@@ -8823,7 +9267,7 @@ LABEL_150:
 LABEL_38:
   if (*a1 == 1)
   {
-    if (v28->builtInType == 28)
+    if (v28[40] == 28)
     {
       v30 = *(a1 + 64);
       v31 = 0;
@@ -8863,10 +9307,10 @@ LABEL_51:
     goto LABEL_77;
   }
 
-  builtInType = v28->builtInType;
-  if (builtInType != 21)
+  v29 = v28[40];
+  if (v29 != 21)
   {
-    if (builtInType == 28)
+    if (v29 == 28)
     {
       v30 = *(a1 + 40);
       v31 = a1;
@@ -8908,9 +9352,9 @@ LABEL_59:
     v69 = xmlSchemaLookupNamespace(a1, v84);
     if (v84 && (free(v84), !v69))
     {
-      v72 = xmlSchemaGetBuiltInType(XML_SCHEMAS_QNAME);
+      BuiltInType = xmlSchemaGetBuiltInType(XML_SCHEMAS_QNAME);
       v41 = 1824;
-      xmlSchemaCustomErr4(a1, 1824, 0, v72, "The QName value '%s' has no corresponding namespace declaration in scope", v15, 0, 0, 0);
+      xmlSchemaCustomErr4(a1, 0x720u, 0, BuiltInType, "The QName value '%s' has no corresponding namespace declaration in scope", v15, 0, 0, 0);
       if (v68)
       {
         free(v68);
@@ -8948,7 +9392,7 @@ LABEL_60:
       goto LABEL_150;
     }
 
-    v47 = xmlSchemaValidateFacets(a1, a2, a3, v28->builtInType, v15, val, 0, a6);
+    v47 = xmlSchemaValidateFacets(a1, a2, a3, v28[40], v15, val, 0, a6);
     if (!v47)
     {
       goto LABEL_150;
@@ -8956,7 +9400,7 @@ LABEL_60:
 
     if ((v47 & 0x80000000) == 0)
     {
-      if ((*(a3 + 88) & 0x40) != 0)
+      if ((a3[22] & 0x40) != 0)
       {
         v42 = 1825;
       }
@@ -8996,7 +9440,7 @@ LABEL_78:
     goto LABEL_75;
   }
 
-  if ((*(a3 + 88) & 0x40) != 0)
+  if ((a3[22] & 0x40) != 0)
   {
     v42 = 1825;
   }
@@ -9065,7 +9509,7 @@ const char *xmlSchemaFacetTypeToString(int a1)
   }
 }
 
-xmlChar *xmlSchemaFormatQName(void **a1, const xmlChar *a2, xmlChar *a3)
+xmlChar *xmlSchemaFormatQName(xmlChar **a1, const xmlChar *a2, xmlChar *a3)
 {
   v6 = *a1;
   if (v6)
@@ -9105,11 +9549,11 @@ LABEL_8:
   return a3;
 }
 
-void xmlSchemaCustomErr4(_DWORD *a1, int a2, uint64_t a3, int *a4, const xmlChar *a5, const xmlChar *a6, xmlChar *a7, xmlChar *a8, uint64_t a9)
+void xmlSchemaCustomErr4(xmlError *a1, unsigned __int32 a2, uint64_t a3, int *a4, const xmlChar *a5, const xmlChar *a6, xmlChar *a7, xmlChar *a8, uint64_t a9, ...)
 {
   ComponentNode = a3;
   cur = 0;
-  if (!a3 && a4 && *a1 == 1)
+  if (!a3 && a4 && a1->domain == 1)
   {
     ComponentNode = xmlSchemaGetComponentNode(a4);
     xmlSchemaFormatItemForReport(&cur, a4, 0);
@@ -9173,12 +9617,12 @@ LABEL_6:
           v8 = *(ctxt + 10);
           if (v8)
           {
-            xmlSchemaCustomErr4(ctxt, 1757, 0, 0, "Failed to locate the main schema resource at '%s'", v8, 0, 0, 0);
+            xmlSchemaCustomErr4(ctxt, 0x6DDu, 0, 0, "Failed to locate the main schema resource at '%s'", v8, 0, 0, 0);
           }
 
           else
           {
-            xmlSchemaCustomErr4(ctxt, 1757, 0, 0, "Failed to locate the main schema resource", 0, 0, 0, 0);
+            xmlSchemaCustomErr4(ctxt, 0x6DDu, 0, 0, "Failed to locate the main schema resource", 0, 0, 0, 0);
           }
 
           goto LABEL_23;
@@ -9316,602 +9760,4 @@ void *xmlSchemaConstructionCtxtCreate(xmlDict *a1)
   v3[2] = a1;
   xmlDictReference(a1);
   return v3;
-}
-
-uint64_t xmlSchemaAddSchemaDoc(uint64_t a1, int a2, const xmlChar *a3, xmlDoc *a4, const char *a5, int a6, uint64_t a7, uint64_t a8, xmlChar *a9, const xmlChar ***a10)
-{
-  v14 = a3;
-  if (a10)
-  {
-    *a10 = 0;
-  }
-
-  if (a2 > 1)
-  {
-    if (a2 == 2)
-    {
-      v17 = 3050;
-    }
-
-    else
-    {
-      v17 = 3081;
-    }
-  }
-
-  else
-  {
-    if (!a2)
-    {
-      goto LABEL_16;
-    }
-
-    v17 = 3082;
-  }
-
-  v18 = *(a1 + 48);
-  v19 = *(v18 + 24);
-  if (!v19)
-  {
-LABEL_17:
-    v22 = 0;
-    goto LABEL_18;
-  }
-
-  v20 = *(v19 + 2);
-  if (v20 < 1)
-  {
-LABEL_16:
-    v19 = 0;
-    goto LABEL_17;
-  }
-
-  if (a3)
-  {
-    v21 = *v19;
-    while (1)
-    {
-      v22 = *v21;
-      if ((*v21)[1] == a3)
-      {
-        break;
-      }
-
-      ++v21;
-      if (!--v20)
-      {
-        goto LABEL_15;
-      }
-    }
-
-    if (*(v18 + 32) == v22)
-    {
-      xmlSchemaCustomErr4(a1, v17, a7, 0, "The schema must not import/include/redefine itself", 0, 0, 0, 0);
-      goto LABEL_131;
-    }
-  }
-
-  else
-  {
-LABEL_15:
-    v22 = 0;
-  }
-
-  v44 = malloc_type_malloc(0x20uLL, 0x107004054400B9BuLL);
-  if (!v44)
-  {
-    v52 = "allocating schema relation";
-LABEL_95:
-    __xmlSimpleError(0x10u, 2, 0, 0, v52);
-    return 0xFFFFFFFFLL;
-  }
-
-  v19 = v44;
-  *v44 = 0u;
-  v44[1] = 0u;
-  v45 = *(*(a1 + 48) + 32);
-  v48 = *(v45 + 40);
-  v46 = (v45 + 40);
-  for (i = v48; i; i = *i)
-  {
-    v46 = i;
-  }
-
-  *v46 = v44;
-  *(v44 + 2) = a2;
-  if (a2 != 1)
-  {
-    if (!v22)
-    {
-      goto LABEL_18;
-    }
-
-    if (*(v22 + 14))
-    {
-      v73 = v44;
-      if (!v14)
-      {
-        v14 = "in_memory_buffer";
-      }
-
-      if (!xmlStrEqual(v14, v22[1]))
-      {
-        v51 = "The schema document '%s' cannot be included or redefined, since it was already imported";
-        goto LABEL_120;
-      }
-
-      v19 = v73;
-    }
-
-    if (v22[2] || v22[3] == a8)
-    {
-LABEL_93:
-      *(v19 + 3) = v22;
-      goto LABEL_131;
-    }
-
-    v62 = v19;
-    ChameleonSchemaBucket = xmlSchemaGetChameleonSchemaBucket(a1, v14, a8);
-    if (ChameleonSchemaBucket)
-    {
-      *(v62 + 3) = ChameleonSchemaBucket;
-      goto LABEL_131;
-    }
-
-    v22 = 0;
-    goto LABEL_141;
-  }
-
-  *(v44 + 2) = a9;
-  if (!v14)
-  {
-    goto LABEL_131;
-  }
-
-  if (v22)
-  {
-    if (!*(v22 + 14))
-    {
-      v49 = v44;
-      v50 = xmlStrEqual(v14, v22[1]);
-      v19 = v49;
-      if (!v50)
-      {
-        v51 = "The schema document '%s' cannot be imported, since it was already included or redefined";
-LABEL_120:
-        xmlSchemaCustomErr4(a1, v17, a7, 0, v51, v14, 0, 0, 0);
-        goto LABEL_131;
-      }
-    }
-
-    goto LABEL_93;
-  }
-
-  v62 = v44;
-  SchemaBucketByTNS = xmlSchemaGetSchemaBucketByTNS(a1, a9);
-  v22 = SchemaBucketByTNS;
-  if (!SchemaBucketByTNS)
-  {
-LABEL_141:
-    v19 = v62;
-    goto LABEL_18;
-  }
-
-  *(v62 + 3) = SchemaBucketByTNS;
-  v64 = *(SchemaBucketByTNS + 8);
-  if (v64)
-  {
-    if (!xmlStrEqual(v14, v64))
-    {
-      xmlSchemaCustomWarning(a1, 3083, a7, "Skipping import of schema located at '%s' for the namespace '%s', since this namespace was already imported with the schema located at '%s'", v14, a9, v22[1]);
-    }
-
-    goto LABEL_131;
-  }
-
-  v19 = v62;
-  *(SchemaBucketByTNS + 8) = v14;
-  if (*(SchemaBucketByTNS + 32))
-  {
-    xmlSchemaInternalErr2(a1, "xmlSchemaAddSchemaDoc", "trying to load a schema doc, but a doc is already assigned to the schema bucket", 0);
-    return 0xFFFFFFFFLL;
-  }
-
-LABEL_18:
-  if (a4)
-  {
-    v72 = v19;
-    URL = a4->URL;
-    if (URL)
-    {
-      v14 = xmlDictLookup(*(a1 + 152), URL, -1);
-    }
-
-    else
-    {
-      v14 = "in_memory_buffer";
-    }
-
-    File = a4;
-    goto LABEL_31;
-  }
-
-  if (!(a5 | v14))
-  {
-    xmlSchemaPErr(a1, 0, 1758, "No information for parsing was provided with the given schema parser context.\n", 0, 0);
-    return 0xFFFFFFFFLL;
-  }
-
-  v72 = v19;
-  v24 = xmlNewParserCtxt();
-  if (!v24)
-  {
-    v52 = "xmlSchemaGetDoc, allocating a parser context";
-    goto LABEL_95;
-  }
-
-  v25 = v24;
-  if (*(a1 + 152))
-  {
-    dict = v24->dict;
-    if (dict)
-    {
-      xmlDictFree(dict);
-      v27 = *(a1 + 152);
-      v25->dict = v27;
-      xmlDictReference(v27);
-    }
-  }
-
-  if (v14)
-  {
-    File = xmlCtxtReadFile(v25, v14, 0, 2);
-    if (!File)
-    {
-LABEL_123:
-      LastError = xmlGetLastError();
-      if (LastError && LastError->domain == 8)
-      {
-        xmlFreeParserCtxt(v25);
-        if (v22)
-        {
-          v22[1] = v14;
-          *(v22 + 12) = 0;
-          goto LABEL_127;
-        }
-
-LABEL_131:
-        result = 0;
-        if (a10)
-        {
-          *a10 = v22;
-        }
-
-        return result;
-      }
-
-      xmlSchemaCustomErr4(a1, 3067, a7, 0, "Failed to parse the XML resource '%s'", v14, 0, 0, 0);
-      xmlFreeParserCtxt(v25);
-      return *(a1 + 32);
-    }
-  }
-
-  else
-  {
-    if (!a5)
-    {
-      v14 = 0;
-      goto LABEL_123;
-    }
-
-    Memory = xmlCtxtReadMemory(v25, a5, a6, 0, 0, 2);
-    if (!Memory)
-    {
-      v14 = "in_memory_buffer";
-      goto LABEL_123;
-    }
-
-    File = Memory;
-    v14 = "in_memory_buffer";
-    Memory->URL = xmlStrdup("in_memory_buffer");
-  }
-
-  xmlFreeParserCtxt(v25);
-LABEL_31:
-  RootElement = xmlDocGetRootElement(File);
-  if (!RootElement)
-  {
-    xmlSchemaCustomErr4(a1, 1759, a7, 0, "The document '%s' has no document element", v14, 0, 0, 0);
-    if (!a4)
-    {
-      goto LABEL_72;
-    }
-
-    return *(a1 + 32);
-  }
-
-  v30 = RootElement;
-  v31 = 0;
-  children = RootElement;
-  do
-  {
-LABEL_33:
-    v33 = children;
-    if (v31)
-    {
-      xmlUnlinkNode(v31);
-      xmlFreeNode(v31);
-    }
-
-    type = v33->type;
-    if (type != XML_ELEMENT_NODE && type != XML_CDATA_SECTION_NODE)
-    {
-      v31 = v33;
-      if (type != XML_TEXT_NODE)
-      {
-        goto LABEL_55;
-      }
-
-      content = v33->content;
-      if (!content)
-      {
-LABEL_47:
-        if (xmlNodeGetSpacePreserve(v33) == 1)
-        {
-          v31 = 0;
-        }
-
-        else
-        {
-          v31 = v33;
-        }
-
-        goto LABEL_50;
-      }
-
-      while (1)
-      {
-        v37 = *content;
-        if (v37 > 0x20)
-        {
-          break;
-        }
-
-        if (((1 << v37) & 0x100002600) == 0)
-        {
-          if (*content)
-          {
-            break;
-          }
-
-          goto LABEL_47;
-        }
-
-        ++content;
-      }
-    }
-
-    v31 = 0;
-LABEL_50:
-    children = v33->children;
-    if (!children)
-    {
-      break;
-    }
-
-    v38 = children->type;
-    v39 = v38 > 0x11;
-    v40 = (1 << v38) & 0x20060;
-  }
-
-  while (v39 || v40 == 0);
-  do
-  {
-LABEL_55:
-    children = v33->next;
-    if (children)
-    {
-      goto LABEL_33;
-    }
-
-    v33 = v33->parent;
-    if (v33)
-    {
-      v42 = v33 == v30;
-    }
-
-    else
-    {
-      v42 = 1;
-    }
-  }
-
-  while (!v42);
-  if (v31)
-  {
-    xmlUnlinkNode(v31);
-    xmlFreeNode(v31);
-  }
-
-  if (!v30->ns || !xmlStrEqual(v30->name, "schema") || !xmlStrEqual(v30->ns->href, "http://www.w3.org/2001/XMLSchema"))
-  {
-    xmlSchemaCustomErr4(a1, 1772, a7, 0, "The XML document '%s' is not a schema document", v14, 0, 0, 0);
-    if (!a4)
-    {
-LABEL_72:
-      xmlFreeDoc(File);
-      if (v22)
-      {
-        v22[4] = 0;
-      }
-    }
-
-    return *(a1 + 32);
-  }
-
-  Prop = xmlSchemaGetProp(a1, v30, "targetNamespace");
-  if (v22)
-  {
-LABEL_67:
-    *(v22 + 12) = 1;
-    v22[3] = Prop;
-    v22[4] = File;
-    v22[1] = v14;
-    v22[2] = Prop;
-    if (a4)
-    {
-      *(v22 + 15) = 1;
-    }
-
-LABEL_127:
-    if (a2 <= 1)
-    {
-      ++*(v22 + 14);
-    }
-
-    if (v72)
-    {
-      *(v72 + 3) = v22;
-    }
-
-    goto LABEL_131;
-  }
-
-  v55 = **(a1 + 48);
-  if (!v55)
-  {
-    xmlSchemaInternalErr2(a1, "xmlSchemaBucketCreate", "no main schema on constructor", 0);
-    goto LABEL_161;
-  }
-
-  v56 = malloc_type_malloc(0x58uLL, 0x10700403F790832uLL);
-  if (!v56)
-  {
-    __xmlSimpleError(0x10u, 2, 0, 0, "allocating schema bucket");
-    goto LABEL_161;
-  }
-
-  v22 = v56;
-  *(v56 + 20) = 0u;
-  *(v56 + 21) = 0;
-  *(v56 + 68) = 0u;
-  *(v56 + 52) = 0u;
-  *(v56 + 36) = 0u;
-  *(v56 + 4) = 0u;
-  *(v56 + 3) = Prop;
-  *v56 = a2;
-  v57 = xmlSchemaItemListCreate();
-  v22[8] = v57;
-  if (!v57 || (v58 = xmlSchemaItemListCreate(), (v22[9] = v58) == 0))
-  {
-    free(v22);
-    goto LABEL_161;
-  }
-
-  v59 = *(a1 + 48);
-  v60 = v59[3];
-  if (!v60 || *(v60 + 8) <= 0)
-  {
-    if ((a2 & 0xFFFFFFFE) == 2)
-    {
-      v61 = "first bucket but it's an include or redefine";
-LABEL_159:
-      xmlSchemaInternalErr2(a1, "xmlSchemaBucketCreate", v61, 0);
-      goto LABEL_160;
-    }
-
-    *v22 = 0;
-    v59[1] = v22;
-    v22[10] = v55;
-    *(v55 + 1) = Prop;
-    if (a2 > 1)
-    {
-      goto LABEL_145;
-    }
-
-LABEL_152:
-    v70 = *(v55 + 12);
-    if (!v70)
-    {
-      v70 = xmlHashCreateDict(5, *(*(a1 + 48) + 16));
-      *(v55 + 12) = v70;
-      if (!v70)
-      {
-        goto LABEL_160;
-      }
-    }
-
-    if (Prop)
-    {
-      v71 = Prop;
-    }
-
-    else
-    {
-      v71 = "##";
-    }
-
-    if (!xmlHashAddEntry(v70, v71, v22))
-    {
-      goto LABEL_163;
-    }
-
-    v61 = "failed to add the schema bucket to the hash";
-    goto LABEL_159;
-  }
-
-  if (a2 == 1)
-  {
-    v69 = xmlSchemaNewSchema(a1);
-    v22[10] = v69;
-    if (!v69)
-    {
-LABEL_160:
-      xmlSchemaBucketFree(v22);
-      goto LABEL_161;
-    }
-
-    *(v69 + 1) = Prop;
-    goto LABEL_152;
-  }
-
-  if (!a2)
-  {
-    v61 = "main bucket but it's not the first one";
-    goto LABEL_159;
-  }
-
-LABEL_145:
-  v67 = v59[4];
-  if (*v67 >= 2u)
-  {
-    v67 = *(v67 + 80);
-  }
-
-  v22[10] = v67;
-  v68 = *(v55 + 16);
-  if (!v68)
-  {
-    v68 = xmlSchemaItemListCreate();
-    *(v55 + 16) = v68;
-    if (!v68)
-    {
-      goto LABEL_160;
-    }
-  }
-
-  xmlSchemaItemListAddSize(v68, 20, v22);
-LABEL_163:
-  if (xmlSchemaItemListAddSize(*(*(a1 + 48) + 24), 20, v22) != -1)
-  {
-    goto LABEL_67;
-  }
-
-LABEL_161:
-  if (!a4)
-  {
-    xmlFreeDoc(File);
-  }
-
-  return 0xFFFFFFFFLL;
 }

@@ -46,24 +46,24 @@ void __66___UIActivityHelper_preheatAvailableActivitiesForMatchingContext___bloc
 
 void __66___UIActivityHelper_orderedAvailableActivitiesForMatchingContext___block_invoke_2(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) containsObject:v3];
-  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
   v5 = +[_UIActivityHelper builtinActivityClasses];
-  v6 = [v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v31;
+    v8 = *v32;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v31 != v8)
+        if (*v32 != v8)
         {
           objc_enumerationMutation(v5);
         }
@@ -75,7 +75,7 @@ void __66___UIActivityHelper_orderedAvailableActivitiesForMatchingContext___bloc
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v31 objects:v36 count:16];
       if (v7)
       {
         continue;
@@ -108,41 +108,41 @@ LABEL_11:
 
     if (v18)
     {
-      v25 = v3;
-      v19 = _UIActivityGetPrintingBasedActivities();
-      v26 = 0u;
+      v26 = v3;
+      v20 = _UIActivityGetPrintingBasedActivities(v19);
       v27 = 0u;
       v28 = 0u;
       v29 = 0u;
-      v20 = [v19 countByEnumeratingWithState:&v26 objects:v34 count:16];
-      if (v20)
+      v30 = 0u;
+      v21 = [v20 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      if (v21)
       {
-        v21 = v20;
-        v22 = *v27;
+        v22 = v21;
+        v23 = *v28;
         do
         {
-          for (j = 0; j != v21; ++j)
+          for (j = 0; j != v22; ++j)
           {
-            if (*v27 != v22)
+            if (*v28 != v23)
             {
-              objc_enumerationMutation(v19);
+              objc_enumerationMutation(v20);
             }
 
-            v24 = *(*(&v26 + 1) + 8 * j);
-            _setIsContentManagedIfResctrictableActivity(v24, *(a1 + 80));
-            if (([*(a1 + 56) shouldExcludeActivity:v24] & 1) == 0 && _canPerformActivityWithItems(v24, v12, *(a1 + 64), v14, v15, v16))
+            v25 = *(*(&v27 + 1) + 8 * j);
+            _setIsContentManagedIfResctrictableActivity(v25, *(a1 + 80));
+            if (([*(a1 + 56) shouldExcludeActivity:v25] & 1) == 0 && _canPerformActivityWithItems(v25, v12, *(a1 + 64), v14, v15, v16))
             {
-              [*(a1 + 72) addObject:v24];
+              [*(a1 + 72) addObject:v25];
             }
           }
 
-          v21 = [v19 countByEnumeratingWithState:&v26 objects:v34 count:16];
+          v22 = [v20 countByEnumeratingWithState:&v27 objects:v35 count:16];
         }
 
-        while (v21);
+        while (v22);
       }
 
-      v3 = v25;
+      v3 = v26;
     }
   }
 }

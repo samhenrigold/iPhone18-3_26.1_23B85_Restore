@@ -141,7 +141,7 @@ LABEL_12:
   return array;
 }
 
-uint64_t __53__AVPlayerInterstitialEvent_assetURLsReturningError___block_invoke(uint64_t a1)
+void *__53__AVPlayerInterstitialEvent_assetURLsReturningError___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 32) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -176,7 +176,7 @@ uint64_t __53__AVPlayerInterstitialEvent_assetURLsReturningError___block_invoke(
         v11 = [v10 copy];
         if (v10)
         {
-          [v10 currentTime];
+          objc_msgSend_currentTime(v10);
         }
 
         else
@@ -203,24 +203,24 @@ uint64_t __53__AVPlayerInterstitialEvent_assetURLsReturningError___block_invoke(
 
 - (AVPlayerInterstitialEvent)initWithPrimaryItem:(id)item identifier:(id)identifier time:(id *)time date:(id)date templateItems:(id)items restrictions:(unint64_t)restrictions resumptionOffset:(id *)offset playoutLimit:(id *)self0 userDefinedAttributes:(id)self1
 {
-  v35.receiver = self;
-  v35.super_class = AVPlayerInterstitialEvent;
-  v16 = [(AVPlayerInterstitialEvent *)&v35 init];
-  v17 = v16;
+  v36.receiver = self;
+  v36.super_class = AVPlayerInterstitialEvent;
+  v16 = [(AVPlayerInterstitialEvent *)&v36 init];
+  v18 = v16;
   if (v16)
   {
     if (!date && (time->var2 & 0x1D) != 1)
     {
-      v20 = v16;
-      v26 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector(v17 userInfo:{a2, @"invalid parameter not satisfying: %s", v21, v22, v23, v24, v25, "date != nil || CMTIME_IS_NUMERIC(time)"), 0}];
-      objc_exception_throw(v26);
+      v21 = v16;
+      v27 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector(v18 userInfo:{a2, @"invalid parameter not satisfying: %s", v22, v23, v24, v25, v26, "date != nil || CMTIME_IS_NUMERIC(time)"), 0}];
+      objc_exception_throw(v27);
     }
 
-    v16->_ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avplayerinterstitialevent.ivars");
-    objc_storeWeak(&v17->_primaryItem, item);
-    v17->_templateItems = [AVPlayerInterstitialEvent newItemArrayWithCopiedItems:items];
-    v34 = 0;
-    if ([(AVPlayerInterstitialEvent *)v17 assetURLsReturningError:&v34])
+    v16->_ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avplayerinterstitialevent.ivars", v17);
+    objc_storeWeak(&v18->_primaryItem, item);
+    v18->_templateItems = [AVPlayerInterstitialEvent newItemArrayWithCopiedItems:items];
+    v35 = 0;
+    if ([(AVPlayerInterstitialEvent *)v18 assetURLsReturningError:&v35])
     {
       attributesCopy = attributes;
       if (!attributes)
@@ -228,50 +228,50 @@ uint64_t __53__AVPlayerInterstitialEvent_assetURLsReturningError___block_invoke(
         attributesCopy = MEMORY[0x1E695E0F8];
       }
 
-      v32 = *&time->var0;
+      v33 = *&time->var0;
       var3 = time->var3;
-      v31 = *offset;
-      v30 = *limit;
-      v29 = attributesCopy;
-      WORD2(v28) = 256;
-      LODWORD(v28) = 0;
-      BYTE2(v27) = 0;
-      LOWORD(v27) = 0;
+      v32 = *offset;
+      v31 = *limit;
+      v30 = attributesCopy;
+      WORD2(v29) = 256;
+      LODWORD(v29) = 0;
+      BYTE2(v28) = 0;
+      LOWORD(v28) = 0;
       FigPlayerInterstitialEventCreate();
-      [(AVPlayerInterstitialEvent *)v17 _updateStartOffset:v27];
+      [(AVPlayerInterstitialEvent *)v18 _updateStartOffset:v28];
     }
 
     else
     {
 
-      if ([v34 code] == -11999)
+      if ([v35 code] == -11999)
       {
-        objc_exception_throw([objc_msgSend(v34 "userInfo")]);
+        objc_exception_throw([objc_msgSend(v35 "userInfo")]);
       }
 
       return 0;
     }
   }
 
-  return v17;
+  return v18;
 }
 
 - (AVPlayerInterstitialEvent)initWithPrimaryItem:(id)item time:(id *)time date:(id)date
 {
-  v19.receiver = self;
-  v19.super_class = AVPlayerInterstitialEvent;
-  v9 = [(AVPlayerInterstitialEvent *)&v19 init];
+  v20.receiver = self;
+  v20.super_class = AVPlayerInterstitialEvent;
+  v9 = [(AVPlayerInterstitialEvent *)&v20 init];
   p_isa = &v9->super.isa;
   if (v9)
   {
     if (!date && (time->var2 & 0x1D) != 1)
     {
-      v12 = v9;
-      v18 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector(p_isa userInfo:{a2, @"invalid parameter not satisfying: %s", v13, v14, v15, v16, v17, "date != nil || CMTIME_IS_NUMERIC(time)"), 0}];
-      objc_exception_throw(v18);
+      v13 = v9;
+      v19 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector(p_isa userInfo:{a2, @"invalid parameter not satisfying: %s", v14, v15, v16, v17, v18, "date != nil || CMTIME_IS_NUMERIC(time)"), 0}];
+      objc_exception_throw(v19);
     }
 
-    v9->_ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avplayerinterstitialevent.ivars");
+    v9->_ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avplayerinterstitialevent.ivars", v10);
     objc_storeWeak(p_isa + 2, item);
     FigPlayerInterstitialEventCreate();
   }
@@ -296,18 +296,18 @@ uint64_t __53__AVPlayerInterstitialEvent_assetURLsReturningError___block_invoke(
 
 - (AVPlayerInterstitialEvent)initWithPrimaryItemAndFigEvent:(id)event templateItems:(id)items figEvent:(OpaqueFigPlayerInterstitialEvent *)figEvent
 {
-  v10.receiver = self;
-  v10.super_class = AVPlayerInterstitialEvent;
-  v8 = [(AVPlayerInterstitialEvent *)&v10 init];
-  if (v8)
+  v11.receiver = self;
+  v11.super_class = AVPlayerInterstitialEvent;
+  v9 = [(AVPlayerInterstitialEvent *)&v11 init];
+  if (v9)
   {
-    v8->_ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avplayerinterstitialevent.ivars");
-    objc_storeWeak(&v8->_primaryItem, event);
-    v8->_templateItems = [items copy];
-    v8->_figEvent = CFRetain(figEvent);
+    v9->_ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avplayerinterstitialevent.ivars", v8);
+    objc_storeWeak(&v9->_primaryItem, event);
+    v9->_templateItems = [items copy];
+    v9->_figEvent = CFRetain(figEvent);
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)dealloc
@@ -363,7 +363,7 @@ uint64_t __53__AVPlayerInterstitialEvent_assetURLsReturningError___block_invoke(
   return v9;
 }
 
-uint64_t __42__AVPlayerInterstitialEvent_copyWithZone___block_invoke(uint64_t a1)
+void *__42__AVPlayerInterstitialEvent_copyWithZone___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 32) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -391,12 +391,12 @@ uint64_t __42__AVPlayerInterstitialEvent_copyWithZone___block_invoke(uint64_t a1
   return v3;
 }
 
-uint64_t __40__AVPlayerInterstitialEvent_description__block_invoke(uint64_t a1)
+void *__40__AVPlayerInterstitialEvent_description__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x1E696AEC0];
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  result = [objc_msgSend(v2 stringWithFormat:@"<%@: %p, primaryItem = %p, ctx = %p, templateItems = %p, id = %@>", v4, *(a1 + 32), objc_loadWeak((*(a1 + 32) + 16)), *(*(a1 + 32) + 24), *(*(a1 + 32) + 32), objc_msgSend(*(a1 + 32), "identifier")), "copy"];
+  v3 = MEMORY[0x1E696AEC0];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  result = [objc_msgSend(v3 stringWithFormat:@"<%@: %p, primaryItem = %p, ctx = %p, templateItems = %p, id = %@>", v5, *(a1 + 32), objc_loadWeak((*(a1 + 32) + 16)), *(*(a1 + 32) + 24), *(*(a1 + 32) + 32), objc_msgSend(*(a1 + 32), "identifier")), "copy"];
   *(*(*(a1 + 40) + 8) + 40) = result;
   return result;
 }
@@ -561,7 +561,7 @@ id __42__AVPlayerInterstitialEvent_templateItems__block_invoke(uint64_t a1)
 {
   v3 = alignsStartWithPrimarySegmentBoundary;
   [(AVPlayerInterstitialEvent *)self checkMutability];
-  v5 = FigPlayerInterstitialEventGetSnapOptions() & 0xFFFFFFFELL;
+  v5 = FigPlayerInterstitialEventGetSnapOptions() & 0xFFFFFFFE;
   figEvent = self->_figEvent;
 
   MEMORY[0x1EEDCD828](figEvent, v5 | v3);
@@ -757,7 +757,7 @@ id __42__AVPlayerInterstitialEvent_templateItems__block_invoke(uint64_t a1)
     v4 = [v7[5] objectAtIndex:0];
     if (v4)
     {
-      [v4 currentTime];
+      objc_msgSend_currentTime(v4);
     }
 
     FigPlayerInterstitialEventSetFirstItemStartOffset();
@@ -766,7 +766,7 @@ id __42__AVPlayerInterstitialEvent_templateItems__block_invoke(uint64_t a1)
   _Block_object_dispose(&v6, 8);
 }
 
-uint64_t __47__AVPlayerInterstitialEvent__updateStartOffset__block_invoke(uint64_t a1)
+void *__47__AVPlayerInterstitialEvent__updateStartOffset__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 32) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;

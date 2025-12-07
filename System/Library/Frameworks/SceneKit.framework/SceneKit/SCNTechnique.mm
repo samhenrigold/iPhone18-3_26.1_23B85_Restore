@@ -281,7 +281,7 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v8 = scn_default_log();
+  v8 = scn_default_log(self, a2);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [SCNTechnique setValue:v8 forSymbolNamed:?];
@@ -290,64 +290,65 @@ LABEL_9:
 
 void __40__SCNTechnique_setValue_forSymbolNamed___block_invoke(id *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  C3DFXTechniqueGetValueForSymbol(*(a1[4] + 2), a1[5], &v12);
-  if (v12)
+  v17 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  ValueForSymbol = C3DFXTechniqueGetValueForSymbol(*(a1[4] + 2), a1[5], &v15);
+  if (v15)
   {
-    if (v12 != 5)
+    if (v15 != 5)
     {
-      SCNWriteValueToTypedBytes(a1[6], v13, v12);
-      v7 = a1[5];
-      v8 = *(a1[4] + 2);
-      v9 = v13;
+      SCNWriteValueToTypedBytes(a1[6], v16, v15);
+      v11 = a1[5];
+      v12 = *(a1[4] + 2);
+      v13 = v16;
 LABEL_8:
-      C3DFXTechniqueSetValueForSymbol(v8, v7, v9);
+      C3DFXTechniqueSetValueForSymbol(v12, v11, v13);
       goto LABEL_14;
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v2 = a1[6];
-      v3 = [v2 contents];
-      if (v3)
+      v4 = a1[6];
+      v5 = [v4 contents];
+      if (v5)
       {
-        v4 = v3;
-        v5 = C3DFXSamplerCreate();
-        TextureSampler = C3DEffectSlotGetTextureSampler([v2 effectSlot]);
-        C3DFXSamplerSetTextureSampler(v5, TextureSampler);
-        if ([v4 conformsToProtocol:&unk_282E56760])
+        v6 = v5;
+        v7 = C3DFXSamplerCreate(v5);
+        v8 = [v4 effectSlot];
+        TextureSampler = C3DEffectSlotGetTextureSampler(v8, v9);
+        C3DFXSamplerSetTextureSampler(v7, TextureSampler);
+        if ([v6 conformsToProtocol:&unk_282E56760])
         {
-          C3DFXSamplerSetTexture(v5, v4);
+          C3DFXSamplerSetTexture(v7, v6);
         }
 
         else
         {
-          C3DFXSamplerSetImage(v5, [SCNMaterialProperty copyC3DImageFromImage:v4]);
+          C3DFXSamplerSetImage(v7, [SCNMaterialProperty copyC3DImageFromImage:v6]);
         }
 
         goto LABEL_13;
       }
 
-      v7 = a1[5];
-      v8 = *(a1[4] + 2);
-      v9 = 0;
+      v11 = a1[5];
+      v12 = *(a1[4] + 2);
+      v13 = 0;
       goto LABEL_8;
     }
 
-    v10 = [SCNMaterialProperty copyC3DImageFromImage:a1[6]];
-    if (v10)
+    ValueForSymbol = [SCNMaterialProperty copyC3DImageFromImage:a1[6]];
+    if (ValueForSymbol)
     {
-      v5 = v10;
+      v7 = ValueForSymbol;
 LABEL_13:
-      C3DFXTechniqueSetValueForSymbol(*(a1[4] + 2), a1[5], v5);
-      CFRelease(v5);
+      C3DFXTechniqueSetValueForSymbol(*(a1[4] + 2), a1[5], v7);
+      CFRelease(v7);
     }
   }
 
 LABEL_14:
-  SharedInstance = C3DNotificationCenterGetSharedInstance();
+  SharedInstance = C3DNotificationCenterGetSharedInstance(ValueForSymbol, v3);
   C3DNotificationCenterPostNotification(SharedInstance, @"kC3DNotificationEngineContextInvalidatePasses", [a1[4] sceneRef], 0, 1u);
 }
 
@@ -397,7 +398,7 @@ LABEL_14:
 {
   __CFObject = [(SCNTechnique *)self __CFObject];
 
-  return C3DGetScene(__CFObject);
+  return C3DGetScene(__CFObject, v3);
 }
 
 - (id)scene
@@ -418,7 +419,7 @@ LABEL_14:
   if (result)
   {
 
-    return C3DSceneGetAnimationManager(result);
+    return C3DSceneGetAnimationManager(result, v3);
   }
 
   return result;
@@ -437,12 +438,13 @@ LABEL_14:
   {
     [(SCNOrderedDictionary *)self->_animations removeObjectForKey:key];
     __CFObject = [(SCNTechnique *)self __CFObject];
-    if ((CFTypeIsC3DEntity(__CFObject) & 1) == 0)
+    v9 = CFTypeIsC3DEntity(__CFObject);
+    if ((v9 & 1) == 0)
     {
-      v9 = scn_default_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v11 = scn_default_log(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        [SCNTechnique __removeAnimation:v9 forKey:?];
+        [SCNTechnique __removeAnimation:v11 forKey:?];
       }
     }
 
@@ -486,7 +488,7 @@ LABEL_14:
 
   else
   {
-    v9 = scn_default_log();
+    v9 = scn_default_log(self, a2);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SCNTechnique addAnimationPlayer:v9 forKey:?];
@@ -532,7 +534,7 @@ void __42__SCNTechnique_addAnimationPlayer_forKey___block_invoke(uint64_t a1)
 
   else
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SCNTechnique addAnimation:v8 forKey:?];
@@ -795,21 +797,21 @@ void __41__SCNTechnique_setSpeed_forAnimationKey___block_invoke(uint64_t a1)
 - (BOOL)isAnimationForKeyPaused:(id)paused
 {
   sceneRef = [(SCNTechnique *)self sceneRef];
-  v6 = sceneRef;
+  v7 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v6);
   }
 
   __CFObject = [(SCNTechnique *)self __CFObject];
   if (__CFObject)
   {
-    v8 = __CFObject;
+    v10 = __CFObject;
     animationManager = [(SCNTechnique *)self animationManager];
     if (animationManager)
     {
-      IsPaused = C3DAnimationManagerGetAnimationForKeyIsPaused(animationManager, v8, paused);
-      if (!v6)
+      IsPaused = C3DAnimationManagerGetAnimationForKeyIsPaused(animationManager, v10, paused);
+      if (!v7)
       {
         return IsPaused;
       }
@@ -819,10 +821,10 @@ void __41__SCNTechnique_setSpeed_forAnimationKey___block_invoke(uint64_t a1)
   }
 
   IsPaused = 0;
-  if (v6)
+  if (v7)
   {
 LABEL_8:
-    C3DSceneUnlock(v6);
+    C3DSceneUnlock(v7, v9);
   }
 
   return IsPaused;
@@ -916,7 +918,7 @@ void __33__SCNTechnique_removeAllBindings__block_invoke(uint64_t a1)
 {
   v1 = [*(a1 + 32) __CFObject];
 
-  C3DEntityRemoveAllBindings(v1);
+  C3DEntityRemoveAllBindings(v1, v2);
 }
 
 - (id)presentationInstance
@@ -947,14 +949,14 @@ void __33__SCNTechnique_removeAllBindings__block_invoke(uint64_t a1)
 - (void)_setupPasses
 {
   self->_passes = objc_alloc_init(MEMORY[0x277CBEB18]);
-  PassCount = C3DFXTechniqueGetPassCount(self->_technique);
+  PassCount = C3DFXTechniqueGetPassCount(self->_technique, v3);
   if (PassCount >= 1)
   {
-    v4 = PassCount;
-    for (i = 0; i != v4; ++i)
+    v5 = PassCount;
+    for (i = 0; i != v5; ++i)
     {
-      v6 = [[SCNPass alloc] initWithFXPass:C3DFXTechniqueGetPassAtIndex(self->_technique technique:i), self];
-      [(NSArray *)self->_passes addObject:v6];
+      v7 = [[SCNPass alloc] initWithFXPass:C3DFXTechniqueGetPassAtIndex(self->_technique technique:i), self];
+      [(NSArray *)self->_passes addObject:v7];
     }
   }
 }
@@ -990,18 +992,18 @@ void __33__SCNTechnique_removeAllBindings__block_invoke(uint64_t a1)
 - (void)_customDecodingOfSCNTechnique:(id)technique
 {
   v17 = *MEMORY[0x277D85DE8];
-  v5 = [technique decodeObjectOfClasses:SCNPlistClasses() forKey:@"description"];
+  v5 = [technique decodeObjectOfClasses:SCNPlistClasses(self forKey:{a2), @"description"}];
   if (v5)
   {
-    v6 = C3DFXTechniqueCreateWithDescription(v5, 0);
-    self->_technique = v6;
-    if (v6)
+    v5 = C3DFXTechniqueCreateWithDescription(v5, 0);
+    self->_technique = v5;
+    if (v5)
     {
-      C3DEntitySetObjCWrapper(v6, self);
+      v5 = C3DEntitySetObjCWrapper(v5, self);
     }
   }
 
-  v7 = [technique decodeObjectOfClasses:SCNPlistClasses() forKey:@"valueForSymbol"];
+  v7 = [technique decodeObjectOfClasses:SCNPlistClasses(v5 forKey:{v6), @"valueForSymbol"}];
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;

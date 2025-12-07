@@ -3438,7 +3438,7 @@ void __51__IRPreferences__getDictItemsForLogging_withTitle___block_invoke(uint64
 
 - (id)_getKeyWithType:(id)type withDefaultValue:(id)value expectedType:(Class)expectedType
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   valueCopy = value;
   defaults = [(IRPreferences *)self defaults];
@@ -3456,19 +3456,19 @@ void __51__IRPreferences__getDictItemsForLogging_withTitle___block_invoke(uint64
   {
     if (os_log_type_enabled(*v12, OS_LOG_TYPE_DEBUG))
     {
-      v26 = v14;
-      *v31 = 138412802;
-      *&v31[4] = typeCopy;
-      *&v31[12] = 2112;
-      *&v31[14] = objc_opt_class();
-      *&v31[22] = 2112;
+      v25 = v14;
+      *v30 = 138412802;
+      *&v30[4] = typeCopy;
+      *&v30[12] = 2112;
+      *&v30[14] = objc_opt_class();
+      *&v30[22] = 2112;
       expectedTypeCopy2 = expectedType;
-      v27 = *&v31[14];
-      _os_log_debug_impl(&dword_25543D000, v26, OS_LOG_TYPE_DEBUG, "#preferences, Unexpected type stored in defaults for settings key %@ . Got %@ expecting %@. Ignoring override.", v31, 0x20u);
+      v26 = *&v30[14];
+      _os_log_debug_impl(&dword_25543D000, v25, OS_LOG_TYPE_DEBUG, "#preferences, Unexpected type stored in defaults for settings key %@ . Got %@ expecting %@. Ignoring override.", v30, 0x20u);
     }
 
 LABEL_8:
-    v16 = [(IRPreferences *)self mobileAssetSettings:*v31];
+    v16 = [(IRPreferences *)self mobileAssetSettings:*v30];
     v17 = [v16 objectForKey:typeCopy];
 
     if (v17)
@@ -3481,11 +3481,11 @@ LABEL_8:
         v21 = v17;
         if (v20)
         {
-          *v31 = 138412546;
-          *&v31[4] = v17;
-          *&v31[12] = 2112;
-          *&v31[14] = typeCopy;
-          _os_log_impl(&dword_25543D000, v19, OS_LOG_TYPE_DEFAULT, "#preferences, Setting found in mobile asset storage. Setting value: %@ for key: %@", v31, 0x16u);
+          *v30 = 138412546;
+          *&v30[4] = v17;
+          *&v30[12] = 2112;
+          *&v30[14] = typeCopy;
+          _os_log_impl(&dword_25543D000, v19, OS_LOG_TYPE_DEFAULT, "#preferences, Setting found in mobile asset storage. Setting value: %@ for key: %@", v30, 0x16u);
           v21 = v17;
         }
 
@@ -3497,16 +3497,16 @@ LABEL_16:
 
       if (os_log_type_enabled(*v12, OS_LOG_TYPE_DEBUG))
       {
-        v28 = v19;
-        v29 = objc_opt_class();
-        *v31 = 138412802;
-        *&v31[4] = typeCopy;
-        *&v31[12] = 2112;
-        *&v31[14] = v29;
-        *&v31[22] = 2112;
+        v27 = v19;
+        v28 = objc_opt_class();
+        *v30 = 138412802;
+        *&v30[4] = typeCopy;
+        *&v30[12] = 2112;
+        *&v30[14] = v28;
+        *&v30[22] = 2112;
         expectedTypeCopy2 = expectedType;
-        v30 = v29;
-        _os_log_debug_impl(&dword_25543D000, v28, OS_LOG_TYPE_DEBUG, "#preferences, Unexpected type stored in mobile asset for preference key %@ . Got %@ expecting %@. Ignoring mobile asset override.", v31, 0x20u);
+        v29 = v28;
+        _os_log_debug_impl(&dword_25543D000, v27, OS_LOG_TYPE_DEBUG, "#preferences, Unexpected type stored in mobile asset for preference key %@ . Got %@ expecting %@. Ignoring mobile asset override.", v30, 0x20u);
       }
     }
 
@@ -3524,17 +3524,15 @@ LABEL_16:
 
   if (os_log_type_enabled(*v12, OS_LOG_TYPE_DEFAULT))
   {
-    *v31 = 138412546;
-    *&v31[4] = v11;
-    *&v31[12] = 2112;
-    *&v31[14] = typeCopy;
-    _os_log_impl(&dword_25543D000, v14, OS_LOG_TYPE_DEFAULT, "#preferences, Setting found in defaults storage. Setting value: %@ for key: %@", v31, 0x16u);
+    *v30 = 138412546;
+    *&v30[4] = v11;
+    *&v30[12] = 2112;
+    *&v30[14] = typeCopy;
+    _os_log_impl(&dword_25543D000, v14, OS_LOG_TYPE_DEFAULT, "#preferences, Setting found in defaults storage. Setting value: %@ for key: %@", v30, 0x16u);
   }
 
   v15 = v11;
 LABEL_17:
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -3579,7 +3577,7 @@ void __60__IRPreferences__registerForUserDefaultsRefreshNotification__block_invo
 
 void __72__IRPreferences_setMobileAssetSettingsWithMobileAssetDict_assetVersion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 hasPrefix:@"IR"])
   {
@@ -3592,26 +3590,23 @@ void __72__IRPreferences_setMobileAssetSettingsWithMobileAssetDict_assetVersion_
     v5 = *MEMORY[0x277D21260];
     if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
     {
-      v7 = 138412546;
-      v8 = v3;
-      v9 = 2112;
-      v10 = @"IR";
-      _os_log_impl(&dword_25543D000, v5, OS_LOG_TYPE_INFO, "#preferences, Ignoring mobile asset setting '%@' which does not have %@ prefix", &v7, 0x16u);
+      v6 = 138412546;
+      v7 = v3;
+      v8 = 2112;
+      v9 = @"IR";
+      _os_log_impl(&dword_25543D000, v5, OS_LOG_TYPE_INFO, "#preferences, Ignoring mobile asset setting '%@' which does not have %@ prefix", &v6, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_getKeyWithType:(uint64_t)a1 withDefaultValue:(uint64_t)a2 expectedType:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_25543D000, log, OS_LOG_TYPE_DEBUG, "#preferences, Returning default value for key %@ since no overwrite performed. Default value: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_25543D000, log, OS_LOG_TYPE_DEBUG, "#preferences, Returning default value for key %@ since no overwrite performed. Default value: %@", &v3, 0x16u);
 }
 
 @end

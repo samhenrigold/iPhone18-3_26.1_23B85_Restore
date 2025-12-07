@@ -78,10 +78,10 @@
 
   else
   {
-    [v5 removeObject:v10];
+    objc_msgSend_removeObject_(v5);
 
     v10 = [v5 specifierForID:@"WORKOUT_DND_ID"];
-    [v5 removeObject:v10];
+    objc_msgSend_removeObject_(v5);
   }
 
   v48 = v5;

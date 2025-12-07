@@ -32,7 +32,8 @@ float32x4_t *composite_pixelmask<(CGCompositeOperation)10,_rgbaf_t>(float32x4_t 
           v34 = a10;
           do
           {
-            v35 = v34++;
+            v35 = v34;
+            v34 += 16;
           }
 
           while (v34 <= v33 && (vminvq_u8(vceqzq_s8(*v35)) & 0x80) != 0);
@@ -42,13 +43,12 @@ float32x4_t *composite_pixelmask<(CGCompositeOperation)10,_rgbaf_t>(float32x4_t 
             v35 = (v35 + 4);
           }
 
-          while (v35 <= v33 && !v36->i32[0]);
+          while (v35 <= v33 && !*v36);
           if (v36 < v33)
           {
-            while (!v36->i8[0])
+            while (!*v36)
             {
-              v36 = (v36 + 1);
-              if (v36 >= v33)
+              if (++v36 >= v33)
               {
                 v36 = &a10[v24];
                 break;
@@ -74,7 +74,8 @@ float32x4_t *composite_pixelmask<(CGCompositeOperation)10,_rgbaf_t>(float32x4_t 
         v27 = a10;
         do
         {
-          v28 = v27++;
+          v28 = v27;
+          v27 += 16;
         }
 
         while (v27 <= v26 && (vminvq_u8(vceqq_s8(*v28, v21)) & 0x80) != 0);
@@ -84,13 +85,12 @@ float32x4_t *composite_pixelmask<(CGCompositeOperation)10,_rgbaf_t>(float32x4_t 
           v28 = (v28 + 4);
         }
 
-        while (v28 <= v26 && v29->i32[0] == -1);
+        while (v28 <= v26 && *v29 == -1);
         if (v29 < v26)
         {
-          while (v29->u8[0] == 255)
+          while (*v29 == 255)
           {
-            v29 = (v29 + 1);
-            if (v29 >= v26)
+            if (++v29 >= v26)
             {
               v29 = &a10[v24];
               break;
@@ -227,7 +227,8 @@ LABEL_37:
         v66 = a10;
         do
         {
-          v67 = v66++;
+          v67 = v66;
+          v66 += 16;
         }
 
         while (v66 <= v65 && (vminvq_u8(vceqzq_s8(*v67)) & 0x80) != 0);
@@ -237,13 +238,12 @@ LABEL_37:
           v67 = (v67 + 4);
         }
 
-        while (v67 <= v65 && !v68->i32[0]);
+        while (v67 <= v65 && !*v68);
         if (v68 < v65)
         {
-          while (!v68->i8[0])
+          while (!*v68)
           {
-            v68 = (v68 + 1);
-            if (v68 >= v65)
+            if (++v68 >= v65)
             {
               v68 = &a10[v53];
               break;
@@ -269,7 +269,8 @@ LABEL_37:
       v56 = a10;
       do
       {
-        v57 = v56++;
+        v57 = v56;
+        v56 += 16;
       }
 
       while (v56 <= v55 && (vminvq_u8(vceqq_s8(*v57, v50)) & 0x80) != 0);
@@ -279,13 +280,12 @@ LABEL_37:
         v57 = (v57 + 4);
       }
 
-      while (v57 <= v55 && v58->i32[0] == -1);
+      while (v57 <= v55 && *v58 == -1);
       if (v58 < v55)
       {
-        while (v58->u8[0] == 255)
+        while (*v58 == 255)
         {
-          v58 = (v58 + 1);
-          if (v58 >= v55)
+          if (++v58 >= v55)
           {
             v58 = &a10[v53];
             break;
@@ -472,7 +472,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)11,_rgbaf_t>(int8x16_t *res
           v56 = a10;
           do
           {
-            v57 = v56++;
+            v57 = v56;
+            v56 += 16;
           }
 
           while (v56 <= v55 && (vminvq_u8(vceqzq_s8(*v57)) & 0x80) != 0);
@@ -482,13 +483,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)11,_rgbaf_t>(int8x16_t *res
             v57 = (v57 + 4);
           }
 
-          while (v57 <= v55 && !v58->i32[0]);
+          while (v57 <= v55 && !*v58);
           if (v58 < v55)
           {
-            while (!v58->i8[0])
+            while (!*v58)
             {
-              v58 = (v58 + 1);
-              if (v58 >= v55)
+              if (++v58 >= v55)
               {
                 v58 = &a10[v39];
                 break;
@@ -514,7 +514,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)11,_rgbaf_t>(int8x16_t *res
         v42 = a10;
         do
         {
-          v43 = v42++;
+          v43 = v42;
+          v42 += 16;
         }
 
         while (v42 <= v41 && (vminvq_u8(vceqq_s8(*v43, v36)) & 0x80) != 0);
@@ -524,13 +525,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)11,_rgbaf_t>(int8x16_t *res
           v43 = (v43 + 4);
         }
 
-        while (v43 <= v41 && v44->i32[0] == -1);
+        while (v43 <= v41 && *v44 == -1);
         if (v44 < v41)
         {
-          while (v44->u8[0] == 255)
+          while (*v44 == 255)
           {
-            v44 = (v44 + 1);
-            if (v44 >= v41)
+            if (++v44 >= v41)
             {
               v44 = &a10[v39];
               break;
@@ -685,7 +685,8 @@ LABEL_43:
         v102 = a10;
         do
         {
-          v103 = v102++;
+          v103 = v102;
+          v102 += 16;
         }
 
         while (v102 <= v101 && (vminvq_u8(vceqzq_s8(*v103)) & 0x80) != 0);
@@ -695,13 +696,12 @@ LABEL_43:
           v103 = (v103 + 4);
         }
 
-        while (v103 <= v101 && !v104->i32[0]);
+        while (v103 <= v101 && !*v104);
         if (v104 < v101)
         {
-          while (!v104->i8[0])
+          while (!*v104)
           {
-            v104 = (v104 + 1);
-            if (v104 >= v101)
+            if (++v104 >= v101)
             {
               v104 = &a10[v85];
               break;
@@ -727,7 +727,8 @@ LABEL_43:
       v88 = a10;
       do
       {
-        v89 = v88++;
+        v89 = v88;
+        v88 += 16;
       }
 
       while (v88 <= v87 && (vminvq_u8(vceqq_s8(*v89, v82)) & 0x80) != 0);
@@ -737,13 +738,12 @@ LABEL_43:
         v89 = (v89 + 4);
       }
 
-      while (v89 <= v87 && v90->i32[0] == -1);
+      while (v89 <= v87 && *v90 == -1);
       if (v90 < v87)
       {
-        while (v90->u8[0] == 255)
+        while (*v90 == 255)
         {
-          v90 = (v90 + 1);
-          if (v90 >= v87)
+          if (++v90 >= v87)
           {
             v90 = &a10[v85];
             break;
@@ -923,7 +923,8 @@ float32x4_t *composite_pixelmask<(CGCompositeOperation)12,_rgbaf_t>(float32x4_t 
           v39 = a10;
           do
           {
-            v40 = v39++;
+            v40 = v39;
+            v39 += 16;
           }
 
           while (v39 <= v38 && (vminvq_u8(vceqzq_s8(*v40)) & 0x80) != 0);
@@ -933,13 +934,12 @@ float32x4_t *composite_pixelmask<(CGCompositeOperation)12,_rgbaf_t>(float32x4_t 
             v40 = (v40 + 4);
           }
 
-          while (v40 <= v38 && !v41->i32[0]);
+          while (v40 <= v38 && !*v41);
           if (v41 < v38)
           {
-            while (!v41->i8[0])
+            while (!*v41)
             {
-              v41 = (v41 + 1);
-              if (v41 >= v38)
+              if (++v41 >= v38)
               {
                 v41 = &a10[v29];
                 break;
@@ -965,7 +965,8 @@ float32x4_t *composite_pixelmask<(CGCompositeOperation)12,_rgbaf_t>(float32x4_t 
         v32 = a10;
         do
         {
-          v33 = v32++;
+          v33 = v32;
+          v32 += 16;
         }
 
         while (v32 <= v31 && (vminvq_u8(vceqq_s8(*v33, v26)) & 0x80) != 0);
@@ -975,13 +976,12 @@ float32x4_t *composite_pixelmask<(CGCompositeOperation)12,_rgbaf_t>(float32x4_t 
           v33 = (v33 + 4);
         }
 
-        while (v33 <= v31 && v34->i32[0] == -1);
+        while (v33 <= v31 && *v34 == -1);
         if (v34 < v31)
         {
-          while (v34->u8[0] == 255)
+          while (*v34 == 255)
           {
-            v34 = (v34 + 1);
-            if (v34 >= v31)
+            if (++v34 >= v31)
             {
               v34 = &a10[v29];
               break;
@@ -1121,7 +1121,8 @@ LABEL_40:
         v71 = a10;
         do
         {
-          v72 = v71++;
+          v72 = v71;
+          v71 += 16;
         }
 
         while (v71 <= v70 && (vminvq_u8(vceqzq_s8(*v72)) & 0x80) != 0);
@@ -1131,13 +1132,12 @@ LABEL_40:
           v72 = (v72 + 4);
         }
 
-        while (v72 <= v70 && !v73->i32[0]);
+        while (v72 <= v70 && !*v73);
         if (v73 < v70)
         {
-          while (!v73->i8[0])
+          while (!*v73)
           {
-            v73 = (v73 + 1);
-            if (v73 >= v70)
+            if (++v73 >= v70)
             {
               v73 = &a10[v61];
               break;
@@ -1163,7 +1163,8 @@ LABEL_40:
       v64 = a10;
       do
       {
-        v65 = v64++;
+        v65 = v64;
+        v64 += 16;
       }
 
       while (v64 <= v63 && (vminvq_u8(vceqq_s8(*v65, v58)) & 0x80) != 0);
@@ -1173,13 +1174,12 @@ LABEL_40:
         v65 = (v65 + 4);
       }
 
-      while (v65 <= v63 && v66->i32[0] == -1);
+      while (v65 <= v63 && *v66 == -1);
       if (v66 < v63)
       {
-        while (v66->u8[0] == 255)
+        while (*v66 == 255)
         {
-          v66 = (v66 + 1);
-          if (v66 >= v63)
+          if (++v66 >= v63)
           {
             v66 = &a10[v61];
             break;
@@ -1364,7 +1364,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)13,_rgbaf_t>(int8x16_t *res
           v52 = a10;
           do
           {
-            v53 = v52++;
+            v53 = v52;
+            v52 += 16;
           }
 
           while (v52 <= v51 && (vminvq_u8(vceqzq_s8(*v53)) & 0x80) != 0);
@@ -1374,13 +1375,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)13,_rgbaf_t>(int8x16_t *res
             v53 = (v53 + 4);
           }
 
-          while (v53 <= v51 && !v54->i32[0]);
+          while (v53 <= v51 && !*v54);
           if (v54 < v51)
           {
-            while (!v54->i8[0])
+            while (!*v54)
             {
-              v54 = (v54 + 1);
-              if (v54 >= v51)
+              if (++v54 >= v51)
               {
                 v54 = &a10[v39];
                 break;
@@ -1406,7 +1406,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)13,_rgbaf_t>(int8x16_t *res
         v42 = a10;
         do
         {
-          v43 = v42++;
+          v43 = v42;
+          v42 += 16;
         }
 
         while (v42 <= v41 && (vminvq_u8(vceqq_s8(*v43, v36)) & 0x80) != 0);
@@ -1416,13 +1417,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)13,_rgbaf_t>(int8x16_t *res
           v43 = (v43 + 4);
         }
 
-        while (v43 <= v41 && v44->i32[0] == -1);
+        while (v43 <= v41 && *v44 == -1);
         if (v44 < v41)
         {
-          while (v44->u8[0] == 255)
+          while (*v44 == 255)
           {
-            v44 = (v44 + 1);
-            if (v44 >= v41)
+            if (++v44 >= v41)
             {
               v44 = &a10[v39];
               break;
@@ -1570,7 +1570,8 @@ LABEL_43:
         v91 = a10;
         do
         {
-          v92 = v91++;
+          v92 = v91;
+          v91 += 16;
         }
 
         while (v91 <= v90 && (vminvq_u8(vceqzq_s8(*v92)) & 0x80) != 0);
@@ -1580,13 +1581,12 @@ LABEL_43:
           v92 = (v92 + 4);
         }
 
-        while (v92 <= v90 && !v93->i32[0]);
+        while (v92 <= v90 && !*v93);
         if (v93 < v90)
         {
-          while (!v93->i8[0])
+          while (!*v93)
           {
-            v93 = (v93 + 1);
-            if (v93 >= v90)
+            if (++v93 >= v90)
             {
               v93 = &a10[v78];
               break;
@@ -1612,7 +1612,8 @@ LABEL_43:
       v81 = a10;
       do
       {
-        v82 = v81++;
+        v82 = v81;
+        v81 += 16;
       }
 
       while (v81 <= v80 && (vminvq_u8(vceqq_s8(*v82, v75)) & 0x80) != 0);
@@ -1622,13 +1623,12 @@ LABEL_43:
         v82 = (v82 + 4);
       }
 
-      while (v82 <= v80 && v83->i32[0] == -1);
+      while (v82 <= v80 && *v83 == -1);
       if (v83 < v80)
       {
-        while (v83->u8[0] == 255)
+        while (*v83 == 255)
         {
-          v83 = (v83 + 1);
-          if (v83 >= v80)
+          if (++v83 >= v80)
           {
             v83 = &a10[v78];
             break;
@@ -1818,7 +1818,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)14,_rgbaf_t>(int8x16_t *res
           v52 = a10;
           do
           {
-            v53 = v52++;
+            v53 = v52;
+            v52 += 16;
           }
 
           while (v52 <= v51 && (vminvq_u8(vceqzq_s8(*v53)) & 0x80) != 0);
@@ -1828,13 +1829,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)14,_rgbaf_t>(int8x16_t *res
             v53 = (v53 + 4);
           }
 
-          while (v53 <= v51 && !v54->i32[0]);
+          while (v53 <= v51 && !*v54);
           if (v54 < v51)
           {
-            while (!v54->i8[0])
+            while (!*v54)
             {
-              v54 = (v54 + 1);
-              if (v54 >= v51)
+              if (++v54 >= v51)
               {
                 v54 = &a10[v39];
                 break;
@@ -1860,7 +1860,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)14,_rgbaf_t>(int8x16_t *res
         v42 = a10;
         do
         {
-          v43 = v42++;
+          v43 = v42;
+          v42 += 16;
         }
 
         while (v42 <= v41 && (vminvq_u8(vceqq_s8(*v43, v36)) & 0x80) != 0);
@@ -1870,13 +1871,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)14,_rgbaf_t>(int8x16_t *res
           v43 = (v43 + 4);
         }
 
-        while (v43 <= v41 && v44->i32[0] == -1);
+        while (v43 <= v41 && *v44 == -1);
         if (v44 < v41)
         {
-          while (v44->u8[0] == 255)
+          while (*v44 == 255)
           {
-            v44 = (v44 + 1);
-            if (v44 >= v41)
+            if (++v44 >= v41)
             {
               v44 = &a10[v39];
               break;
@@ -2024,7 +2024,8 @@ LABEL_43:
         v91 = a10;
         do
         {
-          v92 = v91++;
+          v92 = v91;
+          v91 += 16;
         }
 
         while (v91 <= v90 && (vminvq_u8(vceqzq_s8(*v92)) & 0x80) != 0);
@@ -2034,13 +2035,12 @@ LABEL_43:
           v92 = (v92 + 4);
         }
 
-        while (v92 <= v90 && !v93->i32[0]);
+        while (v92 <= v90 && !*v93);
         if (v93 < v90)
         {
-          while (!v93->i8[0])
+          while (!*v93)
           {
-            v93 = (v93 + 1);
-            if (v93 >= v90)
+            if (++v93 >= v90)
             {
               v93 = &a10[v78];
               break;
@@ -2066,7 +2066,8 @@ LABEL_43:
       v81 = a10;
       do
       {
-        v82 = v81++;
+        v82 = v81;
+        v81 += 16;
       }
 
       while (v81 <= v80 && (vminvq_u8(vceqq_s8(*v82, v75)) & 0x80) != 0);
@@ -2076,13 +2077,12 @@ LABEL_43:
         v82 = (v82 + 4);
       }
 
-      while (v82 <= v80 && v83->i32[0] == -1);
+      while (v82 <= v80 && *v83 == -1);
       if (v83 < v80)
       {
-        while (v83->u8[0] == 255)
+        while (*v83 == 255)
         {
-          v83 = (v83 + 1);
-          if (v83 >= v80)
+          if (++v83 >= v80)
           {
             v83 = &a10[v78];
             break;
@@ -2276,7 +2276,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)15,_rgbaf_t>(int8x16_t *res
           v62 = a10;
           do
           {
-            v63 = v62++;
+            v63 = v62;
+            v62 += 16;
           }
 
           while (v62 <= v61 && (vminvq_u8(vceqzq_s8(*v63)) & 0x80) != 0);
@@ -2286,13 +2287,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)15,_rgbaf_t>(int8x16_t *res
             v63 = (v63 + 4);
           }
 
-          while (v63 <= v61 && !v64->i32[0]);
+          while (v63 <= v61 && !*v64);
           if (v64 < v61)
           {
-            while (!v64->i8[0])
+            while (!*v64)
             {
-              v64 = (v64 + 1);
-              if (v64 >= v61)
+              if (++v64 >= v61)
               {
                 v64 = &a10[v41];
                 break;
@@ -2318,7 +2318,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)15,_rgbaf_t>(int8x16_t *res
         v44 = a10;
         do
         {
-          v45 = v44++;
+          v45 = v44;
+          v44 += 16;
         }
 
         while (v44 <= v43 && (vminvq_u8(vceqq_s8(*v45, v38)) & 0x80) != 0);
@@ -2328,13 +2329,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)15,_rgbaf_t>(int8x16_t *res
           v45 = (v45 + 4);
         }
 
-        while (v45 <= v43 && v46->i32[0] == -1);
+        while (v45 <= v43 && *v46 == -1);
         if (v46 < v43)
         {
-          while (v46->u8[0] == 255)
+          while (*v46 == 255)
           {
-            v46 = (v46 + 1);
-            if (v46 >= v43)
+            if (++v46 >= v43)
             {
               v46 = &a10[v41];
               break;
@@ -2507,7 +2507,8 @@ LABEL_43:
         v124 = a10;
         do
         {
-          v125 = v124++;
+          v125 = v124;
+          v124 += 16;
         }
 
         while (v124 <= v123 && (vminvq_u8(vceqzq_s8(*v125)) & 0x80) != 0);
@@ -2517,13 +2518,12 @@ LABEL_43:
           v125 = (v125 + 4);
         }
 
-        while (v125 <= v123 && !v126->i32[0]);
+        while (v125 <= v123 && !*v126);
         if (v126 < v123)
         {
-          while (!v126->i8[0])
+          while (!*v126)
           {
-            v126 = (v126 + 1);
-            if (v126 >= v123)
+            if (++v126 >= v123)
             {
               v126 = &a10[v103];
               break;
@@ -2549,7 +2549,8 @@ LABEL_43:
       v106 = a10;
       do
       {
-        v107 = v106++;
+        v107 = v106;
+        v106 += 16;
       }
 
       while (v106 <= v105 && (vminvq_u8(vceqq_s8(*v107, v100)) & 0x80) != 0);
@@ -2559,13 +2560,12 @@ LABEL_43:
         v107 = (v107 + 4);
       }
 
-      while (v107 <= v105 && v108->i32[0] == -1);
+      while (v107 <= v105 && *v108 == -1);
       if (v108 < v105)
       {
-        while (v108->u8[0] == 255)
+        while (*v108 == 255)
         {
-          v108 = (v108 + 1);
-          if (v108 >= v105)
+          if (++v108 >= v105)
           {
             v108 = &a10[v103];
             break;
@@ -2777,7 +2777,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)17,_rgbaf_t>(int8x16_t *res
           v52 = a10;
           do
           {
-            v53 = v52++;
+            v53 = v52;
+            v52 += 16;
           }
 
           while (v52 <= v51 && (vminvq_u8(vceqzq_s8(*v53)) & 0x80) != 0);
@@ -2787,13 +2788,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)17,_rgbaf_t>(int8x16_t *res
             v53 = (v53 + 4);
           }
 
-          while (v53 <= v51 && !v54->i32[0]);
+          while (v53 <= v51 && !*v54);
           if (v54 < v51)
           {
-            while (!v54->i8[0])
+            while (!*v54)
             {
-              v54 = (v54 + 1);
-              if (v54 >= v51)
+              if (++v54 >= v51)
               {
                 v54 = &a10[v39];
                 break;
@@ -2819,7 +2819,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)17,_rgbaf_t>(int8x16_t *res
         v42 = a10;
         do
         {
-          v43 = v42++;
+          v43 = v42;
+          v42 += 16;
         }
 
         while (v42 <= v41 && (vminvq_u8(vceqq_s8(*v43, v36)) & 0x80) != 0);
@@ -2829,13 +2830,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)17,_rgbaf_t>(int8x16_t *res
           v43 = (v43 + 4);
         }
 
-        while (v43 <= v41 && v44->i32[0] == -1);
+        while (v43 <= v41 && *v44 == -1);
         if (v44 < v41)
         {
-          while (v44->u8[0] == 255)
+          while (*v44 == 255)
           {
-            v44 = (v44 + 1);
-            if (v44 >= v41)
+            if (++v44 >= v41)
             {
               v44 = &a10[v39];
               break;
@@ -2983,7 +2983,8 @@ LABEL_43:
         v91 = a10;
         do
         {
-          v92 = v91++;
+          v92 = v91;
+          v91 += 16;
         }
 
         while (v91 <= v90 && (vminvq_u8(vceqzq_s8(*v92)) & 0x80) != 0);
@@ -2993,13 +2994,12 @@ LABEL_43:
           v92 = (v92 + 4);
         }
 
-        while (v92 <= v90 && !v93->i32[0]);
+        while (v92 <= v90 && !*v93);
         if (v93 < v90)
         {
-          while (!v93->i8[0])
+          while (!*v93)
           {
-            v93 = (v93 + 1);
-            if (v93 >= v90)
+            if (++v93 >= v90)
             {
               v93 = &a10[v78];
               break;
@@ -3025,7 +3025,8 @@ LABEL_43:
       v81 = a10;
       do
       {
-        v82 = v81++;
+        v82 = v81;
+        v81 += 16;
       }
 
       while (v81 <= v80 && (vminvq_u8(vceqq_s8(*v82, v75)) & 0x80) != 0);
@@ -3035,13 +3036,12 @@ LABEL_43:
         v82 = (v82 + 4);
       }
 
-      while (v82 <= v80 && v83->i32[0] == -1);
+      while (v82 <= v80 && *v83 == -1);
       if (v83 < v80)
       {
-        while (v83->u8[0] == 255)
+        while (*v83 == 255)
         {
-          v83 = (v83 + 1);
-          if (v83 >= v80)
+          if (++v83 >= v80)
           {
             v83 = &a10[v78];
             break;
@@ -3231,7 +3231,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)16,_rgbaf_t>(int8x16_t *res
           v52 = a10;
           do
           {
-            v53 = v52++;
+            v53 = v52;
+            v52 += 16;
           }
 
           while (v52 <= v51 && (vminvq_u8(vceqzq_s8(*v53)) & 0x80) != 0);
@@ -3241,13 +3242,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)16,_rgbaf_t>(int8x16_t *res
             v53 = (v53 + 4);
           }
 
-          while (v53 <= v51 && !v54->i32[0]);
+          while (v53 <= v51 && !*v54);
           if (v54 < v51)
           {
-            while (!v54->i8[0])
+            while (!*v54)
             {
-              v54 = (v54 + 1);
-              if (v54 >= v51)
+              if (++v54 >= v51)
               {
                 v54 = &a10[v39];
                 break;
@@ -3273,7 +3273,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)16,_rgbaf_t>(int8x16_t *res
         v42 = a10;
         do
         {
-          v43 = v42++;
+          v43 = v42;
+          v42 += 16;
         }
 
         while (v42 <= v41 && (vminvq_u8(vceqq_s8(*v43, v36)) & 0x80) != 0);
@@ -3283,13 +3284,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)16,_rgbaf_t>(int8x16_t *res
           v43 = (v43 + 4);
         }
 
-        while (v43 <= v41 && v44->i32[0] == -1);
+        while (v43 <= v41 && *v44 == -1);
         if (v44 < v41)
         {
-          while (v44->u8[0] == 255)
+          while (*v44 == 255)
           {
-            v44 = (v44 + 1);
-            if (v44 >= v41)
+            if (++v44 >= v41)
             {
               v44 = &a10[v39];
               break;
@@ -3437,7 +3437,8 @@ LABEL_43:
         v91 = a10;
         do
         {
-          v92 = v91++;
+          v92 = v91;
+          v91 += 16;
         }
 
         while (v91 <= v90 && (vminvq_u8(vceqzq_s8(*v92)) & 0x80) != 0);
@@ -3447,13 +3448,12 @@ LABEL_43:
           v92 = (v92 + 4);
         }
 
-        while (v92 <= v90 && !v93->i32[0]);
+        while (v92 <= v90 && !*v93);
         if (v93 < v90)
         {
-          while (!v93->i8[0])
+          while (!*v93)
           {
-            v93 = (v93 + 1);
-            if (v93 >= v90)
+            if (++v93 >= v90)
             {
               v93 = &a10[v78];
               break;
@@ -3479,7 +3479,8 @@ LABEL_43:
       v81 = a10;
       do
       {
-        v82 = v81++;
+        v82 = v81;
+        v81 += 16;
       }
 
       while (v81 <= v80 && (vminvq_u8(vceqq_s8(*v82, v75)) & 0x80) != 0);
@@ -3489,13 +3490,12 @@ LABEL_43:
         v82 = (v82 + 4);
       }
 
-      while (v82 <= v80 && v83->i32[0] == -1);
+      while (v82 <= v80 && *v83 == -1);
       if (v83 < v80)
       {
-        while (v83->u8[0] == 255)
+        while (*v83 == 255)
         {
-          v83 = (v83 + 1);
-          if (v83 >= v80)
+          if (++v83 >= v80)
           {
             v83 = &a10[v78];
             break;
@@ -3685,7 +3685,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)18,_rgbaf_t>(int8x16_t *res
           v65 = a10;
           do
           {
-            v66 = v65++;
+            v66 = v65;
+            v65 += 16;
           }
 
           while (v65 <= v64 && (vminvq_u8(vceqzq_s8(*v66)) & 0x80) != 0);
@@ -3695,13 +3696,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)18,_rgbaf_t>(int8x16_t *res
             v66 = (v66 + 4);
           }
 
-          while (v66 <= v64 && !v67->i32[0]);
+          while (v66 <= v64 && !*v67);
           if (v67 < v64)
           {
-            while (!v67->i8[0])
+            while (!*v67)
             {
-              v67 = (v67 + 1);
-              if (v67 >= v64)
+              if (++v67 >= v64)
               {
                 v67 = &a10[v39];
                 break;
@@ -3727,7 +3727,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)18,_rgbaf_t>(int8x16_t *res
         v42 = a10;
         do
         {
-          v43 = v42++;
+          v43 = v42;
+          v42 += 16;
         }
 
         while (v42 <= v41 && (vminvq_u8(vceqq_s8(*v43, v36)) & 0x80) != 0);
@@ -3737,13 +3738,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)18,_rgbaf_t>(int8x16_t *res
           v43 = (v43 + 4);
         }
 
-        while (v43 <= v41 && v44->i32[0] == -1);
+        while (v43 <= v41 && *v44 == -1);
         if (v44 < v41)
         {
-          while (v44->u8[0] == 255)
+          while (*v44 == 255)
           {
-            v44 = (v44 + 1);
-            if (v44 >= v41)
+            if (++v44 >= v41)
             {
               v44 = &a10[v39];
               break;
@@ -3929,7 +3929,8 @@ LABEL_43:
         v137 = a10;
         do
         {
-          v138 = v137++;
+          v138 = v137;
+          v137 += 16;
         }
 
         while (v137 <= v136 && (vminvq_u8(vceqzq_s8(*v138)) & 0x80) != 0);
@@ -3939,13 +3940,12 @@ LABEL_43:
           v138 = (v138 + 4);
         }
 
-        while (v138 <= v136 && !v139->i32[0]);
+        while (v138 <= v136 && !*v139);
         if (v139 < v136)
         {
-          while (!v139->i8[0])
+          while (!*v139)
           {
-            v139 = (v139 + 1);
-            if (v139 >= v136)
+            if (++v139 >= v136)
             {
               v139 = &a10[v111];
               break;
@@ -3971,7 +3971,8 @@ LABEL_43:
       v114 = a10;
       do
       {
-        v115 = v114++;
+        v115 = v114;
+        v114 += 16;
       }
 
       while (v114 <= v113 && (vminvq_u8(vceqq_s8(*v115, v108)) & 0x80) != 0);
@@ -3981,13 +3982,12 @@ LABEL_43:
         v115 = (v115 + 4);
       }
 
-      while (v115 <= v113 && v116->i32[0] == -1);
+      while (v115 <= v113 && *v116 == -1);
       if (v116 < v113)
       {
-        while (v116->u8[0] == 255)
+        while (*v116 == 255)
         {
-          v116 = (v116 + 1);
-          if (v116 >= v113)
+          if (++v116 >= v113)
           {
             v116 = &a10[v111];
             break;
@@ -4216,7 +4216,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)19,_rgbaf_t>(int8x16_t *res
           v58 = a10;
           do
           {
-            v59 = v58++;
+            v59 = v58;
+            v58 += 16;
           }
 
           while (v58 <= v57 && (vminvq_u8(vceqzq_s8(*v59)) & 0x80) != 0);
@@ -4226,13 +4227,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)19,_rgbaf_t>(int8x16_t *res
             v59 = (v59 + 4);
           }
 
-          while (v59 <= v57 && !v60->i32[0]);
+          while (v59 <= v57 && !*v60);
           if (v60 < v57)
           {
-            while (!v60->i8[0])
+            while (!*v60)
             {
-              v60 = (v60 + 1);
-              if (v60 >= v57)
+              if (++v60 >= v57)
               {
                 v60 = &a10[v39];
                 break;
@@ -4258,7 +4258,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)19,_rgbaf_t>(int8x16_t *res
         v42 = a10;
         do
         {
-          v43 = v42++;
+          v43 = v42;
+          v42 += 16;
         }
 
         while (v42 <= v41 && (vminvq_u8(vceqq_s8(*v43, v36)) & 0x80) != 0);
@@ -4268,13 +4269,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)19,_rgbaf_t>(int8x16_t *res
           v43 = (v43 + 4);
         }
 
-        while (v43 <= v41 && v44->i32[0] == -1);
+        while (v43 <= v41 && *v44 == -1);
         if (v44 < v41)
         {
-          while (v44->u8[0] == 255)
+          while (*v44 == 255)
           {
-            v44 = (v44 + 1);
-            if (v44 >= v41)
+            if (++v44 >= v41)
             {
               v44 = &a10[v39];
               break;
@@ -4437,7 +4437,8 @@ LABEL_43:
         v112 = a10;
         do
         {
-          v113 = v112++;
+          v113 = v112;
+          v112 += 16;
         }
 
         while (v112 <= v111 && (vminvq_u8(vceqzq_s8(*v113)) & 0x80) != 0);
@@ -4447,13 +4448,12 @@ LABEL_43:
           v113 = (v113 + 4);
         }
 
-        while (v113 <= v111 && !v114->i32[0]);
+        while (v113 <= v111 && !*v114);
         if (v114 < v111)
         {
-          while (!v114->i8[0])
+          while (!*v114)
           {
-            v114 = (v114 + 1);
-            if (v114 >= v111)
+            if (++v114 >= v111)
             {
               v114 = &a10[v93];
               break;
@@ -4479,7 +4479,8 @@ LABEL_43:
       v96 = a10;
       do
       {
-        v97 = v96++;
+        v97 = v96;
+        v96 += 16;
       }
 
       while (v96 <= v95 && (vminvq_u8(vceqq_s8(*v97, v90)) & 0x80) != 0);
@@ -4489,13 +4490,12 @@ LABEL_43:
         v97 = (v97 + 4);
       }
 
-      while (v97 <= v95 && v98->i32[0] == -1);
+      while (v97 <= v95 && *v98 == -1);
       if (v98 < v95)
       {
-        while (v98->u8[0] == 255)
+        while (*v98 == 255)
         {
-          v98 = (v98 + 1);
-          if (v98 >= v95)
+          if (++v98 >= v95)
           {
             v98 = &a10[v93];
             break;
@@ -4704,7 +4704,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)21,_rgbaf_t>(int8x16_t *res
           v71 = a10;
           do
           {
-            v72 = v71++;
+            v72 = v71;
+            v71 += 16;
           }
 
           while (v71 <= v70 && (vminvq_u8(vceqzq_s8(*v72)) & 0x80) != 0);
@@ -4714,13 +4715,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)21,_rgbaf_t>(int8x16_t *res
             v72 = (v72 + 4);
           }
 
-          while (v72 <= v70 && !v73->i32[0]);
+          while (v72 <= v70 && !*v73);
           if (v73 < v70)
           {
-            while (!v73->i8[0])
+            while (!*v73)
             {
-              v73 = (v73 + 1);
-              if (v73 >= v70)
+              if (++v73 >= v70)
               {
                 v73 = &a10[v41];
                 break;
@@ -4746,7 +4746,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)21,_rgbaf_t>(int8x16_t *res
         v44 = a10;
         do
         {
-          v45 = v44++;
+          v45 = v44;
+          v44 += 16;
         }
 
         while (v44 <= v43 && (vminvq_u8(vceqq_s8(*v45, v38)) & 0x80) != 0);
@@ -4756,13 +4757,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)21,_rgbaf_t>(int8x16_t *res
           v45 = (v45 + 4);
         }
 
-        while (v45 <= v43 && v46->i32[0] == -1);
+        while (v45 <= v43 && *v46 == -1);
         if (v46 < v43)
         {
-          while (v46->u8[0] == 255)
+          while (*v46 == 255)
           {
-            v46 = (v46 + 1);
-            if (v46 >= v43)
+            if (++v46 >= v43)
             {
               v46 = &a10[v41];
               break;
@@ -4955,7 +4955,8 @@ LABEL_43:
         v153 = a10;
         do
         {
-          v154 = v153++;
+          v154 = v153;
+          v153 += 16;
         }
 
         while (v153 <= v152 && (vminvq_u8(vceqzq_s8(*v154)) & 0x80) != 0);
@@ -4965,13 +4966,12 @@ LABEL_43:
           v154 = (v154 + 4);
         }
 
-        while (v154 <= v152 && !v155->i32[0]);
+        while (v154 <= v152 && !*v155);
         if (v155 < v152)
         {
-          while (!v155->i8[0])
+          while (!*v155)
           {
-            v155 = (v155 + 1);
-            if (v155 >= v152)
+            if (++v155 >= v152)
             {
               v155 = &a10[v123];
               break;
@@ -4997,7 +4997,8 @@ LABEL_43:
       v126 = a10;
       do
       {
-        v127 = v126++;
+        v127 = v126;
+        v126 += 16;
       }
 
       while (v126 <= v125 && (vminvq_u8(vceqq_s8(*v127, v120)) & 0x80) != 0);
@@ -5007,13 +5008,12 @@ LABEL_43:
         v127 = (v127 + 4);
       }
 
-      while (v127 <= v125 && v128->i32[0] == -1);
+      while (v127 <= v125 && *v128 == -1);
       if (v128 < v125)
       {
-        while (v128->u8[0] == 255)
+        while (*v128 == 255)
         {
-          v128 = (v128 + 1);
-          if (v128 >= v125)
+          if (++v128 >= v125)
           {
             v128 = &a10[v123];
             break;
@@ -5245,7 +5245,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)20,_rgbaf_t>(int8x16_t *res
           v65 = a10;
           do
           {
-            v66 = v65++;
+            v66 = v65;
+            v65 += 16;
           }
 
           while (v65 <= v64 && (vminvq_u8(vceqzq_s8(*v66)) & 0x80) != 0);
@@ -5255,13 +5256,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)20,_rgbaf_t>(int8x16_t *res
             v66 = (v66 + 4);
           }
 
-          while (v66 <= v64 && !v67->i32[0]);
+          while (v66 <= v64 && !*v67);
           if (v67 < v64)
           {
-            while (!v67->i8[0])
+            while (!*v67)
             {
-              v67 = (v67 + 1);
-              if (v67 >= v64)
+              if (++v67 >= v64)
               {
                 v67 = &a10[v39];
                 break;
@@ -5287,7 +5287,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)20,_rgbaf_t>(int8x16_t *res
         v42 = a10;
         do
         {
-          v43 = v42++;
+          v43 = v42;
+          v42 += 16;
         }
 
         while (v42 <= v41 && (vminvq_u8(vceqq_s8(*v43, v36)) & 0x80) != 0);
@@ -5297,13 +5298,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)20,_rgbaf_t>(int8x16_t *res
           v43 = (v43 + 4);
         }
 
-        while (v43 <= v41 && v44->i32[0] == -1);
+        while (v43 <= v41 && *v44 == -1);
         if (v44 < v41)
         {
-          while (v44->u8[0] == 255)
+          while (*v44 == 255)
           {
-            v44 = (v44 + 1);
-            if (v44 >= v41)
+            if (++v44 >= v41)
             {
               v44 = &a10[v39];
               break;
@@ -5482,7 +5482,8 @@ LABEL_43:
         v135 = a10;
         do
         {
-          v136 = v135++;
+          v136 = v135;
+          v135 += 16;
         }
 
         while (v135 <= v134 && (vminvq_u8(vceqzq_s8(*v136)) & 0x80) != 0);
@@ -5492,13 +5493,12 @@ LABEL_43:
           v136 = (v136 + 4);
         }
 
-        while (v136 <= v134 && !v137->i32[0]);
+        while (v136 <= v134 && !*v137);
         if (v137 < v134)
         {
-          while (!v137->i8[0])
+          while (!*v137)
           {
-            v137 = (v137 + 1);
-            if (v137 >= v134)
+            if (++v137 >= v134)
             {
               v137 = &a10[v109];
               break;
@@ -5524,7 +5524,8 @@ LABEL_43:
       v112 = a10;
       do
       {
-        v113 = v112++;
+        v113 = v112;
+        v112 += 16;
       }
 
       while (v112 <= v111 && (vminvq_u8(vceqq_s8(*v113, v106)) & 0x80) != 0);
@@ -5534,13 +5535,12 @@ LABEL_43:
         v113 = (v113 + 4);
       }
 
-      while (v113 <= v111 && v114->i32[0] == -1);
+      while (v113 <= v111 && *v114 == -1);
       if (v114 < v111)
       {
-        while (v114->u8[0] == 255)
+        while (*v114 == 255)
         {
-          v114 = (v114 + 1);
-          if (v114 >= v111)
+          if (++v114 >= v111)
           {
             v114 = &a10[v109];
             break;
@@ -5762,7 +5762,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)22,_rgbaf_t>(int8x16_t *res
           v58 = a10;
           do
           {
-            v59 = v58++;
+            v59 = v58;
+            v58 += 16;
           }
 
           while (v58 <= v57 && (vminvq_u8(vceqzq_s8(*v59)) & 0x80) != 0);
@@ -5772,13 +5773,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)22,_rgbaf_t>(int8x16_t *res
             v59 = (v59 + 4);
           }
 
-          while (v59 <= v57 && !v60->i32[0]);
+          while (v59 <= v57 && !*v60);
           if (v60 < v57)
           {
-            while (!v60->i8[0])
+            while (!*v60)
             {
-              v60 = (v60 + 1);
-              if (v60 >= v57)
+              if (++v60 >= v57)
               {
                 v60 = &a10[v39];
                 break;
@@ -5804,7 +5804,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)22,_rgbaf_t>(int8x16_t *res
         v42 = a10;
         do
         {
-          v43 = v42++;
+          v43 = v42;
+          v42 += 16;
         }
 
         while (v42 <= v41 && (vminvq_u8(vceqq_s8(*v43, v36)) & 0x80) != 0);
@@ -5814,13 +5815,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)22,_rgbaf_t>(int8x16_t *res
           v43 = (v43 + 4);
         }
 
-        while (v43 <= v41 && v44->i32[0] == -1);
+        while (v43 <= v41 && *v44 == -1);
         if (v44 < v41)
         {
-          while (v44->u8[0] == 255)
+          while (*v44 == 255)
           {
-            v44 = (v44 + 1);
-            if (v44 >= v41)
+            if (++v44 >= v41)
             {
               v44 = &a10[v39];
               break;
@@ -5989,7 +5989,8 @@ LABEL_43:
         v113 = a10;
         do
         {
-          v114 = v113++;
+          v114 = v113;
+          v113 += 16;
         }
 
         while (v113 <= v112 && (vminvq_u8(vceqzq_s8(*v114)) & 0x80) != 0);
@@ -5999,13 +6000,12 @@ LABEL_43:
           v114 = (v114 + 4);
         }
 
-        while (v114 <= v112 && !v115->i32[0]);
+        while (v114 <= v112 && !*v115);
         if (v115 < v112)
         {
-          while (!v115->i8[0])
+          while (!*v115)
           {
-            v115 = (v115 + 1);
-            if (v115 >= v112)
+            if (++v115 >= v112)
             {
               v115 = &a10[v94];
               break;
@@ -6031,7 +6031,8 @@ LABEL_43:
       v97 = a10;
       do
       {
-        v98 = v97++;
+        v98 = v97;
+        v97 += 16;
       }
 
       while (v97 <= v96 && (vminvq_u8(vceqq_s8(*v98, v91)) & 0x80) != 0);
@@ -6041,13 +6042,12 @@ LABEL_43:
         v98 = (v98 + 4);
       }
 
-      while (v98 <= v96 && v99->i32[0] == -1);
+      while (v98 <= v96 && *v99 == -1);
       if (v99 < v96)
       {
-        while (v99->u8[0] == 255)
+        while (*v99 == 255)
         {
-          v99 = (v99 + 1);
-          if (v99 >= v96)
+          if (++v99 >= v96)
           {
             v99 = &a10[v94];
             break;
@@ -6257,7 +6257,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)23,_rgbaf_t>(int8x16_t *res
           v54 = a10;
           do
           {
-            v55 = v54++;
+            v55 = v54;
+            v54 += 16;
           }
 
           while (v54 <= v53 && (vminvq_u8(vceqzq_s8(*v55)) & 0x80) != 0);
@@ -6267,13 +6268,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)23,_rgbaf_t>(int8x16_t *res
             v55 = (v55 + 4);
           }
 
-          while (v55 <= v53 && !v56->i32[0]);
+          while (v55 <= v53 && !*v56);
           if (v56 < v53)
           {
-            while (!v56->i8[0])
+            while (!*v56)
             {
-              v56 = (v56 + 1);
-              if (v56 >= v53)
+              if (++v56 >= v53)
               {
                 v56 = &a10[v39];
                 break;
@@ -6299,7 +6299,8 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)23,_rgbaf_t>(int8x16_t *res
         v42 = a10;
         do
         {
-          v43 = v42++;
+          v43 = v42;
+          v42 += 16;
         }
 
         while (v42 <= v41 && (vminvq_u8(vceqq_s8(*v43, v36)) & 0x80) != 0);
@@ -6309,13 +6310,12 @@ int8x16_t *composite_pixelmask<(CGCompositeOperation)23,_rgbaf_t>(int8x16_t *res
           v43 = (v43 + 4);
         }
 
-        while (v43 <= v41 && v44->i32[0] == -1);
+        while (v43 <= v41 && *v44 == -1);
         if (v44 < v41)
         {
-          while (v44->u8[0] == 255)
+          while (*v44 == 255)
           {
-            v44 = (v44 + 1);
-            if (v44 >= v41)
+            if (++v44 >= v41)
             {
               v44 = &a10[v39];
               break;
@@ -6473,7 +6473,8 @@ LABEL_43:
         v98 = a10;
         do
         {
-          v99 = v98++;
+          v99 = v98;
+          v98 += 16;
         }
 
         while (v98 <= v97 && (vminvq_u8(vceqzq_s8(*v99)) & 0x80) != 0);
@@ -6483,13 +6484,12 @@ LABEL_43:
           v99 = (v99 + 4);
         }
 
-        while (v99 <= v97 && !v100->i32[0]);
+        while (v99 <= v97 && !*v100);
         if (v100 < v97)
         {
-          while (!v100->i8[0])
+          while (!*v100)
           {
-            v100 = (v100 + 1);
-            if (v100 >= v97)
+            if (++v100 >= v97)
             {
               v100 = &a10[v83];
               break;
@@ -6515,7 +6515,8 @@ LABEL_43:
       v86 = a10;
       do
       {
-        v87 = v86++;
+        v87 = v86;
+        v86 += 16;
       }
 
       while (v86 <= v85 && (vminvq_u8(vceqq_s8(*v87, v80)) & 0x80) != 0);
@@ -6525,13 +6526,12 @@ LABEL_43:
         v87 = (v87 + 4);
       }
 
-      while (v87 <= v85 && v88->i32[0] == -1);
+      while (v87 <= v85 && *v88 == -1);
       if (v88 < v85)
       {
-        while (v88->u8[0] == 255)
+        while (*v88 == 255)
         {
-          v88 = (v88 + 1);
-          if (v88 >= v85)
+          if (++v88 >= v85)
           {
             v88 = &a10[v83];
             break;
@@ -6667,9 +6667,9 @@ LABEL_93:
 
 uint64_t RGBAf_image(uint64_t *a1, unsigned __int8 *a2, uint64_t a3)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v6 = *a1;
-  memset(v39, 0, 512);
+  memset(v32, 0, 512);
   if (*(a2 + 12))
   {
     v7 = 0;
@@ -6691,63 +6691,62 @@ uint64_t RGBAf_image(uint64_t *a1, unsigned __int8 *a2, uint64_t a3)
     return 0;
   }
 
-  if (_blt_image_initialize(a2, a3, &v33, v39) < 1)
+  if (_blt_image_initialize(a2, a3, &v26, v32) < 1)
   {
     return 0xFFFFFFFFLL;
   }
 
-  v18 = *v6;
-  v19 = *a3;
-  v34 = v19;
-  v35 = v18;
-  if (v19 == 538981289)
+  v11 = *v6;
+  v12 = *a3;
+  v27 = v12;
+  v28 = v11;
+  if (v12 == 538981289)
   {
-    if (!v38 && (~v37 & 0xC3) == 0)
+    if (!v31 && (~v30 & 0xC3) == 0)
     {
-      v17.n128_u32[0] = *(a3 + 8);
-      if (v17.n128_f32[0] >= 1.0 && !*(a3 + 24))
+      v10.n128_u32[0] = *(a3 + 8);
+      if (v10.n128_f32[0] >= 1.0 && !*(a3 + 24))
       {
-        if ((v37 & 4) != 0)
+        if ((v30 & 4) != 0)
         {
-          v17.n128_u64[0] = *(a3 + 32);
-          *(a2 + 8) = v17.n128_u64[0];
+          *(a2 + 8) = *(a3 + 32);
         }
 
-        RGBAf_mark_inner(*a1, v17);
+        RGBAf_mark_inner(*a1);
         return 1;
       }
     }
 
-    v33 = RGBAf_sample_RGBAf_inner;
+    v26 = RGBAf_sample_RGBAf_inner;
     goto LABEL_38;
   }
 
-  v20 = SAMPLEINDEX(v19, v10, v11, v12, v13, v14, v15, v16);
-  if (!v20)
+  v13 = SAMPLEINDEX(v12);
+  if (!v13)
   {
     return 0xFFFFFFFFLL;
   }
 
-  if (v20 > 0xB)
+  if (v13 > 0xB)
   {
     goto LABEL_28;
   }
 
-  if (v20 > 6)
+  if (v13 > 6)
   {
-    switch(v20)
+    switch(v13)
     {
       case 7:
-        v21 = 0;
-        v22 = 32;
+        v14 = 0;
+        v15 = 32;
         break;
       case 9:
-        v21 = 0;
-        v22 = 40;
+        v14 = 0;
+        v15 = 40;
         break;
       case 8:
-        v21 = 0;
-        v22 = 8;
+        v14 = 0;
+        v15 = 8;
         goto LABEL_29;
       default:
         goto LABEL_28;
@@ -6756,39 +6755,39 @@ uint64_t RGBAf_image(uint64_t *a1, unsigned __int8 *a2, uint64_t a3)
     goto LABEL_29;
   }
 
-  if (v20 == 2)
+  if (v13 == 2)
   {
     if (!*(a2 + 12))
     {
-      v21 = 0;
-      v22 = 16;
+      v14 = 0;
+      v15 = 16;
       goto LABEL_29;
     }
 
 LABEL_28:
-    v22 = 255;
-    v21 = 1;
+    v15 = 255;
+    v14 = 1;
     goto LABEL_29;
   }
 
-  if (v20 != 5)
+  if (v13 != 5)
   {
-    if (v20 == 6)
+    if (v13 == 6)
     {
-      v21 = 0;
-      v22 = 0;
+      v14 = 0;
+      v15 = 0;
       goto LABEL_29;
     }
 
     goto LABEL_28;
   }
 
-  v21 = 0;
-  v22 = 24;
+  v14 = 0;
+  v15 = 24;
 LABEL_29:
-  v23 = RGBF_image_sample;
-  v33 = *&RGBF_image_sample[2 * v20 + 2];
-  if (v33)
+  v16 = RGBF_image_sample;
+  v26 = *&RGBF_image_sample[2 * v13 + 2];
+  if (v26)
   {
     goto LABEL_37;
   }
@@ -6803,91 +6802,91 @@ LABEL_29:
     goto LABEL_34;
   }
 
-  v23 = RGB8_image_sample;
-  v33 = *&RGB8_image_sample[2 * v20 + 2];
-  if (!v33)
+  v16 = RGB8_image_sample;
+  v26 = *&RGB8_image_sample[2 * v13 + 2];
+  if (!v26)
   {
 LABEL_34:
-    v23 = RGB16_image_sample;
-    v33 = *&RGB16_image_sample[2 * v20 + 2];
-    if (v33)
+    v16 = RGB16_image_sample;
+    v26 = *&RGB16_image_sample[2 * v13 + 2];
+    if (v26)
     {
-      v24 = 8;
+      v17 = 8;
       goto LABEL_36;
     }
 
     return 0xFFFFFFFFLL;
   }
 
-  v24 = 4;
+  v17 = 4;
 LABEL_36:
-  v36 = v24;
+  v29 = v17;
 LABEL_37:
-  v34 = *v23;
-  if ((v21 & 1) != 0 || (v8 - 1) > 1 || (v37 & 7) != 3 || a2[2] != 5 && a2[2] || v20 > 0xB)
+  v27 = *v16;
+  if ((v14 & 1) != 0 || (v8 - 1) > 1 || (v30 & 7) != 3 || a2[2] != 5 && a2[2] || v13 > 0xB)
   {
     goto LABEL_38;
   }
 
-  HIDWORD(v26) = v22;
-  LODWORD(v26) = v22;
-  v25 = v26 >> 3;
-  if (v25 > 2)
+  HIDWORD(v19) = v15;
+  LODWORD(v19) = v15;
+  v18 = v19 >> 3;
+  if (v18 > 2)
   {
-    if (v25 == 3)
+    if (v18 == 3)
     {
-      v34 = *a3;
-      v27 = RGBAf_image_mark_RGB24;
+      v27 = *a3;
+      v20 = RGBAf_image_mark_RGB24;
       goto LABEL_67;
     }
 
-    if (v25 == 4)
+    if (v18 == 4)
     {
-      v34 = *a3;
-      v27 = RGBAf_image_mark_rgb32;
+      v27 = *a3;
+      v20 = RGBAf_image_mark_rgb32;
       goto LABEL_67;
     }
 
-    if (v25 != 5)
+    if (v18 != 5)
     {
       goto LABEL_38;
     }
 
-    v34 = *a3;
-    v28 = RGBAf_image_mark_rgb32;
+    v27 = *a3;
+    v21 = RGBAf_image_mark_rgb32;
 LABEL_65:
-    v29 = v28;
-    v30 = a2;
-    v31 = v8;
-    v32 = 8;
+    v22 = v21;
+    v23 = a2;
+    v24 = v8;
+    v25 = 8;
 LABEL_68:
-    RGBAf_image_mark_image(v30, &v33, v31, v32, v29);
+    RGBAf_image_mark_image(v23, &v26, v24, v25, v22);
     return 1;
   }
 
-  switch(v25)
+  switch(v18)
   {
     case 0:
-      v34 = *a3;
-      v27 = RGBAf_image_mark_RGB32;
+      v27 = *a3;
+      v20 = RGBAf_image_mark_RGB32;
       goto LABEL_67;
     case 1:
-      v34 = *a3;
-      v28 = RGBAf_image_mark_RGB32;
+      v27 = *a3;
+      v21 = RGBAf_image_mark_RGB32;
       goto LABEL_65;
     case 2:
-      v34 = *a3;
-      v27 = RGBAf_image_mark_W8;
+      v27 = *a3;
+      v20 = RGBAf_image_mark_W8;
 LABEL_67:
-      v29 = v27;
-      v30 = a2;
-      v31 = v8;
-      v32 = 0;
+      v22 = v20;
+      v23 = a2;
+      v24 = v8;
+      v25 = 0;
       goto LABEL_68;
   }
 
 LABEL_38:
-  RGBAf_image_mark(a2, &v33, v8, v17);
+  RGBAf_image_mark(a2, &v26, v8, v10);
   return 1;
 }
 
@@ -7113,7 +7112,7 @@ void RGBAf_image_mark(uint64_t a1, uint64_t a2, unsigned int a3, __n128 a4)
 
   else
   {
-    MEMORY[0x1EEE9AC00](a1, a4);
+    MEMORY[0x1EEE9AC00](a1);
     v17 = &v319 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
     bzero(v17, v16);
     v20 = 0;
@@ -8572,7 +8571,7 @@ LABEL_259:
               v208 = vextq_s8(v206, v206, 4uLL).u64[0];
               *&v318 = v208;
               v208.i32[0] = v26->i32[3];
-              v26->f32[0] = PDAsoftlightPDA(v26->f32[0], v26->f32[1], v52, v208, v54, v55, *v206.i64, v57, v42, v43, v44, v45, v46, v47, v48, v49, *v206.i32, v318, *(&v318 + 4), *&v206.i32[3]);
+              v26->f32[0] = PDAsoftlightPDA(v26->f32[0], v26->f32[1], v52, v208, v54, v55, *v206.i64, v57, v42, v43, v44, v45, v46, v47, v48, v49, v206.u32[0], v318, *(&v318 + 4), *&v206.i32[3]);
               v26->i32[1] = v209;
               v26->i32[2] = LODWORD(v52);
               goto LABEL_259;
@@ -9105,10 +9104,10 @@ LABEL_430:
   }
 }
 
-uint64_t RGBAf_image_mark_rgb32(uint64_t a1, int *a2, int a3, int a4, int a5, int a6)
+uint64_t RGBAf_image_mark_rgb32(uint64_t a1, float *a2, int a3, int a4, unsigned int a5, int a6)
 {
-  v6 = *(a2 + 2);
-  v7 = a2[1];
+  v6 = a2[2];
+  v7 = *(a2 + 1);
   v91 = *a2;
   v8 = *(a1 + 32);
   if (*(a1 + 40))
@@ -9566,10 +9565,10 @@ uint64_t RGBAf_image_mark_rgb32(uint64_t a1, int *a2, int a3, int a4, int a5, in
   return result;
 }
 
-uint64_t RGBAf_image_mark_RGB32(uint64_t a1, int *a2, int a3, int a4, int a5, int a6)
+uint64_t RGBAf_image_mark_RGB32(uint64_t a1, float *a2, int a3, int a4, unsigned int a5, int a6)
 {
-  v6 = *(a2 + 2);
-  v7 = a2[1];
+  v6 = a2[2];
+  v7 = *(a2 + 1);
   v91 = *a2;
   v8 = *(a1 + 32);
   if (*(a1 + 40))

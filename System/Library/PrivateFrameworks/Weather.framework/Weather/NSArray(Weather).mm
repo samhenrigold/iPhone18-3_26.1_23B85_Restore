@@ -6,29 +6,29 @@
 
 - (uint64_t)wa_allObjectsPassTest:()Weather
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   selfCopy = self;
-  v6 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        if (!v4[2](v4, *(*(&v13 + 1) + 8 * v9)))
+        if (!v4[2](v4, *(*(&v12 + 1) + 8 * v9)))
         {
           v10 = 0;
           goto LABEL_11;
@@ -38,7 +38,7 @@
       }
 
       while (v7 != v9);
-      v7 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -51,7 +51,6 @@
   v10 = 1;
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

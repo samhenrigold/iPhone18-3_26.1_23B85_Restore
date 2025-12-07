@@ -286,7 +286,7 @@ uint64_t __60__PUPhotoEditMediaToolController_removeFocusDecisionAtTime___block_
       trimController = self->_trimController;
       if (trimController)
       {
-        [(PUTrimToolController *)trimController playheadTime];
+        objc_msgSend_playheadTime(trimController);
       }
 
       else
@@ -1107,10 +1107,10 @@ void __51__PUPhotoEditMediaToolController__setPlaybackRate___block_invoke(uint64
   [v3 setRate:*(a1 + 40)];
   if (v3)
   {
-    [v3 startTime];
+    objc_msgSend_startTime(v3);
     if ((v15 & 0x100000000) != 0)
     {
-      [v3 endTime];
+      objc_msgSend_endTime(v3);
       if (v13)
       {
         goto LABEL_9;
@@ -1135,7 +1135,7 @@ void __51__PUPhotoEditMediaToolController__setPlaybackRate___block_invoke(uint64
   memset(&v12, 0, sizeof(v12));
   if (v8)
   {
-    [v8 slowMotionTimeRange];
+    objc_msgSend_slowMotionTimeRange(v8);
   }
 
   *&v10.start.value = *&v12.start.value;
@@ -1353,7 +1353,7 @@ void __57__PUPhotoEditMediaToolController__handleStabilizeButton___block_invoke_
   v5 = *(a1 + 32);
   if (v5)
   {
-    [v5 stabCropRect];
+    objc_msgSend_stabCropRect(v5);
   }
 
   else
@@ -1967,13 +1967,13 @@ void __63__PUPhotoEditMediaToolController__updateAutoFocusToolbarButton__block_i
   v12 = MEMORY[0x1E69BE180];
   if (trimAdjustmentController)
   {
-    [trimAdjustmentController startTime];
+    objc_msgSend_startTime(trimAdjustmentController);
     if ((v179 & 0x100000000) != 0)
     {
       goto LABEL_15;
     }
 
-    [v154 endTime];
+    objc_msgSend_endTime(v154);
     if ((v176 & 0x100000000) != 0)
     {
       goto LABEL_15;
@@ -2008,7 +2008,7 @@ LABEL_15:
   v156 = trimAdjustmentController2;
   if (trimAdjustmentController2)
   {
-    [trimAdjustmentController2 startTime];
+    objc_msgSend_startTime(trimAdjustmentController2);
     trimAdjustmentController2 = v156;
   }
 
@@ -2031,7 +2031,7 @@ LABEL_15:
 
   else
   {
-    [v156 endTime];
+    objc_msgSend_endTime(v156);
   }
 
   v19 = self->_trimController;
@@ -2059,7 +2059,7 @@ LABEL_15:
     v24 = mediaAnalysisProperties;
     if (mediaAnalysisProperties)
     {
-      [mediaAnalysisProperties bestKeyFrameTime];
+      objc_msgSend_bestKeyFrameTime(mediaAnalysisProperties);
     }
 
     else

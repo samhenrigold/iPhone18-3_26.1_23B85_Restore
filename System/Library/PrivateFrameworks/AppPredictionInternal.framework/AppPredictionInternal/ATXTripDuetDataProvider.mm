@@ -223,10 +223,10 @@ ATXTripDuetEvent *__79__ATXTripDuetDataProvider_groupTripsFromPublisher_startTim
 
 void __79__ATXTripDuetDataProvider_groupTripsFromPublisher_startTimestamp_endTimestamp___block_invoke_5(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 state];
-  v5 = __atxlog_handle_anchor();
+  v5 = __atxlog_handle_anchor(v4);
   v6 = v5;
   if (v4)
   {
@@ -241,16 +241,14 @@ void __79__ATXTripDuetDataProvider_groupTripsFromPublisher_startTimestamp_endTim
     v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "count")}];
     v8 = *(a1 + 40);
     v9 = *(a1 + 48);
-    v11 = 138412802;
-    v12 = v7;
-    v13 = 2048;
-    v14 = v8;
-    v15 = 2048;
-    v16 = v9;
-    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_INFO, "Successfully fetched %@ Biome events for semantic location between %f and %f", &v11, 0x20u);
+    v10 = 138412802;
+    v11 = v7;
+    v12 = 2048;
+    v13 = v8;
+    v14 = 2048;
+    v15 = v9;
+    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_INFO, "Successfully fetched %@ Biome events for semantic location between %f and %f", &v10, 0x20u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __79__ATXTripDuetDataProvider_groupTripsFromPublisher_startTimestamp_endTimestamp___block_invoke_19(uint64_t a1, void *a2)
@@ -275,19 +273,17 @@ uint64_t __79__ATXTripDuetDataProvider_groupTripsFromPublisher_startTimestamp_en
 
 void __79__ATXTripDuetDataProvider_groupTripsFromPublisher_startTimestamp_endTimestamp___block_invoke_5_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 40);
   v5 = *(a1 + 48);
   v6 = [a2 error];
-  v8 = 134218498;
-  v9 = v4;
-  v10 = 2048;
-  v11 = v5;
-  v12 = 2112;
-  v13 = v6;
-  _os_log_error_impl(&dword_2263AA000, a3, OS_LOG_TYPE_ERROR, "Error encountered while fetching events from Biome for semantic location between %f and %f: %@", &v8, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 134218498;
+  v8 = v4;
+  v9 = 2048;
+  v10 = v5;
+  v11 = 2112;
+  v12 = v6;
+  _os_log_error_impl(&dword_2263AA000, a3, OS_LOG_TYPE_ERROR, "Error encountered while fetching events from Biome for semantic location between %f and %f: %@", &v7, 0x20u);
 }
 
 @end

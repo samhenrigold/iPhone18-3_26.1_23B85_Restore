@@ -667,28 +667,7 @@ void sub_10000926C(uint64_t a1)
     [v4 queue_removePendingStatusPresentationsForRunningContext:v5];
   }
 
-  if (!*(a1 + 56) || !*(a1 + 64))
-  {
-    goto LABEL_15;
-  }
-
-  v6 = [*(a1 + 32) presentedBanner];
-  if (v6)
-  {
-    objc_opt_class();
-    v7 = (objc_opt_isKindOfClass() & 1) != 0 ? v6 : 0;
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  v8 = v7;
-
-  v9 = [v8 embeddedPlatter];
-
-  if (!v9)
+  if (*(a1 + 56) && *(a1 + 64) && (([*(a1 + 32) presentedBanner], (v6 = objc_claimAutoreleasedReturnValue()) == 0) ? (v7 = 0) : (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) ? (v7 = 0) : (v7 = v6), v8 = v7, v6, objc_msgSend(v8, "embeddedPlatter"), v9 = objc_claimAutoreleasedReturnValue(), v8, v9, !v9))
   {
     v10[0] = _NSConcreteStackBlock;
     v10[1] = 3221225472;
@@ -698,13 +677,9 @@ void sub_10000926C(uint64_t a1)
     dispatch_async(&_dispatch_main_q, v10);
   }
 
-  else
+  else if ((*(a1 + 72) & 1) == 0)
   {
-LABEL_15:
-    if ((*(a1 + 72) & 1) == 0)
-    {
-      [*(a1 + 32) queue_dismissPresentableWithReason:@"dialog view controller did finish with response" interruptible:1 forced:0];
-    }
+    [*(a1 + 32) queue_dismissPresentableWithReason:@"dialog view controller did finish with response" interruptible:1 forced:0];
   }
 }
 
@@ -1515,9 +1490,9 @@ void sub_10000BFA8(uint64_t a1)
   _Block_object_dispose(&v38, 8);
 }
 
-void sub_10000C5EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10000C5EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1730,70 +1705,69 @@ void sub_10000D9A0(uint64_t a1)
 void sub_10000E1E8(uint64_t a1)
 {
   v2 = [*(a1 + 32) defaultPostOptions];
-  v3 = *(a1 + 40);
   if (objc_opt_respondsToSelector())
   {
-    v4 = [*(a1 + 40) postOptions];
-    v5 = [v2 if_dictionaryByAddingEntriesFromDictionary:v4];
+    v3 = [*(a1 + 40) postOptions];
+    v4 = [v2 if_dictionaryByAddingEntriesFromDictionary:v3];
 
-    v2 = v5;
+    v2 = v4;
   }
 
-  v6 = [*(a1 + 32) inflightRequest];
-  if (v6)
+  v5 = [*(a1 + 32) inflightRequest];
+  if (v5)
   {
 
 LABEL_6:
-    v7 = sub_100007750();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100007750();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 40);
-      v9 = [v8 requestIdentifier];
+      v7 = *(a1 + 40);
+      v8 = [v7 requestIdentifier];
       *buf = 136315650;
-      v23 = "[WFBannerManager queue_presentBanner:completion:]_block_invoke_2";
-      v24 = 2112;
-      v25 = v8;
-      v26 = 2112;
-      v27 = v9;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s Presenting banner (%@) for running context (%@)", buf, 0x20u);
+      v22 = "[WFBannerManager queue_presentBanner:completion:]_block_invoke_2";
+      v23 = 2112;
+      v24 = v7;
+      v25 = 2112;
+      v26 = v8;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s Presenting banner (%@) for running context (%@)", buf, 0x20u);
     }
 
-    v10 = [*(a1 + 32) bannerSource];
-    v11 = *(a1 + 40);
-    v21 = 0;
-    v12 = [v10 postPresentable:v11 options:0 userInfo:v2 error:&v21];
-    v13 = v21;
+    v9 = [*(a1 + 32) bannerSource];
+    v10 = *(a1 + 40);
+    v20 = 0;
+    v11 = [v9 postPresentable:v10 options:0 userInfo:v2 error:&v20];
+    v12 = v20;
 
-    if (v12)
+    if (v11)
     {
       if ((*(a1 + 48) & 1) == 0)
       {
         [*(a1 + 32) setPresentedBanner:*(a1 + 40)];
-        v14 = [*(a1 + 32) queue];
+        v13 = [*(a1 + 32) queue];
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = sub_10000E4EC;
         block[3] = &unk_1000287E0;
-        v15 = *(a1 + 40);
+        v14 = *(a1 + 40);
         block[4] = *(a1 + 32);
-        v20 = v15;
-        dispatch_async(v14, block);
+        v19 = v14;
+        dispatch_async(v13, block);
       }
     }
 
     else
     {
-      v16 = sub_100007750();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v15 = sub_100007750();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v17 = *(a1 + 40);
+        v16 = *(a1 + 40);
         *buf = 136315650;
-        v23 = "[WFBannerManager queue_presentBanner:completion:]_block_invoke";
-        v24 = 2112;
-        v25 = v17;
-        v26 = 2112;
-        v27 = v13;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%s Unable to post banner: %@, error: %@", buf, 0x20u);
+        v22 = "[WFBannerManager queue_presentBanner:completion:]_block_invoke";
+        v23 = 2112;
+        v24 = v16;
+        v25 = 2112;
+        v26 = v12;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%s Unable to post banner: %@, error: %@", buf, 0x20u);
       }
     }
 
@@ -1805,15 +1779,15 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v18 = sub_100007750();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v17 = sub_100007750();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v23 = "[WFBannerManager queue_presentBanner:completion:]_block_invoke";
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%s Didn't find an inflight request for the banner, so not presenting anything", buf, 0xCu);
+    v22 = "[WFBannerManager queue_presentBanner:completion:]_block_invoke";
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%s Didn't find an inflight request for the banner, so not presenting anything", buf, 0xCu);
   }
 
-  v13 = 0;
+  v12 = 0;
 LABEL_17:
 }
 
@@ -2616,39 +2590,39 @@ void sub_1000120E8(id *a1)
 
       if ((v10 & 1) == 0)
       {
-        v26 = [v6 workflowIdentifier];
-        if (v26)
+        v24 = [v6 workflowIdentifier];
+        if (v24)
         {
-          v27 = v26;
-          v28 = [a1[5] workflowIdentifier];
-          if (v28)
+          v25 = v24;
+          v26 = [a1[5] workflowIdentifier];
+          if (v26)
           {
-            v29 = v28;
-            v30 = [a1[5] workflowIdentifier];
-            v31 = [v6 workflowIdentifier];
-            v32 = [v30 isEqualToString:v31];
+            v27 = v26;
+            v28 = [a1[5] workflowIdentifier];
+            v29 = [v6 workflowIdentifier];
+            v30 = [v28 isEqualToString:v29];
 
-            if (v32)
+            if (v30)
             {
-              v33 = sub_100007750();
-              if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+              v31 = sub_100007750();
+              if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315138;
-                v69 = "[WFBannerManager showDialogRequest:runningContext:completionHandler:]_block_invoke";
-                _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "%s The incoming dialog is from a new run of the same shortcut. Discarding new run and performing bump animation.", buf, 0xCu);
+                v67 = "[WFBannerManager showDialogRequest:runningContext:completionHandler:]_block_invoke";
+                _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "%s The incoming dialog is from a new run of the same shortcut. Discarding new run and performing bump animation.", buf, 0xCu);
               }
 
-              v66[0] = _NSConcreteStackBlock;
-              v66[1] = 3221225472;
-              v66[2] = sub_100012970;
-              v66[3] = &unk_1000288A0;
-              v67 = v4;
-              dispatch_async(&_dispatch_main_q, v66);
-              v34 = a1[7];
-              v35 = [[WFDialogResponse alloc] initWithCancelled:1];
-              v34[2](v34, v35, 0);
+              v64[0] = _NSConcreteStackBlock;
+              v64[1] = 3221225472;
+              v64[2] = sub_100012970;
+              v64[3] = &unk_1000288A0;
+              v65 = v4;
+              dispatch_async(&_dispatch_main_q, v64);
+              v32 = a1[7];
+              v33 = [[WFDialogResponse alloc] initWithCancelled:1];
+              v32[2](v32, v33, 0);
 
-              v17 = v67;
+              v16 = v65;
               goto LABEL_14;
             }
           }
@@ -2658,58 +2632,58 @@ void sub_1000120E8(id *a1)
           }
         }
 
-        v44 = sub_100007750();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+        v42 = sub_100007750();
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v69 = "[WFBannerManager showDialogRequest:runningContext:completionHandler:]_block_invoke_2";
-          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "%s A presentable for a different shortcut has come in, immediately revoking the currently presented banner and cancelling the presented dialog. Presenting next dialog after a 0.3s delay.", buf, 0xCu);
+          v67 = "[WFBannerManager showDialogRequest:runningContext:completionHandler:]_block_invoke_2";
+          _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "%s A presentable for a different shortcut has come in, immediately revoking the currently presented banner and cancelling the presented dialog. Presenting next dialog after a 0.3s delay.", buf, 0xCu);
         }
 
-        v45 = [a1[4] runningPersistentWorkflows];
-        v22 = [v45 objectForKey:v6];
+        v43 = [a1[4] runningPersistentWorkflows];
+        v20 = [v43 objectForKey:v6];
 
-        if (v22)
+        if (v20)
         {
-          v46 = [(WFQueuedDialog *)v22 progress];
-          [v46 cancel];
+          v44 = [(WFQueuedDialog *)v20 progress];
+          [v44 cancel];
         }
 
         else
         {
-          v47 = a1[4];
-          v48 = [0 runningContext];
-          [v47 queue_removePendingStatusPresentationsForRunningContext:v48];
+          v45 = a1[4];
+          v46 = [0 runningContext];
+          [v45 queue_removePendingStatusPresentationsForRunningContext:v46];
 
           [a1[4] queue_dismissPresentableWithReason:@"dismissPresentedContentForRunningContext" interruptible:0 forced:1];
-          v49 = [a1[4] dialogRequestCompletionHandler];
+          v47 = [a1[4] dialogRequestCompletionHandler];
 
-          if (v49)
+          if (v47)
           {
-            v50 = [a1[4] dialogRequestCompletionHandler];
-            v51 = [[WFDialogResponse alloc] initWithCancelled:1];
-            (v50)[2](v50, v51, 0);
+            v48 = [a1[4] dialogRequestCompletionHandler];
+            v49 = [[WFDialogResponse alloc] initWithCancelled:1];
+            (v48)[2](v48, v49, 0);
 
             [a1[4] setDialogRequestCompletionHandler:0];
           }
         }
 
-        v52 = dispatch_time(0, 200000000);
-        v63[0] = _NSConcreteStackBlock;
-        v63[1] = 3221225472;
-        v63[2] = sub_100012978;
-        v63[3] = &unk_1000288F0;
-        v58 = a1[4];
-        v53 = a1[6];
-        v54 = a1[5];
-        v55 = a1[7];
-        *&v56 = v54;
-        *(&v56 + 1) = v55;
-        *&v57 = v58;
-        *(&v57 + 1) = v53;
-        v64 = v57;
-        v65 = v56;
-        dispatch_after(v52, &_dispatch_main_q, v63);
+        v50 = dispatch_time(0, 200000000);
+        v61[0] = _NSConcreteStackBlock;
+        v61[1] = 3221225472;
+        v61[2] = sub_100012978;
+        v61[3] = &unk_1000288F0;
+        v56 = a1[4];
+        v51 = a1[6];
+        v52 = a1[5];
+        v53 = a1[7];
+        *&v54 = v52;
+        *(&v54 + 1) = v53;
+        *&v55 = v56;
+        *(&v55 + 1) = v51;
+        v62 = v55;
+        v63 = v54;
+        dispatch_after(v50, &_dispatch_main_q, v61);
 
 LABEL_52:
         goto LABEL_53;
@@ -2717,11 +2691,9 @@ LABEL_52:
     }
   }
 
-  v11 = a1[6];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v18 = a1[6];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -2729,33 +2701,33 @@ LABEL_52:
       goto LABEL_53;
     }
 
-    v19 = sub_100007750();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_100007750();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = a1[5];
-      v20 = a1[6];
+      v19 = a1[5];
+      v18 = a1[6];
       *buf = 136315650;
-      v69 = "[WFBannerManager showDialogRequest:runningContext:completionHandler:]_block_invoke_2";
+      v67 = "[WFBannerManager showDialogRequest:runningContext:completionHandler:]_block_invoke_2";
+      v68 = 2112;
+      v69 = v18;
       v70 = 2112;
-      v71 = v20;
-      v72 = 2112;
-      v73 = v21;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%s Queuing a dialog request: %@ for running context: %@", buf, 0x20u);
+      v71 = v19;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%s Queuing a dialog request: %@ for running context: %@", buf, 0x20u);
     }
 
-    v22 = [[WFQueuedDialog alloc] initWithRequest:a1[6] context:a1[5] completionHandler:a1[7]];
-    v23 = [a1[4] runningContextWaitingForFollowUpRequest];
-    v24 = [v23 isEqual:a1[5]];
+    v20 = [[WFQueuedDialog alloc] initWithRequest:a1[6] context:a1[5] completionHandler:a1[7]];
+    v21 = [a1[4] runningContextWaitingForFollowUpRequest];
+    v22 = [v21 isEqual:a1[5]];
 
-    if (v24)
+    if (v22)
     {
-      v25 = sub_100007750();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v23 = sub_100007750();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v69 = "[WFBannerManager showDialogRequest:runningContext:completionHandler:]_block_invoke";
+        v67 = "[WFBannerManager showDialogRequest:runningContext:completionHandler:]_block_invoke";
 LABEL_37:
-        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%s Moving dialog request to front of line, since it is the follow-up we are waiting for", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%s Moving dialog request to front of line, since it is the follow-up we are waiting for", buf, 0xCu);
       }
     }
 
@@ -2763,21 +2735,21 @@ LABEL_37:
     {
       if (([a1[4] presentsApertureStatus] & 1) == 0)
       {
-        v36 = [a1[4] presentedPersistentRunningContext];
-        if (v36)
+        v34 = [a1[4] presentedPersistentRunningContext];
+        if (v34)
         {
-          v37 = v36;
-          v38 = [a1[4] presentedPersistentRunningContext];
-          v39 = [v38 isEqual:a1[5]];
+          v35 = v34;
+          v36 = [a1[4] presentedPersistentRunningContext];
+          v37 = [v36 isEqual:a1[5]];
 
-          if (v39)
+          if (v37)
           {
-            v40 = sub_100007750();
-            if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+            v38 = sub_100007750();
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315138;
-              v69 = "[WFBannerManager showDialogRequest:runningContext:completionHandler:]_block_invoke";
-              _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "%s Moving dialog request to front of line, since it is part of the current presented persistent running context", buf, 0xCu);
+              v67 = "[WFBannerManager showDialogRequest:runningContext:completionHandler:]_block_invoke";
+              _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "%s Moving dialog request to front of line, since it is part of the current presented persistent running context", buf, 0xCu);
             }
 
             goto LABEL_39;
@@ -2785,29 +2757,29 @@ LABEL_37:
         }
       }
 
-      v41 = [a1[4] runningContextWaitingForFollowUpRequest];
-      v42 = [v41 isEqual:a1[5]];
+      v39 = [a1[4] runningContextWaitingForFollowUpRequest];
+      v40 = [v39 isEqual:a1[5]];
 
-      if (!v42)
+      if (!v40)
       {
-        v43 = [a1[4] pendingRequests];
-        [v43 addObject:v22];
+        v41 = [a1[4] pendingRequests];
+        [v41 addObject:v20];
         goto LABEL_41;
       }
 
-      v25 = sub_100007750();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v23 = sub_100007750();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v69 = "[WFBannerManager showDialogRequest:runningContext:completionHandler:]_block_invoke";
+        v67 = "[WFBannerManager showDialogRequest:runningContext:completionHandler:]_block_invoke";
         goto LABEL_37;
       }
     }
 
-    [(WFQueuedDialog *)v22 setIsFollowUp:1];
+    [(WFQueuedDialog *)v20 setIsFollowUp:1];
 LABEL_39:
-    v43 = [a1[4] pendingRequests];
-    [v43 insertObject:v22 atIndex:0];
+    v41 = [a1[4] pendingRequests];
+    [v41 insertObject:v20 atIndex:0];
 LABEL_41:
 
     if ([a1[4] runningContextIsInPersistentMode:a1[5]])
@@ -2819,30 +2791,30 @@ LABEL_41:
     goto LABEL_52;
   }
 
-  v12 = sub_100007750();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100007750();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = a1[5];
+    v12 = a1[5];
     *buf = 136315394;
-    v69 = "[WFBannerManager showDialogRequest:runningContext:completionHandler:]_block_invoke_2";
-    v70 = 2112;
-    v71 = v13;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s Handling Link snippet sizing request for context: %@", buf, 0x16u);
+    v67 = "[WFBannerManager showDialogRequest:runningContext:completionHandler:]_block_invoke_2";
+    v68 = 2112;
+    v69 = v12;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s Handling Link snippet sizing request for context: %@", buf, 0x16u);
   }
 
-  v14 = dispatch_time(0, 100000000);
+  v13 = dispatch_time(0, 100000000);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100012988;
   block[3] = &unk_1000288C8;
-  v15 = a1[6];
-  v16 = a1[4];
-  v60 = v15;
-  v61 = v16;
-  v62 = a1[7];
-  dispatch_after(v14, &_dispatch_main_q, block);
+  v14 = a1[6];
+  v15 = a1[4];
+  v58 = v14;
+  v59 = v15;
+  v60 = a1[7];
+  dispatch_after(v13, &_dispatch_main_q, block);
 
-  v17 = v60;
+  v16 = v58;
 LABEL_14:
 
 LABEL_53:

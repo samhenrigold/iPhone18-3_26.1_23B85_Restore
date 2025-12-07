@@ -1,399 +1,3 @@
-uint64_t TSCH::ChartUIState::_InternalSerialize(TSCH::ChartUIState *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
-{
-  v4 = a2;
-  v6 = *(this + 10);
-  if (v6)
-  {
-    if (*a3 <= a2)
-    {
-      v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    }
-
-    v10 = *(this + 6);
-    *v4 = 10;
-    v11 = *(v10 + 5);
-    if (v11 > 0x7F)
-    {
-      v4[1] = v11 | 0x80;
-      v13 = v11 >> 7;
-      if (v11 >> 14)
-      {
-        v12 = v4 + 3;
-        do
-        {
-          *(v12 - 1) = v13 | 0x80;
-          v14 = v13 >> 7;
-          ++v12;
-          v15 = v13 >> 14;
-          v13 >>= 7;
-        }
-
-        while (v15);
-        *(v12 - 1) = v14;
-      }
-
-      else
-      {
-        v4[2] = v13;
-        v12 = v4 + 3;
-      }
-    }
-
-    else
-    {
-      v4[1] = v11;
-      v12 = v4 + 2;
-    }
-
-    v4 = TSP::Reference::_InternalSerialize(v10, v12, a3);
-    if ((v6 & 2) == 0)
-    {
-LABEL_3:
-      if ((v6 & 4) == 0)
-      {
-        goto LABEL_4;
-      }
-
-LABEL_35:
-      if (*a3 <= v4)
-      {
-        v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
-      }
-
-      v20 = *(this + 15);
-      *v4 = 24;
-      if (v20 > 0x7F)
-      {
-        v4[1] = v20 | 0x80;
-        v21 = v20 >> 7;
-        if (v20 >> 14)
-        {
-          v4 += 3;
-          do
-          {
-            *(v4 - 1) = v21 | 0x80;
-            v22 = v21 >> 7;
-            ++v4;
-            v23 = v21 >> 14;
-            v21 >>= 7;
-          }
-
-          while (v23);
-          *(v4 - 1) = v22;
-          if ((v6 & 8) != 0)
-          {
-            goto LABEL_46;
-          }
-        }
-
-        else
-        {
-          v4[2] = v21;
-          v4 += 3;
-          if ((v6 & 8) != 0)
-          {
-            goto LABEL_46;
-          }
-        }
-      }
-
-      else
-      {
-        v4[1] = v20;
-        v4 += 2;
-        if ((v6 & 8) != 0)
-        {
-          goto LABEL_46;
-        }
-      }
-
-LABEL_5:
-      if ((v6 & 0x10) == 0)
-      {
-        goto LABEL_6;
-      }
-
-LABEL_57:
-      if (*a3 <= v4)
-      {
-        v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
-      }
-
-      v28 = *(this + 17);
-      *v4 = 40;
-      if (v28 > 0x7F)
-      {
-        v4[1] = v28 | 0x80;
-        v29 = v28 >> 7;
-        if (v28 >> 14)
-        {
-          v4 += 3;
-          do
-          {
-            *(v4 - 1) = v29 | 0x80;
-            v30 = v29 >> 7;
-            ++v4;
-            v31 = v29 >> 14;
-            v29 >>= 7;
-          }
-
-          while (v31);
-          *(v4 - 1) = v30;
-          if ((v6 & 0x40) != 0)
-          {
-            goto LABEL_68;
-          }
-        }
-
-        else
-        {
-          v4[2] = v29;
-          v4 += 3;
-          if ((v6 & 0x40) != 0)
-          {
-            goto LABEL_68;
-          }
-        }
-      }
-
-      else
-      {
-        v4[1] = v28;
-        v4 += 2;
-        if ((v6 & 0x40) != 0)
-        {
-          goto LABEL_68;
-        }
-      }
-
-LABEL_7:
-      if ((v6 & 0x20) == 0)
-      {
-        goto LABEL_8;
-      }
-
-      goto LABEL_71;
-    }
-  }
-
-  else if ((v6 & 2) == 0)
-  {
-    goto LABEL_3;
-  }
-
-  if (*a3 <= v4)
-  {
-    v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
-  }
-
-  v16 = *(this + 14);
-  *v4 = 16;
-  if (v16 > 0x7F)
-  {
-    v4[1] = v16 | 0x80;
-    v17 = v16 >> 7;
-    if (v16 >> 14)
-    {
-      v4 += 3;
-      do
-      {
-        *(v4 - 1) = v17 | 0x80;
-        v18 = v17 >> 7;
-        ++v4;
-        v19 = v17 >> 14;
-        v17 >>= 7;
-      }
-
-      while (v19);
-      *(v4 - 1) = v18;
-      if ((v6 & 4) != 0)
-      {
-        goto LABEL_35;
-      }
-    }
-
-    else
-    {
-      v4[2] = v17;
-      v4 += 3;
-      if ((v6 & 4) != 0)
-      {
-        goto LABEL_35;
-      }
-    }
-  }
-
-  else
-  {
-    v4[1] = v16;
-    v4 += 2;
-    if ((v6 & 4) != 0)
-    {
-      goto LABEL_35;
-    }
-  }
-
-LABEL_4:
-  if ((v6 & 8) == 0)
-  {
-    goto LABEL_5;
-  }
-
-LABEL_46:
-  if (*a3 <= v4)
-  {
-    v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
-  }
-
-  v24 = *(this + 16);
-  *v4 = 32;
-  if (v24 > 0x7F)
-  {
-    v4[1] = v24 | 0x80;
-    v25 = v24 >> 7;
-    if (v24 >> 14)
-    {
-      v4 += 3;
-      do
-      {
-        *(v4 - 1) = v25 | 0x80;
-        v26 = v25 >> 7;
-        ++v4;
-        v27 = v25 >> 14;
-        v25 >>= 7;
-      }
-
-      while (v27);
-      *(v4 - 1) = v26;
-      if ((v6 & 0x10) != 0)
-      {
-        goto LABEL_57;
-      }
-    }
-
-    else
-    {
-      v4[2] = v25;
-      v4 += 3;
-      if ((v6 & 0x10) != 0)
-      {
-        goto LABEL_57;
-      }
-    }
-  }
-
-  else
-  {
-    v4[1] = v24;
-    v4 += 2;
-    if ((v6 & 0x10) != 0)
-    {
-      goto LABEL_57;
-    }
-  }
-
-LABEL_6:
-  if ((v6 & 0x40) == 0)
-  {
-    goto LABEL_7;
-  }
-
-LABEL_68:
-  if (*a3 <= v4)
-  {
-    v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
-  }
-
-  v32 = *(this + 76);
-  *v4 = 48;
-  v4[1] = v32;
-  v4 += 2;
-  if ((v6 & 0x20) == 0)
-  {
-LABEL_8:
-    if ((v6 & 0x80) == 0)
-    {
-      goto LABEL_12;
-    }
-
-    goto LABEL_9;
-  }
-
-LABEL_71:
-  if (*a3 <= v4)
-  {
-    v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
-  }
-
-  v33 = *(this + 18);
-  *v4 = 56;
-  if (v33 > 0x7F)
-  {
-    v4[1] = v33 | 0x80;
-    v34 = v33 >> 7;
-    if (v33 >> 14)
-    {
-      v4 += 3;
-      do
-      {
-        *(v4 - 1) = v34 | 0x80;
-        v35 = v34 >> 7;
-        ++v4;
-        v36 = v34 >> 14;
-        v34 >>= 7;
-      }
-
-      while (v36);
-      *(v4 - 1) = v35;
-      if ((v6 & 0x80) == 0)
-      {
-        goto LABEL_12;
-      }
-    }
-
-    else
-    {
-      v4[2] = v34;
-      v4 += 3;
-      if ((v6 & 0x80) == 0)
-      {
-        goto LABEL_12;
-      }
-    }
-  }
-
-  else
-  {
-    v4[1] = v33;
-    v4 += 2;
-    if ((v6 & 0x80) == 0)
-    {
-      goto LABEL_12;
-    }
-  }
-
-LABEL_9:
-  if (*a3 <= v4)
-  {
-    v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
-  }
-
-  v7 = *(this + 77);
-  *v4 = 64;
-  v4[1] = v7;
-  v4 += 2;
-LABEL_12:
-  result = google::protobuf::internal::ExtensionSet::_InternalSerialize((this + 16), 10000, 0x20000000, v4, a3);
-  v9 = *(this + 1);
-  if (v9)
-  {
-
-    return MEMORY[0x2821EAC40]((v9 & 0xFFFFFFFFFFFFFFFELL) + 8);
-  }
-
-  return result;
-}
-
 uint64_t TSCH::ChartUIState::ByteSizeLong(TSCH::ChartUIState *this)
 {
   v2 = google::protobuf::internal::ExtensionSet::ByteSize((this + 16));
@@ -833,12 +437,12 @@ uint64_t *TSCH::ChartUIStateMultiDataIndexUpgrade::Clear(TSCH::ChartUIStateMulti
   return result;
 }
 
-uint64_t TSCH::ChartUIStateMultiDataIndexUpgrade::_InternalSerialize(uint64_t a1, uint64_t a2)
+uint64_t TSCH::ChartUIStateMultiDataIndexUpgrade::_InternalSerialize(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (v2)
+  v3 = *(a1 + 8);
+  if (v3)
   {
-    return MEMORY[0x2821EAC40]((v2 & 0xFFFFFFFFFFFFFFFELL) + 8);
+    return MEMORY[0x2821EAC40]((v3 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
   }
 
   else
@@ -910,12 +514,12 @@ uint64_t *TSCH::ChartUIStateMultiDataIndexUpgrade::CopyFrom(uint64_t *this, cons
   return this;
 }
 
-uint64_t *TSCH::ChartUIStateMultiDataIndexUpgrade::CopyFrom(uint64_t *this, const TSCH::ChartUIStateMultiDataIndexUpgrade *a2)
+google::protobuf::UnknownFieldSet *TSCH::ChartUIStateMultiDataIndexUpgrade::CopyFrom(google::protobuf::UnknownFieldSet *this, const TSCH::ChartUIStateMultiDataIndexUpgrade *a2)
 {
   if (a2 != this)
   {
-    v3 = this + 1;
-    if (this[1])
+    v3 = (this + 8);
+    if (*(this + 8))
     {
       this = sub_2763D4FD4(this + 1);
     }
@@ -998,12 +602,12 @@ uint64_t *TSCH::ChartFormatStructExtensions::Clear(TSCH::ChartFormatStructExtens
   return result;
 }
 
-uint64_t TSCH::ChartFormatStructExtensions::_InternalSerialize(uint64_t a1, uint64_t a2)
+uint64_t TSCH::ChartFormatStructExtensions::_InternalSerialize(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (v2)
+  v3 = *(a1 + 8);
+  if (v3)
   {
-    return MEMORY[0x2821EAC40]((v2 & 0xFFFFFFFFFFFFFFFELL) + 8);
+    return MEMORY[0x2821EAC40]((v3 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
   }
 
   else
@@ -1075,12 +679,12 @@ uint64_t *TSCH::ChartFormatStructExtensions::CopyFrom(uint64_t *this, const Mess
   return this;
 }
 
-uint64_t *TSCH::ChartFormatStructExtensions::CopyFrom(uint64_t *this, const TSCH::ChartFormatStructExtensions *a2)
+google::protobuf::UnknownFieldSet *TSCH::ChartFormatStructExtensions::CopyFrom(google::protobuf::UnknownFieldSet *this, const TSCH::ChartFormatStructExtensions *a2)
 {
   if (a2 != this)
   {
-    v3 = this + 1;
-    if (this[1])
+    v3 = (this + 8);
+    if (*(this + 8))
     {
       this = sub_2763D4FD4(this + 1);
     }
@@ -1216,7 +820,7 @@ uint64_t *TSCH::ChartReferenceLineNonStyleItem::default_instance(TSCH::ChartRefe
   return &TSCH::_ChartReferenceLineNonStyleItem_default_instance_;
 }
 
-uint64_t *TSCH::ChartReferenceLineNonStyleItem::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TSCH::ChartReferenceLineNonStyleItem::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
   v2 = *(this + 4);
@@ -1224,18 +828,18 @@ uint64_t *TSCH::ChartReferenceLineNonStyleItem::Clear(uint64_t *this)
   {
     if (v2)
     {
-      this = TSP::Reference::Clear(this[3]);
+      this = TSP::Reference::Clear(*(this + 3));
     }
 
     if ((v2 & 2) != 0)
     {
-      this = TSP::UUID::Clear(*(v1 + 32));
+      this = TSP::UUID::Clear(*(v1 + 4));
     }
   }
 
   v4 = *(v1 + 8);
   v3 = v1 + 8;
-  *(v3 + 8) = 0;
+  *(v3 + 2) = 0;
   if (v4)
   {
 
@@ -1247,92 +851,62 @@ uint64_t *TSCH::ChartReferenceLineNonStyleItem::Clear(uint64_t *this)
 
 google::protobuf::internal *TSCH::ChartReferenceLineNonStyleItem::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
-  v20 = a2;
-  while ((sub_2763D4D98(a3, &v20) & 1) == 0)
+  v19 = a2;
+  for (i = *(a3 + 92); (sub_2763D4D98(a3, &v19, i) & 1) == 0; i = *(a3 + 92))
   {
-    v5 = (v20 + 1);
-    v6 = *v20;
-    if ((*v20 & 0x80000000) == 0)
+    v6 = (v19 + 1);
+    v7 = *v19;
+    if ((*v19 & 0x80000000) == 0)
     {
       goto LABEL_6;
     }
 
-    v7 = v6 + (*v5 << 7);
-    v6 = v7 - 128;
-    if ((*v5 & 0x80000000) == 0)
+    v8 = v7 + (*v6 << 7);
+    v7 = v8 - 128;
+    if ((*v6 & 0x80000000) == 0)
     {
-      v5 = (v20 + 2);
+      v6 = (v19 + 2);
 LABEL_6:
-      v20 = v5;
+      v19 = v6;
       goto LABEL_7;
     }
 
-    TagFallback = google::protobuf::internal::ReadTagFallback(v20, (v7 - 128));
-    v20 = TagFallback;
+    TagFallback = google::protobuf::internal::ReadTagFallback(v19, (v8 - 128));
+    v19 = TagFallback;
     if (!TagFallback)
     {
       return 0;
     }
 
-    v5 = TagFallback;
-    v6 = v18;
+    v6 = TagFallback;
+    v7 = v17;
 LABEL_7:
-    if (v6 >> 3 == 2)
+    if (v7 >> 3 == 2)
     {
-      if (v6 != 18)
+      if (v7 == 18)
       {
-        goto LABEL_12;
-      }
-
-      *(a1 + 16) |= 2u;
-      v11 = *(a1 + 32);
-      if (!v11)
-      {
-        v12 = *(a1 + 8);
-        if (v12)
+        *(a1 + 16) |= 2u;
+        v12 = *(a1 + 32);
+        if (!v12)
         {
-          v12 = *(v12 & 0xFFFFFFFFFFFFFFFELL);
+          v13 = *(a1 + 8);
+          if (v13)
+          {
+            v13 = *(v13 & 0xFFFFFFFFFFFFFFFELL);
+          }
+
+          v12 = MEMORY[0x277C97B40](v13);
+          *(a1 + 32) = v12;
+          v6 = v19;
         }
 
-        v13 = MEMORY[0x277C97B40](v12);
-        LODWORD(v11) = v13;
-        *(a1 + 32) = v13;
-        v5 = v20;
-      }
-
-      v10 = sub_2764AE3C0(a3, v11, v5);
-    }
-
-    else
-    {
-      if (v6 >> 3 != 1 || v6 != 10)
-      {
-LABEL_12:
-        if (v6)
-        {
-          v9 = (v6 & 7) == 4;
-        }
-
-        else
-        {
-          v9 = 1;
-        }
-
-        if (v9)
-        {
-          *(a3 + 80) = v6 - 1;
-          return v20;
-        }
-
-        if ((*(a1 + 8) & 1) == 0)
-        {
-          sub_2763D4E10((a1 + 8));
-        }
-
-        v10 = google::protobuf::internal::UnknownFieldParse();
+        v11 = sub_2764AE3C0(a3, v12, v6);
         goto LABEL_30;
       }
+    }
 
+    else if (v7 >> 3 == 1 && v7 == 10)
+    {
       *(a1 + 16) |= 1u;
       v14 = *(a1 + 24);
       if (!v14)
@@ -1343,24 +917,46 @@ LABEL_12:
           v15 = *(v15 & 0xFFFFFFFFFFFFFFFELL);
         }
 
-        v16 = MEMORY[0x277C97B90](v15);
-        LODWORD(v14) = v16;
-        *(a1 + 24) = v16;
-        v5 = v20;
+        v14 = MEMORY[0x277C97B90](v15);
+        *(a1 + 24) = v14;
+        v6 = v19;
       }
 
-      v10 = sub_2764ADCBC(a3, v14, v5);
+      v11 = sub_2764ADCBC(a3, v14, v6);
+      goto LABEL_30;
     }
 
+    if (v7)
+    {
+      v10 = (v7 & 7) == 4;
+    }
+
+    else
+    {
+      v10 = 1;
+    }
+
+    if (v10)
+    {
+      *(a3 + 80) = v7 - 1;
+      return v19;
+    }
+
+    if ((*(a1 + 8) & 1) == 0)
+    {
+      sub_2763D4E10((a1 + 8));
+    }
+
+    v11 = google::protobuf::internal::UnknownFieldParse();
 LABEL_30:
-    v20 = v10;
-    if (!v10)
+    v19 = v11;
+    if (!v11)
     {
       return 0;
     }
   }
 
-  return v20;
+  return v19;
 }
 
 unsigned __int8 *TSCH::ChartReferenceLineNonStyleItem::_InternalSerialize(TSCH::ChartReferenceLineNonStyleItem *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
@@ -1464,7 +1060,7 @@ unsigned __int8 *TSCH::ChartReferenceLineNonStyleItem::_InternalSerialize(TSCH::
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v18 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v18 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TSCH::ChartReferenceLineNonStyleItem::RequiredFieldsByteSizeFallback(TSCH::ChartReferenceLineNonStyleItem *this)
@@ -1609,7 +1205,7 @@ uint64_t TSCH::ChartReferenceLineNonStyleItem::MergeFrom(uint64_t this, const TS
   return this;
 }
 
-uint64_t *TSCH::ChartReferenceLineNonStyleItem::CopyFrom(uint64_t *this, const Message *a2)
+google::protobuf::UnknownFieldSet *TSCH::ChartReferenceLineNonStyleItem::CopyFrom(google::protobuf::UnknownFieldSet *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -1622,7 +1218,7 @@ uint64_t *TSCH::ChartReferenceLineNonStyleItem::CopyFrom(uint64_t *this, const M
   return this;
 }
 
-uint64_t *TSCH::ChartReferenceLineNonStyleItem::CopyFrom(uint64_t *this, const TSCH::ChartReferenceLineNonStyleItem *a2)
+google::protobuf::UnknownFieldSet *TSCH::ChartReferenceLineNonStyleItem::CopyFrom(google::protobuf::UnknownFieldSet *this, const TSCH::ChartReferenceLineNonStyleItem *a2)
 {
   if (a2 != this)
   {
@@ -1707,7 +1303,7 @@ TSCH::ChartAxisReferenceLineNonStylesArchive *TSCH::ChartAxisReferenceLineNonSty
   {
     v6 = *(a2 + 5);
     v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 24));
-    sub_2763F9308(this + 24, v7, (v6 + 8), v5, **(this + 5) - *(this + 8));
+    sub_2763F9308(this + 3, v7, (v6 + 8), v5, **(this + 5) - *(this + 8));
     v8 = *(this + 8) + v5;
     *(this + 8) = v8;
     v9 = *(this + 5);
@@ -1771,13 +1367,13 @@ void *TSCH::ChartAxisReferenceLineNonStylesArchive::default_instance(TSCH::Chart
   return &TSCH::_ChartAxisReferenceLineNonStylesArchive_default_instance_;
 }
 
-uint64_t *TSCH::ChartAxisReferenceLineNonStylesArchive::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TSCH::ChartAxisReferenceLineNonStylesArchive::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
   v2 = *(this + 8);
   if (v2 >= 1)
   {
-    v3 = (this[5] + 8);
+    v3 = (*(this + 5) + 8);
     do
     {
       v4 = *v3++;
@@ -1786,17 +1382,17 @@ uint64_t *TSCH::ChartAxisReferenceLineNonStylesArchive::Clear(uint64_t *this)
     }
 
     while (v2);
-    *(v1 + 32) = 0;
+    *(v1 + 8) = 0;
   }
 
   if (*(v1 + 16))
   {
-    this = TSCH::ChartAxisIDArchive::Clear(*(v1 + 48));
+    this = TSCH::ChartAxisIDArchive::Clear(*(v1 + 6));
   }
 
   v6 = *(v1 + 8);
   v5 = v1 + 8;
-  *(v5 + 8) = 0;
+  *(v5 + 2) = 0;
   if (v6)
   {
 
@@ -1808,142 +1404,154 @@ uint64_t *TSCH::ChartAxisReferenceLineNonStylesArchive::Clear(uint64_t *this)
 
 google::protobuf::internal *TSCH::ChartAxisReferenceLineNonStylesArchive::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
-  v24 = a2;
-  while (1)
+  v25 = a2;
+  for (i = *(a3 + 92); ; i = *(a3 + 92))
   {
-LABEL_2:
-    if (sub_2763D4D98(a3, &v24))
+    if (sub_2763D4D98(a3, &v25, i))
     {
-      return v24;
+      return v25;
     }
 
-    v5 = (v24 + 1);
-    v6 = *v24;
-    if ((*v24 & 0x80000000) == 0)
+    v6 = (v25 + 1);
+    v7 = *v25;
+    if ((*v25 & 0x80000000) == 0)
     {
       goto LABEL_6;
     }
 
-    v7 = v6 + (*v5 << 7);
-    v6 = v7 - 128;
-    if ((*v5 & 0x80000000) == 0)
+    v8 = v7 + (*v6 << 7);
+    v7 = v8 - 128;
+    if ((*v6 & 0x80000000) == 0)
     {
-      v5 = (v24 + 2);
+      v6 = (v25 + 2);
 LABEL_6:
-      v24 = v5;
+      v25 = v6;
       goto LABEL_7;
     }
 
-    TagFallback = google::protobuf::internal::ReadTagFallback(v24, (v7 - 128));
-    v24 = TagFallback;
+    TagFallback = google::protobuf::internal::ReadTagFallback(v25, (v8 - 128));
+    v25 = TagFallback;
     if (!TagFallback)
     {
       return 0;
     }
 
-    v5 = TagFallback;
-    v6 = v22;
+    v6 = TagFallback;
+    v7 = v23;
 LABEL_7:
-    if (v6 >> 3 == 2)
-    {
-      if (v6 != 18)
-      {
-        goto LABEL_12;
-      }
-
-      v11 = (v5 - 1);
-      while (1)
-      {
-        v12 = (v11 + 1);
-        v24 = (v11 + 1);
-        v13 = *(a1 + 40);
-        if (!v13)
-        {
-          goto LABEL_22;
-        }
-
-        v18 = *(a1 + 32);
-        v14 = *v13;
-        if (v18 < *v13)
-        {
-          *(a1 + 32) = v18 + 1;
-          v15 = *&v13[2 * v18 + 2];
-          goto LABEL_26;
-        }
-
-        if (v14 == *(a1 + 36))
-        {
-LABEL_22:
-          google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a1 + 24));
-          v13 = *(a1 + 40);
-          v14 = *v13;
-        }
-
-        *v13 = v14 + 1;
-        v15 = google::protobuf::Arena::CreateMaybeMessage<TSCH::ChartReferenceLineNonStyleItem>(*(a1 + 24));
-        v16 = *(a1 + 32);
-        v17 = *(a1 + 40) + 8 * v16;
-        *(a1 + 32) = v16 + 1;
-        *(v17 + 8) = v15;
-        v12 = v24;
-LABEL_26:
-        v11 = sub_2764AB0C4(a3, v15, v12);
-        v24 = v11;
-        if (!v11)
-        {
-          return 0;
-        }
-
-        if (*a3 <= v11 || *v11 != 18)
-        {
-          goto LABEL_2;
-        }
-      }
-    }
-
-    if (v6 >> 3 == 1 && v6 == 10)
-    {
-      *(a1 + 16) |= 1u;
-      v19 = *(a1 + 48);
-      if (!v19)
-      {
-        v20 = *(a1 + 8);
-        if (v20)
-        {
-          v20 = *(v20 & 0xFFFFFFFFFFFFFFFELL);
-        }
-
-        v19 = google::protobuf::Arena::CreateMaybeMessage<TSCH::ChartAxisIDArchive>(v20);
-        *(a1 + 48) = v19;
-        v5 = v24;
-      }
-
-      v10 = sub_2764AF8E0(a3, v19, v5);
-      goto LABEL_37;
-    }
-
-LABEL_12:
-    if (!v6 || (v6 & 7) == 4)
+    if (v7 >> 3 == 2)
     {
       break;
     }
 
+    if (v7 >> 3 != 1 || v7 != 10)
+    {
+      goto LABEL_12;
+    }
+
+    *(a1 + 16) |= 1u;
+    v20 = *(a1 + 48);
+    if (!v20)
+    {
+      v21 = *(a1 + 8);
+      if (v21)
+      {
+        v21 = *(v21 & 0xFFFFFFFFFFFFFFFELL);
+      }
+
+      v20 = google::protobuf::Arena::CreateMaybeMessage<TSCH::ChartAxisIDArchive>(v21);
+      *(a1 + 48) = v20;
+      v6 = v25;
+    }
+
+    v11 = sub_2764AF8E0(a3, v20, v6);
+LABEL_37:
+    v25 = v11;
+    if (!v11)
+    {
+      return 0;
+    }
+
+LABEL_38:
+    ;
+  }
+
+  if (v7 == 18)
+  {
+    v12 = (v6 - 1);
+    while (1)
+    {
+      v13 = (v12 + 1);
+      v25 = (v12 + 1);
+      v14 = *(a1 + 40);
+      if (!v14)
+      {
+        goto LABEL_22;
+      }
+
+      v19 = *(a1 + 32);
+      v15 = *v14;
+      if (v19 < *v14)
+      {
+        *(a1 + 32) = v19 + 1;
+        v16 = *&v14[2 * v19 + 2];
+        goto LABEL_26;
+      }
+
+      if (v15 == *(a1 + 36))
+      {
+LABEL_22:
+        google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a1 + 24));
+        v14 = *(a1 + 40);
+        v15 = *v14;
+      }
+
+      *v14 = v15 + 1;
+      v16 = google::protobuf::Arena::CreateMaybeMessage<TSCH::ChartReferenceLineNonStyleItem>(*(a1 + 24));
+      v17 = *(a1 + 32);
+      v18 = *(a1 + 40) + 8 * v17;
+      *(a1 + 32) = v17 + 1;
+      *(v18 + 8) = v16;
+      v13 = v25;
+LABEL_26:
+      v12 = sub_2764AB0C4(a3, v16, v13);
+      v25 = v12;
+      if (!v12)
+      {
+        return 0;
+      }
+
+      if (*a3 <= v12 || *v12 != 18)
+      {
+        goto LABEL_38;
+      }
+    }
+  }
+
+LABEL_12:
+  if (v7)
+  {
+    v10 = (v7 & 7) == 4;
+  }
+
+  else
+  {
+    v10 = 1;
+  }
+
+  if (!v10)
+  {
     if ((*(a1 + 8) & 1) == 0)
     {
       sub_2763D4E10((a1 + 8));
     }
 
-    v10 = google::protobuf::internal::UnknownFieldParse();
-LABEL_37:
-    v24 = v10;
-    if (!v10)
-    {
-      return 0;
-    }
+    v11 = google::protobuf::internal::UnknownFieldParse();
+    goto LABEL_37;
   }
 
-  *(a3 + 80) = v6 - 1;
-  return v24;
+  *(a3 + 80) = v7 - 1;
+  return v25;
 }
 
 unsigned __int8 *TSCH::ChartAxisReferenceLineNonStylesArchive::_InternalSerialize(TSCH::ChartAxisReferenceLineNonStylesArchive *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
@@ -2050,7 +1658,7 @@ unsigned __int8 *TSCH::ChartAxisReferenceLineNonStylesArchive::_InternalSerializ
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v19 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v19 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TSCH::ChartAxisReferenceLineNonStylesArchive::ByteSizeLong(TSCH::ChartAxisIDArchive **this)
@@ -2135,7 +1743,7 @@ uint64_t TSCH::ChartAxisReferenceLineNonStylesArchive::MergeFrom(uint64_t this, 
   {
     v6 = *(a2 + 5);
     v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((v3 + 24));
-    this = sub_2763F9308(v3 + 24, v7, (v6 + 8), v5, **(v3 + 40) - *(v3 + 32));
+    this = sub_2763F9308((v3 + 24), v7, (v6 + 8), v5, **(v3 + 40) - *(v3 + 32));
     v8 = *(v3 + 32) + v5;
     *(v3 + 32) = v8;
     v9 = *(v3 + 40);
@@ -2179,7 +1787,7 @@ uint64_t TSCH::ChartAxisReferenceLineNonStylesArchive::MergeFrom(uint64_t this, 
   return this;
 }
 
-uint64_t *TSCH::ChartAxisReferenceLineNonStylesArchive::CopyFrom(uint64_t *this, const Message *a2)
+google::protobuf::UnknownFieldSet *TSCH::ChartAxisReferenceLineNonStylesArchive::CopyFrom(google::protobuf::UnknownFieldSet *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -2192,7 +1800,7 @@ uint64_t *TSCH::ChartAxisReferenceLineNonStylesArchive::CopyFrom(uint64_t *this,
   return this;
 }
 
-uint64_t *TSCH::ChartAxisReferenceLineNonStylesArchive::CopyFrom(uint64_t *this, const TSCH::ChartAxisReferenceLineNonStylesArchive *a2)
+google::protobuf::UnknownFieldSet *TSCH::ChartAxisReferenceLineNonStylesArchive::CopyFrom(google::protobuf::UnknownFieldSet *this, const TSCH::ChartAxisReferenceLineNonStylesArchive *a2)
 {
   if (a2 != this)
   {
@@ -2355,7 +1963,7 @@ uint64_t *TSCH::ChartAxisReferenceLineStylesArchive::default_instance(TSCH::Char
   return &TSCH::_ChartAxisReferenceLineStylesArchive_default_instance_;
 }
 
-uint64_t *TSCH::ChartAxisReferenceLineStylesArchive::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TSCH::ChartAxisReferenceLineStylesArchive::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
   v2 = *(this + 4);
@@ -2363,18 +1971,18 @@ uint64_t *TSCH::ChartAxisReferenceLineStylesArchive::Clear(uint64_t *this)
   {
     if (v2)
     {
-      this = TSCH::ChartAxisIDArchive::Clear(this[3]);
+      this = TSCH::ChartAxisIDArchive::Clear(*(this + 3));
     }
 
     if ((v2 & 2) != 0)
     {
-      this = TSP::SparseReferenceArray::Clear(*(v1 + 32));
+      this = TSP::SparseReferenceArray::Clear(*(v1 + 4));
     }
   }
 
   v4 = *(v1 + 8);
   v3 = v1 + 8;
-  *(v3 + 8) = 0;
+  *(v3 + 2) = 0;
   if (v4)
   {
 
@@ -2387,91 +1995,61 @@ uint64_t *TSCH::ChartAxisReferenceLineStylesArchive::Clear(uint64_t *this)
 google::protobuf::internal *TSCH::ChartAxisReferenceLineStylesArchive::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
   v19 = a2;
-  while ((sub_2763D4D98(a3, &v19) & 1) == 0)
+  for (i = *(a3 + 92); (sub_2763D4D98(a3, &v19, i) & 1) == 0; i = *(a3 + 92))
   {
-    v5 = (v19 + 1);
-    v6 = *v19;
+    v6 = (v19 + 1);
+    v7 = *v19;
     if ((*v19 & 0x80000000) == 0)
     {
       goto LABEL_6;
     }
 
-    v7 = v6 + (*v5 << 7);
-    v6 = v7 - 128;
-    if ((*v5 & 0x80000000) == 0)
+    v8 = v7 + (*v6 << 7);
+    v7 = v8 - 128;
+    if ((*v6 & 0x80000000) == 0)
     {
-      v5 = (v19 + 2);
+      v6 = (v19 + 2);
 LABEL_6:
-      v19 = v5;
+      v19 = v6;
       goto LABEL_7;
     }
 
-    TagFallback = google::protobuf::internal::ReadTagFallback(v19, (v7 - 128));
+    TagFallback = google::protobuf::internal::ReadTagFallback(v19, (v8 - 128));
     v19 = TagFallback;
     if (!TagFallback)
     {
       return 0;
     }
 
-    v5 = TagFallback;
-    v6 = v17;
+    v6 = TagFallback;
+    v7 = v17;
 LABEL_7:
-    if (v6 >> 3 == 2)
+    if (v7 >> 3 == 2)
     {
-      if (v6 != 18)
+      if (v7 == 18)
       {
-        goto LABEL_12;
-      }
-
-      *(a1 + 16) |= 2u;
-      v11 = *(a1 + 32);
-      if (!v11)
-      {
-        v12 = *(a1 + 8);
-        if (v12)
+        *(a1 + 16) |= 2u;
+        v12 = *(a1 + 32);
+        if (!v12)
         {
-          v12 = *(v12 & 0xFFFFFFFFFFFFFFFELL);
+          v13 = *(a1 + 8);
+          if (v13)
+          {
+            v13 = *(v13 & 0xFFFFFFFFFFFFFFFELL);
+          }
+
+          v12 = MEMORY[0x277C97B20](v13);
+          *(a1 + 32) = v12;
+          v6 = v19;
         }
 
-        v13 = MEMORY[0x277C97B20](v12);
-        LODWORD(v11) = v13;
-        *(a1 + 32) = v13;
-        v5 = v19;
-      }
-
-      v10 = sub_2764B09E4(a3, v11, v5);
-    }
-
-    else
-    {
-      if (v6 >> 3 != 1 || v6 != 10)
-      {
-LABEL_12:
-        if (v6)
-        {
-          v9 = (v6 & 7) == 4;
-        }
-
-        else
-        {
-          v9 = 1;
-        }
-
-        if (v9)
-        {
-          *(a3 + 80) = v6 - 1;
-          return v19;
-        }
-
-        if ((*(a1 + 8) & 1) == 0)
-        {
-          sub_2763D4E10((a1 + 8));
-        }
-
-        v10 = google::protobuf::internal::UnknownFieldParse();
+        v11 = sub_2764B09E4(a3, v12, v6);
         goto LABEL_30;
       }
+    }
 
+    else if (v7 >> 3 == 1 && v7 == 10)
+    {
       *(a1 + 16) |= 1u;
       v14 = *(a1 + 24);
       if (!v14)
@@ -2484,15 +2062,38 @@ LABEL_12:
 
         v14 = google::protobuf::Arena::CreateMaybeMessage<TSCH::ChartAxisIDArchive>(v15);
         *(a1 + 24) = v14;
-        v5 = v19;
+        v6 = v19;
       }
 
-      v10 = sub_2764AF8E0(a3, v14, v5);
+      v11 = sub_2764AF8E0(a3, v14, v6);
+      goto LABEL_30;
     }
 
+    if (v7)
+    {
+      v10 = (v7 & 7) == 4;
+    }
+
+    else
+    {
+      v10 = 1;
+    }
+
+    if (v10)
+    {
+      *(a3 + 80) = v7 - 1;
+      return v19;
+    }
+
+    if ((*(a1 + 8) & 1) == 0)
+    {
+      sub_2763D4E10((a1 + 8));
+    }
+
+    v11 = google::protobuf::internal::UnknownFieldParse();
 LABEL_30:
-    v19 = v10;
-    if (!v10)
+    v19 = v11;
+    if (!v11)
     {
       return 0;
     }
@@ -2602,7 +2203,7 @@ unsigned __int8 *TSCH::ChartAxisReferenceLineStylesArchive::_InternalSerialize(T
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v18 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v18 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TSCH::ChartAxisReferenceLineStylesArchive::ByteSizeLong(TSCH::ChartAxisReferenceLineStylesArchive *this)
@@ -2731,7 +2332,7 @@ uint64_t TSCH::ChartAxisReferenceLineStylesArchive::MergeFrom(uint64_t this, con
   return this;
 }
 
-uint64_t *TSCH::ChartAxisReferenceLineStylesArchive::CopyFrom(uint64_t *this, const Message *a2)
+google::protobuf::UnknownFieldSet *TSCH::ChartAxisReferenceLineStylesArchive::CopyFrom(google::protobuf::UnknownFieldSet *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -2744,7 +2345,7 @@ uint64_t *TSCH::ChartAxisReferenceLineStylesArchive::CopyFrom(uint64_t *this, co
   return this;
 }
 
-uint64_t *TSCH::ChartAxisReferenceLineStylesArchive::CopyFrom(uint64_t *this, const TSCH::ChartAxisReferenceLineStylesArchive *a2)
+google::protobuf::UnknownFieldSet *TSCH::ChartAxisReferenceLineStylesArchive::CopyFrom(google::protobuf::UnknownFieldSet *this, const TSCH::ChartAxisReferenceLineStylesArchive *a2)
 {
   if (a2 != this)
   {
@@ -2848,7 +2449,7 @@ TSCH::ChartReferenceLinesArchive *TSCH::ChartReferenceLinesArchive::ChartReferen
   {
     v6 = *(a2 + 5);
     v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 24));
-    sub_2763F94D0(this + 24, v7, (v6 + 8), v5, **(this + 5) - *(this + 8));
+    sub_2763F94D0(this + 3, v7, (v6 + 8), v5, **(this + 5) - *(this + 8));
     v8 = *(this + 8) + v5;
     *(this + 8) = v8;
     v9 = *(this + 5);
@@ -2866,7 +2467,7 @@ TSCH::ChartReferenceLinesArchive *TSCH::ChartReferenceLinesArchive::ChartReferen
   {
     v11 = *(a2 + 8);
     v12 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 48));
-    sub_2763F9590(this + 48, v12, (v11 + 8), v10, **(this + 8) - *(this + 14));
+    sub_2763F9590(this + 6, v12, (v11 + 8), v10, **(this + 8) - *(this + 14));
     v13 = *(this + 14) + v10;
     *(this + 14) = v13;
     v14 = *(this + 8);
@@ -2932,13 +2533,13 @@ void *TSCH::ChartReferenceLinesArchive::default_instance(TSCH::ChartReferenceLin
   return &TSCH::_ChartReferenceLinesArchive_default_instance_;
 }
 
-uint64_t *TSCH::ChartReferenceLinesArchive::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TSCH::ChartReferenceLinesArchive::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
   v2 = *(this + 8);
   if (v2 >= 1)
   {
-    v3 = (this[5] + 8);
+    v3 = (*(this + 5) + 8);
     do
     {
       v4 = *v3++;
@@ -2947,13 +2548,13 @@ uint64_t *TSCH::ChartReferenceLinesArchive::Clear(uint64_t *this)
     }
 
     while (v2);
-    *(v1 + 32) = 0;
+    *(v1 + 8) = 0;
   }
 
-  v5 = *(v1 + 56);
+  v5 = *(v1 + 14);
   if (v5 >= 1)
   {
-    v6 = (*(v1 + 64) + 8);
+    v6 = (*(v1 + 8) + 8);
     do
     {
       v7 = *v6++;
@@ -2962,17 +2563,17 @@ uint64_t *TSCH::ChartReferenceLinesArchive::Clear(uint64_t *this)
     }
 
     while (v5);
-    *(v1 + 56) = 0;
+    *(v1 + 14) = 0;
   }
 
   if (*(v1 + 16))
   {
-    this = TSP::Reference::Clear(*(v1 + 72));
+    this = TSP::Reference::Clear(*(v1 + 9));
   }
 
   v9 = *(v1 + 8);
   v8 = v1 + 8;
-  *(v8 + 8) = 0;
+  *(v8 + 2) = 0;
   if (v9)
   {
 
@@ -2985,199 +2586,216 @@ uint64_t *TSCH::ChartReferenceLinesArchive::Clear(uint64_t *this)
 google::protobuf::internal *TSCH::ChartReferenceLinesArchive::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
   v34 = a2;
-  while (1)
+  for (i = *(a3 + 92); ; i = *(a3 + 92))
   {
-LABEL_2:
-    if (sub_2763D4D98(a3, &v34))
+    if (sub_2763D4D98(a3, &v34, i))
     {
       return v34;
     }
 
-    v5 = (v34 + 1);
-    v6 = *v34;
+    v6 = (v34 + 1);
+    v7 = *v34;
     if ((*v34 & 0x80000000) == 0)
     {
       goto LABEL_6;
     }
 
-    v7 = v6 + (*v5 << 7);
-    v6 = v7 - 128;
-    if ((*v5 & 0x80000000) == 0)
+    v8 = v7 + (*v6 << 7);
+    v7 = v8 - 128;
+    if ((*v6 & 0x80000000) == 0)
     {
-      v5 = (v34 + 2);
+      v6 = (v34 + 2);
 LABEL_6:
-      v34 = v5;
+      v34 = v6;
       goto LABEL_7;
     }
 
-    TagFallback = google::protobuf::internal::ReadTagFallback(v34, (v7 - 128));
+    TagFallback = google::protobuf::internal::ReadTagFallback(v34, (v8 - 128));
     v34 = TagFallback;
     if (!TagFallback)
     {
       return 0;
     }
 
-    v5 = TagFallback;
-    v6 = v32;
+    v6 = TagFallback;
+    v7 = v32;
 LABEL_7:
-    v8 = v6 >> 3;
-    if (v6 >> 3 != 3)
-    {
-      if (v8 != 2)
-      {
-        if (v8 != 1 || v6 != 10)
-        {
-          goto LABEL_13;
-        }
-
-        v23 = (v5 - 1);
-        while (1)
-        {
-          v24 = (v23 + 1);
-          v34 = (v23 + 1);
-          v25 = *(a1 + 40);
-          if (!v25)
-          {
-            goto LABEL_43;
-          }
-
-          v30 = *(a1 + 32);
-          v26 = *v25;
-          if (v30 < *v25)
-          {
-            *(a1 + 32) = v30 + 1;
-            v27 = *&v25[2 * v30 + 2];
-            goto LABEL_47;
-          }
-
-          if (v26 == *(a1 + 36))
-          {
-LABEL_43:
-            google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a1 + 24));
-            v25 = *(a1 + 40);
-            v26 = *v25;
-          }
-
-          *v25 = v26 + 1;
-          v27 = google::protobuf::Arena::CreateMaybeMessage<TSCH::ChartAxisReferenceLineNonStylesArchive>(*(a1 + 24));
-          v28 = *(a1 + 32);
-          v29 = *(a1 + 40) + 8 * v28;
-          *(a1 + 32) = v28 + 1;
-          *(v29 + 8) = v27;
-          v24 = v34;
-LABEL_47:
-          v23 = sub_2764AB194(a3, v27, v24);
-          v34 = v23;
-          if (!v23)
-          {
-            return 0;
-          }
-
-          if (*a3 <= v23 || *v23 != 10)
-          {
-            goto LABEL_2;
-          }
-        }
-      }
-
-      if (v6 != 18)
-      {
-        goto LABEL_13;
-      }
-
-      v12 = (v5 - 1);
-      while (1)
-      {
-        v13 = (v12 + 1);
-        v34 = (v12 + 1);
-        v14 = *(a1 + 64);
-        if (!v14)
-        {
-          goto LABEL_23;
-        }
-
-        v19 = *(a1 + 56);
-        v15 = *v14;
-        if (v19 < *v14)
-        {
-          *(a1 + 56) = v19 + 1;
-          v16 = *&v14[2 * v19 + 2];
-          goto LABEL_27;
-        }
-
-        if (v15 == *(a1 + 60))
-        {
-LABEL_23:
-          google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a1 + 48));
-          v14 = *(a1 + 64);
-          v15 = *v14;
-        }
-
-        *v14 = v15 + 1;
-        v16 = google::protobuf::Arena::CreateMaybeMessage<TSCH::ChartAxisReferenceLineStylesArchive>(*(a1 + 48));
-        v17 = *(a1 + 56);
-        v18 = *(a1 + 64) + 8 * v17;
-        *(a1 + 56) = v17 + 1;
-        *(v18 + 8) = v16;
-        v13 = v34;
-LABEL_27:
-        v12 = sub_2764AB264(a3, v16, v13);
-        v34 = v12;
-        if (!v12)
-        {
-          return 0;
-        }
-
-        if (*a3 <= v12 || *v12 != 18)
-        {
-          goto LABEL_2;
-        }
-      }
-    }
-
-    if (v6 == 26)
-    {
-      *(a1 + 16) |= 1u;
-      v20 = *(a1 + 72);
-      if (!v20)
-      {
-        v21 = *(a1 + 8);
-        if (v21)
-        {
-          v21 = *(v21 & 0xFFFFFFFFFFFFFFFELL);
-        }
-
-        v22 = MEMORY[0x277C97B90](v21);
-        LODWORD(v20) = v22;
-        *(a1 + 72) = v22;
-        v5 = v34;
-      }
-
-      v11 = sub_2764ADCBC(a3, v20, v5);
-      goto LABEL_39;
-    }
-
-LABEL_13:
-    if (!v6 || (v6 & 7) == 4)
+    v9 = v7 >> 3;
+    if (v7 >> 3 != 3)
     {
       break;
     }
 
+    if (v7 != 26)
+    {
+      goto LABEL_13;
+    }
+
+    *(a1 + 16) |= 1u;
+    v21 = *(a1 + 72);
+    if (!v21)
+    {
+      v22 = *(a1 + 8);
+      if (v22)
+      {
+        v22 = *(v22 & 0xFFFFFFFFFFFFFFFELL);
+      }
+
+      v21 = MEMORY[0x277C97B90](v22);
+      *(a1 + 72) = v21;
+      v6 = v34;
+    }
+
+    v12 = sub_2764ADCBC(a3, v21, v6);
+LABEL_39:
+    v34 = v12;
+    if (!v12)
+    {
+      return 0;
+    }
+
+LABEL_40:
+    ;
+  }
+
+  if (v9 != 2)
+  {
+    if (v9 != 1 || v7 != 10)
+    {
+      goto LABEL_13;
+    }
+
+    v23 = (v6 - 1);
+    while (2)
+    {
+      v24 = (v23 + 1);
+      v34 = (v23 + 1);
+      v25 = *(a1 + 40);
+      if (!v25)
+      {
+LABEL_43:
+        google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a1 + 24));
+        v25 = *(a1 + 40);
+        v26 = *v25;
+        goto LABEL_44;
+      }
+
+      v30 = *(a1 + 32);
+      v26 = *v25;
+      if (v30 >= *v25)
+      {
+        if (v26 == *(a1 + 36))
+        {
+          goto LABEL_43;
+        }
+
+LABEL_44:
+        *v25 = v26 + 1;
+        v27 = google::protobuf::Arena::CreateMaybeMessage<TSCH::ChartAxisReferenceLineNonStylesArchive>(*(a1 + 24));
+        v28 = *(a1 + 32);
+        v29 = *(a1 + 40) + 8 * v28;
+        *(a1 + 32) = v28 + 1;
+        *(v29 + 8) = v27;
+        v24 = v34;
+      }
+
+      else
+      {
+        *(a1 + 32) = v30 + 1;
+        v27 = *&v25[2 * v30 + 2];
+      }
+
+      v23 = sub_2764AB194(a3, v27, v24);
+      v34 = v23;
+      if (!v23)
+      {
+        return 0;
+      }
+
+      if (*a3 <= v23 || *v23 != 10)
+      {
+        goto LABEL_40;
+      }
+
+      continue;
+    }
+  }
+
+  if (v7 == 18)
+  {
+    v13 = (v6 - 1);
+    while (1)
+    {
+      v14 = (v13 + 1);
+      v34 = (v13 + 1);
+      v15 = *(a1 + 64);
+      if (!v15)
+      {
+        goto LABEL_23;
+      }
+
+      v20 = *(a1 + 56);
+      v16 = *v15;
+      if (v20 < *v15)
+      {
+        *(a1 + 56) = v20 + 1;
+        v17 = *&v15[2 * v20 + 2];
+        goto LABEL_27;
+      }
+
+      if (v16 == *(a1 + 60))
+      {
+LABEL_23:
+        google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a1 + 48));
+        v15 = *(a1 + 64);
+        v16 = *v15;
+      }
+
+      *v15 = v16 + 1;
+      v17 = google::protobuf::Arena::CreateMaybeMessage<TSCH::ChartAxisReferenceLineStylesArchive>(*(a1 + 48));
+      v18 = *(a1 + 56);
+      v19 = *(a1 + 64) + 8 * v18;
+      *(a1 + 56) = v18 + 1;
+      *(v19 + 8) = v17;
+      v14 = v34;
+LABEL_27:
+      v13 = sub_2764AB264(a3, v17, v14);
+      v34 = v13;
+      if (!v13)
+      {
+        return 0;
+      }
+
+      if (*a3 <= v13 || *v13 != 18)
+      {
+        goto LABEL_40;
+      }
+    }
+  }
+
+LABEL_13:
+  if (v7)
+  {
+    v11 = (v7 & 7) == 4;
+  }
+
+  else
+  {
+    v11 = 1;
+  }
+
+  if (!v11)
+  {
     if ((*(a1 + 8) & 1) == 0)
     {
       sub_2763D4E10((a1 + 8));
     }
 
-    v11 = google::protobuf::internal::UnknownFieldParse();
-LABEL_39:
-    v34 = v11;
-    if (!v11)
-    {
-      return 0;
-    }
+    v12 = google::protobuf::internal::UnknownFieldParse();
+    goto LABEL_39;
   }
 
-  *(a3 + 80) = v6 - 1;
+  *(a3 + 80) = v7 - 1;
   return v34;
 }
 
@@ -3335,7 +2953,7 @@ unsigned __int8 *TSCH::ChartReferenceLinesArchive::_InternalSerialize(TSCH::Char
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v27 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v27 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TSCH::ChartReferenceLinesArchive::ByteSizeLong(TSCH::ChartReferenceLinesArchive *this)
@@ -3446,7 +3064,7 @@ uint64_t TSCH::ChartReferenceLinesArchive::MergeFrom(uint64_t this, const TSCH::
   {
     v6 = *(a2 + 5);
     v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((v3 + 24));
-    this = sub_2763F94D0(v3 + 24, v7, (v6 + 8), v5, **(v3 + 40) - *(v3 + 32));
+    this = sub_2763F94D0((v3 + 24), v7, (v6 + 8), v5, **(v3 + 40) - *(v3 + 32));
     v8 = *(v3 + 32) + v5;
     *(v3 + 32) = v8;
     v9 = *(v3 + 40);
@@ -3461,7 +3079,7 @@ uint64_t TSCH::ChartReferenceLinesArchive::MergeFrom(uint64_t this, const TSCH::
   {
     v11 = *(a2 + 8);
     v12 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((v3 + 48));
-    this = sub_2763F9590(v3 + 48, v12, (v11 + 8), v10, **(v3 + 64) - *(v3 + 56));
+    this = sub_2763F9590((v3 + 48), v12, (v11 + 8), v10, **(v3 + 64) - *(v3 + 56));
     v13 = *(v3 + 56) + v10;
     *(v3 + 56) = v13;
     v14 = *(v3 + 64);
@@ -3505,7 +3123,7 @@ uint64_t TSCH::ChartReferenceLinesArchive::MergeFrom(uint64_t this, const TSCH::
   return this;
 }
 
-uint64_t *TSCH::ChartReferenceLinesArchive::CopyFrom(uint64_t *this, const Message *a2)
+google::protobuf::UnknownFieldSet *TSCH::ChartReferenceLinesArchive::CopyFrom(google::protobuf::UnknownFieldSet *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -3518,7 +3136,7 @@ uint64_t *TSCH::ChartReferenceLinesArchive::CopyFrom(uint64_t *this, const Messa
   return this;
 }
 
-uint64_t *TSCH::ChartReferenceLinesArchive::CopyFrom(uint64_t *this, const TSCH::ChartReferenceLinesArchive *a2)
+google::protobuf::UnknownFieldSet *TSCH::ChartReferenceLinesArchive::CopyFrom(google::protobuf::UnknownFieldSet *this, const TSCH::ChartReferenceLinesArchive *a2)
 {
   if (a2 != this)
   {
@@ -3663,7 +3281,7 @@ TSCH::ChartPresetReferenceLineStylesArchive *TSCH::ChartPresetReferenceLineStyle
   *(this + 1) = 0;
   v4 = (this + 8);
   *(this + 2) = 0;
-  v5 = this + 16;
+  v5 = (this + 16);
   *this = &unk_288521808;
   *(this + 3) = 0;
   *(this + 4) = 0;
@@ -3714,13 +3332,13 @@ void *TSCH::ChartPresetReferenceLineStylesArchive::default_instance(TSCH::ChartP
   return &TSCH::_ChartPresetReferenceLineStylesArchive_default_instance_;
 }
 
-uint64_t *TSCH::ChartPresetReferenceLineStylesArchive::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TSCH::ChartPresetReferenceLineStylesArchive::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
   v2 = *(this + 6);
   if (v2 >= 1)
   {
-    v3 = (this[4] + 8);
+    v3 = (*(this + 4) + 8);
     do
     {
       v4 = *v3++;
@@ -3729,7 +3347,7 @@ uint64_t *TSCH::ChartPresetReferenceLineStylesArchive::Clear(uint64_t *this)
     }
 
     while (v2);
-    *(v1 + 24) = 0;
+    *(v1 + 6) = 0;
   }
 
   v6 = *(v1 + 8);
@@ -3745,14 +3363,14 @@ uint64_t *TSCH::ChartPresetReferenceLineStylesArchive::Clear(uint64_t *this)
 
 google::protobuf::internal *TSCH::ChartPresetReferenceLineStylesArchive::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
-  v21 = a2;
-  if ((sub_2763D4D98(a3, &v21) & 1) == 0)
+  v20 = a2;
+  if ((sub_2763D4D98(a3, &v20, *(a3 + 92)) & 1) == 0)
   {
     while (1)
     {
-      v5 = (v21 + 1);
-      v6 = *v21;
-      if ((*v21 & 0x80000000) == 0)
+      v5 = (v20 + 1);
+      v6 = *v20;
+      if ((*v20 & 0x80000000) == 0)
       {
         goto LABEL_5;
       }
@@ -3764,15 +3382,15 @@ google::protobuf::internal *TSCH::ChartPresetReferenceLineStylesArchive::_Intern
         break;
       }
 
-      TagFallback = google::protobuf::internal::ReadTagFallback(v21, (v7 - 128));
-      v21 = TagFallback;
+      TagFallback = google::protobuf::internal::ReadTagFallback(v20, (v7 - 128));
+      v20 = TagFallback;
       if (!TagFallback)
       {
         return 0;
       }
 
       v5 = TagFallback;
-      v6 = v19;
+      v6 = v18;
 LABEL_6:
       if (v6 == 10)
       {
@@ -3780,19 +3398,19 @@ LABEL_6:
         while (1)
         {
           v10 = (v9 + 1);
-          v21 = (v9 + 1);
+          v20 = (v9 + 1);
           v11 = *(a1 + 32);
           if (!v11)
           {
             goto LABEL_18;
           }
 
-          v17 = *(a1 + 24);
+          v16 = *(a1 + 24);
           v12 = *v11;
-          if (v17 < *v11)
+          if (v16 < *v11)
           {
-            *(a1 + 24) = v17 + 1;
-            v14 = *&v11[2 * v17 + 2];
+            *(a1 + 24) = v16 + 1;
+            v13 = *&v11[2 * v16 + 2];
             goto LABEL_22;
           }
 
@@ -3806,15 +3424,14 @@ LABEL_18:
 
           *v11 = v12 + 1;
           v13 = MEMORY[0x277C97B90](*(a1 + 16));
-          LODWORD(v14) = v13;
-          v15 = *(a1 + 24);
-          v16 = *(a1 + 32) + 8 * v15;
-          *(a1 + 24) = v15 + 1;
-          *(v16 + 8) = v13;
-          v10 = v21;
+          v14 = *(a1 + 24);
+          v15 = *(a1 + 32) + 8 * v14;
+          *(a1 + 24) = v14 + 1;
+          *(v15 + 8) = v13;
+          v10 = v20;
 LABEL_22:
-          v9 = sub_2764ADCBC(a3, v14, v10);
-          v21 = v9;
+          v9 = sub_2764ADCBC(a3, v13, v10);
+          v20 = v9;
           if (!v9)
           {
             return 0;
@@ -3840,7 +3457,7 @@ LABEL_22:
       if (v8)
       {
         *(a3 + 80) = v6 - 1;
-        return v21;
+        return v20;
       }
 
       if ((*(a1 + 8) & 1) == 0)
@@ -3848,26 +3465,26 @@ LABEL_22:
         sub_2763D4E10((a1 + 8));
       }
 
-      v21 = google::protobuf::internal::UnknownFieldParse();
-      if (!v21)
+      v20 = google::protobuf::internal::UnknownFieldParse();
+      if (!v20)
       {
         return 0;
       }
 
 LABEL_14:
-      if (sub_2763D4D98(a3, &v21))
+      if (sub_2763D4D98(a3, &v20, *(a3 + 92)))
       {
-        return v21;
+        return v20;
       }
     }
 
-    v5 = (v21 + 2);
+    v5 = (v20 + 2);
 LABEL_5:
-    v21 = v5;
+    v20 = v5;
     goto LABEL_6;
   }
 
-  return v21;
+  return v20;
 }
 
 unsigned __int8 *TSCH::ChartPresetReferenceLineStylesArchive::_InternalSerialize(TSCH::ChartPresetReferenceLineStylesArchive *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
@@ -3928,7 +3545,7 @@ unsigned __int8 *TSCH::ChartPresetReferenceLineStylesArchive::_InternalSerialize
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v13 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v13 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TSCH::ChartPresetReferenceLineStylesArchive::ByteSizeLong(TSCH::ChartPresetReferenceLineStylesArchive *this)
@@ -4006,7 +3623,7 @@ uint64_t TSCH::ChartPresetReferenceLineStylesArchive::MergeFrom(uint64_t this, c
   {
     v6 = *(a2 + 4);
     v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((v3 + 16));
-    this = sub_2763F8D40(v3 + 16, v7, (v6 + 8), v5, **(v3 + 32) - *(v3 + 24));
+    this = sub_2763F8D40((v3 + 16), v7, (v6 + 8), v5, **(v3 + 32) - *(v3 + 24));
     v8 = *(v3 + 24) + v5;
     *(v3 + 24) = v8;
     v9 = *(v3 + 32);
@@ -4019,7 +3636,7 @@ uint64_t TSCH::ChartPresetReferenceLineStylesArchive::MergeFrom(uint64_t this, c
   return this;
 }
 
-uint64_t *TSCH::ChartPresetReferenceLineStylesArchive::CopyFrom(uint64_t *this, const Message *a2)
+google::protobuf::UnknownFieldSet *TSCH::ChartPresetReferenceLineStylesArchive::CopyFrom(google::protobuf::UnknownFieldSet *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -4032,7 +3649,7 @@ uint64_t *TSCH::ChartPresetReferenceLineStylesArchive::CopyFrom(uint64_t *this, 
   return this;
 }
 
-uint64_t *TSCH::ChartPresetReferenceLineStylesArchive::CopyFrom(uint64_t *this, const TSCH::ChartPresetReferenceLineStylesArchive *a2)
+google::protobuf::UnknownFieldSet *TSCH::ChartPresetReferenceLineStylesArchive::CopyFrom(google::protobuf::UnknownFieldSet *this, const TSCH::ChartPresetReferenceLineStylesArchive *a2)
 {
   if (a2 != this)
   {
@@ -4109,7 +3726,7 @@ TSCH::ChartAxisReferenceLineSparseNonStylesArchive *TSCH::ChartAxisReferenceLine
   {
     v6 = *(a2 + 5);
     v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 24));
-    sub_2763F9308(this + 24, v7, (v6 + 8), v5, **(this + 5) - *(this + 8));
+    sub_2763F9308(this + 3, v7, (v6 + 8), v5, **(this + 5) - *(this + 8));
     v8 = *(this + 8) + v5;
     *(this + 8) = v8;
     v9 = *(this + 5);
@@ -4173,13 +3790,13 @@ void *TSCH::ChartAxisReferenceLineSparseNonStylesArchive::default_instance(TSCH:
   return &TSCH::_ChartAxisReferenceLineSparseNonStylesArchive_default_instance_;
 }
 
-uint64_t *TSCH::ChartAxisReferenceLineSparseNonStylesArchive::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TSCH::ChartAxisReferenceLineSparseNonStylesArchive::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
   v2 = *(this + 8);
   if (v2 >= 1)
   {
-    v3 = (this[5] + 8);
+    v3 = (*(this + 5) + 8);
     do
     {
       v4 = *v3++;
@@ -4188,17 +3805,17 @@ uint64_t *TSCH::ChartAxisReferenceLineSparseNonStylesArchive::Clear(uint64_t *th
     }
 
     while (v2);
-    *(v1 + 32) = 0;
+    *(v1 + 8) = 0;
   }
 
   if (*(v1 + 16))
   {
-    this = TSCH::ChartAxisIDArchive::Clear(*(v1 + 48));
+    this = TSCH::ChartAxisIDArchive::Clear(*(v1 + 6));
   }
 
   v6 = *(v1 + 8);
   v5 = v1 + 8;
-  *(v5 + 8) = 0;
+  *(v5 + 2) = 0;
   if (v6)
   {
 
@@ -4210,142 +3827,154 @@ uint64_t *TSCH::ChartAxisReferenceLineSparseNonStylesArchive::Clear(uint64_t *th
 
 google::protobuf::internal *TSCH::ChartAxisReferenceLineSparseNonStylesArchive::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
-  v24 = a2;
-  while (1)
+  v25 = a2;
+  for (i = *(a3 + 92); ; i = *(a3 + 92))
   {
-LABEL_2:
-    if (sub_2763D4D98(a3, &v24))
+    if (sub_2763D4D98(a3, &v25, i))
     {
-      return v24;
+      return v25;
     }
 
-    v5 = (v24 + 1);
-    v6 = *v24;
-    if ((*v24 & 0x80000000) == 0)
+    v6 = (v25 + 1);
+    v7 = *v25;
+    if ((*v25 & 0x80000000) == 0)
     {
       goto LABEL_6;
     }
 
-    v7 = v6 + (*v5 << 7);
-    v6 = v7 - 128;
-    if ((*v5 & 0x80000000) == 0)
+    v8 = v7 + (*v6 << 7);
+    v7 = v8 - 128;
+    if ((*v6 & 0x80000000) == 0)
     {
-      v5 = (v24 + 2);
+      v6 = (v25 + 2);
 LABEL_6:
-      v24 = v5;
+      v25 = v6;
       goto LABEL_7;
     }
 
-    TagFallback = google::protobuf::internal::ReadTagFallback(v24, (v7 - 128));
-    v24 = TagFallback;
+    TagFallback = google::protobuf::internal::ReadTagFallback(v25, (v8 - 128));
+    v25 = TagFallback;
     if (!TagFallback)
     {
       return 0;
     }
 
-    v5 = TagFallback;
-    v6 = v22;
+    v6 = TagFallback;
+    v7 = v23;
 LABEL_7:
-    if (v6 >> 3 == 2)
-    {
-      if (v6 != 18)
-      {
-        goto LABEL_12;
-      }
-
-      v11 = (v5 - 1);
-      while (1)
-      {
-        v12 = (v11 + 1);
-        v24 = (v11 + 1);
-        v13 = *(a1 + 40);
-        if (!v13)
-        {
-          goto LABEL_22;
-        }
-
-        v18 = *(a1 + 32);
-        v14 = *v13;
-        if (v18 < *v13)
-        {
-          *(a1 + 32) = v18 + 1;
-          v15 = *&v13[2 * v18 + 2];
-          goto LABEL_26;
-        }
-
-        if (v14 == *(a1 + 36))
-        {
-LABEL_22:
-          google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a1 + 24));
-          v13 = *(a1 + 40);
-          v14 = *v13;
-        }
-
-        *v13 = v14 + 1;
-        v15 = google::protobuf::Arena::CreateMaybeMessage<TSCH::ChartReferenceLineNonStyleItem>(*(a1 + 24));
-        v16 = *(a1 + 32);
-        v17 = *(a1 + 40) + 8 * v16;
-        *(a1 + 32) = v16 + 1;
-        *(v17 + 8) = v15;
-        v12 = v24;
-LABEL_26:
-        v11 = sub_2764AB0C4(a3, v15, v12);
-        v24 = v11;
-        if (!v11)
-        {
-          return 0;
-        }
-
-        if (*a3 <= v11 || *v11 != 18)
-        {
-          goto LABEL_2;
-        }
-      }
-    }
-
-    if (v6 >> 3 == 1 && v6 == 10)
-    {
-      *(a1 + 16) |= 1u;
-      v19 = *(a1 + 48);
-      if (!v19)
-      {
-        v20 = *(a1 + 8);
-        if (v20)
-        {
-          v20 = *(v20 & 0xFFFFFFFFFFFFFFFELL);
-        }
-
-        v19 = google::protobuf::Arena::CreateMaybeMessage<TSCH::ChartAxisIDArchive>(v20);
-        *(a1 + 48) = v19;
-        v5 = v24;
-      }
-
-      v10 = sub_2764AF8E0(a3, v19, v5);
-      goto LABEL_37;
-    }
-
-LABEL_12:
-    if (!v6 || (v6 & 7) == 4)
+    if (v7 >> 3 == 2)
     {
       break;
     }
 
+    if (v7 >> 3 != 1 || v7 != 10)
+    {
+      goto LABEL_12;
+    }
+
+    *(a1 + 16) |= 1u;
+    v20 = *(a1 + 48);
+    if (!v20)
+    {
+      v21 = *(a1 + 8);
+      if (v21)
+      {
+        v21 = *(v21 & 0xFFFFFFFFFFFFFFFELL);
+      }
+
+      v20 = google::protobuf::Arena::CreateMaybeMessage<TSCH::ChartAxisIDArchive>(v21);
+      *(a1 + 48) = v20;
+      v6 = v25;
+    }
+
+    v11 = sub_2764AF8E0(a3, v20, v6);
+LABEL_37:
+    v25 = v11;
+    if (!v11)
+    {
+      return 0;
+    }
+
+LABEL_38:
+    ;
+  }
+
+  if (v7 == 18)
+  {
+    v12 = (v6 - 1);
+    while (1)
+    {
+      v13 = (v12 + 1);
+      v25 = (v12 + 1);
+      v14 = *(a1 + 40);
+      if (!v14)
+      {
+        goto LABEL_22;
+      }
+
+      v19 = *(a1 + 32);
+      v15 = *v14;
+      if (v19 < *v14)
+      {
+        *(a1 + 32) = v19 + 1;
+        v16 = *&v14[2 * v19 + 2];
+        goto LABEL_26;
+      }
+
+      if (v15 == *(a1 + 36))
+      {
+LABEL_22:
+        google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a1 + 24));
+        v14 = *(a1 + 40);
+        v15 = *v14;
+      }
+
+      *v14 = v15 + 1;
+      v16 = google::protobuf::Arena::CreateMaybeMessage<TSCH::ChartReferenceLineNonStyleItem>(*(a1 + 24));
+      v17 = *(a1 + 32);
+      v18 = *(a1 + 40) + 8 * v17;
+      *(a1 + 32) = v17 + 1;
+      *(v18 + 8) = v16;
+      v13 = v25;
+LABEL_26:
+      v12 = sub_2764AB0C4(a3, v16, v13);
+      v25 = v12;
+      if (!v12)
+      {
+        return 0;
+      }
+
+      if (*a3 <= v12 || *v12 != 18)
+      {
+        goto LABEL_38;
+      }
+    }
+  }
+
+LABEL_12:
+  if (v7)
+  {
+    v10 = (v7 & 7) == 4;
+  }
+
+  else
+  {
+    v10 = 1;
+  }
+
+  if (!v10)
+  {
     if ((*(a1 + 8) & 1) == 0)
     {
       sub_2763D4E10((a1 + 8));
     }
 
-    v10 = google::protobuf::internal::UnknownFieldParse();
-LABEL_37:
-    v24 = v10;
-    if (!v10)
-    {
-      return 0;
-    }
+    v11 = google::protobuf::internal::UnknownFieldParse();
+    goto LABEL_37;
   }
 
-  *(a3 + 80) = v6 - 1;
-  return v24;
+  *(a3 + 80) = v7 - 1;
+  return v25;
 }
 
 unsigned __int8 *TSCH::ChartAxisReferenceLineSparseNonStylesArchive::_InternalSerialize(TSCH::ChartAxisReferenceLineSparseNonStylesArchive *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
@@ -4452,7 +4081,7 @@ unsigned __int8 *TSCH::ChartAxisReferenceLineSparseNonStylesArchive::_InternalSe
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v19 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v19 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TSCH::ChartAxisReferenceLineSparseNonStylesArchive::ByteSizeLong(TSCH::ChartAxisIDArchive **this)
@@ -4537,7 +4166,7 @@ uint64_t TSCH::ChartAxisReferenceLineSparseNonStylesArchive::MergeFrom(uint64_t 
   {
     v6 = *(a2 + 5);
     v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((v3 + 24));
-    this = sub_2763F9308(v3 + 24, v7, (v6 + 8), v5, **(v3 + 40) - *(v3 + 32));
+    this = sub_2763F9308((v3 + 24), v7, (v6 + 8), v5, **(v3 + 40) - *(v3 + 32));
     v8 = *(v3 + 32) + v5;
     *(v3 + 32) = v8;
     v9 = *(v3 + 40);
@@ -4581,7 +4210,7 @@ uint64_t TSCH::ChartAxisReferenceLineSparseNonStylesArchive::MergeFrom(uint64_t 
   return this;
 }
 
-uint64_t *TSCH::ChartAxisReferenceLineSparseNonStylesArchive::CopyFrom(uint64_t *this, const Message *a2)
+google::protobuf::UnknownFieldSet *TSCH::ChartAxisReferenceLineSparseNonStylesArchive::CopyFrom(google::protobuf::UnknownFieldSet *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -4594,7 +4223,7 @@ uint64_t *TSCH::ChartAxisReferenceLineSparseNonStylesArchive::CopyFrom(uint64_t 
   return this;
 }
 
-uint64_t *TSCH::ChartAxisReferenceLineSparseNonStylesArchive::CopyFrom(uint64_t *this, const TSCH::ChartAxisReferenceLineSparseNonStylesArchive *a2)
+google::protobuf::UnknownFieldSet *TSCH::ChartAxisReferenceLineSparseNonStylesArchive::CopyFrom(google::protobuf::UnknownFieldSet *this, const TSCH::ChartAxisReferenceLineSparseNonStylesArchive *a2)
 {
   if (a2 != this)
   {
@@ -4704,7 +4333,7 @@ TSCH::PropertyValueStorageContainerReferenceLinesArchive *TSCH::PropertyValueSto
   {
     v6 = *(a2 + 5);
     v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 24));
-    sub_2763F96D4(this + 24, v7, (v6 + 8), v5, **(this + 5) - *(this + 8));
+    sub_2763F96D4(this + 3, v7, (v6 + 8), v5, **(this + 5) - *(this + 8));
     v8 = *(this + 8) + v5;
     *(this + 8) = v8;
     v9 = *(this + 5);
@@ -4722,7 +4351,7 @@ TSCH::PropertyValueStorageContainerReferenceLinesArchive *TSCH::PropertyValueSto
   {
     v11 = *(a2 + 8);
     v12 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 48));
-    sub_2763F9590(this + 48, v12, (v11 + 8), v10, **(this + 8) - *(this + 14));
+    sub_2763F9590(this + 6, v12, (v11 + 8), v10, **(this + 8) - *(this + 14));
     v13 = *(this + 14) + v10;
     *(this + 14) = v13;
     v14 = *(this + 8);
@@ -4788,13 +4417,13 @@ void *TSCH::PropertyValueStorageContainerReferenceLinesArchive::default_instance
   return &TSCH::_PropertyValueStorageContainerReferenceLinesArchive_default_instance_;
 }
 
-uint64_t *TSCH::PropertyValueStorageContainerReferenceLinesArchive::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TSCH::PropertyValueStorageContainerReferenceLinesArchive::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
   v2 = *(this + 8);
   if (v2 >= 1)
   {
-    v3 = (this[5] + 8);
+    v3 = (*(this + 5) + 8);
     do
     {
       v4 = *v3++;
@@ -4803,13 +4432,13 @@ uint64_t *TSCH::PropertyValueStorageContainerReferenceLinesArchive::Clear(uint64
     }
 
     while (v2);
-    *(v1 + 32) = 0;
+    *(v1 + 8) = 0;
   }
 
-  v5 = *(v1 + 56);
+  v5 = *(v1 + 14);
   if (v5 >= 1)
   {
-    v6 = (*(v1 + 64) + 8);
+    v6 = (*(v1 + 8) + 8);
     do
     {
       v7 = *v6++;
@@ -4818,17 +4447,17 @@ uint64_t *TSCH::PropertyValueStorageContainerReferenceLinesArchive::Clear(uint64
     }
 
     while (v5);
-    *(v1 + 56) = 0;
+    *(v1 + 14) = 0;
   }
 
   if (*(v1 + 16))
   {
-    this = TSP::Reference::Clear(*(v1 + 72));
+    this = TSP::Reference::Clear(*(v1 + 9));
   }
 
   v9 = *(v1 + 8);
   v8 = v1 + 8;
-  *(v8 + 8) = 0;
+  *(v8 + 2) = 0;
   if (v9)
   {
 
@@ -4841,199 +4470,216 @@ uint64_t *TSCH::PropertyValueStorageContainerReferenceLinesArchive::Clear(uint64
 google::protobuf::internal *TSCH::PropertyValueStorageContainerReferenceLinesArchive::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
   v34 = a2;
-  while (1)
+  for (i = *(a3 + 92); ; i = *(a3 + 92))
   {
-LABEL_2:
-    if (sub_2763D4D98(a3, &v34))
+    if (sub_2763D4D98(a3, &v34, i))
     {
       return v34;
     }
 
-    v5 = (v34 + 1);
-    v6 = *v34;
+    v6 = (v34 + 1);
+    v7 = *v34;
     if ((*v34 & 0x80000000) == 0)
     {
       goto LABEL_6;
     }
 
-    v7 = v6 + (*v5 << 7);
-    v6 = v7 - 128;
-    if ((*v5 & 0x80000000) == 0)
+    v8 = v7 + (*v6 << 7);
+    v7 = v8 - 128;
+    if ((*v6 & 0x80000000) == 0)
     {
-      v5 = (v34 + 2);
+      v6 = (v34 + 2);
 LABEL_6:
-      v34 = v5;
+      v34 = v6;
       goto LABEL_7;
     }
 
-    TagFallback = google::protobuf::internal::ReadTagFallback(v34, (v7 - 128));
+    TagFallback = google::protobuf::internal::ReadTagFallback(v34, (v8 - 128));
     v34 = TagFallback;
     if (!TagFallback)
     {
       return 0;
     }
 
-    v5 = TagFallback;
-    v6 = v32;
+    v6 = TagFallback;
+    v7 = v32;
 LABEL_7:
-    v8 = v6 >> 3;
-    if (v6 >> 3 != 3)
-    {
-      if (v8 != 2)
-      {
-        if (v8 != 1 || v6 != 10)
-        {
-          goto LABEL_13;
-        }
-
-        v23 = (v5 - 1);
-        while (1)
-        {
-          v24 = (v23 + 1);
-          v34 = (v23 + 1);
-          v25 = *(a1 + 40);
-          if (!v25)
-          {
-            goto LABEL_43;
-          }
-
-          v30 = *(a1 + 32);
-          v26 = *v25;
-          if (v30 < *v25)
-          {
-            *(a1 + 32) = v30 + 1;
-            v27 = *&v25[2 * v30 + 2];
-            goto LABEL_47;
-          }
-
-          if (v26 == *(a1 + 36))
-          {
-LABEL_43:
-            google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a1 + 24));
-            v25 = *(a1 + 40);
-            v26 = *v25;
-          }
-
-          *v25 = v26 + 1;
-          v27 = google::protobuf::Arena::CreateMaybeMessage<TSCH::ChartAxisReferenceLineSparseNonStylesArchive>(*(a1 + 24));
-          v28 = *(a1 + 32);
-          v29 = *(a1 + 40) + 8 * v28;
-          *(a1 + 32) = v28 + 1;
-          *(v29 + 8) = v27;
-          v24 = v34;
-LABEL_47:
-          v23 = sub_2764AB334(a3, v27, v24);
-          v34 = v23;
-          if (!v23)
-          {
-            return 0;
-          }
-
-          if (*a3 <= v23 || *v23 != 10)
-          {
-            goto LABEL_2;
-          }
-        }
-      }
-
-      if (v6 != 18)
-      {
-        goto LABEL_13;
-      }
-
-      v12 = (v5 - 1);
-      while (1)
-      {
-        v13 = (v12 + 1);
-        v34 = (v12 + 1);
-        v14 = *(a1 + 64);
-        if (!v14)
-        {
-          goto LABEL_23;
-        }
-
-        v19 = *(a1 + 56);
-        v15 = *v14;
-        if (v19 < *v14)
-        {
-          *(a1 + 56) = v19 + 1;
-          v16 = *&v14[2 * v19 + 2];
-          goto LABEL_27;
-        }
-
-        if (v15 == *(a1 + 60))
-        {
-LABEL_23:
-          google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a1 + 48));
-          v14 = *(a1 + 64);
-          v15 = *v14;
-        }
-
-        *v14 = v15 + 1;
-        v16 = google::protobuf::Arena::CreateMaybeMessage<TSCH::ChartAxisReferenceLineStylesArchive>(*(a1 + 48));
-        v17 = *(a1 + 56);
-        v18 = *(a1 + 64) + 8 * v17;
-        *(a1 + 56) = v17 + 1;
-        *(v18 + 8) = v16;
-        v13 = v34;
-LABEL_27:
-        v12 = sub_2764AB264(a3, v16, v13);
-        v34 = v12;
-        if (!v12)
-        {
-          return 0;
-        }
-
-        if (*a3 <= v12 || *v12 != 18)
-        {
-          goto LABEL_2;
-        }
-      }
-    }
-
-    if (v6 == 26)
-    {
-      *(a1 + 16) |= 1u;
-      v20 = *(a1 + 72);
-      if (!v20)
-      {
-        v21 = *(a1 + 8);
-        if (v21)
-        {
-          v21 = *(v21 & 0xFFFFFFFFFFFFFFFELL);
-        }
-
-        v22 = MEMORY[0x277C97B90](v21);
-        LODWORD(v20) = v22;
-        *(a1 + 72) = v22;
-        v5 = v34;
-      }
-
-      v11 = sub_2764ADCBC(a3, v20, v5);
-      goto LABEL_39;
-    }
-
-LABEL_13:
-    if (!v6 || (v6 & 7) == 4)
+    v9 = v7 >> 3;
+    if (v7 >> 3 != 3)
     {
       break;
     }
 
+    if (v7 != 26)
+    {
+      goto LABEL_13;
+    }
+
+    *(a1 + 16) |= 1u;
+    v21 = *(a1 + 72);
+    if (!v21)
+    {
+      v22 = *(a1 + 8);
+      if (v22)
+      {
+        v22 = *(v22 & 0xFFFFFFFFFFFFFFFELL);
+      }
+
+      v21 = MEMORY[0x277C97B90](v22);
+      *(a1 + 72) = v21;
+      v6 = v34;
+    }
+
+    v12 = sub_2764ADCBC(a3, v21, v6);
+LABEL_39:
+    v34 = v12;
+    if (!v12)
+    {
+      return 0;
+    }
+
+LABEL_40:
+    ;
+  }
+
+  if (v9 != 2)
+  {
+    if (v9 != 1 || v7 != 10)
+    {
+      goto LABEL_13;
+    }
+
+    v23 = (v6 - 1);
+    while (2)
+    {
+      v24 = (v23 + 1);
+      v34 = (v23 + 1);
+      v25 = *(a1 + 40);
+      if (!v25)
+      {
+LABEL_43:
+        google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a1 + 24));
+        v25 = *(a1 + 40);
+        v26 = *v25;
+        goto LABEL_44;
+      }
+
+      v30 = *(a1 + 32);
+      v26 = *v25;
+      if (v30 >= *v25)
+      {
+        if (v26 == *(a1 + 36))
+        {
+          goto LABEL_43;
+        }
+
+LABEL_44:
+        *v25 = v26 + 1;
+        v27 = google::protobuf::Arena::CreateMaybeMessage<TSCH::ChartAxisReferenceLineSparseNonStylesArchive>(*(a1 + 24));
+        v28 = *(a1 + 32);
+        v29 = *(a1 + 40) + 8 * v28;
+        *(a1 + 32) = v28 + 1;
+        *(v29 + 8) = v27;
+        v24 = v34;
+      }
+
+      else
+      {
+        *(a1 + 32) = v30 + 1;
+        v27 = *&v25[2 * v30 + 2];
+      }
+
+      v23 = sub_2764AB334(a3, v27, v24);
+      v34 = v23;
+      if (!v23)
+      {
+        return 0;
+      }
+
+      if (*a3 <= v23 || *v23 != 10)
+      {
+        goto LABEL_40;
+      }
+
+      continue;
+    }
+  }
+
+  if (v7 == 18)
+  {
+    v13 = (v6 - 1);
+    while (1)
+    {
+      v14 = (v13 + 1);
+      v34 = (v13 + 1);
+      v15 = *(a1 + 64);
+      if (!v15)
+      {
+        goto LABEL_23;
+      }
+
+      v20 = *(a1 + 56);
+      v16 = *v15;
+      if (v20 < *v15)
+      {
+        *(a1 + 56) = v20 + 1;
+        v17 = *&v15[2 * v20 + 2];
+        goto LABEL_27;
+      }
+
+      if (v16 == *(a1 + 60))
+      {
+LABEL_23:
+        google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a1 + 48));
+        v15 = *(a1 + 64);
+        v16 = *v15;
+      }
+
+      *v15 = v16 + 1;
+      v17 = google::protobuf::Arena::CreateMaybeMessage<TSCH::ChartAxisReferenceLineStylesArchive>(*(a1 + 48));
+      v18 = *(a1 + 56);
+      v19 = *(a1 + 64) + 8 * v18;
+      *(a1 + 56) = v18 + 1;
+      *(v19 + 8) = v17;
+      v14 = v34;
+LABEL_27:
+      v13 = sub_2764AB264(a3, v17, v14);
+      v34 = v13;
+      if (!v13)
+      {
+        return 0;
+      }
+
+      if (*a3 <= v13 || *v13 != 18)
+      {
+        goto LABEL_40;
+      }
+    }
+  }
+
+LABEL_13:
+  if (v7)
+  {
+    v11 = (v7 & 7) == 4;
+  }
+
+  else
+  {
+    v11 = 1;
+  }
+
+  if (!v11)
+  {
     if ((*(a1 + 8) & 1) == 0)
     {
       sub_2763D4E10((a1 + 8));
     }
 
-    v11 = google::protobuf::internal::UnknownFieldParse();
-LABEL_39:
-    v34 = v11;
-    if (!v11)
-    {
-      return 0;
-    }
+    v12 = google::protobuf::internal::UnknownFieldParse();
+    goto LABEL_39;
   }
 
-  *(a3 + 80) = v6 - 1;
+  *(a3 + 80) = v7 - 1;
   return v34;
 }
 
@@ -5191,7 +4837,7 @@ unsigned __int8 *TSCH::PropertyValueStorageContainerReferenceLinesArchive::_Inte
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v27 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v27 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TSCH::PropertyValueStorageContainerReferenceLinesArchive::ByteSizeLong(TSCH::PropertyValueStorageContainerReferenceLinesArchive *this)
@@ -5302,7 +4948,7 @@ uint64_t TSCH::PropertyValueStorageContainerReferenceLinesArchive::MergeFrom(uin
   {
     v6 = *(a2 + 5);
     v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((v3 + 24));
-    this = sub_2763F96D4(v3 + 24, v7, (v6 + 8), v5, **(v3 + 40) - *(v3 + 32));
+    this = sub_2763F96D4((v3 + 24), v7, (v6 + 8), v5, **(v3 + 40) - *(v3 + 32));
     v8 = *(v3 + 32) + v5;
     *(v3 + 32) = v8;
     v9 = *(v3 + 40);
@@ -5317,7 +4963,7 @@ uint64_t TSCH::PropertyValueStorageContainerReferenceLinesArchive::MergeFrom(uin
   {
     v11 = *(a2 + 8);
     v12 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((v3 + 48));
-    this = sub_2763F9590(v3 + 48, v12, (v11 + 8), v10, **(v3 + 64) - *(v3 + 56));
+    this = sub_2763F9590((v3 + 48), v12, (v11 + 8), v10, **(v3 + 64) - *(v3 + 56));
     v13 = *(v3 + 56) + v10;
     *(v3 + 56) = v13;
     v14 = *(v3 + 64);
@@ -5361,7 +5007,7 @@ uint64_t TSCH::PropertyValueStorageContainerReferenceLinesArchive::MergeFrom(uin
   return this;
 }
 
-uint64_t *TSCH::PropertyValueStorageContainerReferenceLinesArchive::CopyFrom(uint64_t *this, const Message *a2)
+google::protobuf::UnknownFieldSet *TSCH::PropertyValueStorageContainerReferenceLinesArchive::CopyFrom(google::protobuf::UnknownFieldSet *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -5374,7 +5020,7 @@ uint64_t *TSCH::PropertyValueStorageContainerReferenceLinesArchive::CopyFrom(uin
   return this;
 }
 
-uint64_t *TSCH::PropertyValueStorageContainerReferenceLinesArchive::CopyFrom(uint64_t *this, const TSCH::PropertyValueStorageContainerReferenceLinesArchive *a2)
+google::protobuf::UnknownFieldSet *TSCH::PropertyValueStorageContainerReferenceLinesArchive::CopyFrom(google::protobuf::UnknownFieldSet *this, const TSCH::PropertyValueStorageContainerReferenceLinesArchive *a2)
 {
   if (a2 != this)
   {
@@ -5503,7 +5149,7 @@ uint64_t *TSCH::CollaboratorCDECursorSubselectionArchive::default_instance(TSCH:
   return &TSCH::_CollaboratorCDECursorSubselectionArchive_default_instance_;
 }
 
-uint64_t *TSCH::CollaboratorCDECursorSubselectionArchive::Clear(TSCH::CollaboratorCDECursorSubselectionArchive *this)
+google::protobuf::UnknownFieldSet *TSCH::CollaboratorCDECursorSubselectionArchive::Clear(TSCH::CollaboratorCDECursorSubselectionArchive *this)
 {
   if ((*(this + 16) & 0xF) != 0)
   {
@@ -5526,7 +5172,7 @@ google::protobuf::internal *TSCH::CollaboratorCDECursorSubselectionArchive::_Int
 {
   v35 = a2;
   v5 = 0;
-  if ((sub_2763D4D98(a3, &v35) & 1) == 0)
+  if ((sub_2763D4D98(a3, &v35, *(a3 + 92)) & 1) == 0)
   {
     while (1)
     {
@@ -5729,7 +5375,7 @@ LABEL_17:
       }
 
 LABEL_42:
-      if (sub_2763D4D98(a3, &v35))
+      if (sub_2763D4D98(a3, &v35, *(a3 + 92)))
       {
         goto LABEL_2;
       }
@@ -5977,7 +5623,7 @@ LABEL_47:
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v22 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v22 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TSCH::CollaboratorCDECursorSubselectionArchive::ByteSizeLong(TSCH::CollaboratorCDECursorSubselectionArchive *this)
@@ -6258,7 +5904,7 @@ uint64_t *TSCH::CollaboratorChartTitleCursorSubselectionArchive::default_instanc
   return &TSCH::_CollaboratorChartTitleCursorSubselectionArchive_default_instance_;
 }
 
-uint64_t *TSCH::CollaboratorChartTitleCursorSubselectionArchive::Clear(TSCH::CollaboratorChartTitleCursorSubselectionArchive *this)
+google::protobuf::UnknownFieldSet *TSCH::CollaboratorChartTitleCursorSubselectionArchive::Clear(TSCH::CollaboratorChartTitleCursorSubselectionArchive *this)
 {
   v2 = *(this + 8);
   result = (this + 8);
@@ -6276,7 +5922,7 @@ google::protobuf::internal *TSCH::CollaboratorChartTitleCursorSubselectionArchiv
 {
   v18 = a2;
   v5 = 0;
-  if ((sub_2763D4D98(a3, &v18) & 1) == 0)
+  if ((sub_2763D4D98(a3, &v18, *(a3 + 92)) & 1) == 0)
   {
     while (1)
     {
@@ -6368,7 +6014,7 @@ LABEL_27:
       }
 
 LABEL_19:
-      if (sub_2763D4D98(a3, &v18))
+      if (sub_2763D4D98(a3, &v18, *(a3 + 92)))
       {
         goto LABEL_26;
       }
@@ -6394,19 +6040,19 @@ unsigned __int8 *TSCH::CollaboratorChartTitleCursorSubselectionArchive::_Interna
       a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
     }
 
-    v4 = *(this + 24);
+    v5 = *(this + 24);
     *a2 = 8;
-    a2[1] = v4;
+    a2[1] = v5;
     a2 += 2;
   }
 
-  v5 = *(this + 1);
-  if ((v5 & 1) == 0)
+  v6 = *(this + 1);
+  if ((v6 & 1) == 0)
   {
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v5 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v6 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TSCH::CollaboratorChartTitleCursorSubselectionArchive::ByteSizeLong(TSCH::CollaboratorChartTitleCursorSubselectionArchive *this)
@@ -6616,7 +6262,7 @@ uint64_t *TSCH::CachedAxisDataFormatterPersistableStyleObject::default_instance(
   return &TSCH::_CachedAxisDataFormatterPersistableStyleObject_default_instance_;
 }
 
-uint64_t *TSCH::CachedAxisDataFormatterPersistableStyleObject::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TSCH::CachedAxisDataFormatterPersistableStyleObject::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
   v2 = *(this + 4);
@@ -6624,18 +6270,18 @@ uint64_t *TSCH::CachedAxisDataFormatterPersistableStyleObject::Clear(uint64_t *t
   {
     if (v2)
     {
-      this = TSCH::ChartAxisIDArchive::Clear(this[3]);
+      this = TSCH::ChartAxisIDArchive::Clear(*(this + 3));
     }
 
     if ((v2 & 2) != 0)
     {
-      this = TSK::FormatStructArchive::Clear(*(v1 + 32));
+      this = TSK::FormatStructArchive::Clear(*(v1 + 4));
     }
   }
 
   v4 = *(v1 + 8);
   v3 = v1 + 8;
-  *(v3 + 8) = 0;
+  *(v3 + 2) = 0;
   if (v4)
   {
 
@@ -6648,91 +6294,61 @@ uint64_t *TSCH::CachedAxisDataFormatterPersistableStyleObject::Clear(uint64_t *t
 google::protobuf::internal *TSCH::CachedAxisDataFormatterPersistableStyleObject::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
   v19 = a2;
-  while ((sub_2763D4D98(a3, &v19) & 1) == 0)
+  for (i = *(a3 + 92); (sub_2763D4D98(a3, &v19, i) & 1) == 0; i = *(a3 + 92))
   {
-    v5 = (v19 + 1);
-    v6 = *v19;
+    v6 = (v19 + 1);
+    v7 = *v19;
     if ((*v19 & 0x80000000) == 0)
     {
       goto LABEL_6;
     }
 
-    v7 = v6 + (*v5 << 7);
-    v6 = v7 - 128;
-    if ((*v5 & 0x80000000) == 0)
+    v8 = v7 + (*v6 << 7);
+    v7 = v8 - 128;
+    if ((*v6 & 0x80000000) == 0)
     {
-      v5 = (v19 + 2);
+      v6 = (v19 + 2);
 LABEL_6:
-      v19 = v5;
+      v19 = v6;
       goto LABEL_7;
     }
 
-    TagFallback = google::protobuf::internal::ReadTagFallback(v19, (v7 - 128));
+    TagFallback = google::protobuf::internal::ReadTagFallback(v19, (v8 - 128));
     v19 = TagFallback;
     if (!TagFallback)
     {
       return 0;
     }
 
-    v5 = TagFallback;
-    v6 = v17;
+    v6 = TagFallback;
+    v7 = v17;
 LABEL_7:
-    if (v6 >> 3 == 2)
+    if (v7 >> 3 == 2)
     {
-      if (v6 != 18)
+      if (v7 == 18)
       {
-        goto LABEL_12;
-      }
-
-      *(a1 + 16) |= 2u;
-      v11 = *(a1 + 32);
-      if (!v11)
-      {
-        v12 = *(a1 + 8);
-        if (v12)
+        *(a1 + 16) |= 2u;
+        v12 = *(a1 + 32);
+        if (!v12)
         {
-          v12 = *(v12 & 0xFFFFFFFFFFFFFFFELL);
+          v13 = *(a1 + 8);
+          if (v13)
+          {
+            v13 = *(v13 & 0xFFFFFFFFFFFFFFFELL);
+          }
+
+          v12 = MEMORY[0x277C97B00](v13);
+          *(a1 + 32) = v12;
+          v6 = v19;
         }
 
-        v13 = MEMORY[0x277C97B00](v12);
-        LODWORD(v11) = v13;
-        *(a1 + 32) = v13;
-        v5 = v19;
-      }
-
-      v10 = sub_2764A8D08(a3, v11, v5);
-    }
-
-    else
-    {
-      if (v6 >> 3 != 1 || v6 != 10)
-      {
-LABEL_12:
-        if (v6)
-        {
-          v9 = (v6 & 7) == 4;
-        }
-
-        else
-        {
-          v9 = 1;
-        }
-
-        if (v9)
-        {
-          *(a3 + 80) = v6 - 1;
-          return v19;
-        }
-
-        if ((*(a1 + 8) & 1) == 0)
-        {
-          sub_2763D4E10((a1 + 8));
-        }
-
-        v10 = google::protobuf::internal::UnknownFieldParse();
+        v11 = sub_2764A8D08(a3, v12, v6);
         goto LABEL_30;
       }
+    }
 
+    else if (v7 >> 3 == 1 && v7 == 10)
+    {
       *(a1 + 16) |= 1u;
       v14 = *(a1 + 24);
       if (!v14)
@@ -6745,15 +6361,38 @@ LABEL_12:
 
         v14 = google::protobuf::Arena::CreateMaybeMessage<TSCH::ChartAxisIDArchive>(v15);
         *(a1 + 24) = v14;
-        v5 = v19;
+        v6 = v19;
       }
 
-      v10 = sub_2764AF8E0(a3, v14, v5);
+      v11 = sub_2764AF8E0(a3, v14, v6);
+      goto LABEL_30;
     }
 
+    if (v7)
+    {
+      v10 = (v7 & 7) == 4;
+    }
+
+    else
+    {
+      v10 = 1;
+    }
+
+    if (v10)
+    {
+      *(a3 + 80) = v7 - 1;
+      return v19;
+    }
+
+    if ((*(a1 + 8) & 1) == 0)
+    {
+      sub_2763D4E10((a1 + 8));
+    }
+
+    v11 = google::protobuf::internal::UnknownFieldParse();
 LABEL_30:
-    v19 = v10;
-    if (!v10)
+    v19 = v11;
+    if (!v11)
     {
       return 0;
     }
@@ -6863,7 +6502,7 @@ unsigned __int8 *TSCH::CachedAxisDataFormatterPersistableStyleObject::_InternalS
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v18 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v18 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TSCH::CachedAxisDataFormatterPersistableStyleObject::ByteSizeLong(TSCH::CachedAxisDataFormatterPersistableStyleObject *this)
@@ -6998,7 +6637,7 @@ uint64_t TSCH::CachedAxisDataFormatterPersistableStyleObject::MergeFrom(uint64_t
   return this;
 }
 
-uint64_t *TSCH::CachedAxisDataFormatterPersistableStyleObject::CopyFrom(uint64_t *this, const Message *a2)
+google::protobuf::UnknownFieldSet *TSCH::CachedAxisDataFormatterPersistableStyleObject::CopyFrom(google::protobuf::UnknownFieldSet *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -7011,7 +6650,7 @@ uint64_t *TSCH::CachedAxisDataFormatterPersistableStyleObject::CopyFrom(uint64_t
   return this;
 }
 
-uint64_t *TSCH::CachedAxisDataFormatterPersistableStyleObject::CopyFrom(uint64_t *this, const TSCH::CachedAxisDataFormatterPersistableStyleObject *a2)
+google::protobuf::UnknownFieldSet *TSCH::CachedAxisDataFormatterPersistableStyleObject::CopyFrom(google::protobuf::UnknownFieldSet *this, const TSCH::CachedAxisDataFormatterPersistableStyleObject *a2)
 {
   if (a2 != this)
   {
@@ -7147,18 +6786,18 @@ uint64_t *TSCH::CachedSeriesDataFormatterPersistableStyleObject::default_instanc
   return &TSCH::_CachedSeriesDataFormatterPersistableStyleObject_default_instance_;
 }
 
-uint64_t *TSCH::CachedSeriesDataFormatterPersistableStyleObject::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TSCH::CachedSeriesDataFormatterPersistableStyleObject::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
-  if (this[2])
+  if (*(this + 16))
   {
-    this = TSK::FormatStructArchive::Clear(this[3]);
+    this = TSK::FormatStructArchive::Clear(*(this + 3));
   }
 
   v3 = *(v1 + 8);
   v2 = v1 + 8;
-  *(v2 + 24) = 0;
-  *(v2 + 8) = 0;
+  *(v2 + 6) = 0;
+  *(v2 + 2) = 0;
   if (v3)
   {
 
@@ -7170,15 +6809,15 @@ uint64_t *TSCH::CachedSeriesDataFormatterPersistableStyleObject::Clear(uint64_t 
 
 google::protobuf::internal *TSCH::CachedSeriesDataFormatterPersistableStyleObject::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
-  v23 = a2;
+  v22 = a2;
   v5 = 0;
-  if ((sub_2763D4D98(a3, &v23) & 1) == 0)
+  if ((sub_2763D4D98(a3, &v22, *(a3 + 92)) & 1) == 0)
   {
     while (1)
     {
-      v7 = (v23 + 1);
-      v8 = *v23;
-      if ((*v23 & 0x80000000) == 0)
+      v7 = (v22 + 1);
+      v8 = *v22;
+      if ((*v22 & 0x80000000) == 0)
       {
         goto LABEL_6;
       }
@@ -7190,15 +6829,15 @@ google::protobuf::internal *TSCH::CachedSeriesDataFormatterPersistableStyleObjec
         break;
       }
 
-      TagFallback = google::protobuf::internal::ReadTagFallback(v23, (v9 - 128));
-      v23 = TagFallback;
+      TagFallback = google::protobuf::internal::ReadTagFallback(v22, (v9 - 128));
+      v22 = TagFallback;
       if (!TagFallback)
       {
         goto LABEL_38;
       }
 
       v7 = TagFallback;
-      v8 = v20;
+      v8 = v19;
 LABEL_7:
       if (v8 >> 3 == 2)
       {
@@ -7214,10 +6853,9 @@ LABEL_7:
               v14 = *(v14 & 0xFFFFFFFFFFFFFFFELL);
             }
 
-            v15 = MEMORY[0x277C97B00](v14);
-            LODWORD(v13) = v15;
-            *(a1 + 24) = v15;
-            v7 = v23;
+            v13 = MEMORY[0x277C97B00](v14);
+            *(a1 + 24) = v13;
+            v7 = v22;
           }
 
           v12 = sub_2764A8D08(a3, v13, v7);
@@ -7250,7 +6888,7 @@ LABEL_12:
           v12 = google::protobuf::internal::UnknownFieldParse();
         }
 
-        v23 = v12;
+        v22 = v12;
         if (!v12)
         {
           goto LABEL_38;
@@ -7265,50 +6903,50 @@ LABEL_12:
       }
 
       v5 |= 2u;
-      v17 = (v7 + 1);
-      LODWORD(v16) = *v7;
-      if ((v16 & 0x80) == 0)
+      v16 = (v7 + 1);
+      LODWORD(v15) = *v7;
+      if ((v15 & 0x80) == 0)
       {
         goto LABEL_30;
       }
 
-      v18 = *v17;
-      v16 = (v16 + (v18 << 7) - 128);
-      if ((v18 & 0x80000000) == 0)
+      v17 = *v16;
+      v15 = (v15 + (v17 << 7) - 128);
+      if ((v17 & 0x80000000) == 0)
       {
-        v17 = (v7 + 2);
+        v16 = (v7 + 2);
 LABEL_30:
-        v23 = v17;
-        *(a1 + 32) = v16;
+        v22 = v16;
+        *(a1 + 32) = v15;
         goto LABEL_31;
       }
 
-      v21 = google::protobuf::internal::VarintParseSlow64(v7, v16);
-      v23 = v21;
-      *(a1 + 32) = v22;
-      if (!v21)
+      v20 = google::protobuf::internal::VarintParseSlow64(v7, v15);
+      v22 = v20;
+      *(a1 + 32) = v21;
+      if (!v20)
       {
 LABEL_38:
-        v23 = 0;
+        v22 = 0;
         goto LABEL_2;
       }
 
 LABEL_31:
-      if (sub_2763D4D98(a3, &v23))
+      if (sub_2763D4D98(a3, &v22, *(a3 + 92)))
       {
         goto LABEL_2;
       }
     }
 
-    v7 = (v23 + 2);
+    v7 = (v22 + 2);
 LABEL_6:
-    v23 = v7;
+    v22 = v7;
     goto LABEL_7;
   }
 
 LABEL_2:
   *(a1 + 16) |= v5;
-  return v23;
+  return v22;
 }
 
 unsigned __int8 *TSCH::CachedSeriesDataFormatterPersistableStyleObject::_InternalSerialize(TSCH::CachedSeriesDataFormatterPersistableStyleObject *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
@@ -7418,7 +7056,7 @@ LABEL_24:
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v16 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v16 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TSCH::CachedSeriesDataFormatterPersistableStyleObject::ByteSizeLong(TSCH::CachedSeriesDataFormatterPersistableStyleObject *this)
@@ -7542,7 +7180,7 @@ uint64_t TSCH::CachedSeriesDataFormatterPersistableStyleObject::MergeFrom(uint64
   return this;
 }
 
-uint64_t *TSCH::CachedSeriesDataFormatterPersistableStyleObject::CopyFrom(uint64_t *this, const Message *a2)
+google::protobuf::UnknownFieldSet *TSCH::CachedSeriesDataFormatterPersistableStyleObject::CopyFrom(google::protobuf::UnknownFieldSet *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -7555,7 +7193,7 @@ uint64_t *TSCH::CachedSeriesDataFormatterPersistableStyleObject::CopyFrom(uint64
   return this;
 }
 
-uint64_t *TSCH::CachedSeriesDataFormatterPersistableStyleObject::CopyFrom(uint64_t *this, const TSCH::CachedSeriesDataFormatterPersistableStyleObject *a2)
+google::protobuf::UnknownFieldSet *TSCH::CachedSeriesDataFormatterPersistableStyleObject::CopyFrom(google::protobuf::UnknownFieldSet *this, const TSCH::CachedSeriesDataFormatterPersistableStyleObject *a2)
 {
   if (a2 != this)
   {
@@ -7653,7 +7291,7 @@ TSCH::CachedDataFormatterPersistableStyleObjects *TSCH::CachedDataFormatterPersi
   {
     v6 = *(a2 + 5);
     v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 24));
-    sub_2763F989C(this + 24, v7, (v6 + 8), v5, **(this + 5) - *(this + 8));
+    sub_2763F989C(this + 3, v7, (v6 + 8), v5, **(this + 5) - *(this + 8));
     v8 = *(this + 8) + v5;
     *(this + 8) = v8;
     v9 = *(this + 5);
@@ -7671,7 +7309,7 @@ TSCH::CachedDataFormatterPersistableStyleObjects *TSCH::CachedDataFormatterPersi
   {
     v11 = *(a2 + 8);
     v12 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 48));
-    sub_2763F995C(this + 48, v12, (v11 + 8), v10, **(this + 8) - *(this + 14));
+    sub_2763F995C(this + 6, v12, (v11 + 8), v10, **(this + 8) - *(this + 14));
     v13 = *(this + 14) + v10;
     *(this + 14) = v13;
     v14 = *(this + 8);
@@ -7733,13 +7371,13 @@ void *TSCH::CachedDataFormatterPersistableStyleObjects::default_instance(TSCH::C
   return &TSCH::_CachedDataFormatterPersistableStyleObjects_default_instance_;
 }
 
-uint64_t *TSCH::CachedDataFormatterPersistableStyleObjects::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TSCH::CachedDataFormatterPersistableStyleObjects::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
   v2 = *(this + 8);
   if (v2 >= 1)
   {
-    v3 = (this[5] + 8);
+    v3 = (*(this + 5) + 8);
     do
     {
       v4 = *v3++;
@@ -7748,13 +7386,13 @@ uint64_t *TSCH::CachedDataFormatterPersistableStyleObjects::Clear(uint64_t *this
     }
 
     while (v2);
-    *(v1 + 32) = 0;
+    *(v1 + 8) = 0;
   }
 
-  v5 = *(v1 + 56);
+  v5 = *(v1 + 14);
   if (v5 >= 1)
   {
-    v6 = (*(v1 + 64) + 8);
+    v6 = (*(v1 + 8) + 8);
     do
     {
       v7 = *v6++;
@@ -7763,17 +7401,17 @@ uint64_t *TSCH::CachedDataFormatterPersistableStyleObjects::Clear(uint64_t *this
     }
 
     while (v5);
-    *(v1 + 56) = 0;
+    *(v1 + 14) = 0;
   }
 
   if (*(v1 + 16))
   {
-    this = TSK::FormatStructArchive::Clear(*(v1 + 72));
+    this = TSK::FormatStructArchive::Clear(*(v1 + 9));
   }
 
   v9 = *(v1 + 8);
   v8 = v1 + 8;
-  *(v8 + 8) = 0;
+  *(v8 + 2) = 0;
   if (v9)
   {
 
@@ -7786,199 +7424,216 @@ uint64_t *TSCH::CachedDataFormatterPersistableStyleObjects::Clear(uint64_t *this
 google::protobuf::internal *TSCH::CachedDataFormatterPersistableStyleObjects::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
   v34 = a2;
-  while (1)
+  for (i = *(a3 + 92); ; i = *(a3 + 92))
   {
-LABEL_2:
-    if (sub_2763D4D98(a3, &v34))
+    if (sub_2763D4D98(a3, &v34, i))
     {
       return v34;
     }
 
-    v5 = (v34 + 1);
-    v6 = *v34;
+    v6 = (v34 + 1);
+    v7 = *v34;
     if ((*v34 & 0x80000000) == 0)
     {
       goto LABEL_6;
     }
 
-    v7 = v6 + (*v5 << 7);
-    v6 = v7 - 128;
-    if ((*v5 & 0x80000000) == 0)
+    v8 = v7 + (*v6 << 7);
+    v7 = v8 - 128;
+    if ((*v6 & 0x80000000) == 0)
     {
-      v5 = (v34 + 2);
+      v6 = (v34 + 2);
 LABEL_6:
-      v34 = v5;
+      v34 = v6;
       goto LABEL_7;
     }
 
-    TagFallback = google::protobuf::internal::ReadTagFallback(v34, (v7 - 128));
+    TagFallback = google::protobuf::internal::ReadTagFallback(v34, (v8 - 128));
     v34 = TagFallback;
     if (!TagFallback)
     {
       return 0;
     }
 
-    v5 = TagFallback;
-    v6 = v32;
+    v6 = TagFallback;
+    v7 = v32;
 LABEL_7:
-    v8 = v6 >> 3;
-    if (v6 >> 3 != 3)
-    {
-      if (v8 != 2)
-      {
-        if (v8 != 1 || v6 != 10)
-        {
-          goto LABEL_13;
-        }
-
-        v23 = (v5 - 1);
-        while (1)
-        {
-          v24 = (v23 + 1);
-          v34 = (v23 + 1);
-          v25 = *(a1 + 40);
-          if (!v25)
-          {
-            goto LABEL_43;
-          }
-
-          v30 = *(a1 + 32);
-          v26 = *v25;
-          if (v30 < *v25)
-          {
-            *(a1 + 32) = v30 + 1;
-            v27 = *&v25[2 * v30 + 2];
-            goto LABEL_47;
-          }
-
-          if (v26 == *(a1 + 36))
-          {
-LABEL_43:
-            google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a1 + 24));
-            v25 = *(a1 + 40);
-            v26 = *v25;
-          }
-
-          *v25 = v26 + 1;
-          v27 = google::protobuf::Arena::CreateMaybeMessage<TSCH::CachedAxisDataFormatterPersistableStyleObject>(*(a1 + 24));
-          v28 = *(a1 + 32);
-          v29 = *(a1 + 40) + 8 * v28;
-          *(a1 + 32) = v28 + 1;
-          *(v29 + 8) = v27;
-          v24 = v34;
-LABEL_47:
-          v23 = sub_2764AB404(a3, v27, v24);
-          v34 = v23;
-          if (!v23)
-          {
-            return 0;
-          }
-
-          if (*a3 <= v23 || *v23 != 10)
-          {
-            goto LABEL_2;
-          }
-        }
-      }
-
-      if (v6 != 18)
-      {
-        goto LABEL_13;
-      }
-
-      v12 = (v5 - 1);
-      while (1)
-      {
-        v13 = (v12 + 1);
-        v34 = (v12 + 1);
-        v14 = *(a1 + 64);
-        if (!v14)
-        {
-          goto LABEL_23;
-        }
-
-        v19 = *(a1 + 56);
-        v15 = *v14;
-        if (v19 < *v14)
-        {
-          *(a1 + 56) = v19 + 1;
-          v16 = *&v14[2 * v19 + 2];
-          goto LABEL_27;
-        }
-
-        if (v15 == *(a1 + 60))
-        {
-LABEL_23:
-          google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a1 + 48));
-          v14 = *(a1 + 64);
-          v15 = *v14;
-        }
-
-        *v14 = v15 + 1;
-        v16 = google::protobuf::Arena::CreateMaybeMessage<TSCH::CachedSeriesDataFormatterPersistableStyleObject>(*(a1 + 48));
-        v17 = *(a1 + 56);
-        v18 = *(a1 + 64) + 8 * v17;
-        *(a1 + 56) = v17 + 1;
-        *(v18 + 8) = v16;
-        v13 = v34;
-LABEL_27:
-        v12 = sub_2764AB4D4(a3, v16, v13);
-        v34 = v12;
-        if (!v12)
-        {
-          return 0;
-        }
-
-        if (*a3 <= v12 || *v12 != 18)
-        {
-          goto LABEL_2;
-        }
-      }
-    }
-
-    if (v6 == 26)
-    {
-      *(a1 + 16) |= 1u;
-      v20 = *(a1 + 72);
-      if (!v20)
-      {
-        v21 = *(a1 + 8);
-        if (v21)
-        {
-          v21 = *(v21 & 0xFFFFFFFFFFFFFFFELL);
-        }
-
-        v22 = MEMORY[0x277C97B00](v21);
-        LODWORD(v20) = v22;
-        *(a1 + 72) = v22;
-        v5 = v34;
-      }
-
-      v11 = sub_2764A8D08(a3, v20, v5);
-      goto LABEL_39;
-    }
-
-LABEL_13:
-    if (!v6 || (v6 & 7) == 4)
+    v9 = v7 >> 3;
+    if (v7 >> 3 != 3)
     {
       break;
     }
 
+    if (v7 != 26)
+    {
+      goto LABEL_13;
+    }
+
+    *(a1 + 16) |= 1u;
+    v21 = *(a1 + 72);
+    if (!v21)
+    {
+      v22 = *(a1 + 8);
+      if (v22)
+      {
+        v22 = *(v22 & 0xFFFFFFFFFFFFFFFELL);
+      }
+
+      v21 = MEMORY[0x277C97B00](v22);
+      *(a1 + 72) = v21;
+      v6 = v34;
+    }
+
+    v12 = sub_2764A8D08(a3, v21, v6);
+LABEL_39:
+    v34 = v12;
+    if (!v12)
+    {
+      return 0;
+    }
+
+LABEL_40:
+    ;
+  }
+
+  if (v9 != 2)
+  {
+    if (v9 != 1 || v7 != 10)
+    {
+      goto LABEL_13;
+    }
+
+    v23 = (v6 - 1);
+    while (2)
+    {
+      v24 = (v23 + 1);
+      v34 = (v23 + 1);
+      v25 = *(a1 + 40);
+      if (!v25)
+      {
+LABEL_43:
+        google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a1 + 24));
+        v25 = *(a1 + 40);
+        v26 = *v25;
+        goto LABEL_44;
+      }
+
+      v30 = *(a1 + 32);
+      v26 = *v25;
+      if (v30 >= *v25)
+      {
+        if (v26 == *(a1 + 36))
+        {
+          goto LABEL_43;
+        }
+
+LABEL_44:
+        *v25 = v26 + 1;
+        v27 = google::protobuf::Arena::CreateMaybeMessage<TSCH::CachedAxisDataFormatterPersistableStyleObject>(*(a1 + 24));
+        v28 = *(a1 + 32);
+        v29 = *(a1 + 40) + 8 * v28;
+        *(a1 + 32) = v28 + 1;
+        *(v29 + 8) = v27;
+        v24 = v34;
+      }
+
+      else
+      {
+        *(a1 + 32) = v30 + 1;
+        v27 = *&v25[2 * v30 + 2];
+      }
+
+      v23 = sub_2764AB404(a3, v27, v24);
+      v34 = v23;
+      if (!v23)
+      {
+        return 0;
+      }
+
+      if (*a3 <= v23 || *v23 != 10)
+      {
+        goto LABEL_40;
+      }
+
+      continue;
+    }
+  }
+
+  if (v7 == 18)
+  {
+    v13 = (v6 - 1);
+    while (1)
+    {
+      v14 = (v13 + 1);
+      v34 = (v13 + 1);
+      v15 = *(a1 + 64);
+      if (!v15)
+      {
+        goto LABEL_23;
+      }
+
+      v20 = *(a1 + 56);
+      v16 = *v15;
+      if (v20 < *v15)
+      {
+        *(a1 + 56) = v20 + 1;
+        v17 = *&v15[2 * v20 + 2];
+        goto LABEL_27;
+      }
+
+      if (v16 == *(a1 + 60))
+      {
+LABEL_23:
+        google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a1 + 48));
+        v15 = *(a1 + 64);
+        v16 = *v15;
+      }
+
+      *v15 = v16 + 1;
+      v17 = google::protobuf::Arena::CreateMaybeMessage<TSCH::CachedSeriesDataFormatterPersistableStyleObject>(*(a1 + 48));
+      v18 = *(a1 + 56);
+      v19 = *(a1 + 64) + 8 * v18;
+      *(a1 + 56) = v18 + 1;
+      *(v19 + 8) = v17;
+      v14 = v34;
+LABEL_27:
+      v13 = sub_2764AB4D4(a3, v17, v14);
+      v34 = v13;
+      if (!v13)
+      {
+        return 0;
+      }
+
+      if (*a3 <= v13 || *v13 != 18)
+      {
+        goto LABEL_40;
+      }
+    }
+  }
+
+LABEL_13:
+  if (v7)
+  {
+    v11 = (v7 & 7) == 4;
+  }
+
+  else
+  {
+    v11 = 1;
+  }
+
+  if (!v11)
+  {
     if ((*(a1 + 8) & 1) == 0)
     {
       sub_2763D4E10((a1 + 8));
     }
 
-    v11 = google::protobuf::internal::UnknownFieldParse();
-LABEL_39:
-    v34 = v11;
-    if (!v11)
-    {
-      return 0;
-    }
+    v12 = google::protobuf::internal::UnknownFieldParse();
+    goto LABEL_39;
   }
 
-  *(a3 + 80) = v6 - 1;
+  *(a3 + 80) = v7 - 1;
   return v34;
 }
 
@@ -8136,7 +7791,7 @@ unsigned __int8 *TSCH::CachedDataFormatterPersistableStyleObjects::_InternalSeri
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v27 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v27 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TSCH::CachedDataFormatterPersistableStyleObjects::ByteSizeLong(TSCH::CachedDataFormatterPersistableStyleObjects *this)
@@ -8247,7 +7902,7 @@ uint64_t TSCH::CachedDataFormatterPersistableStyleObjects::MergeFrom(uint64_t th
   {
     v6 = *(a2 + 5);
     v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((v3 + 24));
-    this = sub_2763F989C(v3 + 24, v7, (v6 + 8), v5, **(v3 + 40) - *(v3 + 32));
+    this = sub_2763F989C((v3 + 24), v7, (v6 + 8), v5, **(v3 + 40) - *(v3 + 32));
     v8 = *(v3 + 32) + v5;
     *(v3 + 32) = v8;
     v9 = *(v3 + 40);
@@ -8262,7 +7917,7 @@ uint64_t TSCH::CachedDataFormatterPersistableStyleObjects::MergeFrom(uint64_t th
   {
     v11 = *(a2 + 8);
     v12 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((v3 + 48));
-    this = sub_2763F995C(v3 + 48, v12, (v11 + 8), v10, **(v3 + 64) - *(v3 + 56));
+    this = sub_2763F995C((v3 + 48), v12, (v11 + 8), v10, **(v3 + 64) - *(v3 + 56));
     v13 = *(v3 + 56) + v10;
     *(v3 + 56) = v13;
     v14 = *(v3 + 64);
@@ -8306,7 +7961,7 @@ uint64_t TSCH::CachedDataFormatterPersistableStyleObjects::MergeFrom(uint64_t th
   return this;
 }
 
-uint64_t *TSCH::CachedDataFormatterPersistableStyleObjects::CopyFrom(uint64_t *this, const Message *a2)
+google::protobuf::UnknownFieldSet *TSCH::CachedDataFormatterPersistableStyleObjects::CopyFrom(google::protobuf::UnknownFieldSet *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -8319,7 +7974,7 @@ uint64_t *TSCH::CachedDataFormatterPersistableStyleObjects::CopyFrom(uint64_t *t
   return this;
 }
 
-uint64_t *TSCH::CachedDataFormatterPersistableStyleObjects::CopyFrom(uint64_t *this, const TSCH::CachedDataFormatterPersistableStyleObjects *a2)
+google::protobuf::UnknownFieldSet *TSCH::CachedDataFormatterPersistableStyleObjects::CopyFrom(google::protobuf::UnknownFieldSet *this, const TSCH::CachedDataFormatterPersistableStyleObjects *a2)
 {
   if (a2 != this)
   {
@@ -8948,7 +8603,7 @@ TSCH::CachedDataFormatterPersistableStyleObjects *sub_2763F88E0(google::protobuf
   return v2;
 }
 
-uint64_t sub_2763F8D40(uint64_t result, TSP::Reference **a2, TSP::Reference **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_2763F8D40(uint64_t *result, TSP::Reference **a2, TSP::Reference **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -9030,7 +8685,7 @@ void sub_2763F8DF0(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_2763F8E74(uint64_t result, TSCH::ChartGridArchive_ChartGridRowColumnIdMap_Entry **a2, TSCH::ChartGridArchive_ChartGridRowColumnIdMap_Entry **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_2763F8E74(uint64_t *result, TSCH::ChartGridArchive_ChartGridRowColumnIdMap_Entry **a2, TSCH::ChartGridArchive_ChartGridRowColumnIdMap_Entry **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -9081,7 +8736,7 @@ uint64_t sub_2763F8E74(uint64_t result, TSCH::ChartGridArchive_ChartGridRowColum
   return result;
 }
 
-std::string *sub_2763F8F34(std::string *result, std::string **a2, const std::string **a3, unsigned int a4, unsigned int a5)
+std::string *sub_2763F8F34(std::string *result, std::string **a2, const std::string **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -9114,7 +8769,7 @@ std::string *sub_2763F8F34(std::string *result, std::string **a2, const std::str
   v17 = a4 - a5;
   if (!((v17 < 0) ^ v16 | (v17 == 0)))
   {
-    v18 = *v9;
+    v18 = v9->__r_.__value_.__r.__words[0];
     v19 = &a3[a5];
     v20 = &a2[a5];
     do
@@ -9132,7 +8787,7 @@ std::string *sub_2763F8F34(std::string *result, std::string **a2, const std::str
   return result;
 }
 
-uint64_t sub_2763F8FE0(uint64_t result, uint64_t *a2, uint64_t *a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_2763F8FE0(uint64_t *result, uint64_t *a2, uint64_t *a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -9214,7 +8869,7 @@ void sub_2763F9090(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_2763F9114(uint64_t result, TSCH::ChartSelectionPathArgumentArchive **a2, TSCH::ChartSelectionPathArgumentArchive **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_2763F9114(uint64_t *result, TSCH::ChartSelectionPathArgumentArchive **a2, TSCH::ChartSelectionPathArgumentArchive **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -9265,7 +8920,7 @@ uint64_t sub_2763F9114(uint64_t result, TSCH::ChartSelectionPathArgumentArchive 
   return result;
 }
 
-uint64_t sub_2763F91D4(uint64_t result, TSCH::ChartSelectionPathArchive **a2, TSCH::ChartSelectionPathArchive **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_2763F91D4(uint64_t *result, TSCH::ChartSelectionPathArchive **a2, TSCH::ChartSelectionPathArchive **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -9347,7 +9002,7 @@ void sub_2763F9284(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_2763F9308(uint64_t result, TSCH::ChartReferenceLineNonStyleItem **a2, TSCH::ChartReferenceLineNonStyleItem **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_2763F9308(uint64_t *result, TSCH::ChartReferenceLineNonStyleItem **a2, TSCH::ChartReferenceLineNonStyleItem **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -9460,7 +9115,7 @@ void sub_2763F944C(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_2763F94D0(uint64_t result, TSCH::ChartAxisReferenceLineNonStylesArchive **a2, TSCH::ChartAxisReferenceLineNonStylesArchive **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_2763F94D0(uint64_t *result, TSCH::ChartAxisReferenceLineNonStylesArchive **a2, TSCH::ChartAxisReferenceLineNonStylesArchive **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -9511,7 +9166,7 @@ uint64_t sub_2763F94D0(uint64_t result, TSCH::ChartAxisReferenceLineNonStylesArc
   return result;
 }
 
-uint64_t sub_2763F9590(uint64_t result, TSCH::ChartAxisReferenceLineStylesArchive **a2, TSCH::ChartAxisReferenceLineStylesArchive **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_2763F9590(uint64_t *result, TSCH::ChartAxisReferenceLineStylesArchive **a2, TSCH::ChartAxisReferenceLineStylesArchive **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -9593,7 +9248,7 @@ void sub_2763F9650(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_2763F96D4(uint64_t result, TSCH::ChartAxisReferenceLineSparseNonStylesArchive **a2, TSCH::ChartAxisReferenceLineSparseNonStylesArchive **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_2763F96D4(uint64_t *result, TSCH::ChartAxisReferenceLineSparseNonStylesArchive **a2, TSCH::ChartAxisReferenceLineSparseNonStylesArchive **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -9706,7 +9361,7 @@ void sub_2763F9818(void *a1)
   a1[2] = 0;
 }
 
-uint64_t sub_2763F989C(uint64_t result, TSCH::CachedAxisDataFormatterPersistableStyleObject **a2, TSCH::CachedAxisDataFormatterPersistableStyleObject **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_2763F989C(uint64_t *result, TSCH::CachedAxisDataFormatterPersistableStyleObject **a2, TSCH::CachedAxisDataFormatterPersistableStyleObject **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -9757,7 +9412,7 @@ uint64_t sub_2763F989C(uint64_t result, TSCH::CachedAxisDataFormatterPersistable
   return result;
 }
 
-uint64_t sub_2763F995C(uint64_t result, TSCH::CachedSeriesDataFormatterPersistableStyleObject **a2, TSCH::CachedSeriesDataFormatterPersistableStyleObject **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_2763F995C(uint64_t *result, TSCH::CachedSeriesDataFormatterPersistableStyleObject **a2, TSCH::CachedSeriesDataFormatterPersistableStyleObject **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -9821,4 +9476,370 @@ uint64_t sub_2763F9A1C(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   return MEMORY[0x2821EAC80](&TSCH::_ChartDrawableArchive_default_instance_, a1, a2, 0, a3, &TSCH::_ChartArchive_default_instance_);
+}
+
+uint64_t sub_2763F9ABC(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (atomic_load_explicit(scc_info_ChartArchive_TSCHArchives_2eproto, memory_order_acquire))
+  {
+    google::protobuf::internal::InitSCCImpl();
+  }
+
+  return google::protobuf::internal::ExtensionSet::RegisterExtension();
+}
+
+uint64_t sub_2763F9B34(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (atomic_load_explicit(scc_info_ChartArchive_TSCHArchives_2eproto, memory_order_acquire))
+  {
+    google::protobuf::internal::InitSCCImpl();
+  }
+
+  if (atomic_load_explicit(scc_info_ChartGarlicMinMaxUpgrade_TSCHArchives_2eproto, memory_order_acquire))
+  {
+    google::protobuf::internal::InitSCCImpl();
+  }
+
+  return MEMORY[0x2821EAC80](&TSCH::_ChartArchive_default_instance_, a1, a2, 0, a3, &TSCH::_ChartGarlicMinMaxUpgrade_default_instance_);
+}
+
+uint64_t sub_2763F9BD4(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (atomic_load_explicit(scc_info_ChartArchive_TSCHArchives_2eproto, memory_order_acquire))
+  {
+    google::protobuf::internal::InitSCCImpl();
+  }
+
+  if (atomic_load_explicit(scc_info_ChartGarlicLabelFormatUpgrade_TSCHArchives_2eproto, memory_order_acquire))
+  {
+    google::protobuf::internal::InitSCCImpl();
+  }
+
+  return MEMORY[0x2821EAC80](&TSCH::_ChartArchive_default_instance_, a1, a2, 0, a3, &TSCH::_ChartGarlicLabelFormatUpgrade_default_instance_);
+}
+
+uint64_t sub_2763F9C74(TSP::Reference *inited, uint64_t a2, uint64_t a3)
+{
+  v5 = inited;
+  if (atomic_load_explicit(scc_info_ChartArchive_TSCHArchives_2eproto, memory_order_acquire))
+  {
+    inited = google::protobuf::internal::InitSCCImpl();
+  }
+
+  v6 = TSP::Reference::default_instance(inited);
+
+  return MEMORY[0x2821EAC80](&TSCH::_ChartArchive_default_instance_, v5, a2, 0, a3, v6);
+}
+
+uint64_t sub_2763F9CF4(TSS::ThemeArchive *a1, uint64_t a2, uint64_t a3)
+{
+  v6 = TSS::ThemeArchive::default_instance(a1);
+  if (atomic_load_explicit(scc_info_ChartPresetsArchive_TSCHArchives_2eproto, memory_order_acquire))
+  {
+    google::protobuf::internal::InitSCCImpl();
+  }
+
+  return MEMORY[0x2821EAC80](v6, a1, a2, 0, a3, &TSCH::_ChartPresetsArchive_default_instance_);
+}
+
+uint64_t sub_2763F9D78(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (atomic_load_explicit(scc_info_ChartUIState_TSCHArchives_2eproto, memory_order_acquire))
+  {
+    google::protobuf::internal::InitSCCImpl();
+  }
+
+  return google::protobuf::internal::ExtensionSet::RegisterExtension();
+}
+
+uint64_t sub_2763F9DF0(TSCK::CollaboratorCursorArchive *a1, uint64_t a2, uint64_t a3)
+{
+  v6 = TSCK::CollaboratorCursorArchive::default_instance(a1);
+  if (atomic_load_explicit(scc_info_CollaboratorCDECursorSubselectionArchive_TSCHArchives_2eproto, memory_order_acquire))
+  {
+    google::protobuf::internal::InitSCCImpl();
+  }
+
+  return MEMORY[0x2821EAC80](v6, a1, a2, 0, a3, &TSCH::_CollaboratorCDECursorSubselectionArchive_default_instance_);
+}
+
+uint64_t sub_2763F9E74(TSCK::CollaboratorCursorArchive *a1, uint64_t a2, uint64_t a3)
+{
+  v6 = TSCK::CollaboratorCursorArchive::default_instance(a1);
+  if (atomic_load_explicit(scc_info_CollaboratorChartTitleCursorSubselectionArchive_TSCHArchives_2eproto, memory_order_acquire))
+  {
+    google::protobuf::internal::InitSCCImpl();
+  }
+
+  return MEMORY[0x2821EAC80](v6, a1, a2, 0, a3, &TSCH::_CollaboratorChartTitleCursorSubselectionArchive_default_instance_);
+}
+
+uint64_t sub_2763F9EF8(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (atomic_load_explicit(scc_info_ChartArchive_TSCHArchives_2eproto, memory_order_acquire))
+  {
+    google::protobuf::internal::InitSCCImpl();
+  }
+
+  if (atomic_load_explicit(scc_info_CachedDataFormatterPersistableStyleObjects_TSCHArchives_2eproto, memory_order_acquire))
+  {
+    google::protobuf::internal::InitSCCImpl();
+  }
+
+  return MEMORY[0x2821EAC80](&TSCH::_ChartArchive_default_instance_, a1, a2, 0, a3, &TSCH::_CachedDataFormatterPersistableStyleObjects_default_instance_);
+}
+
+uint64_t sub_2763F9F98(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (atomic_load_explicit(scc_info_ChartArchive_TSCHArchives_2eproto, memory_order_acquire))
+  {
+    google::protobuf::internal::InitSCCImpl();
+  }
+
+  if (atomic_load_explicit(scc_info_ChartReferenceLinesArchive_TSCHArchives_2eproto, memory_order_acquire))
+  {
+    google::protobuf::internal::InitSCCImpl();
+  }
+
+  return MEMORY[0x2821EAC80](&TSCH::_ChartArchive_default_instance_, a1, a2, 0, a3, &TSCH::_ChartReferenceLinesArchive_default_instance_);
+}
+
+uint64_t sub_2763FA038(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (atomic_load_explicit(scc_info_ChartStylePreset_TSCHArchives_2eproto, memory_order_acquire))
+  {
+    google::protobuf::internal::InitSCCImpl();
+  }
+
+  if (atomic_load_explicit(scc_info_ChartPresetReferenceLineStylesArchive_TSCHArchives_2eproto, memory_order_acquire))
+  {
+    google::protobuf::internal::InitSCCImpl();
+  }
+
+  return MEMORY[0x2821EAC80](&TSCH::_ChartStylePreset_default_instance_, a1, a2, 0, a3, &TSCH::_ChartPresetReferenceLineStylesArchive_default_instance_);
+}
+
+uint64_t sub_2763FA0D8(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (atomic_load_explicit(scc_info_PropertyValueStorageContainerArchive_TSCHArchives_2eproto, memory_order_acquire))
+  {
+    google::protobuf::internal::InitSCCImpl();
+  }
+
+  if (atomic_load_explicit(scc_info_PropertyValueStorageContainerReferenceLinesArchive_TSCHArchives_2eproto, memory_order_acquire))
+  {
+    google::protobuf::internal::InitSCCImpl();
+  }
+
+  return MEMORY[0x2821EAC80](&TSCH::_PropertyValueStorageContainerArchive_default_instance_, a1, a2, 0, a3, &TSCH::_PropertyValueStorageContainerReferenceLinesArchive_default_instance_);
+}
+
+uint64_t sub_2763FA178(uint64_t a1, int a2)
+{
+  if (*(a1 + 24))
+  {
+    sub_2764AB68C(a1);
+    if (a2)
+    {
+LABEL_3:
+
+      JUMPOUT(0x277C97C70);
+    }
+  }
+
+  else if (a2)
+  {
+    goto LABEL_3;
+  }
+
+  return MEMORY[0x2821EADF8](a1, 56, TSCH::ChartDrawableArchive::~ChartDrawableArchive);
+}
+
+uint64_t sub_2763FA204(uint64_t a1, int a2)
+{
+  if (*(a1 + 24))
+  {
+    sub_2764AB6BC(a1);
+    if (a2)
+    {
+LABEL_3:
+
+      JUMPOUT(0x277C97C70);
+    }
+  }
+
+  else if (a2)
+  {
+    goto LABEL_3;
+  }
+
+  return MEMORY[0x2821EADF8](a1, 304, TSCH::ChartArchive::~ChartArchive);
+}
+
+uint64_t sub_2763FA290(uint64_t a1, int a2)
+{
+  if (*(a1 + 24))
+  {
+    sub_2764AB6F8(a1);
+    if (a2)
+    {
+LABEL_3:
+
+      JUMPOUT(0x277C97C70);
+    }
+  }
+
+  else if (a2)
+  {
+    goto LABEL_3;
+  }
+
+  return MEMORY[0x2821EADF8](a1, 24, sub_2763FA318);
+}
+
+uint64_t sub_2763FA338(uint64_t a1, int a2)
+{
+  if (*(a1 + 24))
+  {
+    sub_2764AB728(a1);
+    if (a2)
+    {
+LABEL_3:
+
+      JUMPOUT(0x277C97C70);
+    }
+  }
+
+  else if (a2)
+  {
+    goto LABEL_3;
+  }
+
+  return MEMORY[0x2821EADF8](a1, 56, sub_2763FA3C0);
+}
+
+uint64_t sub_2763FA3E0(uint64_t a1, int a2)
+{
+  if (*(a1 + 24))
+  {
+    sub_2764AB758(a1);
+    if (a2)
+    {
+LABEL_3:
+
+      JUMPOUT(0x277C97C70);
+    }
+  }
+
+  else if (a2)
+  {
+    goto LABEL_3;
+  }
+
+  return MEMORY[0x2821EADF8](a1, 64, TSCH::ChartGarlicLabelFormatUpgrade::~ChartGarlicLabelFormatUpgrade);
+}
+
+uint64_t sub_2763FA46C(uint64_t a1, int a2)
+{
+  if (*(a1 + 24))
+  {
+    sub_2764AB788(a1);
+    if (a2)
+    {
+LABEL_3:
+
+      JUMPOUT(0x277C97C70);
+    }
+  }
+
+  else if (a2)
+  {
+    goto LABEL_3;
+  }
+
+  return MEMORY[0x2821EADF8](a1, 24, sub_2763FA4F4);
+}
+
+uint64_t sub_2763FA514(uint64_t a1, int a2)
+{
+  if (*(a1 + 24))
+  {
+    sub_2764AB7B8(a1);
+    if (a2)
+    {
+LABEL_3:
+
+      JUMPOUT(0x277C97C70);
+    }
+  }
+
+  else if (a2)
+  {
+    goto LABEL_3;
+  }
+
+  return MEMORY[0x2821EADF8](a1, 24, sub_2763FA59C);
+}
+
+uint64_t sub_2763FA5BC(uint64_t a1, int a2)
+{
+  if (*(a1 + 24))
+  {
+    sub_2764AB7E8(a1);
+    if (a2)
+    {
+LABEL_3:
+
+      JUMPOUT(0x277C97C70);
+    }
+  }
+
+  else if (a2)
+  {
+    goto LABEL_3;
+  }
+
+  return MEMORY[0x2821EADF8](a1, 24, sub_2763FA644);
+}
+
+uint64_t sub_2763FA664(uint64_t a1, int a2)
+{
+  if (*(a1 + 24))
+  {
+    sub_2764AB818(a1);
+    if (a2)
+    {
+LABEL_3:
+
+      JUMPOUT(0x277C97C70);
+    }
+  }
+
+  else if (a2)
+  {
+    goto LABEL_3;
+  }
+
+  return MEMORY[0x2821EADF8](a1, 24, sub_2763FA6EC);
+}
+
+uint64_t sub_2763FA70C(uint64_t a1, int a2)
+{
+  if (*(a1 + 24))
+  {
+    sub_2764AB848(a1);
+    if (a2)
+    {
+LABEL_3:
+
+      JUMPOUT(0x277C97C70);
+    }
+  }
+
+  else if (a2)
+  {
+    goto LABEL_3;
+  }
+
+  return MEMORY[0x2821EADF8](a1, 24, sub_2763FA794);
 }

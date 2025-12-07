@@ -8,7 +8,7 @@
 
 - (id)wf_contentItemForValue:()Workflow
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = objc_opt_class();
   v6 = v4;
@@ -26,23 +26,21 @@
     v10 = getWFGeneralLogObject();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      v14 = 136315906;
-      v15 = "WFEnforceClass";
-      v16 = 2114;
-      v17 = v6;
-      v18 = 2114;
-      v19 = objc_opt_class();
-      v20 = 2114;
-      v21 = v5;
-      v11 = v19;
-      _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v14, 0x2Au);
+      v13 = 136315906;
+      v14 = "WFEnforceClass";
+      v15 = 2114;
+      v16 = v6;
+      v17 = 2114;
+      v18 = objc_opt_class();
+      v19 = 2114;
+      v20 = v5;
+      v11 = v18;
+      _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v13, 0x2Au);
     }
   }
 
   v9 = 0;
 LABEL_8:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -58,17 +56,10 @@ LABEL_8:
 
 - (id)wf_parameterClass
 {
-  modifier = [self modifier];
-  v2 = off_1E836F4D0;
-  if (modifier)
-  {
-    v2 = off_1E836E2C0;
-  }
+  [self modifier];
+  v1 = objc_opt_class();
 
-  v3 = *v2;
-  v4 = objc_opt_class();
-
-  return v4;
+  return v1;
 }
 
 @end

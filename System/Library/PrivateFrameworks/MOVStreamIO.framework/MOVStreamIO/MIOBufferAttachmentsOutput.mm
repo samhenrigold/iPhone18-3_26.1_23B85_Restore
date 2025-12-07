@@ -65,7 +65,7 @@ LABEL_6:
     {
       if (range)
       {
-        [nextTimedMetadataGroup timeRange];
+        objc_msgSend_timeRange(nextTimedMetadataGroup);
         *&range->var0.var0 = v17;
         *&range->var0.var3 = v18;
         *&range->var1.var1 = v19;

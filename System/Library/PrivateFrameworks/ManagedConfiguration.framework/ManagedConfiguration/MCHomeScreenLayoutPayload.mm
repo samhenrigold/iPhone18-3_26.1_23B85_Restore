@@ -10,29 +10,28 @@
 
 + (id)typeStrings
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"com.apple.homescreenlayout";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"com.apple.homescreenlayout";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (MCHomeScreenLayoutPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   profileCopy = profile;
-  v63.receiver = self;
-  v63.super_class = MCHomeScreenLayoutPayload;
-  v10 = [(MCPayload *)&v63 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
+  v61.receiver = self;
+  v61.super_class = MCHomeScreenLayoutPayload;
+  v10 = [(MCPayload *)&v61 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
   if (v10)
   {
     if ([profileCopy isStub])
     {
-      v62 = 0;
-      v11 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"Layout" isRequired:0 outError:&v62];
-      v12 = v62;
+      v60 = 0;
+      v11 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"Layout" isRequired:0 outError:&v60];
+      v12 = v60;
       layout = v10->_layout;
       v10->_layout = v11;
     }
@@ -40,9 +39,9 @@
     else
     {
       layout = objc_opt_new();
-      v61 = 0;
-      v14 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"Dock" isRequired:0 outError:&v61];
-      v15 = v61;
+      v59 = 0;
+      v14 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"Dock" isRequired:0 outError:&v59];
+      v15 = v59;
       if (v15)
       {
         v12 = v15;
@@ -52,9 +51,9 @@
 
       else
       {
-        v60 = 0;
-        v17 = [(MCHomeScreenLayoutPayload *)v10 parseIconsArray:v14 allowFolders:1 outError:&v60];
-        v18 = v60;
+        v58 = 0;
+        v17 = [(MCHomeScreenLayoutPayload *)v10 parseIconsArray:v14 allowFolders:1 outError:&v58];
+        v18 = v58;
         if (v18)
         {
           v12 = v18;
@@ -64,9 +63,9 @@
         else
         {
           [layout addObject:v17];
-          v59 = 0;
-          v16 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"Pages" isRequired:1 outError:&v59];
-          v19 = v59;
+          v57 = 0;
+          v16 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"Pages" isRequired:1 outError:&v57];
+          v19 = v57;
           if (v19)
           {
             v12 = v19;
@@ -74,48 +73,47 @@
 
           else
           {
-            v45 = v17;
-            v57 = 0u;
-            v58 = 0u;
+            v43 = v17;
             v55 = 0u;
             v56 = 0u;
+            v53 = 0u;
+            v54 = 0u;
             obj = v16;
-            v49 = [(NSArray *)obj countByEnumeratingWithState:&v55 objects:v69 count:16];
-            if (v49)
+            v47 = [(NSArray *)obj countByEnumeratingWithState:&v53 objects:v67 count:16];
+            if (v47)
             {
-              v47 = layout;
-              v48 = *v56;
-              v43 = v14;
+              v45 = layout;
+              v46 = *v54;
+              v41 = v14;
               errorCopy = error;
               while (2)
               {
-                for (i = 0; i != v49; ++i)
+                for (i = 0; i != v47; ++i)
                 {
-                  if (*v56 != v48)
+                  if (*v54 != v46)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v21 = *(*(&v55 + 1) + 8 * i);
+                  v21 = *(*(&v53 + 1) + 8 * i);
+                  v49 = 0u;
+                  v50 = 0u;
                   v51 = 0u;
                   v52 = 0u;
-                  v53 = 0u;
-                  v54 = 0u;
                   v22 = v21;
-                  v23 = [v22 countByEnumeratingWithState:&v51 objects:v68 count:16];
+                  v23 = [v22 countByEnumeratingWithState:&v49 objects:v66 count:16];
                   if (v23)
                   {
-                    v24 = *v52;
+                    v24 = *v50;
                     while (2)
                     {
-                      for (j = 0; j != v23; j = j + 1)
+                      for (j = 0; j != v23; ++j)
                       {
-                        if (*v52 != v24)
+                        if (*v50 != v24)
                         {
                           objc_enumerationMutation(v22);
                         }
 
-                        v26 = *(*(&v51 + 1) + 8 * j);
                         objc_opt_class();
                         if ((objc_opt_isKindOfClass() & 1) == 0)
                         {
@@ -124,7 +122,7 @@
                         }
                       }
 
-                      v23 = [v22 countByEnumeratingWithState:&v51 objects:v68 count:16];
+                      v23 = [v22 countByEnumeratingWithState:&v49 objects:v66 count:16];
                       if (v23)
                       {
                         continue;
@@ -134,30 +132,30 @@
                     }
 
 LABEL_25:
-                    layout = v47;
+                    layout = v45;
                   }
 
-                  v50 = v23;
-                  v27 = [(MCHomeScreenLayoutPayload *)v10 parseIconsArray:v22 allowFolders:1 outError:&v50];
-                  v12 = v50;
+                  v48 = v23;
+                  v26 = [(MCHomeScreenLayoutPayload *)v10 parseIconsArray:v22 allowFolders:1 outError:&v48];
+                  v12 = v48;
 
                   if (v12)
                   {
 
                     v16 = obj;
-                    v29 = obj;
-                    v14 = v43;
+                    v28 = obj;
+                    v14 = v41;
                     error = errorCopy;
                     goto LABEL_31;
                   }
 
-                  [layout addObject:v27];
+                  [layout addObject:v26];
                 }
 
-                v14 = v43;
+                v14 = v41;
                 error = errorCopy;
-                v49 = [(NSArray *)obj countByEnumeratingWithState:&v55 objects:v69 count:16];
-                if (v49)
+                v47 = [(NSArray *)obj countByEnumeratingWithState:&v53 objects:v67 count:16];
+                if (v47)
                 {
                   continue;
                 }
@@ -168,13 +166,13 @@ LABEL_25:
 
             v16 = obj;
 
-            v28 = [layout copy];
+            v27 = [layout copy];
             v12 = 0;
-            v29 = v10->_layout;
-            v10->_layout = v28;
+            v28 = v10->_layout;
+            v10->_layout = v27;
 LABEL_31:
 
-            v17 = v45;
+            v17 = v43;
           }
         }
       }
@@ -182,26 +180,26 @@ LABEL_31:
 
     if (v12)
     {
-      v30 = [(MCPayload *)v10 malformedPayloadErrorWithError:v12];
-      v31 = v30;
+      v29 = [(MCPayload *)v10 malformedPayloadErrorWithError:v12];
+      v30 = v29;
       if (error)
       {
-        v32 = v30;
-        *error = v31;
+        v31 = v29;
+        *error = v30;
       }
 
-      v33 = _MCLogObjects;
+      v32 = _MCLogObjects;
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
       {
-        v34 = v33;
-        v35 = objc_opt_class();
-        v36 = v35;
-        mCVerboseDescription = [v31 MCVerboseDescription];
+        v33 = v32;
+        v34 = objc_opt_class();
+        v35 = v34;
+        mCVerboseDescription = [v30 MCVerboseDescription];
         *buf = 138543618;
-        v65 = v35;
-        v66 = 2114;
-        v67 = mCVerboseDescription;
-        _os_log_impl(&dword_1A795B000, v34, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
+        v63 = v34;
+        v64 = 2114;
+        v65 = mCVerboseDescription;
+        _os_log_impl(&dword_1A795B000, v33, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
       }
 
       v10 = 0;
@@ -209,35 +207,34 @@ LABEL_31:
 
     if ([dictionaryCopy count])
     {
-      v38 = _MCLogObjects;
+      v37 = _MCLogObjects;
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
       {
-        v39 = v38;
+        v38 = v37;
         friendlyName = [(MCPayload *)v10 friendlyName];
         *buf = 138543618;
-        v65 = friendlyName;
-        v66 = 2114;
-        v67 = dictionaryCopy;
-        _os_log_impl(&dword_1A795B000, v39, OS_LOG_TYPE_INFO, "Payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
+        v63 = friendlyName;
+        v64 = 2114;
+        v65 = dictionaryCopy;
+        _os_log_impl(&dword_1A795B000, v38, OS_LOG_TYPE_INFO, "Payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
       }
     }
   }
 
-  v41 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (id)parseIconsArray:(id)array allowFolders:(BOOL)folders outError:(id *)error
 {
-  v100 = *MEMORY[0x1E69E9840];
+  v98 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   v7 = objc_opt_new();
+  v83 = 0u;
+  v84 = 0u;
   v85 = 0u;
   v86 = 0u;
-  v87 = 0u;
-  v88 = 0u;
   v8 = arrayCopy;
-  v9 = [v8 countByEnumeratingWithState:&v85 objects:v99 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v83 objects:v97 count:16];
   if (!v9)
   {
 
@@ -247,27 +244,27 @@ LABEL_31:
   v10 = v9;
   errorCopy = error;
   v11 = 0;
-  v65 = *v86;
-  v59 = v8;
-  v60 = v7;
+  v63 = *v84;
+  v57 = v8;
+  v58 = v7;
   while (2)
   {
     v12 = 0;
-    v61 = v10;
+    v59 = v10;
     do
     {
-      if (*v86 != v65)
+      if (*v84 != v63)
       {
         objc_enumerationMutation(v8);
       }
 
-      v66 = v12;
-      v13 = [*(*(&v85 + 1) + 8 * v12) mutableCopy];
-      v84 = v11;
-      v14 = [v13 MCValidateAndRemoveNonZeroLengthStringWithKey:@"Type" isRequired:1 outError:&v84];
-      v15 = v84;
+      v64 = v12;
+      v13 = [*(*(&v83 + 1) + 8 * v12) mutableCopy];
+      v82 = v11;
+      v14 = [v13 MCValidateAndRemoveNonZeroLengthStringWithKey:@"Type" isRequired:1 outError:&v82];
+      v15 = v82;
 
-      v67 = v14;
+      v65 = v14;
       if (v15)
       {
         v11 = v15;
@@ -276,15 +273,15 @@ LABEL_31:
 
       if ([v14 isEqualToString:@"Application"])
       {
-        v83 = 0;
+        v81 = 0;
         v16 = v13;
-        v17 = [v13 MCValidateAndRemoveNonZeroLengthStringWithKey:@"BundleID" isRequired:1 outError:&v83];
-        v11 = v83;
+        v17 = [v13 MCValidateAndRemoveNonZeroLengthStringWithKey:@"BundleID" isRequired:1 outError:&v81];
+        v11 = v81;
         if (!v11)
         {
-          v97 = @"displayIdentifier";
-          v98 = v17;
-          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v98 forKeys:&v97 count:1];
+          v95 = @"displayIdentifier";
+          v96 = v17;
+          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v96 forKeys:&v95 count:1];
           [v7 addObject:v18];
 
           v13 = v16;
@@ -302,20 +299,20 @@ LABEL_62:
       {
         if (!folders)
         {
-          v53 = _MCLogObjects;
+          v52 = _MCLogObjects;
           if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&dword_1A795B000, v53, OS_LOG_TYPE_ERROR, "Folder isn't allowed at this level. Ignoring.", buf, 2u);
+            _os_log_impl(&dword_1A795B000, v52, OS_LOG_TYPE_ERROR, "Folder isn't allowed at this level. Ignoring.", buf, 2u);
           }
 
           v11 = 0;
           goto LABEL_62;
         }
 
-        v82 = 0;
-        v64 = [v13 MCValidateAndRemoveNonZeroLengthStringWithKey:@"DisplayName" isRequired:1 outError:&v82];
-        v20 = v82;
+        v80 = 0;
+        v62 = [v13 MCValidateAndRemoveNonZeroLengthStringWithKey:@"DisplayName" isRequired:1 outError:&v80];
+        v20 = v80;
         if (v20)
         {
           v11 = v20;
@@ -324,58 +321,57 @@ LABEL_62:
         }
 
         v21 = objc_opt_class();
-        v81 = 0;
-        v63 = v13;
-        v22 = [v13 MCValidateAndRemoveArrayOfClass:v21 withKey:@"Pages" isRequired:0 outError:&v81];
-        v23 = v81;
+        v79 = 0;
+        v61 = v13;
+        v22 = [v13 MCValidateAndRemoveArrayOfClass:v21 withKey:@"Pages" isRequired:0 outError:&v79];
+        v23 = v79;
         if (v23)
         {
           v11 = v23;
 
-          v13 = v63;
+          v13 = v61;
           goto LABEL_62;
         }
 
         v24 = objc_opt_new();
+        v75 = 0u;
+        v76 = 0u;
         v77 = 0u;
         v78 = 0u;
-        v79 = 0u;
-        v80 = 0u;
         obj = v22;
-        v25 = [obj countByEnumeratingWithState:&v77 objects:v96 count:16];
+        v25 = [obj countByEnumeratingWithState:&v75 objects:v94 count:16];
         if (v25)
         {
           v26 = v25;
-          v27 = *v78;
+          v27 = *v76;
           while (2)
           {
             for (i = 0; i != v26; ++i)
             {
-              if (*v78 != v27)
+              if (*v76 != v27)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v29 = *(*(&v77 + 1) + 8 * i);
+              v29 = *(*(&v75 + 1) + 8 * i);
+              v71 = 0u;
+              v72 = 0u;
               v73 = 0u;
               v74 = 0u;
-              v75 = 0u;
-              v76 = 0u;
               v30 = v29;
-              v31 = [v30 countByEnumeratingWithState:&v73 objects:v95 count:16];
+              v31 = [v30 countByEnumeratingWithState:&v71 objects:v93 count:16];
               if (v31)
               {
-                v32 = *v74;
+                v32 = *v72;
                 while (2)
                 {
-                  for (j = 0; j != v31; j = j + 1)
+                  for (j = 0; j != v31; ++j)
                   {
-                    if (*v74 != v32)
+                    if (*v72 != v32)
                     {
                       objc_enumerationMutation(v30);
                     }
 
-                    v34 = *(*(&v73 + 1) + 8 * j);
                     objc_opt_class();
                     if ((objc_opt_isKindOfClass() & 1) == 0)
                     {
@@ -384,7 +380,7 @@ LABEL_62:
                     }
                   }
 
-                  v31 = [v30 countByEnumeratingWithState:&v73 objects:v95 count:16];
+                  v31 = [v30 countByEnumeratingWithState:&v71 objects:v93 count:16];
                   if (v31)
                   {
                     continue;
@@ -396,9 +392,9 @@ LABEL_62:
 
 LABEL_29:
 
-              v72 = v31;
-              v35 = [(MCHomeScreenLayoutPayload *)self parseIconsArray:v30 allowFolders:0 outError:&v72];
-              v11 = v72;
+              v70 = v31;
+              v34 = [(MCHomeScreenLayoutPayload *)self parseIconsArray:v30 allowFolders:0 outError:&v70];
+              v11 = v70;
 
               if (v11)
               {
@@ -406,10 +402,10 @@ LABEL_29:
                 goto LABEL_40;
               }
 
-              [v24 addObject:v35];
+              [v24 addObject:v34];
             }
 
-            v26 = [obj countByEnumeratingWithState:&v77 objects:v96 count:16];
+            v26 = [obj countByEnumeratingWithState:&v75 objects:v94 count:16];
             if (v26)
             {
               continue;
@@ -420,8 +416,8 @@ LABEL_29:
 
           v11 = 0;
 LABEL_40:
-          v8 = v59;
-          v7 = v60;
+          v8 = v57;
+          v7 = v58;
         }
 
         else
@@ -429,71 +425,71 @@ LABEL_40:
           v11 = 0;
         }
 
-        v93[0] = @"displayName";
-        v93[1] = @"iconLists";
-        v94[0] = v64;
-        v94[1] = v24;
-        v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v94 forKeys:v93 count:2];
-        [v7 addObject:v48];
+        v91[0] = @"displayName";
+        v91[1] = @"iconLists";
+        v92[0] = v62;
+        v92[1] = v24;
+        v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v92 forKeys:v91 count:2];
+        [v7 addObject:v47];
 
-        v10 = v61;
-        v13 = v63;
+        v10 = v59;
+        v13 = v61;
       }
 
       else if ([v14 isEqualToString:@"WebClip"])
       {
-        v71 = 0;
-        [v13 MCValidateAndRemoveNonZeroLengthStringWithKey:@"URL" isRequired:1 outError:&v71];
-        v37 = v36 = v13;
-        v38 = v71;
-        if (v38)
+        v69 = 0;
+        [v13 MCValidateAndRemoveNonZeroLengthStringWithKey:@"URL" isRequired:1 outError:&v69];
+        v36 = v35 = v13;
+        v37 = v69;
+        if (v37)
         {
-          v11 = v38;
+          v11 = v37;
 
-          v13 = v36;
+          v13 = v35;
           goto LABEL_62;
         }
 
-        v70 = 0;
-        v39 = v36;
-        v40 = [v36 MCValidateAndRemoveNonZeroLengthStringWithKey:@"DisplayName" isRequired:0 outError:&v70];
-        v41 = v70;
-        if (v41)
-        {
-          v11 = v41;
-
-          v13 = v36;
-          goto LABEL_62;
-        }
-
-        v42 = [MEMORY[0x1E695DF90] dictionaryWithObject:v37 forKey:@"webClipURL"];
-        v43 = v42;
+        v68 = 0;
+        v38 = v35;
+        v39 = [v35 MCValidateAndRemoveNonZeroLengthStringWithKey:@"DisplayName" isRequired:0 outError:&v68];
+        v40 = v68;
         if (v40)
         {
-          [v42 setObject:v40 forKey:@"displayName"];
+          v11 = v40;
+
+          v13 = v35;
+          goto LABEL_62;
         }
 
-        [v7 addObject:v43];
+        v41 = [MEMORY[0x1E695DF90] dictionaryWithObject:v36 forKey:@"webClipURL"];
+        v42 = v41;
+        if (v39)
+        {
+          [v41 setObject:v39 forKey:@"displayName"];
+        }
+
+        [v7 addObject:v42];
 
         v11 = 0;
-        v13 = v39;
+        v13 = v38;
       }
 
       else
       {
-        v44 = _MCLogObjects;
+        v43 = _MCLogObjects;
         if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
         {
-          v45 = v44;
+          v44 = v43;
           [(MCPayload *)self friendlyName];
-          v47 = v46 = v13;
+          v46 = v45 = v13;
           *buf = 138543618;
-          v90 = v47;
-          v91 = 2114;
-          v92 = v19;
-          _os_log_impl(&dword_1A795B000, v45, OS_LOG_TYPE_ERROR, "Icon dictionary for payload “%{public}@” is unknown type “%{public}@”. Ignoring.", buf, 0x16u);
+          v88 = v46;
+          v89 = 2114;
+          v90 = v19;
+          _os_log_impl(&dword_1A795B000, v44, OS_LOG_TYPE_ERROR, "Icon dictionary for payload “%{public}@” is unknown type “%{public}@”. Ignoring.", buf, 0x16u);
 
-          v13 = v46;
+          v13 = v45;
         }
 
         v11 = 0;
@@ -502,27 +498,27 @@ LABEL_40:
 LABEL_46:
       if ([v13 count])
       {
-        v49 = _MCLogObjects;
+        v48 = _MCLogObjects;
         if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
         {
-          v50 = v49;
+          v49 = v48;
           [(MCPayload *)self friendlyName];
-          v52 = v51 = v13;
+          v51 = v50 = v13;
           *buf = 138543618;
-          v90 = v52;
-          v91 = 2114;
-          v92 = v51;
-          _os_log_impl(&dword_1A795B000, v50, OS_LOG_TYPE_INFO, "Icon dictionary for payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
+          v88 = v51;
+          v89 = 2114;
+          v90 = v50;
+          _os_log_impl(&dword_1A795B000, v49, OS_LOG_TYPE_INFO, "Icon dictionary for payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
 
-          v13 = v51;
+          v13 = v50;
         }
       }
 
-      v12 = v66 + 1;
+      v12 = v64 + 1;
     }
 
-    while (v66 + 1 != v10);
-    v10 = [v8 countByEnumeratingWithState:&v85 objects:v99 count:16];
+    while (v64 + 1 != v10);
+    v10 = [v8 countByEnumeratingWithState:&v83 objects:v97 count:16];
     if (v10)
     {
       continue;
@@ -537,7 +533,7 @@ LABEL_63:
   if (!v11)
   {
 LABEL_66:
-    v54 = [v7 copy];
+    v53 = [v7 copy];
     v11 = 0;
     if (!error)
     {
@@ -547,19 +543,17 @@ LABEL_66:
     goto LABEL_67;
   }
 
-  v54 = 0;
+  v53 = 0;
   if (errorCopy)
   {
 LABEL_67:
-    v55 = v11;
+    v54 = v11;
     *error = v11;
   }
 
 LABEL_68:
 
-  v56 = *MEMORY[0x1E69E9840];
-
-  return v54;
+  return v53;
 }
 
 - (id)stubDictionary

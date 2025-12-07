@@ -129,35 +129,36 @@ void __39__CADXPCProxyHelper_forwardInvocation___block_invoke(uint64_t a1, void 
   v4 = v3;
   if (*(a1 + 32))
   {
-    if ([v3 code] == 4097)
+    v5 = [v3 code];
+    if (v5 == 4097)
     {
-      v5 = *MEMORY[0x277CCA050];
-      v6 = [v4 domain];
-      LODWORD(v5) = [v5 isEqualToString:v6];
+      v6 = *MEMORY[0x277CCA050];
+      v7 = [v4 domain];
+      LODWORD(v6) = [v6 isEqualToString:v7];
 
-      if (v5)
+      if (v6)
       {
         if (*(*(*(a1 + 64) + 8) + 24) >= 1)
         {
-          v7 = getCADXPCProxyHelperLogHandle();
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+          v8 = getCADXPCProxyHelperLogHandle(v5);
+          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
           {
-            *v13 = 0;
-            _os_log_impl(&dword_22430B000, v7, OS_LOG_TYPE_DEFAULT, "Received NSXPCConnectionInterrupted from calaccessd connection. Attempting to resend message.", v13, 2u);
+            *v14 = 0;
+            _os_log_impl(&dword_22430B000, v8, OS_LOG_TYPE_DEFAULT, "Received NSXPCConnectionInterrupted from calaccessd connection. Attempting to resend message.", v14, 2u);
           }
 
           --*(*(*(a1 + 64) + 8) + 24);
-          v8 = [*(a1 + 40) proxy];
-          if (v8)
+          v9 = [*(a1 + 40) proxy];
+          if (v9)
           {
-            v9 = v8;
-            [*(a1 + 48) _tryInvokeWithGenerationValidation:*(a1 + 56) target:v8 replyBlock:*(a1 + 32) contextHolder:*(a1 + 40)];
+            v10 = v9;
+            [*(a1 + 48) _tryInvokeWithGenerationValidation:*(a1 + 56) target:v9 replyBlock:*(a1 + 32) contextHolder:*(a1 + 40)];
 
             goto LABEL_18;
           }
 
-          v11 = getCADXPCProxyHelperLogHandle();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+          v12 = getCADXPCProxyHelperLogHandle(0);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             __39__CADXPCProxyHelper_forwardInvocation___block_invoke_cold_1();
           }
@@ -165,8 +166,8 @@ void __39__CADXPCProxyHelper_forwardInvocation___block_invoke(uint64_t a1, void 
       }
     }
 
-    v12 = getCADXPCProxyHelperLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = getCADXPCProxyHelperLogHandle(v5);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       __39__CADXPCProxyHelper_forwardInvocation___block_invoke_cold_2();
     }
@@ -177,8 +178,8 @@ void __39__CADXPCProxyHelper_forwardInvocation___block_invoke(uint64_t a1, void 
 
   else
   {
-    v10 = getCADXPCProxyHelperLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = getCADXPCProxyHelperLogHandle(v3);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __39__CADXPCProxyHelper_forwardInvocation___block_invoke_cold_3();
     }
@@ -218,7 +219,7 @@ LABEL_18:
   if (v15)
   {
 LABEL_11:
-    v16 = getCADXPCProxyHelperLogHandle();
+    v16 = getCADXPCProxyHelperLogHandle(v12);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       [CADXPCProxyHelper _replaceReplyBlockInInvocation:invocationCopy retryingAfterInitializationWithContextHolder:v16];
@@ -335,7 +336,7 @@ void __97__CADXPCProxyHelper__replaceReplyBlockInInvocation_retryingAfterInitial
 void __97__CADXPCProxyHelper__replaceReplyBlockInInvocation_retryingAfterInitializationWithContextHolder___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = getCADXPCProxyHelperLogHandle();
+  v4 = getCADXPCProxyHelperLogHandle(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __97__CADXPCProxyHelper__replaceReplyBlockInInvocation_retryingAfterInitializationWithContextHolder___block_invoke_3_cold_1();
@@ -358,7 +359,7 @@ void __97__CADXPCProxyHelper__replaceReplyBlockInInvocation_retryingAfterInitial
 
   else
   {
-    v7 = getCADXPCProxyHelperLogHandle();
+    v7 = getCADXPCProxyHelperLogHandle(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __39__CADXPCProxyHelper_forwardInvocation___block_invoke_cold_1();
@@ -390,12 +391,12 @@ void __97__CADXPCProxyHelper__replaceReplyBlockInInvocation_retryingAfterInitial
 
 - (BOOL)_validateCADObjectIDsInInvocationArguments:(id)arguments
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   argumentsCopy = arguments;
   delegate = [(CADXPCProxyHelper *)self delegate];
   if (![delegate shouldValidateObjectIDs] || (v6 = objc_msgSend(delegate, "databaseRestoreGeneration"), v6 == -1))
   {
-    v13 = 1;
+    v15 = 1;
     goto LABEL_24;
   }
 
@@ -404,7 +405,7 @@ void __97__CADXPCProxyHelper__replaceReplyBlockInInvocation_retryingAfterInitial
   if (![methodSignature numberOfArguments])
   {
 LABEL_21:
-    v13 = 1;
+    v15 = 1;
     goto LABEL_22;
   }
 
@@ -422,9 +423,9 @@ LABEL_21:
       goto LABEL_20;
     }
 
-    v23 = 0;
-    [argumentsCopy getArgument:&v23 atIndex:v9];
-    if (!v23)
+    v24 = 0;
+    [argumentsCopy getArgument:&v24 atIndex:v9];
+    if (!v24)
     {
       goto LABEL_20;
     }
@@ -432,28 +433,32 @@ LABEL_21:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v11 = v23;
-      if ([v11 restoreGeneration]!= -1 && [v11 restoreGeneration]!= v7)
+      v11 = v24;
+      if ([v11 restoreGeneration]!= -1)
       {
-        v16 = getCADXPCProxyHelperLogHandle();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+        restoreGeneration = [v11 restoreGeneration];
+        if (restoreGeneration != v7)
         {
-          Name = sel_getName([argumentsCopy selector]);
-          restoreGeneration = [v11 restoreGeneration];
-          *buf = 136447234;
-          v25 = Name;
-          v26 = 1024;
-          v27 = v9;
-          v28 = 2112;
-          v29 = v11;
-          v30 = 1024;
-          v31 = restoreGeneration;
-          v32 = 1024;
-          v33 = v7;
-          _os_log_debug_impl(&dword_22430B000, v16, OS_LOG_TYPE_DEBUG, "Found CADObjectID argument with unexpected restore generation in call to selector %{public}s. index = %d, objectID = %@, generation = %d, expected = %d", buf, 0x28u);
-        }
+          v17 = getCADXPCProxyHelperLogHandle(restoreGeneration);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+          {
+            Name = sel_getName([argumentsCopy selector]);
+            restoreGeneration2 = [v11 restoreGeneration];
+            *buf = 136447234;
+            v26 = Name;
+            v27 = 1024;
+            v28 = v9;
+            v29 = 2112;
+            v30 = v11;
+            v31 = 1024;
+            v32 = restoreGeneration2;
+            v33 = 1024;
+            v34 = v7;
+            _os_log_debug_impl(&dword_22430B000, v17, OS_LOG_TYPE_DEBUG, "Found CADObjectID argument with unexpected restore generation in call to selector %{public}s. index = %d, objectID = %@, generation = %d, expected = %d", buf, 0x28u);
+          }
 
-        goto LABEL_27;
+          goto LABEL_27;
+        }
       }
 
       goto LABEL_19;
@@ -472,7 +477,7 @@ LABEL_20:
     }
   }
 
-  v11 = v23;
+  v11 = v24;
   firstObject = [v11 firstObject];
   if (!firstObject || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
@@ -482,38 +487,37 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  v16 = firstObject;
-  if ([v16 restoreGeneration]== -1 || [v16 restoreGeneration]== v7)
+  v17 = firstObject;
+  if ([v17 restoreGeneration]== -1 || (v14 = [v17 restoreGeneration], v14 == v7))
   {
 
     goto LABEL_18;
   }
 
-  v18 = getCADXPCProxyHelperLogHandle();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v19 = getCADXPCProxyHelperLogHandle(v14);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
-    v21 = sel_getName([argumentsCopy selector]);
-    restoreGeneration2 = [v16 restoreGeneration];
+    v22 = sel_getName([argumentsCopy selector]);
+    restoreGeneration3 = [v17 restoreGeneration];
     *buf = 136447234;
-    v25 = v21;
-    v26 = 1024;
-    v27 = v9;
-    v28 = 2112;
-    v29 = v16;
-    v30 = 1024;
-    v31 = restoreGeneration2;
-    v32 = 1024;
-    v33 = v7;
-    _os_log_debug_impl(&dword_22430B000, v18, OS_LOG_TYPE_DEBUG, "Found CADObjectID in array argument with unexpected restore generation in call to selector %{public}s. index = %d, objectID = %@, generation = %d, expected = %d", buf, 0x28u);
+    v26 = v22;
+    v27 = 1024;
+    v28 = v9;
+    v29 = 2112;
+    v30 = v17;
+    v31 = 1024;
+    v32 = restoreGeneration3;
+    v33 = 1024;
+    v34 = v7;
+    _os_log_debug_impl(&dword_22430B000, v19, OS_LOG_TYPE_DEBUG, "Found CADObjectID in array argument with unexpected restore generation in call to selector %{public}s. index = %d, objectID = %@, generation = %d, expected = %d", buf, 0x28u);
   }
 
 LABEL_27:
-  v13 = 0;
+  v15 = 0;
 LABEL_22:
 
 LABEL_24:
-  v14 = *MEMORY[0x277D85DE8];
-  return v13;
+  return v15;
 }
 
 - (void)_callReplyHandler:(id)handler ofInvocation:(id)invocation withErrorCode:(int64_t)code
@@ -557,39 +561,31 @@ void __66__CADXPCProxyHelper__callReplyHandler_ofInvocation_withErrorCode___bloc
 
 void __39__CADXPCProxyHelper_forwardInvocation___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __39__CADXPCProxyHelper_forwardInvocation___block_invoke_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_replaceReplyBlockInInvocation:(void *)a1 retryingAfterInitializationWithContextHolder:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromSelector([a1 selector]);
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(&dword_22430B000, a2, OS_LOG_TYPE_DEBUG, "Reply block does not have take an error as its first argument in method: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_22430B000, a2, OS_LOG_TYPE_DEBUG, "Reply block does not have take an error as its first argument in method: %@", v4, 0xCu);
 }
 
 void __97__CADXPCProxyHelper__replaceReplyBlockInInvocation_retryingAfterInitializationWithContextHolder___block_invoke_3_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

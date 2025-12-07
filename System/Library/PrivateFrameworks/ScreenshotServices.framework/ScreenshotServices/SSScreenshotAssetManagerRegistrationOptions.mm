@@ -6,7 +6,7 @@
 
 - (NSString)assetDescription
 {
-  if (!_SSLinksInPhotosEnabled())
+  if (!_SSLinksInPhotosEnabled(self, a2))
   {
     v9 = 0;
     goto LABEL_10;

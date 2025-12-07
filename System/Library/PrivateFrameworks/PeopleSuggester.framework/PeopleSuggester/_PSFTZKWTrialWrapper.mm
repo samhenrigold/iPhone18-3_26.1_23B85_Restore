@@ -2,6 +2,7 @@
 + (id)sharedInstance;
 + (void)runIfUpdated:(id)updated;
 + (void)runWithData:(id)data;
+- (BOOL)loadLevelAsBooleanFromFactor:(id)factor withDefault:(BOOL)default;
 - (_PSFTZKWTrialWrapper)init;
 - (int64_t)loadLevelAsConfidenceCategoryFromFactor:(id)factor withDefault:(int64_t)default;
 - (int64_t)loadLevelAsInteractionModelTypeFromFactor:(id)factor withDefault:(int64_t)default;
@@ -107,6 +108,29 @@
   [(TRIClient *)self->_triClient refresh];
 
   [(_PSFTZKWTrialWrapper *)self loadFactors];
+}
+
+- (BOOL)loadLevelAsBooleanFromFactor:(id)factor withDefault:(BOOL)default
+{
+  defaultCopy = default;
+  factorCopy = factor;
+  v7 = [(TRIClient *)self->_triClient levelForFactor:factorCopy withNamespaceName:@"COREML_SYSTEMS_FACETIME_CONTACT_PREDICTION"];
+  v8 = v7;
+  if (v7)
+  {
+    LOBYTE(defaultCopy) = [v7 BOOLeanValue];
+  }
+
+  else
+  {
+    v9 = +[_PSLogging generalChannel];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      [(_PSFTZKWTrialWrapper *)factorCopy loadLevelAsBooleanFromFactor:defaultCopy withDefault:v9];
+    }
+  }
+
+  return defaultCopy;
 }
 
 - (int64_t)loadLevelAsConfidenceCategoryFromFactor:(id)factor withDefault:(int64_t)default
@@ -234,36 +258,11 @@ LABEL_9:
     v3 = @"NO";
   }
 
-  *v5 = 138412546;
-  *&v5[4] = a1;
-  *&v5[12] = 2112;
-  *&v5[14] = v3;
-  OUTLINED_FUNCTION_8(&dword_1B5ED1000, a2, a3, "_PSFTZKWTrialWrapper: TRILevel is nil for %@. Using default of %@", *v5, *&v5[8], *&v5[16], *MEMORY[0x1E69E9840]);
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-- (void)loadLevelAsConfidenceCategoryFromFactor:withDefault:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_8(&dword_1B5ED1000, v0, v1, "_PSFTZKWTrialWrapper: TRILevel is out-of-range for ATXProactiveSuggestionConfidenceCategory: %@. Using default of %ld");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)loadLevelAsConfidenceCategoryFromFactor:withDefault:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_8(&dword_1B5ED1000, v0, v1, "_PSFTZKWTrialWrapper: TRILevel is nil for %@. Using default of %ld");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)loadLevelAsInteractionModelTypeFromFactor:withDefault:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_8(&dword_1B5ED1000, v0, v1, "_PSFTZKWTrialWrapper: TRILevel is out-of-range for _PSInteractionModelType: %@. Using default of %ld");
-  v2 = *MEMORY[0x1E69E9840];
+  *v4 = 138412546;
+  *&v4[4] = a1;
+  *&v4[12] = 2112;
+  *&v4[14] = v3;
+  OUTLINED_FUNCTION_8(&dword_1B5ED1000, a2, a3, "_PSFTZKWTrialWrapper: TRILevel is nil for %@. Using default of %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
 }
 
 @end

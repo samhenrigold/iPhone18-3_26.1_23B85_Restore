@@ -95,7 +95,7 @@
 
 - (void)accessQueue_addResourceRequest:(id)request
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v7 = objc_msgSend_tags(requestCopy, v5, v6);
   if (!objc_msgSend_count(v7, v8, v9))
@@ -103,12 +103,12 @@
     goto LABEL_12;
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v11 = v7;
-  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v24, v28, 16);
+  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v23, v27, 16);
   if (!v15)
   {
 
@@ -116,17 +116,17 @@
   }
 
   v16 = 0;
-  v17 = *v25;
+  v17 = *v24;
   do
   {
     for (i = 0; i != v15; ++i)
     {
-      if (*v25 != v17)
+      if (*v24 != v17)
       {
         objc_enumerationMutation(v11);
       }
 
-      v19 = objc_msgSend_hash(*(*(&v24 + 1) + 8 * i), v13, v14, v24);
+      v19 = objc_msgSend_hash(*(*(&v23 + 1) + 8 * i), v13, v14, v23);
       v21 = objc_msgSend_objectForKey_(self->_accessQueue_resourceRequestTable, v20, v19);
       v22 = v21 == 0;
 
@@ -137,7 +137,7 @@
       }
     }
 
-    v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v13, &v24, v28, 16);
+    v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v13, &v23, v27, 16);
   }
 
   while (v15);
@@ -149,8 +149,6 @@ LABEL_12:
   }
 
 LABEL_14:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeResourceRequests:(id)requests
@@ -213,14 +211,14 @@ LABEL_14:
 
 - (id)newDataStorageForDocumentResourceInfo:(id)info createResourceRequestIfNeeded:(BOOL)needed error:(id *)error
 {
-  v49[1] = *MEMORY[0x277D85DE8];
+  v47[1] = *MEMORY[0x277D85DE8];
   infoCopy = info;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x3032000000;
-  v43 = sub_276AED57C;
-  v44 = sub_276AED58C;
-  v45 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = sub_276AED57C;
+  v42 = sub_276AED58C;
+  v43 = 0;
   accessQueue = self->_accessQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -228,48 +226,47 @@ LABEL_14:
   block[3] = &unk_27A6E4158;
   v10 = infoCopy;
   selfCopy = self;
-  v38 = &v40;
-  v36 = v10;
+  v36 = &v38;
+  v34 = v10;
   neededCopy = needed;
   dispatch_sync(accessQueue, block);
-  v12 = v41[5];
+  v12 = v39[5];
   if (v12)
   {
-    if (objc_msgSend_conformsToProtocol_(v12, v11, &unk_288603918) && (objc_msgSend_localStrategyForDocumentResourceInfo_(v41[5], v13, v10) & 3) != 1 && (objc_msgSend_conformsToProtocol_(v41[5], v13, &unk_28860ABD8) & 1) != 0)
+    if (objc_msgSend_conformsToProtocol_(v12, v11, &unk_288603918) && (objc_msgSend_localStrategyForDocumentResourceInfo_(v39[5], v13, v10) & 3) != 1 && (objc_msgSend_conformsToProtocol_(v39[5], v13, &unk_28860ABD8) & 1) != 0)
     {
       v14 = off_27A6E20F0;
 LABEL_8:
       v15 = objc_alloc(*v14);
-      v17 = objc_msgSend_initWithResourceRequest_documentResourceInfo_(v15, v16, v41[5], v10);
+      v17 = objc_msgSend_initWithResourceRequest_documentResourceInfo_(v15, v16, v39[5], v10);
       v18 = 0;
       goto LABEL_16;
     }
 
-    if (objc_msgSend_conformsToProtocol_(v41[5], v13, &unk_2885FA5B8))
+    if (objc_msgSend_conformsToProtocol_(v39[5], v13, &unk_2885FA5B8))
     {
       v14 = off_27A6E20F8;
       goto LABEL_8;
     }
 
     v24 = MEMORY[0x277CCA9B8];
-    v48 = *MEMORY[0x277CCA470];
+    v46 = *MEMORY[0x277CCA470];
     v25 = MEMORY[0x277CCACA8];
-    v26 = v41[5];
-    v27 = objc_opt_class();
-    v20 = NSStringFromClass(v27);
-    v22 = objc_msgSend_localizedStringWithFormat_(v25, v28, @"Unsupported resource request for %@: %@", v10, v20);
-    v49[0] = v22;
-    v30 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v29, v49, &v48, 1);
-    v18 = objc_msgSend_tsp_unknownReadErrorWithUserInfo_(v24, v31, v30);
+    v26 = objc_opt_class();
+    v20 = NSStringFromClass(v26);
+    v22 = objc_msgSend_localizedStringWithFormat_(v25, v27, @"Unsupported resource request for %@: %@", v10, v20);
+    v47[0] = v22;
+    v29 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v28, v47, &v46, 1);
+    v18 = objc_msgSend_tsp_unknownReadErrorWithUserInfo_(v24, v30, v29);
   }
 
   else
   {
     v19 = MEMORY[0x277CCA9B8];
-    v46 = *MEMORY[0x277CCA470];
+    v44 = *MEMORY[0x277CCA470];
     v20 = objc_msgSend_localizedStringWithFormat_(MEMORY[0x277CCACA8], v11, @"Resource request not found for %@", v10);
-    v47 = v20;
-    v22 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v21, &v47, &v46, 1);
+    v45 = v20;
+    v22 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v21, &v45, &v44, 1);
     v18 = objc_msgSend_tsp_unknownReadErrorWithUserInfo_(v19, v23, v22);
   }
 
@@ -283,7 +280,7 @@ LABEL_8:
 
     else
     {
-      v32 = v18;
+      v31 = v18;
       v17 = 0;
       *error = v18;
     }
@@ -291,8 +288,7 @@ LABEL_8:
 
 LABEL_16:
 
-  _Block_object_dispose(&v40, 8);
-  v33 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v38, 8);
   return v17;
 }
 

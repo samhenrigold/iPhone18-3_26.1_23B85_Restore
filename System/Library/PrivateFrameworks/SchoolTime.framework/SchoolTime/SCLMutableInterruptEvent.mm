@@ -7,9 +7,7 @@
 
 - (void)setSender:(id)sender
 {
-  v4 = [sender copy];
-  sender = self->super._sender;
-  self->super._sender = v4;
+  self->super._sender = [sender copy];
 
   MEMORY[0x2821F96F8]();
 }

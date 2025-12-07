@@ -90,7 +90,6 @@ void __58__CRXUNotificationCenter_addObserver_selector_queue_name___block_invoke
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v4 = *(a1 + 48);
     if (objc_opt_respondsToSelector())
     {
       ([WeakRetained methodForSelector:*(a1 + 48)])(WeakRetained, *(a1 + 48), *(a1 + 32));

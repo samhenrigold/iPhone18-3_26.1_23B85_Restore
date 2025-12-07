@@ -17,7 +17,7 @@
 
 - (void)__ubiquitousKVSChanged:(id)changed
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
   userInfo = [changedCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E696A9D8]];
@@ -40,20 +40,28 @@
       else
       {
         v13 = MEMORY[0x1E69E9C10];
-        v25 = MEMORY[0x1E69E9C10];
+        v29 = MEMORY[0x1E69E9C10];
       }
 
       if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_29;
+        goto LABEL_30;
       }
+
+      identifier = self->_identifier;
+      v24 = [(CWFKeyValueStore *)self __debugDescriptionForType:self->_type];
+      v35 = 138543618;
+      v36 = identifier;
+      v37 = 2114;
+      v38 = v24;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v13, 16, "[corewifi] Cloud KVS quota violation for '%{public}@' (%{public}@)", &v35, 22);
     }
 
     else
     {
       if (integerValue != 3)
       {
-        goto LABEL_30;
+        goto LABEL_31;
       }
 
       v12 = CWFGetOSLog();
@@ -65,25 +73,26 @@
       else
       {
         v13 = MEMORY[0x1E69E9C10];
-        v21 = MEMORY[0x1E69E9C10];
+        v22 = MEMORY[0x1E69E9C10];
       }
 
       if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-LABEL_29:
+LABEL_30:
 
-        goto LABEL_30;
+        goto LABEL_31;
       }
+
+      v23 = self->_identifier;
+      v24 = [(CWFKeyValueStore *)self __debugDescriptionForType:self->_type];
+      v35 = 138543618;
+      v36 = v23;
+      v37 = 2114;
+      v38 = v24;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v13, 16, "[corewifi] Cloud KVS account change for '%{public}@' (%{public}@)", &v35, 22);
     }
 
-    identifier = self->_identifier;
-    [(CWFKeyValueStore *)self __debugDescriptionForType:self->_type];
-    v32 = 138543618;
-    v33 = identifier;
-    v35 = v34 = 2114;
-    _os_log_send_and_compose_impl();
-
-    goto LABEL_29;
+    goto LABEL_30;
   }
 
   if (!integerValue)
@@ -97,28 +106,29 @@ LABEL_29:
     else
     {
       v15 = MEMORY[0x1E69E9C10];
-      v22 = MEMORY[0x1E69E9C10];
+      v25 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v23 = self->_identifier;
-      [(CWFKeyValueStore *)self __debugDescriptionForType:self->_type];
-      v32 = 138543618;
-      v33 = v23;
-      v35 = v34 = 2114;
-      _os_log_send_and_compose_impl();
+      v26 = self->_identifier;
+      v27 = [(CWFKeyValueStore *)self __debugDescriptionForType:self->_type];
+      v35 = 138543618;
+      v36 = v26;
+      v37 = 2114;
+      v38 = v27;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v15, 1, "[corewifi] Cloud KVS server change for '%{public}@' (%{public}@)", &v35, 22);
     }
 
     eventQueue = self->_eventQueue;
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = sub_1E0D2CA40;
-    v28[3] = &unk_1E86E6420;
-    v28[4] = self;
-    v29 = v8;
-    dispatch_async(eventQueue, v28);
-    v20 = v29;
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = sub_1E0D2CA40;
+    v31[3] = &unk_1E86E6420;
+    v31[4] = self;
+    v32 = v8;
+    dispatch_async(eventQueue, v31);
+    v21 = v32;
     goto LABEL_25;
   }
 
@@ -139,28 +149,27 @@ LABEL_29:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v18 = self->_identifier;
-      [(CWFKeyValueStore *)self __debugDescriptionForType:self->_type];
-      v32 = 138543618;
-      v33 = v18;
-      v35 = v34 = 2114;
-      _os_log_send_and_compose_impl();
+      v19 = [(CWFKeyValueStore *)self __debugDescriptionForType:self->_type];
+      v35 = 138543618;
+      v36 = v18;
+      v37 = 2114;
+      v38 = v19;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v11, 1, "[corewifi] Cloud KVS initial sync for '%{public}@' (%{public}@)", &v35, 22);
     }
 
-    v19 = self->_eventQueue;
+    v20 = self->_eventQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = sub_1E0D2C9BC;
     block[3] = &unk_1E86E6420;
     block[4] = self;
-    v31 = v8;
-    dispatch_async(v19, block);
-    v20 = v31;
+    v34 = v8;
+    dispatch_async(v20, block);
+    v21 = v34;
 LABEL_25:
   }
 
-LABEL_30:
-
-  v27 = *MEMORY[0x1E69E9840];
+LABEL_31:
 }
 
 - (id)__debugDescriptionForType:(int64_t)type
@@ -240,8 +249,8 @@ LABEL_30:
 
     if (!v9->_ubiquitousKVS)
     {
-      v33 = CWFGetOSLog();
-      if (v33)
+      v32 = CWFGetOSLog();
+      if (v32)
       {
         v28 = CWFGetOSLog();
       }
@@ -249,7 +258,7 @@ LABEL_30:
       else
       {
         v28 = MEMORY[0x1E69E9C10];
-        v35 = MEMORY[0x1E69E9C10];
+        v34 = MEMORY[0x1E69E9C10];
       }
 
       if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
@@ -259,12 +268,13 @@ LABEL_30:
 
 LABEL_20:
       identifier = v9->_identifier;
-      v37 = [(CWFKeyValueStore *)v9 __debugDescriptionForType:v9->_type];
+      v36 = [(CWFKeyValueStore *)v9 __debugDescriptionForType:v9->_type];
       v39 = 138543618;
       identifierCopy2 = identifier;
       v41 = 2114;
-      v42 = v37;
-      _os_log_send_and_compose_impl();
+      v42 = v36;
+      LODWORD(v37) = 22;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v28, 16, "[corewifi] Failed to initialize cloud KVS for '%{public}@' (%{public}@)", &v39, v37);
 
 LABEL_21:
 LABEL_22:
@@ -290,7 +300,7 @@ LABEL_22:
       else
       {
         v28 = MEMORY[0x1E69E9C10];
-        v34 = MEMORY[0x1E69E9C10];
+        v33 = MEMORY[0x1E69E9C10];
       }
 
       if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
@@ -302,7 +312,6 @@ LABEL_22:
     }
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -420,7 +429,7 @@ LABEL_22:
 
 - (BOOL)__synchronize
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   type = self->_type;
   if (type > 3)
   {
@@ -432,42 +441,44 @@ LABEL_22:
     if (type != 5 && type != 4)
     {
 LABEL_13:
-      v9 = CWFGetOSLog();
-      if (v9)
+      v8 = CWFGetOSLog();
+      if (v8)
       {
-        v10 = CWFGetOSLog();
+        v9 = CWFGetOSLog();
       }
 
       else
       {
-        v10 = MEMORY[0x1E69E9C10];
-        v15 = MEMORY[0x1E69E9C10];
+        v9 = MEMORY[0x1E69E9C10];
+        v12 = MEMORY[0x1E69E9C10];
       }
 
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         identifier = self->_identifier;
-        v23 = [(CWFKeyValueStore *)self __debugDescriptionForType:self->_type];
-        _os_log_send_and_compose_impl();
+        v14 = [(CWFKeyValueStore *)self __debugDescriptionForType:self->_type];
+        v22 = 138543618;
+        v23 = identifier;
+        v24 = 2114;
+        v25 = v14;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 16, "[corewifi] Unhandled storage type for '%{public}@' (%{public}@)!", &v22, 22);
       }
 
       goto LABEL_24;
     }
 
-    v11 = self->_identifier;
-    v5 = 1;
+    v4 = 1;
     _CFPreferencesSetAccessRestricted();
-    v12 = self->_identifier;
-    v13 = *MEMORY[0x1E695E8A0];
-    v14 = *MEMORY[0x1E695E898];
+    v10 = *MEMORY[0x1E695E8A0];
+    v11 = *MEMORY[0x1E695E898];
     _CFPreferencesSetFileProtectionClass();
-    v6 = self->_identifier;
-    v7 = v13;
-    v8 = v14;
+    v5 = self->_identifier;
+    v6 = v10;
+    v7 = v11;
 LABEL_18:
-    if (CFPreferencesSynchronize(v6, v7, v8))
+    if (CFPreferencesSynchronize(v5, v6, v7))
     {
-      goto LABEL_30;
+      return v4;
     }
 
     goto LABEL_24;
@@ -475,12 +486,11 @@ LABEL_18:
 
   if (type == 1)
   {
-    v4 = self->_identifier;
-    v5 = 1;
+    v4 = 1;
     _CFPreferencesSetAccessRestricted();
-    v6 = self->_identifier;
-    v7 = *MEMORY[0x1E695E8A0];
-    v8 = *MEMORY[0x1E695E898];
+    v5 = self->_identifier;
+    v6 = *MEMORY[0x1E695E8A0];
+    v7 = *MEMORY[0x1E695E898];
     goto LABEL_18;
   }
 
@@ -497,40 +507,40 @@ LABEL_10:
       goto LABEL_24;
     }
 
-LABEL_16:
-    v5 = 1;
-    goto LABEL_30;
+    return 1;
   }
 
   if (CFPreferencesSynchronize(self->_identifier, @"mobile", *MEMORY[0x1E695E898]))
   {
-    goto LABEL_16;
+    return 1;
   }
 
 LABEL_24:
-  v17 = CWFGetOSLog();
-  if (v17)
+  v15 = CWFGetOSLog();
+  if (v15)
   {
-    v18 = CWFGetOSLog();
+    v16 = CWFGetOSLog();
   }
 
   else
   {
-    v18 = MEMORY[0x1E69E9C10];
-    v19 = MEMORY[0x1E69E9C10];
+    v16 = MEMORY[0x1E69E9C10];
+    v17 = MEMORY[0x1E69E9C10];
   }
 
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    v20 = self->_identifier;
-    v24 = [(CWFKeyValueStore *)self __debugDescriptionForType:self->_type];
-    _os_log_send_and_compose_impl();
+    v18 = self->_identifier;
+    v19 = [(CWFKeyValueStore *)self __debugDescriptionForType:self->_type];
+    v22 = 138543618;
+    v23 = v18;
+    v24 = 2114;
+    v25 = v19;
+    LODWORD(v21) = 22;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v16, 16, "[corewifi] Synchronize failed for '%{public}@' (%{public}@)", &v22, v21);
   }
 
-  v5 = 0;
-LABEL_30:
-  v21 = *MEMORY[0x1E69E9840];
-  return v5;
+  return 0;
 }
 
 - (BOOL)synchronize

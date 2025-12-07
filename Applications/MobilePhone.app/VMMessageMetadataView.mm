@@ -579,27 +579,27 @@
 - (void)removeConstraints:(id)constraints
 {
   constraintsCopy = constraints;
-  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v4 = [constraintsCopy countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v21 = 0u;
+  v4 = [constraintsCopy countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v18;
+    v7 = *v19;
     *&v5 = 138412290;
-    v16 = v5;
+    v17 = v5;
     do
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v18 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(constraintsCopy);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         firstItem = [v9 firstItem];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
@@ -608,7 +608,7 @@
         {
           firstItem2 = [v9 firstItem];
 LABEL_10:
-          v15 = firstItem2;
+          v16 = firstItem2;
           [firstItem2 removeConstraint:v9];
           goto LABEL_13;
         }
@@ -623,18 +623,18 @@ LABEL_10:
           goto LABEL_10;
         }
 
-        v15 = PHDefaultLog();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v16 = PHDefaultLog(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          *buf = v16;
-          v22 = v9;
-          _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Unable to remove constraint: %@", buf, 0xCu);
+          *buf = v17;
+          v23 = v9;
+          _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Unable to remove constraint: %@", buf, 0xCu);
         }
 
 LABEL_13:
       }
 
-      v6 = [constraintsCopy countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v6 = [constraintsCopy countByEnumeratingWithState:&v18 objects:v24 count:16];
     }
 
     while (v6);

@@ -83,7 +83,7 @@
 
 - (NSString)description
 {
-  sub_100142F58(self);
+  sub_100142F58(self, a2);
   out = self->out_;
   if (!out)
   {
@@ -95,17 +95,18 @@
 
 - (void)flush
 {
-  sub_100142F58(self);
-  if ([JavaIoFlushable_class_() isInstance:self->out_])
+  v3 = sub_100142F58(self, a2);
+  v5 = [JavaIoFlushable_class_(v3 v4)];
+  if (v5)
   {
     out = self->out_;
-    v4 = JavaIoFlushable_class_();
+    v8 = JavaIoFlushable_class_(v5, v6);
     if (!out)
     {
       JreThrowNullPointerException();
     }
 
-    if (([v4 isInstance:out] & 1) == 0)
+    if (([v8 isInstance:out] & 1) == 0)
     {
       JreThrowClassCastException();
     }
@@ -119,16 +120,17 @@
   if (!self->closed_)
   {
     self->closed_ = 1;
-    if ([JavaIoCloseable_class_() isInstance:self->out_])
+    v3 = [JavaIoCloseable_class_(self a2)];
+    if (v3)
     {
       out = self->out_;
-      v4 = JavaIoCloseable_class_();
+      v6 = JavaIoCloseable_class_(v3, v4);
       if (!out)
       {
         JreThrowNullPointerException();
       }
 
-      if (([v4 isInstance:out] & 1) == 0)
+      if (([v6 isInstance:out] & 1) == 0)
       {
         JreThrowClassCastException();
       }
@@ -154,9 +156,9 @@
   }
 
   JreStrongAssign(p_locale, localeCopy);
-  v11 = LibcoreIcuLocaleData_getWithJavaUtilLocale_(*p_locale);
-  JreStrongAssign(&self->localeData_, v11);
-  sub_100143280(self, string, array);
+  v12 = LibcoreIcuLocaleData_getWithJavaUtilLocale_(*p_locale, v11);
+  JreStrongAssign(&self->localeData_, v12);
+  sub_100143280(&self->super.isa, string, array);
   JreStrongAssign(p_locale, locale);
   return self;
 }

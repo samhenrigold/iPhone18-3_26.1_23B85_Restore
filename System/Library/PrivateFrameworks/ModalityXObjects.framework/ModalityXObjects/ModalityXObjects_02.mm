@@ -1,735 +1,31 @@
-uint64_t ModalityXSpeechProfileBuildResponse.error.setter()
-{
-  v1 = OUTLINED_FUNCTION_187();
-  v2 = type metadata accessor for ModalityXSpeechProfileBuildResponse(v1);
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v0 + *(v2 + 24), &_s16ModalityXObjects0A16XProcessingErrorVSgMd, &_s16ModalityXObjects0A16XProcessingErrorVSgMR);
-  OUTLINED_FUNCTION_1_0();
-  outlined init with take of ModalityXSessionMetadata();
-  type metadata accessor for ModalityXProcessingError(0);
-  OUTLINED_FUNCTION_126();
-
-  return __swift_storeEnumTagSinglePayload(v3, v4, v5, v6);
-}
-
-void ModalityXSpeechProfileBuildResponse.error.modify()
-{
-  OUTLINED_FUNCTION_312();
-  v1 = OUTLINED_FUNCTION_346();
-  v2 = __swift_coroFrameAllocStub(v1);
-  OUTLINED_FUNCTION_71(v2);
-  v3 = OUTLINED_FUNCTION_153();
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
-  OUTLINED_FUNCTION_122(v5);
-  v7 = __swift_coroFrameAllocStub(*(v6 + 64));
-  *(v0 + 8) = v7;
-  v8 = type metadata accessor for ModalityXProcessingError(0);
-  *(v0 + 16) = v8;
-  OUTLINED_FUNCTION_54(v8);
-  v10 = *(v9 + 64);
-  v11 = __swift_coroFrameAllocStub(v10);
-  v12 = OUTLINED_FUNCTION_342(v11);
-  v13 = __swift_coroFrameAllocStub(v12);
-  v14 = OUTLINED_FUNCTION_267(v13);
-  v15 = type metadata accessor for ModalityXSpeechProfileBuildResponse(v14);
-  v16 = OUTLINED_FUNCTION_308(v15);
-  OUTLINED_FUNCTION_283(v16, v7);
-  OUTLINED_FUNCTION_83();
-  if (v17)
-  {
-    UnknownStorage.init()();
-    v18 = v10 + v8[5];
-    *v18 = 0;
-    *(v18 + 4) = 1;
-    OUTLINED_FUNCTION_250(v8[6]);
-    *(v10 + v8[7]) = 3;
-    OUTLINED_FUNCTION_250(v8[8]);
-    OUTLINED_FUNCTION_83();
-    if (!v17)
-    {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v7, &_s16ModalityXObjects0A16XProcessingErrorVSgMd, &_s16ModalityXObjects0A16XProcessingErrorVSgMR);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_287();
-    outlined init with take of ModalityXSessionMetadata();
-  }
-
-  OUTLINED_FUNCTION_169();
-  OUTLINED_FUNCTION_311();
-}
-
-{
-  OUTLINED_FUNCTION_312();
-  OUTLINED_FUNCTION_184(v6);
-  if (v7)
-  {
-    OUTLINED_FUNCTION_142();
-    outlined init with copy of ModalityXSessionMetadata();
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v5 + v4, &_s16ModalityXObjects0A16XProcessingErrorVSgMd, &_s16ModalityXObjects0A16XProcessingErrorVSgMR);
-    OUTLINED_FUNCTION_1_0();
-    outlined init with take of ModalityXSessionMetadata();
-    OUTLINED_FUNCTION_126();
-    __swift_storeEnumTagSinglePayload(v8, v9, v10, v3);
-    OUTLINED_FUNCTION_60();
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-  }
-
-  else
-  {
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v5 + v4, &_s16ModalityXObjects0A16XProcessingErrorVSgMd, &_s16ModalityXObjects0A16XProcessingErrorVSgMR);
-    OUTLINED_FUNCTION_1_0();
-    outlined init with take of ModalityXSessionMetadata();
-    OUTLINED_FUNCTION_126();
-    __swift_storeEnumTagSinglePayload(v11, v12, v13, v3);
-  }
-
-  free(v2);
-  free(v0);
-  free(v1);
-  OUTLINED_FUNCTION_311();
-
-  free(v14);
-}
-
-uint64_t ModalityXSpeechProfileBuildResponse.incompleteProfile.getter()
-{
-  v0 = type metadata accessor for ModalityXSpeechProfileBuildResponse(0);
-  OUTLINED_FUNCTION_274(v0);
-  return v1 & 1;
-}
-
-uint64_t ModalityXSpeechProfileBuildResponse.incompleteProfile.setter()
-{
-  v0 = OUTLINED_FUNCTION_187();
-  v1 = type metadata accessor for ModalityXSpeechProfileBuildResponse(v0);
-  return OUTLINED_FUNCTION_333(v1);
-}
-
-uint64_t (*ModalityXSpeechProfileBuildResponse.incompleteProfile.modify(void *a1))()
-{
-  v1 = OUTLINED_FUNCTION_109(a1);
-  v2 = type metadata accessor for ModalityXSpeechProfileBuildResponse(v1);
-  OUTLINED_FUNCTION_117(*(v2 + 28));
-  return ModalityXSessionMetadata.userInterfaceIdiom.modify;
-}
-
-uint64_t ModalityXSpeechProfileBuildResponse.languageProfile.modify(uint64_t a1)
-{
-  v2 = OUTLINED_FUNCTION_128(a1);
-  v3 = type metadata accessor for ModalityXSpeechProfileBuildResponse(v2);
-  v4 = OUTLINED_FUNCTION_46(*(v3 + 32));
-  v7 = 0xC000000000000000;
-  if (!(!v9 & v8))
-  {
-    v7 = v5;
-  }
-
-  *v1 = v6;
-  v1[1] = v7;
-  outlined copy of Data?(v4, v5);
-  return OUTLINED_FUNCTION_288();
-}
-
-double ModalityXStreamingSpeechProfileAddData.clearExistingPronunciationCache()()
-{
-  v1 = OUTLINED_FUNCTION_176();
-  v3 = v2(v1);
-  OUTLINED_FUNCTION_327(*(v3 + 32));
-  result = 0.0;
-  *v0 = xmmword_25A1D8720;
-  return result;
-}
-
-uint64_t ModalityXSpeechProfileBuildResponse.pronunciationCache.modify(uint64_t a1)
-{
-  v2 = OUTLINED_FUNCTION_128(a1);
-  v3 = type metadata accessor for ModalityXSpeechProfileBuildResponse(v2);
-  v4 = OUTLINED_FUNCTION_46(*(v3 + 36));
-  v7 = 0xC000000000000000;
-  if (!(!v9 & v8))
-  {
-    v7 = v5;
-  }
-
-  *v1 = v6;
-  v1[1] = v7;
-  outlined copy of Data?(v4, v5);
-  return OUTLINED_FUNCTION_288();
-}
-
-uint64_t ModalityXSpeechProfile.languageProfile.modify(uint64_t *a1, char a2)
-{
-  v2 = a1[1];
-  v3 = a1[2] + *(a1 + 6);
-  v4 = *a1;
-  v5 = *v3;
-  v6 = *(v3 + 8);
-  if (a2)
-  {
-    v7 = OUTLINED_FUNCTION_123();
-    outlined copy of Data._Representation(v7, v8);
-    outlined consume of Data?(v5, v6);
-    *v3 = v4;
-    *(v3 + 8) = v2;
-    v9 = OUTLINED_FUNCTION_123();
-
-    return outlined consume of Data._Representation(v9, v10);
-  }
-
-  else
-  {
-    result = outlined consume of Data?(*v3, *(v3 + 8));
-    *v3 = v4;
-    *(v3 + 8) = v2;
-  }
-
-  return result;
-}
-
-double ModalityXSpeechProfileBuildRequest.clearExistingLanguageProfile()()
-{
-  v1 = OUTLINED_FUNCTION_176();
-  v3 = v2(v1);
-  OUTLINED_FUNCTION_327(*(v3 + 36));
-  result = 0.0;
-  *v0 = xmmword_25A1D8720;
-  return result;
-}
-
-uint64_t ModalityXSessionMetadata.unknownFields.getter()
-{
-  OUTLINED_FUNCTION_242();
-  v0 = type metadata accessor for UnknownStorage();
-  OUTLINED_FUNCTION_54(v0);
-  v2 = *(v1 + 16);
-  v3 = OUTLINED_FUNCTION_131();
-
-  return v4(v3);
-}
-
-uint64_t ModalityXSessionMetadata.unknownFields.setter()
-{
-  OUTLINED_FUNCTION_187();
-  v0 = type metadata accessor for UnknownStorage();
-  OUTLINED_FUNCTION_54(v0);
-  v2 = *(v1 + 40);
-  v3 = OUTLINED_FUNCTION_123();
-
-  return v4(v3);
-}
-
-uint64_t ModalityXServerBoundFrame.decodeMessage<A>(decoder:)()
-{
-  OUTLINED_FUNCTION_56();
-  while (1)
-  {
-    OUTLINED_FUNCTION_130();
-    result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v2 & 1) != 0)
-    {
-      return result;
-    }
-
-    switch(result)
-    {
-      case 1:
-        v3 = OUTLINED_FUNCTION_41();
-        closure #1 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(v3, v4, v5, v6);
-        break;
-      case 2:
-        v27 = OUTLINED_FUNCTION_41();
-        closure #2 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(v27, v28, v29, v30);
-        break;
-      case 3:
-        v15 = OUTLINED_FUNCTION_41();
-        closure #3 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(v15, v16, v17, v18);
-        break;
-      case 4:
-        v19 = OUTLINED_FUNCTION_41();
-        closure #4 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(v19, v20, v21, v22);
-        break;
-      case 5:
-        v7 = OUTLINED_FUNCTION_41();
-        closure #5 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(v7, v8, v9, v10);
-        break;
-      case 6:
-        v31 = OUTLINED_FUNCTION_41();
-        closure #6 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(v31, v32, v33, v34);
-        break;
-      case 7:
-        v35 = OUTLINED_FUNCTION_41();
-        closure #7 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(v35, v36, v37, v38);
-        break;
-      case 8:
-        v23 = OUTLINED_FUNCTION_41();
-        closure #8 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(v23, v24, v25, v26);
-        break;
-      case 9:
-        v39 = OUTLINED_FUNCTION_41();
-        closure #9 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(v39, v40, v41, v42);
-        break;
-      case 10:
-        v11 = OUTLINED_FUNCTION_41();
-        closure #10 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(v11, v12, v13, v14);
-        break;
-      default:
-        continue;
-    }
-  }
-}
-
-uint64_t closure #1 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v34 = a3;
-  v35 = a4;
-  v36 = a2;
-  v5 = type metadata accessor for ModalityXSessionMetadata(0);
-  v6 = *(*(v5 - 8) + 64);
-  v7 = MEMORY[0x28223BE20](v5);
-  v32 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v28 - v11;
-  v13 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13);
-  MEMORY[0x28223BE20](v15);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A16XSessionMetadataVSgMd, &_s16ModalityXObjects0A16XSessionMetadataVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = MEMORY[0x28223BE20](v16 - 8);
-  v20 = &v28 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v28 - v21;
-  __swift_storeEnumTagSinglePayload(&v28 - v21, 1, 1, v5);
-  v29 = a1;
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v12, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v12, 1, v13);
-  v31 = v13;
-  if (EnumTagSinglePayload == 1)
-  {
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v12, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  }
-
-  else
-  {
-    outlined init with take of ModalityXSessionMetadata();
-    outlined init with take of ModalityXSessionMetadata();
-    if (swift_getEnumCaseMultiPayload())
-    {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-    }
-
-    else
-    {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A16XSessionMetadataVSgMd, &_s16ModalityXObjects0A16XSessionMetadataVSgMR);
-      outlined init with take of ModalityXSessionMetadata();
-      outlined init with take of ModalityXSessionMetadata();
-      __swift_storeEnumTagSinglePayload(v22, 0, 1, v5);
-    }
-  }
-
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSessionMetadata and conformance ModalityXSessionMetadata, type metadata accessor for ModalityXSessionMetadata);
-  v23 = v33;
-  dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v23)
-  {
-    v24 = v22;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A16XSessionMetadataVSgMd, &_s16ModalityXObjects0A16XSessionMetadataVSgMR);
-  }
-
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v22, v20, &_s16ModalityXObjects0A16XSessionMetadataVSgMd, &_s16ModalityXObjects0A16XSessionMetadataVSgMR);
-  if (__swift_getEnumTagSinglePayload(v20, 1, v5) == 1)
-  {
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A16XSessionMetadataVSgMd, &_s16ModalityXObjects0A16XSessionMetadataVSgMR);
-    v24 = v20;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A16XSessionMetadataVSgMd, &_s16ModalityXObjects0A16XSessionMetadataVSgMR);
-  }
-
-  outlined init with take of ModalityXSessionMetadata();
-  if (EnumTagSinglePayload != 1)
-  {
-    dispatch thunk of Decoder.handleConflictingOneOf()();
-  }
-
-  v26 = v31;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A16XSessionMetadataVSgMd, &_s16ModalityXObjects0A16XSessionMetadataVSgMR);
-  v27 = v29;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v29, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  outlined init with take of ModalityXSessionMetadata();
-  swift_storeEnumTagMultiPayload();
-  return __swift_storeEnumTagSinglePayload(v27, 0, 1, v26);
-}
-
-uint64_t closure #2 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v34 = a3;
-  v35 = a4;
-  v36 = a2;
-  v5 = type metadata accessor for ModalityXBeginRequest(0);
-  v6 = *(*(v5 - 8) + 64);
-  v7 = MEMORY[0x28223BE20](v5);
-  v32 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v28 - v11;
-  v13 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13);
-  MEMORY[0x28223BE20](v15);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A13XBeginRequestVSgMd, &_s16ModalityXObjects0A13XBeginRequestVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = MEMORY[0x28223BE20](v16 - 8);
-  v20 = &v28 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v28 - v21;
-  __swift_storeEnumTagSinglePayload(&v28 - v21, 1, 1, v5);
-  v29 = a1;
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v12, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v12, 1, v13);
-  v31 = v13;
-  if (EnumTagSinglePayload == 1)
-  {
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v12, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  }
-
-  else
-  {
-    outlined init with take of ModalityXSessionMetadata();
-    outlined init with take of ModalityXSessionMetadata();
-    if (swift_getEnumCaseMultiPayload() == 1)
-    {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A13XBeginRequestVSgMd, &_s16ModalityXObjects0A13XBeginRequestVSgMR);
-      outlined init with take of ModalityXSessionMetadata();
-      outlined init with take of ModalityXSessionMetadata();
-      __swift_storeEnumTagSinglePayload(v22, 0, 1, v5);
-    }
-
-    else
-    {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-    }
-  }
-
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXBeginRequest and conformance ModalityXBeginRequest, type metadata accessor for ModalityXBeginRequest);
-  v23 = v33;
-  dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v23)
-  {
-    v24 = v22;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A13XBeginRequestVSgMd, &_s16ModalityXObjects0A13XBeginRequestVSgMR);
-  }
-
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v22, v20, &_s16ModalityXObjects0A13XBeginRequestVSgMd, &_s16ModalityXObjects0A13XBeginRequestVSgMR);
-  if (__swift_getEnumTagSinglePayload(v20, 1, v5) == 1)
-  {
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A13XBeginRequestVSgMd, &_s16ModalityXObjects0A13XBeginRequestVSgMR);
-    v24 = v20;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A13XBeginRequestVSgMd, &_s16ModalityXObjects0A13XBeginRequestVSgMR);
-  }
-
-  outlined init with take of ModalityXSessionMetadata();
-  if (EnumTagSinglePayload != 1)
-  {
-    dispatch thunk of Decoder.handleConflictingOneOf()();
-  }
-
-  v26 = v31;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A13XBeginRequestVSgMd, &_s16ModalityXObjects0A13XBeginRequestVSgMR);
-  v27 = v29;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v29, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  outlined init with take of ModalityXSessionMetadata();
-  swift_storeEnumTagMultiPayload();
-  return __swift_storeEnumTagSinglePayload(v27, 0, 1, v26);
-}
-
-uint64_t closure #3 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v34 = a3;
-  v35 = a4;
-  v36 = a2;
-  v5 = type metadata accessor for ModalityXAudioFrame(0);
-  v6 = *(*(v5 - 8) + 64);
-  v7 = MEMORY[0x28223BE20](v5);
-  v32 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v28 - v11;
-  v13 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13);
-  MEMORY[0x28223BE20](v15);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A11XAudioFrameVSgMd, &_s16ModalityXObjects0A11XAudioFrameVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = MEMORY[0x28223BE20](v16 - 8);
-  v20 = &v28 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v28 - v21;
-  __swift_storeEnumTagSinglePayload(&v28 - v21, 1, 1, v5);
-  v29 = a1;
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v12, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v12, 1, v13);
-  v31 = v13;
-  if (EnumTagSinglePayload == 1)
-  {
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v12, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  }
-
-  else
-  {
-    outlined init with take of ModalityXSessionMetadata();
-    outlined init with take of ModalityXSessionMetadata();
-    if (swift_getEnumCaseMultiPayload() == 2)
-    {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A11XAudioFrameVSgMd, &_s16ModalityXObjects0A11XAudioFrameVSgMR);
-      outlined init with take of ModalityXSessionMetadata();
-      outlined init with take of ModalityXSessionMetadata();
-      __swift_storeEnumTagSinglePayload(v22, 0, 1, v5);
-    }
-
-    else
-    {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-    }
-  }
-
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXAudioFrame and conformance ModalityXAudioFrame, type metadata accessor for ModalityXAudioFrame);
-  v23 = v33;
-  dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v23)
-  {
-    v24 = v22;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A11XAudioFrameVSgMd, &_s16ModalityXObjects0A11XAudioFrameVSgMR);
-  }
-
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v22, v20, &_s16ModalityXObjects0A11XAudioFrameVSgMd, &_s16ModalityXObjects0A11XAudioFrameVSgMR);
-  if (__swift_getEnumTagSinglePayload(v20, 1, v5) == 1)
-  {
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A11XAudioFrameVSgMd, &_s16ModalityXObjects0A11XAudioFrameVSgMR);
-    v24 = v20;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A11XAudioFrameVSgMd, &_s16ModalityXObjects0A11XAudioFrameVSgMR);
-  }
-
-  outlined init with take of ModalityXSessionMetadata();
-  if (EnumTagSinglePayload != 1)
-  {
-    dispatch thunk of Decoder.handleConflictingOneOf()();
-  }
-
-  v26 = v31;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A11XAudioFrameVSgMd, &_s16ModalityXObjects0A11XAudioFrameVSgMR);
-  v27 = v29;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v29, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  outlined init with take of ModalityXSessionMetadata();
-  swift_storeEnumTagMultiPayload();
-  return __swift_storeEnumTagSinglePayload(v27, 0, 1, v26);
-}
-
-uint64_t closure #4 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v34 = a3;
-  v35 = a4;
-  v36 = a2;
-  v5 = type metadata accessor for ModalityXSpeechProfile(0);
-  v6 = *(*(v5 - 8) + 64);
-  v7 = MEMORY[0x28223BE20](v5);
-  v32 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v28 - v11;
-  v13 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13);
-  MEMORY[0x28223BE20](v15);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A14XSpeechProfileVSgMd, &_s16ModalityXObjects0A14XSpeechProfileVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = MEMORY[0x28223BE20](v16 - 8);
-  v20 = &v28 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v28 - v21;
-  __swift_storeEnumTagSinglePayload(&v28 - v21, 1, 1, v5);
-  v29 = a1;
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v12, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v12, 1, v13);
-  v31 = v13;
-  if (EnumTagSinglePayload == 1)
-  {
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v12, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  }
-
-  else
-  {
-    outlined init with take of ModalityXSessionMetadata();
-    outlined init with take of ModalityXSessionMetadata();
-    if (swift_getEnumCaseMultiPayload() == 3)
-    {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A14XSpeechProfileVSgMd, &_s16ModalityXObjects0A14XSpeechProfileVSgMR);
-      outlined init with take of ModalityXSessionMetadata();
-      outlined init with take of ModalityXSessionMetadata();
-      __swift_storeEnumTagSinglePayload(v22, 0, 1, v5);
-    }
-
-    else
-    {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-    }
-  }
-
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfile and conformance ModalityXSpeechProfile, type metadata accessor for ModalityXSpeechProfile);
-  v23 = v33;
-  dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v23)
-  {
-    v24 = v22;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A14XSpeechProfileVSgMd, &_s16ModalityXObjects0A14XSpeechProfileVSgMR);
-  }
-
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v22, v20, &_s16ModalityXObjects0A14XSpeechProfileVSgMd, &_s16ModalityXObjects0A14XSpeechProfileVSgMR);
-  if (__swift_getEnumTagSinglePayload(v20, 1, v5) == 1)
-  {
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A14XSpeechProfileVSgMd, &_s16ModalityXObjects0A14XSpeechProfileVSgMR);
-    v24 = v20;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A14XSpeechProfileVSgMd, &_s16ModalityXObjects0A14XSpeechProfileVSgMR);
-  }
-
-  outlined init with take of ModalityXSessionMetadata();
-  if (EnumTagSinglePayload != 1)
-  {
-    dispatch thunk of Decoder.handleConflictingOneOf()();
-  }
-
-  v26 = v31;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A14XSpeechProfileVSgMd, &_s16ModalityXObjects0A14XSpeechProfileVSgMR);
-  v27 = v29;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v29, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  outlined init with take of ModalityXSessionMetadata();
-  swift_storeEnumTagMultiPayload();
-  return __swift_storeEnumTagSinglePayload(v27, 0, 1, v26);
-}
-
-uint64_t closure #5 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v34 = a3;
-  v35 = a4;
-  v36 = a2;
-  v5 = type metadata accessor for ModalityXCancelRequest(0);
-  v6 = *(*(v5 - 8) + 64);
-  v7 = MEMORY[0x28223BE20](v5);
-  v32 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v28 - v11;
-  v13 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13);
-  MEMORY[0x28223BE20](v15);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A14XCancelRequestVSgMd, &_s16ModalityXObjects0A14XCancelRequestVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = MEMORY[0x28223BE20](v16 - 8);
-  v20 = &v28 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v28 - v21;
-  __swift_storeEnumTagSinglePayload(&v28 - v21, 1, 1, v5);
-  v29 = a1;
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v12, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v12, 1, v13);
-  v31 = v13;
-  if (EnumTagSinglePayload == 1)
-  {
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v12, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  }
-
-  else
-  {
-    outlined init with take of ModalityXSessionMetadata();
-    outlined init with take of ModalityXSessionMetadata();
-    if (swift_getEnumCaseMultiPayload() == 4)
-    {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A14XCancelRequestVSgMd, &_s16ModalityXObjects0A14XCancelRequestVSgMR);
-      outlined init with take of ModalityXSessionMetadata();
-      outlined init with take of ModalityXSessionMetadata();
-      __swift_storeEnumTagSinglePayload(v22, 0, 1, v5);
-    }
-
-    else
-    {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-    }
-  }
-
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXCancelRequest and conformance ModalityXCancelRequest, type metadata accessor for ModalityXCancelRequest);
-  v23 = v33;
-  dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v23)
-  {
-    v24 = v22;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A14XCancelRequestVSgMd, &_s16ModalityXObjects0A14XCancelRequestVSgMR);
-  }
-
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v22, v20, &_s16ModalityXObjects0A14XCancelRequestVSgMd, &_s16ModalityXObjects0A14XCancelRequestVSgMR);
-  if (__swift_getEnumTagSinglePayload(v20, 1, v5) == 1)
-  {
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A14XCancelRequestVSgMd, &_s16ModalityXObjects0A14XCancelRequestVSgMR);
-    v24 = v20;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A14XCancelRequestVSgMd, &_s16ModalityXObjects0A14XCancelRequestVSgMR);
-  }
-
-  outlined init with take of ModalityXSessionMetadata();
-  if (EnumTagSinglePayload != 1)
-  {
-    dispatch thunk of Decoder.handleConflictingOneOf()();
-  }
-
-  v26 = v31;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A14XCancelRequestVSgMd, &_s16ModalityXObjects0A14XCancelRequestVSgMR);
-  v27 = v29;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v29, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  outlined init with take of ModalityXSessionMetadata();
-  swift_storeEnumTagMultiPayload();
-  return __swift_storeEnumTagSinglePayload(v27, 0, 1, v26);
-}
-
 uint64_t closure #6 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v34 = a3;
-  v35 = a4;
-  v36 = a2;
+  v37 = a3;
+  v38 = a4;
+  v39 = a2;
   v5 = type metadata accessor for ModalityXBeginDictation(0);
-  v6 = *(*(v5 - 8) + 64);
-  v7 = MEMORY[0x28223BE20](v5);
-  v32 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v28 - v11;
+  v6 = MEMORY[0x28223BE20](v5);
+  v35 = &v31 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v31 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v31 - v11;
   v13 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13);
-  MEMORY[0x28223BE20](v15);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A15XBeginDictationVSgMd, &_s16ModalityXObjects0A15XBeginDictationVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = MEMORY[0x28223BE20](v16 - 8);
-  v20 = &v28 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v28 - v21;
-  __swift_storeEnumTagSinglePayload(&v28 - v21, 1, 1, v5);
-  v29 = a1;
+  v14 = MEMORY[0x28223BE20](v13);
+  v16 = &v31 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = &v31 - v17;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A15XBeginDictationVSgMd, &_s16ModalityXObjects0A15XBeginDictationVSgMR);
+  v20 = MEMORY[0x28223BE20](v19 - 8);
+  v22 = &v31 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v20);
+  v24 = &v31 - v23;
+  __swift_storeEnumTagSinglePayload(&v31 - v23, 1, 1, v5);
+  v32 = a1;
   outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v12, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
   EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v12, 1, v13);
-  v31 = v13;
+  v34 = v13;
   if (EnumTagSinglePayload == 1)
   {
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v12, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
@@ -737,14 +33,14 @@ uint64_t closure #6 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(uint
 
   else
   {
-    outlined init with take of ModalityXSessionMetadata();
-    outlined init with take of ModalityXSessionMetadata();
+    outlined init with take of ModalityXSessionMetadata(v12);
+    outlined init with take of ModalityXSessionMetadata(v18);
     if (swift_getEnumCaseMultiPayload() == 5)
     {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A15XBeginDictationVSgMd, &_s16ModalityXObjects0A15XBeginDictationVSgMR);
-      outlined init with take of ModalityXSessionMetadata();
-      outlined init with take of ModalityXSessionMetadata();
-      __swift_storeEnumTagSinglePayload(v22, 0, 1, v5);
+      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A15XBeginDictationVSgMd, &_s16ModalityXObjects0A15XBeginDictationVSgMR);
+      outlined init with take of ModalityXSessionMetadata(v16);
+      outlined init with take of ModalityXSessionMetadata(v9);
+      __swift_storeEnumTagSinglePayload(v24, 0, 1, v5);
     }
 
     else
@@ -753,67 +49,67 @@ uint64_t closure #6 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(uint
     }
   }
 
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXBeginDictation and conformance ModalityXBeginDictation, type metadata accessor for ModalityXBeginDictation);
-  v23 = v33;
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXBeginDictation and conformance ModalityXBeginDictation, type metadata accessor for ModalityXBeginDictation, &protocol conformance descriptor for ModalityXBeginDictation);
+  v25 = v36;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v23)
+  if (v25)
   {
-    v24 = v22;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A15XBeginDictationVSgMd, &_s16ModalityXObjects0A15XBeginDictationVSgMR);
+    v26 = v24;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A15XBeginDictationVSgMd, &_s16ModalityXObjects0A15XBeginDictationVSgMR);
   }
 
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v22, v20, &_s16ModalityXObjects0A15XBeginDictationVSgMd, &_s16ModalityXObjects0A15XBeginDictationVSgMR);
-  if (__swift_getEnumTagSinglePayload(v20, 1, v5) == 1)
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v24, v22, &_s16ModalityXObjects0A15XBeginDictationVSgMd, &_s16ModalityXObjects0A15XBeginDictationVSgMR);
+  if (__swift_getEnumTagSinglePayload(v22, 1, v5) == 1)
   {
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A15XBeginDictationVSgMd, &_s16ModalityXObjects0A15XBeginDictationVSgMR);
-    v24 = v20;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A15XBeginDictationVSgMd, &_s16ModalityXObjects0A15XBeginDictationVSgMR);
+    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A15XBeginDictationVSgMd, &_s16ModalityXObjects0A15XBeginDictationVSgMR);
+    v26 = v22;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A15XBeginDictationVSgMd, &_s16ModalityXObjects0A15XBeginDictationVSgMR);
   }
 
-  outlined init with take of ModalityXSessionMetadata();
+  v28 = v35;
+  outlined init with take of ModalityXSessionMetadata(v22);
   if (EnumTagSinglePayload != 1)
   {
     dispatch thunk of Decoder.handleConflictingOneOf()();
   }
 
-  v26 = v31;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A15XBeginDictationVSgMd, &_s16ModalityXObjects0A15XBeginDictationVSgMR);
-  v27 = v29;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v29, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  outlined init with take of ModalityXSessionMetadata();
+  v29 = v34;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A15XBeginDictationVSgMd, &_s16ModalityXObjects0A15XBeginDictationVSgMR);
+  v30 = v32;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v32, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+  outlined init with take of ModalityXSessionMetadata(v28);
   swift_storeEnumTagMultiPayload();
-  return __swift_storeEnumTagSinglePayload(v27, 0, 1, v26);
+  return __swift_storeEnumTagSinglePayload(v30, 0, 1, v29);
 }
 
 uint64_t closure #7 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v34 = a3;
-  v35 = a4;
-  v36 = a2;
+  v37 = a3;
+  v38 = a4;
+  v39 = a2;
   v5 = type metadata accessor for ModalityXSpeechProfileBuildRequest(0);
-  v6 = *(*(v5 - 8) + 64);
-  v7 = MEMORY[0x28223BE20](v5);
-  v32 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v28 - v11;
+  v6 = MEMORY[0x28223BE20](v5);
+  v35 = &v31 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v31 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v31 - v11;
   v13 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13);
-  MEMORY[0x28223BE20](v15);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMd, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = MEMORY[0x28223BE20](v16 - 8);
-  v20 = &v28 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v28 - v21;
-  __swift_storeEnumTagSinglePayload(&v28 - v21, 1, 1, v5);
-  v29 = a1;
+  v14 = MEMORY[0x28223BE20](v13);
+  v16 = &v31 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = &v31 - v17;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMd, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMR);
+  v20 = MEMORY[0x28223BE20](v19 - 8);
+  v22 = &v31 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v20);
+  v24 = &v31 - v23;
+  __swift_storeEnumTagSinglePayload(&v31 - v23, 1, 1, v5);
+  v32 = a1;
   outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v12, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
   EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v12, 1, v13);
-  v31 = v13;
+  v34 = v13;
   if (EnumTagSinglePayload == 1)
   {
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v12, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
@@ -821,14 +117,14 @@ uint64_t closure #7 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(uint
 
   else
   {
-    outlined init with take of ModalityXSessionMetadata();
-    outlined init with take of ModalityXSessionMetadata();
+    outlined init with take of ModalityXSessionMetadata(v12);
+    outlined init with take of ModalityXSessionMetadata(v18);
     if (swift_getEnumCaseMultiPayload() == 6)
     {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMd, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMR);
-      outlined init with take of ModalityXSessionMetadata();
-      outlined init with take of ModalityXSessionMetadata();
-      __swift_storeEnumTagSinglePayload(v22, 0, 1, v5);
+      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMd, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMR);
+      outlined init with take of ModalityXSessionMetadata(v16);
+      outlined init with take of ModalityXSessionMetadata(v9);
+      __swift_storeEnumTagSinglePayload(v24, 0, 1, v5);
     }
 
     else
@@ -837,67 +133,67 @@ uint64_t closure #7 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(uint
     }
   }
 
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileBuildRequest and conformance ModalityXSpeechProfileBuildRequest, type metadata accessor for ModalityXSpeechProfileBuildRequest);
-  v23 = v33;
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileBuildRequest and conformance ModalityXSpeechProfileBuildRequest, type metadata accessor for ModalityXSpeechProfileBuildRequest, &protocol conformance descriptor for ModalityXSpeechProfileBuildRequest);
+  v25 = v36;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v23)
+  if (v25)
   {
-    v24 = v22;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMd, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMR);
+    v26 = v24;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMd, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMR);
   }
 
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v22, v20, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMd, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMR);
-  if (__swift_getEnumTagSinglePayload(v20, 1, v5) == 1)
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v24, v22, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMd, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMR);
+  if (__swift_getEnumTagSinglePayload(v22, 1, v5) == 1)
   {
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMd, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMR);
-    v24 = v20;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMd, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMR);
+    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMd, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMR);
+    v26 = v22;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMd, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMR);
   }
 
-  outlined init with take of ModalityXSessionMetadata();
+  v28 = v35;
+  outlined init with take of ModalityXSessionMetadata(v22);
   if (EnumTagSinglePayload != 1)
   {
     dispatch thunk of Decoder.handleConflictingOneOf()();
   }
 
-  v26 = v31;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMd, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMR);
-  v27 = v29;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v29, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  outlined init with take of ModalityXSessionMetadata();
+  v29 = v34;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMd, &_s16ModalityXObjects0A26XSpeechProfileBuildRequestVSgMR);
+  v30 = v32;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v32, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+  outlined init with take of ModalityXSessionMetadata(v28);
   swift_storeEnumTagMultiPayload();
-  return __swift_storeEnumTagSinglePayload(v27, 0, 1, v26);
+  return __swift_storeEnumTagSinglePayload(v30, 0, 1, v29);
 }
 
 uint64_t closure #8 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v34 = a3;
-  v35 = a4;
-  v36 = a2;
+  v37 = a3;
+  v38 = a4;
+  v39 = a2;
   v5 = type metadata accessor for ModalityXStreamingSpeechProfileBegin(0);
-  v6 = *(*(v5 - 8) + 64);
-  v7 = MEMORY[0x28223BE20](v5);
-  v32 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v28 - v11;
+  v6 = MEMORY[0x28223BE20](v5);
+  v35 = &v31 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v31 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v31 - v11;
   v13 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13);
-  MEMORY[0x28223BE20](v15);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMd, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = MEMORY[0x28223BE20](v16 - 8);
-  v20 = &v28 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v28 - v21;
-  __swift_storeEnumTagSinglePayload(&v28 - v21, 1, 1, v5);
-  v29 = a1;
+  v14 = MEMORY[0x28223BE20](v13);
+  v16 = &v31 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = &v31 - v17;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMd, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMR);
+  v20 = MEMORY[0x28223BE20](v19 - 8);
+  v22 = &v31 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v20);
+  v24 = &v31 - v23;
+  __swift_storeEnumTagSinglePayload(&v31 - v23, 1, 1, v5);
+  v32 = a1;
   outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v12, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
   EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v12, 1, v13);
-  v31 = v13;
+  v34 = v13;
   if (EnumTagSinglePayload == 1)
   {
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v12, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
@@ -905,14 +201,14 @@ uint64_t closure #8 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(uint
 
   else
   {
-    outlined init with take of ModalityXSessionMetadata();
-    outlined init with take of ModalityXSessionMetadata();
+    outlined init with take of ModalityXSessionMetadata(v12);
+    outlined init with take of ModalityXSessionMetadata(v18);
     if (swift_getEnumCaseMultiPayload() == 7)
     {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMd, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMR);
-      outlined init with take of ModalityXSessionMetadata();
-      outlined init with take of ModalityXSessionMetadata();
-      __swift_storeEnumTagSinglePayload(v22, 0, 1, v5);
+      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMd, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMR);
+      outlined init with take of ModalityXSessionMetadata(v16);
+      outlined init with take of ModalityXSessionMetadata(v9);
+      __swift_storeEnumTagSinglePayload(v24, 0, 1, v5);
     }
 
     else
@@ -921,67 +217,67 @@ uint64_t closure #8 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(uint
     }
   }
 
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileBegin and conformance ModalityXStreamingSpeechProfileBegin, type metadata accessor for ModalityXStreamingSpeechProfileBegin);
-  v23 = v33;
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileBegin and conformance ModalityXStreamingSpeechProfileBegin, type metadata accessor for ModalityXStreamingSpeechProfileBegin, &protocol conformance descriptor for ModalityXStreamingSpeechProfileBegin);
+  v25 = v36;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v23)
+  if (v25)
   {
-    v24 = v22;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMd, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMR);
+    v26 = v24;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMd, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMR);
   }
 
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v22, v20, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMd, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMR);
-  if (__swift_getEnumTagSinglePayload(v20, 1, v5) == 1)
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v24, v22, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMd, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMR);
+  if (__swift_getEnumTagSinglePayload(v22, 1, v5) == 1)
   {
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMd, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMR);
-    v24 = v20;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMd, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMR);
+    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMd, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMR);
+    v26 = v22;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMd, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMR);
   }
 
-  outlined init with take of ModalityXSessionMetadata();
+  v28 = v35;
+  outlined init with take of ModalityXSessionMetadata(v22);
   if (EnumTagSinglePayload != 1)
   {
     dispatch thunk of Decoder.handleConflictingOneOf()();
   }
 
-  v26 = v31;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMd, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMR);
-  v27 = v29;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v29, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  outlined init with take of ModalityXSessionMetadata();
+  v29 = v34;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMd, &_s16ModalityXObjects0A28XStreamingSpeechProfileBeginVSgMR);
+  v30 = v32;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v32, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+  outlined init with take of ModalityXSessionMetadata(v28);
   swift_storeEnumTagMultiPayload();
-  return __swift_storeEnumTagSinglePayload(v27, 0, 1, v26);
+  return __swift_storeEnumTagSinglePayload(v30, 0, 1, v29);
 }
 
 uint64_t closure #9 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v34 = a3;
-  v35 = a4;
-  v36 = a2;
+  v37 = a3;
+  v38 = a4;
+  v39 = a2;
   v5 = type metadata accessor for ModalityXStreamingSpeechProfileAddData(0);
-  v6 = *(*(v5 - 8) + 64);
-  v7 = MEMORY[0x28223BE20](v5);
-  v32 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v28 - v11;
+  v6 = MEMORY[0x28223BE20](v5);
+  v35 = &v31 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v31 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v31 - v11;
   v13 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13);
-  MEMORY[0x28223BE20](v15);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMd, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = MEMORY[0x28223BE20](v16 - 8);
-  v20 = &v28 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v28 - v21;
-  __swift_storeEnumTagSinglePayload(&v28 - v21, 1, 1, v5);
-  v29 = a1;
+  v14 = MEMORY[0x28223BE20](v13);
+  v16 = &v31 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = &v31 - v17;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMd, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMR);
+  v20 = MEMORY[0x28223BE20](v19 - 8);
+  v22 = &v31 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v20);
+  v24 = &v31 - v23;
+  __swift_storeEnumTagSinglePayload(&v31 - v23, 1, 1, v5);
+  v32 = a1;
   outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v12, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
   EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v12, 1, v13);
-  v31 = v13;
+  v34 = v13;
   if (EnumTagSinglePayload == 1)
   {
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v12, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
@@ -989,14 +285,14 @@ uint64_t closure #9 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(uint
 
   else
   {
-    outlined init with take of ModalityXSessionMetadata();
-    outlined init with take of ModalityXSessionMetadata();
+    outlined init with take of ModalityXSessionMetadata(v12);
+    outlined init with take of ModalityXSessionMetadata(v18);
     if (swift_getEnumCaseMultiPayload() == 8)
     {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMd, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMR);
-      outlined init with take of ModalityXSessionMetadata();
-      outlined init with take of ModalityXSessionMetadata();
-      __swift_storeEnumTagSinglePayload(v22, 0, 1, v5);
+      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMd, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMR);
+      outlined init with take of ModalityXSessionMetadata(v16);
+      outlined init with take of ModalityXSessionMetadata(v9);
+      __swift_storeEnumTagSinglePayload(v24, 0, 1, v5);
     }
 
     else
@@ -1005,67 +301,67 @@ uint64_t closure #9 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(uint
     }
   }
 
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileAddData and conformance ModalityXStreamingSpeechProfileAddData, type metadata accessor for ModalityXStreamingSpeechProfileAddData);
-  v23 = v33;
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileAddData and conformance ModalityXStreamingSpeechProfileAddData, type metadata accessor for ModalityXStreamingSpeechProfileAddData, &protocol conformance descriptor for ModalityXStreamingSpeechProfileAddData);
+  v25 = v36;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v23)
+  if (v25)
   {
-    v24 = v22;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMd, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMR);
+    v26 = v24;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMd, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMR);
   }
 
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v22, v20, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMd, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMR);
-  if (__swift_getEnumTagSinglePayload(v20, 1, v5) == 1)
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v24, v22, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMd, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMR);
+  if (__swift_getEnumTagSinglePayload(v22, 1, v5) == 1)
   {
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMd, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMR);
-    v24 = v20;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMd, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMR);
+    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMd, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMR);
+    v26 = v22;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMd, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMR);
   }
 
-  outlined init with take of ModalityXSessionMetadata();
+  v28 = v35;
+  outlined init with take of ModalityXSessionMetadata(v22);
   if (EnumTagSinglePayload != 1)
   {
     dispatch thunk of Decoder.handleConflictingOneOf()();
   }
 
-  v26 = v31;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMd, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMR);
-  v27 = v29;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v29, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  outlined init with take of ModalityXSessionMetadata();
+  v29 = v34;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMd, &_s16ModalityXObjects0A30XStreamingSpeechProfileAddDataVSgMR);
+  v30 = v32;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v32, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+  outlined init with take of ModalityXSessionMetadata(v28);
   swift_storeEnumTagMultiPayload();
-  return __swift_storeEnumTagSinglePayload(v27, 0, 1, v26);
+  return __swift_storeEnumTagSinglePayload(v30, 0, 1, v29);
 }
 
 uint64_t closure #10 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v34 = a3;
-  v35 = a4;
-  v36 = a2;
+  v37 = a3;
+  v38 = a4;
+  v39 = a2;
   v5 = type metadata accessor for ModalityXStreamingSpeechProfileCommit(0);
-  v6 = *(*(v5 - 8) + 64);
-  v7 = MEMORY[0x28223BE20](v5);
-  v32 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v28 - v11;
+  v6 = MEMORY[0x28223BE20](v5);
+  v35 = &v31 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v31 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v31 - v11;
   v13 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13);
-  MEMORY[0x28223BE20](v15);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMd, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = MEMORY[0x28223BE20](v16 - 8);
-  v20 = &v28 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v28 - v21;
-  __swift_storeEnumTagSinglePayload(&v28 - v21, 1, 1, v5);
-  v29 = a1;
+  v14 = MEMORY[0x28223BE20](v13);
+  v16 = &v31 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = &v31 - v17;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMd, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMR);
+  v20 = MEMORY[0x28223BE20](v19 - 8);
+  v22 = &v31 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v20);
+  v24 = &v31 - v23;
+  __swift_storeEnumTagSinglePayload(&v31 - v23, 1, 1, v5);
+  v32 = a1;
   outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v12, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
   EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v12, 1, v13);
-  v31 = v13;
+  v34 = v13;
   if (EnumTagSinglePayload == 1)
   {
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v12, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
@@ -1073,14 +369,14 @@ uint64_t closure #10 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(uin
 
   else
   {
-    outlined init with take of ModalityXSessionMetadata();
-    outlined init with take of ModalityXSessionMetadata();
+    outlined init with take of ModalityXSessionMetadata(v12);
+    outlined init with take of ModalityXSessionMetadata(v18);
     if (swift_getEnumCaseMultiPayload() == 9)
     {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMd, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMR);
-      outlined init with take of ModalityXSessionMetadata();
-      outlined init with take of ModalityXSessionMetadata();
-      __swift_storeEnumTagSinglePayload(v22, 0, 1, v5);
+      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMd, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMR);
+      outlined init with take of ModalityXSessionMetadata(v16);
+      outlined init with take of ModalityXSessionMetadata(v9);
+      __swift_storeEnumTagSinglePayload(v24, 0, 1, v5);
     }
 
     else
@@ -1089,36 +385,37 @@ uint64_t closure #10 in ModalityXServerBoundFrame.decodeMessage<A>(decoder:)(uin
     }
   }
 
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileCommit and conformance ModalityXStreamingSpeechProfileCommit, type metadata accessor for ModalityXStreamingSpeechProfileCommit);
-  v23 = v33;
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileCommit and conformance ModalityXStreamingSpeechProfileCommit, type metadata accessor for ModalityXStreamingSpeechProfileCommit, &protocol conformance descriptor for ModalityXStreamingSpeechProfileCommit);
+  v25 = v36;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v23)
+  if (v25)
   {
-    v24 = v22;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMd, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMR);
+    v26 = v24;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMd, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMR);
   }
 
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v22, v20, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMd, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMR);
-  if (__swift_getEnumTagSinglePayload(v20, 1, v5) == 1)
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v24, v22, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMd, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMR);
+  if (__swift_getEnumTagSinglePayload(v22, 1, v5) == 1)
   {
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMd, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMR);
-    v24 = v20;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMd, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMR);
+    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMd, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMR);
+    v26 = v22;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMd, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMR);
   }
 
-  outlined init with take of ModalityXSessionMetadata();
+  v28 = v35;
+  outlined init with take of ModalityXSessionMetadata(v22);
   if (EnumTagSinglePayload != 1)
   {
     dispatch thunk of Decoder.handleConflictingOneOf()();
   }
 
-  v26 = v31;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMd, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMR);
-  v27 = v29;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v29, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  outlined init with take of ModalityXSessionMetadata();
+  v29 = v34;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMd, &_s16ModalityXObjects0A29XStreamingSpeechProfileCommitVSgMR);
+  v30 = v32;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v32, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+  outlined init with take of ModalityXSessionMetadata(v28);
   swift_storeEnumTagMultiPayload();
-  return __swift_storeEnumTagSinglePayload(v27, 0, 1, v26);
+  return __swift_storeEnumTagSinglePayload(v30, 0, 1, v29);
 }
 
 uint64_t ModalityXServerBoundFrame.traverse<A>(visitor:)()
@@ -1126,55 +423,54 @@ uint64_t ModalityXServerBoundFrame.traverse<A>(visitor:)()
   OUTLINED_FUNCTION_182();
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
   OUTLINED_FUNCTION_122(v1);
-  v3 = *(v2 + 64);
   OUTLINED_FUNCTION_133();
-  MEMORY[0x28223BE20](v4);
+  MEMORY[0x28223BE20](v2);
   OUTLINED_FUNCTION_188();
   OUTLINED_FUNCTION_289();
   OUTLINED_FUNCTION_196();
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v5, v6, v7, v8);
-  v9 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
-  OUTLINED_FUNCTION_290(v9);
-  if (!v10)
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v3, v4, v5, v6);
+  v7 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
+  OUTLINED_FUNCTION_290(v7);
+  if (!v8)
   {
     OUTLINED_FUNCTION_153();
     switch(swift_getEnumCaseMultiPayload())
     {
       case 1u:
-        v35 = OUTLINED_FUNCTION_28();
-        closure #2 in ModalityXServerBoundFrame.traverse<A>(visitor:)(v35, v36, v37, v38);
+        v33 = OUTLINED_FUNCTION_28();
+        closure #2 in ModalityXServerBoundFrame.traverse<A>(visitor:)(v33, v34, v35, v36);
         goto LABEL_12;
       case 2u:
-        v23 = OUTLINED_FUNCTION_28();
-        closure #3 in ModalityXServerBoundFrame.traverse<A>(visitor:)(v23, v24, v25, v26);
+        v21 = OUTLINED_FUNCTION_28();
+        closure #3 in ModalityXServerBoundFrame.traverse<A>(visitor:)(v21, v22, v23, v24);
         goto LABEL_12;
       case 3u:
-        v27 = OUTLINED_FUNCTION_28();
-        closure #4 in ModalityXServerBoundFrame.traverse<A>(visitor:)(v27, v28, v29, v30);
+        v25 = OUTLINED_FUNCTION_28();
+        closure #4 in ModalityXServerBoundFrame.traverse<A>(visitor:)(v25, v26, v27, v28);
         goto LABEL_12;
       case 4u:
-        v15 = OUTLINED_FUNCTION_28();
-        closure #5 in ModalityXServerBoundFrame.traverse<A>(visitor:)(v15, v16, v17, v18);
+        v13 = OUTLINED_FUNCTION_28();
+        closure #5 in ModalityXServerBoundFrame.traverse<A>(visitor:)(v13, v14, v15, v16);
         goto LABEL_12;
       case 5u:
-        v39 = OUTLINED_FUNCTION_28();
-        closure #6 in ModalityXServerBoundFrame.traverse<A>(visitor:)(v39, v40, v41, v42);
+        v37 = OUTLINED_FUNCTION_28();
+        closure #6 in ModalityXServerBoundFrame.traverse<A>(visitor:)(v37, v38, v39, v40);
         goto LABEL_12;
       case 6u:
-        v43 = OUTLINED_FUNCTION_28();
-        closure #7 in ModalityXServerBoundFrame.traverse<A>(visitor:)(v43, v44, v45, v46);
+        v41 = OUTLINED_FUNCTION_28();
+        closure #7 in ModalityXServerBoundFrame.traverse<A>(visitor:)(v41, v42, v43, v44);
         goto LABEL_12;
       case 7u:
-        v31 = OUTLINED_FUNCTION_28();
-        closure #8 in ModalityXServerBoundFrame.traverse<A>(visitor:)(v31, v32, v33, v34);
+        v29 = OUTLINED_FUNCTION_28();
+        closure #8 in ModalityXServerBoundFrame.traverse<A>(visitor:)(v29, v30, v31, v32);
         goto LABEL_12;
       case 8u:
-        v49 = OUTLINED_FUNCTION_28();
-        closure #9 in ModalityXServerBoundFrame.traverse<A>(visitor:)(v49, v50, v51, v52);
+        v46 = OUTLINED_FUNCTION_28();
+        closure #9 in ModalityXServerBoundFrame.traverse<A>(visitor:)(v46, v47, v48, v49);
         goto LABEL_16;
       case 9u:
-        v19 = OUTLINED_FUNCTION_28();
-        closure #10 in ModalityXServerBoundFrame.traverse<A>(visitor:)(v19, v20, v21, v22);
+        v17 = OUTLINED_FUNCTION_28();
+        closure #10 in ModalityXServerBoundFrame.traverse<A>(visitor:)(v17, v18, v19, v20);
 LABEL_16:
         if (v0)
         {
@@ -1186,8 +482,8 @@ LABEL_16:
         outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
         break;
       default:
-        v11 = OUTLINED_FUNCTION_28();
-        closure #1 in ModalityXServerBoundFrame.traverse<A>(visitor:)(v11, v12, v13, v14);
+        v9 = OUTLINED_FUNCTION_28();
+        closure #1 in ModalityXServerBoundFrame.traverse<A>(visitor:)(v9, v10, v11, v12);
 LABEL_12:
         OUTLINED_FUNCTION_4_0();
         result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
@@ -1200,35 +496,33 @@ LABEL_12:
     }
   }
 
-  v48 = type metadata accessor for ModalityXServerBoundFrame(0);
-  OUTLINED_FUNCTION_336(v48);
+  type metadata accessor for ModalityXServerBoundFrame(0);
+  OUTLINED_FUNCTION_336();
   OUTLINED_FUNCTION_125();
   return UnknownStorage.traverse<A>(visitor:)();
 }
 
 uint64_t closure #1 in ModalityXServerBoundFrame.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = a4;
+  v11[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v13 - v7;
-  v9 = type metadata accessor for ModalityXSessionMetadata(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v8, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v11 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
-  if (__swift_getEnumTagSinglePayload(v8, 1, v11) == 1)
+  v7 = v11 - v6;
+  v8 = type metadata accessor for ModalityXSessionMetadata(0);
+  MEMORY[0x28223BE20](v8);
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v7, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+  v9 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v9) == 1)
   {
-    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v7, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
   }
 
   else
   {
     if (!swift_getEnumCaseMultiPayload())
     {
-      outlined init with take of ModalityXSessionMetadata();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSessionMetadata and conformance ModalityXSessionMetadata, type metadata accessor for ModalityXSessionMetadata);
+      outlined init with take of ModalityXSessionMetadata(v7);
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSessionMetadata and conformance ModalityXSessionMetadata, type metadata accessor for ModalityXSessionMetadata, &protocol conformance descriptor for ModalityXSessionMetadata);
       dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
       return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     }
@@ -1242,27 +536,25 @@ uint64_t closure #1 in ModalityXServerBoundFrame.traverse<A>(visitor:)(uint64_t 
 
 uint64_t closure #2 in ModalityXServerBoundFrame.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = a4;
+  v11[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v13 - v7;
-  v9 = type metadata accessor for ModalityXBeginRequest(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v8, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v11 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
-  if (__swift_getEnumTagSinglePayload(v8, 1, v11) == 1)
+  v7 = v11 - v6;
+  v8 = type metadata accessor for ModalityXBeginRequest(0);
+  MEMORY[0x28223BE20](v8);
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v7, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+  v9 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v9) == 1)
   {
-    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v7, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      outlined init with take of ModalityXSessionMetadata();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXBeginRequest and conformance ModalityXBeginRequest, type metadata accessor for ModalityXBeginRequest);
+      outlined init with take of ModalityXSessionMetadata(v7);
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXBeginRequest and conformance ModalityXBeginRequest, type metadata accessor for ModalityXBeginRequest, &protocol conformance descriptor for ModalityXBeginRequest);
       dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
       return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     }
@@ -1276,27 +568,25 @@ uint64_t closure #2 in ModalityXServerBoundFrame.traverse<A>(visitor:)(uint64_t 
 
 uint64_t closure #3 in ModalityXServerBoundFrame.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = a4;
+  v11[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v13 - v7;
-  v9 = type metadata accessor for ModalityXAudioFrame(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v8, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v11 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
-  if (__swift_getEnumTagSinglePayload(v8, 1, v11) == 1)
+  v7 = v11 - v6;
+  v8 = type metadata accessor for ModalityXAudioFrame(0);
+  MEMORY[0x28223BE20](v8);
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v7, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+  v9 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v9) == 1)
   {
-    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v7, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 2)
     {
-      outlined init with take of ModalityXSessionMetadata();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXAudioFrame and conformance ModalityXAudioFrame, type metadata accessor for ModalityXAudioFrame);
+      outlined init with take of ModalityXSessionMetadata(v7);
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXAudioFrame and conformance ModalityXAudioFrame, type metadata accessor for ModalityXAudioFrame, &protocol conformance descriptor for ModalityXAudioFrame);
       dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
       return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     }
@@ -1310,27 +600,25 @@ uint64_t closure #3 in ModalityXServerBoundFrame.traverse<A>(visitor:)(uint64_t 
 
 uint64_t closure #4 in ModalityXServerBoundFrame.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = a4;
+  v11[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v13 - v7;
-  v9 = type metadata accessor for ModalityXSpeechProfile(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v8, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v11 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
-  if (__swift_getEnumTagSinglePayload(v8, 1, v11) == 1)
+  v7 = v11 - v6;
+  v8 = type metadata accessor for ModalityXSpeechProfile(0);
+  MEMORY[0x28223BE20](v8);
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v7, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+  v9 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v9) == 1)
   {
-    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v7, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 3)
     {
-      outlined init with take of ModalityXSessionMetadata();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfile and conformance ModalityXSpeechProfile, type metadata accessor for ModalityXSpeechProfile);
+      outlined init with take of ModalityXSessionMetadata(v7);
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfile and conformance ModalityXSpeechProfile, type metadata accessor for ModalityXSpeechProfile, &protocol conformance descriptor for ModalityXSpeechProfile);
       dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
       return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     }
@@ -1344,27 +632,25 @@ uint64_t closure #4 in ModalityXServerBoundFrame.traverse<A>(visitor:)(uint64_t 
 
 uint64_t closure #5 in ModalityXServerBoundFrame.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = a4;
+  v11[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v13 - v7;
-  v9 = type metadata accessor for ModalityXCancelRequest(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v8, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v11 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
-  if (__swift_getEnumTagSinglePayload(v8, 1, v11) == 1)
+  v7 = v11 - v6;
+  v8 = type metadata accessor for ModalityXCancelRequest(0);
+  MEMORY[0x28223BE20](v8);
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v7, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+  v9 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v9) == 1)
   {
-    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v7, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 4)
     {
-      outlined init with take of ModalityXSessionMetadata();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXCancelRequest and conformance ModalityXCancelRequest, type metadata accessor for ModalityXCancelRequest);
+      outlined init with take of ModalityXSessionMetadata(v7);
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXCancelRequest and conformance ModalityXCancelRequest, type metadata accessor for ModalityXCancelRequest, &protocol conformance descriptor for ModalityXCancelRequest);
       dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
       return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     }
@@ -1378,27 +664,25 @@ uint64_t closure #5 in ModalityXServerBoundFrame.traverse<A>(visitor:)(uint64_t 
 
 uint64_t closure #6 in ModalityXServerBoundFrame.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = a4;
+  v11[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v13 - v7;
-  v9 = type metadata accessor for ModalityXBeginDictation(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v8, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v11 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
-  if (__swift_getEnumTagSinglePayload(v8, 1, v11) == 1)
+  v7 = v11 - v6;
+  v8 = type metadata accessor for ModalityXBeginDictation(0);
+  MEMORY[0x28223BE20](v8);
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v7, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+  v9 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v9) == 1)
   {
-    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v7, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 5)
     {
-      outlined init with take of ModalityXSessionMetadata();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXBeginDictation and conformance ModalityXBeginDictation, type metadata accessor for ModalityXBeginDictation);
+      outlined init with take of ModalityXSessionMetadata(v7);
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXBeginDictation and conformance ModalityXBeginDictation, type metadata accessor for ModalityXBeginDictation, &protocol conformance descriptor for ModalityXBeginDictation);
       dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
       return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     }
@@ -1412,27 +696,25 @@ uint64_t closure #6 in ModalityXServerBoundFrame.traverse<A>(visitor:)(uint64_t 
 
 uint64_t closure #7 in ModalityXServerBoundFrame.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = a4;
+  v11[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v13 - v7;
-  v9 = type metadata accessor for ModalityXSpeechProfileBuildRequest(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v8, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v11 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
-  if (__swift_getEnumTagSinglePayload(v8, 1, v11) == 1)
+  v7 = v11 - v6;
+  v8 = type metadata accessor for ModalityXSpeechProfileBuildRequest(0);
+  MEMORY[0x28223BE20](v8);
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v7, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+  v9 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v9) == 1)
   {
-    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v7, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 6)
     {
-      outlined init with take of ModalityXSessionMetadata();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileBuildRequest and conformance ModalityXSpeechProfileBuildRequest, type metadata accessor for ModalityXSpeechProfileBuildRequest);
+      outlined init with take of ModalityXSessionMetadata(v7);
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileBuildRequest and conformance ModalityXSpeechProfileBuildRequest, type metadata accessor for ModalityXSpeechProfileBuildRequest, &protocol conformance descriptor for ModalityXSpeechProfileBuildRequest);
       dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
       return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     }
@@ -1446,27 +728,25 @@ uint64_t closure #7 in ModalityXServerBoundFrame.traverse<A>(visitor:)(uint64_t 
 
 uint64_t closure #8 in ModalityXServerBoundFrame.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = a4;
+  v11[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v13 - v7;
-  v9 = type metadata accessor for ModalityXStreamingSpeechProfileBegin(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v8, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v11 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
-  if (__swift_getEnumTagSinglePayload(v8, 1, v11) == 1)
+  v7 = v11 - v6;
+  v8 = type metadata accessor for ModalityXStreamingSpeechProfileBegin(0);
+  MEMORY[0x28223BE20](v8);
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v7, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+  v9 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v9) == 1)
   {
-    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v7, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 7)
     {
-      outlined init with take of ModalityXSessionMetadata();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileBegin and conformance ModalityXStreamingSpeechProfileBegin, type metadata accessor for ModalityXStreamingSpeechProfileBegin);
+      outlined init with take of ModalityXSessionMetadata(v7);
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileBegin and conformance ModalityXStreamingSpeechProfileBegin, type metadata accessor for ModalityXStreamingSpeechProfileBegin, &protocol conformance descriptor for ModalityXStreamingSpeechProfileBegin);
       dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
       return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     }
@@ -1480,27 +760,25 @@ uint64_t closure #8 in ModalityXServerBoundFrame.traverse<A>(visitor:)(uint64_t 
 
 uint64_t closure #9 in ModalityXServerBoundFrame.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = a4;
+  v11[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v13 - v7;
-  v9 = type metadata accessor for ModalityXStreamingSpeechProfileAddData(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v8, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v11 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
-  if (__swift_getEnumTagSinglePayload(v8, 1, v11) == 1)
+  v7 = v11 - v6;
+  v8 = type metadata accessor for ModalityXStreamingSpeechProfileAddData(0);
+  MEMORY[0x28223BE20](v8);
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v7, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+  v9 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v9) == 1)
   {
-    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v7, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 8)
     {
-      outlined init with take of ModalityXSessionMetadata();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileAddData and conformance ModalityXStreamingSpeechProfileAddData, type metadata accessor for ModalityXStreamingSpeechProfileAddData);
+      outlined init with take of ModalityXSessionMetadata(v7);
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileAddData and conformance ModalityXStreamingSpeechProfileAddData, type metadata accessor for ModalityXStreamingSpeechProfileAddData, &protocol conformance descriptor for ModalityXStreamingSpeechProfileAddData);
       dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
       return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     }
@@ -1514,27 +792,25 @@ uint64_t closure #9 in ModalityXServerBoundFrame.traverse<A>(visitor:)(uint64_t 
 
 uint64_t closure #10 in ModalityXServerBoundFrame.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = a4;
+  v11[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v13 - v7;
-  v9 = type metadata accessor for ModalityXStreamingSpeechProfileCommit(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v8, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  v11 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
-  if (__swift_getEnumTagSinglePayload(v8, 1, v11) == 1)
+  v7 = v11 - v6;
+  v8 = type metadata accessor for ModalityXStreamingSpeechProfileCommit(0);
+  MEMORY[0x28223BE20](v8);
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v7, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+  v9 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(0);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v9) == 1)
   {
-    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v7, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 9)
     {
-      outlined init with take of ModalityXSessionMetadata();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileCommit and conformance ModalityXStreamingSpeechProfileCommit, type metadata accessor for ModalityXStreamingSpeechProfileCommit);
+      outlined init with take of ModalityXSessionMetadata(v7);
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileCommit and conformance ModalityXStreamingSpeechProfileCommit, type metadata accessor for ModalityXStreamingSpeechProfileCommit, &protocol conformance descriptor for ModalityXStreamingSpeechProfileCommit);
       dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
       return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     }
@@ -1546,80 +822,77 @@ uint64_t closure #10 in ModalityXServerBoundFrame.traverse<A>(visitor:)(uint64_t
   return result;
 }
 
-void static ModalityXServerBoundFrame.== infix(_:_:)()
+void static ModalityXServerBoundFrame.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_248();
-  v3 = OUTLINED_FUNCTION_87();
-  v4 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(v3);
-  v5 = OUTLINED_FUNCTION_54(v4);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
+  v5 = OUTLINED_FUNCTION_87();
+  v6 = type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(v5);
+  OUTLINED_FUNCTION_54();
+  MEMORY[0x28223BE20](v7);
   OUTLINED_FUNCTION_64();
   OUTLINED_FUNCTION_316();
   v8 = OUTLINED_FUNCTION_153();
   v10 = __swift_instantiateConcreteTypeFromMangledNameV2(v8, v9);
   OUTLINED_FUNCTION_122(v10);
-  v12 = *(v11 + 64);
+  OUTLINED_FUNCTION_133();
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_110();
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSg_AFtMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSg_AFtMR);
+  OUTLINED_FUNCTION_122(v12);
   OUTLINED_FUNCTION_133();
   MEMORY[0x28223BE20](v13);
-  OUTLINED_FUNCTION_110();
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSg_AFtMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSg_AFtMR);
-  OUTLINED_FUNCTION_122(v14);
-  v16 = *(v15 + 64);
-  OUTLINED_FUNCTION_133();
-  MEMORY[0x28223BE20](v17);
   OUTLINED_FUNCTION_205();
-  v19 = *(v18 + 56);
-  OUTLINED_FUNCTION_151(v1);
-  OUTLINED_FUNCTION_283(v0, v2 + v19);
-  OUTLINED_FUNCTION_139(v2, 1, v4);
-  if (v24)
+  v15 = *(v14 + 56);
+  OUTLINED_FUNCTION_151(v3);
+  OUTLINED_FUNCTION_283(v2, v4 + v15);
+  OUTLINED_FUNCTION_139(v4, 1, v6);
+  if (v20)
   {
-    OUTLINED_FUNCTION_139(v2 + v19, 1, v4);
-    if (v24)
+    OUTLINED_FUNCTION_139(v4 + v15, 1, v6);
+    if (v20)
     {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v2, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v4, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
 LABEL_12:
-      v28 = *(type metadata accessor for ModalityXServerBoundFrame(0) + 20);
+      type metadata accessor for ModalityXServerBoundFrame(0);
       type metadata accessor for UnknownStorage();
       OUTLINED_FUNCTION_0_0();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(v29, v30);
-      v25 = OUTLINED_FUNCTION_178();
+      v28 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(v26, v27, MEMORY[0x277D216D0]);
+      v21 = OUTLINED_FUNCTION_178(v28);
       goto LABEL_13;
     }
 
     goto LABEL_9;
   }
 
-  v20 = OUTLINED_FUNCTION_140();
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v20, v21, v22, v23);
-  OUTLINED_FUNCTION_139(v2 + v19, 1, v4);
-  if (v24)
+  v16 = OUTLINED_FUNCTION_140();
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v16, v17, v18, v19);
+  OUTLINED_FUNCTION_139(v4 + v15, 1, v6);
+  if (v20)
   {
     OUTLINED_FUNCTION_4_0();
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
 LABEL_9:
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v2, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSg_AFtMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSg_AFtMR);
+    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v4, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSg_AFtMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSg_AFtMR);
     goto LABEL_10;
   }
 
-  outlined init with take of ModalityXSessionMetadata();
-  OUTLINED_FUNCTION_287();
-  static ModalityXServerBoundFrame.OneOf_Payload.== infix(_:_:)();
-  v27 = v26;
+  outlined init with take of ModalityXSessionMetadata(v4 + v15);
+  v22 = OUTLINED_FUNCTION_287();
+  static ModalityXServerBoundFrame.OneOf_Payload.== infix(_:_:)(v22, v23);
+  v25 = v24;
   outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
   OUTLINED_FUNCTION_315();
   outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v2, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
-  if (v27)
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v4, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XServerBoundFrameV13OneOf_PayloadOSgMR);
+  if (v25)
   {
     goto LABEL_12;
   }
 
 LABEL_10:
-  v25 = 0;
+  v21 = 0;
 LABEL_13:
-  OUTLINED_FUNCTION_284(v25);
+  OUTLINED_FUNCTION_284(v21);
   OUTLINED_FUNCTION_247();
 }
 
@@ -1630,39 +903,32 @@ Swift::Int ModalityXServerBoundFrame.hashValue.getter()
 
 {
   OUTLINED_FUNCTION_307();
-  v1 = v0;
+  v2 = v1;
   Hasher.init(_seed:)();
-  v1(0);
-  v2 = OUTLINED_FUNCTION_136();
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(v2, v3);
+  v2(0);
+  v3 = OUTLINED_FUNCTION_136();
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(v3, v4, v0);
   dispatch thunk of Hashable.hash(into:)();
   return Hasher._finalize()();
 }
 
-uint64_t (*protocol witness for Message.unknownFields.modify in conformance ModalityXServerBoundFrame(uint64_t a1, uint64_t a2))()
-{
-  result = destructiveProjectEnumData for ModalityXUserInterfaceIdiom;
-  v4 = v2 + *(a2 + 20);
-  return result;
-}
-
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance ModalityXServerBoundFrame(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXServerBoundFrame and conformance ModalityXServerBoundFrame, type metadata accessor for ModalityXServerBoundFrame);
+  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXServerBoundFrame and conformance ModalityXServerBoundFrame, type metadata accessor for ModalityXServerBoundFrame, &protocol conformance descriptor for ModalityXServerBoundFrame);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ModalityXServerBoundFrame(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXServerBoundFrame and conformance ModalityXServerBoundFrame, type metadata accessor for ModalityXServerBoundFrame);
+  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXServerBoundFrame and conformance ModalityXServerBoundFrame, type metadata accessor for ModalityXServerBoundFrame, &protocol conformance descriptor for ModalityXServerBoundFrame);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXServerBoundFrame()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXServerBoundFrame(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXServerBoundFrame and conformance ModalityXServerBoundFrame, type metadata accessor for ModalityXServerBoundFrame);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXServerBoundFrame and conformance ModalityXServerBoundFrame, type metadata accessor for ModalityXServerBoundFrame, &protocol conformance descriptor for ModalityXServerBoundFrame);
 
   return Message.hash(into:)();
 }
@@ -1713,33 +979,32 @@ uint64_t ModalityXClientBoundFrame.decodeMessage<A>(decoder:)()
 
 uint64_t closure #1 in ModalityXClientBoundFrame.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v34 = a3;
-  v35 = a4;
-  v36 = a2;
+  v37 = a3;
+  v38 = a4;
+  v39 = a2;
   v5 = type metadata accessor for ModalityXRequestComplete(0);
-  v6 = *(*(v5 - 8) + 64);
-  v7 = MEMORY[0x28223BE20](v5);
-  v32 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v28 - v11;
+  v6 = MEMORY[0x28223BE20](v5);
+  v35 = &v31 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v31 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v31 - v11;
   v13 = type metadata accessor for ModalityXClientBoundFrame.OneOf_Payload(0);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13);
-  MEMORY[0x28223BE20](v15);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A16XRequestCompleteVSgMd, &_s16ModalityXObjects0A16XRequestCompleteVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = MEMORY[0x28223BE20](v16 - 8);
-  v20 = &v28 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v28 - v21;
-  __swift_storeEnumTagSinglePayload(&v28 - v21, 1, 1, v5);
-  v29 = a1;
+  v14 = MEMORY[0x28223BE20](v13);
+  v16 = &v31 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = &v31 - v17;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A16XRequestCompleteVSgMd, &_s16ModalityXObjects0A16XRequestCompleteVSgMR);
+  v20 = MEMORY[0x28223BE20](v19 - 8);
+  v22 = &v31 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v20);
+  v24 = &v31 - v23;
+  __swift_storeEnumTagSinglePayload(&v31 - v23, 1, 1, v5);
+  v32 = a1;
   outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v12, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
   EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v12, 1, v13);
-  v31 = v13;
+  v34 = v13;
   if (EnumTagSinglePayload == 1)
   {
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v12, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
@@ -1747,8 +1012,8 @@ uint64_t closure #1 in ModalityXClientBoundFrame.decodeMessage<A>(decoder:)(uint
 
   else
   {
-    outlined init with take of ModalityXSessionMetadata();
-    outlined init with take of ModalityXSessionMetadata();
+    outlined init with take of ModalityXSessionMetadata(v12);
+    outlined init with take of ModalityXSessionMetadata(v18);
     if (swift_getEnumCaseMultiPayload())
     {
       outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
@@ -1756,74 +1021,74 @@ uint64_t closure #1 in ModalityXClientBoundFrame.decodeMessage<A>(decoder:)(uint
 
     else
     {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A16XRequestCompleteVSgMd, &_s16ModalityXObjects0A16XRequestCompleteVSgMR);
-      outlined init with take of ModalityXSessionMetadata();
-      outlined init with take of ModalityXSessionMetadata();
-      __swift_storeEnumTagSinglePayload(v22, 0, 1, v5);
+      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A16XRequestCompleteVSgMd, &_s16ModalityXObjects0A16XRequestCompleteVSgMR);
+      outlined init with take of ModalityXSessionMetadata(v16);
+      outlined init with take of ModalityXSessionMetadata(v9);
+      __swift_storeEnumTagSinglePayload(v24, 0, 1, v5);
     }
   }
 
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXRequestComplete and conformance ModalityXRequestComplete, type metadata accessor for ModalityXRequestComplete);
-  v23 = v33;
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXRequestComplete and conformance ModalityXRequestComplete, type metadata accessor for ModalityXRequestComplete, &protocol conformance descriptor for ModalityXRequestComplete);
+  v25 = v36;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v23)
+  if (v25)
   {
-    v24 = v22;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A16XRequestCompleteVSgMd, &_s16ModalityXObjects0A16XRequestCompleteVSgMR);
+    v26 = v24;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A16XRequestCompleteVSgMd, &_s16ModalityXObjects0A16XRequestCompleteVSgMR);
   }
 
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v22, v20, &_s16ModalityXObjects0A16XRequestCompleteVSgMd, &_s16ModalityXObjects0A16XRequestCompleteVSgMR);
-  if (__swift_getEnumTagSinglePayload(v20, 1, v5) == 1)
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v24, v22, &_s16ModalityXObjects0A16XRequestCompleteVSgMd, &_s16ModalityXObjects0A16XRequestCompleteVSgMR);
+  if (__swift_getEnumTagSinglePayload(v22, 1, v5) == 1)
   {
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A16XRequestCompleteVSgMd, &_s16ModalityXObjects0A16XRequestCompleteVSgMR);
-    v24 = v20;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A16XRequestCompleteVSgMd, &_s16ModalityXObjects0A16XRequestCompleteVSgMR);
+    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A16XRequestCompleteVSgMd, &_s16ModalityXObjects0A16XRequestCompleteVSgMR);
+    v26 = v22;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A16XRequestCompleteVSgMd, &_s16ModalityXObjects0A16XRequestCompleteVSgMR);
   }
 
-  outlined init with take of ModalityXSessionMetadata();
+  v28 = v35;
+  outlined init with take of ModalityXSessionMetadata(v22);
   if (EnumTagSinglePayload != 1)
   {
     dispatch thunk of Decoder.handleConflictingOneOf()();
   }
 
-  v26 = v31;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A16XRequestCompleteVSgMd, &_s16ModalityXObjects0A16XRequestCompleteVSgMR);
-  v27 = v29;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v29, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
-  outlined init with take of ModalityXSessionMetadata();
+  v29 = v34;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A16XRequestCompleteVSgMd, &_s16ModalityXObjects0A16XRequestCompleteVSgMR);
+  v30 = v32;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v32, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+  outlined init with take of ModalityXSessionMetadata(v28);
   swift_storeEnumTagMultiPayload();
-  return __swift_storeEnumTagSinglePayload(v27, 0, 1, v26);
+  return __swift_storeEnumTagSinglePayload(v30, 0, 1, v29);
 }
 
 uint64_t closure #2 in ModalityXClientBoundFrame.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v34 = a3;
-  v35 = a4;
-  v36 = a2;
+  v37 = a3;
+  v38 = a4;
+  v39 = a2;
   v5 = type metadata accessor for ModalityXProcessingError(0);
-  v6 = *(*(v5 - 8) + 64);
-  v7 = MEMORY[0x28223BE20](v5);
-  v32 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v28 - v11;
+  v6 = MEMORY[0x28223BE20](v5);
+  v35 = &v31 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v31 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v31 - v11;
   v13 = type metadata accessor for ModalityXClientBoundFrame.OneOf_Payload(0);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13);
-  MEMORY[0x28223BE20](v15);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A16XProcessingErrorVSgMd, &_s16ModalityXObjects0A16XProcessingErrorVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = MEMORY[0x28223BE20](v16 - 8);
-  v20 = &v28 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v28 - v21;
-  __swift_storeEnumTagSinglePayload(&v28 - v21, 1, 1, v5);
-  v29 = a1;
+  v14 = MEMORY[0x28223BE20](v13);
+  v16 = &v31 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = &v31 - v17;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A16XProcessingErrorVSgMd, &_s16ModalityXObjects0A16XProcessingErrorVSgMR);
+  v20 = MEMORY[0x28223BE20](v19 - 8);
+  v22 = &v31 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v20);
+  v24 = &v31 - v23;
+  __swift_storeEnumTagSinglePayload(&v31 - v23, 1, 1, v5);
+  v32 = a1;
   outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v12, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
   EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v12, 1, v13);
-  v31 = v13;
+  v34 = v13;
   if (EnumTagSinglePayload == 1)
   {
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v12, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
@@ -1831,14 +1096,14 @@ uint64_t closure #2 in ModalityXClientBoundFrame.decodeMessage<A>(decoder:)(uint
 
   else
   {
-    outlined init with take of ModalityXSessionMetadata();
-    outlined init with take of ModalityXSessionMetadata();
+    outlined init with take of ModalityXSessionMetadata(v12);
+    outlined init with take of ModalityXSessionMetadata(v18);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A16XProcessingErrorVSgMd, &_s16ModalityXObjects0A16XProcessingErrorVSgMR);
-      outlined init with take of ModalityXSessionMetadata();
-      outlined init with take of ModalityXSessionMetadata();
-      __swift_storeEnumTagSinglePayload(v22, 0, 1, v5);
+      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A16XProcessingErrorVSgMd, &_s16ModalityXObjects0A16XProcessingErrorVSgMR);
+      outlined init with take of ModalityXSessionMetadata(v16);
+      outlined init with take of ModalityXSessionMetadata(v9);
+      __swift_storeEnumTagSinglePayload(v24, 0, 1, v5);
     }
 
     else
@@ -1847,67 +1112,67 @@ uint64_t closure #2 in ModalityXClientBoundFrame.decodeMessage<A>(decoder:)(uint
     }
   }
 
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXProcessingError and conformance ModalityXProcessingError, type metadata accessor for ModalityXProcessingError);
-  v23 = v33;
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXProcessingError and conformance ModalityXProcessingError, type metadata accessor for ModalityXProcessingError, &protocol conformance descriptor for ModalityXProcessingError);
+  v25 = v36;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v23)
+  if (v25)
   {
-    v24 = v22;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A16XProcessingErrorVSgMd, &_s16ModalityXObjects0A16XProcessingErrorVSgMR);
+    v26 = v24;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A16XProcessingErrorVSgMd, &_s16ModalityXObjects0A16XProcessingErrorVSgMR);
   }
 
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v22, v20, &_s16ModalityXObjects0A16XProcessingErrorVSgMd, &_s16ModalityXObjects0A16XProcessingErrorVSgMR);
-  if (__swift_getEnumTagSinglePayload(v20, 1, v5) == 1)
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v24, v22, &_s16ModalityXObjects0A16XProcessingErrorVSgMd, &_s16ModalityXObjects0A16XProcessingErrorVSgMR);
+  if (__swift_getEnumTagSinglePayload(v22, 1, v5) == 1)
   {
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A16XProcessingErrorVSgMd, &_s16ModalityXObjects0A16XProcessingErrorVSgMR);
-    v24 = v20;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A16XProcessingErrorVSgMd, &_s16ModalityXObjects0A16XProcessingErrorVSgMR);
+    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A16XProcessingErrorVSgMd, &_s16ModalityXObjects0A16XProcessingErrorVSgMR);
+    v26 = v22;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A16XProcessingErrorVSgMd, &_s16ModalityXObjects0A16XProcessingErrorVSgMR);
   }
 
-  outlined init with take of ModalityXSessionMetadata();
+  v28 = v35;
+  outlined init with take of ModalityXSessionMetadata(v22);
   if (EnumTagSinglePayload != 1)
   {
     dispatch thunk of Decoder.handleConflictingOneOf()();
   }
 
-  v26 = v31;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A16XProcessingErrorVSgMd, &_s16ModalityXObjects0A16XProcessingErrorVSgMR);
-  v27 = v29;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v29, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
-  outlined init with take of ModalityXSessionMetadata();
+  v29 = v34;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A16XProcessingErrorVSgMd, &_s16ModalityXObjects0A16XProcessingErrorVSgMR);
+  v30 = v32;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v32, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+  outlined init with take of ModalityXSessionMetadata(v28);
   swift_storeEnumTagMultiPayload();
-  return __swift_storeEnumTagSinglePayload(v27, 0, 1, v26);
+  return __swift_storeEnumTagSinglePayload(v30, 0, 1, v29);
 }
 
 uint64_t closure #3 in ModalityXClientBoundFrame.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v34 = a3;
-  v35 = a4;
-  v36 = a2;
+  v37 = a3;
+  v38 = a4;
+  v39 = a2;
   v5 = type metadata accessor for ModalityXASRResult(0);
-  v6 = *(*(v5 - 8) + 64);
-  v7 = MEMORY[0x28223BE20](v5);
-  v32 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v28 - v11;
+  v6 = MEMORY[0x28223BE20](v5);
+  v35 = &v31 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v31 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v31 - v11;
   v13 = type metadata accessor for ModalityXClientBoundFrame.OneOf_Payload(0);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13);
-  MEMORY[0x28223BE20](v15);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A10XASRResultVSgMd, &_s16ModalityXObjects0A10XASRResultVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = MEMORY[0x28223BE20](v16 - 8);
-  v20 = &v28 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v28 - v21;
-  __swift_storeEnumTagSinglePayload(&v28 - v21, 1, 1, v5);
-  v29 = a1;
+  v14 = MEMORY[0x28223BE20](v13);
+  v16 = &v31 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = &v31 - v17;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A10XASRResultVSgMd, &_s16ModalityXObjects0A10XASRResultVSgMR);
+  v20 = MEMORY[0x28223BE20](v19 - 8);
+  v22 = &v31 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v20);
+  v24 = &v31 - v23;
+  __swift_storeEnumTagSinglePayload(&v31 - v23, 1, 1, v5);
+  v32 = a1;
   outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v12, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
   EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v12, 1, v13);
-  v31 = v13;
+  v34 = v13;
   if (EnumTagSinglePayload == 1)
   {
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v12, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
@@ -1915,14 +1180,14 @@ uint64_t closure #3 in ModalityXClientBoundFrame.decodeMessage<A>(decoder:)(uint
 
   else
   {
-    outlined init with take of ModalityXSessionMetadata();
-    outlined init with take of ModalityXSessionMetadata();
+    outlined init with take of ModalityXSessionMetadata(v12);
+    outlined init with take of ModalityXSessionMetadata(v18);
     if (swift_getEnumCaseMultiPayload() == 2)
     {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A10XASRResultVSgMd, &_s16ModalityXObjects0A10XASRResultVSgMR);
-      outlined init with take of ModalityXSessionMetadata();
-      outlined init with take of ModalityXSessionMetadata();
-      __swift_storeEnumTagSinglePayload(v22, 0, 1, v5);
+      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A10XASRResultVSgMd, &_s16ModalityXObjects0A10XASRResultVSgMR);
+      outlined init with take of ModalityXSessionMetadata(v16);
+      outlined init with take of ModalityXSessionMetadata(v9);
+      __swift_storeEnumTagSinglePayload(v24, 0, 1, v5);
     }
 
     else
@@ -1931,67 +1196,67 @@ uint64_t closure #3 in ModalityXClientBoundFrame.decodeMessage<A>(decoder:)(uint
     }
   }
 
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXASRResult and conformance ModalityXASRResult, type metadata accessor for ModalityXASRResult);
-  v23 = v33;
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXASRResult and conformance ModalityXASRResult, type metadata accessor for ModalityXASRResult, &protocol conformance descriptor for ModalityXASRResult);
+  v25 = v36;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v23)
+  if (v25)
   {
-    v24 = v22;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A10XASRResultVSgMd, &_s16ModalityXObjects0A10XASRResultVSgMR);
+    v26 = v24;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A10XASRResultVSgMd, &_s16ModalityXObjects0A10XASRResultVSgMR);
   }
 
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v22, v20, &_s16ModalityXObjects0A10XASRResultVSgMd, &_s16ModalityXObjects0A10XASRResultVSgMR);
-  if (__swift_getEnumTagSinglePayload(v20, 1, v5) == 1)
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v24, v22, &_s16ModalityXObjects0A10XASRResultVSgMd, &_s16ModalityXObjects0A10XASRResultVSgMR);
+  if (__swift_getEnumTagSinglePayload(v22, 1, v5) == 1)
   {
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A10XASRResultVSgMd, &_s16ModalityXObjects0A10XASRResultVSgMR);
-    v24 = v20;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A10XASRResultVSgMd, &_s16ModalityXObjects0A10XASRResultVSgMR);
+    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A10XASRResultVSgMd, &_s16ModalityXObjects0A10XASRResultVSgMR);
+    v26 = v22;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A10XASRResultVSgMd, &_s16ModalityXObjects0A10XASRResultVSgMR);
   }
 
-  outlined init with take of ModalityXSessionMetadata();
+  v28 = v35;
+  outlined init with take of ModalityXSessionMetadata(v22);
   if (EnumTagSinglePayload != 1)
   {
     dispatch thunk of Decoder.handleConflictingOneOf()();
   }
 
-  v26 = v31;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A10XASRResultVSgMd, &_s16ModalityXObjects0A10XASRResultVSgMR);
-  v27 = v29;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v29, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
-  outlined init with take of ModalityXSessionMetadata();
+  v29 = v34;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A10XASRResultVSgMd, &_s16ModalityXObjects0A10XASRResultVSgMR);
+  v30 = v32;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v32, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+  outlined init with take of ModalityXSessionMetadata(v28);
   swift_storeEnumTagMultiPayload();
-  return __swift_storeEnumTagSinglePayload(v27, 0, 1, v26);
+  return __swift_storeEnumTagSinglePayload(v30, 0, 1, v29);
 }
 
 uint64_t closure #4 in ModalityXClientBoundFrame.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v34 = a3;
-  v35 = a4;
-  v36 = a2;
+  v37 = a3;
+  v38 = a4;
+  v39 = a2;
   v5 = type metadata accessor for ModalityXSpeechProfileRebuildNeeded(0);
-  v6 = *(*(v5 - 8) + 64);
-  v7 = MEMORY[0x28223BE20](v5);
-  v32 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v28 - v11;
+  v6 = MEMORY[0x28223BE20](v5);
+  v35 = &v31 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v31 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v31 - v11;
   v13 = type metadata accessor for ModalityXClientBoundFrame.OneOf_Payload(0);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13);
-  MEMORY[0x28223BE20](v15);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMd, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = MEMORY[0x28223BE20](v16 - 8);
-  v20 = &v28 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v28 - v21;
-  __swift_storeEnumTagSinglePayload(&v28 - v21, 1, 1, v5);
-  v29 = a1;
+  v14 = MEMORY[0x28223BE20](v13);
+  v16 = &v31 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = &v31 - v17;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMd, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMR);
+  v20 = MEMORY[0x28223BE20](v19 - 8);
+  v22 = &v31 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v20);
+  v24 = &v31 - v23;
+  __swift_storeEnumTagSinglePayload(&v31 - v23, 1, 1, v5);
+  v32 = a1;
   outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v12, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
   EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v12, 1, v13);
-  v31 = v13;
+  v34 = v13;
   if (EnumTagSinglePayload == 1)
   {
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v12, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
@@ -1999,14 +1264,14 @@ uint64_t closure #4 in ModalityXClientBoundFrame.decodeMessage<A>(decoder:)(uint
 
   else
   {
-    outlined init with take of ModalityXSessionMetadata();
-    outlined init with take of ModalityXSessionMetadata();
+    outlined init with take of ModalityXSessionMetadata(v12);
+    outlined init with take of ModalityXSessionMetadata(v18);
     if (swift_getEnumCaseMultiPayload() == 3)
     {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMd, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMR);
-      outlined init with take of ModalityXSessionMetadata();
-      outlined init with take of ModalityXSessionMetadata();
-      __swift_storeEnumTagSinglePayload(v22, 0, 1, v5);
+      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMd, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMR);
+      outlined init with take of ModalityXSessionMetadata(v16);
+      outlined init with take of ModalityXSessionMetadata(v9);
+      __swift_storeEnumTagSinglePayload(v24, 0, 1, v5);
     }
 
     else
@@ -2015,67 +1280,67 @@ uint64_t closure #4 in ModalityXClientBoundFrame.decodeMessage<A>(decoder:)(uint
     }
   }
 
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileRebuildNeeded and conformance ModalityXSpeechProfileRebuildNeeded, type metadata accessor for ModalityXSpeechProfileRebuildNeeded);
-  v23 = v33;
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileRebuildNeeded and conformance ModalityXSpeechProfileRebuildNeeded, type metadata accessor for ModalityXSpeechProfileRebuildNeeded, &protocol conformance descriptor for ModalityXSpeechProfileRebuildNeeded);
+  v25 = v36;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v23)
+  if (v25)
   {
-    v24 = v22;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMd, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMR);
+    v26 = v24;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMd, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMR);
   }
 
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v22, v20, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMd, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMR);
-  if (__swift_getEnumTagSinglePayload(v20, 1, v5) == 1)
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v24, v22, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMd, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMR);
+  if (__swift_getEnumTagSinglePayload(v22, 1, v5) == 1)
   {
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMd, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMR);
-    v24 = v20;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMd, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMR);
+    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMd, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMR);
+    v26 = v22;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMd, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMR);
   }
 
-  outlined init with take of ModalityXSessionMetadata();
+  v28 = v35;
+  outlined init with take of ModalityXSessionMetadata(v22);
   if (EnumTagSinglePayload != 1)
   {
     dispatch thunk of Decoder.handleConflictingOneOf()();
   }
 
-  v26 = v31;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMd, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMR);
-  v27 = v29;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v29, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
-  outlined init with take of ModalityXSessionMetadata();
+  v29 = v34;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMd, &_s16ModalityXObjects0A27XSpeechProfileRebuildNeededVSgMR);
+  v30 = v32;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v32, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+  outlined init with take of ModalityXSessionMetadata(v28);
   swift_storeEnumTagMultiPayload();
-  return __swift_storeEnumTagSinglePayload(v27, 0, 1, v26);
+  return __swift_storeEnumTagSinglePayload(v30, 0, 1, v29);
 }
 
 uint64_t closure #5 in ModalityXClientBoundFrame.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v34 = a3;
-  v35 = a4;
-  v36 = a2;
+  v37 = a3;
+  v38 = a4;
+  v39 = a2;
   v5 = type metadata accessor for ModalityXRequestMitigated(0);
-  v6 = *(*(v5 - 8) + 64);
-  v7 = MEMORY[0x28223BE20](v5);
-  v32 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v28 - v11;
+  v6 = MEMORY[0x28223BE20](v5);
+  v35 = &v31 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v31 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v31 - v11;
   v13 = type metadata accessor for ModalityXClientBoundFrame.OneOf_Payload(0);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13);
-  MEMORY[0x28223BE20](v15);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XRequestMitigatedVSgMd, &_s16ModalityXObjects0A17XRequestMitigatedVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = MEMORY[0x28223BE20](v16 - 8);
-  v20 = &v28 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v28 - v21;
-  __swift_storeEnumTagSinglePayload(&v28 - v21, 1, 1, v5);
-  v29 = a1;
+  v14 = MEMORY[0x28223BE20](v13);
+  v16 = &v31 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = &v31 - v17;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XRequestMitigatedVSgMd, &_s16ModalityXObjects0A17XRequestMitigatedVSgMR);
+  v20 = MEMORY[0x28223BE20](v19 - 8);
+  v22 = &v31 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v20);
+  v24 = &v31 - v23;
+  __swift_storeEnumTagSinglePayload(&v31 - v23, 1, 1, v5);
+  v32 = a1;
   outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v12, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
   EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v12, 1, v13);
-  v31 = v13;
+  v34 = v13;
   if (EnumTagSinglePayload == 1)
   {
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v12, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
@@ -2083,14 +1348,14 @@ uint64_t closure #5 in ModalityXClientBoundFrame.decodeMessage<A>(decoder:)(uint
 
   else
   {
-    outlined init with take of ModalityXSessionMetadata();
-    outlined init with take of ModalityXSessionMetadata();
+    outlined init with take of ModalityXSessionMetadata(v12);
+    outlined init with take of ModalityXSessionMetadata(v18);
     if (swift_getEnumCaseMultiPayload() == 4)
     {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A17XRequestMitigatedVSgMd, &_s16ModalityXObjects0A17XRequestMitigatedVSgMR);
-      outlined init with take of ModalityXSessionMetadata();
-      outlined init with take of ModalityXSessionMetadata();
-      __swift_storeEnumTagSinglePayload(v22, 0, 1, v5);
+      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A17XRequestMitigatedVSgMd, &_s16ModalityXObjects0A17XRequestMitigatedVSgMR);
+      outlined init with take of ModalityXSessionMetadata(v16);
+      outlined init with take of ModalityXSessionMetadata(v9);
+      __swift_storeEnumTagSinglePayload(v24, 0, 1, v5);
     }
 
     else
@@ -2099,67 +1364,67 @@ uint64_t closure #5 in ModalityXClientBoundFrame.decodeMessage<A>(decoder:)(uint
     }
   }
 
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXRequestMitigated and conformance ModalityXRequestMitigated, type metadata accessor for ModalityXRequestMitigated);
-  v23 = v33;
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXRequestMitigated and conformance ModalityXRequestMitigated, type metadata accessor for ModalityXRequestMitigated, &protocol conformance descriptor for ModalityXRequestMitigated);
+  v25 = v36;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v23)
+  if (v25)
   {
-    v24 = v22;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A17XRequestMitigatedVSgMd, &_s16ModalityXObjects0A17XRequestMitigatedVSgMR);
+    v26 = v24;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A17XRequestMitigatedVSgMd, &_s16ModalityXObjects0A17XRequestMitigatedVSgMR);
   }
 
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v22, v20, &_s16ModalityXObjects0A17XRequestMitigatedVSgMd, &_s16ModalityXObjects0A17XRequestMitigatedVSgMR);
-  if (__swift_getEnumTagSinglePayload(v20, 1, v5) == 1)
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v24, v22, &_s16ModalityXObjects0A17XRequestMitigatedVSgMd, &_s16ModalityXObjects0A17XRequestMitigatedVSgMR);
+  if (__swift_getEnumTagSinglePayload(v22, 1, v5) == 1)
   {
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A17XRequestMitigatedVSgMd, &_s16ModalityXObjects0A17XRequestMitigatedVSgMR);
-    v24 = v20;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A17XRequestMitigatedVSgMd, &_s16ModalityXObjects0A17XRequestMitigatedVSgMR);
+    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A17XRequestMitigatedVSgMd, &_s16ModalityXObjects0A17XRequestMitigatedVSgMR);
+    v26 = v22;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A17XRequestMitigatedVSgMd, &_s16ModalityXObjects0A17XRequestMitigatedVSgMR);
   }
 
-  outlined init with take of ModalityXSessionMetadata();
+  v28 = v35;
+  outlined init with take of ModalityXSessionMetadata(v22);
   if (EnumTagSinglePayload != 1)
   {
     dispatch thunk of Decoder.handleConflictingOneOf()();
   }
 
-  v26 = v31;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A17XRequestMitigatedVSgMd, &_s16ModalityXObjects0A17XRequestMitigatedVSgMR);
-  v27 = v29;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v29, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
-  outlined init with take of ModalityXSessionMetadata();
+  v29 = v34;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A17XRequestMitigatedVSgMd, &_s16ModalityXObjects0A17XRequestMitigatedVSgMR);
+  v30 = v32;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v32, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+  outlined init with take of ModalityXSessionMetadata(v28);
   swift_storeEnumTagMultiPayload();
-  return __swift_storeEnumTagSinglePayload(v27, 0, 1, v26);
+  return __swift_storeEnumTagSinglePayload(v30, 0, 1, v29);
 }
 
 uint64_t closure #6 in ModalityXClientBoundFrame.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v34 = a3;
-  v35 = a4;
-  v36 = a2;
+  v37 = a3;
+  v38 = a4;
+  v39 = a2;
   v5 = type metadata accessor for ModalityXSpeechProfileBuildResponse(0);
-  v6 = *(*(v5 - 8) + 64);
-  v7 = MEMORY[0x28223BE20](v5);
-  v32 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v28 - v11;
+  v6 = MEMORY[0x28223BE20](v5);
+  v35 = &v31 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v31 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v31 - v11;
   v13 = type metadata accessor for ModalityXClientBoundFrame.OneOf_Payload(0);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13);
-  MEMORY[0x28223BE20](v15);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMd, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = MEMORY[0x28223BE20](v16 - 8);
-  v20 = &v28 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v28 - v21;
-  __swift_storeEnumTagSinglePayload(&v28 - v21, 1, 1, v5);
-  v29 = a1;
+  v14 = MEMORY[0x28223BE20](v13);
+  v16 = &v31 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = &v31 - v17;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMd, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMR);
+  v20 = MEMORY[0x28223BE20](v19 - 8);
+  v22 = &v31 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v20);
+  v24 = &v31 - v23;
+  __swift_storeEnumTagSinglePayload(&v31 - v23, 1, 1, v5);
+  v32 = a1;
   outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v12, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
   EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v12, 1, v13);
-  v31 = v13;
+  v34 = v13;
   if (EnumTagSinglePayload == 1)
   {
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v12, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
@@ -2167,14 +1432,14 @@ uint64_t closure #6 in ModalityXClientBoundFrame.decodeMessage<A>(decoder:)(uint
 
   else
   {
-    outlined init with take of ModalityXSessionMetadata();
-    outlined init with take of ModalityXSessionMetadata();
+    outlined init with take of ModalityXSessionMetadata(v12);
+    outlined init with take of ModalityXSessionMetadata(v18);
     if (swift_getEnumCaseMultiPayload() == 5)
     {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMd, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMR);
-      outlined init with take of ModalityXSessionMetadata();
-      outlined init with take of ModalityXSessionMetadata();
-      __swift_storeEnumTagSinglePayload(v22, 0, 1, v5);
+      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMd, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMR);
+      outlined init with take of ModalityXSessionMetadata(v16);
+      outlined init with take of ModalityXSessionMetadata(v9);
+      __swift_storeEnumTagSinglePayload(v24, 0, 1, v5);
     }
 
     else
@@ -2183,36 +1448,37 @@ uint64_t closure #6 in ModalityXClientBoundFrame.decodeMessage<A>(decoder:)(uint
     }
   }
 
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileBuildResponse and conformance ModalityXSpeechProfileBuildResponse, type metadata accessor for ModalityXSpeechProfileBuildResponse);
-  v23 = v33;
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileBuildResponse and conformance ModalityXSpeechProfileBuildResponse, type metadata accessor for ModalityXSpeechProfileBuildResponse, &protocol conformance descriptor for ModalityXSpeechProfileBuildResponse);
+  v25 = v36;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v23)
+  if (v25)
   {
-    v24 = v22;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMd, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMR);
+    v26 = v24;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMd, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMR);
   }
 
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v22, v20, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMd, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMR);
-  if (__swift_getEnumTagSinglePayload(v20, 1, v5) == 1)
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v24, v22, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMd, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMR);
+  if (__swift_getEnumTagSinglePayload(v22, 1, v5) == 1)
   {
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMd, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMR);
-    v24 = v20;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMd, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMR);
+    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMd, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMR);
+    v26 = v22;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMd, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMR);
   }
 
-  outlined init with take of ModalityXSessionMetadata();
+  v28 = v35;
+  outlined init with take of ModalityXSessionMetadata(v22);
   if (EnumTagSinglePayload != 1)
   {
     dispatch thunk of Decoder.handleConflictingOneOf()();
   }
 
-  v26 = v31;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMd, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMR);
-  v27 = v29;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v29, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
-  outlined init with take of ModalityXSessionMetadata();
+  v29 = v34;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMd, &_s16ModalityXObjects0A27XSpeechProfileBuildResponseVSgMR);
+  v30 = v32;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v32, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+  outlined init with take of ModalityXSessionMetadata(v28);
   swift_storeEnumTagMultiPayload();
-  return __swift_storeEnumTagSinglePayload(v27, 0, 1, v26);
+  return __swift_storeEnumTagSinglePayload(v30, 0, 1, v29);
 }
 
 uint64_t ModalityXClientBoundFrame.traverse<A>(visitor:)()
@@ -2220,16 +1486,15 @@ uint64_t ModalityXClientBoundFrame.traverse<A>(visitor:)()
   OUTLINED_FUNCTION_182();
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
   OUTLINED_FUNCTION_122(v1);
-  v3 = *(v2 + 64);
   OUTLINED_FUNCTION_133();
-  MEMORY[0x28223BE20](v4);
+  MEMORY[0x28223BE20](v2);
   OUTLINED_FUNCTION_188();
   OUTLINED_FUNCTION_289();
   OUTLINED_FUNCTION_196();
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v5, v6, v7, v8);
-  v9 = type metadata accessor for ModalityXClientBoundFrame.OneOf_Payload(0);
-  OUTLINED_FUNCTION_290(v9);
-  if (v10)
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v3, v4, v5, v6);
+  v7 = type metadata accessor for ModalityXClientBoundFrame.OneOf_Payload(0);
+  OUTLINED_FUNCTION_290(v7);
+  if (v8)
   {
     goto LABEL_10;
   }
@@ -2238,28 +1503,28 @@ uint64_t ModalityXClientBoundFrame.traverse<A>(visitor:)()
   switch(swift_getEnumCaseMultiPayload())
   {
     case 1u:
-      v27 = OUTLINED_FUNCTION_28();
-      closure #2 in ModalityXClientBoundFrame.traverse<A>(visitor:)(v27, v28, v29, v30);
+      v25 = OUTLINED_FUNCTION_28();
+      closure #2 in ModalityXClientBoundFrame.traverse<A>(visitor:)(v25, v26, v27, v28);
       break;
     case 2u:
-      v19 = OUTLINED_FUNCTION_28();
-      closure #3 in ModalityXClientBoundFrame.traverse<A>(visitor:)(v19, v20, v21, v22);
+      v17 = OUTLINED_FUNCTION_28();
+      closure #3 in ModalityXClientBoundFrame.traverse<A>(visitor:)(v17, v18, v19, v20);
       break;
     case 3u:
-      v23 = OUTLINED_FUNCTION_28();
-      closure #4 in ModalityXClientBoundFrame.traverse<A>(visitor:)(v23, v24, v25, v26);
+      v21 = OUTLINED_FUNCTION_28();
+      closure #4 in ModalityXClientBoundFrame.traverse<A>(visitor:)(v21, v22, v23, v24);
       break;
     case 4u:
-      v15 = OUTLINED_FUNCTION_28();
-      closure #5 in ModalityXClientBoundFrame.traverse<A>(visitor:)(v15, v16, v17, v18);
+      v13 = OUTLINED_FUNCTION_28();
+      closure #5 in ModalityXClientBoundFrame.traverse<A>(visitor:)(v13, v14, v15, v16);
       break;
     case 5u:
-      v31 = OUTLINED_FUNCTION_28();
-      closure #6 in ModalityXClientBoundFrame.traverse<A>(visitor:)(v31, v32, v33, v34);
+      v29 = OUTLINED_FUNCTION_28();
+      closure #6 in ModalityXClientBoundFrame.traverse<A>(visitor:)(v29, v30, v31, v32);
       break;
     default:
-      v11 = OUTLINED_FUNCTION_28();
-      closure #1 in ModalityXClientBoundFrame.traverse<A>(visitor:)(v11, v12, v13, v14);
+      v9 = OUTLINED_FUNCTION_28();
+      closure #1 in ModalityXClientBoundFrame.traverse<A>(visitor:)(v9, v10, v11, v12);
       break;
   }
 
@@ -2268,8 +1533,8 @@ uint64_t ModalityXClientBoundFrame.traverse<A>(visitor:)()
   if (!v0)
   {
 LABEL_10:
-    v36 = type metadata accessor for ModalityXClientBoundFrame(0);
-    OUTLINED_FUNCTION_336(v36);
+    type metadata accessor for ModalityXClientBoundFrame(0);
+    OUTLINED_FUNCTION_336();
     OUTLINED_FUNCTION_125();
     return UnknownStorage.traverse<A>(visitor:)();
   }
@@ -2279,27 +1544,25 @@ LABEL_10:
 
 uint64_t closure #1 in ModalityXClientBoundFrame.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = a4;
+  v11[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v13 - v7;
-  v9 = type metadata accessor for ModalityXRequestComplete(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v8, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
-  v11 = type metadata accessor for ModalityXClientBoundFrame.OneOf_Payload(0);
-  if (__swift_getEnumTagSinglePayload(v8, 1, v11) == 1)
+  v7 = v11 - v6;
+  v8 = type metadata accessor for ModalityXRequestComplete(0);
+  MEMORY[0x28223BE20](v8);
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v7, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+  v9 = type metadata accessor for ModalityXClientBoundFrame.OneOf_Payload(0);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v9) == 1)
   {
-    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v7, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
   }
 
   else
   {
     if (!swift_getEnumCaseMultiPayload())
     {
-      outlined init with take of ModalityXSessionMetadata();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXRequestComplete and conformance ModalityXRequestComplete, type metadata accessor for ModalityXRequestComplete);
+      outlined init with take of ModalityXSessionMetadata(v7);
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXRequestComplete and conformance ModalityXRequestComplete, type metadata accessor for ModalityXRequestComplete, &protocol conformance descriptor for ModalityXRequestComplete);
       dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
       return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     }
@@ -2313,27 +1576,25 @@ uint64_t closure #1 in ModalityXClientBoundFrame.traverse<A>(visitor:)(uint64_t 
 
 uint64_t closure #2 in ModalityXClientBoundFrame.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = a4;
+  v11[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v13 - v7;
-  v9 = type metadata accessor for ModalityXProcessingError(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v8, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
-  v11 = type metadata accessor for ModalityXClientBoundFrame.OneOf_Payload(0);
-  if (__swift_getEnumTagSinglePayload(v8, 1, v11) == 1)
+  v7 = v11 - v6;
+  v8 = type metadata accessor for ModalityXProcessingError(0);
+  MEMORY[0x28223BE20](v8);
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v7, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+  v9 = type metadata accessor for ModalityXClientBoundFrame.OneOf_Payload(0);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v9) == 1)
   {
-    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v7, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      outlined init with take of ModalityXSessionMetadata();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXProcessingError and conformance ModalityXProcessingError, type metadata accessor for ModalityXProcessingError);
+      outlined init with take of ModalityXSessionMetadata(v7);
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXProcessingError and conformance ModalityXProcessingError, type metadata accessor for ModalityXProcessingError, &protocol conformance descriptor for ModalityXProcessingError);
       dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
       return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     }
@@ -2347,27 +1608,25 @@ uint64_t closure #2 in ModalityXClientBoundFrame.traverse<A>(visitor:)(uint64_t 
 
 uint64_t closure #3 in ModalityXClientBoundFrame.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = a4;
+  v11[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v13 - v7;
-  v9 = type metadata accessor for ModalityXASRResult(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v8, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
-  v11 = type metadata accessor for ModalityXClientBoundFrame.OneOf_Payload(0);
-  if (__swift_getEnumTagSinglePayload(v8, 1, v11) == 1)
+  v7 = v11 - v6;
+  v8 = type metadata accessor for ModalityXASRResult(0);
+  MEMORY[0x28223BE20](v8);
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v7, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+  v9 = type metadata accessor for ModalityXClientBoundFrame.OneOf_Payload(0);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v9) == 1)
   {
-    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v7, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 2)
     {
-      outlined init with take of ModalityXSessionMetadata();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXASRResult and conformance ModalityXASRResult, type metadata accessor for ModalityXASRResult);
+      outlined init with take of ModalityXSessionMetadata(v7);
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXASRResult and conformance ModalityXASRResult, type metadata accessor for ModalityXASRResult, &protocol conformance descriptor for ModalityXASRResult);
       dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
       return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     }
@@ -2381,27 +1640,25 @@ uint64_t closure #3 in ModalityXClientBoundFrame.traverse<A>(visitor:)(uint64_t 
 
 uint64_t closure #4 in ModalityXClientBoundFrame.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = a4;
+  v11[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v13 - v7;
-  v9 = type metadata accessor for ModalityXSpeechProfileRebuildNeeded(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v8, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
-  v11 = type metadata accessor for ModalityXClientBoundFrame.OneOf_Payload(0);
-  if (__swift_getEnumTagSinglePayload(v8, 1, v11) == 1)
+  v7 = v11 - v6;
+  v8 = type metadata accessor for ModalityXSpeechProfileRebuildNeeded(0);
+  MEMORY[0x28223BE20](v8);
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v7, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+  v9 = type metadata accessor for ModalityXClientBoundFrame.OneOf_Payload(0);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v9) == 1)
   {
-    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v7, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 3)
     {
-      outlined init with take of ModalityXSessionMetadata();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileRebuildNeeded and conformance ModalityXSpeechProfileRebuildNeeded, type metadata accessor for ModalityXSpeechProfileRebuildNeeded);
+      outlined init with take of ModalityXSessionMetadata(v7);
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileRebuildNeeded and conformance ModalityXSpeechProfileRebuildNeeded, type metadata accessor for ModalityXSpeechProfileRebuildNeeded, &protocol conformance descriptor for ModalityXSpeechProfileRebuildNeeded);
       dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
       return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     }
@@ -2415,27 +1672,25 @@ uint64_t closure #4 in ModalityXClientBoundFrame.traverse<A>(visitor:)(uint64_t 
 
 uint64_t closure #5 in ModalityXClientBoundFrame.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = a4;
+  v11[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v13 - v7;
-  v9 = type metadata accessor for ModalityXRequestMitigated(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v8, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
-  v11 = type metadata accessor for ModalityXClientBoundFrame.OneOf_Payload(0);
-  if (__swift_getEnumTagSinglePayload(v8, 1, v11) == 1)
+  v7 = v11 - v6;
+  v8 = type metadata accessor for ModalityXRequestMitigated(0);
+  MEMORY[0x28223BE20](v8);
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v7, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+  v9 = type metadata accessor for ModalityXClientBoundFrame.OneOf_Payload(0);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v9) == 1)
   {
-    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v7, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 4)
     {
-      outlined init with take of ModalityXSessionMetadata();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXRequestMitigated and conformance ModalityXRequestMitigated, type metadata accessor for ModalityXRequestMitigated);
+      outlined init with take of ModalityXSessionMetadata(v7);
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXRequestMitigated and conformance ModalityXRequestMitigated, type metadata accessor for ModalityXRequestMitigated, &protocol conformance descriptor for ModalityXRequestMitigated);
       dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
       return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     }
@@ -2449,27 +1704,25 @@ uint64_t closure #5 in ModalityXClientBoundFrame.traverse<A>(visitor:)(uint64_t 
 
 uint64_t closure #6 in ModalityXClientBoundFrame.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = a4;
+  v11[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v13 - v7;
-  v9 = type metadata accessor for ModalityXSpeechProfileBuildResponse(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v8, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
-  v11 = type metadata accessor for ModalityXClientBoundFrame.OneOf_Payload(0);
-  if (__swift_getEnumTagSinglePayload(v8, 1, v11) == 1)
+  v7 = v11 - v6;
+  v8 = type metadata accessor for ModalityXSpeechProfileBuildResponse(0);
+  MEMORY[0x28223BE20](v8);
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v7, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+  v9 = type metadata accessor for ModalityXClientBoundFrame.OneOf_Payload(0);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v9) == 1)
   {
-    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v7, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 5)
     {
-      outlined init with take of ModalityXSessionMetadata();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileBuildResponse and conformance ModalityXSpeechProfileBuildResponse, type metadata accessor for ModalityXSpeechProfileBuildResponse);
+      outlined init with take of ModalityXSessionMetadata(v7);
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileBuildResponse and conformance ModalityXSpeechProfileBuildResponse, type metadata accessor for ModalityXSpeechProfileBuildResponse, &protocol conformance descriptor for ModalityXSpeechProfileBuildResponse);
       dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
       return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     }
@@ -2481,100 +1734,97 @@ uint64_t closure #6 in ModalityXClientBoundFrame.traverse<A>(visitor:)(uint64_t 
   return result;
 }
 
-void static ModalityXClientBoundFrame.== infix(_:_:)()
+void static ModalityXClientBoundFrame.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_248();
-  v3 = OUTLINED_FUNCTION_87();
-  v4 = type metadata accessor for ModalityXClientBoundFrame.OneOf_Payload(v3);
-  v5 = OUTLINED_FUNCTION_54(v4);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
+  v5 = OUTLINED_FUNCTION_87();
+  v6 = type metadata accessor for ModalityXClientBoundFrame.OneOf_Payload(v5);
+  OUTLINED_FUNCTION_54();
+  MEMORY[0x28223BE20](v7);
   OUTLINED_FUNCTION_64();
   OUTLINED_FUNCTION_316();
   v8 = OUTLINED_FUNCTION_153();
   v10 = __swift_instantiateConcreteTypeFromMangledNameV2(v8, v9);
   OUTLINED_FUNCTION_122(v10);
-  v12 = *(v11 + 64);
+  OUTLINED_FUNCTION_133();
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_110();
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSg_AFtMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSg_AFtMR);
+  OUTLINED_FUNCTION_122(v12);
   OUTLINED_FUNCTION_133();
   MEMORY[0x28223BE20](v13);
-  OUTLINED_FUNCTION_110();
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSg_AFtMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSg_AFtMR);
-  OUTLINED_FUNCTION_122(v14);
-  v16 = *(v15 + 64);
-  OUTLINED_FUNCTION_133();
-  MEMORY[0x28223BE20](v17);
   OUTLINED_FUNCTION_205();
-  v19 = *(v18 + 56);
-  OUTLINED_FUNCTION_151(v1);
-  OUTLINED_FUNCTION_283(v0, v2 + v19);
-  OUTLINED_FUNCTION_139(v2, 1, v4);
-  if (v24)
+  v15 = *(v14 + 56);
+  OUTLINED_FUNCTION_151(v3);
+  OUTLINED_FUNCTION_283(v2, v4 + v15);
+  OUTLINED_FUNCTION_139(v4, 1, v6);
+  if (v20)
   {
-    OUTLINED_FUNCTION_139(v2 + v19, 1, v4);
-    if (v24)
+    OUTLINED_FUNCTION_139(v4 + v15, 1, v6);
+    if (v20)
     {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v2, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v4, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
 LABEL_12:
-      v28 = *(type metadata accessor for ModalityXClientBoundFrame(0) + 20);
+      type metadata accessor for ModalityXClientBoundFrame(0);
       type metadata accessor for UnknownStorage();
       OUTLINED_FUNCTION_0_0();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(v29, v30);
-      v25 = OUTLINED_FUNCTION_178();
+      v28 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(v26, v27, MEMORY[0x277D216D0]);
+      v21 = OUTLINED_FUNCTION_178(v28);
       goto LABEL_13;
     }
 
     goto LABEL_9;
   }
 
-  v20 = OUTLINED_FUNCTION_140();
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v20, v21, v22, v23);
-  OUTLINED_FUNCTION_139(v2 + v19, 1, v4);
-  if (v24)
+  v16 = OUTLINED_FUNCTION_140();
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v16, v17, v18, v19);
+  OUTLINED_FUNCTION_139(v4 + v15, 1, v6);
+  if (v20)
   {
     OUTLINED_FUNCTION_34();
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
 LABEL_9:
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v2, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSg_AFtMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSg_AFtMR);
+    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v4, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSg_AFtMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSg_AFtMR);
     goto LABEL_10;
   }
 
-  outlined init with take of ModalityXSessionMetadata();
-  OUTLINED_FUNCTION_287();
-  static ModalityXClientBoundFrame.OneOf_Payload.== infix(_:_:)();
-  v27 = v26;
+  outlined init with take of ModalityXSessionMetadata(v4 + v15);
+  v22 = OUTLINED_FUNCTION_287();
+  static ModalityXClientBoundFrame.OneOf_Payload.== infix(_:_:)(v22, v23);
+  v25 = v24;
   outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
   OUTLINED_FUNCTION_315();
   outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v2, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
-  if (v27)
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v4, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A17XClientBoundFrameV13OneOf_PayloadOSgMR);
+  if (v25)
   {
     goto LABEL_12;
   }
 
 LABEL_10:
-  v25 = 0;
+  v21 = 0;
 LABEL_13:
-  OUTLINED_FUNCTION_284(v25);
+  OUTLINED_FUNCTION_284(v21);
   OUTLINED_FUNCTION_247();
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance ModalityXClientBoundFrame(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXClientBoundFrame and conformance ModalityXClientBoundFrame, type metadata accessor for ModalityXClientBoundFrame);
+  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXClientBoundFrame and conformance ModalityXClientBoundFrame, type metadata accessor for ModalityXClientBoundFrame, &protocol conformance descriptor for ModalityXClientBoundFrame);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ModalityXClientBoundFrame(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXClientBoundFrame and conformance ModalityXClientBoundFrame, type metadata accessor for ModalityXClientBoundFrame);
+  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXClientBoundFrame and conformance ModalityXClientBoundFrame, type metadata accessor for ModalityXClientBoundFrame, &protocol conformance descriptor for ModalityXClientBoundFrame);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXClientBoundFrame()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXClientBoundFrame(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXClientBoundFrame and conformance ModalityXClientBoundFrame, type metadata accessor for ModalityXClientBoundFrame);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXClientBoundFrame and conformance ModalityXClientBoundFrame, type metadata accessor for ModalityXClientBoundFrame, &protocol conformance descriptor for ModalityXClientBoundFrame);
 
   return Message.hash(into:)();
 }
@@ -2594,20 +1844,20 @@ uint64_t ModalityXSessionMetadata.decodeMessage<A>(decoder:)()
     switch(result)
     {
       case 12:
-        OUTLINED_FUNCTION_31();
-        closure #4 in ModalityXSessionMetadata.decodeMessage<A>(decoder:)();
+        v11 = OUTLINED_FUNCTION_31();
+        closure #4 in ModalityXSessionMetadata.decodeMessage<A>(decoder:)(v11);
         break;
       case 10:
-        OUTLINED_FUNCTION_31();
-        closure #2 in ModalityXSessionMetadata.decodeMessage<A>(decoder:)();
+        v7 = OUTLINED_FUNCTION_31();
+        closure #2 in ModalityXSessionMetadata.decodeMessage<A>(decoder:)(v7, v8, v9, v10);
         break;
       case 11:
         OUTLINED_FUNCTION_31();
         closure #3 in ModalityXSessionMetadata.decodeMessage<A>(decoder:)();
         break;
       case 1:
-        OUTLINED_FUNCTION_31();
-        closure #1 in ModalityXSessionMetadata.decodeMessage<A>(decoder:)();
+        v3 = OUTLINED_FUNCTION_31();
+        closure #1 in ModalityXSessionMetadata.decodeMessage<A>(decoder:)(v3, v4, v5, v6);
         break;
     }
   }
@@ -2615,11 +1865,11 @@ uint64_t ModalityXSessionMetadata.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t closure #1 in ModalityXSessionMetadata.decodeMessage<A>(decoder:)()
+uint64_t closure #1 in ModalityXSessionMetadata.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ModalityXSessionMetadata(0) + 20);
+  type metadata accessor for ModalityXSessionMetadata(0);
   type metadata accessor for ModalityXDeviceInfo(0);
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXDeviceInfo and conformance ModalityXDeviceInfo, type metadata accessor for ModalityXDeviceInfo);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXDeviceInfo and conformance ModalityXDeviceInfo, type metadata accessor for ModalityXDeviceInfo, &protocol conformance descriptor for ModalityXDeviceInfo);
   return dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
 }
 
@@ -2631,11 +1881,11 @@ uint64_t ModalityXSessionMetadata.traverse<A>(visitor:)()
   if (!v0)
   {
     v6 = OUTLINED_FUNCTION_30();
-    closure #2 in ModalityXSessionMetadata.traverse<A>(visitor:)(v6);
-    v7 = OUTLINED_FUNCTION_30();
-    closure #3 in ModalityXSessionMetadata.traverse<A>(visitor:)(v7);
-    OUTLINED_FUNCTION_7_0();
-    closure #4 in ModalityXSessionMetadata.traverse<A>(visitor:)();
+    closure #2 in ModalityXSessionMetadata.traverse<A>(visitor:)(v6, v7, v8, v9);
+    v10 = OUTLINED_FUNCTION_30();
+    closure #3 in ModalityXSessionMetadata.traverse<A>(visitor:)(v10, v11, v12, v13);
+    v14 = OUTLINED_FUNCTION_7_0();
+    closure #4 in ModalityXSessionMetadata.traverse<A>(visitor:)(v14, v15, v16, v17, v18, 12);
     OUTLINED_FUNCTION_98();
     return UnknownStorage.traverse<A>(visitor:)();
   }
@@ -2645,28 +1895,26 @@ uint64_t ModalityXSessionMetadata.traverse<A>(visitor:)()
 
 uint64_t closure #1 in ModalityXSessionMetadata.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = a4;
+  v11[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A11XDeviceInfoVSgMd, &_s16ModalityXObjects0A11XDeviceInfoVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v13 - v7;
-  v9 = type metadata accessor for ModalityXDeviceInfo(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  v11 = type metadata accessor for ModalityXSessionMetadata(0);
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1 + *(v11 + 20), v8, &_s16ModalityXObjects0A11XDeviceInfoVSgMd, &_s16ModalityXObjects0A11XDeviceInfoVSgMR);
-  if (__swift_getEnumTagSinglePayload(v8, 1, v9) == 1)
+  v7 = v11 - v6;
+  v8 = type metadata accessor for ModalityXDeviceInfo(0);
+  MEMORY[0x28223BE20](v8);
+  v9 = type metadata accessor for ModalityXSessionMetadata(0);
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1 + *(v9 + 20), v7, &_s16ModalityXObjects0A11XDeviceInfoVSgMd, &_s16ModalityXObjects0A11XDeviceInfoVSgMR);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
   {
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A11XDeviceInfoVSgMd, &_s16ModalityXObjects0A11XDeviceInfoVSgMR);
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v7, &_s16ModalityXObjects0A11XDeviceInfoVSgMd, &_s16ModalityXObjects0A11XDeviceInfoVSgMR);
   }
 
-  outlined init with take of ModalityXSessionMetadata();
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXDeviceInfo and conformance ModalityXDeviceInfo, type metadata accessor for ModalityXDeviceInfo);
+  outlined init with take of ModalityXSessionMetadata(v7);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXDeviceInfo and conformance ModalityXDeviceInfo, type metadata accessor for ModalityXDeviceInfo, &protocol conformance descriptor for ModalityXDeviceInfo);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
   return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
 }
 
-uint64_t closure #2 in ModalityXSessionMetadata.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #2 in ModalityXSessionMetadata.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ModalityXSessionMetadata(0);
   if (*(a1 + *(result + 24)) != 2)
@@ -2677,12 +1925,11 @@ uint64_t closure #2 in ModalityXSessionMetadata.traverse<A>(visitor:)(uint64_t a
   return result;
 }
 
-uint64_t closure #3 in ModalityXSessionMetadata.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #3 in ModalityXSessionMetadata.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ModalityXSessionMetadata(0);
   if (*(a1 + *(result + 28)) != 8)
   {
-    v3 = *(a1 + *(result + 28));
     lazy protocol witness table accessor for type ModalityXUserInterfaceIdiom and conformance ModalityXUserInterfaceIdiom();
     return dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
   }
@@ -2692,21 +1939,21 @@ uint64_t closure #3 in ModalityXSessionMetadata.traverse<A>(visitor:)(uint64_t a
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance ModalityXSessionMetadata(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSessionMetadata and conformance ModalityXSessionMetadata, type metadata accessor for ModalityXSessionMetadata);
+  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSessionMetadata and conformance ModalityXSessionMetadata, type metadata accessor for ModalityXSessionMetadata, &protocol conformance descriptor for ModalityXSessionMetadata);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ModalityXSessionMetadata(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSessionMetadata and conformance ModalityXSessionMetadata, type metadata accessor for ModalityXSessionMetadata);
+  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSessionMetadata and conformance ModalityXSessionMetadata, type metadata accessor for ModalityXSessionMetadata, &protocol conformance descriptor for ModalityXSessionMetadata);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXSessionMetadata()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXSessionMetadata(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSessionMetadata and conformance ModalityXSessionMetadata, type metadata accessor for ModalityXSessionMetadata);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSessionMetadata and conformance ModalityXSessionMetadata, type metadata accessor for ModalityXSessionMetadata, &protocol conformance descriptor for ModalityXSessionMetadata);
 
   return Message.hash(into:)();
 }
@@ -2725,14 +1972,14 @@ uint64_t ModalityXSpeechProfile.decodeMessage<A>(decoder:)()
 
     if (result == 2)
     {
-      OUTLINED_FUNCTION_31();
-      closure #2 in ModalityXSpeechProfile.decodeMessage<A>(decoder:)();
+      v7 = OUTLINED_FUNCTION_31();
+      closure #2 in ModalityXSpeechProfile.decodeMessage<A>(decoder:)(v7);
     }
 
     else if (result == 1)
     {
-      OUTLINED_FUNCTION_31();
-      closure #1 in ModalityXSpeechProfile.decodeMessage<A>(decoder:)();
+      v3 = OUTLINED_FUNCTION_31();
+      closure #1 in ModalityXSpeechProfile.decodeMessage<A>(decoder:)(v3, v4, v5, v6);
     }
   }
 
@@ -2743,11 +1990,11 @@ uint64_t ModalityXSpeechProfile.traverse<A>(visitor:)()
 {
   OUTLINED_FUNCTION_93();
   v1 = OUTLINED_FUNCTION_30();
-  result = closure #1 in ModalityXSpeechProfile.traverse<A>(visitor:)(v1);
+  result = closure #1 in ModalityXSpeechProfile.traverse<A>(visitor:)(v1, v2, v3, v4);
   if (!v0)
   {
-    v3 = OUTLINED_FUNCTION_30();
-    closure #2 in ModalityXSpeechProfile.traverse<A>(visitor:)(v3);
+    v6 = OUTLINED_FUNCTION_30();
+    closure #2 in ModalityXSpeechProfile.traverse<A>(visitor:)(v6, v7, v8, v9);
     OUTLINED_FUNCTION_98();
     return UnknownStorage.traverse<A>(visitor:)();
   }
@@ -2755,7 +2002,7 @@ uint64_t ModalityXSpeechProfile.traverse<A>(visitor:)()
   return result;
 }
 
-uint64_t closure #1 in ModalityXSpeechProfile.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #1 in ModalityXSpeechProfile.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ModalityXSpeechProfile(0);
   if (*(a1 + *(result + 20)) != 2)
@@ -2766,17 +2013,17 @@ uint64_t closure #1 in ModalityXSpeechProfile.traverse<A>(visitor:)(uint64_t a1)
   return result;
 }
 
-uint64_t closure #2 in ModalityXSpeechProfile.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #2 in ModalityXSpeechProfile.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ModalityXSpeechProfile(0);
-  v3 = a1 + *(result + 24);
-  v4 = *(v3 + 8);
-  if (v4 >> 60 != 15)
+  v6 = a1 + *(result + 24);
+  v7 = *(v6 + 8);
+  if (v7 >> 60 != 15)
   {
-    v5 = *v3;
-    outlined copy of Data._Representation(*v3, *(v3 + 8));
+    v8 = *v6;
+    outlined copy of Data._Representation(*v6, *(v6 + 8));
     dispatch thunk of Visitor.visitSingularBytesField(value:fieldNumber:)();
-    return outlined consume of Data?(v5, v4);
+    return outlined consume of Data?(v8, v7);
   }
 
   return result;
@@ -2784,21 +2031,21 @@ uint64_t closure #2 in ModalityXSpeechProfile.traverse<A>(visitor:)(uint64_t a1)
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance ModalityXSpeechProfile(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfile and conformance ModalityXSpeechProfile, type metadata accessor for ModalityXSpeechProfile);
+  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfile and conformance ModalityXSpeechProfile, type metadata accessor for ModalityXSpeechProfile, &protocol conformance descriptor for ModalityXSpeechProfile);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ModalityXSpeechProfile(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfile and conformance ModalityXSpeechProfile, type metadata accessor for ModalityXSpeechProfile);
+  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfile and conformance ModalityXSpeechProfile, type metadata accessor for ModalityXSpeechProfile, &protocol conformance descriptor for ModalityXSpeechProfile);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXSpeechProfile()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXSpeechProfile(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfile and conformance ModalityXSpeechProfile, type metadata accessor for ModalityXSpeechProfile);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfile and conformance ModalityXSpeechProfile, type metadata accessor for ModalityXSpeechProfile, &protocol conformance descriptor for ModalityXSpeechProfile);
 
   return Message.hash(into:)();
 }
@@ -2820,26 +2067,24 @@ uint64_t one-time initialization function for defaultInstance(uint64_t a1)
   return one-time initialization function for defaultInstance(a1, type metadata accessor for ModalityXFinalSpeechRecognitionResponse._StorageClass, ModalityXFinalSpeechRecognitionResponse._StorageClass.init(), &static ModalityXFinalSpeechRecognitionResponse._StorageClass.defaultInstance);
 }
 
-uint64_t outlined init with take of ModalityXSessionMetadata()
+uint64_t outlined init with take of ModalityXSessionMetadata(uint64_t a1)
 {
-  v1 = OUTLINED_FUNCTION_87();
-  v3 = v2(v1);
-  OUTLINED_FUNCTION_54(v3);
-  v5 = *(v4 + 32);
-  v6 = OUTLINED_FUNCTION_131();
-  v7(v6);
-  return v0;
+  v2 = OUTLINED_FUNCTION_87();
+  v3(v2);
+  OUTLINED_FUNCTION_54();
+  v4 = OUTLINED_FUNCTION_131();
+  v5(v4);
+  return v1;
 }
 
-uint64_t outlined init with copy of ModalityXSessionMetadata()
+uint64_t outlined init with copy of ModalityXSessionMetadata(uint64_t a1)
 {
-  v1 = OUTLINED_FUNCTION_87();
-  v3 = v2(v1);
-  OUTLINED_FUNCTION_54(v3);
-  v5 = *(v4 + 16);
-  v6 = OUTLINED_FUNCTION_131();
-  v7(v6);
-  return v0;
+  v2 = OUTLINED_FUNCTION_87();
+  v3(v2);
+  OUTLINED_FUNCTION_54();
+  v4 = OUTLINED_FUNCTION_131();
+  v5(v4);
+  return v1;
 }
 
 uint64_t ModalityXBeginRequest._StorageClass.init()()
@@ -2864,138 +2109,139 @@ uint64_t ModalityXBeginRequest._StorageClass.init()()
 uint64_t ModalityXBeginRequest._StorageClass.init(copying:)(uint64_t a1)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v30 - v5;
+  v5 = &v27 - v4;
   *(v1 + 24) = 0;
   *(v1 + 16) = 0;
   *(v1 + 32) = 19;
-  v7 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__audioMetadata;
-  v8 = type metadata accessor for ModalityXAudioMetadata(0);
-  __swift_storeEnumTagSinglePayload(v1 + v7, 1, 1, v8);
-  v31 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__enablePartialResults;
+  v6 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__audioMetadata;
+  v7 = type metadata accessor for ModalityXAudioMetadata(0);
+  __swift_storeEnumTagSinglePayload(v1 + v6, 1, 1, v7);
+  v28 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__enablePartialResults;
   *(v1 + OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__enablePartialResults) = 2;
-  v32 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isPromptedDictation;
+  v29 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isPromptedDictation;
   *(v1 + OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isPromptedDictation) = 2;
-  v33 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isPromptedConfirmation;
+  v30 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isPromptedConfirmation;
   *(v1 + OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isPromptedConfirmation) = 2;
-  v9 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__foregroundAppID);
-  *v9 = 0;
-  v9[1] = 0;
-  v34 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isAutoPunctuationEnabled;
+  v8 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__foregroundAppID);
+  *v8 = 0;
+  v8[1] = 0;
+  v31 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isAutoPunctuationEnabled;
   *(v1 + OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isAutoPunctuationEnabled) = 2;
-  v35 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inlineLmeItems;
+  v32 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inlineLmeItems;
   *(v1 + OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inlineLmeItems) = MEMORY[0x277D84F90];
   swift_beginAccess();
-  v10 = *(a1 + 16);
-  v11 = *(a1 + 24);
+  v9 = *(a1 + 16);
+  v10 = *(a1 + 24);
   swift_beginAccess();
-  *(v1 + 16) = v10;
-  *(v1 + 24) = v11;
+  *(v1 + 16) = v9;
+  *(v1 + 24) = v10;
   swift_beginAccess();
-  LOBYTE(v10) = *(a1 + 32);
+  LOBYTE(v9) = *(a1 + 32);
   swift_beginAccess();
-  *(v1 + 32) = v10;
-  v12 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__audioMetadata;
+  *(v1 + 32) = v9;
+  v11 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__audioMetadata;
   swift_beginAccess();
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1 + v12, v6, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1 + v11, v5, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
   swift_beginAccess();
 
-  outlined assign with take of ModalityXServerBoundFrame.OneOf_Payload?(v6, v1 + v7, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+  outlined assign with take of ModalityXServerBoundFrame.OneOf_Payload?(v5, v1 + v6, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
   swift_endAccess();
-  v13 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__enablePartialResults;
+  v12 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__enablePartialResults;
   swift_beginAccess();
-  LOBYTE(v13) = *(a1 + v13);
-  v14 = v31;
+  LOBYTE(v12) = *(a1 + v12);
+  v13 = v28;
   swift_beginAccess();
-  *(v1 + v14) = v13;
-  v15 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isPromptedDictation;
+  *(v1 + v13) = v12;
+  v14 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isPromptedDictation;
   swift_beginAccess();
-  LOBYTE(v15) = *(a1 + v15);
-  v16 = v32;
+  LOBYTE(v14) = *(a1 + v14);
+  v15 = v29;
   swift_beginAccess();
-  *(v1 + v16) = v15;
-  v17 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isPromptedConfirmation;
+  *(v1 + v15) = v14;
+  v16 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isPromptedConfirmation;
   swift_beginAccess();
-  LOBYTE(v17) = *(a1 + v17);
-  v18 = v33;
+  LOBYTE(v16) = *(a1 + v16);
+  v17 = v30;
   swift_beginAccess();
-  *(v1 + v18) = v17;
-  v19 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__foregroundAppID);
+  *(v1 + v17) = v16;
+  v18 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__foregroundAppID);
   swift_beginAccess();
-  v21 = *v19;
-  v20 = v19[1];
+  v20 = *v18;
+  v19 = v18[1];
   swift_beginAccess();
-  v22 = v9[1];
-  *v9 = v21;
-  v9[1] = v20;
+  *v8 = v20;
+  v8[1] = v19;
 
-  v23 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isAutoPunctuationEnabled;
+  v21 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isAutoPunctuationEnabled;
   swift_beginAccess();
-  LOBYTE(v23) = *(a1 + v23);
-  v24 = v34;
+  LOBYTE(v21) = *(a1 + v21);
+  v22 = v31;
   swift_beginAccess();
-  *(v1 + v24) = v23;
-  v25 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inlineLmeItems;
+  *(v1 + v22) = v21;
+  v23 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inlineLmeItems;
   swift_beginAccess();
-  v26 = *(a1 + v25);
+  v24 = *(a1 + v23);
 
-  v27 = v35;
+  v25 = v32;
   swift_beginAccess();
-  v28 = *(v1 + v27);
-  *(v1 + v27) = v26;
+  *(v1 + v25) = v24;
 
   return v1;
 }
 
 uint64_t ModalityXBeginRequest._StorageClass.deinit()
 {
-  v1 = *(v0 + 24);
 
   outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v0 + OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__audioMetadata, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
-  v2 = *(v0 + OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__foregroundAppID + 8);
-
-  v3 = *(v0 + OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inlineLmeItems);
 
   return v0;
 }
 
-void closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)()
+void closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   while (1)
   {
-    v1 = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v2 & 1) != 0)
+    v9 = dispatch thunk of Decoder.nextFieldNumber()();
+    if (v4 || (v10 & 1) != 0)
     {
       break;
     }
 
-    switch(v1)
+    switch(v9)
     {
       case 20:
-        closure #3 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)();
-        break;
+        closure #3 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)(a2, a1, a3, a4, &OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__audioMetadata);
+        continue;
       case 21:
+        v11 = a2;
+        goto LABEL_14;
       case 22:
+        v11 = a2;
+        goto LABEL_14;
       case 23:
-      case 25:
-        closure #4 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)();
-        break;
+        v11 = a2;
+        goto LABEL_14;
       case 24:
-        closure #7 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)();
+        closure #7 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)(a2, a1, a3, a4, &OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__foregroundAppID, MEMORY[0x277D217D0]);
+        continue;
+      case 25:
+        v11 = a2;
+LABEL_14:
+        closure #4 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)(v11);
         break;
       case 26:
-        closure #9 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)();
+        closure #9 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)(a2);
         break;
       default:
-        if (v1 == 2)
+        if (v9 == 2)
         {
-          closure #2 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)();
+          closure #2 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)(a2, a1, a3, a4);
         }
 
-        else if (v1 == 1)
+        else if (v9 == 1)
         {
-          closure #1 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)();
+          closure #1 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)(a2, a1, a3, a4);
         }
 
         break;
@@ -3003,14 +2249,14 @@ void closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)()
   }
 }
 
-uint64_t closure #1 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)()
+uint64_t closure #1 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   swift_beginAccess();
   dispatch thunk of Decoder.decodeSingularStringField(value:)();
   return swift_endAccess();
 }
 
-uint64_t closure #2 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)()
+uint64_t closure #2 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   swift_beginAccess();
   lazy protocol witness table accessor for type ModalityXInputOrigin and conformance ModalityXInputOrigin();
@@ -3018,37 +2264,11 @@ uint64_t closure #2 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(deco
   return swift_endAccess();
 }
 
-uint64_t closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  result = closure #1 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(a1);
-  if (!v4)
-  {
-    closure #2 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(a1);
-    closure #3 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(a1, a2, a3, a4, &OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__audioMetadata, 20);
-    closure #4 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)();
-    closure #4 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)();
-    closure #4 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)();
-    closure #7 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)();
-    closure #4 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)();
-    v10 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inlineLmeItems;
-    result = swift_beginAccess();
-    if (*(*(a1 + v10) + 16))
-    {
-
-      dispatch thunk of Visitor.visitRepeatedStringField(value:fieldNumber:)();
-    }
-  }
-
-  return result;
-}
-
-uint64_t closure #1 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #1 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = swift_beginAccess();
   if (*(a1 + 24))
   {
-    v3 = *(a1 + 16);
-    v4 = *(a1 + 24);
 
     dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
   }
@@ -3056,7 +2276,7 @@ uint64_t closure #1 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)
   return result;
 }
 
-uint64_t closure #2 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #2 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = swift_beginAccess();
   if (*(a1 + 32) != 19)
@@ -3071,211 +2291,208 @@ uint64_t closure #2 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)
 uint64_t closure #1 in static ModalityXBeginRequest.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for ModalityXAudioMetadata(0);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4);
-  v61 = &v60 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A14XAudioMetadataVSg_ADtMd, &_s16ModalityXObjects0A14XAudioMetadataVSg_ADtMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7);
-  v10 = &v60 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  v13 = MEMORY[0x28223BE20](v11 - 8);
-  v62 = &v60 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v60 - v15;
+  v58 = &v57 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A14XAudioMetadataVSg_ADtMd, &_s16ModalityXObjects0A14XAudioMetadataVSg_ADtMR);
+  MEMORY[0x28223BE20](v6);
+  v8 = &v57 - v7;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+  v10 = MEMORY[0x28223BE20](v9 - 8);
+  v59 = &v57 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v10);
+  v13 = &v57 - v12;
   swift_beginAccess();
-  v17 = a1;
-  v19 = *(a1 + 16);
-  v18 = *(a1 + 24);
+  v14 = a1;
+  v16 = *(a1 + 16);
+  v15 = *(a1 + 24);
   swift_beginAccess();
-  v20 = a2;
-  v21 = *(a2 + 24);
-  if (v18)
+  v17 = a2;
+  v18 = *(a2 + 24);
+  if (v15)
   {
-    if (!v21)
+    if (!v18)
     {
       goto LABEL_19;
     }
 
-    v22 = v19 == *(a2 + 16) && v18 == v21;
-    if (!v22 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+    v19 = v16 == *(a2 + 16) && v15 == v18;
+    if (!v19 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
     {
       goto LABEL_19;
     }
   }
 
-  else if (v21)
+  else if (v18)
   {
     goto LABEL_19;
   }
 
   swift_beginAccess();
-  v23 = *(v17 + 32);
+  v20 = *(v14 + 32);
   swift_beginAccess();
-  v24 = *(a2 + 32);
-  if (v23 == 19)
+  v21 = *(a2 + 32);
+  if (v20 == 19)
   {
-    if (v24 == 19)
+    if (v21 == 19)
     {
       goto LABEL_12;
     }
   }
 
-  else if (v24 != 19 && v23 == v24)
+  else if (v21 != 19 && v20 == v21)
   {
 LABEL_12:
-    v25 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__audioMetadata;
-    v26 = v17;
+    v22 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__audioMetadata;
+    v23 = v14;
     swift_beginAccess();
-    outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v17 + v25, v16, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
-    v27 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__audioMetadata;
+    outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v14 + v22, v13, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+    v24 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__audioMetadata;
     swift_beginAccess();
-    v28 = *(v7 + 48);
-    outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v16, v10, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
-    outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a2 + v27, &v10[v28], &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
-    if (__swift_getEnumTagSinglePayload(v10, 1, v4) == 1)
+    v25 = *(v6 + 48);
+    outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v13, v8, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+    outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a2 + v24, &v8[v25], &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+    if (__swift_getEnumTagSinglePayload(v8, 1, v4) == 1)
     {
 
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v16, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
-      if (__swift_getEnumTagSinglePayload(&v10[v28], 1, v4) == 1)
+      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v13, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+      if (__swift_getEnumTagSinglePayload(&v8[v25], 1, v4) == 1)
       {
-        outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v10, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+        outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
 LABEL_27:
-        v35 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__enablePartialResults;
+        v32 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__enablePartialResults;
         swift_beginAccess();
-        v36 = *(v26 + v35);
-        v37 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__enablePartialResults;
+        v33 = *(v23 + v32);
+        v34 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__enablePartialResults;
         swift_beginAccess();
-        v38 = *(v20 + v37);
-        if (v36 == 2)
+        v35 = *(v17 + v34);
+        if (v33 == 2)
         {
-          if (v38 != 2)
+          if (v35 != 2)
           {
             goto LABEL_23;
           }
         }
 
-        else if (v38 == 2 || ((v36 ^ v38) & 1) != 0)
+        else if (v35 == 2 || ((v33 ^ v35) & 1) != 0)
         {
           goto LABEL_23;
         }
 
-        v39 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isPromptedDictation;
+        v36 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isPromptedDictation;
         swift_beginAccess();
-        v40 = *(v26 + v39);
-        v41 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isPromptedDictation;
+        v37 = *(v23 + v36);
+        v38 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isPromptedDictation;
         swift_beginAccess();
-        v42 = *(v20 + v41);
-        if (v40 == 2)
+        v39 = *(v17 + v38);
+        if (v37 == 2)
         {
-          if (v42 != 2)
+          if (v39 != 2)
           {
             goto LABEL_23;
           }
         }
 
-        else if (v42 == 2 || ((v40 ^ v42) & 1) != 0)
+        else if (v39 == 2 || ((v37 ^ v39) & 1) != 0)
         {
           goto LABEL_23;
         }
 
-        v43 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isPromptedConfirmation;
+        v40 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isPromptedConfirmation;
         swift_beginAccess();
-        v44 = *(v26 + v43);
-        v45 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isPromptedConfirmation;
+        v41 = *(v23 + v40);
+        v42 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isPromptedConfirmation;
         swift_beginAccess();
-        v46 = *(v20 + v45);
-        if (v44 == 2)
+        v43 = *(v17 + v42);
+        if (v41 == 2)
         {
-          if (v46 != 2)
+          if (v43 != 2)
           {
             goto LABEL_23;
           }
         }
 
-        else if (v46 == 2 || ((v44 ^ v46) & 1) != 0)
+        else if (v43 == 2 || ((v41 ^ v43) & 1) != 0)
         {
           goto LABEL_23;
         }
 
-        v47 = (v26 + OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__foregroundAppID);
+        v44 = (v23 + OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__foregroundAppID);
         swift_beginAccess();
-        v48 = *v47;
-        v49 = v47[1];
-        v50 = (v20 + OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__foregroundAppID);
+        v45 = *v44;
+        v46 = v44[1];
+        v47 = (v17 + OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__foregroundAppID);
         swift_beginAccess();
-        v51 = v50[1];
-        if (v49)
+        v48 = v47[1];
+        if (v46)
         {
-          if (!v51)
+          if (!v48)
           {
             goto LABEL_23;
           }
 
-          v52 = v48 == *v50 && v49 == v51;
-          if (!v52 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+          v49 = v45 == *v47 && v46 == v48;
+          if (!v49 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
           {
             goto LABEL_23;
           }
         }
 
-        else if (v51)
+        else if (v48)
         {
           goto LABEL_23;
         }
 
-        v53 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isAutoPunctuationEnabled;
+        v50 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isAutoPunctuationEnabled;
         swift_beginAccess();
-        v54 = *(v26 + v53);
-        v55 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isAutoPunctuationEnabled;
+        v51 = *(v23 + v50);
+        v52 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isAutoPunctuationEnabled;
         swift_beginAccess();
-        v56 = *(v20 + v55);
-        if (v54 == 2)
+        v53 = *(v17 + v52);
+        if (v51 == 2)
         {
-          if (v56 == 2)
+          if (v53 == 2)
           {
 LABEL_56:
-            v57 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inlineLmeItems;
+            v54 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inlineLmeItems;
             swift_beginAccess();
-            v58 = *(v26 + v57);
-            v59 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inlineLmeItems;
+            v55 = *(v23 + v54);
+            v56 = OBJC_IVAR____TtCV16ModalityXObjects21ModalityXBeginRequestP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inlineLmeItems;
             swift_beginAccess();
-            v30 = _sSasSQRzlE2eeoiySbSayxG_ABtFZSS_Tt1g5(v58, *(v20 + v59));
+            v27 = _sSasSQRzlE2eeoiySbSayxG_ABtFZSS_Tt1g5(v55, *(v17 + v56));
             goto LABEL_24;
           }
         }
 
-        else if (v56 != 2 && ((v54 ^ v56) & 1) == 0)
+        else if (v53 != 2 && ((v51 ^ v53) & 1) == 0)
         {
           goto LABEL_56;
         }
 
 LABEL_23:
-        v30 = 0;
+        v27 = 0;
 LABEL_24:
 
-        return v30 & 1;
+        return v27 & 1;
       }
     }
 
     else
     {
-      v31 = v62;
-      outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v10, v62, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
-      if (__swift_getEnumTagSinglePayload(&v10[v28], 1, v4) != 1)
+      v28 = v59;
+      outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v8, v59, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+      if (__swift_getEnumTagSinglePayload(&v8[v25], 1, v4) != 1)
       {
-        v33 = v61;
-        outlined init with take of ModalityXSessionMetadata();
+        v30 = v58;
+        outlined init with take of ModalityXSessionMetadata(&v8[v25]);
 
-        v26 = v17;
+        v23 = v14;
 
-        v34 = static ModalityXAudioMetadata.== infix(_:_:)(v31, v33);
+        v31 = static ModalityXAudioMetadata.== infix(_:_:)(v28, v30);
         outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-        outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v16, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+        outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v13, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
         outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-        outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v10, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
-        if ((v34 & 1) == 0)
+        outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+        if ((v31 & 1) == 0)
         {
           goto LABEL_23;
         }
@@ -3283,53 +2500,44 @@ LABEL_24:
         goto LABEL_27;
       }
 
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v16, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v13, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
       outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     }
 
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v10, &_s16ModalityXObjects0A14XAudioMetadataVSg_ADtMd, &_s16ModalityXObjects0A14XAudioMetadataVSg_ADtMR);
+    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A14XAudioMetadataVSg_ADtMd, &_s16ModalityXObjects0A14XAudioMetadataVSg_ADtMR);
     goto LABEL_23;
   }
 
 LABEL_19:
-  v30 = 0;
-  return v30 & 1;
+  v27 = 0;
+  return v27 & 1;
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance ModalityXBeginRequest(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXBeginRequest and conformance ModalityXBeginRequest, type metadata accessor for ModalityXBeginRequest);
+  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXBeginRequest and conformance ModalityXBeginRequest, type metadata accessor for ModalityXBeginRequest, &protocol conformance descriptor for ModalityXBeginRequest);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ModalityXBeginRequest(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXBeginRequest and conformance ModalityXBeginRequest, type metadata accessor for ModalityXBeginRequest);
+  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXBeginRequest and conformance ModalityXBeginRequest, type metadata accessor for ModalityXBeginRequest, &protocol conformance descriptor for ModalityXBeginRequest);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXBeginRequest()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXBeginRequest(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXBeginRequest and conformance ModalityXBeginRequest, type metadata accessor for ModalityXBeginRequest);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXBeginRequest and conformance ModalityXBeginRequest, type metadata accessor for ModalityXBeginRequest, &protocol conformance descriptor for ModalityXBeginRequest);
 
   return Message.hash(into:)();
 }
 
 uint64_t one-time initialization function for defaultInstance(uint64_t a1, uint64_t (*a2)(void), uint64_t (*a3)(void), uint64_t *a4)
 {
-  v6 = a2(0);
-  OUTLINED_FUNCTION_146(v6);
-  swift_allocObject();
-  result = a3();
-  *a4 = result;
-  return result;
-}
-
-{
-  v6 = a2(0);
-  OUTLINED_FUNCTION_146(v6);
+  a2(0);
+  OUTLINED_FUNCTION_146();
   swift_allocObject();
   result = a3();
   *a4 = result;
@@ -3389,313 +2597,272 @@ uint64_t ModalityXBeginDictation._StorageClass.init()()
 uint64_t ModalityXBeginDictation._StorageClass.init(copying:)(uint64_t a1)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v102 - v5;
-  v7 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__audioMetadata;
-  v8 = type metadata accessor for ModalityXAudioMetadata(0);
-  __swift_storeEnumTagSinglePayload(v1 + v7, 1, 1, v8);
-  v9 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__requestID);
+  v5 = &v89 - v4;
+  v6 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__audioMetadata;
+  v7 = type metadata accessor for ModalityXAudioMetadata(0);
+  __swift_storeEnumTagSinglePayload(v1 + v6, 1, 1, v7);
+  v8 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__requestID);
+  *v8 = 0;
+  v8[1] = 0;
+  v9 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__fieldID);
   *v9 = 0;
   v9[1] = 0;
-  v10 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__fieldID);
+  v10 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__fieldLabel);
   *v10 = 0;
   v10[1] = 0;
-  v11 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__fieldLabel);
+  v11 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationName);
+  v89 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationName);
   *v11 = 0;
   v11[1] = 0;
-  v12 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationName);
-  v102 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationName);
+  v12 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationVersion);
+  v90 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationVersion);
   *v12 = 0;
   v12[1] = 0;
-  v13 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationVersion);
-  v103 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationVersion);
-  *v13 = 0;
-  v13[1] = 0;
-  v104 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardType;
+  v91 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardType;
   *(v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardType) = 16;
-  v14 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardReturnKey;
+  v13 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardReturnKey;
   *(v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardReturnKey) = 12;
-  v15 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__selectedText);
-  v105 = v14;
-  v106 = v15;
+  v14 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__selectedText);
+  v92 = v13;
+  v93 = v14;
+  *v14 = 0;
+  v14[1] = 0;
+  v15 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__prefixText);
+  v94 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__prefixText);
   *v15 = 0;
   v15[1] = 0;
-  v16 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__prefixText);
-  v107 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__prefixText);
+  v16 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__postfixText);
+  v95 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__postfixText);
   *v16 = 0;
   v16[1] = 0;
-  v17 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__postfixText);
-  v108 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__postfixText);
-  *v17 = 0;
-  v17[1] = 0;
-  v109 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inlineLmeItems;
-  v18 = MEMORY[0x277D84F90];
+  v96 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inlineLmeItems;
+  v17 = MEMORY[0x277D84F90];
   *(v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inlineLmeItems) = MEMORY[0x277D84F90];
-  v19 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__languages;
-  *(v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__languages) = v18;
-  v20 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__region);
-  v110 = v19;
-  v111 = v20;
+  v18 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__languages;
+  *(v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__languages) = v17;
+  v19 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__region);
+  v97 = v18;
+  v98 = v19;
+  *v19 = 0;
+  v19[1] = 0;
+  v99 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__activationToken);
+  *(v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__activationToken) = xmmword_25A1D8720;
+  v100 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__censorSpeech;
+  *(v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__censorSpeech) = 2;
+  v101 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__speakerIndependentRecognition;
+  *(v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__speakerIndependentRecognition) = 2;
+  v102 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__saveRequestAudio;
+  *(v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__saveRequestAudio) = 2;
+  v20 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardIdentifier);
+  v103 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardIdentifier);
   *v20 = 0;
   v20[1] = 0;
-  v112 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__activationToken);
-  *(v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__activationToken) = xmmword_25A1D8720;
-  v113 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__censorSpeech;
-  *(v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__censorSpeech) = 2;
-  v114 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__speakerIndependentRecognition;
-  *(v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__speakerIndependentRecognition) = 2;
-  v115 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__saveRequestAudio;
-  *(v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__saveRequestAudio) = 2;
-  v21 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardIdentifier);
-  v116 = (v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardIdentifier);
-  *v21 = 0;
-  v21[1] = 0;
-  v117 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__enablePartialResults;
+  v104 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__enablePartialResults;
   *(v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__enablePartialResults) = 2;
-  v22 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inputOrigin;
+  v21 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inputOrigin;
   *(v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inputOrigin) = 19;
-  v118 = v22;
-  v119 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isAutoPunctuationEnabled;
+  v105 = v21;
+  v106 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isAutoPunctuationEnabled;
   *(v1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isAutoPunctuationEnabled) = 2;
-  v23 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__audioMetadata;
+  v22 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__audioMetadata;
   swift_beginAccess();
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1 + v23, v6, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1 + v22, v5, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
   swift_beginAccess();
-  outlined assign with take of ModalityXServerBoundFrame.OneOf_Payload?(v6, v1 + v7, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+  outlined assign with take of ModalityXServerBoundFrame.OneOf_Payload?(v5, v1 + v6, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
   swift_endAccess();
-  v24 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__requestID);
+  v23 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__requestID);
   swift_beginAccess();
-  v26 = *v24;
-  v25 = v24[1];
+  v25 = *v23;
+  v24 = v23[1];
   swift_beginAccess();
-  v27 = v9[1];
-  *v9 = v26;
-  v9[1] = v25;
+  *v8 = v25;
+  v8[1] = v24;
 
-  v28 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__fieldID);
+  v26 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__fieldID);
   swift_beginAccess();
-  v30 = *v28;
-  v29 = v28[1];
+  v28 = *v26;
+  v27 = v26[1];
   swift_beginAccess();
-  v31 = v10[1];
-  *v10 = v30;
-  v10[1] = v29;
+  *v9 = v28;
+  v9[1] = v27;
 
-  v32 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__fieldLabel);
+  v29 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__fieldLabel);
+  swift_beginAccess();
+  v31 = *v29;
+  v30 = v29[1];
+  swift_beginAccess();
+  *v10 = v31;
+  v10[1] = v30;
+
+  v32 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationName);
   swift_beginAccess();
   v34 = *v32;
   v33 = v32[1];
+  v35 = v89;
   swift_beginAccess();
-  v35 = v11[1];
-  *v11 = v34;
-  v11[1] = v33;
+  *v35 = v34;
+  v35[1] = v33;
 
-  v36 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationName);
+  v36 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationVersion);
   swift_beginAccess();
   v38 = *v36;
   v37 = v36[1];
-  v39 = v102;
+  v39 = v90;
   swift_beginAccess();
-  v40 = v39[1];
   *v39 = v38;
   v39[1] = v37;
 
-  v41 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationVersion);
+  v40 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardType;
   swift_beginAccess();
-  v43 = *v41;
-  v42 = v41[1];
-  v44 = v103;
+  LOBYTE(v40) = *(a1 + v40);
+  v41 = v91;
   swift_beginAccess();
+  *(v1 + v41) = v40;
+  v42 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardReturnKey;
+  swift_beginAccess();
+  LOBYTE(v42) = *(a1 + v42);
+  v43 = v92;
+  swift_beginAccess();
+  *(v1 + v43) = v42;
+  v44 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__selectedText);
+  swift_beginAccess();
+  v46 = *v44;
   v45 = v44[1];
-  *v44 = v43;
-  v44[1] = v42;
+  v47 = v93;
+  swift_beginAccess();
+  *v47 = v46;
+  v47[1] = v45;
 
-  v46 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardType;
+  v48 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__prefixText);
   swift_beginAccess();
-  LOBYTE(v46) = *(a1 + v46);
-  v47 = v104;
+  v50 = *v48;
+  v49 = v48[1];
+  v51 = v94;
   swift_beginAccess();
-  *(v1 + v47) = v46;
-  v48 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardReturnKey;
-  swift_beginAccess();
-  LOBYTE(v48) = *(a1 + v48);
-  v49 = v105;
-  swift_beginAccess();
-  *(v1 + v49) = v48;
-  v50 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__selectedText);
-  swift_beginAccess();
-  v52 = *v50;
-  v51 = v50[1];
-  v53 = v106;
-  swift_beginAccess();
-  v54 = v53[1];
-  *v53 = v52;
-  v53[1] = v51;
+  *v51 = v50;
+  v51[1] = v49;
 
-  v55 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__prefixText);
+  v52 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__postfixText);
   swift_beginAccess();
-  v57 = *v55;
-  v56 = v55[1];
-  v58 = v107;
+  v54 = *v52;
+  v53 = v52[1];
+  v55 = v95;
   swift_beginAccess();
-  v59 = v58[1];
-  *v58 = v57;
-  v58[1] = v56;
+  *v55 = v54;
+  v55[1] = v53;
 
-  v60 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__postfixText);
+  v56 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inlineLmeItems;
   swift_beginAccess();
-  v62 = *v60;
-  v61 = v60[1];
-  v63 = v108;
+  v57 = *(a1 + v56);
+  v58 = v96;
   swift_beginAccess();
-  v64 = v63[1];
-  *v63 = v62;
-  v63[1] = v61;
+  *(v1 + v58) = v57;
 
-  v65 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inlineLmeItems;
+  v59 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__languages;
   swift_beginAccess();
-  v66 = *(a1 + v65);
-  v67 = v109;
+  v60 = *(a1 + v59);
+  v61 = v97;
   swift_beginAccess();
-  v68 = *(v1 + v67);
-  *(v1 + v67) = v66;
+  *(v1 + v61) = v60;
 
-  v69 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__languages;
+  v62 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__region);
   swift_beginAccess();
-  v70 = *(a1 + v69);
-  v71 = v110;
+  v64 = *v62;
+  v63 = v62[1];
+  v65 = v98;
   swift_beginAccess();
-  v72 = *(v1 + v71);
-  *(v1 + v71) = v70;
+  *v65 = v64;
+  v65[1] = v63;
 
-  v73 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__region);
+  v66 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__activationToken);
   swift_beginAccess();
-  v75 = *v73;
-  v74 = v73[1];
-  v76 = v111;
+  v68 = *v66;
+  v67 = v66[1];
+  v69 = v99;
   swift_beginAccess();
-  v77 = v76[1];
-  *v76 = v75;
-  v76[1] = v74;
-
-  v78 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__activationToken);
+  v70 = *v69;
+  v71 = v69[1];
+  *v69 = v68;
+  v69[1] = v67;
+  outlined copy of Data?(v68, v67);
+  outlined consume of Data?(v70, v71);
+  v72 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__censorSpeech;
+  swift_beginAccess();
+  LOBYTE(v72) = *(a1 + v72);
+  v73 = v100;
+  swift_beginAccess();
+  *(v1 + v73) = v72;
+  v74 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__speakerIndependentRecognition;
+  swift_beginAccess();
+  LOBYTE(v74) = *(a1 + v74);
+  v75 = v101;
+  swift_beginAccess();
+  *(v1 + v75) = v74;
+  v76 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__saveRequestAudio;
+  swift_beginAccess();
+  LOBYTE(v76) = *(a1 + v76);
+  v77 = v102;
+  swift_beginAccess();
+  *(v1 + v77) = v76;
+  v78 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardIdentifier);
   swift_beginAccess();
   v80 = *v78;
   v79 = v78[1];
-  v81 = v112;
+  v81 = v103;
   swift_beginAccess();
-  v82 = *v81;
-  v83 = v81[1];
   *v81 = v80;
   v81[1] = v79;
-  outlined copy of Data?(v80, v79);
-  outlined consume of Data?(v82, v83);
-  v84 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__censorSpeech;
+
+  v82 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__enablePartialResults;
+  swift_beginAccess();
+  LOBYTE(v82) = *(a1 + v82);
+  v83 = v104;
+  swift_beginAccess();
+  *(v1 + v83) = v82;
+  v84 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inputOrigin;
   swift_beginAccess();
   LOBYTE(v84) = *(a1 + v84);
-  v85 = v113;
+  v85 = v105;
   swift_beginAccess();
   *(v1 + v85) = v84;
-  v86 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__speakerIndependentRecognition;
+  v86 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isAutoPunctuationEnabled;
   swift_beginAccess();
   LOBYTE(v86) = *(a1 + v86);
-  v87 = v114;
+
+  v87 = v106;
   swift_beginAccess();
   *(v1 + v87) = v86;
-  v88 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__saveRequestAudio;
-  swift_beginAccess();
-  LOBYTE(v88) = *(a1 + v88);
-  v89 = v115;
-  swift_beginAccess();
-  *(v1 + v89) = v88;
-  v90 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardIdentifier);
-  swift_beginAccess();
-  v92 = *v90;
-  v91 = v90[1];
-  v93 = v116;
-  swift_beginAccess();
-  v94 = v93[1];
-  *v93 = v92;
-  v93[1] = v91;
-
-  v95 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__enablePartialResults;
-  swift_beginAccess();
-  LOBYTE(v95) = *(a1 + v95);
-  v96 = v117;
-  swift_beginAccess();
-  *(v1 + v96) = v95;
-  v97 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inputOrigin;
-  swift_beginAccess();
-  LOBYTE(v97) = *(a1 + v97);
-  v98 = v118;
-  swift_beginAccess();
-  *(v1 + v98) = v97;
-  v99 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isAutoPunctuationEnabled;
-  swift_beginAccess();
-  LOBYTE(v99) = *(a1 + v99);
-
-  v100 = v119;
-  swift_beginAccess();
-  *(v1 + v100) = v99;
   return v1;
 }
 
 uint64_t ModalityXBeginDictation._StorageClass.deinit()
 {
   outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v0 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__audioMetadata, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
-  v1 = *(v0 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__requestID + 8);
-
-  v2 = *(v0 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__fieldID + 8);
-
-  v3 = *(v0 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__fieldLabel + 8);
-
-  v4 = *(v0 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationName + 8);
-
-  v5 = *(v0 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationVersion + 8);
-
-  v6 = *(v0 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__selectedText + 8);
-
-  v7 = *(v0 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__prefixText + 8);
-
-  v8 = *(v0 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__postfixText + 8);
-
-  v9 = *(v0 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inlineLmeItems);
-
-  v10 = *(v0 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__languages);
-
-  v11 = *(v0 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__region + 8);
 
   outlined consume of Data?(*(v0 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__activationToken), *(v0 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__activationToken + 8));
-  v12 = *(v0 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardIdentifier + 8);
 
   return v0;
 }
 
 uint64_t ModalityXBeginRequest._StorageClass.__deallocating_deinit(uint64_t (*a1)(void))
 {
-  v1 = *a1();
-  v2 = *(v1 + 48);
-  v3 = *(v1 + 52);
+  a1();
 
   return MEMORY[0x2821FE8D8]();
 }
 
 uint64_t ModalityXBeginRequest.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t (*a6)(uint64_t), uint64_t (*a7)(void))
 {
-  v10 = v7;
-  v11 = OUTLINED_FUNCTION_306();
-  v13 = *(v12(v11) + 20);
-  v14 = *(v7 + v13);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v16 = *(v7 + v13);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  v10 = OUTLINED_FUNCTION_306();
+  v12 = *(v11(v10) + 20);
+  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
   {
-    v17 = a5(0);
-    OUTLINED_FUNCTION_146(v17);
+    a5(0);
+    OUTLINED_FUNCTION_146();
     swift_allocObject();
-    v18 = OUTLINED_FUNCTION_74();
-    *(v10 + v13) = a6(v18);
+    v13 = OUTLINED_FUNCTION_74();
+    *(v7 + v12) = a6(v13);
   }
 
   OUTLINED_FUNCTION_289();
@@ -3703,49 +2870,140 @@ uint64_t ModalityXBeginRequest.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t 
   return a7();
 }
 
-void closure #1 in ModalityXBeginDictation.decodeMessage<A>(decoder:)()
+void closure #1 in ModalityXBeginDictation.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   while (1)
   {
-    v1 = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v2 & 1) != 0)
+    v9 = dispatch thunk of Decoder.nextFieldNumber()();
+    if (v4 || (v10 & 1) != 0)
     {
       break;
     }
 
-    switch(v1)
+    switch(v9)
     {
       case 1:
-        closure #3 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)();
-        break;
+        closure #3 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)(a2, a1, a3, a4, &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__audioMetadata);
+        continue;
       case 2:
+        v12 = MEMORY[0x277D217D0];
+        v13 = a2;
+        v14 = a1;
+        v15 = a3;
+        v16 = a4;
+        v17 = &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__requestID;
+        goto LABEL_24;
       case 3:
+        v12 = MEMORY[0x277D217D0];
+        v13 = a2;
+        v14 = a1;
+        v15 = a3;
+        v16 = a4;
+        v17 = &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__fieldID;
+        goto LABEL_24;
       case 4:
+        v12 = MEMORY[0x277D217D0];
+        v13 = a2;
+        v14 = a1;
+        v15 = a3;
+        v16 = a4;
+        v17 = &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__fieldLabel;
+        goto LABEL_24;
       case 5:
+        v12 = MEMORY[0x277D217D0];
+        v13 = a2;
+        v14 = a1;
+        v15 = a3;
+        v16 = a4;
+        v17 = &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationName;
+        goto LABEL_24;
       case 6:
-      case 9:
-      case 10:
-      case 11:
-      case 14:
-      case 15:
-      case 19:
-        closure #7 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)();
-        break;
+        v12 = MEMORY[0x277D217D0];
+        v13 = a2;
+        v14 = a1;
+        v15 = a3;
+        v16 = a4;
+        v17 = &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationVersion;
+        goto LABEL_24;
       case 7:
       case 8:
       case 21:
         closure #7 in closure #1 in ModalityXBeginDictation.decodeMessage<A>(decoder:)();
-        break;
+        continue;
+      case 9:
+        v12 = MEMORY[0x277D217D0];
+        v13 = a2;
+        v14 = a1;
+        v15 = a3;
+        v16 = a4;
+        v17 = &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__selectedText;
+        goto LABEL_24;
+      case 10:
+        v12 = MEMORY[0x277D217D0];
+        v13 = a2;
+        v14 = a1;
+        v15 = a3;
+        v16 = a4;
+        v17 = &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__prefixText;
+        goto LABEL_24;
+      case 11:
+        v12 = MEMORY[0x277D217D0];
+        v13 = a2;
+        v14 = a1;
+        v15 = a3;
+        v16 = a4;
+        v17 = &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__postfixText;
+        goto LABEL_24;
       case 12:
+        v18 = a2;
+        goto LABEL_10;
       case 13:
-        closure #9 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)();
-        break;
+        v18 = a2;
+LABEL_10:
+        closure #9 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)(v18);
+        continue;
+      case 14:
+        v12 = MEMORY[0x277D217D0];
+        v13 = a2;
+        v14 = a1;
+        v15 = a3;
+        v16 = a4;
+        v17 = &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__region;
+        goto LABEL_24;
+      case 15:
+        v12 = MEMORY[0x277D21760];
+        v13 = a2;
+        v14 = a1;
+        v15 = a3;
+        v16 = a4;
+        v17 = &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__activationToken;
+        goto LABEL_24;
       case 16:
+        v11 = a2;
+        goto LABEL_26;
       case 17:
+        v11 = a2;
+        goto LABEL_26;
       case 18:
+        v11 = a2;
+        goto LABEL_26;
+      case 19:
+        v12 = MEMORY[0x277D217D0];
+        v13 = a2;
+        v14 = a1;
+        v15 = a3;
+        v16 = a4;
+        v17 = &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardIdentifier;
+LABEL_24:
+        closure #7 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)(v13, v14, v15, v16, v17, v12);
+        continue;
       case 20:
+        v11 = a2;
+        goto LABEL_26;
       case 22:
-        closure #4 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)();
+        v11 = a2;
+LABEL_26:
+        closure #4 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)(v11);
         break;
       default:
         continue;
@@ -3753,40 +3011,37 @@ void closure #1 in ModalityXBeginDictation.decodeMessage<A>(decoder:)()
   }
 }
 
-void closure #3 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)()
+void closure #3 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   OUTLINED_FUNCTION_358();
   OUTLINED_FUNCTION_45();
-  v1 = *v0;
-  OUTLINED_FUNCTION_281();
+  OUTLINED_FUNCTION_281(v6 + *v5);
   type metadata accessor for ModalityXAudioMetadata(0);
   OUTLINED_FUNCTION_206();
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(v2, v3);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(v7, v8, &protocol conformance descriptor for ModalityXAudioMetadata);
   OUTLINED_FUNCTION_106();
-  dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  OUTLINED_FUNCTION_326();
+  v9 = dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
+  OUTLINED_FUNCTION_326(v9);
   OUTLINED_FUNCTION_357();
 }
 
-uint64_t closure #9 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)()
+uint64_t closure #9 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_45();
-  v1 = *v0;
-  OUTLINED_FUNCTION_281();
+  OUTLINED_FUNCTION_281(v2 + *v1);
   OUTLINED_FUNCTION_114();
-  dispatch thunk of Decoder.decodeRepeatedStringField(value:)();
-  return OUTLINED_FUNCTION_326();
+  v3 = dispatch thunk of Decoder.decodeRepeatedStringField(value:)();
+  return OUTLINED_FUNCTION_326(v3);
 }
 
-void closure #7 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)()
+void closure #7 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   OUTLINED_FUNCTION_358();
   OUTLINED_FUNCTION_99();
-  v2 = *v1;
-  OUTLINED_FUNCTION_281();
+  OUTLINED_FUNCTION_281(v8 + *v7);
   OUTLINED_FUNCTION_161();
-  v0();
-  OUTLINED_FUNCTION_326();
+  v9 = v6();
+  OUTLINED_FUNCTION_326(v9);
   OUTLINED_FUNCTION_357();
 }
 
@@ -3794,30 +3049,28 @@ uint64_t closure #7 in closure #1 in ModalityXBeginDictation.decodeMessage<A>(de
 {
   OUTLINED_FUNCTION_338();
   OUTLINED_FUNCTION_127();
-  v2 = *v1;
-  v3 = OUTLINED_FUNCTION_281();
-  v0(v3);
-  OUTLINED_FUNCTION_177();
-  return OUTLINED_FUNCTION_326();
+  v3 = OUTLINED_FUNCTION_281(v2 + *v1);
+  v4 = v0(v3);
+  v5 = OUTLINED_FUNCTION_177(v4);
+  return OUTLINED_FUNCTION_326(v5);
 }
 
-uint64_t closure #4 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)()
+uint64_t closure #4 in closure #1 in ModalityXBeginRequest.decodeMessage<A>(decoder:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_45();
-  v1 = *v0;
-  OUTLINED_FUNCTION_281();
+  OUTLINED_FUNCTION_281(v2 + *v1);
   OUTLINED_FUNCTION_114();
-  dispatch thunk of Decoder.decodeSingularBoolField(value:)();
-  return OUTLINED_FUNCTION_326();
+  v3 = dispatch thunk of Decoder.decodeSingularBoolField(value:)();
+  return OUTLINED_FUNCTION_326(v3);
 }
 
 uint64_t ModalityXBeginRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
   OUTLINED_FUNCTION_93();
-  v9 = *(v5 + *(v8(0) + 20));
+  v7(0);
   OUTLINED_FUNCTION_135();
   result = a5();
-  if (!v6)
+  if (!v5)
   {
     OUTLINED_FUNCTION_98();
     return UnknownStorage.traverse<A>(visitor:)();
@@ -3831,84 +3084,81 @@ void closure #1 in ModalityXBeginDictation.traverse<A>(visitor:)(uint64_t a1, ui
   closure #3 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(a1, a2, a3, a4, &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__audioMetadata, 1);
   if (!v4)
   {
-    closure #7 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)();
-    closure #7 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)();
-    closure #7 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)();
-    closure #7 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)();
-    closure #7 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)();
-    closure #7 in closure #1 in ModalityXBeginDictation.traverse<A>(visitor:)(a1);
-    closure #8 in closure #1 in ModalityXBeginDictation.traverse<A>(visitor:)(a1);
-    closure #7 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)();
-    closure #7 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)();
-    closure #7 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)();
-    v6 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inlineLmeItems;
+    closure #7 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(a1, a2, a3, a4, &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__requestID, 2, v9, v10, v31, v41, v50, v60, v70, v80, v90, v100, v110, v120, v130, v140, v150, v160);
+    closure #7 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(a1, a2, a3, a4, &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__fieldID, 3, v11, v12, v32, v42, v51, v61, v71, v81, v91, v101, v111, v121, v131, v141, v151, v161);
+    closure #7 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(a1, a2, a3, a4, &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__fieldLabel, 4, v13, v14, v33, v43, v52, v62, v72, v82, v92, v102, v112, v122, v132, v142, v152, v162);
+    closure #7 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(a1, a2, a3, a4, &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationName, 5, v15, v16, v34, v44, v53, v63, v73, v83, v93, v103, v113, v123, v133, v143, v153, v163);
+    closure #7 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(a1, a2, a3, a4, &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationVersion, 6, v17, v18, v35, v45, v54, v64, v74, v84, v94, v104, v114, v124, v134, v144, v154, v164);
+    closure #7 in closure #1 in ModalityXBeginDictation.traverse<A>(visitor:)(a1, a2, a3, a4);
+    closure #8 in closure #1 in ModalityXBeginDictation.traverse<A>(visitor:)(a1, a2, a3, a4);
+    closure #7 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(a1, a2, a3, a4, &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__selectedText, 9, v19, v20, v36, v46, v55, v65, v75, v85, v95, v105, v115, v125, v135, v145, v155, v165);
+    closure #7 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(a1, a2, a3, a4, &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__prefixText, 10, v21, v22, v37, v47, v56, v66, v76, v86, v96, v106, v116, v126, v136, v146, v156, v166);
+    closure #7 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(a1, a2, a3, a4, &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__postfixText, 11, v23, v24, v38, v48, v57, v67, v77, v87, v97, v107, v117, v127, v137, v147, v157, v167);
+    v25 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inlineLmeItems;
     swift_beginAccess();
-    if (*(*(a1 + v6) + 16))
+    if (*(*(a1 + v25) + 16))
     {
 
       dispatch thunk of Visitor.visitRepeatedStringField(value:fieldNumber:)();
     }
 
-    v7 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__languages;
+    v26 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__languages;
     swift_beginAccess();
-    if (*(*(a1 + v7) + 16))
+    if (*(*(a1 + v26) + 16))
     {
 
       dispatch thunk of Visitor.visitRepeatedStringField(value:fieldNumber:)();
     }
 
-    closure #7 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)();
-    closure #13 in closure #1 in ModalityXBeginDictation.traverse<A>(visitor:)(a1);
-    closure #4 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)();
-    closure #4 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)();
-    closure #4 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)();
-    closure #7 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)();
-    closure #4 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)();
-    closure #19 in closure #1 in ModalityXBeginDictation.traverse<A>(visitor:)(a1);
-    closure #4 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)();
+    closure #7 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(a1, a2, a3, a4, &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__region, 14, v27, v28, v39, 0, v58, v68, v78, v88, v98, v108, v118, v128, v138, v148, v158, v168);
+    closure #13 in closure #1 in ModalityXBeginDictation.traverse<A>(visitor:)(a1, a2, a3, a4);
+    closure #4 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(a1, a2, a3, a4, &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__censorSpeech, 16);
+    closure #4 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(a1, a2, a3, a4, &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__speakerIndependentRecognition, 17);
+    closure #4 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(a1, a2, a3, a4, &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__saveRequestAudio, 18);
+    closure #7 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(a1, a2, a3, a4, &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardIdentifier, 19, v29, v30, v40, v49, v59, v69, v79, v89, v99, v109, v119, v129, v139, v149, v159, v169);
+    closure #4 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(a1, a2, a3, a4, &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__enablePartialResults, 20);
+    closure #19 in closure #1 in ModalityXBeginDictation.traverse<A>(visitor:)(a1, a2, a3, a4);
+    closure #4 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(a1, a2, a3, a4, &OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isAutoPunctuationEnabled, 22);
   }
 }
 
 uint64_t closure #3 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6)
 {
-  v22[1] = a6;
-  v22[2] = a3;
-  v22[7] = a4;
+  v18[1] = a6;
+  v18[2] = a3;
+  v18[7] = a4;
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
   OUTLINED_FUNCTION_122(v8);
-  v10 = *(v9 + 64);
   OUTLINED_FUNCTION_133();
-  MEMORY[0x28223BE20](v11);
-  v13 = v22 - v12;
-  v14 = type metadata accessor for ModalityXAudioMetadata(0);
-  v15 = OUTLINED_FUNCTION_54(v14);
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v15);
+  MEMORY[0x28223BE20](v9);
+  v11 = v18 - v10;
+  v12 = type metadata accessor for ModalityXAudioMetadata(0);
+  OUTLINED_FUNCTION_54();
+  MEMORY[0x28223BE20](v13);
   OUTLINED_FUNCTION_64();
-  v18 = *a5;
+  v14 = *a5;
   OUTLINED_FUNCTION_134();
   swift_beginAccess();
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1 + v18, v13, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
-  if (__swift_getEnumTagSinglePayload(v13, 1, v14) == 1)
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1 + v14, v11, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+  if (__swift_getEnumTagSinglePayload(v11, 1, v12) == 1)
   {
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v13, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v11, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
   }
 
-  outlined init with take of ModalityXSessionMetadata();
+  outlined init with take of ModalityXSessionMetadata(v11);
   OUTLINED_FUNCTION_206();
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(v20, v21);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(v16, v17, &protocol conformance descriptor for ModalityXAudioMetadata);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
   OUTLINED_FUNCTION_204();
   return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
 }
 
-uint64_t closure #7 in closure #1 in ModalityXBeginDictation.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #7 in closure #1 in ModalityXBeginDictation.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardType;
+  v5 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardType;
   result = swift_beginAccess();
-  if (*(a1 + v2) != 16)
+  if (*(a1 + v5) != 16)
   {
-    v4 = *(a1 + v2);
     lazy protocol witness table accessor for type ModalityXFieldKeyboardType and conformance ModalityXFieldKeyboardType();
     return dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
   }
@@ -3916,13 +3166,12 @@ uint64_t closure #7 in closure #1 in ModalityXBeginDictation.traverse<A>(visitor
   return result;
 }
 
-uint64_t closure #8 in closure #1 in ModalityXBeginDictation.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #8 in closure #1 in ModalityXBeginDictation.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardReturnKey;
+  v5 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardReturnKey;
   result = swift_beginAccess();
-  if (*(a1 + v2) != 12)
+  if (*(a1 + v5) != 12)
   {
-    v4 = *(a1 + v2);
     lazy protocol witness table accessor for type ModalityXFieldKeyboardReturnKey and conformance ModalityXFieldKeyboardReturnKey();
     return dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
   }
@@ -3930,33 +3179,31 @@ uint64_t closure #8 in closure #1 in ModalityXBeginDictation.traverse<A>(visitor
   return result;
 }
 
-uint64_t closure #13 in closure #1 in ModalityXBeginDictation.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #13 in closure #1 in ModalityXBeginDictation.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__activationToken);
+  v4 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__activationToken);
   result = swift_beginAccess();
-  v3 = v1[1];
-  if (v3 >> 60 != 15)
+  v6 = v4[1];
+  if (v6 >> 60 != 15)
   {
-    v4 = *v1;
-    outlined copy of Data._Representation(v4, v3);
+    v7 = *v4;
+    outlined copy of Data._Representation(v7, v6);
     dispatch thunk of Visitor.visitSingularBytesField(value:fieldNumber:)();
-    return outlined consume of Data?(v4, v3);
+    return outlined consume of Data?(v7, v6);
   }
 
   return result;
 }
 
-void closure #7 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)()
+void closure #7 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
   OUTLINED_FUNCTION_358();
   OUTLINED_FUNCTION_81();
-  v2 = (v1 + *v0);
+  v24 = v23 + *v22;
   OUTLINED_FUNCTION_134();
   swift_beginAccess();
-  if (v2[1])
+  if (*(v24 + 8))
   {
-    v3 = *v2;
-    v4 = v2[1];
 
     OUTLINED_FUNCTION_106();
     dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
@@ -3965,13 +3212,12 @@ void closure #7 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)()
   OUTLINED_FUNCTION_357();
 }
 
-uint64_t closure #19 in closure #1 in ModalityXBeginDictation.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #19 in closure #1 in ModalityXBeginDictation.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inputOrigin;
+  v5 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inputOrigin;
   result = swift_beginAccess();
-  if (*(a1 + v2) != 19)
+  if (*(a1 + v5) != 19)
   {
-    v4 = *(a1 + v2);
     lazy protocol witness table accessor for type ModalityXInputOrigin and conformance ModalityXInputOrigin();
     return dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
   }
@@ -3979,15 +3225,15 @@ uint64_t closure #19 in closure #1 in ModalityXBeginDictation.traverse<A>(visito
   return result;
 }
 
-void closure #4 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)()
+void closure #4 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   OUTLINED_FUNCTION_358();
   OUTLINED_FUNCTION_81();
-  v1 = v0;
-  v3 = *v2;
+  v7 = v6;
+  v9 = *v8;
   OUTLINED_FUNCTION_89();
   swift_beginAccess();
-  if (*(v1 + v3) != 2)
+  if (*(v7 + v9) != 2)
   {
     OUTLINED_FUNCTION_124();
     dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)();
@@ -3998,302 +3244,299 @@ void closure #4 in closure #1 in ModalityXBeginRequest.traverse<A>(visitor:)()
 
 uint64_t closure #1 in static ModalityXBeginDictation.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
-  v134 = type metadata accessor for ModalityXAudioMetadata(0);
-  v4 = *(*(v134 - 8) + 64);
-  MEMORY[0x28223BE20](v134);
-  v132 = &v132 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A14XAudioMetadataVSg_ADtMd, &_s16ModalityXObjects0A14XAudioMetadataVSg_ADtMR);
-  v7 = v6 - 8;
-  v8 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6);
-  v10 = &v132 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  v13 = MEMORY[0x28223BE20](v11 - 8);
-  v133 = &v132 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v132 - v15;
-  v17 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__audioMetadata;
+  v131 = type metadata accessor for ModalityXAudioMetadata(0);
+  MEMORY[0x28223BE20](v131);
+  v129 = &v129 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A14XAudioMetadataVSg_ADtMd, &_s16ModalityXObjects0A14XAudioMetadataVSg_ADtMR);
+  v6 = v5 - 8;
+  MEMORY[0x28223BE20](v5);
+  v8 = &v129 - v7;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+  v10 = MEMORY[0x28223BE20](v9 - 8);
+  v130 = &v129 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v10);
+  v13 = &v129 - v12;
+  v14 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__audioMetadata;
   swift_beginAccess();
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1 + v17, v16, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
-  v18 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__audioMetadata;
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1 + v14, v13, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+  v15 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__audioMetadata;
   swift_beginAccess();
-  v19 = *(v7 + 56);
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v16, v10, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
-  v20 = v134;
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a2 + v18, &v10[v19], &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
-  if (__swift_getEnumTagSinglePayload(v10, 1, v20) == 1)
+  v16 = *(v6 + 56);
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v13, v8, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+  v17 = v131;
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a2 + v15, &v8[v16], &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+  if (__swift_getEnumTagSinglePayload(v8, 1, v17) == 1)
   {
 
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v16, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
-    v21 = a2;
-    if (__swift_getEnumTagSinglePayload(&v10[v19], 1, v20) == 1)
+    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v13, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+    v18 = a2;
+    if (__swift_getEnumTagSinglePayload(&v8[v16], 1, v17) == 1)
     {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v10, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
       goto LABEL_9;
     }
 
 LABEL_6:
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v10, &_s16ModalityXObjects0A14XAudioMetadataVSg_ADtMd, &_s16ModalityXObjects0A14XAudioMetadataVSg_ADtMR);
+    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A14XAudioMetadataVSg_ADtMd, &_s16ModalityXObjects0A14XAudioMetadataVSg_ADtMR);
     goto LABEL_54;
   }
 
-  v21 = a2;
-  v22 = v133;
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v10, v133, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
-  if (__swift_getEnumTagSinglePayload(&v10[v19], 1, v20) == 1)
+  v18 = a2;
+  v19 = v130;
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v8, v130, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+  if (__swift_getEnumTagSinglePayload(&v8[v16], 1, v17) == 1)
   {
 
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v16, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v13, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     goto LABEL_6;
   }
 
-  v23 = v132;
-  outlined init with take of ModalityXSessionMetadata();
+  v20 = v129;
+  outlined init with take of ModalityXSessionMetadata(&v8[v16]);
 
-  v24 = static ModalityXAudioMetadata.== infix(_:_:)(v22, v23);
+  v21 = static ModalityXAudioMetadata.== infix(_:_:)(v19, v20);
   outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v16, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v13, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
   outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v10, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
-  if ((v24 & 1) == 0)
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A14XAudioMetadataVSgMd, &_s16ModalityXObjects0A14XAudioMetadataVSgMR);
+  if ((v21 & 1) == 0)
   {
     goto LABEL_54;
   }
 
 LABEL_9:
-  v25 = a1;
-  v26 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__requestID);
+  v22 = a1;
+  v23 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__requestID);
   swift_beginAccess();
-  v27 = *v26;
-  v28 = v26[1];
-  v29 = (v21 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__requestID);
+  v24 = *v23;
+  v25 = v23[1];
+  v26 = (v18 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__requestID);
   swift_beginAccess();
-  v30 = v29[1];
-  if (v28)
+  v27 = v26[1];
+  if (v25)
   {
-    if (!v30)
+    if (!v27)
     {
       goto LABEL_54;
     }
 
-    v31 = v27 == *v29 && v28 == v30;
-    if (!v31 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+    v28 = v24 == *v26 && v25 == v27;
+    if (!v28 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
     {
       goto LABEL_54;
     }
   }
 
-  else if (v30)
+  else if (v27)
   {
     goto LABEL_54;
   }
 
-  v32 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__fieldID);
+  v29 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__fieldID);
   swift_beginAccess();
-  v33 = *v32;
-  v34 = v32[1];
-  v35 = (v21 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__fieldID);
+  v30 = *v29;
+  v31 = v29[1];
+  v32 = (v18 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__fieldID);
   swift_beginAccess();
-  v36 = v35[1];
-  if (v34)
+  v33 = v32[1];
+  if (v31)
   {
-    if (!v36)
+    if (!v33)
     {
       goto LABEL_54;
     }
 
-    v37 = v33 == *v35 && v34 == v36;
-    if (!v37 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+    v34 = v30 == *v32 && v31 == v33;
+    if (!v34 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
     {
       goto LABEL_54;
     }
   }
 
-  else if (v36)
+  else if (v33)
   {
     goto LABEL_54;
   }
 
-  v38 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__fieldLabel);
+  v35 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__fieldLabel);
   swift_beginAccess();
-  v39 = *v38;
-  v40 = v38[1];
-  v41 = (v21 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__fieldLabel);
+  v36 = *v35;
+  v37 = v35[1];
+  v38 = (v18 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__fieldLabel);
   swift_beginAccess();
-  v42 = v41[1];
-  if (v40)
+  v39 = v38[1];
+  if (v37)
   {
-    if (!v42)
+    if (!v39)
     {
       goto LABEL_54;
     }
 
-    v43 = v39 == *v41 && v40 == v42;
-    if (!v43 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+    v40 = v36 == *v38 && v37 == v39;
+    if (!v40 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
     {
       goto LABEL_54;
     }
   }
 
-  else if (v42)
+  else if (v39)
   {
     goto LABEL_54;
   }
 
-  v44 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationName);
+  v41 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationName);
   swift_beginAccess();
-  v45 = *v44;
-  v46 = v44[1];
-  v47 = (v21 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationName);
+  v42 = *v41;
+  v43 = v41[1];
+  v44 = (v18 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationName);
   swift_beginAccess();
-  v48 = v47[1];
-  if (v46)
+  v45 = v44[1];
+  if (v43)
   {
-    if (!v48)
+    if (!v45)
     {
       goto LABEL_54;
     }
 
-    v49 = v45 == *v47 && v46 == v48;
-    if (!v49 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+    v46 = v42 == *v44 && v43 == v45;
+    if (!v46 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
     {
       goto LABEL_54;
     }
   }
 
-  else if (v48)
+  else if (v45)
   {
     goto LABEL_54;
   }
 
-  v50 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationVersion);
+  v47 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationVersion);
   swift_beginAccess();
-  v51 = *v50;
-  v52 = v50[1];
-  v53 = (v21 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationVersion);
+  v48 = *v47;
+  v49 = v47[1];
+  v50 = (v18 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__applicationVersion);
   swift_beginAccess();
-  v54 = v53[1];
-  if (v52)
+  v51 = v50[1];
+  if (v49)
   {
-    if (!v54)
+    if (!v51)
     {
       goto LABEL_54;
     }
 
-    v55 = v51 == *v53 && v52 == v54;
-    if (!v55 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+    v52 = v48 == *v50 && v49 == v51;
+    if (!v52 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
     {
       goto LABEL_54;
     }
   }
 
-  else if (v54)
+  else if (v51)
   {
     goto LABEL_54;
   }
 
-  v57 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardType;
+  v54 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardType;
   swift_beginAccess();
-  v58 = *(a1 + v57);
-  v59 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardType;
+  v55 = *(a1 + v54);
+  v56 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardType;
   swift_beginAccess();
-  v60 = *(v21 + v59);
-  if (v58 == 16)
+  v57 = *(v18 + v56);
+  if (v55 == 16)
   {
-    if (v60 != 16)
+    if (v57 != 16)
     {
       goto LABEL_54;
     }
   }
 
-  else if (v60 == 16 || v58 != v60)
+  else if (v57 == 16 || v55 != v57)
   {
     goto LABEL_54;
   }
 
-  v61 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardReturnKey;
+  v58 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardReturnKey;
   swift_beginAccess();
-  v62 = *(a1 + v61);
-  v63 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardReturnKey;
+  v59 = *(a1 + v58);
+  v60 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardReturnKey;
   swift_beginAccess();
-  v64 = *(v21 + v63);
-  if (v62 == 12)
+  v61 = *(v18 + v60);
+  if (v59 == 12)
   {
-    if (v64 != 12)
+    if (v61 != 12)
     {
       goto LABEL_54;
     }
   }
 
-  else if (v64 == 12 || v62 != v64)
+  else if (v61 == 12 || v59 != v61)
   {
     goto LABEL_54;
   }
 
-  v65 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__selectedText);
+  v62 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__selectedText);
   swift_beginAccess();
-  v66 = *v65;
-  v67 = v65[1];
-  v68 = (v21 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__selectedText);
+  v63 = *v62;
+  v64 = v62[1];
+  v65 = (v18 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__selectedText);
   swift_beginAccess();
-  v69 = v68[1];
-  if (v67)
+  v66 = v65[1];
+  if (v64)
   {
-    if (!v69)
+    if (!v66)
     {
       goto LABEL_54;
     }
 
-    v70 = v66 == *v68 && v67 == v69;
-    if (!v70 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+    v67 = v63 == *v65 && v64 == v66;
+    if (!v67 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
     {
       goto LABEL_54;
     }
   }
 
-  else if (v69)
+  else if (v66)
   {
     goto LABEL_54;
   }
 
-  v71 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__prefixText);
+  v68 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__prefixText);
   swift_beginAccess();
-  v72 = *v71;
-  v73 = v71[1];
-  v74 = (v21 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__prefixText);
+  v69 = *v68;
+  v70 = v68[1];
+  v71 = (v18 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__prefixText);
   swift_beginAccess();
-  v75 = v74[1];
-  if (v73)
+  v72 = v71[1];
+  if (v70)
   {
-    if (!v75)
+    if (!v72)
     {
       goto LABEL_54;
     }
 
-    v76 = v72 == *v74 && v73 == v75;
-    if (!v76 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+    v73 = v69 == *v71 && v70 == v72;
+    if (!v73 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
     {
       goto LABEL_54;
     }
   }
 
-  else if (v75)
+  else if (v72)
   {
     goto LABEL_54;
   }
 
-  v77 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__postfixText);
+  v74 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__postfixText);
   swift_beginAccess();
-  v78 = *v77;
-  v79 = v77[1];
-  v80 = (v21 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__postfixText);
+  v75 = *v74;
+  v76 = v74[1];
+  v77 = (v18 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__postfixText);
   swift_beginAccess();
-  v81 = v80[1];
-  if (!v79)
+  v78 = v77[1];
+  if (!v76)
   {
-    if (!v81)
+    if (!v78)
     {
       goto LABEL_93;
     }
@@ -4303,247 +3546,247 @@ LABEL_54:
     return 0;
   }
 
-  if (!v81)
+  if (!v78)
   {
     goto LABEL_54;
   }
 
-  v82 = v78 == *v80 && v79 == v81;
-  if (!v82 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  v79 = v75 == *v77 && v76 == v78;
+  if (!v79 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
   {
     goto LABEL_54;
   }
 
 LABEL_93:
-  v83 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inlineLmeItems;
+  v80 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inlineLmeItems;
+  swift_beginAccess();
+  v81 = *(a1 + v80);
+  v82 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inlineLmeItems;
+  swift_beginAccess();
+  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZSS_Tt1g5(v81, *(v18 + v82)) & 1) == 0)
+  {
+    goto LABEL_54;
+  }
+
+  v83 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__languages;
   swift_beginAccess();
   v84 = *(a1 + v83);
-  v85 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inlineLmeItems;
+  v85 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__languages;
   swift_beginAccess();
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZSS_Tt1g5(v84, *(v21 + v85)) & 1) == 0)
+  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZSS_Tt1g5(v84, *(v18 + v85)) & 1) == 0)
   {
     goto LABEL_54;
   }
 
-  v86 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__languages;
+  v86 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__region);
   swift_beginAccess();
-  v87 = *(a1 + v86);
-  v88 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__languages;
+  v87 = *v86;
+  v88 = v86[1];
+  v89 = (v18 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__region);
   swift_beginAccess();
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZSS_Tt1g5(v87, *(v21 + v88)) & 1) == 0)
+  v90 = v89[1];
+  if (v88)
+  {
+    if (!v90)
+    {
+      goto LABEL_54;
+    }
+
+    v91 = v87 == *v89 && v88 == v90;
+    if (!v91 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+    {
+      goto LABEL_54;
+    }
+  }
+
+  else if (v90)
   {
     goto LABEL_54;
   }
 
-  v89 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__region);
+  v92 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__activationToken);
   swift_beginAccess();
-  v90 = *v89;
-  v91 = v89[1];
-  v92 = (v21 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__region);
-  swift_beginAccess();
+  v94 = *v92;
   v93 = v92[1];
-  if (v91)
-  {
-    if (!v93)
-    {
-      goto LABEL_54;
-    }
-
-    v94 = v90 == *v92 && v91 == v93;
-    if (!v94 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-    {
-      goto LABEL_54;
-    }
-  }
-
-  else if (v93)
-  {
-    goto LABEL_54;
-  }
-
-  v95 = (a1 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__activationToken);
+  v95 = (v18 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__activationToken);
   swift_beginAccess();
-  v97 = *v95;
-  v96 = v95[1];
-  v98 = (v21 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__activationToken);
-  swift_beginAccess();
-  v99 = *v98;
-  v100 = v98[1];
-  outlined copy of Data?(v97, v96);
-  outlined copy of Data?(v99, v100);
-  if (v96 >> 60 == 15)
+  v96 = *v95;
+  v97 = v95[1];
+  outlined copy of Data?(v94, v93);
+  outlined copy of Data?(v96, v97);
+  if (v93 >> 60 == 15)
   {
-    if (v100 >> 60 == 15)
+    if (v97 >> 60 == 15)
     {
-      outlined consume of Data?(v97, v96);
+      outlined consume of Data?(v94, v93);
       goto LABEL_114;
     }
 
 LABEL_112:
-    outlined consume of Data?(v97, v96);
-    outlined consume of Data?(v99, v100);
+    outlined consume of Data?(v94, v93);
+    outlined consume of Data?(v96, v97);
     return 0;
   }
 
-  outlined copy of Data?(v97, v96);
-  outlined copy of Data?(v99, v100);
-  if (v100 >> 60 == 15)
+  outlined copy of Data?(v94, v93);
+  outlined copy of Data?(v96, v97);
+  if (v97 >> 60 == 15)
   {
 
-    outlined consume of Data?(v99, v100);
-    outlined consume of Data?(v97, v96);
+    outlined consume of Data?(v96, v97);
+    outlined consume of Data?(v94, v93);
     goto LABEL_112;
   }
 
-  v101 = MEMORY[0x25F84E030](v97, v96, v99, v100);
-  outlined consume of Data?(v99, v100);
-  outlined consume of Data?(v97, v96);
-  outlined consume of Data?(v99, v100);
-  outlined consume of Data?(v97, v96);
-  if ((v101 & 1) == 0)
+  v98 = MEMORY[0x25F84E030](v94, v93, v96, v97);
+  outlined consume of Data?(v96, v97);
+  outlined consume of Data?(v94, v93);
+  outlined consume of Data?(v96, v97);
+  outlined consume of Data?(v94, v93);
+  if ((v98 & 1) == 0)
   {
     goto LABEL_54;
   }
 
 LABEL_114:
-  v102 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__censorSpeech;
+  v99 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__censorSpeech;
   swift_beginAccess();
-  v103 = *(v25 + v102);
-  v104 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__censorSpeech;
+  v100 = *(v22 + v99);
+  v101 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__censorSpeech;
   swift_beginAccess();
-  v105 = *(v21 + v104);
-  if (v103 == 2)
+  v102 = *(v18 + v101);
+  if (v100 == 2)
   {
-    if (v105 != 2)
+    if (v102 != 2)
     {
       goto LABEL_54;
     }
   }
 
-  else if (v105 == 2 || ((v103 ^ v105) & 1) != 0)
+  else if (v102 == 2 || ((v100 ^ v102) & 1) != 0)
   {
     goto LABEL_54;
   }
 
-  v106 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__speakerIndependentRecognition;
+  v103 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__speakerIndependentRecognition;
   swift_beginAccess();
-  v107 = *(v25 + v106);
-  v108 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__speakerIndependentRecognition;
+  v104 = *(v22 + v103);
+  v105 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__speakerIndependentRecognition;
   swift_beginAccess();
-  v109 = *(v21 + v108);
-  if (v107 == 2)
+  v106 = *(v18 + v105);
+  if (v104 == 2)
   {
-    if (v109 != 2)
+    if (v106 != 2)
     {
       goto LABEL_54;
     }
   }
 
-  else if (v109 == 2 || ((v107 ^ v109) & 1) != 0)
+  else if (v106 == 2 || ((v104 ^ v106) & 1) != 0)
   {
     goto LABEL_54;
   }
 
-  v110 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__saveRequestAudio;
+  v107 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__saveRequestAudio;
   swift_beginAccess();
-  v111 = *(v25 + v110);
-  v112 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__saveRequestAudio;
+  v108 = *(v22 + v107);
+  v109 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__saveRequestAudio;
   swift_beginAccess();
-  v113 = *(v21 + v112);
-  if (v111 == 2)
+  v110 = *(v18 + v109);
+  if (v108 == 2)
   {
-    if (v113 != 2)
+    if (v110 != 2)
     {
       goto LABEL_54;
     }
   }
 
-  else if (v113 == 2 || ((v111 ^ v113) & 1) != 0)
+  else if (v110 == 2 || ((v108 ^ v110) & 1) != 0)
   {
     goto LABEL_54;
   }
 
-  v114 = (v25 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardIdentifier);
+  v111 = (v22 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardIdentifier);
   swift_beginAccess();
-  v115 = *v114;
-  v116 = v114[1];
-  v117 = (v21 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardIdentifier);
+  v112 = *v111;
+  v113 = v111[1];
+  v114 = (v18 + OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__keyboardIdentifier);
   swift_beginAccess();
-  v118 = v117[1];
-  if (v116)
+  v115 = v114[1];
+  if (v113)
   {
-    if (!v118)
+    if (!v115)
     {
       goto LABEL_54;
     }
 
-    v119 = v115 == *v117 && v116 == v118;
-    if (!v119 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+    v116 = v112 == *v114 && v113 == v115;
+    if (!v116 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
     {
       goto LABEL_54;
     }
   }
 
-  else if (v118)
+  else if (v115)
   {
     goto LABEL_54;
   }
 
-  v120 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__enablePartialResults;
+  v117 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__enablePartialResults;
   swift_beginAccess();
-  v121 = *(v25 + v120);
-  v122 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__enablePartialResults;
+  v118 = *(v22 + v117);
+  v119 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__enablePartialResults;
   swift_beginAccess();
-  v123 = *(v21 + v122);
-  if (v121 == 2)
+  v120 = *(v18 + v119);
+  if (v118 == 2)
   {
-    if (v123 != 2)
+    if (v120 != 2)
     {
       goto LABEL_54;
     }
   }
 
-  else if (v123 == 2 || ((v121 ^ v123) & 1) != 0)
+  else if (v120 == 2 || ((v118 ^ v120) & 1) != 0)
   {
     goto LABEL_54;
   }
 
-  v124 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inputOrigin;
+  v121 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inputOrigin;
   swift_beginAccess();
-  v125 = *(v25 + v124);
-  v126 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inputOrigin;
+  v122 = *(v22 + v121);
+  v123 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__inputOrigin;
   swift_beginAccess();
-  v127 = *(v21 + v126);
-  if (v125 == 19)
+  v124 = *(v18 + v123);
+  if (v122 == 19)
   {
-    if (v127 != 19)
+    if (v124 != 19)
     {
       goto LABEL_54;
     }
   }
 
-  else if (v127 == 19 || v125 != v127)
+  else if (v124 == 19 || v122 != v124)
   {
     goto LABEL_54;
   }
 
-  v128 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isAutoPunctuationEnabled;
+  v125 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isAutoPunctuationEnabled;
   swift_beginAccess();
-  v129 = *(v25 + v128);
+  v126 = *(v22 + v125);
 
-  v130 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isAutoPunctuationEnabled;
+  v127 = OBJC_IVAR____TtCV16ModalityXObjects23ModalityXBeginDictationP33_CBCEF76E48FCDEC1269AFEAD4BBE13E913_StorageClass__isAutoPunctuationEnabled;
   swift_beginAccess();
-  v131 = *(v21 + v130);
+  v128 = *(v18 + v127);
 
-  if (v129 == 2)
+  if (v126 == 2)
   {
-    if (v131 != 2)
+    if (v128 != 2)
     {
       return 0;
     }
   }
 
-  else if (v131 == 2 || ((v129 ^ v131) & 1) != 0)
+  else if (v128 == 2 || ((v126 ^ v128) & 1) != 0)
   {
     return 0;
   }
@@ -4553,62 +3796,30 @@ LABEL_114:
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance ModalityXBeginDictation(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXBeginDictation and conformance ModalityXBeginDictation, type metadata accessor for ModalityXBeginDictation);
+  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXBeginDictation and conformance ModalityXBeginDictation, type metadata accessor for ModalityXBeginDictation, &protocol conformance descriptor for ModalityXBeginDictation);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ModalityXBeginDictation(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXBeginDictation and conformance ModalityXBeginDictation, type metadata accessor for ModalityXBeginDictation);
+  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXBeginDictation and conformance ModalityXBeginDictation, type metadata accessor for ModalityXBeginDictation, &protocol conformance descriptor for ModalityXBeginDictation);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXBeginDictation()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXBeginDictation(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXBeginDictation and conformance ModalityXBeginDictation, type metadata accessor for ModalityXBeginDictation);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXBeginDictation and conformance ModalityXBeginDictation, type metadata accessor for ModalityXBeginDictation, &protocol conformance descriptor for ModalityXBeginDictation);
 
   return Message.hash(into:)();
 }
 
-uint64_t ModalityXCancelRequest.decodeMessage<A>(decoder:)()
-{
-  OUTLINED_FUNCTION_202();
-  return ModalityXCancelRequest.decodeMessage<A>(decoder:)();
-}
-
-{
-  while (1)
-  {
-    result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v2 & 1) != 0)
-    {
-      break;
-    }
-
-    if (result == 2)
-    {
-      OUTLINED_FUNCTION_289();
-      closure #2 in ModalityXCancelRequest.decodeMessage<A>(decoder:)();
-    }
-
-    else if (result == 1)
-    {
-      OUTLINED_FUNCTION_289();
-      closure #1 in ModalityXCancelRequest.decodeMessage<A>(decoder:)();
-    }
-  }
-
-  return result;
-}
-
-uint64_t closure #2 in ModalityXCancelRequest.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #2 in ModalityXCancelRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ModalityXCancelRequest(0);
   if (*(a1 + *(result + 24)) != 3)
   {
-    v3 = *(a1 + *(result + 24));
     lazy protocol witness table accessor for type ModalityXCancellationReason and conformance ModalityXCancellationReason();
     return dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
   }
@@ -4618,21 +3829,21 @@ uint64_t closure #2 in ModalityXCancelRequest.traverse<A>(visitor:)(uint64_t a1)
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance ModalityXCancelRequest(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXCancelRequest and conformance ModalityXCancelRequest, type metadata accessor for ModalityXCancelRequest);
+  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXCancelRequest and conformance ModalityXCancelRequest, type metadata accessor for ModalityXCancelRequest, &protocol conformance descriptor for ModalityXCancelRequest);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ModalityXCancelRequest(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXCancelRequest and conformance ModalityXCancelRequest, type metadata accessor for ModalityXCancelRequest);
+  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXCancelRequest and conformance ModalityXCancelRequest, type metadata accessor for ModalityXCancelRequest, &protocol conformance descriptor for ModalityXCancelRequest);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXCancelRequest()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXCancelRequest(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXCancelRequest and conformance ModalityXCancelRequest, type metadata accessor for ModalityXCancelRequest);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXCancelRequest and conformance ModalityXCancelRequest, type metadata accessor for ModalityXCancelRequest, &protocol conformance descriptor for ModalityXCancelRequest);
 
   return Message.hash(into:)();
 }
@@ -4653,16 +3864,16 @@ uint64_t ModalityXAudioFrame.decodeMessage<A>(decoder:)()
     {
       case 3:
         OUTLINED_FUNCTION_200();
-        OUTLINED_FUNCTION_31();
-        closure #3 in ModalityXAudioFrame.decodeMessage<A>(decoder:)();
+        v4 = OUTLINED_FUNCTION_31();
+        closure #3 in ModalityXAudioFrame.decodeMessage<A>(decoder:)(v4);
         break;
       case 2:
         OUTLINED_FUNCTION_135();
         dispatch thunk of Decoder.decodeRepeatedBytesField(value:)();
         break;
       case 1:
-        OUTLINED_FUNCTION_31();
-        closure #2 in ModalityXSpeechProfile.decodeMessage<A>(decoder:)();
+        v3 = OUTLINED_FUNCTION_31();
+        closure #2 in ModalityXSpeechProfile.decodeMessage<A>(decoder:)(v3);
         break;
     }
   }
@@ -4670,12 +3881,12 @@ uint64_t ModalityXAudioFrame.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t closure #2 in ModalityXSpeechProfile.decodeMessage<A>(decoder:)()
+uint64_t closure #2 in ModalityXSpeechProfile.decodeMessage<A>(decoder:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_99();
-  v2 = *(v1(0) + 24);
+  v2(0);
   OUTLINED_FUNCTION_161();
-  return v0();
+  return v1();
 }
 
 uint64_t ModalityXAudioFrame.traverse<A>(visitor:)()
@@ -4683,7 +3894,7 @@ uint64_t ModalityXAudioFrame.traverse<A>(visitor:)()
   OUTLINED_FUNCTION_182();
   OUTLINED_FUNCTION_289();
   OUTLINED_FUNCTION_124();
-  result = closure #1 in ModalityXAudioFrame.traverse<A>(visitor:)();
+  result = closure #1 in ModalityXAudioFrame.traverse<A>(visitor:)(v2, v3, v4, v5, v6, 1);
   if (!v1)
   {
     if (*(*v0 + 16))
@@ -4695,8 +3906,8 @@ uint64_t ModalityXAudioFrame.traverse<A>(visitor:)()
     OUTLINED_FUNCTION_200();
     OUTLINED_FUNCTION_340();
     OUTLINED_FUNCTION_124();
-    closure #2 in ModalityXAudioFrame.traverse<A>(visitor:)();
-    v3 = v0 + *(type metadata accessor for ModalityXAudioFrame(0) + 20);
+    closure #2 in ModalityXAudioFrame.traverse<A>(visitor:)(v8);
+    type metadata accessor for ModalityXAudioFrame(0);
     OUTLINED_FUNCTION_135();
     return UnknownStorage.traverse<A>(visitor:)();
   }
@@ -4706,21 +3917,21 @@ uint64_t ModalityXAudioFrame.traverse<A>(visitor:)()
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance ModalityXAudioFrame(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXAudioFrame and conformance ModalityXAudioFrame, type metadata accessor for ModalityXAudioFrame);
+  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXAudioFrame and conformance ModalityXAudioFrame, type metadata accessor for ModalityXAudioFrame, &protocol conformance descriptor for ModalityXAudioFrame);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ModalityXAudioFrame(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXAudioFrame and conformance ModalityXAudioFrame, type metadata accessor for ModalityXAudioFrame);
+  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXAudioFrame and conformance ModalityXAudioFrame, type metadata accessor for ModalityXAudioFrame, &protocol conformance descriptor for ModalityXAudioFrame);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXAudioFrame()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXAudioFrame(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXAudioFrame and conformance ModalityXAudioFrame, type metadata accessor for ModalityXAudioFrame);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXAudioFrame and conformance ModalityXAudioFrame, type metadata accessor for ModalityXAudioFrame, &protocol conformance descriptor for ModalityXAudioFrame);
 
   return Message.hash(into:)();
 }
@@ -4740,16 +3951,16 @@ uint64_t ModalityXASRResult.decodeMessage<A>(decoder:)()
     switch(result)
     {
       case 3:
-        v7 = OUTLINED_FUNCTION_41();
-        closure #3 in ModalityXASRResult.decodeMessage<A>(decoder:)(v7, v8, v9, v10);
+        v8 = OUTLINED_FUNCTION_41();
+        closure #3 in ModalityXASRResult.decodeMessage<A>(decoder:)(v8, v9, v10, v11);
         break;
       case 2:
-        v3 = OUTLINED_FUNCTION_41();
-        closure #2 in ModalityXASRResult.decodeMessage<A>(decoder:)(v3, v4, v5, v6);
+        v4 = OUTLINED_FUNCTION_41();
+        closure #2 in ModalityXASRResult.decodeMessage<A>(decoder:)(v4, v5, v6, v7);
         break;
       case 1:
-        OUTLINED_FUNCTION_31();
-        closure #2 in ModalityXSpeechProfile.decodeMessage<A>(decoder:)();
+        v3 = OUTLINED_FUNCTION_31();
+        closure #2 in ModalityXSpeechProfile.decodeMessage<A>(decoder:)(v3);
         break;
     }
   }
@@ -4759,33 +3970,32 @@ uint64_t ModalityXASRResult.decodeMessage<A>(decoder:)()
 
 uint64_t closure #2 in ModalityXASRResult.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v34 = a3;
-  v35 = a4;
-  v36 = a2;
+  v37 = a3;
+  v38 = a4;
+  v39 = a2;
   v5 = type metadata accessor for ModalityXRecognitionCandidate(0);
-  v6 = *(*(v5 - 8) + 64);
-  v7 = MEMORY[0x28223BE20](v5);
-  v32 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v28 - v11;
+  v6 = MEMORY[0x28223BE20](v5);
+  v35 = &v31 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v31 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v31 - v11;
   v13 = type metadata accessor for ModalityXASRResult.OneOf_Payload(0);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13);
-  MEMORY[0x28223BE20](v15);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A21XRecognitionCandidateVSgMd, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = MEMORY[0x28223BE20](v16 - 8);
-  v20 = &v28 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v28 - v21;
-  __swift_storeEnumTagSinglePayload(&v28 - v21, 1, 1, v5);
-  v29 = a1;
+  v14 = MEMORY[0x28223BE20](v13);
+  v16 = &v31 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = &v31 - v17;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A21XRecognitionCandidateVSgMd, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMR);
+  v20 = MEMORY[0x28223BE20](v19 - 8);
+  v22 = &v31 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v20);
+  v24 = &v31 - v23;
+  __swift_storeEnumTagSinglePayload(&v31 - v23, 1, 1, v5);
+  v32 = a1;
   outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v12, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
   EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v12, 1, v13);
-  v31 = v13;
+  v34 = v13;
   if (EnumTagSinglePayload == 1)
   {
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v12, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
@@ -4793,8 +4003,8 @@ uint64_t closure #2 in ModalityXASRResult.decodeMessage<A>(decoder:)(uint64_t a1
 
   else
   {
-    outlined init with take of ModalityXSessionMetadata();
-    outlined init with take of ModalityXSessionMetadata();
+    outlined init with take of ModalityXSessionMetadata(v12);
+    outlined init with take of ModalityXSessionMetadata(v18);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
       outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
@@ -4802,74 +4012,74 @@ uint64_t closure #2 in ModalityXASRResult.decodeMessage<A>(decoder:)(uint64_t a1
 
     else
     {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMd, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMR);
-      outlined init with take of ModalityXSessionMetadata();
-      outlined init with take of ModalityXSessionMetadata();
-      __swift_storeEnumTagSinglePayload(v22, 0, 1, v5);
+      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMd, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMR);
+      outlined init with take of ModalityXSessionMetadata(v16);
+      outlined init with take of ModalityXSessionMetadata(v9);
+      __swift_storeEnumTagSinglePayload(v24, 0, 1, v5);
     }
   }
 
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXRecognitionCandidate and conformance ModalityXRecognitionCandidate, type metadata accessor for ModalityXRecognitionCandidate);
-  v23 = v33;
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXRecognitionCandidate and conformance ModalityXRecognitionCandidate, type metadata accessor for ModalityXRecognitionCandidate, &protocol conformance descriptor for ModalityXRecognitionCandidate);
+  v25 = v36;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v23)
+  if (v25)
   {
-    v24 = v22;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMd, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMR);
+    v26 = v24;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMd, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMR);
   }
 
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v22, v20, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMd, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMR);
-  if (__swift_getEnumTagSinglePayload(v20, 1, v5) == 1)
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v24, v22, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMd, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMR);
+  if (__swift_getEnumTagSinglePayload(v22, 1, v5) == 1)
   {
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMd, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMR);
-    v24 = v20;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMd, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMR);
+    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMd, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMR);
+    v26 = v22;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMd, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMR);
   }
 
-  outlined init with take of ModalityXSessionMetadata();
+  v28 = v35;
+  outlined init with take of ModalityXSessionMetadata(v22);
   if (EnumTagSinglePayload != 1)
   {
     dispatch thunk of Decoder.handleConflictingOneOf()();
   }
 
-  v26 = v31;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMd, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMR);
-  v27 = v29;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v29, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
-  outlined init with take of ModalityXSessionMetadata();
+  v29 = v34;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMd, &_s16ModalityXObjects0A21XRecognitionCandidateVSgMR);
+  v30 = v32;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v32, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
+  outlined init with take of ModalityXSessionMetadata(v28);
   swift_storeEnumTagMultiPayload();
-  return __swift_storeEnumTagSinglePayload(v27, 0, 1, v26);
+  return __swift_storeEnumTagSinglePayload(v30, 0, 1, v29);
 }
 
 uint64_t closure #3 in ModalityXASRResult.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v34 = a3;
-  v35 = a4;
-  v36 = a2;
+  v37 = a3;
+  v38 = a4;
+  v39 = a2;
   v5 = type metadata accessor for ModalityXFinalSpeechRecognitionResponse(0);
-  v6 = *(*(v5 - 8) + 64);
-  v7 = MEMORY[0x28223BE20](v5);
-  v32 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v28 - v11;
+  v6 = MEMORY[0x28223BE20](v5);
+  v35 = &v31 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v31 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v31 - v11;
   v13 = type metadata accessor for ModalityXASRResult.OneOf_Payload(0);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13);
-  MEMORY[0x28223BE20](v15);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMd, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = MEMORY[0x28223BE20](v16 - 8);
-  v20 = &v28 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v28 - v21;
-  __swift_storeEnumTagSinglePayload(&v28 - v21, 1, 1, v5);
-  v29 = a1;
+  v14 = MEMORY[0x28223BE20](v13);
+  v16 = &v31 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = &v31 - v17;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMd, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMR);
+  v20 = MEMORY[0x28223BE20](v19 - 8);
+  v22 = &v31 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v20);
+  v24 = &v31 - v23;
+  __swift_storeEnumTagSinglePayload(&v31 - v23, 1, 1, v5);
+  v32 = a1;
   outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v12, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
   EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v12, 1, v13);
-  v31 = v13;
+  v34 = v13;
   if (EnumTagSinglePayload == 1)
   {
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v12, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
@@ -4877,14 +4087,14 @@ uint64_t closure #3 in ModalityXASRResult.decodeMessage<A>(decoder:)(uint64_t a1
 
   else
   {
-    outlined init with take of ModalityXSessionMetadata();
-    outlined init with take of ModalityXSessionMetadata();
+    outlined init with take of ModalityXSessionMetadata(v12);
+    outlined init with take of ModalityXSessionMetadata(v18);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMd, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMR);
-      outlined init with take of ModalityXSessionMetadata();
-      outlined init with take of ModalityXSessionMetadata();
-      __swift_storeEnumTagSinglePayload(v22, 0, 1, v5);
+      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMd, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMR);
+      outlined init with take of ModalityXSessionMetadata(v16);
+      outlined init with take of ModalityXSessionMetadata(v9);
+      __swift_storeEnumTagSinglePayload(v24, 0, 1, v5);
     }
 
     else
@@ -4893,36 +4103,37 @@ uint64_t closure #3 in ModalityXASRResult.decodeMessage<A>(decoder:)(uint64_t a1
     }
   }
 
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXFinalSpeechRecognitionResponse and conformance ModalityXFinalSpeechRecognitionResponse, type metadata accessor for ModalityXFinalSpeechRecognitionResponse);
-  v23 = v33;
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXFinalSpeechRecognitionResponse and conformance ModalityXFinalSpeechRecognitionResponse, type metadata accessor for ModalityXFinalSpeechRecognitionResponse, &protocol conformance descriptor for ModalityXFinalSpeechRecognitionResponse);
+  v25 = v36;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v23)
+  if (v25)
   {
-    v24 = v22;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMd, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMR);
+    v26 = v24;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMd, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMR);
   }
 
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v22, v20, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMd, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMR);
-  if (__swift_getEnumTagSinglePayload(v20, 1, v5) == 1)
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v24, v22, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMd, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMR);
+  if (__swift_getEnumTagSinglePayload(v22, 1, v5) == 1)
   {
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMd, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMR);
-    v24 = v20;
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMd, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMR);
+    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMd, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMR);
+    v26 = v22;
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v26, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMd, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMR);
   }
 
-  outlined init with take of ModalityXSessionMetadata();
+  v28 = v35;
+  outlined init with take of ModalityXSessionMetadata(v22);
   if (EnumTagSinglePayload != 1)
   {
     dispatch thunk of Decoder.handleConflictingOneOf()();
   }
 
-  v26 = v31;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v22, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMd, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMR);
-  v27 = v29;
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v29, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
-  outlined init with take of ModalityXSessionMetadata();
+  v29 = v34;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v24, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMd, &_s16ModalityXObjects0A31XFinalSpeechRecognitionResponseVSgMR);
+  v30 = v32;
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v32, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
+  outlined init with take of ModalityXSessionMetadata(v28);
   swift_storeEnumTagMultiPayload();
-  return __swift_storeEnumTagSinglePayload(v27, 0, 1, v26);
+  return __swift_storeEnumTagSinglePayload(v30, 0, 1, v29);
 }
 
 uint64_t ModalityXASRResult.traverse<A>(visitor:)()
@@ -4930,39 +4141,38 @@ uint64_t ModalityXASRResult.traverse<A>(visitor:)()
   OUTLINED_FUNCTION_93();
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
   OUTLINED_FUNCTION_122(v1);
-  v3 = *(v2 + 64);
   OUTLINED_FUNCTION_133();
-  MEMORY[0x28223BE20](v4);
+  MEMORY[0x28223BE20](v2);
   OUTLINED_FUNCTION_188();
-  OUTLINED_FUNCTION_7_0();
-  result = closure #1 in ModalityXAudioFrame.traverse<A>(visitor:)();
+  v3 = OUTLINED_FUNCTION_7_0();
+  result = closure #1 in ModalityXAudioFrame.traverse<A>(visitor:)(v3, v4, v5, v6, v7, 1);
   if (!v0)
   {
-    v6 = OUTLINED_FUNCTION_289();
-    outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v6, v7, v8, v9);
-    v10 = type metadata accessor for ModalityXASRResult.OneOf_Payload(0);
-    OUTLINED_FUNCTION_290(v10);
-    if (!v11)
+    v9 = OUTLINED_FUNCTION_289();
+    outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v9, v10, v11, v12);
+    v13 = type metadata accessor for ModalityXASRResult.OneOf_Payload(0);
+    OUTLINED_FUNCTION_290(v13);
+    if (!v14)
     {
       OUTLINED_FUNCTION_153();
       if (swift_getEnumCaseMultiPayload() == 1)
       {
-        v12 = OUTLINED_FUNCTION_30();
-        closure #3 in ModalityXASRResult.traverse<A>(visitor:)(v12, v13, v14, v15);
+        v15 = OUTLINED_FUNCTION_30();
+        closure #3 in ModalityXASRResult.traverse<A>(visitor:)(v15, v16, v17, v18);
       }
 
       else
       {
-        v16 = OUTLINED_FUNCTION_30();
-        closure #2 in ModalityXASRResult.traverse<A>(visitor:)(v16, v17, v18, v19);
+        v19 = OUTLINED_FUNCTION_30();
+        closure #2 in ModalityXASRResult.traverse<A>(visitor:)(v19, v20, v21, v22);
       }
 
       OUTLINED_FUNCTION_59();
       outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     }
 
-    v20 = type metadata accessor for ModalityXASRResult(0);
-    OUTLINED_FUNCTION_336(v20);
+    type metadata accessor for ModalityXASRResult(0);
+    OUTLINED_FUNCTION_336();
     OUTLINED_FUNCTION_98();
     return UnknownStorage.traverse<A>(visitor:)();
   }
@@ -4970,15 +4180,13 @@ uint64_t ModalityXASRResult.traverse<A>(visitor:)()
   return result;
 }
 
-uint64_t closure #1 in ModalityXAudioFrame.traverse<A>(visitor:)()
+uint64_t closure #1 in ModalityXAudioFrame.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   OUTLINED_FUNCTION_81();
-  v1 = OUTLINED_FUNCTION_306();
-  result = v2(v1);
-  v4 = (v0 + *(result + 24));
-  if (v4[1])
+  v7 = OUTLINED_FUNCTION_306();
+  result = v8(v7);
+  if (*(v6 + *(result + 24) + 8))
   {
-    v5 = *v4;
     OUTLINED_FUNCTION_106();
     return dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
   }
@@ -4988,27 +4196,25 @@ uint64_t closure #1 in ModalityXAudioFrame.traverse<A>(visitor:)()
 
 uint64_t closure #2 in ModalityXASRResult.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = a4;
+  v11[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v13 - v7;
-  v9 = type metadata accessor for ModalityXRecognitionCandidate(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v8, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
-  v11 = type metadata accessor for ModalityXASRResult.OneOf_Payload(0);
-  if (__swift_getEnumTagSinglePayload(v8, 1, v11) == 1)
+  v7 = v11 - v6;
+  v8 = type metadata accessor for ModalityXRecognitionCandidate(0);
+  MEMORY[0x28223BE20](v8);
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v7, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
+  v9 = type metadata accessor for ModalityXASRResult.OneOf_Payload(0);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v9) == 1)
   {
-    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
+    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v7, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() != 1)
     {
-      outlined init with take of ModalityXSessionMetadata();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXRecognitionCandidate and conformance ModalityXRecognitionCandidate, type metadata accessor for ModalityXRecognitionCandidate);
+      outlined init with take of ModalityXSessionMetadata(v7);
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXRecognitionCandidate and conformance ModalityXRecognitionCandidate, type metadata accessor for ModalityXRecognitionCandidate, &protocol conformance descriptor for ModalityXRecognitionCandidate);
       dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
       return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     }
@@ -5022,27 +4228,25 @@ uint64_t closure #2 in ModalityXASRResult.traverse<A>(visitor:)(uint64_t a1, uin
 
 uint64_t closure #3 in ModalityXASRResult.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = a4;
+  v11[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v13 - v7;
-  v9 = type metadata accessor for ModalityXFinalSpeechRecognitionResponse(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v8, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
-  v11 = type metadata accessor for ModalityXASRResult.OneOf_Payload(0);
-  if (__swift_getEnumTagSinglePayload(v8, 1, v11) == 1)
+  v7 = v11 - v6;
+  v8 = type metadata accessor for ModalityXFinalSpeechRecognitionResponse(0);
+  MEMORY[0x28223BE20](v8);
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v7, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
+  v9 = type metadata accessor for ModalityXASRResult.OneOf_Payload(0);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v9) == 1)
   {
-    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
+    result = outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v7, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      outlined init with take of ModalityXSessionMetadata();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXFinalSpeechRecognitionResponse and conformance ModalityXFinalSpeechRecognitionResponse, type metadata accessor for ModalityXFinalSpeechRecognitionResponse);
+      outlined init with take of ModalityXSessionMetadata(v7);
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXFinalSpeechRecognitionResponse and conformance ModalityXFinalSpeechRecognitionResponse, type metadata accessor for ModalityXFinalSpeechRecognitionResponse, &protocol conformance descriptor for ModalityXFinalSpeechRecognitionResponse);
       dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
       return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     }
@@ -5056,21 +4260,21 @@ uint64_t closure #3 in ModalityXASRResult.traverse<A>(visitor:)(uint64_t a1, uin
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance ModalityXASRResult(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXASRResult and conformance ModalityXASRResult, type metadata accessor for ModalityXASRResult);
+  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXASRResult and conformance ModalityXASRResult, type metadata accessor for ModalityXASRResult, &protocol conformance descriptor for ModalityXASRResult);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ModalityXASRResult(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXASRResult and conformance ModalityXASRResult, type metadata accessor for ModalityXASRResult);
+  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXASRResult and conformance ModalityXASRResult, type metadata accessor for ModalityXASRResult, &protocol conformance descriptor for ModalityXASRResult);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXASRResult()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXASRResult(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXASRResult and conformance ModalityXASRResult, type metadata accessor for ModalityXASRResult);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXASRResult and conformance ModalityXASRResult, type metadata accessor for ModalityXASRResult, &protocol conformance descriptor for ModalityXASRResult);
 
   return Message.hash(into:)();
 }
@@ -5100,67 +4304,20 @@ uint64_t one-time initialization function for _protobuf_nameMap(uint64_t a1)
   return one-time initialization function for _protobuf_nameMap(a1, static ModalityXSpeechProfileSourceData._protobuf_nameMap, "entities_by_category", 20, MEMORY[0x277D21888]);
 }
 
-uint64_t ModalityXSpeechProfileRebuildNeeded.decodeMessage<A>(decoder:)()
-{
-  OUTLINED_FUNCTION_241();
-  return ModalityXSpeechProfileRebuildNeeded.decodeMessage<A>(decoder:)();
-}
-
-{
-  while (1)
-  {
-    OUTLINED_FUNCTION_125();
-    result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v2 & 1) != 0)
-    {
-      break;
-    }
-
-    if (result == 1)
-    {
-      OUTLINED_FUNCTION_292();
-      closure #1 in ModalityXCancelRequest.decodeMessage<A>(decoder:)();
-    }
-  }
-
-  return result;
-}
-
-uint64_t closure #1 in ModalityXCancelRequest.decodeMessage<A>(decoder:)()
+uint64_t closure #1 in ModalityXCancelRequest.decodeMessage<A>(decoder:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_45();
-  v1 = *(v0(0) + 20);
+  v1(0);
   OUTLINED_FUNCTION_114();
   return dispatch thunk of Decoder.decodeSingularStringField(value:)();
 }
 
-uint64_t ModalityXSpeechProfileRebuildNeeded.traverse<A>(visitor:)()
-{
-  OUTLINED_FUNCTION_241();
-  return ModalityXSpeechProfileRebuildNeeded.traverse<A>(visitor:)();
-}
-
-{
-  OUTLINED_FUNCTION_93();
-  OUTLINED_FUNCTION_30();
-  result = closure #1 in ModalityXCancelRequest.traverse<A>(visitor:)();
-  if (!v0)
-  {
-    OUTLINED_FUNCTION_98();
-    return UnknownStorage.traverse<A>(visitor:)();
-  }
-
-  return result;
-}
-
-uint64_t closure #1 in ModalityXCancelRequest.traverse<A>(visitor:)()
+uint64_t closure #1 in ModalityXCancelRequest.traverse<A>(visitor:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_45();
-  result = v1(0);
-  v3 = (v0 + *(result + 20));
-  if (v3[1])
+  result = v2(0);
+  if (*(v1 + *(result + 20) + 8))
   {
-    v4 = *v3;
     OUTLINED_FUNCTION_106();
     return dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
   }
@@ -5170,21 +4327,21 @@ uint64_t closure #1 in ModalityXCancelRequest.traverse<A>(visitor:)()
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance ModalityXSpeechProfileRebuildNeeded(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileRebuildNeeded and conformance ModalityXSpeechProfileRebuildNeeded, type metadata accessor for ModalityXSpeechProfileRebuildNeeded);
+  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileRebuildNeeded and conformance ModalityXSpeechProfileRebuildNeeded, type metadata accessor for ModalityXSpeechProfileRebuildNeeded, &protocol conformance descriptor for ModalityXSpeechProfileRebuildNeeded);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ModalityXSpeechProfileRebuildNeeded(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileRebuildNeeded and conformance ModalityXSpeechProfileRebuildNeeded, type metadata accessor for ModalityXSpeechProfileRebuildNeeded);
+  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileRebuildNeeded and conformance ModalityXSpeechProfileRebuildNeeded, type metadata accessor for ModalityXSpeechProfileRebuildNeeded, &protocol conformance descriptor for ModalityXSpeechProfileRebuildNeeded);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXSpeechProfileRebuildNeeded()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXSpeechProfileRebuildNeeded(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileRebuildNeeded and conformance ModalityXSpeechProfileRebuildNeeded, type metadata accessor for ModalityXSpeechProfileRebuildNeeded);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileRebuildNeeded and conformance ModalityXSpeechProfileRebuildNeeded, type metadata accessor for ModalityXSpeechProfileRebuildNeeded, &protocol conformance descriptor for ModalityXSpeechProfileRebuildNeeded);
 
   return Message.hash(into:)();
 }
@@ -5204,20 +4361,20 @@ uint64_t ModalityXProcessingError.decodeMessage<A>(decoder:)()
     switch(result)
     {
       case 1:
-        OUTLINED_FUNCTION_31();
-        closure #1 in ModalityXProcessingError.decodeMessage<A>(decoder:)();
+        v3 = OUTLINED_FUNCTION_31();
+        closure #1 in ModalityXProcessingError.decodeMessage<A>(decoder:)(v3, v4, v5, v6);
         break;
       case 2:
-        OUTLINED_FUNCTION_31();
-        closure #2 in ModalityXSpeechProfile.decodeMessage<A>(decoder:)();
+        v8 = OUTLINED_FUNCTION_31();
+        closure #2 in ModalityXSpeechProfile.decodeMessage<A>(decoder:)(v8);
         break;
       case 3:
         OUTLINED_FUNCTION_31();
         closure #3 in ModalityXSessionMetadata.decodeMessage<A>(decoder:)();
         break;
       case 4:
-        OUTLINED_FUNCTION_31();
-        closure #4 in ModalityXSessionMetadata.decodeMessage<A>(decoder:)();
+        v7 = OUTLINED_FUNCTION_31();
+        closure #4 in ModalityXSessionMetadata.decodeMessage<A>(decoder:)(v7);
         break;
       default:
         continue;
@@ -5230,32 +4387,32 @@ uint64_t closure #3 in ModalityXSessionMetadata.decodeMessage<A>(decoder:)()
   OUTLINED_FUNCTION_338();
   OUTLINED_FUNCTION_127();
   v1 = OUTLINED_FUNCTION_329();
-  v3 = *(v2(v1) + 28);
-  v0();
-  return OUTLINED_FUNCTION_177();
+  v2(v1);
+  v3 = v0();
+  return OUTLINED_FUNCTION_177(v3);
 }
 
-uint64_t closure #4 in ModalityXSessionMetadata.decodeMessage<A>(decoder:)()
+uint64_t closure #4 in ModalityXSessionMetadata.decodeMessage<A>(decoder:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_99();
-  v2 = *(v1(0) + 32);
+  v2(0);
   OUTLINED_FUNCTION_161();
-  return v0();
+  return v1();
 }
 
 uint64_t ModalityXProcessingError.traverse<A>(visitor:)()
 {
   OUTLINED_FUNCTION_93();
   v1 = OUTLINED_FUNCTION_30();
-  result = closure #1 in ModalityXProcessingError.traverse<A>(visitor:)(v1);
+  result = closure #1 in ModalityXProcessingError.traverse<A>(visitor:)(v1, v2, v3, v4);
   if (!v0)
   {
-    OUTLINED_FUNCTION_7_0();
-    closure #1 in ModalityXAudioFrame.traverse<A>(visitor:)();
-    v3 = OUTLINED_FUNCTION_30();
-    closure #3 in ModalityXProcessingError.traverse<A>(visitor:)(v3);
-    OUTLINED_FUNCTION_7_0();
-    closure #4 in ModalityXSessionMetadata.traverse<A>(visitor:)();
+    v6 = OUTLINED_FUNCTION_7_0();
+    closure #1 in ModalityXAudioFrame.traverse<A>(visitor:)(v6, v7, v8, v9, v10, 2);
+    v11 = OUTLINED_FUNCTION_30();
+    closure #3 in ModalityXProcessingError.traverse<A>(visitor:)(v11, v12, v13, v14);
+    v15 = OUTLINED_FUNCTION_7_0();
+    closure #4 in ModalityXSessionMetadata.traverse<A>(visitor:)(v15, v16, v17, v18, v19, 4);
     OUTLINED_FUNCTION_98();
     return UnknownStorage.traverse<A>(visitor:)();
   }
@@ -5263,25 +4420,22 @@ uint64_t ModalityXProcessingError.traverse<A>(visitor:)()
   return result;
 }
 
-uint64_t closure #1 in ModalityXProcessingError.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #1 in ModalityXProcessingError.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ModalityXProcessingError(0);
-  v3 = (a1 + *(result + 20));
-  if ((v3[1] & 1) == 0)
+  if ((*(a1 + *(result + 20) + 4) & 1) == 0)
   {
-    v4 = *v3;
     return dispatch thunk of Visitor.visitSingularInt32Field(value:fieldNumber:)();
   }
 
   return result;
 }
 
-uint64_t closure #3 in ModalityXProcessingError.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #3 in ModalityXProcessingError.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ModalityXProcessingError(0);
   if (*(a1 + *(result + 28)) != 3)
   {
-    v3 = *(a1 + *(result + 28));
     lazy protocol witness table accessor for type ModalityXErrorSource and conformance ModalityXErrorSource();
     return dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
   }
@@ -5289,15 +4443,13 @@ uint64_t closure #3 in ModalityXProcessingError.traverse<A>(visitor:)(uint64_t a
   return result;
 }
 
-uint64_t closure #4 in ModalityXSessionMetadata.traverse<A>(visitor:)()
+uint64_t closure #4 in ModalityXSessionMetadata.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   OUTLINED_FUNCTION_81();
-  v1 = OUTLINED_FUNCTION_306();
-  result = v2(v1);
-  v4 = (v0 + *(result + 32));
-  if (v4[1])
+  v7 = OUTLINED_FUNCTION_306();
+  result = v8(v7);
+  if (*(v6 + *(result + 32) + 8))
   {
-    v5 = *v4;
     OUTLINED_FUNCTION_106();
     return dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
   }
@@ -5307,23 +4459,49 @@ uint64_t closure #4 in ModalityXSessionMetadata.traverse<A>(visitor:)()
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance ModalityXProcessingError(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXProcessingError and conformance ModalityXProcessingError, type metadata accessor for ModalityXProcessingError);
+  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXProcessingError and conformance ModalityXProcessingError, type metadata accessor for ModalityXProcessingError, &protocol conformance descriptor for ModalityXProcessingError);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ModalityXProcessingError(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXProcessingError and conformance ModalityXProcessingError, type metadata accessor for ModalityXProcessingError);
+  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXProcessingError and conformance ModalityXProcessingError, type metadata accessor for ModalityXProcessingError, &protocol conformance descriptor for ModalityXProcessingError);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXProcessingError()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXProcessingError(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXProcessingError and conformance ModalityXProcessingError, type metadata accessor for ModalityXProcessingError);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXProcessingError and conformance ModalityXProcessingError, type metadata accessor for ModalityXProcessingError, &protocol conformance descriptor for ModalityXProcessingError);
 
   return Message.hash(into:)();
+}
+
+uint64_t ModalityXCancelRequest.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2)
+{
+  while (1)
+  {
+    result = dispatch thunk of Decoder.nextFieldNumber()();
+    if (v2 || (v4 & 1) != 0)
+    {
+      break;
+    }
+
+    if (result == 2)
+    {
+      OUTLINED_FUNCTION_289();
+      closure #2 in ModalityXCancelRequest.decodeMessage<A>(decoder:)();
+    }
+
+    else if (result == 1)
+    {
+      v5 = OUTLINED_FUNCTION_289();
+      closure #1 in ModalityXCancelRequest.decodeMessage<A>(decoder:)(v5);
+    }
+  }
+
+  return result;
 }
 
 uint64_t closure #2 in ModalityXCancelRequest.decodeMessage<A>(decoder:)()
@@ -5331,20 +4509,20 @@ uint64_t closure #2 in ModalityXCancelRequest.decodeMessage<A>(decoder:)()
   OUTLINED_FUNCTION_338();
   OUTLINED_FUNCTION_127();
   v1 = OUTLINED_FUNCTION_329();
-  v3 = *(v2(v1) + 24);
-  v0();
-  return OUTLINED_FUNCTION_177();
+  v2(v1);
+  v3 = v0();
+  return OUTLINED_FUNCTION_177(v3);
 }
 
-uint64_t ModalityXCancelRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(uint64_t))
+uint64_t ModalityXCancelRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t))
 {
   OUTLINED_FUNCTION_93();
-  OUTLINED_FUNCTION_30();
-  result = closure #1 in ModalityXCancelRequest.traverse<A>(visitor:)();
+  v7 = OUTLINED_FUNCTION_30();
+  result = closure #1 in ModalityXCancelRequest.traverse<A>(visitor:)(v7);
   if (!v5)
   {
-    v8 = OUTLINED_FUNCTION_30();
-    a5(v8);
+    v9 = OUTLINED_FUNCTION_30();
+    a5(v9);
     OUTLINED_FUNCTION_98();
     return UnknownStorage.traverse<A>(visitor:)();
   }
@@ -5352,12 +4530,11 @@ uint64_t ModalityXCancelRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, 
   return result;
 }
 
-uint64_t closure #2 in ModalityXRequestMitigated.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #2 in ModalityXRequestMitigated.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ModalityXRequestMitigated(0);
   if (*(a1 + *(result + 24)) != 8)
   {
-    v3 = *(a1 + *(result + 24));
     lazy protocol witness table accessor for type ModalityXMitigationType and conformance ModalityXMitigationType();
     return dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
   }
@@ -5367,42 +4544,42 @@ uint64_t closure #2 in ModalityXRequestMitigated.traverse<A>(visitor:)(uint64_t 
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance ModalityXRequestMitigated(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXRequestMitigated and conformance ModalityXRequestMitigated, type metadata accessor for ModalityXRequestMitigated);
+  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXRequestMitigated and conformance ModalityXRequestMitigated, type metadata accessor for ModalityXRequestMitigated, &protocol conformance descriptor for ModalityXRequestMitigated);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ModalityXRequestMitigated(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXRequestMitigated and conformance ModalityXRequestMitigated, type metadata accessor for ModalityXRequestMitigated);
+  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXRequestMitigated and conformance ModalityXRequestMitigated, type metadata accessor for ModalityXRequestMitigated, &protocol conformance descriptor for ModalityXRequestMitigated);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXRequestMitigated()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXRequestMitigated(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXRequestMitigated and conformance ModalityXRequestMitigated, type metadata accessor for ModalityXRequestMitigated);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXRequestMitigated and conformance ModalityXRequestMitigated, type metadata accessor for ModalityXRequestMitigated, &protocol conformance descriptor for ModalityXRequestMitigated);
 
   return Message.hash(into:)();
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance ModalityXRequestComplete(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXRequestComplete and conformance ModalityXRequestComplete, type metadata accessor for ModalityXRequestComplete);
+  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXRequestComplete and conformance ModalityXRequestComplete, type metadata accessor for ModalityXRequestComplete, &protocol conformance descriptor for ModalityXRequestComplete);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ModalityXRequestComplete(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXRequestComplete and conformance ModalityXRequestComplete, type metadata accessor for ModalityXRequestComplete);
+  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXRequestComplete and conformance ModalityXRequestComplete, type metadata accessor for ModalityXRequestComplete, &protocol conformance descriptor for ModalityXRequestComplete);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXRequestComplete()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXRequestComplete(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXRequestComplete and conformance ModalityXRequestComplete, type metadata accessor for ModalityXRequestComplete);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXRequestComplete and conformance ModalityXRequestComplete, type metadata accessor for ModalityXRequestComplete, &protocol conformance descriptor for ModalityXRequestComplete);
 
   return Message.hash(into:)();
 }
@@ -5422,28 +4599,28 @@ uint64_t ModalityXSpeechProfileBuildRequest.decodeMessage<A>(decoder:)()
     switch(result)
     {
       case 1:
-        OUTLINED_FUNCTION_31();
-        closure #1 in ModalityXCancelRequest.decodeMessage<A>(decoder:)();
+        v3 = OUTLINED_FUNCTION_31();
+        closure #1 in ModalityXCancelRequest.decodeMessage<A>(decoder:)(v3);
         break;
       case 2:
-        OUTLINED_FUNCTION_31();
-        closure #2 in ModalityXSpeechProfileBuildRequest.decodeMessage<A>(decoder:)();
+        v7 = OUTLINED_FUNCTION_31();
+        closure #2 in ModalityXSpeechProfileBuildRequest.decodeMessage<A>(decoder:)(v7);
         break;
       case 3:
-        OUTLINED_FUNCTION_31();
-        closure #3 in ModalityXSpeechProfileBuildRequest.decodeMessage<A>(decoder:)();
+        v5 = OUTLINED_FUNCTION_31();
+        closure #3 in ModalityXSpeechProfileBuildRequest.decodeMessage<A>(decoder:)(v5);
         break;
       case 4:
-        OUTLINED_FUNCTION_31();
-        closure #4 in ModalityXSessionMetadata.decodeMessage<A>(decoder:)();
+        v6 = OUTLINED_FUNCTION_31();
+        closure #4 in ModalityXSessionMetadata.decodeMessage<A>(decoder:)(v6);
         break;
       case 5:
-        OUTLINED_FUNCTION_31();
-        closure #5 in ModalityXSpeechProfileBuildRequest.decodeMessage<A>(decoder:)();
+        v4 = OUTLINED_FUNCTION_31();
+        closure #5 in ModalityXSpeechProfileBuildRequest.decodeMessage<A>(decoder:)(v4);
         break;
       case 6:
-        OUTLINED_FUNCTION_31();
-        closure #6 in ModalityXSpeechProfileBuildRequest.decodeMessage<A>(decoder:)();
+        v8 = OUTLINED_FUNCTION_31();
+        closure #6 in ModalityXSpeechProfileBuildRequest.decodeMessage<A>(decoder:)(v8, v9, v10, v11);
         break;
       default:
         continue;
@@ -5451,39 +4628,39 @@ uint64_t ModalityXSpeechProfileBuildRequest.decodeMessage<A>(decoder:)()
   }
 }
 
-void ModalityXSpeechProfileBuildRequest.traverse<A>(visitor:)()
+void ModalityXSpeechProfileBuildRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   OUTLINED_FUNCTION_93();
-  OUTLINED_FUNCTION_7_0();
-  closure #1 in ModalityXCancelRequest.traverse<A>(visitor:)();
-  if (!v0)
+  v6 = OUTLINED_FUNCTION_7_0();
+  closure #1 in ModalityXCancelRequest.traverse<A>(visitor:)(v6);
+  if (!v5)
   {
-    v1 = OUTLINED_FUNCTION_7_0();
-    closure #2 in ModalityXSpeechProfileBuildRequest.traverse<A>(visitor:)(v1, v2, v3, v4, v5);
-    OUTLINED_FUNCTION_7_0();
-    closure #3 in ModalityXSpeechProfileBuildRequest.traverse<A>(visitor:)();
-    OUTLINED_FUNCTION_7_0();
-    closure #4 in ModalityXSessionMetadata.traverse<A>(visitor:)();
-    OUTLINED_FUNCTION_7_0();
-    closure #5 in ModalityXSpeechProfileBuildRequest.traverse<A>(visitor:)();
-    v6 = OUTLINED_FUNCTION_30();
-    closure #6 in ModalityXSpeechProfileBuildRequest.traverse<A>(visitor:)(v6);
+    v7 = OUTLINED_FUNCTION_7_0();
+    closure #2 in ModalityXSpeechProfileBuildRequest.traverse<A>(visitor:)(v7, v8, v9, v10, v11);
+    v12 = OUTLINED_FUNCTION_7_0();
+    closure #3 in ModalityXSpeechProfileBuildRequest.traverse<A>(visitor:)(v12);
+    v13 = OUTLINED_FUNCTION_7_0();
+    closure #4 in ModalityXSessionMetadata.traverse<A>(visitor:)(v13, v14, v15, v16, v17, 4);
+    v18 = OUTLINED_FUNCTION_7_0();
+    closure #5 in ModalityXSpeechProfileBuildRequest.traverse<A>(visitor:)(v18, v19, v20, v21, v22, 5);
+    v23 = OUTLINED_FUNCTION_30();
+    closure #6 in ModalityXSpeechProfileBuildRequest.traverse<A>(visitor:)(v23, v24, v25, v26);
     OUTLINED_FUNCTION_98();
     UnknownStorage.traverse<A>(visitor:)();
   }
 }
 
-uint64_t closure #6 in ModalityXSpeechProfileBuildRequest.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #6 in ModalityXSpeechProfileBuildRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ModalityXSpeechProfileBuildRequest(0);
-  v3 = a1 + *(result + 40);
-  v4 = *(v3 + 8);
-  if (v4 >> 60 != 15)
+  v6 = a1 + *(result + 40);
+  v7 = *(v6 + 8);
+  if (v7 >> 60 != 15)
   {
-    v5 = *v3;
-    outlined copy of Data._Representation(*v3, *(v3 + 8));
+    v8 = *v6;
+    outlined copy of Data._Representation(*v6, *(v6 + 8));
     dispatch thunk of Visitor.visitSingularBytesField(value:fieldNumber:)();
-    return outlined consume of Data?(v5, v4);
+    return outlined consume of Data?(v8, v7);
   }
 
   return result;
@@ -5491,21 +4668,21 @@ uint64_t closure #6 in ModalityXSpeechProfileBuildRequest.traverse<A>(visitor:)(
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance ModalityXSpeechProfileBuildRequest(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileBuildRequest and conformance ModalityXSpeechProfileBuildRequest, type metadata accessor for ModalityXSpeechProfileBuildRequest);
+  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileBuildRequest and conformance ModalityXSpeechProfileBuildRequest, type metadata accessor for ModalityXSpeechProfileBuildRequest, &protocol conformance descriptor for ModalityXSpeechProfileBuildRequest);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ModalityXSpeechProfileBuildRequest(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileBuildRequest and conformance ModalityXSpeechProfileBuildRequest, type metadata accessor for ModalityXSpeechProfileBuildRequest);
+  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileBuildRequest and conformance ModalityXSpeechProfileBuildRequest, type metadata accessor for ModalityXSpeechProfileBuildRequest, &protocol conformance descriptor for ModalityXSpeechProfileBuildRequest);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXSpeechProfileBuildRequest()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXSpeechProfileBuildRequest(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileBuildRequest and conformance ModalityXSpeechProfileBuildRequest, type metadata accessor for ModalityXSpeechProfileBuildRequest);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileBuildRequest and conformance ModalityXSpeechProfileBuildRequest, type metadata accessor for ModalityXSpeechProfileBuildRequest, &protocol conformance descriptor for ModalityXSpeechProfileBuildRequest);
 
   return Message.hash(into:)();
 }
@@ -5525,16 +4702,16 @@ uint64_t ModalityXStreamingSpeechProfileBegin.decodeMessage<A>(decoder:)()
     switch(result)
     {
       case 3:
-        OUTLINED_FUNCTION_31();
-        closure #3 in ModalityXSpeechProfileBuildRequest.decodeMessage<A>(decoder:)();
+        v5 = OUTLINED_FUNCTION_31();
+        closure #3 in ModalityXSpeechProfileBuildRequest.decodeMessage<A>(decoder:)(v5);
         break;
       case 2:
-        OUTLINED_FUNCTION_31();
-        closure #2 in ModalityXSpeechProfile.decodeMessage<A>(decoder:)();
+        v4 = OUTLINED_FUNCTION_31();
+        closure #2 in ModalityXSpeechProfile.decodeMessage<A>(decoder:)(v4);
         break;
       case 1:
-        OUTLINED_FUNCTION_31();
-        closure #1 in ModalityXCancelRequest.decodeMessage<A>(decoder:)();
+        v3 = OUTLINED_FUNCTION_31();
+        closure #1 in ModalityXCancelRequest.decodeMessage<A>(decoder:)(v3);
         break;
     }
   }
@@ -5542,25 +4719,25 @@ uint64_t ModalityXStreamingSpeechProfileBegin.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t closure #3 in ModalityXSpeechProfileBuildRequest.decodeMessage<A>(decoder:)()
+uint64_t closure #3 in ModalityXSpeechProfileBuildRequest.decodeMessage<A>(decoder:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_99();
-  v2 = *(v1(0) + 28);
+  v2(0);
   OUTLINED_FUNCTION_161();
-  return v0();
+  return v1();
 }
 
-uint64_t ModalityXStreamingSpeechProfileBegin.traverse<A>(visitor:)()
+uint64_t ModalityXStreamingSpeechProfileBegin.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   OUTLINED_FUNCTION_93();
-  OUTLINED_FUNCTION_7_0();
-  result = closure #1 in ModalityXCancelRequest.traverse<A>(visitor:)();
-  if (!v0)
+  v6 = OUTLINED_FUNCTION_7_0();
+  result = closure #1 in ModalityXCancelRequest.traverse<A>(visitor:)(v6);
+  if (!v5)
   {
-    OUTLINED_FUNCTION_7_0();
-    closure #1 in ModalityXAudioFrame.traverse<A>(visitor:)();
-    OUTLINED_FUNCTION_7_0();
-    closure #3 in ModalityXSpeechProfileBuildRequest.traverse<A>(visitor:)();
+    v8 = OUTLINED_FUNCTION_7_0();
+    closure #1 in ModalityXAudioFrame.traverse<A>(visitor:)(v8, v9, v10, v11, v12, 2);
+    v13 = OUTLINED_FUNCTION_7_0();
+    closure #3 in ModalityXSpeechProfileBuildRequest.traverse<A>(visitor:)(v13);
     OUTLINED_FUNCTION_98();
     return UnknownStorage.traverse<A>(visitor:)();
   }
@@ -5568,14 +4745,12 @@ uint64_t ModalityXStreamingSpeechProfileBegin.traverse<A>(visitor:)()
   return result;
 }
 
-uint64_t closure #3 in ModalityXSpeechProfileBuildRequest.traverse<A>(visitor:)()
+uint64_t closure #3 in ModalityXSpeechProfileBuildRequest.traverse<A>(visitor:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_45();
-  result = v1(0);
-  v3 = (v0 + *(result + 28));
-  if (v3[1])
+  result = v2(0);
+  if (*(v1 + *(result + 28) + 8))
   {
-    v4 = *v3;
     OUTLINED_FUNCTION_106();
     return dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
   }
@@ -5585,21 +4760,21 @@ uint64_t closure #3 in ModalityXSpeechProfileBuildRequest.traverse<A>(visitor:)(
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance ModalityXStreamingSpeechProfileBegin(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileBegin and conformance ModalityXStreamingSpeechProfileBegin, type metadata accessor for ModalityXStreamingSpeechProfileBegin);
+  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileBegin and conformance ModalityXStreamingSpeechProfileBegin, type metadata accessor for ModalityXStreamingSpeechProfileBegin, &protocol conformance descriptor for ModalityXStreamingSpeechProfileBegin);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ModalityXStreamingSpeechProfileBegin(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileBegin and conformance ModalityXStreamingSpeechProfileBegin, type metadata accessor for ModalityXStreamingSpeechProfileBegin);
+  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileBegin and conformance ModalityXStreamingSpeechProfileBegin, type metadata accessor for ModalityXStreamingSpeechProfileBegin, &protocol conformance descriptor for ModalityXStreamingSpeechProfileBegin);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXStreamingSpeechProfileBegin()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXStreamingSpeechProfileBegin(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileBegin and conformance ModalityXStreamingSpeechProfileBegin, type metadata accessor for ModalityXStreamingSpeechProfileBegin);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileBegin and conformance ModalityXStreamingSpeechProfileBegin, type metadata accessor for ModalityXStreamingSpeechProfileBegin, &protocol conformance descriptor for ModalityXStreamingSpeechProfileBegin);
 
   return Message.hash(into:)();
 }
@@ -5619,20 +4794,20 @@ uint64_t ModalityXStreamingSpeechProfileAddData.decodeMessage<A>(decoder:)()
     switch(result)
     {
       case 1:
-        OUTLINED_FUNCTION_31();
-        closure #1 in ModalityXCancelRequest.decodeMessage<A>(decoder:)();
+        v3 = OUTLINED_FUNCTION_31();
+        closure #1 in ModalityXCancelRequest.decodeMessage<A>(decoder:)(v3);
         break;
       case 2:
-        OUTLINED_FUNCTION_31();
-        closure #2 in ModalityXSpeechProfileBuildRequest.decodeMessage<A>(decoder:)();
+        v6 = OUTLINED_FUNCTION_31();
+        closure #2 in ModalityXSpeechProfileBuildRequest.decodeMessage<A>(decoder:)(v6);
         break;
       case 3:
-        OUTLINED_FUNCTION_31();
-        closure #3 in ModalityXSpeechProfileBuildRequest.decodeMessage<A>(decoder:)();
+        v4 = OUTLINED_FUNCTION_31();
+        closure #3 in ModalityXSpeechProfileBuildRequest.decodeMessage<A>(decoder:)(v4);
         break;
       case 4:
-        OUTLINED_FUNCTION_31();
-        closure #4 in ModalityXSessionMetadata.decodeMessage<A>(decoder:)();
+        v5 = OUTLINED_FUNCTION_31();
+        closure #4 in ModalityXSessionMetadata.decodeMessage<A>(decoder:)(v5);
         break;
       default:
         continue;
@@ -5640,30 +4815,30 @@ uint64_t ModalityXStreamingSpeechProfileAddData.decodeMessage<A>(decoder:)()
   }
 }
 
-uint64_t closure #2 in ModalityXSpeechProfileBuildRequest.decodeMessage<A>(decoder:)()
+uint64_t closure #2 in ModalityXSpeechProfileBuildRequest.decodeMessage<A>(decoder:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_45();
-  v1 = *(v0(0) + 24);
+  v1(0);
   type metadata accessor for ModalityXSpeechProfileSourceData(0);
   OUTLINED_FUNCTION_225();
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(v2, v3);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(v2, v3, &protocol conformance descriptor for ModalityXSpeechProfileSourceData);
   OUTLINED_FUNCTION_106();
   return dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
 }
 
-void ModalityXStreamingSpeechProfileAddData.traverse<A>(visitor:)()
+void ModalityXStreamingSpeechProfileAddData.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   OUTLINED_FUNCTION_93();
-  OUTLINED_FUNCTION_7_0();
-  closure #1 in ModalityXCancelRequest.traverse<A>(visitor:)();
-  if (!v0)
+  v6 = OUTLINED_FUNCTION_7_0();
+  closure #1 in ModalityXCancelRequest.traverse<A>(visitor:)(v6);
+  if (!v5)
   {
-    v1 = OUTLINED_FUNCTION_7_0();
-    closure #2 in ModalityXSpeechProfileBuildRequest.traverse<A>(visitor:)(v1, v2, v3, v4, v5);
-    v6 = OUTLINED_FUNCTION_30();
-    closure #3 in ModalityXStreamingSpeechProfileAddData.traverse<A>(visitor:)(v6);
-    OUTLINED_FUNCTION_7_0();
-    closure #4 in ModalityXStreamingSpeechProfileAddData.traverse<A>(visitor:)();
+    v7 = OUTLINED_FUNCTION_7_0();
+    closure #2 in ModalityXSpeechProfileBuildRequest.traverse<A>(visitor:)(v7, v8, v9, v10, v11);
+    v12 = OUTLINED_FUNCTION_30();
+    closure #3 in ModalityXStreamingSpeechProfileAddData.traverse<A>(visitor:)(v12, v13, v14, v15);
+    v16 = OUTLINED_FUNCTION_7_0();
+    closure #4 in ModalityXStreamingSpeechProfileAddData.traverse<A>(visitor:)(v16, v17, v18, v19, v20, 4);
     OUTLINED_FUNCTION_98();
     UnknownStorage.traverse<A>(visitor:)();
   }
@@ -5671,47 +4846,45 @@ void ModalityXStreamingSpeechProfileAddData.traverse<A>(visitor:)()
 
 uint64_t closure #2 in ModalityXSpeechProfileBuildRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
-  v23[3] = a4;
-  v23[1] = a3;
+  v20[3] = a4;
+  v20[1] = a3;
   v7 = OUTLINED_FUNCTION_140();
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(v7, v8);
   OUTLINED_FUNCTION_122(v9);
-  v11 = *(v10 + 64);
   OUTLINED_FUNCTION_133();
-  MEMORY[0x28223BE20](v12);
-  v14 = v23 - v13;
-  v15 = type metadata accessor for ModalityXSpeechProfileSourceData(0);
-  v16 = OUTLINED_FUNCTION_54(v15);
-  v18 = *(v17 + 64);
-  MEMORY[0x28223BE20](v16);
+  MEMORY[0x28223BE20](v10);
+  v12 = v20 - v11;
+  v13 = type metadata accessor for ModalityXSpeechProfileSourceData(0);
+  OUTLINED_FUNCTION_54();
+  MEMORY[0x28223BE20](v14);
   OUTLINED_FUNCTION_64();
-  v19 = a5(0);
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1 + *(v19 + 24), v14, &_s16ModalityXObjects0A24XSpeechProfileSourceDataVSgMd, &_s16ModalityXObjects0A24XSpeechProfileSourceDataVSgMR);
-  if (__swift_getEnumTagSinglePayload(v14, 1, v15) == 1)
+  v15 = a5(0);
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1 + *(v15 + 24), v12, &_s16ModalityXObjects0A24XSpeechProfileSourceDataVSgMd, &_s16ModalityXObjects0A24XSpeechProfileSourceDataVSgMR);
+  if (__swift_getEnumTagSinglePayload(v12, 1, v13) == 1)
   {
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v14, &_s16ModalityXObjects0A24XSpeechProfileSourceDataVSgMd, &_s16ModalityXObjects0A24XSpeechProfileSourceDataVSgMR);
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v12, &_s16ModalityXObjects0A24XSpeechProfileSourceDataVSgMd, &_s16ModalityXObjects0A24XSpeechProfileSourceDataVSgMR);
   }
 
-  OUTLINED_FUNCTION_273();
-  outlined init with take of ModalityXSessionMetadata();
+  v17 = OUTLINED_FUNCTION_273();
+  outlined init with take of ModalityXSessionMetadata(v17);
   OUTLINED_FUNCTION_225();
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(v21, v22);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(v18, v19, &protocol conformance descriptor for ModalityXSpeechProfileSourceData);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
   OUTLINED_FUNCTION_61();
   return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
 }
 
-uint64_t closure #3 in ModalityXStreamingSpeechProfileAddData.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #3 in ModalityXStreamingSpeechProfileAddData.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ModalityXStreamingSpeechProfileAddData(0);
-  v3 = a1 + *(result + 28);
-  v4 = *(v3 + 8);
-  if (v4 >> 60 != 15)
+  v6 = a1 + *(result + 28);
+  v7 = *(v6 + 8);
+  if (v7 >> 60 != 15)
   {
-    v5 = *v3;
-    outlined copy of Data._Representation(*v3, *(v3 + 8));
+    v8 = *v6;
+    outlined copy of Data._Representation(*v6, *(v6 + 8));
     dispatch thunk of Visitor.visitSingularBytesField(value:fieldNumber:)();
-    return outlined consume of Data?(v5, v4);
+    return outlined consume of Data?(v8, v7);
   }
 
   return result;
@@ -5719,21 +4892,21 @@ uint64_t closure #3 in ModalityXStreamingSpeechProfileAddData.traverse<A>(visito
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance ModalityXStreamingSpeechProfileAddData(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileAddData and conformance ModalityXStreamingSpeechProfileAddData, type metadata accessor for ModalityXStreamingSpeechProfileAddData);
+  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileAddData and conformance ModalityXStreamingSpeechProfileAddData, type metadata accessor for ModalityXStreamingSpeechProfileAddData, &protocol conformance descriptor for ModalityXStreamingSpeechProfileAddData);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ModalityXStreamingSpeechProfileAddData(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileAddData and conformance ModalityXStreamingSpeechProfileAddData, type metadata accessor for ModalityXStreamingSpeechProfileAddData);
+  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileAddData and conformance ModalityXStreamingSpeechProfileAddData, type metadata accessor for ModalityXStreamingSpeechProfileAddData, &protocol conformance descriptor for ModalityXStreamingSpeechProfileAddData);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXStreamingSpeechProfileAddData()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXStreamingSpeechProfileAddData(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileAddData and conformance ModalityXStreamingSpeechProfileAddData, type metadata accessor for ModalityXStreamingSpeechProfileAddData);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileAddData and conformance ModalityXStreamingSpeechProfileAddData, type metadata accessor for ModalityXStreamingSpeechProfileAddData, &protocol conformance descriptor for ModalityXStreamingSpeechProfileAddData);
 
   return Message.hash(into:)();
 }
@@ -5746,39 +4919,73 @@ uint64_t one-time initialization function for _protobuf_nameMap(uint64_t a1, uin
   __swift_project_value_buffer(v4, v5);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySi_21InternalSwiftProtobuf8_NameMapV0G11DescriptionOtGMd, &_ss23_ContiguousArrayStorageCySi_21InternalSwiftProtobuf8_NameMapV0G11DescriptionOtGMR);
   v6 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
-  v7 = *(*v6 + 72);
-  v8 = (*(*v6 + 80) + 32) & ~*(*v6 + 80);
-  v9 = swift_allocObject();
-  *(v9 + 16) = xmmword_25A1D8780;
-  v10 = v9 + v8 + v6[14];
-  *(v9 + v8) = 1;
-  *v10 = "request_id";
-  *(v10 + 8) = 10;
-  *(v10 + 16) = 2;
-  v11 = *MEMORY[0x277D21888];
-  v12 = type metadata accessor for _NameMap.NameDescription();
-  OUTLINED_FUNCTION_54(v12);
-  (*(v13 + 104))(v10, v11);
+  v7 = (*(*v6 + 80) + 32) & ~*(*v6 + 80);
+  v8 = swift_allocObject();
+  *(v8 + 16) = xmmword_25A1D8780;
+  v9 = v8 + v7 + v6[14];
+  *(v8 + v7) = 1;
+  *v9 = "request_id";
+  *(v9 + 8) = 10;
+  *(v9 + 16) = 2;
+  v10 = *MEMORY[0x277D21888];
+  type metadata accessor for _NameMap.NameDescription();
+  OUTLINED_FUNCTION_54();
+  (*(v11 + 104))(v9, v10);
   return _NameMap.init(dictionaryLiteral:)();
+}
+
+uint64_t ModalityXSpeechProfileRebuildNeeded.decodeMessage<A>(decoder:)(uint64_t result)
+{
+  while (1)
+  {
+    OUTLINED_FUNCTION_125();
+    v2 = dispatch thunk of Decoder.nextFieldNumber()();
+    if (v1 || (v3 & 1) != 0)
+    {
+      break;
+    }
+
+    if (v2 == 1)
+    {
+      OUTLINED_FUNCTION_292();
+      closure #1 in ModalityXCancelRequest.decodeMessage<A>(decoder:)(v4);
+    }
+  }
+
+  return v2;
+}
+
+uint64_t ModalityXSpeechProfileRebuildNeeded.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  OUTLINED_FUNCTION_93();
+  v5 = OUTLINED_FUNCTION_30();
+  result = closure #1 in ModalityXCancelRequest.traverse<A>(visitor:)(v5);
+  if (!v4)
+  {
+    OUTLINED_FUNCTION_98();
+    return UnknownStorage.traverse<A>(visitor:)();
+  }
+
+  return result;
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance ModalityXStreamingSpeechProfileCommit(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileCommit and conformance ModalityXStreamingSpeechProfileCommit, type metadata accessor for ModalityXStreamingSpeechProfileCommit);
+  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileCommit and conformance ModalityXStreamingSpeechProfileCommit, type metadata accessor for ModalityXStreamingSpeechProfileCommit, &protocol conformance descriptor for ModalityXStreamingSpeechProfileCommit);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ModalityXStreamingSpeechProfileCommit(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileCommit and conformance ModalityXStreamingSpeechProfileCommit, type metadata accessor for ModalityXStreamingSpeechProfileCommit);
+  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileCommit and conformance ModalityXStreamingSpeechProfileCommit, type metadata accessor for ModalityXStreamingSpeechProfileCommit, &protocol conformance descriptor for ModalityXStreamingSpeechProfileCommit);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXStreamingSpeechProfileCommit()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXStreamingSpeechProfileCommit(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileCommit and conformance ModalityXStreamingSpeechProfileCommit, type metadata accessor for ModalityXStreamingSpeechProfileCommit);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXStreamingSpeechProfileCommit and conformance ModalityXStreamingSpeechProfileCommit, type metadata accessor for ModalityXStreamingSpeechProfileCommit, &protocol conformance descriptor for ModalityXStreamingSpeechProfileCommit);
 
   return Message.hash(into:)();
 }
@@ -5798,24 +5005,24 @@ uint64_t ModalityXSpeechProfileBuildResponse.decodeMessage<A>(decoder:)()
     switch(result)
     {
       case 1:
-        OUTLINED_FUNCTION_31();
-        closure #1 in ModalityXCancelRequest.decodeMessage<A>(decoder:)();
+        v3 = OUTLINED_FUNCTION_31();
+        closure #1 in ModalityXCancelRequest.decodeMessage<A>(decoder:)(v3);
         break;
       case 2:
-        OUTLINED_FUNCTION_31();
-        closure #2 in ModalityXSpeechProfileBuildResponse.decodeMessage<A>(decoder:)();
+        v7 = OUTLINED_FUNCTION_31();
+        closure #2 in ModalityXSpeechProfileBuildResponse.decodeMessage<A>(decoder:)(v7, v8, v9, v10);
         break;
       case 3:
-        OUTLINED_FUNCTION_31();
-        closure #3 in ModalityXAudioFrame.decodeMessage<A>(decoder:)();
+        v5 = OUTLINED_FUNCTION_31();
+        closure #3 in ModalityXAudioFrame.decodeMessage<A>(decoder:)(v5);
         break;
       case 10:
-        OUTLINED_FUNCTION_31();
-        closure #4 in ModalityXSessionMetadata.decodeMessage<A>(decoder:)();
+        v6 = OUTLINED_FUNCTION_31();
+        closure #4 in ModalityXSessionMetadata.decodeMessage<A>(decoder:)(v6);
         break;
       case 11:
-        OUTLINED_FUNCTION_31();
-        closure #5 in ModalityXSpeechProfileBuildRequest.decodeMessage<A>(decoder:)();
+        v4 = OUTLINED_FUNCTION_31();
+        closure #5 in ModalityXSpeechProfileBuildRequest.decodeMessage<A>(decoder:)(v4);
         break;
       default:
         continue;
@@ -5823,45 +5030,45 @@ uint64_t ModalityXSpeechProfileBuildResponse.decodeMessage<A>(decoder:)()
   }
 }
 
-uint64_t closure #2 in ModalityXSpeechProfileBuildResponse.decodeMessage<A>(decoder:)()
+uint64_t closure #2 in ModalityXSpeechProfileBuildResponse.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for ModalityXSpeechProfileBuildResponse(0) + 24);
+  type metadata accessor for ModalityXSpeechProfileBuildResponse(0);
   type metadata accessor for ModalityXProcessingError(0);
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXProcessingError and conformance ModalityXProcessingError, type metadata accessor for ModalityXProcessingError);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXProcessingError and conformance ModalityXProcessingError, type metadata accessor for ModalityXProcessingError, &protocol conformance descriptor for ModalityXProcessingError);
   return dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
 }
 
-uint64_t closure #3 in ModalityXAudioFrame.decodeMessage<A>(decoder:)()
+uint64_t closure #3 in ModalityXAudioFrame.decodeMessage<A>(decoder:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_45();
-  v1 = *(v0(0) + 28);
+  v1(0);
   OUTLINED_FUNCTION_114();
   return dispatch thunk of Decoder.decodeSingularBoolField(value:)();
 }
 
-uint64_t closure #5 in ModalityXSpeechProfileBuildRequest.decodeMessage<A>(decoder:)()
+uint64_t closure #5 in ModalityXSpeechProfileBuildRequest.decodeMessage<A>(decoder:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_45();
-  v1 = *(v0(0) + 36);
+  v1(0);
   OUTLINED_FUNCTION_114();
   return dispatch thunk of Decoder.decodeSingularBytesField(value:)();
 }
 
-void ModalityXSpeechProfileBuildResponse.traverse<A>(visitor:)()
+void ModalityXSpeechProfileBuildResponse.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   OUTLINED_FUNCTION_93();
-  OUTLINED_FUNCTION_7_0();
-  closure #1 in ModalityXCancelRequest.traverse<A>(visitor:)();
-  if (!v0)
+  v6 = OUTLINED_FUNCTION_7_0();
+  closure #1 in ModalityXCancelRequest.traverse<A>(visitor:)(v6);
+  if (!v5)
   {
-    v1 = OUTLINED_FUNCTION_30();
-    closure #2 in ModalityXSpeechProfileBuildResponse.traverse<A>(visitor:)(v1, v2, v3, v4);
-    OUTLINED_FUNCTION_7_0();
-    closure #2 in ModalityXAudioFrame.traverse<A>(visitor:)();
-    OUTLINED_FUNCTION_7_0();
-    closure #4 in ModalityXStreamingSpeechProfileAddData.traverse<A>(visitor:)();
-    OUTLINED_FUNCTION_7_0();
-    closure #5 in ModalityXSpeechProfileBuildRequest.traverse<A>(visitor:)();
+    v7 = OUTLINED_FUNCTION_30();
+    closure #2 in ModalityXSpeechProfileBuildResponse.traverse<A>(visitor:)(v7, v8, v9, v10);
+    v11 = OUTLINED_FUNCTION_7_0();
+    closure #2 in ModalityXAudioFrame.traverse<A>(visitor:)(v11);
+    v12 = OUTLINED_FUNCTION_7_0();
+    closure #4 in ModalityXStreamingSpeechProfileAddData.traverse<A>(visitor:)(v12, v13, v14, v15, v16, 10);
+    v17 = OUTLINED_FUNCTION_7_0();
+    closure #5 in ModalityXSpeechProfileBuildRequest.traverse<A>(visitor:)(v17, v18, v19, v20, v21, 11);
     OUTLINED_FUNCTION_98();
     UnknownStorage.traverse<A>(visitor:)();
   }
@@ -5869,32 +5076,30 @@ void ModalityXSpeechProfileBuildResponse.traverse<A>(visitor:)()
 
 uint64_t closure #2 in ModalityXSpeechProfileBuildResponse.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = a4;
+  v11[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A16XProcessingErrorVSgMd, &_s16ModalityXObjects0A16XProcessingErrorVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v13 - v7;
-  v9 = type metadata accessor for ModalityXProcessingError(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  v11 = type metadata accessor for ModalityXSpeechProfileBuildResponse(0);
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1 + *(v11 + 24), v8, &_s16ModalityXObjects0A16XProcessingErrorVSgMd, &_s16ModalityXObjects0A16XProcessingErrorVSgMR);
-  if (__swift_getEnumTagSinglePayload(v8, 1, v9) == 1)
+  v7 = v11 - v6;
+  v8 = type metadata accessor for ModalityXProcessingError(0);
+  MEMORY[0x28223BE20](v8);
+  v9 = type metadata accessor for ModalityXSpeechProfileBuildResponse(0);
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1 + *(v9 + 24), v7, &_s16ModalityXObjects0A16XProcessingErrorVSgMd, &_s16ModalityXObjects0A16XProcessingErrorVSgMR);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
   {
-    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v8, &_s16ModalityXObjects0A16XProcessingErrorVSgMd, &_s16ModalityXObjects0A16XProcessingErrorVSgMR);
+    return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v7, &_s16ModalityXObjects0A16XProcessingErrorVSgMd, &_s16ModalityXObjects0A16XProcessingErrorVSgMR);
   }
 
-  outlined init with take of ModalityXSessionMetadata();
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXProcessingError and conformance ModalityXProcessingError, type metadata accessor for ModalityXProcessingError);
+  outlined init with take of ModalityXSessionMetadata(v7);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXProcessingError and conformance ModalityXProcessingError, type metadata accessor for ModalityXProcessingError, &protocol conformance descriptor for ModalityXProcessingError);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
   return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
 }
 
-uint64_t closure #2 in ModalityXAudioFrame.traverse<A>(visitor:)()
+uint64_t closure #2 in ModalityXAudioFrame.traverse<A>(visitor:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_45();
-  result = v1(0);
-  if (*(v0 + *(result + 28)) != 2)
+  result = v2(0);
+  if (*(v1 + *(result + 28)) != 2)
   {
     OUTLINED_FUNCTION_124();
     return dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)();
@@ -5903,114 +5108,111 @@ uint64_t closure #2 in ModalityXAudioFrame.traverse<A>(visitor:)()
   return result;
 }
 
-void closure #4 in ModalityXStreamingSpeechProfileAddData.traverse<A>(visitor:)()
+void closure #4 in ModalityXStreamingSpeechProfileAddData.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   OUTLINED_FUNCTION_81();
-  v1 = v0(0);
-  OUTLINED_FUNCTION_354(*(v1 + 32));
-  if (!(!v4 & v3))
+  v6(0);
+  OUTLINED_FUNCTION_354();
+  if (!(!v8 & v7))
   {
-    v5 = *v2;
-    v6 = OUTLINED_FUNCTION_273();
-    outlined copy of Data._Representation(v6, v7);
+    v9 = OUTLINED_FUNCTION_273();
+    outlined copy of Data._Representation(v9, v10);
     OUTLINED_FUNCTION_273();
     OUTLINED_FUNCTION_106();
     dispatch thunk of Visitor.visitSingularBytesField(value:fieldNumber:)();
-    v8 = OUTLINED_FUNCTION_273();
-    outlined consume of Data?(v8, v9);
+    v11 = OUTLINED_FUNCTION_273();
+    outlined consume of Data?(v11, v12);
   }
 }
 
-void closure #5 in ModalityXSpeechProfileBuildRequest.traverse<A>(visitor:)()
+void closure #5 in ModalityXSpeechProfileBuildRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   OUTLINED_FUNCTION_81();
-  v1 = v0(0);
-  OUTLINED_FUNCTION_354(*(v1 + 36));
-  if (!(!v4 & v3))
+  v6(0);
+  OUTLINED_FUNCTION_354();
+  if (!(!v8 & v7))
   {
-    v5 = *v2;
-    v6 = OUTLINED_FUNCTION_273();
-    outlined copy of Data._Representation(v6, v7);
+    v9 = OUTLINED_FUNCTION_273();
+    outlined copy of Data._Representation(v9, v10);
     OUTLINED_FUNCTION_273();
     OUTLINED_FUNCTION_106();
     dispatch thunk of Visitor.visitSingularBytesField(value:fieldNumber:)();
-    v8 = OUTLINED_FUNCTION_273();
-    outlined consume of Data?(v8, v9);
+    v11 = OUTLINED_FUNCTION_273();
+    outlined consume of Data?(v11, v12);
   }
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance ModalityXSpeechProfileBuildResponse(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileBuildResponse and conformance ModalityXSpeechProfileBuildResponse, type metadata accessor for ModalityXSpeechProfileBuildResponse);
+  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileBuildResponse and conformance ModalityXSpeechProfileBuildResponse, type metadata accessor for ModalityXSpeechProfileBuildResponse, &protocol conformance descriptor for ModalityXSpeechProfileBuildResponse);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ModalityXSpeechProfileBuildResponse(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileBuildResponse and conformance ModalityXSpeechProfileBuildResponse, type metadata accessor for ModalityXSpeechProfileBuildResponse);
+  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileBuildResponse and conformance ModalityXSpeechProfileBuildResponse, type metadata accessor for ModalityXSpeechProfileBuildResponse, &protocol conformance descriptor for ModalityXSpeechProfileBuildResponse);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXSpeechProfileBuildResponse()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXSpeechProfileBuildResponse(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileBuildResponse and conformance ModalityXSpeechProfileBuildResponse, type metadata accessor for ModalityXSpeechProfileBuildResponse);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ModalityXSpeechProfileBuildResponse and conformance ModalityXSpeechProfileBuildResponse, type metadata accessor for ModalityXSpeechProfileBuildResponse, &protocol conformance descriptor for ModalityXSpeechProfileBuildResponse);
 
   return Message.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ModalityXServerBoundFrame()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ModalityXServerBoundFrame(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   Hasher.init(_seed:)();
   dispatch thunk of Hashable.hash(into:)();
   return Hasher._finalize()();
 }
 
-void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B24XRecognitionPhraseTokensV_Tt1g5()
+void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B24XRecognitionPhraseTokensV_Tt1g5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   OUTLINED_FUNCTION_248();
-  v3 = v2;
-  v4 = OUTLINED_FUNCTION_329();
-  v5 = type metadata accessor for ModalityXRecognitionToken(v4);
-  v34 = *(v5 - 8);
-  v6 = *(v34 + 64);
-  MEMORY[0x28223BE20](v5 - 8);
+  v13 = v12;
+  v14 = OUTLINED_FUNCTION_329();
+  v15 = type metadata accessor for ModalityXRecognitionToken(v14);
+  v44 = *(v15 - 8);
+  MEMORY[0x28223BE20](v15 - 8);
   OUTLINED_FUNCTION_159();
-  MEMORY[0x28223BE20](v7);
-  v8 = type metadata accessor for ModalityXRecognitionPhraseTokens(0);
-  v9 = OUTLINED_FUNCTION_57(v8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
+  MEMORY[0x28223BE20](v16);
+  type metadata accessor for ModalityXRecognitionPhraseTokens(0);
+  OUTLINED_FUNCTION_57();
+  MEMORY[0x28223BE20](v17);
   OUTLINED_FUNCTION_97();
-  v14 = (v12 - v13);
-  MEMORY[0x28223BE20](v15);
+  v20 = (v18 - v19);
+  MEMORY[0x28223BE20](v21);
   OUTLINED_FUNCTION_309();
-  v17 = *(v1 + 16);
-  if (v17 == *(v3 + 16) && v17 && v1 != v3)
+  v22 = *(v11 + 16);
+  if (v22 == *(v13 + 16) && v22 && v11 != v13)
   {
-    v18 = 0;
-    OUTLINED_FUNCTION_94(v16);
-    v31 = v14;
-    v32 = *(v19 + 72);
-    v30 = v0;
-    v29 = v17;
+    v23 = 0;
+    OUTLINED_FUNCTION_94();
+    v40 = v20;
+    v41 = v13 + v24;
+    v42 = *(v25 + 72);
+    v39 = v10;
+    v38 = v22;
     while (1)
     {
       OUTLINED_FUNCTION_216();
-      outlined init with copy of ModalityXSessionMetadata();
-      if (v18 == v17)
+      outlined init with copy of ModalityXSessionMetadata(v26 + v42 * v23);
+      if (v23 == v22)
       {
         break;
       }
 
-      v33 = v18;
+      v43 = v23;
       OUTLINED_FUNCTION_216();
-      outlined init with copy of ModalityXSessionMetadata();
-      v20 = *v0;
-      v21 = *v14;
-      v22 = *(*v0 + 16);
-      if (v22 != *(v21 + 16))
+      outlined init with copy of ModalityXSessionMetadata(v41 + v42 * v23);
+      v27 = *v10;
+      v28 = *v20;
+      v29 = *(*v10 + 16);
+      if (v29 != *(v28 + 16))
       {
 LABEL_18:
         outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
@@ -6018,32 +5220,34 @@ LABEL_18:
         goto LABEL_19;
       }
 
-      if (v22 && v20 != v21)
+      if (v29 && v27 != v28)
       {
-        v23 = 0;
+        v30 = 0;
         OUTLINED_FUNCTION_256();
-        while (v23 < *(v20 + 16))
+        v32 = v27 + v31;
+        v33 = v28 + v31;
+        while (v30 < *(v27 + 16))
         {
-          v24 = *(v34 + 72) * v23;
+          v34 = *(v44 + 72) * v30;
           OUTLINED_FUNCTION_214();
-          outlined init with copy of ModalityXSessionMetadata();
-          if (v23 >= *(v21 + 16))
+          outlined init with copy of ModalityXSessionMetadata(v32 + v34);
+          if (v30 >= *(v28 + 16))
           {
             goto LABEL_21;
           }
 
           OUTLINED_FUNCTION_214();
-          outlined init with copy of ModalityXSessionMetadata();
+          outlined init with copy of ModalityXSessionMetadata(v33 + v34);
           OUTLINED_FUNCTION_136();
-          v25 = static ModalityXRecognitionToken.== infix(_:_:)();
+          v35 = static ModalityXRecognitionToken.== infix(_:_:)();
           outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
           outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-          if ((v25 & 1) == 0)
+          if ((v35 & 1) == 0)
           {
             goto LABEL_18;
           }
 
-          if (v22 == ++v23)
+          if (v29 == ++v30)
           {
             goto LABEL_14;
           }
@@ -6056,20 +5260,19 @@ LABEL_21:
       }
 
 LABEL_14:
-      v26 = *(v8 + 20);
       type metadata accessor for UnknownStorage();
       OUTLINED_FUNCTION_0_0();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v27);
-      v0 = v30;
-      v14 = v31;
-      v28 = dispatch thunk of static Equatable.== infix(_:_:)();
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v36, MEMORY[0x277D216D0]);
+      v10 = v39;
+      v20 = v40;
+      v37 = dispatch thunk of static Equatable.== infix(_:_:)();
       outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
       outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-      if (v28)
+      if (v37)
       {
-        v18 = v33 + 1;
-        v17 = v29;
-        if (v33 + 1 != v29)
+        v23 = v43 + 1;
+        v22 = v38;
+        if (v43 + 1 != v38)
         {
           continue;
         }
@@ -6089,33 +5292,32 @@ LABEL_19:
   }
 }
 
-void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B17XRecognitionTokenV_Tt1g5()
+void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B17XRecognitionTokenV_Tt1g5(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_312();
-  v1 = v0;
   v3 = v2;
-  v4 = type metadata accessor for ModalityXRecognitionToken(0);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  OUTLINED_FUNCTION_97();
+  v5 = v4;
+  v6 = type metadata accessor for ModalityXRecognitionToken(0) - 8;
   MEMORY[0x28223BE20](v6);
-  v8 = *(v3 + 16);
-  if (v8 == *(v1 + 16) && v8 && v3 != v1)
+  OUTLINED_FUNCTION_97();
+  MEMORY[0x28223BE20](v7);
+  v8 = *(v5 + 16);
+  if (v8 == *(v3 + 16) && v8 && v5 != v3)
   {
-    OUTLINED_FUNCTION_94(v7);
-    v10 = v3 + v9;
-    v11 = v1 + v9;
+    OUTLINED_FUNCTION_94();
+    v10 = v5 + v9;
+    v11 = v3 + v9;
     v13 = *(v12 + 72);
     do
     {
-      outlined init with copy of ModalityXSessionMetadata();
-      OUTLINED_FUNCTION_155();
-      outlined init with copy of ModalityXSessionMetadata();
+      outlined init with copy of ModalityXSessionMetadata(v10);
+      v14 = OUTLINED_FUNCTION_155();
+      outlined init with copy of ModalityXSessionMetadata(v14);
       OUTLINED_FUNCTION_123();
-      v14 = static ModalityXRecognitionToken.== infix(_:_:)();
+      v15 = static ModalityXRecognitionToken.== infix(_:_:)();
       outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
       outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-      if ((v14 & 1) == 0)
+      if ((v15 & 1) == 0)
       {
         break;
       }
@@ -6131,183 +5333,105 @@ void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B17XRecognitionTokenV_Tt1g
   OUTLINED_FUNCTION_311();
 }
 
-void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B36XRecognitionPhraseTokensAlternativesV_Tt1g5()
+void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B17XCategoryEntitiesV_Tt1g5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   OUTLINED_FUNCTION_248();
-  v5 = OUTLINED_FUNCTION_156();
-  v6 = type metadata accessor for ModalityXRecognitionPhraseTokensAlternatives(v5);
-  v7 = OUTLINED_FUNCTION_57(v6);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  OUTLINED_FUNCTION_37();
-  MEMORY[0x28223BE20](v10);
-  OUTLINED_FUNCTION_100();
-  if (v12 && v4 && v3 != v0)
-  {
-    OUTLINED_FUNCTION_94(v11);
-    OUTLINED_FUNCTION_255(v13);
-    while (1)
-    {
-      OUTLINED_FUNCTION_130();
-      outlined init with copy of ModalityXSessionMetadata();
-      OUTLINED_FUNCTION_298();
-      outlined init with copy of ModalityXSessionMetadata();
-      v14 = *v2;
-      v15 = *v1;
-      _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B24XRecognitionPhraseTokensV_Tt1g5();
-      if ((v16 & 1) == 0)
-      {
-        break;
-      }
-
-      v17 = *(v6 + 24);
-      v18 = *(v2 + v17);
-      v19 = *(v1 + v17);
-      if (v18 == 2)
-      {
-        if (v19 != 2)
-        {
-          break;
-        }
-      }
-
-      else if (v19 == 2 || ((v18 ^ v19) & 1) != 0)
-      {
-        break;
-      }
-
-      v20 = *(v6 + 20);
-      type metadata accessor for UnknownStorage();
-      OUTLINED_FUNCTION_0_0();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v21);
-      v22 = OUTLINED_FUNCTION_359();
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-      if (v22)
-      {
-        OUTLINED_FUNCTION_116();
-        if (!v12)
-        {
-          continue;
-        }
-      }
-
-      goto LABEL_18;
-    }
-
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-    OUTLINED_FUNCTION_155();
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-  }
-
-LABEL_18:
-  OUTLINED_FUNCTION_213();
-  OUTLINED_FUNCTION_247();
-}
-
-void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B17XCategoryEntitiesV_Tt1g5()
-{
-  OUTLINED_FUNCTION_248();
-  v3 = v2;
-  v4 = OUTLINED_FUNCTION_329();
-  v64 = type metadata accessor for ModalityXEntities(v4);
-  v5 = OUTLINED_FUNCTION_54(v64);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
+  v15 = v14;
+  v16 = OUTLINED_FUNCTION_329();
+  v71 = type metadata accessor for ModalityXEntities(v16);
+  OUTLINED_FUNCTION_54();
+  MEMORY[0x28223BE20](v17);
   OUTLINED_FUNCTION_64();
-  v10 = (v9 - v8);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A9XEntitiesVSgMd, &_s16ModalityXObjects0A9XEntitiesVSgMR);
-  OUTLINED_FUNCTION_122(v11);
-  v13 = *(v12 + 64);
+  v20 = v19 - v18;
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A9XEntitiesVSgMd, &_s16ModalityXObjects0A9XEntitiesVSgMR);
+  OUTLINED_FUNCTION_122(v21);
   OUTLINED_FUNCTION_133();
-  MEMORY[0x28223BE20](v14);
-  v66 = (&v61 - v15);
-  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A9XEntitiesVSg_ADtMd, &_s16ModalityXObjects0A9XEntitiesVSg_ADtMR);
-  OUTLINED_FUNCTION_54(v65);
-  v17 = *(v16 + 64);
+  MEMORY[0x28223BE20](v22);
+  v73 = (&v68 - v23);
+  v72 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A9XEntitiesVSg_ADtMd, &_s16ModalityXObjects0A9XEntitiesVSg_ADtMR);
+  OUTLINED_FUNCTION_54();
   OUTLINED_FUNCTION_133();
-  MEMORY[0x28223BE20](v18);
-  v19 = OUTLINED_FUNCTION_101();
-  v67 = type metadata accessor for ModalityXCategoryEntities(v19);
-  v20 = OUTLINED_FUNCTION_57(v67);
-  v22 = *(v21 + 64);
-  MEMORY[0x28223BE20](v20);
-  OUTLINED_FUNCTION_97();
-  v25 = v23 - v24;
+  MEMORY[0x28223BE20](v24);
+  v25 = OUTLINED_FUNCTION_101();
+  v74 = type metadata accessor for ModalityXCategoryEntities(v25);
+  OUTLINED_FUNCTION_57();
   MEMORY[0x28223BE20](v26);
-  v68 = &v61 - v28;
-  v29 = *(v1 + 16);
-  if (v29 != *(v3 + 16) || !v29 || v1 == v3)
+  OUTLINED_FUNCTION_97();
+  v29 = v27 - v28;
+  MEMORY[0x28223BE20](v30);
+  v75 = &v68 - v31;
+  v32 = *(v13 + 16);
+  if (v32 != *(v15 + 16) || !v32 || v13 == v15)
   {
     goto LABEL_31;
   }
 
-  OUTLINED_FUNCTION_94(v27);
-  v31 = v1 + v30;
-  v32 = v3 + v30;
-  v34 = *(v33 + 72);
-  v62 = v10;
-  v63 = v34;
-  v35 = v64;
-  v61 = v25;
+  OUTLINED_FUNCTION_94();
+  v34 = v13 + v33;
+  v35 = v15 + v33;
+  v37 = *(v36 + 72);
+  v69 = v20;
+  v70 = v37;
+  v38 = v71;
+  v68 = v29;
   while (1)
   {
-    v36 = v68;
-    outlined init with copy of ModalityXSessionMetadata();
-    OUTLINED_FUNCTION_273();
-    outlined init with copy of ModalityXSessionMetadata();
-    v37 = *(v67 + 20);
-    v38 = *(v25 + v37 + 8);
-    if (*&v36[v37 + 8])
+    v39 = v75;
+    outlined init with copy of ModalityXSessionMetadata(v34);
+    v40 = OUTLINED_FUNCTION_273();
+    outlined init with copy of ModalityXSessionMetadata(v40);
+    v41 = *(v74 + 20);
+    v42 = *(v29 + v41 + 8);
+    if (*&v39[v41 + 8])
     {
-      if (!v38)
+      if (!v42)
       {
         goto LABEL_30;
       }
 
-      OUTLINED_FUNCTION_69(&v36[v37]);
-      v41 = v41 && v39 == v40;
-      if (!v41 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+      OUTLINED_FUNCTION_69(&v39[v41]);
+      v45 = v45 && v43 == v44;
+      if (!v45 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
       {
         goto LABEL_30;
       }
     }
 
-    else if (v38)
+    else if (v42)
     {
       goto LABEL_30;
     }
 
-    v42 = *(v67 + 24);
-    v43 = *(v65 + 48);
-    outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(&v68[v42], v0, &_s16ModalityXObjects0A9XEntitiesVSgMd, &_s16ModalityXObjects0A9XEntitiesVSgMR);
-    outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v25 + v42, v0 + v43, &_s16ModalityXObjects0A9XEntitiesVSgMd, &_s16ModalityXObjects0A9XEntitiesVSgMR);
-    OUTLINED_FUNCTION_139(v0, 1, v35);
-    if (!v41)
+    v46 = *(v74 + 24);
+    v47 = *(v72 + 48);
+    outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(&v75[v46], v12, &_s16ModalityXObjects0A9XEntitiesVSgMd, &_s16ModalityXObjects0A9XEntitiesVSgMR);
+    outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v29 + v46, v12 + v47, &_s16ModalityXObjects0A9XEntitiesVSgMd, &_s16ModalityXObjects0A9XEntitiesVSgMR);
+    OUTLINED_FUNCTION_139(v12, 1, v38);
+    if (!v45)
     {
       break;
     }
 
-    OUTLINED_FUNCTION_139(v0 + v43, 1, v35);
-    if (!v41)
+    OUTLINED_FUNCTION_139(v12 + v47, 1, v38);
+    if (!v45)
     {
       goto LABEL_27;
     }
 
-    v44 = OUTLINED_FUNCTION_287();
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v44, v45, &_s16ModalityXObjects0A9XEntitiesVSgMR);
+    v48 = OUTLINED_FUNCTION_287();
+    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v48, v49, &_s16ModalityXObjects0A9XEntitiesVSgMR);
 LABEL_22:
     type metadata accessor for UnknownStorage();
     OUTLINED_FUNCTION_0_0();
-    lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v57);
-    v58 = dispatch thunk of static Equatable.== infix(_:_:)();
+    lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v64, MEMORY[0x277D216D0]);
+    v65 = dispatch thunk of static Equatable.== infix(_:_:)();
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-    if (v58)
+    if (v65)
     {
-      v32 += v63;
-      v31 += v63;
-      if (--v29)
+      v35 += v70;
+      v34 += v70;
+      if (--v32)
       {
         continue;
       }
@@ -6316,37 +5440,34 @@ LABEL_22:
     goto LABEL_31;
   }
 
-  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v0, v66, &_s16ModalityXObjects0A9XEntitiesVSgMd, &_s16ModalityXObjects0A9XEntitiesVSgMR);
-  OUTLINED_FUNCTION_139(v0 + v43, 1, v35);
-  if (v46)
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v12, v73, &_s16ModalityXObjects0A9XEntitiesVSgMd, &_s16ModalityXObjects0A9XEntitiesVSgMR);
+  OUTLINED_FUNCTION_139(v12 + v47, 1, v38);
+  if (v50)
   {
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
 LABEL_27:
-    v59 = &_s16ModalityXObjects0A9XEntitiesVSg_ADtMd;
-    v60 = &_s16ModalityXObjects0A9XEntitiesVSg_ADtMR;
+    v66 = &_s16ModalityXObjects0A9XEntitiesVSg_ADtMd;
+    v67 = &_s16ModalityXObjects0A9XEntitiesVSg_ADtMR;
     goto LABEL_29;
   }
 
-  v47 = v62;
-  outlined init with take of ModalityXSessionMetadata();
-  v48 = *v66;
-  v49 = *v47;
-  _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B12XEntityWordsV_Tt1g5();
-  if (v50)
+  v51 = v69;
+  outlined init with take of ModalityXSessionMetadata(v12 + v47);
+  _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B12XEntityWordsV_Tt1g5(*v73, *v51, v52, v53, v54, v55, v56, v57, v68, v69);
+  if (v58)
   {
-    v51 = v64;
-    v52 = *(v64 + 20);
+    v59 = v71;
     type metadata accessor for UnknownStorage();
     OUTLINED_FUNCTION_0_0();
-    lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v53);
-    v54 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v35 = v51;
-    v25 = v61;
+    lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v60, MEMORY[0x277D216D0]);
+    v61 = dispatch thunk of static Equatable.== infix(_:_:)();
+    v38 = v59;
+    v29 = v68;
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-    v55 = OUTLINED_FUNCTION_315();
-    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v55, v56, &_s16ModalityXObjects0A9XEntitiesVSgMR);
-    if ((v54 & 1) == 0)
+    v62 = OUTLINED_FUNCTION_315();
+    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v62, v63, &_s16ModalityXObjects0A9XEntitiesVSgMR);
+    if ((v61 & 1) == 0)
     {
       goto LABEL_30;
     }
@@ -6356,10 +5477,10 @@ LABEL_27:
 
   outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
   outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-  v59 = &_s16ModalityXObjects0A9XEntitiesVSgMd;
-  v60 = &_s16ModalityXObjects0A9XEntitiesVSgMR;
+  v66 = &_s16ModalityXObjects0A9XEntitiesVSgMd;
+  v67 = &_s16ModalityXObjects0A9XEntitiesVSgMR;
 LABEL_29:
-  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v0, v59, v60);
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v12, v66, v67);
 LABEL_30:
   outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
   outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
@@ -6372,598 +5493,545 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ10Foundation4DataV_Tt1g5(uint64_t a1, uin
 {
   __s1[3] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 16);
-  if (v2 == *(a2 + 16))
+  if (v2 != *(a2 + 16))
   {
-    if (v2)
+    return 0;
+  }
+
+  if (v2)
+  {
+    v3 = a1 == a2;
+    if (a1 != a2)
     {
-      v3 = a1 == a2;
-      if (a1 != a2)
+      v4 = (a1 + 40);
+      v5 = (a2 + 40);
+      do
       {
-        v4 = (a1 + 40);
-        v5 = (a2 + 40);
-        do
+        v7 = *(v4 - 1);
+        v6 = *v4;
+        v8 = *v4 >> 62;
+        v10 = *(v5 - 1);
+        v9 = *v5;
+        v11 = *v5 >> 62;
+        if (v3)
         {
-          v7 = *(v4 - 1);
-          v6 = *v4;
-          v8 = *v4 >> 62;
-          v10 = *(v5 - 1);
-          v9 = *v5;
-          v11 = *v5 >> 62;
-          if (v3)
+          if (v7)
           {
-            v12 = *v4 >> 62;
-            if (v7)
-            {
-              v14 = *v4 >> 62;
-              v13 = 0;
-            }
-
-            else
-            {
-              v14 = *v4 >> 62;
-              v13 = v6 == 0xC000000000000000;
-            }
-
-            v15 = *v4 >> 62;
-            v24 = 0;
-            if (v13)
-            {
-              v17 = *v4 >> 62;
-              v16 = *v5 >> 62 == 3;
-            }
-
-            else
-            {
-              v17 = *v4 >> 62;
-              v16 = 0;
-            }
-
-            v18 = *v4 >> 62;
-            if (v16)
-            {
-              v19 = *v4 >> 62;
-              if (!v10)
-              {
-                v20 = *v4 >> 62;
-                if (v9 == 0xC000000000000000)
-                {
-                  v21 = *v4 >> 62;
-                  goto LABEL_88;
-                }
-
-                v22 = *v4 >> 62;
-              }
-            }
-
-            else
-            {
-              v114 = *v4 >> 62;
-            }
+            v12 = 0;
           }
 
           else
           {
-            v23 = *v4 >> 62;
-            v24 = 0;
-            v25 = *v4 >> 62;
-            switch(v8)
-            {
-              case 0uLL:
-                v24 = BYTE6(v6);
-                break;
-              case 1uLL:
-                if (__OFSUB__(HIDWORD(v7), v7))
-                {
-                  goto LABEL_94;
-                }
-
-                v24 = HIDWORD(v7) - v7;
-                break;
-              case 2uLL:
-                v27 = *(v7 + 16);
-                v26 = *(v7 + 24);
-                v28 = __OFSUB__(v26, v27);
-                v24 = v26 - v27;
-                if (!v28)
-                {
-                  break;
-                }
-
-                goto LABEL_95;
-              case 3uLL:
-                break;
-              default:
-                JUMPOUT(0);
-            }
+            v12 = v6 == 0xC000000000000000;
           }
 
-          v29 = *v5 >> 62;
-          v30 = *v4 >> 62;
-          switch(v11)
+          v14 = 0;
+          v13 = v12 && *v5 >> 62 == 3;
+          if (v13 && !v10 && v9 == 0xC000000000000000)
           {
-            case 1uLL:
-              LODWORD(v31) = HIDWORD(v10) - v10;
-              if (__OFSUB__(HIDWORD(v10), v10))
-              {
-                __break(1u);
-LABEL_93:
-                __break(1u);
-LABEL_94:
-                __break(1u);
-LABEL_95:
-                __break(1u);
-LABEL_96:
-                __break(1u);
-LABEL_97:
-                __break(1u);
-LABEL_98:
-                __break(1u);
-LABEL_99:
-                __break(1u);
-LABEL_100:
-                __break(1u);
-LABEL_101:
-                __break(1u);
-LABEL_102:
-                __break(1u);
-LABEL_103:
-                __break(1u);
-LABEL_104:
-                __break(1u);
-LABEL_105:
-                __break(1u);
-LABEL_106:
-                __break(1u);
-LABEL_107:
-                __break(1u);
-              }
+            goto LABEL_85;
+          }
+        }
 
-              v31 = v31;
-LABEL_33:
-              v35 = *v4 >> 62;
-              if (v24 != v31)
+        else
+        {
+          v14 = 0;
+          switch(v8)
+          {
+            case 0uLL:
+              v14 = BYTE6(v6);
+              break;
+            case 1uLL:
+              if (__OFSUB__(HIDWORD(v7), v7))
               {
-                v36 = *v4 >> 62;
                 goto LABEL_90;
               }
 
-              v37 = *v4 >> 62;
-              if (v24 >= 1)
+              v14 = HIDWORD(v7) - v7;
+              break;
+            case 2uLL:
+              v16 = *(v7 + 16);
+              v15 = *(v7 + 24);
+              v17 = __OFSUB__(v15, v16);
+              v14 = v15 - v16;
+              if (!v17)
               {
-                v39 = *v4 >> 62;
-                v40 = v10 >> 32;
-                switch(v8)
+                break;
+              }
+
+              goto LABEL_91;
+            case 3uLL:
+              break;
+            default:
+              JUMPOUT(0);
+          }
+        }
+
+        switch(v11)
+        {
+          case 1uLL:
+            LODWORD(v18) = HIDWORD(v10) - v10;
+            if (__OFSUB__(HIDWORD(v10), v10))
+            {
+              __break(1u);
+LABEL_89:
+              __break(1u);
+LABEL_90:
+              __break(1u);
+LABEL_91:
+              __break(1u);
+LABEL_92:
+              __break(1u);
+LABEL_93:
+              __break(1u);
+LABEL_94:
+              __break(1u);
+LABEL_95:
+              __break(1u);
+LABEL_96:
+              __break(1u);
+LABEL_97:
+              __break(1u);
+LABEL_98:
+              __break(1u);
+LABEL_99:
+              __break(1u);
+LABEL_100:
+              __break(1u);
+LABEL_101:
+              __break(1u);
+LABEL_102:
+              __break(1u);
+LABEL_103:
+              __break(1u);
+            }
+
+            v18 = v18;
+LABEL_32:
+            if (v14 != v18)
+            {
+              return 0;
+            }
+
+            if (v14 < 1)
+            {
+              goto LABEL_85;
+            }
+
+            break;
+          case 2uLL:
+            v20 = *(v10 + 16);
+            v19 = *(v10 + 24);
+            v17 = __OFSUB__(v19, v20);
+            v18 = v19 - v20;
+            if (!v17)
+            {
+              goto LABEL_32;
+            }
+
+            goto LABEL_89;
+          case 3uLL:
+            if (v14)
+            {
+              return 0;
+            }
+
+            goto LABEL_85;
+          default:
+            v18 = BYTE6(v9);
+            goto LABEL_32;
+        }
+
+        v21 = v10 >> 32;
+        switch(v8)
+        {
+          case 1:
+            if (v7 >> 32 < v7)
+            {
+              goto LABEL_92;
+            }
+
+            v47 = OUTLINED_FUNCTION_155();
+            outlined copy of Data._Representation(v47, v48);
+            v49 = OUTLINED_FUNCTION_155();
+            outlined copy of Data._Representation(v49, v50);
+            v51 = OUTLINED_FUNCTION_155();
+            outlined copy of Data._Representation(v51, v52);
+            v53 = OUTLINED_FUNCTION_155();
+            outlined copy of Data._Representation(v53, v54);
+            v55 = OUTLINED_FUNCTION_125();
+            outlined copy of Data._Representation(v55, v56);
+            v39 = __DataStorage._bytes.getter();
+            if (!v39)
+            {
+              goto LABEL_59;
+            }
+
+            v57 = __DataStorage._offset.getter();
+            if (__OFSUB__(v7, v57))
+            {
+              goto LABEL_95;
+            }
+
+            v39 += v7 - v57;
+LABEL_59:
+            MEMORY[0x25F84E010]();
+            closure #1 in static Data.== infix(_:_:)(__s1, v39, v10, v9);
+            v58 = OUTLINED_FUNCTION_155();
+            outlined consume of Data._Representation(v58, v59);
+            v60 = OUTLINED_FUNCTION_155();
+            outlined consume of Data._Representation(v60, v61);
+            v62 = OUTLINED_FUNCTION_125();
+            outlined consume of Data._Representation(v62, v63);
+            v64 = __s1[0];
+            v65 = OUTLINED_FUNCTION_155();
+            outlined consume of Data._Representation(v65, v66);
+            v67 = OUTLINED_FUNCTION_155();
+            outlined consume of Data._Representation(v67, v68);
+            if ((v64 & 1) == 0)
+            {
+              return 0;
+            }
+
+            break;
+          case 2:
+            v28 = *(v7 + 16);
+            v97 = *(v7 + 24);
+            v29 = OUTLINED_FUNCTION_155();
+            outlined copy of Data._Representation(v29, v30);
+            v31 = OUTLINED_FUNCTION_155();
+            outlined copy of Data._Representation(v31, v32);
+            v33 = OUTLINED_FUNCTION_155();
+            outlined copy of Data._Representation(v33, v34);
+            v35 = OUTLINED_FUNCTION_155();
+            outlined copy of Data._Representation(v35, v36);
+            v37 = OUTLINED_FUNCTION_125();
+            outlined copy of Data._Representation(v37, v38);
+            v39 = __DataStorage._bytes.getter();
+            if (!v39)
+            {
+              goto LABEL_44;
+            }
+
+            v40 = __DataStorage._offset.getter();
+            if (__OFSUB__(v28, v40))
+            {
+              goto LABEL_94;
+            }
+
+            v39 += v28 - v40;
+LABEL_44:
+            if (!__OFSUB__(v97, v28))
+            {
+              goto LABEL_59;
+            }
+
+            goto LABEL_93;
+          case 3:
+            memset(__s1, 0, 14);
+            if (v11 == 2)
+            {
+              v69 = *(v10 + 16);
+              v100 = *(v10 + 24);
+              v70 = OUTLINED_FUNCTION_155();
+              outlined copy of Data._Representation(v70, v71);
+              v72 = OUTLINED_FUNCTION_125();
+              outlined copy of Data._Representation(v72, v73);
+              v74 = __DataStorage._bytes.getter();
+              if (v74)
+              {
+                v75 = __DataStorage._offset.getter();
+                if (__OFSUB__(v69, v75))
                 {
-                  case 1:
-                    if (v7 >> 32 < v7)
-                    {
-                      goto LABEL_96;
-                    }
-
-                    v66 = OUTLINED_FUNCTION_155();
-                    outlined copy of Data._Representation(v66, v67);
-                    v68 = OUTLINED_FUNCTION_155();
-                    outlined copy of Data._Representation(v68, v69);
-                    v70 = OUTLINED_FUNCTION_155();
-                    outlined copy of Data._Representation(v70, v71);
-                    v72 = OUTLINED_FUNCTION_155();
-                    outlined copy of Data._Representation(v72, v73);
-                    v74 = OUTLINED_FUNCTION_125();
-                    outlined copy of Data._Representation(v74, v75);
-                    v58 = __DataStorage._bytes.getter();
-                    if (!v58)
-                    {
-                      goto LABEL_62;
-                    }
-
-                    v76 = __DataStorage._offset.getter();
-                    if (__OFSUB__(v7, v76))
-                    {
-                      goto LABEL_99;
-                    }
-
-                    v58 += v7 - v76;
-LABEL_62:
-                    MEMORY[0x25F84E010]();
-                    closure #1 in static Data.== infix(_:_:)(v58, v10, v9, __s1);
-                    v77 = OUTLINED_FUNCTION_155();
-                    outlined consume of Data._Representation(v77, v78);
-                    v79 = OUTLINED_FUNCTION_155();
-                    outlined consume of Data._Representation(v79, v80);
-                    v81 = OUTLINED_FUNCTION_125();
-                    outlined consume of Data._Representation(v81, v82);
-                    v83 = __s1[0];
-                    v84 = OUTLINED_FUNCTION_155();
-                    outlined consume of Data._Representation(v84, v85);
-                    v86 = OUTLINED_FUNCTION_155();
-                    outlined consume of Data._Representation(v86, v87);
-                    if ((v83 & 1) == 0)
-                    {
-                      goto LABEL_90;
-                    }
-
-                    goto LABEL_88;
-                  case 2:
-                    v47 = *(v7 + 16);
-                    v117 = *(v7 + 24);
-                    v48 = OUTLINED_FUNCTION_155();
-                    outlined copy of Data._Representation(v48, v49);
-                    v50 = OUTLINED_FUNCTION_155();
-                    outlined copy of Data._Representation(v50, v51);
-                    v52 = OUTLINED_FUNCTION_155();
-                    outlined copy of Data._Representation(v52, v53);
-                    v54 = OUTLINED_FUNCTION_155();
-                    outlined copy of Data._Representation(v54, v55);
-                    v56 = OUTLINED_FUNCTION_125();
-                    outlined copy of Data._Representation(v56, v57);
-                    v58 = __DataStorage._bytes.getter();
-                    if (!v58)
-                    {
-                      goto LABEL_47;
-                    }
-
-                    v59 = __DataStorage._offset.getter();
-                    if (__OFSUB__(v47, v59))
-                    {
-                      goto LABEL_98;
-                    }
-
-                    v58 += v47 - v59;
-LABEL_47:
-                    if (!__OFSUB__(v117, v47))
-                    {
-                      goto LABEL_62;
-                    }
-
-                    goto LABEL_97;
-                  case 3:
-                    memset(__s1, 0, 14);
-                    if (v11 == 2)
-                    {
-                      v88 = *(v10 + 16);
-                      v120 = *(v10 + 24);
-                      v89 = OUTLINED_FUNCTION_155();
-                      outlined copy of Data._Representation(v89, v90);
-                      v91 = OUTLINED_FUNCTION_125();
-                      outlined copy of Data._Representation(v91, v92);
-                      v93 = __DataStorage._bytes.getter();
-                      if (v93)
-                      {
-                        v94 = __DataStorage._offset.getter();
-                        if (__OFSUB__(v88, v94))
-                        {
-                          goto LABEL_104;
-                        }
-
-                        v93 += v88 - v94;
-                      }
-
-                      v28 = __OFSUB__(v120, v88);
-                      v95 = &v120[-v88];
-                      if (v28)
-                      {
-                        goto LABEL_103;
-                      }
-
-                      v96 = MEMORY[0x25F84E010]();
-                      if (!v93)
-                      {
-                        goto LABEL_111;
-                      }
-
-                      goto LABEL_75;
-                    }
-
-                    if (v11 != 1)
-                    {
-LABEL_60:
-                      __s2 = v10;
-                      v123 = v9;
-                      v124 = BYTE2(v9);
-                      v125 = BYTE3(v9);
-                      v126 = BYTE4(v9);
-                      v127 = BYTE5(v9);
-                      if (memcmp(__s1, &__s2, BYTE6(v9)))
-                      {
-                        goto LABEL_90;
-                      }
-
-                      goto LABEL_88;
-                    }
-
-                    if (v40 < v10)
-                    {
-                      goto LABEL_100;
-                    }
-
-                    v60 = OUTLINED_FUNCTION_155();
-                    outlined copy of Data._Representation(v60, v61);
-                    v62 = OUTLINED_FUNCTION_125();
-                    outlined copy of Data._Representation(v62, v63);
-                    v64 = __DataStorage._bytes.getter();
-                    if (v64)
-                    {
-                      v118 = v64;
-                      v65 = __DataStorage._offset.getter();
-                      if (__OFSUB__(v10, v65))
-                      {
-                        goto LABEL_107;
-                      }
-
-                      v119 = &v118[v10 - v65];
-                    }
-
-                    else
-                    {
-                      v119 = 0;
-                    }
-
-                    v105 = MEMORY[0x25F84E010]();
-                    v104 = v119;
-                    if (!v119)
-                    {
-                      goto LABEL_109;
-                    }
-
-                    goto LABEL_84;
-                  default:
-                    LOWORD(__s1[0]) = *(v4 - 1);
-                    BYTE2(__s1[0]) = BYTE2(v7);
-                    BYTE3(__s1[0]) = BYTE3(v7);
-                    BYTE4(__s1[0]) = BYTE4(v7);
-                    BYTE5(__s1[0]) = BYTE5(v7);
-                    BYTE6(__s1[0]) = BYTE6(v7);
-                    HIBYTE(__s1[0]) = HIBYTE(v7);
-                    LOWORD(__s1[1]) = v6;
-                    BYTE2(__s1[1]) = BYTE2(v6);
-                    BYTE3(__s1[1]) = BYTE3(v6);
-                    BYTE4(__s1[1]) = BYTE4(v6);
-                    BYTE5(__s1[1]) = BYTE5(v6);
-                    if (!v11)
-                    {
-                      goto LABEL_60;
-                    }
-
-                    if (v11 == 1)
-                    {
-                      if (v40 < v10)
-                      {
-                        goto LABEL_101;
-                      }
-
-                      v41 = OUTLINED_FUNCTION_155();
-                      outlined copy of Data._Representation(v41, v42);
-                      v43 = OUTLINED_FUNCTION_125();
-                      outlined copy of Data._Representation(v43, v44);
-                      v45 = __DataStorage._bytes.getter();
-                      if (v45)
-                      {
-                        v115 = v45;
-                        v46 = __DataStorage._offset.getter();
-                        if (__OFSUB__(v10, v46))
-                        {
-                          goto LABEL_106;
-                        }
-
-                        v116 = &v115[v10 - v46];
-                      }
-
-                      else
-                      {
-                        v116 = 0;
-                      }
-
-                      v105 = MEMORY[0x25F84E010]();
-                      v104 = v116;
-                      if (!v116)
-                      {
-                        goto LABEL_110;
-                      }
-
-LABEL_84:
-                      if (v105 >= v40 - v10)
-                      {
-                        v103 = v40 - v10;
-                      }
-
-                      else
-                      {
-                        v103 = v105;
-                      }
-                    }
-
-                    else
-                    {
-                      v97 = *(v10 + 16);
-                      v121 = *(v10 + 24);
-                      v98 = OUTLINED_FUNCTION_155();
-                      outlined copy of Data._Representation(v98, v99);
-                      v100 = OUTLINED_FUNCTION_125();
-                      outlined copy of Data._Representation(v100, v101);
-                      v93 = __DataStorage._bytes.getter();
-                      if (v93)
-                      {
-                        v102 = __DataStorage._offset.getter();
-                        if (__OFSUB__(v97, v102))
-                        {
-                          goto LABEL_105;
-                        }
-
-                        v93 += v97 - v102;
-                      }
-
-                      v28 = __OFSUB__(v121, v97);
-                      v95 = &v121[-v97];
-                      if (v28)
-                      {
-                        goto LABEL_102;
-                      }
-
-                      v96 = MEMORY[0x25F84E010]();
-                      if (!v93)
-                      {
-                        __break(1u);
-LABEL_109:
-                        __break(1u);
-LABEL_110:
-                        __break(1u);
-LABEL_111:
-                        __break(1u);
-                        v112 = OUTLINED_FUNCTION_155();
-                        outlined consume of Data._Representation(v112, v113);
-
-                        __break(1u);
-                        JUMPOUT(0x25A1A5824);
-                      }
-
-LABEL_75:
-                      if (v96 >= v95)
-                      {
-                        v103 = v95;
-                      }
-
-                      else
-                      {
-                        v103 = v96;
-                      }
-
-                      v104 = v93;
-                    }
-
-                    v106 = memcmp(__s1, v104, v103);
-                    v107 = OUTLINED_FUNCTION_125();
-                    outlined consume of Data._Representation(v107, v108);
-                    v109 = OUTLINED_FUNCTION_155();
-                    outlined consume of Data._Representation(v109, v110);
-                    if (v106)
-                    {
-                      goto LABEL_90;
-                    }
-
-                    break;
+                  goto LABEL_100;
                 }
+
+                v74 += v69 - v75;
+              }
+
+              v17 = __OFSUB__(v100, v69);
+              v76 = &v100[-v69];
+              if (v17)
+              {
+                goto LABEL_99;
+              }
+
+              v77 = MEMORY[0x25F84E010]();
+              if (!v74)
+              {
+                goto LABEL_107;
+              }
+
+LABEL_72:
+              if (v77 >= v76)
+              {
+                v84 = v76;
               }
 
               else
               {
-                v38 = *v4 >> 62;
+                v84 = v77;
+              }
+
+              v85 = v74;
+LABEL_84:
+              v87 = memcmp(__s1, v85, v84);
+              v88 = OUTLINED_FUNCTION_125();
+              outlined consume of Data._Representation(v88, v89);
+              v90 = OUTLINED_FUNCTION_155();
+              outlined consume of Data._Representation(v90, v91);
+              if (v87)
+              {
+                return 0;
               }
 
               break;
-            case 2uLL:
-              v34 = *(v10 + 16);
-              v33 = *(v10 + 24);
-              v28 = __OFSUB__(v33, v34);
-              v31 = v33 - v34;
-              if (!v28)
+            }
+
+            if (v11 == 1)
+            {
+              if (v21 < v10)
               {
-                goto LABEL_33;
+                goto LABEL_96;
               }
 
-              goto LABEL_93;
-            case 3uLL:
-              if (v24)
+              v41 = OUTLINED_FUNCTION_155();
+              outlined copy of Data._Representation(v41, v42);
+              v43 = OUTLINED_FUNCTION_125();
+              outlined copy of Data._Representation(v43, v44);
+              v45 = __DataStorage._bytes.getter();
+              if (v45)
               {
-                goto LABEL_90;
+                v98 = v45;
+                v46 = __DataStorage._offset.getter();
+                if (__OFSUB__(v10, v46))
+                {
+                  goto LABEL_103;
+                }
+
+                v99 = &v98[v10 - v46];
               }
 
-              break;
-            default:
-              v32 = *v4 >> 62;
-              v31 = BYTE6(v9);
-              goto LABEL_33;
-          }
+              else
+              {
+                v99 = 0;
+              }
 
-LABEL_88:
-          v4 += 2;
-          v5 += 2;
-          v3 = --v2 == 0;
+              v86 = MEMORY[0x25F84E010]();
+              v85 = v99;
+              if (!v99)
+              {
+                goto LABEL_105;
+              }
+
+LABEL_81:
+              if (v86 >= v21 - v10)
+              {
+                v84 = v21 - v10;
+              }
+
+              else
+              {
+                v84 = v86;
+              }
+
+              goto LABEL_84;
+            }
+
+LABEL_57:
+            __s2 = v10;
+            v103 = v9;
+            v104 = BYTE2(v9);
+            v105 = BYTE3(v9);
+            v106 = BYTE4(v9);
+            v107 = BYTE5(v9);
+            if (memcmp(__s1, &__s2, BYTE6(v9)))
+            {
+              return 0;
+            }
+
+            break;
+          default:
+            LOWORD(__s1[0]) = *(v4 - 1);
+            BYTE2(__s1[0]) = BYTE2(v7);
+            BYTE3(__s1[0]) = BYTE3(v7);
+            BYTE4(__s1[0]) = BYTE4(v7);
+            BYTE5(__s1[0]) = BYTE5(v7);
+            BYTE6(__s1[0]) = BYTE6(v7);
+            HIBYTE(__s1[0]) = HIBYTE(v7);
+            LOWORD(__s1[1]) = v6;
+            BYTE2(__s1[1]) = BYTE2(v6);
+            BYTE3(__s1[1]) = BYTE3(v6);
+            BYTE4(__s1[1]) = BYTE4(v6);
+            BYTE5(__s1[1]) = BYTE5(v6);
+            if (!v11)
+            {
+              goto LABEL_57;
+            }
+
+            if (v11 == 1)
+            {
+              if (v21 < v10)
+              {
+                goto LABEL_97;
+              }
+
+              v22 = OUTLINED_FUNCTION_155();
+              outlined copy of Data._Representation(v22, v23);
+              v24 = OUTLINED_FUNCTION_125();
+              outlined copy of Data._Representation(v24, v25);
+              v26 = __DataStorage._bytes.getter();
+              if (v26)
+              {
+                v95 = v26;
+                v27 = __DataStorage._offset.getter();
+                if (__OFSUB__(v10, v27))
+                {
+                  goto LABEL_102;
+                }
+
+                v96 = &v95[v10 - v27];
+              }
+
+              else
+              {
+                v96 = 0;
+              }
+
+              v86 = MEMORY[0x25F84E010]();
+              v85 = v96;
+              if (!v96)
+              {
+                goto LABEL_106;
+              }
+
+              goto LABEL_81;
+            }
+
+            v78 = *(v10 + 16);
+            v101 = *(v10 + 24);
+            v79 = OUTLINED_FUNCTION_155();
+            outlined copy of Data._Representation(v79, v80);
+            v81 = OUTLINED_FUNCTION_125();
+            outlined copy of Data._Representation(v81, v82);
+            v74 = __DataStorage._bytes.getter();
+            if (v74)
+            {
+              v83 = __DataStorage._offset.getter();
+              if (__OFSUB__(v78, v83))
+              {
+                goto LABEL_101;
+              }
+
+              v74 += v78 - v83;
+            }
+
+            v17 = __OFSUB__(v101, v78);
+            v76 = &v101[-v78];
+            if (v17)
+            {
+              goto LABEL_98;
+            }
+
+            v77 = MEMORY[0x25F84E010]();
+            if (!v74)
+            {
+              __break(1u);
+LABEL_105:
+              __break(1u);
+LABEL_106:
+              __break(1u);
+LABEL_107:
+              __break(1u);
+              v93 = OUTLINED_FUNCTION_155();
+              outlined consume of Data._Representation(v93, v94);
+
+              __break(1u);
+              JUMPOUT(0x25A1A5824);
+            }
+
+            goto LABEL_72;
         }
 
-        while (v2);
+LABEL_85:
+        v4 += 2;
+        v5 += 2;
+        v3 = --v2 == 0;
       }
+
+      while (v2);
     }
-
-    result = 1;
   }
 
-  else
+  return 1;
+}
+
+uint64_t outlined copy of Data?(uint64_t result, unint64_t a2)
+{
+  if (a2 >> 60 != 15)
   {
-LABEL_90:
-    result = 0;
+    return outlined copy of Data._Representation(result, a2);
   }
 
-  *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t outlined copy of Data?(uint64_t a1, unint64_t a2)
-{
-  if (a2 >> 60 != 15)
-  {
-    return outlined copy of Data._Representation(a1, a2);
-  }
-
-  return a1;
-}
-
-uint64_t outlined copy of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined copy of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v2;
     }
   }
 }
 
-uint64_t outlined consume of Data?(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data?(uint64_t result, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return outlined consume of Data._Representation(a1, a2);
+    return outlined consume of Data._Representation(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v2;
     }
   }
 }
 
-void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B13XItnAlignmentV_Tt1g5()
+void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B13XItnAlignmentV_Tt1g5(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_248();
-  v3 = OUTLINED_FUNCTION_156();
-  v4 = type metadata accessor for ModalityXItnAlignment(v3);
-  v5 = OUTLINED_FUNCTION_57(v4);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
+  v5 = OUTLINED_FUNCTION_156();
+  type metadata accessor for ModalityXItnAlignment(v5);
+  OUTLINED_FUNCTION_57();
+  MEMORY[0x28223BE20](v6);
   OUTLINED_FUNCTION_37();
-  MEMORY[0x28223BE20](v8);
+  MEMORY[0x28223BE20](v7);
   OUTLINED_FUNCTION_100();
-  if (v10 && v2 && v1 != v0)
+  if (v8 && v4 && v3 != v2)
   {
-    OUTLINED_FUNCTION_94(v9);
-    OUTLINED_FUNCTION_255(v11);
+    OUTLINED_FUNCTION_94();
+    OUTLINED_FUNCTION_255();
     while (1)
     {
-      OUTLINED_FUNCTION_130();
-      outlined init with copy of ModalityXSessionMetadata();
-      OUTLINED_FUNCTION_298();
-      outlined init with copy of ModalityXSessionMetadata();
-      OUTLINED_FUNCTION_85(v4[5]);
-      if (v13)
+      v9 = OUTLINED_FUNCTION_130();
+      outlined init with copy of ModalityXSessionMetadata(v9);
+      v10 = OUTLINED_FUNCTION_298();
+      outlined init with copy of ModalityXSessionMetadata(v10);
+      OUTLINED_FUNCTION_85();
+      if (v12)
       {
-        if (!v12)
+        if (!v11)
         {
           goto LABEL_27;
         }
@@ -6972,34 +6040,16 @@ void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B13XItnAlignmentV_Tt1g5()
       else
       {
         OUTLINED_FUNCTION_53();
-        if (v14)
+        if (v13)
         {
           goto LABEL_27;
         }
       }
 
-      OUTLINED_FUNCTION_85(v4[6]);
-      if (v16)
+      OUTLINED_FUNCTION_85();
+      if (v15)
       {
-        if (!v15)
-        {
-          goto LABEL_27;
-        }
-      }
-
-      else
-      {
-        OUTLINED_FUNCTION_53();
-        if (v17)
-        {
-          goto LABEL_27;
-        }
-      }
-
-      OUTLINED_FUNCTION_85(v4[7]);
-      if (v19)
-      {
-        if (!v18)
+        if (!v14)
         {
           goto LABEL_27;
         }
@@ -7008,16 +6058,16 @@ void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B13XItnAlignmentV_Tt1g5()
       else
       {
         OUTLINED_FUNCTION_53();
-        if (v20)
+        if (v16)
         {
           goto LABEL_27;
         }
       }
 
-      OUTLINED_FUNCTION_85(v4[8]);
-      if (v22)
+      OUTLINED_FUNCTION_85();
+      if (v18)
       {
-        if (!v21)
+        if (!v17)
         {
           goto LABEL_27;
         }
@@ -7026,7 +6076,25 @@ void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B13XItnAlignmentV_Tt1g5()
       else
       {
         OUTLINED_FUNCTION_53();
-        if (v23)
+        if (v19)
+        {
+          goto LABEL_27;
+        }
+      }
+
+      OUTLINED_FUNCTION_85();
+      if (v21)
+      {
+        if (!v20)
+        {
+          goto LABEL_27;
+        }
+      }
+
+      else
+      {
+        OUTLINED_FUNCTION_53();
+        if (v22)
         {
 LABEL_27:
           OUTLINED_FUNCTION_201();
@@ -7037,18 +6105,18 @@ LABEL_27:
         }
       }
 
-      v24 = type metadata accessor for UnknownStorage();
+      v23 = type metadata accessor for UnknownStorage();
       OUTLINED_FUNCTION_0_0();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v25);
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v24, MEMORY[0x277D216D0]);
       OUTLINED_FUNCTION_136();
       dispatch thunk of static Equatable.== infix(_:_:)();
       OUTLINED_FUNCTION_244();
       outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
       outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-      if (v24)
+      if (v23)
       {
         OUTLINED_FUNCTION_116();
-        if (!v10)
+        if (!v8)
         {
           continue;
         }
@@ -7062,62 +6130,61 @@ LABEL_27:
   OUTLINED_FUNCTION_247();
 }
 
-void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B18XRecognitionChoiceV_Tt1g5()
+void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B18XRecognitionChoiceV_Tt1g5(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_248();
   v5 = OUTLINED_FUNCTION_156();
-  v6 = type metadata accessor for ModalityXRecognitionChoice(v5);
-  v7 = OUTLINED_FUNCTION_57(v6);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
+  type metadata accessor for ModalityXRecognitionChoice(v5);
+  OUTLINED_FUNCTION_57();
+  MEMORY[0x28223BE20](v6);
   OUTLINED_FUNCTION_37();
-  MEMORY[0x28223BE20](v10);
+  MEMORY[0x28223BE20](v7);
   OUTLINED_FUNCTION_300();
-  if (v20 && v4 && v3 != v0)
+  if (v17 && v4 && v3 != v2)
   {
-    v12 = 0;
-    OUTLINED_FUNCTION_94(v11);
-    v14 = *(v13 + 72);
+    v8 = 0;
+    OUTLINED_FUNCTION_94();
+    v10 = v3 + v9;
+    v11 = v2 + v9;
+    v13 = *(v12 + 72);
     while (1)
     {
-      outlined init with copy of ModalityXSessionMetadata();
-      if (v12 == v4)
+      outlined init with copy of ModalityXSessionMetadata(v10 + v13 * v8);
+      if (v8 == v4)
       {
         break;
       }
 
-      outlined init with copy of ModalityXSessionMetadata();
-      v15 = *v2;
-      v16 = *v1;
+      outlined init with copy of ModalityXSessionMetadata(v11 + v13 * v8);
       OUTLINED_FUNCTION_305();
-      if (!v20)
+      if (!v17)
       {
         goto LABEL_26;
       }
 
-      if (v17)
+      if (v14)
       {
-        v20 = v18 == v19;
+        v17 = v15 == v16;
       }
 
       else
       {
-        v20 = 1;
+        v17 = 1;
       }
 
-      if (!v20)
+      if (!v17)
       {
-        v21 = (v18 + 32);
-        v22 = (v19 + 32);
-        while (v17)
+        v18 = (v15 + 32);
+        v19 = (v16 + 32);
+        while (v14)
         {
-          if (*v21 != *v22)
+          if (*v18 != *v19)
           {
             goto LABEL_26;
           }
 
           OUTLINED_FUNCTION_310();
-          if (v20)
+          if (v17)
           {
             goto LABEL_18;
           }
@@ -7128,10 +6195,10 @@ void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B18XRecognitionChoiceV_Tt1
       }
 
 LABEL_18:
-      OUTLINED_FUNCTION_85(*(v6 + 24));
-      if (v24)
+      OUTLINED_FUNCTION_85();
+      if (v21)
       {
-        if (!v23)
+        if (!v20)
         {
           goto LABEL_26;
         }
@@ -7140,7 +6207,7 @@ LABEL_18:
       else
       {
         OUTLINED_FUNCTION_53();
-        if (v25)
+        if (v22)
         {
 LABEL_26:
           outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
@@ -7150,15 +6217,14 @@ LABEL_26:
         }
       }
 
-      v26 = *(v6 + 20);
       type metadata accessor for UnknownStorage();
       OUTLINED_FUNCTION_0_0();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v27);
-      v28 = OUTLINED_FUNCTION_360();
+      v24 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v23, MEMORY[0x277D216D0]);
+      v25 = OUTLINED_FUNCTION_360(v24);
       outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
       OUTLINED_FUNCTION_166();
       outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-      if ((v28 & 1) != 0 && ++v12 != v4)
+      if ((v25 & 1) != 0 && ++v8 != v4)
       {
         continue;
       }
@@ -7172,111 +6238,6 @@ LABEL_26:
   else
   {
 LABEL_27:
-    OUTLINED_FUNCTION_213();
-    OUTLINED_FUNCTION_247();
-  }
-}
-
-void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B16XChoiceAlignmentV_Tt1g5()
-{
-  OUTLINED_FUNCTION_248();
-  v5 = OUTLINED_FUNCTION_156();
-  v6 = type metadata accessor for ModalityXChoiceAlignment(v5);
-  v7 = OUTLINED_FUNCTION_57(v6);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  OUTLINED_FUNCTION_37();
-  MEMORY[0x28223BE20](v10);
-  OUTLINED_FUNCTION_300();
-  if (v20 && v4 && v3 != v0)
-  {
-    v12 = 0;
-    OUTLINED_FUNCTION_94(v11);
-    v14 = *(v13 + 72);
-    while (1)
-    {
-      outlined init with copy of ModalityXSessionMetadata();
-      if (v12 == v4)
-      {
-        break;
-      }
-
-      outlined init with copy of ModalityXSessionMetadata();
-      v15 = *v2;
-      v16 = *v1;
-      OUTLINED_FUNCTION_305();
-      if (!v20)
-      {
-        goto LABEL_23;
-      }
-
-      if (v17)
-      {
-        v20 = v18 == v19;
-      }
-
-      else
-      {
-        v20 = 1;
-      }
-
-      if (!v20)
-      {
-        v21 = (v18 + 32);
-        v22 = (v19 + 32);
-        while (v17)
-        {
-          if (*v21 != *v22)
-          {
-            goto LABEL_23;
-          }
-
-          OUTLINED_FUNCTION_310();
-          if (v20)
-          {
-            goto LABEL_18;
-          }
-        }
-
-        __break(1u);
-        break;
-      }
-
-LABEL_18:
-      v23 = v2[1];
-      v24 = v1[1];
-      _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B21XRepeatedItnAlignmentV_Tt1g5();
-      if ((v25 & 1) == 0)
-      {
-LABEL_23:
-        outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-        OUTLINED_FUNCTION_155();
-        outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-        goto LABEL_24;
-      }
-
-      v26 = *(v6 + 24);
-      type metadata accessor for UnknownStorage();
-      OUTLINED_FUNCTION_0_0();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v27);
-      v28 = OUTLINED_FUNCTION_360();
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-      OUTLINED_FUNCTION_166();
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-      if ((v28 & 1) != 0 && ++v12 != v4)
-      {
-        continue;
-      }
-
-      goto LABEL_24;
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_24:
     OUTLINED_FUNCTION_213();
     OUTLINED_FUNCTION_247();
   }
@@ -7313,52 +6274,52 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZs5Int32V_Tt1g5(uint64_t result, uint64_t 
   return result;
 }
 
-void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B21XRepeatedItnAlignmentV_Tt1g5()
+void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B21XRepeatedItnAlignmentV_Tt1g5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   OUTLINED_FUNCTION_248();
-  v3 = v2;
-  v5 = v4;
-  v6 = type metadata accessor for ModalityXItnAlignment(0);
-  v7 = OUTLINED_FUNCTION_317(v6);
-  v57 = v8;
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v7);
+  v12 = v11;
+  v14 = v13;
+  type metadata accessor for ModalityXItnAlignment(0);
+  OUTLINED_FUNCTION_317();
+  v62 = v15;
+  MEMORY[0x28223BE20](v16);
   OUTLINED_FUNCTION_159();
   OUTLINED_FUNCTION_253();
-  MEMORY[0x28223BE20](v11);
-  v12 = OUTLINED_FUNCTION_332();
-  v13 = type metadata accessor for ModalityXRepeatedItnAlignment(v12);
-  v14 = OUTLINED_FUNCTION_57(v13);
-  v16 = *(v15 + 64);
-  MEMORY[0x28223BE20](v14);
-  OUTLINED_FUNCTION_37();
   MEMORY[0x28223BE20](v17);
-  v20 = (v49 - v19);
-  v21 = *(v5 + 16);
-  if (v21 == *(v3 + 16) && v21 && v5 != v3)
+  v18 = OUTLINED_FUNCTION_332();
+  v19 = type metadata accessor for ModalityXRepeatedItnAlignment(v18);
+  OUTLINED_FUNCTION_57();
+  MEMORY[0x28223BE20](v20);
+  OUTLINED_FUNCTION_37();
+  MEMORY[0x28223BE20](v21);
+  v23 = (&v53 - v22);
+  v24 = *(v14 + 16);
+  if (v24 == *(v12 + 16) && v24 && v14 != v12)
   {
-    v22 = 0;
-    OUTLINED_FUNCTION_94(v18);
-    v52 = v1;
-    v53 = v3 + v23;
-    v25 = *(v24 + 72);
-    v50 = v13;
-    v51 = v20;
-    v54 = v26;
-    v49[0] = v25;
-    v49[1] = v5 + v23;
+    v25 = 0;
+    OUTLINED_FUNCTION_94();
+    v27 = v14 + v26;
+    v57 = v10;
+    v58 = v12 + v26;
+    v29 = *(v28 + 72);
+    v55 = v19;
+    v56 = v23;
+    v59 = v30;
+    v53 = v29;
+    v54 = v27;
     while (1)
     {
-      outlined init with copy of ModalityXSessionMetadata();
-      if (v22 == v54)
+      v31 = v29 * v25;
+      outlined init with copy of ModalityXSessionMetadata(v27 + v29 * v25);
+      if (v25 == v59)
       {
         break;
       }
 
-      outlined init with copy of ModalityXSessionMetadata();
-      v27 = *v20;
+      outlined init with copy of ModalityXSessionMetadata(v58 + v31);
+      v32 = *v23;
       OUTLINED_FUNCTION_330();
-      if (!v28)
+      if (!v33)
       {
 LABEL_36:
         outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
@@ -7366,28 +6327,28 @@ LABEL_36:
         goto LABEL_37;
       }
 
-      if (v20 && v27 != v1)
+      if (v23 && v32 != v10)
       {
-        v29 = 0;
+        v34 = 0;
         OUTLINED_FUNCTION_256();
-        v55 = v1 + v30;
-        v56 = v27 + v30;
-        while (v29 < *(v27 + 16))
+        v60 = v10 + v35;
+        v61 = v32 + v35;
+        while (v34 < *(v32 + 16))
         {
-          v31 = *(v57 + 72) * v29;
+          v36 = *(v62 + 72) * v34;
           OUTLINED_FUNCTION_235();
-          outlined init with copy of ModalityXSessionMetadata();
-          if (v29 >= *(v1 + 16))
+          outlined init with copy of ModalityXSessionMetadata(v61 + v36);
+          if (v34 >= *(v10 + 16))
           {
             goto LABEL_39;
           }
 
           OUTLINED_FUNCTION_235();
-          outlined init with copy of ModalityXSessionMetadata();
-          OUTLINED_FUNCTION_118(v0[5]);
-          if (v33)
+          outlined init with copy of ModalityXSessionMetadata(v60 + v36);
+          OUTLINED_FUNCTION_118();
+          if (v38)
           {
-            if (!v32)
+            if (!v37)
             {
               goto LABEL_35;
             }
@@ -7396,34 +6357,16 @@ LABEL_36:
           else
           {
             OUTLINED_FUNCTION_53();
-            if (v34)
+            if (v39)
             {
               goto LABEL_35;
             }
           }
 
-          OUTLINED_FUNCTION_118(v0[6]);
-          if (v36)
+          OUTLINED_FUNCTION_118();
+          if (v41)
           {
-            if (!v35)
-            {
-              goto LABEL_35;
-            }
-          }
-
-          else
-          {
-            OUTLINED_FUNCTION_53();
-            if (v37)
-            {
-              goto LABEL_35;
-            }
-          }
-
-          OUTLINED_FUNCTION_118(v0[7]);
-          if (v39)
-          {
-            if (!v38)
+            if (!v40)
             {
               goto LABEL_35;
             }
@@ -7432,16 +6375,16 @@ LABEL_36:
           else
           {
             OUTLINED_FUNCTION_53();
-            if (v40)
+            if (v42)
             {
               goto LABEL_35;
             }
           }
 
-          OUTLINED_FUNCTION_118(v0[8]);
-          if (v42)
+          OUTLINED_FUNCTION_118();
+          if (v44)
           {
-            if (!v41)
+            if (!v43)
             {
               goto LABEL_35;
             }
@@ -7450,7 +6393,25 @@ LABEL_36:
           else
           {
             OUTLINED_FUNCTION_53();
-            if (v43)
+            if (v45)
+            {
+              goto LABEL_35;
+            }
+          }
+
+          OUTLINED_FUNCTION_118();
+          if (v47)
+          {
+            if (!v46)
+            {
+              goto LABEL_35;
+            }
+          }
+
+          else
+          {
+            OUTLINED_FUNCTION_53();
+            if (v48)
             {
 LABEL_35:
               OUTLINED_FUNCTION_201();
@@ -7460,20 +6421,20 @@ LABEL_35:
             }
           }
 
-          v44 = type metadata accessor for UnknownStorage();
+          v49 = type metadata accessor for UnknownStorage();
           OUTLINED_FUNCTION_0_0();
-          lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v45);
+          lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v50, MEMORY[0x277D216D0]);
           OUTLINED_FUNCTION_130();
           dispatch thunk of static Equatable.== infix(_:_:)();
           OUTLINED_FUNCTION_244();
           outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
           outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-          if ((v44 & 1) == 0)
+          if ((v49 & 1) == 0)
           {
             goto LABEL_36;
           }
 
-          if (v20 == ++v29)
+          if (v23 == ++v34)
           {
             goto LABEL_31;
           }
@@ -7486,18 +6447,23 @@ LABEL_39:
       }
 
 LABEL_31:
-      v46 = *(v50 + 20);
       type metadata accessor for UnknownStorage();
       OUTLINED_FUNCTION_0_0();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v47);
-      v20 = v51;
-      v1 = v52;
-      v48 = dispatch thunk of static Equatable.== infix(_:_:)();
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v51, MEMORY[0x277D216D0]);
+      v23 = v56;
+      v10 = v57;
+      v52 = dispatch thunk of static Equatable.== infix(_:_:)();
       outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
       outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-      if ((v48 & 1) != 0 && ++v22 != v54)
+      if (v52)
       {
-        continue;
+        ++v25;
+        v29 = v53;
+        v27 = v54;
+        if (v25 != v59)
+        {
+          continue;
+        }
       }
 
       goto LABEL_37;
@@ -7514,51 +6480,52 @@ LABEL_37:
   }
 }
 
-void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B12XEntityWordsV_Tt1g5()
+void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B12XEntityWordsV_Tt1g5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   OUTLINED_FUNCTION_248();
-  v6 = v5;
-  v8 = v7;
-  v9 = type metadata accessor for ModalityXWordWithPronunciations(0);
-  v10 = OUTLINED_FUNCTION_317(v9);
-  v56 = v11;
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](v10);
+  v15 = v14;
+  v17 = v16;
+  type metadata accessor for ModalityXWordWithPronunciations(0);
+  OUTLINED_FUNCTION_317();
+  v63 = v18;
+  MEMORY[0x28223BE20](v19);
   OUTLINED_FUNCTION_159();
   OUTLINED_FUNCTION_253();
-  MEMORY[0x28223BE20](v14);
-  v15 = OUTLINED_FUNCTION_332();
-  v16 = type metadata accessor for ModalityXEntityWords(v15);
-  v17 = OUTLINED_FUNCTION_57(v16);
-  v19 = *(v18 + 64);
-  MEMORY[0x28223BE20](v17);
-  OUTLINED_FUNCTION_37();
   MEMORY[0x28223BE20](v20);
+  v21 = OUTLINED_FUNCTION_332();
+  v22 = type metadata accessor for ModalityXEntityWords(v21);
+  OUTLINED_FUNCTION_57();
+  MEMORY[0x28223BE20](v23);
+  OUTLINED_FUNCTION_37();
+  MEMORY[0x28223BE20](v24);
   OUTLINED_FUNCTION_309();
-  v22 = *(v8 + 16);
-  if (v22 == *(v6 + 16) && v22 && v8 != v6)
+  v25 = *(v17 + 16);
+  if (v25 == *(v15 + 16) && v25 && v17 != v15)
   {
-    OUTLINED_FUNCTION_94(v21);
-    v23 = 0;
-    v54 = v1;
-    v52 = v22;
-    v53 = v16;
-    v51 = *(v24 + 72);
+    OUTLINED_FUNCTION_94();
+    v26 = 0;
+    v58 = v10;
+    v59 = v15 + v27;
+    v29 = *(v28 + 72);
+    v56 = v25;
+    v57 = v22;
+    v55 = v29;
     while (1)
     {
+      v30 = v29 * v26;
       OUTLINED_FUNCTION_232();
-      outlined init with copy of ModalityXSessionMetadata();
-      if (v23 == v22)
+      outlined init with copy of ModalityXSessionMetadata(v31 + v30);
+      if (v26 == v25)
       {
         break;
       }
 
-      v55 = v23;
+      v60 = v26;
       OUTLINED_FUNCTION_232();
-      outlined init with copy of ModalityXSessionMetadata();
-      v25 = *v4;
+      outlined init with copy of ModalityXSessionMetadata(v59 + v30);
+      v32 = *v13;
       OUTLINED_FUNCTION_330();
-      if (!v34)
+      if (!v41)
       {
 LABEL_43:
         outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
@@ -7567,27 +6534,28 @@ LABEL_43:
         goto LABEL_44;
       }
 
-      if (v16 && v25 != v1)
+      if (v22 && v32 != v10)
       {
-        v26 = 0;
+        v33 = 0;
         OUTLINED_FUNCTION_256();
-        while (v26 < *(v25 + 16))
+        v61 = v10 + v34;
+        v62 = v32 + v34;
+        while (v33 < *(v32 + 16))
         {
-          v27 = *(v56 + 72) * v26;
+          v35 = *(v63 + 72) * v33;
           OUTLINED_FUNCTION_231();
-          outlined init with copy of ModalityXSessionMetadata();
-          if (v26 >= *(v1 + 16))
+          outlined init with copy of ModalityXSessionMetadata(v62 + v35);
+          if (v33 >= *(v10 + 16))
           {
             goto LABEL_46;
           }
 
           OUTLINED_FUNCTION_231();
-          outlined init with copy of ModalityXSessionMetadata();
-          v28 = v0[6];
+          outlined init with copy of ModalityXSessionMetadata(v61 + v35);
           OUTLINED_FUNCTION_347();
-          if (v31)
+          if (v38)
           {
-            if (!v29 || ((OUTLINED_FUNCTION_69(v30), v34) ? (v34 = v32 == v33) : (v34 = 0), !v34 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0))
+            if (!v36 || ((OUTLINED_FUNCTION_69(v37), v41) ? (v41 = v39 == v40) : (v41 = 0), !v41 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0))
             {
 LABEL_42:
               OUTLINED_FUNCTION_228();
@@ -7597,20 +6565,20 @@ LABEL_42:
             }
           }
 
-          else if (v29)
+          else if (v36)
           {
             goto LABEL_42;
           }
 
-          if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ10Foundation4DataV_Tt1g5(*v3, *v2) & 1) == 0)
+          if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ10Foundation4DataV_Tt1g5(*v12, *v11) & 1) == 0)
           {
             goto LABEL_42;
           }
 
-          OUTLINED_FUNCTION_118(v0[7]);
-          if (v36)
+          OUTLINED_FUNCTION_118();
+          if (v43)
           {
-            if (!v35)
+            if (!v42)
             {
               goto LABEL_42;
             }
@@ -7619,48 +6587,46 @@ LABEL_42:
           else
           {
             OUTLINED_FUNCTION_53();
-            if (v37)
+            if (v44)
             {
               goto LABEL_42;
             }
           }
 
-          v38 = v0[8];
           OUTLINED_FUNCTION_347();
-          if (v41)
+          if (v47)
           {
-            if (!v39)
+            if (!v45)
             {
               goto LABEL_42;
             }
 
-            OUTLINED_FUNCTION_69(v40);
-            v44 = v34 && v42 == v43;
-            if (!v44 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+            OUTLINED_FUNCTION_69(v46);
+            v50 = v41 && v48 == v49;
+            if (!v50 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
             {
               goto LABEL_42;
             }
           }
 
-          else if (v39)
+          else if (v45)
           {
             goto LABEL_42;
           }
 
-          v45 = v0[5];
-          v46 = type metadata accessor for UnknownStorage();
+          v51 = type metadata accessor for UnknownStorage();
           OUTLINED_FUNCTION_0_0();
-          lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v47);
+          lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v52, MEMORY[0x277D216D0]);
           dispatch thunk of static Equatable.== infix(_:_:)();
           OUTLINED_FUNCTION_243();
           outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
           outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-          if ((v46 & 1) == 0)
+          if ((v51 & 1) == 0)
           {
             goto LABEL_43;
           }
 
-          if (v16 == ++v26)
+          if (v22 == ++v33)
           {
             goto LABEL_38;
           }
@@ -7673,20 +6639,20 @@ LABEL_46:
       }
 
 LABEL_38:
-      v16 = v53;
-      v48 = *(v53 + 20);
+      v22 = v57;
       type metadata accessor for UnknownStorage();
       OUTLINED_FUNCTION_0_0();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v49);
-      v1 = v54;
-      v50 = dispatch thunk of static Equatable.== infix(_:_:)();
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v53, MEMORY[0x277D216D0]);
+      v10 = v58;
+      v54 = dispatch thunk of static Equatable.== infix(_:_:)();
       outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
       outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-      if (v50)
+      if (v54)
       {
-        v23 = v55 + 1;
-        v22 = v52;
-        if (v55 + 1 != v52)
+        v26 = v60 + 1;
+        v25 = v56;
+        v29 = v55;
+        if (v60 + 1 != v56)
         {
           continue;
         }
@@ -7706,32 +6672,30 @@ LABEL_44:
   }
 }
 
-void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B23XWordWithPronunciationsV_Tt1g5()
+void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B23XWordWithPronunciationsV_Tt1g5(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_248();
-  v5 = OUTLINED_FUNCTION_156();
-  v6 = type metadata accessor for ModalityXWordWithPronunciations(v5);
-  v7 = OUTLINED_FUNCTION_57(v6);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
+  v7 = OUTLINED_FUNCTION_156();
+  type metadata accessor for ModalityXWordWithPronunciations(v7);
+  OUTLINED_FUNCTION_57();
+  MEMORY[0x28223BE20](v8);
   OUTLINED_FUNCTION_37();
-  MEMORY[0x28223BE20](v10);
+  MEMORY[0x28223BE20](v9);
   OUTLINED_FUNCTION_100();
-  if (v19 && v4 && v3 != v0)
+  if (v17 && v6 && v5 != v2)
   {
-    OUTLINED_FUNCTION_94(v11);
-    OUTLINED_FUNCTION_255(v12);
+    OUTLINED_FUNCTION_94();
+    OUTLINED_FUNCTION_255();
     while (1)
     {
-      OUTLINED_FUNCTION_130();
-      outlined init with copy of ModalityXSessionMetadata();
-      OUTLINED_FUNCTION_298();
-      outlined init with copy of ModalityXSessionMetadata();
-      v13 = v6[6];
+      v10 = OUTLINED_FUNCTION_130();
+      outlined init with copy of ModalityXSessionMetadata(v10);
+      v11 = OUTLINED_FUNCTION_298();
+      outlined init with copy of ModalityXSessionMetadata(v11);
       OUTLINED_FUNCTION_115();
-      if (v16)
+      if (v14)
       {
-        if (!v14 || ((OUTLINED_FUNCTION_69(v15), v19) ? (v19 = v17 == v18) : (v19 = 0), !v19 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0))
+        if (!v12 || ((OUTLINED_FUNCTION_69(v13), v17) ? (v17 = v15 == v16) : (v17 = 0), !v17 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0))
         {
 LABEL_34:
           OUTLINED_FUNCTION_228();
@@ -7742,20 +6706,20 @@ LABEL_34:
         }
       }
 
-      else if (v14)
+      else if (v12)
       {
         goto LABEL_34;
       }
 
-      if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ10Foundation4DataV_Tt1g5(*v2, *v1) & 1) == 0)
+      if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ10Foundation4DataV_Tt1g5(*v4, *v3) & 1) == 0)
       {
         goto LABEL_34;
       }
 
-      OUTLINED_FUNCTION_85(v6[7]);
-      if (v21)
+      OUTLINED_FUNCTION_85();
+      if (v19)
       {
-        if (!v20)
+        if (!v18)
         {
           goto LABEL_34;
         }
@@ -7764,46 +6728,44 @@ LABEL_34:
       else
       {
         OUTLINED_FUNCTION_53();
-        if (v22)
+        if (v20)
         {
           goto LABEL_34;
         }
       }
 
-      v23 = v6[8];
       OUTLINED_FUNCTION_115();
-      if (v26)
+      if (v23)
       {
-        if (!v24)
+        if (!v21)
         {
           goto LABEL_34;
         }
 
-        OUTLINED_FUNCTION_69(v25);
-        v29 = v19 && v27 == v28;
-        if (!v29 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+        OUTLINED_FUNCTION_69(v22);
+        v26 = v17 && v24 == v25;
+        if (!v26 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
         {
           goto LABEL_34;
         }
       }
 
-      else if (v24)
+      else if (v21)
       {
         goto LABEL_34;
       }
 
-      v30 = v6[5];
-      v31 = type metadata accessor for UnknownStorage();
+      v27 = type metadata accessor for UnknownStorage();
       OUTLINED_FUNCTION_0_0();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v32);
-      OUTLINED_FUNCTION_359();
+      v29 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v28, MEMORY[0x277D216D0]);
+      OUTLINED_FUNCTION_359(v29);
       OUTLINED_FUNCTION_243();
       outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
       outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-      if (v31)
+      if (v27)
       {
         OUTLINED_FUNCTION_116();
-        if (!v19)
+        if (!v17)
         {
           continue;
         }
@@ -7848,32 +6810,30 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZSf_Tt1g5(uint64_t result, uint64_t a2)
   return result;
 }
 
-void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B25XSpeechRecognitionFeatureV_Tt1g5()
+void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B25XSpeechRecognitionFeatureV_Tt1g5(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_248();
-  v3 = OUTLINED_FUNCTION_156();
-  v4 = type metadata accessor for ModalityXSpeechRecognitionFeature(v3);
-  v5 = OUTLINED_FUNCTION_57(v4);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
+  v5 = OUTLINED_FUNCTION_156();
+  type metadata accessor for ModalityXSpeechRecognitionFeature(v5);
+  OUTLINED_FUNCTION_57();
+  MEMORY[0x28223BE20](v6);
   OUTLINED_FUNCTION_37();
-  MEMORY[0x28223BE20](v8);
+  MEMORY[0x28223BE20](v7);
   OUTLINED_FUNCTION_100();
-  if (v17 && v2 && v1 != v0)
+  if (v15 && v4 && v3 != v2)
   {
-    OUTLINED_FUNCTION_94(v9);
-    OUTLINED_FUNCTION_255(v10);
+    OUTLINED_FUNCTION_94();
+    OUTLINED_FUNCTION_255();
     while (1)
     {
-      OUTLINED_FUNCTION_130();
-      outlined init with copy of ModalityXSessionMetadata();
-      OUTLINED_FUNCTION_298();
-      outlined init with copy of ModalityXSessionMetadata();
-      v11 = *(v4 + 20);
+      v8 = OUTLINED_FUNCTION_130();
+      outlined init with copy of ModalityXSessionMetadata(v8);
+      v9 = OUTLINED_FUNCTION_298();
+      outlined init with copy of ModalityXSessionMetadata(v9);
       OUTLINED_FUNCTION_115();
-      if (v14)
+      if (v12)
       {
-        if (!v12 || ((OUTLINED_FUNCTION_69(v13), v17) ? (v17 = v15 == v16) : (v17 = 0), !v17 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0))
+        if (!v10 || ((OUTLINED_FUNCTION_69(v11), v15) ? (v15 = v13 == v14) : (v15 = 0), !v15 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0))
         {
 LABEL_24:
           outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
@@ -7882,15 +6842,15 @@ LABEL_24:
         }
       }
 
-      else if (v12)
+      else if (v10)
       {
         goto LABEL_24;
       }
 
-      OUTLINED_FUNCTION_85(*(v4 + 24));
-      if (v19)
+      OUTLINED_FUNCTION_85();
+      if (v17)
       {
-        if (!v18)
+        if (!v16)
         {
           goto LABEL_24;
         }
@@ -7899,7 +6859,7 @@ LABEL_24:
       else
       {
         OUTLINED_FUNCTION_344();
-        if (v20)
+        if (v18)
         {
           goto LABEL_24;
         }
@@ -7907,15 +6867,15 @@ LABEL_24:
 
       type metadata accessor for UnknownStorage();
       OUTLINED_FUNCTION_0_0();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v21);
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v19, MEMORY[0x277D216D0]);
       OUTLINED_FUNCTION_136();
-      v22 = dispatch thunk of static Equatable.== infix(_:_:)();
+      v20 = dispatch thunk of static Equatable.== infix(_:_:)();
       outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
       outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-      if (v22)
+      if (v20)
       {
         OUTLINED_FUNCTION_116();
-        if (!v17)
+        if (!v15)
         {
           continue;
         }
@@ -7929,39 +6889,35 @@ LABEL_24:
   OUTLINED_FUNCTION_247();
 }
 
-void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B30XAudioAnalyticsAcousticFeatureV_Tt1g5()
+void _sSasSQRzlE2eeoiySbSayxG_ABtFZ16ModalityXObjects0B30XAudioAnalyticsAcousticFeatureV_Tt1g5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   OUTLINED_FUNCTION_248();
-  v5 = v4;
-  v7 = v6;
-  v8 = type metadata accessor for ModalityXAcousticFeature(0);
-  v9 = OUTLINED_FUNCTION_35(v8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
+  v17 = v16;
+  v19 = v18;
+  type metadata accessor for ModalityXAcousticFeature(0);
+  OUTLINED_FUNCTION_35();
+  MEMORY[0x28223BE20](v20);
   OUTLINED_FUNCTION_43();
-  v65 = v12;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A16XAcousticFeatureVSgMd, &_s16ModalityXObjects0A16XAcousticFeatureVSgMR);
-  OUTLINED_FUNCTION_122(v13);
-  v15 = *(v14 + 64);
+  v67 = v21;
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A16XAcousticFeatureVSgMd, &_s16ModalityXObjects0A16XAcousticFeatureVSgMR);
+  OUTLINED_FUNCTION_122(v22);
   OUTLINED_FUNCTION_133();
-  MEMORY[0x28223BE20](v16);
+  MEMORY[0x28223BE20](v23);
   OUTLINED_FUNCTION_158();
-  v64 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A16XAcousticFeatureVSg_ADtMd, &_s16ModalityXObjects0A16XAcousticFeatureVSg_ADtMR);
-  OUTLINED_FUNCTION_54(v64);
-  v18 = *(v17 + 64);
+  v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A16XAcousticFeatureVSg_ADtMd, &_s16ModalityXObjects0A16XAcousticFeatureVSg_ADtMR);
+  OUTLINED_FUNCTION_54();
   OUTLINED_FUNCTION_133();
-  MEMORY[0x28223BE20](v19);
-  v20 = OUTLINED_FUNCTION_102();
-  v21 = type metadata accessor for ModalityXAudioAnalyticsAcousticFeature(v20);
-  v22 = OUTLINED_FUNCTION_57(v21);
-  v24 = *(v23 + 64);
-  MEMORY[0x28223BE20](v22);
+  MEMORY[0x28223BE20](v24);
+  v25 = OUTLINED_FUNCTION_102();
+  v26 = type metadata accessor for ModalityXAudioAnalyticsAcousticFeature(v25);
+  OUTLINED_FUNCTION_57();
+  MEMORY[0x28223BE20](v27);
   OUTLINED_FUNCTION_97();
-  v27 = v25 - v26;
-  MEMORY[0x28223BE20](v28);
+  v30 = v28 - v29;
+  MEMORY[0x28223BE20](v31);
   OUTLINED_FUNCTION_309();
-  v30 = *(v7 + 16);
-  if (v30 != *(v5 + 16) || !v30 || v7 == v5)
+  v32 = *(v19 + 16);
+  if (v32 != *(v17 + 16) || !v32 || v19 == v17)
   {
 LABEL_42:
     OUTLINED_FUNCTION_213();
@@ -7969,52 +6925,54 @@ LABEL_42:
     return;
   }
 
-  v31 = 0;
-  OUTLINED_FUNCTION_94(v29);
-  v61 = v1;
-  v62 = *(v32 + 72);
-  v63 = v33;
+  v33 = 0;
+  OUTLINED_FUNCTION_94();
+  v61 = v13;
+  v62 = v17 + v34;
+  v63 = *(v35 + 72);
+  v64 = v19 + v34;
+  v65 = v36;
   while (1)
   {
-    outlined init with copy of ModalityXSessionMetadata();
-    if (v31 == v63)
+    outlined init with copy of ModalityXSessionMetadata(v64 + v63 * v33);
+    if (v33 == v65)
     {
       goto LABEL_46;
     }
 
-    outlined init with copy of ModalityXSessionMetadata();
-    OUTLINED_FUNCTION_80(v3 + *(v21 + 20));
-    if (v36)
+    outlined init with copy of ModalityXSessionMetadata(v62 + v63 * v33);
+    OUTLINED_FUNCTION_80();
+    if (v39)
     {
-      if (!v34)
+      if (!v37)
       {
         goto LABEL_40;
       }
 
-      OUTLINED_FUNCTION_69(v35);
-      v39 = v39 && v37 == v38;
-      if (!v39 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+      OUTLINED_FUNCTION_69(v38);
+      v42 = v42 && v40 == v41;
+      if (!v42 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
       {
         goto LABEL_40;
       }
     }
 
-    else if (v34)
+    else if (v37)
     {
       goto LABEL_40;
     }
 
-    v40 = *(v21 + 24);
-    v41 = *(v64 + 48);
-    outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v3 + v40, v1, &_s16ModalityXObjects0A16XAcousticFeatureVSgMd, &_s16ModalityXObjects0A16XAcousticFeatureVSgMR);
-    outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v27 + v40, v1 + v41, &_s16ModalityXObjects0A16XAcousticFeatureVSgMd, &_s16ModalityXObjects0A16XAcousticFeatureVSgMR);
-    OUTLINED_FUNCTION_38(v1);
-    if (v39)
+    v43 = *(v26 + 24);
+    v44 = *(v66 + 48);
+    outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v15 + v43, v13, &_s16ModalityXObjects0A16XAcousticFeatureVSgMd, &_s16ModalityXObjects0A16XAcousticFeatureVSgMR);
+    outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v30 + v43, v13 + v44, &_s16ModalityXObjects0A16XAcousticFeatureVSgMd, &_s16ModalityXObjects0A16XAcousticFeatureVSgMR);
+    OUTLINED_FUNCTION_38(v13);
+    if (v42)
     {
-      OUTLINED_FUNCTION_38(v1 + v41);
-      if (v39)
+      OUTLINED_FUNCTION_38(v13 + v44);
+      if (v42)
       {
-        outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v1, &_s16ModalityXObjects0A16XAcousticFeatureVSgMd, &_s16ModalityXObjects0A16XAcousticFeatureVSgMR);
+        outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v13, &_s16ModalityXObjects0A16XAcousticFeatureVSgMd, &_s16ModalityXObjects0A16XAcousticFeatureVSgMR);
         goto LABEL_35;
       }
 
@@ -8022,41 +6980,39 @@ LABEL_42:
       goto LABEL_44;
     }
 
-    v42 = OUTLINED_FUNCTION_166();
-    outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v42, v43, &_s16ModalityXObjects0A16XAcousticFeatureVSgMd, &_s16ModalityXObjects0A16XAcousticFeatureVSgMR);
-    OUTLINED_FUNCTION_38(v1 + v41);
-    if (v44)
+    v45 = OUTLINED_FUNCTION_166();
+    outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v45, v46, &_s16ModalityXObjects0A16XAcousticFeatureVSgMd, &_s16ModalityXObjects0A16XAcousticFeatureVSgMR);
+    OUTLINED_FUNCTION_38(v13 + v44);
+    if (v47)
     {
       OUTLINED_FUNCTION_58();
       outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
 LABEL_44:
       outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v1, &_s16ModalityXObjects0A16XAcousticFeatureVSg_ADtMd, &_s16ModalityXObjects0A16XAcousticFeatureVSg_ADtMR);
+      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v13, &_s16ModalityXObjects0A16XAcousticFeatureVSg_ADtMd, &_s16ModalityXObjects0A16XAcousticFeatureVSg_ADtMR);
       goto LABEL_41;
     }
 
-    outlined init with take of ModalityXSessionMetadata();
-    v45 = *v2;
-    v46 = *v65;
+    outlined init with take of ModalityXSessionMetadata(v13 + v44);
     OUTLINED_FUNCTION_305();
-    if (!v39)
+    if (!v42)
     {
       goto LABEL_39;
     }
 
-    if (v47 && v48 != v49)
+    if (v48 && v49 != v50)
     {
       break;
     }
 
 LABEL_30:
-    v52 = *(v0 + 24);
-    v53 = *(v2 + v52 + 4);
-    v54 = *(v65 + v52 + 4);
-    if ((v53 & 1) == 0)
+    v53 = *(v12 + 24);
+    v54 = *(v14 + v53 + 4);
+    v55 = *(v67 + v53 + 4);
+    if ((v54 & 1) == 0)
     {
       OUTLINED_FUNCTION_344();
-      if ((v55 & 1) == 0)
+      if ((v56 & 1) == 0)
       {
         goto LABEL_34;
       }
@@ -8064,7 +7020,7 @@ LABEL_30:
 LABEL_39:
       outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
       outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v1, &_s16ModalityXObjects0A16XAcousticFeatureVSgMd, &_s16ModalityXObjects0A16XAcousticFeatureVSgMR);
+      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v13, &_s16ModalityXObjects0A16XAcousticFeatureVSgMd, &_s16ModalityXObjects0A16XAcousticFeatureVSgMR);
 LABEL_40:
       OUTLINED_FUNCTION_58();
       outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
@@ -8074,18 +7030,17 @@ LABEL_41:
       goto LABEL_42;
     }
 
-    if (!v54)
+    if (!v55)
     {
       goto LABEL_39;
     }
 
 LABEL_34:
-    v56 = *(v0 + 20);
     type metadata accessor for UnknownStorage();
     OUTLINED_FUNCTION_0_0();
-    lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v57);
+    lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v57, MEMORY[0x277D216D0]);
     v58 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v1 = v61;
+    v13 = v61;
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v61, &_s16ModalityXObjects0A16XAcousticFeatureVSgMd, &_s16ModalityXObjects0A16XAcousticFeatureVSgMR);
@@ -8097,12 +7052,12 @@ LABEL_34:
 LABEL_35:
     type metadata accessor for UnknownStorage();
     OUTLINED_FUNCTION_0_0();
-    lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v59);
+    lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, v59, MEMORY[0x277D216D0]);
     OUTLINED_FUNCTION_343();
     v60 = dispatch thunk of static Equatable.== infix(_:_:)();
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
     outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
-    if ((v60 & 1) != 0 && ++v31 != v63)
+    if ((v60 & 1) != 0 && ++v33 != v65)
     {
       continue;
     }
@@ -8110,17 +7065,17 @@ LABEL_35:
     goto LABEL_42;
   }
 
-  v50 = (v48 + 32);
   v51 = (v49 + 32);
-  while (v47)
+  v52 = (v50 + 32);
+  while (v48)
   {
-    if (*v50 != *v51)
+    if (*v51 != *v52)
     {
       goto LABEL_39;
     }
 
     OUTLINED_FUNCTION_310();
-    if (v39)
+    if (v42)
     {
       goto LABEL_30;
     }
@@ -8161,7 +7116,7 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZSS_Tt1g5(uint64_t a1, uint64_t a2)
   return 0;
 }
 
-uint64_t type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(uint64_t a1, uint64_t *a2)
+uint64_t type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -8174,15 +7129,14 @@ uint64_t type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload(uint
 
 uint64_t outlined assign with take of ModalityXServerBoundFrame.OneOf_Payload?(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = OUTLINED_FUNCTION_356(a1, a2, a3, a4);
-  OUTLINED_FUNCTION_54(v5);
-  v7 = *(v6 + 40);
-  v8 = OUTLINED_FUNCTION_131();
-  v9(v8);
+  OUTLINED_FUNCTION_356(a1, a2, a3, a4);
+  OUTLINED_FUNCTION_54();
+  v5 = OUTLINED_FUNCTION_131();
+  v6(v5);
   return v4;
 }
 
-uint64_t lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -8214,8 +7168,8 @@ uint64_t sub_25A1A90C8()
 uint64_t sub_25A1A90F4()
 {
   OUTLINED_FUNCTION_132();
-  v0 = ModalityXSpeechProfile.moreDataFollows.getter();
-  return OUTLINED_FUNCTION_193(v0);
+  v1 = ModalityXSpeechProfile.moreDataFollows.getter(v0);
+  return OUTLINED_FUNCTION_193(v1);
 }
 
 uint64_t sub_25A1A9140()
@@ -8239,38 +7193,38 @@ uint64_t sub_25A1A916C()
 uint64_t sub_25A1A9208()
 {
   OUTLINED_FUNCTION_132();
-  v0 = ModalityXBeginRequest.enablePartialResults.getter();
-  return OUTLINED_FUNCTION_193(v0);
+  v1 = ModalityXBeginRequest.enablePartialResults.getter(v0);
+  return OUTLINED_FUNCTION_193(v1);
 }
 
 uint64_t sub_25A1A9254()
 {
   OUTLINED_FUNCTION_132();
-  v0 = ModalityXBeginRequest.isPromptedDictation.getter();
-  return OUTLINED_FUNCTION_193(v0);
+  v1 = ModalityXBeginRequest.isPromptedDictation.getter(v0);
+  return OUTLINED_FUNCTION_193(v1);
 }
 
 uint64_t sub_25A1A92A0()
 {
   OUTLINED_FUNCTION_132();
-  v0 = ModalityXBeginRequest.isPromptedConfirmation.getter();
-  return OUTLINED_FUNCTION_193(v0);
+  v1 = ModalityXBeginRequest.isPromptedConfirmation.getter(v0);
+  return OUTLINED_FUNCTION_193(v1);
 }
 
 uint64_t sub_25A1A92EC()
 {
   OUTLINED_FUNCTION_132();
-  result = ModalityXBeginRequest.foregroundAppID.getter();
+  result = ModalityXBeginRequest.foregroundAppID.getter(v1);
   *v0 = result;
-  v0[1] = v2;
+  v0[1] = v3;
   return result;
 }
 
 uint64_t sub_25A1A9318()
 {
   OUTLINED_FUNCTION_132();
-  v0 = ModalityXBeginRequest.isAutoPunctuationEnabled.getter();
-  return OUTLINED_FUNCTION_193(v0);
+  v1 = ModalityXBeginRequest.isAutoPunctuationEnabled.getter(v0);
+  return OUTLINED_FUNCTION_193(v1);
 }
 
 uint64_t sub_25A1A9364()
@@ -8284,9 +7238,9 @@ uint64_t sub_25A1A9364()
 uint64_t sub_25A1A93F8()
 {
   OUTLINED_FUNCTION_132();
-  result = ModalityXBeginDictation.requestID.getter();
+  result = ModalityXBeginDictation.requestID.getter(v1);
   *v0 = result;
-  v0[1] = v2;
+  v0[1] = v3;
   return result;
 }
 
@@ -8356,7 +7310,7 @@ uint64_t sub_25A1A953C()
 uint64_t sub_25A1A9568()
 {
   OUTLINED_FUNCTION_132();
-  result = ModalityXBeginDictation.inlineLmeItems.getter();
+  result = ModalityXBeginDictation.inlineLmeItems.getter(v1);
   *v0 = result;
   return result;
 }
@@ -8364,7 +7318,7 @@ uint64_t sub_25A1A9568()
 uint64_t sub_25A1A9594()
 {
   OUTLINED_FUNCTION_132();
-  result = ModalityXBeginDictation.languages.getter();
+  result = ModalityXBeginDictation.languages.getter(v1);
   *v0 = result;
   return result;
 }
@@ -8390,22 +7344,22 @@ uint64_t sub_25A1A95EC()
 uint64_t sub_25A1A9618()
 {
   OUTLINED_FUNCTION_132();
-  v0 = ModalityXBeginDictation.censorSpeech.getter();
-  return OUTLINED_FUNCTION_193(v0);
+  v1 = ModalityXBeginDictation.censorSpeech.getter(v0);
+  return OUTLINED_FUNCTION_193(v1);
 }
 
 uint64_t sub_25A1A9664()
 {
   OUTLINED_FUNCTION_132();
-  v0 = ModalityXBeginDictation.speakerIndependentRecognition.getter();
-  return OUTLINED_FUNCTION_193(v0);
+  v1 = ModalityXBeginDictation.speakerIndependentRecognition.getter(v0);
+  return OUTLINED_FUNCTION_193(v1);
 }
 
 uint64_t sub_25A1A96B0()
 {
   OUTLINED_FUNCTION_132();
-  v0 = ModalityXBeginDictation.saveRequestAudio.getter();
-  return OUTLINED_FUNCTION_193(v0);
+  v1 = ModalityXBeginDictation.saveRequestAudio.getter(v0);
+  return OUTLINED_FUNCTION_193(v1);
 }
 
 uint64_t sub_25A1A96FC()
@@ -8420,15 +7374,15 @@ uint64_t sub_25A1A96FC()
 uint64_t sub_25A1A9728()
 {
   OUTLINED_FUNCTION_132();
-  v0 = ModalityXBeginDictation.enablePartialResults.getter();
-  return OUTLINED_FUNCTION_193(v0);
+  v1 = ModalityXBeginDictation.enablePartialResults.getter(v0);
+  return OUTLINED_FUNCTION_193(v1);
 }
 
 uint64_t sub_25A1A977C()
 {
   OUTLINED_FUNCTION_132();
-  v0 = ModalityXBeginDictation.isAutoPunctuationEnabled.getter();
-  return OUTLINED_FUNCTION_193(v0);
+  v1 = ModalityXBeginDictation.isAutoPunctuationEnabled.getter(v0);
+  return OUTLINED_FUNCTION_193(v1);
 }
 
 uint64_t sub_25A1A97C8()
@@ -8660,56 +7614,37 @@ uint64_t sub_25A1A9EB8()
   return result;
 }
 
-void type metadata completion function for ModalityXServerBoundFrame()
-{
-  type metadata completion function for ModalityXServerBoundFrame();
-}
-
-{
-  v0 = OUTLINED_FUNCTION_345();
-  type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload?(v0, v1, v2);
-  if (v3 <= 0x3F)
-  {
-    type metadata accessor for UnknownStorage();
-    if (v4 <= 0x3F)
-    {
-      OUTLINED_FUNCTION_157();
-      OUTLINED_FUNCTION_352();
-    }
-  }
-}
-
-uint64_t type metadata completion function for ModalityXServerBoundFrame.OneOf_Payload()
+uint64_t type metadata completion function for ModalityXServerBoundFrame.OneOf_Payload(uint64_t a1)
 {
   result = type metadata accessor for ModalityXSessionMetadata(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for ModalityXBeginRequest(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       result = type metadata accessor for ModalityXAudioFrame(319);
-      if (v3 <= 0x3F)
+      if (v4 <= 0x3F)
       {
         result = type metadata accessor for ModalityXSpeechProfile(319);
-        if (v4 <= 0x3F)
+        if (v5 <= 0x3F)
         {
           result = type metadata accessor for ModalityXCancelRequest(319);
-          if (v5 <= 0x3F)
+          if (v6 <= 0x3F)
           {
             result = type metadata accessor for ModalityXBeginDictation(319);
-            if (v6 <= 0x3F)
+            if (v7 <= 0x3F)
             {
               result = type metadata accessor for ModalityXSpeechProfileBuildRequest(319);
-              if (v7 <= 0x3F)
+              if (v8 <= 0x3F)
               {
                 result = type metadata accessor for ModalityXStreamingSpeechProfileBegin(319);
-                if (v8 <= 0x3F)
+                if (v9 <= 0x3F)
                 {
                   result = type metadata accessor for ModalityXStreamingSpeechProfileAddData(319);
-                  if (v9 <= 0x3F)
+                  if (v10 <= 0x3F)
                   {
                     result = type metadata accessor for ModalityXStreamingSpeechProfileCommit(319);
-                    if (v10 <= 0x3F)
+                    if (v11 <= 0x3F)
                     {
                       swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
                       return 0;
@@ -8730,28 +7665,28 @@ uint64_t type metadata completion function for ModalityXServerBoundFrame.OneOf_P
 uint64_t __swift_get_extra_inhabitant_indexTm()
 {
   OUTLINED_FUNCTION_191();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_168(v3);
-  if (*(v4 + 84) == v0)
+  __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_168();
+  if (*(v3 + 84) == v0)
   {
-    v5 = OUTLINED_FUNCTION_318();
+    v4 = OUTLINED_FUNCTION_318();
   }
 
   else
   {
     type metadata accessor for UnknownStorage();
-    v5 = OUTLINED_FUNCTION_264();
+    v4 = OUTLINED_FUNCTION_264();
   }
 
-  return __swift_getEnumTagSinglePayload(v5, v0, v6);
+  return __swift_getEnumTagSinglePayload(v4, v0, v5);
 }
 
 uint64_t __swift_store_extra_inhabitant_indexTm()
 {
   OUTLINED_FUNCTION_88();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_168(v3);
-  if (*(v4 + 84) == v0)
+  __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_168();
+  if (*(v3 + 84) == v0)
   {
     OUTLINED_FUNCTION_172();
   }
@@ -8764,10 +7699,26 @@ uint64_t __swift_store_extra_inhabitant_indexTm()
 
   OUTLINED_FUNCTION_254();
 
-  return __swift_storeEnumTagSinglePayload(v5, v6, v7, v8);
+  return __swift_storeEnumTagSinglePayload(v4, v5, v6, v7);
 }
 
-void type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload?(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void type metadata completion function for ModalityXServerBoundFrame(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v5 = OUTLINED_FUNCTION_345();
+  type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload?(v5, v6, v7);
+  if (v9 <= 0x3F)
+  {
+    v21 = v8;
+    v10 = type metadata accessor for UnknownStorage();
+    if (v11 <= 0x3F)
+    {
+      OUTLINED_FUNCTION_157(v10, v11, v12, v13, v14, v15, v16, v17, v18, *v19, *&v19[4], 0, v20, v21, v22);
+      OUTLINED_FUNCTION_352();
+    }
+  }
+}
+
+void type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload?(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -8780,25 +7731,25 @@ void type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload?(uint64_
   }
 }
 
-uint64_t type metadata completion function for ModalityXClientBoundFrame.OneOf_Payload()
+uint64_t type metadata completion function for ModalityXClientBoundFrame.OneOf_Payload(uint64_t a1)
 {
   result = type metadata accessor for ModalityXRequestComplete(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for ModalityXProcessingError(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       result = type metadata accessor for ModalityXASRResult(319);
-      if (v3 <= 0x3F)
+      if (v4 <= 0x3F)
       {
         result = type metadata accessor for ModalityXSpeechProfileRebuildNeeded(319);
-        if (v4 <= 0x3F)
+        if (v5 <= 0x3F)
         {
           result = type metadata accessor for ModalityXRequestMitigated(319);
-          if (v5 <= 0x3F)
+          if (v6 <= 0x3F)
           {
             result = type metadata accessor for ModalityXSpeechProfileBuildResponse(319);
-            if (v6 <= 0x3F)
+            if (v7 <= 0x3F)
             {
               swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
               return 0;
@@ -8815,43 +7766,43 @@ uint64_t type metadata completion function for ModalityXClientBoundFrame.OneOf_P
 uint64_t sub_25A1AA384(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_191();
-  v6 = type metadata accessor for UnknownStorage();
-  OUTLINED_FUNCTION_168(v6);
-  if (*(v7 + 84) == v3)
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_168();
+  if (*(v6 + 84) == v3)
   {
-    v8 = OUTLINED_FUNCTION_318();
+    v7 = OUTLINED_FUNCTION_318();
   }
 
   else
   {
-    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A11XDeviceInfoVSgMd, &_s16ModalityXObjects0A11XDeviceInfoVSgMR);
-    OUTLINED_FUNCTION_168(v10);
-    if (*(v11 + 84) != v3)
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A11XDeviceInfoVSgMd, &_s16ModalityXObjects0A11XDeviceInfoVSgMR);
+    OUTLINED_FUNCTION_168();
+    if (*(v9 + 84) != v3)
     {
       return OUTLINED_FUNCTION_50(v4 + *(a3 + 32));
     }
 
-    v8 = OUTLINED_FUNCTION_264();
+    v7 = OUTLINED_FUNCTION_264();
   }
 
-  return __swift_getEnumTagSinglePayload(v8, v3, v9);
+  return __swift_getEnumTagSinglePayload(v7, v3, v8);
 }
 
 void sub_25A1AA474()
 {
   OUTLINED_FUNCTION_88();
-  v2 = type metadata accessor for UnknownStorage();
-  OUTLINED_FUNCTION_168(v2);
-  if (*(v3 + 84) == v1)
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_168();
+  if (*(v2 + 84) == v1)
   {
     OUTLINED_FUNCTION_172();
   }
 
   else
   {
-    v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A11XDeviceInfoVSgMd, &_s16ModalityXObjects0A11XDeviceInfoVSgMR);
-    OUTLINED_FUNCTION_168(v4);
-    if (*(v5 + 84) != v1)
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A11XDeviceInfoVSgMd, &_s16ModalityXObjects0A11XDeviceInfoVSgMR);
+    OUTLINED_FUNCTION_168();
+    if (*(v3 + 84) != v1)
     {
       OUTLINED_FUNCTION_185(*(v0 + 32));
       return;
@@ -8862,25 +7813,25 @@ void sub_25A1AA474()
 
   OUTLINED_FUNCTION_254();
 
-  __swift_storeEnumTagSinglePayload(v6, v7, v8, v9);
+  __swift_storeEnumTagSinglePayload(v4, v5, v6, v7);
 }
 
-void type metadata completion function for ModalityXSessionMetadata()
+void type metadata completion function for ModalityXSessionMetadata(uint64_t a1)
 {
   type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload?(319, &lazy cache variable for type metadata for ModalityXDeviceInfo?, type metadata accessor for ModalityXDeviceInfo);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Bool?, MEMORY[0x277D839B0], MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         type metadata accessor for Bool?(319, &lazy cache variable for type metadata for ModalityXUserInterfaceIdiom?, &type metadata for ModalityXUserInterfaceIdiom, MEMORY[0x277D83D88]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           type metadata accessor for Bool?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             swift_cvw_initStructMetadataWithLayoutString();
           }
@@ -8893,90 +7844,86 @@ void type metadata completion function for ModalityXSessionMetadata()
 uint64_t sub_25A1AA6B0(uint64_t a1, int a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_187();
-  v6 = type metadata accessor for UnknownStorage();
-  OUTLINED_FUNCTION_168(v6);
-  if (*(v7 + 84) == a2)
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_168();
+  if (*(v6 + 84) == a2)
   {
-    v8 = OUTLINED_FUNCTION_265();
+    v7 = OUTLINED_FUNCTION_265();
 
-    return __swift_getEnumTagSinglePayload(v8, v9, v10);
+    return __swift_getEnumTagSinglePayload(v7, v8, v9);
   }
 
   else
   {
-    v12 = *(v3 + *(a3 + 20));
-    if (v12 >= 2)
+    v11 = *(v3 + *(a3 + 20));
+    if (v11 >= 2)
     {
-      v13 = ((v12 + 2147483646) & 0x7FFFFFFF) - 1;
+      v12 = ((v11 + 2147483646) & 0x7FFFFFFF) - 1;
     }
 
     else
     {
-      v13 = -2;
+      v12 = -2;
     }
 
-    if (v13 < 0)
+    if (v12 < 0)
     {
-      v13 = -1;
+      v12 = -1;
     }
 
-    return (v13 + 1);
+    return (v12 + 1);
   }
 }
 
-uint64_t sub_25A1AA77C()
+void sub_25A1AA77C()
 {
   OUTLINED_FUNCTION_88();
-  v4 = type metadata accessor for UnknownStorage();
-  result = OUTLINED_FUNCTION_168(v4);
-  if (*(v6 + 84) == v3)
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_168();
+  if (*(v4 + 84) == v3)
   {
-    v7 = OUTLINED_FUNCTION_162();
+    v5 = OUTLINED_FUNCTION_162();
 
-    return __swift_storeEnumTagSinglePayload(v7, v8, v9, v10);
+    __swift_storeEnumTagSinglePayload(v5, v6, v7, v8);
   }
 
   else
   {
     *(v1 + *(v2 + 20)) = v0 + 2;
   }
-
-  return result;
 }
 
 uint64_t __swift_get_extra_inhabitant_index_249Tm(uint64_t a1, int a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_187();
-  v6 = type metadata accessor for UnknownStorage();
-  OUTLINED_FUNCTION_168(v6);
-  if (*(v7 + 84) != a2)
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_168();
+  if (*(v6 + 84) != a2)
   {
     return OUTLINED_FUNCTION_331(*(v3 + *(a3 + 20)));
   }
 
-  v8 = OUTLINED_FUNCTION_265();
+  v7 = OUTLINED_FUNCTION_265();
 
-  return __swift_getEnumTagSinglePayload(v8, v9, v10);
+  return __swift_getEnumTagSinglePayload(v7, v8, v9);
 }
 
-uint64_t __swift_store_extra_inhabitant_index_250Tm()
+void __swift_store_extra_inhabitant_index_250Tm()
 {
   OUTLINED_FUNCTION_88();
-  v4 = type metadata accessor for UnknownStorage();
-  result = OUTLINED_FUNCTION_168(v4);
-  if (*(v6 + 84) == v3)
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_168();
+  if (*(v4 + 84) == v3)
   {
-    v7 = OUTLINED_FUNCTION_162();
+    v5 = OUTLINED_FUNCTION_162();
 
-    return __swift_storeEnumTagSinglePayload(v7, v8, v9, v10);
+    __swift_storeEnumTagSinglePayload(v5, v6, v7, v8);
   }
 
   else
   {
     *(v1 + *(v2 + 20)) = (v0 - 1);
   }
-
-  return result;
 }
 
 uint64_t type metadata completion function for ModalityXBeginRequest(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t))
@@ -8985,10 +7932,11 @@ uint64_t type metadata completion function for ModalityXBeginRequest(uint64_t a1
   result = type metadata accessor for UnknownStorage();
   if (v6 <= 0x3F)
   {
+    v17 = result;
     result = a4(319);
     if (v7 <= 0x3F)
     {
-      OUTLINED_FUNCTION_157();
+      OUTLINED_FUNCTION_157(result, v7, v8, v9, v10, v11, v12, v13, v14, *v15, *&v15[4], 0, v16, v17, v18);
       return OUTLINED_FUNCTION_352();
     }
   }
@@ -9049,19 +7997,19 @@ void sub_25A1AABE4()
   }
 }
 
-void type metadata completion function for ModalityXAudioFrame()
+void type metadata completion function for ModalityXAudioFrame(uint64_t a1)
 {
   type metadata accessor for Bool?(319, &lazy cache variable for type metadata for [Data], MEMORY[0x277CC9318], MEMORY[0x277D83940]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for UnknownStorage();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for Bool?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Bool?, MEMORY[0x277D839B0], MEMORY[0x277D83D88]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
         }
@@ -9073,43 +8021,43 @@ void type metadata completion function for ModalityXAudioFrame()
 uint64_t sub_25A1AAD88(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_191();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
-  OUTLINED_FUNCTION_168(v6);
-  if (*(v7 + 84) == v3)
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
+  OUTLINED_FUNCTION_168();
+  if (*(v6 + 84) == v3)
   {
-    v8 = OUTLINED_FUNCTION_318();
+    v7 = OUTLINED_FUNCTION_318();
   }
 
   else
   {
-    v10 = type metadata accessor for UnknownStorage();
-    OUTLINED_FUNCTION_168(v10);
-    if (*(v11 + 84) != v3)
+    type metadata accessor for UnknownStorage();
+    OUTLINED_FUNCTION_168();
+    if (*(v9 + 84) != v3)
     {
       return OUTLINED_FUNCTION_50(v4 + *(a3 + 24));
     }
 
-    v8 = OUTLINED_FUNCTION_264();
+    v7 = OUTLINED_FUNCTION_264();
   }
 
-  return __swift_getEnumTagSinglePayload(v8, v3, v9);
+  return __swift_getEnumTagSinglePayload(v7, v3, v8);
 }
 
 void sub_25A1AAE78()
 {
   OUTLINED_FUNCTION_88();
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
-  OUTLINED_FUNCTION_168(v2);
-  if (*(v3 + 84) == v1)
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMd, &_s16ModalityXObjects0A10XASRResultV13OneOf_PayloadOSgMR);
+  OUTLINED_FUNCTION_168();
+  if (*(v2 + 84) == v1)
   {
     OUTLINED_FUNCTION_172();
   }
 
   else
   {
-    v4 = type metadata accessor for UnknownStorage();
-    OUTLINED_FUNCTION_168(v4);
-    if (*(v5 + 84) != v1)
+    type metadata accessor for UnknownStorage();
+    OUTLINED_FUNCTION_168();
+    if (*(v3 + 84) != v1)
     {
       OUTLINED_FUNCTION_185(*(v0 + 24));
       return;
@@ -9120,19 +8068,19 @@ void sub_25A1AAE78()
 
   OUTLINED_FUNCTION_254();
 
-  __swift_storeEnumTagSinglePayload(v6, v7, v8, v9);
+  __swift_storeEnumTagSinglePayload(v4, v5, v6, v7);
 }
 
-void type metadata completion function for ModalityXASRResult()
+void type metadata completion function for ModalityXASRResult(uint64_t a1)
 {
   type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload?(319, &lazy cache variable for type metadata for ModalityXASRResult.OneOf_Payload?, type metadata accessor for ModalityXASRResult.OneOf_Payload);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for UnknownStorage();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for Bool?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -9140,13 +8088,13 @@ void type metadata completion function for ModalityXASRResult()
   }
 }
 
-uint64_t type metadata completion function for ModalityXASRResult.OneOf_Payload()
+uint64_t type metadata completion function for ModalityXASRResult.OneOf_Payload(uint64_t a1)
 {
   result = type metadata accessor for ModalityXRecognitionCandidate(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for ModalityXFinalSpeechRecognitionResponse(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
       return 0;
@@ -9156,17 +8104,18 @@ uint64_t type metadata completion function for ModalityXASRResult.OneOf_Payload(
   return result;
 }
 
-void type metadata completion function for ModalityXStreamingSpeechProfileCommit()
+void type metadata completion function for ModalityXStreamingSpeechProfileCommit(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_345();
-  type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
+  v3 = type metadata accessor for UnknownStorage();
+  if (v4 <= 0x3F)
   {
-    v1 = OUTLINED_FUNCTION_92();
-    type metadata accessor for Bool?(v1, v2, v3, v4);
-    if (v5 <= 0x3F)
+    v20 = v3;
+    v5 = OUTLINED_FUNCTION_92();
+    type metadata accessor for Bool?(v5, v6, v7, v8);
+    if (v10 <= 0x3F)
     {
-      OUTLINED_FUNCTION_157();
+      OUTLINED_FUNCTION_157(v9, v10, v11, v12, v13, v14, v15, v16, v17, *v18, *&v18[4], 0, v19, v20, v21);
       OUTLINED_FUNCTION_352();
     }
   }
@@ -9175,28 +8124,28 @@ void type metadata completion function for ModalityXStreamingSpeechProfileCommit
 uint64_t sub_25A1AB144(uint64_t a1, int a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_187();
-  v6 = type metadata accessor for UnknownStorage();
-  OUTLINED_FUNCTION_168(v6);
-  if (*(v7 + 84) != a2)
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_168();
+  if (*(v6 + 84) != a2)
   {
     return OUTLINED_FUNCTION_50(v3 + *(a3 + 24));
   }
 
-  v8 = OUTLINED_FUNCTION_265();
+  v7 = OUTLINED_FUNCTION_265();
 
-  return __swift_getEnumTagSinglePayload(v8, v9, v10);
+  return __swift_getEnumTagSinglePayload(v7, v8, v9);
 }
 
 void sub_25A1AB1E8()
 {
   OUTLINED_FUNCTION_88();
-  v2 = type metadata accessor for UnknownStorage();
-  OUTLINED_FUNCTION_168(v2);
-  if (*(v3 + 84) == v1)
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_168();
+  if (*(v2 + 84) == v1)
   {
-    v4 = OUTLINED_FUNCTION_162();
+    v3 = OUTLINED_FUNCTION_162();
 
-    __swift_storeEnumTagSinglePayload(v4, v5, v6, v7);
+    __swift_storeEnumTagSinglePayload(v3, v4, v5, v6);
   }
 
   else
@@ -9205,23 +8154,23 @@ void sub_25A1AB1E8()
   }
 }
 
-uint64_t type metadata completion function for ModalityXProcessingError()
+uint64_t type metadata completion function for ModalityXProcessingError(uint64_t a1)
 {
-  v0 = type metadata accessor for UnknownStorage();
-  if (v1 <= 0x3F)
+  v1 = type metadata accessor for UnknownStorage();
+  if (v2 <= 0x3F)
   {
     type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Int32?, MEMORY[0x277D849A8], MEMORY[0x277D83D88]);
-    v0 = v2;
-    if (v3 <= 0x3F)
+    v1 = v3;
+    if (v4 <= 0x3F)
     {
       type metadata accessor for Bool?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-      v0 = v4;
-      if (v5 <= 0x3F)
+      v1 = v5;
+      if (v6 <= 0x3F)
       {
         type metadata accessor for Bool?(319, &lazy cache variable for type metadata for ModalityXErrorSource?, &type metadata for ModalityXErrorSource, MEMORY[0x277D83D88]);
-        if (v7 > 0x3F)
+        if (v8 > 0x3F)
         {
-          return v6;
+          return v7;
         }
 
         else
@@ -9233,7 +8182,7 @@ uint64_t type metadata completion function for ModalityXProcessingError()
     }
   }
 
-  return v0;
+  return v1;
 }
 
 void type metadata accessor for Bool?(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t (*a4)(void, uint64_t))
@@ -9248,26 +8197,26 @@ void type metadata accessor for Bool?(uint64_t a1, unint64_t *a2, uint64_t a3, u
   }
 }
 
-uint64_t type metadata completion function for ModalityXSpeechProfileBuildRequest()
+uint64_t type metadata completion function for ModalityXSpeechProfileBuildRequest(uint64_t a1)
 {
-  v0 = type metadata accessor for UnknownStorage();
-  if (v1 <= 0x3F)
+  v1 = type metadata accessor for UnknownStorage();
+  if (v2 <= 0x3F)
   {
     type metadata accessor for Bool?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-    v0 = v2;
-    if (v3 <= 0x3F)
+    v1 = v3;
+    if (v4 <= 0x3F)
     {
       type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload?(319, &lazy cache variable for type metadata for ModalityXSpeechProfileSourceData?, type metadata accessor for ModalityXSpeechProfileSourceData);
-      if (v5 > 0x3F)
+      if (v6 > 0x3F)
       {
-        return v4;
+        return v5;
       }
 
       else
       {
         type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Data?, MEMORY[0x277CC9318], MEMORY[0x277D83D88]);
-        v0 = v6;
-        if (v7 <= 0x3F)
+        v1 = v7;
+        if (v8 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
           return 0;
@@ -9276,35 +8225,35 @@ uint64_t type metadata completion function for ModalityXSpeechProfileBuildReques
     }
   }
 
-  return v0;
+  return v1;
 }
 
-void type metadata completion function for ModalityXStreamingSpeechProfileBegin()
+void type metadata completion function for ModalityXStreamingSpeechProfileBegin(uint64_t a1)
 {
   type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for Bool?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void type metadata completion function for ModalityXStreamingSpeechProfileAddData()
+void type metadata completion function for ModalityXStreamingSpeechProfileAddData(uint64_t a1)
 {
   type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for Bool?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload?(319, &lazy cache variable for type metadata for ModalityXSpeechProfileSourceData?, type metadata accessor for ModalityXSpeechProfileSourceData);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Data?, MEMORY[0x277CC9318], MEMORY[0x277D83D88]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
         }
@@ -9316,45 +8265,45 @@ void type metadata completion function for ModalityXStreamingSpeechProfileAddDat
 uint64_t __swift_get_extra_inhabitant_index_267Tm(uint64_t a1, int a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_187();
-  v6 = type metadata accessor for UnknownStorage();
-  OUTLINED_FUNCTION_168(v6);
-  if (*(v7 + 84) != a2)
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_168();
+  if (*(v6 + 84) != a2)
   {
     return OUTLINED_FUNCTION_50(v3 + *(a3 + 20));
   }
 
-  v8 = OUTLINED_FUNCTION_265();
+  v7 = OUTLINED_FUNCTION_265();
 
-  return __swift_getEnumTagSinglePayload(v8, v9, v10);
+  return __swift_getEnumTagSinglePayload(v7, v8, v9);
 }
 
 void __swift_store_extra_inhabitant_index_268Tm()
 {
   OUTLINED_FUNCTION_88();
-  v2 = type metadata accessor for UnknownStorage();
-  OUTLINED_FUNCTION_168(v2);
-  if (*(v3 + 84) == v1)
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_168();
+  if (*(v2 + 84) == v1)
   {
-    v4 = OUTLINED_FUNCTION_162();
+    v3 = OUTLINED_FUNCTION_162();
 
-    __swift_storeEnumTagSinglePayload(v4, v5, v6, v7);
+    __swift_storeEnumTagSinglePayload(v3, v4, v5, v6);
   }
 
   else
   {
     OUTLINED_FUNCTION_183();
-    *(v8 + 8) = v0;
+    *(v7 + 8) = v0;
   }
 }
 
 uint64_t __swift_get_extra_inhabitant_index_339Tm(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_191();
-  v6 = type metadata accessor for UnknownStorage();
-  OUTLINED_FUNCTION_168(v6);
-  if (*(v7 + 84) == v3)
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_168();
+  if (*(v6 + 84) == v3)
   {
-    v8 = OUTLINED_FUNCTION_318();
+    v7 = OUTLINED_FUNCTION_318();
   }
 
   else
@@ -9362,23 +8311,23 @@ uint64_t __swift_get_extra_inhabitant_index_339Tm(uint64_t a1, uint64_t a2, uint
     if (v3 == 2147483646)
     {
       OUTLINED_FUNCTION_183();
-      return OUTLINED_FUNCTION_50(v10);
+      return OUTLINED_FUNCTION_50(v9);
     }
 
-    v12 = OUTLINED_FUNCTION_130();
-    v9 = __swift_instantiateConcreteTypeFromMangledNameV2(v12, v13);
-    v8 = v4 + *(a3 + 24);
+    v11 = OUTLINED_FUNCTION_130();
+    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(v11, v12);
+    v7 = v4 + *(a3 + 24);
   }
 
-  return __swift_getEnumTagSinglePayload(v8, v3, v9);
+  return __swift_getEnumTagSinglePayload(v7, v3, v8);
 }
 
 void __swift_store_extra_inhabitant_index_340Tm(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
   OUTLINED_FUNCTION_191();
-  v8 = type metadata accessor for UnknownStorage();
-  OUTLINED_FUNCTION_168(v8);
-  if (*(v9 + 84) == a3)
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_168();
+  if (*(v6 + 84) == a3)
   {
     OUTLINED_FUNCTION_172();
   }
@@ -9388,36 +8337,35 @@ void __swift_store_extra_inhabitant_index_340Tm(uint64_t a1, uint64_t a2, int a3
     if (a3 == 2147483646)
     {
       OUTLINED_FUNCTION_183();
-      *(v10 + 8) = v4;
+      *(v7 + 8) = v4;
       return;
     }
 
-    v11 = OUTLINED_FUNCTION_130();
-    __swift_instantiateConcreteTypeFromMangledNameV2(v11, v12);
-    v13 = v5 + *(a4 + 24);
+    v8 = OUTLINED_FUNCTION_130();
+    __swift_instantiateConcreteTypeFromMangledNameV2(v8, v9);
   }
 
   OUTLINED_FUNCTION_254();
 
-  __swift_storeEnumTagSinglePayload(v14, v15, v16, v17);
+  __swift_storeEnumTagSinglePayload(v10, v11, v12, v13);
 }
 
-void type metadata completion function for ModalityXSpeechProfileBuildResponse()
+void type metadata completion function for ModalityXSpeechProfileBuildResponse(uint64_t a1)
 {
   type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for Bool?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload?(319, &lazy cache variable for type metadata for ModalityXProcessingError?, type metadata accessor for ModalityXProcessingError);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Bool?, MEMORY[0x277D839B0], MEMORY[0x277D83D88]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           type metadata accessor for Bool?(319, &lazy cache variable for type metadata for Data?, MEMORY[0x277CC9318], MEMORY[0x277D83D88]);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             swift_cvw_initStructMetadataWithLayoutString();
           }
@@ -9427,56 +8375,53 @@ void type metadata completion function for ModalityXSpeechProfileBuildResponse()
   }
 }
 
-void type metadata completion function for ModalityXBeginRequest._StorageClass()
+void type metadata completion function for ModalityXBeginRequest._StorageClass(uint64_t a1)
 {
   type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload?(319, &lazy cache variable for type metadata for ModalityXAudioMetadata?, type metadata accessor for ModalityXAudioMetadata);
   if (v1 <= 0x3F)
   {
-    v2 = *(v0 - 8) + 64;
     swift_updateClassMetadata2();
   }
 }
 
-void type metadata completion function for ModalityXBeginDictation._StorageClass()
+void type metadata completion function for ModalityXBeginDictation._StorageClass(uint64_t a1)
 {
   type metadata accessor for ModalityXServerBoundFrame.OneOf_Payload?(319, &lazy cache variable for type metadata for ModalityXAudioMetadata?, type metadata accessor for ModalityXAudioMetadata);
   if (v1 <= 0x3F)
   {
-    v2 = *(v0 - 8) + 64;
     swift_updateClassMetadata2();
   }
 }
 
 uint64_t outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = OUTLINED_FUNCTION_356(a1, a2, a3, a4);
-  OUTLINED_FUNCTION_54(v5);
-  v7 = *(v6 + 16);
-  v8 = OUTLINED_FUNCTION_131();
-  v9(v8);
+  OUTLINED_FUNCTION_356(a1, a2, a3, a4);
+  OUTLINED_FUNCTION_54();
+  v5 = OUTLINED_FUNCTION_131();
+  v6(v5);
   return v4;
 }
 
-uint64_t closure #1 in static Data.== infix(_:_:)@<X0>(char *__s1@<X0>, uint64_t a2@<X2>, unint64_t a3@<X3>, _BYTE *a4@<X8>)
+unint64_t closure #1 in static Data.== infix(_:_:)@<X0>(uint64_t *__return_ptr a1@<X8>, char *__s1@<X0>, uint64_t a4@<X2>, unint64_t a5@<X3>)
 {
   v17 = *MEMORY[0x277D85DE8];
-  switch(a3 >> 62)
+  switch(a5 >> 62)
   {
     case 1uLL:
-      v9 = a2 >> 32;
-      if (a2 >> 32 < a2)
+      v10 = a4 >> 32;
+      if (a4 >> 32 < a4)
       {
         __break(1u);
       }
 
-      v8 = a2;
+      v9 = a4;
       goto LABEL_9;
     case 2uLL:
-      v8 = *(a2 + 16);
-      v9 = *(a2 + 24);
+      v9 = *(a4 + 16);
+      v10 = *(a4 + 24);
 LABEL_9:
-      result = specialized __DataStorage.withUnsafeBytes<A>(in:apply:)(v8, v9, a3 & 0x3FFFFFFFFFFFFFFFLL, __s1);
-      if (!v4)
+      result = specialized __DataStorage.withUnsafeBytes<A>(in:apply:)(v9, v10, a5 & 0x3FFFFFFFFFFFFFFFLL, __s1);
+      if (!v5)
       {
         break;
       }
@@ -9497,27 +8442,26 @@ LABEL_14:
       result = 1;
       break;
     default:
-      __s2 = a2;
-      v12 = a3;
-      v13 = BYTE2(a3);
-      v14 = BYTE3(a3);
-      v15 = BYTE4(a3);
-      v16 = BYTE5(a3);
+      __s2 = a4;
+      v12 = a5;
+      v13 = BYTE2(a5);
+      v14 = BYTE3(a5);
+      v15 = BYTE4(a5);
+      v16 = BYTE5(a5);
       if (!__s1)
       {
         goto LABEL_13;
       }
 
-      result = memcmp(__s1, &__s2, BYTE6(a3)) == 0;
+      result = memcmp(__s1, &__s2, BYTE6(a5)) == 0;
       break;
   }
 
-  *a4 = result & 1;
-  v10 = *MEMORY[0x277D85DE8];
+  *a1 = result & 1;
   return result;
 }
 
-uint64_t specialized __DataStorage.withUnsafeBytes<A>(in:apply:)(uint64_t a1, uint64_t a2, uint64_t a3, char *a4)
+char *specialized __DataStorage.withUnsafeBytes<A>(in:apply:)(uint64_t a1, uint64_t a2, uint64_t a3, char *a4)
 {
   result = __DataStorage._bytes.getter();
   v8 = result;
@@ -9567,14 +8511,22 @@ LABEL_16:
     return result;
   }
 
-  return v8 == a4 || memcmp(a4, v8, v11) == 0;
+  if (v8 == a4)
+  {
+    return 1;
+  }
+
+  else
+  {
+    return (memcmp(a4, v8, v11) == 0);
+  }
 }
 
 uint64_t outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
-  OUTLINED_FUNCTION_54(v4);
-  (*(v5 + 8))(a1);
+  __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  OUTLINED_FUNCTION_54();
+  (*(v4 + 8))(a1);
   return a1;
 }
 
@@ -9583,9 +8535,7 @@ uint64_t OUTLINED_FUNCTION_27(uint64_t a1)
   *v1 = a1;
   *(a1 + 64) = v2;
   result = type metadata accessor for ModalityXBeginDictation(0);
-  v5 = *(result + 20);
-  *(a1 + 72) = v5;
-  v6 = *(v2 + v5);
+  *(a1 + 72) = *(result + 20);
   return result;
 }
 
@@ -9600,19 +8550,7 @@ uint64_t OUTLINED_FUNCTION_36(uint64_t a1)
   *v1 = a1;
   *(a1 + 72) = v2;
   result = type metadata accessor for ModalityXBeginDictation(0);
-  v5 = *(result + 20);
-  *(a1 + 80) = v5;
-  v6 = *(v2 + v5);
-  return result;
-}
-
-uint64_t **OUTLINED_FUNCTION_39(uint64_t **result)
-{
-  v1 = (*result)[3];
-  v2 = (*result)[4];
-  v3 = (*result)[1];
-  v4 = (*result)[2];
-  v5 = **result;
+  *(a1 + 80) = *(result + 20);
   return result;
 }
 
@@ -9621,15 +8559,6 @@ uint64_t OUTLINED_FUNCTION_42(uint64_t a1)
   *v1 = a1;
   *(a1 + 16) = v2;
   return 0;
-}
-
-uint64_t OUTLINED_FUNCTION_46@<X0>(uint64_t a1@<X8>)
-{
-  *(v1 + 24) = a1;
-  v3 = (v2 + a1);
-  result = *v3;
-  v3[1];
-  return result;
 }
 
 uint64_t OUTLINED_FUNCTION_47(uint64_t a1)
@@ -9670,20 +8599,11 @@ uint64_t OUTLINED_FUNCTION_50@<X0>(uint64_t a1@<X8>)
   return (v2 + 1);
 }
 
-uint64_t OUTLINED_FUNCTION_52@<X0>(uint64_t a1@<X8>)
-{
-  v2 = (v1 + a1);
-  result = *v2;
-  v4 = v2[1] >> 60;
-  return result;
-}
-
 uint64_t OUTLINED_FUNCTION_55(uint64_t a1)
 {
   v2 = (v1 + *(a1 + 20));
   *v2 = 0;
   v2[1] = 0;
-  v3 = *(a1 + 24);
   return 0;
 }
 
@@ -9692,13 +8612,6 @@ uint64_t OUTLINED_FUNCTION_63()
   outlined copy of Data?(v1, v0);
   outlined copy of Data?(v3, v2);
   return v1;
-}
-
-uint64_t OUTLINED_FUNCTION_69@<X0>(uint64_t *a1@<X8>)
-{
-  result = *a1;
-  v3 = *v1;
-  return result;
 }
 
 uint64_t OUTLINED_FUNCTION_70(uint64_t a1)
@@ -9722,13 +8635,6 @@ uint64_t OUTLINED_FUNCTION_72(uint64_t a1, unint64_t a2)
   return v2;
 }
 
-uint64_t OUTLINED_FUNCTION_79()
-{
-  result = type metadata accessor for ModalityXBeginDictation(0);
-  v1 = *(result + 20);
-  return result;
-}
-
 uint64_t OUTLINED_FUNCTION_82()
 {
 
@@ -9749,22 +8655,7 @@ uint64_t OUTLINED_FUNCTION_90(uint64_t result)
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_91(uint64_t result)
-{
-  v3 = *(result + 20);
-  *(v2 + 80) = v3;
-  v4 = *(v1 + v3);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_95(uint64_t a1)
-{
-  result = __swift_storeEnumTagSinglePayload(v1 + v3, 1, 1, a1);
-  v5 = *(v2 + 28);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_96()
+uint64_t OUTLINED_FUNCTION_96(uint64_t a1)
 {
 
   return dispatch thunk of static Equatable.== infix(_:_:)();
@@ -9787,4 +8678,1117 @@ uint64_t OUTLINED_FUNCTION_111()
 {
 
   return swift_beginAccess();
+}
+
+uint64_t OUTLINED_FUNCTION_119()
+{
+  type metadata accessor for ModalityXBeginDictation(0);
+
+  return swift_isUniquelyReferenced_nonNull_native();
+}
+
+uint64_t OUTLINED_FUNCTION_120()
+{
+  type metadata accessor for ModalityXBeginDictation._StorageClass(0);
+
+  return swift_allocObject();
+}
+
+uint64_t OUTLINED_FUNCTION_129(uint64_t a1)
+{
+
+  return __swift_storeEnumTagSinglePayload(v1 + v2, 1, 1, a1);
+}
+
+void OUTLINED_FUNCTION_141(uint64_t a1@<X8>)
+{
+  v2 = (v1 + a1);
+  *v2 = 0;
+  v2[1] = 0;
+}
+
+uint64_t OUTLINED_FUNCTION_143()
+{
+  type metadata accessor for ModalityXBeginRequest._StorageClass(0);
+
+  return swift_allocObject();
+}
+
+uint64_t OUTLINED_FUNCTION_151(uint64_t a1)
+{
+
+  return outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v1, v2, v3);
+}
+
+uint64_t OUTLINED_FUNCTION_154(uint64_t a1)
+{
+
+  return swift_beginAccess();
+}
+
+uint64_t OUTLINED_FUNCTION_157(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, char a14, uint64_t a15)
+{
+
+  return swift_cvw_initStructMetadataWithLayoutString();
+}
+
+uint64_t OUTLINED_FUNCTION_160()
+{
+  type metadata accessor for ModalityXBeginRequest(0);
+
+  return swift_isUniquelyReferenced_nonNull_native();
+}
+
+void OUTLINED_FUNCTION_171(uint64_t a1@<X8>)
+{
+  v2 = (v1 + a1);
+  *v2 = 0;
+  v2[1] = 0;
+}
+
+uint64_t OUTLINED_FUNCTION_173@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+{
+  v3[3] = result;
+  *v3 = a2;
+  v3[1] = v2;
+  return result;
+}
+
+uint64_t OUTLINED_FUNCTION_177(uint64_t a1)
+{
+
+  return dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
+}
+
+uint64_t OUTLINED_FUNCTION_178(uint64_t a1)
+{
+
+  return dispatch thunk of static Equatable.== infix(_:_:)();
+}
+
+uint64_t OUTLINED_FUNCTION_246()
+{
+
+  return outlined init with take of ModalityXSessionMetadata(v0);
+}
+
+uint64_t OUTLINED_FUNCTION_249@<X0>(uint64_t a1@<X8>)
+{
+  v4 = v2 + a1;
+  result = outlined consume of Data?(*v4, *(v4 + 8));
+  *v4 = v3;
+  *(v4 + 8) = v1;
+  return result;
+}
+
+void OUTLINED_FUNCTION_250(uint64_t a1@<X8>)
+{
+  v2 = (v1 + a1);
+  *v2 = 0;
+  v2[1] = 0;
+}
+
+uint64_t OUTLINED_FUNCTION_257(uint64_t a1)
+{
+
+  return swift_once();
+}
+
+void OUTLINED_FUNCTION_258(char a1@<W8>)
+{
+  if (v1)
+  {
+    a1 = 0;
+  }
+
+  *(v2 + 12) = a1;
+}
+
+uint64_t OUTLINED_FUNCTION_259(uint64_t a1)
+{
+
+  return swift_once();
+}
+
+uint64_t OUTLINED_FUNCTION_262(uint64_t a1)
+{
+
+  return swift_once();
+}
+
+uint64_t OUTLINED_FUNCTION_263(uint64_t a1)
+{
+
+  return swift_once();
+}
+
+uint64_t OUTLINED_FUNCTION_269()
+{
+  *(v0 + v1[5]) = 8;
+  *(v0 + v1[6]) = 8;
+  *(v0 + v1[7]) = 2;
+
+  return type metadata accessor for ModalityXVoiceTriggerInfo(0);
+}
+
+void OUTLINED_FUNCTION_275(char a1@<W8>)
+{
+  if (v1)
+  {
+    a1 = 0;
+  }
+
+  *v2 = a1;
+}
+
+uint64_t OUTLINED_FUNCTION_280(uint64_t a1)
+{
+
+  return swift_beginAccess();
+}
+
+uint64_t OUTLINED_FUNCTION_281(uint64_t a1)
+{
+
+  return swift_beginAccess();
+}
+
+uint64_t OUTLINED_FUNCTION_283(uint64_t a1, uint64_t a2)
+{
+
+  return outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, a2, v2, v3);
+}
+
+uint64_t OUTLINED_FUNCTION_286()
+{
+
+  return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload();
+}
+
+uint64_t OUTLINED_FUNCTION_291()
+{
+
+  return outlined init with take of ModalityXSessionMetadata(v0);
+}
+
+uint64_t OUTLINED_FUNCTION_304()
+{
+
+  return swift_getEnumCaseMultiPayload();
+}
+
+uint64_t OUTLINED_FUNCTION_308(uint64_t a1)
+{
+  v3 = *(a1 + 24);
+  *(v2 + 40) = v3;
+  return v1 + v3;
+}
+
+uint64_t OUTLINED_FUNCTION_323()
+{
+
+  return swift_getEnumCaseMultiPayload();
+}
+
+uint64_t OUTLINED_FUNCTION_324(uint64_t a1)
+{
+
+  return dispatch thunk of static Equatable.== infix(_:_:)();
+}
+
+uint64_t OUTLINED_FUNCTION_325(uint64_t a1)
+{
+
+  return outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(a1, v1, v2, v3);
+}
+
+uint64_t OUTLINED_FUNCTION_326(uint64_t a1, ...)
+{
+
+  return swift_endAccess();
+}
+
+uint64_t OUTLINED_FUNCTION_327@<X0>(uint64_t a1@<X8>)
+{
+  v3 = *(v1 + a1);
+  v4 = *(v1 + a1 + 8);
+
+  return outlined consume of Data?(v3, v4);
+}
+
+uint64_t OUTLINED_FUNCTION_331@<X0>(unint64_t a1@<X8>)
+{
+  if (a1 >= 0xFFFFFFFF)
+  {
+    LODWORD(a1) = -1;
+  }
+
+  return (a1 + 1);
+}
+
+void OUTLINED_FUNCTION_339(char a1@<W8>)
+{
+  if (v1)
+  {
+    a1 = 0;
+  }
+
+  *(v2 + 84) = a1;
+}
+
+uint64_t OUTLINED_FUNCTION_356(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+{
+
+  return __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+}
+
+uint64_t OUTLINED_FUNCTION_359(uint64_t a1)
+{
+
+  return dispatch thunk of static Equatable.== infix(_:_:)();
+}
+
+uint64_t OUTLINED_FUNCTION_360(uint64_t a1)
+{
+
+  return dispatch thunk of static Equatable.== infix(_:_:)();
+}
+
+uint64_t OUTLINED_FUNCTION_361()
+{
+}
+
+uint64_t ModalityXRecognitionCandidate.init()()
+{
+  OUTLINED_FUNCTION_93();
+  v4 = v3;
+  UnknownStorage.init()();
+  v5 = *(v2(0) + 20);
+  if (*v1 != -1)
+  {
+    OUTLINED_FUNCTION_136();
+    swift_once();
+  }
+
+  *(v4 + v5) = *v0;
+}
+
+uint64_t static ModalityXRecognitionCandidate.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t))
+{
+  v7 = OUTLINED_FUNCTION_87();
+  v9 = *(v8(v7) + 20);
+  v10 = *(v5 + v9);
+  v11 = *(v4 + v9);
+  if (v10 != v11)
+  {
+
+    v12 = a4(v10, v11);
+
+    if ((v12 & 1) == 0)
+    {
+      return 0;
+    }
+  }
+
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_0_1();
+  v15 = _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(v13, v14, MEMORY[0x277D216D0]);
+  return OUTLINED_FUNCTION_96(v15) & 1;
+}
+
+uint64_t ModalityXRecognitionToken.tokenText.getter()
+{
+  return ModalityXRecognitionToken.tokenText.getter();
+}
+
+{
+  v1 = OUTLINED_FUNCTION_176();
+  if (*(v0 + *(v2(v1) + 20) + 8))
+  {
+    OUTLINED_FUNCTION_348();
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_295();
+  }
+
+  return OUTLINED_FUNCTION_131();
+}
+
+uint64_t key path setter for ModalityXRecognitionToken.tokenText : ModalityXRecognitionToken(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = a1[1];
+
+  return ModalityXRecognitionToken.tokenText.setter(v1, v2);
+}
+
+uint64_t ModalityXRecognitionToken.tokenText.modify()
+{
+  v0 = OUTLINED_FUNCTION_144();
+  v1 = __swift_coroFrameAllocStub(v0);
+  v2 = OUTLINED_FUNCTION_42(v1);
+  v3 = type metadata accessor for ModalityXRecognitionToken(v2);
+  if (OUTLINED_FUNCTION_75(*(v3 + 20)))
+  {
+    OUTLINED_FUNCTION_174();
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_152();
+  }
+
+  OUTLINED_FUNCTION_173(v4, v5);
+
+  return OUTLINED_FUNCTION_163();
+}
+
+uint64_t ModalityXRecognitionToken.startMilliSeconds.getter()
+{
+  return ModalityXRecognitionToken.startMilliSeconds.getter();
+}
+
+{
+  v0 = OUTLINED_FUNCTION_176();
+  v1(v0);
+  OUTLINED_FUNCTION_10_0();
+  if (v3)
+  {
+    return v2;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void ModalityXRecognitionToken.startMilliSeconds.setter()
+{
+  v0 = OUTLINED_FUNCTION_187();
+  v1 = type metadata accessor for ModalityXRecognitionToken(v0);
+  OUTLINED_FUNCTION_48_0(*(v1 + 24));
+}
+
+uint64_t (*ModalityXRecognitionToken.startMilliSeconds.modify(void *a1))(uint64_t result)
+{
+  v1 = OUTLINED_FUNCTION_109(a1);
+  v2 = type metadata accessor for ModalityXRecognitionToken(v1);
+  OUTLINED_FUNCTION_2_1(*(v2 + 24));
+  return ModalityXRecognitionToken.startMilliSeconds.modify;
+}
+
+uint64_t ModalityXRecognitionToken.endMilliSeconds.getter()
+{
+  return ModalityXRecognitionToken.endMilliSeconds.getter();
+}
+
+{
+  v0 = OUTLINED_FUNCTION_176();
+  v1(v0);
+  OUTLINED_FUNCTION_10_0();
+  if (v3)
+  {
+    return v2;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void ModalityXRecognitionToken.endMilliSeconds.setter()
+{
+  v0 = OUTLINED_FUNCTION_187();
+  v1 = type metadata accessor for ModalityXRecognitionToken(v0);
+  OUTLINED_FUNCTION_48_0(*(v1 + 28));
+}
+
+uint64_t (*ModalityXRecognitionToken.endMilliSeconds.modify(void *a1))(uint64_t result)
+{
+  v1 = OUTLINED_FUNCTION_109(a1);
+  v2 = type metadata accessor for ModalityXRecognitionToken(v1);
+  OUTLINED_FUNCTION_2_1(*(v2 + 28));
+  return ModalityXRecognitionToken.startMilliSeconds.modify;
+}
+
+uint64_t ModalityXRecognitionToken.silenceStartMilliSeconds.getter()
+{
+  return ModalityXRecognitionToken.silenceStartMilliSeconds.getter();
+}
+
+{
+  v0 = OUTLINED_FUNCTION_176();
+  v1(v0);
+  OUTLINED_FUNCTION_10_0();
+  if (v3)
+  {
+    return v2;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void ModalityXRecognitionToken.silenceStartMilliSeconds.setter()
+{
+  v0 = OUTLINED_FUNCTION_187();
+  v1 = type metadata accessor for ModalityXRecognitionToken(v0);
+  OUTLINED_FUNCTION_48_0(*(v1 + 32));
+}
+
+uint64_t (*ModalityXRecognitionToken.silenceStartMilliSeconds.modify(void *a1))(uint64_t result)
+{
+  v1 = OUTLINED_FUNCTION_109(a1);
+  v2 = type metadata accessor for ModalityXRecognitionToken(v1);
+  OUTLINED_FUNCTION_2_1(*(v2 + 32));
+  return ModalityXRecognitionToken.startMilliSeconds.modify;
+}
+
+uint64_t ModalityXRecognitionToken.confidence.getter()
+{
+  type metadata accessor for ModalityXRecognitionToken(0);
+  OUTLINED_FUNCTION_10_0();
+  if (v1)
+  {
+    return v0;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void ModalityXRecognitionToken.confidence.setter()
+{
+  v0 = OUTLINED_FUNCTION_187();
+  v1 = type metadata accessor for ModalityXRecognitionToken(v0);
+  OUTLINED_FUNCTION_48_0(*(v1 + 36));
+}
+
+uint64_t (*ModalityXRecognitionToken.confidence.modify(void *a1))(uint64_t result)
+{
+  v1 = OUTLINED_FUNCTION_109(a1);
+  v2 = type metadata accessor for ModalityXRecognitionToken(v1);
+  OUTLINED_FUNCTION_2_1(*(v2 + 36));
+  return ModalityXRecognitionToken.startMilliSeconds.modify;
+}
+
+uint64_t ModalityXRecognitionToken.addSpaceAfter.setter()
+{
+  v2 = OUTLINED_FUNCTION_187();
+  result = type metadata accessor for ModalityXRecognitionToken(v2);
+  *(v1 + *(result + 40)) = v0;
+  return result;
+}
+
+uint64_t (*ModalityXRecognitionToken.addSpaceAfter.modify(void *a1))(uint64_t result)
+{
+  v1 = OUTLINED_FUNCTION_109(a1);
+  v2 = type metadata accessor for ModalityXRecognitionToken(v1);
+  OUTLINED_FUNCTION_117(*(v2 + 40));
+  return OUTLINED_FUNCTION_282;
+}
+
+uint64_t ModalityXRecognitionToken.phoneSeq.getter()
+{
+  if (*(v0 + *(type metadata accessor for ModalityXRecognitionToken(0) + 44) + 8))
+  {
+    OUTLINED_FUNCTION_348();
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_295();
+  }
+
+  return OUTLINED_FUNCTION_131();
+}
+
+uint64_t ModalityXRecognitionToken.phoneSeq.setter()
+{
+  v3 = OUTLINED_FUNCTION_86();
+  type metadata accessor for ModalityXRecognitionToken(v3);
+  result = OUTLINED_FUNCTION_260_0();
+  *v1 = v2;
+  v1[1] = v0;
+  return result;
+}
+
+uint64_t ModalityXRecognitionToken.phoneSeq.modify()
+{
+  v0 = OUTLINED_FUNCTION_144();
+  v1 = __swift_coroFrameAllocStub(v0);
+  v2 = OUTLINED_FUNCTION_42(v1);
+  v3 = type metadata accessor for ModalityXRecognitionToken(v2);
+  if (OUTLINED_FUNCTION_75(*(v3 + 44)))
+  {
+    OUTLINED_FUNCTION_174();
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_152();
+  }
+
+  OUTLINED_FUNCTION_173(v4, v5);
+
+  return OUTLINED_FUNCTION_163();
+}
+
+Swift::Void __swiftcall ModalityXRecognitionToken.clearPhoneSeq()()
+{
+  type metadata accessor for ModalityXRecognitionToken(0);
+  OUTLINED_FUNCTION_361();
+  *v0 = 0;
+  v0[1] = 0;
+}
+
+uint64_t ModalityXRecognitionToken.ipaPhoneSeq.getter()
+{
+  if (*(v0 + *(type metadata accessor for ModalityXRecognitionToken(0) + 48) + 8))
+  {
+    OUTLINED_FUNCTION_348();
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_295();
+  }
+
+  return OUTLINED_FUNCTION_131();
+}
+
+uint64_t ModalityXRecognitionToken.ipaPhoneSeq.setter()
+{
+  v3 = OUTLINED_FUNCTION_86();
+  type metadata accessor for ModalityXRecognitionToken(v3);
+  result = OUTLINED_FUNCTION_260_0();
+  *v1 = v2;
+  v1[1] = v0;
+  return result;
+}
+
+uint64_t ModalityXRecognitionToken.ipaPhoneSeq.modify()
+{
+  v0 = OUTLINED_FUNCTION_144();
+  v1 = __swift_coroFrameAllocStub(v0);
+  v2 = OUTLINED_FUNCTION_42(v1);
+  v3 = type metadata accessor for ModalityXRecognitionToken(v2);
+  if (OUTLINED_FUNCTION_75(*(v3 + 48)))
+  {
+    OUTLINED_FUNCTION_174();
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_152();
+  }
+
+  OUTLINED_FUNCTION_173(v4, v5);
+
+  return OUTLINED_FUNCTION_163();
+}
+
+Swift::Void __swiftcall ModalityXRecognitionToken.clearIpaPhoneSeq()()
+{
+  type metadata accessor for ModalityXRecognitionToken(0);
+  OUTLINED_FUNCTION_361();
+  *v0 = 0;
+  v0[1] = 0;
+}
+
+void ModalityXRecognitionToken.init()(uint64_t a2@<X8>)
+{
+  UnknownStorage.init()();
+  v3 = type metadata accessor for ModalityXRecognitionToken(0);
+  OUTLINED_FUNCTION_141(*(v3 + 20));
+  OUTLINED_FUNCTION_268(a2 + *(v4 + 24));
+  OUTLINED_FUNCTION_71_0(*(v5 + 28));
+  OUTLINED_FUNCTION_71_0(*(v6 + 32));
+  OUTLINED_FUNCTION_71_0(*(v7 + 36));
+  OUTLINED_FUNCTION_277(*(v8 + 40));
+  OUTLINED_FUNCTION_141(*(v9 + 44));
+  OUTLINED_FUNCTION_141(*(v10 + 48));
+}
+
+uint64_t ModalityXRecognitionPhraseTokens.unknownFields.getter()
+{
+  return ModalityXRecognitionPhraseTokens.unknownFields.getter();
+}
+
+{
+  v0 = OUTLINED_FUNCTION_242();
+  v1(v0);
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_54();
+  v2 = OUTLINED_FUNCTION_163_0();
+
+  return v3(v2);
+}
+
+uint64_t ModalityXRecognitionPhraseTokens.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_187();
+  type metadata accessor for ModalityXRecognitionPhraseTokens(v0);
+  return OUTLINED_FUNCTION_355();
+}
+
+uint64_t ModalityXRecognitionPhraseTokensAlternatives.hasUnsuggestedAlternatives_p.setter()
+{
+  v2 = OUTLINED_FUNCTION_187();
+  result = type metadata accessor for ModalityXRecognitionPhraseTokensAlternatives(v2);
+  *(v1 + *(result + 24)) = v0;
+  return result;
+}
+
+uint64_t (*ModalityXRecognitionPhraseTokensAlternatives.hasUnsuggestedAlternatives_p.modify(void *a1))()
+{
+  v1 = OUTLINED_FUNCTION_109(a1);
+  v2 = type metadata accessor for ModalityXRecognitionPhraseTokensAlternatives(v1);
+  OUTLINED_FUNCTION_117(*(v2 + 24));
+  return ModalityXCancelRequest.reason.modify;
+}
+
+uint64_t ModalityXRecognitionPhraseTokens.unknownFields.setter()
+{
+  v0 = OUTLINED_FUNCTION_187();
+  v1(v0);
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_54();
+  v2 = OUTLINED_FUNCTION_230_0();
+
+  return v3(v2);
+}
+
+uint64_t ModalityXRecognitionPhraseTokensAlternatives.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_187();
+  type metadata accessor for ModalityXRecognitionPhraseTokensAlternatives(v0);
+  return OUTLINED_FUNCTION_355();
+}
+
+void ModalityXRecognitionPhraseTokensAlternatives.init()(void *a1@<X8>)
+{
+  *a1 = MEMORY[0x277D84F90];
+  v1 = type metadata accessor for ModalityXRecognitionPhraseTokensAlternatives(0);
+  UnknownStorage.init()();
+  OUTLINED_FUNCTION_277(*(v1 + 24));
+}
+
+uint64_t ModalityXRecognitionSausage.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_187();
+  type metadata accessor for ModalityXRecognitionSausage(v0);
+  return OUTLINED_FUNCTION_355();
+}
+
+uint64_t ModalityXRecognitionPhraseTokens.init()@<X0>(uint64_t (*a1)(void)@<X0>, void *a2@<X8>)
+{
+  *a2 = MEMORY[0x277D84F90];
+  a1(0);
+  return UnknownStorage.init()();
+}
+
+uint64_t ModalityXSetAlternateRecognitionSausage.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_187();
+  type metadata accessor for ModalityXSetAlternateRecognitionSausage(v0);
+  return OUTLINED_FUNCTION_355();
+}
+
+void ModalityXRecognitionChoice.confidence.setter()
+{
+  v0 = OUTLINED_FUNCTION_187();
+  v1 = type metadata accessor for ModalityXRecognitionChoice(v0);
+  OUTLINED_FUNCTION_48_0(*(v1 + 24));
+}
+
+uint64_t (*ModalityXRecognitionChoice.confidence.modify(void *a1))(uint64_t result)
+{
+  v1 = OUTLINED_FUNCTION_109(a1);
+  v2 = type metadata accessor for ModalityXRecognitionChoice(v1);
+  OUTLINED_FUNCTION_2_1(*(v2 + 24));
+  return ModalityXRecognitionToken.startMilliSeconds.modify;
+}
+
+uint64_t ModalityXRecognitionChoice.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_187();
+  type metadata accessor for ModalityXRecognitionChoice(v0);
+  return OUTLINED_FUNCTION_355();
+}
+
+uint64_t ModalityXRepeatedItnAlignment.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_187();
+  type metadata accessor for ModalityXRepeatedItnAlignment(v0);
+  return OUTLINED_FUNCTION_355();
+}
+
+uint64_t ModalityXChoiceAlignment.unknownFields.getter()
+{
+  return ModalityXChoiceAlignment.unknownFields.getter();
+}
+
+{
+  v0 = OUTLINED_FUNCTION_242();
+  v1(v0);
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_54();
+  v2 = OUTLINED_FUNCTION_163_0();
+
+  return v3(v2);
+}
+
+uint64_t ModalityXChoiceAlignment.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_187();
+  type metadata accessor for ModalityXChoiceAlignment(v0);
+  return OUTLINED_FUNCTION_355();
+}
+
+uint64_t ModalityXRecognitionResult.preItn.getter()
+{
+  v1 = OUTLINED_FUNCTION_199_0();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_122(v3);
+  OUTLINED_FUNCTION_133();
+  MEMORY[0x28223BE20](v4);
+  v5 = OUTLINED_FUNCTION_102();
+  v6 = type metadata accessor for ModalityXRecognitionResult(v5);
+  v7 = OUTLINED_FUNCTION_299(*(v6 + 36));
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v7, v8, &_s16ModalityXObjects0A19XRecognitionSausageVSgMd, &_s16ModalityXObjects0A19XRecognitionSausageVSgMR);
+  type metadata accessor for ModalityXRecognitionSausage(0);
+  OUTLINED_FUNCTION_38(v0);
+  if (v9)
+  {
+    OUTLINED_FUNCTION_217_0(MEMORY[0x277D84F90]);
+    result = OUTLINED_FUNCTION_38(v0);
+    if (!v9)
+    {
+      return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v0, &_s16ModalityXObjects0A19XRecognitionSausageVSgMd, &_s16ModalityXObjects0A19XRecognitionSausageVSgMR);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_1_1();
+    OUTLINED_FUNCTION_155();
+    return outlined init with take of ModalityXRecognitionSausage();
+  }
+
+  return result;
+}
+
+uint64_t ModalityXRecognitionResult.preItn.setter()
+{
+  v1 = OUTLINED_FUNCTION_187();
+  v2 = type metadata accessor for ModalityXRecognitionResult(v1);
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v0 + *(v2 + 36), &_s16ModalityXObjects0A19XRecognitionSausageVSgMd, &_s16ModalityXObjects0A19XRecognitionSausageVSgMR);
+  OUTLINED_FUNCTION_1_1();
+  OUTLINED_FUNCTION_102_0();
+  outlined init with take of ModalityXRecognitionSausage();
+  OUTLINED_FUNCTION_262_0();
+  OUTLINED_FUNCTION_126();
+
+  return __swift_storeEnumTagSinglePayload(v3, v4, v5, v6);
+}
+
+void ModalityXRecognitionResult.preItn.modify()
+{
+  OUTLINED_FUNCTION_312();
+  v2 = __swift_coroFrameAllocStub(0x30uLL);
+  OUTLINED_FUNCTION_71(v2);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A19XRecognitionSausageVSgMd, &_s16ModalityXObjects0A19XRecognitionSausageVSgMR);
+  OUTLINED_FUNCTION_122(v3);
+  v5 = __swift_coroFrameAllocStub(*(v4 + 64));
+  v6 = OUTLINED_FUNCTION_73(v5);
+  *(v1 + 16) = type metadata accessor for ModalityXRecognitionSausage(v6);
+  OUTLINED_FUNCTION_54();
+  v8 = *(v7 + 64);
+  *(v1 + 24) = __swift_coroFrameAllocStub(v8);
+  v9 = __swift_coroFrameAllocStub(v8);
+  v10 = OUTLINED_FUNCTION_267(v9);
+  v11 = *(type metadata accessor for ModalityXRecognitionResult(v10) + 36);
+  *(v1 + 40) = v11;
+  v12 = OUTLINED_FUNCTION_299(v11);
+  OUTLINED_FUNCTION_283(v12, v13);
+  OUTLINED_FUNCTION_29();
+  if (v14)
+  {
+    OUTLINED_FUNCTION_219_0(MEMORY[0x277D84F90]);
+    OUTLINED_FUNCTION_29();
+    if (!v14)
+    {
+      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v0, &_s16ModalityXObjects0A19XRecognitionSausageVSgMd, &_s16ModalityXObjects0A19XRecognitionSausageVSgMR);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_1_1();
+    OUTLINED_FUNCTION_136();
+    outlined init with take of ModalityXRecognitionSausage();
+  }
+
+  OUTLINED_FUNCTION_169();
+  OUTLINED_FUNCTION_311();
+}
+
+{
+  OUTLINED_FUNCTION_248();
+  v2 = v1;
+  v3 = v0;
+  v5 = *(*v4 + 10);
+  v6 = (*v4)[3];
+  v7 = (*v4)[4];
+  v8 = (*v4)[1];
+  v9 = (*v4)[2];
+  v10 = **v4;
+  if (v11)
+  {
+    OUTLINED_FUNCTION_142();
+    outlined init with copy of ModalityXRecognitionSausage();
+    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v10 + v5, v3, v2);
+    outlined init with take of ModalityXRecognitionSausage();
+    OUTLINED_FUNCTION_126();
+    __swift_storeEnumTagSinglePayload(v12, v13, v14, v9);
+    outlined destroy of ModalityXRecognitionSausage();
+  }
+
+  else
+  {
+    outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v10 + v5, v0, v1);
+    outlined init with take of ModalityXRecognitionSausage();
+    OUTLINED_FUNCTION_126();
+    __swift_storeEnumTagSinglePayload(v15, v16, v17, v9);
+  }
+
+  free(v7);
+  free(v6);
+  free(v8);
+  OUTLINED_FUNCTION_247();
+
+  free(v18);
+}
+
+uint64_t ModalityXRecognitionResult.hasPreItn.getter()
+{
+  v1 = OUTLINED_FUNCTION_163();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_122(v3);
+  OUTLINED_FUNCTION_133();
+  MEMORY[0x28223BE20](v4);
+  v5 = OUTLINED_FUNCTION_102();
+  v6 = type metadata accessor for ModalityXRecognitionResult(v5);
+  OUTLINED_FUNCTION_111_0(v0 + *(v6 + 36));
+  v7 = type metadata accessor for ModalityXRecognitionSausage(0);
+  OUTLINED_FUNCTION_8_0(v7);
+  return v0;
+}
+
+Swift::Void __swiftcall ModalityXRecognitionResult.clearPreItn()()
+{
+  v1 = type metadata accessor for ModalityXRecognitionResult(0);
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v0 + *(v1 + 36), &_s16ModalityXObjects0A19XRecognitionSausageVSgMd, &_s16ModalityXObjects0A19XRecognitionSausageVSgMR);
+  OUTLINED_FUNCTION_262_0();
+  OUTLINED_FUNCTION_167();
+
+  __swift_storeEnumTagSinglePayload(v2, v3, v4, v5);
+}
+
+uint64_t ModalityXRecognitionResult.postItn.getter()
+{
+  v1 = OUTLINED_FUNCTION_199_0();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_122(v3);
+  OUTLINED_FUNCTION_133();
+  MEMORY[0x28223BE20](v4);
+  v5 = OUTLINED_FUNCTION_102();
+  v6 = type metadata accessor for ModalityXRecognitionResult(v5);
+  v7 = OUTLINED_FUNCTION_299(*(v6 + 40));
+  outlined init with copy of ModalityXServerBoundFrame.OneOf_Payload?(v7, v8, &_s16ModalityXObjects0A19XRecognitionSausageVSgMd, &_s16ModalityXObjects0A19XRecognitionSausageVSgMR);
+  type metadata accessor for ModalityXRecognitionSausage(0);
+  OUTLINED_FUNCTION_38(v0);
+  if (v9)
+  {
+    OUTLINED_FUNCTION_217_0(MEMORY[0x277D84F90]);
+    result = OUTLINED_FUNCTION_38(v0);
+    if (!v9)
+    {
+      return outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v0, &_s16ModalityXObjects0A19XRecognitionSausageVSgMd, &_s16ModalityXObjects0A19XRecognitionSausageVSgMR);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_1_1();
+    OUTLINED_FUNCTION_155();
+    return outlined init with take of ModalityXRecognitionSausage();
+  }
+
+  return result;
+}
+
+uint64_t ModalityXRecognitionResult.postItn.setter()
+{
+  v1 = OUTLINED_FUNCTION_187();
+  v2 = type metadata accessor for ModalityXRecognitionResult(v1);
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v0 + *(v2 + 40), &_s16ModalityXObjects0A19XRecognitionSausageVSgMd, &_s16ModalityXObjects0A19XRecognitionSausageVSgMR);
+  OUTLINED_FUNCTION_1_1();
+  OUTLINED_FUNCTION_102_0();
+  outlined init with take of ModalityXRecognitionSausage();
+  OUTLINED_FUNCTION_262_0();
+  OUTLINED_FUNCTION_126();
+
+  return __swift_storeEnumTagSinglePayload(v3, v4, v5, v6);
+}
+
+void ModalityXRecognitionResult.postItn.modify()
+{
+  OUTLINED_FUNCTION_312();
+  v2 = __swift_coroFrameAllocStub(0x30uLL);
+  OUTLINED_FUNCTION_71(v2);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16ModalityXObjects0A19XRecognitionSausageVSgMd, &_s16ModalityXObjects0A19XRecognitionSausageVSgMR);
+  OUTLINED_FUNCTION_122(v3);
+  v5 = __swift_coroFrameAllocStub(*(v4 + 64));
+  v6 = OUTLINED_FUNCTION_73(v5);
+  *(v1 + 16) = type metadata accessor for ModalityXRecognitionSausage(v6);
+  OUTLINED_FUNCTION_54();
+  v8 = *(v7 + 64);
+  *(v1 + 24) = __swift_coroFrameAllocStub(v8);
+  v9 = __swift_coroFrameAllocStub(v8);
+  v10 = OUTLINED_FUNCTION_267(v9);
+  v11 = *(type metadata accessor for ModalityXRecognitionResult(v10) + 40);
+  *(v1 + 40) = v11;
+  v12 = OUTLINED_FUNCTION_299(v11);
+  OUTLINED_FUNCTION_283(v12, v13);
+  OUTLINED_FUNCTION_29();
+  if (v14)
+  {
+    OUTLINED_FUNCTION_219_0(MEMORY[0x277D84F90]);
+    OUTLINED_FUNCTION_29();
+    if (!v14)
+    {
+      outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v0, &_s16ModalityXObjects0A19XRecognitionSausageVSgMd, &_s16ModalityXObjects0A19XRecognitionSausageVSgMR);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_1_1();
+    OUTLINED_FUNCTION_136();
+    outlined init with take of ModalityXRecognitionSausage();
+  }
+
+  OUTLINED_FUNCTION_169();
+  OUTLINED_FUNCTION_311();
+}
+
+uint64_t ModalityXRecognitionResult.hasPostItn.getter()
+{
+  v1 = OUTLINED_FUNCTION_163();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_122(v3);
+  OUTLINED_FUNCTION_133();
+  MEMORY[0x28223BE20](v4);
+  v5 = OUTLINED_FUNCTION_102();
+  v6 = type metadata accessor for ModalityXRecognitionResult(v5);
+  OUTLINED_FUNCTION_111_0(v0 + *(v6 + 40));
+  v7 = type metadata accessor for ModalityXRecognitionSausage(0);
+  OUTLINED_FUNCTION_8_0(v7);
+  return v0;
+}
+
+Swift::Void __swiftcall ModalityXRecognitionResult.clearPostItn()()
+{
+  v1 = type metadata accessor for ModalityXRecognitionResult(0);
+  outlined destroy of ModalityXServerBoundFrame.OneOf_Payload?(v0 + *(v1 + 40), &_s16ModalityXObjects0A19XRecognitionSausageVSgMd, &_s16ModalityXObjects0A19XRecognitionSausageVSgMR);
+  OUTLINED_FUNCTION_262_0();
+  OUTLINED_FUNCTION_167();
+
+  __swift_storeEnumTagSinglePayload(v2, v3, v4, v5);
+}
+
+uint64_t ModalityXRecognitionResult.preItnTokenToPostItnCharAlignment.setter(uint64_t a1)
+{
+
+  *(v1 + 16) = a1;
+  return result;
+}
+
+uint64_t ModalityXRecognitionResult.choiceAlignments.setter(uint64_t a1)
+{
+
+  *(v1 + 24) = a1;
+  return result;
+}
+
+uint64_t ModalityXRecognitionResult.unknownFields.getter()
+{
+  v0 = OUTLINED_FUNCTION_242();
+  type metadata accessor for ModalityXRecognitionResult(v0);
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_54();
+  v1 = OUTLINED_FUNCTION_163_0();
+
+  return v2(v1);
+}
+
+uint64_t ModalityXRecognitionResult.unknownFields.setter()
+{
+  v0 = OUTLINED_FUNCTION_187();
+  type metadata accessor for ModalityXRecognitionResult(v0);
+  type metadata accessor for UnknownStorage();
+  OUTLINED_FUNCTION_54();
+  v1 = OUTLINED_FUNCTION_230_0();
+
+  return v2(v1);
+}
+
+uint64_t ModalityXRecognitionResult.unknownFields.modify()
+{
+  v0 = OUTLINED_FUNCTION_187();
+  type metadata accessor for ModalityXRecognitionResult(v0);
+  return OUTLINED_FUNCTION_355();
+}
+
+uint64_t ModalityXRecognitionResult.init()@<X0>(void *a1@<X8>)
+{
+  v2 = MEMORY[0x277D84F90];
+  *a1 = MEMORY[0x277D84F90];
+  a1[1] = v2;
+  a1[2] = v2;
+  a1[3] = v2;
+  type metadata accessor for ModalityXRecognitionResult(0);
+  UnknownStorage.init()();
+  v3 = type metadata accessor for ModalityXRecognitionSausage(0);
+  OUTLINED_FUNCTION_167();
+  __swift_storeEnumTagSinglePayload(v4, v5, v6, v3);
+  OUTLINED_FUNCTION_167();
+
+  return __swift_storeEnumTagSinglePayload(v7, v8, v9, v3);
+}
+
+uint64_t ModalityXLatnnMitigatorResult.processed.setter()
+{
+  v2 = OUTLINED_FUNCTION_187();
+  result = type metadata accessor for ModalityXLatnnMitigatorResult(v2);
+  *(v1 + *(result + 20)) = v0;
+  return result;
+}
+
+uint64_t (*ModalityXLatnnMitigatorResult.processed.modify(void *a1))()
+{
+  v1 = OUTLINED_FUNCTION_109(a1);
+  v2 = type metadata accessor for ModalityXLatnnMitigatorResult(v1);
+  OUTLINED_FUNCTION_117(*(v2 + 20));
+  return ModalityXCancelRequest.reason.modify;
 }

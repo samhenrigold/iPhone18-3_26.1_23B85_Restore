@@ -9,7 +9,7 @@
 
 + (void)fetchTagsForQueryingWithSubscribedTags:(id)tags mutedTagIDs:(id)ds purchasedTagIDs:(id)iDs bundleSubscriptionProvider:(id)provider configuration:(id)configuration contentContext:(id)context fallbackToPresubscribedTagIDs:(BOOL)tagIDs qualityOfService:(int64_t)self0 completionHandler:(id)self1
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   tagsCopy = tags;
   dsCopy = ds;
   iDsCopy = iDs;
@@ -19,15 +19,15 @@
   handlerCopy = handler;
   if (!tagsCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v33 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscribedTags"];
+    v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscribedTags"];
     *buf = 136315906;
-    v42 = "+[FCForYouQueryUtilities fetchTagsForQueryingWithSubscribedTags:mutedTagIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:contentContext:fallbackToPresubscribedTagIDs:qualityOfService:completionHandler:]";
-    v43 = 2080;
-    v44 = "FCForYouQueryUtilities.m";
-    v45 = 1024;
-    v46 = 92;
-    v47 = 2114;
-    v48 = v33;
+    v41 = "+[FCForYouQueryUtilities fetchTagsForQueryingWithSubscribedTags:mutedTagIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:contentContext:fallbackToPresubscribedTagIDs:qualityOfService:completionHandler:]";
+    v42 = 2080;
+    v43 = "FCForYouQueryUtilities.m";
+    v44 = 1024;
+    v45 = 92;
+    v46 = 2114;
+    v47 = v32;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (dsCopy)
@@ -43,30 +43,30 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v34 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "mutedTagIDs"];
+    v33 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "mutedTagIDs"];
     *buf = 136315906;
-    v42 = "+[FCForYouQueryUtilities fetchTagsForQueryingWithSubscribedTags:mutedTagIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:contentContext:fallbackToPresubscribedTagIDs:qualityOfService:completionHandler:]";
-    v43 = 2080;
-    v44 = "FCForYouQueryUtilities.m";
-    v45 = 1024;
-    v46 = 93;
-    v47 = 2114;
-    v48 = v34;
+    v41 = "+[FCForYouQueryUtilities fetchTagsForQueryingWithSubscribedTags:mutedTagIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:contentContext:fallbackToPresubscribedTagIDs:qualityOfService:completionHandler:]";
+    v42 = 2080;
+    v43 = "FCForYouQueryUtilities.m";
+    v44 = 1024;
+    v45 = 93;
+    v46 = 2114;
+    v47 = v33;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   if (!contextCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v35 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentContext"];
+    v34 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentContext"];
     *buf = 136315906;
-    v42 = "+[FCForYouQueryUtilities fetchTagsForQueryingWithSubscribedTags:mutedTagIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:contentContext:fallbackToPresubscribedTagIDs:qualityOfService:completionHandler:]";
-    v43 = 2080;
-    v44 = "FCForYouQueryUtilities.m";
-    v45 = 1024;
-    v46 = 94;
-    v47 = 2114;
-    v48 = v35;
+    v41 = "+[FCForYouQueryUtilities fetchTagsForQueryingWithSubscribedTags:mutedTagIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:contentContext:fallbackToPresubscribedTagIDs:qualityOfService:completionHandler:]";
+    v42 = 2080;
+    v43 = "FCForYouQueryUtilities.m";
+    v44 = 1024;
+    v45 = 94;
+    v46 = 2114;
+    v47 = v34;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (handlerCopy)
@@ -82,15 +82,15 @@ LABEL_6:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v36 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "completionHandler"];
+    v35 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "completionHandler"];
     *buf = 136315906;
-    v42 = "+[FCForYouQueryUtilities fetchTagsForQueryingWithSubscribedTags:mutedTagIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:contentContext:fallbackToPresubscribedTagIDs:qualityOfService:completionHandler:]";
-    v43 = 2080;
-    v44 = "FCForYouQueryUtilities.m";
-    v45 = 1024;
-    v46 = 95;
-    v47 = 2114;
-    v48 = v36;
+    v41 = "+[FCForYouQueryUtilities fetchTagsForQueryingWithSubscribedTags:mutedTagIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:contentContext:fallbackToPresubscribedTagIDs:qualityOfService:completionHandler:]";
+    v42 = 2080;
+    v43 = "FCForYouQueryUtilities.m";
+    v44 = 1024;
+    v45 = 95;
+    v46 = 2114;
+    v47 = v35;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -113,14 +113,14 @@ LABEL_11:
       v29 = configurationCopy;
       v30 = providerCopy;
       v31 = tagController;
-      v37[0] = MEMORY[0x1E69E9820];
-      v37[1] = 3221225472;
-      v37[2] = __214__FCForYouQueryUtilities_fetchTagsForQueryingWithSubscribedTags_mutedTagIDs_purchasedTagIDs_bundleSubscriptionProvider_configuration_contentContext_fallbackToPresubscribedTagIDs_qualityOfService_completionHandler___block_invoke;
-      v37[3] = &unk_1E7C39DD8;
-      v40 = selfCopy;
-      v38 = dsCopy;
-      v39 = handlerCopy;
-      [v31 fetchTagsForTagIDs:presubscribedFeedIDs qualityOfService:service callbackQueue:v25 completionHandler:v37];
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = __214__FCForYouQueryUtilities_fetchTagsForQueryingWithSubscribedTags_mutedTagIDs_purchasedTagIDs_bundleSubscriptionProvider_configuration_contentContext_fallbackToPresubscribedTagIDs_qualityOfService_completionHandler___block_invoke;
+      v36[3] = &unk_1E7C39DD8;
+      v39 = selfCopy;
+      v37 = dsCopy;
+      v38 = handlerCopy;
+      [v31 fetchTagsForTagIDs:presubscribedFeedIDs qualityOfService:service callbackQueue:v25 completionHandler:v36];
 
       providerCopy = v30;
       configurationCopy = v29;
@@ -132,8 +132,6 @@ LABEL_11:
       handlerCopy[2](handlerCopy, MEMORY[0x1E695E0F0], 0);
     }
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 void __214__FCForYouQueryUtilities_fetchTagsForQueryingWithSubscribedTags_mutedTagIDs_purchasedTagIDs_bundleSubscriptionProvider_configuration_contentContext_fallbackToPresubscribedTagIDs_qualityOfService_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -146,7 +144,7 @@ void __214__FCForYouQueryUtilities_fetchTagsForQueryingWithSubscribedTags_mutedT
 
 + (void)fetchTagsForQueryingWithSubscribedTagIDs:(id)ds mutedTagIDs:(id)iDs purchasedTagIDs:(id)tagIDs bundleSubscriptionProvider:(id)provider configuration:(id)configuration contentContext:(id)context fallbackToPresubscribedTagIDs:(BOOL)presubscribedTagIDs qualityOfService:(int64_t)self0 completionHandler:(id)self1
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   iDsCopy = iDs;
   tagIDsCopy = tagIDs;
@@ -156,15 +154,15 @@ void __214__FCForYouQueryUtilities_fetchTagsForQueryingWithSubscribedTags_mutedT
   handlerCopy = handler;
   if (!dsCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscribedTagIDs"];
+    v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscribedTagIDs"];
     *buf = 136315906;
-    v50 = "+[FCForYouQueryUtilities fetchTagsForQueryingWithSubscribedTagIDs:mutedTagIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:contentContext:fallbackToPresubscribedTagIDs:qualityOfService:completionHandler:]";
-    v51 = 2080;
-    v52 = "FCForYouQueryUtilities.m";
-    v53 = 1024;
-    v54 = 135;
-    v55 = 2114;
-    v56 = v30;
+    v49 = "+[FCForYouQueryUtilities fetchTagsForQueryingWithSubscribedTagIDs:mutedTagIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:contentContext:fallbackToPresubscribedTagIDs:qualityOfService:completionHandler:]";
+    v50 = 2080;
+    v51 = "FCForYouQueryUtilities.m";
+    v52 = 1024;
+    v53 = 135;
+    v54 = 2114;
+    v55 = v29;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (iDsCopy)
@@ -180,84 +178,81 @@ void __214__FCForYouQueryUtilities_fetchTagsForQueryingWithSubscribedTags_mutedT
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v31 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "mutedTagIDs"];
+    v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "mutedTagIDs"];
     *buf = 136315906;
-    v50 = "+[FCForYouQueryUtilities fetchTagsForQueryingWithSubscribedTagIDs:mutedTagIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:contentContext:fallbackToPresubscribedTagIDs:qualityOfService:completionHandler:]";
-    v51 = 2080;
-    v52 = "FCForYouQueryUtilities.m";
-    v53 = 1024;
-    v54 = 136;
-    v55 = 2114;
-    v56 = v31;
+    v49 = "+[FCForYouQueryUtilities fetchTagsForQueryingWithSubscribedTagIDs:mutedTagIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:contentContext:fallbackToPresubscribedTagIDs:qualityOfService:completionHandler:]";
+    v50 = 2080;
+    v51 = "FCForYouQueryUtilities.m";
+    v52 = 1024;
+    v53 = 136;
+    v54 = 2114;
+    v55 = v30;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   if (!contextCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentContext"];
+    v31 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentContext"];
     *buf = 136315906;
-    v50 = "+[FCForYouQueryUtilities fetchTagsForQueryingWithSubscribedTagIDs:mutedTagIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:contentContext:fallbackToPresubscribedTagIDs:qualityOfService:completionHandler:]";
-    v51 = 2080;
-    v52 = "FCForYouQueryUtilities.m";
-    v53 = 1024;
-    v54 = 137;
-    v55 = 2114;
-    v56 = v32;
+    v49 = "+[FCForYouQueryUtilities fetchTagsForQueryingWithSubscribedTagIDs:mutedTagIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:contentContext:fallbackToPresubscribedTagIDs:qualityOfService:completionHandler:]";
+    v50 = 2080;
+    v51 = "FCForYouQueryUtilities.m";
+    v52 = 1024;
+    v53 = 137;
+    v54 = 2114;
+    v55 = v31;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   v20 = handlerCopy;
   if (!handlerCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v33 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "completionHandler"];
+    v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "completionHandler"];
     *buf = 136315906;
-    v50 = "+[FCForYouQueryUtilities fetchTagsForQueryingWithSubscribedTagIDs:mutedTagIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:contentContext:fallbackToPresubscribedTagIDs:qualityOfService:completionHandler:]";
-    v51 = 2080;
-    v52 = "FCForYouQueryUtilities.m";
-    v53 = 1024;
-    v54 = 138;
-    v55 = 2114;
-    v56 = v33;
+    v49 = "+[FCForYouQueryUtilities fetchTagsForQueryingWithSubscribedTagIDs:mutedTagIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:contentContext:fallbackToPresubscribedTagIDs:qualityOfService:completionHandler:]";
+    v50 = 2080;
+    v51 = "FCForYouQueryUtilities.m";
+    v52 = 1024;
+    v53 = 138;
+    v54 = 2114;
+    v55 = v32;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   v21 = FCDispatchQueueForQualityOfService(service);
   tagController = [contextCopy tagController];
   allObjects = [dsCopy allObjects];
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __216__FCForYouQueryUtilities_fetchTagsForQueryingWithSubscribedTagIDs_mutedTagIDs_purchasedTagIDs_bundleSubscriptionProvider_configuration_contentContext_fallbackToPresubscribedTagIDs_qualityOfService_completionHandler___block_invoke;
-  v39[3] = &unk_1E7C39E00;
-  v40 = iDsCopy;
-  v41 = tagIDsCopy;
-  v42 = providerCopy;
-  v43 = configurationCopy;
-  v44 = contextCopy;
-  v45 = v20;
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __216__FCForYouQueryUtilities_fetchTagsForQueryingWithSubscribedTagIDs_mutedTagIDs_purchasedTagIDs_bundleSubscriptionProvider_configuration_contentContext_fallbackToPresubscribedTagIDs_qualityOfService_completionHandler___block_invoke;
+  v38[3] = &unk_1E7C39E00;
+  v39 = iDsCopy;
+  v40 = tagIDsCopy;
+  v41 = providerCopy;
+  v42 = configurationCopy;
+  v43 = contextCopy;
+  v44 = v20;
   selfCopy = self;
   presubscribedTagIDsCopy = presubscribedTagIDs;
   serviceCopy = service;
-  v38 = contextCopy;
+  v37 = contextCopy;
   v24 = configurationCopy;
   v25 = providerCopy;
   v26 = tagIDsCopy;
   v27 = iDsCopy;
   v28 = v20;
-  [tagController fetchTagsForTagIDs:allObjects qualityOfService:service callbackQueue:v21 completionHandler:v39];
-
-  v29 = *MEMORY[0x1E69E9840];
+  [tagController fetchTagsForTagIDs:allObjects qualityOfService:service callbackQueue:v21 completionHandler:v38];
 }
 
 void __216__FCForYouQueryUtilities_fetchTagsForQueryingWithSubscribedTagIDs_mutedTagIDs_purchasedTagIDs_bundleSubscriptionProvider_configuration_contentContext_fallbackToPresubscribedTagIDs_qualityOfService_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v8 = a3;
+  v7 = a3;
   v5 = [a2 allValues];
   if (v5)
   {
-    v6 = *(a1 + 88);
-    LOBYTE(v7) = *(a1 + 96);
-    [*(a1 + 80) fetchTagsForQueryingWithSubscribedTags:v5 mutedTagIDs:*(a1 + 32) purchasedTagIDs:*(a1 + 40) bundleSubscriptionProvider:*(a1 + 48) configuration:*(a1 + 56) contentContext:*(a1 + 64) fallbackToPresubscribedTagIDs:v7 qualityOfService:v6 completionHandler:*(a1 + 72)];
+    LOBYTE(v6) = *(a1 + 96);
+    [*(a1 + 80) fetchTagsForQueryingWithSubscribedTags:v5 mutedTagIDs:*(a1 + 32) purchasedTagIDs:*(a1 + 40) bundleSubscriptionProvider:*(a1 + 48) configuration:*(a1 + 56) contentContext:*(a1 + 64) fallbackToPresubscribedTagIDs:v6 qualityOfService:*(a1 + 88) completionHandler:*(a1 + 72)];
   }
 
   else
@@ -268,7 +263,7 @@ void __216__FCForYouQueryUtilities_fetchTagsForQueryingWithSubscribedTagIDs_mute
 
 + (id)feedRequestsForTags:(id)tags tagBinProvider:(id)provider hiddenFeedIDs:(id)ds purchasedTagIDs:(id)iDs bundleSubscriptionProvider:(id)subscriptionProvider configuration:(id)configuration maxCount:(unint64_t)count feedRange:(id)self0 sidecar:(id)self1 options:(unint64_t)self2
 {
-  v194 = *MEMORY[0x1E69E9840];
+  v193 = *MEMORY[0x1E69E9840];
   tagsCopy = tags;
   providerCopy = provider;
   dsCopy = ds;
@@ -279,15 +274,15 @@ void __216__FCForYouQueryUtilities_fetchTagsForQueryingWithSubscribedTagIDs_mute
   sidecarCopy = sidecar;
   if (!tagsCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v107 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "tags"];
+    v106 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "tags"];
     *buf = 136315906;
-    v187 = "+[FCForYouQueryUtilities feedRequestsForTags:tagBinProvider:hiddenFeedIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:maxCount:feedRange:sidecar:options:]";
-    v188 = 2080;
-    v189 = "FCForYouQueryUtilities.m";
-    v190 = 1024;
-    v191 = 213;
-    v192 = 2114;
-    v193 = v107;
+    v186 = "+[FCForYouQueryUtilities feedRequestsForTags:tagBinProvider:hiddenFeedIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:maxCount:feedRange:sidecar:options:]";
+    v187 = 2080;
+    v188 = "FCForYouQueryUtilities.m";
+    v189 = 1024;
+    v190 = 213;
+    v191 = 2114;
+    v192 = v106;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (providerCopy)
@@ -303,44 +298,44 @@ void __216__FCForYouQueryUtilities_fetchTagsForQueryingWithSubscribedTagIDs_mute
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v108 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "tagBinProvider"];
+    v107 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "tagBinProvider"];
     *buf = 136315906;
-    v187 = "+[FCForYouQueryUtilities feedRequestsForTags:tagBinProvider:hiddenFeedIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:maxCount:feedRange:sidecar:options:]";
-    v188 = 2080;
-    v189 = "FCForYouQueryUtilities.m";
-    v190 = 1024;
-    v191 = 214;
-    v192 = 2114;
-    v193 = v108;
+    v186 = "+[FCForYouQueryUtilities feedRequestsForTags:tagBinProvider:hiddenFeedIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:maxCount:feedRange:sidecar:options:]";
+    v187 = 2080;
+    v188 = "FCForYouQueryUtilities.m";
+    v189 = 1024;
+    v190 = 214;
+    v191 = 2114;
+    v192 = v107;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   if (!configurationCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v109 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "configuration"];
+    v108 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "configuration"];
     *buf = 136315906;
-    v187 = "+[FCForYouQueryUtilities feedRequestsForTags:tagBinProvider:hiddenFeedIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:maxCount:feedRange:sidecar:options:]";
-    v188 = 2080;
-    v189 = "FCForYouQueryUtilities.m";
-    v190 = 1024;
-    v191 = 215;
-    v192 = 2114;
-    v193 = v109;
+    v186 = "+[FCForYouQueryUtilities feedRequestsForTags:tagBinProvider:hiddenFeedIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:maxCount:feedRange:sidecar:options:]";
+    v187 = 2080;
+    v188 = "FCForYouQueryUtilities.m";
+    v189 = 1024;
+    v190 = 215;
+    v191 = 2114;
+    v192 = v108;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   if (!rangeCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v110 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "feedRange"];
+    v109 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "feedRange"];
     *buf = 136315906;
-    v187 = "+[FCForYouQueryUtilities feedRequestsForTags:tagBinProvider:hiddenFeedIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:maxCount:feedRange:sidecar:options:]";
-    v188 = 2080;
-    v189 = "FCForYouQueryUtilities.m";
-    v190 = 1024;
-    v191 = 216;
-    v192 = 2114;
-    v193 = v110;
+    v186 = "+[FCForYouQueryUtilities feedRequestsForTags:tagBinProvider:hiddenFeedIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:maxCount:feedRange:sidecar:options:]";
+    v187 = 2080;
+    v188 = "FCForYouQueryUtilities.m";
+    v189 = 1024;
+    v190 = 216;
+    v191 = 2114;
+    v192 = v109;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -360,45 +355,45 @@ LABEL_6:
   aBlock[1] = 3221225472;
   aBlock[2] = __167__FCForYouQueryUtilities_feedRequestsForTags_tagBinProvider_hiddenFeedIDs_purchasedTagIDs_bundleSubscriptionProvider_configuration_maxCount_feedRange_sidecar_options___block_invoke;
   aBlock[3] = &unk_1E7C39E28;
-  v120 = subscriptionProviderCopy;
-  v176 = v120;
-  v118 = iDsCopy;
-  v177 = v118;
-  v113 = configurationCopy;
-  v178 = v113;
-  v129 = _Block_copy(aBlock);
+  v119 = subscriptionProviderCopy;
+  v175 = v119;
+  v117 = iDsCopy;
+  v176 = v117;
+  v112 = configurationCopy;
+  v177 = v112;
+  v128 = _Block_copy(aBlock);
+  v170 = 0u;
   v171 = 0u;
   v172 = 0u;
   v173 = 0u;
-  v174 = 0u;
   obj = tagsCopy;
-  v23 = [obj countByEnumeratingWithState:&v171 objects:v185 count:16];
-  v124 = providerCopy;
+  v23 = [obj countByEnumeratingWithState:&v170 objects:v184 count:16];
+  v123 = providerCopy;
   if (v23)
   {
     v24 = v23;
-    v25 = *v172;
-    v115 = *v172;
+    v25 = *v171;
+    v114 = *v171;
     do
     {
       v26 = 0;
-      v121 = v24;
+      v120 = v24;
       do
       {
-        if (*v172 != v25)
+        if (*v171 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v27 = *(*(&v171 + 1) + 8 * v26);
-        v137 = (*(providerCopy + 2))(providerCopy, v27);
+        v27 = *(*(&v170 + 1) + 8 * v26);
+        v136 = (*(providerCopy + 2))(providerCopy, v27);
         tagType = [v27 tagType];
         if (tagType == 1)
         {
           [FCFeedContext feedContextForTag:v27];
           v36 = v35 = v26;
           v37 = objc_alloc_init(FCFeedRequest);
-          v38 = [v27 freeFeedIDForBin:v137];
+          v38 = [v27 freeFeedIDForBin:v136];
           [(FCFeedRequest *)v37 setFeedID:v38];
           [(FCFeedRequest *)v37 setFeedRange:rangeCopy];
           [(FCFeedRequest *)v37 setMaxCount:count];
@@ -410,25 +405,25 @@ LABEL_6:
 
         else if (tagType == 2)
         {
-          v123 = v26;
+          v122 = v26;
           asChannel = [v27 asChannel];
           identifier = [v27 identifier];
-          v134 = [channelID isEqualToString:identifier];
-          v126 = [editorialChannelID isEqualToString:identifier];
-          v31 = [v118 containsObject:identifier];
-          HasBundleSubscriptionToChannelInline = FCPaidAccessCheckerHasBundleSubscriptionToChannelInline(v120, identifier, 7);
-          v162 = MEMORY[0x1E69E9820];
-          v163 = 3221225472;
-          v164 = __167__FCForYouQueryUtilities_feedRequestsForTags_tagBinProvider_hiddenFeedIDs_purchasedTagIDs_bundleSubscriptionProvider_configuration_maxCount_feedRange_sidecar_options___block_invoke_2;
-          v165 = &unk_1E7C39E50;
+          v133 = [channelID isEqualToString:identifier];
+          v125 = [editorialChannelID isEqualToString:identifier];
+          v31 = [v117 containsObject:identifier];
+          HasBundleSubscriptionToChannelInline = FCPaidAccessCheckerHasBundleSubscriptionToChannelInline(v119, identifier, 7);
+          v161 = MEMORY[0x1E69E9820];
+          v162 = 3221225472;
+          v163 = __167__FCForYouQueryUtilities_feedRequestsForTags_tagBinProvider_hiddenFeedIDs_purchasedTagIDs_bundleSubscriptionProvider_configuration_maxCount_feedRange_sidecar_options___block_invoke_2;
+          v164 = &unk_1E7C39E50;
           optionsCopy = options;
-          v169 = v31;
-          v170 = HasBundleSubscriptionToChannelInline;
-          v130 = identifier;
-          v166 = v130;
+          v168 = v31;
+          v169 = HasBundleSubscriptionToChannelInline;
+          v129 = identifier;
+          v165 = v129;
           v33 = editorialChannelID;
-          v167 = v33;
-          if ((options & 4) != 0 || (options & 2) == 0 && (((v31 | HasBundleSubscriptionToChannelInline) & 1) != 0 || [v130 isEqualToString:v33]))
+          v166 = v33;
+          if ((options & 4) != 0 || (options & 2) == 0 && (((v31 | HasBundleSubscriptionToChannelInline) & 1) != 0 || [v129 isEqualToString:v33]))
           {
             sectionIDs = [asChannel sectionIDs];
           }
@@ -440,31 +435,31 @@ LABEL_6:
             if (sectionIDs)
             {
               defaultSectionID = [asChannel defaultSectionID];
-              v184 = defaultSectionID;
-              sectionIDs = [MEMORY[0x1E695DEC8] arrayWithObjects:&v184 count:1];
+              v183 = defaultSectionID;
+              sectionIDs = [MEMORY[0x1E695DEC8] arrayWithObjects:&v183 count:1];
             }
           }
 
-          v160 = 0u;
-          v161 = 0u;
-          v158 = 0u;
           v159 = 0u;
-          v127 = sectionIDs;
-          v41 = [v127 countByEnumeratingWithState:&v158 objects:v183 count:16];
+          v160 = 0u;
+          v157 = 0u;
+          v158 = 0u;
+          v126 = sectionIDs;
+          v41 = [v126 countByEnumeratingWithState:&v157 objects:v182 count:16];
           if (v41)
           {
             v42 = v41;
-            v43 = *v159;
+            v43 = *v158;
             do
             {
               for (i = 0; i != v42; ++i)
               {
-                if (*v159 != v43)
+                if (*v158 != v43)
                 {
-                  objc_enumerationMutation(v127);
+                  objc_enumerationMutation(v126);
                 }
 
-                v45 = *(*(&v158 + 1) + 8 * i);
+                v45 = *(*(&v157 + 1) + 8 * i);
                 defaultSectionID2 = [asChannel defaultSectionID];
                 v47 = [v45 isEqualToString:defaultSectionID2];
 
@@ -475,12 +470,12 @@ LABEL_6:
                 }
 
                 v49 = v48;
-                if (v134)
+                if (v133)
                 {
                   v50 = [FCFeedContext feedContextForTopStoriesChannel:asChannel sectionID:v45];
                 }
 
-                else if (v126)
+                else if (v125)
                 {
                   if ([v45 isEqualToString:editorialGemsSectionID])
                   {
@@ -500,7 +495,7 @@ LABEL_6:
                 }
 
                 v51 = v50;
-                v52 = [asChannel freeFeedIDForSection:v45 bin:v137];
+                v52 = [asChannel freeFeedIDForSection:v45 bin:v136];
                 if (v52)
                 {
                   v53 = objc_alloc_init(FCFeedRequest);
@@ -512,9 +507,9 @@ LABEL_6:
 
                   [v49 addObject:v53];
                   [dictionary setObject:v51 forKey:v52];
-                  if (v129[2](v129, v130))
+                  if (v128[2](v128, v129))
                   {
-                    v55 = [asChannel paidFeedIDForSection:v45 bin:v137];
+                    v55 = [asChannel paidFeedIDForSection:v45 bin:v136];
                     v56 = v55;
                     if (v55 && ([v55 isEqualToString:v52] & 1) == 0)
                     {
@@ -527,29 +522,29 @@ LABEL_6:
                 }
               }
 
-              v42 = [v127 countByEnumeratingWithState:&v158 objects:v183 count:16];
+              v42 = [v126 countByEnumeratingWithState:&v157 objects:v182 count:16];
             }
 
             while (v42);
           }
 
-          v26 = v123;
-          providerCopy = v124;
-          v24 = v121;
-          v25 = v115;
+          v26 = v122;
+          providerCopy = v123;
+          v24 = v120;
+          v25 = v114;
         }
 
         else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           v39 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"only expected to build a For You query from channels and topics"];
           *buf = 136315906;
-          v187 = "+[FCForYouQueryUtilities feedRequestsForTags:tagBinProvider:hiddenFeedIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:maxCount:feedRange:sidecar:options:]";
-          v188 = 2080;
-          v189 = "FCForYouQueryUtilities.m";
-          v190 = 1024;
-          v191 = 370;
-          v192 = 2114;
-          v193 = v39;
+          v186 = "+[FCForYouQueryUtilities feedRequestsForTags:tagBinProvider:hiddenFeedIDs:purchasedTagIDs:bundleSubscriptionProvider:configuration:maxCount:feedRange:sidecar:options:]";
+          v187 = 2080;
+          v188 = "FCForYouQueryUtilities.m";
+          v189 = 1024;
+          v190 = 370;
+          v191 = 2114;
+          v192 = v39;
           _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
         }
 
@@ -557,32 +552,32 @@ LABEL_6:
       }
 
       while (v26 != v24);
-      v24 = [obj countByEnumeratingWithState:&v171 objects:v185 count:16];
+      v24 = [obj countByEnumeratingWithState:&v170 objects:v184 count:16];
     }
 
     while (v24);
   }
 
-  v156 = 0u;
-  v157 = 0u;
-  v154 = 0u;
   v155 = 0u;
+  v156 = 0u;
+  v153 = 0u;
+  v154 = 0u;
   v58 = dsCopy;
-  v59 = [v58 countByEnumeratingWithState:&v154 objects:v182 count:16];
+  v59 = [v58 countByEnumeratingWithState:&v153 objects:v181 count:16];
   if (v59)
   {
     v60 = v59;
-    v61 = *v155;
+    v61 = *v154;
     do
     {
       for (j = 0; j != v60; ++j)
       {
-        if (*v155 != v61)
+        if (*v154 != v61)
         {
           objc_enumerationMutation(v58);
         }
 
-        v63 = *(*(&v154 + 1) + 8 * j);
+        v63 = *(*(&v153 + 1) + 8 * j);
         v64 = objc_alloc_init(FCFeedRequest);
         [(FCFeedRequest *)v64 setFeedID:v63];
         [(FCFeedRequest *)v64 setFeedRange:rangeCopy];
@@ -592,7 +587,7 @@ LABEL_6:
         [dictionary setObject:v65 forKeyedSubscript:v63];
       }
 
-      v60 = [v58 countByEnumeratingWithState:&v154 objects:v182 count:16];
+      v60 = [v58 countByEnumeratingWithState:&v153 objects:v181 count:16];
     }
 
     while (v60);
@@ -600,14 +595,14 @@ LABEL_6:
 
   if ((options & 1) == 0)
   {
-    bundleSubscription = [v120 bundleSubscription];
+    bundleSubscription = [v119 bundleSubscription];
     v67 = objc_getAssociatedObject(bundleSubscription, (bundleSubscription + 1));
     unsignedIntegerValue = [v67 unsignedIntegerValue];
     v69 = unsignedIntegerValue;
     v70 = objc_getAssociatedObject(bundleSubscription, ~unsignedIntegerValue);
     v71 = [v70 unsignedIntegerValue] ^ v69;
 
-    paidBundleConfig = [v113 paidBundleConfig];
+    paidBundleConfig = [v112 paidBundleConfig];
     v73 = paidBundleConfig;
     if (v71)
     {
@@ -622,7 +617,7 @@ LABEL_6:
 
     if (v74)
     {
-      paidBundleConfig2 = [v113 paidBundleConfig];
+      paidBundleConfig2 = [v112 paidBundleConfig];
       areMagazinesEnabled = [paidBundleConfig2 areMagazinesEnabled];
 
       if (areMagazinesEnabled)
@@ -638,46 +633,46 @@ LABEL_6:
     }
   }
 
-  v128 = v58;
-  v152 = 0u;
-  v153 = 0u;
-  v150 = 0u;
+  v127 = v58;
   v151 = 0u;
+  v152 = 0u;
+  v149 = 0u;
+  v150 = 0u;
   additionalChannelsToQuery = [sidecarCopy additionalChannelsToQuery];
-  v138 = [additionalChannelsToQuery countByEnumeratingWithState:&v150 objects:v181 count:16];
-  if (v138)
+  v137 = [additionalChannelsToQuery countByEnumeratingWithState:&v149 objects:v180 count:16];
+  if (v137)
   {
-    v135 = *v151;
+    v134 = *v150;
     do
     {
-      for (k = 0; k != v138; ++k)
+      for (k = 0; k != v137; ++k)
       {
-        if (*v151 != v135)
+        if (*v150 != v134)
         {
           objc_enumerationMutation(additionalChannelsToQuery);
         }
 
-        v80 = *(*(&v150 + 1) + 8 * k);
+        v80 = *(*(&v149 + 1) + 8 * k);
+        v145 = 0u;
         v146 = 0u;
         v147 = 0u;
         v148 = 0u;
-        v149 = 0u;
         v81 = [sidecarCopy additionalSectionIDsToQueryForChannel:v80];
-        v82 = [v81 countByEnumeratingWithState:&v146 objects:v180 count:16];
+        v82 = [v81 countByEnumeratingWithState:&v145 objects:v179 count:16];
         if (v82)
         {
           v83 = v82;
-          v84 = *v147;
+          v84 = *v146;
           do
           {
             for (m = 0; m != v83; ++m)
             {
-              if (*v147 != v84)
+              if (*v146 != v84)
               {
                 objc_enumerationMutation(v81);
               }
 
-              v86 = *(*(&v146 + 1) + 8 * m);
+              v86 = *(*(&v145 + 1) + 8 * m);
               v87 = [FCFeedContext feedContextForChannel:v80 sectionID:v86];
               v88 = [v80 freeFeedIDForSection:v86 bin:3];
               if (v88)
@@ -717,41 +712,41 @@ LABEL_6:
               }
             }
 
-            v83 = [v81 countByEnumeratingWithState:&v146 objects:v180 count:16];
+            v83 = [v81 countByEnumeratingWithState:&v145 objects:v179 count:16];
           }
 
           while (v83);
         }
       }
 
-      v138 = [additionalChannelsToQuery countByEnumeratingWithState:&v150 objects:v181 count:16];
+      v137 = [additionalChannelsToQuery countByEnumeratingWithState:&v149 objects:v180 count:16];
     }
 
-    while (v138);
+    while (v137);
   }
 
-  v144 = 0u;
-  v145 = 0u;
-  v142 = 0u;
   v143 = 0u;
+  v144 = 0u;
+  v141 = 0u;
+  v142 = 0u;
   additionalTopicsToQuery = [sidecarCopy additionalTopicsToQuery];
-  v95 = [additionalTopicsToQuery countByEnumeratingWithState:&v142 objects:v179 count:16];
+  v95 = [additionalTopicsToQuery countByEnumeratingWithState:&v141 objects:v178 count:16];
   if (v95)
   {
     v96 = v95;
-    v97 = *v143;
+    v97 = *v142;
     do
     {
       for (n = 0; n != v96; ++n)
       {
-        if (*v143 != v97)
+        if (*v142 != v97)
         {
           objc_enumerationMutation(additionalTopicsToQuery);
         }
 
-        v99 = *(*(&v142 + 1) + 8 * n);
+        v99 = *(*(&v141 + 1) + 8 * n);
         v100 = [FCFeedContext feedContextForTag:v99];
-        v101 = [v99 freeFeedIDForBin:{(v124)[2](v124, v99)}];
+        v101 = [v99 freeFeedIDForBin:{(v123)[2](v123, v99)}];
         if (v101)
         {
           v102 = [dictionary objectForKey:v101];
@@ -768,14 +763,13 @@ LABEL_6:
         }
       }
 
-      v96 = [additionalTopicsToQuery countByEnumeratingWithState:&v142 objects:v179 count:16];
+      v96 = [additionalTopicsToQuery countByEnumeratingWithState:&v141 objects:v178 count:16];
     }
 
     while (v96);
   }
 
   v104 = [[FCForYouQueryResult alloc] initWithChannelDefaultSectionRequests:array channelOtherSectionsRequests:array2 topicRequests:array3 paidBundleRequests:array4 hiddenFeedRequests:array5 sidecarRequests:array6 feedContextByFeedID:dictionary];
-  v105 = *MEMORY[0x1E69E9840];
 
   return v104;
 }
@@ -841,20 +835,20 @@ uint64_t __167__FCForYouQueryUtilities_feedRequestsForTags_tagBinProvider_hidden
 
 + (id)_filterTagsForQuerying:(id)querying withMutedTagIDs:(id)ds
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   queryingCopy = querying;
   dsCopy = ds;
   if (!queryingCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "tags"];
+    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "tags"];
     *buf = 136315906;
-    v19 = "+[FCForYouQueryUtilities _filterTagsForQuerying:withMutedTagIDs:]";
-    v20 = 2080;
-    v21 = "FCForYouQueryUtilities.m";
-    v22 = 1024;
-    v23 = 471;
-    v24 = 2114;
-    v25 = v14;
+    v18 = "+[FCForYouQueryUtilities _filterTagsForQuerying:withMutedTagIDs:]";
+    v19 = 2080;
+    v20 = "FCForYouQueryUtilities.m";
+    v21 = 1024;
+    v22 = 471;
+    v23 = 2114;
+    v24 = v13;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (dsCopy)
@@ -870,26 +864,26 @@ uint64_t __167__FCForYouQueryUtilities_feedRequestsForTags_tagBinProvider_hidden
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "mutedTagIDs"];
+    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "mutedTagIDs"];
     *buf = 136315906;
-    v19 = "+[FCForYouQueryUtilities _filterTagsForQuerying:withMutedTagIDs:]";
-    v20 = 2080;
-    v21 = "FCForYouQueryUtilities.m";
-    v22 = 1024;
-    v23 = 472;
-    v24 = 2114;
-    v25 = v15;
+    v18 = "+[FCForYouQueryUtilities _filterTagsForQuerying:withMutedTagIDs:]";
+    v19 = 2080;
+    v20 = "FCForYouQueryUtilities.m";
+    v21 = 1024;
+    v22 = 472;
+    v23 = 2114;
+    v24 = v14;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __65__FCForYouQueryUtilities__filterTagsForQuerying_withMutedTagIDs___block_invoke;
-  v16[3] = &unk_1E7C39E78;
-  v17 = dsCopy;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __65__FCForYouQueryUtilities__filterTagsForQuerying_withMutedTagIDs___block_invoke;
+  v15[3] = &unk_1E7C39E78;
+  v16 = dsCopy;
   v7 = dsCopy;
-  v8 = [queryingCopy fc_arrayOfObjectsPassingTest:v16];
+  v8 = [queryingCopy fc_arrayOfObjectsPassingTest:v15];
   v9 = v8;
   if (v8)
   {
@@ -903,7 +897,6 @@ LABEL_6:
 
   v11 = v10;
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

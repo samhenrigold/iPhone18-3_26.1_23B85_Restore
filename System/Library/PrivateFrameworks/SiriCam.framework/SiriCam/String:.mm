@@ -58,10 +58,10 @@
   if (!lazy cache variable for type metadata for [String : Any]?)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDySSypGMd, &_sSDySSypGMR);
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [String : Any]?);
+      atomic_store(v1, &lazy cache variable for type metadata for [String : Any]?);
     }
   }
 }
@@ -71,10 +71,10 @@
   if (!lazy cache variable for type metadata for [String : MLFeatureValue])
   {
     type metadata accessor for MLFeatureValue();
-    v0 = type metadata accessor for Dictionary();
-    if (!v1)
+    v1 = type metadata accessor for Dictionary();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [String : MLFeatureValue]);
+      atomic_store(v1, &lazy cache variable for type metadata for [String : MLFeatureValue]);
     }
   }
 }

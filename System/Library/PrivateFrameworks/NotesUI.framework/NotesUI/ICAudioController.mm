@@ -214,7 +214,7 @@ void __42__ICAudioController_sharedAudioController__block_invoke()
   v4 = currentAsset;
   if (currentAsset)
   {
-    [currentAsset duration];
+    objc_msgSend_duration(currentAsset);
   }
 
   else
@@ -228,7 +228,7 @@ void __42__ICAudioController_sharedAudioController__block_invoke()
   v7 = currentPlayer;
   if (currentPlayer)
   {
-    [currentPlayer currentTime];
+    objc_msgSend_currentTime(currentPlayer);
   }
 
   else
@@ -560,7 +560,7 @@ void __56__ICAudioController_prepareToPlayAttachment_completion___block_invoke_2
   v6 = v5;
   if (v5)
   {
-    [v5 duration];
+    objc_msgSend_duration(v5);
   }
 
   else
@@ -674,7 +674,7 @@ uint64_t __43__ICAudioController_seekToTime_completion___block_invoke(uint64_t a
   v10 = currentItem;
   if (currentItem)
   {
-    [currentItem duration];
+    objc_msgSend_duration(currentItem);
   }
 
   else
@@ -689,7 +689,7 @@ uint64_t __43__ICAudioController_seekToTime_completion___block_invoke(uint64_t a
   v14 = currentPlayer2;
   if (currentPlayer2)
   {
-    [currentPlayer2 currentTime];
+    objc_msgSend_currentTime(currentPlayer2);
   }
 
   else
@@ -719,7 +719,7 @@ uint64_t __43__ICAudioController_seekToTime_completion___block_invoke(uint64_t a
   v8 = currentPlayer;
   if (currentPlayer)
   {
-    [currentPlayer currentTime];
+    objc_msgSend_currentTime(currentPlayer);
   }
 
   else
@@ -884,7 +884,7 @@ uint64_t __43__ICAudioController_seekToTime_completion___block_invoke(uint64_t a
     v12 = currentAsset;
     if (currentAsset)
     {
-      [currentAsset duration];
+      objc_msgSend_duration(currentAsset);
     }
 
     else
@@ -898,7 +898,7 @@ uint64_t __43__ICAudioController_seekToTime_completion___block_invoke(uint64_t a
     v15 = currentPlayer;
     if (currentPlayer)
     {
-      [currentPlayer currentTime];
+      objc_msgSend_currentTime(currentPlayer);
     }
 
     else

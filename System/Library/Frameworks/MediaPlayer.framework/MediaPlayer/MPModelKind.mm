@@ -273,7 +273,7 @@
   v12[3] = *MEMORY[0x1E69E9840];
   v5 = a3.var1;
   v6 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:[(MPModelKind *)self modelClass]];
-  [(MPModelKind *)self predicateWithBaseProperty:0];
+  objc_msgSend_predicateWithBaseProperty_(self);
   [v6 entityClass];
   mlcore::LibraryView::filterPredicateForEntityClass();
   [v6 entityClass];

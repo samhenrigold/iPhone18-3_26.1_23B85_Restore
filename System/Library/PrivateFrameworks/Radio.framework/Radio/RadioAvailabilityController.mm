@@ -8,6 +8,7 @@
 - (void)_currentStoreFrontIdentifierWithCompletion:(id)completion;
 - (void)_reloadRadioBagAvailabilityWithCompletionHandler:(id)handler;
 - (void)_reloadRadioRestriction;
+- (void)_updateRadioAvailabilityAllowingNotifications:(BOOL)notifications;
 - (void)_updateRadioAvailabilityWithStoreURLBag:(id)bag error:(id)error completionHandler:(id)handler;
 - (void)dealloc;
 - (void)environmentMonitorDidChangeNetworkReachability:(id)reachability;
@@ -125,6 +126,32 @@ LABEL_8:
   v3 = *(v7 + 24);
   _Block_object_dispose(&v6, 8);
   return v3;
+}
+
+- (void)_updateRadioAvailabilityAllowingNotifications:(BOOL)notifications
+{
+  if ([(NSNumber *)self->_isRadioAvailableFromBag BOOLValue])
+  {
+    v4 = !self->_isRadioRestricted;
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  v5 = v4;
+  if (self->_isRadioAvailable != v5)
+  {
+    self->_isRadioAvailable = v5;
+    calloutSerialQueue = self->_calloutSerialQueue;
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __77__RadioAvailabilityController__updateRadioAvailabilityAllowingNotifications___block_invoke;
+    block[3] = &unk_279AEAE60;
+    block[4] = self;
+    dispatch_async(calloutSerialQueue, block);
+  }
 }
 
 void __77__RadioAvailabilityController__updateRadioAvailabilityAllowingNotifications___block_invoke(uint64_t a1)
@@ -289,14 +316,14 @@ void __54__RadioAvailabilityController__reloadRadioRestriction__block_invoke(uin
   dispatch_barrier_async(v4, v5);
 }
 
-uint64_t __54__RadioAvailabilityController__reloadRadioRestriction__block_invoke_2(uint64_t result)
+unsigned __int8 *__54__RadioAvailabilityController__reloadRadioRestriction__block_invoke_2(unsigned __int8 *result)
 {
-  v1 = *(result + 32);
-  v2 = *(result + 40);
+  v1 = *(result + 4);
+  v2 = result[40];
   if (*(v1 + 48) != v2)
   {
     *(v1 + 48) = v2;
-    return [*(result + 32) _updateRadioAvailabilityAllowingNotifications:1];
+    return [*(result + 4) _updateRadioAvailabilityAllowingNotifications:1];
   }
 
   return result;

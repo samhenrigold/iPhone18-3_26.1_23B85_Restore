@@ -7,7 +7,7 @@
 
 - (AVTPresentationConfiguration)init
 {
-  [(AVTPresentationConfiguration *)self doesNotRecognizeSelector:a2];
+  [(AVTPresentationConfiguration *)self doesNotRecognizeSelector:?];
 
   return 0;
 }

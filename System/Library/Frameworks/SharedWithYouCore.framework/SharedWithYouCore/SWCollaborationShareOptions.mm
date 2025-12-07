@@ -51,7 +51,7 @@
 - (SWCollaborationShareOptions)initWithOptionsGroups:(NSArray *)optionsGroups
 {
   v4 = optionsGroups;
-  v5 = SWCoreFrameworkBundle();
+  v5 = SWCoreFrameworkBundle(v4);
   v6 = [v5 localizedStringForKey:@"Share Options" value:&stru_1F4E16F00 table:@"SharedWithYouCore"];
   v7 = [(SWCollaborationShareOptions *)self initWithOptionsGroups:v4 summary:v6];
 

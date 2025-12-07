@@ -94,83 +94,82 @@
 
 - (NSData)dataRepresentation
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  v2 = [(SHJSONLCustomCatalogContainer *)self jsonObjectRepresentationWithError:&v10];
-  v3 = v10;
+  v14 = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  v2 = [(SHJSONLCustomCatalogContainer *)self jsonObjectRepresentationWithError:&v11];
+  v3 = v11;
+  v4 = v3;
   if (v2)
   {
-    v9 = v3;
-    v4 = [MEMORY[0x277D54E20] dataForJSONObjects:v2 compression:517 error:&v9];
-    v5 = v9;
+    v10 = v3;
+    v5 = [MEMORY[0x277D54E20] dataForJSONObjects:v2 compression:517 error:&v10];
+    v6 = v10;
 
-    if (v4)
+    if (v5)
     {
       goto LABEL_10;
     }
 
-    v6 = sh_log_object();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = sh_log_object(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v5;
-      _os_log_impl(&dword_230F52000, v6, OS_LOG_TYPE_ERROR, "Failed to compress contents: %@", buf, 0xCu);
+      v13 = v6;
+      _os_log_impl(&dword_230F52000, v8, OS_LOG_TYPE_ERROR, "Failed to compress contents: %@", buf, 0xCu);
     }
 
-    v3 = v5;
+    v4 = v6;
   }
 
   else
   {
-    v6 = sh_log_object();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = sh_log_object(v3);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v3;
-      _os_log_impl(&dword_230F52000, v6, OS_LOG_TYPE_ERROR, "Failed to convert catalog contents to json representation: %@", buf, 0xCu);
+      v13 = v4;
+      _os_log_impl(&dword_230F52000, v8, OS_LOG_TYPE_ERROR, "Failed to convert catalog contents to json representation: %@", buf, 0xCu);
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  v5 = v3;
+  v6 = v4;
 LABEL_10:
 
-  v7 = *MEMORY[0x277D85DE8];
-
-  return v4;
+  return v5;
 }
 
 - (id)jsonObjectRepresentationWithError:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB18];
   v5 = +[SHJSONLCustomCatalogTransformer outputFileHeader];
   v6 = [v4 arrayWithObject:v5];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   container = [(SHJSONLCustomCatalogContainer *)self container];
   referenceSignatures = [container referenceSignatures];
 
   obj = referenceSignatures;
-  v9 = [referenceSignatures countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v9 = [referenceSignatures countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v26;
+    v11 = *v25;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v26 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v25 + 1) + 8 * i);
+        v13 = *(*(&v24 + 1) + 8 * i);
         signature = [v13 signature];
         v15 = [v13 ID];
         v16 = [SHJSONLCustomCatalogTransformer catalogFileRepresentationOfSignature:signature withID:v15];
@@ -190,7 +189,7 @@ LABEL_10:
         [v6 addObjectsFromArray:v19];
       }
 
-      v10 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v10 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v10)
       {
         continue;
@@ -203,14 +202,12 @@ LABEL_10:
   v20 = v6;
 LABEL_11:
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 - (BOOL)writeToURL:(id)l error:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = [SHJSONLCustomCatalogContainer customCatalogURLFromURL:l error:?];
   if (v6)
   {
@@ -219,33 +216,33 @@ LABEL_11:
     v9 = v8;
     if (v8)
     {
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
       v10 = v8;
-      v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v19;
+        v13 = *v18;
         while (2)
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v19 != v13)
+            if (*v18 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            if (![v7 writeObject:*(*(&v18 + 1) + 8 * i) error:{error, v18}])
+            if (![v7 writeObject:*(*(&v17 + 1) + 8 * i) error:{error, v17}])
             {
 
               goto LABEL_14;
             }
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
           if (v12)
           {
             continue;
@@ -271,7 +268,6 @@ LABEL_14:
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

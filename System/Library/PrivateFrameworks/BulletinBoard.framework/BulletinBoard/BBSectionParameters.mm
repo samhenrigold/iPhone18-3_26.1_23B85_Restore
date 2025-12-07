@@ -104,11 +104,11 @@
 
 - (BBSectionParameters)initWithCoder:(id)coder
 {
-  v30[3] = *MEMORY[0x277D85DE8];
+  v29[3] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v28.receiver = self;
-  v28.super_class = BBSectionParameters;
-  v5 = [(BBSectionParameters *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = BBSectionParameters;
+  v5 = [(BBSectionParameters *)&v27 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"UUID"];
@@ -129,10 +129,10 @@
       [(BBSectionParameters *)v5 setDefaultSubtypeParameters:v9];
 
       v10 = MEMORY[0x277CBEB98];
-      v30[0] = objc_opt_class();
-      v30[1] = objc_opt_class();
-      v30[2] = objc_opt_class();
-      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:3];
+      v29[0] = objc_opt_class();
+      v29[1] = objc_opt_class();
+      v29[2] = objc_opt_class();
+      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:3];
       v12 = [v10 setWithArray:v11];
       v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"allSubtypeParameters"];
       [(BBSectionParameters *)v5 setAllSubtypeParameters:v13];
@@ -143,34 +143,34 @@
       v15 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"icon"];
       [(BBSectionParameters *)v5 setIcon:v15];
 
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
       v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
       v16 = v5->_allSubtypeParameters;
-      v17 = [(NSMutableDictionary *)v16 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v17 = [(NSMutableDictionary *)v16 countByEnumeratingWithState:&v23 objects:v28 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v25;
+        v19 = *v24;
         do
         {
           v20 = 0;
           do
           {
-            if (*v25 != v19)
+            if (*v24 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            v21 = [(NSMutableDictionary *)v5->_allSubtypeParameters objectForKeyedSubscript:*(*(&v24 + 1) + 8 * v20), v24];
+            v21 = [(NSMutableDictionary *)v5->_allSubtypeParameters objectForKeyedSubscript:*(*(&v23 + 1) + 8 * v20), v23];
             [v21 setFallbackParameters:v5->_defaultSubtypeParameters];
 
             ++v20;
           }
 
           while (v18 != v20);
-          v18 = [(NSMutableDictionary *)v16 countByEnumeratingWithState:&v24 objects:v29 count:16];
+          v18 = [(NSMutableDictionary *)v16 countByEnumeratingWithState:&v23 objects:v28 count:16];
         }
 
         while (v18);
@@ -178,7 +178,6 @@
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

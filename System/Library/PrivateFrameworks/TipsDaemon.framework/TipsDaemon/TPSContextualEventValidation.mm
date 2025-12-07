@@ -35,7 +35,7 @@
 
 - (void)validateWithCompletion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   event = [(TPSContextualEventValidation *)self event];
 
@@ -55,7 +55,7 @@
       {
         value2 = [(TPSTargetingValidation *)self value];
         *buf = 138412290;
-        v29 = value2;
+        v28 = value2;
         v24 = "Failed to create event from value: %@";
         goto LABEL_11;
       }
@@ -82,7 +82,7 @@ LABEL_12:
     {
       value2 = [(TPSContextualEventValidation *)self event];
       *buf = 138412290;
-      v29 = value2;
+      v28 = value2;
       v24 = "Failed to create event provider from event: %@";
 LABEL_11:
       _os_log_impl(&dword_232D6F000, targeting, OS_LOG_TYPE_INFO, v24, buf, 0xCu);
@@ -102,7 +102,7 @@ LABEL_11:
     if (os_log_type_enabled(targeting2, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v29 = eventSinceDate;
+      v28 = eventSinceDate;
       _os_log_impl(&dword_232D6F000, targeting2, OS_LOG_TYPE_INFO, "Event since date (%@) is the future - skipping", buf, 0xCu);
     }
 
@@ -117,14 +117,12 @@ LABEL_11:
 
     eventProvider3 = [(TPSContextualEventValidation *)self eventProvider];
     event5 = [(TPSContextualEventValidation *)self event];
-    v27 = event5;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+    v26 = event5;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
     [eventProvider3 queryEvents:v21];
   }
 
 LABEL_16:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 + (id)contextualEventFromEventDictionary:(id)dictionary
@@ -247,54 +245,48 @@ LABEL_9:
 
 + (void)contextualEventFromEventDictionary:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_232D6F000, a2, OS_LOG_TYPE_ERROR, "Failed creating contextualEvent. Unsupported/unrecognized eventType: %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_232D6F000, a2, OS_LOG_TYPE_ERROR, "Failed creating contextualEvent. Unsupported/unrecognized eventType: %ld", &v2, 0xCu);
 }
 
 + (void)_eventProviderForContextualEvent:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_232D6F000, a2, OS_LOG_TYPE_ERROR, "Failed finding event provider. Unsupported/unrecognized eventType: %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_232D6F000, a2, OS_LOG_TYPE_ERROR, "Failed finding event provider. Unsupported/unrecognized eventType: %ld", &v2, 0xCu);
 }
 
 - (void)dataProvider:(void *)a1 didFinishQueryWithResults:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = [a1 name];
   v5 = [a1 targetContext];
-  v7 = 138412546;
-  v8 = v4;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_232D6F000, a2, OS_LOG_TYPE_ERROR, "%@ - targetContext: %@. Unknown Event Status", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v4;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_232D6F000, a2, OS_LOG_TYPE_ERROR, "%@ - targetContext: %@. Unknown Event Status", &v6, 0x16u);
 }
 
 - (void)dataProvider:(NSObject *)a3 didFinishQueryWithResults:.cold.2(void *a1, char a2, NSObject *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v6 = [a1 name];
   v7 = [a1 targetContext];
   v8 = [a1 event];
   v9 = [v8 debugDescription];
-  v11 = 138413058;
-  v12 = v6;
-  v13 = 2112;
-  v14 = v7;
-  v15 = 2112;
-  v16 = v9;
-  v17 = 1024;
-  v18 = a2 & 1;
-  _os_log_debug_impl(&dword_232D6F000, a3, OS_LOG_TYPE_DEBUG, "%@ - targetContext: %@. Event: %@, Valid: %d", &v11, 0x26u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10 = 138413058;
+  v11 = v6;
+  v12 = 2112;
+  v13 = v7;
+  v14 = 2112;
+  v15 = v9;
+  v16 = 1024;
+  v17 = a2 & 1;
+  _os_log_debug_impl(&dword_232D6F000, a3, OS_LOG_TYPE_DEBUG, "%@ - targetContext: %@. Event: %@, Valid: %d", &v10, 0x26u);
 }
 
 @end

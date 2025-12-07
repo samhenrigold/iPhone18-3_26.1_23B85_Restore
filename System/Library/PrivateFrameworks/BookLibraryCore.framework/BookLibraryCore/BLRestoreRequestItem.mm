@@ -14,49 +14,51 @@
 {
   dictionaryCopy = dictionary;
   assetDictionaryCopy = assetDictionary;
+  v9 = assetDictionaryCopy;
   if (!dictionaryCopy)
   {
-    v9 = BLServiceLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = BLServiceLog(assetDictionaryCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_241D1F000, v9, OS_LOG_TYPE_ERROR, "ContentRestore: downloadDictionary cannot be nil. Restore will fail", buf, 2u);
+      _os_log_impl(&dword_241D1F000, v10, OS_LOG_TYPE_ERROR, "ContentRestore: downloadDictionary cannot be nil. Restore will fail", buf, 2u);
     }
   }
 
-  v13.receiver = self;
-  v13.super_class = BLRestoreRequestItem;
-  v10 = [(BLRestoreRequestItem *)&v13 init];
-  v11 = v10;
-  if (v10)
+  v14.receiver = self;
+  v14.super_class = BLRestoreRequestItem;
+  v11 = [(BLRestoreRequestItem *)&v14 init];
+  v12 = v11;
+  if (v11)
   {
-    objc_storeStrong(&v10->_downloadDictionary, dictionary);
-    objc_storeStrong(&v11->_assetDictionary, assetDictionary);
+    objc_storeStrong(&v11->_downloadDictionary, dictionary);
+    objc_storeStrong(&v12->_assetDictionary, assetDictionary);
   }
 
-  return v11;
+  return v12;
 }
 
 - (BLRestoreRequestItem)initWithDownloadMetadataDictionary:(id)dictionary additionalDownloadPropertiesDictionary:(id)propertiesDictionary
 {
   dictionaryCopy = dictionary;
   propertiesDictionaryCopy = propertiesDictionary;
+  v8 = propertiesDictionaryCopy;
   if (!dictionaryCopy)
   {
-    v8 = BLServiceLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = BLServiceLog(propertiesDictionaryCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_241D1F000, v8, OS_LOG_TYPE_ERROR, "ContentRestore: downloadMetadataDictionary cannot be nil. Restore will fail", v14, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_241D1F000, v9, OS_LOG_TYPE_ERROR, "ContentRestore: downloadMetadataDictionary cannot be nil. Restore will fail", v15, 2u);
     }
   }
 
-  v9 = [[BLDownloadMetadata alloc] initWithDictionary:dictionaryCopy];
-  v10 = [objc_opt_class() _downloadDictionaryWithDownloadMetadata:v9 additionalDownloadPropertiesDictionary:propertiesDictionaryCopy];
-  v11 = [objc_opt_class() _assetDictionaryWithDownloadMetadata:v9];
-  v12 = [(BLRestoreRequestItem *)self initWithDownloadDictionary:v10 assetDictionary:v11];
+  v10 = [[BLDownloadMetadata alloc] initWithDictionary:dictionaryCopy];
+  v11 = [objc_opt_class() _downloadDictionaryWithDownloadMetadata:v10 additionalDownloadPropertiesDictionary:v8];
+  v12 = [objc_opt_class() _assetDictionaryWithDownloadMetadata:v10];
+  v13 = [(BLRestoreRequestItem *)self initWithDownloadDictionary:v11 assetDictionary:v12];
 
-  return v12;
+  return v13;
 }
 
 + (id)_downloadDictionaryWithDownloadMetadata:(id)metadata additionalDownloadPropertiesDictionary:(id)dictionary

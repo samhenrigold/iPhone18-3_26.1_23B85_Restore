@@ -42,7 +42,7 @@
 {
   sub_25BE4BFCC();
   sub_25BE4B73C();
-  sub_25BE2E174(&unk_27FBE06E0);
+  sub_25BE2E174(&unk_27FBE06E0, MEMORY[0x277CC9270]);
   selfCopy = self;
   sub_25BE4BA2C();
   v4 = sub_25BE4BFAC();

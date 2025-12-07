@@ -12,16 +12,16 @@
 
 - (BOOL)performPostProcessingForInput:(id)input postProcessingOutput:(id)output error:(id *)error
 {
-  v89 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   inputCopy = input;
-  v58 = inputCopy;
+  v59 = inputCopy;
   outputCopy = output;
   if (self->_anstPostProcessor)
   {
     inputImageBuffer = [inputCopy inputImageBuffer];
-    v55 = [(ANSTInferenceDescriptor *)self->super._descriptor inputPixelBufferDescriptorNamed:@"input_image"];
-    v54 = -[VisionCoreANSTInferenceNetworkDescriptor _anstPixelBufferRepresentation:pixelBufferRepresentation:orientation:error:](self, "_anstPixelBufferRepresentation:pixelBufferRepresentation:orientation:error:", v55, inputImageBuffer, [v58 inputImageOrientation], error);
-    if (![(ANSTInferencePostprocessor *)self->_anstPostProcessor setInputPixelBuffer:v54 forInferenceInputDescriptor:v55 withError:error])
+    v56 = [(ANSTInferenceDescriptor *)self->super._descriptor inputPixelBufferDescriptorNamed:@"input_image"];
+    v55 = -[VisionCoreANSTInferenceNetworkDescriptor _anstPixelBufferRepresentation:pixelBufferRepresentation:orientation:error:](self, "_anstPixelBufferRepresentation:pixelBufferRepresentation:orientation:error:", v56, inputImageBuffer, [v59 inputImageOrientation], error);
+    if (![(ANSTInferencePostprocessor *)self->_anstPostProcessor setInputPixelBuffer:v55 forInferenceInputDescriptor:v56 withError:error])
     {
       v47 = 0;
 LABEL_60:
@@ -30,29 +30,29 @@ LABEL_60:
     }
 
     allOutputTensorDescriptors = [(ANSTInferenceDescriptor *)self->super._descriptor allOutputTensorDescriptors];
-    inferenceOutputNamedObjects = [v58 inferenceOutputNamedObjects];
+    inferenceOutputNamedObjects = [v59 inferenceOutputNamedObjects];
     v10 = [allOutputTensorDescriptors count];
     if (v10 == [inferenceOutputNamedObjects count])
     {
-      v74 = 0u;
       v75 = 0u;
-      v72 = 0u;
+      v76 = 0u;
       v73 = 0u;
+      v74 = 0u;
       obj = allOutputTensorDescriptors;
-      v11 = [obj countByEnumeratingWithState:&v72 objects:v88 count:16];
+      v11 = [obj countByEnumeratingWithState:&v73 objects:v89 count:16];
       if (v11)
       {
-        v12 = *v73;
+        v12 = *v74;
 LABEL_6:
         v13 = 0;
         while (1)
         {
-          if (*v73 != v12)
+          if (*v74 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v72 + 1) + 8 * v13);
+          v14 = *(*(&v73 + 1) + 8 * v13);
           name = [v14 name];
           v16 = [inferenceOutputNamedObjects dataForName:name error:error];
           if (!v16)
@@ -71,7 +71,7 @@ LABEL_6:
 
           if (v11 == ++v13)
           {
-            v11 = [obj countByEnumeratingWithState:&v72 objects:v88 count:16];
+            v11 = [obj countByEnumeratingWithState:&v73 objects:v89 count:16];
             if (v11)
             {
               goto LABEL_6;
@@ -98,24 +98,24 @@ LABEL_13:
     }
 
     [(ANSTInferencePostprocessor *)self->_anstPostProcessor processedOutputPixelBufferDescriptors];
-    v70 = 0u;
     v71 = 0u;
-    v68 = 0u;
-    obj = v69 = 0u;
-    v19 = [obj countByEnumeratingWithState:&v68 objects:v87 count:16];
+    v72 = 0u;
+    v69 = 0u;
+    obj = v70 = 0u;
+    v19 = [obj countByEnumeratingWithState:&v69 objects:v88 count:16];
     if (v19)
     {
-      v20 = *v69;
+      v20 = *v70;
 LABEL_16:
       v21 = 0;
       while (1)
       {
-        if (*v69 != v20)
+        if (*v70 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v68 + 1) + 8 * v21);
+        v22 = *(*(&v69 + 1) + 8 * v21);
         name2 = [v22 name];
         v24 = [(VisionCoreISPInferenceNetworkDescriptor *)self _bufferForDescriptorName:name2 postProcessingOutput:outputCopy];
         v25 = [(VisionCoreISPInferenceNetworkDescriptor *)self _orientationForDescriptorName:name2 postProcessingOutput:outputCopy];
@@ -136,7 +136,7 @@ LABEL_16:
 
         if (v19 == ++v21)
         {
-          v19 = [obj countByEnumeratingWithState:&v68 objects:v87 count:16];
+          v19 = [obj countByEnumeratingWithState:&v69 objects:v88 count:16];
           if (v19)
           {
             goto LABEL_16;
@@ -170,112 +170,112 @@ LABEL_23:
       v29 = objc_alloc_init(MEMORY[0x1E695DF70]);
       if (v28)
       {
-        v81 = 0;
-        v82 = &v81;
-        v83 = 0x2020000000;
+        v82 = 0;
+        v83 = &v82;
+        v84 = 0x2020000000;
         v30 = getANSTObjectCategoryHandSymbolLoc_ptr;
-        v84 = getANSTObjectCategoryHandSymbolLoc_ptr;
+        v85 = getANSTObjectCategoryHandSymbolLoc_ptr;
         if (!getANSTObjectCategoryHandSymbolLoc_ptr)
         {
-          v76 = MEMORY[0x1E69E9820];
-          v77 = 3221225472;
-          v78 = __getANSTObjectCategoryHandSymbolLoc_block_invoke;
-          v79 = &unk_1E8698AE0;
-          v80 = &v81;
+          v77 = MEMORY[0x1E69E9820];
+          v78 = 3221225472;
+          v79 = __getANSTObjectCategoryHandSymbolLoc_block_invoke;
+          v80 = &unk_1E8698AE0;
+          v81 = &v82;
           v31 = ANSTKitLibrary();
           v32 = dlsym(v31, "ANSTObjectCategoryHand");
-          *(v80[1] + 24) = v32;
-          getANSTObjectCategoryHandSymbolLoc_ptr = *(v80[1] + 24);
-          v30 = v82[3];
+          *(v81[1] + 24) = v32;
+          getANSTObjectCategoryHandSymbolLoc_ptr = *(v81[1] + 24);
+          v30 = v83[3];
         }
 
-        _Block_object_dispose(&v81, 8);
+        _Block_object_dispose(&v82, 8);
         if (!v30)
         {
           goto LABEL_64;
         }
 
         v33 = [(ANSTInferencePostprocessor *)name trackedObjectsOfCategory:*v30];
-        v81 = 0;
-        v82 = &v81;
-        v83 = 0x2020000000;
+        v82 = 0;
+        v83 = &v82;
+        v84 = 0x2020000000;
         v34 = getANSTObjectCategoryFullBodySymbolLoc_ptr;
-        v84 = getANSTObjectCategoryFullBodySymbolLoc_ptr;
+        v85 = getANSTObjectCategoryFullBodySymbolLoc_ptr;
         if (!getANSTObjectCategoryFullBodySymbolLoc_ptr)
         {
-          v76 = MEMORY[0x1E69E9820];
-          v77 = 3221225472;
-          v78 = __getANSTObjectCategoryFullBodySymbolLoc_block_invoke;
-          v79 = &unk_1E8698AE0;
-          v80 = &v81;
+          v77 = MEMORY[0x1E69E9820];
+          v78 = 3221225472;
+          v79 = __getANSTObjectCategoryFullBodySymbolLoc_block_invoke;
+          v80 = &unk_1E8698AE0;
+          v81 = &v82;
           v35 = ANSTKitLibrary();
           v36 = dlsym(v35, "ANSTObjectCategoryFullBody");
-          *(v80[1] + 24) = v36;
-          getANSTObjectCategoryFullBodySymbolLoc_ptr = *(v80[1] + 24);
-          v34 = v82[3];
+          *(v81[1] + 24) = v36;
+          getANSTObjectCategoryFullBodySymbolLoc_ptr = *(v81[1] + 24);
+          v34 = v83[3];
         }
 
-        _Block_object_dispose(&v81, 8);
+        _Block_object_dispose(&v82, 8);
         if (!v34)
         {
 LABEL_64:
-          dlerror();
-          abort_report_np();
+          v53 = dlerror();
+          abort_report_np("%s", v53);
           __break(1u);
         }
 
         [(ANSTInferencePostprocessor *)name trackedObjectsOfCategory:*v34];
-        v66 = 0u;
         v67 = 0u;
-        v64 = 0u;
-        v37 = v65 = 0u;
-        v38 = [v37 countByEnumeratingWithState:&v64 objects:v86 count:16];
+        v68 = 0u;
+        v65 = 0u;
+        v37 = v66 = 0u;
+        v38 = [v37 countByEnumeratingWithState:&v65 objects:v87 count:16];
         if (v38)
         {
-          v39 = *v65;
+          v39 = *v66;
           do
           {
             for (i = 0; i != v38; ++i)
             {
-              if (*v65 != v39)
+              if (*v66 != v39)
               {
                 objc_enumerationMutation(v37);
               }
 
-              v41 = [[VisionCoreISPInferenceNetworkObject alloc] initWithANSTObject:*(*(&v64 + 1) + 8 * i)];
+              v41 = [[VisionCoreISPInferenceNetworkObject alloc] initWithANSTObject:*(*(&v65 + 1) + 8 * i)];
               [name2 addObject:v41];
             }
 
-            v38 = [v37 countByEnumeratingWithState:&v64 objects:v86 count:16];
+            v38 = [v37 countByEnumeratingWithState:&v65 objects:v87 count:16];
           }
 
           while (v38);
         }
 
         [outputCopy setFullBodyResults:name2];
-        v62 = 0u;
         v63 = 0u;
-        v60 = 0u;
+        v64 = 0u;
         v61 = 0u;
+        v62 = 0u;
         v42 = v33;
-        v43 = [v42 countByEnumeratingWithState:&v60 objects:v85 count:16];
+        v43 = [v42 countByEnumeratingWithState:&v61 objects:v86 count:16];
         if (v43)
         {
-          v44 = *v61;
+          v44 = *v62;
           do
           {
             for (j = 0; j != v43; ++j)
             {
-              if (*v61 != v44)
+              if (*v62 != v44)
               {
                 objc_enumerationMutation(v42);
               }
 
-              v46 = [[VisionCoreISPInferenceNetworkHandObject alloc] initWithANSTHand:*(*(&v60 + 1) + 8 * j)];
+              v46 = [[VisionCoreISPInferenceNetworkHandObject alloc] initWithANSTHand:*(*(&v61 + 1) + 8 * j)];
               [v29 addObject:v46];
             }
 
-            v43 = [v42 countByEnumeratingWithState:&v60 objects:v85 count:16];
+            v43 = [v42 countByEnumeratingWithState:&v61 objects:v86 count:16];
           }
 
           while (v43);

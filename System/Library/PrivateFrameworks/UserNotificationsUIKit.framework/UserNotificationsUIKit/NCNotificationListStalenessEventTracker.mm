@@ -53,61 +53,62 @@
 
 - (NCNotificationListStalenessEventTracker)init
 {
-  v23[10] = *MEMORY[0x277D85DE8];
-  v20.receiver = self;
-  v20.super_class = NCNotificationListStalenessEventTracker;
-  v2 = [(NCNotificationListStalenessEventTracker *)&v20 init];
+  v24[10] = *MEMORY[0x277D85DE8];
+  v21.receiver = self;
+  v21.super_class = NCNotificationListStalenessEventTracker;
+  v2 = [(NCNotificationListStalenessEventTracker *)&v21 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = NCGetEventTrackerQueue();
-    v4 = dispatch_queue_create_with_target_V2("com.apple.UserNotificationsUIKit.NotificationListStalenessMetric", 0, v3);
-    queue = v2->_queue;
-    v2->_queue = v4;
+    v4 = NCGetEventTrackerQueue(v2);
+    v5 = dispatch_queue_create_with_target_V2("com.apple.UserNotificationsUIKit.NotificationListStalenessMetric", 0, v4);
+    queue = v3->_queue;
+    v3->_queue = v5;
 
-    v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    lastDisplayedDateByNotificationMetadata = v2->_lastDisplayedDateByNotificationMetadata;
-    v2->_lastDisplayedDateByNotificationMetadata = v6;
+    v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    lastDisplayedDateByNotificationMetadata = v3->_lastDisplayedDateByNotificationMetadata;
+    v3->_lastDisplayedDateByNotificationMetadata = v7;
 
-    v8 = MEMORY[0x277D41DA0];
+    v9 = MEMORY[0x277D41DA0];
     _allMetricsSafeBundleIdentifiers = [objc_opt_class() _allMetricsSafeBundleIdentifiers];
-    v10 = [v8 propertyWithName:@"bundleIdentifier" possibleValues:_allMetricsSafeBundleIdentifiers autoSanitizeValues:0];
+    v11 = [v9 propertyWithName:@"bundleIdentifier" possibleValues:_allMetricsSafeBundleIdentifiers autoSanitizeValues:0];
 
-    v11 = MEMORY[0x277D41DA0];
-    v22[0] = &unk_283015470;
-    v22[1] = &unk_283015488;
-    v23[0] = @"InsideMinute";
-    v23[1] = @"InsideFiveMinutes";
-    v22[2] = &unk_2830154A0;
-    v22[3] = &unk_2830154B8;
-    v23[2] = @"InsideTwentyMinutes";
-    v23[3] = @"InsideHour";
-    v22[4] = &unk_2830154D0;
-    v22[5] = &unk_2830154E8;
-    v23[4] = @"InsideTwoHours";
-    v23[5] = @"InsideSixHours";
-    v22[6] = &unk_283015500;
-    v22[7] = &unk_283015518;
-    v23[6] = @"InsideDay";
-    v23[7] = @"InsideTwoDays";
-    v22[8] = &unk_283015530;
-    v22[9] = &unk_283015548;
-    v23[8] = @"InsideWeek";
-    v23[9] = @"OutsideWeek";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:10];
-    v13 = [v11 propertyWithName:@"timeInterval" enumMapping:v12];
+    v12 = MEMORY[0x277D41DA0];
+    v23[0] = &unk_283015470;
+    v23[1] = &unk_283015488;
+    v24[0] = @"InsideMinute";
+    v24[1] = @"InsideFiveMinutes";
+    v23[2] = &unk_2830154A0;
+    v23[3] = &unk_2830154B8;
+    v24[2] = @"InsideTwentyMinutes";
+    v24[3] = @"InsideHour";
+    v23[4] = &unk_2830154D0;
+    v23[5] = &unk_2830154E8;
+    v24[4] = @"InsideTwoHours";
+    v24[5] = @"InsideSixHours";
+    v23[6] = &unk_283015500;
+    v23[7] = &unk_283015518;
+    v24[6] = @"InsideDay";
+    v24[7] = @"InsideTwoDays";
+    v23[8] = &unk_283015530;
+    v23[9] = &unk_283015548;
+    v24[8] = @"InsideWeek";
+    v24[9] = @"OutsideWeek";
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:10];
+    v14 = [v12 propertyWithName:@"timeInterval" enumMapping:v13];
 
-    v14 = [MEMORY[0x277D41DA0] propertyWithName:@"pairedDeviceCount" rangeMin:0 rangeMax:99];
-    v15 = objc_alloc(MEMORY[0x277D41DB8]);
-    v21[0] = v10;
-    v21[1] = v13;
-    v21[2] = v14;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
-    v17 = [v15 initWithFeatureId:@"NotificationsUI" event:@"lockscreenStaleness" registerProperties:v16];
-    stalenessEventTracker = v2->_stalenessEventTracker;
-    v2->_stalenessEventTracker = v17;
+    v15 = [MEMORY[0x277D41DA0] propertyWithName:@"pairedDeviceCount" rangeMin:0 rangeMax:99];
+    v16 = objc_alloc(MEMORY[0x277D41DB8]);
+    v22[0] = v11;
+    v22[1] = v14;
+    v22[2] = v15;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:3];
+    v18 = [v16 initWithFeatureId:@"NotificationsUI" event:@"lockscreenStaleness" registerProperties:v17];
+    stalenessEventTracker = v3->_stalenessEventTracker;
+    v3->_stalenessEventTracker = v18;
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)dealloc

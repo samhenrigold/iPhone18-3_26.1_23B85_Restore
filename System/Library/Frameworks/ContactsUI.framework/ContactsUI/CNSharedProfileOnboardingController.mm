@@ -494,11 +494,11 @@ LABEL_7:
 LABEL_8:
 }
 
-uint64_t __87__CNSharedProfileOnboardingController_startOnboardingOrEditForMode_fromViewController___block_invoke(uint64_t result, char a2, uint64_t a3, uint64_t a4)
+id *__87__CNSharedProfileOnboardingController_startOnboardingOrEditForMode_fromViewController___block_invoke(id *result, char a2, uint64_t a3, uint64_t a4)
 {
   if ((a2 & 1) == 0)
   {
-    return [*(result + 32) presentSettingsForNicknameContact:a3 meContact:a4 mode:*(result + 48) fromViewController:*(result + 40)];
+    return [result[4] presentSettingsForNicknameContact:a3 meContact:a4 mode:result[6] fromViewController:result[5]];
   }
 
   return result;

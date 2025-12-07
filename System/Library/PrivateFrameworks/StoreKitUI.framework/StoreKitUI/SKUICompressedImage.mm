@@ -1,5 +1,6 @@
 @interface SKUICompressedImage
 - (id)description;
+- (void)description;
 @end
 
 @implementation SKUICompressedImage
@@ -47,6 +48,12 @@
   v21 = [v14 stringWithFormat:@"%@: {%@, %f} {%f, %@};", v15, v13, v17, v19, borderColor];;
 
   return v21;
+}
+
+- (void)description
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICompressedImage description]";
 }
 
 @end

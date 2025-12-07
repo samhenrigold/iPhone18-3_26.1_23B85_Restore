@@ -279,14 +279,15 @@ void __60__MPCStoreLibraryPersonalizationMiddlewareOperation_execute__block_invo
   v2(v1, @"Personalization response did invalidate");
 }
 
-uint64_t __60__MPCStoreLibraryPersonalizationMiddlewareOperation_execute__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
+uint64_t __60__MPCStoreLibraryPersonalizationMiddlewareOperation_execute__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = *(a1 + 32);
   if (v6 && *(a1 + 40))
   {
     v11 = v5;
-    if ([v6 section] == *(a1 + 56) && objc_msgSend(*(a1 + 32), "item") == a3)
+    v6 = [v6 section];
+    if (v6 == *(a1 + 56) && (v6 = [*(a1 + 32) item], v6 == a3))
     {
       v7 = *(a1 + 40);
 
@@ -302,11 +303,14 @@ uint64_t __60__MPCStoreLibraryPersonalizationMiddlewareOperation_execute__block_
   if (v5)
   {
     v8 = *(a1 + 48);
+    v12 = v5;
     v9 = [objc_alloc(MEMORY[0x1E69709D8]) initWithModel:v5 personalizationStyle:1];
     [v8 appendItem:v9];
+
+    v5 = v12;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v6, v5);
 }
 
 - (MPCStoreLibraryPersonalizationMiddlewareOperation)initWithMiddleware:(id)middleware playerRequest:(id)request

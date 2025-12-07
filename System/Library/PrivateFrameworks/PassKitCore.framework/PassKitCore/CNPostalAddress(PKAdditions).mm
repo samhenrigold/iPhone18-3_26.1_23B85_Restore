@@ -359,42 +359,42 @@ LABEL_11:
 + (__CFString)_ABKeyFromCNKey:()PKAdditions
 {
   v3 = a3;
-  if ([v3 isEqualToString:*MEMORY[0x1E695CC30]])
+  if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = @"Street";
   }
 
-  else if ([v3 isEqualToString:*MEMORY[0x1E695CC00]])
+  else if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = @"City";
   }
 
-  else if ([v3 isEqualToString:*MEMORY[0x1E695CC28]])
+  else if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = @"State";
   }
 
-  else if ([v3 isEqualToString:*MEMORY[0x1E695CC18]])
+  else if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = @"ZIP";
   }
 
-  else if ([v3 isEqualToString:*MEMORY[0x1E695CC08]])
+  else if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = @"Country";
   }
 
-  else if ([v3 isEqualToString:*MEMORY[0x1E695CC10]])
+  else if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = @"CountryCode";
   }
 
-  else if ([v3 isEqualToString:*MEMORY[0x1E695CC40]])
+  else if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = @"SubLocality";
   }
 
-  else if ([v3 isEqualToString:*MEMORY[0x1E695CC38]])
+  else if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = @"SubAdministrativeArea";
   }
@@ -410,7 +410,7 @@ LABEL_11:
 + (id)_CNKeyFromABKey:()PKAdditions
 {
   v3 = a3;
-  if ([v3 isEqualToString:@"Street"])
+  if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = MEMORY[0x1E695CC30];
 LABEL_17:
@@ -418,43 +418,43 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  if ([v3 isEqualToString:@"City"])
+  if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = MEMORY[0x1E695CC00];
     goto LABEL_17;
   }
 
-  if ([v3 isEqualToString:@"State"])
+  if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = MEMORY[0x1E695CC28];
     goto LABEL_17;
   }
 
-  if ([v3 isEqualToString:@"ZIP"])
+  if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = MEMORY[0x1E695CC18];
     goto LABEL_17;
   }
 
-  if ([v3 isEqualToString:@"Country"])
+  if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = MEMORY[0x1E695CC08];
     goto LABEL_17;
   }
 
-  if ([v3 isEqualToString:@"CountryCode"])
+  if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = MEMORY[0x1E695CC10];
     goto LABEL_17;
   }
 
-  if ([v3 isEqualToString:@"SubLocality"])
+  if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = MEMORY[0x1E695CC40];
     goto LABEL_17;
   }
 
-  if ([v3 isEqualToString:@"SubAdministrativeArea"])
+  if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = MEMORY[0x1E695CC38];
     goto LABEL_17;

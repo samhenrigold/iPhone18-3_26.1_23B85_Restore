@@ -10,7 +10,7 @@
 
 - (id)openDatagramChannel
 {
-  v2 = new_JavaNioDatagramChannelImpl_initWithJavaNioChannelsSpiSelectorProvider_();
+  v2 = new_JavaNioDatagramChannelImpl_initWithJavaNioChannelsSpiSelectorProvider_(self);
 
   return v2;
 }
@@ -31,7 +31,7 @@
 
 - (id)openServerSocketChannel
 {
-  v2 = new_JavaNioServerSocketChannelImpl_initWithJavaNioChannelsSpiSelectorProvider_();
+  v2 = new_JavaNioServerSocketChannelImpl_initWithJavaNioChannelsSpiSelectorProvider_(self);
 
   return v2;
 }

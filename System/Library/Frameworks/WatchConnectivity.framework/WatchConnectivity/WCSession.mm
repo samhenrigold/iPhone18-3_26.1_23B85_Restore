@@ -27,6 +27,7 @@
 - (unint64_t)hash;
 - (unint64_t)roundValue:(unint64_t)value toSignificantFigures:(int)figures;
 - (void)_onqueue_notifyOfMessageError:(id)error messageID:(id)d withErrorHandler:(id)handler;
+- (void)_onqueue_sendResponseError:(id)error identifier:(id)identifier dictionaryMessage:(BOOL)message;
 - (void)activateSession;
 - (void)cancelFileTransfer:(id)transfer;
 - (void)cancelUserInfo:(id)info;
@@ -71,6 +72,8 @@
 - (void)onqueue_removeOutstandingFileTransfer:(id)transfer;
 - (void)onqueue_removeOutstandingUserInfoTransfer:(id)transfer;
 - (void)onqueue_removeProgressForFileTransfer:(id)transfer;
+- (void)onqueue_sendMessageData:(id)data replyHandler:(id)handler errorHandler:(id)errorHandler dictionaryMessage:(BOOL)message;
+- (void)onqueue_sendResponseData:(id)data identifier:(id)identifier dictionaryMessage:(BOOL)message;
 - (void)onqueue_sendResponseDictionary:(id)dictionary identifier:(id)identifier;
 - (void)onqueue_setCurrentComplicationUserInfoTransfer:(id)transfer;
 - (void)onqueue_startNextDeviceSwitch;
@@ -186,16 +189,15 @@ uint64_t __27__WCSession_defaultSession__block_invoke(uint64_t a1)
     v22 = +[WCXPCManager sharedManager];
     [v22 setDelegate:v3];
 
-    v23 = wc_log();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v24 = wc_log(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
       v28 = "[WCSession _init]";
-      _os_log_impl(&dword_23B2FA000, v23, OS_LOG_TYPE_DEFAULT, "%{public}s WCSession initialized", buf, 0xCu);
+      _os_log_impl(&dword_23B2FA000, v24, OS_LOG_TYPE_DEFAULT, "%{public}s WCSession initialized", buf, 0xCu);
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -222,29 +224,30 @@ uint64_t __27__WCSession_defaultSession__block_invoke(uint64_t a1)
 
 void __28__WCSession_activateSession__block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v2 = wc_log();
+  v31 = *MEMORY[0x277D85DE8];
+  v2 = wc_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v28 = "[WCSession activateSession]_block_invoke";
+    v30 = "[WCSession activateSession]_block_invoke";
     _os_log_impl(&dword_23B2FA000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s ", buf, 0xCu);
   }
 
-  v3 = *(a1 + 32);
-  if ([objc_opt_class() isSupported])
+  v3 = [objc_opt_class() isSupported];
+  if (v3)
   {
     v4 = [*(a1 + 32) delegate];
 
     if (v4)
     {
-      v5 = [*(a1 + 32) switchTasksQueue];
-      v6 = [v5 firstObject];
+      v6 = [*(a1 + 32) switchTasksQueue];
+      v7 = [v6 firstObject];
 
-      if ((-[NSObject clientReadyForSessionState](v6, "clientReadyForSessionState") & 1) != 0 || [*(a1 + 32) activationState])
+      v8 = [v7 clientReadyForSessionState];
+      if ((v8 & 1) != 0 || (v8 = [*(a1 + 32) activationState]) != 0)
       {
-        v7 = wc_log();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v9 = wc_log(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           __28__WCSession_activateSession__block_invoke_cold_3();
         }
@@ -252,67 +255,67 @@ void __28__WCSession_activateSession__block_invoke(uint64_t a1)
 
       else
       {
-        [v6 setTaskState:3];
-        [v6 setClientReadyForSessionState:1];
-        v9 = wc_log();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        [v7 setTaskState:3];
+        v10 = wc_log([v7 setClientReadyForSessionState:1]);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446210;
-          v28 = "[WCSession activateSession]_block_invoke";
-          _os_log_impl(&dword_23B2FA000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s informing daemon ready for session state", buf, 0xCu);
+          v30 = "[WCSession activateSession]_block_invoke";
+          _os_log_impl(&dword_23B2FA000, v10, OS_LOG_TYPE_DEFAULT, "%{public}s informing daemon ready for session state", buf, 0xCu);
         }
 
-        v10 = +[WCXPCManager sharedManager];
-        v11 = [*(a1 + 32) delegateSupportsActiveDeviceSwitch];
-        v24[0] = MEMORY[0x277D85DD0];
-        v24[1] = 3221225472;
-        v24[2] = __28__WCSession_activateSession__block_invoke_20;
-        v24[3] = &unk_278B7BF50;
-        v12 = v6;
-        v13 = *(a1 + 32);
-        v25 = v12;
-        v26 = v13;
-        [v10 sessionReadyForInitialStateForClientPairingID:0 supportsActiveDeviceSwitch:v11 withErrorHandler:v24];
+        v11 = +[WCXPCManager sharedManager];
+        v12 = [*(a1 + 32) delegateSupportsActiveDeviceSwitch];
+        v26[0] = MEMORY[0x277D85DD0];
+        v26[1] = 3221225472;
+        v26[2] = __28__WCSession_activateSession__block_invoke_20;
+        v26[3] = &unk_278B7BF50;
+        v13 = v7;
+        v14 = *(a1 + 32);
+        v27 = v13;
+        v28 = v14;
+        [v11 sessionReadyForInitialStateForClientPairingID:0 supportsActiveDeviceSwitch:v12 withErrorHandler:v26];
 
         if (([*(a1 + 32) delegateSupportsAsyncActivate] & 1) == 0)
         {
-          v14 = [*(a1 + 32) delegateOperationQueue];
-          [v14 setSuspended:1];
+          v15 = [*(a1 + 32) delegateOperationQueue];
+          [v15 setSuspended:1];
 
-          v15 = dispatch_semaphore_create(0);
-          v16 = objc_opt_new();
-          v22[0] = MEMORY[0x277D85DD0];
-          v22[1] = 3221225472;
-          v22[2] = __28__WCSession_activateSession__block_invoke_24;
-          v22[3] = &unk_278B7BF78;
-          v17 = v15;
-          v23 = v17;
-          [v16 addExecutionBlock:v22];
-          v18 = [*(a1 + 32) delegateOperationQueue];
-          [v18 addOperation:v16];
+          v16 = dispatch_semaphore_create(0);
+          v17 = objc_opt_new();
+          v24[0] = MEMORY[0x277D85DD0];
+          v24[1] = 3221225472;
+          v24[2] = __28__WCSession_activateSession__block_invoke_24;
+          v24[3] = &unk_278B7BF78;
+          v18 = v16;
+          v25 = v18;
+          [v17 addExecutionBlock:v24];
+          v19 = [*(a1 + 32) delegateOperationQueue];
+          [v19 addOperation:v17];
 
-          v19 = dispatch_time(0, 7000000000);
-          if (dispatch_semaphore_wait(v17, v19))
+          v20 = dispatch_time(0, 7000000000);
+          v21 = dispatch_semaphore_wait(v18, v20);
+          if (v21)
           {
-            v20 = wc_log();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            v22 = wc_log(v21);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
             {
               __28__WCSession_activateSession__block_invoke_cold_2();
             }
 
-            v21 = [*(a1 + 32) delegateOperationQueue];
-            [v21 setSuspended:0];
+            v23 = [*(a1 + 32) delegateOperationQueue];
+            [v23 setSuspended:0];
           }
         }
 
-        v7 = v25;
+        v9 = v27;
       }
     }
 
     else
     {
-      v6 = wc_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = wc_log(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         __28__WCSession_activateSession__block_invoke_cold_4();
       }
@@ -321,30 +324,29 @@ void __28__WCSession_activateSession__block_invoke(uint64_t a1)
 
   else
   {
-    v6 = wc_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = wc_log(v3);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __28__WCSession_activateSession__block_invoke_cold_1();
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __28__WCSession_activateSession__block_invoke_20(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = wc_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = wc_log(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __28__WCSession_activateSession__block_invoke_20_cold_1();
     }
 
     [*(a1 + 32) setTaskState:888];
-    v5 = [*(a1 + 40) delegateOperationQueue];
-    [v5 setSuspended:0];
+    v6 = [*(a1 + 40) delegateOperationQueue];
+    [v6 setSuspended:0];
   }
 }
 
@@ -378,25 +380,13 @@ void __28__WCSession_activateSession__block_invoke_20(uint64_t a1, void *a2)
 
     else
     {
-      [(WCSession *)self setDelegateSupportsActiveDeviceSwitch:0];
+      v10 = [(WCSession *)self setDelegateSupportsActiveDeviceSwitch:0];
     }
 
-    v10 = wc_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = wc_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       if ([(WCSession *)self delegateSupportsAsyncActivate])
-      {
-        v11 = "YES";
-      }
-
-      else
-      {
-        v11 = "NO";
-      }
-
-      v14 = 136446722;
-      v15 = "[WCSession setDelegate:]";
-      if ([(WCSession *)self delegateSupportsActiveDeviceSwitch])
       {
         v12 = "YES";
       }
@@ -406,32 +396,41 @@ void __28__WCSession_activateSession__block_invoke_20(uint64_t a1, void *a2)
         v12 = "NO";
       }
 
+      v14 = 136446722;
+      v15 = "[WCSession setDelegate:]";
+      if ([(WCSession *)self delegateSupportsActiveDeviceSwitch])
+      {
+        v13 = "YES";
+      }
+
+      else
+      {
+        v13 = "NO";
+      }
+
       v16 = 2080;
-      v17 = v11;
+      v17 = v12;
       v18 = 2080;
-      v19 = v12;
-      _os_log_impl(&dword_23B2FA000, v10, OS_LOG_TYPE_DEFAULT, "%{public}s delegateSupportsAsyncActivate: %s, delegateSupportsActiveDeviceSwitch: %s", &v14, 0x20u);
+      v19 = v13;
+      _os_log_impl(&dword_23B2FA000, v11, OS_LOG_TYPE_DEFAULT, "%{public}s delegateSupportsAsyncActivate: %s, delegateSupportsActiveDeviceSwitch: %s", &v14, 0x20u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onqueue_loadPersistedContent
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = wc_log();
+  v6 = *MEMORY[0x277D85DE8];
+  v3 = wc_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136446210;
-    v6 = "[WCSession onqueue_loadPersistedContent]";
-    _os_log_impl(&dword_23B2FA000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s loading persisted content", &v5, 0xCu);
+    v4 = 136446210;
+    v5 = "[WCSession onqueue_loadPersistedContent]";
+    _os_log_impl(&dword_23B2FA000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s loading persisted content", &v4, 0xCu);
   }
 
   [(WCSession *)self onqueue_loadOutstandingFileTransfers];
   [(WCSession *)self onqueue_loadOutstandingUserInfoTransfers];
   [(WCSession *)self onqueue_loadAppContexts];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)description
@@ -472,24 +471,24 @@ void __28__WCSession_activateSession__block_invoke_20(uint64_t a1, void *a2)
 - (void)onDelegateQueueIfTriggeringKVO_updateSessionState:(id)state triggerKVO:(BOOL)o
 {
   oCopy = o;
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   stateCopy = state;
-  v7 = wc_log();
+  v7 = wc_log(stateCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = "NO";
-    *&v17[4] = "[WCSession onDelegateQueueIfTriggeringKVO_updateSessionState:triggerKVO:]";
-    *v17 = 136446722;
+    *&v16[4] = "[WCSession onDelegateQueueIfTriggeringKVO_updateSessionState:triggerKVO:]";
+    *v16 = 136446722;
     if (oCopy)
     {
       v8 = "YES";
     }
 
-    *&v17[12] = 2114;
-    *&v17[14] = stateCopy;
-    v18 = 2080;
-    v19 = v8;
-    _os_log_impl(&dword_23B2FA000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@, triggerKVO: %s", v17, 0x20u);
+    *&v16[12] = 2114;
+    *&v16[14] = stateCopy;
+    v17 = 2080;
+    v18 = v8;
+    _os_log_impl(&dword_23B2FA000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@, triggerKVO: %s", v16, 0x20u);
   }
 
   isReachable = [stateCopy isReachable];
@@ -503,7 +502,7 @@ void __28__WCSession_activateSession__block_invoke_20(uint64_t a1, void *a2)
     self->_reachable = isReachable;
   }
 
-  v10 = +[WCFileStorage sharedInstance];
+  v10 = [WCFileStorage sharedInstance:*v16];
   watchDirectoryURL = [stateCopy watchDirectoryURL];
   [v10 createWatchDirectoryIfNeeded:watchDirectoryURL];
 
@@ -532,46 +531,44 @@ void __28__WCSession_activateSession__block_invoke_20(uint64_t a1, void *a2)
 
   pairingID = [stateCopy pairingID];
   [(WCSession *)self updatePairingID:pairingID];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onqueue_cancelMessagesIfAppropriate
 {
   v12 = *MEMORY[0x277D85DE8];
-  if ([(WCSession *)self isReachable]&& [(WCSession *)self isWatchAppInstalled])
+  isReachable = [(WCSession *)self isReachable];
+  if (isReachable && (isReachable = [(WCSession *)self isWatchAppInstalled], isReachable))
   {
-    v3 = ![(WCSession *)self isPaired];
+    isReachable = [(WCSession *)self isPaired];
+    v4 = isReachable ^ 1;
   }
 
   else
   {
-    v3 = 1;
+    v4 = 1;
   }
 
-  v4 = wc_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = wc_log(isReachable);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = "NO";
-    if (v3)
+    v6 = "NO";
+    if (v4)
     {
-      v5 = "YES";
+      v6 = "YES";
     }
 
     v8 = 136446466;
     v9 = "[WCSession onqueue_cancelMessagesIfAppropriate]";
     v10 = 2080;
-    v11 = v5;
-    _os_log_impl(&dword_23B2FA000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s shouldCancel: %s", &v8, 0x16u);
+    v11 = v6;
+    _os_log_impl(&dword_23B2FA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s shouldCancel: %s", &v8, 0x16u);
   }
 
-  if (v3)
+  if (v4)
   {
     queueManager = [(WCSession *)self queueManager];
     [queueManager cancelQueuedMessages];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updatePairingID:(id)d
@@ -586,19 +583,19 @@ void __28__WCSession_activateSession__block_invoke_20(uint64_t a1, void *a2)
 
     if (self->_pairingID)
     {
-      v7 = wc_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = wc_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = self->_pairingID;
+        v9 = self->_pairingID;
         *buf = 136446466;
         v14 = "[WCSession updatePairingID:]";
         v15 = 2114;
-        v16 = v8;
-        _os_log_impl(&dword_23B2FA000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@", buf, 0x16u);
+        v16 = v9;
+        _os_log_impl(&dword_23B2FA000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@", buf, 0x16u);
       }
 
-      v9 = +[WCFileStorage sharedInstance];
-      [v9 setPairingID:self->_pairingID];
+      v10 = +[WCFileStorage sharedInstance];
+      [v10 setPairingID:self->_pairingID];
 
       workOperationQueue = self->_workOperationQueue;
       v12[0] = MEMORY[0x277D85DD0];
@@ -609,8 +606,6 @@ void __28__WCSession_activateSession__block_invoke_20(uint64_t a1, void *a2)
       [(NSOperationQueue *)workOperationQueue addOperationWithBlock:v12];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)didPairingIDChange:(id)change
@@ -674,40 +669,35 @@ LABEL_7:
 
 - (NSArray)outstandingUserInfoTransfers
 {
-  v16[1] = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3032000000;
-  v13 = __Block_byref_object_copy_;
-  v14 = __Block_byref_object_dispose_;
-  v15 = MEMORY[0x277CBEBF8];
+  v15[1] = *MEMORY[0x277D85DE8];
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy_;
+  v13 = __Block_byref_object_dispose_;
+  v14 = MEMORY[0x277CBEBF8];
   v3 = objc_opt_new();
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __41__WCSession_outstandingUserInfoTransfers__block_invoke;
-  v9[3] = &unk_278B7BFA0;
-  v9[4] = self;
-  v9[5] = &v10;
-  [v3 addExecutionBlock:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __41__WCSession_outstandingUserInfoTransfers__block_invoke;
+  v8[3] = &unk_278B7BFA0;
+  v8[4] = self;
+  v8[5] = &v9;
+  [v3 addExecutionBlock:v8];
   workOperationQueue = self->_workOperationQueue;
-  v16[0] = v3;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = v3;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   [(NSOperationQueue *)workOperationQueue addOperations:v5 waitUntilFinished:1];
 
-  v6 = v11[5];
-  _Block_object_dispose(&v10, 8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = v10[5];
+  _Block_object_dispose(&v9, 8);
 
   return v6;
 }
 
 uint64_t __41__WCSession_outstandingUserInfoTransfers__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 112) allValues];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 112) allValues];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -766,9 +756,9 @@ uint64_t __41__WCSession_outstandingUserInfoTransfers__block_invoke(uint64_t a1)
     {
       internalOutstandingFileTransfers = [(WCSession *)self internalOutstandingFileTransfers];
       transferIdentifier = [transferCopy transferIdentifier];
-      v8 = [internalOutstandingFileTransfers objectForKeyedSubscript:transferIdentifier];
+      v9 = [internalOutstandingFileTransfers objectForKeyedSubscript:transferIdentifier];
 
-      if (v8)
+      if (v9)
       {
         [(WCSession *)self willChangeValueForKey:@"outstandingUserInfoTransfers"];
         internalOutstandingUserInfoTransfers = self->_internalOutstandingUserInfoTransfers;
@@ -780,19 +770,19 @@ uint64_t __41__WCSession_outstandingUserInfoTransfers__block_invoke(uint64_t a1)
 
       else
       {
-        v12 = self->_internalOutstandingUserInfoTransfers;
+        v13 = self->_internalOutstandingUserInfoTransfers;
         transferIdentifier3 = [transferCopy transferIdentifier];
-        [(NSMutableDictionary *)v12 removeObjectForKey:transferIdentifier3];
+        [(NSMutableDictionary *)v13 removeObjectForKey:transferIdentifier3];
       }
 
-      v11 = +[WCFileStorage sharedInstance];
-      [v11 deleteOutstandingUserInfoTransfer:transferCopy];
+      v12 = +[WCFileStorage sharedInstance];
+      [v12 deleteOutstandingUserInfoTransfer:transferCopy];
     }
 
     else
     {
-      v11 = wc_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = wc_log(v6);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [WCSession onqueue_removeOutstandingUserInfoTransfer:];
       }
@@ -802,40 +792,35 @@ uint64_t __41__WCSession_outstandingUserInfoTransfers__block_invoke(uint64_t a1)
 
 - (NSArray)outstandingFileTransfers
 {
-  v16[1] = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3032000000;
-  v13 = __Block_byref_object_copy_;
-  v14 = __Block_byref_object_dispose_;
-  v15 = MEMORY[0x277CBEBF8];
+  v15[1] = *MEMORY[0x277D85DE8];
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy_;
+  v13 = __Block_byref_object_dispose_;
+  v14 = MEMORY[0x277CBEBF8];
   v3 = objc_opt_new();
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __37__WCSession_outstandingFileTransfers__block_invoke;
-  v9[3] = &unk_278B7BFA0;
-  v9[4] = self;
-  v9[5] = &v10;
-  [v3 addExecutionBlock:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __37__WCSession_outstandingFileTransfers__block_invoke;
+  v8[3] = &unk_278B7BFA0;
+  v8[4] = self;
+  v8[5] = &v9;
+  [v3 addExecutionBlock:v8];
   workOperationQueue = self->_workOperationQueue;
-  v16[0] = v3;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = v3;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   [(NSOperationQueue *)workOperationQueue addOperations:v5 waitUntilFinished:1];
 
-  v6 = v11[5];
-  _Block_object_dispose(&v10, 8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = v10[5];
+  _Block_object_dispose(&v9, 8);
 
   return v6;
 }
 
 uint64_t __37__WCSession_outstandingFileTransfers__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 120) allValues];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 120) allValues];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -876,9 +861,9 @@ uint64_t __37__WCSession_outstandingFileTransfers__block_invoke(uint64_t a1)
     {
       internalOutstandingFileTransfers = [(WCSession *)self internalOutstandingFileTransfers];
       transferIdentifier = [transferCopy transferIdentifier];
-      v8 = [internalOutstandingFileTransfers objectForKeyedSubscript:transferIdentifier];
+      v9 = [internalOutstandingFileTransfers objectForKeyedSubscript:transferIdentifier];
 
-      if (v8)
+      if (v9)
       {
         [(WCSession *)self willChangeValueForKey:@"outstandingFileTransfers"];
         internalOutstandingFileTransfers = self->_internalOutstandingFileTransfers;
@@ -890,19 +875,19 @@ uint64_t __37__WCSession_outstandingFileTransfers__block_invoke(uint64_t a1)
 
       else
       {
-        v12 = self->_internalOutstandingFileTransfers;
+        v13 = self->_internalOutstandingFileTransfers;
         transferIdentifier3 = [transferCopy transferIdentifier];
-        [(NSMutableDictionary *)v12 removeObjectForKey:transferIdentifier3];
+        [(NSMutableDictionary *)v13 removeObjectForKey:transferIdentifier3];
       }
 
-      v11 = +[WCFileStorage sharedInstance];
-      [v11 deleteOutstandingFileTransfer:transferCopy];
+      v12 = +[WCFileStorage sharedInstance];
+      [v12 deleteOutstandingFileTransfer:transferCopy];
     }
 
     else
     {
-      v11 = wc_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = wc_log(v6);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [WCSession onqueue_removeOutstandingUserInfoTransfer:];
       }
@@ -912,86 +897,81 @@ uint64_t __37__WCSession_outstandingFileTransfers__block_invoke(uint64_t a1)
 
 - (void)onqueue_loadFileTransferProgress
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v3 = wc_log();
+  v20 = *MEMORY[0x277D85DE8];
+  v3 = wc_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     internalOutstandingFileTransfers = [(WCSession *)self internalOutstandingFileTransfers];
     *buf = 136446466;
-    v18 = "[WCSession onqueue_loadFileTransferProgress]";
-    v19 = 2050;
-    v20 = [internalOutstandingFileTransfers count];
+    v17 = "[WCSession onqueue_loadFileTransferProgress]";
+    v18 = 2050;
+    v19 = [internalOutstandingFileTransfers count];
     _os_log_impl(&dword_23B2FA000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s for number of file transfers %{public}ld", buf, 0x16u);
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   internalOutstandingFileTransfers2 = [(WCSession *)self internalOutstandingFileTransfers];
   allValues = [internalOutstandingFileTransfers2 allValues];
 
-  v7 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [(WCSession *)self onqueue_createProgressForFileTransfer:*(*(&v12 + 1) + 8 * v10++)];
+        [(WCSession *)self onqueue_createProgressForFileTransfer:*(*(&v11 + 1) + 8 * v10++)];
       }
 
       while (v8 != v10);
-      v8 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onqueue_createProgressForFileTransfer:(id)transfer
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   transferCopy = transfer;
   objc_initWeak(&location, self);
   v5 = MEMORY[0x277CCAC48];
   file = [transferCopy file];
   fileURL = [file fileURL];
-  v12 = MEMORY[0x277D85DD0];
-  v13 = 3221225472;
-  v14 = __51__WCSession_onqueue_createProgressForFileTransfer___block_invoke;
-  v15 = &unk_278B7C040;
+  v11 = MEMORY[0x277D85DD0];
+  v12 = 3221225472;
+  v13 = __51__WCSession_onqueue_createProgressForFileTransfer___block_invoke;
+  v14 = &unk_278B7C040;
   v8 = transferCopy;
-  v16 = v8;
+  v15 = v8;
   selfCopy = self;
-  objc_copyWeak(&v18, &location);
-  v9 = [v5 _addSubscriberForFileURL:fileURL withPublishingHandler:&v12];
+  objc_copyWeak(&v17, &location);
+  v9 = [v5 _addSubscriberForFileURL:fileURL withPublishingHandler:&v11];
 
-  [v8 setProgressToken:{v9, v12, v13, v14, v15}];
-  v10 = wc_log();
+  v10 = wc_log([v8 setProgressToken:{v9, v11, v12, v13, v14}]);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v21 = "[WCSession onqueue_createProgressForFileTransfer:]";
-    v22 = 2114;
-    v23 = v8;
+    v20 = "[WCSession onqueue_createProgressForFileTransfer:]";
+    v21 = 2114;
+    v22 = v8;
     _os_log_impl(&dword_23B2FA000, v10, OS_LOG_TYPE_DEFAULT, "%{public}s Created progress for %{public}@", buf, 0x16u);
   }
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 id __51__WCSession_onqueue_createProgressForFileTransfer___block_invoke(uint64_t a1, void *a2)
@@ -1044,33 +1024,31 @@ void __51__WCSession_onqueue_createProgressForFileTransfer___block_invoke_2(uint
 
 void __51__WCSession_onqueue_createProgressForFileTransfer___block_invoke_3(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) == 1)
   {
-    v2 = wc_log();
+    v2 = wc_log(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(a1 + 32);
       *buf = 136446466;
-      v10 = "[WCSession onqueue_createProgressForFileTransfer:]_block_invoke_3";
-      v11 = 2114;
-      v12 = v3;
+      v9 = "[WCSession onqueue_createProgressForFileTransfer:]_block_invoke_3";
+      v10 = 2114;
+      v11 = v3;
       _os_log_impl(&dword_23B2FA000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s Progress unpublished for transfer %{public}@", buf, 0x16u);
     }
 
     v4 = *(*(a1 + 40) + 88);
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __51__WCSession_onqueue_createProgressForFileTransfer___block_invoke_47;
-    v6[3] = &unk_278B7BFF0;
-    objc_copyWeak(&v8, (a1 + 56));
-    v7 = *(a1 + 48);
-    [v4 addOperationWithBlock:v6];
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = __51__WCSession_onqueue_createProgressForFileTransfer___block_invoke_47;
+    v5[3] = &unk_278B7BFF0;
+    objc_copyWeak(&v7, (a1 + 56));
+    v6 = *(a1 + 48);
+    [v4 addOperationWithBlock:v5];
 
-    objc_destroyWeak(&v8);
+    objc_destroyWeak(&v7);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __51__WCSession_onqueue_createProgressForFileTransfer___block_invoke_47(uint64_t a1)
@@ -1084,7 +1062,7 @@ void __51__WCSession_onqueue_createProgressForFileTransfer___block_invoke_47(uin
   v18 = *MEMORY[0x277D85DE8];
   transferCopy = transfer;
   progressCopy = progress;
-  v8 = wc_log();
+  v8 = wc_log(progressCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     transferIdentifier = [transferCopy transferIdentifier];
@@ -1101,42 +1079,39 @@ void __51__WCSession_onqueue_createProgressForFileTransfer___block_invoke_47(uin
     [transferCopy addObserver:self forKeyPath:@"internalProgress.userInfo.NSProgressByteCompletedCountKey" options:1 context:0];
     [transferCopy addObserver:self forKeyPath:@"internalProgress.finished" options:1 context:0];
     [transferCopy addObserver:self forKeyPath:@"internalProgress.cancelled" options:1 context:0];
-    [(WCSession *)self onqueue_updateClientProgressForFileTransfer:transferCopy];
-    v10 = wc_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = wc_log([(WCSession *)self onqueue_updateClientProgressForFileTransfer:transferCopy]);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       internalProgress = [transferCopy internalProgress];
       v14 = 136446466;
       v15 = "[WCSession onqueue_updateProgressForFileTransfer:progress:]";
       v16 = 2112;
       v17 = internalProgress;
-      v12 = "%{public}s Added observer for progress %@";
+      v13 = "%{public}s Added observer for progress %@";
 LABEL_8:
-      _os_log_impl(&dword_23B2FA000, v10, OS_LOG_TYPE_DEFAULT, v12, &v14, 0x16u);
+      _os_log_impl(&dword_23B2FA000, v11, OS_LOG_TYPE_DEFAULT, v13, &v14, 0x16u);
     }
   }
 
   else
   {
-    v10 = wc_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = wc_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       internalProgress = [0 transferIdentifier];
       v14 = 136446466;
       v15 = "[WCSession onqueue_updateProgressForFileTransfer:progress:]";
       v16 = 2114;
       v17 = internalProgress;
-      v12 = "%{public}s Missing item for publish callback (identifier: %{public}@)";
+      v13 = "%{public}s Missing item for publish callback (identifier: %{public}@)";
       goto LABEL_8;
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onqueue_removeProgressForFileTransfer:(id)transfer
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   transferCopy = transfer;
   progress = [transferCopy progress];
   isFinished = [progress isFinished];
@@ -1145,29 +1120,29 @@ LABEL_8:
   {
     progressToken = [transferCopy progressToken];
 
-    v8 = wc_log();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v9 = wc_log(v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
     if (progressToken)
     {
-      if (v9)
+      if (v10)
       {
-        v15 = 136446466;
-        v16 = "[WCSession onqueue_removeProgressForFileTransfer:]";
-        v17 = 2114;
-        v18 = transferCopy;
-        _os_log_impl(&dword_23B2FA000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s Removing progress for transfer %{public}@", &v15, 0x16u);
+        v16 = 136446466;
+        v17 = "[WCSession onqueue_removeProgressForFileTransfer:]";
+        v18 = 2114;
+        v19 = transferCopy;
+        _os_log_impl(&dword_23B2FA000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s Removing progress for transfer %{public}@", &v16, 0x16u);
       }
 
       internalProgress = [transferCopy internalProgress];
 
       if (internalProgress)
       {
-        v11 = wc_log();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v13 = wc_log(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          v15 = 136446210;
-          v16 = "[WCSession onqueue_removeProgressForFileTransfer:]";
-          _os_log_impl(&dword_23B2FA000, v11, OS_LOG_TYPE_DEFAULT, "%{public}s Removing progress observers", &v15, 0xCu);
+          v16 = 136446210;
+          v17 = "[WCSession onqueue_removeProgressForFileTransfer:]";
+          _os_log_impl(&dword_23B2FA000, v13, OS_LOG_TYPE_DEFAULT, "%{public}s Removing progress observers", &v16, 0xCu);
         }
 
         [transferCopy removeObserver:self forKeyPath:@"internalProgress.userInfo.NSProgressByteCompletedCountKey"];
@@ -1175,27 +1150,25 @@ LABEL_8:
         [transferCopy removeObserver:self forKeyPath:@"internalProgress.cancelled"];
       }
 
-      v12 = MEMORY[0x277CCAC48];
+      v14 = MEMORY[0x277CCAC48];
       progressToken2 = [transferCopy progressToken];
-      [v12 _removeSubscriber:progressToken2];
+      [v14 _removeSubscriber:progressToken2];
 
       [transferCopy setProgressToken:0];
     }
 
     else
     {
-      if (v9)
+      if (v10)
       {
-        v15 = 136446466;
-        v16 = "[WCSession onqueue_removeProgressForFileTransfer:]";
-        v17 = 2114;
-        v18 = transferCopy;
-        _os_log_impl(&dword_23B2FA000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s Missing item to remove (identifier: %{public}@)", &v15, 0x16u);
+        v16 = 136446466;
+        v17 = "[WCSession onqueue_removeProgressForFileTransfer:]";
+        v18 = 2114;
+        v19 = transferCopy;
+        _os_log_impl(&dword_23B2FA000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s Missing item to remove (identifier: %{public}@)", &v16, 0x16u);
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -1215,15 +1188,15 @@ LABEL_8:
   [(NSOperationQueue *)workOperationQueue addOperationWithBlock:v13];
 }
 
-void __60__WCSession_observeValueForKeyPath_ofObject_change_context___block_invoke(id *a1)
+void __60__WCSession_observeValueForKeyPath_ofObject_change_context___block_invoke(id *a1, uint64_t a2)
 {
   v15 = *MEMORY[0x277D85DE8];
-  v2 = a1[4];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v3 = a1[4]) != 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) != 0 && (isKindOfClass = a1[4]) != 0)
   {
-    v4 = v3;
-    v5 = [v3 internalProgress];
+    v4 = isKindOfClass;
+    v5 = [isKindOfClass internalProgress];
     v6 = [v5 userInfo];
     v7 = [v6 objectForKeyedSubscript:@"IDSSendResourceProgressIdentifier"];
 
@@ -1242,16 +1215,20 @@ void __60__WCSession_observeValueForKeyPath_ofObject_change_context___block_invo
         [a1[6] onqueue_handleProgressFinishedForFileTransfer:v4];
       }
 
-      else if ([a1[5] isEqual:@"internalProgress.cancelled"])
+      else
       {
-        v9 = wc_log();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v9 = [a1[5] isEqual:@"internalProgress.cancelled"];
+        if (v9)
         {
-          v11 = 136446466;
-          v12 = "[WCSession observeValueForKeyPath:ofObject:change:context:]_block_invoke";
-          v13 = 2112;
-          v14 = v7;
-          _os_log_impl(&dword_23B2FA000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s Progress cancelled for identifier %@", &v11, 0x16u);
+          v10 = wc_log(v9);
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+          {
+            v11 = 136446466;
+            v12 = "[WCSession observeValueForKeyPath:ofObject:change:context:]_block_invoke";
+            v13 = 2112;
+            v14 = v7;
+            _os_log_impl(&dword_23B2FA000, v10, OS_LOG_TYPE_DEFAULT, "%{public}s Progress cancelled for identifier %@", &v11, 0x16u);
+          }
         }
       }
     }
@@ -1259,19 +1236,17 @@ void __60__WCSession_observeValueForKeyPath_ofObject_change_context___block_invo
 
   else
   {
-    v4 = wc_log();
+    v4 = wc_log(isKindOfClass);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __60__WCSession_observeValueForKeyPath_ofObject_change_context___block_invoke_cold_1();
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onqueue_updateClientProgressForFileTransfer:(id)transfer
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   transferCopy = transfer;
   internalOutstandingFileTransfers = [(WCSession *)self internalOutstandingFileTransfers];
   transferIdentifier = [transferCopy transferIdentifier];
@@ -1281,68 +1256,65 @@ void __60__WCSession_observeValueForKeyPath_ofObject_change_context___block_invo
   {
     internalProgress = [transferCopy internalProgress];
     userInfo = [internalProgress userInfo];
-    v10 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CCA608]];
+    v11 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CCA608]];
 
     internalProgress2 = [transferCopy internalProgress];
     byteCompletedCount = [internalProgress2 byteCompletedCount];
 
-    v13 = wc_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = wc_log(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       internalProgress3 = [transferCopy internalProgress];
       userInfo2 = [internalProgress3 userInfo];
       internalProgress4 = [transferCopy internalProgress];
-      v25 = 138413058;
-      v26 = v10;
-      v27 = 2112;
-      v28 = byteCompletedCount;
-      v29 = 2112;
-      v30 = userInfo2;
-      v31 = 2112;
-      v32 = internalProgress4;
-      _os_log_impl(&dword_23B2FA000, v13, OS_LOG_TYPE_DEFAULT, "Got totalBytes: %@, completedBytes: %@, userInfo: %@, progress: %@", &v25, 0x2Au);
+      v26 = 138413058;
+      v27 = v11;
+      v28 = 2112;
+      v29 = byteCompletedCount;
+      v30 = 2112;
+      v31 = userInfo2;
+      v32 = 2112;
+      v33 = internalProgress4;
+      _os_log_impl(&dword_23B2FA000, v15, OS_LOG_TYPE_DEFAULT, "Got totalBytes: %@, completedBytes: %@, userInfo: %@, progress: %@", &v26, 0x2Au);
     }
 
     progress = [transferCopy progress];
     [byteCompletedCount doubleValue];
-    v19 = v18;
-    [v10 doubleValue];
-    totalUnitCount = (v19 / v20 * [progress totalUnitCount]);
+    v21 = v20;
+    [v11 doubleValue];
+    totalUnitCount = (v21 / v22 * [progress totalUnitCount]);
     if ([progress totalUnitCount] < totalUnitCount)
     {
       totalUnitCount = [progress totalUnitCount];
     }
 
-    [progress setCompletedUnitCount:totalUnitCount];
-    v22 = wc_log();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v24 = wc_log([progress setCompletedUnitCount:totalUnitCount]);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       transferIdentifier2 = [transferCopy transferIdentifier];
-      v25 = 136446722;
-      v26 = "[WCSession onqueue_updateClientProgressForFileTransfer:]";
-      v27 = 2114;
-      v28 = transferIdentifier2;
-      v29 = 2114;
-      v30 = progress;
-      _os_log_impl(&dword_23B2FA000, v22, OS_LOG_TYPE_DEFAULT, "%{public}s Updated progress for identifier: %{public}@, to %{public}@", &v25, 0x20u);
+      v26 = 136446722;
+      v27 = "[WCSession onqueue_updateClientProgressForFileTransfer:]";
+      v28 = 2114;
+      v29 = transferIdentifier2;
+      v30 = 2114;
+      v31 = progress;
+      _os_log_impl(&dword_23B2FA000, v24, OS_LOG_TYPE_DEFAULT, "%{public}s Updated progress for identifier: %{public}@, to %{public}@", &v26, 0x20u);
     }
 
     goto LABEL_11;
   }
 
-  v10 = wc_log();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = wc_log(v8);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     byteCompletedCount = [transferCopy transferIdentifier];
-    v25 = 136446466;
-    v26 = "[WCSession onqueue_updateClientProgressForFileTransfer:]";
-    v27 = 2114;
-    v28 = byteCompletedCount;
-    _os_log_impl(&dword_23B2FA000, v10, OS_LOG_TYPE_DEFAULT, "%{public}s Received progress for identifier: %{public}@, without outstanding tranfer", &v25, 0x16u);
+    v26 = 136446466;
+    v27 = "[WCSession onqueue_updateClientProgressForFileTransfer:]";
+    v28 = 2114;
+    v29 = byteCompletedCount;
+    _os_log_impl(&dword_23B2FA000, v11, OS_LOG_TYPE_DEFAULT, "%{public}s Received progress for identifier: %{public}@, without outstanding tranfer", &v26, 0x16u);
 LABEL_11:
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onqueue_handleProgressFinishedForFileTransfer:(id)transfer
@@ -1350,7 +1322,7 @@ LABEL_11:
   v13 = *MEMORY[0x277D85DE8];
   transferCopy = transfer;
   transferIdentifier = [transferCopy transferIdentifier];
-  v5 = wc_log();
+  v5 = wc_log(transferIdentifier);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136446466;
@@ -1362,22 +1334,27 @@ LABEL_11:
 
   progress = [transferCopy progress];
 
-  if (progress && ([progress isFinished] & 1) == 0 && (objc_msgSend(progress, "isCancelled") & 1) == 0)
+  if (progress)
   {
-    v7 = wc_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (([progress isFinished] & 1) == 0)
     {
-      v9 = 136446466;
-      v10 = "[WCSession onqueue_handleProgressFinishedForFileTransfer:]";
-      v11 = 2114;
-      v12 = transferIdentifier;
-      _os_log_impl(&dword_23B2FA000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s Forcing progress to finished for %{public}@", &v9, 0x16u);
+      isCancelled = [progress isCancelled];
+      if ((isCancelled & 1) == 0)
+      {
+        v8 = wc_log(isCancelled);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        {
+          v9 = 136446466;
+          v10 = "[WCSession onqueue_handleProgressFinishedForFileTransfer:]";
+          v11 = 2114;
+          v12 = transferIdentifier;
+          _os_log_impl(&dword_23B2FA000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s Forcing progress to finished for %{public}@", &v9, 0x16u);
+        }
+
+        [progress setCompletedUnitCount:{objc_msgSend(progress, "totalUnitCount")}];
+      }
     }
-
-    [progress setCompletedUnitCount:{objc_msgSend(progress, "totalUnitCount")}];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendMessage:(NSDictionary *)message replyHandler:(void *)replyHandler errorHandler:(void *)errorHandler
@@ -1388,7 +1365,7 @@ LABEL_11:
   if (!v8)
   {
     v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: %s cannot be nil.", "-[WCSession sendMessage:replyHandler:errorHandler:]", "message"];
-    v12 = wc_log();
+    v12 = wc_log(v11);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       [WCSession sendMessage:v11 replyHandler:? errorHandler:?];
@@ -1414,14 +1391,14 @@ LABEL_11:
 
 void __51__WCSession_sendMessage_replyHandler_errorHandler___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v2 = wc_log();
+  v22 = *MEMORY[0x277D85DE8];
+  v2 = wc_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = "YES";
     v4 = *(a1 + 56);
     v5 = *(a1 + 48) == 0;
-    v18 = "[WCSession sendMessage:replyHandler:errorHandler:]_block_invoke";
+    v17 = "[WCSession sendMessage:replyHandler:errorHandler:]_block_invoke";
     if (v5)
     {
       v6 = "NO";
@@ -1433,34 +1410,32 @@ void __51__WCSession_sendMessage_replyHandler_errorHandler___block_invoke(uint64
     }
 
     *buf = 136446722;
-    v19 = 2080;
+    v18 = 2080;
     if (!v4)
     {
       v3 = "NO";
     }
 
-    v20 = v6;
-    v21 = 2080;
-    v22 = v3;
+    v19 = v6;
+    v20 = 2080;
+    v21 = v3;
     _os_log_impl(&dword_23B2FA000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s hasReplyHandler: %s, hasErrorHandler: %s", buf, 0x20u);
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __51__WCSession_sendMessage_replyHandler_errorHandler___block_invoke_66;
-  v14[3] = &unk_278B7C090;
-  v13 = *(a1 + 32);
-  v7 = *(v13 + 88);
-  v8 = *(&v13 + 1);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __51__WCSession_sendMessage_replyHandler_errorHandler___block_invoke_66;
+  v13[3] = &unk_278B7C090;
+  v12 = *(a1 + 32);
+  v7 = *(v12 + 88);
+  v8 = *(&v12 + 1);
   v9 = *(a1 + 48);
   v10 = *(a1 + 56);
   *&v11 = v9;
   *(&v11 + 1) = v10;
-  v15 = v13;
-  v16 = v11;
-  [v7 addOperationWithBlock:v14];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14 = v12;
+  v15 = v11;
+  [v7 addOperationWithBlock:v13];
 }
 
 void __51__WCSession_sendMessage_replyHandler_errorHandler___block_invoke_66(uint64_t a1)
@@ -1500,7 +1475,7 @@ void __51__WCSession_sendMessage_replyHandler_errorHandler___block_invoke_66(uin
   if (!v8)
   {
     v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: %s cannot be nil.", "-[WCSession sendMessageData:replyHandler:errorHandler:]", "data"];
-    v12 = wc_log();
+    v12 = wc_log(v11);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       [WCSession sendMessage:v11 replyHandler:? errorHandler:?];
@@ -1526,14 +1501,14 @@ void __51__WCSession_sendMessage_replyHandler_errorHandler___block_invoke_66(uin
 
 void __55__WCSession_sendMessageData_replyHandler_errorHandler___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v2 = wc_log();
+  v22 = *MEMORY[0x277D85DE8];
+  v2 = wc_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = "YES";
     v4 = *(a1 + 56);
     v5 = *(a1 + 48) == 0;
-    v18 = "[WCSession sendMessageData:replyHandler:errorHandler:]_block_invoke";
+    v17 = "[WCSession sendMessageData:replyHandler:errorHandler:]_block_invoke";
     if (v5)
     {
       v6 = "NO";
@@ -1545,34 +1520,32 @@ void __55__WCSession_sendMessageData_replyHandler_errorHandler___block_invoke(ui
     }
 
     *buf = 136446722;
-    v19 = 2080;
+    v18 = 2080;
     if (!v4)
     {
       v3 = "NO";
     }
 
-    v20 = v6;
-    v21 = 2080;
-    v22 = v3;
+    v19 = v6;
+    v20 = 2080;
+    v21 = v3;
     _os_log_impl(&dword_23B2FA000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s hasReplyHandler: %s, hasErrorHandler: %s", buf, 0x20u);
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __55__WCSession_sendMessageData_replyHandler_errorHandler___block_invoke_69;
-  v14[3] = &unk_278B7C090;
-  v13 = *(a1 + 32);
-  v7 = *(v13 + 88);
-  v8 = *(&v13 + 1);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __55__WCSession_sendMessageData_replyHandler_errorHandler___block_invoke_69;
+  v13[3] = &unk_278B7C090;
+  v12 = *(a1 + 32);
+  v7 = *(v12 + 88);
+  v8 = *(&v12 + 1);
   v9 = *(a1 + 48);
   v10 = *(a1 + 56);
   *&v11 = v9;
   *(&v11 + 1) = v10;
-  v15 = v13;
-  v16 = v11;
-  [v7 addOperationWithBlock:v14];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14 = v12;
+  v15 = v11;
+  [v7 addOperationWithBlock:v13];
 }
 
 void __55__WCSession_sendMessageData_replyHandler_errorHandler___block_invoke_69(uint64_t a1)
@@ -1592,6 +1565,83 @@ void __55__WCSession_sendMessageData_replyHandler_errorHandler___block_invoke_69
     v6 = *(a1 + 56);
 
     [v3 onqueue_sendMessageData:v4 replyHandler:v5 errorHandler:v6 dictionaryMessage:0];
+  }
+}
+
+- (void)onqueue_sendMessageData:(id)data replyHandler:(id)handler errorHandler:(id)errorHandler dictionaryMessage:(BOOL)message
+{
+  messageCopy = message;
+  v41 = *MEMORY[0x277D85DE8];
+  dataCopy = data;
+  handlerCopy = handler;
+  errorHandlerCopy = errorHandler;
+  if (WCIsDataAcceptableSizeForType(0, dataCopy))
+  {
+    v13 = objc_opt_new();
+    uUIDString = [v13 UUIDString];
+
+    if (handlerCopy | errorHandlerCopy)
+    {
+      v15 = off_278B7BCB8;
+      if (!messageCopy)
+      {
+        v15 = off_278B7BCB0;
+      }
+
+      v16 = [objc_alloc(*v15) initWithIdentifier:uUIDString responseHandler:handlerCopy errorHandler:errorHandlerCopy];
+      [(NSMutableDictionary *)self->_currentMessages setObject:v16 forKeyedSubscript:uUIDString];
+      if (handlerCopy)
+      {
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __81__WCSession_onqueue_sendMessageData_replyHandler_errorHandler_dictionaryMessage___block_invoke;
+        v31[3] = &unk_278B7C068;
+        v17 = v16;
+        v32 = v17;
+        selfCopy = self;
+        v34 = uUIDString;
+        v18 = [(WCSession *)self createAndStartTimerOnWorkQueueWithHandler:v31];
+        [v17 setTimeoutTimer:v18];
+      }
+    }
+
+    v19 = [WCMessageRequest alloc];
+    pairingID = [(WCSession *)self pairingID];
+    v21 = [(WCMessageRequest *)v19 initWithPairingID:pairingID identifier:uUIDString data:dataCopy dictionaryMessage:messageCopy expectsResponse:handlerCopy != 0];
+
+    v23 = wc_log(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    {
+      v24 = [dataCopy length];
+      *buf = 136446722;
+      v36 = "[WCSession onqueue_sendMessageData:replyHandler:errorHandler:dictionaryMessage:]";
+      v37 = 2048;
+      v38 = v24;
+      v39 = 2114;
+      v40 = uUIDString;
+      _os_log_impl(&dword_23B2FA000, v23, OS_LOG_TYPE_DEFAULT, "%{public}s size: %ld, messageID: %{public}@", buf, 0x20u);
+    }
+
+    objc_initWeak(buf, self);
+    queueManager = [(WCSession *)self queueManager];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __81__WCSession_onqueue_sendMessageData_replyHandler_errorHandler_dictionaryMessage___block_invoke_74;
+    v28[3] = &unk_278B7C0E0;
+    v28[4] = self;
+    objc_copyWeak(&v30, buf);
+    v26 = uUIDString;
+    v29 = v26;
+    [queueManager sendMessage:v21 completionHandler:v28];
+
+    objc_destroyWeak(&v30);
+    objc_destroyWeak(buf);
+  }
+
+  else
+  {
+    v27 = [MEMORY[0x277CCA9B8] wcErrorWithCode:7009];
+    [(WCSession *)self _onqueue_notifyOfMessageError:v27 messageID:0 withErrorHandler:errorHandlerCopy];
   }
 }
 
@@ -1645,7 +1695,7 @@ void __81__WCSession_onqueue_sendMessageData_replyHandler_errorHandler_dictionar
   if (!v6)
   {
     v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: %s cannot be nil.", "-[WCSession updateApplicationContext:error:]", "applicationContext"];
-    v8 = wc_log();
+    v8 = wc_log(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       [WCSession sendMessage:v7 replyHandler:? errorHandler:?];
@@ -1677,12 +1727,12 @@ void __81__WCSession_onqueue_sendMessageData_replyHandler_errorHandler_dictionar
 
 void __44__WCSession_updateApplicationContext_error___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v2 = wc_log();
+  v29 = *MEMORY[0x277D85DE8];
+  v2 = wc_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v25 = "[WCSession updateApplicationContext:error:]_block_invoke";
+    v26 = "[WCSession updateApplicationContext:error:]_block_invoke";
     _os_log_impl(&dword_23B2FA000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s ", buf, 0xCu);
   }
 
@@ -1704,7 +1754,7 @@ void __44__WCSession_updateApplicationContext_error___block_invoke(uint64_t a1)
     }
 
 LABEL_12:
-    v11 = wc_log();
+    v11 = wc_log(v6);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -1721,80 +1771,80 @@ LABEL_12:
 
 LABEL_6:
   v10 = *(a1 + 40);
-  v23 = v7;
-  v11 = WCSerializePayloadDictionary(v10, &v23);
-  v12 = v23;
+  v24 = v7;
+  v11 = WCSerializePayloadDictionary(v10, &v24);
+  v12 = v24;
 
   if (!v11)
   {
-    v17 = MEMORY[0x277CCA9B8];
-    v18 = 7010;
+    v18 = MEMORY[0x277CCA9B8];
+    v19 = 7010;
 LABEL_16:
-    v7 = [v17 wcErrorWithCode:v18];
+    v7 = [v18 wcErrorWithCode:v19];
 
 LABEL_17:
     v12 = v7;
     goto LABEL_18;
   }
 
-  if (!WCIsDataAcceptableSizeForType(1, v11))
+  v13 = WCIsDataAcceptableSizeForType(1, v11);
+  if (!v13)
   {
-    v17 = MEMORY[0x277CCA9B8];
-    v18 = 7009;
+    v18 = MEMORY[0x277CCA9B8];
+    v19 = 7009;
     goto LABEL_16;
   }
 
-  v13 = wc_log();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = wc_log(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = [v11 length];
+    v15 = [v11 length];
     *buf = 136446466;
-    v25 = "[WCSession updateApplicationContext:error:]_block_invoke";
-    v26 = 2048;
-    v27 = v14;
-    _os_log_impl(&dword_23B2FA000, v13, OS_LOG_TYPE_DEFAULT, "%{public}s size: %ld", buf, 0x16u);
+    v26 = "[WCSession updateApplicationContext:error:]_block_invoke";
+    v27 = 2048;
+    v28 = v15;
+    _os_log_impl(&dword_23B2FA000, v14, OS_LOG_TYPE_DEFAULT, "%{public}s size: %ld", buf, 0x16u);
   }
 
-  v15 = +[WCXPCManager sharedManager];
-  v16 = [*(a1 + 32) pairingID];
-  [v15 updateApplicationContext:v11 clientPairingID:v16 errorHandler:&__block_literal_global];
+  v16 = +[WCXPCManager sharedManager];
+  v17 = [*(a1 + 32) pairingID];
+  [v16 updateApplicationContext:v11 clientPairingID:v17 errorHandler:&__block_literal_global];
 
   [*(a1 + 32) storeAppContext:*(a1 + 40) withAppContextData:v11];
 LABEL_18:
 
   if (v12)
   {
-    v19 = wc_log();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = wc_log(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       __44__WCSession_updateApplicationContext_error___block_invoke_cold_1();
     }
 
-    v20 = 0;
+    v22 = 0;
   }
 
   else
   {
-    v20 = 1;
+    v22 = 1;
   }
 
-  *(*(*(a1 + 48) + 8) + 24) = v20;
+  *(*(*(a1 + 48) + 8) + 24) = v22;
   if (*(a1 + 56))
   {
-    v21 = v12;
+    v23 = v12;
     **(a1 + 56) = v12;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __44__WCSession_updateApplicationContext_error___block_invoke_80(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = wc_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = wc_log(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __44__WCSession_updateApplicationContext_error___block_invoke_80_cold_1();
     }
@@ -1808,7 +1858,7 @@ void __44__WCSession_updateApplicationContext_error___block_invoke_80(uint64_t a
   if (!v6)
   {
     v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: %s cannot be nil.", "-[WCSession transferFile:metadata:]", "file"];
-    v9 = wc_log();
+    v9 = wc_log(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       [WCSession sendMessage:v8 replyHandler:? errorHandler:?];
@@ -1844,12 +1894,12 @@ void __44__WCSession_updateApplicationContext_error___block_invoke_80(uint64_t a
 
 void __35__WCSession_transferFile_metadata___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v2 = wc_log();
+  v31 = *MEMORY[0x277D85DE8];
+  v2 = wc_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v31 = "[WCSession transferFile:metadata:]_block_invoke";
+    v30 = "[WCSession transferFile:metadata:]_block_invoke";
     _os_log_impl(&dword_23B2FA000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s ", buf, 0xCu);
   }
 
@@ -1860,7 +1910,7 @@ void __35__WCSession_transferFile_metadata___block_invoke(uint64_t a1)
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
 
-  if (v3 || *(a1 + 48) && ([*(*(*(a1 + 56) + 8) + 40) file], v11 = objc_claimAutoreleasedReturnValue(), v12 = *(a1 + 48), v29 = 0, objc_msgSend(v11, "updateUserInfo:error:", v12, &v29), v3 = v29, v11, v3))
+  if (v3 || *(a1 + 48) && ([*(*(*(a1 + 56) + 8) + 40) file], v10 = objc_claimAutoreleasedReturnValue(), v11 = *(a1 + 48), v28 = 0, objc_msgSend(v10, "updateUserInfo:error:", v11, &v28), v3 = v28, v10, v3))
   {
     v8 = *(a1 + 32);
     v9 = *(*(*(a1 + 56) + 8) + 40);
@@ -1870,69 +1920,67 @@ void __35__WCSession_transferFile_metadata___block_invoke(uint64_t a1)
   {
     if (WCIsFileDirectory(*(a1 + 40)))
     {
-      v13 = *(a1 + 32);
-      v14 = MEMORY[0x277CCA9B8];
-      v15 = 7008;
+      v12 = *(a1 + 32);
+      v13 = MEMORY[0x277CCA9B8];
+      v14 = 7008;
     }
 
     else
     {
-      v16 = *(a1 + 40);
-      v17 = getpid();
-      v18 = WCCheckFileAndCreateExtensionForProcess(v16, v17);
-      if (v18)
+      v15 = *(a1 + 40);
+      v16 = getpid();
+      v17 = WCCheckFileAndCreateExtensionForProcess(v15, v16);
+      if (v17)
       {
-        v19 = v18;
+        v18 = v17;
         [*(*(*(a1 + 56) + 8) + 40) setTransferring:1];
-        v21 = *(a1 + 32);
-        v20 = *(a1 + 40);
-        v22 = *(v21 + 88);
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __35__WCSession_transferFile_metadata___block_invoke_83;
-        v25[3] = &unk_278B7C1A0;
-        v25[4] = v21;
-        v23 = v20;
-        v24 = *(a1 + 56);
-        v27 = v19;
-        v28 = v24;
-        v26 = v23;
-        v3 = v19;
-        [v22 addOperationWithBlock:v25];
+        v20 = *(a1 + 32);
+        v19 = *(a1 + 40);
+        v21 = *(v20 + 88);
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __35__WCSession_transferFile_metadata___block_invoke_83;
+        v24[3] = &unk_278B7C1A0;
+        v24[4] = v20;
+        v22 = v19;
+        v23 = *(a1 + 56);
+        v26 = v18;
+        v27 = v23;
+        v25 = v22;
+        v3 = v18;
+        [v21 addOperationWithBlock:v24];
 
         goto LABEL_6;
       }
 
-      v13 = *(a1 + 32);
-      v14 = MEMORY[0x277CCA9B8];
-      v15 = 7013;
+      v12 = *(a1 + 32);
+      v13 = MEMORY[0x277CCA9B8];
+      v14 = 7013;
     }
 
-    v3 = [v14 wcErrorWithCode:v15];
+    v3 = [v13 wcErrorWithCode:v14];
     v9 = *(*(*(a1 + 56) + 8) + 40);
-    v8 = v13;
+    v8 = v12;
   }
 
   [v8 notifyOfFileError:v3 withFileTransfer:v9];
 LABEL_6:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __35__WCSession_transferFile_metadata___block_invoke_83(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) fileSizeFromURL:*(a1 + 40)];
-  v3 = wc_log();
+  v3 = wc_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(*(*(a1 + 56) + 8) + 40);
     *buf = 136446722;
-    v22 = "[WCSession transferFile:metadata:]_block_invoke";
-    v23 = 2114;
-    v24 = v4;
-    v25 = 2048;
-    v26 = [v2 integerValue];
+    v21 = "[WCSession transferFile:metadata:]_block_invoke";
+    v22 = 2114;
+    v23 = v4;
+    v24 = 2048;
+    v25 = [v2 integerValue];
     _os_log_impl(&dword_23B2FA000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s fileTransfer: %{public}@ fileSize: %ld", buf, 0x20u);
   }
 
@@ -1958,20 +2006,18 @@ void __35__WCSession_transferFile_metadata___block_invoke_83(uint64_t a1)
   v14 = *(a1 + 48);
   v15 = *(*(*(a1 + 56) + 8) + 40);
   v16 = [*(a1 + 32) pairingID];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __35__WCSession_transferFile_metadata___block_invoke_86;
-  v19[3] = &unk_278B7C178;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __35__WCSession_transferFile_metadata___block_invoke_86;
+  v18[3] = &unk_278B7C178;
   v17 = *(a1 + 56);
-  v19[4] = *(a1 + 32);
-  v19[5] = v17;
-  objc_copyWeak(&v20, buf);
-  [v13 transferFile:v15 sandboxToken:v14 clientPairingID:v16 errorHandler:v19];
+  v18[4] = *(a1 + 32);
+  v18[5] = v17;
+  objc_copyWeak(&v19, buf);
+  [v13 transferFile:v15 sandboxToken:v14 clientPairingID:v16 errorHandler:v18];
 
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(buf);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __35__WCSession_transferFile_metadata___block_invoke_86(uint64_t a1, void *a2)
@@ -2018,15 +2064,15 @@ void __35__WCSession_transferFile_metadata___block_invoke_2(uint64_t a1)
 
 - (void)cancelFileTransfer:(id)transfer
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   transferCopy = transfer;
-  v5 = wc_log();
+  v5 = wc_log(transferCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v12 = "[WCSession cancelFileTransfer:]";
-    v13 = 2114;
-    v14 = transferCopy;
+    v11 = "[WCSession cancelFileTransfer:]";
+    v12 = 2114;
+    v13 = transferCopy;
     _os_log_impl(&dword_23B2FA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@", buf, 0x16u);
   }
 
@@ -2035,16 +2081,14 @@ void __35__WCSession_transferFile_metadata___block_invoke_2(uint64_t a1)
   if (!errorIfPreconditionsNotSatisfied)
   {
     workOperationQueue = self->_workOperationQueue;
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __32__WCSession_cancelFileTransfer___block_invoke;
-    v9[3] = &unk_278B7C1C8;
-    v9[4] = self;
-    v10 = transferCopy;
-    [(NSOperationQueue *)workOperationQueue addOperationWithBlock:v9];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __32__WCSession_cancelFileTransfer___block_invoke;
+    v8[3] = &unk_278B7C1C8;
+    v8[4] = self;
+    v9 = transferCopy;
+    [(NSOperationQueue *)workOperationQueue addOperationWithBlock:v8];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __32__WCSession_cancelFileTransfer___block_invoke(uint64_t a1)
@@ -2064,26 +2108,23 @@ void __32__WCSession_cancelFileTransfer___block_invoke(uint64_t a1)
 
 - (void)onqueue_cancelFileTransfer:(id)transfer
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   transferCopy = transfer;
   [transferCopy setTransferring:0];
-  [(WCSession *)self onqueue_removeOutstandingFileTransfer:transferCopy];
-  v5 = wc_log();
+  v5 = wc_log([(WCSession *)self onqueue_removeOutstandingFileTransfer:transferCopy]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     transferIdentifier = [transferCopy transferIdentifier];
-    v10 = 136446466;
-    v11 = "[WCSession onqueue_cancelFileTransfer:]";
-    v12 = 2114;
-    v13 = transferIdentifier;
-    _os_log_impl(&dword_23B2FA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s transferIdentifier: %{public}@", &v10, 0x16u);
+    v9 = 136446466;
+    v10 = "[WCSession onqueue_cancelFileTransfer:]";
+    v11 = 2114;
+    v12 = transferIdentifier;
+    _os_log_impl(&dword_23B2FA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s transferIdentifier: %{public}@", &v9, 0x16u);
   }
 
   v7 = +[WCXPCManager sharedManager];
   transferIdentifier2 = [transferCopy transferIdentifier];
   [v7 cancelSendWithIdentifier:transferIdentifier2];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (WCSessionUserInfoTransfer)transferUserInfo:(NSDictionary *)userInfo
@@ -2092,7 +2133,7 @@ void __32__WCSession_cancelFileTransfer___block_invoke(uint64_t a1)
   if (!v4)
   {
     v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: %s cannot be nil.", "-[WCSession transferUserInfo:]", "userInfo"];
-    v6 = wc_log();
+    v6 = wc_log(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       [WCSession sendMessage:v5 replyHandler:? errorHandler:?];
@@ -2126,12 +2167,12 @@ void __32__WCSession_cancelFileTransfer___block_invoke(uint64_t a1)
 
 void __30__WCSession_transferUserInfo___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v2 = wc_log();
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = wc_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v14 = "[WCSession transferUserInfo:]_block_invoke";
+    v13 = "[WCSession transferUserInfo:]_block_invoke";
     _os_log_impl(&dword_23B2FA000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s ", buf, 0xCu);
   }
 
@@ -2142,17 +2183,15 @@ void __30__WCSession_transferUserInfo___block_invoke(uint64_t a1)
 
   v6 = *(a1 + 32);
   v7 = *(v6 + 88);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __30__WCSession_transferUserInfo___block_invoke_89;
-  v11[3] = &unk_278B7C1F0;
-  v11[4] = v6;
-  v10 = *(a1 + 40);
-  v8 = v10;
-  v12 = v10;
-  [v7 addOperationWithBlock:v11];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __30__WCSession_transferUserInfo___block_invoke_89;
+  v10[3] = &unk_278B7C1F0;
+  v10[4] = v6;
+  v9 = *(a1 + 40);
+  v8 = v9;
+  v11 = v9;
+  [v7 addOperationWithBlock:v10];
 }
 
 - (WCSessionUserInfoTransfer)transferCurrentComplicationUserInfo:(NSDictionary *)userInfo
@@ -2161,7 +2200,7 @@ void __30__WCSession_transferUserInfo___block_invoke(uint64_t a1)
   if (!v4)
   {
     v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: %s cannot be nil.", "-[WCSession transferCurrentComplicationUserInfo:]", "userInfo"];
-    v6 = wc_log();
+    v6 = wc_log(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       [WCSession sendMessage:v5 replyHandler:? errorHandler:?];
@@ -2195,12 +2234,12 @@ void __30__WCSession_transferUserInfo___block_invoke(uint64_t a1)
 
 void __49__WCSession_transferCurrentComplicationUserInfo___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v2 = wc_log();
+  v17 = *MEMORY[0x277D85DE8];
+  v2 = wc_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v17 = "[WCSession transferCurrentComplicationUserInfo:]_block_invoke";
+    v16 = "[WCSession transferCurrentComplicationUserInfo:]_block_invoke";
     _os_log_impl(&dword_23B2FA000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s ", buf, 0xCu);
   }
 
@@ -2214,17 +2253,15 @@ void __49__WCSession_transferCurrentComplicationUserInfo___block_invoke(uint64_t
 
   v9 = *(a1 + 32);
   v10 = *(v9 + 88);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __49__WCSession_transferCurrentComplicationUserInfo___block_invoke_90;
-  v14[3] = &unk_278B7C1F0;
-  v14[4] = v9;
-  v13 = *(a1 + 40);
-  v11 = v13;
-  v15 = v13;
-  [v10 addOperationWithBlock:v14];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __49__WCSession_transferCurrentComplicationUserInfo___block_invoke_90;
+  v13[3] = &unk_278B7C1F0;
+  v13[4] = v9;
+  v12 = *(a1 + 40);
+  v11 = v12;
+  v14 = v12;
+  [v10 addOperationWithBlock:v13];
 }
 
 uint64_t __49__WCSession_transferCurrentComplicationUserInfo___block_invoke_90(uint64_t a1)
@@ -2239,15 +2276,15 @@ uint64_t __49__WCSession_transferCurrentComplicationUserInfo___block_invoke_90(u
 
 - (void)cancelUserInfo:(id)info
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   infoCopy = info;
-  v5 = wc_log();
+  v5 = wc_log(infoCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v12 = "[WCSession cancelUserInfo:]";
-    v13 = 2114;
-    v14 = infoCopy;
+    v11 = "[WCSession cancelUserInfo:]";
+    v12 = 2114;
+    v13 = infoCopy;
     _os_log_impl(&dword_23B2FA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@", buf, 0x16u);
   }
 
@@ -2256,16 +2293,14 @@ uint64_t __49__WCSession_transferCurrentComplicationUserInfo___block_invoke_90(u
   if (!errorIfPreconditionsNotSatisfied)
   {
     workOperationQueue = self->_workOperationQueue;
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __28__WCSession_cancelUserInfo___block_invoke;
-    v9[3] = &unk_278B7C1C8;
-    v9[4] = self;
-    v10 = infoCopy;
-    [(NSOperationQueue *)workOperationQueue addOperationWithBlock:v9];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __28__WCSession_cancelUserInfo___block_invoke;
+    v8[3] = &unk_278B7C1C8;
+    v8[4] = self;
+    v9 = infoCopy;
+    [(NSOperationQueue *)workOperationQueue addOperationWithBlock:v8];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __28__WCSession_cancelUserInfo___block_invoke(uint64_t a1)
@@ -2288,57 +2323,56 @@ void __28__WCSession_cancelUserInfo___block_invoke(uint64_t a1)
   v18 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   [(WCSession *)self onqueue_removeOutstandingUserInfoTransfer:infoCopy];
-  if ([infoCopy isCurrentComplicationInfo])
+  isCurrentComplicationInfo = [infoCopy isCurrentComplicationInfo];
+  if (isCurrentComplicationInfo)
   {
-    v5 = wc_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = wc_log(isCurrentComplicationInfo);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       complicationTransferIdentifier = [infoCopy complicationTransferIdentifier];
       v14 = 136446466;
       v15 = "[WCSession onqueue_cancelUserInfo:]";
       v16 = 2114;
       v17 = complicationTransferIdentifier;
-      _os_log_impl(&dword_23B2FA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s complicationTransferIdentifier: %{public}@", &v14, 0x16u);
+      _os_log_impl(&dword_23B2FA000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s complicationTransferIdentifier: %{public}@", &v14, 0x16u);
     }
 
-    v7 = +[WCXPCManager sharedManager];
+    v8 = +[WCXPCManager sharedManager];
     complicationTransferIdentifier2 = [infoCopy complicationTransferIdentifier];
-    [v7 cancelSendWithIdentifier:complicationTransferIdentifier2];
+    [v8 cancelSendWithIdentifier:complicationTransferIdentifier2];
   }
 
-  v9 = wc_log();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = wc_log(isCurrentComplicationInfo);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     transferIdentifier = [infoCopy transferIdentifier];
     v14 = 136446466;
     v15 = "[WCSession onqueue_cancelUserInfo:]";
     v16 = 2114;
     v17 = transferIdentifier;
-    _os_log_impl(&dword_23B2FA000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s transferIdentifier: %{public}@", &v14, 0x16u);
+    _os_log_impl(&dword_23B2FA000, v10, OS_LOG_TYPE_DEFAULT, "%{public}s transferIdentifier: %{public}@", &v14, 0x16u);
   }
 
-  v11 = +[WCXPCManager sharedManager];
+  v12 = +[WCXPCManager sharedManager];
   transferIdentifier2 = [infoCopy transferIdentifier];
-  [v11 cancelSendWithIdentifier:transferIdentifier2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [v12 cancelSendWithIdentifier:transferIdentifier2];
 }
 
 - (void)onqueue_transferUserInfo:(id)info withUserInfo:(id)userInfo
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   userInfoCopy = userInfo;
-  v8 = wc_log();
+  v8 = wc_log(userInfoCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v23 = "[WCSession onqueue_transferUserInfo:withUserInfo:]";
+    v22 = "[WCSession onqueue_transferUserInfo:withUserInfo:]";
     _os_log_impl(&dword_23B2FA000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s ", buf, 0xCu);
   }
 
   errorIfPreconditionsNotSatisfied = [(WCSession *)self errorIfPreconditionsNotSatisfied];
-  if (errorIfPreconditionsNotSatisfied || (v21 = 0, v10 = [infoCopy updateUserInfo:userInfoCopy error:&v21], errorIfPreconditionsNotSatisfied = v21, !v10))
+  if (errorIfPreconditionsNotSatisfied || (v20 = 0, v10 = [infoCopy updateUserInfo:userInfoCopy error:&v20], errorIfPreconditionsNotSatisfied = v20, !v10))
   {
     [(WCSession *)self onqueue_notifyOfUserInfoError:errorIfPreconditionsNotSatisfied withUserInfoTransfer:infoCopy];
   }
@@ -2349,31 +2383,31 @@ void __28__WCSession_cancelUserInfo___block_invoke(uint64_t a1)
     if (v11)
     {
       v12 = [(WCSession *)self fileSizeFromURL:v11];
-      v13 = wc_log();
+      v13 = wc_log(v12);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         path = [v11 path];
         integerValue = [v12 integerValue];
         *buf = 136446978;
-        v23 = "[WCSession onqueue_transferUserInfo:withUserInfo:]";
-        v24 = 2114;
-        v25 = infoCopy;
-        v26 = 2114;
-        v27 = path;
-        v28 = 2048;
-        v29 = integerValue;
+        v22 = "[WCSession onqueue_transferUserInfo:withUserInfo:]";
+        v23 = 2114;
+        v24 = infoCopy;
+        v25 = 2114;
+        v26 = path;
+        v27 = 2048;
+        v28 = integerValue;
         _os_log_impl(&dword_23B2FA000, v13, OS_LOG_TYPE_DEFAULT, "%{public}s transferUserInfo: %{public}@, withURL: %{public}@ fileSize: %ld", buf, 0x2Au);
       }
 
       v16 = +[WCXPCManager sharedManager];
       pairingID = [(WCSession *)self pairingID];
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __51__WCSession_onqueue_transferUserInfo_withUserInfo___block_invoke;
-      v19[3] = &unk_278B7BF50;
-      v19[4] = self;
-      v20 = infoCopy;
-      [v16 transferUserInfo:v20 withURL:v11 clientPairingID:pairingID errorHandler:v19];
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __51__WCSession_onqueue_transferUserInfo_withUserInfo___block_invoke;
+      v18[3] = &unk_278B7BF50;
+      v18[4] = self;
+      v19 = infoCopy;
+      [v16 transferUserInfo:v19 withURL:v11 clientPairingID:pairingID errorHandler:v18];
     }
 
     else
@@ -2382,8 +2416,6 @@ void __28__WCSession_cancelUserInfo___block_invoke(uint64_t a1)
       [(WCSession *)self onqueue_notifyOfUserInfoError:v12 withUserInfoTransfer:infoCopy];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __51__WCSession_onqueue_transferUserInfo_withUserInfo___block_invoke(uint64_t a1, void *a2)
@@ -2421,19 +2453,19 @@ void __51__WCSession_onqueue_transferUserInfo_withUserInfo___block_invoke_2(uint
 
 - (void)onqueue_sendResponseDictionary:(id)dictionary identifier:(id)identifier
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dictionaryCopy = dictionary;
-  v8 = wc_log();
+  v8 = wc_log(dictionaryCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v14 = "[WCSession onqueue_sendResponseDictionary:identifier:]";
+    v13 = "[WCSession onqueue_sendResponseDictionary:identifier:]";
     _os_log_impl(&dword_23B2FA000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s ", buf, 0xCu);
   }
 
-  v12 = 0;
-  v9 = WCSerializePayloadDictionary(dictionaryCopy, &v12);
+  v11 = 0;
+  v9 = WCSerializePayloadDictionary(dictionaryCopy, &v11);
 
   if (v9)
   {
@@ -2445,15 +2477,63 @@ void __51__WCSession_onqueue_transferUserInfo_withUserInfo___block_invoke_2(uint
     v10 = [MEMORY[0x277CCA9B8] wcErrorWithCode:7010];
     [(WCSession *)self _onqueue_sendResponseError:v10 identifier:identifierCopy dictionaryMessage:1];
   }
+}
 
-  v11 = *MEMORY[0x277D85DE8];
+- (void)onqueue_sendResponseData:(id)data identifier:(id)identifier dictionaryMessage:(BOOL)message
+{
+  messageCopy = message;
+  v30 = *MEMORY[0x277D85DE8];
+  dataCopy = data;
+  identifierCopy = identifier;
+  if (WCIsDataAcceptableSizeForType(0, dataCopy))
+  {
+    v10 = [WCMessageResponse alloc];
+    pairingID = [(WCSession *)self pairingID];
+    v12 = [(WCMessage *)v10 initWithPairingID:pairingID identifier:identifierCopy data:dataCopy dictionaryMessage:messageCopy];
+
+    v14 = wc_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = [dataCopy length];
+      v16 = "NO";
+      v23 = "[WCSession onqueue_sendResponseData:identifier:dictionaryMessage:]";
+      v24 = 2048;
+      *buf = 136446978;
+      v25 = v15;
+      if (messageCopy)
+      {
+        v16 = "YES";
+      }
+
+      v26 = 2114;
+      v27 = identifierCopy;
+      v28 = 2080;
+      v29 = v16;
+      _os_log_impl(&dword_23B2FA000, v14, OS_LOG_TYPE_DEFAULT, "%{public}s responseDataSize: %ld, identifier: %{public}@, isDictionaryMessage: %s", buf, 0x2Au);
+    }
+
+    queueManager = [(WCSession *)self queueManager];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __67__WCSession_onqueue_sendResponseData_identifier_dictionaryMessage___block_invoke;
+    v20[3] = &unk_278B7C240;
+    v21 = v12;
+    v18 = v12;
+    [queueManager sendMessage:v18 completionHandler:v20];
+  }
+
+  else
+  {
+    v19 = [MEMORY[0x277CCA9B8] wcErrorWithCode:7009];
+    [(WCSession *)self _onqueue_sendResponseError:v19 identifier:identifierCopy dictionaryMessage:messageCopy];
+  }
 }
 
 void __67__WCSession_onqueue_sendResponseData_identifier_dictionaryMessage___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = wc_log();
+  v4 = wc_log(v3);
   v5 = v4;
   if (v3)
   {
@@ -2466,21 +2546,45 @@ void __67__WCSession_onqueue_sendResponseData_identifier_dictionaryMessage___blo
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v8 = 136446466;
-    v9 = "[WCSession onqueue_sendResponseData:identifier:dictionaryMessage:]_block_invoke";
-    v10 = 2114;
-    v11 = v6;
-    _os_log_impl(&dword_23B2FA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s succeeded for response %{public}@", &v8, 0x16u);
+    v7 = 136446466;
+    v8 = "[WCSession onqueue_sendResponseData:identifier:dictionaryMessage:]_block_invoke";
+    v9 = 2114;
+    v10 = v6;
+    _os_log_impl(&dword_23B2FA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s succeeded for response %{public}@", &v7, 0x16u);
+  }
+}
+
+- (void)_onqueue_sendResponseError:(id)error identifier:(id)identifier dictionaryMessage:(BOOL)message
+{
+  messageCopy = message;
+  errorCopy = error;
+  identifierCopy = identifier;
+  v10 = wc_log(identifierCopy);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  {
+    [WCSession _onqueue_sendResponseError:identifierCopy identifier:errorCopy dictionaryMessage:?];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
+  v11 = [WCMessageResponse alloc];
+  pairingID = [(WCSession *)self pairingID];
+  v13 = [(WCMessage *)v11 initWithPairingID:pairingID identifier:identifierCopy data:0 dictionaryMessage:messageCopy];
+
+  [(WCMessageResponse *)v13 setError:errorCopy];
+  queueManager = [(WCSession *)self queueManager];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __69__WCSession__onqueue_sendResponseError_identifier_dictionaryMessage___block_invoke;
+  v16[3] = &unk_278B7C240;
+  v17 = identifierCopy;
+  v15 = identifierCopy;
+  [queueManager sendMessage:v13 completionHandler:v16];
 }
 
 void __69__WCSession__onqueue_sendResponseError_identifier_dictionaryMessage___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = wc_log();
+  v4 = wc_log(v3);
   v5 = v4;
   if (v3)
   {
@@ -2493,42 +2597,38 @@ void __69__WCSession__onqueue_sendResponseError_identifier_dictionaryMessage___b
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v8 = 136446466;
-    v9 = "[WCSession _onqueue_sendResponseError:identifier:dictionaryMessage:]_block_invoke";
-    v10 = 2114;
-    v11 = v6;
-    _os_log_impl(&dword_23B2FA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@ suceeded", &v8, 0x16u);
+    v7 = 136446466;
+    v8 = "[WCSession _onqueue_sendResponseError:identifier:dictionaryMessage:]_block_invoke";
+    v9 = 2114;
+    v10 = v6;
+    _os_log_impl(&dword_23B2FA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@ suceeded", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)storeAppContext:(id)context withAppContextData:(id)data
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   dataCopy = data;
-  v8 = wc_log();
+  v8 = wc_log(dataCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v17 = "[WCSession storeAppContext:withAppContextData:]";
+    v16 = "[WCSession storeAppContext:withAppContextData:]";
     _os_log_impl(&dword_23B2FA000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s ", buf, 0xCu);
   }
 
   workOperationQueue = self->_workOperationQueue;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __48__WCSession_storeAppContext_withAppContextData___block_invoke;
-  v13[3] = &unk_278B7C068;
-  v13[4] = self;
-  v14 = contextCopy;
-  v15 = dataCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __48__WCSession_storeAppContext_withAppContextData___block_invoke;
+  v12[3] = &unk_278B7C068;
+  v12[4] = self;
+  v13 = contextCopy;
+  v14 = dataCopy;
   v10 = dataCopy;
   v11 = contextCopy;
-  [(NSOperationQueue *)workOperationQueue addOperationWithBlock:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(NSOperationQueue *)workOperationQueue addOperationWithBlock:v12];
 }
 
 void __48__WCSession_storeAppContext_withAppContextData___block_invoke(uint64_t a1)
@@ -2543,30 +2643,28 @@ void __48__WCSession_storeAppContext_withAppContextData___block_invoke(uint64_t 
 
 - (void)storeReceivedAppContext:(id)context withAppContextData:(id)data
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   dataCopy = data;
-  v8 = wc_log();
+  v8 = wc_log(dataCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v17 = "[WCSession storeReceivedAppContext:withAppContextData:]";
+    v16 = "[WCSession storeReceivedAppContext:withAppContextData:]";
     _os_log_impl(&dword_23B2FA000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s ", buf, 0xCu);
   }
 
   workOperationQueue = self->_workOperationQueue;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __56__WCSession_storeReceivedAppContext_withAppContextData___block_invoke;
-  v13[3] = &unk_278B7C068;
-  v13[4] = self;
-  v14 = contextCopy;
-  v15 = dataCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __56__WCSession_storeReceivedAppContext_withAppContextData___block_invoke;
+  v12[3] = &unk_278B7C068;
+  v12[4] = self;
+  v13 = contextCopy;
+  v14 = dataCopy;
   v10 = dataCopy;
   v11 = contextCopy;
-  [(NSOperationQueue *)workOperationQueue addOperationWithBlock:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(NSOperationQueue *)workOperationQueue addOperationWithBlock:v12];
 }
 
 void __56__WCSession_storeReceivedAppContext_withAppContextData___block_invoke(uint64_t a1)
@@ -2581,60 +2679,56 @@ void __56__WCSession_storeReceivedAppContext_withAppContextData___block_invoke(u
 
 - (NSDictionary)applicationContext
 {
-  v16[1] = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3032000000;
-  v13 = __Block_byref_object_copy_;
-  v14 = __Block_byref_object_dispose_;
-  v15 = MEMORY[0x277CBEC10];
+  v15[1] = *MEMORY[0x277D85DE8];
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy_;
+  v13 = __Block_byref_object_dispose_;
+  v14 = MEMORY[0x277CBEC10];
   v3 = objc_opt_new();
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __31__WCSession_applicationContext__block_invoke;
-  v9[3] = &unk_278B7BFA0;
-  v9[4] = self;
-  v9[5] = &v10;
-  [v3 addExecutionBlock:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __31__WCSession_applicationContext__block_invoke;
+  v8[3] = &unk_278B7BFA0;
+  v8[4] = self;
+  v8[5] = &v9;
+  [v3 addExecutionBlock:v8];
   workOperationQueue = self->_workOperationQueue;
-  v16[0] = v3;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = v3;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   [(NSOperationQueue *)workOperationQueue addOperations:v5 waitUntilFinished:1];
 
-  v6 = v11[5];
-  _Block_object_dispose(&v10, 8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = v10[5];
+  _Block_object_dispose(&v9, 8);
 
   return v6;
 }
 
 - (NSDictionary)receivedApplicationContext
 {
-  v16[1] = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3032000000;
-  v13 = __Block_byref_object_copy_;
-  v14 = __Block_byref_object_dispose_;
-  v15 = 0;
+  v15[1] = *MEMORY[0x277D85DE8];
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy_;
+  v13 = __Block_byref_object_dispose_;
+  v14 = 0;
   v3 = objc_opt_new();
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __39__WCSession_receivedApplicationContext__block_invoke;
-  v9[3] = &unk_278B7BFA0;
-  v9[4] = self;
-  v9[5] = &v10;
-  [v3 addExecutionBlock:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __39__WCSession_receivedApplicationContext__block_invoke;
+  v8[3] = &unk_278B7BFA0;
+  v8[4] = self;
+  v8[5] = &v9;
+  [v3 addExecutionBlock:v8];
   workOperationQueue = self->_workOperationQueue;
-  v16[0] = v3;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = v3;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   [(NSOperationQueue *)workOperationQueue addOperations:v5 waitUntilFinished:1];
 
-  v6 = v11[5];
-  _Block_object_dispose(&v10, 8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = v10[5];
+  _Block_object_dispose(&v9, 8);
 
   return v6;
 }
@@ -2652,20 +2746,19 @@ void __56__WCSession_storeReceivedAppContext_withAppContextData___block_invoke(u
 
 - (void)xpcConnectionInterrupted
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = wc_log();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = wc_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136446210;
-    v7 = "[WCSession xpcConnectionInterrupted]";
-    _os_log_impl(&dword_23B2FA000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s ", &v6, 0xCu);
+    v5 = 136446210;
+    v6 = "[WCSession xpcConnectionInterrupted]";
+    _os_log_impl(&dword_23B2FA000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s ", &v5, 0xCu);
   }
 
   queueManager = [(WCSession *)self queueManager];
   [queueManager allowMessageSending];
 
   [(WCSession *)self setConnectionWasInterrupted:1];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleActiveDeviceSwitchStarted
@@ -2681,23 +2774,22 @@ void __56__WCSession_storeReceivedAppContext_withAppContextData___block_invoke(u
 
 void __44__WCSession_handleActiveDeviceSwitchStarted__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
-  v3 = wc_log();
+  v3 = wc_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136446466;
-    v7 = "[WCSession handleActiveDeviceSwitchStarted]_block_invoke";
-    v8 = 2114;
-    v9 = v2;
-    _os_log_impl(&dword_23B2FA000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s new switch task: %{public}@", &v6, 0x16u);
+    v5 = 136446466;
+    v6 = "[WCSession handleActiveDeviceSwitchStarted]_block_invoke";
+    v7 = 2114;
+    v8 = v2;
+    _os_log_impl(&dword_23B2FA000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s new switch task: %{public}@", &v5, 0x16u);
   }
 
   v4 = [*(a1 + 32) switchTasksQueue];
   [v4 addObject:v2];
 
   [*(a1 + 32) onqueue_startNextDeviceSwitch];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleSessionStateChanged:(id)changed
@@ -2716,16 +2808,16 @@ void __44__WCSession_handleActiveDeviceSwitchStarted__block_invoke(uint64_t a1)
 
 void __39__WCSession_handleSessionStateChanged___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = wc_log();
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = wc_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v10 = 136446466;
-    v11 = "[WCSession handleSessionStateChanged:]_block_invoke";
-    v12 = 2114;
-    v13 = v3;
-    _os_log_impl(&dword_23B2FA000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@", &v10, 0x16u);
+    v9 = 136446466;
+    v10 = "[WCSession handleSessionStateChanged:]_block_invoke";
+    v11 = 2114;
+    v12 = v3;
+    _os_log_impl(&dword_23B2FA000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@", &v9, 0x16u);
   }
 
   v4 = [*(a1 + 40) switchTasksQueue];
@@ -2733,12 +2825,12 @@ void __39__WCSession_handleSessionStateChanged___block_invoke(uint64_t a1)
 
   if ([v5 taskState] == 999)
   {
-    v6 = wc_log();
+    v6 = wc_log(999);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136446210;
-      v11 = "[WCSession handleSessionStateChanged:]_block_invoke";
-      _os_log_impl(&dword_23B2FA000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s dropping session state as client does not support Quick Watch Switch", &v10, 0xCu);
+      v9 = 136446210;
+      v10 = "[WCSession handleSessionStateChanged:]_block_invoke";
+      _os_log_impl(&dword_23B2FA000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s dropping session state as client does not support Quick Watch Switch", &v9, 0xCu);
     }
   }
 
@@ -2761,53 +2853,49 @@ void __39__WCSession_handleSessionStateChanged___block_invoke(uint64_t a1)
       [v8 onqueue_completeSwitchTask:v5 withSessionState:*(a1 + 32)];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)xpcConnectionRestoredWithState:(id)state
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   stateCopy = state;
-  v5 = wc_log();
+  v5 = wc_log(stateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v16 = "[WCSession xpcConnectionRestoredWithState:]";
-    v17 = 2114;
-    v18 = stateCopy;
+    v15 = "[WCSession xpcConnectionRestoredWithState:]";
+    v16 = 2114;
+    v17 = stateCopy;
     _os_log_impl(&dword_23B2FA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@", buf, 0x16u);
   }
 
   v6 = objc_opt_new();
   objc_initWeak(buf, v6);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __44__WCSession_xpcConnectionRestoredWithState___block_invoke;
-  v11[3] = &unk_278B7BFC8;
-  objc_copyWeak(&v14, buf);
-  v7 = stateCopy;
-  v12 = v7;
-  selfCopy = self;
-  [v6 addExecutionBlock:v11];
   v10[0] = MEMORY[0x277D85DD0];
   v10[1] = 3221225472;
-  v10[2] = __44__WCSession_xpcConnectionRestoredWithState___block_invoke_92;
-  v10[3] = &unk_278B7BF78;
-  v10[4] = self;
-  [v6 setCompletionBlock:v10];
+  v10[2] = __44__WCSession_xpcConnectionRestoredWithState___block_invoke;
+  v10[3] = &unk_278B7BFC8;
+  objc_copyWeak(&v13, buf);
+  v7 = stateCopy;
+  v11 = v7;
+  selfCopy = self;
+  [v6 addExecutionBlock:v10];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __44__WCSession_xpcConnectionRestoredWithState___block_invoke_92;
+  v9[3] = &unk_278B7BF78;
+  v9[4] = self;
+  [v6 setCompletionBlock:v9];
   delegateOperationQueue = [(WCSession *)self delegateOperationQueue];
   [delegateOperationQueue addOperation:v6];
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(buf);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __44__WCSession_xpcConnectionRestoredWithState___block_invoke(id *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   v3 = [WeakRetained isCancelled];
 
@@ -2821,35 +2909,33 @@ void __44__WCSession_xpcConnectionRestoredWithState___block_invoke(id *a1)
 
     if ((v8 & 1) == 0)
     {
-      v9 = wc_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = wc_log(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         __44__WCSession_xpcConnectionRestoredWithState___block_invoke_cold_1();
       }
     }
 
-    v10 = [*v5 pairingID];
-    [*v5 setHasContentPending:v10 != 0];
+    v11 = [*v5 pairingID];
+    [*v5 setHasContentPending:v11 != 0];
 
-    v11 = wc_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = wc_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = [*v5 hasContentPending];
-      v13 = "NO";
-      if (v12)
+      v14 = [*v5 hasContentPending];
+      v15 = "NO";
+      if (v14)
       {
-        v13 = "YES";
+        v15 = "YES";
       }
 
-      v15 = 136446466;
-      v16 = "[WCSession xpcConnectionRestoredWithState:]_block_invoke";
-      v17 = 2080;
-      v18 = v13;
-      _os_log_impl(&dword_23B2FA000, v11, OS_LOG_TYPE_DEFAULT, "%{public}s hasContentPending: %s", &v15, 0x16u);
+      v16 = 136446466;
+      v17 = "[WCSession xpcConnectionRestoredWithState:]_block_invoke";
+      v18 = 2080;
+      v19 = v15;
+      _os_log_impl(&dword_23B2FA000, v13, OS_LOG_TYPE_DEFAULT, "%{public}s hasContentPending: %s", &v16, 0x16u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __44__WCSession_xpcConnectionRestoredWithState___block_invoke_92(uint64_t a1)
@@ -2905,51 +2991,51 @@ void __27__WCSession_handleRequest___block_invoke(uint64_t a1)
 
   if (v5)
   {
-    v6 = [*(a1 + 32) isDictionaryMessage];
-    v9 = a1 + 32;
-    v8 = *(a1 + 32);
-    v7 = *(v9 + 8);
-    v11 = [v8 pairingID];
-    if (v6)
+    v7 = [*(a1 + 32) isDictionaryMessage];
+    v10 = a1 + 32;
+    v9 = *(a1 + 32);
+    v8 = *(v10 + 8);
+    v12 = [v9 pairingID];
+    if (v7)
     {
-      [v7 onqueue_handleDictionaryMessageRequest:v8 withPairingID:v11];
+      [v8 onqueue_handleDictionaryMessageRequest:v9 withPairingID:v12];
     }
 
     else
     {
-      [v7 onqueue_handleDataMessageRequest:v8 withPairingID:v11];
+      [v8 onqueue_handleDataMessageRequest:v9 withPairingID:v12];
     }
   }
 
   else
   {
-    v10 = wc_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = wc_log(v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      __27__WCSession_handleRequest___block_invoke_cold_1(v2);
+      __27__WCSession_handleRequest___block_invoke_cold_1();
     }
   }
 }
 
 - (void)onqueue_handleDictionaryMessageRequest:(id)request withPairingID:(id)d
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   dCopy = d;
-  v8 = wc_log();
+  v8 = wc_log(dCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v27 = "[WCSession onqueue_handleDictionaryMessageRequest:withPairingID:]";
-    v28 = 2114;
-    v29 = requestCopy;
+    v26 = "[WCSession onqueue_handleDictionaryMessageRequest:withPairingID:]";
+    v27 = 2114;
+    v28 = requestCopy;
     _os_log_impl(&dword_23B2FA000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@", buf, 0x16u);
   }
 
   if (!dCopy)
   {
     v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: %s cannot be nil.", "-[WCSession onqueue_handleDictionaryMessageRequest:withPairingID:]", "pairingID"];
-    v10 = wc_log();
+    v10 = wc_log(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       [WCSession onqueue_handleDictionaryMessageRequest:v9 withPairingID:?];
@@ -2960,9 +3046,9 @@ void __27__WCSession_handleRequest___block_invoke(uint64_t a1)
 
   identifier = [requestCopy identifier];
   data = [requestCopy data];
-  v25 = 0;
-  v13 = WCDeserializePayloadData(data, &v25);
-  v14 = v25;
+  v24 = 0;
+  v13 = WCDeserializePayloadData(data, &v24);
+  v14 = v24;
 
   if (v14)
   {
@@ -2974,25 +3060,23 @@ void __27__WCSession_handleRequest___block_invoke(uint64_t a1)
   {
     identifier2 = objc_opt_new();
     objc_initWeak(buf, identifier2);
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___block_invoke;
-    v18[3] = &unk_278B7C2B8;
-    objc_copyWeak(&v24, buf);
-    v19 = dCopy;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___block_invoke;
+    v17[3] = &unk_278B7C2B8;
+    objc_copyWeak(&v23, buf);
+    v18 = dCopy;
     selfCopy = self;
-    v21 = requestCopy;
-    v22 = identifier;
-    v23 = v13;
-    [identifier2 addExecutionBlock:v18];
+    v20 = requestCopy;
+    v21 = identifier;
+    v22 = v13;
+    [identifier2 addExecutionBlock:v17];
     delegateOperationQueue = [(WCSession *)self delegateOperationQueue];
     [delegateOperationQueue addOperation:identifier2];
 
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(buf);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___block_invoke(uint64_t a1)
@@ -3009,54 +3093,58 @@ void __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___bloc
 
     if ((v4 & 1) == 0)
     {
-      v7 = wc_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = wc_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___block_invoke_cold_1((a1 + 32), a1 + 40);
+        __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___block_invoke_cold_1(a1 + 32, a1 + 40);
       }
     }
 
-    if ([*(a1 + 48) expectsResponse] && (objc_msgSend(*v5, "delegate"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_opt_respondsToSelector(), v8, (v9 & 1) != 0))
+    if ([*(a1 + 48) expectsResponse] && (objc_msgSend(*v5, "delegate"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_opt_respondsToSelector(), v9, (v10 & 1) != 0))
     {
-      v10 = [*(a1 + 40) currentMessageIdentifiersAwaitingReply];
-      [v10 addObject:*(a1 + 56)];
+      v11 = [*(a1 + 40) currentMessageIdentifiersAwaitingReply];
+      [v11 addObject:*(a1 + 56)];
 
-      v11 = [*(a1 + 40) delegate];
-      v12 = *(a1 + 40);
-      v13 = *(a1 + 64);
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___block_invoke_96;
-      v23[3] = &unk_278B7C290;
-      objc_copyWeak(&v27, (a1 + 72));
-      v14 = *(a1 + 32);
-      v15 = *(a1 + 40);
-      v24 = v14;
-      v25 = v15;
-      v26 = *(a1 + 56);
-      [v11 session:v12 didReceiveMessage:v13 replyHandler:v23];
+      v12 = [*(a1 + 40) delegate];
+      v13 = *(a1 + 40);
+      v14 = *(a1 + 64);
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___block_invoke_96;
+      v25[3] = &unk_278B7C290;
+      objc_copyWeak(&v29, (a1 + 72));
+      v15 = *(a1 + 32);
+      v16 = *(a1 + 40);
+      v26 = v15;
+      v27 = v16;
+      v28 = *(a1 + 56);
+      [v12 session:v13 didReceiveMessage:v14 replyHandler:v25];
 
-      objc_destroyWeak(&v27);
-    }
-
-    else if (([*(a1 + 48) expectsResponse] & 1) != 0 || (objc_msgSend(*v5, "delegate"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_opt_respondsToSelector(), v16, (v17 & 1) == 0))
-    {
-      v19 = wc_log();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
-      {
-        __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___block_invoke_cold_2((a1 + 40));
-      }
-
-      v20 = *(a1 + 40);
-      v21 = [MEMORY[0x277CCA9B8] wcErrorWithCode:7014];
-      v22 = [*(a1 + 48) identifier];
-      [v20 _onqueue_sendResponseError:v21 identifier:v22 dictionaryMessage:1];
+      objc_destroyWeak(&v29);
     }
 
     else
     {
-      v18 = [*(a1 + 40) delegate];
-      [v18 session:*(a1 + 40) didReceiveMessage:*(a1 + 64)];
+      v17 = [*(a1 + 48) expectsResponse];
+      if ((v17 & 1) != 0 || ([*v5 delegate], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_opt_respondsToSelector(), v18, (v19 & 1) == 0))
+      {
+        v21 = wc_log(v17);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        {
+          __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___block_invoke_cold_2((a1 + 40));
+        }
+
+        v22 = *(a1 + 40);
+        v23 = [MEMORY[0x277CCA9B8] wcErrorWithCode:7014];
+        v24 = [*(a1 + 48) identifier];
+        [v22 _onqueue_sendResponseError:v23 identifier:v24 dictionaryMessage:1];
+      }
+
+      else
+      {
+        v20 = [*(a1 + 40) delegate];
+        [v20 session:*(a1 + 40) didReceiveMessage:*(a1 + 64)];
+      }
     }
   }
 }
@@ -3067,7 +3155,7 @@ void __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___bloc
   if (!v3)
   {
     v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: %s cannot be nil.", "-[WCSession onqueue_handleDictionaryMessageRequest:withPairingID:]_block_invoke", "replyMessage"];
-    v5 = wc_log();
+    v5 = wc_log(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [WCSession sendMessage:v4 replyHandler:? errorHandler:?];
@@ -3110,40 +3198,39 @@ void __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___bloc
 
     if ((v4 & 1) == 0)
     {
-      v6 = wc_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = wc_log(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___block_invoke_98_cold_1((a1 + 32), a1 + 40);
+        __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___block_invoke_98_cold_1(a1 + 32, a1 + 40);
       }
     }
 
-    v7 = [*(a1 + 40) currentMessageIdentifiersAwaitingReply];
-    v8 = (a1 + 48);
-    v9 = [v7 containsObject:*(a1 + 48)];
+    v8 = [*(a1 + 40) currentMessageIdentifiersAwaitingReply];
+    v9 = [v8 containsObject:*(a1 + 48)];
 
     if (v9)
     {
-      v10 = [*(a1 + 40) currentMessageIdentifiersAwaitingReply];
-      [v10 removeObject:*(a1 + 48)];
+      v11 = [*(a1 + 40) currentMessageIdentifiersAwaitingReply];
+      [v11 removeObject:*(a1 + 48)];
 
-      v11 = *(a1 + 40);
-      v12 = *(v11 + 88);
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___block_invoke_99;
-      v14[3] = &unk_278B7C068;
-      v14[4] = v11;
-      v15 = *(a1 + 56);
-      v16 = *(a1 + 48);
-      [v12 addOperationWithBlock:v14];
+      v12 = *(a1 + 40);
+      v13 = *(v12 + 88);
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___block_invoke_99;
+      v15[3] = &unk_278B7C068;
+      v15[4] = v12;
+      v16 = *(a1 + 56);
+      v17 = *(a1 + 48);
+      [v13 addOperationWithBlock:v15];
     }
 
     else
     {
-      v13 = wc_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = wc_log(v10);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___block_invoke_98_cold_2(v8);
+        __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___block_invoke_98_cold_2();
       }
     }
   }
@@ -3151,23 +3238,23 @@ void __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___bloc
 
 - (void)onqueue_handleDataMessageRequest:(id)request withPairingID:(id)d
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   dCopy = d;
-  v8 = wc_log();
+  v8 = wc_log(dCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v25 = "[WCSession onqueue_handleDataMessageRequest:withPairingID:]";
-    v26 = 2114;
-    v27 = requestCopy;
+    v24 = "[WCSession onqueue_handleDataMessageRequest:withPairingID:]";
+    v25 = 2114;
+    v26 = requestCopy;
     _os_log_impl(&dword_23B2FA000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@", buf, 0x16u);
   }
 
   if (!dCopy)
   {
     v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: %s cannot be nil.", "-[WCSession onqueue_handleDataMessageRequest:withPairingID:]", "pairingID"];
-    v10 = wc_log();
+    v10 = wc_log(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       [WCSession onqueue_handleDataMessageRequest:v9 withPairingID:?];
@@ -3179,96 +3266,98 @@ void __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___bloc
   identifier = [requestCopy identifier];
   v12 = objc_opt_new();
   objc_initWeak(buf, v12);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invoke;
-  v18[3] = &unk_278B7C268;
-  objc_copyWeak(&v23, buf);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invoke;
+  v17[3] = &unk_278B7C268;
+  objc_copyWeak(&v22, buf);
   v13 = dCopy;
-  v19 = v13;
+  v18 = v13;
   selfCopy = self;
   v14 = requestCopy;
-  v21 = v14;
+  v20 = v14;
   v15 = identifier;
-  v22 = v15;
-  [v12 addExecutionBlock:v18];
+  v21 = v15;
+  [v12 addExecutionBlock:v17];
   delegateOperationQueue = [(WCSession *)self delegateOperationQueue];
   [delegateOperationQueue addOperation:v12];
 
-  objc_destroyWeak(&v23);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(buf);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-void __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invoke(uint64_t a1)
+void __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invoke(id *a1)
 {
-  WeakRetained = objc_loadWeakRetained((a1 + 64));
+  WeakRetained = objc_loadWeakRetained(a1 + 8);
   v3 = [WeakRetained isCancelled];
 
   if ((v3 & 1) == 0)
   {
-    v4 = *(a1 + 32);
-    v5 = (a1 + 40);
-    v6 = [*(a1 + 40) pairingID];
+    v4 = a1[4];
+    v5 = a1 + 5;
+    v6 = [a1[5] pairingID];
     LOBYTE(v4) = [v4 isEqual:v6];
 
     if ((v4 & 1) == 0)
     {
-      v7 = wc_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = wc_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invoke_cold_1((a1 + 32), a1 + 40);
+        __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invoke_cold_1((a1 + 4), (a1 + 5));
       }
     }
 
-    if ([*(a1 + 48) expectsResponse] && (objc_msgSend(*v5, "delegate"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_opt_respondsToSelector(), v8, (v9 & 1) != 0))
+    if ([a1[6] expectsResponse] && (objc_msgSend(*v5, "delegate"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_opt_respondsToSelector(), v9, (v10 & 1) != 0))
     {
-      v10 = [*(a1 + 40) currentMessageIdentifiersAwaitingReply];
-      [v10 addObject:*(a1 + 56)];
+      v11 = [a1[5] currentMessageIdentifiersAwaitingReply];
+      [v11 addObject:a1[7]];
 
-      v11 = [*(a1 + 40) delegate];
-      v12 = *(a1 + 40);
-      v13 = [*(a1 + 48) data];
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invoke_105;
-      v28[3] = &unk_278B7C2E0;
-      objc_copyWeak(&v31, (a1 + 64));
-      *&v14 = *(a1 + 32);
-      *(&v14 + 1) = *(a1 + 40);
-      v27 = v14;
-      v15 = *(a1 + 56);
-      v16 = *(a1 + 48);
-      *&v17 = v15;
-      *(&v17 + 1) = v16;
-      v29 = v27;
-      v30 = v17;
-      [v11 session:v12 didReceiveMessageData:v13 replyHandler:v28];
+      v12 = [a1[5] delegate];
+      v13 = a1[5];
+      v14 = [a1[6] data];
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invoke_105;
+      v30[3] = &unk_278B7C2E0;
+      objc_copyWeak(&v33, a1 + 8);
+      *&v15 = a1[4];
+      *(&v15 + 1) = a1[5];
+      v29 = v15;
+      v16 = a1[7];
+      v17 = a1[6];
+      *&v18 = v16;
+      *(&v18 + 1) = v17;
+      v31 = v29;
+      v32 = v18;
+      [v12 session:v13 didReceiveMessageData:v14 replyHandler:v30];
 
-      objc_destroyWeak(&v31);
-    }
-
-    else if (([*(a1 + 48) expectsResponse] & 1) != 0 || (objc_msgSend(*v5, "delegate"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_opt_respondsToSelector(), v18, (v19 & 1) == 0))
-    {
-      v23 = wc_log();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
-      {
-        __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invoke_cold_2((a1 + 40));
-      }
-
-      v24 = *(a1 + 40);
-      v25 = [MEMORY[0x277CCA9B8] wcErrorWithCode:7014];
-      v26 = [*(a1 + 48) identifier];
-      [v24 _onqueue_sendResponseError:v25 identifier:v26 dictionaryMessage:0];
+      objc_destroyWeak(&v33);
     }
 
     else
     {
-      v20 = [*(a1 + 40) delegate];
-      v21 = *(a1 + 40);
-      v22 = [*(a1 + 48) data];
-      [v20 session:v21 didReceiveMessageData:v22];
+      v19 = [a1[6] expectsResponse];
+      if ((v19 & 1) != 0 || ([*v5 delegate], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_opt_respondsToSelector(), v20, (v21 & 1) == 0))
+      {
+        v25 = wc_log(v19);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        {
+          __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invoke_cold_2(a1 + 5);
+        }
+
+        v26 = a1[5];
+        v27 = [MEMORY[0x277CCA9B8] wcErrorWithCode:7014];
+        v28 = [a1[6] identifier];
+        [v26 _onqueue_sendResponseError:v27 identifier:v28 dictionaryMessage:0];
+      }
+
+      else
+      {
+        v22 = [a1[5] delegate];
+        v23 = a1[5];
+        v24 = [a1[6] data];
+        [v22 session:v23 didReceiveMessageData:v24];
+      }
     }
   }
 }
@@ -3279,7 +3368,7 @@ void __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invo
   if (!v3)
   {
     v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: %s cannot be nil.", "-[WCSession onqueue_handleDataMessageRequest:withPairingID:]_block_invoke", "replyMessageData"];
-    v5 = wc_log();
+    v5 = wc_log(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [WCSession sendMessage:v4 replyHandler:? errorHandler:?];
@@ -3323,40 +3412,39 @@ void __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invo
 
     if ((v4 & 1) == 0)
     {
-      v6 = wc_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = wc_log(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invoke_107_cold_1((a1 + 32), a1 + 40);
+        __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invoke_107_cold_1(a1 + 32, a1 + 40);
       }
     }
 
-    v7 = [*(a1 + 40) currentMessageIdentifiersAwaitingReply];
-    v8 = (a1 + 48);
-    v9 = [v7 containsObject:*(a1 + 48)];
+    v8 = [*(a1 + 40) currentMessageIdentifiersAwaitingReply];
+    v9 = [v8 containsObject:*(a1 + 48)];
 
     if (v9)
     {
-      v10 = [*(a1 + 40) currentMessageIdentifiersAwaitingReply];
-      [v10 removeObject:*(a1 + 48)];
+      v11 = [*(a1 + 40) currentMessageIdentifiersAwaitingReply];
+      [v11 removeObject:*(a1 + 48)];
 
-      v11 = *(a1 + 40);
-      v12 = *(v11 + 88);
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invoke_108;
-      v14[3] = &unk_278B7C068;
-      v14[4] = v11;
-      v15 = *(a1 + 56);
-      v16 = *(a1 + 64);
-      [v12 addOperationWithBlock:v14];
+      v12 = *(a1 + 40);
+      v13 = *(v12 + 88);
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invoke_108;
+      v15[3] = &unk_278B7C068;
+      v15[4] = v12;
+      v16 = *(a1 + 56);
+      v17 = *(a1 + 64);
+      [v13 addOperationWithBlock:v15];
     }
 
     else
     {
-      v13 = wc_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = wc_log(v10);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invoke_107_cold_2(v8);
+        __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invoke_107_cold_2();
       }
     }
   }
@@ -3372,29 +3460,27 @@ void __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invo
 
 - (void)handleResponse:(id)response
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   responseCopy = response;
-  v5 = wc_log();
+  v5 = wc_log(responseCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v13 = "[WCSession handleResponse:]";
-    v14 = 2114;
-    v15 = responseCopy;
+    v12 = "[WCSession handleResponse:]";
+    v13 = 2114;
+    v14 = responseCopy;
     _os_log_impl(&dword_23B2FA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@", buf, 0x16u);
   }
 
   workOperationQueue = self->_workOperationQueue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __28__WCSession_handleResponse___block_invoke;
-  v9[3] = &unk_278B7C1C8;
-  v10 = responseCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __28__WCSession_handleResponse___block_invoke;
+  v8[3] = &unk_278B7C1C8;
+  v9 = responseCopy;
   selfCopy = self;
   v7 = responseCopy;
-  [(NSOperationQueue *)workOperationQueue addOperationWithBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(NSOperationQueue *)workOperationQueue addOperationWithBlock:v8];
 }
 
 void __28__WCSession_handleResponse___block_invoke(uint64_t a1)
@@ -3406,35 +3492,35 @@ void __28__WCSession_handleResponse___block_invoke(uint64_t a1)
 
   if (v5)
   {
-    v6 = [*(a1 + 32) isDictionaryMessage];
-    v8 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v9 = v7[12];
-    v10 = [v8 identifier];
-    v11 = [v9 objectForKeyedSubscript:v10];
-    v12 = [*(a1 + 32) pairingID];
-    if (v6)
+    v7 = [*(a1 + 32) isDictionaryMessage];
+    v9 = *(a1 + 32);
+    v8 = *(a1 + 40);
+    v10 = v8[12];
+    v11 = [v9 identifier];
+    v12 = [v10 objectForKeyedSubscript:v11];
+    v13 = [*(a1 + 32) pairingID];
+    if (v7)
     {
-      [v7 onqueue_handleResponseDictionary:v8 record:v11 withPairingID:v12];
+      [v8 onqueue_handleResponseDictionary:v9 record:v12 withPairingID:v13];
     }
 
     else
     {
-      [v7 onqueue_handleResponseData:v8 record:v11 withPairingID:v12];
+      [v8 onqueue_handleResponseData:v9 record:v12 withPairingID:v13];
     }
 
-    v14 = *(a1 + 32);
-    v15 = *(*(a1 + 40) + 96);
-    v16 = [v14 identifier];
-    [v15 removeObjectForKey:v16];
+    v15 = *(a1 + 32);
+    v16 = *(*(a1 + 40) + 96);
+    v17 = [v15 identifier];
+    [v16 removeObjectForKey:v17];
   }
 
   else
   {
-    v13 = wc_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v14 = wc_log(v6);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      __28__WCSession_handleResponse___block_invoke_cold_1(v2);
+      __28__WCSession_handleResponse___block_invoke_cold_1();
     }
   }
 }
@@ -3515,15 +3601,15 @@ void __67__WCSession_onqueue_handleResponseDictionary_record_withPairingID___blo
 
     if ((v4 & 1) == 0)
     {
-      v6 = wc_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = wc_log(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        __67__WCSession_onqueue_handleResponseDictionary_record_withPairingID___block_invoke_cold_1((a1 + 32), a1 + 40);
+        __67__WCSession_onqueue_handleResponseDictionary_record_withPairingID___block_invoke_cold_1(a1 + 32, a1 + 40);
       }
     }
 
-    v7 = [*(a1 + 48) responseHandler];
-    v7[2](v7, *(a1 + 56));
+    v8 = [*(a1 + 48) responseHandler];
+    v8[2](v8, *(a1 + 56));
   }
 }
 
@@ -3587,16 +3673,16 @@ void __61__WCSession_onqueue_handleResponseData_record_withPairingID___block_inv
 
     if ((v4 & 1) == 0)
     {
-      v6 = wc_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = wc_log(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        __61__WCSession_onqueue_handleResponseData_record_withPairingID___block_invoke_cold_1((a1 + 32), a1 + 40);
+        __61__WCSession_onqueue_handleResponseData_record_withPairingID___block_invoke_cold_1(a1 + 32, a1 + 40);
       }
     }
 
-    v7 = [*(a1 + 48) responseHandler];
-    v8 = [*(a1 + 56) data];
-    (v7)[2](v7, v8);
+    v8 = [*(a1 + 48) responseHandler];
+    v9 = [*(a1 + 56) data];
+    (v8)[2](v8, v9);
   }
 }
 
@@ -3610,22 +3696,22 @@ void __61__WCSession_onqueue_handleResponseData_record_withPairingID___block_inv
 
 - (void)handleApplicationContextWithPairingID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v5 = wc_log();
+  v5 = wc_log(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v15 = "[WCSession handleApplicationContextWithPairingID:]";
-    v16 = 2114;
-    v17 = dCopy;
+    v14 = "[WCSession handleApplicationContextWithPairingID:]";
+    v15 = 2114;
+    v16 = dCopy;
     _os_log_impl(&dword_23B2FA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@", buf, 0x16u);
   }
 
   if (!dCopy)
   {
     v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: %s cannot be nil.", "-[WCSession handleApplicationContextWithPairingID:]", "pairingID"];
-    v7 = wc_log();
+    v7 = wc_log(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       [WCSession sendMessage:v6 replyHandler:? errorHandler:?];
@@ -3635,22 +3721,20 @@ void __61__WCSession_onqueue_handleResponseData_record_withPairingID___block_inv
   }
 
   workOperationQueue = self->_workOperationQueue;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __51__WCSession_handleApplicationContextWithPairingID___block_invoke;
-  v11[3] = &unk_278B7C1C8;
-  v12 = dCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __51__WCSession_handleApplicationContextWithPairingID___block_invoke;
+  v10[3] = &unk_278B7C1C8;
+  v11 = dCopy;
   selfCopy = self;
   v9 = dCopy;
-  [(NSOperationQueue *)workOperationQueue addOperationWithBlock:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(NSOperationQueue *)workOperationQueue addOperationWithBlock:v10];
 }
 
 void __51__WCSession_handleApplicationContextWithPairingID___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v14 = [*(a1 + 40) pairingID];
+  v16 = [*(a1 + 40) pairingID];
   if ([v2 isEqual:?])
   {
     v3 = *(a1 + 32);
@@ -3665,36 +3749,37 @@ void __51__WCSession_handleApplicationContextWithPairingID___block_invoke(uint64
 
       if (v7)
       {
-        v22 = 0;
-        v8 = WCDeserializePayloadData(v7, &v22);
-        v9 = v22;
-        if (v8)
+        v24 = 0;
+        v9 = WCDeserializePayloadData(v7, &v24);
+        v10 = v24;
+        v11 = v10;
+        if (v9)
         {
-          v10 = objc_opt_new();
-          objc_initWeak(&location, v10);
-          v15[0] = MEMORY[0x277D85DD0];
-          v15[1] = 3221225472;
-          v15[2] = __51__WCSession_handleApplicationContextWithPairingID___block_invoke_2;
-          v15[3] = &unk_278B7C268;
-          objc_copyWeak(&v20, &location);
-          v11 = *(a1 + 32);
-          v12 = *(a1 + 40);
-          v16 = v11;
-          v17 = v12;
-          v18 = v8;
-          v19 = v7;
-          [v10 addExecutionBlock:v15];
-          v13 = [*(a1 + 40) delegateOperationQueue];
-          [v13 addOperation:v10];
+          v12 = objc_opt_new();
+          objc_initWeak(&location, v12);
+          v17[0] = MEMORY[0x277D85DD0];
+          v17[1] = 3221225472;
+          v17[2] = __51__WCSession_handleApplicationContextWithPairingID___block_invoke_2;
+          v17[3] = &unk_278B7C268;
+          objc_copyWeak(&v22, &location);
+          v13 = *(a1 + 32);
+          v14 = *(a1 + 40);
+          v18 = v13;
+          v19 = v14;
+          v20 = v9;
+          v21 = v7;
+          [v12 addExecutionBlock:v17];
+          v15 = [*(a1 + 40) delegateOperationQueue];
+          [v15 addOperation:v12];
 
-          objc_destroyWeak(&v20);
+          objc_destroyWeak(&v22);
           objc_destroyWeak(&location);
         }
 
         else
         {
-          v10 = wc_log();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          v12 = wc_log(v10);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             __51__WCSession_handleApplicationContextWithPairingID___block_invoke_cold_1();
           }
@@ -3703,8 +3788,8 @@ void __51__WCSession_handleApplicationContextWithPairingID___block_invoke(uint64
 
       else
       {
-        v9 = wc_log();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v11 = wc_log(v8);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           __51__WCSession_handleApplicationContextWithPairingID___block_invoke_cold_2();
         }
@@ -3730,33 +3815,33 @@ void __51__WCSession_handleApplicationContextWithPairingID___block_invoke_2(uint
 
     if ((v4 & 1) == 0)
     {
-      v6 = wc_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = wc_log(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        __51__WCSession_handleApplicationContextWithPairingID___block_invoke_2_cold_1((a1 + 32), a1 + 40);
+        __51__WCSession_handleApplicationContextWithPairingID___block_invoke_2_cold_1(a1 + 32, a1 + 40);
       }
     }
 
-    v7 = *(a1 + 40);
-    v8 = [*(a1 + 48) copy];
-    [v7 storeReceivedAppContext:v8 withAppContextData:*(a1 + 56)];
+    v8 = *(a1 + 40);
+    v9 = [*(a1 + 48) copy];
+    [v8 storeReceivedAppContext:v9 withAppContextData:*(a1 + 56)];
 
-    v9 = [*(a1 + 40) delegate];
-    v10 = objc_opt_respondsToSelector();
+    v10 = [*(a1 + 40) delegate];
+    v11 = objc_opt_respondsToSelector();
 
-    if (v10)
+    if (v11)
     {
-      v11 = [*(a1 + 40) delegate];
-      [v11 session:*(a1 + 40) didReceiveApplicationContext:*(a1 + 48)];
+      v13 = [*(a1 + 40) delegate];
+      [v13 session:*(a1 + 40) didReceiveApplicationContext:*(a1 + 48)];
 
-      v12 = +[WCFileStorage sharedInstance];
-      [v12 deleteAppContextDataFromInbox];
+      v14 = +[WCFileStorage sharedInstance];
+      [v14 deleteAppContextDataFromInbox];
     }
 
     else
     {
-      v12 = wc_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = wc_log(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         __51__WCSession_handleApplicationContextWithPairingID___block_invoke_2_cold_2();
       }
@@ -3766,22 +3851,22 @@ void __51__WCSession_handleApplicationContextWithPairingID___block_invoke_2(uint
 
 - (void)handleIncomingFileWithPairingID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v5 = wc_log();
+  v5 = wc_log(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v15 = "[WCSession handleIncomingFileWithPairingID:]";
-    v16 = 2114;
-    v17 = dCopy;
+    v14 = "[WCSession handleIncomingFileWithPairingID:]";
+    v15 = 2114;
+    v16 = dCopy;
     _os_log_impl(&dword_23B2FA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@", buf, 0x16u);
   }
 
   if (!dCopy)
   {
     v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: %s cannot be nil.", "-[WCSession handleIncomingFileWithPairingID:]", "pairingID"];
-    v7 = wc_log();
+    v7 = wc_log(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       [WCSession sendMessage:v6 replyHandler:? errorHandler:?];
@@ -3791,16 +3876,14 @@ void __51__WCSession_handleApplicationContextWithPairingID___block_invoke_2(uint
   }
 
   workOperationQueue = self->_workOperationQueue;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __45__WCSession_handleIncomingFileWithPairingID___block_invoke;
-  v11[3] = &unk_278B7C1C8;
-  v12 = dCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __45__WCSession_handleIncomingFileWithPairingID___block_invoke;
+  v10[3] = &unk_278B7C1C8;
+  v11 = dCopy;
   selfCopy = self;
   v9 = dCopy;
-  [(NSOperationQueue *)workOperationQueue addOperationWithBlock:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(NSOperationQueue *)workOperationQueue addOperationWithBlock:v10];
 }
 
 void __45__WCSession_handleIncomingFileWithPairingID___block_invoke(uint64_t a1)
@@ -3841,45 +3924,45 @@ void __45__WCSession_handleIncomingFileWithPairingID___block_invoke(uint64_t a1)
   }
 }
 
-void __45__WCSession_handleIncomingFileWithPairingID___block_invoke_2(uint64_t a1)
+void __45__WCSession_handleIncomingFileWithPairingID___block_invoke_2(id *a1)
 {
-  WeakRetained = objc_loadWeakRetained((a1 + 48));
+  WeakRetained = objc_loadWeakRetained(a1 + 6);
   v3 = [WeakRetained isCancelled];
 
   if ((v3 & 1) == 0)
   {
-    v4 = *(a1 + 32);
-    v5 = [*(a1 + 40) pairingID];
+    v4 = a1[4];
+    v5 = [a1[5] pairingID];
     LOBYTE(v4) = [v4 isEqual:v5];
 
     if ((v4 & 1) == 0)
     {
-      v6 = wc_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = wc_log(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        __45__WCSession_handleIncomingFileWithPairingID___block_invoke_2_cold_1((a1 + 32), a1 + 40);
+        __45__WCSession_handleIncomingFileWithPairingID___block_invoke_2_cold_1((a1 + 4), (a1 + 5));
       }
     }
 
-    v7 = +[WCFileStorage sharedInstance];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __45__WCSession_handleIncomingFileWithPairingID___block_invoke_115;
-    v10[3] = &unk_278B7C308;
-    objc_copyWeak(&v13, (a1 + 48));
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    v11 = v8;
+    v8 = +[WCFileStorage sharedInstance];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __45__WCSession_handleIncomingFileWithPairingID___block_invoke_115;
+    v11[3] = &unk_278B7C308;
+    objc_copyWeak(&v14, a1 + 6);
+    v9 = a1[4];
+    v10 = a1[5];
     v12 = v9;
-    [v7 enumerateIncomingFilesWithBlock:v10];
+    v13 = v10;
+    [v8 enumerateIncomingFilesWithBlock:v11];
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v14);
   }
 }
 
 void __45__WCSession_handleIncomingFileWithPairingID___block_invoke_115(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -3888,47 +3971,48 @@ void __45__WCSession_handleIncomingFileWithPairingID___block_invoke_115(uint64_t
   if ((v8 & 1) == 0)
   {
     v10 = *(a1 + 32);
-    v9 = (a1 + 32);
-    v11 = (v9 + 1);
-    v12 = [v9[1] pairingID];
+    v9 = a1 + 32;
+    v11 = (v9 + 8);
+    v12 = [*(v9 + 8) pairingID];
     v13 = [v10 isEqual:v12];
 
     if ((v13 & 1) == 0)
     {
-      v14 = wc_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = wc_log(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        __45__WCSession_handleIncomingFileWithPairingID___block_invoke_115_cold_1(v9, (v9 + 1));
+        __45__WCSession_handleIncomingFileWithPairingID___block_invoke_115_cold_1(v9, v9 + 8);
       }
     }
 
     if (v5)
     {
-      v15 = wc_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = wc_log(v14);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = 136446466;
-        v23 = "[WCSession handleIncomingFileWithPairingID:]_block_invoke";
-        v24 = 2114;
-        v25 = v5;
-        _os_log_impl(&dword_23B2FA000, v15, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@", &v22, 0x16u);
+        v24 = 136446466;
+        v25 = "[WCSession handleIncomingFileWithPairingID:]_block_invoke";
+        v26 = 2114;
+        v27 = v5;
+        _os_log_impl(&dword_23B2FA000, v16, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@", &v24, 0x16u);
       }
 
-      if ([*v11 verifySessionFile:v5])
+      v17 = [*v11 verifySessionFile:v5];
+      if (v17)
       {
-        v16 = [*v11 delegate];
-        v17 = objc_opt_respondsToSelector();
+        v18 = [*v11 delegate];
+        v19 = objc_opt_respondsToSelector();
 
-        if (v17)
+        if (v19)
         {
-          v18 = [*v11 delegate];
-          [v18 session:*v11 didReceiveFile:v5];
+          v21 = [*v11 delegate];
+          [v21 session:*v11 didReceiveFile:v5];
         }
 
         else
         {
-          v18 = wc_log();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          v21 = wc_log(v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
             __45__WCSession_handleIncomingFileWithPairingID___block_invoke_115_cold_3();
           }
@@ -3937,15 +4021,15 @@ void __45__WCSession_handleIncomingFileWithPairingID___block_invoke_115(uint64_t
 
       else
       {
-        v18 = wc_log();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v21 = wc_log(v17);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           __45__WCSession_handleIncomingFileWithPairingID___block_invoke_115_cold_2(v5);
         }
       }
 
-      v19 = +[WCFileStorage sharedInstance];
-      [v19 cleanupSessionFileFromInbox:v5];
+      v22 = +[WCFileStorage sharedInstance];
+      [v22 cleanupSessionFileFromInbox:v5];
     }
 
     else
@@ -3953,20 +4037,20 @@ void __45__WCSession_handleIncomingFileWithPairingID___block_invoke_115(uint64_t
       if (!v6)
       {
 LABEL_21:
-        v20 = +[WCXPCManager sharedManager];
-        [v20 acknowledgeFileIndexWithIdentifier:v6 clientPairingID:*v9];
+        v23 = +[WCXPCManager sharedManager];
+        [v23 acknowledgeFileIndexWithIdentifier:v6 clientPairingID:*v9];
 
         goto LABEL_22;
       }
 
-      v19 = wc_log();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v22 = wc_log(v14);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = 136446466;
-        v23 = "[WCSession handleIncomingFileWithPairingID:]_block_invoke";
-        v24 = 2114;
-        v25 = v6;
-        _os_log_impl(&dword_23B2FA000, v19, OS_LOG_TYPE_DEFAULT, "%{public}s Error: failed to load session file with identifier %{public}@", &v22, 0x16u);
+        v24 = 136446466;
+        v25 = "[WCSession handleIncomingFileWithPairingID:]_block_invoke";
+        v26 = 2114;
+        v27 = v6;
+        _os_log_impl(&dword_23B2FA000, v22, OS_LOG_TYPE_DEFAULT, "%{public}s Error: failed to load session file with identifier %{public}@", &v24, 0x16u);
       }
     }
 
@@ -3974,28 +4058,26 @@ LABEL_21:
   }
 
 LABEL_22:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFileResultWithPairingID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v5 = wc_log();
+  v5 = wc_log(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v15 = "[WCSession handleFileResultWithPairingID:]";
-    v16 = 2114;
-    v17 = dCopy;
+    v14 = "[WCSession handleFileResultWithPairingID:]";
+    v15 = 2114;
+    v16 = dCopy;
     _os_log_impl(&dword_23B2FA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@", buf, 0x16u);
   }
 
   if (!dCopy)
   {
     v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: %s cannot be nil.", "-[WCSession handleFileResultWithPairingID:]", "pairingID"];
-    v7 = wc_log();
+    v7 = wc_log(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       [WCSession sendMessage:v6 replyHandler:? errorHandler:?];
@@ -4005,16 +4087,14 @@ LABEL_22:
   }
 
   workOperationQueue = self->_workOperationQueue;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __43__WCSession_handleFileResultWithPairingID___block_invoke;
-  v11[3] = &unk_278B7C1C8;
-  v12 = dCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __43__WCSession_handleFileResultWithPairingID___block_invoke;
+  v10[3] = &unk_278B7C1C8;
+  v11 = dCopy;
   selfCopy = self;
   v9 = dCopy;
-  [(NSOperationQueue *)workOperationQueue addOperationWithBlock:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(NSOperationQueue *)workOperationQueue addOperationWithBlock:v10];
 }
 
 void __43__WCSession_handleFileResultWithPairingID___block_invoke(uint64_t a1)
@@ -4055,45 +4135,45 @@ void __43__WCSession_handleFileResultWithPairingID___block_invoke(uint64_t a1)
   }
 }
 
-void __43__WCSession_handleFileResultWithPairingID___block_invoke_2(uint64_t a1)
+void __43__WCSession_handleFileResultWithPairingID___block_invoke_2(id *a1)
 {
-  WeakRetained = objc_loadWeakRetained((a1 + 48));
+  WeakRetained = objc_loadWeakRetained(a1 + 6);
   v3 = [WeakRetained isCancelled];
 
   if ((v3 & 1) == 0)
   {
-    v4 = *(a1 + 32);
-    v5 = [*(a1 + 40) pairingID];
+    v4 = a1[4];
+    v5 = [a1[5] pairingID];
     LOBYTE(v4) = [v4 isEqual:v5];
 
     if ((v4 & 1) == 0)
     {
-      v6 = wc_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = wc_log(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        __43__WCSession_handleFileResultWithPairingID___block_invoke_2_cold_1((a1 + 32), a1 + 40);
+        __43__WCSession_handleFileResultWithPairingID___block_invoke_2_cold_1((a1 + 4), (a1 + 5));
       }
     }
 
-    v7 = +[WCFileStorage sharedInstance];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __43__WCSession_handleFileResultWithPairingID___block_invoke_119;
-    v10[3] = &unk_278B7C330;
-    objc_copyWeak(&v13, (a1 + 48));
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    v11 = v8;
+    v8 = +[WCFileStorage sharedInstance];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __43__WCSession_handleFileResultWithPairingID___block_invoke_119;
+    v11[3] = &unk_278B7C330;
+    objc_copyWeak(&v14, a1 + 6);
+    v9 = a1[4];
+    v10 = a1[5];
     v12 = v9;
-    [v7 enumerateFileTransferResultsWithBlock:v10];
+    v13 = v10;
+    [v8 enumerateFileTransferResultsWithBlock:v11];
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v14);
   }
 }
 
 void __43__WCSession_handleFileResultWithPairingID___block_invoke_119(uint64_t a1, void *a2, void *a3)
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -4109,197 +4189,202 @@ void __43__WCSession_handleFileResultWithPairingID___block_invoke_119(uint64_t a
 
     if ((v10 & 1) == 0)
     {
-      v13 = wc_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = wc_log(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        __43__WCSession_handleFileResultWithPairingID___block_invoke_119_cold_1((a1 + 32), a1 + 40);
+        __43__WCSession_handleFileResultWithPairingID___block_invoke_119_cold_1(a1 + 32, a1 + 40);
       }
     }
 
-    v14 = wc_log();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    v15 = wc_log(v13);
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
     if (v5)
     {
-      if (v15)
+      if (v16)
       {
-        v51 = [v5 transferError];
-        v16 = NSPrintF();
+        v17 = [v5 transferError];
+        v18 = NSPrintF("%{error}", v17);
         *buf = 136446722;
         *&buf[4] = "[WCSession handleFileResultWithPairingID:]_block_invoke";
         *&buf[12] = 2114;
         *&buf[14] = v5;
         *&buf[22] = 2114;
-        v73 = v16;
-        _os_log_impl(&dword_23B2FA000, v14, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@ with %{public}@", buf, 0x20u);
+        v77 = v18;
+        _os_log_impl(&dword_23B2FA000, v15, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@ with %{public}@", buf, 0x20u);
       }
 
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v73 = __Block_byref_object_copy_;
-      v74 = __Block_byref_object_dispose_;
-      v75 = 0;
-      v17 = objc_opt_new();
-      v57[0] = MEMORY[0x277D85DD0];
-      v57[1] = 3221225472;
-      v57[2] = __43__WCSession_handleFileResultWithPairingID___block_invoke_120;
-      v57[3] = &unk_278B7C218;
-      v18 = *v11;
-      v59 = buf;
-      v57[4] = v18;
-      v58 = v6;
-      [v17 addExecutionBlock:v57];
-      v19 = *(*v11 + 11);
-      v71 = v17;
-      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v71 count:1];
-      [v19 addOperations:v20 waitUntilFinished:1];
+      v77 = __Block_byref_object_copy_;
+      v78 = __Block_byref_object_dispose_;
+      v79 = 0;
+      v19 = objc_opt_new();
+      v61[0] = MEMORY[0x277D85DD0];
+      v61[1] = 3221225472;
+      v61[2] = __43__WCSession_handleFileResultWithPairingID___block_invoke_120;
+      v61[3] = &unk_278B7C218;
+      v20 = *v11;
+      v63 = buf;
+      v61[4] = v20;
+      v62 = v6;
+      [v19 addExecutionBlock:v61];
+      v21 = *(*v11 + 11);
+      v75 = v19;
+      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v75 count:1];
+      [v21 addOperations:v22 waitUntilFinished:1];
 
       if (*(*&buf[8] + 40))
       {
-        v21 = [v5 transferError];
+        v24 = [v5 transferError];
 
-        if (v21)
+        if (v24)
         {
-          v22 = [v5 transferError];
-          [*(*&buf[8] + 40) setTransferError:v22];
+          v25 = [v5 transferError];
+          [*(*&buf[8] + 40) setTransferError:v25];
         }
 
-        v23 = v5;
+        v26 = v5;
         v5 = *(*&buf[8] + 40);
       }
 
       else
       {
-        v23 = wc_log();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        v26 = wc_log(v23);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           __43__WCSession_handleFileResultWithPairingID___block_invoke_119_cold_2();
         }
       }
 
-      v24 = [v5 progress];
-      v25 = v24;
-      if (v24 && ([v24 isFinished] & 1) == 0 && (objc_msgSend(v25, "isCancelled") & 1) == 0)
+      v27 = [v5 progress];
+      v28 = v27;
+      if (v27)
       {
-        v26 = wc_log();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        if (([v27 isFinished] & 1) == 0)
         {
-          v27 = [v5 transferIdentifier];
-          *v67 = 136446466;
-          v68 = "[WCSession handleFileResultWithPairingID:]_block_invoke";
-          v69 = 2114;
-          v70 = v27;
-          _os_log_impl(&dword_23B2FA000, v26, OS_LOG_TYPE_DEFAULT, "%{public}s Updating progress to finished for %{public}@", v67, 0x16u);
-        }
+          v29 = [v28 isCancelled];
+          if ((v29 & 1) == 0)
+          {
+            v30 = wc_log(v29);
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+            {
+              v31 = [v5 transferIdentifier];
+              *v71 = 136446466;
+              v72 = "[WCSession handleFileResultWithPairingID:]_block_invoke";
+              v73 = 2114;
+              v74 = v31;
+              _os_log_impl(&dword_23B2FA000, v30, OS_LOG_TYPE_DEFAULT, "%{public}s Updating progress to finished for %{public}@", v71, 0x16u);
+            }
 
-        [v25 setCompletedUnitCount:{objc_msgSend(v25, "totalUnitCount")}];
+            [v28 setCompletedUnitCount:{objc_msgSend(v28, "totalUnitCount")}];
+          }
+        }
       }
 
-      v28 = objc_loadWeakRetained((a1 + 48));
-      v29 = [v28 isCancelled];
+      v32 = objc_loadWeakRetained((a1 + 48));
+      v33 = [v32 isCancelled];
 
-      if (v29)
+      if (v33)
       {
 
         _Block_object_dispose(buf, 8);
         goto LABEL_36;
       }
 
-      v30 = *v9;
-      v31 = [*v11 pairingID];
-      LOBYTE(v30) = [v30 isEqual:v31];
+      v34 = *v9;
+      v35 = [*v11 pairingID];
+      LOBYTE(v34) = [v34 isEqual:v35];
 
-      if ((v30 & 1) == 0)
+      if ((v34 & 1) == 0)
       {
-        v32 = wc_log();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v37 = wc_log(v36);
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
-          v33 = *v9;
-          v34 = [*v11 pairingID];
-          __43__WCSession_handleFileResultWithPairingID___block_invoke_119_cold_3(v33, v34, v67);
+          v38 = *v9;
+          v39 = [*v11 pairingID];
+          __43__WCSession_handleFileResultWithPairingID___block_invoke_119_cold_3(v38, v39, v71);
         }
       }
 
-      v35 = [*v11 delegate];
-      v36 = objc_opt_respondsToSelector();
+      v40 = [*v11 delegate];
+      v41 = objc_opt_respondsToSelector();
 
-      if (v36)
+      if (v41)
       {
         [v5 setTransferring:0];
-        v37 = [*v11 delegate];
-        v38 = *v11;
-        v39 = [v5 transferError];
-        [v37 session:v38 didFinishFileTransfer:v5 error:v39];
+        v43 = [*v11 delegate];
+        v44 = *v11;
+        v45 = [v5 transferError];
+        [v43 session:v44 didFinishFileTransfer:v5 error:v45];
       }
 
       else
       {
-        v37 = wc_log();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        v43 = wc_log(v42);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
         {
-          v40 = [*v11 delegate];
-          v41 = [objc_opt_class() description];
-          v42 = NSStringFromSelector(sel_session_didFinishFileTransfer_error_);
-          *v61 = 136446722;
-          v62 = "[WCSession handleFileResultWithPairingID:]_block_invoke";
-          v63 = 2114;
-          v64 = v41;
-          v65 = 2114;
-          v66 = v42;
-          _os_log_impl(&dword_23B2FA000, v37, OS_LOG_TYPE_DEFAULT, "%{public}s delegate %{public}@ does not implement %{public}@", v61, 0x20u);
+          v46 = [*v11 delegate];
+          v47 = [objc_opt_class() description];
+          v48 = NSStringFromSelector(sel_session_didFinishFileTransfer_error_);
+          *v65 = 136446722;
+          v66 = "[WCSession handleFileResultWithPairingID:]_block_invoke";
+          v67 = 2114;
+          v68 = v47;
+          v69 = 2114;
+          v70 = v48;
+          _os_log_impl(&dword_23B2FA000, v43, OS_LOG_TYPE_DEFAULT, "%{public}s delegate %{public}@ does not implement %{public}@", v65, 0x20u);
         }
       }
 
-      v43 = objc_opt_new();
-      v54[0] = MEMORY[0x277D85DD0];
-      v54[1] = 3221225472;
-      v54[2] = __43__WCSession_handleFileResultWithPairingID___block_invoke_123;
-      v54[3] = &unk_278B7C1C8;
-      v44 = v5;
-      v45 = *v11;
-      v55 = v44;
-      v56 = v45;
-      [v43 addExecutionBlock:v54];
-      v46 = *(*v11 + 11);
-      v60 = v43;
-      v47 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
-      [v46 addOperations:v47 waitUntilFinished:1];
+      v49 = objc_opt_new();
+      v58[0] = MEMORY[0x277D85DD0];
+      v58[1] = 3221225472;
+      v58[2] = __43__WCSession_handleFileResultWithPairingID___block_invoke_123;
+      v58[3] = &unk_278B7C1C8;
+      v50 = v5;
+      v51 = *v11;
+      v59 = v50;
+      v60 = v51;
+      [v49 addExecutionBlock:v58];
+      v52 = *(*v11 + 11);
+      v64 = v49;
+      v53 = [MEMORY[0x277CBEA60] arrayWithObjects:&v64 count:1];
+      [v52 addOperations:v53 waitUntilFinished:1];
 
-      v48 = objc_opt_new();
-      v52[0] = MEMORY[0x277D85DD0];
-      v52[1] = 3221225472;
-      v52[2] = __43__WCSession_handleFileResultWithPairingID___block_invoke_2_124;
-      v52[3] = &unk_278B7C1C8;
-      v52[4] = *v11;
-      v5 = v44;
-      v53 = v5;
-      [v48 addExecutionBlock:v52];
-      [*(*v11 + 11) addOperation:v48];
+      v54 = objc_opt_new();
+      v56[0] = MEMORY[0x277D85DD0];
+      v56[1] = 3221225472;
+      v56[2] = __43__WCSession_handleFileResultWithPairingID___block_invoke_2_124;
+      v56[3] = &unk_278B7C1C8;
+      v56[4] = *v11;
+      v5 = v50;
+      v57 = v5;
+      [v54 addExecutionBlock:v56];
+      [*(*v11 + 11) addOperation:v54];
 
       _Block_object_dispose(buf, 8);
     }
 
     else
     {
-      if (v15)
+      if (v16)
       {
         *buf = 136446466;
         *&buf[4] = "[WCSession handleFileResultWithPairingID:]_block_invoke_3";
         *&buf[12] = 2114;
         *&buf[14] = v6;
-        _os_log_impl(&dword_23B2FA000, v14, OS_LOG_TYPE_DEFAULT, "%{public}s ERROR: failed to load session file transfer with identifier %{public}@", buf, 0x16u);
+        _os_log_impl(&dword_23B2FA000, v15, OS_LOG_TYPE_DEFAULT, "%{public}s ERROR: failed to load session file transfer with identifier %{public}@", buf, 0x16u);
       }
 
       v5 = 0;
     }
 
-    v49 = +[WCXPCManager sharedManager];
-    [v49 acknowledgeFileResultIndexWithIdentifier:v6 clientPairingID:*v9];
+    v55 = +[WCXPCManager sharedManager];
+    [v55 acknowledgeFileResultIndexWithIdentifier:v6 clientPairingID:*v9];
   }
 
 LABEL_36:
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 void __43__WCSession_handleFileResultWithPairingID___block_invoke_120(uint64_t a1)
@@ -4328,22 +4413,22 @@ uint64_t __43__WCSession_handleFileResultWithPairingID___block_invoke_123(uint64
 
 - (void)handleIncomingUserInfoWithPairingID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v5 = wc_log();
+  v5 = wc_log(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v15 = "[WCSession handleIncomingUserInfoWithPairingID:]";
-    v16 = 2114;
-    v17 = dCopy;
+    v14 = "[WCSession handleIncomingUserInfoWithPairingID:]";
+    v15 = 2114;
+    v16 = dCopy;
     _os_log_impl(&dword_23B2FA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@", buf, 0x16u);
   }
 
   if (!dCopy)
   {
     v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: %s cannot be nil.", "-[WCSession handleIncomingUserInfoWithPairingID:]", "pairingID"];
-    v7 = wc_log();
+    v7 = wc_log(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       [WCSession sendMessage:v6 replyHandler:? errorHandler:?];
@@ -4353,16 +4438,14 @@ uint64_t __43__WCSession_handleFileResultWithPairingID___block_invoke_123(uint64
   }
 
   workOperationQueue = self->_workOperationQueue;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __49__WCSession_handleIncomingUserInfoWithPairingID___block_invoke;
-  v11[3] = &unk_278B7C1C8;
-  v12 = dCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __49__WCSession_handleIncomingUserInfoWithPairingID___block_invoke;
+  v10[3] = &unk_278B7C1C8;
+  v11 = dCopy;
   selfCopy = self;
   v9 = dCopy;
-  [(NSOperationQueue *)workOperationQueue addOperationWithBlock:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(NSOperationQueue *)workOperationQueue addOperationWithBlock:v10];
 }
 
 void __49__WCSession_handleIncomingUserInfoWithPairingID___block_invoke(uint64_t a1)
@@ -4403,45 +4486,45 @@ void __49__WCSession_handleIncomingUserInfoWithPairingID___block_invoke(uint64_t
   }
 }
 
-void __49__WCSession_handleIncomingUserInfoWithPairingID___block_invoke_2(uint64_t a1)
+void __49__WCSession_handleIncomingUserInfoWithPairingID___block_invoke_2(id *a1)
 {
-  WeakRetained = objc_loadWeakRetained((a1 + 48));
+  WeakRetained = objc_loadWeakRetained(a1 + 6);
   v3 = [WeakRetained isCancelled];
 
   if ((v3 & 1) == 0)
   {
-    v4 = *(a1 + 32);
-    v5 = [*(a1 + 40) pairingID];
+    v4 = a1[4];
+    v5 = [a1[5] pairingID];
     LOBYTE(v4) = [v4 isEqual:v5];
 
     if ((v4 & 1) == 0)
     {
-      v6 = wc_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = wc_log(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        __49__WCSession_handleIncomingUserInfoWithPairingID___block_invoke_2_cold_1((a1 + 32), a1 + 40);
+        __49__WCSession_handleIncomingUserInfoWithPairingID___block_invoke_2_cold_1((a1 + 4), (a1 + 5));
       }
     }
 
-    v7 = +[WCFileStorage sharedInstance];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __49__WCSession_handleIncomingUserInfoWithPairingID___block_invoke_127;
-    v10[3] = &unk_278B7C358;
-    objc_copyWeak(&v13, (a1 + 48));
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    v11 = v8;
+    v8 = +[WCFileStorage sharedInstance];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __49__WCSession_handleIncomingUserInfoWithPairingID___block_invoke_127;
+    v11[3] = &unk_278B7C358;
+    objc_copyWeak(&v14, a1 + 6);
+    v9 = a1[4];
+    v10 = a1[5];
     v12 = v9;
-    [v7 enumerateIncomingUserInfosWithBlock:v10];
+    v13 = v10;
+    [v8 enumerateIncomingUserInfosWithBlock:v11];
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v14);
   }
 }
 
 void __49__WCSession_handleIncomingUserInfoWithPairingID___block_invoke_127(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -4450,97 +4533,95 @@ void __49__WCSession_handleIncomingUserInfoWithPairingID___block_invoke_127(uint
   if ((v8 & 1) == 0)
   {
     v10 = *(a1 + 32);
-    v9 = (a1 + 32);
-    v11 = (v9 + 1);
-    v12 = [v9[1] pairingID];
+    v9 = a1 + 32;
+    v11 = (v9 + 8);
+    v12 = [*(v9 + 8) pairingID];
     v13 = [v10 isEqual:v12];
 
     if ((v13 & 1) == 0)
     {
-      v14 = wc_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = wc_log(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        __49__WCSession_handleIncomingUserInfoWithPairingID___block_invoke_127_cold_1(v9, (v9 + 1));
+        __49__WCSession_handleIncomingUserInfoWithPairingID___block_invoke_127_cold_1(v9, v9 + 8);
       }
     }
 
-    v15 = wc_log();
-    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+    v16 = wc_log(v14);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
     if (v5)
     {
-      if (v16)
+      if (v17)
       {
-        v17 = [v5 transferIdentifier];
-        v25 = 136446722;
-        v26 = "[WCSession handleIncomingUserInfoWithPairingID:]_block_invoke";
-        v27 = 2114;
-        v28 = v5;
-        v29 = 2114;
-        v30 = v17;
-        _os_log_impl(&dword_23B2FA000, v15, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@, identifier %{public}@", &v25, 0x20u);
+        v18 = [v5 transferIdentifier];
+        v26 = 136446722;
+        v27 = "[WCSession handleIncomingUserInfoWithPairingID:]_block_invoke";
+        v28 = 2114;
+        v29 = v5;
+        v30 = 2114;
+        v31 = v18;
+        _os_log_impl(&dword_23B2FA000, v16, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@, identifier %{public}@", &v26, 0x20u);
       }
 
       if ([v5 verifyUserInfo])
       {
-        v18 = [*v11 delegate];
-        v19 = objc_opt_respondsToSelector();
+        v19 = [*v11 delegate];
+        v20 = objc_opt_respondsToSelector();
 
-        if (v19)
+        if (v20)
         {
-          v20 = [*v11 delegate];
-          v21 = *v11;
-          v22 = [v5 userInfo];
-          [v20 session:v21 didReceiveUserInfo:v22];
+          v22 = [*v11 delegate];
+          v23 = *v11;
+          v24 = [v5 userInfo];
+          [v22 session:v23 didReceiveUserInfo:v24];
         }
 
         else
         {
-          v20 = wc_log();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v22 = wc_log(v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             __49__WCSession_handleIncomingUserInfoWithPairingID___block_invoke_127_cold_2();
           }
         }
       }
 
-      v15 = +[WCFileStorage sharedInstance];
-      [v15 deleteUserInfoTransferFromInbox:v5];
+      v16 = +[WCFileStorage sharedInstance];
+      [v16 deleteUserInfoTransferFromInbox:v5];
     }
 
-    else if (v16)
+    else if (v17)
     {
-      v25 = 136446466;
-      v26 = "[WCSession handleIncomingUserInfoWithPairingID:]_block_invoke";
-      v27 = 2114;
-      v28 = v6;
-      _os_log_impl(&dword_23B2FA000, v15, OS_LOG_TYPE_DEFAULT, "%{public}s ERROR: failed to load user info transfer with identifier %{public}@", &v25, 0x16u);
+      v26 = 136446466;
+      v27 = "[WCSession handleIncomingUserInfoWithPairingID:]_block_invoke";
+      v28 = 2114;
+      v29 = v6;
+      _os_log_impl(&dword_23B2FA000, v16, OS_LOG_TYPE_DEFAULT, "%{public}s ERROR: failed to load user info transfer with identifier %{public}@", &v26, 0x16u);
     }
 
-    v23 = +[WCXPCManager sharedManager];
-    [v23 acknowledgeUserInfoIndexWithIdentifier:v6 clientPairingID:*v9];
+    v25 = +[WCXPCManager sharedManager];
+    [v25 acknowledgeUserInfoIndexWithIdentifier:v6 clientPairingID:*v9];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUserInfoResultWithPairingID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v5 = wc_log();
+  v5 = wc_log(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v15 = "[WCSession handleUserInfoResultWithPairingID:]";
-    v16 = 2114;
-    v17 = dCopy;
+    v14 = "[WCSession handleUserInfoResultWithPairingID:]";
+    v15 = 2114;
+    v16 = dCopy;
     _os_log_impl(&dword_23B2FA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@", buf, 0x16u);
   }
 
   if (!dCopy)
   {
     v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: %s cannot be nil.", "-[WCSession handleUserInfoResultWithPairingID:]", "pairingID"];
-    v7 = wc_log();
+    v7 = wc_log(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       [WCSession sendMessage:v6 replyHandler:? errorHandler:?];
@@ -4550,16 +4631,14 @@ void __49__WCSession_handleIncomingUserInfoWithPairingID___block_invoke_127(uint
   }
 
   workOperationQueue = self->_workOperationQueue;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __47__WCSession_handleUserInfoResultWithPairingID___block_invoke;
-  v11[3] = &unk_278B7C1C8;
-  v12 = dCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __47__WCSession_handleUserInfoResultWithPairingID___block_invoke;
+  v10[3] = &unk_278B7C1C8;
+  v11 = dCopy;
   selfCopy = self;
   v9 = dCopy;
-  [(NSOperationQueue *)workOperationQueue addOperationWithBlock:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(NSOperationQueue *)workOperationQueue addOperationWithBlock:v10];
 }
 
 void __47__WCSession_handleUserInfoResultWithPairingID___block_invoke(uint64_t a1)
@@ -4600,45 +4679,45 @@ void __47__WCSession_handleUserInfoResultWithPairingID___block_invoke(uint64_t a
   }
 }
 
-void __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_2(uint64_t a1)
+void __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_2(id *a1)
 {
-  WeakRetained = objc_loadWeakRetained((a1 + 48));
+  WeakRetained = objc_loadWeakRetained(a1 + 6);
   v3 = [WeakRetained isCancelled];
 
   if ((v3 & 1) == 0)
   {
-    v4 = *(a1 + 32);
-    v5 = [*(a1 + 40) pairingID];
+    v4 = a1[4];
+    v5 = [a1[5] pairingID];
     LOBYTE(v4) = [v4 isEqual:v5];
 
     if ((v4 & 1) == 0)
     {
-      v6 = wc_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = wc_log(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_2_cold_1((a1 + 32), a1 + 40);
+        __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_2_cold_1((a1 + 4), (a1 + 5));
       }
     }
 
-    v7 = +[WCFileStorage sharedInstance];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_131;
-    v10[3] = &unk_278B7C358;
-    objc_copyWeak(&v13, (a1 + 48));
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    v11 = v8;
+    v8 = +[WCFileStorage sharedInstance];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_131;
+    v11[3] = &unk_278B7C358;
+    objc_copyWeak(&v14, a1 + 6);
+    v9 = a1[4];
+    v10 = a1[5];
     v12 = v9;
-    [v7 enumerateUserInfoResultsWithBlock:v10];
+    v13 = v10;
+    [v8 enumerateUserInfoResultsWithBlock:v11];
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v14);
   }
 }
 
 void __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_131(uint64_t a1, void *a2, void *a3)
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -4654,163 +4733,161 @@ void __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_131(uint64
 
     if ((v10 & 1) == 0)
     {
-      v13 = wc_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = wc_log(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_131_cold_1((a1 + 32), a1 + 40);
+        __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_131_cold_1(a1 + 32, a1 + 40);
       }
     }
 
-    v14 = wc_log();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    v15 = wc_log(v13);
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
     if (v5)
     {
-      if (v15)
+      if (v16)
       {
         *buf = 136446466;
         *&buf[4] = "[WCSession handleUserInfoResultWithPairingID:]_block_invoke";
         *&buf[12] = 2114;
         *&buf[14] = v5;
-        _os_log_impl(&dword_23B2FA000, v14, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@", buf, 0x16u);
+        _os_log_impl(&dword_23B2FA000, v15, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@", buf, 0x16u);
       }
 
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v62 = __Block_byref_object_copy_;
-      v63 = __Block_byref_object_dispose_;
-      v64 = 0;
-      v16 = objc_opt_new();
-      v49[0] = MEMORY[0x277D85DD0];
-      v49[1] = 3221225472;
-      v49[2] = __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_132;
-      v49[3] = &unk_278B7C218;
-      v17 = *v11;
-      v51 = buf;
-      v49[4] = v17;
-      v50 = v6;
-      [v16 addExecutionBlock:v49];
-      v18 = *(*v11 + 11);
-      v60 = v16;
-      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
-      [v18 addOperations:v19 waitUntilFinished:1];
+      v65 = __Block_byref_object_copy_;
+      v66 = __Block_byref_object_dispose_;
+      v67 = 0;
+      v17 = objc_opt_new();
+      v52[0] = MEMORY[0x277D85DD0];
+      v52[1] = 3221225472;
+      v52[2] = __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_132;
+      v52[3] = &unk_278B7C218;
+      v18 = *v11;
+      v54 = buf;
+      v52[4] = v18;
+      v53 = v6;
+      [v17 addExecutionBlock:v52];
+      v19 = *(*v11 + 11);
+      v63 = v17;
+      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v63 count:1];
+      [v19 addOperations:v20 waitUntilFinished:1];
 
       if (*(*&buf[8] + 40))
       {
-        v20 = [v5 transferError];
+        v22 = [v5 transferError];
 
-        if (v20)
+        if (v22)
         {
-          v21 = [v5 transferError];
-          [*(*&buf[8] + 40) setTransferError:v21];
+          v23 = [v5 transferError];
+          [*(*&buf[8] + 40) setTransferError:v23];
         }
 
-        v22 = v5;
+        v24 = v5;
         v5 = *(*&buf[8] + 40);
       }
 
       else
       {
-        v22 = wc_log();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v24 = wc_log(v21);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_131_cold_2();
         }
       }
 
-      v23 = objc_loadWeakRetained((a1 + 48));
-      v24 = [v23 isCancelled];
+      v25 = objc_loadWeakRetained((a1 + 48));
+      v26 = [v25 isCancelled];
 
-      if (v24)
+      if (v26)
       {
 
         _Block_object_dispose(buf, 8);
         goto LABEL_30;
       }
 
-      v25 = *v9;
-      v26 = [*v11 pairingID];
-      LOBYTE(v25) = [v25 isEqual:v26];
+      v27 = *v9;
+      v28 = [*v11 pairingID];
+      LOBYTE(v27) = [v27 isEqual:v28];
 
-      if ((v25 & 1) == 0)
+      if ((v27 & 1) == 0)
       {
-        v27 = wc_log();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v30 = wc_log(v29);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
-          v28 = *v9;
-          v29 = [*v11 pairingID];
-          __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_131_cold_3(v28, v29, v59);
+          v31 = *v9;
+          v32 = [*v11 pairingID];
+          __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_131_cold_3(v31, v32, v62);
         }
       }
 
-      v30 = [*v11 delegate];
-      v31 = objc_opt_respondsToSelector();
+      v33 = [*v11 delegate];
+      v34 = objc_opt_respondsToSelector();
 
-      if (v31)
+      if (v34)
       {
         [v5 setTransferring:0];
-        v32 = [*v11 delegate];
-        v33 = *v11;
-        v34 = [v5 transferError];
-        [v32 session:v33 didFinishUserInfoTransfer:v5 error:v34];
+        v36 = [*v11 delegate];
+        v37 = *v11;
+        v38 = [v5 transferError];
+        [v36 session:v37 didFinishUserInfoTransfer:v5 error:v38];
       }
 
       else
       {
-        v32 = wc_log();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        v36 = wc_log(v35);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
-          v35 = [*v11 delegate];
-          v36 = [objc_opt_class() description];
-          v37 = NSStringFromSelector(sel_session_didFinishUserInfoTransfer_error_);
-          *v53 = 136446722;
-          v54 = "[WCSession handleUserInfoResultWithPairingID:]_block_invoke";
-          v55 = 2114;
-          v56 = v36;
-          v57 = 2114;
-          v58 = v37;
-          _os_log_impl(&dword_23B2FA000, v32, OS_LOG_TYPE_DEFAULT, "%{public}s delegate %{public}@ does not implement %{public}@", v53, 0x20u);
+          v39 = [*v11 delegate];
+          v40 = [objc_opt_class() description];
+          v41 = NSStringFromSelector(sel_session_didFinishUserInfoTransfer_error_);
+          *v56 = 136446722;
+          v57 = "[WCSession handleUserInfoResultWithPairingID:]_block_invoke";
+          v58 = 2114;
+          v59 = v40;
+          v60 = 2114;
+          v61 = v41;
+          _os_log_impl(&dword_23B2FA000, v36, OS_LOG_TYPE_DEFAULT, "%{public}s delegate %{public}@ does not implement %{public}@", v56, 0x20u);
         }
       }
 
-      v38 = objc_opt_new();
-      v43 = MEMORY[0x277D85DD0];
-      v44 = 3221225472;
-      v45 = __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_135;
-      v46 = &unk_278B7C1C8;
-      v47 = *v11;
+      v42 = objc_opt_new();
+      v46 = MEMORY[0x277D85DD0];
+      v47 = 3221225472;
+      v48 = __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_135;
+      v49 = &unk_278B7C1C8;
+      v50 = *v11;
       v5 = v5;
-      v48 = v5;
-      [v38 addExecutionBlock:&v43];
-      v39 = *(*v11 + 11);
-      v52 = v38;
-      v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:{1, v43, v44, v45, v46, v47}];
-      [v39 addOperations:v40 waitUntilFinished:1];
+      v51 = v5;
+      [v42 addExecutionBlock:&v46];
+      v43 = *(*v11 + 11);
+      v55 = v42;
+      v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:{1, v46, v47, v48, v49, v50}];
+      [v43 addOperations:v44 waitUntilFinished:1];
 
       _Block_object_dispose(buf, 8);
     }
 
     else
     {
-      if (v15)
+      if (v16)
       {
         *buf = 136446466;
         *&buf[4] = "[WCSession handleUserInfoResultWithPairingID:]_block_invoke_2";
         *&buf[12] = 2114;
         *&buf[14] = v6;
-        _os_log_impl(&dword_23B2FA000, v14, OS_LOG_TYPE_DEFAULT, "%{public}s ERROR: failed to load user info result with identifier %{public}@", buf, 0x16u);
+        _os_log_impl(&dword_23B2FA000, v15, OS_LOG_TYPE_DEFAULT, "%{public}s ERROR: failed to load user info result with identifier %{public}@", buf, 0x16u);
       }
 
       v5 = 0;
     }
 
-    v41 = +[WCXPCManager sharedManager];
-    [v41 acknowledgeUserInfoResultIndexWithIdentifier:v6 clientPairingID:*v9];
+    v45 = +[WCXPCManager sharedManager];
+    [v45 acknowledgeUserInfoResultIndexWithIdentifier:v6 clientPairingID:*v9];
   }
 
 LABEL_30:
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_132(uint64_t a1)
@@ -4824,16 +4901,16 @@ void __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_132(uint64
 
 - (void)onqueue_completeSwitchTask:(id)task withSessionState:(id)state
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   stateCopy = state;
-  v8 = wc_log();
+  v8 = wc_log(stateCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v32 = "[WCSession onqueue_completeSwitchTask:withSessionState:]";
-    v33 = 2114;
-    v34 = taskCopy;
+    v31 = "[WCSession onqueue_completeSwitchTask:withSessionState:]";
+    v32 = 2114;
+    v33 = taskCopy;
     _os_log_impl(&dword_23B2FA000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@", buf, 0x16u);
   }
 
@@ -4842,20 +4919,19 @@ void __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_132(uint64
     if ([stateCopy isStandaloneApp])
     {
       [taskCopy setTaskState:888];
-      [(WCSession *)self setActivationState:1];
-      v9 = wc_log();
+      v9 = wc_log([(WCSession *)self setActivationState:1]);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [WCSession onqueue_completeSwitchTask:withSessionState:];
       }
 
       v10 = objc_opt_new();
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __57__WCSession_onqueue_completeSwitchTask_withSessionState___block_invoke;
-      v30[3] = &unk_278B7BF78;
-      v30[4] = self;
-      [v10 addExecutionBlock:v30];
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __57__WCSession_onqueue_completeSwitchTask_withSessionState___block_invoke;
+      v29[3] = &unk_278B7BF78;
+      v29[4] = self;
+      [v10 addExecutionBlock:v29];
       delegateOperationQueue = [(WCSession *)self delegateOperationQueue];
       [delegateOperationQueue addOperation:v10];
 
@@ -4874,23 +4950,23 @@ void __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_132(uint64
       [(WCSession *)self onqueue_cancelTransfersIfAppropriate];
       v10 = objc_opt_new();
       objc_initWeak(buf, v10);
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __57__WCSession_onqueue_completeSwitchTask_withSessionState___block_invoke_2;
-      v28[3] = &unk_278B7C380;
-      v28[4] = self;
-      objc_copyWeak(&v29, buf);
-      [v10 addExecutionBlock:v28];
       v27[0] = MEMORY[0x277D85DD0];
       v27[1] = 3221225472;
-      v27[2] = __57__WCSession_onqueue_completeSwitchTask_withSessionState___block_invoke_136;
-      v27[3] = &unk_278B7BF78;
+      v27[2] = __57__WCSession_onqueue_completeSwitchTask_withSessionState___block_invoke_2;
+      v27[3] = &unk_278B7C380;
       v27[4] = self;
-      [v10 setCompletionBlock:v27];
+      objc_copyWeak(&v28, buf);
+      [v10 addExecutionBlock:v27];
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __57__WCSession_onqueue_completeSwitchTask_withSessionState___block_invoke_136;
+      v26[3] = &unk_278B7BF78;
+      v26[4] = self;
+      [v10 setCompletionBlock:v26];
       delegateOperationQueue3 = [(WCSession *)self delegateOperationQueue];
       [delegateOperationQueue3 addOperation:v10];
 
-      objc_destroyWeak(&v29);
+      objc_destroyWeak(&v28);
       objc_destroyWeak(buf);
     }
 
@@ -4904,17 +4980,17 @@ void __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_132(uint64
 LABEL_13:
         v18 = objc_opt_new();
         objc_initWeak(buf, v18);
-        v21 = MEMORY[0x277D85DD0];
-        v22 = 3221225472;
-        v23 = __57__WCSession_onqueue_completeSwitchTask_withSessionState___block_invoke_4;
-        v24 = &unk_278B7BFF0;
-        objc_copyWeak(&v26, buf);
-        v25 = stateCopy;
-        [v18 addExecutionBlock:&v21];
-        v19 = [(WCSession *)self backgroundWorkOperationQueue:v21];
+        v20 = MEMORY[0x277D85DD0];
+        v21 = 3221225472;
+        v22 = __57__WCSession_onqueue_completeSwitchTask_withSessionState___block_invoke_4;
+        v23 = &unk_278B7BFF0;
+        objc_copyWeak(&v25, buf);
+        v24 = stateCopy;
+        [v18 addExecutionBlock:&v20];
+        v19 = [(WCSession *)self backgroundWorkOperationQueue:v20];
         [v19 addOperation:v18];
 
-        objc_destroyWeak(&v26);
+        objc_destroyWeak(&v25);
         objc_destroyWeak(buf);
 
         goto LABEL_14;
@@ -4931,8 +5007,6 @@ LABEL_13:
   }
 
 LABEL_14:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __57__WCSession_onqueue_completeSwitchTask_withSessionState___block_invoke(uint64_t a1)
@@ -4948,33 +5022,34 @@ void __57__WCSession_onqueue_completeSwitchTask_withSessionState___block_invoke_
   v2 = [*(a1 + 32) pairingID];
   [*(a1 + 32) setHasContentPending:v2 != 0];
 
-  v3 = wc_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = wc_log(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = [*(a1 + 32) hasContentPending];
-    v5 = "NO";
-    if (v4)
+    v5 = [*(a1 + 32) hasContentPending];
+    v6 = "NO";
+    if (v5)
     {
-      v5 = "YES";
+      v6 = "YES";
     }
 
     v10 = 136446466;
     v11 = "[WCSession onqueue_completeSwitchTask:withSessionState:]_block_invoke_2";
     v12 = 2080;
-    v13 = v5;
-    _os_log_impl(&dword_23B2FA000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s hasContentPending: %s", &v10, 0x16u);
+    v13 = v6;
+    _os_log_impl(&dword_23B2FA000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s hasContentPending: %s", &v10, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v7 = [WeakRetained isCancelled];
+  v8 = [WeakRetained isCancelled];
 
-  if ((v7 & 1) == 0 && [*(a1 + 32) delegateSupportsAsyncActivate])
+  if ((v8 & 1) == 0)
   {
-    v8 = [*(a1 + 32) delegate];
-    [v8 session:*(a1 + 32) activationDidCompleteWithState:objc_msgSend(*(a1 + 32) error:{"activationState"), 0}];
+    if ([*(a1 + 32) delegateSupportsAsyncActivate])
+    {
+      v9 = [*(a1 + 32) delegate];
+      [v9 session:*(a1 + 32) activationDidCompleteWithState:objc_msgSend(*(a1 + 32) error:{"activationState"), 0}];
+    }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __57__WCSession_onqueue_completeSwitchTask_withSessionState___block_invoke_136(uint64_t a1)
@@ -5016,32 +5091,30 @@ void __57__WCSession_onqueue_completeSwitchTask_withSessionState___block_invoke_
 
   if ((v3 & 1) == 0)
   {
-    v4 = wc_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = wc_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
+      v6 = *(a1 + 32);
       v12 = 136446466;
       v13 = "[WCSession onqueue_completeSwitchTask:withSessionState:]_block_invoke_4";
       v14 = 2114;
-      v15 = v5;
-      _os_log_impl(&dword_23B2FA000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s cleaning up directories for state: %{public}@", &v12, 0x16u);
+      v15 = v6;
+      _os_log_impl(&dword_23B2FA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s cleaning up directories for state: %{public}@", &v12, 0x16u);
     }
 
-    v6 = +[WCFileStorage sharedInstance];
-    v7 = [*(a1 + 32) appInstallationID];
-    [v6 cleanUpWatchContentDirectoryWithCurrentAppInstallationID:v7];
+    v7 = +[WCFileStorage sharedInstance];
+    v8 = [*(a1 + 32) appInstallationID];
+    [v7 cleanUpWatchContentDirectoryWithCurrentAppInstallationID:v8];
 
-    v8 = [*(a1 + 32) pairedDevicesPairingIDs];
+    v9 = [*(a1 + 32) pairedDevicesPairingIDs];
 
-    if (v8)
+    if (v9)
     {
-      v9 = +[WCFileStorage sharedInstance];
-      v10 = [*(a1 + 32) pairedDevicesPairingIDs];
-      [v9 cleanUpOldPairingIDFoldersWithPairedDevicesPairingIDs:v10];
+      v10 = +[WCFileStorage sharedInstance];
+      v11 = [*(a1 + 32) pairedDevicesPairingIDs];
+      [v10 cleanUpOldPairingIDFoldersWithPairedDevicesPairingIDs:v11];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onqueue_handleUpdateSessionState:(id)state
@@ -5081,22 +5154,22 @@ void __46__WCSession_onqueue_handleUpdateSessionState___block_invoke(void **a1)
 
     if ((v9 & 1) == 0)
     {
-      v10 = wc_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = wc_log(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         __46__WCSession_onqueue_handleUpdateSessionState___block_invoke_cold_1();
       }
     }
 
-    v11 = *v6;
-    v12 = *v4;
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __46__WCSession_onqueue_handleUpdateSessionState___block_invoke_138;
-    v13[3] = &unk_278B7C3A8;
-    v13[4] = v11;
-    v14 = v12;
-    [v11 didSessionStateChange:v14 withChangeHandler:v13];
+    v12 = *v6;
+    v13 = *v4;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __46__WCSession_onqueue_handleUpdateSessionState___block_invoke_138;
+    v14[3] = &unk_278B7C3A8;
+    v14[4] = v12;
+    v15 = v13;
+    [v12 didSessionStateChange:v15 withChangeHandler:v14];
   }
 }
 
@@ -5105,7 +5178,6 @@ void __46__WCSession_onqueue_handleUpdateSessionState___block_invoke_138(uint64_
   v35 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) onDelegateQueueIfTriggeringKVO_updateSessionState:*(a1 + 40) triggerKVO:1];
   v6 = *(a1 + 32);
-  v7 = v6[8];
   if (!a2)
   {
     if ((v6[8] & 1) == 0)
@@ -5120,23 +5192,23 @@ void __46__WCSession_onqueue_handleUpdateSessionState___block_invoke_138(uint64_
   {
 LABEL_5:
     v6[8] = 0;
-    v8 = wc_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = wc_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
       v30 = "[WCSession onqueue_handleUpdateSessionState:]_block_invoke";
-      _os_log_impl(&dword_23B2FA000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s resetting forced reachable", buf, 0xCu);
+      _os_log_impl(&dword_23B2FA000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s resetting forced reachable", buf, 0xCu);
     }
 
     v6 = *(a1 + 32);
   }
 
-  v9 = [v6 delegate];
-  v10 = objc_opt_respondsToSelector();
+  v8 = [v6 delegate];
+  v9 = objc_opt_respondsToSelector();
 
-  v11 = wc_log();
+  v11 = wc_log(v10);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-  if (v10)
+  if (v9)
   {
     if (v12)
     {
@@ -5181,37 +5253,35 @@ LABEL_15:
     v19 = [*(a1 + 32) delegate];
     v20 = objc_opt_respondsToSelector();
 
-    v21 = wc_log();
-    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+    v22 = wc_log(v21);
+    v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
     if (v20)
     {
-      if (v22)
+      if (v23)
       {
         *buf = 136446210;
         v30 = "[WCSession onqueue_handleUpdateSessionState:]_block_invoke_2";
-        _os_log_impl(&dword_23B2FA000, v21, OS_LOG_TYPE_DEFAULT, "%{public}s notifying client session state changed", buf, 0xCu);
+        _os_log_impl(&dword_23B2FA000, v22, OS_LOG_TYPE_DEFAULT, "%{public}s notifying client session state changed", buf, 0xCu);
       }
 
-      v21 = [*(a1 + 32) delegate];
-      [v21 sessionWatchStateDidChange:*(a1 + 32)];
+      v22 = [*(a1 + 32) delegate];
+      [v22 sessionWatchStateDidChange:*(a1 + 32)];
     }
 
-    else if (v22)
+    else if (v23)
     {
-      v23 = [*(a1 + 32) delegate];
-      v24 = [objc_opt_class() description];
-      v25 = NSStringFromSelector(sel_sessionWatchStateDidChange_);
+      v24 = [*(a1 + 32) delegate];
+      v25 = [objc_opt_class() description];
+      v26 = NSStringFromSelector(sel_sessionWatchStateDidChange_);
       *buf = 136446722;
       v30 = "[WCSession onqueue_handleUpdateSessionState:]_block_invoke";
       v31 = 2114;
-      v32 = v24;
+      v32 = v25;
       v33 = 2114;
-      v34 = v25;
-      _os_log_impl(&dword_23B2FA000, v21, OS_LOG_TYPE_DEFAULT, "%{public}s delegate %{public}@ does not implement %{public}@", buf, 0x20u);
+      v34 = v26;
+      _os_log_impl(&dword_23B2FA000, v22, OS_LOG_TYPE_DEFAULT, "%{public}s delegate %{public}@ does not implement %{public}@", buf, 0x20u);
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __46__WCSession_onqueue_handleUpdateSessionState___block_invoke_141(uint64_t a1)
@@ -5224,7 +5294,7 @@ uint64_t __46__WCSession_onqueue_handleUpdateSessionState___block_invoke_141(uin
 
 - (void)didSessionStateChange:(id)change withChangeHandler:(id)handler
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   handlerCopy = handler;
   isReachable = [changeCopy isReachable];
@@ -5253,58 +5323,57 @@ uint64_t __46__WCSession_onqueue_handleUpdateSessionState___block_invoke_141(uin
 
   else
   {
-    v17 = wc_log();
+    v17 = wc_log(remainingComplicationUserInfoTransfers2);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 136446210;
-      v21 = "[WCSession didSessionStateChange:withChangeHandler:]";
-      _os_log_impl(&dword_23B2FA000, v17, OS_LOG_TYPE_DEFAULT, "%{public}s no change", &v20, 0xCu);
+      v19 = 136446210;
+      v20 = "[WCSession didSessionStateChange:withChangeHandler:]";
+      _os_log_impl(&dword_23B2FA000, v17, OS_LOG_TYPE_DEFAULT, "%{public}s no change", &v19, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onqueue_startNextDeviceSwitch
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   switchTasksQueue = [(WCSession *)self switchTasksQueue];
   firstObject = [switchTasksQueue firstObject];
 
-  if ([firstObject taskState]!= 4)
+  taskState = [firstObject taskState];
+  if (taskState != 4)
   {
-    firstObject2 = wc_log();
+    firstObject2 = wc_log(taskState);
     if (!os_log_type_enabled(firstObject2, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_15;
     }
 
     *buf = 136446466;
-    v30 = "[WCSession onqueue_startNextDeviceSwitch]";
-    v31 = 2114;
-    v32 = firstObject;
-    v16 = "%{public}s current task %{public}@ isn't completed";
+    v32 = "[WCSession onqueue_startNextDeviceSwitch]";
+    v33 = 2114;
+    v34 = firstObject;
+    v19 = "%{public}s current task %{public}@ isn't completed";
 LABEL_11:
-    _os_log_impl(&dword_23B2FA000, firstObject2, OS_LOG_TYPE_DEFAULT, v16, buf, 0x16u);
+    _os_log_impl(&dword_23B2FA000, firstObject2, OS_LOG_TYPE_DEFAULT, v19, buf, 0x16u);
     goto LABEL_15;
   }
 
   switchTasksQueue2 = [(WCSession *)self switchTasksQueue];
-  v6 = [switchTasksQueue2 count];
+  v7 = [switchTasksQueue2 count];
 
-  if (v6 < 2)
+  if (v7 < 2)
   {
-    firstObject2 = wc_log();
+    firstObject2 = wc_log(v8);
     if (!os_log_type_enabled(firstObject2, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_15;
     }
 
     *buf = 136446466;
-    v30 = "[WCSession onqueue_startNextDeviceSwitch]";
-    v31 = 2114;
-    v32 = firstObject;
-    v16 = "%{public}s no tasks queued after %{public}@";
+    v32 = "[WCSession onqueue_startNextDeviceSwitch]";
+    v33 = 2114;
+    v34 = firstObject;
+    v19 = "%{public}s no tasks queued after %{public}@";
     goto LABEL_11;
   }
 
@@ -5318,69 +5387,67 @@ LABEL_11:
   firstObject2 = [switchTasksQueue4 firstObject];
 
   [firstObject2 setTaskState:1];
-  [(WCSession *)self setActivationState:1];
-  v11 = wc_log();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v13 = wc_log([(WCSession *)self setActivationState:1]);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v30 = "[WCSession onqueue_startNextDeviceSwitch]";
-    v31 = 2114;
-    v32 = firstObject2;
-    _os_log_impl(&dword_23B2FA000, v11, OS_LOG_TYPE_DEFAULT, "%{public}s starting new switch task: %{public}@", buf, 0x16u);
+    v32 = "[WCSession onqueue_startNextDeviceSwitch]";
+    v33 = 2114;
+    v34 = firstObject2;
+    _os_log_impl(&dword_23B2FA000, v13, OS_LOG_TYPE_DEFAULT, "%{public}s starting new switch task: %{public}@", buf, 0x16u);
   }
 
-  if ([(WCSession *)self delegateSupportsActiveDeviceSwitch])
+  delegateSupportsActiveDeviceSwitch = [(WCSession *)self delegateSupportsActiveDeviceSwitch];
+  if (delegateSupportsActiveDeviceSwitch)
   {
-    v12 = objc_opt_new();
-    objc_initWeak(buf, v12);
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __42__WCSession_onqueue_startNextDeviceSwitch__block_invoke;
-    v27[3] = &unk_278B7BFF0;
-    objc_copyWeak(&v28, buf);
-    v27[4] = self;
-    [v12 addExecutionBlock:v27];
-    [v12 setQueuePriority:8];
+    v15 = objc_opt_new();
+    objc_initWeak(buf, v15);
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __42__WCSession_onqueue_startNextDeviceSwitch__block_invoke;
+    v29[3] = &unk_278B7BFF0;
+    objc_copyWeak(&v30, buf);
+    v29[4] = self;
+    [v15 addExecutionBlock:v29];
+    [v15 setQueuePriority:8];
     delegateOperationQueue = [(WCSession *)self delegateOperationQueue];
-    [delegateOperationQueue addOperation:v12];
+    [delegateOperationQueue addOperation:v15];
 
-    v14 = objc_opt_new();
-    objc_initWeak(&location, v14);
-    v19 = MEMORY[0x277D85DD0];
-    v20 = 3221225472;
-    v21 = __42__WCSession_onqueue_startNextDeviceSwitch__block_invoke_145;
-    v22 = &unk_278B7BFC8;
-    objc_copyWeak(&v25, &location);
+    v17 = objc_opt_new();
+    objc_initWeak(&location, v17);
+    v21 = MEMORY[0x277D85DD0];
+    v22 = 3221225472;
+    v23 = __42__WCSession_onqueue_startNextDeviceSwitch__block_invoke_145;
+    v24 = &unk_278B7BFC8;
+    objc_copyWeak(&v27, &location);
     selfCopy = self;
     firstObject2 = firstObject2;
-    v24 = firstObject2;
-    [v14 addExecutionBlock:&v19];
-    v15 = [(WCSession *)self delegateOperationQueue:v19];
-    [v15 addOperation:v14];
+    v26 = firstObject2;
+    [v17 addExecutionBlock:&v21];
+    v18 = [(WCSession *)self delegateOperationQueue:v21];
+    [v18 addOperation:v17];
 
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(&location);
 
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v30);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v17 = wc_log();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v20 = wc_log(delegateSupportsActiveDeviceSwitch);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v30 = "[WCSession onqueue_startNextDeviceSwitch]";
-      _os_log_impl(&dword_23B2FA000, v17, OS_LOG_TYPE_DEFAULT, "%{public}s client delegate does not support Quick Watch Switch. Halting session until process exits.", buf, 0xCu);
+      v32 = "[WCSession onqueue_startNextDeviceSwitch]";
+      _os_log_impl(&dword_23B2FA000, v20, OS_LOG_TYPE_DEFAULT, "%{public}s client delegate does not support Quick Watch Switch. Halting session until process exits.", buf, 0xCu);
     }
 
     [firstObject2 setTaskState:999];
   }
 
 LABEL_15:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __42__WCSession_onqueue_startNextDeviceSwitch__block_invoke(uint64_t a1)
@@ -5391,19 +5458,17 @@ void __42__WCSession_onqueue_startNextDeviceSwitch__block_invoke(uint64_t a1)
 
   if ((v3 & 1) == 0)
   {
-    v4 = wc_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = wc_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 136446210;
       v8 = "[WCSession onqueue_startNextDeviceSwitch]_block_invoke";
-      _os_log_impl(&dword_23B2FA000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s notifying client session did become inactive", &v7, 0xCu);
+      _os_log_impl(&dword_23B2FA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s notifying client session did become inactive", &v7, 0xCu);
     }
 
-    v5 = [*(a1 + 32) delegate];
-    [v5 sessionDidBecomeInactive:*(a1 + 32)];
+    v6 = [*(a1 + 32) delegate];
+    [v6 sessionDidBecomeInactive:*(a1 + 32)];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __42__WCSession_onqueue_startNextDeviceSwitch__block_invoke_145(id *a1)
@@ -5429,27 +5494,25 @@ void __42__WCSession_onqueue_startNextDeviceSwitch__block_invoke_145(id *a1)
     v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
     [v6 addOperations:v7 waitUntilFinished:1];
 
-    v8 = wc_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = wc_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
       v16 = "[WCSession onqueue_startNextDeviceSwitch]_block_invoke";
-      _os_log_impl(&dword_23B2FA000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s notifying client session did deactivate", buf, 0xCu);
+      _os_log_impl(&dword_23B2FA000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s notifying client session did deactivate", buf, 0xCu);
     }
 
-    v9 = [a1[4] delegate];
-    [v9 sessionDidDeactivate:a1[4]];
+    v10 = [a1[4] delegate];
+    [v10 sessionDidDeactivate:a1[4]];
 
-    v10 = *(a1[4] + 11);
+    v11 = *(a1[4] + 11);
     v12[0] = MEMORY[0x277D85DD0];
     v12[1] = 3221225472;
     v12[2] = __42__WCSession_onqueue_startNextDeviceSwitch__block_invoke_146;
     v12[3] = &unk_278B7BF78;
     v13 = a1[5];
-    [v10 addOperationWithBlock:v12];
+    [v11 addOperationWithBlock:v12];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onqueue_dequeueContent
@@ -5491,9 +5554,8 @@ void __35__WCSession_onqueue_dequeueContent__block_invoke(uint64_t a1)
 
 void __35__WCSession_onqueue_dequeueContent__block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  [*(a1 + 32) setHasContentPending:0];
-  v2 = wc_log();
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = wc_log([*(a1 + 32) setHasContentPending:0]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) hasContentPending];
@@ -5503,14 +5565,12 @@ void __35__WCSession_onqueue_dequeueContent__block_invoke_2(uint64_t a1)
       v4 = "YES";
     }
 
-    v6 = 136446466;
-    v7 = "[WCSession onqueue_dequeueContent]_block_invoke_2";
-    v8 = 2080;
-    v9 = v4;
-    _os_log_impl(&dword_23B2FA000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s hasContentPending: %s", &v6, 0x16u);
+    v5 = 136446466;
+    v6 = "[WCSession onqueue_dequeueContent]_block_invoke_2";
+    v7 = 2080;
+    v8 = v4;
+    _os_log_impl(&dword_23B2FA000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s hasContentPending: %s", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onqueue_handleMessageCompletionWithError:(id)error withMessageID:(id)d
@@ -5542,10 +5602,10 @@ void __35__WCSession_onqueue_dequeueContent__block_invoke_2(uint64_t a1)
 
   if (errorCopy)
   {
-    v13 = wc_log();
+    v13 = wc_log(timeoutTimer);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [WCSession onqueue_handleMessageCompletionWithError:withMessageID:];
+      [WCSession onqueue_handleMessageCompletionWithError:dCopy withMessageID:errorCopy];
     }
 
     errorHandler = [v8 errorHandler];
@@ -5564,32 +5624,32 @@ LABEL_11:
 
 - (void)_onqueue_notifyOfMessageError:(id)error messageID:(id)d withErrorHandler:(id)handler
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   dCopy = d;
   handlerCopy = handler;
-  v11 = wc_log();
+  v11 = wc_log(handlerCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     if (handlerCopy)
     {
-      v17 = "YES";
+      v16 = "YES";
     }
 
     else
     {
-      v17 = "NO";
+      v16 = "NO";
     }
 
-    v18 = NSPrintF();
+    v17 = NSPrintF("%{error}", errorCopy);
     *location = 136446978;
     *&location[4] = "[WCSession _onqueue_notifyOfMessageError:messageID:withErrorHandler:]";
-    v26 = 2114;
-    v27 = dCopy;
-    v28 = 2080;
-    v29 = v17;
-    v30 = 2114;
-    v31 = v18;
+    v25 = 2114;
+    v26 = dCopy;
+    v27 = 2080;
+    v28 = v16;
+    v29 = 2114;
+    v30 = v17;
     _os_log_error_impl(&dword_23B2FA000, v11, OS_LOG_TYPE_ERROR, "%{public}s %{public}@ errorHandler: %s with %{public}@", location, 0x2Au);
   }
 
@@ -5598,25 +5658,23 @@ LABEL_11:
     pairingID = [(WCSession *)self pairingID];
     v13 = objc_opt_new();
     objc_initWeak(location, v13);
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __70__WCSession__onqueue_notifyOfMessageError_messageID_withErrorHandler___block_invoke;
-    v19[3] = &unk_278B7C3D0;
-    objc_copyWeak(&v24, location);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __70__WCSession__onqueue_notifyOfMessageError_messageID_withErrorHandler___block_invoke;
+    v18[3] = &unk_278B7C3D0;
+    objc_copyWeak(&v23, location);
     v14 = pairingID;
-    v20 = v14;
+    v19 = v14;
     selfCopy = self;
-    v23 = handlerCopy;
-    v22 = errorCopy;
-    [v13 addExecutionBlock:v19];
+    v22 = handlerCopy;
+    v21 = errorCopy;
+    [v13 addExecutionBlock:v18];
     delegateOperationQueue = [(WCSession *)self delegateOperationQueue];
     [delegateOperationQueue addOperation:v13];
 
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(location);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __70__WCSession__onqueue_notifyOfMessageError_messageID_withErrorHandler___block_invoke(uint64_t a1)
@@ -5632,14 +5690,13 @@ void __70__WCSession__onqueue_notifyOfMessageError_messageID_withErrorHandler___
 
     if ((v4 & 1) == 0)
     {
-      v6 = wc_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = wc_log(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        __70__WCSession__onqueue_notifyOfMessageError_messageID_withErrorHandler___block_invoke_cold_1((a1 + 32), a1 + 40);
+        __70__WCSession__onqueue_notifyOfMessageError_messageID_withErrorHandler___block_invoke_cold_1(a1 + 32, a1 + 40);
       }
     }
 
-    v7 = *(a1 + 48);
     (*(*(a1 + 56) + 16))();
   }
 }
@@ -5648,10 +5705,10 @@ void __70__WCSession__onqueue_notifyOfMessageError_messageID_withErrorHandler___
 {
   errorCopy = error;
   transferCopy = transfer;
-  v8 = wc_log();
+  v8 = wc_log(transferCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    [WCSession notifyOfFileError:withFileTransfer:];
+    [WCSession notifyOfFileError:transferCopy withFileTransfer:errorCopy];
   }
 
   workOperationQueue = self->_workOperationQueue;
@@ -5696,7 +5753,7 @@ void __70__WCSession__onqueue_notifyOfMessageError_messageID_withErrorHandler___
 
 void __56__WCSession_onqueue_notifyOfFileError_withFileTransfer___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v3 = [WeakRetained isCancelled];
 
@@ -5709,60 +5766,58 @@ void __56__WCSession_onqueue_notifyOfFileError_withFileTransfer___block_invoke(u
 
     if ((v4 & 1) == 0)
     {
-      v7 = wc_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = wc_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        __56__WCSession_onqueue_notifyOfFileError_withFileTransfer___block_invoke_cold_1((a1 + 32), a1 + 40);
+        __56__WCSession_onqueue_notifyOfFileError_withFileTransfer___block_invoke_cold_1(a1 + 32, a1 + 40);
       }
     }
 
-    v8 = [*v5 delegate];
-    v9 = objc_opt_respondsToSelector();
+    v9 = [*v5 delegate];
+    v10 = objc_opt_respondsToSelector();
 
-    if (v9)
+    if (v10)
     {
-      v10 = [*(a1 + 40) delegate];
-      [v10 session:*(a1 + 40) didFinishFileTransfer:*(a1 + 48) error:*(a1 + 56)];
+      v12 = [*(a1 + 40) delegate];
+      [v12 session:*(a1 + 40) didFinishFileTransfer:*(a1 + 48) error:*(a1 + 56)];
     }
 
     else
     {
-      v10 = wc_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = wc_log(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = [*v5 delegate];
-        v12 = [objc_opt_class() description];
-        v13 = NSStringFromSelector(sel_session_didFinishFileTransfer_error_);
+        v13 = [*v5 delegate];
+        v14 = [objc_opt_class() description];
+        v15 = NSStringFromSelector(sel_session_didFinishFileTransfer_error_);
         *buf = 136446722;
-        v21 = "[WCSession onqueue_notifyOfFileError:withFileTransfer:]_block_invoke";
-        v22 = 2114;
-        v23 = v12;
-        v24 = 2114;
-        v25 = v13;
-        _os_log_impl(&dword_23B2FA000, v10, OS_LOG_TYPE_DEFAULT, "%{public}s delegate %{public}@ does not implement %{public}@", buf, 0x20u);
+        v22 = "[WCSession onqueue_notifyOfFileError:withFileTransfer:]_block_invoke";
+        v23 = 2114;
+        v24 = v14;
+        v25 = 2114;
+        v26 = v15;
+        _os_log_impl(&dword_23B2FA000, v12, OS_LOG_TYPE_DEFAULT, "%{public}s delegate %{public}@ does not implement %{public}@", buf, 0x20u);
       }
     }
 
-    v15 = *(a1 + 40);
-    v14 = *(a1 + 48);
-    v16 = *(v15 + 88);
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __56__WCSession_onqueue_notifyOfFileError_withFileTransfer___block_invoke_147;
-    v18[3] = &unk_278B7C1C8;
-    v18[4] = v15;
-    v19 = v14;
-    [v16 addOperationWithBlock:v18];
+    v17 = *(a1 + 40);
+    v16 = *(a1 + 48);
+    v18 = *(v17 + 88);
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __56__WCSession_onqueue_notifyOfFileError_withFileTransfer___block_invoke_147;
+    v19[3] = &unk_278B7C1C8;
+    v19[4] = v17;
+    v20 = v16;
+    [v18 addOperationWithBlock:v19];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyOfUserInfoError:(id)error withUserInfoTransfer:(id)transfer
 {
   errorCopy = error;
   transferCopy = transfer;
-  v8 = wc_log();
+  v8 = wc_log(transferCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [WCSession notifyOfUserInfoError:withUserInfoTransfer:];
@@ -5810,7 +5865,7 @@ void __56__WCSession_onqueue_notifyOfFileError_withFileTransfer___block_invoke(u
 
 void __64__WCSession_onqueue_notifyOfUserInfoError_withUserInfoTransfer___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v3 = [WeakRetained isCancelled];
 
@@ -5823,56 +5878,54 @@ void __64__WCSession_onqueue_notifyOfUserInfoError_withUserInfoTransfer___block_
 
     if ((v4 & 1) == 0)
     {
-      v7 = wc_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = wc_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        __64__WCSession_onqueue_notifyOfUserInfoError_withUserInfoTransfer___block_invoke_cold_1((a1 + 32), a1 + 40);
+        __64__WCSession_onqueue_notifyOfUserInfoError_withUserInfoTransfer___block_invoke_cold_1(a1 + 32, a1 + 40);
       }
     }
 
-    v8 = [*v5 delegate];
-    v9 = objc_opt_respondsToSelector();
+    v9 = [*v5 delegate];
+    v10 = objc_opt_respondsToSelector();
 
-    if (v9)
+    if (v10)
     {
-      v10 = [*(a1 + 40) delegate];
-      [v10 session:*(a1 + 40) didFinishUserInfoTransfer:*(a1 + 48) error:*(a1 + 56)];
+      v12 = [*(a1 + 40) delegate];
+      [v12 session:*(a1 + 40) didFinishUserInfoTransfer:*(a1 + 48) error:*(a1 + 56)];
     }
 
     else
     {
-      v10 = wc_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = wc_log(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = [*v5 delegate];
-        v12 = [objc_opt_class() description];
-        v13 = NSStringFromSelector(sel_session_didFinishUserInfoTransfer_error_);
+        v13 = [*v5 delegate];
+        v14 = [objc_opt_class() description];
+        v15 = NSStringFromSelector(sel_session_didFinishUserInfoTransfer_error_);
         *buf = 136446722;
-        v23 = "[WCSession onqueue_notifyOfUserInfoError:withUserInfoTransfer:]_block_invoke";
-        v24 = 2114;
-        v25 = v12;
-        v26 = 2114;
-        v27 = v13;
-        _os_log_impl(&dword_23B2FA000, v10, OS_LOG_TYPE_DEFAULT, "%{public}s delegate %{public}@ does not implement %{public}@", buf, 0x20u);
+        v24 = "[WCSession onqueue_notifyOfUserInfoError:withUserInfoTransfer:]_block_invoke";
+        v25 = 2114;
+        v26 = v14;
+        v27 = 2114;
+        v28 = v15;
+        _os_log_impl(&dword_23B2FA000, v12, OS_LOG_TYPE_DEFAULT, "%{public}s delegate %{public}@ does not implement %{public}@", buf, 0x20u);
       }
     }
 
-    v14 = objc_opt_new();
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __64__WCSession_onqueue_notifyOfUserInfoError_withUserInfoTransfer___block_invoke_148;
-    v19[3] = &unk_278B7C1C8;
-    v15 = *(a1 + 48);
-    v19[4] = *(a1 + 40);
-    v20 = v15;
-    [v14 addExecutionBlock:v19];
-    v16 = *(*(a1 + 40) + 88);
-    v21 = v14;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
-    [v16 addOperations:v17 waitUntilFinished:1];
+    v16 = objc_opt_new();
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __64__WCSession_onqueue_notifyOfUserInfoError_withUserInfoTransfer___block_invoke_148;
+    v20[3] = &unk_278B7C1C8;
+    v17 = *(a1 + 48);
+    v20[4] = *(a1 + 40);
+    v21 = v17;
+    [v16 addExecutionBlock:v20];
+    v18 = *(*(a1 + 40) + 88);
+    v22 = v16;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+    [v18 addOperations:v19 waitUntilFinished:1];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createAndStartTimerOnWorkQueueWithHandler:(id)handler
@@ -5902,8 +5955,8 @@ void __64__WCSession_onqueue_notifyOfUserInfoError_withUserInfoTransfer___block_
       return 1;
     }
 
-    v5 = wc_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = wc_log(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [WCSession logAndTestIfUnactivatedOrMissingDelegate];
     }
@@ -5911,8 +5964,8 @@ void __64__WCSession_onqueue_notifyOfUserInfoError_withUserInfoTransfer___block_
 
   else
   {
-    v5 = wc_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = wc_log(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [WCSession logAndTestIfUnactivatedOrMissingDelegate];
     }
@@ -5931,7 +5984,7 @@ void __64__WCSession_onqueue_notifyOfUserInfoError_withUserInfoTransfer___block_
   else
   {
     v2 = [MEMORY[0x277CCA9B8] wcErrorWithCode:7007];
-    v3 = wc_log();
+    v3 = wc_log(v2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [WCSession errorIfNotReachable];
@@ -5946,7 +5999,7 @@ void __64__WCSession_onqueue_notifyOfUserInfoError_withUserInfoTransfer___block_
   if ([(WCSession *)self activationState]== WCSessionActivationStateNotActivated)
   {
     v4 = [MEMORY[0x277CCA9B8] wcErrorWithCode:7004];
-    v5 = wc_log();
+    v5 = wc_log(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [WCSession logAndTestIfUnactivatedOrMissingDelegate];
@@ -5960,7 +6013,7 @@ void __64__WCSession_onqueue_notifyOfUserInfoError_withUserInfoTransfer___block_
   if (!delegate)
   {
     v4 = [MEMORY[0x277CCA9B8] wcErrorWithCode:7003];
-    v5 = wc_log();
+    v5 = wc_log(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [WCSession logAndTestIfUnactivatedOrMissingDelegate];
@@ -5972,7 +6025,7 @@ void __64__WCSession_onqueue_notifyOfUserInfoError_withUserInfoTransfer___block_
   if (![(WCSession *)self isPaired])
   {
     v4 = [MEMORY[0x277CCA9B8] wcErrorWithCode:7005];
-    v5 = wc_log();
+    v5 = wc_log(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [WCSession errorIfPreconditionsNotSatisfied];
@@ -5984,7 +6037,7 @@ void __64__WCSession_onqueue_notifyOfUserInfoError_withUserInfoTransfer___block_
   if (![(WCSession *)self isWatchAppInstalled])
   {
     v4 = [MEMORY[0x277CCA9B8] wcErrorWithCode:7006];
-    v5 = wc_log();
+    v5 = wc_log(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [WCSession errorIfPreconditionsNotSatisfied];
@@ -5996,7 +6049,7 @@ void __64__WCSession_onqueue_notifyOfUserInfoError_withUserInfoTransfer___block_
   if ([(WCSession *)self activationState]== WCSessionActivationStateInactive)
   {
     v4 = [MEMORY[0x277CCA9B8] wcErrorWithCode:7016];
-    v5 = wc_log();
+    v5 = wc_log(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [WCSession errorIfPreconditionsNotSatisfied];
@@ -6012,7 +6065,7 @@ LABEL_16:
   if (!pairingID)
   {
     v4 = [MEMORY[0x277CCA9B8] wcErrorWithCode:7001];
-    v5 = wc_log();
+    v5 = wc_log(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [WCSession errorIfPreconditionsNotSatisfied];
@@ -6217,31 +6270,30 @@ LABEL_17:
 
   [v22 setObject:v40 forKeyedSubscript:@"success"];
 
-  v41 = arc4random() / 4294967300.0;
-  if (v41 < 0.1)
+  v41 = arc4random();
+  v42 = v41 / 4294967300.0;
+  if (v42 < 0.1)
   {
-    CUMetricsLog();
+    v41 = CUMetricsLog();
   }
 
-  v42 = wc_log();
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+  v43 = wc_log(v41);
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
   {
-    v43 = "no";
+    v44 = "no";
     v45 = 136446722;
     v46 = "[WCSession reportFileTransfer:]";
-    if (v41 < 0.1)
+    if (v42 < 0.1)
     {
-      v43 = "yes";
+      v44 = "yes";
     }
 
     v47 = 2112;
     v48 = v22;
     v49 = 2080;
-    v50 = v43;
-    _os_log_impl(&dword_23B2FA000, v42, OS_LOG_TYPE_INFO, "%{public}s %@ submited %s", &v45, 0x20u);
+    v50 = v44;
+    _os_log_impl(&dword_23B2FA000, v43, OS_LOG_TYPE_INFO, "%{public}s %@ submited %s", &v45, 0x20u);
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)roundValue:(unint64_t)value toSignificantFigures:(int)figures
@@ -6278,339 +6330,257 @@ LABEL_17:
 void __28__WCSession_activateSession__block_invoke_20_cold_1()
 {
   OUTLINED_FUNCTION_13(*MEMORY[0x277D85DE8]);
-  v0 = NSPrintF();
+  v0 = NSPrintF("%{error}");
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __60__WCSession_observeValueForKeyPath_ofObject_change_context___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_9();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendMessage:(void *)a1 replyHandler:errorHandler:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 UTF8String];
   OUTLINED_FUNCTION_11();
-  OUTLINED_FUNCTION_5(&dword_23B2FA000, v1, v2, "EXCEPTION: %s", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_23B2FA000, v1, v2, "EXCEPTION: %s", v3, v4, v5, v6);
 }
 
 void __44__WCSession_updateApplicationContext_error___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_13(*MEMORY[0x277D85DE8]);
-  v0 = NSPrintF();
+  v0 = NSPrintF("%{error}");
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __44__WCSession_updateApplicationContext_error___block_invoke_80_cold_1()
 {
   OUTLINED_FUNCTION_13(*MEMORY[0x277D85DE8]);
-  v0 = NSPrintF();
+  v0 = NSPrintF("%{error}");
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __67__WCSession_onqueue_sendResponseData_identifier_dictionaryMessage___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_13(*MEMORY[0x277D85DE8]);
-  v0 = NSPrintF();
+  v0 = NSPrintF("%{error}");
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-- (void)_onqueue_sendResponseError:identifier:dictionaryMessage:.cold.1()
+- (void)_onqueue_sendResponseError:(uint64_t)a1 identifier:(uint64_t)a2 dictionaryMessage:.cold.1(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = NSPrintF();
+  v2 = NSPrintF("%{error}", a2);
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_15();
   OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 void __69__WCSession__onqueue_sendResponseError_identifier_dictionaryMessage___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_13(*MEMORY[0x277D85DE8]);
-  v0 = NSPrintF();
+  v0 = NSPrintF("%{error}");
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __44__WCSession_xpcConnectionRestoredWithState___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_17();
-  v1 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_16(v2) pairingID];
-  v4 = [*v0 pairingID];
+  v2 = [OUTLINED_FUNCTION_16(v1) pairingID];
+  v3 = [*v0 pairingID];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
 }
 
-void __27__WCSession_handleRequest___block_invoke_cold_1(uint64_t *a1)
+void __27__WCSession_handleRequest___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_19(a1, *MEMORY[0x277D85DE8]);
-  v4 = 138543362;
-  v5 = v1;
-  _os_log_fault_impl(&dword_23B2FA000, v2, OS_LOG_TYPE_FAULT, "dropping incoming request %{public}@ as it was not intended for the currently active session.", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_19(*MEMORY[0x277D85DE8]);
+  v2 = 138543362;
+  v3 = v0;
+  _os_log_fault_impl(&dword_23B2FA000, v1, OS_LOG_TYPE_FAULT, "dropping incoming request %{public}@ as it was not intended for the currently active session.", &v2, 0xCu);
 }
 
 - (void)onqueue_handleDictionaryMessageRequest:(void *)a1 withPairingID:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 UTF8String];
   OUTLINED_FUNCTION_11();
-  OUTLINED_FUNCTION_5(&dword_23B2FA000, v1, v2, "EXCEPTION: %s", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_23B2FA000, v1, v2, "EXCEPTION: %s", v3, v4, v5, v6);
 }
 
-void __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___block_invoke_cold_1(uint64_t *a1, uint64_t a2)
+void __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_3(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_3(a1 a2)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 void __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___block_invoke_cold_2(id *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [*a1 delegate];
   v2 = [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___block_invoke_98_cold_1(uint64_t *a1, uint64_t a2)
+void __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___block_invoke_98_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_3(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_3(a1 a2)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
-void __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___block_invoke_98_cold_2(uint64_t *a1)
+void __66__WCSession_onqueue_handleDictionaryMessageRequest_withPairingID___block_invoke_98_cold_2()
 {
-  OUTLINED_FUNCTION_19(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_19(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_18();
   OUTLINED_FUNCTION_9();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)onqueue_handleDataMessageRequest:(void *)a1 withPairingID:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 UTF8String];
   OUTLINED_FUNCTION_11();
-  OUTLINED_FUNCTION_5(&dword_23B2FA000, v1, v2, "EXCEPTION: %s", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_23B2FA000, v1, v2, "EXCEPTION: %s", v3, v4, v5, v6);
 }
 
-void __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invoke_cold_1(uint64_t *a1, uint64_t a2)
+void __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_3(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_3(a1 a2)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 void __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invoke_cold_2(id *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [*a1 delegate];
   v2 = [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invoke_107_cold_1(uint64_t *a1, uint64_t a2)
+void __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invoke_107_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_3(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_3(a1 a2)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
-void __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invoke_107_cold_2(uint64_t *a1)
+void __60__WCSession_onqueue_handleDataMessageRequest_withPairingID___block_invoke_107_cold_2()
 {
-  OUTLINED_FUNCTION_19(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_19(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_18();
   OUTLINED_FUNCTION_9();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __28__WCSession_handleResponse___block_invoke_cold_1(uint64_t *a1)
+void __28__WCSession_handleResponse___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_19(a1, *MEMORY[0x277D85DE8]);
-  v4 = 138543362;
-  v5 = v1;
-  _os_log_fault_impl(&dword_23B2FA000, v2, OS_LOG_TYPE_FAULT, "dropping incoming response %{public}@ as it was not intended for the currently active session.", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_19(*MEMORY[0x277D85DE8]);
+  v2 = 138543362;
+  v3 = v0;
+  _os_log_fault_impl(&dword_23B2FA000, v1, OS_LOG_TYPE_FAULT, "dropping incoming response %{public}@ as it was not intended for the currently active session.", &v2, 0xCu);
 }
 
-void __67__WCSession_onqueue_handleResponseDictionary_record_withPairingID___block_invoke_cold_1(uint64_t *a1, uint64_t a2)
+void __67__WCSession_onqueue_handleResponseDictionary_record_withPairingID___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_3(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_3(a1 a2)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
-void __61__WCSession_onqueue_handleResponseData_record_withPairingID___block_invoke_cold_1(uint64_t *a1, uint64_t a2)
+void __61__WCSession_onqueue_handleResponseData_record_withPairingID___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_3(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_3(a1 a2)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
-void __51__WCSession_handleApplicationContextWithPairingID___block_invoke_2_cold_1(uint64_t *a1, uint64_t a2)
+void __51__WCSession_handleApplicationContextWithPairingID___block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_3(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_3(a1 a2)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 void __51__WCSession_handleApplicationContextWithPairingID___block_invoke_2_cold_2()
 {
   OUTLINED_FUNCTION_17();
-  v1 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_16(v2) delegate];
-  v4 = [objc_opt_class() description];
-  v5 = NSStringFromSelector(v0);
+  v2 = [OUTLINED_FUNCTION_16(v1) delegate];
+  v3 = [objc_opt_class() description];
+  v4 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_14();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x20u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
 }
 
-void __45__WCSession_handleIncomingFileWithPairingID___block_invoke_2_cold_1(uint64_t *a1, uint64_t a2)
+void __45__WCSession_handleIncomingFileWithPairingID___block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_3(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_3(a1 a2)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
-void __45__WCSession_handleIncomingFileWithPairingID___block_invoke_115_cold_1(uint64_t *a1, uint64_t a2)
+void __45__WCSession_handleIncomingFileWithPairingID___block_invoke_115_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_3(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_3(a1 a2)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 void __45__WCSession_handleIncomingFileWithPairingID___block_invoke_115_cold_2(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 fileURL];
   v2 = [v1 path];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __45__WCSession_handleIncomingFileWithPairingID___block_invoke_115_cold_3()
 {
   OUTLINED_FUNCTION_17();
-  v1 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_16(v2) delegate];
-  v4 = [objc_opt_class() description];
-  v5 = NSStringFromSelector(v0);
+  v2 = [OUTLINED_FUNCTION_16(v1) delegate];
+  v3 = [objc_opt_class() description];
+  v4 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_14();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x20u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
 }
 
-void __43__WCSession_handleFileResultWithPairingID___block_invoke_2_cold_1(uint64_t *a1, uint64_t a2)
+void __43__WCSession_handleFileResultWithPairingID___block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_3(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_3(a1 a2)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
-void __43__WCSession_handleFileResultWithPairingID___block_invoke_119_cold_1(uint64_t *a1, uint64_t a2)
+void __43__WCSession_handleFileResultWithPairingID___block_invoke_119_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_3(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_3(a1 a2)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 void __43__WCSession_handleFileResultWithPairingID___block_invoke_119_cold_3(uint64_t a1, void *a2, _DWORD *a3)
@@ -6620,63 +6590,48 @@ void __43__WCSession_handleFileResultWithPairingID___block_invoke_119_cold_3(uin
   _os_log_error_impl(&dword_23B2FA000, v5, OS_LOG_TYPE_ERROR, "%{public}s dropping as pairingIDs no longer match. pairingID %{public}@, client pairingID: %{public}@", v4, 0x20u);
 }
 
-void __49__WCSession_handleIncomingUserInfoWithPairingID___block_invoke_2_cold_1(uint64_t *a1, uint64_t a2)
+void __49__WCSession_handleIncomingUserInfoWithPairingID___block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_3(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_3(a1 a2)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
-void __49__WCSession_handleIncomingUserInfoWithPairingID___block_invoke_127_cold_1(uint64_t *a1, uint64_t a2)
+void __49__WCSession_handleIncomingUserInfoWithPairingID___block_invoke_127_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_3(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_3(a1 a2)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 void __49__WCSession_handleIncomingUserInfoWithPairingID___block_invoke_127_cold_2()
 {
   OUTLINED_FUNCTION_17();
-  v1 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_16(v2) delegate];
-  v4 = [objc_opt_class() description];
-  v5 = NSStringFromSelector(v0);
+  v2 = [OUTLINED_FUNCTION_16(v1) delegate];
+  v3 = [objc_opt_class() description];
+  v4 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_14();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x20u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
 }
 
-void __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_2_cold_1(uint64_t *a1, uint64_t a2)
+void __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_3(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_3(a1 a2)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
-void __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_131_cold_1(uint64_t *a1, uint64_t a2)
+void __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_131_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_3(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_3(a1 a2)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 void __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_131_cold_3(uint64_t a1, void *a2, _DWORD *a3)
@@ -6686,93 +6641,65 @@ void __47__WCSession_handleUserInfoResultWithPairingID___block_invoke_131_cold_3
   _os_log_error_impl(&dword_23B2FA000, v5, OS_LOG_TYPE_ERROR, "%{public}s dropping as pairingIDs no longer match. pairingID %{public}@, client pairingID: %{public}@", v4, 0x20u);
 }
 
-- (void)onqueue_completeSwitchTask:withSessionState:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_9();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __46__WCSession_onqueue_handleUpdateSessionState___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_17();
-  v1 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_16(v2) pairingID];
-  v4 = [*v0 pairingID];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-- (void)onqueue_handleMessageCompletionWithError:withMessageID:.cold.1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = NSPrintF();
-  OUTLINED_FUNCTION_7();
-  OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __70__WCSession__onqueue_notifyOfMessageError_messageID_withErrorHandler___block_invoke_cold_1(uint64_t *a1, uint64_t a2)
-{
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_3(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_16(v1) pairingID];
+  v3 = [*v0 pairingID];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-- (void)notifyOfFileError:withFileTransfer:.cold.1()
+- (void)onqueue_handleMessageCompletionWithError:(uint64_t)a1 withMessageID:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = NSPrintF();
+  v2 = NSPrintF("%{error}", a2);
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_15();
   OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
-void __56__WCSession_onqueue_notifyOfFileError_withFileTransfer___block_invoke_cold_1(uint64_t *a1, uint64_t a2)
+void __70__WCSession__onqueue_notifyOfMessageError_messageID_withErrorHandler___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_3(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_3(a1 a2)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
+}
 
-  v9 = *MEMORY[0x277D85DE8];
+- (void)notifyOfFileError:(uint64_t)a1 withFileTransfer:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
+{
+  v2 = NSPrintF("%{error}", a2);
+  OUTLINED_FUNCTION_7();
+  OUTLINED_FUNCTION_15();
+  OUTLINED_FUNCTION_6();
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
+}
+
+void __56__WCSession_onqueue_notifyOfFileError_withFileTransfer___block_invoke_cold_1(uint64_t a1, uint64_t a2)
+{
+  v2 = [OUTLINED_FUNCTION_3(a1 a2)];
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_2();
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 - (void)notifyOfUserInfoError:withUserInfoTransfer:.cold.1()
 {
   OUTLINED_FUNCTION_13(*MEMORY[0x277D85DE8]);
-  v0 = NSPrintF();
+  v0 = NSPrintF("%{error}");
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-void __64__WCSession_onqueue_notifyOfUserInfoError_withUserInfoTransfer___block_invoke_cold_1(uint64_t *a1, uint64_t a2)
+void __64__WCSession_onqueue_notifyOfUserInfoError_withUserInfoTransfer___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_3(a1 a2)];
+  v2 = [OUTLINED_FUNCTION_3(a1 a2)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 @end

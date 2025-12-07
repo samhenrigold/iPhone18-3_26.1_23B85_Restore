@@ -40,8 +40,8 @@
 
 - (BOOL)hasDuration
 {
-  duration = [(HUTriggerDurationPickerValue *)self duration];
-  v3 = duration != 0;
+  v2 = objc_msgSend_duration(self, a2);
+  v3 = v2 != 0;
 
   return v3;
 }

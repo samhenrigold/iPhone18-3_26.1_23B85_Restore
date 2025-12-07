@@ -1,3 +1,82 @@
+void MultiLMContextData::MultiLMContextData(MultiLMContextData *this, uint64_t a2)
+{
+  v2 = a2;
+  *(this + 2) = 16777212;
+  *this = &unk_287526590;
+  *(this + 2) = 0;
+  v4 = (this + 16);
+  *(this + 3) = 0;
+  if (a2)
+  {
+    DgnPrimArray<unsigned long long>::reallocElts(this + 16, a2, 0);
+    LODWORD(v5) = *(this + 6);
+    if (v5 > v2)
+    {
+      DgnIOwnArray<LMContextData *>::destructAt(v4, v2, v5 - v2);
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+    LODWORD(v5) = 0;
+  }
+
+  if (v5 < v2)
+  {
+    v5 = v5;
+    do
+    {
+      (*v4)[v5++] = 0;
+    }
+
+    while (v2 != v5);
+  }
+
+LABEL_8:
+  *(this + 6) = v2;
+}
+
+void MultiLMContextData::~MultiLMContextData(MultiLMContextData *this)
+{
+  *this = &unk_287526590;
+  DgnIOwnArray<LMContextData *>::releaseAll(this + 16);
+}
+
+{
+  *this = &unk_287526590;
+  DgnIOwnArray<LMContextData *>::releaseAll(this + 16);
+
+  JUMPOUT(0x26672B1B0);
+}
+
+void *DgnIOwnArray<LanguageModel *>::releaseAll(uint64_t a1)
+{
+  v2 = *(a1 + 8);
+  if (v2 >= 1)
+  {
+    v3 = 8 * v2 - 8;
+    do
+    {
+      DgnDelete<LanguageModel>(*(*a1 + v3));
+      *(*a1 + v3) = 0;
+      v3 -= 8;
+    }
+
+    while (v3 != -8);
+  }
+
+  result = *a1;
+  if (*a1)
+  {
+    result = MemChunkFree(result, 0);
+    *a1 = 0;
+  }
+
+  *(a1 + 8) = 0;
+  return result;
+}
+
 uint64_t readObject<unsigned int,DgnPrimArray<unsigned int>>(DgnStream *a1, uint64_t a2, unsigned int *a3)
 {
   v6 = 0;
@@ -70,9 +149,9 @@ uint64_t writeObject<unsigned int,DgnPrimArray<unsigned int>>(uint64_t a1, uint6
   return DgnPrimArray<unsigned int>::~DgnPrimArray(&v12);
 }
 
-void sub_26272F81C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26272F81C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -82,89 +161,88 @@ void MergedStateTransition::updateMergedStateTransition(uint64_t a1, unsigned __
   v6 = *(a1 + 16);
   if (v6 == -1)
   {
-LABEL_12:
-    v11 = *(a1 + 8);
-    v12 = *(a1 + 12);
-    *(a1 + 16) = v11;
-    if (v11 == v12)
+LABEL_11:
+    v10 = *(a1 + 8);
+    v11 = *(a1 + 12);
+    *(a1 + 16) = v10;
+    if (v10 == v11)
     {
       DgnPrimArray<unsigned long long>::reallocElts(a1, 1, 1);
-      v11 = *(a1 + 8);
+      v10 = *(a1 + 8);
     }
 
-    *(*a1 + 8 * v11) = *a3;
+    *(*a1 + 8 * v10) = *a3;
     ++*(a1 + 8);
-    goto LABEL_15;
+    goto LABEL_14;
   }
 
-  v7 = (*a1 + 8 * v6);
-  if (*a3 == *v7 && *(a3 + 4) == v7[1])
+  if (*a3 == *(*a1 + 8 * v6))
   {
-    goto LABEL_15;
+    goto LABEL_14;
   }
 
-  v8 = *(a1 + 8);
-  if (v8 < 1)
+  v7 = *(a1 + 8);
+  if (v7 < 1)
   {
-    *(a1 + 16) = v8 - 1;
-    if (v8)
+    *(a1 + 16) = v7 - 1;
+    if (v7)
     {
-      goto LABEL_15;
+      goto LABEL_14;
     }
 
-    goto LABEL_12;
+    goto LABEL_11;
   }
 
-  v9 = (*a1 + 8 * v8 - 4);
-  while (*(v9 - 1) != *a3 || *v9 != *(a3 + 4))
+  v8 = (*a1 + 8 * v7 - 4);
+  while (*(v8 - 1) != *a3 || *v8 != *(a3 + 4))
   {
-    v9 -= 2;
-    v10 = __OFSUB__(v8, 1);
-    LODWORD(v8) = v8 - 1;
-    if ((v8 < 0) ^ v10 | (v8 == 0))
+    v8 -= 2;
+    v9 = __OFSUB__(v7, 1);
+    LODWORD(v7) = v7 - 1;
+    if ((v7 < 0) ^ v9 | (v7 == 0))
     {
-      goto LABEL_12;
+      goto LABEL_11;
     }
   }
 
-  *(a1 + 16) = v8 - 1;
-LABEL_15:
-  v13 = DgnArray<PredState>::reverseFind(a1 + 24, a2);
-  if (v13 == -1)
+  *(a1 + 16) = v7 - 1;
+LABEL_14:
+  v12 = DgnArray<PredState>::reverseFind(a1 + 24, a2);
+  if (v12 == -1)
   {
-    v13 = *(a1 + 32);
-    v14 = v13;
-    if (v13 == *(a1 + 36))
+    v12 = *(a1 + 32);
+    v13 = v12;
+    if (v12 == *(a1 + 36))
     {
       DgnArray<RuleDesc>::reallocElts(a1 + 24, 1, 1);
-      v14 = *(a1 + 32);
+      v13 = *(a1 + 32);
     }
 
-    v15 = *(a1 + 24) + 12 * v14;
-    v16 = *a2;
-    *(v15 + 8) = *(a2 + 2);
-    *v15 = v16;
+    v14 = *(a1 + 24) + 12 * v13;
+    v15 = *a2;
+    *(v14 + 8) = *(a2 + 2);
+    *v14 = v15;
     ++*(a1 + 32);
-    v17 = *(a1 + 48);
-    if (v17 == *(a1 + 52))
+    v16 = *(a1 + 48);
+    if (v16 == *(a1 + 52))
     {
       DgnArray<DgnPrimArray<double>>::reallocElts(a1 + 40, 1, 1);
-      v17 = *(a1 + 48);
+      v16 = *(a1 + 48);
     }
 
-    DgnString::DgnString((*(a1 + 40) + 16 * v17));
+    DgnString::DgnString((*(a1 + 40) + 16 * v16));
     ++*(a1 + 48);
   }
 
-  v18 = *(a1 + 40) + 16 * v13;
-  v19 = *(a1 + 16);
-  if (*(v18 + 8) <= v19)
+  v17 = *(a1 + 40) + 16 * v12;
+  v18 = *(a1 + 16);
+  if (*(v17 + 8) <= v18)
   {
-    BitArray::setSize((*(a1 + 40) + 16 * v13), v19 + 1);
-    v19 = *(a1 + 16);
+    BitArray::setSize((*(a1 + 40) + 16 * v12), v18 + 1);
+    v18 = *(a1 + 16);
   }
 
-  *(*v18 + 4 * (v19 >> 5)) |= 1 << v19;
+  *(*v17 + 4 * (v18 >> 5)) |= 1 << v18;
 }
 
 uint64_t DgnArray<PredState>::reverseFind(uint64_t a1, unsigned __int16 *a2)
@@ -238,8 +316,9 @@ uint64_t sizeObject<BitArray>(uint64_t a1, int a2)
   return v5;
 }
 
-uint64_t SeedMergedActiveWord::processMergedWord(SeedMergedActiveWord *this, ActiveWord *a2, const HistoryMgr *a3, const PhnIndexSet *a4, int a5)
+uint64_t SeedMergedActiveWord::processMergedWord(SeedMergedActiveWord *this, ActiveWord *a2, const HistoryMgr *a3, const PhnIndexSet *a4, uint64_t a5)
 {
+  v5 = a5;
   *(this + 1) = a2;
   v9 = *(a2 + 1);
   *(this + 16) = *(v9 + 16);
@@ -300,7 +379,7 @@ uint64_t SeedMergedActiveWord::processMergedWord(SeedMergedActiveWord *this, Act
 
   while (v11);
 LABEL_13:
-  result = SeedMergedActiveWord::processOnePredStateForPort<true>(this, v10, a3, a5);
+  result = SeedMergedActiveWord::processOnePredStateForPort<true>(this, v10, a3, v5);
   if (v12 >= 1)
   {
     v17 = v12 + 1;
@@ -308,7 +387,7 @@ LABEL_13:
     {
       if ((*(*a4 + 4 * ((v17 - 2) >> 5)) >> (v17 - 2)))
       {
-        result = SeedMergedActiveWord::processOnePredStateForPort<false>(this, v10, a3, a5, (v17 - 2));
+        result = SeedMergedActiveWord::processOnePredStateForPort<false>(this, v10, a3, v5, (v17 - 2));
       }
 
       --v17;
@@ -465,66 +544,6 @@ LABEL_11:
   return result;
 }
 
-uint64_t sizeObject(uint64_t a1, uint64_t a2)
-{
-  v4 = sizeObject(a1 + 64, a2);
-  v5 = sizeObject<PhnIndexSet>(a1 + 48, a2);
-  v6 = BitArray::sizeObject(a1 + 32, a2);
-  v7 = sizeObject<unsigned short>(a1 + 16, a2);
-  v8 = 8;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v8 = 4;
-  }
-
-  if (a2 == 3)
-  {
-    v8 = 0;
-  }
-
-  return v4 + 4 * (a2 != 3) + v5 + v6 + v7 + v8;
-}
-
-{
-  active = sizeObject<ActiveWord *>(a1 + 8, a2);
-  v5 = sizeObject(a1 + 32, a2);
-  v6 = 8;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v6 = 4;
-  }
-
-  if (a2 == 3)
-  {
-    v6 = 0;
-  }
-
-  v7 = 6;
-  if (a2 == 3)
-  {
-    v7 = 0;
-  }
-
-  return v7 + active + v5 + v6;
-}
-
-{
-  v4 = sizeObject(a1, a2);
-  v5 = sizeObject<FeatureFilterSpec>(a1 + 80, a2);
-  v6 = sizeObject(a1 + 96, a2);
-  v7 = sizeObject<FeatureFilterSpec>(a1 + 104, a2);
-  v8 = sizeObject(a1 + 120, a2);
-  v9 = sizeObject(a1 + 144, a2);
-  v10 = sizeObject(a1 + 184, a2);
-  v11 = 12;
-  if (a2 == 3)
-  {
-    v11 = 0;
-  }
-
-  return v11 + v4 + v5 + v6 + v7 + v8 + v9 + v10;
-}
-
 uint64_t MergedActive::initMergedActive(uint64_t result, uint64_t a2, char a3, char a4)
 {
   *result = a2;
@@ -604,7 +623,7 @@ uint64_t HmmNet::maybeGetNonSilOutPort(HmmNet *this, unsigned int a2)
   return 0;
 }
 
-uint64_t StartupPrefiltererBuildParamSpecMgr(void)
+unint64_t StartupPrefiltererBuildParamSpecMgr(void)
 {
   v21 = MemChunkAlloc(0x30uLL, 0);
   BoolParamSpec::BoolParamSpec(v21, "PrefiltererBuildAllowMultiPhonemeSequences", &byte_262899963, &byte_262899963, &sPrefiltererBuildAllowMultiPhonemeSequencesBoolHistory);
@@ -732,51 +751,51 @@ void sub_26273089C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t PrefiltererBuildParamSet::setDefaults(PrefiltererBuildParamSet *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PrefiltererBuildParamSet::setDefaults(PrefiltererBuildParamSet *this)
 {
-  *(this + 40) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F98, 1, 0, 0, a5, a6, a7, a8);
-  *(this + 11) = ParamSpecMgr::ParamGetDefault_int(qword_281051F98, 2, 0, 0, v9, v10, v11, v12);
-  *(this + 6) = ParamSpecMgr::ParamGetDefault_double(qword_281051F98, 3, 0, 0, v13, v14, v15, v16);
-  *(this + 7) = ParamSpecMgr::ParamGetDefault_double(qword_281051F98, 4, 0, 0, v17, v18, v19, v20);
-  *(this + 8) = ParamSpecMgr::ParamGetDefault_double(qword_281051F98, 5, 0, 0, v21, v22, v23, v24);
-  *(this + 18) = ParamSpecMgr::ParamGetDefault_int(qword_281051F98, 6, 0, 0, v25, v26, v27, v28);
-  *(this + 19) = ParamSpecMgr::ParamGetDefault_int(qword_281051F98, 7, 0, 0, v29, v30, v31, v32);
-  *(this + 80) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F98, 8, 0, 0, v33, v34, v35, v36);
-  *(this + 21) = ParamSpecMgr::ParamGetDefault_enum(qword_281051F98, 9, v37, v38, v39, v40, v41, v42);
-  *(this + 22) = ParamSpecMgr::ParamGetDefault_enum(qword_281051F98, 10, v43, v44, v45, v46, v47, v48);
-  *(this + 23) = ParamSpecMgr::ParamGetDefault_enum(qword_281051F98, 11, v49, v50, v51, v52, v53, v54);
-  *(this + 96) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F98, 12, 0, 0, v55, v56, v57, v58);
-  Default_string = ParamSpecMgr::ParamGetDefault_string(qword_281051F98, 13, 0, 0, v59, v60, v61, v62);
+  *(this + 40) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F98, 1, 0, 0);
+  *(this + 11) = ParamSpecMgr::ParamGetDefault_int(qword_281051F98, 2, 0, 0);
+  *(this + 6) = ParamSpecMgr::ParamGetDefault_double(qword_281051F98, 3, 0, 0);
+  *(this + 7) = ParamSpecMgr::ParamGetDefault_double(qword_281051F98, 4, 0, 0);
+  *(this + 8) = ParamSpecMgr::ParamGetDefault_double(qword_281051F98, 5, 0, 0);
+  *(this + 18) = ParamSpecMgr::ParamGetDefault_int(qword_281051F98, 6, 0, 0);
+  *(this + 19) = ParamSpecMgr::ParamGetDefault_int(qword_281051F98, 7, 0, 0);
+  *(this + 80) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F98, 8, 0, 0);
+  *(this + 21) = ParamSpecMgr::ParamGetDefault_enum(qword_281051F98, 9);
+  *(this + 22) = ParamSpecMgr::ParamGetDefault_enum(qword_281051F98, 10);
+  *(this + 23) = ParamSpecMgr::ParamGetDefault_enum(qword_281051F98, 11);
+  *(this + 96) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F98, 12, 0, 0);
+  Default_string = ParamSpecMgr::ParamGetDefault_string(qword_281051F98, 13, 0, 0);
   DgnString::operator=((this + 104), Default_string);
-  v68 = ParamSpecMgr::ParamGetDefault_string(qword_281051F98, 14, 0, 0, v64, v65, v66, v67);
-  DgnString::operator=((this + 120), v68);
-  *(this + 34) = ParamSpecMgr::ParamGetDefault_int(qword_281051F98, 15, 0, 0, v69, v70, v71, v72);
-  *(this + 140) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F98, 16, 0, 0, v73, v74, v75, v76);
-  *(this + 141) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F98, 17, 0, 0, v77, v78, v79, v80);
-  *(this + 36) = ParamSpecMgr::ParamGetDefault_enum(qword_281051F98, 18, v81, v82, v83, v84, v85, v86);
-  result = ParamSpecMgr::ParamGetDefault_enum(qword_281051F98, 19, v87, v88, v89, v90, v91, v92);
+  v3 = ParamSpecMgr::ParamGetDefault_string(qword_281051F98, 14, 0, 0);
+  DgnString::operator=((this + 120), v3);
+  *(this + 34) = ParamSpecMgr::ParamGetDefault_int(qword_281051F98, 15, 0, 0);
+  *(this + 140) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F98, 16, 0, 0);
+  *(this + 141) = ParamSpecMgr::ParamGetDefault_BOOL(qword_281051F98, 17, 0, 0);
+  *(this + 36) = ParamSpecMgr::ParamGetDefault_enum(qword_281051F98, 18);
+  result = ParamSpecMgr::ParamGetDefault_enum(qword_281051F98, 19);
   *(this + 37) = result;
   return result;
 }
 
 uint64_t PrefiltererBuildParamSet::sizeObject(uint64_t a1, int a2)
 {
-  v4 = sizeObject(a1 + 8) + 16 * (a2 != 3);
+  v4 = sizeObject(a1 + 8, a2) + 16 * (a2 != 3);
   if ((gShadowDiagnosticShowIdealizedObjectSizes & 1) == 0)
   {
-    v6 = sizeObject(a1 + 104);
+    v6 = sizeObject(a1 + 104, a2);
     v5 = a2 != 3;
-    v4 += (8 * v5 || 2 * v5) + 2 * (8 * v5 + 12 * v5) + v6 + sizeObject(a1 + 120) + (v5 || 4 * v5 || 2 * (v5 || 4 * v5));
+    v4 += (8 * v5 || 2 * v5) + 2 * (8 * v5 + 12 * v5) + v6 + sizeObject(a1 + 120, a2) + (v5 || 4 * v5 || 2 * (v5 || 4 * v5));
   }
 
   return v4;
 }
 
-void PrefiltererBuildParamSet::setParamSetPrefiltererBuildHierScorerBeamList(PrefiltererBuildParamSet *this, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void PrefiltererBuildParamSet::setParamSetPrefiltererBuildHierScorerBeamList(PrefiltererBuildParamSet *this, char *a2)
 {
   if (*(this + 9))
   {
-    throwParamSetSetFailed("PrefiltererBuildHierScorerBeamList", "string", a3, a4, a5, a6, a7, a8);
+    throwParamSetSetFailed("PrefiltererBuildHierScorerBeamList", "string");
   }
 
   else
@@ -785,11 +804,11 @@ void PrefiltererBuildParamSet::setParamSetPrefiltererBuildHierScorerBeamList(Pre
   }
 }
 
-void PrefiltererBuildParamSet::setParamSetPrefiltererBuildHierScorerCutoffRatioList(PrefiltererBuildParamSet *this, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void PrefiltererBuildParamSet::setParamSetPrefiltererBuildHierScorerCutoffRatioList(PrefiltererBuildParamSet *this, char *a2)
 {
   if (*(this + 9))
   {
-    throwParamSetSetFailed("PrefiltererBuildHierScorerCutoffRatioList", "string", a3, a4, a5, a6, a7, a8);
+    throwParamSetSetFailed("PrefiltererBuildHierScorerCutoffRatioList", "string");
   }
 
   else
@@ -798,15 +817,15 @@ void PrefiltererBuildParamSet::setParamSetPrefiltererBuildHierScorerCutoffRatioL
   }
 }
 
-uint64_t PrefiltererBuildParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PrefiltererBuildParamSet::getBoolParameter(_BYTE *a1, int a2, int a3)
 {
   switch(a2)
   {
     case 1:
       if (a3 == 1)
       {
-        v12 = qword_281051F98;
-        v13 = 1;
+        v7 = qword_281051F98;
+        v8 = 1;
         goto LABEL_41;
       }
 
@@ -815,37 +834,37 @@ uint64_t PrefiltererBuildParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t 
         goto LABEL_23;
       }
 
-      v8 = a1[40];
-      return v8 & 1;
+      v3 = a1[40];
+      return v3 & 1;
     case 2:
-      v9 = "int";
-      v10 = 2;
+      v4 = "int";
+      v5 = 2;
       goto LABEL_32;
     case 3:
-      v9 = "double";
-      v10 = 3;
+      v4 = "double";
+      v5 = 3;
       goto LABEL_32;
     case 4:
-      v9 = "double";
-      v10 = 4;
+      v4 = "double";
+      v5 = 4;
       goto LABEL_32;
     case 5:
-      v9 = "double";
-      v10 = 5;
+      v4 = "double";
+      v5 = 5;
       goto LABEL_32;
     case 6:
-      v9 = "int";
-      v10 = 6;
+      v4 = "int";
+      v5 = 6;
       goto LABEL_32;
     case 7:
-      v9 = "int";
-      v10 = 7;
+      v4 = "int";
+      v5 = 7;
       goto LABEL_32;
     case 8:
       if (a3 == 1)
       {
-        v12 = qword_281051F98;
-        v13 = 8;
+        v7 = qword_281051F98;
+        v8 = 8;
         goto LABEL_41;
       }
 
@@ -854,25 +873,25 @@ uint64_t PrefiltererBuildParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t 
         goto LABEL_23;
       }
 
-      v8 = a1[80];
-      return v8 & 1;
+      v3 = a1[80];
+      return v3 & 1;
     case 9:
-      v9 = "enum";
-      v10 = 9;
+      v4 = "enum";
+      v5 = 9;
       goto LABEL_32;
     case 10:
-      v9 = "enum";
-      v10 = 10;
+      v4 = "enum";
+      v5 = 10;
       goto LABEL_32;
     case 11:
-      v9 = "enum";
-      v10 = 11;
+      v4 = "enum";
+      v5 = 11;
       goto LABEL_32;
     case 12:
       if (a3 == 1)
       {
-        v12 = qword_281051F98;
-        v13 = 12;
+        v7 = qword_281051F98;
+        v8 = 12;
         goto LABEL_41;
       }
 
@@ -881,25 +900,25 @@ uint64_t PrefiltererBuildParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t 
         goto LABEL_23;
       }
 
-      v8 = a1[96];
-      return v8 & 1;
+      v3 = a1[96];
+      return v3 & 1;
     case 13:
-      v9 = "string";
-      v10 = 13;
+      v4 = "string";
+      v5 = 13;
       goto LABEL_32;
     case 14:
-      v9 = "string";
-      v10 = 14;
+      v4 = "string";
+      v5 = 14;
       goto LABEL_32;
     case 15:
-      v9 = "int";
-      v10 = 15;
+      v4 = "int";
+      v5 = 15;
       goto LABEL_32;
     case 16:
       if (a3 == 1)
       {
-        v12 = qword_281051F98;
-        v13 = 16;
+        v7 = qword_281051F98;
+        v8 = 16;
         goto LABEL_41;
       }
 
@@ -908,57 +927,56 @@ uint64_t PrefiltererBuildParamSet::getBoolParameter(_BYTE *a1, int a2, uint64_t 
         goto LABEL_23;
       }
 
-      v8 = a1[140];
+      v3 = a1[140];
       break;
     case 17:
       if (a3 == 1)
       {
-        v12 = qword_281051F98;
-        v13 = 17;
+        v7 = qword_281051F98;
+        v8 = 17;
 LABEL_41:
-        ParamByParamId = ParamSpecMgr::getParamByParamId(v12, v13, a3, a4, a5, a6, a7, a8);
-        v15 = **ParamByParamId;
+        ParamByParamId = ParamSpecMgr::getParamByParamId(v7, v8);
       }
 
       else if (a3)
       {
 LABEL_23:
-        throwWrongQueryMode(a3, "BOOL", a3, a4, a5, a6, a7, a8);
+        throwWrongQueryMode(a3, "BOOL");
 LABEL_33:
-        v8 = 0;
+        v3 = 0;
       }
 
       else
       {
-        v8 = a1[141];
+        v3 = a1[141];
       }
 
       break;
     case 18:
-      v9 = "enum";
-      v10 = 18;
+      v4 = "enum";
+      v5 = 18;
       goto LABEL_32;
     case 19:
-      v9 = "enum";
-      v10 = 19;
+      v4 = "enum";
+      v5 = 19;
 LABEL_32:
-      throwWrongTypeForParamId(v10, v9, "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(v5, v4, "BOOL");
       goto LABEL_33;
     default:
-      throwWrongParamIdValue(a2, "BOOL", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "BOOL");
       goto LABEL_33;
   }
 
-  return v8 & 1;
+  return v3 & 1;
 }
 
-uint64_t PrefiltererBuildParamSet::getIntParameter(unsigned int *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PrefiltererBuildParamSet::getIntParameter(unsigned int *a1, int a2, int a3)
 {
   switch(a2)
   {
     case 1:
-      v8 = "BOOL";
-      v9 = 1;
+      v3 = "BOOL";
+      v4 = 1;
       goto LABEL_34;
     case 2:
       if (a3 <= 1)
@@ -973,15 +991,15 @@ uint64_t PrefiltererBuildParamSet::getIntParameter(unsigned int *a1, int a2, uin
           goto LABEL_51;
         }
 
-        v10 = qword_281051F98;
-        v11 = 2;
+        v5 = qword_281051F98;
+        v6 = 2;
         goto LABEL_30;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F98;
-        v20 = 2;
+        v12 = qword_281051F98;
+        v13 = 2;
         goto LABEL_60;
       }
 
@@ -990,20 +1008,20 @@ uint64_t PrefiltererBuildParamSet::getIntParameter(unsigned int *a1, int a2, uin
         goto LABEL_51;
       }
 
-      v15 = qword_281051F98;
-      v16 = 2;
+      v9 = qword_281051F98;
+      v10 = 2;
       goto LABEL_50;
     case 3:
-      v8 = "double";
-      v9 = 3;
+      v3 = "double";
+      v4 = 3;
       goto LABEL_34;
     case 4:
-      v8 = "double";
-      v9 = 4;
+      v3 = "double";
+      v4 = 4;
       goto LABEL_34;
     case 5:
-      v8 = "double";
-      v9 = 5;
+      v3 = "double";
+      v4 = 5;
       goto LABEL_34;
     case 6:
       if (a3 <= 1)
@@ -1018,15 +1036,15 @@ uint64_t PrefiltererBuildParamSet::getIntParameter(unsigned int *a1, int a2, uin
           goto LABEL_51;
         }
 
-        v10 = qword_281051F98;
-        v11 = 6;
+        v5 = qword_281051F98;
+        v6 = 6;
         goto LABEL_30;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F98;
-        v20 = 6;
+        v12 = qword_281051F98;
+        v13 = 6;
         goto LABEL_60;
       }
 
@@ -1035,8 +1053,8 @@ uint64_t PrefiltererBuildParamSet::getIntParameter(unsigned int *a1, int a2, uin
         goto LABEL_51;
       }
 
-      v15 = qword_281051F98;
-      v16 = 6;
+      v9 = qword_281051F98;
+      v10 = 6;
       goto LABEL_50;
     case 7:
       if (a3 <= 1)
@@ -1051,15 +1069,15 @@ uint64_t PrefiltererBuildParamSet::getIntParameter(unsigned int *a1, int a2, uin
           goto LABEL_51;
         }
 
-        v10 = qword_281051F98;
-        v11 = 7;
+        v5 = qword_281051F98;
+        v6 = 7;
         goto LABEL_30;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F98;
-        v20 = 7;
+        v12 = qword_281051F98;
+        v13 = 7;
         goto LABEL_60;
       }
 
@@ -1068,36 +1086,36 @@ uint64_t PrefiltererBuildParamSet::getIntParameter(unsigned int *a1, int a2, uin
         goto LABEL_51;
       }
 
-      v15 = qword_281051F98;
-      v16 = 7;
+      v9 = qword_281051F98;
+      v10 = 7;
       goto LABEL_50;
     case 8:
-      v8 = "BOOL";
-      v9 = 8;
+      v3 = "BOOL";
+      v4 = 8;
       goto LABEL_34;
     case 9:
-      v8 = "enum";
-      v9 = 9;
+      v3 = "enum";
+      v4 = 9;
       goto LABEL_34;
     case 10:
-      v8 = "enum";
-      v9 = 10;
+      v3 = "enum";
+      v4 = 10;
       goto LABEL_34;
     case 11:
-      v8 = "enum";
-      v9 = 11;
+      v3 = "enum";
+      v4 = 11;
       goto LABEL_34;
     case 12:
-      v8 = "BOOL";
-      v9 = 12;
+      v3 = "BOOL";
+      v4 = 12;
       goto LABEL_34;
     case 13:
-      v8 = "string";
-      v9 = 13;
+      v3 = "string";
+      v4 = 13;
       goto LABEL_34;
     case 14:
-      v8 = "string";
-      v9 = 14;
+      v3 = "string";
+      v4 = 14;
       goto LABEL_34;
     case 15:
       if (a3 <= 1)
@@ -1109,25 +1127,23 @@ uint64_t PrefiltererBuildParamSet::getIntParameter(unsigned int *a1, int a2, uin
 
         if (a3 == 1)
         {
-          v10 = qword_281051F98;
-          v11 = 15;
+          v5 = qword_281051F98;
+          v6 = 15;
 LABEL_30:
-          ParamByParamId = ParamSpecMgr::getParamByParamId(v10, v11, a3, a4, a5, a6, a7, a8);
-          v13 = **ParamByParamId;
+          ParamByParamId = ParamSpecMgr::getParamByParamId(v5, v6);
         }
 
 LABEL_51:
-        throwWrongQueryMode(a3, "int", a3, a4, a5, a6, a7, a8);
+        throwWrongQueryMode(a3, "int");
         return 0;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F98;
-        v20 = 15;
+        v12 = qword_281051F98;
+        v13 = 15;
 LABEL_60:
-        v21 = ParamSpecMgr::getParamByParamId(v19, v20, a3, a4, a5, a6, a7, a8);
-        v22 = **v21;
+        v14 = ParamSpecMgr::getParamByParamId(v12, v13);
       }
 
       if (a3 != 3)
@@ -1135,46 +1151,45 @@ LABEL_60:
         goto LABEL_51;
       }
 
-      v15 = qword_281051F98;
-      v16 = 15;
+      v9 = qword_281051F98;
+      v10 = 15;
 LABEL_50:
-      v17 = ParamSpecMgr::getParamByParamId(v15, v16, a3, a4, a5, a6, a7, a8);
-      v18 = **v17;
+      v11 = ParamSpecMgr::getParamByParamId(v9, v10);
     case 16:
-      v8 = "BOOL";
-      v9 = 16;
+      v3 = "BOOL";
+      v4 = 16;
       goto LABEL_34;
     case 17:
-      v8 = "BOOL";
-      v9 = 17;
+      v3 = "BOOL";
+      v4 = 17;
       goto LABEL_34;
     case 18:
-      v8 = "enum";
-      v9 = 18;
+      v3 = "enum";
+      v4 = 18;
       goto LABEL_34;
     case 19:
-      v8 = "enum";
-      v9 = 19;
+      v3 = "enum";
+      v4 = 19;
 LABEL_34:
-      throwWrongTypeForParamId(v9, v8, "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(v4, v3, "int");
       return 0;
     default:
-      throwWrongParamIdValue(a2, "int", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "int");
       return 0;
   }
 }
 
-double PrefiltererBuildParamSet::getDoubleParameter(double *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double PrefiltererBuildParamSet::getDoubleParameter(double *a1, int a2, int a3)
 {
   switch(a2)
   {
     case 1:
-      v8 = "BOOL";
-      v9 = 1;
+      v3 = "BOOL";
+      v4 = 1;
       goto LABEL_31;
     case 2:
-      v8 = "int";
-      v9 = 2;
+      v3 = "int";
+      v4 = 2;
       goto LABEL_31;
     case 3:
       if (a3 <= 1)
@@ -1189,15 +1204,15 @@ double PrefiltererBuildParamSet::getDoubleParameter(double *a1, int a2, uint64_t
           goto LABEL_45;
         }
 
-        v10 = qword_281051F98;
-        v11 = 3;
+        v5 = qword_281051F98;
+        v6 = 3;
         goto LABEL_21;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F98;
-        v20 = 3;
+        v12 = qword_281051F98;
+        v13 = 3;
         goto LABEL_52;
       }
 
@@ -1206,8 +1221,8 @@ double PrefiltererBuildParamSet::getDoubleParameter(double *a1, int a2, uint64_t
         goto LABEL_45;
       }
 
-      v15 = qword_281051F98;
-      v16 = 3;
+      v9 = qword_281051F98;
+      v10 = 3;
       goto LABEL_44;
     case 4:
       if (a3 <= 1)
@@ -1222,15 +1237,15 @@ double PrefiltererBuildParamSet::getDoubleParameter(double *a1, int a2, uint64_t
           goto LABEL_45;
         }
 
-        v10 = qword_281051F98;
-        v11 = 4;
+        v5 = qword_281051F98;
+        v6 = 4;
         goto LABEL_21;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F98;
-        v20 = 4;
+        v12 = qword_281051F98;
+        v13 = 4;
         goto LABEL_52;
       }
 
@@ -1239,8 +1254,8 @@ double PrefiltererBuildParamSet::getDoubleParameter(double *a1, int a2, uint64_t
         goto LABEL_45;
       }
 
-      v15 = qword_281051F98;
-      v16 = 4;
+      v9 = qword_281051F98;
+      v10 = 4;
       goto LABEL_44;
     case 5:
       if (a3 <= 1)
@@ -1252,25 +1267,23 @@ double PrefiltererBuildParamSet::getDoubleParameter(double *a1, int a2, uint64_t
 
         if (a3 == 1)
         {
-          v10 = qword_281051F98;
-          v11 = 5;
+          v5 = qword_281051F98;
+          v6 = 5;
 LABEL_21:
-          ParamByParamId = ParamSpecMgr::getParamByParamId(v10, v11, a3, a4, a5, a6, a7, a8);
-          v13 = **ParamByParamId;
+          ParamByParamId = ParamSpecMgr::getParamByParamId(v5, v6);
         }
 
 LABEL_45:
-        throwWrongQueryMode(a3, "double", a3, a4, a5, a6, a7, a8);
+        throwWrongQueryMode(a3, "double");
         return 0.0;
       }
 
       if (a3 == 2)
       {
-        v19 = qword_281051F98;
-        v20 = 5;
+        v12 = qword_281051F98;
+        v13 = 5;
 LABEL_52:
-        v21 = ParamSpecMgr::getParamByParamId(v19, v20, a3, a4, a5, a6, a7, a8);
-        v22 = **v21;
+        v14 = ParamSpecMgr::getParamByParamId(v12, v13);
       }
 
       if (a3 != 3)
@@ -1278,132 +1291,131 @@ LABEL_52:
         goto LABEL_45;
       }
 
-      v15 = qword_281051F98;
-      v16 = 5;
+      v9 = qword_281051F98;
+      v10 = 5;
 LABEL_44:
-      v17 = ParamSpecMgr::getParamByParamId(v15, v16, a3, a4, a5, a6, a7, a8);
-      v18 = **v17;
+      v11 = ParamSpecMgr::getParamByParamId(v9, v10);
     case 6:
-      v8 = "int";
-      v9 = 6;
+      v3 = "int";
+      v4 = 6;
       goto LABEL_31;
     case 7:
-      v8 = "int";
-      v9 = 7;
+      v3 = "int";
+      v4 = 7;
       goto LABEL_31;
     case 8:
-      v8 = "BOOL";
-      v9 = 8;
+      v3 = "BOOL";
+      v4 = 8;
       goto LABEL_31;
     case 9:
-      v8 = "enum";
-      v9 = 9;
+      v3 = "enum";
+      v4 = 9;
       goto LABEL_31;
     case 10:
-      v8 = "enum";
-      v9 = 10;
+      v3 = "enum";
+      v4 = 10;
       goto LABEL_31;
     case 11:
-      v8 = "enum";
-      v9 = 11;
+      v3 = "enum";
+      v4 = 11;
       goto LABEL_31;
     case 12:
-      v8 = "BOOL";
-      v9 = 12;
+      v3 = "BOOL";
+      v4 = 12;
       goto LABEL_31;
     case 13:
-      v8 = "string";
-      v9 = 13;
+      v3 = "string";
+      v4 = 13;
       goto LABEL_31;
     case 14:
-      v8 = "string";
-      v9 = 14;
+      v3 = "string";
+      v4 = 14;
       goto LABEL_31;
     case 15:
-      v8 = "int";
-      v9 = 15;
+      v3 = "int";
+      v4 = 15;
       goto LABEL_31;
     case 16:
-      v8 = "BOOL";
-      v9 = 16;
+      v3 = "BOOL";
+      v4 = 16;
       goto LABEL_31;
     case 17:
-      v8 = "BOOL";
-      v9 = 17;
+      v3 = "BOOL";
+      v4 = 17;
       goto LABEL_31;
     case 18:
-      v8 = "enum";
-      v9 = 18;
+      v3 = "enum";
+      v4 = 18;
       goto LABEL_31;
     case 19:
-      v8 = "enum";
-      v9 = 19;
+      v3 = "enum";
+      v4 = 19;
 LABEL_31:
-      throwWrongTypeForParamId(v9, v8, "double", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(v4, v3, "double");
       return 0.0;
     default:
-      throwWrongParamIdValue(a2, "double", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "double");
       return 0.0;
   }
 }
 
-char *PrefiltererBuildParamSet::getStringParameter(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *PrefiltererBuildParamSet::getStringParameter(uint64_t a1, int a2, int a3)
 {
   switch(a2)
   {
     case 1:
-      v8 = "BOOL";
-      v9 = 1;
+      v3 = "BOOL";
+      v4 = 1;
       goto LABEL_28;
     case 2:
-      v8 = "int";
-      v9 = 2;
+      v3 = "int";
+      v4 = 2;
       goto LABEL_28;
     case 3:
-      v8 = "double";
-      v9 = 3;
+      v3 = "double";
+      v4 = 3;
       goto LABEL_28;
     case 4:
-      v8 = "double";
-      v9 = 4;
+      v3 = "double";
+      v4 = 4;
       goto LABEL_28;
     case 5:
-      v8 = "double";
-      v9 = 5;
+      v3 = "double";
+      v4 = 5;
       goto LABEL_28;
     case 6:
-      v8 = "int";
-      v9 = 6;
+      v3 = "int";
+      v4 = 6;
       goto LABEL_28;
     case 7:
-      v8 = "int";
-      v9 = 7;
+      v3 = "int";
+      v4 = 7;
       goto LABEL_28;
     case 8:
-      v8 = "BOOL";
-      v9 = 8;
+      v3 = "BOOL";
+      v4 = 8;
       goto LABEL_28;
     case 9:
-      v8 = "enum";
-      v9 = 9;
+      v3 = "enum";
+      v4 = 9;
       goto LABEL_28;
     case 10:
-      v8 = "enum";
-      v9 = 10;
+      v3 = "enum";
+      v4 = 10;
       goto LABEL_28;
     case 11:
-      v8 = "enum";
-      v9 = 11;
+      v3 = "enum";
+      v4 = 11;
       goto LABEL_28;
     case 12:
-      v8 = "BOOL";
-      v9 = 12;
+      v3 = "BOOL";
+      v4 = 12;
       goto LABEL_28;
     case 13:
       if (a3 == 1)
       {
-        v13 = qword_281051F98;
-        v14 = 13;
+        v8 = qword_281051F98;
+        v9 = 13;
         goto LABEL_35;
       }
 
@@ -1412,34 +1424,33 @@ char *PrefiltererBuildParamSet::getStringParameter(uint64_t a1, int a2, uint64_t
         goto LABEL_32;
       }
 
-      v10 = *(a1 + 112);
-      v11 = *(a1 + 104);
+      v5 = *(a1 + 112);
+      v6 = *(a1 + 104);
       goto LABEL_21;
     case 14:
       if (a3 == 1)
       {
-        v13 = qword_281051F98;
-        v14 = 14;
+        v8 = qword_281051F98;
+        v9 = 14;
 LABEL_35:
-        ParamByParamId = ParamSpecMgr::getParamByParamId(v13, v14, a3, a4, a5, a6, a7, a8);
-        v16 = **ParamByParamId;
+        ParamByParamId = ParamSpecMgr::getParamByParamId(v8, v9);
       }
 
       else if (a3)
       {
 LABEL_32:
-        throwWrongQueryMode(a3, "string", a3, a4, a5, a6, a7, a8);
+        throwWrongQueryMode(a3, "string");
         return 0;
       }
 
       else
       {
-        v10 = *(a1 + 128);
-        v11 = *(a1 + 120);
+        v5 = *(a1 + 128);
+        v6 = *(a1 + 120);
 LABEL_21:
-        if (v10)
+        if (v5)
         {
-          return v11;
+          return v6;
         }
 
         else
@@ -1449,76 +1460,76 @@ LABEL_21:
       }
 
     case 15:
-      v8 = "int";
-      v9 = 15;
+      v3 = "int";
+      v4 = 15;
       goto LABEL_28;
     case 16:
-      v8 = "BOOL";
-      v9 = 16;
+      v3 = "BOOL";
+      v4 = 16;
       goto LABEL_28;
     case 17:
-      v8 = "BOOL";
-      v9 = 17;
+      v3 = "BOOL";
+      v4 = 17;
       goto LABEL_28;
     case 18:
-      v8 = "enum";
-      v9 = 18;
+      v3 = "enum";
+      v4 = 18;
       goto LABEL_28;
     case 19:
-      v8 = "enum";
-      v9 = 19;
+      v3 = "enum";
+      v4 = 19;
 LABEL_28:
-      throwWrongTypeForParamId(v9, v8, "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(v4, v3, "string");
       return 0;
     default:
-      throwWrongParamIdValue(a2, "string", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "string");
       return 0;
   }
 }
 
-uint64_t PrefiltererBuildParamSet::getEnumParameter(unsigned int *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PrefiltererBuildParamSet::getEnumParameter(unsigned int *a1, int a2, int a3)
 {
   switch(a2)
   {
     case 1:
-      v8 = "BOOL";
-      v9 = 1;
+      v3 = "BOOL";
+      v4 = 1;
       goto LABEL_20;
     case 2:
-      v8 = "int";
-      v9 = 2;
+      v3 = "int";
+      v4 = 2;
       goto LABEL_20;
     case 3:
-      v8 = "double";
-      v9 = 3;
+      v3 = "double";
+      v4 = 3;
       goto LABEL_20;
     case 4:
-      v8 = "double";
-      v9 = 4;
+      v3 = "double";
+      v4 = 4;
       goto LABEL_20;
     case 5:
-      v8 = "double";
-      v9 = 5;
+      v3 = "double";
+      v4 = 5;
       goto LABEL_20;
     case 6:
-      v8 = "int";
-      v9 = 6;
+      v3 = "int";
+      v4 = 6;
       goto LABEL_20;
     case 7:
-      v8 = "int";
-      v9 = 7;
+      v3 = "int";
+      v4 = 7;
       goto LABEL_20;
     case 8:
-      v8 = "BOOL";
-      v9 = 8;
+      v3 = "BOOL";
+      v4 = 8;
       goto LABEL_20;
     case 9:
       if (a3 > 1)
       {
         if (a3 == 2)
         {
-          v41 = qword_281051F98;
-          v42 = 9;
+          v30 = qword_281051F98;
+          v31 = 9;
           goto LABEL_91;
         }
 
@@ -1527,8 +1538,8 @@ uint64_t PrefiltererBuildParamSet::getEnumParameter(unsigned int *a1, int a2, ui
           goto LABEL_79;
         }
 
-        v37 = qword_281051F98;
-        v38 = 9;
+        v27 = qword_281051F98;
+        v28 = 9;
         goto LABEL_74;
       }
 
@@ -1542,25 +1553,24 @@ uint64_t PrefiltererBuildParamSet::getEnumParameter(unsigned int *a1, int a2, ui
         goto LABEL_79;
       }
 
-      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051F98, 9, a3, a4, a5, a6, a7, a8);
-      v33 = **ParamByParamId;
-      if (**(v34 + 24))
+      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051F98, 9);
+      if (**(v24 + 24))
       {
-        v35 = v34 + 16;
-        v36 = 1;
-        v15 = v35;
+        v25 = v24 + 16;
+        v26 = 1;
+        v9 = v25;
         do
         {
-          if (*v15 == 1)
+          if (*v9 == 1)
           {
-            return *(v15 + 16);
+            return *(v9 + 16);
           }
 
           result = 0;
-          v15 = v35 + 32 * v36++;
+          v9 = v25 + 32 * v26++;
         }
 
-        while (**(v15 + 8));
+        while (**(v9 + 8));
         return result;
       }
 
@@ -1570,8 +1580,8 @@ uint64_t PrefiltererBuildParamSet::getEnumParameter(unsigned int *a1, int a2, ui
       {
         if (a3 == 2)
         {
-          v41 = qword_281051F98;
-          v42 = 10;
+          v30 = qword_281051F98;
+          v31 = 10;
           goto LABEL_91;
         }
 
@@ -1580,8 +1590,8 @@ uint64_t PrefiltererBuildParamSet::getEnumParameter(unsigned int *a1, int a2, ui
           goto LABEL_79;
         }
 
-        v37 = qword_281051F98;
-        v38 = 10;
+        v27 = qword_281051F98;
+        v28 = 10;
         goto LABEL_74;
       }
 
@@ -1595,25 +1605,24 @@ uint64_t PrefiltererBuildParamSet::getEnumParameter(unsigned int *a1, int a2, ui
         goto LABEL_79;
       }
 
-      v10 = ParamSpecMgr::getParamByParamId(qword_281051F98, 10, a3, a4, a5, a6, a7, a8);
-      v11 = **v10;
-      if (**(v12 + 24))
+      v5 = ParamSpecMgr::getParamByParamId(qword_281051F98, 10);
+      if (**(v6 + 24))
       {
-        v13 = v12 + 16;
-        v14 = 1;
-        v15 = v13;
+        v7 = v6 + 16;
+        v8 = 1;
+        v9 = v7;
         do
         {
-          if (*v15 == 1)
+          if (*v9 == 1)
           {
-            return *(v15 + 16);
+            return *(v9 + 16);
           }
 
           result = 0;
-          v15 = v13 + 32 * v14++;
+          v9 = v7 + 32 * v8++;
         }
 
-        while (**(v15 + 8));
+        while (**(v9 + 8));
         return result;
       }
 
@@ -1623,8 +1632,8 @@ uint64_t PrefiltererBuildParamSet::getEnumParameter(unsigned int *a1, int a2, ui
       {
         if (a3 == 2)
         {
-          v41 = qword_281051F98;
-          v42 = 11;
+          v30 = qword_281051F98;
+          v31 = 11;
           goto LABEL_91;
         }
 
@@ -1633,8 +1642,8 @@ uint64_t PrefiltererBuildParamSet::getEnumParameter(unsigned int *a1, int a2, ui
           goto LABEL_79;
         }
 
-        v37 = qword_281051F98;
-        v38 = 11;
+        v27 = qword_281051F98;
+        v28 = 11;
         goto LABEL_74;
       }
 
@@ -1648,62 +1657,61 @@ uint64_t PrefiltererBuildParamSet::getEnumParameter(unsigned int *a1, int a2, ui
         goto LABEL_79;
       }
 
-      v27 = ParamSpecMgr::getParamByParamId(qword_281051F98, 11, a3, a4, a5, a6, a7, a8);
-      v28 = **v27;
-      if (**(v29 + 24))
+      v19 = ParamSpecMgr::getParamByParamId(qword_281051F98, 11);
+      if (**(v20 + 24))
       {
-        v30 = v29 + 16;
-        v31 = 1;
-        v15 = v30;
+        v21 = v20 + 16;
+        v22 = 1;
+        v9 = v21;
         do
         {
-          if (*v15 == 1)
+          if (*v9 == 1)
           {
-            return *(v15 + 16);
+            return *(v9 + 16);
           }
 
           result = 0;
-          v15 = v30 + 32 * v31++;
+          v9 = v21 + 32 * v22++;
         }
 
-        while (**(v15 + 8));
+        while (**(v9 + 8));
         return result;
       }
 
       return 0;
     case 12:
-      v8 = "BOOL";
-      v9 = 12;
+      v3 = "BOOL";
+      v4 = 12;
       goto LABEL_20;
     case 13:
-      v8 = "string";
-      v9 = 13;
+      v3 = "string";
+      v4 = 13;
       goto LABEL_20;
     case 14:
-      v8 = "string";
-      v9 = 14;
+      v3 = "string";
+      v4 = 14;
       goto LABEL_20;
     case 15:
-      v8 = "int";
-      v9 = 15;
+      v3 = "int";
+      v4 = 15;
       goto LABEL_20;
     case 16:
-      v8 = "BOOL";
-      v9 = 16;
+      v3 = "BOOL";
+      v4 = 16;
       goto LABEL_20;
     case 17:
-      v8 = "BOOL";
-      v9 = 17;
+      v3 = "BOOL";
+      v4 = 17;
 LABEL_20:
-      throwWrongTypeForParamId(v9, v8, "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(v4, v3, "BOOL");
       return 0;
     case 18:
       if (a3 > 1)
       {
         if (a3 == 2)
         {
-          v41 = qword_281051F98;
-          v42 = 18;
+          v30 = qword_281051F98;
+          v31 = 18;
           goto LABEL_91;
         }
 
@@ -1712,8 +1720,8 @@ LABEL_20:
           goto LABEL_79;
         }
 
-        v37 = qword_281051F98;
-        v38 = 18;
+        v27 = qword_281051F98;
+        v28 = 18;
         goto LABEL_74;
       }
 
@@ -1727,25 +1735,24 @@ LABEL_20:
         goto LABEL_79;
       }
 
-      v17 = ParamSpecMgr::getParamByParamId(qword_281051F98, 18, a3, a4, a5, a6, a7, a8);
-      v18 = **v17;
-      if (**(v19 + 24))
+      v11 = ParamSpecMgr::getParamByParamId(qword_281051F98, 18);
+      if (**(v12 + 24))
       {
-        v20 = v19 + 16;
-        v21 = 1;
-        v15 = v20;
+        v13 = v12 + 16;
+        v14 = 1;
+        v9 = v13;
         do
         {
-          if (*v15 == 1)
+          if (*v9 == 1)
           {
-            return *(v15 + 16);
+            return *(v9 + 16);
           }
 
           result = 0;
-          v15 = v20 + 32 * v21++;
+          v9 = v13 + 32 * v14++;
         }
 
-        while (**(v15 + 8));
+        while (**(v9 + 8));
         return result;
       }
 
@@ -1755,30 +1762,28 @@ LABEL_20:
       {
         if (a3 == 2)
         {
-          v41 = qword_281051F98;
-          v42 = 19;
+          v30 = qword_281051F98;
+          v31 = 19;
 LABEL_91:
-          v43 = ParamSpecMgr::getParamByParamId(v41, v42, a3, a4, a5, a6, a7, a8);
-          if (v43)
+          v32 = ParamSpecMgr::getParamByParamId(v30, v31);
+          if (v32)
           {
-            v44 = **v43;
           }
 
-          return EnumParamSpec::getMinVal(v43);
+          return EnumParamSpec::getMinVal(v32);
         }
 
         if (a3 == 3)
         {
-          v37 = qword_281051F98;
-          v38 = 19;
+          v27 = qword_281051F98;
+          v28 = 19;
 LABEL_74:
-          v39 = ParamSpecMgr::getParamByParamId(v37, v38, a3, a4, a5, a6, a7, a8);
-          if (v39)
+          v29 = ParamSpecMgr::getParamByParamId(v27, v28);
+          if (v29)
           {
-            v40 = **v39;
           }
 
-          return EnumParamSpec::getMaxVal(v39);
+          return EnumParamSpec::getMaxVal(v29);
         }
 
         goto LABEL_79;
@@ -1792,134 +1797,131 @@ LABEL_74:
       if (a3 != 1)
       {
 LABEL_79:
-        throwWrongQueryMode(a3, "enum", a3, a4, a5, a6, a7, a8);
+        throwWrongQueryMode(a3, "enum");
         return 0;
       }
 
-      v22 = ParamSpecMgr::getParamByParamId(qword_281051F98, 19, a3, a4, a5, a6, a7, a8);
-      v23 = **v22;
-      if (!**(v24 + 24))
+      v15 = ParamSpecMgr::getParamByParamId(qword_281051F98, 19);
+      if (!**(v16 + 24))
       {
         return 0;
       }
 
-      v25 = v24 + 16;
-      v26 = 1;
-      v15 = v25;
-      while (*v15 != 1)
+      v17 = v16 + 16;
+      v18 = 1;
+      v9 = v17;
+      while (*v9 != 1)
       {
         result = 0;
-        v15 = v25 + 32 * v26++;
-        if (!**(v15 + 8))
+        v9 = v17 + 32 * v18++;
+        if (!**(v9 + 8))
         {
           return result;
         }
       }
 
-      return *(v15 + 16);
+      return *(v9 + 16);
     default:
-      throwWrongParamIdValue(a2, "enum", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "enum");
       return 0;
   }
 }
 
-void PrefiltererBuildParamSet::setBoolParameter(PrefiltererBuildParamSet *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double PrefiltererBuildParamSet::setBoolParameter(uint64_t this, int a2, char a3)
 {
-  v8 = a2;
-  v9 = a3;
   switch(a2)
   {
     case 1:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "PrefiltererBuildAllowMultiPhonemeSequences";
+        v6 = "PrefiltererBuildAllowMultiPhonemeSequences";
         goto LABEL_26;
       }
 
       *(this + 40) = a3;
-      return;
+      return result;
     case 2:
-      throwWrongTypeForParamId(2, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(2, "int", "BOOL");
       goto LABEL_19;
     case 3:
 LABEL_19:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_20;
     case 4:
 LABEL_20:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_21;
     case 5:
 LABEL_21:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_22;
     case 6:
 LABEL_22:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_23;
     case 7:
 LABEL_23:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      result = throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_24;
     case 8:
 LABEL_24:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "PrefiltererBuildTruncatePackedIntComponentScores";
+        v6 = "PrefiltererBuildTruncatePackedIntComponentScores";
         goto LABEL_26;
       }
 
-      *(this + 80) = v9;
-      return;
+      *(this + 80) = a3;
+      return result;
     case 9:
-      throwWrongTypeForParamId(9, "enum", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(9, "enum", "BOOL");
       goto LABEL_7;
     case 10:
 LABEL_7:
-      throwWrongTypeForParamId(v8, "enum", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "enum", "BOOL");
       goto LABEL_8;
     case 11:
 LABEL_8:
-      throwWrongTypeForParamId(v8, "enum", "BOOL", a4, a5, a6, a7, a8);
+      result = throwWrongTypeForParamId(a2, "enum", "BOOL");
       goto LABEL_9;
     case 12:
 LABEL_9:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "PrefiltererBuildUseGPU";
+        v6 = "PrefiltererBuildUseGPU";
         goto LABEL_26;
       }
 
-      *(this + 96) = v9;
-      return;
+      *(this + 96) = a3;
+      return result;
     case 13:
-      throwWrongTypeForParamId(13, "string", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(13, "string", "BOOL");
       goto LABEL_13;
     case 14:
 LABEL_13:
-      throwWrongTypeForParamId(v8, "string", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "string", "BOOL");
       goto LABEL_14;
     case 15:
 LABEL_14:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      result = throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_15;
     case 16:
 LABEL_15:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "PrefiltererBuildDisableHierarchicalScorer";
+        v6 = "PrefiltererBuildDisableHierarchicalScorer";
         goto LABEL_26;
       }
 
-      *(this + 140) = v9;
+      *(this + 140) = a3;
       break;
     case 17:
-      if (*(this + 9))
+      if (*(this + 36))
       {
-        v11 = "PrefiltererBuildDisableGPUScorer";
+        v6 = "PrefiltererBuildDisableGPUScorer";
 LABEL_26:
 
-        throwParamSetSetFailed(v11, "BOOL", a3, a4, a5, a6, a7, a8);
+        result = throwParamSetSetFailed(v6, "BOOL");
       }
 
       else
@@ -1929,222 +1931,213 @@ LABEL_26:
 
       break;
     case 18:
-      throwWrongTypeForParamId(18, "enum", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(18, "enum", "BOOL");
       goto LABEL_31;
     case 19:
 LABEL_31:
-      throwWrongTypeForParamId(v8, "enum", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "enum", "BOOL");
       goto LABEL_32;
     default:
 LABEL_32:
 
-      throwWrongParamIdValue(v8, "BOOL", a3, a4, a5, a6, a7, a8);
-      return;
+      return throwWrongParamIdValue(a2, "BOOL");
   }
+
+  return result;
 }
 
-void PrefiltererBuildParamSet::setIntParameter(PrefiltererBuildParamSet *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void PrefiltererBuildParamSet::setIntParameter(PrefiltererBuildParamSet *this, int a2, int a3)
 {
-  v8 = a2;
-  v9 = a3;
   switch(a2)
   {
     case 1:
-      throwWrongTypeForParamId(1, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(1, "BOOL", "int");
       goto LABEL_3;
     case 2:
 LABEL_3:
-      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051F98, 2, a3, a4, a5, a6, a7, a8);
+      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051F98, 2);
       if (ParamByParamId)
       {
-        v16 = **ParamByParamId;
       }
 
-      IntParamSpec::validateValue(ParamByParamId, v9, 0, 0, v12, v13, v14, v15);
+      IntParamSpec::validateValue(ParamByParamId, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "PrefiltererBuildBestScoreAdditionalPhonemeStartDepth";
+        v7 = "PrefiltererBuildBestScoreAdditionalPhonemeStartDepth";
         goto LABEL_26;
       }
 
-      *(this + 11) = v9;
+      *(this + 11) = a3;
       return;
     case 3:
-      throwWrongTypeForParamId(3, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(3, "double", "int");
       goto LABEL_20;
     case 4:
 LABEL_20:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_21;
     case 5:
 LABEL_21:
-      throwWrongTypeForParamId(v8, "double", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "int");
       goto LABEL_22;
     case 6:
 LABEL_22:
-      v30 = ParamSpecMgr::getParamByParamId(qword_281051F98, 6, a3, a4, a5, a6, a7, a8);
-      if (v30)
+      v9 = ParamSpecMgr::getParamByParamId(qword_281051F98, 6);
+      if (v9)
       {
-        v35 = **v30;
       }
 
-      IntParamSpec::validateValue(v30, v9, 0, 0, v31, v32, v33, v34);
+      IntParamSpec::validateValue(v9, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "PrefiltererBuildMaxPronLength";
+        v7 = "PrefiltererBuildMaxPronLength";
         goto LABEL_26;
       }
 
-      *(this + 18) = v9;
+      *(this + 18) = a3;
       return;
     case 7:
-      v36 = ParamSpecMgr::getParamByParamId(qword_281051F98, 7, a3, a4, a5, a6, a7, a8);
-      if (v36)
+      v10 = ParamSpecMgr::getParamByParamId(qword_281051F98, 7);
+      if (v10)
       {
-        v41 = **v36;
       }
 
-      IntParamSpec::validateValue(v36, v9, 0, 0, v37, v38, v39, v40);
+      IntParamSpec::validateValue(v10, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "PrefiltererBuildMaxWordEndScore";
+        v7 = "PrefiltererBuildMaxWordEndScore";
         goto LABEL_26;
       }
 
-      *(this + 19) = v9;
+      *(this + 19) = a3;
       break;
     case 8:
-      throwWrongTypeForParamId(8, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(8, "BOOL", "int");
       goto LABEL_8;
     case 9:
 LABEL_8:
-      throwWrongTypeForParamId(v8, "enum", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "enum", "int");
       goto LABEL_9;
     case 10:
 LABEL_9:
-      throwWrongTypeForParamId(v8, "enum", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "enum", "int");
       goto LABEL_10;
     case 11:
 LABEL_10:
-      throwWrongTypeForParamId(v8, "enum", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "enum", "int");
       goto LABEL_11;
     case 12:
 LABEL_11:
-      throwWrongTypeForParamId(v8, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "int");
       goto LABEL_12;
     case 13:
 LABEL_12:
-      throwWrongTypeForParamId(v8, "string", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "string", "int");
       goto LABEL_13;
     case 14:
 LABEL_13:
-      throwWrongTypeForParamId(v8, "string", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "string", "int");
       goto LABEL_14;
     case 15:
 LABEL_14:
-      v24 = ParamSpecMgr::getParamByParamId(qword_281051F98, 15, a3, a4, a5, a6, a7, a8);
-      if (v24)
+      v8 = ParamSpecMgr::getParamByParamId(qword_281051F98, 15);
+      if (v8)
       {
-        v29 = **v24;
       }
 
-      IntParamSpec::validateValue(v24, v9, 0, 0, v25, v26, v27, v28);
+      IntParamSpec::validateValue(v8, a3, 0, 0);
       if (*(this + 9))
       {
-        v23 = "PrefiltererBuildHierInactiveComponentScore";
+        v7 = "PrefiltererBuildHierInactiveComponentScore";
 LABEL_26:
 
-        throwParamSetSetFailed(v23, "int", v17, v18, v19, v20, v21, v22);
+        throwParamSetSetFailed(v7, "int");
       }
 
       else
       {
-        *(this + 34) = v9;
+        *(this + 34) = a3;
       }
 
       break;
     case 16:
-      throwWrongTypeForParamId(16, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(16, "BOOL", "int");
       goto LABEL_35;
     case 17:
 LABEL_35:
-      throwWrongTypeForParamId(v8, "BOOL", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "int");
       goto LABEL_36;
     case 18:
 LABEL_36:
-      throwWrongTypeForParamId(v8, "enum", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "enum", "int");
       goto LABEL_37;
     case 19:
 LABEL_37:
-      throwWrongTypeForParamId(v8, "enum", "int", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "enum", "int");
       goto LABEL_38;
     default:
 LABEL_38:
 
-      throwWrongParamIdValue(v8, "int", a3, a4, a5, a6, a7, a8);
+      throwWrongParamIdValue(a2, "int");
       return;
   }
 }
 
-void PrefiltererBuildParamSet::setDoubleParameter(PrefiltererBuildParamSet *this, int a2, double a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void PrefiltererBuildParamSet::setDoubleParameter(PrefiltererBuildParamSet *this, int a2, double a3)
 {
-  v9 = a2;
   switch(a2)
   {
     case 1:
-      throwWrongTypeForParamId(1, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(1, "BOOL", "double");
       goto LABEL_3;
     case 2:
 LABEL_3:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_4;
     case 3:
 LABEL_4:
-      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051F98, 3, a4, a5, a6, a7, a8, a9);
+      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051F98, 3);
       if (ParamByParamId)
       {
-        v18 = **ParamByParamId;
       }
 
-      DoubleParamSpec::validateValue(ParamByParamId, a3, 0, 0, v13, v14, v15, v16, v17);
+      DoubleParamSpec::validateValue(ParamByParamId, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "PrefiltererBuildDurationScoreScale";
+        v7 = "PrefiltererBuildDurationScoreScale";
         goto LABEL_17;
       }
 
       *(this + 6) = a3;
       return;
     case 4:
-      v33 = ParamSpecMgr::getParamByParamId(qword_281051F98, 4, a4, a5, a6, a7, a8, a9);
-      if (v33)
+      v9 = ParamSpecMgr::getParamByParamId(qword_281051F98, 4);
+      if (v9)
       {
-        v39 = **v33;
       }
 
-      DoubleParamSpec::validateValue(v33, a3, 0, 0, v34, v35, v36, v37, v38);
+      DoubleParamSpec::validateValue(v9, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "PrefiltererBuildEnableGenoneScoreCacheThresh";
+        v7 = "PrefiltererBuildEnableGenoneScoreCacheThresh";
         goto LABEL_17;
       }
 
       *(this + 7) = a3;
       break;
     case 5:
-      v26 = ParamSpecMgr::getParamByParamId(qword_281051F98, 5, a4, a5, a6, a7, a8, a9);
-      if (v26)
+      v8 = ParamSpecMgr::getParamByParamId(qword_281051F98, 5);
+      if (v8)
       {
-        v32 = **v26;
       }
 
-      DoubleParamSpec::validateValue(v26, a3, 0, 0, v27, v28, v29, v30, v31);
+      DoubleParamSpec::validateValue(v8, a3, 0, 0);
       if (*(this + 9))
       {
-        v25 = "PrefiltererBuildFmpeMinimumPosteriorProbability";
+        v7 = "PrefiltererBuildFmpeMinimumPosteriorProbability";
 LABEL_17:
 
-        throwParamSetSetFailed(v25, "double", v19, v20, v21, v22, v23, v24);
+        throwParamSetSetFailed(v7, "double");
       }
 
       else
@@ -2154,308 +2147,301 @@ LABEL_17:
 
       break;
     case 6:
-      throwWrongTypeForParamId(6, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(6, "int", "double");
       goto LABEL_21;
     case 7:
 LABEL_21:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_22;
     case 8:
 LABEL_22:
-      throwWrongTypeForParamId(v9, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "BOOL", "double");
       goto LABEL_23;
     case 9:
 LABEL_23:
-      throwWrongTypeForParamId(v9, "enum", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "enum", "double");
       goto LABEL_24;
     case 10:
 LABEL_24:
-      throwWrongTypeForParamId(v9, "enum", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "enum", "double");
       goto LABEL_25;
     case 11:
 LABEL_25:
-      throwWrongTypeForParamId(v9, "enum", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "enum", "double");
       goto LABEL_26;
     case 12:
 LABEL_26:
-      throwWrongTypeForParamId(v9, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "BOOL", "double");
       goto LABEL_27;
     case 13:
 LABEL_27:
-      throwWrongTypeForParamId(v9, "string", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "string", "double");
       goto LABEL_28;
     case 14:
 LABEL_28:
-      throwWrongTypeForParamId(v9, "string", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "string", "double");
       goto LABEL_29;
     case 15:
 LABEL_29:
-      throwWrongTypeForParamId(v9, "int", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "int", "double");
       goto LABEL_30;
     case 16:
 LABEL_30:
-      throwWrongTypeForParamId(v9, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "BOOL", "double");
       goto LABEL_31;
     case 17:
 LABEL_31:
-      throwWrongTypeForParamId(v9, "BOOL", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "BOOL", "double");
       goto LABEL_32;
     case 18:
 LABEL_32:
-      throwWrongTypeForParamId(v9, "enum", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "enum", "double");
       goto LABEL_33;
     case 19:
 LABEL_33:
-      throwWrongTypeForParamId(v9, "enum", "double", a5, a6, a7, a8, a9);
+      throwWrongTypeForParamId(a2, "enum", "double");
       goto LABEL_34;
     default:
 LABEL_34:
 
-      throwWrongParamIdValue(v9, "double", a4, a5, a6, a7, a8, a9);
+      throwWrongParamIdValue(a2, "double");
       return;
   }
 }
 
-void PrefiltererBuildParamSet::setStringParameter(PrefiltererBuildParamSet *this, int a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double PrefiltererBuildParamSet::setStringParameter(PrefiltererBuildParamSet *this, int a2, char *a3)
 {
-  v8 = a2;
   switch(a2)
   {
     case 1:
-      throwWrongTypeForParamId(1, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(1, "BOOL", "string");
       goto LABEL_3;
     case 2:
 LABEL_3:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_4;
     case 3:
 LABEL_4:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_5;
     case 4:
 LABEL_5:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_6;
     case 5:
 LABEL_6:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_7;
     case 6:
 LABEL_7:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_8;
     case 7:
 LABEL_8:
-      throwWrongTypeForParamId(v8, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "string");
       goto LABEL_9;
     case 8:
 LABEL_9:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_10;
     case 9:
 LABEL_10:
-      throwWrongTypeForParamId(v8, "enum", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "enum", "string");
       goto LABEL_11;
     case 10:
 LABEL_11:
-      throwWrongTypeForParamId(v8, "enum", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "enum", "string");
       goto LABEL_12;
     case 11:
 LABEL_12:
-      throwWrongTypeForParamId(v8, "enum", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "enum", "string");
       goto LABEL_13;
     case 12:
 LABEL_13:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_14;
     case 13:
 LABEL_14:
 
-      PrefiltererBuildParamSet::setParamSetPrefiltererBuildHierScorerBeamList(this, a3, a3, a4, a5, a6, a7, a8);
-      return;
+      PrefiltererBuildParamSet::setParamSetPrefiltererBuildHierScorerBeamList(this, a3);
+      return result;
     case 14:
 
-      PrefiltererBuildParamSet::setParamSetPrefiltererBuildHierScorerCutoffRatioList(this, a3, a3, a4, a5, a6, a7, a8);
-      return;
+      PrefiltererBuildParamSet::setParamSetPrefiltererBuildHierScorerCutoffRatioList(this, a3);
+      return result;
     case 15:
-      throwWrongTypeForParamId(15, "int", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(15, "int", "string");
       goto LABEL_21;
     case 16:
 LABEL_21:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_22;
     case 17:
 LABEL_22:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_23;
     case 18:
 LABEL_23:
-      throwWrongTypeForParamId(v8, "enum", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "enum", "string");
       goto LABEL_24;
     case 19:
 LABEL_24:
-      throwWrongTypeForParamId(v8, "enum", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "enum", "string");
       break;
     default:
       break;
   }
 
-  throwWrongParamIdValue(v8, "string", a3, a4, a5, a6, a7, a8);
+  return throwWrongParamIdValue(a2, "string");
 }
 
-void PrefiltererBuildParamSet::setEnumParameter(PrefiltererBuildParamSet *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double PrefiltererBuildParamSet::setEnumParameter(PrefiltererBuildParamSet *this, int a2, int a3)
 {
-  v8 = a2;
-  v9 = a3;
   switch(a2)
   {
     case 1:
-      throwWrongTypeForParamId(1, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(1, "BOOL", "BOOL");
       goto LABEL_3;
     case 2:
 LABEL_3:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_4;
     case 3:
 LABEL_4:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_5;
     case 4:
 LABEL_5:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_6;
     case 5:
 LABEL_6:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_7;
     case 6:
 LABEL_7:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_8;
     case 7:
 LABEL_8:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_9;
     case 8:
 LABEL_9:
-      throwWrongTypeForParamId(v8, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "BOOL");
       goto LABEL_10;
     case 9:
 LABEL_10:
-      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051F98, 9, a3, a4, a5, a6, a7, a8);
+      ParamByParamId = ParamSpecMgr::getParamByParamId(qword_281051F98, 9);
       if (ParamByParamId)
       {
-        v18 = **ParamByParamId;
       }
 
-      EnumParamSpec::validateValue(ParamByParamId, v9, v12, v13, v14, v15, v16, v17);
+      result = EnumParamSpec::validateValue(ParamByParamId, a3);
       if (*(this + 9))
       {
-        v25 = "PrefiltererBuildLookaheadScoringType";
+        v8 = "PrefiltererBuildLookaheadScoringType";
         goto LABEL_29;
       }
 
-      *(this + 21) = v9;
-      return;
+      *(this + 21) = a3;
+      return result;
     case 10:
-      v26 = ParamSpecMgr::getParamByParamId(qword_281051F98, 10, a3, a4, a5, a6, a7, a8);
-      if (v26)
+      v9 = ParamSpecMgr::getParamByParamId(qword_281051F98, 10);
+      if (v9)
       {
-        v33 = **v26;
       }
 
-      EnumParamSpec::validateValue(v26, v9, v27, v28, v29, v30, v31, v32);
+      result = EnumParamSpec::validateValue(v9, a3);
       if (*(this + 9))
       {
-        v25 = "PrefiltererBuildLookaheadThreadingType";
+        v8 = "PrefiltererBuildLookaheadThreadingType";
         goto LABEL_29;
       }
 
-      *(this + 22) = v9;
-      return;
+      *(this + 22) = a3;
+      return result;
     case 11:
-      v50 = ParamSpecMgr::getParamByParamId(qword_281051F98, 11, a3, a4, a5, a6, a7, a8);
-      if (v50)
+      v12 = ParamSpecMgr::getParamByParamId(qword_281051F98, 11);
+      if (v12)
       {
-        v57 = **v50;
       }
 
-      EnumParamSpec::validateValue(v50, v9, v51, v52, v53, v54, v55, v56);
+      result = EnumParamSpec::validateValue(v12, a3);
       if (*(this + 9))
       {
-        v25 = "PrefiltererBuildThreadingType";
+        v8 = "PrefiltererBuildThreadingType";
         goto LABEL_29;
       }
 
-      *(this + 23) = v9;
-      return;
+      *(this + 23) = a3;
+      return result;
     case 12:
-      throwWrongTypeForParamId(12, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(12, "BOOL", "BOOL");
       goto LABEL_20;
     case 13:
 LABEL_20:
-      throwWrongTypeForParamId(v8, "string", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "string", "BOOL");
       goto LABEL_21;
     case 14:
 LABEL_21:
-      throwWrongTypeForParamId(v8, "string", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "string", "BOOL");
       goto LABEL_22;
     case 15:
 LABEL_22:
-      throwWrongTypeForParamId(v8, "int", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "int", "BOOL");
       goto LABEL_23;
     case 16:
 LABEL_23:
-      throwWrongTypeForParamId(v8, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "BOOL");
       goto LABEL_24;
     case 17:
 LABEL_24:
-      throwWrongTypeForParamId(v8, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "BOOL");
       goto LABEL_25;
     case 18:
 LABEL_25:
-      v34 = ParamSpecMgr::getParamByParamId(qword_281051F98, 18, a3, a4, a5, a6, a7, a8);
-      if (v34)
+      v10 = ParamSpecMgr::getParamByParamId(qword_281051F98, 18);
+      if (v10)
       {
-        v41 = **v34;
       }
 
-      EnumParamSpec::validateValue(v34, v9, v35, v36, v37, v38, v39, v40);
+      result = EnumParamSpec::validateValue(v10, a3);
       if (*(this + 9))
       {
-        v25 = "PrefiltererBuildContextType";
+        v8 = "PrefiltererBuildContextType";
         goto LABEL_29;
       }
 
-      *(this + 36) = v9;
+      *(this + 36) = a3;
       break;
     case 19:
-      v42 = ParamSpecMgr::getParamByParamId(qword_281051F98, 19, a3, a4, a5, a6, a7, a8);
-      if (v42)
+      v11 = ParamSpecMgr::getParamByParamId(qword_281051F98, 19);
+      if (v11)
       {
-        v49 = **v42;
       }
 
-      EnumParamSpec::validateValue(v42, v9, v43, v44, v45, v46, v47, v48);
+      result = EnumParamSpec::validateValue(v11, a3);
       if (*(this + 9))
       {
-        v25 = "PrefiltererBuildWordBoundaryType";
+        v8 = "PrefiltererBuildWordBoundaryType";
 LABEL_29:
 
-        throwParamSetSetFailed(v25, "enum", v19, v20, v21, v22, v23, v24);
+        result = throwParamSetSetFailed(v8, "enum");
       }
 
       else
       {
-        *(this + 37) = v9;
+        *(this + 37) = a3;
       }
 
       break;
     default:
 
-      throwWrongParamIdValue(a2, "enum", a3, a4, a5, a6, a7, a8);
-      return;
+      return throwWrongParamIdValue(a2, "enum");
   }
+
+  return result;
 }
 
 void PrefiltererBuildParamSet::~PrefiltererBuildParamSet(PrefiltererBuildParamSet *this)
@@ -2467,11 +2453,11 @@ void PrefiltererBuildParamSet::~PrefiltererBuildParamSet(PrefiltererBuildParamSe
 
 {
   *this = &unk_287524C80;
-  v2 = (this + 104);
-  DgnString::~DgnString((this + 120));
+  v2 = this + 104;
+  DgnString::~DgnString(this + 120);
   DgnString::~DgnString(v2);
   *this = &unk_287528C00;
-  DgnString::~DgnString((this + 8));
+  DgnString::~DgnString(this + 8);
 }
 
 void MrecInitModule_wordlist_word(void)
@@ -2524,36 +2510,36 @@ void MrecInitModule_wordlist_word(void)
   }
 }
 
-uint64_t WordIdCollSearchCmp(unsigned int *a1, CharInfo **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t WordIdCollSearchCmp(unsigned int *a1, CharInfo **a2, double a3)
 {
-  v10 = a2[1];
-  v9 = a2[2];
-  v11 = *a2;
-  v12 = *(a2 + 26);
-  v13 = *(a2 + 12);
-  v14 = (*(v10 + 28) + *(*(v10 + 25) + 4 * *a1));
-  if (v12 == 1)
+  v5 = a2[1];
+  v4 = a2[2];
+  v6 = *a2;
+  v7 = *(a2 + 26);
+  v8 = *(a2 + 12);
+  v9 = (*(v5 + 28) + *(*(v5 + 25) + 4 * *a1));
+  if (v7 == 1)
   {
-    return CollMgr::collPrefixcmpUns8(v9, v13, v14, v11, a5, a6, a7, a8);
+    return CollMgr::collPrefixcmpUns8(v4, v8, v9, v6, a3);
   }
 
   else
   {
-    return CollMgr::collStrcmpUns8(v9, v13, v14, v11, a5, a6, a7, a8);
+    return CollMgr::collStrcmpUns8(v4, v8, v9, v6, a3);
   }
 }
 
-uint64_t WordIdCollSearchCmpFromWordId(unsigned int *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t WordIdCollSearchCmpFromWordId(unsigned int *a1, char *a2)
 {
-  v10 = *a2;
-  v11 = *(a2 + 12);
-  v20 = *(a2 + 8);
-  v12 = v20;
-  v13 = a2[26];
-  v19 = (*(v20 + 224) + *(*(v20 + 200) + 4 * v10));
-  v21 = v11;
-  v22 = v13;
-  result = WordIdCollSearchCmp(a1, &v19, a3, a4, a5, a6, a7, a8);
+  v4 = *a2;
+  v5 = *(a2 + 12);
+  v14 = *(a2 + 8);
+  v6 = v14;
+  v7 = a2[26];
+  v13 = (*(v14 + 224) + *(*(v14 + 200) + 4 * v4));
+  v15 = v5;
+  v16 = v7;
+  result = WordIdCollSearchCmp(a1, &v13, *&v14);
   if (!result)
   {
     if (a2[26])
@@ -2563,20 +2549,20 @@ uint64_t WordIdCollSearchCmpFromWordId(unsigned int *a1, char *a2, uint64_t a3, 
 
     else
     {
-      v15 = *a1;
-      v16 = *a2;
+      v9 = *a1;
+      v10 = *a2;
       if (*(a2 + 12) >= 0xFFFEu)
       {
-        return *(*(v12 + 104) + v15) - *(*(v12 + 104) + v16);
+        return *(*(v6 + 104) + v9) - *(*(v6 + 104) + v10);
       }
 
-      v17 = *(v12 + 256);
-      v18 = *(v17 + 4 * v15);
-      LODWORD(v17) = *(v17 + 4 * v16);
-      result = (v18 - v17);
-      if (v18 == v17)
+      v11 = *(v6 + 256);
+      v12 = *(v11 + 4 * v9);
+      LODWORD(v11) = *(v11 + 4 * v10);
+      result = (v12 - v11);
+      if (v12 == v11)
       {
-        return *(*(v12 + 104) + v15) - *(*(v12 + 104) + v16);
+        return *(*(v6 + 104) + v9) - *(*(v6 + 104) + v10);
       }
     }
   }
@@ -2663,14 +2649,14 @@ uint64_t TagBitsAndStrings::compact(TagBitsAndStrings *this)
     v14 = 0;
   }
 
-  DgnPrimArray<unsigned char>::copyArraySlice(this + 24, &v16, 0, v14);
+  DgnPrimArray<unsigned char>::copyArraySlice(this + 3, &v16, 0, v14);
   DgnPrimArray<unsigned char>::compact(this + 3);
   return DgnPrimArray<unsigned int>::~DgnPrimArray(&v16);
 }
 
-void sub_262733754(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_262733754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -2978,9 +2964,9 @@ LABEL_27:
   readObject<unsigned char>(a1, a2 + 24, a3);
 }
 
-void sub_262733D2C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_262733D2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HashNCHV<unsigned int,unsigned int,WordIdScope,unsigned int>::~HashNCHV(va);
   _Unwind_Resume(a1);
 }
@@ -3094,7 +3080,8 @@ void WordList::WordList(WordList *this, CollMgr *a2, const PronCollMgr *a3, cons
   *(this + 1) = a3;
   *(this + 2) = a4;
   v8 = MemChunkAlloc(0x110uLL, 0);
-  *(this + 3) = EnvMgr::EnvMgr(v8, 2u);
+  EnvMgr::EnvMgr(v8, 2);
+  *(this + 3) = v9;
   *(this + 16) = 0;
   *(this + 54) = 0;
   *(this + 57) = 0;
@@ -3105,10 +3092,10 @@ void WordList::WordList(WordList *this, CollMgr *a2, const PronCollMgr *a3, cons
   *(this + 47) = 0;
   *(this + 104) = 0;
   *(this + 420) = 0;
-  v9 = *this;
+  v10 = *this;
   *(this + 41) = WordIdCollSearchCmpFromWordId;
   *(this + 42) = this;
-  *(this + 43) = v9;
+  *(this + 43) = v10;
   *(this + 272) = 1;
   *(this + 274) = 131070;
 }
@@ -3122,13 +3109,13 @@ void sub_262734028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   BitArray::~BitArray((v16 + 560));
   DgnPrimArray<unsigned int>::~DgnPrimArray(v16 + 536);
   DgnPrimArray<unsigned int>::~DgnPrimArray(v16 + 520);
-  DgnString::~DgnString((v16 + 496));
-  DgnString::~DgnString((v16 + 480));
-  DgnString::~DgnString((v16 + 464));
+  DgnString::~DgnString(v16 + 496);
+  DgnString::~DgnString(v16 + 480);
+  DgnString::~DgnString(v16 + 464);
   DgnPrimArray<unsigned int>::~DgnPrimArray(v16 + 440);
   DgnPrimArray<unsigned int>::~DgnPrimArray(v22);
   DgnArray<DgnPrimArray<unsigned char>>::releaseAll(v16 + 400);
-  DgnString::~DgnString((v18 + 248));
+  DgnString::~DgnString(v18 + 248);
   DgnCollArray<unsigned int,ParamSetIdCollCmpWithTemp>::~DgnCollArray(v21);
   DgnPrimArray<unsigned int>::~DgnPrimArray(v20);
   DgnPrimArray<unsigned int>::~DgnPrimArray(v19);
@@ -3265,67 +3252,67 @@ uLong WordList::computeWordChecksums(uLong this)
   return this;
 }
 
-void WordList::loadTwl(WordList *this, DFile *a2)
+void WordList::loadTwl(WordList *this, FileSpec **a2)
 {
-  DgnTextFileParser::DgnTextFileParser(v386);
-  DgnTextFileParser::openDgnTextFileParser(v386, a2, 0x62u, 1);
-  DgnTextFileParser::verifyMatchingFileType(v386, "TextWordList");
-  v385[0] = 0;
-  v385[1] = 0;
-  DgnTextFile::legalDgnTextFileVersions(v386, sTWL_Versions, v385, v4, v5, v6, v7, v8);
-  DgnTextFileParser::verifyFileVersionInRange(v386, v385, v9, v10, v11, v12, v13, v14);
-  FileVersion = DgnTextFile::getFileVersion(v386);
-  *v384 = 0;
-  v383 = 0;
-  v381 = 0;
-  v382 = 0;
-  v379 = 0;
-  v380 = 0;
-  DgnTextFile::getHeaderFieldUnsigned(v386, "NumberOfWords", &v384[1], 1, 0, 0xF42400u);
-  DgnTextFile::getHeaderFieldUnsigned(v386, "NumberOfPronlessWords", v384, 1, 0, 0xF42400u);
-  DgnTextFile::getHeaderFieldUnsigned(v386, "NumberOfPronIds", &v383, 1, 0, 0xF42400u);
-  v378 = 0;
-  DgnTextFile::getHeaderFieldUnsigned(v386, "NumberOfFreePronIds", &v378, 1, 0, 0xF42400u);
-  v335 = v378 + v383;
-  if (v383 > 0xFFFFF2 || v378 > 0xFFFFF2 || v335 > 0xFFFFF2 || v384[1] > v383 || v384[0] > v384[1])
+  DgnTextFileParser::DgnTextFileParser(v219);
+  DgnTextFileParser::openDgnTextFileParser(v219, a2, 98, 1);
+  DgnTextFileParser::verifyMatchingFileType(v219, "TextWordList");
+  v218[0] = 0;
+  v218[1] = 0;
+  DgnTextFile::legalDgnTextFileVersions(v219, sTWL_Versions, v218);
+  DgnTextFileParser::verifyFileVersionInRange(v219, v218);
+  FileVersion = DgnTextFile::getFileVersion(v219);
+  *v217 = 0;
+  v216 = 0;
+  v214 = 0;
+  v215 = 0;
+  v212 = 0;
+  v213 = 0;
+  DgnTextFile::getHeaderFieldUnsigned(v219, "NumberOfWords", &v217[1], 1, 0, 0xF42400u);
+  DgnTextFile::getHeaderFieldUnsigned(v219, "NumberOfPronlessWords", v217, 1, 0, 0xF42400u);
+  DgnTextFile::getHeaderFieldUnsigned(v219, "NumberOfPronIds", &v216, 1, 0, 0xF42400u);
+  v211 = 0;
+  DgnTextFile::getHeaderFieldUnsigned(v219, "NumberOfFreePronIds", &v211, 1, 0, 0xF42400u);
+  v168 = (v211 + v216);
+  if (v216 > 0xFFFFF2 || v211 > 0xFFFFF2 || v168 > 0xFFFFF2 || v217[1] > v216 || v217[0] > v217[1])
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1050, "word/wordlist", 24, "%u %u %u %u", v16, v17, v383);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1050, "word/wordlist", 24, "%u %u %u %u", v216, v217[1], v217[0], v168);
   }
 
-  v377 = 0;
-  *v375 = 0;
-  *v376 = 0;
-  DgnTextFile::getHeaderFieldUnsigned(v386, "NumberOfPronPredecessorSeedCategories", &v377, 1, 1u, 0xFAu);
-  *(this + 98) = v377;
-  DgnTextFile::getHeaderFieldUnsigned(v386, "NumberOfPronSuccessorSeedCategories", &v376[1], 1, 1u, 0xFAu);
-  *(this + 99) = v376[1];
-  DgnTextFile::getHeaderFieldUnsigned(v386, "StartOfUtterancePredecessorSeedCategory", v375, 1, 0, v377);
-  *(this + 416) = v375[0];
-  DgnTextFile::getHeaderFieldUnsigned(v386, "EndOfUtteranceSuccessorSeedCategory", v375, 1, 0, v376[1]);
-  *(this + 417) = v375[0];
-  DgnTextFile::getHeaderFieldUnsigned(v386, "RootDeterminesPronPredecessorSeedCategory", v375, 1, 0, 1u);
-  *(this + 421) = v375[0] == 1;
-  DgnTextFile::getHeaderFieldUnsigned(v386, "RootDeterminesPronSuccessorSeedCategory", v375, 1, 0, 1u);
-  *(this + 422) = v375[0] == 1;
-  DgnTextFile::getHeaderFieldUnsigned(v386, "DefaultClientPronPredecessorSeedCategory", v376, 1, 0, v377 - 1);
-  *(this + 419) = v376[0];
-  DgnTextFile::getHeaderFieldUnsigned(v386, "DefaultClientPronSuccessorSeedCategory", &v375[1], 1, 0, v376[1] - 1);
-  *(this + 420) = v375[1];
-  v331 = FileVersion;
-  v332 = HIDWORD(FileVersion);
+  v210 = 0;
+  *v208 = 0;
+  *v209 = 0;
+  DgnTextFile::getHeaderFieldUnsigned(v219, "NumberOfPronPredecessorSeedCategories", &v210, 1, 1u, 0xFAu);
+  *(this + 98) = v210;
+  DgnTextFile::getHeaderFieldUnsigned(v219, "NumberOfPronSuccessorSeedCategories", &v209[1], 1, 1u, 0xFAu);
+  *(this + 99) = v209[1];
+  DgnTextFile::getHeaderFieldUnsigned(v219, "StartOfUtterancePredecessorSeedCategory", v208, 1, 0, v210);
+  *(this + 416) = v208[0];
+  DgnTextFile::getHeaderFieldUnsigned(v219, "EndOfUtteranceSuccessorSeedCategory", v208, 1, 0, v209[1]);
+  *(this + 417) = v208[0];
+  DgnTextFile::getHeaderFieldUnsigned(v219, "RootDeterminesPronPredecessorSeedCategory", v208, 1, 0, 1u);
+  *(this + 421) = v208[0] == 1;
+  DgnTextFile::getHeaderFieldUnsigned(v219, "RootDeterminesPronSuccessorSeedCategory", v208, 1, 0, 1u);
+  *(this + 422) = v208[0] == 1;
+  DgnTextFile::getHeaderFieldUnsigned(v219, "DefaultClientPronPredecessorSeedCategory", v209, 1, 0, v210 - 1);
+  *(this + 419) = v209[0];
+  DgnTextFile::getHeaderFieldUnsigned(v219, "DefaultClientPronSuccessorSeedCategory", &v208[1], 1, 0, v209[1] - 1);
+  *(this + 420) = v208[1];
+  v164 = FileVersion;
+  v165 = HIDWORD(FileVersion);
   if (FileVersion != 19)
   {
-    if (FileVersion != 20 || v332 - 18 <= 0xFFFFFFFFFFFFFFFDLL)
+    if (FileVersion != 20 || v165 - 18 <= 0xFFFFFFFFFFFFFFFDLL)
     {
       goto LABEL_13;
     }
 
 LABEL_12:
-    v373[0] = 0;
-    DgnTextFile::getHeaderFieldInteger(v386, "WordTagsVersion", v373, 1, -16000000, 16000000);
-    v18 = v373[0];
-    *(this + 114) = v373[0];
-    *(this + 115) = v18;
+    v206[0] = 0;
+    DgnTextFile::getHeaderFieldInteger(v219, "WordTagsVersion", v206, 1, -16000000, 16000000);
+    v5 = v206[0];
+    *(this + 114) = v206[0];
+    *(this + 115) = v5;
     goto LABEL_14;
   }
 
@@ -3335,1188 +3322,1260 @@ LABEL_12:
   }
 
 LABEL_13:
-  DgnTextFile::getHeaderFieldInteger(v386, "RequiredWordTagsVersion", this + 114, 1, -16000000, 16000000);
-  DgnTextFile::getHeaderFieldInteger(v386, "OptionalWordTagsVersion", this + 115, 1, -16000000, 16000000);
+  DgnTextFile::getHeaderFieldInteger(v219, "RequiredWordTagsVersion", this + 114, 1, -16000000, 16000000);
+  DgnTextFile::getHeaderFieldInteger(v219, "OptionalWordTagsVersion", this + 115, 1, -16000000, 16000000);
 LABEL_14:
-  DgnTextFile::getHeaderField(v386, "RequiredTags", (this + 464), 1);
-  splitTagsString(this + 116, &v381);
-  *(this + 138) = v382;
-  DgnTextFile::getHeaderField(v386, "OptionalTags", (this + 480), 1);
-  splitTagsString(this + 120, &v379);
-  if (v380)
+  DgnTextFile::getHeaderField(v219, "RequiredTags", (this + 464), 1);
+  splitTagsString(this + 116, &v214);
+  *(this + 138) = v215;
+  DgnTextFile::getHeaderField(v219, "OptionalTags", (this + 480), 1);
+  splitTagsString(this + 120, &v212);
+  if (v213)
   {
-    *(this + 129) = v380;
+    *(this + 129) = v213;
   }
 
-  DgnTextFile::getHeaderField(v386, "NewWordTag", (this + 496), 1);
-  v21 = *(this + 138);
-  if ((v21 != 0) == *(this + 126) < 2u)
+  DgnTextFile::getHeaderField(v219, "NewWordTag", (this + 496), 1);
+  v6 = *(this + 138);
+  if ((v6 != 0) == *(this + 126) < 2u)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1142, "word/wordlist", 58, "%s", v19, v20, &unk_26288C6A6);
-    v21 = *(this + 138);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1142, "word/wordlist", 58, "%s", &unk_26288C6A6);
+    v6 = *(this + 138);
   }
 
-  if (v21)
+  if (v6)
   {
-    tagStringToTagBits(this + 124, &v381, (this + 560));
+    tagStringToTagBits(this + 124, &v214, (this + 560));
   }
 
-  DgnString::DgnString(v373);
-  DgnTextFile::getHeaderField(v386, "AllowedCollations", v373, 1);
-  DgnTextFileParser::verifyNoUnknownHeaderFields(v386, v22, v23, v24, v25, v26, v27, v28);
-  WordList::setSizeForWordListLoad(this, v335, *(this + 98), *(this + 99));
-  v371 = 0;
-  v372 = 0;
-  DgnTextFile::getLineFieldNames(v386, &v371);
-  v370[0] = 0;
-  v370[1] = 0;
-  DgnTextFile::getLineFieldFormats(v386, v370);
-  if (!v372)
+  DgnString::DgnString(v206);
+  DgnTextFile::getHeaderField(v219, "AllowedCollations", v206, 1);
+  DgnTextFileParser::verifyNoUnknownHeaderFields(v219);
+  WordList::setSizeForWordListLoad(this, v168, *(this + 98), *(this + 99));
+  v204 = 0;
+  v205 = 0;
+  DgnTextFile::getLineFieldNames(v219, &v204);
+  v203[0] = 0;
+  v203[1] = 0;
+  DgnTextFile::getLineFieldFormats(v219, v203);
+  if (!v205)
   {
-    v342 = -1;
-    v343 = -1;
-    v340 = -1;
-    v341 = -1;
-    v338 = -1;
-    v339 = -1;
+    v175 = -1;
+    v176 = -1;
+    v173 = -1;
+    v174 = -1;
+    v171 = -1;
+    v172 = -1;
 LABEL_58:
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1237, "word/wordlist", 15, "%.500s", v29, v30, "Type");
-    v344 = -1;
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1237, "word/wordlist", 15, "%.500s", "Type");
+    v177 = -1;
     goto LABEL_59;
   }
 
-  v31 = 0;
-  v32 = 0;
-  v343 = -1;
-  v344 = -1;
-  v341 = -1;
-  v342 = -1;
-  v339 = -1;
-  v340 = -1;
-  v338 = -1;
+  v7 = 0;
+  v8 = 0;
+  v176 = -1;
+  v177 = -1;
+  v174 = -1;
+  v175 = -1;
+  v172 = -1;
+  v173 = -1;
+  v171 = -1;
   do
   {
-    v33 = *(v371 + v31);
-    if (*(v371 + v31 + 8))
+    if (*(v204 + v7 + 8))
     {
-      v34 = *(v371 + v31);
+      v9 = *(v204 + v7);
     }
 
     else
     {
-      v34 = &unk_26288C6A6;
+      v9 = &unk_26288C6A6;
     }
 
-    if (!strcmp(v34, "Type"))
+    if (!strcmp(v9, "Type"))
     {
-      if (*(v370[0] + 4 * v32))
+      if (*(v203[0] + 4 * v8))
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1182, "word/wordlist", 59, "%.500s %.500s", v29, v30, v34);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1182, "word/wordlist", 59, "%.500s %.500s", v9, "String");
       }
 
-      v344 = v32;
+      v177 = v8;
     }
 
-    else if (!strcmp(v34, "WordName"))
+    else if (!strcmp(v9, "WordName"))
     {
-      if (*(v370[0] + 4 * v32))
+      if (*(v203[0] + 4 * v8))
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1190, "word/wordlist", 59, "%.500s %.500s", v29, v30, v34);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1190, "word/wordlist", 59, "%.500s %.500s", v9, "String");
       }
 
-      v343 = v32;
+      v176 = v8;
     }
 
-    else if (!strcmp(v34, "UnsValue1"))
+    else if (!strcmp(v9, "UnsValue1"))
     {
-      if (*(v370[0] + 4 * v32) != 3)
+      if (*(v203[0] + 4 * v8) != 3)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1198, "word/wordlist", 59, "%.500s %.500s", v29, v30, v34);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1198, "word/wordlist", 59, "%.500s %.500s", v9, "Unsigned");
       }
 
-      v342 = v32;
+      v175 = v8;
     }
 
-    else if (!strcmp(v34, "UnsValue2"))
+    else if (!strcmp(v9, "UnsValue2"))
     {
-      if (*(v370[0] + 4 * v32) != 3)
+      if (*(v203[0] + 4 * v8) != 3)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1206, "word/wordlist", 59, "%.500s %.500s", v29, v30, v34);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1206, "word/wordlist", 59, "%.500s %.500s", v9, "Unsigned");
       }
 
-      v341 = v32;
+      v174 = v8;
     }
 
-    else if (!strcmp(v34, "UnsValue3"))
+    else if (!strcmp(v9, "UnsValue3"))
     {
-      if (*(v370[0] + 4 * v32) != 3)
+      if (*(v203[0] + 4 * v8) != 3)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1214, "word/wordlist", 59, "%.500s %.500s", v29, v30, v34);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1214, "word/wordlist", 59, "%.500s %.500s", v9, "Unsigned");
       }
 
-      v340 = v32;
+      v173 = v8;
     }
 
-    else if (!strcmp(v34, "StrValue1"))
+    else if (!strcmp(v9, "StrValue1"))
     {
-      if (*(v370[0] + 4 * v32))
+      if (*(v203[0] + 4 * v8))
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1222, "word/wordlist", 59, "%.500s %.500s", v29, v30, v34);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1222, "word/wordlist", 59, "%.500s %.500s", v9, "String");
       }
 
-      v339 = v32;
+      v172 = v8;
     }
 
-    else if (!strcmp(v34, "StrValue2"))
+    else if (!strcmp(v9, "StrValue2"))
     {
-      if (*(v370[0] + 4 * v32))
+      if (*(v203[0] + 4 * v8))
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1230, "word/wordlist", 59, "%.500s %.500s", v29, v30, v34);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1230, "word/wordlist", 59, "%.500s %.500s", v9, "String");
       }
 
-      v338 = v32;
+      v171 = v8;
     }
 
     else
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1235, "word/wordlist", 12, "%.500s %u %u", v29, v30, v34);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1235, "word/wordlist", 12, "%.500s %u %u", v9, v164, v165);
     }
 
-    ++v32;
-    v31 += 16;
+    ++v8;
+    v7 += 16;
   }
 
-  while (v32 < v372);
-  if (v344 == -1)
+  while (v8 < v205);
+  if (v177 == -1)
   {
     goto LABEL_58;
   }
 
 LABEL_59:
-  if (v343 == -1)
+  if (v176 == -1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1238, "word/wordlist", 15, "%.500s", v29, v30, "WordName");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1238, "word/wordlist", 15, "%.500s", "WordName");
   }
 
-  if (v342 == -1)
+  if (v175 == -1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1239, "word/wordlist", 15, "%.500s", v29, v30, "UnsValue1");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1239, "word/wordlist", 15, "%.500s", "UnsValue1");
   }
 
-  if (v341 == -1)
+  if (v174 == -1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1240, "word/wordlist", 15, "%.500s", v29, v30, "UnsValue2");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1240, "word/wordlist", 15, "%.500s", "UnsValue2");
   }
 
-  if (v340 == -1)
+  if (v173 == -1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1241, "word/wordlist", 15, "%.500s", v29, v30, "UnsValue3");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1241, "word/wordlist", 15, "%.500s", "UnsValue3");
   }
 
-  if (v339 == -1)
+  if (v172 == -1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1242, "word/wordlist", 15, "%.500s", v29, v30, "StrValue1");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1242, "word/wordlist", 15, "%.500s", "StrValue1");
   }
 
-  if (v338 == -1)
+  if (v171 == -1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1243, "word/wordlist", 15, "%.500s", v29, v30, "StrValue2");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1243, "word/wordlist", 15, "%.500s", "StrValue2");
   }
 
-  v345 = this;
-  if (!DgnTextFileParser::parseNextLine(v386))
+  v178 = this;
+  if (!DgnTextFileParser::parseNextLine(v219))
   {
-    goto LABEL_281;
+    goto LABEL_300;
   }
 
-  LineFieldString = DgnTextFileParser::getLineFieldString(v386, v344);
-  if ((DgnTextFileParser::atEof(v386) & 1) != 0 || strcmp(LineFieldString, "SeedTable"))
+  LineFieldString = DgnTextFileParser::getLineFieldString(v219, v177);
+  if ((DgnTextFileParser::atEof(v219) & 1) != 0 || strcmp(LineFieldString, "SeedTable"))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1251, "word/wordlist", 43, "%u %.500s", v36, v37, v387);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1251, "word/wordlist", 43, "%u %.500s", v221, "SeedTable");
   }
 
-  v38 = this;
-  v39 = *(this + 98);
-  v40 = *(v38 + 103);
-  if (v39 > v40)
+  v11 = this;
+  v12 = *(this + 98);
+  v13 = *(v11 + 103);
+  if (v12 > v13)
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(v345 + 400, v39 - v40, 0);
+    DgnArray<DgnPrimArray<double>>::reallocElts(v178 + 400, v12 - v13, 0);
   }
 
-  v41 = *(v345 + 102);
-  if (v41 <= v39)
+  v14 = *(v178 + 102);
+  if (v14 <= v12)
   {
-    v42 = v345;
-    if (v41 < v39)
+    v15 = v178;
+    if (v14 < v12)
     {
-      v45 = v39 - v41;
-      v46 = 16 * v41;
+      v18 = v12 - v14;
+      v19 = 16 * v14;
       do
       {
-        v47 = (*(v345 + 50) + v46);
-        *v47 = 0;
-        v47[1] = 0;
-        v46 += 16;
-        --v45;
+        v20 = (*(v178 + 50) + v19);
+        *v20 = 0;
+        v20[1] = 0;
+        v19 += 16;
+        --v18;
       }
 
-      while (v45);
+      while (v18);
     }
   }
 
   else
   {
-    v42 = v345;
-    if (v41 > v39)
+    v15 = v178;
+    if (v14 > v12)
     {
-      v43 = v41;
-      v44 = 16 * v41 - 16;
+      v16 = v14;
+      v17 = 16 * v14 - 16;
       do
       {
-        --v43;
-        DgnPrimArray<unsigned int>::~DgnPrimArray(*(v345 + 50) + v44);
-        v44 -= 16;
+        --v16;
+        DgnPrimArray<unsigned int>::~DgnPrimArray(*(v178 + 50) + v17);
+        v17 -= 16;
       }
 
-      while (v43 > v39);
+      while (v16 > v12);
     }
   }
 
-  *(v42 + 102) = v39;
-  v48 = *(v42 + 98);
-  if (!v48)
+  *(v15 + 102) = v12;
+  v21 = *(v15 + 98);
+  if (!v21)
   {
     goto LABEL_113;
   }
 
-  v49 = 0;
-  for (i = 0; i < v48; ++i)
+  v22 = 0;
+  for (i = 0; i < v21; ++i)
   {
-    v51 = *(v345 + 50) + v49;
-    v52 = *(v345 + 99);
-    if (*(v51 + 12) < v52)
+    v24 = *(v178 + 50) + v22;
+    v25 = *(v178 + 99);
+    if (*(v24 + 12) < v25)
     {
-      v368 = 0;
-      *(v51 + 12) = realloc_array(*v51, &v368, v52, *(v51 + 8), *(v51 + 8), 1);
-      *v51 = v368;
-      v48 = *(v345 + 98);
+      v201 = 0;
+      *(v24 + 12) = realloc_array(*v24, &v201, v25, *(v24 + 8), *(v24 + 8), 1);
+      *v24 = v201;
+      v21 = *(v178 + 98);
     }
 
-    *(v51 + 8) = v52;
-    v49 += 16;
+    *(v24 + 8) = v25;
+    v22 += 16;
   }
 
-  if (!v48)
+  if (!v21)
   {
 LABEL_113:
-    v54 = 0;
+    v27 = 0;
 LABEL_114:
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1289, "word/wordlist", 60, "%s", v36, v37, &errStr_word_wordlist_E_SEED_TABLE_NOSEED);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1289, "word/wordlist", 60, "%s", &errStr_word_wordlist_E_SEED_TABLE_NOSEED);
     goto LABEL_115;
   }
 
-  v53 = 0;
-  v54 = 0;
-  v55 = 0;
-  v56 = *(v345 + 99);
+  v26 = 0;
+  v27 = 0;
+  v28 = 0;
+  v29 = *(v178 + 99);
   do
   {
-    if (v56)
+    if (v29)
     {
-      for (j = 0; j < v56; ++j)
+      for (j = 0; j < v29; ++j)
       {
-        v58 = DgnTextFileParser::getLineFieldString(v386, v344);
-        if (strcmp(v58, "SeedTable"))
+        v31 = DgnTextFileParser::getLineFieldString(v219, v177);
+        if (strcmp(v31, "SeedTable"))
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1266, "word/wordlist", 61, "%s", v59, v60, &errStr_word_wordlist_E_INCOMPLETE_SEEDTABLE);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1266, "word/wordlist", 61, "%s", &errStr_word_wordlist_E_INCOMPLETE_SEEDTABLE);
         }
 
-        DgnString::DgnString(&v368);
-        DgnString::DgnString(&v366);
-        DgnString::DgnString(&v364);
-        DgnString::DgnString(&v362);
-        v61 = DgnTextFileParser::getLineFieldString(v386, v344);
-        DgnString::operator=(&v368, v61);
-        v62 = DgnTextFileParser::getLineFieldString(v386, v343);
-        DgnString::operator=(&v366, v62);
-        LineFieldUnsigned = DgnTextFileParser::getLineFieldUnsigned(v386, v342, v63, v64, v65, v66, v67, v68);
-        v76 = DgnTextFileParser::getLineFieldUnsigned(v386, v341, v70, v71, v72, v73, v74, v75);
-        v83 = DgnTextFileParser::getLineFieldUnsigned(v386, v340, v77, v78, v79, v80, v81, v82);
-        v84 = DgnTextFileParser::getLineFieldString(v386, v339);
-        DgnString::operator=(&v364, v84);
-        v85 = DgnTextFileParser::getLineFieldString(v386, v338);
-        DgnString::operator=(&v362, v85);
-        v88 = v387;
-        if (v367 >= 2)
+        DgnString::DgnString(&v201);
+        DgnString::DgnString(&v199);
+        DgnString::DgnString(&v197);
+        DgnString::DgnString(&v195);
+        v32 = DgnTextFileParser::getLineFieldString(v219, v177);
+        DgnString::operator=(&v201, v32);
+        v33 = DgnTextFileParser::getLineFieldString(v219, v176);
+        DgnString::operator=(&v199, v33);
+        LineFieldUnsigned = DgnTextFileParser::getLineFieldUnsigned(v219, v175);
+        v35 = DgnTextFileParser::getLineFieldUnsigned(v219, v174);
+        v36 = DgnTextFileParser::getLineFieldUnsigned(v219, v173);
+        v37 = DgnTextFileParser::getLineFieldString(v219, v172);
+        DgnString::operator=(&v197, v37);
+        v38 = DgnTextFileParser::getLineFieldString(v219, v171);
+        DgnString::operator=(&v195, v38);
+        v39 = v221;
+        if (v200 >= 2)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1270, "word/wordlist", 44, "%u", v86, v87, v387);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1270, "word/wordlist", 44, "%u", v221);
         }
 
-        if (LineFieldUnsigned != v55)
+        if (LineFieldUnsigned != v28)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1272, "word/wordlist", 62, "%u", v86, v87, v88);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1272, "word/wordlist", 62, "%u", v39);
         }
 
-        if (j != v76)
+        if (j != v35)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1274, "word/wordlist", 63, "%u", v86, v87, v88);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1274, "word/wordlist", 63, "%u", v39);
         }
 
-        if (v83 >= 2)
+        if (v36 >= 2)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1276, "word/wordlist", 48, "%u", v86, v87, v88);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1276, "word/wordlist", 48, "%u", v39);
         }
 
-        if (v365 >= 2)
+        if (v198 >= 2)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1278, "word/wordlist", 49, "%u", v86, v87, v88);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1278, "word/wordlist", 49, "%u", v39);
         }
 
-        if (v363 >= 2)
+        if (v196 >= 2)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1280, "word/wordlist", 50, "%u", v86, v87, v88);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1280, "word/wordlist", 50, "%u", v39);
         }
 
-        *(*(*(v345 + 50) + 16 * LineFieldUnsigned) + v76) = v83 == 1;
-        DgnTextFileParser::parseNextLine(v386);
-        v54 |= v83 == 0;
-        v53 |= v83 == 1;
-        DgnString::~DgnString(&v362);
-        DgnString::~DgnString(&v364);
-        DgnString::~DgnString(&v366);
-        DgnString::~DgnString(&v368);
-        v56 = *(v345 + 99);
+        *(*(*(v178 + 50) + 16 * LineFieldUnsigned) + v35) = v36 == 1;
+        DgnTextFileParser::parseNextLine(v219);
+        v27 |= v36 == 0;
+        v26 |= v36 == 1;
+        DgnString::~DgnString(&v195);
+        DgnString::~DgnString(&v197);
+        DgnString::~DgnString(&v199);
+        DgnString::~DgnString(&v201);
+        v29 = *(v178 + 99);
       }
 
-      v48 = *(v345 + 98);
+      v21 = *(v178 + 98);
     }
 
-    ++v55;
+    ++v28;
   }
 
-  while (v55 < v48);
-  if ((v53 & 1) == 0)
+  while (v28 < v21);
+  if ((v26 & 1) == 0)
   {
     goto LABEL_114;
   }
 
 LABEL_115:
-  *(v345 + 418) = v54 & 1;
-  DgnString::DgnString(&v368);
-  if ((DgnTextFileParser::atEof(v386) & 1) == 0)
+  *(v178 + 418) = v27 & 1;
+  DgnString::DgnString(&v201);
+  if ((DgnTextFileParser::atEof(v219) & 1) == 0)
   {
-    v91 = 0;
-    v334 = 0;
-    v333 = 0;
-    v336 = 0xFFFFFF;
-    v92 = "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp";
-    v93 = 1;
+    v40 = 0;
+    v167 = 0;
+    v166 = 0;
+    v169 = 0xFFFFFF;
+    v41 = "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp";
+    v42 = 1;
     while (1)
     {
-      DgnString::DgnString(&v366);
-      DgnString::DgnString(&v364);
-      DgnString::DgnString(&v362);
-      DgnString::DgnString(&v360);
-      v94 = DgnTextFileParser::getLineFieldString(v386, v344);
-      DgnString::operator=(&v366, v94);
-      v95 = DgnTextFileParser::getLineFieldString(v386, v343);
-      DgnString::operator=(&v364, v95);
-      v102 = DgnTextFileParser::getLineFieldUnsigned(v386, v342, v96, v97, v98, v99, v100, v101);
-      v109 = DgnTextFileParser::getLineFieldUnsigned(v386, v341, v103, v104, v105, v106, v107, v108);
-      v116 = DgnTextFileParser::getLineFieldUnsigned(v386, v340, v110, v111, v112, v113, v114, v115);
-      v117 = DgnTextFileParser::getLineFieldString(v386, v339);
-      DgnString::operator=(&v362, v117);
-      v118 = DgnTextFileParser::getLineFieldString(v386, v338);
-      DgnString::operator=(&v360, v118);
-      v121 = v387;
-      if (v109 >= *(v345 + 98))
+      DgnString::DgnString(&v199);
+      DgnString::DgnString(&v197);
+      DgnString::DgnString(&v195);
+      DgnString::DgnString(&v193);
+      v43 = DgnTextFileParser::getLineFieldString(v219, v177);
+      DgnString::operator=(&v199, v43);
+      v44 = DgnTextFileParser::getLineFieldString(v219, v176);
+      DgnString::operator=(&v197, v44);
+      v45 = DgnTextFileParser::getLineFieldUnsigned(v219, v175);
+      v46 = DgnTextFileParser::getLineFieldUnsigned(v219, v174);
+      v47 = DgnTextFileParser::getLineFieldUnsigned(v219, v173);
+      v48 = DgnTextFileParser::getLineFieldString(v219, v172);
+      DgnString::operator=(&v195, v48);
+      v49 = DgnTextFileParser::getLineFieldString(v219, v171);
+      DgnString::operator=(&v193, v49);
+      v50 = v221;
+      v51 = *(v178 + 98);
+      if (v46 >= v51)
       {
-        errThrowInternal(0, v92, 1310, "word/wordlist", 64, "%u %u", v119, v120, v109);
+        errThrowInternal(0, v41, 1310, "word/wordlist", 64, "%u %u", v46, v51);
       }
 
-      if (v116 >= *(v345 + 99))
+      v52 = *(v178 + 99);
+      if (v47 >= v52)
       {
-        errThrowInternal(0, v92, 1313, "word/wordlist", 65, "%u %u", v119, v120, v109);
+        errThrowInternal(0, v41, 1313, "word/wordlist", 65, "%u %u", v46, v52);
       }
 
-      v122 = v363;
-      v123 = v362;
-      v124 = &unk_26288C6A6;
-      if (v363)
+      v53 = v196;
+      v54 = v195;
+      v55 = &unk_26288C6A6;
+      if (v196)
       {
-        v124 = v362;
+        v55 = v195;
       }
 
-      v125 = *v124;
-      if (v125 != 85 && v125 != 70 || v124[1])
+      v56 = *v55;
+      if (v56 != 85 && v56 != 70 || v55[1])
       {
-        errThrowInternal(0, v92, 1320, "word/wordlist", 66, "%u %.500s", v119, v120, v121);
-        v122 = v363;
-        v123 = v362;
+        errThrowInternal(0, v41, 1320, "word/wordlist", 66, "%u %.500s", v50, v55);
+        v53 = v196;
+        v54 = v195;
       }
 
-      v126 = v122 == 0;
-      v127 = &unk_26288C6A6;
-      if (!v126)
+      v57 = v53 == 0;
+      v58 = &unk_26288C6A6;
+      if (!v57)
       {
-        v127 = v123;
+        v58 = v54;
       }
 
-      v337 = *v127 == 70 && v127[1] == 0;
-      if (v365 <= 1)
+      v170 = *v58 == 70 && v58[1] == 0;
+      if (v198 <= 1)
       {
-        errThrowInternal(0, v92, 1331, "word/wordlist", 55, "%d", v119, v120, v121);
+        errThrowInternal(0, v41, 1331, "word/wordlist", 55, "%d", v50);
       }
 
-      if (v102 >= v335)
+      if (v45 >= v168)
       {
-        errThrowInternal(0, v92, 1336, "word/wordlist", 5, "%d %.500s %u", v119, v120, v121);
-      }
-
-      if (*(v345 + 97) > v102 && *(*(v345 + 13) + v102))
-      {
-        errThrowInternal(0, v92, 1341, "word/wordlist", 25, "%d %.500s %u", v119, v120, v121);
-      }
-
-      DgnString::DgnString(&v358, &v360);
-      v128 = v92;
-      v356 = 0;
-      v357 = 0;
-      if (v359)
-      {
-        v129 = v358;
-      }
-
-      else
-      {
-        v129 = &unk_26288C6A6;
-      }
-
-      WordList::strToPhonemes(v345, v129, &v356);
-      WordList::checkNewTwlWordBoundaryPhonemes(v345, &v356, v121, &v364, &v358, v130, v131, v132);
-      if (v357 >= 0x4000)
-      {
-        errThrowInternal(0, v92, 1355, "word/wordlist", 7, "%d %.500s %d", v133, v134, v121);
-      }
-
-      if (v365)
-      {
-        v135 = v364;
-      }
-
-      else
-      {
-        v135 = &unk_26288C6A6;
-      }
-
-      if (v369)
-      {
-        v136 = v368;
-      }
-
-      else
-      {
-        v136 = &unk_26288C6A6;
-      }
-
-      if (!strcmp(v135, v136))
-      {
-        if (++v93 >= 0xFF)
+        v59 = &unk_26288C6A6;
+        if (v198)
         {
-          errThrowInternal(0, v128, 1379, "word/wordlist", 32, "%d %.500s %d", v137, v138, v121);
+          v59 = v197;
         }
 
-        v139 = v357;
-        if (!v333 && v357 != 0)
+        errThrowInternal(0, v41, 1336, "word/wordlist", 5, "%d %.500s %u", v50, v59, v45);
+      }
+
+      if (*(v178 + 97) > v45 && *(*(v178 + 13) + v45))
+      {
+        v60 = &unk_26288C6A6;
+        if (v198)
         {
-          v333 = 0;
-          v92 = v128;
-          goto LABEL_163;
+          v60 = v197;
         }
 
-        errThrowInternal(0, v128, 1382, "word/wordlist", 17, "%d %.500s", v137, v138, v121);
-        v139 = v357;
+        errThrowInternal(0, v41, 1341, "word/wordlist", 25, "%d %.500s %u", v50, v60, v45);
+      }
+
+      DgnString::DgnString(&v191, &v193);
+      v61 = v41;
+      v189 = 0;
+      v190 = 0;
+      if (v192)
+      {
+        v62 = v191;
       }
 
       else
       {
-        DgnString::operator=(&v368, &v364);
-        v139 = v357;
-        v333 = v357 == 0;
-        if (v357)
+        v62 = &unk_26288C6A6;
+      }
+
+      WordList::strToPhonemes(v178, v62, &v189);
+      WordList::checkNewTwlWordBoundaryPhonemes(v178, &v189, v50, &v197, &v191);
+      if (v190 >= 0x4000)
+      {
+        v63 = &unk_26288C6A6;
+        if (v198)
         {
-          v140 = v334;
+          v63 = v197;
         }
 
-        else
-        {
-          v140 = v334 + 1;
-        }
-
-        v334 = v140;
-        v93 = 1;
-        v336 = v102;
+        errThrowInternal(0, v41, 1355, "word/wordlist", 7, "%d %.500s %d", v50, v63, v190);
       }
 
-      v92 = v128;
-      if (!v139)
+      if (v198)
       {
-        goto LABEL_169;
-      }
-
-LABEL_163:
-      if (*v356)
-      {
-        v141 = v139 - 1;
-        if (!v356[v141] && v141)
-        {
-LABEL_168:
-          errThrowInternal(0, v92, 1394, "word/wordlist", 37, "%u", v137, v138, v102);
-        }
-      }
-
-      else if (v139 != 1)
-      {
-        goto LABEL_168;
-      }
-
-LABEL_169:
-      if (v93 == 1)
-      {
-        v142 = 0xFFFFFFFFLL;
-        v143 = v336;
+        v64 = v197;
       }
 
       else
       {
-        v143 = v336;
-        v142 = *(*(v345 + 25) + 4 * v336);
+        v64 = &unk_26288C6A6;
       }
 
-      if (v365)
+      if (v202)
       {
-        v144 = v364;
-      }
-
-      else
-      {
-        v144 = &unk_26288C6A6;
-      }
-
-      v145 = WordList::addWordInternal(v345, 0, v102, v143, v142, v144, v93, &v356, 0, 0);
-      WordList::setPronPredecessorSeedCategory(v345, v145, v109, v146, v147, v148, v149, v150);
-      WordList::setPronSuccessorSeedCategory(v345, v145, v116, v151, v152, v153, v154, v155);
-      v156 = 1 << v145;
-      v157 = *(v345 + 80);
-      if (v337)
-      {
-        v158 = *(v157 + 4 * (v145 >> 5)) | v156;
+        v65 = v201;
       }
 
       else
       {
-        v158 = *(v157 + 4 * (v145 >> 5)) & ~v156;
+        v65 = &unk_26288C6A6;
       }
 
-      *(v157 + 4 * (v145 >> 5)) = v158;
-      if (DgnTextFileParser::parseNextLine(v386))
+      if (!strcmp(v64, v65))
       {
-        v159 = DgnTextFileParser::getLineFieldString(v386, v344);
-        DgnString::DgnString(&v354, v159);
-        if (v355)
+        if (++v42 >= 0xFF)
         {
-          v160 = v354;
+          errThrowInternal(0, v61, 1379, "word/wordlist", 32, "%d %.500s %d", v50, v64, 254);
+        }
+
+        v66 = v190;
+        if (!v166 && v190 != 0)
+        {
+          v166 = 0;
+          v41 = v61;
+          goto LABEL_171;
+        }
+
+        v68 = &unk_26288C6A6;
+        if (v198)
+        {
+          v68 = v197;
+        }
+
+        errThrowInternal(0, v61, 1382, "word/wordlist", 17, "%d %.500s", v50, v68);
+        v66 = v190;
+      }
+
+      else
+      {
+        DgnString::operator=(&v201, &v197);
+        v66 = v190;
+        v166 = v190 == 0;
+        if (v190)
+        {
+          v67 = v167;
         }
 
         else
         {
-          v160 = &unk_26288C6A6;
+          v67 = v167 + 1;
         }
 
-        v161 = strcmp(v160, "Pron") != 0;
-        DgnString::~DgnString(&v354);
+        v167 = v67;
+        v42 = 1;
+        v169 = v45;
+      }
+
+      v41 = v61;
+      if (!v66)
+      {
+        goto LABEL_177;
+      }
+
+LABEL_171:
+      if (*v189)
+      {
+        v69 = v66 - 1;
+        if (!v189[v69] && v69)
+        {
+LABEL_176:
+          errThrowInternal(0, v41, 1394, "word/wordlist", 37, "%u", v45);
+        }
+      }
+
+      else if (v66 != 1)
+      {
+        goto LABEL_176;
+      }
+
+LABEL_177:
+      if (v42 == 1)
+      {
+        v70 = -1;
+        v71 = v169;
       }
 
       else
       {
-        v161 = 1;
+        v71 = v169;
+        v70 = *(*(v178 + 25) + 4 * v169);
       }
 
-      DgnPrimArray<unsigned int>::~DgnPrimArray(&v356);
-      DgnString::~DgnString(&v358);
-      DgnString::~DgnString(&v360);
-      DgnString::~DgnString(&v362);
-      DgnString::~DgnString(&v364);
-      DgnString::~DgnString(&v366);
-      ++v91;
-      if (v161)
+      if (v198)
       {
-        goto LABEL_185;
+        v72 = v197;
+      }
+
+      else
+      {
+        v72 = &unk_26288C6A6;
+      }
+
+      v73 = WordList::addWordInternal(v178, 0, v45, v71, v70, v72, v42, &v189, 0, 0);
+      WordList::setPronPredecessorSeedCategory(v178, v73, v46);
+      WordList::setPronSuccessorSeedCategory(v178, v73, v47);
+      v74 = 1 << v73;
+      v75 = *(v178 + 80);
+      if (v170)
+      {
+        v76 = *(v75 + 4 * (v73 >> 5)) | v74;
+      }
+
+      else
+      {
+        v76 = *(v75 + 4 * (v73 >> 5)) & ~v74;
+      }
+
+      *(v75 + 4 * (v73 >> 5)) = v76;
+      if (DgnTextFileParser::parseNextLine(v219))
+      {
+        v77 = DgnTextFileParser::getLineFieldString(v219, v177);
+        DgnString::DgnString(&v187, v77);
+        if (v188)
+        {
+          v78 = v187;
+        }
+
+        else
+        {
+          v78 = &unk_26288C6A6;
+        }
+
+        v79 = strcmp(v78, "Pron") != 0;
+        DgnString::~DgnString(&v187);
+      }
+
+      else
+      {
+        v79 = 1;
+      }
+
+      DgnPrimArray<unsigned int>::~DgnPrimArray(&v189);
+      DgnString::~DgnString(&v191);
+      DgnString::~DgnString(&v193);
+      DgnString::~DgnString(&v195);
+      DgnString::~DgnString(&v197);
+      DgnString::~DgnString(&v199);
+      ++v40;
+      if (v79)
+      {
+        goto LABEL_193;
       }
     }
   }
 
-  v334 = 0;
-  v91 = 0;
-LABEL_185:
-  v162 = v345;
-  if (v91 != v383)
+  v167 = 0;
+  v40 = 0;
+LABEL_193:
+  v80 = v178;
+  if (v40 != v216)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1429, "word/wordlist", 1, "%d %d", v89, v90, v383);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1429, "word/wordlist", 1, "%d %d", v216, v40);
   }
 
-  if (v331 == 19)
+  if (v164 == 19)
   {
-    if (v332 == 15)
+    if (v165 == 15)
     {
-      goto LABEL_194;
+      goto LABEL_202;
     }
   }
 
-  else if (v331 == 20 && v332 == 16)
+  else if (v164 == 20 && v165 == 16)
   {
-    goto LABEL_194;
+    goto LABEL_202;
   }
 
-  if (v334 != v384[0])
+  if (v167 != v217[0])
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1434, "word/wordlist", 29, "%u %u", v89, v90, v384[0]);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1434, "word/wordlist", 29, "%u %u", v217[0], v167);
   }
 
-LABEL_194:
-  WordList::setupWordIdsForWordListLoad(v345);
-  BitArray::BitArray(&v366, *(v345 + 97));
-  DgnString::DgnString(&v364);
-  if (DgnTextFileParser::atEof(v386))
+LABEL_202:
+  WordList::setupWordIdsForWordListLoad(v178);
+  BitArray::BitArray(&v199, *(v178 + 97));
+  DgnString::DgnString(&v197);
+  if (DgnTextFileParser::atEof(v219))
   {
-    goto LABEL_229;
+    goto LABEL_243;
   }
 
   while (1)
   {
-    DgnString::DgnString(&v362);
-    DgnString::DgnString(&v360);
-    DgnString::DgnString(&v358);
-    DgnString::DgnString(&v356);
-    v165 = DgnTextFileParser::getLineFieldString(v386, v344);
-    DgnString::operator=(&v362, v165);
-    v166 = DgnTextFileParser::getLineFieldString(v386, v343);
-    DgnString::operator=(&v360, v166);
-    v173 = DgnTextFileParser::getLineFieldUnsigned(v386, v342, v167, v168, v169, v170, v171, v172);
-    v180 = DgnTextFileParser::getLineFieldUnsigned(v386, v341, v174, v175, v176, v177, v178, v179);
-    v187 = DgnTextFileParser::getLineFieldUnsigned(v386, v340, v181, v182, v183, v184, v185, v186);
-    v188 = DgnTextFileParser::getLineFieldString(v386, v339);
-    DgnString::operator=(&v358, v188);
-    v189 = DgnTextFileParser::getLineFieldString(v386, v338);
-    DgnString::operator=(&v356, v189);
-    if (v180)
+    DgnString::DgnString(&v195);
+    DgnString::DgnString(&v193);
+    DgnString::DgnString(&v191);
+    DgnString::DgnString(&v189);
+    v81 = DgnTextFileParser::getLineFieldString(v219, v177);
+    DgnString::operator=(&v195, v81);
+    v82 = DgnTextFileParser::getLineFieldString(v219, v176);
+    DgnString::operator=(&v193, v82);
+    v83 = DgnTextFileParser::getLineFieldUnsigned(v219, v175);
+    v84 = DgnTextFileParser::getLineFieldUnsigned(v219, v174);
+    v85 = DgnTextFileParser::getLineFieldUnsigned(v219, v173);
+    v86 = DgnTextFileParser::getLineFieldString(v219, v172);
+    DgnString::operator=(&v191, v86);
+    v87 = DgnTextFileParser::getLineFieldString(v219, v171);
+    DgnString::operator=(&v189, v87);
+    if (v84)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1443, "word/wordlist", 46, "%u", v190, v191, v387);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1443, "word/wordlist", 46, "%u", v221);
     }
 
-    if (v187)
+    if (v85)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1445, "word/wordlist", 47, "%u", v190, v191, v387);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1445, "word/wordlist", 47, "%u", v221);
     }
 
-    v192 = v387;
-    if (v361 > 1 || (errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1449, "word/wordlist", 55, "%d", v190, v191, v387), v361))
+    v88 = v221;
+    if (v194 > 1 || (errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1449, "word/wordlist", 55, "%d", v221), v194))
     {
-      v193 = v360;
+      v89 = v193;
     }
 
     else
     {
-      v193 = &unk_26288C6A6;
+      v89 = &unk_26288C6A6;
     }
 
-    v196 = WordList::lookupWord(v345, v193);
-    if (v196 == 0xFFFFFF)
+    v90 = WordList::lookupWord(v178, v89);
+    if (v90 == 0xFFFFFF)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1452, "word/wordlist", 52, "%d %.500s", v194, v195, v192);
-    }
-
-    v197 = v366;
-    v198 = v196 >> 5;
-    v199 = *(v366 + 4 * (v196 >> 5));
-    v200 = 1 << v196;
-    if ((v199 & (1 << v196)) != 0)
-    {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1454, "word/wordlist", 53, "%d %.500s %.500s", v194, v195, v192);
-      v197 = v366;
-      v199 = *(v366 + 4 * v198);
-    }
-
-    *(v197 + 4 * v198) = v199 | v200;
-    if (v173)
-    {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1458, "word/wordlist", 45, "%u", v194, v195, v192);
-    }
-
-    v201 = &unk_26288C6A6;
-    if (v359)
-    {
-      v201 = v358;
-    }
-
-    v202 = *v201;
-    if (v202 != 85)
-    {
-      if (v202 == 70 && !v201[1])
+      v91 = &unk_26288C6A6;
+      if (v194)
       {
-        v203 = *(v345 + 78);
-        v204 = *(v203 + 4 * v198) | v200;
-        goto LABEL_217;
+        v91 = v193;
       }
 
-LABEL_215:
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1467, "word/wordlist", 67, "%u %.500s", v194, v195, v192);
-      goto LABEL_216;
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1452, "word/wordlist", 52, "%d %.500s", v88, v91);
     }
 
-    if (v201[1])
+    v92 = v199;
+    v93 = v90 >> 5;
+    v94 = *(v199 + 4 * (v90 >> 5));
+    v95 = 1 << v90;
+    if ((v94 & (1 << v90)) != 0)
     {
-      goto LABEL_215;
+      v96 = &unk_26288C6A6;
+      if (v194)
+      {
+        v96 = v193;
+      }
+
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1454, "word/wordlist", 53, "%d %.500s %.500s", v88, "ReqTags", v96);
+      v92 = v199;
+      v94 = *(v199 + 4 * v93);
     }
 
-LABEL_216:
-    v203 = *(v345 + 78);
-    v204 = *(v203 + 4 * v198) & ~v200;
-LABEL_217:
-    *(v203 + 4 * v198) = v204;
-    DgnString::DgnString(&v354, &v356);
-    v207 = *(v345 + 138);
-    if ((v207 != 0) == v355 < 2)
+    *(v92 + 4 * v93) = v94 | v95;
+    if (v83)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1474, "word/wordlist", 21, "%d %.500s", v205, v206, v192);
-      v207 = *(v345 + 138);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1458, "word/wordlist", 45, "%u", v88);
     }
 
-    v162 = v345;
-    if (v207)
+    v97 = &unk_26288C6A6;
+    if (v192)
     {
-      tagStringToTagBits(&v354, &v381, &v364);
-      BitArray::setBitsInRange(v345 + 72, &v364, *(v345 + 138) * v196, *(v345 + 138) * v196 + *(v345 + 138));
+      v97 = v191;
     }
 
-    if (!DgnTextFileParser::parseNextLine(v386))
+    v98 = *v97;
+    if (v98 != 85)
+    {
+      if (v98 == 70 && !v97[1])
+      {
+        v99 = *(v178 + 78);
+        v100 = *(v99 + 4 * v93) | v95;
+        goto LABEL_229;
+      }
+
+LABEL_227:
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1467, "word/wordlist", 67, "%u %.500s", v88, v97);
+      goto LABEL_228;
+    }
+
+    if (v97[1])
+    {
+      goto LABEL_227;
+    }
+
+LABEL_228:
+    v99 = *(v178 + 78);
+    v100 = *(v99 + 4 * v93) & ~v95;
+LABEL_229:
+    *(v99 + 4 * v93) = v100;
+    DgnString::DgnString(&v187, &v189);
+    v101 = *(v178 + 138);
+    if ((v101 != 0) == v188 < 2)
+    {
+      v102 = &unk_26288C6A6;
+      if (v194)
+      {
+        v102 = v193;
+      }
+
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1474, "word/wordlist", 21, "%d %.500s", v88, v102);
+      v101 = *(v178 + 138);
+    }
+
+    v80 = v178;
+    if (v101)
+    {
+      tagStringToTagBits(&v187, &v214, &v197);
+      BitArray::setBitsInRange(v178 + 72, &v197, *(v178 + 138) * v90, *(v178 + 138) * v90 + *(v178 + 138));
+    }
+
+    if (!DgnTextFileParser::parseNextLine(v219))
     {
       break;
     }
 
-    v208 = DgnTextFileParser::getLineFieldString(v386, v344);
-    DgnString::DgnString(&v352, v208);
-    if (v353)
+    v103 = DgnTextFileParser::getLineFieldString(v219, v177);
+    DgnString::DgnString(&v185, v103);
+    if (v186)
     {
-      v209 = v352;
+      v104 = v185;
     }
 
     else
     {
-      v209 = &unk_26288C6A6;
+      v104 = &unk_26288C6A6;
     }
 
-    v210 = strcmp(v209, "ReqTags");
-    DgnString::~DgnString(&v352);
-    DgnString::~DgnString(&v354);
-    DgnString::~DgnString(&v356);
-    DgnString::~DgnString(&v358);
-    DgnString::~DgnString(&v360);
-    DgnString::~DgnString(&v362);
-    if (v210)
+    v105 = strcmp(v104, "ReqTags");
+    DgnString::~DgnString(&v185);
+    DgnString::~DgnString(&v187);
+    DgnString::~DgnString(&v189);
+    DgnString::~DgnString(&v191);
+    DgnString::~DgnString(&v193);
+    DgnString::~DgnString(&v195);
+    if (v105)
     {
-      goto LABEL_229;
+      goto LABEL_243;
     }
   }
 
-  DgnString::~DgnString(&v354);
-  DgnString::~DgnString(&v356);
-  DgnString::~DgnString(&v358);
-  DgnString::~DgnString(&v360);
-  DgnString::~DgnString(&v362);
-LABEL_229:
-  v211 = *(v162 + 97);
-  if (v211)
+  DgnString::~DgnString(&v187);
+  DgnString::~DgnString(&v189);
+  DgnString::~DgnString(&v191);
+  DgnString::~DgnString(&v193);
+  DgnString::~DgnString(&v195);
+LABEL_243:
+  v106 = *(v80 + 97);
+  if (v106)
   {
-    for (k = 0; k < v211; ++k)
+    for (k = 0; k < v106; ++k)
     {
-      if (*(*(v345 + 13) + k) && k == *(*(v345 + 32) + 4 * k) && ((*(v366 + ((k >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> k) & 1) == 0)
+      if (*(*(v178 + 13) + k) && k == *(*(v178 + 32) + 4 * k) && ((*(v199 + ((k >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> k) & 1) == 0)
       {
-        v330 = *(v345 + 28) + *(*(v345 + 25) + 4 * k);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1504, "word/wordlist", 54, "%d %.500s %.500s", v163, v164, v387);
-        v211 = *(v345 + 97);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1504, "word/wordlist", 54, "%d %.500s %.500s", v221, "ReqTags", (*(v178 + 28) + *(*(v178 + 25) + 4 * k)));
+        v106 = *(v178 + 97);
       }
     }
   }
 
-  BitArray::BitArray(&v362, v211);
-  if ((DgnTextFileParser::atEof(v386) & 1) == 0)
+  BitArray::BitArray(&v195, v106);
+  if ((DgnTextFileParser::atEof(v219) & 1) == 0)
   {
-    v213 = DgnTextFileParser::getLineFieldString(v386, v344);
-    if (!strcmp(v213, "OptTags"))
+    v108 = DgnTextFileParser::getLineFieldString(v219, v177);
+    if (!strcmp(v108, "OptTags"))
     {
       do
       {
-        DgnString::DgnString(&v360);
-        DgnString::DgnString(&v358);
-        DgnString::DgnString(&v356);
-        DgnString::DgnString(&v354);
-        v289 = DgnTextFileParser::getLineFieldString(v386, v344);
-        DgnString::operator=(&v360, v289);
-        v290 = DgnTextFileParser::getLineFieldString(v386, v343);
-        DgnString::operator=(&v358, v290);
-        v297 = DgnTextFileParser::getLineFieldUnsigned(v386, v342, v291, v292, v293, v294, v295, v296);
-        v304 = DgnTextFileParser::getLineFieldUnsigned(v386, v341, v298, v299, v300, v301, v302, v303);
-        v311 = DgnTextFileParser::getLineFieldUnsigned(v386, v340, v305, v306, v307, v308, v309, v310);
-        v312 = DgnTextFileParser::getLineFieldString(v386, v339);
-        DgnString::operator=(&v356, v312);
-        v313 = DgnTextFileParser::getLineFieldString(v386, v338);
-        DgnString::operator=(&v354, v313);
-        if (v297)
+        DgnString::DgnString(&v193);
+        DgnString::DgnString(&v191);
+        DgnString::DgnString(&v189);
+        DgnString::DgnString(&v187);
+        v143 = DgnTextFileParser::getLineFieldString(v219, v177);
+        DgnString::operator=(&v193, v143);
+        v144 = DgnTextFileParser::getLineFieldString(v219, v176);
+        DgnString::operator=(&v191, v144);
+        v145 = DgnTextFileParser::getLineFieldUnsigned(v219, v175);
+        v146 = DgnTextFileParser::getLineFieldUnsigned(v219, v174);
+        v147 = DgnTextFileParser::getLineFieldUnsigned(v219, v173);
+        v148 = DgnTextFileParser::getLineFieldString(v219, v172);
+        DgnString::operator=(&v189, v148);
+        v149 = DgnTextFileParser::getLineFieldString(v219, v171);
+        DgnString::operator=(&v187, v149);
+        if (v145)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1514, "word/wordlist", 45, "%u", v314, v315, v387);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1514, "word/wordlist", 45, "%u", v221);
         }
 
-        if (v304)
+        if (v146)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1516, "word/wordlist", 46, "%u", v314, v315, v387);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1516, "word/wordlist", 46, "%u", v221);
         }
 
-        if (v311)
+        if (v147)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1518, "word/wordlist", 47, "%u", v314, v315, v387);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1518, "word/wordlist", 47, "%u", v221);
         }
 
-        v316 = v387;
-        if (v359 > 1 || (errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1521, "word/wordlist", 55, "%d", v314, v315, v387), v359))
+        v150 = v221;
+        if (v192 > 1 || (errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1521, "word/wordlist", 55, "%d", v221), v192))
         {
-          v317 = v358;
+          v151 = v191;
         }
 
         else
         {
-          v317 = &unk_26288C6A6;
+          v151 = &unk_26288C6A6;
         }
 
-        v320 = WordList::lookupWord(v345, v317);
-        if (v320 == 0xFFFFFF)
+        v152 = WordList::lookupWord(v178, v151);
+        if (v152 == 0xFFFFFF)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1524, "word/wordlist", 52, "%d %.500s", v318, v319, v316);
-        }
-
-        v321 = v362;
-        v322 = v320 >> 5;
-        v323 = *&v362[4 * (v320 >> 5)];
-        if ((v323 & (1 << v320)) != 0)
-        {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1526, "word/wordlist", 53, "%d %.500s %.500s", v318, v319, v316);
-          v321 = v362;
-          v323 = *&v362[4 * v322];
-        }
-
-        *&v321[4 * v322] = v323 | (1 << v320);
-        DgnString::DgnString(&v352, &v356);
-        DgnString::DgnString(&__s, &v354);
-        v326 = v353;
-        if (!*(v345 + 129) && v353 >= 2)
-        {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1532, "word/wordlist", 6, "%d %.500s", v324, v325, v316);
-          v326 = v353;
-        }
-
-        if (v326 <= 1 && v351 >= 2)
-        {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1535, "word/wordlist", 30, "%d %.500s", v324, v325, v316);
-          v326 = v353;
-        }
-
-        if (*(v345 + 129))
-        {
-          if (v326 >= 2)
+          v153 = &unk_26288C6A6;
+          if (v192)
           {
-            tagStringToTagBits(&v352, &v379, &v364);
-            TagBitsAndStrings::setTagBits((v345 + 512), v320, &v364);
-            if (v351 >= 2)
+            v153 = v191;
+          }
+
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1524, "word/wordlist", 52, "%d %.500s", v150, v153);
+        }
+
+        v154 = v195;
+        v155 = v152 >> 5;
+        v156 = *&v195[4 * (v152 >> 5)];
+        if ((v156 & (1 << v152)) != 0)
+        {
+          v157 = &unk_26288C6A6;
+          if (v192)
+          {
+            v157 = v191;
+          }
+
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1526, "word/wordlist", 53, "%d %.500s %.500s", v150, "OptTags", v157);
+          v154 = v195;
+          v156 = *&v195[4 * v155];
+        }
+
+        *&v154[4 * v155] = v156 | (1 << v152);
+        DgnString::DgnString(&v185, &v189);
+        DgnString::DgnString(&__s, &v187);
+        v158 = v186;
+        if (!*(v178 + 129) && v186 >= 2)
+        {
+          v159 = &unk_26288C6A6;
+          if (v192)
+          {
+            v159 = v191;
+          }
+
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1532, "word/wordlist", 6, "%d %.500s", v150, v159);
+          v158 = v186;
+        }
+
+        if (v158 <= 1 && v184 >= 2)
+        {
+          v160 = &unk_26288C6A6;
+          if (v192)
+          {
+            v160 = v191;
+          }
+
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1535, "word/wordlist", 30, "%d %.500s", v150, v160);
+          v158 = v186;
+        }
+
+        if (*(v178 + 129))
+        {
+          if (v158 >= 2)
+          {
+            tagStringToTagBits(&v185, &v212, &v197);
+            TagBitsAndStrings::setTagBits((v178 + 512), v152, &v197);
+            if (v184 >= 2)
             {
-              TagBitsAndStrings::setTagString((v345 + 512), v320, __s);
+              TagBitsAndStrings::setTagString((v178 + 512), v152, __s);
             }
           }
         }
 
-        if (DgnTextFileParser::parseNextLine(v386))
+        if (DgnTextFileParser::parseNextLine(v219))
         {
-          v327 = DgnTextFileParser::getLineFieldString(v386, v344);
-          DgnString::DgnString(&v348, v327);
-          if (v349)
+          v161 = DgnTextFileParser::getLineFieldString(v219, v177);
+          DgnString::DgnString(&v181, v161);
+          if (v182)
           {
-            v328 = v348;
+            v162 = v181;
           }
 
           else
           {
-            v328 = &unk_26288C6A6;
+            v162 = &unk_26288C6A6;
           }
 
-          v329 = strcmp(v328, "OptTags") != 0;
-          DgnString::~DgnString(&v348);
+          v163 = strcmp(v162, "OptTags") != 0;
+          DgnString::~DgnString(&v181);
         }
 
         else
         {
-          v329 = 1;
+          v163 = 1;
         }
 
         DgnString::~DgnString(&__s);
-        DgnString::~DgnString(&v352);
-        DgnString::~DgnString(&v354);
-        DgnString::~DgnString(&v356);
-        DgnString::~DgnString(&v358);
-        DgnString::~DgnString(&v360);
+        DgnString::~DgnString(&v185);
+        DgnString::~DgnString(&v187);
+        DgnString::~DgnString(&v189);
+        DgnString::~DgnString(&v191);
+        DgnString::~DgnString(&v193);
       }
 
-      while (!v329);
+      while (!v163);
     }
   }
 
-  BitArray::BitArray(&v360, *(v345 + 97));
-  if (DgnTextFileParser::atEof(v386))
+  BitArray::BitArray(&v193, *(v178 + 97));
+  if (DgnTextFileParser::atEof(v219))
   {
-    v214 = 1;
+    v109 = 1;
   }
 
   else
   {
-    v215 = DgnTextFileParser::getLineFieldString(v386, v344);
-    v214 = strcmp(v215, "Env") != 0;
+    v110 = DgnTextFileParser::getLineFieldString(v219, v177);
+    v109 = strcmp(v110, "Env") != 0;
   }
 
-  DgnString::DgnString(&v358);
-  if (!v214)
+  DgnString::DgnString(&v191);
+  if (!v109)
   {
-    v216 = *(v345 + 3);
+    v111 = *(v178 + 3);
     while (1)
     {
-      DgnString::DgnString(&v356);
-      DgnString::DgnString(&v354);
-      DgnString::DgnString(&v352);
+      DgnString::DgnString(&v189);
+      DgnString::DgnString(&v187);
+      DgnString::DgnString(&v185);
       DgnString::DgnString(&__s);
-      v217 = DgnTextFileParser::getLineFieldString(v386, v344);
-      DgnString::operator=(&v356, v217);
-      v218 = DgnTextFileParser::getLineFieldString(v386, v343);
-      DgnString::operator=(&v354, v218);
-      v225 = DgnTextFileParser::getLineFieldUnsigned(v386, v342, v219, v220, v221, v222, v223, v224);
-      v232 = DgnTextFileParser::getLineFieldUnsigned(v386, v341, v226, v227, v228, v229, v230, v231);
-      v239 = DgnTextFileParser::getLineFieldUnsigned(v386, v340, v233, v234, v235, v236, v237, v238);
-      v240 = DgnTextFileParser::getLineFieldString(v386, v339);
-      DgnString::operator=(&v352, v240);
-      v241 = DgnTextFileParser::getLineFieldString(v386, v338);
-      DgnString::operator=(&__s, v241);
-      if (v225)
+      v112 = DgnTextFileParser::getLineFieldString(v219, v177);
+      DgnString::operator=(&v189, v112);
+      v113 = DgnTextFileParser::getLineFieldString(v219, v176);
+      DgnString::operator=(&v187, v113);
+      v114 = DgnTextFileParser::getLineFieldUnsigned(v219, v175);
+      v115 = DgnTextFileParser::getLineFieldUnsigned(v219, v174);
+      v116 = DgnTextFileParser::getLineFieldUnsigned(v219, v173);
+      v117 = DgnTextFileParser::getLineFieldString(v219, v172);
+      DgnString::operator=(&v185, v117);
+      v118 = DgnTextFileParser::getLineFieldString(v219, v171);
+      DgnString::operator=(&__s, v118);
+      if (v114)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1570, "word/wordlist", 45, "%u", v242, v243, v387);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1570, "word/wordlist", 45, "%u", v221);
       }
 
-      if (v232)
+      if (v115)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1572, "word/wordlist", 46, "%u", v242, v243, v387);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1572, "word/wordlist", 46, "%u", v221);
       }
 
-      if (v239)
+      if (v116)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1574, "word/wordlist", 47, "%u", v242, v243, v387);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1574, "word/wordlist", 47, "%u", v221);
       }
 
-      v244 = v387;
-      if (v355 > 1 || (errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1577, "word/wordlist", 55, "%d", v242, v243, v387), v355))
+      v119 = v221;
+      if (v188 > 1 || (errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1577, "word/wordlist", 55, "%d", v221), v188))
       {
-        v245 = v354;
+        v120 = v187;
       }
 
       else
       {
-        v245 = &unk_26288C6A6;
+        v120 = &unk_26288C6A6;
       }
 
-      v248 = WordList::lookupWord(v345, v245);
-      if (v248 == 0xFFFFFF)
+      v121 = WordList::lookupWord(v178, v120);
+      if (v121 == 0xFFFFFF)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1580, "word/wordlist", 52, "%d %.500s", v246, v247, v244);
-      }
-
-      v249 = v360;
-      v250 = v248 >> 5;
-      v251 = *&v360[4 * (v248 >> 5)];
-      if ((v251 & (1 << v248)) != 0)
-      {
-        v252 = v355 ? v354 : &unk_26288C6A6;
-        v253 = v359 ? v358 : &unk_26288C6A6;
-        if (strcmp(v252, v253))
+        v122 = &unk_26288C6A6;
+        if (v188)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1583, "word/wordlist", 53, "%d %.500s %.500s", v254, v255, v244);
-          v249 = v360;
-          v251 = *&v360[4 * v250];
+          v122 = v187;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1580, "word/wordlist", 52, "%d %.500s", v119, v122);
+      }
+
+      v123 = v193;
+      v124 = v121 >> 5;
+      v125 = *&v193[4 * (v121 >> 5)];
+      if ((v125 & (1 << v121)) != 0)
+      {
+        v126 = v188 ? v187 : &unk_26288C6A6;
+        v127 = v192 ? v191 : &unk_26288C6A6;
+        if (strcmp(v126, v127))
+        {
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1583, "word/wordlist", 53, "%d %.500s %.500s", v119, "Env", v126);
+          v123 = v193;
+          v125 = *&v193[4 * v124];
         }
       }
 
-      *&v249[4 * v250] = v251 | (1 << v248);
-      DgnString::operator=(&v358, &v354);
-      ItemEnvIdMaybeNew = EnvMgr::getItemEnvIdMaybeNew(v216, v248, 1, v256, v257, v258, v259, v260);
-      if (v353 <= 1)
+      *&v123[4 * v124] = v125 | (1 << v121);
+      DgnString::operator=(&v191, &v187);
+      ItemEnvIdMaybeNew = EnvMgr::getItemEnvIdMaybeNew(v111, v121, 1);
+      if (v186 <= 1)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1590, "word/wordlist", 56, "%u", v261, v262, v387);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1590, "word/wordlist", 56, "%u", v221);
       }
 
-      if (v351 <= 1)
+      if (v184 <= 1)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1592, "word/wordlist", 57, "%u", v261, v262, v387);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1592, "word/wordlist", 57, "%u", v221);
       }
 
-      v348 = 0;
-      v349 = 0;
-      DgnTextFile::convertFromEnvValueFormat(&__s, &v348);
-      v266 = v353 ? v352 : &unk_26288C6A6;
-      EnvMgr::setData(v216, ItemEnvIdMaybeNew, v266, v348, v349, 1, v264, v265);
-      if (!DgnTextFileParser::parseNextLine(v386))
+      v181 = 0;
+      v182 = 0;
+      v129 = v220 ? v219[4] : &unk_26288C6A6;
+      DgnTextFile::convertFromEnvValueFormat(&__s, &v181, v129, v221);
+      v130 = v186 ? v185 : &unk_26288C6A6;
+      EnvMgr::setData(v111, ItemEnvIdMaybeNew, v130, v181, v182, 1);
+      if (!DgnTextFileParser::parseNextLine(v219))
       {
         break;
       }
 
-      v267 = DgnTextFileParser::getLineFieldString(v386, v344);
-      DgnString::DgnString(&v346, v267);
-      if (v347)
+      v131 = DgnTextFileParser::getLineFieldString(v219, v177);
+      DgnString::DgnString(&v179, v131);
+      if (v180)
       {
-        v268 = v346;
+        v132 = v179;
       }
 
       else
       {
-        v268 = &unk_26288C6A6;
+        v132 = &unk_26288C6A6;
       }
 
-      v269 = strcmp(v268, "Env");
-      DgnString::~DgnString(&v346);
-      DgnPrimFixArray<double>::~DgnPrimFixArray(&v348);
+      v133 = strcmp(v132, "Env");
+      DgnString::~DgnString(&v179);
+      DgnPrimFixArray<double>::~DgnPrimFixArray(&v181);
       DgnString::~DgnString(&__s);
-      DgnString::~DgnString(&v352);
-      DgnString::~DgnString(&v354);
-      DgnString::~DgnString(&v356);
-      if (v269)
+      DgnString::~DgnString(&v185);
+      DgnString::~DgnString(&v187);
+      DgnString::~DgnString(&v189);
+      if (v133)
       {
-        goto LABEL_278;
+        goto LABEL_297;
       }
     }
 
-    DgnPrimFixArray<double>::~DgnPrimFixArray(&v348);
+    DgnPrimFixArray<double>::~DgnPrimFixArray(&v181);
     DgnString::~DgnString(&__s);
-    DgnString::~DgnString(&v352);
-    DgnString::~DgnString(&v354);
-    DgnString::~DgnString(&v356);
+    DgnString::~DgnString(&v185);
+    DgnString::~DgnString(&v187);
+    DgnString::~DgnString(&v189);
   }
 
-LABEL_278:
-  if ((DgnTextFileParser::atEof(v386) & 1) == 0)
+LABEL_297:
+  if ((DgnTextFileParser::atEof(v219) & 1) == 0)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1609, "word/wordlist", 51, "%u", v270, v271, v387);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1609, "word/wordlist", 51, "%u", v221);
   }
 
-  DgnString::~DgnString(&v358);
-  BitArray::~BitArray(&v360);
-  BitArray::~BitArray(&v362);
-  BitArray::~BitArray(&v364);
-  BitArray::~BitArray(&v366);
-  DgnString::~DgnString(&v368);
-  this = v345;
-LABEL_281:
+  DgnString::~DgnString(&v191);
+  BitArray::~BitArray(&v193);
+  BitArray::~BitArray(&v195);
+  BitArray::~BitArray(&v197);
+  BitArray::~BitArray(&v199);
+  DgnString::~DgnString(&v201);
+  this = v178;
+LABEL_300:
   PrefiltererWordIdPronCollArray::removeAll(this + 352);
   WordIdPronCollArray::addArray(this + 352, this + 280);
-  v368 = 0;
-  v369 = 0;
-  if (v374)
+  v201 = 0;
+  v202 = 0;
+  if (v207)
   {
-    v272 = *v373;
+    v134 = *v206;
   }
 
   else
   {
-    v272 = &unk_26288C6A6;
+    v134 = &unk_26288C6A6;
   }
 
-  DgnSplitStringIntoTokens(v272, ",", &v368, 0);
-  v366 = 0;
-  v367 = 0;
-  if (v369)
+  DgnSplitStringIntoTokens(v134, ",", &v201, 0);
+  v199 = 0;
+  v200 = 0;
+  if (v202)
   {
-    v273 = 0;
-    v274 = 0;
+    v135 = 0;
+    v136 = 0;
     do
     {
-      v275 = *(v368 + v273);
-      if (*(v368 + v273 + 8))
+      if (*(v201 + v135 + 8))
       {
-        v276 = *(v368 + v273);
+        v137 = *(v201 + v135);
       }
 
       else
       {
-        v276 = &unk_26288C6A6;
+        v137 = &unk_26288C6A6;
       }
 
-      if (!strcmp(v276, "_IDENTITY"))
+      if (!strcmp(v137, "_IDENTITY"))
       {
-        v286 = -2;
+        v140 = -2;
       }
 
       else
       {
-        v283 = CollMgr::lookupCollation(*v345, v276, v277, v278, v279, v280, v281, v282);
-        v286 = v283;
-        if (!v283)
+        v139 = CollMgr::lookupCollation(*v178, v137, v138);
+        v140 = v139;
+        if (!v139)
         {
-          if (*(v368 + v273 + 8))
+          if (*(v201 + v135 + 8))
           {
-            v287 = *(v368 + v273);
+            v141 = *(v201 + v135);
           }
 
           else
           {
-            v287 = &unk_26288C6A6;
+            v141 = &unk_26288C6A6;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1626, "word/wordlist", 36, "%.500s", v284, v285, v287);
-          v286 = 0;
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1626, "word/wordlist", 36, "%.500s", v141);
+          v140 = 0;
         }
       }
 
-      v288 = v367;
-      if (v367 == HIDWORD(v367))
+      v142 = v200;
+      if (v200 == HIDWORD(v200))
       {
-        DgnPrimArray<short>::reallocElts(&v366, 1, 1);
-        v288 = v367;
+        DgnPrimArray<short>::reallocElts(&v199, 1, 1);
+        v142 = v200;
       }
 
-      *(v366 + 2 * v288) = v286;
-      LODWORD(v367) = v288 + 1;
-      ++v274;
-      v273 += 16;
+      *(v199 + 2 * v142) = v140;
+      LODWORD(v200) = v142 + 1;
+      ++v136;
+      v135 += 16;
     }
 
-    while (v274 < v369);
+    while (v136 < v202);
   }
 
-  DgnCollArray<unsigned int,WordList>::setColls(v345 + 272, &v366);
-  WordList::computeWordChecksums(v345);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v366);
-  DgnArray<DgnString>::releaseAll(&v368);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v370);
-  DgnArray<DgnString>::releaseAll(&v371);
-  DgnString::~DgnString(v373);
-  DgnArray<DgnString>::releaseAll(&v379);
-  DgnArray<DgnString>::releaseAll(&v381);
-  DgnIArray<Utterance *>::~DgnIArray(v385);
-  DgnTextFileParser::~DgnTextFileParser(v386);
+  DgnCollArray<unsigned int,WordList>::setColls(v178 + 272, &v199);
+  WordList::computeWordChecksums(v178);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v199);
+  DgnArray<DgnString>::releaseAll(&v201);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v203);
+  DgnArray<DgnString>::releaseAll(&v204);
+  DgnString::~DgnString(v206);
+  DgnArray<DgnString>::releaseAll(&v212);
+  DgnArray<DgnString>::releaseAll(&v214);
+  DgnIArray<Utterance *>::~DgnIArray(v218);
+  DgnTextFileParser::~DgnTextFileParser(v219);
 }
 
-void sub_262736990(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, char a40, uint64_t a41, char a42, uint64_t a43, char a44, uint64_t a45, char a46, uint64_t a47, char a48, uint64_t a49, char a50, uint64_t a51, char a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57, uint64_t a58, char a59, uint64_t a60, uint64_t a61, uint64_t a62, char a63)
+void sub_262736990(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   BitArray::~BitArray(&a38);
   BitArray::~BitArray(&a40);
@@ -4541,7 +4600,7 @@ void splitTagsString(_DWORD *a1, uint64_t a2)
     v5 = 16 * v4 - 16;
     do
     {
-      DgnString::~DgnString((*a2 + v5));
+      DgnString::~DgnString(*a2 + v5);
       v5 -= 16;
     }
 
@@ -4562,117 +4621,122 @@ void splitTagsString(_DWORD *a1, uint64_t a2)
 
   if (v6 >= 2 && (**a1 != 48 || *(*a1 + 1)))
   {
-    DgnString::DgnString(&v19);
-    v10 = 0;
+    DgnString::DgnString(&v18);
+    v8 = 0;
     if (v7 <= 1)
     {
-      v11 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v11 = v7;
+      v9 = v7;
     }
 
     do
     {
-      v12 = *(*a1 + v10);
-      if ((v12 - 65) < 0x1A)
+      v10 = *a1;
+      v11 = *(*a1 + v8);
+      if ((v11 - 65) < 0x1A)
       {
-        goto LABEL_38;
+        goto LABEL_40;
       }
 
-      if (v12 == 95 || (v12 - 97) < 0x1Au)
+      if (v11 == 95 || (v11 - 97) < 0x1Au)
       {
-        goto LABEL_38;
+        goto LABEL_40;
       }
 
-      if (v10)
+      if (v8)
       {
-        v14 = (v12 - 48) >= 0xA;
+        v13 = (v11 - 48) >= 0xA;
       }
 
       else
       {
-        v14 = 1;
+        v13 = 1;
       }
 
-      v15 = !v14;
-      if (v12 != 44 && (v15 & 1) == 0)
+      v14 = !v13;
+      if (v11 != 44 && (v14 & 1) == 0)
       {
-        a1[2];
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 376, "word/wordlist", 18, "%c %.500s", v8, v9, *(*a1 + v10));
+        if (!a1[2])
+        {
+          v10 = &unk_26288C6A6;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 376, "word/wordlist", 18, "%c %.500s", *(*a1 + v8), v10);
       }
 
-      if (v12 == 44)
+      if (v11 == 44)
       {
-        ++v10;
-        if (v20 < 2 || v10 == v7)
+        ++v8;
+        if (v19 < 2 || v8 == v7)
         {
           if (a1[2])
           {
-            v16 = *a1;
+            v15 = *a1;
           }
 
           else
           {
-            v16 = &unk_26288C6A6;
+            v15 = &unk_26288C6A6;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 382, "word/wordlist", 19, "%.500s", v8, v9, v16);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 382, "word/wordlist", 19, "%.500s", v15);
         }
 
-        v17 = *(a2 + 8);
-        if (v17 == *(a2 + 12))
+        v16 = *(a2 + 8);
+        if (v16 == *(a2 + 12))
         {
           DgnArray<DgnPrimArray<double>>::reallocElts(a2, 1, 1);
-          v17 = *(a2 + 8);
+          v16 = *(a2 + 8);
         }
 
-        DgnString::DgnString((*a2 + 16 * v17), &v19);
+        DgnString::DgnString((*a2 + 16 * v16), &v18);
         ++*(a2 + 8);
-        v20 = 0;
+        v19 = 0;
       }
 
       else
       {
-LABEL_38:
-        DgnString::operator+=(&v19, v12);
-        ++v10;
+LABEL_40:
+        DgnString::operator+=(&v18, v11);
+        ++v8;
       }
     }
 
-    while (v10 != v11);
-    v18 = *(a2 + 8);
-    if (v18 == *(a2 + 12))
+    while (v8 != v9);
+    v17 = *(a2 + 8);
+    if (v17 == *(a2 + 12))
     {
       DgnArray<DgnPrimArray<double>>::reallocElts(a2, 1, 1);
-      v18 = *(a2 + 8);
+      v17 = *(a2 + 8);
     }
 
-    DgnString::DgnString((*a2 + 16 * v18), &v19);
+    DgnString::DgnString((*a2 + 16 * v17), &v18);
     ++*(a2 + 8);
-    DgnString::~DgnString(&v19);
+    DgnString::~DgnString(&v18);
   }
 }
 
-void sub_262736F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_262736F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
 
 void *tagStringToTagBits(_DWORD *a1, unsigned int *a2, BitArray *a3)
 {
-  v25 = 0;
-  v26 = 0;
-  splitTagsString(a1, &v25);
+  v23 = 0;
+  v24 = 0;
+  splitTagsString(a1, &v23);
   v6 = a2[2];
   BitArray::setSize(a3, a2[2]);
   if (v6)
   {
-    v7 = v26 == 0;
+    v7 = v24 == 0;
   }
 
   else
@@ -4689,7 +4753,7 @@ void *tagStringToTagBits(_DWORD *a1, unsigned int *a2, BitArray *a3)
   {
     v8 = 0;
     v9 = 0;
-    v10 = v25;
+    v10 = v23;
     v11 = (*a2 + 8);
     do
     {
@@ -4717,16 +4781,16 @@ void *tagStringToTagBits(_DWORD *a1, unsigned int *a2, BitArray *a3)
       }
 
       v17 = strcmp(v13, v16);
-      v20 = 1 << v8;
-      v21 = v8 >> 5;
+      v18 = 1 << v8;
+      v19 = v8 >> 5;
       if (v17)
       {
-        *(*a3 + 4 * v21) &= ~v20;
+        *(*a3 + 4 * v19) &= ~v18;
       }
 
       else
       {
-        *(*a3 + 4 * v21) |= v20;
+        *(*a3 + 4 * v19) |= v18;
         ++v9;
       }
 
@@ -4738,47 +4802,48 @@ void *tagStringToTagBits(_DWORD *a1, unsigned int *a2, BitArray *a3)
       v11 += 4;
     }
 
-    while (v9 < v26);
-    if (v9 < v26)
+    while (v9 < v24);
+    if (v9 < v24)
     {
       if (a1[2])
       {
-        v22 = *a1;
+        v20 = *a1;
       }
 
       else
       {
-        v22 = &unk_26288C6A6;
+        v20 = &unk_26288C6A6;
       }
 
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 428, "word/wordlist", 20, "%.500s", v18, v19, v22);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 428, "word/wordlist", 20, "%.500s", v20);
     }
   }
 
   if (v8 < v6)
   {
-    v23 = *a3;
+    v21 = *a3;
     do
     {
-      *(v23 + 4 * (v8 >> 5)) &= ~(1 << v8);
+      *(v21 + 4 * (v8 >> 5)) &= ~(1 << v8);
       LODWORD(v8) = v8 + 1;
     }
 
     while (v6 != v8);
   }
 
-  return DgnArray<DgnString>::releaseAll(&v25);
+  return DgnArray<DgnString>::releaseAll(&v23);
 }
 
-void sub_2627370B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2627370B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   DgnArray<DgnString>::releaseAll(va);
   _Unwind_Resume(a1);
 }
 
-void WordList::setSizeForWordListLoad(WordList *this, unsigned int a2, unsigned int a3, unsigned int a4)
+void WordList::setSizeForWordListLoad(WordList *this, uint64_t *a2, unsigned int a3, unsigned int a4)
 {
+  v6 = a2;
   *(this + 97) = a2;
   v8 = *(this + 67);
   v9 = a2;
@@ -4790,7 +4855,7 @@ void WordList::setSizeForWordListLoad(WordList *this, unsigned int a2, unsigned 
     v9 = *(this + 97);
   }
 
-  *(this + 66) = a2;
+  *(this + 66) = v6;
   v12 = v9;
   if (*(this + 29) < v9)
   {
@@ -4999,62 +5064,71 @@ void WordList::strToPhonemes(uint64_t a1, const char *a2, uint64_t a3)
   DgnString::~DgnString(&v13);
 }
 
-void sub_262737524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
+void sub_262737524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   DgnArray<DgnString>::releaseAll(&a9);
-  DgnString::~DgnString(&a11);
+  DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
 
-void WordList::checkNewTwlWordBoundaryPhonemes(uint64_t a1, uint64_t a2, char a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void WordList::checkNewTwlWordBoundaryPhonemes(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5)
 {
-  v8 = *(a2 + 8);
-  if (v8)
+  v5 = *(a2 + 8);
+  if (v5)
   {
-    v14 = 0;
-    v15 = 0;
+    v11 = 0;
+    v12 = 0;
     do
     {
-      v16 = *(*a2 + 2 * v14);
-      v17 = *(*(a1 + 16) + 60);
-      v18 = v16 == v17;
-      if (v16 == v17 && (!v14 || ((v14 != v8 - 1) & ~v15) == 0))
+      v13 = *(*a2 + 2 * v11);
+      v14 = *(*(a1 + 16) + 60);
+      v15 = v13 == v14;
+      if (v13 == v14 && (!v11 || ((v11 != v5 - 1) & ~v12) == 0))
       {
-        if (*(a4 + 2))
+        if (*(a4 + 8))
         {
-          v19 = *a4;
+          v16 = *a4;
         }
 
-        if (*(a5 + 2))
+        else
         {
-          v20 = *a5;
+          v16 = &unk_26288C6A6;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 5052, "word/wordlist", 71, "%d %.500s %.500s", a7, a8, a3);
-        v8 = *(a2 + 8);
+        if (*(a5 + 8))
+        {
+          v17 = *a5;
+        }
+
+        else
+        {
+          v17 = &unk_26288C6A6;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 5052, "word/wordlist", 71, "%d %.500s %.500s", a3, v16, v17);
+        v5 = *(a2 + 8);
       }
 
-      ++v14;
-      v15 = v18;
+      ++v11;
+      v12 = v15;
     }
 
-    while (v14 < v8);
+    while (v11 < v5);
   }
 }
 
-uint64_t WordList::addWordInternal(uint64_t a1, const unsigned __int8 *a2, uint64_t a3, unsigned int *a4, uint64_t a5, CharInfo *this, uint64_t a7, uint64_t a8, char a9, char a10)
+uint64_t WordList::addWordInternal(uint64_t a1, const unsigned __int8 *a2, uint64_t a3, unsigned int *a4, unsigned int a5, CharInfo *this, int a7, uint64_t a8, char a9, char a10)
 {
-  v11 = a7;
-  v13 = a5;
   v14 = a4;
   FreeId = a3;
   v16 = a2;
   if (***a1)
   {
-    CharInfo::validateEncodedCharString(this, a2, a3, a4, a5, this, a7, a8);
+    CharInfo::validateEncodedCharString(this, a2, a3, a4);
   }
 
-  v23 = strlen(this);
+  v18 = strlen(this);
   if (v16)
   {
     FreeId = WordList::getFreeId(a1);
@@ -5065,66 +5139,66 @@ uint64_t WordList::addWordInternal(uint64_t a1, const unsigned __int8 *a2, uint6
 
     else
     {
-      v13 = *(*(a1 + 200) + 4 * v14);
+      a5 = *(*(a1 + 200) + 4 * v14);
     }
   }
 
   if (FreeId >= 0xFFFFF4)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 3010, "word/wordlist", 10, "%u %.500s", v21, v22, FreeId);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 3010, "word/wordlist", 10, "%u %.500s", FreeId, this);
   }
 
   if (*(a8 + 8))
   {
-    PhnMgr::verifyPhonemePron(*(a1 + 16), a8, this, 0, v19, v20, v21, v22);
+    PhnMgr::verifyPhonemePron(*(a1 + 16), a8, this, 0);
   }
 
-  if (v11 == 255)
+  if (a7 == 255)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 3019, "word/wordlist", 9, "%u %.500s", v21, v22, FreeId);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 3019, "word/wordlist", 9, "%u %.500s", FreeId, this);
   }
 
-  if (v13 == -1)
+  if (a5 == -1)
   {
-    v50 = v11;
-    v24 = v16;
-    v25 = 0;
-    v13 = *(a1 + 232);
-    v26 = v13;
+    v40 = a7;
+    v19 = v16;
+    v20 = 0;
+    a5 = *(a1 + 232);
+    v21 = a5;
     do
     {
-      v27 = *(this + v25);
-      if (v26 == *(a1 + 236))
+      v22 = *(this + v20);
+      if (v21 == *(a1 + 236))
       {
         DgnPrimArray<char>::reallocElts(a1 + 224, 1, 1);
-        v26 = *(a1 + 232);
+        v21 = *(a1 + 232);
       }
 
-      *(*(a1 + 224) + v26) = v27;
-      v26 = *(a1 + 232) + 1;
-      *(a1 + 232) = v26;
-      ++v25;
+      *(*(a1 + 224) + v21) = v22;
+      v21 = *(a1 + 232) + 1;
+      *(a1 + 232) = v21;
+      ++v20;
     }
 
-    while (v25 <= v23);
-    v16 = v24;
-    v11 = v50;
+    while (v20 <= v18);
+    v16 = v19;
+    a7 = v40;
   }
 
-  *(*(a1 + 200) + 4 * FreeId) = v13;
-  *(*(a1 + 104) + FreeId) = v11;
+  *(*(a1 + 200) + 4 * FreeId) = a5;
+  *(*(a1 + 104) + FreeId) = a7;
   *(*(a1 + 256) + 4 * FreeId) = v14;
-  v28 = *(a8 + 8);
-  *(*(a1 + 32) + 2 * FreeId) = v28;
+  v23 = *(a8 + 8);
+  *(*(a1 + 32) + 2 * FreeId) = v23;
   *(*(a1 + 48) + 4 * FreeId) = *(a1 + 80);
   if (*(a8 + 8))
   {
-    v29 = 0;
-    v30 = *(*(a1 + 16) + 60);
+    v24 = 0;
+    v25 = *(*(a1 + 16) + 60);
     do
     {
-      v31 = *(*a8 + 2 * v29);
-      if (v31 == v30)
+      v26 = *(*a8 + 2 * v24);
+      if (v26 == v25)
       {
         --*(*(a1 + 32) + 2 * FreeId);
         *(*(a1 + 88) + 4 * ((*(a1 + 80) - 1) >> 5)) |= 1 << (*(a1 + 80) - 1);
@@ -5132,44 +5206,44 @@ uint64_t WordList::addWordInternal(uint64_t a1, const unsigned __int8 *a2, uint6
 
       else
       {
-        v32 = *(a1 + 80);
-        if (v32 == *(a1 + 84))
+        v27 = *(a1 + 80);
+        if (v27 == *(a1 + 84))
         {
           DgnPrimArray<short>::reallocElts(a1 + 72, 1, 1);
-          v32 = *(a1 + 80);
+          v27 = *(a1 + 80);
         }
 
-        *(*(a1 + 72) + 2 * v32) = v31;
-        *(a1 + 80) = v32 + 1;
+        *(*(a1 + 72) + 2 * v27) = v26;
+        *(a1 + 80) = v27 + 1;
         BitArray::add((a1 + 88), 0);
       }
 
-      ++v29;
+      ++v24;
     }
 
-    while (v29 < *(a8 + 8));
-    v28 = *(*(a1 + 32) + 2 * FreeId);
+    while (v24 < *(a8 + 8));
+    v23 = *(*(a1 + 32) + 2 * FreeId);
   }
 
-  if (v28)
+  if (v23)
   {
-    v33 = (*(a1 + 72) + 2 * *(*(a1 + 48) + 4 * FreeId));
-    v34 = *v33;
-    v35 = v33[v28 - 1];
-    v36 = 608;
-    v37 = 592;
+    v28 = (*(a1 + 72) + 2 * *(*(a1 + 48) + 4 * FreeId));
+    v29 = *v28;
+    v30 = v28[v23 - 1];
+    v31 = 608;
+    v32 = 592;
   }
 
   else
   {
-    v34 = *(*(a1 + 16) + 58);
-    v36 = 592;
-    v37 = 608;
-    v35 = v34;
+    v29 = *(*(a1 + 16) + 58);
+    v31 = 592;
+    v32 = 608;
+    v30 = v29;
   }
 
-  *(*(a1 + v37) + 2 * FreeId) = v34;
-  *(*(a1 + v36) + 2 * FreeId) = v35;
+  *(*(a1 + v32) + 2 * FreeId) = v29;
+  *(*(a1 + v31) + 2 * FreeId) = v30;
   if (v16)
   {
     if (FreeId == v14)
@@ -5177,9 +5251,9 @@ uint64_t WordList::addWordInternal(uint64_t a1, const unsigned __int8 *a2, uint6
       *(*(a1 + 624) + 4 * (v14 >> 5)) &= ~(1 << v14);
     }
 
-    v38 = *(a1 + 640);
-    v39 = FreeId >> 5;
-    v40 = *(v38 + 4 * (FreeId >> 5)) & ~(1 << FreeId);
+    v33 = *(a1 + 640);
+    v34 = FreeId >> 5;
+    v35 = *(v33 + 4 * (FreeId >> 5)) & ~(1 << FreeId);
   }
 
   else
@@ -5189,55 +5263,55 @@ uint64_t WordList::addWordInternal(uint64_t a1, const unsigned __int8 *a2, uint6
       *(*(a1 + 624) + 4 * (v14 >> 5)) |= 1 << v14;
     }
 
-    v38 = *(a1 + 640);
-    v39 = FreeId >> 5;
-    v40 = *(v38 + 4 * (FreeId >> 5)) | (1 << FreeId);
+    v33 = *(a1 + 640);
+    v34 = FreeId >> 5;
+    v35 = *(v33 + 4 * (FreeId >> 5)) | (1 << FreeId);
   }
 
-  *(v38 + 4 * v39) = v40;
-  v41 = *(a1 + 552);
-  if (v41 && FreeId == v14)
+  *(v33 + 4 * v34) = v35;
+  v36 = *(a1 + 552);
+  if (v36 && FreeId == v14)
   {
-    BitArray::setBitsInRange((a1 + 576), (a1 + 560), v41 * v14, v41 * v14 + v41);
+    BitArray::setBitsInRange((a1 + 576), (a1 + 560), v36 * v14, v36 * v14 + v36);
   }
 
-  if (v11 == 1)
+  if (a7 == 1)
   {
     ++*(a1 + 384);
   }
 
   if (v16)
   {
-    v42 = *(a1 + 419);
+    v37 = *(a1 + 419);
     if (*(a1 + 421) == 1 && FreeId != v14)
     {
       if (*(a1 + 392) < 2u)
       {
-        v42 = 0;
+        v37 = 0;
       }
 
       else
       {
-        v42 = *(*(a1 + 424) + v14);
+        v37 = *(*(a1 + 424) + v14);
       }
     }
 
-    v43 = *(a1 + 420);
+    v38 = *(a1 + 420);
     if (*(a1 + 422) == 1 && FreeId != v14)
     {
       if (*(a1 + 396) < 2u)
       {
-        v43 = 0;
+        v38 = 0;
       }
 
       else
       {
-        v43 = *(*(a1 + 440) + v14);
+        v38 = *(*(a1 + 440) + v14);
       }
     }
 
-    WordList::setPronPredecessorSeedCategory(a1, FreeId, v42, v18, v19, v20, v21, v22);
-    WordList::setPronSuccessorSeedCategory(a1, FreeId, v43, v44, v45, v46, v47, v48);
+    WordList::setPronPredecessorSeedCategory(a1, FreeId, v37);
+    WordList::setPronSuccessorSeedCategory(a1, FreeId, v38);
     if (a10)
     {
       DgnCollArray<unsigned int,ParamSetIdCollCmpWithTemp>::add(a1 + 272, FreeId);
@@ -5254,37 +5328,35 @@ uint64_t WordList::addWordInternal(uint64_t a1, const unsigned __int8 *a2, uint6
   return FreeId;
 }
 
-void WordList::setPronPredecessorSeedCategory(WordList *this, unsigned int a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void WordList::setPronPredecessorSeedCategory(WordList *this, unsigned int a2, unsigned int a3)
 {
-  v8 = a3;
-  v11 = *(this + 98);
-  if (v11 < a3)
+  v3 = a3;
+  v6 = *(this + 98);
+  if (v6 < a3)
   {
-    v12 = *(this + 98);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 4794, "word/wordlist", 64, "%u %u", a7, a8, a3);
-    v11 = *(this + 98);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 4794, "word/wordlist", 64, "%u %u", a3, v6);
+    v6 = *(this + 98);
   }
 
-  if (v11 >= 2)
+  if (v6 >= 2)
   {
-    *(*(this + 53) + a2) = v8;
+    *(*(this + 53) + a2) = v3;
   }
 }
 
-void WordList::setPronSuccessorSeedCategory(WordList *this, unsigned int a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void WordList::setPronSuccessorSeedCategory(WordList *this, unsigned int a2, unsigned int a3)
 {
-  v8 = a3;
-  v11 = *(this + 99);
-  if (v11 < a3)
+  v3 = a3;
+  v6 = *(this + 99);
+  if (v6 < a3)
   {
-    v12 = *(this + 99);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 4814, "word/wordlist", 65, "%u %u", a7, a8, a3);
-    v11 = *(this + 99);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 4814, "word/wordlist", 65, "%u %u", a3, v6);
+    v6 = *(this + 99);
   }
 
-  if (v11 >= 2)
+  if (v6 >= 2)
   {
-    *(*(this + 55) + a2) = v8;
+    *(*(this + 55) + a2) = v3;
   }
 }
 
@@ -5294,10 +5366,10 @@ uint64_t WordList::setupWordIdsForWordListLoad(uint64_t this)
   if (v1)
   {
     v2 = this;
-    v11[0] = 0;
-    v12 = 0;
-    v11[1] = realloc_array(0, &v12, 4 * v1, 0, 0, 1) >> 2;
-    v10 = v12;
+    v9[0] = 0;
+    v10 = 0;
+    v9[1] = realloc_array(0, &v10, 4 * v1, 0, 0, 1) >> 2;
+    v8 = v10;
     if (*(v2 + 388))
     {
       v3 = 0;
@@ -5323,15 +5395,15 @@ LABEL_9:
         }
       }
 
-      v4 = &v10;
-      v5 = v11;
+      v4 = &v8;
+      v5 = v9;
 LABEL_8:
       v6 = *v5;
       goto LABEL_9;
     }
 
 LABEL_10:
-    DgnCollArray<unsigned int,WordList>::addArray(v2 + 272, &v10);
+    DgnCollArray<unsigned int,WordList>::addArray(v2 + 272, &v8);
     if (*(v2 + 388))
     {
       v7 = 0;
@@ -5339,7 +5411,7 @@ LABEL_10:
       {
         if (*(*(v2 + 104) + v7) && v7 != WordList::lookupWord(v2, (*(v2 + 224) + *(*(v2 + 200) + 4 * v7))) && *(*(v2 + 104) + v7) == 1)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2768, "word/wordlist", 3, "%.500s", v8, v9, *(v2 + 224) + *(*(v2 + 200) + 4 * v7));
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2768, "word/wordlist", 3, "%.500s", (*(v2 + 224) + *(*(v2 + 200) + 4 * v7)));
         }
 
         ++v7;
@@ -5348,15 +5420,15 @@ LABEL_10:
       while (v7 < *(v2 + 388));
     }
 
-    return DgnPrimArray<unsigned int>::~DgnPrimArray(&v10);
+    return DgnPrimArray<unsigned int>::~DgnPrimArray(&v8);
   }
 
   return this;
 }
 
-void sub_262737DB4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_262737DB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -5391,10 +5463,10 @@ uint64_t WordList::lookupWord(WordList *this, const char *a2)
   }
 }
 
-unint64_t copyBadPredecessorSeedCategoryArray(unint64_t result, uint64_t a2)
+uint64_t *copyBadPredecessorSeedCategoryArray(uint64_t *result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
+  v4 = *(result + 2);
   v5 = v4;
   if (*(a2 + 12) < v4)
   {
@@ -5402,7 +5474,7 @@ unint64_t copyBadPredecessorSeedCategoryArray(unint64_t result, uint64_t a2)
     result = realloc_array(*a2, &v7, v4, *(a2 + 8), *(a2 + 8), 1);
     *(a2 + 12) = result;
     *a2 = v7;
-    v5 = *(v3 + 8);
+    v5 = *(v3 + 2);
   }
 
   *(a2 + 8) = v4;
@@ -5415,341 +5487,341 @@ unint64_t copyBadPredecessorSeedCategoryArray(unint64_t result, uint64_t a2)
       ++v6;
     }
 
-    while (v6 < *(v3 + 8));
+    while (v6 < *(v3 + 2));
   }
 
   return result;
 }
 
-uint64_t WordList::loadBinary(WordList *this, DFile *a2, DFileChecksums *a3)
+uint64_t WordList::loadBinary(WordList *this, const char **a2, DFileChecksums *a3)
 {
-  v59 = 0;
-  v6 = OpenAndReadMrecHeader(a2, 0x2Fu, 1, "MRWORD!?", &v59 + 1, &v59);
-  v9 = v6;
+  v55 = 0;
+  v6 = OpenAndReadMrecHeader(a2, 0x2Fu, 1, "MRWORD!?", &v55 + 1, &v55);
+  v7 = v6;
   *(v6 + 32) = 0;
   *(v6 + 34) = 0;
-  v10 = v59;
-  switch(v59)
+  v8 = v55;
+  switch(v55)
   {
     case 0x1300000025:
-      v11 = 0;
-      v12 = 0;
-      v13 = 1;
+      v9 = 0;
+      v10 = 0;
+      v11 = 1;
       *(v6 + 32) = 1;
       *(v6 + 34) = 1;
-      v14 = 19;
+      v12 = 19;
 LABEL_5:
-      v15 = 1;
+      v13 = 1;
       goto LABEL_6;
     case 0x1400000026:
+      v9 = 0;
+      v10 = 0;
+      v11 = 1;
+      *(v6 + 32) = 1;
+      *(v6 + 34) = 1;
+      v12 = 20;
+      goto LABEL_5;
+    case 0x1400000027:
       v11 = 0;
-      v12 = 0;
+      v9 = 0;
+      v10 = 0;
       v13 = 1;
       *(v6 + 32) = 1;
       *(v6 + 34) = 1;
-      v14 = 20;
-      goto LABEL_5;
-    case 0x1400000027:
-      v13 = 0;
-      v11 = 0;
-      v12 = 0;
-      v15 = 1;
-      *(v6 + 32) = 1;
-      *(v6 + 34) = 1;
-      v14 = 20;
+      v12 = 20;
       goto LABEL_6;
     case 0x1600000028:
-      v13 = 0;
-      v15 = 0;
       v11 = 0;
-      v12 = 0;
+      v13 = 0;
+      v9 = 0;
+      v10 = 0;
       *(v6 + 32) = 1;
       *(v6 + 34) = 1;
 LABEL_60:
-      v14 = 22;
+      v12 = 22;
       goto LABEL_6;
     case 0x1600000029:
-      v13 = 0;
-      v15 = 0;
       v11 = 0;
-      v12 = 0;
+      v13 = 0;
+      v9 = 0;
+      v10 = 0;
       goto LABEL_60;
     case 0x160000002ALL:
+      v11 = 0;
       v13 = 0;
-      v15 = 0;
-      v12 = 0;
-      v11 = 1;
+      v10 = 0;
+      v9 = 1;
       goto LABEL_60;
   }
 
   if (*(a2 + 6))
   {
-    v51 = *(a2 + 2);
+    v47 = a2[2];
   }
 
   else
   {
-    v51 = &unk_26288C6A6;
+    v47 = &unk_26288C6A6;
   }
 
-  MrecHeaderCheckVersions(v51, "MRWORD!?", HIDWORD(v59), v59, 0x18u, 0x2Bu);
+  MrecHeaderCheckVersions(v47, "MRWORD!?", HIDWORD(v55), v55, 0x18u, 0x2Bu);
+  v11 = 0;
   v13 = 0;
-  v15 = 0;
-  v14 = HIDWORD(v59);
-  v11 = 1;
-  v10 = v59;
-  v12 = 1;
+  v12 = HIDWORD(v55);
+  v9 = 1;
+  v8 = v55;
+  v10 = 1;
 LABEL_6:
-  MrecHeaderCheckLatestVersionIfShared(a2, "MRWORD!?", v14, v10, 24, 43, v7, v8);
-  v58[0] = 0;
-  v58[1] = 0;
-  v57[0] = 0;
-  v57[1] = 0;
-  *v56 = 0;
-  readObject<unsigned short>(v9, this + 32, v56);
-  readObject<unsigned int>(v9, this + 48, v56);
-  readObject<unsigned short>(v9, this + 72, v56);
-  readObject(v9, (this + 88), v56);
-  readObject<unsigned char>(v9, this + 104, v56);
-  readObject<unsigned short>(v9, this + 120, v56);
-  readObject<unsigned short>(v9, this + 136, v56);
-  readObject<unsigned int>(v9, this + 200, v56);
-  readObject<char>(v9, this + 224, v56);
-  readObject<unsigned int>(v9, this + 240, v56);
-  readObject<unsigned int>(v9, this + 256, v56);
-  DgnCollArray<unsigned int,WordList>::readObject(this + 272, v9, v56);
-  PrefiltererWordIdPronCollArray::readObject((this + 352), v9, v56);
-  if (v11)
+  MrecHeaderCheckLatestVersionIfShared(a2, "MRWORD!?", v12, v8, 24, 43);
+  v54[0] = 0;
+  v54[1] = 0;
+  v53[0] = 0;
+  v53[1] = 0;
+  *v52 = 0;
+  readObject<unsigned short>(v7, this + 32, v52);
+  readObject<unsigned int>(v7, this + 48, v52);
+  readObject<unsigned short>(v7, this + 72, v52);
+  readObject(v7, (this + 88), v52);
+  readObject<unsigned char>(v7, this + 104, v52);
+  readObject<unsigned short>(v7, this + 120, v52);
+  readObject<unsigned short>(v7, this + 136, v52);
+  readObject<unsigned int>(v7, this + 200, v52);
+  readObject<char>(v7, this + 224, v52);
+  readObject<unsigned int>(v7, this + 240, v52);
+  readObject<unsigned int>(v7, this + 256, v52);
+  DgnCollArray<unsigned int,WordList>::readObject(this + 272, v7, v52);
+  PrefiltererWordIdPronCollArray::readObject((this + 352), v7, v52);
+  if (v9)
   {
-    readObject(v9, this + 94, v56);
-    readObject(v9, this + 95, v56);
+    readObject(v7, this + 94, v52);
+    readObject(v7, this + 95, v52);
   }
 
-  readObject(v9, this + 96, v56);
-  v16 = (this + 388);
-  readObject(v9, this + 97, v56);
-  readObject(v9, this + 98, v56);
-  readObject(v9, this + 99, v56);
-  readObject<DgnPrimArray<BOOL>>(v9, this + 400, v56);
-  readObject(v9, this + 416, v56);
-  readObject(v9, this + 417, v56);
-  readObject(v9, this + 418, v56);
-  readObject(v9, this + 419, v56);
-  readObject(v9, this + 420, v56);
-  readObject(v9, this + 421, v56);
-  readObject(v9, this + 422, v56);
-  if (v15)
+  readObject(v7, this + 96, v52);
+  v14 = (this + 388);
+  readObject(v7, this + 97, v52);
+  readObject(v7, this + 98, v52);
+  readObject(v7, this + 99, v52);
+  readObject<DgnPrimArray<BOOL>>(v7, this + 400, v52);
+  readObject(v7, this + 416, v52);
+  readObject(v7, this + 417, v52);
+  readObject(v7, this + 418, v52);
+  readObject(v7, this + 419, v52);
+  readObject(v7, this + 420, v52);
+  readObject(v7, this + 421, v52);
+  readObject(v7, this + 422, v52);
+  if (v13)
   {
-    readObject<BadPredecessorSeedCategory>(v9, v58, v56);
-    readObject<BadPredecessorSeedCategory>(v9, v57, v56);
-  }
-
-  else
-  {
-    readObject<unsigned char>(v9, this + 424, v56);
-    readObject<unsigned char>(v9, this + 440, v56);
-  }
-
-  readObject(v9, (this + 624), v56);
-  readObject(v9, (this + 640), v56);
-  if (v12)
-  {
-    readObject(v9, this + 114, v56);
-    v17 = (this + 460);
+    readObject<BadPredecessorSeedCategory>(v7, v54, v52);
+    readObject<BadPredecessorSeedCategory>(v7, v53, v52);
   }
 
   else
   {
-    v17 = &v56[1];
+    readObject<unsigned char>(v7, this + 424, v52);
+    readObject<unsigned char>(v7, this + 440, v52);
   }
 
-  readObject(v9, v17, v56);
-  readObject(v9, (this + 464), v56);
-  readObject(v9, (this + 480), v56);
-  readObject(v9, (this + 496), v56);
-  readObject(v9, (this + 576), v56);
-  readObject(v9, (this + 512), v56);
-  if (v15)
+  readObject(v7, (this + 624), v52);
+  readObject(v7, (this + 640), v52);
+  if (v10)
   {
-    copyBadPredecessorSeedCategoryArray(v58, this + 424);
-    copyBadPredecessorSeedCategoryArray(v57, this + 440);
+    readObject(v7, this + 114, v52);
+    v15 = (this + 460);
   }
 
-  if ((v12 & 1) == 0)
+  else
   {
-    v18 = v56[1];
-    *(this + 114) = v56[1];
-    *(this + 115) = v18;
+    v15 = &v52[1];
   }
 
-  EnvMgr::loadEnvMgrFromStream(*(this + 3), a2, v9, v56, 0);
-  readObjectChecksumAndVerify(v9, v56[0]);
+  readObject(v7, v15, v52);
+  readObject(v7, (this + 464), v52);
+  readObject(v7, (this + 480), v52);
+  readObject(v7, (this + 496), v52);
+  readObject(v7, (this + 576), v52);
+  readObject(v7, (this + 512), v52);
+  if (v13)
+  {
+    copyBadPredecessorSeedCategoryArray(v54, this + 424);
+    copyBadPredecessorSeedCategoryArray(v53, this + 440);
+  }
+
+  if ((v10 & 1) == 0)
+  {
+    v16 = v52[1];
+    *(this + 114) = v52[1];
+    *(this + 115) = v16;
+  }
+
+  EnvMgr::loadEnvMgrFromStream(*(this + 3), a2, v7, v52, 0);
+  readObjectChecksumAndVerify(v7, v52[0]);
   CurrentSubDirComponents = DFile::getCurrentSubDirComponents(a2);
-  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 0x2Fu, v56[0]);
-  DgnDelete<DgnStream>(v9);
-  v20 = *this;
+  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 47, v52[0]);
+  DgnDelete<DgnStream>(v7);
+  v18 = *this;
   *(this + 41) = WordIdCollSearchCmpFromWordId;
   *(this + 42) = this;
-  *(this + 43) = v20;
-  v54 = 0;
-  v55 = 0;
-  splitTagsString(this + 116, &v54);
-  v21 = v55;
-  *(this + 138) = v55;
-  if (v21)
+  *(this + 43) = v18;
+  v50 = 0;
+  v51 = 0;
+  splitTagsString(this + 116, &v50);
+  v19 = v51;
+  *(this + 138) = v51;
+  if (v19)
   {
-    tagStringToTagBits(this + 124, &v54, (this + 560));
+    tagStringToTagBits(this + 124, &v50, (this + 560));
   }
 
-  v22 = *(this + 97);
-  v23 = *(this + 151);
+  v20 = *(this + 97);
+  v21 = *(this + 151);
+  v22 = v20;
+  if (v20 > v21)
+  {
+    DgnPrimArray<short>::reallocElts(this + 592, v20 - v21, 0);
+    v22 = *v14;
+  }
+
+  *(this + 150) = v20;
+  v23 = *(this + 155);
   v24 = v22;
   if (v22 > v23)
   {
-    DgnPrimArray<short>::reallocElts(this + 592, v22 - v23, 0);
-    v24 = *v16;
+    DgnPrimArray<short>::reallocElts(this + 608, v22 - v23, 0);
+    v24 = *v14;
   }
 
-  *(this + 150) = v22;
-  v25 = *(this + 155);
+  *(this + 154) = v22;
+  v25 = *(this + 41);
   v26 = v24;
   if (v24 > v25)
   {
-    DgnPrimArray<short>::reallocElts(this + 608, v24 - v25, 0);
-    v26 = *v16;
+    DgnPrimArray<short>::reallocElts(this + 152, v24 - v25, 0);
+    v26 = *v14;
   }
 
-  *(this + 154) = v24;
-  v27 = *(this + 41);
+  *(this + 40) = v24;
+  v27 = *(this + 45);
   v28 = v26;
   if (v26 > v27)
   {
-    DgnPrimArray<short>::reallocElts(this + 152, v26 - v27, 0);
-    v28 = *v16;
+    DgnPrimArray<short>::reallocElts(this + 168, v26 - v27, 0);
+    v28 = *v14;
   }
 
-  *(this + 40) = v26;
-  v29 = *(this + 45);
+  *(this + 44) = v26;
+  v29 = *(this + 49);
   v30 = v28;
-  if (v28 > v29)
+  v31 = v28 >= v29;
+  v32 = v28 - v29;
+  if (v32 != 0 && v31)
   {
-    DgnPrimArray<short>::reallocElts(this + 168, v28 - v29, 0);
-    v30 = *v16;
+    DgnPrimArray<short>::reallocElts(this + 184, v32, 0);
+    v30 = *v14;
   }
 
-  *(this + 44) = v28;
-  v31 = *(this + 49);
-  v32 = v30;
-  v33 = v30 >= v31;
-  v34 = v30 - v31;
-  if (v34 != 0 && v33)
+  v48 = v11;
+  *(this + 48) = v28;
+  BitArray::BitArray(v49, v30);
+  v33 = *(this + 62);
+  if (v33 >= 1)
   {
-    DgnPrimArray<short>::reallocElts(this + 184, v34, 0);
-    v32 = *v16;
-  }
-
-  v52 = v13;
-  *(this + 48) = v30;
-  BitArray::BitArray(v53, v32);
-  v37 = *(this + 62);
-  if (v37 >= 1)
-  {
-    v38 = v53[0];
-    v39 = v37 + 1;
-    v40 = (*(this + 30) + 4 * v37 - 4);
+    v34 = v49[0];
+    v35 = v33 + 1;
+    v36 = (*(this + 30) + 4 * v33 - 4);
     do
     {
-      v41 = *v40--;
-      *(v38 + ((v41 >> 3) & 0x1FFFFFFC)) |= 1 << v41;
-      --v39;
+      v37 = *v36--;
+      *(v34 + ((v37 >> 3) & 0x1FFFFFFC)) |= 1 << v37;
+      --v35;
     }
 
-    while (v39 > 1);
+    while (v35 > 1);
   }
 
-  if (*v16)
+  if (*v14)
   {
-    v42 = 0;
+    v38 = 0;
     do
     {
-      *(*(this + 19) + 2 * v42) = 0;
-      *(*(this + 21) + 2 * v42) = 0;
-      *(*(this + 23) + 2 * v42) = 0;
-      v43 = *(v53[0] + ((v42 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) & (1 << v42);
-      if (*(*(this + 13) + v42))
+      *(*(this + 19) + 2 * v38) = 0;
+      *(*(this + 21) + 2 * v38) = 0;
+      *(*(this + 23) + 2 * v38) = 0;
+      v39 = *(v49[0] + ((v38 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) & (1 << v38);
+      if (*(*(this + 13) + v38))
       {
-        if (v43)
+        if (v39)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1850, "word/wordlist", 27, "%u", v35, v36, v42);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1850, "word/wordlist", 27, "%u", v38);
         }
 
-        if (*(*(this + 4) + 2 * v42))
+        if (*(*(this + 4) + 2 * v38))
         {
-          v44 = (*(this + 9) + 2 * *(*(this + 6) + 4 * v42));
-          v45 = *v44;
-          v46 = v44[*(*(this + 4) + 2 * v42) - 1];
-          v47 = 592;
-          v48 = 608;
+          v40 = (*(this + 9) + 2 * *(*(this + 6) + 4 * v38));
+          v41 = *v40;
+          v42 = v40[*(*(this + 4) + 2 * v38) - 1];
+          v43 = 592;
+          v44 = 608;
         }
 
         else
         {
-          v45 = *(*(this + 2) + 58);
-          v47 = 608;
-          v48 = 592;
-          v46 = v45;
+          v41 = *(*(this + 2) + 58);
+          v43 = 608;
+          v44 = 592;
+          v42 = v41;
         }
 
-        *(*(this + v47) + 2 * v42) = v45;
-        v49 = this + v48;
+        *(*(this + v43) + 2 * v38) = v41;
+        v45 = this + v44;
       }
 
       else
       {
-        if (!v43)
+        if (!v39)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1855, "word/wordlist", 28, "%u", v35, v36, v42);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 1855, "word/wordlist", 28, "%u", v38);
         }
 
-        v46 = -1;
-        *(*(this + 74) + 2 * v42) = -1;
-        v49 = this + 608;
+        v42 = -1;
+        *(*(this + 74) + 2 * v38) = -1;
+        v45 = this + 608;
       }
 
-      *(*v49 + 2 * v42++) = v46;
+      *(*v45 + 2 * v38++) = v42;
     }
 
-    while (v42 < *v16);
+    while (v38 < *v14);
   }
 
-  if (v52)
+  if (v48)
   {
     PrefiltererWordIdPronCollArray::removeAll(this + 352);
     WordIdPronCollArray::addArray(this + 352, this + 280);
   }
 
-  if ((v11 & 1) == 0)
+  if ((v9 & 1) == 0)
   {
     WordList::computeWordChecksums(this);
   }
 
-  BitArray::~BitArray(v53);
-  DgnArray<DgnString>::releaseAll(&v54);
-  DgnIArray<Utterance *>::~DgnIArray(v57);
-  return DgnIArray<Utterance *>::~DgnIArray(v58);
+  BitArray::~BitArray(v49);
+  DgnArray<DgnString>::releaseAll(&v50);
+  DgnIArray<Utterance *>::~DgnIArray(v53);
+  return DgnIArray<Utterance *>::~DgnIArray(v54);
 }
 
-void sub_262738714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_262738714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   va_copy(va2, va1);
-  v10 = va_arg(va2, void);
-  v12 = va_arg(va2, void);
+  v14 = va_arg(va2, void);
+  v16 = va_arg(va2, void);
   DgnArray<DgnString>::releaseAll(va);
   DgnIArray<Utterance *>::~DgnIArray(va1);
   DgnIArray<Utterance *>::~DgnIArray(va2);
@@ -5852,7 +5924,7 @@ uint64_t readObject<BadPredecessorSeedCategory>(uint64_t a1, uint64_t a2, _DWORD
   return result;
 }
 
-uint64_t WordList::loadWordList(WordList *this, DFile *a2, DFileChecksums *a3)
+uint64_t WordList::loadWordList(WordList *this, FileSpec **a2, DFileChecksums *a3)
 {
   if (DFile::subFileExists(a2, 0x62u))
   {
@@ -5992,7 +6064,7 @@ LABEL_11:
     }
 
     *(v1 + 56) = 0;
-    DgnPrimArray<int>::copyArraySlice(v1 + 48, &v42, 0, v43);
+    DgnPrimArray<int>::copyArraySlice((v1 + 48), &v42, 0, v43);
     *(v1 + 64) = 0;
     v21 = *(v1 + 72);
     if (v21)
@@ -6002,8 +6074,8 @@ LABEL_11:
     }
 
     *(v1 + 80) = 0;
-    DgnPrimArray<unsigned short>::copyArraySlice(v1 + 72, &v40, 0, v41);
-    BitArray::releaseAll(v1 + 88);
+    DgnPrimArray<unsigned short>::copyArraySlice((v1 + 72), &v40, 0, v41);
+    BitArray::releaseAll((v1 + 88));
     BitArray::operator=((v1 + 88), &v38);
     BitArray::~BitArray(&v38);
     DgnPrimArray<unsigned int>::~DgnPrimArray(&v40);
@@ -6118,7 +6190,7 @@ LABEL_46:
     }
 
     *(v1 + 208) = 0;
-    DgnPrimArray<int>::copyArraySlice(v1 + 200, &v42, 0, v43);
+    DgnPrimArray<int>::copyArraySlice((v1 + 200), &v42, 0, v43);
     *(v1 + 216) = 0;
     v37 = *(v1 + 224);
     if (v37)
@@ -6128,7 +6200,7 @@ LABEL_46:
     }
 
     *(v1 + 232) = 0;
-    DgnPrimArray<unsigned char>::copyArraySlice(v1 + 224, &v40, 0, v41);
+    DgnPrimArray<unsigned char>::copyArraySlice((v1 + 224), &v40, 0, v41);
     DgnPrimArray<unsigned int>::~DgnPrimArray(&v40);
     return DgnPrimArray<unsigned int>::~DgnPrimArray(&v42);
   }
@@ -6136,118 +6208,154 @@ LABEL_46:
   return this;
 }
 
-void sub_262738E6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_262738E6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
 
 void WordList::saveTwl(WordList *this, DFile *a2, int a3)
 {
-  DgnTextFileWriter::DgnTextFileWriter(v121);
-  DgnTextFileWriter::openDgnTextFileWriter(v121, a2, 0x62u, a3);
-  v119 = 0;
-  v120 = 0;
-  DgnTextFile::legalDgnTextFileVersions(v121, sTWL_Versions, &v119, v6, v7, v8, v9, v10);
-  DgnTextFileWriter::setFileType(v121, "TextWordList", (v119 + 8 * (v120 - 1)));
-  DgnTextFileWriter::setHeaderFieldUnsigned(v121, "NumberOfWords", *(this + 96));
-  v11 = *(this + 90);
-  if (v11)
+  DgnTextFileWriter::DgnTextFileWriter(v100);
+  DgnTextFileWriter::openDgnTextFileWriter(v100, a2, 98, a3);
+  v98 = 0;
+  v99 = 0;
+  DgnTextFile::legalDgnTextFileVersions(v100, sTWL_Versions, &v98);
+  DgnTextFileWriter::setFileType(v100, "TextWordList", (v98 + 8 * (v99 - 1)));
+  DgnTextFileWriter::setHeaderFieldUnsigned(v100, "NumberOfWords", *(this + 96));
+  v6 = *(this + 90);
+  if (v6)
   {
-    v12 = 0;
-    while (!*(*(this + 4) + 2 * *(*(this + 44) + 4 * v12)))
+    v7 = 0;
+    while (!*(*(this + 4) + 2 * *(*(this + 44) + 4 * v7)))
     {
-      if (v11 == ++v12)
+      if (v6 == ++v7)
       {
-        LODWORD(v12) = *(this + 90);
+        LODWORD(v7) = *(this + 90);
         break;
       }
     }
 
-    v13 = v12;
+    v8 = v7;
   }
 
   else
   {
-    v13 = 0;
+    v8 = 0;
   }
 
-  DgnTextFileWriter::setHeaderFieldUnsigned(v121, "NumberOfPronlessWords", v13);
-  DgnTextFileWriter::setHeaderFieldUnsigned(v121, "NumberOfPronIds", *(this + 72));
-  v14 = *(this + 97);
-  if (v14 >= 1)
+  DgnTextFileWriter::setHeaderFieldUnsigned(v100, "NumberOfPronlessWords", v8);
+  DgnTextFileWriter::setHeaderFieldUnsigned(v100, "NumberOfPronIds", *(this + 72));
+  v9 = *(this + 97);
+  if (v9 >= 1)
   {
-    v15 = v14 - 1;
-    while (v15 >= v14 || !*(*(this + 13) + v15))
+    v10 = v9 - 1;
+    while (v10 >= v9 || !*(*(this + 13) + v10))
     {
-      v16 = v15-- + 1;
-      if (v16 <= 1)
+      v11 = v10-- + 1;
+      if (v11 <= 1)
       {
-        LODWORD(v14) = 0;
+        LODWORD(v9) = 0;
         goto LABEL_18;
       }
     }
 
-    LODWORD(v14) = v15 + 1;
+    LODWORD(v9) = v10 + 1;
 LABEL_18:
-    v17 = *(this + 72);
+    v12 = *(this + 72);
     goto LABEL_19;
   }
 
-  v17 = *(this + 72);
-  if (v14 != -1)
+  v12 = *(this + 72);
+  if (v9 != -1)
   {
 LABEL_19:
-    v18 = (v14 - v17);
+    v13 = (v9 - v12);
     goto LABEL_20;
   }
 
-  if (v17)
+  if (v12)
   {
-    LODWORD(v14) = -1;
+    LODWORD(v9) = -1;
     goto LABEL_19;
   }
 
-  v18 = 0;
+  v13 = 0;
 LABEL_20:
-  DgnTextFileWriter::setHeaderFieldUnsigned(v121, "NumberOfFreePronIds", v18);
-  DgnTextFileWriter::setHeaderFieldUnsigned(v121, "NumberOfPronPredecessorSeedCategories", *(this + 98));
-  DgnTextFileWriter::setHeaderFieldUnsigned(v121, "NumberOfPronSuccessorSeedCategories", *(this + 99));
-  DgnTextFileWriter::setHeaderFieldUnsigned(v121, "StartOfUtterancePredecessorSeedCategory", *(this + 416));
-  DgnTextFileWriter::setHeaderFieldUnsigned(v121, "EndOfUtteranceSuccessorSeedCategory", *(this + 417));
-  DgnTextFileWriter::setHeaderFieldUnsigned(v121, "RootDeterminesPronPredecessorSeedCategory", *(this + 421));
-  DgnTextFileWriter::setHeaderFieldUnsigned(v121, "RootDeterminesPronSuccessorSeedCategory", *(this + 422));
-  DgnTextFileWriter::setHeaderFieldUnsigned(v121, "DefaultClientPronPredecessorSeedCategory", *(this + 419));
-  DgnTextFileWriter::setHeaderFieldUnsigned(v121, "DefaultClientPronSuccessorSeedCategory", *(this + 420));
-  DgnTextFileWriter::setHeaderFieldInteger(v121, "RequiredWordTagsVersion", *(this + 114));
-  DgnTextFileWriter::setHeaderFieldInteger(v121, "OptionalWordTagsVersion", *(this + 115));
+  DgnTextFileWriter::setHeaderFieldUnsigned(v100, "NumberOfFreePronIds", v13);
+  DgnTextFileWriter::setHeaderFieldUnsigned(v100, "NumberOfPronPredecessorSeedCategories", *(this + 98));
+  DgnTextFileWriter::setHeaderFieldUnsigned(v100, "NumberOfPronSuccessorSeedCategories", *(this + 99));
+  DgnTextFileWriter::setHeaderFieldUnsigned(v100, "StartOfUtterancePredecessorSeedCategory", *(this + 416));
+  DgnTextFileWriter::setHeaderFieldUnsigned(v100, "EndOfUtteranceSuccessorSeedCategory", *(this + 417));
+  DgnTextFileWriter::setHeaderFieldUnsigned(v100, "RootDeterminesPronPredecessorSeedCategory", *(this + 421));
+  DgnTextFileWriter::setHeaderFieldUnsigned(v100, "RootDeterminesPronSuccessorSeedCategory", *(this + 422));
+  DgnTextFileWriter::setHeaderFieldUnsigned(v100, "DefaultClientPronPredecessorSeedCategory", *(this + 419));
+  DgnTextFileWriter::setHeaderFieldUnsigned(v100, "DefaultClientPronSuccessorSeedCategory", *(this + 420));
+  DgnTextFileWriter::setHeaderFieldInteger(v100, "RequiredWordTagsVersion", *(this + 114));
+  DgnTextFileWriter::setHeaderFieldInteger(v100, "OptionalWordTagsVersion", *(this + 115));
   if (*(this + 118))
   {
-    v19 = *(this + 58);
+    v14 = *(this + 58);
   }
 
   else
   {
-    v19 = &unk_26288C6A6;
+    v14 = &unk_26288C6A6;
   }
 
-  DgnTextFileWriter::setHeaderField(v121, "RequiredTags", v19);
+  DgnTextFileWriter::setHeaderField(v100, "RequiredTags", v14);
   if (*(this + 122))
   {
-    v20 = *(this + 60);
+    v15 = *(this + 60);
   }
 
   else
   {
-    v20 = &unk_26288C6A6;
+    v15 = &unk_26288C6A6;
   }
 
-  DgnTextFileWriter::setHeaderField(v121, "OptionalTags", v20);
-  v21 = &unk_26288C6A6;
+  DgnTextFileWriter::setHeaderField(v100, "OptionalTags", v15);
+  v16 = &unk_26288C6A6;
   if (*(this + 126))
   {
-    v22 = *(this + 62);
+    v17 = *(this + 62);
+  }
+
+  else
+  {
+    v17 = &unk_26288C6A6;
+  }
+
+  DgnTextFileWriter::setHeaderField(v100, "NewWordTag", v17);
+  DgnString::DgnString(&v96);
+  if (*(this + 80))
+  {
+    v19 = 0;
+    do
+    {
+      if (v19)
+      {
+        DgnString::operator+=(&v96, ",");
+      }
+
+      v20 = *(*(this + 39) + 2 * v19);
+      CollationName = "_IDENTITY";
+      if (v20 != 65534)
+      {
+        CollationName = CollMgr::getCollationName(*this, v20, v18);
+      }
+
+      DgnString::operator+=(&v96, CollationName);
+      ++v19;
+    }
+
+    while (v19 < *(this + 80));
+  }
+
+  if (v97)
+  {
+    v22 = v96;
   }
 
   else
@@ -6255,526 +6363,491 @@ LABEL_20:
     v22 = &unk_26288C6A6;
   }
 
-  DgnTextFileWriter::setHeaderField(v121, "NewWordTag", v22);
-  DgnString::DgnString(&v117);
-  if (*(this + 80))
+  DgnTextFileWriter::setHeaderField(v100, "AllowedCollations", v22);
+  DgnString::~DgnString(&v96);
+  v96 = 0;
+  v97 = 0;
+  v94 = 0;
+  v95 = 0;
+  DgnString::DgnString(&v92, "Type");
+  v23 = v97;
+  if (v97 == HIDWORD(v97))
   {
-    v28 = 0;
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v96, 1, 1);
+    v23 = v97;
+  }
+
+  DgnString::DgnString(&v96[16 * v23], &v92);
+  LODWORD(v97) = v97 + 1;
+  DgnString::~DgnString(&v92);
+  v24 = v95;
+  if (v95 == HIDWORD(v95))
+  {
+    DgnPrimArray<unsigned int>::reallocElts(&v94, 1, 1);
+    v24 = v95;
+  }
+
+  *(v94 + 4 * v24) = 0;
+  LODWORD(v95) = v24 + 1;
+  v25 = v97;
+  DgnString::DgnString(&v92, "WordName");
+  v26 = v97;
+  if (v97 == HIDWORD(v97))
+  {
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v96, 1, 1);
+    v26 = v97;
+  }
+
+  DgnString::DgnString(&v96[16 * v26], &v92);
+  LODWORD(v97) = v97 + 1;
+  DgnString::~DgnString(&v92);
+  v27 = v95;
+  if (v95 == HIDWORD(v95))
+  {
+    DgnPrimArray<unsigned int>::reallocElts(&v94, 1, 1);
+    v27 = v95;
+  }
+
+  *(v94 + 4 * v27) = 0;
+  LODWORD(v95) = v27 + 1;
+  v83 = v97;
+  DgnString::DgnString(&v92, "UnsValue1");
+  v28 = v97;
+  if (v97 == HIDWORD(v97))
+  {
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v96, 1, 1);
+    v28 = v97;
+  }
+
+  DgnString::DgnString(&v96[16 * v28], &v92);
+  LODWORD(v97) = v97 + 1;
+  DgnString::~DgnString(&v92);
+  v29 = v95;
+  if (v95 == HIDWORD(v95))
+  {
+    DgnPrimArray<unsigned int>::reallocElts(&v94, 1, 1);
+    v29 = v95;
+  }
+
+  *(v94 + 4 * v29) = 3;
+  LODWORD(v95) = v29 + 1;
+  v82 = v97;
+  DgnString::DgnString(&v92, "UnsValue2");
+  v30 = v97;
+  if (v97 == HIDWORD(v97))
+  {
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v96, 1, 1);
+    v30 = v97;
+  }
+
+  DgnString::DgnString(&v96[16 * v30], &v92);
+  LODWORD(v97) = v97 + 1;
+  DgnString::~DgnString(&v92);
+  v31 = v95;
+  if (v95 == HIDWORD(v95))
+  {
+    DgnPrimArray<unsigned int>::reallocElts(&v94, 1, 1);
+    v31 = v95;
+  }
+
+  *(v94 + 4 * v31) = 3;
+  LODWORD(v95) = v31 + 1;
+  v81 = v97;
+  DgnString::DgnString(&v92, "UnsValue3");
+  v32 = v97;
+  if (v97 == HIDWORD(v97))
+  {
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v96, 1, 1);
+    v32 = v97;
+  }
+
+  DgnString::DgnString(&v96[16 * v32], &v92);
+  LODWORD(v97) = v97 + 1;
+  DgnString::~DgnString(&v92);
+  v33 = v95;
+  if (v95 == HIDWORD(v95))
+  {
+    DgnPrimArray<unsigned int>::reallocElts(&v94, 1, 1);
+    v33 = v95;
+  }
+
+  *(v94 + 4 * v33) = 3;
+  LODWORD(v95) = v33 + 1;
+  v80 = v97;
+  DgnString::DgnString(&v92, "StrValue1");
+  v34 = v97;
+  if (v97 == HIDWORD(v97))
+  {
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v96, 1, 1);
+    v34 = v97;
+  }
+
+  DgnString::DgnString(&v96[16 * v34], &v92);
+  LODWORD(v97) = v97 + 1;
+  DgnString::~DgnString(&v92);
+  v35 = v95;
+  if (v95 == HIDWORD(v95))
+  {
+    DgnPrimArray<unsigned int>::reallocElts(&v94, 1, 1);
+    v35 = v95;
+  }
+
+  *(v94 + 4 * v35) = 0;
+  LODWORD(v95) = v35 + 1;
+  v79 = v97;
+  DgnString::DgnString(&v92, "StrValue2");
+  v36 = v97;
+  if (v97 == HIDWORD(v97))
+  {
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v96, 1, 1);
+    v36 = v97;
+  }
+
+  DgnString::DgnString(&v96[16 * v36], &v92);
+  LODWORD(v97) = v97 + 1;
+  DgnString::~DgnString(&v92);
+  v37 = v95;
+  if (v95 == HIDWORD(v95))
+  {
+    DgnPrimArray<unsigned int>::reallocElts(&v94, 1, 1);
+    v37 = v95;
+  }
+
+  *(v94 + 4 * v37) = 0;
+  LODWORD(v95) = v37 + 1;
+  DgnTextFileWriter::setLineFieldFormat(v100, &v94, &v96);
+  v92 = 0;
+  v93 = 0;
+  v90 = 0;
+  v91 = 0;
+  splitTagsString(this + 116, &v92);
+  splitTagsString(this + 120, &v90);
+  v38 = v93;
+  v76 = v91;
+  v39 = *(this + 98);
+  if (v39)
+  {
+    v40 = 0;
+    LODWORD(v41) = *(this + 99);
     do
     {
-      if (v28)
+      if (v41)
       {
-        DgnString::operator+=(&v117, ",");
-      }
-
-      v29 = *(*(this + 39) + 2 * v28);
-      CollationName = "_IDENTITY";
-      if (v29 != 65534)
-      {
-        CollationName = CollMgr::getCollationName(*this, v29, "_IDENTITY", v23, v24, v25, v26, v27);
-      }
-
-      DgnString::operator+=(&v117, CollationName);
-      ++v28;
-    }
-
-    while (v28 < *(this + 80));
-  }
-
-  if (v118)
-  {
-    v31 = v117;
-  }
-
-  else
-  {
-    v31 = &unk_26288C6A6;
-  }
-
-  DgnTextFileWriter::setHeaderField(v121, "AllowedCollations", v31);
-  DgnString::~DgnString(&v117);
-  v117 = 0;
-  v118 = 0;
-  v115 = 0;
-  v116 = 0;
-  DgnString::DgnString(&v113, "Type");
-  v32 = v118;
-  if (v118 == HIDWORD(v118))
-  {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v117, 1, 1);
-    v32 = v118;
-  }
-
-  DgnString::DgnString(&v117[16 * v32], &v113);
-  LODWORD(v118) = v118 + 1;
-  DgnString::~DgnString(&v113);
-  v33 = v116;
-  if (v116 == HIDWORD(v116))
-  {
-    DgnPrimArray<unsigned int>::reallocElts(&v115, 1, 1);
-    v33 = v116;
-  }
-
-  *(v115 + 4 * v33) = 0;
-  LODWORD(v116) = v33 + 1;
-  v34 = v118;
-  DgnString::DgnString(&v113, "WordName");
-  v35 = v118;
-  if (v118 == HIDWORD(v118))
-  {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v117, 1, 1);
-    v35 = v118;
-  }
-
-  DgnString::DgnString(&v117[16 * v35], &v113);
-  LODWORD(v118) = v118 + 1;
-  DgnString::~DgnString(&v113);
-  v36 = v116;
-  if (v116 == HIDWORD(v116))
-  {
-    DgnPrimArray<unsigned int>::reallocElts(&v115, 1, 1);
-    v36 = v116;
-  }
-
-  *(v115 + 4 * v36) = 0;
-  LODWORD(v116) = v36 + 1;
-  v104 = v118;
-  DgnString::DgnString(&v113, "UnsValue1");
-  v37 = v118;
-  if (v118 == HIDWORD(v118))
-  {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v117, 1, 1);
-    v37 = v118;
-  }
-
-  DgnString::DgnString(&v117[16 * v37], &v113);
-  LODWORD(v118) = v118 + 1;
-  DgnString::~DgnString(&v113);
-  v38 = v116;
-  if (v116 == HIDWORD(v116))
-  {
-    DgnPrimArray<unsigned int>::reallocElts(&v115, 1, 1);
-    v38 = v116;
-  }
-
-  *(v115 + 4 * v38) = 3;
-  LODWORD(v116) = v38 + 1;
-  v103 = v118;
-  DgnString::DgnString(&v113, "UnsValue2");
-  v39 = v118;
-  if (v118 == HIDWORD(v118))
-  {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v117, 1, 1);
-    v39 = v118;
-  }
-
-  DgnString::DgnString(&v117[16 * v39], &v113);
-  LODWORD(v118) = v118 + 1;
-  DgnString::~DgnString(&v113);
-  v40 = v116;
-  if (v116 == HIDWORD(v116))
-  {
-    DgnPrimArray<unsigned int>::reallocElts(&v115, 1, 1);
-    v40 = v116;
-  }
-
-  *(v115 + 4 * v40) = 3;
-  LODWORD(v116) = v40 + 1;
-  v102 = v118;
-  DgnString::DgnString(&v113, "UnsValue3");
-  v41 = v118;
-  if (v118 == HIDWORD(v118))
-  {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v117, 1, 1);
-    v41 = v118;
-  }
-
-  DgnString::DgnString(&v117[16 * v41], &v113);
-  LODWORD(v118) = v118 + 1;
-  DgnString::~DgnString(&v113);
-  v42 = v116;
-  if (v116 == HIDWORD(v116))
-  {
-    DgnPrimArray<unsigned int>::reallocElts(&v115, 1, 1);
-    v42 = v116;
-  }
-
-  *(v115 + 4 * v42) = 3;
-  LODWORD(v116) = v42 + 1;
-  v101 = v118;
-  DgnString::DgnString(&v113, "StrValue1");
-  v43 = v118;
-  if (v118 == HIDWORD(v118))
-  {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v117, 1, 1);
-    v43 = v118;
-  }
-
-  DgnString::DgnString(&v117[16 * v43], &v113);
-  LODWORD(v118) = v118 + 1;
-  DgnString::~DgnString(&v113);
-  v44 = v116;
-  if (v116 == HIDWORD(v116))
-  {
-    DgnPrimArray<unsigned int>::reallocElts(&v115, 1, 1);
-    v44 = v116;
-  }
-
-  *(v115 + 4 * v44) = 0;
-  LODWORD(v116) = v44 + 1;
-  v100 = v118;
-  DgnString::DgnString(&v113, "StrValue2");
-  v45 = v118;
-  if (v118 == HIDWORD(v118))
-  {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v117, 1, 1);
-    v45 = v118;
-  }
-
-  DgnString::DgnString(&v117[16 * v45], &v113);
-  LODWORD(v118) = v118 + 1;
-  DgnString::~DgnString(&v113);
-  v46 = v116;
-  if (v116 == HIDWORD(v116))
-  {
-    DgnPrimArray<unsigned int>::reallocElts(&v115, 1, 1);
-    v46 = v116;
-  }
-
-  *(v115 + 4 * v46) = 0;
-  LODWORD(v116) = v46 + 1;
-  DgnTextFileWriter::setLineFieldFormat(v121, &v115, &v117);
-  v113 = 0;
-  v114 = 0;
-  v111 = 0;
-  v112 = 0;
-  splitTagsString(this + 116, &v113);
-  splitTagsString(this + 120, &v111);
-  v47 = v114;
-  v97 = v112;
-  v48 = *(this + 98);
-  if (v48)
-  {
-    v49 = 0;
-    LODWORD(v50) = *(this + 99);
-    do
-    {
-      if (v50)
-      {
-        v51 = 0;
+        v42 = 0;
         do
         {
-          DgnTextFileWriter::setLineFieldValue(v121, 0, "SeedTable");
-          DgnTextFileWriter::setLineFieldValue(v121, v34, &unk_26288C6A6);
-          DgnTextFileWriter::setLineFieldUnsignedValue(v121, v104, v49);
-          DgnTextFileWriter::setLineFieldUnsignedValue(v121, v103, v51);
-          DgnTextFileWriter::setLineFieldUnsignedValue(v121, v102, *(*(*(this + 50) + 16 * v49) + v51));
-          DgnTextFileWriter::setLineFieldValue(v121, v101, &unk_26288C6A6);
-          DgnTextFileWriter::setLineFieldValue(v121, v100, &unk_26288C6A6);
-          DgnTextFileWriter::writeNextLine(v121);
-          ++v51;
-          v50 = *(this + 99);
+          DgnTextFileWriter::setLineFieldValue(v100, 0, "SeedTable");
+          DgnTextFileWriter::setLineFieldValue(v100, v25, &unk_26288C6A6);
+          DgnTextFileWriter::setLineFieldUnsignedValue(v100, v83, v40);
+          DgnTextFileWriter::setLineFieldUnsignedValue(v100, v82, v42);
+          DgnTextFileWriter::setLineFieldUnsignedValue(v100, v81, *(*(*(this + 50) + 16 * v40) + v42));
+          DgnTextFileWriter::setLineFieldValue(v100, v80, &unk_26288C6A6);
+          DgnTextFileWriter::setLineFieldValue(v100, v79, &unk_26288C6A6);
+          DgnTextFileWriter::writeNextLine(v100);
+          ++v42;
+          v41 = *(this + 99);
         }
 
-        while (v51 < v50);
-        v48 = *(this + 98);
+        while (v42 < v41);
+        v39 = *(this + 98);
       }
 
-      ++v49;
+      ++v40;
     }
 
-    while (v49 < v48);
+    while (v40 < v39);
   }
 
-  DgnString::DgnString(&v109);
-  v107 = 0;
-  v108 = 0;
-  WordList::getAllByRootId(this, &v107);
-  v52 = *(this + 97);
-  if (v52)
+  DgnString::DgnString(&v88);
+  v86 = 0;
+  v87 = 0;
+  WordList::getAllByRootId(this, &v86);
+  v43 = *(this + 97);
+  if (v43)
   {
-    v53 = 0;
-    v98 = v47;
+    v44 = 0;
+    v77 = v38;
     do
     {
-      if (*(*(this + 13) + v53))
+      if (*(*(this + 13) + v44))
       {
-        if (v53 == *(*(this + 32) + 4 * v53))
+        if (v44 == *(*(this + 32) + 4 * v44))
         {
-          v54 = &v107[16 * v53];
-          if (*(v54 + 2))
+          v45 = &v86[16 * v44];
+          if (*(v45 + 2))
           {
-            v55 = 0;
+            v46 = 0;
             do
             {
-              v56 = *(*v54 + 4 * v55);
-              DgnTextFileWriter::setLineFieldValue(v121, 0, "Pron");
-              DgnTextFileWriter::setLineFieldValue(v121, v34, (*(this + 28) + *(*(this + 25) + 4 * v56)));
-              DgnTextFileWriter::setLineFieldUnsignedValue(v121, v104, v56);
+              v47 = *(*v45 + 4 * v46);
+              DgnTextFileWriter::setLineFieldValue(v100, 0, "Pron");
+              DgnTextFileWriter::setLineFieldValue(v100, v25, (*(this + 28) + *(*(this + 25) + 4 * v47)));
+              DgnTextFileWriter::setLineFieldUnsignedValue(v100, v83, v47);
               if (*(this + 98) < 2u)
               {
-                v57 = 0;
+                v48 = 0;
               }
 
               else
               {
-                v57 = *(*(this + 53) + v56);
+                v48 = *(*(this + 53) + v47);
               }
 
-              DgnTextFileWriter::setLineFieldUnsignedValue(v121, v103, v57);
+              DgnTextFileWriter::setLineFieldUnsignedValue(v100, v82, v48);
               if (*(this + 99) < 2u)
               {
-                v58 = 0;
+                v49 = 0;
               }
 
               else
               {
-                v58 = *(*(this + 55) + v56);
+                v49 = *(*(this + 55) + v47);
               }
 
-              DgnTextFileWriter::setLineFieldUnsignedValue(v121, v102, v58);
-              DgnString::DgnString(&v105);
-              if ((*(*(this + 80) + ((v56 >> 3) & 0x1FFFFFFC)) >> v56))
+              DgnTextFileWriter::setLineFieldUnsignedValue(v100, v81, v49);
+              DgnString::DgnString(&v84);
+              if ((*(*(this + 80) + ((v47 >> 3) & 0x1FFFFFFC)) >> v47))
               {
-                v59 = "F";
+                v50 = "F";
               }
 
               else
               {
-                v59 = "U";
+                v50 = "U";
               }
 
-              DgnString::operator=(&v105, v59);
-              if (v106)
+              DgnString::operator=(&v84, v50);
+              if (v85)
               {
-                v60 = v105;
+                v51 = v84;
               }
 
               else
               {
-                v60 = &unk_26288C6A6;
+                v51 = &unk_26288C6A6;
               }
 
-              DgnTextFileWriter::setLineFieldValue(v121, v101, v60);
-              WordList::getHumanReadablePron(this, v56, &v109);
-              if (v110)
+              DgnTextFileWriter::setLineFieldValue(v100, v80, v51);
+              WordList::getHumanReadablePron(this, v47, &v88);
+              if (v89)
               {
-                v61 = v109;
+                v52 = v88;
               }
 
               else
               {
-                v61 = &unk_26288C6A6;
+                v52 = &unk_26288C6A6;
               }
 
-              DgnTextFileWriter::setLineFieldValue(v121, v100, v61);
-              DgnTextFileWriter::writeNextLine(v121);
-              DgnString::~DgnString(&v105);
-              ++v55;
+              DgnTextFileWriter::setLineFieldValue(v100, v79, v52);
+              DgnTextFileWriter::writeNextLine(v100);
+              DgnString::~DgnString(&v84);
+              ++v46;
             }
 
-            while (v55 < *(v54 + 2));
-            v52 = *(this + 97);
-            v47 = v98;
+            while (v46 < *(v45 + 2));
+            v43 = *(this + 97);
+            v38 = v77;
           }
         }
       }
 
-      ++v53;
+      ++v44;
     }
 
-    while (v53 < v52);
+    while (v44 < v43);
   }
 
-  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v107);
-  DgnString::~DgnString(&v109);
-  DgnString::DgnString(&v109);
-  DgnString::DgnString(&v107);
-  v62 = *(this + 97);
-  if (v62)
+  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v86);
+  DgnString::~DgnString(&v88);
+  DgnString::DgnString(&v88);
+  DgnString::DgnString(&v86);
+  v53 = *(this + 97);
+  if (v53)
   {
-    v63 = 0;
-    v64 = 0;
+    v54 = 0;
+    v55 = 0;
     while (1)
     {
-      if (!*(*(this + 13) + v64) || v64 != *(*(this + 32) + 4 * v64))
+      if (!*(*(this + 13) + v55) || v55 != *(*(this + 32) + 4 * v55))
       {
         goto LABEL_114;
       }
 
-      DgnTextFileWriter::setLineFieldValue(v121, 0, "ReqTags");
-      DgnTextFileWriter::setLineFieldValue(v121, v34, (*(this + 28) + *(*(this + 25) + 4 * v64)));
-      DgnTextFileWriter::setLineFieldUnsignedValue(v121, v104, 0);
-      DgnTextFileWriter::setLineFieldUnsignedValue(v121, v103, 0);
-      DgnTextFileWriter::setLineFieldUnsignedValue(v121, v102, 0);
-      v65 = ((*(*(this + 78) + ((v64 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> v64) & 1) != 0 ? "F" : "U";
-      DgnString::DgnString(&v105, v65);
-      v66 = v106 ? v105 : &unk_26288C6A6;
-      DgnTextFileWriter::setLineFieldValue(v121, v101, v66);
-      if (!v47)
+      DgnTextFileWriter::setLineFieldValue(v100, 0, "ReqTags");
+      DgnTextFileWriter::setLineFieldValue(v100, v25, (*(this + 28) + *(*(this + 25) + 4 * v55)));
+      DgnTextFileWriter::setLineFieldUnsignedValue(v100, v83, 0);
+      DgnTextFileWriter::setLineFieldUnsignedValue(v100, v82, 0);
+      DgnTextFileWriter::setLineFieldUnsignedValue(v100, v81, 0);
+      v56 = ((*(*(this + 78) + ((v55 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> v55) & 1) != 0 ? "F" : "U";
+      DgnString::DgnString(&v84, v56);
+      v57 = v85 ? v84 : &unk_26288C6A6;
+      DgnTextFileWriter::setLineFieldValue(v100, v80, v57);
+      if (!v38)
       {
         break;
       }
 
-      BitArray::getBitsFromRange((this + 576), &v107, v63, v47 + v63);
-      tagBitsToTagString(&v107, &v113, &v109);
-      if (!v110)
+      BitArray::getBitsFromRange((this + 576), &v86, v54, v38 + v54);
+      tagBitsToTagString(&v86, &v92, &v88);
+      if (!v89)
       {
         goto LABEL_112;
       }
 
-      v67 = v109;
+      v58 = v88;
 LABEL_113:
-      DgnTextFileWriter::setLineFieldValue(v121, v100, v67);
-      DgnTextFileWriter::writeNextLine(v121);
-      DgnString::~DgnString(&v105);
-      v62 = *(this + 97);
+      DgnTextFileWriter::setLineFieldValue(v100, v79, v58);
+      DgnTextFileWriter::writeNextLine(v100);
+      DgnString::~DgnString(&v84);
+      v53 = *(this + 97);
 LABEL_114:
-      ++v64;
-      v63 += v47;
-      if (v64 >= v62)
+      ++v55;
+      v54 += v38;
+      if (v55 >= v53)
       {
         goto LABEL_115;
       }
     }
 
-    LODWORD(v110) = 0;
+    LODWORD(v89) = 0;
 LABEL_112:
-    v67 = &unk_26288C6A6;
+    v58 = &unk_26288C6A6;
     goto LABEL_113;
   }
 
 LABEL_115:
-  BitArray::~BitArray(&v107);
-  DgnString::~DgnString(&v109);
-  if (v97)
+  BitArray::~BitArray(&v86);
+  DgnString::~DgnString(&v88);
+  if (v76)
   {
-    DgnString::DgnString(&v109);
-    DgnString::DgnString(&v107);
-    DgnString::DgnString(&v105);
-    v68 = *(this + 97);
-    if (v68)
+    DgnString::DgnString(&v88);
+    DgnString::DgnString(&v86);
+    DgnString::DgnString(&v84);
+    v59 = *(this + 97);
+    if (v59)
     {
-      for (i = 0; i < v68; ++i)
+      for (i = 0; i < v59; ++i)
       {
         if (*(*(this + 13) + i) && i == *(*(this + 32) + 4 * i) && i < *(this + 132) && *(*(this + 65) + 4 * i) != -1)
         {
-          DgnTextFileWriter::setLineFieldValue(v121, 0, "OptTags");
-          DgnTextFileWriter::setLineFieldValue(v121, v34, (*(this + 28) + *(*(this + 25) + 4 * i)));
-          DgnTextFileWriter::setLineFieldUnsignedValue(v121, v104, 0);
-          DgnTextFileWriter::setLineFieldUnsignedValue(v121, v103, 0);
-          DgnTextFileWriter::setLineFieldUnsignedValue(v121, v102, 0);
-          TagBitsAndStrings::getTagBits((this + 512), i, &v107);
-          tagBitsToTagString(&v107, &v111, &v109);
-          if (v110)
+          DgnTextFileWriter::setLineFieldValue(v100, 0, "OptTags");
+          DgnTextFileWriter::setLineFieldValue(v100, v25, (*(this + 28) + *(*(this + 25) + 4 * i)));
+          DgnTextFileWriter::setLineFieldUnsignedValue(v100, v83, 0);
+          DgnTextFileWriter::setLineFieldUnsignedValue(v100, v82, 0);
+          DgnTextFileWriter::setLineFieldUnsignedValue(v100, v81, 0);
+          TagBitsAndStrings::getTagBits((this + 512), i, &v86);
+          tagBitsToTagString(&v86, &v90, &v88);
+          if (v89)
           {
-            v70 = v109;
+            v61 = v88;
           }
 
           else
           {
-            v70 = &unk_26288C6A6;
+            v61 = &unk_26288C6A6;
           }
 
-          DgnTextFileWriter::setLineFieldValue(v121, v101, v70);
-          DgnString::operator=(&v105, (*(this + 67) + *(*(this + 65) + 4 * i) + ((*(this + 129) + 7) >> 3)));
-          if (v106)
+          DgnTextFileWriter::setLineFieldValue(v100, v80, v61);
+          DgnString::operator=(&v84, (*(this + 67) + *(*(this + 65) + 4 * i) + ((*(this + 129) + 7) >> 3)));
+          if (v85)
           {
-            v71 = v105;
+            v62 = v84;
           }
 
           else
           {
-            v71 = &unk_26288C6A6;
+            v62 = &unk_26288C6A6;
           }
 
-          DgnTextFileWriter::setLineFieldValue(v121, v100, v71);
-          DgnTextFileWriter::writeNextLine(v121);
-          v68 = *(this + 97);
+          DgnTextFileWriter::setLineFieldValue(v100, v79, v62);
+          DgnTextFileWriter::writeNextLine(v100);
+          v59 = *(this + 97);
         }
       }
     }
 
-    DgnString::~DgnString(&v105);
-    BitArray::~BitArray(&v107);
-    DgnString::~DgnString(&v109);
+    DgnString::~DgnString(&v84);
+    BitArray::~BitArray(&v86);
+    DgnString::~DgnString(&v88);
   }
 
-  v72 = *(this + 3);
-  v109 = 0;
-  v110 = 0;
-  EnvMgr::getItemsWithEnv(v72, &v109);
-  DgnString::DgnString(&v107);
-  if (v110)
+  v63 = *(this + 3);
+  v88 = 0;
+  v89 = 0;
+  EnvMgr::getItemsWithEnv(v63, &v88);
+  DgnString::DgnString(&v86);
+  if (v89)
   {
-    v73 = 0;
+    v64 = 0;
     do
     {
-      v74 = *&v109[4 * v73];
-      ItemEnvId = EnvMgr::getItemEnvId(v72, v74);
-      NameIds = EnvMgr::getNameIds(v72, ItemEnvId, v76, v77, v78, v79, v80, v81);
-      v99 = v73;
-      v83 = v34;
-      v84 = v21;
-      Values = EnvMgr::getValues(v72, ItemEnvId, v85, v86, v87, v88, v89, v90);
+      v65 = *&v88[4 * v64];
+      ItemEnvId = EnvMgr::getItemEnvId(v63, v65);
+      NameIds = EnvMgr::getNameIds(v63, ItemEnvId);
+      v78 = v64;
+      v68 = v25;
+      v69 = v16;
+      Values = EnvMgr::getValues(v63, ItemEnvId);
       if (*(NameIds + 8))
       {
-        v92 = Values;
-        v93 = 0;
-        v94 = 0;
+        v71 = Values;
+        v72 = 0;
+        v73 = 0;
         do
         {
-          Name = EnvMgr::getName(v72, *(*NameIds + 2 * v94));
-          DgnTextFile::convertToEnvValueFormat(*v92 + v93, &v107);
-          DgnTextFileWriter::setLineFieldValue(v121, 0, "Env");
-          DgnTextFileWriter::setLineFieldValue(v121, v83, (*(this + 28) + *(*(this + 25) + 4 * v74)));
-          DgnTextFileWriter::setLineFieldUnsignedValue(v121, v104, 0);
-          DgnTextFileWriter::setLineFieldUnsignedValue(v121, v103, 0);
-          DgnTextFileWriter::setLineFieldUnsignedValue(v121, v102, 0);
-          DgnTextFileWriter::setLineFieldValue(v121, v101, Name);
-          if (v108)
+          Name = EnvMgr::getName(v63, *(*NameIds + 2 * v73));
+          DgnTextFile::convertToEnvValueFormat(*v71 + v72, &v86);
+          DgnTextFileWriter::setLineFieldValue(v100, 0, "Env");
+          DgnTextFileWriter::setLineFieldValue(v100, v68, (*(this + 28) + *(*(this + 25) + 4 * v65)));
+          DgnTextFileWriter::setLineFieldUnsignedValue(v100, v83, 0);
+          DgnTextFileWriter::setLineFieldUnsignedValue(v100, v82, 0);
+          DgnTextFileWriter::setLineFieldUnsignedValue(v100, v81, 0);
+          DgnTextFileWriter::setLineFieldValue(v100, v80, Name);
+          if (v87)
           {
-            v96 = v107;
+            v75 = v86;
           }
 
           else
           {
-            v96 = v84;
+            v75 = v69;
           }
 
-          DgnTextFileWriter::setLineFieldValue(v121, v100, v96);
-          DgnTextFileWriter::writeNextLine(v121);
-          ++v94;
-          v93 += 16;
+          DgnTextFileWriter::setLineFieldValue(v100, v79, v75);
+          DgnTextFileWriter::writeNextLine(v100);
+          ++v73;
+          v72 += 16;
         }
 
-        while (v94 < *(NameIds + 8));
+        while (v73 < *(NameIds + 8));
       }
 
-      v73 = v99 + 1;
-      v21 = v84;
-      v34 = v83;
+      v64 = v78 + 1;
+      v16 = v69;
+      v25 = v68;
     }
 
-    while (v99 + 1 < v110);
+    while (v78 + 1 < v89);
   }
 
-  DgnString::~DgnString(&v107);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v109);
-  DgnArray<DgnString>::releaseAll(&v111);
-  DgnArray<DgnString>::releaseAll(&v113);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v115);
-  DgnArray<DgnString>::releaseAll(&v117);
-  DgnIArray<Utterance *>::~DgnIArray(&v119);
-  DgnTextFileWriter::~DgnTextFileWriter(v121);
+  DgnString::~DgnString(&v86);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v88);
+  DgnArray<DgnString>::releaseAll(&v90);
+  DgnArray<DgnString>::releaseAll(&v92);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v94);
+  DgnArray<DgnString>::releaseAll(&v96);
+  DgnIArray<Utterance *>::~DgnIArray(&v98);
+  DgnTextFileWriter::~DgnTextFileWriter(v100);
 }
 
-void sub_262739D3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, char a27, uint64_t a28, char a29, uint64_t a30, char a31)
+void sub_262739D3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a25);
   DgnArray<DgnString>::releaseAll(&a27);
   DgnIArray<Utterance *>::~DgnIArray(&a29);
-  DgnTextFileWriter::~DgnTextFileWriter(&a31);
+  DgnTextFileWriter::~DgnTextFileWriter(va);
   _Unwind_Resume(a1);
 }
 
@@ -6854,7 +6927,7 @@ uint64_t WordList::getAllByRootId(uint64_t a1, uint64_t a2)
       v19 = *(*(a1 + 256) + 4 * v18);
       if (v19 != v17 && v15)
       {
-        DgnPrimArray<int>::copyArraySlice(*a2 + 16 * v17, &v21, 0, v15);
+        DgnPrimArray<int>::copyArraySlice((*a2 + 16 * v17), &v21, 0, v15);
         v15 = 0;
         LODWORD(v22) = 0;
       }
@@ -6875,7 +6948,7 @@ uint64_t WordList::getAllByRootId(uint64_t a1, uint64_t a2)
     while (v16 < *(v14 + 8));
     if (v15)
     {
-      DgnPrimArray<int>::copyArraySlice(*a2 + 16 * v19, &v21, 0, v15);
+      DgnPrimArray<int>::copyArraySlice((*a2 + 16 * v19), &v21, 0, v15);
     }
   }
 
@@ -6954,7 +7027,7 @@ DgnString *tagBitsToTagString(uint64_t a1, void *a2, DgnString *a3)
   return result;
 }
 
-void (***WordList::saveBinary(WordList *this, DFile *a2, DFileChecksums *a3, int a4))(void)
+void (***WordList::saveBinary(WordList *this, DFile *a2, DFileChecksums *a3, uint64_t a4))(void)
 {
   v7 = OpenAndWriteMrecHeader(a2, 0x2Fu, a4, "MRWORD!?", 24, 43);
   v10 = 0;
@@ -6999,7 +7072,7 @@ void (***WordList::saveBinary(WordList *this, DFile *a2, DFileChecksums *a3, int
   EnvMgr::saveEnvMgrToStream(*(this + 3), v7, &v10, 1, 0);
   writeObjectChecksum(v7, &v10);
   CurrentSubDirComponents = DFile::getCurrentSubDirComponents(a2);
-  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 0x2Fu, v10);
+  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 47, v10);
   return DgnDelete<DgnStream>(v7);
 }
 
@@ -7042,173 +7115,297 @@ void WordList::printSize(WordList *this, uint64_t a2, uint64_t a3, unint64_t *a4
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2279, &v430);
-  if (v431)
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2279);
+  if (v268)
   {
-    v16 = v430;
+    v13 = v267;
   }
 
   else
   {
-    v16 = &unk_26288C6A6;
+    v13 = &unk_26288C6A6;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &unk_26288C6A6, a3, &unk_26288C6A6, v16);
-  DgnString::~DgnString(&v430);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &unk_26288C6A6, a3, &unk_26288C6A6, v13);
+  DgnString::~DgnString(&v267);
   if (a2 != -1)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
+    xlprintf("%d ", v14, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &unk_26288C6A6);
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &unk_26288C6A6);
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v21 = 4;
+    v15 = 4;
   }
 
   else
   {
-    v21 = 8;
+    v15 = 8;
   }
 
-  v22 = (a3 + 1);
-  v23 = (34 - a3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2280, &v430);
-  if (v431)
+  v16 = (a3 + 1);
+  v17 = (34 - a3);
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2280);
+  if (v268)
   {
-    v28 = v430;
+    v19 = v267;
   }
 
   else
   {
-    v28 = &unk_26288C6A6;
+    v19 = &unk_26288C6A6;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v24, v25, v26, v27, (a3 + 1), &unk_26288C6A6, (34 - a3), (34 - a3), v28, v21, v21, 0);
-  DgnString::~DgnString(&v430);
-  *a4 += v21;
-  *a5 += v21;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v18, (a3 + 1), &unk_26288C6A6, (34 - a3), (34 - a3), v19, v15, v15, 0);
+  DgnString::~DgnString(&v267);
+  *a4 += v15;
+  *a5 += v15;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v29 = 4;
+    v20 = 4;
   }
 
   else
   {
-    v29 = 8;
+    v20 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2281, &v430);
-  if (v431)
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2281);
+  if (v268)
   {
-    v34 = v430;
+    v22 = v267;
   }
 
   else
   {
-    v34 = &unk_26288C6A6;
+    v22 = &unk_26288C6A6;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v30, v31, v32, v33, (a3 + 1), &unk_26288C6A6, (34 - a3), (34 - a3), v34, v29, v29, 0);
-  DgnString::~DgnString(&v430);
-  *a4 += v29;
-  *a5 += v29;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v21, (a3 + 1), &unk_26288C6A6, (34 - a3), (34 - a3), v22, v20, v20, 0);
+  DgnString::~DgnString(&v267);
+  *a4 += v20;
+  *a5 += v20;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v35 = 4;
+    v23 = 4;
   }
 
   else
   {
-    v35 = 8;
+    v23 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2282, &v430);
-  if (v431)
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2282);
+  if (v268)
   {
-    v40 = v430;
+    v25 = v267;
   }
 
   else
   {
-    v40 = &unk_26288C6A6;
+    v25 = &unk_26288C6A6;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v36, v37, v38, v39, (a3 + 1), &unk_26288C6A6, (34 - a3), (34 - a3), v40, v35, v35, 0);
-  DgnString::~DgnString(&v430);
-  *a4 += v35;
-  *a5 += v35;
-  v41 = *(this + 3);
-  if (v41)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v24, (a3 + 1), &unk_26288C6A6, (34 - a3), (34 - a3), v25, v23, v23, 0);
+  DgnString::~DgnString(&v267);
+  *a4 += v23;
+  *a5 += v23;
+  v26 = *(this + 3);
+  if (v26)
   {
-    v429 = 0;
-    v430 = 0;
-    v428 = 0;
-    EnvMgr::printSize(v41, 0xFFFFFFFFLL, (a3 + 1), &v430, &v429, &v428);
-    *a4 += v430;
-    *a5 += v429;
-    *a6 += v428;
+    v266 = 0;
+    v267 = 0;
+    v265 = 0;
+    EnvMgr::printSize(v26, 0xFFFFFFFFLL, (a3 + 1), &v267, &v266, &v265);
+    *a4 += v267;
+    *a5 += v266;
+    *a6 += v265;
   }
 
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v42 = 4;
+    v27 = 4;
   }
 
   else
   {
-    v42 = 8;
+    v27 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2284, &v430);
-  if (v431)
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2284);
+  if (v268)
   {
-    v47 = v430;
+    v29 = v267;
   }
 
   else
   {
-    v47 = &unk_26288C6A6;
+    v29 = &unk_26288C6A6;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v43, v44, v45, v46, (a3 + 1), &unk_26288C6A6, (34 - a3), (34 - a3), v47, v42, v42, 0);
-  v427 = a3;
-  DgnString::~DgnString(&v430);
-  *a4 += v42;
-  *a5 += v42;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v28, (a3 + 1), &unk_26288C6A6, (34 - a3), (34 - a3), v29, v27, v27, 0);
+  v264 = a3;
+  DgnString::~DgnString(&v267);
+  *a4 += v27;
+  *a5 += v27;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v48 = 12;
+    v30 = 12;
   }
 
   else
   {
-    v48 = 16;
+    v30 = 16;
   }
 
-  v49 = *(this + 10);
-  v50 = *(this + 11);
-  if (v50 >= v49)
+  v31 = *(this + 10);
+  v32 = *(this + 11);
+  if (v32 >= v31)
   {
-    v51 = 0;
-    if (v49 > 0)
+    v33 = 0;
+    if (v31 > 0)
     {
-      v48 += 2 * (v49 - 1) + 2;
+      v30 += 2 * (v31 - 1) + 2;
     }
 
-    v52 = v48 + 2 * (v50 - v49);
+    v34 = v30 + 2 * (v32 - v31);
   }
 
   else
   {
-    v51 = 2 * v49;
-    v52 = v48;
+    v33 = 2 * v31;
+    v34 = v30;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
   {
-    v57 = v430;
+    v36 = v267;
+  }
+
+  else
+  {
+    v36 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v35, v16, &unk_26288C6A6, v17, v17, v36, v34, v30, v33);
+  DgnString::~DgnString(&v267);
+  *a4 += v34;
+  *a5 += v30;
+  *a6 += v33;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v37 = 12;
+  }
+
+  else
+  {
+    v37 = 16;
+  }
+
+  v38 = *(this + 14);
+  v39 = *(this + 15);
+  if (v39 >= v38)
+  {
+    v40 = 0;
+    if (v38 > 0)
+    {
+      v37 += 4 * (v38 - 1) + 4;
+    }
+
+    v41 = v37 + 4 * (v39 - v38);
+  }
+
+  else
+  {
+    v40 = 4 * v38;
+    v41 = v37;
+  }
+
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v43 = v267;
+  }
+
+  else
+  {
+    v43 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v42, v16, &unk_26288C6A6, v17, v17, v43, v41, v37, v40);
+  DgnString::~DgnString(&v267);
+  *a4 += v41;
+  *a5 += v37;
+  *a6 += v40;
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v45 = v267;
+  }
+
+  else
+  {
+    v45 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v44, v16, &unk_26288C6A6, v17, v17, v45, 4, 4, 0);
+  DgnString::~DgnString(&v267);
+  *a4 += 4;
+  *a5 += 4;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v46 = 12;
+  }
+
+  else
+  {
+    v46 = 16;
+  }
+
+  v47 = *(this + 20);
+  v48 = *(this + 21);
+  if (v48 >= v47)
+  {
+    v49 = 0;
+    if (v47 > 0)
+    {
+      v46 += 2 * (v47 - 1) + 2;
+    }
+
+    v50 = v46 + 2 * (v48 - v47);
+  }
+
+  else
+  {
+    v49 = 2 * v47;
+    v50 = v46;
+  }
+
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v52 = v267;
+  }
+
+  else
+  {
+    v52 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v51, v16, &unk_26288C6A6, v17, v17, v52, v50, v46, v49);
+  DgnString::~DgnString(&v267);
+  *a4 += v50;
+  *a5 += v46;
+  *a6 += v49;
+  v53 = BitArray::sizeObject(this + 88, 0);
+  v54 = BitArray::sizeObject(this + 88, 1);
+  v55 = BitArray::sizeObject(this + 88, 3);
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v57 = v267;
   }
 
   else
@@ -7216,11 +7413,11 @@ void WordList::printSize(WordList *this, uint64_t a2, uint64_t a3, unint64_t *a4
     v57 = &unk_26288C6A6;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v53, v54, v55, v56, v22, &unk_26288C6A6, v23, v23, v57, v52, v48, v51);
-  DgnString::~DgnString(&v430);
-  *a4 += v52;
-  *a5 += v48;
-  *a6 += v51;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v56, v16, &unk_26288C6A6, v17, v17, v57, v53, v54, v55);
+  DgnString::~DgnString(&v267);
+  *a4 += v53;
+  *a5 += v54;
+  *a6 += v55;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
     v58 = 12;
@@ -7231,295 +7428,463 @@ void WordList::printSize(WordList *this, uint64_t a2, uint64_t a3, unint64_t *a4
     v58 = 16;
   }
 
-  v59 = *(this + 14);
-  v60 = *(this + 15);
-  if (v60 >= v59)
+  v59 = *(this + 28);
+  v60 = *(this + 29);
+  v61 = v60 >= v59;
+  v62 = v60 - v59;
+  if (v61)
   {
-    v61 = 0;
     if (v59 > 0)
     {
-      v58 += 4 * (v59 - 1) + 4;
-    }
-
-    v62 = v58 + 4 * (v60 - v59);
-  }
-
-  else
-  {
-    v61 = 4 * v59;
-    v62 = v58;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v67 = v430;
-  }
-
-  else
-  {
-    v67 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v63, v64, v65, v66, v22, &unk_26288C6A6, v23, v23, v67, v62, v58, v61);
-  DgnString::~DgnString(&v430);
-  *a4 += v62;
-  *a5 += v58;
-  *a6 += v61;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v72 = v430;
-  }
-
-  else
-  {
-    v72 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v68, v69, v70, v71, v22, &unk_26288C6A6, v23, v23, v72, 4, 4, 0);
-  DgnString::~DgnString(&v430);
-  *a4 += 4;
-  *a5 += 4;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v73 = 12;
-  }
-
-  else
-  {
-    v73 = 16;
-  }
-
-  v74 = *(this + 20);
-  v75 = *(this + 21);
-  if (v75 >= v74)
-  {
-    v76 = 0;
-    if (v74 > 0)
-    {
-      v73 += 2 * (v74 - 1) + 2;
-    }
-
-    v77 = v73 + 2 * (v75 - v74);
-  }
-
-  else
-  {
-    v76 = 2 * v74;
-    v77 = v73;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v82 = v430;
-  }
-
-  else
-  {
-    v82 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v78, v79, v80, v81, v22, &unk_26288C6A6, v23, v23, v82, v77, v73, v76);
-  DgnString::~DgnString(&v430);
-  *a4 += v77;
-  *a5 += v73;
-  *a6 += v76;
-  v83 = BitArray::sizeObject(this + 88, 0);
-  v84 = BitArray::sizeObject(this + 88, 1);
-  v85 = BitArray::sizeObject(this + 88, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v90 = v430;
-  }
-
-  else
-  {
-    v90 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v86, v87, v88, v89, v22, &unk_26288C6A6, v23, v23, v90, v83, v84, v85);
-  DgnString::~DgnString(&v430);
-  *a4 += v83;
-  *a5 += v84;
-  *a6 += v85;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v91 = 12;
-  }
-
-  else
-  {
-    v91 = 16;
-  }
-
-  v92 = *(this + 28);
-  v93 = *(this + 29);
-  v94 = v93 >= v92;
-  v95 = v93 - v92;
-  if (v94)
-  {
-    if (v92 > 0)
-    {
-      v96 = (v92 - 1) + v91 + 1;
+      v63 = (v59 - 1) + v58 + 1;
     }
 
     else
     {
-      v96 = v91;
+      v63 = v58;
     }
 
-    v91 = v96 + v95;
-    v92 = 0;
+    v58 = v63 + v62;
+    v59 = 0;
   }
 
   else
   {
-    v96 = v91;
+    v63 = v58;
   }
 
-  v97 = v92;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
+  v64 = v59;
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
   {
-    v102 = v430;
+    v66 = v267;
   }
 
   else
   {
-    v102 = &unk_26288C6A6;
+    v66 = &unk_26288C6A6;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v98, v99, v100, v101, v22, &unk_26288C6A6, v23, v23, v102, v91, v96, v97);
-  DgnString::~DgnString(&v430);
-  *a4 += v91;
-  *a5 += v96;
-  *a6 += v97;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v65, v16, &unk_26288C6A6, v17, v17, v66, v58, v63, v64);
+  DgnString::~DgnString(&v267);
+  *a4 += v58;
+  *a5 += v63;
+  *a6 += v64;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v103 = 12;
+    v67 = 12;
   }
 
   else
   {
-    v103 = 16;
+    v67 = 16;
   }
 
-  v104 = *(this + 32);
-  v105 = *(this + 33);
-  if (v105 >= v104)
+  v68 = *(this + 32);
+  v69 = *(this + 33);
+  if (v69 >= v68)
   {
-    v106 = 0;
-    if (v104 > 0)
+    v70 = 0;
+    if (v68 > 0)
     {
-      v103 += 2 * (v104 - 1) + 2;
+      v67 += 2 * (v68 - 1) + 2;
     }
 
-    v107 = v103 + 2 * (v105 - v104);
+    v71 = v67 + 2 * (v69 - v68);
   }
 
   else
   {
-    v106 = 2 * v104;
-    v107 = v103;
+    v70 = 2 * v68;
+    v71 = v67;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
   {
-    v112 = v430;
+    v73 = v267;
   }
 
   else
   {
-    v112 = &unk_26288C6A6;
+    v73 = &unk_26288C6A6;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v108, v109, v110, v111, v22, &unk_26288C6A6, v23, v23, v112, v107, v103, v106);
-  DgnString::~DgnString(&v430);
-  *a4 += v107;
-  *a5 += v103;
-  *a6 += v106;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v72, v16, &unk_26288C6A6, v17, v17, v73, v71, v67, v70);
+  DgnString::~DgnString(&v267);
+  *a4 += v71;
+  *a5 += v67;
+  *a6 += v70;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v113 = 12;
+    v74 = 12;
   }
 
   else
   {
-    v113 = 16;
+    v74 = 16;
   }
 
-  v114 = *(this + 36);
-  v115 = *(this + 37);
-  if (v115 >= v114)
+  v75 = *(this + 36);
+  v76 = *(this + 37);
+  if (v76 >= v75)
   {
-    v116 = 0;
-    if (v114 > 0)
+    v77 = 0;
+    if (v75 > 0)
     {
-      v113 += 2 * (v114 - 1) + 2;
+      v74 += 2 * (v75 - 1) + 2;
     }
 
-    v117 = v113 + 2 * (v115 - v114);
+    v78 = v74 + 2 * (v76 - v75);
   }
 
   else
   {
-    v116 = 2 * v114;
-    v117 = v113;
+    v77 = 2 * v75;
+    v78 = v74;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
   {
-    v122 = v430;
+    v80 = v267;
   }
 
   else
   {
-    v122 = &unk_26288C6A6;
+    v80 = &unk_26288C6A6;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v118, v119, v120, v121, v22, &unk_26288C6A6, v23, v23, v122, v117, v113, v116);
-  DgnString::~DgnString(&v430);
-  *a4 += v117;
-  *a5 += v113;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v79, v16, &unk_26288C6A6, v17, v17, v80, v78, v74, v77);
+  DgnString::~DgnString(&v267);
+  *a4 += v78;
+  *a5 += v74;
+  *a6 += v77;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v81 = 12;
+  }
+
+  else
+  {
+    v81 = 16;
+  }
+
+  v82 = *(this + 40);
+  v83 = *(this + 41);
+  if (v83 >= v82)
+  {
+    v84 = 0;
+    if (v82 > 0)
+    {
+      v81 += 2 * (v82 - 1) + 2;
+    }
+
+    v85 = v81 + 2 * (v83 - v82);
+  }
+
+  else
+  {
+    v84 = 2 * v82;
+    v85 = v81;
+  }
+
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v87 = v267;
+  }
+
+  else
+  {
+    v87 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v86, v16, &unk_26288C6A6, v17, v17, v87, v85, v81, v84);
+  DgnString::~DgnString(&v267);
+  *a4 += v85;
+  *a5 += v81;
+  *a6 += v84;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v88 = 12;
+  }
+
+  else
+  {
+    v88 = 16;
+  }
+
+  v89 = *(this + 44);
+  v90 = *(this + 45);
+  if (v90 >= v89)
+  {
+    v91 = 0;
+    if (v89 > 0)
+    {
+      v88 += 2 * (v89 - 1) + 2;
+    }
+
+    v92 = v88 + 2 * (v90 - v89);
+  }
+
+  else
+  {
+    v91 = 2 * v89;
+    v92 = v88;
+  }
+
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v94 = v267;
+  }
+
+  else
+  {
+    v94 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v93, v16, &unk_26288C6A6, v17, v17, v94, v92, v88, v91);
+  DgnString::~DgnString(&v267);
+  *a4 += v92;
+  *a5 += v88;
+  *a6 += v91;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v95 = 12;
+  }
+
+  else
+  {
+    v95 = 16;
+  }
+
+  v96 = *(this + 48);
+  v97 = *(this + 49);
+  if (v97 >= v96)
+  {
+    v98 = 0;
+    if (v96 > 0)
+    {
+      v95 += 2 * (v96 - 1) + 2;
+    }
+
+    v99 = v95 + 2 * (v97 - v96);
+  }
+
+  else
+  {
+    v98 = 2 * v96;
+    v99 = v95;
+  }
+
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v101 = v267;
+  }
+
+  else
+  {
+    v101 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v100, v16, &unk_26288C6A6, v17, v17, v101, v99, v95, v98);
+  DgnString::~DgnString(&v267);
+  *a4 += v99;
+  *a5 += v95;
+  *a6 += v98;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v102 = 12;
+  }
+
+  else
+  {
+    v102 = 16;
+  }
+
+  v103 = *(this + 52);
+  v104 = *(this + 53);
+  if (v104 >= v103)
+  {
+    v105 = 0;
+    if (v103 > 0)
+    {
+      v102 += 4 * (v103 - 1) + 4;
+    }
+
+    v106 = v102 + 4 * (v104 - v103);
+  }
+
+  else
+  {
+    v105 = 4 * v103;
+    v106 = v102;
+  }
+
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v108 = v267;
+  }
+
+  else
+  {
+    v108 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v107, v16, &unk_26288C6A6, v17, v17, v108, v106, v102, v105);
+  DgnString::~DgnString(&v267);
+  *a4 += v106;
+  *a5 += v102;
+  *a6 += v105;
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v110 = v267;
+  }
+
+  else
+  {
+    v110 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v109, v16, &unk_26288C6A6, v17, v17, v110, 4, 4, 0);
+  DgnString::~DgnString(&v267);
+  *a4 += 4;
+  *a5 += 4;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v111 = 12;
+  }
+
+  else
+  {
+    v111 = 16;
+  }
+
+  v112 = *(this + 58);
+  v113 = *(this + 59);
+  v61 = v113 >= v112;
+  v114 = v113 - v112;
+  if (v61)
+  {
+    if (v112 > 0)
+    {
+      v115 = (v112 - 1) + v111 + 1;
+    }
+
+    else
+    {
+      v115 = v111;
+    }
+
+    v111 = v115 + v114;
+    v112 = 0;
+  }
+
+  else
+  {
+    v115 = v111;
+  }
+
+  v116 = v112;
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v118 = v267;
+  }
+
+  else
+  {
+    v118 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v117, v16, &unk_26288C6A6, v17, v17, v118, v111, v115, v116);
+  DgnString::~DgnString(&v267);
+  *a4 += v111;
+  *a5 += v115;
   *a6 += v116;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v123 = 12;
+    v119 = 12;
   }
 
   else
   {
-    v123 = 16;
+    v119 = 16;
   }
 
-  v124 = *(this + 40);
-  v125 = *(this + 41);
-  if (v125 >= v124)
+  v120 = *(this + 62);
+  v121 = *(this + 63);
+  if (v121 >= v120)
   {
-    v126 = 0;
-    if (v124 > 0)
+    v122 = 0;
+    if (v120 > 0)
     {
-      v123 += 2 * (v124 - 1) + 2;
+      v119 += 4 * (v120 - 1) + 4;
     }
 
-    v127 = v123 + 2 * (v125 - v124);
+    v123 = v119 + 4 * (v121 - v120);
   }
 
   else
   {
-    v126 = 2 * v124;
-    v127 = v123;
+    v122 = 4 * v120;
+    v123 = v119;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
   {
-    v132 = v430;
+    v125 = v267;
+  }
+
+  else
+  {
+    v125 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v124, v16, &unk_26288C6A6, v17, v17, v125, v123, v119, v122);
+  DgnString::~DgnString(&v267);
+  *a4 += v123;
+  *a5 += v119;
+  *a6 += v122;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v126 = 12;
+  }
+
+  else
+  {
+    v126 = 16;
+  }
+
+  v127 = *(this + 66);
+  v128 = *(this + 67);
+  if (v128 >= v127)
+  {
+    v129 = 0;
+    if (v127 > 0)
+    {
+      v126 += 4 * (v127 - 1) + 4;
+    }
+
+    v130 = v126 + 4 * (v128 - v127);
+  }
+
+  else
+  {
+    v129 = 4 * v127;
+    v130 = v126;
+  }
+
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v132 = v267;
   }
 
   else
@@ -7527,44 +7892,37 @@ void WordList::printSize(WordList *this, uint64_t a2, uint64_t a3, unint64_t *a4
     v132 = &unk_26288C6A6;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v128, v129, v130, v131, v22, &unk_26288C6A6, v23, v23, v132, v127, v123, v126);
-  DgnString::~DgnString(&v430);
-  *a4 += v127;
-  *a5 += v123;
-  *a6 += v126;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v131, v16, &unk_26288C6A6, v17, v17, v132, v130, v126, v129);
+  DgnString::~DgnString(&v267);
+  *a4 += v130;
+  *a5 += v126;
+  *a6 += v129;
+  v133 = DgnCollArray<unsigned int,ParamSetIdCollCmpWithTemp>::sizeObject(this + 272, 0);
+  v134 = DgnCollArray<unsigned int,ParamSetIdCollCmpWithTemp>::sizeObject(this + 272, 1);
+  v135 = DgnCollArray<unsigned int,ParamSetIdCollCmpWithTemp>::sizeObject(this + 272, 3);
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
   {
-    v133 = 12;
+    v137 = v267;
   }
 
   else
   {
-    v133 = 16;
+    v137 = &unk_26288C6A6;
   }
 
-  v134 = *(this + 44);
-  v135 = *(this + 45);
-  if (v135 >= v134)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v136, v16, &unk_26288C6A6, v17, v17, v137, v133, v134, v135);
+  DgnString::~DgnString(&v267);
+  *a4 += v133;
+  *a5 += v134;
+  *a6 += v135;
+  v138 = PrefiltererWordIdPronCollArray::sizeObject(this + 352, 0);
+  v139 = PrefiltererWordIdPronCollArray::sizeObject(this + 352, 1);
+  v140 = PrefiltererWordIdPronCollArray::sizeObject(this + 352, 3);
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
   {
-    v136 = 0;
-    if (v134 > 0)
-    {
-      v133 += 2 * (v134 - 1) + 2;
-    }
-
-    v137 = v133 + 2 * (v135 - v134);
-  }
-
-  else
-  {
-    v136 = 2 * v134;
-    v137 = v133;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v142 = v430;
+    v142 = v267;
   }
 
   else
@@ -7572,156 +7930,245 @@ void WordList::printSize(WordList *this, uint64_t a2, uint64_t a3, unint64_t *a4
     v142 = &unk_26288C6A6;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v138, v139, v140, v141, v22, &unk_26288C6A6, v23, v23, v142, v137, v133, v136);
-  DgnString::~DgnString(&v430);
-  *a4 += v137;
-  *a5 += v133;
-  *a6 += v136;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v141, v16, &unk_26288C6A6, v17, v17, v142, v138, v139, v140);
+  DgnString::~DgnString(&v267);
+  *a4 += v138;
+  *a5 += v139;
+  *a6 += v140;
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
   {
-    v143 = 12;
+    v144 = v267;
   }
 
   else
   {
-    v143 = 16;
+    v144 = &unk_26288C6A6;
   }
 
-  v144 = *(this + 48);
-  v145 = *(this + 49);
-  if (v145 >= v144)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v143, v16, &unk_26288C6A6, v17, v17, v144, 4, 4, 0);
+  DgnString::~DgnString(&v267);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
   {
-    v146 = 0;
-    if (v144 > 0)
-    {
-      v143 += 2 * (v144 - 1) + 2;
-    }
-
-    v147 = v143 + 2 * (v145 - v144);
+    v146 = v267;
   }
 
   else
   {
-    v146 = 2 * v144;
-    v147 = v143;
+    v146 = &unk_26288C6A6;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v145, v16, &unk_26288C6A6, v17, v17, v146, 4, 4, 0);
+  DgnString::~DgnString(&v267);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
   {
-    v152 = v430;
+    v148 = v267;
   }
 
   else
   {
-    v152 = &unk_26288C6A6;
+    v148 = &unk_26288C6A6;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v148, v149, v150, v151, v22, &unk_26288C6A6, v23, v23, v152, v147, v143, v146);
-  DgnString::~DgnString(&v430);
-  *a4 += v147;
-  *a5 += v143;
-  *a6 += v146;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v147, v16, &unk_26288C6A6, v17, v17, v148, 4, 4, 0);
+  DgnString::~DgnString(&v267);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
   {
-    v153 = 12;
+    v150 = v267;
   }
 
   else
   {
-    v153 = 16;
+    v150 = &unk_26288C6A6;
   }
 
-  v154 = *(this + 52);
-  v155 = *(this + 53);
-  if (v155 >= v154)
-  {
-    v156 = 0;
-    if (v154 > 0)
-    {
-      v153 += 4 * (v154 - 1) + 4;
-    }
-
-    v157 = v153 + 4 * (v155 - v154);
-  }
-
-  else
-  {
-    v156 = 4 * v154;
-    v157 = v153;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v162 = v430;
-  }
-
-  else
-  {
-    v162 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v158, v159, v160, v161, v22, &unk_26288C6A6, v23, v23, v162, v157, v153, v156);
-  DgnString::~DgnString(&v430);
-  *a4 += v157;
-  *a5 += v153;
-  *a6 += v156;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v167 = v430;
-  }
-
-  else
-  {
-    v167 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v163, v164, v165, v166, v22, &unk_26288C6A6, v23, v23, v167, 4, 4, 0);
-  DgnString::~DgnString(&v430);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v149, v16, &unk_26288C6A6, v17, v17, v150, 4, 4, 0);
+  DgnString::~DgnString(&v267);
   *a4 += 4;
   *a5 += 4;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v168 = 12;
+    v151 = 12;
   }
 
   else
   {
-    v168 = 16;
+    v151 = 16;
   }
 
-  v169 = *(this + 58);
-  v170 = *(this + 59);
-  v94 = v170 >= v169;
-  v171 = v170 - v169;
-  if (v94)
+  v152 = *(this + 150);
+  v153 = *(this + 151);
+  if (v153 >= v152)
   {
-    if (v169 > 0)
+    v154 = 0;
+    if (v152 > 0)
     {
-      v172 = (v169 - 1) + v168 + 1;
+      v151 += 2 * (v152 - 1) + 2;
     }
 
-    else
-    {
-      v172 = v168;
-    }
-
-    v168 = v172 + v171;
-    v169 = 0;
+    v155 = v151 + 2 * (v153 - v152);
   }
 
   else
   {
-    v172 = v168;
+    v154 = 2 * v152;
+    v155 = v151;
   }
 
-  v173 = v169;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
   {
-    v178 = v430;
+    v157 = v267;
+  }
+
+  else
+  {
+    v157 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v156, v16, &unk_26288C6A6, v17, v17, v157, v155, v151, v154);
+  DgnString::~DgnString(&v267);
+  *a4 += v155;
+  *a5 += v151;
+  *a6 += v154;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v158 = 12;
+  }
+
+  else
+  {
+    v158 = 16;
+  }
+
+  v159 = *(this + 154);
+  v160 = *(this + 155);
+  if (v160 >= v159)
+  {
+    v161 = 0;
+    if (v159 > 0)
+    {
+      v158 += 2 * (v159 - 1) + 2;
+    }
+
+    v162 = v158 + 2 * (v160 - v159);
+  }
+
+  else
+  {
+    v161 = 2 * v159;
+    v162 = v158;
+  }
+
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v164 = v267;
+  }
+
+  else
+  {
+    v164 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v163, v16, &unk_26288C6A6, v17, v17, v164, v162, v158, v161);
+  DgnString::~DgnString(&v267);
+  *a4 += v162;
+  *a5 += v158;
+  *a6 += v161;
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v166 = v267;
+  }
+
+  else
+  {
+    v166 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v165, v16, &unk_26288C6A6, v17, v17, v166, 4, 4, 0);
+  DgnString::~DgnString(&v267);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v168 = v267;
+  }
+
+  else
+  {
+    v168 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v167, v16, &unk_26288C6A6, v17, v17, v168, 4, 4, 0);
+  DgnString::~DgnString(&v267);
+  *a4 += 4;
+  *a5 += 4;
+  v169 = sizeObject<DgnPrimArray<unsigned char>>(this + 400, 0);
+  v170 = sizeObject<DgnPrimArray<unsigned char>>(this + 400, 1);
+  v267 = 0;
+  v268 = 0;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v267);
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v172 = v267;
+  }
+
+  else
+  {
+    v172 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v171, v16, &unk_26288C6A6, v17, v17, v172, v169, v170, 0);
+  DgnString::~DgnString(&v267);
+  *a4 += v169;
+  *a5 += v170;
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v174 = v267;
+  }
+
+  else
+  {
+    v174 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v173, v16, &unk_26288C6A6, v17, v17, v174, 1, 1, 0);
+  DgnString::~DgnString(&v267);
+  ++*a4;
+  ++*a5;
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v176 = v267;
+  }
+
+  else
+  {
+    v176 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v175, v16, &unk_26288C6A6, v17, v17, v176, 1, 1, 0);
+  DgnString::~DgnString(&v267);
+  ++*a4;
+  ++*a5;
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v178 = v267;
   }
 
   else
@@ -7729,127 +8176,216 @@ void WordList::printSize(WordList *this, uint64_t a2, uint64_t a3, unint64_t *a4
     v178 = &unk_26288C6A6;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v174, v175, v176, v177, v22, &unk_26288C6A6, v23, v23, v178, v168, v172, v173);
-  DgnString::~DgnString(&v430);
-  *a4 += v168;
-  *a5 += v172;
-  *a6 += v173;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v177, v16, &unk_26288C6A6, v17, v17, v178, 1, 1, 0);
+  DgnString::~DgnString(&v267);
+  ++*a4;
+  ++*a5;
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v180 = v267;
+  }
+
+  else
+  {
+    v180 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v179, v16, &unk_26288C6A6, v17, v17, v180, 1, 1, 0);
+  DgnString::~DgnString(&v267);
+  ++*a4;
+  ++*a5;
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v182 = v267;
+  }
+
+  else
+  {
+    v182 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v181, v16, &unk_26288C6A6, v17, v17, v182, 1, 1, 0);
+  DgnString::~DgnString(&v267);
+  ++*a4;
+  ++*a5;
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v184 = v267;
+  }
+
+  else
+  {
+    v184 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v183, v16, &unk_26288C6A6, v17, v17, v184, 1, 1, 0);
+  DgnString::~DgnString(&v267);
+  ++*a4;
+  ++*a5;
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v186 = v267;
+  }
+
+  else
+  {
+    v186 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v185, v16, &unk_26288C6A6, v17, v17, v186, 1, 1, 0);
+  DgnString::~DgnString(&v267);
+  ++*a4;
+  ++*a5;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v179 = 12;
+    v187 = 12;
   }
 
   else
   {
-    v179 = 16;
+    v187 = 16;
   }
 
-  v180 = *(this + 62);
-  v181 = *(this + 63);
-  if (v181 >= v180)
+  v188 = *(this + 108);
+  v189 = *(this + 109);
+  v61 = v189 >= v188;
+  v190 = v189 - v188;
+  if (v61)
   {
-    v182 = 0;
-    if (v180 > 0)
+    if (v188 > 0)
     {
-      v179 += 4 * (v180 - 1) + 4;
+      v191 = (v188 - 1) + v187 + 1;
     }
 
-    v183 = v179 + 4 * (v181 - v180);
-  }
-
-  else
-  {
-    v182 = 4 * v180;
-    v183 = v179;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v188 = v430;
-  }
-
-  else
-  {
-    v188 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v184, v185, v186, v187, v22, &unk_26288C6A6, v23, v23, v188, v183, v179, v182);
-  DgnString::~DgnString(&v430);
-  *a4 += v183;
-  *a5 += v179;
-  *a6 += v182;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v189 = 12;
-  }
-
-  else
-  {
-    v189 = 16;
-  }
-
-  v190 = *(this + 66);
-  v191 = *(this + 67);
-  if (v191 >= v190)
-  {
-    v192 = 0;
-    if (v190 > 0)
+    else
     {
-      v189 += 4 * (v190 - 1) + 4;
+      v191 = v187;
     }
 
-    v193 = v189 + 4 * (v191 - v190);
+    v187 = v191 + v190;
+    v188 = 0;
   }
 
   else
   {
-    v192 = 4 * v190;
-    v193 = v189;
+    v191 = v187;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
+  v192 = v188;
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
   {
-    v198 = v430;
+    v194 = v267;
   }
 
   else
   {
-    v198 = &unk_26288C6A6;
+    v194 = &unk_26288C6A6;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v194, v195, v196, v197, v22, &unk_26288C6A6, v23, v23, v198, v193, v189, v192);
-  DgnString::~DgnString(&v430);
-  *a4 += v193;
-  *a5 += v189;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v193, v16, &unk_26288C6A6, v17, v17, v194, v187, v191, v192);
+  DgnString::~DgnString(&v267);
+  *a4 += v187;
+  *a5 += v191;
   *a6 += v192;
-  v199 = DgnCollArray<unsigned int,ParamSetIdCollCmpWithTemp>::sizeObject(this + 272, 0);
-  v200 = DgnCollArray<unsigned int,ParamSetIdCollCmpWithTemp>::sizeObject(this + 272, 1);
-  v201 = DgnCollArray<unsigned int,ParamSetIdCollCmpWithTemp>::sizeObject(this + 272, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v206 = v430;
+    v195 = 12;
   }
 
   else
   {
-    v206 = &unk_26288C6A6;
+    v195 = 16;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v202, v203, v204, v205, v22, &unk_26288C6A6, v23, v23, v206, v199, v200, v201);
-  DgnString::~DgnString(&v430);
-  *a4 += v199;
-  *a5 += v200;
-  *a6 += v201;
-  v207 = PrefiltererWordIdPronCollArray::sizeObject(this + 352, 0);
-  v208 = PrefiltererWordIdPronCollArray::sizeObject(this + 352, 1);
-  v209 = PrefiltererWordIdPronCollArray::sizeObject(this + 352, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
+  v196 = *(this + 112);
+  v197 = *(this + 113);
+  v61 = v197 >= v196;
+  v198 = v197 - v196;
+  if (v61)
   {
-    v214 = v430;
+    if (v196 > 0)
+    {
+      v199 = (v196 - 1) + v195 + 1;
+    }
+
+    else
+    {
+      v199 = v195;
+    }
+
+    v195 = v199 + v198;
+    v196 = 0;
+  }
+
+  else
+  {
+    v199 = v195;
+  }
+
+  v200 = v196;
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v202 = v267;
+  }
+
+  else
+  {
+    v202 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v201, v16, &unk_26288C6A6, v17, v17, v202, v195, v199, v200);
+  DgnString::~DgnString(&v267);
+  *a4 += v195;
+  *a5 += v199;
+  *a6 += v200;
+  v203 = BitArray::sizeObject(this + 624, 0);
+  v204 = BitArray::sizeObject(this + 624, 1);
+  v205 = BitArray::sizeObject(this + 624, 3);
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v207 = v267;
+  }
+
+  else
+  {
+    v207 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v206, v16, &unk_26288C6A6, v17, v17, v207, v203, v204, v205);
+  DgnString::~DgnString(&v267);
+  *a4 += v203;
+  *a5 += v204;
+  *a6 += v205;
+  v208 = BitArray::sizeObject(this + 640, 0);
+  v209 = BitArray::sizeObject(this + 640, 1);
+  v210 = BitArray::sizeObject(this + 640, 3);
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v212 = v267;
+  }
+
+  else
+  {
+    v212 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v211, v16, &unk_26288C6A6, v17, v17, v212, v208, v209, v210);
+  DgnString::~DgnString(&v267);
+  *a4 += v208;
+  *a5 += v209;
+  *a6 += v210;
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v214 = v267;
   }
 
   else
@@ -7857,149 +8393,178 @@ void WordList::printSize(WordList *this, uint64_t a2, uint64_t a3, unint64_t *a4
     v214 = &unk_26288C6A6;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v210, v211, v212, v213, v22, &unk_26288C6A6, v23, v23, v214, v207, v208, v209);
-  DgnString::~DgnString(&v430);
-  *a4 += v207;
-  *a5 += v208;
-  *a6 += v209;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v219 = v430;
-  }
-
-  else
-  {
-    v219 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v215, v216, v217, v218, v22, &unk_26288C6A6, v23, v23, v219, 4, 4, 0);
-  DgnString::~DgnString(&v430);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v213, v16, &unk_26288C6A6, v17, v17, v214, 4, 4, 0);
+  DgnString::~DgnString(&v267);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
   {
-    v224 = v430;
+    v216 = v267;
   }
 
   else
   {
-    v224 = &unk_26288C6A6;
+    v216 = &unk_26288C6A6;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v220, v221, v222, v223, v22, &unk_26288C6A6, v23, v23, v224, 4, 4, 0);
-  DgnString::~DgnString(&v430);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v215, v16, &unk_26288C6A6, v17, v17, v216, 4, 4, 0);
+  DgnString::~DgnString(&v267);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
+  v217 = sizeObject(this + 464, 0);
+  v218 = sizeObject(this + 464, 1);
+  v219 = sizeObject(this + 464, 3);
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
   {
-    v229 = v430;
+    v221 = v267;
   }
 
   else
   {
-    v229 = &unk_26288C6A6;
+    v221 = &unk_26288C6A6;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v225, v226, v227, v228, v22, &unk_26288C6A6, v23, v23, v229, 4, 4, 0);
-  DgnString::~DgnString(&v430);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v220, v16, &unk_26288C6A6, v17, v17, v221, v217, v218, v219);
+  DgnString::~DgnString(&v267);
+  *a4 += v217;
+  *a5 += v218;
+  *a6 += v219;
+  v222 = sizeObject(this + 480, 0);
+  v223 = sizeObject(this + 480, 1);
+  v224 = sizeObject(this + 480, 3);
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
   {
-    v234 = v430;
-  }
-
-  else
-  {
-    v234 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v230, v231, v232, v233, v22, &unk_26288C6A6, v23, v23, v234, 4, 4, 0);
-  DgnString::~DgnString(&v430);
-  *a4 += 4;
-  *a5 += 4;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v235 = 12;
+    v226 = v267;
   }
 
   else
   {
-    v235 = 16;
+    v226 = &unk_26288C6A6;
   }
 
-  v236 = *(this + 150);
-  v237 = *(this + 151);
-  if (v237 >= v236)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v225, v16, &unk_26288C6A6, v17, v17, v226, v222, v223, v224);
+  DgnString::~DgnString(&v267);
+  *a4 += v222;
+  *a5 += v223;
+  *a6 += v224;
+  v227 = sizeObject(this + 496, 0);
+  v228 = sizeObject(this + 496, 1);
+  v229 = sizeObject(this + 496, 3);
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
   {
-    v238 = 0;
-    if (v236 > 0)
+    v231 = v267;
+  }
+
+  else
+  {
+    v231 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v230, v16, &unk_26288C6A6, v17, v17, v231, v227, v228, v229);
+  DgnString::~DgnString(&v267);
+  *a4 += v227;
+  *a5 += v228;
+  *a6 += v229;
+  v232 = BitArray::sizeObject(this + 576, 0);
+  v233 = BitArray::sizeObject(this + 576, 1);
+  v234 = BitArray::sizeObject(this + 576, 3);
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
+  {
+    v236 = v267;
+  }
+
+  else
+  {
+    v236 = &unk_26288C6A6;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v235, v16, &unk_26288C6A6, v17, v17, v236, v232, v233, v234);
+  DgnString::~DgnString(&v267);
+  *a4 += v232;
+  *a5 += v233;
+  *a6 += v234;
+  v237 = 12;
+  if ((gShadowDiagnosticShowIdealizedObjectSizes & 1) == 0)
+  {
+    v237 = 16;
+  }
+
+  v238 = *(this + 132);
+  v239 = *(this + 133);
+  v240 = v237;
+  if (v239 >= v238)
+  {
+    v241 = v237 + 4 * (v238 - 1) + 4;
+    if (v238 <= 0)
     {
-      v235 += 2 * (v236 - 1) + 2;
+      v241 = v237;
     }
 
-    v239 = v235 + 2 * (v237 - v236);
+    v240 = v241 + 4 * (v239 - v238);
   }
 
-  else
+  v242 = v240 + 4;
+  v243 = *(this + 136);
+  v244 = *(this + 137);
+  v245 = v237;
+  if (v244 >= v243)
   {
-    v238 = 2 * v236;
-    v239 = v235;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v244 = v430;
-  }
-
-  else
-  {
-    v244 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v240, v241, v242, v243, v22, &unk_26288C6A6, v23, v23, v244, v239, v235, v238);
-  DgnString::~DgnString(&v430);
-  *a4 += v239;
-  *a5 += v235;
-  *a6 += v238;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v245 = 12;
-  }
-
-  else
-  {
-    v245 = 16;
-  }
-
-  v246 = *(this + 154);
-  v247 = *(this + 155);
-  if (v247 >= v246)
-  {
-    v248 = 0;
-    if (v246 > 0)
+    if (v243 > 0)
     {
-      v245 += 2 * (v246 - 1) + 2;
+      v246 = (v243 - 1) + v237 + 1;
     }
 
-    v249 = v245 + 2 * (v247 - v246);
+    else
+    {
+      v246 = v237;
+    }
+
+    v245 = v246 + v244 - v243;
+  }
+
+  v247 = v242 + v245;
+  v248 = v237;
+  if (v239 >= v238)
+  {
+    v248 = v237 + 4 * (v238 - 1) + 4;
+    if (v238 <= 0)
+    {
+      v248 = v237;
+    }
+  }
+
+  v249 = v248 + 4;
+  if (v244 >= v243)
+  {
+    if (v243 > 0)
+    {
+      v237 += (v243 - 1) + 1;
+    }
+
+    v243 = 0;
+  }
+
+  v250 = v249 + v237;
+  if (v239 >= v238)
+  {
+    v251 = 0;
   }
 
   else
   {
-    v248 = 2 * v246;
-    v249 = v245;
+    v251 = 4 * v238;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
+  v252 = v251 + v243;
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
   {
-    v254 = v430;
+    v254 = v267;
   }
 
   else
@@ -8007,556 +8572,63 @@ void WordList::printSize(WordList *this, uint64_t a2, uint64_t a3, unint64_t *a4
     v254 = &unk_26288C6A6;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v250, v251, v252, v253, v22, &unk_26288C6A6, v23, v23, v254, v249, v245, v248);
-  DgnString::~DgnString(&v430);
-  *a4 += v249;
-  *a5 += v245;
-  *a6 += v248;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v253, v16, &unk_26288C6A6, v17, v17, v254, v247, v250, v252);
+  DgnString::~DgnString(&v267);
+  *a4 += v247;
+  *a5 += v250;
+  *a6 += v252;
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
   {
-    v259 = v430;
+    v256 = v267;
   }
 
   else
   {
-    v259 = &unk_26288C6A6;
+    v256 = &unk_26288C6A6;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v255, v256, v257, v258, v22, &unk_26288C6A6, v23, v23, v259, 4, 4, 0);
-  DgnString::~DgnString(&v430);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v255, v16, &unk_26288C6A6, v17, v17, v256, 4, 4, 0);
+  DgnString::~DgnString(&v267);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
+  v257 = BitArray::sizeObject(this + 560, 0);
+  v258 = BitArray::sizeObject(this + 560, 1);
+  v259 = BitArray::sizeObject(this + 560, 3);
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286);
+  if (v268)
   {
-    v264 = v430;
+    v261 = v267;
   }
 
   else
   {
-    v264 = &unk_26288C6A6;
+    v261 = &unk_26288C6A6;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v260, v261, v262, v263, v22, &unk_26288C6A6, v23, v23, v264, 4, 4, 0);
-  DgnString::~DgnString(&v430);
-  *a4 += 4;
-  *a5 += 4;
-  v265 = sizeObject<DgnPrimArray<unsigned char>>(this + 400, 0);
-  v266 = sizeObject<DgnPrimArray<unsigned char>>(this + 400, 1);
-  v430 = 0;
-  v431 = 0;
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v430);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v260, v16, &unk_26288C6A6, v17, v17, v261, v257, v258, v259);
+  DgnString::~DgnString(&v267);
+  *a4 += v257;
+  *a5 += v258;
+  *a6 += v259;
+  getShipObjectSizeDescription(&v267, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2287);
+  if (v268)
   {
-    v271 = v430;
+    v263 = v267;
   }
 
   else
   {
-    v271 = &unk_26288C6A6;
+    v263 = &unk_26288C6A6;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v267, v268, v269, v270, v22, &unk_26288C6A6, v23, v23, v271, v265, v266, 0);
-  DgnString::~DgnString(&v430);
-  *a4 += v265;
-  *a5 += v266;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v276 = v430;
-  }
-
-  else
-  {
-    v276 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v272, v273, v274, v275, v22, &unk_26288C6A6, v23, v23, v276, 1, 1, 0);
-  DgnString::~DgnString(&v430);
-  ++*a4;
-  ++*a5;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v281 = v430;
-  }
-
-  else
-  {
-    v281 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v277, v278, v279, v280, v22, &unk_26288C6A6, v23, v23, v281, 1, 1, 0);
-  DgnString::~DgnString(&v430);
-  ++*a4;
-  ++*a5;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v286 = v430;
-  }
-
-  else
-  {
-    v286 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v282, v283, v284, v285, v22, &unk_26288C6A6, v23, v23, v286, 1, 1, 0);
-  DgnString::~DgnString(&v430);
-  ++*a4;
-  ++*a5;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v291 = v430;
-  }
-
-  else
-  {
-    v291 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v287, v288, v289, v290, v22, &unk_26288C6A6, v23, v23, v291, 1, 1, 0);
-  DgnString::~DgnString(&v430);
-  ++*a4;
-  ++*a5;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v296 = v430;
-  }
-
-  else
-  {
-    v296 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v292, v293, v294, v295, v22, &unk_26288C6A6, v23, v23, v296, 1, 1, 0);
-  DgnString::~DgnString(&v430);
-  ++*a4;
-  ++*a5;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v301 = v430;
-  }
-
-  else
-  {
-    v301 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v297, v298, v299, v300, v22, &unk_26288C6A6, v23, v23, v301, 1, 1, 0);
-  DgnString::~DgnString(&v430);
-  ++*a4;
-  ++*a5;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v306 = v430;
-  }
-
-  else
-  {
-    v306 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v302, v303, v304, v305, v22, &unk_26288C6A6, v23, v23, v306, 1, 1, 0);
-  DgnString::~DgnString(&v430);
-  ++*a4;
-  ++*a5;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v307 = 12;
-  }
-
-  else
-  {
-    v307 = 16;
-  }
-
-  v308 = *(this + 108);
-  v309 = *(this + 109);
-  v94 = v309 >= v308;
-  v310 = v309 - v308;
-  if (v94)
-  {
-    if (v308 > 0)
-    {
-      v311 = (v308 - 1) + v307 + 1;
-    }
-
-    else
-    {
-      v311 = v307;
-    }
-
-    v307 = v311 + v310;
-    v308 = 0;
-  }
-
-  else
-  {
-    v311 = v307;
-  }
-
-  v312 = v308;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v317 = v430;
-  }
-
-  else
-  {
-    v317 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v313, v314, v315, v316, v22, &unk_26288C6A6, v23, v23, v317, v307, v311, v312);
-  DgnString::~DgnString(&v430);
-  *a4 += v307;
-  *a5 += v311;
-  *a6 += v312;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v318 = 12;
-  }
-
-  else
-  {
-    v318 = 16;
-  }
-
-  v319 = *(this + 112);
-  v320 = *(this + 113);
-  v94 = v320 >= v319;
-  v321 = v320 - v319;
-  if (v94)
-  {
-    if (v319 > 0)
-    {
-      v322 = (v319 - 1) + v318 + 1;
-    }
-
-    else
-    {
-      v322 = v318;
-    }
-
-    v318 = v322 + v321;
-    v319 = 0;
-  }
-
-  else
-  {
-    v322 = v318;
-  }
-
-  v323 = v319;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v328 = v430;
-  }
-
-  else
-  {
-    v328 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v324, v325, v326, v327, v22, &unk_26288C6A6, v23, v23, v328, v318, v322, v323);
-  DgnString::~DgnString(&v430);
-  *a4 += v318;
-  *a5 += v322;
-  *a6 += v323;
-  v329 = BitArray::sizeObject(this + 624, 0);
-  v330 = BitArray::sizeObject(this + 624, 1);
-  v331 = BitArray::sizeObject(this + 624, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v336 = v430;
-  }
-
-  else
-  {
-    v336 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v332, v333, v334, v335, v22, &unk_26288C6A6, v23, v23, v336, v329, v330, v331);
-  DgnString::~DgnString(&v430);
-  *a4 += v329;
-  *a5 += v330;
-  *a6 += v331;
-  v337 = BitArray::sizeObject(this + 640, 0);
-  v338 = BitArray::sizeObject(this + 640, 1);
-  v339 = BitArray::sizeObject(this + 640, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v344 = v430;
-  }
-
-  else
-  {
-    v344 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v340, v341, v342, v343, v22, &unk_26288C6A6, v23, v23, v344, v337, v338, v339);
-  DgnString::~DgnString(&v430);
-  *a4 += v337;
-  *a5 += v338;
-  *a6 += v339;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v349 = v430;
-  }
-
-  else
-  {
-    v349 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v345, v346, v347, v348, v22, &unk_26288C6A6, v23, v23, v349, 4, 4, 0);
-  DgnString::~DgnString(&v430);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v354 = v430;
-  }
-
-  else
-  {
-    v354 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v350, v351, v352, v353, v22, &unk_26288C6A6, v23, v23, v354, 4, 4, 0);
-  DgnString::~DgnString(&v430);
-  *a4 += 4;
-  *a5 += 4;
-  v355 = sizeObject(this + 464);
-  v356 = sizeObject(this + 464);
-  v357 = sizeObject(this + 464);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v362 = v430;
-  }
-
-  else
-  {
-    v362 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v358, v359, v360, v361, v22, &unk_26288C6A6, v23, v23, v362, v355, v356, v357);
-  DgnString::~DgnString(&v430);
-  *a4 += v355;
-  *a5 += v356;
-  *a6 += v357;
-  v363 = sizeObject(this + 480);
-  v364 = sizeObject(this + 480);
-  v365 = sizeObject(this + 480);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v370 = v430;
-  }
-
-  else
-  {
-    v370 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v366, v367, v368, v369, v22, &unk_26288C6A6, v23, v23, v370, v363, v364, v365);
-  DgnString::~DgnString(&v430);
-  *a4 += v363;
-  *a5 += v364;
-  *a6 += v365;
-  v371 = sizeObject(this + 496);
-  v372 = sizeObject(this + 496);
-  v373 = sizeObject(this + 496);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v378 = v430;
-  }
-
-  else
-  {
-    v378 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v374, v375, v376, v377, v22, &unk_26288C6A6, v23, v23, v378, v371, v372, v373);
-  DgnString::~DgnString(&v430);
-  *a4 += v371;
-  *a5 += v372;
-  *a6 += v373;
-  v379 = BitArray::sizeObject(this + 576, 0);
-  v380 = BitArray::sizeObject(this + 576, 1);
-  v381 = BitArray::sizeObject(this + 576, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v386 = v430;
-  }
-
-  else
-  {
-    v386 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v382, v383, v384, v385, v22, &unk_26288C6A6, v23, v23, v386, v379, v380, v381);
-  DgnString::~DgnString(&v430);
-  *a4 += v379;
-  *a5 += v380;
-  *a6 += v381;
-  v387 = 12;
-  if ((gShadowDiagnosticShowIdealizedObjectSizes & 1) == 0)
-  {
-    v387 = 16;
-  }
-
-  v388 = *(this + 132);
-  v389 = *(this + 133);
-  v390 = v387;
-  if (v389 >= v388)
-  {
-    v391 = v387 + 4 * (v388 - 1) + 4;
-    if (v388 <= 0)
-    {
-      v391 = v387;
-    }
-
-    v390 = v391 + 4 * (v389 - v388);
-  }
-
-  v392 = v390 + 4;
-  v393 = *(this + 136);
-  v394 = *(this + 137);
-  v395 = v387;
-  if (v394 >= v393)
-  {
-    if (v393 > 0)
-    {
-      v396 = (v393 - 1) + v387 + 1;
-    }
-
-    else
-    {
-      v396 = v387;
-    }
-
-    v395 = v396 + v394 - v393;
-  }
-
-  v397 = v392 + v395;
-  v398 = v387;
-  if (v389 >= v388)
-  {
-    v398 = v387 + 4 * (v388 - 1) + 4;
-    if (v388 <= 0)
-    {
-      v398 = v387;
-    }
-  }
-
-  v399 = v398 + 4;
-  if (v394 >= v393)
-  {
-    if (v393 > 0)
-    {
-      v387 += (v393 - 1) + 1;
-    }
-
-    v393 = 0;
-  }
-
-  v400 = v399 + v387;
-  if (v389 >= v388)
-  {
-    v401 = 0;
-  }
-
-  else
-  {
-    v401 = 4 * v388;
-  }
-
-  v402 = v401 + v393;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v407 = v430;
-  }
-
-  else
-  {
-    v407 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v403, v404, v405, v406, v22, &unk_26288C6A6, v23, v23, v407, v397, v400, v402);
-  DgnString::~DgnString(&v430);
-  *a4 += v397;
-  *a5 += v400;
-  *a6 += v402;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v412 = v430;
-  }
-
-  else
-  {
-    v412 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v408, v409, v410, v411, v22, &unk_26288C6A6, v23, v23, v412, 4, 4, 0);
-  DgnString::~DgnString(&v430);
-  *a4 += 4;
-  *a5 += 4;
-  v413 = BitArray::sizeObject(this + 560, 0);
-  v414 = BitArray::sizeObject(this + 560, 1);
-  v415 = BitArray::sizeObject(this + 560, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2286, &v430);
-  if (v431)
-  {
-    v420 = v430;
-  }
-
-  else
-  {
-    v420 = &unk_26288C6A6;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v416, v417, v418, v419, v22, &unk_26288C6A6, v23, v23, v420, v413, v414, v415);
-  DgnString::~DgnString(&v430);
-  *a4 += v413;
-  *a5 += v414;
-  *a6 += v415;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2287, &v430);
-  if (v431)
-  {
-    v425 = v430;
-  }
-
-  else
-  {
-    v425 = &unk_26288C6A6;
-  }
-
-  v426 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v421, v422, v423, v424, v427, &unk_26288C6A6, (35 - v427), (35 - v427), v425, *a4, *a5, *a6);
-  DgnString::~DgnString(&v430);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v262, v264, &unk_26288C6A6, (35 - v264), (35 - v264), v263, *a4, *a5, *a6);
+  DgnString::~DgnString(&v267);
 }
 
-void sub_26273C50C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_26273C50C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -8674,21 +8746,21 @@ uint64_t WordList::lookupAllClientAddedProns(uint64_t *a1, uint64_t a2, uint64_t
   return DgnPrimArray<unsigned int>::~DgnPrimArray(&v10);
 }
 
-unint64_t WordList::getAllGuessedWordsByOptionalTag(unint64_t this, uint64_t a2)
+uint64_t *WordList::getAllGuessedWordsByOptionalTag(uint64_t *this, uint64_t a2)
 {
   v3 = this;
   *(a2 + 8) = 0;
-  if (*(this + 272) == 1 && *(this + 274) == -2)
+  if (*(this + 272) == 1 && *(this + 137) == -2)
   {
-    v4 = this + 280;
+    v4 = this + 35;
   }
 
   else
   {
-    v4 = *(*(this + 296) + 524272);
+    v4 = *(this[37] + 524272);
   }
 
-  if (*(v4 + 8))
+  if (*(v4 + 2))
   {
     v5 = 0;
     do
@@ -8714,7 +8786,7 @@ unint64_t WordList::getAllGuessedWordsByOptionalTag(unint64_t this, uint64_t a2)
       ++v5;
     }
 
-    while (v5 < *(v4 + 8));
+    while (v5 < *(v4 + 2));
   }
 
   return this;
@@ -8730,49 +8802,48 @@ uint64_t WordList::numAltProns(WordList *this, const char *a2)
   return v2;
 }
 
-void WordList::getWordsWithPrefix(uint64_t a1, uint64_t a2, char *a3, char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void WordList::getWordsWithPrefix(uint64_t a1, unsigned int a2, char *a3, char *a4, uint64_t a5, BOOL *a6, double a7)
 {
-  if (a2 != 65534 && (DgnCollArray<unsigned int,WordList>::checkCollIdExposed(a1 + 272, a2, a3, a4, a5, a6, a7, a8), a2 == 0xFFFF) || *(a1 + 272) == 1 && *(a1 + 274) == a2)
+  if (a2 != 65534 && (a7 = DgnCollArray<unsigned int,WordList>::checkCollIdExposed(a1 + 272, a2), a2 == 0xFFFF) || *(a1 + 272) == 1 && *(a1 + 274) == a2)
   {
-    v14 = a1 + 280;
+    v13 = a1 + 280;
   }
 
   else
   {
-    v14 = *(*(a1 + 296) + 8 * a2);
+    v13 = *(*(a1 + 296) + 8 * a2);
   }
 
-  WordList::getWordsWithPrefix(a1, v14, a2, a3, a4, a5, a6, a8);
+  WordList::getWordsWithPrefix(a1, v13, a2, a3, a4, a5, a6, a7);
 }
 
-void WordList::getWordsWithPrefix(uint64_t a1, uint64_t a2, uint64_t a3, char *a4, char *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void WordList::getWordsWithPrefix(uint64_t a1, uint64_t a2, unsigned int a3, char *a4, char *a5, uint64_t a6, BOOL *a7, double a8)
 {
-  v8 = a7;
   if (!*a4)
   {
     if (*a5)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2538, "word/wordlist", 75, "%s", a7, a8, &errStr_word_wordlist_E_EMPTY_PREFIX1_WITH_NONEMPTY_PREFIX2);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2538, "word/wordlist", 75, "%s", &errStr_word_wordlist_E_EMPTY_PREFIX1_WITH_NONEMPTY_PREFIX2);
     }
 
-    v24 = *(a2 + 8);
-    if (v24)
+    v22 = *(a2 + 8);
+    if (v22)
     {
-      for (i = 0; i < v24; ++i)
+      for (i = 0; i < v22; ++i)
       {
-        v26 = *(*a2 + 4 * i);
-        if (*(*(a1 + 256) + 4 * v26) == v26)
+        v24 = *(*a2 + 4 * i);
+        if (*(*(a1 + 256) + 4 * v24) == v24)
         {
-          v27 = *(a6 + 8);
-          if (v27 == *(a6 + 12))
+          v25 = *(a6 + 8);
+          if (v25 == *(a6 + 12))
           {
             DgnPrimArray<unsigned int>::reallocElts(a6, 1, 1);
-            v27 = *(a6 + 8);
+            v25 = *(a6 + 8);
           }
 
-          *(*a6 + 4 * v27) = v26;
+          *(*a6 + 4 * v25) = v24;
           ++*(a6 + 8);
-          v24 = *(a2 + 8);
+          v22 = *(a2 + 8);
         }
       }
     }
@@ -8780,170 +8851,169 @@ void WordList::getWordsWithPrefix(uint64_t a1, uint64_t a2, uint64_t a3, char *a
     goto LABEL_46;
   }
 
-  v14 = a3;
-  if ((CollMgr::collationCanGetWordsWithPrefix(*a1, a3, a3, a4, a5, a6, a7, a8) & 1) == 0)
+  if ((CollMgr::collationCanGetWordsWithPrefix(*a1, a3, a8) & 1) == 0)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2552, "word/wordlist", 13, "%s", v15, v16, &errStr_word_wordlist_E_BAD_COLLATION);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2552, "word/wordlist", 13, "%s", &errStr_word_wordlist_E_BAD_COLLATION);
   }
 
-  v17 = *a1;
-  v57[0] = a4;
-  v57[1] = a1;
-  v57[2] = v17;
-  v58 = v14;
-  v59 = 1;
-  v56 = 0;
-  EqualWithLastEqualBounds = DgnPrimArray<unsigned int>::searchFirstEqualWithLastEqualBounds(a2, 0, *(a2 + 8), v57, WordIdCollSearchCmp, &v56 + 1, &v56);
+  v15 = *a1;
+  v52[0] = a4;
+  v52[1] = a1;
+  v52[2] = v15;
+  v53 = a3;
+  v54 = 1;
+  v51 = 0;
+  EqualWithLastEqualBounds = DgnPrimArray<unsigned int>::searchFirstEqualWithLastEqualBounds(a2, 0, *(a2 + 8), v52, WordIdCollSearchCmp, &v51 + 1, &v51);
   if (EqualWithLastEqualBounds == -1)
   {
 LABEL_46:
-    *v8 = 0;
+    *a7 = 0;
     return;
   }
 
-  v19 = EqualWithLastEqualBounds;
+  v17 = EqualWithLastEqualBounds;
   if (!*a5)
   {
-    Equal = DgnPrimArray<unsigned int>::searchLastEqual(a2, HIDWORD(v56), v56, v57, WordIdCollSearchCmp);
-    if (v19 <= Equal)
+    Equal = DgnPrimArray<unsigned int>::searchLastEqual(a2, HIDWORD(v51), v51, v52, WordIdCollSearchCmp);
+    if (v17 <= Equal)
     {
-      v43 = Equal;
+      v38 = Equal;
       do
       {
-        v44 = *(*a2 + 4 * v19);
-        if (*(*(a1 + 256) + 4 * v44) == v44)
+        v39 = *(*a2 + 4 * v17);
+        if (*(*(a1 + 256) + 4 * v39) == v39)
         {
-          v45 = *(a6 + 8);
-          if (v45 == *(a6 + 12))
+          v40 = *(a6 + 8);
+          if (v40 == *(a6 + 12))
           {
             DgnPrimArray<unsigned int>::reallocElts(a6, 1, 1);
-            v45 = *(a6 + 8);
+            v40 = *(a6 + 8);
           }
 
-          *(*a6 + 4 * v45) = v44;
+          *(*a6 + 4 * v40) = v39;
           ++*(a6 + 8);
         }
 
-        ++v19;
+        ++v17;
       }
 
-      while (v19 <= v43);
+      while (v17 <= v38);
     }
 
     goto LABEL_46;
   }
 
-  v20 = *a1;
-  v53[0] = a4;
-  v53[1] = a1;
-  v53[2] = v20;
-  v54 = v14;
-  v55 = 0;
-  v21 = DgnPrimArray<unsigned int>::searchLastEqual(a2, EqualWithLastEqualBounds, v56, v53, WordIdCollSearchCmp);
-  if (v21 != -1)
+  v18 = *a1;
+  v48[0] = a4;
+  v48[1] = a1;
+  v48[2] = v18;
+  v49 = a3;
+  v50 = 0;
+  v19 = DgnPrimArray<unsigned int>::searchLastEqual(a2, EqualWithLastEqualBounds, v51, v48, WordIdCollSearchCmp);
+  if (v19 != -1)
   {
-    while (v19 <= v21)
+    while (v17 <= v19)
     {
-      v22 = *(*a2 + 4 * v19);
-      if (*(*(a1 + 256) + 4 * v22) == v22)
+      v20 = *(*a2 + 4 * v17);
+      if (*(*(a1 + 256) + 4 * v20) == v20)
       {
-        v23 = *(a6 + 8);
-        if (v23 == *(a6 + 12))
+        v21 = *(a6 + 8);
+        if (v21 == *(a6 + 12))
         {
           DgnPrimArray<unsigned int>::reallocElts(a6, 1, 1);
-          v23 = *(a6 + 8);
+          v21 = *(a6 + 8);
         }
 
-        *(*a6 + 4 * v23) = v22;
+        *(*a6 + 4 * v21) = v20;
         ++*(a6 + 8);
       }
 
-      ++v19;
+      ++v17;
     }
   }
 
-  DgnString::DgnString(&v51, a4);
-  DgnString::operator+=(&v51, a5);
-  if (v52)
+  DgnString::DgnString(&v46, a4);
+  DgnString::operator+=(&v46, a5);
+  if (v47)
   {
-    v28 = v51;
+    v26 = v46;
   }
 
   else
   {
-    v28 = &unk_26288C6A6;
+    v26 = &unk_26288C6A6;
   }
 
-  v29 = *a1;
-  v48[0] = v28;
-  v48[1] = a1;
-  v48[2] = v29;
-  v49 = v14;
-  v50 = 1;
-  v47 = 0;
-  v30 = DgnPrimArray<unsigned int>::searchFirstEqualWithLastEqualBounds(a2, v19, v56, v48, WordIdCollSearchCmp, &v47 + 1, &v47);
-  v35 = v30;
-  if (v21 == -1)
+  v27 = *a1;
+  v43[0] = v26;
+  v43[1] = a1;
+  v43[2] = v27;
+  v44 = a3;
+  v45 = 1;
+  v42 = 0;
+  v28 = DgnPrimArray<unsigned int>::searchFirstEqualWithLastEqualBounds(a2, v17, v51, v43, WordIdCollSearchCmp, &v42 + 1, &v42);
+  v30 = v28;
+  if (v19 == -1)
   {
-    v36 = v19;
+    v31 = v17;
   }
 
   else
   {
-    v36 = v21 + 1;
+    v31 = v19 + 1;
   }
 
-  if (v30 == -1)
+  if (v28 == -1)
   {
     goto LABEL_48;
   }
 
-  v46 = v8;
-  v37 = DgnPrimArray<unsigned int>::searchLastEqual(a2, HIDWORD(v47), v47, v48, WordIdCollSearchCmp);
-  if (v35 <= v37)
+  v41 = a7;
+  v32 = DgnPrimArray<unsigned int>::searchLastEqual(a2, HIDWORD(v42), v42, v43, WordIdCollSearchCmp);
+  if (v30 <= v32)
   {
-    v38 = v35;
+    v33 = v30;
     do
     {
-      v39 = *(*a2 + 4 * v38);
-      if (*(*(a1 + 256) + 4 * v39) == v39)
+      v34 = *(*a2 + 4 * v33);
+      if (*(*(a1 + 256) + 4 * v34) == v34)
       {
-        v40 = *(a6 + 8);
-        if (v40 == *(a6 + 12))
+        v35 = *(a6 + 8);
+        if (v35 == *(a6 + 12))
         {
           DgnPrimArray<unsigned int>::reallocElts(a6, 1, 1);
-          v40 = *(a6 + 8);
+          v35 = *(a6 + 8);
         }
 
-        *(*a6 + 4 * v40) = v39;
+        *(*a6 + 4 * v35) = v34;
         ++*(a6 + 8);
       }
 
-      ++v38;
+      ++v33;
     }
 
-    while (v38 <= v37);
+    while (v33 <= v32);
   }
 
-  if (v35 <= v36)
+  if (v30 <= v31)
   {
-    v36 = v37 + 1;
-    v8 = v46;
+    v31 = v32 + 1;
+    a7 = v41;
 LABEL_48:
-    v41 = v36 < *(a2 + 8) && CollMgr::collPrefixcmpUns8(*a1, v14, (*(a1 + 224) + *(*(a1 + 200) + 4 * *(*a2 + 4 * v36))), a4, v31, v32, v33, v34) == 0;
+    v36 = v31 < *(a2 + 8) && CollMgr::collPrefixcmpUns8(*a1, a3, (*(a1 + 224) + *(*(a1 + 200) + 4 * *(*a2 + 4 * v31))), a4, v29) == 0;
     goto LABEL_51;
   }
 
-  v41 = 1;
-  v8 = v46;
+  v36 = 1;
+  a7 = v41;
 LABEL_51:
-  *v8 = v41;
-  DgnString::~DgnString(&v51);
+  *a7 = v36;
+  DgnString::~DgnString(&v46);
 }
 
-void sub_26273CEF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_26273CEF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -9054,88 +9124,88 @@ uint64_t DgnPrimArray<unsigned int>::searchLastEqual(void *a1, uint64_t a2, int 
   return v5;
 }
 
-void WordList::verifyValid(WordList *this, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double WordList::verifyValid(WordList *this, unsigned int a2)
 {
   if (*(this + 97) <= a2 || !*(*(this + 13) + a2))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2699, "word/wordlist", 2, "%d", a7, a8, a2);
+    return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2699, "word/wordlist", 2, "%d", a2);
   }
+
+  return result;
 }
 
-void WordList::verifyVisible(WordList *this, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double WordList::verifyVisible(WordList *this, unsigned int a2)
 {
   if (*(this + 97) <= a2 || !*(*(this + 13) + a2) || *(*(this + 32) + 4 * a2) != a2)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2704, "word/wordlist", 2, "%d", a7, a8, a2);
+    return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2704, "word/wordlist", 2, "%d", a2);
   }
+
+  return result;
 }
 
-void WordList::verifyModifiable(WordList *this, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double WordList::verifyModifiable(WordList *this, unsigned int a2)
 {
   if (*(*(this + 19) + 2 * a2))
   {
-    v10 = *(*(this + 19) + 2 * a2);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2711, "word/wordlist", 4, "%.500s %d %.500s %d", a7, a8, "modify");
+    result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2711, "word/wordlist", 4, "%.500s %d %.500s %d", "modify", a2, "mIncludingLatticesCount", *(*(this + 19) + 2 * a2));
   }
 
   if (*(*(this + 21) + 2 * a2))
   {
-    v11 = *(*(this + 21) + 2 * a2);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2713, "word/wordlist", 4, "%.500s %d %.500s %d", a7, a8, "modify");
+    result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2713, "word/wordlist", 4, "%.500s %d %.500s %d", "modify", a2, "mIncludingPrefilterResultsCount", *(*(this + 21) + 2 * a2));
   }
 
   if (*(*(this + 23) + 2 * a2))
   {
-    v12 = *(*(this + 23) + 2 * a2);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2715, "word/wordlist", 4, "%.500s %d %.500s %d", a7, a8, "modify");
+    return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2715, "word/wordlist", 4, "%.500s %d %.500s %d", "modify", a2, "mIncludingSausagesCount", *(*(this + 23) + 2 * a2));
   }
+
+  return result;
 }
 
-void WordList::verifyDeletable(WordList *this, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double WordList::verifyDeletable(WordList *this, unsigned int a2)
 {
   if (*(*(this + 15) + 2 * a2))
   {
-    v10 = *(*(this + 15) + 2 * a2);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2721, "word/wordlist", 4, "%.500s %d %.500s %d", a7, a8, "delete");
+    result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2721, "word/wordlist", 4, "%.500s %d %.500s %d", "delete", a2, "mIncludingStatesCount", *(*(this + 15) + 2 * a2));
   }
 
   if (*(*(this + 17) + 2 * a2))
   {
-    v11 = *(*(this + 17) + 2 * a2);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2723, "word/wordlist", 4, "%.500s %d %.500s %d", a7, a8, "delete");
+    result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2723, "word/wordlist", 4, "%.500s %d %.500s %d", "delete", a2, "mIncludingRulesCount", *(*(this + 17) + 2 * a2));
   }
 
   if (*(*(this + 19) + 2 * a2))
   {
-    v12 = *(*(this + 19) + 2 * a2);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2725, "word/wordlist", 4, "%.500s %d %.500s %d", a7, a8, "delete");
+    result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2725, "word/wordlist", 4, "%.500s %d %.500s %d", "delete", a2, "mIncludingLatticesCount", *(*(this + 19) + 2 * a2));
   }
 
   if (*(*(this + 21) + 2 * a2))
   {
-    v13 = *(*(this + 21) + 2 * a2);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2727, "word/wordlist", 4, "%.500s %d %.500s %d", a7, a8, "delete");
+    result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2727, "word/wordlist", 4, "%.500s %d %.500s %d", "delete", a2, "mIncludingPrefilterResultsCount", *(*(this + 21) + 2 * a2));
   }
 
   if (*(*(this + 23) + 2 * a2))
   {
-    v14 = *(*(this + 23) + 2 * a2);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2729, "word/wordlist", 4, "%.500s %d %.500s %d", a7, a8, "delete");
+    return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 2729, "word/wordlist", 4, "%.500s %d %.500s %d", "delete", a2, "mIncludingSausagesCount", *(*(this + 23) + 2 * a2));
   }
+
+  return result;
 }
 
-uint64_t WordList::addWord(WordList *this, CharInfo *a2, uint64_t a3, char a4, char a5, const char *a6)
+uint64_t WordList::addWord(WordList *this, CharInfo *a2, int a3, char a4, char a5, const char *a6)
 {
   v8[0] = 0;
   v8[1] = 0;
-  v6 = WordList::addWordInternal(this, 1, 0xFFFFFFLL, 0xFFFFFF, 0xFFFFFFFFLL, a2, a3, v8, a4, a5);
+  v6 = WordList::addWordInternal(this, 1, 0xFFFFFFLL, 0xFFFFFF, 0xFFFFFFFF, a2, a3, v8, a4, a5);
   DgnPrimArray<unsigned int>::~DgnPrimArray(v8);
   return v6;
 }
 
-void sub_26273D47C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26273D47C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -9312,55 +9382,54 @@ void WordList::getTagBits(WordList *this, unsigned int a2, int a3, BitArray *a4)
 uLong WordList::setPron(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a4, unsigned int a5, unsigned int a6, int a7)
 {
   *(a1 + 380) ^= WordList::computeWordIdPronChecksum(a1, a2);
-  v18 = *(a3 + 8);
-  if (v18 >= 0x3FFF)
+  v14 = *(a3 + 8);
+  if (v14 >= 0x3FFF)
   {
-    v43 = *(a3 + 8);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 3447, "word/wordlist", 8, "%u %u", v16, v17, a2);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 3447, "word/wordlist", 8, "%u %u", a2, v14);
   }
 
   if (a7)
   {
-    if (v18 <= 1)
+    if (v14 <= 1)
     {
       goto LABEL_10;
     }
   }
 
-  else if (!v18)
+  else if (!v14)
   {
     goto LABEL_10;
   }
 
-  if (!**a3 || !*(*a3 + 2 * (v18 - 1)))
+  if (!**a3 || !*(*a3 + 2 * (v14 - 1)))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 3454, "word/wordlist", 37, "%u", v16, v17, a2);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/word/wordlist.cpp", 3454, "word/wordlist", 37, "%u", a2);
   }
 
 LABEL_10:
-  PhnMgr::verifyPhonemePron2(*(a1 + 16), a3, *(a1 + 224) + *(*(a1 + 200) + 4 * a2), 0, v14, v15, v16, v17);
+  PhnMgr::verifyPhonemePron2(*(a1 + 16), a3, (*(a1 + 224) + *(*(a1 + 200) + 4 * a2)), 0);
   if (a6)
   {
     WordIdPronCollArray::remove((a1 + 352), a2);
   }
 
   *(*(a1 + 48) + 4 * a2) = *(a1 + 80);
-  *(*(a1 + 32) + 2 * a2) = v18;
-  if (!v18)
+  *(*(a1 + 32) + 2 * a2) = v14;
+  if (!v14)
   {
     goto LABEL_22;
   }
 
-  v44 = a6;
+  v29 = a6;
   a6 = a4;
-  v24 = a5;
-  v25 = 0;
-  v26 = *(*(a1 + 16) + 60);
-  v27 = 2 * v18;
+  v15 = a5;
+  v16 = 0;
+  v17 = *(*(a1 + 16) + 60);
+  v18 = 2 * v14;
   do
   {
-    v28 = *(*a3 + v25);
-    if (v28 == v26)
+    v19 = *(*a3 + v16);
+    if (v19 == v17)
     {
       --*(*(a1 + 32) + 2 * a2);
       *(*(a1 + 88) + 4 * ((*(a1 + 80) - 1) >> 5)) |= 1 << (*(a1 + 80) - 1);
@@ -9368,54 +9437,54 @@ LABEL_10:
 
     else
     {
-      v29 = *(a1 + 80);
-      if (v29 == *(a1 + 84))
+      v20 = *(a1 + 80);
+      if (v20 == *(a1 + 84))
       {
         DgnPrimArray<short>::reallocElts(a1 + 72, 1, 1);
-        v29 = *(a1 + 80);
+        v20 = *(a1 + 80);
       }
 
-      *(*(a1 + 72) + 2 * v29) = v28;
-      *(a1 + 80) = v29 + 1;
+      *(*(a1 + 72) + 2 * v20) = v19;
+      *(a1 + 80) = v20 + 1;
       BitArray::add((a1 + 88), 0);
     }
 
-    v25 += 2;
+    v16 += 2;
   }
 
-  while (v27 != v25);
-  v30 = *(a1 + 32);
-  v31 = *(v30 + 2 * a2);
-  a5 = v24;
+  while (v18 != v16);
+  v21 = *(a1 + 32);
+  v22 = *(v21 + 2 * a2);
+  a5 = v15;
   a4 = a6;
-  LOBYTE(a6) = v44;
-  if (*(v30 + 2 * a2))
+  LOBYTE(a6) = v29;
+  if (*(v21 + 2 * a2))
   {
-    v32 = (*(a1 + 72) + 2 * *(*(a1 + 48) + 4 * a2));
-    v33 = *v32;
-    v34 = v32[v31 - 1];
-    v35 = 608;
-    v36 = 592;
+    v23 = (*(a1 + 72) + 2 * *(*(a1 + 48) + 4 * a2));
+    v24 = *v23;
+    v25 = v23[v22 - 1];
+    v26 = 608;
+    v27 = 592;
   }
 
   else
   {
 LABEL_22:
-    v33 = *(*(a1 + 16) + 58);
-    v35 = 592;
-    v36 = 608;
-    v34 = v33;
+    v24 = *(*(a1 + 16) + 58);
+    v26 = 592;
+    v27 = 608;
+    v25 = v24;
   }
 
-  *(*(a1 + v36) + 2 * a2) = v33;
-  *(*(a1 + v35) + 2 * a2) = v34;
+  *(*(a1 + v27) + 2 * a2) = v24;
+  *(*(a1 + v26) + 2 * a2) = v25;
   if (a6)
   {
     WordIdPronCollArray::add((a1 + 352), a2);
   }
 
-  WordList::setPronPredecessorSeedCategory(a1, a2, a4, v19, v20, v21, v22, v23);
-  WordList::setPronSuccessorSeedCategory(a1, a2, a5, v37, v38, v39, v40, v41);
+  WordList::setPronPredecessorSeedCategory(a1, a2, a4);
+  WordList::setPronSuccessorSeedCategory(a1, a2, a5);
   result = WordList::computeWordIdPronChecksum(a1, a2);
   *(a1 + 380) ^= result;
   return result;
@@ -9512,7 +9581,7 @@ LABEL_21:
             v26 = v16;
           }
 
-          v27 = WordList::addWordInternal(a1, 1, 0xFFFFFFLL, a2, 0xFFFFFFFFLL, (v32 + v33), (v26 + v35), v41, 1, 1);
+          v27 = WordList::addWordInternal(a1, 1, 0xFFFFFFLL, a2, 0xFFFFFFFF, (v32 + v33), (v26 + v35), v41, 1, 1);
           v28 = a4;
           v29 = *(a4 + 8);
           if (v29 == *(a4 + 12))
@@ -9580,27 +9649,27 @@ LABEL_21:
   return DgnPrimArray<unsigned int>::~DgnPrimArray(&v43);
 }
 
-void sub_26273DE18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_26273DE18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va2, a11);
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va2, a18);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   va_copy(va2, va1);
-  v16 = va_arg(va2, void);
-  v18 = va_arg(va2, void);
+  v23 = va_arg(va2, void);
+  v25 = va_arg(va2, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va2);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v11 - 96);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v18 - 96);
   _Unwind_Resume(a1);
 }
 
-void *WordList::getPronWithWB(void *result, unsigned int a2, uint64_t a3)
+uint64_t *WordList::getPronWithWB(uint64_t *result, unsigned int a2, uint64_t *a3)
 {
   v3 = *(result[4] + 2 * a2);
-  *(a3 + 8) = 0;
+  *(a3 + 2) = 0;
   if (v3)
   {
     v6 = result;
@@ -9610,28 +9679,28 @@ void *WordList::getPronWithWB(void *result, unsigned int a2, uint64_t a3)
     do
     {
       v10 = *(v9 + 2 * v8);
-      if (v7 == *(a3 + 12))
+      if (v7 == *(a3 + 3))
       {
         result = DgnPrimArray<short>::reallocElts(a3, 1, 1);
-        v7 = *(a3 + 8);
+        v7 = *(a3 + 2);
       }
 
       v11 = *a3;
       *(*a3 + 2 * v7++) = v10;
-      *(a3 + 8) = v7;
+      *(a3 + 2) = v7;
       v12 = v8 + *(v6[6] + 4 * a2);
       if ((*(v6[11] + 4 * (v12 >> 5)) >> v12))
       {
         v13 = *(v6[2] + 60);
-        if (v7 == *(a3 + 12))
+        if (v7 == *(a3 + 3))
         {
           result = DgnPrimArray<short>::reallocElts(a3, 1, 1);
-          v7 = *(a3 + 8);
+          v7 = *(a3 + 2);
           v11 = *a3;
         }
 
         *(v11 + 2 * v7++) = v13;
-        *(a3 + 8) = v7;
+        *(a3 + 2) = v7;
       }
 
       ++v8;
@@ -9659,95 +9728,96 @@ uint64_t WordList::getNumClientProns(WordList *this, unsigned int a2)
   return v2;
 }
 
-void sub_26273DFCC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26273DFCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t WordList::deleteWordClientProns(uint64_t a1, unsigned int a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t WordList::deleteWordClientProns(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t *a4, uint64_t a5)
 {
-  v13 = *(*(a1 + 200) + 4 * a2);
-  v14 = *(a1 + 224);
-  WordList::verifyModifiable(a1, a2, a3, a4, a5, a6, a7, a8);
-  v25 = 0;
-  v26 = 0;
-  DgnPrimArray<int>::copyArraySlice(&v25, a3, 0, *(a3 + 8));
-  v15 = v26;
+  v10 = *(*(a1 + 200) + 4 * a2);
+  v11 = *(a1 + 224);
+  WordList::verifyModifiable(a1, a2);
+  v22 = 0;
   v23 = 0;
-  v24 = 0;
-  WordList::lookupAll(a1, v14 + v13, &v23, 0, 0);
-  if (v24 == v15)
+  DgnPrimArray<int>::copyArraySlice(&v22, a3, 0, *(a3 + 8));
+  v12 = v23;
+  v20 = 0;
+  v21 = 0;
+  WordList::lookupAll(a1, v11 + v10, &v20, 0, 0);
+  if (v21 == v12)
   {
-    if (v15 >= 2)
+    if (v12 >= 2)
     {
-      v16 = *(a5 + 8);
+      v13 = *(a5 + 8);
       do
       {
-        v17 = *(v23 + v15 - 1);
-        if (v16 == *(a5 + 12))
+        v14 = *(v20 + v12 - 1);
+        if (v13 == *(a5 + 12))
         {
           DgnPrimArray<unsigned int>::reallocElts(a5, 1, 1);
-          v16 = *(a5 + 8);
+          v13 = *(a5 + 8);
         }
 
-        --v15;
-        *(*a5 + 4 * v16) = v17;
-        v16 = *(a5 + 8) + 1;
-        *(a5 + 8) = v16;
+        --v12;
+        *(*a5 + 4 * v13) = v14;
+        v13 = *(a5 + 8) + 1;
+        *(a5 + 8) = v13;
       }
 
-      while (v15 > 1);
-      if (!HIDWORD(v24))
+      while (v12 > 1);
+      if (!HIDWORD(v21))
       {
-        v22[0] = 0;
-        HIDWORD(v24) = realloc_array(v23, v22, 4uLL, 4 * v24, 4 * v24, 1) >> 2;
-        v23 = v22[0];
+        v19[0] = 0;
+        HIDWORD(v21) = realloc_array(v20, v19, 4uLL, 4 * v21, 4 * v21, 1) >> 2;
+        v20 = v19[0];
       }
 
-      LODWORD(v15) = 1;
-      LODWORD(v24) = 1;
+      LODWORD(v12) = 1;
+      LODWORD(v21) = 1;
     }
 
-    DgnPrimArray<int>::copyArraySlice(a4, &v23, 0, v15);
-    v22[0] = 0;
-    v22[1] = 0;
-    WordList::setPron(a1, a2, v22, *(a1 + 419), *(a1 + 420), 1u, 1);
-    DgnPrimArray<unsigned int>::~DgnPrimArray(v22);
+    DgnPrimArray<int>::copyArraySlice(a4, &v20, 0, v12);
+    v19[0] = 0;
+    v19[1] = 0;
+    WordList::setPron(a1, a2, v19, *(a1 + 419), *(a1 + 420), 1u, 1);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(v19);
   }
 
-  else if (v15)
+  else if (v12)
   {
-    v18 = *(a5 + 8);
-    v19 = 4 * v15 - 4;
+    v15 = *(a5 + 8);
+    v16 = 4 * v12 - 4;
     do
     {
-      v20 = *(v25 + v19);
-      if (v18 == *(a5 + 12))
+      v17 = *(v22 + v16);
+      if (v15 == *(a5 + 12))
       {
         DgnPrimArray<unsigned int>::reallocElts(a5, 1, 1);
-        v18 = *(a5 + 8);
+        v15 = *(a5 + 8);
       }
 
-      *(*a5 + 4 * v18) = v20;
-      v18 = *(a5 + 8) + 1;
-      *(a5 + 8) = v18;
-      v19 -= 4;
+      *(*a5 + 4 * v15) = v17;
+      v15 = *(a5 + 8) + 1;
+      *(a5 + 8) = v15;
+      v16 -= 4;
     }
 
-    while (v19 != -4);
+    while (v16 != -4);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v23);
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v25);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v20);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v22);
 }
 
-void sub_26273E1CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13)
+void sub_26273E1CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a9);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a11);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&a13);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
 
@@ -9858,7 +9928,7 @@ uint64_t WordList::resetWordList(WordList *this)
   }
 
   *(this + 10) = 0;
-  BitArray::releaseAll(this + 88);
+  BitArray::releaseAll(this + 11);
   v9 = *(this + 74);
   if (v9)
   {
@@ -9875,7 +9945,7 @@ uint64_t WordList::resetWordList(WordList *this)
   }
 
   *(this + 77) = 0;
-  BitArray::releaseAll(this + 576);
+  BitArray::releaseAll(this + 72);
   TagBitsAndStrings::reInit((this + 512));
   v11 = *(this + 15);
   if (v11)

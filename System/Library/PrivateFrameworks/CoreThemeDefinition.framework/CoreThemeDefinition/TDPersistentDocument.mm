@@ -34,26 +34,25 @@
 
 - (TDPersistentDocument)initWithType:(id)type error:(id *)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v6 = [(TDPersistentDocument *)self init];
   if (v6)
   {
     v6->_fileType = [type copy];
-    [(NSString *)NSTemporaryDirectory() getFileSystemRepresentation:v12 maxLength:1024];
+    [(NSString *)NSTemporaryDirectory() getFileSystemRepresentation:v11 maxLength:1024];
     __strcat_chk();
-    v7 = mkstemps(v12, 10);
-    v8 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithFileSystemRepresentation:v12 isDirectory:0 relativeToURL:0];
+    v7 = mkstemps(v11, 10);
+    v8 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithFileSystemRepresentation:v11 isDirectory:0 relativeToURL:0];
     v6->_temporaryFileURL = v8;
     v9 = [(TDPersistentDocument *)v6 configurePersistentStoreCoordinatorForURL:v8 ofType:type modelConfiguration:0 storeOptions:0 error:error];
     close(v7);
     if (!v9)
     {
 
-      v6 = 0;
+      return 0;
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -201,23 +200,23 @@ LABEL_6:
 
 - (void)close
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = [objc_msgSend(objc_msgSend(-[TDPersistentDocument managedObjectContext](self "managedObjectContext")];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
@@ -226,7 +225,7 @@ LABEL_6:
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
@@ -238,8 +237,6 @@ LABEL_6:
     [objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")];
     [(TDPersistentDocument *)self setTemporaryFileURL:0];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)configurePersistentStoreCoordinatorForURL:(id)l ofType:(id)type modelConfiguration:(id)configuration storeOptions:(id)options error:(id *)error

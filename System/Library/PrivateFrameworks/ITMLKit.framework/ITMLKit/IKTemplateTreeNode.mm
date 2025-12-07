@@ -9,7 +9,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = [objc_opt_class() allocWithZone:zone];
   nodeName = [(IKTemplateTreeNode *)self nodeName];
   styleOverrides = [(IKTemplateTreeNode *)self styleOverrides];
@@ -19,27 +19,27 @@
   childNodes = [(IKTemplateTreeNode *)self childNodes];
   v10 = [v8 dictionaryWithCapacity:{objc_msgSend(childNodes, "count")}];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   obj = [(IKTemplateTreeNode *)self childNodes];
-  v11 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v11 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v23;
+    v13 = *v22;
     do
     {
       v14 = 0;
       do
       {
-        if (*v23 != v13)
+        if (*v22 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * v14);
+        v15 = *(*(&v21 + 1) + 8 * v14);
         childNodes2 = [(IKTemplateTreeNode *)self childNodes];
         v17 = [childNodes2 objectForKey:v15];
         v18 = [v17 copy];
@@ -51,7 +51,7 @@
       }
 
       while (v12 != v14);
-      v12 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v12 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v12);
@@ -60,7 +60,6 @@
   [v7 setChildNodes:v10];
   [v7 setStyleComposer:0];
 
-  v19 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

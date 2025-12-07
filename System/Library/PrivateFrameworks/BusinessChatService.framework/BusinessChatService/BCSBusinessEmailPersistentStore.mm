@@ -47,15 +47,15 @@
 
 - (void)schemaVersionWillChangeForDatabase:(sqlite3 *)database fromSchemaVersion:(int64_t)version toSchemaVersion:(int64_t)schemaVersion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v8 = ABSLogCommon();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v14 = "[BCSBusinessEmailPersistentStore schemaVersionWillChangeForDatabase:fromSchemaVersion:toSchemaVersion:]";
-    v15 = 2048;
+    v13 = "[BCSBusinessEmailPersistentStore schemaVersionWillChangeForDatabase:fromSchemaVersion:toSchemaVersion:]";
+    v14 = 2048;
     versionCopy = version;
-    v17 = 2048;
+    v16 = 2048;
     schemaVersionCopy = schemaVersion;
     _os_log_impl(&dword_242072000, v8, OS_LOG_TYPE_DEFAULT, "%s schema version will change from '%ld' to '%ld', dropping link_items table", buf, 0x20u);
   }
@@ -68,22 +68,20 @@
       v9 = ABSLogCommon();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v11 = sqlite3_errmsg(database);
+        v10 = sqlite3_errmsg(database);
         *buf = 136315138;
-        v14 = v11;
+        v13 = v10;
         _os_log_error_impl(&dword_242072000, v9, OS_LOG_TYPE_ERROR, "error while dropping link_items table: %s", buf, 0xCu);
       }
     }
 
     sqlite3_finalize(ppStmt);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteExpiredItemsOfType:(int64_t)type
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = ABSLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -110,13 +108,11 @@
 
     [(BCSPersistentStore *)self endBatch];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteItemMatching:(id)matching
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   matchingCopy = matching;
   v5 = ABSLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -141,13 +137,11 @@
 
     [(BCSPersistentStore *)self endBatch];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteItemsOfType:(int64_t)type
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v5 = ABSLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -168,19 +162,17 @@
 
     [(BCSPersistentStore *)self endBatch];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)itemMatching:(id)matching
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   matchingCopy = matching;
   v5 = ABSLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v24 = "[BCSBusinessEmailPersistentStore itemMatching:]";
+    v23 = "[BCSBusinessEmailPersistentStore itemMatching:]";
     _os_log_impl(&dword_242072000, v5, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -235,13 +227,13 @@
         truncatedHash3 = [matchingCopy truncatedHash];
         email = [v12 email];
         *buf = 136315907;
-        v24 = "[BCSBusinessEmailPersistentStore itemMatching:]";
-        v25 = 2048;
-        v26 = type;
-        v27 = 2048;
-        v28 = truncatedHash3;
-        v29 = 2113;
-        v30 = email;
+        v23 = "[BCSBusinessEmailPersistentStore itemMatching:]";
+        v24 = 2048;
+        v25 = type;
+        v26 = 2048;
+        v27 = truncatedHash3;
+        v28 = 2113;
+        v29 = email;
         _os_log_error_impl(&dword_242072000, v16, OS_LOG_TYPE_ERROR, "%s - Mismatching item found in cache for type: %ld, hash: %lld (%{private}@)", buf, 0x2Au);
       }
 
@@ -255,21 +247,20 @@
 LABEL_20:
 
 LABEL_21:
-  v17 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (void)updateItem:(id)item withItemIdentifier:(id)identifier
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   identifierCopy = identifier;
   v8 = ABSLogCommon();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    *v31 = "[BCSBusinessEmailPersistentStore updateItem:withItemIdentifier:]";
+    *v30 = "[BCSBusinessEmailPersistentStore updateItem:withItemIdentifier:]";
     _os_log_impl(&dword_242072000, v8, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -296,13 +287,13 @@ LABEL_8:
             truncatedHash = [identifierCopy truncatedHash];
             email = [v10 email];
             *buf = 136315907;
-            *v31 = "[BCSBusinessEmailPersistentStore updateItem:withItemIdentifier:]";
-            *&v31[8] = 2048;
-            *&v31[10] = type;
-            v32 = 2048;
-            v33 = truncatedHash;
-            v34 = 2113;
-            v35 = email;
+            *v30 = "[BCSBusinessEmailPersistentStore updateItem:withItemIdentifier:]";
+            *&v30[8] = 2048;
+            *&v30[10] = type;
+            v31 = 2048;
+            v32 = truncatedHash;
+            v33 = 2113;
+            v34 = email;
             _os_log_error_impl(&dword_242072000, v15, OS_LOG_TYPE_ERROR, "%s - Refusing to store mismatching item found in cache for type: %ld, hash: %lld (%{private}@)", buf, 0x2Au);
           }
 
@@ -330,9 +321,9 @@ LABEL_8:
       v19 = ABSLogCommon();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        v24 = sqlite3_errmsg([(BCSPersistentStore *)self openedDatabase]);
+        v23 = sqlite3_errmsg([(BCSPersistentStore *)self openedDatabase]);
         *buf = 136315138;
-        *v31 = v24;
+        *v30 = v23;
         _os_log_error_impl(&dword_242072000, v19, OS_LOG_TYPE_ERROR, "Failed to update item: %s", buf, 0xCu);
       }
     }
@@ -347,11 +338,11 @@ LABEL_8:
         v22 = ABSLogCommon();
         if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          v28 = sqlite3_errmsg([(BCSPersistentStore *)self openedDatabase]);
+          v27 = sqlite3_errmsg([(BCSPersistentStore *)self openedDatabase]);
           *buf = 67109378;
-          *v31 = v21;
-          *&v31[4] = 2080;
-          *&v31[6] = v28;
+          *v30 = v21;
+          *&v30[4] = 2080;
+          *&v30[6] = v27;
           _os_log_error_impl(&dword_242072000, v22, OS_LOG_TYPE_ERROR, "Failed to insert business email item: %d (%s)", buf, 0x12u);
         }
       }
@@ -363,8 +354,6 @@ LABEL_8:
   }
 
 LABEL_23:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 @end

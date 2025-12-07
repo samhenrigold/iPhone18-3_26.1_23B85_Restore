@@ -75,7 +75,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_100584208();
+  sub_100584208(v9);
   LOBYTE(self) = v12;
 
   (*(v7 + 8))(v9, v6);

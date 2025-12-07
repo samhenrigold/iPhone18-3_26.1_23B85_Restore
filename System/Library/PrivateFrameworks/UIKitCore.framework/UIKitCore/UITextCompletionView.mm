@@ -224,7 +224,7 @@ LABEL_23:
     }
 
     v39 = height - v36;
-    if ([v38 isEqualToString:@"com.apple.mobilemail"])
+    if (objc_msgSend_isEqualToString_(v38))
     {
       if (v39 < 1.0)
       {
@@ -237,16 +237,16 @@ LABEL_23:
       }
     }
 
-    else if (([v38 isEqualToString:@"com.apple.MobileSMS"] & 1) == 0)
+    else if ((objc_msgSend_isEqualToString_(v38) & 1) == 0)
     {
-      v40 = [v38 isEqualToString:@"com.apple.mobilenotes"];
+      isEqualToString = objc_msgSend_isEqualToString_(v38);
       v41 = 1.0;
       if (v39 < 1.0)
       {
         v41 = 0.0;
       }
 
-      if (v40)
+      if (isEqualToString)
       {
         v39 = v41;
       }

@@ -243,24 +243,24 @@ LABEL_18:
 LABEL_21:
 }
 
-uint64_t __77__CLSCurationSession_enumerateSignalsFromAsset_fullHierarchyName_usingBlock___block_invoke(uint64_t a1)
+uint64_t __77__CLSCurationSession_enumerateSignalsFromAsset_fullHierarchyName_usingBlock___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = [*(a1 + 32) sceneTaxonomy];
-  v3 = PFSceneTaxonomyNodeLocalizedLabel();
-  v4 = v3;
-  if (v3)
+  v3 = [*(a1 + 32) sceneTaxonomy];
+  v4 = PFSceneTaxonomyNodeLocalizedLabel();
+  v5 = v4;
+  if (v4)
   {
-    v5 = v3;
+    v6 = v4;
   }
 
   else
   {
-    v5 = PFSceneTaxonomyNodeName();
+    v6 = PFSceneTaxonomyNodeName();
   }
 
-  v6 = v5;
+  v7 = v6;
 
-  [*(a1 + 40) addObject:v6];
+  [*(a1 + 40) addObject:v7];
   return 0;
 }
 

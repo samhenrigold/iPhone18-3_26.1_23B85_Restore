@@ -6,32 +6,32 @@
 void __58___DKAppInstallMonitor__applicationsDidChange_didInstall___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
   WeakRetained = objc_loadWeakRetained((v1 + 40));
+  v66 = 0u;
   v67 = 0u;
   v68 = 0u;
   v69 = 0u;
-  v70 = 0u;
   v3 = *(v1 + 32);
-  obj = [v3 countByEnumeratingWithState:&v67 objects:v73 count:16];
+  obj = [v3 countByEnumeratingWithState:&v66 objects:v72 count:16];
   v4 = 0;
   if (obj)
   {
-    v5 = *v68;
-    v53 = v3;
-    v54 = *v68;
-    v50 = v1;
+    v5 = *v67;
+    v52 = v3;
+    v53 = *v67;
+    v49 = v1;
     do
     {
       for (i = 0; i != obj; i = i + 1)
       {
-        if (*v68 != v5)
+        if (*v67 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v67 + 1) + 8 * i);
+        v7 = *(*(&v66 + 1) + 8 * i);
         v8 = [v7 applicationType];
         if ([v8 isEqualToString:@"System"])
         {
@@ -66,30 +66,30 @@ void __58___DKAppInstallMonitor__applicationsDidChange_didInstall___block_invoke
             v12 = [v7 correspondingApplicationRecord];
             v13 = [v12 appClipMetadata];
 
-            v55 = v13;
+            v54 = v13;
             if (v13)
             {
-              v65 = 0u;
-              v66 = 0u;
-              v63 = 0u;
               v64 = 0u;
+              v65 = 0u;
+              v62 = 0u;
+              v63 = 0u;
               v14 = [v13 parentApplicationIdentifiers];
-              v15 = [v14 countByEnumeratingWithState:&v63 objects:v72 count:16];
+              v15 = [v14 countByEnumeratingWithState:&v62 objects:v71 count:16];
               if (v15)
               {
                 v16 = v15;
-                v51 = v4;
-                v17 = *v64;
+                v50 = v4;
+                v17 = *v63;
                 while (2)
                 {
                   for (j = 0; j != v16; ++j)
                   {
-                    if (*v64 != v17)
+                    if (*v63 != v17)
                     {
                       objc_enumerationMutation(v14);
                     }
 
-                    v19 = [MEMORY[0x277CC1E90] bundleRecordWithApplicationIdentifier:*(*(&v63 + 1) + 8 * j) error:0];
+                    v19 = [MEMORY[0x277CC1E90] bundleRecordWithApplicationIdentifier:*(*(&v62 + 1) + 8 * j) error:0];
 
                     if (v19)
                     {
@@ -98,7 +98,7 @@ void __58___DKAppInstallMonitor__applicationsDidChange_didInstall___block_invoke
                     }
                   }
 
-                  v16 = [v14 countByEnumeratingWithState:&v63 objects:v72 count:16];
+                  v16 = [v14 countByEnumeratingWithState:&v62 objects:v71 count:16];
                   if (v16)
                   {
                     continue;
@@ -109,8 +109,8 @@ void __58___DKAppInstallMonitor__applicationsDidChange_didInstall___block_invoke
 
                 LODWORD(v13) = 0;
 LABEL_26:
-                v4 = v51;
-                v3 = v53;
+                v4 = v50;
+                v3 = v52;
               }
 
               else
@@ -136,9 +136,9 @@ LABEL_26:
 
               v4 = v24;
               v2 = v23;
-              v1 = v50;
+              v1 = v49;
 
-              v3 = v53;
+              v3 = v52;
               [v20 addObject:v29];
             }
 
@@ -146,39 +146,39 @@ LABEL_26:
             [v4 addObject:v30];
             [MEMORY[0x277CF19B0] pruneWithUninstalledBundleIdentifier:v11];
 
-            v5 = v54;
+            v5 = v53;
           }
         }
       }
 
-      obj = [v3 countByEnumeratingWithState:&v67 objects:v73 count:16];
+      obj = [v3 countByEnumeratingWithState:&v66 objects:v72 count:16];
     }
 
     while (obj);
   }
 
-  v52 = v4;
+  v51 = v4;
 
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   obja = v2;
-  v31 = [obja countByEnumeratingWithState:&v59 objects:v71 count:16];
+  v31 = [obja countByEnumeratingWithState:&v58 objects:v70 count:16];
   if (v31)
   {
     v32 = v31;
-    v33 = *v60;
+    v33 = *v59;
     do
     {
       for (k = 0; k != v32; ++k)
       {
-        if (*v60 != v33)
+        if (*v59 != v33)
         {
           objc_enumerationMutation(obja);
         }
 
-        v35 = *(*(&v59 + 1) + 8 * k);
+        v35 = *(*(&v58 + 1) + 8 * k);
         v36 = objc_alloc(MEMORY[0x277CF0FE0]);
         v37 = [v35 stringValue];
         v38 = [v35 metadata];
@@ -190,7 +190,7 @@ LABEL_26:
         [v42 sendEvent:v41];
       }
 
-      v32 = [obja countByEnumeratingWithState:&v59 objects:v71 count:16];
+      v32 = [obja countByEnumeratingWithState:&v58 objects:v70 count:16];
     }
 
     while (v32);
@@ -207,15 +207,15 @@ LABEL_26:
     }
   }
 
-  if (v52)
+  if (v51)
   {
-    if ([v52 count])
+    if ([v51 count])
     {
       v45 = [WeakRetained historicalDeletingHandler];
 
       if (v45)
       {
-        v46 = [MEMORY[0x277CCA920] orPredicateWithSubpredicates:v52];
+        v46 = [MEMORY[0x277CCA920] orPredicateWithSubpredicates:v51];
         v47 = [WeakRetained historicalDeletingHandler];
         (v47)[2](v47, v46);
       }
@@ -224,8 +224,6 @@ LABEL_26:
 
   v48 = [MEMORY[0x277CBEAA8] date];
   [WeakRetained setLastUpdate:v48];
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 @end

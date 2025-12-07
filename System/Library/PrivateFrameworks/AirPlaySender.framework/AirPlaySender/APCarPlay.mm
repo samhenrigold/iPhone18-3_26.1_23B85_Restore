@@ -10,7 +10,7 @@ void __APCarPlay_AddAnalyticsValues_block_invoke(void *a1, void *a2)
     *(*(a1[4] + 8) + 24) = [a2 code];
     if (gLogCategory_APCarPlayCarServicesInterface <= 90 && (gLogCategory_APCarPlayCarServicesInterface != -1 || _LogCategory_Initialize()))
     {
-      __APCarPlay_AddAnalyticsValues_block_invoke_cold_1();
+      __APCarPlay_AddAnalyticsValues_block_invoke_cold_1((a1 + 4), a1, v3);
     }
   }
 
@@ -23,28 +23,32 @@ void __APCarPlay_AddAnalyticsValues_block_invoke(void *a1, void *a2)
     }
   }
 
-  if (objc_opt_respondsToSelector())
+  v4 = objc_opt_respondsToSelector();
+  if (v4)
   {
-    [*(*(a1[6] + 8) + 40) invalidate];
+    v4 = [*(*(a1[6] + 8) + 40) invalidate];
   }
 
-  if (gLogCategory_APCarPlayCarServicesInterface <= 30 && (gLogCategory_APCarPlayCarServicesInterface != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_APCarPlayCarServicesInterface <= 30)
   {
-    __APCarPlay_AddAnalyticsValues_block_invoke_cold_3();
+    if (gLogCategory_APCarPlayCarServicesInterface != -1 || (v4 = _LogCategory_Initialize(), v4))
+    {
+      __APCarPlay_AddAnalyticsValues_block_invoke_cold_3(v4, v5, v6);
+    }
   }
 
   *(*(a1[6] + 8) + 40) = 0;
-  v3 = a1[7];
-  if (v3)
+  v7 = a1[7];
+  if (v7)
   {
-    CFRelease(v3);
+    CFRelease(v7);
   }
 
-  v4 = a1[8];
-  if (v4)
+  v8 = a1[8];
+  if (v8)
   {
 
-    CFRelease(v4);
+    CFRelease(v8);
   }
 }
 
@@ -52,14 +56,15 @@ uint64_t __APCarPlay_AddAnalyticsValues_block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_0_11();
   UpTicksToMilliseconds();
-  return OUTLINED_FUNCTION_2();
+  return OUTLINED_FUNCTION_2(&gLogCategory_APCarPlayCarServicesInterface, "OSStatus APCarPlay_AddAnalyticsValues(CFDictionaryRef, CFStringRef)_block_invoke", v0, "addAnalyticsValues completion handler successful, took %lu ms (inAnalyticsEventName: %@, inAnalyticsValues:\n%@)\n");
 }
 
-void __APCarPlay_AddSignPostTimeInfoToTimeStore_block_invoke(void *a1, char a2)
+void __APCarPlay_AddSignPostTimeInfoToTimeStore_block_invoke(void *a1, char a2, uint64_t a3)
 {
   if (a2)
   {
-    if (IsAppleInternalBuild())
+    v4 = IsAppleInternalBuild();
+    if (v4)
     {
       *(*(a1[4] + 8) + 24) = mach_absolute_time();
       if (gLogCategory_APCarPlayCarServicesInterface > 50)
@@ -67,9 +72,9 @@ void __APCarPlay_AddSignPostTimeInfoToTimeStore_block_invoke(void *a1, char a2)
         goto LABEL_14;
       }
 
-      if (gLogCategory_APCarPlayCarServicesInterface != -1 || _LogCategory_Initialize())
+      if (gLogCategory_APCarPlayCarServicesInterface != -1 || (v4 = _LogCategory_Initialize(), v4))
       {
-        __APCarPlay_AddSignPostTimeInfoToTimeStore_block_invoke_cold_1();
+        v4 = __APCarPlay_AddSignPostTimeInfoToTimeStore_block_invoke_cold_1();
       }
     }
   }
@@ -81,25 +86,28 @@ void __APCarPlay_AddSignPostTimeInfoToTimeStore_block_invoke(void *a1, char a2)
       goto LABEL_14;
     }
 
-    if (gLogCategory_APCarPlayCarServicesInterface != -1 || _LogCategory_Initialize())
+    if (gLogCategory_APCarPlayCarServicesInterface != -1 || (v4 = _LogCategory_Initialize(), v4))
     {
-      LogPrintF();
+      v4 = LogPrintF(&gLogCategory_APCarPlayCarServicesInterface, "OSStatus APCarPlay_AddSignPostTimeInfoToTimeStore(CFStringRef, CFDictionaryRef)_block_invoke", 33554522, "sendConnectionEvent failed for %@, error: %@\n", a1[6], a3);
     }
   }
 
-  if (gLogCategory_APCarPlayCarServicesInterface <= 30 && (gLogCategory_APCarPlayCarServicesInterface != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_APCarPlayCarServicesInterface <= 30)
   {
-    __APCarPlay_AddSignPostTimeInfoToTimeStore_block_invoke_cold_2();
+    if (gLogCategory_APCarPlayCarServicesInterface != -1 || (v4 = _LogCategory_Initialize(), v4))
+    {
+      __APCarPlay_AddSignPostTimeInfoToTimeStore_block_invoke_cold_2(v4, v5, v6);
+    }
   }
 
 LABEL_14:
 
   *(*(a1[5] + 8) + 40) = 0;
-  v3 = a1[6];
-  if (v3)
+  v8 = a1[6];
+  if (v8)
   {
 
-    CFRelease(v3);
+    CFRelease(v8);
   }
 }
 
@@ -175,7 +183,7 @@ intptr_t __APCarPlay_CRFetchScaledDisplaysForCertificateSerialNumber_block_invok
     *(*(a1[7] + 8) + 24) = CFRetain(a2);
     if (gLogCategory_APCarPlayCarServicesInterface <= 50 && (gLogCategory_APCarPlayCarServicesInterface != -1 || _LogCategory_Initialize()))
     {
-      __APCarPlay_CRFetchScaledDisplaysForCertificateSerialNumber_block_invoke_cold_3();
+      __APCarPlay_CRFetchScaledDisplaysForCertificateSerialNumber_block_invoke_cold_3(a2, v8, v9);
     }
   }
 
@@ -257,28 +265,28 @@ uint64_t __APCarPlay_AddSignPostTimeInfoToTimeStore_block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_0_11();
   UpTicksToMilliseconds();
-  return OUTLINED_FUNCTION_2();
+  return OUTLINED_FUNCTION_2(&gLogCategory_APCarPlayCarServicesInterface, "OSStatus APCarPlay_AddSignPostTimeInfoToTimeStore(CFStringRef, CFDictionaryRef)_block_invoke", v0, "sendConnectionEvent completion handler successful, took %lu ms\n");
 }
 
 uint64_t __APCarPlay_CRFetchInstrumentClusterURLs_block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_0_11();
   UpTicksToMilliseconds();
-  return OUTLINED_FUNCTION_2();
+  return OUTLINED_FUNCTION_2(&gLogCategory_APCarPlayCarServicesInterface, "OSStatus APCarPlay_CRFetchInstrumentClusterURLs(CFArrayRef *)_block_invoke", v0, "CRFetchInstrumentClusterURLs completion handler successful, took %lu ms\n");
 }
 
 uint64_t __APCarPlay_CRFetchScaledDisplaysForCertificateSerialNumber_block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_0_11();
   UpTicksToMilliseconds();
-  return OUTLINED_FUNCTION_2();
+  return OUTLINED_FUNCTION_2(&gLogCategory_APCarPlayCarServicesInterface, "OSStatus APCarPlay_CRFetchScaledDisplaysForCertificateSerialNumber(CFDataRef, CFArrayRef, CFArrayRef *)_block_invoke", v0, "CRFetchScaledDisplaysForCertificateSerialNumber completion handler successful, took %lu ms\n");
 }
 
 uint64_t __APCarPlay_FetchUIContextMasterURLList_block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_0_11();
   UpTicksToMilliseconds();
-  return OUTLINED_FUNCTION_2();
+  return OUTLINED_FUNCTION_2(&gLogCategory_APCarPlayCarServicesInterface, "OSStatus APCarPlay_FetchUIContextMasterURLList(CFArrayRef *)_block_invoke", v0, "fetchUIContextsWithCompletion completion handler successful, took %lu ms\n");
 }
 
 @end

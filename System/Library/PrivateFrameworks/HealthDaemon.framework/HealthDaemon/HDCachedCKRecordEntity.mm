@@ -19,24 +19,21 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"zone_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"zone_id";
   v2 = +[(HDHealthEntity *)HDCachedCKRecordZoneEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)uniquedColumns
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"zone_id";
-  v5[1] = @"record_name";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"zone_id";
+  v4[1] = @"record_name";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }
@@ -77,56 +74,50 @@
 
 id __100__HDCachedCKRecordEntity_insertWithZoneID_recordType_epoch_recordName_recordData_transaction_error___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_self();
-  v3 = MEMORY[0x277CCACA8];
-  v4 = [v2 disambiguatedDatabaseTable];
-  v5 = [v3 stringWithFormat:@"INSERT INTO %@ (%@, %@, %@, %@, %@) VALUES (?, ?, ?, ?, ?)", v4, @"zone_id", @"record_type", @"epoch", @"record_name", @"record_data"];
+  v1 = objc_opt_self();
+  v2 = MEMORY[0x277CCACA8];
+  v3 = [v1 disambiguatedDatabaseTable];
+  v4 = [v2 stringWithFormat:@"INSERT INTO %@ (%@, %@, %@, %@, %@) VALUES (?, ?, ?, ?, ?)", v3, @"zone_id", @"record_type", @"epoch", @"record_name", @"record_data"];
 
-  return v5;
+  return v4;
 }
 
 uint64_t __100__HDCachedCKRecordEntity_insertWithZoneID_recordType_epoch_recordName_recordData_transaction_error___block_invoke_2(void *a1, sqlite3_stmt *a2)
 {
   sqlite3_bind_int64(a2, 1, a1[7]);
-  v4 = a1[4];
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_int64(a2, 3, a1[8]);
-  v5 = a1[5];
   HDSQLiteBindFoundationValueToStatement();
-  v6 = a1[6];
 
   return HDSQLiteBindFoundationValueToStatement();
 }
 
 + (BOOL)updateWithRecordData:(id)data epoch:(int64_t)epoch zoneID:(int64_t)d recordName:(id)name transaction:(id)transaction error:(id *)error
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   nameCopy = name;
   v16 = [transaction databaseForEntityClass:self];
   v17 = HDPredicateForZoneIDAndRecordName(d, nameCopy);
 
-  v25[0] = @"epoch";
-  v25[1] = @"record_data";
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __89__HDCachedCKRecordEntity_updateWithRecordData_epoch_zoneID_recordName_transaction_error___block_invoke;
-  v22[3] = &unk_278616B10;
-  v23 = dataCopy;
+  v24[0] = @"epoch";
+  v24[1] = @"record_data";
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __89__HDCachedCKRecordEntity_updateWithRecordData_epoch_zoneID_recordName_transaction_error___block_invoke;
+  v21[3] = &unk_278616B10;
+  v22 = dataCopy;
   epochCopy = epoch;
   v19 = dataCopy;
-  LOBYTE(error) = [self updateProperties:v18 predicate:v17 database:v16 error:error bindingHandler:v22];
+  LOBYTE(error) = [self updateProperties:v18 predicate:v17 database:v16 error:error bindingHandler:v21];
 
-  v20 = *MEMORY[0x277D85DE8];
   return error;
 }
 
 void __89__HDCachedCKRecordEntity_updateWithRecordData_epoch_zoneID_recordName_transaction_error___block_invoke(uint64_t a1, uint64_t a2)
 {
   MEMORY[0x22AAC6B90](a2, @"epoch", *(a1 + 40));
-  v3 = *(a1 + 32);
 
   JUMPOUT(0x22AAC6B40);
 }
@@ -501,7 +492,7 @@ uint64_t __134__HDCachedCKRecordEntity_enumerateRecordIDsWithContainerIdentifier
 
 uint64_t __168__HDCachedCKRecordEntity_enumerateRecordIDAndDataWithContainerIdentifier_databaseScope_zoneName_ownerName_recordType_recordName_epoch_profile_error_enumerationHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v34[2] = *MEMORY[0x277D85DE8];
+  v33[2] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [(HDCachedCKRecordEntity *)*(a1 + 88) _recordZoneEntityWithContainerIdentifier:*(a1 + 96) databaseScope:*(a1 + 40) zoneName:*(a1 + 48) ownerName:v5 transaction:a3 error:?];
   if (v6)
@@ -509,20 +500,20 @@ uint64_t __168__HDCachedCKRecordEntity_enumerateRecordIDAndDataWithContainerIden
     v7 = HDPredicateForRecordsSinceEpoch(*(a1 + 104));
     v8 = HDPredicateForZoneIDAndRecordType([v6 persistentID], *(a1 + 56));
     v9 = MEMORY[0x277D10B20];
-    v26 = v8;
-    v27 = v7;
-    v34[0] = v8;
-    v34[1] = v7;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
+    v25 = v8;
+    v26 = v7;
+    v33[0] = v8;
+    v33[1] = v7;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
     v11 = [v9 predicateMatchingAllPredicates:v10];
 
     if (*(a1 + 64))
     {
       v12 = HDPredicateForZoneIDAndRecordName([v6 persistentID], *(a1 + 64));
       v13 = MEMORY[0x277D10B20];
-      v33[0] = v11;
-      v33[1] = v12;
-      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
+      v32[0] = v11;
+      v32[1] = v12;
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
       v15 = [v13 predicateMatchingAllPredicates:v14];
 
       v11 = v15;
@@ -531,22 +522,22 @@ uint64_t __168__HDCachedCKRecordEntity_enumerateRecordIDAndDataWithContainerIden
     v16 = *(a1 + 88);
     v17 = [v5 databaseForEntityClass:{v16, a3}];
     v18 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"epoch" entityClass:*(a1 + 88) ascending:1];
-    v32 = v18;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
+    v31 = v18;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
     v20 = [v16 queryWithDatabase:v17 predicate:v11 limit:0 orderingTerms:v19 groupBy:0];
 
-    v31[0] = *MEMORY[0x277D10A40];
-    v31[1] = @"epoch";
-    v31[2] = @"record_name";
-    v31[3] = @"record_data";
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:4];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __168__HDCachedCKRecordEntity_enumerateRecordIDAndDataWithContainerIdentifier_databaseScope_zoneName_ownerName_recordType_recordName_epoch_profile_error_enumerationHandler___block_invoke_2;
-    v28[3] = &unk_2786265D0;
-    v30 = *(a1 + 80);
-    v29 = *(a1 + 72);
-    v22 = [v20 enumerateProperties:v21 error:v25 enumerationHandler:v28];
+    v30[0] = *MEMORY[0x277D10A40];
+    v30[1] = @"epoch";
+    v30[2] = @"record_name";
+    v30[3] = @"record_data";
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:4];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __168__HDCachedCKRecordEntity_enumerateRecordIDAndDataWithContainerIdentifier_databaseScope_zoneName_ownerName_recordType_recordName_epoch_profile_error_enumerationHandler___block_invoke_2;
+    v27[3] = &unk_2786265D0;
+    v29 = *(a1 + 80);
+    v28 = *(a1 + 72);
+    v22 = [v20 enumerateProperties:v21 error:v24 enumerationHandler:v27];
   }
 
   else
@@ -554,24 +545,21 @@ uint64_t __168__HDCachedCKRecordEntity_enumerateRecordIDAndDataWithContainerIden
     v22 = 1;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 uint64_t __168__HDCachedCKRecordEntity_enumerateRecordIDAndDataWithContainerIdentifier_databaseScope_zoneName_ownerName_recordType_recordName_epoch_profile_error_enumerationHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v6 = *(a1 + 40);
-  v7 = [HDCachedCKRecordEntity alloc];
-  v8 = *MEMORY[0x277D10A40];
-  v9 = [(HDSQLiteEntity *)v7 initWithPersistentID:HDSQLiteColumnWithNameAsInt64()];
-  v10 = objc_alloc(MEMORY[0x277CBC5D0]);
-  v11 = HDSQLiteColumnWithNameAsString();
-  v12 = [v10 initWithRecordName:v11 zoneID:*(a1 + 32)];
-  v13 = HDSQLiteColumnWithNameAsData();
-  v14 = HDSQLiteColumnWithNameAsInt64();
-  v15 = (*(v6 + 16))(v6, v9, v12, v13, v14, a4);
+  v7 = [(HDSQLiteEntity *)[HDCachedCKRecordEntity alloc] initWithPersistentID:HDSQLiteColumnWithNameAsInt64()];
+  v8 = objc_alloc(MEMORY[0x277CBC5D0]);
+  v9 = HDSQLiteColumnWithNameAsString();
+  v10 = [v8 initWithRecordName:v9 zoneID:*(a1 + 32)];
+  v11 = HDSQLiteColumnWithNameAsData();
+  v12 = HDSQLiteColumnWithNameAsInt64();
+  v13 = (*(v6 + 16))(v6, v7, v10, v11, v12, a4);
 
-  return v15;
+  return v13;
 }
 
 + (int64_t)containsRecordsWithContainerIdentifier:(id)identifier databaseScope:(int64_t)scope zoneName:(id)name ownerName:(id)ownerName profile:(id)profile error:(id *)error

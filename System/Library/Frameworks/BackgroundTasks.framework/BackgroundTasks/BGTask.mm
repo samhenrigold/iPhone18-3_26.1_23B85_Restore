@@ -3,6 +3,7 @@
 - (id)_initWithIdentifier:(id)identifier activity:(id)activity;
 - (id)_unsafe_setTaskCompletedWithSuccess:(BOOL)success afterDelay:(double)delay;
 - (void)_callExpirationHandlerWithReason:(int64_t)reason;
+- (void)_setTaskCompletedWithSuccess:(BOOL)success actionsIfNotAlreadyCompleted:(id)completed;
 - (void)dealloc;
 @end
 
@@ -76,34 +77,62 @@ void __57__BGTask__unsafe_setTaskCompletedWithSuccess_afterDelay___block_invoke(
   v2 = *(a1 + 48);
   if (v2 == 0.0)
   {
-    v5 = *(a1 + 40);
-    v6 = *(a1 + 56);
-    v7 = *(*(a1 + 40) + 16);
+    v5 = *(*(a1 + 40) + 16);
 
-    v7();
+    v5();
   }
 
   else
   {
     v3 = dispatch_time(0, (v2 * 1000000000.0));
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __57__BGTask__unsafe_setTaskCompletedWithSuccess_afterDelay___block_invoke_2;
-    v8[3] = &unk_1E7980560;
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __57__BGTask__unsafe_setTaskCompletedWithSuccess_afterDelay___block_invoke_2;
+    v6[3] = &unk_1E7980560;
     v4 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    v10 = *(a1 + 56);
-    dispatch_after(v3, v4, v8);
+    v7 = *(a1 + 40);
+    v8 = *(a1 + 56);
+    dispatch_after(v3, v4, v6);
+  }
+}
+
+- (void)_setTaskCompletedWithSuccess:(BOOL)success actionsIfNotAlreadyCompleted:(id)completed
+{
+  successCopy = success;
+  completedCopy = completed;
+  os_unfair_recursive_lock_lock_with_options();
+  if (self->__completed)
+  {
+    os_unfair_recursive_lock_unlock();
+  }
+
+  else
+  {
+    if (completedCopy)
+    {
+      completedCopy[2]();
+    }
+
+    else
+    {
+      v6 = 0.0;
+    }
+
+    v7 = [(BGTask *)self _unsafe_setTaskCompletedWithSuccess:successCopy afterDelay:v6];
+    os_unfair_recursive_lock_unlock();
+    if (v7)
+    {
+      v7[2](v7);
+    }
   }
 }
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_1AC80E000, a2, OS_LOG_TYPE_ERROR, "Task %{public}@ dealloc'd without completing. This is a programmer error.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1AC80E000, a2, OS_LOG_TYPE_ERROR, "Task %{public}@ dealloc'd without completing. This is a programmer error.", &v2, 0xCu);
 }
 
 - (void)_callExpirationHandlerWithReason:(int64_t)reason
@@ -131,11 +160,10 @@ void __57__BGTask__unsafe_setTaskCompletedWithSuccess_afterDelay___block_invoke(
 
 - (void)_callExpirationHandlerWithReason:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1AC80E000, a2, OS_LOG_TYPE_ERROR, "Client didn't provide an expiration handler for task %{public}@, completing with NO success for them", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1AC80E000, a2, OS_LOG_TYPE_ERROR, "Client didn't provide an expiration handler for task %{public}@, completing with NO success for them", &v2, 0xCu);
 }
 
 @end

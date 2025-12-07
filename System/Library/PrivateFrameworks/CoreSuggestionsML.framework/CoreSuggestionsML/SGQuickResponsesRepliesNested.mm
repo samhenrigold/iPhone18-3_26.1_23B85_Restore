@@ -278,72 +278,70 @@ LABEL_36:
 
 + (id)selectedPseudocountsFromModels:(id)models
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   modelsCopy = models;
   v4 = objc_opt_new();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = modelsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        selectedPseudocounts = [*(*(&v13 + 1) + 8 * i) selectedPseudocounts];
+        selectedPseudocounts = [*(*(&v12 + 1) + 8 * i) selectedPseudocounts];
         [v4 addObjectsFromArray:selectedPseudocounts];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)subclassesFromClasses:(id)classes subclassArray:(id)array
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   classesCopy = classes;
   arrayCopy = array;
   v6 = objc_opt_new();
   v7 = objc_opt_new();
+  v62 = 0u;
   v63 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
   obj = arrayCopy;
-  v8 = [obj countByEnumeratingWithState:&v63 objects:v70 count:16];
-  v50 = v7;
+  v8 = [obj countByEnumeratingWithState:&v62 objects:v69 count:16];
+  v49 = v7;
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v48 = *v64;
+    v47 = *v63;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v64 != v48)
+        if (*v63 != v47)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v63 + 1) + 8 * i);
+        v12 = *(*(&v62 + 1) + 8 * i);
         v13 = objc_opt_new();
         [v7 addObject:v13];
 
@@ -355,14 +353,14 @@ LABEL_36:
           v18 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:v15];
           [lastObject addObject:v18];
 
-          v7 = v50;
+          v7 = v49;
           ++v15;
         }
 
         v10 += v14;
       }
 
-      v9 = [obj countByEnumeratingWithState:&v63 objects:v70 count:16];
+      v9 = [obj countByEnumeratingWithState:&v62 objects:v69 count:16];
     }
 
     while (v9);
@@ -385,100 +383,98 @@ LABEL_36:
     }
   }
 
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
-  v42 = v19;
-  v45 = [v42 countByEnumeratingWithState:&v59 objects:v69 count:16];
-  if (v45)
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v41 = v19;
+  v44 = [v41 countByEnumeratingWithState:&v58 objects:v68 count:16];
+  if (v44)
   {
-    v44 = *v60;
+    v43 = *v59;
     do
     {
       v25 = 0;
       do
       {
-        if (*v60 != v44)
+        if (*v59 != v43)
         {
-          objc_enumerationMutation(v42);
+          objc_enumerationMutation(v41);
         }
 
-        v47 = v25;
-        v26 = *(*(&v59 + 1) + 8 * v25);
+        v46 = v25;
+        v26 = *(*(&v58 + 1) + 8 * v25);
         v27 = objc_opt_new();
         [v6 addObject:v27];
 
-        v57 = 0u;
-        v58 = 0u;
-        v55 = 0u;
         v56 = 0u;
-        v49 = v26;
-        v28 = [v49 countByEnumeratingWithState:&v55 objects:v68 count:16];
+        v57 = 0u;
+        v54 = 0u;
+        v55 = 0u;
+        v48 = v26;
+        v28 = [v48 countByEnumeratingWithState:&v54 objects:v67 count:16];
         if (v28)
         {
           v29 = v28;
-          v30 = *v56;
+          v30 = *v55;
           do
           {
             for (m = 0; m != v29; ++m)
             {
-              if (*v56 != v30)
+              if (*v55 != v30)
               {
-                objc_enumerationMutation(v49);
+                objc_enumerationMutation(v48);
               }
 
-              v32 = *(*(&v55 + 1) + 8 * m);
+              v32 = *(*(&v54 + 1) + 8 * m);
+              v50 = 0u;
               v51 = 0u;
               v52 = 0u;
               v53 = 0u;
-              v54 = 0u;
               v33 = [v7 objectAtIndexedSubscript:{objc_msgSend(v32, "unsignedIntegerValue")}];
-              v34 = [v33 countByEnumeratingWithState:&v51 objects:v67 count:16];
+              v34 = [v33 countByEnumeratingWithState:&v50 objects:v66 count:16];
               if (v34)
               {
                 v35 = v34;
-                v36 = *v52;
+                v36 = *v51;
                 do
                 {
                   for (n = 0; n != v35; ++n)
                   {
-                    if (*v52 != v36)
+                    if (*v51 != v36)
                     {
                       objc_enumerationMutation(v33);
                     }
 
-                    v38 = *(*(&v51 + 1) + 8 * n);
+                    v38 = *(*(&v50 + 1) + 8 * n);
                     lastObject2 = [v6 lastObject];
                     [lastObject2 addObject:v38];
                   }
 
-                  v35 = [v33 countByEnumeratingWithState:&v51 objects:v67 count:16];
+                  v35 = [v33 countByEnumeratingWithState:&v50 objects:v66 count:16];
                 }
 
                 while (v35);
               }
 
-              v7 = v50;
+              v7 = v49;
             }
 
-            v29 = [v49 countByEnumeratingWithState:&v55 objects:v68 count:16];
+            v29 = [v48 countByEnumeratingWithState:&v54 objects:v67 count:16];
           }
 
           while (v29);
         }
 
-        v25 = v47 + 1;
+        v25 = v46 + 1;
       }
 
-      while (v47 + 1 != v45);
-      v45 = [v42 countByEnumeratingWithState:&v59 objects:v69 count:16];
+      while (v46 + 1 != v44);
+      v44 = [v41 countByEnumeratingWithState:&v58 objects:v68 count:16];
     }
 
-    while (v45);
+    while (v44);
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -567,34 +563,34 @@ void __64__SGQuickResponsesRepliesNested_modelSemanticClassesFromModels___block_
 
 + (id)replyModelsForArray:(id)array
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v4 = objc_opt_new();
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v5 = arrayCopy;
-    v6 = [v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v6)
     {
       v7 = v6;
       v8 = 0;
-      v9 = *v22;
-      v20 = arrayCopy;
+      v9 = *v21;
+      v19 = arrayCopy;
 LABEL_4:
       v10 = 0;
       while (1)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * v10);
+        v11 = *(*(&v20 + 1) + 8 * v10);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -622,8 +618,8 @@ LABEL_4:
 
         if (v7 == ++v10)
         {
-          v7 = [v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
-          arrayCopy = v20;
+          v7 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
+          arrayCopy = v19;
           if (v7)
           {
             goto LABEL_4;
@@ -638,7 +634,7 @@ LABEL_4:
 LABEL_19:
 
         v15 = 0;
-        arrayCopy = v20;
+        arrayCopy = v19;
         goto LABEL_23;
       }
 
@@ -682,44 +678,42 @@ LABEL_23:
     v15 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 + (BOOL)isZeroBasedAndContiguous:(id)contiguous
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   contiguousCopy = contiguous;
   if ([contiguousCopy count])
   {
     v4 = objc_opt_new();
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v5 = contiguousCopy;
-    v6 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v23;
+      v8 = *v22;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v23 != v8)
+          if (*v22 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v22 + 1) + 8 * i);
+          v10 = *(*(&v21 + 1) + 8 * i);
           v11 = objc_alloc(MEMORY[0x277CCABB0]);
-          v12 = [v11 initWithUnsignedInteger:{objc_msgSend(v10, "category", v22)}];
+          v12 = [v11 initWithUnsignedInteger:{objc_msgSend(v10, "category", v21)}];
           [v4 addObject:v12];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v7);
@@ -749,7 +743,6 @@ LABEL_23:
     v19 = 1;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -809,72 +802,70 @@ void __68__SGQuickResponsesRepliesNested_parentArraysFromNestedArray_models___bl
 
 + (id)nestedArrayFromFlatArray:(id)array nestedIndexes:(id)indexes
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   indexesCopy = indexes;
-  v22 = objc_opt_new();
+  v21 = objc_opt_new();
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = indexesCopy;
-  v7 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v7 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v28;
+    v9 = *v27;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v28 != v9)
+        if (*v27 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v27 + 1) + 8 * i);
+        v11 = *(*(&v26 + 1) + 8 * i);
         v12 = objc_opt_new();
+        v22 = 0u;
         v23 = 0u;
         v24 = 0u;
         v25 = 0u;
-        v26 = 0u;
         v13 = v11;
-        v14 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v24;
+          v16 = *v23;
           do
           {
             for (j = 0; j != v15; ++j)
             {
-              if (*v24 != v16)
+              if (*v23 != v16)
               {
                 objc_enumerationMutation(v13);
               }
 
-              v18 = [arrayCopy objectAtIndexedSubscript:{objc_msgSend(*(*(&v23 + 1) + 8 * j), "unsignedIntegerValue")}];
+              v18 = [arrayCopy objectAtIndexedSubscript:{objc_msgSend(*(*(&v22 + 1) + 8 * j), "unsignedIntegerValue")}];
               [v12 addObject:v18];
             }
 
-            v15 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
+            v15 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
           }
 
           while (v15);
         }
 
-        [v22 addObject:v12];
+        [v21 addObject:v12];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v8 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v8);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v21;
 }
 
 + (id)flattenedArraysFromNestedArray:(id)array
@@ -961,39 +952,37 @@ void __62__SGQuickResponsesRepliesNested_indexedArraysFromNestedArray___block_in
 
 + (id)nestedArrayFromModels:(id)models
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   modelsCopy = models;
   v4 = objc_opt_new();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = modelsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        semanticClasses = [*(*(&v13 + 1) + 8 * i) semanticClasses];
+        semanticClasses = [*(*(&v12 + 1) + 8 * i) semanticClasses];
         [v4 addObject:semanticClasses];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

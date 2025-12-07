@@ -22,6 +22,7 @@
 - (void)_refreshTraitCollection;
 - (void)_updateContentStyle;
 - (void)_updateFrameRateLimit;
+- (void)_updateSceneTraitsAndPushTraitsToScreen:(BOOL)screen;
 - (void)_windowUpdatedVisibility:(id)visibility;
 - (void)handleZoomInDirection:(int64_t)direction;
 - (void)updateSceneForNewCompassSetting;
@@ -33,12 +34,12 @@
 
 - (CPTemplateApplicationInstrumentClusterScene)initWithSession:(id)session connectionOptions:(id)options
 {
-  v56[2] = *MEMORY[0x277D85DE8];
+  v55[2] = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   optionsCopy = options;
-  v54.receiver = self;
-  v54.super_class = CPTemplateApplicationInstrumentClusterScene;
-  v8 = [(CPTemplateApplicationInstrumentClusterScene *)&v54 initWithSession:sessionCopy connectionOptions:optionsCopy];
+  v53.receiver = self;
+  v53.super_class = CPTemplateApplicationInstrumentClusterScene;
+  v8 = [(CPTemplateApplicationInstrumentClusterScene *)&v53 initWithSession:sessionCopy connectionOptions:optionsCopy];
   if (v8)
   {
     _specification = [optionsCopy _specification];
@@ -56,26 +57,26 @@
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     mainQueue = [MEMORY[0x277CCABD8] mainQueue];
     v19 = *MEMORY[0x277D76668];
-    v52[0] = MEMORY[0x277D85DD0];
-    v52[1] = 3221225472;
-    v52[2] = __81__CPTemplateApplicationInstrumentClusterScene_initWithSession_connectionOptions___block_invoke;
-    v52[3] = &unk_278A10508;
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __81__CPTemplateApplicationInstrumentClusterScene_initWithSession_connectionOptions___block_invoke;
+    v51[3] = &unk_278A10508;
     v20 = v8;
-    v53 = v20;
-    v21 = [defaultCenter addObserverForName:v19 object:0 queue:mainQueue usingBlock:v52];
+    v52 = v20;
+    v21 = [defaultCenter addObserverForName:v19 object:0 queue:mainQueue usingBlock:v51];
     didFinishLaunchingObserver = v20->_didFinishLaunchingObserver;
     v20->_didFinishLaunchingObserver = v21;
 
     defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
     mainQueue2 = [MEMORY[0x277CCABD8] mainQueue];
     v25 = *MEMORY[0x277D76E70];
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = __81__CPTemplateApplicationInstrumentClusterScene_initWithSession_connectionOptions___block_invoke_7;
-    v50[3] = &unk_278A10508;
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __81__CPTemplateApplicationInstrumentClusterScene_initWithSession_connectionOptions___block_invoke_7;
+    v49[3] = &unk_278A10508;
     v26 = v20;
-    v51 = v26;
-    v27 = [defaultCenter2 addObserverForName:v25 object:v26 queue:mainQueue2 usingBlock:v50];
+    v50 = v26;
+    v27 = [defaultCenter2 addObserverForName:v25 object:v26 queue:mainQueue2 usingBlock:v49];
     sceneWillConnectObserver = v26->_sceneWillConnectObserver;
     v26->_sceneWillConnectObserver = v27;
 
@@ -85,49 +86,48 @@
     v26->_mapStyleInspector = v29;
 
     v31 = v26->_mapStyleInspector;
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __81__CPTemplateApplicationInstrumentClusterScene_initWithSession_connectionOptions___block_invoke_9;
-    v47[3] = &unk_278A10530;
-    objc_copyWeak(&v48, &location);
-    [(CPUIContentStyleDiffInspector *)v31 observeMapStyleWithBlock:v47];
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __81__CPTemplateApplicationInstrumentClusterScene_initWithSession_connectionOptions___block_invoke_9;
+    v46[3] = &unk_278A10530;
+    objc_copyWeak(&v47, &location);
+    [(CPUIContentStyleDiffInspector *)v31 observeMapStyleWithBlock:v46];
     [(CPTemplateApplicationInstrumentClusterScene *)v26 _updateContentStyle];
     v32 = objc_alloc_init(CPUIFrameRateLimitDiffInspector);
     frameRateLimitInspector = v26->_frameRateLimitInspector;
     v26->_frameRateLimitInspector = v32;
 
     v34 = v26->_frameRateLimitInspector;
-    v42 = MEMORY[0x277D85DD0];
-    v43 = 3221225472;
-    v44 = __81__CPTemplateApplicationInstrumentClusterScene_initWithSession_connectionOptions___block_invoke_2;
-    v45 = &unk_278A10530;
-    objc_copyWeak(&v46, &location);
-    [(CPUIFrameRateLimitDiffInspector *)v34 observeFrameRateLimitWithBlock:&v42];
-    [(CPTemplateApplicationInstrumentClusterScene *)v26 _updateFrameRateLimit:v42];
+    v41 = MEMORY[0x277D85DD0];
+    v42 = 3221225472;
+    v43 = __81__CPTemplateApplicationInstrumentClusterScene_initWithSession_connectionOptions___block_invoke_2;
+    v44 = &unk_278A10530;
+    objc_copyWeak(&v45, &location);
+    [(CPUIFrameRateLimitDiffInspector *)v34 observeFrameRateLimitWithBlock:&v41];
+    [(CPTemplateApplicationInstrumentClusterScene *)v26 _updateFrameRateLimit:v41];
     v35 = [CPTemplateUISceneSettingsDiffAction alloc];
-    v56[0] = v26->_mapStyleInspector;
-    v56[1] = v26->_frameRateLimitInspector;
-    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
+    v55[0] = v26->_mapStyleInspector;
+    v55[1] = v26->_frameRateLimitInspector;
+    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
     v37 = [(CPTemplateUISceneSettingsDiffAction *)v35 initWithInspectors:v36];
     [(CPTemplateApplicationInstrumentClusterScene *)v26 setSceneSettingsDiffAction:v37];
 
     sceneSettingsDiffAction = [(CPTemplateApplicationInstrumentClusterScene *)v26 sceneSettingsDiffAction];
-    v55 = sceneSettingsDiffAction;
-    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
+    v54 = sceneSettingsDiffAction;
+    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
     [(CPTemplateApplicationInstrumentClusterScene *)v26 _registerSettingsDiffActionArray:v39 forKey:@"InterfaceStyle"];
 
-    objc_destroyWeak(&v46);
-    objc_destroyWeak(&v48);
+    objc_destroyWeak(&v45);
+    objc_destroyWeak(&v47);
     objc_destroyWeak(&location);
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 uint64_t __81__CPTemplateApplicationInstrumentClusterScene_initWithSession_connectionOptions___block_invoke(uint64_t a1)
 {
-  v2 = CarPlayFrameworkGeneralLogging();
+  v2 = CarPlayFrameworkGeneralLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -140,7 +140,7 @@ uint64_t __81__CPTemplateApplicationInstrumentClusterScene_initWithSession_conne
 uint64_t __81__CPTemplateApplicationInstrumentClusterScene_initWithSession_connectionOptions___block_invoke_7(uint64_t a1)
 {
   *(*(a1 + 32) + 264) = 1;
-  v2 = CarPlayFrameworkGeneralLogging();
+  v2 = CarPlayFrameworkGeneralLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -164,43 +164,42 @@ void __81__CPTemplateApplicationInstrumentClusterScene_initWithSession_connectio
 
 - (void)_updateContentStyle
 {
-  v12 = *MEMORY[0x277D85DE8];
-  self->_contentStyle = [(CPTemplateApplicationInstrumentClusterScene *)self _mapStyle];
-  v3 = CarPlayFrameworkGeneralLogging();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v13 = *MEMORY[0x277D85DE8];
+  _mapStyle = [(CPTemplateApplicationInstrumentClusterScene *)self _mapStyle];
+  self->_contentStyle = _mapStyle;
+  v4 = CarPlayFrameworkGeneralLogging(_mapStyle);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     if (self->_contentStyle == 2)
     {
-      v4 = @"dark";
+      v5 = @"dark";
     }
 
     else
     {
-      v4 = @"light";
+      v5 = @"light";
     }
 
-    v10 = 138543362;
-    v11 = v4;
-    _os_log_impl(&dword_236ED4000, v3, OS_LOG_TYPE_DEFAULT, "Cluster scene content style updated to %{public}@", &v10, 0xCu);
+    v11 = 138543362;
+    v12 = v5;
+    _os_log_impl(&dword_236ED4000, v4, OS_LOG_TYPE_DEFAULT, "Cluster scene content style updated to %{public}@", &v11, 0xCu);
   }
 
   delegate = [(CPTemplateApplicationInstrumentClusterScene *)self delegate];
-  v6 = objc_opt_respondsToSelector();
+  v7 = objc_opt_respondsToSelector();
 
-  if (v6)
+  if (v7)
   {
-    v7 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = CarPlayFrameworkGeneralLogging(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_236ED4000, v7, OS_LOG_TYPE_DEFAULT, "Informing delegate of style update", &v10, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_236ED4000, v9, OS_LOG_TYPE_DEFAULT, "Informing delegate of style update", &v11, 2u);
     }
 
     delegate2 = [(CPTemplateApplicationInstrumentClusterScene *)self delegate];
     [delegate2 contentStyleDidChange:self->_contentStyle];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)_mapStyle
@@ -222,46 +221,44 @@ void __81__CPTemplateApplicationInstrumentClusterScene_initWithSession_connectio
   frameRateLimit = self->_frameRateLimit;
   if (frameRateLimit)
   {
-    [(NSNumber *)frameRateLimit doubleValue];
-    if (v7 <= 0.0)
+    doubleValue = [(NSNumber *)frameRateLimit doubleValue];
+    if (v8 <= 0.0)
     {
-      v8 = 30.0;
+      v9 = 30.0;
     }
 
     else
     {
-      v8 = v7;
+      v9 = v8;
     }
 
-    v9 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = CarPlayFrameworkGeneralLogging(doubleValue);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134349056;
-      v18 = v8;
-      _os_log_impl(&dword_236ED4000, v9, OS_LOG_TYPE_DEFAULT, "Cluster scene frame rate limit updated to %{public}f fps", buf, 0xCu);
+      v18 = v9;
+      _os_log_impl(&dword_236ED4000, v10, OS_LOG_TYPE_DEFAULT, "Cluster scene frame rate limit updated to %{public}f fps", buf, 0xCu);
     }
 
-    v10 = 1.0 / v8;
+    v11 = 1.0 / v9;
   }
 
   else
   {
-    v11 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = CarPlayFrameworkGeneralLogging(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_236ED4000, v11, OS_LOG_TYPE_DEFAULT, "Cluster scene updated to unrestricted frame rate", buf, 2u);
+      _os_log_impl(&dword_236ED4000, v12, OS_LOG_TYPE_DEFAULT, "Cluster scene updated to unrestricted frame rate", buf, 2u);
     }
 
-    v10 = 0.0333333333;
+    v11 = 0.0333333333;
   }
 
-  v12 = [MEMORY[0x277CCABB0] numberWithDouble:{v10, *MEMORY[0x277CDA1A8]}];
-  v16 = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-  [cADisplay overrideDisplayTimings:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = [MEMORY[0x277CCABB0] numberWithDouble:{v11, *MEMORY[0x277CDA1A8]}];
+  v16 = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  [cADisplay overrideDisplayTimings:v14];
 }
 
 - (id)_frameRateLimit
@@ -295,7 +292,7 @@ void __81__CPTemplateApplicationInstrumentClusterScene_initWithSession_connectio
 
 - (void)_refreshTraitCollection
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceIdiom:3];
   v4 = MEMORY[0x277D75C80];
   _screen = [(CPTemplateApplicationInstrumentClusterScene *)self _screen];
@@ -329,15 +326,13 @@ void __81__CPTemplateApplicationInstrumentClusterScene_initWithSession_connectio
 
   v13 = [v11 traitCollectionWithUserInterfaceStyle:userInterfaceStyle];
   v14 = MEMORY[0x277D75C80];
-  v19[0] = v3;
-  v19[1] = v13;
-  v19[2] = v7;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
+  v18[0] = v3;
+  v18[1] = v13;
+  v18[2] = v7;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
   v16 = [v14 traitCollectionWithTraitsFromCollections:v15];
   traitCollection = self->_traitCollection;
   self->_traitCollection = v16;
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (UIScreen)_screen
@@ -408,6 +403,15 @@ void __81__CPTemplateApplicationInstrumentClusterScene_initWithSession_connectio
   }
 
   return traitCollection;
+}
+
+- (void)_updateSceneTraitsAndPushTraitsToScreen:(BOOL)screen
+{
+  screenCopy = screen;
+  [(CPTemplateApplicationInstrumentClusterScene *)self _refreshTraitCollection];
+  v5.receiver = self;
+  v5.super_class = CPTemplateApplicationInstrumentClusterScene;
+  [(CPTemplateApplicationInstrumentClusterScene *)&v5 _updateSceneTraitsAndPushTraitsToScreen:screenCopy];
 }
 
 - (void)_attachWindow:(id)window
@@ -483,33 +487,33 @@ void __81__CPTemplateApplicationInstrumentClusterScene_initWithSession_connectio
 
 - (id)_fbsSceneLayerForWindow:(id)window
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   windowCopy = window;
   substrate = [(_UIContextBinder *)self->_contextBinder substrate];
   scene = [substrate scene];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   clientSettings = [scene clientSettings];
   layers = [clientSettings layers];
 
-  v9 = [layers countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [layers countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v19 = substrate;
-    v11 = *v21;
+    v18 = substrate;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(layers);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -524,21 +528,19 @@ void __81__CPTemplateApplicationInstrumentClusterScene_initWithSession_connectio
         }
       }
 
-      v10 = [layers countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [layers countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
     v14 = 0;
 LABEL_12:
-    substrate = v19;
+    substrate = v18;
   }
 
   else
   {
     v14 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -580,7 +582,7 @@ LABEL_12:
 
 - (void)_deliverControllerToDelegate
 {
-  v3 = CarPlayFrameworkGeneralLogging();
+  v3 = CarPlayFrameworkGeneralLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -597,11 +599,11 @@ LABEL_12:
 
       if (v6)
       {
-        v7 = CarPlayFrameworkGeneralLogging();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        v8 = CarPlayFrameworkGeneralLogging(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          *v9 = 0;
-          _os_log_impl(&dword_236ED4000, v7, OS_LOG_TYPE_DEFAULT, "Cluster delegate supports templateApplicationDidConnectInstrumentClusterScene method", v9, 2u);
+          *v10 = 0;
+          _os_log_impl(&dword_236ED4000, v8, OS_LOG_TYPE_DEFAULT, "Cluster delegate supports templateApplicationDidConnectInstrumentClusterScene method", v10, 2u);
         }
 
         instrumentClusterController = [(CPTemplateApplicationInstrumentClusterScene *)self instrumentClusterController];

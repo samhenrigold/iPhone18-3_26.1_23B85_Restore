@@ -24,10 +24,10 @@
 
 - (SFCredentialProviderExtensionHelperProxy)init
 {
-  v43[3] = *MEMORY[0x277D85DE8];
-  v40.receiver = self;
-  v40.super_class = SFCredentialProviderExtensionHelperProxy;
-  v2 = [(SFCredentialProviderExtensionHelperProxy *)&v40 init];
+  v42[3] = *MEMORY[0x277D85DE8];
+  v39.receiver = self;
+  v39.super_class = SFCredentialProviderExtensionHelperProxy;
+  v2 = [(SFCredentialProviderExtensionHelperProxy *)&v39 init];
   v3 = v2;
   if (v2)
   {
@@ -60,18 +60,18 @@
     [v6 setClasses:v20 forSelector:sel_fetchAllPaskeyCredentialIdentitiesWithCompletion_ argumentIndex:0 ofReply:1];
 
     v21 = MEMORY[0x277CBEB98];
-    v43[0] = objc_opt_class();
-    v43[1] = objc_opt_class();
-    v43[2] = objc_opt_class();
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:3];
+    v42[0] = objc_opt_class();
+    v42[1] = objc_opt_class();
+    v42[2] = objc_opt_class();
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:3];
     v23 = [v21 setWithArray:v22];
     [v6 setClasses:v23 forSelector:sel_fetchAllCredentialIdentitiesMatchingDomains_forExtension_completion_ argumentIndex:0 ofReply:1];
 
     v24 = MEMORY[0x277CBEB98];
-    v42[0] = objc_opt_class();
-    v42[1] = objc_opt_class();
-    v42[2] = objc_opt_class();
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:3];
+    v41[0] = objc_opt_class();
+    v41[1] = objc_opt_class();
+    v41[2] = objc_opt_class();
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:3];
     v26 = [v24 setWithArray:v25];
     [v6 setClasses:v26 forSelector:sel_fetchAllCredentialIdentitiesMatchingDomains_completion_ argumentIndex:0 ofReply:1];
 
@@ -79,9 +79,9 @@
     [v6 setClasses:v27 forSelector:sel_fetchOneTimeCodeCredentialIdentitiesMatchingDomains_completion_ argumentIndex:0 ofReply:1];
 
     v28 = MEMORY[0x277CBEB98];
-    v41[0] = objc_opt_class();
-    v41[1] = objc_opt_class();
-    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
+    v40[0] = objc_opt_class();
+    v40[1] = objc_opt_class();
+    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
     v30 = [v28 setWithArray:v29];
     [v6 setClasses:v30 forSelector:sel_fetchOneTimeCodeCredentialIdentitiesMatchingDomains_completion_ argumentIndex:0 ofReply:1];
 
@@ -92,19 +92,18 @@
 
     [(NSXPCConnection *)v3->_connection setRemoteObjectInterface:v6];
     objc_initWeak(&location, v3);
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __48__SFCredentialProviderExtensionHelperProxy_init__block_invoke;
-    v37[3] = &unk_279B61720;
-    objc_copyWeak(&v38, &location);
-    [(NSXPCConnection *)v3->_connection setInvalidationHandler:v37];
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __48__SFCredentialProviderExtensionHelperProxy_init__block_invoke;
+    v36[3] = &unk_279B61720;
+    objc_copyWeak(&v37, &location);
+    [(NSXPCConnection *)v3->_connection setInvalidationHandler:v36];
     [(NSXPCConnection *)v3->_connection resume];
     v34 = v3;
-    objc_destroyWeak(&v38);
+    objc_destroyWeak(&v37);
     objc_destroyWeak(&location);
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -156,10 +155,10 @@ void __48__SFCredentialProviderExtensionHelperProxy_init__block_invoke(uint64_t 
 void __56__SFCredentialProviderExtensionHelperProxy__proxyObject__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = WBS_LOG_CHANNEL_PREFIXCredentials();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXCredentials(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __56__SFCredentialProviderExtensionHelperProxy__proxyObject__block_invoke_cold_1(v3);
+    __56__SFCredentialProviderExtensionHelperProxy__proxyObject__block_invoke_cold_1(v4);
   }
 }
 
@@ -290,10 +289,10 @@ void __56__SFCredentialProviderExtensionHelperProxy__proxyObject__block_invoke(u
 void __117__SFCredentialProviderExtensionHelperProxy_fetchPasswordCredentialIdentitiesMatchingDomains_forExtension_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXCredentials();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXCredentials(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __56__SFCredentialProviderExtensionHelperProxy__proxyObject__block_invoke_cold_1(v4);
+    __56__SFCredentialProviderExtensionHelperProxy__proxyObject__block_invoke_cold_1(v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -331,10 +330,10 @@ void __117__SFCredentialProviderExtensionHelperProxy_fetchPasswordCredentialIden
 void __104__SFCredentialProviderExtensionHelperProxy_fetchPasswordCredentialIdentitiesMatchingDomains_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXCredentials();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXCredentials(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __56__SFCredentialProviderExtensionHelperProxy__proxyObject__block_invoke_cold_1(v4);
+    __56__SFCredentialProviderExtensionHelperProxy__proxyObject__block_invoke_cold_1(v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -372,10 +371,10 @@ void __104__SFCredentialProviderExtensionHelperProxy_fetchPasswordCredentialIden
 void __103__SFCredentialProviderExtensionHelperProxy_fetchPasskeyCredentialIdentitiesMatchingDomains_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXCredentials();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXCredentials(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __56__SFCredentialProviderExtensionHelperProxy__proxyObject__block_invoke_cold_1(v4);
+    __56__SFCredentialProviderExtensionHelperProxy__proxyObject__block_invoke_cold_1(v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -412,10 +411,10 @@ void __103__SFCredentialProviderExtensionHelperProxy_fetchPasskeyCredentialIdent
 void __93__SFCredentialProviderExtensionHelperProxy_fetchAllPaskeyCredentialIdentitiesWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXCredentials();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXCredentials(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __56__SFCredentialProviderExtensionHelperProxy__proxyObject__block_invoke_cold_1(v4);
+    __56__SFCredentialProviderExtensionHelperProxy__proxyObject__block_invoke_cold_1(v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -454,10 +453,10 @@ void __93__SFCredentialProviderExtensionHelperProxy_fetchAllPaskeyCredentialIden
 void __112__SFCredentialProviderExtensionHelperProxy_fetchAllCredentialIdentitiesMatchingDomains_forExtension_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXCredentials();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXCredentials(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __56__SFCredentialProviderExtensionHelperProxy__proxyObject__block_invoke_cold_1(v4);
+    __56__SFCredentialProviderExtensionHelperProxy__proxyObject__block_invoke_cold_1(v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -495,10 +494,10 @@ void __112__SFCredentialProviderExtensionHelperProxy_fetchAllCredentialIdentitie
 void __99__SFCredentialProviderExtensionHelperProxy_fetchAllCredentialIdentitiesMatchingDomains_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXCredentials();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXCredentials(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __56__SFCredentialProviderExtensionHelperProxy__proxyObject__block_invoke_cold_1(v4);
+    __56__SFCredentialProviderExtensionHelperProxy__proxyObject__block_invoke_cold_1(v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -537,10 +536,10 @@ void __99__SFCredentialProviderExtensionHelperProxy_fetchAllCredentialIdentities
 void __120__SFCredentialProviderExtensionHelperProxy_fetchOneTimeCodeCredentialIdentitiesMatchingDomains_forExtension_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXCredentials();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXCredentials(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __56__SFCredentialProviderExtensionHelperProxy__proxyObject__block_invoke_cold_1(v4);
+    __56__SFCredentialProviderExtensionHelperProxy__proxyObject__block_invoke_cold_1(v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -578,10 +577,10 @@ void __120__SFCredentialProviderExtensionHelperProxy_fetchOneTimeCodeCredentialI
 void __107__SFCredentialProviderExtensionHelperProxy_fetchOneTimeCodeCredentialIdentitiesMatchingDomains_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXCredentials();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXCredentials(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __56__SFCredentialProviderExtensionHelperProxy__proxyObject__block_invoke_cold_1(v4);
+    __56__SFCredentialProviderExtensionHelperProxy__proxyObject__block_invoke_cold_1(v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -634,10 +633,10 @@ void __107__SFCredentialProviderExtensionHelperProxy_fetchOneTimeCodeCredentialI
 void __137__SFCredentialProviderExtensionHelperProxy_fetchCredentialIdentitiesForService_serviceIdentifierType_credentialIdentityTypes_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXCredentials();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXCredentials(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __56__SFCredentialProviderExtensionHelperProxy__proxyObject__block_invoke_cold_1(v4);
+    __56__SFCredentialProviderExtensionHelperProxy__proxyObject__block_invoke_cold_1(v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -645,13 +644,10 @@ void __137__SFCredentialProviderExtensionHelperProxy_fetchCredentialIdentitiesFo
 
 void __56__SFCredentialProviderExtensionHelperProxy__proxyObject__block_invoke_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_26450F000, v4, v5, "Failed to get a remote proxy object with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_26450F000, v4, v5, "Failed to get a remote proxy object with error: %{public}@", v6, v7, v8, v9);
 }
 
 @end

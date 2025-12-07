@@ -184,7 +184,7 @@
 {
   v3 = [(TSDBezierPath *)self->mPath copy];
   memset(&v5[1], 0, sizeof(CGAffineTransform));
-  [(TSDBezierPathSource *)self transformToNaturalSize];
+  objc_msgSend_transformToNaturalSize(self);
   v5[0] = v5[1];
   if (!CGAffineTransformIsIdentity(v5))
   {

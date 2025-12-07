@@ -207,42 +207,40 @@ void __32__AKCoordinatedDataBlock__start__block_invoke(id *a1, void *a2, void *a
   objc_storeStrong(location, 0);
 }
 
-void __56__AKCoordinatedDataBlock__callCompletionWithData_error___block_invoke(uint64_t a1)
+void __56__AKCoordinatedDataBlock__callCompletionWithData_error___block_invoke(id *a1)
 {
-  v18[2] = a1;
-  v18[1] = a1;
-  v18[0] = objc_loadWeakRetained((a1 + 48));
-  if (v18[0])
+  v15[2] = a1;
+  v15[1] = a1;
+  v15[0] = objc_loadWeakRetained(a1 + 6);
+  if (v15[0])
   {
-    v11 = 0;
-    v12 = &v11;
-    v13 = 838860800;
-    v14 = 48;
-    v15 = __Block_byref_object_copy__12;
-    v16 = __Block_byref_object_dispose__12;
-    v17 = 0;
-    v3 = (v18[0] + 28);
-    v5 = MEMORY[0x1E69E9820];
-    v6 = -1073741824;
-    v7 = 0;
-    v8 = __56__AKCoordinatedDataBlock__callCompletionWithData_error___block_invoke_2;
-    v9 = &unk_1E73D6B00;
-    v10[1] = &v11;
-    v10[0] = MEMORY[0x1E69E5928](v18[0]);
-    ak_unfair_lock_perform_3(v3, &v5);
-    if (v12[5])
+    v8 = 0;
+    v9 = &v8;
+    v10 = 838860800;
+    v11 = 48;
+    v12 = __Block_byref_object_copy__12;
+    v13 = __Block_byref_object_dispose__12;
+    v14 = 0;
+    v1 = (v15[0] + 28);
+    v2 = MEMORY[0x1E69E9820];
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = __56__AKCoordinatedDataBlock__callCompletionWithData_error___block_invoke_2;
+    v6 = &unk_1E73D6B00;
+    v7[1] = &v8;
+    v7[0] = MEMORY[0x1E69E5928](v15[0]);
+    ak_unfair_lock_perform_3(v1, &v2);
+    if (v9[5])
     {
-      v1 = *(a1 + 32);
-      v2 = *(a1 + 40);
-      (*(v12[5] + 16))();
+      (*(v9[5] + 16))();
     }
 
-    objc_storeStrong(v10, 0);
-    _Block_object_dispose(&v11, 8);
-    objc_storeStrong(&v17, 0);
+    objc_storeStrong(v7, 0);
+    _Block_object_dispose(&v8, 8);
+    objc_storeStrong(&v14, 0);
   }
 
-  objc_storeStrong(v18, 0);
+  objc_storeStrong(v15, 0);
 }
 
 uint64_t __56__AKCoordinatedDataBlock__callCompletionWithData_error___block_invoke_2(uint64_t a1)

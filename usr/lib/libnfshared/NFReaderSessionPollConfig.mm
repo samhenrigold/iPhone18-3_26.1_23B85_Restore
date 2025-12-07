@@ -1,4 +1,5 @@
 @interface NFReaderSessionPollConfig
++ (id)pollConfigWithTechnology:(unsigned int)technology;
 + (id)pollConfigWithTypeFSystemCode:(id)code;
 - (NFReaderSessionPollConfig)initWithCoder:(id)coder;
 - (NFReaderSessionPollConfig)initWithType:(unint64_t)type;
@@ -25,6 +26,15 @@
   }
 
   return v5;
+}
+
++ (id)pollConfigWithTechnology:(unsigned int)technology
+{
+  v3 = *&technology;
+  v4 = objc_opt_new();
+  objc_msgSend_setTechnology_(v4, v5, v3);
+
+  return v4;
 }
 
 + (id)pollConfigWithTypeFSystemCode:(id)code

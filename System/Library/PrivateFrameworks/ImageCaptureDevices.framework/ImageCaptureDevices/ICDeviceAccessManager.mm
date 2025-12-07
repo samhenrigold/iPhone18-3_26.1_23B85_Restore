@@ -16,6 +16,7 @@
 - (void)displayAlertForApplication:(id)application withNotification:(id)notification completionBlock:(id)block;
 - (void)displayAlertForControlWithNotification:(id)notification completionBlock:(id)block;
 - (void)revokeBundleIdentifier:(id)identifier;
+- (void)updateApplicationWithBundleIdentifier:(id)identifier withStatus:(BOOL)status;
 - (void)updateBundleIdentifier:(id)identifier accessType:(id)type withState:(unint64_t)state;
 @end
 
@@ -72,21 +73,22 @@ void __29__ICDeviceAccessManager_init__block_invoke(uint64_t a1)
   if ((v4 & 1) == 0)
   {
     v5 = [MEMORY[0x29EDB9FB8] defaultManager];
-    v11 = 0;
-    [v5 createDirectoryAtPath:@"/var/mobile/Library/com.apple.imagecapture" withIntermediateDirectories:0 attributes:0 error:&v11];
+    v15 = 0;
+    [v5 createDirectoryAtPath:@"/var/mobile/Library/com.apple.imagecapture" withIntermediateDirectories:0 attributes:0 error:&v15];
   }
 
-  if ([*(a1 + 32) openDB:v2])
+  v6 = [*(a1 + 32) openDB:v2];
+  if (v6)
   {
-    __ICOSLogCreate();
-    v6 = @"icaccess";
+    __ICOSLogCreate(v6, v7);
+    v8 = @"icaccess";
     if ([@"icaccess" length] >= 0x15)
     {
-      v7 = [@"icaccess" substringWithRange:{0, 18}];
-      v6 = [v7 stringByAppendingString:@".."];
+      v9 = [@"icaccess" substringWithRange:{0, 18}];
+      v8 = [v9 stringByAppendingString:@".."];
     }
 
-    v8 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"Failed to open/create database"];
+    v10 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"Failed to open/create database"];
     if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_ERROR))
     {
       __29__ICDeviceAccessManager_init__block_invoke_cold_1();
@@ -96,21 +98,22 @@ void __29__ICDeviceAccessManager_init__block_invoke(uint64_t a1)
   else
   {
     errmsg = 0;
-    if (!sqlite3_exec([*(a1 + 32) externalMediaAccessDB], "CREATE TABLE IF NOT EXISTS external_device_access (ID INTEGER PRIMARY KEY AUTOINCREMENT, bundle_id TEXT, date_added INTEGER, read_access INTEGER, write_access INTEGER, control_informed INTEGER)", 0, 0, &errmsg))
+    v11 = sqlite3_exec([*(a1 + 32) externalMediaAccessDB], "CREATE TABLE IF NOT EXISTS external_device_access (ID INTEGER PRIMARY KEY AUTOINCREMENT, bundle_id TEXT, date_added INTEGER, read_access INTEGER, write_access INTEGER, control_informed INTEGER)", 0, 0, &errmsg);
+    if (!v11)
     {
       *(*(*(a1 + 48) + 8) + 24) = 1;
       goto LABEL_14;
     }
 
-    __ICOSLogCreate();
-    v6 = @"icaccess";
+    __ICOSLogCreate(v11, v12);
+    v8 = @"icaccess";
     if ([@"icaccess" length] >= 0x15)
     {
-      v9 = [@"icaccess" substringWithRange:{0, 18}];
-      v6 = [v9 stringByAppendingString:@".."];
+      v13 = [@"icaccess" substringWithRange:{0, 18}];
+      v8 = [v13 stringByAppendingString:@".."];
     }
 
-    v8 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"Failed to create table: external_device_access - %s", errmsg];
+    v10 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"Failed to create table: external_device_access - %s", errmsg];
     if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_ERROR))
     {
       __29__ICDeviceAccessManager_init__block_invoke_cold_1();
@@ -131,26 +134,27 @@ LABEL_14:
 
 - (void)dealloc
 {
-  if (sqlite3_close(self->_externalMediaAccessDB))
+  v3 = sqlite3_close(self->_externalMediaAccessDB);
+  if (v3)
   {
-    __ICOSLogCreate();
-    v3 = @"icaccess";
+    __ICOSLogCreate(v3, v4);
+    v5 = @"icaccess";
     if ([@"icaccess" length] >= 0x15)
     {
-      v4 = [@"icaccess" substringWithRange:{0, 18}];
-      v3 = [v4 stringByAppendingString:@".."];
+      v6 = [@"icaccess" substringWithRange:{0, 18}];
+      v5 = [v6 stringByAppendingString:@".."];
     }
 
-    v5 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"Failed to close database"];
+    v7 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"Failed to close database"];
     if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_ERROR))
     {
       __29__ICDeviceAccessManager_init__block_invoke_cold_1();
     }
   }
 
-  v6.receiver = self;
-  v6.super_class = ICDeviceAccessManager;
-  [(ICDeviceAccessManager *)&v6 dealloc];
+  v8.receiver = self;
+  v8.super_class = ICDeviceAccessManager;
+  [(ICDeviceAccessManager *)&v8 dealloc];
 }
 
 + (id)sharedAccessManager
@@ -183,47 +187,47 @@ uint64_t __44__ICDeviceAccessManager_sharedAccessManager__block_invoke()
   v35 = __Block_byref_object_copy__0;
   v36 = __Block_byref_object_dispose__0;
   array = [MEMORY[0x29EDB8DE8] array];
-  if (_os_feature_enabled_impl())
+  v3 = _os_feature_enabled_impl();
+  if (v3)
   {
-    __ICOSLogCreate();
+    __ICOSLogCreate(v3, v4);
     if ([@"☀️ TCC" length] < 0x15)
     {
-      v4 = @"☀️ TCC";
+      v6 = @"☀️ TCC";
     }
 
     else
     {
-      v3 = [@"☀️ TCC" substringWithRange:{0, 18}];
-      v4 = [v3 stringByAppendingString:@".."];
+      v5 = [@"☀️ TCC" substringWithRange:{0, 18}];
+      v6 = [v5 stringByAppendingString:@".."];
     }
 
-    v12 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"(check) ---> New kTCCServiceExternalCameraMedia Service"];
-    v13 = _gICOSLog;
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"(check) ---> New kTCCServiceExternalCameraMedia Service"];
+    v15 = _gICOSLog;
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = v4;
-      uTF8String = [(__CFString *)v4 UTF8String];
+      v16 = v6;
+      uTF8String = [(__CFString *)v6 UTF8String];
       *buf = 136446466;
       v40 = uTF8String;
       v41 = 2114;
-      v42 = v12;
-      _os_log_impl(&dword_29EB58000, v13, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      v42 = v14;
+      _os_log_impl(&dword_29EB58000, v15, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
 
-    v16 = dispatch_semaphore_create(0);
-    v5 = tcc_server_create();
-    v17 = *MEMORY[0x29EDC6F20];
-    v18 = tcc_service_singleton_for_CF_name();
+    v18 = dispatch_semaphore_create(0);
+    v7 = tcc_server_create();
+    v19 = tcc_service_singleton_for_CF_name();
     v26 = MEMORY[0x29EDCA5F8];
     v27 = 3221225472;
     v28 = __66__ICDeviceAccessManager_bundleIdentifiersAccessingExternalCameras__block_invoke;
     v29 = &unk_29F380F98;
     v31 = &v32;
-    v11 = v16;
-    v30 = v11;
+    v13 = v18;
+    v30 = v13;
     tcc_server_message_get_authorization_records_by_service();
 
-    dispatch_semaphore_wait(v11, 0xFFFFFFFFFFFFFFFFLL);
+    dispatch_semaphore_wait(v13, 0xFFFFFFFFFFFFFFFFLL);
   }
 
   else
@@ -232,45 +236,43 @@ uint64_t __44__ICDeviceAccessManager_sharedAccessManager__block_invoke()
     v24 = 0u;
     v25 = 0u;
     v22 = 0u;
-    v5 = v23 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v22 objects:v38 count:16];
-    if (v6)
+    v7 = v23 = 0u;
+    v8 = [v7 countByEnumeratingWithState:&v22 objects:v38 count:16];
+    if (v8)
     {
-      v7 = *v23;
+      v9 = *v23;
       do
       {
-        for (i = 0; i != v6; ++i)
+        for (i = 0; i != v8; ++i)
         {
-          if (*v23 != v7)
+          if (*v23 != v9)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v7);
           }
 
-          v9 = v33[5];
-          v10 = [*(*(&v22 + 1) + 8 * i) objectForKeyedSubscript:{@"bundle_id", v22}];
-          [v9 addObject:v10];
+          v11 = v33[5];
+          v12 = [*(*(&v22 + 1) + 8 * i) objectForKeyedSubscript:{@"bundle_id", v22}];
+          [v11 addObject:v12];
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v22 objects:v38 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v22 objects:v38 count:16];
       }
 
-      while (v6);
+      while (v8);
     }
 
-    v11 = v5;
+    v13 = v7;
   }
 
-  v19 = v33[5];
+  v20 = v33[5];
   _Block_object_dispose(&v32, 8);
 
-  v20 = *MEMORY[0x29EDCA608];
-
-  return v19;
+  return v20;
 }
 
 void __66__ICDeviceAccessManager_bundleIdentifiersAccessingExternalCameras__block_invoke(uint64_t a1, void *a2, __CFError *a3)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v34 = *MEMORY[0x29EDCA608];
   v5 = a2;
   if (a3)
   {
@@ -299,63 +301,263 @@ LABEL_4:
   if (v7)
   {
     path = tcc_attributed_entity_get_path();
-    __ICOSLogCreate();
-    v9 = @"entity";
+    __ICOSLogCreate(path, v9);
+    v10 = @"entity";
     if ([@"entity" length] >= 0x15)
     {
-      v10 = [@"entity" substringWithRange:{0, 18}];
+      v11 = [@"entity" substringWithRange:{0, 18}];
+      v10 = [v11 stringByAppendingString:@".."];
+    }
+
+    v12 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s", path];
+    v13 = _gICOSLog;
+    if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = v10;
+      v15 = v13;
+      *buf = 136446466;
+      v31 = [(__CFString *)v10 UTF8String];
+      v32 = 2114;
+      v33 = v12;
+      _os_log_impl(&dword_29EB58000, v15, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+    }
+  }
+
+  v16 = tcc_authorization_record_get_subject_identity();
+  identifier = tcc_identity_get_identifier();
+  if (identifier)
+  {
+    v18 = identifier;
+    authorization_value = tcc_authorization_record_get_authorization_value();
+    __ICOSLogCreate(authorization_value, v20);
+    v21 = @"value";
+    if ([@"value" length] >= 0x15)
+    {
+      v22 = [@"value" substringWithRange:{0, 18}];
+      v21 = [v22 stringByAppendingString:@".."];
+    }
+
+    v23 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"Bundle:%s -- value: %llu", v18, authorization_value];
+    v24 = _gICOSLog;
+    if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+    {
+      v25 = v21;
+      v26 = v24;
+      v27 = [(__CFString *)v21 UTF8String];
+      *buf = 136446466;
+      v31 = v27;
+      v32 = 2114;
+      v33 = v23;
+      _os_log_impl(&dword_29EB58000, v26, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+    }
+
+    v28 = *(*(*(a1 + 40) + 8) + 40);
+    v29 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:v18];
+    [v28 addObject:v29];
+  }
+
+LABEL_19:
+}
+
+- (void)updateApplicationWithBundleIdentifier:(id)identifier withStatus:(BOOL)status
+{
+  statusCopy = status;
+  v58 = *MEMORY[0x29EDCA608];
+  identifierCopy = identifier;
+  v7 = _os_feature_enabled_impl();
+  if (v7)
+  {
+    __ICOSLogCreate(v7, v8);
+    v9 = @"☀️ TCC";
+    if ([@"☀️ TCC" length] >= 0x15)
+    {
+      v10 = [@"☀️ TCC" substringWithRange:{0, 18}];
       v9 = [v10 stringByAppendingString:@".."];
     }
 
-    v11 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s", path];
+    v11 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"(check) ---> New kTCCServiceExternalCameraMedia Service"];
     v12 = _gICOSLog;
     if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
     {
       v13 = v9;
       v14 = v12;
       *buf = 136446466;
-      v30 = [(__CFString *)v9 UTF8String];
-      v31 = 2114;
-      v32 = v11;
+      *&buf[4] = [(__CFString *)v9 UTF8String];
+      *&buf[12] = 2114;
+      *&buf[14] = v11;
       _os_log_impl(&dword_29EB58000, v14, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
-  }
 
-  v15 = tcc_authorization_record_get_subject_identity();
-  identifier = tcc_identity_get_identifier();
-  if (identifier)
-  {
-    v17 = identifier;
-    authorization_value = tcc_authorization_record_get_authorization_value();
-    __ICOSLogCreate();
-    v19 = @"value";
-    if ([@"value" length] >= 0x15)
+    v15 = dispatch_semaphore_create(0);
+    statusCopy3 = tcc_server_create();
+    *buf = 0;
+    *&buf[8] = buf;
+    *&buf[16] = 0x2020000000;
+    v57 = 1;
+    v17 = identifierCopy;
+    [identifierCopy UTF8String];
+    v18 = tcc_identity_create();
+    v19 = v15;
+    tcc_server_message_get_authorization_records_by_identity();
+    dispatch_semaphore_wait(v19, 0xFFFFFFFFFFFFFFFFLL);
+    v20 = *(*&buf[8] + 24);
+    if (v20 <= 4 && ((1 << v20) & 0x15) != 0)
     {
-      v20 = [@"value" substringWithRange:{0, 18}];
-      v19 = [v20 stringByAppendingString:@".."];
+      v21 = tcc_service_singleton_for_CF_name();
+      tcc_server_message_set_authorization_value();
     }
 
-    v21 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"Bundle:%s -- value: %llu", v17, authorization_value];
-    v22 = _gICOSLog;
+    _Block_object_dispose(buf, 8);
+    goto LABEL_41;
+  }
+
+  v22 = [(ICDeviceAccessManager *)self bundleIdentifier:identifierCopy stateForAccessType:@"write_access"];
+  v23 = [(ICDeviceAccessManager *)self bundleIdentifier:identifierCopy stateForAccessType:@"read_access"];
+  v25 = v23;
+  if (v22)
+  {
+    if (statusCopy)
+    {
+      v26 = 2;
+    }
+
+    else
+    {
+      v26 = 1;
+    }
+
+    v27 = [(ICDeviceAccessManager *)self updateBundleIdentifier:identifierCopy accessType:@"write_access" withState:v26];
+    __ICOSLogCreate(v27, v28);
+    v29 = @"PrivacySettings";
+    if ([@"PrivacySettings" length] >= 0x15)
+    {
+      v30 = [@"PrivacySettings" substringWithRange:{0, 18}];
+      v29 = [v30 stringByAppendingString:@".."];
+    }
+
+    statusCopy = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%@ Setting (write) Access State %d", identifierCopy, statusCopy];
+    v32 = _gICOSLog;
     if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = v19;
-      v24 = v22;
-      v25 = [(__CFString *)v19 UTF8String];
+LABEL_21:
+      v34 = v29;
+      v35 = v32;
       *buf = 136446466;
-      v30 = v25;
-      v31 = 2114;
-      v32 = v21;
-      _os_log_impl(&dword_29EB58000, v24, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      *&buf[4] = [(__CFString *)v29 UTF8String];
+      *&buf[12] = 2114;
+      *&buf[14] = statusCopy;
+      _os_log_impl(&dword_29EB58000, v35, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
-
-    v26 = *(*(*(a1 + 40) + 8) + 40);
-    v27 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:v17];
-    [v26 addObject:v27];
   }
 
-LABEL_19:
-  v28 = *MEMORY[0x29EDCA608];
+  else
+  {
+    __ICOSLogCreate(v23, v24);
+    v29 = @"PrivacySettings";
+    if ([@"PrivacySettings" length] >= 0x15)
+    {
+      v33 = [@"PrivacySettings" substringWithRange:{0, 18}];
+      v29 = [v33 stringByAppendingString:@".."];
+    }
+
+    statusCopy = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%@ (write) Access State Unknown, not updating", identifierCopy];
+    v32 = _gICOSLog;
+    if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_21;
+    }
+  }
+
+  if (v25)
+  {
+    if (statusCopy)
+    {
+      v38 = 2;
+    }
+
+    else
+    {
+      v38 = 1;
+    }
+
+    v39 = [(ICDeviceAccessManager *)self updateBundleIdentifier:identifierCopy accessType:@"read_access" withState:v38];
+    __ICOSLogCreate(v39, v40);
+    if ([@"PrivacySettings" length] < 0x15)
+    {
+      v42 = @"PrivacySettings";
+    }
+
+    else
+    {
+      v41 = [@"PrivacySettings" substringWithRange:{0, 18}];
+      v42 = [v41 stringByAppendingString:@".."];
+    }
+
+    statusCopy2 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%@ Setting (read) Access State %d", identifierCopy, statusCopy];
+    v45 = _gICOSLog;
+    if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+    {
+LABEL_35:
+      v46 = v42;
+      v47 = v45;
+      uTF8String = [(__CFString *)v42 UTF8String];
+      *buf = 136446466;
+      *&buf[4] = uTF8String;
+      *&buf[12] = 2114;
+      *&buf[14] = statusCopy2;
+      _os_log_impl(&dword_29EB58000, v47, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+    }
+  }
+
+  else
+  {
+    __ICOSLogCreate(v36, v37);
+    if ([@"PrivacySettings" length] < 0x15)
+    {
+      v42 = @"PrivacySettings";
+    }
+
+    else
+    {
+      v43 = [@"PrivacySettings" substringWithRange:{0, 18}];
+      v42 = [v43 stringByAppendingString:@".."];
+    }
+
+    statusCopy2 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%@ (read) Access State Unknown, not updating", identifierCopy];
+    v45 = _gICOSLog;
+    if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_35;
+    }
+  }
+
+  __ICOSLogCreate(v49, v50);
+  if ([@"DEPRECATED" length] < 0x15)
+  {
+    v19 = @"DEPRECATED";
+  }
+
+  else
+  {
+    v51 = [@"DEPRECATED" substringWithRange:{0, 18}];
+    v19 = [v51 stringByAppendingString:@".."];
+  }
+
+  statusCopy3 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"updateApplicationWithBundleIdentifier:%@ withStatus:%d", identifierCopy, statusCopy];
+  v52 = _gICOSLog;
+  if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+  {
+    v53 = v19;
+    v54 = v52;
+    uTF8String2 = [v19 UTF8String];
+    *buf = 136446466;
+    *&buf[4] = uTF8String2;
+    *&buf[12] = 2114;
+    *&buf[14] = statusCopy3;
+    _os_log_impl(&dword_29EB58000, v54, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+  }
+
+LABEL_41:
 }
 
 void __74__ICDeviceAccessManager_updateApplicationWithBundleIdentifier_withStatus___block_invoke(uint64_t a1, void *a2, __CFError *a3)
@@ -399,298 +601,296 @@ LABEL_9:
 
 - (NSArray)bundleIdentifiersAccessingExternalCamerasWithStatus
 {
-  v95 = *MEMORY[0x29EDCA608];
-  v83 = 0;
-  v84 = &v83;
-  v85 = 0x3032000000;
-  v86 = __Block_byref_object_copy__0;
-  v87 = __Block_byref_object_dispose__0;
+  v105 = *MEMORY[0x29EDCA608];
+  v93 = 0;
+  v94 = &v93;
+  v95 = 0x3032000000;
+  v96 = __Block_byref_object_copy__0;
+  v97 = __Block_byref_object_dispose__0;
   array = [MEMORY[0x29EDB8DE8] array];
-  if (_os_feature_enabled_impl())
+  v2 = _os_feature_enabled_impl();
+  if (v2)
   {
-    __ICOSLogCreate();
+    __ICOSLogCreate(v2, v3);
     if ([@"☀️ TCC" length] < 0x15)
     {
-      v3 = @"☀️ TCC";
+      v5 = @"☀️ TCC";
     }
 
     else
     {
-      v2 = [@"☀️ TCC" substringWithRange:{0, 18}];
-      v3 = [v2 stringByAppendingString:@".."];
+      v4 = [@"☀️ TCC" substringWithRange:{0, 18}];
+      v5 = [v4 stringByAppendingString:@".."];
     }
 
-    v51 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"(check) ---> New kTCCServiceExternalCameraMedia Service"];
-    v52 = _gICOSLog;
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+    v63 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"(check) ---> New kTCCServiceExternalCameraMedia Service"];
+    v64 = _gICOSLog;
+    if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
     {
-      v53 = v3;
-      uTF8String = [(__CFString *)v3 UTF8String];
+      v65 = v5;
+      uTF8String = [(__CFString *)v5 UTF8String];
       *buf = 136446466;
-      v92 = uTF8String;
-      v93 = 2114;
-      v94 = v51;
-      _os_log_impl(&dword_29EB58000, v52, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      v102 = uTF8String;
+      v103 = 2114;
+      v104 = v63;
+      _os_log_impl(&dword_29EB58000, v64, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
 
-    v55 = dispatch_semaphore_create(0);
-    v68 = tcc_server_create();
-    v56 = *MEMORY[0x29EDC6F20];
-    v57 = tcc_service_singleton_for_CF_name();
-    v77 = MEMORY[0x29EDCA5F8];
-    v78 = 3221225472;
-    v79 = __76__ICDeviceAccessManager_bundleIdentifiersAccessingExternalCamerasWithStatus__block_invoke;
-    v80 = &unk_29F380F98;
-    v82 = &v83;
-    obj = v55;
-    v81 = obj;
+    v67 = dispatch_semaphore_create(0);
+    v78 = tcc_server_create();
+    v68 = tcc_service_singleton_for_CF_name();
+    v87 = MEMORY[0x29EDCA5F8];
+    v88 = 3221225472;
+    v89 = __76__ICDeviceAccessManager_bundleIdentifiersAccessingExternalCamerasWithStatus__block_invoke;
+    v90 = &unk_29F380F98;
+    v92 = &v93;
+    obj = v67;
+    v91 = obj;
     tcc_server_message_get_authorization_records_by_service();
 
     dispatch_semaphore_wait(obj, 0xFFFFFFFFFFFFFFFFLL);
-    v50 = obj;
+    v62 = obj;
     goto LABEL_54;
   }
 
   [(ICDeviceAccessManager *)self bundleIdentifiersWithAccessType:@"read_access"];
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
-  obj = v74 = 0u;
-  v4 = [obj countByEnumeratingWithState:&v73 objects:v90 count:16];
-  if (v4)
+  v85 = 0u;
+  v86 = 0u;
+  v83 = 0u;
+  obj = v84 = 0u;
+  v6 = [obj countByEnumeratingWithState:&v83 objects:v100 count:16];
+  if (v6)
   {
-    v67 = *v74;
+    v77 = *v84;
     do
     {
-      for (i = 0; i != v4; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v74 != v67)
+        if (*v84 != v77)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v73 + 1) + 8 * i);
-        v7 = [v6 objectForKeyedSubscript:@"read_access"];
-        intValue = [v7 intValue];
+        v8 = *(*(&v83 + 1) + 8 * i);
+        v9 = [v8 objectForKeyedSubscript:@"read_access"];
+        intValue = [v9 intValue];
 
         if (intValue == 1)
         {
-          v9 = 0;
+          v13 = 0;
           goto LABEL_13;
         }
 
         if (intValue == 2)
         {
-          v9 = 1;
+          v13 = 1;
 LABEL_13:
           dictionary = [MEMORY[0x29EDB8E00] dictionary];
-          v11 = [MEMORY[0x29EDBA070] numberWithBool:v9];
-          [(__CFString *)dictionary setObject:v11 forKeyedSubscript:@"whitelisted"];
+          v15 = [MEMORY[0x29EDBA070] numberWithBool:v13];
+          [(__CFString *)dictionary setObject:v15 forKeyedSubscript:@"whitelisted"];
 
-          v12 = [v6 objectForKeyedSubscript:@"bundle_id"];
-          [(__CFString *)dictionary setObject:v12 forKeyedSubscript:@"bundle_id"];
+          v16 = [v8 objectForKeyedSubscript:@"bundle_id"];
+          [(__CFString *)dictionary setObject:v16 forKeyedSubscript:@"bundle_id"];
 
-          [v84[5] addObject:dictionary];
-          __ICOSLogCreate();
-          v13 = @"PrivacySettings";
+          v17 = [v94[5] addObject:dictionary];
+          __ICOSLogCreate(v17, v18);
+          v19 = @"PrivacySettings";
           if ([@"PrivacySettings" length] >= 0x15)
           {
-            v14 = [@"PrivacySettings" substringWithRange:{0, 18}];
-            v13 = [v14 stringByAppendingString:@".."];
+            v20 = [@"PrivacySettings" substringWithRange:{0, 18}];
+            v19 = [v20 stringByAppendingString:@".."];
           }
 
-          v15 = MEMORY[0x29EDBA0F8];
-          v16 = [v6 objectForKeyedSubscript:@"bundle_id"];
-          v17 = [v15 stringWithFormat:@"%@ (read) Access State %d, adding", v16, v9];
+          v21 = MEMORY[0x29EDBA0F8];
+          v22 = [v8 objectForKeyedSubscript:@"bundle_id"];
+          v23 = [v21 stringWithFormat:@"%@ (read) Access State %d, adding", v22, v13];
 
-          v18 = _gICOSLog;
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v24 = _gICOSLog;
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
-            v19 = v13;
-            uTF8String2 = [(__CFString *)v13 UTF8String];
+            v25 = v19;
+            uTF8String2 = [(__CFString *)v19 UTF8String];
             *buf = 136446466;
-            v92 = uTF8String2;
-            v93 = 2114;
-            v94 = v17;
-            _os_log_impl(&dword_29EB58000, v18, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+            v102 = uTF8String2;
+            v103 = 2114;
+            v104 = v23;
+            _os_log_impl(&dword_29EB58000, v24, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
           }
 
           goto LABEL_22;
         }
 
-        __ICOSLogCreate();
+        __ICOSLogCreate(v11, v12);
         dictionary = @"PrivacySettings";
         if ([@"PrivacySettings" length] >= 0x15)
         {
-          v21 = [@"PrivacySettings" substringWithRange:{0, 18}];
-          dictionary = [v21 stringByAppendingString:@".."];
+          v27 = [@"PrivacySettings" substringWithRange:{0, 18}];
+          dictionary = [v27 stringByAppendingString:@".."];
         }
 
-        v22 = MEMORY[0x29EDBA0F8];
-        v23 = [v6 objectForKeyedSubscript:@"bundle_id"];
-        v13 = [v22 stringWithFormat:@"%@ (read) Access State Unknown, not adding", v23];
+        v28 = MEMORY[0x29EDBA0F8];
+        v29 = [v8 objectForKeyedSubscript:@"bundle_id"];
+        v19 = [v28 stringWithFormat:@"%@ (read) Access State Unknown, not adding", v29];
 
-        v17 = _gICOSLog;
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v23 = _gICOSLog;
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
-          v24 = dictionary;
+          v30 = dictionary;
           uTF8String3 = [(__CFString *)dictionary UTF8String];
           *buf = 136446466;
-          v92 = uTF8String3;
-          v93 = 2114;
-          v94 = v13;
-          _os_log_impl(&dword_29EB58000, v17, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+          v102 = uTF8String3;
+          v103 = 2114;
+          v104 = v19;
+          _os_log_impl(&dword_29EB58000, v23, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
         }
 
 LABEL_22:
       }
 
-      v4 = [obj countByEnumeratingWithState:&v73 objects:v90 count:16];
+      v6 = [obj countByEnumeratingWithState:&v83 objects:v100 count:16];
     }
 
-    while (v4);
+    while (v6);
   }
 
   [(ICDeviceAccessManager *)self bundleIdentifiersWithAccessType:@"write_access"];
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
-  v68 = v70 = 0u;
-  v26 = [v68 countByEnumeratingWithState:&v69 objects:v89 count:16];
-  if (!v26)
+  v81 = 0u;
+  v82 = 0u;
+  v79 = 0u;
+  v78 = v80 = 0u;
+  v32 = [v78 countByEnumeratingWithState:&v79 objects:v99 count:16];
+  if (!v32)
   {
     goto LABEL_44;
   }
 
-  v27 = *v70;
+  v33 = *v80;
   do
   {
-    for (j = 0; j != v26; ++j)
+    for (j = 0; j != v32; ++j)
     {
-      if (*v70 != v27)
+      if (*v80 != v33)
       {
-        objc_enumerationMutation(v68);
+        objc_enumerationMutation(v78);
       }
 
-      v29 = *(*(&v69 + 1) + 8 * j);
-      v30 = [v29 objectForKeyedSubscript:@"write_access"];
-      intValue2 = [v30 intValue];
+      v35 = *(*(&v79 + 1) + 8 * j);
+      v36 = [v35 objectForKeyedSubscript:@"write_access"];
+      intValue2 = [v36 intValue];
 
       if (intValue2 == 1)
       {
-        v32 = 0;
+        v40 = 0;
         goto LABEL_33;
       }
 
       if (intValue2 == 2)
       {
-        v32 = 1;
+        v40 = 1;
 LABEL_33:
         dictionary2 = [MEMORY[0x29EDB8E00] dictionary];
-        v34 = [MEMORY[0x29EDBA070] numberWithBool:v32];
-        [(__CFString *)dictionary2 setObject:v34 forKeyedSubscript:@"whitelisted"];
+        v42 = [MEMORY[0x29EDBA070] numberWithBool:v40];
+        [(__CFString *)dictionary2 setObject:v42 forKeyedSubscript:@"whitelisted"];
 
-        v35 = [v29 objectForKeyedSubscript:@"bundle_id"];
-        [(__CFString *)dictionary2 setObject:v35 forKeyedSubscript:@"bundle_id"];
+        v43 = [v35 objectForKeyedSubscript:@"bundle_id"];
+        [(__CFString *)dictionary2 setObject:v43 forKeyedSubscript:@"bundle_id"];
 
-        [v84[5] addObject:dictionary2];
-        __ICOSLogCreate();
-        v36 = @"PrivacySettings";
+        v44 = [v94[5] addObject:dictionary2];
+        __ICOSLogCreate(v44, v45);
+        v46 = @"PrivacySettings";
         if ([@"PrivacySettings" length] >= 0x15)
         {
-          v37 = [@"PrivacySettings" substringWithRange:{0, 18}];
-          v36 = [v37 stringByAppendingString:@".."];
+          v47 = [@"PrivacySettings" substringWithRange:{0, 18}];
+          v46 = [v47 stringByAppendingString:@".."];
         }
 
-        v38 = MEMORY[0x29EDBA0F8];
-        v39 = [v29 objectForKeyedSubscript:@"bundle_id"];
-        v40 = [v38 stringWithFormat:@"%@ (write) Access State %d, adding", v39, v32];
+        v48 = MEMORY[0x29EDBA0F8];
+        v49 = [v35 objectForKeyedSubscript:@"bundle_id"];
+        v50 = [v48 stringWithFormat:@"%@ (write) Access State %d, adding", v49, v40];
 
-        v41 = _gICOSLog;
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+        v51 = _gICOSLog;
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
         {
-          v42 = v36;
-          uTF8String4 = [(__CFString *)v36 UTF8String];
+          v52 = v46;
+          uTF8String4 = [(__CFString *)v46 UTF8String];
           *buf = 136446466;
-          v92 = uTF8String4;
-          v93 = 2114;
-          v94 = v40;
-          _os_log_impl(&dword_29EB58000, v41, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+          v102 = uTF8String4;
+          v103 = 2114;
+          v104 = v50;
+          _os_log_impl(&dword_29EB58000, v51, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
         }
 
         goto LABEL_42;
       }
 
-      __ICOSLogCreate();
+      __ICOSLogCreate(v38, v39);
       dictionary2 = @"PrivacySettings";
       if ([@"PrivacySettings" length] >= 0x15)
       {
-        v44 = [@"PrivacySettings" substringWithRange:{0, 18}];
-        dictionary2 = [v44 stringByAppendingString:@".."];
+        v54 = [@"PrivacySettings" substringWithRange:{0, 18}];
+        dictionary2 = [v54 stringByAppendingString:@".."];
       }
 
-      v45 = MEMORY[0x29EDBA0F8];
-      v46 = [v29 objectForKeyedSubscript:@"bundle_id"];
-      v36 = [v45 stringWithFormat:@"%@ (write) Access State Unknown, not adding", v46];
+      v55 = MEMORY[0x29EDBA0F8];
+      v56 = [v35 objectForKeyedSubscript:@"bundle_id"];
+      v46 = [v55 stringWithFormat:@"%@ (write) Access State Unknown, not adding", v56];
 
-      v40 = _gICOSLog;
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+      v50 = _gICOSLog;
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
       {
-        v47 = dictionary2;
+        v57 = dictionary2;
         uTF8String5 = [(__CFString *)dictionary2 UTF8String];
         *buf = 136446466;
-        v92 = uTF8String5;
-        v93 = 2114;
-        v94 = v36;
-        _os_log_impl(&dword_29EB58000, v40, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+        v102 = uTF8String5;
+        v103 = 2114;
+        v104 = v46;
+        _os_log_impl(&dword_29EB58000, v50, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
       }
 
 LABEL_42:
     }
 
-    v26 = [v68 countByEnumeratingWithState:&v69 objects:v89 count:16];
+    v32 = [v78 countByEnumeratingWithState:&v79 objects:v99 count:16];
   }
 
-  while (v26);
+  while (v32);
 LABEL_44:
 
-  __ICOSLogCreate();
+  __ICOSLogCreate(v59, v60);
   if ([@"DEPRECATED" length] < 0x15)
   {
-    v50 = @"DEPRECATED";
+    v62 = @"DEPRECATED";
   }
 
   else
   {
-    v49 = [@"DEPRECATED" substringWithRange:{0, 18}];
-    v50 = [v49 stringByAppendingString:@".."];
+    v61 = [@"DEPRECATED" substringWithRange:{0, 18}];
+    v62 = [v61 stringByAppendingString:@".."];
   }
 
-  v58 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"bundleIdentifiersAccessingExternalCamerasWithStatus: %@", v84[5]];
-  v59 = _gICOSLog;
-  if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+  v69 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"bundleIdentifiersAccessingExternalCamerasWithStatus: %@", v94[5]];
+  v70 = _gICOSLog;
+  if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
   {
-    v60 = v50;
-    uTF8String6 = [(__CFString *)v50 UTF8String];
+    v71 = v62;
+    uTF8String6 = [(__CFString *)v62 UTF8String];
     *buf = 136446466;
-    v92 = uTF8String6;
-    v93 = 2114;
-    v94 = v58;
-    _os_log_impl(&dword_29EB58000, v59, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+    v102 = uTF8String6;
+    v103 = 2114;
+    v104 = v69;
+    _os_log_impl(&dword_29EB58000, v70, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 
 LABEL_54:
-  v62 = v84[5];
-  _Block_object_dispose(&v83, 8);
+  v73 = v94[5];
+  _Block_object_dispose(&v93, 8);
 
-  v63 = *MEMORY[0x29EDCA608];
-
-  return v62;
+  return v73;
 }
 
 void __76__ICDeviceAccessManager_bundleIdentifiersAccessingExternalCamerasWithStatus__block_invoke(uint64_t a1, void *a2, __CFError *a3)
 {
-  v37 = *MEMORY[0x29EDCA608];
+  v38 = *MEMORY[0x29EDCA608];
   v5 = a2;
   if (a3)
   {
@@ -719,76 +919,75 @@ LABEL_4:
   if (v7)
   {
     path = tcc_attributed_entity_get_path();
-    __ICOSLogCreate();
-    v9 = @"entity";
+    __ICOSLogCreate(path, v9);
+    v10 = @"entity";
     if ([@"entity" length] >= 0x15)
     {
-      v10 = [@"entity" substringWithRange:{0, 18}];
-      v9 = [v10 stringByAppendingString:@".."];
+      v11 = [@"entity" substringWithRange:{0, 18}];
+      v10 = [v11 stringByAppendingString:@".."];
     }
 
-    v11 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s", path];
-    v12 = _gICOSLog;
+    v12 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s", path];
+    v13 = _gICOSLog;
     if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = v9;
-      v14 = v12;
+      v14 = v10;
+      v15 = v13;
       *buf = 136446466;
-      v34 = [(__CFString *)v9 UTF8String];
-      v35 = 2114;
-      v36 = v11;
-      _os_log_impl(&dword_29EB58000, v14, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      v35 = [(__CFString *)v10 UTF8String];
+      v36 = 2114;
+      v37 = v12;
+      _os_log_impl(&dword_29EB58000, v15, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
   }
 
-  v15 = tcc_authorization_record_get_subject_identity();
+  v16 = tcc_authorization_record_get_subject_identity();
   identifier = tcc_identity_get_identifier();
   if (identifier)
   {
-    v17 = identifier;
+    v18 = identifier;
     authorization_value = tcc_authorization_record_get_authorization_value();
     if (authorization_value <= 4)
     {
-      v19 = authorization_value;
+      v21 = authorization_value;
       if (((1 << authorization_value) & 0x15) != 0)
       {
-        v21 = authorization_value == 4 || authorization_value == 2;
-        __ICOSLogCreate();
-        v22 = @"value";
+        v23 = authorization_value == 4 || authorization_value == 2;
+        __ICOSLogCreate(authorization_value, v20);
+        v24 = @"value";
         if ([@"value" length] >= 0x15)
         {
-          v23 = [@"value" substringWithRange:{0, 18}];
-          v22 = [v23 stringByAppendingString:@".."];
+          v25 = [@"value" substringWithRange:{0, 18}];
+          v24 = [v25 stringByAppendingString:@".."];
         }
 
-        v24 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"Bundle:%s -- value: %llu", v17, v19];
-        v25 = _gICOSLog;
+        v26 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"Bundle:%s -- value: %llu", v18, v21];
+        v27 = _gICOSLog;
         if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
         {
-          v26 = v22;
-          v27 = v25;
-          v28 = [(__CFString *)v22 UTF8String];
+          v28 = v24;
+          v29 = v27;
+          v30 = [(__CFString *)v24 UTF8String];
           *buf = 136446466;
-          v34 = v28;
-          v35 = 2114;
-          v36 = v24;
-          _os_log_impl(&dword_29EB58000, v27, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+          v35 = v30;
+          v36 = 2114;
+          v37 = v26;
+          _os_log_impl(&dword_29EB58000, v29, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
         }
 
-        v29 = [MEMORY[0x29EDB8E00] dictionary];
-        v30 = [MEMORY[0x29EDBA070] numberWithBool:v21];
-        [v29 setObject:v30 forKeyedSubscript:@"whitelisted"];
+        v31 = [MEMORY[0x29EDB8E00] dictionary];
+        v32 = [MEMORY[0x29EDBA070] numberWithBool:v23];
+        [v31 setObject:v32 forKeyedSubscript:@"whitelisted"];
 
-        v31 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:v17];
-        [v29 setObject:v31 forKeyedSubscript:@"bundle_id"];
+        v33 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:v18];
+        [v31 setObject:v33 forKeyedSubscript:@"bundle_id"];
 
-        [*(*(*(a1 + 40) + 8) + 40) addObject:v29];
+        [*(*(*(a1 + 40) + 8) + 40) addObject:v31];
       }
     }
   }
 
 LABEL_27:
-  v32 = *MEMORY[0x29EDCA608];
 }
 
 - (NSArray)allBundleIdentifiers
@@ -823,17 +1022,18 @@ void __45__ICDeviceAccessManager_allBundleIdentifiers__block_invoke(uint64_t a1)
 {
   v2 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
   errmsg = 0;
-  if (sqlite3_exec([*(a1 + 32) externalMediaAccessDB], objc_msgSend(@"SELECT bundle_id FROM external_device_access;", "UTF8String"), ICAcessQuery, v2, &errmsg))
+  v3 = sqlite3_exec([*(a1 + 32) externalMediaAccessDB], objc_msgSend(@"SELECT bundle_id FROM external_device_access;", "UTF8String"), ICAcessQuery, v2, &errmsg);
+  if (v3)
   {
-    __ICOSLogCreate();
-    v3 = @"icaccess";
+    __ICOSLogCreate(v3, v4);
+    v5 = @"icaccess";
     if ([@"icaccess" length] >= 0x15)
     {
-      v4 = [@"icaccess" substringWithRange:{0, 18}];
-      v3 = [v4 stringByAppendingString:@".."];
+      v6 = [@"icaccess" substringWithRange:{0, 18}];
+      v5 = [v6 stringByAppendingString:@".."];
     }
 
-    v5 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s", errmsg];
+    v7 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s", errmsg];
     if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_ERROR))
     {
       __29__ICDeviceAccessManager_init__block_invoke_cold_1();
@@ -846,19 +1046,21 @@ void __45__ICDeviceAccessManager_allBundleIdentifiers__block_invoke(uint64_t a1)
 
 - (void)addBundleIdentifier:(id)identifier
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   identifierCopy = identifier;
-  if (!_os_feature_enabled_impl())
+  v5 = _os_feature_enabled_impl();
+  if (!v5)
   {
     allBundleIdentifiers = [(ICDeviceAccessManager *)self allBundleIdentifiers];
-    if ([(__CFString *)allBundleIdentifiers containsObject:identifierCopy])
+    v13 = [(__CFString *)allBundleIdentifiers containsObject:identifierCopy];
+    if (v13)
     {
-      __ICOSLogCreate();
-      v7 = @"icaccess";
+      __ICOSLogCreate(v13, v14);
+      v9 = @"icaccess";
       if ([@"icaccess" length] >= 0x15)
       {
-        v11 = [@"icaccess" substringWithRange:{0, 18}];
-        v7 = [v11 stringByAppendingString:@".."];
+        v15 = [@"icaccess" substringWithRange:{0, 18}];
+        v9 = [v15 stringByAppendingString:@".."];
       }
 
       identifierCopy = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%@ is already in the database, will not be added again", identifierCopy];
@@ -870,50 +1072,48 @@ void __45__ICDeviceAccessManager_allBundleIdentifiers__block_invoke(uint64_t a1)
 
     else
     {
-      v12 = dispatch_semaphore_create(0);
+      v16 = dispatch_semaphore_create(0);
       deviceAccessQueue = [(ICDeviceAccessManager *)self deviceAccessQueue];
       block[0] = MEMORY[0x29EDCA5F8];
       block[1] = 3221225472;
       block[2] = __45__ICDeviceAccessManager_addBundleIdentifier___block_invoke;
       block[3] = &unk_29F380FE0;
-      v17 = identifierCopy;
+      v20 = identifierCopy;
       selfCopy = self;
-      v19 = v12;
-      v7 = v12;
+      v22 = v16;
+      v9 = v16;
       dispatch_async(deviceAccessQueue, block);
 
-      v14 = dispatch_time(0, 1000000000);
-      dispatch_semaphore_wait(v7, v14);
+      v18 = dispatch_time(0, 1000000000);
+      dispatch_semaphore_wait(v9, v18);
 
-      identifierCopy = v17;
+      identifierCopy = v20;
     }
 
     goto LABEL_12;
   }
 
-  __ICOSLogCreate();
+  __ICOSLogCreate(v5, v6);
   allBundleIdentifiers = @"☀️ TCC";
   if ([@"☀️ TCC" length] >= 0x15)
   {
-    v6 = [@"☀️ TCC" substringWithRange:{0, 18}];
-    allBundleIdentifiers = [v6 stringByAppendingString:@".."];
+    v8 = [@"☀️ TCC" substringWithRange:{0, 18}];
+    allBundleIdentifiers = [v8 stringByAppendingString:@".."];
   }
 
-  v7 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"No work performed in new TCC path"];
-  v8 = _gICOSLog;
+  v9 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"No work performed in new TCC path"];
+  v10 = _gICOSLog;
   if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = allBundleIdentifiers;
-    identifierCopy = v8;
+    v11 = allBundleIdentifiers;
+    identifierCopy = v10;
     *buf = 136446466;
     uTF8String = [(__CFString *)allBundleIdentifiers UTF8String];
-    v22 = 2114;
-    v23 = v7;
+    v25 = 2114;
+    v26 = v9;
     _os_log_impl(&dword_29EB58000, identifierCopy, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
 LABEL_12:
   }
-
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 void __45__ICDeviceAccessManager_addBundleIdentifier___block_invoke(uint64_t a1)
@@ -929,7 +1129,7 @@ void __45__ICDeviceAccessManager_addBundleIdentifier___block_invoke(uint64_t a1)
 
 - (void)updateBundleIdentifier:(id)identifier accessType:(id)type withState:(unint64_t)state
 {
-  v43 = *MEMORY[0x29EDCA608];
+  v42 = *MEMORY[0x29EDCA608];
   identifierCopy = identifier;
   typeCopy = type;
   v10 = _os_feature_enabled_impl();
@@ -941,73 +1141,70 @@ void __45__ICDeviceAccessManager_addBundleIdentifier___block_invoke(uint64_t a1)
     block[1] = 3221225472;
     block[2] = __69__ICDeviceAccessManager_updateBundleIdentifier_accessType_withState___block_invoke_2;
     block[3] = &unk_29F381008;
-    v30 = typeCopy;
+    v29 = typeCopy;
     stateCopy = state;
-    v31 = identifierCopy;
+    v30 = identifierCopy;
     selfCopy = self;
-    v33 = v25;
-    v21 = v25;
+    v32 = v25;
+    v22 = v25;
     dispatch_async(deviceAccessQueue, block);
 
     v27 = dispatch_time(0, 1000000000);
-    dispatch_semaphore_wait(v21, v27);
+    dispatch_semaphore_wait(v22, v27);
 
-    v18 = v30;
+    v19 = v29;
   }
 
   else
   {
-    __ICOSLogCreate();
-    v11 = @"☀️ TCC";
+    __ICOSLogCreate(v10, v11);
+    v12 = @"☀️ TCC";
     if ([@"☀️ TCC" length] >= 0x15)
     {
-      v12 = [@"☀️ TCC" substringWithRange:{0, 18}];
-      v11 = [v12 stringByAppendingString:@".."];
+      v13 = [@"☀️ TCC" substringWithRange:{0, 18}];
+      v12 = [v13 stringByAppendingString:@".."];
     }
 
-    v13 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"(check) ---> New kTCCServiceExternalCameraMedia Service"];
-    v14 = _gICOSLog;
+    v14 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"(check) ---> New kTCCServiceExternalCameraMedia Service"];
+    v15 = _gICOSLog;
     if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = v11;
-      v16 = v14;
+      v16 = v12;
+      v17 = v15;
       *buf = 136446466;
-      *&buf[4] = [(__CFString *)v11 UTF8String];
+      *&buf[4] = [(__CFString *)v12 UTF8String];
       *&buf[12] = 2114;
-      *&buf[14] = v13;
-      _os_log_impl(&dword_29EB58000, v16, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      *&buf[14] = v14;
+      _os_log_impl(&dword_29EB58000, v17, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
 
-    v17 = dispatch_semaphore_create(0);
-    v18 = tcc_server_create();
+    v18 = dispatch_semaphore_create(0);
+    v19 = tcc_server_create();
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v42 = 1;
-    v19 = identifierCopy;
+    v41 = 1;
+    v20 = identifierCopy;
     [identifierCopy UTF8String];
-    v20 = tcc_identity_create();
-    v35 = MEMORY[0x29EDCA5F8];
-    v36 = 3221225472;
-    v37 = __69__ICDeviceAccessManager_updateBundleIdentifier_accessType_withState___block_invoke;
-    v38 = &unk_29F380F98;
-    v40 = buf;
-    v21 = v17;
-    v39 = v21;
+    v21 = tcc_identity_create();
+    v34 = MEMORY[0x29EDCA5F8];
+    v35 = 3221225472;
+    v36 = __69__ICDeviceAccessManager_updateBundleIdentifier_accessType_withState___block_invoke;
+    v37 = &unk_29F380F98;
+    v39 = buf;
+    v22 = v18;
+    v38 = v22;
     tcc_server_message_get_authorization_records_by_identity();
-    dispatch_semaphore_wait(v21, 0xFFFFFFFFFFFFFFFFLL);
-    v22 = *(*&buf[8] + 24);
-    if (v22 <= 4 && ((1 << v22) & 0x15) != 0)
+    dispatch_semaphore_wait(v22, 0xFFFFFFFFFFFFFFFFLL);
+    v23 = *(*&buf[8] + 24);
+    if (v23 <= 4 && ((1 << v23) & 0x15) != 0)
     {
-      v23 = *MEMORY[0x29EDC6F20];
       v24 = tcc_service_singleton_for_CF_name();
       tcc_server_message_set_authorization_value();
     }
 
     _Block_object_dispose(buf, 8);
   }
-
-  v28 = *MEMORY[0x29EDCA608];
 }
 
 void __69__ICDeviceAccessManager_updateBundleIdentifier_accessType_withState___block_invoke(uint64_t a1, void *a2, __CFError *a3)
@@ -1051,20 +1248,20 @@ LABEL_9:
 
 void __69__ICDeviceAccessManager_updateBundleIdentifier_accessType_withState___block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 64);
-  v3 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"UPDATE external_device_access SET %@ = %lu WHERE bundle_id = '%@'", *(a1 + 32), *(a1 + 64), *(a1 + 40)];;
+  v2 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"UPDATE external_device_access SET %@ = %lu WHERE bundle_id = '%@'", *(a1 + 32), *(a1 + 64), *(a1 + 40)];;
   errmsg = 0;
-  if (sqlite3_exec([*(a1 + 48) externalMediaAccessDB], objc_msgSend(v3, "UTF8String"), 0, 0, &errmsg))
+  v3 = sqlite3_exec([*(a1 + 48) externalMediaAccessDB], objc_msgSend(v2, "UTF8String"), 0, 0, &errmsg);
+  if (v3)
   {
-    __ICOSLogCreate();
-    v4 = @"icaccess";
+    __ICOSLogCreate(v3, v4);
+    v5 = @"icaccess";
     if ([@"icaccess" length] >= 0x15)
     {
-      v5 = [@"icaccess" substringWithRange:{0, 18}];
-      v4 = [v5 stringByAppendingString:@".."];
+      v6 = [@"icaccess" substringWithRange:{0, 18}];
+      v5 = [v6 stringByAppendingString:@".."];
     }
 
-    v6 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s", errmsg];
+    v7 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s", errmsg];
     if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_ERROR))
     {
       __29__ICDeviceAccessManager_init__block_invoke_cold_1();
@@ -1113,17 +1310,18 @@ void __57__ICDeviceAccessManager_bundleIdentifiersWithAccessType___block_invoke(
   v4 = [v3 UTF8String];
 
   errmsg = 0;
-  if (sqlite3_exec([*(a1 + 40) externalMediaAccessDB], v4, ICAcessStatusQuery, v2, &errmsg))
+  v5 = sqlite3_exec([*(a1 + 40) externalMediaAccessDB], v4, ICAcessStatusQuery, v2, &errmsg);
+  if (v5)
   {
-    __ICOSLogCreate();
-    v5 = @"icaccess";
+    __ICOSLogCreate(v5, v6);
+    v7 = @"icaccess";
     if ([@"icaccess" length] >= 0x15)
     {
-      v6 = [@"icaccess" substringWithRange:{0, 18}];
-      v5 = [v6 stringByAppendingString:@".."];
+      v8 = [@"icaccess" substringWithRange:{0, 18}];
+      v7 = [v8 stringByAppendingString:@".."];
     }
 
-    v7 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s", errmsg];
+    v9 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s", errmsg];
     if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_ERROR))
     {
       __29__ICDeviceAccessManager_init__block_invoke_cold_1();
@@ -1174,46 +1372,46 @@ void __57__ICDeviceAccessManager_bundleIdentifiersWithAccessType___block_invoke(
 
 - (unint64_t)bundleIdentifier:(id)identifier stateForAccessType:(id)type
 {
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   identifierCopy = identifier;
   typeCopy = type;
   v8 = _os_feature_enabled_impl();
-  v21 = typeCopy;
+  v20 = typeCopy;
   if (typeCopy == @"control_informed" || (v8 & 1) == 0)
   {
     [(ICDeviceAccessManager *)self validateBundleIdentifierInstalled:identifierCopy];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v10 = [(ICDeviceAccessManager *)self bundleIdentifiersWithAccessType:typeCopy];
-    v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v11)
     {
       v12 = v11;
       intValue = 0;
-      v13 = *v23;
+      v13 = *v22;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v23 != v13)
+          if (*v22 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v22 + 1) + 8 * i);
+          v15 = *(*(&v21 + 1) + 8 * i);
           v16 = [v15 objectForKeyedSubscript:@"bundle_id"];
           v17 = [v16 isEqualToString:identifierCopy];
 
           if (v17)
           {
-            v18 = [v15 objectForKeyedSubscript:v21];
+            v18 = [v15 objectForKeyedSubscript:v20];
             intValue = [v18 intValue];
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v12);
@@ -1230,19 +1428,18 @@ void __57__ICDeviceAccessManager_bundleIdentifiersWithAccessType___block_invoke(
     intValue = 0;
   }
 
-  v19 = *MEMORY[0x29EDCA608];
   return intValue;
 }
 
 - (void)revokeBundleIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  __ICOSLogCreate();
-  v5 = @"icaccess";
+  __ICOSLogCreate(identifierCopy, v5);
+  v6 = @"icaccess";
   if ([@"icaccess" length] >= 0x15)
   {
-    v6 = [@"icaccess" substringWithRange:{0, 18}];
-    v5 = [v6 stringByAppendingString:@".."];
+    v7 = [@"icaccess" substringWithRange:{0, 18}];
+    v6 = [v7 stringByAppendingString:@".."];
   }
 
   identifierCopy = [MEMORY[0x29EDBA0F8] stringWithFormat:@"Revoking Application BundleID %@", identifierCopy];
@@ -1251,38 +1448,39 @@ void __57__ICDeviceAccessManager_bundleIdentifiersWithAccessType___block_invoke(
     __29__ICDeviceAccessManager_init__block_invoke_cold_1();
   }
 
-  v8 = dispatch_semaphore_create(0);
+  v9 = dispatch_semaphore_create(0);
   deviceAccessQueue = [(ICDeviceAccessManager *)self deviceAccessQueue];
   block[0] = MEMORY[0x29EDCA5F8];
   block[1] = 3221225472;
   block[2] = __48__ICDeviceAccessManager_revokeBundleIdentifier___block_invoke;
   block[3] = &unk_29F380FE0;
-  v14 = identifierCopy;
+  v15 = identifierCopy;
   selfCopy = self;
-  v16 = v8;
-  v10 = v8;
-  v11 = identifierCopy;
+  v17 = v9;
+  v11 = v9;
+  v12 = identifierCopy;
   dispatch_async(deviceAccessQueue, block);
 
-  v12 = dispatch_time(0, 1000000000);
-  dispatch_semaphore_wait(v10, v12);
+  v13 = dispatch_time(0, 1000000000);
+  dispatch_semaphore_wait(v11, v13);
 }
 
 void __48__ICDeviceAccessManager_revokeBundleIdentifier___block_invoke(uint64_t a1)
 {
   v2 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"DELETE FROM external_device_access WHERE bundle_id IS '%@'", *(a1 + 32)];;
   errmsg = 0;
-  if (sqlite3_exec([*(a1 + 40) externalMediaAccessDB], objc_msgSend(v2, "UTF8String"), 0, 0, &errmsg))
+  v3 = sqlite3_exec([*(a1 + 40) externalMediaAccessDB], objc_msgSend(v2, "UTF8String"), 0, 0, &errmsg);
+  if (v3)
   {
-    __ICOSLogCreate();
-    v3 = @"icaccess";
+    __ICOSLogCreate(v3, v4);
+    v5 = @"icaccess";
     if ([@"icaccess" length] >= 0x15)
     {
-      v4 = [@"icaccess" substringWithRange:{0, 18}];
-      v3 = [v4 stringByAppendingString:@".."];
+      v6 = [@"icaccess" substringWithRange:{0, 18}];
+      v5 = [v6 stringByAppendingString:@".."];
     }
 
-    v5 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s", errmsg];
+    v7 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s", errmsg];
     if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_ERROR))
     {
       __29__ICDeviceAccessManager_init__block_invoke_cold_1();
@@ -1328,33 +1526,33 @@ void __48__ICDeviceAccessManager_revokeBundleIdentifier___block_invoke(uint64_t 
     v31 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v11 = v39[5];
-    v12 = [v11 countByEnumeratingWithState:&v28 objects:v48 count:{16, v26}];
-    if (v12)
+    v12 = v39[5];
+    v13 = [v12 countByEnumeratingWithState:&v28 objects:v48 count:{16, v26}];
+    if (v13)
     {
-      v13 = *v29;
+      v14 = *v29;
       while (2)
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v29 != v13)
+          if (*v29 != v14)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v12);
           }
 
-          v15 = [*(*(&v28 + 1) + 8 * i) objectForKeyedSubscript:@"bundle_id"];
-          v16 = [v15 isEqualToString:v6];
+          v16 = [*(*(&v28 + 1) + 8 * i) objectForKeyedSubscript:@"bundle_id"];
+          v17 = [v16 isEqualToString:v6];
 
-          if (v16)
+          if (v17)
           {
 
-            v23 = 1;
+            v24 = 1;
             goto LABEL_19;
           }
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v28 objects:v48 count:16];
-        if (v12)
+        v13 = [v12 countByEnumeratingWithState:&v28 objects:v48 count:16];
+        if (v13)
         {
           continue;
         }
@@ -1364,38 +1562,37 @@ void __48__ICDeviceAccessManager_revokeBundleIdentifier___block_invoke(uint64_t 
     }
   }
 
-  __ICOSLogCreate();
+  __ICOSLogCreate(v10, v11);
   if ([@"icaccess" length] < 0x15)
   {
-    v18 = @"icaccess";
+    v19 = @"icaccess";
   }
 
   else
   {
-    v17 = [@"icaccess" substringWithRange:{0, 18}];
-    v18 = [v17 stringByAppendingString:@".."];
+    v18 = [@"icaccess" substringWithRange:{0, 18}];
+    v19 = [v18 stringByAppendingString:@".."];
   }
 
-  v19 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"Bundle was not found to be installed on the device, revoking access defensively to require the user to re-authorize upon install.", v26];
-  v20 = _gICOSLog;
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v20 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"Bundle was not found to be installed on the device, revoking access defensively to require the user to re-authorize upon install.", v26];
+  v21 = _gICOSLog;
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = v18;
-    uTF8String = [(__CFString *)v18 UTF8String];
+    v22 = v19;
+    uTF8String = [(__CFString *)v19 UTF8String];
     *buf = 136446466;
     v45 = uTF8String;
     v46 = 2114;
-    v47 = v19;
-    _os_log_impl(&dword_29EB58000, v20, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+    v47 = v20;
+    _os_log_impl(&dword_29EB58000, v21, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 
   [(ICDeviceAccessManager *)self revokeBundleIdentifier:v6];
-  v23 = 0;
+  v24 = 0;
 LABEL_19:
 
   _Block_object_dispose(&v38, 8);
-  v24 = *MEMORY[0x29EDCA608];
-  return v23;
+  return v24;
 }
 
 void __59__ICDeviceAccessManager_validateBundleIdentifierInstalled___block_invoke(uint64_t a1)
@@ -1405,17 +1602,18 @@ void __59__ICDeviceAccessManager_validateBundleIdentifierInstalled___block_invok
   v4 = [v3 UTF8String];
 
   errmsg = 0;
-  if (sqlite3_exec([*(a1 + 40) externalMediaAccessDB], v4, ICAcessStatusQuery, *(*(*(a1 + 56) + 8) + 40), &errmsg))
+  v5 = sqlite3_exec([*(a1 + 40) externalMediaAccessDB], v4, ICAcessStatusQuery, *(*(*(a1 + 56) + 8) + 40), &errmsg);
+  if (v5)
   {
-    __ICOSLogCreate();
-    v5 = @"icaccess";
+    __ICOSLogCreate(v5, v6);
+    v7 = @"icaccess";
     if ([@"icaccess" length] >= 0x15)
     {
-      v6 = [@"icaccess" substringWithRange:{0, 18}];
-      v5 = [v6 stringByAppendingString:@".."];
+      v8 = [@"icaccess" substringWithRange:{0, 18}];
+      v7 = [v8 stringByAppendingString:@".."];
     }
 
-    v7 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s", errmsg];
+    v9 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s", errmsg];
     if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_ERROR))
     {
       __29__ICDeviceAccessManager_init__block_invoke_cold_1();
@@ -1529,23 +1727,17 @@ void __59__ICDeviceAccessManager_validateBundleIdentifierInstalled___block_invok
 void __29__ICDeviceAccessManager_init__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_1();
-  v12 = *MEMORY[0x29EDCA608];
   v2 = v1;
   v3 = v0;
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_29EB58000, v4, v5, "%{public}20s ! %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_2(&dword_29EB58000, v4, v5, "%{public}20s ! %{public}@", v6, v7, v8, v9);
 }
 
 void __66__ICDeviceAccessManager_bundleIdentifiersAccessingExternalCameras__block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_29EB58000, MEMORY[0x29EDCA988], v2, "tcc_server_message_get_authorization_records_by_service error %@", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_3(&dword_29EB58000, MEMORY[0x29EDCA988], v2, "tcc_server_message_get_authorization_records_by_service error %@", v3, v4, v5, v6);
 }
 
 @end

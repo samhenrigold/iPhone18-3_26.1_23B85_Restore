@@ -79,39 +79,39 @@
   dominantFullsizePlayerLayout = [(PXStoryStyleSwitchingFullsizeLayout *)self dominantFullsizePlayerLayout];
   displayedTimeline = [dominantFullsizePlayerLayout displayedTimeline];
   model = [(PXStoryStyleSwitchingFullsizeLayout *)self model];
-  currentSegmentIdentifier = [model currentSegmentIdentifier];
+  [model currentSegmentIdentifier];
 
-  v33 = 0u;
-  v34 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v31 = 0u;
   if (displayedTimeline)
   {
-    [displayedTimeline timeRangeForSegmentWithIdentifier:currentSegmentIdentifier];
+    objc_msgSend_timeRangeForSegmentWithIdentifier_(displayedTimeline);
   }
 
   [dominantFullsizePlayerLayout displayedTimelineRect];
-  v9 = v8;
-  v11 = v10;
-  v13 = v12;
-  v15 = v14;
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
+  v14 = v13;
   array = [MEMORY[0x1E695DF70] array];
-  v24 = MEMORY[0x1E69E9820];
-  v25 = 3221225472;
-  v26 = __55__PXStoryStyleSwitchingFullsizeLayout__axAssetsVisible__block_invoke;
-  v27 = &unk_1E77423E0;
-  v28 = displayedTimeline;
+  v23 = MEMORY[0x1E69E9820];
+  v24 = 3221225472;
+  v25 = __55__PXStoryStyleSwitchingFullsizeLayout__axAssetsVisible__block_invoke;
+  v26 = &unk_1E77423E0;
+  v27 = displayedTimeline;
   selfCopy = self;
-  v30 = array;
-  v31 = a2;
+  v29 = array;
+  v30 = a2;
+  v20 = v31;
   v21 = v32;
   v22 = v33;
-  v23 = v34;
-  v17 = array;
-  v18 = displayedTimeline;
-  [v18 enumerateClipsInTimeRange:&v21 rect:&v24 usingBlock:{v9, v11, v13, v15}];
-  v19 = [v17 copy];
+  v16 = array;
+  v17 = displayedTimeline;
+  [v17 enumerateClipsInTimeRange:&v20 rect:&v23 usingBlock:{v8, v10, v12, v14}];
+  v18 = [v16 copy];
 
-  return v19;
+  return v18;
 }
 
 void __55__PXStoryStyleSwitchingFullsizeLayout__axAssetsVisible__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
@@ -129,7 +129,7 @@ void __55__PXStoryStyleSwitchingFullsizeLayout__axAssetsVisible__block_invoke(ui
     v14 = a2;
     do
     {
-      v16 = [*(a1 + 32) clipWithIdentifier:{*a5, v21, v22, v23, v24, v25, v26, v27, v28}];
+      v16 = [*(a1 + 32) clipWithIdentifier:{*a5, a4, v21, v22, v23, v24, v25, v26, v27, v28}];
       v17 = [v16 resource];
       v18 = [v17 px_storyResourceKind];
 

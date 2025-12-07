@@ -25,16 +25,15 @@
 {
   v5 = type metadata accessor for Date();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v12 = v11;
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v11 = v10;
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_100427BBC(v10, v12, v9);
+  sub_100427BBC(v9, v11, v8);
 
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
 }
 
 - (void)scheduleOperation
@@ -46,24 +45,23 @@
 - (id)returnPreventUntilDate
 {
   v3 = sub_10028088C(&qword_10097A7F0, &unk_1007FB600);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v14 - v5;
-  v7 = OBJC_IVAR___SDDeferrableOperation_preventUntilDate;
+  v5 = &v13 - v4;
+  v6 = OBJC_IVAR___SDDeferrableOperation_preventUntilDate;
   swift_beginAccess();
-  sub_10000FF90(self + v7, v6, &qword_10097A7F0, &unk_1007FB600);
-  v8 = type metadata accessor for Date();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  sub_10000FF90(self + v6, v5, &qword_10097A7F0, &unk_1007FB600);
+  v7 = type metadata accessor for Date();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
     isa = Date._bridgeToObjectiveC()().super.isa;
-    (*(v9 + 8))(v6, v8);
-    v11 = isa;
+    (*(v8 + 8))(v5, v7);
+    v10 = isa;
   }
 
-  return v11;
+  return v10;
 }
 
 - (SDDeferrableOperation)init

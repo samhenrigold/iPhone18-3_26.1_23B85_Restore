@@ -11,7 +11,7 @@
   hostCopy = host;
   sub_1000076D8(v9);
   sub_10000E3E8(v9, v9[3]);
-  sub_1001F1160(&qword_100AF6028);
+  sub_1001F1160(&qword_100AF6028, &qword_1008446F8);
   sub_100798CD4();
   if (v8)
   {

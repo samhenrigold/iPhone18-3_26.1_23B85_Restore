@@ -24,7 +24,7 @@
 - (ANSTInferenceDescriptor)initWithName:(id)name version:(unint64_t)version assetURL:(id)l assetType:(int64_t)type e5FunctionName:(id)functionName inputDescriptors:(id)descriptors outputDescriptors:(id)outputDescriptors error:(id *)self0
 {
   selfCopy = error;
-  v49[1] = *MEMORY[0x277D85DE8];
+  v48[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   lCopy = l;
   functionNameCopy = functionName;
@@ -39,9 +39,9 @@
     }
 
     v42 = MEMORY[0x277CCA9B8];
-    v48 = *MEMORY[0x277CCA068];
-    v49[0] = @"ANSTInferenceDescriptor initialization requires nonnil assetURL, inputDescriptors, and outputDescriptors.";
-    v43 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v22, v49, &v48, 1);
+    v47 = *MEMORY[0x277CCA068];
+    v48[0] = @"ANSTInferenceDescriptor initialization requires nonnil assetURL, inputDescriptors, and outputDescriptors.";
+    v43 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v22, v48, &v47, 1);
     *error = objc_msgSend_errorWithDomain_code_userInfo_(v42, v44, @"ANSTErrorDomain", 2, v43);
 
 LABEL_9:
@@ -49,9 +49,9 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v47.receiver = self;
-  v47.super_class = ANSTInferenceDescriptor;
-  v24 = [(ANSTDescriptor *)&v47 initWithName:nameCopy error:error];
+  v46.receiver = self;
+  v46.super_class = ANSTInferenceDescriptor;
+  v24 = [(ANSTDescriptor *)&v46 initWithName:nameCopy error:error];
   self = v24;
   if (v24)
   {
@@ -83,39 +83,38 @@ LABEL_9:
   selfCopy = self;
 LABEL_10:
 
-  v45 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (BOOL)_buildCategorizedDescriptorsCacheWithError:(id *)error
 {
-  v127 = *MEMORY[0x277D85DE8];
-  v95 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, error);
-  v94 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v4, v5);
+  v126 = *MEMORY[0x277D85DE8];
+  v94 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, error);
+  v93 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v4, v5);
   v8 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v6, v7);
-  v93 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v9, v10);
+  v92 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v9, v10);
+  v100 = 0u;
   v101 = 0u;
   v102 = 0u;
   v103 = 0u;
-  v104 = 0u;
   selfCopy = self;
   outputPixelBufferDescriptors = self->_inputDescriptors;
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(outputPixelBufferDescriptors, v12, &v101, v126, 16);
-  v96 = v8;
+  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(outputPixelBufferDescriptors, v12, &v100, v125, 16);
+  v95 = v8;
   if (v13)
   {
     v14 = v13;
-    v15 = *v102;
+    v15 = *v101;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v102 != v15)
+        if (*v101 != v15)
         {
           objc_enumerationMutation(outputPixelBufferDescriptors);
         }
 
-        v17 = *(*(&v101 + 1) + 8 * i);
+        v17 = *(*(&v100 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -127,11 +126,11 @@ LABEL_10:
             if (error)
             {
               v75 = MEMORY[0x277CCA9B8];
-              v124[0] = *MEMORY[0x277CCA068];
-              v124[1] = @"ANSTDescriptor";
-              v125[0] = @"Descriptor name should not be empty.";
-              v125[1] = v17;
-              v76 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v21, v125, v124, 2);
+              v123[0] = *MEMORY[0x277CCA068];
+              v123[1] = @"ANSTDescriptor";
+              v124[0] = @"Descriptor name should not be empty.";
+              v124[1] = v17;
+              v76 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v21, v124, v123, 2);
               objc_msgSend_errorWithDomain_code_userInfo_(v75, v77, @"ANSTErrorDomain", 10, v76, selfCopy);
               goto LABEL_62;
             }
@@ -139,7 +138,7 @@ LABEL_10:
             goto LABEL_53;
           }
 
-          v24 = objc_msgSend_objectForKey_(v95, v21, v23);
+          v24 = objc_msgSend_objectForKey_(v94, v21, v23);
 
           if (v24)
           {
@@ -147,23 +146,23 @@ LABEL_10:
             if (error)
             {
               v83 = MEMORY[0x277CCA9B8];
-              v122[0] = *MEMORY[0x277CCA068];
-              v122[1] = @"ANSTDescriptor";
-              v123[0] = @"Descriptors should not have duplicated names.";
-              v123[1] = v17;
-              objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v25, v123, v122, 2, selfCopy);
+              v121[0] = *MEMORY[0x277CCA068];
+              v121[1] = @"ANSTDescriptor";
+              v122[0] = @"Descriptors should not have duplicated names.";
+              v122[1] = v17;
+              objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v25, v122, v121, 2, selfCopy);
               goto LABEL_61;
             }
 
 LABEL_58:
-            v60 = v94;
-            v55 = v95;
-            v8 = v96;
+            v60 = v93;
+            v55 = v94;
+            v8 = v95;
             goto LABEL_54;
           }
 
-          objc_msgSend_setObject_forKey_(v95, v25, v17, v23);
-          v8 = v96;
+          objc_msgSend_setObject_forKey_(v94, v25, v17, v23);
+          v8 = v95;
         }
 
         else
@@ -176,26 +175,26 @@ LABEL_58:
             {
 LABEL_55:
               v73 = 0;
-              v60 = v94;
-              v55 = v95;
-              v69 = v93;
+              v60 = v93;
+              v55 = v94;
+              v69 = v92;
               goto LABEL_66;
             }
 
             v82 = MEMORY[0x277CCA9B8];
-            v116[0] = *MEMORY[0x277CCA068];
-            v116[1] = @"ANSTDescriptor";
-            v117[0] = @"Invalid descriptor, expects either tensor or pixel buffer descriptor.";
-            v117[1] = v17;
-            objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v26, v117, v116, 2, selfCopy);
+            v115[0] = *MEMORY[0x277CCA068];
+            v115[1] = @"ANSTDescriptor";
+            v116[0] = @"Invalid descriptor, expects either tensor or pixel buffer descriptor.";
+            v116[1] = v17;
+            objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v26, v116, v115, 2, selfCopy);
             v23 = LABEL_52:;
-            v8 = v96;
+            v8 = v95;
             *errorCopy8 = objc_msgSend_errorWithDomain_code_userInfo_(v82, v86, @"ANSTErrorDomain", 10, v23);
 LABEL_53:
-            v60 = v94;
-            v55 = v95;
+            v60 = v93;
+            v55 = v94;
 LABEL_54:
-            v69 = v93;
+            v69 = v92;
             goto LABEL_65;
           }
 
@@ -203,18 +202,18 @@ LABEL_54:
           v23 = v28;
           if (!v28 || !objc_msgSend_length(v28, v29, v30))
           {
-            v60 = v94;
-            v55 = v95;
+            v60 = v93;
+            v55 = v94;
             errorCopy10 = error;
-            v69 = v93;
+            v69 = v92;
             if (error)
             {
               v78 = MEMORY[0x277CCA9B8];
-              v120[0] = *MEMORY[0x277CCA068];
-              v120[1] = @"ANSTDescriptor";
-              v121[0] = @"Descriptor name should not be empty.";
-              v121[1] = v17;
-              v76 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v29, v121, v120, 2);
+              v119[0] = *MEMORY[0x277CCA068];
+              v119[1] = @"ANSTDescriptor";
+              v120[0] = @"Descriptor name should not be empty.";
+              v120[1] = v17;
+              v76 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v29, v120, v119, 2);
               v80 = objc_msgSend_errorWithDomain_code_userInfo_(v78, v79, @"ANSTErrorDomain", 10, v76);
               goto LABEL_64;
             }
@@ -233,11 +232,11 @@ LABEL_65:
             if (error)
             {
               v83 = MEMORY[0x277CCA9B8];
-              v118[0] = *MEMORY[0x277CCA068];
-              v118[1] = @"ANSTDescriptor";
-              v119[0] = @"Descriptors should not have duplicated names.";
-              v119[1] = v17;
-              objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v32, v119, v118, 2, selfCopy);
+              v117[0] = *MEMORY[0x277CCA068];
+              v117[1] = @"ANSTDescriptor";
+              v118[0] = @"Descriptors should not have duplicated names.";
+              v118[1] = v17;
+              objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v32, v118, v117, 2, selfCopy);
               goto LABEL_61;
             }
 
@@ -248,32 +247,32 @@ LABEL_65:
         }
       }
 
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(outputPixelBufferDescriptors, v33, &v101, v126, 16);
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(outputPixelBufferDescriptors, v33, &v100, v125, 16);
     }
 
     while (v14);
   }
 
-  v99 = 0u;
-  v100 = 0u;
-  v97 = 0u;
   v98 = 0u;
+  v99 = 0u;
+  v96 = 0u;
+  v97 = 0u;
   outputPixelBufferDescriptors = selfCopy->_outputDescriptors;
-  v35 = objc_msgSend_countByEnumeratingWithState_objects_count_(outputPixelBufferDescriptors, v34, &v97, v115, 16);
+  v35 = objc_msgSend_countByEnumeratingWithState_objects_count_(outputPixelBufferDescriptors, v34, &v96, v114, 16);
   if (v35)
   {
     v36 = v35;
-    v37 = *v98;
+    v37 = *v97;
 LABEL_20:
     v38 = 0;
     while (1)
     {
-      if (*v98 != v37)
+      if (*v97 != v37)
       {
         objc_enumerationMutation(outputPixelBufferDescriptors);
       }
 
-      v39 = *(*(&v97 + 1) + 8 * v38);
+      v39 = *(*(&v96 + 1) + 8 * v38);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -288,15 +287,15 @@ LABEL_20:
           }
 
           v83 = MEMORY[0x277CCA9B8];
-          v113[0] = *MEMORY[0x277CCA068];
-          v113[1] = @"ANSTDescriptor";
-          v114[0] = @"Descriptor name should not be empty.";
-          v114[1] = v39;
-          objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v43, v114, v113, 2, selfCopy);
+          v112[0] = *MEMORY[0x277CCA068];
+          v112[1] = @"ANSTDescriptor";
+          v113[0] = @"Descriptor name should not be empty.";
+          v113[1] = v39;
+          objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v43, v113, v112, 2, selfCopy);
           goto LABEL_61;
         }
 
-        v45 = objc_msgSend_objectForKey_(v94, v43, v23);
+        v45 = objc_msgSend_objectForKey_(v93, v43, v23);
 
         if (v45)
         {
@@ -307,16 +306,16 @@ LABEL_20:
           }
 
           v83 = MEMORY[0x277CCA9B8];
-          v111[0] = *MEMORY[0x277CCA068];
-          v111[1] = @"ANSTDescriptor";
-          v112[0] = @"Descriptors should not have duplicated names.";
-          v112[1] = v39;
-          objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v46, v112, v111, 2, selfCopy);
+          v110[0] = *MEMORY[0x277CCA068];
+          v110[1] = @"ANSTDescriptor";
+          v111[0] = @"Descriptors should not have duplicated names.";
+          v111[1] = v39;
+          objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v46, v111, v110, 2, selfCopy);
           goto LABEL_61;
         }
 
-        objc_msgSend_setObject_forKey_(v94, v46, v39, v23);
-        v8 = v96;
+        objc_msgSend_setObject_forKey_(v93, v46, v39, v23);
+        v8 = v95;
       }
 
       else
@@ -331,11 +330,11 @@ LABEL_20:
           }
 
           v82 = MEMORY[0x277CCA9B8];
-          v105[0] = *MEMORY[0x277CCA068];
-          v105[1] = @"ANSTDescriptor";
-          v106[0] = @"Invalid descriptor, expects either tensor or pixel buffer descriptor.";
-          v106[1] = v39;
-          objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v47, v106, v105, 2, selfCopy);
+          v104[0] = *MEMORY[0x277CCA068];
+          v104[1] = @"ANSTDescriptor";
+          v105[0] = @"Invalid descriptor, expects either tensor or pixel buffer descriptor.";
+          v105[1] = v39;
+          objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v47, v105, v104, 2, selfCopy);
           goto LABEL_52;
         }
 
@@ -343,8 +342,8 @@ LABEL_20:
         v23 = v49;
         if (!v49 || !objc_msgSend_length(v49, v50, v51))
         {
-          v60 = v94;
-          v55 = v95;
+          v60 = v93;
+          v55 = v94;
           errorCopy10 = error;
           if (!error)
           {
@@ -352,16 +351,16 @@ LABEL_20:
           }
 
           v84 = MEMORY[0x277CCA9B8];
-          v109[0] = *MEMORY[0x277CCA068];
-          v109[1] = @"ANSTDescriptor";
-          v110[0] = @"Descriptor name should not be empty.";
-          v110[1] = v39;
-          v76 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v50, v110, v109, 2);
+          v108[0] = *MEMORY[0x277CCA068];
+          v108[1] = @"ANSTDescriptor";
+          v109[0] = @"Descriptor name should not be empty.";
+          v109[1] = v39;
+          v76 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v50, v109, v108, 2);
           v80 = objc_msgSend_errorWithDomain_code_userInfo_(v84, v85, @"ANSTErrorDomain", 10, v76);
           goto LABEL_63;
         }
 
-        v52 = objc_msgSend_objectForKey_(v93, v50, v23);
+        v52 = objc_msgSend_objectForKey_(v92, v50, v23);
 
         if (v52)
         {
@@ -372,31 +371,31 @@ LABEL_20:
           }
 
           v83 = MEMORY[0x277CCA9B8];
-          v107[0] = *MEMORY[0x277CCA068];
-          v107[1] = @"ANSTDescriptor";
-          v108[0] = @"Descriptors should not have duplicated names.";
-          v108[1] = v39;
-          objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v53, v108, v107, 2, selfCopy);
+          v106[0] = *MEMORY[0x277CCA068];
+          v106[1] = @"ANSTDescriptor";
+          v107[0] = @"Descriptors should not have duplicated names.";
+          v107[1] = v39;
+          objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v53, v107, v106, 2, selfCopy);
           v76 = LABEL_61:;
-          objc_msgSend_errorWithDomain_code_userInfo_(v83, v87, @"ANSTErrorDomain", 10, v76, v91);
+          objc_msgSend_errorWithDomain_code_userInfo_(v83, v87, @"ANSTErrorDomain", 10, v76, v90);
           v80 = LABEL_62:;
-          v60 = v94;
-          v55 = v95;
+          v60 = v93;
+          v55 = v94;
 LABEL_63:
-          v69 = v93;
+          v69 = v92;
 LABEL_64:
           *errorCopy10 = v80;
 
-          v8 = v96;
+          v8 = v95;
           goto LABEL_65;
         }
 
-        objc_msgSend_setObject_forKey_(v93, v53, v39, v23);
+        objc_msgSend_setObject_forKey_(v92, v53, v39, v23);
       }
 
       if (v36 == ++v38)
       {
-        v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(outputPixelBufferDescriptors, v54, &v97, v115, 16);
+        v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(outputPixelBufferDescriptors, v54, &v96, v114, 16);
         if (v36)
         {
           goto LABEL_20;
@@ -407,13 +406,13 @@ LABEL_64:
     }
   }
 
-  v55 = v95;
-  v58 = objc_msgSend_copy(v95, v56, v57);
+  v55 = v94;
+  v58 = objc_msgSend_copy(v94, v56, v57);
   inputTensorDescriptors = selfCopy->_inputTensorDescriptors;
   selfCopy->_inputTensorDescriptors = v58;
 
-  v60 = v94;
-  v63 = objc_msgSend_copy(v94, v61, v62);
+  v60 = v93;
+  v63 = objc_msgSend_copy(v93, v61, v62);
   outputTensorDescriptors = selfCopy->_outputTensorDescriptors;
   selfCopy->_outputTensorDescriptors = v63;
 
@@ -421,14 +420,13 @@ LABEL_64:
   inputPixelBufferDescriptors = selfCopy->_inputPixelBufferDescriptors;
   selfCopy->_inputPixelBufferDescriptors = v67;
 
-  v69 = v93;
-  v72 = objc_msgSend_copy(v93, v70, v71);
+  v69 = v92;
+  v72 = objc_msgSend_copy(v92, v70, v71);
   outputPixelBufferDescriptors = selfCopy->_outputPixelBufferDescriptors;
   selfCopy->_outputPixelBufferDescriptors = v72;
   v73 = 1;
 LABEL_66:
 
-  v88 = *MEMORY[0x277D85DE8];
   return v73;
 }
 
@@ -652,11 +650,11 @@ LABEL_22:
 
 - (ANSTInferenceDescriptor)initWithCoder:(id)coder
 {
-  v106[2] = *MEMORY[0x277D85DE8];
+  v105[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v91.receiver = self;
-  v91.super_class = ANSTInferenceDescriptor;
-  v5 = [(ANSTDescriptor *)&v91 initWithCoder:coderCopy];
+  v90.receiver = self;
+  v90.super_class = ANSTInferenceDescriptor;
+  v5 = [(ANSTDescriptor *)&v90 initWithCoder:coderCopy];
   if (!v5)
   {
     goto LABEL_15;
@@ -670,12 +668,12 @@ LABEL_22:
   {
     v39 = MEMORY[0x277CCA9B8];
     v40 = *MEMORY[0x277CCA050];
-    v105[0] = *MEMORY[0x277CCA068];
-    v105[1] = @"ANSTDescriptorName";
-    v106[0] = @"Inference descriptor version was not encoded.";
+    v104[0] = *MEMORY[0x277CCA068];
+    v104[1] = @"ANSTDescriptorName";
+    v105[0] = @"Inference descriptor version was not encoded.";
     v22 = objc_msgSend_name(v5, v10, v11);
-    v106[1] = v22;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v41, v106, v105, 2);
+    v105[1] = v22;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v41, v105, v104, 2);
     v37 = LABEL_10:;
     v44 = objc_msgSend_errorWithDomain_code_userInfo_(v39, v43, v40, 4865, v37);
     objc_msgSend_failWithError_(coderCopy, v45, v44);
@@ -696,12 +694,12 @@ LABEL_22:
   {
     v39 = MEMORY[0x277CCA9B8];
     v40 = *MEMORY[0x277CCA050];
-    v103[0] = *MEMORY[0x277CCA068];
-    v103[1] = @"ANSTDescriptorName";
-    v104[0] = @"Inference descriptor asset URL was not encoded.";
+    v102[0] = *MEMORY[0x277CCA068];
+    v102[1] = @"ANSTDescriptorName";
+    v103[0] = @"Inference descriptor asset URL was not encoded.";
     v22 = objc_msgSend_name(v5, v17, v18);
-    v104[1] = v22;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v42, v104, v103, 2);
+    v103[1] = v22;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v42, v103, v102, 2);
     goto LABEL_10;
   }
 
@@ -714,12 +712,12 @@ LABEL_22:
     v35 = MEMORY[0x277CCA9B8];
     v36 = *MEMORY[0x277CCA050];
     v67 = *MEMORY[0x277CCA068];
-    v102[0] = @"Inference descriptor asset type was not encoded.";
-    v101[0] = v67;
-    v101[1] = @"ANSTDescriptorName";
+    v101[0] = @"Inference descriptor asset type was not encoded.";
+    v100[0] = v67;
+    v100[1] = @"ANSTDescriptorName";
     v37 = objc_msgSend_name(v5, v23, v24);
-    v102[1] = v37;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v68, v102, v101, 2);
+    v101[1] = v37;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v68, v101, v100, 2);
     goto LABEL_17;
   }
 
@@ -739,12 +737,12 @@ LABEL_22:
     {
       v35 = MEMORY[0x277CCA9B8];
       v36 = *MEMORY[0x277CCA050];
-      v99[0] = *MEMORY[0x277CCA068];
-      v99[1] = @"ANSTDescriptorName";
-      v100[0] = @"Inference descriptor E5 function name was not properly encoded.";
+      v98[0] = *MEMORY[0x277CCA068];
+      v98[1] = @"ANSTDescriptorName";
+      v99[0] = @"Inference descriptor E5 function name was not properly encoded.";
       v37 = objc_msgSend_name(v5, v33, v34);
-      v100[1] = v37;
-      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v38, v100, v99, 2);
+      v99[1] = v37;
+      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v38, v99, v98, 2);
       v44 = LABEL_17:;
       v70 = objc_msgSend_errorWithDomain_code_userInfo_(v35, v69, v36, 4865, v44);
       objc_msgSend_failWithError_(coderCopy, v71, v70);
@@ -755,9 +753,9 @@ LABEL_21:
   }
 
   v46 = MEMORY[0x277CBEB98];
-  v98[0] = objc_opt_class();
-  v98[1] = objc_opt_class();
-  v48 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v47, v98, 2);
+  v97[0] = objc_opt_class();
+  v97[1] = objc_opt_class();
+  v48 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v47, v97, 2);
   v37 = objc_msgSend_setWithArray_(v46, v49, v48);
 
   v50 = NSStringFromSelector(sel_inputDescriptors);
@@ -769,12 +767,12 @@ LABEL_21:
   {
     v72 = MEMORY[0x277CCA9B8];
     v73 = *MEMORY[0x277CCA050];
-    v96[0] = *MEMORY[0x277CCA068];
-    v96[1] = @"ANSTDescriptorName";
-    v97[0] = @"Inference descriptor input descriptors were not encoded.";
+    v95[0] = *MEMORY[0x277CCA068];
+    v95[1] = @"ANSTDescriptorName";
+    v96[0] = @"Inference descriptor input descriptors were not encoded.";
     v44 = objc_msgSend_name(v5, v54, v55);
-    v97[1] = v44;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v74, v97, v96, 2);
+    v96[1] = v44;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v74, v96, v95, 2);
     v70 = LABEL_20:;
     v77 = objc_msgSend_errorWithDomain_code_userInfo_(v72, v76, v73, 4865, v70);
     objc_msgSend_failWithError_(coderCopy, v78, v77);
@@ -791,34 +789,34 @@ LABEL_21:
   {
     v72 = MEMORY[0x277CCA9B8];
     v73 = *MEMORY[0x277CCA050];
-    v94[0] = *MEMORY[0x277CCA068];
-    v94[1] = @"ANSTDescriptorName";
-    v95[0] = @"Inference descriptor output descriptors were not encoded.";
+    v93[0] = *MEMORY[0x277CCA068];
+    v93[1] = @"ANSTDescriptorName";
+    v94[0] = @"Inference descriptor output descriptors were not encoded.";
     v44 = objc_msgSend_name(v5, v60, v61);
-    v95[1] = v44;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v75, v95, v94, 2);
+    v94[1] = v44;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v75, v94, v93, 2);
     goto LABEL_20;
   }
 
-  v90 = 0;
-  v62 = objc_msgSend__buildCategorizedDescriptorsCacheWithError_(v5, v60, &v90);
-  v63 = v90;
+  v89 = 0;
+  v62 = objc_msgSend__buildCategorizedDescriptorsCacheWithError_(v5, v60, &v89);
+  v63 = v89;
   v44 = v63;
   if ((v62 & 1) == 0)
   {
-    v81 = MEMORY[0x277CCA9B8];
-    v82 = *MEMORY[0x277CCA050];
-    v83 = *MEMORY[0x277CCA068];
-    v93[0] = @"Inference descriptor contains invalid input and/or output descriptors.";
-    v92[0] = v83;
-    v92[1] = @"ANSTDescriptorName";
-    v84 = objc_msgSend_name(v5, v64, v65);
-    v92[2] = *MEMORY[0x277CCA7E8];
-    v93[1] = v84;
-    v93[2] = v44;
-    v86 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v85, v93, v92, 3);
-    v88 = objc_msgSend_errorWithDomain_code_userInfo_(v81, v87, v82, 4864, v86);
-    objc_msgSend_failWithError_(coderCopy, v89, v88);
+    v80 = MEMORY[0x277CCA9B8];
+    v81 = *MEMORY[0x277CCA050];
+    v82 = *MEMORY[0x277CCA068];
+    v92[0] = @"Inference descriptor contains invalid input and/or output descriptors.";
+    v91[0] = v82;
+    v91[1] = @"ANSTDescriptorName";
+    v83 = objc_msgSend_name(v5, v64, v65);
+    v91[2] = *MEMORY[0x277CCA7E8];
+    v92[1] = v83;
+    v92[2] = v44;
+    v85 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v84, v92, v91, 3);
+    v87 = objc_msgSend_errorWithDomain_code_userInfo_(v80, v86, v81, 4864, v85);
+    objc_msgSend_failWithError_(coderCopy, v88, v87);
 
     goto LABEL_22;
   }
@@ -827,7 +825,6 @@ LABEL_15:
   v66 = v5;
 LABEL_23:
 
-  v79 = *MEMORY[0x277D85DE8];
   return v66;
 }
 

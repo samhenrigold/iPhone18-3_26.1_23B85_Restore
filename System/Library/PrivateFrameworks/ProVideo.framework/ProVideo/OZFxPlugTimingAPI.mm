@@ -107,29 +107,30 @@
 {
   cntrl = self->_fxPlugLock.__cntrl_;
   ptr = self->_fxPlugLock.__ptr_;
-  v6 = cntrl;
+  v8 = cntrl;
   if (cntrl)
   {
     atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
   }
 
-  OZFxPlugLockSentinel::OZFxPlugLockSentinel(v7, &ptr);
-  if (v6)
+  OZFxPlugLockSentinel::OZFxPlugLockSentinel(v9, &ptr);
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 
-  if (*v7[0] && !(*(**v7[0] + 160))(*v7[0]))
+  v4 = *v9[0];
+  if (*v9[0] && (v4 = (*(*v4 + 160))(v4), !v4))
   {
     FxTimeInvalid = 0xBFF0000000000000;
   }
 
   else
   {
-    FxTimeInvalid = getFxTimeInvalid();
+    FxTimeInvalid = getFxTimeInvalid(v4, v3);
   }
 
-  OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v7);
+  OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v9);
   return FxTimeInvalid;
 }
 
@@ -137,29 +138,30 @@
 {
   cntrl = self->_fxPlugLock.__cntrl_;
   ptr = self->_fxPlugLock.__ptr_;
-  v6 = cntrl;
+  v8 = cntrl;
   if (cntrl)
   {
     atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
   }
 
-  OZFxPlugLockSentinel::OZFxPlugLockSentinel(v7, &ptr);
-  if (v6)
+  OZFxPlugLockSentinel::OZFxPlugLockSentinel(v9, &ptr);
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 
-  if (*v7[0] && !(*(**v7[0] + 160))(*v7[0]))
+  v4 = *v9[0];
+  if (*v9[0] && (v4 = (*(*v4 + 160))(v4), !v4))
   {
     FxTimeZero = 0;
   }
 
   else
   {
-    FxTimeZero = getFxTimeZero();
+    FxTimeZero = getFxTimeZero(v4, v3);
   }
 
-  OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v7);
+  OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v9);
   return FxTimeZero;
 }
 
@@ -565,7 +567,7 @@ LABEL_10:
       OZFxPlugLockSentinel::~OZFxPlugLockSentinel(&v23);
       PlayRange = OZScene::getPlayRange(getScene);
       memset(v16, 0, sizeof(v16));
-      OZSceneSettings::getFrameDuration((getScene + 336), &v14);
+      OZSceneSettings::getFrameDuration(&v14, (getScene + 336));
       v23 = *PlayRange;
       v22 = *(PlayRange + 24);
       PC_CMTimeSaferAdd(&v23, &v22, &v21);
@@ -838,7 +840,7 @@ LABEL_20:
     v23 = 0;
     if (v26)
     {
-      [v26 fxTimeToFigTime:*&time withConversionData:0];
+      objc_msgSend_fxTimeToFigTime_withConversionData_(v26);
     }
 
     v12 = self->_fxPlugLock.__cntrl_;
@@ -950,7 +952,7 @@ LABEL_8:
           memset(&v25, 0, sizeof(v25));
           if (v29)
           {
-            [v29 fxTimeToFigTime:*&time withConversionData:0];
+            objc_msgSend_fxTimeToFigTime_withConversionData_(v29);
           }
 
           v30 = v26[0];
@@ -1024,7 +1026,7 @@ LABEL_10:
   v24 = 0;
   if (v27)
   {
-    [v27 fxTimeToFigTime:*&time withConversionData:0];
+    objc_msgSend_fxTimeToFigTime_withConversionData_(v27);
   }
 
   v12 = self->_fxPlugLock.__cntrl_;
@@ -1149,7 +1151,7 @@ LABEL_8:
           memset(&v25, 0, sizeof(v25));
           if (v29)
           {
-            [v29 fxTimeToFigTime:*&time withConversionData:0];
+            objc_msgSend_fxTimeToFigTime_withConversionData_(v29);
           }
 
           v30 = v26[0];
@@ -1346,7 +1348,7 @@ LABEL_22:
         {
           v14 = 0uLL;
           v15 = 0;
-          OZSceneSettings::getFrameDuration((v10 + 336), &v14);
+          OZSceneSettings::getFrameDuration(&v14, (v10 + 336));
           if (*(v11 + 480))
           {
             operator/(&v14, 2, v13);
@@ -1952,86 +1954,86 @@ LABEL_13:
 
 - (void)timelineFxTime:(id *)time fromInputTime:(id)inputTime
 {
+  v28 = 0;
   v29 = 0;
-  v30 = 0;
   cntrl = self->_fxPlugLock.__cntrl_;
   ptr = self->_fxPlugLock.__ptr_;
-  v28 = cntrl;
+  v27 = cntrl;
   if (cntrl)
   {
     atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
   }
 
-  OZFxPlugLockSentinel::OZFxPlugLockSentinel(&v25, &ptr);
-  if (v28)
+  OZFxPlugLockSentinel::OZFxPlugLockSentinel(&v24, &ptr);
+  if (v27)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v27);
   }
 
-  v8 = *v25;
-  if (!*v25)
+  v7 = *v24;
+  if (!*v24)
   {
-    v15 = &v25;
+    v14 = &v24;
     goto LABEL_18;
   }
 
-  PCMakeNSRefAndRetain<EAGLContext *>(v8[4], &v23);
-  ProCore_Impl::PCNSRefImpl::operator=(&v30, &v23);
-  ProCore_Impl::PCNSRefImpl::release(&v23);
-  Instance = TXParagraphStyleFolder_Factory::createInstance(v8, v10);
-  PCMakeNSRefAndRetain<EAGLContext *>(Instance, &v23);
-  ProCore_Impl::PCNSRefImpl::operator=(&v29, &v23);
-  ProCore_Impl::PCNSRefImpl::release(&v23);
-  OZFxPlugLockSentinel::~OZFxPlugLockSentinel(&v25);
-  v12.var1 = [(OZFxPlugTimingAPI *)self zeroTime];
-  v25 = *MEMORY[0x277CC0898];
-  v26 = *(MEMORY[0x277CC0898] + 16);
-  if (v9)
+  PCMakeNSRefAndRetain<EAGLContext *>(v7[4], &v22);
+  ProCore_Impl::PCNSRefImpl::operator=(&v29, &v22);
+  ProCore_Impl::PCNSRefImpl::release(&v22);
+  Instance = TXParagraphStyleFolder_Factory::createInstance(v7, v9);
+  PCMakeNSRefAndRetain<EAGLContext *>(Instance, &v22);
+  ProCore_Impl::PCNSRefImpl::operator=(&v28, &v22);
+  ProCore_Impl::PCNSRefImpl::release(&v22);
+  OZFxPlugLockSentinel::~OZFxPlugLockSentinel(&v24);
+  v11.var1 = [(OZFxPlugTimingAPI *)self zeroTime];
+  v24 = *MEMORY[0x277CC0898];
+  v25 = *(MEMORY[0x277CC0898] + 16);
+  if (v8)
   {
-    v23 = 0uLL;
-    v24 = 0;
-    if (v30)
+    v22 = 0uLL;
+    v23 = 0;
+    if (v29)
     {
-      [v30 fxTimeToFigTime:inputTime.var1 withConversionData:0];
+      objc_msgSend_fxTimeToFigTime_withConversionData_(v29);
     }
 
-    v13 = self->_fxPlugLock.__cntrl_;
-    v20 = self->_fxPlugLock.__ptr_;
-    v21 = v13;
-    if (v13)
+    v12 = self->_fxPlugLock.__cntrl_;
+    v19 = self->_fxPlugLock.__ptr_;
+    v20 = v12;
+    if (v12)
     {
-      atomic_fetch_add_explicit(v13 + 1, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(v12 + 1, 1uLL, memory_order_relaxed);
     }
 
-    OZFxPlugLockSentinel::OZFxPlugLockSentinel(v22, &v20);
-    if (v21)
+    OZFxPlugLockSentinel::OZFxPlugLockSentinel(v21, &v19);
+    if (v20)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v20);
     }
 
-    if (*v22[0])
+    if (*v21[0])
     {
+      v15 = v22;
       v16 = v23;
-      v17 = v24;
-      (*(*v14 + 608))(&v18);
+      (*(*v13 + 608))(&v17);
+      v24 = v17;
       v25 = v18;
-      v26 = v19;
-      OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v22);
-      v12.var1 = [v30 figTimeToFxTime:&v25 withConversionData:{0, v16, v17}];
+      OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v21);
+      v11.var1 = [v29 figTimeToFxTime:&v24 withConversionData:{0, v15, v16}];
       goto LABEL_15;
     }
 
-    v15 = v22;
+    v14 = v21;
 LABEL_18:
-    OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v15);
+    OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v14);
     goto LABEL_19;
   }
 
 LABEL_15:
-  [(OZFxPlugTimingAPI *)self copyFxTime:v12.var1 toFxTime:time];
+  [(OZFxPlugTimingAPI *)self copyFxTime:v11.var1 toFxTime:time];
 LABEL_19:
+  ProCore_Impl::PCNSRefImpl::release(&v28);
   ProCore_Impl::PCNSRefImpl::release(&v29);
-  ProCore_Impl::PCNSRefImpl::release(&v30);
 }
 
 - (void)timelineFxTime:(id *)time fromImageTime:(id)imageTime forParmId:(unsigned int)id
@@ -2096,7 +2098,7 @@ LABEL_19:
             memset(&v23, 0, sizeof(v23));
             if (v27)
             {
-              [v27 fxTimeToFigTime:imageTime.var1 withConversionData:0];
+              objc_msgSend_fxTimeToFigTime_withConversionData_(v27);
             }
 
             v28 = v24[0];
@@ -2128,90 +2130,90 @@ LABEL_21:
 
 - (void)inputFxTime:(id *)time fromTimelineTime:(id)timelineTime
 {
+  v26 = 0;
   v27 = 0;
-  v28 = 0;
   cntrl = self->_fxPlugLock.__cntrl_;
   ptr = self->_fxPlugLock.__ptr_;
-  v26 = cntrl;
+  v25 = cntrl;
   if (cntrl)
   {
     atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
   }
 
-  OZFxPlugLockSentinel::OZFxPlugLockSentinel(&v23, &ptr);
-  if (v26)
+  OZFxPlugLockSentinel::OZFxPlugLockSentinel(&v22, &ptr);
+  if (v25)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
   }
 
-  v8 = *v23;
-  if (!*v23)
+  v7 = *v22;
+  if (!*v22)
   {
-    v11 = &v23;
+    v10 = &v22;
 LABEL_18:
-    OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v11);
+    OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v10);
     goto LABEL_21;
   }
 
-  PCMakeNSRefAndRetain<EAGLContext *>(v8[4], &v21);
-  ProCore_Impl::PCNSRefImpl::operator=(&v28, &v21);
-  ProCore_Impl::PCNSRefImpl::release(&v21);
-  Instance = TXParagraphStyleFolder_Factory::createInstance(v8, v9);
-  PCMakeNSRefAndRetain<EAGLContext *>(Instance, &v21);
-  ProCore_Impl::PCNSRefImpl::operator=(&v27, &v21);
-  ProCore_Impl::PCNSRefImpl::release(&v21);
-  OZFxPlugLockSentinel::~OZFxPlugLockSentinel(&v23);
-  if (v28)
+  PCMakeNSRefAndRetain<EAGLContext *>(v7[4], &v20);
+  ProCore_Impl::PCNSRefImpl::operator=(&v27, &v20);
+  ProCore_Impl::PCNSRefImpl::release(&v20);
+  Instance = TXParagraphStyleFolder_Factory::createInstance(v7, v8);
+  PCMakeNSRefAndRetain<EAGLContext *>(Instance, &v20);
+  ProCore_Impl::PCNSRefImpl::operator=(&v26, &v20);
+  ProCore_Impl::PCNSRefImpl::release(&v20);
+  OZFxPlugLockSentinel::~OZFxPlugLockSentinel(&v22);
+  if (v27)
   {
-    [v28 fxTimeToFigTime:timelineTime.var1 withConversionData:0];
+    objc_msgSend_fxTimeToFigTime_withConversionData_(v27);
   }
 
   else
   {
-    v19 = 0uLL;
-    v20 = 0;
+    v18 = 0uLL;
+    v19 = 0;
   }
 
+  v22 = v18;
   v23 = v19;
-  v24 = v20;
-  v12 = self->_fxPlugLock.__cntrl_;
-  v16 = self->_fxPlugLock.__ptr_;
-  v17 = v12;
-  if (v12)
+  v11 = self->_fxPlugLock.__cntrl_;
+  v15 = self->_fxPlugLock.__ptr_;
+  v16 = v11;
+  if (v11)
   {
-    atomic_fetch_add_explicit(v12 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v11 + 1, 1uLL, memory_order_relaxed);
   }
 
-  OZFxPlugLockSentinel::OZFxPlugLockSentinel(v18, &v16);
-  if (v17)
+  OZFxPlugLockSentinel::OZFxPlugLockSentinel(v17, &v15);
+  if (v16)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
   }
 
-  v13 = *v18[0];
-  if (!*v18[0])
+  v12 = *v17[0];
+  if (!*v17[0])
   {
-    v11 = v18;
+    v10 = v17;
     goto LABEL_18;
   }
 
-  if (v14)
+  if (v13)
   {
-    (*(*v14 + 600))(&v19);
+    (*(*v13 + 600))(&v18);
   }
 
   else
   {
-    (*(*v15 + 1144))(&v19);
+    (*(*v14 + 1144))(&v18);
   }
 
+  v20 = v18;
   v21 = v19;
-  v22 = v20;
-  OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v18);
-  -[OZFxPlugTimingAPI copyFxTime:toFxTime:](self, "copyFxTime:toFxTime:", [v28 figTimeToFxTime:&v21 withConversionData:0], time);
+  OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v17);
+  -[OZFxPlugTimingAPI copyFxTime:toFxTime:](self, "copyFxTime:toFxTime:", [v27 figTimeToFxTime:&v20 withConversionData:0], time);
 LABEL_21:
+  ProCore_Impl::PCNSRefImpl::release(&v26);
   ProCore_Impl::PCNSRefImpl::release(&v27);
-  ProCore_Impl::PCNSRefImpl::release(&v28);
 }
 
 - (void)imageFxTime:(id *)time forParmId:(unsigned int)id fromTimelineTime:(id)timelineTime
@@ -2276,7 +2278,7 @@ LABEL_21:
             memset(&v23, 0, sizeof(v23));
             if (v27)
             {
-              [v27 fxTimeToFigTime:timelineTime.var1 withConversionData:0];
+              objc_msgSend_fxTimeToFigTime_withConversionData_(v27);
             }
 
             v28 = v24[0];

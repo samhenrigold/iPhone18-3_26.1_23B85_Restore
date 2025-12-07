@@ -140,17 +140,17 @@
 
 + (id)parseFromData:(id)data
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v21 = 0;
-  v3 = [(TRIPBMessage *)TRIUnsubscribeChannelPersistedTask parseFromData:data error:&v21];
-  v4 = v21;
+  v23 = *MEMORY[0x277D85DE8];
+  v20 = 0;
+  v3 = [(TRIPBMessage *)TRIUnsubscribeChannelPersistedTask parseFromData:data error:&v20];
+  v4 = v20;
   if (!v3)
   {
     experimentId2 = TRILogCategory_Server();
     if (os_log_type_enabled(experimentId2, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v23 = v4;
+      v22 = v4;
       _os_log_error_impl(&dword_26F567000, experimentId2, OS_LOG_TYPE_ERROR, "Unable to parse buffer as TRIUnsubscribePersistedTask: %{public}@", buf, 0xCu);
     }
 
@@ -162,10 +162,10 @@
     v12 = TRILogCategory_Server();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v18 = objc_opt_class();
-      v19 = NSStringFromClass(v18);
+      v17 = objc_opt_class();
+      v18 = NSStringFromClass(v17);
       *buf = 138412290;
-      v23 = v19;
+      v22 = v18;
       _os_log_error_impl(&dword_26F567000, v12, OS_LOG_TYPE_ERROR, "Cannot decode message of type %@ with missing field: experimentId", buf, 0xCu);
     }
 
@@ -178,7 +178,7 @@
     v13 = objc_opt_class();
     v14 = NSStringFromClass(v13);
     *buf = 138412290;
-    v23 = v14;
+    v22 = v14;
     v15 = "Cannot decode message of type %@ with missing field: experimentId";
     goto LABEL_19;
   }
@@ -196,10 +196,10 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    v20 = objc_opt_class();
-    v14 = NSStringFromClass(v20);
+    v19 = objc_opt_class();
+    v14 = NSStringFromClass(v19);
     *buf = 138412290;
-    v23 = v14;
+    v22 = v14;
     v15 = "Cannot decode message of type %@ with field of length 0: experimentId";
 LABEL_19:
     _os_log_error_impl(&dword_26F567000, experimentId2, OS_LOG_TYPE_ERROR, v15, buf, 0xCu);
@@ -222,8 +222,6 @@ LABEL_19:
   }
 
 LABEL_14:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

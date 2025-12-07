@@ -47,12 +47,12 @@
   if (microstackshot_cycle_interval_override)
   {
     v5 = microstackshot_cycle_interval_override;
-    v6 = sub_100006DB0();
+    v6 = sub_100006DB0(microstackshot_cycle_interval_override);
     if (os_signpost_enabled(v6))
     {
-      v12 = 134349056;
-      v13 = v5;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Got MSS PMI Override", "Got: %{public}llu", &v12, 0xCu);
+      v14 = 134349056;
+      v15 = v5;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Got MSS PMI Override", "Got: %{public}llu", &v14, 0xCu);
     }
 
     v7 = [NSNumber numberWithUnsignedLongLong:v5];
@@ -60,27 +60,29 @@
 
   else
   {
-    if (*__error() == 2)
+    v8 = __error();
+    if (*v8 == 2)
     {
-      v8 = sub_100006DB0();
-      if (os_signpost_enabled(v8))
+      v9 = sub_100006DB0(v8);
+      if (os_signpost_enabled(v9))
       {
-        LOWORD(v12) = 0;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "No MSS PMI Override", "", &v12, 2u);
+        LOWORD(v14) = 0;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "No MSS PMI Override", "", &v14, 2u);
       }
     }
 
     else
     {
-      v9 = __error();
-      *override = sub_100006DF4(*v9);
-      v8 = sub_100006E80();
-      if (os_signpost_enabled(v8))
+      v10 = __error();
+      v11 = sub_100006DF4(*v10);
+      *override = v11;
+      v9 = sub_100006E80(v11);
+      if (os_signpost_enabled(v9))
       {
         localizedDescription = [*override localizedDescription];
-        v12 = 138543362;
-        v13 = localizedDescription;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Get MSS PMI Override Error", "Error: %{public}@", &v12, 0xCu);
+        v14 = 138543362;
+        v15 = localizedDescription;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Get MSS PMI Override Error", "Error: %{public}@", &v14, 0xCu);
       }
     }
 
@@ -97,7 +99,7 @@
   if (microstackshot_cycle_interval_default)
   {
     v4 = microstackshot_cycle_interval_default;
-    v5 = sub_100006DB0();
+    v5 = sub_100006DB0(microstackshot_cycle_interval_default);
     if (os_signpost_enabled(v5))
     {
       v13 = 134349056;
@@ -112,7 +114,7 @@
   {
     v7 = __error();
     v8 = sub_100006DF4(*v7);
-    v9 = sub_100006DB0();
+    v9 = sub_100006DB0(v8);
     v10 = os_signpost_enabled(v9);
     if (v8)
     {
@@ -204,7 +206,7 @@ LABEL_6:
 - (id)_locked_setMssPMICycleInterval:(id)interval
 {
   intervalCopy = interval;
-  v4 = sub_100006DB0();
+  v4 = sub_100006DB0(intervalCopy);
   if (os_signpost_enabled(v4))
   {
     v5 = @"-";
@@ -430,7 +432,7 @@ LABEL_6:
 
   else if (names)
   {
-    sub_100007E34();
+    sub_100007E34(self);
     *names = v7 = 0;
   }
 
@@ -453,6 +455,7 @@ LABEL_6:
 - (id)setMetricMonitoredAppProcessNames:(id)names
 {
   namesCopy = names;
+  v5 = namesCopy;
   if (qword_100025D58 != -1)
   {
     sub_1000131EC();
@@ -460,31 +463,32 @@ LABEL_6:
 
   if ((byte_100025D50 & 1) == 0)
   {
-    v6 = sub_100007E34();
+    v8 = sub_100007E34(namesCopy);
 LABEL_9:
-    v7 = v6;
+    v9 = v8;
     goto LABEL_10;
   }
 
-  if ([(PTPCPassiveInstrumentationConfig *)self instrumentationSettingsAreLocked])
+  instrumentationSettingsAreLocked = [(PTPCPassiveInstrumentationConfig *)self instrumentationSettingsAreLocked];
+  if (instrumentationSettingsAreLocked)
   {
-    v5 = sub_100006E80();
-    if (os_signpost_enabled(v5))
+    v7 = sub_100006E80(instrumentationSettingsAreLocked);
+    if (os_signpost_enabled(v7))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "AttempedToUpdateMonitoredProcessesWhileLocked", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "AttempedToUpdateMonitoredProcessesWhileLocked", "", buf, 2u);
     }
 
-    v6 = [NSError passiveTraceError:1 description:@"Instrumentation settings are locked"];
+    v8 = [NSError passiveTraceError:1 description:@"Instrumentation settings are locked"];
     goto LABEL_9;
   }
 
-  if ([namesCopy count])
+  if ([v5 count])
   {
-    v9 = [[NSSet alloc] initWithArray:namesCopy];
-    allObjects = [v9 allObjects];
+    v11 = [[NSSet alloc] initWithArray:v5];
+    allObjects = [v11 allObjects];
 
-    namesCopy = v9;
+    v5 = v11;
   }
 
   else
@@ -492,43 +496,43 @@ LABEL_9:
     allObjects = 0;
   }
 
+  v33 = 0u;
+  v34 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  namesCopy = allObjects;
-  v11 = [namesCopy countByEnumeratingWithState:&v29 objects:v33 count:16];
-  if (v11)
+  v5 = allObjects;
+  v13 = [v5 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  if (v13)
   {
-    v12 = *v30;
+    v14 = *v32;
     while (2)
     {
-      for (i = 0; i != v11; i = i + 1)
+      for (i = 0; i != v13; ++i)
       {
-        if (*v30 != v12)
+        if (*v32 != v14)
         {
-          objc_enumerationMutation(namesCopy);
+          objc_enumerationMutation(v5);
         }
 
-        v14 = *(*(&v29 + 1) + 8 * i);
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        isKindOfClass = objc_opt_isKindOfClass();
+        if ((isKindOfClass & 1) == 0)
         {
-          v16 = sub_100006E80();
-          if (os_signpost_enabled(v16))
+          v18 = sub_100006E80(isKindOfClass);
+          if (os_signpost_enabled(v18))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&_mh_execute_header, v16, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "AppProcessNameNotString", "Provided non-string process name value", buf, 2u);
+            _os_signpost_emit_with_name_impl(&_mh_execute_header, v18, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "AppProcessNameNotString", "Provided non-string process name value", buf, 2u);
           }
 
-          v7 = [NSError passiveTraceError:1 description:@"Process names must be strings"];
+          v9 = [NSError passiveTraceError:1 description:@"Process names must be strings"];
 
           goto LABEL_10;
         }
       }
 
-      v11 = [namesCopy countByEnumeratingWithState:&v29 objects:v33 count:16];
-      if (v11)
+      v13 = [v5 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      if (v13)
       {
         continue;
       }
@@ -538,30 +542,30 @@ LABEL_9:
   }
 
   *buf = 0;
+  v26 = buf;
+  v27 = 0x3032000000;
+  v28 = sub_100004E28;
+  v29 = sub_100004E38;
+  v30 = 0;
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v20 = sub_1000082C8;
+  v21 = &unk_100020948;
   v24 = buf;
-  v25 = 0x3032000000;
-  v26 = sub_100004E28;
-  v27 = sub_100004E38;
-  v28 = 0;
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v18 = sub_1000082C8;
-  v19 = &unk_100020948;
-  v22 = buf;
   selfCopy = self;
-  namesCopy = namesCopy;
-  v21 = namesCopy;
-  v15 = v17;
+  v5 = v5;
+  v23 = v5;
+  v17 = v19;
   os_unfair_lock_lock(&self->_syncLock);
-  v18(v15);
+  v20(v17);
 
   os_unfair_lock_unlock(&self->_syncLock);
-  v7 = *(v24 + 5);
+  v9 = *(v26 + 5);
 
   _Block_object_dispose(buf, 8);
 LABEL_10:
 
-  return v7;
+  return v9;
 }
 
 - (id)metricMonitoringEnabled:(id *)enabled
@@ -573,61 +577,61 @@ LABEL_10:
 
   if (byte_100025D50)
   {
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x2020000000;
-    v18 = 0;
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v11 = sub_100008554;
-    v12 = &unk_1000208D0;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2020000000;
+    v19 = 0;
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v12 = sub_100008554;
+    v13 = &unk_1000208D0;
     selfCopy = self;
-    v14 = &v15;
-    v5 = v10;
+    v15 = &v16;
+    v5 = v11;
     os_unfair_lock_lock(&self->_syncLock);
-    v11(v5);
+    v12(v5);
 
     os_unfair_lock_unlock(&self->_syncLock);
-    v6 = sub_100006DB0();
-    if (os_signpost_enabled(v6))
+    v7 = sub_100006DB0(v6);
+    if (os_signpost_enabled(v7))
     {
-      if (*(v16 + 24))
+      if (*(v17 + 24))
       {
-        v7 = @"Enabled";
+        v8 = @"Enabled";
       }
 
       else
       {
-        v7 = @"Not enabled";
+        v8 = @"Not enabled";
       }
 
       *buf = 138543362;
-      v20 = v7;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GotMetricMonitorEnabled", "MetricMonitor state: %{public}@", buf, 0xCu);
+      v21 = v8;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GotMetricMonitorEnabled", "MetricMonitor state: %{public}@", buf, 0xCu);
     }
 
-    v8 = [NSNumber numberWithBool:*(v16 + 24)];
-    _Block_object_dispose(&v15, 8);
+    v9 = [NSNumber numberWithBool:*(v17 + 24)];
+    _Block_object_dispose(&v16, 8);
   }
 
   else if (enabled)
   {
-    sub_100007E34();
-    *enabled = v8 = 0;
+    sub_100007E34(self);
+    *enabled = v9 = 0;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (id)_locked_setMetricMonitoringEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v5 = sub_100006DB0();
+  v5 = sub_100006DB0(self);
   if (os_signpost_enabled(v5))
   {
     v6 = @"Not enabled";
@@ -637,7 +641,7 @@ LABEL_10:
     }
 
     *buf = 138543362;
-    v30 = v6;
+    v31 = v6;
     _os_signpost_emit_with_name_impl(&_mh_execute_header, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "AttemptingToSetMetricMonitoring", "Attempting to set to state: '%{public}@'", buf, 0xCu);
   }
 
@@ -646,9 +650,9 @@ LABEL_10:
   {
     if (enabledCopy)
     {
-      v28 = 0;
-      v8 = [(PTPCPassiveInstrumentationConfig *)self _locked_metricMonitoredAppProcessNames:&v28];
-      v9 = v28;
+      v29 = 0;
+      v8 = [(PTPCPassiveInstrumentationConfig *)self _locked_metricMonitoredAppProcessNames:&v29];
+      v9 = v29;
       if (v9)
       {
         v10 = v9;
@@ -665,63 +669,63 @@ LABEL_10:
         v16 = [PPSMetricMonitorConfiguration tracingConfiguration:1.0];
         if ([(__CFString *)v8 count])
         {
-          v26 = 0;
-          v17 = [PPSMetricMonitorHeadlessClient startMonitoringProcessesWithNames:v8 config:v16 error:&v26];
-          v18 = v26;
-        }
-
-        else
-        {
           v27 = 0;
-          v17 = [PPSMetricMonitorHeadlessClient startMonitoringSystemMetricsWithConfig:v16 error:&v27];
+          v17 = [PPSMetricMonitorHeadlessClient startMonitoringProcessesWithNames:v8 config:v16 error:&v27];
           v18 = v27;
         }
 
+        else
+        {
+          v28 = 0;
+          v17 = [PPSMetricMonitorHeadlessClient startMonitoringSystemMetricsWithConfig:v16 error:&v28];
+          v18 = v28;
+        }
+
         v19 = v18;
+        v20 = v19;
         if (v17)
         {
-          v20 = sub_100006DB0();
-          if (os_signpost_enabled(v20))
+          v21 = sub_100006DB0(v19);
+          if (os_signpost_enabled(v21))
           {
-            v21 = @"<None>";
+            v22 = @"<None>";
             if (v8)
             {
-              v21 = v8;
+              v22 = v8;
             }
 
             *buf = 138543362;
-            v30 = v21;
-            _os_signpost_emit_with_name_impl(&_mh_execute_header, v20, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "StartedMetricMonitoring", "Start monitoring at 1s cadence. Target processes:\n%{public}@", buf, 0xCu);
+            v31 = v22;
+            _os_signpost_emit_with_name_impl(&_mh_execute_header, v21, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "StartedMetricMonitoring", "Start monitoring at 1s cadence. Target processes:\n%{public}@", buf, 0xCu);
           }
         }
 
         else
         {
-          v20 = sub_100006DB0();
-          if (os_signpost_enabled(v20))
+          v21 = sub_100006DB0(v19);
+          if (os_signpost_enabled(v21))
           {
-            localizedDescription = [v19 localizedDescription];
-            v23 = localizedDescription;
-            v24 = @"Unknown";
+            localizedDescription = [v20 localizedDescription];
+            v24 = localizedDescription;
+            v25 = @"Unknown";
             if (localizedDescription)
             {
-              v24 = localizedDescription;
+              v25 = localizedDescription;
             }
 
             *buf = 138543362;
-            v30 = v24;
-            _os_signpost_emit_with_name_impl(&_mh_execute_header, v20, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FailedToStartMetricMonitoring", "Failed to start monitoring at 1s cadence due to error: %{public}@", buf, 0xCu);
+            v31 = v25;
+            _os_signpost_emit_with_name_impl(&_mh_execute_header, v21, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FailedToStartMetricMonitoring", "Failed to start monitoring at 1s cadence due to error: %{public}@", buf, 0xCu);
           }
         }
 
-        v10 = v19;
+        v10 = v20;
       }
 
       goto LABEL_35;
     }
 
-    +[PPSMetricMonitorHeadlessClient stopMonitoring];
-    v12 = sub_100006DB0();
+    v12 = sub_100006DB0(+[PPSMetricMonitorHeadlessClient stopMonitoring]);
     if (os_signpost_enabled(v12))
     {
       *buf = 0;
@@ -736,7 +740,7 @@ LABEL_17:
   }
 
   v11 = _locked_isMetricMonitorIsMonitoring;
-  v12 = sub_100006DB0();
+  v12 = sub_100006DB0(_locked_isMetricMonitorIsMonitoring);
   v13 = os_signpost_enabled(v12);
   if (!v11)
   {
@@ -799,7 +803,7 @@ LABEL_35:
 
   else
   {
-    v6 = sub_100007E34();
+    v6 = sub_100007E34(self);
   }
 
   return v6;
@@ -851,63 +855,63 @@ LABEL_35:
 + (id)resetPersistedDefaults:(id)defaults
 {
   defaultsCopy = defaults;
-  v15 = 0;
-  v4 = sub_100004414(defaultsCopy, &v15);
-  v5 = v15;
+  v16 = 0;
+  v4 = sub_100004414(defaultsCopy, &v16);
+  v5 = v16;
+  v6 = v5;
   if (v4)
   {
-    [v4 removeObjectForKey:@"InstrumentationConfiguration"];
-    v6 = sub_100006DB0();
-    if (os_signpost_enabled(v6))
+    v7 = sub_100006DB0([v4 removeObjectForKey:@"InstrumentationConfiguration"]);
+    if (os_signpost_enabled(v7))
     {
-      v7 = @"com.apple.PerformanceTrace.passive.config";
+      v8 = @"com.apple.PerformanceTrace.passive.config";
       if (defaultsCopy)
       {
-        v7 = defaultsCopy;
+        v8 = defaultsCopy;
       }
 
       *buf = 138543362;
-      v17 = v7;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "HardResetSuccess", "Reset of collection configuration for domain %{public}@", buf, 0xCu);
+      v18 = v8;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "HardResetSuccess", "Reset of collection configuration for domain %{public}@", buf, 0xCu);
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v9 = sub_100006E80();
-    if (os_signpost_enabled(v9))
+    v10 = sub_100006E80(v5);
+    if (os_signpost_enabled(v10))
     {
       if (defaultsCopy)
       {
-        v10 = defaultsCopy;
+        v11 = defaultsCopy;
       }
 
       else
       {
-        v10 = @"com.apple.PerformanceTrace.passive.config";
+        v11 = @"com.apple.PerformanceTrace.passive.config";
       }
 
-      localizedDescription = [v5 localizedDescription];
-      v12 = localizedDescription;
-      v13 = @"Unknown";
+      localizedDescription = [v6 localizedDescription];
+      v13 = localizedDescription;
+      v14 = @"Unknown";
       if (localizedDescription)
       {
-        v13 = localizedDescription;
+        v14 = localizedDescription;
       }
 
       *buf = 138543618;
-      v17 = v10;
-      v18 = 2114;
-      v19 = v13;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "HardResetFailure", "Failed to do a reset of instrumentation configuration for domain '%{public}@' due to error: '%{public}@'", buf, 0x16u);
+      v18 = v11;
+      v19 = 2114;
+      v20 = v14;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "HardResetFailure", "Failed to do a reset of instrumentation configuration for domain '%{public}@' due to error: '%{public}@'", buf, 0x16u);
     }
 
-    v8 = v5;
+    v9 = v6;
   }
 
-  return v8;
+  return v9;
 }
 
 - (id)_restorePerDrawableSetting
@@ -920,26 +924,26 @@ LABEL_35:
 
   if (v6)
   {
-    v7 = sub_100006E80();
-    if (os_signpost_enabled(v7))
+    v8 = sub_100006E80(v7);
+    if (os_signpost_enabled(v8))
     {
       localizedDescription = [v6 localizedDescription];
-      v9 = localizedDescription;
-      v10 = @"Unknown";
+      v10 = localizedDescription;
+      v11 = @"Unknown";
       if (localizedDescription)
       {
-        v10 = localizedDescription;
+        v11 = localizedDescription;
       }
 
-      v13 = 138543362;
-      v14 = v10;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "PerDrawableCachedSettingFailure", "Failed to clear cached value due to error: %{public}@", &v13, 0xCu);
+      v14 = 138543362;
+      v15 = v11;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "PerDrawableCachedSettingFailure", "Failed to clear cached value due to error: %{public}@", &v14, 0xCu);
     }
   }
 
-  v11 = [(PTPCPassiveInstrumentationConfig *)self _locked_setPerDrawableEnabled:v4];
+  v12 = [(PTPCPassiveInstrumentationConfig *)self _locked_setPerDrawableEnabled:v4];
 
-  return v11;
+  return v12;
 }
 
 - (id)_cleanPerDrawableSetting
@@ -949,26 +953,26 @@ LABEL_35:
 
   if (v4)
   {
-    v5 = sub_100006E80();
-    if (os_signpost_enabled(v5))
+    v6 = sub_100006E80(v5);
+    if (os_signpost_enabled(v6))
     {
       localizedDescription = [v4 localizedDescription];
-      v7 = localizedDescription;
-      v8 = @"Unknown";
+      v8 = localizedDescription;
+      v9 = @"Unknown";
       if (localizedDescription)
       {
-        v8 = localizedDescription;
+        v9 = localizedDescription;
       }
 
-      v11 = 138543362;
-      v12 = v8;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "PerDrawableCachedSettingFailure", "Failed to clear cached value due to error: %{public}@", &v11, 0xCu);
+      v12 = 138543362;
+      v13 = v9;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "PerDrawableCachedSettingFailure", "Failed to clear cached value due to error: %{public}@", &v12, 0xCu);
     }
   }
 
-  v9 = [(PTPCPassiveInstrumentationConfig *)self _locked_setPerDrawableEnabled:0];
+  v10 = [(PTPCPassiveInstrumentationConfig *)self _locked_setPerDrawableEnabled:0];
 
-  return v9;
+  return v10;
 }
 
 - (id)_restoreMetricMonitorSettings
@@ -981,49 +985,50 @@ LABEL_35:
 
   if (v6)
   {
-    v7 = sub_100006E80();
-    if (os_signpost_enabled(v7))
+    v8 = sub_100006E80(v7);
+    if (os_signpost_enabled(v8))
     {
       localizedDescription = [v6 localizedDescription];
-      v9 = localizedDescription;
-      v10 = @"Unknown";
+      v10 = localizedDescription;
+      v11 = @"Unknown";
       if (localizedDescription)
       {
-        v10 = localizedDescription;
+        v11 = localizedDescription;
       }
 
-      v16 = 138543362;
-      v17 = v10;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MetricMonitorCachedSettingFailure", "Failed to clear cached value due to error: %{public}@", &v16, 0xCu);
+      v18 = 138543362;
+      v19 = v11;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MetricMonitorCachedSettingFailure", "Failed to clear cached value due to error: %{public}@", &v18, 0xCu);
     }
   }
 
   bOOLValue = [v4 BOOLValue];
-  if (bOOLValue == [(PTPCPassiveInstrumentationConfig *)self _locked_isMetricMonitorIsMonitoring])
+  _locked_isMetricMonitorIsMonitoring = [(PTPCPassiveInstrumentationConfig *)self _locked_isMetricMonitorIsMonitoring];
+  if (bOOLValue == _locked_isMetricMonitorIsMonitoring)
   {
-    v14 = 0;
+    v16 = 0;
   }
 
   else
   {
-    v12 = sub_100006E80();
-    if (os_signpost_enabled(v12))
+    v14 = sub_100006E80(_locked_isMetricMonitorIsMonitoring);
+    if (os_signpost_enabled(v14))
     {
-      v13 = @"Disabled";
+      v15 = @"Disabled";
       if (bOOLValue)
       {
-        v13 = @"Enabled";
+        v15 = @"Enabled";
       }
 
-      v16 = 138543362;
-      v17 = v13;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "RestoringMetricMonitorSetting", "Toggling to %{public}@", &v16, 0xCu);
+      v18 = 138543362;
+      v19 = v15;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "RestoringMetricMonitorSetting", "Toggling to %{public}@", &v18, 0xCu);
     }
 
-    v14 = [(PTPCPassiveInstrumentationConfig *)self _locked_setMetricMonitoringEnabled:bOOLValue];
+    v16 = [(PTPCPassiveInstrumentationConfig *)self _locked_setMetricMonitoringEnabled:bOOLValue];
   }
 
-  return v14;
+  return v16;
 }
 
 - (id)_restoreMssPmiOverrideSetting
@@ -1036,26 +1041,26 @@ LABEL_35:
 
   if (v6)
   {
-    v7 = sub_100006E80();
-    if (os_signpost_enabled(v7))
+    v8 = sub_100006E80(v7);
+    if (os_signpost_enabled(v8))
     {
       localizedDescription = [v6 localizedDescription];
-      v9 = localizedDescription;
-      v10 = @"Unknown";
+      v10 = localizedDescription;
+      v11 = @"Unknown";
       if (localizedDescription)
       {
-        v10 = localizedDescription;
+        v11 = localizedDescription;
       }
 
-      v13 = 138543362;
-      v14 = v10;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MssPmiCachedSettingFailure", "Failed to clear cached value due to error: %{public}@", &v13, 0xCu);
+      v14 = 138543362;
+      v15 = v11;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MssPmiCachedSettingFailure", "Failed to clear cached value due to error: %{public}@", &v14, 0xCu);
     }
   }
 
-  v11 = [(PTPCPassiveInstrumentationConfig *)self _locked_setMssPMICycleInterval:v4];
+  v12 = [(PTPCPassiveInstrumentationConfig *)self _locked_setMssPMICycleInterval:v4];
 
-  return v11;
+  return v12;
 }
 
 - (id)_restoreDefaultInstrumentationSettings
@@ -1116,15 +1121,16 @@ LABEL_35:
       v16 = v7;
       do
       {
-        for (i = 0; i != v8; i = i + 1)
+        v10 = 0;
+        do
         {
           if (*v18 != v9)
           {
             objc_enumerationMutation(v5);
           }
 
-          v11 = *(*(&v17 + 1) + 8 * i);
-          v12 = sub_100006DB0();
+          v11 = *(*(&v17 + 1) + 8 * v10);
+          v12 = sub_100006DB0(v6);
           if (os_signpost_enabled(v12))
           {
             localizedDescription = [v11 localizedDescription];
@@ -1132,12 +1138,16 @@ LABEL_35:
             v22 = localizedDescription;
             _os_signpost_emit_with_name_impl(&_mh_execute_header, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "RestoreDefaultSettingsFailure", "Failed to restore overall default settings due to:\nInstrumentation error: %{public}@", buf, 0xCu);
           }
+
+          v10 = v10 + 1;
         }
 
-        v8 = [v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
+        while (v8 != v10);
+        v6 = [v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
+        v8 = v6;
       }
 
-      while (v8);
+      while (v6);
     }
 
     v14 = [NSError passiveTraceError:0 description:@"Restoring defaults failed", v16];
@@ -1212,46 +1222,47 @@ LABEL_35:
   if (v4)
   {
     unsignedIntegerValue = [v4 unsignedIntegerValue];
+    v6 = unsignedIntegerValue;
     if (unsignedIntegerValue >= 2)
     {
-      v6 = sub_100006E80();
-      if (os_signpost_enabled(v6))
+      v7 = sub_100006E80(unsignedIntegerValue);
+      if (os_signpost_enabled(v7))
       {
-        v12 = 134217984;
-        v13 = unsignedIntegerValue;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UnknownPresetSetting", "Unknown preset setting: '%lu'. Clearing.", &v12, 0xCu);
+        v13 = 134217984;
+        v14 = v6;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UnknownPresetSetting", "Unknown preset setting: '%lu'. Clearing.", &v13, 0xCu);
       }
 
       defaultsManager2 = [(PTPCPassiveInstrumentationConfig *)self defaultsManager];
-      v8 = [defaultsManager2 setObjectForKey:@"AppliedPreset" objectValue:0];
-      unsignedIntegerValue = 0;
+      v9 = [defaultsManager2 setObjectForKey:@"AppliedPreset" objectValue:0];
+      v6 = 0;
       goto LABEL_11;
     }
   }
 
   else
   {
-    unsignedIntegerValue = 0;
+    v6 = 0;
   }
 
-  defaultsManager2 = sub_100006DB0();
+  defaultsManager2 = sub_100006DB0(unsignedIntegerValue);
   if (os_signpost_enabled(defaultsManager2))
   {
-    v9 = @"PowerTracing";
-    if (!unsignedIntegerValue)
+    v10 = @"PowerTracing";
+    if (!v6)
     {
-      v9 = @"None";
+      v10 = @"None";
     }
 
-    v10 = v9;
-    v12 = 138543362;
-    v13 = v10;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, defaultsManager2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CurrentPresetSetting", "Current setting: '%{public}@'", &v12, 0xCu);
+    v11 = v10;
+    v13 = 138543362;
+    v14 = v11;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, defaultsManager2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CurrentPresetSetting", "Current setting: '%{public}@'", &v13, 0xCu);
   }
 
 LABEL_11:
 
-  return unsignedIntegerValue;
+  return v6;
 }
 
 - (unint64_t)currentPresetSetting
@@ -1405,7 +1416,7 @@ LABEL_11:
 
 - (id)_locked_handleLightweightPowerTracingPreset
 {
-  v3 = sub_100006DB0();
+  v3 = sub_100006DB0(self);
   if (os_signpost_enabled(v3))
   {
     *buf = 0;
@@ -1417,7 +1428,7 @@ LABEL_11:
   if (v5)
   {
     v6 = v5;
-    v7 = sub_100006DB0();
+    v7 = sub_100006DB0(v5);
     if (os_signpost_enabled(v7))
     {
       localizedDescription = [v6 localizedDescription];
@@ -1536,7 +1547,7 @@ LABEL_27:
 {
   if (settings >= 2)
   {
-    v10 = sub_100006E80();
+    v10 = sub_100006E80(self);
     if (os_signpost_enabled(v10))
     {
       *buf = 134217984;
@@ -1556,7 +1567,7 @@ LABEL_27:
       v13 = _locked_currentPresetSetting;
       if (_locked_currentPresetSetting)
       {
-        v14 = sub_100006DB0();
+        v14 = sub_100006DB0(_locked_currentPresetSetting);
         if (os_signpost_enabled(v14))
         {
           v15 = @"Unknown";
@@ -1568,8 +1579,8 @@ LABEL_27:
           v16 = v15;
           *buf = 138543618;
           settingsCopy = @"PowerTracing";
-          v37 = 2114;
-          v38 = v16;
+          v38 = 2114;
+          v39 = v16;
           _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CollidingPresetSettings", "Attempted to apply preset '%{public}@' when already '%{public}@'", buf, 0x16u);
         }
 
@@ -1612,88 +1623,88 @@ LABEL_14:
 
     if (v9)
     {
-      v21 = v9;
+      v22 = v9;
 LABEL_55:
 
       goto LABEL_15;
     }
 
-    v22 = sub_100006DB0();
-    if (os_signpost_enabled(v22))
+    v23 = sub_100006DB0(v21);
+    if (os_signpost_enabled(v23))
     {
-      v23 = @"Unknown";
+      v24 = @"Unknown";
       if (settings == 1)
       {
-        v23 = @"PowerTracing";
+        v24 = @"PowerTracing";
       }
 
       if (!settings)
       {
-        v23 = @"None";
+        v24 = @"None";
       }
 
-      v24 = v23;
+      v25 = v24;
       *buf = 138543362;
-      settingsCopy = v24;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v22, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UpdatedAppliedPreset", "Updated to '%{public}@'", buf, 0xCu);
+      settingsCopy = v25;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v23, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UpdatedAppliedPreset", "Updated to '%{public}@'", buf, 0xCu);
     }
 
     sub_100002698();
-    v25 = notify_post("com.apple.performancetrace.passive_preset_state_did_change");
-    if (v25)
+    v26 = notify_post("com.apple.performancetrace.passive_preset_state_did_change");
+    if (v26)
     {
-      v26 = v25;
-      v27 = sub_100006E80();
-      if (os_signpost_enabled(v27))
+      v27 = v26;
+      v28 = sub_100006E80(v26);
+      if (os_signpost_enabled(v28))
       {
-        v28 = @"Unknown";
+        v29 = @"Unknown";
         if (settings == 1)
         {
-          v28 = @"PowerTracing";
+          v29 = @"PowerTracing";
         }
 
         if (!settings)
         {
-          v28 = @"None";
+          v29 = @"None";
         }
 
-        v29 = v28;
+        v30 = v29;
         *buf = 138543618;
-        settingsCopy = v29;
-        v37 = 1026;
-        LODWORD(v38) = v26;
-        v30 = "ApplyPresetNotificationError";
-        v31 = "Failed to post notification for application of preset setting: '%{public}@'. Status: %{public}#x";
-        v32 = v27;
-        v33 = 18;
+        settingsCopy = v30;
+        v38 = 1026;
+        LODWORD(v39) = v27;
+        v31 = "ApplyPresetNotificationError";
+        v32 = "Failed to post notification for application of preset setting: '%{public}@'. Status: %{public}#x";
+        v33 = v28;
+        v34 = 18;
 LABEL_53:
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v32, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v30, v31, buf, v33);
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v33, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v31, v32, buf, v34);
       }
     }
 
     else
     {
-      v27 = sub_100006DB0();
-      if (os_signpost_enabled(v27))
+      v28 = sub_100006DB0(v26);
+      if (os_signpost_enabled(v28))
       {
-        v34 = @"Unknown";
+        v35 = @"Unknown";
         if (settings == 1)
         {
-          v34 = @"PowerTracing";
+          v35 = @"PowerTracing";
         }
 
         if (!settings)
         {
-          v34 = @"None";
+          v35 = @"None";
         }
 
-        v29 = v34;
+        v30 = v35;
         *buf = 138543362;
-        settingsCopy = v29;
-        v30 = "ApplyPresetNotificationSuccess";
-        v31 = "Posted state change notification due to application of preset setting: '%{public}@'";
-        v32 = v27;
-        v33 = 12;
+        settingsCopy = v30;
+        v31 = "ApplyPresetNotificationSuccess";
+        v32 = "Posted state change notification due to application of preset setting: '%{public}@'";
+        v33 = v28;
+        v34 = 12;
         goto LABEL_53;
       }
     }
@@ -1701,7 +1712,7 @@ LABEL_53:
     goto LABEL_55;
   }
 
-  v6 = sub_100006DB0();
+  v6 = sub_100006DB0(_locked_currentPresetSetting);
   if (os_signpost_enabled(v6))
   {
     v7 = @"Unknown";

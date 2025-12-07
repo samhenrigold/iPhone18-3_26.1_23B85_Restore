@@ -1,9 +1,37 @@
 @interface SRDTranscriptionToken
 - (SRDTranscriptionToken)initWithCoder:(id)coder;
+- (SRDTranscriptionToken)initWithTokenName:(id)name start:(double)start end:(double)end silenceStart:(double)silenceStart confidence:(double)confidence hasSpaceAfter:(BOOL)after hasSpaceBefore:(BOOL)before phoneSequence:(id)self0 ipaPhoneSequence:(id)self1;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation SRDTranscriptionToken
+
+- (SRDTranscriptionToken)initWithTokenName:(id)name start:(double)start end:(double)end silenceStart:(double)silenceStart confidence:(double)confidence hasSpaceAfter:(BOOL)after hasSpaceBefore:(BOOL)before phoneSequence:(id)self0 ipaPhoneSequence:(id)self1
+{
+  beforeCopy = before;
+  afterCopy = after;
+  nameCopy = name;
+  sequenceCopy = sequence;
+  phoneSequenceCopy = phoneSequence;
+  v26.receiver = self;
+  v26.super_class = SRDTranscriptionToken;
+  v23 = [(SRDTranscriptionToken *)&v26 init];
+  v24 = v23;
+  if (v23)
+  {
+    [(SRDTranscriptionToken *)v23 setTokenName:nameCopy];
+    [(SRDTranscriptionToken *)v24 setStart:start];
+    [(SRDTranscriptionToken *)v24 setEnd:end];
+    [(SRDTranscriptionToken *)v24 setSilenceStart:silenceStart];
+    [(SRDTranscriptionToken *)v24 setConfidence:confidence];
+    [(SRDTranscriptionToken *)v24 setHasSpaceAfter:afterCopy];
+    [(SRDTranscriptionToken *)v24 setHasSpaceBefore:beforeCopy];
+    [(SRDTranscriptionToken *)v24 setPhoneSequence:sequenceCopy];
+    [(SRDTranscriptionToken *)v24 setIpaPhoneSequence:phoneSequenceCopy];
+  }
+
+  return v24;
+}
 
 - (void)encodeWithCoder:(id)coder
 {

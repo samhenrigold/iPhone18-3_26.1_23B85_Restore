@@ -4070,28 +4070,21 @@ BOOL __81__MOContextAnnotationUtilities_predicateWithStartDate_endDate_distanceT
   return v9;
 }
 
-uint64_t __105__MOContextAnnotationUtilities_predicateOfEventsWithPlaySessionsWithStartDate_endData_distanceThreshold___block_invoke(uint64_t a1, void *a2)
+BOOL __105__MOContextAnnotationUtilities_predicateOfEventsWithPlaySessionsWithStartDate_endData_distanceThreshold___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if ([v3 category] != 6)
+  v8 = 0;
+  if ([v3 category] == 6)
   {
-    goto LABEL_4;
-  }
+    v4 = [MOContextAnnotationUtilities predicateOfMediaPlaySessionsWithStartDate:*(a1 + 32) endDate:*(a1 + 40) distanceThreshold:*(a1 + 48)];
+    v5 = [v3 mediaPlaySessions];
+    v6 = [v5 filteredArrayUsingPredicate:v4];
 
-  v4 = [MOContextAnnotationUtilities predicateOfMediaPlaySessionsWithStartDate:*(a1 + 32) endDate:*(a1 + 40) distanceThreshold:*(a1 + 48)];
-  v5 = [v3 mediaPlaySessions];
-  v6 = [v5 filteredArrayUsingPredicate:v4];
-
-  v7 = [v6 count];
-  if (v7)
-  {
-    v8 = 1;
-  }
-
-  else
-  {
-LABEL_4:
-    v8 = 0;
+    v7 = [v6 count];
+    if (v7)
+    {
+      v8 = 1;
+    }
   }
 
   return v8;
@@ -6091,23 +6084,22 @@ LABEL_34:
         }
 
         v42 = *(*(&v59 + 1) + 8 * j);
-        if ([v42 fromFirstParty])
+        if (([v42 fromFirstParty] & 1) == 0)
         {
-          goto LABEL_44;
+          appBundle = [v42 appBundle];
+          firstObject2 = [v36 firstObject];
+          appBundle2 = [firstObject2 appBundle];
+          v46 = [appBundle isEqualToString:appBundle2];
+
+          if (v46)
+          {
+            continue;
+          }
         }
 
-        appBundle = [v42 appBundle];
-        firstObject2 = [v36 firstObject];
-        appBundle2 = [firstObject2 appBundle];
-        v46 = [appBundle isEqualToString:appBundle2];
-
-        if (!v46)
-        {
-LABEL_44:
-          firstObject3 = v36;
-          v33 = v58;
-          goto LABEL_45;
-        }
+        firstObject3 = v36;
+        v33 = v58;
+        goto LABEL_45;
       }
 
       v39 = [v36 countByEnumeratingWithState:&v59 objects:v67 count:16];
@@ -6403,7 +6395,7 @@ LABEL_53:
 {
   [a1 count];
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_2(&_mh_execute_header, v1, v2, "MediaName, playSessions.count, %lu, intervalOfInterest, %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_2(&_mh_execute_header, v1, v2, "MediaName, playSessions.count, %lu, intervalOfInterest, %@", v3, v4, v5, v6);
 }
 
 + (void)dominantMediaNameFromPlaySessions:intervalOfInterest:dominantFactorThreshold:confidence:.cold.3()
@@ -6417,7 +6409,7 @@ LABEL_53:
 {
   [a1 count];
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_2(&_mh_execute_header, v1, v2, "MediaName, playSessions.count, %lu, intervalsOfInterest, %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_2(&_mh_execute_header, v1, v2, "MediaName, playSessions.count, %lu, intervalsOfInterest, %@", v3, v4, v5, v6);
 }
 
 + (void)dominantMediaNameFromPlaySessions:intervalsOfInterest:dominantFactorThreshold:confidence:.cold.2()

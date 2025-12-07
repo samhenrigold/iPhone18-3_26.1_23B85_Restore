@@ -28,7 +28,7 @@
 
 - (id)asClinicalProviderWithBrand:(id)brand
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v4 = [(HKClinicalSampleAccount *)self asClinicalGatewayWithBrand:brand];
   v5 = [HKClinicalProvider alloc];
   identifier = [(HKClinicalSampleAccountProvider *)self->_provider identifier];
@@ -38,11 +38,9 @@
   properties2 = [(HKClinicalSampleAccountProvider *)self->_provider properties];
   v11 = [properties2 objectForKeyedSubscript:@"location"];
   brand = [v4 brand];
-  v17[0] = v4;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v16[0] = v4;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
   v14 = [(HKClinicalProvider *)v5 initWithExternalID:identifier title:title subtitle:v9 location:v11 informationURL:0 brand:brand gateways:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

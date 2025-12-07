@@ -27,7 +27,7 @@
   if (result)
   {
     result->_targetRate = 1.0;
-    result->_playableRange = RCTimeRangeEverything;
+    result->_playableRange = *RCTimeRangeEverything;
     LODWORD(result->_speechIsolatorValue) = kDefaultSpeechIsolatorValue;
   }
 

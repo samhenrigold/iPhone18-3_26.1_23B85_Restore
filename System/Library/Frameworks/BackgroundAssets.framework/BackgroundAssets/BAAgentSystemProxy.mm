@@ -110,18 +110,16 @@ void __61__BAAgentSystemProxy_applicationPrepareWithDescriptor_error___block_inv
   v12 = *MEMORY[0x277D85DE8];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
-  v5 = BAClientLogObject();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = BAClientLogObject(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v6 = [v4 description];
+    v7 = [v4 description];
     v8 = 136446466;
     v9 = "[BAAgentSystemProxy applicationPrepareWithDescriptor:error:]_block_invoke";
     v10 = 2114;
-    v11 = v6;
-    _os_log_impl(&dword_236E28000, v5, OS_LOG_TYPE_INFO, "Failed to send message %{public}s - Error: %{public}@", &v8, 0x16u);
+    v11 = v7;
+    _os_log_impl(&dword_236E28000, v6, OS_LOG_TYPE_INFO, "Failed to send message %{public}s - Error: %{public}@", &v8, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __68__BAAgentSystemProxy_applicationEventPerformedWithDescriptor_error___block_invoke(uint64_t a1, void *a2)
@@ -129,18 +127,16 @@ void __68__BAAgentSystemProxy_applicationEventPerformedWithDescriptor_error___bl
   v12 = *MEMORY[0x277D85DE8];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
-  v5 = BAClientLogObject();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = BAClientLogObject(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v6 = [v4 description];
+    v7 = [v4 description];
     v8 = 136446466;
     v9 = "[BAAgentSystemProxy applicationEventPerformedWithDescriptor:error:]_block_invoke";
     v10 = 2114;
-    v11 = v6;
-    _os_log_impl(&dword_236E28000, v5, OS_LOG_TYPE_INFO, "Failed to send message %{public}s - Error: %{public}@", &v8, 0x16u);
+    v11 = v7;
+    _os_log_impl(&dword_236E28000, v6, OS_LOG_TYPE_INFO, "Failed to send message %{public}s - Error: %{public}@", &v8, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __89__BAAgentSystemProxy_applicationShouldTriggerPeriodicWithIdentifier_bundleURLPath_error___block_invoke(uint64_t a1, void *a2)
@@ -148,36 +144,32 @@ void __89__BAAgentSystemProxy_applicationShouldTriggerPeriodicWithIdentifier_bun
   v12 = *MEMORY[0x277D85DE8];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
-  v5 = BAClientLogObject();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = BAClientLogObject(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v6 = [v4 description];
+    v7 = [v4 description];
     v8 = 136446466;
     v9 = "[BAAgentSystemProxy applicationShouldTriggerPeriodicWithIdentifier:bundleURLPath:error:]_block_invoke";
     v10 = 2114;
-    v11 = v6;
-    _os_log_impl(&dword_236E28000, v5, OS_LOG_TYPE_INFO, "Failed to send message %{public}s - Error: %{public}@", &v8, 0x16u);
+    v11 = v7;
+    _os_log_impl(&dword_236E28000, v6, OS_LOG_TYPE_INFO, "Failed to send message %{public}s - Error: %{public}@", &v8, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __38__BAAgentSystemProxy_runDebugCommand___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = BAClientLogObject();
+  v3 = BAClientLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = [v2 description];
-    v6 = 136446466;
-    v7 = "[BAAgentSystemProxy runDebugCommand:]_block_invoke";
-    v8 = 2114;
-    v9 = v4;
-    _os_log_impl(&dword_236E28000, v3, OS_LOG_TYPE_INFO, "Failed to send message %{public}s - Error: %{public}@", &v6, 0x16u);
+    v5 = 136446466;
+    v6 = "[BAAgentSystemProxy runDebugCommand:]_block_invoke";
+    v7 = 2114;
+    v8 = v4;
+    _os_log_impl(&dword_236E28000, v3, OS_LOG_TYPE_INFO, "Failed to send message %{public}s - Error: %{public}@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __79__BAAgentSystemProxy_updateAppStoreProgressObservationWithConfiguration_error___block_invoke(uint64_t a1, void *a2)
@@ -185,18 +177,16 @@ void __79__BAAgentSystemProxy_updateAppStoreProgressObservationWithConfiguration
   v12 = *MEMORY[0x277D85DE8];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
-  v5 = BAClientLogObject();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = BAClientLogObject(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v6 = [v4 description];
+    v7 = [v4 description];
     v8 = 136446466;
     v9 = "[BAAgentSystemProxy updateAppStoreProgressObservationWithConfiguration:error:]_block_invoke";
     v10 = 2114;
-    v11 = v6;
-    _os_log_impl(&dword_236E28000, v5, OS_LOG_TYPE_INFO, "Failed to send message %{public}s - Error: %{public}@", &v8, 0x16u);
+    v11 = v7;
+    _os_log_impl(&dword_236E28000, v6, OS_LOG_TYPE_INFO, "Failed to send message %{public}s - Error: %{public}@", &v8, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __38__BAAgentSystemProxy__setupConnection__block_invoke_2(uint64_t a1)
@@ -276,21 +266,22 @@ void __38__BAAgentSystemProxy__setupConnection__block_invoke_2(uint64_t a1)
           v18 = 0;
           v10 = [(os_unfair_lock_s *)self updateAppStoreProgressObservationWithConfiguration:v6 error:&v18];
           v11 = v18;
+          v12 = v11;
           if ((v10 & 1) == 0)
           {
-            v12 = BAClientLogObject();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+            v13 = BAClientLogObject(v11);
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
             {
-              v13 = [v11 description];
+              v14 = [v12 description];
               *buf = 138543362;
-              v20 = v13;
-              _os_log_impl(&dword_236E28000, v12, OS_LOG_TYPE_INFO, "Error occured updating progress observer after a connection interruption - Error: %{public}@", buf, 0xCu);
+              v20 = v14;
+              _os_log_impl(&dword_236E28000, v13, OS_LOG_TYPE_INFO, "Error occured updating progress observer after a connection interruption - Error: %{public}@", buf, 0xCu);
             }
 
             os_unfair_lock_lock(self + 3);
-            if (!OUTLINED_FUNCTION_8_0(v14, v15))
+            if (!OUTLINED_FUNCTION_8_0(v15, v16))
             {
-              objc_setProperty_atomic(self, v16, v6, 24);
+              objc_setProperty_atomic(self, v17, v6, 24);
             }
 
             os_unfair_lock_unlock(self + 3);
@@ -305,16 +296,14 @@ void __38__BAAgentSystemProxy__setupConnection__block_invoke_2(uint64_t a1)
       v6 = 0;
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)applicationPrepareWithDescriptor:(id)descriptor error:(id *)error
 {
   descriptorCopy = descriptor;
   [(BAAgentSystemProxy *)self _ensureConnection];
-  v34 = 0;
-  v35 = &v34;
+  v33 = 0;
+  v34 = &v33;
   OUTLINED_FUNCTION_2_0(COERCE_DOUBLE(0x3032000000));
   OUTLINED_FUNCTION_9_0();
   if (self)
@@ -332,22 +321,22 @@ void __38__BAAgentSystemProxy__setupConnection__block_invoke_2(uint64_t a1)
   OUTLINED_FUNCTION_10_0();
   v29 = __61__BAAgentSystemProxy_applicationPrepareWithDescriptor_error___block_invoke;
   v30 = &unk_278A0D0B8;
-  v31 = &v34;
+  v31 = &v33;
   v11 = [v10 synchronousRemoteObjectProxyWithErrorHandler:v28];
   OUTLINED_FUNCTION_3_0();
   v24 = __61__BAAgentSystemProxy_applicationPrepareWithDescriptor_error___block_invoke_66;
   v25 = &unk_278A0CFA0;
   v26 = &v32;
-  v27 = &v34;
+  v27 = &v33;
   [v12 applicationPrepareWithDescriptor:descriptorCopy completionHandler:v23];
 
   if (error)
   {
-    v13 = v35[5];
+    v13 = v34[5];
     *error = v13;
   }
 
-  OUTLINED_FUNCTION_5_0(v13, v14, v15, v16, v17, v18, v19, v20, v22, v23[0], v23[1], v24, v25, v26, v27, v28[0], v28[1], v29, v30, v31, v32, v33);
+  OUTLINED_FUNCTION_5_0(v13, v14, v15, v16, v17, v18, v19, v20, v22, v23[0], v23[1], v24, v25, v26, v27, v28[0], v28[1], v29, v30, v31);
   OUTLINED_FUNCTION_11_0();
 
   return error;
@@ -357,8 +346,8 @@ void __38__BAAgentSystemProxy__setupConnection__block_invoke_2(uint64_t a1)
 {
   descriptorCopy = descriptor;
   [(BAAgentSystemProxy *)self _ensureConnection];
-  v34 = 0;
-  v35 = &v34;
+  v33 = 0;
+  v34 = &v33;
   OUTLINED_FUNCTION_2_0(COERCE_DOUBLE(0x3032000000));
   OUTLINED_FUNCTION_9_0();
   if (self)
@@ -376,22 +365,22 @@ void __38__BAAgentSystemProxy__setupConnection__block_invoke_2(uint64_t a1)
   OUTLINED_FUNCTION_10_0();
   v29 = __68__BAAgentSystemProxy_applicationEventPerformedWithDescriptor_error___block_invoke;
   v30 = &unk_278A0D0B8;
-  v31 = &v34;
+  v31 = &v33;
   v11 = [v10 synchronousRemoteObjectProxyWithErrorHandler:v28];
   OUTLINED_FUNCTION_3_0();
   v24 = __68__BAAgentSystemProxy_applicationEventPerformedWithDescriptor_error___block_invoke_68;
   v25 = &unk_278A0CFA0;
   v26 = &v32;
-  v27 = &v34;
+  v27 = &v33;
   [v12 applicationEventPerformedWithDescriptor:descriptorCopy completionHandler:v23];
 
   if (error)
   {
-    v13 = v35[5];
+    v13 = v34[5];
     *error = v13;
   }
 
-  OUTLINED_FUNCTION_5_0(v13, v14, v15, v16, v17, v18, v19, v20, v22, v23[0], v23[1], v24, v25, v26, v27, v28[0], v28[1], v29, v30, v31, v32, v33);
+  OUTLINED_FUNCTION_5_0(v13, v14, v15, v16, v17, v18, v19, v20, v22, v23[0], v23[1], v24, v25, v26, v27, v28[0], v28[1], v29, v30, v31);
   OUTLINED_FUNCTION_11_0();
 
   return error;
@@ -466,10 +455,10 @@ void __38__BAAgentSystemProxy__setupConnection__block_invoke_2(uint64_t a1)
 {
   configurationCopy = configuration;
   [(BAAgentSystemProxy *)self _ensureConnection];
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy__1;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__1;
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_9_0();
   os_unfair_lock_lock(&self->_progressObserverLock);
@@ -491,22 +480,22 @@ void __38__BAAgentSystemProxy__setupConnection__block_invoke_2(uint64_t a1)
   OUTLINED_FUNCTION_10_0();
   v30 = __79__BAAgentSystemProxy_updateAppStoreProgressObservationWithConfiguration_error___block_invoke;
   v31 = &unk_278A0D0B8;
-  v32 = &v35;
+  v32 = &v34;
   v12 = [v11 synchronousRemoteObjectProxyWithErrorHandler:v29];
   OUTLINED_FUNCTION_3_0();
   v25 = __79__BAAgentSystemProxy_updateAppStoreProgressObservationWithConfiguration_error___block_invoke_73;
   v26 = &unk_278A0CFA0;
   v27 = &v33;
-  v28 = &v35;
+  v28 = &v34;
   [v13 updateAppStoreProgressObservationWithConfiguration:configurationCopy completionHandler:v24];
 
   if (error)
   {
-    v14 = v36[5];
+    v14 = v35[5];
     *error = v14;
   }
 
-  OUTLINED_FUNCTION_5_0(v14, v15, v16, v17, v18, v19, v20, v21, v23, v24[0], v24[1], v25, v26, v27, v28, v29[0], v29[1], v30, v31, v32, v33, v34);
+  OUTLINED_FUNCTION_5_0(v14, v15, v16, v17, v18, v19, v20, v21, v23, v24[0], v24[1], v25, v26, v27, v28, v29[0], v29[1], v30, v31, v32);
   OUTLINED_FUNCTION_12_0();
 
   return error;

@@ -129,38 +129,38 @@ LABEL_7:
 
 - (BOOL)elapsedTimeIsSet
 {
-  sub_E7E0();
-  sub_E7C4();
+  v2 = sub_E7E0(self);
+  sub_E7C4(v2);
   return 0;
 }
 
 - (unsigned)elapsedTime
 {
-  sub_E7E0();
-  sub_E7C4();
+  v2 = sub_E7E0(self);
+  sub_E7C4(v2);
   return 0;
 }
 
 - (NSArray)allFields
 {
-  sub_E7E0();
-  sub_E7C4();
+  v2 = sub_E7E0(self);
+  sub_E7C4(v2);
   return &__NSArray0__struct;
 }
 
 + (id)uuid
 {
-  sub_E7E0();
-  sub_E7C4();
-  v2 = objc_alloc_init(CBUUID);
+  v2 = sub_E7E0(self);
+  sub_E7C4(v2);
+  v3 = objc_alloc_init(CBUUID);
 
-  return v2;
+  return v3;
 }
 
 + (unsigned)flagFieldLength
 {
-  sub_E7E0();
-  sub_E7C4();
+  v2 = sub_E7E0(self);
+  sub_E7C4(v2);
   return 0;
 }
 

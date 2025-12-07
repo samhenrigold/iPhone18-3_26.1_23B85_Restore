@@ -25,7 +25,7 @@ void sub_1DDE8B950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<BOOL>>,std::vector<BOOL>*,std::vector<BOOL>*,std::vector<BOOL>*>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<BOOL>>,std::vector<BOOL>*,std::vector<BOOL>*,std::vector<BOOL>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -74,22 +74,22 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
   return a1;
 }
 
-uint64_t std::vector<BOOL>::operator=(uint64_t a1, uint64_t a2)
+uint64_t *std::vector<BOOL>::operator=(uint64_t *a1, uint64_t a2)
 {
   if (a1 != a2)
   {
     v4 = *(a2 + 8);
     if (v4)
     {
-      if (v4 > *(a1 + 16) << 6)
+      if (v4 > a1[2] << 6)
       {
         v5 = *a1;
         if (*a1)
         {
           operator delete(v5);
           *a1 = 0;
-          *(a1 + 8) = 0;
-          *(a1 + 16) = 0;
+          a1[1] = 0;
+          a1[2] = 0;
           v4 = *(a2 + 8);
         }
 
@@ -105,7 +105,7 @@ uint64_t std::vector<BOOL>::operator=(uint64_t a1, uint64_t a2)
       v6 = 0;
     }
 
-    *(a1 + 8) = v6;
+    a1[1] = v6;
   }
 
   return a1;
@@ -1073,20 +1073,20 @@ void sub_1DDE8D1EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-CFArrayRef applesauce::CF::details::make_CFArrayRef<std::vector<float>>(uint64_t **a1)
+CFArrayRef applesauce::CF::details::make_CFArrayRef<std::vector<float>>(uint64_t *a1)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * (a1[1] - *a1);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v16 = 0;
   v17 = 0;
   v18 = 0;
   std::vector<applesauce::CF::ArrayRef>::reserve(&v16, v2);
   v4 = *a1;
-  for (i = a1[1]; v4 != i; v4 += 3)
+  for (i = a1[1]; v4 != i; v4 += 24)
   {
     __p = 0;
     v14 = 0;
     v15 = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, *v4, v4[1], (v4[1] - *v4) >> 2);
+    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, *v4, *(v4 + 8), (*(v4 + 8) - *v4) >> 2);
     v5 = v17;
     if (v17 >= v18)
     {
@@ -3369,7 +3369,7 @@ uint64_t AUSM::AtomicPropertyWithRange<AUSM::eDisplayGeometry>::~AtomicPropertyW
   return a1;
 }
 
-void AUSM::CFProperty<__CFString const*>::printValue(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+void AUSM::CFProperty<__CFString const*>::printValue(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   AUSM::AppleSauceCFWithMutex<__CFString const*>::load(&v5, *(a1 + 48));
   v3 = v5;
@@ -3585,7 +3585,7 @@ uint64_t AUSM::CFProperty<__CFString const*>::~CFProperty(uint64_t a1)
   return a1;
 }
 
-void AUSM::CFProperty<__CFArray const*>::printValue(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+void AUSM::CFProperty<__CFArray const*>::printValue(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   AUSM::AppleSauceCFWithMutex<__CFArray const*>::load(cf, *(a1 + 48));
   v3 = cf[0];
@@ -4901,7 +4901,7 @@ uint64_t AUSM::AtomicPropertyWithRange<SpatializerOrientation>::~AtomicPropertyW
   return a1;
 }
 
-void AUSM::CFProperty<__CFDictionary const*>::printValue(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+void AUSM::CFProperty<__CFDictionary const*>::printValue(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   AUSM::AppleSauceCFWithMutex<__CFDictionary const*>::load(cf, *(a1 + 48));
   v3 = cf[0];

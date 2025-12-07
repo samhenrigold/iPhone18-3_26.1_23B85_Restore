@@ -23,9 +23,11 @@
 
 uint64_t __35__CNEnvironment_defaultEnvironment__block_invoke(uint64_t a1)
 {
-  defaultEnvironment_cn_once_object_3 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = defaultEnvironment_cn_once_object_3;
+  defaultEnvironment_cn_once_object_3 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (CNEnvironment)init
@@ -183,9 +185,11 @@ id __33__CNEnvironment_isGreenTeaDevice__block_invoke_2(uint64_t a1)
 
 uint64_t __23__CNEnvironment_os_log__block_invoke()
 {
-  os_log_cn_once_object_2 = os_log_create("com.apple.contacts.foundation", "CNEnvironment");
+  v0 = os_log_create("com.apple.contacts.foundation", "CNEnvironment");
+  v1 = os_log_cn_once_object_2;
+  os_log_cn_once_object_2 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)os_log
@@ -518,26 +522,24 @@ id __41__CNEnvironment_valueForKey_onCacheMiss___block_invoke(void *a1)
 
 - (void)isGreenTeaDevice
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1859F0000, a2, OS_LOG_TYPE_DEBUG, "Is regulated SKU: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1859F0000, a2, OS_LOG_TYPE_DEBUG, "Is regulated SKU: %@", &v2, 0xCu);
 }
 
 - (void)isExtendedGreenTeaDevice
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = @"NO";
   if (self)
   {
     v2 = @"YES";
   }
 
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1859F0000, a2, OS_LOG_TYPE_DEBUG, "Is regulated SKU: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1859F0000, a2, OS_LOG_TYPE_DEBUG, "Is regulated SKU: %@", &v3, 0xCu);
 }
 
 @end

@@ -25,7 +25,7 @@
 
   v6 = sub_1006CA3AC(v8);
 
-  sub_10000CAAC(v8, &unk_1019F4D00);
+  sub_10000CAAC(v8, &unk_1019F4D00, &unk_10146E7F0);
   return v6;
 }
 

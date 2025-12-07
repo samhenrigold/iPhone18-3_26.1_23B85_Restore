@@ -34,9 +34,9 @@
 + (BOOL)isCloudKitSyncFlagsRecordID:(id)d
 {
   recordName = [d recordName];
-  v4 = [recordName isEqualToString:@"ShortcutFlags"];
+  isEqualToString = objc_msgSend_isEqualToString_(recordName);
 
-  return v4;
+  return isEqualToString;
 }
 
 + (id)recordIDWithZoneID:(id)d
@@ -55,16 +55,14 @@
 
 + (NSDictionary)properties
 {
-  v8[2] = *MEMORY[0x1E69E9840];
-  v7[0] = @"migratedVoiceShortcuts";
+  v7[2] = *MEMORY[0x1E69E9840];
+  v6[0] = @"migratedVoiceShortcuts";
   v2 = [WFCloudKitItemProperty scalarPropertyWithName:"scalarPropertyWithName:nilValue:" nilValue:?];
-  v7[1] = @"defaultShortcutsVersion";
-  v8[0] = v2;
+  v6[1] = @"defaultShortcutsVersion";
+  v7[0] = v2;
   v3 = [WFCloudKitItemProperty scalarPropertyWithName:"scalarPropertyWithName:nilValue:" nilValue:?];
-  v8[1] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }

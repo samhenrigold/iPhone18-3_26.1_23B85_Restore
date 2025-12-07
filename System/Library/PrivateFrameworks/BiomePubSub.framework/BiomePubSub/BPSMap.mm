@@ -11,12 +11,10 @@
 
 - (id)upstreamPublishers
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   upstream = [(BPSMap *)self upstream];
-  v6[0] = upstream;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = upstream;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }
@@ -79,15 +77,15 @@ LABEL_4:
 
 - (void)subscribe:(id)subscribe
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   subscribeCopy = subscribe;
   v5 = __biome_log_for_category();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v12 = 138412290;
-    v13 = objc_opt_class();
-    v6 = v13;
-    _os_log_impl(&dword_1C871B000, v5, OS_LOG_TYPE_INFO, "%@ - subscribe", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = objc_opt_class();
+    v6 = v12;
+    _os_log_impl(&dword_1C871B000, v5, OS_LOG_TYPE_INFO, "%@ - subscribe", &v11, 0xCu);
   }
 
   v7 = [_BPSMapInner alloc];
@@ -96,8 +94,6 @@ LABEL_4:
 
   upstream = [(BPSMap *)self upstream];
   [upstream subscribe:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (id)publisherWithPublisher:(id)publisher upstreams:(id)upstreams bookmarkState:(id)state
@@ -115,12 +111,10 @@ LABEL_4:
 
 - (id)bookmarkableUpstreams
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   upstream = [(BPSMap *)self upstream];
-  v6[0] = upstream;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = upstream;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }

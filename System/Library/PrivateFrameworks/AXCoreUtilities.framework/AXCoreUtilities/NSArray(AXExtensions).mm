@@ -48,8 +48,9 @@
 
 + (id)axArrayByIgnoringNilElementsWithCount:()AXExtensions
 {
+  v9 = a3;
   array = [MEMORY[0x1E695DF70] array];
-  for (i = &a9; a3; --a3)
+  for (i = &a9; v9; --v9)
   {
     v11 = i++;
     if (*v11)
@@ -63,45 +64,43 @@
 
 - (id)axUniqueArrayWithPredicate:()AXExtensions
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [MEMORY[0x1E695DFA8] set];
   array = [MEMORY[0x1E695DF70] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   selfCopy = self;
-  v8 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         v13 = v4[2](v4, v12);
-        if (v13 && ([v5 containsObject:{v13, v16}] & 1) == 0)
+        if (v13 && ([v5 containsObject:{v13, v15}] & 1) == 0)
         {
           [v5 addObject:v13];
           [array addObject:v12];
         }
       }
 
-      v9 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return array;
 }

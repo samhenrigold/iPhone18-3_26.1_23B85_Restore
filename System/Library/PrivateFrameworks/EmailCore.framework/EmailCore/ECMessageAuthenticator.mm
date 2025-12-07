@@ -285,60 +285,58 @@ LABEL_9:
 
 - (void)_addServerResultsFromMessage:(id)message toResult:(id)result
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   headers = [message headers];
   v8 = [ECHeaderAuthenticationResults authenticationResultsForRawHeaders:headers];
 
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__2;
-  v26 = __Block_byref_object_dispose__2;
-  v27 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__2;
+  v25 = __Block_byref_object_dispose__2;
+  v26 = 0;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = v8;
-  v9 = [obj countByEnumeratingWithState:&v18 objects:v28 count:16];
+  v9 = [obj countByEnumeratingWithState:&v17 objects:v27 count:16];
   if (v9)
   {
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       v11 = 0;
       do
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        statements = [*(*(&v18 + 1) + 8 * v11) statements];
-        v15[0] = MEMORY[0x277D85DD0];
-        v15[1] = 3221225472;
-        v15[2] = __64__ECMessageAuthenticator__addServerResultsFromMessage_toResult___block_invoke;
-        v15[3] = &unk_27874BBF8;
-        v15[4] = self;
-        v17 = &v22;
-        v16 = resultCopy;
-        [statements enumerateObjectsUsingBlock:v15];
+        statements = [*(*(&v17 + 1) + 8 * v11) statements];
+        v14[0] = MEMORY[0x277D85DD0];
+        v14[1] = 3221225472;
+        v14[2] = __64__ECMessageAuthenticator__addServerResultsFromMessage_toResult___block_invoke;
+        v14[3] = &unk_27874BBF8;
+        v14[4] = self;
+        v16 = &v21;
+        v15 = resultCopy;
+        [statements enumerateObjectsUsingBlock:v14];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [obj countByEnumeratingWithState:&v18 objects:v28 count:16];
+      v9 = [obj countByEnumeratingWithState:&v17 objects:v27 count:16];
     }
 
     while (v9);
   }
 
-  [resultCopy setDkimServerStatements:v23[5]];
-  _Block_object_dispose(&v22, 8);
-
-  v13 = *MEMORY[0x277D85DE8];
+  [resultCopy setDkimServerStatements:v22[5]];
+  _Block_object_dispose(&v21, 8);
 }
 
 void __64__ECMessageAuthenticator__addServerResultsFromMessage_toResult___block_invoke(uint64_t a1, void *a2)
@@ -420,26 +418,24 @@ LABEL_13:
 
 void __50__ECMessageAuthenticator__resultForDKIMStatement___block_invoke()
 {
-  v4[7] = *MEMORY[0x277D85DE8];
-  v3[0] = @"none";
-  v3[1] = @"pass";
-  v4[0] = &unk_284050908;
-  v4[1] = &unk_284050920;
-  v3[2] = @"fail";
-  v3[3] = @"policy";
-  v4[2] = &unk_284050938;
-  v4[3] = &unk_284050950;
-  v3[4] = @"neutral";
-  v3[5] = @"temperror";
-  v4[4] = &unk_284050968;
-  v4[5] = &unk_284050980;
-  v3[6] = @"permerror";
-  v4[6] = &unk_284050998;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:7];
+  v3[7] = *MEMORY[0x277D85DE8];
+  v2[0] = @"none";
+  v2[1] = @"pass";
+  v3[0] = &unk_284050908;
+  v3[1] = &unk_284050920;
+  v2[2] = @"fail";
+  v2[3] = @"policy";
+  v3[2] = &unk_284050938;
+  v3[3] = &unk_284050950;
+  v2[4] = @"neutral";
+  v2[5] = @"temperror";
+  v3[4] = &unk_284050968;
+  v3[5] = &unk_284050980;
+  v2[6] = @"permerror";
+  v3[6] = &unk_284050998;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:7];
   v1 = _resultForDKIMStatement__kDKIMResultByResultString;
   _resultForDKIMStatement__kDKIMResultByResultString = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_signingDomainForDKIMStatement:(id)statement
@@ -481,22 +477,20 @@ void __50__ECMessageAuthenticator__resultForDKIMStatement___block_invoke()
 
 void __51__ECMessageAuthenticator__resultForDMARCStatement___block_invoke()
 {
-  v4[5] = *MEMORY[0x277D85DE8];
-  v3[0] = @"none";
-  v3[1] = @"pass";
-  v4[0] = &unk_284050920;
-  v4[1] = &unk_284050938;
-  v3[2] = @"fail";
-  v3[3] = @"temperror";
-  v4[2] = &unk_284050950;
-  v4[3] = &unk_284050968;
-  v3[4] = @"permerror";
-  v4[4] = &unk_284050980;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:5];
+  v3[5] = *MEMORY[0x277D85DE8];
+  v2[0] = @"none";
+  v2[1] = @"pass";
+  v3[0] = &unk_284050920;
+  v3[1] = &unk_284050938;
+  v2[2] = @"fail";
+  v2[3] = @"temperror";
+  v3[2] = &unk_284050950;
+  v3[3] = &unk_284050968;
+  v2[4] = @"permerror";
+  v3[4] = &unk_284050980;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:5];
   v1 = _resultForDMARCStatement__kDMARCStatusByResultString;
   _resultForDMARCStatement__kDMARCStatusByResultString = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -5,6 +5,7 @@
 - (HKOntologyStore)initWithHealthStore:(id)store;
 - (id)exportedInterface;
 - (id)remoteInterface;
+- (void)_callUnitTestHookObserving:(BOOL)observing success:(BOOL)success error:(id)error;
 - (void)_handleAutomaticProxyReconnection;
 - (void)_notifyObserversAboutReconnect;
 - (void)_observeOntologyStoreChanges:(BOOL)changes completion:(id)completion;
@@ -446,12 +447,11 @@ void __39__HKOntologyStore_initWithHealthStore___block_invoke(uint64_t a1)
 
 - (void)_handleAutomaticProxyReconnection
 {
-  *v4 = 138543618;
-  *&v4[4] = self;
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_0(&dword_1DF70B000, a2, a3, "[%{public}@] Failed to resume observation on server reconnection: %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138543618;
+  *&v3[4] = self;
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_0(&dword_1DF70B000, a2, a3, "[%{public}@] Failed to resume observation on server reconnection: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 - (void)_notifyObserversAboutReconnect
@@ -503,7 +503,7 @@ void __41__HKOntologyStore__registerFirstObserver__block_invoke(uint64_t a1, uin
 
 void __42__HKOntologyStore__unregisterLastObserver__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -517,18 +517,16 @@ void __42__HKOntologyStore__unregisterLastObserver__block_invoke(uint64_t a1, ui
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         v9 = *(a1 + 32);
-        v11 = 138543618;
-        v12 = v9;
-        v13 = 2114;
-        v14 = v5;
-        _os_log_impl(&dword_1DF70B000, v8, OS_LOG_TYPE_INFO, "%{public}@: unable to unregister observing changes: %{public}@", &v11, 0x16u);
+        v10 = 138543618;
+        v11 = v9;
+        v12 = 2114;
+        v13 = v5;
+        _os_log_impl(&dword_1DF70B000, v8, OS_LOG_TYPE_INFO, "%{public}@: unable to unregister observing changes: %{public}@", &v10, 0x16u);
       }
     }
   }
 
   [*(a1 + 32) _callUnitTestHookObserving:0 success:a2 error:v5];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_observeOntologyStoreChanges:(BOOL)changes completion:(id)completion
@@ -609,6 +607,19 @@ uint64_t __71__HKOntologyStore__synchronouslyRegisterToObserveOntologyStoreChang
   return [a2 remote_observeOntologyStoreChanges:1 completion:v3];
 }
 
+- (void)_callUnitTestHookObserving:(BOOL)observing success:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  observingCopy = observing;
+  errorCopy = error;
+  v8 = MEMORY[0x1E12DD030](self->_unitTesting_didChangeObserverRegistration);
+  v9 = v8;
+  if (v8)
+  {
+    (*(v8 + 16))(v8, observingCopy, successCopy, errorCopy);
+  }
+}
+
 - (void)unitTest_noOpWithCompletion:(id)completion
 {
   completionCopy = completion;
@@ -631,12 +642,11 @@ uint64_t __71__HKOntologyStore__synchronouslyRegisterToObserveOntologyStoreChang
 
 void __41__HKOntologyStore__registerFirstObserver__block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = *(a1 + 32);
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_0(&dword_1DF70B000, a2, a3, "%{public}@: unable to register to observe changes: %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138543618;
+  *&v3[4] = *(a1 + 32);
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_0(&dword_1DF70B000, a2, a3, "%{public}@: unable to register to observe changes: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 @end

@@ -432,7 +432,7 @@ LABEL_18:
 {
   staticAssets = [(MPModelMediaClip *)self->_mediaClip staticAssets];
   firstObject = [staticAssets firstObject];
-  [firstObject duration];
+  objc_msgSend_duration(firstObject);
   v5 = v4;
 
   return v5;

@@ -1,5 +1,6 @@
 @interface BLSForceActiveAttribute
 + (id)forceActive;
++ (id)forceActiveUserInitiated:(BOOL)initiated;
 - (BLSForceActiveAttribute)initWithCoder:(id)coder;
 - (BLSForceActiveAttribute)initWithUserInitiated:(BOOL)initiated;
 - (BLSForceActiveAttribute)initWithXPCDictionary:(id)dictionary;
@@ -16,6 +17,13 @@
   v2 = [[self alloc] initWithUserInitiated:0];
 
   return v2;
+}
+
++ (id)forceActiveUserInitiated:(BOOL)initiated
+{
+  v3 = [[self alloc] initWithUserInitiated:initiated];
+
+  return v3;
 }
 
 - (BLSForceActiveAttribute)initWithUserInitiated:(BOOL)initiated

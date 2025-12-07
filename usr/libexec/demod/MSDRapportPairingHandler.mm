@@ -93,7 +93,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     device = [(MSDRapportPairingHandler *)self device];
@@ -124,7 +124,7 @@
 
 - (void)activate
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     device = [(MSDRapportPairingHandler *)self device];
@@ -172,29 +172,29 @@
   queue = [(MSDRapportPairingHandler *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100063A54();
-  localizedDescription = v6;
+  v7 = sub_100063A54(v6);
+  localizedDescription = v7;
   if (errorCopy)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1000CA954(self, errorCopy);
     }
 
     localizedDescription = [errorCopy localizedDescription];
-    v8 = [NSError errorDomainMSDWithCode:3727741107 message:@"Cannot authenticate demo peer." reason:localizedDescription];
+    v9 = [NSError errorDomainMSDWithCode:3727741107 message:@"Cannot authenticate demo peer." reason:localizedDescription];
   }
 
   else
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
+      v12 = 138543362;
       selfCopy = self;
-      _os_log_impl(&_mh_execute_header, localizedDescription, OS_LOG_TYPE_DEFAULT, "%{public}@: Authentication successfully completed!", &v11, 0xCu);
+      _os_log_impl(&_mh_execute_header, localizedDescription, OS_LOG_TYPE_DEFAULT, "%{public}@: Authentication successfully completed!", &v12, 0xCu);
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
   completionHandler = [(MSDRapportPairingHandler *)self completionHandler];
@@ -202,7 +202,7 @@
   if (completionHandler)
   {
     completionHandler2 = [(MSDRapportPairingHandler *)self completionHandler];
-    (completionHandler2)[2](completionHandler2, v8);
+    (completionHandler2)[2](completionHandler2, v9);
   }
 }
 
@@ -211,40 +211,40 @@
   queue = [(MSDRapportPairingHandler *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v8 = sub_100063A54();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_100063A54(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
-    *v18 = flags;
-    *&v18[4] = 1024;
-    *&v18[6] = seconds;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "MSDRapportPairingHandler: Pairing secret requested with flags: %d throttle: %d", buf, 0xEu);
+    *v20 = flags;
+    *&v20[4] = 1024;
+    *&v20[6] = seconds;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "MSDRapportPairingHandler: Pairing secret requested with flags: %d throttle: %d", buf, 0xEu);
   }
 
-  v9 = 1000000000;
+  v11 = 1000000000;
   if ((flags & 0x20000) != 0 && seconds >= 1)
   {
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100063A54(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      *v18 = self;
-      *&v18[8] = 1024;
+      *v20 = self;
+      *&v20[8] = 1024;
       secondsCopy = seconds;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Authentication needs to be throttled: %d", buf, 0x12u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Authentication needs to be throttled: %d", buf, 0x12u);
     }
 
-    v9 = 1000000000 * (seconds + 1);
+    v11 = 1000000000 * (seconds + 1);
   }
 
   if ((flags & 0x10000) != 0)
   {
-    v11 = sub_100063A54();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100063A54(v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      *v18 = self;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Pairing secret provided was incorrect!", buf, 0xCu);
+      *v20 = self;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: Pairing secret provided was incorrect!", buf, 0xCu);
     }
 
     [(MSDRapportPairingHandler *)self setRetryLeft:[(MSDRapportPairingHandler *)self retryLeft]- 1];
@@ -252,23 +252,23 @@
 
   if ([(MSDRapportPairingHandler *)self retryLeft]< 1)
   {
-    v14 = [NSError errorDomainMSDWithCode:3727744512 message:@"Unexpected server response."];
-    [(MSDRapportPairingHandler *)self _hanldeAuthCompletionWithError:v14];
+    v16 = [NSError errorDomainMSDWithCode:3727744512 message:@"Unexpected server response."];
+    [(MSDRapportPairingHandler *)self _hanldeAuthCompletionWithError:v16];
   }
 
   else
   {
     objc_initWeak(buf, self);
-    v12 = dispatch_time(0, v9);
+    v14 = dispatch_time(0, v11);
     queue2 = [(MSDRapportPairingHandler *)self queue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100021DD8;
     block[3] = &unk_100169C78;
-    objc_copyWeak(&v16, buf);
-    dispatch_after(v12, queue2, block);
+    objc_copyWeak(&v18, buf);
+    dispatch_after(v14, queue2, block);
 
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(buf);
   }
 }
@@ -278,33 +278,33 @@
   queue = [(MSDRapportPairingHandler *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = sub_100063A54();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100063A54(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v13 = 2048;
+    v14 = 2048;
     retryLeft = [(MSDRapportPairingHandler *)self retryLeft];
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Fetching pairing secret from server with retry left: %ld", buf, 0x16u);
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Fetching pairing secret from server with retry left: %ld", buf, 0x16u);
   }
 
-  v5 = objc_alloc_init(MSDKVStoreRequest);
+  v6 = objc_alloc_init(MSDKVStoreRequest);
   objc_initWeak(buf, self);
-  [(MSDKVStoreRequest *)v5 setIsPost:0];
+  [(MSDKVStoreRequest *)v6 setIsPost:0];
   device = [(MSDRapportPairingHandler *)self device];
   identifier = [device identifier];
-  [(MSDKVStoreRequest *)v5 setKey:identifier];
+  [(MSDKVStoreRequest *)v6 setKey:identifier];
 
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_100022010;
-  v9[3] = &unk_10016A1F0;
-  objc_copyWeak(&v10, buf);
-  [(MSDServerRequest *)v5 setCompletion:v9];
-  v8 = +[MSDServerRequestHandler sharedInstance];
-  [v8 handleRequestAsync:v5];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_100022010;
+  v10[3] = &unk_10016A1F0;
+  objc_copyWeak(&v11, buf);
+  [(MSDServerRequest *)v6 setCompletion:v10];
+  v9 = +[MSDServerRequestHandler sharedInstance];
+  [v9 handleRequestAsync:v6];
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(buf);
 }
 
@@ -317,11 +317,11 @@
   value = [responseCopy value];
   error = [responseCopy error];
 
-  v8 = sub_100063A54();
-  v9 = v8;
+  v9 = sub_100063A54(v8);
+  v10 = v9;
   if (error || !value)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1000CA9F8(self, error);
     }
@@ -340,13 +340,13 @@
 
   else
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543618;
+      v12 = 138543618;
       selfCopy = self;
-      v13 = 2114;
-      v14 = value;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Found pairing secret: %{public}@", &v11, 0x16u);
+      v14 = 2114;
+      v15 = value;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Found pairing secret: %{public}@", &v12, 0x16u);
     }
 
     rpClient = [(MSDRapportPairingHandler *)self rpClient];

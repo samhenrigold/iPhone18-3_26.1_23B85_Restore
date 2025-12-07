@@ -735,11 +735,11 @@ void __69__AVTAvatarAttributeEditorSectionController_cell_willDisplayAtIndex___b
   v4[2](v4, 1);
 }
 
-uint64_t __69__AVTAvatarAttributeEditorSectionController_cell_willDisplayAtIndex___block_invoke_3(uint64_t result, int a2)
+id *__69__AVTAvatarAttributeEditorSectionController_cell_willDisplayAtIndex___block_invoke_3(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) cleanupAfterTransition];
+    return [result[4] cleanupAfterTransition];
   }
 
   return result;

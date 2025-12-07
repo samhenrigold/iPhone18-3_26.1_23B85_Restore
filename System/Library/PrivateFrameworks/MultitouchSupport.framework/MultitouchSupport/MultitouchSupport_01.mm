@@ -631,7 +631,7 @@ uint64_t MTActuatorGetReport(uint64_t a1, char a2, void *a3, int a4, _DWORD *a5)
   }
 }
 
-uint64_t MTActuatorSetReport(uint64_t a1, char a2, uint64_t a3, signed int a4)
+uint64_t MTActuatorSetReport(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
   result = 3758097090;
   if (a1)
@@ -650,8 +650,10 @@ uint64_t MTActuatorSetReport(uint64_t a1, char a2, uint64_t a3, signed int a4)
   return result;
 }
 
-uint64_t MTActuatorSetWaveform(uint64_t a1, char a2, uint64_t a3, signed int a4)
+uint64_t MTActuatorSetWaveform(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
+  v6 = a2;
   v8 = 3758097090;
   kdebug_trace();
   if (!a1)
@@ -659,12 +661,12 @@ uint64_t MTActuatorSetWaveform(uint64_t a1, char a2, uint64_t a3, signed int a4)
     return v8;
   }
 
-  if (a4 > 512)
+  if (v4 > 512)
   {
     return 3758097095;
   }
 
-  return mt_ActuatorSetWaveformViaDriver(a1, a2, a3, a4);
+  return mt_ActuatorSetWaveformViaDriver(a1, v6, a3, v4);
 }
 
 uint64_t MTDeviceGetHostOperationState(uint64_t a1)
@@ -682,12 +684,24 @@ uint64_t MTDeviceGetHostOperationState(uint64_t a1)
 
 uint64_t MTDeviceSendExternalMessage(uint64_t a1, const void *a2, __int16 a3, size_t a4, size_t a5)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v9 = a4 + 6;
-  if (!a5)
+  if (a5)
+  {
+    v10 = a5;
+    if (v9 > a5)
+    {
+      return 3758097121;
+    }
+
+    MEMORY[0x28223BE20]();
+    v12 = (v13 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  }
+
+  else
   {
     MEMORY[0x28223BE20]();
-    v12 = (v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+    v12 = (v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
     if (!v9)
     {
       v10 = 0;
@@ -695,30 +709,16 @@ uint64_t MTDeviceSendExternalMessage(uint64_t a1, const void *a2, __int16 a3, si
     }
 
     v10 = v9;
-LABEL_7:
-    memset(v12, 170, v10);
+  }
+
+  memset(v12, 170, v10);
 LABEL_9:
-    *v12 = 595;
-    v12[1] = a4;
-    v12[2] = a3;
-    memcpy(v12 + 3, a2, a4);
-    bzero(v12 + v9, v10 - v9);
-    result = MTDeviceSetReport(a1, 98, v12, v10);
-    goto LABEL_10;
-  }
-
-  v10 = a5;
-  if (v9 <= a5)
-  {
-    MEMORY[0x28223BE20]();
-    v12 = (v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
-    goto LABEL_7;
-  }
-
-  result = 3758097121;
-LABEL_10:
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  *v12 = 595;
+  v12[1] = a4;
+  v12[2] = a3;
+  memcpy(v12 + 3, a2, a4);
+  bzero(v12 + v9, v10 - v9);
+  return MTDeviceSetReport(a1, 98, v12, v10);
 }
 
 void mt_StopDequeueOfMultitouchDataFromDevice(uint64_t a1)
@@ -764,60 +764,57 @@ void mt_StopDequeueOfMultitouchDataFromDevice(uint64_t a1)
 
 uint64_t mt_DeviceGetReportViaDriverLegacyUSB(uint64_t a1, int a2, void *a3, int a4, _DWORD *a5)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  if (a1)
+  v17 = *MEMORY[0x277D85DE8];
+  if (!a1)
   {
-    *&v16[15] = -1431655766;
-    outputStructCnt = 520;
-    outputStruct = a2;
-    *v16 = 0u;
-    memset(v15, 0, sizeof(v15));
-    v17 = 0;
-    v9 = IOConnectCallStructMethod(*(a1 + 20), 9u, &outputStruct, 0x208uLL, &outputStruct, &outputStructCnt);
-    v10 = v9;
-    if (v9)
-    {
-      printf("Error 0x%08X getting report 0x%02X with length %d\n", v9, a2, a4);
-    }
+    return 3758097101;
+  }
 
-    else
-    {
-      if (a5)
-      {
-        *a5 = v17;
-      }
-
-      memmove(a3, v15, a4);
-    }
+  *&v15[15] = -1431655766;
+  outputStructCnt = 520;
+  outputStruct = a2;
+  *v15 = 0u;
+  memset(v14, 0, sizeof(v14));
+  v16 = 0;
+  v9 = IOConnectCallStructMethod(*(a1 + 20), 9u, &outputStruct, 0x208uLL, &outputStruct, &outputStructCnt);
+  v10 = v9;
+  if (v9)
+  {
+    printf("Error 0x%08X getting report 0x%02X with length %d\n", v9, a2, a4);
   }
 
   else
   {
-    v10 = 3758097101;
+    if (a5)
+    {
+      *a5 = v16;
+    }
+
+    memmove(a3, v14, a4);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t mt_DeviceSetReportViaDriverLegacyUSB(uint64_t a1, int a2, uint64_t a3, unsigned int a4)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v4 = 3758097101;
   if (a1)
   {
-    *&v44[15] = -1431655766;
+    *&v43[15] = -1431655766;
     outputStructCnt = 520;
     outputStruct = a2;
     if (a4 > 0x200)
     {
       puts("Too many bytes for the report to be set");
-      v4 = 3758097128;
+      return 3758097128;
     }
 
     else
     {
-      v45 = a4;
+      v44 = a4;
+      v28 = 0u;
       v29 = 0u;
       v30 = 0u;
       v31 = 0u;
@@ -832,8 +829,8 @@ uint64_t mt_DeviceSetReportViaDriverLegacyUSB(uint64_t a1, int a2, uint64_t a3, 
       v40 = 0u;
       v41 = 0u;
       v42 = 0u;
-      v43 = 0u;
-      *v44 = 0u;
+      *v43 = 0u;
+      v12 = 0u;
       v13 = 0u;
       v14 = 0u;
       v15 = 0u;
@@ -849,7 +846,6 @@ uint64_t mt_DeviceSetReportViaDriverLegacyUSB(uint64_t a1, int a2, uint64_t a3, 
       v25 = 0u;
       v26 = 0u;
       v27 = 0u;
-      v28 = 0u;
       __memmove_chk();
       v8 = IOConnectCallStructMethod(*(a1 + 20), 0xAu, &outputStruct, 0x208uLL, &outputStruct, &outputStructCnt);
       v4 = v8;
@@ -860,108 +856,102 @@ uint64_t mt_DeviceSetReportViaDriverLegacyUSB(uint64_t a1, int a2, uint64_t a3, 
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 uint64_t mt_DeviceGetReportViaDriver(uint64_t a1, int a2, void *a3, unsigned int a4, _DWORD *a5)
 {
   *&__len[1] = *MEMORY[0x277D85DE8];
-  if (a1)
+  if (!a1)
   {
-    *&v22[15] = -1431655766;
-    outputStructCnt = 520;
-    outputStruct = a2;
-    *v22 = 0u;
-    memset(v21, 0, sizeof(v21));
-    __len[0] = 0;
-    v9 = *(a1 + 20);
-    connect = v9;
-    if (v9)
+    return 3758097101;
+  }
+
+  *&v21[15] = -1431655766;
+  outputStructCnt = 520;
+  outputStruct = a2;
+  *v21 = 0u;
+  memset(v20, 0, sizeof(v20));
+  __len[0] = 0;
+  v9 = *(a1 + 20);
+  connect = v9;
+  if (v9)
+  {
+    LODWORD(v10) = IOConnectCallStructMethod(v9, 1u, &outputStruct, 0x208uLL, &outputStruct, &outputStructCnt);
+  }
+
+  else
+  {
+    v11 = *(a1 + 16);
+    waitTime = 5;
+    if (IOServiceWaitQuiet(v11, &waitTime) == -536870186)
     {
-      LODWORD(v10) = IOConnectCallStructMethod(v9, 1u, &outputStruct, 0x208uLL, &outputStruct, &outputStructCnt);
+      printf("MT Error: service still busy after %d seconds\n", waitTime.tv_sec);
     }
 
-    else
+    v12 = IOServiceOpen(v11, *MEMORY[0x277D85F48], 0, &connect);
+    LODWORD(v10) = -536870212;
+    if (!v12)
     {
-      v11 = *(a1 + 16);
-      waitTime = 5;
-      if (IOServiceWaitQuiet(v11, &waitTime) == -536870186)
-      {
-        printf("MT Error: service still busy after %d seconds\n", waitTime.tv_sec);
-      }
-
-      v12 = IOServiceOpen(v11, *MEMORY[0x277D85F48], 0, &connect);
-      LODWORD(v10) = -536870212;
-      if (!v12)
-      {
-        LODWORD(v10) = IOConnectCallStructMethod(connect, 1u, &outputStruct, 0x208uLL, &outputStruct, &outputStructCnt);
-      }
-
-      IOServiceClose(connect);
+      LODWORD(v10) = IOConnectCallStructMethod(connect, 1u, &outputStruct, 0x208uLL, &outputStruct, &outputStructCnt);
     }
 
-    v13 = __len[0];
-    v14 = -536870181;
-    if (__len[0] <= a4)
-    {
-      v14 = 0;
-    }
+    IOServiceClose(connect);
+  }
 
-    if (v10)
-    {
-      v10 = v10;
-    }
+  v13 = __len[0];
+  v14 = -536870181;
+  if (__len[0] <= a4)
+  {
+    v14 = 0;
+  }
 
-    else
-    {
-      v10 = v14;
-    }
+  if (v10)
+  {
+    v10 = v10;
+  }
 
-    if (v10)
-    {
-      if ((gMT_BE_LESS_VERBOSE & 1) == 0)
-      {
-        printf("Error 0x%08X getting report 0x%02X with length %d\n", v10, a2, a4);
-      }
-    }
+  else
+  {
+    v10 = v14;
+  }
 
-    else
+  if (v10)
+  {
+    if ((gMT_BE_LESS_VERBOSE & 1) == 0)
     {
-      if (a5)
-      {
-        *a5 = __len[0];
-      }
-
-      memmove(a3, v21, v13);
+      printf("Error 0x%08X getting report 0x%02X with length %d\n", v10, a2, a4);
     }
   }
 
   else
   {
-    v10 = 3758097101;
+    if (a5)
+    {
+      *a5 = __len[0];
+    }
+
+    memmove(a3, v20, v13);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t mt_ActuatorGetReportViaDriver(uint64_t a1, char a2, void *a3, int a4, _DWORD *a5)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = 3758097084;
   if (!a1)
   {
-    v5 = 3758097090;
-    goto LABEL_14;
+    return 3758097090;
   }
 
-  *&v18[15] = -1431655766;
+  *&v17[15] = -1431655766;
   outputStructCnt = 520;
   outputStruct = a2;
-  *v18 = 0u;
-  memset(v17, 0, sizeof(v17));
-  v19 = 0;
+  *v17 = 0u;
+  memset(v16, 0, sizeof(v16));
+  v18 = 0;
   v9 = *(a1 + 20);
   connect = v9;
   if (v9)
@@ -969,7 +959,7 @@ uint64_t mt_ActuatorGetReportViaDriver(uint64_t a1, char a2, void *a3, int a4, _
     v5 = IOConnectCallStructMethod(v9, 1u, &outputStruct, 0x208uLL, &outputStruct, &outputStructCnt);
     if (v5)
     {
-      goto LABEL_14;
+      return v5;
     }
 
     goto LABEL_11;
@@ -993,141 +983,128 @@ uint64_t mt_ActuatorGetReportViaDriver(uint64_t a1, char a2, void *a3, int a4, _
 LABEL_11:
     if (a5)
     {
-      *a5 = v19;
+      *a5 = v18;
     }
 
-    memmove(a3, v17, a4);
+    memmove(a3, v16, a4);
   }
 
-LABEL_14:
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 uint64_t mt_ActuatorSetReportViaDriver(uint64_t a1, char a2, uint64_t a3, unsigned int a4)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v4 = 3758097084;
-  if (a1)
+  if (!a1)
   {
-    *&v45[15] = -1431655766;
-    outputStructCnt = 520;
-    outputStruct = a2;
-    if (a4 > 0x200)
-    {
-      v4 = 3758097128;
-    }
-
-    else
-    {
-      v46 = a4;
-      v30 = 0u;
-      v31 = 0u;
-      v32 = 0u;
-      v33 = 0u;
-      v34 = 0u;
-      v35 = 0u;
-      v36 = 0u;
-      v37 = 0u;
-      v38 = 0u;
-      v39 = 0u;
-      v40 = 0u;
-      v41 = 0u;
-      v42 = 0u;
-      v43 = 0u;
-      v44 = 0u;
-      *v45 = 0u;
-      v14 = 0u;
-      v15 = 0u;
-      v16 = 0u;
-      v17 = 0u;
-      v18 = 0u;
-      v19 = 0u;
-      v20 = 0u;
-      v21 = 0u;
-      v22 = 0u;
-      v23 = 0u;
-      v24 = 0u;
-      v25 = 0u;
-      v26 = 0u;
-      v27 = 0u;
-      v28 = 0u;
-      v29 = 0u;
-      __memmove_chk();
-      v6 = *(a1 + 20);
-      connect = v6;
-      if (v6)
-      {
-        v4 = IOConnectCallStructMethod(v6, 2u, &outputStruct, 0x208uLL, &outputStruct, &outputStructCnt);
-      }
-
-      else
-      {
-        v7 = *(a1 + 16);
-        waitTime = 5;
-        if (IOServiceWaitQuiet(v7, &waitTime) == -536870186)
-        {
-          printf("MTActuator Error: service still busy after %d seconds\n", waitTime.tv_sec);
-        }
-
-        if (!IOServiceOpen(v7, *MEMORY[0x277D85F48], 0, &connect))
-        {
-          v4 = IOConnectCallStructMethod(connect, 2u, &outputStruct, 0x208uLL, &outputStruct, &outputStructCnt);
-        }
-
-        IOServiceClose(connect);
-      }
-    }
+    return 3758097090;
   }
 
-  else
+  *&v44[15] = -1431655766;
+  outputStructCnt = 520;
+  outputStruct = a2;
+  if (a4 > 0x200)
   {
-    v4 = 3758097090;
+    return 3758097128;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
+  v45 = a4;
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  *v44 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  __memmove_chk();
+  v6 = *(a1 + 20);
+  connect = v6;
+  if (v6)
+  {
+    return IOConnectCallStructMethod(v6, 2u, &outputStruct, 0x208uLL, &outputStruct, &outputStructCnt);
+  }
+
+  v7 = *(a1 + 16);
+  waitTime = 5;
+  if (IOServiceWaitQuiet(v7, &waitTime) == -536870186)
+  {
+    printf("MTActuator Error: service still busy after %d seconds\n", waitTime.tv_sec);
+  }
+
+  if (!IOServiceOpen(v7, *MEMORY[0x277D85F48], 0, &connect))
+  {
+    v4 = IOConnectCallStructMethod(connect, 2u, &outputStruct, 0x208uLL, &outputStruct, &outputStructCnt);
+  }
+
+  IOServiceClose(connect);
   return v4;
 }
 
 uint64_t mt_ActuatorSetWaveformViaDriver(uint64_t a1, char a2, uint64_t a3, unsigned int a4)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = 3758097090;
   if (a1)
   {
     v5 = *(a1 + 20);
     if (v5)
     {
-      bzero(v10, 0x204uLL);
+      bzero(v9, 0x204uLL);
       if (a4 <= 0x200)
       {
-        v10[0] = a2;
-        v11 = a4;
+        v9[0] = a2;
+        v10 = a4;
         __memcpy_chk();
-        v4 = IOConnectCallStructMethod(v5, 6u, v10, 0x208uLL, 0, 0);
+        return IOConnectCallStructMethod(v5, 6u, v9, 0x208uLL, 0, 0);
       }
 
       else
       {
-        v4 = 3758097128;
+        return 3758097128;
       }
     }
 
     else
     {
-      v4 = 3758097101;
+      return 3758097101;
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 uint64_t MTDeviceInjectFrame(uint64_t a1, void *__src, int a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4 = 3758097084;
-  if (!*(a1 + 20))
+  v5 = *(a1 + 20);
+  if (!v5)
   {
     v4 = 3758097101;
     goto LABEL_24;
@@ -1139,64 +1116,65 @@ uint64_t MTDeviceInjectFrame(uint64_t a1, void *__src, int a3)
     goto LABEL_24;
   }
 
-  v7 = *(a1 + 2272);
-  if (!v7)
+  v8 = *(a1 + 2272);
+  if (!v8)
   {
-    v24 = -1;
-    v25 = -1;
-    v8 = *MEMORY[0x277D85F48];
-    v9 = MEMORY[0x25F855310]();
-    if (v9)
+    v22 = -1;
+    v23 = -1;
+    v5 = MEMORY[0x25F855310]();
+    if (v5)
     {
-      v10 = v9;
+      v9 = v5;
 LABEL_13:
       if (*(a1 + 133) == 1)
       {
         mt_CachePropertiesForDevice(a1);
       }
 
-      v11 = MTLoggingFramework();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v10 = MTLoggingFramework(v5, __src);
+      v5 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+      if (v5)
       {
-        v12 = *(a1 + 64);
+        v11 = *(a1 + 64);
         *buf = 67109376;
-        *v27 = v10;
-        *&v27[4] = 2048;
-        *&v27[6] = v12;
-        _os_log_impl(&dword_25AD59000, v11, OS_LOG_TYPE_ERROR, "Inject frame kernel operation failed with error %x (deviceID 0x%llX)", buf, 0x12u);
+        *v25 = v9;
+        *&v25[4] = 2048;
+        *&v25[6] = v11;
+        _os_log_impl(&dword_25AD59000, v10, OS_LOG_TYPE_ERROR, "Inject frame kernel operation failed with error %x (deviceID 0x%llX)", buf, 0x12u);
       }
 
       goto LABEL_24;
     }
 
-    v13 = v24;
-    *(a1 + 2272) = v25;
-    *(a1 + 2280) = v13;
-    if (v13 != *(a1 + 384))
+    v12 = v22;
+    *(a1 + 2272) = v23;
+    *(a1 + 2280) = v12;
+    if (v12 != *(a1 + 384))
     {
       if (*(a1 + 133) == 1)
       {
         mt_CachePropertiesForDevice(a1);
       }
 
-      v14 = MTLoggingFramework();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v13 = MTLoggingFramework(v5, __src);
+      v5 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
+      if (v5)
       {
-        v15 = *(a1 + 384);
-        v16 = *(a1 + 2280);
-        v17 = *(a1 + 64);
+        v14 = *(a1 + 384);
+        v15 = *(a1 + 2280);
+        v16 = *(a1 + 64);
         *buf = 134218496;
-        *v27 = v15;
-        *&v27[8] = 2048;
-        *&v27[10] = v16;
-        v28 = 2048;
-        v29 = v17;
-        _os_log_impl(&dword_25AD59000, v14, OS_LOG_TYPE_ERROR, "Expecting %lu frame injection size, but driver allocated %lu (deviceID 0x%llX)", buf, 0x20u);
+        *v25 = v14;
+        *&v25[8] = 2048;
+        *&v25[10] = v15;
+        v26 = 2048;
+        v27 = v16;
+        _os_log_impl(&dword_25AD59000, v13, OS_LOG_TYPE_ERROR, "Expecting %lu frame injection size, but driver allocated %lu (deviceID 0x%llX)", buf, 0x20u);
       }
     }
 
-    v7 = *(a1 + 2272);
-    if (!v7)
+    v8 = *(a1 + 2272);
+    if (!v8)
     {
       v4 = 3758097085;
       goto LABEL_24;
@@ -1211,14 +1189,14 @@ LABEL_13:
 
   if (*(a1 + 2280) >= a3)
   {
-    memcpy(v7, __src, a3);
+    memcpy(v8, __src, a3);
     input = a3;
     outputCnt = 0;
-    v10 = IOConnectCallScalarMethod(*(a1 + 20), 0xBu, &input, 1u, 0, &outputCnt);
-    if (!v10)
+    v5 = IOConnectCallScalarMethod(*(a1 + 20), 0xBu, &input, 1u, 0, &outputCnt);
+    v9 = v5;
+    if (!v5)
     {
-      v4 = 0;
-      goto LABEL_28;
+      return 0;
     }
 
     goto LABEL_13;
@@ -1231,19 +1209,17 @@ LABEL_24:
     mt_CachePropertiesForDevice(a1);
   }
 
-  v18 = MTLoggingFramework();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v17 = MTLoggingFramework(v5, __src);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    v19 = *(a1 + 64);
+    v18 = *(a1 + 64);
     *buf = 67109376;
-    *v27 = v4;
-    *&v27[4] = 2048;
-    *&v27[6] = v19;
-    _os_log_impl(&dword_25AD59000, v18, OS_LOG_TYPE_ERROR, "Inject frame failed with error %x (deviceID 0x%llX)", buf, 0x12u);
+    *v25 = v4;
+    *&v25[4] = 2048;
+    *&v25[6] = v18;
+    _os_log_impl(&dword_25AD59000, v17, OS_LOG_TYPE_ERROR, "Inject frame failed with error %x (deviceID 0x%llX)", buf, 0x12u);
   }
 
-LABEL_28:
-  v20 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -1274,26 +1250,25 @@ uint64_t mt_PostNotificationEvent(uint64_t result, uint64_t a2)
 
 uint64_t mt_PostNotificationEventToDriver(io_service_t *a1, char a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v39 = v4;
-  v40 = v4;
-  v37 = v4;
   v38 = v4;
-  v35 = v4;
+  v39 = v4;
   v36 = v4;
-  v33 = v4;
+  v37 = v4;
   v34 = v4;
-  v31 = v4;
+  v35 = v4;
   v32 = v4;
-  v29 = v4;
+  v33 = v4;
   v30 = v4;
-  v27 = v4;
+  v31 = v4;
   v28 = v4;
-  v25 = v4;
+  v29 = v4;
   v26 = v4;
+  v27 = v4;
   v24 = v4;
+  v25 = v4;
   v23 = v4;
   v22 = v4;
   v21 = v4;
@@ -1309,12 +1284,11 @@ uint64_t mt_PostNotificationEventToDriver(io_service_t *a1, char a2)
   v11 = v4;
   v10 = v4;
   v9 = v4;
-  memset(v7, 170, sizeof(v7));
+  v8 = v4;
+  memset(v6, 170, sizeof(v6));
   inputStruct = 8;
-  LOBYTE(v9) = a2;
-  result = MTDeviceIssueDriverRequest(a1, &inputStruct, v7);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  LOBYTE(v8) = a2;
+  return MTDeviceIssueDriverRequest(a1, &inputStruct, v6);
 }
 
 BOOL mt_IsExternalMessage(unsigned __int8 *a1, int a2)
@@ -1857,12 +1831,12 @@ void MTParse_CompactBinaryPath(unsigned __int8 *a1, int a2, uint64_t a3, __MTDev
         }
 
         v14 = 0;
-        v15 = (a1 + 18);
+        v15 = a1 + 18;
         v16 = (a3 + 144);
         v17 = v12;
         do
         {
-          v18 = (v15 - 5);
+          v18 = v15 - 10;
           *&v30 = 0xAAAAAAAAAAAAAAAALL;
           *(&v30 + 1) = 0xAAAAAAAAAAAAAAAALL;
           v19 = *(a3 + 8);
@@ -1903,7 +1877,7 @@ LABEL_25:
             if (a4->var21 == 1)
             {
               LOWORD(v30) = *v18;
-              v22 = *(v15 - 4);
+              v22 = *(v15 - 8);
               *(&v30 + 2) = v22;
               LOWORD(v23) = *v15;
             }
@@ -1912,18 +1886,18 @@ LABEL_25:
             {
               LOWORD(v21) = __rev16(v21);
               LOWORD(v30) = v21;
-              v22 = vrev16_s8(*(v15 - 4));
+              v22 = vrev16_s8(*(v15 - 8));
               *(&v30 + 2) = v22;
               v23 = bswap32(*v15) >> 16;
             }
 
             WORD5(v30) = v23;
-            v24 = *(v15 + 2) | ((*(v15 + 3) & 0xF) << 8) & 0xFFF | (*(v15 + 3) >> 4 << 12);
-            WORD6(v30) = *(v15 + 2) | ((*(v15 + 3) & 0xF) << 8) & 0xFFF | (*(v15 + 3) >> 4 << 12);
-            v26 = *(v15 + 4);
-            BYTE14(v30) = *(v15 + 4);
-            v25 = *(v15 + 5);
-            HIBYTE(v30) = *(v15 + 5);
+            v24 = v15[2] | ((v15[3] & 0xF) << 8) & 0xFFF | (v15[3] >> 4 << 12);
+            WORD6(v30) = v15[2] | ((v15[3] & 0xF) << 8) & 0xFFF | (v15[3] >> 4 << 12);
+            v26 = v15[4];
+            BYTE14(v30) = v15[4];
+            v25 = v15[5];
+            HIBYTE(v30) = v15[5];
           }
 
 LABEL_28:
@@ -1938,10 +1912,10 @@ LABEL_28:
           *(v16 - 5) = v24 & 0xFFF;
           if (v19 == 38)
           {
-            v28 = bswap32(v15[3]) >> 16;
+            v28 = bswap32(*(v15 + 3)) >> 16;
             if (a4->var21 == 1)
             {
-              v29 = v15[3];
+              v29 = *(v15 + 3);
             }
 
             else
@@ -1964,7 +1938,7 @@ LABEL_28:
           *v16 = 0;
           v16 += 15;
           ++v14;
-          v15 = (v15 + v17);
+          v15 += v17;
         }
 
         while (v14 < v10);
@@ -2643,7 +2617,7 @@ uint64_t MTCompactV9HeaderUnpack(uint64_t a1, uint64_t a2, unsigned int a3)
   return v3;
 }
 
-uint64_t MTCompactV9BinaryContactUnpack(uint64_t a1, unsigned __int8 *a2, int a3)
+uint64_t MTCompactV9BinaryContactUnpack(uint64_t a1, char *a2, int a3)
 {
   v3 = 0;
   if (a1 && a2 && a3 == 13)
@@ -3115,22 +3089,20 @@ uint64_t MTParse_CompactV10BinaryPath(uint64_t a1, unsigned int a2, uint64_t a3,
   return result;
 }
 
-uint64_t MTParse_BinaryImagePayload(unsigned __int8 *__src, int a2, MTParsedMultitouchFrameRep_t *a3, __MTDevice *a4)
+uint64_t MTParse_BinaryImagePayload(unsigned __int8 *__src, uint64_t a2, MTParsedMultitouchFrameRep_t *a3, __MTDevice *a4)
 {
   v4 = *(a3 + 12);
   v5 = *(a3 + 36);
   v6 = a4->var17 * a4->var18;
   if (v4 < vcvtps_u32_f32(vcvts_n_f32_u32(v6 * v5, 3uLL)))
   {
-    v24 = *(a3 + 12);
-    printf("Buffer(%u) too small to store compressed image(%u)!\n");
+    printf("Buffer(%u) too small to store compressed image(%u)!\n", a2);
     return 0;
   }
 
   if (v4 < 2 * v6)
   {
-    v25 = *(a3 + 12);
-    printf("Buffer(%u) too small to store uncompressed image(%u)!\n");
+    printf("Buffer(%u) too small to store uncompressed image(%u)!\n", a2);
     return 0;
   }
 
@@ -3143,7 +3115,7 @@ uint64_t MTParse_BinaryImagePayload(unsigned __int8 *__src, int a2, MTParsedMult
       {
         if (v6 != a2)
         {
-          printf("Raw data only had %d 8-bit words! (expected %u)\n");
+          printf("Raw data only had %d 8-bit words! (expected %u)\n", a2);
           return 0;
         }
 
@@ -3161,7 +3133,7 @@ uint64_t MTParse_BinaryImagePayload(unsigned __int8 *__src, int a2, MTParsedMult
       {
         v8 = __src + 1;
         v11 = *__src != 0;
-        --a2;
+        a2 = (a2 - 1);
       }
 
       if (a2 > 1)
@@ -3192,7 +3164,7 @@ uint64_t MTParse_BinaryImagePayload(unsigned __int8 *__src, int a2, MTParsedMult
         {
           if (mt_UncompressTouchpadCodecV1Image(*(a3 + 5), v4, v8, a2, *(a3 + 14), *(a3 + 15), (*(a3 + 75) >> 2) & 1))
           {
-            printf("Failed to decompress touchpad codec v1 compressed image. Failed with error(0x%X)\n");
+            printf("Failed to decompress touchpad codec v1 compressed image. Failed with error(0x%X)\n", v18);
             return 0;
           }
 
@@ -3201,7 +3173,7 @@ uint64_t MTParse_BinaryImagePayload(unsigned __int8 *__src, int a2, MTParsedMult
 
         if (a2 / 2 != v6)
         {
-          printf("Raw data only had %d 16-bit words! (expected %u)\n");
+          printf("Raw data only had %d 16-bit words! (expected %u)\n", a2);
           return 0;
         }
 
@@ -3225,7 +3197,7 @@ LABEL_23:
 
   if (((v6 & 1) + ((3 * v6) >> 1)) < a2)
   {
-    printf("Raw data only had %d bytes! (expected %u)\n");
+    printf("Raw data only had %d bytes! (expected %u)\n", a2);
     return 0;
   }
 
@@ -3234,39 +3206,39 @@ LABEL_23:
     return 1;
   }
 
-  v18 = 0;
   v19 = 0;
-  v20 = *(a3 + 5);
+  v20 = 0;
+  v21 = *(a3 + 5);
   result = 1;
   do
   {
-    v21 = v19;
-    v22 = v8[v19];
-    if (v18)
+    v22 = v20;
+    v23 = v8[v20];
+    if (v19)
     {
-      v23 = (v22 >> 4) | (16 * v8[v19 + 1]);
-      v19 += 2;
+      v24 = (v23 >> 4) | (16 * v8[v20 + 1]);
+      v20 += 2;
     }
 
     else
     {
-      ++v19;
-      v23 = v22 & 0xFFFFF0FF | ((v8[v21 + 1] & 0xF) << 8);
+      ++v20;
+      v24 = v23 & 0xFFFFF0FF | ((v8[v22 + 1] & 0xF) << 8);
     }
 
-    if (v23 >= 0x800)
+    if (v24 >= 0x800)
     {
-      LOWORD(v23) = v23 | 0xF000;
+      LOWORD(v24) = v24 | 0xF000;
     }
 
-    *(v20 + 2 * v18++) = v23;
+    *(v21 + 2 * v19++) = v24;
   }
 
-  while (v6 != v18);
+  while (v6 != v19);
   return result;
 }
 
-BOOL MTParse_V3BinaryFrameHeader(unsigned __int8 *a1, int a2, MTParsedMultitouchFrameRep_t *a3, __MTDevice *a4)
+uint64_t MTParse_V3BinaryFrameHeader(unsigned __int8 *a1, int a2, MTParsedMultitouchFrameRep_t *a3, __MTDevice *a4)
 {
   v4 = a1;
   if (a1)
@@ -3280,7 +3252,7 @@ BOOL MTParse_V3BinaryFrameHeader(unsigned __int8 *a1, int a2, MTParsedMultitouch
   }
 
   result = !v5;
-  if (result)
+  if (result == 1)
   {
     *(a3 + 10) = 0;
     *(a3 + 11) = 0;
@@ -3560,7 +3532,7 @@ LABEL_14:
   return result;
 }
 
-BOOL MTParse_V4BinaryFrameHeader(unsigned __int8 *a1, int a2, MTParsedMultitouchFrameRep_t *a3, __MTDevice *a4)
+uint64_t MTParse_V4BinaryFrameHeader(unsigned __int8 *a1, int a2, MTParsedMultitouchFrameRep_t *a3, __MTDevice *a4)
 {
   v4 = a1;
   if (a1)
@@ -3574,7 +3546,7 @@ BOOL MTParse_V4BinaryFrameHeader(unsigned __int8 *a1, int a2, MTParsedMultitouch
   }
 
   result = !v5;
-  if (result)
+  if (result == 1)
   {
     *(a3 + 5) = 0u;
     *(a3 + 6) = 0u;
@@ -3686,7 +3658,7 @@ BOOL MTParse_V4BinaryFrameHeader(unsigned __int8 *a1, int a2, MTParsedMultitouch
   return result;
 }
 
-BOOL MTParse_V4BinaryPathPayload(unsigned __int8 *a1, int a2, MTParsedMultitouchFrameRep_t *a3, __MTDevice *a4, unsigned int a5, int a6, unsigned int a7)
+BOOL MTParse_V4BinaryPathPayload(unsigned __int8 *a1, int a2, MTParsedMultitouchFrameRep_t *a3, __MTDevice *a4, int a5, int a6, unsigned int a7)
 {
   if (!a7 || (*(a3 + 11) & 1) == 0 || a5 < 1 || (a7 + a6) > a2 || a7 % a5)
   {
@@ -3974,7 +3946,7 @@ LABEL_22:
 
   v20 = 1;
 LABEL_23:
-  if (*(a3 + 12) == 1 && v17 && v17 + (v10 + v12) <= a2)
+  if (*(a3 + 12) == 1 && v17 && (v17 + (v10 + v12)) <= a2)
   {
     v21 = MTParse_BinaryImagePayload(&a1[(v10 + v12)], v17, a3, a4);
   }
@@ -3995,7 +3967,7 @@ LABEL_23:
   }
 }
 
-uint64_t MTParse_HostPathAndImage(_OWORD *a1, signed int a2, uint64_t a3)
+uint64_t MTParse_HostPathAndImage(_OWORD *a1, unsigned int a2, uint64_t a3)
 {
   if (a2 < 0x1C)
   {
@@ -4072,7 +4044,7 @@ LABEL_8:
   return 1;
 }
 
-BOOL MTParse_SensorImageHeader(unsigned __int8 *a1, int a2, MTParsedMultitouchFrameRep_t *a3, __MTDevice *a4)
+uint64_t MTParse_SensorImageHeader(unsigned __int8 *a1, int a2, MTParsedMultitouchFrameRep_t *a3, __MTDevice *a4)
 {
   if (a1)
   {
@@ -4085,7 +4057,7 @@ BOOL MTParse_SensorImageHeader(unsigned __int8 *a1, int a2, MTParsedMultitouchFr
   }
 
   result = !v5;
-  if (result)
+  if (result == 1)
   {
     *(a3 + 5) = 0u;
     *(a3 + 6) = 0u;
@@ -4218,7 +4190,7 @@ uint64_t MTParse_SensorImage(unsigned __int8 *a1, int a2, uint64_t a3, __MTDevic
   return result;
 }
 
-BOOL MTParse_BinaryFrameHeader(unsigned __int8 *a1, int a2, MTParsedMultitouchFrameRep_t *a3, __MTDevice *a4)
+uint64_t MTParse_BinaryFrameHeader(unsigned __int8 *a1, int a2, MTParsedMultitouchFrameRep_t *a3, __MTDevice *a4)
 {
   if (a1)
   {
@@ -4231,7 +4203,7 @@ BOOL MTParse_BinaryFrameHeader(unsigned __int8 *a1, int a2, MTParsedMultitouchFr
   }
 
   result = !v5;
-  if (result)
+  if (result == 1)
   {
     *(a3 + 10) = 0;
     *(a3 + 11) = 0;
@@ -4392,7 +4364,7 @@ uint64_t MTParse_BinaryPathOrImage(unsigned __int8 *a1, int a2, uint64_t a3, __M
     if (*(a3 + 94) && (v10 = *(a3 + 82), v10 + v9 <= a2))
     {
       result = MTParse_BinaryImagePayload(&a1[v10], v9, a3, a4);
-      v9 = *(a3 + 94);
+      LODWORD(v9) = *(a3 + 94);
     }
 
     else
@@ -4401,7 +4373,7 @@ uint64_t MTParse_BinaryPathOrImage(unsigned __int8 *a1, int a2, uint64_t a3, __M
     }
 
     v11 = *(a3 + 97);
-    if (v9 + *(a3 + 82) + *(a3 + 96) * v11 <= a2)
+    if ((v9 + *(a3 + 82) + *(a3 + 96) * v11) <= a2)
     {
       if (*(a3 + 96))
       {
@@ -4704,10 +4676,10 @@ uint64_t MTProcess_0xC5_Data(unsigned __int8 *a1, int a2, MTParsedMultitouchFram
     v20 = 10;
   }
 
-  return MTParse_BinaryImagePayload(&a1[v20], a2 - v20, a3, a4);
+  return MTParse_BinaryImagePayload(&a1[v20], (a2 - v20), a3, a4);
 }
 
-uint64_t MTProcess_0xCC_Data(unsigned __int8 *a1, int a2, uint64_t a3, uint64_t a4)
+uint64_t MTProcess_0xCC_Data(unsigned __int8 *a1, unsigned int a2, uint64_t a3, uint64_t a4)
 {
   v4 = 0;
   if (!a1 || a2 < 10)
@@ -4929,7 +4901,7 @@ uint64_t MTParseSensorRegionsReport(unsigned __int8 *a1, int a2, char *a3, int a
           v9 = v9 >= *a1 ? *a1 : v9;
           if (v9)
           {
-            v10 = (a1 + 3);
+            v10 = a1 + 3;
             do
             {
               v11 = *(v10 - 2);
@@ -4966,7 +4938,7 @@ uint64_t MTParseSensorRegionsReport(unsigned __int8 *a1, int a2, char *a3, int a
   return result;
 }
 
-uint64_t MTParseSensorRegionParam(unsigned __int16 *a1, int a2, _WORD *a3, uint64_t a4)
+BOOL MTParseSensorRegionParam(unsigned __int16 *a1, int a2, _WORD *a3, uint64_t a4)
 {
   v4 = a1;
   if (a1)
@@ -5004,7 +4976,7 @@ uint64_t MTParseSensorRegionParam(unsigned __int16 *a1, int a2, _WORD *a3, uint6
   return result;
 }
 
-uint64_t MTParseSensorSurfaceDescriptor(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
+BOOL MTParseSensorSurfaceDescriptor(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
 {
   v4 = a1;
   if (a1)
@@ -5048,7 +5020,7 @@ uint64_t MTParseSensorSurfaceDescriptor(uint64_t a1, int a2, uint64_t a3, uint64
   return result;
 }
 
-uint64_t MTParse_HIDMouseReport(_BYTE *a1, int a2, _BYTE *a3)
+BOOL MTParse_HIDMouseReport(_BYTE *a1, unsigned int a2, _BYTE *a3)
 {
   if (a1)
   {
@@ -5061,7 +5033,7 @@ uint64_t MTParse_HIDMouseReport(_BYTE *a1, int a2, _BYTE *a3)
   }
 
   result = !v4 && a2 > 3;
-  if (result == 1)
+  if (result)
   {
     *a3 = *a1;
     a3[1] = a1[1];
@@ -5349,17 +5321,17 @@ uint64_t MTParse_SABinary::$_1::__invoke(uint64_t *a1, uint64_t a2, unsigned __i
 
 uint64_t MTParse_SABinary_FireflyPaths(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4)
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 2);
   if (v4 < 4)
   {
-    goto LABEL_4;
+    return 0;
   }
 
   v6 = *a2;
   if (((v6 << 6) | 4uLL) > v4)
   {
-    goto LABEL_4;
+    return 0;
   }
 
   *(a3 + 96) = v6;
@@ -5369,247 +5341,241 @@ uint64_t MTParse_SABinary_FireflyPaths(uint64_t a1, unsigned __int8 *a2, uint64_
   *(a3 + 72) = v6;
   *(a3 + 68) = v8;
   *(a3 + 11) = 1;
-  if (*a2 - 3 >= 0xFFFFFFFE)
+  if (*a2 - 3 < 0xFFFFFFFE)
   {
-    v12 = 0;
-    v13 = (a3 + 172);
-    v14 = a2 + 52;
-    v15 = vdup_n_s32(0x42C80000u);
-    do
+    return 0;
+  }
+
+  v11 = 0;
+  v12 = (a3 + 172);
+  v13 = a2 + 52;
+  v14 = vdup_n_s32(0x42C80000u);
+  do
+  {
+    v15 = *v13;
+    v16 = *(v13 + 2);
+    *v12 = v16;
+    *(v12 - 1) = v15;
+    v17 = bswap32(v15);
+    if (*(a4 + 100) != 1)
     {
-      v16 = *v14;
-      v17 = *(v14 + 2);
-      *v13 = v17;
-      *(v13 - 1) = v16;
-      v18 = bswap32(v16);
-      if (*(a4 + 100) != 1)
-      {
-        LODWORD(v16) = v18;
-      }
-
-      *(v13 - 2) = v16;
-      v19 = bswap32(*(v13 - 1));
-      if (*(a4 + 100) == 1)
-      {
-        v20 = *(v13 - 1);
-      }
-
-      else
-      {
-        v20 = v19;
-      }
-
-      *(v13 - 1) = v20;
-      v21 = bswap32(v17);
-      if (*(a4 + 100) == 1)
-      {
-        v22 = v17;
-      }
-
-      else
-      {
-        v22 = v21;
-      }
-
-      *v13 = v22;
-      v23 = *(v14 - 3);
-      v24 = *(v14 - 2);
-      *(v13 - 6) = *(v14 - 1);
-      *(v13 - 10) = v24;
-      *(v13 - 14) = v23;
-      v25 = *(v13 - 12);
-      v26 = bswap32(*(v13 - 13));
-      if (*(a4 + 100) == 1)
-      {
-        v27 = *(v13 - 13);
-      }
-
-      else
-      {
-        v27 = v26;
-      }
-
-      *(v13 - 13) = v27;
-      v28 = bswap32(v25);
-      if (*(a4 + 100) == 1)
-      {
-        v29 = v25;
-      }
-
-      else
-      {
-        v29 = v28;
-      }
-
-      *(v13 - 12) = v29;
-      v30 = *(v13 - 10);
-      v31 = bswap32(*(v13 - 11));
-      if (*(a4 + 100) == 1)
-      {
-        v32 = *(v13 - 11);
-      }
-
-      else
-      {
-        v32 = v31;
-      }
-
-      *(v13 - 11) = v32;
-      v33 = bswap32(v30);
-      if (*(a4 + 100) == 1)
-      {
-        v34 = v30;
-      }
-
-      else
-      {
-        v34 = v33;
-      }
-
-      *(v13 - 10) = v34;
-      v35 = *(v13 - 8);
-      v36 = bswap32(*(v13 - 9));
-      if (*(a4 + 100) == 1)
-      {
-        v37 = *(v13 - 9);
-      }
-
-      else
-      {
-        v37 = *&v36;
-      }
-
-      *(v13 - 9) = v37;
-      v38 = v37;
-      v39 = bswap32(v35);
-      if (*(a4 + 100) == 1)
-      {
-        v39 = v35;
-      }
-
-      *(v13 - 8) = v39;
-      v40 = *(v13 - 6);
-      v41 = bswap32(*(v13 - 7));
-      if (*(a4 + 100) == 1)
-      {
-        v42 = *(v13 - 7);
-      }
-
-      else
-      {
-        v42 = v41;
-      }
-
-      *(v13 - 7) = v42;
-      v43 = *(v13 - 5);
-      v44 = bswap32(*(v13 - 4));
-      if (*(a4 + 100) == 1)
-      {
-        v45 = *(v13 - 4);
-      }
-
-      else
-      {
-        v45 = v44;
-      }
-
-      *(v13 - 4) = v45;
-      v46 = bswap32(v40);
-      if (*(a4 + 100) == 1)
-      {
-        v47 = v40;
-      }
-
-      else
-      {
-        v47 = v46;
-      }
-
-      *(v13 - 6) = v47;
-      v48 = bswap32(v43);
-      if (*(a4 + 100) == 1)
-      {
-        v49 = v43;
-      }
-
-      else
-      {
-        v49 = v48;
-      }
-
-      *(v13 - 5) = v49;
-      v50 = *(a4 + 100);
-      _S1 = *(v14 + 3);
-      __asm { FCVT            H1, S1 }
-
-      v55 = bswap32(*(v13 - 6)) >> 16;
-      v56 = __rev16(_S1);
-      _ZF = v50 == 1;
-      if (v50 == 1)
-      {
-        v58 = *(v13 - 6);
-      }
-
-      else
-      {
-        v58 = v55;
-      }
-
-      if (_ZF)
-      {
-        v59 = _S1;
-      }
-
-      else
-      {
-        v59 = v56;
-      }
-
-      *(v13 - 5) = v59;
-      *(a3 + 113) = 1;
-      *(v13 - 6) = v58 | 0x1000;
-      if (*(v13 - 54) != 7 && *(a4 + 184))
-      {
-        if (*(a4 + 133) == 1)
-        {
-          mt_CachePropertiesForDevice(a4);
-        }
-
-        v60 = MTLoggingFramework();
-        if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
-        {
-          v61 = *(a4 + 64);
-          *buf = 134217984;
-          v63 = v61;
-          _os_log_impl(&dword_25AD59000, v60, OS_LOG_TYPE_DEFAULT, "Non tstamp-synced contact detected. Clearing device timestamp offset (deviceID 0x%llX)", buf, 0xCu);
-        }
-
-        *(a4 + 184) = 0;
-        v38 = *(v13 - 9);
-      }
-
-      if (v38 == 0.0 || *(v13 - 8) == 0.0)
-      {
-        *(v13 - 9) = v15;
-      }
-
-      v13 += 15;
-      ++v12;
-      v14 += 64;
+      LODWORD(v15) = v17;
     }
 
-    while (v12 < *a2);
-    result = 1;
+    *(v12 - 2) = v15;
+    v18 = bswap32(*(v12 - 1));
+    if (*(a4 + 100) == 1)
+    {
+      v19 = *(v12 - 1);
+    }
+
+    else
+    {
+      v19 = v18;
+    }
+
+    *(v12 - 1) = v19;
+    v20 = bswap32(v16);
+    if (*(a4 + 100) == 1)
+    {
+      v21 = v16;
+    }
+
+    else
+    {
+      v21 = v20;
+    }
+
+    *v12 = v21;
+    v22 = *(v13 - 3);
+    v23 = *(v13 - 2);
+    *(v12 - 6) = *(v13 - 1);
+    *(v12 - 10) = v23;
+    *(v12 - 14) = v22;
+    v24 = *(v12 - 12);
+    v25 = bswap32(*(v12 - 13));
+    if (*(a4 + 100) == 1)
+    {
+      v26 = *(v12 - 13);
+    }
+
+    else
+    {
+      v26 = v25;
+    }
+
+    *(v12 - 13) = v26;
+    v27 = bswap32(v24);
+    if (*(a4 + 100) == 1)
+    {
+      v28 = v24;
+    }
+
+    else
+    {
+      v28 = v27;
+    }
+
+    *(v12 - 12) = v28;
+    v29 = *(v12 - 10);
+    v30 = bswap32(*(v12 - 11));
+    if (*(a4 + 100) == 1)
+    {
+      v31 = *(v12 - 11);
+    }
+
+    else
+    {
+      v31 = v30;
+    }
+
+    *(v12 - 11) = v31;
+    v32 = bswap32(v29);
+    if (*(a4 + 100) == 1)
+    {
+      v33 = v29;
+    }
+
+    else
+    {
+      v33 = v32;
+    }
+
+    *(v12 - 10) = v33;
+    v34 = *(v12 - 8);
+    v35 = bswap32(*(v12 - 9));
+    if (*(a4 + 100) == 1)
+    {
+      v36 = *(v12 - 9);
+    }
+
+    else
+    {
+      v36 = *&v35;
+    }
+
+    *(v12 - 9) = v36;
+    v37 = v36;
+    v38 = bswap32(v34);
+    if (*(a4 + 100) == 1)
+    {
+      v38 = v34;
+    }
+
+    *(v12 - 8) = v38;
+    v39 = *(v12 - 6);
+    v40 = bswap32(*(v12 - 7));
+    if (*(a4 + 100) == 1)
+    {
+      v41 = *(v12 - 7);
+    }
+
+    else
+    {
+      v41 = v40;
+    }
+
+    *(v12 - 7) = v41;
+    v42 = *(v12 - 5);
+    v43 = bswap32(*(v12 - 4));
+    if (*(a4 + 100) == 1)
+    {
+      v44 = *(v12 - 4);
+    }
+
+    else
+    {
+      v44 = v43;
+    }
+
+    *(v12 - 4) = v44;
+    v45 = bswap32(v39);
+    if (*(a4 + 100) == 1)
+    {
+      v46 = v39;
+    }
+
+    else
+    {
+      v46 = v45;
+    }
+
+    *(v12 - 6) = v46;
+    v47 = bswap32(v42);
+    if (*(a4 + 100) == 1)
+    {
+      v48 = v42;
+    }
+
+    else
+    {
+      v48 = v47;
+    }
+
+    *(v12 - 5) = v48;
+    v49 = *(a4 + 100);
+    _S1 = *(v13 + 3);
+    __asm { FCVT            H1, S1 }
+
+    v54 = bswap32(*(v12 - 6)) >> 16;
+    v55 = __rev16(_S1);
+    _ZF = v49 == 1;
+    if (v49 == 1)
+    {
+      v57 = *(v12 - 6);
+    }
+
+    else
+    {
+      v57 = v54;
+    }
+
+    if (_ZF)
+    {
+      v58 = _S1;
+    }
+
+    else
+    {
+      v58 = v55;
+    }
+
+    *(v12 - 5) = v58;
+    *(a3 + 113) = 1;
+    *(v12 - 6) = v57 | 0x1000;
+    if (*(v12 - 54) != 7 && *(a4 + 184))
+    {
+      if (*(a4 + 133) == 1)
+      {
+        mt_CachePropertiesForDevice(a4);
+      }
+
+      v59 = MTLoggingFramework(a1, a2);
+      a1 = os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT);
+      if (a1)
+      {
+        v60 = *(a4 + 64);
+        *buf = 134217984;
+        v62 = v60;
+        _os_log_impl(&dword_25AD59000, v59, OS_LOG_TYPE_DEFAULT, "Non tstamp-synced contact detected. Clearing device timestamp offset (deviceID 0x%llX)", buf, 0xCu);
+      }
+
+      *(a4 + 184) = 0;
+      v37 = *(v12 - 9);
+    }
+
+    if (v37 == 0.0 || *(v12 - 8) == 0.0)
+    {
+      *(v12 - 9) = v14;
+    }
+
+    v12 += 15;
+    ++v11;
+    v13 += 64;
   }
 
-  else
-  {
-LABEL_4:
-    result = 0;
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  while (v11 < *a2);
+  return 1;
 }
 
 uint64_t MTRegisterMultitouchImageCallback(uint64_t a1, uint64_t a2)
@@ -5729,31 +5695,31 @@ uint64_t MTAlg_IssueImageCallbacks(uint64_t result, const void *a2, __int128 *a3
         if (*(result + 1368) || (*(result + 2076) & 8) != 0)
         {
           result = mtalg_FillinValidPixelRange(result, a3);
-          if ((*(v5 + 2076) & 8) != 0)
+          if ((v5[2076] & 8) != 0)
           {
-            v9 = *(v5 + 2080);
+            v9 = *(v5 + 260);
             result = mt_ImageDescriptorMatchesFilter(a3, &v9);
             if (result)
             {
-              v6 = MTImageInfoCreate(a3, *(v5 + 5448 + 8 * *(v5 + 5440)));
-              *(v5 + 5448 + 8 * *(v5 + 5440)) = v6;
-              *(v5 + 2312) |= 8u;
+              v6 = MTImageInfoCreate(a3, *&v5[8 * *(v5 + 1360) + 5448]);
+              *&v5[8 * *(v5 + 1360) + 5448] = v6;
+              *(v5 + 578) |= 8u;
               result = memcpy(v6 + 20, a2, 2 * v6[9] * v6[8]);
-              ++*(v5 + 5440);
+              ++*(v5 + 1360);
             }
           }
 
-          if (*(v5 + 1368))
+          if (v5[1368])
           {
             for (i = 0; i != 32; i += 8)
             {
-              v8 = *(v5 + i + 1336);
+              v8 = *&v5[i + 1336];
               if (v8)
               {
-                result = mt_ImageDescriptorMatchesFilter(a3, (v5 + i + 1940));
+                result = mt_ImageDescriptorMatchesFilter(a3, &v5[i + 1940]);
                 if (result)
                 {
-                  result = v8(v5, a2, a3, *(v5 + i + 1376));
+                  result = v8(v5, a2, a3, *&v5[i + 1376]);
                 }
               }
             }
@@ -5961,22 +5927,20 @@ LABEL_31:
 
 uint64_t MTImagePrintCallback(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
-  v5 = *a3;
-  v6 = MTGetImageRegionName(*(a3 + 5));
-  v7 = MTGetImageProcessingStepName(*(a3 + 6));
-  result = printf("\nImage #%lu '%s %s': %d X %d  Timestamp: %.3f s\n", v5, v6, v7, *(a3 + 8), *(a3 + 9), *(a3 + 1));
+  v4 = *a3;
+  v5 = MTGetImageRegionName(*(a3 + 5));
+  v6 = MTGetImageProcessingStepName(*(a3 + 6));
+  result = printf("\nImage #%lu '%s %s': %d X %d  Timestamp: %.3f s\n", v4, v5, v6, *(a3 + 8), *(a3 + 9), *(a3 + 1));
   if (*(a3 + 9) >= 1)
   {
-    v9 = 0;
+    v8 = 0;
     do
     {
-      v10 = *(a3 + 8);
-      if (v10 >= 1)
+      if (*(a3 + 8) >= 1)
       {
-        v11 = 0;
+        v9 = 0;
         do
         {
-          v12 = *(a2 + 2 * (v11 + v9 * v10));
           if ((*(a3 + 6) - 16) > 0x30)
           {
             printf("%3d ");
@@ -5987,18 +5951,17 @@ uint64_t MTImagePrintCallback(uint64_t a1, uint64_t a2, uint64_t *a3)
             printf("%4x ");
           }
 
-          v10 = *(a3 + 8);
-          ++v11;
+          ++v9;
         }
 
-        while (v11 < v10);
+        while (v9 < *(a3 + 8));
       }
 
       result = putchar(10);
-      ++v9;
+      ++v8;
     }
 
-    while (v9 < *(a3 + 9));
+    while (v8 < *(a3 + 9));
   }
 
   return result;
@@ -6235,13 +6198,6 @@ uint64_t MTUnregisterForceCentroidCallback(uint64_t a1, uint64_t a2)
   v4 = 1;
   *(a1 + 1512) &= ~(1 << v2);
   return v4;
-}
-
-float MTContact_getCentroidPixel(uint64_t a1, float a2, float a3, float a4)
-{
-  result = a2 + (*(a1 + 32) * a4);
-  v5 = a3 + (*(a1 + 36) * a4);
-  return result;
 }
 
 float MTContact_getEllipseEccentricity(uint64_t a1)
@@ -6588,7 +6544,7 @@ const char *MTGetPathStageName(unsigned int a1)
   }
 }
 
-__n128 MTPath_getTouchdownContact@<Q0>(uint64_t a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+__n128 MTPath_getTouchdownContact@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   PathLifeCycle = mtalg_getPathLifeCycle(a1, a2);
   v5 = *(PathLifeCycle + 152);
@@ -6604,7 +6560,7 @@ __n128 MTPath_getTouchdownContact@<Q0>(uint64_t a1@<X0>, unsigned int a2@<W1>, u
   return result;
 }
 
-__n128 MTPath_getMakeContact@<Q0>(uint64_t a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+__n128 MTPath_getMakeContact@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   PathLifeCycle = mtalg_getPathLifeCycle(a1, a2);
   v5 = *(PathLifeCycle + 248);
@@ -6620,7 +6576,7 @@ __n128 MTPath_getMakeContact@<Q0>(uint64_t a1@<X0>, unsigned int a2@<W1>, uint64
   return result;
 }
 
-__n128 MTPath_getProximityPeakContact@<Q0>(uint64_t a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+__n128 MTPath_getProximityPeakContact@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   PathLifeCycle = mtalg_getPathLifeCycle(a1, a2);
   v5 = *(PathLifeCycle + 344);
@@ -6636,7 +6592,7 @@ __n128 MTPath_getProximityPeakContact@<Q0>(uint64_t a1@<X0>, unsigned int a2@<W1
   return result;
 }
 
-__n128 MTPath_getBreakContact@<Q0>(uint64_t a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+__n128 MTPath_getBreakContact@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   PathLifeCycle = mtalg_getPathLifeCycle(a1, a2);
   v5 = *(PathLifeCycle + 440);
@@ -6652,7 +6608,7 @@ __n128 MTPath_getBreakContact@<Q0>(uint64_t a1@<X0>, unsigned int a2@<W1>, uint6
   return result;
 }
 
-__n128 MTPath_getLiftoffContact@<Q0>(uint64_t a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+__n128 MTPath_getLiftoffContact@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   PathLifeCycle = mtalg_getPathLifeCycle(a1, a2);
   v5 = *(PathLifeCycle + 536);
@@ -6668,7 +6624,7 @@ __n128 MTPath_getLiftoffContact@<Q0>(uint64_t a1@<X0>, unsigned int a2@<W1>, uin
   return result;
 }
 
-double MTPath_getPositionBounds_mm(uint64_t a1, unsigned int a2)
+double MTPath_getPositionBounds_mm(uint64_t a1, uint64_t a2)
 {
   PathLifeCycle = mtalg_getPathLifeCycle(a1, a2);
   if (!PathLifeCycle)
@@ -6677,12 +6633,10 @@ double MTPath_getPositionBounds_mm(uint64_t a1, unsigned int a2)
   }
 
   LODWORD(result) = *(PathLifeCycle + 584);
-  v4 = *(PathLifeCycle + 592) - *&result;
-  v5 = *(PathLifeCycle + 596) - *(PathLifeCycle + 588);
   return result;
 }
 
-double MTPath_getMaxSpeed_mm_s(uint64_t a1, unsigned int a2)
+double MTPath_getMaxSpeed_mm_s(uint64_t a1, uint64_t a2)
 {
   PathLifeCycle = mtalg_getPathLifeCycle(a1, a2);
   if (!PathLifeCycle)
@@ -6694,7 +6648,7 @@ double MTPath_getMaxSpeed_mm_s(uint64_t a1, unsigned int a2)
   return result;
 }
 
-double MTPath_getMaxPressure(uint64_t a1, unsigned int a2)
+double MTPath_getMaxPressure(uint64_t a1, uint64_t a2)
 {
   PathLifeCycle = mtalg_getPathLifeCycle(a1, a2);
   if (!PathLifeCycle)
@@ -6706,7 +6660,7 @@ double MTPath_getMaxPressure(uint64_t a1, unsigned int a2)
   return result;
 }
 
-double MTPath_getMaxProximity(uint64_t a1, unsigned int a2)
+double MTPath_getMaxProximity(uint64_t a1, uint64_t a2)
 {
   PathLifeCycle = mtalg_getPathLifeCycle(a1, a2);
   if (!PathLifeCycle)
@@ -6718,7 +6672,7 @@ double MTPath_getMaxProximity(uint64_t a1, unsigned int a2)
   return result;
 }
 
-double MTPath_getMaxEccentricity(uint64_t a1, unsigned int a2)
+double MTPath_getMaxEccentricity(uint64_t a1, uint64_t a2)
 {
   PathLifeCycle = mtalg_getPathLifeCycle(a1, a2);
   if (!PathLifeCycle)
@@ -6732,30 +6686,26 @@ double MTPath_getMaxEccentricity(uint64_t a1, unsigned int a2)
 
 uint64_t MTZephyrSetInputDetectionControl(uint64_t a1, int8x8_t *a2)
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v4[0] = vbsl_s8(vcltz_s16(vshl_n_s16(vdup_n_s16(*(a1 + 100) != 1), 0xFuLL)), vrev16_s8(*a2), *a2);
-  result = MTDeviceSetReport(a1, 191, v4, 8);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[1] = *MEMORY[0x277D85DE8];
+  v3[0] = vbsl_s8(vcltz_s16(vshl_n_s16(vdup_n_s16(*(a1 + 100) != 1), 0xFuLL)), vrev16_s8(*a2), *a2);
+  return MTDeviceSetReport(a1, 191, v3, 8);
 }
 
-uint64_t MTZephyrGetInputDetectionControl(uint64_t a1, int8x8_t *a2)
+double MTZephyrGetInputDetectionControl(uint64_t a1, double *a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v7[0] = 0xAAAAAAAAAAAAAAAALL;
-  v6 = -1431655766;
-  result = MTDeviceGetReport(a1, 191, v7, 8u, &v6);
-  if (!result && v6 == 8)
+  v6[1] = *MEMORY[0x277D85DE8];
+  v6[0] = 0xAAAAAAAAAAAAAAAALL;
+  v5 = -1431655766;
+  if (!MTDeviceGetReport(a1, 191, v6, 8u, &v5) && v5 == 8)
   {
-    v7[0] = vbsl_s8(vcltz_s16(vshl_n_s16(vdup_n_s16(*(a1 + 100) != 1), 0xFuLL)), vrev16_s8(v7[0]), v7[0]);
-    *a2 = v7[0];
+    result = COERCE_DOUBLE(vbsl_s8(vcltz_s16(vshl_n_s16(vdup_n_s16(*(a1 + 100) != 1), 0xFuLL)), vrev16_s8(v6[0]), v6[0]));
+    *a2 = result;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t MTZephyrSetNoiseThresholdAndRange(uint64_t a1, int a2, unsigned int a3, unsigned int a4, __int16 a5)
+uint64_t MTZephyrSetNoiseThresholdAndRange(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, __int16 a5)
 {
   v6 = -1431655766;
   if (*(a1 + 100) == 1)
@@ -6778,21 +6728,19 @@ uint64_t MTZephyrSetNoiseThresholdAndRange(uint64_t a1, int a2, unsigned int a3,
 uint64_t MTZephyrSetAdditiveCompensationParams(uint64_t a1, _OWORD *a2)
 {
   v2 = 0;
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2[1];
-  v7[0] = *a2;
-  v7[1] = v3;
+  v6[0] = *a2;
+  v6[1] = v3;
   v4 = vcltzq_s16(vshlq_n_s16(vmovl_u8(vdup_n_s8(*(a1 + 100) != 1)), 0xFuLL));
   do
   {
-    v7[v2] = vbslq_s8(v4, vrev16q_s8(v7[v2]), v7[v2]);
+    v6[v2] = vbslq_s8(v4, vrev16q_s8(v6[v2]), v6[v2]);
     ++v2;
   }
 
   while (v2 != 2);
-  result = MTDeviceSetReport(a1, 178, v7, 32);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return MTDeviceSetReport(a1, 178, v6, 32);
 }
 
 uint64_t MTZephyrRequestBaselinedRLE8(uint64_t a1)
@@ -6819,22 +6767,22 @@ uint64_t MTZephyrRequestUnBaselinedRaw16(uint64_t a1)
   return MTDeviceSetZephyrParameter(a1, 165, 0);
 }
 
-uint64_t MTZephyrSetRowCalibTable(uint64_t a1, int a2, const char *a3, unsigned __int8 *a4, int a5, int a6)
+uint64_t MTZephyrSetRowCalibTable(uint64_t a1, unsigned int a2, const char *a3, unsigned __int8 *a4, int a5, unsigned int a6)
 {
   v9 = 0;
-  v27 = *MEMORY[0x277D85DE8];
-  v26 = 0xAAAAAAAAAAAAAAAALL;
+  v26 = *MEMORY[0x277D85DE8];
+  v25 = 0xAAAAAAAAAAAAAAAALL;
   *&v10 = 0xAAAAAAAAAAAAAAAALL;
   *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v25[5] = v10;
-  v25[6] = v10;
-  v25[3] = v10;
-  v25[4] = v10;
-  v25[1] = v10;
-  v25[2] = v10;
-  v25[0] = v10;
-  v24 = a6;
-  v11 = v25;
+  v24[5] = v10;
+  v24[6] = v10;
+  v24[3] = v10;
+  v24[4] = v10;
+  v24[1] = v10;
+  v24[2] = v10;
+  v24[0] = v10;
+  v23 = a6;
+  v11 = v24;
   v12 = a4;
   do
   {
@@ -6845,7 +6793,7 @@ uint64_t MTZephyrSetRowCalibTable(uint64_t a1, int a2, const char *a3, unsigned 
 
     if (a6 >= 1)
     {
-      v13 = v24;
+      v13 = v23;
       v14 = v12;
       v15 = v11;
       do
@@ -6871,7 +6819,7 @@ uint64_t MTZephyrSetRowCalibTable(uint64_t a1, int a2, const char *a3, unsigned 
     }
 
     ++v9;
-    v11 = (v11 + v24);
+    v11 = (v11 + v23);
     v12 += 40;
   }
 
@@ -6881,40 +6829,40 @@ uint64_t MTZephyrSetRowCalibTable(uint64_t a1, int a2, const char *a3, unsigned 
     printf("\n ");
   }
 
-  v17 = MTDeviceSetReport(a1, a2, v25, 3 * a6);
+  v17 = MTDeviceSetReport(a1, a2, v24, 3 * a6);
   v18 = v17;
   if (v17)
   {
     printf("(error 0x%x setting report)\n", v17);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
-uint64_t MTZephyrGetRowCalibTable(uint64_t a1, int a2, const char *a3, _BYTE *a4, int a5)
+uint64_t MTZephyrGetRowCalibTable(uint64_t a1, uint64_t a2, const char *a3, _BYTE *a4, unsigned int a5)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v8 = a2;
+  v22 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     printf("Querying %s table\n", a3);
   }
 
-  v22 = 0xAAAAAAAAAAAAAAAALL;
+  v21 = 0xAAAAAAAAAAAAAAAALL;
   *&v10 = 0xAAAAAAAAAAAAAAAALL;
   *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v21[5] = v10;
-  v21[6] = v10;
-  v21[3] = v10;
-  v21[4] = v10;
-  v21[1] = v10;
-  v21[2] = v10;
-  v21[0] = v10;
-  Report = MTDeviceGetReport(a1, a2, v21, 3 * a5, 0);
+  v20[5] = v10;
+  v20[6] = v10;
+  v20[3] = v10;
+  v20[4] = v10;
+  v20[1] = v10;
+  v20[2] = v10;
+  v20[0] = v10;
+  Report = MTDeviceGetReport(a1, v8, v20, 3 * a5, 0);
   if (a5 <= 40 && a4 && !Report)
   {
     v11 = 0;
-    v12 = v21;
+    v12 = v20;
     do
     {
       if (a3)
@@ -6952,11 +6900,10 @@ uint64_t MTZephyrGetRowCalibTable(uint64_t a1, int a2, const char *a3, _BYTE *a4
     while (v11 != 3);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return Report;
 }
 
-uint64_t MTZephyrGetPhantomACDMIDColumnSamples(uint64_t a1, int a2, _WORD *a3, int a4)
+uint64_t MTZephyrGetPhantomACDMIDColumnSamples(uint64_t a1, uint64_t a2, _WORD *a3, unsigned int a4)
 {
   v5 = a3;
   v12 = 0;
@@ -6984,7 +6931,7 @@ uint64_t MTZephyrGetPhantomACDMIDColumnSamples(uint64_t a1, int a2, _WORD *a3, i
   return 0;
 }
 
-uint64_t MTZephyrSetDemodTable(uint64_t a1, uint64_t a2, signed int a3)
+uint64_t MTZephyrSetDemodTable(uint64_t a1, uint64_t a2, int a3)
 {
   if (a3 > 512)
   {
@@ -7024,78 +6971,78 @@ uint64_t MTZephyrRequestDemodulationStimCount()
   v0 = MEMORY[0x28223BE20]();
   v2 = v1;
   v3 = v0;
-  v23 = *MEMORY[0x277D85DE8];
-  v22[8] = xmmword_25AD7A2A0;
-  v22[9] = unk_25AD7A2B0;
-  v22[10] = xmmword_25AD7A2C0;
-  v22[4] = xmmword_25AD7A260;
-  v22[5] = unk_25AD7A270;
-  v22[6] = xmmword_25AD7A280;
-  v22[7] = unk_25AD7A290;
-  v22[0] = xmmword_25AD7A220;
-  v22[1] = unk_25AD7A230;
-  v22[2] = xmmword_25AD7A240;
-  v22[3] = unk_25AD7A250;
-  v21[9] = unk_25AD7A360;
-  v21[10] = xmmword_25AD7A370;
-  v21[11] = unk_25AD7A380;
-  v21[12] = xmmword_25AD7A390;
-  v21[5] = unk_25AD7A320;
-  v21[6] = xmmword_25AD7A330;
-  v21[7] = unk_25AD7A340;
-  v21[8] = xmmword_25AD7A350;
-  v21[1] = unk_25AD7A2E0;
-  v21[2] = xmmword_25AD7A2F0;
-  v21[3] = unk_25AD7A300;
-  v21[4] = xmmword_25AD7A310;
-  v20[12] = xmmword_25AD7A460;
-  v20[13] = unk_25AD7A470;
-  v20[14] = xmmword_25AD7A480;
-  v21[0] = xmmword_25AD7A2D0;
-  v20[8] = xmmword_25AD7A420;
-  v20[9] = unk_25AD7A430;
-  v20[10] = xmmword_25AD7A440;
-  v20[11] = unk_25AD7A450;
-  v20[4] = xmmword_25AD7A3E0;
-  v20[5] = unk_25AD7A3F0;
-  v20[6] = xmmword_25AD7A400;
-  v20[7] = unk_25AD7A410;
-  v20[0] = xmmword_25AD7A3A0;
-  v20[1] = unk_25AD7A3B0;
-  v20[2] = xmmword_25AD7A3C0;
-  v20[3] = unk_25AD7A3D0;
-  v19[12] = xmmword_25AD7A550;
-  v19[13] = unk_25AD7A560;
-  v19[14] = xmmword_25AD7A570;
-  v19[15] = unk_25AD7A580;
-  v19[8] = xmmword_25AD7A510;
-  v19[9] = unk_25AD7A520;
-  v19[10] = xmmword_25AD7A530;
-  v19[11] = unk_25AD7A540;
-  v19[4] = xmmword_25AD7A4D0;
-  v19[5] = unk_25AD7A4E0;
-  v19[6] = xmmword_25AD7A4F0;
-  v19[7] = unk_25AD7A500;
-  v19[0] = xmmword_25AD7A490;
-  v19[1] = unk_25AD7A4A0;
-  v19[2] = xmmword_25AD7A4B0;
-  v19[3] = unk_25AD7A4C0;
+  v22 = *MEMORY[0x277D85DE8];
+  v21[8] = xmmword_25AD7A2A0;
+  v21[9] = unk_25AD7A2B0;
+  v21[10] = xmmword_25AD7A2C0;
+  v21[4] = xmmword_25AD7A260;
+  v21[5] = unk_25AD7A270;
+  v21[6] = xmmword_25AD7A280;
+  v21[7] = unk_25AD7A290;
+  v21[0] = xmmword_25AD7A220;
+  v21[1] = unk_25AD7A230;
+  v21[2] = xmmword_25AD7A240;
+  v21[3] = unk_25AD7A250;
+  v20[9] = unk_25AD7A360;
+  v20[10] = xmmword_25AD7A370;
+  v20[11] = unk_25AD7A380;
+  v20[12] = xmmword_25AD7A390;
+  v20[5] = unk_25AD7A320;
+  v20[6] = xmmword_25AD7A330;
+  v20[7] = unk_25AD7A340;
+  v20[8] = xmmword_25AD7A350;
+  v20[1] = unk_25AD7A2E0;
+  v20[2] = xmmword_25AD7A2F0;
+  v20[3] = unk_25AD7A300;
+  v20[4] = xmmword_25AD7A310;
+  v19[12] = xmmword_25AD7A460;
+  v19[13] = unk_25AD7A470;
+  v19[14] = xmmword_25AD7A480;
+  v20[0] = xmmword_25AD7A2D0;
+  v19[8] = xmmword_25AD7A420;
+  v19[9] = unk_25AD7A430;
+  v19[10] = xmmword_25AD7A440;
+  v19[11] = unk_25AD7A450;
+  v19[4] = xmmword_25AD7A3E0;
+  v19[5] = unk_25AD7A3F0;
+  v19[6] = xmmword_25AD7A400;
+  v19[7] = unk_25AD7A410;
+  v19[0] = xmmword_25AD7A3A0;
+  v19[1] = unk_25AD7A3B0;
+  v19[2] = xmmword_25AD7A3C0;
+  v19[3] = unk_25AD7A3D0;
+  v18[12] = xmmword_25AD7A550;
+  v18[13] = unk_25AD7A560;
+  v18[14] = xmmword_25AD7A570;
+  v18[15] = unk_25AD7A580;
+  v18[8] = xmmword_25AD7A510;
+  v18[9] = unk_25AD7A520;
+  v18[10] = xmmword_25AD7A530;
+  v18[11] = unk_25AD7A540;
+  v18[4] = xmmword_25AD7A4D0;
+  v18[5] = unk_25AD7A4E0;
+  v18[6] = xmmword_25AD7A4F0;
+  v18[7] = unk_25AD7A500;
+  v18[0] = xmmword_25AD7A490;
+  v18[1] = unk_25AD7A4A0;
+  v18[2] = xmmword_25AD7A4B0;
+  v18[3] = unk_25AD7A4C0;
   memcpy(__dst, &unk_25AD7A590, sizeof(__dst));
-  memcpy(v17, &unk_25AD7A6A0, sizeof(v17));
-  memcpy(v16, &unk_25AD7A7D0, sizeof(v16));
-  memcpy(v15, &unk_25AD7A920, sizeof(v15));
-  memcpy(v14, &unk_25AD7AA90, sizeof(v14));
-  memcpy(v13, &unk_25AD7AC20, sizeof(v13));
-  memcpy(v12, &unk_25AD7ADD0, sizeof(v12));
-  memcpy(v11, &unk_25AD7AFA0, sizeof(v11));
+  memcpy(v16, &unk_25AD7A6A0, sizeof(v16));
+  memcpy(v15, &unk_25AD7A7D0, sizeof(v15));
+  memcpy(v14, &unk_25AD7A920, sizeof(v14));
+  memcpy(v13, &unk_25AD7AA90, sizeof(v13));
+  memcpy(v12, &unk_25AD7AC20, sizeof(v12));
+  memcpy(v11, &unk_25AD7ADD0, sizeof(v11));
+  memcpy(v10, &unk_25AD7AFA0, sizeof(v10));
   v4 = 496;
-  v5 = v10;
-  memcpy(v10, &unk_25AD7B180, sizeof(v10));
+  v5 = v9;
+  memcpy(v9, &unk_25AD7B180, sizeof(v9));
   if (v2 <= 31)
   {
     if (v2 == 31)
     {
-      v5 = v11;
+      v5 = v10;
       v4 = 480;
     }
 
@@ -7115,7 +7062,7 @@ uint64_t MTZephyrRequestDemodulationStimCount()
                 {
                   if (v2 == 17)
                   {
-                    v5 = v19;
+                    v5 = v18;
                     v4 = 256;
                   }
 
@@ -7144,18 +7091,18 @@ uint64_t MTZephyrRequestDemodulationStimCount()
 
                     if (v6)
                     {
-                      v5 = v22;
+                      v5 = v21;
                     }
 
                     else
                     {
-                      v5 = v21;
+                      v5 = v20;
                     }
                   }
 
                   else
                   {
-                    v5 = v20;
+                    v5 = v19;
                     v4 = 240;
                     v2 = 16;
                   }
@@ -7171,7 +7118,7 @@ uint64_t MTZephyrRequestDemodulationStimCount()
 
               else
               {
-                v5 = v17;
+                v5 = v16;
                 v4 = 304;
                 v2 = 20;
               }
@@ -7179,7 +7126,7 @@ uint64_t MTZephyrRequestDemodulationStimCount()
 
             else
             {
-              v5 = v16;
+              v5 = v15;
               v4 = 336;
               v2 = 22;
             }
@@ -7187,7 +7134,7 @@ uint64_t MTZephyrRequestDemodulationStimCount()
 
           else
           {
-            v5 = v15;
+            v5 = v14;
             v4 = 368;
             v2 = 24;
           }
@@ -7195,7 +7142,7 @@ uint64_t MTZephyrRequestDemodulationStimCount()
 
         else
         {
-          v5 = v14;
+          v5 = v13;
           v4 = 400;
           v2 = 26;
         }
@@ -7203,7 +7150,7 @@ uint64_t MTZephyrRequestDemodulationStimCount()
 
       else
       {
-        v5 = v13;
+        v5 = v12;
         v4 = 432;
         v2 = 28;
       }
@@ -7211,7 +7158,7 @@ uint64_t MTZephyrRequestDemodulationStimCount()
 
     else
     {
-      v5 = v12;
+      v5 = v11;
       v4 = 464;
       v2 = 30;
     }
@@ -7223,9 +7170,8 @@ uint64_t MTZephyrRequestDemodulationStimCount()
   }
 
   MTZephyrSetDemodTable(v3, v5, v4);
-  v9 = -86;
-  MTDeviceSetReport(v3, 79, &v9, 1);
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = -86;
+  MTDeviceSetReport(v3, 79, &v8, 1);
   return v2;
 }
 
@@ -7830,7 +7776,7 @@ uint64_t MTDeviceSetFaceDetectionModeEnabled(uint64_t a1, char a2)
   return MTDeviceSetZephyrParameter(a1, 175, a2);
 }
 
-uint64_t MTDeviceSetInputDetectionModeForOrientation(uint64_t a1, int a2, int a3)
+uint64_t MTDeviceSetInputDetectionModeForOrientation(uint64_t a1, int a2, unsigned int a3)
 {
   if (!a1)
   {
@@ -7885,7 +7831,7 @@ uint64_t MTDeviceSetInputDetectionModeForOrientation(uint64_t a1, int a2, int a3
 
     if (a2 == 5)
     {
-      if ((a3 - 3) >= 2)
+      if (a3 - 3 >= 2)
       {
         v14 = 927;
       }
@@ -7907,7 +7853,7 @@ uint64_t MTDeviceSetInputDetectionModeForOrientation(uint64_t a1, int a2, int a3
         goto LABEL_58;
       }
 
-      if ((a3 - 3) >= 2)
+      if (a3 - 3 >= 2)
       {
         v12 = 2975;
       }
@@ -7938,7 +7884,7 @@ LABEL_48:
   {
     if (a2 == 2)
     {
-      if ((a3 - 3) >= 2)
+      if (a3 - 3 >= 2)
       {
         v15 = -32355;
       }
@@ -7955,7 +7901,7 @@ LABEL_48:
 
     else if (a2 == 3)
     {
-      if ((a3 - 3) >= 2)
+      if (a3 - 3 >= 2)
       {
         v18 = 2461;
       }
@@ -7972,7 +7918,7 @@ LABEL_48:
 
     else
     {
-      if ((a3 - 3) >= 2)
+      if (a3 - 3 >= 2)
       {
         v8 = 2525;
       }
@@ -7992,7 +7938,7 @@ LABEL_48:
 
   if (!a2)
   {
-    if ((a3 - 3) >= 2)
+    if (a3 - 3 >= 2)
     {
       v13 = 413;
     }
@@ -8010,7 +7956,7 @@ LABEL_48:
 
   if (a2 == 1)
   {
-    if ((a3 - 3) >= 2)
+    if (a3 - 3 >= 2)
     {
       v11 = 477;
     }
@@ -8032,7 +7978,7 @@ LABEL_58:
   return v7;
 }
 
-uint64_t MTDeviceSetTouchMode(uint64_t a1, int a2, int a3)
+uint64_t MTDeviceSetTouchMode(uint64_t a1, int a2, unsigned int a3)
 {
   kdebug_trace();
   if (*(a1 + 114))
@@ -8082,7 +8028,7 @@ uint64_t MTDeviceSetTouchMode(uint64_t a1, int a2, int a3)
   {
     if (a2 == 1)
     {
-      if ((a3 - 3) >= 2)
+      if (a3 - 3 >= 2)
       {
         v14 = -31841;
       }
@@ -8104,7 +8050,7 @@ uint64_t MTDeviceSetTouchMode(uint64_t a1, int a2, int a3)
         goto LABEL_29;
       }
 
-      if ((a3 - 3) >= 2)
+      if (a3 - 3 >= 2)
       {
         v8 = -32355;
       }
@@ -8122,7 +8068,7 @@ uint64_t MTDeviceSetTouchMode(uint64_t a1, int a2, int a3)
 
   else
   {
-    if ((a3 - 3) >= 2)
+    if (a3 - 3 >= 2)
     {
       v11 = -32355;
     }
@@ -8575,7 +8521,7 @@ LABEL_21:
   return v9;
 }
 
-__CFArray *_mthid_copyAvailableDevicesInfo()
+CFMutableArrayRef _mthid_copyAvailableDevicesInfo()
 {
   Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 10, MEMORY[0x277CBF128]);
   v1 = Mutable;
@@ -8646,7 +8592,7 @@ void appendAvailableDevicesInfo(__CFArray *a1, char *name)
   }
 }
 
-uint64_t _mthid_copyDeviceInfo(uint64_t a1)
+__CFDictionary *_mthid_copyDeviceInfo(uint64_t a1)
 {
   result = mt_DeviceCreateFromDeviceID(a1, 0);
   if (result)
@@ -8787,7 +8733,7 @@ __CFDictionary *createDeviceInfoForDevice(uint64_t a1)
   return Mutable;
 }
 
-uint64_t _mthid_copyDeviceInfoForService(io_object_t a1)
+__CFDictionary *_mthid_copyDeviceInfoForService(io_object_t a1)
 {
   result = MTDeviceCreateFromService(a1);
   if (result)
@@ -8907,7 +8853,7 @@ const __CFArray *_mthid_pathCollectionGetDeviceID()
   return result;
 }
 
-const __CFArray *_mthid_pathCollectionCopyAllPaths()
+const __CFArray *_mthid_pathCollectionCopyAllPaths(uint64_t a1)
 {
   Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
   if (Mutable)
@@ -8915,18 +8861,18 @@ const __CFArray *_mthid_pathCollectionCopyAllPaths()
     Children = IOHIDEventGetChildren();
     if (Children)
     {
-      v2 = Children;
+      v3 = Children;
       Count = CFArrayGetCount(Children);
       if (Count >= 1)
       {
-        v4 = Count;
-        for (i = 0; i != v4; ++i)
+        v5 = Count;
+        for (i = 0; i != v5; ++i)
         {
-          ValueAtIndex = CFArrayGetValueAtIndex(v2, i);
+          ValueAtIndex = CFArrayGetValueAtIndex(v3, i);
           if (_mthid_isPath(ValueAtIndex))
           {
-            v7 = CFArrayGetCount(Mutable);
-            CFArrayInsertValueAtIndex(Mutable, v7, ValueAtIndex);
+            v8 = CFArrayGetCount(Mutable);
+            CFArrayInsertValueAtIndex(Mutable, v8, ValueAtIndex);
           }
         }
       }
@@ -8946,7 +8892,7 @@ BOOL _mthid_isPath(_BOOL8 result)
   return result;
 }
 
-const __CFArray *_mthid_pathCollectionCopyTouchingPaths()
+const __CFArray *_mthid_pathCollectionCopyTouchingPaths(uint64_t a1)
 {
   Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
   if (Mutable)
@@ -8954,18 +8900,18 @@ const __CFArray *_mthid_pathCollectionCopyTouchingPaths()
     Children = IOHIDEventGetChildren();
     if (Children)
     {
-      v2 = Children;
+      v3 = Children;
       Count = CFArrayGetCount(Children);
       if (Count >= 1)
       {
-        v4 = Count;
-        for (i = 0; i != v4; ++i)
+        v5 = Count;
+        for (i = 0; i != v5; ++i)
         {
-          ValueAtIndex = CFArrayGetValueAtIndex(v2, i);
+          ValueAtIndex = CFArrayGetValueAtIndex(v3, i);
           if (_mthid_isPath(ValueAtIndex) && IOHIDEventGetIntegerValue() == 1)
           {
-            v7 = CFArrayGetCount(Mutable);
-            CFArrayInsertValueAtIndex(Mutable, v7, ValueAtIndex);
+            v8 = CFArrayGetCount(Mutable);
+            CFArrayInsertValueAtIndex(Mutable, v8, ValueAtIndex);
           }
         }
       }
@@ -8975,23 +8921,23 @@ const __CFArray *_mthid_pathCollectionCopyTouchingPaths()
   return Mutable;
 }
 
-double _mthid_pathCollectionGetPosition()
+double _mthid_pathCollectionGetPosition(uint64_t a1)
 {
   IOHIDEventGetFloatValue();
-  v1 = v0;
+  v2 = v1;
   IOHIDEventGetFloatValue();
-  return v1;
+  return v2;
 }
 
-double _mthid_pathGetPosition()
+double _mthid_pathGetPosition(uint64_t a1)
 {
   IOHIDEventGetFloatValue();
-  v1 = v0;
+  v2 = v1;
   IOHIDEventGetFloatValue();
-  return v1;
+  return v2;
 }
 
-double _mthid_pathGetVelocity()
+double _mthid_pathGetVelocity(uint64_t a1)
 {
   if (!IOHIDEventGetEvent())
   {
@@ -8999,9 +8945,9 @@ double _mthid_pathGetVelocity()
   }
 
   IOHIDEventGetFloatValue();
-  v1 = v0;
+  v2 = v1;
   IOHIDEventGetFloatValue();
-  return v1;
+  return v2;
 }
 
 CFDictionaryRef _mthid_createGestureConfiguration()
@@ -9028,20 +8974,20 @@ CFDictionaryRef _mthid_createGestureConfiguration()
 
   if (!v4)
   {
-    v8 = CFDictionaryCreate(v0, keys, values, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+    v7 = CFDictionaryCreate(v0, keys, values, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
     goto LABEL_10;
   }
 
-  v8 = 0;
+  v7 = 0;
   v5 = 0;
   if (v1)
   {
 LABEL_10:
     CFRelease(v1);
-    v5 = v8;
+    v5 = v7;
     if (!v3)
     {
-      goto LABEL_9;
+      return v5;
     }
 
     goto LABEL_8;
@@ -9053,8 +8999,6 @@ LABEL_8:
     CFRelease(v3);
   }
 
-LABEL_9:
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -9140,7 +9084,7 @@ uint64_t _mthid_isGestureConfigurationValid(uint64_t result)
   return result;
 }
 
-uint64_t _mthid_appendBehaviorToGestureConfiguration(const __CFDictionary *a1, void *a2)
+CFDictionaryRef _mthid_appendBehaviorToGestureConfiguration(const __CFDictionary *a1, void *a2)
 {
   keys[1] = *MEMORY[0x277D85DE8];
   isGestureConfigurationValid = _mthid_isGestureConfigurationValid(a1);
@@ -9156,20 +9100,19 @@ uint64_t _mthid_appendBehaviorToGestureConfiguration(const __CFDictionary *a1, v
       {
         v6 = result;
         Value = CFDictionaryGetValue(a1, @"Behaviors");
-        v11.length = CFArrayGetCount(Value);
-        v11.location = 0;
-        if (!CFArrayContainsValue(Value, v11, v6))
+        v10.length = CFArrayGetCount(Value);
+        v10.location = 0;
+        if (!CFArrayContainsValue(Value, v10, v6))
         {
           CFArrayAppendValue(Value, v6);
         }
 
         CFRelease(v6);
-        result = 1;
+        return 1;
       }
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9216,64 +9159,63 @@ const __CFDictionary *_mthid_createAggregateGestureConfiguration(const __CFArray
 
 CFDataRef _mthid_serializeGestureConfiguration(const void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   error = 0;
   v2 = 0;
   if (_mthid_isGestureConfigurationValid(a1))
   {
-    v2 = CFPropertyListCreateData(*MEMORY[0x277CBECE8], a1, kCFPropertyListBinaryFormat_v1_0, 0, &error);
+    v3 = CFPropertyListCreateData(*MEMORY[0x277CBECE8], a1, kCFPropertyListBinaryFormat_v1_0, 0, &error);
+    v2 = v3;
     if (error)
     {
-      v3 = MTLoggingFramework();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v5 = MTLoggingFramework(v3, v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         Code = CFErrorGetCode(error);
         *buf = 134217984;
-        v9 = Code;
-        _os_log_impl(&dword_25AD59000, v3, OS_LOG_TYPE_ERROR, "Error serializing gesture configuration. ErrorCode=%ld.", buf, 0xCu);
+        v10 = Code;
+        _os_log_impl(&dword_25AD59000, v5, OS_LOG_TYPE_ERROR, "Error serializing gesture configuration. ErrorCode=%ld.", buf, 0xCu);
       }
 
       CFRelease(error);
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
-CFPropertyListRef _mthid_unserializeGestureConfiguration(CFDataRef data)
+const void *_mthid_unserializeGestureConfiguration(CFDataRef data)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (!data)
   {
-    goto LABEL_9;
+    return 0;
   }
 
   error = 0;
   v1 = CFPropertyListCreateWithData(*MEMORY[0x277CBECE8], data, 0, 0, &error);
+  v3 = v1;
   if (error)
   {
-    v2 = MTLoggingFramework();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v4 = MTLoggingFramework(v1, v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       Code = CFErrorGetCode(error);
       *buf = 134217984;
-      v8 = Code;
-      _os_log_impl(&dword_25AD59000, v2, OS_LOG_TYPE_ERROR, "Error unserializing gesture configuration. ErrorCode=%ld.", buf, 0xCu);
+      v9 = Code;
+      _os_log_impl(&dword_25AD59000, v4, OS_LOG_TYPE_ERROR, "Error unserializing gesture configuration. ErrorCode=%ld.", buf, 0xCu);
     }
 
     CFRelease(error);
   }
 
-  if (v1 && (_mthid_isGestureConfigurationValid(v1) & 1) == 0)
+  if (v3 && (_mthid_isGestureConfigurationValid(v3) & 1) == 0)
   {
-    CFRelease(v1);
-LABEL_9:
-    v1 = 0;
+    CFRelease(v3);
+    return 0;
   }
 
-  v4 = *MEMORY[0x277D85DE8];
-  return v1;
+  return v3;
 }
 
 CFDataRef _mthid_serializePropertiesEvent(CFDataRef result)
@@ -9283,11 +9225,11 @@ CFDataRef _mthid_serializePropertiesEvent(CFDataRef result)
     result = IOCFSerialize(result, 1uLL);
     if (!result)
     {
-      v1 = MTLoggingFramework();
-      if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+      v2 = MTLoggingFramework(0, v1);
+      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
-        *v2 = 0;
-        _os_log_impl(&dword_25AD59000, v1, OS_LOG_TYPE_ERROR, "Error serializing properties dictionary", v2, 2u);
+        *v3 = 0;
+        _os_log_impl(&dword_25AD59000, v2, OS_LOG_TYPE_ERROR, "Error serializing properties dictionary", v3, 2u);
       }
 
       return 0;
@@ -9297,55 +9239,53 @@ CFDataRef _mthid_serializePropertiesEvent(CFDataRef result)
   return result;
 }
 
-const __CFString *_mthid_unserializePropertiesEvent(const void *a1)
+const __CFString *_mthid_unserializePropertiesEvent(const __CFData *TypeID, uint64_t a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if (!a1 || (v2 = CFGetTypeID(a1), v2 != CFDataGetTypeID()))
+  v17 = *MEMORY[0x277D85DE8];
+  if (!TypeID || (v2 = TypeID, v3 = CFGetTypeID(TypeID), TypeID = CFDataGetTypeID(), v3 != TypeID))
   {
-    v8 = MTLoggingFramework();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = MTLoggingFramework(TypeID, a2);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_25AD59000, v8, OS_LOG_TYPE_ERROR, "Error unserializing properties event: Invalid data provided", buf, 2u);
+      _os_log_impl(&dword_25AD59000, v10, OS_LOG_TYPE_ERROR, "Error unserializing properties event: Invalid data provided", buf, 2u);
     }
 
-    goto LABEL_10;
+    return 0;
   }
 
   errorString = 0;
-  BytePtr = CFDataGetBytePtr(a1);
-  Length = CFDataGetLength(a1);
-  v5 = IOCFUnserializeBinary(BytePtr, Length, *MEMORY[0x277CBECE8], 0, &errorString);
+  BytePtr = CFDataGetBytePtr(v2);
+  Length = CFDataGetLength(v2);
+  v6 = IOCFUnserializeBinary(BytePtr, Length, *MEMORY[0x277CBECE8], 0, &errorString);
   if (errorString)
   {
-    v6 = MTLoggingFramework();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = MTLoggingFramework(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v15 = errorString;
-      _os_log_impl(&dword_25AD59000, v6, OS_LOG_TYPE_ERROR, "Error unserializing properties event vendor defined data Error: %{public}@", buf, 0xCu);
+      v16 = errorString;
+      _os_log_impl(&dword_25AD59000, v8, OS_LOG_TYPE_ERROR, "Error unserializing properties event vendor defined data Error: %{public}@", buf, 0xCu);
     }
 
-    v7 = errorString;
+    v9 = errorString;
     goto LABEL_7;
   }
 
-  v9 = v5;
-  if (v5)
+  v11 = v6;
+  if (v6)
   {
-    v12 = CFGetTypeID(v5);
-    if (v12 != CFDictionaryGetTypeID())
+    v13 = CFGetTypeID(v6);
+    if (v13 != CFDictionaryGetTypeID())
     {
-      v7 = v9;
+      v9 = v11;
 LABEL_7:
-      CFRelease(v7);
-LABEL_10:
-      v9 = 0;
+      CFRelease(v9);
+      return 0;
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v11;
 }
 
 uint64_t quantizeFrequencyToPeriodByte(float a1, float a2)
@@ -9467,7 +9407,7 @@ BOOL MTActuationSetToneMultipliers(float *a1, float a2, float a3, float a4)
   return a1 != 0;
 }
 
-uint64_t MTActuationFillParametricBufferWithWaveform(uint64_t a1, _BYTE *a2, float a3, float a4, float a5, float a6)
+unint64_t MTActuationFillParametricBufferWithWaveform(uint64_t a1, _BYTE *a2, float a3, float a4, float a5, float a6)
 {
   v6 = *(a1 + 4) * a4;
   v7 = 1.0;
@@ -9645,16 +9585,11 @@ uint64_t mt_GetSurfaceScreenEdges(uint64_t a1)
   }
 }
 
-__int16 *mtalg_getSurfaceBounds_mm(__int16 *result)
+uint64_t mtalg_getSurfaceBounds_mm(uint64_t result)
 {
   if (result)
   {
-    result = MTAlg_GetAlgLibStateRef(result);
-    if (result)
-    {
-      v1 = (result[188] - result[189]) / 100.0;
-      v2 = (result[190] - result[191]) / 100.0;
-    }
+    return MTAlg_GetAlgLibStateRef(result);
   }
 
   return result;
@@ -9707,12 +9642,15 @@ float mtalg_ConvertBinaryForceCentroidToMTFC(uint64_t a1, uint64_t a2, float32x4
   return result;
 }
 
-uint64_t mtalg_ComputeContactDensityFromRadii(uint64_t a1, int a2, int a3, int a4)
+uint64_t mtalg_ComputeContactDensityFromRadii(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
+  v5 = a3;
+  v6 = a2;
   result = MTAlg_GetAlgLibStateRef(a1);
   if (result)
   {
-    LOWORD(result) = alg_ComputeContactDensityFromRadii(a2, a3, a4, *(result + 470), *(result + 472));
+    LOWORD(result) = alg_ComputeContactDensityFromRadii(v6, v5, v4, *(result + 470), *(result + 472));
   }
 
   return result;
@@ -9795,4 +9733,104 @@ uint64_t mt_CalculateMTBinaryContactVelocity(uint64_t result, uint64_t a2, doubl
   }
 
   return result;
+}
+
+uint64_t mt_CalculateMTPreciseContactVelocity(uint64_t result, uint64_t a2, double a3)
+{
+  if (result && a2)
+  {
+    if (*(a2 + 1) - 7 < 0xFFFFFFFD || *(a2 + 12) == 3.4028e38 && *(a2 + 16) == 3.4028e38)
+    {
+      *(a2 + 12) = 0;
+      *(a2 + 16) = 0;
+    }
+
+    else
+    {
+      v3 = vdup_n_s32(0x447A0000u);
+      v4 = vcvt_f32_f64(vdivq_f64(vcvtq_f64_f32(vmul_f32(vsub_f32(vdiv_f32(*(a2 + 4), v3), *(result + 68)), v3)), vdupq_lane_s64(COERCE__INT64(a3 - *(result + 8)), 0)));
+      *(a2 + 12) = v4;
+      if (v4.f32[0] == 0.0 && v4.f32[1] == 0.0)
+      {
+        *(a2 + 12) = 1123680256;
+      }
+    }
+  }
+
+  return result;
+}
+
+float mt_FillMTContactDirectFromBinary(unsigned __int16 *a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4, char a5, double a6)
+{
+  if (a1 && a2 && a3)
+  {
+    v9 = *(a2 + 8);
+    v10 = *(a2 + 20);
+    *a2 = a4;
+    *(a2 + 8) = a6;
+    v11 = v10 - 3;
+    v12 = a6 - v9;
+    if (v12 < 0.04 && v11 < 2 && a3[1] == 0)
+    {
+      v15 = 7;
+    }
+
+    else
+    {
+      v15 = a3[1];
+    }
+
+    *(a2 + 16) = *a3;
+    *(a2 + 20) = v15;
+    v16 = a3[3];
+    *(a2 + 24) = a3[2];
+    *(a2 + 28) = v16;
+    LOWORD(v12) = *(a3 + 13);
+    v17 = LODWORD(v12);
+    *(a2 + 48) = vcvts_n_f32_u32(*(a3 + 9), 8uLL);
+    *(a2 + 52) = v17;
+    LOWORD(v17) = *(a3 + 10);
+    v18.f32[0] = *(a3 + 12) * 3.1416;
+    v18.f32[1] = LODWORD(v17);
+    *(a2 + 88) = vmul_f32(v18, 0x3B80000038000000);
+    v19.i32[0] = *(a3 + 4);
+    v19.i32[1] = *(a3 + 5);
+    v20 = vcvt_f32_s32(vadd_s32(v19, v19));
+    *(a2 + 76) = vmul_f32(v20, vdup_n_s32(0x3D800000u));
+    v21 = a1[1];
+    v22 = (*a1 - v21);
+    v23 = (v20.f32[0] / 160.0) * 1000.0 / v22;
+    v24 = a1[3];
+    v25 = (a1[2] - v24);
+    *&v26 = (v20.f32[1] / 160.0) * 1000.0 / v25;
+    *(a2 + 40) = v23;
+    *(a2 + 44) = *&v26;
+    HIWORD(v26) = 14336;
+    *&v27 = (*(a3 + 8) * 3.1416) * 0.000030518;
+    LOWORD(v26) = *(a3 + 6);
+    *(a2 + 56) = *&v27;
+    *(a2 + 60) = v26 / 100.0;
+    LOWORD(v27) = *(a3 + 7);
+    *(a2 + 64) = v27 / 100.0;
+    v28 = *(a3 + 2);
+    v29 = *(a3 + 3);
+    if ((a5 & 1) == 0)
+    {
+      v28 = alg_ClipPosPointToScreenEdge(v28 | (v29 << 16), a1);
+      v29 = HIWORD(v28);
+      v21 = a1[1];
+      v24 = a1[3];
+      v22 = (*a1 - v21);
+      v25 = (a1[2] - v24);
+    }
+
+    *(a2 + 68) = v28 / 100.0;
+    *(a2 + 72) = v29 / 100.0;
+    *&a6 = (v28 - v21) / v22;
+    *(a2 + 32) = LODWORD(a6);
+    *(a2 + 36) = (v29 - v24) / v25;
+    *(a2 + 84) = *(a3 + 14);
+  }
+
+  return *&a6;
 }

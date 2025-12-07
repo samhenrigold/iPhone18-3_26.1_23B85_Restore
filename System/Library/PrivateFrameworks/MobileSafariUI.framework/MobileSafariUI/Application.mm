@@ -96,7 +96,6 @@
 - (id)webExtensionsControllerForProfileServerID:(id)d;
 - (id)webExtensionsControllerForTabWithPrivateBrowsingEnabled:(BOOL)enabled profile:(id)profile;
 - (id)windowEntityWithIdentifier:(id)identifier;
-- (uint64_t)_showSearchEngineAlertIfNeeded;
 - (unint64_t)_numberOfTabsForPrivateBrowsing:(BOOL)browsing;
 - (unint64_t)maximumTabCountAllowingMoreTabs:(BOOL)tabs;
 - (void)_addDefaultsObserver;
@@ -402,22 +401,23 @@
   safari_browserDefaults2 = [MEMORY[0x277CBEBD0] safari_browserDefaults];
   self->_needsFocusedTabGroupUpdate = [safari_browserDefaults2 BOOLForKey:*MEMORY[0x277D49C30]];
 
-  if ([(NSString *)self->_focusedTabGroupUUIDString length])
+  v7 = [(NSString *)self->_focusedTabGroupUUIDString length];
+  if (v7)
   {
     tabGroupManager = [(Application *)self tabGroupManager];
-    v8 = [tabGroupManager tabGroupWithUUID:self->_focusedTabGroupUUIDString];
-    isInDefaultProfile = [v8 isInDefaultProfile];
+    v10 = [tabGroupManager tabGroupWithUUID:self->_focusedTabGroupUUIDString];
+    isInDefaultProfile = [v10 isInDefaultProfile];
 
     if ((isInDefaultProfile & 1) == 0)
     {
-      v10 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = WBS_LOG_CHANNEL_PREFIXSiriLink(v7, v8);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        *v18 = 0;
-        _os_log_impl(&dword_215819000, v10, OS_LOG_TYPE_DEFAULT, "Ignoring tab group for focus since the tab group is in a named profile.", v18, 2u);
+        *v22 = 0;
+        _os_log_impl(&dword_215819000, v12, OS_LOG_TYPE_DEFAULT, "Ignoring tab group for focus since the tab group is in a named profile.", v22, 2u);
       }
 
-      v11 = self->_focusedTabGroupUUIDString;
+      v13 = self->_focusedTabGroupUUIDString;
       self->_focusedTabGroupUUIDString = 0;
 
       self->_needsFocusedTabGroupUpdate = 0;
@@ -426,19 +426,19 @@
 
   if (self->_needsFocusedTabGroupUpdate && !self->_focusedTabGroupUUIDString)
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXSiriLink(v7, v8);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [Application _readFocusConfigurationKeys];
     }
   }
 
   safari_browserDefaults3 = [MEMORY[0x277CBEBD0] safari_browserDefaults];
-  v14 = [safari_browserDefaults3 stringForKey:*MEMORY[0x277D49CF8]];
+  v16 = [safari_browserDefaults3 stringForKey:*MEMORY[0x277D49CF8]];
 
-  if (!self->_focusProfileIdentifier || v14)
+  if (!self->_focusProfileIdentifier || v16)
   {
-    objc_storeStrong(&self->_focusProfileIdentifier, v14);
+    objc_storeStrong(&self->_focusProfileIdentifier, v16);
     safari_browserDefaults4 = [MEMORY[0x277CBEBD0] safari_browserDefaults];
     self->_needsFocusProfileUpdate = [safari_browserDefaults4 BOOLForKey:*MEMORY[0x277D49C28]];
 
@@ -449,8 +449,9 @@
         goto LABEL_18;
       }
 
-      v16 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v20 = WBS_LOG_CHANNEL_PREFIXSiriLink(v18, v19);
+      v18 = os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
+      if (v18)
       {
         [Application _readFocusConfigurationKeys];
       }
@@ -468,8 +469,8 @@ LABEL_18:
     if (self->_focusProfileIdentifier && self->_focusedTabGroupUUIDString)
     {
 LABEL_21:
-      v17 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v21 = WBS_LOG_CHANNEL_PREFIXSiriLink(v18, v19);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         [Application _readFocusConfigurationKeys];
       }
@@ -652,84 +653,9 @@ void __46__Application__updateCloudFeatureAvailability__block_invoke(uint64_t a1
 
 - (void)_showSearchEngineAlertIfNeeded
 {
-  safari_browserDefaults = [MEMORY[0x277CBEBD0] safari_browserDefaults];
-  v3 = *MEMORY[0x277D28FF8];
-  v4 = [safari_browserDefaults stringForKey:*MEMORY[0x277D28FF8]];
-  v5 = MGCopyAnswer();
-  [safari_browserDefaults setObject:v5 forKey:v3];
-  if (_SFDeviceRegionCodeIsRussia() && ([v4 isEqualToString:v5] & 1) == 0)
-  {
-    if (!v4)
-    {
-      v16 = 0;
-      v17 = &v16;
-      v18 = 0x2020000000;
-      v6 = getDMGetUserDataDispositionSymbolLoc_ptr;
-      v19 = getDMGetUserDataDispositionSymbolLoc_ptr;
-      if (!getDMGetUserDataDispositionSymbolLoc_ptr)
-      {
-        v7 = DataMigrationLibrary();
-        v17[3] = dlsym(v7, "DMGetUserDataDisposition");
-        getDMGetUserDataDispositionSymbolLoc_ptr = v17[3];
-        v6 = v17[3];
-      }
-
-      _Block_object_dispose(&v16, 8);
-      if (v6)
-      {
-        v8 = v6();
-        v16 = 0;
-        v17 = &v16;
-        v18 = 0x2020000000;
-        v9 = getDMGetPreviousBuildVersionSymbolLoc_ptr;
-        v19 = getDMGetPreviousBuildVersionSymbolLoc_ptr;
-        if (!getDMGetPreviousBuildVersionSymbolLoc_ptr)
-        {
-          v10 = DataMigrationLibrary();
-          v17[3] = dlsym(v10, "DMGetPreviousBuildVersion");
-          getDMGetPreviousBuildVersionSymbolLoc_ptr = v17[3];
-          v9 = v17[3];
-        }
-
-        _Block_object_dispose(&v16, 8);
-        if (v9)
-        {
-          v11 = v9();
-          v12 = v11;
-          if ((v8 & 2) != 0 && v11)
-          {
-            v13 = [v11 compare:@"18F0" options:64];
-
-            if (v13 == -1)
-            {
-              goto LABEL_16;
-            }
-          }
-
-          else
-          {
-          }
-
-          goto LABEL_15;
-        }
-      }
-
-      else
-      {
-        [Application _showSearchEngineAlertIfNeeded];
-      }
-
-      _showSearchEngineAlertIfNeeded = [Application _showSearchEngineAlertIfNeeded];
-      _Block_object_dispose(&v16, 8);
-      _Unwind_Resume(_showSearchEngineAlertIfNeeded);
-    }
-
-LABEL_15:
-    searchEngineSettingAlert = [MEMORY[0x277D28D70] searchEngineSettingAlert];
-    [searchEngineSettingAlert scheduleWithCompletionBlock:&__block_literal_global_294];
-  }
-
-LABEL_16:
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  [Application _export30DaysWorthOfHistoryAfterUpgrade];
 }
 
 - (void)prewarmAndRemoveOrphanedProfileDataStores
@@ -1157,7 +1083,7 @@ void __45__Application__recentsStoreForDefaultProfile__block_invoke()
 
 - (void)startCommandLineTest
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (gTestOptions && [gTestOptions count])
   {
     v3 = gTestOptions;
@@ -1181,18 +1107,19 @@ void __45__Application__recentsStoreForDefaultProfile__block_invoke()
   if (gTestController)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      [gTestController setDelegate:gTestController];
+      isKindOfClass = [gTestController setDelegate:gTestController];
     }
 
-    v7 = WBS_LOG_CHANNEL_PREFIXTest();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = WBS_LOG_CHANNEL_PREFIXTest(isKindOfClass, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = v7;
-      v9 = 138543362;
-      v10 = objc_opt_class();
-      _os_log_impl(&dword_215819000, v8, OS_LOG_TYPE_DEFAULT, "Running %{public}@", &v9, 0xCu);
+      v10 = v9;
+      v11 = 138543362;
+      v12 = objc_opt_class();
+      _os_log_impl(&dword_215819000, v10, OS_LOG_TYPE_DEFAULT, "Running %{public}@", &v11, 0xCu);
     }
 
     [gTestController runTestsAndStoreResultsIn:gTestResults completionHandler:&__block_literal_global_1];
@@ -1468,54 +1395,55 @@ LABEL_23:
 
 void __56__Application_prewarmAndRemoveOrphanedProfileDataStores__block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v15 = 0u;
-  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v19 = 0u;
+  v20 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v16;
+    v7 = *v18;
     *&v5 = 138543362;
-    v12 = v5;
+    v14 = v5;
     do
     {
       v8 = 0;
       do
       {
-        if (*v16 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = [*(*(&v15 + 1) + 8 * v8) UUIDString];
-        if (([*(a1 + 32) containsObject:v9] & 1) == 0)
+        v9 = [*(*(&v17 + 1) + 8 * v8) UUIDString];
+        v10 = [*(a1 + 32) containsObject:v9];
+        if ((v10 & 1) == 0)
         {
-          v10 = WBS_LOG_CHANNEL_PREFIXOther();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+          v12 = WBS_LOG_CHANNEL_PREFIXOther(v10, v11);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
           {
-            *buf = v12;
-            v20 = v9;
-            _os_log_fault_impl(&dword_215819000, v10, OS_LOG_TYPE_FAULT, "WKWebsiteDataStore with identifier %{public}@ does not correspond to any Safari profile, deleting", buf, 0xCu);
+            *buf = v14;
+            v22 = v9;
+            _os_log_fault_impl(&dword_215819000, v12, OS_LOG_TYPE_FAULT, "WKWebsiteDataStore with identifier %{public}@ does not correspond to any Safari profile, deleting", buf, 0xCu);
           }
 
-          v11 = MEMORY[0x277CE3868];
-          v13[0] = MEMORY[0x277D85DD0];
-          v13[1] = 3221225472;
-          v13[2] = __56__Application_prewarmAndRemoveOrphanedProfileDataStores__block_invoke_263;
-          v13[3] = &unk_2781D4F78;
-          v14 = v9;
-          [v11 safari_removeDataStoreForProfileWithIdentifier:v14 completionHandler:v13];
+          v13 = MEMORY[0x277CE3868];
+          v15[0] = MEMORY[0x277D85DD0];
+          v15[1] = 3221225472;
+          v15[2] = __56__Application_prewarmAndRemoveOrphanedProfileDataStores__block_invoke_263;
+          v15[3] = &unk_2781D4F78;
+          v16 = v9;
+          [v13 safari_removeDataStoreForProfileWithIdentifier:v16 completionHandler:v15];
         }
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v3 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v6 = [v3 countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
     while (v6);
@@ -1969,8 +1897,9 @@ LABEL_21:
 
 - (void)authenticateToUnlockPrivateBrowsingWithCompletionHandler:(id)handler
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v32[2] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
+  v6 = handlerCopy;
   if (!self->_lockedPrivateBrowsingAuthenticationCompletionHandlers)
   {
     array = [MEMORY[0x277CBEB18] array];
@@ -1978,17 +1907,17 @@ LABEL_21:
     self->_lockedPrivateBrowsingAuthenticationCompletionHandlers = array;
   }
 
-  if (handlerCopy)
+  if (v6)
   {
-    v7 = self->_lockedPrivateBrowsingAuthenticationCompletionHandlers;
-    v8 = _Block_copy(handlerCopy);
-    [(NSMutableArray *)v7 addObject:v8];
+    v9 = self->_lockedPrivateBrowsingAuthenticationCompletionHandlers;
+    v10 = _Block_copy(v6);
+    [(NSMutableArray *)v9 addObject:v10];
   }
 
   if (self->_lockedPrivateBrowsingAuthenticationContext)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXPrivateBrowsing();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v11 = WBS_LOG_CHANNEL_PREFIXPrivateBrowsing(handlerCopy, v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [Application authenticateToUnlockPrivateBrowsingWithCompletionHandler:];
     }
@@ -1996,56 +1925,56 @@ LABEL_21:
 
   else
   {
-    v10 = objc_alloc_init(MEMORY[0x277CD4790]);
+    v12 = objc_alloc_init(MEMORY[0x277CD4790]);
     lockedPrivateBrowsingAuthenticationContext = self->_lockedPrivateBrowsingAuthenticationContext;
-    self->_lockedPrivateBrowsingAuthenticationContext = v10;
+    self->_lockedPrivateBrowsingAuthenticationContext = v12;
 
-    v12 = self->_lockedPrivateBrowsingAuthenticationContext;
-    v25 = 0;
-    v13 = [(LAContext *)v12 canEvaluatePolicy:2 error:&v25];
-    v14 = v25;
-    v15 = v14;
-    if (v13)
+    v14 = self->_lockedPrivateBrowsingAuthenticationContext;
+    v30 = 0;
+    v15 = [(LAContext *)v14 canEvaluatePolicy:2 error:&v30];
+    v16 = v30;
+    v18 = v16;
+    if (v15)
     {
-      v26[0] = &unk_2827FBE78;
-      v16 = _WBSLocalizedString();
-      v26[1] = &unk_2827FBE90;
-      v27[0] = v16;
-      v17 = _WBSLocalizedString();
-      v27[1] = v17;
-      firstObject = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+      v31[0] = &unk_2827FBE78;
+      v19 = _WBSLocalizedString();
+      v31[1] = &unk_2827FBE90;
+      v32[0] = v19;
+      v20 = _WBSLocalizedString();
+      v32[1] = v20;
+      firstObject = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
 
-      v19 = WBS_LOG_CHANNEL_PREFIXPrivateBrowsing();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v24 = WBS_LOG_CHANNEL_PREFIXPrivateBrowsing(v22, v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
         [Application authenticateToUnlockPrivateBrowsingWithCompletionHandler:];
       }
 
-      v20 = self->_lockedPrivateBrowsingAuthenticationContext;
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __72__Application_authenticateToUnlockPrivateBrowsingWithCompletionHandler___block_invoke;
-      v24[3] = &unk_2781D4CB0;
-      v24[4] = self;
-      [(LAContext *)v20 evaluatePolicy:2 options:firstObject reply:v24];
+      v25 = self->_lockedPrivateBrowsingAuthenticationContext;
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __72__Application_authenticateToUnlockPrivateBrowsingWithCompletionHandler___block_invoke;
+      v29[3] = &unk_2781D4CB0;
+      v29[4] = self;
+      [(LAContext *)v25 evaluatePolicy:2 options:firstObject reply:v29];
     }
 
     else
     {
-      if (v14)
+      if (v16)
       {
-        v21 = WBS_LOG_CHANNEL_PREFIXOther();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v26 = WBS_LOG_CHANNEL_PREFIXOther(v16, v17);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
-          [Application authenticateToUnlockPrivateBrowsingWithCompletionHandler:v21];
+          [Application authenticateToUnlockPrivateBrowsingWithCompletionHandler:v26];
         }
       }
 
       firstObject = [(NSMutableArray *)self->_lockedPrivateBrowsingAuthenticationCompletionHandlers firstObject];
-      v22 = self->_lockedPrivateBrowsingAuthenticationCompletionHandlers;
+      v27 = self->_lockedPrivateBrowsingAuthenticationCompletionHandlers;
       self->_lockedPrivateBrowsingAuthenticationCompletionHandlers = 0;
 
-      v23 = self->_lockedPrivateBrowsingAuthenticationContext;
+      v28 = self->_lockedPrivateBrowsingAuthenticationContext;
       self->_lockedPrivateBrowsingAuthenticationContext = 0;
 
       if (firstObject)
@@ -2071,7 +2000,7 @@ void __72__Application_authenticateToUnlockPrivateBrowsingWithCompletionHandler_
 
 void __72__Application_authenticateToUnlockPrivateBrowsingWithCompletionHandler___block_invoke_2(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 736);
   v3 = *(a1 + 32);
   v4 = *(v3 + 736);
@@ -2081,13 +2010,13 @@ void __72__Application_authenticateToUnlockPrivateBrowsingWithCompletionHandler_
   v6 = *(v5 + 728);
   *(v5 + 728) = 0;
 
-  v7 = (a1 + 40);
+  v9 = (a1 + 40);
   if (*(a1 + 40))
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXOther();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXOther(v7, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __72__Application_authenticateToUnlockPrivateBrowsingWithCompletionHandler___block_invoke_2_cold_1(v7, v8);
+      __72__Application_authenticateToUnlockPrivateBrowsingWithCompletionHandler___block_invoke_2_cold_1(v9, v10);
     }
   }
 
@@ -2096,35 +2025,35 @@ void __72__Application_authenticateToUnlockPrivateBrowsingWithCompletionHandler_
     [*(a1 + 32) unlockPrivateBrowsing];
   }
 
+  v18 = 0u;
+  v19 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v9 = v2;
-  v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v10)
+  v11 = v2;
+  v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v12)
   {
-    v11 = v10;
-    v12 = *v15;
+    v13 = v12;
+    v14 = *v17;
     do
     {
-      v13 = 0;
+      v15 = 0;
       do
       {
-        if (*v15 != v12)
+        if (*v17 != v14)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v11);
         }
 
-        (*(*(*(&v14 + 1) + 8 * v13) + 16))(*(*(&v14 + 1) + 8 * v13), *v7 == 0);
-        ++v13;
+        (*(*(*(&v16 + 1) + 8 * v15) + 16))(*(*(&v16 + 1) + 8 * v15), *v9 == 0);
+        ++v15;
       }
 
-      while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      while (v13 != v15);
+      v13 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
-    while (v11);
+    while (v13);
   }
 }
 
@@ -2150,12 +2079,13 @@ void __72__Application_authenticateToUnlockPrivateBrowsingWithCompletionHandler_
 void __45__Application_saveChangesToCloudHistoryStore__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __45__Application_saveChangesToCloudHistoryStore__block_invoke_cold_1(v3);
+      __45__Application_saveChangesToCloudHistoryStore__block_invoke_cold_1(v5);
     }
   }
 }
@@ -2423,7 +2353,7 @@ void __43__Application__applicationDidBecomeActive___block_invoke(uint64_t a1, v
   [tabGroupManager enableDevicePresenceReporting];
 }
 
-uint64_t __47__Application__applicationWillEnterForeground___block_invoke(uint64_t a1)
+void *__47__Application__applicationWillEnterForeground___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isPrivateBrowsingLocked];
   if (result)
@@ -2613,7 +2543,7 @@ uint64_t __47__Application__applicationWillEnterForeground___block_invoke(uint64
   }
 }
 
-uint64_t __57__Application__performBookmarksDatabaseTasksInBackground__block_invoke(uint64_t a1)
+void *__57__Application__performBookmarksDatabaseTasksInBackground__block_invoke(uint64_t a1)
 {
   v2 = WBS_LOG_CHANNEL_PREFIXBookmarks();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
@@ -2661,7 +2591,7 @@ uint64_t __57__Application__performBookmarksDatabaseTasksInBackground__block_inv
   }
 }
 
-uint64_t __51__Application_databaseLockAcquisitor_acquiredLock___block_invoke(uint64_t a1)
+void *__51__Application_databaseLockAcquisitor_acquiredLock___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 512) releaseLock];
   v3 = *MEMORY[0x277D767B0];
@@ -2789,14 +2719,14 @@ void __60__Application__saveFrequentlyVisitedListsToDatabaseIfNeeded__block_invo
   }
 }
 
-uint64_t __60__Application__saveFrequentlyVisitedListsToDatabaseIfNeeded__block_invoke_2(uint64_t result)
+void *__60__Application__saveFrequentlyVisitedListsToDatabaseIfNeeded__block_invoke_2(void *result)
 {
   v1 = *MEMORY[0x277D767B0];
-  if (*(*(*(result + 32) + 8) + 24) != *MEMORY[0x277D767B0])
+  if (*(*(result[4] + 8) + 24) != *MEMORY[0x277D767B0])
   {
     v2 = result;
     result = [*MEMORY[0x277D76620] endBackgroundTask:?];
-    *(*(*(v2 + 32) + 8) + 24) = v1;
+    *(*(v2[4] + 8) + 24) = v1;
   }
 
   return result;
@@ -2822,24 +2752,24 @@ uint64_t __60__Application__saveFrequentlyVisitedListsToDatabaseIfNeeded__block_
 
 void __31__Application_systemMemorySize__block_invoke()
 {
-  v6 = 0u;
-  v7 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   *host_info_out = 0u;
   v0 = MEMORY[0x216074D40]();
   host_info_outCnt = 12;
   v1 = host_info(v0, 1, host_info_out, &host_info_outCnt);
-  mach_port_deallocate(*MEMORY[0x277D85F48], v0);
+  v2 = mach_port_deallocate(*MEMORY[0x277D85F48], v0);
   if (v1)
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXOther();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v4 = WBS_LOG_CHANNEL_PREFIXOther(v2, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __31__Application_systemMemorySize__block_invoke_cold_1(v2, v1);
+      __31__Application_systemMemorySize__block_invoke_cold_1(v4, v1);
     }
   }
 
-  v3 = log2(*(&v7 + 1));
-  systemMemorySize_systemPhysicalMemorySize = exp2(ceil(v3));
+  v5 = log2(*(&v9 + 1));
+  systemMemorySize_systemPhysicalMemorySize = exp2(ceil(v5));
 }
 
 - (void)handleKeyUIEvent:(id)event
@@ -3648,22 +3578,23 @@ void __57__Application_application_didFinishLaunchingWithOptions___block_invoke_
 void __57__Application_application_didFinishLaunchingWithOptions___block_invoke_4(uint64_t a1)
 {
   v1 = [*(a1 + 32) userInfo];
-  v5 = [v1 objectForKeyedSubscript:*MEMORY[0x277D4A120]];
+  v6 = [v1 objectForKeyedSubscript:*MEMORY[0x277D4A120]];
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v2 = SafariHistoryCloudBackupIndicatorFileURL();
-    if ([v5 BOOLValue])
+    v3 = SafariHistoryCloudBackupIndicatorFileURL(isKindOfClass);
+    if ([v6 BOOLValue])
     {
-      v3 = [MEMORY[0x277CCAA00] defaultManager];
-      [v3 removeItemAtURL:v2 error:0];
+      v4 = [MEMORY[0x277CCAA00] defaultManager];
+      [v4 removeItemAtURL:v3 error:0];
     }
 
     else
     {
-      v4 = fopen([v2 fileSystemRepresentation], "w");
-      fclose(v4);
+      v5 = fopen([v3 fileSystemRepresentation], "w");
+      fclose(v5);
     }
   }
 }
@@ -3899,24 +3830,24 @@ void __57__Application_application_didFinishLaunchingWithOptions___block_invoke_
 
 id __57__Application_application_didFinishLaunchingWithOptions___block_invoke_18(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = WBS_LOG_CHANNEL_PREFIXPush();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = WBS_LOG_CHANNEL_PREFIXPush(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138739971;
-    v7 = v2;
-    _os_log_impl(&dword_215819000, v3, OS_LOG_TYPE_DEFAULT, "Handling web push action %{sensitive}@ with default data store", &v6, 0xCu);
+    v7 = 138739971;
+    v8 = v2;
+    _os_log_impl(&dword_215819000, v4, OS_LOG_TYPE_DEFAULT, "Handling web push action %{sensitive}@ with default data store", &v7, 0xCu);
   }
 
-  v4 = [MEMORY[0x277CE3868] safari_defaultDataStore];
+  v5 = [MEMORY[0x277CE3868] safari_defaultDataStore];
 
-  return v4;
+  return v5;
 }
 
 - (void)userNotificationCenter:(id)center didReceiveNotificationResponse:(id)response withCompletionHandler:(id)handler
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   handlerCopy = handler;
   actionIdentifier = [responseCopy actionIdentifier];
@@ -3928,6 +3859,7 @@ id __57__Application_application_didFinishLaunchingWithOptions___block_invoke_18
     if (objc_opt_respondsToSelector())
     {
       webClipIdentifier = [v11 webClipIdentifier];
+      v14 = webClipIdentifier;
       if (!webClipIdentifier)
       {
 LABEL_11:
@@ -3945,46 +3877,46 @@ LABEL_11:
 
       notification = [responseCopy notification];
       sourceIdentifier = [notification sourceIdentifier];
-      v15 = [sourceIdentifier hasPrefix:@"com.apple.WebKit.PushBundle."];
+      v17 = [sourceIdentifier hasPrefix:@"com.apple.WebKit.PushBundle."];
 
-      if (!v15)
+      if (!v17)
       {
         goto LABEL_11;
       }
 
       notification2 = [responseCopy notification];
       sourceIdentifier2 = [notification2 sourceIdentifier];
-      v18 = [sourceIdentifier2 substringFromIndex:28];
+      v20 = [sourceIdentifier2 substringFromIndex:28];
 
-      v28 = MEMORY[0x277CCACA8];
-      v27 = [v18 substringWithRange:{0, 8}];
-      v19 = [v18 substringWithRange:{8, 4}];
-      v20 = [v18 substringWithRange:{12, 4}];
-      v21 = [v18 substringWithRange:{16, 4}];
-      v22 = [v18 substringWithRange:{20, 12}];
-      v23 = [v28 stringWithFormat:@"%@-%@-%@-%@-%@", v27, v19, v20, v21, v22];
+      v30 = MEMORY[0x277CCACA8];
+      v29 = [v20 substringWithRange:{0, 8}];
+      v21 = [v20 substringWithRange:{8, 4}];
+      v22 = [v20 substringWithRange:{12, 4}];
+      v23 = [v20 substringWithRange:{16, 4}];
+      v24 = [v20 substringWithRange:{20, 12}];
+      v25 = [v30 stringWithFormat:@"%@-%@-%@-%@-%@", v29, v21, v22, v23, v24];
 
-      webClipIdentifier = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v23];
-      if (!webClipIdentifier)
+      v14 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v25];
+      if (!v14)
       {
         goto LABEL_11;
       }
     }
 
-    v24 = WBS_LOG_CHANNEL_PREFIXWebClips();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v26 = WBS_LOG_CHANNEL_PREFIXWebClips(webClipIdentifier, v13);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543619;
-      v30 = webClipIdentifier;
-      v31 = 2117;
-      v32 = responseCopy;
-      _os_log_impl(&dword_215819000, v24, OS_LOG_TYPE_DEFAULT, "Activating clip with identifier %{public}@ in response to notification response %{sensitive}@", buf, 0x16u);
+      v32 = v14;
+      v33 = 2117;
+      v34 = responseCopy;
+      _os_log_impl(&dword_215819000, v26, OS_LOG_TYPE_DEFAULT, "Activating clip with identifier %{public}@ in response to notification response %{sensitive}@", buf, 0x16u);
     }
 
     _sortedBrowserControllers = [(Application *)self _sortedBrowserControllers];
     firstObject = [_sortedBrowserControllers firstObject];
 
-    [firstObject activateWebClipWithID:webClipIdentifier];
+    [firstObject activateWebClipWithID:v14];
     goto LABEL_11;
   }
 
@@ -4056,12 +3988,13 @@ void __37__Application_webClipCacheDidChange___block_invoke(uint64_t a1)
 void __56__Application_prewarmAndRemoveOrphanedProfileDataStores__block_invoke_263(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXOther();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXOther(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __56__Application_prewarmAndRemoveOrphanedProfileDataStores__block_invoke_263_cold_1(a1, v4);
+      __56__Application_prewarmAndRemoveOrphanedProfileDataStores__block_invoke_263_cold_1(a1, v6);
     }
   }
 }
@@ -4300,11 +4233,11 @@ LABEL_11:
   }
 }
 
-uint64_t __69__Application__createExtensionControllersIfNeededForProfileServerID___block_invoke(uint64_t result, uint64_t a2)
+id *__69__Application__createExtensionControllersIfNeededForProfileServerID___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addContentRuleList:a2];
+    return [result[4] addContentRuleList:a2];
   }
 
   return result;
@@ -4330,28 +4263,28 @@ uint64_t __69__Application__createExtensionControllersIfNeededForProfileServerID
 {
   enabledCopy = enabled;
   profileCopy = profile;
-  v7 = profileCopy;
+  v8 = profileCopy;
   if (!enabledCopy)
   {
     if (profileCopy)
     {
       identifierForExtensions = [profileCopy identifierForExtensions];
-      v9 = [(Application *)self webExtensionsControllerForProfileServerID:identifierForExtensions];
+      v10 = [(Application *)self webExtensionsControllerForProfileServerID:identifierForExtensions];
 
       goto LABEL_7;
     }
 
-    v10 = WBS_LOG_CHANNEL_PREFIXProfiles();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = WBS_LOG_CHANNEL_PREFIXProfiles(0, v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       [Application webExtensionsControllerForTabWithPrivateBrowsingEnabled:profile:];
     }
   }
 
-  v9 = [(Application *)self webExtensionsControllerForProfileServerID:*MEMORY[0x277D49BD8]];
+  v10 = [(Application *)self webExtensionsControllerForProfileServerID:*MEMORY[0x277D49BD8]];
 LABEL_7:
 
-  return v9;
+  return v10;
 }
 
 - (id)webExtensionsControllerForProfileServerID:(id)d
@@ -4359,34 +4292,34 @@ LABEL_7:
   dCopy = d;
   if ([dCopy length])
   {
-    v5 = [(NSMutableDictionary *)self->_profileServerIDToWebExtensionsControllers objectForKeyedSubscript:dCopy];
-    v6 = v5;
-    if (v5)
+    v6 = [(NSMutableDictionary *)self->_profileServerIDToWebExtensionsControllers objectForKeyedSubscript:dCopy];
+    v7 = v6;
+    if (v6)
     {
-      v7 = v5;
+      v8 = v6;
     }
 
     else
     {
       [(Application *)self _createExtensionControllersIfNeededForProfileServerID:dCopy];
-      v7 = [(NSMutableDictionary *)self->_profileServerIDToWebExtensionsControllers objectForKeyedSubscript:dCopy];
+      v8 = [(NSMutableDictionary *)self->_profileServerIDToWebExtensionsControllers objectForKeyedSubscript:dCopy];
     }
 
-    v9 = v7;
+    v10 = v8;
   }
 
   else
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXProfiles();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v9 = WBS_LOG_CHANNEL_PREFIXProfiles(0, v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       [Application webExtensionsControllerForProfileServerID:];
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 - (id)contentBlockerManagerForProfileServerID:(id)d
@@ -4394,34 +4327,34 @@ LABEL_7:
   dCopy = d;
   if ([dCopy length])
   {
-    v5 = [(NSMutableDictionary *)self->_profileServerIDToContentBlockerManagers objectForKeyedSubscript:dCopy];
-    v6 = v5;
-    if (v5)
+    v6 = [(NSMutableDictionary *)self->_profileServerIDToContentBlockerManagers objectForKeyedSubscript:dCopy];
+    v7 = v6;
+    if (v6)
     {
-      v7 = v5;
+      v8 = v6;
     }
 
     else
     {
       [(Application *)self _createExtensionControllersIfNeededForProfileServerID:dCopy];
-      v7 = [(NSMutableDictionary *)self->_profileServerIDToContentBlockerManagers objectForKeyedSubscript:dCopy];
+      v8 = [(NSMutableDictionary *)self->_profileServerIDToContentBlockerManagers objectForKeyedSubscript:dCopy];
     }
 
-    v9 = v7;
+    v10 = v8;
   }
 
   else
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXProfiles();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v9 = WBS_LOG_CHANNEL_PREFIXProfiles(0, v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       [Application contentBlockerManagerForProfileServerID:];
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)loadExtensionsInProfileIfNecessary:(id)necessary
@@ -4769,7 +4702,7 @@ uint64_t __41__Application__reportLaunchAnalyticsSoon__block_invoke_2(uint64_t a
   defaultCenter2 = [MEMORY[0x277CCA9A0] defaultCenter];
   [defaultCenter2 removeObserver:self];
 
-  +[WebBookmarkCollection stopObservingDatabaseVacuumNotification];
+  +[(WebBookmarkCollection *)MEMORY[0x277D7B5A8]];
   standardStore = [MEMORY[0x277D49F50] standardStore];
   [standardStore closeDatabase];
 
@@ -4840,21 +4773,21 @@ uint64_t __41__Application__reportLaunchAnalyticsSoon__block_invoke_2(uint64_t a
   if (v4 < 4)
   {
     [safari_browserDefaults setInteger:v4 + 1 forKey:@"numberOfHistoryDonationAttempts"];
-    v6 = dispatch_get_global_queue(9, 0);
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __54__Application__export30DaysWorthOfHistoryAfterUpgrade__block_invoke;
-    v7[3] = &unk_2781D4C88;
-    v7[4] = self;
-    v8 = safari_browserDefaults;
-    dispatch_async(v6, v7);
+    v8 = dispatch_get_global_queue(9, 0);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __54__Application__export30DaysWorthOfHistoryAfterUpgrade__block_invoke;
+    v9[3] = &unk_2781D4C88;
+    v9[4] = self;
+    v10 = safari_browserDefaults;
+    dispatch_async(v8, v9);
   }
 
   else
   {
-    [safari_browserDefaults setBool:1 forKey:@"didMigrateHistoryToCoreSpotlightAfterUpgrade"];
-    v5 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v5 = [safari_browserDefaults setBool:1 forKey:@"didMigrateHistoryToCoreSpotlightAfterUpgrade"];
+    v7 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [Application _export30DaysWorthOfHistoryAfterUpgrade];
     }
@@ -4873,11 +4806,11 @@ void __54__Application__export30DaysWorthOfHistoryAfterUpgrade__block_invoke(uin
   [v2 export30DaysWorthOfHistoryToCoreSpotlightForProfiles:v3 completionHandler:v4];
 }
 
-uint64_t __54__Application__export30DaysWorthOfHistoryAfterUpgrade__block_invoke_2(uint64_t result, int a2)
+id *__54__Application__export30DaysWorthOfHistoryAfterUpgrade__block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) setBool:1 forKey:@"didMigrateHistoryToCoreSpotlightAfterUpgrade"];
+    return [result[4] setBool:1 forKey:@"didMigrateHistoryToCoreSpotlightAfterUpgrade"];
   }
 
   return result;
@@ -5303,12 +5236,13 @@ id __35__Application_historiesForProfiles__block_invoke(uint64_t a1, void *a2)
 void __48__Application__resetCloudHistoryAccountIfNeeded__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __48__Application__resetCloudHistoryAccountIfNeeded__block_invoke_cold_1(v3);
+      __48__Application__resetCloudHistoryAccountIfNeeded__block_invoke_cold_1(v5);
     }
   }
 }
@@ -5364,12 +5298,13 @@ void __48__Application__resetCloudHistoryAccountIfNeeded__block_invoke(uint64_t 
 void __81__Application__updateProfileLocalIdentifiersToServerIdentifiersMapInCloudHistory__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __81__Application__updateProfileLocalIdentifiersToServerIdentifiersMapInCloudHistory__block_invoke_cold_1(v3);
+      __81__Application__updateProfileLocalIdentifiersToServerIdentifiersMapInCloudHistory__block_invoke_cold_1(v5);
     }
   }
 }
@@ -5465,24 +5400,25 @@ void __46__Application__updateCloudFeatureAvailability__block_invoke_3(uint64_t 
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __46__Application__updateCloudFeatureAvailability__block_invoke_3_cold_1(v7);
+      __46__Application__updateCloudFeatureAvailability__block_invoke_3_cold_1(v9);
     }
   }
 
   else
   {
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __46__Application__updateCloudFeatureAvailability__block_invoke_356;
-    v8[3] = &unk_2781D4C88;
-    v8[4] = *(a1 + 32);
-    v9 = v5;
-    dispatch_async(MEMORY[0x277D85CD0], v8);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __46__Application__updateCloudFeatureAvailability__block_invoke_356;
+    v10[3] = &unk_2781D4C88;
+    v10[4] = *(a1 + 32);
+    v11 = v5;
+    dispatch_async(MEMORY[0x277D85CD0], v10);
   }
 }
 
@@ -5498,12 +5434,13 @@ uint64_t __46__Application__updateCloudFeatureAvailability__block_invoke_356(uin
 void __46__Application__updateCloudFeatureAvailability__block_invoke_2_358(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __46__Application__updateCloudFeatureAvailability__block_invoke_2_358_cold_1(v3);
+      __46__Application__updateCloudFeatureAvailability__block_invoke_2_358_cold_1(v5);
     }
   }
 }
@@ -6252,36 +6189,36 @@ LABEL_11:
 
 - (void)noteTakingController:(id)controller addHighlightForUserActivity:(id)activity completion:(id)completion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   activityCopy = activity;
   completionCopy = completion;
-  v25 = activityCopy;
+  v27 = activityCopy;
   userInfo = [activityCopy userInfo];
   v10 = [userInfo objectForKeyedSubscript:@"uniqueIdentifier"];
 
+  v32 = 0u;
+  v33 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
   v11 = +[Application sharedApplication];
   browserControllers = [v11 browserControllers];
 
-  v13 = [browserControllers countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v13 = [browserControllers countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v29;
+    v15 = *v31;
 LABEL_3:
     v16 = 0;
     while (1)
     {
-      if (*v29 != v15)
+      if (*v31 != v15)
       {
         objc_enumerationMutation(browserControllers);
       }
 
-      tabController = [*(*(&v28 + 1) + 8 * v16) tabController];
+      tabController = [*(*(&v30 + 1) + 8 * v16) tabController];
       activeTabDocument = [tabController activeTabDocument];
 
       userActivity = [activeTabDocument userActivity];
@@ -6295,7 +6232,7 @@ LABEL_3:
 
       if (v14 == ++v16)
       {
-        v14 = [browserControllers countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v14 = [browserControllers countByEnumeratingWithState:&v30 objects:v34 count:16];
         if (v14)
         {
           goto LABEL_3;
@@ -6311,25 +6248,26 @@ LABEL_3:
     }
 
     v22 = controllerCopy;
-    if ([controllerCopy isNoteTakingSupportedWithPrivateBrowsing:{objc_msgSend(activeTabDocument, "isPrivateBrowsingEnabled")}])
+    v23 = [controllerCopy isNoteTakingSupportedWithPrivateBrowsing:{objc_msgSend(activeTabDocument, "isPrivateBrowsingEnabled")}];
+    if (v23)
     {
       [activeTabDocument setLinkAddedToUserActivityCallback:completionCopy];
       [activeTabDocument addAppHighlightCreatingLink:0];
 
-      v23 = v25;
+      v25 = v27;
     }
 
     else
     {
-      v24 = WBS_LOG_CHANNEL_PREFIXSystemNoteTaking();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      v26 = WBS_LOG_CHANNEL_PREFIXSystemNoteTaking(v23, v24);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_215819000, v24, OS_LOG_TYPE_INFO, "Not adding highlight to user activity because the tab is Private and Quick Note is disabled in Private Browsing", buf, 2u);
+        _os_log_impl(&dword_215819000, v26, OS_LOG_TYPE_INFO, "Not adding highlight to user activity because the tab is Private and Quick Note is disabled in Private Browsing", buf, 2u);
       }
 
-      v23 = v25;
-      completionCopy[2](completionCopy, v25, 0);
+      v25 = v27;
+      completionCopy[2](completionCopy, v27, 0);
     }
   }
 
@@ -6338,8 +6276,8 @@ LABEL_3:
 LABEL_9:
 
 LABEL_13:
-    v23 = v25;
-    completionCopy[2](completionCopy, v25, 0);
+    v25 = v27;
+    completionCopy[2](completionCopy, v27, 0);
     v22 = controllerCopy;
   }
 }
@@ -6620,33 +6558,33 @@ id __29__Application_allTabEntities__block_invoke(uint64_t a1, void *a2)
 {
   dCopy = d;
   handlerCopy = handler;
-  v8 = [(BrowserWindowController *)self->_browserWindowController tabDocumentWithUUID:dCopy];
-  if (v8)
+  v9 = [(BrowserWindowController *)self->_browserWindowController tabDocumentWithUUID:dCopy];
+  if (v9)
   {
     objc_initWeak(&location, self);
-    webView = [v8 webView];
+    webView = [v9 webView];
     if ([webView _isDisplayingPDF])
     {
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __55__Application_pdfDataForTabWithUUID_completionHandler___block_invoke;
-      v14[3] = &unk_2781D5340;
-      objc_copyWeak(&v16, &location);
-      v15 = handlerCopy;
-      [webView _getMainResourceDataWithCompletionHandler:v14];
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __55__Application_pdfDataForTabWithUUID_completionHandler___block_invoke;
+      v15[3] = &unk_2781D5340;
+      objc_copyWeak(&v17, &location);
+      v16 = handlerCopy;
+      [webView _getMainResourceDataWithCompletionHandler:v15];
 
-      objc_destroyWeak(&v16);
+      objc_destroyWeak(&v17);
     }
 
     else
     {
-      printController = [v8 printController];
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __55__Application_pdfDataForTabWithUUID_completionHandler___block_invoke_406;
-      v12[3] = &unk_2781D5368;
-      v13 = handlerCopy;
-      [printController getPDFDataForUsage:3 withCompletion:v12];
+      printController = [v9 printController];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __55__Application_pdfDataForTabWithUUID_completionHandler___block_invoke_406;
+      v13[3] = &unk_2781D5368;
+      v14 = handlerCopy;
+      [printController getPDFDataForUsage:3 withCompletion:v13];
     }
 
     objc_destroyWeak(&location);
@@ -6654,8 +6592,8 @@ id __29__Application_allTabEntities__block_invoke(uint64_t a1, void *a2)
 
   else
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXSiriLink(0, v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [Application pdfDataForTabWithUUID:completionHandler:];
     }
@@ -6666,22 +6604,23 @@ id __29__Application_allTabEntities__block_invoke(uint64_t a1, void *a2)
 
 void __55__Application_pdfDataForTabWithUUID_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v9 = WeakRetained;
   if (!WeakRetained)
   {
 LABEL_5:
-    v10 = *(*(a1 + 32) + 16);
+    v12 = *(*(a1 + 32) + 16);
     goto LABEL_9;
   }
 
-  v8 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-  v9 = v8;
+  v10 = WBS_LOG_CHANNEL_PREFIXSiriLink(WeakRetained, v8);
+  v11 = v10;
   if (v6)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __55__Application_pdfDataForTabWithUUID_completionHandler___block_invoke_cold_1();
     }
@@ -6689,26 +6628,26 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = v9;
-    v12 = 134217984;
-    v13 = [v5 length];
-    _os_log_impl(&dword_215819000, v11, OS_LOG_TYPE_DEFAULT, "Webpage was already displaying a PDF, using existing PDF data of length %zu", &v12, 0xCu);
+    v13 = v11;
+    v14 = 134217984;
+    v15 = [v5 length];
+    _os_log_impl(&dword_215819000, v13, OS_LOG_TYPE_DEFAULT, "Webpage was already displaying a PDF, using existing PDF data of length %zu", &v14, 0xCu);
   }
 
-  v10 = *(*(a1 + 32) + 16);
+  v12 = *(*(a1 + 32) + 16);
 LABEL_9:
-  v10();
+  v12();
 }
 
 void __55__Application_pdfDataForTabWithUUID_completionHandler___block_invoke_406(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (!v3)
+  v4 = a2;
+  if (!v4)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXSiriLink(0, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __55__Application_pdfDataForTabWithUUID_completionHandler___block_invoke_406_cold_1();
     }
@@ -6803,10 +6742,10 @@ uint64_t __53__Application_sceneForTabWithUUID_completionHandler___block_invoke(
 void __53__Application_sceneForTabWithUUID_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXSiriLink(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __53__Application_sceneForTabWithUUID_completionHandler___block_invoke_2_cold_1(v3);
+    __53__Application_sceneForTabWithUUID_completionHandler___block_invoke_2_cold_1(v4);
   }
 }
 
@@ -6849,17 +6788,17 @@ uint64_t __46__Application_sceneForTabGroupWithUUIDString___block_invoke(uint64_
     if (!v6)
     {
       tabGroupManager = self->_tabGroupManager;
-      v8 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-      v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+      v10 = WBS_LOG_CHANNEL_PREFIXSiriLink(v7, v8);
+      v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
       if (tabGroupManager)
       {
-        if (v9)
+        if (v11)
         {
           [Application focusProfile];
         }
       }
 
-      else if (v9)
+      else if (v11)
       {
         [Application focusProfile];
       }
@@ -6876,61 +6815,62 @@ uint64_t __46__Application_sceneForTabGroupWithUUIDString___block_invoke(uint64_
 
 - (void)_profileFocusConfigurationChanged
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v3 = WBS_LOG_CHANNEL_PREFIXSiriLink();
+  selfCopy = self;
+  v36 = *MEMORY[0x277D85DE8];
+  v3 = WBS_LOG_CHANNEL_PREFIXSiriLink(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_215819000, v3, OS_LOG_TYPE_DEFAULT, "Received profile focus change notification", buf, 2u);
   }
 
-  [(Application *)self _readFocusConfigurationKeys];
+  [(Application *)selfCopy _readFocusConfigurationKeys];
+  v29 = 0u;
+  v30 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  obj = [(Application *)self browserControllers];
-  v4 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
+  obj = [(Application *)selfCopy browserControllers];
+  v4 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v26;
+    v6 = *v28;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v26 != v6)
+        if (*v28 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v25 + 1) + 8 * i);
+        v8 = *(*(&v27 + 1) + 8 * i);
         tabController = [v8 tabController];
         [tabController dismissOpenTabGroupAlertIfNeeded];
         scene = [v8 scene];
         v11 = scene;
         if (scene && (![scene activationState] || objc_msgSend(v11, "activationState") == 1))
         {
-          focusProfileIdentifier = self->_focusProfileIdentifier;
+          focusProfileIdentifier = selfCopy->_focusProfileIdentifier;
           [v8 activeProfileIdentifier];
-          v14 = v13 = self;
+          v14 = v13 = selfCopy;
           LODWORD(focusProfileIdentifier) = [(NSString *)focusProfileIdentifier isEqualToString:v14];
 
-          self = v13;
+          selfCopy = v13;
           if (focusProfileIdentifier)
           {
-            v18 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+            v20 = WBS_LOG_CHANNEL_PREFIXSiriLink(v15, v16);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
-              v19 = v18;
+              v21 = v20;
               windowState = [v8 windowState];
               uuid = [windowState uuid];
-              v22 = v13->_focusProfileIdentifier;
+              v24 = v13->_focusProfileIdentifier;
               *buf = 138543618;
-              v30 = uuid;
-              v31 = 2114;
-              v32 = v22;
-              _os_log_impl(&dword_215819000, v19, OS_LOG_TYPE_DEFAULT, "Foreground window %{public}@ already has focus profile %{public}@ open", buf, 0x16u);
+              v32 = uuid;
+              v33 = 2114;
+              v34 = v24;
+              _os_log_impl(&dword_215819000, v21, OS_LOG_TYPE_DEFAULT, "Foreground window %{public}@ already has focus profile %{public}@ open", buf, 0x16u);
             }
 
             [(Application *)v13 setNeedsFocusProfileUpdate:0];
@@ -6940,7 +6880,7 @@ uint64_t __46__Application_sceneForTabGroupWithUUIDString___block_invoke(uint64_
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v5 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
       if (v5)
       {
         continue;
@@ -6950,19 +6890,19 @@ uint64_t __46__Application_sceneForTabGroupWithUUIDString___block_invoke(uint64_
     }
   }
 
-  if ([(Application *)self needsFocusProfileUpdate]&& [(Application *)self applicationState]!= 2)
+  if ([(Application *)selfCopy needsFocusProfileUpdate]&& [(Application *)selfCopy applicationState]!= 2)
   {
-    if ([(Application *)self prefersSingleWindow])
+    if ([(Application *)selfCopy prefersSingleWindow])
     {
-      _sortedBrowserControllers = [(Application *)self _sortedBrowserControllers];
+      _sortedBrowserControllers = [(Application *)selfCopy _sortedBrowserControllers];
       firstObject = [_sortedBrowserControllers firstObject];
       tabController2 = [firstObject tabController];
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __48__Application__profileFocusConfigurationChanged__block_invoke;
-      v24[3] = &unk_2781D4B18;
-      v24[4] = self;
-      [tabController2 openFocusProfileWithCompletionHandler:v24];
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __48__Application__profileFocusConfigurationChanged__block_invoke;
+      v26[3] = &unk_2781D4B18;
+      v26[4] = selfCopy;
+      [tabController2 openFocusProfileWithCompletionHandler:v26];
     }
   }
 }
@@ -6982,7 +6922,7 @@ void __48__Application__profileFocusConfigurationChanged__block_invoke(uint64_t 
 
 - (void)setNeedsFocusProfileUpdate:(BOOL)update
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (self->_needsFocusProfileUpdate != update)
   {
     updateCopy = update;
@@ -6990,121 +6930,122 @@ void __48__Application__profileFocusConfigurationChanged__block_invoke(uint64_t 
     safari_browserDefaults = [MEMORY[0x277CBEBD0] safari_browserDefaults];
     [safari_browserDefaults setBool:updateCopy forKey:*MEMORY[0x277D49C28]];
 
-    v5 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = WBS_LOG_CHANNEL_PREFIXSiriLink(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v6[0] = 67109120;
-      v6[1] = updateCopy;
-      _os_log_impl(&dword_215819000, v5, OS_LOG_TYPE_DEFAULT, "Updated needsFocusProfileUpdate to %i", v6, 8u);
+      v8[0] = 67109120;
+      v8[1] = updateCopy;
+      _os_log_impl(&dword_215819000, v7, OS_LOG_TYPE_DEFAULT, "Updated needsFocusProfileUpdate to %i", v8, 8u);
     }
   }
 }
 
 - (void)_tabGroupFocusConfigurationChanged
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v3 = WBS_LOG_CHANNEL_PREFIXSiriLink();
+  selfCopy = self;
+  v43 = *MEMORY[0x277D85DE8];
+  v3 = WBS_LOG_CHANNEL_PREFIXSiriLink(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_215819000, v3, OS_LOG_TYPE_DEFAULT, "Received focus change notification", buf, 2u);
   }
 
-  [(Application *)self _readFocusConfigurationKeys];
-  if (self->_focusedTabGroupUUIDString)
+  [(Application *)selfCopy _readFocusConfigurationKeys];
+  if (selfCopy->_focusedTabGroupUUIDString)
   {
-    v4 = [(WBTabGroupManager *)self->_tabGroupManager tabGroupWithUUID:?];
-    if (v4)
+    v5 = [(WBTabGroupManager *)selfCopy->_tabGroupManager tabGroupWithUUID:?];
+    if (v5)
     {
       goto LABEL_8;
     }
 
-    v5 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXSiriLink(0, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [Application _tabGroupFocusConfigurationChanged];
     }
   }
 
-  v4 = 0;
+  v5 = 0;
 LABEL_8:
-  v33 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  obj = [(Application *)self browserControllers];
-  v6 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
-  if (v6)
+  v35 = 0u;
+  obj = [(Application *)selfCopy browserControllers];
+  v7 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
+  if (v7)
   {
-    v8 = v6;
-    v9 = *v32;
-    *&v7 = 138543618;
-    v27 = v7;
-    v28 = v4;
+    v9 = v7;
+    v10 = *v35;
+    *&v8 = 138543618;
+    v30 = v8;
+    v31 = v5;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v32 != v9)
+        if (*v35 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v31 + 1) + 8 * i);
-        tabController = [v11 tabController];
+        v12 = *(*(&v34 + 1) + 8 * i);
+        tabController = [v12 tabController];
         [tabController dismissOpenTabGroupAlertIfNeeded];
-        scene = [v11 scene];
-        v14 = scene;
-        if (scene && (![scene activationState] || objc_msgSend(v14, "activationState") == 1))
+        scene = [v12 scene];
+        v15 = scene;
+        if (scene && (![scene activationState] || objc_msgSend(v15, "activationState") == 1))
         {
           activeTabGroup = [tabController activeTabGroup];
-          v16 = WBSIsEqual();
+          v17 = WBSIsEqual();
 
-          if (v16)
+          if (v17)
           {
-            v17 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+            v20 = WBS_LOG_CHANNEL_PREFIXSiriLink(v18, v19);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
-              v18 = v17;
-              windowState = [v11 windowState];
+              v21 = v20;
+              windowState = [v12 windowState];
               uuid = [windowState uuid];
-              [v4 uuid];
-              v22 = v21 = self;
-              *buf = v27;
-              v36 = uuid;
-              v37 = 2114;
-              v38 = v22;
-              _os_log_impl(&dword_215819000, v18, OS_LOG_TYPE_DEFAULT, "Foreground window %{public}@ already has FTG %{public}@ open", buf, 0x16u);
+              [v5 uuid];
+              v25 = v24 = selfCopy;
+              *buf = v30;
+              v39 = uuid;
+              v40 = 2114;
+              v41 = v25;
+              _os_log_impl(&dword_215819000, v21, OS_LOG_TYPE_DEFAULT, "Foreground window %{public}@ already has FTG %{public}@ open", buf, 0x16u);
 
-              self = v21;
-              v4 = v28;
+              selfCopy = v24;
+              v5 = v31;
             }
 
-            [(Application *)self setNeedsFocusedTabGroupUpdate:0];
+            [(Application *)selfCopy setNeedsFocusedTabGroupUpdate:0];
           }
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v9 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 
-  if ([(Application *)self needsFocusedTabGroupUpdate]&& [(Application *)self applicationState]!= 2 && [(Application *)self prefersSingleWindow])
+  if ([(Application *)selfCopy needsFocusedTabGroupUpdate]&& [(Application *)selfCopy applicationState]!= 2 && [(Application *)selfCopy prefersSingleWindow])
   {
-    [(Application *)self _sortedBrowserControllers];
-    v24 = v23 = v4;
-    firstObject = [v24 firstObject];
+    [(Application *)selfCopy _sortedBrowserControllers];
+    v27 = v26 = v5;
+    firstObject = [v27 firstObject];
     tabController2 = [firstObject tabController];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __49__Application__tabGroupFocusConfigurationChanged__block_invoke;
-    v30[3] = &unk_2781D4B18;
-    v30[4] = self;
-    [tabController2 openFocusedTabGroupWithCompletionHandler:v30];
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __49__Application__tabGroupFocusConfigurationChanged__block_invoke;
+    v33[3] = &unk_2781D4B18;
+    v33[4] = selfCopy;
+    [tabController2 openFocusedTabGroupWithCompletionHandler:v33];
 
-    v4 = v23;
+    v5 = v26;
   }
 }
 
@@ -7126,7 +7067,7 @@ LABEL_8:
 
 - (void)setNeedsFocusedTabGroupUpdate:(BOOL)update
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (self->_needsFocusedTabGroupUpdate != update)
   {
     updateCopy = update;
@@ -7134,12 +7075,12 @@ LABEL_8:
     safari_browserDefaults = [MEMORY[0x277CBEBD0] safari_browserDefaults];
     [safari_browserDefaults setBool:updateCopy forKey:*MEMORY[0x277D49C30]];
 
-    v5 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = WBS_LOG_CHANNEL_PREFIXSiriLink(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v6[0] = 67109120;
-      v6[1] = updateCopy;
-      _os_log_impl(&dword_215819000, v5, OS_LOG_TYPE_DEFAULT, "Updated needsFTGUpdate to %i", v6, 8u);
+      v8[0] = 67109120;
+      v8[1] = updateCopy;
+      _os_log_impl(&dword_215819000, v7, OS_LOG_TYPE_DEFAULT, "Updated needsFTGUpdate to %i", v8, 8u);
     }
   }
 }
@@ -7256,22 +7197,22 @@ void __55__Application_tabInfosForBrowserTabCompletionProvider___block_invoke_2(
 - (void)searchableIndex:(id)index reindexAllSearchableItemsWithAcknowledgementHandler:(id)handler
 {
   handlerCopy = handler;
-  v6 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(handlerCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_215819000, v6, OS_LOG_TYPE_INFO, "Received request from CoreSpotlight to reindex all searchable items", buf, 2u);
+    _os_log_impl(&dword_215819000, v7, OS_LOG_TYPE_INFO, "Received request from CoreSpotlight to reindex all searchable items", buf, 2u);
   }
 
   bookmarksDonationWriter = self->_bookmarksDonationWriter;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __83__Application_searchableIndex_reindexAllSearchableItemsWithAcknowledgementHandler___block_invoke;
-  v9[3] = &unk_2781D5408;
-  v9[4] = self;
-  v10 = handlerCopy;
-  v8 = handlerCopy;
-  [(SpotlightBookmarksDonationWriter *)bookmarksDonationWriter getBookmarksToDonateWithCompletionHandler:v9];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __83__Application_searchableIndex_reindexAllSearchableItemsWithAcknowledgementHandler___block_invoke;
+  v10[3] = &unk_2781D5408;
+  v10[4] = self;
+  v11 = handlerCopy;
+  v9 = handlerCopy;
+  [(SpotlightBookmarksDonationWriter *)bookmarksDonationWriter getBookmarksToDonateWithCompletionHandler:v10];
 }
 
 void __83__Application_searchableIndex_reindexAllSearchableItemsWithAcknowledgementHandler___block_invoke(uint64_t a1, void *a2)
@@ -7302,24 +7243,24 @@ void __83__Application_searchableIndex_reindexAllSearchableItemsWithAcknowledgem
 {
   identifiersCopy = identifiers;
   handlerCopy = handler;
-  v9 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(handlerCopy, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_215819000, v9, OS_LOG_TYPE_INFO, "Received request from CoreSpotlight to reindex searchable items with identifiers.", buf, 2u);
+    _os_log_impl(&dword_215819000, v10, OS_LOG_TYPE_INFO, "Received request from CoreSpotlight to reindex searchable items with identifiers.", buf, 2u);
   }
 
   bookmarksDonationWriter = self->_bookmarksDonationWriter;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __92__Application_searchableIndex_reindexSearchableItemsWithIdentifiers_acknowledgementHandler___block_invoke;
-  v13[3] = &unk_2781D5458;
-  v14 = identifiersCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __92__Application_searchableIndex_reindexSearchableItemsWithIdentifiers_acknowledgementHandler___block_invoke;
+  v14[3] = &unk_2781D5458;
+  v15 = identifiersCopy;
   selfCopy = self;
-  v16 = handlerCopy;
-  v11 = handlerCopy;
-  v12 = identifiersCopy;
-  [(SpotlightBookmarksDonationWriter *)bookmarksDonationWriter getBookmarksToDonateWithCompletionHandler:v13];
+  v17 = handlerCopy;
+  v12 = handlerCopy;
+  v13 = identifiersCopy;
+  [(SpotlightBookmarksDonationWriter *)bookmarksDonationWriter getBookmarksToDonateWithCompletionHandler:v14];
 }
 
 void __92__Application_searchableIndex_reindexSearchableItemsWithIdentifiers_acknowledgementHandler___block_invoke(uint64_t a1, void *a2)
@@ -7349,38 +7290,38 @@ void __92__Application_searchableIndex_reindexSearchableItemsWithIdentifiers_ack
 
 - (void)websiteDataStore:(id)store openWindow:(id)window fromServiceWorkerOrigin:(id)origin completionHandler:(id)handler
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   storeCopy = store;
   windowCopy = window;
   originCopy = origin;
   handlerCopy = handler;
-  v14 = WBS_LOG_CHANNEL_PREFIXPush();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = WBS_LOG_CHANNEL_PREFIXPush(handlerCopy, v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446978;
-    v27 = "[Application websiteDataStore:openWindow:fromServiceWorkerOrigin:completionHandler:]";
-    v28 = 2114;
-    v29 = storeCopy;
-    v30 = 2114;
-    v31 = windowCopy;
-    v32 = 2114;
-    v33 = originCopy;
-    _os_log_impl(&dword_215819000, v14, OS_LOG_TYPE_DEFAULT, "%{public}s with ds=%{public}@ url=%{public}@ swOrigin=%{public}@", buf, 0x2Au);
+    v28 = "[Application websiteDataStore:openWindow:fromServiceWorkerOrigin:completionHandler:]";
+    v29 = 2114;
+    v30 = storeCopy;
+    v31 = 2114;
+    v32 = windowCopy;
+    v33 = 2114;
+    v34 = originCopy;
+    _os_log_impl(&dword_215819000, v15, OS_LOG_TYPE_DEFAULT, "%{public}s with ds=%{public}@ url=%{public}@ swOrigin=%{public}@", buf, 0x2Au);
   }
 
-  v15 = [MEMORY[0x277D28F40] builderWithModifierFlags:0];
-  v16 = [v15 navigationIntentWithServiceWorkerOpenURL:windowCopy];
+  v16 = [MEMORY[0x277D28F40] builderWithModifierFlags:0];
+  v17 = [v16 navigationIntentWithServiceWorkerOpenURL:windowCopy];
 
-  v20 = MEMORY[0x277D85DD0];
-  v21 = 3221225472;
-  v22 = __85__Application_websiteDataStore_openWindow_fromServiceWorkerOrigin_completionHandler___block_invoke;
-  v23 = &unk_2781D54A8;
-  v24 = v16;
-  v25 = handlerCopy;
-  v17 = handlerCopy;
-  v18 = v16;
-  v19 = _Block_copy(&v20);
-  [(Application *)self handleNavigationIntent:v18 completion:v19, v20, v21, v22, v23];
+  v21 = MEMORY[0x277D85DD0];
+  v22 = 3221225472;
+  v23 = __85__Application_websiteDataStore_openWindow_fromServiceWorkerOrigin_completionHandler___block_invoke;
+  v24 = &unk_2781D54A8;
+  v25 = v17;
+  v26 = handlerCopy;
+  v18 = handlerCopy;
+  v19 = v17;
+  v20 = _Block_copy(&v21);
+  [(Application *)self handleNavigationIntent:v19 completion:v20, v21, v22, v23, v24];
 }
 
 void __85__Application_websiteDataStore_openWindow_fromServiceWorkerOrigin_completionHandler___block_invoke(uint64_t a1, int a2)
@@ -7435,57 +7376,58 @@ void __85__Application_websiteDataStore_openWindow_fromServiceWorkerOrigin_compl
 
 - (void)deleteBookmarksWithUUIDs:(id)ds
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   mainBookmarkCollection = [MEMORY[0x277D7B5A8] mainBookmarkCollection];
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v5 = dsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v17;
+    v9 = *v20;
     *&v7 = 138543362;
-    v15 = v7;
+    v18 = v7;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
-        v12 = [mainBookmarkCollection bookmarkWithUUID:{v11, v15, v16}];
-        if (v12)
+        v11 = *(*(&v19 + 1) + 8 * i);
+        v13 = [mainBookmarkCollection bookmarkWithUUID:{v11, v18, v19}];
+        if (v13)
         {
-          if (([mainBookmarkCollection deleteBookmark:v12] & 1) == 0)
+          v14 = [mainBookmarkCollection deleteBookmark:v13];
+          if ((v14 & 1) == 0)
           {
-            v13 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+            v16 = WBS_LOG_CHANNEL_PREFIXSiriLink(v14, v15);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
-              [(Application *)v20 deleteBookmarksWithUUIDs:v13, v12, &v21];
+              [(Application *)v23 deleteBookmarksWithUUIDs:v16, v13, &v24];
             }
           }
         }
 
         else
         {
-          v14 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v17 = WBS_LOG_CHANNEL_PREFIXSiriLink(0, v12);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
-            *buf = v15;
-            v23 = v11;
-            _os_log_error_impl(&dword_215819000, v14, OS_LOG_TYPE_ERROR, "Can't find bookmark %{public}@", buf, 0xCu);
+            *buf = v18;
+            v26 = v11;
+            _os_log_error_impl(&dword_215819000, v17, OS_LOG_TYPE_ERROR, "Can't find bookmark %{public}@", buf, 0xCu);
           }
         }
       }
 
-      v8 = [v5 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v8);
@@ -7791,10 +7733,10 @@ uint64_t __43__Application_closeWindowsWithIdentifiers___block_invoke_2(uint64_t
 void __43__Application_closeWindowsWithIdentifiers___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = WBS_LOG_CHANNEL_PREFIXTabs();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXTabs(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __43__Application_closeWindowsWithIdentifiers___block_invoke_3_cold_1(v3);
+    __43__Application_closeWindowsWithIdentifiers___block_invoke_3_cold_1(v4);
   }
 }
 
@@ -7945,67 +7887,67 @@ LABEL_15:
 LABEL_16:
 }
 
-void __55__Application_ApplicationTesting__startCommandLineTest__block_invoke()
+void __55__Application_ApplicationTesting__startCommandLineTest__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v0 = WBS_LOG_CHANNEL_PREFIXTest();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = WBS_LOG_CHANNEL_PREFIXTest(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v1 = v0;
-    v3 = 138543362;
-    v4 = objc_opt_class();
-    _os_log_impl(&dword_215819000, v1, OS_LOG_TYPE_DEFAULT, "Completed %{public}@", &v3, 0xCu);
+    v3 = v2;
+    v5 = 138543362;
+    v6 = objc_opt_class();
+    _os_log_impl(&dword_215819000, v3, OS_LOG_TYPE_DEFAULT, "Completed %{public}@", &v5, 0xCu);
   }
 
-  v2 = gTestController;
+  v4 = gTestController;
   gTestController = 0;
 }
 
 + (BOOL)prepareTestControllerWithType:(id)type suiteURL:(id)l bundleNames:(id)names outputURL:(id)rL
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   lCopy = l;
   namesCopy = names;
   rLCopy = rL;
-  v13 = WBS_LOG_CHANNEL_PREFIXTest();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v14 = WBS_LOG_CHANNEL_PREFIXTest(rLCopy, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v32.st_dev = 138413058;
-    *&v32.st_mode = typeCopy;
-    WORD2(v32.st_ino) = 2112;
-    *(&v32.st_ino + 6) = lCopy;
-    HIWORD(v32.st_gid) = 2112;
-    *&v32.st_rdev = namesCopy;
-    LOWORD(v32.st_atimespec.tv_sec) = 2112;
-    *(&v32.st_atimespec.tv_sec + 2) = rLCopy;
-    _os_log_debug_impl(&dword_215819000, v13, OS_LOG_TYPE_DEBUG, "Preparing test controller: type = %@, suiteURL = %@, bundle names = %@, output URL = %@", &v32, 0x2Au);
+    v39.st_dev = 138413058;
+    *&v39.st_mode = typeCopy;
+    WORD2(v39.st_ino) = 2112;
+    *(&v39.st_ino + 6) = lCopy;
+    HIWORD(v39.st_gid) = 2112;
+    *&v39.st_rdev = namesCopy;
+    LOWORD(v39.st_atimespec.tv_sec) = 2112;
+    *(&v39.st_atimespec.tv_sec + 2) = rLCopy;
+    _os_log_debug_impl(&dword_215819000, v14, OS_LOG_TYPE_DEBUG, "Preparing test controller: type = %@, suiteURL = %@, bundle names = %@, output URL = %@", &v39, 0x2Au);
   }
 
   if ([typeCopy isEqualToString:@"autofill"])
   {
-    v14 = 0x277D49E20;
-    v15 = namesCopy;
+    v15 = 0x277D49E20;
+    v16 = namesCopy;
 LABEL_7:
     gTestFileURLs = 1;
-    v16 = [objc_alloc(*v14) initWithSuiteURL:lCopy bundleNames:v15];
-    v17 = gTestController;
-    gTestController = v16;
+    v19 = [objc_alloc(*v15) initWithSuiteURL:lCopy bundleNames:v16];
+    v20 = gTestController;
+    gTestController = v19;
 
-    memset(&v32, 0, sizeof(v32));
-    if (!stat([rLCopy fileSystemRepresentation], &v32) && (v32.st_mode & 0x1000) != 0)
+    memset(&v39, 0, sizeof(v39));
+    if (!stat([rLCopy fileSystemRepresentation], &v39) && (v39.st_mode & 0x1000) != 0)
     {
-      v31 = 0;
-      v26 = [objc_alloc(MEMORY[0x277D49F48]) initWithFifoURL:rLCopy error:&v31];
-      v19 = v31;
-      v27 = gTestResults;
-      gTestResults = v26;
+      v38 = 0;
+      v31 = [objc_alloc(MEMORY[0x277D49F48]) initWithFifoURL:rLCopy error:&v38];
+      v22 = v38;
+      v32 = gTestResults;
+      gTestResults = v31;
 
-      v28 = gTestResults;
-      v29 = WBS_LOG_CHANNEL_PREFIXTest();
-      if (v28 && !v19)
+      v33 = gTestResults;
+      v36 = WBS_LOG_CHANNEL_PREFIXTest(v34, v35);
+      if (v33 && !v22)
       {
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
         {
           +[Application(ApplicationTesting) prepareTestControllerWithType:suiteURL:bundleNames:outputURL:];
         }
@@ -8013,7 +7955,7 @@ LABEL_7:
         goto LABEL_13;
       }
 
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         +[Application(ApplicationTesting) prepareTestControllerWithType:suiteURL:bundleNames:outputURL:];
       }
@@ -8021,55 +7963,56 @@ LABEL_7:
 
     else
     {
-      v30 = 0;
-      v18 = [objc_alloc(MEMORY[0x277D49E68]) initWithFileURL:rLCopy error:&v30];
-      v19 = v30;
-      v20 = gTestResults;
-      gTestResults = v18;
+      v37 = 0;
+      v21 = [objc_alloc(MEMORY[0x277D49E68]) initWithFileURL:rLCopy error:&v37];
+      v22 = v37;
+      v23 = gTestResults;
+      gTestResults = v21;
 
-      v21 = gTestResults;
-      v22 = WBS_LOG_CHANNEL_PREFIXTest();
-      if (v21 && !v19)
+      v24 = gTestResults;
+      v27 = WBS_LOG_CHANNEL_PREFIXTest(v25, v26);
+      if (v24 && !v22)
       {
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
         {
           +[Application(ApplicationTesting) prepareTestControllerWithType:suiteURL:bundleNames:outputURL:];
         }
 
 LABEL_13:
-        v23 = 1;
+        v28 = 1;
 LABEL_17:
 
         goto LABEL_21;
       }
 
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         +[Application(ApplicationTesting) prepareTestControllerWithType:suiteURL:bundleNames:outputURL:];
       }
     }
 
-    v23 = 0;
+    v28 = 0;
     goto LABEL_17;
   }
 
-  if ([typeCopy isEqualToString:@"bulk-classification"])
+  v17 = [typeCopy isEqualToString:@"bulk-classification"];
+  if (v17)
   {
-    v15 = 0;
-    v14 = 0x277D49E60;
+    v16 = 0;
+    v15 = 0x277D49E60;
     goto LABEL_7;
   }
 
-  v24 = WBS_LOG_CHANNEL_PREFIXTest();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+  v29 = WBS_LOG_CHANNEL_PREFIXTest(v17, v18);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
   {
     +[Application(ApplicationTesting) prepareTestControllerWithType:suiteURL:bundleNames:outputURL:];
   }
 
-  v23 = 0;
+  v28 = 0;
 LABEL_21:
 
-  return v23;
+  return v28;
 }
 
 - (BOOL)overrideBrowserStateForTestNamed:(id)named browserController:(id)controller
@@ -8468,12 +8411,13 @@ LABEL_91:
         goto LABEL_91;
       }
 
-      if ([testCopy hasPrefix:@"SplitView"])
+      v31 = [testCopy hasPrefix:@"SplitView"];
+      if (v31)
       {
-        v31 = WBS_LOG_CHANNEL_PREFIXPerformanceTest();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        v33 = WBS_LOG_CHANNEL_PREFIXPerformanceTest(v31, v32);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
-          [Application(ApplicationTesting) runTest:v31 options:?];
+          [Application(ApplicationTesting) runTest:v33 options:?];
         }
 
         goto LABEL_15;
@@ -8518,16 +8462,16 @@ LABEL_91:
       if ([testCopy hasPrefix:@"Memory"])
       {
         selfCopy2 = self;
-        v33 = 0;
+        v35 = 0;
 LABEL_102:
-        startSidebarTest = [(Application *)selfCopy2 runMemoryOrIOTestWithType:v33];
+        startSidebarTest = [(Application *)selfCopy2 runMemoryOrIOTestWithType:v35];
         goto LABEL_63;
       }
 
       if ([testCopy hasPrefix:@"IO"])
       {
         selfCopy2 = self;
-        v33 = 1;
+        v35 = 1;
         goto LABEL_102;
       }
 
@@ -8544,9 +8488,9 @@ LABEL_102:
 
       else
       {
-        v34.receiver = self;
-        v34.super_class = Application;
-        startSidebarTest = [(Application *)&v34 runTest:testCopy options:optionsCopy];
+        v36.receiver = self;
+        v36.super_class = Application;
+        startSidebarTest = [(Application *)&v36 runTest:testCopy options:optionsCopy];
       }
     }
 
@@ -8972,7 +8916,7 @@ void __58__Application_ApplicationTesting__runGeneratePasswordTest__block_invoke
 
   [*(a1 + 32) startedTest:gCurrentTestName];
   v7 = [v6 webView];
-  [v7 evaluateJavaScript:@"document.getElementsByName(\"password\"" completionHandler:0];
+  [v7 evaluateJavaScript:@"document.getElementsByName(password" completionHandler:0];
 }
 
 - (void)loadTabsForTesting:(unint64_t)testing presentTabView:(BOOL)view
@@ -9716,7 +9660,7 @@ void __50__Application_ApplicationTesting__startTabBarTest__block_invoke(id *a1)
   dispatch_after(v7, MEMORY[0x277D85CD0], v10);
 }
 
-uint64_t __50__Application_ApplicationTesting__startTabBarTest__block_invoke_2(uint64_t a1)
+void *__50__Application_ApplicationTesting__startTabBarTest__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) isEqualToString:@"TabBarSwitchTab"];
   if (result)
@@ -9984,15 +9928,15 @@ void __76__Application_ApplicationTesting___runTabOverviewPresentingAndDismissal
   [TabCollectionViewBlockObserver performIgnoringObservationForTabView:v9 block:v10];
 }
 
-uint64_t __76__Application_ApplicationTesting___runTabOverviewPresentingAndDismissalTest__block_invoke_2(uint64_t result)
+void *__76__Application_ApplicationTesting___runTabOverviewPresentingAndDismissalTest__block_invoke_2(void *result)
 {
   v1 = result;
-  v2 = *(*(*(result + 48) + 8) + 24);
+  v2 = *(*(result[6] + 8) + 24);
   if (*(result + 72) == 1)
   {
     if (v2 >= 1)
     {
-      [*MEMORY[0x277D76620] finishedSubTest:@"openClose" forTest:*(result + 32)];
+      [*MEMORY[0x277D76620] finishedSubTest:@"openClose" forTest:result[4]];
     }
 
     v3 = v1[5];
@@ -10096,7 +10040,7 @@ uint64_t __76__Application_ApplicationTesting___runTabOverviewPresentingAndDismi
 - (void)_populateInMemoryBookmarksDBForTestNamed:(id)named
 {
   namedCopy = named;
-  +[WebBookmarkCollection test_overrideMainBookmarkCollection];
+  +[(WebBookmarkCollection *)MEMORY[0x277D7B5A8]];
   mainBookmarkCollection = [MEMORY[0x277D7B5A8] mainBookmarkCollection];
   if ([namedCopy isEqualToString:@"BookmarksViewFavoritesScroll"])
   {
@@ -10756,11 +10700,11 @@ void __87__Application_ApplicationTesting___doSearchTestOnCVC_WithTestStrings_an
   [defaultManager removeItemAtURL:v13 error:0];
   [defaultManager removeItemAtURL:v16 error:0];
   v17 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:lCopy options:0 error:error];
-  v18 = v17;
+  v19 = v17;
   if (!v17)
   {
-    v35 = WBS_LOG_CHANNEL_PREFIXPerformanceTest();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v38 = WBS_LOG_CHANNEL_PREFIXPerformanceTest(0, v18);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       [Application(ApplicationTesting) _resetHistoryWithCompressedDatabaseAtURL:error:];
     }
@@ -10769,103 +10713,103 @@ void __87__Application_ApplicationTesting___doSearchTestOnCVC_WithTestStrings_an
   }
 
   safari_dataByDecompressingData = [v17 safari_dataByDecompressingData];
-  v20 = [safari_dataByDecompressingData writeToURL:v10 options:0 error:error];
+  v21 = [safari_dataByDecompressingData writeToURL:v10 options:0 error:error];
 
-  if ((v20 & 1) == 0)
+  if ((v21 & 1) == 0)
   {
-    v36 = WBS_LOG_CHANNEL_PREFIXPerformanceTest();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v39 = WBS_LOG_CHANNEL_PREFIXPerformanceTest(v22, v23);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       [Application(ApplicationTesting) _resetHistoryWithCompressedDatabaseAtURL:error:];
     }
 
 LABEL_15:
-    v34 = 0;
+    v37 = 0;
     goto LABEL_16;
   }
 
-  v38 = lCopy;
-  v21 = v10;
-  v22 = dispatch_queue_create("rebaseHistoryVisitTimesOfDatabaseAt", 0);
-  v23 = [objc_alloc(MEMORY[0x277D49B00]) initWithURL:v21 queue:v22];
+  v41 = lCopy;
+  v24 = v10;
+  v25 = dispatch_queue_create("rebaseHistoryVisitTimesOfDatabaseAt", 0);
+  v26 = [objc_alloc(MEMORY[0x277D49B00]) initWithURL:v24 queue:v25];
 
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x2020000000;
-  v49 = 1;
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x3032000000;
-  v53 = __Block_byref_object_copy__1;
-  v54 = __Block_byref_object_dispose__1;
-  v55 = 0;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x2020000000;
+  v52 = 1;
+  v53 = 0;
+  v54 = &v53;
+  v55 = 0x3032000000;
+  v56 = __Block_byref_object_copy__1;
+  v57 = __Block_byref_object_dispose__1;
+  v58 = 0;
   block = MEMORY[0x277D85DD0];
   p_block = 3221225472;
-  v41 = __rebaseHistoryVisitTimesOfDatabaseAt_block_invoke;
-  v42 = &unk_2781D5AE0;
-  v44 = &v46;
-  v24 = v23;
-  v43 = v24;
-  v45 = &v50;
-  dispatch_sync(v22, &block);
-  v25 = *(v47 + 24);
-  if (error && (v25 & 1) == 0)
+  v44 = __rebaseHistoryVisitTimesOfDatabaseAt_block_invoke;
+  v45 = &unk_2781D5AE0;
+  v47 = &v49;
+  v27 = v26;
+  v46 = v27;
+  v48 = &v53;
+  dispatch_sync(v25, &block);
+  v28 = *(v50 + 24);
+  if (error && (v28 & 1) == 0)
   {
-    *error = *(v51 + 40);
+    *error = *(v54 + 40);
   }
 
-  _Block_object_dispose(&v50, 8);
-  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v49, 8);
 
-  if (v25)
+  if (v28)
   {
     block = 0;
     p_block = &block;
-    v41 = 0x3020000000;
-    LOBYTE(v44) = 0;
-    v26 = +[History sharedHistory];
-    v50 = MEMORY[0x277D85DD0];
-    v51 = 3221225472;
-    v52 = __waitUntilHistoryFinishLoading_block_invoke;
-    v53 = &unk_2781D5B08;
-    v27 = v26;
-    v54 = v27;
-    v55 = &block;
-    [v27 performBlockAfterHistoryHasLoaded:&v50];
+    v44 = 0x3020000000;
+    LOBYTE(v47) = 0;
+    v29 = +[History sharedHistory];
+    v53 = MEMORY[0x277D85DD0];
+    v54 = 3221225472;
+    v55 = __waitUntilHistoryFinishLoading_block_invoke;
+    v56 = &unk_2781D5B08;
+    v30 = v29;
+    v57 = v30;
+    v58 = &block;
+    [v30 performBlockAfterHistoryHasLoaded:&v53];
     if ((*(p_block + 40) & 1) == 0)
     {
-      v28 = *MEMORY[0x277CBE640];
+      v31 = *MEMORY[0x277CBE640];
       do
       {
         mainRunLoop = [MEMORY[0x277CBEB88] mainRunLoop];
-        v30 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:0.01];
-        [mainRunLoop runMode:v28 beforeDate:v30];
+        v33 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:0.01];
+        [mainRunLoop runMode:v31 beforeDate:v33];
       }
 
       while ((*(p_block + 40) & 1) == 0);
     }
 
     _Block_object_dispose(&block, 8);
-    v31 = +[History sharedHistory];
-    [v31 _unload];
+    v34 = +[History sharedHistory];
+    [v34 _unload];
 
-    v32 = objc_opt_class();
-    ClassMethod = class_getClassMethod(v32, sel_historyDatabaseURL);
+    v35 = objc_opt_class();
+    ClassMethod = class_getClassMethod(v35, sel_historyDatabaseURL);
     method_setImplementation(ClassMethod, pptHistoryOverride);
     objc_storeStrong(&pptHistoryURL, v10);
-    v34 = 1;
-    lCopy = v38;
+    v37 = 1;
+    lCopy = v41;
   }
 
   else
   {
-    v34 = 0;
-    lCopy = v38;
+    v37 = 0;
+    lCopy = v41;
   }
 
 LABEL_16:
 
-  return v34;
+  return v37;
 }
 
 - (BOOL)startHistoryTest
@@ -11300,13 +11244,6 @@ void __56__Application_prewarmAndRemoveOrphanedProfileDataStores__block_invoke_2
   v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   _os_log_fault_impl(&dword_215819000, v0, OS_LOG_TYPE_FAULT, "Requested a profile content blocker manager with empty server ID %{public}@", v1, 0xCu);
-}
-
-- (uint64_t)_showSearchEngineAlertIfNeeded
-{
-  dlerror();
-  v0 = abort_report_np();
-  return [(Application *)v0 _export30DaysWorthOfHistoryAfterUpgrade];
 }
 
 void __48__Application__resetCloudHistoryAccountIfNeeded__block_invoke_cold_1(void *a1)

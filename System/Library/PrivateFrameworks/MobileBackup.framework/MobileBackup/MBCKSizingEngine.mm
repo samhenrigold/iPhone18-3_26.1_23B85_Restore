@@ -97,9 +97,9 @@
 {
   serviceManager = [(MBCKEngine *)self serviceManager];
   delegate = [serviceManager delegate];
-  v52 = 0;
-  v7 = [(MBCKSizingEngine *)self _runWithError:&v52];
-  v8 = v52;
+  v50 = 0;
+  v7 = [(MBCKSizingEngine *)self _runWithError:&v50];
+  v8 = v50;
   v9 = MBGetDefaultLog();
   v10 = v9;
   if ((v7 & 1) == 0)
@@ -107,9 +107,9 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v55 = v8;
+      v53 = v8;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "=sizing= Failed to size next backup: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "=sizing= Failed to size next backup: %@", v8);
     }
 
     [delegate manager:serviceManager didFailScanWithError:v8];
@@ -121,13 +121,11 @@
     modifiedBytes = self->_modifiedBytes;
     totalBytesOnDisk = self->_totalBytesOnDisk;
     *buf = 134218240;
-    v55 = modifiedBytes;
-    v56 = 2048;
-    v57 = totalBytesOnDisk;
+    v53 = modifiedBytes;
+    v54 = 2048;
+    v55 = totalBytesOnDisk;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "=sizing= modified:%llu total:%llu", buf, 0x16u);
-    v36 = self->_modifiedBytes;
-    v37 = self->_totalBytesOnDisk;
-    _MBLog();
+    _MBLog(@"Df", "=sizing= modified:%llu total:%llu", self->_modifiedBytes, self->_totalBytesOnDisk);
   }
 
   cache = [(MBCKEngine *)self cache];
@@ -140,35 +138,35 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v38 = delegate;
-  v50 = 0u;
-  v51 = 0u;
+  v36 = delegate;
   v48 = 0u;
   v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   modifiedBytesByDomainName = [(MBCKSizingEngine *)self modifiedBytesByDomainName];
-  v16 = [modifiedBytesByDomainName countByEnumeratingWithState:&v48 objects:v53 count:16];
+  v16 = [modifiedBytesByDomainName countByEnumeratingWithState:&v46 objects:v51 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v49;
+    v18 = *v47;
     do
     {
       for (i = 0; i != v17; i = i + 1)
       {
-        if (*v49 != v18)
+        if (*v47 != v18)
         {
           objc_enumerationMutation(modifiedBytesByDomainName);
         }
 
-        v20 = *(*(&v48 + 1) + 8 * i);
-        v21 = [(MBCKSizingEngine *)self modifiedBytesByDomainName:v36];
-        v22 = [v21 objectForKeyedSubscript:v20];
+        v20 = *(*(&v46 + 1) + 8 * i);
+        modifiedBytesByDomainName2 = [(MBCKSizingEngine *)self modifiedBytesByDomainName];
+        v22 = [modifiedBytesByDomainName2 objectForKeyedSubscript:v20];
 
         cache2 = [(MBCKEngine *)self cache];
         v24 = [cache2 updateScannedDomain:v20 withSize:{objc_msgSend(v22, "unsignedLongLongValue")}];
       }
 
-      v17 = [modifiedBytesByDomainName countByEnumeratingWithState:&v48 objects:v53 count:16];
+      v17 = [modifiedBytesByDomainName countByEnumeratingWithState:&v46 objects:v51 count:16];
     }
 
     while (v17);
@@ -176,45 +174,45 @@ LABEL_18:
 
   modifiedBytes = [(MBCKSizingEngine *)self modifiedBytes];
   modifiedBytesByBundleID = [(MBCKSizingEngine *)self modifiedBytesByBundleID];
-  v45[0] = _NSConcreteStackBlock;
-  v45[1] = 3221225472;
-  v45[2] = sub_10012635C;
-  v45[3] = &unk_1003BF560;
-  delegate = v38;
-  v27 = v38;
-  v46 = v27;
+  v43[0] = _NSConcreteStackBlock;
+  v43[1] = 3221225472;
+  v43[2] = sub_10012635C;
+  v43[3] = &unk_1003BF560;
+  delegate = v36;
+  v27 = v36;
+  v44 = v27;
   v28 = serviceManager;
-  v47 = v28;
-  [modifiedBytesByBundleID enumerateKeysAndObjectsUsingBlock:v45];
+  v45 = v28;
+  [modifiedBytesByBundleID enumerateKeysAndObjectsUsingBlock:v43];
 
   if (self->_bundleIDsToScan)
   {
-    modifiedBytesByDomainName2 = [(MBCKSizingEngine *)self modifiedBytesByDomainName];
-    v42[0] = _NSConcreteStackBlock;
-    v42[1] = 3221225472;
-    v42[2] = sub_1001263C8;
-    v42[3] = &unk_1003BF588;
-    v42[4] = self;
+    modifiedBytesByDomainName3 = [(MBCKSizingEngine *)self modifiedBytesByDomainName];
+    v40[0] = _NSConcreteStackBlock;
+    v40[1] = 3221225472;
+    v40[2] = sub_1001263C8;
+    v40[3] = &unk_1003BF588;
+    v40[4] = self;
     v30 = v27;
-    v43 = v30;
+    v41 = v30;
     v31 = v28;
-    v44 = v31;
-    [modifiedBytesByDomainName2 enumerateKeysAndObjectsUsingBlock:v42];
+    v42 = v31;
+    [modifiedBytesByDomainName3 enumerateKeysAndObjectsUsingBlock:v40];
 
     pathsByDomainName = [(MBCKSizingEngine *)self pathsByDomainName];
-    v39[0] = _NSConcreteStackBlock;
-    v39[1] = 3221225472;
-    v39[2] = sub_100126470;
-    v39[3] = &unk_1003BF5B0;
-    v39[4] = self;
+    v37[0] = _NSConcreteStackBlock;
+    v37[1] = 3221225472;
+    v37[2] = sub_100126470;
+    v37[3] = &unk_1003BF5B0;
+    v37[4] = self;
     v33 = v30;
-    delegate = v38;
-    v40 = v33;
-    v41 = v31;
-    [pathsByDomainName enumerateKeysAndObjectsUsingBlock:v39];
+    delegate = v36;
+    v38 = v33;
+    v39 = v31;
+    [pathsByDomainName enumerateKeysAndObjectsUsingBlock:v37];
   }
 
-  [v27 managerDidFinishScan:v28 bytesUsed:{modifiedBytes, v36}];
+  [v27 managerDidFinishScan:v28 bytesUsed:modifiedBytes];
 
   v34 = 1;
 LABEL_19:
@@ -356,8 +354,8 @@ LABEL_11:
             *(&buf + 4) = v23;
             _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "=sizing= Format of last committed snapshot: %@", &buf, 0xCu);
 
-            v34 = MBStringForSnapshotFormat();
-            _MBLog();
+            v24 = MBStringForSnapshotFormat();
+            _MBLog(@"Df", "=sizing= Format of last committed snapshot: %@", v24);
           }
         }
 
@@ -375,56 +373,56 @@ LABEL_11:
         v41 = &unk_1003BF940;
         selfCopy = self;
         v43 = "startingBackupWithEngine:";
-        v29 = MBNotifyPluginsBlock(self, objectEnumerator, "startingBackupWithEngine:", &buf);
+        v30 = MBNotifyPluginsBlock(self, objectEnumerator, "startingBackupWithEngine:", &buf);
 
-        v24 = v29 == 0;
+        v25 = v30 == 0;
         v16 = v35;
         v15 = v36;
-        if (v29)
+        if (v30)
         {
-          v30 = MBGetDefaultLog();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+          v31 = MBGetDefaultLog();
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
           {
             LODWORD(buf) = 138412290;
-            *(&buf + 4) = v29;
-            _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "=sizing= Failed to notify plugins of startingBackupWithEngine: %@", &buf, 0xCu);
-            _MBLog();
+            *(&buf + 4) = v30;
+            _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "=sizing= Failed to notify plugins of startingBackupWithEngine: %@", &buf, 0xCu);
+            _MBLog(@"E ", "=sizing= Failed to notify plugins of startingBackupWithEngine: %@", v30);
           }
 
-          v31 = v29;
-          *error = v29;
+          v32 = v30;
+          *error = v30;
         }
       }
 
       else
       {
-        v33 = v16;
-        v24 = 0;
+        v34 = v16;
+        v25 = 0;
         *error = v16;
       }
     }
 
     else
     {
-      v24 = 0;
+      v25 = 0;
     }
   }
 
   else
   {
-    v25 = MBGetDefaultLog();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v26 = MBGetDefaultLog();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       LOWORD(buf) = 0;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "=sizing= nil domain manager", &buf, 2u);
-      _MBLog();
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "=sizing= nil domain manager", &buf, 2u);
+      _MBLog(@"E ", "=sizing= nil domain manager");
     }
 
     [MBError errorWithCode:1 format:@"nil domain manager"];
-    *error = v24 = 0;
+    *error = v25 = 0;
   }
 
-  return v24;
+  return v25;
 }
 
 - (BOOL)findChangesWithError:(id *)error
@@ -654,32 +652,31 @@ LABEL_7:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v60 = domainsCopy;
+      v59 = domainsCopy;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "=sizing= Scanning domains: %@", buf, 0xCu);
-      v41 = domainsCopy;
-      _MBLog();
+      _MBLog(@"Df", "=sizing= Scanning domains: %@", domainsCopy);
     }
 
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
     v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
     v13 = domainsCopy;
-    v14 = [v13 countByEnumeratingWithState:&v53 objects:v58 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v52 objects:v57 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v54;
+      v16 = *v53;
 LABEL_7:
       v17 = 0;
       while (1)
       {
-        if (*v54 != v16)
+        if (*v53 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = [(MBFileScanner *)self->_scanner scanDomain:*(*(&v53 + 1) + 8 * v17) snapshotMountPoint:0, v41];
+        v18 = [(MBFileScanner *)self->_scanner scanDomain:*(*(&v52 + 1) + 8 * v17) snapshotMountPoint:0];
         if (v18)
         {
           break;
@@ -687,7 +684,7 @@ LABEL_7:
 
         if (v15 == ++v17)
         {
-          v15 = [v13 countByEnumeratingWithState:&v53 objects:v58 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v52 objects:v57 count:16];
           if (v15)
           {
             goto LABEL_7;
@@ -702,9 +699,9 @@ LABEL_7:
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v60 = v22;
+        v59 = v22;
         _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "=sizing= Failed to scan for changes: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "=sizing= Failed to scan for changes: %@", v22);
       }
 
       if (!error)
@@ -722,9 +719,9 @@ LABEL_13:
     if (device && self->_formatOfLastCommittedSnapshot == 3)
     {
       snapshots = [device snapshots];
-      v52 = 0;
-      v21 = MBGetAllDomainQuotasByDomainHMAC(snapshots, &v52);
-      v22 = v52;
+      v51 = 0;
+      v21 = MBGetAllDomainQuotasByDomainHMAC(snapshots, &v51);
+      v22 = v51;
 
       if (!v21 && ([MBError isError:v22 withCode:4]& 1) == 0)
       {
@@ -744,35 +741,35 @@ LABEL_41:
         goto LABEL_42;
       }
 
-      v43 = v21;
-      v50 = 0u;
-      v51 = 0u;
-      v48 = 0u;
+      v42 = v21;
       v49 = 0u;
+      v50 = 0u;
+      v47 = 0u;
+      v48 = 0u;
       snapshots2 = [v13 snapshots];
-      v24 = [snapshots2 countByEnumeratingWithState:&v48 objects:v57 count:16];
+      v24 = [snapshots2 countByEnumeratingWithState:&v47 objects:v56 count:16];
       if (v24)
       {
         v25 = v24;
         v26 = 0;
-        v27 = *v49;
+        v27 = *v48;
         do
         {
           for (i = 0; i != v25; i = i + 1)
           {
-            if (*v49 != v27)
+            if (*v48 != v27)
             {
               objc_enumerationMutation(snapshots2);
             }
 
-            v29 = *(*(&v48 + 1) + 8 * i);
+            v29 = *(*(&v47 + 1) + 8 * i);
             if ([v29 snapshotFormat] == 3)
             {
               v26 += [v29 quotaUsed];
             }
           }
 
-          v25 = [snapshots2 countByEnumeratingWithState:&v48 objects:v57 count:16];
+          v25 = [snapshots2 countByEnumeratingWithState:&v47 objects:v56 count:16];
         }
 
         while (v25);
@@ -794,16 +791,16 @@ LABEL_41:
       self->_modifiedBytes = v34;
       hmacKey = [v13 hmacKey];
       v36 = self->_totalBytesOnDiskByDomainName;
-      v44[0] = _NSConcreteStackBlock;
-      v44[1] = 3221225472;
-      v44[2] = sub_1001279CC;
-      v44[3] = &unk_1003BF588;
-      v45 = hmacKey;
-      v46 = v43;
+      v43[0] = _NSConcreteStackBlock;
+      v43[1] = 3221225472;
+      v43[2] = sub_1001279CC;
+      v43[3] = &unk_1003BF588;
+      v44 = hmacKey;
+      v45 = v42;
       selfCopy = self;
-      v37 = v43;
+      v37 = v42;
       v38 = hmacKey;
-      [(NSMutableDictionary *)v36 enumerateKeysAndObjectsUsingBlock:v44];
+      [(NSMutableDictionary *)v36 enumerateKeysAndObjectsUsingBlock:v43];
     }
 
     v22 = MBGetDefaultLog();
@@ -811,11 +808,11 @@ LABEL_41:
     {
       loggableStats = [(MBFileScanner *)self->_scanner loggableStats];
       *buf = 138412290;
-      v60 = loggableStats;
+      v59 = loggableStats;
       _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "=sizing= Finished scanning for changes - %@", buf, 0xCu);
 
       loggableStats2 = [(MBFileScanner *)self->_scanner loggableStats];
-      _MBLog();
+      _MBLog(@"Df", "=sizing= Finished scanning for changes - %@", loggableStats2);
     }
 
     v7 = 1;
@@ -892,7 +889,7 @@ LABEL_42:
         _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "=sizing= Failed to fetch placeholder for %@: %@", buf, 0x16u);
 
         bundleID2 = [appCopy bundleID];
-        _MBLog();
+        _MBLog(@"E ", "=sizing= Failed to fetch placeholder for %@: %@", bundleID2, v19);
       }
     }
   }

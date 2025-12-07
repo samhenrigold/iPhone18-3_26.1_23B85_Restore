@@ -4783,7 +4783,7 @@ void updateModelParametersDictionary(NSMutableDictionary *a1)
       v8 = [v7 objectForKeyedSubscript:@"PressureResponse"];
       v9 = [v8 count];
       v37 = &v33;
-      *&v10 = MEMORY[0x1EEE9AC00](v9).n128_u64[0];
+      v10 = MEMORY[0x1EEE9AC00](v9);
       v12 = &v33 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
       for (i = 0; [v8 count] > i; ++i)
       {
@@ -4804,7 +4804,7 @@ void updateModelParametersDictionary(NSMutableDictionary *a1)
       if (v22)
       {
         v24 = [v22 count];
-        *&v25 = MEMORY[0x1EEE9AC00](v24).n128_u64[0];
+        v25 = MEMORY[0x1EEE9AC00](v24);
         v27 = &v33 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
         for (j = 0; [v22 count] > j; ++j)
         {
@@ -4833,7 +4833,7 @@ void updateModelParametersDictionary(NSMutableDictionary *a1)
 
 void AULowFlow::setModelParameters(AULowFlow *this)
 {
-  *&v2 = MEMORY[0x1EEE9AC00](this).n128_u64[0];
+  v2 = MEMORY[0x1EEE9AC00](this);
   v3 = v1;
   v4 = *(v1 + 2120);
   if (v4 == *(v1 + 2128))

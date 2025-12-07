@@ -422,29 +422,29 @@ void __48__GKMultiplayerP2PViewController_viewDidAppear___block_invoke(uint64_t 
   }
 }
 
-void __48__GKMultiplayerP2PViewController_viewDidAppear___block_invoke_2(uint64_t a1)
+void __48__GKMultiplayerP2PViewController_viewDidAppear___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v3 = GKGameCenterUIFrameworkBundle();
-  v4 = GKGetLocalizedStringFromTableInBundle();
-  v5 = GKGameCenterUIFrameworkBundle();
-  v6 = GKGetLocalizedStringFromTableInBundle();
-  v7 = GKGameCenterUIFrameworkBundle();
-  v8 = GKGetLocalizedStringFromTableInBundle();
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __48__GKMultiplayerP2PViewController_viewDidAppear___block_invoke_3;
-  v13[3] = &unk_279669E48;
-  v9 = *(a1 + 40);
-  v13[4] = *(a1 + 32);
-  v14 = v9;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __48__GKMultiplayerP2PViewController_viewDidAppear___block_invoke_4;
-  v11[3] = &unk_279669E48;
-  v11[4] = *(a1 + 32);
-  v12 = *(a1 + 48);
-  v10 = [v2 _gkPresentConfirmationAlertWithTitle:v4 message:v6 buttonTitle:v8 block:v13 cancelAction:v11];
+  v3 = *(a1 + 32);
+  v4 = GKGameCenterUIFrameworkBundle();
+  v5 = GKGetLocalizedStringFromTableInBundle();
+  v6 = GKGameCenterUIFrameworkBundle();
+  v7 = GKGetLocalizedStringFromTableInBundle();
+  v8 = GKGameCenterUIFrameworkBundle();
+  v9 = GKGetLocalizedStringFromTableInBundle();
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __48__GKMultiplayerP2PViewController_viewDidAppear___block_invoke_3;
+  v14[3] = &unk_279669E48;
+  v10 = *(a1 + 40);
+  v14[4] = *(a1 + 32);
+  v15 = v10;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __48__GKMultiplayerP2PViewController_viewDidAppear___block_invoke_4;
+  v12[3] = &unk_279669E48;
+  v12[4] = *(a1 + 32);
+  v13 = *(a1 + 48);
+  v11 = [v3 _gkPresentConfirmationAlertWithTitle:v5 message:v7 buttonTitle:v9 block:v14 cancelAction:v12];
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
@@ -787,7 +787,7 @@ LABEL_33:
   }
 }
 
-uint64_t __50__GKMultiplayerP2PViewController_updateForNewMode__block_invoke(uint64_t a1)
+void *__50__GKMultiplayerP2PViewController_updateForNewMode__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setUserCancelledMatching:0];
   result = [*(a1 + 32) mode];
@@ -3784,39 +3784,39 @@ void __88__GKMultiplayerP2PViewController_processStatusUpdateMessageFromPlayer_b
   (*(*(a1 + 64) + 16))();
 }
 
-void __88__GKMultiplayerP2PViewController_processStatusUpdateMessageFromPlayer_bytes_withLength___block_invoke_3(uint64_t a1)
+void __88__GKMultiplayerP2PViewController_processStatusUpdateMessageFromPlayer_bytes_withLength___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v2 = MEMORY[0x277D0C2A0];
+  v32 = *MEMORY[0x277D85DE8];
+  v3 = MEMORY[0x277D0C2A0];
   if (!*MEMORY[0x277D0C2A0])
   {
-    v3 = GKOSLoggers();
+    v4 = GKOSLoggers();
   }
 
-  v4 = MEMORY[0x277D0C2B0];
-  v5 = *MEMORY[0x277D0C2B0];
+  v5 = MEMORY[0x277D0C2B0];
+  v6 = *MEMORY[0x277D0C2B0];
   if (os_log_type_enabled(*MEMORY[0x277D0C2B0], OS_LOG_TYPE_INFO))
   {
-    v6 = *(a1 + 32);
+    v7 = *(a1 + 32);
     *buf = 138412290;
-    v30 = v6;
-    _os_log_impl(&dword_24DE53000, v5, OS_LOG_TYPE_INFO, "Process status update - %@ - mainQueue", buf, 0xCu);
+    v31 = v7;
+    _os_log_impl(&dword_24DE53000, v6, OS_LOG_TYPE_INFO, "Process status update - %@ - mainQueue", buf, 0xCu);
   }
 
-  v7 = [*(a1 + 40) error];
-  v8 = [v7 code];
+  v8 = [*(a1 + 40) error];
+  v9 = [v8 code];
 
-  if (v8 == 10)
+  if (v9 == 10)
   {
-    if (!*v2)
+    if (!*v3)
     {
-      v9 = GKOSLoggers();
+      v10 = GKOSLoggers();
     }
 
-    v10 = *v4;
-    if (os_log_type_enabled(*v4, OS_LOG_TYPE_ERROR))
+    v11 = *v5;
+    if (os_log_type_enabled(*v5, OS_LOG_TYPE_ERROR))
     {
-      __88__GKMultiplayerP2PViewController_processStatusUpdateMessageFromPlayer_bytes_withLength___block_invoke_3_cold_1(v10);
+      __88__GKMultiplayerP2PViewController_processStatusUpdateMessageFromPlayer_bytes_withLength___block_invoke_3_cold_1(v11);
     }
 
     [*(a1 + 48) showParentalControlsRestrictionAlert];
@@ -3824,39 +3824,39 @@ void __88__GKMultiplayerP2PViewController_processStatusUpdateMessageFromPlayer_b
 
   else
   {
-    v11 = MEMORY[0x277D0C020];
-    v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d %s", "GKMultiplayerP2PViewController.m", 1571, "-[GKMultiplayerP2PViewController processStatusUpdateMessageFromPlayer:bytes:withLength:]_block_invoke"];
-    v13 = [v11 dispatchGroupWithName:v12];
+    v12 = MEMORY[0x277D0C020];
+    v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d %s", "GKMultiplayerP2PViewController.m", 1571, "-[GKMultiplayerP2PViewController processStatusUpdateMessageFromPlayer:bytes:withLength:]_block_invoke"];
+    v14 = [v12 dispatchGroupWithName:v13];
 
-    v14 = [*(a1 + 40) objectForKeyedSubscript:@"playersToRemove"];
-    if ([v14 count])
+    v15 = [*(a1 + 40) objectForKeyedSubscript:@"playersToRemove"];
+    if ([v15 count])
     {
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __88__GKMultiplayerP2PViewController_processStatusUpdateMessageFromPlayer_bytes_withLength___block_invoke_2_269;
-      v26[3] = &unk_279669A20;
-      v15 = v14;
-      v16 = *(a1 + 48);
-      v27 = v15;
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __88__GKMultiplayerP2PViewController_processStatusUpdateMessageFromPlayer_bytes_withLength___block_invoke_2_269;
+      v27[3] = &unk_279669A20;
+      v16 = v15;
+      v17 = *(a1 + 48);
       v28 = v16;
-      [v13 perform:v26];
+      v29 = v17;
+      [v14 perform:v27];
     }
 
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __88__GKMultiplayerP2PViewController_processStatusUpdateMessageFromPlayer_bytes_withLength___block_invoke_2_271;
-    v21[3] = &unk_27966B420;
-    v17 = *(a1 + 40);
-    v18 = *(a1 + 56);
-    *&v19 = *(a1 + 32);
-    *(&v19 + 1) = *(a1 + 48);
-    *&v20 = v17;
-    *(&v20 + 1) = v18;
-    v22 = v20;
-    v23 = v19;
-    v25 = *(a1 + 72);
-    v24 = *(a1 + 64);
-    [v13 notifyOnMainQueueWithBlock:v21];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __88__GKMultiplayerP2PViewController_processStatusUpdateMessageFromPlayer_bytes_withLength___block_invoke_2_271;
+    v22[3] = &unk_27966B420;
+    v18 = *(a1 + 40);
+    v19 = *(a1 + 56);
+    *&v20 = *(a1 + 32);
+    *(&v20 + 1) = *(a1 + 48);
+    *&v21 = v18;
+    *(&v21 + 1) = v19;
+    v23 = v21;
+    v24 = v20;
+    v26 = *(a1 + 72);
+    v25 = *(a1 + 64);
+    [v14 notifyOnMainQueueWithBlock:v22];
   }
 }
 

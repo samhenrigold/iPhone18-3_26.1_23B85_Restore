@@ -33,27 +33,27 @@
 
 - (id)engineWithName:(id)name
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   nameCopy = name;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   availableEngines = [(RERelevanceEngineDebugger *)self availableEngines];
-  v6 = [availableEngines countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [availableEngines countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(availableEngines);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         name = [v9 name];
         v11 = [name isEqualToString:nameCopy];
 
@@ -64,7 +64,7 @@
         }
       }
 
-      v6 = [availableEngines countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [availableEngines countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -75,8 +75,6 @@
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -91,7 +89,7 @@ LABEL_11:
 
 - (BOOL)_isValidEngine:(id)engine
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   engineCopy = engine;
   if (engineCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
@@ -103,15 +101,14 @@ LABEL_11:
     v5 = RELogForDomain(13);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = engineCopy;
-      _os_log_impl(&dword_22859F000, v5, OS_LOG_TYPE_DEFAULT, "Object %@ isn't valid engine", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = engineCopy;
+      _os_log_impl(&dword_22859F000, v5, OS_LOG_TYPE_DEFAULT, "Object %@ isn't valid engine", &v7, 0xCu);
     }
 
     v4 = 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -263,33 +260,33 @@ void __57__RERelevanceEngineDebugger_dataSourceElementsForEngine___block_invoke_
 
 - (id)orderedElementsForEngine:(id)engine
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   engineCopy = engine;
   if ([(RERelevanceEngineDebugger *)self _isValidEngine:engineCopy])
   {
     array = [MEMORY[0x277CBEB18] array];
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
     configuration = [engineCopy configuration];
     sectionDescriptors = [configuration sectionDescriptors];
 
-    v8 = [sectionDescriptors countByEnumeratingWithState:&v33 objects:v38 count:16];
+    v8 = [sectionDescriptors countByEnumeratingWithState:&v32 objects:v37 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v34;
+      v10 = *v33;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v34 != v10)
+          if (*v33 != v10)
           {
             objc_enumerationMutation(sectionDescriptors);
           }
 
-          v12 = *(*(&v33 + 1) + 8 * i);
+          v12 = *(*(&v32 + 1) + 8 * i);
           historicSectionDescriptor = [v12 historicSectionDescriptor];
           v14 = historicSectionDescriptor;
           if (historicSectionDescriptor)
@@ -302,32 +299,32 @@ void __57__RERelevanceEngineDebugger_dataSourceElementsForEngine___block_invoke_
           [array addObject:name2];
         }
 
-        v9 = [sectionDescriptors countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v9 = [sectionDescriptors countByEnumeratingWithState:&v32 objects:v37 count:16];
       }
 
       while (v9);
     }
 
     string = [MEMORY[0x277CCAB68] string];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     obj = array;
-    v28 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
-    if (v28)
+    v27 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+    if (v27)
     {
-      v27 = *v30;
+      v26 = *v29;
       do
       {
-        for (j = 0; j != v28; ++j)
+        for (j = 0; j != v27; ++j)
         {
-          if (*v30 != v27)
+          if (*v29 != v26)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v29 + 1) + 8 * j);
+          v19 = *(*(&v28 + 1) + 8 * j);
           [string appendString:v19];
           [string appendString:@"\n"];
           if ([engineCopy numberOfElementsInSection:v19])
@@ -350,10 +347,10 @@ void __57__RERelevanceEngineDebugger_dataSourceElementsForEngine___block_invoke_
           [string appendString:@"\n\n\n\n"];
         }
 
-        v28 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v27 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
       }
 
-      while (v28);
+      while (v27);
     }
   }
 
@@ -361,8 +358,6 @@ void __57__RERelevanceEngineDebugger_dataSourceElementsForEngine___block_invoke_
   {
     string = 0;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return string;
 }

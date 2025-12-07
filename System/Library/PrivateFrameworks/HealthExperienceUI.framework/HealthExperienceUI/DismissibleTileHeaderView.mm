@@ -11,13 +11,13 @@
 {
   v4 = sub_1BA4A1018();
   v5 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4, v6);
+  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1BA4A0FC8();
   selfCopy = self;
   sub_1BA40E098();
 
-  (*(v5 + 8))(v7, v4);
+  (*(v5 + 8))(v8, v4);
 }
 
 - (void)traitCollectionDidChange:(id)change
@@ -29,7 +29,7 @@
 
 - (void)touchesCancelled:(id)cancelled withEvent:(id)event
 {
-  sub_1B9F0ADF8(0, &qword_1EBBECB58);
+  sub_1B9F0ADF8(0, &qword_1EBBECB58, 0x1E69DD190);
   sub_1BA3955EC();
   sub_1BA4A6D78();
   selfCopy = self;

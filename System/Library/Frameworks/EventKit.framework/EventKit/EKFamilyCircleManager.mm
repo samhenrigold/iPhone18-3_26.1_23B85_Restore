@@ -22,31 +22,31 @@
 
 void __60__EKFamilyCircleManager_requestFamilyShareesWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v4 = a2;
-  v24 = a3;
-  v25 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v23 = a3;
+  v24 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v5 = [v4 members];
-  v6 = [v5 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v31;
+    v9 = *v30;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v31 != v9)
+        if (*v30 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v30 + 1) + 8 * i);
+        v11 = *(*(&v29 + 1) + 8 * i);
         v12 = [v11 fullName];
         v13 = [v11 appleID];
         v14 = [EKSharee shareeWithName:v12 emailAddress:v13];
@@ -69,11 +69,11 @@ void __60__EKFamilyCircleManager_requestFamilyShareesWithCompletion___block_invo
 
         else
         {
-          [v25 addObject:v14];
+          [v24 addObject:v14];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v7);
@@ -89,14 +89,12 @@ void __60__EKFamilyCircleManager_requestFamilyShareesWithCompletion___block_invo
   block[2] = __60__EKFamilyCircleManager_requestFamilyShareesWithCompletion___block_invoke_2;
   block[3] = &unk_1E77FEA98;
   v19 = *(a1 + 32);
-  v28 = v8;
-  v29 = v19;
-  v27 = v25;
+  v27 = v8;
+  v28 = v19;
+  v26 = v24;
   v20 = v8;
-  v21 = v25;
+  v21 = v24;
   dispatch_async(MEMORY[0x1E69E96A0], block);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 + (void)isFamilyCalendar:(id)calendar completion:(id)completion
@@ -148,52 +146,52 @@ void __53__EKFamilyCircleManager_isFamilyCalendar_completion___block_invoke(uint
 + (BOOL)isFamilyCalendarGivenCalendarSharees:(id)sharees familySharees:(id)familySharees isPrimaryAppleAccount:(BOOL)account
 {
   accountCopy = account;
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   shareesCopy = sharees;
   familyShareesCopy = familySharees;
   if (accountCopy)
   {
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v9 = shareesCopy;
-    v10 = [v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v29;
-      v23 = *v29;
+      v12 = *v28;
+      v22 = *v28;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v29 != v12)
+          if (*v28 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v28 + 1) + 8 * i);
+          v14 = *(*(&v27 + 1) + 8 * i);
+          v23 = 0u;
           v24 = 0u;
           v25 = 0u;
           v26 = 0u;
-          v27 = 0u;
           v15 = familyShareesCopy;
-          v16 = [v15 countByEnumeratingWithState:&v24 objects:v32 count:16];
+          v16 = [v15 countByEnumeratingWithState:&v23 objects:v31 count:16];
           if (v16)
           {
             v17 = v16;
-            v18 = *v25;
+            v18 = *v24;
             while (2)
             {
               for (j = 0; j != v17; ++j)
               {
-                if (*v25 != v18)
+                if (*v24 != v18)
                 {
                   objc_enumerationMutation(v15);
                 }
 
-                if ([v14 isEqualToSharee:*(*(&v24 + 1) + 8 * j)])
+                if ([v14 isEqualToSharee:*(*(&v23 + 1) + 8 * j)])
                 {
 
                   v20 = 1;
@@ -201,7 +199,7 @@ void __53__EKFamilyCircleManager_isFamilyCalendar_completion___block_invoke(uint
                 }
               }
 
-              v17 = [v15 countByEnumeratingWithState:&v24 objects:v32 count:16];
+              v17 = [v15 countByEnumeratingWithState:&v23 objects:v31 count:16];
               if (v17)
               {
                 continue;
@@ -211,10 +209,10 @@ void __53__EKFamilyCircleManager_isFamilyCalendar_completion___block_invoke(uint
             }
           }
 
-          v12 = v23;
+          v12 = v22;
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
         v20 = 0;
       }
 
@@ -234,7 +232,6 @@ LABEL_21:
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 

@@ -1,72 +1,17 @@
 @interface MCMCommandInfoValueForKey
 + (Class)incomingMessageClass;
-+ (unint64_t)command;
-- (BOOL)includedCreator;
-- (BOOL)includedInfo;
-- (BOOL)includedPath;
-- (BOOL)includedUserManagedAssetsPath;
 - (BOOL)preflightClientAllowed;
 - (MCMCommandInfoValueForKey)infoValueForKeyWithError:(unint64_t *)error;
 - (MCMCommandInfoValueForKey)initWithKey:(id)key concreteContainerIdentity:(id)identity context:(id)context resultPromise:(id)promise;
 - (MCMCommandInfoValueForKey)initWithMessage:(id)message context:(id)context reply:(id)reply;
-- (MCMConcreteContainerIdentity)concreteContainerIdentity;
-- (NSString)key;
 - (void)execute;
 @end
 
 @implementation MCMCommandInfoValueForKey
 
-- (NSString)key
-{
-  result = self->_key;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)includedCreator
-{
-  result = self->_includedCreator;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)includedUserManagedAssetsPath
-{
-  result = self->_includedUserManagedAssetsPath;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)includedInfo
-{
-  result = self->_includedInfo;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)includedPath
-{
-  result = self->_includedPath;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (MCMConcreteContainerIdentity)concreteContainerIdentity
-{
-  result = self->_concreteContainerIdentity;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (MCMCommandInfoValueForKey)infoValueForKeyWithError:(unint64_t *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   concreteContainerIdentity = [(MCMCommandInfoValueForKey *)self concreteContainerIdentity];
   v4 = [(MCMCommandInfoValueForKey *)self key];
   objc_opt_class();
@@ -88,7 +33,7 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v27 = v5;
+      v26 = v5;
       _os_log_error_impl(&dword_1DF2C3000, v16, OS_LOG_TYPE_ERROR, "Can't get nil or non-NSString key: %@", buf, 0xCu);
     }
 
@@ -99,13 +44,13 @@
 
   context = [(MCMCommand *)self context];
   containerCache = [context containerCache];
-  v25 = 0;
-  v9 = [containerCache entryForContainerIdentity:concreteContainerIdentity error:&v25];
-  v10 = v25;
+  v24 = 0;
+  v9 = [containerCache entryForContainerIdentity:concreteContainerIdentity error:&v24];
+  v10 = v24;
 
-  v24 = v10;
-  v11 = [v9 metadataWithError:&v24];
-  v12 = v24;
+  v23 = v10;
+  v11 = [v9 metadataWithError:&v23];
+  v12 = v23;
 
   if (!v11)
   {
@@ -115,7 +60,7 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v27 = concreteContainerIdentity;
+      v26 = concreteContainerIdentity;
       _os_log_error_impl(&dword_1DF2C3000, v17, OS_LOG_TYPE_ERROR, "No Container with identity: %@", buf, 0xCu);
     }
 
@@ -134,7 +79,7 @@
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v27 = v5;
+      v26 = v5;
       _os_log_error_impl(&dword_1DF2C3000, v18, OS_LOG_TYPE_ERROR, "Didn't find info value for key: %@", buf, 0xCu);
     }
 
@@ -152,17 +97,16 @@ LABEL_18:
 
   v19 = v14;
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (void)execute
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
-  v10[0] = 1;
-  v4 = [(MCMCommandInfoValueForKey *)self infoValueForKeyWithError:v10];
-  if (v10[0] == 1)
+  v9[0] = 1;
+  v4 = [(MCMCommandInfoValueForKey *)self infoValueForKeyWithError:v9];
+  if (v9[0] == 1)
   {
     v5 = [[MCMResultInfoValueForKey alloc] initWithValue:v4];
   }
@@ -170,7 +114,7 @@ LABEL_18:
   else
   {
     v6 = [MCMError alloc];
-    v7 = [(MCMError *)v6 initWithErrorType:v10[0]];
+    v7 = [(MCMError *)v6 initWithErrorType:v9[0]];
     v5 = [(MCMResultBase *)[MCMResultInfoValueForKey alloc] initWithError:v7];
   }
 
@@ -178,27 +122,24 @@ LABEL_18:
   [resultPromise completeWithResult:v5];
 
   objc_autoreleasePoolPop(v3);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)preflightClientAllowed
 {
-  v6 = *MEMORY[0x1E69E9840];
   context = [(MCMCommand *)self context];
   clientIdentity = [context clientIdentity];
 
   LOBYTE(context) = [clientIdentity isAllowedToAccessInfoMetadata];
-  v4 = *MEMORY[0x1E69E9840];
   return context;
 }
 
 - (MCMCommandInfoValueForKey)initWithMessage:(id)message context:(id)context reply:(id)reply
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   messageCopy = message;
-  v16.receiver = self;
-  v16.super_class = MCMCommandInfoValueForKey;
-  v9 = [(MCMCommand *)&v16 initWithMessage:messageCopy context:context reply:reply];
+  v15.receiver = self;
+  v15.super_class = MCMCommandInfoValueForKey;
+  v9 = [(MCMCommand *)&v15 initWithMessage:messageCopy context:context reply:reply];
   if (v9)
   {
     concreteContainerIdentity = [messageCopy concreteContainerIdentity];
@@ -210,18 +151,17 @@ LABEL_18:
     v9->_key = v12;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (MCMCommandInfoValueForKey)initWithKey:(id)key concreteContainerIdentity:(id)identity context:(id)context resultPromise:(id)promise
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   identityCopy = identity;
-  v17.receiver = self;
-  v17.super_class = MCMCommandInfoValueForKey;
-  v13 = [(MCMCommand *)&v17 initWithContext:context resultPromise:promise];
+  v16.receiver = self;
+  v16.super_class = MCMCommandInfoValueForKey;
+  v13 = [(MCMCommand *)&v16 initWithContext:context resultPromise:promise];
   v14 = v13;
   if (v13)
   {
@@ -229,23 +169,13 @@ LABEL_18:
     objc_storeStrong(&v14->_concreteContainerIdentity, identity);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 + (Class)incomingMessageClass
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69E9840];
 
   return objc_opt_class();
-}
-
-+ (unint64_t)command
-{
-  v2 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return 6;
 }
 
 @end

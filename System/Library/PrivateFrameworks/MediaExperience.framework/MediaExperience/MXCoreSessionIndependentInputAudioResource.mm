@@ -32,9 +32,8 @@
     if (options)
     {
       -[MXCoreSessionBase extractAndSetAuditToken:](v4, "extractAndSetAuditToken:", [options objectForKey:@"AuditToken"]);
-      v14 = 0u;
-      v15 = 0u;
-      [(MXCoreSessionBase *)v4 auditToken];
+      memset(v14, 0, sizeof(v14));
+      objc_msgSend_auditToken(v4);
       v5 = xpc_copy_entitlement_for_token();
       if (v5)
       {
@@ -46,7 +45,7 @@
         [(MXCoreSessionBase *)v4 setAudioCategory:@"Record"];
         [(MXCoreSessionBase *)v4 setAudioMode:@"Default"];
         [(MXCoreSessionBase *)v4 setInterruptionStyle:16];
-        cmsUpdateAudioBehavior(v4);
+        cmsUpdateAudioBehavior(v4, v6);
         v13[0] = 0;
         FigRoutingManagerContextUtilities_CopySystemAudioInputContextUUID(v13);
         [(MXCoreSessionBase *)v4 setRoutingContextUUID:v13[0]];
@@ -56,7 +55,7 @@
         [(MXCoreSessionBase *)v4 setAllowsDefaultBuiltInRouteCustomization:0];
         [(MXCoreSessionBase *)v4 setHasInput:1];
         objc_destroyWeak(location);
-        goto LABEL_12;
+        return v4;
       }
 
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -66,33 +65,31 @@
     else
     {
       LODWORD(v13[0]) = 0;
-      v6 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v7 = v13[0];
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v8 = v13[0];
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = v7;
+        v9 = v8;
       }
 
       else
       {
-        v8 = v7 & 0xFFFFFFFE;
+        v9 = v8 & 0xFFFFFFFE;
       }
 
-      if (v8)
+      if (v9)
       {
-        LODWORD(v14) = 136315138;
-        *(&v14 + 4) = "[MXCoreSessionIndependentInputAudioResource initWithOptions:]";
-        _os_log_send_and_compose_impl();
+        LODWORD(v14[0]) = 136315138;
+        *(v14 + 4) = "[MXCoreSessionIndependentInputAudioResource initWithOptions:]";
+        _os_log_send_and_compose_impl(v9, 0, location, 128, &dword_1B17A2000, v7, 0, "-MXCoreSessionIndependentInputAudioResource- %s: Creation options dictionary cannot be nil!", v14);
       }
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
 
-    v4 = 0;
+    return 0;
   }
 
-LABEL_12:
-  v10 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -138,35 +135,30 @@ LABEL_12:
 
 - (int)sendSessionConfigurationInfoToVA
 {
-  v9 = *MEMORY[0x1E69E9840];
-  if (MX_FeatureFlags_IsInputAudioCoexistenceSupportEnabled() && ![(MXCoreSessionIndependentInputAudioResource *)self shouldSendSessionConfigurationInfoToVA])
+  v6 = *MEMORY[0x1E69E9840];
+  if (MX_FeatureFlags_IsInputAudioCoexistenceSupportEnabled(self, a2) && ![(MXCoreSessionIndependentInputAudioResource *)self shouldSendSessionConfigurationInfoToVA])
   {
     if (dword_1EB75DE40)
     {
-      v8 = 0;
-      type = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    result = 0;
+    return 0;
   }
 
   else
   {
-    v6.receiver = self;
-    v6.super_class = MXCoreSessionIndependentInputAudioResource;
-    result = [(MXCoreSessionBase *)&v6 sendSessionConfigurationInfoToVA:[(MXCoreSessionIndependentInputAudioResource *)self additiveRoutingInfo]];
+    v5.receiver = self;
+    v5.super_class = MXCoreSessionIndependentInputAudioResource;
+    return [(MXCoreSessionBase *)&v5 sendSessionConfigurationInfoToVA:[(MXCoreSessionIndependentInputAudioResource *)self additiveRoutingInfo]];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (void)teardown
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -174,82 +166,77 @@ LABEL_12:
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [(MXCoreSessionIndependentAudioResource *)self deactivate:v5];
+  [(MXCoreSessionIndependentAudioResource *)self deactivate];
   CMSMSleep_UpdateIdleSleepPreventor(self, 0);
   [(MXCoreSessionBase *)self unregisterSessionAudioObject];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetMXSessionIsPlayingStates
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   copyMXSessionIndependentInputAudioResourceList = [(MXCoreSessionIndependentInputAudioResource *)self copyMXSessionIndependentInputAudioResourceList];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v3 = [copyMXSessionIndependentInputAudioResourceList countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [copyMXSessionIndependentInputAudioResourceList countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(copyMXSessionIndependentInputAudioResourceList);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) resetIsPlayingStates];
+        [*(*(&v7 + 1) + 8 * v6++) resetIsPlayingStates];
       }
 
       while (v4 != v6);
-      v4 = [copyMXSessionIndependentInputAudioResourceList countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [copyMXSessionIndependentInputAudioResourceList countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetMXSessionIsRecordingStates
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   copyMXSessionIndependentInputAudioResourceList = [(MXCoreSessionIndependentInputAudioResource *)self copyMXSessionIndependentInputAudioResourceList];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v3 = [copyMXSessionIndependentInputAudioResourceList countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [copyMXSessionIndependentInputAudioResourceList countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(copyMXSessionIndependentInputAudioResourceList);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) resetIsRecordingState];
+        [*(*(&v7 + 1) + 8 * v6++) resetIsRecordingState];
       }
 
       while (v4 != v6);
-      v4 = [copyMXSessionIndependentInputAudioResourceList countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [copyMXSessionIndependentInputAudioResourceList countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -304,7 +291,7 @@ LABEL_12:
 - (int)setPropertyForKey:(id)key value:(id)value
 {
   location[16] = *MEMORY[0x1E69E9840];
-  v39 = 0;
+  v41 = 0;
   if (!key)
   {
     [MXCoreSessionIndependentInputAudioResource setPropertyForKey:? value:?];
@@ -320,22 +307,20 @@ LABEL_12:
 
   if (dword_1EB75DE40)
   {
-    v38 = 0;
+    v40 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  if ([key isEqualToString:{@"ClientName", v30, v32}])
+  if ([key isEqualToString:@"ClientName"])
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       [(MXCoreSessionBase *)self updateClientName:value];
-LABEL_8:
-      v8 = 0;
-      goto LABEL_9;
+      return 0;
     }
 
     [MXCoreSessionIndependentInputAudioResource setPropertyForKey:? value:?];
@@ -351,14 +336,14 @@ LABEL_8:
       {
         if ([(NSNumber *)[(MXCoreSessionBase *)self clientPID] isEqualToNumber:value])
         {
-          goto LABEL_8;
+          return 0;
         }
 
         [(MXCoreSessionBase *)self setClientPID:value];
         CMSessionMgrCopyDisplayIdentifierToSession(self);
-        if (![(MXCoreSessionBase *)self isActive])
+        if (!objc_msgSend_isActive(self))
         {
-          goto LABEL_8;
+          return 0;
         }
 
         sendSessionConfigurationInfoToVA = [(MXCoreSessionIndependentInputAudioResource *)self sendSessionConfigurationInfoToVA];
@@ -382,20 +367,18 @@ LABEL_119:
   {
     if (value)
     {
-      v12 = CFGetTypeID(value);
-      if (v12 == CFBooleanGetTypeID())
+      v11 = CFGetTypeID(value);
+      if (v11 == CFBooleanGetTypeID())
       {
         -[MXCoreSessionBase setHasExternalMuteNotificationContext:](self, "setHasExternalMuteNotificationContext:", [value BOOLValue]);
         if (dword_1EB75DE40)
         {
-          v38 = 0;
-          type = OS_LOG_TYPE_DEFAULT;
-          v13 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+          v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
-        goto LABEL_8;
+        return 0;
       }
     }
 
@@ -410,7 +393,7 @@ LABEL_119:
     {
       if ([value unsignedIntValue] == 16 || !objc_msgSend(value, "unsignedIntValue"))
       {
-        goto LABEL_8;
+        return 0;
       }
 
       [MXCoreSessionIndependentInputAudioResource setPropertyForKey:? value:?];
@@ -436,29 +419,27 @@ LABEL_119:
       }
     }
 
-    v14 = [(NSDictionary *)[(MXCoreSessionBase *)self preferredRouteControlFeatures] copy];
+    v13 = [(NSDictionary *)[(MXCoreSessionBase *)self preferredRouteControlFeatures] copy];
     [(MXCoreSessionBase *)self setPreferredRouteControlFeatures:value];
-    v15 = [v14 isEqual:value];
+    v14 = [v13 isEqual:value];
     if (dword_1EB75DE40)
     {
-      v16 = v15;
+      v15 = v14;
     }
 
     else
     {
-      v16 = 1;
+      v15 = 1;
     }
 
-    if ((v16 & 1) == 0)
+    if ((v15 & 1) == 0)
     {
-      v38 = 0;
-      type = OS_LOG_TYPE_DEFAULT;
-      v17 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+      v16 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    isActive = [(MXCoreSessionBase *)self isActive];
+    isActive = objc_msgSend_isActive(self);
     goto LABEL_50;
   }
 
@@ -475,20 +456,19 @@ LABEL_119:
           [(MXCoreSessionBase *)self setPrefersSuppressingRecordingState:bOOLValue];
           if (dword_1EB75DE40)
           {
-            v38 = 0;
-            type = OS_LOG_TYPE_DEFAULT;
-            v19 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-            os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+            v18 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+            os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
             fig_log_call_emit_and_clean_up_after_send_and_compose();
           }
 
-          if ([(MXCoreSessionBase *)self isRecording:v31])
+          isRecording = [(MXCoreSessionBase *)self isRecording];
+          if (isRecording)
           {
-            MX_SystemStatus_PublishRecordingClientsInfo();
+            MX_SystemStatus_PublishRecordingClientsInfo(isRecording);
           }
         }
 
-        goto LABEL_8;
+        return 0;
       }
     }
 
@@ -506,17 +486,15 @@ LABEL_119:
         [(MXCoreSessionBase *)self setReporterIDs:value];
         if (dword_1EB75DE40)
         {
-          v38 = 0;
-          type = OS_LOG_TYPE_DEFAULT;
-          v20 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+          v19 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
         CMSMNotificationUtility_PostReporterIDsDidChange(self);
       }
 
-      goto LABEL_8;
+      return 0;
     }
 
     [MXCoreSessionIndependentInputAudioResource setPropertyForKey:? value:?];
@@ -539,8 +517,8 @@ LABEL_119:
     }
 
     [(MXCoreSessionBase *)self setAudioCategory:value];
-    cmsUpdateAudioBehavior(self);
-    isActive = [(MXCoreSessionBase *)self isActive];
+    cmsUpdateAudioBehavior(self, v20);
+    isActive = objc_msgSend_isActive(self);
     goto LABEL_50;
   }
 
@@ -561,8 +539,8 @@ LABEL_119:
 
     [(MXCoreSessionBase *)self setAudioMode:value];
     [(MXCoreSessionBase *)self setMode:CMSMVAUtility_GetVADModeFromFigModeName(value)];
-    cmsUpdateAudioBehavior(self);
-    isActive = [(MXCoreSessionBase *)self isActive];
+    cmsUpdateAudioBehavior(self, v23);
+    isActive = objc_msgSend_isActive(self);
     goto LABEL_50;
   }
 
@@ -588,12 +566,12 @@ LABEL_119:
     [(MXCoreSessionBase *)self setEnableBluetoothRecordingPreference:bOOLValue2];
     [(MXCoreSessionBase *)self setEnableBluetoothRecordingPreferenceSetByClient:1];
     [(MXCoreSessionBase *)self setAudioCategory:CMSUtility_GetCustomizedCategory(self)];
-    isActive = [(MXCoreSessionBase *)self isActive];
+    isActive = objc_msgSend_isActive(self);
 LABEL_50:
-    v39 = isActive;
-    if (!isActive)
+    v41 = isActive;
+    if ((isActive & 1) == 0)
     {
-      goto LABEL_8;
+      return 0;
     }
 
     goto LABEL_51;
@@ -622,20 +600,20 @@ LABEL_50:
     if (audioSessionID != unsignedIntValue)
     {
       [(MXCoreSessionBase *)self setAudioSessionID:unsignedIntValue];
-      objc_initWeak(location, self);
-      v27 = MXGetSerialQueue();
-      v34[0] = MEMORY[0x1E69E9820];
-      v34[1] = 3221225472;
-      v34[2] = __70__MXCoreSessionIndependentInputAudioResource_setPropertyForKey_value___block_invoke;
-      v34[3] = &unk_1E7AEA310;
-      objc_copyWeak(&v35, location);
-      v36 = unsignedIntValue;
-      MXDispatchAsync("[MXCoreSessionIndependentInputAudioResource setPropertyForKey:value:]", "MXCoreSessionIndependentInputAudioResource.m", 417, 0, 0, v27, v34);
-      objc_destroyWeak(&v35);
+      inited = objc_initWeak(location, self);
+      v31 = MXGetSerialQueue(inited, v30);
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = __70__MXCoreSessionIndependentInputAudioResource_setPropertyForKey_value___block_invoke;
+      v36[3] = &unk_1E7AEA310;
+      objc_copyWeak(&v37, location);
+      v38 = unsignedIntValue;
+      MXDispatchAsync("[MXCoreSessionIndependentInputAudioResource setPropertyForKey:value:]", "MXCoreSessionIndependentInputAudioResource.m", 417, 0, 0, v31, v36);
+      objc_destroyWeak(&v37);
       objc_destroyWeak(location);
     }
 
-    goto LABEL_8;
+    return 0;
   }
 
   if ([key isEqualToString:@"PrefersEchoCancelledInput"])
@@ -652,7 +630,7 @@ LABEL_50:
       bOOLValue3 = [value BOOLValue];
       if (bOOLValue3 == [(MXCoreSessionBase *)self prefersEchoCancelledInput])
       {
-        goto LABEL_8;
+        return 0;
       }
     }
 
@@ -662,25 +640,23 @@ LABEL_50:
       v8 = 0;
       if (![(MXCoreSessionBase *)self prefersEchoCancelledInput])
       {
-        goto LABEL_9;
+        return v8;
       }
     }
 
     if (dword_1EB75DE40)
     {
-      v38 = 0;
-      type = OS_LOG_TYPE_DEFAULT;
-      v28 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
+      v34 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [(MXCoreSessionBase *)self setPrefersEchoCancelledInput:bOOLValue3, v31, v33];
-    isActive2 = [(MXCoreSessionBase *)self isActive];
-    v39 = isActive2;
-    if (!isActive2)
+    [(MXCoreSessionBase *)self setPrefersEchoCancelledInput:bOOLValue3];
+    v35 = objc_msgSend_isActive(self);
+    v41 = v35;
+    if (!v35)
     {
-      goto LABEL_8;
+      return 0;
     }
 
     goto LABEL_51;
@@ -688,22 +664,24 @@ LABEL_50:
 
   if (![key isEqualToString:@"ShadowingAudioSessionOptions"])
   {
-    if (![key isEqualToString:@"IsRecordingMuted"])
+    isKindOfClass = [key isEqualToString:@"IsRecordingMuted"];
+    if (!isKindOfClass)
     {
-      goto LABEL_8;
+      return 0;
     }
 
     if (value)
     {
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      isKindOfClass = objc_opt_isKindOfClass();
+      if ((isKindOfClass & 1) == 0)
       {
         [MXCoreSessionIndependentInputAudioResource setPropertyForKey:? value:?];
         goto LABEL_119;
       }
     }
 
-    if (!MX_FeatureFlags_IsSessionBasedMutingEnabled())
+    if (!MX_FeatureFlags_IsSessionBasedMutingEnabled(isKindOfClass, v33))
     {
       [MXCoreSessionIndependentInputAudioResource setPropertyForKey:? value:?];
       goto LABEL_119;
@@ -737,26 +715,22 @@ LABEL_52:
     }
   }
 
-  v8 = [(MXCoreSessionBase *)self updateShadowingAudioSessionOptions:value shouldUpdateVAConfig:&v39];
-  if (v39)
+  v8 = [(MXCoreSessionBase *)self updateShadowingAudioSessionOptions:value shouldUpdateVAConfig:&v41];
+  if (v41)
   {
 LABEL_51:
-    sendSessionConfigurationInfoToVA = [(MXCoreSessionIndependentInputAudioResource *)self sendSessionConfigurationInfoToVA:v31];
+    sendSessionConfigurationInfoToVA = [(MXCoreSessionIndependentInputAudioResource *)self sendSessionConfigurationInfoToVA];
     goto LABEL_52;
   }
 
 LABEL_53:
   if (v8)
   {
-    v38 = 0;
-    type = OS_LOG_TYPE_DEFAULT;
     v22 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-LABEL_9:
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -767,7 +741,7 @@ id __70__MXCoreSessionIndependentInputAudioResource_setPropertyForKey_value___bl
   {
     v3 = result;
     [result updateAudioSessionIDAndAudioObject:*(a1 + 40)];
-    result = [v3 isActive];
+    result = objc_msgSend_isActive(v3);
     if (result)
     {
 
@@ -780,7 +754,7 @@ id __70__MXCoreSessionIndependentInputAudioResource_setPropertyForKey_value___bl
 
 - (int)copyPropertyForKey:(id)key valueOut:(id *)out
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   if (key)
   {
     objc_opt_class();
@@ -794,7 +768,7 @@ LABEL_9:
 LABEL_10:
         v9 = 0;
         *out = v8;
-        goto LABEL_11;
+        return v9;
       }
 
       if ([key isEqualToString:@"AudioCategory"])
@@ -817,13 +791,13 @@ LABEL_10:
 
       if ([key isEqualToString:@"EnableBluetoothRecording"])
       {
-        v12 = objc_alloc(MEMORY[0x1E696AD98]);
-        enableBluetoothRecordingPreference = [(MXCoreSessionBase *)self enableBluetoothRecordingPreference];
+        v11 = objc_alloc(MEMORY[0x1E696AD98]);
+        isActive = [(MXCoreSessionBase *)self enableBluetoothRecordingPreference];
 LABEL_16:
-        v14 = enableBluetoothRecordingPreference;
-        v15 = v12;
+        v13 = isActive;
+        v14 = v11;
 LABEL_17:
-        v8 = [v15 initWithBool:v14];
+        v8 = [v14 initWithBool:v13];
         goto LABEL_10;
       }
 
@@ -847,13 +821,13 @@ LABEL_17:
 
       if ([key isEqualToString:@"AudioSessionID"])
       {
-        v16 = objc_alloc(MEMORY[0x1E696AD98]);
+        v15 = objc_alloc(MEMORY[0x1E696AD98]);
         audioSessionID = [(MXCoreSessionBase *)self audioSessionID];
 LABEL_26:
-        v18 = audioSessionID;
-        v19 = v16;
+        v17 = audioSessionID;
+        v18 = v15;
 LABEL_27:
-        v8 = [v19 initWithUnsignedInt:v18];
+        v8 = [v18 initWithUnsignedInt:v17];
         goto LABEL_10;
       }
 
@@ -865,50 +839,50 @@ LABEL_27:
 
       if ([key isEqualToString:@"HasExternalMuteNotificationContext"])
       {
-        v12 = objc_alloc(MEMORY[0x1E696AD98]);
-        enableBluetoothRecordingPreference = [(MXCoreSessionBase *)self hasExternalMuteNotificationContext];
+        v11 = objc_alloc(MEMORY[0x1E696AD98]);
+        isActive = [(MXCoreSessionBase *)self hasExternalMuteNotificationContext];
         goto LABEL_16;
       }
 
       if ([key isEqualToString:@"InterruptionStyle"])
       {
-        v16 = objc_alloc(MEMORY[0x1E696AD98]);
+        v15 = objc_alloc(MEMORY[0x1E696AD98]);
         audioSessionID = [(MXCoreSessionBase *)self interruptionStyle];
         goto LABEL_26;
       }
 
       if ([key isEqualToString:@"IsActive"])
       {
-        v12 = objc_alloc(MEMORY[0x1E696AD98]);
-        enableBluetoothRecordingPreference = [(MXCoreSessionBase *)self isActive];
+        v11 = objc_alloc(MEMORY[0x1E696AD98]);
+        isActive = objc_msgSend_isActive(self);
         goto LABEL_16;
       }
 
       if ([key isEqualToString:@"IsPlaying"])
       {
-        v12 = objc_alloc(MEMORY[0x1E696AD98]);
-        enableBluetoothRecordingPreference = [(MXCoreSessionBase *)self isPlaying];
+        v11 = objc_alloc(MEMORY[0x1E696AD98]);
+        isActive = [(MXCoreSessionBase *)self isPlaying];
         goto LABEL_16;
       }
 
       if ([key isEqualToString:@"IsRecording"])
       {
-        v12 = objc_alloc(MEMORY[0x1E696AD98]);
-        enableBluetoothRecordingPreference = [(MXCoreSessionBase *)self isRecording];
+        v11 = objc_alloc(MEMORY[0x1E696AD98]);
+        isActive = [(MXCoreSessionBase *)self isRecording];
         goto LABEL_16;
       }
 
       if ([key isEqualToString:@"IsRecordingMuted"])
       {
-        v12 = objc_alloc(MEMORY[0x1E696AD98]);
-        enableBluetoothRecordingPreference = [(MXCoreSessionBase *)self isRecordingMuted];
+        v11 = objc_alloc(MEMORY[0x1E696AD98]);
+        isActive = [(MXCoreSessionBase *)self isRecordingMuted];
         goto LABEL_16;
       }
 
       if ([key isEqualToString:@"PrefersEchoCancelledInput"])
       {
-        v12 = objc_alloc(MEMORY[0x1E696AD98]);
-        enableBluetoothRecordingPreference = [(MXCoreSessionBase *)self prefersEchoCancelledInput];
+        v11 = objc_alloc(MEMORY[0x1E696AD98]);
+        isActive = [(MXCoreSessionBase *)self prefersEchoCancelledInput];
         goto LABEL_16;
       }
 
@@ -920,8 +894,8 @@ LABEL_27:
 
       if ([key isEqualToString:@"SystemHasAudioInputDevice"])
       {
-        v12 = objc_alloc(MEMORY[0x1E696AD98]);
-        enableBluetoothRecordingPreference = [(MXCoreSessionBase *)self isRoutedToOnDemandVAD];
+        v11 = objc_alloc(MEMORY[0x1E696AD98]);
+        isActive = [(MXCoreSessionBase *)self isRoutedToOnDemandVAD];
         goto LABEL_16;
       }
 
@@ -936,16 +910,16 @@ LABEL_27:
       {
         if ([(MXCoreSessionBase *)self shadowingAudioSessionID])
         {
-          v21 = objc_alloc(MEMORY[0x1E695DF20]);
-          v22 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[MXCoreSessionBase shadowingAudioSessionID](self, "shadowingAudioSessionID")}];
-          v8 = [v21 initWithObjectsAndKeys:{v22, @"AudioSessionID", objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", -[MXCoreSessionBase shadowingAudioSessionOptions](self, "shadowingAudioSessionOptions")), @"ShadowingOptions", 0}];
+          v20 = objc_alloc(MEMORY[0x1E695DF20]);
+          v21 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[MXCoreSessionBase shadowingAudioSessionID](self, "shadowingAudioSessionID")}];
+          v8 = [v20 initWithObjectsAndKeys:{v21, @"AudioSessionID", objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", -[MXCoreSessionBase shadowingAudioSessionOptions](self, "shadowingAudioSessionOptions")), @"ShadowingOptions", 0}];
           goto LABEL_10;
         }
 
 LABEL_83:
         v9 = 0;
         *out = 0;
-        goto LABEL_11;
+        return v9;
       }
 
       if ([key isEqualToString:@"CurrentAudioHardwareInputNumberChannels"])
@@ -955,10 +929,10 @@ LABEL_83:
           CurrentInputVADID = CMSUtility_GetCurrentInputVADID(self);
           NumberOfChannelsForVADIDAndScope = vaemGetNumberOfChannelsForVADIDAndScope(CurrentInputVADID, 1);
 LABEL_60:
-          v25 = NumberOfChannelsForVADIDAndScope;
+          v24 = NumberOfChannelsForVADIDAndScope;
 LABEL_73:
-          v19 = objc_alloc(MEMORY[0x1E696AD98]);
-          v18 = v25;
+          v18 = objc_alloc(MEMORY[0x1E696AD98]);
+          v17 = v24;
           goto LABEL_27;
         }
 
@@ -984,16 +958,22 @@ LABEL_73:
       if ([key isEqualToString:@"HasEchoCancelledInput"])
       {
         isRoutedToOnDemandVAD = [(MXCoreSessionBase *)self isRoutedToOnDemandVAD];
-        if (CMSMVAUtility_IsAdditiveRoutingEnabled() && [(MXCoreSessionBase *)self isActive]&& isRoutedToOnDemandVAD)
+        v27 = isRoutedToOnDemandVAD;
+        IsAdditiveRoutingEnabled = CMSMVAUtility_IsAdditiveRoutingEnabled(isRoutedToOnDemandVAD, v28);
+        if (IsAdditiveRoutingEnabled)
         {
-          IsRecordingCategory = CMSMUtility_IsRecordingCategory([(MXCoreSessionBase *)self audioCategory]);
+          IsAdditiveRoutingEnabled = objc_msgSend_isActive(self);
+          if ((IsAdditiveRoutingEnabled & v27) == 1)
+          {
+            IsRecordingCategory = CMSMUtility_IsRecordingCategory([(MXCoreSessionBase *)self audioCategory]);
 LABEL_85:
-          v15 = objc_alloc(MEMORY[0x1E696AD98]);
-          v14 = IsRecordingCategory;
-          goto LABEL_17;
+            v14 = objc_alloc(MEMORY[0x1E696AD98]);
+            v13 = IsRecordingCategory;
+            goto LABEL_17;
+          }
         }
 
-        if (MX_FeatureFlags_IsOverdubRecordingEnabled())
+        if (MX_FeatureFlags_IsOverdubRecordingEnabled(IsAdditiveRoutingEnabled, v30))
         {
           hasEchoCancelledInput = [(MXCoreSessionBase *)self hasEchoCancelledInput];
 LABEL_76:
@@ -1008,30 +988,32 @@ LABEL_76:
         {
           if ([(MXCoreSessionBase *)self isRoutedToOnDemandVAD])
           {
-            v29 = CMSUtility_GetCurrentInputVADID(self);
-            NumberOfChannelsForVADIDAndScope = vaemGetMaximumNumberOfChannels(1, v29, 1);
+            v32 = CMSUtility_GetCurrentInputVADID(self);
+            NumberOfChannelsForVADIDAndScope = vaemGetMaximumNumberOfChannels(1, v32, 1);
             goto LABEL_60;
           }
 
 LABEL_72:
-          v25 = 0;
+          v24 = 0;
           goto LABEL_73;
         }
 
-        if ([key isEqualToString:@"RouteControlFeatures"])
+        v34 = [key isEqualToString:@"RouteControlFeatures"];
+        if (v34)
         {
-          v31 = CMSMVAUtility_IsAdditiveRoutingEnabled() && [(MXCoreSessionBase *)self isRoutedToOnDemandVAD];
-          v32 = objc_alloc(MEMORY[0x1E695DF20]);
-          v8 = [v32 initWithObjectsAndKeys:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", v31), @"RouteControlFeatures", 0, v33, v34}];
+          v36 = CMSMVAUtility_IsAdditiveRoutingEnabled(v34, v35) && [(MXCoreSessionBase *)self isRoutedToOnDemandVAD];
+          v39 = objc_alloc(MEMORY[0x1E695DF20]);
+          v8 = [v39 initWithObjectsAndKeys:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", v36), @"RouteControlFeatures", 0, v40, v41}];
           goto LABEL_10;
         }
 
-        if (![key isEqualToString:@"SupportsEchoCancelledInput"])
+        v37 = [key isEqualToString:@"SupportsEchoCancelledInput"];
+        if (!v37)
         {
           goto LABEL_83;
         }
 
-        if (MX_FeatureFlags_IsOverdubRecordingEnabled())
+        if (MX_FeatureFlags_IsOverdubRecordingEnabled(v37, v38))
         {
           hasEchoCancelledInput = [(MXCoreSessionBase *)self supportsEchoCancelledInput];
           goto LABEL_76;
@@ -1042,24 +1024,22 @@ LABEL_72:
       goto LABEL_85;
     }
 
-    [MXCoreSessionIndependentInputAudioResource copyPropertyForKey:v35 valueOut:?];
+    [MXCoreSessionIndependentInputAudioResource copyPropertyForKey:v42 valueOut:?];
   }
 
   else
   {
-    [MXCoreSessionIndependentInputAudioResource copyPropertyForKey:v35 valueOut:?];
+    [MXCoreSessionIndependentInputAudioResource copyPropertyForKey:v42 valueOut:?];
   }
 
-  v9 = v35[0];
-  if (v35[0])
+  v9 = v42[0];
+  if (v42[0])
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-LABEL_11:
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -1079,32 +1059,32 @@ LABEL_11:
 
 - (void)dumpDebugInfo
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   [(MXCoreSessionBase *)self dumpDebugConfigInfo];
   [(MXCoreSessionBase *)self dumpDebugStateInfo];
   copyMXSessionIndependentInputAudioResourceList = [(MXCoreSessionIndependentInputAudioResource *)self copyMXSessionIndependentInputAudioResourceList];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [copyMXSessionIndependentInputAudioResourceList countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [copyMXSessionIndependentInputAudioResourceList countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(copyMXSessionIndependentInputAudioResourceList);
         }
 
-        [*(*(&v11 + 1) + 8 * i) dumpDebugInfo];
+        [*(*(&v10 + 1) + 8 * i) dumpDebugInfo];
       }
 
-      v5 = [copyMXSessionIndependentInputAudioResourceList countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [copyMXSessionIndependentInputAudioResourceList countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -1122,181 +1102,179 @@ LABEL_11:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.1(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.2(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.3(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.4(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.5(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.6(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.7(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.8(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.9(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.10(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.11(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.12(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.13(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.14(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.15(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.16(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.17(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.18(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.19(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.20(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.21(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.22(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.23(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)copyPropertyForKey:(_DWORD *)a1 valueOut:.cold.1(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)copyPropertyForKey:(_DWORD *)a1 valueOut:.cold.2(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }

@@ -37,9 +37,9 @@
   targetLocaleCopy = targetLocale;
   handlerCopy = handler;
   completionHandlerCopy = completionHandler;
-  v43.receiver = self;
-  v43.super_class = _LTTextSessionRequest;
-  v19 = [(_LTTextSessionRequest *)&v43 init];
+  v47.receiver = self;
+  v47.super_class = _LTTextSessionRequest;
+  v19 = [(_LTTextSessionRequest *)&v47 init];
   if (v19)
   {
     v20 = +[_LTTextSession synchronizationQueue];
@@ -75,18 +75,19 @@
     logIdentifier = v19->_logIdentifier;
     v19->_logIdentifier = uUID;
 
-    v36 = _LTOSLogTextAPI();
-    v19->_signpostID = os_signpost_id_generate(v36);
-    v37 = _LTOSLogTextAPI();
-    v38 = v37;
+    v38 = _LTOSLogTextAPI(v36, v37);
+    v39 = os_signpost_id_generate(v38);
+    v19->_signpostID = v39;
+    v41 = _LTOSLogTextAPI(v39, v40);
+    v42 = v41;
     signpostID = v19->_signpostID;
-    if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
+    if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
     {
-      *v42 = 0;
-      _os_signpost_emit_with_name_impl(&dword_23AAF5000, v38, OS_SIGNPOST_INTERVAL_BEGIN, signpostID, "PreflightChecks", "", v42, 2u);
+      *v46 = 0;
+      _os_signpost_emit_with_name_impl(&dword_23AAF5000, v42, OS_SIGNPOST_INTERVAL_BEGIN, signpostID, "PreflightChecks", "", v46, 2u);
     }
 
-    v40 = v19;
+    v44 = v19;
   }
 
   return v19;
@@ -94,7 +95,7 @@
 
 - (void)didStartTranslating
 {
-  v3 = _LTOSLogTextAPI();
+  v3 = _LTOSLogTextAPI(self, a2);
   v4 = v3;
   signpostID = self->_signpostID;
   if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -103,61 +104,61 @@
     _os_signpost_emit_with_name_impl(&dword_23AAF5000, v4, OS_SIGNPOST_INTERVAL_END, signpostID, "PreflightChecks", "", buf, 2u);
   }
 
-  v6 = _LTOSLogTextAPI();
-  v7 = v6;
-  v8 = self->_signpostID;
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  v8 = _LTOSLogTextAPI(v6, v7);
+  v9 = v8;
+  v10 = self->_signpostID;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
-    *v13 = 0;
-    _os_signpost_emit_with_name_impl(&dword_23AAF5000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v8, "TranslationFirstItem", "", v13, 2u);
+    *v17 = 0;
+    _os_signpost_emit_with_name_impl(&dword_23AAF5000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v10, "TranslationFirstItem", "", v17, 2u);
   }
 
-  v9 = _LTOSLogTextAPI();
-  v10 = v9;
-  v11 = self->_signpostID;
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v13 = _LTOSLogTextAPI(v11, v12);
+  v14 = v13;
+  v15 = self->_signpostID;
+  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
-    *v12 = 0;
-    _os_signpost_emit_with_name_impl(&dword_23AAF5000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v11, "Translation", "", v12, 2u);
+    *v16 = 0;
+    _os_signpost_emit_with_name_impl(&dword_23AAF5000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v15, "Translation", "", v16, 2u);
   }
 }
 
 - (void)didReceiveError:(id)error forInput:(id)input
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   dispatch_assert_queue_V2(self->_queue);
   if (self->_completionHandler)
   {
-    [(_LTTextSessionRequest *)self _invocationEndedWithErrorSELFLogging:errorCopy];
-    v6 = _LTOSLogTextAPI();
-    v7 = v6;
+    v8 = [(_LTTextSessionRequest *)self _invocationEndedWithErrorSELFLogging:errorCopy];
+    v10 = _LTOSLogTextAPI(v8, v9);
+    v11 = v10;
     signpostID = self->_signpostID;
-    if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+    if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
     {
-      LOWORD(v17) = 0;
-      _os_signpost_emit_with_name_impl(&dword_23AAF5000, v7, OS_SIGNPOST_INTERVAL_END, signpostID, "Translation", "Translation finished with error", &v17, 2u);
+      LOWORD(v24) = 0;
+      _os_signpost_emit_with_name_impl(&dword_23AAF5000, v11, OS_SIGNPOST_INTERVAL_END, signpostID, "Translation", "Translation finished with error", &v24, 2u);
     }
 
-    v9 = _LTOSLogTextAPI();
-    v10 = v9;
-    v11 = self->_signpostID;
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+    v15 = _LTOSLogTextAPI(v13, v14);
+    v16 = v15;
+    v17 = self->_signpostID;
+    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
     {
-      LOWORD(v17) = 0;
-      _os_signpost_emit_with_name_impl(&dword_23AAF5000, v10, OS_SIGNPOST_INTERVAL_END, v11, "PreflightChecks", "Finished preflight checks with error", &v17, 2u);
+      LOWORD(v24) = 0;
+      _os_signpost_emit_with_name_impl(&dword_23AAF5000, v16, OS_SIGNPOST_INTERVAL_END, v17, "PreflightChecks", "Finished preflight checks with error", &v24, 2u);
     }
 
     if (!self->_hasReceivedFirstItem)
     {
       self->_hasReceivedFirstItem = 1;
-      v12 = _LTOSLogTextAPI();
-      v13 = v12;
-      v14 = self->_signpostID;
-      if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+      v20 = _LTOSLogTextAPI(v18, v19);
+      v21 = v20;
+      v22 = self->_signpostID;
+      if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
       {
-        LOWORD(v17) = 0;
-        _os_signpost_emit_with_name_impl(&dword_23AAF5000, v13, OS_SIGNPOST_INTERVAL_END, v14, "TranslationFirstItem", "Translating first item finished with error", &v17, 2u);
+        LOWORD(v24) = 0;
+        _os_signpost_emit_with_name_impl(&dword_23AAF5000, v21, OS_SIGNPOST_INTERVAL_END, v22, "TranslationFirstItem", "Translating first item finished with error", &v24, 2u);
       }
     }
 
@@ -167,21 +168,19 @@
 
   else
   {
-    v15 = _LTOSLogTextAPI();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v23 = _LTOSLogTextAPI(v6, v7);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
-      v17 = 138412290;
-      v18 = errorCopy;
-      _os_log_impl(&dword_23AAF5000, v15, OS_LOG_TYPE_INFO, "Text request received error, but already called completion handler so ignoring new error: %@", &v17, 0xCu);
+      v24 = 138412290;
+      v25 = errorCopy;
+      _os_log_impl(&dword_23AAF5000, v23, OS_LOG_TYPE_INFO, "Text request received error, but already called completion handler so ignoring new error: %@", &v24, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didTranslateInput:(id)input withResult:(id)result
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   queue = self->_queue;
   inputCopy = input;
@@ -190,10 +189,10 @@
 
   if (v9 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v10 = _LTOSLogTextAPI();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = _LTOSLogTextAPI(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [_LTTextSessionRequest didTranslateInput:v10 withResult:?];
+      [_LTTextSessionRequest didTranslateInput:v12 withResult:?];
     }
   }
 
@@ -202,19 +201,19 @@
     if (!self->_hasReceivedFirstItem)
     {
       self->_hasReceivedFirstItem = 1;
-      v11 = _LTOSLogTextAPI();
-      v12 = v11;
+      v13 = _LTOSLogTextAPI(v10, v11);
+      v14 = v13;
       signpostID = self->_signpostID;
-      if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+      if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
       {
-        LOWORD(v19) = 0;
-        _os_signpost_emit_with_name_impl(&dword_23AAF5000, v12, OS_SIGNPOST_INTERVAL_END, signpostID, "TranslationFirstItem", "Successfully translated first item", &v19, 2u);
+        LOWORD(v20) = 0;
+        _os_signpost_emit_with_name_impl(&dword_23AAF5000, v14, OS_SIGNPOST_INTERVAL_END, signpostID, "TranslationFirstItem", "Successfully translated first item", &v20, 2u);
       }
     }
 
     resultMap = self->_resultMap;
-    v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v9];
-    [(NSMutableDictionary *)resultMap setObject:resultCopy forKeyedSubscript:v15];
+    v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v9];
+    [(NSMutableDictionary *)resultMap setObject:resultCopy forKeyedSubscript:v17];
 
     itemHandler = self->_itemHandler;
     if (itemHandler)
@@ -225,16 +224,14 @@
 
   else
   {
-    v17 = _LTOSLogTextAPI();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v19 = _LTOSLogTextAPI(v10, v11);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      v19 = 134217984;
-      v20 = v9;
-      _os_log_impl(&dword_23AAF5000, v17, OS_LOG_TYPE_INFO, "Received result for input item %zu after completion handler was already called, likely because an error previously occurred; early returning", &v19, 0xCu);
+      v20 = 134217984;
+      v21 = v9;
+      _os_log_impl(&dword_23AAF5000, v19, OS_LOG_TYPE_INFO, "Received result for input item %zu after completion handler was already called, likely because an error previously occurred; early returning", &v20, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didComplete
@@ -242,46 +239,47 @@
   dispatch_assert_queue_V2(self->_queue);
   if (self->_completionHandler)
   {
-    v3 = [(NSArray *)self->_batch count];
-    v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:v3];
-    if (v3)
+    v5 = [(NSArray *)self->_batch count];
+    v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:v5];
+    v8 = v6;
+    if (v5)
     {
-      for (i = 0; i != v3; ++i)
+      for (i = 0; i != v5; ++i)
       {
         resultMap = self->_resultMap;
-        v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:i];
-        v8 = [(NSMutableDictionary *)resultMap objectForKeyedSubscript:v7];
+        v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:i];
+        v12 = [(NSMutableDictionary *)resultMap objectForKeyedSubscript:v11];
 
-        if (v8)
+        if (v12)
         {
-          [v4 addObject:v8];
+          [v8 addObject:v12];
         }
       }
     }
 
-    v9 = _LTOSLogTextAPI();
-    v10 = v9;
+    v13 = _LTOSLogTextAPI(v6, v7);
+    v14 = v13;
     signpostID = self->_signpostID;
-    if (signpostID - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v9))
+    if (signpostID - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v13))
     {
-      *v15 = 0;
-      _os_signpost_emit_with_name_impl(&dword_23AAF5000, v10, OS_SIGNPOST_INTERVAL_END, signpostID, "Translation", "Translation finished successfully", v15, 2u);
+      *v19 = 0;
+      _os_signpost_emit_with_name_impl(&dword_23AAF5000, v14, OS_SIGNPOST_INTERVAL_END, signpostID, "Translation", "Translation finished successfully", v19, 2u);
     }
 
     completionHandler = self->_completionHandler;
-    v13 = [v4 copy];
-    completionHandler[2](completionHandler, v13, 0);
+    v17 = [v8 copy];
+    completionHandler[2](completionHandler, v17, 0);
 
     [(_LTTextSessionRequest *)self _cleanUp];
   }
 
   else
   {
-    v14 = _LTOSLogTextAPI();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v18 = _LTOSLogTextAPI(v3, v4);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_23AAF5000, v14, OS_LOG_TYPE_INFO, "Request was reported as being finished, but completion handler was already called so ignoring update", buf, 2u);
+      _os_log_impl(&dword_23AAF5000, v18, OS_LOG_TYPE_INFO, "Request was reported as being finished, but completion handler was already called so ignoring update", buf, 2u);
     }
   }
 }
@@ -312,13 +310,13 @@
   resolvedSourceLocale = self->_resolvedSourceLocale;
   self->_resolvedSourceLocale = v6;
 
-  v8 = _LTOSLogTextAPI();
-  v9 = v8;
+  v10 = _LTOSLogTextAPI(v8, v9);
+  v11 = v10;
   signpostID = self->_signpostID;
-  if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
-    *v11 = 0;
-    _os_signpost_emit_with_name_impl(&dword_23AAF5000, v9, OS_SIGNPOST_EVENT, signpostID, "ResolvedSourceLocale", "", v11, 2u);
+    *v13 = 0;
+    _os_signpost_emit_with_name_impl(&dword_23AAF5000, v11, OS_SIGNPOST_EVENT, signpostID, "ResolvedSourceLocale", "", v13, 2u);
   }
 }
 
@@ -332,13 +330,13 @@
   resolvedTargetLocale = self->_resolvedTargetLocale;
   self->_resolvedTargetLocale = v6;
 
-  v8 = _LTOSLogTextAPI();
-  v9 = v8;
+  v10 = _LTOSLogTextAPI(v8, v9);
+  v11 = v10;
   signpostID = self->_signpostID;
-  if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
-    *v11 = 0;
-    _os_signpost_emit_with_name_impl(&dword_23AAF5000, v9, OS_SIGNPOST_EVENT, signpostID, "ResolvedTargetLocale", "", v11, 2u);
+    *v13 = 0;
+    _os_signpost_emit_with_name_impl(&dword_23AAF5000, v11, OS_SIGNPOST_EVENT, signpostID, "ResolvedTargetLocale", "", v13, 2u);
   }
 }
 

@@ -15,27 +15,27 @@
 - (id)initFullColorImageViewWithDevice:(id)device
 {
   deviceCopy = device;
-  v25.receiver = self;
-  v25.super_class = LevelRichCornerComplicationView;
-  v6 = [(LevelRichComplicationView *)&v25 initFullColorImageViewWithDevice:deviceCopy];
+  v21.receiver = self;
+  v21.super_class = LevelRichCornerComplicationView;
+  v6 = [(LevelRichComplicationView *)&v21 initFullColorImageViewWithDevice:deviceCopy];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(v6 + 59, device);
     v8 = NanoCompassComplicationImageNamed(@"levelCorner-RingBorderBright");
     v9 = objc_alloc(MEMORY[0x277D755E8]);
-    v12 = objc_msgSend_initWithImage_(v9, v10, v8, v11);
-    v13 = v7[61];
-    v7[61] = v12;
+    v11 = objc_msgSend_initWithImage_(v9, v10, v8);
+    v12 = v7[61];
+    v7[61] = v11;
 
-    objc_msgSend_addSubview_(v7, v14, v7[61], v15);
-    v16 = NanoCompassComplicationImageNamed(@"levelCorner-RingBorderMuted");
-    v17 = objc_alloc(MEMORY[0x277D755E8]);
-    v20 = objc_msgSend_initWithImage_(v17, v18, v16, v19);
-    v21 = v7[62];
-    v7[62] = v20;
+    objc_msgSend_addSubview_(v7, v13, v7[61]);
+    v14 = NanoCompassComplicationImageNamed(@"levelCorner-RingBorderMuted");
+    v15 = objc_alloc(MEMORY[0x277D755E8]);
+    v17 = objc_msgSend_initWithImage_(v15, v16, v14);
+    v18 = v7[62];
+    v7[62] = v17;
 
-    objc_msgSend_addSubview_(v7, v22, v7[62], v23);
+    objc_msgSend_addSubview_(v7, v19, v7[62]);
   }
 
   return v7;
@@ -43,57 +43,57 @@
 
 - (id)_newFixedOverlayView
 {
-  v5 = objc_msgSend__overlayImageName(self, a2, v2, v3);
-  v6 = NanoCompassComplicationImageNamed(v5);
+  v4 = objc_msgSend__overlayImageName(self, a2, v2);
+  v5 = NanoCompassComplicationImageNamed(v4);
 
-  v7 = objc_alloc(MEMORY[0x277D755E8]);
-  v10 = objc_msgSend_initWithImage_(v7, v8, v6, v9);
+  v6 = objc_alloc(MEMORY[0x277D755E8]);
+  v8 = objc_msgSend_initWithImage_(v6, v7, v5);
   overlayCross = self->_overlayCross;
-  self->_overlayCross = v10;
+  self->_overlayCross = v8;
 
-  v12 = self->_overlayCross;
-  return v12;
+  v10 = self->_overlayCross;
+  return v10;
 }
 
 - (id)_newFixedBubbleView
 {
-  v5 = objc_msgSend__fixedBubbleImageName(self, a2, v2, v3);
-  v6 = NanoCompassComplicationImageNamed(v5);
+  v4 = objc_msgSend__fixedBubbleImageName(self, a2, v2);
+  v5 = NanoCompassComplicationImageNamed(v4);
 
-  v7 = objc_alloc(MEMORY[0x277D755E8]);
-  v10 = objc_msgSend_initWithImage_(v7, v8, v6, v9);
+  v6 = objc_alloc(MEMORY[0x277D755E8]);
+  v8 = objc_msgSend_initWithImage_(v6, v7, v5);
   centeredBubbleView = self->_centeredBubbleView;
-  self->_centeredBubbleView = v10;
+  self->_centeredBubbleView = v8;
 
-  v12 = self->_centeredBubbleView;
-  return v12;
+  v10 = self->_centeredBubbleView;
+  return v10;
 }
 
 - (id)_newFloatingBubbleView
 {
-  v5 = objc_msgSend__floatingBubbleImageName(self, a2, v2, v3);
-  v6 = NanoCompassComplicationImageNamed(v5);
+  v4 = objc_msgSend__floatingBubbleImageName(self, a2, v2);
+  v5 = NanoCompassComplicationImageNamed(v4);
 
-  v7 = objc_alloc(MEMORY[0x277D755E8]);
-  v10 = objc_msgSend_initWithImage_(v7, v8, v6, v9);
+  v6 = objc_alloc(MEMORY[0x277D755E8]);
+  v8 = objc_msgSend_initWithImage_(v6, v7, v5);
   floatingBubbleView = self->_floatingBubbleView;
-  self->_floatingBubbleView = v10;
+  self->_floatingBubbleView = v8;
 
-  v12 = self->_floatingBubbleView;
-  return v12;
+  v10 = self->_floatingBubbleView;
+  return v10;
 }
 
 - (double)_maxBubbleDeflection
 {
   device = self->_device;
-  v5 = objc_msgSend__supportedFamily(self, a2, v2, v3);
-  sub_23BD33320(v5, device);
-  if (v5 != 8)
+  v4 = objc_msgSend__supportedFamily(self, a2, v2);
+  sub_23BD33320(v4, device);
+  if (v4 != 8)
   {
-    v6 = NCLogForCategory(1uLL);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = NCLogForCategory(1uLL);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_23BD65900(v5, v6);
+      sub_23BD65900(v4, v5);
     }
   }
 
@@ -126,39 +126,39 @@
 - (void)configureWithImageProvider:(id)provider reason:(int64_t)reason
 {
   providerCopy = provider;
-  v37.receiver = self;
-  v37.super_class = LevelRichCornerComplicationView;
-  [(LevelRichComplicationView *)&v37 configureWithImageProvider:providerCopy reason:reason];
-  v10 = objc_msgSend_metadata(providerCopy, v7, v8, v9);
-  v13 = objc_msgSend_objectForKeyedSubscript_(v10, v11, @"incline", v12);
+  v28.receiver = self;
+  v28.super_class = LevelRichCornerComplicationView;
+  [(LevelRichComplicationView *)&v28 configureWithImageProvider:providerCopy reason:reason];
+  v9 = objc_msgSend_metadata(providerCopy, v7, v8);
+  v11 = objc_msgSend_objectForKeyedSubscript_(v9, v10, @"incline");
 
-  v17 = objc_msgSend_null(MEMORY[0x277CBEB68], v14, v15, v16);
-  isEqual = objc_msgSend_isEqual_(v13, v18, v17, v19);
+  v14 = objc_msgSend_null(MEMORY[0x277CBEB68], v12, v13);
+  isEqual = objc_msgSend_isEqual_(v11, v15, v14);
 
   if (isEqual)
   {
 
-    v13 = 0;
+    v11 = 0;
   }
 
-  v24 = objc_msgSend_metadata(providerCopy, v21, v22, v23);
-  v27 = objc_msgSend_objectForKeyedSubscript_(v24, v25, @"nodata", v26);
-  v31 = objc_msgSend_BOOLValue(v27, v28, v29, v30);
+  v19 = objc_msgSend_metadata(providerCopy, v17, v18);
+  v21 = objc_msgSend_objectForKeyedSubscript_(v19, v20, @"nodata");
+  v24 = objc_msgSend_BOOLValue(v21, v22, v23);
 
-  v32 = NanoCompassLevelComplicationConsideredLevel(v13, v31);
-  objc_msgSend_setHidden_(self->_brightRingView, v33, v32, v34);
-  objc_msgSend_setHidden_(self->_mutedRingView, v35, v32 ^ 1, v36);
+  v25 = NanoCompassLevelComplicationConsideredLevel(v11, v24);
+  objc_msgSend_setHidden_(self->_brightRingView, v26, v25);
+  objc_msgSend_setHidden_(self->_mutedRingView, v27, v25 ^ 1);
 }
 
 - (void)layoutSubviews
 {
-  v15.receiver = self;
-  v15.super_class = LevelRichCornerComplicationView;
-  [(LevelRichComplicationView *)&v15 layoutSubviews];
-  objc_msgSend_center(self, v3, v4, v5);
-  objc_msgSend_setCenter_(self->_brightRingView, v6, v7, v8);
-  objc_msgSend_center(self, v9, v10, v11);
-  objc_msgSend_setCenter_(self->_mutedRingView, v12, v13, v14);
+  v11.receiver = self;
+  v11.super_class = LevelRichCornerComplicationView;
+  [(LevelRichComplicationView *)&v11 layoutSubviews];
+  objc_msgSend_center(self, v3, v4);
+  objc_msgSend_setCenter_(self->_brightRingView, v5, v6);
+  objc_msgSend_center(self, v7, v8);
+  objc_msgSend_setCenter_(self->_mutedRingView, v9, v10);
 }
 
 @end

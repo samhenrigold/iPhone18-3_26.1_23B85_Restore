@@ -969,7 +969,7 @@ LABEL_17:
   }
 
   memset(&v42, 0, sizeof(v42));
-  [(JFXRGBDMatte *)self featherMatte:d];
+  objc_msgSend_featherMatte_(self);
   src = v42;
   v35 = [(JFXRGBDMatte *)self createInvertedMatte:&src];
   v36 = v35;
@@ -1839,7 +1839,7 @@ LABEL_63:
   ContourProcessing::contourExtraction(v34, &v35);
   if (v35 >= 21 && self->_topOfHeadHalf >= 1)
   {
-    JFXDistanceTransformEuclidean(small, self->_depthBufferFull, height, width);
+    JFXDistanceTransformEuclidean(small, self->_depthBufferFull, height, width, 0);
   }
 
   v28 = (width * height);

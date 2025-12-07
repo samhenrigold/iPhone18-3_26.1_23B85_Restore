@@ -156,20 +156,20 @@ LABEL_11:
     return 0;
   }
 
-  objc_initWeak(&location, self);
-  v3 = MEMORY[0x1E69DC628];
-  v4 = CKFrameworkBundle();
-  v5 = [v4 localizedStringForKey:@"COPY" value:&stru_1F04268F8 table:@"ChatKit"];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __68__CKDefaultPluginEntryViewController__copyActionForImageBalloonView__block_invoke;
-  v8[3] = &unk_1E72EBCD8;
-  objc_copyWeak(&v9, &location);
-  v6 = [v3 actionWithTitle:v5 image:0 identifier:0 handler:v8];
+  inited = objc_initWeak(&location, self);
+  v4 = MEMORY[0x1E69DC628];
+  v5 = CKFrameworkBundle(inited);
+  v6 = [v5 localizedStringForKey:@"COPY" value:&stru_1F04268F8 table:@"ChatKit"];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __68__CKDefaultPluginEntryViewController__copyActionForImageBalloonView__block_invoke;
+  v9[3] = &unk_1E72EBCD8;
+  objc_copyWeak(&v10, &location);
+  v7 = [v4 actionWithTitle:v6 image:0 identifier:0 handler:v9];
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
-  return v6;
+  return v7;
 }
 
 void __68__CKDefaultPluginEntryViewController__copyActionForImageBalloonView__block_invoke(uint64_t a1)
@@ -203,18 +203,18 @@ void __68__CKDefaultPluginEntryViewController__copyActionForImageBalloonView__bl
 
       if (image)
       {
-        objc_initWeak(&location, self);
-        v7 = MEMORY[0x1E69DC628];
-        v8 = CKFrameworkBundle();
-        v9 = [v8 localizedStringForKey:@"SEARCH_ADD_TO_PHOTOS_LIBRARY" value:&stru_1F04268F8 table:@"ChatKit"];
-        v11[0] = MEMORY[0x1E69E9820];
-        v11[1] = 3221225472;
-        v11[2] = __68__CKDefaultPluginEntryViewController__saveActionForImageBalloonView__block_invoke;
-        v11[3] = &unk_1E72EBCD8;
-        objc_copyWeak(&v12, &location);
-        balloonView = [v7 actionWithTitle:v9 image:0 identifier:0 handler:v11];
+        inited = objc_initWeak(&location, self);
+        v8 = MEMORY[0x1E69DC628];
+        v9 = CKFrameworkBundle(inited);
+        v10 = [v9 localizedStringForKey:@"SEARCH_ADD_TO_PHOTOS_LIBRARY" value:&stru_1F04268F8 table:@"ChatKit"];
+        v12[0] = MEMORY[0x1E69E9820];
+        v12[1] = 3221225472;
+        v12[2] = __68__CKDefaultPluginEntryViewController__saveActionForImageBalloonView__block_invoke;
+        v12[3] = &unk_1E72EBCD8;
+        objc_copyWeak(&v13, &location);
+        balloonView = [v8 actionWithTitle:v10 image:0 identifier:0 handler:v12];
 
-        objc_destroyWeak(&v12);
+        objc_destroyWeak(&v13);
         objc_destroyWeak(&location);
         goto LABEL_7;
       }

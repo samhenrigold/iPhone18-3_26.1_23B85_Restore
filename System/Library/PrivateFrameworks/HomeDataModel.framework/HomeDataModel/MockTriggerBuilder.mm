@@ -23,18 +23,16 @@
 {
   if (*(self + OBJC_IVAR____TtC13HomeDataModel18MockTriggerBuilder_name + 8))
   {
-    v2 = *(self + OBJC_IVAR____TtC13HomeDataModel18MockTriggerBuilder_name);
-    v3 = *(self + OBJC_IVAR____TtC13HomeDataModel18MockTriggerBuilder_name + 8);
 
-    v4 = sub_1D1E677EC();
+    v2 = sub_1D1E677EC();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)setName:(id)name
@@ -51,7 +49,6 @@
   }
 
   v6 = (self + OBJC_IVAR____TtC13HomeDataModel18MockTriggerBuilder_name);
-  v7 = *(self + OBJC_IVAR____TtC13HomeDataModel18MockTriggerBuilder_name + 8);
   *v6 = v4;
   v6[1] = v5;
 }
@@ -86,7 +83,6 @@
     v4 = 0;
   }
 
-  v5 = *(self + OBJC_IVAR____TtC13HomeDataModel18MockTriggerBuilder_recurrences);
   *(self + OBJC_IVAR____TtC13HomeDataModel18MockTriggerBuilder_recurrences) = v4;
 }
 
@@ -125,7 +121,6 @@
   }
 
   v8 = (self + OBJC_IVAR____TtC13HomeDataModel18MockTriggerBuilder_name);
-  v9 = *(self + OBJC_IVAR____TtC13HomeDataModel18MockTriggerBuilder_name + 8);
   *v8 = v6;
   v8[1] = v7;
   selfCopy = self;

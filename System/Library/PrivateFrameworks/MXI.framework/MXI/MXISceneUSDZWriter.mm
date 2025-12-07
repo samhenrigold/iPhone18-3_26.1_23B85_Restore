@@ -25,7 +25,7 @@
 - (id)addGeomSubsetToMesh:(id)mesh withTriangleIndices:(int *)indices triangleIndicesCount:(unint64_t)count sliceId:(int)id;
 - (id)addShaderToMaterial:(id)material withIdentifier:(id)identifier name:(id)name;
 - (id)buildShaderGraphNodeWithPath:(id)path identifier:(id)identifier;
-- (uint64_t)addDouble4x4Value:(_OWORD *)value forKey:(void *)key;
+- (void)addDouble4x4Value:(_OWORD *)value forKey:(void *)key;
 - (void)addModelToWorldTransform:(float32x4_t)transform;
 - (void)exportSlicesToPNG:(id)g;
 - (void)package;
@@ -35,29 +35,30 @@
 
 - (MXISceneUSDZWriter)initWithOptions:(id)options
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
-  v54.receiver = self;
-  v54.super_class = MXISceneUSDZWriter;
-  v5 = [(MXISceneUSDZWriter *)&v54 init];
+  v55.receiver = self;
+  v55.super_class = MXISceneUSDZWriter;
+  v5 = [(MXISceneUSDZWriter *)&v55 init];
   if (v5)
   {
     v6 = objc_alloc(MEMORY[0x277CBEBD0]);
     v10 = objc_msgSend_initWithSuiteName_(v6, v7, @"com.apple.mxi", v8, v9);
     v5->m_requestTextFormatUSD = objc_msgSend_BOOLForKey_(v10, v11, @"RequestTextFormatUSD", v12, v13);
     v5->m_requestHighCompatibilityUSD = objc_msgSend_BOOLForKey_(v10, v14, @"RequestHighCompatibilityUSD", v15, v16);
-    v5->m_useUdim = objc_msgSend_BOOLForKey_(v10, v17, @"UseUdim", v18, v19);
+    v20 = objc_msgSend_BOOLForKey_(v10, v17, @"UseUdim", v18, v19);
+    v5->m_useUdim = v20;
     if (optionsCopy)
     {
-      v23 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v20, @"colorPrimaries", v21, v22);
+      v24 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v21, @"colorPrimaries", v22, v23);
       m_colorPrimaries = v5->m_colorPrimaries;
-      v5->m_colorPrimaries = v23;
+      v5->m_colorPrimaries = v24;
 
-      v28 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v25, @"requestTextFormat", v26, v27);
-      v33 = v28;
-      if (v28)
+      v29 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v26, @"requestTextFormat", v27, v28);
+      v34 = v29;
+      if (v29)
       {
-        m_requestTextFormatUSD = objc_msgSend_BOOLValue(v28, v29, v30, v31, v32);
+        m_requestTextFormatUSD = objc_msgSend_BOOLValue(v29, v30, v31, v32, v33);
       }
 
       else
@@ -66,11 +67,11 @@
       }
 
       v5->m_requestTextFormatUSD = m_requestTextFormatUSD & 1;
-      v35 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v29, @"requestHighCompatibility", v31, v32);
-      v40 = v35;
-      if (v35)
+      v36 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v30, @"requestHighCompatibility", v32, v33);
+      v41 = v36;
+      if (v36)
       {
-        m_requestHighCompatibilityUSD = objc_msgSend_BOOLValue(v35, v36, v37, v38, v39);
+        m_requestHighCompatibilityUSD = objc_msgSend_BOOLValue(v36, v37, v38, v39, v40);
       }
 
       else
@@ -79,11 +80,11 @@
       }
 
       v5->m_requestHighCompatibilityUSD = m_requestHighCompatibilityUSD & 1;
-      v42 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v36, @"useUdim", v38, v39);
-      v47 = v42;
-      if (v42)
+      v43 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v37, @"useUdim", v39, v40);
+      v48 = v43;
+      if (v43)
       {
-        m_useUdim = objc_msgSend_BOOLValue(v42, v43, v44, v45, v46);
+        m_useUdim = objc_msgSend_BOOLValue(v43, v44, v45, v46, v47);
       }
 
       else
@@ -94,19 +95,19 @@
       v5->m_useUdim = m_useUdim & 1;
     }
 
-    v49 = _mxi_log();
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+    v50 = _mxi_log(v20);
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
     {
-      v50 = v5->m_requestTextFormatUSD;
-      v51 = v5->m_requestHighCompatibilityUSD;
-      v52 = v5->m_useUdim;
+      v51 = v5->m_requestTextFormatUSD;
+      v52 = v5->m_requestHighCompatibilityUSD;
+      v53 = v5->m_useUdim;
       *buf = 67109632;
-      v56 = v50;
-      v57 = 1024;
-      v58 = v51;
-      v59 = 1024;
-      v60 = v52;
-      _os_log_impl(&dword_22F9C3000, v49, OS_LOG_TYPE_DEBUG, "[MXI.framework] [USDWriter] requestTextFormatUSD %d, requestHighCompatibilityUSD %d, useUdim %d", buf, 0x14u);
+      v57 = v51;
+      v58 = 1024;
+      v59 = v52;
+      v60 = 1024;
+      v61 = v53;
+      _os_log_impl(&dword_22F9C3000, v50, OS_LOG_TYPE_DEBUG, "[MXI.framework] [USDWriter] requestTextFormatUSD %d, requestHighCompatibilityUSD %d, useUdim %d", buf, 0x14u);
     }
   }
 
@@ -202,37 +203,37 @@ LABEL_6:
 
 - (BOOL)initCommon
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   usdURL = self->_usdURL;
-  v43 = 0;
-  v5 = objc_msgSend_newSceneWithURL_error_(MEMORY[0x277D778A8], a2, usdURL, &v43, v2);
-  v6 = v43;
+  v44 = 0;
+  v5 = objc_msgSend_newSceneWithURL_error_(MEMORY[0x277D778A8], a2, usdURL, &v44, v2);
+  v6 = v44;
   scene = self->_scene;
   self->_scene = v5;
 
   if (v6)
   {
-    p_super = _mxi_log();
+    p_super = _mxi_log(v8);
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
     {
-      v13 = objc_msgSend_path(self->_usdURL, v9, v10, v11, v12);
-      v18 = objc_msgSend_localizedDescription(v6, v14, v15, v16, v17);
+      v14 = objc_msgSend_path(self->_usdURL, v10, v11, v12, v13);
+      v19 = objc_msgSend_localizedDescription(v6, v15, v16, v17, v18);
       *buf = 138412546;
-      v45 = v13;
-      v46 = 2112;
-      v47 = v18;
+      v46 = v14;
+      v47 = 2112;
+      v48 = v19;
       _os_log_impl(&dword_22F9C3000, p_super, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:111] [USDWriter] failed to initialize USKScene with url %@: %@", buf, 0x16u);
     }
   }
 
   else
   {
-    v19 = self->_scene;
-    v20 = objc_alloc(MEMORY[0x277D77888]);
-    v24 = objc_msgSend_initWithString_(v20, v21, @"/Root", v22, v23);
-    v27 = objc_msgSend_newNodeAtPath_type_(v19, v25, v24, *MEMORY[0x277D77980], v26);
+    v20 = self->_scene;
+    v21 = objc_alloc(MEMORY[0x277D77888]);
+    v25 = objc_msgSend_initWithString_(v21, v22, @"/Root", v23, v24);
+    v28 = objc_msgSend_newNodeAtPath_type_(v20, v26, v25, *MEMORY[0x277D77980], v27);
     rootNode = self->_rootNode;
-    self->_rootNode = v27;
+    self->_rootNode = v28;
 
     meshNode = self->_meshNode;
     self->_meshNode = 0;
@@ -240,13 +241,13 @@ LABEL_6:
     materialNode = self->_materialNode;
     self->_materialNode = 0;
 
-    v35 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v31, v32, v33, v34);
+    v36 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v32, v33, v34, v35);
     geomSubsetNodes = self->_geomSubsetNodes;
-    self->_geomSubsetNodes = v35;
+    self->_geomSubsetNodes = v36;
 
-    v41 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v37, v38, v39, v40);
+    v42 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v38, v39, v40, v41);
     p_super = &self->_sliceMaterialNodes->super.super;
-    self->_sliceMaterialNodes = v41;
+    self->_sliceMaterialNodes = v42;
   }
 
   return v6 == 0;
@@ -254,7 +255,7 @@ LABEL_6:
 
 - (BOOL)addImageBasedLightingWithFileName:(id)name error:(id *)error
 {
-  v263[1] = *MEMORY[0x277D85DE8];
+  v265[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v6 = objc_alloc(MEMORY[0x277D77888]);
   v10 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v7, @"/Root/%@", v8, v9, @"IBLSphereMaterial");
@@ -267,201 +268,201 @@ LABEL_6:
     v26 = objc_msgSend_stringByAppendingPathComponent_(v22, v23, @"Normal", v24, v25);
     v29 = objc_msgSend_buildShaderGraphNodeWithPath_identifier_(self, v27, v26, @"ND_normal_vector3", v28);
 
-    v257 = v29;
+    v259 = v29;
     if (v29)
     {
-      v31 = *MEMORY[0x277D77900];
-      v32 = *MEMORY[0x277D77990];
+      v32 = *MEMORY[0x277D77900];
+      v33 = *MEMORY[0x277D77990];
 
-      v37 = objc_msgSend_stringValue(v14, v33, v34, v35, v36);
-      v41 = objc_msgSend_stringByAppendingPathComponent_(v37, v38, @"NormalInvertor", v39, v40);
-      v44 = objc_msgSend_buildShaderGraphNodeWithPath_identifier_(self, v42, v41, @"ND_multiply_vector3FA", v43);
+      v38 = objc_msgSend_stringValue(v14, v34, v35, v36, v37);
+      v42 = objc_msgSend_stringByAppendingPathComponent_(v38, v39, @"NormalInvertor", v40, v41);
+      v45 = objc_msgSend_buildShaderGraphNodeWithPath_identifier_(self, v43, v42, @"ND_multiply_vector3FA", v44);
 
-      v258 = v44;
-      if (v44)
+      v260 = v45;
+      if (v45)
       {
         errorCopy = error;
-        v46 = objc_msgSend_newPropertyWithName_type_role_(v44, v45, @"inputs:in1", v31, v32);
-        v51 = objc_msgSend_path(v257, v47, v48, v49, v50);
-        v55 = objc_msgSend_pathByAppendingPropertyComponent_(v51, v52, @"outputs:out", v53, v54);
-        v263[0] = v55;
-        v58 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v56, v263, 1, v57);
-        objc_msgSend_setConnectionWithTargetPaths_(v46, v59, v58, v60, v61);
+        v48 = objc_msgSend_newPropertyWithName_type_role_(v45, v47, @"inputs:in1", v32, v33);
+        v53 = objc_msgSend_path(v259, v49, v50, v51, v52);
+        v57 = objc_msgSend_pathByAppendingPropertyComponent_(v53, v54, @"outputs:out", v55, v56);
+        v265[0] = v57;
+        v60 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v58, v265, 1, v59);
+        objc_msgSend_setConnectionWithTargetPaths_(v48, v61, v60, v62, v63);
 
-        v62 = *MEMORY[0x277D778E8];
-        v64 = objc_msgSend_newPropertyWithName_type_role_(v258, v63, @"inputs:in2", *MEMORY[0x277D778E8], v32);
-        LODWORD(v65) = -1.0;
-        objc_msgSend_setFloatValue_(v64, v66, v67, v68, v69, v65);
+        v64 = *MEMORY[0x277D778E8];
+        v66 = objc_msgSend_newPropertyWithName_type_role_(v260, v65, @"inputs:in2", *MEMORY[0x277D778E8], v33);
+        LODWORD(v67) = -1.0;
+        objc_msgSend_setFloatValue_(v66, v68, v69, v70, v71, v67);
 
-        v75 = objc_msgSend_stringValue(v14, v71, v72, v73, v74);
-        v79 = objc_msgSend_stringByAppendingPathComponent_(v75, v76, @"PBRSurface", v77, v78);
-        v82 = objc_msgSend_buildShaderGraphNodeWithPath_identifier_(self, v80, v79, @"ND_realitykit_pbr_surfaceshader", v81);
+        v77 = objc_msgSend_stringValue(v14, v73, v74, v75, v76);
+        v81 = objc_msgSend_stringByAppendingPathComponent_(v77, v78, @"PBRSurface", v79, v80);
+        v84 = objc_msgSend_buildShaderGraphNodeWithPath_identifier_(self, v82, v81, @"ND_realitykit_pbr_surfaceshader", v83);
 
-        v84 = objc_msgSend_newPropertyWithName_type_role_(v82, v83, @"inputs:baseColor", v31, *MEMORY[0x277D77988]);
+        v86 = objc_msgSend_newPropertyWithName_type_role_(v84, v85, @"inputs:baseColor", v32, *MEMORY[0x277D77988]);
         __asm { FMOV            V0.4S, #1.0 }
 
-        objc_msgSend_setFloat3Value_(v84, v90, v91, v92, v93, *&_Q0);
+        objc_msgSend_setFloat3Value_(v86, v92, v93, v94, v95, *&_Q0);
 
-        v95 = objc_msgSend_newPropertyWithName_type_role_(v82, v94, @"inputs:metallic", v62, v32);
-        LODWORD(v96) = 1.0;
-        objc_msgSend_setFloatValue_(v95, v97, v98, v99, v100, v96);
+        v97 = objc_msgSend_newPropertyWithName_type_role_(v84, v96, @"inputs:metallic", v64, v33);
+        LODWORD(v98) = 1.0;
+        objc_msgSend_setFloatValue_(v97, v99, v100, v101, v102, v98);
 
-        v102 = objc_msgSend_newPropertyWithName_type_role_(v82, v101, @"inputs:roughness", v62, v32);
-        objc_msgSend_setFloatValue_(v102, v103, v104, v105, v106, 0.0);
+        v104 = objc_msgSend_newPropertyWithName_type_role_(v84, v103, @"inputs:roughness", v64, v33);
+        objc_msgSend_setFloatValue_(v104, v105, v106, v107, v108, 0.0);
 
-        v108 = objc_msgSend_newPropertyWithName_type_role_(v82, v107, @"inputs:specular", v62, v32);
-        LODWORD(v109) = 1.0;
-        objc_msgSend_setFloatValue_(v108, v110, v111, v112, v113, v109);
+        v110 = objc_msgSend_newPropertyWithName_type_role_(v84, v109, @"inputs:specular", v64, v33);
+        LODWORD(v111) = 1.0;
+        objc_msgSend_setFloatValue_(v110, v112, v113, v114, v115, v111);
 
-        v115 = objc_msgSend_newPropertyWithName_type_role_(v82, v114, @"inputs:normal", v31, v32);
-        v120 = objc_msgSend_path(v258, v116, v117, v118, v119);
-        v124 = objc_msgSend_pathByAppendingPropertyComponent_(v120, v121, @"outputs:out", v122, v123);
-        v262 = v124;
-        v127 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v125, &v262, 1, v126);
-        objc_msgSend_setConnectionWithTargetPaths_(v115, v128, v127, v129, v130);
+        v117 = objc_msgSend_newPropertyWithName_type_role_(v84, v116, @"inputs:normal", v32, v33);
+        v122 = objc_msgSend_path(v260, v118, v119, v120, v121);
+        v126 = objc_msgSend_pathByAppendingPropertyComponent_(v122, v123, @"outputs:out", v124, v125);
+        v264 = v126;
+        v129 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v127, &v264, 1, v128);
+        objc_msgSend_setConnectionWithTargetPaths_(v117, v130, v129, v131, v132);
 
-        v131 = *MEMORY[0x277D77940];
-        v134 = objc_msgSend_newPropertyWithName_type_role_(v21, v133, @"outputs:mtlx:surface", v131, v32);
-        v139 = objc_msgSend_path(v82, v135, v136, v137, v138);
-        v143 = objc_msgSend_pathByAppendingPropertyComponent_(v139, v140, @"outputs:out", v141, v142);
-        v261 = v143;
-        v146 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v144, &v261, 1, v145);
-        objc_msgSend_setConnectionWithTargetPaths_(v134, v147, v146, v148, v149);
+        v133 = *MEMORY[0x277D77940];
+        v136 = objc_msgSend_newPropertyWithName_type_role_(v21, v135, @"outputs:mtlx:surface", v133, v33);
+        v141 = objc_msgSend_path(v84, v137, v138, v139, v140);
+        v145 = objc_msgSend_pathByAppendingPropertyComponent_(v141, v142, @"outputs:out", v143, v144);
+        v263 = v145;
+        v148 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v146, &v263, 1, v147);
+        objc_msgSend_setConnectionWithTargetPaths_(v136, v149, v148, v150, v151);
 
-        v150 = objc_alloc(MEMORY[0x277D77888]);
-        v154 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v151, @"/Root/%@", v152, v153, @"IBLSphere");
-        v256 = objc_msgSend_initWithString_(v150, v155, v154, v156, v157);
+        v152 = objc_alloc(MEMORY[0x277D77888]);
+        v156 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v153, @"/Root/%@", v154, v155, @"IBLSphere");
+        v258 = objc_msgSend_initWithString_(v152, v157, v156, v158, v159);
 
-        v160 = objc_msgSend_newNodeAtPath_type_(self->_scene, v158, v256, @"Sphere", v159);
-        v164 = v160;
-        if (v160)
+        v162 = objc_msgSend_newNodeAtPath_type_(self->_scene, v160, v258, @"Sphere", v161);
+        v166 = v162;
+        if (v162)
         {
-          objc_msgSend_applyType_(v160, v161, *MEMORY[0x277D779A8], v162, v163);
-          v166 = objc_msgSend_newPropertyWithName_type_role_(v164, v165, @"radius", *MEMORY[0x277D778D0], v32);
-          LODWORD(v167) = -998637568;
-          objc_msgSend_setFloatValue_(v166, v168, v169, v170, v171, v167);
+          objc_msgSend_applyType_(v162, v163, *MEMORY[0x277D779A8], v164, v165);
+          v168 = objc_msgSend_newPropertyWithName_type_role_(v166, v167, @"radius", *MEMORY[0x277D778D0], v33);
+          LODWORD(v169) = -998637568;
+          objc_msgSend_setFloatValue_(v168, v170, v171, v172, v173, v169);
 
-          v255 = objc_msgSend_newPropertyWithName_type_role_(v164, v172, @"material:binding", *MEMORY[0x277D77928], v32);
-          v177 = objc_msgSend_path(v21, v173, v174, v175, v176);
-          objc_msgSend_setObjectPath_(v255, v178, v177, v179, v180);
+          v257 = objc_msgSend_newPropertyWithName_type_role_(v166, v174, @"material:binding", *MEMORY[0x277D77928], v33);
+          v179 = objc_msgSend_path(v21, v175, v176, v177, v178);
+          objc_msgSend_setObjectPath_(v257, v180, v179, v181, v182);
 
-          v181 = objc_alloc(MEMORY[0x277D77878]);
-          v185 = objc_msgSend_initWithString_(v181, v182, @"weakerThanDescendants", v183, v184);
-          objc_msgSend_setMetadataWithKey_value_(v255, v186, @"bindMaterialAs", v185, v187);
+          v183 = objc_alloc(MEMORY[0x277D77878]);
+          v187 = objc_msgSend_initWithString_(v183, v184, @"weakerThanDescendants", v185, v186);
+          objc_msgSend_setMetadataWithKey_value_(v257, v188, @"bindMaterialAs", v187, v189);
 
-          v188 = objc_alloc(MEMORY[0x277D77888]);
-          v192 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v189, @"/Root/%@", v190, v191, @"ImageBasedLight");
-          v254 = objc_msgSend_initWithString_(v188, v193, v192, v194, v195);
+          v190 = objc_alloc(MEMORY[0x277D77888]);
+          v194 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v191, @"/Root/%@", v192, v193, @"ImageBasedLight");
+          v256 = objc_msgSend_initWithString_(v190, v195, v194, v196, v197);
 
-          v198 = objc_msgSend_newNodeAtPath_type_(self->_scene, v196, v254, @"RealityKitComponent", v197);
-          v200 = v198;
-          if (v198)
+          v200 = objc_msgSend_newNodeAtPath_type_(self->_scene, v198, v256, @"RealityKitComponent", v199);
+          v202 = v200;
+          if (v200)
           {
-            v201 = objc_msgSend_newPropertyWithName_type_role_(v198, v199, @"info:id", v131, v32);
-            objc_msgSend_setStringValue_(v201, v202, @"RealityKit.ImageBasedLight", v203, v204);
+            v203 = objc_msgSend_newPropertyWithName_type_role_(v200, v201, @"info:id", v133, v33);
+            objc_msgSend_setStringValue_(v203, v204, @"RealityKit.ImageBasedLight", v205, v206);
 
-            v206 = objc_msgSend_newPropertyWithName_type_role_(v200, v205, @"ibl", *MEMORY[0x277D77930], v32);
-            objc_msgSend_setResourcePath_(v206, v207, nameCopy, v208, v209);
+            v208 = objc_msgSend_newPropertyWithName_type_role_(v202, v207, @"ibl", *MEMORY[0x277D77930], v33);
+            objc_msgSend_setResourcePath_(v208, v209, nameCopy, v210, v211);
 
-            v210 = objc_alloc(MEMORY[0x277D77888]);
-            v214 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v211, @"/Root/%@", v212, v213, @"ImageBasedLightReceiver");
-            v218 = objc_msgSend_initWithString_(v210, v215, v214, v216, v217);
+            v212 = objc_alloc(MEMORY[0x277D77888]);
+            v216 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v213, @"/Root/%@", v214, v215, @"ImageBasedLightReceiver");
+            v220 = objc_msgSend_initWithString_(v212, v217, v216, v218, v219);
 
-            v221 = objc_msgSend_newNodeAtPath_type_(self->_scene, v219, v218, @"RealityKitComponent", v220);
-            v223 = v221;
-            v224 = v221 != 0;
-            if (v221)
+            v223 = objc_msgSend_newNodeAtPath_type_(self->_scene, v221, v220, @"RealityKitComponent", v222);
+            v225 = v223;
+            v226 = v223 != 0;
+            if (v223)
             {
-              v225 = objc_msgSend_newPropertyWithName_type_role_(v221, v222, @"info:id", v131, v32);
-              objc_msgSend_setStringValue_(v225, v226, @"RealityKit.ImageBasedLightReceiver", v227, v228);
+              v227 = objc_msgSend_newPropertyWithName_type_role_(v223, v224, @"info:id", v133, v33);
+              objc_msgSend_setStringValue_(v227, v228, @"RealityKit.ImageBasedLightReceiver", v229, v230);
 
-              v230 = objc_msgSend_newPropertyWithName_type_role_(v223, v229, @"iblEntity", @"rel", v32);
-              objc_msgSend_setStringValue_(v230, v231, @"/Root", v232, v233);
+              v232 = objc_msgSend_newPropertyWithName_type_role_(v225, v231, @"iblEntity", @"rel", v33);
+              objc_msgSend_setStringValue_(v232, v233, @"/Root", v234, v235);
             }
 
             else
             {
-              v249 = _mxi_log();
-              if (os_log_type_enabled(v249, OS_LOG_TYPE_ERROR))
+              v251 = _mxi_log(0);
+              if (os_log_type_enabled(v251, OS_LOG_TYPE_ERROR))
               {
                 *buf = 0;
-                _os_log_impl(&dword_22F9C3000, v249, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:192] Could not create node for RealityKitComponent", buf, 2u);
+                _os_log_impl(&dword_22F9C3000, v251, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:192] Could not create node for RealityKitComponent", buf, 2u);
               }
 
-              objc_msgSend_fillError_withDescription_(MXIInternalError, v250, errorCopy, @"Could not create node for RealityKitComponent", v251);
+              objc_msgSend_fillError_withDescription_(MXIInternalError, v252, errorCopy, @"Could not create node for RealityKitComponent", v253);
             }
           }
 
           else
           {
-            v246 = _mxi_log();
-            if (os_log_type_enabled(v246, OS_LOG_TYPE_ERROR))
+            v248 = _mxi_log(0);
+            if (os_log_type_enabled(v248, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_impl(&dword_22F9C3000, v246, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:184] Could not create node for RealityKitComponent", buf, 2u);
+              _os_log_impl(&dword_22F9C3000, v248, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:184] Could not create node for RealityKitComponent", buf, 2u);
             }
 
-            objc_msgSend_fillError_withDescription_(MXIInternalError, v247, errorCopy, @"Could not create node for RealityKitComponent", v248);
-            v224 = 0;
+            objc_msgSend_fillError_withDescription_(MXIInternalError, v249, errorCopy, @"Could not create node for RealityKitComponent", v250);
+            v226 = 0;
           }
         }
 
         else
         {
-          v243 = _mxi_log();
-          if (os_log_type_enabled(v243, OS_LOG_TYPE_ERROR))
+          v245 = _mxi_log(0);
+          if (os_log_type_enabled(v245, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&dword_22F9C3000, v243, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:171] Could not create sphere node", buf, 2u);
+            _os_log_impl(&dword_22F9C3000, v245, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:171] Could not create sphere node", buf, 2u);
           }
 
-          objc_msgSend_fillError_withDescription_(MXIInternalError, v244, errorCopy, @"Could not create sphere node", v245);
-          v224 = 0;
+          objc_msgSend_fillError_withDescription_(MXIInternalError, v246, errorCopy, @"Could not create sphere node", v247);
+          v226 = 0;
         }
       }
 
       else
       {
-        v240 = _mxi_log();
-        if (os_log_type_enabled(v240, OS_LOG_TYPE_ERROR))
+        v242 = _mxi_log(v46);
+        if (os_log_type_enabled(v242, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_22F9C3000, v240, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:143] Could not create sphere invert normal node", buf, 2u);
+          _os_log_impl(&dword_22F9C3000, v242, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:143] Could not create sphere invert normal node", buf, 2u);
         }
 
-        objc_msgSend_fillError_withDescription_(MXIInternalError, v241, error, @"Could not create sphere invert normal node", v242);
-        v224 = 0;
+        objc_msgSend_fillError_withDescription_(MXIInternalError, v243, error, @"Could not create sphere invert normal node", v244);
+        v226 = 0;
       }
     }
 
     else
     {
-      v237 = _mxi_log();
-      if (os_log_type_enabled(v237, OS_LOG_TYPE_ERROR))
+      v239 = _mxi_log(v30);
+      if (os_log_type_enabled(v239, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_22F9C3000, v237, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:136] Could not create sphere normal node", buf, 2u);
+        _os_log_impl(&dword_22F9C3000, v239, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:136] Could not create sphere normal node", buf, 2u);
       }
 
-      objc_msgSend_fillError_withDescription_(MXIInternalError, v238, error, @"Could not create sphere normal node", v239);
-      v224 = 0;
+      objc_msgSend_fillError_withDescription_(MXIInternalError, v240, error, @"Could not create sphere normal node", v241);
+      v226 = 0;
     }
   }
 
   else
   {
-    v234 = _mxi_log();
-    if (os_log_type_enabled(v234, OS_LOG_TYPE_ERROR))
+    v236 = _mxi_log(0);
+    if (os_log_type_enabled(v236, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_22F9C3000, v234, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:130] Could not create sphere material node", buf, 2u);
+      _os_log_impl(&dword_22F9C3000, v236, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:130] Could not create sphere material node", buf, 2u);
     }
 
-    objc_msgSend_fillError_withDescription_(MXIInternalError, v235, error, @"Could not create sphere material node", v236);
-    v224 = 0;
+    objc_msgSend_fillError_withDescription_(MXIInternalError, v237, error, @"Could not create sphere material node", v238);
+    v226 = 0;
   }
 
-  return v224;
+  return v226;
 }
 
 - (BOOL)addMeshWithMXIGeometry:(const void *)geometry error:(id *)error
@@ -482,14 +483,14 @@ LABEL_6:
   v21 = self->_meshNode;
   if (!v21)
   {
-    v88 = _mxi_log();
-    if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
+    v90 = _mxi_log(0);
+    if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_22F9C3000, v88, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:208] Could not create mesh node", buf, 2u);
+      _os_log_impl(&dword_22F9C3000, v90, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:208] Could not create mesh node", buf, 2u);
     }
 
-    objc_msgSend_fillError_withDescription_(MXIInternalError, v89, error, @"Could not create mesh node", v90);
+    objc_msgSend_fillError_withDescription_(MXIInternalError, v91, error, @"Could not create mesh node", v92);
     goto LABEL_36;
   }
 
@@ -497,14 +498,14 @@ LABEL_6:
   v23 = objc_msgSend_newPropertyWithName_type_role_(v21, v20, @"subdivisionScheme", *MEMORY[0x277D77940], *MEMORY[0x277D77990]);
   if (!v23)
   {
-    v91 = _mxi_log();
-    if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
+    v93 = _mxi_log(0);
+    if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_22F9C3000, v91, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:216] Could not create subdivision scheme property", buf, 2u);
+      _os_log_impl(&dword_22F9C3000, v93, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:216] Could not create subdivision scheme property", buf, 2u);
     }
 
-    v92 = @"Could not create subdivision scheme property";
+    v94 = @"Could not create subdivision scheme property";
     goto LABEL_35;
   }
 
@@ -515,412 +516,412 @@ LABEL_6:
   v33 = objc_msgSend_newPropertyWithName_type_role_(self->_meshNode, v32, @"points", *MEMORY[0x277D77908], *MEMORY[0x277D779A0]);
   if (!v33)
   {
-    v91 = _mxi_log();
-    if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
+    v93 = _mxi_log(v34);
+    if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_22F9C3000, v91, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:223] Could not create points property", buf, 2u);
+      _os_log_impl(&dword_22F9C3000, v93, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:223] Could not create points property", buf, 2u);
     }
 
-    v92 = @"Could not create points property";
+    v94 = @"Could not create points property";
 LABEL_35:
 
-    objc_msgSend_fillError_withDescription_(MXIInternalError, v93, error, v92, v94);
+    objc_msgSend_fillError_withDescription_(MXIInternalError, v95, error, v94, v96);
 LABEL_36:
-    v95 = 0;
+    v97 = 0;
     goto LABEL_37;
   }
 
-  v34 = objc_alloc(MEMORY[0x277D77878]);
-  v37 = objc_msgSend_initWithFloat3Array_count_(v34, v35, *geometry, (*(geometry + 1) - *geometry) >> 4, v36);
-  objc_msgSend_setData_(v33, v38, v37, v39, v40);
+  v35 = objc_alloc(MEMORY[0x277D77878]);
+  v38 = objc_msgSend_initWithFloat3Array_count_(v35, v36, *geometry, (*(geometry + 1) - *geometry) >> 4, v37);
+  objc_msgSend_setData_(v33, v39, v38, v40, v41);
 
-  v41 = *(geometry + 10);
-  v192 = *(geometry + 9);
+  v42 = *(geometry + 10);
+  v199 = *(geometry + 9);
   *buf = 0;
-  v200 = 0;
-  v201 = 0;
+  v207 = 0;
+  v208 = 0;
   sub_22F9D6D48(buf, *(geometry + 3), *(geometry + 4), (*(geometry + 4) - *(geometry + 3)) >> 3);
   __p = 0;
-  v197 = 0;
-  v198 = 0;
+  v204 = 0;
+  v205 = 0;
   sub_22F9D6D48(&__p, *(geometry + 3), *(geometry + 4), (*(geometry + 4) - *(geometry + 3)) >> 3);
-  v43 = v41;
-  v44 = (v41 - v192) >> 2;
-  v191 = v43;
-  if (v43 != v192)
+  v44 = v42;
+  v45 = (v42 - v199) >> 2;
+  v198 = v44;
+  if (v44 != v199)
   {
-    v45 = 0;
     v46 = 0;
-    if (v44 <= 1)
+    v47 = 0;
+    if (v45 <= 1)
     {
-      v47 = 1;
+      v48 = 1;
     }
 
     else
     {
-      v47 = v44;
+      v48 = v45;
     }
 
     do
     {
-      v48 = (*(geometry + 6) + v45);
-      v50 = *v48;
-      v49 = v48[1];
-      v51 = v48[2];
-      v52 = *(*geometry + 16 * v50);
-      v53 = *(*geometry + 16 * v49);
-      v54 = *(*geometry + 16 * v51);
-      v55 = vbsl_s8(vcltz_f32(*&v52), vneg_f32(*&v52), *&v52);
-      if (*v55.i32 < *&v55.i32[1])
+      v49 = (*(geometry + 6) + v46);
+      v51 = *v49;
+      v50 = v49[1];
+      v52 = v49[2];
+      v53 = *(*geometry + 16 * v51);
+      v54 = *(*geometry + 16 * v50);
+      v55 = *(*geometry + 16 * v52);
+      v56 = vbsl_s8(vcltz_f32(*&v53), vneg_f32(*&v53), *&v53);
+      if (*v56.i32 < *&v56.i32[1])
       {
-        v55.i32[0] = v55.i32[1];
+        v56.i32[0] = v56.i32[1];
       }
 
-      LODWORD(v52) = *(*geometry + 16 * v50 + 8);
-      if (*(&v52 + 2) < 0.0)
+      LODWORD(v53) = *(*geometry + 16 * v51 + 8);
+      if (*(&v53 + 2) < 0.0)
       {
-        *&v52 = -*(&v52 + 2);
+        *&v53 = -*(&v53 + 2);
       }
 
-      if (*v55.i32 >= *&v52)
+      if (*v56.i32 >= *&v53)
       {
-        *&v52 = *v55.i32;
+        *&v53 = *v56.i32;
       }
 
-      v56 = vbsl_s8(vcltz_f32(*v53.i8), vneg_f32(*v53.i8), *v53.i8);
       v57 = vbsl_s8(vcltz_f32(*v54.i8), vneg_f32(*v54.i8), *v54.i8);
-      v58 = vzip1_s32(v57, v56);
-      v59 = vzip2_s32(v57, v56);
-      v60 = vbsl_s8(vcgt_f32(v59, v58), v59, v58);
-      v61 = vzip1_s32(*&vextq_s8(v54, v54, 8uLL), *&vextq_s8(v53, v53, 8uLL));
-      v62 = vbsl_s8(vcltz_f32(v61), vneg_f32(v61), v61);
-      v63 = vcgt_f32(v62, v60);
-      v64 = v60.f32[1];
-      if (v63.i8[4])
+      v58 = vbsl_s8(vcltz_f32(*v55.i8), vneg_f32(*v55.i8), *v55.i8);
+      v59 = vzip1_s32(v58, v57);
+      v60 = vzip2_s32(v58, v57);
+      v61 = vbsl_s8(vcgt_f32(v60, v59), v60, v59);
+      v62 = vzip1_s32(*&vextq_s8(v55, v55, 8uLL), *&vextq_s8(v54, v54, 8uLL));
+      v63 = vbsl_s8(vcltz_f32(v62), vneg_f32(v62), v62);
+      v64 = vcgt_f32(v63, v61);
+      v65 = v61.f32[1];
+      if (v64.i8[4])
       {
-        v64 = v62.f32[1];
+        v65 = v63.f32[1];
       }
 
-      if ((v63.i8[0] & 1) == 0)
+      if ((v64.i8[0] & 1) == 0)
       {
-        v62.f32[0] = v60.f32[0];
+        v63.f32[0] = v61.f32[0];
       }
 
-      *&v65 = *(*(geometry + 9) + 4 * v46);
-      HIDWORD(v65) = v52;
-      *(__p + v50) = v65;
-      *&v66 = *(*(geometry + 9) + 4 * v46);
-      *(&v66 + 1) = v64;
-      *(__p + v49) = v66;
-      *&v66 = *(*(geometry + 9) + 4 * v46);
-      HIDWORD(v66) = v62.i32[0];
+      *&v66 = *(*(geometry + 9) + 4 * v47);
+      HIDWORD(v66) = v53;
       *(__p + v51) = v66;
+      *&v67 = *(*(geometry + 9) + 4 * v47);
+      *(&v67 + 1) = v65;
+      *(__p + v50) = v67;
+      *&v67 = *(*(geometry + 9) + 4 * v47);
+      HIDWORD(v67) = v63.i32[0];
+      *(__p + v52) = v67;
       if (self->m_requestHighCompatibilityUSD)
       {
-        v67 = *(*(geometry + 3) + 8 * v50);
-        *(&v67 + 1) = 1.0 - *(&v67 + 1);
-        *(*buf + 8 * v50) = v67;
-        v68 = *(*(geometry + 3) + 8 * v49);
+        v68 = *(*(geometry + 3) + 8 * v51);
         *(&v68 + 1) = 1.0 - *(&v68 + 1);
-        *(*buf + 8 * v49) = v68;
-        v69 = *(*(geometry + 3) + 8 * v51);
+        *(*buf + 8 * v51) = v68;
+        v69 = *(*(geometry + 3) + 8 * v50);
         *(&v69 + 1) = 1.0 - *(&v69 + 1);
-        *(*buf + 8 * v51) = v69;
+        *(*buf + 8 * v50) = v69;
+        v70 = *(*(geometry + 3) + 8 * v52);
+        *(&v70 + 1) = 1.0 - *(&v70 + 1);
+        *(*buf + 8 * v52) = v70;
       }
 
-      ++v46;
-      v45 += 12;
+      ++v47;
+      v46 += 12;
     }
 
-    while (v47 != v46);
+    while (v48 != v47);
   }
 
-  v70 = self->_meshNode;
-  v71 = *MEMORY[0x277D778F8];
+  v71 = self->_meshNode;
+  v72 = *MEMORY[0x277D778F8];
   if (!self->m_requestHighCompatibilityUSD)
   {
-    v97 = objc_msgSend_newPropertyWithName_type_role_(v70, v42, @"primvars:uv", *MEMORY[0x277D778F8], v22);
+    v99 = objc_msgSend_newPropertyWithName_type_role_(v71, v43, @"primvars:uv", *MEMORY[0x277D778F8], v22);
 
-    if (v97)
+    if (v99)
     {
-      v98 = objc_alloc(MEMORY[0x277D77878]);
-      v101 = objc_msgSend_initWithFloat2Array_count_(v98, v99, *(geometry + 3), (*(geometry + 4) - *(geometry + 3)) >> 3, v100);
-      objc_msgSend_setData_(v97, v102, v101, v103, v104);
+      v101 = objc_alloc(MEMORY[0x277D77878]);
+      v104 = objc_msgSend_initWithFloat2Array_count_(v101, v102, *(geometry + 3), (*(geometry + 4) - *(geometry + 3)) >> 3, v103);
+      objc_msgSend_setData_(v99, v105, v104, v106, v107);
 
-      v105 = objc_alloc(MEMORY[0x277D77878]);
-      v109 = objc_msgSend_initWithString_(v105, v106, @"vertex", v107, v108);
-      objc_msgSend_setMetadataWithKey_value_(v97, v110, @"interpolation", v109, v111);
+      v108 = objc_alloc(MEMORY[0x277D77878]);
+      v112 = objc_msgSend_initWithString_(v108, v109, @"vertex", v110, v111);
+      objc_msgSend_setMetadataWithKey_value_(v99, v113, @"interpolation", v112, v114);
 
-      v113 = objc_msgSend_newPropertyWithName_type_role_(self->_meshNode, v112, @"primvars:uv1", v71, v22);
-      if (v113)
+      v116 = objc_msgSend_newPropertyWithName_type_role_(self->_meshNode, v115, @"primvars:uv1", v72, v22);
+      if (v116)
       {
-        v114 = objc_alloc(MEMORY[0x277D77878]);
-        v117 = objc_msgSend_initWithFloat2Array_count_(v114, v115, __p, (v197 - __p) >> 3, v116);
-        objc_msgSend_setData_(v113, v118, v117, v119, v120);
+        v118 = objc_alloc(MEMORY[0x277D77878]);
+        v121 = objc_msgSend_initWithFloat2Array_count_(v118, v119, __p, (v204 - __p) >> 3, v120);
+        objc_msgSend_setData_(v116, v122, v121, v123, v124);
 
-        v121 = objc_alloc(MEMORY[0x277D77878]);
-        v84 = objc_msgSend_initWithString_(v121, v122, @"vertex", v123, v124);
-        objc_msgSend_setMetadataWithKey_value_(v113, v125, @"interpolation", v84, v126);
-        v87 = v113;
+        v125 = objc_alloc(MEMORY[0x277D77878]);
+        v86 = objc_msgSend_initWithString_(v125, v126, @"vertex", v127, v128);
+        objc_msgSend_setMetadataWithKey_value_(v116, v129, @"interpolation", v86, v130);
+        v89 = v116;
         goto LABEL_41;
       }
 
-      v182 = _mxi_log();
-      if (os_log_type_enabled(v182, OS_LOG_TYPE_ERROR))
+      v189 = _mxi_log(v117);
+      if (os_log_type_enabled(v189, OS_LOG_TYPE_ERROR))
       {
-        *v194 = 0;
-        v184 = "[MXI.framework/MXISceneUSDZWriter.mm:277] Could not create primvars property";
+        *v201 = 0;
+        v191 = "[MXI.framework/MXISceneUSDZWriter.mm:277] Could not create primvars property";
         goto LABEL_81;
       }
     }
 
     else
     {
-      v182 = _mxi_log();
-      if (os_log_type_enabled(v182, OS_LOG_TYPE_ERROR))
+      v189 = _mxi_log(v100);
+      if (os_log_type_enabled(v189, OS_LOG_TYPE_ERROR))
       {
-        *v194 = 0;
-        v184 = "[MXI.framework/MXISceneUSDZWriter.mm:269] Could not create primvars property";
+        *v201 = 0;
+        v191 = "[MXI.framework/MXISceneUSDZWriter.mm:269] Could not create primvars property";
         goto LABEL_81;
       }
     }
 
 LABEL_82:
-    v183 = @"Could not create primvars property";
+    v190 = @"Could not create primvars property";
     goto LABEL_83;
   }
 
-  v72 = objc_msgSend_newPropertyWithName_type_role_(v70, v42, @"primvars:st", *MEMORY[0x277D778F8], v22);
+  v73 = objc_msgSend_newPropertyWithName_type_role_(v71, v43, @"primvars:st", *MEMORY[0x277D778F8], v22);
 
-  if (!v72)
+  if (!v73)
   {
-    v182 = _mxi_log();
-    if (os_log_type_enabled(v182, OS_LOG_TYPE_ERROR))
+    v189 = _mxi_log(v74);
+    if (os_log_type_enabled(v189, OS_LOG_TYPE_ERROR))
     {
-      *v194 = 0;
-      v184 = "[MXI.framework/MXISceneUSDZWriter.mm:261] Could not create primvars property";
+      *v201 = 0;
+      v191 = "[MXI.framework/MXISceneUSDZWriter.mm:261] Could not create primvars property";
 LABEL_81:
-      _os_log_impl(&dword_22F9C3000, v182, OS_LOG_TYPE_ERROR, v184, v194, 2u);
+      _os_log_impl(&dword_22F9C3000, v189, OS_LOG_TYPE_ERROR, v191, v201, 2u);
       goto LABEL_82;
     }
 
     goto LABEL_82;
   }
 
-  v73 = objc_alloc(MEMORY[0x277D77878]);
-  v76 = objc_msgSend_initWithFloat2Array_count_(v73, v74, *buf, (v200 - *buf) >> 3, v75);
-  objc_msgSend_setData_(v72, v77, v76, v78, v79);
+  v75 = objc_alloc(MEMORY[0x277D77878]);
+  v78 = objc_msgSend_initWithFloat2Array_count_(v75, v76, *buf, (v207 - *buf) >> 3, v77);
+  objc_msgSend_setData_(v73, v79, v78, v80, v81);
 
-  v80 = objc_alloc(MEMORY[0x277D77878]);
-  v84 = objc_msgSend_initWithString_(v80, v81, @"vertex", v82, v83);
-  objc_msgSend_setMetadataWithKey_value_(v72, v85, @"interpolation", v84, v86);
-  v87 = v72;
+  v82 = objc_alloc(MEMORY[0x277D77878]);
+  v86 = objc_msgSend_initWithString_(v82, v83, @"vertex", v84, v85);
+  objc_msgSend_setMetadataWithKey_value_(v73, v87, @"interpolation", v86, v88);
+  v89 = v73;
 LABEL_41:
 
-  v127 = *MEMORY[0x277D77920];
-  v129 = objc_msgSend_newPropertyWithName_type_role_(self->_meshNode, v128, @"faceVertexCounts", *MEMORY[0x277D77920], v22);
+  v131 = *MEMORY[0x277D77920];
+  v133 = objc_msgSend_newPropertyWithName_type_role_(self->_meshNode, v132, @"faceVertexCounts", *MEMORY[0x277D77920], v22);
 
-  if (v129)
+  if (v133)
   {
-    *v193 = 3;
-    sub_22F9D6E00(v194, v44);
-    v130 = objc_alloc(MEMORY[0x277D77878]);
-    v133 = objc_msgSend_initWithIntArray_count_(v130, v131, *v194, (v195 - *v194) >> 2, v132);
-    objc_msgSend_setData_(v129, v134, v133, v135, v136);
+    *v200 = 3;
+    sub_22F9D6E00(v201, v45, v200);
+    v135 = objc_alloc(MEMORY[0x277D77878]);
+    v138 = objc_msgSend_initWithIntArray_count_(v135, v136, *v201, (v202 - *v201) >> 2, v137);
+    objc_msgSend_setData_(v133, v139, v138, v140, v141);
 
-    v138 = objc_msgSend_newPropertyWithName_type_role_(self->_meshNode, v137, @"faceVertexIndices", v127, v22);
-    if (v138)
+    v143 = objc_msgSend_newPropertyWithName_type_role_(self->_meshNode, v142, @"faceVertexIndices", v131, v22);
+    if (v143)
     {
-      v139 = objc_alloc(MEMORY[0x277D77878]);
-      v142 = objc_msgSend_initWithIntArray_count_(v139, v140, *(geometry + 6), 3 * v44, v141);
-      objc_msgSend_setData_(v138, v143, v142, v144, v145);
+      v145 = objc_alloc(MEMORY[0x277D77878]);
+      v148 = objc_msgSend_initWithIntArray_count_(v145, v146, *(geometry + 6), 3 * v45, v147);
+      objc_msgSend_setData_(v143, v149, v148, v150, v151);
 
-      v147 = objc_msgSend_newPropertyWithName_type_role_(self->_meshNode, v146, @"faceSliceIndices", v127, v22);
-      if (v147)
+      v153 = objc_msgSend_newPropertyWithName_type_role_(self->_meshNode, v152, @"faceSliceIndices", v131, v22);
+      if (v153)
       {
-        v148 = objc_alloc(MEMORY[0x277D77878]);
-        v151 = objc_msgSend_initWithIntArray_count_(v148, v149, *(geometry + 9), v44, v150);
-        objc_msgSend_setData_(v147, v152, v151, v153, v154);
+        v155 = objc_alloc(MEMORY[0x277D77878]);
+        v158 = objc_msgSend_initWithIntArray_count_(v155, v156, *(geometry + 9), v45, v157);
+        objc_msgSend_setData_(v153, v159, v158, v160, v161);
 
         if (self->m_requestHighCompatibilityUSD && !self->m_useUdim)
         {
-          sub_22F9D6F50(v193, 0x100uLL);
-          if (v191 != v192)
+          sub_22F9D6F50(v200, 0x100uLL);
+          if (v198 != v199)
           {
-            v156 = 0;
-            if (v44 <= 1)
+            v163 = 0;
+            if (v45 <= 1)
             {
-              v157 = 1;
+              v164 = 1;
             }
 
             else
             {
-              v157 = v44;
+              v164 = v45;
             }
 
             do
             {
-              v158 = *v193 + 24 * *(*(geometry + 9) + 4 * v156);
-              v160 = *(v158 + 8);
-              v159 = *(v158 + 16);
-              if (v160 >= v159)
+              v165 = *v200 + 24 * *(*(geometry + 9) + 4 * v163);
+              v167 = *(v165 + 8);
+              v166 = *(v165 + 16);
+              if (v167 >= v166)
               {
-                v162 = *v158;
-                v163 = v160 - *v158;
-                v164 = v163 >> 2;
-                v165 = (v163 >> 2) + 1;
-                if (v165 >> 62)
+                v169 = *v165;
+                v170 = v167 - *v165;
+                v171 = v170 >> 2;
+                v172 = (v170 >> 2) + 1;
+                if (v172 >> 62)
                 {
                   sub_22F9C7AD4();
                 }
 
-                v166 = v159 - v162;
-                if (v166 >> 1 > v165)
+                v173 = v166 - v169;
+                if (v173 >> 1 > v172)
                 {
-                  v165 = v166 >> 1;
+                  v172 = v173 >> 1;
                 }
 
-                v167 = v166 >= 0x7FFFFFFFFFFFFFFCLL;
-                v168 = 0x3FFFFFFFFFFFFFFFLL;
-                if (!v167)
+                v174 = v173 >= 0x7FFFFFFFFFFFFFFCLL;
+                v175 = 0x3FFFFFFFFFFFFFFFLL;
+                if (!v174)
                 {
-                  v168 = v165;
+                  v175 = v172;
                 }
 
-                if (v168)
+                if (v175)
                 {
-                  sub_22F9C7B7C(*v193 + 24 * *(*(geometry + 9) + 4 * v156), v168);
+                  sub_22F9C7B7C(*v200 + 24 * *(*(geometry + 9) + 4 * v163), v175);
                 }
 
-                *(4 * v164) = v156;
-                v161 = 4 * v164 + 4;
-                memcpy(0, v162, v163);
-                v169 = *v158;
-                *v158 = 0;
-                *(v158 + 8) = v161;
-                *(v158 + 16) = 0;
-                if (v169)
+                *(4 * v171) = v163;
+                v168 = 4 * v171 + 4;
+                memcpy(0, v169, v170);
+                v176 = *v165;
+                *v165 = 0;
+                *(v165 + 8) = v168;
+                *(v165 + 16) = 0;
+                if (v176)
                 {
-                  operator delete(v169);
+                  operator delete(v176);
                 }
               }
 
               else
               {
-                *v160 = v156;
-                v161 = (v160 + 1);
+                *v167 = v163;
+                v168 = (v167 + 1);
               }
 
-              *(v158 + 8) = v161;
-              ++v156;
+              *(v165 + 8) = v168;
+              ++v163;
             }
 
-            while (v157 != v156);
+            while (v164 != v163);
           }
 
-          v170 = **v193;
-          v171 = *(*v193 + 8);
-          if (v171 != **v193)
+          v177 = **v200;
+          v178 = *(*v200 + 8);
+          if (v178 != **v200)
           {
-            v172 = 0;
-            v173 = 0;
+            v179 = 0;
+            v180 = 0;
             do
             {
-              v177 = objc_msgSend_addGeomSubsetToMesh_withTriangleIndices_triangleIndicesCount_sliceId_(self, v155, self->_meshNode, v170, (v171 - v170) >> 2, v173);
-              if (v177)
+              v184 = objc_msgSend_addGeomSubsetToMesh_withTriangleIndices_triangleIndicesCount_sliceId_(self, v162, self->_meshNode, v177, (v178 - v177) >> 2, v180);
+              if (v184)
               {
                 geomSubsetNodes = self->_geomSubsetNodes;
-                v179 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v174, v173, v175, v176);
-                objc_msgSend_setObject_forKeyedSubscript_(geomSubsetNodes, v180, v177, v179, v181);
+                v186 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v181, v180, v182, v183);
+                objc_msgSend_setObject_forKeyedSubscript_(geomSubsetNodes, v187, v184, v186, v188);
               }
 
-              v170 = *(*v193 + v172 + 24);
-              v171 = *(*v193 + v172 + 32);
-              v173 = (v173 + 1);
-              v172 += 24;
+              v177 = *(*v200 + v179 + 24);
+              v178 = *(*v200 + v179 + 32);
+              v180 = (v180 + 1);
+              v179 += 24;
             }
 
-            while (v171 != v170);
+            while (v178 != v177);
           }
 
-          v202 = v193;
-          sub_22F9D7098(&v202);
+          v209 = v200;
+          sub_22F9D7098(&v209);
         }
 
-        v95 = 1;
+        v97 = 1;
         goto LABEL_88;
       }
 
-      v185 = _mxi_log();
-      if (os_log_type_enabled(v185, OS_LOG_TYPE_ERROR))
+      v192 = _mxi_log(v154);
+      if (os_log_type_enabled(v192, OS_LOG_TYPE_ERROR))
       {
-        *v193 = 0;
-        _os_log_impl(&dword_22F9C3000, v185, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:301] Could not create face slice indices property", v193, 2u);
+        *v200 = 0;
+        _os_log_impl(&dword_22F9C3000, v192, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:301] Could not create face slice indices property", v200, 2u);
       }
 
-      v186 = @"Could not create face slice indices property";
+      v193 = @"Could not create face slice indices property";
     }
 
     else
     {
-      v185 = _mxi_log();
-      if (os_log_type_enabled(v185, OS_LOG_TYPE_ERROR))
+      v192 = _mxi_log(v144);
+      if (os_log_type_enabled(v192, OS_LOG_TYPE_ERROR))
       {
-        *v193 = 0;
-        _os_log_impl(&dword_22F9C3000, v185, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:294] Could not create face vertex indices property", v193, 2u);
+        *v200 = 0;
+        _os_log_impl(&dword_22F9C3000, v192, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:294] Could not create face vertex indices property", v200, 2u);
       }
 
-      v186 = @"Could not create face vertex indices property";
+      v193 = @"Could not create face vertex indices property";
     }
 
-    objc_msgSend_fillError_withDescription_(MXIInternalError, v189, error, v186, v190);
-    v95 = 0;
-    v147 = 0;
+    objc_msgSend_fillError_withDescription_(MXIInternalError, v196, error, v193, v197);
+    v97 = 0;
+    v153 = 0;
 LABEL_88:
-    if (*v194)
+    if (*v201)
     {
-      v195 = *v194;
-      operator delete(*v194);
+      v202 = *v201;
+      operator delete(*v201);
     }
 
     goto LABEL_91;
   }
 
-  v182 = _mxi_log();
-  if (os_log_type_enabled(v182, OS_LOG_TYPE_ERROR))
+  v189 = _mxi_log(v134);
+  if (os_log_type_enabled(v189, OS_LOG_TYPE_ERROR))
   {
-    *v194 = 0;
-    _os_log_impl(&dword_22F9C3000, v182, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:286] Could not create faces property", v194, 2u);
+    *v201 = 0;
+    _os_log_impl(&dword_22F9C3000, v189, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:286] Could not create faces property", v201, 2u);
   }
 
-  v183 = @"Could not create faces property";
+  v190 = @"Could not create faces property";
 LABEL_83:
 
-  objc_msgSend_fillError_withDescription_(MXIInternalError, v187, error, v183, v188);
-  v95 = 0;
+  objc_msgSend_fillError_withDescription_(MXIInternalError, v194, error, v190, v195);
+  v97 = 0;
 LABEL_91:
   if (__p)
   {
-    v197 = __p;
+    v204 = __p;
     operator delete(__p);
   }
 
   if (*buf)
   {
-    v200 = *buf;
+    v207 = *buf;
     operator delete(*buf);
   }
 
 LABEL_37:
 
-  return v95;
+  return v97;
 }
 
 - (id)addGeomSubsetToMesh:(id)mesh withTriangleIndices:(int *)indices triangleIndicesCount:(unint64_t)count sliceId:(int)id
 {
   v6 = *&id;
-  v71 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   meshCopy = mesh;
   v11 = objc_alloc(MEMORY[0x277D77888]);
   v12 = MEMORY[0x277CCACA8];
@@ -933,17 +934,17 @@ LABEL_37:
   v35 = v33;
   if (!v33)
   {
-    v58 = _mxi_log();
-    if (!os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+    v59 = _mxi_log(0);
+    if (!os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_15;
     }
 
     *buf = 67109120;
-    v70 = v6;
-    v67 = "[MXI.framework/MXISceneUSDZWriter.mm:339] [USDWriter] failed to add GeomSubset node for slice %d";
+    v72 = v6;
+    v69 = "[MXI.framework/MXISceneUSDZWriter.mm:339] [USDWriter] failed to add GeomSubset node for slice %d";
 LABEL_14:
-    _os_log_impl(&dword_22F9C3000, v58, OS_LOG_TYPE_ERROR, v67, buf, 8u);
+    _os_log_impl(&dword_22F9C3000, v59, OS_LOG_TYPE_ERROR, v69, buf, 8u);
     goto LABEL_15;
   }
 
@@ -952,15 +953,15 @@ LABEL_14:
   v38 = objc_msgSend_newPropertyWithName_type_role_(v33, v34, @"elementType", *MEMORY[0x277D77940], *MEMORY[0x277D77990]);
   if (!v38)
   {
-    v58 = _mxi_log();
-    if (!os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+    v59 = _mxi_log(0);
+    if (!os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_15;
     }
 
     *buf = 67109120;
-    v70 = v6;
-    v67 = "[MXI.framework/MXISceneUSDZWriter.mm:345] [USDWriter] failed to add 'elementType' to GeomSubset node for slice %d";
+    v72 = v6;
+    v69 = "[MXI.framework/MXISceneUSDZWriter.mm:345] [USDWriter] failed to add 'elementType' to GeomSubset node for slice %d";
     goto LABEL_14;
   }
 
@@ -971,47 +972,47 @@ LABEL_14:
   v48 = objc_msgSend_newPropertyWithName_type_role_(v35, v47, @"familyName", v36, v37);
   if (!v48)
   {
-    v58 = _mxi_log();
-    if (!os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+    v59 = _mxi_log(v49);
+    if (!os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_15;
     }
 
     *buf = 67109120;
-    v70 = v6;
-    v67 = "[MXI.framework/MXISceneUSDZWriter.mm:352] [USDWriter] failed to add 'familyName' to GeomSubset node for slice %d";
+    v72 = v6;
+    v69 = "[MXI.framework/MXISceneUSDZWriter.mm:352] [USDWriter] failed to add 'familyName' to GeomSubset node for slice %d";
     goto LABEL_14;
   }
 
-  v49 = objc_alloc(MEMORY[0x277D77878]);
-  v53 = objc_msgSend_initWithString_(v49, v50, @"materialBind", v51, v52);
-  objc_msgSend_setData_(v48, v54, v53, v55, v56);
+  v50 = objc_alloc(MEMORY[0x277D77878]);
+  v54 = objc_msgSend_initWithString_(v50, v51, @"materialBind", v52, v53);
+  objc_msgSend_setData_(v48, v55, v54, v56, v57);
 
-  v58 = objc_msgSend_newPropertyWithName_type_role_(v35, v57, @"indices", *MEMORY[0x277D77920], v37);
-  if (v58)
+  v59 = objc_msgSend_newPropertyWithName_type_role_(v35, v58, @"indices", *MEMORY[0x277D77920], v37);
+  if (v59)
   {
-    v59 = objc_alloc(MEMORY[0x277D77878]);
-    v62 = objc_msgSend_initWithIntArray_count_(v59, v60, indices, count, v61);
-    objc_msgSend_setData_(v58, v63, v62, v64, v65);
+    v61 = objc_alloc(MEMORY[0x277D77878]);
+    v64 = objc_msgSend_initWithIntArray_count_(v61, v62, indices, count, v63);
+    objc_msgSend_setData_(v59, v65, v64, v66, v67);
 
-    v66 = v35;
+    v68 = v35;
     goto LABEL_16;
   }
 
-  v58 = _mxi_log();
-  if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+  v59 = _mxi_log(v60);
+  if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
   {
     *buf = 67109120;
-    v70 = v6;
-    v67 = "[MXI.framework/MXISceneUSDZWriter.mm:359] [USDWriter] failed to add 'indices' to GeomSubset node for slice %d";
+    v72 = v6;
+    v69 = "[MXI.framework/MXISceneUSDZWriter.mm:359] [USDWriter] failed to add 'indices' to GeomSubset node for slice %d";
     goto LABEL_14;
   }
 
 LABEL_15:
-  v66 = 0;
+  v68 = 0;
 LABEL_16:
 
-  return v66;
+  return v68;
 }
 
 - (id)buildShaderGraphNodeWithPath:(id)path identifier:(id)identifier
@@ -1974,7 +1975,7 @@ LABEL_28:
 
   else
   {
-    v45 = _mxi_log();
+    v45 = _mxi_log(0);
     if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
       v50 = objc_msgSend_stringValue(v29, v46, v47, v48, v49);
@@ -1989,78 +1990,79 @@ LABEL_28:
 
 - (void)exportSlicesToPNG:(id)g
 {
-  v130 = *MEMORY[0x277D85DE8];
+  v132 = *MEMORY[0x277D85DE8];
   gCopy = g;
   if (objc_msgSend_count(gCopy, v3, v4, v5, v6))
   {
-    v120 = MTLCreateSystemDefaultDevice();
-    v118 = objc_msgSend_objectAtIndex_(gCopy, v7, 0, v8, v9);
-    v117 = objc_opt_new();
-    objc_msgSend_setTextureType_(v117, v10, 2, v11, v12);
-    v17 = objc_msgSend_width(v118, v13, v14, v15, v16);
-    objc_msgSend_setWidth_(v117, v18, v17, v19, v20);
-    v25 = objc_msgSend_height(v118, v21, v22, v23, v24);
-    objc_msgSend_setHeight_(v117, v26, v25, v27, v28);
-    objc_msgSend_setPixelFormat_(v117, v29, 71, v30, v31);
-    objc_msgSend_setUsage_(v117, v32, 2, v33, v34);
-    v38 = objc_msgSend_newTextureWithDescriptor_(v120, v35, v117, v36, v37);
-    v119 = objc_msgSend_newCommandQueue(v120, v39, v40, v41, v42);
+    v122 = MTLCreateSystemDefaultDevice();
+    v120 = objc_msgSend_objectAtIndex_(gCopy, v7, 0, v8, v9);
+    v119 = objc_opt_new();
+    objc_msgSend_setTextureType_(v119, v10, 2, v11, v12);
+    v17 = objc_msgSend_width(v120, v13, v14, v15, v16);
+    objc_msgSend_setWidth_(v119, v18, v17, v19, v20);
+    v25 = objc_msgSend_height(v120, v21, v22, v23, v24);
+    objc_msgSend_setHeight_(v119, v26, v25, v27, v28);
+    objc_msgSend_setPixelFormat_(v119, v29, 71, v30, v31);
+    objc_msgSend_setUsage_(v119, v32, 2, v33, v34);
+    v38 = objc_msgSend_newTextureWithDescriptor_(v122, v35, v119, v36, v37);
+    v121 = objc_msgSend_newCommandQueue(v122, v39, v40, v41, v42);
     v50 = objc_msgSend_count(gCopy, v43, v44, v45, v46);
     if (v50)
     {
       v51 = 0;
-      v121 = *MEMORY[0x277CBF3E0];
+      v123 = *MEMORY[0x277CBF3E0];
       do
       {
         v52 = objc_msgSend_objectAtIndex_(gCopy, v47, v51, v48, v49);
         v57 = objc_msgSend_pixelFormat(v52, v53, v54, v55, v56);
-        if (v57 == objc_msgSend_pixelFormat(v38, v58, v59, v60, v61))
+        v62 = objc_msgSend_pixelFormat(v38, v58, v59, v60, v61);
+        if (v57 == v62)
         {
-          v62 = v52;
+          v63 = v52;
         }
 
         else
         {
-          v63 = _mxi_log();
-          if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
+          v64 = _mxi_log(v62);
+          if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
           {
-            v68 = objc_msgSend_pixelFormat(v52, v64, v65, v66, v67);
-            v73 = objc_msgSend_pixelFormat(v38, v69, v70, v71, v72);
+            v69 = objc_msgSend_pixelFormat(v52, v65, v66, v67, v68);
+            v74 = objc_msgSend_pixelFormat(v38, v70, v71, v72, v73);
             *buf = 134218496;
-            v125 = v51;
-            v126 = 2048;
-            v127 = v68;
+            v127 = v51;
             v128 = 2048;
-            v129 = v73;
-            _os_log_impl(&dword_22F9C3000, v63, OS_LOG_TYPE_DEBUG, "[MXI.framework] [USDWriter] slice %lu, convert pixel format %lu -> %lu", buf, 0x20u);
+            v129 = v69;
+            v130 = 2048;
+            v131 = v74;
+            _os_log_impl(&dword_22F9C3000, v64, OS_LOG_TYPE_DEBUG, "[MXI.framework] [USDWriter] slice %lu, convert pixel format %lu -> %lu", buf, 0x20u);
           }
 
-          v78 = objc_msgSend_commandBuffer(v119, v74, v75, v76, v77);
-          v79 = objc_alloc(MEMORY[0x277CD74F8]);
-          v81 = objc_msgSend_initWithDevice_srcAlpha_destAlpha_backgroundColor_conversionInfo_(v79, v80, v120, 2, 2, 0, 0);
-          objc_msgSend_encodeToCommandBuffer_sourceTexture_destinationTexture_(v81, v82, v78, v52, v38);
-          objc_msgSend_commit(v78, v83, v84, v85, v86);
-          objc_msgSend_waitUntilCompleted(v78, v87, v88, v89, v90);
-          v62 = v38;
+          v79 = objc_msgSend_commandBuffer(v121, v75, v76, v77, v78);
+          v80 = objc_alloc(MEMORY[0x277CD74F8]);
+          v82 = objc_msgSend_initWithDevice_srcAlpha_destAlpha_backgroundColor_conversionInfo_(v80, v81, v122, 2, 2, 0, 0);
+          objc_msgSend_encodeToCommandBuffer_sourceTexture_destinationTexture_(v82, v83, v79, v52, v38);
+          objc_msgSend_commit(v79, v84, v85, v86, v87);
+          objc_msgSend_waitUntilCompleted(v79, v88, v89, v90, v91);
+          v63 = v38;
         }
 
-        v91 = image::toPNG(v62, v121);
-        v96 = objc_msgSend_path(self->_usdURL, v92, v93, v94, v95);
-        v101 = objc_msgSend_stringByDeletingLastPathComponent(v96, v97, v98, v99, v100);
-        v105 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v102, @"slice%lu.png", v103, v104, v51 + 1001);
-        v109 = objc_msgSend_stringByAppendingPathComponent_(v101, v106, v105, v107, v108);
+        v92 = image::toPNG(v63, v123);
+        v97 = objc_msgSend_path(self->_usdURL, v93, v94, v95, v96);
+        v102 = objc_msgSend_stringByDeletingLastPathComponent(v97, v98, v99, v100, v101);
+        v106 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v103, @"slice%lu.png", v104, v105, v51 + 1001);
+        v110 = objc_msgSend_stringByAppendingPathComponent_(v102, v107, v106, v108, v109);
 
-        v113 = objc_msgSend_fileURLWithPath_(MEMORY[0x277CBEBC0], v110, v109, v111, v112);
-        LOBYTE(v105) = objc_msgSend_writeToURL_atomically_(v91, v114, v113, 1, v115);
+        v114 = objc_msgSend_fileURLWithPath_(MEMORY[0x277CBEBC0], v111, v110, v112, v113);
+        LOBYTE(v106) = objc_msgSend_writeToURL_atomically_(v92, v115, v114, 1, v116);
 
-        if ((v105 & 1) == 0)
+        if ((v106 & 1) == 0)
         {
-          v116 = _mxi_log();
-          if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
+          v118 = _mxi_log(v117);
+          if (os_log_type_enabled(v118, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v125 = v109;
-            _os_log_impl(&dword_22F9C3000, v116, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:961] [USDWriter] failed to write slice data to png %@", buf, 0xCu);
+            v127 = v110;
+            _os_log_impl(&dword_22F9C3000, v118, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:961] [USDWriter] failed to write slice data to png %@", buf, 0xCu);
           }
         }
 
@@ -2103,7 +2105,7 @@ LABEL_28:
   v28 = objc_msgSend_newNodeAtPath_type_(self->_scene, v25, v24, *MEMORY[0x277D77960], v26);
   if (!v28)
   {
-    v31 = _mxi_log();
+    v31 = _mxi_log(0);
     if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       v125 = objc_msgSend_stringValue(v132, v121, v122, v123, v124);
@@ -2314,7 +2316,7 @@ LABEL_13:
       }
     }
 
-    v138 = _mxi_log();
+    v138 = _mxi_log(0);
     if (os_log_type_enabled(v138, OS_LOG_TYPE_ERROR))
     {
       v143 = objc_msgSend_stringValue(v156, v139, v140, v141, v142);
@@ -2338,7 +2340,7 @@ LABEL_8:
 - (BOOL)addMaterialsWithColorTextures:(id)textures normalTexture:(id)texture pbrTextures:(id)pbrTextures pbrMaterialDescriptor:(id)descriptor depthTesselated:(BOOL)tesselated error:(id *)error
 {
   tesselatedCopy = tesselated;
-  v129 = *MEMORY[0x277D85DE8];
+  v133 = *MEMORY[0x277D85DE8];
   texturesCopy = textures;
   textureCopy = texture;
   pbrTexturesCopy = pbrTextures;
@@ -2355,47 +2357,49 @@ LABEL_8:
     v29 = objc_msgSend_stringByAppendingPathComponent_(v25, v26, @"atlas.ktx", v27, v28);
 
     v30 = v29;
-    v120 = v29;
+    v124 = v29;
     v35 = objc_msgSend_UTF8String(v30, v31, v32, v33, v34);
-    v124 = &unk_28449BCF0;
-    v125 = fopen(v35, "wb");
-    if ((image::WriteKTX(&v124, texturesCopy) & 1) == 0)
+    v128 = &unk_28449BCF0;
+    v129 = fopen(v35, "wb");
+    v36 = image::WriteKTX(&v128, texturesCopy);
+    if ((v36 & 1) == 0)
     {
-      v57 = _mxi_log();
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+      v59 = _mxi_log(v36);
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
       {
         LODWORD(buf) = 138412290;
         *(&buf + 4) = v29;
-        _os_log_impl(&dword_22F9C3000, v57, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:1108] Could not write ktx: %@", &buf, 0xCu);
+        _os_log_impl(&dword_22F9C3000, v59, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:1108] Could not write ktx: %@", &buf, 0xCu);
       }
 
-      objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v58, error, @"Could not write ktx: %@", v59, v29);
-      v56 = 0;
+      objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v60, error, @"Could not write ktx: %@", v61, v29);
+      v58 = 0;
       goto LABEL_34;
     }
 
-    v119 = tesselatedCopy;
+    v123 = tesselatedCopy;
     if (textureCopy)
     {
-      v40 = objc_msgSend_path(self->_usdURL, v36, v37, v38, v39);
-      v45 = objc_msgSend_stringByDeletingLastPathComponent(v40, v41, v42, v43, v44);
-      v49 = objc_msgSend_stringByAppendingPathComponent_(v45, v46, @"atlas_normal.ktx", v47, v48);
+      v41 = objc_msgSend_path(self->_usdURL, v37, v38, v39, v40);
+      v46 = objc_msgSend_stringByDeletingLastPathComponent(v41, v42, v43, v44, v45);
+      v50 = objc_msgSend_stringByAppendingPathComponent_(v46, v47, @"atlas_normal.ktx", v48, v49);
 
-      v50 = v49;
-      v55 = objc_msgSend_UTF8String(v49, v51, v52, v53, v54);
+      v51 = v50;
+      v56 = objc_msgSend_UTF8String(v50, v52, v53, v54, v55);
       *&buf = &unk_28449BCF0;
-      *(&buf + 1) = fopen(v55, "wb");
-      if ((image::WriteKTX(&buf, textureCopy) & 1) == 0)
+      *(&buf + 1) = fopen(v56, "wb");
+      v57 = image::WriteKTX(&buf, textureCopy);
+      if ((v57 & 1) == 0)
       {
-        v108 = _mxi_log();
-        if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
+        v112 = _mxi_log(v57);
+        if (os_log_type_enabled(v112, OS_LOG_TYPE_ERROR))
         {
-          *v126 = 138412290;
-          v127 = v49;
-          _os_log_impl(&dword_22F9C3000, v108, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:1119] Could not write ktx: %@", v126, 0xCu);
+          *v130 = 138412290;
+          v131 = v50;
+          _os_log_impl(&dword_22F9C3000, v112, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:1119] Could not write ktx: %@", v130, 0xCu);
         }
 
-        objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v109, error, @"Could not write ktx: %@", v110, v49);
+        objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v113, error, @"Could not write ktx: %@", v114, v50);
         *&buf = &unk_28449BCF0;
         fclose(*(&buf + 1));
         goto LABEL_32;
@@ -2404,53 +2408,53 @@ LABEL_8:
       *&buf = &unk_28449BCF0;
       fclose(*(&buf + 1));
 
-      v118 = @"atlas_normal.ktx";
+      v122 = @"atlas_normal.ktx";
     }
 
     else
     {
-      v118 = 0;
+      v122 = 0;
     }
 
-    v60 = objc_alloc(MEMORY[0x277CBEB18]);
-    v65 = objc_msgSend_count(pbrTexturesCopy, v61, v62, v63, v64);
-    v49 = objc_msgSend_initWithCapacity_(v60, v66, v65, v67, v68);
+    v62 = objc_alloc(MEMORY[0x277CBEB18]);
+    v67 = objc_msgSend_count(pbrTexturesCopy, v63, v64, v65, v66);
+    v50 = objc_msgSend_initWithCapacity_(v62, v68, v67, v69, v70);
     if (pbrTexturesCopy)
     {
-      for (i = 0; ; i = v76 + 1)
+      for (i = 0; ; i = v78 + 1)
       {
-        v76 = i;
-        if (objc_msgSend_count(pbrTexturesCopy, v69, v70, v71, v72) <= i)
+        v78 = i;
+        if (objc_msgSend_count(pbrTexturesCopy, v71, v72, v73, v74) <= i)
         {
           break;
         }
 
-        v77 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v69, @"atlas_pbr_%i.ktx", v74, v75, i);
-        objc_msgSend_setObject_atIndexedSubscript_(v49, v78, v77, v76, v79);
+        v79 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v71, @"atlas_pbr_%i.ktx", v76, v77, i);
+        objc_msgSend_setObject_atIndexedSubscript_(v50, v80, v79, v78, v81);
 
-        v84 = objc_msgSend_path(self->_usdURL, v80, v81, v82, v83);
-        v89 = objc_msgSend_stringByDeletingLastPathComponent(v84, v85, v86, v87, v88);
-        v93 = objc_msgSend_objectAtIndexedSubscript_(v49, v90, v76, v91, v92);
-        v97 = objc_msgSend_stringByAppendingPathComponent_(v89, v94, v93, v95, v96);
+        v86 = objc_msgSend_path(self->_usdURL, v82, v83, v84, v85);
+        v91 = objc_msgSend_stringByDeletingLastPathComponent(v86, v87, v88, v89, v90);
+        v95 = objc_msgSend_objectAtIndexedSubscript_(v50, v92, v78, v93, v94);
+        v99 = objc_msgSend_stringByAppendingPathComponent_(v91, v96, v95, v97, v98);
 
-        v98 = v97;
-        v103 = objc_msgSend_UTF8String(v97, v99, v100, v101, v102);
+        v100 = v99;
+        v105 = objc_msgSend_UTF8String(v99, v101, v102, v103, v104);
         *&buf = &unk_28449BCF0;
-        *(&buf + 1) = fopen(v103, "wb");
-        v107 = objc_msgSend_objectAtIndexedSubscript_(pbrTexturesCopy, v104, v76, v105, v106);
-        LOBYTE(v93) = image::WriteKTX(&buf, v107);
+        *(&buf + 1) = fopen(v105, "wb");
+        v109 = objc_msgSend_objectAtIndexedSubscript_(pbrTexturesCopy, v106, v78, v107, v108);
+        LOBYTE(v95) = image::WriteKTX(&buf, v109);
 
-        if ((v93 & 1) == 0)
+        if ((v95 & 1) == 0)
         {
-          v114 = _mxi_log();
-          if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
+          v118 = _mxi_log(v110);
+          if (os_log_type_enabled(v118, OS_LOG_TYPE_ERROR))
           {
-            *v126 = 138412290;
-            v127 = v97;
-            _os_log_impl(&dword_22F9C3000, v114, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:1132] Could not write ktx: %@", v126, 0xCu);
+            *v130 = 138412290;
+            v131 = v99;
+            _os_log_impl(&dword_22F9C3000, v118, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:1132] Could not write ktx: %@", v130, 0xCu);
           }
 
-          objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v115, error, @"Could not write ktx: %@", v116, v97);
+          objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v119, error, @"Could not write ktx: %@", v120, v99);
           *&buf = &unk_28449BCF0;
           fclose(*(&buf + 1));
 
@@ -2462,28 +2466,29 @@ LABEL_8:
       }
     }
 
-    if (objc_msgSend_addShaderGraphWithColorKTXResource_NormalKTXResource_pbrKTXFilename_pbrMaterialDescriptor_depthTesselated_(self, v69, @"atlas.ktx", v118, v49, descriptorCopy, v119))
+    v111 = objc_msgSend_addShaderGraphWithColorKTXResource_NormalKTXResource_pbrKTXFilename_pbrMaterialDescriptor_depthTesselated_(self, v71, @"atlas.ktx", v122, v50, descriptorCopy, v123);
+    if (v111)
     {
-      v56 = 1;
+      v58 = 1;
 LABEL_33:
 
 LABEL_34:
-      v124 = &unk_28449BCF0;
-      fclose(v125);
+      v128 = &unk_28449BCF0;
+      fclose(v129);
 
       goto LABEL_35;
     }
 
-    v111 = _mxi_log();
-    if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
+    v115 = _mxi_log(v111);
+    if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
     {
       LOWORD(buf) = 0;
-      _os_log_impl(&dword_22F9C3000, v111, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:1139] Could not add shader graph", &buf, 2u);
+      _os_log_impl(&dword_22F9C3000, v115, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:1139] Could not add shader graph", &buf, 2u);
     }
 
-    objc_msgSend_fillError_withDescription_(MXIInternalError, v112, error, @"Could not add shader graph", v113);
+    objc_msgSend_fillError_withDescription_(MXIInternalError, v116, error, @"Could not add shader graph", v117);
 LABEL_32:
-    v56 = 0;
+    v58 = 0;
     goto LABEL_33;
   }
 
@@ -2497,16 +2502,16 @@ LABEL_32:
     v19 = objc_msgSend_addSimpleMaterialWithColorTextures_(self, v15, texturesCopy, v17, v18);
   }
 
-  v56 = v19;
+  v58 = v19;
 LABEL_35:
 
-  return v56;
+  return v58;
 }
 
 - (BOOL)addMaterialsWithColorTextures:(id)textures depthTesselated:(BOOL)tesselated error:(id *)error
 {
   tesselatedCopy = tesselated;
-  v43 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   texturesCopy = textures;
   if (error)
   {
@@ -2521,44 +2526,46 @@ LABEL_35:
 
     v24 = v23;
     v29 = objc_msgSend_UTF8String(v24, v25, v26, v27, v28);
-    v39 = &unk_28449BCF0;
-    v40 = fopen(v29, "wb");
-    if (image::WriteKTX(&v39, texturesCopy))
+    v41 = &unk_28449BCF0;
+    v42 = fopen(v29, "wb");
+    v30 = image::WriteKTX(&v41, texturesCopy);
+    if (v30)
     {
-      if (objc_msgSend_addShaderGraphWithColorKTXResource_NormalKTXResource_pbrKTXFilename_pbrMaterialDescriptor_depthTesselated_(self, v30, @"atlas.ktx", 0, 0, 0, tesselatedCopy))
+      v32 = objc_msgSend_addShaderGraphWithColorKTXResource_NormalKTXResource_pbrKTXFilename_pbrMaterialDescriptor_depthTesselated_(self, v31, @"atlas.ktx", 0, 0, 0, tesselatedCopy);
+      if (v32)
       {
-        v31 = 1;
+        v33 = 1;
 LABEL_18:
-        v39 = &unk_28449BCF0;
-        fclose(v40);
+        v41 = &unk_28449BCF0;
+        fclose(v42);
 
         goto LABEL_19;
       }
 
-      v35 = _mxi_log();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v37 = _mxi_log(v32);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_22F9C3000, v35, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:1175] Could not add shader graph", buf, 2u);
+        _os_log_impl(&dword_22F9C3000, v37, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:1175] Could not add shader graph", buf, 2u);
       }
 
-      objc_msgSend_fillError_withDescription_(MXIInternalError, v36, error, @"Could not add shader graph", v37);
+      objc_msgSend_fillError_withDescription_(MXIInternalError, v38, error, @"Could not add shader graph", v39);
     }
 
     else
     {
-      v32 = _mxi_log();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v34 = _mxi_log(v30);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v42 = v23;
-        _os_log_impl(&dword_22F9C3000, v32, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:1170] Could not write ktx: %@", buf, 0xCu);
+        v44 = v23;
+        _os_log_impl(&dword_22F9C3000, v34, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:1170] Could not write ktx: %@", buf, 0xCu);
       }
 
-      objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v33, error, @"Could not write ktx: %@", v34, v23);
+      objc_msgSend_fillError_withFormattedDescription_(MXIInternalError, v35, error, @"Could not write ktx: %@", v36, v23);
     }
 
-    v31 = 0;
+    v33 = 0;
     goto LABEL_18;
   }
 
@@ -2572,10 +2579,10 @@ LABEL_18:
     v13 = objc_msgSend_addSimpleMaterialWithColorArrayTextures_(self, v8, texturesCopy, v10, v11);
   }
 
-  v31 = v13;
+  v33 = v13;
 LABEL_19:
 
-  return v31;
+  return v33;
 }
 
 - (BOOL)addThumbnailData:(id)data error:(id *)error
@@ -2677,7 +2684,7 @@ LABEL_9:
   return self;
 }
 
-- (uint64_t)addDouble4x4Value:(_OWORD *)value forKey:(void *)key
+- (void)addDouble4x4Value:(_OWORD *)value forKey:(void *)key
 {
   keyCopy = key;
   v7 = objc_alloc(MEMORY[0x277D77878]);
@@ -2702,16 +2709,16 @@ LABEL_9:
 - (void)addModelToWorldTransform:(float32x4_t)transform
 {
   v34[1] = *MEMORY[0x277D85DE8];
-  v31 = vcvtq_f64_f32(*a4.f32);
-  v32 = vcvtq_f64_f32(*transform.f32);
-  v29 = vcvtq_f64_f32(*a5.f32);
-  v30 = vcvt_hight_f64_f32(transform);
-  v27 = vcvtq_f64_f32(*a6.f32);
-  v28 = vcvt_hight_f64_f32(a4);
-  v25 = vcvt_hight_f64_f32(a6);
-  v26 = vcvt_hight_f64_f32(a5);
+  v31 = vcvtq_f64_f32(*transform.f32);
+  v32 = vcvtq_f64_f32(*a2.f32);
+  v29 = vcvtq_f64_f32(*a4.f32);
+  v30 = vcvt_hight_f64_f32(a2);
+  v27 = vcvtq_f64_f32(*a5.f32);
+  v28 = vcvt_hight_f64_f32(transform);
+  v25 = vcvt_hight_f64_f32(a5);
+  v26 = vcvt_hight_f64_f32(a4);
   v7 = *MEMORY[0x277D77990];
-  v8 = objc_msgSend_newPropertyWithName_type_role_(*(self + 56), a2, @"xformOp:transform", *MEMORY[0x277D778E0], *MEMORY[0x277D77990]);
+  v8 = objc_msgSend_newPropertyWithName_type_role_(*(self + 56), v5, @"xformOp:transform", *MEMORY[0x277D778E0], *MEMORY[0x277D77990]);
   v33[0] = v32;
   v33[1] = v30;
   v33[2] = v31;
@@ -2732,112 +2739,112 @@ LABEL_9:
 
 - (void)package
 {
-  v63 = *MEMORY[0x277D85DE8];
-  v3 = _mxi_log();
+  v66 = *MEMORY[0x277D85DE8];
+  v3 = _mxi_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_22F9C3000, v3, OS_LOG_TYPE_DEFAULT, "[MXI.framework] [MXISceneUSDZWriter] package", buf, 2u);
   }
 
-  v4 = _MXISignpostLogSystem();
-  v5 = _MXISignpostCreate(v4);
-  v6 = v4;
-  v7 = v6;
-  v55 = v5 - 1;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  v5 = _MXISignpostLogSystem(v4);
+  v6 = _MXISignpostCreate(v5);
+  v7 = v5;
+  v8 = v7;
+  v58 = v6 - 1;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_22F9C3000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "MXI_USDZ_PACKAGE", &unk_22FA1C169, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_22F9C3000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "MXI_USDZ_PACKAGE", &unk_22FA1C169, buf, 2u);
   }
 
-  spid = v5;
+  spid = v6;
 
   if (self->_materialNode)
   {
-    log = objc_msgSend_newPropertyWithName_type_role_(self->_meshNode, v8, @"material:binding", *MEMORY[0x277D77928], *MEMORY[0x277D77990]);
-    v16 = objc_msgSend_path(self->_materialNode, v12, v13, v14, v15);
-    objc_msgSend_setObjectPath_(log, v17, v16, v18, v19);
+    log = objc_msgSend_newPropertyWithName_type_role_(self->_meshNode, v9, @"material:binding", *MEMORY[0x277D77928], *MEMORY[0x277D77990]);
+    v17 = objc_msgSend_path(self->_materialNode, v13, v14, v15, v16);
+    objc_msgSend_setObjectPath_(log, v18, v17, v19, v20);
   }
 
   else
   {
-    v59 = 0u;
+    v62 = 0u;
+    v63 = 0u;
     v60 = 0u;
-    v57 = 0u;
-    v58 = 0u;
-    log = objc_msgSend_allKeys(self->_geomSubsetNodes, v8, v9, v10, v11);
-    v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(log, v20, &v57, v62, 16);
-    if (v24)
+    v61 = 0u;
+    log = objc_msgSend_allKeys(self->_geomSubsetNodes, v9, v10, v11, v12);
+    v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(log, v21, &v60, v65, 16);
+    if (v25)
     {
-      v25 = *v58;
-      v26 = *MEMORY[0x277D77928];
-      v27 = *MEMORY[0x277D77990];
+      v26 = *v61;
+      v27 = *MEMORY[0x277D77928];
+      v28 = *MEMORY[0x277D77990];
       do
       {
-        for (i = 0; i != v24; ++i)
+        for (i = 0; i != v25; ++i)
         {
-          if (*v58 != v25)
+          if (*v61 != v26)
           {
             objc_enumerationMutation(log);
           }
 
-          v29 = *(*(&v57 + 1) + 8 * i);
-          v30 = objc_msgSend_objectForKeyedSubscript_(self->_geomSubsetNodes, v21, v29, v22, v23);
-          v34 = objc_msgSend_objectForKeyedSubscript_(self->_sliceMaterialNodes, v31, v29, v32, v33);
-          v36 = v34;
-          if (v30)
+          v30 = *(*(&v60 + 1) + 8 * i);
+          v31 = objc_msgSend_objectForKeyedSubscript_(self->_geomSubsetNodes, v22, v30, v23, v24);
+          v35 = objc_msgSend_objectForKeyedSubscript_(self->_sliceMaterialNodes, v32, v30, v33, v34);
+          v37 = v35;
+          if (v31)
           {
-            v37 = v34 == 0;
+            v38 = v35 == 0;
           }
 
           else
           {
-            v37 = 1;
+            v38 = 1;
           }
 
-          if (!v37)
+          if (!v38)
           {
-            v38 = objc_msgSend_newPropertyWithName_type_role_(v30, v35, @"material:binding", v26, v27);
-            v43 = objc_msgSend_path(v36, v39, v40, v41, v42);
-            objc_msgSend_setObjectPath_(v38, v44, v43, v45, v46);
+            v39 = objc_msgSend_newPropertyWithName_type_role_(v31, v36, @"material:binding", v27, v28);
+            v44 = objc_msgSend_path(v37, v40, v41, v42, v43);
+            objc_msgSend_setObjectPath_(v39, v45, v44, v46, v47);
           }
         }
 
-        v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(log, v21, &v57, v62, 16);
+        v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(log, v22, &v60, v65, 16);
       }
 
-      while (v24);
+      while (v25);
     }
   }
 
   usdzURL = self->_usdzURL;
   if (usdzURL)
   {
-    objc_msgSend_saveAndCreateUSDZPackageWithURL_(self->_scene, v47, usdzURL, v48, v49);
+    USDZPackageWithURL = objc_msgSend_saveAndCreateUSDZPackageWithURL_(self->_scene, v49, usdzURL, v50, v51);
   }
 
   else if (self->_bundleURL)
   {
-    objc_msgSend_save(self->_scene, v47, 0, v48, v49);
+    USDZPackageWithURL = objc_msgSend_save(self->_scene, v49, 0, v50, v51);
   }
 
   else
   {
-    v51 = _mxi_log();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+    v54 = _mxi_log(v48);
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_22F9C3000, v51, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:1278] [USDWriter] failed to package USKScene", buf, 2u);
+      _os_log_impl(&dword_22F9C3000, v54, OS_LOG_TYPE_ERROR, "[MXI.framework/MXISceneUSDZWriter.mm:1278] [USDWriter] failed to package USKScene", buf, 2u);
     }
   }
 
-  v52 = _MXISignpostLogSystem();
-  v53 = v52;
-  if (v55 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v52))
+  v55 = _MXISignpostLogSystem(USDZPackageWithURL);
+  v56 = v55;
+  if (v58 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v55))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_22F9C3000, v53, OS_SIGNPOST_INTERVAL_END, spid, "MXI_USDZ_PACKAGE", &unk_22FA1C169, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_22F9C3000, v56, OS_SIGNPOST_INTERVAL_END, spid, "MXI_USDZ_PACKAGE", &unk_22FA1C169, buf, 2u);
   }
 }
 

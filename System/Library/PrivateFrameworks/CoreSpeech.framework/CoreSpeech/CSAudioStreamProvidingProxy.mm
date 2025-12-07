@@ -20,6 +20,7 @@
 - (void)_handleVoiceTriggerInfoMessage:(id)message messageBody:(id)body client:(id)client;
 - (void)_sendDelegateMessageToClient:(id)client;
 - (void)_sendReply:(id)reply client:(id)client result:(BOOL)result error:(id)error;
+- (void)_setAllowMixableAudioWhileRecordingIfNeeded:(BOOL)needed;
 - (void)audioStreamProvider:(id)provider audioBufferAvailable:(id)available;
 - (void)audioStreamProvider:(id)provider audioChunkForTVAvailable:(id)available;
 - (void)audioStreamProvider:(id)provider didHardwareConfigurationChange:(int64_t)change;
@@ -50,6 +51,52 @@
   WeakRetained = objc_loadWeakRetained(&self->_triggerInfoProviding);
 
   return WeakRetained;
+}
+
+- (void)_setAllowMixableAudioWhileRecordingIfNeeded:(BOOL)needed
+{
+  if (self->_streamClientType == 1)
+  {
+    neededCopy = needed;
+    if ([(CSAudioStreamProvidingProxy *)self _isHubRequest])
+    {
+      v4 = CSLogContextFacilityCoreSpeech;
+      if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
+      {
+        v5 = @"NO";
+        if (neededCopy)
+        {
+          v5 = @"YES";
+        }
+
+        *buf = 136315394;
+        v14 = "[CSAudioStreamProvidingProxy _setAllowMixableAudioWhileRecordingIfNeeded:]";
+        v15 = 2114;
+        v16 = v5;
+        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%s setting allow mixable audio while recording to %{public}@", buf, 0x16u);
+      }
+
+      v6 = +[AVAudioSession sharedInstance];
+      v12 = 0;
+      v7 = [v6 setAllowMixableAudioWhileRecording:neededCopy error:&v12];
+      v8 = v12;
+
+      if ((v7 & 1) == 0)
+      {
+        v9 = CSLogContextFacilityCoreSpeech;
+        if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
+        {
+          v10 = v9;
+          localizedDescription = [v8 localizedDescription];
+          *buf = 136315394;
+          v14 = "[CSAudioStreamProvidingProxy _setAllowMixableAudioWhileRecordingIfNeeded:]";
+          v15 = 2114;
+          v16 = localizedDescription;
+          _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%s Failed to setAllowMixableAudioWhileRecording : %{public}@", buf, 0x16u);
+        }
+      }
+    }
+  }
 }
 
 - (void)_sendDelegateMessageToClient:(id)client

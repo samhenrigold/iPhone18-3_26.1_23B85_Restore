@@ -11,16 +11,15 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  reason = self->_reason;
   coderCopy = coder;
-  [coderCopy encodeObject:reason forKey:@"reason"];
-  [coderCopy encodeObject:self->_payload forKey:@"payload"];
-  [coderCopy encodeInt32:self->_seed forKey:@"seed"];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeInt32:? forKey:?];
 }
 
 - (BKSHIDEventDeliveryRuleWrapper)initWithCoder:(id)coder
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [(BKSHIDEventDeliveryRuleWrapper *)self init];
   v6 = v5;
@@ -29,7 +28,7 @@
     goto LABEL_5;
   }
 
-  v7 = [(BKSHIDEventDeliveryRuleWrapper *)v5 decodePayload:coderCopy];
+  v7 = [(BKSHIDEventDeliveryRuleWrapper *)v5 decodePayload:?];
   payload = v6->_payload;
   v6->_payload = v7;
 
@@ -40,24 +39,25 @@
     {
 LABEL_9:
 
-      v15 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:4864 userInfo:0];
-      [coderCopy failWithError:v15];
+      v15 = [MEMORY[0x1E696ABC0] errorWithDomain:? code:? userInfo:?];
+      [coderCopy failWithError:?];
 
       v11 = 0;
       goto LABEL_10;
     }
 
     error = [coderCopy error];
-    v18 = 138543362;
-    v19 = error;
+    v17 = 138543362;
+    v18 = error;
     v14 = "payload is nil: %{public}@";
 LABEL_12:
-    _os_log_error_impl(&dword_186345000, v12, OS_LOG_TYPE_ERROR, v14, &v18, 0xCu);
+    _os_log_error_impl(&dword_186345000, v12, OS_LOG_TYPE_ERROR, v14, &v17, 0xCu);
 
     goto LABEL_9;
   }
 
-  v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"reason"];
+  objc_opt_class();
+  v9 = [coderCopy decodeObjectOfClass:? forKey:?];
   reason = v6->_reason;
   v6->_reason = v9;
 
@@ -70,39 +70,35 @@ LABEL_12:
     }
 
     error = [coderCopy error];
-    v18 = 138543362;
-    v19 = error;
+    v17 = 138543362;
+    v18 = error;
     v14 = "reason is nil: %{public}@";
     goto LABEL_12;
   }
 
-  v6->_seed = [coderCopy decodeInt32ForKey:@"seed"];
+  v6->_seed = [coderCopy decodeInt32ForKey:?];
 LABEL_5:
   v11 = v6;
 LABEL_10:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (void)appendDescriptionToStream:(id)stream
 {
   streamCopy = stream;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __60__BKSHIDEventDeliveryRuleWrapper_appendDescriptionToStream___block_invoke;
-  v6[3] = &unk_1E6F47C78;
+  v6 = MEMORY[0x1E69E9820];
   v7 = streamCopy;
   selfCopy = self;
   v5 = streamCopy;
-  [v5 appendProem:0 block:v6];
+  [v5 appendProem:v6 block:{3221225472, __60__BKSHIDEventDeliveryRuleWrapper_appendDescriptionToStream___block_invoke, &unk_1E6F47C78}];
 }
 
 id __60__BKSHIDEventDeliveryRuleWrapper_appendDescriptionToStream___block_invoke(uint64_t a1)
 {
-  [*(a1 + 32) appendString:*(*(a1 + 40) + 16) withName:@"reason"];
-  v2 = [*(a1 + 32) appendUnsignedInteger:*(*(a1 + 40) + 8) withName:@"seed"];
-  return [*(a1 + 32) appendObject:*(*(a1 + 40) + 24) withName:0];
+  [*(a1 + 32) appendString:? withName:?];
+  v2 = [*(a1 + 32) appendUnsignedInteger:? withName:?];
+  return [*(a1 + 32) appendObject:? withName:?];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -137,9 +133,9 @@ id __60__BKSHIDEventDeliveryRuleWrapper_appendDescriptionToStream___block_invoke
 
     v9 = v7;
 
-    if (v9 && self->_seed == v9->_seed && [(NSString *)self->_reason isEqual:v9->_reason])
+    if (v9 && self->_seed == v9->_seed && [(NSString *)self->_reason isEqual:?])
     {
-      v8 = [self->_payload isEqual:v9->_payload];
+      v8 = [self->_payload isEqual:?];
     }
 
     else
@@ -153,12 +149,12 @@ id __60__BKSHIDEventDeliveryRuleWrapper_appendDescriptionToStream___block_invoke
 
 - (BKSHIDEventDeliveryRuleWrapper)initWithReason:(id)reason seed:(unsigned int)seed payload:(id)payload
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   payloadCopy = payload;
-  v33.receiver = self;
-  v33.super_class = BKSHIDEventDeliveryRuleWrapper;
-  v11 = [(BKSHIDEventDeliveryRuleWrapper *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = BKSHIDEventDeliveryRuleWrapper;
+  v11 = [(BKSHIDEventDeliveryRuleWrapper *)&v32 init];
   if (v11)
   {
     v12 = reasonCopy;
@@ -167,30 +163,30 @@ id __60__BKSHIDEventDeliveryRuleWrapper_appendDescriptionToStream___block_invoke
     v14 = objc_opt_class();
     if (!v12)
     {
-      v19 = NSStringFromClass(v14);
-      v20 = [v13 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"reason", v19];
+      v18 = NSStringFromClass(v14);
+      v19 = [v13 stringWithFormat:@"reason", v18];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v21 = NSStringFromSelector(a2);
-        v22 = objc_opt_class();
-        v23 = NSStringFromClass(v22);
+        v20 = NSStringFromSelector(a2);
+        v21 = objc_opt_class();
+        v22 = NSStringFromClass(v21);
         *buf = 138544642;
-        v35 = v21;
-        v36 = 2114;
-        v37 = v23;
-        v38 = 2048;
-        v39 = v11;
-        v40 = 2114;
-        v41 = @"BKSHIDEventDeliveryRuleChangeTransaction.m";
-        v42 = 1024;
-        v43 = 52;
-        v44 = 2114;
-        v45 = v20;
+        v34 = v20;
+        v35 = 2114;
+        v36 = v22;
+        v37 = 2048;
+        v38 = v11;
+        v39 = 2114;
+        v40 = @"BKSHIDEventDeliveryRuleChangeTransaction.m";
+        v41 = 1024;
+        v42 = 52;
+        v43 = 2114;
+        v44 = v19;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v20 UTF8String];
+      [v19 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x186365838);
@@ -198,40 +194,40 @@ id __60__BKSHIDEventDeliveryRuleWrapper_appendDescriptionToStream___block_invoke
 
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v24 = MEMORY[0x1E696AEC0];
+      v23 = MEMORY[0x1E696AEC0];
       classForCoder = [v12 classForCoder];
       if (!classForCoder)
       {
         classForCoder = objc_opt_class();
       }
 
-      v26 = NSStringFromClass(classForCoder);
+      v25 = NSStringFromClass(classForCoder);
       objc_opt_class();
-      v27 = objc_opt_class();
-      v28 = NSStringFromClass(v27);
-      v29 = [v24 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"reason", v26, v28];
+      v26 = objc_opt_class();
+      v27 = NSStringFromClass(v26);
+      v28 = [v23 stringWithFormat:@"reason", v25, v27];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v30 = NSStringFromSelector(a2);
-        v31 = objc_opt_class();
-        v32 = NSStringFromClass(v31);
+        v29 = NSStringFromSelector(a2);
+        v30 = objc_opt_class();
+        v31 = NSStringFromClass(v30);
         *buf = 138544642;
-        v35 = v30;
-        v36 = 2114;
-        v37 = v32;
-        v38 = 2048;
-        v39 = v11;
-        v40 = 2114;
-        v41 = @"BKSHIDEventDeliveryRuleChangeTransaction.m";
-        v42 = 1024;
-        v43 = 52;
-        v44 = 2114;
-        v45 = v29;
+        v34 = v29;
+        v35 = 2114;
+        v36 = v31;
+        v37 = 2048;
+        v38 = v11;
+        v39 = 2114;
+        v40 = @"BKSHIDEventDeliveryRuleChangeTransaction.m";
+        v41 = 1024;
+        v42 = 52;
+        v43 = 2114;
+        v44 = v28;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v29 UTF8String];
+      [v28 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x186365974);
@@ -245,14 +241,13 @@ id __60__BKSHIDEventDeliveryRuleWrapper_appendDescriptionToStream___block_invoke
     v11->_seed = seed;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (id)decodePayload:(id)payload
 {
   payloadCopy = payload;
-  v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"You must have a subclass"];
+  v6 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v7 = NSStringFromSelector(a2);

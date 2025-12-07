@@ -45,8 +45,8 @@
 
 - (id)jsonDict
 {
-  v12[3] = *MEMORY[0x1E69E9840];
-  v11[0] = @"clientID";
+  v11[3] = *MEMORY[0x1E69E9840];
+  v10[0] = @"clientID";
   clientID = [(BMUserFocusActivityEvent *)self clientID];
   null = clientID;
   if (!clientID)
@@ -54,8 +54,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[0] = null;
-  v11[1] = @"mode";
+  v11[0] = null;
+  v10[1] = @"mode";
   mode = [(BMUserFocusActivityEvent *)self mode];
   null2 = mode;
   if (!mode)
@@ -63,11 +63,11 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[1] = null2;
-  v11[2] = @"isStart";
+  v11[1] = null2;
+  v10[2] = @"isStart";
   v7 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMUserFocusActivityEvent isStart](self, "isStart")}];
-  v12[2] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v11[2] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   if (!mode)
   {
@@ -76,8 +76,6 @@
   if (!clientID)
   {
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

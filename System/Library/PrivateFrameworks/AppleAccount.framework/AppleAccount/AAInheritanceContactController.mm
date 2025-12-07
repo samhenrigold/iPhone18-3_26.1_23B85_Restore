@@ -123,10 +123,10 @@
 
 - (void)removeContactAsBeneficiaryWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   contactType = self->_contactType;
-  v6 = _AALogSystem();
+  v6 = _AALogSystem(completionCopy);
   v7 = v6;
   if ((contactType & 4) != 0)
   {
@@ -134,9 +134,9 @@
     {
       v8 = objc_opt_class();
       v9 = NSStringFromClass(v8);
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "%@ : Removing Beneficiary...", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "%@ : Removing Beneficiary...", &v10, 0xCu);
     }
 
     [(AAInheritanceController *)self->_inheritanceController removeBeneficiary:self->_contactInfo manifest:0 completion:completionCopy];
@@ -146,19 +146,17 @@
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [AAInheritanceContactController removeContactAsBeneficiaryWithCompletion:];
+      [AAInheritanceContactController removeContactAsBeneficiaryWithCompletion:?];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeContactAsBenefactorWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   contactType = self->_contactType;
-  v6 = _AALogSystem();
+  v6 = _AALogSystem(completionCopy);
   v7 = v6;
   if ((contactType & 8) != 0)
   {
@@ -166,9 +164,9 @@
     {
       v8 = objc_opt_class();
       v9 = NSStringFromClass(v8);
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "%@ : Removing Benefactor...", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "%@ : Removing Benefactor...", &v10, 0xCu);
     }
 
     [(AAInheritanceController *)self->_inheritanceController removeBenefactor:self->_contactInfo completion:completionCopy];
@@ -178,52 +176,47 @@
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [AAInheritanceContactController removeContactAsBenefactorWithCompletion:];
+      [AAInheritanceContactController removeContactAsBenefactorWithCompletion:?];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendInvitationWithCompletion:(id)completion
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = _AALogSystem();
+  v5 = _AALogSystem(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
     handle = [(AAInheritanceContactInfo *)self->_contactInfo handle];
-    v10 = 138412546;
-    v11 = v7;
-    v12 = 2112;
-    v13 = handle;
-    _os_log_impl(&dword_1B6F6A000, v5, OS_LOG_TYPE_DEFAULT, "%@ : Sending invitation to %@ ...", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v7;
+    v11 = 2112;
+    v12 = handle;
+    _os_log_impl(&dword_1B6F6A000, v5, OS_LOG_TYPE_DEFAULT, "%@ : Sending invitation to %@ ...", &v9, 0x16u);
   }
 
   [(AAInheritanceController *)self->_inheritanceController sendInvitationToContact:self->_contactInfo completion:completionCopy];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-- (void)removeContactAsBeneficiaryWithCompletion:.cold.1()
+- (void)removeContactAsBeneficiaryWithCompletion:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  OUTLINED_FUNCTION_0_8(&dword_1B6F6A000, v2, v3, "%@ : The contact is not a beneficiary. Aborting removeBeneficiary call!", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0_8(&dword_1B6F6A000, v3, v4, "%@ : The contact is not a beneficiary. Aborting removeBeneficiary call!", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
-- (void)removeContactAsBenefactorWithCompletion:.cold.1()
+- (void)removeContactAsBenefactorWithCompletion:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  OUTLINED_FUNCTION_0_8(&dword_1B6F6A000, v2, v3, "%@ : The contact is not a benefactor. Aborting removeBenefactor call!", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0_8(&dword_1B6F6A000, v3, v4, "%@ : The contact is not a benefactor. Aborting removeBenefactor call!", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 @end

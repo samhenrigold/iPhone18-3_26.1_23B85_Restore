@@ -47,7 +47,7 @@
 
 - (id)_initWithHandle:(id)handle remnants:(id)remnants
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   remnantsCopy = remnants;
   v9 = handleCopy;
@@ -74,26 +74,26 @@
     [FBSceneClientHandshake _initWithHandle:a2 remnants:?];
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v26;
+    v14 = *v25;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v26 != v14)
+        if (*v25 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v25 + 1) + 8 * i);
+        v16 = *(*(&v24 + 1) + 8 * i);
         NSClassFromString(&cfstr_Fbsceneremnant_1.isa);
         if (!v16)
         {
@@ -106,15 +106,15 @@
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v13);
   }
 
-  v24.receiver = self;
-  v24.super_class = FBSceneClientHandshake;
-  v17 = [(FBSceneClientHandshake *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = FBSceneClientHandshake;
+  v17 = [(FBSceneClientHandshake *)&v23 init];
   if (v17)
   {
     v18 = [[_FBSceneClientProcess alloc] _initWithHandle:v9];
@@ -126,13 +126,12 @@
     v17->_remnants = v20;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 - (void)_initWithHandle:(char *)a1 remnants:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:RBSProcessHandleClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -140,7 +139,7 @@
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:RBSProcessHandleClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -150,7 +149,7 @@
 
 - (void)_initWithHandle:(char *)a1 remnants:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSSetClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -158,7 +157,7 @@
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSSetClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -168,7 +167,7 @@
 
 - (void)_initWithHandle:(char *)a1 remnants:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSceneRemnantClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -176,7 +175,7 @@
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSceneRemnantClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -186,7 +185,7 @@
 
 - (void)_initWithHandle:(char *)a1 remnants:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -194,7 +193,7 @@
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -204,7 +203,7 @@
 
 - (void)_initWithHandle:(char *)a1 remnants:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -212,7 +211,7 @@
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -222,7 +221,7 @@
 
 - (void)_initWithHandle:(char *)a1 remnants:.cold.6(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -230,7 +229,7 @@
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

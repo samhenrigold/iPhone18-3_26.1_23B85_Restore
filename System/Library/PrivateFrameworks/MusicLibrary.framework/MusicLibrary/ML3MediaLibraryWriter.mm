@@ -1756,7 +1756,7 @@ LABEL_24:
   return v15;
 }
 
-uint64_t __77__ML3MediaLibraryWriter_beginTransactionForLibrary_withClient_options_error___block_invoke(uint64_t a1)
+void *__77__ML3MediaLibraryWriter_beginTransactionForLibrary_withClient_options_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isPendingCancel];
   *(*(*(a1 + 40) + 8) + 24) = result;

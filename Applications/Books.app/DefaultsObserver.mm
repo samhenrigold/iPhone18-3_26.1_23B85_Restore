@@ -34,13 +34,13 @@ LABEL_5:
 
 LABEL_3:
   type metadata accessor for NSKeyValueChangeKey(0);
-  sub_10044419C(&qword_100AD3690, type metadata accessor for NSKeyValueChangeKey);
+  sub_10044419C(&qword_100AD3690, type metadata accessor for NSKeyValueChangeKey, &unk_10080C1A4);
   v10 = sub_1007A2044();
 
 LABEL_6:
   (*(&self->super.isa + OBJC_IVAR____TtC5BooksP33_8A1BE8AE8AE70CC0220B9F5FF837F82D16DefaultsObserver_callback))(v10);
 
-  sub_100007840(v13, &unk_100AD5B40);
+  sub_100007840(v13, &unk_100AD5B40, &unk_100811300);
 }
 
 - (_TtC5BooksP33_8A1BE8AE8AE70CC0220B9F5FF837F82D16DefaultsObserver)init

@@ -37,33 +37,33 @@
 
     if (dateOfBirthComponents)
     {
-      v18 = objc_alloc(MEMORY[0x277CBEA80]);
-      v19 = [v18 initWithCalendarIdentifier:*MEMORY[0x277CBE5C0]];
-      [dateOfBirthComponents setCalendar:v19];
+      v19 = objc_alloc(MEMORY[0x277CBEA80]);
+      v20 = [v19 initWithCalendarIdentifier:*MEMORY[0x277CBE5C0]];
+      [dateOfBirthComponents setCalendar:v20];
       [dateOfBirthComponents date];
-      v20 = v31 = dateOfBirthComponents;
-      v21 = [(MTDemographicEventHandler *)selfCopy totalYearsSinceDate:v20 calendar:v19];
+      v21 = v31 = dateOfBirthComponents;
+      v22 = [(MTDemographicEventHandler *)selfCopy totalYearsSinceDate:v21 calendar:v20];
 
-      v30 = v21;
-      [v21 setCalendar:v19];
+      v30 = v22;
+      [v22 setCalendar:v20];
       v38[0] = idCopy;
       v37[0] = @"userId";
       v37[1] = @"ageRange";
-      v22 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v21, "year")}];
-      v38[1] = v22;
+      v23 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v22, "year")}];
+      v38[1] = v23;
       v37[2] = @"eventTime";
       [MEMORY[0x277CBEAA8] mt_millisecondsSince1970];
-      v23 = v32 = v11;
-      v38[2] = v23;
+      v24 = v32 = v11;
+      v38[2] = v24;
       [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:3];
-      v24 = v12;
-      v25 = topic;
-      v27 = v26 = idCopy;
-      v15 = [(MTEventHandler *)selfCopy metricsDataWithFields:v27, 0];
+      v25 = v12;
+      v26 = topic;
+      v28 = v27 = idCopy;
+      v15 = [(MTEventHandler *)selfCopy metricsDataWithFields:v28, 0];
 
-      idCopy = v26;
-      topic = v25;
-      v12 = v24;
+      idCopy = v27;
+      topic = v26;
+      v12 = v25;
 
       v11 = v32;
       dateOfBirthComponents = v31;
@@ -74,18 +74,16 @@
 
     else
     {
-      v19 = MTMetricsKitOSLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      v20 = MTMetricsKitOSLog(v18);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_258F4B000, v19, OS_LOG_TYPE_INFO, "MetricsKit: Skipping demographics update because date of birth is unavailable.", buf, 2u);
+        _os_log_impl(&dword_258F4B000, v20, OS_LOG_TYPE_INFO, "MetricsKit: Skipping demographics update because date of birth is unavailable.", buf, 2u);
       }
 
       v15 = 0;
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

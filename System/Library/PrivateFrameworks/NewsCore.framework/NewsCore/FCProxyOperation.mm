@@ -145,7 +145,7 @@ void __48__FCProxyOperation_operationDidFinishWithError___block_invoke(uint64_t 
 
 - (void)_revisitRelativePriority
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = qword_1EDB27058;
@@ -153,34 +153,34 @@ void __48__FCProxyOperation_operationDidFinishWithError___block_invoke(uint64_t 
     operationID = [v3 operationID];
     v5 = [v2 objectForKey:operationID];
 
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       v10 = -1;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          relativePriority = [*(*(&v14 + 1) + 8 * i) relativePriority];
+          relativePriority = [*(*(&v13 + 1) + 8 * i) relativePriority];
           if (v10 <= relativePriority)
           {
             v10 = relativePriority;
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -193,13 +193,11 @@ void __48__FCProxyOperation_operationDidFinishWithError___block_invoke(uint64_t 
 
     [*(self + 368) setRelativePriority:v10];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_revisitQualityOfService
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = qword_1EDB27058;
@@ -207,16 +205,16 @@ void __48__FCProxyOperation_operationDidFinishWithError___block_invoke(uint64_t 
     operationID = [v3 operationID];
     v5 = [v2 objectForKey:operationID];
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v18;
+      v9 = *v17;
       v10 = 9;
       do
       {
@@ -224,12 +222,12 @@ void __48__FCProxyOperation_operationDidFinishWithError___block_invoke(uint64_t 
         v12 = v10;
         do
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          qualityOfService = [*(*(&v17 + 1) + 8 * v11) qualityOfService];
+          qualityOfService = [*(*(&v16 + 1) + 8 * v11) qualityOfService];
           v10 = qualityOfService;
           if (v12 != -1 || qualityOfService <= 24)
           {
@@ -259,7 +257,7 @@ void __48__FCProxyOperation_operationDidFinishWithError___block_invoke(uint64_t 
         }
 
         while (v8 != v11);
-        v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v8);
@@ -272,8 +270,6 @@ void __48__FCProxyOperation_operationDidFinishWithError___block_invoke(uint64_t 
 
     [*(self + 368) setQualityOfService:v10];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setRelativePriority:(int64_t)priority

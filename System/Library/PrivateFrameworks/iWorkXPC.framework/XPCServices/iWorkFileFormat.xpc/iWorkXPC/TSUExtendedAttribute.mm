@@ -1,11 +1,14 @@
 @interface TSUExtendedAttribute
++ (id)extendedAttributeFromPath:(id)path name:(id)name options:(int)options error:(id *)error;
 + (id)extendedAttributeWithName:(id)name value:(id)value;
 - (BOOL)isEqual:(id)equal;
+- (BOOL)setAttributeToPath:(id)path options:(int)options error:(id *)error;
 - (BOOL)setAttributeToPathFileSystemRepresentation:(const char *)representation options:(int)options error:(id *)error;
 - (BOOL)shouldPreserveForIntent:(unsigned int)intent;
 - (TSUExtendedAttribute)init;
 - (TSUExtendedAttribute)initWithName:(id)name value:(id)value;
 - (id)description;
+- (id)initFromPath:(id)path name:(id)name options:(int)options error:(id *)error;
 - (id)initFromPathFileSystemRepresentation:(const char *)representation name:(id)name forRemoval:(BOOL)removal options:(int)options error:(id *)error;
 @end
 
@@ -18,6 +21,16 @@
   v8 = [[self alloc] initWithName:nameCopy value:valueCopy];
 
   return v8;
+}
+
++ (id)extendedAttributeFromPath:(id)path name:(id)name options:(int)options error:(id *)error
+{
+  v7 = *&options;
+  nameCopy = name;
+  pathCopy = path;
+  v12 = [[self alloc] initFromPath:pathCopy name:nameCopy options:v7 error:error];
+
+  return v12;
 }
 
 - (TSUExtendedAttribute)init
@@ -73,6 +86,31 @@
   }
 
   return v8;
+}
+
+- (id)initFromPath:(id)path name:(id)name options:(int)options error:(id *)error
+{
+  v7 = *&options;
+  nameCopy = name;
+  fileSystemRepresentation = [path fileSystemRepresentation];
+  if (fileSystemRepresentation)
+  {
+    self = [(TSUExtendedAttribute *)self initFromPathFileSystemRepresentation:fileSystemRepresentation name:nameCopy forRemoval:0 options:v7 error:error];
+    selfCopy = self;
+  }
+
+  else if (error)
+  {
+    [NSError tsu_fileReadPOSIXErrorWithNumber:2 userInfo:0];
+    *error = selfCopy = 0;
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+  return selfCopy;
 }
 
 - (id)initFromPathFileSystemRepresentation:(const char *)representation name:(id)name forRemoval:(BOOL)removal options:(int)options error:(id *)error
@@ -207,6 +245,28 @@ LABEL_31:
   }
 
   return uTF8String;
+}
+
+- (BOOL)setAttributeToPath:(id)path options:(int)options error:(id *)error
+{
+  v6 = *&options;
+  pathCopy = path;
+  fileSystemRepresentation = [path fileSystemRepresentation];
+  if (fileSystemRepresentation)
+  {
+
+    return [(TSUExtendedAttribute *)self setAttributeToPathFileSystemRepresentation:fileSystemRepresentation options:v6 error:error];
+  }
+
+  else
+  {
+    if (error)
+    {
+      *error = [NSError tsu_fileReadPOSIXErrorWithNumber:2 userInfo:0];
+    }
+
+    return 0;
+  }
 }
 
 - (BOOL)setAttributeToPathFileSystemRepresentation:(const char *)representation options:(int)options error:(id *)error

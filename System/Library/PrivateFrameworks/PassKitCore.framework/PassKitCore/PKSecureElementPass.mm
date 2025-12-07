@@ -403,7 +403,7 @@ LABEL_16:
   return devicePaymentApplications;
 }
 
-uint64_t __45__PKSecureElementPass_supportsBarcodePayment__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__45__PKSecureElementPass_supportsBarcodePayment__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 supportsBarcodePayment];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -1217,9 +1217,9 @@ void __48__PKSecureElementPass_paymentApplicationForAID___block_invoke(uint64_t 
 {
   v8 = a2;
   v6 = [v8 applicationIdentifier];
-  v7 = [v6 isEqualToString:*(a1 + 32)];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  if (v7)
+  if (isEqualToString)
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
     *a3 = 1;
@@ -1255,9 +1255,9 @@ void __54__PKSecureElementPass_devicePaymentApplicationForAID___block_invoke(uin
 {
   v8 = a2;
   v6 = [v8 applicationIdentifier];
-  v7 = [v6 isEqualToString:*(a1 + 32)];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  if (v7)
+  if (isEqualToString)
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
     *a3 = 1;
@@ -1644,9 +1644,9 @@ LABEL_11:
 
         v7 = *(*(&v15 + 1) + 8 * i);
         v8 = [v7 key];
-        v9 = [v8 isEqualToString:@"auto_top_up_field_value"];
+        isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-        if (v9)
+        if (isEqualToString)
         {
           [v7 threshold];
           v12 = v11;
@@ -3478,9 +3478,9 @@ LABEL_15:
 
   if (v6 && transactionSourceIdentifier)
   {
-    v8 = [transactionSourceIdentifier isEqualToString:v6];
+    isEqualToString = objc_msgSend_isEqualToString_(transactionSourceIdentifier);
 
-    if ((v8 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       goto LABEL_15;
     }
@@ -3523,7 +3523,7 @@ LABEL_30:
 
         if (v7 && transactionSourceIdentifier2)
         {
-          v25 = [transactionSourceIdentifier2 isEqualToString:v23];
+          v25 = objc_msgSend_isEqualToString_(transactionSourceIdentifier2);
 
           if (v25)
           {
@@ -4046,7 +4046,7 @@ LABEL_11:
 
         v10 = *(*(&v16 + 1) + 8 * i);
         v11 = [v10 key];
-        if ([v11 isEqualToString:@"auto_top_up_field_value"])
+        if (objc_msgSend_isEqualToString_(v11))
         {
           foreignReferenceIdentifiers = [v10 foreignReferenceIdentifiers];
           v13 = [foreignReferenceIdentifiers intersectsSet:identifiers];
@@ -4123,7 +4123,7 @@ LABEL_13:
 
               v12 = *(*(&v21 + 1) + 8 * i);
               v13 = [v12 key];
-              if ([v13 isEqualToString:@"auto_top_up_field_value"])
+              if (objc_msgSend_isEqualToString_(v13))
               {
                 foreignReferenceIdentifiers2 = [v12 foreignReferenceIdentifiers];
                 v15 = [foreignReferenceIdentifiers2 intersectsSet:foreignReferenceIdentifiers];

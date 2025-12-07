@@ -1,12 +1,35 @@
 @interface DAHistoryEntry
 - (DAHistoryEntry)initWithCoder:(id)coder;
 - (DAHistoryEntry)initWithTestSuiteName:(id)name date:(id)date skipped:(BOOL)skipped results:(id)results;
+- (DAHistoryEntry)initWithTestSuiteName:(id)name skipped:(BOOL)skipped;
+- (DAHistoryEntry)initWithTestSuiteName:(id)name skipped:(BOOL)skipped results:(id)results;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation DAHistoryEntry
+
+- (DAHistoryEntry)initWithTestSuiteName:(id)name skipped:(BOOL)skipped
+{
+  skippedCopy = skipped;
+  nameCopy = name;
+  v7 = +[NSDate date];
+  v8 = [(DAHistoryEntry *)self initWithTestSuiteName:nameCopy date:v7 skipped:skippedCopy];
+
+  return v8;
+}
+
+- (DAHistoryEntry)initWithTestSuiteName:(id)name skipped:(BOOL)skipped results:(id)results
+{
+  skippedCopy = skipped;
+  resultsCopy = results;
+  nameCopy = name;
+  v10 = +[NSDate date];
+  v11 = [(DAHistoryEntry *)self initWithTestSuiteName:nameCopy date:v10 skipped:skippedCopy results:resultsCopy];
+
+  return v11;
+}
 
 - (DAHistoryEntry)initWithTestSuiteName:(id)name date:(id)date skipped:(BOOL)skipped results:(id)results
 {

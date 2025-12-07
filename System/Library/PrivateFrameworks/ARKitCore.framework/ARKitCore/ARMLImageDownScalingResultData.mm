@@ -33,7 +33,7 @@
     v5 = equalCopy;
     downScalingResults = [v5 downScalingResults];
     v7 = [downScalingResults isEqual:self->_downScalingResults];
-    v11 = v7 && ([v5 timestamp], v8 == self->_timestamp) && objc_msgSend(v5, "rotationOfResultTensor") == self->_rotationOfResultTensor && (objc_msgSend(v5, "originalImageData"), v9 = ;
+    v11 = v7 && (objc_msgSend_timestamp(v5), v8 == self->_timestamp) && [v5 rotationOfResultTensor] == self->_rotationOfResultTensor && (objc_msgSend(v5, "originalImageData"), v9 = ;
   }
 
   else

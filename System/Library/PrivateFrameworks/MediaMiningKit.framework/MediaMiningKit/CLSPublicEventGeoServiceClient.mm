@@ -25,7 +25,7 @@
 - (id)publicEventQueryHelperWithTimeLocationTuples:(id)tuples queryRadius:(double)radius queryContext:(id)context simulatesTimeout:(BOOL)timeout
 {
   timeoutCopy = timeout;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DAD1C90);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DAD1C90, &qword_22F992320);
   sub_22F989B90();
   v9 = objc_allocWithZone(CLSPublicEventGeoServiceQuery);
   swift_unknownObjectRetain();
@@ -59,7 +59,7 @@
 
 - (void)serverVersionWithCompletionBlock:(id)block
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DAD1990);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DAD1990, &qword_22F991DD0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(block);

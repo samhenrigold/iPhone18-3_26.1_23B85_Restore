@@ -162,7 +162,7 @@ LABEL_28:
   v68 = v67;
   if (v67)
   {
-    [v67 transform];
+    objc_msgSend_transform(v67);
   }
 
   else

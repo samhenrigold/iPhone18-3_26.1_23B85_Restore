@@ -6,6 +6,7 @@
 - (void)dealloc;
 - (void)deletePropertyValue:(id)value;
 - (void)firstUnlockedWithEvent:(BOOL)event;
+- (void)setIsRangingEnabled:(BOOL)enabled;
 - (void)synchronisePrefs;
 - (void)writeBoolProperty:(id)property Value:(BOOL)value;
 - (void)writeStringProperty:(id)property Value:(id)value;
@@ -15,10 +16,10 @@
 
 - (WPDPersistence)init
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v10.receiver = self;
-  v10.super_class = WPDPersistence;
-  v2 = [(WPDPersistence *)&v10 init];
+  v12 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = WPDPersistence;
+  v2 = [(WPDPersistence *)&v9 init];
   v3 = v2;
   if (v2)
   {
@@ -38,12 +39,11 @@
     {
       v7 = v3->_bootUUID;
       *buf = 138543362;
-      v12 = v7;
+      v11 = v7;
       _os_log_impl(&dword_272965000, v6, OS_LOG_TYPE_DEFAULT, "WPDPersistence initialized with BootUUID %{public}@", buf, 0xCu);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -53,6 +53,19 @@
   v3.receiver = self;
   v3.super_class = WPDPersistence;
   [(WPDPersistence *)&v3 dealloc];
+}
+
+- (void)setIsRangingEnabled:(BOOL)enabled
+{
+  self->_needsInit = 0;
+  self->_isRangingEnabled = enabled;
+  if (self->_systemFirstUnlocked)
+  {
+    [(WPDPersistence *)self writeBoolProperty:@"WPRangingEnabled" Value:enabled];
+    bootUUID = self->_bootUUID;
+
+    [(WPDPersistence *)self writeStringProperty:@"WPBootUUID" Value:bootUUID];
+  }
 }
 
 - (id)currentBootSessionUUID
@@ -142,15 +155,13 @@ LABEL_5:
 
 - (void)synchronisePrefs
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v7[0] = 67109376;
-  v7[1] = a3;
-  v8 = 1024;
+  v6[0] = 67109376;
+  v6[1] = a3;
+  v7 = 1024;
   systemFirstUnlocked = [a2 systemFirstUnlocked];
-  _os_log_debug_impl(&dword_272965000, selfCopy, OS_LOG_TYPE_DEBUG, "WPDPersistence synchronised: %d (firstUnlocked: %d)", v7, 0xEu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_272965000, selfCopy, OS_LOG_TYPE_DEBUG, "WPDPersistence synchronised: %d (firstUnlocked: %d)", v6, 0xEu);
 }
 
 - (void)deletePropertyValue:(id)value
@@ -174,7 +185,7 @@ LABEL_5:
 
 - (BOOL)readBoolPropertyValue:(id)value
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   v4 = objc_autoreleasePoolPush();
   keyExistsAndHasValidFormat = 0;
@@ -199,19 +210,18 @@ LABEL_5:
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138413058;
-    v13 = valueCopy;
-    v14 = 1024;
-    v15 = v7;
-    v16 = 1024;
-    v17 = keyExistsAndHasValidFormat;
-    v18 = 1024;
-    v19 = AppBooleanValue;
+    v12 = valueCopy;
+    v13 = 1024;
+    v14 = v7;
+    v15 = 1024;
+    v16 = keyExistsAndHasValidFormat;
+    v17 = 1024;
+    v18 = AppBooleanValue;
     _os_log_debug_impl(&dword_272965000, v8, OS_LOG_TYPE_DEBUG, "WPDPersistence read %@ : %d (found:%d got:%d)", buf, 0x1Eu);
   }
 
   objc_autoreleasePoolPop(v4);
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -304,57 +314,41 @@ LABEL_5:
 
 - (void)firstUnlockedWithEvent:(char)a1 .cold.2(char a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1 & 1;
-  _os_log_debug_impl(&dword_272965000, a2, OS_LOG_TYPE_DEBUG, "WPDPersistence firstUnlockedWithEvent: %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1 & 1;
+  _os_log_debug_impl(&dword_272965000, a2, OS_LOG_TYPE_DEBUG, "WPDPersistence firstUnlockedWithEvent: %d", v2, 8u);
 }
 
 - (void)firstUnlockedWithEvent:(void *)a1 .cold.4(void *a1, void *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v5[0] = 67109120;
-  v5[1] = [a2 isRangingEnabled];
-  _os_log_debug_impl(&dword_272965000, v3, OS_LOG_TYPE_DEBUG, "WPDPersistence restored isRangingEnabled: %d", v5, 8u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = 67109120;
+  v4[1] = [a2 isRangingEnabled];
+  _os_log_debug_impl(&dword_272965000, v3, OS_LOG_TYPE_DEBUG, "WPDPersistence restored isRangingEnabled: %d", v4, 8u);
 }
 
 - (void)deletePropertyValue:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_272965000, a2, OS_LOG_TYPE_DEBUG, "WPDPersistence delete %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)writeBoolProperty:Value:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_272965000, a2, OS_LOG_TYPE_DEBUG, "WPDPersistence delete %@", &v2, 0xCu);
 }
 
 - (void)readStringPropertyValue:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeStringProperty:Value:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

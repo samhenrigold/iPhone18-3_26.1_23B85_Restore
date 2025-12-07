@@ -117,49 +117,47 @@ void __37__IRTapToRadar__initiatePopupAndTTR___block_invoke(uint64_t a1, void *a
 
 - (id)_errorEventQuestionaire:(id)questionaire
 {
-  v15[4] = *MEMORY[0x277D85DE8];
+  v14[4] = *MEMORY[0x277D85DE8];
   questionaireCopy = questionaire;
-  LOWORD(v11) = 257;
-  v4 = [[IRTTRpopup alloc] initWithHeader:questionaireCopy key:@"RadarPrompt" message:@"\nIf you find this suggestion unreasonable defaultButton:would you like to assist by answering 3 yes/no questions?" otherButton:@"Open radar" alternateButton:@"Not now" ttrWillOpen:0 dismissWillStop:v11];
+  LOWORD(v10) = 257;
+  v4 = [[IRTTRpopup alloc] initWithHeader:questionaireCopy key:@"RadarPrompt" message:@"\nIf you find this suggestion unreasonable defaultButton:would you like to assist by answering 3 yes/no questions?" otherButton:@"Open radar" alternateButton:@"Not now" ttrWillOpen:0 dismissWillStop:v10];
+  LOWORD(v11) = 0;
+  v5 = [[IRTTRpopup alloc] initWithHeader:questionaireCopy key:@"QuestionSameRoom" message:@"\nQuestion 1/3:\nIs the suggested device located in the room you are currently in?" defaultButton:@"I don't know" otherButton:@"No" alternateButton:@"Yes" ttrWillOpen:v11 dismissWillStop:v4];
+  v14[1] = v5;
   LOWORD(v12) = 0;
-  v5 = [[IRTTRpopup alloc] initWithHeader:questionaireCopy key:@"QuestionSameRoom" message:@"\nQuestion 1/3:\nIs the suggested device located in the room you are currently in?" defaultButton:@"I don't know" otherButton:@"No" alternateButton:@"Yes" ttrWillOpen:v12 dismissWillStop:v4];
-  v15[1] = v5;
+  v6 = [[IRTTRpopup alloc] initWithHeader:questionaireCopy key:@"QuestionPreviouslyRouted" message:@"\nQuestion 2/3:\nHave you previously routed to this device from this room? " defaultButton:@"I don't know" otherButton:@"No" alternateButton:@"Yes" ttrWillOpen:v12 dismissWillStop:?];
+  v14[2] = v6;
   LOWORD(v13) = 0;
-  v6 = [[IRTTRpopup alloc] initWithHeader:questionaireCopy key:@"QuestionPreviouslyRouted" message:@"\nQuestion 2/3:\nHave you previously routed to this device from this room? " defaultButton:@"I don't know" otherButton:@"No" alternateButton:@"Yes" ttrWillOpen:v13 dismissWillStop:?];
-  v15[2] = v6;
-  LOWORD(v14) = 0;
-  v7 = [[IRTTRpopup alloc] initWithHeader:questionaireCopy key:@"QuestionAirplayIntent" message:@"\nQuestion 3/3:\nWas your intention to route content to a different device?" defaultButton:@"I don't know" otherButton:@"No" alternateButton:@"Yes" ttrWillOpen:v14 dismissWillStop:?];
+  v7 = [[IRTTRpopup alloc] initWithHeader:questionaireCopy key:@"QuestionAirplayIntent" message:@"\nQuestion 3/3:\nWas your intention to route content to a different device?" defaultButton:@"I don't know" otherButton:@"No" alternateButton:@"Yes" ttrWillOpen:v13 dismissWillStop:?];
 
-  v15[3] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:4];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v14[3] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:4];
 
   return v8;
 }
 
 - (id)_triggerUserPrompts:(id)prompts
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   promptsCopy = prompts;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
-  v25 = 0;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__13;
-  v20 = __Block_byref_object_dispose__13;
-  v21 = objc_opt_new();
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__13;
+  v19 = __Block_byref_object_dispose__13;
+  v20 = objc_opt_new();
   popups = [promptsCopy popups];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __36__IRTapToRadar__triggerUserPrompts___block_invoke;
-  v15[3] = &unk_2797E22A8;
-  v15[4] = &v22;
-  v15[5] = &v16;
-  [popups enumerateObjectsUsingBlock:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __36__IRTapToRadar__triggerUserPrompts___block_invoke;
+  v14[3] = &unk_2797E22A8;
+  v14[4] = &v21;
+  v14[5] = &v15;
+  [popups enumerateObjectsUsingBlock:v14];
 
   self->_pendingNotificationPresent = 0;
   v6 = objc_opt_new();
@@ -167,18 +165,18 @@ void __37__IRTapToRadar__initiatePopupAndTTR___block_invoke(uint64_t a1, void *a
   title = [query title];
   [v6 setObject:title forKeyedSubscript:@"reason"];
 
-  [v6 setObject:v17[5] forKeyedSubscript:@"prompts"];
+  [v6 setObject:v16[5] forKeyedSubscript:@"prompts"];
   v9 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v6 options:1 error:0];
   v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v9 encoding:4];
   v11 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v27 = v10;
+    v26 = v10;
     _os_log_impl(&dword_25543D000, v11, OS_LOG_TYPE_INFO, "#ttr, TTR prompt: %@", buf, 0xCu);
   }
 
-  if (*(v23 + 24) == 1)
+  if (*(v22 + 24) == 1)
   {
     v12 = v10;
   }
@@ -188,10 +186,8 @@ void __37__IRTapToRadar__initiatePopupAndTTR___block_invoke(uint64_t a1, void *a
     v12 = 0;
   }
 
-  _Block_object_dispose(&v16, 8);
-  _Block_object_dispose(&v22, 8);
-
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v21, 8);
 
   return v12;
 }
@@ -271,7 +267,7 @@ LABEL_13:
 
 - (id)_createErrorEventPromptIfAllowed:(id)allowed
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   allowedCopy = allowed;
   v5 = +[IRPreferences shared];
   liveOnTtrDebugDataRequestsEnabled = [v5 liveOnTtrDebugDataRequestsEnabled];
@@ -315,37 +311,25 @@ LABEL_12:
 
   v12 = v11;
   v13 = v12;
-  if (!v12)
-  {
-    goto LABEL_17;
-  }
-
-  [v12 timeIntervalSinceNow];
-  v15 = -v14;
-  v16 = +[IRPreferences shared];
-  ttrThrottleTimeSec = [v16 ttrThrottleTimeSec];
-  [ttrThrottleTimeSec doubleValue];
-  v19 = v18;
-
-  if (v19 <= v15)
+  if (!v12 || ([v12 timeIntervalSinceNow], v15 = -v14, +[IRPreferences shared](IRPreferences, "shared"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "ttrThrottleTimeSec"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "doubleValue"), v19 = v18, v17, v16, v19 <= v15))
   {
 LABEL_17:
     v21 = [(IRTapToRadar *)self _createErrorEventsPromptsForMediaEvent:allowedCopy];
     if (v21)
     {
       standardUserDefaults2 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-      v25 = [MEMORY[0x277CBEAA8] now];
-      [standardUserDefaults2 setObject:v25 forKey:@"IRTTRErrorEventsLastPopupDate"];
+      v24 = [MEMORY[0x277CBEAA8] now];
+      [standardUserDefaults2 setObject:v24 forKey:@"IRTTRErrorEventsLastPopupDate"];
 
-      v26 = *MEMORY[0x277D21260];
+      v25 = *MEMORY[0x277D21260];
       if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
       {
-        v27 = v26;
+        v26 = v25;
         query = [v21 query];
         title = [query title];
-        v30 = 138412290;
-        v31 = *&title;
-        _os_log_impl(&dword_25543D000, v27, OS_LOG_TYPE_INFO, "#ttr, TTR Error Event prompt created: %@", &v30, 0xCu);
+        v29 = 138412290;
+        v30 = *&title;
+        _os_log_impl(&dword_25543D000, v26, OS_LOG_TYPE_INFO, "#ttr, TTR Error Event prompt created: %@", &v29, 0xCu);
       }
     }
 
@@ -355,27 +339,26 @@ LABEL_17:
   v20 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEBUG))
   {
-    v30 = 134218498;
-    v31 = v15;
-    v32 = 2048;
-    v33 = v19;
-    v34 = 2112;
-    v35 = v13;
-    _os_log_debug_impl(&dword_25543D000, v20, OS_LOG_TYPE_DEBUG, "#ttr, TTR Error Event throttled with interval: %0.1fsec, threshold:%0.1fsec, last popup at:%@", &v30, 0x20u);
+    v29 = 134218498;
+    v30 = v15;
+    v31 = 2048;
+    v32 = v19;
+    v33 = 2112;
+    v34 = v13;
+    _os_log_debug_impl(&dword_25543D000, v20, OS_LOG_TYPE_DEBUG, "#ttr, TTR Error Event throttled with interval: %0.1fsec, threshold:%0.1fsec, last popup at:%@", &v29, 0x20u);
   }
 
   v21 = 0;
 LABEL_20:
 
 LABEL_13:
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
 
 - (id)_createPeriodicPromptIfAllowed:(id)allowed
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   allowedCopy = allowed;
   v5 = +[IRPreferences shared];
   liveOnTtrPeriodicDataRequestsEnabled = [v5 liveOnTtrPeriodicDataRequestsEnabled];
@@ -414,37 +397,25 @@ LABEL_11:
 
   v12 = v11;
   v13 = v12;
-  if (!v12)
-  {
-    goto LABEL_16;
-  }
-
-  [v12 timeIntervalSinceNow];
-  v15 = -v14;
-  v16 = +[IRPreferences shared];
-  ttrPeriodicThrottleTimeSec = [v16 ttrPeriodicThrottleTimeSec];
-  [ttrPeriodicThrottleTimeSec doubleValue];
-  v19 = v18;
-
-  if (v19 <= v15)
+  if (!v12 || ([v12 timeIntervalSinceNow], v15 = -v14, +[IRPreferences shared](IRPreferences, "shared"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "ttrPeriodicThrottleTimeSec"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "doubleValue"), v19 = v18, v17, v16, v19 <= v15))
   {
 LABEL_16:
     v21 = [(IRTapToRadar *)self _createPeriodicPromptsForMediaEvent:allowedCopy];
     if (v21)
     {
       standardUserDefaults2 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-      v25 = [MEMORY[0x277CBEAA8] now];
-      [standardUserDefaults2 setObject:v25 forKey:@"IRTTRPeriodicLastPopupDate"];
+      v24 = [MEMORY[0x277CBEAA8] now];
+      [standardUserDefaults2 setObject:v24 forKey:@"IRTTRPeriodicLastPopupDate"];
 
-      v26 = *MEMORY[0x277D21260];
+      v25 = *MEMORY[0x277D21260];
       if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
       {
-        v27 = v26;
+        v26 = v25;
         query = [v21 query];
         title = [query title];
-        v30 = 138412290;
-        v31 = *&title;
-        _os_log_impl(&dword_25543D000, v27, OS_LOG_TYPE_INFO, "#ttr, TTR Periodic prompt created: %@", &v30, 0xCu);
+        v29 = 138412290;
+        v30 = *&title;
+        _os_log_impl(&dword_25543D000, v26, OS_LOG_TYPE_INFO, "#ttr, TTR Periodic prompt created: %@", &v29, 0xCu);
       }
     }
 
@@ -454,20 +425,19 @@ LABEL_16:
   v20 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEBUG))
   {
-    v30 = 134218498;
-    v31 = v15;
-    v32 = 2048;
-    v33 = v19;
-    v34 = 2112;
-    v35 = v13;
-    _os_log_debug_impl(&dword_25543D000, v20, OS_LOG_TYPE_DEBUG, "#ttr, TTR periodic throttled with interval: %0.1fsec, threshold:%0.1fsec, last popup at:%@", &v30, 0x20u);
+    v29 = 134218498;
+    v30 = v15;
+    v31 = 2048;
+    v32 = v19;
+    v33 = 2112;
+    v34 = v13;
+    _os_log_debug_impl(&dword_25543D000, v20, OS_LOG_TYPE_DEBUG, "#ttr, TTR periodic throttled with interval: %0.1fsec, threshold:%0.1fsec, last popup at:%@", &v29, 0x20u);
   }
 
   v21 = 0;
 LABEL_19:
 
 LABEL_12:
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -518,7 +488,7 @@ LABEL_7:
 
 - (id)_createPeriodicPromptsForMediaEvent:(id)event
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v4 = objc_opt_new();
   v5 = objc_opt_new();
@@ -541,10 +511,10 @@ LABEL_7:
 
   else
   {
-    LOWORD(v17) = 257;
-    v10 = [[IRTTRpopup alloc] initWithHeader:@"Coriander Live-On" key:@"RadarPrompt" message:@"Thank you for participating in the Coriander Live On. Would you help and file a radar?\n(You can always turn of this prompt in Internal Settings->Intelligent Routing)" defaultButton:@"Open radar" otherButton:@"Not now" alternateButton:0 ttrWillOpen:v17 dismissWillStop:?];
-    v18[0] = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+    LOWORD(v16) = 257;
+    v10 = [[IRTTRpopup alloc] initWithHeader:@"Coriander Live-On" key:@"RadarPrompt" message:@"Thank you for participating in the Coriander Live On. Would you help and file a radar?\n(You can always turn of this prompt in Internal Settings->Intelligent Routing)" defaultButton:@"Open radar" otherButton:@"Not now" alternateButton:0 ttrWillOpen:v16 dismissWillStop:?];
+    v17[0] = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
     [v4 setPopups:v11];
 
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"[Coriander Live On Periodic Prompt] %@", @"Coriander - Periodic data collection"];
@@ -554,21 +524,17 @@ LABEL_7:
     v14 = v4;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 void __37__IRTapToRadar__initiatePopupAndTTR___block_invoke_cold_1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 debugDescription];
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_25543D000, v3, OS_LOG_TYPE_ERROR, "#ttr, [ErrorId - TTR popup post error] Unable to post notification: %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_25543D000, v3, OS_LOG_TYPE_ERROR, "#ttr, [ErrorId - TTR popup post error] Unable to post notification: %@", &v5, 0xCu);
 }
 
 @end

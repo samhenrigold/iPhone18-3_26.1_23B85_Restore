@@ -71,12 +71,10 @@
 
 + (id)_gkReachabilityForInternetConnection
 {
-  v4[2] = *MEMORY[0x277D85DE8];
-  v4[1] = 0;
-  v4[0] = 528;
-  result = [self _gkReachabilityWithAddress:v4];
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[2] = *MEMORY[0x277D85DE8];
+  v3[1] = 0;
+  v3[0] = 528;
+  return [self _gkReachabilityWithAddress:v3];
 }
 
 - (int)networkStatusForFlags:(unsigned int)flags

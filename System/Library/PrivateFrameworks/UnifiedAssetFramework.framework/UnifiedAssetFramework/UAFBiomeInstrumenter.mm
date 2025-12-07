@@ -1,11 +1,14 @@
 @interface UAFBiomeInstrumenter
 + (id)_constructBiomeAssetSet:(id)set storeManager:(id)manager;
++ (id)_getBiomeAssetSetStatus:(id)status assetSetId:(id)id entries:(id)entries errorCodes:(id)codes fromPSUS:(BOOL)s;
 + (id)_getBiomeEventDeviceMetadata;
++ (id)_getBiomeStreamForAssetSetStatus:(id)status assetSetId:(id)id entries:(id)entries errorCodes:(id)codes fromPSUS:(BOOL)s assetSetDailyStatusEventType:(unint64_t)type;
 + (id)_getBiomeStreamForScheduledDailyAssetStatus;
 + (id)_getBiomeUAFAssetSet:(id)set assetSetId:(id)id entries:(id)entries errorCodes:(id)codes fromPSUS:(BOOL)s;
 + (id)_getSubscriptionsStatus;
 + (id)defaultDeviceId;
 + (int)_getAssetSource:(id)source;
++ (void)logAssetSetDownloadEvent:(id)event assetSetId:(id)id entries:(id)entries errorCodes:(id)codes fromPSUS:(BOOL)s assetSetDailyStatusEventType:(unint64_t)type;
 + (void)logScheduledDailyAssetStatus;
 @end
 
@@ -47,7 +50,7 @@ void __39__UAFBiomeInstrumenter_defaultDeviceId__block_invoke()
 
 + (id)_getBiomeEventDeviceMetadata
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = [UAFCommonUtilities mobileGestaltQuery:@"ProductType"];
   v4 = [UAFCommonUtilities mobileGestaltQuery:@"BuildVersion"];
   currentLocale = [MEMORY[0x1E695DF58] currentLocale];
@@ -59,9 +62,9 @@ void __39__UAFBiomeInstrumenter_defaultDeviceId__block_invoke()
   v10 = UAFGetLogCategory(&UAFLogContextInstrumentation);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 136315138;
-    v23 = "+[UAFBiomeInstrumenter _getBiomeEventDeviceMetadata]";
-    _os_log_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_DEFAULT, "%s Captured device metadata for UAFAssetDailyStatusWithDeviceProperties event", &v22, 0xCu);
+    v21 = 136315138;
+    v22 = "+[UAFBiomeInstrumenter _getBiomeEventDeviceMetadata]";
+    _os_log_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_DEFAULT, "%s Captured device metadata for UAFAssetDailyStatusWithDeviceProperties event", &v21, 0xCu);
   }
 
   defaultDeviceId = [self defaultDeviceId];
@@ -75,14 +78,12 @@ void __39__UAFBiomeInstrumenter_defaultDeviceId__block_invoke()
   v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:1];
   v19 = [v16 initWithDeviceId:v17 deviceType:v3 programCode:v18 systemBuild:v4 inputLocale:v9 nanoSecondsSinceLastBoot:v15];
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v19;
 }
 
 + (void)logScheduledDailyAssetStatus
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if ([objc_opt_class() isBiomeAvailable])
   {
     v3 = BiomeLibrary();
@@ -97,9 +98,9 @@ void __39__UAFBiomeInstrumenter_defaultDeviceId__block_invoke()
     v11 = UAFGetLogCategory(&UAFLogContextInstrumentation);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136315138;
-      v14 = "+[UAFBiomeInstrumenter logScheduledDailyAssetStatus]";
-      _os_log_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_DEFAULT, "%s Using Biome to send scheduled daily status event", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = "+[UAFBiomeInstrumenter logScheduledDailyAssetStatus]";
+      _os_log_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_DEFAULT, "%s Using Biome to send scheduled daily status event", &v12, 0xCu);
     }
 
     [source sendEvent:v10];
@@ -110,13 +111,60 @@ void __39__UAFBiomeInstrumenter_defaultDeviceId__block_invoke()
     dailyStatus = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(dailyStatus, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315138;
-      v14 = "+[UAFBiomeInstrumenter logScheduledDailyAssetStatus]";
-      _os_log_error_impl(&dword_1BCF2C000, dailyStatus, OS_LOG_TYPE_ERROR, "%s Can't log daily asset status as this system doesn't support Biome.", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = "+[UAFBiomeInstrumenter logScheduledDailyAssetStatus]";
+      _os_log_error_impl(&dword_1BCF2C000, dailyStatus, OS_LOG_TYPE_ERROR, "%s Can't log daily asset status as this system doesn't support Biome.", &v12, 0xCu);
     }
   }
+}
 
-  v12 = *MEMORY[0x1E69E9840];
++ (void)logAssetSetDownloadEvent:(id)event assetSetId:(id)id entries:(id)entries errorCodes:(id)codes fromPSUS:(BOOL)s assetSetDailyStatusEventType:(unint64_t)type
+{
+  sCopy = s;
+  v33 = *MEMORY[0x1E69E9840];
+  eventCopy = event;
+  idCopy = id;
+  entriesCopy = entries;
+  codesCopy = codes;
+  if ([objc_opt_class() isBiomeAvailable])
+  {
+    v18 = BiomeLibrary();
+    assetDelivery = [v18 AssetDelivery];
+    [assetDelivery UAF];
+    v20 = v28 = idCopy;
+    dailyStatus = [v20 DailyStatus];
+
+    idCopy = v28;
+    source = [dailyStatus source];
+    _getBiomeEventDeviceMetadata = [self _getBiomeEventDeviceMetadata];
+    v24 = [self _getBiomeStreamForAssetSetStatus:eventCopy assetSetId:v28 entries:entriesCopy errorCodes:codesCopy fromPSUS:sCopy assetSetDailyStatusEventType:type];
+    v25 = [objc_alloc(MEMORY[0x1E698EB38]) initWithDeviceMetadata:_getBiomeEventDeviceMetadata availableAssetDailyStatus:v24];
+    v26 = UAFGetLogCategory(&UAFLogContextInstrumentation);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    {
+      assetSetIdentifier = [eventCopy assetSetIdentifier];
+      *buf = 136315394;
+      v30 = "+[UAFBiomeInstrumenter logAssetSetDownloadEvent:assetSetId:entries:errorCodes:fromPSUS:assetSetDailyStatusEventType:]";
+      v31 = 2114;
+      v32 = assetSetIdentifier;
+      _os_log_impl(&dword_1BCF2C000, v26, OS_LOG_TYPE_DEFAULT, "%s Using Biome to send asset set event for :%{public}@", buf, 0x16u);
+
+      idCopy = v28;
+    }
+
+    [source sendEvent:v25];
+  }
+
+  else
+  {
+    dailyStatus = UAFGetLogCategory(&UAFLogContextClient);
+    if (os_log_type_enabled(dailyStatus, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315138;
+      v30 = "+[UAFBiomeInstrumenter logAssetSetDownloadEvent:assetSetId:entries:errorCodes:fromPSUS:assetSetDailyStatusEventType:]";
+      _os_log_error_impl(&dword_1BCF2C000, dailyStatus, OS_LOG_TYPE_ERROR, "%s Can't log asset set download event as this system doesn't support Biome.", buf, 0xCu);
+    }
+  }
 }
 
 + (id)_getBiomeStreamForScheduledDailyAssetStatus
@@ -131,6 +179,33 @@ void __39__UAFBiomeInstrumenter_defaultDeviceId__block_invoke()
   v5 = [objc_alloc(MEMORY[0x1E698EFA8]) initWithAssetSetStatus:v3 statusReason:1];
 
   return v5;
+}
+
++ (id)_getBiomeStreamForAssetSetStatus:(id)status assetSetId:(id)id entries:(id)entries errorCodes:(id)codes fromPSUS:(BOOL)s assetSetDailyStatusEventType:(unint64_t)type
+{
+  sCopy = s;
+  v14 = type == 4;
+  codesCopy = codes;
+  entriesCopy = entries;
+  idCopy = id;
+  statusCopy = status;
+  v19 = objc_opt_new();
+  v20 = [self _getBiomeAssetSetStatus:statusCopy assetSetId:idCopy entries:entriesCopy errorCodes:codesCopy fromPSUS:sCopy];
+
+  [v19 addObject:v20];
+  if (type == 3)
+  {
+    v21 = 3;
+  }
+
+  else
+  {
+    v21 = (4 * v14);
+  }
+
+  v22 = [objc_alloc(MEMORY[0x1E698EFA8]) initWithAssetSetStatus:v19 statusReason:v21];
+
+  return v22;
 }
 
 + (id)_getSubscriptionsStatus
@@ -158,489 +233,506 @@ void __39__UAFBiomeInstrumenter_defaultDeviceId__block_invoke()
 
 void __47__UAFBiomeInstrumenter__getSubscriptionsStatus__block_invoke(uint64_t a1)
 {
-  v167 = *MEMORY[0x1E69E9840];
+  v165 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
   v3 = objc_opt_new();
   v4 = objc_opt_new();
   v5 = +[UAFSubscriptionStoreManager defaultManager];
   v6 = +[UAFConfigurationManager defaultManager];
-  v152 = 0;
-  v88 = v5;
-  v7 = [v5 getAllSubscriptions:&v152];
-  v8 = v152;
+  v150 = 0;
+  v86 = v5;
+  v7 = [v5 getAllSubscriptions:&v150];
+  v8 = v150;
   if (v8)
   {
     v9 = UAFGetLogCategory(&UAFLogContextInstrumentation);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v155 = "+[UAFBiomeInstrumenter _getSubscriptionsStatus]_block_invoke";
-      v156 = 2114;
-      v157 = v8;
+      v153 = "+[UAFBiomeInstrumenter _getSubscriptionsStatus]_block_invoke";
+      v154 = 2114;
+      v155 = v8;
       _os_log_error_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_ERROR, "%s Could not retrieve all subscriptions: %{public}@", buf, 0x16u);
     }
   }
 
   else
   {
-    v85 = v3;
-    v92 = v7;
-    v93 = v2;
+    v83 = v3;
+    v90 = v7;
+    v91 = v2;
     [UAFSubscriptionStoreManager flattenSubscriptions:v7];
-    v83 = v113 = v6;
+    v81 = v111 = v6;
     [v6 applySubscriptions:?];
+    v146 = 0u;
+    v147 = 0u;
     v148 = 0u;
-    v149 = 0u;
-    v150 = 0u;
-    v82 = v151 = 0u;
-    v10 = [v82 allKeys];
-    v11 = [v10 countByEnumeratingWithState:&v148 objects:v166 count:16];
-    v87 = a1;
+    v80 = v149 = 0u;
+    v10 = [v80 allKeys];
+    v11 = [v10 countByEnumeratingWithState:&v146 objects:v164 count:16];
+    v85 = a1;
     if (v11)
     {
       v12 = v11;
       v13 = a1;
-      v14 = *v149;
+      v14 = *v147;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v149 != v14)
+          if (*v147 != v14)
           {
             objc_enumerationMutation(v10);
           }
 
-          v16 = *(*(&v148 + 1) + 8 * i);
-          v17 = [*(v13 + 40) _constructBiomeAssetSet:v16 storeManager:v88];
+          v16 = *(*(&v146 + 1) + 8 * i);
+          v17 = [*(v13 + 40) _constructBiomeAssetSet:v16 storeManager:v86];
           if (v17)
           {
-            [v85 addObject:v17];
-            v18 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v85, "count") - 1}];
+            [v83 addObject:v17];
+            v18 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v83, "count") - 1}];
             [v4 setObject:v18 forKeyedSubscript:v16];
           }
 
           v13 = a1;
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v148 objects:v166 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v146 objects:v164 count:16];
       }
 
       while (v12);
     }
 
-    v146 = 0u;
-    v147 = 0u;
     v144 = 0u;
     v145 = 0u;
-    v7 = v92;
-    obj = [v92 allKeys];
-    v89 = [obj countByEnumeratingWithState:&v144 objects:v165 count:16];
-    if (v89)
+    v142 = 0u;
+    v143 = 0u;
+    v7 = v90;
+    obj = [v90 allKeys];
+    v87 = [obj countByEnumeratingWithState:&v142 objects:v163 count:16];
+    if (v87)
     {
-      v86 = *v145;
+      v84 = *v143;
       do
       {
         v19 = 0;
         do
         {
-          if (*v145 != v86)
+          if (*v143 != v84)
           {
             objc_enumerationMutation(obj);
           }
 
-          v90 = v19;
-          v20 = *(*(&v144 + 1) + 8 * v19);
+          v88 = v19;
+          v20 = *(*(&v142 + 1) + 8 * v19);
+          v138 = 0u;
+          v139 = 0u;
           v140 = 0u;
           v141 = 0u;
-          v142 = 0u;
-          v143 = 0u;
-          v95 = v20;
+          v93 = v20;
           v21 = [v7 objectForKeyedSubscript:?];
           v22 = [v21 allKeys];
 
-          v91 = v22;
-          v96 = [v22 countByEnumeratingWithState:&v140 objects:v164 count:16];
-          if (v96)
+          v89 = v22;
+          v94 = [v22 countByEnumeratingWithState:&v138 objects:v162 count:16];
+          if (v94)
           {
-            v94 = *v141;
+            v92 = *v139;
             do
             {
               v23 = 0;
               do
               {
-                if (*v141 != v94)
+                if (*v139 != v92)
                 {
-                  objc_enumerationMutation(v91);
+                  objc_enumerationMutation(v89);
                 }
 
-                v98 = v23;
-                v24 = *(*(&v140 + 1) + 8 * v23);
-                v25 = [v7 objectForKeyedSubscript:v95];
-                v97 = v24;
+                v96 = v23;
+                v24 = *(*(&v138 + 1) + 8 * v23);
+                v25 = [v7 objectForKeyedSubscript:v93];
+                v95 = v24;
                 v26 = [v25 objectForKeyedSubscript:v24];
 
                 v27 = 0x1E695D000uLL;
-                v101 = objc_opt_new();
+                v99 = objc_opt_new();
+                v134 = 0u;
+                v135 = 0u;
                 v136 = 0u;
                 v137 = 0u;
-                v138 = 0u;
-                v139 = 0u;
-                v99 = v26;
-                v102 = [v99 countByEnumeratingWithState:&v136 objects:v163 count:16];
-                if (v102)
+                v97 = v26;
+                v100 = [v97 countByEnumeratingWithState:&v134 objects:v161 count:16];
+                if (v100)
                 {
-                  v100 = *v137;
+                  v98 = *v135;
                   do
                   {
                     v28 = 0;
                     do
                     {
-                      if (*v137 != v100)
+                      if (*v135 != v98)
                       {
-                        objc_enumerationMutation(v99);
+                        objc_enumerationMutation(v97);
                       }
 
-                      v103 = v28;
-                      v29 = *(*(&v136 + 1) + 8 * v28);
-                      v119 = objc_alloc_init(*(v27 + 3952));
-                      v30 = *(v27 + 3952);
-                      v31 = objc_opt_new();
+                      v101 = v28;
+                      v29 = *(*(&v134 + 1) + 8 * v28);
+                      v117 = objc_alloc_init(*(v27 + 3952));
+                      v30 = objc_opt_new();
+                      v130 = 0u;
+                      v131 = 0u;
                       v132 = 0u;
                       v133 = 0u;
-                      v134 = 0u;
-                      v135 = 0u;
-                      v118 = v29;
-                      v107 = [v29 assetSets];
-                      v111 = [v107 countByEnumeratingWithState:&v132 objects:v162 count:16];
-                      if (v111)
+                      v116 = v29;
+                      v105 = [v29 assetSets];
+                      v109 = [v105 countByEnumeratingWithState:&v130 objects:v160 count:16];
+                      if (v109)
                       {
-                        v109 = *v133;
+                        v107 = *v131;
                         do
                         {
-                          v32 = 0;
+                          v31 = 0;
                           do
                           {
-                            if (*v133 != v109)
+                            if (*v131 != v107)
                             {
-                              objc_enumerationMutation(v107);
+                              objc_enumerationMutation(v105);
                             }
 
-                            v116 = v32;
-                            v33 = *(*(&v132 + 1) + 8 * v32);
-                            v34 = [v118 assetSets];
-                            v114 = v33;
-                            v35 = [v34 objectForKeyedSubscript:v33];
+                            v114 = v31;
+                            v32 = *(*(&v130 + 1) + 8 * v31);
+                            v33 = [v116 assetSets];
+                            v112 = v32;
+                            v34 = [v33 objectForKeyedSubscript:v32];
 
-                            v130 = 0u;
-                            v131 = 0u;
                             v128 = 0u;
                             v129 = 0u;
-                            v36 = v35;
-                            v37 = [v36 countByEnumeratingWithState:&v128 objects:v161 count:16];
-                            if (v37)
+                            v126 = 0u;
+                            v127 = 0u;
+                            v35 = v34;
+                            v36 = [v35 countByEnumeratingWithState:&v126 objects:v159 count:16];
+                            if (v36)
                             {
-                              v38 = v37;
-                              v39 = *v129;
+                              v37 = v36;
+                              v38 = *v127;
                               do
                               {
-                                for (j = 0; j != v38; ++j)
+                                for (j = 0; j != v37; ++j)
                                 {
-                                  if (*v129 != v39)
+                                  if (*v127 != v38)
                                   {
-                                    objc_enumerationMutation(v36);
+                                    objc_enumerationMutation(v35);
                                   }
 
-                                  v41 = *(*(&v128 + 1) + 8 * j);
-                                  v42 = objc_alloc(MEMORY[0x1E698EF90]);
-                                  v43 = [v36 objectForKeyedSubscript:v41];
-                                  v44 = [v42 initWithUsageName:v41 usageValue:v43];
+                                  v40 = *(*(&v126 + 1) + 8 * j);
+                                  v41 = objc_alloc(MEMORY[0x1E698EF90]);
+                                  v42 = [v35 objectForKeyedSubscript:v40];
+                                  v43 = [v41 initWithUsageName:v40 usageValue:v42];
 
-                                  [v31 addObject:v44];
+                                  [v30 addObject:v43];
                                 }
 
-                                v38 = [v36 countByEnumeratingWithState:&v128 objects:v161 count:16];
+                                v37 = [v35 countByEnumeratingWithState:&v126 objects:v159 count:16];
                               }
 
-                              while (v38);
+                              while (v37);
                             }
 
-                            v45 = [v4 objectForKeyedSubscript:v114];
+                            v44 = [v4 objectForKeyedSubscript:v112];
 
-                            if (v45)
+                            if (v44)
                             {
-                              v46 = [v4 objectForKeyedSubscript:v114];
-                              [v119 addObject:v46];
+                              v45 = [v4 objectForKeyedSubscript:v112];
+                              [v117 addObject:v45];
                             }
 
-                            v32 = v116 + 1;
+                            v31 = v114 + 1;
                           }
 
-                          while (v116 + 1 != v111);
-                          v111 = [v107 countByEnumeratingWithState:&v132 objects:v162 count:16];
+                          while (v114 + 1 != v109);
+                          v109 = [v105 countByEnumeratingWithState:&v130 objects:v160 count:16];
                         }
 
-                        while (v111);
+                        while (v109);
                       }
 
-                      v47 = objc_opt_new();
+                      v46 = objc_opt_new();
+                      v122 = 0u;
+                      v123 = 0u;
                       v124 = 0u;
                       v125 = 0u;
-                      v126 = 0u;
-                      v127 = 0u;
-                      v108 = [v118 usageAliases];
-                      v112 = [v108 countByEnumeratingWithState:&v124 objects:v160 count:16];
-                      if (v112)
+                      v106 = [v116 usageAliases];
+                      v110 = [v106 countByEnumeratingWithState:&v122 objects:v158 count:16];
+                      if (v110)
                       {
-                        v110 = *v125;
-                        v104 = v47;
+                        v108 = *v123;
+                        v102 = v46;
                         do
                         {
-                          for (k = 0; k != v112; ++k)
+                          for (k = 0; k != v110; ++k)
                           {
-                            if (*v125 != v110)
+                            if (*v123 != v108)
                             {
-                              objc_enumerationMutation(v108);
+                              objc_enumerationMutation(v106);
                             }
 
-                            v49 = *(*(&v124 + 1) + 8 * k);
-                            v50 = objc_alloc(MEMORY[0x1E698EFA0]);
-                            v51 = [v118 usageAliases];
-                            v52 = [v51 objectForKeyedSubscript:v49];
-                            v53 = [v50 initWithAliasName:v49 aliasValue:v52];
+                            v48 = *(*(&v122 + 1) + 8 * k);
+                            v49 = objc_alloc(MEMORY[0x1E698EFA0]);
+                            v50 = [v116 usageAliases];
+                            v51 = [v50 objectForKeyedSubscript:v48];
+                            v52 = [v49 initWithAliasName:v48 aliasValue:v51];
 
-                            v117 = v53;
-                            [v47 addObject:v53];
-                            v54 = [v118 usageAliases];
-                            v55 = [v54 objectForKeyedSubscript:v49];
+                            v115 = v52;
+                            [v46 addObject:v52];
+                            v53 = [v116 usageAliases];
+                            v54 = [v53 objectForKeyedSubscript:v48];
 
-                            v56 = [v113 getUsageAlias:v49 includeDeprecatedValues:0];
-                            if (v56)
+                            v55 = [v111 getUsageAlias:v48 includeDeprecatedValues:0];
+                            if (v55)
                             {
-                              v57 = v56;
-                              v58 = [v56 values];
-                              v59 = [v58 objectForKeyedSubscript:v55];
+                              v56 = v55;
+                              v57 = [v55 values];
+                              v58 = [v57 objectForKeyedSubscript:v54];
 
-                              if (!v59)
+                              if (!v58)
                               {
-                                v60 = UAFGetLogCategory(&UAFLogContextInstrumentation);
-                                if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+                                v59 = UAFGetLogCategory(&UAFLogContextInstrumentation);
+                                if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
                                 {
                                   *buf = 136315650;
-                                  v155 = "+[UAFBiomeInstrumenter _getSubscriptionsStatus]_block_invoke";
+                                  v153 = "+[UAFBiomeInstrumenter _getSubscriptionsStatus]_block_invoke";
+                                  v154 = 2114;
+                                  v155 = v48;
                                   v156 = 2114;
-                                  v157 = v49;
-                                  v158 = 2114;
-                                  v159 = v55;
-                                  _os_log_impl(&dword_1BCF2C000, v60, OS_LOG_TYPE_DEFAULT, "%s Loading deprecated values to process subscription for usage alias %{public}@ with value %{public}@", buf, 0x20u);
+                                  v157 = v54;
+                                  _os_log_impl(&dword_1BCF2C000, v59, OS_LOG_TYPE_DEFAULT, "%s Loading deprecated values to process subscription for usage alias %{public}@ with value %{public}@", buf, 0x20u);
                                 }
 
-                                v61 = [v113 getUsageAlias:v49 includeDeprecatedValues:1];
+                                v60 = [v111 getUsageAlias:v48 includeDeprecatedValues:1];
 
-                                v57 = v61;
+                                v56 = v60;
                               }
 
-                              v115 = v57;
-                              v62 = [v57 values];
-                              v63 = [v62 objectForKeyedSubscript:v55];
+                              v113 = v56;
+                              v61 = [v56 values];
+                              v62 = [v61 objectForKeyedSubscript:v54];
 
-                              if ([v63 count])
+                              if ([v62 count])
                               {
-                                v122 = 0u;
-                                v123 = 0u;
                                 v120 = 0u;
                                 v121 = 0u;
-                                v64 = v63;
-                                v65 = [v64 countByEnumeratingWithState:&v120 objects:v153 count:16];
-                                if (v65)
+                                v118 = 0u;
+                                v119 = 0u;
+                                v63 = v62;
+                                v64 = [v63 countByEnumeratingWithState:&v118 objects:v151 count:16];
+                                if (v64)
                                 {
-                                  v66 = v65;
-                                  v105 = v63;
-                                  v106 = v55;
-                                  v67 = *v121;
+                                  v65 = v64;
+                                  v103 = v62;
+                                  v104 = v54;
+                                  v66 = *v119;
                                   do
                                   {
-                                    for (m = 0; m != v66; ++m)
+                                    for (m = 0; m != v65; ++m)
                                     {
-                                      if (*v121 != v67)
+                                      if (*v119 != v66)
                                       {
-                                        objc_enumerationMutation(v64);
+                                        objc_enumerationMutation(v63);
                                       }
 
-                                      v69 = *(*(&v120 + 1) + 8 * m);
-                                      v70 = [v4 objectForKeyedSubscript:v69];
+                                      v68 = *(*(&v118 + 1) + 8 * m);
+                                      v69 = [v4 objectForKeyedSubscript:v68];
 
-                                      if (v70)
+                                      if (v69)
                                       {
-                                        v71 = [v4 objectForKeyedSubscript:v69];
-                                        [v119 addObject:v71];
+                                        v70 = [v4 objectForKeyedSubscript:v68];
+                                        [v117 addObject:v70];
                                       }
                                     }
 
-                                    v66 = [v64 countByEnumeratingWithState:&v120 objects:v153 count:16];
+                                    v65 = [v63 countByEnumeratingWithState:&v118 objects:v151 count:16];
                                   }
 
-                                  while (v66);
-                                  v47 = v104;
-                                  v63 = v105;
-                                  v55 = v106;
+                                  while (v65);
+                                  v46 = v102;
+                                  v62 = v103;
+                                  v54 = v104;
                                 }
                               }
 
                               else
                               {
-                                v64 = UAFGetLogCategory(&UAFLogContextInstrumentation);
-                                if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+                                v63 = UAFGetLogCategory(&UAFLogContextInstrumentation);
+                                if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
                                 {
                                   *buf = 136315650;
-                                  v155 = "+[UAFBiomeInstrumenter _getSubscriptionsStatus]_block_invoke";
+                                  v153 = "+[UAFBiomeInstrumenter _getSubscriptionsStatus]_block_invoke";
+                                  v154 = 2114;
+                                  v155 = v48;
                                   v156 = 2114;
-                                  v157 = v49;
-                                  v158 = 2114;
-                                  v159 = v55;
-                                  _os_log_error_impl(&dword_1BCF2C000, v64, OS_LOG_TYPE_ERROR, "%s Could not process subscription for usage alias %{public}@ with value %{public}@", buf, 0x20u);
+                                  v157 = v54;
+                                  _os_log_error_impl(&dword_1BCF2C000, v63, OS_LOG_TYPE_ERROR, "%s Could not process subscription for usage alias %{public}@ with value %{public}@", buf, 0x20u);
                                 }
                               }
 
-                              v72 = v115;
+                              v71 = v113;
                             }
 
                             else
                             {
-                              v72 = UAFGetLogCategory(&UAFLogContextInstrumentation);
-                              if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+                              v71 = UAFGetLogCategory(&UAFLogContextInstrumentation);
+                              if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
                               {
                                 *buf = 136315394;
-                                v155 = "+[UAFBiomeInstrumenter _getSubscriptionsStatus]_block_invoke";
-                                v156 = 2114;
-                                v157 = v49;
-                                _os_log_error_impl(&dword_1BCF2C000, v72, OS_LOG_TYPE_ERROR, "%s Could not process subscription for usage alias %{public}@", buf, 0x16u);
+                                v153 = "+[UAFBiomeInstrumenter _getSubscriptionsStatus]_block_invoke";
+                                v154 = 2114;
+                                v155 = v48;
+                                _os_log_error_impl(&dword_1BCF2C000, v71, OS_LOG_TYPE_ERROR, "%s Could not process subscription for usage alias %{public}@", buf, 0x16u);
                               }
                             }
                           }
 
-                          v112 = [v108 countByEnumeratingWithState:&v124 objects:v160 count:16];
+                          v110 = [v106 countByEnumeratingWithState:&v122 objects:v158 count:16];
                         }
 
-                        while (v112);
+                        while (v110);
                       }
 
-                      v73 = objc_alloc(MEMORY[0x1E698EF88]);
-                      v74 = [v118 name];
-                      v75 = [v73 initWithSubscriptionName:v74 assetSetIndices:v119 assetSetUsages:v31 usageAliases:v47];
+                      v72 = objc_alloc(MEMORY[0x1E698EF88]);
+                      v73 = [v116 name];
+                      v74 = [v72 initWithSubscriptionName:v73 assetSetIndices:v117 assetSetUsages:v30 usageAliases:v46];
 
-                      [v101 addObject:v75];
-                      v28 = v103 + 1;
+                      [v99 addObject:v74];
+                      v28 = v101 + 1;
                       v27 = 0x1E695D000;
                     }
 
-                    while (v103 + 1 != v102);
-                    v102 = [v99 countByEnumeratingWithState:&v136 objects:v163 count:16];
+                    while (v101 + 1 != v100);
+                    v100 = [v97 countByEnumeratingWithState:&v134 objects:v161 count:16];
                   }
 
-                  while (v102);
+                  while (v100);
                 }
 
-                v76 = [objc_alloc(MEMORY[0x1E698EF98]) initWithSubscriberName:v97 subscriptions:v101];
-                [v93 addObject:v76];
+                v75 = [objc_alloc(MEMORY[0x1E698EF98]) initWithSubscriberName:v95 subscriptions:v99];
+                [v91 addObject:v75];
 
-                v23 = v98 + 1;
-                v7 = v92;
+                v23 = v96 + 1;
+                v7 = v90;
               }
 
-              while (v98 + 1 != v96);
-              v96 = [v91 countByEnumeratingWithState:&v140 objects:v164 count:16];
+              while (v96 + 1 != v94);
+              v94 = [v89 countByEnumeratingWithState:&v138 objects:v162 count:16];
             }
 
-            while (v96);
+            while (v94);
           }
 
-          v19 = v90 + 1;
+          v19 = v88 + 1;
         }
 
-        while (v90 + 1 != v89);
-        v89 = [obj countByEnumeratingWithState:&v144 objects:v165 count:16];
+        while (v88 + 1 != v87);
+        v87 = [obj countByEnumeratingWithState:&v142 objects:v163 count:16];
       }
 
-      while (v89);
+      while (v87);
     }
 
-    v77 = objc_opt_new();
-    v3 = v85;
-    v2 = v93;
-    v78 = [objc_alloc(MEMORY[0x1E698EF80]) initWithUafAssetSets:v85 uafAssetSubscriptions:v93 allAssets:v77];
-    v79 = *(*(v87 + 32) + 8);
-    v80 = *(v79 + 40);
-    *(v79 + 40) = v78;
+    v76 = objc_opt_new();
+    v3 = v83;
+    v2 = v91;
+    v77 = [objc_alloc(MEMORY[0x1E698EF80]) initWithUafAssetSets:v83 uafAssetSubscriptions:v91 allAssets:v76];
+    v78 = *(*(v85 + 32) + 8);
+    v79 = *(v78 + 40);
+    *(v78 + 40) = v77;
 
-    v6 = v113;
-    v9 = v83;
+    v6 = v111;
+    v9 = v81;
     v8 = 0;
   }
+}
 
-  v81 = *MEMORY[0x1E69E9840];
++ (id)_getBiomeAssetSetStatus:(id)status assetSetId:(id)id entries:(id)entries errorCodes:(id)codes fromPSUS:(BOOL)s
+{
+  sCopy = s;
+  v23[1] = *MEMORY[0x1E69E9840];
+  codesCopy = codes;
+  entriesCopy = entries;
+  idCopy = id;
+  statusCopy = status;
+  v16 = objc_opt_new();
+  v17 = objc_opt_new();
+  v18 = objc_alloc(MEMORY[0x1E698EF80]);
+  v19 = [self _getBiomeUAFAssetSet:statusCopy assetSetId:idCopy entries:entriesCopy errorCodes:codesCopy fromPSUS:sCopy];
+
+  v23[0] = v19;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+  v21 = [v18 initWithUafAssetSets:v20 uafAssetSubscriptions:v16 allAssets:v17];
+
+  return v21;
 }
 
 + (id)_getBiomeUAFAssetSet:(id)set assetSetId:(id)id entries:(id)entries errorCodes:(id)codes fromPSUS:(BOOL)s
 {
   sCopy = s;
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   setCopy = set;
   idCopy = id;
   entriesCopy = entries;
   codesCopy = codes;
-  v44 = objc_opt_new();
+  v43 = objc_opt_new();
   v12 = objc_opt_new();
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   v13 = codesCopy;
-  v14 = [v13 countByEnumeratingWithState:&v50 objects:v55 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v49 objects:v54 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v51;
+    v16 = *v50;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v51 != v16)
+        if (*v50 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = [objc_alloc(MEMORY[0x1E698EFC0]) initWithMobileAssetDownloadErrorCode:*(*(&v50 + 1) + 8 * i) timesOccurred:&unk_1F3B731B8];
+        v18 = [objc_alloc(MEMORY[0x1E698EFC0]) initWithMobileAssetDownloadErrorCode:*(*(&v49 + 1) + 8 * i) timesOccurred:&unk_1F3B731B8];
         [v12 addObject:v18];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v50 objects:v55 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v49 objects:v54 count:16];
     }
 
     while (v15);
   }
 
-  v37 = v13;
-  v38 = v12;
+  v36 = v13;
+  v37 = v12;
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   obj = entriesCopy;
-  v45 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
-  if (v45)
+  v44 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
+  if (v44)
   {
-    v43 = *v47;
+    v42 = *v46;
     do
     {
-      for (j = 0; j != v45; ++j)
+      for (j = 0; j != v44; ++j)
       {
-        if (*v47 != v43)
+        if (*v46 != v42)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v46 + 1) + 8 * j);
+        v20 = *(*(&v45 + 1) + 8 * j);
         v21 = objc_alloc(MEMORY[0x1E698EF70]);
         fullAssetSelector = [v20 fullAssetSelector];
         assetSpecifier = [fullAssetSelector assetSpecifier];
@@ -650,30 +742,28 @@ void __47__UAFBiomeInstrumenter__getSubscriptionsStatus__block_invoke(uint64_t a
         assetVersion = [fullAssetSelector3 assetVersion];
         localContentURL = [v20 localContentURL];
         absoluteString = [localContentURL absoluteString];
-        v30 = [v21 initWithAssetName:assetSpecifier assetSpecifier:assetSpecifier2 assetVersion:assetVersion assetLocale:0 assetSource:4 isAssetPathValid:0 assetPath:absoluteString assetDownloadSizeInBytes:0 assetUnarchivedSizeInBytes:{0, v37}];
+        v30 = [v21 initWithAssetName:assetSpecifier assetSpecifier:assetSpecifier2 assetVersion:assetVersion assetLocale:0 assetSource:4 isAssetPathValid:0 assetPath:absoluteString assetDownloadSizeInBytes:0 assetUnarchivedSizeInBytes:{0, v36}];
 
-        [v44 addObject:v30];
+        [v43 addObject:v30];
       }
 
-      v45 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
+      v44 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
     }
 
-    while (v45);
+    while (v44);
   }
 
   v31 = objc_alloc(MEMORY[0x1E698EF78]);
   assetSetIdentifier = [setCopy assetSetIdentifier];
   v33 = [MEMORY[0x1E696AD98] numberWithBool:sCopy];
-  v34 = [v31 initWithAssetSetName:assetSetIdentifier assets:v44 assetType:0 assetSetId:idCopy audienceId:0 mobileAssetDownloadErrorCodeFrequency:v38 fromPreSoftwareUpdateStaging:v33 expensiveCellularDownloadRequested:0];
-
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = [v31 initWithAssetSetName:assetSetIdentifier assets:v43 assetType:0 assetSetId:idCopy audienceId:0 mobileAssetDownloadErrorCodeFrequency:v37 fromPreSoftwareUpdateStaging:v33 expensiveCellularDownloadRequested:0];
 
   return v34;
 }
 
 + (id)_constructBiomeAssetSet:(id)set storeManager:(id)manager
 {
-  v90[1] = *MEMORY[0x1E69E9840];
+  v89[1] = *MEMORY[0x1E69E9840];
   setCopy = set;
   managerCopy = manager;
   v7 = objc_opt_new();
@@ -681,9 +771,9 @@ void __47__UAFBiomeInstrumenter__getSubscriptionsStatus__block_invoke(uint64_t a
   v9 = v8;
   if (v8)
   {
-    v89 = setCopy;
-    v90[0] = v8;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v90 forKeys:&v89 count:1];
+    v88 = setCopy;
+    v89[0] = v8;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v89 forKeys:&v88 count:1];
   }
 
   else
@@ -696,61 +786,61 @@ void __47__UAFBiomeInstrumenter__getSubscriptionsStatus__block_invoke(uint64_t a
 
   if (v12)
   {
-    v53 = v9;
-    v54 = managerCopy;
-    v80 = 0;
-    v51 = [v12 assetSetIdForSELF:1 stagedDuringSU:&v80];
+    v52 = v9;
+    v53 = managerCopy;
+    v79 = 0;
+    v50 = [v12 assetSetIdForSELF:1 stagedDuringSU:&v79];
     v13 = UAFGetLogCategory(&UAFLogContextInstrumentation);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v84 = "+[UAFBiomeInstrumenter _constructBiomeAssetSet:storeManager:]";
-      v85 = 2114;
-      v86 = setCopy;
-      v87 = 1024;
-      v88 = v80;
+      v83 = "+[UAFBiomeInstrumenter _constructBiomeAssetSet:storeManager:]";
+      v84 = 2114;
+      v85 = setCopy;
+      v86 = 1024;
+      v87 = v79;
       _os_log_impl(&dword_1BCF2C000, v13, OS_LOG_TYPE_DEFAULT, "%s Emitting daily status scheduled event for asset set %{public}@, pre-staged: %d", buf, 0x1Cu);
     }
 
-    v55 = setCopy;
+    v54 = setCopy;
 
-    v52 = v12;
+    v51 = v12;
     autoAssetSet = [v12 autoAssetSet];
     getMAAutoAssetDownloadErrorsSync = [autoAssetSet getMAAutoAssetDownloadErrorsSync];
 
-    v58 = objc_opt_new();
-    v56 = getMAAutoAssetDownloadErrorsSync;
+    v57 = objc_opt_new();
+    v55 = getMAAutoAssetDownloadErrorsSync;
     if ([getMAAutoAssetDownloadErrorsSync count])
     {
       v16 = v10;
-      v78 = 0u;
-      v79 = 0u;
-      v76 = 0u;
       v77 = 0u;
+      v78 = 0u;
+      v75 = 0u;
+      v76 = 0u;
       v17 = getMAAutoAssetDownloadErrorsSync;
-      v18 = [v17 countByEnumeratingWithState:&v76 objects:v82 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v75 objects:v81 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v77;
+        v20 = *v76;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v77 != v20)
+            if (*v76 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            v22 = *(*(&v76 + 1) + 8 * i);
+            v22 = *(*(&v75 + 1) + 8 * i);
             v23 = objc_alloc(MEMORY[0x1E698EFC0]);
             v24 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v17, "countForObject:", v22)}];
             v25 = [v23 initWithMobileAssetDownloadErrorCode:v22 timesOccurred:v24];
 
-            [v58 addObject:v25];
+            [v57 addObject:v25];
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v76 objects:v82 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v75 objects:v81 count:16];
         }
 
         while (v19);
@@ -760,28 +850,28 @@ void __47__UAFBiomeInstrumenter__getSubscriptionsStatus__block_invoke(uint64_t a
     }
 
     [UAFAssetSetManager getSystemUsageAssets:v10];
+    v71 = 0u;
     v72 = 0u;
     v73 = 0u;
-    v74 = 0u;
-    obj = v75 = 0u;
-    v62 = [obj countByEnumeratingWithState:&v72 objects:v81 count:16];
-    if (v62)
+    obj = v74 = 0u;
+    v61 = [obj countByEnumeratingWithState:&v71 objects:v80 count:16];
+    if (v61)
     {
-      v59 = *v73;
-      v60 = v7;
+      v58 = *v72;
+      v59 = v7;
       do
       {
         v26 = 0;
         do
         {
-          if (*v73 != v59)
+          if (*v72 != v58)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v72 + 1) + 8 * v26);
+          v27 = *(*(&v71 + 1) + 8 * v26);
           [v27 metadata];
-          v28 = v66 = v26;
+          v28 = v65 = v26;
           v29 = [v28 objectForKeyedSubscript:@"com.apple.UnifiedAssetFramework.Source"];
           v30 = [self _getAssetSource:v29];
 
@@ -798,12 +888,12 @@ void __47__UAFBiomeInstrumenter__getSubscriptionsStatus__block_invoke(uint64_t a
             v34 = @"version";
           }
 
-          v69 = [metadata objectForKeyedSubscript:v34];
+          v68 = [metadata objectForKeyedSubscript:v34];
 
-          v67 = objc_alloc(MEMORY[0x1E698EF70]);
+          v66 = objc_alloc(MEMORY[0x1E698EF70]);
           name = [v27 name];
           metadata2 = [v27 metadata];
-          v65 = [metadata2 objectForKeyedSubscript:@"com.apple.UnifiedAssetFramework.AssetId"];
+          v64 = [metadata2 objectForKeyedSubscript:@"com.apple.UnifiedAssetFramework.AssetId"];
           v35 = MEMORY[0x1E696AD98];
           location = [v27 location];
           v36 = [v35 numberWithBool:location != 0];
@@ -817,37 +907,35 @@ void __47__UAFBiomeInstrumenter__getSubscriptionsStatus__block_invoke(uint64_t a
           metadata4 = [v27 metadata];
           v43 = [metadata4 objectForKeyedSubscript:@"com.apple.UnifiedAssetFramework.UnarchivedSize"];
           v44 = [v41 numberWithLongLong:{objc_msgSend(v43, "longLongValue")}];
-          v45 = [v67 initWithAssetName:name assetSpecifier:v65 assetVersion:v69 assetLocale:0 assetSource:v33 isAssetPathValid:v36 assetPath:absoluteString assetDownloadSizeInBytes:v40 assetUnarchivedSizeInBytes:v44];
+          v45 = [v66 initWithAssetName:name assetSpecifier:v64 assetVersion:v68 assetLocale:0 assetSource:v33 isAssetPathValid:v36 assetPath:absoluteString assetDownloadSizeInBytes:v40 assetUnarchivedSizeInBytes:v44];
 
-          v7 = v60;
-          [v60 addObject:v45];
+          v7 = v59;
+          [v59 addObject:v45];
 
-          v26 = v66 + 1;
+          v26 = v65 + 1;
         }
 
-        while (v62 != v66 + 1);
-        v62 = [obj countByEnumeratingWithState:&v72 objects:v81 count:16];
+        while (v61 != v65 + 1);
+        v61 = [obj countByEnumeratingWithState:&v71 objects:v80 count:16];
       }
 
-      while (v62);
+      while (v61);
     }
 
     v46 = objc_alloc(MEMORY[0x1E698EF78]);
-    v47 = [MEMORY[0x1E696AD98] numberWithBool:v80];
-    setCopy = v55;
-    v48 = [v46 initWithAssetSetName:v55 assets:v7 assetType:0 assetSetId:v51 audienceId:0 mobileAssetDownloadErrorCodeFrequency:v58 fromPreSoftwareUpdateStaging:v47 expensiveCellularDownloadRequested:0];
+    v47 = [MEMORY[0x1E696AD98] numberWithBool:v79];
+    setCopy = v54;
+    v48 = [v46 initWithAssetSetName:v54 assets:v7 assetType:0 assetSetId:v50 audienceId:0 mobileAssetDownloadErrorCodeFrequency:v57 fromPreSoftwareUpdateStaging:v47 expensiveCellularDownloadRequested:0];
 
-    v9 = v53;
-    managerCopy = v54;
-    v12 = v52;
+    v9 = v52;
+    managerCopy = v53;
+    v12 = v51;
   }
 
   else
   {
     v48 = 0;
   }
-
-  v49 = *MEMORY[0x1E69E9840];
 
   return v48;
 }

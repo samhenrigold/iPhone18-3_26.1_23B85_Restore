@@ -2,6 +2,7 @@
 + (id)supportedMetricKeys;
 - (BOOL)submitMetricsWithError:(id *)error;
 - (MORehydrationThresholdMetrics)initWithCategory:(unint64_t)category provider:(unint64_t)provider failureCount:(int)count;
+- (MORehydrationThresholdMetrics)initWithLoggingEnabled:(BOOL)enabled;
 - (void)setValues;
 @end
 
@@ -18,6 +19,51 @@
   }
 
   return result;
+}
+
+- (MORehydrationThresholdMetrics)initWithLoggingEnabled:(BOOL)enabled
+{
+  v16.receiver = self;
+  v16.super_class = MORehydrationThresholdMetrics;
+  v3 = [(MOMetric *)&v16 initWithLoggingEnabled:enabled];
+  if (v3)
+  {
+    v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
+    integerKeys = [objc_opt_class() integerKeys];
+    v5 = [integerKeys countByEnumeratingWithState:&v12 objects:v17 count:16];
+    if (v5)
+    {
+      v6 = v5;
+      v7 = *v13;
+      do
+      {
+        v8 = 0;
+        do
+        {
+          if (*v13 != v7)
+          {
+            objc_enumerationMutation(integerKeys);
+          }
+
+          v9 = *(*(&v12 + 1) + 8 * v8);
+          metrics = [(MOMetric *)v3 metrics];
+          [metrics setObject:&off_100369070 forKeyedSubscript:v9];
+
+          v8 = v8 + 1;
+        }
+
+        while (v6 != v8);
+        v6 = [integerKeys countByEnumeratingWithState:&v12 objects:v17 count:16];
+      }
+
+      while (v6);
+    }
+  }
+
+  return v3;
 }
 
 + (id)supportedMetricKeys

@@ -14,7 +14,7 @@
   v2[32] = 1;
   *(&self->super.isa + OBJC_IVAR____TtCE12PhotosUICoreCSo11PXStoryViewP33_1B50DC52D4D0467ED56FE78BF1017C3914AssociatedData_itemPlacementContext) = 0;
   v4.receiver = self;
-  v4.super_class = _s14AssociatedDataCMa_4();
+  v4.super_class = _s14AssociatedDataCMa_4(self, a2);
   return [(PXStoryView.AssociatedData *)&v4 init];
 }
 

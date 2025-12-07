@@ -80,7 +80,7 @@
             v18 = [v11 lengthOfBytesUsingEncoding:4];
           }
 
-          v12 = [v11 containsString:@"\\""];
+          v12 = [v11 containsString:@"\"];
 
           v20 |= v12;
         }

@@ -44,11 +44,12 @@
       v8 = MBGetDefaultLog();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = MBStringForSnapshotFormat();
+        v11 = MBStringForSnapshotFormat();
         *buf = 138412290;
-        v16 = v10;
+        v17 = v11;
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "=cloud-backup-policy= Server-specified snapshot format: %@", buf, 0xCu);
 
+        v10 = "=cloud-backup-policy= Server-specified snapshot format: %@";
         goto LABEL_13;
       }
     }
@@ -58,11 +59,12 @@
       v8 = MBGetDefaultLog();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = MBStringForSnapshotFormat();
+        v12 = MBStringForSnapshotFormat();
         *buf = 138412290;
-        v16 = v11;
+        v17 = v12;
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "=cloud-backup-policy= Previous snapshot format: %@", buf, 0xCu);
 
+        v10 = "=cloud-backup-policy= Previous snapshot format: %@";
         goto LABEL_13;
       }
     }
@@ -73,11 +75,12 @@
       format = 3;
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = MBStringForSnapshotFormat();
+        v13 = MBStringForSnapshotFormat();
         *buf = 138412290;
-        v16 = v12;
+        v17 = v13;
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "=cloud-backup-policy= Default snapshot format: %@", buf, 0xCu);
 
+        v10 = "=cloud-backup-policy= Default snapshot format: %@";
         goto LABEL_13;
       }
     }
@@ -90,12 +93,13 @@
     {
       v9 = MBStringForSnapshotFormat();
       *buf = 138412290;
-      v16 = v9;
+      v17 = v9;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "=cloud-backup-policy= Behavior option specified snapshot format: %@", buf, 0xCu);
 
+      v10 = "=cloud-backup-policy= Behavior option specified snapshot format: %@";
 LABEL_13:
       v14 = MBStringForSnapshotFormat();
-      _MBLog();
+      _MBLog(@"Df", v10, v14);
     }
   }
 

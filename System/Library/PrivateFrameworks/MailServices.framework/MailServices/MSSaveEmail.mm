@@ -31,19 +31,19 @@
 
 - (void)_saveEmail:(id)email completionBlock:(id)block
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v7 = objc_autoreleasePoolPush();
   v8 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:email requiringSecureCoding:1 error:0];
   if (v8)
   {
     v9 = [MEMORY[0x1E695DF90] dictionaryWithObject:v8 forKey:@"email"];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __42__MSSaveEmail__saveEmail_completionBlock___block_invoke;
-    v12[3] = &unk_1E855E998;
-    v13 = blockCopy;
-    [(MSService *)self _callServicesMethod:@"SaveEmail" arguments:v9 callback:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __42__MSSaveEmail__saveEmail_completionBlock___block_invoke;
+    v11[3] = &unk_1E855E998;
+    v12 = blockCopy;
+    [(MSService *)self _callServicesMethod:@"SaveEmail" arguments:v9 callback:v11];
   }
 
   else
@@ -52,7 +52,7 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v15 = [0 length];
+      v14 = [0 length];
       _os_log_impl(&dword_1D876A000, v10, OS_LOG_TYPE_DEFAULT, "#Warning Unable to unarchive model data with length %lu", buf, 0xCu);
     }
 
@@ -61,7 +61,6 @@
   }
 
   objc_autoreleasePoolPop(v7);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __42__MSSaveEmail__saveEmail_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -120,26 +119,24 @@ void __84__MSSaveEmail__saveMessageData_forAccountWithID_autosaveIdentifier_comp
 
 - (void)_simulateServicesMethod:(id)method arguments:(id)arguments callback:(id)callback
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   methodCopy = method;
   argumentsCopy = arguments;
   callbackCopy = callback;
   if ([methodCopy isEqualToString:@"MailSaveMessage"])
   {
-    v14 = @"success";
-    v15[0] = &unk_1F541F278;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = @"success";
+    v14[0] = &unk_1F541F278;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     callbackCopy[2](callbackCopy, v11, 0);
   }
 
   else
   {
-    v13.receiver = self;
-    v13.super_class = MSSaveEmail;
-    [(MSService *)&v13 _simulateServicesMethod:methodCopy arguments:argumentsCopy callback:callbackCopy];
+    v12.receiver = self;
+    v12.super_class = MSSaveEmail;
+    [(MSService *)&v12 _simulateServicesMethod:methodCopy arguments:argumentsCopy callback:callbackCopy];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (void)placeholderAttachmentForFileName:(id)name fileSize:(int64_t)size mimeType:(id)type contentID:(id)d completionBlock:(id)block
@@ -230,7 +227,7 @@ void __92__MSSaveEmail_placeholderAttachmentForFileName_fileSize_mimeType_conten
 
 + (void)deletePlaceholderAttachmentForURL:(id)l completionBlock:(id)block
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   lCopy = l;
   blockCopy = block;
   if (!lCopy)
@@ -241,21 +238,20 @@ void __92__MSSaveEmail_placeholderAttachmentForFileName_fileSize_mimeType_conten
 
   v9 = objc_autoreleasePoolPush();
   v10 = objc_alloc_init(MSSaveEmail);
-  v17[0] = @"MSAttachmentRequestKeyOperation";
-  v17[1] = @"MSAttachmentRequestKeyURL";
-  v18[0] = &unk_1F541F2A8;
-  v18[1] = lCopy;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __65__MSSaveEmail_deletePlaceholderAttachmentForURL_completionBlock___block_invoke;
-  v15[3] = &unk_1E855E998;
+  v16[0] = @"MSAttachmentRequestKeyOperation";
+  v16[1] = @"MSAttachmentRequestKeyURL";
+  v17[0] = &unk_1F541F2A8;
+  v17[1] = lCopy;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __65__MSSaveEmail_deletePlaceholderAttachmentForURL_completionBlock___block_invoke;
+  v14[3] = &unk_1E855E998;
   v12 = blockCopy;
-  v16 = v12;
-  [(MSService *)v10 _callServicesMethod:@"MSAttachmentRequest" arguments:v11 callback:v15];
+  v15 = v12;
+  [(MSService *)v10 _callServicesMethod:@"MSAttachmentRequest" arguments:v11 callback:v14];
 
   objc_autoreleasePoolPop(v9);
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __65__MSSaveEmail_deletePlaceholderAttachmentForURL_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -287,7 +283,7 @@ void __65__MSSaveEmail_deletePlaceholderAttachmentForURL_completionBlock___block
 
 + (void)securityScopeForPlaceholderURL:(id)l completionBlock:(id)block
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   lCopy = l;
   blockCopy = block;
   if (!lCopy)
@@ -298,21 +294,20 @@ void __65__MSSaveEmail_deletePlaceholderAttachmentForURL_completionBlock___block
 
   v9 = objc_autoreleasePoolPush();
   v10 = objc_alloc_init(MSSaveEmail);
-  v17[0] = @"MSAttachmentRequestKeyOperation";
-  v17[1] = @"MSAttachmentRequestKeyURL";
-  v18[0] = &unk_1F541F2C0;
-  v18[1] = lCopy;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __62__MSSaveEmail_securityScopeForPlaceholderURL_completionBlock___block_invoke;
-  v15[3] = &unk_1E855E998;
+  v16[0] = @"MSAttachmentRequestKeyOperation";
+  v16[1] = @"MSAttachmentRequestKeyURL";
+  v17[0] = &unk_1F541F2C0;
+  v17[1] = lCopy;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __62__MSSaveEmail_securityScopeForPlaceholderURL_completionBlock___block_invoke;
+  v14[3] = &unk_1E855E998;
   v12 = blockCopy;
-  v16 = v12;
-  [(MSService *)v10 _callServicesMethod:@"MSAttachmentRequest" arguments:v11 callback:v15];
+  v15 = v12;
+  [(MSService *)v10 _callServicesMethod:@"MSAttachmentRequest" arguments:v11 callback:v14];
 
   objc_autoreleasePoolPop(v9);
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __62__MSSaveEmail_securityScopeForPlaceholderURL_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3)

@@ -13,8 +13,8 @@
 
 - (void)prepareQuery
 {
-  v20[1] = *MEMORY[0x277D85DE8];
-  v3 = objc_alloc_init(get_PSPredictionContextClass_0());
+  v19[1] = *MEMORY[0x277D85DE8];
+  v3 = objc_alloc_init(get_PSPredictionContextClass_0(self, a2));
   context = self->_context;
   self->_context = v3;
 
@@ -40,43 +40,41 @@
   {
     fetchContext4 = [(CNAutocompleteFetchRequest *)self->_request fetchContext];
     locationUUID2 = [fetchContext4 locationUUID];
-    v20[0] = locationUUID2;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+    v19[0] = locationUUID2;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
     [(_PSPredictionContext *)self->_context setLocationUUIDs:v16];
   }
 
   fetchContext5 = [(CNAutocompleteFetchRequest *)self->_request fetchContext];
   date = [fetchContext5 date];
   [(_PSPredictionContext *)self->_context setSuggestionDate:date];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runQuery
 {
-  v3 = CNALoggingContextTriage();
+  v3 = CNALoggingContextTriage(self);
   v4 = os_signpost_id_generate(v3);
 
-  v5 = CNALoggingContextPerformance();
-  v6 = v5;
-  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  v6 = CNALoggingContextPerformance(v5);
+  v7 = v6;
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_2155FE000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "Searching PeopleSuggester", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2155FE000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v4, "Searching PeopleSuggester", "", buf, 2u);
   }
 
   currentEnvironment = [MEMORY[0x277CFBE10] currentEnvironment];
   peopleSuggester = [currentEnvironment peopleSuggester];
-  v9 = [peopleSuggester autocompleteSearchResultsWithPredictionContext:self->_context];
+  v10 = [peopleSuggester autocompleteSearchResultsWithPredictionContext:self->_context];
   psResults = self->_psResults;
-  self->_psResults = v9;
+  self->_psResults = v10;
 
-  v11 = CNALoggingContextPerformance();
-  v12 = v11;
-  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v13 = CNALoggingContextPerformance(v12);
+  v14 = v13;
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
-    *v13 = 0;
-    _os_signpost_emit_with_name_impl(&dword_2155FE000, v12, OS_SIGNPOST_INTERVAL_END, v4, "Searching PeopleSuggester", "", v13, 2u);
+    *v15 = 0;
+    _os_signpost_emit_with_name_impl(&dword_2155FE000, v14, OS_SIGNPOST_INTERVAL_END, v4, "Searching PeopleSuggester", "", v15, 2u);
   }
 }
 
@@ -152,9 +150,9 @@
   v18[1] = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   v4 = handleCopy;
-  if (!handleCopy || ![handleCopy length])
+  if (!handleCopy || (handleCopy = [handleCopy length]) == 0)
   {
-    v7 = CNALoggingContextDebug();
+    v7 = CNALoggingContextDebug(handleCopy);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v16) = 0;
@@ -177,15 +175,15 @@ LABEL_7:
   if (!v9)
   {
     emailAddresses = [v7 emailAddresses];
-    v14 = [emailAddresses count];
+    v13 = [emailAddresses count];
 
-    if (v14)
+    if (v13)
     {
       v10 = 1;
       goto LABEL_8;
     }
 
-    v15 = CNALoggingContextDebug();
+    v15 = CNALoggingContextDebug(v14);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v16 = 138412290;
@@ -199,7 +197,6 @@ LABEL_7:
   v10 = 2;
 LABEL_8:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

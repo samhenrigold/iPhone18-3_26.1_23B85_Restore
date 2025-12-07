@@ -9,7 +9,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1000699F4();
+  sub_1000699F4(selfCopy);
 }
 
 - (_TtC14HDSViewService35HomePodPrivacyConsentViewController)initWithNibName:(id)name bundle:(id)bundle

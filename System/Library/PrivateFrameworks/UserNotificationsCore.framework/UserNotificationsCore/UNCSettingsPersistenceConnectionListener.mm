@@ -7,6 +7,8 @@
 - (void)addActiveSectionID:(id)d withHandler:(id)handler;
 - (void)allSectionIDsWithHandler:(id)handler;
 - (void)allSectionInfosByIDWithHandler:(id)handler;
+- (void)allSortedActiveSections:(BOOL)sections withHandler:(id)handler;
+- (void)allSortedSectionInfos:(BOOL)infos withHandler:(id)handler;
 - (void)clearedInfoForSectionID:(id)d withHandler:(id)handler;
 - (void)clearedSectionsByIDWithHandler:(id)handler;
 - (void)dealloc;
@@ -26,6 +28,8 @@
 - (void)readSectionInfoWithVersionNumberForMigrationWithHandler:(id)handler;
 - (void)readSectionOrderWithHandler:(id)handler;
 - (void)removeSectionWithID:(id)d withHandler:(id)handler;
+- (void)sectionInfoForSectionID:(id)d effective:(BOOL)effective withHandler:(id)handler;
+- (void)sectionInfosForSectionIDs:(id)ds effective:(BOOL)effective withHandler:(id)handler;
 - (void)setClearedInfo:(id)info forSectionID:(id)d withHandler:(id)handler;
 - (void)setEffectiveGlobalAnnounceCarPlaySetting:(int64_t)setting withHandler:(id)handler;
 - (void)setEffectiveGlobalAnnounceHeadphonesSetting:(int64_t)setting withHandler:(id)handler;
@@ -54,11 +58,11 @@
 
 - (UNCSettingsPersistenceConnectionListener)initWithPersistentStore:(id)store
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   storeCopy = store;
-  v17.receiver = self;
-  v17.super_class = UNCSettingsPersistenceConnectionListener;
-  v6 = [(UNCSettingsPersistenceConnectionListener *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = UNCSettingsPersistenceConnectionListener;
+  v6 = [(UNCSettingsPersistenceConnectionListener *)&v16 init];
   v7 = v6;
   if (v6)
   {
@@ -79,12 +83,11 @@
     if (os_log_type_enabled(*MEMORY[0x1E6983388], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = v7;
+      v18 = v7;
       _os_log_impl(&dword_1DA7A9000, v14, OS_LOG_TYPE_DEFAULT, "SettingsPersistenceListener created %@", buf, 0xCu);
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -121,7 +124,7 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   listenerCopy = listener;
   connectionCopy = connection;
   v8 = +[UNCSettingsRemotePersistenceService clientInterface];
@@ -148,67 +151,88 @@
   if (os_log_type_enabled(*MEMORY[0x1E6983388], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v28 = bundleID2;
+    v27 = bundleID2;
     _os_log_impl(&dword_1DA7A9000, v14, OS_LOG_TYPE_DEFAULT, "SettingsPersistenceListener accepting connection %@", buf, 0xCu);
   }
 
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __79__UNCSettingsPersistenceConnectionListener_listener_shouldAcceptNewConnection___block_invoke;
-  v25[3] = &unk_1E85D6F70;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __79__UNCSettingsPersistenceConnectionListener_listener_shouldAcceptNewConnection___block_invoke;
+  v24[3] = &unk_1E85D6F70;
   v15 = bundleID2;
-  v26 = v15;
-  [connectionCopy setInterruptionHandler:v25];
-  v20 = MEMORY[0x1E69E9820];
-  v21 = 3221225472;
-  v22 = __79__UNCSettingsPersistenceConnectionListener_listener_shouldAcceptNewConnection___block_invoke_10;
-  v23 = &unk_1E85D6F70;
+  v25 = v15;
+  [connectionCopy setInterruptionHandler:v24];
+  v19 = MEMORY[0x1E69E9820];
+  v20 = 3221225472;
+  v21 = __79__UNCSettingsPersistenceConnectionListener_listener_shouldAcceptNewConnection___block_invoke_10;
+  v22 = &unk_1E85D6F70;
   v16 = v15;
-  v24 = v16;
-  [connectionCopy setInvalidationHandler:&v20];
+  v23 = v16;
+  [connectionCopy setInvalidationHandler:&v19];
   [connectionCopy resume];
   v17 = self->_connections;
   objc_sync_enter(v17);
   [(NSMutableArray *)self->_connections addObject:connectionCopy];
   objc_sync_exit(v17);
 
-  v18 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 void __79__UNCSettingsPersistenceConnectionListener_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E6983388];
   if (os_log_type_enabled(*MEMORY[0x1E6983388], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_1DA7A9000, v2, OS_LOG_TYPE_DEFAULT, "SettingsPersistenceListener client connection interrupted: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1DA7A9000, v2, OS_LOG_TYPE_DEFAULT, "SettingsPersistenceListener client connection interrupted: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __79__UNCSettingsPersistenceConnectionListener_listener_shouldAcceptNewConnection___block_invoke_10(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E6983388];
   if (os_log_type_enabled(*MEMORY[0x1E6983388], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_1DA7A9000, v2, OS_LOG_TYPE_DEFAULT, "SettingsPersistenceListener client connection invalidated: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1DA7A9000, v2, OS_LOG_TYPE_DEFAULT, "SettingsPersistenceListener client connection invalidated: %@", &v4, 0xCu);
+  }
+}
+
+- (void)sectionInfoForSectionID:(id)d effective:(BOOL)effective withHandler:(id)handler
+{
+  effectiveCopy = effective;
+  v19 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  handlerCopy = handler;
+  v10 = *MEMORY[0x1E6983388];
+  if (os_log_type_enabled(*MEMORY[0x1E6983388], OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = MEMORY[0x1E696AD98];
+    v12 = v10;
+    v13 = [v11 numberWithBool:effectiveCopy];
+    v15 = 138412546;
+    v16 = dCopy;
+    v17 = 2112;
+    v18 = v13;
+    _os_log_impl(&dword_1DA7A9000, v12, OS_LOG_TYPE_DEFAULT, "Retrieving sectionInfo for %@ effective: %@", &v15, 0x16u);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
+  v14 = [(UNCSectionInfoStore *)self->_sectionInfoStore sectionInfoForSectionID:dCopy effective:effectiveCopy];
+  if (handlerCopy)
+  {
+    handlerCopy[2](handlerCopy, v14, 0);
+  }
 }
 
 - (void)setSectionInfo:(id)info forSectionID:(id)d withHandler:(id)handler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   dCopy = d;
   handlerCopy = handler;
@@ -216,11 +240,11 @@ void __79__UNCSettingsPersistenceConnectionListener_listener_shouldAcceptNewConn
   v12 = *MEMORY[0x1E6983388];
   if (os_log_type_enabled(*MEMORY[0x1E6983388], OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412546;
-    v16 = dCopy;
-    v17 = 2112;
-    v18 = infoCopy;
-    _os_log_impl(&dword_1DA7A9000, v12, OS_LOG_TYPE_DEFAULT, "Setting sectionInfo for ID %@: %@", &v15, 0x16u);
+    v14 = 138412546;
+    v15 = dCopy;
+    v16 = 2112;
+    v17 = infoCopy;
+    _os_log_impl(&dword_1DA7A9000, v12, OS_LOG_TYPE_DEFAULT, "Setting sectionInfo for ID %@: %@", &v14, 0x16u);
   }
 
   if (infoCopy)
@@ -253,21 +277,19 @@ LABEL_8:
   }
 
 LABEL_9:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeSectionWithID:(id)d withHandler:(id)handler
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   dCopy = d;
   handlerCopy = handler;
   v8 = *MEMORY[0x1E6983388];
   if (os_log_type_enabled(*MEMORY[0x1E6983388], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = dCopy;
-    _os_log_impl(&dword_1DA7A9000, v8, OS_LOG_TYPE_DEFAULT, "Removing section with ID %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = dCopy;
+    _os_log_impl(&dword_1DA7A9000, v8, OS_LOG_TYPE_DEFAULT, "Removing section with ID %@", &v9, 0xCu);
   }
 
   [(UNCSectionInfoStore *)self->_sectionInfoStore removeSectionWithID:dCopy];
@@ -275,77 +297,131 @@ LABEL_9:
   {
     handlerCopy[2](handlerCopy);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)allSectionIDsWithHandler:(id)handler
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   allUnsortedSectionInfoIDs = [(UNCSectionInfoStore *)self->_sectionInfoStore allUnsortedSectionInfoIDs];
   v6 = *MEMORY[0x1E6983388];
   if (os_log_type_enabled(*MEMORY[0x1E6983388], OS_LOG_TYPE_DEFAULT))
   {
     v7 = v6;
-    v9 = 134217984;
-    v10 = [allUnsortedSectionInfoIDs count];
-    _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "Reading allSectionIDs. Count: %lu", &v9, 0xCu);
+    v8 = 134217984;
+    v9 = [allUnsortedSectionInfoIDs count];
+    _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "Reading allSectionIDs. Count: %lu", &v8, 0xCu);
   }
 
   if (handlerCopy)
   {
     handlerCopy[2](handlerCopy, allUnsortedSectionInfoIDs, 0);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)allSectionInfosByIDWithHandler:(id)handler
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   sectionInfoByID = [(UNCSectionInfoStore *)self->_sectionInfoStore sectionInfoByID];
   v6 = *MEMORY[0x1E6983388];
   if (os_log_type_enabled(*MEMORY[0x1E6983388], OS_LOG_TYPE_DEFAULT))
   {
     v7 = v6;
-    v9 = 134217984;
-    v10 = [sectionInfoByID count];
-    _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "Reading allSectionInfosByID. Count %lu", &v9, 0xCu);
+    v8 = 134217984;
+    v9 = [sectionInfoByID count];
+    _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "Reading allSectionInfosByID. Count %lu", &v8, 0xCu);
   }
 
   if (handlerCopy)
   {
     handlerCopy[2](handlerCopy, sectionInfoByID, 0);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activeSectionIDsWithHandler:(id)handler
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   activeSectionIDs = [(UNCSectionInfoStore *)self->_sectionInfoStore activeSectionIDs];
   v6 = *MEMORY[0x1E6983388];
   if (os_log_type_enabled(*MEMORY[0x1E6983388], OS_LOG_TYPE_DEFAULT))
   {
     v7 = v6;
-    v9 = 134217984;
-    v10 = [activeSectionIDs count];
-    _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "Reading activeSectionIDs. Count %lu", &v9, 0xCu);
+    v8 = 134217984;
+    v9 = [activeSectionIDs count];
+    _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "Reading activeSectionIDs. Count %lu", &v8, 0xCu);
   }
 
   if (handlerCopy)
   {
     handlerCopy[2](handlerCopy, activeSectionIDs, 0);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addActiveSectionID:(id)d withHandler:(id)handler
+{
+  v11 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  handlerCopy = handler;
+  v8 = *MEMORY[0x1E6983388];
+  if (os_log_type_enabled(*MEMORY[0x1E6983388], OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = 138412290;
+    v10 = dCopy;
+    _os_log_impl(&dword_1DA7A9000, v8, OS_LOG_TYPE_DEFAULT, "Adding activeSectionID %@", &v9, 0xCu);
+  }
+
+  [(UNCSectionInfoStore *)self->_sectionInfoStore addActiveSectionID:dCopy];
+  if (handlerCopy)
+  {
+    handlerCopy[2](handlerCopy);
+  }
+}
+
+- (void)allSortedActiveSections:(BOOL)sections withHandler:(id)handler
+{
+  sectionsCopy = sections;
+  v12 = *MEMORY[0x1E69E9840];
+  handlerCopy = handler;
+  v7 = [(UNCSectionInfoStore *)self->_sectionInfoStore allSortedActiveSections:sectionsCopy];
+  v8 = *MEMORY[0x1E6983388];
+  if (os_log_type_enabled(*MEMORY[0x1E6983388], OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = v8;
+    v10 = 134217984;
+    v11 = [v7 count];
+    _os_log_impl(&dword_1DA7A9000, v9, OS_LOG_TYPE_DEFAULT, "Reading allSortedActiveSections. Count %lu", &v10, 0xCu);
+  }
+
+  if (handlerCopy)
+  {
+    handlerCopy[2](handlerCopy, v7, 0);
+  }
+}
+
+- (void)allSortedSectionInfos:(BOOL)infos withHandler:(id)handler
+{
+  infosCopy = infos;
+  v12 = *MEMORY[0x1E69E9840];
+  handlerCopy = handler;
+  v7 = [(UNCSectionInfoStore *)self->_sectionInfoStore allSortedSectionInfo:infosCopy];
+  v8 = *MEMORY[0x1E6983388];
+  if (os_log_type_enabled(*MEMORY[0x1E6983388], OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = v8;
+    v10 = 134217984;
+    v11 = [v7 count];
+    _os_log_impl(&dword_1DA7A9000, v9, OS_LOG_TYPE_DEFAULT, "Reading allSortedSectionInfos. Count %lu", &v10, 0xCu);
+  }
+
+  if (handlerCopy)
+  {
+    handlerCopy[2](handlerCopy, v7, 0);
+  }
+}
+
+- (void)clearedInfoForSectionID:(id)d withHandler:(id)handler
 {
   v12 = *MEMORY[0x1E69E9840];
   dCopy = d;
@@ -355,29 +431,7 @@ LABEL_9:
   {
     v10 = 138412290;
     v11 = dCopy;
-    _os_log_impl(&dword_1DA7A9000, v8, OS_LOG_TYPE_DEFAULT, "Adding activeSectionID %@", &v10, 0xCu);
-  }
-
-  [(UNCSectionInfoStore *)self->_sectionInfoStore addActiveSectionID:dCopy];
-  if (handlerCopy)
-  {
-    handlerCopy[2](handlerCopy);
-  }
-
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-- (void)clearedInfoForSectionID:(id)d withHandler:(id)handler
-{
-  v13 = *MEMORY[0x1E69E9840];
-  dCopy = d;
-  handlerCopy = handler;
-  v8 = *MEMORY[0x1E6983388];
-  if (os_log_type_enabled(*MEMORY[0x1E6983388], OS_LOG_TYPE_DEFAULT))
-  {
-    v11 = 138412290;
-    v12 = dCopy;
-    _os_log_impl(&dword_1DA7A9000, v8, OS_LOG_TYPE_DEFAULT, "Reading clearedInfo for sectionID %@", &v11, 0xCu);
+    _os_log_impl(&dword_1DA7A9000, v8, OS_LOG_TYPE_DEFAULT, "Reading clearedInfo for sectionID %@", &v10, 0xCu);
   }
 
   v9 = [(UNCSectionInfoStore *)self->_sectionInfoStore clearedInfoForSectionID:dCopy];
@@ -385,44 +439,61 @@ LABEL_9:
   {
     handlerCopy[2](handlerCopy, v9, 0);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearedSectionsByIDWithHandler:(id)handler
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   clearedSectionsByID = [(UNCSectionInfoStore *)self->_sectionInfoStore clearedSectionsByID];
   v6 = *MEMORY[0x1E6983388];
   if (os_log_type_enabled(*MEMORY[0x1E6983388], OS_LOG_TYPE_DEFAULT))
   {
     v7 = v6;
-    v9 = 134217984;
-    v10 = [clearedSectionsByID count];
-    _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "Reading clearedSectionsByID. Count %lu", &v9, 0xCu);
+    v8 = 134217984;
+    v9 = [clearedSectionsByID count];
+    _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "Reading clearedSectionsByID. Count %lu", &v8, 0xCu);
   }
 
   if (handlerCopy)
   {
     handlerCopy[2](handlerCopy, clearedSectionsByID, 0);
   }
+}
 
-  v8 = *MEMORY[0x1E69E9840];
+- (void)sectionInfosForSectionIDs:(id)ds effective:(BOOL)effective withHandler:(id)handler
+{
+  effectiveCopy = effective;
+  v14 = *MEMORY[0x1E69E9840];
+  dsCopy = ds;
+  handlerCopy = handler;
+  v10 = *MEMORY[0x1E6983388];
+  if (os_log_type_enabled(*MEMORY[0x1E6983388], OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = 138412290;
+    v13 = dsCopy;
+    _os_log_impl(&dword_1DA7A9000, v10, OS_LOG_TYPE_DEFAULT, "Reading sectionInfosForSectionIDs %@", &v12, 0xCu);
+  }
+
+  v11 = [(UNCSectionInfoStore *)self->_sectionInfoStore sortedSectionInfoForSectionIDs:dsCopy effective:effectiveCopy];
+  if (handlerCopy)
+  {
+    handlerCopy[2](handlerCopy, v11, 0);
+  }
 }
 
 - (void)setClearedInfo:(id)info forSectionID:(id)d withHandler:(id)handler
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   dCopy = d;
   handlerCopy = handler;
   v11 = *MEMORY[0x1E6983388];
   if (os_log_type_enabled(*MEMORY[0x1E6983388], OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = dCopy;
-    _os_log_impl(&dword_1DA7A9000, v11, OS_LOG_TYPE_DEFAULT, "Setting clearedInfo for sectionID %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = dCopy;
+    _os_log_impl(&dword_1DA7A9000, v11, OS_LOG_TYPE_DEFAULT, "Setting clearedInfo for sectionID %@", &v12, 0xCu);
   }
 
   [(UNCSectionInfoStore *)self->_sectionInfoStore setClearedInfo:infoCopy forSectionID:dCopy];
@@ -430,44 +501,40 @@ LABEL_9:
   {
     handlerCopy[2](handlerCopy);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sortedSectionIDsWithHandler:(id)handler
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   sortedSectionIDs = [(UNCSectionInfoStore *)self->_sectionInfoStore sortedSectionIDs];
   v6 = *MEMORY[0x1E6983388];
   if (os_log_type_enabled(*MEMORY[0x1E6983388], OS_LOG_TYPE_DEFAULT))
   {
     v7 = v6;
-    v9 = 134217984;
-    v10 = [sortedSectionIDs count];
-    _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "Reading sortedSectionIDs. Count %lu", &v9, 0xCu);
+    v8 = 134217984;
+    v9 = [sortedSectionIDs count];
+    _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "Reading sortedSectionIDs. Count %lu", &v8, 0xCu);
   }
 
   if (handlerCopy)
   {
     handlerCopy[2](handlerCopy, sortedSectionIDs, 0);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)readSavedClearedSectionsWithHandler:(id)handler
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   readClearedSections = [(UNCNotificationSettingsPersistentStore *)self->_persistentSettingsStore readClearedSections];
   v6 = MEMORY[0x1E6983388];
   v7 = *MEMORY[0x1E6983388];
   if (os_log_type_enabled(*MEMORY[0x1E6983388], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = readClearedSections;
-    _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "UNCSettingsListener readSavedCleared: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = readClearedSections;
+    _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "UNCSettingsListener readSavedCleared: %@", &v9, 0xCu);
   }
 
   if (handlerCopy)
@@ -475,28 +542,26 @@ LABEL_9:
     v8 = *v6;
     if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_1DA7A9000, v8, OS_LOG_TYPE_DEFAULT, "UNCSettingsListener readSavedCleared invoking handler", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_1DA7A9000, v8, OS_LOG_TYPE_DEFAULT, "UNCSettingsListener readSavedCleared invoking handler", &v9, 2u);
     }
 
     handlerCopy[2](handlerCopy, readClearedSections, 0);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)readSectionInfoWithHandler:(id)handler
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   readSectionInfo = [(UNCNotificationSettingsPersistentStore *)self->_persistentSettingsStore readSectionInfo];
   v6 = MEMORY[0x1E6983388];
   v7 = *MEMORY[0x1E6983388];
   if (os_log_type_enabled(*MEMORY[0x1E6983388], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = readSectionInfo;
-    _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "UNCSettingsListener readSectionInfo %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = readSectionInfo;
+    _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "UNCSettingsListener readSectionInfo %@", &v9, 0xCu);
   }
 
   if (handlerCopy)
@@ -504,86 +569,76 @@ LABEL_9:
     v8 = *v6;
     if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_1DA7A9000, v8, OS_LOG_TYPE_DEFAULT, "UNCSettingsListener readSectionInfo invoking handler", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_1DA7A9000, v8, OS_LOG_TYPE_DEFAULT, "UNCSettingsListener readSectionInfo invoking handler", &v9, 2u);
     }
 
     handlerCopy[2](handlerCopy, readSectionInfo, 0);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)readSectionOrderWithHandler:(id)handler
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   readSectionOrder = [(UNCNotificationSettingsPersistentStore *)self->_persistentSettingsStore readSectionOrder];
   v6 = *MEMORY[0x1E6983388];
   if (os_log_type_enabled(*MEMORY[0x1E6983388], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = readSectionOrder;
-    _os_log_impl(&dword_1DA7A9000, v6, OS_LOG_TYPE_DEFAULT, "UNCSettingsListener readSectionOrder %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = readSectionOrder;
+    _os_log_impl(&dword_1DA7A9000, v6, OS_LOG_TYPE_DEFAULT, "UNCSettingsListener readSectionOrder %@", &v7, 0xCu);
   }
 
   if (handlerCopy)
   {
     handlerCopy[2](handlerCopy, readSectionOrder, 0);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)writeClearedSections:(id)sections
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   sectionsCopy = sections;
   v5 = *MEMORY[0x1E6983388];
   if (os_log_type_enabled(*MEMORY[0x1E6983388], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = sectionsCopy;
-    _os_log_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_DEFAULT, "UNCSettingsListener writeClearedSections %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = sectionsCopy;
+    _os_log_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_DEFAULT, "UNCSettingsListener writeClearedSections %@", &v6, 0xCu);
   }
 
   [(UNCNotificationSettingsPersistentStore *)self->_persistentSettingsStore writeClearedSections:sectionsCopy];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)writeSectionInfo:(id)info
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v5 = *MEMORY[0x1E6983388];
   if (os_log_type_enabled(*MEMORY[0x1E6983388], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = infoCopy;
-    _os_log_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_DEFAULT, "UNCSettingsListener writeSectionInfo %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = infoCopy;
+    _os_log_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_DEFAULT, "UNCSettingsListener writeSectionInfo %@", &v6, 0xCu);
   }
 
   [(UNCNotificationSettingsPersistentStore *)self->_persistentSettingsStore writeSectionInfo:infoCopy];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)writeSectionOrder:(id)order
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   orderCopy = order;
   v5 = *MEMORY[0x1E6983388];
   if (os_log_type_enabled(*MEMORY[0x1E6983388], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = orderCopy;
-    _os_log_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_DEFAULT, "UNCSettingsListener writeSectionOrder %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = orderCopy;
+    _os_log_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_DEFAULT, "UNCSettingsListener writeSectionOrder %@", &v6, 0xCu);
   }
 
   [(UNCNotificationSettingsPersistentStore *)self->_persistentSettingsStore writeSectionOrder:orderCopy];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)hasSectionInfoLegacyFileWithHandler:(id)handler
@@ -806,11 +861,10 @@ LABEL_9:
 
 - (void)setSectionInfo:(uint64_t)a1 forSectionID:(NSObject *)a2 withHandler:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DA7A9000, a2, OS_LOG_TYPE_ERROR, "-setSectionInfo:forSectionID: called with nil section info for ID %@. Use -removeSectionWithID instead", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DA7A9000, a2, OS_LOG_TYPE_ERROR, "-setSectionInfo:forSectionID: called with nil section info for ID %@. Use -removeSectionWithID instead", &v2, 0xCu);
 }
 
 @end

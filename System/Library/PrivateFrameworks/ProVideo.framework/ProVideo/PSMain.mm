@@ -71,8 +71,8 @@
   }
 
   v3 = *(doc + 3);
-  OZScene::begin_sel(v3, v14);
-  OZScene::end_sel(v3, v12);
+  OZScene::begin_sel(v14, v3);
+  OZScene::end_sel(v12, v3);
   v4 = v14[0];
   if (v14[0] != v12[0])
   {

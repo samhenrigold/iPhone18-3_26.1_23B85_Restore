@@ -67,73 +67,74 @@ uint64_t __41__ATXBatteryDrainBehavior_sharedInstance__block_invoke()
 
 - (unint64_t)fetchADBLDrainClassification
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v3 = [MEMORY[0x1E695DF00] now];
   lastCachedDate = [(ATXBatteryDrainBehavior *)selfCopy lastCachedDate];
   lastCachedClassification = [(ATXBatteryDrainBehavior *)selfCopy lastCachedClassification];
-  if (lastCachedDate && (historicalClassification = lastCachedClassification, [MEMORY[0x1E695DEE8] currentCalendar], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isDate:inSameDayAsDate:", lastCachedDate, v3), v7, v8))
+  if (lastCachedDate && (v6 = lastCachedClassification, [MEMORY[0x1E695DEE8] currentCalendar], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isDate:inSameDayAsDate:", lastCachedDate, v3), v7, v8))
   {
-    v9 = __atxlog_handle_default();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = __atxlog_handle_default(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 134217984;
-      *(&buf + 4) = historicalClassification;
-      _os_log_impl(&dword_1BF549000, v9, OS_LOG_TYPE_DEFAULT, "ATXBatteryDrainBehavior: returning cached drain classification: %lu", &buf, 0xCu);
+      *(&buf + 4) = v6;
+      _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "ATXBatteryDrainBehavior: returning cached drain classification: %lu", &buf, 0xCu);
     }
   }
 
   else
   {
-    v10 = objc_autoreleasePoolPush();
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2050000000;
-    v11 = get_OSBatteryDrainPredictorClass_softClass;
-    v20 = get_OSBatteryDrainPredictorClass_softClass;
+    v11 = objc_autoreleasePoolPush();
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x2050000000;
+    v12 = get_OSBatteryDrainPredictorClass_softClass;
+    v22 = get_OSBatteryDrainPredictorClass_softClass;
     if (!get_OSBatteryDrainPredictorClass_softClass)
     {
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v22 = __get_OSBatteryDrainPredictorClass_block_invoke;
-      v23 = &unk_1E80C0758;
-      v24 = &v17;
+      v24 = __get_OSBatteryDrainPredictorClass_block_invoke;
+      v25 = &unk_1E80C0758;
+      v26 = &v19;
       __get_OSBatteryDrainPredictorClass_block_invoke(&buf);
-      v11 = v18[3];
+      v12 = v20[3];
     }
 
-    v12 = v11;
-    _Block_object_dispose(&v17, 8);
-    predictor = [v11 predictor];
+    v13 = v12;
+    _Block_object_dispose(&v19, 8);
+    predictor = [v12 predictor];
     historicalClassification = [predictor historicalClassification];
+    v6 = historicalClassification;
     if (historicalClassification >= 4)
     {
-      v14 = __atxlog_handle_default();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+      v16 = __atxlog_handle_default(historicalClassification);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
-        [(ATXBatteryDrainBehavior *)historicalClassification fetchADBLDrainClassification];
+        [(ATXBatteryDrainBehavior *)v6 fetchADBLDrainClassification];
       }
 
-      historicalClassification = 0;
+      v6 = 0;
     }
 
-    v15 = __atxlog_handle_default();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = __atxlog_handle_default(historicalClassification);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 134217984;
-      *(&buf + 4) = historicalClassification;
-      _os_log_impl(&dword_1BF549000, v15, OS_LOG_TYPE_DEFAULT, "ATXBatteryDrainBehavior: drain classification: %lu", &buf, 0xCu);
+      *(&buf + 4) = v6;
+      _os_log_impl(&dword_1BF549000, v17, OS_LOG_TYPE_DEFAULT, "ATXBatteryDrainBehavior: drain classification: %lu", &buf, 0xCu);
     }
 
     [(ATXBatteryDrainBehavior *)selfCopy setLastCachedDate:v3];
-    [(ATXBatteryDrainBehavior *)selfCopy setLastCachedClassification:historicalClassification];
+    [(ATXBatteryDrainBehavior *)selfCopy setLastCachedClassification:v6];
 
-    objc_autoreleasePoolPop(v10);
+    objc_autoreleasePoolPop(v11);
   }
 
   objc_sync_exit(selfCopy);
-  return historicalClassification;
+  return v6;
 }
 
 - (void)fetchADBLDrainClassification

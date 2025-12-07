@@ -364,158 +364,159 @@
 - (void)loadControlIfNeeded
 {
   control = [(TUIInteractiveBaseView *)self control];
+  v58 = control;
   if (!control)
   {
-    v3 = objc_opt_class();
+    v5 = objc_opt_class();
     renderModel = [(TUIInteractiveBaseView *)self renderModel];
-    v5 = TUIDynamicCast(v3, renderModel);
+    v7 = TUIDynamicCast(v5, renderModel);
 
-    control = +[TUIUIKitButton buttonWithType:](TUIUIKitButton, "buttonWithType:", +[TUIControlView uiButtonTypeFromTUIButtonType:](TUIControlView, "uiButtonTypeFromTUIButtonType:", [v5 type]));
+    v58 = +[TUIUIKitButton buttonWithType:](TUIUIKitButton, "buttonWithType:", +[TUIControlView uiButtonTypeFromTUIButtonType:](TUIControlView, "uiButtonTypeFromTUIButtonType:", [v7 type]));
     [(TUIControlView *)self bounds];
-    [control frameForAlignmentRect:?];
-    [control setFrame:?];
-    [control setEnabled:1];
-    [control setAutoresizingMask:18];
-    [control addTarget:self action:"_buttonPressed:" forControlEvents:64];
-    [control addObserver:self forKeyPath:@"enabled" options:0 context:off_2E5620];
-    [control addObserver:self forKeyPath:@"highlighted" options:0 context:off_2E5620];
-    [control setTui_delegate:self];
-    [(TUIControlView *)self addSubview:control];
-    [(TUIInteractiveBaseView *)self setControl:control];
+    [v58 frameForAlignmentRect:?];
+    [v58 setFrame:?];
+    [v58 setEnabled:1];
+    [v58 setAutoresizingMask:18];
+    [v58 addTarget:self action:"_buttonPressed:" forControlEvents:64];
+    [v58 addObserver:self forKeyPath:@"enabled" options:0 context:off_2E5620];
+    [v58 addObserver:self forKeyPath:@"highlighted" options:0 context:off_2E5620];
+    [v58 setTui_delegate:self];
+    [(TUIControlView *)self addSubview:v58];
+    [(TUIInteractiveBaseView *)self setControl:v58];
   }
 
   if (!self->_selectGestureRecognizer)
   {
-    v6 = [[UITapGestureRecognizer alloc] initWithTarget:self action:"_selectGesture:"];
+    v8 = [[UITapGestureRecognizer alloc] initWithTarget:self action:"_selectGesture:"];
     selectGestureRecognizer = self->_selectGestureRecognizer;
-    self->_selectGestureRecognizer = v6;
+    self->_selectGestureRecognizer = v8;
 
     [(UITapGestureRecognizer *)self->_selectGestureRecognizer setAllowedTouchTypes:&__NSArray0__struct];
     [(UITapGestureRecognizer *)self->_selectGestureRecognizer setAllowedPressTypes:&off_273388];
-    [(TUIControlView *)self addGestureRecognizer:self->_selectGestureRecognizer];
+    control = [(TUIControlView *)self addGestureRecognizer:self->_selectGestureRecognizer];
   }
 
-  if (_TUIDeviceHasInternalInstall())
+  if (_TUIDeviceHasInternalInstall(control, v4))
   {
     renderModel2 = [(TUIInteractiveBaseView *)self renderModel];
     if (renderModel2)
     {
-      v9 = renderModel2;
+      v11 = renderModel2;
       renderModel3 = [(TUIInteractiveBaseView *)self renderModel];
-      v11 = objc_opt_respondsToSelector();
+      v13 = objc_opt_respondsToSelector();
 
-      if ((v11 & 1) == 0)
+      if ((v13 & 1) == 0)
       {
-        v21 = TUIRenderModelLog();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v24 = TUIRenderModelLog(v14);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           sub_19C074(self);
         }
 
         selfCopy = self;
-        v23 = 0;
-        v54 = selfCopy;
+        v26 = 0;
+        v57 = selfCopy;
         do
         {
-          v24 = objc_opt_class();
-          v25 = TUIDynamicCast(v24, selfCopy);
-          if (v25)
+          v27 = objc_opt_class();
+          v28 = TUIDynamicCast(v27, selfCopy);
+          if (v28)
           {
-            v26 = v25;
-            v27 = objc_opt_class();
+            v29 = v28;
+            v30 = objc_opt_class();
             scrollingDelegate = [(TUIControlView *)selfCopy scrollingDelegate];
-            v29 = TUIDynamicCast(v27, scrollingDelegate);
+            v32 = TUIDynamicCast(v30, scrollingDelegate);
 
-            if (v29)
+            if (v32)
             {
               break;
             }
           }
 
-          v30 = objc_opt_class();
-          v31 = TUIDynamicCast(v30, selfCopy);
-          v32 = TUIRenderModelLog();
-          v33 = os_log_type_enabled(v32, OS_LOG_TYPE_ERROR);
-          if (v31)
+          v33 = objc_opt_class();
+          v34 = TUIDynamicCast(v33, selfCopy);
+          v35 = TUIRenderModelLog(v34);
+          v36 = os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
+          if (v34)
           {
-            if (v33)
+            if (v36)
             {
-              layoutAttributes = [(TUIReusableBaseView *)v31 layoutAttributes];
+              layoutAttributes = [(TUIReusableBaseView *)v34 layoutAttributes];
               renderModel4 = [layoutAttributes renderModel];
               *buf = 134218498;
-              v59 = v23;
-              v60 = 2112;
-              v61 = v31;
-              v62 = 2112;
-              v63 = renderModel4;
-              _os_log_error_impl(&dword_0, v32, OS_LOG_TYPE_ERROR, "superview[%lu]: %@, renderModel=%@", buf, 0x20u);
+              v62 = v26;
+              v63 = 2112;
+              v64 = v34;
+              v65 = 2112;
+              v66 = renderModel4;
+              _os_log_error_impl(&dword_0, v35, OS_LOG_TYPE_ERROR, "superview[%lu]: %@, renderModel=%@", buf, 0x20u);
             }
           }
 
-          else if (v33)
+          else if (v36)
           {
             *buf = 134218242;
-            v59 = v23;
-            v60 = 2112;
-            v61 = selfCopy;
-            _os_log_error_impl(&dword_0, v32, OS_LOG_TYPE_ERROR, "superView[%lu]: %@ (not renderModel based)", buf, 0x16u);
+            v62 = v26;
+            v63 = 2112;
+            v64 = selfCopy;
+            _os_log_error_impl(&dword_0, v35, OS_LOG_TYPE_ERROR, "superView[%lu]: %@ (not renderModel based)", buf, 0x16u);
           }
 
-          ++v23;
+          ++v26;
           superview = [(TUIControlView *)selfCopy superview];
 
           selfCopy = superview;
         }
 
         while (superview);
-        v37 = objc_opt_class();
-        v38 = TUIDynamicCast(v37, selfCopy);
-        v39 = TUIRenderModelLog();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+        v40 = objc_opt_class();
+        v41 = TUIDynamicCast(v40, selfCopy);
+        v42 = TUIRenderModelLog(v41);
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
         {
-          sub_19C138(v38);
+          sub_19C138(v41);
         }
 
-        v40 = [NSException alloc];
-        v56[0] = @"renderModel";
-        renderModel5 = [(TUIInteractiveBaseView *)v54 renderModel];
-        v57[0] = renderModel5;
-        v56[1] = @"renderModelIdentifier";
-        renderModel6 = [(TUIInteractiveBaseView *)v54 renderModel];
+        v43 = [NSException alloc];
+        v59[0] = @"renderModel";
+        renderModel5 = [(TUIInteractiveBaseView *)v57 renderModel];
+        v60[0] = renderModel5;
+        v59[1] = @"renderModelIdentifier";
+        renderModel6 = [(TUIInteractiveBaseView *)v57 renderModel];
         identifier = [renderModel6 identifier];
         tui_identifierToString = [identifier tui_identifierToString];
-        v45 = tui_identifierToString;
+        v48 = tui_identifierToString;
         if (tui_identifierToString)
         {
-          v46 = tui_identifierToString;
+          v49 = tui_identifierToString;
         }
 
         else
         {
-          v46 = @"nil";
+          v49 = @"nil";
         }
 
-        v57[1] = v46;
-        v56[2] = @"renderModelReuseIdentifier";
-        renderModel7 = [(TUIInteractiveBaseView *)v54 renderModel];
+        v60[1] = v49;
+        v59[2] = @"renderModelReuseIdentifier";
+        renderModel7 = [(TUIInteractiveBaseView *)v57 renderModel];
         reuseIdentifier = [renderModel7 reuseIdentifier];
-        v49 = reuseIdentifier;
+        v52 = reuseIdentifier;
         if (reuseIdentifier)
         {
-          v50 = reuseIdentifier;
+          v53 = reuseIdentifier;
         }
 
         else
         {
-          v50 = @"nil";
+          v53 = @"nil";
         }
 
-        v57[2] = v50;
-        v51 = [NSDictionary dictionaryWithObjects:v57 forKeys:v56 count:3];
-        v52 = [v40 initWithName:@"InvalidRenderModel" reason:@"A renderModel of the wrong type is used" userInfo:v51];
-        v53 = v52;
+        v60[2] = v53;
+        v54 = [NSDictionary dictionaryWithObjects:v60 forKeys:v59 count:3];
+        v55 = [v43 initWithName:@"InvalidRenderModel" reason:@"A renderModel of the wrong type is used" userInfo:v54];
+        v56 = v55;
 
-        objc_exception_throw(v52);
+        objc_exception_throw(v55);
       }
     }
   }
@@ -523,36 +524,36 @@
   renderModel8 = [(TUIInteractiveBaseView *)self renderModel];
   pointer = [renderModel8 pointer];
   refId = [pointer refId];
-  v15 = [refId length];
+  v18 = [refId length];
 
   pointerInteraction = self->_pointerInteraction;
   if (pointerInteraction)
   {
-    v17 = 1;
+    v20 = 1;
   }
 
   else
   {
-    v17 = v15 == 0;
+    v20 = v18 == 0;
   }
 
-  if (v17)
+  if (v20)
   {
-    if (pointerInteraction && !v15)
+    if (pointerInteraction && !v18)
     {
-      [control removeInteraction:?];
-      v18 = self->_pointerInteraction;
+      [v58 removeInteraction:?];
+      v21 = self->_pointerInteraction;
       self->_pointerInteraction = 0;
     }
   }
 
   else
   {
-    v19 = [[UIPointerInteraction alloc] initWithDelegate:self];
-    v20 = self->_pointerInteraction;
-    self->_pointerInteraction = v19;
+    v22 = [[UIPointerInteraction alloc] initWithDelegate:self];
+    v23 = self->_pointerInteraction;
+    self->_pointerInteraction = v22;
 
-    [control addInteraction:self->_pointerInteraction];
+    [v58 addInteraction:self->_pointerInteraction];
   }
 }
 

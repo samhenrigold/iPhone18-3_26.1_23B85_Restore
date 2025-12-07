@@ -28,6 +28,8 @@
 - (void)presentationControllerDidDismiss:(id)dismiss;
 - (void)receiveCallbackURL:(id)l;
 - (void)safariView:(id)view didReceiveAction:(id)action body:(id)body replyHandler:(id)handler;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 - (void)webView:(id)view decidePolicyForNavigationAction:(id)action decisionHandler:(id)handler;
 - (void)webView:(id)view didCommitNavigation:(id)navigation;
@@ -87,7 +89,7 @@
 
 - (void)receiveCallbackURL:(id)l
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v5 = [AMSUIWebOpenSafariAction resultFromURL:lCopy error:0];
   context = [(AMSUIWebSafariViewController *)self context];
@@ -106,13 +108,13 @@
     v11 = objc_opt_class();
     context2 = [(AMSUIWebSafariViewController *)self context];
     logKey = [context2 logKey];
-    v15 = 138543874;
-    v16 = v11;
-    v17 = 2114;
-    v18 = logKey;
-    v19 = 2112;
-    v20 = lCopy;
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Received URL with scheme: %@", &v15, 0x20u);
+    v14 = 138543874;
+    v15 = v11;
+    v16 = 2114;
+    v17 = logKey;
+    v18 = 2112;
+    v19 = lCopy;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Received URL with scheme: %@", &v14, 0x20u);
   }
 
   [(AMSUIWebSafariViewController *)self _callActionHandlerWithURL:lCopy error:0];
@@ -121,8 +123,6 @@
     [(AMSUIWebSafariViewController *)self setDidHandleDismiss:1];
     [(UIViewController *)self ams_dismissViewControllerAnimated:1 completion:0];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)willPresentPageModel:(id)model appearance:(id)appearance
@@ -215,7 +215,7 @@
 
 - (void)dealloc
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -229,22 +229,21 @@
     context = [(AMSUIWebSafariViewController *)self context];
     logKey = [context logKey];
     *buf = 138543618;
-    v11 = v5;
-    v12 = 2114;
-    v13 = logKey;
+    v10 = v5;
+    v11 = 2114;
+    v12 = logKey;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Deallocated", buf, 0x16u);
   }
 
   [(AMSUIWebSafariViewController *)self _handleDismiss];
-  v9.receiver = self;
-  v9.super_class = AMSUIWebSafariViewController;
-  [(AMSUIWebSafariViewController *)&v9 dealloc];
-  v8 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = AMSUIWebSafariViewController;
+  [(AMSUIWebSafariViewController *)&v8 dealloc];
 }
 
 - (void)presentationControllerDidDismiss:(id)dismiss
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -257,15 +256,61 @@
     v6 = objc_opt_class();
     context = [(AMSUIWebSafariViewController *)self context];
     logKey = [context logKey];
-    v10 = 138543618;
-    v11 = v6;
-    v12 = 2114;
-    v13 = logKey;
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Handling swipe to dismiss", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v6;
+    v11 = 2114;
+    v12 = logKey;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Handling swipe to dismiss", &v9, 0x16u);
   }
 
   [(AMSUIWebSafariViewController *)self _handleDismiss];
-  v9 = *MEMORY[0x1E69E9840];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v15 = *MEMORY[0x1E69E9840];
+  if ([(AMSUIWebSafariViewController *)self isMovingFromParentViewController])
+  {
+    mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
+    if (!mEMORY[0x1E698C968])
+    {
+      mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
+    }
+
+    oSLogObject = [mEMORY[0x1E698C968] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = objc_opt_class();
+      context = [(AMSUIWebSafariViewController *)self context];
+      logKey = [context logKey];
+      *buf = 138543618;
+      v12 = v7;
+      v13 = 2114;
+      v14 = logKey;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Handling disappear dismissal", buf, 0x16u);
+    }
+
+    [(AMSUIWebSafariViewController *)self _handleDismiss];
+  }
+
+  v10.receiver = self;
+  v10.super_class = AMSUIWebSafariViewController;
+  [(AMSUIWebSafariViewController *)&v10 viewDidDisappear:disappearCopy];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = AMSUIWebSafariViewController;
+  [(AMSUIWebSafariViewController *)&v6 viewWillAppear:appear];
+  [(AMSUIWebSafariViewController *)self _setupPageForWebView];
+  if ([(AMSUIWebSafariViewController *)self shouldSetPresentationDelegate])
+  {
+    navigationController = [(AMSUIWebSafariViewController *)self navigationController];
+    presentationController = [navigationController presentationController];
+    [presentationController setDelegate:self];
+  }
 }
 
 - (void)viewWillLayoutSubviews
@@ -329,7 +374,7 @@
 
 - (void)safariView:(id)view didReceiveAction:(id)action body:(id)body replyHandler:(id)handler
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   bodyCopy = body;
   handlerCopy = handler;
@@ -346,11 +391,11 @@
     context = [(AMSUIWebSafariViewController *)self context];
     logKey = [context logKey];
     *buf = 138543874;
-    v32 = v14;
-    v33 = 2114;
-    v34 = logKey;
-    v35 = 2112;
-    v36 = actionCopy;
+    v31 = v14;
+    v32 = 2114;
+    v33 = logKey;
+    v34 = 2112;
+    v35 = actionCopy;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Received action: %@", buf, 0x20u);
   }
 
@@ -360,13 +405,13 @@
     dataProvider = [context2 dataProvider];
     v19 = [dataProvider runSafariCallback:bodyCopy];
 
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __78__AMSUIWebSafariViewController_safariView_didReceiveAction_body_replyHandler___block_invoke;
-    v29[3] = &unk_1E7F26A98;
-    v29[4] = self;
-    v30 = handlerCopy;
-    [v19 addFinishBlock:v29];
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __78__AMSUIWebSafariViewController_safariView_didReceiveAction_body_replyHandler___block_invoke;
+    v28[3] = &unk_1E7F26A98;
+    v28[4] = self;
+    v29 = handlerCopy;
+    [v19 addFinishBlock:v28];
 
     goto LABEL_22;
   }
@@ -416,23 +461,21 @@ LABEL_21:
     context3 = [(AMSUIWebSafariViewController *)self context];
     logKey2 = [context3 logKey];
     *buf = 138543874;
-    v32 = v25;
-    v33 = 2114;
-    v34 = logKey2;
-    v35 = 2114;
-    v36 = actionCopy;
+    v31 = v25;
+    v32 = 2114;
+    v33 = logKey2;
+    v34 = 2114;
+    v35 = actionCopy;
     _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Unknown safari action: %{public}@", buf, 0x20u);
   }
 
   (*(handlerCopy + 2))(handlerCopy, 0, @"Error: Unknown safari action");
 LABEL_22:
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __78__AMSUIWebSafariViewController_safariView_didReceiveAction_body_replyHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x1E698C968] sharedWebUIConfig];
@@ -444,31 +487,28 @@ void __78__AMSUIWebSafariViewController_safariView_didReceiveAction_body_replyHa
   v8 = [v7 OSLogObject];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = *(a1 + 32);
-    v10 = objc_opt_class();
-    v11 = [*(a1 + 32) context];
-    v12 = [v11 logKey];
-    v16 = 138544130;
-    v17 = v10;
+    v9 = objc_opt_class();
+    v10 = [*(a1 + 32) context];
+    v11 = [v10 logKey];
+    v14 = 138544130;
+    v15 = v9;
+    v16 = 2114;
+    v17 = v11;
     v18 = 2114;
-    v19 = v12;
+    v19 = v5;
     v20 = 2114;
-    v21 = v5;
-    v22 = 2114;
-    v23 = v6;
-    _os_log_impl(&dword_1BB036000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Returning result: %{public}@ error: %{public}@", &v16, 0x2Au);
+    v21 = v6;
+    _os_log_impl(&dword_1BB036000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Returning result: %{public}@ error: %{public}@", &v14, 0x2Au);
   }
 
-  v13 = *(a1 + 40);
-  v14 = [v6 localizedDescription];
-  (*(v13 + 16))(v13, v5, v14);
-
-  v15 = *MEMORY[0x1E69E9840];
+  v12 = *(a1 + 40);
+  v13 = [v6 localizedDescription];
+  (*(v12 + 16))(v12, v5, v13);
 }
 
 - (void)webView:(id)view didCommitNavigation:(id)navigation
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -483,18 +523,17 @@ void __78__AMSUIWebSafariViewController_safariView_didReceiveAction_body_replyHa
     logKey = [context logKey];
     webView = [(AMSUIWebSafariViewController *)self webView];
     v11 = [webView URL];
-    v13 = 138543874;
-    v14 = v7;
-    v15 = 2114;
-    v16 = logKey;
-    v17 = 2112;
-    v18 = v11;
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Commit navigation: %@", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = v7;
+    v14 = 2114;
+    v15 = logKey;
+    v16 = 2112;
+    v17 = v11;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Commit navigation: %@", &v12, 0x20u);
   }
 
   [(AMSUIWebSafariViewController *)self _updateButtons];
   [(AMSUIWebSafariViewController *)self _setupPageForWebView];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)webView:(id)view didFinishNavigation:(id)navigation
@@ -513,7 +552,7 @@ void __78__AMSUIWebSafariViewController_safariView_didReceiveAction_body_replyHa
 
 - (void)webView:(id)view stopURLSchemeTask:(id)task
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -526,19 +565,17 @@ void __78__AMSUIWebSafariViewController_safariView_didReceiveAction_body_replyHa
     v7 = objc_opt_class();
     context = [(AMSUIWebSafariViewController *)self context];
     logKey = [context logKey];
-    v11 = 138543618;
-    v12 = v7;
-    v13 = 2114;
-    v14 = logKey;
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Did stop handling scheme.", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v7;
+    v12 = 2114;
+    v13 = logKey;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Did stop handling scheme.", &v10, 0x16u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)webView:(id)view decidePolicyForNavigationAction:(id)action decisionHandler:(id)handler
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   handlerCopy = handler;
   request = [actionCopy request];
@@ -597,11 +634,11 @@ LABEL_4:
   else
   {
     defaultWorkspace = [MEMORY[0x1E6963608] defaultWorkspace];
-    v23 = [defaultWorkspace applicationsAvailableForOpeningURL:v10];
+    v22 = [defaultWorkspace applicationsAvailableForOpeningURL:v10];
 
-    if ([v23 count])
+    if ([v22 count])
     {
-      v36 = v23;
+      v35 = v22;
       mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
       if (!mEMORY[0x1E698C968])
       {
@@ -611,27 +648,27 @@ LABEL_4:
       oSLogObject = [mEMORY[0x1E698C968] OSLogObject];
       if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = objc_opt_class();
+        v25 = objc_opt_class();
         context = [(AMSUIWebSafariViewController *)self context];
         logKey = [context logKey];
         *buf = 138543874;
-        v40 = v26;
-        v41 = 2114;
-        v42 = logKey;
-        v43 = 2112;
-        v44 = v10;
+        v39 = v25;
+        v40 = 2114;
+        v41 = logKey;
+        v42 = 2112;
+        v43 = v10;
         _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Attempting to open URL with LS: %@", buf, 0x20u);
       }
 
       mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
-      v37[0] = MEMORY[0x1E69E9820];
-      v37[1] = 3221225472;
-      v37[2] = __88__AMSUIWebSafariViewController_webView_decidePolicyForNavigationAction_decisionHandler___block_invoke;
-      v37[3] = &unk_1E7F26AC0;
-      v37[4] = self;
-      v30 = v10;
-      v38 = v30;
-      [mEMORY[0x1E69DC668] openURL:v30 options:MEMORY[0x1E695E0F8] completionHandler:v37];
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = __88__AMSUIWebSafariViewController_webView_decidePolicyForNavigationAction_decisionHandler___block_invoke;
+      v36[3] = &unk_1E7F26AC0;
+      v36[4] = self;
+      v29 = v10;
+      v37 = v29;
+      [mEMORY[0x1E69DC668] openURL:v29 options:MEMORY[0x1E695E0F8] completionHandler:v36];
 
       mEMORY[0x1E698C968]2 = [MEMORY[0x1E698C968] sharedWebUIConfig];
       if (!mEMORY[0x1E698C968]2)
@@ -642,22 +679,22 @@ LABEL_4:
       oSLogObject2 = [mEMORY[0x1E698C968]2 OSLogObject];
       if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
       {
-        v33 = objc_opt_class();
+        v32 = objc_opt_class();
         context2 = [(AMSUIWebSafariViewController *)self context];
         logKey2 = [context2 logKey];
         *buf = 138543874;
-        v40 = v33;
-        v41 = 2114;
-        v42 = logKey2;
-        v43 = 2112;
-        v44 = v30;
+        v39 = v32;
+        v40 = 2114;
+        v41 = logKey2;
+        v42 = 2112;
+        v43 = v29;
         _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Redirecting to app URL scheme for URL: %@", buf, 0x20u);
       }
 
       [(AMSUIWebSafariViewController *)self setPerformingNavigation:0];
       [(AMSUIWebSafariViewController *)self _setupPageForWebView];
       handlerCopy[2](handlerCopy, 0);
-      v23 = v36;
+      v22 = v35;
     }
 
     else
@@ -667,13 +704,11 @@ LABEL_4:
   }
 
 LABEL_12:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __88__AMSUIWebSafariViewController_webView_decidePolicyForNavigationAction_decisionHandler___block_invoke(uint64_t a1, char a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if ((a2 & 1) == 0)
   {
     v3 = [MEMORY[0x1E698C968] sharedWebUIConfig];
@@ -685,22 +720,19 @@ void __88__AMSUIWebSafariViewController_webView_decidePolicyForNavigationAction_
     v4 = [v3 OSLogObject];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v5 = *(a1 + 32);
-      v6 = objc_opt_class();
-      v7 = [*(a1 + 32) context];
-      v8 = [v7 logKey];
-      v9 = *(a1 + 40);
-      v11 = 138543874;
-      v12 = v6;
-      v13 = 2114;
+      v5 = objc_opt_class();
+      v6 = [*(a1 + 32) context];
+      v7 = [v6 logKey];
+      v8 = *(a1 + 40);
+      v9 = 138543874;
+      v10 = v5;
+      v11 = 2114;
+      v12 = v7;
+      v13 = 2112;
       v14 = v8;
-      v15 = 2112;
-      v16 = v9;
-      _os_log_impl(&dword_1BB036000, v4, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Could not load app URL scheme for URL: %@", &v11, 0x20u);
+      _os_log_impl(&dword_1BB036000, v4, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Could not load app URL scheme for URL: %@", &v9, 0x20u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_back:(id)_back
@@ -711,7 +743,7 @@ void __88__AMSUIWebSafariViewController_webView_decidePolicyForNavigationAction_
 
 - (void)_cancel:(id)_cancel
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -724,15 +756,14 @@ void __88__AMSUIWebSafariViewController_webView_decidePolicyForNavigationAction_
     v6 = objc_opt_class();
     context = [(AMSUIWebSafariViewController *)self context];
     logKey = [context logKey];
-    v10 = 138543618;
-    v11 = v6;
-    v12 = 2114;
-    v13 = logKey;
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Cancel selected", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v6;
+    v11 = 2114;
+    v12 = logKey;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Cancel selected", &v9, 0x16u);
   }
 
   [(AMSUIWebSafariViewController *)self _dismiss];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_createToolBar
@@ -883,7 +914,7 @@ void __88__AMSUIWebSafariViewController_webView_decidePolicyForNavigationAction_
 
 - (void)_startLoadingWebView
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   model = [(AMSUIWebSafariViewController *)self model];
   if (model)
   {
@@ -913,11 +944,11 @@ void __88__AMSUIWebSafariViewController_webView_decidePolicyForNavigationAction_
         v11 = objc_opt_class();
         context = [(AMSUIWebSafariViewController *)self context];
         logKey = [context logKey];
-        v26 = 138543618;
-        v27 = v11;
-        v28 = 2114;
-        v29 = logKey;
-        _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Safari already loaded", &v26, 0x16u);
+        v25 = 138543618;
+        v26 = v11;
+        v27 = 2114;
+        v28 = logKey;
+        _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Safari already loaded", &v25, 0x16u);
       }
 
       else
@@ -937,15 +968,15 @@ void __88__AMSUIWebSafariViewController_webView_decidePolicyForNavigationAction_
           v19 = [model2 URL];
           model3 = [(AMSUIWebSafariViewController *)self model];
           callbackScheme = [model3 callbackScheme];
-          v26 = 138544130;
-          v27 = v15;
-          v28 = 2114;
-          v29 = logKey2;
-          v30 = 2112;
-          v31 = v19;
-          v32 = 2114;
-          v33 = callbackScheme;
-          _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Loading safari url: %@, scheme: %{public}@", &v26, 0x2Au);
+          v25 = 138544130;
+          v26 = v15;
+          v27 = 2114;
+          v28 = logKey2;
+          v29 = 2112;
+          v30 = v19;
+          v31 = 2114;
+          v32 = callbackScheme;
+          _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Loading safari url: %@, scheme: %{public}@", &v25, 0x2Au);
         }
 
         mEMORY[0x1E698C968]2 = [(AMSUIWebSafariViewController *)self webView];
@@ -959,8 +990,6 @@ void __88__AMSUIWebSafariViewController_webView_decidePolicyForNavigationAction_
 LABEL_14:
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupPageForWebView
@@ -998,7 +1027,7 @@ LABEL_5:
 
 - (void)_share:(id)_share
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   webView = [(AMSUIWebSafariViewController *)self webView];
   v5 = [webView URL];
 
@@ -1017,14 +1046,14 @@ LABEL_5:
     if (v13)
     {
       webView4 = [(AMSUIWebSafariViewController *)self webView];
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __39__AMSUIWebSafariViewController__share___block_invoke;
-      v21[3] = &unk_1E7F26818;
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __39__AMSUIWebSafariViewController__share___block_invoke;
+      v20[3] = &unk_1E7F26818;
       lastPathComponent = lastPathComponent;
-      v22 = lastPathComponent;
+      v21 = lastPathComponent;
       selfCopy = self;
-      [webView4 _getMainResourceDataWithCompletionHandler:v21];
+      [webView4 _getMainResourceDataWithCompletionHandler:v20];
     }
 
     else
@@ -1053,14 +1082,12 @@ LABEL_5:
       context = [(AMSUIWebSafariViewController *)self context];
       logKey = [context logKey];
       *buf = 138543618;
-      v25 = v16;
-      v26 = 2114;
-      v27 = logKey;
+      v24 = v16;
+      v25 = 2114;
+      v26 = logKey;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] No URL to share", buf, 0x16u);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __39__AMSUIWebSafariViewController__share___block_invoke(uint64_t a1, void *a2)
@@ -1084,7 +1111,7 @@ void __39__AMSUIWebSafariViewController__share___block_invoke(uint64_t a1, void 
 
 void __39__AMSUIWebSafariViewController__share___block_invoke_2(void *a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AC08] defaultManager];
   v3 = [v2 temporaryDirectory];
   v4 = [v3 URLByAppendingPathComponent:a1[4]];
@@ -1109,36 +1136,34 @@ void __39__AMSUIWebSafariViewController__share___block_invoke_2(void *a1)
     v10 = [v9 OSLogObject];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v11 = a1[5];
       *buf = 138543618;
-      v23 = objc_opt_class();
-      v24 = 2114;
-      v25 = v4;
+      v20 = objc_opt_class();
+      v21 = 2114;
+      v22 = v4;
       _os_log_impl(&dword_1BB036000, v10, OS_LOG_TYPE_DEBUG, "%{public}@: Writing pdf asset to %{public}@", buf, 0x16u);
     }
 
-    v12 = a1[6];
-    v21 = 0;
-    [v12 writeToURL:v4 options:1 error:&v21];
-    v8 = v21;
+    v11 = a1[6];
+    v18 = 0;
+    [v11 writeToURL:v4 options:1 error:&v18];
+    v8 = v18;
     if (v8)
     {
-      v13 = [MEMORY[0x1E698C968] sharedPushNotificationConfig];
-      if (!v13)
+      v12 = [MEMORY[0x1E698C968] sharedPushNotificationConfig];
+      if (!v12)
       {
-        v13 = [MEMORY[0x1E698C968] sharedConfig];
+        v12 = [MEMORY[0x1E698C968] sharedConfig];
       }
 
-      v14 = [v13 OSLogObject];
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v13 = [v12 OSLogObject];
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v15 = a1[5];
-        v16 = objc_opt_class();
+        v14 = objc_opt_class();
         *buf = 138543618;
-        v23 = v16;
-        v24 = 2114;
-        v25 = v8;
-        _os_log_impl(&dword_1BB036000, v14, OS_LOG_TYPE_INFO, "%{public}@: Error writing pdf asset: %{public}@", buf, 0x16u);
+        v20 = v14;
+        v21 = 2114;
+        v22 = v8;
+        _os_log_impl(&dword_1BB036000, v13, OS_LOG_TYPE_INFO, "%{public}@: Error writing pdf asset: %{public}@", buf, 0x16u);
       }
     }
   }
@@ -1148,11 +1173,9 @@ void __39__AMSUIWebSafariViewController__share___block_invoke_2(void *a1)
   block[2] = __39__AMSUIWebSafariViewController__share___block_invoke_78;
   block[3] = &unk_1E7F243C0;
   block[4] = a1[5];
-  v20 = v4;
   v17 = v4;
+  v15 = v4;
   dispatch_async(MEMORY[0x1E69E96A0], block);
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __39__AMSUIWebSafariViewController__share___block_invoke_78(uint64_t a1)
@@ -1238,7 +1261,7 @@ void __64__AMSUIWebSafariViewController__transitionToErrorViewWithError___block_
 
 void __64__AMSUIWebSafariViewController__transitionToErrorViewWithError___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v6 = [MEMORY[0x1E698C968] sharedWebUIConfig];
@@ -1256,13 +1279,13 @@ void __64__AMSUIWebSafariViewController__transitionToErrorViewWithError___block_
       v9 = objc_opt_class();
       v10 = [WeakRetained context];
       v11 = [v10 logKey];
-      v17 = 138543874;
-      v18 = v9;
-      v19 = 2114;
-      v20 = v11;
-      v21 = 2114;
-      v22 = v4;
-      _os_log_impl(&dword_1BB036000, v8, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to run retry script. %{public}@", &v17, 0x20u);
+      v16 = 138543874;
+      v17 = v9;
+      v18 = 2114;
+      v19 = v11;
+      v20 = 2114;
+      v21 = v4;
+      _os_log_impl(&dword_1BB036000, v8, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to run retry script. %{public}@", &v16, 0x20u);
     }
   }
 
@@ -1279,17 +1302,15 @@ void __64__AMSUIWebSafariViewController__transitionToErrorViewWithError___block_
       v13 = objc_opt_class();
       v14 = [WeakRetained context];
       v15 = [v14 logKey];
-      v17 = 138543618;
-      v18 = v13;
-      v19 = 2114;
-      v20 = v15;
-      _os_log_impl(&dword_1BB036000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Successfully ran retry script", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v13;
+      v18 = 2114;
+      v19 = v15;
+      _os_log_impl(&dword_1BB036000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Successfully ran retry script", &v16, 0x16u);
     }
 
     [WeakRetained _transitionToLoading];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_transitionToLoading
@@ -1321,7 +1342,7 @@ void __64__AMSUIWebSafariViewController__transitionToErrorViewWithError___block_
 - (void)_setupSafariNavBarWithSpinner:(BOOL)spinner
 {
   spinnerCopy = spinner;
-  v39[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   if ([(AMSUIWebSafariViewController *)self pageState]== 3)
   {
     ams_navigationItemViewController = [(UIViewController *)self ams_navigationItemViewController];
@@ -1345,8 +1366,8 @@ void __64__AMSUIWebSafariViewController__transitionToErrorViewWithError___block_
 
     else
     {
-      v35 = spinnerCopy;
-      v36 = navigationItem;
+      v34 = spinnerCopy;
+      v35 = navigationItem;
       v10 = ams_navigationItemViewController;
       webView = [(AMSUIWebSafariViewController *)self webView];
       v12 = [webView URL];
@@ -1365,8 +1386,8 @@ void __64__AMSUIWebSafariViewController__transitionToErrorViewWithError___block_
       }
 
       ams_navigationItemViewController = v10;
-      navigationItem = v36;
-      spinnerCopy = v35;
+      navigationItem = v35;
+      spinnerCopy = v34;
     }
 
     model3 = [(AMSUIWebSafariViewController *)self model];
@@ -1400,8 +1421,8 @@ void __64__AMSUIWebSafariViewController__transitionToErrorViewWithError___block_
       }
 
       [model3 setAccessibilityIdentifier:@"cancel_bar_button_item"];
-      v39[0] = model3;
-      v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:1];
+      v38[0] = model3;
+      v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:1];
       [navigationItem setLeftBarButtonItems:v24];
     }
 
@@ -1434,25 +1455,23 @@ LABEL_20:
         model4 = [objc_alloc(MEMORY[0x1E69DC708]) initWithCustomView:navigationBar3];
         [model4 setAccessibilityIdentifier:@"activity_indicator_bar_button_item"];
         [navigationBar3 startAnimating];
-        v38 = model4;
-        v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
-        [navigationItem setRightBarButtonItems:v33];
+        v37 = model4;
+        v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
+        [navigationItem setRightBarButtonItems:v32];
       }
 
       else
       {
         model4 = [objc_alloc(MEMORY[0x1E69DC708]) initWithBarButtonSystemItem:13 target:self action:sel__refresh_];
         [model4 setAccessibilityIdentifier:@"refresh_bar_button_item"];
-        v37 = model4;
-        navigationBar3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
+        v36 = model4;
+        navigationBar3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
         [navigationItem setRightBarButtonItems:navigationBar3];
       }
     }
 
 LABEL_23:
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateButtons

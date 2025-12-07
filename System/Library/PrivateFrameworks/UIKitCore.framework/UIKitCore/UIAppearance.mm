@@ -28,10 +28,10 @@ id __36___UIAppearance__recorderForSource___block_invoke_107(uint64_t a1)
   return result;
 }
 
-uint64_t __54___UIAppearance__recordersExcludingSource_withWindow___block_invoke(uint64_t a1, void *a2, void *a3)
+void *__54___UIAppearance__recordersExcludingSource_withWindow___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v32 = *MEMORY[0x1E69E9840];
-  if (!*(a1 + 32) || (result = [a2 isEqual:?], (result & 1) == 0))
+  if (!*(a1 + 32) || (result = objc_msgSend_isEqual_(a2), (result & 1) == 0))
   {
     v6 = [*(a1 + 40) _windowsForSource:a2];
     if (!v6 || (result = [v6 containsObject:*(a1 + 48)], result))
@@ -143,7 +143,7 @@ uint64_t __46___UIAppearance_appearancesAtNode_withObject___block_invoke(uint64_
   return result;
 }
 
-uint64_t __45___UIAppearance__removeInvocationsForSource___block_invoke(uint64_t a1, id *a2, void *a3, uint64_t a4)
+void *__45___UIAppearance__removeInvocationsForSource___block_invoke(uint64_t a1, id *a2, void *a3, uint64_t a4)
 {
   [a2 _removeInvocationsForSource:*(a1 + 32)];
   result = [a2[2] count];
@@ -156,7 +156,7 @@ uint64_t __45___UIAppearance__removeInvocationsForSource___block_invoke(uint64_t
   return result;
 }
 
-uint64_t __83___UIAppearance__applyInvocationsTo_window_matchingSelector_onlySystemInvocations___block_invoke(uint64_t a1, void *a2, int a3)
+void *__83___UIAppearance__applyInvocationsTo_window_matchingSelector_onlySystemInvocations___block_invoke(uint64_t a1, void *a2, int a3)
 {
   v57 = *MEMORY[0x1E69E9840];
   v45 = 0u;
@@ -310,7 +310,7 @@ uint64_t __83___UIAppearance__applyInvocationsTo_window_matchingSelector_onlySys
         v6 = v30 + 1;
       }
 
-      while (v30 + 1 != v29);
+      while ((v30 + 1) != v29);
       result = [a2 countByEnumeratingWithState:&v45 objects:v55 count:16];
       v29 = result;
     }
@@ -321,7 +321,7 @@ uint64_t __83___UIAppearance__applyInvocationsTo_window_matchingSelector_onlySys
   return result;
 }
 
-uint64_t __41___UIAppearance__handleGetterInvocation___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+_BYTE *__41___UIAppearance__handleGetterInvocation___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v7 = NSStringFromSelector([a2 selector]);
   if ([(NSString *)v7 characterAtIndex:0]== 95)
@@ -329,7 +329,7 @@ uint64_t __41___UIAppearance__handleGetterInvocation___block_invoke(uint64_t a1,
     v7 = [(NSString *)v7 substringFromIndex:1];
   }
 
-  result = [(NSString *)v7 isEqualToString:*(a1 + 32)];
+  result = objc_msgSend_isEqualToString_(v7);
   if (!result)
   {
     return result;
@@ -354,7 +354,7 @@ uint64_t __41___UIAppearance__handleGetterInvocation___block_invoke(uint64_t a1,
     }
 
     v11 = result;
-    result = [v14 isEqual:v13];
+    result = objc_msgSend_isEqual_(v14);
     if (!result)
     {
       return result;

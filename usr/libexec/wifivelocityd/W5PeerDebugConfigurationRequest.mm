@@ -11,9 +11,9 @@
   peerCopy = peer;
   configurationCopy = configuration;
   replyCopy = reply;
-  v24.receiver = self;
-  v24.super_class = W5PeerDebugConfigurationRequest;
-  v14 = [(W5PeerDebugConfigurationRequest *)&v24 init];
+  v25.receiver = self;
+  v25.super_class = W5PeerDebugConfigurationRequest;
+  v14 = [(W5PeerDebugConfigurationRequest *)&v25 init];
   v15 = v14;
   if (peerCopy && v14 && (objc_storeStrong(&v14->_peer, peer), replyCopy))
   {
@@ -46,13 +46,14 @@
     v23 = sub_100098A04();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = 136315650;
-      v26 = "[W5PeerDebugConfigurationRequest initWithPeer:type:debugConfiguration:reply:]";
-      v27 = 2080;
-      v28 = "W5PeerDebugConfigurationRequest.m";
-      v29 = 1024;
-      v30 = 58;
-      _os_log_send_and_compose_impl();
+      v26 = 136315650;
+      v27 = "[W5PeerDebugConfigurationRequest initWithPeer:type:debugConfiguration:reply:]";
+      v28 = 2080;
+      v29 = "W5PeerDebugConfigurationRequest.m";
+      v30 = 1024;
+      v31 = 58;
+      LODWORD(v24) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v23, 0, "[wifivelocity] %s (%s:%u) init error!", &v26, v24, LODWORD(v25.receiver));
     }
 
     v15 = 0;

@@ -51,7 +51,7 @@ uint64_t __53___HMCameraProfile___configureWithContext_accessory___block_invoke(
 
 - (BOOL)mergeFromNewObject:(id)object
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -92,9 +92,9 @@ uint64_t __53___HMCameraProfile___configureWithContext_accessory___block_invoke(
       {
         v17 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v29 = v17;
-        v30 = 2112;
-        v31 = userSettings;
+        v28 = v17;
+        v29 = 2112;
+        v30 = userSettings;
         _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@No existing camera settings to merge; adding new settings: %@", buf, 0x16u);
       }
 
@@ -108,18 +108,17 @@ uint64_t __53___HMCameraProfile___configureWithContext_accessory___block_invoke(
         cameraProfile2 = [(HMCameraProfile *)selfCopy cameraProfile];
         context = [cameraProfile2 context];
         delegateCaller = [context delegateCaller];
-        v25[0] = MEMORY[0x1E69E9820];
-        v25[1] = 3221225472;
-        v25[2] = __38__HMCameraProfile_mergeFromNewObject___block_invoke;
-        v25[3] = &unk_1E754E5C0;
-        v26 = userSettingsDelegate;
-        v27 = selfCopy;
-        [delegateCaller invokeBlock:v25];
+        v24[0] = MEMORY[0x1E69E9820];
+        v24[1] = 3221225472;
+        v24[2] = __38__HMCameraProfile_mergeFromNewObject___block_invoke;
+        v24[3] = &unk_1E754E5C0;
+        v25 = userSettingsDelegate;
+        v26 = selfCopy;
+        [delegateCaller invokeBlock:v24];
       }
     }
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -242,12 +241,11 @@ void __38__HMCameraProfile_mergeFromNewObject___block_invoke(uint64_t a1)
 
 uint64_t __30__HMCameraProfile_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v3_30337;
-  logCategory__hmf_once_v3_30337 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3_30337;
+  logCategory__hmf_once_v3_30337 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

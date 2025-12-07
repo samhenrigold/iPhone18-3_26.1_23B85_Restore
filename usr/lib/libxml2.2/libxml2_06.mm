@@ -1,3 +1,16 @@
+htmlDocPtr htmlReadFile(const char *URL, const char *encoding, int options)
+{
+  xmlInitParser();
+  result = htmlCreateFileParserCtxt(URL, encoding);
+  if (result)
+  {
+
+    return htmlDoRead(result, 0, 0, options, 0);
+  }
+
+  return result;
+}
+
 htmlDocPtr htmlReadFd(int fd, const char *URL, const char *encoding, int options)
 {
   if (fd < 0)
@@ -891,15 +904,15 @@ LABEL_27:
   return result;
 }
 
-uint64_t htmlParseScript(uint64_t a1)
+uint64_t htmlParseScript(xmlError *a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  bzero(v20, 0x3EDuLL);
-  v2 = *(a1 + 56);
-  cur = v2->cur;
-  if (cur - v2->base >= 501 && v2->end - cur <= 499)
+  v20 = *MEMORY[0x1E69E9840];
+  bzero(v19, 0x3EDuLL);
+  str3 = a1->str3;
+  cur = str3->cur;
+  if (cur - str3->base >= 501 && str3->end - cur <= 499)
   {
-    xmlParserInputShrink(v2);
+    xmlParserInputShrink(str3);
   }
 
   len = 0;
@@ -934,20 +947,20 @@ LABEL_19:
       goto LABEL_21;
     }
 
-    v7 = *(*(a1 + 56) + 32);
+    v7 = *(a1->str3 + 4);
     if (*(v7 + 1) == 47)
     {
-      if (*(a1 + 448))
+      if (LODWORD(a1[5].message))
       {
-        v8 = *(a1 + 288);
-        v9 = xmlStrlen(v8);
-        result = xmlStrncasecmp(v8, (v7 + 2), v9);
+        file = a1[3].file;
+        v9 = xmlStrlen(file);
+        result = xmlStrncasecmp(file, (v7 + 2), v9);
         if (!result)
         {
           break;
         }
 
-        htmlParseErr(a1, 76, "Element %s embeds close tag\n", *(a1 + 288), 0);
+        htmlParseErr(a1, 76, "Element %s embeds close tag\n", a1[3].file, 0);
         goto LABEL_21;
       }
 
@@ -961,52 +974,52 @@ LABEL_21:
     v10 = len;
     if (len == 1)
     {
-      v20[v6] = v5;
+      v19[v6] = v5;
       v6 = (v6 + 1);
     }
 
     else
     {
-      v6 = (xmlCopyChar(len, &v20[v6], v5) + v6);
+      v6 = (xmlCopyChar(len, &v19[v6], v5) + v6);
     }
 
 LABEL_24:
-    v11 = *(a1 + 56);
-    v12 = *(v11 + 32);
+    v11 = a1->str3;
+    v12 = *(v11 + 4);
     v13 = &v12[v10];
-    if (v13 <= *(v11 + 40))
+    if (v13 <= *(v11 + 5))
     {
       if (*v12 == 10)
       {
-        ++*(v11 + 52);
-        *(v11 + 56) = 1;
+        ++*(v11 + 13);
+        *(v11 + 14) = 1;
       }
 
       else
       {
-        ++*(v11 + 56);
+        ++*(v11 + 14);
       }
 
-      *(a1 + 276) = 0;
-      *(v11 + 32) = v13;
-      ++*(a1 + 312);
+      HIDWORD(a1[3].message) = 0;
+      *(v11 + 4) = v13;
+      ++a1[3].str2;
     }
 
     if (v6 >= 1000)
     {
-      v20[v6] = 0;
-      v14 = *(*a1 + 200);
-      if (v14 || (v14 = *(*a1 + 136)) != 0)
+      v19[v6] = 0;
+      v14 = *(*&a1->domain + 200);
+      if (v14 || (v14 = *(*&a1->domain + 136)) != 0)
       {
-        v14(*(a1 + 8), v20, v6);
+        v14(a1->message, v19, v6);
       }
 
       v6 = 0;
     }
 
-    if (!*(a1 + 452))
+    if (!HIDWORD(a1[5].message))
     {
-      v15 = *(a1 + 56);
+      v15 = a1->str3;
       if (v15->end - v15->cur <= 249)
       {
         xmlParserInputGrow(v15, 250);
@@ -1019,22 +1032,27 @@ LABEL_24:
 
   if (v6)
   {
-    v16 = *a1;
-    if (*a1)
+    v16 = *&a1->domain;
+    if (*&a1->domain)
     {
-      if (!*(a1 + 332))
+      if (!a1[3].int2)
       {
-        v20[v6] = 0;
+        v19[v6] = 0;
         v17 = *(v16 + 200);
-        if (v17 || (v17 = *(v16 + 136)) != 0)
+        if (v17)
         {
-          result = v17(*(a1 + 8), v20, v6);
+          return v17(a1->message, v19, v6);
+        }
+
+        v17 = *(v16 + 136);
+        if (v17)
+        {
+          return v17(a1->message, v19, v6);
         }
       }
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1103,18 +1121,18 @@ uint64_t htmlParseReference(uint64_t ctxt)
     if (!v4 || (value = v4->value) == 0)
     {
       ctxt = htmlCheckParagraph(v2);
-      if (*v2)
+      if (*&v2->domain)
       {
-        v7 = *(*v2 + 136);
+        v7 = *(*&v2->domain + 136);
         if (v7)
         {
-          v7(v2[1], "&", 1);
-          v8 = *v2;
-          v9 = v2[1];
+          v7(v2->message, "&", 1);
+          v8 = *&v2->domain;
+          message = v2->message;
           v10 = *(v8 + 136);
           v11 = str;
           v12 = xmlStrlen(str);
-          return v10(v9, v11, v12);
+          return v10(message, v11, v12);
         }
       }
 
@@ -1156,12 +1174,12 @@ uint64_t htmlParseReference(uint64_t ctxt)
 LABEL_33:
       *(&v20 + v17) = 0;
       ctxt = htmlCheckParagraph(v2);
-      if (*v2)
+      if (*&v2->domain)
       {
-        v13 = *(*v2 + 136);
+        v13 = *(*&v2->domain + 136);
         if (v13)
         {
-          v14 = v2[1];
+          v14 = v2->message;
           v15 = &v20;
           v16 = v17;
           return v13(v14, v15, v16);
@@ -1178,12 +1196,12 @@ LABEL_23:
   }
 
   ctxt = htmlCheckParagraph(v2);
-  if (*v2)
+  if (*&v2->domain)
   {
-    v13 = *(*v2 + 136);
+    v13 = *(*&v2->domain + 136);
     if (v13)
     {
-      v14 = v2[1];
+      v14 = v2->message;
       v15 = "&";
       v16 = 1;
       return v13(v14, v15, v16);
@@ -1236,7 +1254,7 @@ void htmlParserFinishElementParsing(xmlParserCtxtPtr ctxt)
   }
 }
 
-_DWORD *htmlNodeInfoPush(uint64_t a1, __int128 *a2)
+xmlError *htmlNodeInfoPush(uint64_t a1, __int128 *a2)
 {
   v4 = *(a1 + 720);
   v5 = *(a1 + 724);
@@ -1244,7 +1262,7 @@ _DWORD *htmlNodeInfoPush(uint64_t a1, __int128 *a2)
   {
     result = *(a1 + 728);
 LABEL_11:
-    v8 = &result[10 * v4];
+    v8 = &result->domain + 10 * v4;
     v9 = *a2;
     v10 = a2[1];
     *(v8 + 4) = *(a2 + 4);
@@ -1295,10 +1313,10 @@ LABEL_14:
   return htmlErrMemory(a1, v12);
 }
 
-xmlChar *htmlParseSystemLiteral(xmlParserCtxtPtr ctxt)
+xmlChar *htmlParseSystemLiteral(xmlError *ctxt)
 {
   v1 = ctxt;
-  v2 = *ctxt->input->cur;
+  v2 = **(ctxt->str3 + 4);
   if (v2 != 34 && v2 != 39)
   {
     v9 = "SystemLiteral  or ' expected\n";
@@ -1389,10 +1407,10 @@ LABEL_32:
   return 0;
 }
 
-xmlChar *htmlParsePubidLiteral(xmlParserCtxtPtr ctxt)
+xmlChar *htmlParsePubidLiteral(xmlError *ctxt)
 {
   v1 = ctxt;
-  v2 = *ctxt->input->cur;
+  v2 = **(ctxt->str3 + 4);
   if (v2 != 34 && v2 != 39)
   {
     v9 = "PubidLiteral  or ' expected\n";
@@ -1825,29 +1843,29 @@ LABEL_48:
 
 int htmlSetMetaEncoding(htmlDocPtr doc, const xmlChar *encoding)
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v24 = 0;
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
+  v24 = *MEMORY[0x1E69E9840];
+  v23 = 0;
   v21 = 0u;
-  *__str = 0u;
+  v22 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  *__str = 0u;
+  v18 = 0u;
   if (!doc || !xmlStrcasecmp(encoding, "html"))
   {
-    goto LABEL_12;
+    return -1;
   }
 
   if (encoding)
   {
     snprintf(__str, 0x64uLL, "text/html; charset=%s", encoding);
-    HIBYTE(v24) = 0;
+    HIBYTE(v23) = 0;
   }
 
   children = doc->children;
   if (!children)
   {
-    goto LABEL_12;
+    return -1;
   }
 
   while (1)
@@ -1865,7 +1883,7 @@ LABEL_11:
     children = children->next;
     if (!children)
     {
-      goto LABEL_12;
+      return -1;
     }
   }
 
@@ -1878,10 +1896,10 @@ LABEL_11:
       {
         if (children->type == XML_ELEMENT_NODE)
         {
-          v8 = children->name;
-          if (v8)
+          v7 = children->name;
+          if (v7)
           {
-            if (!xmlStrcasecmp(v8, "head"))
+            if (!xmlStrcasecmp(v7, "head"))
             {
               goto LABEL_21;
             }
@@ -1898,14 +1916,12 @@ LABEL_11:
         result = -1;
         if (!children)
         {
-          goto LABEL_13;
+          return result;
         }
       }
     }
 
-LABEL_12:
-    result = -1;
-    goto LABEL_13;
+    return -1;
   }
 
   if (xmlStrcasecmp(children->name, "head"))
@@ -1935,13 +1951,13 @@ LABEL_27:
       goto LABEL_30;
     }
 
-    v12 = children->name;
-    if (!v12)
+    v11 = children->name;
+    if (!v11)
     {
       goto LABEL_30;
     }
 
-    if (xmlStrcasecmp(v12, "meta"))
+    if (xmlStrcasecmp(v11, "meta"))
     {
       goto LABEL_30;
     }
@@ -1952,29 +1968,29 @@ LABEL_27:
       goto LABEL_30;
     }
 
+    v13 = 0;
     v14 = 0;
-    v15 = 0;
     while (2)
     {
-      v16 = properties->children;
-      if (!v16 || v16->type != XML_TEXT_NODE || v16->next)
+      v15 = properties->children;
+      if (!v15 || v15->type != XML_TEXT_NODE || v15->next)
       {
         goto LABEL_44;
       }
 
-      content = v16->content;
+      content = v15->content;
       if (!xmlStrcasecmp(properties->name, "http-equiv") && !xmlStrcasecmp(content, "Content-Type"))
       {
-        v14 = 1;
+        v13 = 1;
         break;
       }
 
       if (content && !xmlStrcasecmp(properties->name, "content"))
       {
-        v15 = content;
+        v14 = content;
       }
 
-      if (!v14)
+      if (!v13)
       {
 LABEL_44:
         properties = properties->next;
@@ -1989,18 +2005,18 @@ LABEL_44:
       break;
     }
 
-    if (!v15)
+    if (!v14)
     {
       goto LABEL_44;
     }
 
-    v14 = 1;
+    v13 = 1;
 LABEL_48:
-    if (v14 && v15)
+    if (v13 && v14)
     {
       if (encoding)
       {
-        if (!xmlStrcasestr(v15, encoding))
+        if (!xmlStrcasestr(v14, encoding))
         {
           xmlSetProp(children, "content", __str);
         }
@@ -2012,7 +2028,7 @@ LABEL_48:
         xmlFreeNode(children);
       }
 
-      goto LABEL_55;
+      return 0;
     }
 
 LABEL_30:
@@ -2029,26 +2045,23 @@ LABEL_22:
   result = 0;
   if (encoding && parent)
   {
-    v10 = xmlNewDocNode(doc, 0, "meta", 0);
-    v11 = parent->children;
-    if (v11)
+    v9 = xmlNewDocNode(doc, 0, "meta", 0);
+    v10 = parent->children;
+    if (v10)
     {
-      xmlAddPrevSibling(v11, v10);
+      xmlAddPrevSibling(v10, v9);
     }
 
     else
     {
-      xmlAddChild(parent, v10);
+      xmlAddChild(parent, v9);
     }
 
-    xmlNewProp(v10, "http-equiv", "Content-Type");
-    xmlNewProp(v10, "content", __str);
-LABEL_55:
-    result = 0;
+    xmlNewProp(v9, "http-equiv", "Content-Type");
+    xmlNewProp(v9, "content", __str);
+    return 0;
   }
 
-LABEL_13:
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5462,48 +5475,50 @@ int xmlNanoFTPCheckResponse(void *ctx)
 
 int xmlNanoFTPQuit(void *ctx)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  if (!ctx || (v1 = *(ctx + 45), v1 == -1))
+  v19 = *MEMORY[0x1E69E9840];
+  if (!ctx)
   {
-    result = -1;
+    return -1;
   }
 
-  else
+  v1 = *(ctx + 45);
+  if (v1 == -1)
   {
-    v19 = 0;
-    v18 = 0u;
-    v17 = 0u;
-    v16 = 0u;
-    v15 = 0u;
-    v14 = 0u;
-    v13 = 0u;
-    v12 = 0u;
-    v11 = 0u;
-    v10 = 0u;
-    v9 = 0u;
-    v8 = 0u;
-    v7 = 0u;
-    strcpy(v6, "QUIT\r\n");
-    v2 = strlen(v6);
-    v3 = send(v1, v6, v2, 0);
-    result = 0;
-    if (v3 < 0)
-    {
-      __xmlIOErr(9u, 0, "send failed");
-      result = v3;
-    }
+    return -1;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
+  v18 = 0;
+  v17 = 0u;
+  v16 = 0u;
+  v15 = 0u;
+  v14 = 0u;
+  v13 = 0u;
+  v12 = 0u;
+  v11 = 0u;
+  v10 = 0u;
+  v9 = 0u;
+  v8 = 0u;
+  v7 = 0u;
+  v6 = 0u;
+  strcpy(v5, "QUIT\r\n");
+  v2 = strlen(v5);
+  v3 = send(v1, v5, v2, 0);
+  result = 0;
+  if (v3 < 0)
+  {
+    __xmlIOErr(9u, 0, "send failed");
+    return v3;
+  }
+
   return result;
 }
 
 int xmlNanoFTPConnect(void *ctx)
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   if (!ctx || !*(ctx + 1))
   {
-    goto LABEL_50;
+    return -1;
   }
 
   v2 = proxy;
@@ -5562,7 +5577,7 @@ LABEL_37:
         {
           if (connect(v16, ctx + 3, v17) < 0)
           {
-            v26 = "Failed to create a connection";
+            v25 = "Failed to create a connection";
             goto LABEL_53;
           }
 
@@ -5574,53 +5589,51 @@ LABEL_37:
           if (!proxy)
           {
 LABEL_66:
-            v47 = 0u;
-            memset(v48, 0, 23);
-            v45 = 0u;
-            v46 = 0u;
             v43 = 0u;
-            v44 = 0u;
+            memset(v44, 0, 23);
             v41 = 0u;
             v42 = 0u;
+            v39 = 0u;
             v40 = 0u;
-            memset(&v39, 0, sizeof(v39));
+            v37 = 0u;
+            v38 = 0u;
+            v36 = 0u;
+            memset(&v35, 0, sizeof(v35));
             if (*(ctx + 4))
             {
-              snprintf(&v39, 0xC8uLL, "USER %s\r\n", *(ctx + 4));
+              snprintf(&v35, 0xC8uLL, "USER %s\r\n", *(ctx + 4));
             }
 
             else
             {
-              strcpy(&v39, "USER anonymous\r\n");
+              strcpy(&v35, "USER anonymous\r\n");
             }
 
-            v48[23] = 0;
-            v30 = strlen(&v39);
-            if ((send(*(ctx + 45), &v39, v30, 0) & 0x80000000) == 0)
+            v44[23] = 0;
+            v29 = strlen(&v35);
+            if ((send(*(ctx + 45), &v35, v29, 0) & 0x80000000) == 0)
             {
-              v31 = xmlNanoFTPReadResponse(ctx);
-              if (v31 == 2)
+              v30 = xmlNanoFTPReadResponse(ctx);
+              if (v30 == 2)
               {
-                goto LABEL_79;
+                return 0;
               }
 
-              if (v31 != 3 || (xmlNanoFTPSendPasswd(ctx) & 0x80000000) != 0)
+              if (v30 != 3 || (xmlNanoFTPSendPasswd(ctx) & 0x80000000) != 0)
               {
                 goto LABEL_55;
               }
 
-              v32 = xmlNanoFTPReadResponse(ctx);
-              if (v32 == 2)
+              v31 = xmlNanoFTPReadResponse(ctx);
+              if (v31 == 2)
               {
-LABEL_79:
-                v21 = 0;
-                goto LABEL_51;
+                return 0;
               }
 
-              if (v32 == 3)
+              if (v31 == 3)
               {
-                v26 = "FTP server asking for ACCNT on anonymous\n";
-                v27 = 2002;
+                v25 = "FTP server asking for ACCNT on anonymous\n";
+                v26 = 2002;
                 goto LABEL_54;
               }
 
@@ -5628,21 +5641,17 @@ LABEL_55:
               close(*(ctx + 45));
               v21 = -1;
               *(ctx + 45) = -1;
-              goto LABEL_51;
+              return v21;
             }
 
-            v26 = "send failed";
+            v25 = "send failed";
 LABEL_53:
-            v27 = 0;
+            v26 = 0;
 LABEL_54:
-            __xmlIOErr(9u, v27, v26);
+            __xmlIOErr(9u, v26, v25);
             goto LABEL_55;
           }
 
-          v59 = 0u;
-          v60 = 0u;
-          v57 = 0u;
-          v58 = 0u;
           v55 = 0u;
           v56 = 0u;
           v53 = 0u;
@@ -5651,25 +5660,29 @@ LABEL_54:
           v52 = 0u;
           v49 = 0u;
           v50 = 0u;
-          memset(v48, 0, sizeof(v48));
-          v46 = 0u;
           v47 = 0u;
+          v48 = 0u;
           v45 = 0u;
-          v43 = 0u;
-          v44 = 0u;
-          v41 = 0u;
+          v46 = 0u;
+          memset(v44, 0, sizeof(v44));
           v42 = 0u;
+          v43 = 0u;
+          v41 = 0u;
+          v39 = 0u;
           v40 = 0u;
-          memset(&v39, 0, sizeof(v39));
+          v37 = 0u;
+          v38 = 0u;
+          v36 = 0u;
+          memset(&v35, 0, sizeof(v35));
           if (!proxyUser)
           {
             goto LABEL_62;
           }
 
-          snprintf(&v39, 0x190uLL, "USER %s\r\n", proxyUser);
-          HIBYTE(v60) = 0;
-          v20 = strlen(&v39);
-          v21 = send(*(ctx + 45), &v39, v20, 0);
+          snprintf(&v35, 0x190uLL, "USER %s\r\n", proxyUser);
+          HIBYTE(v56) = 0;
+          v20 = strlen(&v35);
+          v21 = send(*(ctx + 45), &v35, v20, 0);
           if (v21 < 0)
           {
             goto LABEL_56;
@@ -5690,10 +5703,10 @@ LABEL_62:
 
               else
               {
-                snprintf(&v39, 0x190uLL, "SITE %s\r\n", *(ctx + 1));
-                HIBYTE(v60) = 0;
-                v29 = strlen(&v39);
-                v21 = send(*(ctx + 45), &v39, v29, 0);
+                snprintf(&v35, 0x190uLL, "SITE %s\r\n", *(ctx + 1));
+                HIBYTE(v56) = 0;
+                v28 = strlen(&v35);
+                v21 = send(*(ctx + 45), &v35, v28, 0);
                 if (v21 < 0)
                 {
                   goto LABEL_56;
@@ -5711,22 +5724,19 @@ LABEL_62:
                 }
               }
 
-              v33 = *(ctx + 1);
               if (*(ctx + 4))
               {
-                v36 = *(ctx + 4);
-                snprintf(&v39, 0x190uLL, "USER %s@%s\r\n");
+                snprintf(&v35, 0x190uLL, "USER %s@%s\r\n");
               }
 
               else
               {
-                v37 = *(ctx + 1);
-                snprintf(&v39, 0x190uLL, "USER anonymous@%s\r\n");
+                snprintf(&v35, 0x190uLL, "USER anonymous@%s\r\n");
               }
 
-              HIBYTE(v60) = 0;
-              v34 = strlen(&v39);
-              v21 = send(*(ctx + 45), &v39, v34, 0);
+              HIBYTE(v56) = 0;
+              v32 = strlen(&v35);
+              v21 = send(*(ctx + 45), &v35, v32, 0);
               if ((v21 & 0x80000000) == 0)
               {
                 if (xmlNanoFTPReadResponse(ctx) - 1 <= 1)
@@ -5736,17 +5746,17 @@ LABEL_62:
 
                 if (*(ctx + 5))
                 {
-                  snprintf(&v39, 0x190uLL, "PASS %s\r\n", *(ctx + 5));
+                  snprintf(&v35, 0x190uLL, "PASS %s\r\n", *(ctx + 5));
                 }
 
                 else
                 {
-                  strcpy(&v39, "PASS anonymous@\r\n");
+                  strcpy(&v35, "PASS anonymous@\r\n");
                 }
 
-                HIBYTE(v60) = 0;
-                v35 = strlen(&v39);
-                v21 = send(*(ctx + 45), &v39, v35, 0);
+                HIBYTE(v56) = 0;
+                v33 = strlen(&v35);
+                v21 = send(*(ctx + 45), &v35, v33, 0);
                 if ((v21 & 0x80000000) == 0)
                 {
                   if (xmlNanoFTPReadResponse(ctx) - 1 > 1)
@@ -5757,7 +5767,7 @@ LABEL_62:
 LABEL_91:
                   v21 = 0;
                   proxyType = 2;
-                  goto LABEL_51;
+                  return v21;
                 }
               }
 
@@ -5765,12 +5775,12 @@ LABEL_56:
               __xmlIOErr(9u, 0, "send failed");
               close(*(ctx + 45));
               *(ctx + 45) = -1;
-              goto LABEL_51;
+              return v21;
             case 3:
               v23 = proxyPasswd;
               if (!proxyPasswd)
               {
-                strcpy(&v39, "PASS anonymous@\r\n");
+                strcpy(&v35, "PASS anonymous@\r\n");
                 goto LABEL_60;
               }
 
@@ -5787,11 +5797,11 @@ LABEL_56:
               goto LABEL_55;
           }
 
-          snprintf(&v39, 0x190uLL, "PASS %s\r\n", v23);
+          snprintf(&v35, 0x190uLL, "PASS %s\r\n", v23);
 LABEL_60:
-          HIBYTE(v60) = 0;
-          v28 = strlen(&v39);
-          v21 = send(*(ctx + 45), &v39, v28, 0);
+          HIBYTE(v56) = 0;
+          v27 = strlen(&v35);
+          v21 = send(*(ctx + 45), &v35, v27, 0);
           if (v21 < 0)
           {
             goto LABEL_56;
@@ -5821,18 +5831,18 @@ LABEL_60:
   else
   {
     close(v6);
-    v38 = 0;
-    memset(&v39, 0, sizeof(v39));
-    v39.ai_socktype = 1;
+    v34 = 0;
+    memset(&v35, 0, sizeof(v35));
+    v35.ai_socktype = 1;
     v7 = proxy;
     if (!proxy)
     {
       v7 = *(ctx + 1);
     }
 
-    if (!getaddrinfo(v7, 0, &v39, &v38) && v38)
+    if (!getaddrinfo(v7, 0, &v35, &v34) && v34)
     {
-      v13 = v38;
+      v13 = v34;
       while (1)
       {
         ai_family = v13->ai_family;
@@ -5846,7 +5856,7 @@ LABEL_60:
         {
           v8 = "getaddrinfo failed";
 LABEL_32:
-          freeaddrinfo(v38);
+          freeaddrinfo(v34);
           goto LABEL_14;
         }
       }
@@ -5872,7 +5882,7 @@ LABEL_32:
 
       *(ctx + 45) = socket(v19, 1, 0);
       v17 = v13->ai_addrlen;
-      freeaddrinfo(v38);
+      freeaddrinfo(v34);
       v16 = *(ctx + 45);
       goto LABEL_37;
     }
@@ -5884,26 +5894,22 @@ LABEL_14:
 
 LABEL_49:
   __xmlIOErr(9u, 0, v9);
-LABEL_50:
-  v21 = -1;
-LABEL_51:
-  v24 = *MEMORY[0x1E69E9840];
-  return v21;
+  return -1;
 }
 
 ssize_t xmlNanoFTPSendPasswd(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v15 = 0u;
-  memset(v16, 0, 23);
-  v13 = 0u;
+  v16 = *MEMORY[0x1E69E9840];
   v14 = 0u;
-  v11 = 0u;
+  memset(v15, 0, 23);
   v12 = 0u;
-  v9 = 0u;
+  v13 = 0u;
   v10 = 0u;
-  v7 = 0u;
+  v11 = 0u;
   v8 = 0u;
+  v9 = 0u;
+  v6 = 0u;
+  v7 = 0u;
   memset(__str, 0, sizeof(__str));
   if (*(a1 + 40))
   {
@@ -5915,17 +5921,16 @@ ssize_t xmlNanoFTPSendPasswd(uint64_t a1)
     strcpy(__str, "PASS anonymous@\r\n");
   }
 
-  v16[23] = 0;
+  v15[23] = 0;
   v2 = strlen(__str);
   v3 = send(*(a1 + 180), __str, v2, 0);
   result = 0;
   if ((v3 & 0x80000000) != 0)
   {
     __xmlIOErr(9u, 0, "send failed");
-    result = v3;
+    return v3;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5956,103 +5961,95 @@ void *__cdecl xmlNanoFTPConnectTo(const char *server, int port)
 
 int xmlNanoFTPCwd(void *ctx, const char *directory)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (!ctx || *(ctx + 45) == -1)
   {
-    v4 = -1;
+    return -1;
+  }
+
+  if (!directory)
+  {
+    return 0;
+  }
+
+  v29 = 0u;
+  memset(v30, 0, 31);
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  *__str = 0u;
+  v8 = 0u;
+  snprintf(__str, 0x190uLL, "CWD %s\r\n", directory);
+  v30[31] = 0;
+  v3 = strlen(__str);
+  v4 = send(*(ctx + 45), __str, v3, 0);
+  if (v4 < 0)
+  {
+    __xmlIOErr(9u, 0, "send failed");
+    return v4;
+  }
+
+  v5 = xmlNanoFTPReadResponse(ctx) - 2;
+  if (v5 <= 3)
+  {
+    return dword_1C79BAB00[v5];
   }
 
   else
   {
-    if (!directory)
-    {
-      goto LABEL_8;
-    }
-
-    v30 = 0u;
-    memset(v31, 0, 31);
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
-    v11 = 0u;
-    *__str = 0u;
-    v9 = 0u;
-    snprintf(__str, 0x190uLL, "CWD %s\r\n", directory);
-    v31[31] = 0;
-    v3 = strlen(__str);
-    v4 = send(*(ctx + 45), __str, v3, 0);
-    if (v4 < 0)
-    {
-      __xmlIOErr(9u, 0, "send failed");
-      goto LABEL_10;
-    }
-
-    v5 = xmlNanoFTPReadResponse(ctx) - 2;
-    if (v5 <= 3)
-    {
-      v4 = dword_1C79BAB00[v5];
-    }
-
-    else
-    {
-LABEL_8:
-      v4 = 0;
-    }
+    return 0;
   }
-
-LABEL_10:
-  v6 = *MEMORY[0x1E69E9840];
-  return v4;
 }
 
 int xmlNanoFTPDele(void *ctx, const char *file)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v2 = -1;
   if (ctx && file && *(ctx + 45) != -1)
   {
-    v30 = 0u;
-    memset(v31, 0, 31);
-    v28 = 0u;
     v29 = 0u;
-    v26 = 0u;
+    memset(v30, 0, 31);
     v27 = 0u;
-    v24 = 0u;
+    v28 = 0u;
     v25 = 0u;
-    v22 = 0u;
+    v26 = 0u;
     v23 = 0u;
-    v20 = 0u;
+    v24 = 0u;
     v21 = 0u;
-    v18 = 0u;
+    v22 = 0u;
     v19 = 0u;
-    v16 = 0u;
+    v20 = 0u;
     v17 = 0u;
-    v14 = 0u;
+    v18 = 0u;
     v15 = 0u;
-    v12 = 0u;
+    v16 = 0u;
     v13 = 0u;
-    v10 = 0u;
+    v14 = 0u;
     v11 = 0u;
-    *__str = 0u;
+    v12 = 0u;
     v9 = 0u;
+    v10 = 0u;
+    *__str = 0u;
+    v8 = 0u;
     snprintf(__str, 0x190uLL, "DELE %s\r\n", file);
-    v31[31] = 0;
+    v30[31] = 0;
     v4 = strlen(__str);
     v2 = send(*(ctx + 45), __str, v4, 0);
     if (v2 < 0)
@@ -6065,26 +6062,25 @@ int xmlNanoFTPDele(void *ctx, const char *file)
       v5 = xmlNanoFTPReadResponse(ctx) - 2;
       if (v5 > 3)
       {
-        v2 = 0;
+        return 0;
       }
 
       else
       {
-        v2 = dword_1C79BAB00[v5];
+        return dword_1C79BAB00[v5];
       }
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 int xmlNanoFTPGetConnection(void *ctx)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (ctx)
   {
-    memset(v26, 0, sizeof(v26));
+    memset(v25, 0, sizeof(v25));
     v2 = *(ctx + 49);
     if (v2 == 30)
     {
@@ -6108,15 +6104,15 @@ int xmlNanoFTPGetConnection(void *ctx)
 
     v5 = socket(v3, 1, 6);
     *(ctx + 46) = v5;
-    v26[0].sa_family = v3;
-    v23 = v4;
+    v25[0].sa_family = v3;
+    v22 = v4;
     if (v5 != -1)
     {
-      v31 = 0;
+      v30 = 0;
       memset(__s, 0, sizeof(__s));
-      v28 = 0;
-      v29 = 0;
       v27 = 0;
+      v28 = 0;
+      v26 = 0;
       if (*(ctx + 44))
       {
         if (*(ctx + 49) == 30)
@@ -6158,57 +6154,57 @@ LABEL_23:
             while (v13);
             if (*(ctx + 49) == 30)
             {
-              if (sscanf(v10, "%u", &v27) == 1)
+              if (sscanf(v10, "%u", &v26) == 1)
               {
-                *&v26[0].sa_data[6] = *(ctx + 56);
-                v14 = bswap32(v27) >> 16;
+                *&v25[0].sa_data[6] = *(ctx + 56);
+                v14 = bswap32(v26) >> 16;
                 goto LABEL_36;
               }
 
-              v20 = "Invalid answer to EPSV\n";
-              v21 = 2001;
+              v19 = "Invalid answer to EPSV\n";
+              v20 = 2001;
             }
 
             else
             {
-              if (sscanf(v10, "%u,%u,%u,%u,%u,%u", &v27, &v27 + 4, &v28, &v28 + 4, &v29, &v29 + 4) == 6)
+              if (sscanf(v10, "%u,%u,%u,%u,%u,%u", &v26, &v26 + 4, &v27, &v27 + 4, &v28, &v28 + 4) == 6)
               {
                 v16 = 0;
-                *&v24[4] = 0;
-                *v24 = 0;
+                *&v23[4] = 0;
+                *v23 = 0;
                 do
                 {
-                  v24[v16] = *(&v27 + v16);
+                  v23[v16] = *(&v26 + v16);
                   ++v16;
                 }
 
                 while (v16 != 6);
-                *&v26[0].sa_data[2] = *v24;
-                LOWORD(v14) = *&v24[4];
+                *&v25[0].sa_data[2] = *v23;
+                LOWORD(v14) = *&v23[4];
 LABEL_36:
-                *v26[0].sa_data = v14;
-                if (connect(*(ctx + 46), v26, v4) < 0)
+                *v25[0].sa_data = v14;
+                if (connect(*(ctx + 46), v25, v4) < 0)
                 {
                   v15 = "Failed to create a data connection";
                   goto LABEL_44;
                 }
 
-                goto LABEL_42;
+                return *(ctx + 46);
               }
 
-              v20 = "Invalid answer to PASV\n";
-              v21 = 2000;
+              v19 = "Invalid answer to PASV\n";
+              v20 = 2000;
             }
 
-            __xmlIOErr(9u, v21, v20);
-            v22 = *(ctx + 46);
+            __xmlIOErr(9u, v20, v19);
+            v21 = *(ctx + 46);
             v7 = -1;
-            if (v22 == -1)
+            if (v21 == -1)
             {
-              goto LABEL_47;
+              return v7;
             }
 
-            close(v22);
+            close(v21);
             goto LABEL_46;
           }
 
@@ -6225,15 +6221,15 @@ LABEL_45:
           v7 = -1;
 LABEL_46:
           *(ctx + 46) = -1;
-          goto LABEL_47;
+          return v7;
         }
       }
 
       else
       {
-        getsockname(v5, v26, &v23);
-        *v26[0].sa_data = 0;
-        if (bind(*(ctx + 46), v26, v23) < 0)
+        getsockname(v5, v25, &v22);
+        *v25[0].sa_data = 0;
+        if (bind(*(ctx + 46), v25, v22) < 0)
         {
           v15 = "bind failed";
 LABEL_44:
@@ -6241,7 +6237,7 @@ LABEL_44:
           goto LABEL_45;
         }
 
-        getsockname(*(ctx + 46), v26, &v23);
+        getsockname(*(ctx + 46), v25, &v22);
         if (listen(*(ctx + 46), 1) < 0)
         {
           v15 = "listen failed";
@@ -6250,26 +6246,24 @@ LABEL_44:
 
         if (*(ctx + 49) == 30)
         {
-          *v24 = 0u;
-          memset(v25, 0, sizeof(v25));
-          inet_ntop(30, &v26[0].sa_data[6], v24, 0x2Eu);
+          *v23 = 0u;
+          memset(v24, 0, sizeof(v24));
+          inet_ntop(30, &v25[0].sa_data[6], v23, 0x2Eu);
           snprintf(__s, 0xC8uLL, "EPRT |2|%s|%s|\r\n");
         }
 
         else
         {
-          snprintf(__s, 0xC8uLL, "PORT %d,%d,%d,%d,%d,%d\r\n", v26[0].sa_data[2]);
+          snprintf(__s, 0xC8uLL, "PORT %d,%d,%d,%d,%d,%d\r\n", v25[0].sa_data[2]);
         }
 
-        HIBYTE(v31) = 0;
+        HIBYTE(v30) = 0;
         v17 = strlen(__s);
         if ((send(*(ctx + 45), __s, v17, 0) & 0x80000000) == 0)
         {
           if (xmlNanoFTPReadResponse(ctx) == 2)
           {
-LABEL_42:
-            v7 = *(ctx + 46);
-            goto LABEL_47;
+            return *(ctx + 46);
           }
 
           goto LABEL_45;
@@ -6283,10 +6277,7 @@ LABEL_42:
     __xmlIOErr(9u, 0, "socket failed");
   }
 
-  v7 = -1;
-LABEL_47:
-  v18 = *MEMORY[0x1E69E9840];
-  return v7;
+  return -1;
 }
 
 int xmlNanoFTPCloseConnection(void *ctx)
@@ -6343,11 +6334,11 @@ LABEL_14:
 
 int xmlNanoFTPList(void *ctx, ftpListCallback callback, void *userData, const char *filename)
 {
-  v4 = MEMORY[0x1EEE9AC00](ctx, callback);
-  v86 = *MEMORY[0x1E69E9840];
+  v4 = MEMORY[0x1EEE9AC00](ctx);
+  v85 = *MEMORY[0x1E69E9840];
   if (!v4)
   {
-    goto LABEL_154;
+    return -1;
   }
 
   v8 = v7;
@@ -6355,8 +6346,8 @@ int xmlNanoFTPList(void *ctx, ftpListCallback callback, void *userData, const ch
   v10 = v5;
   v11 = v4;
   bzero(__str, 0x1001uLL);
-  memset(&v78, 0, sizeof(v78));
-  *&v77.tv_usec = 0;
+  memset(&v77, 0, sizeof(v77));
+  *&v76.tv_usec = 0;
   if (v8)
   {
     if (*v8 == 47 || xmlNanoFTPCwd(v11, *(v11 + 24)) >= 1)
@@ -6370,21 +6361,19 @@ int xmlNanoFTPList(void *ctx, ftpListCallback callback, void *userData, const ch
       }
     }
 
-LABEL_154:
-    v15 = -1;
-    goto LABEL_155;
+    return -1;
   }
 
   if (xmlNanoFTPCwd(v11, *(v11 + 24)) < 1)
   {
-    goto LABEL_154;
+    return -1;
   }
 
   v13 = xmlNanoFTPGetConnection(v11);
   *(v11 + 184) = v13;
   if (v13 == -1)
   {
-    goto LABEL_154;
+    return -1;
   }
 
   strcpy(__str, "LIST -L\r\n");
@@ -6402,35 +6391,34 @@ LABEL_10:
   v16 = xmlNanoFTPReadResponse(v11);
   if (v16 != 1)
   {
-    v74 = v16;
+    v73 = v16;
     close(*(v11 + 184));
     *(v11 + 184) = -1;
-    v15 = -v74;
-    goto LABEL_155;
+    return -v73;
   }
 
-  v75 = v9;
-  v76 = v10;
+  v74 = v9;
+  v75 = v10;
   v17 = 0;
   do
   {
-    v77.tv_sec = 1;
-    v77.tv_usec = 0;
-    memset(&v79, 0, sizeof(v79));
-    v18 = *(v11 + 184);
-    if (__darwin_check_fd_set_overflow(v18, &v79, 0))
-    {
-      *(v79.fds_bits + ((v18 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v18;
-    }
-
+    v76.tv_sec = 1;
+    v76.tv_usec = 0;
     memset(&v78, 0, sizeof(v78));
-    v19 = *(v11 + 184);
-    if (__darwin_check_fd_set_overflow(v19, &v78, 0))
+    v18 = *(v11 + 184);
+    if (__darwin_check_fd_set_overflow(v18, &v78, 0))
     {
-      *(v78.fds_bits + ((v19 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v19;
+      *(v78.fds_bits + ((v18 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v18;
     }
 
-    v20 = select(*(v11 + 184) + 1, &v79, 0, &v78, &v77);
+    memset(&v77, 0, sizeof(v77));
+    v19 = *(v11 + 184);
+    if (__darwin_check_fd_set_overflow(v19, &v77, 0))
+    {
+      *(v77.fds_bits + ((v19 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v19;
+    }
+
+    v20 = select(*(v11 + 184) + 1, &v78, 0, &v77, &v76);
     if (v20 < 0)
     {
       goto LABEL_160;
@@ -6445,7 +6433,7 @@ LABEL_160:
         close(*(v11 + 184));
         v15 = -1;
         *(v11 + 184) = -1;
-        goto LABEL_155;
+        return v15;
       }
 
       if (v71 != 2)
@@ -6457,7 +6445,7 @@ LABEL_160:
       v15 = 0;
 LABEL_157:
       *(v11 + 184) = -1;
-      goto LABEL_155;
+      return v15;
     }
 
     v21 = recv(*(v11 + 184), &__str[v17], 4097 - (v17 + 1), 0);
@@ -6474,11 +6462,14 @@ LABEL_157:
     while (1)
     {
       v24 = &__str[v22];
-      memset(v85, 0, sizeof(v85));
-      memset(v84, 0, 11);
-      memset(v83, 0, 11);
-      memset(v82, 0, 11);
-      v80 = 0;
+      memset(v84, 0, sizeof(v84));
+      *(v83 + 7) = 0;
+      v83[0] = 0;
+      *(v82 + 7) = 0;
+      v82[0] = 0;
+      *(v81 + 7) = 0;
+      v81[0] = 0;
+      v79 = 0;
       if (strncmp(v24, "total", 5uLL))
       {
         break;
@@ -6552,7 +6543,7 @@ LABEL_31:
     {
       if (v28 <= 9)
       {
-        v84[v28++] = v25;
+        *(v83 + v28++) = v25;
       }
 
       v29 = *++v26;
@@ -6563,7 +6554,7 @@ LABEL_31:
       }
     }
 
-    v84[10] = 0;
+    BYTE2(v83[1]) = 0;
     while (v25 == 32)
     {
       v34 = *++v26;
@@ -6605,7 +6596,7 @@ LABEL_31:
         {
           if (v39 <= 9)
           {
-            v83[v39++] = v25;
+            *(v82 + v39++) = v25;
           }
 
           v40 = *++v26;
@@ -6616,7 +6607,7 @@ LABEL_31:
           }
         }
 
-        v83[v39] = 0;
+        *(v82 + v39) = 0;
         while (1)
         {
           v41 = *v26;
@@ -6635,7 +6626,7 @@ LABEL_31:
           {
             if (v42 <= 9)
             {
-              v82[v42++] = v41;
+              *(v81 + v42++) = v41;
             }
 
             v43 = *++v26;
@@ -6646,7 +6637,7 @@ LABEL_31:
             }
           }
 
-          v82[v42] = 0;
+          *(v81 + v42) = 0;
           while (1)
           {
             v44 = *v26;
@@ -6832,7 +6823,7 @@ LABEL_31:
                     {
                       if (v64 <= 149)
                       {
-                        v85[v64++] = v51;
+                        v84[v64++] = v51;
                       }
 
                       v66 = *++v26;
@@ -6843,7 +6834,7 @@ LABEL_31:
                       }
                     }
 
-                    v85[v64] = 0;
+                    v84[v64] = 0;
                     v67 = *v26;
                     if (v67 == 13 || v67 == 10)
                     {
@@ -6853,9 +6844,9 @@ LABEL_31:
                         LOBYTE(v67) = v69;
                       }
 
-                      if (v76)
+                      if (v75)
                       {
-                        v76(v75, v85, v84, v83, v82, v45, v35, v56, &v80, __PAIR64__(v58, v52), v61);
+                        v75(v74, v84, v83, v82, v81, v45, v35, v56, &v79, __PAIR64__(v58, v52), v61);
                       }
 
                       goto LABEL_148;
@@ -6876,101 +6867,95 @@ LABEL_149:
 
   while (v14);
   xmlNanoFTPCloseConnection(v11);
-  v15 = 0;
-LABEL_155:
-  v72 = *MEMORY[0x1E69E9840];
-  return v15;
+  return 0;
 }
 
 int xmlNanoFTPGetSocket(void *ctx, const char *filename)
 {
-  v28 = *MEMORY[0x1E69E9840];
-  if (ctx && (filename || *(ctx + 3)))
+  v27 = *MEMORY[0x1E69E9840];
+  if (!ctx || !filename && !*(ctx + 3))
   {
-    result = xmlNanoFTPGetConnection(ctx);
-    *(ctx + 46) = result;
-    if (result != -1)
-    {
-      v26 = 0u;
-      memset(v27, 0, sizeof(v27));
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
-      v15 = 0u;
-      v12 = 0u;
-      v13 = 0u;
-      v10 = 0u;
-      v11 = 0u;
-      strcpy(__s, "TYPE I\r\n");
-      v5 = strlen(__s);
-      if ((send(*(ctx + 45), __s, v5, 0) & 0x80000000) == 0)
-      {
-        if (xmlNanoFTPReadResponse(ctx) != 2)
-        {
+    return -1;
+  }
+
+  result = xmlNanoFTPGetConnection(ctx);
+  *(ctx + 46) = result;
+  if (result == -1)
+  {
+    return result;
+  }
+
+  v25 = 0u;
+  memset(v26, 0, sizeof(v26));
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  strcpy(__s, "TYPE I\r\n");
+  v5 = strlen(__s);
+  if ((send(*(ctx + 45), __s, v5, 0) & 0x80000000) != 0)
+  {
+    goto LABEL_14;
+  }
+
+  if (xmlNanoFTPReadResponse(ctx) != 2)
+  {
 LABEL_15:
-          result = *(ctx + 46);
-LABEL_16:
-          close(result);
-          result = -1;
-          *(ctx + 46) = -1;
-          goto LABEL_17;
-        }
+    result = *(ctx + 46);
+    goto LABEL_16;
+  }
 
-        if (filename)
-        {
-          snprintf(__s, 0x12CuLL, "RETR %s\r\n", filename);
-        }
-
-        else
-        {
-          snprintf(__s, 0x12CuLL, "RETR %s\r\n", *(ctx + 3));
-        }
-
-        v27[18] = 0;
-        v6 = strlen(__s);
-        if ((send(*(ctx + 45), __s, v6, 0) & 0x80000000) == 0)
-        {
-          v7 = xmlNanoFTPReadResponse(ctx);
-          result = *(ctx + 46);
-          if (v7 == 1)
-          {
-            goto LABEL_17;
-          }
-
-          goto LABEL_16;
-        }
-      }
-
-      __xmlIOErr(9u, 0, "send failed");
-      goto LABEL_15;
-    }
+  if (filename)
+  {
+    snprintf(__s, 0x12CuLL, "RETR %s\r\n", filename);
   }
 
   else
   {
-    result = -1;
+    snprintf(__s, 0x12CuLL, "RETR %s\r\n", *(ctx + 3));
   }
 
-LABEL_17:
-  v8 = *MEMORY[0x1E69E9840];
+  v26[18] = 0;
+  v6 = strlen(__s);
+  if ((send(*(ctx + 45), __s, v6, 0) & 0x80000000) != 0)
+  {
+LABEL_14:
+    __xmlIOErr(9u, 0, "send failed");
+    goto LABEL_15;
+  }
+
+  v7 = xmlNanoFTPReadResponse(ctx);
+  result = *(ctx + 46);
+  if (v7 != 1)
+  {
+LABEL_16:
+    close(result);
+    result = -1;
+    *(ctx + 46) = -1;
+  }
+
   return result;
 }
 
 int xmlNanoFTPGet(void *ctx, ftpDataCallback callback, void *userData, const char *filename)
 {
-  v4 = MEMORY[0x1EEE9AC00](ctx, callback);
-  v20 = *MEMORY[0x1E69E9840];
+  v4 = MEMORY[0x1EEE9AC00](ctx);
+  v19 = *MEMORY[0x1E69E9840];
   if (!v4)
   {
-    goto LABEL_4;
+    return -1;
   }
 
   v8 = v6;
@@ -6980,9 +6965,7 @@ int xmlNanoFTPGet(void *ctx, ftpDataCallback callback, void *userData, const cha
   {
     if (!v5)
     {
-LABEL_4:
-      result = -1;
-      goto LABEL_21;
+      return -1;
     }
   }
 
@@ -6991,28 +6974,28 @@ LABEL_4:
     result = -1;
     if (!v5 || !*(v10 + 24))
     {
-      goto LABEL_21;
+      return result;
     }
   }
 
   result = xmlNanoFTPGetSocket(v10, v7);
   if (result != -1)
   {
-    bzero(v19, 0x1000uLL);
+    bzero(v18, 0x1000uLL);
     LODWORD(v12) = 0;
-    *&v17.tv_usec = 0;
+    *&v16.tv_usec = 0;
     while (1)
     {
-      v17.tv_sec = 1;
-      v17.tv_usec = 0;
-      memset(&v18, 0, sizeof(v18));
+      v16.tv_sec = 1;
+      v16.tv_usec = 0;
+      memset(&v17, 0, sizeof(v17));
       v13 = *(v10 + 184);
-      if (__darwin_check_fd_set_overflow(v13, &v18, 0))
+      if (__darwin_check_fd_set_overflow(v13, &v17, 0))
       {
-        *(v18.fds_bits + ((v13 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v13;
+        *(v17.fds_bits + ((v13 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v13;
       }
 
-      v14 = select(*(v10 + 184) + 1, &v18, 0, 0, &v17);
+      v14 = select(*(v10 + 184) + 1, &v17, 0, 0, &v16);
       if (v14 < 0)
       {
         goto LABEL_20;
@@ -7020,19 +7003,19 @@ LABEL_4:
 
       if (v14)
       {
-        v12 = recv(*(v10 + 184), v19, 0x1000uLL, 0);
+        v12 = recv(*(v10 + 184), v18, 0x1000uLL, 0);
         if ((v12 & 0x80000000) != 0)
         {
           __xmlIOErr(9u, 0, "recv failed");
-          v9(v8, v19, v12);
+          v9(v8, v18, v12);
 LABEL_20:
           close(*(v10 + 184));
           result = -1;
           *(v10 + 184) = -1;
-          break;
+          return result;
         }
 
-        v9(v8, v19, v12);
+        v9(v8, v18, v12);
       }
 
       else
@@ -7048,20 +7031,17 @@ LABEL_20:
           close(*(v10 + 184));
           result = 0;
           *(v10 + 184) = -1;
-          break;
+          return result;
         }
       }
 
       if (!v12)
       {
-        result = xmlNanoFTPCloseConnection(v10);
-        break;
+        return xmlNanoFTPCloseConnection(v10);
       }
     }
   }
 
-LABEL_21:
-  v16 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7251,68 +7231,66 @@ void *__cdecl xmlNanoHTTPOpenRedir(const char *URL, char **contentType, char **r
 
 void *__cdecl xmlNanoHTTPMethodRedir(const char *URL, const char *method, const char *input, char **contentType, char **redir, const char *headers, int ilen)
 {
-  v7 = MEMORY[0x1EEE9AC00](URL, method);
-  v135 = v13;
-  *&v137[1] = *MEMORY[0x1E69E9840];
-  v130 = v7;
+  v7 = MEMORY[0x1EEE9AC00](URL);
+  v128 = v13;
+  *&v130[1] = *MEMORY[0x1E69E9840];
+  v123 = v7;
   if (!v7)
   {
-    goto LABEL_233;
+    return 0;
   }
 
   v14 = v12;
   v15 = v9;
-  v129 = v10;
+  v122 = v10;
   v16 = "GET";
   if (v8)
   {
     v16 = v8;
   }
 
-  v133 = v16;
+  v126 = v16;
   __s = v11;
   xmlNanoHTTPInit();
   v17 = 0;
   v18 = 0;
   while (2)
   {
-    v19 = xmlNanoHTTPNewCtxt(v130);
+    v19 = xmlNanoHTTPNewCtxt(v123);
     if (!v19)
     {
-      goto LABEL_234;
+      return v19;
     }
 
 LABEL_8:
     if (!*v19 || strcmp(*v19, "http"))
     {
-      v118 = "Not a valid HTTP URI";
-      v119 = 2020;
+      v116 = "Not a valid HTTP URI";
+      v117 = 2020;
 LABEL_222:
-      __xmlIOErr(0xAu, v119, v118);
+      __xmlIOErr(0xAu, v117, v116);
 LABEL_223:
       xmlNanoHTTPFreeCtxt(v19);
       if (!v18)
       {
-LABEL_233:
-        v19 = 0;
-        goto LABEL_234;
+        return 0;
       }
 
-      v122 = v18;
+      v120 = v18;
 LABEL_225:
-      free(v122);
-      goto LABEL_233;
+      free(v120);
+      return 0;
     }
 
     v20 = *(v19 + 1);
     if (!v20)
     {
-      v118 = "Failed to identify host in URI";
-      v119 = 2022;
+      v116 = "Failed to identify host in URI";
+      v117 = 2022;
       goto LABEL_222;
     }
 
-    v132 = v17;
+    v125 = v17;
     v21 = v15;
     v22 = v18;
     v23 = strlen(v20);
@@ -7362,9 +7340,9 @@ LABEL_225:
       v29 += strlen(__s) + 2;
     }
 
-    if (v135 && *v135)
+    if (v128 && *v128)
     {
-      v29 += strlen(*v135) + 16;
+      v29 += strlen(*v128) + 16;
     }
 
     v30 = *(v19 + 4);
@@ -7373,7 +7351,7 @@ LABEL_225:
       v29 += strlen(v30) + 1;
     }
 
-    v31 = strlen(v133);
+    v31 = strlen(v126);
     v32 = v29 + strlen(*(v19 + 3)) + v31;
     if (*(v19 + 4) == 80)
     {
@@ -7397,90 +7375,84 @@ LABEL_225:
     {
       xmlNanoHTTPFreeCtxt(v19);
       __xmlSimpleError(0xAu, 2, 0, 0, "allocating header buffer");
-      goto LABEL_233;
+      return 0;
     }
 
     v38 = v37;
-    v131 = v28;
+    v124 = v28;
     if (proxy_0)
     {
-      v39 = *(v19 + 1);
       if (*(v19 + 4) == 80)
       {
-        v125 = *(v19 + 1);
-        v127 = *(v19 + 3);
-        v40 = snprintf(v37, v36, "%s http://%s%s");
+        v39 = snprintf(v37, v36, "%s http://%s%s");
       }
 
       else
       {
-        v128 = *(v19 + 3);
-        v40 = snprintf(v37, v36, "%s http://%s:%d%s");
+        v39 = snprintf(v37, v36, "%s http://%s:%d%s");
       }
     }
 
     else
     {
-      v126 = *(v19 + 3);
-      v40 = snprintf(v37, v36, "%s %s");
+      v39 = snprintf(v37, v36, "%s %s");
     }
 
-    v41 = &v38[v40];
+    v40 = &v38[v39];
     if (*(v19 + 4))
     {
-      v41 += snprintf(&v38[v40], v36 - v40, "?%s", *(v19 + 4));
+      v40 += snprintf(&v38[v39], v36 - v39, "?%s", *(v19 + 4));
     }
 
-    v42 = &v38[v36];
-    v43 = &v38[v36] - v41;
-    v44 = *(v19 + 1);
+    v41 = &v38[v36];
+    v42 = &v38[v36] - v40;
     if (*(v19 + 4) == 80)
     {
-      v45 = snprintf(v41, v43, " HTTP/1.0\r\nHost: %s\r\n");
+      v43 = snprintf(v40, v42, " HTTP/1.0\r\nHost: %s\r\n");
     }
 
     else
     {
-      v45 = snprintf(v41, v43, " HTTP/1.0\r\nHost: %s:%d\r\n");
+      v43 = snprintf(v40, v42, " HTTP/1.0\r\nHost: %s:%d\r\n");
     }
 
-    v46 = &v41[v45 + snprintf(&v41[v45], v42 - &v41[v45], "Accept-Encoding: gzip\r\n")];
-    if (v135)
+    v44 = &v40[v43 + snprintf(&v40[v43], v41 - &v40[v43], "Accept-Encoding: gzip\r\n")];
+    if (v128)
     {
-      v47 = v22;
-      if (*v135)
+      v45 = v22;
+      if (*v128)
       {
-        v46 += snprintf(v46, v42 - v46, "Content-Type: %s\r\n", *v135);
+        v44 += snprintf(v44, v41 - v44, "Content-Type: %s\r\n", *v128);
       }
     }
 
     else
     {
-      v47 = v22;
+      v45 = v22;
     }
 
     v15 = v21;
     if (__s)
     {
-      v46 += snprintf(v46, v42 - v46, "%s", __s);
+      v44 += snprintf(v44, v41 - v44, "%s", __s);
     }
 
-    v48 = v42 - v46;
+    v46 = v41 - v44;
     if (v21)
     {
-      snprintf(v46, v48, "Content-Length: %d\r\n\r\n");
+      snprintf(v44, v46, "Content-Length: %d\r\n\r\n");
     }
 
     else
     {
-      snprintf(v46, v48, "\r\n");
+      snprintf(v44, v46, "\r\n");
     }
 
     *(v19 + 6) = v38;
     *(v19 + 7) = v38;
     *(v19 + 11) = 1;
-    v49 = strlen(v38);
-    xmlNanoHTTPSend(v19, v38, v49);
+    v47 = strlen(v38);
+    xmlNanoHTTPSend(v19, v38, v47);
     if (v21)
     {
       xmlNanoHTTPSend(v19, v21, v14);
@@ -7489,138 +7461,138 @@ LABEL_225:
     *(v19 + 11) = 2;
     while (2)
     {
-      v50 = __s1;
+      v48 = __s1;
       bzero(__s1, 0x1000uLL);
       while (1)
       {
-        v51 = *(v19 + 11);
-        if (v51 == *(v19 + 10))
+        v49 = *(v19 + 11);
+        if (v49 == *(v19 + 10))
         {
           break;
         }
 
 LABEL_60:
-        *(v19 + 11) = v51 + 1;
-        v53 = *v51;
-        *v50 = v53;
-        if (v53 != 13)
+        *(v19 + 11) = v49 + 1;
+        v51 = *v49;
+        *v48 = v51;
+        if (v51 != 13)
         {
-          if (v53 == 10)
+          if (v51 == 10)
           {
             goto LABEL_66;
           }
 
-          ++v50;
+          ++v48;
         }
 
-        if (v50 - __s1 >= 4095)
+        if (v48 - __s1 >= 4095)
         {
-          v50 = v137;
+          v48 = v130;
           goto LABEL_66;
         }
       }
 
-      v52 = xmlNanoHTTPRecv(v19);
-      if (v52 == -1)
+      v50 = xmlNanoHTTPRecv(v19);
+      if (v50 == -1)
       {
         break;
       }
 
-      if (v52)
+      if (v50)
       {
-        v51 = *(v19 + 11);
+        v49 = *(v19 + 11);
         goto LABEL_60;
       }
 
-      if (v50 == __s1)
+      if (v48 == __s1)
       {
         break;
       }
 
 LABEL_66:
-      *v50 = 0;
-      v54 = strdup(__s1);
-      if (v54)
+      *v48 = 0;
+      v52 = strdup(__s1);
+      if (v52)
       {
-        v55 = v54;
-        if (*v54)
+        v53 = v52;
+        if (*v52)
         {
-          if (!strncmp(v54, "HTTP/", 5uLL))
+          if (!strncmp(v52, "HTTP/", 5uLL))
           {
-            v56 = v55 + 5;
-            v57 = v55[5];
-            if (v57 - 48 > 9)
+            v54 = v53 + 5;
+            v55 = v53[5];
+            if (v55 - 48 > 9)
             {
-              v58 = 0;
+              v56 = 0;
             }
 
             else
             {
-              v58 = 0;
+              v56 = 0;
               do
               {
-                v58 = 10 * v58 + (v57 - 48);
-                v59 = *++v56;
-                v57 = v59;
+                v56 = 10 * v56 + (v55 - 48);
+                v57 = *++v54;
+                v55 = v57;
               }
 
-              while (v59 - 48 < 0xA);
+              while (v57 - 48 < 0xA);
             }
 
-            if (v57 == 46)
+            if (v55 == 46)
             {
-              v77 = v56[1];
-              v76 = v56 + 1;
-              v78 = v77 - 48;
-              if ((v77 - 48) < 0xA)
+              v75 = v54[1];
+              v74 = v54 + 1;
+              v76 = v75 - 48;
+              if ((v75 - 48) < 0xA)
               {
-                ++v76;
+                ++v74;
               }
 
-              v56 = v76 - 1;
+              v54 = v74 - 1;
               do
               {
-                v79 = *++v56;
-                v57 = v79;
+                v77 = *++v54;
+                v55 = v77;
               }
 
-              while (v79 - 48 < 0xA);
-              v80 = v78;
-              v81 = 10 * v58 + v78;
-              if (v80 < 0xA)
+              while (v77 - 48 < 0xA);
+              v78 = v76;
+              v79 = 10 * v56 + v76;
+              if (v78 < 0xA)
               {
-                v58 = v81;
+                v56 = v79;
               }
             }
 
             else
             {
-              v58 *= 10;
+              v56 *= 10;
             }
 
-            if (v57 == 32 || v57 == 9)
+            if (v55 == 32 || v55 == 9)
             {
-              while (v57 == 32 || v57 == 9)
+              while (v55 == 32 || v55 == 9)
               {
-                v84 = *++v56;
-                LOBYTE(v57) = v84;
+                v82 = *++v54;
+                LOBYTE(v55) = v82;
               }
 
-              if ((v57 - 58) >= 0xF6u)
+              if ((v55 - 58) >= 0xF6u)
               {
-                v85 = 0;
-                v86 = 1;
+                v83 = 0;
+                v84 = 1;
                 do
                 {
-                  v85 = 10 * v85 + (v57 - 48);
-                  v57 = v56[v86++];
+                  v83 = 10 * v83 + (v55 - 48);
+                  v55 = v54[v84++];
                 }
 
-                while (v57 - 48 < 0xA);
-                if (v57 <= 0x20 && ((1 << v57) & 0x100000201) != 0)
+                while (v55 - 48 < 0xA);
+                if (v55 <= 0x20 && ((1 << v55) & 0x100000201) != 0)
                 {
-                  *(v19 + 26) = v85;
-                  *(v19 + 27) = v58;
+                  *(v19 + 26) = v83;
+                  *(v19 + 27) = v56;
                 }
               }
             }
@@ -7628,62 +7600,62 @@ LABEL_66:
             goto LABEL_193;
           }
 
-          if (xmlStrncasecmp(v55, "Content-Type:", 13))
+          if (xmlStrncasecmp(v53, "Content-Type:", 13))
           {
-            if (xmlStrncasecmp(v55, "ContentType:", 12))
+            if (xmlStrncasecmp(v53, "ContentType:", 12))
             {
-              if (!xmlStrncasecmp(v55, "Location:", 9))
+              if (!xmlStrncasecmp(v53, "Location:", 9))
               {
-                for (i = (v55 + 9); ; ++i)
+                for (i = (v53 + 9); ; ++i)
                 {
-                  v92 = *i;
-                  if (v92 != 32 && v92 != 9)
+                  v90 = *i;
+                  if (v90 != 32 && v90 != 9)
                   {
                     break;
                   }
                 }
 
-                v94 = *(v19 + 16);
-                if (v94)
+                v92 = *(v19 + 16);
+                if (v92)
                 {
-                  free(v94);
-                  v92 = *i;
+                  free(v92);
+                  v90 = *i;
                 }
 
-                if (v92 == 47)
+                if (v90 == 47)
                 {
-                  v95 = xmlStrdup("http://");
-                  v96 = xmlStrcat(v95, *(v19 + 1));
-                  v97 = xmlStrcat(v96, i);
+                  v93 = xmlStrdup("http://");
+                  v94 = xmlStrcat(v93, *(v19 + 1));
+                  v95 = xmlStrcat(v94, i);
                 }
 
                 else
                 {
-                  v97 = strdup(i);
+                  v95 = strdup(i);
                 }
 
-                *(v19 + 16) = v97;
+                *(v19 + 16) = v95;
                 goto LABEL_193;
               }
 
-              if (xmlStrncasecmp(v55, "WWW-Authenticate:", 17))
+              if (xmlStrncasecmp(v53, "WWW-Authenticate:", 17))
               {
-                if (xmlStrncasecmp(v55, "Proxy-Authenticate:", 19))
+                if (xmlStrncasecmp(v53, "Proxy-Authenticate:", 19))
                 {
-                  if (xmlStrncasecmp(v55, "Content-Encoding:", 17))
+                  if (xmlStrncasecmp(v53, "Content-Encoding:", 17))
                   {
-                    if (!xmlStrncasecmp(v55, "Content-Length:", 15))
+                    if (!xmlStrncasecmp(v53, "Content-Length:", 15))
                     {
-                      *(v19 + 28) = strtol(v55 + 15, 0, 10);
+                      *(v19 + 28) = strtol(v53 + 15, 0, 10);
                     }
                   }
 
                   else
                   {
-                    for (j = (v55 + 17); ; ++j)
+                    for (j = (v53 + 17); ; ++j)
                     {
-                      v115 = *j;
-                      if (v115 != 32 && v115 != 9)
+                      v113 = *j;
+                      if (v113 != 32 && v113 != 9)
                       {
                         break;
                       }
@@ -7692,29 +7664,29 @@ LABEL_66:
                     if (!xmlStrncasecmp(j, "gzip", 4))
                     {
                       *(v19 + 42) = 1;
-                      v117 = malloc_type_malloc(0x70uLL, 0x10B0040E8CA615DuLL);
-                      *(v19 + 20) = v117;
-                      if (v117)
+                      v115 = malloc_type_malloc(0x70uLL, 0x10B0040E8CA615DuLL);
+                      *(v19 + 20) = v115;
+                      if (v115)
                       {
-                        v117->avail_in = 0;
-                        v117->next_in = 0;
-                        v117->zfree = 0;
-                        v117->opaque = 0;
-                        v117->zalloc = 0;
-                        inflateInit2_(v117, 31, "1.2.12", 112);
+                        v115->avail_in = 0;
+                        v115->next_in = 0;
+                        v115->zfree = 0;
+                        v115->opaque = 0;
+                        v115->zalloc = 0;
+                        inflateInit2_(v115, 31, "1.2.12", 112);
                       }
                     }
                   }
 
 LABEL_193:
-                  free(v55);
+                  free(v53);
                   continue;
                 }
 
-                for (k = v55 + 19; ; ++k)
+                for (k = v53 + 19; ; ++k)
                 {
-                  v111 = *k;
-                  if (v111 != 32 && v111 != 9)
+                  v109 = *k;
+                  if (v109 != 32 && v109 != 9)
                   {
                     break;
                   }
@@ -7723,20 +7695,20 @@ LABEL_193:
 
               else
               {
-                for (k = v55 + 17; ; ++k)
+                for (k = v53 + 17; ; ++k)
                 {
-                  v99 = *k;
-                  if (v99 != 32 && v99 != 9)
+                  v97 = *k;
+                  if (v97 != 32 && v97 != 9)
                   {
                     break;
                   }
                 }
               }
 
-              v113 = *(v19 + 17);
-              if (v113)
+              v111 = *(v19 + 17);
+              if (v111)
               {
-                free(v113);
+                free(v111);
               }
 
               *(v19 + 17) = strdup(k);
@@ -7748,132 +7720,132 @@ LABEL_193:
               goto LABEL_193;
             }
 
-            for (m = v55 + 12; ; ++m)
+            for (m = v53 + 12; ; ++m)
             {
-              v89 = *m;
-              if (v89 != 32 && v89 != 9)
+              v87 = *m;
+              if (v87 != 32 && v87 != 9)
               {
                 break;
               }
             }
 
-            v101 = 0;
+            v99 = 0;
             *(v19 + 15) = strdup(m);
             while (1)
             {
-              v102 = m[v101];
-              v66 = v102 > 0x3B;
-              v103 = (1 << v102) & 0x800100100000201;
-              if (!v66 && v103 != 0)
+              v100 = m[v99];
+              v64 = v100 > 0x3B;
+              v101 = (1 << v100) & 0x800100100000201;
+              if (!v64 && v101 != 0)
               {
                 break;
               }
 
-              ++v101;
+              ++v99;
             }
 
-            v105 = *(v19 + 19);
-            if (v105)
+            v103 = *(v19 + 19);
+            if (v103)
             {
-              free(v105);
+              free(v103);
             }
 
-            *(v19 + 19) = xmlStrndup(m, v101);
-            v106 = xmlStrstr(*(v19 + 15), "charset=");
-            if (!v106)
+            *(v19 + 19) = xmlStrndup(m, v99);
+            v104 = xmlStrstr(*(v19 + 15), "charset=");
+            if (!v104)
             {
               goto LABEL_193;
             }
 
-            v71 = 0;
-            v72 = v106 + 8;
+            v69 = 0;
+            v70 = v104 + 8;
             while (1)
             {
-              v107 = v72[v71];
-              v66 = v107 > 0x3B;
-              v108 = (1 << v107) & 0x800100100000201;
-              if (!v66 && v108 != 0)
+              v105 = v70[v69];
+              v64 = v105 > 0x3B;
+              v106 = (1 << v105) & 0x800100100000201;
+              if (!v64 && v106 != 0)
               {
                 break;
               }
 
-              ++v71;
+              ++v69;
             }
           }
 
           else
           {
-            for (n = v55 + 13; ; ++n)
+            for (n = v53 + 13; ; ++n)
             {
-              v61 = *n;
-              if (v61 != 32 && v61 != 9)
+              v59 = *n;
+              if (v59 != 32 && v59 != 9)
               {
                 break;
               }
             }
 
-            v63 = *(v19 + 15);
-            if (v63)
+            v61 = *(v19 + 15);
+            if (v61)
             {
-              free(v63);
+              free(v61);
             }
 
-            v64 = 0;
+            v62 = 0;
             *(v19 + 15) = strdup(n);
             while (1)
             {
-              v65 = n[v64];
-              v66 = v65 > 0x3B;
-              v67 = (1 << v65) & 0x800100100000201;
-              if (!v66 && v67 != 0)
+              v63 = n[v62];
+              v64 = v63 > 0x3B;
+              v65 = (1 << v63) & 0x800100100000201;
+              if (!v64 && v65 != 0)
               {
                 break;
               }
 
-              ++v64;
+              ++v62;
             }
 
-            v69 = *(v19 + 19);
-            if (v69)
+            v67 = *(v19 + 19);
+            if (v67)
             {
-              free(v69);
+              free(v67);
             }
 
-            *(v19 + 19) = xmlStrndup(n, v64);
-            v70 = xmlStrstr(*(v19 + 15), "charset=");
-            if (!v70)
+            *(v19 + 19) = xmlStrndup(n, v62);
+            v68 = xmlStrstr(*(v19 + 15), "charset=");
+            if (!v68)
             {
               goto LABEL_193;
             }
 
-            v71 = 0;
-            v72 = v70 + 8;
+            v69 = 0;
+            v70 = v68 + 8;
             while (1)
             {
-              v73 = v72[v71];
-              v66 = v73 > 0x3B;
-              v74 = (1 << v73) & 0x800100100000201;
-              if (!v66 && v74 != 0)
+              v71 = v70[v69];
+              v64 = v71 > 0x3B;
+              v72 = (1 << v71) & 0x800100100000201;
+              if (!v64 && v72 != 0)
               {
                 break;
               }
 
-              ++v71;
+              ++v69;
             }
           }
 
-          v110 = *(v19 + 18);
-          if (v110)
+          v108 = *(v19 + 18);
+          if (v108)
           {
-            free(v110);
+            free(v108);
           }
 
-          *(v19 + 18) = xmlStrndup(v72, v71);
+          *(v19 + 18) = xmlStrndup(v70, v69);
           goto LABEL_193;
         }
 
         *(v19 + 9) = *(v19 + 11);
-        free(v54);
+        free(v52);
       }
 
       break;
@@ -7881,64 +7853,64 @@ LABEL_193:
 
     if (!*(v19 + 16) || (*(v19 + 26) - 300) > 0x63)
     {
-      v120 = v135;
-      if (v135)
+      v118 = v128;
+      if (v128)
       {
-        v121 = *(v19 + 15);
-        if (v121)
+        v119 = *(v19 + 15);
+        if (v119)
         {
-          v121 = strdup(v121);
-          v120 = v135;
+          v119 = strdup(v119);
+          v118 = v128;
         }
 
-        *v120 = v121;
+        *v118 = v119;
       }
 
-      if (v129 && v47)
+      if (v122 && v45)
       {
-        *v129 = v47;
+        *v122 = v45;
       }
 
       else
       {
-        if (v47)
+        if (v45)
         {
-          free(v47);
+          free(v45);
         }
 
-        if (v129)
+        if (v122)
         {
-          *v129 = 0;
+          *v122 = 0;
         }
       }
 
-      goto LABEL_234;
+      return v19;
     }
 
       ;
     }
 
-    if (v132 == 10)
+    if (v125 == 10)
     {
       xmlNanoHTTPFreeCtxt(v19);
-      if (!v47)
+      if (!v45)
       {
-        goto LABEL_233;
+        return 0;
       }
 
-      v122 = v47;
+      v120 = v45;
       goto LABEL_225;
     }
 
-    if (v47)
+    if (v45)
     {
-      free(v47);
+      free(v45);
     }
 
-    v17 = v132 + 1;
+    v17 = v125 + 1;
     v18 = strdup(*(v19 + 16));
     xmlNanoHTTPFreeCtxt(v19);
-    v14 = v131;
+    v14 = v124;
     if (!v18)
     {
       continue;
@@ -7954,8 +7926,6 @@ LABEL_193:
     goto LABEL_8;
   }
 
-LABEL_234:
-  v123 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -8336,16 +8306,16 @@ _OWORD *xmlNanoHTTPNewCtxt(const char *a1)
 
 uint64_t xmlNanoHTTPConnectHost(const char *a1, unsigned int a2)
 {
-  v29[2] = *MEMORY[0x1E69E9840];
-  v28 = 0uLL;
-  v29[0] = 0;
-  v29[1] = 0;
-  v26 = 0uLL;
-  v25 = 0;
-  v27 = 0;
+  v25[2] = *MEMORY[0x1E69E9840];
+  v24 = 0uLL;
+  v25[0] = 0;
+  v25[1] = 0;
+  v22 = 0uLL;
+  v21 = 0;
+  v23 = 0;
   if (!have_ipv6())
   {
-    v24.ai_flags = 0;
+    v20.ai_flags = 0;
     v5 = gethostbyname(a1);
     if (!v5)
     {
@@ -8368,16 +8338,16 @@ uint64_t xmlNanoHTTPConnectHost(const char *a1, unsigned int a2)
           }
 
           __memcpy_chk();
-          BYTE1(v29[0]) = 2;
-          HIDWORD(v29[0]) = v24.ai_flags;
-          v9 = v29;
+          BYTE1(v25[0]) = 2;
+          HIDWORD(v25[0]) = v20.ai_flags;
+          v9 = v25;
         }
 
         else
         {
           if (!have_ipv6() || v6->h_addrtype != 30)
           {
-            break;
+            return 0xFFFFFFFFLL;
           }
 
           if (v6->h_length >= 0x11u)
@@ -8386,113 +8356,105 @@ LABEL_34:
             v4 = "address size mismatch\n";
 LABEL_35:
             __xmlIOErr(0xAu, 0, v4);
-            break;
+            return 0xFFFFFFFFLL;
           }
 
-          v10 = v6->h_addr_list[v7];
           __memcpy_chk();
-          BYTE1(v25) = 30;
-          v26 = v28;
-          v9 = &v25;
+          BYTE1(v21) = 30;
+          v22 = v24;
+          v9 = &v21;
         }
 
         *(v9 + 1) = v8;
-        v11 = xmlNanoHTTPConnectAttempt(v9);
-        if (v11 != -1)
+        v10 = xmlNanoHTTPConnectAttempt(v9);
+        if (v10 != -1)
         {
-          v20 = v11;
-          goto LABEL_37;
+          return v10;
         }
       }
 
       while (v6->h_addr_list[++v7]);
     }
 
-LABEL_36:
-    v20 = 0xFFFFFFFFLL;
-    goto LABEL_37;
+    return 0xFFFFFFFFLL;
   }
 
-  v23 = 0;
-  memset(&v24, 0, sizeof(v24));
-  v24.ai_socktype = 1;
-  if (getaddrinfo(a1, 0, &v24, &v23))
+  v19 = 0;
+  memset(&v20, 0, sizeof(v20));
+  v20.ai_socktype = 1;
+  if (getaddrinfo(a1, 0, &v20, &v19))
   {
     v4 = "getaddrinfo failed\n";
     goto LABEL_35;
   }
 
-  v13 = v23;
-  if (!v23)
+  v12 = v19;
+  if (!v19)
   {
-    goto LABEL_36;
+    return 0xFFFFFFFFLL;
   }
 
-  v14 = bswap32(a2) >> 16;
+  v13 = bswap32(a2) >> 16;
   while (1)
   {
-    if (v13->ai_family == 2)
+    if (v12->ai_family == 2)
     {
-      if (v13->ai_addrlen >= 0x11)
+      if (v12->ai_addrlen >= 0x11)
       {
         goto LABEL_31;
       }
 
-      ai_addr = v13->ai_addr;
-      v16 = v29;
+      v14 = v25;
     }
 
     else
     {
-      if (!have_ipv6() || v13->ai_family != 30)
+      if (!have_ipv6() || v12->ai_family != 30)
       {
         goto LABEL_27;
       }
 
-      if (v13->ai_addrlen >= 0x1D)
+      if (v12->ai_addrlen >= 0x1D)
       {
 LABEL_31:
         __xmlIOErr(0xAu, 0, "address size mismatch\n");
-        v19 = v23;
+        v16 = v19;
 LABEL_32:
-        freeaddrinfo(v19);
-        goto LABEL_36;
+        freeaddrinfo(v16);
+        return 0xFFFFFFFFLL;
       }
 
-      v17 = v13->ai_addr;
-      v16 = &v25;
+      v14 = &v21;
     }
 
     __memcpy_chk();
-    *(v16 + 1) = v14;
-    v18 = xmlNanoHTTPConnectAttempt(v16);
-    if (v18 != -1)
+    *(v14 + 1) = v13;
+    v15 = xmlNanoHTTPConnectAttempt(v14);
+    if (v15 != -1)
     {
       break;
     }
 
 LABEL_27:
-    v13 = v13->ai_next;
-    if (!v13)
+    v12 = v12->ai_next;
+    if (!v12)
     {
-      v19 = v23;
-      if (!v23)
+      v16 = v19;
+      if (!v19)
       {
-        goto LABEL_36;
+        return 0xFFFFFFFFLL;
       }
 
       goto LABEL_32;
     }
   }
 
-  v20 = v18;
-  freeaddrinfo(v23);
-LABEL_37:
-  v21 = *MEMORY[0x1E69E9840];
-  return v20;
+  v17 = v15;
+  freeaddrinfo(v19);
+  return v17;
 }
 
-ssize_t xmlNanoHTTPSend(ssize_t result, uint64_t a2, int a3)
+uint64_t xmlNanoHTTPSend(uint64_t result, uint64_t a2, int a3)
 {
   if (a2)
   {
@@ -9092,7 +9054,7 @@ LABEL_57:
   return lang;
 }
 
-_DWORD *xmlFatalErrMsgInt(_DWORD *result, int a2, const char *a3, int a4)
+xmlError *xmlFatalErrMsgInt(xmlError *result, int a2, const char *a3, int a4)
 {
   if (!result)
   {
@@ -9100,14 +9062,14 @@ _DWORD *xmlFatalErrMsgInt(_DWORD *result, int a2, const char *a3, int a4)
   }
 
   v4 = result;
-  if (!result[83] || result[68] != -1)
+  if (!result[3].int2 || LODWORD(result[3].message) != -1)
   {
-    result[34] = a2;
+    LODWORD(result[1].str2) = a2;
     result = __xmlRaiseError(0, 0, 0, result, 0, 1u, a2, 3, 0, 0, 0, 0, 0, a4, 0, a3, a4);
-    v4[6] = 0;
-    if (!v4[112])
+    LODWORD(v4->file) = 0;
+    if (!LODWORD(v4[5].message))
     {
-      v4[83] = 1;
+      v4[3].int2 = 1;
     }
   }
 
@@ -9385,10 +9347,10 @@ LABEL_17:
   return ctxt;
 }
 
-_DWORD *xmlFatalErr(_DWORD *result, int a2, const xmlChar *a3)
+xmlError *xmlFatalErr(xmlError *result, int a2, const xmlChar *a3)
 {
   v3 = result;
-  if (result && result[83] && result[68] == -1)
+  if (result && result[3].int2 && LODWORD(result[3].message) == -1)
   {
     return result;
   }
@@ -9408,7 +9370,7 @@ _DWORD *xmlFatalErr(_DWORD *result, int a2, const xmlChar *a3)
   if (result)
   {
 LABEL_8:
-    result[34] = a2;
+    LODWORD(result[1].str2) = a2;
   }
 
 LABEL_9:
@@ -9424,10 +9386,10 @@ LABEL_9:
 
   if (v3)
   {
-    v3[6] = 0;
-    if (!v3[112])
+    LODWORD(v3->file) = 0;
+    if (!LODWORD(v3[5].message))
     {
-      v3[83] = 1;
+      v3[3].int2 = 1;
     }
   }
 
@@ -9571,155 +9533,932 @@ LABEL_12:
   }
 }
 
-uint64_t xmlParserEntityCheck(uint64_t result, unint64_t a2, uint64_t a3, unint64_t a4)
+xmlChar *__cdecl xmlStringLenDecodeEntities(xmlParserCtxtPtr ctxt, const xmlChar *str, int len, int what, xmlChar end, xmlChar end2, xmlChar end3)
 {
-  if (result)
+  v107 = end;
+  lena = 0;
+  v7 = 0;
+  if (!ctxt)
   {
-    v4 = result;
-    if ((*(result + 566) & 8) == 0)
-    {
-      if (*(result + 604) == 89)
-      {
-        return 1;
-      }
+    return v7;
+  }
 
-      if (a3)
-      {
-        if (*(a3 + 92) != 6)
-        {
-          v8 = *(a3 + 80);
-          if (v8)
-          {
-            if (!*(a3 + 132) && *(result + 136) != 89)
-            {
-              v9 = *(result + 696);
-              *(a3 + 132) = 1;
-              ++*(result + 392);
-              v10 = xmlStrlen(v8);
-              v11 = xmlStringLenDecodeEntities(v4, v8, v10, 1, 0, 0, 0);
-              v12 = v11;
-              --*(v4 + 392);
-              if (!v11 || *(v4 + 136) == 89)
-              {
-                **(a3 + 80) = 0;
-              }
+  v8 = str;
+  if (!str || len < 0)
+  {
+    return v7;
+  }
 
-              v13 = *(v4 + 696) - v9;
-              if ((v13 + 1) < 0x3FFFFFFF)
-              {
-                v14 = v13 + 1;
-              }
-
-              else
-              {
-                v14 = 0x3FFFFFFF;
-              }
-
-              *(a3 + 132) = 2 * v14;
-              if (v11)
-              {
-                if (xmlStrchr(v11, 0x3Cu))
-                {
-                  *(a3 + 132) |= 1u;
-                }
-
-                free(v12);
-              }
-            }
-          }
-        }
-      }
-
-      if (*(v4 + 272) == 3)
-      {
-        v15 = *(v4 + 696);
-        if (v15 >= 0x2711 && (v15 & 0x3FF) == 0)
-        {
-          v16 = *(v4 + 64);
-          if (v16 < 1)
-          {
-            goto LABEL_27;
-          }
-
-          v17 = 0;
-          v18 = *(v4 + 72);
-          do
-          {
-            v19 = *v18++;
-            v17 = v19[8] + v17 + v19[4] - v19[3];
-            --v16;
-          }
-
-          while (v16);
-          if (v15 > 10 * v17)
-          {
-LABEL_27:
-            xmlFatalErr(v4, 89, 0);
-            *(v4 + 272) = -1;
-            return 1;
-          }
-        }
-      }
-
-      if (a4)
-      {
-        if (a4 >= 0x989680)
-        {
-          v20 = *(v4 + 56);
-          if (v20)
-          {
-            v20 = (v20[8] + v20[4] - v20[3]);
-          }
-
-          if (10 * (v20 + *(v4 + 704)) <= a4)
-          {
-            goto LABEL_50;
-          }
-        }
-      }
-
-      else if (a2)
-      {
-        if (a2 >= 0x3E8)
-        {
-          v21 = *(v4 + 56);
-          if (v21)
-          {
-            v21 = (v21[8] + v21[4] - v21[3]);
-          }
-
-          v22 = 10 * (v21 + *(v4 + 704));
-          if (v22 <= a2 || 3 * *(v4 + 696) >= v22)
-          {
-            goto LABEL_50;
-          }
-        }
-      }
-
-      else if (a3)
-      {
-        v23 = *(v4 + 56);
-        if (v23)
-        {
-          v23 = (v23[8] + v23[4] - v23[3]);
-        }
-
-        if (3 * ((*(a3 + 132) + (*(a3 + 132) >> 31)) >> 1) >= (10 * (v23 + *(v4 + 704))))
-        {
-          goto LABEL_50;
-        }
-      }
-
-      else if ((*(v4 + 604) & 0xFFFFFFFE) == 0x1A && *(v4 + 696) >= 0x2711uLL)
-      {
-LABEL_50:
-        xmlFatalErr(v4, 89, 0);
-        return 1;
-      }
-    }
-
+  v10 = end3;
+  v11 = end2;
+  depth = ctxt->depth;
+  if (depth >= 41 && (depth > 0x400 || (ctxt->options & 0x80000) == 0))
+  {
+    xmlFatalErr(ctxt, 89, 0);
     return 0;
   }
 
-  return result;
+  v7 = malloc_type_malloc(0x12CuLL, 0x100004077774924uLL);
+  if (!v7)
+  {
+LABEL_259:
+    v52 = 0;
+LABEL_260:
+    xmlErrMemory(ctxt, 0);
+LABEL_261:
+    if (v52)
+    {
+      free(v52);
+    }
+
+    goto LABEL_263;
+  }
+
+  if (len)
+  {
+    v15 = xmlStringCurrentChar(ctxt, v8, &lena);
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  v16 = 0;
+  if (v15 == v10 || v15 == v11 || !v15 || v15 == v107)
+  {
+LABEL_258:
+    v7[v16] = 0;
+    return v7;
+  }
+
+  whata = what;
+  v16 = 0;
+  v106 = &v8[len];
+  v17 = 300;
+  v18 = v107;
+  while (1)
+  {
+    if (ctxt->instate == XML_PARSER_EOF)
+    {
+      goto LABEL_258;
+    }
+
+    if (v15 == 38)
+    {
+      if (v8[1] == 35)
+      {
+        if (*v8 != 38)
+        {
+          xmlFatalErr(ctxt, 8, 0);
+          goto LABEL_263;
+        }
+
+        v20 = v8 + 2;
+        v19 = v8[2];
+        if (v19 == 59)
+        {
+          v24 = 0;
+LABEL_57:
+          v42 = 1;
+        }
+
+        else
+        {
+          if (v19 == 120)
+          {
+            v23 = v8[3];
+            v22 = v8 + 3;
+            v21 = v23;
+            if (v23 != 59)
+            {
+              v24 = 0;
+              while (1)
+              {
+                if ((v21 - 48) > 9)
+                {
+                  if ((v21 - 97) > 5)
+                  {
+                    if ((v21 - 65) > 5)
+                    {
+                      xmlFatalErr(ctxt, 6, 0);
+                      v45 = 0;
+                      v24 = 0;
+                      goto LABEL_73;
+                    }
+
+                    v43 = v21 + 16 * v24 - 55;
+                  }
+
+                  else
+                  {
+                    v43 = v21 + 16 * v24 - 87;
+                  }
+                }
+
+                else
+                {
+                  v43 = v21 + 16 * v24 - 48;
+                }
+
+                if (v43 >= 1114112)
+                {
+                  v24 = 1114112;
+                }
+
+                else
+                {
+                  v24 = v43;
+                }
+
+                v44 = *++v22;
+                v21 = v44;
+                if (v44 == 59)
+                {
+                  goto LABEL_72;
+                }
+              }
+            }
+
+            v24 = 0;
+LABEL_72:
+            v45 = 1;
+LABEL_73:
+            v29 = &v22[v45];
+            goto LABEL_74;
+          }
+
+          v24 = 0;
+          while ((v19 - 48) <= 9)
+          {
+            v40 = v19 + 10 * v24 - 48;
+            if (v40 >= 1114112)
+            {
+              v24 = 1114112;
+            }
+
+            else
+            {
+              v24 = v40;
+            }
+
+            v41 = *++v20;
+            v19 = v41;
+            if (v41 == 59)
+            {
+              goto LABEL_57;
+            }
+          }
+
+          xmlFatalErr(ctxt, 7, 0);
+          v42 = 0;
+          v24 = 0;
+        }
+
+        v29 = &v20[v42];
+LABEL_74:
+        if (v24 >= 1114112)
+        {
+          v98 = "xmlParseStringCharRef: character reference out of bounds\n";
+LABEL_270:
+          xmlFatalErrMsgInt(ctxt, 9, v98, v24);
+          goto LABEL_263;
+        }
+
+        if (v24 > 255)
+        {
+          if ((v24 - 0x10000) >= 0xFFFFD800 && (v24 - 57344) >> 1 >= 0xFFF)
+          {
+LABEL_269:
+            v98 = "xmlParseStringCharRef: invalid xmlChar value %d\n";
+            goto LABEL_270;
+          }
+        }
+
+        else if (v24 <= 31 && (v24 > 0xD || ((1 << v24) & 0x2600) == 0))
+        {
+          goto LABEL_269;
+        }
+
+        v46 = &v7[v16];
+        v47 = v24;
+LABEL_83:
+        v16 += xmlCopyCharMultiByte(v46, v47);
+        goto LABEL_84;
+      }
+
+      if ((whata & 1) == 0)
+      {
+        goto LABEL_37;
+      }
+
+      if (*__xmlParserDebugEntities())
+      {
+        v32 = v11;
+        v33 = *__xmlGenericError();
+        v34 = __xmlGenericErrorContext();
+        v33(*v34, "String decoding Entity Reference: %.30s\n", v8);
+        v11 = v32;
+        v18 = v107;
+      }
+
+      *v109 = v8;
+      if (*v8 != 38)
+      {
+        goto LABEL_154;
+      }
+
+      *v109 = v8 + 1;
+      v35 = xmlParseStringName(ctxt, v109);
+      if (v35)
+      {
+        v36 = v35;
+        v37 = *v109;
+        if (**v109 == 59)
+        {
+          v29 = (*v109 + 1);
+          if ((ctxt->options & 0x100000) == 0)
+          {
+            PredefinedEntity = xmlGetPredefinedEntity(v35);
+            if (PredefinedEntity)
+            {
+              v39 = PredefinedEntity;
+              free(v36);
+              xmlParserEntityCheck(ctxt, 0, v39, 0);
+              goto LABEL_224;
+            }
+          }
+
+          ++ctxt->nbentities;
+          if (!ctxt->sax)
+          {
+            goto LABEL_105;
+          }
+
+          getEntity = ctxt->sax->getEntity;
+          if ((!getEntity || (v50 = (getEntity)(ctxt->userData, v36)) == 0) && ((ctxt->options & 0x100000) == 0 || (v50 = xmlGetPredefinedEntity(v36)) == 0))
+          {
+            if (ctxt->userData != ctxt)
+            {
+LABEL_105:
+              v39 = 0;
+LABEL_148:
+              instate = ctxt->instate;
+              if (instate != XML_PARSER_EOF)
+              {
+                if (!v39)
+                {
+                  if (ctxt->standalone != 1 && (ctxt->hasExternalSubset || ctxt->hasPErefs))
+                  {
+                    xmlErrMsgStr(ctxt, 27, "Entity '%s' not defined\n", v36);
+                  }
+
+                  else
+                  {
+                    xmlFatalErrMsgStr(ctxt, 26, "Entity '%s' not defined\n", v36);
+                  }
+
+                  xmlParserEntityCheck(ctxt, 0, 0, 0);
+LABEL_223:
+                  free(v36);
+                  xmlParserEntityCheck(ctxt, 0, v39, 0);
+                  if (!v39)
+                  {
+LABEL_253:
+                    v18 = v107;
+                    goto LABEL_155;
+                  }
+
+LABEL_224:
+                  ctxt->nbentities += *(v39 + 132) / 2;
+                  v78 = *(v39 + 92);
+                  entitya = v39;
+                  v79 = *(v39 + 80);
+                  v18 = v107;
+                  if (v78 == 6)
+                  {
+                    if (!v79)
+                    {
+                      xmlFatalErrMsg(ctxt, 1, "predefined entity has no content\n");
+                      goto LABEL_263;
+                    }
+
+                    v47 = *v79;
+                    v46 = &v7[v16];
+                    goto LABEL_83;
+                  }
+
+                  v102 = v11;
+                  if (v79)
+                  {
+                    ++ctxt->depth;
+                    v80 = xmlStrlen(v79);
+                    v81 = xmlStringLenDecodeEntities(ctxt, v79, v80, whata, 0, 0, 0);
+                    --ctxt->depth;
+                    if (!v81)
+                    {
+                      content = entitya->content;
+                      goto LABEL_275;
+                    }
+
+                    v52 = v81;
+                    LOBYTE(v82) = *v81;
+                    v83 = entitya;
+                    if (*v81)
+                    {
+                      v84 = 1;
+                      while (1)
+                      {
+                        v7[v16] = v82;
+                        v85 = v16 + 101;
+                        ++v16;
+                        if (v85 <= v17)
+                        {
+                          v86 = v7;
+                        }
+
+                        else
+                        {
+                          if (xmlParserEntityCheck(ctxt, v16, v83, 0))
+                          {
+                            goto LABEL_261;
+                          }
+
+                          if (2 * v17 + 100 < v17)
+                          {
+                            goto LABEL_260;
+                          }
+
+                          v86 = malloc_type_realloc(v7, 2 * v17 + 100, 0x100004077774924uLL);
+                          v17 = 2 * v17 + 100;
+                          v83 = entitya;
+                          if (!v86)
+                          {
+                            goto LABEL_260;
+                          }
+                        }
+
+                        v82 = v52[v84++];
+                        v7 = v86;
+                        if (!v82)
+                        {
+                          goto LABEL_244;
+                        }
+                      }
+                    }
+
+                    v86 = v7;
+LABEL_244:
+                    free(v52);
+                    v7 = v86;
+                  }
+
+                  else
+                  {
+                    v87 = xmlStrlen(entitya->name);
+                    name = entitya->name;
+                    v89 = v16 + 1;
+                    v7[v16] = 38;
+                    v90 = v87;
+                    if (v16 + 1 + v87 + 100 <= v17)
+                    {
+                      v93 = v7;
+                    }
+
+                    else
+                    {
+                      v91 = v87 + 2 * v17;
+                      v92 = v91 + 100;
+                      if (v91 + 100 < v17)
+                      {
+                        goto LABEL_259;
+                      }
+
+                      v93 = malloc_type_realloc(v7, v91 + 100, 0x100004077774924uLL);
+                      v17 = v92;
+                      if (!v93)
+                      {
+                        goto LABEL_259;
+                      }
+                    }
+
+                    if (v90 < 1)
+                    {
+                      v96 = v16 + 1;
+                    }
+
+                    else
+                    {
+                      v94 = v90 + 1;
+                      do
+                      {
+                        v95 = *name++;
+                        v96 = v89 + 1;
+                        v93[v89] = v95;
+                        --v94;
+                        ++v89;
+                      }
+
+                      while (v94 > 1);
+                    }
+
+                    v16 = v96 + 1;
+                    v93[v96] = 59;
+                    v7 = v93;
+                  }
+
+                  v11 = v102;
+                  goto LABEL_253;
+                }
+
+                v65 = *(v39 + 92);
+                if (v65 == 3)
+                {
+                  v66 = ctxt;
+                  v67 = 28;
+                  v68 = "Entity reference to unparsed entity %s\n";
+                }
+
+                else
+                {
+                  if (instate != XML_PARSER_ATTRIBUTE_VALUE || v65 != 2)
+                  {
+                    if (instate == XML_PARSER_ATTRIBUTE_VALUE && v65 != 6)
+                    {
+                      v69 = *(v39 + 80);
+                      if (v69)
+                      {
+                        if (xmlStrchr(v69, 0x3Cu))
+                        {
+                          v66 = ctxt;
+                          v67 = 38;
+                          v68 = "'<' in entity '%s' is not allowed in attributes values\n";
+                          goto LABEL_222;
+                        }
+
+                        v65 = *(v39 + 92);
+                      }
+                    }
+
+                    if ((v65 & 0xFFFFFFFE) != 4)
+                    {
+                      goto LABEL_223;
+                    }
+
+                    v66 = ctxt;
+                    v67 = 30;
+                    v68 = "Attempt to reference the parameter entity '%s'\n";
+                    goto LABEL_222;
+                  }
+
+                  v66 = ctxt;
+                  v67 = 29;
+                  v68 = "Attribute references external entity '%s'\n";
+                }
+
+LABEL_222:
+                xmlFatalErrMsgStr(v66, v67, v68, v36);
+                goto LABEL_223;
+              }
+
+              free(v36);
+              goto LABEL_153;
+            }
+
+            v50 = xmlSAX2GetEntity(ctxt, v36);
+          }
+
+          v39 = v50;
+          goto LABEL_148;
+        }
+
+        xmlFatalErr(ctxt, 23, 0);
+        free(v36);
+        v8 = v37;
+      }
+
+      else
+      {
+        xmlFatalErrMsg(ctxt, 68, "xmlParseStringEntityRef: no name\n");
+        v8 = *v109;
+      }
+
+LABEL_153:
+      v18 = v107;
+LABEL_154:
+      xmlParserEntityCheck(ctxt, 0, 0, 0);
+      v29 = v8;
+      goto LABEL_155;
+    }
+
+    if ((whata & 2) == 0 || v15 != 37)
+    {
+LABEL_37:
+      if (lena == 1)
+      {
+        v7[v16++] = v15;
+      }
+
+      else
+      {
+        v16 += xmlCopyCharMultiByte(&v7[v16], v15);
+      }
+
+      v29 = &v8[lena];
+LABEL_84:
+      if (v16 + 100 > v17)
+      {
+        if (2 * v17 + 100 < v17)
+        {
+          goto LABEL_259;
+        }
+
+        v48 = malloc_type_realloc(v7, 2 * v17 + 100, 0x100004077774924uLL);
+        if (!v48)
+        {
+          goto LABEL_259;
+        }
+
+        v17 = 2 * v17 + 100;
+        v7 = v48;
+      }
+
+      goto LABEL_155;
+    }
+
+    if (*__xmlParserDebugEntities())
+    {
+      v25 = *__xmlGenericError();
+      v26 = __xmlGenericErrorContext();
+      v25(*v26, "String decoding PE Reference: %.30s\n", v8);
+    }
+
+    if (v8)
+    {
+      break;
+    }
+
+    v29 = 0;
+LABEL_98:
+    xmlParserEntityCheck(ctxt, 0, 0, 0);
+LABEL_155:
+    if (v29 >= v106)
+    {
+      v15 = 0;
+    }
+
+    else
+    {
+      v15 = xmlStringCurrentChar(ctxt, v29, &lena);
+    }
+
+    if (v15 != v10 && v15 != v11)
+    {
+      if (v15)
+      {
+        v8 = v29;
+        if (v15 != v18)
+        {
+          continue;
+        }
+      }
+    }
+
+    goto LABEL_258;
+  }
+
+  *v109 = v8;
+  if (*v8 != 37)
+  {
+    v29 = v8;
+    goto LABEL_98;
+  }
+
+  *v109 = v8 + 1;
+  v27 = xmlParseStringName(ctxt, v109);
+  if (!v27)
+  {
+    xmlFatalErrMsg(ctxt, 68, "xmlParseStringPEReference: no name\n");
+    v29 = *v109;
+    goto LABEL_98;
+  }
+
+  v28 = v27;
+  v29 = *v109;
+  if (**v109 != 59)
+  {
+    xmlFatalErr(ctxt, 23, 0);
+LABEL_97:
+    free(v28);
+    goto LABEL_98;
+  }
+
+  ++ctxt->nbentities;
+  if (ctxt->sax && (getParameterEntity = ctxt->sax->getParameterEntity) != 0)
+  {
+    v31 = (getParameterEntity)(ctxt->userData, v27);
+  }
+
+  else
+  {
+    v31 = 0;
+  }
+
+  ++v29;
+  if (ctxt->instate == XML_PARSER_EOF)
+  {
+    goto LABEL_97;
+  }
+
+  if (v31)
+  {
+    if ((*(v31 + 92) & 0xFFFFFFFE) != 4)
+    {
+      xmlWarningMsg(ctxt, 27, "%%%s; is not a parameter entity\n", v28);
+    }
+  }
+
+  else
+  {
+    if (ctxt->standalone != 1 && (ctxt->hasExternalSubset || ctxt->hasPErefs))
+    {
+      xmlWarningMsg(ctxt, 27, "PEReference: %%%s; not found\n", v28);
+      ctxt->valid = 0;
+    }
+
+    else
+    {
+      xmlFatalErrMsgStr(ctxt, 26, "PEReference: %%%s; not found\n", v28);
+    }
+
+    xmlParserEntityCheck(ctxt, 0, 0, 0);
+  }
+
+  ctxt->hasPErefs = 1;
+  free(v28);
+  xmlParserEntityCheck(ctxt, 0, v31, 0);
+  if (!v31)
+  {
+    goto LABEL_155;
+  }
+
+  ctxt->nbentities += *(v31 + 132) / 2;
+  entity = v31;
+  if (*(v31 + 80))
+  {
+    goto LABEL_115;
+  }
+
+  if ((ctxt->options & 0x12) == 0 && !ctxt->validate)
+  {
+    xmlWarningMsg(ctxt, 104, "not validating will not read content for PE entity %s\n", *(v31 + 16));
+    goto LABEL_115;
+  }
+
+  v57 = *(v31 + 92);
+  if (v57 != 2 && v57 != 5)
+  {
+    xmlFatalErr(ctxt, 1, "xmlLoadEntityContent parameter error");
+    goto LABEL_115;
+  }
+
+  v109[0] = 0;
+  if (*__xmlParserDebugEntities())
+  {
+    v58 = *__xmlGenericError();
+    v59 = __xmlGenericErrorContext();
+    v58(*v59, "Reading %s entity content input\n", entity->name);
+  }
+
+  buf = xmlBufferCreate();
+  if (!buf)
+  {
+    xmlFatalErr(ctxt, 1, "xmlLoadEntityContent parameter error");
+LABEL_179:
+    v31 = entity;
+    goto LABEL_115;
+  }
+
+  v31 = entity;
+  v60 = xmlNewEntityInputStream(ctxt, entity);
+  if (!v60)
+  {
+    xmlFatalErr(ctxt, 1, "xmlLoadEntityContent input error");
+    goto LABEL_182;
+  }
+
+  v61 = v60;
+  if (xmlPushInput(ctxt, v60) < 0)
+  {
+LABEL_182:
+    v70 = buf;
+    goto LABEL_256;
+  }
+
+  if (!ctxt->progressive && ctxt->input->end - ctxt->input->cur <= 249)
+  {
+    xmlGROW(ctxt);
+  }
+
+  v62 = xmlCurrentChar(ctxt, v109);
+  input = ctxt->input;
+  if (input == v61)
+  {
+    v71 = 0;
+    do
+    {
+      cur = input->cur;
+      if (cur >= input->end)
+      {
+        xmlPopInput(ctxt);
+        goto LABEL_255;
+      }
+
+      if (v62 > 255)
+      {
+        if (v62 >> 11 >= 0x1B && (v62 - 57344) >> 1 >= 0xFFF && (v62 - 0x10000) >> 20)
+        {
+          v77 = 0;
+          v76 = 0;
+          goto LABEL_214;
+        }
+      }
+
+      else if ((v62 > 0xD || ((1 << v62) & 0x2600) == 0) && v62 <= 31)
+      {
+        goto LABEL_141;
+      }
+
+      xmlBufferAdd(buf, cur, v109[0]);
+      if (v71 < 101)
+      {
+        ++v71;
+      }
+
+      else
+      {
+        if (!ctxt->progressive && ctxt->input->end - ctxt->input->cur <= 249)
+        {
+          xmlGROW(ctxt);
+        }
+
+        if (ctxt->instate == XML_PARSER_EOF)
+        {
+          goto LABEL_218;
+        }
+
+        v71 = 0;
+      }
+
+      v73 = ctxt->input;
+      v74 = v73->cur;
+      v75 = &v74[v109[0]];
+      if (v75 <= v73->end)
+      {
+        if (*v74 == 10)
+        {
+          ++v73->line;
+          v73->col = 1;
+        }
+
+        else
+        {
+          ++v73->col;
+        }
+
+        v73->cur = v75;
+      }
+
+      v62 = xmlCurrentChar(ctxt, v109);
+      if (!v62)
+      {
+        if (!ctxt->progressive && ctxt->input->end - ctxt->input->cur <= 249)
+        {
+          xmlGROW(ctxt);
+        }
+
+        if (ctxt->instate == XML_PARSER_EOF)
+        {
+          goto LABEL_218;
+        }
+
+        v62 = xmlCurrentChar(ctxt, v109);
+        v71 = 0;
+      }
+
+      input = ctxt->input;
+    }
+
+    while (input == v61);
+  }
+
+  if (v62 >= 256)
+  {
+    v76 = (v62 - 57344) >> 1 < 0xFFF;
+    v77 = (v62 - 0x10000) < 0x100000;
+LABEL_214:
+    if (v62 >> 11 < 0x1B || v76 || v77)
+    {
+      goto LABEL_255;
+    }
+
+LABEL_217:
+    xmlFatalErrMsgInt(ctxt, 9, "xmlLoadEntityContent: invalid char value %d\n", v62);
+LABEL_218:
+    xmlBufferFree(buf);
+    goto LABEL_179;
+  }
+
+  if (v62 <= 31)
+  {
+LABEL_141:
+    if (v62 > 0xD || ((1 << v62) & 0x2600) == 0)
+    {
+      goto LABEL_217;
+    }
+  }
+
+LABEL_255:
+  v70 = buf;
+  v31 = entity;
+  entity->content = buf->content;
+  buf->content = 0;
+LABEL_256:
+  xmlBufferFree(v70);
+LABEL_115:
+  ++ctxt->depth;
+  v51 = xmlStringDecodeEntities(ctxt, *(v31 + 80), whata, 0, 0, 0);
+  --ctxt->depth;
+  if (v51)
+  {
+    v52 = v51;
+    v101 = v11;
+    LOBYTE(v53) = *v51;
+    if (*v51)
+    {
+      v54 = 1;
+      while (1)
+      {
+        v7[v16] = v53;
+        v55 = v16 + 101;
+        ++v16;
+        if (v55 <= v17)
+        {
+          v56 = v7;
+        }
+
+        else
+        {
+          if (xmlParserEntityCheck(ctxt, v16, entity, 0))
+          {
+            goto LABEL_261;
+          }
+
+          if (2 * v17 + 100 < v17)
+          {
+            goto LABEL_260;
+          }
+
+          v56 = malloc_type_realloc(v7, 2 * v17 + 100, 0x100004077774924uLL);
+          v17 = 2 * v17 + 100;
+          v18 = v107;
+          if (!v56)
+          {
+            goto LABEL_260;
+          }
+        }
+
+        v53 = v52[v54++];
+        v7 = v56;
+        if (!v53)
+        {
+          goto LABEL_145;
+        }
+      }
+    }
+
+    v56 = v7;
+LABEL_145:
+    free(v52);
+    v7 = v56;
+    v11 = v101;
+    goto LABEL_155;
+  }
+
+  content = *(v31 + 80);
+  if (!content)
+  {
+    goto LABEL_263;
+  }
+
+LABEL_275:
+  *content = 0;
+LABEL_263:
+  if (v7)
+  {
+    free(v7);
+    return 0;
+  }
+
+  return v7;
 }

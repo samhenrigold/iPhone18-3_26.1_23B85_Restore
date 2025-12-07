@@ -25,8 +25,8 @@
     +[FSAuditToken getOurToken];
   }
 
-  v4 = unk_280BCA050;
-  *retstr->var0 = getOurToken_ourToken;
+  v4 = *&getOurToken_ourToken[16];
+  *retstr->var0 = *getOurToken_ourToken;
   *&retstr->var0[4] = v4;
   return result;
 }
@@ -34,22 +34,23 @@
 uint64_t __27__FSAuditToken_getOurToken__block_invoke()
 {
   task_info_outCnt = 8;
-  if (task_info(*MEMORY[0x277D85F48], 0xFu, getOurToken_ourToken, &task_info_outCnt))
+  v0 = task_info(*MEMORY[0x277D85F48], 0xFu, getOurToken_ourToken, &task_info_outCnt);
+  if (v0)
   {
-    v0 = fskit_std_log();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+    v1 = fskit_std_log(v0);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v2.val[0]) = 0;
-      _os_log_impl(&dword_24A929000, v0, OS_LOG_TYPE_INFO, "Error getting our own audit token", &v2, 2u);
+      LOWORD(v3.val[0]) = 0;
+      _os_log_impl(&dword_24A929000, v1, OS_LOG_TYPE_INFO, "Error getting our own audit token", &v3, 2u);
     }
   }
 
-  v2 = *getOurToken_ourToken;
-  audit_token_to_pid(&v2);
-  v2 = *getOurToken_ourToken;
-  audit_token_to_pidversion(&v2);
-  v2 = *getOurToken_ourToken;
-  result = audit_token_to_ruid(&v2);
+  v3 = *getOurToken_ourToken;
+  audit_token_to_pid(&v3);
+  v3 = *getOurToken_ourToken;
+  audit_token_to_pidversion(&v3);
+  v3 = *getOurToken_ourToken;
+  result = audit_token_to_ruid(&v3);
   ourUID = result;
   didSetup = 1;
   return result;
@@ -57,9 +58,9 @@ uint64_t __27__FSAuditToken_getOurToken__block_invoke()
 
 - (FSAuditToken)initWithToken:(id *)token
 {
-  v8.receiver = self;
-  v8.super_class = FSAuditToken;
-  v4 = [(FSAuditToken *)&v8 init];
+  v9.receiver = self;
+  v9.super_class = FSAuditToken;
+  v4 = [(FSAuditToken *)&v9 init];
   v5 = v4;
   if (v4)
   {
@@ -68,7 +69,8 @@ uint64_t __27__FSAuditToken_getOurToken__block_invoke()
     *(v4 + 8) = v6;
     if ((didSetup & 1) == 0)
     {
-      [objc_opt_class() getOurToken];
+      v7 = objc_opt_class();
+      objc_msgSend_getOurToken(v7);
     }
   }
 
@@ -82,7 +84,7 @@ uint64_t __27__FSAuditToken_getOurToken__block_invoke()
   v3 = objc_opt_class();
   if (v3)
   {
-    [v3 getOurToken];
+    objc_msgSend_getOurToken(v3, v5, v6);
   }
 
   else
@@ -191,14 +193,14 @@ uint64_t __27__FSAuditToken_getOurToken__block_invoke()
 - (FSAuditToken)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v10 = 0;
-  v9.receiver = self;
-  v9.super_class = FSAuditToken;
-  v5 = [(FSAuditToken *)&v9 init];
+  v11 = 0;
+  v10.receiver = self;
+  v10.super_class = FSAuditToken;
+  v5 = [(FSAuditToken *)&v10 init];
   if (v5)
   {
-    v6 = [coderCopy decodeBytesForKey:@"FSAuditToken.token" returnedLength:&v10];
-    if (v10 == 32)
+    v6 = [coderCopy decodeBytesForKey:@"FSAuditToken.token" returnedLength:&v11];
+    if (v11 == 32)
     {
       v7 = *v6;
       *(v5 + 24) = v6[1];
@@ -213,7 +215,8 @@ uint64_t __27__FSAuditToken_getOurToken__block_invoke()
 
     if ((didSetup & 1) == 0)
     {
-      [objc_opt_class() getOurToken];
+      v8 = objc_opt_class();
+      objc_msgSend_getOurToken(v8);
     }
   }
 

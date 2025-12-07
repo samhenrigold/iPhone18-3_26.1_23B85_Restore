@@ -14,6 +14,7 @@
 - (id)debugDescription;
 - (id)description;
 - (id)pathByExtendingWithString:(id)string extendedPathString:(id)pathString blankLogProb:(double)prob nonBlankLogProb:(double)logProb timestep:(int64_t)timestep commitAction:(int64_t)action symbolLogProb:(double)symbolLogProb;
+- (id)tokensWithTimestep:(int64_t)timestep isFinalTimestep:(BOOL)finalTimestep;
 - (int64_t)compare:(id)compare;
 - (unint64_t)_currentTokenStringLength;
 - (void)_updateCharacterLanguageModelLogProbabilityForString:(id)string stemmingFromPath:(id)path normalizedCodepoint:(unsigned int)codepoint;
@@ -517,6 +518,106 @@ LABEL_75:
 LABEL_74:
 }
 
+- (id)tokensWithTimestep:(int64_t)timestep isFinalTimestep:(BOOL)finalTimestep
+{
+  finalTimestepCopy = finalTimestep;
+  v65 = *MEMORY[0x1E69E9840];
+  if (objc_msgSend__currentTokenStringLength(self, a2, timestep, finalTimestep))
+  {
+    objc_msgSend_commitTokenAtTimestep_currentSymbolLogProbability_commitAction_string_stemmingFromPath_(self, v7, timestep, 2, &stru_1F554FF38, self, 0.0);
+  }
+
+  else if (finalTimestepCopy)
+  {
+    end = self->_tokenMaxActivations.__end_;
+    if (self->_tokenMaxActivations.__begin_ != end)
+    {
+      *(end - 1) = timestep + 1;
+    }
+  }
+
+  p_tokenStringSegmentationPositions = &self->_tokenStringSegmentationPositions;
+  v12 = objc_msgSend_arrayWithCapacity_(MEMORY[0x1E695DF70], v7, self->_tokenStringSegmentationPositions.__end_ - self->_tokenStringSegmentationPositions.__begin_, v8);
+  begin = self->_tokenStringSegmentationPositions.__begin_;
+  v56 = v12;
+  if (self->_tokenStringSegmentationPositions.__end_ != begin)
+  {
+    v15 = 0;
+    v16 = 0;
+    v17 = 0;
+    *&v13 = 134218496;
+    v55 = v13;
+    do
+    {
+      v18 = self->_tokenCommitCharacterLengths.__begin_[v17];
+      v19 = begin[v17] - v16 - v18;
+      v20 = objc_msgSend_substringWithRange_(self->super._string, v10, v16, v19, v55);
+      v23 = v20;
+      v58 = v20;
+      if (v18)
+      {
+        v24 = objc_msgSend_substringWithRange_(self->super._string, v21, v19 + v16, v18);
+        v27 = objc_msgSend_stringByAppendingString_(v23, v25, v24, v26);
+      }
+
+      else
+      {
+        v24 = 0;
+        v27 = v20;
+      }
+
+      objc_msgSend_scoreForTokenIndex_(self, v21, v17, v22);
+      v29 = v28;
+      v32 = objc_msgSend_lengthOfBytesUsingEncoding_(v27, v30, 2348810496, v31) >> 2;
+      v33 = v29 / v32;
+      if (v33 >= 512.0)
+      {
+        if (qword_1ECB72028 != -1)
+        {
+          dispatch_once(&qword_1ECB72028, &unk_1F554E288);
+        }
+
+        v34 = qword_1ECB72008;
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        {
+          *buf = v55;
+          v60 = v29 / v32;
+          v61 = 2048;
+          v62 = v29;
+          v63 = 2048;
+          v64 = v32;
+          _os_log_impl(&dword_1D9D0A000, v34, OS_LOG_TYPE_ERROR, "Unexpected tokenNormalizedScore issue? got %.8f from tokenScore = %.2f, characterCount = %ld", buf, 0x20u);
+        }
+
+        v33 = 512.0;
+      }
+
+      v35 = MEMORY[0x1E696AD98];
+      v36 = exp(v33);
+      v40 = objc_msgSend_numberWithDouble_(v35, v37, v38, v39, v36);
+      v41 = MEMORY[0x1E696AD98];
+      v42 = exp(self->_tokenBoundaryLogProbabilities.__begin_[v17]);
+      v46 = objc_msgSend_numberWithDouble_(v41, v43, v44, v45, v42);
+      v47 = self->_tokenMaxActivations.__begin_[v17];
+      v48 = [CVNLPTextDecodingToken alloc];
+      v50 = objc_msgSend_initWithString_score_alignmentScore_activationRange_terminatingCharacter_(v48, v49, v58, v40, v46, v15, v47 - v15, v24);
+      objc_msgSend_addObject_(v56, v51, v50, v52);
+      v16 = p_tokenStringSegmentationPositions->__begin_[v17];
+      v15 = self->_tokenMaxActivations.__begin_[v17];
+
+      v12 = v56;
+      ++v17;
+      begin = p_tokenStringSegmentationPositions->__begin_;
+    }
+
+    while (v17 < self->_tokenStringSegmentationPositions.__end_ - self->_tokenStringSegmentationPositions.__begin_);
+  }
+
+  v53 = objc_msgSend_arrayWithArray_(MEMORY[0x1E695DEC8], v10, v12, v11);
+
+  return v53;
+}
+
 - (id)description
 {
   v5 = MEMORY[0x1E696AEC0];
@@ -955,7 +1056,7 @@ LABEL_34:
 
     else if (v19 == 2)
     {
-      CVNLPLanguageModelWithStateConditionalProbability(self->_characterLMState, stringCopy);
+      v24 = CVNLPLanguageModelWithStateConditionalProbability(self->_characterLMState, stringCopy);
       v23 = logf(v24);
     }
 
@@ -1120,7 +1221,7 @@ LABEL_23:
 + (void)applyWordLanguageModelProbabilityToPath:(id)path stemmedFromPath:(id)fromPath isCommittingToken:(BOOL)token
 {
   tokenCopy = token;
-  v56[5] = *MEMORY[0x1E69E9840];
+  v52[5] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   fromPathCopy = fromPath;
   v12 = objc_msgSend_languageResourceBundle(pathCopy, v9, v10, v11);
@@ -1142,42 +1243,39 @@ LABEL_23:
       v29 = objc_msgSend_string(fromPathCopy, v25, v26, v27);
       v31 = objc_msgSend_substringWithRange_(v29, v30, v28, v24);
 
-      v56[0] = 0;
-      v56[1] = v56;
-      v56[2] = 0x2020000000;
-      v56[3] = 0;
-      v52 = 0;
-      v53 = &v52;
-      v54 = 0x2020000000;
-      v55 = 0;
+      v52[0] = 0;
+      v52[1] = v52;
+      v52[2] = 0x2020000000;
+      v52[3] = 0;
+      v50[0] = 0;
+      v50[1] = v50;
+      v50[2] = 0x2020000000;
+      v51 = 0;
       v35 = objc_msgSend__getQueue(CVNLPCTCTextDecodingPath, v32, v33, v34, v31);
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = sub_1D9DAF584;
       block[3] = &unk_1E858E1E8;
-      block[6] = &v52;
+      block[6] = v50;
       block[4] = v16;
       block[5] = v31;
-      block[7] = v56;
+      block[7] = v52;
       dispatch_sync(v35, block);
-      v36 = *(v53 + 6);
       operator new();
     }
 
     objc_msgSend_wordLanguageModelLogProbability(fromPathCopy, v25, v26, v27);
-    objc_msgSend_setWordLanguageModelLogProbability_(pathCopy, v40, v41, v42);
-    v46 = objc_msgSend_string(fromPathCopy, v43, v44, v45);
-    pathCopy[16] = (objc_msgSend_length(v46, v47, v48, v49) + 1);
+    objc_msgSend_setWordLanguageModelLogProbability_(pathCopy, v39, v40, v41);
+    v45 = objc_msgSend_string(fromPathCopy, v42, v43, v44);
+    pathCopy[16] = (objc_msgSend_length(v45, v46, v47, v48) + 1);
   }
 
   else
   {
     objc_msgSend_wordLanguageModelLogProbability(fromPathCopy, v17, v18, v19);
-    objc_msgSend_setWordLanguageModelLogProbability_(pathCopy, v37, v38, v39);
+    objc_msgSend_setWordLanguageModelLogProbability_(pathCopy, v36, v37, v38);
     pathCopy[16] = fromPathCopy[16];
   }
-
-  v50 = *MEMORY[0x1E69E9840];
 }
 
 - (float)_wordLanguageModelLogProbabilityForString:(id)string originalWordRanges:(id)ranges originalWordIDs:(vector<unsigned)int wordRanges:(std:(id)wordRanges :(vector<unsigned)int allocator<unsigned int>> *)a5 wordIDs:(std::allocator<unsigned int>> *)ds
@@ -1191,8 +1289,8 @@ LABEL_23:
   }
 
   v12 = objc_msgSend_objectAtIndexedSubscript_(rangesCopy, v9, 0, v10);
-  v43 = objc_msgSend_rangeValue(v12, v13, v14, v15);
-  v42 = v16;
+  v42 = objc_msgSend_rangeValue(v12, v13, v14, v15);
+  v41 = v16;
 
   begin = self->_histWordTokenIDs.__begin_;
   end = self->_histWordTokenIDs.__end_;
@@ -1213,26 +1311,25 @@ LABEL_23:
     v30 = v29;
 
     objc_msgSend_rangeOfCharacterFromSet_options_range_(stringCopy, v31, qword_1ECB71BE0, 2, v28, v30);
-    if (v28 != v43 || v30 != v42 || (v35 = *a5->__begin_) == 0)
+    if (v28 != v42 || v30 != v41 || (v35 = *a5->__begin_) == 0)
     {
       v35 = *ds->__begin_;
     }
 
-    v48 = 0;
-    v49 = &v48;
-    v50 = 0x2020000000;
-    v51 = 0;
+    v47[0] = 0;
+    v47[1] = v47;
+    v47[2] = 0x2020000000;
+    v47[3] = 0;
     v36 = objc_msgSend__getQueue(CVNLPCTCTextDecodingPath, v32, v33, v34);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3321888768;
     block[2] = sub_1D9DAFB90;
     block[3] = &unk_1F554F9C0;
     block[4] = self;
-    block[5] = &v48;
-    v47 = v35;
+    block[5] = v47;
+    v46 = v35;
     memset(&block[6], 0, 24);
     dispatch_sync(v36, block);
-    v37 = v49[3];
     operator new();
   }
 

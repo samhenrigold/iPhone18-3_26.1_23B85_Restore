@@ -97,11 +97,12 @@
     v7 = 0;
   }
 
-  self->_presentationType = [(AAUICDPStatusUpdateHook *)self _presentationTypeForString:v7];
-  v8 = _AAUILogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v8 = [(AAUICDPStatusUpdateHook *)self _presentationTypeForString:v7];
+  self->_presentationType = v8;
+  v9 = _AAUILogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    [(AAUICDPStatusUpdateHook *)self _processAttributes:v8];
+    [(AAUICDPStatusUpdateHook *)self _processAttributes:v9];
   }
 }
 
@@ -169,8 +170,7 @@
     v24 = v17;
     v19 = v18;
     v25 = v19;
-    [v11 setCompletionCallback:v23];
-    v20 = _AAUILogSystem();
+    v20 = _AAUILogSystem([v11 setCompletionCallback:v23]);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       v21 = objc_opt_class();
@@ -186,7 +186,7 @@
 
   else
   {
-    v22 = _AAUILogSystem();
+    v22 = _AAUILogSystem(0);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
       [AAUICDPStatusUpdateHook _updateStatusWithAction:actionCopy forObjectModel:v22 completion:?];
@@ -208,7 +208,7 @@ void __77__AAUICDPStatusUpdateHook__updateStatusWithAction_forObjectModel_comple
 
   else
   {
-    v6 = _AAUILogSystem();
+    v6 = _AAUILogSystem(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __77__AAUICDPStatusUpdateHook__updateStatusWithAction_forObjectModel_completion___block_invoke_cold_1(v6);
@@ -228,7 +228,7 @@ void __77__AAUICDPStatusUpdateHook__updateStatusWithAction_forObjectModel_comple
 
   else
   {
-    v8 = _AAUILogSystem();
+    v8 = _AAUILogSystem(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       __77__AAUICDPStatusUpdateHook__updateStatusWithAction_forObjectModel_completion___block_invoke_46_cold_1(v8);
@@ -238,10 +238,11 @@ void __77__AAUICDPStatusUpdateHook__updateStatusWithAction_forObjectModel_comple
 
 - (void)_handleUserInteractionWithCallback:(id)callback onModel:(id)model forHookAction:(id)action userAction:(unint64_t)userAction
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   callbackCopy = callback;
   modelCopy = model;
   actionCopy = action;
+  v13 = actionCopy;
   if (userAction - 1 < 2)
   {
     goto LABEL_4;
@@ -249,26 +250,26 @@ void __77__AAUICDPStatusUpdateHook__updateStatusWithAction_forObjectModel_comple
 
   if (!userAction)
   {
-    v14 = _AAUILogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = _AAUILogSystem(actionCopy);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412546;
-      v16 = objc_opt_class();
-      v17 = 2112;
-      v18 = actionCopy;
-      _os_log_impl(&dword_1C5355000, v14, OS_LOG_TYPE_DEFAULT, "%@: Status for %@ not being updated due to user decline.", &v15, 0x16u);
+      v16 = 138412546;
+      v17 = objc_opt_class();
+      v18 = 2112;
+      v19 = v13;
+      _os_log_impl(&dword_1C5355000, v15, OS_LOG_TYPE_DEFAULT, "%@: Status for %@ not being updated due to user decline.", &v16, 0x16u);
     }
 
-    v13 = @"onUserDecline";
+    v14 = @"onUserDecline";
     goto LABEL_8;
   }
 
   if (userAction == 3)
   {
 LABEL_4:
-    v13 = @"onUserAccept";
+    v14 = @"onUserAccept";
 LABEL_8:
-    [(AAUICDPStatusUpdateHook *)self _invokeJSCallback:v13 onModel:modelCopy];
+    [(AAUICDPStatusUpdateHook *)self _invokeJSCallback:v14 onModel:modelCopy];
   }
 }
 
@@ -283,7 +284,7 @@ LABEL_8:
   if (!userAction && !errorCopy)
   {
     v16 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E698DB28] code:-7003 userInfo:0];
-    v17 = _AAUILogSystem();
+    v17 = _AAUILogSystem(v16);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
@@ -297,7 +298,7 @@ LABEL_8:
   }
 
   v19 = userAction != 3 && v16 == 0;
-  v20 = _AAUILogSystem();
+  v20 = _AAUILogSystem(errorCopy);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     v21 = objc_opt_class();
@@ -363,7 +364,7 @@ LABEL_8:
   }
 
   v13 = [v12 length];
-  v14 = _AAUILogSystem();
+  v14 = _AAUILogSystem(v13);
   v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
   if (v13)
   {

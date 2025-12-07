@@ -2,6 +2,7 @@
 - (BOOL)enable_sanitization;
 - (QSSMutableKeywordFinderRequest)init;
 - (id)copyWithZone:(_NSZone *)zone;
+- (void)setEnable_sanitization:(BOOL)enable_sanitization;
 - (void)setKeywords:(id)keywords;
 - (void)setLanguage:(id)language;
 - (void)setRecognition_result:(id)recognition_result;
@@ -10,6 +11,12 @@
 @end
 
 @implementation QSSMutableKeywordFinderRequest
+
+- (void)setEnable_sanitization:(BOOL)enable_sanitization
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:enable_sanitization];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
 
 - (BOOL)enable_sanitization
 {

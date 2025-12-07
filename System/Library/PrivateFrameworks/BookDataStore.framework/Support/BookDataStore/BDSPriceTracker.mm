@@ -13,65 +13,58 @@
 
 - (BDSPriceTracker)initWithPersistenceURL:(id)l
 {
-  v4 = sub_100084528(&qword_100271368, &qword_1001F3AD0);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v29 - v6;
-  v8 = sub_1001C4B28();
-  v9 = *(v8 - 8);
-  v10 = v9[8];
+  v3 = sub_100084528(&qword_100271368, &qword_1001F3AD0);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v21 - v4;
+  v6 = sub_1001C4B28();
+  v7 = *(v6 - 8);
+  v8 = __chkstk_darwin(v6);
+  v10 = &v21 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = __chkstk_darwin(v8);
-  v13 = &v29 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = __chkstk_darwin(v11);
-  v16 = &v29 - v15;
-  __chkstk_darwin(v14);
-  v18 = &v29 - v17;
+  v13 = &v21 - v12;
+  __chkstk_darwin(v11);
+  v15 = &v21 - v14;
   sub_1001C4AD8();
-  v19 = v9[2];
-  v19(v16, v18, v8);
-  v19(v13, v16, v8);
-  sub_10015E5DC(v13, 0, v7);
-  v20 = v9[1];
-  v20(v16, v8);
-  v21 = _s11PersistenceVMa();
-  (*(*(v21 - 8) + 56))(v7, 0, 1, v21);
-  v22 = type metadata accessor for PriceTracker(0);
-  v23 = *(v22 + 48);
-  v24 = *(v22 + 52);
+  v16 = *(v7 + 16);
+  v16(v13, v15, v6);
+  v16(v10, v13, v6);
+  sub_10015E5DC(v10, 0, v5);
+  v17 = *(v7 + 8);
+  v17(v13, v6);
+  v18 = _s11PersistenceVMa(0);
+  (*(*(v18 - 8) + 56))(v5, 0, 1, v18);
+  type metadata accessor for PriceTracker(0);
   swift_allocObject();
-  v25 = sub_100103714(v7);
-  v20(v18, v8);
+  v19 = sub_100103714(v5);
+  v17(v15, v6);
   swift_getObjectType();
-  v26 = *((swift_isaMask & *self->$defaultActor) + 0x30);
-  v27 = *((swift_isaMask & *self->$defaultActor) + 0x34);
   swift_deallocPartialClassInstance();
-  return v25;
+  return v19;
 }
 
 - (void)updateTrackedPricesIgnoringScheduleForNewItemsWithCompletionHandler:(id)handler
 {
   v5 = sub_100084528(&unk_100270A00, &qword_1001F3120);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v14 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_1001C6348();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v13 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_1001C6348();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_1001F3AB8;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_1001F3AB8;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_1001F3AC0;
-  v13[5] = v12;
+  v12[4] = &unk_1001F3AC0;
+  v12[5] = v11;
 
-  sub_100118770(0, 0, v8, &unk_1001F3AC8, v13);
+  sub_100118770(0, 0, v7, &unk_1001F3AC8, v12);
 }
 
 - (BDSPriceTracker)init
@@ -85,137 +78,132 @@
 - (void)setConfiguration:(BDSDistributedPriceTrackingConfig *)configuration completion:(id)completion
 {
   v7 = sub_100084528(&unk_100270A00, &qword_1001F3120);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v17 - v9;
-  v11 = _Block_copy(completion);
-  v12 = swift_allocObject();
-  v12[2] = configuration;
-  v12[3] = v11;
-  v12[4] = self;
-  v13 = sub_1001C6348();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v9 = &v16 - v8;
+  v10 = _Block_copy(completion);
+  v11 = swift_allocObject();
+  v11[2] = configuration;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = sub_1001C6348();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_1001F3A48;
+  v13[5] = v11;
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_1001F3A48;
-  v14[5] = v12;
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_1001F3A50;
-  v15[5] = v14;
+  v14[4] = &unk_1001F3A50;
+  v14[5] = v13;
   configurationCopy = configuration;
 
-  sub_100118770(0, 0, v10, &unk_1001F3A58, v15);
+  sub_100118770(0, 0, v9, &unk_1001F3A58, v14);
 }
 
 - (void)bdsctl_getStateWithCompletion:(id)completion
 {
   v5 = sub_100084528(&unk_100270A00, &qword_1001F3120);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v14 - v7;
-  v9 = _Block_copy(completion);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_1001C6348();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v13 - v6;
+  v8 = _Block_copy(completion);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_1001C6348();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_1001F39F8;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_1001F39F8;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_1001F3A00;
-  v13[5] = v12;
+  v12[4] = &unk_1001F3A00;
+  v12[5] = v11;
 
-  sub_100118770(0, 0, v8, &unk_1001F3A08, v13);
+  sub_100118770(0, 0, v7, &unk_1001F3A08, v12);
 }
 
 - (void)bdsctl_addTrackedItem:(BDSDistributedPriceTrackingConfigItemID *)item completion:(id)completion
 {
   v7 = sub_100084528(&unk_100270A00, &qword_1001F3120);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v17 - v9;
-  v11 = _Block_copy(completion);
-  v12 = swift_allocObject();
-  v12[2] = item;
-  v12[3] = v11;
-  v12[4] = self;
-  v13 = sub_1001C6348();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v9 = &v16 - v8;
+  v10 = _Block_copy(completion);
+  v11 = swift_allocObject();
+  v11[2] = item;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = sub_1001C6348();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_1001F39D0;
+  v13[5] = v11;
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_1001F39D0;
-  v14[5] = v12;
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_1001F39D8;
-  v15[5] = v14;
+  v14[4] = &unk_1001F39D8;
+  v14[5] = v13;
   itemCopy = item;
 
-  sub_100118770(0, 0, v10, &unk_1001F39E0, v15);
+  sub_100118770(0, 0, v9, &unk_1001F39E0, v14);
 }
 
 - (void)bdsctl_updateReferencePrices:(NSDictionary *)prices completion:(id)completion
 {
   v7 = sub_100084528(&unk_100270A00, &qword_1001F3120);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v17 - v9;
-  v11 = _Block_copy(completion);
-  v12 = swift_allocObject();
-  v12[2] = prices;
-  v12[3] = v11;
-  v12[4] = self;
-  v13 = sub_1001C6348();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v9 = &v16 - v8;
+  v10 = _Block_copy(completion);
+  v11 = swift_allocObject();
+  v11[2] = prices;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = sub_1001C6348();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_1001F39A0;
+  v13[5] = v11;
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_1001F39A0;
-  v14[5] = v12;
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_1001F39A8;
-  v15[5] = v14;
+  v14[4] = &unk_1001F39A8;
+  v14[5] = v13;
   pricesCopy = prices;
 
-  sub_100118770(0, 0, v10, &unk_1001F39B0, v15);
+  sub_100118770(0, 0, v9, &unk_1001F39B0, v14);
 }
 
 - (void)bdsdctl_updateTrackedPricesIgnoringScheduleForAllItemsWithCompletionHandler:(id)handler
 {
   v5 = sub_100084528(&unk_100270A00, &qword_1001F3120);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v14 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_1001C6348();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v13 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_1001C6348();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_1001F3990;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_1001F3990;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_1001F0DB0;
-  v13[5] = v12;
+  v12[4] = &unk_1001F0DB0;
+  v12[5] = v11;
 
-  sub_100118770(0, 0, v8, &unk_1001F33E0, v13);
+  sub_100118770(0, 0, v7, &unk_1001F33E0, v12);
 }
 
 @end

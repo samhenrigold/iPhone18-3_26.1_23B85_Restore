@@ -182,12 +182,12 @@
     [builderCopy appendName:@"version" integerValue:{-[PLManagedObjectJournalEntryPayload payloadVersion](self, "payloadVersion")}];
   }
 
-  if ([(NSMutableSet *)self->_nilAttributes count])
+  if (objc_msgSend_count(self->_nilAttributes))
   {
     [(PLManagedObjectJournalEntryPayload *)self addNilAttributesToBuilder:builderCopy];
   }
 
-  if ([(NSMutableDictionary *)self->_payloadAttributes count])
+  if (objc_msgSend_count(self->_payloadAttributes))
   {
     [(PLManagedObjectJournalEntryPayload *)self addAttributesDescriptionToBuilder:builderCopy];
   }
@@ -204,12 +204,12 @@
   [builderCopy appendName:@"payloadID" object:payloadID];
 
   [builderCopy appendName:@"version" integerValue:{-[PLManagedObjectJournalEntryPayload payloadVersion](self, "payloadVersion")}];
-  if ([(NSMutableSet *)self->_nilAttributes count])
+  if (objc_msgSend_count(self->_nilAttributes))
   {
     [(PLManagedObjectJournalEntryPayload *)self addNilAttributesToBuilder:builderCopy];
   }
 
-  if ([(NSMutableDictionary *)self->_payloadAttributes count])
+  if (objc_msgSend_count(self->_payloadAttributes))
   {
     style = [builderCopy style];
     v7 = [PLDescriptionBuilder alloc];
@@ -561,9 +561,9 @@ void __94__PLManagedObjectJournalEntryPayload_payloadVersionIsLessThanVersion_fo
 {
   v23 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
-  if ([arrayCopy count])
+  if (objc_msgSend_count(arrayCopy))
   {
-    v4 = 16 * [arrayCopy count];
+    v4 = 16 * objc_msgSend_count(arrayCopy);
     v5 = malloc_type_malloc(v4, 0x55FBA4F7uLL);
     v17 = 0u;
     v18 = 0u;
@@ -652,7 +652,7 @@ void __94__PLManagedObjectJournalEntryPayload_payloadVersionIsLessThanVersion_fo
   {
     if ([builderCopy style] == 1 && (objc_opt_respondsToSelector() & 1) != 0)
     {
-      [v9 appendName:keyCopy unsignedIntegerValue:{objc_msgSend(valueCopy, "count")}];
+      [v9 appendName:keyCopy unsignedIntegerValue:objc_msgSend_count(valueCopy)];
     }
 
     else
@@ -765,7 +765,7 @@ LABEL_15:
       v15 = [propertyCopy key];
       v16 = [dictionaryCopy objectForKeyedSubscript:v15];
 
-      if ([v16 count])
+      if (objc_msgSend_count(v16))
       {
         managedObjectContext = [objectCopy managedObjectContext];
         v38 = [objectCopy valueForKey:keyCopy];
@@ -984,7 +984,7 @@ LABEL_6:
 {
   payloadCopy = payload;
   [(NSMutableDictionary *)self->_payloadAttributes addEntriesFromDictionary:*(payloadCopy + 1)];
-  if ([*(payloadCopy + 2) count])
+  if (objc_msgSend_count(*(payloadCopy + 2)))
   {
     payloadAttributes = self->_payloadAttributes;
     allObjects = [*(payloadCopy + 2) allObjects];
@@ -994,7 +994,7 @@ LABEL_6:
 
 - (id)payloadDataWithError:(id *)error
 {
-  if ([(NSMutableDictionary *)self->_payloadAttributes count])
+  if (objc_msgSend_count(self->_payloadAttributes, a2))
   {
     [MEMORY[0x1E696AE40] dataWithPropertyList:self->_payloadAttributes format:200 options:0 error:error];
   }
@@ -1208,7 +1208,7 @@ LABEL_46:
                 v45 = v44;
                 if (v44)
                 {
-                  if ([v44 count])
+                  if (objc_msgSend_count(v44))
                   {
                     v46 = *(a1 + 64);
                     v47 = [v8 key];
@@ -1337,7 +1337,7 @@ LABEL_16:
         v18 = v21;
         if (v21)
         {
-          if ([v21 count])
+          if (objc_msgSend_count(v21))
           {
             v22 = *(a1 + 64);
             v23 = [v8 key];
@@ -1508,7 +1508,7 @@ LABEL_18:
             goto LABEL_19;
           }
 
-          if ([v19 count])
+          if (objc_msgSend_count(v19))
           {
             [v25 addObject:v19];
           }
@@ -1588,7 +1588,7 @@ LABEL_16:
   v29 = v28;
   if (keysCopy && !v28)
   {
-    if ([(NSMutableDictionary *)self->_payloadAttributes count]|| [(NSMutableSet *)self->_nilAttributes count])
+    if (objc_msgSend_count(self->_payloadAttributes) || objc_msgSend_count(self->_nilAttributes))
     {
       selfCopy2 = self;
     }
@@ -1826,8 +1826,8 @@ LABEL_16:
   nameCopy = name;
   objectCopy = object;
   propertyCopy = property;
-  entity = [objectCopy entity];
-  relationshipsByName = [entity relationshipsByName];
+  v11 = objc_msgSend_entity(objectCopy);
+  relationshipsByName = [v11 relationshipsByName];
   v13 = [relationshipsByName objectForKeyedSubscript:nameCopy];
 
   inverseRelationship = [v13 inverseRelationship];
@@ -1835,14 +1835,14 @@ LABEL_16:
   if (v13 && inverseRelationship)
   {
     selfCopy = self;
-    v52 = entity;
+    v52 = v11;
     v53 = propertyCopy;
     relatedEntityPropertyNames = [propertyCopy relatedEntityPropertyNames];
     anyObject = [relatedEntityPropertyNames anyObject];
 
     v18 = MEMORY[0x1E695D5E0];
-    entity2 = [v15 entity];
-    name = [entity2 name];
+    v19 = objc_msgSend_entity(v15);
+    name = [v19 name];
     v21 = [v18 fetchRequestWithEntityName:name];
 
     [v21 setResultType:2];
@@ -1934,7 +1934,7 @@ LABEL_16:
       v46 = 0;
     }
 
-    entity = v52;
+    v11 = v52;
     propertyCopy = v53;
   }
 
@@ -2070,7 +2070,7 @@ LABEL_9:
   keyCopy = key;
   blockCopy = block;
   v12 = [objects valueForKey:keyCopy];
-  if ([dsCopy count] && (objc_msgSend(dsCopy, "isEqual:", v12) & 1) == 0)
+  if (objc_msgSend_count(dsCopy) && ([dsCopy isEqual:v12] & 1) == 0)
   {
     v14 = blockCopy[2](blockCopy);
     v16[0] = MEMORY[0x1E69E9820];
@@ -2379,7 +2379,7 @@ void __91__PLManagedObjectJournalEntryPayload_loadModelPropertiesDescription_par
   v33 = v15;
   [subRelationshipProperties enumerateKeysAndObjectsUsingBlock:v30];
 
-  if ([v15 count])
+  if (objc_msgSend_count(v15))
   {
     v22 = v14;
     [v14 objectForKeyedSubscript:v13];
@@ -2725,7 +2725,7 @@ void __178__PLManagedObjectJournalEntryPayload_PLJournalEntryPayloadValidationIn
       v22 = [v20 stringWithFormat:@"%@", v21];
 
       v23 = [*(*(a1 + 40) + 24) payloadIDString];
-      LOBYTE(v20) = [(__CFString *)v22 isEqualToString:v23];
+      LOBYTE(v20) = objc_msgSend_isEqualToString_(v22);
 
       if (v20)
       {
@@ -2740,7 +2740,7 @@ void __178__PLManagedObjectJournalEntryPayload_PLJournalEntryPayloadValidationIn
     v37 = v36;
     if (v36)
     {
-      if ([v36 count] == 1)
+      if (objc_msgSend_count(v36) == 1)
       {
         v38 = MEMORY[0x1E696AEC0];
         v39 = *(a1 + 32);
@@ -2781,17 +2781,17 @@ void __178__PLManagedObjectJournalEntryPayload_PLJournalEntryPayloadValidationIn
               {
                 if (!v43)
                 {
-                  v43 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v47, "count")}];
+                  v43 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(v47)];
                 }
 
-                if ([v47 count])
+                if (objc_msgSend_count(v47))
                 {
                   v48 = 0;
                   do
                   {
-                    if (v48 >= [v43 count] || (objc_msgSend(v43, "objectAtIndex:", v48), (v49 = objc_claimAutoreleasedReturnValue()) == 0))
+                    if (v48 >= objc_msgSend_count(v43) || ([v43 objectAtIndex:v48], (v49 = objc_claimAutoreleasedReturnValue()) == 0))
                     {
-                      v49 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v42, "count")}];
+                      v49 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:objc_msgSend_count(v42)];
                       [v43 addObject:v49];
                     }
 
@@ -2801,7 +2801,7 @@ void __178__PLManagedObjectJournalEntryPayload_PLJournalEntryPayloadValidationIn
                     ++v48;
                   }
 
-                  while (v48 < [v47 count]);
+                  while (v48 < objc_msgSend_count(v47));
                 }
               }
 
@@ -2810,7 +2810,7 @@ void __178__PLManagedObjectJournalEntryPayload_PLJournalEntryPayloadValidationIn
                 v51 = v72;
                 if (!v72)
                 {
-                  v51 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v42, "count")}];
+                  v51 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:objc_msgSend_count(v42)];
                 }
 
                 v72 = v51;
@@ -2856,7 +2856,7 @@ void __178__PLManagedObjectJournalEntryPayload_PLJournalEntryPayloadValidationIn
         goto LABEL_54;
       }
 
-      v53 = [(__CFString *)v22 count]== 0;
+      v53 = objc_msgSend_count(v22) == 0;
     }
 
     else
@@ -2962,8 +2962,8 @@ LABEL_63:
     v89 = 0;
     v90 = &v89;
     v91 = 0x2020000000;
-    v15 = [v11 count];
-    v92 = v15 == [v14 count];
+    v15 = objc_msgSend_count(v11);
+    v92 = v15 == objc_msgSend_count(v14);
     if (*(v90 + 24) == 1)
     {
       v81[0] = MEMORY[0x1E69E9820];
@@ -3000,16 +3000,16 @@ LABEL_63:
       v69 = [v9 key];
       v100[4] = v69;
       v99[5] = @"objectDictionaryCount";
-      v30 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v11, "count")}];
+      v30 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:objc_msgSend_count(v11)];
       v100[5] = v30;
       v99[6] = @"payloadAttributeListCount";
-      v31 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v14, "count")}];
+      v31 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:objc_msgSend_count(v14)];
       v100[6] = v31;
       v99[7] = @"description";
       v32 = MEMORY[0x1E696AEC0];
-      v33 = [v11 count];
+      v33 = objc_msgSend_count(v11);
       v34 = [v9 key];
-      v35 = [v32 stringWithFormat:@"differing number of entries: %@: %ld, %@: %ld", v7, v33, v34, objc_msgSend(v14, "count")];
+      v35 = [v32 stringWithFormat:@"differing number of entries: %@: %ld, %@: %ld", v7, v33, v34, objc_msgSend_count(v14)];
       v100[7] = v35;
       v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v100 forKeys:v99 count:8];
 
@@ -3078,9 +3078,9 @@ void __178__PLManagedObjectJournalEntryPayload_PLJournalEntryPayloadValidationIn
   v54 = v44;
   v55 = *(a1 + 64);
   v7 = [v6 indexesOfObjectsPassingTest:v53];
-  if ([v7 count])
+  if (objc_msgSend_count(v7))
   {
-    if ([v7 count] < 2)
+    if (objc_msgSend_count(v7) < 2)
     {
       goto LABEL_20;
     }
@@ -3143,7 +3143,7 @@ void __178__PLManagedObjectJournalEntryPayload_PLJournalEntryPayloadValidationIn
     v56[7] = @"description";
     v20 = MEMORY[0x1E696AEC0];
     v21 = *(a1 + 40);
-    v22 = [v7 count];
+    v22 = objc_msgSend_count(v7);
     v23 = [*(a1 + 64) key];
     v24 = [v20 stringWithFormat:@"%@: %@ matches %ld payloads: %@: %@", v21, v44, v22, v23, v9];
     v57[7] = v24;
@@ -3222,7 +3222,7 @@ void __178__PLManagedObjectJournalEntryPayload_PLJournalEntryPayloadValidationIn
 LABEL_20:
   if (*(*(*(a1 + 80) + 8) + 24) == 1)
   {
-    *(*(*(a1 + 80) + 8) + 24) = [v7 count] == 1;
+    *(*(*(a1 + 80) + 8) + 24) = objc_msgSend_count(v7) == 1;
   }
 }
 
@@ -3760,9 +3760,9 @@ void __153__PLManagedObjectJournalEntryPayload_PLJournalEntryPayloadValidationIn
         v14 = [v6 subRelationshipEntityName];
         v15 = [v5 destinationEntity];
         v16 = [v15 name];
-        v17 = [v14 isEqualToString:v16];
+        isEqualToString = objc_msgSend_isEqualToString_(v14);
 
-        if ((v17 & 1) == 0)
+        if ((isEqualToString & 1) == 0)
         {
           v40 = MEMORY[0x1E695DF30];
           v41 = MEMORY[0x1E696AEC0];

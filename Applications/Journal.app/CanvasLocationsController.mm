@@ -41,7 +41,7 @@
 {
   appearingCopy = appearing;
   v9.receiver = self;
-  v9.super_class = type metadata accessor for CanvasLocationsController();
+  v9.super_class = type metadata accessor for CanvasLocationsController(0);
   v4 = v9.receiver;
   [(CanvasLocationsController *)&v9 viewIsAppearing:appearingCopy];
   traitCollection = [v4 traitCollection];

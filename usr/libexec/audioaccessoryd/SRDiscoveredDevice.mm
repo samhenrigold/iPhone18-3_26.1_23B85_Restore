@@ -69,26 +69,47 @@
 
 - (id)description
 {
+  v25 = 0;
   nearbyTipiScore1 = self->_nearbyTipiScore1;
-  if (nearbyTipiScore1 <= 0xF)
+  if (nearbyTipiScore1 > 0xF)
+  {
+    v3 = "?";
+  }
+
+  else
   {
     v3 = off_1002BB498[nearbyTipiScore1];
   }
 
   nearbyTipiScore2 = self->_nearbyTipiScore2;
-  if (nearbyTipiScore2 <= 0xF)
+  if (nearbyTipiScore2 > 0xF)
+  {
+    v5 = "?";
+  }
+
+  else
   {
     v5 = off_1002BB498[nearbyTipiScore2];
   }
 
   nearbyInEar = self->_nearbyInEar;
-  if (nearbyInEar <= 7)
+  if (nearbyInEar > 7)
+  {
+    v7 = "?";
+  }
+
+  else
   {
     v7 = off_1002BB5C8[nearbyInEar];
   }
 
   nearbyAudioState = self->_nearbyAudioState;
-  if (nearbyAudioState <= 3)
+  if (nearbyAudioState > 3)
+  {
+    v9 = "?";
+  }
+
+  else
   {
     v9 = off_1002BB538[nearbyAudioState];
   }
@@ -102,14 +123,50 @@
   nearbyLastRouteHost = self->_nearbyLastRouteHost;
   nearbyForceDisconnectBit = self->_nearbyForceDisconnectBit;
   prevFailedTipiConnectType = self->_prevFailedTipiConnectType;
-  if (prevFailedTipiConnectType <= 0xA)
+  if (prevFailedTipiConnectType > 0xA)
+  {
+    v19 = "?";
+  }
+
+  else
   {
     v19 = off_1002BB570[prevFailedTipiConnectType];
   }
 
-  NSAppendPrintF();
+  if (nearbyForceDisconnectBit)
+  {
+    v20 = "yes";
+  }
 
-  return 0;
+  else
+  {
+    v20 = "no";
+  }
+
+  if (isSRCapable)
+  {
+    v21 = "yes";
+  }
+
+  else
+  {
+    v21 = "no";
+  }
+
+  if (isNearby)
+  {
+    v22 = "yes";
+  }
+
+  else
+  {
+    v22 = "no";
+  }
+
+  NSAppendPrintF(&v25, "btAddress %@ nbNm %@ isNb %s ts1 %s ts2 %s fw %@ isCp %s sc %d nbInEar %s nbLh %@ fd %s nbSt %s prevFailConnect %s", btAddress, nearbyName, v22, v3, v5, fwVersion, v21, nearbyConnectedSourceCount, v7, nearbyLastRouteHost, v20, v9, v19);
+  v23 = v25;
+
+  return v23;
 }
 
 - (void)_setAADevice:(id)device
@@ -205,19 +262,28 @@ LABEL_12:
     if (dword_1002F7530 != -1)
     {
 LABEL_4:
-      if (aacpInEarState <= 7)
+      if (aacpInEarState > 7)
+      {
+        v7 = "?";
+      }
+
+      else
       {
         v7 = off_1002BB5C8[aacpInEarState];
       }
 
-      if (state <= 7)
+      if (state > 7)
+      {
+        v8 = "?";
+      }
+
+      else
       {
         v8 = off_1002BB5C8[state];
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
-      goto LABEL_11;
+      LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice setAacpInEarState:]", 30, "Setting aacpInEarState %@ %s -> %s", self->_btAddress, v7, v8);
+      goto LABEL_13;
     }
 
     if (_LogCategory_Initialize())
@@ -227,7 +293,7 @@ LABEL_4:
     }
   }
 
-LABEL_11:
+LABEL_13:
   self->_aacpInEarState = state;
 
   [(SRDiscoveredDevice *)self _updateUnifiedInEarState];
@@ -235,26 +301,44 @@ LABEL_11:
 
 - (void)setAirplaneMode:(BOOL)mode
 {
-  if (self->_airplaneMode != mode)
+  airplaneMode = self->_airplaneMode;
+  if (airplaneMode != mode)
   {
+    modeCopy = mode;
     if (dword_1002F7530 <= 30)
     {
-      if (dword_1002F7530 == -1)
+      if (dword_1002F7530 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (airplaneMode)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        airplaneMode = self->_airplaneMode;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (modeCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice setAirplaneMode:]", 30, "Setting airplaneMode %@ %s -> %s", self->_btAddress, v7, v6);
+        goto LABEL_11;
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(airplaneMode) = self->_airplaneMode;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->_airplaneMode = mode;
+LABEL_11:
+    self->_airplaneMode = modeCopy;
   }
 }
 
@@ -263,13 +347,12 @@ LABEL_6:
   addressCopy = address;
   btAddress = self->_btAddress;
   p_btAddress = &self->_btAddress;
-  v9 = addressCopy;
+  v8 = addressCopy;
   if (![(NSString *)btAddress isEqualToString:?])
   {
     if (dword_1002F7530 <= 30 && (dword_1002F7530 != -1 || _LogCategory_Initialize()))
     {
-      v8 = *p_btAddress;
-      LogPrintF();
+      LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice _setBtAddress:]", 30, "Setting btaddress %@ -> %@", *p_btAddress, v8);
     }
 
     objc_storeStrong(p_btAddress, address);
@@ -287,18 +370,28 @@ LABEL_6:
       if (dword_1002F7530 != -1)
       {
 LABEL_4:
-        if (connectionState <= 3)
+        if (connectionState > 3)
+        {
+          v6 = "?";
+        }
+
+        else
         {
           v6 = off_1002BB518[connectionState];
         }
 
-        if (stateCopy <= 3)
+        if (stateCopy > 3)
+        {
+          v7 = "?";
+        }
+
+        else
         {
           v7 = off_1002BB518[stateCopy];
         }
 
-        LogPrintF();
-        goto LABEL_11;
+        LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice _setConnectionState:]", 30, "Setting connectionState %s -> %s", v6, v7);
+        goto LABEL_13;
       }
 
       if (_LogCategory_Initialize())
@@ -308,14 +401,15 @@ LABEL_4:
       }
     }
 
-LABEL_11:
+LABEL_13:
     self->_connectionState = stateCopy;
   }
 }
 
 - (void)setDisconnectionBackoffTick:(unint64_t)tick
 {
-  if (self->_disconnectionBackoffTick != tick)
+  disconnectionBackoffTick = self->_disconnectionBackoffTick;
+  if (disconnectionBackoffTick != tick)
   {
     if (dword_1002F7530 <= 30)
     {
@@ -329,8 +423,7 @@ LABEL_11:
         disconnectionBackoffTick = self->_disconnectionBackoffTick;
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
+      LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice setDisconnectionBackoffTick:]", 30, "Setting inUseBannerBackoffTick %@ %llu -> %llu", self->_btAddress, disconnectionBackoffTick, tick);
     }
 
 LABEL_6:
@@ -345,9 +438,7 @@ LABEL_6:
   {
     if (dword_1002F7530 <= 30 && (dword_1002F7530 != -1 || _LogCategory_Initialize()))
     {
-      fwVersion = self->_fwVersion;
-      btAddress = self->_btAddress;
-      LogPrintF();
+      LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice setFwVersion:]", 30, "Setting fwVersion %@ %@ -> %@", self->_btAddress, self->_fwVersion, versionCopy);
     }
 
     objc_storeStrong(&self->_fwVersion, version);
@@ -356,151 +447,259 @@ LABEL_6:
 
 - (void)setIsSRCapable:(BOOL)capable
 {
-  if (self->_isSRCapable != capable)
+  isSRCapable = self->_isSRCapable;
+  if (isSRCapable != capable)
   {
+    capableCopy = capable;
     if (dword_1002F7530 <= 30)
     {
-      if (dword_1002F7530 == -1)
+      if (dword_1002F7530 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (isSRCapable)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        isSRCapable = self->_isSRCapable;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (capableCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice setIsSRCapable:]", 30, "Setting isSRCapable %@ %s -> %s", self->_btAddress, v7, v6);
+        goto LABEL_11;
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(isSRCapable) = self->_isSRCapable;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->_isSRCapable = capable;
+LABEL_11:
+    self->_isSRCapable = capableCopy;
   }
 }
 
 - (void)setIsManualDisconnectLastTime:(BOOL)time
 {
-  if (self->_isManualDisconnectLastTime != time)
+  isManualDisconnectLastTime = self->_isManualDisconnectLastTime;
+  if (isManualDisconnectLastTime != time)
   {
+    timeCopy = time;
     if (dword_1002F7530 <= 30)
     {
-      if (dword_1002F7530 == -1)
+      if (dword_1002F7530 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (isManualDisconnectLastTime)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        isManualDisconnectLastTime = self->_isManualDisconnectLastTime;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (timeCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice setIsManualDisconnectLastTime:]", 30, "Setting IsManualDisconnectLastTime %@ %s -> %s", self->_btAddress, v7, v6);
+        goto LABEL_11;
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(isManualDisconnectLastTime) = self->_isManualDisconnectLastTime;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->_isManualDisconnectLastTime = time;
+LABEL_11:
+    self->_isManualDisconnectLastTime = timeCopy;
   }
 }
 
 - (void)_setIsNearby:(BOOL)nearby
 {
-  if (self->_isNearby != nearby)
+  isNearby = self->_isNearby;
+  if (isNearby != nearby)
   {
+    nearbyCopy = nearby;
     if (dword_1002F7530 <= 30)
     {
-      if (dword_1002F7530 == -1)
+      if (dword_1002F7530 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (isNearby)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        isNearby = self->_isNearby;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (nearbyCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice _setIsNearby:]", 30, "Setting isNearby %@ %s -> %s", self->_btAddress, v7, v6);
+        goto LABEL_11;
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(isNearby) = self->_isNearby;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->_isNearby = nearby;
+LABEL_11:
+    self->_isNearby = nearbyCopy;
   }
 }
 
 - (void)setIsPaired:(BOOL)paired
 {
-  if (self->_isPaired != paired)
+  isPaired = self->_isPaired;
+  if (isPaired != paired)
   {
+    pairedCopy = paired;
     if (dword_1002F7530 <= 30)
     {
-      if (dword_1002F7530 == -1)
+      if (dword_1002F7530 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (isPaired)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        isPaired = self->_isPaired;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (pairedCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice setIsPaired:]", 30, "Setting isPaired %@ %s -> %s", self->_btAddress, v7, v6);
+        goto LABEL_11;
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(isPaired) = self->_isPaired;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->_isPaired = paired;
+LABEL_11:
+    self->_isPaired = pairedCopy;
   }
 }
 
 - (void)setIsPairingInProgress:(BOOL)progress
 {
-  if (self->_isPairingInProgress != progress)
+  isPairingInProgress = self->_isPairingInProgress;
+  if (isPairingInProgress != progress)
   {
+    progressCopy = progress;
     if (dword_1002F7530 <= 30)
     {
-      if (dword_1002F7530 == -1)
+      if (dword_1002F7530 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (isPairingInProgress)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        isPairingInProgress = self->_isPairingInProgress;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (progressCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice setIsPairingInProgress:]", 30, "Setting isPairingInProgress %@ %s -> %s", self->_btAddress, v7, v6);
+        goto LABEL_11;
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(isPairingInProgress) = self->_isPairingInProgress;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->_isPairingInProgress = progress;
+LABEL_11:
+    self->_isPairingInProgress = progressCopy;
   }
 }
 
 - (void)setIsUSBPlugIn:(BOOL)in
 {
-  if (self->_isUSBPlugIn != in)
+  isUSBPlugIn = self->_isUSBPlugIn;
+  if (isUSBPlugIn != in)
   {
+    inCopy = in;
     if (dword_1002F7530 <= 30)
     {
-      if (dword_1002F7530 == -1)
+      if (dword_1002F7530 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (isUSBPlugIn)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        isUSBPlugIn = self->_isUSBPlugIn;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (inCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice setIsUSBPlugIn:]", 30, "Setting isUSBPlugIn %@ %s -> %s", self->_btAddress, v7, v6);
+        goto LABEL_11;
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(isUSBPlugIn) = self->_isUSBPlugIn;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->_isUSBPlugIn = in;
+LABEL_11:
+    self->_isUSBPlugIn = inCopy;
   }
 }
 
@@ -534,10 +733,7 @@ LABEL_4:
         v7 = "yes";
       }
 
-      v10 = v8;
-      v11 = v7;
-      btAddress = self->_btAddress;
-      LogPrintF();
+      LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice setInEar:]", 30, "Setting inEar %@ %s -> %s", self->_btAddress, v8, v7);
       goto LABEL_11;
     }
 
@@ -550,13 +746,14 @@ LABEL_4:
 
 LABEL_11:
   self->_inEar = earCopy;
-  v12 = [BTSmartRoutingDaemon sharedBTSmartRoutingDaemon:btAddress];
-  [v12 activeHRMDeviceUpdate];
+  v9 = +[BTSmartRoutingDaemon sharedBTSmartRoutingDaemon];
+  [v9 activeHRMDeviceUpdate];
 }
 
 - (void)_setInUseBannerBackoffTick:(unint64_t)tick
 {
-  if (self->_inUseBannerBackoffTick != tick)
+  inUseBannerBackoffTick = self->_inUseBannerBackoffTick;
+  if (inUseBannerBackoffTick != tick)
   {
     if (dword_1002F7530 <= 30)
     {
@@ -570,8 +767,7 @@ LABEL_11:
         inUseBannerBackoffTick = self->_inUseBannerBackoffTick;
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
+      LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice _setInUseBannerBackoffTick:]", 30, "Setting inUseBannerBackoffTick %@ %u -> %u", self->_btAddress, inUseBannerBackoffTick, tick);
     }
 
 LABEL_6:
@@ -586,9 +782,7 @@ LABEL_6:
   {
     if (dword_1002F7530 <= 30 && (dword_1002F7530 != -1 || _LogCategory_Initialize()))
     {
-      inUseBannerBackoffReason = self->_inUseBannerBackoffReason;
-      btAddress = self->_btAddress;
-      LogPrintF();
+      LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice _setInUseBannerBackoffReason:]", 30, "Setting inUseBannerBackoff %@ %@ -> %@", self->_btAddress, self->_inUseBannerBackoffReason, reasonCopy);
     }
 
     objc_storeStrong(&self->_inUseBannerBackoffReason, reason);
@@ -597,100 +791,173 @@ LABEL_6:
 
 - (void)_setInUseBannerShown:(BOOL)shown
 {
-  if (self->_inUseBannerShown != shown)
+  inUseBannerShown = self->_inUseBannerShown;
+  if (inUseBannerShown != shown)
   {
+    shownCopy = shown;
     if (dword_1002F7530 <= 30)
     {
-      if (dword_1002F7530 == -1)
+      if (dword_1002F7530 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (inUseBannerShown)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        inUseBannerShown = self->_inUseBannerShown;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (shownCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice _setInUseBannerShown:]", 30, "Setting inUseBannerShown %@ %s -> %s", self->_btAddress, v7, v6);
+        goto LABEL_11;
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(inUseBannerShown) = self->_inUseBannerShown;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->_inUseBannerShown = shown;
+LABEL_11:
+    self->_inUseBannerShown = shownCopy;
   }
 }
 
 - (void)setLowBatteryBannerShownInWorkoutContext:(BOOL)context
 {
-  if (self->_lowBatteryBannerShownInWorkoutContext != context)
+  lowBatteryBannerShownInWorkoutContext = self->_lowBatteryBannerShownInWorkoutContext;
+  if (lowBatteryBannerShownInWorkoutContext != context)
   {
+    contextCopy = context;
     if (dword_1002F7530 <= 30)
     {
-      if (dword_1002F7530 == -1)
+      if (dword_1002F7530 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (lowBatteryBannerShownInWorkoutContext)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        lowBatteryBannerShownInWorkoutContext = self->_lowBatteryBannerShownInWorkoutContext;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (contextCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice setLowBatteryBannerShownInWorkoutContext:]", 30, "Setting _lowBatteryBannerShownInWorkoutContext %@ %s -> %s", self->_btAddress, v7, v6);
+        goto LABEL_11;
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(lowBatteryBannerShownInWorkoutContext) = self->_lowBatteryBannerShownInWorkoutContext;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->_lowBatteryBannerShownInWorkoutContext = context;
+LABEL_11:
+    self->_lowBatteryBannerShownInWorkoutContext = contextCopy;
   }
 }
 
 - (void)_setMutedSpeakerForRemotePhoneCall:(BOOL)call
 {
-  if (self->_mutedSpeakerForRemotePhoneCall != call)
+  mutedSpeakerForRemotePhoneCall = self->_mutedSpeakerForRemotePhoneCall;
+  if (mutedSpeakerForRemotePhoneCall != call)
   {
+    callCopy = call;
     if (dword_1002F7530 <= 30)
     {
-      if (dword_1002F7530 == -1)
+      if (dword_1002F7530 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (mutedSpeakerForRemotePhoneCall)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        mutedSpeakerForRemotePhoneCall = self->_mutedSpeakerForRemotePhoneCall;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (callCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice _setMutedSpeakerForRemotePhoneCall:]", 30, "Setting muted speaker for remote phone call %s -> %s", v7, v6);
+        goto LABEL_11;
       }
 
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(mutedSpeakerForRemotePhoneCall) = self->_mutedSpeakerForRemotePhoneCall;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->_mutedSpeakerForRemotePhoneCall = call;
+LABEL_11:
+    self->_mutedSpeakerForRemotePhoneCall = callCopy;
   }
 }
 
 - (void)_setNearbyiCloudSignIn:(BOOL)in
 {
-  if (self->_nearbyiCloudSignIn != in)
+  nearbyiCloudSignIn = self->_nearbyiCloudSignIn;
+  if (nearbyiCloudSignIn != in)
   {
+    inCopy = in;
     if (dword_1002F7530 <= 30)
     {
-      if (dword_1002F7530 == -1)
+      if (dword_1002F7530 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (nearbyiCloudSignIn)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        nearbyiCloudSignIn = self->_nearbyiCloudSignIn;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (inCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice _setNearbyiCloudSignIn:]", 30, "Setting nearbyiCloudSignIn %@ %s -> %s", self->_btAddress, v7, v6);
+        goto LABEL_11;
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(nearbyiCloudSignIn) = self->_nearbyiCloudSignIn;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->_nearbyiCloudSignIn = in;
+LABEL_11:
+    self->_nearbyiCloudSignIn = inCopy;
   }
 }
 
@@ -699,13 +966,12 @@ LABEL_6:
   identifierCopy = identifier;
   lastDRHostIDSIdentifier = self->_lastDRHostIDSIdentifier;
   p_lastDRHostIDSIdentifier = &self->_lastDRHostIDSIdentifier;
-  v10 = identifierCopy;
+  v9 = identifierCopy;
   if (![(NSString *)lastDRHostIDSIdentifier isEqualToString:?])
   {
     if (dword_1002F7530 <= 30 && (dword_1002F7530 != -1 || _LogCategory_Initialize()))
     {
-      v9 = *p_lastDRHostIDSIdentifier;
-      LogPrintF();
+      LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice setLastDRHostIDSIdentifier:]", 30, "Setting lastDRHostIDSIdentifier %@ -> %@", *p_lastDRHostIDSIdentifier, v9);
     }
 
     objc_storeStrong(p_lastDRHostIDSIdentifier, identifier);
@@ -727,19 +993,28 @@ LABEL_6:
     if (dword_1002F7530 != -1)
     {
 LABEL_4:
-      if (nearbyInEar <= 7)
+      if (nearbyInEar > 7)
+      {
+        v7 = "?";
+      }
+
+      else
       {
         v7 = off_1002BB5C8[nearbyInEar];
       }
 
-      if (ear <= 7)
+      if (ear > 7)
+      {
+        v8 = "?";
+      }
+
+      else
       {
         v8 = off_1002BB5C8[ear];
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
-      goto LABEL_11;
+      LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice setNearbyInEar:]", 30, "Setting nearbyInEar %@ %s -> %s", self->_btAddress, v7, v8);
+      goto LABEL_13;
     }
 
     if (_LogCategory_Initialize())
@@ -749,7 +1024,7 @@ LABEL_4:
     }
   }
 
-LABEL_11:
+LABEL_13:
   self->_nearbyInEar = ear;
 
   [(SRDiscoveredDevice *)self _updateUnifiedInEarState];
@@ -757,26 +1032,44 @@ LABEL_11:
 
 - (void)setNearbyIsMeLastRoute:(BOOL)route
 {
-  if (self->_nearbyIsMeLastRoute != route)
+  nearbyIsMeLastRoute = self->_nearbyIsMeLastRoute;
+  if (nearbyIsMeLastRoute != route)
   {
+    routeCopy = route;
     if (dword_1002F7530 <= 30)
     {
-      if (dword_1002F7530 == -1)
+      if (dword_1002F7530 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (nearbyIsMeLastRoute)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        nearbyIsMeLastRoute = self->_nearbyIsMeLastRoute;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (routeCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice setNearbyIsMeLastRoute:]", 30, "Setting nearbyIsMeLastRoute %@ %s -> %s", self->_btAddress, v7, v6);
+        goto LABEL_11;
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(nearbyIsMeLastRoute) = self->_nearbyIsMeLastRoute;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->_nearbyIsMeLastRoute = route;
+LABEL_11:
+    self->_nearbyIsMeLastRoute = routeCopy;
   }
 }
 
@@ -786,20 +1079,18 @@ LABEL_6:
   v6 = hostCopy;
   if (hostCopy)
   {
-    v9 = hostCopy;
+    v7 = hostCopy;
     hostCopy = [(NSData *)self->_nearbyLastRouteHost isEqualToData:hostCopy];
-    v6 = v9;
+    v6 = v7;
     if ((hostCopy & 1) == 0)
     {
       if (dword_1002F7530 <= 30 && (dword_1002F7530 != -1 || _LogCategory_Initialize()))
       {
-        nearbyLastRouteHost = self->_nearbyLastRouteHost;
-        btAddress = self->_btAddress;
-        LogPrintF();
+        LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice _setNearbyLastRouteHost:]", 30, "Setting nearbyLastRouteHost %@ %@ -> %@", self->_btAddress, self->_nearbyLastRouteHost, v7);
       }
 
       objc_storeStrong(&self->_nearbyLastRouteHost, host);
-      v6 = v9;
+      v6 = v7;
     }
   }
 
@@ -813,9 +1104,7 @@ LABEL_6:
   {
     if (dword_1002F7530 <= 30 && (dword_1002F7530 != -1 || _LogCategory_Initialize()))
     {
-      nearbyName = self->_nearbyName;
-      btAddress = self->_btAddress;
-      LogPrintF();
+      LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice _setNearbyName:]", 30, "Setting nearbyName %@ %@ -> %@", self->_btAddress, self->_nearbyName, nameCopy);
     }
 
     objc_storeStrong(&self->_nearbyName, name);
@@ -824,7 +1113,8 @@ LABEL_6:
 
 - (void)_setNearbyOutOfCaseTime:(unsigned __int8)time
 {
-  if (self->_nearbyOutOfCaseTime != time)
+  nearbyOutOfCaseTime = self->_nearbyOutOfCaseTime;
+  if (nearbyOutOfCaseTime != time)
   {
     timeCopy = time;
     if (dword_1002F7530 <= 30)
@@ -839,8 +1129,7 @@ LABEL_6:
         nearbyOutOfCaseTime = self->_nearbyOutOfCaseTime;
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
+      LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice _setNearbyOutOfCaseTime:]", 30, "Setting outOfCaseTime %@ %d -> %d", self->_btAddress, nearbyOutOfCaseTime, timeCopy);
     }
 
 LABEL_6:
@@ -850,33 +1139,53 @@ LABEL_6:
 
 - (void)_setNearbyPaired:(BOOL)paired
 {
-  if (self->_nearbyPaired != paired)
+  nearbyPaired = self->_nearbyPaired;
+  if (nearbyPaired != paired)
   {
+    pairedCopy = paired;
     if (dword_1002F7530 <= 30)
     {
-      if (dword_1002F7530 == -1)
+      if (dword_1002F7530 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (nearbyPaired)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        nearbyPaired = self->_nearbyPaired;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (pairedCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice _setNearbyPaired:]", 30, "Setting nearbyPaired %@ %s -> %s", self->_btAddress, v7, v6);
+        goto LABEL_11;
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(nearbyPaired) = self->_nearbyPaired;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->_nearbyPaired = paired;
+LABEL_11:
+    self->_nearbyPaired = pairedCopy;
   }
 }
 
 - (void)_setNearbyProductID:(unsigned int)d
 {
-  if (self->_nearbyProductID != d)
+  nearbyProductID = self->_nearbyProductID;
+  if (nearbyProductID != d)
   {
+    v4 = *&d;
     if (dword_1002F7530 <= 30)
     {
       if (dword_1002F7530 == -1)
@@ -889,12 +1198,11 @@ LABEL_6:
         nearbyProductID = self->_nearbyProductID;
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
+      LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice _setNearbyProductID:]", 30, "Setting nearbyProductID %@ %u -> %u", self->_btAddress, nearbyProductID, v4);
     }
 
 LABEL_6:
-    self->_nearbyProductID = d;
+    self->_nearbyProductID = v4;
   }
 }
 
@@ -910,8 +1218,10 @@ LABEL_6:
 
 - (void)_setNearbyConnectedSourceCount:(unsigned __int8)count
 {
-  if (self->_nearbyConnectedSourceCount != count)
+  nearbyConnectedSourceCount = self->_nearbyConnectedSourceCount;
+  if (nearbyConnectedSourceCount != count)
   {
+    countCopy = count;
     if (dword_1002F7530 <= 30)
     {
       if (dword_1002F7530 == -1)
@@ -924,36 +1234,54 @@ LABEL_6:
         nearbyConnectedSourceCount = self->_nearbyConnectedSourceCount;
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
+      LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice _setNearbyConnectedSourceCount:]", 30, "Setting nearbyConnectedSourceCount %@ %d -> %d", self->_btAddress, nearbyConnectedSourceCount, countCopy);
     }
 
 LABEL_6:
-    self->_nearbyConnectedSourceCount = count;
+    self->_nearbyConnectedSourceCount = countCopy;
   }
 }
 
 - (void)_setNearbyForceDisconnect:(BOOL)disconnect
 {
-  if (self->_nearbyForceDisconnectBit != disconnect)
+  nearbyForceDisconnectBit = self->_nearbyForceDisconnectBit;
+  if (nearbyForceDisconnectBit != disconnect)
   {
+    disconnectCopy = disconnect;
     if (dword_1002F7530 <= 30)
     {
-      if (dword_1002F7530 == -1)
+      if (dword_1002F7530 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (nearbyForceDisconnectBit)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        nearbyForceDisconnectBit = self->_nearbyForceDisconnectBit;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (disconnectCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice _setNearbyForceDisconnect:]", 30, "Setting nearbyForceDisconnect %s -> %s", v7, v6);
+        goto LABEL_11;
       }
 
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(nearbyForceDisconnectBit) = self->_nearbyForceDisconnectBit;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->_nearbyForceDisconnectBit = disconnect;
+LABEL_11:
+    self->_nearbyForceDisconnectBit = disconnectCopy;
   }
 }
 
@@ -967,19 +1295,28 @@ LABEL_6:
       if (dword_1002F7530 != -1)
       {
 LABEL_4:
-        if (nearbyStreamState <= 3)
+        if (nearbyStreamState > 3)
+        {
+          v6 = "?";
+        }
+
+        else
         {
           v6 = off_1002BB538[nearbyStreamState];
         }
 
-        if (state <= 3)
+        if (state > 3)
+        {
+          v7 = "?";
+        }
+
+        else
         {
           v7 = off_1002BB538[state];
         }
 
-        btAddress = self->_btAddress;
-        LogPrintF();
-        goto LABEL_11;
+        LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice _setNearbyStreamState:]", 30, "Setting nearbyStreamState %@ %s -> %s", self->_btAddress, v6, v7);
+        goto LABEL_13;
       }
 
       if (_LogCategory_Initialize())
@@ -989,14 +1326,15 @@ LABEL_4:
       }
     }
 
-LABEL_11:
+LABEL_13:
     self->_nearbyStreamState = state;
   }
 }
 
 - (void)setNearbyUpdateTick:(unint64_t)tick
 {
-  if (self->_nearbyUpdateTick != tick)
+  nearbyUpdateTick = self->_nearbyUpdateTick;
+  if (nearbyUpdateTick != tick)
   {
     if (dword_1002F7530 <= 30)
     {
@@ -1010,8 +1348,7 @@ LABEL_11:
         nearbyUpdateTick = self->_nearbyUpdateTick;
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
+      LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice setNearbyUpdateTick:]", 30, "Setting nearbyUpdateTick %@ %llu -> %llu", self->_btAddress, nearbyUpdateTick, tick);
     }
 
 LABEL_6:
@@ -1030,19 +1367,28 @@ LABEL_6:
       if (dword_1002F7530 != -1)
       {
 LABEL_4:
-        if (nearbyUSBPluggedIn <= 2)
+        if (nearbyUSBPluggedIn > 2)
+        {
+          v6 = "?";
+        }
+
+        else
         {
           v6 = off_1002BB558[nearbyUSBPluggedIn];
         }
 
-        if (inCopy <= 2)
+        if (inCopy > 2)
+        {
+          v7 = "?";
+        }
+
+        else
         {
           v7 = off_1002BB558[inCopy];
         }
 
-        btAddress = self->_btAddress;
-        LogPrintF();
-        goto LABEL_11;
+        LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice setNearbyUSBPluggedIn:]", 30, "Setting nearbyUSBPluggedIn %@ %s -> %s", self->_btAddress, v6, v7);
+        goto LABEL_13;
       }
 
       if (_LogCategory_Initialize())
@@ -1052,14 +1398,15 @@ LABEL_4:
       }
     }
 
-LABEL_11:
+LABEL_13:
     self->_nearbyUSBPluggedIn = inCopy;
   }
 }
 
 - (void)setNearbyUSBPluggedInTick:(unint64_t)tick
 {
-  if (self->_nearbyUSBPluggedInTick != tick)
+  nearbyUSBPluggedInTick = self->_nearbyUSBPluggedInTick;
+  if (nearbyUSBPluggedInTick != tick)
   {
     if (dword_1002F7530 <= 30)
     {
@@ -1073,8 +1420,7 @@ LABEL_11:
         nearbyUSBPluggedInTick = self->_nearbyUSBPluggedInTick;
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
+      LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice setNearbyUSBPluggedInTick:]", 30, "Setting nearbyUSBPluggedInTick %@ %llu -> %llu", self->_btAddress, nearbyUSBPluggedInTick, tick);
     }
 
 LABEL_6:
@@ -1097,7 +1443,8 @@ LABEL_6:
 
 - (void)setPairingBannerClickTick:(unint64_t)tick
 {
-  if (self->_pairingBannerClickTick != tick)
+  pairingBannerClickTick = self->_pairingBannerClickTick;
+  if (pairingBannerClickTick != tick)
   {
     if (dword_1002F7530 <= 30)
     {
@@ -1111,8 +1458,7 @@ LABEL_6:
         pairingBannerClickTick = self->_pairingBannerClickTick;
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
+      LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice setPairingBannerClickTick:]", 30, "Setting pairingBannerClickTick %@ %llu -> %llu", self->_btAddress, pairingBannerClickTick, tick);
     }
 
 LABEL_6:
@@ -1130,19 +1476,28 @@ LABEL_6:
       if (dword_1002F7530 != -1)
       {
 LABEL_4:
-        if (prevFailedTipiConnectType <= 0xA)
+        if (prevFailedTipiConnectType > 0xA)
+        {
+          v6 = "?";
+        }
+
+        else
         {
           v6 = off_1002BB570[prevFailedTipiConnectType];
         }
 
-        if (type <= 0xA)
+        if (type > 0xA)
+        {
+          v7 = "?";
+        }
+
+        else
         {
           v7 = off_1002BB570[type];
         }
 
-        btAddress = self->_btAddress;
-        LogPrintF();
-        goto LABEL_11;
+        LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice setPrevFailedTipiConnectType:]", 30, "Setting prevFailedTipiConnectType %@ %s -> %s", self->_btAddress, v6, v7);
+        goto LABEL_13;
       }
 
       if (_LogCategory_Initialize())
@@ -1152,83 +1507,137 @@ LABEL_4:
       }
     }
 
-LABEL_11:
+LABEL_13:
     self->_prevFailedTipiConnectType = type;
   }
 }
 
 - (void)_setRouted:(BOOL)routed
 {
-  if (self->_routed != routed)
+  routed = self->_routed;
+  if (routed != routed)
   {
+    routedCopy = routed;
     if (dword_1002F7530 <= 30)
     {
-      if (dword_1002F7530 == -1)
+      if (dword_1002F7530 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (routed)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        routed = self->_routed;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (routedCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice _setRouted:]", 30, "Setting routed for %@ %s -> %s", self->_btAddress, v7, v6);
+        goto LABEL_11;
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(routed) = self->_routed;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->_routed = routed;
+LABEL_11:
+    self->_routed = routedCopy;
   }
 }
 
 - (void)_setRouteToWxAfterUnhide:(BOOL)unhide
 {
-  if (self->_routeToWxAfterUnhide != unhide)
+  routeToWxAfterUnhide = self->_routeToWxAfterUnhide;
+  if (routeToWxAfterUnhide != unhide)
   {
+    unhideCopy = unhide;
     if (dword_1002F7530 <= 30)
     {
-      if (dword_1002F7530 == -1)
+      if (dword_1002F7530 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (routeToWxAfterUnhide)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        routeToWxAfterUnhide = self->_routeToWxAfterUnhide;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (unhideCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice _setRouteToWxAfterUnhide:]", 30, "Setting routeToWxAfterUnhide %@ %s -> %s", self->_btAddress, v7, v6);
+        goto LABEL_11;
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(routeToWxAfterUnhide) = self->_routeToWxAfterUnhide;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->_routeToWxAfterUnhide = unhide;
+LABEL_11:
+    self->_routeToWxAfterUnhide = unhideCopy;
   }
 }
 
 - (void)setShouldExtendTimeOnSpeaker:(BOOL)speaker
 {
-  if (self->_shouldExtendTimeOnSpeaker != speaker)
+  shouldExtendTimeOnSpeaker = self->_shouldExtendTimeOnSpeaker;
+  if (shouldExtendTimeOnSpeaker != speaker)
   {
+    speakerCopy = speaker;
     if (dword_1002F7530 <= 30)
     {
-      if (dword_1002F7530 == -1)
+      if (dword_1002F7530 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (shouldExtendTimeOnSpeaker)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        shouldExtendTimeOnSpeaker = self->_shouldExtendTimeOnSpeaker;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (speakerCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice setShouldExtendTimeOnSpeaker:]", 30, "Setting shouldExtendTimeOnSpeaker %@ %s -> %s", self->_btAddress, v7, v6);
+        goto LABEL_11;
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(shouldExtendTimeOnSpeaker) = self->_shouldExtendTimeOnSpeaker;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->_shouldExtendTimeOnSpeaker = speaker;
+LABEL_11:
+    self->_shouldExtendTimeOnSpeaker = speakerCopy;
   }
 }
 
@@ -1242,19 +1651,28 @@ LABEL_6:
       if (dword_1002F7530 != -1)
       {
 LABEL_4:
-        if (tipiConnectType <= 0xA)
+        if (tipiConnectType > 0xA)
+        {
+          v6 = "?";
+        }
+
+        else
         {
           v6 = off_1002BB570[tipiConnectType];
         }
 
-        if (type <= 0xA)
+        if (type > 0xA)
+        {
+          v7 = "?";
+        }
+
+        else
         {
           v7 = off_1002BB570[type];
         }
 
-        btAddress = self->_btAddress;
-        LogPrintF();
-        goto LABEL_11;
+        LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice setTipiConnectType:]", 30, "Setting tipiConnectType %@ %s -> %s", self->_btAddress, v6, v7);
+        goto LABEL_13;
       }
 
       if (_LogCategory_Initialize())
@@ -1264,15 +1682,17 @@ LABEL_4:
       }
     }
 
-LABEL_11:
+LABEL_13:
     self->_tipiConnectType = type;
   }
 }
 
 - (void)setUsbColorCode:(unsigned int)code
 {
-  if (self->_usbcColorCode != code)
+  usbcColorCode = self->_usbcColorCode;
+  if (usbcColorCode != code)
   {
+    v4 = *&code;
     if (dword_1002F7530 <= 30)
     {
       if (dword_1002F7530 == -1)
@@ -1285,12 +1705,11 @@ LABEL_11:
         usbcColorCode = self->_usbcColorCode;
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
+      LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice setUsbColorCode:]", 30, "Setting colorCode %@ %u -> %u", self->_btAddress, usbcColorCode, v4);
     }
 
 LABEL_6:
-    self->_usbcColorCode = code;
+    self->_usbcColorCode = v4;
   }
 }
 
@@ -1301,9 +1720,7 @@ LABEL_6:
   {
     if (dword_1002F7530 <= 30 && (dword_1002F7530 != -1 || _LogCategory_Initialize()))
     {
-      usbName = self->_usbName;
-      btAddress = self->_btAddress;
-      LogPrintF();
+      LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice setUsbName:]", 30, "Setting usbName %@ %@ -> %@", self->_btAddress, self->_usbName, nameCopy);
     }
 
     objc_storeStrong(&self->_usbName, name);
@@ -1312,8 +1729,10 @@ LABEL_6:
 
 - (void)setUsbProductID:(unsigned int)d
 {
-  if (self->_usbProductID != d)
+  usbProductID = self->_usbProductID;
+  if (usbProductID != d)
   {
+    v4 = *&d;
     if (dword_1002F7530 <= 30)
     {
       if (dword_1002F7530 == -1)
@@ -1326,36 +1745,54 @@ LABEL_6:
         usbProductID = self->_usbProductID;
       }
 
-      btAddress = self->_btAddress;
-      LogPrintF();
+      LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice setUsbProductID:]", 30, "Setting usbProductID %@ %u -> %u", self->_btAddress, usbProductID, v4);
     }
 
 LABEL_6:
-    self->_usbProductID = d;
+    self->_usbProductID = v4;
   }
 }
 
 - (void)_setUserConnectedState:(BOOL)state
 {
-  if (self->_userConnectedState != state)
+  userConnectedState = self->_userConnectedState;
+  if (userConnectedState != state)
   {
+    stateCopy = state;
     if (dword_1002F7530 <= 30)
     {
-      if (dword_1002F7530 == -1)
+      if (dword_1002F7530 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (userConnectedState)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        userConnectedState = self->_userConnectedState;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (stateCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice _setUserConnectedState:]", 30, "Setting userConnectedState %s -> %s", v7, v6);
+        goto LABEL_11;
       }
 
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(userConnectedState) = self->_userConnectedState;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->_userConnectedState = state;
+LABEL_11:
+    self->_userConnectedState = stateCopy;
   }
 }
 
@@ -1407,15 +1844,18 @@ LABEL_6:
       if (dword_1002F7530 != -1)
       {
 LABEL_17:
-        btAddress = self->_btAddress;
-        if (inEarStateUnified <= 7)
+        if (inEarStateUnified > 7)
         {
-          v10 = off_1002BB5C8[inEarStateUnified];
+          v9 = "?";
         }
 
-        v11 = off_1002BB608[v5];
-        LogPrintF();
-        goto LABEL_22;
+        else
+        {
+          v9 = off_1002BB5C8[inEarStateUnified];
+        }
+
+        LogPrintF(&dword_1002F7530, "[SRDiscoveredDevice _updateUnifiedInEarState]", 30, "Setting inEarStateUnified %@ %s -> %s", self->_btAddress, v9, off_1002BB608[v5]);
+        goto LABEL_23;
       }
 
       if (_LogCategory_Initialize())
@@ -1425,7 +1865,7 @@ LABEL_17:
       }
     }
 
-LABEL_22:
+LABEL_23:
     self->_inEarStateUnified = v5;
   }
 }

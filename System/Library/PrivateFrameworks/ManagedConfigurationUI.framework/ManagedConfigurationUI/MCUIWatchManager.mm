@@ -46,10 +46,10 @@ void __26__MCUIWatchManager_shared__block_invoke()
 
 - (MCUIWatchManager)init
 {
-  v25[1] = *MEMORY[0x277D85DE8];
-  v24.receiver = self;
-  v24.super_class = MCUIWatchManager;
-  v2 = [(MCUIWatchManager *)&v24 init];
+  v24[1] = *MEMORY[0x277D85DE8];
+  v23.receiver = self;
+  v23.super_class = MCUIWatchManager;
+  v2 = [(MCUIWatchManager *)&v23 init];
   if (v2)
   {
     v3 = objc_alloc(MEMORY[0x277D2BD90]);
@@ -84,20 +84,19 @@ void __26__MCUIWatchManager_shared__block_invoke()
     defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter2 addObserver:v2 selector:sel__watchChanged_ name:*MEMORY[0x277D2BC48] object:0];
 
-    v25[0] = objc_opt_class();
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+    v24[0] = objc_opt_class();
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __24__MCUIWatchManager_init__block_invoke;
     block[3] = &unk_279861968;
-    v23 = v18;
+    v22 = v18;
     v19 = v18;
     dispatch_async(v4, block);
 
     [(MCUIWatchManager *)v2 _fetchProfiles];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -305,7 +304,7 @@ void __34__MCUIWatchManager__fetchProfiles__block_invoke_2(uint64_t a1, void *a2
 
 void __34__MCUIWatchManager__fetchProfiles__block_invoke_3(uint64_t a1)
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -323,8 +322,8 @@ void __34__MCUIWatchManager__fetchProfiles__block_invoke_3(uint64_t a1)
       if (v5)
       {
         v6 = [*(a1 + 40) objectForKeyedSubscript:v4];
-        v25[0] = v6;
-        v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+        v24[0] = v6;
+        v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
         [v3 setMdmProfilesInfo:v7];
       }
 
@@ -375,23 +374,20 @@ void __34__MCUIWatchManager__fetchProfiles__block_invoke_3(uint64_t a1)
       [v23 postNotificationName:@"kMCUIUpdatedNotification" object:0];
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleFetchProfilesError:(id)error
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   NSLog(&cfstr_McuiWatchManag_3.isa, errorCopy);
   [(MCUIWatchManager *)self setFetchStatus:1];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v8 = @"kMCUINotificationErrorKey";
-  v9[0] = errorCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = @"kMCUINotificationErrorKey";
+  v8[0] = errorCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   [defaultCenter postNotificationName:@"kMCUIWatchFetchFailedNotification" object:0 userInfo:v6];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchProfileIdentifier:(id)identifier completion:(id)completion
@@ -445,21 +441,20 @@ void __54__MCUIWatchManager_fetchProfileIdentifier_completion___block_invoke_2(u
     if (v3)
     {
       NSLog(&cfstr_McuiWatchManag_4.isa, *(a1 + 40), v3);
-      v4 = *(a1 + 32);
       (*(*(a1 + 56) + 16))();
       goto LABEL_10;
     }
 
-    v5 = [*(a1 + 48) objectForKeyedSubscript:*MEMORY[0x277D2BDB0]];
-    if (v5)
+    v4 = [*(a1 + 48) objectForKeyedSubscript:*MEMORY[0x277D2BDB0]];
+    if (v4)
     {
-      v12 = 0;
-      v6 = [MEMORY[0x277D26290] profileWithData:v5 outError:&v12];
-      v7 = v12;
-      if (v7)
+      v11 = 0;
+      v5 = [MEMORY[0x277D26290] profileWithData:v4 outError:&v11];
+      v6 = v11;
+      if (v6)
       {
-        v8 = v7;
-        NSLog(&cfstr_McuiWatchManag_5.isa, *(a1 + 40), v7);
+        v7 = v6;
+        NSLog(&cfstr_McuiWatchManag_5.isa, *(a1 + 40), v6);
         (*(*(a1 + 56) + 16))();
 
 LABEL_9:
@@ -469,17 +464,17 @@ LABEL_9:
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v9 = [*(a1 + 48) objectForKeyedSubscript:*MEMORY[0x277D2BDB8]];
-    [WeakRetained _unarchiveProfilePayloadsSummaryFromData:v9 forProfileIdentifier:*(a1 + 40)];
+    v8 = [*(a1 + 48) objectForKeyedSubscript:*MEMORY[0x277D2BDB8]];
+    [WeakRetained _unarchiveProfilePayloadsSummaryFromData:v8 forProfileIdentifier:*(a1 + 40)];
 
-    v10 = [*(a1 + 48) objectForKeyedSubscript:*MEMORY[0x277D2BDD0]];
-    [WeakRetained _unarchiveRMConfigurationViewModelsFromData:v10 forProfileIdentifier:*(a1 + 40)];
+    v9 = [*(a1 + 48) objectForKeyedSubscript:*MEMORY[0x277D2BDD0]];
+    [WeakRetained _unarchiveRMConfigurationViewModelsFromData:v9 forProfileIdentifier:*(a1 + 40)];
 
-    v11 = [WeakRetained cachedProfiles];
-    [v11 setObject:v6 forKeyedSubscript:*(a1 + 40)];
+    v10 = [WeakRetained cachedProfiles];
+    [v10 setObject:v5 forKeyedSubscript:*(a1 + 40)];
 
     (*(*(a1 + 56) + 16))();
     goto LABEL_9;

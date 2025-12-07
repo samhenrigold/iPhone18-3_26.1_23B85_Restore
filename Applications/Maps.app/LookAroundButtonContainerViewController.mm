@@ -486,7 +486,7 @@
     {
       [self->_lookAroundButtonCardView setHidden:0];
       [self->_lookAroundButtonCardView setAlpha:1.0];
-      [(LookAroundButtonContainerViewController *)self _expandedButtonTransform];
+      objc_msgSend__expandedButtonTransform(self);
       lookAroundButtonCardView = self->_lookAroundButtonCardView;
       v31 = v22;
       v32 = v23;
@@ -510,7 +510,7 @@
 
       [self->_lookAroundButtonCardView setHidden:1];
       [self->_lookAroundButtonCardView setAlpha:1.0];
-      [(LookAroundButtonContainerViewController *)self _expandedButtonTransform];
+      objc_msgSend__expandedButtonTransform(self);
       v9 = self->_lookAroundButtonCardView;
       v31 = v19;
       v32 = v20;
@@ -554,7 +554,7 @@
     [(MKLookAroundContainerView *)self->_lookAroundContainerView setHidden:0];
     [(MKLookAroundContainerView *)self->_lookAroundContainerView setAlpha:1.0];
     [(MKLookAroundContainerView *)self->_lookAroundContainerView setBadgeHidden:1];
-    [(LookAroundButtonContainerViewController *)self _collapsedPreviewTransform];
+    objc_msgSend__collapsedPreviewTransform(self);
     v7 = self->_lookAroundContainerView;
     v31 = v25;
     v32 = v26;
@@ -577,7 +577,7 @@
     [(MKLookAroundContainerView *)self->_lookAroundContainerView setHidden:0];
     [(MKLookAroundContainerView *)self->_lookAroundContainerView setAlpha:0.0];
     [(MKLookAroundContainerView *)self->_lookAroundContainerView setBadgeHidden:1];
-    [(LookAroundButtonContainerViewController *)self _collapsedPreviewTransform];
+    objc_msgSend__collapsedPreviewTransform(self);
     v7 = self->_lookAroundContainerView;
     v31 = v28;
     v32 = v29;

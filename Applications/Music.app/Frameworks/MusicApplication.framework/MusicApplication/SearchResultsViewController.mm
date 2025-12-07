@@ -24,7 +24,7 @@
 {
   appearCopy = appear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for SearchResultsViewController();
+  v5.super_class = type metadata accessor for SearchResultsViewController(0);
   v4 = v5.receiver;
   [(SearchResultsViewController *)&v5 viewDidAppear:appearCopy];
   *(sub_34F178() + 145) = (v4[OBJC_IVAR____TtC16MusicApplication27SearchResultsViewController_isHiddenBySearchController] & 1) == 0;
@@ -35,7 +35,7 @@
 {
   disappearCopy = disappear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for SearchResultsViewController();
+  v5.super_class = type metadata accessor for SearchResultsViewController(0);
   v4 = v5.receiver;
   [(SearchResultsViewController *)&v5 viewWillDisappear:disappearCopy];
   sub_3512A4();
@@ -45,7 +45,7 @@
 {
   disappearCopy = disappear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for SearchResultsViewController();
+  v5.super_class = type metadata accessor for SearchResultsViewController(0);
   v4 = v5.receiver;
   [(SearchResultsViewController *)&v5 viewDidDisappear:disappearCopy];
   *(sub_34F178() + 145) = 0;
@@ -55,7 +55,7 @@
 - (void)viewDidLayoutSubviews
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for SearchResultsViewController();
+  v3.super_class = type metadata accessor for SearchResultsViewController(0);
   v2 = v3.receiver;
   [(SearchResultsViewController *)&v3 viewDidLayoutSubviews];
   sub_350D7C();
@@ -73,7 +73,7 @@
 {
   v6 = sub_AB3820();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   viewCopy = view;
@@ -88,7 +88,7 @@
 {
   v7 = sub_AB3820();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   viewCopy = view;
@@ -103,7 +103,7 @@
 {
   v9 = sub_AB3820();
   v10 = *(v9 - 8);
-  __chkstk_darwin(v9);
+  __chkstk_darwin();
   v12 = &v21 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   viewCopy = view;
@@ -140,15 +140,15 @@
 {
   v8 = sub_AB3820();
   v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
-  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   cellCopy = cell;
   pathCopy = path;
   selfCopy = self;
   sub_34F178();
-  sub_470E44(v11);
-  (*(v9 + 8))(v11, v8);
+  v15 = sub_470E44(v11);
+  (*(v9 + 8))(v11, v8, v15);
 }
 
 - (_TtC16MusicApplication27SearchResultsViewController)initWithNibName:(id)name bundle:(id)bundle

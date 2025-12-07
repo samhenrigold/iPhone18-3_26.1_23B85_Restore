@@ -36,9 +36,11 @@
 
 uint64_t __40__BLTTestServiceServer_sharedTestServer__block_invoke()
 {
-  sharedTestServer___sharedInstance = objc_alloc_init(BLTTestServiceServer);
+  v0 = objc_alloc_init(BLTTestServiceServer);
+  v1 = sharedTestServer___sharedInstance;
+  sharedTestServer___sharedInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (BLTTestServiceServer)init
@@ -120,7 +122,7 @@ void __59__BLTTestServiceServer_listener_shouldAcceptNewConnection___block_invok
   bulletinCopy = bulletin;
   attachmentCopy = attachment;
   completionCopy = completion;
-  v17 = BLTWorkQueue();
+  v17 = BLTWorkQueue(completionCopy);
   v21[0] = MEMORY[0x277D85DD0];
   v21[1] = 3221225472;
   v21[2] = __112__BLTTestServiceServer_addBulletin_forFeed_playLightsAndSirens_attachment_attachmentType_alwaysSend_completion___block_invoke;
@@ -170,7 +172,7 @@ uint64_t __112__BLTTestServiceServer_addBulletin_forFeed_playLightsAndSirens_att
 {
   dCopy = d;
   completionCopy = completion;
-  v7 = BLTWorkQueue();
+  v7 = BLTWorkQueue(completionCopy);
   v10[0] = MEMORY[0x277D85DD0];
   v10[1] = 3221225472;
   v10[2] = __64__BLTTestServiceServer_sendSectionInfoWithSectionID_completion___block_invoke;
@@ -208,7 +210,7 @@ uint64_t __64__BLTTestServiceServer_sendSectionInfoWithSectionID_completion___bl
 - (void)sendAllSectionInfoWithSpool:(BOOL)spool completion:(id)completion
 {
   completionCopy = completion;
-  v6 = BLTWorkQueue();
+  v6 = BLTWorkQueue(completionCopy);
   v8[0] = MEMORY[0x277D85DD0];
   v8[1] = 3221225472;
   v8[2] = __63__BLTTestServiceServer_sendAllSectionInfoWithSpool_completion___block_invoke;
@@ -245,7 +247,7 @@ uint64_t __63__BLTTestServiceServer_sendAllSectionInfoWithSpool_completion___blo
 - (void)spoolSectionInfoWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v4 = BLTWorkQueue();
+  v4 = BLTWorkQueue(completionCopy);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __55__BLTTestServiceServer_spoolSectionInfoWithCompletion___block_invoke;
@@ -280,7 +282,7 @@ uint64_t __55__BLTTestServiceServer_spoolSectionInfoWithCompletion___block_invok
 - (void)clearSectionInfoSentCacheWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v4 = BLTWorkQueue();
+  v4 = BLTWorkQueue(completionCopy);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __64__BLTTestServiceServer_clearSectionInfoSentCacheWithCompletion___block_invoke;
@@ -309,7 +311,7 @@ uint64_t __64__BLTTestServiceServer_clearSectionInfoSentCacheWithCompletion___bl
 - (void)getStandaloneTestModeEnabledWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v4 = BLTWorkQueue();
+  v4 = BLTWorkQueue(completionCopy);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __67__BLTTestServiceServer_getStandaloneTestModeEnabledWithCompletion___block_invoke;
@@ -338,7 +340,7 @@ uint64_t __67__BLTTestServiceServer_getStandaloneTestModeEnabledWithCompletion__
 - (void)enableStandaloneTestModeWithMinimumSendDelay:(unint64_t)delay maximumSendDelay:(unint64_t)sendDelay minimumResponseDelay:(unint64_t)responseDelay maximumResponseDelay:(unint64_t)maximumResponseDelay completion:(id)completion
 {
   completionCopy = completion;
-  v12 = BLTWorkQueue();
+  v12 = BLTWorkQueue(completionCopy);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __139__BLTTestServiceServer_enableStandaloneTestModeWithMinimumSendDelay_maximumSendDelay_minimumResponseDelay_maximumResponseDelay_completion___block_invoke;
@@ -371,7 +373,7 @@ uint64_t __139__BLTTestServiceServer_enableStandaloneTestModeWithMinimumSendDela
 - (void)disableStandaloneTestModeWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v4 = BLTWorkQueue();
+  v4 = BLTWorkQueue(completionCopy);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __64__BLTTestServiceServer_disableStandaloneTestModeWithCompletion___block_invoke;
@@ -401,7 +403,7 @@ uint64_t __64__BLTTestServiceServer_disableStandaloneTestModeWithCompletion___bl
 {
   dCopy = d;
   completionCopy = completion;
-  v9 = BLTWorkQueue();
+  v9 = BLTWorkQueue(completionCopy);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __65__BLTTestServiceServer_willAlertForSectionID_subtype_completion___block_invoke;
@@ -441,7 +443,7 @@ uint64_t __65__BLTTestServiceServer_willAlertForSectionID_subtype_completion___b
 - (void)settingOverridesWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v4 = BLTWorkQueue();
+  v4 = BLTWorkQueue(completionCopy);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __55__BLTTestServiceServer_settingOverridesWithCompletion___block_invoke;
@@ -465,7 +467,7 @@ void __55__BLTTestServiceServer_settingOverridesWithCompletion___block_invoke(ui
 - (void)originalSettingsWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v4 = BLTWorkQueue();
+  v4 = BLTWorkQueue(completionCopy);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __55__BLTTestServiceServer_originalSettingsWithCompletion___block_invoke;
@@ -489,7 +491,7 @@ void __55__BLTTestServiceServer_originalSettingsWithCompletion___block_invoke(ui
 - (void)overriddenSettingsWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v4 = BLTWorkQueue();
+  v4 = BLTWorkQueue(completionCopy);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __57__BLTTestServiceServer_overriddenSettingsWithCompletion___block_invoke;
@@ -514,7 +516,7 @@ void __57__BLTTestServiceServer_overriddenSettingsWithCompletion___block_invoke(
 {
   dCopy = d;
   completionCopy = completion;
-  v7 = BLTWorkQueue();
+  v7 = BLTWorkQueue(completionCopy);
   v10[0] = MEMORY[0x277D85DD0];
   v10[1] = 3221225472;
   v10[2] = __51__BLTTestServiceServer_removeSectionID_completion___block_invoke;
@@ -545,7 +547,7 @@ uint64_t __51__BLTTestServiceServer_removeSectionID_completion___block_invoke(ui
 - (void)logFaultWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v4 = BLTWorkQueue();
+  v4 = BLTWorkQueue(completionCopy);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __47__BLTTestServiceServer_logFaultWithCompletion___block_invoke;
@@ -557,7 +559,7 @@ uint64_t __51__BLTTestServiceServer_removeSectionID_completion___block_invoke(ui
 
 uint64_t __47__BLTTestServiceServer_logFaultWithCompletion___block_invoke(uint64_t a1)
 {
-  v2 = blt_general_log();
+  v2 = blt_general_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     __47__BLTTestServiceServer_logFaultWithCompletion___block_invoke_cold_1(v2);
@@ -593,14 +595,15 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  if ([analyticsCopy isEqualToString:@"BLTAnalyticsLogOutOfOrderMessage"])
+  v8 = [analyticsCopy isEqualToString:@"BLTAnalyticsLogOutOfOrderMessage"];
+  if (v8)
   {
-    BLTAnalyticsLogOutOfOrderMessage();
+    BLTAnalyticsLogOutOfOrderMessage(v8, v9);
     goto LABEL_7;
   }
 
-  v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.bulletindistributor.invalid.analytics.type" code:-1 userInfo:0];
-  (completionCopy)[2](completionCopy, v8);
+  v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.bulletindistributor.invalid.analytics.type" code:-1 userInfo:0];
+  (completionCopy)[2](completionCopy, v10);
 
 LABEL_8:
 }

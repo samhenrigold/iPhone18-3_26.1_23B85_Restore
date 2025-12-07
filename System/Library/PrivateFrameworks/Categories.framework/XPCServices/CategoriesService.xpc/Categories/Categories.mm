@@ -247,9 +247,9 @@ void sub_1000020CC(id a1)
   qword_100010DD8 = v1;
 }
 
-void sub_1000023CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000023CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -316,6 +316,13 @@ void sub_1000023E4(uint64_t a1, void *a2)
   }
 }
 
+void sub_100002A50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
+{
+  va_start(va, a29);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_100002A98(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -333,9 +340,9 @@ void sub_100002AB0(void *a1, void *a2, void *a3, int a4)
   {
     v11 = a1[4];
     *buf = 138478083;
-    v53 = v11;
-    v54 = 2112;
-    v55 = v7;
+    v52 = v11;
+    v53 = 2112;
+    v54 = v7;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "_lookupAppStoreUsing:%{private}@ == %@", buf, 0x16u);
   }
 
@@ -344,34 +351,34 @@ void sub_100002AB0(void *a1, void *a2, void *a3, int a4)
 
   if (v13)
   {
-    v42 = v9;
-    v43 = a4;
-    v46 = a1;
-    v44 = v8;
-    v45 = v7;
+    v41 = v9;
+    v42 = a4;
+    v45 = a1;
+    v43 = v8;
+    v44 = v7;
     v14 = [v7 allValues];
     v15 = [v14 firstObject];
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     v16 = v15;
-    v17 = [v16 countByEnumeratingWithState:&v47 objects:v58 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v46 objects:v57 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v48;
+      v19 = *v47;
       do
       {
         for (i = 0; i != v18; i = i + 1)
         {
-          if (*v48 != v19)
+          if (*v47 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v47 + 1) + 8 * i);
+          v21 = *(*(&v46 + 1) + 8 * i);
           v22 = [v21 genreIDs];
           if ([v22 count])
           {
@@ -393,38 +400,38 @@ void sub_100002AB0(void *a1, void *a2, void *a3, int a4)
               v30 = [v21 bundleID];
               v31 = [v22 firstObject];
               *buf = 138478339;
-              v53 = v30;
-              v54 = 2112;
-              v55 = v31;
-              v56 = 2112;
-              v57 = v25;
+              v52 = v30;
+              v53 = 2112;
+              v54 = v31;
+              v55 = 2112;
+              v56 = v25;
               _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "itunes.apple.com AppStore category: %{private}@ = %@ -> %@", buf, 0x20u);
             }
 
             if (v25)
             {
-              v32 = v46[5];
-              v51[0] = v25;
+              v32 = v45[5];
+              v50[0] = v25;
               v33 = [v21 bundleID];
-              v51[1] = v33;
-              v34 = [NSArray arrayWithObjects:v51 count:2];
+              v50[1] = v33;
+              v34 = [NSArray arrayWithObjects:v50 count:2];
               v35 = [v21 bundleID];
               [v32 setObject:v34 forKey:v35];
             }
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v47 objects:v58 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v46 objects:v57 count:16];
       }
 
       while (v18);
     }
 
-    v8 = v44;
-    v7 = v45;
-    a1 = v46;
-    a4 = v43;
-    v9 = v42;
+    v8 = v43;
+    v7 = v44;
+    a1 = v45;
+    a4 = v42;
+    v9 = v41;
   }
 
   objc_autoreleasePoolPop(v9);
@@ -440,13 +447,8 @@ void sub_100002AB0(void *a1, void *a2, void *a3, int a4)
     {
       v40 = *(*(a1[7] + 8) + 40);
       *buf = 138412290;
-      v53 = v40;
+      v52 = v40;
       _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_INFO, "Done _lookupAppStoreUsing: error = %@", buf, 0xCu);
-    }
-
-    if (!*(*(a1[7] + 8) + 40))
-    {
-      v41 = a1[5];
     }
 
     (*(a1[6] + 16))();
@@ -525,10 +527,11 @@ void sub_1000030A0(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_1000039F4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000039F4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_100003AFC(uint8_t *buf, uint64_t a2, void *a3)
@@ -550,6 +553,13 @@ void sub_100003B94(uint8_t *buf, uint64_t a2, void *a3)
   *buf = 138477827;
   *a3 = a2;
   _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Could not resolve app from search result record: %{private}@", buf, 0xCu);
+}
+
+void sub_100003BE0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  sub_1000039F4(&_mh_execute_header, &_os_log_default, a3, "Could not serialize result data with error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1000040B0(id a1)
@@ -612,51 +622,50 @@ void sub_100004744(uint64_t a1, void *a2, void *a3)
   v8 = v7;
   if (v7)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
-    v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v22;
+      v11 = *v21;
       do
       {
         for (i = 0; i != v10; i = i + 1)
         {
-          if (*v22 != v11)
+          if (*v21 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v21 + 1) + 8 * i);
-          v14 = *(a1 + 40);
-          v15 = [objc_opt_class() resultByBundleID];
-          v16 = [v13 bundleID];
-          [v15 setObject:v13 forKey:v16];
+          v13 = *(*(&v20 + 1) + 8 * i);
+          v14 = [objc_opt_class() resultByBundleID];
+          v15 = [v13 bundleID];
+          [v14 setObject:v13 forKey:v15];
 
-          v17 = *(a1 + 48);
-          v18 = [v13 bundleID];
-          [v17 removeObject:v18];
+          v16 = *(a1 + 48);
+          v17 = [v13 bundleID];
+          [v16 removeObject:v17];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v10);
     }
 
-    v19 = [v8 arrayByAddingObjectsFromArray:v6];
+    v18 = [v8 arrayByAddingObjectsFromArray:v6];
   }
 
   else
   {
-    v19 = [v6 copy];
+    v18 = [v6 copy];
   }
 
-  v20 = v19;
-  [*(a1 + 56) setObject:v19 forKeyedSubscript:v5];
+  v19 = v18;
+  [*(a1 + 56) setObject:v18 forKeyedSubscript:v5];
 }
 
 void sub_100004900(uint64_t a1, void *a2, void *a3)
@@ -667,41 +676,40 @@ void sub_100004900(uint64_t a1, void *a2, void *a3)
 
   if (!v7)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         v12 = 0;
         do
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v19 + 1) + 8 * v12);
-          v14 = *(a1 + 40);
-          v15 = [objc_opt_class() resultByBundleID];
-          v16 = [v13 bundleID];
-          [v15 setObject:v13 forKey:v16];
+          v13 = *(*(&v18 + 1) + 8 * v12);
+          v14 = [objc_opt_class() resultByBundleID];
+          v15 = [v13 bundleID];
+          [v14 setObject:v13 forKey:v15];
 
-          v17 = *(a1 + 48);
-          v18 = [v13 bundleID];
-          [v17 removeObject:v18];
+          v16 = *(a1 + 48);
+          v17 = [v13 bundleID];
+          [v16 removeObject:v17];
 
           v12 = v12 + 1;
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
@@ -719,61 +727,61 @@ void sub_100004AA0(uint64_t a1, void *a2, void *a3)
 
   if ([v7 statusCode] == 502 || objc_msgSend(v7, "statusCode") == 503)
   {
-    v18 = v7;
+    v17 = v7;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 32);
       *buf = 138543362;
-      v25 = v8;
+      v24 = v8;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "iTunes server is overloaded. Caching empty results for: %{public}@", buf, 0xCu);
     }
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v9 = *(a1 + 32);
-    v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v20;
+      v12 = *v19;
       do
       {
         v13 = 0;
         do
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v19 + 1) + 8 * v13);
+          v14 = *(*(&v18 + 1) + 8 * v13);
           v15 = [[CTAppStoreSearchResult alloc] initWithBundleID:v14 platform:v5];
-          v16 = *(a1 + 40);
-          v17 = [objc_opt_class() resultByBundleID];
-          [v17 setObject:v15 forKey:v14];
+          v16 = [objc_opt_class() resultByBundleID];
+          [v16 setObject:v15 forKey:v14];
 
           v13 = v13 + 1;
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v11);
     }
 
-    v7 = v18;
+    v7 = v17;
   }
 }
 
-void sub_100005258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_100005258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
+  va_start(va, a38);
   _Block_object_dispose(&a33, 8);
-  _Block_object_dispose(&a39, 8);
-  _Block_object_dispose((v39 - 256), 8);
-  _Block_object_dispose((v39 - 224), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v38 - 256), 8);
+  _Block_object_dispose((v38 - 224), 8);
   _Unwind_Resume(a1);
 }
 

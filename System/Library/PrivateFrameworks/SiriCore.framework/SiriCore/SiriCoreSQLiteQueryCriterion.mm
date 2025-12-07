@@ -145,7 +145,7 @@
 
 + (id)betweenQueryCriterionWithColumnName:(id)name fromValue:(id)value toValue:(id)toValue negation:(BOOL)negation
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   if (negation)
   {
     v8 = 8;
@@ -160,12 +160,11 @@
   valueCopy = value;
   nameCopy = name;
   v12 = [SiriCoreSQLiteQueryCriterion alloc];
-  v17[0] = valueCopy;
-  v17[1] = toValueCopy;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v16[0] = valueCopy;
+  v16[1] = toValueCopy;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
 
   v14 = [(SiriCoreSQLiteQueryCriterion *)v12 initWithColumnName:nameCopy comparisonOperator:0 logicalOperator:v8 value:0 values:v13 subcriteria:0];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

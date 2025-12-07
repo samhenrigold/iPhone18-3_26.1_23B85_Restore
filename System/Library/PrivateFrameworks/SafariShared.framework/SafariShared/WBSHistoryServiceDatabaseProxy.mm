@@ -82,19 +82,19 @@
 
 void __82__WBSHistoryServiceDatabaseProxy__defaultProxyErrorHandlerWithSimpleReplyHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(a1 + 32);
-  if (v4)
+  v4 = a2;
+  v5 = *(a1 + 32);
+  if (v5)
   {
-    (*(v4 + 16))(v4, 0, v3);
+    (*(v5 + 16))(v5, 0, v4);
   }
 
   else
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXHistory(0, v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __77__WBSHistoryConnectionProxy__defaultProxyErrorHandlerWithSimpleReplyHandler___block_invoke_cold_1(v5, v3);
+      __77__WBSHistoryConnectionProxy__defaultProxyErrorHandlerWithSimpleReplyHandler___block_invoke_cold_1(v6, v4);
     }
   }
 }
@@ -316,10 +316,10 @@ void __82__WBSHistoryServiceDatabaseProxy__defaultProxyErrorHandlerWithSimpleRep
 void __61__WBSHistoryServiceDatabaseProxy_flushWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __61__WBSHistoryServiceDatabaseProxy_flushWithCompletionHandler___block_invoke_cold_1(v4, v3);
+    __61__WBSHistoryServiceDatabaseProxy_flushWithCompletionHandler___block_invoke_cold_1(v5, v3);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -370,10 +370,10 @@ void __61__WBSHistoryServiceDatabaseProxy_flushWithCompletionHandler___block_inv
 void __87__WBSHistoryServiceDatabaseProxy_checkIfLocalVisitExistsForDatabaseIDs_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXHistory(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __87__WBSHistoryServiceDatabaseProxy_checkIfLocalVisitExistsForDatabaseIDs_withCompletion___block_invoke_cold_1(v4, v3);
+    __87__WBSHistoryServiceDatabaseProxy_checkIfLocalVisitExistsForDatabaseIDs_withCompletion___block_invoke_cold_1(v5, v3);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -637,14 +637,18 @@ void __61__WBSHistoryServiceDatabaseProxy_flushWithCompletionHandler___block_inv
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to flush database: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to flush database: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void __87__WBSHistoryServiceDatabaseProxy_checkIfLocalVisitExistsForDatabaseIDs_withCompletion___block_invoke_cold_1(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to check local visit for history items: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to check local visit for history items: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

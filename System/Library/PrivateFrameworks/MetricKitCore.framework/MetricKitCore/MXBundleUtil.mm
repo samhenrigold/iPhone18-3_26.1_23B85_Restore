@@ -33,7 +33,7 @@
 
 - (id)bundleIDFromPid:(int)pid
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:buffer length:proc_pidpath(pid encoding:{buffer, 0x1000u), 4}];
   v5 = [MEMORY[0x277CBEBC0] fileURLWithPath:v4];
   if (v5)
@@ -46,8 +46,6 @@
   {
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -67,7 +65,7 @@
     {
       if (os_log_type_enabled(self->_logHandle, OS_LOG_TYPE_ERROR))
       {
-        [MXBundleUtil bundleIDFromAuditToken:?];
+        [MXBundleUtil bundleIDFromAuditToken:];
       }
 
       CFRelease(*cf.val);
@@ -104,7 +102,7 @@
     {
       if (os_log_type_enabled(self->_logHandle, OS_LOG_TYPE_ERROR))
       {
-        [MXBundleUtil teamIDFromAuditToken:?];
+        [MXBundleUtil teamIDFromAuditToken:];
       }
 
       CFRelease(*cf.val);
@@ -209,48 +207,27 @@
 
 - (id)_bundleIDFromURL:(id)l
 {
-  if (l && (v3 = *MEMORY[0x277CBECE8], (Unique = _CFBundleCreateUnique()) != 0))
+  if (l && (Unique = _CFBundleCreateUnique()) != 0)
   {
-    v5 = Unique;
-    v6 = CFBundleGetIdentifier(Unique);
-    CFRelease(v5);
+    v4 = Unique;
+    v5 = CFBundleGetIdentifier(Unique);
+    CFRelease(v4);
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  return v6;
-}
-
-- (void)bundleIDFromAuditToken:(uint64_t *)a1 .cold.1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)teamIDFromAuditToken:(uint64_t *)a1 .cold.1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  return v5;
 }
 
 - (void)isAppExtensionFromBundleID:(void *)a3 .cold.1(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = [a3 description];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_7(&dword_258D6F000, v6, v7, "Failed to create bundle record for bundleID %@ and error %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_258D6F000, v6, v7, "Failed to create bundle record for bundleID %@ and error %@", v8, v9, v10, v11);
 }
 
 @end

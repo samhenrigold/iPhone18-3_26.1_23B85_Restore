@@ -177,10 +177,10 @@ void NTKCrosswindBuildSectorsConfiguration(_DWORD *a1, uint64_t a2, unint64_t *a
 uint64_t NTKCrosswindDeduplicateAnglesInSectorsConfiguration(uint64_t result)
 {
   v1 = result;
-  v12 = 0;
   v11 = 0;
   v10 = 0;
   v9 = 0;
+  v8 = 0;
   v2 = *result;
   if (v2)
   {
@@ -196,7 +196,6 @@ uint64_t NTKCrosswindDeduplicateAnglesInSectorsConfiguration(uint64_t result)
       }
 
       v7 = v4 + 1;
-      v8 = *(v5 + 4 * (v4 + 1));
       result = CLKFloatEqualsFloat();
       if ((result & 1) == 0)
       {
@@ -213,34 +212,33 @@ LABEL_7:
 
     v7 = v4 + 1;
 LABEL_6:
-    *(&v11 + v3) = v6;
-    *(&v9 + v3++) = *(v1 + 16 + 4 * v4);
+    *(&v10 + v3) = v6;
+    *(&v8 + v3++) = *(v1 + 16 + 4 * v4);
     goto LABEL_7;
   }
 
   v3 = 0;
 LABEL_10:
   *v1 = v3;
-  *(v1 + 4) = v11;
-  *(v1 + 12) = v12;
-  *(v1 + 16) = v9;
-  *(v1 + 24) = v10;
+  *(v1 + 4) = v10;
+  *(v1 + 12) = v11;
+  *(v1 + 16) = v8;
+  *(v1 + 24) = v9;
   return result;
 }
 
-double NTKCrosswindGetAngleIndiciesFromSectorsConfiguration(_DWORD *a1)
+double NTKCrosswindGetAngleIndiciesFromSectorsConfiguration(_DWORD *a1, __n128 a2)
 {
   if (*a1)
   {
-    v2 = 0;
-    v3.i64[0] = -1;
-    v3.i64[1] = -1;
+    v3 = 0;
+    v4.i64[0] = -1;
+    v4.i64[1] = -1;
     do
     {
-      v20 = v3;
-      v4 = *&a1[v2 + 1];
+      v20 = v4;
       v5 = CLKFloatEqualsFloat();
-      v6.i32[0] = v2;
+      v6.i32[0] = v3;
       *(v6.i64 + 4) = *(v20.i64 + 4);
       if (v5)
       {
@@ -258,7 +256,7 @@ double NTKCrosswindGetAngleIndiciesFromSectorsConfiguration(_DWORD *a1)
       v18 = v8;
       v9 = CLKFloatEqualsFloat();
       v10 = v17;
-      v10.i32[1] = v2;
+      v10.i32[1] = v3;
       v10.i32[2] = v17.i32[2];
       if (v9)
       {
@@ -273,7 +271,7 @@ double NTKCrosswindGetAngleIndiciesFromSectorsConfiguration(_DWORD *a1)
       v19 = vbslq_s8(vdupq_n_s32(v11), v10, v18);
       v12 = CLKFloatEqualsFloat();
       v13 = v19;
-      v13.i32[2] = v2;
+      v13.i32[2] = v3;
       if (v12)
       {
         v14 = -1;
@@ -286,11 +284,11 @@ double NTKCrosswindGetAngleIndiciesFromSectorsConfiguration(_DWORD *a1)
 
       v15 = vbslq_s8(vdupq_n_s32(v14), v13, v19);
       v15.i32[3] = v20.i32[3];
-      ++v2;
-      v3 = v15;
+      ++v3;
+      v4 = v15;
     }
 
-    while (v2 < *a1);
+    while (v3 < *a1);
   }
 
   else
@@ -348,16 +346,16 @@ double sub_4330(uint64_t a1, void *a2)
   return v5;
 }
 
-id sub_454C()
+id sub_454C(uint64_t a1)
 {
   if (qword_16AE8 != -1)
   {
     sub_7754();
   }
 
-  v1 = qword_16AE0;
+  v2 = qword_16AE0;
 
-  return v1;
+  return v2;
 }
 
 _DWORD *sub_60AC(_DWORD *result, uint64_t a2, uint64_t a3)
@@ -383,17 +381,17 @@ void sub_63CC(id a1)
   _objc_release_x1();
 }
 
-uint64_t NTKCrosswindPolarFullTurnAngleCrossingBetweenAngles()
+uint64_t NTKCrosswindPolarFullTurnAngleCrossingBetweenAngles(uint64_t a1)
 {
   CLKWrapRadians();
-  v1 = v0;
+  v2 = v1;
   CLKWrapRadians();
-  v3 = v2 > 5.02654825 && v1 < 1.25663706;
-  v4 = v2 >= 1.25663706 || v1 <= 5.02654825;
-  v5 = v3 << 63 >> 63;
-  if (v4)
+  v4 = v3 > 5.02654825 && v2 < 1.25663706;
+  v5 = v3 >= 1.25663706 || v2 <= 5.02654825;
+  v6 = v4 << 63 >> 63;
+  if (v5)
   {
-    return v5;
+    return v6;
   }
 
   else
@@ -402,12 +400,12 @@ uint64_t NTKCrosswindPolarFullTurnAngleCrossingBetweenAngles()
   }
 }
 
-uint64_t NTKCrosswindPolarFullTurnAngleCrossingAlongShortestPathBetweenAngles()
+uint64_t NTKCrosswindPolarFullTurnAngleCrossingAlongShortestPathBetweenAngles(uint64_t a1)
 {
   CLKWrapRadians();
-  v1 = v0;
+  v2 = v1;
   CLKWrapRadians();
-  v3 = v2;
+  v4 = v3;
   if (CLKFloatEqualsFloat())
   {
     return 0;
@@ -415,29 +413,29 @@ uint64_t NTKCrosswindPolarFullTurnAngleCrossingAlongShortestPathBetweenAngles()
 
   CLKInterpolateShortestPathBetweenAnglesUnclipped();
   CLKWrapRadians();
-  if (v1 >= v3)
+  if (v2 >= v4)
   {
-    return v5 >= v1 || v3 >= v5;
+    return v6 >= v2 || v4 >= v6;
   }
 
   else
   {
-    v6 = v5 >= v3 || v1 >= v5;
-    return v6 << 63 >> 63;
+    v7 = v6 >= v4 || v2 >= v6;
+    return v7 << 63 >> 63;
   }
 }
 
-__n128 NTKCrosswindHourMinuteSecondAnglesToPolarAngles()
+__n128 NTKCrosswindHourMinuteSecondAnglesToPolarAngles(double a1, double a2, double a3)
 {
   CLKClockRadiansToPolarRadians();
-  v5 = v0;
+  v8 = v3;
   CLKClockRadiansToPolarRadians();
-  v1.f64[0] = v5;
-  v1.f64[1] = v2;
-  *&v3 = vcvt_f32_f64(v1);
-  v6 = v3;
+  v4.f64[0] = v8;
+  v4.f64[1] = v5;
+  *&v6 = vcvt_f32_f64(v4);
+  v9 = v6;
   CLKClockRadiansToPolarRadians();
-  return v6;
+  return v9;
 }
 
 void sub_6CE4(id a1)
@@ -447,20 +445,18 @@ void sub_6CE4(id a1)
   _objc_release_x1();
 }
 
-void sub_7768(uint64_t a1)
+void sub_7768()
 {
-  v1 = *(a1 + 8);
-  v3[0] = 138412802;
+  v1[0] = 138412802;
   sub_6428();
-  _os_log_fault_impl(&dword_0, v2, OS_LOG_TYPE_FAULT, "Failed to create %@ shader for device %@ due to error: %@", v3, 0x20u);
+  _os_log_fault_impl(&dword_0, v0, OS_LOG_TYPE_FAULT, "Failed to create %@ shader for device %@ due to error: %@", v1, 0x20u);
 }
 
-void sub_77F4(uint64_t *a1)
+void sub_77F4()
 {
-  v1 = *a1;
-  v3[0] = 138412802;
+  v1[0] = 138412802;
   sub_6428();
-  _os_log_fault_impl(&dword_0, v2, OS_LOG_TYPE_FAULT, "Failed to create %@ State for device %@ due to error: %@", v3, 0x20u);
+  _os_log_fault_impl(&dword_0, v0, OS_LOG_TYPE_FAULT, "Failed to create %@ State for device %@ due to error: %@", v1, 0x20u);
 }
 
 __float2 __sincosf_stret(float a1)

@@ -9,13 +9,12 @@
   queryCopy = query;
   v5 = si_tracing_current_span();
   v6 = *(v5 + 16);
-  v23 = *v5;
-  v24 = v6;
-  v25 = *(v5 + 32);
+  v16 = *v5;
+  v17 = v6;
+  v18 = *(v5 + 32);
   v7 = *v5;
   spanid = si_tracing_calc_next_spanid();
   v9 = *(v5 + 8);
-  v10 = *(v5 + 24);
   *v5 = v7;
   *(v5 + 8) = spanid;
   *(v5 + 16) = v9;
@@ -27,29 +26,23 @@
 
   if ((queryKind - 1) > 1)
   {
-    v13 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v22.receiver = self;
-    v22.super_class = SPParsecSuggestionsDatastore;
-    v13 = [(SPParsecDatastore *)&v22 performQuery:queryCopy];
+    v15.receiver = self;
+    v15.super_class = SPParsecSuggestionsDatastore;
+    v12 = [(SPParsecDatastore *)&v15 performQuery:queryCopy];
   }
 
-  v14 = *v5;
-  v15 = *(v5 + 8);
-  v16 = *(v5 + 16);
-  v17 = *(v5 + 24);
-  v18 = *(v5 + 28);
-  v19 = *(v5 + 32);
   si_tracing_log_span_end();
-  v20 = v24;
-  *v5 = v23;
-  *(v5 + 16) = v20;
-  *(v5 + 32) = v25;
+  v13 = v17;
+  *v5 = v16;
+  *(v5 + 16) = v13;
+  *(v5 + 32) = v18;
 
-  return v13;
+  return v12;
 }
 
 @end

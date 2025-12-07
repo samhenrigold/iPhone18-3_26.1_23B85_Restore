@@ -166,27 +166,27 @@
 
 void __80__PSUsageBundleDetailController_tableView_commitEditingStyle_forRowAtIndexPath___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) usageBundleStorageReporter];
   v3 = *(a1 + 40);
-  v9 = 0;
-  v4 = [v2 deleteDataForCategory:v3 withError:&v9];
-  v5 = v9;
+  v10 = 0;
+  v4 = [v2 deleteDataForCategory:v3 withError:&v10];
+  v5 = v10;
 
   if ((v4 & 1) == 0)
   {
-    v6 = _PSLoggingFacility();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _PSLoggingFacility(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 40);
-      v7 = *(a1 + 48);
+      v9 = *(a1 + 40);
+      v8 = *(a1 + 48);
       *buf = 138412802;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v5;
-      _os_log_impl(&dword_18B008000, v6, OS_LOG_TYPE_DEFAULT, "Unable to delete data for %@ : %@. Encountered error: %@", buf, 0x20u);
+      v12 = v8;
+      v13 = 2112;
+      v14 = v9;
+      v15 = 2112;
+      v16 = v5;
+      _os_log_impl(&dword_18B008000, v7, OS_LOG_TYPE_DEFAULT, "Unable to delete data for %@ : %@. Encountered error: %@", buf, 0x20u);
     }
   }
 }

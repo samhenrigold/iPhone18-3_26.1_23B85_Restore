@@ -27,12 +27,12 @@
 
 - (SHHapticSpatialTrackInformation)initWithCoder:(id)coder
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB98];
   coderCopy = coder;
-  v17[0] = objc_opt_class();
-  v17[1] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v16[0] = objc_opt_class();
+  v16[1] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
   v7 = [v4 setWithArray:v6];
 
   [coderCopy decodeDoubleForKey:@"SHHapticSpatialTrackInformationTimeDriftCodingKey"];
@@ -43,7 +43,6 @@
   v13 = [coderCopy decodeObjectOfClasses:v7 forKey:@"SHHapticSpatialTrackInformationOffsetsCodingKey"];
 
   v14 = [(SHHapticSpatialTrackInformation *)self initWithSpatialStartOffset:v13 offsets:v12 timeDrift:v11 matchesStereo:v9];
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

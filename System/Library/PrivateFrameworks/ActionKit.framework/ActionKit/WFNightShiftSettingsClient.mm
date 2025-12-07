@@ -2,16 +2,59 @@
 + (void)createClientWithCompletionHandler:(id)handler;
 - (WFNightShiftSettingsClient)initWithBlueLightClient:(id)client;
 - (void)getStateWithCompletionHandler:(id)handler;
+- (void)setState:(BOOL)state completionHandler:(id)handler;
 @end
 
 @implementation WFNightShiftSettingsClient
 
-- (void)getStateWithCompletionHandler:(id)handler
+- (void)setState:(BOOL)state completionHandler:(id)handler
 {
+  stateCopy = state;
   v16 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
+  blueLightClient = [(WFNightShiftSettingsClient *)self blueLightClient];
+  v8 = [blueLightClient setEnabled:stateCopy];
+
+  v9 = getWFActionsLogObject();
+  v10 = v9;
+  if (v8)
+  {
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = 136315394;
+      v13 = "[WFNightShiftSettingsClient setState:completionHandler:]";
+      v14 = 1024;
+      v15 = stateCopy;
+      _os_log_impl(&dword_23DE30000, v10, OS_LOG_TYPE_DEFAULT, "%s Set Night Shift State: %d", &v12, 0x12u);
+    }
+
+    handlerCopy[2](handlerCopy, 0);
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      v12 = 136315394;
+      v13 = "[WFNightShiftSettingsClient setState:completionHandler:]";
+      v14 = 1024;
+      v15 = stateCopy;
+      _os_log_impl(&dword_23DE30000, v10, OS_LOG_TYPE_ERROR, "%s Failed to set Night Shift state to: %d", &v12, 0x12u);
+    }
+
+    v11 = WFSettingsClientError();
+    handlerCopy[2](handlerCopy, v11);
+
+    handlerCopy = v11;
+  }
+}
+
+- (void)getStateWithCompletionHandler:(id)handler
+{
+  v15 = *MEMORY[0x277D85DE8];
+  handlerCopy = handler;
   v5 = [(WFNightShiftSettingsClient *)self blueLightClient:0];
-  v6 = [v5 getBlueLightStatus:&v11];
+  v6 = [v5 getBlueLightStatus:&v10];
 
   v7 = getWFActionsLogObject();
   v8 = v7;
@@ -20,13 +63,13 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v13 = "[WFNightShiftSettingsClient getStateWithCompletionHandler:]";
-      v14 = 1024;
-      v15 = BYTE1(v11);
+      v12 = "[WFNightShiftSettingsClient getStateWithCompletionHandler:]";
+      v13 = 1024;
+      v14 = BYTE1(v10);
       _os_log_impl(&dword_23DE30000, v8, OS_LOG_TYPE_DEFAULT, "%s Current Night Shift State: %d", buf, 0x12u);
     }
 
-    (*(handlerCopy + 2))(handlerCopy, BYTE1(v11), 0);
+    (*(handlerCopy + 2))(handlerCopy, BYTE1(v10), 0);
   }
 
   else
@@ -34,7 +77,7 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v13 = "[WFNightShiftSettingsClient getStateWithCompletionHandler:]";
+      v12 = "[WFNightShiftSettingsClient getStateWithCompletionHandler:]";
       _os_log_impl(&dword_23DE30000, v8, OS_LOG_TYPE_ERROR, "%s Failed to fetch current Night Shift state", buf, 0xCu);
     }
 
@@ -43,8 +86,6 @@
 
     handlerCopy = v9;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (WFNightShiftSettingsClient)initWithBlueLightClient:(id)client

@@ -29,7 +29,7 @@
   if (v6)
   {
     -[DIEncryptionFrontend setAllowStoringInKeychain:](v6, "setAllowStoringInKeychain:", [coderCopy decodeBoolForKey:@"allowStoringInKeychain"]);
-    crypto::passphrase_header_serializer::decode(coderCopy, &v9);
+    crypto::passphrase_header_serializer::decode(&v9, coderCopy);
     std::shared_ptr<crypto::passphrase_header>::operator=[abi:ne200100]<crypto::passphrase_header,std::default_delete<crypto::passphrase_header>,0>(&v6->_passEntryToChange.__ptr_, &v9);
     v7 = v9;
     v9 = 0;
@@ -65,7 +65,7 @@
 
 - (BOOL)unlockWithPassphrase:(const char *)passphrase error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   diParams = [(DIEncryptionFrontend *)self diParams];
   diskImageParamsXPC = [diParams diskImageParamsXPC];
 
@@ -75,10 +75,10 @@
   if (v9)
   {
     v11 = *v9;
-    v28 = v9;
-    v29 = v11;
-    v30[0] = 0;
-    v31 = 0;
+    v27 = v9;
+    v28 = v11;
+    v29[0] = 0;
+    v30 = 0;
     v12 = 0x278F80000;
     if (v11 == v9[1])
     {
@@ -91,11 +91,11 @@ LABEL_20:
     {
       while (1)
       {
-        v13 = crypto::auth_table::const_iterator::operator*(&v28);
+        v13 = crypto::auth_table::const_iterator::operator*(&v27);
         if (!*(v13 + 158))
         {
-          v14 = crypto::auth_entry_ns::passphrase::unlock(v13, passphrase, &v21);
-          if (v23 == 1)
+          v14 = crypto::auth_entry_ns::passphrase::unlock(&v20, v13, passphrase);
+          if (v22 == 1)
           {
             [backendXPC cryptoHeader];
             std::allocate_shared[abi:ne200100]<crypto::format,std::allocator<crypto::format>,crypto::keys,std::shared_ptr<crypto::header> &,0>();
@@ -103,21 +103,21 @@ LABEL_20:
 
           v15 = std::generic_category();
           *buf = 35;
-          v27 = v15;
-          if (*(*v22 + 32))(v22, v21, buf) || ((v27->equivalent_0)(v27, &v21, *buf))
+          v26 = v15;
+          if (*(*v21 + 32))(v21, v20, buf) || ((v26->equivalent_0)(v26, &v20, *buf))
           {
             v16 = 1;
           }
 
           else
           {
-            error = [DIError failWithUnexpected:v21 error:v22, error];
+            error = [DIError failWithUnexpected:v20 error:v21, error];
             v16 = 0;
           }
 
-          if (v23 == 1)
+          if (v22 == 1)
           {
-            *buf = &v21;
+            *buf = &v20;
             std::vector<crypto::keys::key_pair>::__destroy_vector::operator()[abi:ne200100](buf);
           }
 
@@ -127,17 +127,17 @@ LABEL_20:
           }
         }
 
-        crypto::auth_table::const_iterator::operator++(&v28, v24);
-        if (v25[640] == 1)
+        crypto::auth_table::const_iterator::operator++(&v27, &v23);
+        if (v24[640] == 1)
         {
-          std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v25);
+          std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v24);
         }
 
-        if (v28 == v10 && v29 == v10[1])
+        if (v27 == v10 && v28 == v10[1])
         {
-          if (v31)
+          if (v30)
           {
-            std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v30);
+            std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v29);
           }
 
           v12 = 0x278F80000uLL;
@@ -145,9 +145,9 @@ LABEL_20:
         }
       }
 
-      if (v31)
+      if (v30)
       {
-        std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v30);
+        std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v29);
       }
     }
   }
@@ -157,34 +157,33 @@ LABEL_20:
     error = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return error & 1;
 }
 
 - (BOOL)replacePassphrase:(const char *)passphrase error:(id *)error
 {
   selfCopy = self;
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v7 = [(DIEncryptionFrontend *)self generateAuthTableWithError:error];
   if (!v7)
   {
     LOBYTE(selfCopy) = 0;
-    goto LABEL_24;
+    return selfCopy & 1;
   }
 
   v8 = v7;
-  [(DIEncryptionFrontend *)selfCopy getSerializerWithAuthTable:v7];
-  if (v30)
+  objc_msgSend_getSerializerWithAuthTable_(selfCopy);
+  if (v29)
   {
-    v34.i32[0] = 8;
-    crypto::auth_entry_ns::passphrase::create(passphrase, v8, v34.i32, v29, &v55);
-    if (v57)
+    v33.i32[0] = 8;
+    crypto::auth_entry_ns::passphrase::create(&v54, passphrase, v8, v33.i32, v28);
+    if (v56)
     {
       v9 = *v8;
-      v51 = v8;
-      v52 = v9;
-      v53[0] = 0;
-      v54 = 0;
+      v50 = v8;
+      v51 = v9;
+      v52[0] = 0;
+      v53 = 0;
       if (v9 == v8[1])
       {
 LABEL_11:
@@ -195,7 +194,7 @@ LABEL_11:
       {
         while (1)
         {
-          v10 = crypto::auth_table::const_iterator::operator*(&v51);
+          v10 = crypto::auth_table::const_iterator::operator*(&v50);
           v11 = v10;
           if (!*(v10 + 632))
           {
@@ -203,90 +202,90 @@ LABEL_11:
             v13 = *(v10 + 112);
             ptr = selfCopy->_passEntryToChange.__ptr_;
             v15 = *(ptr + 1);
-            v34 = *ptr;
-            v28 = *(v10 + 12);
-            v27 = *(v10 + 96);
+            v33 = *ptr;
+            v27 = *(v10 + 12);
+            v26 = *(v10 + 96);
             v16 = *(ptr + 2);
-            v35[0] = v15;
-            v35[1] = v16;
+            v34[0] = v15;
+            v34[1] = v16;
             v17 = *(ptr + 12);
             v18 = *(ptr + 52);
-            v38 = *(ptr + 68);
-            v37 = v18;
-            v39 = *(ptr + 84);
+            v37 = *(ptr + 68);
+            v36 = v18;
+            v38 = *(ptr + 84);
             v19 = *(ptr + 25);
-            v36 = v17;
-            v40 = v19;
-            memcpy(v41, ptr + 104, 0x200uLL);
-            v43[0] = v28;
+            v35 = v17;
+            v39 = v19;
+            memcpy(v40, ptr + 104, 0x200uLL);
+            v42[0] = v27;
             v20 = *(v11 + 44);
-            v43[1] = *(v11 + 28);
-            v44 = v20;
-            v45 = v12;
+            v42[1] = *(v11 + 28);
+            v43 = v20;
+            v44 = v12;
             v21 = v11[5];
-            v46 = v11[4];
-            v47 = v21;
-            v48 = v27;
-            v49 = v13;
-            memcpy(v50, v11 + 116, sizeof(v50));
-            v31[0] = &v34;
-            v31[1] = v43;
-            if (boost::hana::detail::compare_finite_sequences<boost::hana::tuple<Wrapper<crypto::passphrase_header::key_derivation_algorithm_t,std::integral_constant<BOOL,false>,be_type>,Wrapper<crypto::passphrase_header::key_derivation_prng_algorithm_t,std::integral_constant<BOOL,false>,be_type>,Wrapper<unsigned int,std::integral_constant<BOOL,true>,be_type>,crypto::passphrase_header::_salt,crypto::passphrase_header::_blob_encryption_iv,Wrapper<unsigned int,std::integral_constant<BOOL,true>,be_type>,Wrapper<crypto::passphrase_header::wrap_key_crypto_algo,std::integral_constant<BOOL,false>,be_type>,Wrapper<crypto::passphrase_header::wrap_key_crypto_padding_algo,std::integral_constant<BOOL,false>,be_type>,Wrapper<crypto::passphrase_header::crypto_mode,std::integral_constant<BOOL,false>,be_type>,crypto::passphrase_header::_blob>,boost::hana::tuple<Wrapper<crypto::passphrase_header::key_derivation_algorithm_t,std::integral_constant<BOOL,false>,be_type>,Wrapper<crypto::passphrase_header::key_derivation_prng_algorithm_t,std::integral_constant<BOOL,false>,be_type>,Wrapper<unsigned int,std::integral_constant<BOOL,true>,be_type>,crypto::passphrase_header::_salt,crypto::passphrase_header::_blob_encryption_iv,Wrapper<unsigned int,std::integral_constant<BOOL,true>,be_type>,Wrapper<crypto::passphrase_header::wrap_key_crypto_algo,std::integral_constant<BOOL,false>,be_type>,Wrapper<crypto::passphrase_header::wrap_key_crypto_padding_algo,std::integral_constant<BOOL,false>,be_type>,Wrapper<crypto::passphrase_header::crypto_mode,std::integral_constant<BOOL,false>,be_type>,crypto::passphrase_header::_blob>,10ul>::apply<1ul>(v31, vmovn_s32(vceqq_s32(v34, v28)).u8[0] & 1))
+            v45 = v11[4];
+            v46 = v21;
+            v47 = v26;
+            v48 = v13;
+            memcpy(v49, v11 + 116, sizeof(v49));
+            v30[0] = &v33;
+            v30[1] = v42;
+            if (boost::hana::detail::compare_finite_sequences<boost::hana::tuple<Wrapper<crypto::passphrase_header::key_derivation_algorithm_t,std::integral_constant<BOOL,false>,be_type>,Wrapper<crypto::passphrase_header::key_derivation_prng_algorithm_t,std::integral_constant<BOOL,false>,be_type>,Wrapper<unsigned int,std::integral_constant<BOOL,true>,be_type>,crypto::passphrase_header::_salt,crypto::passphrase_header::_blob_encryption_iv,Wrapper<unsigned int,std::integral_constant<BOOL,true>,be_type>,Wrapper<crypto::passphrase_header::wrap_key_crypto_algo,std::integral_constant<BOOL,false>,be_type>,Wrapper<crypto::passphrase_header::wrap_key_crypto_padding_algo,std::integral_constant<BOOL,false>,be_type>,Wrapper<crypto::passphrase_header::crypto_mode,std::integral_constant<BOOL,false>,be_type>,crypto::passphrase_header::_blob>,boost::hana::tuple<Wrapper<crypto::passphrase_header::key_derivation_algorithm_t,std::integral_constant<BOOL,false>,be_type>,Wrapper<crypto::passphrase_header::key_derivation_prng_algorithm_t,std::integral_constant<BOOL,false>,be_type>,Wrapper<unsigned int,std::integral_constant<BOOL,true>,be_type>,crypto::passphrase_header::_salt,crypto::passphrase_header::_blob_encryption_iv,Wrapper<unsigned int,std::integral_constant<BOOL,true>,be_type>,Wrapper<crypto::passphrase_header::wrap_key_crypto_algo,std::integral_constant<BOOL,false>,be_type>,Wrapper<crypto::passphrase_header::wrap_key_crypto_padding_algo,std::integral_constant<BOOL,false>,be_type>,Wrapper<crypto::passphrase_header::crypto_mode,std::integral_constant<BOOL,false>,be_type>,crypto::passphrase_header::_blob>,10ul>::apply<1ul>(v30, vmovn_s32(vceqq_s32(v33, v27)).u8[0] & 1))
             {
               break;
             }
           }
 
-          crypto::auth_table::const_iterator::operator++(&v51, v32);
-          if (v33[640] == 1)
+          crypto::auth_table::const_iterator::operator++(&v50, &v31);
+          if (v32[640] == 1)
           {
-            std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v33);
+            std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v32);
           }
 
-          if (v51 == v8 && v52 == v8[1])
+          if (v50 == v8 && v51 == v8[1])
           {
             goto LABEL_11;
           }
         }
 
-        (*(v29[0] + 1))(v43, v29, &v56 + 4);
-        if (v44)
+        (*(v28[0] + 1))(v42, v28, &v55 + 4);
+        if (v43)
         {
-          crypto::auth_table::replace(v8, v43, &v51, &v34);
-          v22 = v42;
-          if (v42 & 1) != 0 || (LOBYTE(selfCopy) = [DIError failWithUnexpected:v34.i64[0] verboseInfo:v34.i64[1] error:@"Failed to replace passphrase entry in auth table", error], (v42))
+          crypto::auth_table::replace(v8, v42, &v50, &v33);
+          v22 = v41;
+          if (v41 & 1) != 0 || (LOBYTE(selfCopy) = [DIError failWithUnexpected:v33.i64[0] verboseInfo:v33.i64[1] error:@"Failed to replace passphrase entry in auth table", error], (v41))
           {
-            if (v41[552] == 1)
+            if (v40[552] == 1)
             {
-              std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v35);
+              std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v34);
             }
           }
         }
 
         else
         {
-          LOBYTE(selfCopy) = [DIError failWithUnexpected:*&v43[0] verboseInfo:*(&v43[0] + 1) error:@"Failed to serialize passphrase to crypto header", error];
+          LOBYTE(selfCopy) = [DIError failWithUnexpected:*&v42[0] verboseInfo:*(&v42[0] + 1) error:@"Failed to serialize passphrase to crypto header", error];
           v22 = 0;
         }
 
-        if (v44 == 1)
+        if (v43 == 1)
         {
-          crypto::descriptor_handle_t::~descriptor_handle_t(v43);
+          crypto::descriptor_handle_t::~descriptor_handle_t(v42);
         }
       }
 
-      if (v54 == 1)
+      if (v53 == 1)
       {
-        std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v53);
+        std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v52);
       }
 
       if (v22)
       {
-        (*(v29[0] + 4))(&v34, v29, v8);
-        v23 = v35[0];
-        if ((v35[0] & 1) == 0)
+        (*(v28[0] + 4))(&v33, v28, v8);
+        v23 = v34[0];
+        if ((v34[0] & 1) == 0)
         {
-          LOBYTE(selfCopy) = [DIError failWithUnexpected:v34.i64[0] verboseInfo:v34.i64[1] error:@"Failed to update crypto header", error];
+          LOBYTE(selfCopy) = [DIError failWithUnexpected:v33.i64[0] verboseInfo:v33.i64[1] error:@"Failed to update crypto header", error];
         }
 
         LOBYTE(selfCopy) = v23 | selfCopy;
@@ -295,23 +294,21 @@ LABEL_11:
       goto LABEL_22;
     }
 
-    error = [DIError failWithUnexpected:v55 verboseInfo:v56 error:@"Failed to create passphrase auth entry", error];
+    error = [DIError failWithUnexpected:v54 verboseInfo:v55 error:@"Failed to create passphrase auth entry", error];
   }
 
   else
   {
-    error = [DIError failWithUnexpected:v29[0] verboseInfo:v29[1] error:@"Failed to create crypto serializer", error];
+    error = [DIError failWithUnexpected:v28[0] verboseInfo:v28[1] error:@"Failed to create crypto serializer", error];
   }
 
   LOBYTE(selfCopy) = error;
 LABEL_22:
-  if (v30 == 1)
+  if (v29 == 1)
   {
-    (*(v29[0] + 7))(v29);
+    (*(v28[0] + 7))(v28);
   }
 
-LABEL_24:
-  v25 = *MEMORY[0x277D85DE8];
   return selfCopy & 1;
 }
 
@@ -345,7 +342,7 @@ LABEL_24:
 
 - (BOOL)GUIAskForPassphraseWithPassphraseUsage:(int64_t)usage error:(id *)error
 {
-  v39[4] = *MEMORY[0x277D85DE8];
+  v38[4] = *MEMORY[0x277D85DE8];
   error = 0;
   v7 = MEMORY[0x277CBEB18];
   if (usage)
@@ -366,7 +363,7 @@ LABEL_24:
     }
 
     v14 = MEMORY[0x277CBEB38];
-    v38[0] = *MEMORY[0x277CBF188];
+    v37[0] = *MEMORY[0x277CBF188];
     gUIPassphrasePromptCreate = [(DIEncryptionFrontend *)self GUIPassphrasePromptCreate];
   }
 
@@ -376,22 +373,22 @@ LABEL_24:
     v9 = [v7 arrayWithObject:gUIPassphraseLabelUnlock];
 
     v14 = MEMORY[0x277CBEB38];
-    v38[0] = *MEMORY[0x277CBF188];
+    v37[0] = *MEMORY[0x277CBF188];
     gUIPassphrasePromptCreate = [(DIEncryptionFrontend *)self GUIPassphrasePromptUnlock];
     v12 = 0;
     v11 = 65539;
   }
 
   v17 = *MEMORY[0x277CBF1E8];
-  v39[0] = gUIPassphrasePromptCreate;
-  v39[1] = @"OK";
+  v38[0] = gUIPassphrasePromptCreate;
+  v38[1] = @"OK";
   v18 = *MEMORY[0x277CBF1C0];
-  v38[1] = v17;
-  v38[2] = v18;
-  v38[3] = *MEMORY[0x277CBF230];
-  v39[2] = @"Cancel";
-  v39[3] = v9;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:4];
+  v37[1] = v17;
+  v37[2] = v18;
+  v37[3] = *MEMORY[0x277CBF230];
+  v38[2] = @"Cancel";
+  v38[3] = v9;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:4];
   v20 = [v14 dictionaryWithDictionary:v19];
 
   v21 = CFUserNotificationCreate(0, 0.0, v11, &error, v20);
@@ -407,7 +404,7 @@ LABEL_24:
   responseFlags = 0;
   if (!CFUserNotificationReceiveResponse(v21, 0.0, &responseFlags))
   {
-    v35 = BYTE1(responseFlags) & 1;
+    v34 = BYTE1(responseFlags) & 1;
     if ((responseFlags & 3) != 0)
     {
       v25 = 0;
@@ -454,9 +451,9 @@ LABEL_31:
       if (usage)
       {
 LABEL_25:
-        if ([(DIEncryptionFrontend *)self askPermissionWithRememberPassword:&v35 error:error])
+        if ([(DIEncryptionFrontend *)self askPermissionWithRememberPassword:&v34 error:error])
         {
-          if (![(DIEncryptionChpass *)self allowStoringInKeychain]|| v35 != 1)
+          if (![(DIEncryptionChpass *)self allowStoringInKeychain]|| v34 != 1)
           {
             v23 = 1;
             goto LABEL_31;
@@ -486,42 +483,53 @@ LABEL_29:
   v23 = [DIError failWithEnumValue:154 verboseInfo:@"CFUserNotificationReceiveResponse failed" error:error];
 LABEL_32:
 
-  v33 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 - (BOOL)consoleAskForPassphraseWithUseStdin:(BOOL)stdin usage:(int64_t)usage error:(id *)error
 {
   stdinCopy = stdin;
-  v38 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v9 = *__error();
-  if (DIForwardLogs())
+  v10 = DIForwardLogs();
+  if (v10)
   {
-    v10 = getDIOSLog();
-    os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-    *buf = 68157954;
-    v34 = 70;
-    v35 = 2080;
-    v36 = "[DIEncryptionChpass consoleAskForPassphraseWithUseStdin:usage:error:]";
-    v11 = _os_log_send_and_compose_impl();
-
-    if (v11)
+    v39 = 0;
+    v12 = getDIOSLog(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v11);
-      free(v11);
+      v13 = 3;
+    }
+
+    else
+    {
+      v13 = 2;
+    }
+
+    *buf = 68157954;
+    v41 = 70;
+    v42 = 2080;
+    v43 = "[DIEncryptionChpass consoleAskForPassphraseWithUseStdin:usage:error:]";
+    LODWORD(v38) = 18;
+    v14 = _os_log_send_and_compose_impl(v13, &v39, 0, 0, &dword_248DE0000, v12, 0, "%.*s: Asking for passphrase using readpassphrase", buf, v38);
+
+    if (v14)
+    {
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v14);
+      free(v14);
     }
   }
 
   else
   {
-    v12 = getDIOSLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v15 = getDIOSLog(v10, v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68157954;
-      v34 = 70;
-      v35 = 2080;
-      v36 = "[DIEncryptionChpass consoleAskForPassphraseWithUseStdin:usage:error:]";
-      _os_log_impl(&dword_248DE0000, v12, OS_LOG_TYPE_DEFAULT, "%.*s: Asking for passphrase using readpassphrase", buf, 0x12u);
+      v41 = 70;
+      v42 = 2080;
+      v43 = "[DIEncryptionChpass consoleAskForPassphraseWithUseStdin:usage:error:]";
+      _os_log_impl(&dword_248DE0000, v15, OS_LOG_TYPE_DEFAULT, "%.*s: Asking for passphrase using readpassphrase", buf, 0x12u);
     }
   }
 
@@ -529,64 +537,60 @@ LABEL_32:
   if (usage)
   {
     cLIPassphrasePromptCreate = [(DIEncryptionFrontend *)self CLIPassphrasePromptCreate];
-    v14 = cLIPassphrasePromptCreate;
+    v17 = cLIPassphrasePromptCreate;
     uTF8String = [cLIPassphrasePromptCreate UTF8String];
     if (stdinCopy)
     {
-      v16 = 32;
+      v19 = 32;
     }
 
     else
     {
-      v16 = 2;
+      v19 = 2;
     }
   }
 
   else
   {
     cLIPassphrasePromptCreate = [(DIEncryptionFrontend *)self CLIPassphrasePromptUnlock];
-    v17 = cLIPassphrasePromptCreate;
+    v20 = cLIPassphrasePromptCreate;
     uTF8String = [cLIPassphrasePromptCreate UTF8String];
     if (stdinCopy)
     {
-      v16 = 32;
+      v19 = 32;
     }
 
     else
     {
-      v16 = 2;
+      v19 = 2;
     }
   }
 
-  v18 = readpassphrase(uTF8String, __s1, 0x102uLL, v16);
+  v21 = readpassphrase(uTF8String, __s1, 0x102uLL, v19);
 
-  if (v18)
+  if (v21)
   {
     if (usage)
     {
       if (!stdinCopy)
       {
         cLIVerifyPassphrasePromptCreate = [(DIEncryptionFrontend *)self CLIVerifyPassphrasePromptCreate];
-        v20 = cLIVerifyPassphrasePromptCreate == 0;
+        v23 = cLIVerifyPassphrasePromptCreate == 0;
 
-        if (!v20)
+        if (!v23)
         {
           cLIVerifyPassphrasePromptCreate2 = [(DIEncryptionFrontend *)self CLIVerifyPassphrasePromptCreate];
-          v22 = cLIVerifyPassphrasePromptCreate2;
-          v23 = readpassphrase([cLIVerifyPassphrasePromptCreate2 UTF8String], buf, 0x102uLL, 2);
+          v25 = cLIVerifyPassphrasePromptCreate2;
+          v26 = readpassphrase([cLIVerifyPassphrasePromptCreate2 UTF8String], buf, 0x102uLL, 2);
 
-          if (!v23)
+          if (!v26)
           {
-            v24 = [DIError failWithPOSIXCode:5 verboseInfo:@"Failed to read passphrase" error:error];
-            goto LABEL_38;
+            return [DIError failWithPOSIXCode:5 verboseInfo:@"Failed to read passphrase" error:error];
           }
 
           if (strncmp(__s1, buf, 0x101uLL))
           {
-            v24 = [DIError failWithPOSIXCode:80 verboseInfo:@"Passphrases doesn't match" error:error];
-LABEL_38:
-            v28 = v24;
-            goto LABEL_39;
+            return [DIError failWithPOSIXCode:80 verboseInfo:@"Passphrases doesn't match" error:error];
           }
         }
       }
@@ -595,66 +599,72 @@ LABEL_38:
     switch(usage)
     {
       case 2:
-        v24 = [(DIEncryptionChpass *)self replacePassphrase:__s1 error:error];
-        goto LABEL_38;
+        return [(DIEncryptionChpass *)self replacePassphrase:__s1 error:error];
       case 1:
-        v24 = [(DIEncryptionFrontend *)self setPassphrase:__s1 error:error];
-        goto LABEL_38;
+        return [(DIEncryptionFrontend *)self setPassphrase:__s1 error:error];
       case 0:
-        v24 = [(DIEncryptionChpass *)self unlockWithPassphrase:__s1 error:error];
-        goto LABEL_38;
+        return [(DIEncryptionChpass *)self unlockWithPassphrase:__s1 error:error];
     }
 
-    v28 = 0;
+    return 0;
   }
 
   else
   {
     if (stdinCopy)
     {
-      v24 = [DIError failWithPOSIXCode:25 verboseInfo:@"Failed to read passphrase from stdin" error:error];
-      goto LABEL_38;
+      return [DIError failWithPOSIXCode:25 verboseInfo:@"Failed to read passphrase from stdin" error:error];
     }
 
-    v25 = *__error();
-    if (DIForwardLogs())
+    v28 = *__error();
+    v29 = DIForwardLogs();
+    if (v29)
     {
-      v26 = getDIOSLog();
-      os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
-      *buf = 68157954;
-      v34 = 70;
-      v35 = 2080;
-      v36 = "[DIEncryptionChpass consoleAskForPassphraseWithUseStdin:usage:error:]";
-      v27 = _os_log_send_and_compose_impl();
-
-      if (v27)
+      v39 = 0;
+      v31 = getDIOSLog(v29, v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
-        fprintf(*MEMORY[0x277D85DF8], "%s\n", v27);
-        free(v27);
+        v32 = 3;
+      }
+
+      else
+      {
+        v32 = 2;
+      }
+
+      *buf = 68157954;
+      v41 = 70;
+      v42 = 2080;
+      v43 = "[DIEncryptionChpass consoleAskForPassphraseWithUseStdin:usage:error:]";
+      LODWORD(v38) = 18;
+      v33 = _os_log_send_and_compose_impl(v32, &v39, 0, 0, &dword_248DE0000, v31, 0, "%.*s: Failed to read passphrase from TTY", buf, v38);
+
+      if (v33)
+      {
+        fprintf(*MEMORY[0x277D85DF8], "%s\n", v33);
+        free(v33);
       }
     }
 
     else
     {
-      v29 = getDIOSLog();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v35 = getDIOSLog(v29, v30);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68157954;
-        v34 = 70;
-        v35 = 2080;
-        v36 = "[DIEncryptionChpass consoleAskForPassphraseWithUseStdin:usage:error:]";
-        _os_log_impl(&dword_248DE0000, v29, OS_LOG_TYPE_DEFAULT, "%.*s: Failed to read passphrase from TTY", buf, 0x12u);
+        v41 = 70;
+        v42 = 2080;
+        v43 = "[DIEncryptionChpass consoleAskForPassphraseWithUseStdin:usage:error:]";
+        _os_log_impl(&dword_248DE0000, v35, OS_LOG_TYPE_DEFAULT, "%.*s: Failed to read passphrase from TTY", buf, 0x12u);
       }
     }
 
-    *__error() = v25;
-    v30 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:25 userInfo:0];
-    v28 = [DIError failWithInError:v30 outError:error];
+    *__error() = v28;
+    v36 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:25 userInfo:0];
+    v34 = [DIError failWithInError:v36 outError:error];
   }
 
-LABEL_39:
-  v31 = *MEMORY[0x277D85DE8];
-  return v28;
+  return v34;
 }
 
 - (void)setPassEntryToChange:(void *)change

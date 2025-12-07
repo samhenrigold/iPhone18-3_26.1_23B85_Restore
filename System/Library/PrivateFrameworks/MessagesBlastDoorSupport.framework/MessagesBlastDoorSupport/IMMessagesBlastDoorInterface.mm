@@ -21,6 +21,7 @@
 - (void)defuseCollaborationClearNoticePayload:(id)payload resultHandler:(id)handler;
 - (void)defuseCollaborationNoticeActionDictionary:(id)dictionary resultHandler:(id)handler;
 - (void)defuseCollaborationNoticePayload:(id)payload resultHandler:(id)handler;
+- (void)defuseData:(id)data forPreviewType:(unsigned __int8)type resultHandler:(id)handler;
 - (void)defuseNicknameDictionary:(id)dictionary withKey:(id)key recordTag:(id)tag resultHandler:(id)handler;
 - (void)defuseNicknameDictionary:(id)dictionary withKey:(id)key recordTag:(id)tag wallpaperDataTag:(id)dataTag wallpaperLowResDataTag:(id)resDataTag wallpaperMetadataTag:(id)metadataTag avatarRecipeDataTag:(id)recipeDataTag processImageFields:(BOOL)self0 resultHandler:(id)self1;
 - (void)defuseNicknameDictionary:(id)dictionary withKey:(id)key recordTag:(id)tag wallpaperDataTag:(id)dataTag wallpaperLowResDataTag:(id)resDataTag wallpaperMetadataTag:(id)metadataTag processImageFields:(BOOL)fields resultHandler:(id)self0;
@@ -30,9 +31,11 @@
 - (void)defuseTranscriptBackground:(id)background resultHandler:(id)handler;
 - (void)defuseTranscriptBackgroundCommand:(id)command resultHandler:(id)handler;
 - (void)generateMetadataforAttachmentWithfileURL:(id)l resultHandler:(id)handler;
+- (void)generateMovieFramesForAttachmentWithFileURL:(id)l targetPixelWidth:(int64_t)width targetPixelHeight:(int64_t)height frameLimit:(int64_t)limit uniformSampling:(BOOL)sampling framesPerSync:(int64_t)sync appliesPreferredTrackTransform:(BOOL)transform resultHandler:(id)self0;
 - (void)generateMoviePreviewForAttachmentWithFileURL:(id)l maxPixelDimension:(float)dimension minThumbnailPxSize:(CGSize)size scale:(float)scale frameInterval:(int)interval resultHandler:(id)handler;
 - (void)generateMoviePreviewForAttachmentWithFileURL:(id)l maxPixelDimension:(float)dimension minThumbnailPxSize:(CGSize)size scale:(float)scale resultHandler:(id)handler;
 - (void)generatePreviewForEmojiImageWithFileURL:(id)l frameIndex:(int64_t)index maxPixelDimension:(double)dimension resultHandler:(id)handler;
+- (void)generatePreviewForMultiFrameImageWithFileURL:(id)l destinationFileURL:(id)rL maxPixelDimension:(float)dimension scale:(float)scale maxFrameCount:(int64_t)count isSticker:(BOOL)sticker resultHandler:(id)handler;
 - (void)generatePreviewforAnimatedImageWithfileURL:(id)l maxPixelDimension:(float)dimension index:(int64_t)index maxCount:(int64_t)count resultHandler:(id)handler;
 - (void)generatePreviewforAttachmentWithfileURL:(id)l maxPixelDimension:(float)dimension scale:(float)scale resultHandler:(id)handler;
 - (void)generatePreviewforAttachmentWithfileURL:(id)l resultHandler:(id)handler;
@@ -46,10 +49,10 @@
 
 - (IMMessagesBlastDoorInterface)init
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = IMMessagesBlastDoorInterface;
-  v2 = [(IMMessagesBlastDoorInterface *)&v8 init];
+  v8 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = IMMessagesBlastDoorInterface;
+  v2 = [(IMMessagesBlastDoorInterface *)&v7 init];
   if (v2)
   {
     v3 = [IMMessagesBlastDoorInterfaceInternal alloc];
@@ -58,17 +61,16 @@
     v2->_interface = v4;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (IMMessagesBlastDoorInterface)initWithBlastDoorInstanceType:(id)type
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   typeCopy = type;
-  v10.receiver = self;
-  v10.super_class = IMMessagesBlastDoorInterface;
-  v5 = [(IMMessagesBlastDoorInterface *)&v10 init];
+  v9.receiver = self;
+  v9.super_class = IMMessagesBlastDoorInterface;
+  v5 = [(IMMessagesBlastDoorInterface *)&v9 init];
   if (v5)
   {
     v6 = [[IMMessagesBlastDoorInterfaceInternal alloc] initWithBlastDoorInstanceType:typeCopy];
@@ -76,7 +78,6 @@
     v5->_interface = v6;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -101,36 +102,32 @@
 
 - (void)defuseTopLevelDictionary:(id)dictionary resultHandler:(id)handler
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   dictionaryCopy = dictionary;
   interface = [(IMMessagesBlastDoorInterface *)self interface];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __71__IMMessagesBlastDoorInterface_defuseTopLevelDictionary_resultHandler___block_invoke;
-  v11[3] = &unk_2798C3CB0;
-  v12 = handlerCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __71__IMMessagesBlastDoorInterface_defuseTopLevelDictionary_resultHandler___block_invoke;
+  v10[3] = &unk_2798C3CB0;
+  v11 = handlerCopy;
   v9 = handlerCopy;
-  [interface defuseTopLevelDictionary:dictionaryCopy resultHandler:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [interface defuseTopLevelDictionary:dictionaryCopy resultHandler:v10];
 }
 
 - (void)decontaminateTopLevelDictionary:(id)dictionary resultHandler:(id)handler
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   dictionaryCopy = dictionary;
   interface = [(IMMessagesBlastDoorInterface *)self interface];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __78__IMMessagesBlastDoorInterface_decontaminateTopLevelDictionary_resultHandler___block_invoke;
-  v11[3] = &unk_2798C3CB0;
-  v12 = handlerCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __78__IMMessagesBlastDoorInterface_decontaminateTopLevelDictionary_resultHandler___block_invoke;
+  v10[3] = &unk_2798C3CB0;
+  v11 = handlerCopy;
   v9 = handlerCopy;
-  [interface decontaminateTopLevelDictionary:dictionaryCopy resultHandler:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [interface decontaminateTopLevelDictionary:dictionaryCopy resultHandler:v10];
 }
 
 - (id)defuseSMSDictionary:(id)dictionary error:(id *)error
@@ -179,6 +176,15 @@
   [interface defuseBalloonPluginPayload:payloadCopy withIdentifier:identifierCopy resultHandler:handlerCopy];
 }
 
+- (void)defuseData:(id)data forPreviewType:(unsigned __int8)type resultHandler:(id)handler
+{
+  typeCopy = type;
+  handlerCopy = handler;
+  dataCopy = data;
+  interface = [(IMMessagesBlastDoorInterface *)self interface];
+  [interface defuseData:dataCopy forPreviewType:typeCopy resultHandler:handlerCopy];
+}
+
 - (id)generatePreviewforAttachmentWithfileURL:(id)l error:(id *)error
 {
   lCopy = l;
@@ -217,6 +223,18 @@
   [interface generatePreviewforAttachmentWithfileURL:lCopy maxPixelDimension:handlerCopy scale:v12 resultHandler:v13];
 }
 
+- (void)generatePreviewForMultiFrameImageWithFileURL:(id)l destinationFileURL:(id)rL maxPixelDimension:(float)dimension scale:(float)scale maxFrameCount:(int64_t)count isSticker:(BOOL)sticker resultHandler:(id)handler
+{
+  stickerCopy = sticker;
+  handlerCopy = handler;
+  rLCopy = rL;
+  lCopy = l;
+  interface = [(IMMessagesBlastDoorInterface *)self interface];
+  *&v19 = dimension;
+  *&v20 = scale;
+  [interface generatePreviewForMultiFrameImageWithFileURL:lCopy destinationFileURL:rLCopy maxPixelDimension:count scale:stickerCopy maxFrameCount:handlerCopy isSticker:v19 resultHandler:v20];
+}
+
 - (void)generateMoviePreviewForAttachmentWithFileURL:(id)l maxPixelDimension:(float)dimension minThumbnailPxSize:(CGSize)size scale:(float)scale resultHandler:(id)handler
 {
   height = size.height;
@@ -239,6 +257,16 @@
   *&v17 = dimension;
   *&v18 = scale;
   [interface generateMoviePreviewForAttachmentWithFileURL:lCopy maxPixelDimension:interval minThumbnailPxSize:handlerCopy scale:v17 frameInterval:width resultHandler:{height, v18}];
+}
+
+- (void)generateMovieFramesForAttachmentWithFileURL:(id)l targetPixelWidth:(int64_t)width targetPixelHeight:(int64_t)height frameLimit:(int64_t)limit uniformSampling:(BOOL)sampling framesPerSync:(int64_t)sync appliesPreferredTrackTransform:(BOOL)transform resultHandler:(id)self0
+{
+  samplingCopy = sampling;
+  handlerCopy = handler;
+  lCopy = l;
+  interface = [(IMMessagesBlastDoorInterface *)self interface];
+  LOBYTE(v19) = transform;
+  [interface generateMovieFramesForAttachmentWithFileURL:lCopy targetPixelWidth:width targetPixelHeight:height frameLimit:limit uniformSampling:samplingCopy framesPerSync:sync appliesPreferredTrackTransform:v19 resultHandler:handlerCopy];
 }
 
 - (void)generateWorkoutPreviewForAttachmentWithFileURL:(id)l maxPixelDimension:(float)dimension scale:(float)scale resultHandler:(id)handler

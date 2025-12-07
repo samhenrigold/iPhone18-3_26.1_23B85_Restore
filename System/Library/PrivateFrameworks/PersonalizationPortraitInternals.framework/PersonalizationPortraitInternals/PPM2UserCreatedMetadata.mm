@@ -1,8 +1,11 @@
 @interface PPM2UserCreatedMetadata
 - (BOOL)isEqual:(id)equal;
+- (id)algorithmAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)domainAsString:(int)string;
+- (id)sourceAsString:(int)string;
 - (int)StringAsAlgorithm:(id)algorithm;
 - (int)StringAsDomain:(id)domain;
 - (int)StringAsSource:(id)source;
@@ -111,7 +114,6 @@ LABEL_4:
     goto LABEL_19;
   }
 
-  v5 = *(equalCopy + 28);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 28) & 4) == 0 || self->_source != *(equalCopy + 6))
@@ -123,7 +125,7 @@ LABEL_4:
   else if ((*(equalCopy + 28) & 4) != 0)
   {
 LABEL_19:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_20;
   }
 
@@ -156,17 +158,17 @@ LABEL_19:
   activeTreatments = self->_activeTreatments;
   if (activeTreatments | *(equalCopy + 1))
   {
-    v7 = [(NSString *)activeTreatments isEqual:?];
+    v6 = [(NSString *)activeTreatments isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_20:
 
-  return v7;
+  return v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -264,12 +266,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 4) != 0)
   {
-    source = self->_source;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -288,22 +289,20 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  algorithm = self->_algorithm;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    domain = self->_domain;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:
   if (self->_activeTreatments)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -442,6 +441,21 @@ LABEL_17:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)domainAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278979770[string];
   }
 
   return v4;
@@ -596,6 +610,21 @@ LABEL_17:
   return v4;
 }
 
+- (id)algorithmAsString:(int)string
+{
+  if (string >= 0x16)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2789796C0[string];
+  }
+
+  return v4;
+}
+
 - (int)algorithm
 {
   if (*&self->_has)
@@ -740,6 +769,21 @@ LABEL_17:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)sourceAsString:(int)string
+{
+  if (string >= 0x19)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2789795F8[string];
   }
 
   return v4;

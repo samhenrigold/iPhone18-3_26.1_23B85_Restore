@@ -56,54 +56,54 @@
 
 - (id)jsonDictionary
 {
-  v23[5] = *MEMORY[0x1E69E9840];
+  v22[5] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSafariBrowsingAssistantVisualComponentAttribute componentType](self, "componentType")}];
   v4 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSafariBrowsingAssistantVisualComponentAttribute cardType](self, "cardType")}];
   v5 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSafariBrowsingAssistantVisualComponentAttribute entityType](self, "entityType")}];
   v6 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSafariBrowsingAssistantVisualComponentAttribute readerViewSectionType](self, "readerViewSectionType")}];
   _sparkleTriggerJSONArray = [(BMSafariBrowsingAssistantVisualComponentAttribute *)self _sparkleTriggerJSONArray];
-  v18 = @"componentType";
+  v17 = @"componentType";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16 = null;
-  v23[0] = null;
-  v19 = @"cardType";
+  v15 = null;
+  v22[0] = null;
+  v18 = @"cardType";
   null2 = v4;
   if (!v4)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[1] = null2;
-  v20 = @"entityType";
+  v22[1] = null2;
+  v19 = @"entityType";
   null3 = v5;
   if (!v5)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[2] = null3;
-  v21 = @"readerViewSectionType";
+  v22[2] = null3;
+  v20 = @"readerViewSectionType";
   null4 = v6;
   if (!v6)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[3] = null4;
-  v22 = @"sparkleTrigger";
+  v22[3] = null4;
+  v21 = @"sparkleTrigger";
   null5 = _sparkleTriggerJSONArray;
   if (!_sparkleTriggerJSONArray)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[4] = null5;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v18 count:{5, v16}];
+  v22[4] = null5;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v17 count:{5, v15}];
   if (_sparkleTriggerJSONArray)
   {
     if (v6)
@@ -161,51 +161,48 @@ LABEL_15:
 LABEL_23:
 
 LABEL_16:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 - (id)_sparkleTriggerJSONArray
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   sparkleTrigger = [(BMSafariBrowsingAssistantVisualComponentAttribute *)self sparkleTrigger];
-  v5 = [sparkleTrigger countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [sparkleTrigger countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(sparkleTrigger);
         }
 
-        [v3 addObject:*(*(&v11 + 1) + 8 * i)];
+        [v3 addObject:*(*(&v10 + 1) + 8 * i)];
       }
 
-      v6 = [sparkleTrigger countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [sparkleTrigger countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BMSafariBrowsingAssistantVisualComponentAttribute)initWithJSONDictionary:(id)dictionary error:(id *)p_isa
 {
-  v97[1] = *MEMORY[0x1E69E9840];
+  v96[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"componentType"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -232,37 +229,37 @@ LABEL_9:
             goto LABEL_63;
           }
 
-          v52 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v53 = v10;
-          v54 = *MEMORY[0x1E698F240];
-          v94 = *MEMORY[0x1E696A578];
-          v55 = p_isa;
-          v78 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"cardType"];
-          v95 = v78;
-          v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
-          v57 = v54;
-          v10 = v53;
-          v76 = v56;
+          v51 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v52 = v10;
+          v53 = *MEMORY[0x1E698F240];
+          v93 = *MEMORY[0x1E696A578];
+          v54 = p_isa;
+          v77 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"cardType"];
+          v94 = v77;
+          v55 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
+          v56 = v53;
+          v10 = v52;
+          v75 = v55;
           v38 = 0;
           p_isa = 0;
-          *v55 = [v52 initWithDomain:v57 code:2 userInfo:?];
+          *v54 = [v51 initWithDomain:v56 code:2 userInfo:?];
           goto LABEL_62;
         }
 
         v11 = [MEMORY[0x1E696AD98] numberWithInt:BMSafariBrowsingAssistantCardTypeFromString(v10)];
       }
 
-      v77 = v11;
+      v76 = v11;
     }
 
     else
     {
-      v77 = 0;
+      v76 = 0;
     }
 
     v12 = [dictionaryCopy objectForKeyedSubscript:@"entityType"];
-    v75 = p_isa;
-    v76 = v12;
+    v74 = p_isa;
+    v75 = v12;
     if (v12 && (v13 = v12, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -278,28 +275,28 @@ LABEL_9:
         {
           if (!p_isa)
           {
-            v78 = 0;
+            v77 = 0;
             goto LABEL_61;
           }
 
-          v58 = v10;
-          v59 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v60 = *MEMORY[0x1E698F240];
-          v92 = *MEMORY[0x1E696A578];
-          v61 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"entityType"];
-          v93 = v61;
-          v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v93 forKeys:&v92 count:1];
-          v62 = v59;
-          v10 = v58;
-          v29 = v61;
-          v63 = [v62 initWithDomain:v60 code:2 userInfo:v16];
-          v78 = 0;
+          v57 = v10;
+          v58 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v59 = *MEMORY[0x1E698F240];
+          v91 = *MEMORY[0x1E696A578];
+          v60 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"entityType"];
+          v92 = v60;
+          v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v92 forKeys:&v91 count:1];
+          v61 = v58;
+          v10 = v57;
+          v29 = v60;
+          v62 = [v61 initWithDomain:v59 code:2 userInfo:v16];
+          v77 = 0;
           p_isa = 0;
-          *v75 = v63;
+          *v74 = v62;
 LABEL_60:
 
 LABEL_61:
-          v38 = v77;
+          v38 = v76;
 LABEL_62:
 
           goto LABEL_63;
@@ -308,17 +305,17 @@ LABEL_62:
         v14 = [MEMORY[0x1E696AD98] numberWithInt:BMSafariBrowsingAssistantEntityTypeFromString(v13)];
       }
 
-      v78 = v14;
+      v77 = v14;
     }
 
     else
     {
-      v78 = 0;
+      v77 = 0;
     }
 
     v15 = [dictionaryCopy objectForKeyedSubscript:@"readerViewSectionType"];
-    v73 = v15;
-    v74 = v10;
+    v72 = v15;
+    v73 = v10;
     if (v15 && (v16 = v15, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -338,16 +335,16 @@ LABEL_62:
             goto LABEL_60;
           }
 
-          v64 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v65 = p_isa;
-          v66 = *MEMORY[0x1E698F240];
-          v90 = *MEMORY[0x1E696A578];
+          v63 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v64 = p_isa;
+          v65 = *MEMORY[0x1E698F240];
+          v89 = *MEMORY[0x1E696A578];
           v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"readerViewSectionType"];
-          v91 = v18;
-          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v91 forKeys:&v90 count:1];
-          v67 = [v64 initWithDomain:v66 code:2 userInfo:v21];
+          v90 = v18;
+          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v90 forKeys:&v89 count:1];
+          v66 = [v63 initWithDomain:v65 code:2 userInfo:v21];
           p_isa = 0;
-          *v65 = v67;
+          *v64 = v66;
           v29 = 0;
           goto LABEL_58;
         }
@@ -355,12 +352,12 @@ LABEL_62:
         v17 = [MEMORY[0x1E696AD98] numberWithInt:BMSafariBrowsingAssistantReaderViewSectionTypeFromString(v16)];
       }
 
-      v72 = v17;
+      v71 = v17;
     }
 
     else
     {
-      v72 = 0;
+      v71 = 0;
     }
 
     v18 = [dictionaryCopy objectForKeyedSubscript:@"sparkleTrigger"];
@@ -369,10 +366,10 @@ LABEL_62:
 
     if (v20)
     {
-      v68 = v8;
-      v69 = v7;
+      v67 = v8;
+      v68 = v7;
       selfCopy2 = self;
-      v71 = dictionaryCopy;
+      v70 = dictionaryCopy;
 
       v18 = 0;
     }
@@ -384,63 +381,63 @@ LABEL_62:
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          if (!v75)
+          if (!v74)
           {
             p_isa = 0;
-            v29 = v72;
-            v16 = v73;
+            v29 = v71;
+            v16 = v72;
             goto LABEL_59;
           }
 
-          v41 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v42 = v7;
-          v43 = *MEMORY[0x1E698F240];
-          v88 = *MEMORY[0x1E696A578];
+          v40 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v41 = v7;
+          v42 = *MEMORY[0x1E698F240];
+          v87 = *MEMORY[0x1E696A578];
           v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"sparkleTrigger"];
-          v89 = v21;
-          v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
-          v45 = v43;
-          v7 = v42;
-          *v75 = [v41 initWithDomain:v45 code:2 userInfo:v44];
+          v88 = v21;
+          v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
+          v44 = v42;
+          v7 = v41;
+          *v74 = [v40 initWithDomain:v44 code:2 userInfo:v43];
 
           p_isa = 0;
-          v29 = v72;
-          v16 = v73;
+          v29 = v71;
+          v16 = v72;
 LABEL_58:
 
 LABEL_59:
-          v10 = v74;
+          v10 = v73;
           goto LABEL_60;
         }
       }
 
-      v68 = v8;
-      v69 = v7;
+      v67 = v8;
+      v68 = v7;
       selfCopy2 = self;
-      v71 = dictionaryCopy;
+      v70 = dictionaryCopy;
     }
 
     v21 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v18, "count")}];
+    v78 = 0u;
     v79 = 0u;
     v80 = 0u;
     v81 = 0u;
-    v82 = 0u;
     v18 = v18;
-    v22 = [v18 countByEnumeratingWithState:&v79 objects:v87 count:16];
+    v22 = [v18 countByEnumeratingWithState:&v78 objects:v86 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v80;
+      v24 = *v79;
 LABEL_40:
       v25 = 0;
       while (1)
       {
-        if (*v80 != v24)
+        if (*v79 != v24)
         {
           objc_enumerationMutation(v18);
         }
 
-        v26 = *(*(&v79 + 1) + 8 * v25);
+        v26 = *(*(&v78 + 1) + 8 * v25);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -459,20 +456,20 @@ LABEL_40:
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             self = selfCopy2;
-            dictionaryCopy = v71;
-            v29 = v72;
-            if (v75)
+            dictionaryCopy = v70;
+            v29 = v71;
+            if (v74)
             {
               v36 = objc_alloc(MEMORY[0x1E696ABC0]);
               v37 = *MEMORY[0x1E698F240];
-              v83 = *MEMORY[0x1E696A578];
+              v82 = *MEMORY[0x1E696A578];
               v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"sparkleTrigger"];
-              v84 = v32;
-              v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
+              v83 = v32;
+              v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
               v34 = v36;
               v35 = v37;
 LABEL_55:
-              *v75 = [v34 initWithDomain:v35 code:2 userInfo:v33];
+              *v74 = [v34 initWithDomain:v35 code:2 userInfo:v33];
             }
 
             goto LABEL_56;
@@ -486,7 +483,7 @@ LABEL_55:
 
         if (v23 == ++v25)
         {
-          v23 = [v18 countByEnumeratingWithState:&v79 objects:v87 count:16];
+          v23 = [v18 countByEnumeratingWithState:&v78 objects:v86 count:16];
           if (v23)
           {
             goto LABEL_40;
@@ -497,16 +494,16 @@ LABEL_55:
       }
 
       self = selfCopy2;
-      dictionaryCopy = v71;
-      v29 = v72;
-      if (v75)
+      dictionaryCopy = v70;
+      v29 = v71;
+      if (v74)
       {
         v30 = objc_alloc(MEMORY[0x1E696ABC0]);
         v31 = *MEMORY[0x1E698F240];
-        v85 = *MEMORY[0x1E696A578];
+        v84 = *MEMORY[0x1E696A578];
         v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"sparkleTrigger"];
-        v86 = v32;
-        v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
+        v85 = v32;
+        v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
         v34 = v30;
         v35 = v31;
         goto LABEL_55;
@@ -515,21 +512,21 @@ LABEL_55:
 LABEL_56:
 
       p_isa = 0;
-      v8 = v68;
-      v7 = v69;
+      v8 = v67;
+      v7 = v68;
       goto LABEL_57;
     }
 
 LABEL_50:
 
-    v8 = v68;
-    v29 = v72;
-    self = -[BMSafariBrowsingAssistantVisualComponentAttribute initWithComponentType:cardType:entityType:readerViewSectionType:sparkleTrigger:](selfCopy2, "initWithComponentType:cardType:entityType:readerViewSectionType:sparkleTrigger:", [v68 intValue], objc_msgSend(v77, "intValue"), objc_msgSend(v78, "intValue"), objc_msgSend(v72, "intValue"), v21);
+    v8 = v67;
+    v29 = v71;
+    self = -[BMSafariBrowsingAssistantVisualComponentAttribute initWithComponentType:cardType:entityType:readerViewSectionType:sparkleTrigger:](selfCopy2, "initWithComponentType:cardType:entityType:readerViewSectionType:sparkleTrigger:", [v67 intValue], objc_msgSend(v76, "intValue"), objc_msgSend(v77, "intValue"), objc_msgSend(v71, "intValue"), v21);
     p_isa = &self->super.super.isa;
-    dictionaryCopy = v71;
-    v7 = v69;
+    dictionaryCopy = v70;
+    v7 = v68;
 LABEL_57:
-    v16 = v73;
+    v16 = v72;
     goto LABEL_58;
   }
 
@@ -555,23 +552,22 @@ LABEL_8:
     goto LABEL_64;
   }
 
-  v46 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v47 = *MEMORY[0x1E698F240];
-  v96 = *MEMORY[0x1E696A578];
+  v45 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v46 = *MEMORY[0x1E698F240];
+  v95 = *MEMORY[0x1E696A578];
   v38 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"componentType"];
-  v97[0] = v38;
-  v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v97 forKeys:&v96 count:1];
-  v49 = v47;
-  v10 = v48;
-  v50 = [v46 initWithDomain:v49 code:2 userInfo:v48];
+  v96[0] = v38;
+  v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v96 forKeys:&v95 count:1];
+  v48 = v46;
+  v10 = v47;
+  v49 = [v45 initWithDomain:v48 code:2 userInfo:v47];
   v8 = 0;
-  v51 = p_isa;
+  v50 = p_isa;
   p_isa = 0;
-  *v51 = v50;
+  *v50 = v49;
 LABEL_63:
 
 LABEL_64:
-  v39 = *MEMORY[0x1E69E9840];
   return p_isa;
 }
 
@@ -586,49 +582,43 @@ LABEL_64:
 
 - (void)writeTo:(id)to
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   toCopy = to;
-  componentType = self->_componentType;
   PBDataWriterWriteUint32Field();
-  cardType = self->_cardType;
   PBDataWriterWriteUint32Field();
-  entityType = self->_entityType;
   PBDataWriterWriteUint32Field();
-  readerViewSectionType = self->_readerViewSectionType;
   PBDataWriterWriteUint32Field();
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v9 = self->_sparkleTrigger;
-  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v10)
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v5 = self->_sparkleTrigger;
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v11 = v10;
-    v12 = *v16;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v13 = 0;
+      v9 = 0;
       do
       {
-        if (*v16 != v12)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v5);
         }
 
-        [*(*(&v15 + 1) + 8 * v13) unsignedIntValue];
+        [*(*(&v10 + 1) + 8 * v9) unsignedIntValue];
         PBDataWriterWriteUint32Field();
-        ++v13;
+        ++v9;
       }
 
-      while (v11 != v13);
-      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      while (v7 != v9);
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v11);
+    while (v7);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initByReadFrom:(id)from
@@ -983,29 +973,29 @@ LABEL_96:
 
 - (NSString)description
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   [v3 appendString:@"["];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   sparkleTrigger = [(BMSafariBrowsingAssistantVisualComponentAttribute *)self sparkleTrigger];
-  v5 = [sparkleTrigger countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [sparkleTrigger countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(sparkleTrigger);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         if ([v3 length] != 1)
         {
           [v3 appendString:{@", "}];
@@ -1015,7 +1005,7 @@ LABEL_96:
         [v3 appendString:v10];
       }
 
-      v6 = [sparkleTrigger countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [sparkleTrigger countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v6);
@@ -1028,8 +1018,6 @@ LABEL_96:
   v14 = BMSafariBrowsingAssistantEntityTypeAsString([(BMSafariBrowsingAssistantVisualComponentAttribute *)self entityType]);
   v15 = BMSafariBrowsingAssistantReaderViewSectionTypeAsString([(BMSafariBrowsingAssistantVisualComponentAttribute *)self readerViewSectionType]);
   v16 = [v11 initWithFormat:@"BMSafariBrowsingAssistantVisualComponentAttribute with componentType: %@, cardType: %@, entityType: %@, readerViewSectionType: %@, sparkleTrigger: %@", v12, v13, v14, v15, v3];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -1055,50 +1043,46 @@ LABEL_96:
 
 + (id)protoFields
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"componentType" number:1 type:4 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"cardType" number:2 type:4 subMessageClass:{0, v2}];
-  v10[1] = v3;
+  v9[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"entityType" number:3 type:4 subMessageClass:0];
-  v10[2] = v4;
+  v9[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"readerViewSectionType" number:4 type:4 subMessageClass:0];
-  v10[3] = v5;
+  v9[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"sparkleTrigger" number:5 type:4 subMessageClass:0];
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
 
 + (id)columns
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"componentType" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:4 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"cardType" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:4 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"entityType" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:4 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"readerViewSectionType" dataType:0 requestOnly:0 fieldNumber:4 protoDataType:4 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"sparkleTrigger_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_582];
-  v10[0] = v2;
-  v10[1] = v3;
-  v10[2] = v4;
-  v10[3] = v5;
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = v2;
+  v9[1] = v3;
+  v9[2] = v4;
+  v9[3] = v5;
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
 
-id __60__BMSafariBrowsingAssistantVisualComponentAttribute_columns__block_invoke(uint64_t a1, void *a2)
+id __60__BMSafariBrowsingAssistantVisualComponentAttribute_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _sparkleTriggerJSONArray];
-  v4 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _sparkleTriggerJSONArray];
+  v5 = BMConvertObjectToJSONString();
 
-  return v4;
+  return v5;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

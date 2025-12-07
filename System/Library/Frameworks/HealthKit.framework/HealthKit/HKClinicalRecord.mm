@@ -207,7 +207,7 @@ LABEL_16:
   displayName = self->_displayName;
   self->_displayName = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, displayName);
 }
 
 - (void)_setFHIRResource:(id)resource
@@ -216,7 +216,7 @@ LABEL_16:
   FHIRResource = self->_FHIRResource;
   self->_FHIRResource = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, FHIRResource);
 }
 
 - (id)_validateWithConfiguration:(HKObjectValidationConfiguration)configuration

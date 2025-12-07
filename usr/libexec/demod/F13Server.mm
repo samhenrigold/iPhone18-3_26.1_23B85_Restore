@@ -30,32 +30,33 @@
 
 - (F13Server)init
 {
-  v9.receiver = self;
-  v9.super_class = F13Server;
-  v2 = [(F13Server *)&v9 init];
+  v10.receiver = self;
+  v10.super_class = F13Server;
+  v2 = [(F13Server *)&v10 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_100063A54();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100063A54(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Initializing F13Server", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Initializing F13Server", v9, 2u);
     }
 
-    [(F13Server *)v2 setAppInstallationInProgress:0];
-    v4 = +[LSApplicationWorkspace defaultWorkspace];
-    [(F13Server *)v2 setWorkspace:v4];
+    [(F13Server *)v3 setAppInstallationInProgress:0];
+    v5 = +[LSApplicationWorkspace defaultWorkspace];
+    [(F13Server *)v3 setWorkspace:v5];
 
-    v5 = +[MSDTargetDevice sharedInstance];
-    -[F13Server setPOSDevice:](v2, "setPOSDevice:", [v5 isVerifiedPOSDevice]);
+    v6 = +[MSDTargetDevice sharedInstance];
+    -[F13Server setPOSDevice:](v3, "setPOSDevice:", [v6 isVerifiedPOSDevice]);
 
-    workspace = [(F13Server *)v2 workspace];
-    [workspace addObserver:v2];
+    workspace = [(F13Server *)v3 workspace];
+    [workspace addObserver:v3];
 
-    [(F13Server *)v2 findExtension];
+    [(F13Server *)v3 findExtension];
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)dealloc
@@ -158,23 +159,23 @@
 
 - (void)findExtension
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v5) = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Finding extension...", &v5, 2u);
+    LOWORD(v6) = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Finding extension...", &v6, 2u);
   }
 
-  v4 = sub_100063A54();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100063A54(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543874;
-    v6 = @"com.retailtech.arkenstone.extension";
-    v7 = 2114;
-    v8 = @"com.apple.ist.windward.Arizona";
-    v9 = 2114;
-    v10 = @"com.apple.ist.DemoDiscoveryApp.Extension";
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "ENTITLEMENT:%{public}@ OR ENTITLEMENT:%{public}@ OR ENTITLEMENT:%{public}@", &v5, 0x20u);
+    v6 = 138543874;
+    v7 = @"com.retailtech.arkenstone.extension";
+    v8 = 2114;
+    v9 = @"com.apple.ist.windward.Arizona";
+    v10 = 2114;
+    v11 = @"com.apple.ist.DemoDiscoveryApp.Extension";
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "ENTITLEMENT:%{public}@ OR ENTITLEMENT:%{public}@ OR ENTITLEMENT:%{public}@", &v6, 0x20u);
   }
 
   [(F13Server *)self verifyExtensionIsRunning];
@@ -184,66 +185,76 @@
 - (void)matchExtension
 {
   [(F13Server *)self effectiveExtensionAttributes];
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v2 = v21 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v2 = v24 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v19;
+    v5 = *v22;
     while (2)
     {
-      for (i = 0; i != v4; i = i + 1)
+      v6 = 0;
+      do
       {
-        if (*v19 != v5)
+        if (*v22 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v18 + 1) + 8 * i);
-        v8 = sub_100063A54();
+        v7 = *(*(&v21 + 1) + 8 * v6);
+        v8 = sub_100063A54(v3);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v23 = v7;
+          v26 = v7;
           _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "F13Server: Matching extension: %{public}@", buf, 0xCu);
         }
 
-        v17 = 0;
-        v9 = [NSExtension extensionsWithMatchingAttributes:v7 error:&v17];
-        v10 = v17;
-        if (!v10 && [v9 count])
+        v20 = 0;
+        v9 = [NSExtension extensionsWithMatchingAttributes:v7 error:&v20];
+        v10 = v20;
+        v11 = v10;
+        if (!v10)
         {
-          firstObject = [v9 firstObject];
-          [(F13Server *)self setExtension:firstObject];
-
-          v14 = sub_100063A54();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v10 = [v9 count];
+          if (v10)
           {
-            *buf = 0;
-            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "F13Server: Found extension!", buf, 2u);
+            firstObject = [v9 firstObject];
+            [(F13Server *)self setExtension:firstObject];
+
+            v17 = sub_100063A54(v16);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 0;
+              _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "F13Server: Found extension!", buf, 2u);
+            }
+
+            v18 = os_transaction_create();
+            [(F13Server *)self setTransaction:v18];
+
+            v14 = v2;
+            goto LABEL_19;
           }
-
-          v15 = os_transaction_create();
-          [(F13Server *)self setTransaction:v15];
-
-          v12 = v2;
-          goto LABEL_19;
         }
 
-        v11 = sub_100063A54();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = sub_100063A54(v10);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v23 = v10;
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "F13Server: Error matching extension: %{public}@", buf, 0xCu);
+          v26 = v11;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "F13Server: Error matching extension: %{public}@", buf, 0xCu);
         }
+
+        v6 = v6 + 1;
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v18 objects:v24 count:16];
-      if (v4)
+      while (v4 != v6);
+      v3 = [v2 countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v4 = v3;
+      if (v3)
       {
         continue;
       }
@@ -252,12 +263,12 @@
     }
   }
 
-  v12 = sub_100063A54();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v14 = sub_100063A54(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v23 = v2;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "F13Server: Failed to match extensions in: %{public}@", buf, 0xCu);
+    v26 = v2;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "F13Server: Failed to match extensions in: %{public}@", buf, 0xCu);
   }
 
 LABEL_19:
@@ -289,7 +300,7 @@ LABEL_19:
 
 - (void)windwardAppInstallationStarted
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -302,61 +313,61 @@ LABEL_19:
 
 - (void)applicationInstallsDidStart:(id)start
 {
-  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
   startCopy = start;
-  v5 = [startCopy countByEnumeratingWithState:&v26 objects:v33 count:16];
+  v5 = [startCopy countByEnumeratingWithState:&v27 objects:v34 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v27;
-    v20 = *v27;
+    v7 = *v28;
+    v21 = *v28;
     selfCopy = self;
     do
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v27 != v7)
+        if (*v28 != v7)
         {
           objc_enumerationMutation(startCopy);
         }
 
-        v9 = *(*(&v26 + 1) + 8 * i);
+        v9 = *(*(&v27 + 1) + 8 * i);
         effectiveAppIdentifiers = [(F13Server *)self effectiveAppIdentifiers];
-        v22 = 0u;
         v23 = 0u;
         v24 = 0u;
         v25 = 0u;
+        v26 = 0u;
         v11 = effectiveAppIdentifiers;
-        v12 = [v11 countByEnumeratingWithState:&v22 objects:v32 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v23 objects:v33 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v23;
+          v14 = *v24;
           while (2)
           {
             for (j = 0; j != v13; j = j + 1)
             {
-              if (*v23 != v14)
+              if (*v24 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v16 = *(*(&v22 + 1) + 8 * j);
+              v16 = *(*(&v23 + 1) + 8 * j);
               bundleIdentifier = [v9 bundleIdentifier];
               LODWORD(v16) = [bundleIdentifier isEqualToString:v16];
 
               if (v16)
               {
-                v18 = sub_100063A54();
-                if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+                v19 = sub_100063A54(v18);
+                if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
                 {
                   bundleIdentifier2 = [v9 bundleIdentifier];
                   *buf = 138543362;
-                  v31 = bundleIdentifier2;
-                  _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "F13Server: New %{public}@ app installation started, killing extension...", buf, 0xCu);
+                  v32 = bundleIdentifier2;
+                  _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "F13Server: New %{public}@ app installation started, killing extension...", buf, 0xCu);
                 }
 
                 [(F13Server *)selfCopy windwardAppInstallationStarted];
@@ -364,7 +375,7 @@ LABEL_19:
               }
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v22 objects:v32 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v23 objects:v33 count:16];
             if (v13)
             {
               continue;
@@ -374,11 +385,11 @@ LABEL_19:
           }
         }
 
-        v7 = v20;
+        v7 = v21;
         self = selfCopy;
       }
 
-      v6 = [startCopy countByEnumeratingWithState:&v26 objects:v33 count:16];
+      v6 = [startCopy countByEnumeratingWithState:&v27 objects:v34 count:16];
     }
 
     while (v6);
@@ -389,61 +400,61 @@ LABEL_20:
 
 - (void)applicationsDidInstall:(id)install
 {
-  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
   installCopy = install;
-  v5 = [installCopy countByEnumeratingWithState:&v26 objects:v33 count:16];
+  v5 = [installCopy countByEnumeratingWithState:&v27 objects:v34 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v27;
-    v20 = *v27;
+    v7 = *v28;
+    v21 = *v28;
     selfCopy = self;
     do
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v27 != v7)
+        if (*v28 != v7)
         {
           objc_enumerationMutation(installCopy);
         }
 
-        v9 = *(*(&v26 + 1) + 8 * i);
+        v9 = *(*(&v27 + 1) + 8 * i);
         effectiveAppIdentifiers = [(F13Server *)self effectiveAppIdentifiers];
-        v22 = 0u;
         v23 = 0u;
         v24 = 0u;
         v25 = 0u;
+        v26 = 0u;
         v11 = effectiveAppIdentifiers;
-        v12 = [v11 countByEnumeratingWithState:&v22 objects:v32 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v23 objects:v33 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v23;
+          v14 = *v24;
           while (2)
           {
             for (j = 0; j != v13; j = j + 1)
             {
-              if (*v23 != v14)
+              if (*v24 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v16 = *(*(&v22 + 1) + 8 * j);
+              v16 = *(*(&v23 + 1) + 8 * j);
               bundleIdentifier = [v9 bundleIdentifier];
               LODWORD(v16) = [bundleIdentifier isEqualToString:v16];
 
               if (v16)
               {
-                v18 = sub_100063A54();
-                if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+                v19 = sub_100063A54(v18);
+                if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
                 {
                   bundleIdentifier2 = [v9 bundleIdentifier];
                   *buf = 138543362;
-                  v31 = bundleIdentifier2;
-                  _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "F13Server: %{public}@ app installation finished", buf, 0xCu);
+                  v32 = bundleIdentifier2;
+                  _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "F13Server: %{public}@ app installation finished", buf, 0xCu);
                 }
 
                 [(F13Server *)selfCopy setAppInstallationInProgress:0];
@@ -453,7 +464,7 @@ LABEL_20:
               }
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v22 objects:v32 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v23 objects:v33 count:16];
             if (v13)
             {
               continue;
@@ -463,11 +474,11 @@ LABEL_20:
           }
         }
 
-        v7 = v20;
+        v7 = v21;
         self = selfCopy;
       }
 
-      v6 = [installCopy countByEnumeratingWithState:&v26 objects:v33 count:16];
+      v6 = [installCopy countByEnumeratingWithState:&v27 objects:v34 count:16];
     }
 
     while (v6);

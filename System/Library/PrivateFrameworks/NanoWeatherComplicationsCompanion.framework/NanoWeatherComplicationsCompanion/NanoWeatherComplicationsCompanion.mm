@@ -93,16 +93,16 @@ uint64_t __NWCIsCurrentLocaleNonLatin_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id NWCLocalizationBundle()
+id NWCLocalizationBundle(uint64_t a1)
 {
   if (NWCLocalizationBundle_onceToken != -1)
   {
     NWCLocalizationBundle_cold_1();
   }
 
-  v1 = NWCLocalizationBundle_Bundle;
+  v2 = NWCLocalizationBundle_Bundle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __NWCLocalizationBundle_block_invoke()
@@ -116,7 +116,7 @@ id NWCLocalizedImageNamed(void *a1)
 {
   v1 = MEMORY[0x277D755B8];
   v2 = a1;
-  v3 = NWCLocalizationBundle();
+  v3 = NWCLocalizationBundle(v2);
   v4 = [MEMORY[0x277D759A0] mainScreen];
   v5 = [v4 traitCollection];
   v6 = [v1 imageNamed:v2 inBundle:v3 compatibleWithTraitCollection:v5];
@@ -127,7 +127,7 @@ id NWCLocalizedImageNamed(void *a1)
 id NWCLocalizedString(void *a1)
 {
   v1 = a1;
-  v2 = NWCLocalizationBundle();
+  v2 = NWCLocalizationBundle(v1);
   v3 = [v2 localizedStringForKey:v1 value:&stru_286CFFA48 table:@"NanoWeatherComplications-Localizable"];
 
   return v3;
@@ -181,20 +181,19 @@ id __NWCGlyphPrefixedTextProvider_block_invoke(uint64_t a1, void *a2, uint64_t a
 
 double NWCExtraLargeScalingFactor(void *a1)
 {
-  v8[3] = *MEMORY[0x277D85DE8];
+  v7[3] = *MEMORY[0x277D85DE8];
   __NWCExtraLargeScalingFactor_block_invoke(a1, a1);
   v1 = NWCExtraLargeScalingFactor_Metrics;
-  v7[0] = &unk_286D01E80;
-  v7[1] = &unk_286D01E98;
-  v8[0] = &unk_286D01FA0;
-  v8[1] = &unk_286D01FA0;
-  v7[2] = &unk_286D01EB0;
-  v8[2] = &unk_286D01FB0;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
+  v6[0] = &unk_286D01E80;
+  v6[1] = &unk_286D01E98;
+  v7[0] = &unk_286D01FA0;
+  v7[1] = &unk_286D01FA0;
+  v6[2] = &unk_286D01EB0;
+  v7[2] = &unk_286D01FB0;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
   [v1 scaledValue:v2 withOverrides:2.86];
   v4 = v3;
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -258,7 +257,7 @@ double gotLoadHelper_x8__OBJC_CLASS___NTKOverrideTextProvider(double result)
   return result;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_NanoTimeKit(double a1)
+double dlopenHelper_NanoTimeKit(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/NanoTimeKit.framework/NanoTimeKit", 0);
   atomic_store(1u, &dlopenHelperFlag_NanoTimeKit);

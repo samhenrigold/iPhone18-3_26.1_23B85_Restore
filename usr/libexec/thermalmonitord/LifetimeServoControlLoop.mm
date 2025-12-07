@@ -2,11 +2,13 @@
 - (LifetimeServoControlLoop)initWithParams:(id)params perfStateVoltages:(int *)voltages voltageCount:(int)count loopType:(int)type persistancePath:(__CFString *)path filer:(id)filer;
 - (__CFString)copyFieldCurrentValueForIndex:(int)index;
 - (__CFString)copyHeaderForIndex:(int)index;
+- (float)accelerationFactorForTemperature:(int)temperature cpuPerfStateIndex:(int)index;
 - (int)updateTempMax:(int)max;
 - (void)initSensorIndexSet:(id)set;
 - (void)initializeLifetimeServoStateAsPersisted;
 - (void)processSleepInterval:(int64_t)interval;
 - (void)updateDieTempTarget;
+- (void)updateForPerfStateResidency:(float *)residency count:(int)count tempMax:(int)max tempAverage:(int)average;
 - (void)updatePersistedState;
 @end
 
@@ -137,7 +139,7 @@ LABEL_21:
 
         if (v15->_Lmin >= v15->_Lmax && os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
         {
-          sub_100059A8C(p_loopType);
+          sub_100059A8C();
         }
 
         if (count <= 16)
@@ -189,7 +191,7 @@ LABEL_21:
 
         else if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
         {
-          sub_100059B00(p_loopType);
+          sub_100059B00();
         }
 
         [(LifetimeServoControlLoop *)v15 updateDieTempTarget];
@@ -488,7 +490,7 @@ LABEL_37:
 
     else
     {
-      sub_100059DAC(self);
+      sub_100059DAC();
     }
 
     for (i = 0; i != 32; i += 8)
@@ -519,6 +521,143 @@ LABEL_37:
   {
     return max;
   }
+}
+
+- (void)updateForPerfStateResidency:(float *)residency count:(int)count tempMax:(int)max tempAverage:(int)average
+{
+  v7 = *&max;
+  self->_af_i = 0.0;
+  if (count < 1)
+  {
+    v12 = 0.0;
+  }
+
+  else
+  {
+    v10 = 0;
+    countCopy = count;
+    v12 = 0.0;
+    do
+    {
+      v13 = residency[v10];
+      if (v13 > 0.0)
+      {
+        averageCopy = v7;
+        if (!v10)
+        {
+          if (self->_loopType == 3)
+          {
+            averageCopy = v7;
+          }
+
+          else
+          {
+            averageCopy = average;
+          }
+        }
+
+        [(LifetimeServoControlLoop *)self accelerationFactorForTemperature:averageCopy cpuPerfStateIndex:v10];
+        v12 = self->_af_i + (v13 * v15);
+        self->_af_i = v12;
+      }
+
+      ++v10;
+    }
+
+    while (countCopy != v10);
+  }
+
+  override_af_i_float = self->_override_af_i_float;
+  if (override_af_i_float != -1)
+  {
+    self->_af_i = override_af_i_float;
+    v12 = override_af_i_float;
+  }
+
+  r = self->_r;
+  v18 = vcvts_n_s32_f32(r - v12, 0xAuLL);
+  if (byte_1000AB2F8 == 1)
+  {
+    v19 = qword_1000AB718;
+    if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_DEFAULT))
+    {
+      v28 = 134218752;
+      *v29 = v18;
+      *&v29[8] = 2048;
+      v30 = r;
+      *v31 = 2048;
+      *&v31[2] = v12;
+      LOWORD(v32) = 1024;
+      *(&v32 + 2) = 1024;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "<Notice>  e_ls %lld  _r %f _af_i %f LifetimeServoControllerIntegratorScale %d", &v28, 0x26u);
+    }
+  }
+
+  override_is = self->_override_is;
+  if (override_is == -1)
+  {
+    self->_is = sub_1000334E0(self->_is, v18);
+  }
+
+  else
+  {
+    self->_is = override_is << 10;
+  }
+
+  if (v18 < 1)
+  {
+    self->_isDown = sub_1000334E0(self->_isDown, -v18);
+  }
+
+  else
+  {
+    self->_isUp = sub_1000334E0(self->_isUp, v18);
+  }
+
+  [(LifetimeServoControlLoop *)self updateDieTempTarget];
+  if (byte_1000AB2F8 == 1)
+  {
+    v21 = qword_1000AB718;
+    if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_DEFAULT))
+    {
+      loopType = self->_loopType;
+      af_i = self->_af_i;
+      is = self->_is;
+      isUp = self->_isUp;
+      isDown = self->_isDown;
+      u = self->_u;
+      v28 = 67110912;
+      *v29 = loopType;
+      *&v29[4] = 1024;
+      *&v29[6] = v7;
+      LOWORD(v30) = 1024;
+      *(&v30 + 2) = average;
+      HIWORD(v30) = 2048;
+      *v31 = af_i;
+      *&v31[8] = 2048;
+      v32 = is;
+      v33 = 2048;
+      v34 = isUp;
+      v35 = 2048;
+      v36 = isDown;
+      v37 = 1024;
+      v38 = u;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "<Notice> LSControlLoop %d: tempMax %d, tempAverage %d, AFi %f, LS-ris %lld (up %lld, down %lld), target %d", &v28, 0x42u);
+    }
+  }
+}
+
+- (float)accelerationFactorForTemperature:(int)temperature cpuPerfStateIndex:(int)index
+{
+  v4 = *&temperature;
+  v6 = self->_perfStateVoltages[index];
+  if (!v6 && os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
+  {
+    sub_100059E44();
+  }
+
+  [(LifetimeServoAFLUT *)self->_afLUT accelerationFactor:v4 voltage:v6];
+  return result;
 }
 
 - (void)processSleepInterval:(int64_t)interval

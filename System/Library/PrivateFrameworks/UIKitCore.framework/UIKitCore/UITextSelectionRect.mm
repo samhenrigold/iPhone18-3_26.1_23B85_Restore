@@ -40,7 +40,7 @@
   [v12 setContainsStart:{-[UITextSelectionRect containsStart](self, "containsStart")}];
   [v12 setContainsEnd:{-[UITextSelectionRect containsEnd](self, "containsEnd")}];
   [v12 setIsVertical:{-[UITextSelectionRect isVertical](self, "isVertical")}];
-  [(UITextSelectionRect *)self transform];
+  objc_msgSend_transform(self);
   v16[0] = v16[3];
   v16[1] = v16[4];
   v16[2] = v16[5];
@@ -462,12 +462,12 @@ LABEL_8:
       {
         _path2 = [(UITextSelectionRect *)self _path];
         _path3 = [(UITextSelectionRect *)v6 _path];
-        v10 = [_path2 isEqual:_path3];
+        isEqual = objc_msgSend_isEqual_(_path2);
 
         if (_path)
         {
 
-          if (!v10)
+          if (!isEqual)
           {
             goto LABEL_19;
           }
@@ -476,17 +476,17 @@ LABEL_8:
         else
         {
 
-          if ((v10 & 1) == 0)
+          if ((isEqual & 1) == 0)
           {
             goto LABEL_19;
           }
         }
       }
 
-      [(UITextSelectionRect *)self transform];
+      objc_msgSend_transform(self);
       if (v6)
       {
-        [(UITextSelectionRect *)v6 transform];
+        objc_msgSend_transform(v6);
       }
 
       else
@@ -564,16 +564,16 @@ LABEL_21:
 
 - (CGAffineTransform)transform
 {
-  _transform = [(UITextSelectionRect *)self _transform];
+  v5 = objc_msgSend__transform(self, a3);
 
-  if (_transform)
+  if (v5)
   {
-    _transform2 = [(UITextSelectionRect *)self _transform];
-    if (_transform2)
+    v7 = objc_msgSend__transform(self);
+    if (v7)
     {
-      v10 = _transform2;
-      [_transform2 CGAffineTransformValue];
-      _transform2 = v10;
+      v10 = v7;
+      objc_msgSend_CGAffineTransformValue(v7);
+      v7 = v10;
     }
 
     else
@@ -611,7 +611,7 @@ LABEL_21:
   v30[0] = *MEMORY[0x1E695EFD0];
   v30[1] = v19;
   v30[2] = *(MEMORY[0x1E695EFD0] + 32);
-  [(UITextSelectionRect *)self transform];
+  objc_msgSend_transform(self);
   if (CGAffineTransformIsIdentity(&m))
   {
     v20 = 0;
@@ -620,7 +620,7 @@ LABEL_21:
   else
   {
     v20 = v30;
-    [(UITextSelectionRect *)self transform];
+    objc_msgSend_transform(self);
   }
 
   _path = [(UITextSelectionRect *)self _path];

@@ -17,9 +17,9 @@
     +[NSURL(EMNSURLAdditions) em_mailToFromQueryItemKey];
   }
 
-  v1 = em_mailToFromQueryItemKey_mailToFromQueryItem;
+  v2 = em_mailToFromQueryItemKey_mailToFromQueryItem;
 
-  return v1;
+  return v2;
 }
 
 - (BOOL)em_isMessageURL
@@ -80,30 +80,30 @@
 
 - (EMInternalMessageID)em_internalMessageID
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   _databaseID = [(NSURL *)self _databaseID];
   if (_databaseID)
   {
     v3 = [MEMORY[0x1E696AF20] componentsWithURL:self resolvingAgainstBaseURL:0];
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     queryItems = [v3 queryItems];
-    value2 = [queryItems countByEnumeratingWithState:&v15 objects:v19 count:16];
+    value2 = [queryItems countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (value2)
     {
-      v6 = *v16;
+      v6 = *v15;
       while (2)
       {
         for (i = 0; i != value2; i = i + 1)
         {
-          if (*v16 != v6)
+          if (*v15 != v6)
           {
             objc_enumerationMutation(queryItems);
           }
 
-          v8 = *(*(&v15 + 1) + 8 * i);
+          v8 = *(*(&v14 + 1) + 8 * i);
           name = [v8 name];
           if ([name caseInsensitiveCompare:@"uuid"])
           {
@@ -122,7 +122,7 @@
           }
         }
 
-        value2 = [queryItems countByEnumeratingWithState:&v15 objects:v19 count:16];
+        value2 = [queryItems countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (value2)
         {
           continue;
@@ -141,8 +141,6 @@ LABEL_15:
   {
     v12 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

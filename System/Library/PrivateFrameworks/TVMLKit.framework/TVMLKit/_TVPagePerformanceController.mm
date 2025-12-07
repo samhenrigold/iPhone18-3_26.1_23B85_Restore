@@ -99,17 +99,17 @@
 
 - (void)markViewWillLoad
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (![(_TVPagePerformanceController *)self viewWillLoad])
   {
-    if (IsPerformanceLoggingEnabled())
+    if (IsPerformanceLoggingEnabled(0, v3))
     {
-      v3 = TVMLKitPerformanceLogObject;
+      v4 = TVMLKitPerformanceLogObject;
       if (os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        v4 = 134217984;
+        v5 = 134217984;
         selfCopy = self;
-        _os_log_impl(&dword_26CD9A000, v3, OS_LOG_TYPE_DEFAULT, "[DEBUG] %p markViewWillLoad", &v4, 0xCu);
+        _os_log_impl(&dword_26CD9A000, v4, OS_LOG_TYPE_DEFAULT, "[DEBUG] %p markViewWillLoad", &v5, 0xCu);
       }
     }
 
@@ -119,17 +119,17 @@
 
 - (void)markViewDidLoad
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (![(_TVPagePerformanceController *)self viewDidLoad])
   {
-    if (IsPerformanceLoggingEnabled())
+    if (IsPerformanceLoggingEnabled(0, v3))
     {
-      v3 = TVMLKitPerformanceLogObject;
+      v4 = TVMLKitPerformanceLogObject;
       if (os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        v4 = 134217984;
+        v5 = 134217984;
         selfCopy = self;
-        _os_log_impl(&dword_26CD9A000, v3, OS_LOG_TYPE_DEFAULT, "[DEBUG] %p markViewDidLoad", &v4, 0xCu);
+        _os_log_impl(&dword_26CD9A000, v4, OS_LOG_TYPE_DEFAULT, "[DEBUG] %p markViewDidLoad", &v5, 0xCu);
       }
     }
 
@@ -139,17 +139,17 @@
 
 - (void)markViewWillAppear
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (![(_TVPagePerformanceController *)self viewWillAppear])
   {
-    if (IsPerformanceLoggingEnabled())
+    if (IsPerformanceLoggingEnabled(0, v3))
     {
-      v3 = TVMLKitPerformanceLogObject;
+      v4 = TVMLKitPerformanceLogObject;
       if (os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        v4 = 134217984;
+        v5 = 134217984;
         selfCopy = self;
-        _os_log_impl(&dword_26CD9A000, v3, OS_LOG_TYPE_DEFAULT, "[DEBUG] %p markViewWillAppear", &v4, 0xCu);
+        _os_log_impl(&dword_26CD9A000, v4, OS_LOG_TYPE_DEFAULT, "[DEBUG] %p markViewWillAppear", &v5, 0xCu);
       }
     }
 
@@ -159,17 +159,17 @@
 
 - (void)markViewDidAppear
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (![(_TVPagePerformanceController *)self viewDidAppear])
   {
-    if (IsPerformanceLoggingEnabled())
+    if (IsPerformanceLoggingEnabled(0, v3))
     {
-      v3 = TVMLKitPerformanceLogObject;
+      v4 = TVMLKitPerformanceLogObject;
       if (os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        v4 = 134217984;
+        v5 = 134217984;
         selfCopy = self;
-        _os_log_impl(&dword_26CD9A000, v3, OS_LOG_TYPE_DEFAULT, "[DEBUG] %p markViewDidAppear", &v4, 0xCu);
+        _os_log_impl(&dword_26CD9A000, v4, OS_LOG_TYPE_DEFAULT, "[DEBUG] %p markViewDidAppear", &v5, 0xCu);
       }
     }
 
@@ -180,17 +180,17 @@
 
 - (void)markViewWillDisappear
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (![(_TVPagePerformanceController *)self viewWillDisappear])
   {
-    if (IsPerformanceLoggingEnabled())
+    if (IsPerformanceLoggingEnabled(0, v3))
     {
-      v3 = TVMLKitPerformanceLogObject;
+      v4 = TVMLKitPerformanceLogObject;
       if (os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        v4 = 134217984;
+        v5 = 134217984;
         selfCopy = self;
-        _os_log_impl(&dword_26CD9A000, v3, OS_LOG_TYPE_DEFAULT, "[DEBUG] %p markViewWillDisappear", &v4, 0xCu);
+        _os_log_impl(&dword_26CD9A000, v4, OS_LOG_TYPE_DEFAULT, "[DEBUG] %p markViewWillDisappear", &v5, 0xCu);
       }
     }
 
@@ -201,22 +201,23 @@
 
 - (void)markViewDidDisappear
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (![(_TVPagePerformanceController *)self viewDidDisappear])
   {
-    if (![(_TVPagePerformanceController *)self templateDidComplete])
+    templateDidComplete = [(_TVPagePerformanceController *)self templateDidComplete];
+    if (!templateDidComplete)
     {
-      [(_TVPagePerformanceController *)self setPageWasInterrupted:1];
+      templateDidComplete = [(_TVPagePerformanceController *)self setPageWasInterrupted:1];
     }
 
-    if (IsPerformanceLoggingEnabled())
+    if (IsPerformanceLoggingEnabled(templateDidComplete, v4))
     {
-      v3 = TVMLKitPerformanceLogObject;
+      v5 = TVMLKitPerformanceLogObject;
       if (os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        v4 = 134217984;
+        v6 = 134217984;
         selfCopy = self;
-        _os_log_impl(&dword_26CD9A000, v3, OS_LOG_TYPE_DEFAULT, "[DEBUG] %p markViewDidDisappear", &v4, 0xCu);
+        _os_log_impl(&dword_26CD9A000, v5, OS_LOG_TYPE_DEFAULT, "[DEBUG] %p markViewDidDisappear", &v6, 0xCu);
       }
     }
 
@@ -227,7 +228,7 @@
 
 - (id)getEntryForTemplate:(id)template
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   templateCopy = template;
   lastObject = [(NSMutableArray *)self->_templateEntries lastObject];
   templateElement = [lastObject templateElement];
@@ -235,77 +236,77 @@
   if (templateElement == templateCopy)
   {
     templateDidTransition = [lastObject templateDidTransition];
-    v13 = IsPerformanceLoggingEnabled();
+    v16 = IsPerformanceLoggingEnabled(templateDidTransition, v15);
     if (templateDidTransition)
     {
-      if (v13)
-      {
-        v14 = TVMLKitPerformanceLogObject;
-        if (os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
-        {
-          v15 = v14;
-          elementName = [templateCopy elementName];
-          v21 = 134218242;
-          selfCopy3 = self;
-          v23 = 2112;
-          v24 = elementName;
-          _os_log_impl(&dword_26CD9A000, v15, OS_LOG_TYPE_DEFAULT, "[DEBUG] %p %@ reuseEntryForTemplate", &v21, 0x16u);
-        }
-      }
-
-      [lastObject setTemplateUpdateCount:{objc_msgSend(lastObject, "templateUpdateCount") + 1}];
-      [(_TVPagePerformanceController *)self setPageWasUpdated:1];
-      v10 = lastObject;
-    }
-
-    else
-    {
-      if (v13)
+      if (v16)
       {
         v17 = TVMLKitPerformanceLogObject;
         if (os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
         {
           v18 = v17;
-          elementName2 = [templateCopy elementName];
-          v21 = 134218242;
+          elementName = [templateCopy elementName];
+          v24 = 134218242;
           selfCopy3 = self;
-          v23 = 2112;
-          v24 = elementName2;
-          _os_log_impl(&dword_26CD9A000, v18, OS_LOG_TYPE_DEFAULT, "[DEBUG] %p %@ ignoreEntryForTemplate", &v21, 0x16u);
+          v26 = 2112;
+          v27 = elementName;
+          _os_log_impl(&dword_26CD9A000, v18, OS_LOG_TYPE_DEFAULT, "[DEBUG] %p %@ reuseEntryForTemplate", &v24, 0x16u);
         }
       }
 
-      v10 = 0;
+      [lastObject setTemplateUpdateCount:{objc_msgSend(lastObject, "templateUpdateCount") + 1}];
+      [(_TVPagePerformanceController *)self setPageWasUpdated:1];
+      v12 = lastObject;
+    }
+
+    else
+    {
+      if (v16)
+      {
+        v20 = TVMLKitPerformanceLogObject;
+        if (os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
+        {
+          v21 = v20;
+          elementName2 = [templateCopy elementName];
+          v24 = 134218242;
+          selfCopy3 = self;
+          v26 = 2112;
+          v27 = elementName2;
+          _os_log_impl(&dword_26CD9A000, v21, OS_LOG_TYPE_DEFAULT, "[DEBUG] %p %@ ignoreEntryForTemplate", &v24, 0x16u);
+        }
+      }
+
+      v12 = 0;
     }
   }
 
   else
   {
-    [lastObject _stopListeningForInitialImageProxyLoadNotifications];
-    if (IsPerformanceLoggingEnabled())
+    _stopListeningForInitialImageProxyLoadNotifications = [lastObject _stopListeningForInitialImageProxyLoadNotifications];
+    if (IsPerformanceLoggingEnabled(_stopListeningForInitialImageProxyLoadNotifications, v8))
     {
-      v7 = TVMLKitPerformanceLogObject;
+      v9 = TVMLKitPerformanceLogObject;
       if (os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = v7;
+        v10 = v9;
         elementName3 = [templateCopy elementName];
-        v21 = 134218242;
+        v24 = 134218242;
         selfCopy3 = self;
-        v23 = 2112;
-        v24 = elementName3;
-        _os_log_impl(&dword_26CD9A000, v8, OS_LOG_TYPE_DEFAULT, "[DEBUG] %p %@ createEntryForTemplate", &v21, 0x16u);
+        v26 = 2112;
+        v27 = elementName3;
+        _os_log_impl(&dword_26CD9A000, v10, OS_LOG_TYPE_DEFAULT, "[DEBUG] %p %@ createEntryForTemplate", &v24, 0x16u);
       }
     }
 
-    v10 = [[_TVPagePerformanceTemplateEntry alloc] initWithPagePerformanceController:self forTemplateElement:templateCopy];
-    [(NSMutableArray *)self->_templateEntries addObject:v10];
+    v12 = [[_TVPagePerformanceTemplateEntry alloc] initWithPagePerformanceController:self forTemplateElement:templateCopy];
+    [(NSMutableArray *)self->_templateEntries addObject:v12];
     elementName4 = [templateCopy elementName];
     -[_TVPagePerformanceController setPageIsLoading:](self, "setPageIsLoading:", [@"loadingTemplate" isEqualToString:elementName4]);
     -[_TVPagePerformanceController setPageHasSubpages:](self, "setPageHasSubpages:", [@"menuBarTemplate" isEqualToString:elementName4]);
     [(_TVPagePerformanceController *)self setPageWasUpdated:0];
   }
 
-  return v10;
+  return v12;
 }
 
 - (unint64_t)templateDidComplete
@@ -425,31 +426,32 @@
 
 - (void)_calculatePageDurations
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   lastObject = [(NSMutableArray *)self->_templateEntries lastObject];
   -[_TVPagePerformanceController setPageRenderDuration:](self, "setPageRenderDuration:", [lastObject templateRenderDuration]);
-  if ([(_TVPagePerformanceController *)self pageWasUpdated])
+  pageWasUpdated = [(_TVPagePerformanceController *)self pageWasUpdated];
+  if (pageWasUpdated)
   {
     [(_TVPagePerformanceController *)self setPageCompleteDuration:0];
     [(_TVPagePerformanceController *)self setPageSetupDuration:0];
     [(_TVPagePerformanceController *)self setPageResourceDuration:0];
     selfCopy3 = self;
-    v5 = 0;
+    v7 = 0;
   }
 
   else
   {
-    if (IsPerformanceLoggingEnabled())
+    if (IsPerformanceLoggingEnabled(pageWasUpdated, v5))
     {
-      v6 = TVMLKitPerformanceLogObject;
+      v8 = TVMLKitPerformanceLogObject;
       if (os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
       {
         templateEntries = self->_templateEntries;
         *buf = 134218242;
         selfCopy2 = self;
-        v25 = 2112;
-        v26 = templateEntries;
-        _os_log_impl(&dword_26CD9A000, v6, OS_LOG_TYPE_DEFAULT, "[DEBUG] %p calculatePageDurations %@", buf, 0x16u);
+        v27 = 2112;
+        v28 = templateEntries;
+        _os_log_impl(&dword_26CD9A000, v8, OS_LOG_TYPE_DEFAULT, "[DEBUG] %p calculatePageDurations %@", buf, 0x16u);
       }
     }
 
@@ -465,55 +467,55 @@
 
     [(_TVPagePerformanceController *)self setPageCompleteDuration:_TVPagePerformanceConvertMachAbsoluteTimeToMicroseconds(self->_baseAbsoluteTime, viewDidDisappear)];
     -[_TVPagePerformanceController setPageSetupDuration:](self, "setPageSetupDuration:", _TVPagePerformanceConvertMachAbsoluteTimeToMicroseconds(self->_baseAbsoluteTime, [lastObject templateWillRender]));
+    v22 = 0u;
+    v23 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v18 = 0u;
-    v19 = 0u;
-    v9 = self->_templateEntries;
-    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
-    if (v10)
+    v11 = self->_templateEntries;
+    v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    if (v12)
     {
-      v11 = v10;
-      v12 = 0;
-      v13 = 0;
-      v14 = *v19;
+      v13 = v12;
+      v14 = 0;
+      v15 = 0;
+      v16 = *v21;
       do
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v19 != v14)
+          if (*v21 != v16)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v18 + 1) + 8 * i);
-          templateTransitionDuration = [v16 templateTransitionDuration];
-          if (templateTransitionDuration > v12)
+          v18 = *(*(&v20 + 1) + 8 * i);
+          templateTransitionDuration = [v18 templateTransitionDuration];
+          if (templateTransitionDuration > v14)
           {
-            v12 = templateTransitionDuration;
+            v14 = templateTransitionDuration;
           }
 
-          v13 += [v16 templateResourcesDuration];
+          v15 += [v18 templateResourcesDuration];
         }
 
-        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
-      while (v11);
+      while (v13);
     }
 
     else
     {
-      v12 = 0;
-      v13 = 0;
+      v14 = 0;
+      v15 = 0;
     }
 
-    [(_TVPagePerformanceController *)self setPageResourceDuration:v13];
+    [(_TVPagePerformanceController *)self setPageResourceDuration:v15];
     selfCopy3 = self;
-    v5 = v12;
+    v7 = v14;
   }
 
-  [(_TVPagePerformanceController *)selfCopy3 setPageTransitionDuration:v5, v18];
+  [(_TVPagePerformanceController *)selfCopy3 setPageTransitionDuration:v7, v20];
 }
 
 - (BOOL)_isMetricsReady
@@ -521,26 +523,27 @@
   lastObject = [(NSMutableArray *)self->_templateEntries lastObject];
   if ([(_TVPagePerformanceController *)self viewDidDisappear])
   {
-    if ([lastObject templateDidLoadResources])
+    templateDidLoadResources = [lastObject templateDidLoadResources];
+    if (templateDidLoadResources)
     {
-      if (!IsPerformanceLoggingEnabled())
+      if (!IsPerformanceLoggingEnabled(templateDidLoadResources, v5))
       {
         goto LABEL_17;
       }
 
-      v4 = TVMLKitPerformanceLogObject;
+      v6 = TVMLKitPerformanceLogObject;
       if (!os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_17;
       }
 
-      v9 = 0;
-      v5 = "[DEBUG] shouldDeliverMetrics -- Too late; page has already been dismissed/finished loading";
-      v6 = &v9;
+      v14 = 0;
+      v7 = "[DEBUG] shouldDeliverMetrics -- Too late; page has already been dismissed/finished loading";
+      v8 = &v14;
 LABEL_16:
-      _os_log_impl(&dword_26CD9A000, v4, OS_LOG_TYPE_DEFAULT, v5, v6, 2u);
+      _os_log_impl(&dword_26CD9A000, v6, OS_LOG_TYPE_DEFAULT, v7, v8, 2u);
 LABEL_17:
-      v7 = 0;
+      v12 = 0;
       goto LABEL_18;
     }
   }
@@ -549,73 +552,75 @@ LABEL_17:
   {
     if (![(_TVPagePerformanceController *)self viewDidAppear])
     {
-      if (!IsPerformanceLoggingEnabled())
+      if (!IsPerformanceLoggingEnabled(0, v9))
       {
         goto LABEL_17;
       }
 
-      v4 = TVMLKitPerformanceLogObject;
+      v6 = TVMLKitPerformanceLogObject;
       if (!os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_17;
       }
 
       *buf = 0;
-      v5 = "[DEBUG] shouldDeliverMetrics -- Too early; page is not yet interactive";
-      v6 = buf;
+      v7 = "[DEBUG] shouldDeliverMetrics -- Too early; page is not yet interactive";
+      v8 = buf;
       goto LABEL_16;
     }
 
-    if (![lastObject templateDidLoadResources] || !objc_msgSend(lastObject, "templateDidTransition"))
+    templateDidLoadResources2 = [lastObject templateDidLoadResources];
+    if (!templateDidLoadResources2 || (templateDidLoadResources2 = [lastObject templateDidTransition]) == 0)
     {
-      if (!IsPerformanceLoggingEnabled())
+      if (!IsPerformanceLoggingEnabled(templateDidLoadResources2, v11))
       {
         goto LABEL_17;
       }
 
-      v4 = TVMLKitPerformanceLogObject;
+      v6 = TVMLKitPerformanceLogObject;
       if (!os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_17;
       }
 
-      v10 = 0;
-      v5 = "[DEBUG] shouldDeliverMetrics -- Too early; page is not finished loading";
-      v6 = &v10;
+      v15 = 0;
+      v7 = "[DEBUG] shouldDeliverMetrics -- Too early; page is not finished loading";
+      v8 = &v15;
       goto LABEL_16;
     }
   }
 
-  v7 = 1;
+  v12 = 1;
 LABEL_18:
 
-  return v7;
+  return v12;
 }
 
 - (void)_maybeDeliverMetrics
 {
-  v9 = *MEMORY[0x277D85DE8];
-  if (IsPerformanceLoggingEnabled())
+  v11 = *MEMORY[0x277D85DE8];
+  if (IsPerformanceLoggingEnabled(self, a2))
   {
     v3 = TVMLKitPerformanceLogObject;
     if (os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 134217984;
+      v9 = 134217984;
       selfCopy2 = self;
-      _os_log_impl(&dword_26CD9A000, v3, OS_LOG_TYPE_DEFAULT, "[DEBUG] %p maybeDeliverMetrics", &v7, 0xCu);
+      _os_log_impl(&dword_26CD9A000, v3, OS_LOG_TYPE_DEFAULT, "[DEBUG] %p maybeDeliverMetrics", &v9, 0xCu);
     }
   }
 
-  if ([(_TVPagePerformanceController *)self _isMetricsReady])
+  _isMetricsReady = [(_TVPagePerformanceController *)self _isMetricsReady];
+  if (_isMetricsReady)
   {
-    if (IsPerformanceLoggingEnabled())
+    if (IsPerformanceLoggingEnabled(_isMetricsReady, v5))
     {
-      v4 = TVMLKitPerformanceLogObject;
+      v6 = TVMLKitPerformanceLogObject;
       if (os_log_type_enabled(TVMLKitPerformanceLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = 134217984;
+        v9 = 134217984;
         selfCopy2 = self;
-        _os_log_impl(&dword_26CD9A000, v4, OS_LOG_TYPE_DEFAULT, "[DEBUG] %p actuallyDeliverMetrics", &v7, 0xCu);
+        _os_log_impl(&dword_26CD9A000, v6, OS_LOG_TYPE_DEFAULT, "[DEBUG] %p actuallyDeliverMetrics", &v9, 0xCu);
       }
     }
 

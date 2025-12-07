@@ -1,4 +1,7 @@
 @interface PSPearlStream
++ (id)pearlStreamWithResourceKey:(id)key options:(ps_resource_options *)options provider:(int)provider width:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format;
++ (id)pearlStreamWithResourceKey:(id)key options:(ps_resource_options *)options provider:(int)provider width:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format dxWidth:(unint64_t)dxWidth dxHeight:(unint64_t)self0 dxPixelFormat:(unsigned int)self1 dyWidth:(unint64_t)self2 dyHeight:(unint64_t)self3 dyPixelFormat:(unsigned int)self4 scoreWidth:(unint64_t)self5 scoreHeight:(unint64_t)self6 scorePixelFormat:(unsigned int)self7 metadataIOSurfaceProperties:(id)self8;
++ (id)pearlStreamWithResourceKey:(id)key options:(ps_resource_options *)options provider:(int)provider width:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format metadataIOSurfaceProperties:(id)properties;
 + (id)pearlStreamWithResourceKey:(id)key options:(ps_resource_options *)options width:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)validate:(id *)validate;
@@ -85,37 +88,7 @@
     v6 = v5;
     v21.receiver = self;
     v21.super_class = PSPearlStream;
-    if (![(PSResourceStream *)&v21 isEqual:v6])
-    {
-      goto LABEL_19;
-    }
-
-    width = self->_width;
-    if (width != [(PSPearlStream *)v6 width])
-    {
-      goto LABEL_19;
-    }
-
-    height = self->_height;
-    if (height != [(PSPearlStream *)v6 height])
-    {
-      goto LABEL_19;
-    }
-
-    pixelFormat = self->_pixelFormat;
-    if (pixelFormat != [(PSPearlStream *)v6 pixelFormat])
-    {
-      goto LABEL_19;
-    }
-
-    dxWidth = self->_dxWidth;
-    if (dxWidth != [(PSPearlStream *)v6 dxWidth])
-    {
-      goto LABEL_19;
-    }
-
-    dxHeight = self->_dxHeight;
-    if (dxHeight == [(PSPearlStream *)v6 dxHeight]&& (dxPixelFormat = self->_dxPixelFormat, dxPixelFormat == [(PSPearlStream *)v6 dxPixelFormat]) && (dyWidth = self->_dyWidth, dyWidth == [(PSPearlStream *)v6 dyWidth]) && (dyHeight = self->_dyHeight, dyHeight == [(PSPearlStream *)v6 dyHeight]) && (dyPixelFormat = self->_dyPixelFormat, dyPixelFormat == [(PSPearlStream *)v6 dyPixelFormat]) && (scoreWidth = self->_scoreWidth, scoreWidth == [(PSPearlStream *)v6 scoreWidth]) && (scoreHeight = self->_scoreHeight, scoreHeight == [(PSPearlStream *)v6 scoreHeight]))
+    if ([(PSResourceStream *)&v21 isEqual:v6]&& (width = self->_width, width == [(PSPearlStream *)v6 width]) && (height = self->_height, height == [(PSPearlStream *)v6 height]) && (pixelFormat = self->_pixelFormat, pixelFormat == [(PSPearlStream *)v6 pixelFormat]) && (dxWidth = self->_dxWidth, dxWidth == [(PSPearlStream *)v6 dxWidth]) && (dxHeight = self->_dxHeight, dxHeight == [(PSPearlStream *)v6 dxHeight]) && (dxPixelFormat = self->_dxPixelFormat, dxPixelFormat == [(PSPearlStream *)v6 dxPixelFormat]) && (dyWidth = self->_dyWidth, dyWidth == [(PSPearlStream *)v6 dyWidth]) && (dyHeight = self->_dyHeight, dyHeight == [(PSPearlStream *)v6 dyHeight]) && (dyPixelFormat = self->_dyPixelFormat, dyPixelFormat == [(PSPearlStream *)v6 dyPixelFormat]) && (scoreWidth = self->_scoreWidth, scoreWidth == [(PSPearlStream *)v6 scoreWidth]) && (scoreHeight = self->_scoreHeight, scoreHeight == [(PSPearlStream *)v6 scoreHeight]))
     {
       scorePixelFormat = self->_scorePixelFormat;
       v19 = scorePixelFormat == [(PSPearlStream *)v6 scorePixelFormat];
@@ -123,7 +96,6 @@
 
     else
     {
-LABEL_19:
       v19 = 0;
     }
   }
@@ -149,6 +121,67 @@ LABEL_19:
   [(PSResourceStream *)v12 setOptions:options->storage_mode, options->creation_mode];
 
   return v12;
+}
+
++ (id)pearlStreamWithResourceKey:(id)key options:(ps_resource_options *)options provider:(int)provider width:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format
+{
+  v11 = *&provider;
+  keyCopy = key;
+  v14 = objc_alloc_init(PSPearlStream);
+  [(PSResourceStream *)v14 setKey:keyCopy];
+  [(PSResourceStream *)v14 setProvider:v11];
+  [(PSPearlStream *)v14 setHasAttachments:!ps_resource_stream_provider_is_replay(v11)];
+  v14->_width = width;
+  v14->_height = height;
+  v14->_pixelFormat = format;
+  [(PSResourceStream *)v14 setOptions:options->storage_mode, options->creation_mode];
+
+  return v14;
+}
+
++ (id)pearlStreamWithResourceKey:(id)key options:(ps_resource_options *)options provider:(int)provider width:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format metadataIOSurfaceProperties:(id)properties
+{
+  v12 = *&provider;
+  keyCopy = key;
+  propertiesCopy = properties;
+  v16 = objc_alloc_init(PSPearlStream);
+  [(PSResourceStream *)v16 setKey:keyCopy];
+  [(PSResourceStream *)v16 setProvider:v12];
+  v16->_width = width;
+  v16->_height = height;
+  v16->_pixelFormat = format;
+  [(PSPearlStream *)v16 setHasAttachments:!ps_resource_stream_provider_is_replay(v12)];
+  [(PSResourceStream *)v16 setOptions:options->storage_mode, options->creation_mode];
+  [(PSResourceStream *)v16 setMetadataIOSurfaceProperties:propertiesCopy];
+
+  return v16;
+}
+
++ (id)pearlStreamWithResourceKey:(id)key options:(ps_resource_options *)options provider:(int)provider width:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format dxWidth:(unint64_t)dxWidth dxHeight:(unint64_t)self0 dxPixelFormat:(unsigned int)self1 dyWidth:(unint64_t)self2 dyHeight:(unint64_t)self3 dyPixelFormat:(unsigned int)self4 scoreWidth:(unint64_t)self5 scoreHeight:(unint64_t)self6 scorePixelFormat:(unsigned int)self7 metadataIOSurfaceProperties:(id)self8
+{
+  v20 = *&provider;
+  keyCopy = key;
+  propertiesCopy = properties;
+  v24 = objc_alloc_init(PSPearlStream);
+  [(PSPearlStream *)v24 setHasAttachments:1];
+  [(PSResourceStream *)v24 setKey:keyCopy];
+  [(PSResourceStream *)v24 setProvider:v20];
+  [(PSResourceStream *)v24 setOptions:options->storage_mode, options->creation_mode];
+  [(PSResourceStream *)v24 setMetadataIOSurfaceProperties:propertiesCopy];
+  v24->_height = height;
+  v24->_width = width;
+  v24->_pixelFormat = format;
+  v24->_dxHeight = dxHeight;
+  v24->_dxWidth = dxWidth;
+  v24->_dxPixelFormat = pixelFormat;
+  v24->_dyHeight = dyHeight;
+  v24->_dyWidth = dyWidth;
+  v24->_dyPixelFormat = dyPixelFormat;
+  v24->_scoreHeight = scoreHeight;
+  v24->_scoreWidth = scoreWidth;
+  v24->_scorePixelFormat = scorePixelFormat;
+
+  return v24;
 }
 
 - (BOOL)validate:(id *)validate

@@ -64,169 +64,167 @@
 - (int64_t)__statusForID:(id)d onService:(id)service isCanonicalized:(BOOL)canonicalized
 {
   canonicalizedCopy = canonicalized;
-  v50 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dCopy = d;
   serviceCopy = service;
-  if (objc_msgSend_length(dCopy, v10, v11) >= 2 && objc_msgSend_characterAtIndex_(dCopy, v12, 1) == 58)
+  if ([dCopy length] >= 2 && objc_msgSend(dCopy, "characterAtIndex:", 1) == 58)
   {
-    v14 = 3;
+    v10 = 3;
   }
 
   else
   {
-    v14 = 0;
+    v10 = 0;
     if (dCopy && serviceCopy)
     {
       if (canonicalizedCopy)
       {
-        v15 = objc_msgSend__bestGuessURIFromCanicalizedID(dCopy, v12, v13);
+        _bestGuessURIFromCanicalizedID = [dCopy _bestGuessURIFromCanicalizedID];
       }
 
       else
       {
-        if (objc_msgSend__appearsToBePhoneNumber(dCopy, v12, v13) && (objc_msgSend_hasPrefix_(dCopy, v16, @"+") & 1) == 0)
+        if ([dCopy _appearsToBePhoneNumber] && (objc_msgSend(dCopy, "hasPrefix:", @"+") & 1) == 0)
         {
-          v18 = IMCleanupPhoneNumber();
+          v12 = IMCleanupPhoneNumber();
 
-          dCopy = v18;
+          dCopy = v12;
         }
 
-        v15 = objc_msgSend__bestGuessURI(dCopy, v16, v17);
+        _bestGuessURIFromCanicalizedID = [dCopy _bestGuessURI];
       }
 
-      v19 = v15;
+      v13 = _bestGuessURIFromCanicalizedID;
       if (IMOSLoggingEnabled())
       {
-        v22 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+        v14 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412802;
           *&buf[4] = dCopy;
           *&buf[12] = 2112;
           *&buf[14] = serviceCopy;
           *&buf[22] = 2112;
-          v49 = v19;
-          _os_log_impl(&dword_1A823F000, v22, OS_LOG_TYPE_DEBUG, "ID %@  onService: %@   (URI: %@)", buf, 0x20u);
+          v27 = v13;
+          _os_log_impl(&dword_1A823F000, v14, OS_LOG_TYPE_DEBUG, "ID %@  onService: %@   (URI: %@)", buf, 0x20u);
         }
       }
 
-      v23 = sub_1A8366D24(serviceCopy, v20, v21);
-      objc_msgSend_lock(self->_servicesLock, v24, v25);
-      if ((objc_msgSend_containsObject_(self->_servicesRegistered, v26, v23) & 1) == 0)
+      v15 = sub_1A8366D24(serviceCopy);
+      [(NSRecursiveLock *)self->_servicesLock lock];
+      if (([(NSMutableSet *)self->_servicesRegistered containsObject:v15]& 1) == 0)
       {
-        objc_msgSend_addObject_(self->_servicesRegistered, v27, v23);
-        v31 = objc_msgSend_sharedInstance(MEMORY[0x1E69A4878], v29, v30);
-        objc_msgSend_addDelegate_forService_listenerID_queue_(v31, v32, self, v23, @"IMIDStatusControllerListenerID", MEMORY[0x1E69E96A0]);
+        [(NSMutableSet *)self->_servicesRegistered addObject:v15];
+        mEMORY[0x1E69A4878] = [MEMORY[0x1E69A4878] sharedInstance];
+        [mEMORY[0x1E69A4878] addDelegate:self forService:v15 listenerID:@"IMIDStatusControllerListenerID" queue:MEMORY[0x1E69E96A0]];
       }
 
-      objc_msgSend_unlock(self->_servicesLock, v27, v28);
+      [(NSRecursiveLock *)self->_servicesLock unlock];
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      v49 = 0;
+      v27 = 0;
       if (qword_1EB2EA410 != -1)
       {
         sub_1A84E21EC();
       }
 
       pthread_mutex_lock(&stru_1EB2E5670);
-      v35 = objc_msgSend_sharedInstance(MEMORY[0x1E69A4878], v33, v34);
-      hasCacheForService = objc_msgSend__hasCacheForService_(v35, v36, v23);
+      mEMORY[0x1E69A4878]2 = [MEMORY[0x1E69A4878] sharedInstance];
+      v18 = [mEMORY[0x1E69A4878]2 _hasCacheForService:v15];
 
-      v39 = MEMORY[0x1E69A80B0];
-      if (hasCacheForService)
+      v19 = MEMORY[0x1E69A80B0];
+      if (v18)
       {
-        v40 = objc_msgSend__currentCachedIDStatusForDestination_service_listenerID_(MEMORY[0x1E69A80B0], v38, v19, v23, @"IMIDStatusControllerListenerID");
-        *(*&buf[8] + 24) = v40;
+        v20 = [MEMORY[0x1E69A80B0] _currentCachedIDStatusForDestination:v13 service:v15 listenerID:@"IMIDStatusControllerListenerID"];
+        *(*&buf[8] + 24) = v20;
       }
 
       else
       {
-        v41 = dispatch_get_global_queue(0, 0);
-        v47[0] = MEMORY[0x1E69E9820];
-        v47[1] = 3221225472;
-        v47[2] = sub_1A8366DA8;
-        v47[3] = &unk_1E7813708;
-        v47[4] = buf;
-        objc_msgSend_currentIDStatusForDestination_service_listenerID_queue_completionBlock_(v39, v42, v19, v23, @"IMIDStatusControllerListenerID", v41, v47);
+        v21 = dispatch_get_global_queue(0, 0);
+        v25[0] = MEMORY[0x1E69E9820];
+        v25[1] = 3221225472;
+        v25[2] = sub_1A8366DA8;
+        v25[3] = &unk_1E7813708;
+        v25[4] = buf;
+        [v19 currentIDStatusForDestination:v13 service:v15 listenerID:@"IMIDStatusControllerListenerID" queue:v21 completionBlock:v25];
 
-        v43 = qword_1EB2EA408;
-        v44 = dispatch_time(0, 5000000);
-        dispatch_semaphore_wait(v43, v44);
+        v22 = qword_1EB2EA408;
+        v23 = dispatch_time(0, 5000000);
+        dispatch_semaphore_wait(v22, v23);
       }
 
       pthread_mutex_unlock(&stru_1EB2E5670);
-      v14 = *(*&buf[8] + 24);
+      v10 = *(*&buf[8] + 24);
       _Block_object_dispose(buf, 8);
     }
   }
 
-  v45 = *MEMORY[0x1E69E9840];
-  return v14;
+  return v10;
 }
 
 - (int64_t)_idStatusForID:(id)d onAccount:(id)account
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   v6 = IMCleanupPhoneNumber();
   if (IMOSLoggingEnabled())
   {
-    v9 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v7 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v19 = 138412546;
-      v20 = v6;
-      v21 = 2112;
-      v22 = accountCopy;
-      _os_log_impl(&dword_1A823F000, v9, OS_LOG_TYPE_INFO, "ID %@  onAccount: %@", &v19, 0x16u);
+      v13 = 138412546;
+      v14 = v6;
+      v15 = 2112;
+      v16 = accountCopy;
+      _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "ID %@  onAccount: %@", &v13, 0x16u);
     }
   }
 
-  v10 = 0;
+  v8 = 0;
   if (accountCopy && v6)
   {
-    v11 = objc_msgSend_service(accountCopy, v7, v8);
-    v10 = objc_msgSend__idStatusForID_onService_(self, v12, v6, v11);
+    service = [accountCopy service];
+    v8 = [(IMIDStatusController *)self _idStatusForID:v6 onService:service];
 
-    v14 = objc_msgSend_existingIMHandleWithID_(accountCopy, v13, v6);
-    objc_msgSend__setIDStatus_(v14, v15, v10);
+    v10 = [accountCopy existingIMHandleWithID:v6];
+    [v10 _setIDStatus:v8];
     if (IMOSLoggingEnabled())
     {
-      v16 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v11 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v19 = 138412546;
-        v20 = v6;
-        v21 = 2048;
-        v22 = v10;
-        _os_log_impl(&dword_1A823F000, v16, OS_LOG_TYPE_INFO, "Status for %@ is %ld", &v19, 0x16u);
+        v13 = 138412546;
+        v14 = v6;
+        v15 = 2048;
+        v16 = v8;
+        _os_log_impl(&dword_1A823F000, v11, OS_LOG_TYPE_INFO, "Status for %@ is %ld", &v13, 0x16u);
       }
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-  return v10;
+  return v8;
 }
 
 - (void)_requestStatusForID:(id)d onService:(id)service onAccount:(id)account
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dCopy = d;
   serviceCopy = service;
   accountCopy = account;
   if (IMOSLoggingEnabled())
   {
-    v13 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v11 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
-      v46 = dCopy;
-      v47 = 2112;
-      v48 = serviceCopy;
-      v49 = 2112;
-      v50 = accountCopy;
-      _os_log_impl(&dword_1A823F000, v13, OS_LOG_TYPE_DEBUG, "ID %@  onService: %@  onAccount: %@", buf, 0x20u);
+      v27 = dCopy;
+      v28 = 2112;
+      v29 = serviceCopy;
+      v30 = 2112;
+      v31 = accountCopy;
+      _os_log_impl(&dword_1A823F000, v11, OS_LOG_TYPE_DEBUG, "ID %@  onService: %@  onAccount: %@", buf, 0x20u);
     }
   }
 
@@ -236,74 +234,74 @@
     {
       if (!accountCopy)
       {
-        v14 = objc_msgSend_sharedInstance(IMAccountController, v11, v12);
-        accountCopy = objc_msgSend__bestOperationalAccountForSendingForService_(v14, v15, serviceCopy);
+        v12 = +[IMAccountController sharedInstance];
+        accountCopy = [v12 _bestOperationalAccountForSendingForService:serviceCopy];
       }
 
       if (!serviceCopy)
       {
-        serviceCopy = objc_msgSend_service(accountCopy, v11, v12);
+        serviceCopy = [accountCopy service];
       }
 
-      if (objc_msgSend__isUsableForSending(accountCopy, v11, v12) && objc_msgSend_supportsIDStatusLookup(serviceCopy, v16, v17))
+      if ([accountCopy _isUsableForSending] && objc_msgSend(serviceCopy, "supportsIDStatusLookup"))
       {
         if (IMOSLoggingEnabled())
         {
-          v20 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+          v13 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;
-            v46 = dCopy;
-            v47 = 2112;
-            v48 = serviceCopy;
-            _os_log_impl(&dword_1A823F000, v20, OS_LOG_TYPE_INFO, "Sending request to daemon for ID %@ onService %@", buf, 0x16u);
+            v27 = dCopy;
+            v28 = 2112;
+            v29 = serviceCopy;
+            _os_log_impl(&dword_1A823F000, v13, OS_LOG_TYPE_INFO, "Sending request to daemon for ID %@ onService %@", buf, 0x16u);
           }
         }
 
-        if (objc_msgSend__appearsToBePhoneNumber(dCopy, v18, v19))
+        if ([dCopy _appearsToBePhoneNumber])
         {
-          v21 = MEMORY[0x1AC56B710](dCopy, 0, 1);
+          v14 = MEMORY[0x1AC56B710](dCopy, 0, 1);
         }
 
         else
         {
-          v21 = MEMORY[0x1AC56B6F0](dCopy);
+          v14 = MEMORY[0x1AC56B6F0](dCopy);
         }
 
-        v25 = v21;
-        v26 = sub_1A8366D24(serviceCopy, v22, v23);
-        objc_msgSend_lock(self->_servicesLock, v27, v28);
-        if ((objc_msgSend_containsObject_(self->_servicesRegistered, v29, v26) & 1) == 0)
+        v16 = v14;
+        v17 = sub_1A8366D24(serviceCopy);
+        [(NSRecursiveLock *)self->_servicesLock lock];
+        if (([(NSMutableSet *)self->_servicesRegistered containsObject:v17]& 1) == 0)
         {
-          objc_msgSend_addObject_(self->_servicesRegistered, v30, v26);
-          v34 = objc_msgSend_sharedInstance(MEMORY[0x1E69A4878], v32, v33);
-          objc_msgSend_addDelegate_forService_listenerID_queue_(v34, v35, self, v26, @"IMIDStatusControllerListenerID", MEMORY[0x1E69E96A0]);
+          [(NSMutableSet *)self->_servicesRegistered addObject:v17];
+          mEMORY[0x1E69A4878] = [MEMORY[0x1E69A4878] sharedInstance];
+          [mEMORY[0x1E69A4878] addDelegate:self forService:v17 listenerID:@"IMIDStatusControllerListenerID" queue:MEMORY[0x1E69E96A0]];
         }
 
-        objc_msgSend_unlock(self->_servicesLock, v30, v31);
-        v36 = MEMORY[0x1E69A80B0];
-        v41[0] = MEMORY[0x1E69E9820];
-        v41[1] = 3221225472;
-        v41[2] = sub_1A836738C;
-        v41[3] = &unk_1E7813730;
-        v42 = v25;
+        [(NSRecursiveLock *)self->_servicesLock unlock];
+        v19 = MEMORY[0x1E69A80B0];
+        v22[0] = MEMORY[0x1E69E9820];
+        v22[1] = 3221225472;
+        v22[2] = sub_1A836738C;
+        v22[3] = &unk_1E7813730;
+        v23 = v16;
         selfCopy = self;
-        v44 = v26;
-        v37 = v26;
-        v38 = v25;
-        objc_msgSend_refreshIDStatusForDestination_service_listenerID_queue_completionBlock_(v36, v39, v38, v37, @"IMIDStatusControllerListenerID", MEMORY[0x1E69E96A0], v41);
+        v25 = v17;
+        v20 = v17;
+        v21 = v16;
+        [v19 refreshIDStatusForDestination:v21 service:v20 listenerID:@"IMIDStatusControllerListenerID" queue:MEMORY[0x1E69E96A0] completionBlock:v22];
       }
 
       else if (IMOSLoggingEnabled())
       {
-        v24 = OSLogHandleForIMEventCategory();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+        v15 = OSLogHandleForIMEventCategory();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v46 = dCopy;
-          v47 = 2112;
-          v48 = serviceCopy;
-          _os_log_impl(&dword_1A823F000, v24, OS_LOG_TYPE_INFO, "Cannot issue ID status for ID: %@   on service: %@", buf, 0x16u);
+          v27 = dCopy;
+          v28 = 2112;
+          v29 = serviceCopy;
+          _os_log_impl(&dword_1A823F000, v15, OS_LOG_TYPE_INFO, "Cannot issue ID status for ID: %@   on service: %@", buf, 0x16u);
         }
       }
     }
@@ -314,32 +312,29 @@
       serviceCopy = 0;
     }
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)statusForID:(id)d onService:(id)service
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dCopy = d;
   serviceCopy = service;
   if (IMOSLoggingEnabled())
   {
-    v9 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v8 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v13 = 138412546;
-      v14 = dCopy;
-      v15 = 2112;
-      v16 = serviceCopy;
-      _os_log_impl(&dword_1A823F000, v9, OS_LOG_TYPE_DEBUG, "ID %@  onService: %@", &v13, 0x16u);
+      v11 = 138412546;
+      v12 = dCopy;
+      v13 = 2112;
+      v14 = serviceCopy;
+      _os_log_impl(&dword_1A823F000, v8, OS_LOG_TYPE_DEBUG, "ID %@  onService: %@", &v11, 0x16u);
     }
   }
 
-  v10 = objc_msgSend__idStatusForID_onService_(self, v8, dCopy, serviceCopy);
+  v9 = [(IMIDStatusController *)self _idStatusForID:dCopy onService:serviceCopy];
 
-  v11 = *MEMORY[0x1E69E9840];
-  return v10;
+  return v9;
 }
 
 @end

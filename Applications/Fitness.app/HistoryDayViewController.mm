@@ -23,7 +23,7 @@
 - (void)willMoveToParentViewController:(id)controller
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for HistoryDayViewController();
+  v6.super_class = type metadata accessor for HistoryDayViewController(0);
   controllerCopy = controller;
   v5 = v6.receiver;
   [(HistoryDayViewController *)&v6 willMoveToParentViewController:controllerCopy];
@@ -39,7 +39,7 @@
 - (void)viewWillLayoutSubviews
 {
   v14.receiver = self;
-  v14.super_class = type metadata accessor for HistoryDayViewController();
+  v14.super_class = type metadata accessor for HistoryDayViewController(0);
   v2 = v14.receiver;
   [(HistoryDayViewController *)&v14 viewWillLayoutSubviews];
   v3 = *&v2[OBJC_IVAR____TtC10FitnessApp24HistoryDayViewController_tableView];
@@ -73,7 +73,7 @@
   if (*(&self->super.super.super.isa + OBJC_IVAR____TtC10FitnessApp24HistoryDayViewController_activitySummary))
   {
     selfCopy = self;
-    sub_100511674();
+    sub_100511674(selfCopy, v2);
   }
 
   else

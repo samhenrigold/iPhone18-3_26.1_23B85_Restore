@@ -23,7 +23,7 @@
     [v8 addObject:v9];
   }
 
-  if ([v8 count])
+  if (objc_msgSend_count(v8))
   {
     v10 = [v8 componentsJoinedByString:@" - "];
   }
@@ -48,7 +48,7 @@
     [(SPUISNewsResultBuilder *)v5 setPublishedDate:v6];
 
     v7 = [resultCopy valueForAttribute:*MEMORY[0x277CC31F0] withType:objc_opt_class()];
-    [(SPUISNewsResultBuilder *)v5 setTitle:v7];
+    objc_msgSend_setTitle_(v5);
 
     v8 = [resultCopy valueForAttribute:*MEMORY[0x277CC2DD0] withType:objc_opt_class()];
     [(SPUISNewsResultBuilder *)v5 setNewsSource:v8];
@@ -62,8 +62,8 @@
   v5.receiver = self;
   v5.super_class = SPUISNewsResultBuilder;
   buildInlineCardSection = [(SPUISResultBuilder *)&v5 buildInlineCardSection];
-  title = [buildInlineCardSection title];
-  [title setMaxLines:2];
+  v3 = objc_msgSend_title(buildInlineCardSection);
+  [v3 setMaxLines:2];
 
   return buildInlineCardSection;
 }

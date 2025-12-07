@@ -72,16 +72,16 @@
 
 + (id)br_getDomainForProvider:()BRAdditions withIdentifier:error:
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   v9 = v8;
   if (v7 && v8)
   {
     v10 = [objc_alloc(MEMORY[0x1E6967508]) _initWithProviderIdentifier:v7];
-    v25 = 0;
-    v11 = [v10 br_getFPDomainWithIdentifier:v9 withError:&v25];
-    v12 = v25;
+    v24 = 0;
+    v11 = [v10 br_getFPDomainWithIdentifier:v9 withError:&v24];
+    v12 = v24;
     v13 = v12;
     if (v12)
     {
@@ -90,20 +90,20 @@
       v16 = brc_default_log(0, 0);
       if (os_log_type_enabled(v16, 0x90u))
       {
-        v24 = "(passed to caller)";
+        v23 = "(passed to caller)";
         *buf = 136315906;
-        v27 = "+[NSFileProviderManager(BRAdditions) br_getDomainForProvider:withIdentifier:error:]";
-        v28 = 2080;
+        v26 = "+[NSFileProviderManager(BRAdditions) br_getDomainForProvider:withIdentifier:error:]";
+        v27 = 2080;
         if (!a5)
         {
-          v24 = "(ignored by caller)";
+          v23 = "(ignored by caller)";
         }
 
-        v29 = v24;
-        v30 = 2112;
-        v31 = v14;
-        v32 = 2112;
-        v33 = v15;
+        v28 = v23;
+        v29 = 2112;
+        v30 = v14;
+        v31 = 2112;
+        v32 = v15;
         _os_log_error_impl(&dword_1AE2A9000, v16, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
 
@@ -124,20 +124,20 @@
       v19 = brc_default_log(0, 0);
       if (os_log_type_enabled(v19, 0x90u))
       {
-        v23 = "(passed to caller)";
+        v22 = "(passed to caller)";
         *buf = 136315906;
-        v27 = "+[NSFileProviderManager(BRAdditions) br_getDomainForProvider:withIdentifier:error:]";
-        v28 = 2080;
+        v26 = "+[NSFileProviderManager(BRAdditions) br_getDomainForProvider:withIdentifier:error:]";
+        v27 = 2080;
         if (!a5)
         {
-          v23 = "(ignored by caller)";
+          v22 = "(ignored by caller)";
         }
 
-        v29 = v23;
-        v30 = 2112;
-        v31 = v10;
-        v32 = 2112;
-        v33 = v18;
+        v28 = v22;
+        v29 = 2112;
+        v30 = v10;
+        v31 = 2112;
+        v32 = v18;
         _os_log_error_impl(&dword_1AE2A9000, v19, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -155,8 +155,6 @@
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
@@ -170,7 +168,7 @@
 
 + (id)br_sharedProviderManagerWithDomainID:()BRAdditions
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (br_sharedProviderManagerWithDomainID__onceToken != -1)
   {
@@ -205,29 +203,29 @@
 
   else
   {
-    v20 = 0;
-    v9 = [self _br_createNSFileProviderManagerForDataSeparated:IsDataSeparated withDomainID:v4 didMatchedDomain:&v20];
+    v19 = 0;
+    v9 = [self _br_createNSFileProviderManagerForDataSeparated:IsDataSeparated withDomainID:v4 didMatchedDomain:&v19];
     v12 = brc_bread_crumbs("+[NSFileProviderManager(BRAdditions) br_sharedProviderManagerWithDomainID:]", 92);
     v13 = brc_default_log(1, 0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v22 = v9;
-      v23 = 2112;
-      v24 = v12;
+      v21 = v9;
+      v22 = 2112;
+      v23 = v12;
       _os_log_impl(&dword_1AE2A9000, v13, OS_LOG_TYPE_DEFAULT, "[NOTICE] Trying to cache file provider manager %@%@", buf, 0x16u);
     }
 
-    if (v20 == 1)
+    if (v19 == 1)
     {
       v14 = brc_bread_crumbs("+[NSFileProviderManager(BRAdditions) br_sharedProviderManagerWithDomainID:]", 94);
       v15 = brc_default_log(1, 0);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v22 = v4;
-        v23 = 2112;
-        v24 = v14;
+        v21 = v4;
+        v22 = 2112;
+        v23 = v14;
         _os_log_impl(&dword_1AE2A9000, v15, OS_LOG_TYPE_DEFAULT, "[NOTICE] Was able to match domain %@, caching shared file provider manager%@", buf, 0x16u);
       }
 
@@ -241,17 +239,15 @@
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v22 = v4;
-        v23 = 2112;
-        v24 = v16;
+        v21 = v4;
+        v22 = 2112;
+        v23 = v16;
         _os_log_impl(&dword_1AE2A9000, v17, OS_LOG_TYPE_DEFAULT, "[NOTICE] Domain %@ was not found. Not caching file provider manager%@", buf, 0x16u);
       }
     }
   }
 
   objc_sync_exit(v8);
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -367,35 +363,35 @@
 
 + (id)br_getFPDomainsForProviderIdentifier:()BRAdditions withError:
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy_;
-  v27 = __Block_byref_object_dispose_;
-  v28 = 0;
   v22 = 0;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __85__NSFileProviderManager_BRAdditions__br_getFPDomainsForProviderIdentifier_withError___block_invoke;
-  v19[3] = &unk_1E7A14770;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy_;
+  v26 = __Block_byref_object_dispose_;
+  v27 = 0;
+  v21 = 0;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __85__NSFileProviderManager_BRAdditions__br_getFPDomainsForProviderIdentifier_withError___block_invoke;
+  v18[3] = &unk_1E7A14770;
   v6 = v5;
-  v20 = v6;
-  v21 = &v23;
-  [BRXPCClientUtils executeXPCWithMaxRetries:2 error:&v22 block:v19];
-  v7 = v22;
+  v19 = v6;
+  v20 = &v22;
+  [BRXPCClientUtils executeXPCWithMaxRetries:2 error:&v21 block:v18];
+  v7 = v21;
   v8 = brc_bread_crumbs("+[NSFileProviderManager(BRAdditions) br_getFPDomainsForProviderIdentifier:withError:]", 200);
   v9 = brc_default_log(1, 0);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v17 = v24[5];
+    v16 = v23[5];
     *buf = 138412802;
-    v30 = v17;
-    v31 = 2112;
-    v32 = v6;
-    v33 = 2112;
-    v34 = v8;
+    v29 = v16;
+    v30 = 2112;
+    v31 = v6;
+    v32 = 2112;
+    v33 = v8;
     _os_log_debug_impl(&dword_1AE2A9000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] Found the following domains: %@ from provider: %@%@", buf, 0x20u);
   }
 
@@ -406,20 +402,20 @@
     v12 = brc_default_log(0, 0);
     if (os_log_type_enabled(v12, 0x90u))
     {
-      v18 = "(passed to caller)";
+      v17 = "(passed to caller)";
       *buf = 136315906;
-      v30 = "+[NSFileProviderManager(BRAdditions) br_getFPDomainsForProviderIdentifier:withError:]";
-      v31 = 2080;
+      v29 = "+[NSFileProviderManager(BRAdditions) br_getFPDomainsForProviderIdentifier:withError:]";
+      v30 = 2080;
       if (!a4)
       {
-        v18 = "(ignored by caller)";
+        v17 = "(ignored by caller)";
       }
 
-      v32 = v18;
-      v33 = 2112;
-      v34 = v10;
-      v35 = 2112;
-      v36 = v11;
+      v31 = v17;
+      v32 = 2112;
+      v33 = v10;
+      v34 = 2112;
+      v35 = v11;
       _os_log_error_impl(&dword_1AE2A9000, v12, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -430,46 +426,33 @@
     *a4 = v10;
   }
 
-  v14 = v24[5];
-  _Block_object_dispose(&v23, 8);
-
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = v23[5];
+  _Block_object_dispose(&v22, 8);
 
   return v14;
 }
 
 + (void)br_getDomainForCurrentPersonaWithError:()BRAdditions .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Could not compute providerID%@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Could not compute providerID%@", &v2, 0xCu);
 }
 
 + (void)br_sharedProviderManagerWithDomainID:()BRAdditions .cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_1AE2A9000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] Getting shared provider manager for domain ID: %@%@", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1AE2A9000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] Getting shared provider manager for domain ID: %@%@", v1, 0x16u);
 }
 
 + (void)br_sharedProviderManagerWithDomainID:()BRAdditions .cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Returned cached shared provider manager%@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_br_createNSFileProviderManagerForDataSeparated:()BRAdditions withDomainID:didMatchedDomain:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_1AE2A9000, v0, v1, "[ERROR] Got an error when tried to retrieve domain: %@%@");
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Returned cached shared provider manager%@", &v2, 0xCu);
 }
 
 @end

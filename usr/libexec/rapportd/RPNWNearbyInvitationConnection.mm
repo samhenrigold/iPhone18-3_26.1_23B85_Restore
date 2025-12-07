@@ -4,6 +4,7 @@
 + (void)listConnections:(id)connections;
 + (void)removeConnection:(id)connection;
 - (RPNWNearbyInvitationConnection)init;
+- (RPNWNearbyInvitationConnection)initWithPeer:(id)peer session:(id)session inbound:(BOOL)inbound internal:(BOOL)internal applicationService:(id)service connectionID:(id)d endpointID:(id)iD;
 - (id)description;
 - (void)dealloc;
 @end
@@ -70,6 +71,42 @@
   }
 
   return v2;
+}
+
+- (RPNWNearbyInvitationConnection)initWithPeer:(id)peer session:(id)session inbound:(BOOL)inbound internal:(BOOL)internal applicationService:(id)service connectionID:(id)d endpointID:(id)iD
+{
+  internalCopy = internal;
+  inboundCopy = inbound;
+  peerCopy = peer;
+  sessionCopy = session;
+  serviceCopy = service;
+  dCopy = d;
+  iDCopy = iD;
+  v27.receiver = self;
+  v27.super_class = RPNWNearbyInvitationConnection;
+  v20 = [(RPNWNearbyInvitationConnection *)&v27 init];
+  v21 = v20;
+  if (v20)
+  {
+    [(RPNWNearbyInvitationConnection *)v20 setInbound:inboundCopy];
+    [(RPNWNearbyInvitationConnection *)v21 setInternal:internalCopy];
+    [(RPNWNearbyInvitationConnection *)v21 setApplicationService:serviceCopy];
+    [(RPNWNearbyInvitationConnection *)v21 setConnectionUUID:dCopy];
+    [(RPNWNearbyInvitationConnection *)v21 setEndpointUUID:iDCopy];
+    v22 = objc_alloc_init(RPNWNearbyInvitationPeer);
+    [(RPNWNearbyInvitationConnection *)v21 setPeer:v22];
+
+    peer = [(RPNWNearbyInvitationConnection *)v21 peer];
+    [peer setDestinationDevice:peerCopy];
+
+    peer2 = [(RPNWNearbyInvitationConnection *)v21 peer];
+    [peer2 setNearbyInvitationSession:sessionCopy];
+
+    [RPNWNearbyInvitationConnection addConnection:v21];
+    v25 = v21;
+  }
+
+  return v21;
 }
 
 - (void)dealloc

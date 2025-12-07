@@ -25,7 +25,7 @@
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  return objc_msgSend_stringWithFormat_(v3, v6, @"<%@: %p>", v7, v5, self);
+  return objc_msgSend_stringWithFormat_(v3, v6, @"<%@: %p>", v5, self);
 }
 
 @end

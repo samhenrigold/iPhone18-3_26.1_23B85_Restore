@@ -28,16 +28,14 @@ uint64_t __37__FLApprovedItemsFilter_sharedFilter__block_invoke()
   v3 = *(sharedFilter_filter + 8);
   *(sharedFilter_filter + 8) = v2;
 
-  v4 = [MEMORY[0x277CBEB98] setWithObjects:{@"com.apple.appleaccount.followup", @"com.apple.NewDeviceOutreach", @"com.apple.authkit", @"com.apple.corecdp", @"com.apple.icloud.quota", @"com.apple.AppleMediaServices", @"com.apple.followup.tests", @"com.apple.ndoagent", @"com.apple.CoreTelephony", @"com.apple.mobilerepair", @"com.apple.HomeKit", @"com.icloud.family", @"com.apple.backupd", 0}];
-  v5 = *(sharedFilter_filter + 16);
-  *(sharedFilter_filter + 16) = v4;
+  *(sharedFilter_filter + 16) = [MEMORY[0x277CBEB98] setWithObjects:{@"com.apple.appleaccount.followup", @"com.apple.NewDeviceOutreach", @"com.apple.authkit", @"com.apple.corecdp", @"com.apple.icloud.quota", @"com.apple.AppleMediaServices", @"com.apple.followup.tests", @"com.apple.ndoagent", @"com.apple.CoreTelephony", @"com.apple.mobilerepair", @"com.apple.HomeKit", @"com.icloud.family", @"com.apple.backupd", 0}];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (unint64_t)approvalStatusForItem:(id)item
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   v5 = +[FLEnvironment currentEnvironment];
   shouldHideAllFollowUps = [v5 shouldHideAllFollowUps];
@@ -51,18 +49,19 @@ uint64_t __37__FLApprovedItemsFilter_sharedFilter__block_invoke()
     {
       if (-[NSSet containsObject:](self->_approvedClientIdentifiers, "containsObject:", clientIdentifier) || -[NSSet containsObject:](self->_approvedItemIdentifiers, "containsObject:", uniqueIdentifier) || (approvedItemIdentifiers = self->_approvedItemIdentifiers, [itemCopy typeIdentifier], v12 = objc_claimAutoreleasedReturnValue(), LODWORD(approvedItemIdentifiers) = -[NSSet containsObject:](approvedItemIdentifiers, "containsObject:", v12), v12, approvedItemIdentifiers))
       {
-        v13 = [FLGroupViewModelImpl alloc];
+        v14 = [FLGroupViewModelImpl alloc];
         groupIdentifier = [itemCopy groupIdentifier];
-        v15 = [(FLGroupViewModelImpl *)v13 initWithIdentifier:groupIdentifier];
+        v16 = [(FLGroupViewModelImpl *)v14 initWithIdentifier:groupIdentifier];
 
-        if ([v15 restrictionEnabled]&& ![(FLApprovedItemsFilter *)self overrideGroupRestrictionsForItem:itemCopy])
+        restrictionEnabled = [v16 restrictionEnabled];
+        if (restrictionEnabled && (restrictionEnabled = [(FLApprovedItemsFilter *)self overrideGroupRestrictionsForItem:itemCopy], (restrictionEnabled & 1) == 0))
         {
-          v16 = _FLLogSystem();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v18 = _FLLogSystem(restrictionEnabled);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
-            v19 = 138412290;
-            v20 = itemCopy;
-            _os_log_impl(&dword_22E696000, v16, OS_LOG_TYPE_DEFAULT, "Item rejected due to group restriction: %@", &v19, 0xCu);
+            v20 = 138412290;
+            v21 = itemCopy;
+            _os_log_impl(&dword_22E696000, v18, OS_LOG_TYPE_DEFAULT, "Item rejected due to group restriction: %@", &v20, 0xCu);
           }
 
           v7 = 2;
@@ -70,12 +69,12 @@ uint64_t __37__FLApprovedItemsFilter_sharedFilter__block_invoke()
 
         else
         {
-          v16 = _FLLogSystem();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v18 = _FLLogSystem(restrictionEnabled);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
-            v19 = 138412290;
-            v20 = itemCopy;
-            _os_log_impl(&dword_22E696000, v16, OS_LOG_TYPE_DEFAULT, "Item approved: %@", &v19, 0xCu);
+            v20 = 138412290;
+            v21 = itemCopy;
+            _os_log_impl(&dword_22E696000, v18, OS_LOG_TYPE_DEFAULT, "Item approved: %@", &v20, 0xCu);
           }
 
           v7 = 1;
@@ -84,19 +83,19 @@ uint64_t __37__FLApprovedItemsFilter_sharedFilter__block_invoke()
         goto LABEL_20;
       }
 
-      v15 = _FLLogSystem();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = _FLLogSystem(v13);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [(FLApprovedItemsFilter *)itemCopy approvalStatusForItem:v15];
+        [(FLApprovedItemsFilter *)itemCopy approvalStatusForItem:v16];
       }
     }
 
     else
     {
-      v15 = _FLLogSystem();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = _FLLogSystem(clientIdentifier);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [(FLApprovedItemsFilter *)itemCopy approvalStatusForItem:v15];
+        [(FLApprovedItemsFilter *)itemCopy approvalStatusForItem:v16];
       }
     }
 
@@ -109,40 +108,36 @@ LABEL_20:
   v7 = 2;
 LABEL_21:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (BOOL)overrideGroupRestrictionsForItem:(id)item
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = @"com.apple.AAFollowUpIdentifier.RenewCredentials";
+  v9 = *MEMORY[0x277D85DE8];
+  v8 = @"com.apple.AAFollowUpIdentifier.RenewCredentials";
   v3 = MEMORY[0x277CBEA60];
   itemCopy = item;
-  v5 = [v3 arrayWithObjects:&v9 count:1];
+  v5 = [v3 arrayWithObjects:&v8 count:1];
   uniqueIdentifier = [itemCopy uniqueIdentifier];
 
   LOBYTE(v3) = [v5 containsObject:uniqueIdentifier];
-  v7 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (void)approvalStatusForItem:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22E696000, a2, OS_LOG_TYPE_ERROR, "Unknown item detected, please file a radar to [Follow Up | Requests] to be approved: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22E696000, a2, OS_LOG_TYPE_ERROR, "Unknown item detected, please file a radar to [Follow Up | Requests] to be approved: %@", &v2, 0xCu);
 }
 
 - (void)approvalStatusForItem:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22E696000, a2, OS_LOG_TYPE_ERROR, "Rejecting item as invalid: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22E696000, a2, OS_LOG_TYPE_ERROR, "Rejecting item as invalid: %@", &v2, 0xCu);
 }
 
 @end

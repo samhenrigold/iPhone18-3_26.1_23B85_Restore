@@ -14,59 +14,41 @@
 
 - (id)handleRequestCommandTypeNames
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   v3 = +[(CDMBaseCommand *)CDMUaaPNLProtoRequestCommand];
-  v8[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v5 = [v2 setWithArray:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)getCDMServiceAssetConfig
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(CDMServiceAssetConfig);
-  v7 = @"uaap/ssu";
-  v8 = @"com.apple.siri.nl.uaap.ssu";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v7 count:1];
-  v9[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v6 = @"uaap/ssu";
+  v7 = @"com.apple.siri.nl.uaap.ssu";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v6 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [(CDMServiceAssetConfig *)v2 addCDMFactorToFoldersMapping:v4 forAssetSet:0];
 
   [(CDMServiceAssetConfig *)v2 setIsAssetRequiredForSetup:0];
-  v5 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 - (void)loadOverrides:(id)overrides
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696AC08];
   overridesCopy = overrides;
   defaultManager = [v4 defaultManager];
   v7 = [MEMORY[0x1E695DFF8] URLWithString:@"overrides.pb" relativeToURL:overridesCopy];
 
-  if (!v7)
-  {
-    goto LABEL_8;
-  }
-
-  path = [v7 path];
-  if (!path)
-  {
-    goto LABEL_8;
-  }
-
-  v9 = path;
-  path2 = [v7 path];
-  v11 = [defaultManager fileExistsAtPath:path2];
-
-  if (v11)
+  if (v7 && ([v7 path], (v8 = objc_claimAutoreleasedReturnValue()) != 0) && (v9 = v8, objc_msgSend(v7, "path"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(defaultManager, "fileExistsAtPath:", v10), v10, v9, (v11 & 1) != 0))
   {
     v12 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v7];
     if (v12)
@@ -78,39 +60,36 @@
       v15 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        v17 = 136315394;
-        v18 = "[CDMUaaPNLProtoService loadOverrides:]";
-        v19 = 2112;
-        v20 = v7;
-        _os_log_impl(&dword_1DC287000, v15, OS_LOG_TYPE_INFO, "%s UaaP added override from pb file: %@", &v17, 0x16u);
+        v16 = 136315394;
+        v17 = "[CDMUaaPNLProtoService loadOverrides:]";
+        v18 = 2112;
+        v19 = v7;
+        _os_log_impl(&dword_1DC287000, v15, OS_LOG_TYPE_INFO, "%s UaaP added override from pb file: %@", &v16, 0x16u);
       }
     }
   }
 
   else
   {
-LABEL_8:
     v12 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v17 = 136315138;
-      v18 = "[CDMUaaPNLProtoService loadOverrides:]";
-      _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, "%s UaaP component override file is missing", &v17, 0xCu);
+      v16 = 136315138;
+      v17 = "[CDMUaaPNLProtoService loadOverrides:]";
+      _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, "%s UaaP component override file is missing", &v16, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)handle:(id)handle
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v36 = "[CDMUaaPNLProtoService handle:]";
+    v35 = "[CDMUaaPNLProtoService handle:]";
     _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s Calling UAAP Inference", buf, 0xCu);
   }
 
@@ -124,9 +103,9 @@ LABEL_8:
     {
       stringValue = [tokenChain stringValue];
       *buf = 136315394;
-      v36 = "[CDMUaaPNLProtoService handle:]";
-      v37 = 2112;
-      v38 = stringValue;
+      v35 = "[CDMUaaPNLProtoService handle:]";
+      v36 = 2112;
+      v37 = stringValue;
       _os_log_debug_impl(&dword_1DC287000, v8, OS_LOG_TYPE_DEBUG, "%s Handling UaaP request for utterance: %@", buf, 0x16u);
     }
 
@@ -144,9 +123,9 @@ LABEL_8:
         v15 = [v13 initWithCoreModel:parserModel domainModelBundles:v12];
 
         parserRequest3 = [handleCopy parserRequest];
-        v34 = 0;
-        v17 = [v15 predictionFromProtobufQuery:parserRequest3 error:&v34];
-        v18 = v34;
+        v33 = 0;
+        v17 = [v15 predictionFromProtobufQuery:parserRequest3 error:&v33];
+        v18 = v33;
 
         if (v17)
         {
@@ -163,15 +142,15 @@ LABEL_8:
 
           else
           {
-            v32 = CDMOSLoggerForCategory(0);
-            if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+            v31 = CDMOSLoggerForCategory(0);
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
             {
               localizedDescription = [v18 localizedDescription];
               *buf = 136315394;
-              v36 = "[CDMUaaPNLProtoService handle:]";
-              v37 = 2112;
-              v38 = localizedDescription;
-              _os_log_impl(&dword_1DC287000, v32, OS_LOG_TYPE_INFO, "%s [WARN]: UaaP provided no candidate parses: %@", buf, 0x16u);
+              v35 = "[CDMUaaPNLProtoService handle:]";
+              v36 = 2112;
+              v37 = localizedDescription;
+              _os_log_impl(&dword_1DC287000, v31, OS_LOG_TYPE_INFO, "%s [WARN]: UaaP provided no candidate parses: %@", buf, 0x16u);
             }
 
             v22 = [CDMUaaPNLProtoService createErrorResponse:v18];
@@ -180,12 +159,12 @@ LABEL_8:
 
         else
         {
-          v30 = CDMOSLoggerForCategory(0);
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+          v29 = CDMOSLoggerForCategory(0);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
           {
             *buf = 136315138;
-            v36 = "[CDMUaaPNLProtoService handle:]";
-            _os_log_impl(&dword_1DC287000, v30, OS_LOG_TYPE_INFO, "%s [WARN]: Received no UaaP result", buf, 0xCu);
+            v35 = "[CDMUaaPNLProtoService handle:]";
+            _os_log_impl(&dword_1DC287000, v29, OS_LOG_TYPE_INFO, "%s [WARN]: Received no UaaP result", buf, 0xCu);
           }
 
           v22 = [CDMUaaPNLProtoService createErrorResponse:v18];
@@ -209,7 +188,7 @@ LABEL_8:
       if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v36 = "[CDMUaaPNLProtoService handle:]";
+        v35 = "[CDMUaaPNLProtoService handle:]";
         _os_log_impl(&dword_1DC287000, v25, OS_LOG_TYPE_INFO, "%s [WARN]: CDM tokens empty", buf, 0xCu);
       }
 
@@ -225,9 +204,9 @@ LABEL_8:
     {
       serviceState = self->super.super._serviceState;
       *buf = 136315394;
-      v36 = "[CDMUaaPNLProtoService handle:]";
-      v37 = 2048;
-      v38 = serviceState;
+      v35 = "[CDMUaaPNLProtoService handle:]";
+      v36 = 2048;
+      v37 = serviceState;
       _os_log_impl(&dword_1DC287000, v23, OS_LOG_TYPE_INFO, "%s Not Ready! State: %tu", buf, 0x16u);
     }
 
@@ -235,14 +214,12 @@ LABEL_8:
     v22 = [CDMUaaPNLProtoService createErrorResponse:tokenChain];
   }
 
-  v28 = *MEMORY[0x1E69E9840];
-
   return v22;
 }
 
 - (id)setup:(id)setup
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   setupCopy = setup;
   self->super.super._serviceState = 2;
   dynamicConfig = [setupCopy dynamicConfig];
@@ -260,15 +237,15 @@ LABEL_8:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v50 = "[CDMUaaPNLProtoService setup:]";
+      v49 = "[CDMUaaPNLProtoService setup:]";
       _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s Fetching core model configuration", buf, 0xCu);
     }
 
     dynamicConfig3 = [setupCopy dynamicConfig];
     languageCode = [dynamicConfig3 languageCode];
-    v48 = 0;
-    v14 = [CDMUaaPNLModelProvider getCoreModelConfigurationForLocale:languageCode bundlePath:bundlePath error:&v48];
-    v15 = v48;
+    v47 = 0;
+    v14 = [CDMUaaPNLModelProvider getCoreModelConfigurationForLocale:languageCode bundlePath:bundlePath error:&v47];
+    v15 = v47;
 
     v16 = CDMOSLoggerForCategory(0);
     v17 = v16;
@@ -277,13 +254,13 @@ LABEL_8:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v50 = "[CDMUaaPNLProtoService setup:]";
+        v49 = "[CDMUaaPNLProtoService setup:]";
         _os_log_debug_impl(&dword_1DC287000, v17, OS_LOG_TYPE_DEBUG, "%s Loading core model bundle", buf, 0xCu);
       }
 
-      v47 = 0;
-      v18 = [CDMUaaPNLProtoService loadModelBundle:v14 error:&v47];
-      v19 = v47;
+      v46 = 0;
+      v18 = [CDMUaaPNLProtoService loadModelBundle:v14 error:&v46];
+      v19 = v46;
       coreModelBundle = self->__coreModelBundle;
       self->__coreModelBundle = v18;
 
@@ -292,20 +269,20 @@ LABEL_8:
       v23 = v22;
       if (v21)
       {
-        v44 = v19;
+        v43 = v19;
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315138;
-          v50 = "[CDMUaaPNLProtoService setup:]";
+          v49 = "[CDMUaaPNLProtoService setup:]";
           _os_log_debug_impl(&dword_1DC287000, v23, OS_LOG_TYPE_DEBUG, "%s Fetching app model configurations", buf, 0xCu);
         }
 
         v24 = objc_alloc_init(CDMUaaPNLModelProvider);
         dynamicConfig4 = [setupCopy dynamicConfig];
         languageCode2 = [dynamicConfig4 languageCode];
-        v46 = 0;
-        v27 = [(CDMUaaPNLModelProvider *)v24 getModelConfigsForLocale:languageCode2 error:&v46];
-        v45 = v46;
+        v45 = 0;
+        v27 = [(CDMUaaPNLModelProvider *)v24 getModelConfigsForLocale:languageCode2 error:&v45];
+        v44 = v45;
 
         if (v27)
         {
@@ -317,7 +294,7 @@ LABEL_8:
             if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315138;
-              v50 = "[CDMUaaPNLProtoService setup:]";
+              v49 = "[CDMUaaPNLProtoService setup:]";
               _os_log_debug_impl(&dword_1DC287000, &v30->super, OS_LOG_TYPE_DEBUG, "%s Loading app model bundles", buf, 0xCu);
             }
 
@@ -334,9 +311,9 @@ LABEL_8:
               {
                 v35 = [(NSSet *)self->__appModelBundles count];
                 *buf = 136315394;
-                v50 = "[CDMUaaPNLProtoService setup:]";
-                v51 = 2048;
-                v52 = v35;
+                v49 = "[CDMUaaPNLProtoService setup:]";
+                v50 = 2048;
+                v51 = v35;
                 _os_log_debug_impl(&dword_1DC287000, &v30->super, OS_LOG_TYPE_DEBUG, "%s Loaded %lu app model bundles", buf, 0x16u);
               }
             }
@@ -344,7 +321,7 @@ LABEL_8:
             else if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
             {
               *buf = 136315138;
-              v50 = "[CDMUaaPNLProtoService setup:]";
+              v49 = "[CDMUaaPNLProtoService setup:]";
               _os_log_impl(&dword_1DC287000, &v30->super, OS_LOG_TYPE_INFO, "%s [WARN]: Failed to load any app model bundles (despite having configurations)", buf, 0xCu);
             }
           }
@@ -352,7 +329,7 @@ LABEL_8:
           else if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
           {
             *buf = 136315138;
-            v50 = "[CDMUaaPNLProtoService setup:]";
+            v49 = "[CDMUaaPNLProtoService setup:]";
             _os_log_impl(&dword_1DC287000, &v30->super, OS_LOG_TYPE_INFO, "%s [WARN]: getModelConfigsForLocale returned an unexpected empty set", buf, 0xCu);
           }
         }
@@ -362,11 +339,11 @@ LABEL_8:
           v39 = CDMOSLoggerForCategory(0);
           if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
           {
-            localizedDescription = [v45 localizedDescription];
+            localizedDescription = [v44 localizedDescription];
             *buf = 136315394;
-            v50 = "[CDMUaaPNLProtoService setup:]";
-            v51 = 2112;
-            v52 = localizedDescription;
+            v49 = "[CDMUaaPNLProtoService setup:]";
+            v50 = 2112;
+            v51 = localizedDescription;
             _os_log_impl(&dword_1DC287000, v39, OS_LOG_TYPE_INFO, "%s [WARN]: Failed to fetch any app configuration (are any UaaP-enabled apps present?): %@", buf, 0x16u);
           }
 
@@ -377,7 +354,7 @@ LABEL_8:
 
         createSetupResponseCommand = [(CDMBaseService *)self createSetupResponseCommand];
 
-        v19 = v44;
+        v19 = v43;
       }
 
       else
@@ -386,9 +363,9 @@ LABEL_8:
         {
           localizedDescription2 = [v19 localizedDescription];
           *buf = 136315394;
-          v50 = "[CDMUaaPNLProtoService setup:]";
-          v51 = 2112;
-          v52 = localizedDescription2;
+          v49 = "[CDMUaaPNLProtoService setup:]";
+          v50 = 2112;
+          v51 = localizedDescription2;
           _os_log_impl(&dword_1DC287000, v23, OS_LOG_TYPE_INFO, "%s [WARN]: Failed to load core model bundle: %@", buf, 0x16u);
         }
 
@@ -402,9 +379,9 @@ LABEL_8:
       {
         localizedDescription3 = [v15 localizedDescription];
         *buf = 136315394;
-        v50 = "[CDMUaaPNLProtoService setup:]";
-        v51 = 2112;
-        v52 = localizedDescription3;
+        v49 = "[CDMUaaPNLProtoService setup:]";
+        v50 = 2112;
+        v51 = localizedDescription3;
         _os_log_impl(&dword_1DC287000, v17, OS_LOG_TYPE_INFO, "%s [WARN]: Failed to fetch core model configuration: %@", buf, 0x16u);
       }
 
@@ -418,14 +395,12 @@ LABEL_8:
     createSetupResponseCommand = [(CDMBaseService *)self createSetupResponseCommand];
   }
 
-  v42 = *MEMORY[0x1E69E9840];
-
   return createSetupResponseCommand;
 }
 
 + (id)loadModelBundle:(id)bundle error:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E69D14B8];
   bundleCopy = bundle;
   v7 = [[v5 alloc] initWithModelConfiguration:bundleCopy];
@@ -442,9 +417,9 @@ LABEL_8:
       {
         if (v11)
         {
-          v21 = 136315138;
-          v22 = "+[CDMUaaPNLProtoService loadModelBundle:error:]";
-          _os_log_debug_impl(&dword_1DC287000, v10, OS_LOG_TYPE_DEBUG, "%s Found calibration model in configuration: loading it", &v21, 0xCu);
+          v20 = 136315138;
+          v21 = "+[CDMUaaPNLProtoService loadModelBundle:error:]";
+          _os_log_debug_impl(&dword_1DC287000, v10, OS_LOG_TYPE_DEBUG, "%s Found calibration model in configuration: loading it", &v20, 0xCu);
         }
 
         v12 = [MEMORY[0x1E69D14A8] modelWithLoadedModelConfiguration:v7 error:error];
@@ -453,9 +428,9 @@ LABEL_8:
           v13 = CDMOSLoggerForCategory(0);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
-            v21 = 136315138;
-            v22 = "+[CDMUaaPNLProtoService loadModelBundle:error:]";
-            _os_log_impl(&dword_1DC287000, v13, OS_LOG_TYPE_INFO, "%s [WARN]: Failed to load calibration model", &v21, 0xCu);
+            v20 = 136315138;
+            v21 = "+[CDMUaaPNLProtoService loadModelBundle:error:]";
+            _os_log_impl(&dword_1DC287000, v13, OS_LOG_TYPE_INFO, "%s [WARN]: Failed to load calibration model", &v20, 0xCu);
           }
 
           if (error)
@@ -478,9 +453,9 @@ LABEL_26:
       {
         if (v11)
         {
-          v21 = 136315138;
-          v22 = "+[CDMUaaPNLProtoService loadModelBundle:error:]";
-          _os_log_debug_impl(&dword_1DC287000, v10, OS_LOG_TYPE_DEBUG, "%s Did not find calibration model in configuration: calibration will be disabled", &v21, 0xCu);
+          v20 = 136315138;
+          v21 = "+[CDMUaaPNLProtoService loadModelBundle:error:]";
+          _os_log_debug_impl(&dword_1DC287000, v10, OS_LOG_TYPE_DEBUG, "%s Did not find calibration model in configuration: calibration will be disabled", &v20, 0xCu);
         }
 
         v12 = 0;
@@ -494,9 +469,9 @@ LABEL_26:
     v18 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      v21 = 136315138;
-      v22 = "+[CDMUaaPNLProtoService loadModelBundle:error:]";
-      _os_log_impl(&dword_1DC287000, v18, OS_LOG_TYPE_INFO, "%s [WARN]: Failed to load parser model", &v21, 0xCu);
+      v20 = 136315138;
+      v21 = "+[CDMUaaPNLProtoService loadModelBundle:error:]";
+      _os_log_impl(&dword_1DC287000, v18, OS_LOG_TYPE_INFO, "%s [WARN]: Failed to load parser model", &v20, 0xCu);
     }
 
     if (error)
@@ -514,9 +489,9 @@ LABEL_25:
   v16 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
-    v21 = 136315138;
-    v22 = "+[CDMUaaPNLProtoService loadModelBundle:error:]";
-    _os_log_impl(&dword_1DC287000, v16, OS_LOG_TYPE_INFO, "%s [WARN]: Failed to load model configuration from disk", &v21, 0xCu);
+    v20 = 136315138;
+    v21 = "+[CDMUaaPNLProtoService loadModelBundle:error:]";
+    _os_log_impl(&dword_1DC287000, v16, OS_LOG_TYPE_INFO, "%s [WARN]: Failed to load model configuration from disk", &v20, 0xCu);
   }
 
   if (error)
@@ -532,8 +507,6 @@ LABEL_25:
 
 LABEL_27:
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v17;
 }
 
@@ -548,18 +521,18 @@ LABEL_27:
 
 + (id)detectForegroundAppForLocale:(id)locale
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   localeCopy = locale;
   v4 = objc_alloc_init(CDMUaaPNLModelProvider);
-  v16 = 0;
-  v5 = [(CDMUaaPNLModelProvider *)v4 getForegroundModelConfigForLocale:localeCopy error:&v16];
+  v15 = 0;
+  v5 = [(CDMUaaPNLModelProvider *)v4 getForegroundModelConfigForLocale:localeCopy error:&v15];
 
-  v6 = v16;
+  v6 = v15;
   if (v5)
   {
-    v15 = v6;
-    v7 = [CDMUaaPNLProtoService loadModelBundle:v5 error:&v15];
-    v8 = v15;
+    v14 = v6;
+    v7 = [CDMUaaPNLProtoService loadModelBundle:v5 error:&v14];
+    v8 = v14;
 
     if (v7)
     {
@@ -572,11 +545,11 @@ LABEL_27:
       v11 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v14 = [v8 description];
+        v13 = [v8 description];
         *buf = 136315394;
-        v18 = "+[CDMUaaPNLProtoService detectForegroundAppForLocale:]";
-        v19 = 2112;
-        v20 = v14;
+        v17 = "+[CDMUaaPNLProtoService detectForegroundAppForLocale:]";
+        v18 = 2112;
+        v19 = v13;
         _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s Failed to create foreground UaaP parser model %@", buf, 0x16u);
       }
 
@@ -591,7 +564,7 @@ LABEL_27:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v18 = "+[CDMUaaPNLProtoService detectForegroundAppForLocale:]";
+      v17 = "+[CDMUaaPNLProtoService detectForegroundAppForLocale:]";
       _os_log_debug_impl(&dword_1DC287000, v9, OS_LOG_TYPE_DEBUG, "%s Failed to find foreground app model configuration", buf, 0xCu);
     }
 
@@ -599,41 +572,39 @@ LABEL_27:
     v8 = v6;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 + (id)loadAppModelBundles:(id)bundles
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   bundlesCopy = bundles;
   v4 = [MEMORY[0x1E695DFA8] set];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v5 = bundlesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v21;
+    v9 = *v20;
     *&v7 = 136315394;
-    v18 = v7;
+    v17 = v7;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
-        v19 = 0;
-        v12 = [CDMUaaPNLProtoService loadModelBundle:v11 error:&v19, v18];
-        v13 = v19;
+        v11 = *(*(&v19 + 1) + 8 * i);
+        v18 = 0;
+        v12 = [CDMUaaPNLProtoService loadModelBundle:v11 error:&v18, v17];
+        v13 = v18;
         if (v12)
         {
           [v4 addObject:v12];
@@ -645,22 +616,20 @@ LABEL_27:
           if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
           {
             localizedDescription = [v13 localizedDescription];
-            *buf = v18;
-            v25 = "+[CDMUaaPNLProtoService loadAppModelBundles:]";
-            v26 = 2112;
-            v27 = localizedDescription;
+            *buf = v17;
+            v24 = "+[CDMUaaPNLProtoService loadAppModelBundles:]";
+            v25 = 2112;
+            v26 = localizedDescription;
             _os_log_impl(&dword_1DC287000, v14, OS_LOG_TYPE_INFO, "%s [WARN]: Error initializing model bundle: %@. Skipping.", buf, 0x16u);
           }
         }
       }
 
-      v8 = [v5 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v8);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

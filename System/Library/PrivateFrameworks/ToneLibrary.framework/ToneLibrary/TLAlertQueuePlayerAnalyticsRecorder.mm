@@ -60,90 +60,88 @@ uint64_t __53__TLAlertQueuePlayerAnalyticsRecorder_sharedRecorder__block_invoke(
 
 - (void)recordAnalytics:(id)analytics
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   analyticsCopy = analytics;
-  [(TLAudioQueue *)self->_audioQueue assertRunningOnAudioQueue];
-  v5 = TLLogPlayback();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  assertRunningOnAudioQueue = [(TLAudioQueue *)self->_audioQueue assertRunningOnAudioQueue];
+  v7 = TLLogPlayback(assertRunningOnAudioQueue, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v40 = 2114;
-    v41 = analyticsCopy;
-    _os_log_impl(&dword_1D9356000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Recording analytics: %{public}@", buf, 0x16u);
+    v43 = 2114;
+    v44 = analyticsCopy;
+    _os_log_impl(&dword_1D9356000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Recording analytics: %{public}@", buf, 0x16u);
   }
 
-  v36[0] = @"alertType";
-  v35 = NSStringFromTLAlertType([analyticsCopy alertType]);
-  v37[0] = v35;
-  v36[1] = @"toneIdentifier";
+  v39[0] = @"alertType";
+  v38 = NSStringFromTLAlertType([analyticsCopy alertType]);
+  v40[0] = v38;
+  v39[1] = @"toneIdentifier";
   toneIdentifierForAnalytics = [analyticsCopy toneIdentifierForAnalytics];
-  v37[1] = toneIdentifierForAnalytics;
-  v36[2] = @"toneKind";
+  v40[1] = toneIdentifierForAnalytics;
+  v39[2] = @"toneKind";
   toneKindForAnalytics = [analyticsCopy toneKindForAnalytics];
-  v37[2] = toneKindForAnalytics;
-  v36[3] = @"userVolume";
-  v6 = MEMORY[0x1E696AD98];
+  v40[2] = toneKindForAnalytics;
+  v39[3] = @"userVolume";
+  v8 = MEMORY[0x1E696AD98];
   [analyticsCopy userVolume];
-  v32 = [v6 numberWithFloat:?];
-  v37[3] = v32;
-  v36[4] = @"toneWasAttenuated";
-  v31 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(analyticsCopy, "didAttenuatePlayback")}];
-  v37[4] = v31;
-  v36[5] = @"timeToAttenuate";
-  v7 = MEMORY[0x1E696AD98];
+  v35 = [v8 numberWithFloat:?];
+  v40[3] = v35;
+  v39[4] = @"toneWasAttenuated";
+  v34 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(analyticsCopy, "didAttenuatePlayback")}];
+  v40[4] = v34;
+  v39[5] = @"timeToAttenuate";
+  v9 = MEMORY[0x1E696AD98];
   didAttenuatePlayback = [analyticsCopy didAttenuatePlayback];
-  v9 = 0.0;
+  v11 = 0.0;
   if (didAttenuatePlayback)
   {
     [analyticsCopy attenuationTime];
-    v11 = v10;
+    v13 = v12;
     [analyticsCopy startTime];
-    v9 = v11 - v12;
+    v11 = v13 - v14;
   }
 
-  v13 = [v7 numberWithDouble:v9];
-  v37[5] = v13;
-  v36[6] = @"timeToStopAlert";
-  v14 = MEMORY[0x1E696AD98];
+  v15 = [v9 numberWithDouble:v11];
+  v40[5] = v15;
+  v39[6] = @"timeToStopAlert";
+  v16 = MEMORY[0x1E696AD98];
   [analyticsCopy stopTime];
-  v16 = v15;
+  v18 = v17;
   [analyticsCopy startTime];
-  v18 = [v14 numberWithDouble:v16 - v17];
-  v37[6] = v18;
-  v36[7] = @"isDisplayInStandByMode";
-  v19 = [MEMORY[0x1E696AD98] numberWithBool:self->_isDisplayInStandByMode];
-  v37[7] = v19;
-  v36[8] = @"deviceChargingOnToneStart";
-  v20 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(analyticsCopy, "wasDeviceChargingOnStart")}];
-  v37[8] = v20;
-  v36[9] = @"deviceChargingOnToneStop";
+  v20 = [v16 numberWithDouble:v18 - v19];
+  v40[6] = v20;
+  v39[7] = @"isDisplayInStandByMode";
+  v21 = [MEMORY[0x1E696AD98] numberWithBool:self->_isDisplayInStandByMode];
+  v40[7] = v21;
+  v39[8] = @"deviceChargingOnToneStart";
+  v22 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(analyticsCopy, "wasDeviceChargingOnStart")}];
+  v40[8] = v22;
+  v39[9] = @"deviceChargingOnToneStop";
   selfCopy2 = self;
-  v21 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(analyticsCopy, "wasDeviceChargingOnStop")}];
-  v37[9] = v21;
-  v36[10] = @"deviceHasFaceID";
-  v22 = MEMORY[0x1E696AD98];
-  v23 = +[TLCapabilitiesManager sharedCapabilitiesManager];
-  v24 = [v22 numberWithBool:{objc_msgSend(v23, "hasFaceIDCapability")}];
-  v37[10] = v24;
-  v36[11] = @"deviceHasAttentionAwarenessEnabled";
-  v25 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(analyticsCopy, "isAttentionAwarenessSupportEnabled")}];
-  v37[11] = v25;
-  v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:12];
+  v23 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(analyticsCopy, "wasDeviceChargingOnStop")}];
+  v40[9] = v23;
+  v39[10] = @"deviceHasFaceID";
+  v24 = MEMORY[0x1E696AD98];
+  v25 = +[TLCapabilitiesManager sharedCapabilitiesManager];
+  v26 = [v24 numberWithBool:{objc_msgSend(v25, "hasFaceIDCapability")}];
+  v40[10] = v26;
+  v39[11] = @"deviceHasAttentionAwarenessEnabled";
+  v27 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(analyticsCopy, "isAttentionAwarenessSupportEnabled")}];
+  v40[11] = v27;
+  v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:12];
 
-  v27 = [objc_alloc(MEMORY[0x1E698D470]) initWithReporterID:{objc_msgSend(analyticsCopy, "reporterID")}];
-  [v27 sendMessage:v26 category:4 type:2];
-  v28 = TLLogPlayback();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v29 = [objc_alloc(MEMORY[0x1E698D470]) initWithReporterID:{objc_msgSend(analyticsCopy, "reporterID")}];
+  v30 = [v29 sendMessage:v28 category:4 type:2];
+  v32 = TLLogPlayback(v30, v31);
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = selfCopy2;
-    v40 = 2114;
-    v41 = v26;
-    _os_log_impl(&dword_1D9356000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@: Did send analytics message: %{public}@", buf, 0x16u);
+    v43 = 2114;
+    v44 = v28;
+    _os_log_impl(&dword_1D9356000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@: Did send analytics message: %{public}@", buf, 0x16u);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_beginMonitoringDisplayLayout
@@ -181,31 +179,31 @@ void __68__TLAlertQueuePlayerAnalyticsRecorder__beginMonitoringDisplayLayout__bl
 
 - (void)_updateWithDisplayLayout:(id)layout
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   layoutCopy = layout;
   [(TLAudioQueue *)self->_audioQueue assertRunningOnAudioQueue];
   [layoutCopy elements];
-  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v5 = v20 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v20 = 0u;
+  v5 = v21 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v19;
     v9 = *MEMORY[0x1E69D4418];
     while (2)
     {
       v10 = 0;
       do
       {
-        if (*v18 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        identifier = [*(*(&v17 + 1) + 8 * v10) identifier];
+        identifier = [*(*(&v18 + 1) + 8 * v10) identifier];
         v12 = [identifier isEqualToString:v9];
 
         if (v12)
@@ -218,7 +216,7 @@ void __68__TLAlertQueuePlayerAnalyticsRecorder__beginMonitoringDisplayLayout__bl
       }
 
       while (v7 != v10);
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v26 count:16];
       if (v7)
       {
         continue;
@@ -235,19 +233,17 @@ LABEL_11:
   {
     self->_isDisplayInStandByMode = v13;
     self->_hasInitializedDisplayInStandByModeFlag = 1;
-    v14 = TLLogPlayback();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = TLLogPlayback(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       isDisplayInStandByMode = self->_isDisplayInStandByMode;
       *buf = 138543618;
       selfCopy = self;
-      v23 = 1024;
-      v24 = isDisplayInStandByMode;
-      _os_log_impl(&dword_1D9356000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: isDisplayInStandByMode = %{BOOL}u", buf, 0x12u);
+      v24 = 1024;
+      v25 = isDisplayInStandByMode;
+      _os_log_impl(&dword_1D9356000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: isDisplayInStandByMode = %{BOOL}u", buf, 0x12u);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

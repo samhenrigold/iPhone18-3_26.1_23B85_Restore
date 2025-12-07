@@ -7,6 +7,7 @@
 - (BOOL)usesDisplayPortTethering;
 - (unsigned)_demoCardConnection;
 - (void)_handleDemoModeChanged;
+- (void)_postDisplayPortNotificationCode:(int)code;
 - (void)_setTetherState:(int)state;
 - (void)dealloc;
 - (void)noteInterfaceOrientationChangedWithInterfaceOrientation:(int)orientation;
@@ -619,6 +620,20 @@ LABEL_25:
     }
 
     self->_tetherState = state;
+  }
+}
+
+- (void)_postDisplayPortNotificationCode:(int)code
+{
+  v4 = [[NSString alloc] initWithFormat:@"com.apple.mobile.demo.mode-%d", *&code];
+  DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+  CFNotificationCenterPostNotification(DarwinNotifyCenter, v4, 0, 0, 1u);
+  v6 = BKLogDetailed();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 67109120;
+    codeCopy = code;
+    _os_log_debug_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "DEMO MODE NOTIFICATION: %d", buf, 8u);
   }
 }
 

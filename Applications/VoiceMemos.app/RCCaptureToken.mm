@@ -11,7 +11,7 @@
   selfCopy = self;
   [v2 setSuspended:0];
   v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for CaptureToken();
+  v4.super_class = type metadata accessor for CaptureToken(0);
   [(RCCaptureToken *)&v4 dealloc];
 }
 

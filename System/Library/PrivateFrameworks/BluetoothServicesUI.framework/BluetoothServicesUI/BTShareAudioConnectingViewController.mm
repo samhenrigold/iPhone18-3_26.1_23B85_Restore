@@ -1,19 +1,67 @@
 @interface BTShareAudioConnectingViewController
-- (uint64_t)_updateForDeviceInfo;
 - (void)_updateDeviceVisual:(id)visual;
 - (void)_updateForDeviceInfo;
 - (void)eventCancel:(id)cancel;
 - (void)sessionProgressEvent:(int)event info:(id)info;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation BTShareAudioConnectingViewController
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  selfCopy = self;
+  if (gLogCategory_BTShareAudioViewController <= 30)
+  {
+    if (gLogCategory_BTShareAudioViewController != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(BTShareAudioConnectingViewController *)self viewWillAppear:a2, appear];
+    }
+  }
+
+  v7.receiver = selfCopy;
+  v7.super_class = BTShareAudioConnectingViewController;
+  [(BTShareAudioBaseViewController *)&v7 viewWillAppear:appearCopy];
+  [(BTShareAudioConnectingViewController *)selfCopy _updateForDeviceInfo];
+  mainBundle = [(BTShareAudioViewController *)selfCopy->super._mainController mainBundle];
+  [(UIView *)selfCopy->_progressView startAnimating];
+  v6 = CULocalizedStringEx();
+  [(UIActivityIndicatorView *)selfCopy->_progressActivity setText:v6];
+
+  [(UILabel *)selfCopy->_progressLabel setHidden:1];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  selfCopy = self;
+  if (gLogCategory_BTShareAudioViewController <= 30)
+  {
+    if (gLogCategory_BTShareAudioViewController != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(BTShareAudioConnectingViewController *)self viewWillDisappear:a2, disappear];
+    }
+  }
+
+  v5.receiver = selfCopy;
+  v5.super_class = BTShareAudioConnectingViewController;
+  [(BTShareAudioBaseViewController *)&v5 viewWillDisappear:disappearCopy];
+  [(BTShareAudioViewController *)selfCopy->super._mainController setVcConnecting:0];
+  [(UIImageView *)selfCopy->_productImageView stop];
+}
+
 - (void)eventCancel:(id)cancel
 {
   cancelCopy = cancel;
-  if (gLogCategory_BTShareAudioViewController <= 30 && (gLogCategory_BTShareAudioViewController != -1 || _LogCategory_Initialize()))
+  v7 = cancelCopy;
+  if (gLogCategory_BTShareAudioViewController <= 30)
   {
-    [BTShareAudioConnectingViewController eventCancel:];
+    if (gLogCategory_BTShareAudioViewController != -1 || (cancelCopy = _LogCategory_Initialize(), cancelCopy))
+    {
+      [(BTShareAudioConnectingViewController *)cancelCopy eventCancel:v5, v6];
+    }
   }
 
   [(BTShareAudioViewController *)self->super._mainController reportUserCancelled];
@@ -103,7 +151,7 @@ void __60__BTShareAudioConnectingViewController__updateForDeviceInfo__block_invo
     v8 = [v9 assetBundlePath];
     if (gLogCategory_BTShareAudioViewController <= 30 && (gLogCategory_BTShareAudioViewController != -1 || _LogCategory_Initialize()))
     {
-      __60__BTShareAudioConnectingViewController__updateForDeviceInfo__block_invoke_cold_1(v6);
+      __60__BTShareAudioConnectingViewController__updateForDeviceInfo__block_invoke_cold_1();
     }
 
     [*v6 _updateDeviceVisual:v8];
@@ -112,8 +160,8 @@ void __60__BTShareAudioConnectingViewController__updateForDeviceInfo__block_invo
 
 - (void)_updateDeviceVisual:(id)visual
 {
-  v12 = [(BTShareAudioViewController *)self->super._mainController _moviePathForPID:self->_colorCode colorCode:self->_productIDActive];
-  v4 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@-Loop", v12];
+  v15 = [(BTShareAudioViewController *)self->super._mainController _moviePathForPID:self->_colorCode colorCode:self->_productIDActive];
+  v4 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@-Loop", v15];
   mainBundle = [(BTShareAudioViewController *)self->super._mainController mainBundle];
   v6 = [mainBundle pathForResource:v4 ofType:@"mov"];
 
@@ -121,7 +169,7 @@ void __60__BTShareAudioConnectingViewController__updateForDeviceInfo__block_invo
   {
     if (gLogCategory_BTShareAudioViewController <= 30 && (gLogCategory_BTShareAudioViewController != -1 || _LogCategory_Initialize()))
     {
-      [BTShareAudioConnectingViewController _updateDeviceVisual:];
+      [BTShareAudioConnectingViewController _updateDeviceVisual:v6];
     }
 
     [(UIImageView *)self->_productImageView startMovieLoopWithPath:v6];
@@ -131,40 +179,37 @@ void __60__BTShareAudioConnectingViewController__updateForDeviceInfo__block_invo
   else
   {
     v7 = [(BTShareAudioViewController *)self->super._mainController _imageForPID:self->_colorCode colorCode:self->_productIDActive];
+    v10 = v7;
     if (v7)
-    {
-      if (gLogCategory_BTShareAudioViewController <= 30 && (gLogCategory_BTShareAudioViewController != -1 || _LogCategory_Initialize()))
-      {
-        [(BTShareAudioConnectingViewController *)&self->_colorCode _updateDeviceVisual:?];
-      }
-
-      p_productID = &self->_productID;
-      [*p_productID setImage:v7];
-    }
-
-    else
     {
       if (gLogCategory_BTShareAudioViewController <= 30 && (gLogCategory_BTShareAudioViewController != -1 || _LogCategory_Initialize()))
       {
         [BTShareAudioConnectingViewController _updateDeviceVisual:];
       }
 
-      v9 = MEMORY[0x277D755B8];
+      p_productID = &self->_productID;
+      [*p_productID setImage:v10];
+    }
+
+    else
+    {
+      if (gLogCategory_BTShareAudioViewController <= 30)
+      {
+        if (gLogCategory_BTShareAudioViewController != -1 || (v7 = _LogCategory_Initialize(), v7))
+        {
+          [(BTShareAudioConnectingViewController *)v7 _updateDeviceVisual:v8, v9];
+        }
+      }
+
+      v12 = MEMORY[0x277D755B8];
       mainBundle2 = [(BTShareAudioViewController *)self->super._mainController mainBundle];
-      v11 = [v9 imageNamed:@"ShareAudioAirPods" inBundle:mainBundle2 compatibleWithTraitCollection:0];
+      v14 = [v12 imageNamed:@"ShareAudioAirPods" inBundle:mainBundle2 compatibleWithTraitCollection:0];
       p_productID = &self->_productMovieView;
-      [*p_productID setImage:v11];
+      [*p_productID setImage:v14];
     }
 
     [*p_productID setHidden:0];
   }
-}
-
-- (uint64_t)_updateForDeviceInfo
-{
-  v3 = *self;
-  v4 = *(a2 + 1024);
-  return LogPrintF();
 }
 
 @end

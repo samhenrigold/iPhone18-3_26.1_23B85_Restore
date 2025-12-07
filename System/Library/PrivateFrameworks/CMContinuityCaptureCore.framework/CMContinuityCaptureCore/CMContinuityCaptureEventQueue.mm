@@ -43,26 +43,23 @@ void __57__CMContinuityCaptureEventQueue_enqueueEventAction_args___block_invoke(
       v6 = *(a1 + 32);
       v7 = [WeakRetained[3] count];
       *buf = 138413058;
-      v15 = v4;
-      v16 = 1024;
-      v17 = v5;
-      v18 = 2112;
-      v19 = v6;
-      v20 = 2048;
-      v21 = v7;
+      v13 = v4;
+      v14 = 1024;
+      v15 = v5;
+      v16 = 2112;
+      v17 = v6;
+      v18 = 2048;
+      v19 = v7;
       _os_log_impl(&dword_242545000, v3, OS_LOG_TYPE_DEFAULT, "%@ enqueueEventAction %d %@ pendingActionCount %ld", buf, 0x26u);
     }
 
     v8 = objc_loadWeakRetained(WeakRetained + 1);
     v9 = WeakRetained[3];
-    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{*(a1 + 56), @"ContinuityCaptureSelector"}];
-    v12[1] = @"ContinuityCaptureArgs";
-    v13[0] = v10;
-    v13[1] = *(a1 + 32);
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-    [v9 addObject:v11];
+    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:@"ContinuityCaptureSelector"];
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+    [v9 addObject:?];
 
-    if ([WeakRetained[3] count] == 1 && (objc_msgSend(v8, "postEventAction:args:", *(a1 + 56), *(a1 + 32)) & 1) == 0)
+    if ([WeakRetained[3] count] == 1 && (objc_msgSend(v8, "postEventAction:args:") & 1) == 0)
     {
       [*(a1 + 40) notifyCompletion];
     }
@@ -97,12 +94,12 @@ void __77__CMContinuityCaptureEventQueue_setEventCompletionExpectationForIdentif
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v5 = WeakRetained;
-    v3 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:*(a1 + 32)];
-    v4 = v5[4];
-    v5[4] = v3;
+    v4 = WeakRetained;
+    v2 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:?];
+    v3 = v4[4];
+    v4[4] = v2;
 
-    WeakRetained = v5;
+    WeakRetained = v4;
   }
 }
 
@@ -127,38 +124,39 @@ void __77__CMContinuityCaptureEventQueue_setEventCompletionExpectationForIdentif
 void __63__CMContinuityCaptureEventQueue_notifyCompletionForIdentifier___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    if (CMContinityCaptureDebugLogEnabled())
+    if (CMContinityCaptureDebugLogEnabled(WeakRetained, v3))
     {
-      v3 = CMContinuityCaptureLog(0);
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+      v5 = CMContinuityCaptureLog(0);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
-        v6 = objc_loadWeakRetained((a1 + 40));
-        v7 = *(a1 + 32);
-        v8 = *(WeakRetained + 4);
-        v9 = *(WeakRetained + 5);
-        v10 = 138413058;
-        v11 = v6;
-        v12 = 2114;
-        v13 = v7;
+        v8 = objc_loadWeakRetained((a1 + 40));
+        v9 = *(a1 + 32);
+        v10 = *(v4 + 4);
+        v11 = *(v4 + 5);
+        v12 = 138413058;
+        v13 = v8;
         v14 = 2114;
-        v15 = v8;
+        v15 = v9;
         v16 = 2114;
-        v17 = v9;
-        _os_log_debug_impl(&dword_242545000, v3, OS_LOG_TYPE_DEBUG, "%@ notify completion for identifier %{public}@ expected %{public}@ completed %{public}@", &v10, 0x2Au);
+        v17 = v10;
+        v18 = 2114;
+        v19 = v11;
+        _os_log_debug_impl(&dword_242545000, v5, OS_LOG_TYPE_DEBUG, "%@ notify completion for identifier %{public}@ expected %{public}@ completed %{public}@", &v12, 0x2Au);
       }
     }
 
-    [*(WeakRetained + 5) addObject:*(a1 + 32)];
-    v4 = *(WeakRetained + 4);
-    if (v4 && [v4 isEqualToSet:*(WeakRetained + 5)])
+    [*(v4 + 5) addObject:?];
+    v6 = *(v4 + 4);
+    if (v6 && [v6 isEqualToSet:?])
     {
-      [*(WeakRetained + 5) removeAllObjects];
-      v5 = *(WeakRetained + 4);
-      *(WeakRetained + 4) = 0;
+      [*(v4 + 5) removeAllObjects];
+      v7 = *(v4 + 4);
+      *(v4 + 4) = 0;
 
-      [WeakRetained _notifyCompletion];
+      [v4 _notifyCompletion];
     }
   }
 }
@@ -191,18 +189,18 @@ void __49__CMContinuityCaptureEventQueue_notifyCompletion__block_invoke(uint64_t
   }
 
   firstObject = [(NSMutableArray *)self->_eventQueue firstObject];
-  v4 = [firstObject objectForKeyedSubscript:@"ContinuityCaptureArgs"];
+  v4 = [firstObject objectForKeyedSubscript:?];
 
   if (!v4 || [v4 count] < 3)
   {
     goto LABEL_33;
   }
 
-  v5 = [v4 objectAtIndexedSubscript:0];
-  v6 = [v4 objectAtIndexedSubscript:1];
-  v7 = [v4 objectAtIndexedSubscript:2];
+  v5 = [v4 objectAtIndexedSubscript:?];
+  v6 = [v4 objectAtIndexedSubscript:?];
+  v7 = [v4 objectAtIndexedSubscript:?];
   v8 = @"kCMContinuityCaptureEventStartStream";
-  if (![v5 isEqualToString:@"kCMContinuityCaptureEventStartStream"] || -[NSMutableArray count](self->_eventQueue, "count") < 2)
+  if (![v5 isEqualToString:?] || -[NSMutableArray count](self->_eventQueue, "count") < 2)
   {
     goto LABEL_32;
   }
@@ -213,33 +211,33 @@ void __49__CMContinuityCaptureEventQueue_notifyCompletion__block_invoke(uint64_t
   v9 = 1;
   do
   {
-    v10 = [(NSMutableArray *)self->_eventQueue objectAtIndexedSubscript:v9];
-    v11 = [v10 objectForKeyedSubscript:@"ContinuityCaptureSelector"];
+    v10 = [(NSMutableArray *)self->_eventQueue objectAtIndexedSubscript:?];
+    v11 = [v10 objectForKeyedSubscript:?];
 
     if (v11)
     {
-      v12 = [(NSMutableArray *)self->_eventQueue objectAtIndexedSubscript:v9];
-      v13 = [v12 objectForKeyedSubscript:@"ContinuityCaptureSelector"];
+      v12 = [(NSMutableArray *)self->_eventQueue objectAtIndexedSubscript:?];
+      v13 = [v12 objectForKeyedSubscript:?];
       unsignedIntValue = [v13 unsignedIntValue];
 
       if (unsignedIntValue == 3)
       {
-        v15 = [(NSMutableArray *)self->_eventQueue objectAtIndexedSubscript:v9];
-        v16 = [v15 objectForKeyedSubscript:@"ContinuityCaptureArgs"];
+        v15 = [(NSMutableArray *)self->_eventQueue objectAtIndexedSubscript:?];
+        v16 = [v15 objectForKeyedSubscript:?];
 
         if (!v16 || [v16 count] < 3)
         {
           goto LABEL_23;
         }
 
-        v17 = [v16 objectAtIndexedSubscript:0];
-        v18 = [v16 objectAtIndexedSubscript:1];
-        if ([v17 isEqualToString:@"kCMContinuityCaptureEventStopStream"] && (v19 = objc_msgSend(v18, "unsignedIntValue"), v19 == objc_msgSend(v6, "unsignedIntValue")))
+        v17 = [v16 objectAtIndexedSubscript:?];
+        v18 = [v16 objectAtIndexedSubscript:?];
+        if ([v17 isEqualToString:?] && (v19 = objc_msgSend(v18, "unsignedIntValue"), v19 == objc_msgSend(v6, "unsignedIntValue")))
         {
           v20 = CMContinuityCaptureLog(0);
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
-            [(NSMutableArray *)self->_eventQueue objectAtIndexedSubscript:v9];
+            [(NSMutableArray *)self->_eventQueue objectAtIndexedSubscript:?];
             v34 = v29 = v8;
             firstObject2 = [(NSMutableArray *)self->_eventQueue firstObject];
             *buf = 138412802;
@@ -259,7 +257,7 @@ void __49__CMContinuityCaptureEventQueue_notifyCompletion__block_invoke(uint64_t
 
         else
         {
-          if (![v17 isEqualToString:v8])
+          if (![v17 isEqualToString:?])
           {
             goto LABEL_22;
           }
@@ -273,7 +271,7 @@ void __49__CMContinuityCaptureEventQueue_notifyCompletion__block_invoke(uint64_t
           v20 = CMContinuityCaptureLog(0);
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
-            v35 = [(NSMutableArray *)self->_eventQueue objectAtIndexedSubscript:v9];
+            v35 = [(NSMutableArray *)self->_eventQueue objectAtIndexedSubscript:?];
             firstObject3 = [(NSMutableArray *)self->_eventQueue firstObject];
             *buf = 138412802;
             selfCopy3 = self;
@@ -313,17 +311,17 @@ LABEL_23:
 
     if (v31)
     {
-      v26 = [v31 objectForKeyedSubscript:@"CMContinuityCaptureStateMachineEventDataCompletionBlock"];
+      v26 = [v31 objectForKeyedSubscript:?];
 
       if (v26)
       {
-        v27 = [v31 objectForKeyedSubscript:@"CMContinuityCaptureStateMachineEventDataCompletionBlock"];
-        v28 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ContinuityCapture" code:2 userInfo:0];
+        v27 = [v31 objectForKeyedSubscript:?];
+        v28 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:? code:? userInfo:?];
         (v27)[2](v27, v28);
       }
     }
 
-    [(NSMutableArray *)self->_eventQueue removeObjectAtIndex:0];
+    [(NSMutableArray *)self->_eventQueue removeObjectAtIndex:?];
   }
 
 LABEL_32:

@@ -9,16 +9,16 @@
 
 - (TSCECellDependenciesPrinter)init
 {
-  v8.receiver = self;
-  v8.super_class = TSCECellDependenciesPrinter;
-  v2 = [(TSCECellDependenciesPrinter *)&v8 init];
-  v6 = v2;
+  v7.receiver = self;
+  v7.super_class = TSCECellDependenciesPrinter;
+  v2 = [(TSCECellDependenciesPrinter *)&v7 init];
+  v5 = v2;
   if (v2)
   {
-    objc_msgSend_setShowCleanCells_(v2, v3, 1, v4, v5);
+    objc_msgSend_setShowCleanCells_(v2, v3, 1, v4);
   }
 
-  return v6;
+  return v5;
 }
 
 - (void)addDependencyRow:(id)row
@@ -26,40 +26,40 @@
   rowCopy = row;
   if (rowCopy)
   {
-    if (objc_msgSend_dirtyPrecedentCount(rowCopy, v4, v5, v6, v7))
+    if (objc_msgSend_dirtyPrecedentCount(rowCopy, v4, v5, v6))
     {
       dirtyCellDependencyRows = self->_dirtyCellDependencyRows;
       p_dirtyCellDependencyRows = &self->_dirtyCellDependencyRows;
-      v12 = dirtyCellDependencyRows;
+      v10 = dirtyCellDependencyRows;
       if (dirtyCellDependencyRows)
       {
 LABEL_8:
-        objc_msgSend_addObject_(v12, v8, rowCopy, v10, v11);
+        objc_msgSend_addObject_(v10, v7, rowCopy, v9);
         goto LABEL_9;
       }
     }
 
     else
     {
-      if (!objc_msgSend_showCleanCells(self, v8, v9, v10, v11))
+      if (!objc_msgSend_showCleanCells(self, v7, v8, v9))
       {
         goto LABEL_9;
       }
 
       cleanCellDependencyRows = self->_cleanCellDependencyRows;
       p_dirtyCellDependencyRows = &self->_cleanCellDependencyRows;
-      v12 = cleanCellDependencyRows;
+      v10 = cleanCellDependencyRows;
       if (cleanCellDependencyRows)
       {
         goto LABEL_8;
       }
     }
 
-    v16 = objc_opt_new();
-    v17 = *p_dirtyCellDependencyRows;
-    *p_dirtyCellDependencyRows = v16;
+    v14 = objc_opt_new();
+    v15 = *p_dirtyCellDependencyRows;
+    *p_dirtyCellDependencyRows = v14;
 
-    v12 = *p_dirtyCellDependencyRows;
+    v10 = *p_dirtyCellDependencyRows;
     goto LABEL_8;
   }
 
@@ -68,98 +68,98 @@ LABEL_9:
 
 - (id)description
 {
-  v83 = *MEMORY[0x277D85DE8];
-  if (objc_msgSend_count(self->_dirtyCellDependencyRows, a2, v2, v3, v4) || objc_msgSend_numDirtyCells(self, v6, v7, v8, v9) || objc_msgSend_count(self->_cleanCellDependencyRows, v6, v7, v8, v9) && objc_msgSend_showCleanCells(self, v68, v69, v70, v71))
+  v68 = *MEMORY[0x277D85DE8];
+  if (objc_msgSend_count(self->_dirtyCellDependencyRows, a2, v2, v3) || objc_msgSend_numDirtyCells(self, v5, v6, v7) || objc_msgSend_count(self->_cleanCellDependencyRows, v5, v6, v7) && objc_msgSend_showCleanCells(self, v54, v55, v56))
   {
-    v10 = MEMORY[0x277CCAB68];
-    v11 = objc_msgSend_ownerName(self, v6, v7, v8, v9);
-    v16 = objc_msgSend_numDirtyCells(self, v12, v13, v14, v15);
-    v20 = objc_msgSend_stringWithFormat_(v10, v17, @"---Cell dependencies for %@ (%lu dirty cells):\n", v18, v19, v11, v16);
+    v8 = MEMORY[0x277CCAB68];
+    v9 = objc_msgSend_ownerName(self, v5, v6, v7);
+    v13 = objc_msgSend_numDirtyCells(self, v10, v11, v12);
+    v16 = objc_msgSend_stringWithFormat_(v8, v14, @"---Cell dependencies for %@ (%lu dirty cells):\n", v15, v9, v13);
 
-    if (objc_msgSend_count(self->_dirtyCellDependencyRows, v21, v22, v23, v24))
+    if (objc_msgSend_count(self->_dirtyCellDependencyRows, v17, v18, v19))
     {
-      objc_msgSend_sortedArrayUsingSelector_(self->_dirtyCellDependencyRows, v25, sel_tsce_numericCompare_, v27, v28);
-      v79 = 0u;
-      v80 = 0u;
-      v77 = 0u;
-      v29 = v78 = 0u;
-      v35 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v77, v82, 16);
-      if (v35)
+      objc_msgSend_sortedArrayUsingSelector_(self->_dirtyCellDependencyRows, v20, sel_tsce_numericCompare_, v22);
+      v64 = 0u;
+      v65 = 0u;
+      v62 = 0u;
+      v23 = v63 = 0u;
+      v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v24, &v62, v67, 16);
+      if (v28)
       {
-        v36 = *v78;
+        v29 = *v63;
         do
         {
-          for (i = 0; i != v35; ++i)
+          for (i = 0; i != v28; ++i)
           {
-            if (*v78 != v36)
+            if (*v63 != v29)
             {
-              objc_enumerationMutation(v29);
+              objc_enumerationMutation(v23);
             }
 
-            v41 = objc_msgSend_stringForDependencyRow(*(*(&v77 + 1) + 8 * i), v31, v32, v33, v34);
-            if (v41)
+            v33 = objc_msgSend_stringForDependencyRow(*(*(&v62 + 1) + 8 * i), v25, v26, v27);
+            if (v33)
             {
-              objc_msgSend_appendString_(v20, v38, v41, v39, v40);
-              objc_msgSend_appendString_(v20, v42, @"\n", v43, v44);
+              objc_msgSend_appendString_(v16, v31, v33, v32);
+              objc_msgSend_appendString_(v16, v34, @"\n", v35);
             }
           }
 
-          v35 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v31, &v77, v82, 16);
+          v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v25, &v62, v67, 16);
         }
 
-        while (v35);
+        while (v28);
       }
     }
 
-    if (objc_msgSend_count(self->_cleanCellDependencyRows, v25, v26, v27, v28) && objc_msgSend_showCleanCells(self, v45, v46, v47, v48))
+    if (objc_msgSend_count(self->_cleanCellDependencyRows, v20, v21, v22) && objc_msgSend_showCleanCells(self, v36, v37, v38))
     {
-      objc_msgSend_sortedArrayUsingSelector_(self->_cleanCellDependencyRows, v49, sel_tsce_numericCompare_, v50, v51);
-      v75 = 0u;
-      v76 = 0u;
-      v73 = 0u;
-      v52 = v74 = 0u;
-      v58 = objc_msgSend_countByEnumeratingWithState_objects_count_(v52, v53, &v73, v81, 16);
-      if (v58)
+      objc_msgSend_sortedArrayUsingSelector_(self->_cleanCellDependencyRows, v39, sel_tsce_numericCompare_, v40);
+      v60 = 0u;
+      v61 = 0u;
+      v58 = 0u;
+      v41 = v59 = 0u;
+      v46 = objc_msgSend_countByEnumeratingWithState_objects_count_(v41, v42, &v58, v66, 16);
+      if (v46)
       {
-        v59 = *v74;
+        v47 = *v59;
         do
         {
-          for (j = 0; j != v58; ++j)
+          for (j = 0; j != v46; ++j)
           {
-            if (*v74 != v59)
+            if (*v59 != v47)
             {
-              objc_enumerationMutation(v52);
+              objc_enumerationMutation(v41);
             }
 
-            v64 = objc_msgSend_stringForDependencyRow(*(*(&v73 + 1) + 8 * j), v54, v55, v56, v57);
-            if (v64)
+            v51 = objc_msgSend_stringForDependencyRow(*(*(&v58 + 1) + 8 * j), v43, v44, v45);
+            if (v51)
             {
-              objc_msgSend_appendString_(v20, v61, v64, v62, v63);
-              objc_msgSend_appendString_(v20, v65, @"\n", v66, v67);
+              objc_msgSend_appendString_(v16, v49, v51, v50);
+              objc_msgSend_appendString_(v16, v52, @"\n", v53);
             }
           }
 
-          v58 = objc_msgSend_countByEnumeratingWithState_objects_count_(v52, v54, &v73, v81, 16);
+          v46 = objc_msgSend_countByEnumeratingWithState_objects_count_(v41, v43, &v58, v66, 16);
         }
 
-        while (v58);
+        while (v46);
       }
     }
   }
 
   else
   {
-    v20 = 0;
+    v16 = 0;
   }
 
-  return v20;
+  return v16;
 }
 
 + (id)stringForOwnerKind:(unsigned __int16)kind
 {
-  v5 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"%d", v3, v4, kind);
+  v4 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"%d", v3, kind);
 
-  return v5;
+  return v4;
 }
 
 @end

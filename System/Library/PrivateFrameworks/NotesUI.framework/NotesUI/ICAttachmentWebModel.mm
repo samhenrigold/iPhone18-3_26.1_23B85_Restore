@@ -162,7 +162,7 @@ void __75__ICAttachmentWebModel_PreviewGeneration__downloadPreviewForAttachmentU
   {
     objc_opt_class();
     v13 = [v6 userInfo];
-    v14 = [v13 objectForKeyedSubscript:*MEMORY[0x1E696AA08]];
+    v14 = objc_msgSend_objectForKeyedSubscript_(v13);
     v15 = ICCheckedDynamicCast();
 
     v16 = [v8 attachment];
@@ -301,18 +301,18 @@ void __80__ICAttachmentWebModel_PreviewGeneration__updateAttachmentPreviewImages
   *(*(*(a1 + 40) + 8) + 24) = 1;
 }
 
-uint64_t __56__ICAttachmentWebModel_UI__genericBrickThumbnailCreator__block_invoke(double a1)
+uint64_t __56__ICAttachmentWebModel_UI__genericBrickThumbnailCreator__block_invoke(uint64_t a1, double a2)
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [v2 genericBrickThumbnailWithSize:36.0 scale:{36.0, a1}];
+  return [v3 genericBrickThumbnailWithSize:36.0 scale:{36.0, a2}];
 }
 
-uint64_t __61__ICAttachmentWebModel_UI__genericBrickLargeThumbnailCreator__block_invoke(double a1)
+uint64_t __61__ICAttachmentWebModel_UI__genericBrickLargeThumbnailCreator__block_invoke(uint64_t a1, double a2)
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [v2 genericBrickThumbnailWithSize:72.0 scale:{72.0, a1}];
+  return [v3 genericBrickThumbnailWithSize:72.0 scale:{72.0, a2}];
 }
 
 void __71__ICAttachmentWebModel_PreviewGeneration__generatePreviewsInOperation___block_invoke_cold_1(uint64_t a1, NSObject *a2)

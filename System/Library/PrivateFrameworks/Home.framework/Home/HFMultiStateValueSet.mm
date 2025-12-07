@@ -24,7 +24,7 @@
 
 + (id)binaryValueSetWithCharacteristicMetadata:(id)metadata firstValue:(id)value firstTitle:(id)title secondValue:(id)secondValue secondTitle:(id)secondTitle
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   titleCopy = title;
   secondValueCopy = secondValue;
@@ -34,14 +34,14 @@
     metadataCopy = metadata;
     v16 = [[HFMultiStateValueSet alloc] initWithCharacteristicMetadata:metadataCopy];
 
-    v29 = @"title";
-    v30[0] = titleCopy;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+    v28 = @"title";
+    v29[0] = titleCopy;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
     [(HFMultiStateValueSet *)v16 addValue:valueCopy displayResults:v17];
 
-    v27 = @"title";
-    v28 = secondTitleCopy;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+    v26 = @"title";
+    v27 = secondTitleCopy;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
     [(HFMultiStateValueSet *)v16 addValue:secondValueCopy displayResults:v18];
 
     allValues = [(HFMultiStateValueSet *)v16 allValues];
@@ -49,9 +49,9 @@
 
     if (v20 == 2)
     {
-      v26[0] = valueCopy;
-      v26[1] = secondValueCopy;
-      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+      v25[0] = valueCopy;
+      v25[1] = secondValueCopy;
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
       v22 = [HFUtilities comparatorWithSortedObjects:v21];
       [(HFMultiStateValueSet *)v16 setValueComparator:v22];
 
@@ -68,8 +68,6 @@
   {
     v23 = 0;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -218,29 +216,13 @@ LABEL_3:
     NSLog(&cfstr_ValueAlreadyEx.isa, valueCopy, self);
   }
 
-  if (!validCopy)
-  {
-    goto LABEL_8;
-  }
-
-  characteristicMetadata = [(HFMultiStateValueSet *)self characteristicMetadata];
-  if (!characteristicMetadata)
-  {
-    goto LABEL_8;
-  }
-
-  v15 = characteristicMetadata;
-  characteristicMetadata2 = [(HFMultiStateValueSet *)self characteristicMetadata];
-  v17 = [characteristicMetadata2 hf_isValidValue:valueCopy];
-
-  if (!v17)
+  if (validCopy && (-[HFMultiStateValueSet characteristicMetadata](self, "characteristicMetadata"), (v14 = objc_claimAutoreleasedReturnValue()) != 0) && (v15 = v14, -[HFMultiStateValueSet characteristicMetadata](self, "characteristicMetadata"), v16 = objc_claimAutoreleasedReturnValue(), v17 = [v16 hf_isValidValue:valueCopy], v16, v15, !v17))
   {
     v19 = 0;
   }
 
   else
   {
-LABEL_8:
     displayResultsByValue2 = [(HFMultiStateValueSet *)self displayResultsByValue];
     [displayResultsByValue2 setObject:v11 forKeyedSubscript:valueCopy];
 

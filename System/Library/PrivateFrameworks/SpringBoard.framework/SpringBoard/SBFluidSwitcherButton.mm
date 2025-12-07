@@ -114,7 +114,7 @@
   v6 = v5;
   v8 = v7;
   v10 = v9;
-  [(UIImageView *)self->_glyphImageView frame];
+  objc_msgSend_frame(self->_glyphImageView);
   UIRectCenteredIntegralRectScale();
   v12 = v11;
   v14 = v13;

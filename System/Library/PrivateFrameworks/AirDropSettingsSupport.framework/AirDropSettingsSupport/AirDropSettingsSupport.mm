@@ -18,7 +18,7 @@ uint64_t sub_23E864780@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-void *sub_23E864800(void *result, void *a2)
+uint64_t *sub_23E864800(uint64_t *result, uint64_t *a2)
 {
   if (*(*a2 + OBJC_IVAR____TtC22AirDropSettingsSupport20AirDropSettingsState_effectiveDiscoverableMode) != *result)
   {
@@ -36,7 +36,7 @@ unint64_t sub_23E8648E0()
   result = qword_2814FD620;
   if (!qword_2814FD620)
   {
-    type metadata accessor for AirDropSettingsState();
+    type metadata accessor for AirDropSettingsState(255);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_2814FD620);
   }
@@ -44,7 +44,7 @@ unint64_t sub_23E8648E0()
   return result;
 }
 
-uint64_t type metadata accessor for AirDropSettingsState()
+uint64_t type metadata accessor for AirDropSettingsState(uint64_t a1)
 {
   result = qword_2814FD630;
   if (!qword_2814FD630)
@@ -112,8 +112,6 @@ void sub_23E864B38(uint64_t **a1, char a2)
   else if (v5 != v4)
   {
 LABEL_5:
-    v7 = v2[3];
-    v6 = v2[4];
     swift_getKeyPath();
     MEMORY[0x28223BE20]();
     v2[1] = v3;
@@ -123,7 +121,7 @@ LABEL_5:
   free(v2);
 }
 
-void (*AirDropSettingsState.isNearbySharingEnabled.modify(uint64_t *a1))(uint64_t a1, char a2)
+void (*AirDropSettingsState.isNearbySharingEnabled.modify(uint64_t *a1))(uint64_t a1, uint64_t a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -159,18 +157,18 @@ uint64_t sub_23E864E14(uint64_t a1, void *a2)
   return *(v2 + *a2);
 }
 
-uint64_t sub_23E864E98@<X0>(uint64_t *a1@<X0>, void *a2@<X4>, _BYTE *a3@<X8>)
+uint64_t sub_23E864E98@<X0>(uint64_t *a1@<X0>, void *a3@<X4>, _BYTE *a4@<X8>)
 {
-  v5 = *a1;
+  v6 = *a1;
   swift_getKeyPath();
   sub_23E8648E0();
   sub_23E865C74();
 
-  *a3 = *(v5 + *a2);
+  *a4 = *(v6 + *a3);
   return result;
 }
 
-unsigned __int8 *sub_23E864F44(unsigned __int8 *result, void *a2, uint64_t a3, uint64_t a4, void *a5)
+unsigned __int8 *sub_23E864F44(unsigned __int8 *result, uint64_t *a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7)
 {
   if (*result != *(*a2 + *a5))
   {
@@ -183,9 +181,9 @@ unsigned __int8 *sub_23E864F44(unsigned __int8 *result, void *a2, uint64_t a3, u
   return result;
 }
 
-uint64_t sub_23E86503C(uint64_t result, void *a2)
+uint64_t sub_23E86503C(uint64_t result, void *a2, uint64_t a3, uint64_t a4)
 {
-  if (*(v2 + *a2) != (result & 1))
+  if (*(v4 + *a2) != (result & 1))
   {
     swift_getKeyPath();
     MEMORY[0x28223BE20]();
@@ -196,7 +194,7 @@ uint64_t sub_23E86503C(uint64_t result, void *a2)
   return result;
 }
 
-void (*AirDropSettingsState.isCellularUsageEnabled.modify(uint64_t *a1))(uint64_t a1, char a2)
+void (*AirDropSettingsState.isCellularUsageEnabled.modify(uint64_t *a1))(uint64_t a1, uint64_t a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -223,39 +221,34 @@ void (*AirDropSettingsState.isCellularUsageEnabled.modify(uint64_t *a1))(uint64_
   return sub_23E8651DC;
 }
 
-void sub_23E865210(uint64_t a1, char a2)
+void sub_23E865210(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *a1;
-  v3 = *(*a1 + 8);
-  v4 = *(*a1 + 40);
-  v5 = v4 ^ *(v3 + *(*a1 + 32));
+  v5 = *a1;
+  v6 = *(*a1 + 8);
+  v7 = *(*a1 + 40);
   if (a2)
   {
-    if ((v4 ^ *(v3 + *(*a1 + 32))))
+    if ((v7 ^ *(v6 + *(*a1 + 32))))
     {
-      v7 = v2[2];
-      v6 = v2[3];
-LABEL_6:
-      swift_getKeyPath();
-      MEMORY[0x28223BE20]();
-      *v2 = v3;
-      sub_23E865C64();
+      goto LABEL_5;
     }
   }
 
-  else if ((v4 ^ *(v3 + *(*a1 + 32))))
+  else if ((v7 ^ *(v6 + *(*a1 + 32))))
   {
-    v9 = v2[2];
-    v8 = v2[3];
-    goto LABEL_6;
+LABEL_5:
+    swift_getKeyPath();
+    MEMORY[0x28223BE20]();
+    *v5 = v6;
+    sub_23E865C64();
   }
 
-  free(v2);
+  free(v5);
 }
 
 id sub_23E865358()
 {
-  result = [objc_allocWithZone(type metadata accessor for AirDropSettingsState()) init];
+  result = [objc_allocWithZone(type metadata accessor for AirDropSettingsState(0)) init];
   qword_2814FD648 = result;
   return result;
 }
@@ -360,12 +353,11 @@ void *sub_23E86597C@<X0>(void *result@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_23E865A18()
+uint64_t sub_23E865A18(uint64_t a1)
 {
   result = sub_23E865C94();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {

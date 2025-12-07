@@ -13,7 +13,7 @@
 
 - (id)footerAttributedStringForFont:()MUPlaceTileViewModel
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   v4 = a3;
   tileSubtitle = [self tileSubtitle];
   v6 = v4;
@@ -22,13 +22,13 @@
     v7 = objc_alloc(MEMORY[0x1E696AAB0]);
     systemGrayColor = [MEMORY[0x1E69DC888] systemGrayColor];
     v9 = *MEMORY[0x1E69DB650];
-    v16[0] = *MEMORY[0x1E69DB648];
-    v16[1] = v9;
-    v17[0] = v6;
-    v17[1] = systemGrayColor;
+    v15[0] = *MEMORY[0x1E69DB648];
+    v15[1] = v9;
+    v16[0] = v6;
+    v16[1] = systemGrayColor;
     v10 = MEMORY[0x1E695DF20];
     v11 = v6;
-    v12 = [v10 dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v12 = [v10 dictionaryWithObjects:v16 forKeys:v15 count:2];
 
     v13 = [v7 initWithString:tileSubtitle attributes:v12];
   }
@@ -37,8 +37,6 @@
   {
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -85,30 +83,19 @@
   v8 = a5;
   uniqueRouteID = [self uniqueRouteID];
 
-  if (!uniqueRouteID)
-  {
-    goto LABEL_4;
-  }
-
-  v10 = +[MURouteSnapshotManager sharedInstance];
-  uniqueRouteID2 = [self uniqueRouteID];
-  v12 = [self _getSnapshotKeyForUniqueRouteID:uniqueRouteID2 size:{a2, a3}];
-  v13 = [v10 checkCacheForKey:v12];
-
-  if (v13)
+  if (uniqueRouteID && (+[MURouteSnapshotManager sharedInstance](MURouteSnapshotManager, "sharedInstance"), v10 = objc_claimAutoreleasedReturnValue(), [self uniqueRouteID], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(self, "_getSnapshotKeyForUniqueRouteID:size:", v11, a2, a3), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "checkCacheForKey:", v12), v13 = objc_claimAutoreleasedReturnValue(), v12, v11, v10, v13))
   {
     (*(v8 + 2))(v8, v13, 0, 0);
   }
 
   else
   {
-LABEL_4:
     v13 = [MEMORY[0x1E69A2518] builderWithMapItem:self];
     buildRoute = [v13 buildRoute];
-    uniqueRouteID3 = [buildRoute uniqueRouteID];
-    if (uniqueRouteID3)
+    uniqueRouteID2 = [buildRoute uniqueRouteID];
+    if (uniqueRouteID2)
     {
-      [self setUniqueRouteID:uniqueRouteID3];
+      [self setUniqueRouteID:uniqueRouteID2];
     }
 
     else
@@ -117,8 +104,8 @@ LABEL_4:
       [self setUniqueRouteID:v16];
     }
 
-    uniqueRouteID4 = [self uniqueRouteID];
-    v18 = [self _getSnapshotKeyForUniqueRouteID:uniqueRouteID4 size:{a2, a3}];
+    uniqueRouteID3 = [self uniqueRouteID];
+    v18 = [self _getSnapshotKeyForUniqueRouteID:uniqueRouteID3 size:{a2, a3}];
 
     v19 = +[MURouteSnapshotManager sharedInstance];
     v20[0] = MEMORY[0x1E69E9820];

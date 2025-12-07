@@ -148,57 +148,55 @@
 
 - (id)nonLocalizableKeys
 {
-  v5[34] = *MEMORY[0x1E69E9840];
-  v5[0] = @"minimumNewsVersion";
-  v5[1] = @"allowedStorefrontIDs";
-  v5[2] = @"blockedStorefrontIDs";
-  v5[3] = @"title";
-  v5[4] = @"publishDate";
-  v5[5] = @"topicTagIDs";
-  v5[6] = @"thumbnailFocalFrame";
-  v5[7] = @"thumbnailPerceptualHash";
-  v5[8] = @"thumbnailSmall";
-  v5[9] = @"thumbnailSmallMetadata";
-  v5[10] = @"thumbnailMedium";
-  v5[11] = @"thumbnailMediumMetadata";
-  v5[12] = @"thumbnailLarge";
-  v5[13] = @"thumbnailLargeMetadata";
-  v5[14] = @"thumbnailExtraLarge";
-  v5[15] = @"thumbnailExtraLargeMetadata";
-  v5[16] = @"thumbnailPrimaryColor";
-  v5[17] = @"thumbnailBackgroundColor";
-  v5[18] = @"thumbnailTextColor";
-  v5[19] = @"thumbnailAccentColor";
-  v5[20] = @"shortExcerpt";
-  v5[21] = @"content";
-  v5[22] = @"contentType";
-  v5[23] = @"iAdCategories";
-  v5[24] = @"iAdKeywords";
-  v5[25] = @"iAdSectionTagIDs";
-  v5[26] = @"isPaid";
-  v5[27] = @"authors";
-  v5[28] = @"sourceChannelTagID";
-  v5[29] = @"articleIDs";
-  v5[30] = @"language";
-  v5[31] = @"totalTime";
-  v5[32] = @"lastReferenceDate";
-  v5[33] = @"isDraft";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:34];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[34] = *MEMORY[0x1E69E9840];
+  v4[0] = @"minimumNewsVersion";
+  v4[1] = @"allowedStorefrontIDs";
+  v4[2] = @"blockedStorefrontIDs";
+  v4[3] = @"title";
+  v4[4] = @"publishDate";
+  v4[5] = @"topicTagIDs";
+  v4[6] = @"thumbnailFocalFrame";
+  v4[7] = @"thumbnailPerceptualHash";
+  v4[8] = @"thumbnailSmall";
+  v4[9] = @"thumbnailSmallMetadata";
+  v4[10] = @"thumbnailMedium";
+  v4[11] = @"thumbnailMediumMetadata";
+  v4[12] = @"thumbnailLarge";
+  v4[13] = @"thumbnailLargeMetadata";
+  v4[14] = @"thumbnailExtraLarge";
+  v4[15] = @"thumbnailExtraLargeMetadata";
+  v4[16] = @"thumbnailPrimaryColor";
+  v4[17] = @"thumbnailBackgroundColor";
+  v4[18] = @"thumbnailTextColor";
+  v4[19] = @"thumbnailAccentColor";
+  v4[20] = @"shortExcerpt";
+  v4[21] = @"content";
+  v4[22] = @"contentType";
+  v4[23] = @"iAdCategories";
+  v4[24] = @"iAdKeywords";
+  v4[25] = @"iAdSectionTagIDs";
+  v4[26] = @"isPaid";
+  v4[27] = @"authors";
+  v4[28] = @"sourceChannelTagID";
+  v4[29] = @"articleIDs";
+  v4[30] = @"language";
+  v4[31] = @"totalTime";
+  v4[32] = @"lastReferenceDate";
+  v4[33] = @"isDraft";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:34];
 
   return v2;
 }
 
 - (id)alwaysLocalizedKeys
 {
-  v5[5] = *MEMORY[0x1E69E9840];
-  v5[0] = @"topicFlags";
-  v5[1] = @"personalizationData";
-  v5[2] = @"rapidUpdatePersonalizationData";
-  v5[3] = @"eventAggregationPersonalizationData";
-  v5[4] = @"recipesRecirculationData";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:5];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[5] = *MEMORY[0x1E69E9840];
+  v4[0] = @"topicFlags";
+  v4[1] = @"personalizationData";
+  v4[2] = @"rapidUpdatePersonalizationData";
+  v4[3] = @"eventAggregationPersonalizationData";
+  v4[4] = @"recipesRecirculationData";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:5];
 
   return v2;
 }

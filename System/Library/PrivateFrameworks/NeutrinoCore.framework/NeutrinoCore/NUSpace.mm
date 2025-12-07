@@ -79,47 +79,45 @@
 
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)transformTimeBackward:(SEL)backward
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   *retstr = *a4;
+  v15 = 0u;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
   reverseObjectEnumerator = [(NSArray *)self->_transformStack reverseObjectEnumerator];
-  v6 = [reverseObjectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [reverseObjectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        inverseTransform = [*(*(&v17 + 1) + 8 * i) inverseTransform];
+        inverseTransform = [*(*(&v15 + 1) + 8 * i) inverseTransform];
         v11 = inverseTransform;
         if (inverseTransform)
         {
-          v13 = *&retstr->var0;
-          var3 = retstr->var3;
-          [inverseTransform transformTime:&v13];
+          objc_msgSend_transformTime_(inverseTransform, retstr->var0, *&retstr->var1, retstr->var3);
         }
 
         else
         {
-          v15 = 0uLL;
-          v16 = 0;
+          v13 = 0uLL;
+          v14 = 0;
         }
 
-        *&retstr->var0 = v15;
-        retstr->var3 = v16;
+        *&retstr->var0 = v13;
+        retstr->var3 = v14;
       }
 
-      v7 = [reverseObjectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [reverseObjectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
@@ -131,16 +129,17 @@
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)transformTime:(SEL)time toSpace:(id *)space
 {
   v8 = a5;
-  memset(&v10[1], 0, sizeof($3CC8671D27C23BF42ADDB32F2B5E48AE));
-  v10[0] = *space;
-  [(NUSpace *)self transformTime:v10];
+  v12 = 0uLL;
+  v13 = 0;
+  objc_msgSend_transformTime_(self, space->var0, *&space->var1, space->var3);
   retstr->var0 = 0;
   *&retstr->var1 = 0;
   retstr->var3 = 0;
   if (v8)
   {
-    v10[0] = v10[1];
-    [v8 transformTimeBackward:v10];
+    v10 = v12;
+    v11 = v13;
+    [v8 transformTimeBackward:&v10];
   }
 
   return result;
@@ -148,49 +147,47 @@
 
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)transformTime:(SEL)time
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   *retstr = *a4;
+  v14 = 0u;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
   v5 = self->_transformStack;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v15;
     do
     {
       v9 = 0;
       do
       {
-        if (*v17 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * v9);
+        v10 = *(*(&v14 + 1) + 8 * v9);
         if (v10)
         {
-          v12 = *&retstr->var0;
-          var3 = retstr->var3;
-          [v10 transformTime:&v12];
+          objc_msgSend_transformTime_(v10, retstr->var0, *&retstr->var1, retstr->var3);
         }
 
         else
         {
-          v14 = 0uLL;
-          v15 = 0;
+          v12 = 0uLL;
+          v13 = 0;
         }
 
-        *&retstr->var0 = v14;
-        retstr->var3 = v15;
+        *&retstr->var0 = v12;
+        retstr->var3 = v13;
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -327,9 +324,11 @@
 
 - (void)appendTransform:(id)transform
 {
-  self->_transformStack = [(NSArray *)self->_transformStack arrayByAddingObject:transform];
+  v4 = [(NSArray *)self->_transformStack arrayByAddingObject:transform];
+  transformStack = self->_transformStack;
+  self->_transformStack = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, transformStack);
 }
 
 - (id)copyWithZone:(_NSZone *)zone

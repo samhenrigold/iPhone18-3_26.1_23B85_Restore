@@ -47,19 +47,19 @@
 
 + (id)defaultLibraryDirectory
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, 1uLL, 1);
   firstObject = [v2 firstObject];
   v4 = [firstObject length];
-  v5 = configurationLogHandle();
+  v5 = configurationLogHandle(v4);
   v6 = v5;
   if (v4)
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v10 = 138412290;
-      v11 = firstObject;
-      _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_INFO, "Found usable Library directory at %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = firstObject;
+      _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_INFO, "Found usable Library directory at %@", &v9, 0xCu);
     }
 
     v7 = firstObject;
@@ -69,15 +69,13 @@
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = v2;
-      _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_ERROR, "Search for usable Library directory returned empty result: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v2;
+      _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_ERROR, "Search for usable Library directory returned empty result: %@", &v9, 0xCu);
     }
 
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -146,22 +144,23 @@
   {
     v4 = v3;
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v6 = dictionary;
     if (outCount)
     {
       for (i = 0; i < outCount; ++i)
       {
-        v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:property_getName(v4[i])];
-        v8 = [(ABCConfigurationManager *)self valueForKey:v7];
-        [dictionary setObject:v8 forKeyedSubscript:v7];
+        v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:property_getName(v4[i])];
+        v9 = [(ABCConfigurationManager *)self valueForKey:v8];
+        [v6 setObject:v9 forKeyedSubscript:v8];
       }
     }
 
-    v9 = configurationLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = configurationLogHandle(dictionary);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v15 = dictionary;
-      _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_DEBUG, "configuration dictionary: %@", buf, 0xCu);
+      v15 = v6;
+      _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_DEBUG, "configuration dictionary: %@", buf, 0xCu);
     }
 
     free(v4);
@@ -169,19 +168,17 @@
 
   else
   {
-    v10 = configurationLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = configurationLogHandle(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_ERROR, "ConfigurationProperties is nil!!!!", buf, 2u);
+      _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_ERROR, "ConfigurationProperties is nil!!!!", buf, 2u);
     }
 
-    dictionary = 0;
+    v6 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
-  return dictionary;
+  return v6;
 }
 
 - (void)initializeOverrides
@@ -272,12 +269,12 @@ LABEL_21:
         DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
         CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.autobugcapture.configurationchanged", 0, 0, 4u);
         objc_storeStrong(p_previousConfiguration, getAutoBugCaptureConfiguration);
-        v17 = configurationLogHandle();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v18 = configurationLogHandle(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           v19 = 138412290;
           v20 = getAutoBugCaptureConfiguration;
-          _os_log_impl(&dword_241804000, v17, OS_LOG_TYPE_DEFAULT, "ABC Configuration dictionary changed: %@", &v19, 0xCu);
+          _os_log_impl(&dword_241804000, v18, OS_LOG_TYPE_DEFAULT, "ABC Configuration dictionary changed: %@", &v19, 0xCu);
         }
       }
     }
@@ -303,8 +300,6 @@ LABEL_21:
   }
 
 LABEL_27:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)autoBugCaptureAvailable
@@ -354,28 +349,38 @@ LABEL_27:
   aBCUserConsent = [(ABCPreferences *)self->_preferences ABCUserConsent];
   is_automated_device_group = [(ABCPreferences *)self->_preferences is_automated_device_group];
   ignore_automated_device_group = [(ABCPreferences *)self->_preferences ignore_automated_device_group];
-  v8 = !is_automated_device_group || ignore_automated_device_group;
+  v8 = ignore_automated_device_group;
+  v9 = !is_automated_device_group | ignore_automated_device_group;
   if (!aBCUserConsent)
   {
-    v8 = 0;
+    v9 = 0;
   }
 
   if (!diagnosticsAndUsageEnabled)
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  autoBugCaptureEnabled = autoBugCaptureAvailable && v8;
-  v10 = autoBugCaptureEnabled;
-  if (autoBugCaptureEnabled__logPrintCount && autoBugCaptureEnabled__prevEnabledValue == v10)
+  if (autoBugCaptureAvailable)
+  {
+    v10 = v9;
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  v11 = v10;
+  if (autoBugCaptureEnabled__logPrintCount && autoBugCaptureEnabled__prevEnabledValue == v11)
   {
     if (__ROR8__(0xCCCCCCCCCCCCCCCDLL * autoBugCaptureEnabled__logPrintCount, 2) <= 0xCCCCCCCCCCCCCCCuLL)
     {
-      v18 = configurationLogHandle();
+      v18 = configurationLogHandle(ignore_automated_device_group);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         loga = v18;
-        if (autoBugCaptureEnabled)
+        if (v10)
         {
           v19 = "ON";
         }
@@ -386,7 +391,7 @@ LABEL_27:
         }
 
         v20 = "(ignored)";
-        if (!ignore_automated_device_group)
+        if (!v8)
         {
           v20 = "";
         }
@@ -435,10 +440,10 @@ LABEL_27:
 
   else
   {
-    log = configurationLogHandle();
+    log = configurationLogHandle(ignore_automated_device_group);
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
-      if (autoBugCaptureEnabled)
+      if (v10)
       {
         v13 = "ON";
       }
@@ -449,7 +454,7 @@ LABEL_27:
       }
 
       v14 = "(ignored)";
-      if (!ignore_automated_device_group)
+      if (!v8)
       {
         v14 = "";
       }
@@ -495,20 +500,19 @@ LABEL_27:
       _os_log_impl(&dword_241804000, log, OS_LOG_TYPE_DEFAULT, "AutoBugCapture is %s - DNU:%d, user consent:%d, automated device group:%d%s, DP:%sabled, ABC:%savailable, ABC features:%d", buf, 0x42u);
     }
 
-    autoBugCaptureEnabled__prevEnabledValue = autoBugCaptureEnabled;
+    autoBugCaptureEnabled__prevEnabledValue = v10;
   }
 
   ++autoBugCaptureEnabled__logPrintCount;
-  if (self->_autoBugCaptureEnabled != v10)
+  if (self->_autoBugCaptureEnabled != v11)
   {
     [(ABCConfigurationManager *)self willChangeValueForKey:@"autoBugCaptureEnabled"];
-    self->_autoBugCaptureEnabled = v10;
+    self->_autoBugCaptureEnabled = v11;
     [(ABCConfigurationManager *)self didChangeValueForKey:@"autoBugCaptureEnabled"];
-    autoBugCaptureEnabled = self->_autoBugCaptureEnabled;
+    return self->_autoBugCaptureEnabled;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return autoBugCaptureEnabled;
+  return v10;
 }
 
 - (NSString)logArchivePath
@@ -523,20 +527,19 @@ LABEL_27:
       v4 = logArchivePath_logArchivePath;
       logArchivePath_logArchivePath = v3;
 
-      v5 = configurationLogHandle();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = configurationLogHandle(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v9 = 138412290;
         v10 = logArchivePath_logArchivePath;
-        _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEFAULT, "Configured logArchivePath to be %@", &v9, 0xCu);
+        _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_DEFAULT, "Configured logArchivePath to be %@", &v9, 0xCu);
       }
     }
   }
 
-  v6 = logArchivePath_logArchivePath;
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = logArchivePath_logArchivePath;
 
-  return v6;
+  return v7;
 }
 
 - (unsigned)logArchiveUID
@@ -564,12 +567,13 @@ LABEL_27:
 
     else
     {
-      logArchiveGID_logArchiveGID = getgid();
-      v4 = configurationLogHandle();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v4 = getgid();
+      logArchiveGID_logArchiveGID = v4;
+      v5 = configurationLogHandle(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        *v5 = 0;
-        _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_ERROR, "Failed to get _analyticsusers gid, using current user", v5, 2u);
+        *v6 = 0;
+        _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_ERROR, "Failed to get _analyticsusers gid, using current user", v6, 2u);
       }
     }
 
@@ -582,7 +586,7 @@ LABEL_27:
 
 - (NSString)databaseContainerPath
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   database_container_path = [(ABCPreferences *)self->_preferences database_container_path];
   if ([database_container_path length])
   {
@@ -595,12 +599,12 @@ LABEL_27:
       v7 = databaseContainerPath_dbContainerPath;
       databaseContainerPath_dbContainerPath = database_container_path3;
 
-      v8 = configurationLogHandle();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = configurationLogHandle(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 138412290;
-        v17 = databaseContainerPath_dbContainerPath;
-        _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_DEFAULT, "Database directory overridden with: %@", &v16, 0xCu);
+        v17 = 138412290;
+        v18 = databaseContainerPath_dbContainerPath;
+        _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_DEFAULT, "Database directory overridden with: %@", &v17, 0xCu);
       }
 
       goto LABEL_11;
@@ -616,30 +620,29 @@ LABEL_27:
     goto LABEL_12;
   }
 
-  v8 = +[ABCConfigurationManager defaultLibraryDirectory];
-  if ([v8 length])
+  v9 = +[ABCConfigurationManager defaultLibraryDirectory];
+  if ([v9 length])
   {
-    v9 = +[ABCConfigurationManager autoBugCapturePrefix];
-    v10 = [v8 stringByAppendingPathComponent:v9];
-    v11 = databaseContainerPath_dbContainerPath;
-    databaseContainerPath_dbContainerPath = v10;
+    v10 = +[ABCConfigurationManager autoBugCapturePrefix];
+    v11 = [v9 stringByAppendingPathComponent:v10];
+    v12 = databaseContainerPath_dbContainerPath;
+    databaseContainerPath_dbContainerPath = v11;
 
-    v12 = configurationLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = configurationLogHandle(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = databaseContainerPath_dbContainerPath;
-      _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEFAULT, "Using default database directory: %@", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = databaseContainerPath_dbContainerPath;
+      _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEFAULT, "Using default database directory: %@", &v17, 0xCu);
     }
   }
 
 LABEL_11:
 
 LABEL_12:
-  v13 = databaseContainerPath_dbContainerPath;
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = databaseContainerPath_dbContainerPath;
 
-  return v13;
+  return v15;
 }
 
 - (BOOL)cloudKitEnabled
@@ -668,97 +671,98 @@ LABEL_12:
 
 - (id)loadEmbeddedConfigurationPlist:(const char *)plist
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = load_embedded_xml_plist(plist);
   v4 = [v3 objectForKeyedSubscript:@"CONFIG_IDENTIFIER"];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v6 = configurationLogHandle();
-  v7 = v6;
-  if (isKindOfClass)
+  v6 = isKindOfClass;
+  v7 = configurationLogHandle(isKindOfClass);
+  v8 = v7;
+  if (v6)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v26 = 138412290;
-      v27 = v4;
-      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_INFO, "Embedded configuration identifier: %@", &v26, 0xCu);
+      v28 = 138412290;
+      v29 = v4;
+      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_INFO, "Embedded configuration identifier: %@", &v28, 0xCu);
     }
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v8 = objc_opt_class();
-    v9 = NSStringFromClass(v8);
-    v26 = 138412546;
-    v27 = v9;
-    v28 = 2112;
-    v29 = v4;
-    _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_ERROR, "Found unexpected class %@ (%@) for configuration identifier - expected NSString", &v26, 0x16u);
-  }
-
-  v10 = [v3 objectForKeyedSubscript:@"CONFIG_VERSION"];
-  objc_opt_class();
-  v11 = objc_opt_isKindOfClass();
-  v12 = configurationLogHandle();
-  v13 = v12;
-  if (v11)
-  {
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
-    {
-      longValue = [v10 longValue];
-      v26 = 134217984;
-      v27 = longValue;
-      _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_INFO, "Embedded configuration version: %ld", &v26, 0xCu);
-    }
-  }
-
-  else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-  {
-    v15 = objc_opt_class();
-    v16 = NSStringFromClass(v15);
-    v26 = 138412546;
-    v27 = v16;
-    v28 = 2112;
+    v9 = objc_opt_class();
+    v10 = NSStringFromClass(v9);
+    v28 = 138412546;
     v29 = v10;
-    _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_ERROR, "Found unexpected class %@ (%@) for configuration version - expected NSNumber", &v26, 0x16u);
+    v30 = 2112;
+    v31 = v4;
+    _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_ERROR, "Found unexpected class %@ (%@) for configuration identifier - expected NSString", &v28, 0x16u);
   }
 
-  v17 = [v3 objectForKeyedSubscript:@"CONFIG_CONTENT"];
+  v11 = [v3 objectForKeyedSubscript:@"CONFIG_VERSION"];
   objc_opt_class();
-  v18 = objc_opt_isKindOfClass();
-  v19 = configurationLogHandle();
-  v20 = v19;
-  if (v18)
+  v12 = objc_opt_isKindOfClass();
+  v13 = v12;
+  v14 = configurationLogHandle(v12);
+  v15 = v14;
+  if (v13)
   {
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v26 = 138412290;
-      v27 = v17;
-      _os_log_impl(&dword_241804000, v20, OS_LOG_TYPE_INFO, "Embedded configuration content: %@", &v26, 0xCu);
+      longValue = [v11 longValue];
+      v28 = 134217984;
+      v29 = longValue;
+      _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_INFO, "Embedded configuration version: %ld", &v28, 0xCu);
+    }
+  }
+
+  else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  {
+    v17 = objc_opt_class();
+    v18 = NSStringFromClass(v17);
+    v28 = 138412546;
+    v29 = v18;
+    v30 = 2112;
+    v31 = v11;
+    _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_ERROR, "Found unexpected class %@ (%@) for configuration version - expected NSNumber", &v28, 0x16u);
+  }
+
+  v19 = [v3 objectForKeyedSubscript:@"CONFIG_CONTENT"];
+  objc_opt_class();
+  v20 = objc_opt_isKindOfClass();
+  v21 = v20;
+  v22 = configurationLogHandle(v20);
+  v23 = v22;
+  if (v21)
+  {
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    {
+      v28 = 138412290;
+      v29 = v19;
+      _os_log_impl(&dword_241804000, v23, OS_LOG_TYPE_INFO, "Embedded configuration content: %@", &v28, 0xCu);
     }
 
-    v21 = v17;
+    v24 = v19;
   }
 
   else
   {
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v22 = objc_opt_class();
-      v23 = NSStringFromClass(v22);
-      v26 = 138412546;
-      v27 = v23;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_241804000, v20, OS_LOG_TYPE_ERROR, "Found unexpected class %@ (%@) for configuration content - expected NSDictionary", &v26, 0x16u);
+      v25 = objc_opt_class();
+      v26 = NSStringFromClass(v25);
+      v28 = 138412546;
+      v29 = v26;
+      v30 = 2112;
+      v31 = v19;
+      _os_log_impl(&dword_241804000, v23, OS_LOG_TYPE_ERROR, "Found unexpected class %@ (%@) for configuration content - expected NSDictionary", &v28, 0x16u);
     }
 
-    v21 = 0;
+    v24 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v24;
 }
 
 @end

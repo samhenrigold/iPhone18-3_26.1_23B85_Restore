@@ -135,7 +135,7 @@
 
 - (void)writeTo:(id)to
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_identifier)
   {
@@ -145,73 +145,69 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    startTimeCFAbsolute = self->_startTimeCFAbsolute;
     PBDataWriterWriteDoubleField();
     has = self->_has;
   }
 
   if (has)
   {
-    endTimeCFAbsolute = self->_endTimeCFAbsolute;
     PBDataWriterWriteDoubleField();
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v8 = self->_embeddingIdentifiersWithPhenotypes;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v25 objects:v30 count:16];
-  if (v9)
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v6 = self->_embeddingIdentifiersWithPhenotypes;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v26;
+    v8 = v7;
+    v9 = *v21;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v26 != v11)
+        if (*v21 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v25 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v14 = self->_embeddingIdentifiers;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
-  if (v15)
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v11 = self->_embeddingIdentifiers;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  if (v12)
   {
-    v16 = v15;
-    v17 = *v22;
+    v13 = v12;
+    v14 = *v17;
     do
     {
-      for (j = 0; j != v16; ++j)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v22 != v17)
+        if (*v17 != v14)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v11);
         }
 
-        v19 = *(*(&v21 + 1) + 8 * j);
         PBDataWriterWriteStringField();
       }
 
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
-    while (v16);
+    while (v13);
   }
 
   if (self->_clusterPhenotype)
@@ -223,8 +219,6 @@
   {
     PBDataWriterWriteStringField();
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -296,7 +290,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_identifier copyWithZone:zone];
   v7 = *(v5 + 56);
@@ -316,59 +310,59 @@
     *(v5 + 64) |= 1u;
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v9 = self->_embeddingIdentifiersWithPhenotypes;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v32;
+    v12 = *v31;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v32 != v12)
+        if (*v31 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [*(*(&v31 + 1) + 8 * i) copyWithZone:zone];
+        v14 = [*(*(&v30 + 1) + 8 * i) copyWithZone:zone];
         [v5 addEmbeddingIdentifiersWithPhenotype:v14];
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v11);
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v15 = self->_embeddingIdentifiers;
-  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v28;
+    v18 = *v27;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v28 != v18)
+        if (*v27 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = [*(*(&v27 + 1) + 8 * j) copyWithZone:{zone, v27}];
+        v20 = [*(*(&v26 + 1) + 8 * j) copyWithZone:{zone, v26}];
         [v5 addEmbeddingIdentifiers:v20];
       }
 
-      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v17);
@@ -382,7 +376,6 @@
   v24 = *(v5 + 32);
   *(v5 + 32) = v23;
 
-  v25 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -403,7 +396,6 @@
     }
   }
 
-  v6 = *(equalCopy + 64);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 64) & 2) == 0 || self->_startTimeCFAbsolute != *(equalCopy + 2))
@@ -415,7 +407,7 @@
   else if ((*(equalCopy + 64) & 2) != 0)
   {
 LABEL_22:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_23;
   }
 
@@ -459,17 +451,17 @@ LABEL_22:
   dominantSourceBundleIdentifier = self->_dominantSourceBundleIdentifier;
   if (dominantSourceBundleIdentifier | *(equalCopy + 4))
   {
-    v11 = [(NSString *)dominantSourceBundleIdentifier isEqual:?];
+    v10 = [(NSString *)dominantSourceBundleIdentifier isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v10 = 1;
   }
 
 LABEL_23:
 
-  return v11;
+  return v10;
 }
 
 - (unint64_t)hash
@@ -550,7 +542,7 @@ LABEL_23:
 
 - (void)mergeFrom:(id)from
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (*(fromCopy + 7))
   {
@@ -571,57 +563,57 @@ LABEL_23:
     *&self->_has |= 1u;
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v6 = *(fromCopy + 6);
-  v7 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v24;
+    v9 = *v23;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(PCPWorkoutCluster *)self addEmbeddingIdentifiersWithPhenotype:*(*(&v23 + 1) + 8 * i)];
+        [(PCPWorkoutCluster *)self addEmbeddingIdentifiersWithPhenotype:*(*(&v22 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v8);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v11 = *(fromCopy + 5);
-  v12 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v20;
+    v14 = *v19;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v20 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(PCPWorkoutCluster *)self addEmbeddingIdentifiers:*(*(&v19 + 1) + 8 * j), v19];
+        [(PCPWorkoutCluster *)self addEmbeddingIdentifiers:*(*(&v18 + 1) + 8 * j), v18];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v13);
@@ -646,13 +638,11 @@ LABEL_23:
   {
     [(PCPWorkoutCluster *)self setDominantSourceBundleIdentifier:?];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (PCPWorkoutCluster)initWithCluster:(id)cluster
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   clusterCopy = cluster;
   if (clusterCopy)
   {
@@ -691,29 +681,29 @@ LABEL_23:
 
     if (v14)
     {
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
       v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
       subSuggestionIDs2 = [clusterCopy subSuggestionIDs];
-      v16 = [subSuggestionIDs2 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v16 = [subSuggestionIDs2 countByEnumeratingWithState:&v34 objects:v39 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v36;
+        v18 = *v35;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v36 != v18)
+            if (*v35 != v18)
             {
               objc_enumerationMutation(subSuggestionIDs2);
             }
 
-            [(PCPWorkoutCluster *)v5 addEmbeddingIdentifiersWithPhenotype:*(*(&v35 + 1) + 8 * i)];
+            [(PCPWorkoutCluster *)v5 addEmbeddingIdentifiersWithPhenotype:*(*(&v34 + 1) + 8 * i)];
           }
 
-          v17 = [subSuggestionIDs2 countByEnumeratingWithState:&v35 objects:v40 count:16];
+          v17 = [subSuggestionIDs2 countByEnumeratingWithState:&v34 objects:v39 count:16];
         }
 
         while (v17);
@@ -726,31 +716,31 @@ LABEL_23:
 
     if (v22)
     {
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       clusterMetadata2 = [clusterCopy clusterMetadata];
       subSuggestionIDsBeforePruning2 = [clusterMetadata2 subSuggestionIDsBeforePruning];
 
-      v25 = [subSuggestionIDsBeforePruning2 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v25 = [subSuggestionIDsBeforePruning2 countByEnumeratingWithState:&v30 objects:v38 count:16];
       if (v25)
       {
         v26 = v25;
-        v27 = *v32;
+        v27 = *v31;
         do
         {
           for (j = 0; j != v26; ++j)
           {
-            if (*v32 != v27)
+            if (*v31 != v27)
             {
               objc_enumerationMutation(subSuggestionIDsBeforePruning2);
             }
 
-            [(PCPWorkoutCluster *)v5 addEmbeddingIdentifiers:*(*(&v31 + 1) + 8 * j)];
+            [(PCPWorkoutCluster *)v5 addEmbeddingIdentifiers:*(*(&v30 + 1) + 8 * j)];
           }
 
-          v26 = [subSuggestionIDsBeforePruning2 countByEnumeratingWithState:&v31 objects:v39 count:16];
+          v26 = [subSuggestionIDsBeforePruning2 countByEnumeratingWithState:&v30 objects:v38 count:16];
         }
 
         while (v26);
@@ -765,7 +755,6 @@ LABEL_23:
     v5 = 0;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

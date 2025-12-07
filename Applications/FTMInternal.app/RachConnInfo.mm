@@ -198,7 +198,6 @@ LABEL_8:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    failRachAttempts = self->_failRachAttempts;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -218,7 +217,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  totalRachAttempts = self->_totalRachAttempts;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -233,7 +231,6 @@ LABEL_4:
   }
 
 LABEL_13:
-  totalMoRrcConn = self->_totalMoRrcConn;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -248,7 +245,6 @@ LABEL_5:
   }
 
 LABEL_14:
-  totalMtRrcConn = self->_totalMtRrcConn;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -263,12 +259,10 @@ LABEL_6:
   }
 
 LABEL_15:
-  totalSigRrcConn = self->_totalSigRrcConn;
   PBDataWriterWriteUint32Field();
   if (*&self->_has)
   {
 LABEL_7:
-    avgInterRrcConnDuration = self->_avgInterRrcConnDuration;
     PBDataWriterWriteUint32Field();
   }
 

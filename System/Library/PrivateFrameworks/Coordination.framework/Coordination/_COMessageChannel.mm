@@ -109,54 +109,52 @@
 
 - (void)_onqueue_sendRequest:(id)request members:(id)members withCompletionHandler:(id)handler
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   membersCopy = members;
   handlerCopy = handler;
   workQueue = [(COMessageChannel *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   obj = membersCopy;
-  v12 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v12 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v23;
+    v14 = *v22;
     do
     {
       v15 = 0;
       do
       {
-        if (*v23 != v14)
+        if (*v22 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v22 + 1) + 8 * v15);
+        v16 = *(*(&v21 + 1) + 8 * v15);
         rapportTransport = [(_COMessageChannel *)self rapportTransport];
-        v20[0] = MEMORY[0x277D85DD0];
-        v20[1] = 3221225472;
-        v20[2] = __72___COMessageChannel__onqueue_sendRequest_members_withCompletionHandler___block_invoke;
-        v20[3] = &unk_278E134E0;
-        v20[4] = v16;
-        v21 = handlerCopy;
-        [rapportTransport sendRequest:requestCopy to:v16 withCompletionHandler:v20];
+        v19[0] = MEMORY[0x277D85DD0];
+        v19[1] = 3221225472;
+        v19[2] = __72___COMessageChannel__onqueue_sendRequest_members_withCompletionHandler___block_invoke;
+        v19[3] = &unk_278E134E0;
+        v19[4] = v16;
+        v20 = handlerCopy;
+        [rapportTransport sendRequest:requestCopy to:v16 withCompletionHandler:v19];
 
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v13 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v13);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerHandler:(id)handler forRequestClass:(Class)class
@@ -291,7 +289,7 @@
 
 - (void)_onqueue_startSessionWithProducer:(id)producer member:(id)member
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   producerCopy = producer;
   memberCopy = member;
   sessions = [producerCopy sessions];
@@ -305,8 +303,8 @@
     {
       *buf = 134218242;
       selfCopy3 = self;
-      v26 = 2112;
-      v27 = memberCopy;
+      v25 = 2112;
+      v26 = memberCopy;
       _os_log_impl(&dword_244328000, delegateQueue, OS_LOG_TYPE_DEFAULT, "%p Session with member %@ is already active. Not starting again", buf, 0x16u);
     }
   }
@@ -317,10 +315,10 @@
     {
       *buf = 134218498;
       selfCopy3 = self;
-      v26 = 2112;
-      v27 = memberCopy;
-      v28 = 2112;
-      v29 = producerCopy;
+      v25 = 2112;
+      v26 = memberCopy;
+      v27 = 2112;
+      v28 = producerCopy;
       _os_log_impl(&dword_244328000, delegateQueue, OS_LOG_TYPE_DEFAULT, "%p Attempting to start a session with member %@ using producer %@", buf, 0x20u);
     }
 
@@ -340,15 +338,15 @@
       block[1] = 3221225472;
       block[2] = __62___COMessageChannel__onqueue_startSessionWithProducer_member___block_invoke;
       block[3] = &unk_278E13168;
-      v19 = delegate;
-      v20 = producerCopy;
-      v21 = v13;
+      v18 = delegate;
+      v19 = producerCopy;
+      v20 = v13;
       v15 = v13;
-      objc_copyWeak(&v23, buf);
-      v22 = memberCopy;
+      objc_copyWeak(&v22, buf);
+      v21 = memberCopy;
       dispatch_async(delegateQueue, block);
 
-      objc_destroyWeak(&v23);
+      objc_destroyWeak(&v22);
       objc_destroyWeak(buf);
     }
 
@@ -365,27 +363,25 @@
       [(_COMessageChannel *)self _onqueue_startSessionWithProducer:producerCopy member:memberCopy request:0];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onqueue_startSessionWithProducer:(id)producer member:(id)member request:(id)request
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   producerCopy = producer;
   memberCopy = member;
   requestCopy = request;
   v11 = [COClusterMemberRoleSnapshot snapshotWithParticipantRoleForMember:memberCopy];
-  v30 = 0;
-  v23 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:requestCopy requiringSecureCoding:1 error:&v30];
-  v12 = v30;
+  v29 = 0;
+  v22 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:requestCopy requiringSecureCoding:1 error:&v29];
+  v12 = v29;
   v13 = v12;
   if (v12)
   {
     v14 = MEMORY[0x277CCA9B8];
-    v31 = *MEMORY[0x277CCA7E8];
-    v32[0] = v12;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+    v30 = *MEMORY[0x277CCA7E8];
+    v31[0] = v12;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
     v16 = [v14 errorWithDomain:@"COMessageSessionErrorDomain" code:-1205 userInfo:v15];
 
     [(_COMessageChannel *)self _onqueue_deliverDidFailToStartSessionWithMember:v11 producer:producerCopy error:v16];
@@ -397,30 +393,28 @@
     v18 = [(_COMessageChannel *)self _payloadTypeFromClass:objc_opt_class()];
     topic = [(COMessageChannel *)self topic];
     subTopic = [producerCopy subTopic];
-    v16 = [(COMessageSessionManagementRequest *)v17 initWithCommandType:1 payload:v23 payloadType:v18 topic:topic subTopic:subTopic];
+    v16 = [(COMessageSessionManagementRequest *)v17 initWithCommandType:1 payload:v22 payloadType:v18 topic:topic subTopic:subTopic];
 
     objc_initWeak(&location, self);
     v21 = [MEMORY[0x277CBEB98] setWithObject:memberCopy];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __70___COMessageChannel__onqueue_startSessionWithProducer_member_request___block_invoke;
-    v24[3] = &unk_278E12F10;
-    objc_copyWeak(&v28, &location);
-    v25 = requestCopy;
-    v26 = producerCopy;
-    v27 = memberCopy;
-    [(_COMessageChannel *)self _onqueue_sendRequest:v16 members:v21 withCompletionHandler:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __70___COMessageChannel__onqueue_startSessionWithProducer_member_request___block_invoke;
+    v23[3] = &unk_278E12F10;
+    objc_copyWeak(&v27, &location);
+    v24 = requestCopy;
+    v25 = producerCopy;
+    v26 = memberCopy;
+    [(_COMessageChannel *)self _onqueue_sendRequest:v16 members:v21 withCompletionHandler:v23];
 
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(&location);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onqueue_handleStartCommand:(id)command withMember:(id)member callback:(id)callback
 {
-  v56[1] = *MEMORY[0x277D85DE8];
+  v55[1] = *MEMORY[0x277D85DE8];
   commandCopy = command;
   memberCopy = member;
   callbackCopy = callback;
@@ -439,16 +433,16 @@
     v17 = [(_COMessageChannel *)self _payloadClassFromType:payloadType];
     if (v17)
     {
-      v46 = 0;
-      v16 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:v17 fromData:payload error:&v46];
-      v18 = v46;
+      v45 = 0;
+      v16 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:v17 fromData:payload error:&v45];
+      v18 = v45;
       if (v18)
       {
 LABEL_5:
         v19 = MEMORY[0x277CCA9B8];
-        v53 = *MEMORY[0x277CCA7E8];
-        v54 = v18;
-        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+        v52 = *MEMORY[0x277CCA7E8];
+        v53 = v18;
+        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
         v21 = [v19 errorWithDomain:@"COMessageSessionErrorDomain" code:-1206 userInfo:v20];
 
         v22 = COLogForCategory(6);
@@ -456,11 +450,11 @@ LABEL_5:
         {
           member = [memberCopy member];
           *buf = 138412802;
-          v48 = v11;
-          v49 = 2112;
-          v50 = v15;
-          v51 = 2112;
-          v52 = member;
+          v47 = v11;
+          v48 = 2112;
+          v49 = v15;
+          v50 = 2112;
+          v51 = member;
           _os_log_error_impl(&dword_244328000, v22, OS_LOG_TYPE_ERROR, "%@ Consumer failed to unarchive request of type %@. Session start with member %@ failed", buf, 0x20u);
         }
 
@@ -474,9 +468,9 @@ LABEL_5:
     else
     {
       v24 = MEMORY[0x277CCA9B8];
-      v55 = @"COMessageSessionUnknownClassErrorKey";
-      v56[0] = v15;
-      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:&v55 count:1];
+      v54 = @"COMessageSessionUnknownClassErrorKey";
+      v55[0] = v15;
+      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:&v54 count:1];
       v18 = [v24 errorWithDomain:@"COMessageSessionErrorDomain" code:-1206 userInfo:v25];
 
       v16 = 0;
@@ -505,19 +499,19 @@ LABEL_5:
     block[1] = 3221225472;
     block[2] = __69___COMessageChannel__onqueue_handleStartCommand_withMember_callback___block_invoke;
     block[3] = &unk_278E130F0;
-    v37 = delegate;
-    v38 = v11;
-    v39 = memberCopy;
+    v36 = delegate;
+    v37 = v11;
+    v38 = memberCopy;
     v16 = v16;
-    v40 = v16;
-    objc_copyWeak(&v44, &location);
+    v39 = v16;
+    objc_copyWeak(&v43, &location);
     selfCopy = self;
     v21 = v21;
-    v42 = v21;
-    v43 = callbackCopy;
+    v41 = v21;
+    v42 = callbackCopy;
     dispatch_async(queue, block);
 
-    objc_destroyWeak(&v44);
+    objc_destroyWeak(&v43);
     objc_destroyWeak(&location);
   }
 
@@ -528,13 +522,11 @@ LABEL_5:
   }
 
 LABEL_14:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onqueue_handleStopCommand:(id)command fromMember:(id)member callback:(id)callback
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   commandCopy = command;
   memberCopy = member;
   callbackCopy = callback;
@@ -546,22 +538,9 @@ LABEL_14:
   member = [memberCopy member];
   v16 = [sessions objectForKey:member];
 
-  if (v16)
+  if (v16 || (-[COMessageChannel sessionProducers](self, "sessionProducers"), v17 = objc_claimAutoreleasedReturnValue(), [v17 objectForKey:subTopic], v18 = objc_claimAutoreleasedReturnValue(), v17, objc_msgSend(v18, "sessions"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(memberCopy, "member"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "objectForKey:", v20), v16 = objc_claimAutoreleasedReturnValue(), v20, v19, v18, v16))
   {
-    goto LABEL_3;
-  }
-
-  sessionProducers = [(COMessageChannel *)self sessionProducers];
-  v18 = [sessionProducers objectForKey:subTopic];
-
-  sessions2 = [v18 sessions];
-  member2 = [memberCopy member];
-  v16 = [sessions2 objectForKey:member2];
-
-  if (v16)
-  {
-LABEL_3:
-    v30 = v13;
+    v29 = v13;
     payload = [commandCopy payload];
     payloadType = [commandCopy payloadType];
     remoteError = [commandCopy remoteError];
@@ -573,38 +552,36 @@ LABEL_3:
         goto LABEL_5;
       }
 
-      v27 = [(_COMessageChannel *)self _payloadClassFromType:payloadType];
-      if (v27)
+      v26 = [(_COMessageChannel *)self _payloadClassFromType:payloadType];
+      if (v26)
       {
-        v31 = 0;
-        v24 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:v27 fromData:payload error:&v31];
-        remoteError = v31;
+        v30 = 0;
+        v24 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:v26 fromData:payload error:&v30];
+        remoteError = v30;
         goto LABEL_5;
       }
 
-      v29 = MEMORY[0x277CCA9B8];
-      v32 = @"COMessageSessionUnknownClassErrorKey";
-      v33[0] = payloadType;
-      v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
-      remoteError = [v29 errorWithDomain:@"COMessageSessionErrorDomain" code:-1206 userInfo:v28];
+      v28 = MEMORY[0x277CCA9B8];
+      v31 = @"COMessageSessionUnknownClassErrorKey";
+      v32[0] = payloadType;
+      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+      remoteError = [v28 errorWithDomain:@"COMessageSessionErrorDomain" code:-1206 userInfo:v27];
     }
 
     v24 = 0;
 LABEL_5:
     [(_COMessageChannel *)self _onqueue_deliverDidEndDelegateForSession:v16 notice:v24 initiator:memberCopy error:remoteError];
 
-    v13 = v30;
+    v13 = v29;
   }
 
   v25 = objc_alloc_init(COMessageSessionManagementResponse);
   callbackCopy[2](callbackCopy, v25, 0);
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onqueue_handleCapableCommand:(id)command fromMember:(id)member callback:(id)callback
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   memberCopy = member;
   callbackCopy = callback;
@@ -622,13 +599,13 @@ LABEL_5:
     {
       member2 = [memberCopy member];
       subTopic = [commandCopy subTopic];
-      v28 = 134218498;
+      v27 = 134218498;
       selfCopy = self;
-      v30 = 2112;
-      v31 = member2;
-      v32 = 2112;
-      v33 = subTopic;
-      _os_log_impl(&dword_244328000, v15, OS_LOG_TYPE_DEFAULT, "%p Received a command indicating inflight member %@ is now capable of consuming subTopic %@", &v28, 0x20u);
+      v29 = 2112;
+      v30 = member2;
+      v31 = 2112;
+      v32 = subTopic;
+      _os_log_impl(&dword_244328000, v15, OS_LOG_TYPE_DEFAULT, "%p Received a command indicating inflight member %@ is now capable of consuming subTopic %@", &v27, 0x20u);
     }
 
     sessionProducers = [(COMessageChannel *)self sessionProducers];
@@ -655,8 +632,6 @@ LABEL_5:
     member4 = [memberCopy member];
     [(_COMessageChannel *)self _onqueue_startSessionWithProducer:v20 member:member4 request:v23];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onqueue_deliverDidFailToStartSessionWithMember:(id)member producer:(id)producer error:(id)error
@@ -703,7 +678,7 @@ LABEL_5:
 
 - (void)_onqueue_deliverSuccessfullyStartedSession:(id)session withResponse:(id)response withMember:(id)member producer:(id)producer
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   responseCopy = response;
   memberCopy = member;
@@ -716,9 +691,9 @@ LABEL_5:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v26 = producerCopy;
-    v27 = 2112;
-    v28 = sessionCopy;
+    v25 = producerCopy;
+    v26 = 2112;
+    v27 = sessionCopy;
     _os_log_impl(&dword_244328000, v15, OS_LOG_TYPE_DEFAULT, "%@ Producer successfully created a session %@", buf, 0x16u);
   }
 
@@ -730,20 +705,18 @@ LABEL_5:
     block[1] = 3221225472;
     block[2] = __97___COMessageChannel__onqueue_deliverSuccessfullyStartedSession_withResponse_withMember_producer___block_invoke;
     block[3] = &unk_278E12EE8;
-    v20 = delegate;
-    v21 = producerCopy;
-    v22 = sessionCopy;
-    v23 = memberCopy;
-    v24 = responseCopy;
+    v19 = delegate;
+    v20 = producerCopy;
+    v21 = sessionCopy;
+    v22 = memberCopy;
+    v23 = responseCopy;
     dispatch_async(delegateQueue, block);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onqueue_deliverSuccessfullyStartedSession:(id)session withMember:(id)member consumer:(id)consumer
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   consumerCopy = consumer;
   memberCopy = member;
@@ -755,9 +728,9 @@ LABEL_5:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v21 = consumerCopy;
-    v22 = 2112;
-    v23 = sessionCopy;
+    v20 = consumerCopy;
+    v21 = 2112;
+    v22 = sessionCopy;
     _os_log_impl(&dword_244328000, v12, OS_LOG_TYPE_DEFAULT, "%@ Consumer successfully created a session %@", buf, 0x16u);
   }
 
@@ -769,13 +742,11 @@ LABEL_5:
     block[1] = 3221225472;
     block[2] = __84___COMessageChannel__onqueue_deliverSuccessfullyStartedSession_withMember_consumer___block_invoke;
     block[3] = &unk_278E12738;
-    v17 = delegate;
-    v18 = consumerCopy;
-    v19 = sessionCopy;
+    v16 = delegate;
+    v17 = consumerCopy;
+    v18 = sessionCopy;
     dispatch_async(delegateQueue, block);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onqueue_deliverDidEndDelegateForSession:(id)session notice:(id)notice initiator:(id)initiator error:(id)error
@@ -912,13 +883,12 @@ LABEL_6:
 
 - (void)_onqueue_startSessionWithProducer:(uint64_t)a1 member:.cold.1(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4 = 134218242;
-  v5 = a1;
+  v6 = *MEMORY[0x277D85DE8];
+  v3 = 134218242;
+  v4 = a1;
   OUTLINED_FUNCTION_1_3();
-  v6 = v1;
-  _os_log_debug_impl(&dword_244328000, v2, OS_LOG_TYPE_DEBUG, "%p Reaching out to client delegate producer:shouldStartSessionWithMember:completionHandler: with member %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = v1;
+  _os_log_debug_impl(&dword_244328000, v2, OS_LOG_TYPE_DEBUG, "%p Reaching out to client delegate producer:shouldStartSessionWithMember:completionHandler: with member %@", &v3, 0x16u);
 }
 
 @end

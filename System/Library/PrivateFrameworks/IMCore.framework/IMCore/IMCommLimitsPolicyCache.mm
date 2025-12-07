@@ -43,73 +43,71 @@
 - (void)addTrackingForChat:(id)chat participantIDsHash:(id)hash
 {
   hashCopy = hash;
-  v10 = objc_msgSend_chatIdentifier(chat, v6, v7);
-  if (hashCopy && v10)
+  chatIdentifier = [chat chatIdentifier];
+  if (hashCopy && chatIdentifier)
   {
-    v11 = objc_msgSend_participantIDsHashToChatIdentifier(self, v8, v9);
-    objc_msgSend_setObject_forKeyedSubscript_(v11, v12, v10, hashCopy);
+    participantIDsHashToChatIdentifier = [(IMCommLimitsPolicyCache *)self participantIDsHashToChatIdentifier];
+    [participantIDsHashToChatIdentifier setObject:chatIdentifier forKeyedSubscript:hashCopy];
 
-    v15 = objc_msgSend_chatIdentifierToParticipantIDsHash(self, v13, v14);
-    objc_msgSend_setObject_forKeyedSubscript_(v15, v16, hashCopy, v10);
+    chatIdentifierToParticipantIDsHash = [(IMCommLimitsPolicyCache *)self chatIdentifierToParticipantIDsHash];
+    [chatIdentifierToParticipantIDsHash setObject:hashCopy forKeyedSubscript:chatIdentifier];
   }
 }
 
 - (void)removeTrackingForChat:(id)chat
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   chatCopy = chat;
-  v9 = objc_msgSend_chatIdentifier(chatCopy, v5, v6);
-  if (v9)
+  chatIdentifier = [chatCopy chatIdentifier];
+  if (chatIdentifier)
   {
-    v10 = objc_msgSend_chatIdentifierToParticipantIDsHash(self, v7, v8);
-    v12 = objc_msgSend_objectForKeyedSubscript_(v10, v11, v9);
+    chatIdentifierToParticipantIDsHash = [(IMCommLimitsPolicyCache *)self chatIdentifierToParticipantIDsHash];
+    v7 = [chatIdentifierToParticipantIDsHash objectForKeyedSubscript:chatIdentifier];
 
-    if (v12)
+    if (v7)
     {
       if (IMOSLoggingEnabled())
       {
-        v15 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+        v8 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
-          v37 = 138412546;
-          v38 = chatCopy;
-          v39 = 2112;
-          v40 = v12;
-          _os_log_impl(&dword_1A823F000, v15, OS_LOG_TYPE_INFO, "Participants changed for chat %@. Invalidating cached Screen Time policy for participants group IDs hash: %@", &v37, 0x16u);
+          v16 = 138412546;
+          v17 = chatCopy;
+          v18 = 2112;
+          v19 = v7;
+          _os_log_impl(&dword_1A823F000, v8, OS_LOG_TYPE_INFO, "Participants changed for chat %@. Invalidating cached Screen Time policy for participants group IDs hash: %@", &v16, 0x16u);
         }
       }
 
-      v16 = objc_msgSend_participantIDsHashToConversationContext(self, v13, v14);
-      v18 = objc_msgSend_objectForKeyedSubscript_(v16, v17, v12);
+      participantIDsHashToConversationContext = [(IMCommLimitsPolicyCache *)self participantIDsHashToConversationContext];
+      v10 = [participantIDsHashToConversationContext objectForKeyedSubscript:v7];
 
-      if (v18)
+      if (v10)
       {
-        v21 = objc_msgSend_valueWithPointer_(MEMORY[0x1E696B098], v19, v18);
-        v24 = objc_msgSend_conversationContextToParticipantIDsHash(self, v22, v23);
-        objc_msgSend_setObject_forKeyedSubscript_(v24, v25, 0, v21);
+        v11 = [MEMORY[0x1E696B098] valueWithPointer:v10];
+        conversationContextToParticipantIDsHash = [(IMCommLimitsPolicyCache *)self conversationContextToParticipantIDsHash];
+        [conversationContextToParticipantIDsHash setObject:0 forKeyedSubscript:v11];
       }
 
-      v26 = objc_msgSend_chatIdentifierToParticipantIDsHash(self, v19, v20);
-      objc_msgSend_setObject_forKeyedSubscript_(v26, v27, 0, v9);
+      chatIdentifierToParticipantIDsHash2 = [(IMCommLimitsPolicyCache *)self chatIdentifierToParticipantIDsHash];
+      [chatIdentifierToParticipantIDsHash2 setObject:0 forKeyedSubscript:chatIdentifier];
 
-      v30 = objc_msgSend_participantIDsHashToChatIdentifier(self, v28, v29);
-      objc_msgSend_setObject_forKeyedSubscript_(v30, v31, 0, v12);
+      participantIDsHashToChatIdentifier = [(IMCommLimitsPolicyCache *)self participantIDsHashToChatIdentifier];
+      [participantIDsHashToChatIdentifier setObject:0 forKeyedSubscript:v7];
 
-      v34 = objc_msgSend_participantIDsHashToConversationContext(self, v32, v33);
-      objc_msgSend_setObject_forKeyedSubscript_(v34, v35, 0, v12);
+      participantIDsHashToConversationContext2 = [(IMCommLimitsPolicyCache *)self participantIDsHashToConversationContext];
+      [participantIDsHashToConversationContext2 setObject:0 forKeyedSubscript:v7];
     }
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isFetchingCommLimitsPolicyForChat:(id)chat
 {
-  v6 = objc_msgSend_chatIdentifier(chat, a2, chat);
-  if (v6 && (objc_msgSend_chatIdentifierToParticipantIDsHash(self, v4, v5), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend_objectForKeyedSubscript_(v7, v8, v6), v9 = objc_claimAutoreleasedReturnValue(), v7, v9))
+  chatIdentifier = [chat chatIdentifier];
+  if (chatIdentifier && (-[IMCommLimitsPolicyCache chatIdentifierToParticipantIDsHash](self, "chatIdentifierToParticipantIDsHash"), v5 = objc_claimAutoreleasedReturnValue(), [v5 objectForKeyedSubscript:chatIdentifier], v6 = objc_claimAutoreleasedReturnValue(), v5, v6))
   {
-    v12 = objc_msgSend_participantIDsHashToConversationContext(self, v10, v11);
-    v14 = objc_msgSend_objectForKeyedSubscript_(v12, v13, v9);
+    participantIDsHashToConversationContext = [(IMCommLimitsPolicyCache *)self participantIDsHashToConversationContext];
+    v8 = [participantIDsHashToConversationContext objectForKeyedSubscript:v6];
 
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
@@ -128,60 +126,60 @@
   if (hash)
   {
     hashCopy = hash;
-    v7 = objc_msgSend_participantIDsHashToChatIdentifier(self, v5, v6);
-    v9 = objc_msgSend_objectForKeyedSubscript_(v7, v8, hashCopy);
+    participantIDsHashToChatIdentifier = [(IMCommLimitsPolicyCache *)self participantIDsHashToChatIdentifier];
+    v6 = [participantIDsHashToChatIdentifier objectForKeyedSubscript:hashCopy];
 
-    if (v9)
+    if (v6)
     {
-      v12 = objc_msgSend_sharedRegistry(IMChatRegistry, v10, v11);
-      v14 = objc_msgSend_existingChatWithChatIdentifier_(v12, v13, v9);
+      v7 = +[IMChatRegistry sharedRegistry];
+      v8 = [v7 existingChatWithChatIdentifier:v6];
     }
 
     else
     {
-      v14 = 0;
+      v8 = 0;
     }
   }
 
   else
   {
-    v14 = 0;
+    v8 = 0;
   }
 
-  return v14;
+  return v8;
 }
 
 - (id)chatForConversationContext:(id)context
 {
   if (context)
   {
-    v4 = objc_msgSend_valueWithPointer_(MEMORY[0x1E696B098], a2, context);
-    v7 = objc_msgSend_conversationContextToParticipantIDsHash(self, v5, v6);
-    v9 = objc_msgSend_objectForKeyedSubscript_(v7, v8, v4);
+    v4 = [MEMORY[0x1E696B098] valueWithPointer:?];
+    conversationContextToParticipantIDsHash = [(IMCommLimitsPolicyCache *)self conversationContextToParticipantIDsHash];
+    v6 = [conversationContextToParticipantIDsHash objectForKeyedSubscript:v4];
 
-    v11 = objc_msgSend_chatForParticipantIDsHash_(self, v10, v9);
+    v7 = [(IMCommLimitsPolicyCache *)self chatForParticipantIDsHash:v6];
   }
 
   else
   {
-    v11 = 0;
+    v7 = 0;
   }
 
-  return v11;
+  return v7;
 }
 
 - (id)conversationContextForChat:(id)chat
 {
-  v6 = objc_msgSend_chatIdentifier(chat, a2, chat);
-  if (v6)
+  chatIdentifier = [chat chatIdentifier];
+  if (chatIdentifier)
   {
-    v7 = objc_msgSend_chatIdentifierToParticipantIDsHash(self, v4, v5);
-    v9 = objc_msgSend_objectForKeyedSubscript_(v7, v8, v6);
+    chatIdentifierToParticipantIDsHash = [(IMCommLimitsPolicyCache *)self chatIdentifierToParticipantIDsHash];
+    v6 = [chatIdentifierToParticipantIDsHash objectForKeyedSubscript:chatIdentifier];
 
-    if (v9)
+    if (v6)
     {
-      v12 = objc_msgSend_participantIDsHashToConversationContext(self, v10, v11);
-      v14 = objc_msgSend_objectForKeyedSubscript_(v12, v13, v9);
+      participantIDsHashToConversationContext = [(IMCommLimitsPolicyCache *)self participantIDsHashToConversationContext];
+      v8 = [participantIDsHashToConversationContext objectForKeyedSubscript:v6];
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
@@ -192,14 +190,14 @@ LABEL_6:
       }
     }
 
-    v14 = 0;
+    v8 = 0;
     goto LABEL_6;
   }
 
-  v14 = 0;
+  v8 = 0;
 LABEL_8:
 
-  return v14;
+  return v8;
 }
 
 - (void)addTrackingForConversationContext:(id)context forParticipantIDsHash:(id)hash
@@ -208,13 +206,13 @@ LABEL_8:
   {
     hashCopy = hash;
     contextCopy = context;
-    v10 = objc_msgSend_participantIDsHashToConversationContext(self, v8, v9);
-    objc_msgSend_setObject_forKeyedSubscript_(v10, v11, contextCopy, hashCopy);
+    participantIDsHashToConversationContext = [(IMCommLimitsPolicyCache *)self participantIDsHashToConversationContext];
+    [participantIDsHashToConversationContext setObject:contextCopy forKeyedSubscript:hashCopy];
 
-    v17 = objc_msgSend_valueWithPointer_(MEMORY[0x1E696B098], v12, contextCopy);
+    v10 = [MEMORY[0x1E696B098] valueWithPointer:contextCopy];
 
-    v15 = objc_msgSend_conversationContextToParticipantIDsHash(self, v13, v14);
-    objc_msgSend_setObject_forKeyedSubscript_(v15, v16, hashCopy, v17);
+    conversationContextToParticipantIDsHash = [(IMCommLimitsPolicyCache *)self conversationContextToParticipantIDsHash];
+    [conversationContextToParticipantIDsHash setObject:hashCopy forKeyedSubscript:v10];
   }
 }
 
@@ -224,9 +222,9 @@ LABEL_8:
   {
     v4 = MEMORY[0x1E695DFB0];
     hashCopy = hash;
-    v12 = objc_msgSend_null(v4, v6, v7);
-    v10 = objc_msgSend_participantIDsHashToConversationContext(self, v8, v9);
-    objc_msgSend_setObject_forKeyedSubscript_(v10, v11, v12, hashCopy);
+    null = [v4 null];
+    participantIDsHashToConversationContext = [(IMCommLimitsPolicyCache *)self participantIDsHashToConversationContext];
+    [participantIDsHashToConversationContext setObject:null forKeyedSubscript:hashCopy];
   }
 }
 
@@ -235,16 +233,16 @@ LABEL_8:
   if (hash)
   {
     hashCopy = hash;
-    v7 = objc_msgSend_participantIDsHashToConversationContext(self, v5, v6);
-    v9 = objc_msgSend_objectForKeyedSubscript_(v7, v8, hashCopy);
+    participantIDsHashToConversationContext = [(IMCommLimitsPolicyCache *)self participantIDsHashToConversationContext];
+    v6 = [participantIDsHashToConversationContext objectForKeyedSubscript:hashCopy];
   }
 
   else
   {
-    v9 = 0;
+    v6 = 0;
   }
 
-  return v9;
+  return v6;
 }
 
 @end

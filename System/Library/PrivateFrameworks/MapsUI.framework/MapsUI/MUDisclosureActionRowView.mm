@@ -95,76 +95,74 @@
 
 - (void)_setupConstraints
 {
-  v48[14] = *MEMORY[0x1E69E9840];
+  v47[14] = *MEMORY[0x1E69E9840];
   widthAnchor = [(UIImageView *)self->_imageView widthAnchor];
   [(MUDisclosureActionRowView *)self _imageWidth];
   v4 = [widthAnchor constraintEqualToConstant:?];
   imageWidthConstraint = self->_imageWidthConstraint;
   self->_imageWidthConstraint = v4;
 
-  v33 = MEMORY[0x1E696ACD8];
-  v48[0] = self->_imageWidthConstraint;
+  v32 = MEMORY[0x1E696ACD8];
+  v47[0] = self->_imageWidthConstraint;
   heightAnchor = [(UIImageView *)self->_imageView heightAnchor];
   widthAnchor2 = [(UIImageView *)self->_imageView widthAnchor];
-  v45 = [heightAnchor constraintEqualToAnchor:widthAnchor2];
-  v48[1] = v45;
+  v44 = [heightAnchor constraintEqualToAnchor:widthAnchor2];
+  v47[1] = v44;
   leadingAnchor = [(UIImageView *)self->_imageView leadingAnchor];
   leadingAnchor2 = [(MUDisclosureActionRowView *)self leadingAnchor];
-  v42 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:16.0];
-  v48[2] = v42;
+  v41 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:16.0];
+  v47[2] = v41;
   centerYAnchor = [(UIImageView *)self->_imageView centerYAnchor];
   centerYAnchor2 = [(UILayoutGuide *)self->_titleValueLayoutGuide centerYAnchor];
-  v39 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v48[3] = v39;
+  v38 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+  v47[3] = v38;
   leadingAnchor3 = [(UILayoutGuide *)self->_titleValueLayoutGuide leadingAnchor];
   trailingAnchor = [(UIImageView *)self->_imageView trailingAnchor];
-  v36 = [leadingAnchor3 constraintEqualToAnchor:trailingAnchor constant:10.0];
-  v48[4] = v36;
+  v35 = [leadingAnchor3 constraintEqualToAnchor:trailingAnchor constant:10.0];
+  v47[4] = v35;
   topAnchor = [(UILayoutGuide *)self->_titleValueLayoutGuide topAnchor];
   topAnchor2 = [(MUDisclosureActionRowView *)self topAnchor];
-  v32 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:16.0];
-  v48[5] = v32;
+  v31 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:16.0];
+  v47[5] = v31;
   bottomAnchor = [(UILayoutGuide *)self->_titleValueLayoutGuide bottomAnchor];
   bottomAnchor2 = [(MUDisclosureActionRowView *)self bottomAnchor];
-  v29 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-16.0];
-  v48[6] = v29;
+  v28 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-16.0];
+  v47[6] = v28;
   leadingAnchor4 = [(UIImageView *)self->_disclosureView leadingAnchor];
   trailingAnchor2 = [(UILayoutGuide *)self->_titleValueLayoutGuide trailingAnchor];
-  v26 = [leadingAnchor4 constraintEqualToAnchor:trailingAnchor2 constant:8.0];
-  v48[7] = v26;
+  v25 = [leadingAnchor4 constraintEqualToAnchor:trailingAnchor2 constant:8.0];
+  v47[7] = v25;
   trailingAnchor3 = [(UIImageView *)self->_disclosureView trailingAnchor];
   trailingAnchor4 = [(MUDisclosureActionRowView *)self trailingAnchor];
-  v23 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:-16.0];
-  v48[8] = v23;
+  v22 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:-16.0];
+  v47[8] = v22;
   centerYAnchor3 = [(UIImageView *)self->_disclosureView centerYAnchor];
   centerYAnchor4 = [(UILayoutGuide *)self->_titleValueLayoutGuide centerYAnchor];
-  v20 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
-  v48[9] = v20;
+  v19 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
+  v47[9] = v19;
   leadingAnchor5 = [(UILabel *)self->_titleLabel leadingAnchor];
   leadingAnchor6 = [(UILayoutGuide *)self->_titleValueLayoutGuide leadingAnchor];
-  v17 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
-  v48[10] = v17;
+  v16 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
+  v47[10] = v16;
   topAnchor3 = [(UILabel *)self->_titleLabel topAnchor];
   topAnchor4 = [(UILayoutGuide *)self->_titleValueLayoutGuide topAnchor];
   v8 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
-  v48[11] = v8;
+  v47[11] = v8;
   trailingAnchor5 = [(UILabel *)self->_titleLabel trailingAnchor];
   trailingAnchor6 = [(UILayoutGuide *)self->_titleValueLayoutGuide trailingAnchor];
   v11 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6];
-  v48[12] = v11;
+  v47[12] = v11;
   bottomAnchor3 = [(UILabel *)self->_titleLabel bottomAnchor];
   bottomAnchor4 = [(UILayoutGuide *)self->_titleValueLayoutGuide bottomAnchor];
   v14 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-  v48[13] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:14];
-  [v33 activateConstraints:v15];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v47[13] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:14];
+  [v32 activateConstraints:v15];
 }
 
 - (void)_setupSubviews
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E69DCC20]);
   titleValueLayoutGuide = self->_titleValueLayoutGuide;
   self->_titleValueLayoutGuide = v3;
@@ -226,11 +224,9 @@
   [(UITapGestureRecognizer *)self->_tapGestureRecognizer addTarget:self action:sel__buttonCellTapped];
   [(UIView *)self _mapsui_addSelectGestureRecognizerWithTarget:self action:sel__buttonCellTapped];
   v26 = objc_opt_self();
-  v30[0] = v26;
-  v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
+  v29[0] = v26;
+  v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
   v28 = [(MUDisclosureActionRowView *)self registerForTraitChanges:v27 withAction:sel__updateForPlatterAvailability];
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (MUDisclosureActionRowView)initWithFrame:(CGRect)frame

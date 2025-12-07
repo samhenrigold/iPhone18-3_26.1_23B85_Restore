@@ -103,7 +103,7 @@
 
   if (vertexCount <= 4 * v4)
   {
-    [(KNShimmerParticleSystem *)self duration];
+    objc_msgSend_duration(self);
     v10 = fmin(2.0 / v9, 0.9);
     TSURandom();
     TSUReverseSquare();

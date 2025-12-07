@@ -1,10 +1,10 @@
 @interface AnyHashable:
-- (uint64_t)Any;
+- (double)Any;
 @end
 
 @implementation AnyHashable:
 
-- (uint64_t)Any
+- (double)Any
 {
   v6 = *(self + 32);
   v7 = _Block_copy(aBlock);
@@ -36,7 +36,9 @@ LABEL_4:
 
   v6(v7, v8, ObjCClassMetadata, a4);
 
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v7);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v7, v8);
+
+  return result;
 }
 
 @end

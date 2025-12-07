@@ -7,6 +7,7 @@
 + (id)overridePreferences;
 + (id)sourceDeviceValueFor:(unint64_t)for;
 + (void)mergeIntoOverridesDictionary:(id)dictionary;
++ (void)setOverrideEntryFor:(unint64_t)for shouldOverride:(BOOL)override;
 + (void)setSourceDeviceValueEntryFor:(unint64_t)for value:(id)value;
 @end
 
@@ -25,6 +26,28 @@
   }
 
   return v2;
+}
+
++ (void)setOverrideEntryFor:(unint64_t)for shouldOverride:(BOOL)override
+{
+  overrideCopy = override;
+  v12[1] = *MEMORY[0x1E69E9840];
+  if ([self buildSupportsOverrides])
+  {
+    v7 = [self keyForOverrideEntry:for];
+    v11 = v7;
+    v8 = [MEMORY[0x1E696AD98] numberWithBool:overrideCopy];
+    v12[0] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+
+    [self mergeIntoOverridesDictionary:v9];
+  }
+
+  else
+  {
+    v10 = +[BYPreferencesController buddyPreferencesExcludedFromBackup];
+    [v10 removeObjectForKey:@"overrides" onlyFromMemory:0];
+  }
 }
 
 + (BOOL)useOverridesFor:(unint64_t)for
@@ -54,21 +77,19 @@
 
 + (void)setSourceDeviceValueEntryFor:(unint64_t)for value:(id)value
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   valueCopy = value;
   if ([self buildSupportsOverrides])
   {
     v7 = [self keyForSourceDeviceOverrideEntry:for];
-    v12 = valueCopy;
-    v13 = @"sourceDevice";
-    v11 = v7;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-    v14[0] = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v11 = valueCopy;
+    v12 = @"sourceDevice";
+    v10 = v7;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+    v13[0] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     [self mergeIntoOverridesDictionary:v9];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (id)sourceDeviceValueFor:(unint64_t)for

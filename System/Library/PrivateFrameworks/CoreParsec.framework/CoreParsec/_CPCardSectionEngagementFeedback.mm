@@ -191,7 +191,6 @@ LABEL_32:
   to;
   if ([(_CPCardSectionEngagementFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -205,13 +204,11 @@ LABEL_32:
 
   if ([(_CPCardSectionEngagementFeedback *)self triggerEvent])
   {
-    triggerEvent = self->_triggerEvent;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPCardSectionEngagementFeedback *)self actionCardType])
   {
-    actionCardType = self->_actionCardType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -225,7 +222,6 @@ LABEL_32:
 
   if ([(_CPCardSectionEngagementFeedback *)self destinationWasPARPunchout])
   {
-    destinationWasPARPunchout = self->_destinationWasPARPunchout;
     PBDataWriterWriteBOOLField();
   }
 
@@ -233,7 +229,6 @@ LABEL_32:
 
   if (parPunchoutActionTarget)
   {
-    parPunchoutActionTarget = self->_parPunchoutActionTarget;
     PBDataWriterWriteStringField();
   }
 
@@ -241,7 +236,6 @@ LABEL_32:
 
   if (cardSectionId)
   {
-    cardSectionId = self->_cardSectionId;
     PBDataWriterWriteStringField();
   }
 
@@ -249,13 +243,11 @@ LABEL_32:
 
   if (resultId)
   {
-    resultId = self->_resultId;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPCardSectionEngagementFeedback *)self actionTarget])
   {
-    actionTarget = self->_actionTarget;
     PBDataWriterWriteInt32Field();
   }
 

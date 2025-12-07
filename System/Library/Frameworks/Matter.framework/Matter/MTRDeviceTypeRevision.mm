@@ -11,7 +11,7 @@
 
 - (MTRDeviceTypeRevision)initWithDeviceTypeID:(id)d revision:(id)revision
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   revisionCopy = revision;
   v8 = revisionCopy;
@@ -26,13 +26,13 @@
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
-        v21 = v11;
+        v20 = v11;
         _os_log_impl(&dword_238DAE000, v15, OS_LOG_TYPE_ERROR, "MTRDeviceTypeRevision provided too-large device type ID: 0x%llx", buf, 0xCu);
       }
 
-      if (!sub_2393D5398(1u))
+      if (sub_2393D5398(1u))
       {
-        goto LABEL_20;
+        sub_2393D5320(0, 1, "MTRDeviceTypeRevision provided too-large device type ID: 0x%llx", v11);
       }
     }
 
@@ -42,13 +42,13 @@
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        LODWORD(v21) = v11;
+        LODWORD(v20) = v11;
         _os_log_impl(&dword_238DAE000, v16, OS_LOG_TYPE_ERROR, "MTRDeviceTypeRevision provided invalid device type ID: 0x%x", buf, 8u);
       }
 
-      if (!sub_2393D5398(1u))
+      if (sub_2393D5398(1u))
       {
-        goto LABEL_20;
+        sub_2393D5320(0, 1, "MTRDeviceTypeRevision provided invalid device type ID: 0x%x", v11);
       }
     }
 
@@ -69,25 +69,21 @@
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
-        v21 = unsignedLongLongValue2;
+        v20 = unsignedLongLongValue2;
         _os_log_impl(&dword_238DAE000, v17, OS_LOG_TYPE_ERROR, "MTRDeviceTypeRevision provided invalid device type revision: 0x%llx", buf, 0xCu);
       }
 
-      if (!sub_2393D5398(1u))
+      if (sub_2393D5398(1u))
       {
-LABEL_20:
-        selfCopy = 0;
-        goto LABEL_21;
+        sub_2393D5320(0, 1, "MTRDeviceTypeRevision provided invalid device type revision: 0x%llx", unsignedLongLongValue2);
       }
     }
 
-    sub_2393D5320(0, 1);
-    goto LABEL_20;
+    selfCopy = 0;
   }
 
 LABEL_21:
 
-  v18 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

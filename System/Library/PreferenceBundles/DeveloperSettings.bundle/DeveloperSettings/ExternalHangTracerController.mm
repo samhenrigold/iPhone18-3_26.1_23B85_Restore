@@ -22,6 +22,7 @@
 - (void)presentErrorWithTitle:(id)title message:(id)message;
 - (void)reloadAsyncSpecifiersWithCompletion:(id)completion;
 - (void)reloadSpecifiers;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)setHangTracerThreshold:(id)threshold forSpecifier:(id)specifier;
 - (void)shareLogs:(id)logs sender:(id)sender;
 - (void)shareSelectedHangs:(id)hangs;
@@ -30,8 +31,11 @@
 - (void)updateFromHangEventSpecifiers:(id)specifiers toSpecifiers:(id)toSpecifiers;
 - (void)updateHangEventsWithCompletion:(id)completion;
 - (void)updateProcessingHangEventsWithCompletion:(id)completion;
+- (void)updateRightBarButtonItemAnimated:(BOOL)animated;
 - (void)updateShareButtonEnabled;
 - (void)updateSpecifiersWithHangEvents:(id)events processingHangEvents:(id)hangEvents;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -148,6 +152,28 @@
   v3 = [NSBundle bundleForClass:objc_opt_class()];
   v4 = [v3 localizedStringForKey:@"HANGTRACER_EXTERNAL_CONFIGURE" value:&stru_3E0D8 table:@"DTSettings"];
   [(ExternalHangTracerController *)self setTitle:v4];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v14.receiver = self;
+  v14.super_class = ExternalHangTracerController;
+  [(ExternalHangTracerController *)&v14 viewDidAppear:appear];
+  v4 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v4 bundleURL];
+
+  v6 = [_NSLocalizedStringResource alloc];
+  v7 = +[NSLocale currentLocale];
+  v8 = [v6 initWithKey:@"DEVELOPER" table:@"DTSettings" locale:v7 bundleURL:bundleURL];
+
+  v9 = [_NSLocalizedStringResource alloc];
+  v10 = +[NSLocale currentLocale];
+  v11 = [v9 initWithKey:@"HANGTRACER_EXTERNAL_CONFIGURE" table:@"DTSettings" locale:v10 bundleURL:bundleURL];
+
+  v15 = v8;
+  v12 = [NSArray arrayWithObjects:&v15 count:1];
+  v13 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Developer/HANGTRACER_EXTERNAL_CONFIGURE"];
+  [(ExternalHangTracerController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.developer-tools" title:v11 localizedNavigationComponents:v12 deepLink:v13];
 }
 
 - (void)goToNextLogsState
@@ -302,6 +328,15 @@
   {
     [(ExternalHangTracerController *)self setEditing:0 animated:1];
   }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = ExternalHangTracerController;
+  [(ExternalHangTracerController *)&v4 viewDidDisappear:disappear];
+  self->_appsState = 0;
+  self->_logsState = 0;
 }
 
 - (void)updateFromHangEventSpecifiers:(id)specifiers toSpecifiers:(id)toSpecifiers
@@ -510,12 +545,108 @@
   objc_destroyWeak(&v21);
 }
 
+- (void)updateRightBarButtonItemAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  navigationItem = [(ExternalHangTracerController *)self navigationItem];
+  if (([(HTDeveloperSettings *)self->_hangTracerSettings isEnabled]& 1) != 0)
+  {
+    if ([(ExternalHangTracerController *)self isEditing])
+    {
+      objc_initWeak(&location, self);
+      [navigationItem setRightBarButtonItem:self->_shareButtonItem animated:animatedCopy];
+      v6 = [UIBarButtonItem alloc];
+      v9 = _NSConcreteStackBlock;
+      v10 = 3221225472;
+      v11 = sub_5B44;
+      v12 = &unk_3CFC8;
+      objc_copyWeak(&v13, &location);
+      v7 = [UIAction actionWithHandler:&v9];
+      v8 = [v6 initWithBarButtonSystemItem:1 primaryAction:{v7, v9, v10, v11, v12}];
+
+      [navigationItem setLeftBarButtonItem:v8 animated:animatedCopy];
+      objc_destroyWeak(&v13);
+      objc_destroyWeak(&location);
+    }
+
+    else
+    {
+      [(UIBarButtonItem *)self->_selectButtonItem setEnabled:[(ExternalHangTracerController *)self shouldEnableSelectButtonItem]];
+      [navigationItem setRightBarButtonItem:self->_selectButtonItem animated:animatedCopy];
+      [navigationItem setLeftBarButtonItem:0 animated:animatedCopy];
+    }
+  }
+
+  else
+  {
+    [navigationItem setLeftBarButtonItem:0 animated:animatedCopy];
+    [navigationItem setRightBarButtonItem:0 animated:animatedCopy];
+  }
+}
+
 - (BOOL)shouldEnableSelectButtonItem
 {
   unifiedHangsEvents = [(ExternalHangTracerController *)self unifiedHangsEvents];
   v3 = [unifiedHangsEvents count] != 0;
 
   return v3;
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  editingCopy = editing;
+  isEditing = [(ExternalHangTracerController *)self isEditing];
+  v22.receiver = self;
+  v22.super_class = ExternalHangTracerController;
+  [(ExternalHangTracerController *)&v22 setEditing:editingCopy animated:animatedCopy];
+  if (isEditing != editingCopy)
+  {
+    [(ExternalHangTracerController *)self updateRightBarButtonItemAnimated:animatedCopy];
+    table = [(ExternalHangTracerController *)self table];
+    [table setEditing:editingCopy animated:animatedCopy];
+
+    table2 = [(ExternalHangTracerController *)self table];
+    [table2 setAllowsMultipleSelection:editingCopy];
+
+    v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    table3 = [(ExternalHangTracerController *)self table];
+    indexPathsForSelectedRows = [table3 indexPathsForSelectedRows];
+
+    v12 = [indexPathsForSelectedRows countByEnumeratingWithState:&v18 objects:v23 count:16];
+    if (v12)
+    {
+      v13 = v12;
+      v14 = *v19;
+      do
+      {
+        v15 = 0;
+        do
+        {
+          if (*v19 != v14)
+          {
+            objc_enumerationMutation(indexPathsForSelectedRows);
+          }
+
+          v16 = *(*(&v18 + 1) + 8 * v15);
+          table4 = [(ExternalHangTracerController *)self table];
+          [table4 deselectRowAtIndexPath:v16 animated:animatedCopy];
+
+          v15 = v15 + 1;
+        }
+
+        while (v13 != v15);
+        v13 = [indexPathsForSelectedRows countByEnumeratingWithState:&v18 objects:v23 count:16];
+      }
+
+      while (v13);
+    }
+
+    [(ExternalHangTracerController *)self updateShareButtonEnabled];
+  }
 }
 
 - (void)updateShareButtonEnabled

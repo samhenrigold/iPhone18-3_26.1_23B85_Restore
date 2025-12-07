@@ -31,8 +31,16 @@ void sub_100001484(id a1)
   qword_10000C950 = v1;
 }
 
-void sub_10000362C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000362C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
+}
+
+void sub_100003898(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 134217984;
+  HIDWORD(v8) = a1 & 1;
+  sub_10000362C(&_mh_execute_header, &_os_log_default, a3, "IN SERVICE - Update text input menu %ld", a5, a6, a7, a8, v8, 0);
 }

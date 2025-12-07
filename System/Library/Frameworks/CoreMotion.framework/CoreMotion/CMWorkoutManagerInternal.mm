@@ -2,14 +2,19 @@
 - (BOOL)_isAutoPauseAllowedForWorkoutType:(int64_t)type;
 - (BOOL)_isReminderAllowedForType:(int64_t)type;
 - (CMWorkoutManagerInternal)init;
+- (void)_beginWorkoutSession:(id)session withWorkout:(id)workout enableWorkoutChangeDetection:(BOOL)detection;
 - (void)_checkWorkout:(id)workout;
 - (void)_endWorkoutSession:(id)session;
 - (void)_getPromptsNeededForWorkoutType:(int64_t)type handler:(id)handler;
 - (void)_handleDaemonEvent:(id)event;
 - (void)_handleDaemonResponse:(id)response;
+- (void)_muteAutoPauseForWorkoutType:(int64_t)type mute:(BOOL)mute;
+- (void)_muteReminderType:(int64_t)type mute:(BOOL)mute;
 - (void)_pauseWorkout:(id)workout;
 - (void)_registerForWorkoutEvents;
 - (void)_resumeWorkout:(id)workout;
+- (void)_setCurrentWorkoutType:(id)type isManualTransition:(BOOL)transition;
+- (void)_setReminderMuteSettingsForType:(int64_t)type mute:(BOOL)mute;
 - (void)_setSuggestedStopTimeout:(double)timeout;
 - (void)_setWorkout:(id)workout;
 - (void)_snapshotWithCompletion:(id)completion;
@@ -50,23 +55,22 @@
 - (void)_teardown
 {
   objc_msgSend__unregisterForWorkoutEvents(self, a2, v2);
-  fLocationdConnection = self->fLocationdConnection;
   sub_19B428B50(&__p, "kCLConnectionMessageWorkoutEvent");
   CLConnectionClient::setHandlerForMessage();
-  if (v8 < 0)
+  if (v7 < 0)
   {
     operator delete(__p);
   }
 
   self->fSessionState = 0;
-  objc_msgSend__setWorkout_(self, v5, 0);
+  objc_msgSend__setWorkout_(self, v4, 0);
 
   self->fWorkoutOverview = 0;
   self->fEnableWorkoutChangeDetection = 0;
   if (self->fLocationdConnection)
   {
-    v6 = MEMORY[0x19EAE71C0]();
-    MEMORY[0x19EAE76F0](v6, 0xB0C40BC2CC919);
+    v5 = MEMORY[0x19EAE71C0]();
+    MEMORY[0x19EAE76F0](v5, 0xB0C40BC2CC919);
   }
 
   self->fLocationdConnection = 0;
@@ -77,7 +81,7 @@
 
 - (void)_startWorkout:(id)workout
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v5 = getpid();
   ExecutablePathFromPid = objc_msgSend_getExecutablePathFromPid_(CMMotionUtils, v6, v5);
   if (ExecutablePathFromPid)
@@ -93,11 +97,11 @@
     {
       *buf = 138413058;
       workoutCopy = workout;
-      v33 = 2112;
-      v34 = v8;
-      v35 = 1024;
-      v36 = getpid();
-      v37 = 2048;
+      v34 = 2112;
+      v35 = v8;
+      v36 = 1024;
+      v37 = getpid();
+      v38 = 2048;
       selfCopy = self;
       _os_log_impl(&dword_19B41C000, v9, OS_LOG_TYPE_DEFAULT, "Workout, START, %@, %@, %d, %p", buf, 0x26u);
     }
@@ -111,35 +115,36 @@
         dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
       }
 
-      v23 = 138413058;
+      v11 = qword_1EAFE27B8;
+      v24 = 138413058;
       workoutCopy2 = workout;
-      v25 = 2112;
-      v26 = v8;
-      v27 = 1024;
-      v28 = getpid();
-      v29 = 2048;
+      v26 = 2112;
+      v27 = v8;
+      v28 = 1024;
+      v29 = getpid();
+      v30 = 2048;
       selfCopy2 = self;
-      v11 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _startWorkout:]", "CoreLocation: %s\n", v11);
-      if (v11 != buf)
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v11, 0, "Workout, START, %@, %@, %d, %p", &v24, 38);
+      v13 = v12;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _startWorkout:]", "CoreLocation: %s\n", v12);
+      if (v13 != buf)
       {
-        free(v11);
+        free(v13);
       }
     }
   }
 
-  v12 = [CMWorkoutOverview alloc];
-  v15 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], v13, v14);
+  v14 = [CMWorkoutOverview alloc];
+  v17 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], v15, v16);
   workoutCopy3 = workout;
-  v17 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v16, &workoutCopy3, 1);
-  v19 = objc_msgSend_initWithOverviewId_workouts_(v12, v18, v15, v17);
-  objc_msgSend__beginWorkoutSession_withWorkout_enableWorkoutChangeDetection_(self, v20, v19, workout, 0);
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v18, &workoutCopy3, 1);
+  v21 = objc_msgSend_initWithOverviewId_workouts_(v14, v20, v17, v19);
+  objc_msgSend__beginWorkoutSession_withWorkout_enableWorkoutChangeDetection_(self, v22, v21, workout, 0);
 }
 
 - (void)_stopWorkout:(id)workout
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = getpid();
   ExecutablePathFromPid = objc_msgSend_getExecutablePathFromPid_(CMMotionUtils, v6, v5);
   if (ExecutablePathFromPid)
@@ -155,11 +160,11 @@
     {
       *buf = 138413058;
       workoutCopy = workout;
-      v16 = 2112;
-      v17 = v9;
-      v18 = 1024;
-      v19 = getpid();
-      v20 = 2048;
+      v25 = 2112;
+      v26 = v9;
+      v27 = 1024;
+      v28 = getpid();
+      v29 = 2048;
       selfCopy = self;
       _os_log_impl(&dword_19B41C000, v10, OS_LOG_TYPE_DEFAULT, "Workout, STOP, %@, %@, %d, %p", buf, 0x26u);
     }
@@ -173,23 +178,31 @@
         dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
       }
 
-      getpid();
-      v12 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _stopWorkout:]", "CoreLocation: %s\n", v12);
-      if (v12 != buf)
+      v12 = qword_1EAFE27B8;
+      v15 = 138413058;
+      workoutCopy2 = workout;
+      v17 = 2112;
+      v18 = v9;
+      v19 = 1024;
+      v20 = getpid();
+      v21 = 2048;
+      selfCopy2 = self;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v12, 0, "Workout, STOP, %@, %@, %d, %p", &v15, 38);
+      v14 = v13;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _stopWorkout:]", "CoreLocation: %s\n", v13);
+      if (v14 != buf)
       {
-        free(v12);
+        free(v14);
       }
     }
   }
 
   objc_msgSend__endWorkoutSession_(self, v8, workout);
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setSuggestedStopTimeout:(double)timeout
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v5 = getpid();
   ExecutablePathFromPid = objc_msgSend_getExecutablePathFromPid_(CMMotionUtils, v6, v5);
   if (ExecutablePathFromPid)
@@ -205,9 +218,9 @@
     {
       buf[0] = 138412802;
       *&buf[1] = v10;
-      v24 = 1024;
-      v25 = getpid();
-      v26 = 2048;
+      v25 = 1024;
+      v26 = getpid();
+      v27 = 2048;
       selfCopy = self;
       _os_log_impl(&dword_19B41C000, v11, OS_LOG_TYPE_DEFAULT, "Workout, Registering suggested stop timeout, %@, %d, %p", buf, 0x1Cu);
     }
@@ -221,35 +234,35 @@
         dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
       }
 
-      *v18 = 138412802;
-      *&v18[4] = v10;
-      v19 = 1024;
-      v20 = getpid();
-      v21 = 2048;
+      v13 = qword_1EAFE27B8;
+      *v19 = 138412802;
+      *&v19[4] = v10;
+      v20 = 1024;
+      v21 = getpid();
+      v22 = 2048;
       selfCopy2 = self;
-      v13 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _setSuggestedStopTimeout:]", "CoreLocation: %s\n", v13);
-      if (v13 != buf)
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v13, 0, "Workout, Registering suggested stop timeout, %@, %d, %p", v19, 28);
+      v15 = v14;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _setSuggestedStopTimeout:]", "CoreLocation: %s\n", v14);
+      if (v15 != buf)
       {
-        free(v13);
+        free(v15);
       }
     }
   }
 
   if (self->fLocationdConnection)
   {
-    v16 = @"CMWorkoutTimeout";
-    v17 = objc_msgSend_numberWithDouble_(MEMORY[0x1E696AD98], v8, v9, timeout);
-    *v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v14, &v17, &v16, 1);
+    v17 = @"CMWorkoutTimeout";
+    v18 = objc_msgSend_numberWithDouble_(MEMORY[0x1E696AD98], v8, v9, timeout);
+    *v19 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v16, &v18, &v17, 1);
     sub_19B686B90();
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_userDismissedWorkoutAlert
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = getpid();
   ExecutablePathFromPid = objc_msgSend_getExecutablePathFromPid_(CMMotionUtils, v4, v3);
   if (ExecutablePathFromPid)
@@ -265,9 +278,9 @@
     {
       buf[0] = 138412802;
       *&buf[1] = v6;
-      v12 = 1024;
-      v13 = getpid();
-      v14 = 2048;
+      v19 = 1024;
+      v20 = getpid();
+      v21 = 2048;
       selfCopy = self;
       _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_DEFAULT, "Workout, User dismissed workout alert, %@, %d, %p", buf, 0x1Cu);
     }
@@ -281,12 +294,19 @@
         dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
       }
 
-      getpid();
-      v9 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _userDismissedWorkoutAlert]", "CoreLocation: %s\n", v9);
-      if (v9 != buf)
+      v9 = qword_1EAFE27B8;
+      v12 = 138412802;
+      v13 = v6;
+      v14 = 1024;
+      v15 = getpid();
+      v16 = 2048;
+      selfCopy2 = self;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v9, 0, "Workout, User dismissed workout alert, %@, %d, %p", &v12, 28);
+      v11 = v10;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _userDismissedWorkoutAlert]", "CoreLocation: %s\n", v10);
+      if (v11 != buf)
       {
-        free(v9);
+        free(v11);
       }
     }
   }
@@ -295,13 +315,11 @@
   {
     sub_19B686CD4();
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_triggerWorkoutLocationUpdateForTesting:(int64_t)testing
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = getpid();
   ExecutablePathFromPid = objc_msgSend_getExecutablePathFromPid_(CMMotionUtils, v6, v5);
   if (ExecutablePathFromPid)
@@ -317,11 +335,11 @@
     {
       buf[0] = 134218754;
       *&buf[1] = testing;
-      v26 = 2112;
-      v27 = v9;
-      v28 = 1024;
-      v29 = getpid();
-      v30 = 2048;
+      v27 = 2112;
+      v28 = v9;
+      v29 = 1024;
+      v30 = getpid();
+      v31 = 2048;
       selfCopy = self;
       _os_log_impl(&dword_19B41C000, v10, OS_LOG_TYPE_DEFAULT, "Workout, SET LOCATION FOR TESTING, %zd, %@, %d, %p", buf, 0x26u);
     }
@@ -335,149 +353,152 @@
         dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
       }
 
-      v17 = 134218754;
+      v12 = qword_1EAFE27B8;
+      v18 = 134218754;
       testingCopy = testing;
-      v19 = 2112;
-      v20 = v9;
-      v21 = 1024;
-      v22 = getpid();
-      v23 = 2048;
+      v20 = 2112;
+      v21 = v9;
+      v22 = 1024;
+      v23 = getpid();
+      v24 = 2048;
       selfCopy2 = self;
-      v12 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _triggerWorkoutLocationUpdateForTesting:]", "CoreLocation: %s\n", v12);
-      if (v12 != buf)
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v12, 0, "Workout, SET LOCATION FOR TESTING, %zd, %@, %d, %p", &v18, 38);
+      v14 = v13;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _triggerWorkoutLocationUpdateForTesting:]", "CoreLocation: %s\n", v13);
+      if (v14 != buf)
       {
-        free(v12);
+        free(v14);
       }
     }
   }
 
   if (self->fLocationdConnection)
   {
-    v15 = @"CMWorkoutTriggerWorkoutLocationEventForTesting";
-    v16 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v8, testing);
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v13, &v16, &v15, 1);
+    v16 = @"CMWorkoutTriggerWorkoutLocationEventForTesting";
+    v17 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v8, testing);
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v15, &v17, &v16, 1);
     operator new();
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleDaemonResponse:(id)response
 {
-  *&v36[409] = *MEMORY[0x1E69E9840];
-  if (!self->fDelegate)
+  *&v38[409] = *MEMORY[0x1E69E9840];
+  if (self->fDelegate)
   {
-    goto LABEL_30;
-  }
-
-  if (response)
-  {
-    if (!objc_msgSend_objectForKeyedSubscript_(response, a2, @"CMErrorMessage"))
+    if (response)
     {
-      goto LABEL_30;
+      if (!objc_msgSend_objectForKeyedSubscript_(response, a2, @"CMErrorMessage"))
+      {
+        return;
+      }
+
+      v6 = MEMORY[0x1E696ABC0];
+      v7 = objc_msgSend_objectForKeyedSubscript_(response, v5, @"CMErrorMessage");
+      v10 = objc_msgSend_integerValue(v7, v8, v9);
+      v12 = objc_msgSend_errorWithDomain_code_userInfo_(v6, v11, @"CMErrorDomain", v10, 0);
+      if (qword_1EAFE2780 != -1)
+      {
+        dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+      }
+
+      v13 = qword_1EAFE27B8;
+      if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_ERROR))
+      {
+        v15 = objc_msgSend_objectForKeyedSubscript_(response, v14, @"CMErrorMessage");
+        v18 = objc_msgSend_intValue(v15, v16, v17);
+        fWorkout = self->fWorkout;
+        *buf = 67109378;
+        v38[0] = v18;
+        LOWORD(v38[1]) = 2112;
+        *(&v38[1] + 2) = fWorkout;
+        _os_log_impl(&dword_19B41C000, v13, OS_LOG_TYPE_ERROR, "Workout, Error, %d, %@", buf, 0x12u);
+      }
+
+      v20 = sub_19B420058();
+      if ((*(v20 + 160) & 0x80000000) != 0 && (*(v20 + 164) & 0x80000000) != 0 && (*(v20 + 168) & 0x80000000) != 0 && !*(v20 + 152))
+      {
+        goto LABEL_26;
+      }
+
+      bzero(buf, 0x65CuLL);
+      if (qword_1EAFE2780 != -1)
+      {
+        dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+      }
+
+      v22 = qword_1EAFE27B8;
+      v23 = objc_msgSend_objectForKeyedSubscript_(response, v21, @"CMErrorMessage");
+      v26 = objc_msgSend_intValue(v23, v24, v25);
+      v27 = self->fWorkout;
+      *v36 = 67109378;
+      *&v36[4] = v26;
+      *&v36[8] = 2112;
+      *&v36[10] = v27;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v22, 16, "Workout, Error, %d, %@", v36, 18, *v36, *&v36[16]);
     }
 
-    v6 = MEMORY[0x1E696ABC0];
-    v7 = objc_msgSend_objectForKeyedSubscript_(response, v5, @"CMErrorMessage");
-    v10 = objc_msgSend_integerValue(v7, v8, v9);
-    v12 = objc_msgSend_errorWithDomain_code_userInfo_(v6, v11, @"CMErrorDomain", v10, 0);
-    if (qword_1EAFE2780 != -1)
+    else
     {
-      dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+      v12 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], a2, @"CMErrorDomain", 103, 0);
+      if (qword_1EAFE2780 != -1)
+      {
+        dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+      }
+
+      v29 = qword_1EAFE27B8;
+      if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_FAULT))
+      {
+        v30 = self->fWorkout;
+        *buf = 138412290;
+        *v38 = v30;
+        _os_log_impl(&dword_19B41C000, v29, OS_LOG_TYPE_FAULT, "Workout, nil event dictionary, %@", buf, 0xCu);
+      }
+
+      v31 = sub_19B420058();
+      if ((*(v31 + 160) & 0x80000000) != 0 && (*(v31 + 164) & 0x80000000) != 0 && (*(v31 + 168) & 0x80000000) != 0 && !*(v31 + 152))
+      {
+        goto LABEL_26;
+      }
+
+      bzero(buf, 0x65CuLL);
+      if (qword_1EAFE2780 != -1)
+      {
+        dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+      }
+
+      v32 = self->fWorkout;
+      *v36 = 138412290;
+      *&v36[4] = v32;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27B8, 17, "Workout, nil event dictionary, %@", v36, 12, *v36, *&v36[16]);
     }
 
-    v13 = qword_1EAFE27B8;
-    if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_ERROR))
+    v33 = v28;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMWorkoutManagerInternal _handleDaemonResponse:]", "CoreLocation: %s\n", v28);
+    if (v33 != buf)
     {
-      v15 = objc_msgSend_objectForKeyedSubscript_(response, v14, @"CMErrorMessage");
-      v18 = objc_msgSend_intValue(v15, v16, v17);
-      fWorkout = self->fWorkout;
-      *buf = 67109378;
-      v36[0] = v18;
-      LOWORD(v36[1]) = 2112;
-      *(&v36[1] + 2) = fWorkout;
-      _os_log_impl(&dword_19B41C000, v13, OS_LOG_TYPE_ERROR, "Workout, Error, %d, %@", buf, 0x12u);
+      free(v33);
     }
-
-    v20 = sub_19B420058();
-    if ((*(v20 + 160) & 0x80000000) != 0 && (*(v20 + 164) & 0x80000000) != 0 && (*(v20 + 168) & 0x80000000) != 0 && !*(v20 + 152))
-    {
-      goto LABEL_26;
-    }
-
-    bzero(buf, 0x65CuLL);
-    if (qword_1EAFE2780 != -1)
-    {
-      dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-    }
-
-    v22 = objc_msgSend_objectForKeyedSubscript_(response, v21, @"CMErrorMessage");
-    objc_msgSend_intValue(v22, v23, v24);
-    v34 = self->fWorkout;
-  }
-
-  else
-  {
-    v12 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], a2, @"CMErrorDomain", 103, 0);
-    if (qword_1EAFE2780 != -1)
-    {
-      dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-    }
-
-    v25 = qword_1EAFE27B8;
-    if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_FAULT))
-    {
-      v26 = self->fWorkout;
-      *buf = 138412290;
-      *v36 = v26;
-      _os_log_impl(&dword_19B41C000, v25, OS_LOG_TYPE_FAULT, "Workout, nil event dictionary, %@", buf, 0xCu);
-    }
-
-    v27 = sub_19B420058();
-    if ((*(v27 + 160) & 0x80000000) != 0 && (*(v27 + 164) & 0x80000000) != 0 && (*(v27 + 168) & 0x80000000) != 0 && !*(v27 + 152))
-    {
-      goto LABEL_26;
-    }
-
-    bzero(buf, 0x65CuLL);
-    if (qword_1EAFE2780 != -1)
-    {
-      dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-    }
-
-    v33 = self->fWorkout;
-  }
-
-  v28 = _os_log_send_and_compose_impl();
-  sub_19B6BB7CC("Generic", 1, 0, 0, "[CMWorkoutManagerInternal _handleDaemonResponse:]", "CoreLocation: %s\n", v28);
-  if (v28 != buf)
-  {
-    free(v28);
-  }
 
 LABEL_26:
-  fDelegate = self->fDelegate;
-  if (objc_opt_respondsToSelector())
-  {
-    objc_msgSend_workoutManager_didFailWorkout_withError_(self->fDelegate, v30, self->fSender, self->fWorkout, v12);
-  }
+    if (objc_opt_respondsToSelector())
+    {
+      objc_msgSend_workoutManager_didFailWorkout_withError_(self->fDelegate, v34, self->fSender, self->fWorkout, v12);
+    }
 
-  else if (objc_opt_respondsToSelector())
-  {
-    objc_msgSend_workoutManagerDidFail_workout_error_(self->fDelegate, v31, self->fSender, self->fWorkout, v12);
+    else if (objc_opt_respondsToSelector())
+    {
+      objc_msgSend_workoutManagerDidFail_workout_error_(self->fDelegate, v35, self->fSender, self->fWorkout, v12);
+    }
   }
-
-LABEL_30:
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleDaemonEvent:(id)event
 {
-  v298 = *MEMORY[0x1E69E9840];
+  v310 = *MEMORY[0x1E69E9840];
   if (!self->fDelegate)
   {
-    goto LABEL_59;
+    return;
   }
 
   if (!event)
@@ -488,19 +509,19 @@ LABEL_30:
       dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
     }
 
-    v32 = qword_1EAFE27B8;
+    v33 = qword_1EAFE27B8;
     if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_FAULT))
     {
       fWorkout = self->fWorkout;
       *buf = 138412290;
-      *v295 = fWorkout;
-      _os_log_impl(&dword_19B41C000, v32, OS_LOG_TYPE_FAULT, "Workout, nil event dictionary, %@", buf, 0xCu);
+      *v307 = fWorkout;
+      _os_log_impl(&dword_19B41C000, v33, OS_LOG_TYPE_FAULT, "Workout, nil event dictionary, %@", buf, 0xCu);
     }
 
-    v34 = sub_19B420058();
-    if ((*(v34 + 160) & 0x80000000) != 0 && (*(v34 + 164) & 0x80000000) != 0 && (*(v34 + 168) & 0x80000000) != 0 && !*(v34 + 152))
+    v35 = sub_19B420058();
+    if ((*(v35 + 160) & 0x80000000) != 0 && (*(v35 + 164) & 0x80000000) != 0 && (*(v35 + 168) & 0x80000000) != 0 && !*(v35 + 152))
     {
-      goto LABEL_54;
+      goto LABEL_55;
     }
 
     bzero(buf, 0x65CuLL);
@@ -509,8 +530,11 @@ LABEL_30:
       dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
     }
 
-    v292 = self->fWorkout;
-    goto LABEL_52;
+    v36 = self->fWorkout;
+    *v304 = 138412290;
+    *&v304[4] = v36;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27B8, 17, "Workout, nil event dictionary, %@", v304, 12, *v304, *&v304[8]);
+    goto LABEL_53;
   }
 
   if (objc_msgSend_objectForKeyedSubscript_(event, a2, @"CMErrorMessage"))
@@ -530,9 +554,9 @@ LABEL_30:
     {
       v17 = objc_msgSend_objectForKeyedSubscript_(event, v16, @"CMErrorMessage");
       *buf = 67109378;
-      *v295 = objc_msgSend_intValue(v17, v18, v19);
-      *&v295[4] = 2112;
-      *&v295[6] = v14;
+      *v307 = objc_msgSend_intValue(v17, v18, v19);
+      *&v307[4] = 2112;
+      *&v307[6] = v14;
       _os_log_impl(&dword_19B41C000, v15, OS_LOG_TYPE_ERROR, "Workout, ERROR, %d, %@", buf, 0x12u);
     }
 
@@ -545,1025 +569,1060 @@ LABEL_30:
         dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
       }
 
-      v22 = objc_msgSend_objectForKeyedSubscript_(event, v21, @"CMErrorMessage");
-      objc_msgSend_intValue(v22, v23, v24);
-      v25 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v25);
-      if (v25 != buf)
+      v22 = qword_1EAFE27B8;
+      v23 = objc_msgSend_objectForKeyedSubscript_(event, v21, @"CMErrorMessage");
+      *v304 = 67109378;
+      *&v304[4] = objc_msgSend_intValue(v23, v24, v25);
+      *&v304[8] = 2112;
+      *&v304[10] = v14;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v22, 16, "Workout, ERROR, %d, %@", v304, 18);
+      v27 = v26;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v26);
+      if (v27 != buf)
       {
-        free(v25);
+        free(v27);
       }
     }
 
+    v29 = objc_opt_respondsToSelector();
     fDelegate = self->fDelegate;
-    v28 = objc_opt_respondsToSelector();
-    v29 = self->fDelegate;
-    if ((v28 & 1) == 0)
+    if (v29)
     {
-      if (objc_opt_respondsToSelector())
-      {
-        objc_msgSend_workoutManagerDidFail_workout_error_(self->fDelegate, v49, self->fSender, v14, v12);
-      }
-
-      goto LABEL_59;
+      fSender = self->fSender;
+      v32 = v14;
+LABEL_57:
+      objc_msgSend_workoutManager_didFailWorkout_withError_(fDelegate, v28, fSender, v32, v12);
+      return;
     }
 
-    fSender = self->fSender;
-    v31 = v14;
-LABEL_56:
-    objc_msgSend_workoutManager_didFailWorkout_withError_(v29, v27, fSender, v31, v12);
-LABEL_59:
-    v57 = *MEMORY[0x1E69E9840];
+    if (objc_opt_respondsToSelector())
+    {
+      objc_msgSend_workoutManagerDidFail_workout_error_(self->fDelegate, v53, self->fSender, v14, v12);
+    }
+
     return;
   }
 
-  if (!objc_msgSend_objectForKeyedSubscript_(event, v5, @"CMReturnCode") || !objc_msgSend_objectForKeyedSubscript_(event, v35, @"CMWorkoutAttributes"))
+  if (objc_msgSend_objectForKeyedSubscript_(event, v5, @"CMReturnCode") && objc_msgSend_objectForKeyedSubscript_(event, v38, @"CMWorkoutAttributes"))
   {
-    v12 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v35, @"CMErrorDomain", 103, 0);
-    if (qword_1EAFE2780 != -1)
+    v39 = objc_msgSend_objectForKeyedSubscript_(event, v38, @"CMReturnCode");
+    v42 = objc_msgSend_integerValue(v39, v40, v41);
+    v44 = objc_msgSend_objectForKeyedSubscript_(event, v43, @"CMWorkoutAttributes");
+    v46 = objc_msgSend_objectForKeyedSubscript_(event, v45, @"CMWorkoutOverviewData");
+    v48 = v46;
+    switch(v42)
     {
-      dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+      case 2uLL:
+        if (!objc_msgSend_objectForKeyedSubscript_(event, v47, @"CMWorkoutEventDate"))
+        {
+          goto LABEL_171;
+        }
+
+        v135 = objc_msgSend_type(v44, v47, v134);
+        isAutoPauseAllowedForWorkoutType = objc_msgSend__isAutoPauseAllowedForWorkoutType_(self, v136, v135);
+        if (qword_1EAFE2780 != -1)
+        {
+          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+        }
+
+        v138 = qword_1EAFE27B8;
+        if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
+        {
+          v140 = objc_msgSend_objectForKeyedSubscript_(event, v139, @"CMWorkoutEventDate");
+          objc_msgSend_timeIntervalSinceReferenceDate(v140, v141, v142);
+          *buf = 134218498;
+          *v307 = v143;
+          *&v307[8] = 2112;
+          *&v307[10] = v44;
+          v308 = 1024;
+          v309 = isAutoPauseAllowedForWorkoutType;
+          _os_log_impl(&dword_19B41C000, v138, OS_LOG_TYPE_DEFAULT, "Workout, WILL PAUSE at %f, %@, allowed %d", buf, 0x1Cu);
+        }
+
+        v144 = sub_19B420058();
+        if (*(v144 + 160) > 1 || *(v144 + 164) > 1 || *(v144 + 168) > 1 || *(v144 + 152))
+        {
+          bzero(buf, 0x65CuLL);
+          if (qword_1EAFE2780 != -1)
+          {
+            dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+          }
+
+          v146 = qword_1EAFE27B8;
+          v147 = objc_msgSend_objectForKeyedSubscript_(event, v145, @"CMWorkoutEventDate");
+          objc_msgSend_timeIntervalSinceReferenceDate(v147, v148, v149);
+          *v304 = 134218498;
+          *&v304[4] = v150;
+          *&v304[12] = 2112;
+          *&v304[14] = v44;
+          *&v304[22] = 1024;
+          LODWORD(v305) = isAutoPauseAllowedForWorkoutType;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v146, 0, "Workout, WILL PAUSE at %f, %@, allowed %d", v304, 28);
+          v152 = v151;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v151);
+          if (v152 != buf)
+          {
+            free(v152);
+          }
+        }
+
+        if (isAutoPauseAllowedForWorkoutType)
+        {
+          v153 = objc_opt_respondsToSelector();
+          v155 = self->fDelegate;
+          if (v153)
+          {
+            v156 = self->fSender;
+            v157 = objc_msgSend_objectForKeyedSubscript_(event, v154, @"CMWorkoutEventDate");
+            objc_msgSend_workoutManager_willPauseWorkout_atDate_(v155, v158, v156, v44, v157);
+          }
+
+          else if (objc_opt_respondsToSelector())
+          {
+            v301 = self->fDelegate;
+            v300 = self->fSender;
+            v302 = objc_msgSend_objectForKeyedSubscript_(event, v299, @"CMWorkoutEventDate");
+            objc_msgSend_workoutManagerWillPauseWorkout_workout_pauseDate_(v301, v303, v300, v44, v302);
+          }
+        }
+
+        break;
+      case 3uLL:
+        if (!objc_msgSend_objectForKeyedSubscript_(event, v47, @"CMWorkoutEventDate"))
+        {
+          goto LABEL_171;
+        }
+
+        v96 = objc_msgSend_type(v44, v47, v95);
+        v98 = objc_msgSend__isAutoPauseAllowedForWorkoutType_(self, v97, v96);
+        if (qword_1EAFE2780 != -1)
+        {
+          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+        }
+
+        v99 = qword_1EAFE27B8;
+        if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
+        {
+          v101 = objc_msgSend_objectForKeyedSubscript_(event, v100, @"CMWorkoutEventDate");
+          objc_msgSend_timeIntervalSinceReferenceDate(v101, v102, v103);
+          *buf = 134218498;
+          *v307 = v104;
+          *&v307[8] = 2112;
+          *&v307[10] = v44;
+          v308 = 1024;
+          v309 = v98;
+          _os_log_impl(&dword_19B41C000, v99, OS_LOG_TYPE_DEFAULT, "Workout, WILL RESUME at %f, %@, allowed %d", buf, 0x1Cu);
+        }
+
+        v105 = sub_19B420058();
+        if (*(v105 + 160) > 1 || *(v105 + 164) > 1 || *(v105 + 168) > 1 || *(v105 + 152))
+        {
+          bzero(buf, 0x65CuLL);
+          if (qword_1EAFE2780 != -1)
+          {
+            dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+          }
+
+          v107 = qword_1EAFE27B8;
+          v108 = objc_msgSend_objectForKeyedSubscript_(event, v106, @"CMWorkoutEventDate");
+          objc_msgSend_timeIntervalSinceReferenceDate(v108, v109, v110);
+          *v304 = 134218498;
+          *&v304[4] = v111;
+          *&v304[12] = 2112;
+          *&v304[14] = v44;
+          *&v304[22] = 1024;
+          LODWORD(v305) = v98;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v107, 0, "Workout, WILL RESUME at %f, %@, allowed %d", v304, 28);
+          v113 = v112;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v112);
+          if (v113 != buf)
+          {
+            free(v113);
+          }
+        }
+
+        if (v98)
+        {
+          v114 = objc_opt_respondsToSelector();
+          v116 = self->fDelegate;
+          if (v114)
+          {
+            v117 = self->fSender;
+            v118 = objc_msgSend_objectForKeyedSubscript_(event, v115, @"CMWorkoutEventDate");
+            objc_msgSend_workoutManager_willResumeWorkout_atDate_(v116, v119, v117, v44, v118);
+          }
+
+          else if (objc_opt_respondsToSelector())
+          {
+            v296 = self->fDelegate;
+            v295 = self->fSender;
+            v297 = objc_msgSend_objectForKeyedSubscript_(event, v294, @"CMWorkoutEventDate");
+            objc_msgSend_workoutManagerWillResumeWorkout_workout_resumeDate_(v296, v298, v295, v44, v297);
+          }
+        }
+
+        break;
+      case 4uLL:
+        isReminderAllowedForType = objc_msgSend__isReminderAllowedForType_(self, v47, 2);
+        if (qword_1EAFE2780 != -1)
+        {
+          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+        }
+
+        v181 = qword_1EAFE27B8;
+        if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
+        {
+          v184 = objc_msgSend_endDate(v44, v182, v183);
+          objc_msgSend_timeIntervalSinceReferenceDate(v184, v185, v186);
+          *buf = 134218498;
+          *v307 = v187;
+          *&v307[8] = 2112;
+          *&v307[10] = v44;
+          v308 = 1024;
+          v309 = isReminderAllowedForType;
+          _os_log_impl(&dword_19B41C000, v181, OS_LOG_TYPE_DEFAULT, "Workout, SUGGESTED STOP at %f, %@, allowed %d", buf, 0x1Cu);
+        }
+
+        v188 = sub_19B420058();
+        if (*(v188 + 160) > 1 || *(v188 + 164) > 1 || *(v188 + 168) > 1 || *(v188 + 152))
+        {
+          bzero(buf, 0x65CuLL);
+          if (qword_1EAFE2780 != -1)
+          {
+            dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+          }
+
+          v191 = qword_1EAFE27B8;
+          v192 = objc_msgSend_endDate(v44, v189, v190);
+          objc_msgSend_timeIntervalSinceReferenceDate(v192, v193, v194);
+          *v304 = 134218498;
+          *&v304[4] = v195;
+          *&v304[12] = 2112;
+          *&v304[14] = v44;
+          *&v304[22] = 1024;
+          LODWORD(v305) = isReminderAllowedForType;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v191, 0, "Workout, SUGGESTED STOP at %f, %@, allowed %d", v304, 28);
+          v197 = v196;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v196);
+          if (v197 != buf)
+          {
+            free(v197);
+          }
+        }
+
+        if (isReminderAllowedForType)
+        {
+          v198 = objc_opt_respondsToSelector();
+          v201 = self->fDelegate;
+          if (v198)
+          {
+            v202 = self->fSender;
+            v203 = objc_msgSend_endDate(v44, v199, v200);
+            objc_msgSend_workoutManager_suggestedStopWorkout_atDate_(v201, v204, v202, v44, v203);
+          }
+
+          else if (objc_opt_respondsToSelector())
+          {
+            v291 = self->fDelegate;
+            v290 = self->fSender;
+            v292 = objc_msgSend_endDate(v44, v288, v289);
+            objc_msgSend_workoutManagerSuggestedStop_workout_stopDate_(v291, v293, v290, v44, v292);
+          }
+        }
+
+        break;
+      case 6uLL:
+        if (qword_1EAFE2780 != -1)
+        {
+          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+        }
+
+        v120 = qword_1EAFE27B8;
+        if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
+        {
+          v122 = objc_msgSend_objectForKeyedSubscript_(event, v121, @"CMWorkoutEventDate");
+          objc_msgSend_timeIntervalSinceReferenceDate(v122, v123, v124);
+          *buf = 134218242;
+          *v307 = v125;
+          *&v307[8] = 2112;
+          *&v307[10] = v44;
+          _os_log_impl(&dword_19B41C000, v120, OS_LOG_TYPE_DEFAULT, "Workout, PREDICTION START DID MUTE at %f, %@", buf, 0x16u);
+        }
+
+        v126 = sub_19B420058();
+        if (*(v126 + 160) > 1 || *(v126 + 164) > 1 || *(v126 + 168) > 1 || *(v126 + 152))
+        {
+          bzero(buf, 0x65CuLL);
+          if (qword_1EAFE2780 != -1)
+          {
+            dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+          }
+
+          v128 = qword_1EAFE27B8;
+          v129 = objc_msgSend_objectForKeyedSubscript_(event, v127, @"CMWorkoutEventDate");
+          objc_msgSend_timeIntervalSinceReferenceDate(v129, v130, v131);
+          *v304 = 134218242;
+          *&v304[4] = v132;
+          *&v304[12] = 2112;
+          *&v304[14] = v44;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v128, 0, "Workout, PREDICTION START DID MUTE at %f, %@", v304, 22, *v304, *&v304[8]);
+          goto LABEL_256;
+        }
+
+        break;
+      case 7uLL:
+        if (qword_1EAFE2780 != -1)
+        {
+          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+        }
+
+        v78 = qword_1EAFE27B8;
+        if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
+        {
+          v80 = objc_msgSend_objectForKeyedSubscript_(event, v79, @"CMWorkoutEventDate");
+          objc_msgSend_timeIntervalSinceReferenceDate(v80, v81, v82);
+          *buf = 134218242;
+          *v307 = v83;
+          *&v307[8] = 2112;
+          *&v307[10] = v44;
+          _os_log_impl(&dword_19B41C000, v78, OS_LOG_TYPE_DEFAULT, "Workout, LOCATION DID UPDATE at %f, %@", buf, 0x16u);
+        }
+
+        v84 = sub_19B420058();
+        if (*(v84 + 160) > 1 || *(v84 + 164) > 1 || *(v84 + 168) > 1 || *(v84 + 152))
+        {
+          bzero(buf, 0x65CuLL);
+          if (qword_1EAFE2780 != -1)
+          {
+            dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+          }
+
+          v87 = qword_1EAFE27B8;
+          v88 = objc_msgSend_objectForKeyedSubscript_(event, v86, @"CMWorkoutEventDate");
+          objc_msgSend_timeIntervalSinceReferenceDate(v88, v89, v90);
+          *v304 = 134218242;
+          *&v304[4] = v91;
+          *&v304[12] = 2112;
+          *&v304[14] = v44;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v87, 0, "Workout, LOCATION DID UPDATE at %f, %@", v304, 22);
+          v93 = v92;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v92);
+          if (v93 != buf)
+          {
+            free(v93);
+          }
+        }
+
+        objc_msgSend__setWorkout_(self, v85, v44);
+        if (objc_opt_respondsToSelector())
+        {
+          objc_msgSend_workoutManager_workoutLocationEventUpdate_(self->fDelegate, v94, self->fSender, v44);
+        }
+
+        break;
+      case 8uLL:
+      case 0xAuLL:
+      case 0xBuLL:
+        v49 = objc_msgSend__isReminderAllowedForType_(self, v47, 0);
+        if (qword_1EAFE2780 != -1)
+        {
+          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+        }
+
+        v50 = qword_1EAFE27B8;
+        if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 134218498;
+          *v307 = v42;
+          *&v307[8] = 2112;
+          *&v307[10] = v44;
+          v308 = 1024;
+          v309 = v49;
+          _os_log_impl(&dword_19B41C000, v50, OS_LOG_TYPE_DEFAULT, "Workout, PREDICTION, event %lu, %@, allowed %d", buf, 0x1Cu);
+        }
+
+        v51 = sub_19B420058();
+        if (*(v51 + 160) <= 1 && *(v51 + 164) <= 1 && *(v51 + 168) <= 1 && !*(v51 + 152))
+        {
+          goto LABEL_227;
+        }
+
+        bzero(buf, 0x65CuLL);
+        if (qword_1EAFE2780 != -1)
+        {
+          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+        }
+
+        *v304 = 134218498;
+        *&v304[4] = v42;
+        *&v304[12] = 2112;
+        *&v304[14] = v44;
+        *&v304[22] = 1024;
+        LODWORD(v305) = v49;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27B8, 0, "Workout, PREDICTION, event %lu, %@, allowed %d", v304, 28, *v304, *&v304[8], v305);
+        goto LABEL_225;
+      case 9uLL:
+        if (qword_1EAFE2780 != -1)
+        {
+          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+        }
+
+        v205 = qword_1EAFE27B8;
+        if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          *v307 = v44;
+          _os_log_impl(&dword_19B41C000, v205, OS_LOG_TYPE_DEFAULT, "Workout, (internal only) PREDICTION UPDATE, %@", buf, 0xCu);
+        }
+
+        v206 = sub_19B420058();
+        if (*(v206 + 160) > 1 || *(v206 + 164) > 1 || *(v206 + 168) > 1 || *(v206 + 152))
+        {
+          bzero(buf, 0x65CuLL);
+          if (qword_1EAFE2780 != -1)
+          {
+            dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+          }
+
+          *v304 = 138412290;
+          *&v304[4] = v44;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27B8, 0, "Workout, (internal only) PREDICTION UPDATE, %@", v304, 12, *v304, *&v304[8]);
+LABEL_256:
+          v207 = v133;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v133);
+          if (v207 != buf)
+          {
+            free(v207);
+          }
+        }
+
+        break;
+      case 0xCuLL:
+        v49 = objc_msgSend__isReminderAllowedForType_(self, v47, 2);
+        if (qword_1EAFE2780 != -1)
+        {
+          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+        }
+
+        v176 = qword_1EAFE27B8;
+        if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 134218498;
+          *v307 = 12;
+          *&v307[8] = 2112;
+          *&v307[10] = v44;
+          v308 = 1024;
+          v309 = v49;
+          _os_log_impl(&dword_19B41C000, v176, OS_LOG_TYPE_DEFAULT, "Workout, STOP RETRACTION, event %lu, %@, allowed %d", buf, 0x1Cu);
+        }
+
+        v177 = sub_19B420058();
+        if (*(v177 + 160) > 1 || *(v177 + 164) > 1 || *(v177 + 168) > 1 || *(v177 + 152))
+        {
+          bzero(buf, 0x65CuLL);
+          if (qword_1EAFE2780 != -1)
+          {
+            dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+          }
+
+          *v304 = 134218498;
+          *&v304[4] = 12;
+          *&v304[12] = 2112;
+          *&v304[14] = v44;
+          *&v304[22] = 1024;
+          LODWORD(v305) = v49;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27B8, 0, "Workout, STOP RETRACTION, event %lu, %@, allowed %d", v304, 28, *v304, *&v304[8], v305);
+LABEL_225:
+          v178 = v52;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v52);
+          if (v178 != buf)
+          {
+            free(v178);
+          }
+        }
+
+LABEL_227:
+        if (v49 && (objc_opt_respondsToSelector() & 1) != 0)
+        {
+          objc_msgSend_workoutManager_issuedPrediction_(self->fDelegate, v179, self->fSender, v44);
+        }
+
+        break;
+      case 0xDuLL:
+        if (v46 && (objc_opt_respondsToSelector() & 1) != 0)
+        {
+          if (qword_1EAFE2780 != -1)
+          {
+            dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+          }
+
+          v230 = qword_1EAFE27B8;
+          if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            *v307 = v44;
+            _os_log_impl(&dword_19B41C000, v230, OS_LOG_TYPE_DEFAULT, "Workout, SESSION DID BEGIN, %@", buf, 0xCu);
+          }
+
+          v231 = sub_19B420058();
+          if (*(v231 + 160) > 1 || *(v231 + 164) > 1 || *(v231 + 168) > 1 || *(v231 + 152))
+          {
+            bzero(buf, 0x65CuLL);
+            if (qword_1EAFE2780 != -1)
+            {
+              dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+            }
+
+            *v304 = 138412290;
+            *&v304[4] = v44;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27B8, 0, "Workout, SESSION DID BEGIN, %@", v304, 12);
+            v234 = v233;
+            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v233);
+            if (v234 != buf)
+            {
+              free(v234);
+            }
+          }
+
+          objc_msgSend_workoutManager_didBeginWorkoutSessionWithWorkout_withOverview_(self->fDelegate, v232, self->fSender, v44, v48);
+        }
+
+        else if (objc_opt_respondsToSelector())
+        {
+          if (qword_1EAFE2780 != -1)
+          {
+            dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+          }
+
+          v258 = qword_1EAFE27B8;
+          if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
+          {
+            started = objc_msgSend_startDate(v44, v259, v260);
+            objc_msgSend_timeIntervalSinceReferenceDate(started, v262, v263);
+            *buf = 134218242;
+            *v307 = v264;
+            *&v307[8] = 2112;
+            *&v307[10] = v44;
+            _os_log_impl(&dword_19B41C000, v258, OS_LOG_TYPE_DEFAULT, "Workout, DID START at %f, %@", buf, 0x16u);
+          }
+
+          v265 = sub_19B420058();
+          if (*(v265 + 160) > 1 || *(v265 + 164) > 1 || *(v265 + 168) > 1 || *(v265 + 152))
+          {
+            bzero(buf, 0x65CuLL);
+            if (qword_1EAFE2780 != -1)
+            {
+              dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+            }
+
+            v270 = qword_1EAFE27B8;
+            v271 = objc_msgSend_startDate(v44, v268, v269);
+            objc_msgSend_timeIntervalSinceReferenceDate(v271, v272, v273);
+            *v304 = 134218242;
+            *&v304[4] = v274;
+            *&v304[12] = 2112;
+            *&v304[14] = v44;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v270, 0, "Workout, DID START at %f, %@", v304, 22);
+            v276 = v275;
+            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v275);
+            if (v276 != buf)
+            {
+              free(v276);
+            }
+          }
+
+          v278 = self->fDelegate;
+          v277 = self->fSender;
+          v279 = objc_msgSend_startDate(v44, v266, v267);
+          objc_msgSend_workoutManager_didStartWorkout_atDate_(v278, v280, v277, v44, v279);
+        }
+
+        else if (objc_opt_respondsToSelector())
+        {
+          v287 = self->fDelegate;
+          v286 = self->fSender;
+          objc_msgSend_objectForKeyedSubscript_(event, v285, @"CMWorkoutEventDate");
+
+          MEMORY[0x1EEE66B58](v287, sel_workoutManagerDidStartWorkout_workout_startDate_, v286);
+        }
+
+        break;
+      case 0xEuLL:
+        if (qword_1EAFE2780 != -1)
+        {
+          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+        }
+
+        v72 = qword_1EAFE27B8;
+        if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          *v307 = v44;
+          _os_log_impl(&dword_19B41C000, v72, OS_LOG_TYPE_DEFAULT, "Workout, SET CURRENT TYPE, %@", buf, 0xCu);
+        }
+
+        v73 = sub_19B420058();
+        if (*(v73 + 160) > 1 || *(v73 + 164) > 1 || *(v73 + 168) > 1 || *(v73 + 152))
+        {
+          bzero(buf, 0x65CuLL);
+          if (qword_1EAFE2780 != -1)
+          {
+            dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+          }
+
+          *v304 = 138412290;
+          *&v304[4] = v44;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27B8, 0, "Workout, SET CURRENT TYPE, %@", v304, 12);
+          v76 = v75;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v75);
+          if (v76 != buf)
+          {
+            free(v76);
+          }
+        }
+
+        if (v48)
+        {
+          objc_msgSend__setWorkout_(self, v74, v44);
+          if (objc_opt_respondsToSelector())
+          {
+            objc_msgSend_workoutManager_didSetCurrentWorkoutType_withOverview_(self->fDelegate, v77, self->fSender, v44, v48);
+          }
+        }
+
+        break;
+      case 0xFuLL:
+        if (v46 && (objc_opt_respondsToSelector() & 1) != 0)
+        {
+          if (qword_1EAFE2780 != -1)
+          {
+            dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+          }
+
+          v67 = qword_1EAFE27B8;
+          if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            *v307 = v44;
+            _os_log_impl(&dword_19B41C000, v67, OS_LOG_TYPE_DEFAULT, "Workout, SESSION DID END, %@", buf, 0xCu);
+          }
+
+          v68 = sub_19B420058();
+          if (*(v68 + 160) > 1 || *(v68 + 164) > 1 || *(v68 + 168) > 1 || *(v68 + 152))
+          {
+            bzero(buf, 0x65CuLL);
+            if (qword_1EAFE2780 != -1)
+            {
+              dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+            }
+
+            *v304 = 138412290;
+            *&v304[4] = v44;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27B8, 0, "Workout, SESSION DID END, %@", v304, 12);
+            v71 = v70;
+            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v70);
+            if (v71 != buf)
+            {
+              free(v71);
+            }
+          }
+
+          objc_msgSend_workoutManager_didEndWorkoutSessionWithWorkout_withOverview_(self->fDelegate, v69, self->fSender, v44, v48);
+        }
+
+        else if (objc_opt_respondsToSelector())
+        {
+          if (qword_1EAFE2780 != -1)
+          {
+            dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+          }
+
+          v235 = qword_1EAFE27B8;
+          if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
+          {
+            v238 = objc_msgSend_endDate(v44, v236, v237);
+            objc_msgSend_timeIntervalSinceReferenceDate(v238, v239, v240);
+            *buf = 134218242;
+            *v307 = v241;
+            *&v307[8] = 2112;
+            *&v307[10] = v44;
+            _os_log_impl(&dword_19B41C000, v235, OS_LOG_TYPE_DEFAULT, "Workout, DID STOP at %f, %@", buf, 0x16u);
+          }
+
+          v242 = sub_19B420058();
+          if (*(v242 + 160) > 1 || *(v242 + 164) > 1 || *(v242 + 168) > 1 || *(v242 + 152))
+          {
+            bzero(buf, 0x65CuLL);
+            if (qword_1EAFE2780 != -1)
+            {
+              dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+            }
+
+            v247 = qword_1EAFE27B8;
+            v248 = objc_msgSend_endDate(v44, v245, v246);
+            objc_msgSend_timeIntervalSinceReferenceDate(v248, v249, v250);
+            *v304 = 134218242;
+            *&v304[4] = v251;
+            *&v304[12] = 2112;
+            *&v304[14] = v44;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v247, 0, "Workout, DID STOP at %f, %@", v304, 22);
+            v253 = v252;
+            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v252);
+            if (v253 != buf)
+            {
+              free(v253);
+            }
+          }
+
+          v255 = self->fDelegate;
+          v254 = self->fSender;
+          v256 = objc_msgSend_endDate(v44, v243, v244);
+          objc_msgSend_workoutManager_didStopWorkout_atDate_(v255, v257, v254, v44, v256);
+        }
+
+        else if (objc_opt_respondsToSelector())
+        {
+          v284 = self->fDelegate;
+          v283 = self->fSender;
+          objc_msgSend_objectForKeyedSubscript_(event, v282, @"CMWorkoutEventDate");
+
+          MEMORY[0x1EEE66B58](v284, sel_workoutManagerDidStopWorkout_workout_stopDate_, v283);
+        }
+
+        break;
+      case 0x10uLL:
+        if (qword_1EAFE2780 != -1)
+        {
+          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+        }
+
+        v61 = qword_1EAFE27B8;
+        if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          *v307 = v44;
+          _os_log_impl(&dword_19B41C000, v61, OS_LOG_TYPE_DEFAULT, "Workout, PAUSED, %@", buf, 0xCu);
+        }
+
+        v62 = sub_19B420058();
+        if (*(v62 + 160) > 1 || *(v62 + 164) > 1 || *(v62 + 168) > 1 || *(v62 + 152))
+        {
+          bzero(buf, 0x65CuLL);
+          if (qword_1EAFE2780 != -1)
+          {
+            dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+          }
+
+          *v304 = 138412290;
+          *&v304[4] = v44;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27B8, 0, "Workout, PAUSED, %@", v304, 12);
+          v65 = v64;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v64);
+          if (v65 != buf)
+          {
+            free(v65);
+          }
+        }
+
+        if (v48)
+        {
+          objc_msgSend__setWorkout_(self, v63, v44);
+          if (objc_opt_respondsToSelector())
+          {
+            objc_msgSend_workoutManager_didPauseWorkout_withOverview_(self->fDelegate, v66, self->fSender, v44, v48);
+          }
+        }
+
+        break;
+      case 0x11uLL:
+        if (qword_1EAFE2780 != -1)
+        {
+          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+        }
+
+        v165 = qword_1EAFE27B8;
+        if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          *v307 = v44;
+          _os_log_impl(&dword_19B41C000, v165, OS_LOG_TYPE_DEFAULT, "Workout, RESUMED, %@", buf, 0xCu);
+        }
+
+        v166 = sub_19B420058();
+        if (*(v166 + 160) > 1 || *(v166 + 164) > 1 || *(v166 + 168) > 1 || *(v166 + 152))
+        {
+          bzero(buf, 0x65CuLL);
+          if (qword_1EAFE2780 != -1)
+          {
+            dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+          }
+
+          *v304 = 138412290;
+          *&v304[4] = v44;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27B8, 0, "Workout, RESUMED, %@", v304, 12);
+          v169 = v168;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v168);
+          if (v169 != buf)
+          {
+            free(v169);
+          }
+        }
+
+        if (v48)
+        {
+          objc_msgSend__setWorkout_(self, v167, v44);
+          if (objc_opt_respondsToSelector())
+          {
+            objc_msgSend_workoutManager_didResumeWorkout_withOverview_(self->fDelegate, v170, self->fSender, v44, v48);
+          }
+        }
+
+        break;
+      case 0x12uLL:
+        if (qword_1EAFE2780 != -1)
+        {
+          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+        }
+
+        v171 = qword_1EAFE27B8;
+        if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          *v307 = v44;
+          _os_log_impl(&dword_19B41C000, v171, OS_LOG_TYPE_DEFAULT, "Workout, DETECTED CHANGE, %@", buf, 0xCu);
+        }
+
+        v172 = sub_19B420058();
+        if (*(v172 + 160) > 1 || *(v172 + 164) > 1 || *(v172 + 168) > 1 || *(v172 + 152))
+        {
+          bzero(buf, 0x65CuLL);
+          if (qword_1EAFE2780 != -1)
+          {
+            dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+          }
+
+          *v304 = 138412290;
+          *&v304[4] = v44;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27B8, 0, "Workout, DETECTED CHANGE, %@", v304, 12);
+          v174 = v173;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v173);
+          if (v174 != buf)
+          {
+            free(v174);
+          }
+        }
+
+        if (v48 && (objc_opt_respondsToSelector() & 1) != 0)
+        {
+          objc_msgSend_workoutManager_detectedChangeInWorkoutType_withOverview_(self->fDelegate, v175, self->fSender, v44, v48);
+        }
+
+        break;
+      case 0x16uLL:
+        v208 = objc_msgSend__isReminderAllowedForType_(self, v47, 1);
+        if (qword_1EAFE2780 != -1)
+        {
+          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+        }
+
+        v209 = qword_1EAFE27B8;
+        if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
+        {
+          v211 = objc_msgSend_objectForKeyedSubscript_(event, v210, @"CMWorkoutEventDate");
+          objc_msgSend_timeIntervalSinceReferenceDate(v211, v212, v213);
+          *buf = 134218498;
+          *v307 = v214;
+          *&v307[8] = 2112;
+          *&v307[10] = v44;
+          v308 = 1024;
+          v309 = v208;
+          _os_log_impl(&dword_19B41C000, v209, OS_LOG_TYPE_DEFAULT, "Workout, RESUME SUGGESTION at %f, %@, allowed %d", buf, 0x1Cu);
+        }
+
+        v215 = sub_19B420058();
+        if (*(v215 + 160) > 1 || *(v215 + 164) > 1 || *(v215 + 168) > 1 || *(v215 + 152))
+        {
+          bzero(buf, 0x65CuLL);
+          if (qword_1EAFE2780 != -1)
+          {
+            dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+          }
+
+          v217 = qword_1EAFE27B8;
+          v218 = objc_msgSend_objectForKeyedSubscript_(event, v216, @"CMWorkoutEventDate");
+          objc_msgSend_timeIntervalSinceReferenceDate(v218, v219, v220);
+          *v304 = 134218498;
+          *&v304[4] = v221;
+          *&v304[12] = 2112;
+          *&v304[14] = v44;
+          *&v304[22] = 1024;
+          LODWORD(v305) = v208;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v217, 0, "Workout, RESUME SUGGESTION at %f, %@, allowed %d", v304, 28);
+          v223 = v222;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v222);
+          if (v223 != buf)
+          {
+            free(v223);
+          }
+        }
+
+        if (v208 && (objc_opt_respondsToSelector() & 1) != 0)
+        {
+          v227 = self->fDelegate;
+          v226 = self->fSender;
+          v228 = objc_msgSend_startDate(v44, v224, v225);
+          objc_msgSend_workoutManager_suggestedResumeWorkout_atDate_(v227, v229, v226, v44, v228);
+        }
+
+        break;
+      default:
+        if (v42 >= 2)
+        {
+LABEL_171:
+          v159 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v47, @"CMErrorDomain", 103, 0);
+          if (qword_1EAFE2780 != -1)
+          {
+            dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+          }
+
+          v160 = qword_1EAFE27B8;
+          if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_FAULT))
+          {
+            *buf = 138412546;
+            *v307 = v44;
+            *&v307[8] = 2048;
+            *&v307[10] = v42;
+            _os_log_impl(&dword_19B41C000, v160, OS_LOG_TYPE_FAULT, "Workout, Unrecognized event, %@, %ld", buf, 0x16u);
+          }
+
+          v161 = sub_19B420058();
+          if ((*(v161 + 160) & 0x80000000) == 0 || (*(v161 + 164) & 0x80000000) == 0 || (*(v161 + 168) & 0x80000000) == 0 || *(v161 + 152))
+          {
+            bzero(buf, 0x65CuLL);
+            if (qword_1EAFE2780 != -1)
+            {
+              dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+            }
+
+            *v304 = 138412546;
+            *&v304[4] = v44;
+            *&v304[12] = 2048;
+            *&v304[14] = v42;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27B8, 17, "Workout, Unrecognized event, %@, %ld", v304, 22);
+            v163 = v162;
+            sub_19B6BB7CC("Generic", 1, 0, 0, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v162);
+            if (v163 != buf)
+            {
+              free(v163);
+            }
+          }
+
+          if (objc_opt_respondsToSelector())
+          {
+            objc_msgSend_workoutManager_didFailWorkout_withError_(self->fDelegate, v164, self->fSender, v44, v159);
+          }
+
+          else if (objc_opt_respondsToSelector())
+          {
+            objc_msgSend_workoutManagerDidFail_workout_error_(self->fDelegate, v281, self->fSender, v44, v159);
+          }
+        }
+
+        break;
     }
 
-    v50 = qword_1EAFE27B8;
-    if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_FAULT))
-    {
-      v51 = self->fWorkout;
-      *buf = 138412290;
-      *v295 = v51;
-      _os_log_impl(&dword_19B41C000, v50, OS_LOG_TYPE_FAULT, "Workout, Unrecognizable event dictionary, %@", buf, 0xCu);
-    }
+    return;
+  }
 
-    v52 = sub_19B420058();
-    if ((*(v52 + 160) & 0x80000000) != 0 && (*(v52 + 164) & 0x80000000) != 0 && (*(v52 + 168) & 0x80000000) != 0 && !*(v52 + 152))
-    {
-      goto LABEL_54;
-    }
+  v12 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v38, @"CMErrorDomain", 103, 0);
+  if (qword_1EAFE2780 != -1)
+  {
+    dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+  }
 
+  v54 = qword_1EAFE27B8;
+  if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_FAULT))
+  {
+    v55 = self->fWorkout;
+    *buf = 138412290;
+    *v307 = v55;
+    _os_log_impl(&dword_19B41C000, v54, OS_LOG_TYPE_FAULT, "Workout, Unrecognizable event dictionary, %@", buf, 0xCu);
+  }
+
+  v56 = sub_19B420058();
+  if ((*(v56 + 160) & 0x80000000) == 0 || (*(v56 + 164) & 0x80000000) == 0 || (*(v56 + 168) & 0x80000000) == 0 || *(v56 + 152))
+  {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE2780 != -1)
     {
       dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
     }
 
-    v293 = self->fWorkout;
-LABEL_52:
-    v53 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v53);
-    if (v53 != buf)
+    v57 = self->fWorkout;
+    *v304 = 138412290;
+    *&v304[4] = v57;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27B8, 17, "Workout, Unrecognizable event dictionary, %@", v304, 12, *v304, *&v304[8]);
+LABEL_53:
+    v58 = v37;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v37);
+    if (v58 != buf)
     {
-      free(v53);
+      free(v58);
     }
-
-LABEL_54:
-    v54 = self->fDelegate;
-    v55 = objc_opt_respondsToSelector();
-    v29 = self->fDelegate;
-    if ((v55 & 1) == 0)
-    {
-      if (objc_opt_respondsToSelector())
-      {
-        objc_msgSend_workoutManagerDidFail_workout_error_(self->fDelegate, v56, self->fSender, self->fWorkout, v12);
-      }
-
-      goto LABEL_59;
-    }
-
-    fSender = self->fSender;
-    v31 = self->fWorkout;
-    goto LABEL_56;
   }
 
-  v36 = objc_msgSend_objectForKeyedSubscript_(event, v35, @"CMReturnCode");
-  v39 = objc_msgSend_integerValue(v36, v37, v38);
-  v41 = objc_msgSend_objectForKeyedSubscript_(event, v40, @"CMWorkoutAttributes");
-  v43 = objc_msgSend_objectForKeyedSubscript_(event, v42, @"CMWorkoutOverviewData");
-  v45 = v43;
-  switch(v39)
+LABEL_55:
+  v59 = objc_opt_respondsToSelector();
+  fDelegate = self->fDelegate;
+  if (v59)
   {
-    case 2uLL:
-      if (!objc_msgSend_objectForKeyedSubscript_(event, v44, @"CMWorkoutEventDate"))
-      {
-        goto LABEL_170;
-      }
-
-      v125 = objc_msgSend_type(v41, v44, v124);
-      isAutoPauseAllowedForWorkoutType = objc_msgSend__isAutoPauseAllowedForWorkoutType_(self, v126, v125);
-      if (qword_1EAFE2780 != -1)
-      {
-        dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-      }
-
-      v128 = qword_1EAFE27B8;
-      if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
-      {
-        v130 = objc_msgSend_objectForKeyedSubscript_(event, v129, @"CMWorkoutEventDate");
-        objc_msgSend_timeIntervalSinceReferenceDate(v130, v131, v132);
-        *buf = 134218498;
-        *v295 = v133;
-        *&v295[8] = 2112;
-        *&v295[10] = v41;
-        v296 = 1024;
-        v297 = isAutoPauseAllowedForWorkoutType;
-        _os_log_impl(&dword_19B41C000, v128, OS_LOG_TYPE_DEFAULT, "Workout, WILL PAUSE at %f, %@, allowed %d", buf, 0x1Cu);
-      }
-
-      v134 = sub_19B420058();
-      if (*(v134 + 160) > 1 || *(v134 + 164) > 1 || *(v134 + 168) > 1 || *(v134 + 152))
-      {
-        bzero(buf, 0x65CuLL);
-        if (qword_1EAFE2780 != -1)
-        {
-          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-        }
-
-        v136 = objc_msgSend_objectForKeyedSubscript_(event, v135, @"CMWorkoutEventDate");
-        objc_msgSend_timeIntervalSinceReferenceDate(v136, v137, v138);
-        v139 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v139);
-        if (v139 != buf)
-        {
-          free(v139);
-        }
-      }
-
-      if (isAutoPauseAllowedForWorkoutType)
-      {
-        v140 = self->fDelegate;
-        v141 = objc_opt_respondsToSelector();
-        v143 = self->fDelegate;
-        if (v141)
-        {
-          v144 = self->fSender;
-          v145 = objc_msgSend_objectForKeyedSubscript_(event, v142, @"CMWorkoutEventDate");
-          objc_msgSend_workoutManager_willPauseWorkout_atDate_(v143, v146, v144, v41, v145);
-        }
-
-        else
-        {
-          v286 = self->fDelegate;
-          if (objc_opt_respondsToSelector())
-          {
-            v289 = self->fDelegate;
-            v288 = self->fSender;
-            v290 = objc_msgSend_objectForKeyedSubscript_(event, v287, @"CMWorkoutEventDate");
-            objc_msgSend_workoutManagerWillPauseWorkout_workout_pauseDate_(v289, v291, v288, v41, v290);
-          }
-        }
-      }
-
-      goto LABEL_59;
-    case 3uLL:
-      if (!objc_msgSend_objectForKeyedSubscript_(event, v44, @"CMWorkoutEventDate"))
-      {
-        goto LABEL_170;
-      }
-
-      v91 = objc_msgSend_type(v41, v44, v90);
-      v93 = objc_msgSend__isAutoPauseAllowedForWorkoutType_(self, v92, v91);
-      if (qword_1EAFE2780 != -1)
-      {
-        dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-      }
-
-      v94 = qword_1EAFE27B8;
-      if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
-      {
-        v96 = objc_msgSend_objectForKeyedSubscript_(event, v95, @"CMWorkoutEventDate");
-        objc_msgSend_timeIntervalSinceReferenceDate(v96, v97, v98);
-        *buf = 134218498;
-        *v295 = v99;
-        *&v295[8] = 2112;
-        *&v295[10] = v41;
-        v296 = 1024;
-        v297 = v93;
-        _os_log_impl(&dword_19B41C000, v94, OS_LOG_TYPE_DEFAULT, "Workout, WILL RESUME at %f, %@, allowed %d", buf, 0x1Cu);
-      }
-
-      v100 = sub_19B420058();
-      if (*(v100 + 160) > 1 || *(v100 + 164) > 1 || *(v100 + 168) > 1 || *(v100 + 152))
-      {
-        bzero(buf, 0x65CuLL);
-        if (qword_1EAFE2780 != -1)
-        {
-          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-        }
-
-        v102 = objc_msgSend_objectForKeyedSubscript_(event, v101, @"CMWorkoutEventDate");
-        objc_msgSend_timeIntervalSinceReferenceDate(v102, v103, v104);
-        v105 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v105);
-        if (v105 != buf)
-        {
-          free(v105);
-        }
-      }
-
-      if (v93)
-      {
-        v106 = self->fDelegate;
-        v107 = objc_opt_respondsToSelector();
-        v109 = self->fDelegate;
-        if (v107)
-        {
-          v110 = self->fSender;
-          v111 = objc_msgSend_objectForKeyedSubscript_(event, v108, @"CMWorkoutEventDate");
-          objc_msgSend_workoutManager_willResumeWorkout_atDate_(v109, v112, v110, v41, v111);
-        }
-
-        else
-        {
-          v280 = self->fDelegate;
-          if (objc_opt_respondsToSelector())
-          {
-            v283 = self->fDelegate;
-            v282 = self->fSender;
-            v284 = objc_msgSend_objectForKeyedSubscript_(event, v281, @"CMWorkoutEventDate");
-            objc_msgSend_workoutManagerWillResumeWorkout_workout_resumeDate_(v283, v285, v282, v41, v284);
-          }
-        }
-      }
-
-      goto LABEL_59;
-    case 4uLL:
-      isReminderAllowedForType = objc_msgSend__isReminderAllowedForType_(self, v44, 2);
-      if (qword_1EAFE2780 != -1)
-      {
-        dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-      }
-
-      v170 = qword_1EAFE27B8;
-      if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
-      {
-        v173 = objc_msgSend_endDate(v41, v171, v172);
-        objc_msgSend_timeIntervalSinceReferenceDate(v173, v174, v175);
-        *buf = 134218498;
-        *v295 = v176;
-        *&v295[8] = 2112;
-        *&v295[10] = v41;
-        v296 = 1024;
-        v297 = isReminderAllowedForType;
-        _os_log_impl(&dword_19B41C000, v170, OS_LOG_TYPE_DEFAULT, "Workout, SUGGESTED STOP at %f, %@, allowed %d", buf, 0x1Cu);
-      }
-
-      v177 = sub_19B420058();
-      if (*(v177 + 160) > 1 || *(v177 + 164) > 1 || *(v177 + 168) > 1 || *(v177 + 152))
-      {
-        bzero(buf, 0x65CuLL);
-        if (qword_1EAFE2780 != -1)
-        {
-          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-        }
-
-        v180 = objc_msgSend_endDate(v41, v178, v179);
-        objc_msgSend_timeIntervalSinceReferenceDate(v180, v181, v182);
-        v183 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v183);
-        if (v183 != buf)
-        {
-          free(v183);
-        }
-      }
-
-      if (isReminderAllowedForType)
-      {
-        v184 = self->fDelegate;
-        v185 = objc_opt_respondsToSelector();
-        v188 = self->fDelegate;
-        if (v185)
-        {
-          v189 = self->fSender;
-          v190 = objc_msgSend_endDate(v41, v186, v187);
-          objc_msgSend_workoutManager_suggestedStopWorkout_atDate_(v188, v191, v189, v41, v190);
-        }
-
-        else
-        {
-          v273 = self->fDelegate;
-          if (objc_opt_respondsToSelector())
-          {
-            v277 = self->fDelegate;
-            v276 = self->fSender;
-            v278 = objc_msgSend_endDate(v41, v274, v275);
-            objc_msgSend_workoutManagerSuggestedStop_workout_stopDate_(v277, v279, v276, v41, v278);
-          }
-        }
-      }
-
-      goto LABEL_59;
-    case 6uLL:
-      if (qword_1EAFE2780 != -1)
-      {
-        dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-      }
-
-      v113 = qword_1EAFE27B8;
-      if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
-      {
-        v115 = objc_msgSend_objectForKeyedSubscript_(event, v114, @"CMWorkoutEventDate");
-        objc_msgSend_timeIntervalSinceReferenceDate(v115, v116, v117);
-        *buf = 134218242;
-        *v295 = v118;
-        *&v295[8] = 2112;
-        *&v295[10] = v41;
-        _os_log_impl(&dword_19B41C000, v113, OS_LOG_TYPE_DEFAULT, "Workout, PREDICTION START DID MUTE at %f, %@", buf, 0x16u);
-      }
-
-      v119 = sub_19B420058();
-      if (*(v119 + 160) <= 1 && *(v119 + 164) <= 1 && *(v119 + 168) <= 1 && !*(v119 + 152))
-      {
-        goto LABEL_59;
-      }
-
-      bzero(buf, 0x65CuLL);
-      if (qword_1EAFE2780 != -1)
-      {
-        dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-      }
-
-      v121 = objc_msgSend_objectForKeyedSubscript_(event, v120, @"CMWorkoutEventDate");
-      objc_msgSend_timeIntervalSinceReferenceDate(v121, v122, v123);
-      goto LABEL_252;
-    case 7uLL:
-      if (qword_1EAFE2780 != -1)
-      {
-        dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-      }
-
-      v75 = qword_1EAFE27B8;
-      if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
-      {
-        v77 = objc_msgSend_objectForKeyedSubscript_(event, v76, @"CMWorkoutEventDate");
-        objc_msgSend_timeIntervalSinceReferenceDate(v77, v78, v79);
-        *buf = 134218242;
-        *v295 = v80;
-        *&v295[8] = 2112;
-        *&v295[10] = v41;
-        _os_log_impl(&dword_19B41C000, v75, OS_LOG_TYPE_DEFAULT, "Workout, LOCATION DID UPDATE at %f, %@", buf, 0x16u);
-      }
-
-      v81 = sub_19B420058();
-      if (*(v81 + 160) > 1 || *(v81 + 164) > 1 || *(v81 + 168) > 1 || *(v81 + 152))
-      {
-        bzero(buf, 0x65CuLL);
-        if (qword_1EAFE2780 != -1)
-        {
-          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-        }
-
-        v84 = objc_msgSend_objectForKeyedSubscript_(event, v83, @"CMWorkoutEventDate");
-        objc_msgSend_timeIntervalSinceReferenceDate(v84, v85, v86);
-        v87 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v87);
-        if (v87 != buf)
-        {
-          free(v87);
-        }
-      }
-
-      objc_msgSend__setWorkout_(self, v82, v41);
-      v88 = self->fDelegate;
-      if (objc_opt_respondsToSelector())
-      {
-        objc_msgSend_workoutManager_workoutLocationEventUpdate_(self->fDelegate, v89, self->fSender, v41);
-      }
-
-      goto LABEL_59;
-    case 8uLL:
-    case 0xAuLL:
-    case 0xBuLL:
-      v46 = objc_msgSend__isReminderAllowedForType_(self, v44, 0);
-      if (qword_1EAFE2780 != -1)
-      {
-        dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-      }
-
-      v47 = qword_1EAFE27B8;
-      if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 134218498;
-        *v295 = v39;
-        *&v295[8] = 2112;
-        *&v295[10] = v41;
-        v296 = 1024;
-        v297 = v46;
-        _os_log_impl(&dword_19B41C000, v47, OS_LOG_TYPE_DEFAULT, "Workout, PREDICTION, event %lu, %@, allowed %d", buf, 0x1Cu);
-      }
-
-      v48 = sub_19B420058();
-      if (*(v48 + 160) <= 1 && *(v48 + 164) <= 1 && *(v48 + 168) <= 1 && !*(v48 + 152))
-      {
-        goto LABEL_224;
-      }
-
-      bzero(buf, 0x65CuLL);
-      if (qword_1EAFE2780 == -1)
-      {
-        goto LABEL_222;
-      }
-
-      goto LABEL_330;
-    case 9uLL:
-      if (qword_1EAFE2780 != -1)
-      {
-        dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-      }
-
-      v192 = qword_1EAFE27B8;
-      if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 138412290;
-        *v295 = v41;
-        _os_log_impl(&dword_19B41C000, v192, OS_LOG_TYPE_DEFAULT, "Workout, (internal only) PREDICTION UPDATE, %@", buf, 0xCu);
-      }
-
-      v193 = sub_19B420058();
-      if (*(v193 + 160) <= 1 && *(v193 + 164) <= 1 && *(v193 + 168) <= 1 && !*(v193 + 152))
-      {
-        goto LABEL_59;
-      }
-
-      bzero(buf, 0x65CuLL);
-      if (qword_1EAFE2780 != -1)
-      {
-        dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-      }
-
-LABEL_252:
-      v194 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v194);
-      if (v194 != buf)
-      {
-        free(v194);
-      }
-
-      goto LABEL_59;
-    case 0xCuLL:
-      v46 = objc_msgSend__isReminderAllowedForType_(self, v44, 2);
-      if (qword_1EAFE2780 != -1)
-      {
-        dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-      }
-
-      v164 = qword_1EAFE27B8;
-      if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 134218498;
-        *v295 = 12;
-        *&v295[8] = 2112;
-        *&v295[10] = v41;
-        v296 = 1024;
-        v297 = v46;
-        _os_log_impl(&dword_19B41C000, v164, OS_LOG_TYPE_DEFAULT, "Workout, STOP RETRACTION, event %lu, %@, allowed %d", buf, 0x1Cu);
-      }
-
-      v165 = sub_19B420058();
-      if (*(v165 + 160) <= 1 && *(v165 + 164) <= 1 && *(v165 + 168) <= 1 && !*(v165 + 152))
-      {
-        goto LABEL_224;
-      }
-
-      bzero(buf, 0x65CuLL);
-      if (qword_1EAFE2780 != -1)
-      {
-LABEL_330:
-        dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-      }
-
-LABEL_222:
-      v166 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v166);
-      if (v166 != buf)
-      {
-        free(v166);
-      }
-
-LABEL_224:
-      if (v46)
-      {
-        v167 = self->fDelegate;
-        if (objc_opt_respondsToSelector())
-        {
-          objc_msgSend_workoutManager_issuedPrediction_(self->fDelegate, v168, self->fSender, v41);
-        }
-      }
-
-      goto LABEL_59;
-    case 0xDuLL:
-      if (v43)
-      {
-        v215 = self->fDelegate;
-        if (objc_opt_respondsToSelector())
-        {
-          if (qword_1EAFE2780 != -1)
-          {
-            dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-          }
-
-          v216 = qword_1EAFE27B8;
-          if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 138412290;
-            *v295 = v41;
-            _os_log_impl(&dword_19B41C000, v216, OS_LOG_TYPE_DEFAULT, "Workout, SESSION DID BEGIN, %@", buf, 0xCu);
-          }
-
-          v217 = sub_19B420058();
-          if (*(v217 + 160) > 1 || *(v217 + 164) > 1 || *(v217 + 168) > 1 || *(v217 + 152))
-          {
-            bzero(buf, 0x65CuLL);
-            if (qword_1EAFE2780 != -1)
-            {
-              dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-            }
-
-            v219 = _os_log_send_and_compose_impl();
-            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v219);
-            if (v219 != buf)
-            {
-              free(v219);
-            }
-          }
-
-          objc_msgSend_workoutManager_didBeginWorkoutSessionWithWorkout_withOverview_(self->fDelegate, v218, self->fSender, v41, v45);
-          goto LABEL_59;
-        }
-      }
-
-      v241 = self->fDelegate;
-      if (objc_opt_respondsToSelector())
-      {
-        if (qword_1EAFE2780 != -1)
-        {
-          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-        }
-
-        v242 = qword_1EAFE27B8;
-        if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
-        {
-          started = objc_msgSend_startDate(v41, v243, v244);
-          objc_msgSend_timeIntervalSinceReferenceDate(started, v246, v247);
-          *buf = 134218242;
-          *v295 = v248;
-          *&v295[8] = 2112;
-          *&v295[10] = v41;
-          _os_log_impl(&dword_19B41C000, v242, OS_LOG_TYPE_DEFAULT, "Workout, DID START at %f, %@", buf, 0x16u);
-        }
-
-        v249 = sub_19B420058();
-        if (*(v249 + 160) > 1 || *(v249 + 164) > 1 || *(v249 + 168) > 1 || *(v249 + 152))
-        {
-          bzero(buf, 0x65CuLL);
-          if (qword_1EAFE2780 != -1)
-          {
-            dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-          }
-
-          v254 = objc_msgSend_startDate(v41, v252, v253);
-          objc_msgSend_timeIntervalSinceReferenceDate(v254, v255, v256);
-          v257 = _os_log_send_and_compose_impl();
-          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v257);
-          if (v257 != buf)
-          {
-            free(v257);
-          }
-        }
-
-        v259 = self->fDelegate;
-        v258 = self->fSender;
-        v260 = objc_msgSend_startDate(v41, v250, v251);
-        objc_msgSend_workoutManager_didStartWorkout_atDate_(v259, v261, v258, v41, v260);
-        goto LABEL_59;
-      }
-
-      v268 = self->fDelegate;
-      if ((objc_opt_respondsToSelector() & 1) == 0)
-      {
-        goto LABEL_59;
-      }
-
-      v271 = self->fDelegate;
-      v270 = self->fSender;
-      objc_msgSend_objectForKeyedSubscript_(event, v269, @"CMWorkoutEventDate");
-      v272 = *MEMORY[0x1E69E9840];
-
-      MEMORY[0x1EEE66B58](v271, sel_workoutManagerDidStartWorkout_workout_startDate_, v270);
-      return;
-    case 0xEuLL:
-      if (qword_1EAFE2780 != -1)
-      {
-        dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-      }
-
-      v69 = qword_1EAFE27B8;
-      if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 138412290;
-        *v295 = v41;
-        _os_log_impl(&dword_19B41C000, v69, OS_LOG_TYPE_DEFAULT, "Workout, SET CURRENT TYPE, %@", buf, 0xCu);
-      }
-
-      v70 = sub_19B420058();
-      if (*(v70 + 160) > 1 || *(v70 + 164) > 1 || *(v70 + 168) > 1 || *(v70 + 152))
-      {
-        bzero(buf, 0x65CuLL);
-        if (qword_1EAFE2780 != -1)
-        {
-          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-        }
-
-        v72 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v72);
-        if (v72 != buf)
-        {
-          free(v72);
-        }
-      }
-
-      if (v45)
-      {
-        objc_msgSend__setWorkout_(self, v71, v41);
-        v73 = self->fDelegate;
-        if (objc_opt_respondsToSelector())
-        {
-          objc_msgSend_workoutManager_didSetCurrentWorkoutType_withOverview_(self->fDelegate, v74, self->fSender, v41, v45);
-        }
-      }
-
-      goto LABEL_59;
-    case 0xFuLL:
-      if (v43)
-      {
-        v64 = self->fDelegate;
-        if (objc_opt_respondsToSelector())
-        {
-          if (qword_1EAFE2780 != -1)
-          {
-            dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-          }
-
-          v65 = qword_1EAFE27B8;
-          if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 138412290;
-            *v295 = v41;
-            _os_log_impl(&dword_19B41C000, v65, OS_LOG_TYPE_DEFAULT, "Workout, SESSION DID END, %@", buf, 0xCu);
-          }
-
-          v66 = sub_19B420058();
-          if (*(v66 + 160) > 1 || *(v66 + 164) > 1 || *(v66 + 168) > 1 || *(v66 + 152))
-          {
-            bzero(buf, 0x65CuLL);
-            if (qword_1EAFE2780 != -1)
-            {
-              dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-            }
-
-            v68 = _os_log_send_and_compose_impl();
-            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v68);
-            if (v68 != buf)
-            {
-              free(v68);
-            }
-          }
-
-          objc_msgSend_workoutManager_didEndWorkoutSessionWithWorkout_withOverview_(self->fDelegate, v67, self->fSender, v41, v45);
-          goto LABEL_59;
-        }
-      }
-
-      v220 = self->fDelegate;
-      if (objc_opt_respondsToSelector())
-      {
-        if (qword_1EAFE2780 != -1)
-        {
-          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-        }
-
-        v221 = qword_1EAFE27B8;
-        if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
-        {
-          v224 = objc_msgSend_endDate(v41, v222, v223);
-          objc_msgSend_timeIntervalSinceReferenceDate(v224, v225, v226);
-          *buf = 134218242;
-          *v295 = v227;
-          *&v295[8] = 2112;
-          *&v295[10] = v41;
-          _os_log_impl(&dword_19B41C000, v221, OS_LOG_TYPE_DEFAULT, "Workout, DID STOP at %f, %@", buf, 0x16u);
-        }
-
-        v228 = sub_19B420058();
-        if (*(v228 + 160) > 1 || *(v228 + 164) > 1 || *(v228 + 168) > 1 || *(v228 + 152))
-        {
-          bzero(buf, 0x65CuLL);
-          if (qword_1EAFE2780 != -1)
-          {
-            dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-          }
-
-          v233 = objc_msgSend_endDate(v41, v231, v232);
-          objc_msgSend_timeIntervalSinceReferenceDate(v233, v234, v235);
-          v236 = _os_log_send_and_compose_impl();
-          sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v236);
-          if (v236 != buf)
-          {
-            free(v236);
-          }
-        }
-
-        v238 = self->fDelegate;
-        v237 = self->fSender;
-        v239 = objc_msgSend_endDate(v41, v229, v230);
-        objc_msgSend_workoutManager_didStopWorkout_atDate_(v238, v240, v237, v41, v239);
-        goto LABEL_59;
-      }
-
-      v263 = self->fDelegate;
-      if ((objc_opt_respondsToSelector() & 1) == 0)
-      {
-        goto LABEL_59;
-      }
-
-      v266 = self->fDelegate;
-      v265 = self->fSender;
-      objc_msgSend_objectForKeyedSubscript_(event, v264, @"CMWorkoutEventDate");
-      v267 = *MEMORY[0x1E69E9840];
-
-      MEMORY[0x1EEE66B58](v266, sel_workoutManagerDidStopWorkout_workout_stopDate_, v265);
-      break;
-    case 0x10uLL:
-      if (qword_1EAFE2780 != -1)
-      {
-        dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-      }
-
-      v58 = qword_1EAFE27B8;
-      if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 138412290;
-        *v295 = v41;
-        _os_log_impl(&dword_19B41C000, v58, OS_LOG_TYPE_DEFAULT, "Workout, PAUSED, %@", buf, 0xCu);
-      }
-
-      v59 = sub_19B420058();
-      if (*(v59 + 160) > 1 || *(v59 + 164) > 1 || *(v59 + 168) > 1 || *(v59 + 152))
-      {
-        bzero(buf, 0x65CuLL);
-        if (qword_1EAFE2780 != -1)
-        {
-          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-        }
-
-        v61 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v61);
-        if (v61 != buf)
-        {
-          free(v61);
-        }
-      }
-
-      if (v45)
-      {
-        objc_msgSend__setWorkout_(self, v60, v41);
-        v62 = self->fDelegate;
-        if (objc_opt_respondsToSelector())
-        {
-          objc_msgSend_workoutManager_didPauseWorkout_withOverview_(self->fDelegate, v63, self->fSender, v41, v45);
-        }
-      }
-
-      goto LABEL_59;
-    case 0x11uLL:
-      if (qword_1EAFE2780 != -1)
-      {
-        dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-      }
-
-      v153 = qword_1EAFE27B8;
-      if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 138412290;
-        *v295 = v41;
-        _os_log_impl(&dword_19B41C000, v153, OS_LOG_TYPE_DEFAULT, "Workout, RESUMED, %@", buf, 0xCu);
-      }
-
-      v154 = sub_19B420058();
-      if (*(v154 + 160) > 1 || *(v154 + 164) > 1 || *(v154 + 168) > 1 || *(v154 + 152))
-      {
-        bzero(buf, 0x65CuLL);
-        if (qword_1EAFE2780 != -1)
-        {
-          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-        }
-
-        v156 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v156);
-        if (v156 != buf)
-        {
-          free(v156);
-        }
-      }
-
-      if (v45)
-      {
-        objc_msgSend__setWorkout_(self, v155, v41);
-        v157 = self->fDelegate;
-        if (objc_opt_respondsToSelector())
-        {
-          objc_msgSend_workoutManager_didResumeWorkout_withOverview_(self->fDelegate, v158, self->fSender, v41, v45);
-        }
-      }
-
-      goto LABEL_59;
-    case 0x12uLL:
-      if (qword_1EAFE2780 != -1)
-      {
-        dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-      }
-
-      v159 = qword_1EAFE27B8;
-      if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 138412290;
-        *v295 = v41;
-        _os_log_impl(&dword_19B41C000, v159, OS_LOG_TYPE_DEFAULT, "Workout, DETECTED CHANGE, %@", buf, 0xCu);
-      }
-
-      v160 = sub_19B420058();
-      if (*(v160 + 160) > 1 || *(v160 + 164) > 1 || *(v160 + 168) > 1 || *(v160 + 152))
-      {
-        bzero(buf, 0x65CuLL);
-        if (qword_1EAFE2780 != -1)
-        {
-          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-        }
-
-        v161 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v161);
-        if (v161 != buf)
-        {
-          free(v161);
-        }
-      }
-
-      if (v45)
-      {
-        v162 = self->fDelegate;
-        if (objc_opt_respondsToSelector())
-        {
-          objc_msgSend_workoutManager_detectedChangeInWorkoutType_withOverview_(self->fDelegate, v163, self->fSender, v41, v45);
-        }
-      }
-
-      goto LABEL_59;
-    case 0x16uLL:
-      v195 = objc_msgSend__isReminderAllowedForType_(self, v44, 1);
-      if (qword_1EAFE2780 != -1)
-      {
-        dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-      }
-
-      v196 = qword_1EAFE27B8;
-      if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
-      {
-        v198 = objc_msgSend_objectForKeyedSubscript_(event, v197, @"CMWorkoutEventDate");
-        objc_msgSend_timeIntervalSinceReferenceDate(v198, v199, v200);
-        *buf = 134218498;
-        *v295 = v201;
-        *&v295[8] = 2112;
-        *&v295[10] = v41;
-        v296 = 1024;
-        v297 = v195;
-        _os_log_impl(&dword_19B41C000, v196, OS_LOG_TYPE_DEFAULT, "Workout, RESUME SUGGESTION at %f, %@, allowed %d", buf, 0x1Cu);
-      }
-
-      v202 = sub_19B420058();
-      if (*(v202 + 160) > 1 || *(v202 + 164) > 1 || *(v202 + 168) > 1 || *(v202 + 152))
-      {
-        bzero(buf, 0x65CuLL);
-        if (qword_1EAFE2780 != -1)
-        {
-          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-        }
-
-        v204 = objc_msgSend_objectForKeyedSubscript_(event, v203, @"CMWorkoutEventDate");
-        objc_msgSend_timeIntervalSinceReferenceDate(v204, v205, v206);
-        v207 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v207);
-        if (v207 != buf)
-        {
-          free(v207);
-        }
-      }
-
-      if (v195)
-      {
-        v208 = self->fDelegate;
-        if (objc_opt_respondsToSelector())
-        {
-          v212 = self->fDelegate;
-          v211 = self->fSender;
-          v213 = objc_msgSend_startDate(v41, v209, v210);
-          objc_msgSend_workoutManager_suggestedResumeWorkout_atDate_(v212, v214, v211, v41, v213);
-        }
-      }
-
-      goto LABEL_59;
-    default:
-      if (v39 < 2)
-      {
-        goto LABEL_59;
-      }
-
-LABEL_170:
-      v147 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v44, @"CMErrorDomain", 103, 0);
-      if (qword_1EAFE2780 != -1)
-      {
-        dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-      }
-
-      v148 = qword_1EAFE27B8;
-      if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_FAULT))
-      {
-        *buf = 138412546;
-        *v295 = v41;
-        *&v295[8] = 2048;
-        *&v295[10] = v39;
-        _os_log_impl(&dword_19B41C000, v148, OS_LOG_TYPE_FAULT, "Workout, Unrecognized event, %@, %ld", buf, 0x16u);
-      }
-
-      v149 = sub_19B420058();
-      if ((*(v149 + 160) & 0x80000000) == 0 || (*(v149 + 164) & 0x80000000) == 0 || (*(v149 + 168) & 0x80000000) == 0 || *(v149 + 152))
-      {
-        bzero(buf, 0x65CuLL);
-        if (qword_1EAFE2780 != -1)
-        {
-          dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
-        }
-
-        v150 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMWorkoutManagerInternal _handleDaemonEvent:]", "CoreLocation: %s\n", v150);
-        if (v150 != buf)
-        {
-          free(v150);
-        }
-      }
-
-      v151 = self->fDelegate;
-      if (objc_opt_respondsToSelector())
-      {
-        objc_msgSend_workoutManager_didFailWorkout_withError_(self->fDelegate, v152, self->fSender, v41, v147);
-      }
-
-      else if (objc_opt_respondsToSelector())
-      {
-        objc_msgSend_workoutManagerDidFail_workout_error_(self->fDelegate, v262, self->fSender, v41, v147);
-      }
-
-      goto LABEL_59;
+    fSender = self->fSender;
+    v32 = self->fWorkout;
+    goto LABEL_57;
+  }
+
+  if (objc_opt_respondsToSelector())
+  {
+    objc_msgSend_workoutManagerDidFail_workout_error_(self->fDelegate, v60, self->fSender, self->fWorkout, v12);
   }
 }
 
 - (void)_registerForWorkoutEvents
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   if (self->fLocationdConnection)
   {
     sub_19B428B50(&__p, "kCLConnectionMessageWorkoutEvent");
     CLConnectionClient::setHandlerForMessage();
-    if (v5 < 0)
+    if (v4 < 0)
     {
       operator delete(__p);
     }
 
-    v6 = @"kCLConnectionMessageSubscribeKey";
-    v7[0] = MEMORY[0x1E695E118];
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v2, v7, &v6, 1);
+    v5 = @"kCLConnectionMessageSubscribeKey";
+    v6[0] = MEMORY[0x1E695E118];
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v2, v6, &v5, 1);
     sub_19B6A2040();
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_unregisterForWorkoutEvents
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   if (self->fLocationdConnection)
   {
     sub_19B428B50(&__p, "kCLConnectionMessageWorkoutEvent");
     CLConnectionClient::setHandlerForMessage();
-    if (v5 < 0)
+    if (v4 < 0)
     {
       operator delete(__p);
     }
 
-    v6 = @"kCLConnectionMessageSubscribeKey";
-    v7[0] = MEMORY[0x1E695E110];
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v2, v7, &v6, 1);
+    v5 = @"kCLConnectionMessageSubscribeKey";
+    v6[0] = MEMORY[0x1E695E110];
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v2, v6, &v5, 1);
     sub_19B6A2040();
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_getPromptsNeededForWorkoutType:(int64_t)type handler:(id)handler
@@ -1576,6 +1635,192 @@ LABEL_170:
   v5 = *(handler + 2);
 
   v5(handler, 0, 0);
+}
+
+- (void)_beginWorkoutSession:(id)session withWorkout:(id)workout enableWorkoutChangeDetection:(BOOL)detection
+{
+  detectionCopy = detection;
+  v58 = *MEMORY[0x1E69E9840];
+  v9 = getpid();
+  ExecutablePathFromPid = objc_msgSend_getExecutablePathFromPid_(CMMotionUtils, v10, v9);
+  if (ExecutablePathFromPid)
+  {
+    v14 = ExecutablePathFromPid;
+    if (qword_1EAFE2780 != -1)
+    {
+      dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+    }
+
+    v15 = qword_1EAFE27B8;
+    if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
+    {
+      buf[0] = 138413570;
+      *&buf[1] = session;
+      v48 = 2112;
+      workoutCopy = workout;
+      v50 = 1024;
+      v51 = detectionCopy;
+      v52 = 2112;
+      v53 = v14;
+      v54 = 1024;
+      v55 = getpid();
+      v56 = 2048;
+      selfCopy = self;
+      _os_log_impl(&dword_19B41C000, v15, OS_LOG_TYPE_DEFAULT, "WorkoutSession, begin session, %@, %@, %d, %@, %d, %p", buf, 0x36u);
+    }
+
+    v16 = sub_19B420058();
+    if (*(v16 + 160) > 1 || *(v16 + 164) > 1 || *(v16 + 168) > 1 || *(v16 + 152))
+    {
+      bzero(buf, 0x65CuLL);
+      if (qword_1EAFE2780 != -1)
+      {
+        dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+      }
+
+      v17 = qword_1EAFE27B8;
+      *v36 = 138413570;
+      *&v36[4] = session;
+      v37 = 2112;
+      workoutCopy2 = workout;
+      v39 = 1024;
+      v40 = detectionCopy;
+      v41 = 2112;
+      v42 = v14;
+      v43 = 1024;
+      v44 = getpid();
+      v45 = 2048;
+      selfCopy2 = self;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v17, 0, "WorkoutSession, begin session, %@, %@, %d, %@, %d, %p", v36, 54);
+      v19 = v18;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _beginWorkoutSession:withWorkout:enableWorkoutChangeDetection:]", "CoreLocation: %s\n", v18);
+      if (v19 != buf)
+      {
+        free(v19);
+      }
+    }
+  }
+
+  if (self->fLocationdConnection)
+  {
+    v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v20 = objc_msgSend_workouts(session, v12, v13);
+    v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v29, v35, 16);
+    if (v23)
+    {
+      v24 = *v30;
+      do
+      {
+        for (i = 0; i != v23; ++i)
+        {
+          if (*v30 != v24)
+          {
+            objc_enumerationMutation(v20);
+          }
+
+          objc_msgSend__checkWorkout_(self, v22, *(*(&v29 + 1) + 8 * i));
+        }
+
+        v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v22, &v29, v35, 16);
+      }
+
+      while (v23);
+    }
+
+    objc_msgSend__checkWorkout_(self, v22, workout);
+    v33[0] = @"CMWorkoutAttributes";
+    v33[1] = @"CMWorkoutOverviewData";
+    v34[0] = workout;
+    v34[1] = session;
+    v33[2] = @"CMWorkoutEnableWorkoutChangeDetection";
+    v34[2] = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v26, detectionCopy);
+    *v36 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v27, v34, v33, 3);
+    sub_19B5D12C8();
+  }
+
+  objc_msgSend__setWorkout_(self, v12, workout);
+  sessionCopy = session;
+
+  self->fWorkoutOverview = session;
+  self->fSessionState = 1;
+  self->fEnableWorkoutChangeDetection = detectionCopy;
+}
+
+- (void)_setCurrentWorkoutType:(id)type isManualTransition:(BOOL)transition
+{
+  transitionCopy = transition;
+  v38 = *MEMORY[0x1E69E9840];
+  v7 = getpid();
+  ExecutablePathFromPid = objc_msgSend_getExecutablePathFromPid_(CMMotionUtils, v8, v7);
+  if (ExecutablePathFromPid)
+  {
+    v11 = ExecutablePathFromPid;
+    if (qword_1EAFE2780 != -1)
+    {
+      dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+    }
+
+    v12 = qword_1EAFE27B8;
+    if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
+    {
+      buf[0] = 138413314;
+      *&buf[1] = type;
+      v30 = 1024;
+      v31 = transitionCopy;
+      v32 = 2112;
+      v33 = v11;
+      v34 = 1024;
+      v35 = getpid();
+      v36 = 2048;
+      selfCopy = self;
+      _os_log_impl(&dword_19B41C000, v12, OS_LOG_TYPE_DEFAULT, "WorkoutSession, set current type, %@, %d, %@, %d, %p", buf, 0x2Cu);
+    }
+
+    v13 = sub_19B420058();
+    if (*(v13 + 160) > 1 || *(v13 + 164) > 1 || *(v13 + 168) > 1 || *(v13 + 152))
+    {
+      bzero(buf, 0x65CuLL);
+      if (qword_1EAFE2780 != -1)
+      {
+        dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+      }
+
+      v14 = qword_1EAFE27B8;
+      *v20 = 138413314;
+      *&v20[4] = type;
+      v21 = 1024;
+      v22 = transitionCopy;
+      v23 = 2112;
+      v24 = v11;
+      v25 = 1024;
+      v26 = getpid();
+      v27 = 2048;
+      selfCopy2 = self;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v14, 0, "WorkoutSession, set current type, %@, %d, %@, %d, %p", v20, 44);
+      v16 = v15;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _setCurrentWorkoutType:isManualTransition:]", "CoreLocation: %s\n", v15);
+      if (v16 != buf)
+      {
+        free(v16);
+      }
+    }
+  }
+
+  if (self->fLocationdConnection)
+  {
+    v18[0] = @"CMWorkoutAttributes";
+    v18[1] = @"CMWorkoutIsManualTransition";
+    v19[0] = type;
+    v19[1] = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v10, transitionCopy);
+    *v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v17, v19, v18, 2);
+    sub_19B44BE58();
+  }
+
+  objc_msgSend__setWorkout_(self, v10, type);
+  self->fSessionState = 1;
 }
 
 - (void)_setWorkout:(id)workout
@@ -1594,7 +1839,7 @@ LABEL_170:
 
 - (void)_endWorkoutSession:(id)session
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = getpid();
   ExecutablePathFromPid = objc_msgSend_getExecutablePathFromPid_(CMMotionUtils, v6, v5);
   if (ExecutablePathFromPid)
@@ -1610,11 +1855,11 @@ LABEL_170:
     {
       buf[0] = 138413058;
       *&buf[1] = session;
-      v24 = 2112;
-      v25 = v9;
-      v26 = 1024;
-      v27 = getpid();
-      v28 = 2048;
+      v25 = 2112;
+      v26 = v9;
+      v27 = 1024;
+      v28 = getpid();
+      v29 = 2048;
       selfCopy = self;
       _os_log_impl(&dword_19B41C000, v10, OS_LOG_TYPE_DEFAULT, "WorkoutSession, end session, %@, %@, %d, %p", buf, 0x26u);
     }
@@ -1628,28 +1873,30 @@ LABEL_170:
         dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
       }
 
-      *v16 = 138413058;
-      *&v16[4] = session;
-      v17 = 2112;
-      v18 = v9;
-      v19 = 1024;
-      v20 = getpid();
-      v21 = 2048;
+      v12 = qword_1EAFE27B8;
+      *v17 = 138413058;
+      *&v17[4] = session;
+      v18 = 2112;
+      v19 = v9;
+      v20 = 1024;
+      v21 = getpid();
+      v22 = 2048;
       selfCopy2 = self;
-      v12 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _endWorkoutSession:]", "CoreLocation: %s\n", v12);
-      if (v12 != buf)
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v12, 0, "WorkoutSession, end session, %@, %@, %d, %p", v17, 38);
+      v14 = v13;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _endWorkoutSession:]", "CoreLocation: %s\n", v13);
+      if (v14 != buf)
       {
-        free(v12);
+        free(v14);
       }
     }
   }
 
   if (self->fLocationdConnection)
   {
-    v14 = @"CMWorkoutAttributes";
+    v15 = @"CMWorkoutAttributes";
     sessionCopy = session;
-    *v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v8, &sessionCopy, &v14, 1);
+    *v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v8, &sessionCopy, &v15, 1);
     sub_19B686B90();
   }
 
@@ -1658,12 +1905,11 @@ LABEL_170:
   self->fWorkoutOverview = 0;
   self->fSessionState = 0;
   self->fEnableWorkoutChangeDetection = 0;
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_pauseWorkout:(id)workout
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = getpid();
   ExecutablePathFromPid = objc_msgSend_getExecutablePathFromPid_(CMMotionUtils, v6, v5);
   if (ExecutablePathFromPid)
@@ -1679,11 +1925,11 @@ LABEL_170:
     {
       buf[0] = 138413058;
       *&buf[1] = workout;
-      v24 = 2112;
-      v25 = v9;
-      v26 = 1024;
-      v27 = getpid();
-      v28 = 2048;
+      v25 = 2112;
+      v26 = v9;
+      v27 = 1024;
+      v28 = getpid();
+      v29 = 2048;
       selfCopy = self;
       _os_log_impl(&dword_19B41C000, v10, OS_LOG_TYPE_DEFAULT, "WorkoutSession, manually pause, %@, %@, %d, %p", buf, 0x26u);
     }
@@ -1697,38 +1943,39 @@ LABEL_170:
         dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
       }
 
-      *v16 = 138413058;
-      *&v16[4] = workout;
-      v17 = 2112;
-      v18 = v9;
-      v19 = 1024;
-      v20 = getpid();
-      v21 = 2048;
+      v12 = qword_1EAFE27B8;
+      *v17 = 138413058;
+      *&v17[4] = workout;
+      v18 = 2112;
+      v19 = v9;
+      v20 = 1024;
+      v21 = getpid();
+      v22 = 2048;
       selfCopy2 = self;
-      v12 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _pauseWorkout:]", "CoreLocation: %s\n", v12);
-      if (v12 != buf)
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v12, 0, "WorkoutSession, manually pause, %@, %@, %d, %p", v17, 38);
+      v14 = v13;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _pauseWorkout:]", "CoreLocation: %s\n", v13);
+      if (v14 != buf)
       {
-        free(v12);
+        free(v14);
       }
     }
   }
 
   if (self->fLocationdConnection)
   {
-    v14 = @"CMWorkoutAttributes";
+    v15 = @"CMWorkoutAttributes";
     workoutCopy = workout;
-    *v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v8, &workoutCopy, &v14, 1);
+    *v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v8, &workoutCopy, &v15, 1);
     sub_19B6A2040();
   }
 
   self->fSessionState = 2;
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_resumeWorkout:(id)workout
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = getpid();
   ExecutablePathFromPid = objc_msgSend_getExecutablePathFromPid_(CMMotionUtils, v6, v5);
   if (ExecutablePathFromPid)
@@ -1744,11 +1991,11 @@ LABEL_170:
     {
       buf[0] = 138413058;
       *&buf[1] = workout;
-      v24 = 2112;
-      v25 = v9;
-      v26 = 1024;
-      v27 = getpid();
-      v28 = 2048;
+      v25 = 2112;
+      v26 = v9;
+      v27 = 1024;
+      v28 = getpid();
+      v29 = 2048;
       selfCopy = self;
       _os_log_impl(&dword_19B41C000, v10, OS_LOG_TYPE_DEFAULT, "WorkoutSession, manually resume, %@, %@, %d, %p", buf, 0x26u);
     }
@@ -1762,38 +2009,39 @@ LABEL_170:
         dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
       }
 
-      *v16 = 138413058;
-      *&v16[4] = workout;
-      v17 = 2112;
-      v18 = v9;
-      v19 = 1024;
-      v20 = getpid();
-      v21 = 2048;
+      v12 = qword_1EAFE27B8;
+      *v17 = 138413058;
+      *&v17[4] = workout;
+      v18 = 2112;
+      v19 = v9;
+      v20 = 1024;
+      v21 = getpid();
+      v22 = 2048;
       selfCopy2 = self;
-      v12 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _resumeWorkout:]", "CoreLocation: %s\n", v12);
-      if (v12 != buf)
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v12, 0, "WorkoutSession, manually resume, %@, %@, %d, %p", v17, 38);
+      v14 = v13;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _resumeWorkout:]", "CoreLocation: %s\n", v13);
+      if (v14 != buf)
       {
-        free(v12);
+        free(v14);
       }
     }
   }
 
   if (self->fLocationdConnection)
   {
-    v14 = @"CMWorkoutAttributes";
+    v15 = @"CMWorkoutAttributes";
     workoutCopy = workout;
-    *v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v8, &workoutCopy, &v14, 1);
+    *v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v8, &workoutCopy, &v15, 1);
     sub_19B66451C();
   }
 
   self->fSessionState = 1;
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_snapshotWithCompletion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v5 = getpid();
   ExecutablePathFromPid = objc_msgSend_getExecutablePathFromPid_(CMMotionUtils, v6, v5);
   if (ExecutablePathFromPid)
@@ -1809,9 +2057,9 @@ LABEL_170:
     {
       buf[0] = 138412802;
       *&buf[1] = v8;
-      v19 = 1024;
-      v20 = getpid();
-      v21 = 2048;
+      v28 = 1024;
+      v29 = getpid();
+      v30 = 2048;
       selfCopy = self;
       _os_log_impl(&dword_19B41C000, v9, OS_LOG_TYPE_INFO, "[snapshot] getting state for %@, %d, %p", buf, 0x1Cu);
     }
@@ -1825,12 +2073,19 @@ LABEL_170:
         dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
       }
 
-      getpid();
-      v11 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _snapshotWithCompletion:]", "CoreLocation: %s\n", v11);
-      if (v11 != buf)
+      v11 = qword_1EAFE27B8;
+      v21 = 138412802;
+      v22 = v8;
+      v23 = 1024;
+      v24 = getpid();
+      v25 = 2048;
+      selfCopy2 = self;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v11, 1, "[snapshot] getting state for %@, %d, %p", &v21, 28);
+      v13 = v12;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _snapshotWithCompletion:]", "CoreLocation: %s\n", v12);
+      if (v13 != buf)
       {
-        free(v11);
+        free(v13);
       }
     }
   }
@@ -1845,15 +2100,15 @@ LABEL_170:
     dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
   }
 
-  v12 = qword_1EAFE27B8;
+  v14 = qword_1EAFE27B8;
   if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_ERROR))
   {
     LOWORD(buf[0]) = 0;
-    _os_log_impl(&dword_19B41C000, v12, OS_LOG_TYPE_ERROR, "[snapshot] error, no connection to locationd", buf, 2u);
+    _os_log_impl(&dword_19B41C000, v14, OS_LOG_TYPE_ERROR, "[snapshot] error, no connection to locationd", buf, 2u);
   }
 
-  v13 = sub_19B420058();
-  if ((*(v13 + 160) & 0x80000000) == 0 || (*(v13 + 164) & 0x80000000) == 0 || (*(v13 + 168) & 0x80000000) == 0 || *(v13 + 152))
+  v15 = sub_19B420058();
+  if ((*(v15 + 160) & 0x80000000) == 0 || (*(v15 + 164) & 0x80000000) == 0 || (*(v15 + 168) & 0x80000000) == 0 || *(v15 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE2780 != -1)
@@ -1861,22 +2116,179 @@ LABEL_170:
       dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
     }
 
-    v15 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMWorkoutManagerInternal _snapshotWithCompletion:]", "CoreLocation: %s\n", v15);
-    if (v15 != buf)
+    LOWORD(v21) = 0;
+    LODWORD(v20) = 2;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27B8, 16, "[snapshot] error, no connection to locationd", &v21, v20);
+    v18 = v17;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMWorkoutManagerInternal _snapshotWithCompletion:]", "CoreLocation: %s\n", v17);
+    if (v18 != buf)
     {
-      free(v15);
+      free(v18);
     }
   }
 
-  v16 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v14, @"CMErrorDomain", 103, 0);
-  (*(completion + 2))(completion, 0, v16);
-  v17 = *MEMORY[0x1E69E9840];
+  v19 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v16, @"CMErrorDomain", 103, 0);
+  (*(completion + 2))(completion, 0, v19);
+}
+
+- (void)_muteReminderType:(int64_t)type mute:(BOOL)mute
+{
+  muteCopy = mute;
+  v43 = *MEMORY[0x1E69E9840];
+  v7 = getpid();
+  ExecutablePathFromPid = objc_msgSend_getExecutablePathFromPid_(CMMotionUtils, v8, v7);
+  if (ExecutablePathFromPid)
+  {
+    v11 = ExecutablePathFromPid;
+    if (qword_1EAFE2780 != -1)
+    {
+      dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+    }
+
+    v12 = qword_1EAFE27B8;
+    if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67110146;
+      *&buf[4] = muteCopy;
+      v37[0] = 2048;
+      *&v37[1] = type;
+      v37[5] = 2112;
+      v38 = v11;
+      v39 = 1024;
+      v40 = getpid();
+      v41 = 2048;
+      selfCopy = self;
+      _os_log_impl(&dword_19B41C000, v12, OS_LOG_TYPE_DEFAULT, "Workout, reminder mute settings, setting mute behavior to %d for reminder type %ld for client %@, %d, %p", buf, 0x2Cu);
+    }
+
+    v13 = sub_19B420058();
+    if (*(v13 + 160) > 1 || *(v13 + 164) > 1 || *(v13 + 168) > 1 || *(v13 + 152))
+    {
+      bzero(buf, 0x65CuLL);
+      if (qword_1EAFE2780 != -1)
+      {
+        dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+      }
+
+      v14 = qword_1EAFE27B8;
+      LODWORD(v27) = 67110146;
+      HIDWORD(v27) = muteCopy;
+      v28 = 2048;
+      typeCopy = type;
+      v30 = 2112;
+      v31 = v11;
+      v32 = 1024;
+      v33 = getpid();
+      v34 = 2048;
+      selfCopy2 = self;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v14, 0, "Workout, reminder mute settings, setting mute behavior to %d for reminder type %ld for client %@, %d, %p", &v27, 44);
+      v16 = v15;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _muteReminderType:mute:]", "CoreLocation: %s\n", v15);
+      if (v16 != buf)
+      {
+        free(v16);
+      }
+    }
+  }
+
+  objc_msgSend__setReminderMuteSettingsForType_mute_(self, v10, type, muteCopy);
+  if (self->fLocationdConnection)
+  {
+    v25[0] = @"CMWorkoutReminderSettingType";
+    v26[0] = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v17, type);
+    v25[1] = @"CMWorkoutReminderMuteValue";
+    v26[1] = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v18, muteCopy);
+    v27 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v19, v26, v25, 2);
+    sub_19B6F9514();
+  }
+
+  if (qword_1EAFE2780 != -1)
+  {
+    dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+  }
+
+  v20 = qword_1EAFE27B8;
+  if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_19B41C000, v20, OS_LOG_TYPE_ERROR, "Workout, reminder mute settings, no connection to locationd to send mute behavior", buf, 2u);
+  }
+
+  v21 = sub_19B420058();
+  if ((*(v21 + 160) & 0x80000000) == 0 || (*(v21 + 164) & 0x80000000) == 0 || (*(v21 + 168) & 0x80000000) == 0 || *(v21 + 152))
+  {
+    bzero(buf, 0x65CuLL);
+    if (qword_1EAFE2780 != -1)
+    {
+      dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+    }
+
+    LOWORD(v27) = 0;
+    LODWORD(v24) = 2;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27B8, 16, "Workout, reminder mute settings, no connection to locationd to send mute behavior", &v27, v24);
+    v23 = v22;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMWorkoutManagerInternal _muteReminderType:mute:]", "CoreLocation: %s\n", v22);
+    if (v23 != buf)
+    {
+      free(v23);
+    }
+  }
+}
+
+- (void)_muteAutoPauseForWorkoutType:(int64_t)type mute:(BOOL)mute
+{
+  muteCopy = mute;
+  v31 = *MEMORY[0x1E69E9840];
+  v7 = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], a2, mute);
+  fAutoPauseMuteSettings = self->fAutoPauseMuteSettings;
+  v10 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v9, type);
+  objc_msgSend_setObject_forKeyedSubscript_(fAutoPauseMuteSettings, v11, v7, v10);
+  if (qword_1EAFE2780 != -1)
+  {
+    dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+  }
+
+  v12 = qword_1EAFE27B8;
+  if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134218496;
+    typeCopy = type;
+    v27 = 1024;
+    v28 = muteCopy;
+    v29 = 1024;
+    isAutoPauseAllowedForWorkoutType = objc_msgSend__isAutoPauseAllowedForWorkoutType_(self, v13, type);
+    _os_log_impl(&dword_19B41C000, v12, OS_LOG_TYPE_DEFAULT, "Workout, auto pause mute settings, setting for workout type %ld to %d, autopause = %d", buf, 0x18u);
+  }
+
+  v14 = sub_19B420058();
+  if (*(v14 + 160) > 1 || *(v14 + 164) > 1 || *(v14 + 168) > 1 || *(v14 + 152))
+  {
+    bzero(buf, 0x65CuLL);
+    if (qword_1EAFE2780 != -1)
+    {
+      dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+    }
+
+    v16 = qword_1EAFE27B8;
+    v19 = 134218496;
+    typeCopy2 = type;
+    v21 = 1024;
+    v22 = muteCopy;
+    v23 = 1024;
+    v24 = objc_msgSend__isAutoPauseAllowedForWorkoutType_(self, v15, type);
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v16, 0, "Workout, auto pause mute settings, setting for workout type %ld to %d, autopause = %d", &v19, 24);
+    v18 = v17;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _muteAutoPauseForWorkoutType:mute:]", "CoreLocation: %s\n", v17);
+    if (v18 != buf)
+    {
+      free(v18);
+    }
+  }
 }
 
 - (void)_checkWorkout:(id)workout
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (objc_msgSend_type(workout, a2, workout) == 19)
   {
     if (!objc_msgSend_swimWorkoutInstance_(CMSwimWorkout, v4, workout))
@@ -1902,33 +2314,35 @@ LABEL_170:
           dispatch_once(&qword_1EAFE2978, &unk_1F0E28500);
         }
 
-LABEL_23:
-        v11 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMWorkoutManagerInternal _checkWorkout:]", "CoreLocation: %s\n", v11);
-        if (v11 != buf)
+        LOWORD(v13[0]) = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2980, 17, "Trying to start a swim session without using a CMSwimWorkout!  Treating this swim as an open water swim.", v13, 2, v13[0]);
+LABEL_25:
+        v12 = v8;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMWorkoutManagerInternal _checkWorkout:]", "CoreLocation: %s\n", v8);
+        if (v12 != buf)
         {
-          free(v11);
+          free(v12);
         }
       }
     }
   }
 
-  else if (objc_msgSend_type(workout, v4, v5) == 14 && !objc_msgSend_genericWorkoutInstance_(CMGenericWorkout, v8, workout))
+  else if (objc_msgSend_type(workout, v4, v5) == 14 && !objc_msgSend_genericWorkoutInstance_(CMGenericWorkout, v9, workout))
   {
     if (qword_1EAFE2780 != -1)
     {
       dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
     }
 
-    v9 = qword_1EAFE27B8;
+    v10 = qword_1EAFE27B8;
     if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v9, OS_LOG_TYPE_ERROR, "Trying to start a generic workout without using CMGenericWorkout!", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v10, OS_LOG_TYPE_ERROR, "Trying to start a generic workout without using CMGenericWorkout!", buf, 2u);
     }
 
-    v10 = sub_19B420058();
-    if ((*(v10 + 160) & 0x80000000) == 0 || (*(v10 + 164) & 0x80000000) == 0 || (*(v10 + 168) & 0x80000000) == 0 || *(v10 + 152))
+    v11 = sub_19B420058();
+    if ((*(v11 + 160) & 0x80000000) == 0 || (*(v11 + 164) & 0x80000000) == 0 || (*(v11 + 168) & 0x80000000) == 0 || *(v11 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2780 != -1)
@@ -1936,11 +2350,70 @@ LABEL_23:
         dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
       }
 
-      goto LABEL_23;
+      LOWORD(v13[0]) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27B8, 16, "Trying to start a generic workout without using CMGenericWorkout!", v13, 2, v13[0]);
+      goto LABEL_25;
     }
   }
+}
 
-  v12 = *MEMORY[0x1E69E9840];
+- (void)_setReminderMuteSettingsForType:(int64_t)type mute:(BOOL)mute
+{
+  muteCopy = mute;
+  v43 = *MEMORY[0x1E69E9840];
+  v7 = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], a2, mute);
+  fMuteSettings = self->fMuteSettings;
+  v10 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v9, type);
+  objc_msgSend_setObject_forKeyedSubscript_(fMuteSettings, v11, v7, v10);
+  if (qword_1EAFE2780 != -1)
+  {
+    dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+  }
+
+  v12 = qword_1EAFE27B8;
+  if (os_log_type_enabled(qword_1EAFE27B8, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134219008;
+    typeCopy = type;
+    v35 = 1024;
+    v36 = muteCopy;
+    v37 = 1024;
+    isReminderAllowedForType = objc_msgSend__isReminderAllowedForType_(self, v13, 0);
+    v39 = 1024;
+    v40 = objc_msgSend__isReminderAllowedForType_(self, v14, 1);
+    v41 = 1024;
+    v42 = objc_msgSend__isReminderAllowedForType_(self, v15, 2);
+    _os_log_impl(&dword_19B41C000, v12, OS_LOG_TYPE_DEFAULT, "Workout, reminder mute settings, setting type %ld to %d, current snapshot, start = %d, resume = %d, end = %d", buf, 0x24u);
+  }
+
+  v16 = sub_19B420058();
+  if (*(v16 + 160) > 1 || *(v16 + 164) > 1 || *(v16 + 168) > 1 || *(v16 + 152))
+  {
+    bzero(buf, 0x65CuLL);
+    if (qword_1EAFE2780 != -1)
+    {
+      dispatch_once(&qword_1EAFE2780, &unk_1F0E2A7A0);
+    }
+
+    v18 = qword_1EAFE27B8;
+    v23 = 134219008;
+    typeCopy2 = type;
+    v25 = 1024;
+    v26 = muteCopy;
+    v27 = 1024;
+    v28 = objc_msgSend__isReminderAllowedForType_(self, v17, 0);
+    v29 = 1024;
+    v30 = objc_msgSend__isReminderAllowedForType_(self, v19, 1);
+    v31 = 1024;
+    v32 = objc_msgSend__isReminderAllowedForType_(self, v20, 2);
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v18, 0, "Workout, reminder mute settings, setting type %ld to %d, current snapshot, start = %d, resume = %d, end = %d", &v23, 36);
+    v22 = v21;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMWorkoutManagerInternal _setReminderMuteSettingsForType:mute:]", "CoreLocation: %s\n", v21);
+    if (v22 != buf)
+    {
+      free(v22);
+    }
+  }
 }
 
 - (BOOL)_isReminderAllowedForType:(int64_t)type

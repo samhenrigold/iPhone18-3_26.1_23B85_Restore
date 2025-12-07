@@ -8,32 +8,33 @@ void __66___SFRequestDesktopSiteQuirksSnapshot_initWithSnapshotData_error___bloc
   v7 = a2;
   v8 = a3;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v15 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(isKindOfClass, v10);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      __66___SFRequestDesktopSiteQuirksSnapshot_initWithSnapshotData_error___block_invoke_cold_1(v12, v8, v7);
+      __66___SFRequestDesktopSiteQuirksSnapshot_initWithSnapshotData_error___block_invoke_cold_1(v15, v8, v7);
     }
 
     goto LABEL_7;
   }
 
-  v9 = [v8 unsignedIntegerValue];
-  if (v9 >= 2)
+  v11 = [v8 unsignedIntegerValue];
+  if (v11 >= 2)
   {
-    v10 = v9;
-    v11 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = v11;
+    v14 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(v11, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      __66___SFRequestDesktopSiteQuirksSnapshot_initWithSnapshotData_error___block_invoke_cold_2(v7, v10, v11);
+      __66___SFRequestDesktopSiteQuirksSnapshot_initWithSnapshotData_error___block_invoke_cold_2(v7, v13, v14);
     }
 
 LABEL_7:
-    v13 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:259 userInfo:0];
-    v14 = *(*(a1 + 32) + 8);
-    v15 = *(v14 + 40);
-    *(v14 + 40) = v13;
+    v16 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:259 userInfo:0];
+    v17 = *(*(a1 + 32) + 8);
+    v18 = *(v17 + 40);
+    *(v17 + 40) = v16;
 
     *(*(*(a1 + 40) + 8) + 24) = 0;
     *a4 = 1;

@@ -6,115 +6,115 @@
 
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
-  v61._tskFormat = 0;
-  v61._formatType = 0;
-  v61._formatState = 0;
-  *&v61._durationFormat = 1057;
-  *(&v61._durationFormat + 2) = 1;
-  *&v61._baseFormat.base = -50266102;
-  v61._numberFormat = 253;
+  v53._tskFormat = 0;
+  v53._formatType = 0;
+  v53._formatState = 0;
+  *&v53._durationFormat = 1057;
+  *(&v53._durationFormat + 2) = 1;
+  *&v53._baseFormat.base = -50266102;
+  v53._numberFormat = 253;
   v9 = *arguments;
-  if (*(arguments + 1) - *arguments < 0x11uLL || (isTokenOrEmptyArg = objc_msgSend_isTokenOrEmptyArg(v9[2], a2, context, spec, arguments), v9 = *arguments, (isTokenOrEmptyArg & 1) != 0))
+  if (*(arguments + 1) - *arguments < 0x11uLL || (isTokenOrEmptyArg = objc_msgSend_isTokenOrEmptyArg(v9[2], a2, context, spec), v9 = *arguments, (isTokenOrEmptyArg & 1) != 0))
   {
     v11 = *v9;
-    v57 = 0;
-    v12 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v11, a2, context, spec, 0, 1, &v57);
-    v17 = v57;
-    if (v17)
+    v49 = 0;
+    v12 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v11, a2, context, spec, 0, 1, &v49);
+    v16 = v49;
+    if (v16)
     {
-      v18 = objc_msgSend_raiseErrorOrConvert_(context, v13, v17, v15, v16);
-      v19 = 0;
-      v20 = v12;
+      v17 = objc_msgSend_raiseErrorOrConvert_(context, v13, v16, v15);
+      v18 = 0;
+      v19 = v12;
     }
 
     else
     {
-      v22 = *arguments;
-      v21 = *(arguments + 1);
-      v23 = objc_msgSend_dimensions(v12, v13, v14, v15, v16);
-      v56 = 0;
-      v25 = objc_msgSend_vectorCriterionPairsWithContext_functionSpec_arguments_dimensions_skipFirst_skipLast_outError_(self, v24, context, spec, arguments, v23, 0, v21 - v22 != 16, &v56);
-      v17 = v56;
+      v21 = *arguments;
+      v20 = *(arguments + 1);
+      v22 = objc_msgSend_dimensions(v12, v13, v14, v15);
+      v48 = 0;
+      v24 = objc_msgSend_vectorCriterionPairsWithContext_functionSpec_arguments_dimensions_skipFirst_skipLast_outError_(self, v23, context, spec, arguments, v22, 0, v20 - v21 != 16, &v48);
+      v16 = v48;
       if (v12)
       {
-        objc_msgSend_formatWithContext_(v12, v26, context, v27, v28);
+        objc_msgSend_formatWithContext_(v12, v25, context, v26);
       }
 
       else
       {
-        memset(&v58, 0, sizeof(v58));
+        memset(&v50, 0, sizeof(v50));
       }
 
-      TSCEFormat::operator=(&v61, &v58);
-      if (v17)
+      TSCEFormat::operator=(&v53, &v50);
+      if (v16)
       {
-        v18 = objc_msgSend_raiseErrorOrConvert_(context, v35, v17, v36, v37);
+        v17 = objc_msgSend_raiseErrorOrConvert_(context, v32, v16, v33);
       }
 
       else
       {
-        LOBYTE(v54) = 0;
-        v18 = objc_msgSend_averageOfVector_functionSpec_argVector_argumentIndex_criteria_criteriaVectorIndex_ignoreError_(TSCEFunction_AVERAGE, v35, context, spec, v12, 0, v25, 0, v54);
-        TSCEFormat::TSCEFormat(&v58, &v61);
-        objc_msgSend_setFormat_(v18, v38, &v58, v39, v40);
-        v17 = 0;
+        LOBYTE(v46) = 0;
+        v17 = objc_msgSend_averageOfVector_functionSpec_argVector_argumentIndex_criteria_criteriaVectorIndex_ignoreError_(TSCEFunction_AVERAGE, v32, context, spec, v12, 0, v24, 0, v46);
+        TSCEFormat::TSCEFormat(&v50, &v53);
+        objc_msgSend_setFormat_(v17, v34, &v50, v35);
+        v16 = 0;
       }
 
-      v20 = v12;
-      v19 = v25;
+      v19 = v12;
+      v18 = v24;
     }
   }
 
   else
   {
-    v29 = v9[2];
-    v60 = 0;
-    v30 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v29, a2, context, spec, 2, 1, &v60);
-    v17 = v60;
-    if (v17)
+    v27 = v9[2];
+    v52 = 0;
+    v28 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v27, a2, context, spec, 2, 1, &v52);
+    v16 = v52;
+    if (v16)
     {
-      v19 = 0;
-      v18 = objc_msgSend_raiseErrorOrConvert_(context, v31, v17, v33, v34);
-      v20 = v30;
+      v18 = 0;
+      v17 = objc_msgSend_raiseErrorOrConvert_(context, v29, v16, v31);
+      v19 = v28;
     }
 
     else
     {
-      v41 = objc_msgSend_dimensions(v30, v31, v32, v33, v34);
-      v59 = 0;
-      v43 = objc_msgSend_vectorCriterionPairsWithContext_functionSpec_arguments_dimensions_skipFirst_skipLast_outError_(self, v42, context, spec, arguments, v41, 0, 1, &v59);
-      v17 = v59;
-      if (v30)
+      v36 = objc_msgSend_dimensions(v28, v29, v30, v31);
+      v51 = 0;
+      v38 = objc_msgSend_vectorCriterionPairsWithContext_functionSpec_arguments_dimensions_skipFirst_skipLast_outError_(self, v37, context, spec, arguments, v36, 0, 1, &v51);
+      v16 = v51;
+      if (v28)
       {
-        objc_msgSend_formatWithContext_(v30, v44, context, v45, v46);
+        objc_msgSend_formatWithContext_(v28, v39, context, v40);
       }
 
       else
       {
-        memset(&v58, 0, sizeof(v58));
+        memset(&v50, 0, sizeof(v50));
       }
 
-      TSCEFormat::operator=(&v61, &v58);
-      if (v17)
+      TSCEFormat::operator=(&v53, &v50);
+      if (v16)
       {
-        v18 = objc_msgSend_raiseErrorOrConvert_(context, v47, v17, v48, v49);
+        v17 = objc_msgSend_raiseErrorOrConvert_(context, v41, v16, v42);
       }
 
       else
       {
-        LOBYTE(v55) = 0;
-        v18 = objc_msgSend_averageOfVector_functionSpec_argVector_argumentIndex_criteria_criteriaVectorIndex_ignoreError_(TSCEFunction_AVERAGE, v47, context, spec, v30, 2, v43, 0, v55);
-        TSCEFormat::TSCEFormat(&v58, &v61);
-        objc_msgSend_setFormat_(v18, v50, &v58, v51, v52);
-        v17 = 0;
+        LOBYTE(v47) = 0;
+        v17 = objc_msgSend_averageOfVector_functionSpec_argVector_argumentIndex_criteria_criteriaVectorIndex_ignoreError_(TSCEFunction_AVERAGE, v41, context, spec, v28, 2, v38, 0, v47);
+        TSCEFormat::TSCEFormat(&v50, &v53);
+        objc_msgSend_setFormat_(v17, v43, &v50, v44);
+        v16 = 0;
       }
 
-      v20 = v30;
-      v19 = v43;
+      v19 = v28;
+      v18 = v38;
     }
   }
 
-  return v18;
+  return v17;
 }
 
 @end

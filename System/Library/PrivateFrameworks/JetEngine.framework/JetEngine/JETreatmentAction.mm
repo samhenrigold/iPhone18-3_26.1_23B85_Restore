@@ -1,8 +1,8 @@
 @interface JETreatmentAction
 + (id)treatmentActionWithField:(id)field configuration:(id)configuration topic:(id)topic;
 - (JETreatmentAction)initWithField:(id)field configuration:(id)configuration;
+- (id)performAction:(char *)action atKeyIndex:(void *)index context:;
 - (id)performAction:(id)action context:(id)context;
-- (id)performAction:(uint64_t)action atKeyIndex:(void *)index context:;
 - (uint64_t)sourceField;
 - (void)performActionWithContext:(id)context;
 @end
@@ -620,7 +620,7 @@ LABEL_64:
   return v8;
 }
 
-- (id)performAction:(uint64_t)action atKeyIndex:(void *)index context:
+- (id)performAction:(char *)action atKeyIndex:(void *)index context:
 {
   v39 = *MEMORY[0x1E69E9840];
   v7 = a2;

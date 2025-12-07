@@ -1,101 +1,3 @@
-llvm::raw_ostream *llvm::ScopedPrinter::printListImpl<llvm::SmallVector<int,12u>>(llvm::raw_ostream **a1, const void *a2, size_t a3, int **a4)
-{
-  v8 = (*(*a1 + 36))(a1);
-  v9 = v8[4];
-  if (a3 <= v8[3] - v9)
-  {
-    if (a3)
-    {
-      v10 = v8;
-      memcpy(v8[4], a2, a3);
-      v8 = v10;
-      v9 = v10[4] + a3;
-      v10[4] = v9;
-    }
-  }
-
-  else
-  {
-    v8 = llvm::raw_ostream::write(v8, a2, a3);
-    v9 = v8[4];
-  }
-
-  if (v8[3] - v9 > 2)
-  {
-    *(v9 + 2) = 91;
-    *v9 = 8250;
-    v8[4] += 3;
-    v11 = *(a4 + 2);
-    if (!v11)
-    {
-      goto LABEL_14;
-    }
-  }
-
-  else
-  {
-    llvm::raw_ostream::write(v8, ": [", 3uLL);
-    v11 = *(a4 + 2);
-    if (!v11)
-    {
-      goto LABEL_14;
-    }
-  }
-
-  v12 = *a4 + 1;
-  llvm::raw_ostream::operator<<(a1[1], **a4);
-  if (v11 != 1)
-  {
-    v13 = 4 * v11 - 4;
-    do
-    {
-      while (1)
-      {
-        v16 = a1[1];
-        v17 = *(v16 + 4);
-        if (*(v16 + 3) - v17 > 1uLL)
-        {
-          break;
-        }
-
-        v14 = llvm::raw_ostream::write(v16, ", ", 2uLL);
-        v15 = *v12++;
-        llvm::raw_ostream::operator<<(v14, v15);
-        v13 -= 4;
-        if (!v13)
-        {
-          goto LABEL_14;
-        }
-      }
-
-      *v17 = 8236;
-      *(v16 + 4) += 2;
-      v18 = *v12++;
-      llvm::raw_ostream::operator<<(v16, v18);
-      v13 -= 4;
-    }
-
-    while (v13);
-  }
-
-LABEL_14:
-  result = a1[1];
-  v20 = *(result + 4);
-  if (*(result + 3) - v20 > 1uLL)
-  {
-    *v20 = 2653;
-    *(result + 4) += 2;
-  }
-
-  else
-  {
-
-    return llvm::raw_ostream::write(result, "]\n", 2uLL);
-  }
-
-  return result;
-}
-
 uint64_t llvm::SmallVectorTemplateBase<int,true>::growAndEmplaceBack<signed char const&>(uint64_t a1, char *a2)
 {
   v2 = *(a1 + 8);
@@ -110,9 +12,9 @@ uint64_t llvm::SmallVectorTemplateBase<int,true>::growAndEmplaceBack<signed char
   return *a1 + 4 * v3 - 4;
 }
 
-llvm::raw_ostream *llvm::ScopedPrinter::printListImpl<llvm::ArrayRef<llvm::APSInt>>(llvm::raw_ostream **a1, const void *a2, size_t a3, _BYTE *a4, uint64_t a5)
+uint64_t (**llvm::ScopedPrinter::printListImpl<llvm::ArrayRef<llvm::APSInt>>(uint64_t (***a1)(llvm::raw_ostream **), const void *a2, size_t a3, llvm::APInt *a4, uint64_t a5))(llvm::raw_ostream **)
 {
-  v10 = (*(*a1 + 36))(a1);
+  v10 = (*a1)[36](a1);
   v11 = v10[4];
   if (a3 <= v10[3] - v11)
   {
@@ -152,7 +54,7 @@ llvm::raw_ostream *llvm::ScopedPrinter::printListImpl<llvm::ArrayRef<llvm::APSIn
     }
   }
 
-  llvm::APInt::print(a4, a1[1], (a4[12] & 1) == 0);
+  llvm::APInt::print(a4, a1[1], (*(a4 + 12) & 1) == 0);
   if (a5 != 1)
   {
     v15 = (a4 + 16);
@@ -182,11 +84,11 @@ llvm::raw_ostream *llvm::ScopedPrinter::printListImpl<llvm::ArrayRef<llvm::APSIn
 
 LABEL_10:
   result = a1[1];
-  v14 = *(result + 4);
-  if (*(result + 3) - v14 > 1uLL)
+  v14 = result[4];
+  if ((result[3] - v14) > 1)
   {
     *v14 = 2653;
-    *(result + 4) += 2;
+    result[4] = (result[4] + 2);
   }
 
   else
@@ -269,7 +171,7 @@ LABEL_12:
 
 void llvm::JSONScopedPrinter::printListImpl<llvm::ArrayRef<std::string>>(llvm::StringRef,llvm::ArrayRef<std::string> const&)::{lambda(void)#1}::operator()(__int128 ***a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v1 = (*a1)[1];
   if (v1)
   {
@@ -290,7 +192,7 @@ void llvm::JSONScopedPrinter::printListImpl<llvm::ArrayRef<std::string>>(llvm::S
         *&__p.__r_.__value_.__l.__data_ = v5;
       }
 
-      LOWORD(v14) = 6;
+      LOWORD(v13) = 6;
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         p_p = &__p;
@@ -313,13 +215,13 @@ void llvm::JSONScopedPrinter::printListImpl<llvm::ArrayRef<std::string>>(llvm::S
 
       if (!llvm::json::isUTF8(p_p, size, 0))
       {
-        llvm::Bisector<std::string>::serializeToFile(&__p.__r_.__value_.__r.__words[2] + 7, &__p, &__p.__r_.__value_.__l.__size_, v8, v9, v10, v11, v12);
+        llvm::Bisector<std::string>::serializeToFile(&__p.__r_.__value_.__r.__words[2] + 7, &__p, &__p.__r_.__value_.__l.__size_, v8);
       }
 
-      v15 = __p;
+      v14 = __p;
       memset(&__p, 0, sizeof(__p));
-      llvm::json::OStream::value((v3 + 16), &v14);
-      llvm::json::Value::destroy(&v14);
+      llvm::json::OStream::value((v3 + 16), &v13);
+      llvm::json::Value::destroy(&v13, v9, v10, v11);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -335,43 +237,43 @@ void llvm::JSONScopedPrinter::printListImpl<llvm::ArrayRef<std::string>>(llvm::S
 
 uint64_t llvm::JSONScopedPrinter::printBinaryImpl(llvm::StringRef,llvm::StringRef,llvm::ArrayRef<unsigned char>,BOOL,unsigned int)::{lambda(void)#1}::operator()(unsigned __int8 ***a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = a1[1];
   v3 = (*a1)[1];
   if (v3)
   {
-    llvm::json::Value::Value(&v10, **a1, v3);
+    llvm::json::Value::Value(&v19, **a1, v3);
     llvm::json::OStream::attributeBegin((v2 + 16), "Value", 5uLL);
-    llvm::json::OStream::value((v2 + 16), &v10);
+    llvm::json::OStream::value((v2 + 16), &v19);
     llvm::json::OStream::attributeEnd((v2 + 16));
-    llvm::json::Value::destroy(&v10);
+    llvm::json::Value::destroy(&v19, v4, v5, v6);
   }
 
-  v4 = *a1[2];
-  LOWORD(v10) = 3;
-  v11 = v4;
+  v7 = *a1[2];
+  LOWORD(v19) = 3;
+  v20 = v7;
   llvm::json::OStream::attributeBegin((v2 + 16), "Offset", 6uLL);
-  llvm::json::OStream::value((v2 + 16), &v10);
+  llvm::json::OStream::value((v2 + 16), &v19);
   llvm::json::OStream::attributeEnd((v2 + 16));
-  llvm::json::Value::destroy(&v10);
-  v5 = a1[3];
+  llvm::json::Value::destroy(&v19, v8, v9, v10);
+  v11 = a1[3];
   llvm::json::OStream::attributeBegin((v2 + 16), "Bytes", 5uLL);
   llvm::json::OStream::arrayBegin((v2 + 16));
-  v6 = v5[1];
-  if (v6)
+  v12 = v11[1];
+  if (v12)
   {
-    v7 = *v5;
+    v13 = *v11;
     do
     {
-      v8 = *v7++;
-      LOWORD(v10) = 3;
-      v11 = v8;
-      llvm::json::OStream::value((v2 + 16), &v10);
-      llvm::json::Value::destroy(&v10);
-      --v6;
+      v14 = *v13++;
+      LOWORD(v19) = 3;
+      v20 = v14;
+      llvm::json::OStream::value((v2 + 16), &v19);
+      llvm::json::Value::destroy(&v19, v15, v16, v17);
+      --v12;
     }
 
-    while (v6);
+    while (v12);
   }
 
   llvm::json::OStream::arrayEnd((v2 + 16));
@@ -380,7 +282,7 @@ uint64_t llvm::JSONScopedPrinter::printBinaryImpl(llvm::StringRef,llvm::StringRe
 
 llvm::raw_ostream *llvm::JSONScopedPrinter::printFlagsImpl(llvm::StringRef,llvm::HexNumber,llvm::ArrayRef<llvm::FlagEntry>)::{lambda(void)#1}::operator() const(void)::{lambda(void)#1}::operator()(llvm::raw_ostream *result)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v12[4] = *MEMORY[0x277D85DE8];
   v1 = *(*result + 8);
   if (v1)
   {
@@ -390,18 +292,18 @@ llvm::raw_ostream *llvm::JSONScopedPrinter::printFlagsImpl(llvm::StringRef,llvm:
     do
     {
       llvm::json::OStream::objectBegin((v4 + 128));
-      llvm::json::Value::Value(v6, *v2, *(v2 + 8));
+      llvm::json::Value::Value(v12, *v2, *(v2 + 8));
       llvm::json::OStream::attributeBegin(v4 + 128, "Name", 4uLL);
-      llvm::json::OStream::value((v4 + 128), v6);
+      llvm::json::OStream::value((v4 + 128), v12);
       llvm::json::OStream::attributeEnd(v4 + 128);
-      llvm::json::Value::destroy(v6);
-      v5 = *(v2 + 16);
-      LOWORD(v6[0]) = 4;
-      v6[1] = v5;
+      llvm::json::Value::destroy(v12, v5, v6, v7);
+      v8 = *(v2 + 16);
+      LOWORD(v12[0]) = 4;
+      v12[1] = v8;
       llvm::json::OStream::attributeBegin(v4 + 128, "Value", 5uLL);
-      llvm::json::OStream::value((v4 + 128), v6);
+      llvm::json::OStream::value((v4 + 128), v12);
       llvm::json::OStream::attributeEnd(v4 + 128);
-      llvm::json::Value::destroy(v6);
+      llvm::json::Value::destroy(v12, v9, v10, v11);
       result = llvm::json::OStream::objectEnd((v4 + 128));
       v2 += 24;
     }
@@ -414,34 +316,34 @@ llvm::raw_ostream *llvm::JSONScopedPrinter::printFlagsImpl(llvm::StringRef,llvm:
 
 uint64_t llvm::JSONScopedPrinter::printFlagsImpl(llvm::StringRef,llvm::HexNumber,llvm::ArrayRef<llvm::HexNumber>)::{lambda(void)#1}::operator()(uint64_t *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = *a1[1];
-  LOWORD(v10) = 4;
-  v11 = v3;
+  LOWORD(v16) = 4;
+  v17 = v3;
   llvm::json::OStream::attributeBegin(v2 + 128, "Value", 5uLL);
-  llvm::json::OStream::value((v2 + 128), &v10);
+  llvm::json::OStream::value((v2 + 128), &v16);
   llvm::json::OStream::attributeEnd(v2 + 128);
-  llvm::json::Value::destroy(&v10);
-  v4 = a1[2];
+  llvm::json::Value::destroy(&v16, v4, v5, v6);
+  v7 = a1[2];
   llvm::json::OStream::attributeBegin(v2 + 128, "Flags", 5uLL);
   llvm::json::OStream::arrayBegin((v2 + 128));
-  v5 = *(v4 + 8);
-  if (v5)
+  v8 = *(v7 + 8);
+  if (v8)
   {
-    v6 = *v4;
-    v7 = 8 * v5;
+    v9 = *v7;
+    v10 = 8 * v8;
     do
     {
-      v8 = *v6++;
-      LOWORD(v10) = 4;
-      v11 = v8;
-      llvm::json::OStream::value((v2 + 128), &v10);
-      llvm::json::Value::destroy(&v10);
-      v7 -= 8;
+      v11 = *v9++;
+      LOWORD(v16) = 4;
+      v17 = v11;
+      llvm::json::OStream::value((v2 + 128), &v16);
+      llvm::json::Value::destroy(&v16, v12, v13, v14);
+      v10 -= 8;
     }
 
-    while (v7);
+    while (v10);
   }
 
   llvm::json::OStream::arrayEnd((v2 + 128));
@@ -450,32 +352,32 @@ uint64_t llvm::JSONScopedPrinter::printFlagsImpl(llvm::StringRef,llvm::HexNumber
 
 uint64_t llvm::JSONScopedPrinter::printNumberImpl(llvm::StringRef,llvm::StringRef,llvm::StringRef)::{lambda(void)#1}::operator()(uint64_t *a1)
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v13[4] = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  llvm::json::Value::Value(v10, *a1[1], *(a1[1] + 8));
+  llvm::json::Value::Value(v13, *a1[1], *(a1[1] + 8));
   llvm::json::OStream::attributeBegin(v2 + 128, "Name", 4uLL);
-  llvm::json::OStream::value((v2 + 128), v10);
+  llvm::json::OStream::value((v2 + 128), v13);
   llvm::json::OStream::attributeEnd(v2 + 128);
-  llvm::json::Value::destroy(v10);
+  llvm::json::Value::destroy(v13, v3, v4, v5);
   llvm::json::OStream::attributeBegin(v2 + 128, "Value", 5uLL);
-  v3 = llvm::json::OStream::rawValueBegin((v2 + 128));
-  v4 = a1[2];
-  v5 = *v4;
-  v6 = *(v4 + 8);
-  if (v6 <= *(v3 + 24) - *(v3 + 32))
+  v6 = llvm::json::OStream::rawValueBegin((v2 + 128));
+  v7 = a1[2];
+  v8 = *v7;
+  v9 = *(v7 + 8);
+  if (v9 <= *(v6 + 24) - *(v6 + 32))
   {
-    if (v6)
+    if (v9)
     {
-      v7 = v3;
-      v8 = *(v4 + 8);
-      memcpy(*(v3 + 32), v5, v6);
-      *(v7 + 32) += v8;
+      v10 = v6;
+      v11 = *(v7 + 8);
+      memcpy(*(v6 + 32), v8, v9);
+      *(v10 + 32) += v11;
     }
   }
 
   else
   {
-    llvm::raw_ostream::write(v3, v5, v6);
+    llvm::raw_ostream::write(v6, v8, v9);
   }
 
   llvm::json::OStream::rawValueEnd(v2 + 128);
@@ -1322,21 +1224,21 @@ _DWORD *llvm::SHA1::update(_DWORD *this, unsigned int *a2, unint64_t a3)
     do
     {
       *v5 = bswap32(*v4);
-      *(v5 + 4) = bswap32(v4[1]);
-      *(v5 + 8) = bswap32(v4[2]);
-      *(v5 + 12) = bswap32(v4[3]);
-      *(v5 + 16) = bswap32(v4[4]);
-      *(v5 + 20) = bswap32(v4[5]);
-      *(v5 + 24) = bswap32(v4[6]);
-      *(v5 + 28) = bswap32(v4[7]);
-      *(v5 + 32) = bswap32(v4[8]);
-      *(v5 + 36) = bswap32(v4[9]);
-      *(v5 + 40) = bswap32(v4[10]);
-      *(v5 + 44) = bswap32(v4[11]);
-      *(v5 + 48) = bswap32(v4[12]);
-      *(v5 + 52) = bswap32(v4[13]);
-      *(v5 + 56) = bswap32(v4[14]);
-      *(v5 + 60) = bswap32(v4[15]);
+      v5[1] = bswap32(v4[1]);
+      v5[2] = bswap32(v4[2]);
+      v5[3] = bswap32(v4[3]);
+      v5[4] = bswap32(v4[4]);
+      v5[5] = bswap32(v4[5]);
+      v5[6] = bswap32(v4[6]);
+      v5[7] = bswap32(v4[7]);
+      v5[8] = bswap32(v4[8]);
+      v5[9] = bswap32(v4[9]);
+      v5[10] = bswap32(v4[10]);
+      v5[11] = bswap32(v4[11]);
+      v5[12] = bswap32(v4[12]);
+      v5[13] = bswap32(v4[13]);
+      v5[14] = bswap32(v4[14]);
+      v5[15] = bswap32(v4[15]);
       this = llvm::SHA1::hashBlock(v5);
       v3 -= 64;
       v4 += 16;
@@ -1402,9 +1304,9 @@ _DWORD *llvm::SHA1::pad(_DWORD *this)
 
   *(v1 + 59) = 0;
   *(v1 + 57) = 0;
-  *(v1 + 56) = *(v1 + 84) >> 29;
+  *(v1 + 56) = v1[21] >> 29;
   *(v1 + 88) = 60;
-  *(v1 + 63) = *(v1 + 84) >> 21;
+  *(v1 + 63) = v1[21] >> 21;
   v4 = (*(v1 + 88))++ + 1;
   if (v4 == 64)
   {
@@ -1413,7 +1315,7 @@ _DWORD *llvm::SHA1::pad(_DWORD *this)
     *(v1 + 88) = 0;
   }
 
-  *(v1 + (v4 ^ 3)) = *(v1 + 84) >> 13;
+  *(v1 + (v4 ^ 3)) = v1[21] >> 13;
   v5 = (*(v1 + 88))++ + 1;
   if (v5 == 64)
   {
@@ -1422,7 +1324,7 @@ _DWORD *llvm::SHA1::pad(_DWORD *this)
     *(v1 + 88) = 0;
   }
 
-  *(v1 + (v5 ^ 3)) = *(v1 + 84) >> 5;
+  *(v1 + (v5 ^ 3)) = v1[21] >> 5;
   v6 = (*(v1 + 88))++ + 1;
   if (v6 == 64)
   {
@@ -1463,7 +1365,7 @@ int8x16_t llvm::SHA1::final@<Q0>(int8x16_t *this@<X0>, int8x16_t *a2@<X8>)
   return result;
 }
 
-__n128 llvm::SHA1::result@<Q0>(llvm::SHA1 *this@<X0>, int8x16_t *a2@<X8>)
+__n128 llvm::SHA1::result@<Q0>(uint64_t *__return_ptr a1@<X8>, llvm::SHA1 *this@<X0>)
 {
   v8 = *(this + 2);
   v9 = *(this + 3);
@@ -1473,8 +1375,8 @@ __n128 llvm::SHA1::result@<Q0>(llvm::SHA1 *this@<X0>, int8x16_t *a2@<X8>)
   v7 = *(this + 1);
   llvm::SHA1::pad(this);
   v4 = bswap32(*(this + 20));
-  *a2 = vrev32q_s8(*(this + 4));
-  a2[1].i32[0] = v4;
+  *a1 = vrev32q_s8(*(this + 4));
+  *(a1 + 4) = v4;
   *(this + 2) = v8;
   *(this + 3) = v9;
   *(this + 4) = *v10;
@@ -1508,7 +1410,7 @@ void llvm::SHA256::SHA256(llvm::SHA256 *this)
   operator new();
 }
 
-void llvm::SHA256::SHA256(llvm::SHA256 *this, const llvm::SHA256 *a2)
+void llvm::SHA256::SHA256(llvm::SHA256 *this, __int128 **a2)
 {
   operator new();
 }
@@ -1560,27 +1462,27 @@ uint64_t llvm::SHA256::update(CC_SHA256_CTX **a1, const void *a2, CC_LONG a3)
   return CC_SHA256_Update(*a1, a2, a3);
 }
 
-__n128 llvm::SHA256::result@<Q0>(__n128 **this@<X0>, uint64_t a2@<X8>)
+__n128 llvm::SHA256::result@<Q0>(CC_SHA256_CTX **this@<X0>, uint64_t a2@<X8>)
 {
   v2 = *this;
-  v8 = (*this)[4];
-  v9 = (*this)[5];
-  v10 = (*this)[6].n128_u64[0];
-  v4 = **this;
-  v5 = (*this)[1];
-  v6 = (*this)[2];
-  v7 = (*this)[3];
+  v8 = *&(*this)->wbuf[6];
+  v9 = *&(*this)->wbuf[10];
+  v10 = *&(*this)->wbuf[14];
+  v4 = *(*this)->count;
+  v5 = *&(*this)->hash[2];
+  v6 = *&(*this)->hash[6];
+  v7 = *&(*this)->wbuf[2];
   *a2 = 0u;
   *(a2 + 16) = 0u;
   CC_SHA256_Final(a2, v2);
-  v2[4] = v8;
-  v2[5] = v9;
-  v2[6].n128_u64[0] = v10;
-  *v2 = v4;
-  v2[1] = v5;
+  *&v2->wbuf[6] = v8;
+  *&v2->wbuf[10] = v9;
+  *&v2->wbuf[14] = v10;
+  *v2->count = v4;
+  *&v2->hash[2] = v5;
   result = v7;
-  v2[2] = v6;
-  v2[3] = v7;
+  *&v2->hash[6] = v6;
+  *&v2->wbuf[2] = v7;
   return result;
 }
 
@@ -2255,8 +2157,8 @@ BOOL llvm::detail::SlowDynamicAPInt::operator==(uint64_t a1, uint64_t a2)
     v3 = *(a1 + 8);
   }
 
-  llvm::APInt::sext(a1, v3, &v9);
-  llvm::APInt::sext(a2, v3, &v7);
+  llvm::APInt::sext(&v9, a1, v3);
+  llvm::APInt::sext(&v7, a2, v3);
   v4 = v10;
   if (v10 > 0x40)
   {
@@ -2338,8 +2240,8 @@ BOOL llvm::detail::SlowDynamicAPInt::operator!=(uint64_t a1, uint64_t a2)
     v3 = *(a1 + 8);
   }
 
-  llvm::APInt::sext(a1, v3, &v9);
-  llvm::APInt::sext(a2, v3, &v7);
+  llvm::APInt::sext(&v9, a1, v3);
+  llvm::APInt::sext(&v7, a2, v3);
   v4 = v10;
   if (v10 > 0x40)
   {
@@ -2421,8 +2323,8 @@ BOOL llvm::detail::SlowDynamicAPInt::operator>(uint64_t a1, uint64_t a2)
     v3 = *(a1 + 8);
   }
 
-  llvm::APInt::sext(a1, v3, &v8);
-  llvm::APInt::sext(a2, v3, &v6);
+  llvm::APInt::sext(&v8, a1, v3);
+  llvm::APInt::sext(&v6, a2, v3);
   v4 = llvm::APInt::compareSigned(&v8, &v6);
   if (v7 >= 0x41 && v6)
   {
@@ -2484,8 +2386,8 @@ uint64_t llvm::detail::SlowDynamicAPInt::operator<(uint64_t a1, uint64_t a2)
     v3 = *(a1 + 8);
   }
 
-  llvm::APInt::sext(a1, v3, &v8);
-  llvm::APInt::sext(a2, v3, &v6);
+  llvm::APInt::sext(&v8, a1, v3);
+  llvm::APInt::sext(&v6, a2, v3);
   v4 = llvm::APInt::compareSigned(&v8, &v6);
   if (v7 >= 0x41 && v6)
   {
@@ -2547,8 +2449,8 @@ BOOL llvm::detail::SlowDynamicAPInt::operator<=(uint64_t a1, uint64_t a2)
     v3 = *(a1 + 8);
   }
 
-  llvm::APInt::sext(a1, v3, &v8);
-  llvm::APInt::sext(a2, v3, &v6);
+  llvm::APInt::sext(&v8, a1, v3);
+  llvm::APInt::sext(&v6, a2, v3);
   v4 = llvm::APInt::compareSigned(&v8, &v6);
   if (v7 >= 0x41 && v6)
   {
@@ -2610,8 +2512,8 @@ BOOL llvm::detail::SlowDynamicAPInt::operator>=(uint64_t a1, uint64_t a2)
     v3 = *(a1 + 8);
   }
 
-  llvm::APInt::sext(a1, v3, &v8);
-  llvm::APInt::sext(a2, v3, &v6);
+  llvm::APInt::sext(&v8, a1, v3);
+  llvm::APInt::sext(&v6, a2, v3);
   v4 = llvm::APInt::compareSigned(&v8, &v6);
   if (v7 >= 0x41 && v6)
   {
@@ -2798,24 +2700,11 @@ void *llvm::detail::SlowDynamicAPInt::operator/@<X0>(uint64_t a1@<X0>, uint64_t 
   return result;
 }
 
-void llvm::detail::operator%(uint64_t a1@<X0>, uint64_t a2@<X1>, llvm::APInt *a3@<X8>)
+void llvm::detail::operator%(uint64_t a1@<X0>, void *a2@<X1>, llvm::APInt *a3@<X8>)
 {
   v4 = 64;
   v3 = a2;
   llvm::detail::SlowDynamicAPInt::operator%(a1, &v3, a3);
-  if (v4 >= 0x41)
-  {
-    if (v3)
-    {
-      MEMORY[0x259C63150](v3, 0x1000C8000313F17);
-    }
-  }
-}
-
-{
-  v4 = 64;
-  v3 = a1;
-  llvm::detail::SlowDynamicAPInt::operator%(&v3, a2, a3);
   if (v4 >= 0x41)
   {
     if (v3)
@@ -2837,9 +2726,9 @@ void llvm::detail::SlowDynamicAPInt::operator%(uint64_t a1@<X0>, uint64_t a2@<X1
     v5 = *(a1 + 8);
   }
 
-  llvm::APInt::sext(a1, v5, &v9);
-  llvm::APInt::sext(a2, v5, &v7);
-  llvm::APInt::srem(&v9, &v7, &v11);
+  llvm::APInt::sext(&v9, a1, v5);
+  llvm::APInt::sext(&v7, a2, v5);
+  llvm::APInt::srem(&v11, &v9, &v7);
   v6 = v12;
   *(a3 + 2) = v12;
   if (v6 > 0x40)
@@ -2970,6 +2859,20 @@ void *llvm::detail::operator/@<X0>(void *a1@<X0>, uint64_t a2@<X1>, llvm::APInt 
   return result;
 }
 
+void llvm::detail::operator%(uint64_t a1@<X0>, uint64_t a2@<X1>, llvm::APInt *a3@<X8>)
+{
+  v4 = 64;
+  v3 = a1;
+  llvm::detail::SlowDynamicAPInt::operator%(&v3, a2, a3);
+  if (v4 >= 0x41)
+  {
+    if (v3)
+    {
+      MEMORY[0x259C63150](v3, 0x1000C8000313F17);
+    }
+  }
+}
+
 void *runOpWithExpandOnOverflow@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t (*a3)(uint64_t, void **, void **, char *)@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
   v19 = 0;
@@ -2983,8 +2886,8 @@ void *runOpWithExpandOnOverflow@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_
     v10 = *(a1 + 8);
   }
 
-  llvm::APInt::sext(a1, v10, &v17);
-  llvm::APInt::sext(a2, v10, &v15);
+  llvm::APInt::sext(&v17, a1, v10);
+  llvm::APInt::sext(&v15, a2, v10);
   result = a3(a4, &v17, &v15, &v19);
   if (v16 >= 0x41)
   {
@@ -3007,8 +2910,8 @@ void *runOpWithExpandOnOverflow@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_
   if (v19 == 1)
   {
     v12 = 2 * v10;
-    llvm::APInt::sext(a1, v12, &v15);
-    llvm::APInt::sext(a2, v12, &v13);
+    llvm::APInt::sext(&v15, a1, v12);
+    llvm::APInt::sext(&v13, a2, v12);
     result = (a3)(&v17, a4, &v15, &v13, &v19);
     if (*(a5 + 8) >= 0x41u)
     {
@@ -3044,26 +2947,26 @@ void *runOpWithExpandOnOverflow@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_
   return result;
 }
 
-uint64_t *llvm::detail::abs@<X0>(llvm::detail *this@<X0>, llvm::APInt *a2@<X8>)
+uint64_t **llvm::detail::abs@<X0>(llvm::detail *this@<X0>, uint64_t a2@<X8>)
 {
-  v9 = 64;
-  v8 = 0;
-  result = llvm::detail::SlowDynamicAPInt::operator>=(this, &v8);
-  if (v9 >= 0x41 && v8)
+  v8 = 64;
+  v7 = 0;
+  result = llvm::detail::SlowDynamicAPInt::operator>=(this, &v7);
+  if (v8 >= 0x41 && v7)
   {
-    v6 = result;
-    MEMORY[0x259C63150](v8, 0x1000C8000313F17);
-    result = v6;
+    v5 = result;
+    MEMORY[0x259C63150](v7, 0x1000C8000313F17);
+    result = v5;
   }
 
   if (!result)
   {
-    return llvm::detail::SlowDynamicAPInt::operator-(this, a2);
+    return llvm::detail::SlowDynamicAPInt::operator-(a2, this);
   }
 
-  v7 = *(this + 2);
-  *(a2 + 2) = v7;
-  if (v7 > 0x40)
+  v6 = *(this + 2);
+  *(a2 + 8) = v6;
+  if (v6 > 0x40)
   {
     llvm::APInt::initSlowCase(a2, this);
   }
@@ -3072,7 +2975,7 @@ uint64_t *llvm::detail::abs@<X0>(llvm::detail *this@<X0>, llvm::APInt *a2@<X8>)
   return result;
 }
 
-uint64_t *llvm::detail::SlowDynamicAPInt::operator-@<X0>(llvm::APInt *this@<X0>, llvm::APInt *a2@<X8>)
+uint64_t **llvm::detail::SlowDynamicAPInt::operator-@<X0>(uint64_t **__return_ptr a1@<X8>, llvm::APInt *this@<X0>)
 {
   v4 = *(this + 2);
   if (v4 > 0x40)
@@ -3103,13 +3006,13 @@ uint64_t *llvm::detail::SlowDynamicAPInt::operator-@<X0>(llvm::APInt *this@<X0>,
       v9 = v13;
       v19 = v13;
       v14 = 0;
-      *(a2 + 2) = v20;
+      *(a1 + 2) = v20;
       if (v8 > 0x40)
       {
-        llvm::APInt::initSlowCase(a2, &v19);
+        llvm::APInt::initSlowCase(a1, &v19);
       }
 
-      *a2 = v9;
+      *a1 = v9;
       if (v20 >= 0x41)
       {
         result = v19;
@@ -3134,7 +3037,7 @@ uint64_t *llvm::detail::SlowDynamicAPInt::operator-@<X0>(llvm::APInt *this@<X0>,
     }
   }
 
-  llvm::APInt::sext(this, 2 * v4, &v19);
+  llvm::APInt::sext(&v19, this, 2 * v4);
   v16 = v20;
   if (v20 >= 0x41)
   {
@@ -3158,13 +3061,13 @@ uint64_t *llvm::detail::SlowDynamicAPInt::operator-@<X0>(llvm::APInt *this@<X0>,
   v12 = v15;
   v17 = v15;
   v16 = 0;
-  *(a2 + 2) = v18;
+  *(a1 + 2) = v18;
   if (v11 > 0x40)
   {
-    llvm::APInt::initSlowCase(a2, &v17);
+    llvm::APInt::initSlowCase(a1, &v17);
   }
 
-  *a2 = v12;
+  *a1 = v12;
   if (v16 >= 0x41)
   {
     result = v15;
@@ -3186,309 +3089,309 @@ uint64_t *llvm::detail::SlowDynamicAPInt::operator-@<X0>(llvm::APInt *this@<X0>,
   return result;
 }
 
-void llvm::detail::ceilDiv(llvm::detail *this@<X0>, const llvm::detail::SlowDynamicAPInt *a2@<X1>, llvm::APInt *a3@<X8>)
+void llvm::detail::ceilDiv(uint64_t **__return_ptr a1@<X8>, llvm::detail *this@<X0>, const llvm::detail::SlowDynamicAPInt *a3@<X1>)
 {
-  v19 = 64;
-  v18 = -1;
-  v7 = llvm::detail::SlowDynamicAPInt::operator==(a2, &v18);
-  if (v19 >= 0x41 && v18)
+  v18 = 64;
+  v17 = -1;
+  v6 = llvm::detail::SlowDynamicAPInt::operator==(a3, &v17);
+  if (v18 >= 0x41 && v17)
   {
-    v8 = v7;
-    MEMORY[0x259C63150](v18, 0x1000C8000313F17);
-    v7 = v8;
+    v7 = v6;
+    MEMORY[0x259C63150](v17, 0x1000C8000313F17);
+    v6 = v7;
   }
 
-  if (v7)
+  if (v6)
   {
-    llvm::detail::SlowDynamicAPInt::operator-(this, a3);
+    llvm::detail::SlowDynamicAPInt::operator-(a1, this);
   }
 
   else
   {
-    if (*(this + 2) <= *(a2 + 2))
+    if (*(this + 2) <= *(a3 + 2))
     {
-      v9 = *(a2 + 2);
+      v8 = *(a3 + 2);
     }
 
     else
     {
-      v9 = *(this + 2);
+      v8 = *(this + 2);
     }
 
-    llvm::APInt::sext(this, v9, &v16);
-    llvm::APInt::sext(a2, v9, &v14);
-    llvm::APIntOps::RoundingSDiv(&v16, &v14, 2, v10, v11, v12, &v18);
-    v13 = v19;
-    *(a3 + 2) = v19;
-    if (v13 > 0x40)
+    llvm::APInt::sext(&v15, this, v8);
+    llvm::APInt::sext(&v13, a3, v8);
+    llvm::APIntOps::RoundingSDiv(&v15, &v13, 2, v9, v10, v11, &v17);
+    v12 = v18;
+    *(a1 + 2) = v18;
+    if (v12 > 0x40)
     {
-      llvm::APInt::initSlowCase(a3, &v18);
+      llvm::APInt::initSlowCase(a1, &v17);
     }
 
-    *a3 = v18;
-    if (v15 >= 0x41 && v14)
+    *a1 = v17;
+    if (v14 >= 0x41 && v13)
     {
-      MEMORY[0x259C63150](v14, 0x1000C8000313F17);
+      MEMORY[0x259C63150](v13, 0x1000C8000313F17);
     }
 
-    if (v17 >= 0x41)
+    if (v16 >= 0x41)
     {
-      if (v16)
+      if (v15)
       {
-        MEMORY[0x259C63150](v16, 0x1000C8000313F17);
+        MEMORY[0x259C63150](v15, 0x1000C8000313F17);
       }
     }
   }
 }
 
-void llvm::detail::floorDiv(llvm::detail *this@<X0>, const llvm::detail::SlowDynamicAPInt *a2@<X1>, llvm::APInt *a3@<X8>)
+void llvm::detail::floorDiv(uint64_t **__return_ptr a1@<X8>, llvm::detail *this@<X0>, const llvm::detail::SlowDynamicAPInt *a3@<X1>)
 {
-  v19 = 64;
-  v18 = -1;
-  v7 = llvm::detail::SlowDynamicAPInt::operator==(a2, &v18);
-  if (v19 >= 0x41 && v18)
+  v18 = 64;
+  v17 = -1;
+  v6 = llvm::detail::SlowDynamicAPInt::operator==(a3, &v17);
+  if (v18 >= 0x41 && v17)
   {
-    v8 = v7;
-    MEMORY[0x259C63150](v18, 0x1000C8000313F17);
-    v7 = v8;
+    v7 = v6;
+    MEMORY[0x259C63150](v17, 0x1000C8000313F17);
+    v6 = v7;
   }
 
-  if (v7)
+  if (v6)
   {
-    llvm::detail::SlowDynamicAPInt::operator-(this, a3);
+    llvm::detail::SlowDynamicAPInt::operator-(a1, this);
   }
 
   else
   {
-    if (*(this + 2) <= *(a2 + 2))
+    if (*(this + 2) <= *(a3 + 2))
     {
-      v9 = *(a2 + 2);
+      v8 = *(a3 + 2);
     }
 
     else
     {
-      v9 = *(this + 2);
+      v8 = *(this + 2);
     }
 
-    llvm::APInt::sext(this, v9, &v16);
-    llvm::APInt::sext(a2, v9, &v14);
-    llvm::APIntOps::RoundingSDiv(&v16, &v14, 0, v10, v11, v12, &v18);
-    v13 = v19;
-    *(a3 + 2) = v19;
-    if (v13 > 0x40)
+    llvm::APInt::sext(&v15, this, v8);
+    llvm::APInt::sext(&v13, a3, v8);
+    llvm::APIntOps::RoundingSDiv(&v15, &v13, 0, v9, v10, v11, &v17);
+    v12 = v18;
+    *(a1 + 2) = v18;
+    if (v12 > 0x40)
     {
-      llvm::APInt::initSlowCase(a3, &v18);
+      llvm::APInt::initSlowCase(a1, &v17);
     }
 
-    *a3 = v18;
-    if (v15 >= 0x41 && v14)
+    *a1 = v17;
+    if (v14 >= 0x41 && v13)
     {
-      MEMORY[0x259C63150](v14, 0x1000C8000313F17);
+      MEMORY[0x259C63150](v13, 0x1000C8000313F17);
     }
 
-    if (v17 >= 0x41)
+    if (v16 >= 0x41)
     {
-      if (v16)
+      if (v15)
       {
-        MEMORY[0x259C63150](v16, 0x1000C8000313F17);
+        MEMORY[0x259C63150](v15, 0x1000C8000313F17);
       }
     }
   }
 }
 
-void llvm::detail::mod(llvm::detail *this@<X0>, const llvm::detail::SlowDynamicAPInt *a2@<X1>, llvm::APInt *a3@<X8>)
+void llvm::detail::mod(uint64_t *__return_ptr a1@<X8>, llvm::detail *this@<X0>, const llvm::detail::SlowDynamicAPInt *a3@<X1>)
 {
-  llvm::detail::SlowDynamicAPInt::operator%(this, a2, &v12);
-  v16 = 64;
-  v15 = 0;
-  v7 = llvm::detail::SlowDynamicAPInt::operator<(&v12, &v15);
-  if (v16 >= 0x41 && v15)
+  llvm::detail::SlowDynamicAPInt::operator%(this, a3, &v11);
+  v15 = 64;
+  v14 = 0;
+  v6 = llvm::detail::SlowDynamicAPInt::operator<(&v11, &v14);
+  if (v15 >= 0x41 && v14)
   {
-    v8 = v7;
-    MEMORY[0x259C63150](v15, 0x1000C8000313F17);
-    v7 = v8;
+    v7 = v6;
+    MEMORY[0x259C63150](v14, 0x1000C8000313F17);
+    v6 = v7;
   }
 
-  if (v7)
+  if (v6)
   {
-    llvm::detail::SlowDynamicAPInt::operator%(this, a2, &v10);
-    v14[0] = llvm::APInt::sadd_ov;
-    v14[1] = 0;
-    runOpWithExpandOnOverflow(&v10, a2, llvm::function_ref<llvm::APInt ()(llvm::APInt const&,llvm::APInt const&,BOOL &)>::callback_fn<std::__mem_fn<llvm::APInt (llvm::APInt::*)(llvm::APInt const&,BOOL &)const>>, v14, &v15);
-    v9 = v16;
-    *(a3 + 2) = v16;
-    if (v9 > 0x40)
+    llvm::detail::SlowDynamicAPInt::operator%(this, a3, &v9);
+    v13[0] = llvm::APInt::sadd_ov;
+    v13[1] = 0;
+    runOpWithExpandOnOverflow(&v9, a3, llvm::function_ref<llvm::APInt ()(llvm::APInt const&,llvm::APInt const&,BOOL &)>::callback_fn<std::__mem_fn<llvm::APInt (llvm::APInt::*)(llvm::APInt const&,BOOL &)const>>, v13, &v14);
+    v8 = v15;
+    *(a1 + 2) = v15;
+    if (v8 > 0x40)
     {
-      llvm::APInt::initSlowCase(a3, &v15);
+      llvm::APInt::initSlowCase(a1, &v14);
     }
 
-    *a3 = v15;
-    if (v11 >= 0x41 && v10)
+    *a1 = v14;
+    if (v10 >= 0x41 && v9)
     {
-      MEMORY[0x259C63150](v10, 0x1000C8000313F17);
+      MEMORY[0x259C63150](v9, 0x1000C8000313F17);
     }
   }
 
   else
   {
-    llvm::detail::SlowDynamicAPInt::operator%(this, a2, a3);
+    llvm::detail::SlowDynamicAPInt::operator%(this, a3, a1);
   }
 
+  if (v12 >= 0x41)
+  {
+    if (v11)
+    {
+      MEMORY[0x259C63150](v11, 0x1000C8000313F17);
+    }
+  }
+}
+
+void llvm::detail::gcd(uint64_t *__return_ptr a1@<X8>, llvm::detail *this@<X0>, const llvm::detail::SlowDynamicAPInt *a3@<X1>)
+{
+  if (*(this + 2) <= *(a3 + 2))
+  {
+    v5 = *(a3 + 2);
+  }
+
+  else
+  {
+    v5 = *(this + 2);
+  }
+
+  llvm::APInt::sext(&v9, this, v5);
+  llvm::APInt::sext(&v7, a3, v5);
+  llvm::APIntOps::GreatestCommonDivisor(&v9, &v7, &v11);
+  v6 = v12;
+  *(a1 + 2) = v12;
+  if (v6 > 0x40)
+  {
+    llvm::APInt::initSlowCase(a1, &v11);
+  }
+
+  *a1 = v11;
+  if (v8 >= 0x41 && v7)
+  {
+    MEMORY[0x259C63150](v7, 0x1000C8000313F17);
+  }
+
+  if (v10 >= 0x41)
+  {
+    if (v9)
+    {
+      MEMORY[0x259C63150](v9, 0x1000C8000313F17);
+    }
+  }
+}
+
+uint64_t *llvm::detail::lcm@<X0>(llvm::detail *this@<X0>, const llvm::detail::SlowDynamicAPInt *a2@<X1>, llvm::APInt *a3@<X8>)
+{
+  v23 = 64;
+  v22 = 0;
+  v6 = llvm::detail::SlowDynamicAPInt::operator>=(this, &v22);
+  if (v23 >= 0x41 && v22)
+  {
+    v7 = v6;
+    MEMORY[0x259C63150](v22, 0x1000C8000313F17);
+    v6 = v7;
+  }
+
+  if (v6)
+  {
+    v19 = *(this + 2);
+    if (v19 > 0x40)
+    {
+      llvm::APInt::initSlowCase(&v18, this);
+    }
+
+    v18 = *this;
+  }
+
+  else
+  {
+    llvm::detail::SlowDynamicAPInt::operator-(&v18, this);
+  }
+
+  v23 = 64;
+  v22 = 0;
+  v8 = llvm::detail::SlowDynamicAPInt::operator>=(a2, &v22);
+  if (v23 >= 0x41 && v22)
+  {
+    v9 = v8;
+    MEMORY[0x259C63150](v22, 0x1000C8000313F17);
+    v8 = v9;
+  }
+
+  if (v8)
+  {
+    v17 = *(a2 + 2);
+    if (v17 > 0x40)
+    {
+      llvm::APInt::initSlowCase(&v16, a2);
+    }
+
+    v16 = *a2;
+  }
+
+  else
+  {
+    llvm::detail::SlowDynamicAPInt::operator-(&v16, a2);
+  }
+
+  v20 = llvm::APInt::smul_ov;
+  v21 = 0;
+  runOpWithExpandOnOverflow(&v18, &v16, llvm::function_ref<llvm::APInt ()(llvm::APInt const&,llvm::APInt const&,BOOL &)>::callback_fn<std::__mem_fn<llvm::APInt (llvm::APInt::*)(llvm::APInt const&,BOOL &)const>>, &v20, &v22);
+  v15 = v23;
+  if (v23 > 0x40)
+  {
+    llvm::APInt::initSlowCase(&v14, &v22);
+  }
+
+  v14 = v22;
+  llvm::detail::gcd(&v12, &v18, &v16);
+  v20 = llvm::APInt::sdiv_ov;
+  v21 = 0;
+  result = runOpWithExpandOnOverflow(&v14, &v12, llvm::function_ref<llvm::APInt ()(llvm::APInt const&,llvm::APInt const&,BOOL &)>::callback_fn<std::__mem_fn<llvm::APInt (llvm::APInt::*)(llvm::APInt const&,BOOL &)const>>, &v20, &v22);
+  v11 = v23;
+  *(a3 + 2) = v23;
+  if (v11 > 0x40)
+  {
+    llvm::APInt::initSlowCase(a3, &v22);
+  }
+
+  *a3 = v22;
   if (v13 >= 0x41)
   {
+    result = v12;
     if (v12)
     {
-      MEMORY[0x259C63150](v12, 0x1000C8000313F17);
-    }
-  }
-}
-
-void llvm::detail::gcd(llvm::detail *this@<X0>, const llvm::detail::SlowDynamicAPInt *a2@<X1>, llvm::APInt *a3@<X8>)
-{
-  if (*(this + 2) <= *(a2 + 2))
-  {
-    v6 = *(a2 + 2);
-  }
-
-  else
-  {
-    v6 = *(this + 2);
-  }
-
-  llvm::APInt::sext(this, v6, &v10);
-  llvm::APInt::sext(a2, v6, &v8);
-  llvm::APIntOps::GreatestCommonDivisor(&v10, &v8, &v12);
-  v7 = v13;
-  *(a3 + 2) = v13;
-  if (v7 > 0x40)
-  {
-    llvm::APInt::initSlowCase(a3, &v12);
-  }
-
-  *a3 = v12;
-  if (v9 >= 0x41 && v8)
-  {
-    MEMORY[0x259C63150](v8, 0x1000C8000313F17);
-  }
-
-  if (v11 >= 0x41)
-  {
-    if (v10)
-    {
-      MEMORY[0x259C63150](v10, 0x1000C8000313F17);
-    }
-  }
-}
-
-void *llvm::detail::lcm@<X0>(llvm::detail *this@<X0>, const llvm::detail::SlowDynamicAPInt *a2@<X1>, llvm::APInt *a3@<X8>)
-{
-  v24 = 64;
-  v23 = 0;
-  v7 = llvm::detail::SlowDynamicAPInt::operator>=(this, &v23);
-  if (v24 >= 0x41 && v23)
-  {
-    v8 = v7;
-    MEMORY[0x259C63150](v23, 0x1000C8000313F17);
-    v7 = v8;
-  }
-
-  if (v7)
-  {
-    v20 = *(this + 2);
-    if (v20 > 0x40)
-    {
-      llvm::APInt::initSlowCase(&v19, this);
-    }
-
-    v19 = *this;
-  }
-
-  else
-  {
-    llvm::detail::SlowDynamicAPInt::operator-(this, &v19);
-  }
-
-  v24 = 64;
-  v23 = 0;
-  v9 = llvm::detail::SlowDynamicAPInt::operator>=(a2, &v23);
-  if (v24 >= 0x41 && v23)
-  {
-    v10 = v9;
-    MEMORY[0x259C63150](v23, 0x1000C8000313F17);
-    v9 = v10;
-  }
-
-  if (v9)
-  {
-    v18 = *(a2 + 2);
-    if (v18 > 0x40)
-    {
-      llvm::APInt::initSlowCase(&v17, a2);
-    }
-
-    v17 = *a2;
-  }
-
-  else
-  {
-    llvm::detail::SlowDynamicAPInt::operator-(a2, &v17);
-  }
-
-  v21 = llvm::APInt::smul_ov;
-  v22 = 0;
-  runOpWithExpandOnOverflow(&v19, &v17, llvm::function_ref<llvm::APInt ()(llvm::APInt const&,llvm::APInt const&,BOOL &)>::callback_fn<std::__mem_fn<llvm::APInt (llvm::APInt::*)(llvm::APInt const&,BOOL &)const>>, &v21, &v23);
-  v16 = v24;
-  if (v24 > 0x40)
-  {
-    llvm::APInt::initSlowCase(&v15, &v23);
-  }
-
-  v15 = v23;
-  llvm::detail::gcd(&v19, &v17, &v13);
-  v21 = llvm::APInt::sdiv_ov;
-  v22 = 0;
-  result = runOpWithExpandOnOverflow(&v15, &v13, llvm::function_ref<llvm::APInt ()(llvm::APInt const&,llvm::APInt const&,BOOL &)>::callback_fn<std::__mem_fn<llvm::APInt (llvm::APInt::*)(llvm::APInt const&,BOOL &)const>>, &v21, &v23);
-  v12 = v24;
-  *(a3 + 2) = v24;
-  if (v12 > 0x40)
-  {
-    llvm::APInt::initSlowCase(a3, &v23);
-  }
-
-  *a3 = v23;
-  if (v14 >= 0x41)
-  {
-    result = v13;
-    if (v13)
-    {
-      result = MEMORY[0x259C63150](v13, 0x1000C8000313F17);
+      result = MEMORY[0x259C63150](v12, 0x1000C8000313F17);
     }
   }
 
-  if (v16 >= 0x41)
+  if (v15 >= 0x41)
   {
-    result = v15;
-    if (v15)
+    result = v14;
+    if (v14)
     {
-      result = MEMORY[0x259C63150](v15, 0x1000C8000313F17);
+      result = MEMORY[0x259C63150](v14, 0x1000C8000313F17);
     }
   }
 
-  if (v18 >= 0x41)
+  if (v17 >= 0x41)
   {
-    result = v17;
-    if (v17)
+    result = v16;
+    if (v16)
     {
-      result = MEMORY[0x259C63150](v17, 0x1000C8000313F17);
+      result = MEMORY[0x259C63150](v16, 0x1000C8000313F17);
     }
   }
 
-  if (v20 >= 0x41)
+  if (v19 >= 0x41)
   {
-    result = v19;
-    if (v19)
+    result = v18;
+    if (v18)
     {
-      return MEMORY[0x259C63150](v19, 0x1000C8000313F17);
+      return MEMORY[0x259C63150](v18, 0x1000C8000313F17);
     }
   }
 
@@ -3574,7 +3477,7 @@ void *llvm::SmallPtrSetImplBase::shrink_and_clear(void **this)
   return memset(v5, 255, v6);
 }
 
-const void **llvm::SmallPtrSetImplBase::insert_imp_big(llvm::SmallPtrSetImplBase *this, char *a2)
+char **llvm::SmallPtrSetImplBase::insert_imp_big(llvm::SmallPtrSetImplBase *this, char *a2)
 {
   v2 = *(this + 5);
   v3 = *(this + 4);
@@ -3764,7 +3667,7 @@ LABEL_9:
   *(this + 20) = (*(this + 5) - *(this + 6));
 }
 
-const void **llvm::SmallPtrSetImplBase::FindBucketFor(llvm::SmallPtrSetImplBase *this, char *a2)
+char **llvm::SmallPtrSetImplBase::FindBucketFor(llvm::SmallPtrSetImplBase *this, char *a2)
 {
   v2 = *(this + 4) - 1;
   v3 = *(this + 1);
@@ -4000,7 +3903,7 @@ double llvm::SmallPtrSetImplBase::MoveHelper(uint64_t a1, int a2, double *a3)
   else
   {
     *(a1 + 8) = v3;
-    a3[1] = v4;
+    *(a3 + 1) = v4;
   }
 
   result = a3[2];
@@ -4113,7 +4016,7 @@ double llvm::SmallPtrSetImplBase::MoveFrom(uint64_t a1, int a2, double *a3)
   else
   {
     *(a1 + 8) = v7;
-    a3[1] = v8;
+    *(a3 + 1) = v8;
   }
 
   result = a3[2];
@@ -4693,7 +4596,7 @@ void *llvm::SmallVectorBase<unsigned long long>::set_allocation_range(void *resu
 void report_size_overflow(unint64_t a1)
 {
   std::to_string(&v4, a1);
-  std::operator+[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>("SmallVector unable to grow. Requested capacity (", &v4, &v5);
+  std::operator+[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(&v5, "SmallVector unable to grow. Requested capacity (", &v4);
   std::operator+[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(&v5, ") is larger than maximum value for size type (", &v6);
   std::to_string(&v3, 0xFFFFFFFFuLL);
   std::operator+[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(&v6, &v3, &v1);
@@ -4711,10 +4614,10 @@ void report_size_overflow(unint64_t a1)
 void report_at_maximum_capacity(unint64_t a1)
 {
   std::to_string(&v1, a1);
-  std::operator+[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>("SmallVector capacity unable to grow. Already at maximum size ", &v1, &v3);
+  std::operator+[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(v3, "SmallVector capacity unable to grow. Already at maximum size ", &v1);
   std::string::~string(&v1);
   v2 = 260;
-  v1.__r_.__value_.__r.__words[0] = &v3;
+  v1.__r_.__value_.__r.__words[0] = v3;
   llvm::report_fatal_error(&v1, 1);
 }
 
@@ -4751,11 +4654,11 @@ __n128 std::operator+[abi:nn200100]<char,std::char_traits<char>,std::allocator<c
   return result;
 }
 
-__n128 std::operator+[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>@<Q0>(std::string::value_type *__s@<X0>, std::string *this@<X1>, std::string *a3@<X8>)
+__n128 std::operator+[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>@<Q0>(std::string *__return_ptr a1@<X8>, std::string::value_type *__s@<X0>, std::string *this@<X1>)
 {
   v4 = std::string::insert(this, 0, __s);
   result = *v4;
-  *a3 = *v4->n128_u8;
+  *a1 = *v4->n128_u8;
   v4->n128_u64[0] = 0;
   v4->n128_u64[1] = 0;
   v4[1].n128_u64[0] = 0;
@@ -4860,16 +4763,14 @@ void llvm::SourceMgr::~SourceMgr(llvm::SourceMgr *this)
 
 __n128 llvm::SourceMgr::SourceMgr(__n128 *a1, uint64_t a2)
 {
-  a1->n128_u64[0] = 0;
-  a1->n128_u64[1] = 0;
+  *a1 = 0uLL;
   a1[1].n128_u64[0] = 0;
   *a1 = *a2;
   a1[1].n128_u64[0] = *(a2 + 16);
   *a2 = 0;
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
-  a1[1].n128_u64[1] = 0;
-  a1[2].n128_u64[0] = 0;
+  *(&a1[1] + 8) = 0uLL;
   a1[2].n128_u64[1] = 0;
   *(a1 + 24) = *(a2 + 24);
   a1[2].n128_u64[1] = *(a2 + 40);
@@ -4884,16 +4785,14 @@ __n128 llvm::SourceMgr::SourceMgr(__n128 *a1, uint64_t a2)
 }
 
 {
-  a1->n128_u64[0] = 0;
-  a1->n128_u64[1] = 0;
+  *a1 = 0uLL;
   a1[1].n128_u64[0] = 0;
   *a1 = *a2;
   a1[1].n128_u64[0] = *(a2 + 16);
   *a2 = 0;
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
-  a1[1].n128_u64[1] = 0;
-  a1[2].n128_u64[0] = 0;
+  *(&a1[1] + 8) = 0uLL;
   a1[2].n128_u64[1] = 0;
   *(a1 + 24) = *(a2 + 24);
   a1[2].n128_u64[1] = *(a2 + 40);
@@ -5150,7 +5049,7 @@ void llvm::SourceMgr::OpenIncludeFile(void *a1@<X0>, uint64_t a2@<X1>, uint64_t 
       v39 = 257;
       v33 = 257;
       v31 = 257;
-      llvm::sys::path::append(&__src, &__dst, v37, &v32, &v30);
+      llvm::sys::path::append(&__src, &__dst, v37, v32, v30);
       v24 = a1[8];
       if (v24)
       {
@@ -5347,7 +5246,7 @@ uint64_t llvm::SourceMgr::SrcBuffer::getLineNumber(llvm::SourceMgr::SrcBuffer *t
   v5 = *(*this + 16) - v4;
   if (v5 <= 0xFF)
   {
-    Offset = GetOrCreateOffsetCache<unsigned char>(this + 8);
+    Offset = GetOrCreateOffsetCache<unsigned char>(this + 1, *this);
     v8 = *Offset;
     v9 = Offset[1] - *Offset;
     if (v9)
@@ -5507,7 +5406,7 @@ uint64_t llvm::SourceMgr::SrcBuffer::getPointerForLineNumber(llvm::SourceMgr::Sr
   v6 = *(v4 + 16) - result;
   if (v6 <= 0xFF)
   {
-    Offset = GetOrCreateOffsetCache<unsigned char>(this + 8);
+    Offset = GetOrCreateOffsetCache<unsigned char>(this + 1, v4);
     v10 = a2 - 1;
     if (!a2)
     {
@@ -5826,7 +5725,7 @@ LABEL_61:
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  last_of = llvm::StringRef::find_last_of(&v36, "/\", 2, 0xFFFFFFFFFFFFFFFFLL);
+  last_of = llvm::StringRef::find_last_of(&v36, "/\"", 2, 0xFFFFFFFFFFFFFFFFLL);
   if (last_of == v37)
   {
     v16 = 0;
@@ -5998,13 +5897,13 @@ uint64_t llvm::SourceMgr::FindLocForLineAndColumn(llvm::SourceMgr *this, int a2,
   return result;
 }
 
-llvm::raw_ostream *llvm::SourceMgr::PrintIncludeStack(llvm::raw_ostream *result, const char *a2, llvm::raw_ostream *a3)
+uint64_t *llvm::SourceMgr::PrintIncludeStack(uint64_t *result, const char *a2, llvm::raw_ostream *a3)
 {
   if (a2)
   {
     v3 = a3;
     v5 = result;
-    v6 = -1431655765 * ((*(result + 1) - *result) >> 3);
+    v6 = -1431655765 * ((result[1] - *result) >> 3);
     if (v6)
     {
       v7 = 1;
@@ -6077,7 +5976,7 @@ LABEL_8:
       if (!v7)
       {
 LABEL_20:
-        v16 = -1431655765 * ((*(v5 + 1) - v15) >> 3);
+        v16 = -1431655765 * ((v5[1] - v15) >> 3);
         if (v16)
         {
           v7 = 1;
@@ -6107,11 +6006,11 @@ LABEL_26:
     v21[1] = &a2[-v21[0]];
     llvm::StringRef::find_last_of(v21, "\n\r", 2, 0xFFFFFFFFFFFFFFFFLL);
     result = llvm::raw_ostream::operator<<(v3, LineNumber);
-    v20 = *(result + 4);
-    if (*(result + 3) - v20 > 1uLL)
+    v20 = result[4];
+    if ((result[3] - v20) > 1)
     {
       *v20 = 2618;
-      *(result + 4) += 2;
+      result[4] += 2;
     }
 
     else
@@ -6123,7 +6022,7 @@ LABEL_26:
   return result;
 }
 
-void llvm::SourceMgr::GetMessage(llvm::formatv_object_base **this@<X3>, uint64_t *a2@<X0>, const char *a3@<X1>, int a4@<W2>, unint64_t *a5@<X4>, uint64_t a6@<X5>, __int128 *a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
+void llvm::SourceMgr::GetMessage(llvm::formatv_object_base **this@<X3>, uint64_t *a2@<X0>, const char *a3@<X1>, int a4@<W2>, unint64_t *a5@<X4>, uint64_t a6@<X5>, char *a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
 {
   v56[4] = *MEMORY[0x277D85DE8];
   v54 = v56;
@@ -6312,116 +6211,6 @@ LABEL_52:
   {
     free(v54);
   }
-}
-
-uint64_t llvm::SMDiagnostic::SMDiagnostic(uint64_t a1, uint64_t a2, uint64_t a3, void *__src, size_t __len, int a6, int a7, int a8, void *__srca, size_t __lena, void *a11, size_t a12, uint64_t a13, uint64_t a14, __int128 *a15, uint64_t a16)
-{
-  return llvm::SMDiagnostic::SMDiagnostic(a1, a2, a3, __src, __len, a6, a7, a8, __srca, __lena, a11, a12, a13, a14, a15, a16);
-}
-
-{
-  *a1 = a2;
-  *(a1 + 8) = a3;
-  if (__len > 0x7FFFFFFFFFFFFFF7)
-  {
-    goto LABEL_26;
-  }
-
-  if (__len >= 0x17)
-  {
-    operator new();
-  }
-
-  v21 = (a1 + 16);
-  *(a1 + 39) = __len;
-  if (__len)
-  {
-    memmove(v21, __src, __len);
-  }
-
-  *(v21 + __len) = 0;
-  *(a1 + 40) = a6;
-  *(a1 + 44) = a7;
-  *(a1 + 48) = a8;
-  if (__lena > 0x7FFFFFFFFFFFFFF7)
-  {
-    goto LABEL_26;
-  }
-
-  if (__lena >= 0x17)
-  {
-    operator new();
-  }
-
-  v22 = (a1 + 56);
-  *(a1 + 79) = __lena;
-  if (__lena)
-  {
-    memmove(v22, __srca, __lena);
-  }
-
-  *(v22 + __lena) = 0;
-  if (a12 > 0x7FFFFFFFFFFFFFF7)
-  {
-LABEL_26:
-    std::string::__throw_length_error[abi:nn200100]();
-  }
-
-  if (a12 >= 0x17)
-  {
-    operator new();
-  }
-
-  v23 = (a1 + 80);
-  *(a1 + 103) = a12;
-  if (a12)
-  {
-    memmove(v23, a11, a12);
-    v23[a12] = 0;
-    *(a1 + 104) = 0;
-    *(a1 + 112) = 0;
-    *(a1 + 120) = 0;
-    if (!a14)
-    {
-      goto LABEL_22;
-    }
-
-LABEL_20:
-    if ((a14 & 0x8000000000000000) == 0)
-    {
-      operator new();
-    }
-
-    std::string::__throw_length_error[abi:nn200100]();
-  }
-
-  *v23 = 0;
-  *(a1 + 104) = 0;
-  *(a1 + 112) = 0;
-  *(a1 + 120) = 0;
-  if (a14)
-  {
-    goto LABEL_20;
-  }
-
-LABEL_22:
-  *(a1 + 128) = a1 + 144;
-  *(a1 + 136) = 0x400000000;
-  llvm::SmallVectorImpl<llvm::SMFixIt>::append<llvm::SMFixIt const*,void>(a1 + 128, a15, (a15 + 40 * a16));
-  v24 = *(a1 + 136);
-  v25 = 126 - 2 * __clz(v24);
-  if (v24)
-  {
-    v26 = v25;
-  }
-
-  else
-  {
-    v26 = 0;
-  }
-
-  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *,false>(*(a1 + 128), (*(a1 + 128) + 40 * v24), &v28, v26, 1);
-  return a1;
 }
 
 void llvm::SourceMgr::PrintMessage(llvm::SourceMgr *this, llvm::raw_ostream *a2, const llvm::SMDiagnostic *a3, int a4)
@@ -7867,7 +7656,7 @@ LABEL_365:
   }
 }
 
-void llvm::SourceMgr::PrintMessage(uint64_t *a1, llvm::raw_ostream *a2, const char *a3, int a4, llvm::formatv_object_base **this, unint64_t *a6, uint64_t a7, int a8, __int128 *a9, uint64_t a10, BOOL a11)
+void llvm::SourceMgr::PrintMessage(uint64_t *a1, llvm::raw_ostream *a2, const char *a3, int a4, llvm::formatv_object_base **this, unint64_t *a6, uint64_t a7, int a8, char *a9, uint64_t a10, BOOL a11)
 {
   v33[20] = *MEMORY[0x277D85DE8];
   llvm::SourceMgr::GetMessage(this, a1, a3, a4, a6, a7, a9, a10, v21);
@@ -7991,6 +7780,112 @@ void *llvm::SMFixIt::SMFixIt(void *a1, uint64_t a2, uint64_t a3, llvm::formatv_o
   return a1;
 }
 
+uint64_t llvm::SMDiagnostic::SMDiagnostic(uint64_t a1, uint64_t a2, uint64_t a3, void *__src, size_t __len, int a6, int a7, int a8, void *__srca, size_t __lena, void *a11, size_t a12, uint64_t a13, uint64_t a14, char *a15, uint64_t a16)
+{
+  *a1 = a2;
+  *(a1 + 8) = a3;
+  if (__len > 0x7FFFFFFFFFFFFFF7)
+  {
+    goto LABEL_26;
+  }
+
+  if (__len >= 0x17)
+  {
+    operator new();
+  }
+
+  v21 = (a1 + 16);
+  *(a1 + 39) = __len;
+  if (__len)
+  {
+    memmove(v21, __src, __len);
+  }
+
+  *(v21 + __len) = 0;
+  *(a1 + 40) = a6;
+  *(a1 + 44) = a7;
+  *(a1 + 48) = a8;
+  if (__lena > 0x7FFFFFFFFFFFFFF7)
+  {
+    goto LABEL_26;
+  }
+
+  if (__lena >= 0x17)
+  {
+    operator new();
+  }
+
+  v22 = (a1 + 56);
+  *(a1 + 79) = __lena;
+  if (__lena)
+  {
+    memmove(v22, __srca, __lena);
+  }
+
+  *(v22 + __lena) = 0;
+  if (a12 > 0x7FFFFFFFFFFFFFF7)
+  {
+LABEL_26:
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+
+  if (a12 >= 0x17)
+  {
+    operator new();
+  }
+
+  v23 = (a1 + 80);
+  *(a1 + 103) = a12;
+  if (a12)
+  {
+    memmove(v23, a11, a12);
+    v23[a12] = 0;
+    *(a1 + 104) = 0;
+    *(a1 + 112) = 0;
+    *(a1 + 120) = 0;
+    if (!a14)
+    {
+      goto LABEL_22;
+    }
+
+LABEL_20:
+    if ((a14 & 0x8000000000000000) == 0)
+    {
+      operator new();
+    }
+
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+
+  *v23 = 0;
+  *(a1 + 104) = 0;
+  *(a1 + 112) = 0;
+  *(a1 + 120) = 0;
+  if (a14)
+  {
+    goto LABEL_20;
+  }
+
+LABEL_22:
+  *(a1 + 128) = a1 + 144;
+  *(a1 + 136) = 0x400000000;
+  llvm::SmallVectorImpl<llvm::SMFixIt>::append<llvm::SMFixIt const*,void>(a1 + 128, a15, &a15[40 * a16]);
+  v24 = *(a1 + 136);
+  v25 = 126 - 2 * __clz(v24);
+  if (v24)
+  {
+    v26 = v25;
+  }
+
+  else
+  {
+    v26 = 0;
+  }
+
+  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *,false>(*(a1 + 128), (*(a1 + 128) + 40 * v24), &v28, v26, 1);
+  return a1;
+}
+
 llvm::raw_ostream *printSourceLine(llvm::raw_ostream *result, uint64_t a2, unint64_t a3)
 {
   v4 = result;
@@ -8031,13 +7926,13 @@ llvm::raw_ostream *printSourceLine(llvm::raw_ostream *result, uint64_t a2, unint
       v12 = a3;
     }
 
-    v13 = &v12[-v8];
+    v13 = v12 - v8;
     result = *(v4 + 4);
-    if (&v12[-v8] <= *(v4 + 3) - result)
+    if (v12 - v8 <= *(v4 + 3) - result)
     {
       if (v12 != v8)
       {
-        v14 = &v12[-v8];
+        v14 = v12 - v8;
         result = memcpy(result, (a2 + v8), v13);
         *(v4 + 4) += v14;
       }
@@ -8325,7 +8220,7 @@ __n128 std::vector<llvm::SourceMgr::SrcBuffer>::__move_assign(void *a1, __n128 *
   return result;
 }
 
-uint64_t GetOrCreateOffsetCache<unsigned char>(uint64_t a1)
+void *GetOrCreateOffsetCache<unsigned char>(void **a1, uint64_t a2)
 {
   if (!*a1)
   {
@@ -8335,7 +8230,7 @@ uint64_t GetOrCreateOffsetCache<unsigned char>(uint64_t a1)
   return *a1;
 }
 
-void llvm::SmallVectorImpl<llvm::SMFixIt>::append<llvm::SMFixIt const*,void>(uint64_t a1, __int128 *a2, __int128 *a3)
+void llvm::SmallVectorImpl<llvm::SMFixIt>::append<llvm::SMFixIt const*,void>(uint64_t a1, char *a2, char *a3)
 {
   v5 = 0xCCCCCCCCCCCCCCCDLL * ((a3 - a2) >> 3);
   v6 = *(a1 + 8);
@@ -8347,7 +8242,7 @@ void llvm::SmallVectorImpl<llvm::SMFixIt>::append<llvm::SMFixIt const*,void>(uin
   if (a2 != a3)
   {
     v7 = (*a1 + 40 * v6 + 16);
-    v8 = a2 + 1;
+    v8 = (a2 + 16);
     do
     {
       while (1)
@@ -8362,7 +8257,7 @@ void llvm::SmallVectorImpl<llvm::SMFixIt>::append<llvm::SMFixIt const*,void>(uin
         v9 = v8 - 1;
         v7 = (v7 + 40);
         v8 = (v8 + 40);
-        if ((v9 + 40) == a3)
+        if (v9 + 40 == a3)
         {
           goto LABEL_8;
         }
@@ -8376,7 +8271,7 @@ void llvm::SmallVectorImpl<llvm::SMFixIt>::append<llvm::SMFixIt const*,void>(uin
       v8 = (v8 + 40);
     }
 
-    while ((v11 + 40) != a3);
+    while (v11 + 40 != a3);
 LABEL_8:
     LODWORD(v6) = *(a1 + 8);
   }
@@ -8384,15 +8279,15 @@ LABEL_8:
   *(a1 + 8) = v6 + v5;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *,false>(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *,false>(char *result, __int128 *a2, uint64_t a3, uint64_t a4, char a5)
 {
 LABEL_1:
-  v9 = a1;
+  v9 = result;
 LABEL_2:
   v10 = 1 - a4;
   while (1)
   {
-    a1 = v9;
+    result = v9;
     v11 = v10;
     v12 = a2 - v9;
     v13 = 0xCCCCCCCCCCCCCCCDLL * ((a2 - v9) >> 3);
@@ -8405,15 +8300,15 @@ LABEL_2:
     {
       case 3uLL:
 
-        std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *,0>(v9, (v9 + 40), (a2 - 40));
+        std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *,0>(v9, v9 + 5, (a2 - 40));
         return;
       case 4uLL:
 
-        std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *,0>(v9, (v9 + 40), (v9 + 80), (a2 - 40));
+        std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *,0>(v9, (v9 + 40), v9 + 5, (a2 - 40));
         return;
       case 5uLL:
 
-        std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *,0>(v9, v9 + 40, v9 + 80, v9 + 120, a2 - 40);
+        std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *,0>(v9, (v9 + 40), v9 + 5, (v9 + 120), (a2 - 40));
         return;
     }
 
@@ -8447,7 +8342,7 @@ LABEL_10:
     }
 
     v14 = v13 >> 1;
-    v15 = v9 + 40 * (v13 >> 1);
+    v15 = &v9[40 * (v13 >> 1)];
     if (v12 < 0x1401)
     {
       std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *,0>(v15, v9, (a2 - 40));
@@ -8462,78 +8357,78 @@ LABEL_10:
       std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *,0>(v9, v15, (a2 - 40));
       v16 = v9 + 40;
       v17 = 40 * v14;
-      v18 = (40 * v14 + a1 - 40);
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *,0>((a1 + 40), v18, a2 - 5);
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *,0>((a1 + 80), (v16 + v17), (a2 - 120));
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *,0>(v18, v15, (v16 + v17));
-      v56 = *a1;
-      *(&v58 + 7) = *(a1 + 31);
-      v19 = *(a1 + 16);
-      *&v58 = *(a1 + 24);
-      v20 = *(a1 + 39);
-      *(a1 + 24) = 0;
-      *(a1 + 32) = 0;
-      *(a1 + 16) = 0;
-      v21 = *(v15 + 32);
-      v22 = *(v15 + 16);
-      *a1 = *v15;
-      *(a1 + 16) = v22;
-      *(a1 + 32) = v21;
+      v18 = &result[40 * v14 - 40];
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *,0>((result + 40), v18, a2 - 5);
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *,0>(result + 5, &v16[v17], (a2 - 120));
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *,0>(v18, v15, &v16[v17]);
+      v56 = *result;
+      *(&v58 + 7) = *(result + 31);
+      v19 = *(result + 2);
+      *&v58 = *(result + 3);
+      v20 = result[39];
+      *(result + 3) = 0;
+      *(result + 4) = 0;
+      *(result + 2) = 0;
+      v21 = *(v15 + 4);
+      v22 = *(v15 + 1);
+      *result = *v15;
+      *(result + 1) = v22;
+      *(result + 4) = v21;
       *v15 = v56;
-      *(v15 + 16) = v19;
+      *(v15 + 2) = v19;
       *(v15 + 31) = *(&v58 + 7);
-      *(v15 + 24) = v58;
-      *(v15 + 39) = v20;
+      *(v15 + 3) = v58;
+      v15[39] = v20;
       if (a5)
       {
         goto LABEL_19;
       }
     }
 
-    v23 = *(a1 - 40);
-    v24 = v23 >= *a1;
-    if (v23 == *a1 && (v25 = *(a1 - 32), v26 = *(a1 + 8), v24 = v25 >= v26, v25 == v26))
+    v23 = *(result - 5);
+    v24 = v23 >= *result;
+    if (v23 == *result && (v25 = *(result - 4), v26 = *(result + 1), v24 = v25 >= v26, v25 == v26))
     {
-      v30 = *(a1 + 39);
-      v31 = *(a1 - 1);
+      v30 = result[39];
+      v31 = *(result - 1);
       if (v31 >= 0)
       {
-        v32 = (a1 - 24);
+        v32 = result - 24;
       }
 
       else
       {
-        v32 = *(a1 - 24);
+        v32 = *(result - 3);
       }
 
       if (v31 >= 0)
       {
-        v33 = *(a1 - 1);
+        v33 = *(result - 1);
       }
 
       else
       {
-        v33 = *(a1 - 16);
+        v33 = *(result - 2);
       }
 
       if (v30 >= 0)
       {
-        v34 = *(a1 + 39);
+        v34 = result[39];
       }
 
       else
       {
-        v34 = *(a1 + 24);
+        v34 = *(result + 3);
       }
 
       if (v30 >= 0)
       {
-        v35 = (a1 + 16);
+        v35 = result + 16;
       }
 
       else
       {
-        v35 = *(a1 + 16);
+        v35 = *(result + 2);
       }
 
       if (v34 >= v33)
@@ -8556,7 +8451,7 @@ LABEL_10:
       if (!v38)
       {
 LABEL_41:
-        v9 = std::__partition_with_equals_on_left[abi:nn200100]<std::_ClassicAlgPolicy,llvm::SMFixIt *,std::__less<void,void> &>(a1, a2);
+        v9 = std::__partition_with_equals_on_left[abi:nn200100]<std::_ClassicAlgPolicy,llvm::SMFixIt *,std::__less<void,void> &>(result, a2);
 LABEL_43:
         a5 = 0;
         a4 = -v11;
@@ -8570,15 +8465,15 @@ LABEL_43:
     }
 
 LABEL_19:
-    v27 = std::__partition_with_equals_on_right[abi:nn200100]<std::_ClassicAlgPolicy,llvm::SMFixIt *,std::__less<void,void> &>(a1, a2);
+    v27 = std::__partition_with_equals_on_right[abi:nn200100]<std::_ClassicAlgPolicy,llvm::SMFixIt *,std::__less<void,void> &>(result, a2);
     if ((v28 & 1) == 0)
     {
       goto LABEL_42;
     }
 
-    v29 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *>(a1, v27);
+    v29 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *>(result, v27);
     v9 = v27 + 40;
-    if (std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *>(v27 + 40, a2))
+    if (std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *>((v27 + 40), a2))
     {
       a4 = -v11;
       a2 = v27;
@@ -8594,7 +8489,7 @@ LABEL_19:
     if (!v29)
     {
 LABEL_42:
-      std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *,false>(a1, v27, a3, -v11, a5 & 1);
+      std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *,false>(result, v27, a3, -v11, a5 & 1);
       v9 = v27 + 40;
       goto LABEL_43;
     }
@@ -8613,7 +8508,7 @@ LABEL_42:
   v40 = (a2 - 40);
   v39 = *(a2 - 5);
   v41 = v39 >= *v9;
-  if (v39 != *v9 || (v42 = *(a2 - 4), v43 = *(v9 + 8), v41 = v42 >= v43, v42 != v43))
+  if (v39 != *v9 || (v42 = *(a2 - 4), v43 = *(v9 + 1), v41 = v42 >= v43, v42 != v43))
   {
     if (v41)
     {
@@ -8623,7 +8518,7 @@ LABEL_42:
     goto LABEL_55;
   }
 
-  v47 = *(v9 + 39);
+  v47 = v9[39];
   v48 = *(a2 - 1);
   if (v48 >= 0)
   {
@@ -8647,22 +8542,22 @@ LABEL_42:
 
   if (v47 >= 0)
   {
-    v51 = *(v9 + 39);
+    v51 = v9[39];
   }
 
   else
   {
-    v51 = *(v9 + 24);
+    v51 = *(v9 + 3);
   }
 
   if (v47 >= 0)
   {
-    v52 = (v9 + 16);
+    v52 = v9 + 16;
   }
 
   else
   {
-    v52 = *(v9 + 16);
+    v52 = *(v9 + 2);
   }
 
   if (v51 >= v49)
@@ -8686,17 +8581,17 @@ LABEL_42:
   {
 LABEL_55:
     v57 = *v9;
-    v44 = *(v9 + 16);
-    *&v59 = *(v9 + 24);
+    v44 = *(v9 + 2);
+    *&v59 = *(v9 + 3);
     *(&v59 + 7) = *(v9 + 31);
-    v45 = *(v9 + 39);
-    *(v9 + 24) = 0;
-    *(v9 + 32) = 0;
-    *(v9 + 16) = 0;
+    v45 = v9[39];
+    *(v9 + 3) = 0;
+    *(v9 + 4) = 0;
+    *(v9 + 2) = 0;
     *v9 = *v40;
     v46 = *(a2 - 24);
-    *(v9 + 32) = *(a2 - 1);
-    *(v9 + 16) = v46;
+    *(v9 + 4) = *(a2 - 1);
+    *(v9 + 1) = v46;
     *v40 = v57;
     *(a2 - 3) = v44;
     *(a2 - 2) = v59;
@@ -8870,8 +8765,7 @@ LABEL_5:
       *&v103 = *(a1 + 3);
       *(&v103 + 7) = *(a1 + 31);
       v5 = *(a1 + 39);
-      *(a1 + 3) = 0;
-      *(a1 + 4) = 0;
+      *(a1 + 24) = 0uLL;
       *(a1 + 2) = 0;
       *a1 = *a3;
       v6 = *(a3 + 4);
@@ -8892,8 +8786,7 @@ LABEL_5:
     *(&v106 + 7) = *(a1 + 31);
     v27 = *(a1 + 39);
     v28 = v27;
-    *(a1 + 2) = 0;
-    *(a1 + 3) = 0;
+    a1[1] = 0uLL;
     *(a1 + 4) = 0;
     *a1 = *a2;
     v29 = a2 + 2;
@@ -8903,7 +8796,7 @@ LABEL_5:
     *a2 = v101;
     a2[2] = v26;
     a2[3] = v106;
-    v31 = (a2 + 3);
+    v31 = a2 + 3;
     *(a2 + 31) = *(&v106 + 7);
     *(a2 + 39) = v27;
     v32 = *a3 >= *a2;
@@ -9181,8 +9074,7 @@ LABEL_14:
     *&v105 = *(a1 + 3);
     *(&v105 + 7) = *(a1 + 31);
     v22 = *(a1 + 39);
-    *(a1 + 3) = 0;
-    *(a1 + 4) = 0;
+    *(a1 + 24) = 0uLL;
     *(a1 + 2) = 0;
     *a1 = *a2;
     v23 = v14[2];
@@ -9478,11 +9370,11 @@ LABEL_10:
   return result;
 }
 
-uint64_t std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *,0>(__int128 *a1, __int128 *a2, __int128 *a3, __int128 *a4, __int128 *a5)
 {
   result = std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *,0>(a1, a2, a3, a4);
   v11 = *a5 >= *a4;
-  if (*a5 == *a4 && (v12 = *(a5 + 8), v13 = *(a4 + 8), v11 = v12 >= v13, v12 == v13))
+  if (*a5 == *a4 && (v12 = *(a5 + 1), v13 = *(a4 + 1), v11 = v12 >= v13, v12 == v13))
   {
     v35 = *(a4 + 39);
     v36 = *(a5 + 39);
@@ -9493,17 +9385,17 @@ uint64_t std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void
 
     else
     {
-      v37 = *(a5 + 24);
+      v37 = *(a5 + 3);
     }
 
     if (v36 >= 0)
     {
-      v38 = (a5 + 16);
+      v38 = a5 + 1;
     }
 
     else
     {
-      v38 = *(a5 + 16);
+      v38 = *(a5 + 2);
     }
 
     if (v35 >= 0)
@@ -9513,17 +9405,17 @@ uint64_t std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void
 
     else
     {
-      v39 = *(a4 + 24);
+      v39 = *(a4 + 3);
     }
 
     if (v35 >= 0)
     {
-      v40 = (a4 + 16);
+      v40 = a4 + 1;
     }
 
     else
     {
-      v40 = *(a4 + 16);
+      v40 = *(a4 + 2);
     }
 
     if (v39 >= v37)
@@ -9555,24 +9447,24 @@ uint64_t std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void
   }
 
   v67 = *a4;
-  v14 = *(a4 + 16);
-  *&v71 = *(a4 + 24);
+  v14 = *(a4 + 2);
+  *&v71 = *(a4 + 3);
   *(&v71 + 7) = *(a4 + 31);
   v15 = *(a4 + 39);
-  *(a4 + 16) = 0;
-  *(a4 + 32) = 0;
-  *(a4 + 24) = 0;
+  *(a4 + 2) = 0;
+  *(a4 + 4) = 0;
+  *(a4 + 3) = 0;
   *a4 = *a5;
-  v16 = *(a5 + 32);
-  *(a4 + 16) = *(a5 + 16);
-  *(a4 + 32) = v16;
+  v16 = *(a5 + 4);
+  a4[1] = a5[1];
+  *(a4 + 4) = v16;
   *a5 = v67;
-  *(a5 + 16) = v14;
-  *(a5 + 24) = v71;
+  *(a5 + 2) = v14;
+  *(a5 + 3) = v71;
   *(a5 + 31) = *(&v71 + 7);
   *(a5 + 39) = v15;
   v17 = *a4 >= *a3;
-  if (*a4 == *a3 && (v18 = *(a4 + 8), v19 = *(a3 + 8), v17 = v18 >= v19, v18 == v19))
+  if (*a4 == *a3 && (v18 = *(a4 + 1), v19 = *(a3 + 1), v17 = v18 >= v19, v18 == v19))
   {
     v43 = *(a3 + 39);
     v44 = *(a4 + 39);
@@ -9583,17 +9475,17 @@ uint64_t std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void
 
     else
     {
-      v45 = *(a4 + 24);
+      v45 = *(a4 + 3);
     }
 
     if (v44 >= 0)
     {
-      v46 = (a4 + 16);
+      v46 = a4 + 1;
     }
 
     else
     {
-      v46 = *(a4 + 16);
+      v46 = *(a4 + 2);
     }
 
     if (v43 >= 0)
@@ -9603,17 +9495,17 @@ uint64_t std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void
 
     else
     {
-      v47 = *(a3 + 24);
+      v47 = *(a3 + 3);
     }
 
     if (v43 >= 0)
     {
-      v48 = (a3 + 16);
+      v48 = a3 + 1;
     }
 
     else
     {
-      v48 = *(a3 + 16);
+      v48 = *(a3 + 2);
     }
 
     if (v47 >= v45)
@@ -9645,24 +9537,24 @@ uint64_t std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void
   }
 
   v68 = *a3;
-  v20 = *(a3 + 16);
-  *&v72 = *(a3 + 24);
+  v20 = *(a3 + 2);
+  *&v72 = *(a3 + 3);
   *(&v72 + 7) = *(a3 + 31);
   v21 = *(a3 + 39);
-  *(a3 + 16) = 0;
-  *(a3 + 32) = 0;
-  *(a3 + 24) = 0;
+  *(a3 + 2) = 0;
+  *(a3 + 4) = 0;
+  *(a3 + 3) = 0;
   *a3 = *a4;
-  v22 = *(a4 + 32);
-  *(a3 + 16) = *(a4 + 16);
-  *(a3 + 32) = v22;
+  v22 = *(a4 + 4);
+  a3[1] = a4[1];
+  *(a3 + 4) = v22;
   *a4 = v68;
-  *(a4 + 16) = v20;
-  *(a4 + 24) = v72;
+  *(a4 + 2) = v20;
+  *(a4 + 3) = v72;
   *(a4 + 31) = *(&v72 + 7);
   *(a4 + 39) = v21;
   v23 = *a3 >= *a2;
-  if (*a3 == *a2 && (v24 = *(a3 + 8), v25 = *(a2 + 8), v23 = v24 >= v25, v24 == v25))
+  if (*a3 == *a2 && (v24 = *(a3 + 1), v25 = *(a2 + 1), v23 = v24 >= v25, v24 == v25))
   {
     v51 = *(a2 + 39);
     v52 = *(a3 + 39);
@@ -9673,17 +9565,17 @@ uint64_t std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void
 
     else
     {
-      v53 = *(a3 + 24);
+      v53 = *(a3 + 3);
     }
 
     if (v52 >= 0)
     {
-      v54 = (a3 + 16);
+      v54 = a3 + 1;
     }
 
     else
     {
-      v54 = *(a3 + 16);
+      v54 = *(a3 + 2);
     }
 
     if (v51 >= 0)
@@ -9693,17 +9585,17 @@ uint64_t std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void
 
     else
     {
-      v55 = *(a2 + 24);
+      v55 = *(a2 + 3);
     }
 
     if (v51 >= 0)
     {
-      v56 = (a2 + 16);
+      v56 = a2 + 1;
     }
 
     else
     {
-      v56 = *(a2 + 16);
+      v56 = *(a2 + 2);
     }
 
     if (v55 >= v53)
@@ -9735,24 +9627,24 @@ uint64_t std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void
   }
 
   v69 = *a2;
-  v26 = *(a2 + 16);
-  *&v73 = *(a2 + 24);
+  v26 = *(a2 + 2);
+  *&v73 = *(a2 + 3);
   *(&v73 + 7) = *(a2 + 31);
   v27 = *(a2 + 39);
-  *(a2 + 16) = 0;
-  *(a2 + 32) = 0;
-  *(a2 + 24) = 0;
+  *(a2 + 2) = 0;
+  *(a2 + 4) = 0;
+  *(a2 + 3) = 0;
   *a2 = *a3;
-  v28 = *(a3 + 32);
-  *(a2 + 16) = *(a3 + 16);
-  *(a2 + 32) = v28;
+  v28 = *(a3 + 4);
+  a2[1] = a3[1];
+  *(a2 + 4) = v28;
   *a3 = v69;
-  *(a3 + 16) = v26;
-  *(a3 + 24) = v73;
+  *(a3 + 2) = v26;
+  *(a3 + 3) = v73;
   *(a3 + 31) = *(&v73 + 7);
   *(a3 + 39) = v27;
   v29 = *a2 >= *a1;
-  if (*a2 != *a1 || (v30 = *(a2 + 8), v31 = *(a1 + 8), v29 = v30 >= v31, v30 != v31))
+  if (*a2 != *a1 || (v30 = *(a2 + 1), v31 = *(a1 + 1), v29 = v30 >= v31, v30 != v31))
   {
     if (v29)
     {
@@ -9771,17 +9663,17 @@ uint64_t std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void
 
   else
   {
-    v61 = *(a2 + 24);
+    v61 = *(a2 + 3);
   }
 
   if (v60 >= 0)
   {
-    v62 = (a2 + 16);
+    v62 = a2 + 1;
   }
 
   else
   {
-    v62 = *(a2 + 16);
+    v62 = *(a2 + 2);
   }
 
   if (v59 >= 0)
@@ -9791,17 +9683,17 @@ uint64_t std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void
 
   else
   {
-    v63 = *(a1 + 24);
+    v63 = *(a1 + 3);
   }
 
   if (v59 >= 0)
   {
-    v64 = (a1 + 16);
+    v64 = a1 + 1;
   }
 
   else
   {
-    v64 = *(a1 + 16);
+    v64 = *(a1 + 2);
   }
 
   if (v63 >= v61)
@@ -9825,23 +9717,315 @@ uint64_t std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void
   {
 LABEL_13:
     v70 = *a1;
-    v32 = *(a1 + 16);
-    *&v74 = *(a1 + 24);
+    v32 = *(a1 + 2);
+    *&v74 = *(a1 + 3);
     *(&v74 + 7) = *(a1 + 31);
     v33 = *(a1 + 39);
-    *(a1 + 24) = 0;
-    *(a1 + 32) = 0;
-    *(a1 + 16) = 0;
+    *(a1 + 3) = 0;
+    *(a1 + 4) = 0;
+    *(a1 + 2) = 0;
     *a1 = *a2;
-    v34 = *(a2 + 32);
-    *(a1 + 16) = *(a2 + 16);
-    *(a1 + 32) = v34;
+    v34 = *(a2 + 4);
+    a1[1] = a2[1];
+    *(a1 + 4) = v34;
     *a2 = v70;
-    *(a2 + 16) = v32;
-    *(a2 + 24) = v74;
+    *(a2 + 2) = v32;
+    *(a2 + 3) = v74;
     *(a2 + 31) = *(&v74 + 7);
     *(a2 + 39) = v33;
   }
 
   return result;
+}
+
+void std::__insertion_sort[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,llvm::SMFixIt *>(uint64_t a1, uint64_t a2)
+{
+  if (a1 != a2)
+  {
+    v62 = v2;
+    v63 = v3;
+    v4 = a2;
+    v6 = a1 + 40;
+    if (a1 + 40 != a2)
+    {
+      v7 = 0;
+      v8 = v60;
+      v9 = a1;
+      do
+      {
+        v10 = v9;
+        v9 = v6;
+        v12 = *(v10 + 40);
+        v13 = v12 >= *v10;
+        if (v12 == *v10 && (v14 = *(v10 + 48), v15 = *(v10 + 8), v13 = v14 >= v15, v14 == v15))
+        {
+          v41 = *(v10 + 39);
+          v42 = *(v10 + 79);
+          if (v42 >= 0)
+          {
+            v43 = (v10 + 56);
+          }
+
+          else
+          {
+            v43 = *(v10 + 56);
+          }
+
+          if (v42 >= 0)
+          {
+            v44 = *(v10 + 79);
+          }
+
+          else
+          {
+            v44 = *(v10 + 64);
+          }
+
+          if (v41 >= 0)
+          {
+            v45 = *(v10 + 39);
+          }
+
+          else
+          {
+            v45 = *(v10 + 24);
+          }
+
+          if (v41 >= 0)
+          {
+            v46 = (v10 + 16);
+          }
+
+          else
+          {
+            v46 = *(v10 + 16);
+          }
+
+          if (v45 >= v44)
+          {
+            v47 = v44;
+          }
+
+          else
+          {
+            v47 = v45;
+          }
+
+          v48 = memcmp(v43, v46, v47);
+          v13 = v44 >= v45;
+          v4 = a2;
+          v49 = !v13;
+          if (v48)
+          {
+            v49 = v48 < 0;
+          }
+
+          if (!v49)
+          {
+            goto LABEL_6;
+          }
+        }
+
+        else if (v13)
+        {
+          goto LABEL_6;
+        }
+
+        v59 = *v9;
+        v8[2] = *(v10 + 72);
+        *v8 = *(v10 + 56);
+        *(v10 + 56) = 0;
+        *(v10 + 64) = 0;
+        *(v10 + 72) = 0;
+        v16 = *(&v59 + 1);
+        if ((v61 & 0x80u) == 0)
+        {
+          v17 = v61;
+        }
+
+        else
+        {
+          v17 = v60[1];
+        }
+
+        if ((v61 & 0x80u) == 0)
+        {
+          v18 = v8;
+        }
+
+        else
+        {
+          v18 = v60[0];
+        }
+
+        v57 = v18;
+        v58 = v17;
+        v19 = *(v9 + 39);
+        *v9 = *v10;
+        if (v19 < 0)
+        {
+          operator delete(*(v9 + 16));
+        }
+
+        v20 = v10 + 16;
+        *(v9 + 16) = *(v10 + 16);
+        *(v9 + 32) = *(v10 + 32);
+        *(v10 + 39) = 0;
+        *(v10 + 16) = 0;
+        if (v10 == a1)
+        {
+          v10 = a1;
+        }
+
+        else
+        {
+          v21 = *(v10 - 40);
+          v22 = v59 >= v21;
+          if (v59 == v21 && (v23 = *(v10 - 32), v22 = *(&v59 + 1) >= v23, *(&v59 + 1) == v23))
+          {
+            v50 = *(v10 - 1);
+            if (v50 >= 0)
+            {
+              v51 = *(v10 - 1);
+            }
+
+            else
+            {
+              v51 = *(v10 - 16);
+            }
+
+            if (v50 >= 0)
+            {
+              v52 = (v10 - 24);
+            }
+
+            else
+            {
+              v52 = *(v10 - 24);
+            }
+
+            if (v51 >= v58)
+            {
+              v53 = v58;
+            }
+
+            else
+            {
+              v53 = v51;
+            }
+
+            v54 = memcmp(v57, v52, v53);
+            v13 = v58 >= v51;
+            v4 = a2;
+            v55 = !v13;
+            if (v54)
+            {
+              v55 = v54 < 0;
+            }
+
+            if (v55)
+            {
+LABEL_22:
+              for (i = v7; ; i -= 40)
+              {
+                v25 = a1 + i;
+                v26 = *(a1 + i - 24);
+                *v25 = *(a1 + i - 40);
+                *(v25 + 16) = v26;
+                *(v25 + 32) = *(a1 + i - 8);
+                *(v25 - 1) = 0;
+                *(v25 - 24) = 0;
+                if (i == 40)
+                {
+                  break;
+                }
+
+                v27 = *(v25 - 80);
+                v28 = v59 >= v27;
+                if (v59 == v27 && (v29 = a1 + i, v30 = *(a1 + i - 72), v28 = v16 >= v30, v16 == v30))
+                {
+                  v33 = *(v29 - 64);
+                  v31 = v29 - 64;
+                  v32 = v33;
+                  v34 = *(v31 + 23);
+                  v35 = v8;
+                  if (v34 >= 0)
+                  {
+                    v36 = *(v31 + 23);
+                  }
+
+                  else
+                  {
+                    v36 = *(v31 + 8);
+                  }
+
+                  if (v34 >= 0)
+                  {
+                    v37 = v31;
+                  }
+
+                  else
+                  {
+                    v37 = v32;
+                  }
+
+                  if (v36 >= v58)
+                  {
+                    v38 = v58;
+                  }
+
+                  else
+                  {
+                    v38 = v36;
+                  }
+
+                  v39 = memcmp(v57, v37, v38);
+                  v13 = v58 >= v36;
+                  v8 = v35;
+                  v16 = *(&v59 + 1);
+                  v40 = !v13;
+                  if (v39)
+                  {
+                    v40 = v39 < 0;
+                  }
+
+                  if (!v40)
+                  {
+LABEL_43:
+                    v10 = a1 + i - 40;
+                    goto LABEL_67;
+                  }
+                }
+
+                else if (v28)
+                {
+                  goto LABEL_43;
+                }
+              }
+
+              v10 = a1;
+LABEL_67:
+              v20 = v25 - 24;
+              v4 = a2;
+            }
+          }
+
+          else if (!v22)
+          {
+            goto LABEL_22;
+          }
+        }
+
+        *v10 = v59;
+        v11 = *v8;
+        *(v20 + 16) = v8[2];
+        *v20 = v11;
+LABEL_6:
+        v6 = v9 + 40;
+        v7 += 40;
+      }
+
+      while (v9 + 40 != v4);
+    }
+  }
 }

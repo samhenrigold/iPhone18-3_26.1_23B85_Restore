@@ -34,7 +34,7 @@
 
 - (void)submit
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(&self->super._lock);
   if (!self->super.submitted)
   {
@@ -48,25 +48,23 @@
       acceptLogEvent2 = [(HMDSharedUserInviteAcceptLogEventBuilder *)selfCopy acceptLogEvent];
       error = [acceptLogEvent2 error];
       *buf = 138543874;
-      v16 = v6;
-      v17 = 2112;
-      v18 = acceptLogEvent;
-      v19 = 2112;
-      v20 = error;
+      v15 = v6;
+      v16 = 2112;
+      v17 = acceptLogEvent;
+      v18 = 2112;
+      v19 = error;
       _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Submitting shared user accept latency log event %@ error:%@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v3);
-    v14.receiver = selfCopy;
-    v14.super_class = HMDSharedUserInviteAcceptLogEventBuilder;
-    [(HMDSharedUserInviteLogEventBuilder *)&v14 submit];
+    v13.receiver = selfCopy;
+    v13.super_class = HMDSharedUserInviteAcceptLogEventBuilder;
+    [(HMDSharedUserInviteLogEventBuilder *)&v13 submit];
     homeManager = [(HMDSharedUserInviteAcceptLogEventBuilder *)selfCopy homeManager];
     acceptLogEvent3 = [(HMDSharedUserInviteAcceptLogEventBuilder *)selfCopy acceptLogEvent];
     homeUUID = [acceptLogEvent3 homeUUID];
     [homeManager removeSharedUserAcceptEventBuilderForHomeUuid:homeUUID];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isReady
@@ -154,16 +152,16 @@ LABEL_24:
 
 - (void)markResidentSyncEnd
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v22 = 138543362;
-    v23 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markResidentSyncEnd", &v22, 0xCu);
+    v21 = 138543362;
+    v22 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markResidentSyncEnd", &v21, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -217,21 +215,20 @@ LABEL_24:
   }
 
   os_unfair_lock_unlock(&selfCopy->super._lock);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markResidentSyncBegin
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markResidentSyncBegin", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markResidentSyncBegin", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -246,21 +243,20 @@ LABEL_24:
   }
 
   os_unfair_lock_unlock(&selfCopy->super._lock);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markDiscoverPrimaryResidentEnd
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v16 = 138543362;
-    v17 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markDiscoverPrimaryResidentEnd", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markDiscoverPrimaryResidentEnd", &v15, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -297,21 +293,20 @@ LABEL_24:
   }
 
   os_unfair_lock_unlock(&selfCopy->super._lock);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markDiscoverPrimaryResidentBegin
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markDiscoverPrimaryResidentBegin", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markDiscoverPrimaryResidentBegin", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -326,21 +321,20 @@ LABEL_24:
   }
 
   os_unfair_lock_unlock(&selfCopy->super._lock);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markCreatedHome
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v16 = 138543362;
-    v17 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markCreatedHome", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markCreatedHome", &v15, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -374,21 +368,20 @@ LABEL_24:
   }
 
   os_unfair_lock_unlock(&selfCopy->super._lock);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markSendAcceptanceToOwnerEnd
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v22 = 138543362;
-    v23 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markSendAcceptanceToOwnerEnd", &v22, 0xCu);
+    v21 = 138543362;
+    v22 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markSendAcceptanceToOwnerEnd", &v21, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -442,21 +435,20 @@ LABEL_24:
   }
 
   os_unfair_lock_unlock(&selfCopy->super._lock);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markSendAcceptanceToOwnerBegin
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markSendAcceptanceToOwnerBegin", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markSendAcceptanceToOwnerBegin", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -471,21 +463,20 @@ LABEL_24:
   }
 
   os_unfair_lock_unlock(&selfCopy->super._lock);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markAddUserEnd
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v16 = 138543362;
-    v17 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markAddUserEnd", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markAddUserEnd", &v15, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -522,21 +513,20 @@ LABEL_24:
   }
 
   os_unfair_lock_unlock(&selfCopy->super._lock);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markAddUserBegin
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markAddUserBegin", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markAddUserBegin", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -551,21 +541,20 @@ LABEL_24:
   }
 
   os_unfair_lock_unlock(&selfCopy->super._lock);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markCreateReverseShareEnd
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v16 = 138543362;
-    v17 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markCreateReverseShareEnd", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markCreateReverseShareEnd", &v15, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -602,21 +591,20 @@ LABEL_24:
   }
 
   os_unfair_lock_unlock(&selfCopy->super._lock);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markCreateReverseShareBegin
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markCreateReverseShareBegin", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markCreateReverseShareBegin", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -631,21 +619,20 @@ LABEL_24:
   }
 
   os_unfair_lock_unlock(&selfCopy->super._lock);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markCreateMKFCKSharedUserDataRootEnd
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v16 = 138543362;
-    v17 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markCreateMKFCKSharedUserDataRootEnd", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markCreateMKFCKSharedUserDataRootEnd", &v15, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -682,21 +669,20 @@ LABEL_24:
   }
 
   os_unfair_lock_unlock(&selfCopy->super._lock);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markCreateMKFCKSharedUserDataRootBegin
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markCreateMKFCKSharedUserDataRootBegin", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markCreateMKFCKSharedUserDataRootBegin", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -711,21 +697,20 @@ LABEL_24:
   }
 
   os_unfair_lock_unlock(&selfCopy->super._lock);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markJoinOwnerShareEnd
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v16 = 138543362;
-    v17 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markJoinOwnerShareEnd", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markJoinOwnerShareEnd", &v15, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -762,21 +747,20 @@ LABEL_24:
   }
 
   os_unfair_lock_unlock(&selfCopy->super._lock);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markJoinOwnerShareBegin
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markJoinOwnerShareBegin", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markJoinOwnerShareBegin", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -791,7 +775,6 @@ LABEL_24:
   }
 
   os_unfair_lock_unlock(&selfCopy->super._lock);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDSharedUserInviteAcceptLogEventBuilder)initWithHomeUUID:(id)d homeManager:(id)manager sessionIdentifier:(id)identifier invitationType:(unint64_t)type invitationAge:(double)age invitationSource:(unint64_t)source wifiManager:(id)wifiManager
@@ -862,12 +845,11 @@ id __149__HMDSharedUserInviteAcceptLogEventBuilder_initWithHomeUUID_homeManager_
 
 uint64_t __55__HMDSharedUserInviteAcceptLogEventBuilder_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v32_180669;
-  logCategory__hmf_once_v32_180669 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v32_180669;
+  logCategory__hmf_once_v32_180669 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

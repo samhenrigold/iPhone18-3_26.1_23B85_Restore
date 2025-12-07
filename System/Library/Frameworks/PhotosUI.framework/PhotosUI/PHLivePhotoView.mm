@@ -396,13 +396,21 @@ void __37__PHLivePhotoView__updateVideoFilter__block_invoke_2(uint64_t a1)
 - (void)setOverrideSRLCompensationAmount:(id)amount
 {
   amountCopy = amount;
-  if (self->_overrideSRLCompensationAmount != amountCopy && ([(NSNumber *)amountCopy isEqual:?]& 1) == 0)
+  v6 = amountCopy;
+  if (self->_overrideSRLCompensationAmount != amountCopy)
   {
-    objc_storeStrong(&self->_overrideSRLCompensationAmount, amount);
-    [(PHLivePhotoView *)self _updateVideoFilter];
+    v7 = amountCopy;
+    amountCopy = [amountCopy isEqual:?];
+    v6 = v7;
+    if ((amountCopy & 1) == 0)
+    {
+      objc_storeStrong(&self->_overrideSRLCompensationAmount, amount);
+      amountCopy = [(PHLivePhotoView *)self _updateVideoFilter];
+      v6 = v7;
+    }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](amountCopy, v6);
 }
 
 - (void)_updatePlayerTargetReadiness
@@ -706,7 +714,7 @@ void __37__PHLivePhotoView__updateVideoFilter__block_invoke_2(uint64_t a1)
 
 - (void)setLivePhoto:(PHLivePhoto *)livePhoto
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v5 = livePhoto;
   if (self->_livePhoto != v5)
   {
@@ -715,8 +723,8 @@ void __37__PHLivePhotoView__updateVideoFilter__block_invoke_2(uint64_t a1)
     {
       image = [(PHLivePhoto *)v5 image];
       videoAsset = [(PHLivePhoto *)v5 videoAsset];
-      [(PHLivePhoto *)v5 photoTime];
-      Seconds = CMTimeGetSeconds(&v46);
+      objc_msgSend_photoTime(v5);
+      Seconds = CMTimeGetSeconds(&v45);
       [image imageOrientation];
       v9 = PLExifOrientationFromImageOrientation();
       [(PHLivePhoto *)v5 targetSize];
@@ -775,13 +783,13 @@ void __37__PHLivePhotoView__updateVideoFilter__block_invoke_2(uint64_t a1)
             v37 = 1.0;
             if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
             {
-              LODWORD(v46.value) = 134218496;
-              *(&v46.value + 4) = v35;
-              LOWORD(v46.flags) = 2048;
-              *(&v46.flags + 2) = v36;
-              HIWORD(v46.epoch) = 2048;
-              v47 = 0x3FF0000000000000;
-              _os_log_fault_impl(&dword_1D2128000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "PFSizeGetAspectRatio produced an undefined aspect ratio from size {%lf, %lf}. Returning %f. Use PFSizeGetAspectRatioWithDefault() to provide a value for this case.", &v46, 0x20u);
+              LODWORD(v45.value) = 134218496;
+              *(&v45.value + 4) = v35;
+              LOWORD(v45.flags) = 2048;
+              *(&v45.flags + 2) = v36;
+              HIWORD(v45.epoch) = 2048;
+              v46 = 0x3FF0000000000000;
+              _os_log_fault_impl(&dword_1D2128000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "PFSizeGetAspectRatio produced an undefined aspect ratio from size {%lf, %lf}. Returning %f. Use PFSizeGetAspectRatioWithDefault() to provide a value for this case.", &v45, 0x20u);
             }
           }
 
@@ -817,8 +825,6 @@ void __37__PHLivePhotoView__updateVideoFilter__block_invoke_2(uint64_t a1)
     [(PHLivePhotoView *)self _setPlayerItem:v31];
     [(PHLivePhotoView *)self _updateDebugOverlayView];
   }
-
-  v45 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setScaleAnchorOffset:(CGPoint)offset

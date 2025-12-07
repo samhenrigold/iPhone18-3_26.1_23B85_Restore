@@ -242,9 +242,9 @@
 - (id)pointerInteraction:(id)interaction styleForRegion:(id)region
 {
   identifier = [region identifier];
-  v6 = [identifier isEqual:@"datePicker.date.all.pencil"];
+  isEqual = objc_msgSend_isEqual_(identifier);
 
-  if (v6)
+  if (isEqual)
   {
     v7 = objc_opt_new();
     backgroundView = [(_UIDatePickerCompactDateLabel *)self backgroundView];

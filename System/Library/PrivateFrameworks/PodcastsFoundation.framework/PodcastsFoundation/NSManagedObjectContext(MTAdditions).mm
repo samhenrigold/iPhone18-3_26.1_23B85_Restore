@@ -212,14 +212,14 @@ LABEL_6:
 
 - (id)valueForProperty:()MTAdditions objectUuid:entityName:
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = a4;
   v10 = a5;
   if ([v8 length] && objc_msgSend(v9, "length"))
   {
-    v16[0] = v8;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+    v15[0] = v8;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
     v12 = [self objectDictionaryForUuid:v9 propertiesToFetch:v11 entityName:v10];
 
     v13 = [v12 objectForKeyedSubscript:v8];
@@ -230,18 +230,16 @@ LABEL_6:
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 - (id)objectDictionaryForUuid:()MTAdditions entityName:byAddingComputedProperties:toFetchedObjectDictionary:
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v10 = a3;
-  v25 = a4;
+  v24 = a4;
   v11 = a5;
-  v27 = a6;
+  v26 = a6;
   if (![v10 length])
   {
     v12 = _MTLogCategoryDefault();
@@ -255,26 +253,26 @@ LABEL_6:
   if ([v10 length] && objc_msgSend(v11, "count"))
   {
     v13 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v11, "count")}];
-    v14 = [self objectForUuid:v10 entityName:v26];
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
+    v14 = [self objectForUuid:v10 entityName:v25];
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v15 = v11;
-    v16 = [v15 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v16)
     {
-      v17 = *v29;
+      v17 = *v28;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v29 != v17)
+          if (*v28 != v17)
           {
             objc_enumerationMutation(v15);
           }
 
-          v19 = *(*(&v28 + 1) + 8 * i);
+          v19 = *(*(&v27 + 1) + 8 * i);
           v20 = [v14 valueForKeyPath:v19];
           if (v20)
           {
@@ -282,7 +280,7 @@ LABEL_6:
           }
         }
 
-        v16 = [v15 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v16);
@@ -290,26 +288,24 @@ LABEL_6:
 
     if ([v13 count])
     {
-      v21 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v13, "count") + objc_msgSend(v27, "count")}];
-      [v21 addEntriesFromDictionary:v27];
+      v21 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v13, "count") + objc_msgSend(v26, "count")}];
+      [v21 addEntriesFromDictionary:v26];
       [v21 addEntriesFromDictionary:v13];
     }
 
     else
     {
-      v21 = v27;
+      v21 = v26;
     }
 
-    v22 = v27;
+    v22 = v26;
   }
 
   else
   {
-    v22 = v27;
-    v21 = v27;
+    v22 = v26;
+    v21 = v26;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
@@ -351,35 +347,34 @@ LABEL_6:
 
 - (id)titlesOfObjectsInEntity:()MTAdditions predicate:
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   v8 = [MEMORY[0x1E695D5E0] fetchRequestWithEntityName:v6];
   [v8 setPredicate:v7];
   v9 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"pubDate" ascending:0];
-  v24[0] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+  v23[0] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
   [v8 setSortDescriptors:v10];
 
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__2;
-  v22 = __Block_byref_object_dispose__2;
-  v23 = 0;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __73__NSManagedObjectContext_MTAdditions__titlesOfObjectsInEntity_predicate___block_invoke;
-  v15[3] = &unk_1E856A0A0;
-  v17 = &v18;
-  v15[4] = self;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__2;
+  v21 = __Block_byref_object_dispose__2;
+  v22 = 0;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __73__NSManagedObjectContext_MTAdditions__titlesOfObjectsInEntity_predicate___block_invoke;
+  v14[3] = &unk_1E856A0A0;
+  v16 = &v17;
+  v14[4] = self;
   v11 = v8;
-  v16 = v11;
-  [self performBlockAndWait:v15];
-  v12 = v19[5];
+  v15 = v11;
+  [self performBlockAndWait:v14];
+  v12 = v18[5];
 
-  _Block_object_dispose(&v18, 8);
-  v13 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v17, 8);
 
   return v12;
 }

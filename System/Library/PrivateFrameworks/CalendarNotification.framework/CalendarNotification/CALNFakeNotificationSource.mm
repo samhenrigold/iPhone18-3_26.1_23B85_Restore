@@ -49,9 +49,8 @@ void __104__CALNFakeNotificationSource_initWithNotificationManager_iconIdentifie
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, HandleDarwinNotification, @"com.apple.calendar.notifications.postFakeNotification", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
 }
 
-void __104__CALNFakeNotificationSource_initWithNotificationManager_iconIdentifierProvider_sourceIdentifierSuffix___block_invoke_2(uint64_t a1)
+void __104__CALNFakeNotificationSource_initWithNotificationManager_iconIdentifierProvider_sourceIdentifierSuffix___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   v3 = [objc_opt_class() _activeSources];
   [v3 addObject:*(a1 + 32)];
 }
@@ -124,15 +123,13 @@ void __49__CALNFakeNotificationSource__activeSourcesQueue__block_invoke()
 
 void __40__CALNFakeNotificationSource_categories__block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) sourceIdentifier];
   v2 = [CALNNotificationCategory categoryWithIdentifier:v1 actions:MEMORY[0x277CBEBF8] hiddenPreviewsBodyPlaceholder:@"Discrete" options:0];
-  v6[0] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[0] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   v4 = categories_categories_5;
   categories_categories_5 = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)contentForNotificationWithSourceClientIdentifier:(id)identifier

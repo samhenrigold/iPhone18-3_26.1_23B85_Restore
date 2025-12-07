@@ -571,27 +571,21 @@ LABEL_39:
 
 - (void)setLocale:(id)locale
 {
-  v4 = [locale copy];
-  locale = self->_locale;
-  self->_locale = v4;
+  self->_locale = [locale copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setLocalized_separator:(id)localized_separator
 {
-  v4 = [localized_separator copy];
-  localized_separator = self->_localized_separator;
-  self->_localized_separator = v4;
+  self->_localized_separator = [localized_separator copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setLocalized_index:(id)localized_index
 {
-  v4 = [localized_index copy];
-  localized_index = self->_localized_index;
-  self->_localized_index = v4;
+  self->_localized_index = [localized_index copy];
 
   MEMORY[0x1EEE66BB8]();
 }

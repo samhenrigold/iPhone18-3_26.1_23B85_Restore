@@ -103,32 +103,33 @@ LABEL_9:
 
 void __35__MRUArtworkController_setCatalog___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v8 = [WeakRetained delegate];
+  v9 = v8;
   if (v8)
   {
     if (v6)
     {
-      v9 = MCLogCategoryImageLoading();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = MCLogCategoryImageLoading(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v11 = 138412802;
-        v12 = objc_opt_class();
-        v13 = 2048;
-        v14 = WeakRetained;
-        v15 = 2114;
-        v16 = v6;
-        _os_log_impl(&dword_1A20FC000, v9, OS_LOG_TYPE_ERROR, "%@<%p> Image load failed with error: %{public}@.", &v11, 0x20u);
+        v12 = 138412802;
+        v13 = objc_opt_class();
+        v14 = 2048;
+        v15 = WeakRetained;
+        v16 = 2114;
+        v17 = v6;
+        _os_log_impl(&dword_1A20FC000, v10, OS_LOG_TYPE_ERROR, "%@<%p> Image load failed with error: %{public}@.", &v12, 0x20u);
       }
     }
 
-    v10 = [WeakRetained artworkTimer];
-    [v10 invalidate];
+    v11 = [WeakRetained artworkTimer];
+    [v11 invalidate];
 
-    [v8 controller:WeakRetained didLoadArtworkImage:v5];
+    [v9 controller:WeakRetained didLoadArtworkImage:v5];
   }
 }
 
@@ -137,7 +138,7 @@ void __35__MRUArtworkController_setCatalog___block_invoke_2(uint64_t a1)
   v13 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [WeakRetained delegate];
-  v4 = MCLogCategoryImageLoading();
+  v4 = MCLogCategoryImageLoading(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = objc_opt_class();

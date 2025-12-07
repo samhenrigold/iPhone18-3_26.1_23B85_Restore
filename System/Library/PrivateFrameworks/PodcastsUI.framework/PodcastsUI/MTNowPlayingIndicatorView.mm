@@ -461,7 +461,7 @@
               [v42 setValues:&unk_282CCBC70];
               [v42 setKeyTimes:&unk_282CCBC88];
               [v42 setCalculationMode:v57];
-              [v12 duration];
+              objc_msgSend_duration(v12);
               [v42 setDuration:?];
               [v12 beginTime];
               [v42 setBeginTime:?];
@@ -472,7 +472,7 @@
 
               [v43 setRemovedOnCompletion:0];
               [v43 setFillMode:v65];
-              [v12 duration];
+              objc_msgSend_duration(v12);
               [v43 setDuration:?];
               [v12 beginTime];
               [v43 setBeginTime:?];

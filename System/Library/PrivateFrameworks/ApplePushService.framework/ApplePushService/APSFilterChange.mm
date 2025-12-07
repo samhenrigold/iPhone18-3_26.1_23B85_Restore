@@ -34,21 +34,20 @@
 
 - (NSString)triggeringTopic
 {
-  v2 = (self + OBJC_IVAR___APSFilterChange_triggeringTopic);
+  v2 = self + OBJC_IVAR___APSFilterChange_triggeringTopic;
   swift_beginAccess();
-  if (v2[1])
+  if (*(v2 + 1))
   {
-    v3 = *v2;
 
-    v4 = String._bridgeToObjectiveC()();
+    v3 = String._bridgeToObjectiveC()();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (APSFilterChange)initWithChange:(int64_t)change triggeringTopic:(id)topic
@@ -87,7 +86,6 @@
 
   v7 = (self + OBJC_IVAR___APSFilterChange_triggeringTopic);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }

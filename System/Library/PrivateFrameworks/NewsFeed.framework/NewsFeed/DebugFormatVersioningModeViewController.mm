@@ -22,7 +22,7 @@
     swift_once();
   }
 
-  sub_1D62EAEB0();
+  sub_1D62EAEB0(0);
   swift_allocObject();
 
   *(&self->super.super.super.isa + v5) = sub_1D725977C();
@@ -159,7 +159,7 @@ LABEL_10:
   sub_1D7258D6C();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_1D62E9F98();
+  v13 = sub_1D62E9F98(viewCopy, v10);
 
   (*(v7 + 8))(v10, v6);
 

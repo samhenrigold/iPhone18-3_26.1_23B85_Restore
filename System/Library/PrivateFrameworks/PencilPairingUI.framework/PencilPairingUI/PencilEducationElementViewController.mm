@@ -513,7 +513,7 @@ LABEL_13:
         v52 = 0u;
         v53 = 0u;
         v51 = 0u;
-        [(PencilEducationElementViewController *)self transformForAnimationType:unsignedIntegerValue drawing:v11 bounds:v20, v22, v24, v26];
+        objc_msgSend_transformForAnimationType_drawing_bounds_(self, v20, v22, v24, v26);
         v29 = objc_alloc(MEMORY[0x277CD9608]);
         textField = [(PencilEducationElementViewController *)self textField];
         v50[0] = v51;
@@ -638,17 +638,17 @@ void __65__PencilEducationElementViewController_beginAnimationIfNecessary__block
   }
 }
 
-void __65__PencilEducationElementViewController_beginAnimationIfNecessary__block_invoke_2(uint64_t a1)
+void __65__PencilEducationElementViewController_beginAnimationIfNecessary__block_invoke_2(id *a1)
 {
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
-  if ([WeakRetained performAnimationAsyncIndex] == *(a1 + 48))
+  WeakRetained = objc_loadWeakRetained(a1 + 5);
+  if ([WeakRetained performAnimationAsyncIndex] == a1[6])
   {
     [WeakRetained beginAnimationIfNecessary];
   }
 
   else
   {
-    [*(a1 + 32) setIsRunningAnimationSequence:{objc_msgSend(*(a1 + 32), "hasRemainingAnimation")}];
+    [a1[4] setIsRunningAnimationSequence:{objc_msgSend(a1[4], "hasRemainingAnimation")}];
   }
 }
 
@@ -1202,23 +1202,19 @@ LABEL_4:
   *&retstr->tx = 0u;
   [(PencilEducationElementViewController *)self transformDrawing:boundsCopy toFitBounds:v14 dimension:drawing offset:x animationType:y, width];
   v17 = *&retstr->c;
-  *&v22.a = *&retstr->a;
-  *&v22.c = v17;
-  *&v22.tx = *&retstr->tx;
-  CGAffineTransformTranslate(&v23, &v22, 0.0, v16 * -0.5);
-  v18 = *&v23.c;
-  *&retstr->a = *&v23.a;
+  *&v21.a = *&retstr->a;
+  *&v21.c = v17;
+  *&v21.tx = *&retstr->tx;
+  CGAffineTransformTranslate(&v22, &v21, 0.0, v16 * -0.5);
+  v18 = *&v22.c;
+  *&retstr->a = *&v22.a;
   *&retstr->c = v18;
-  *&retstr->tx = *&v23.tx;
-  v19 = *&retstr->c;
-  *&v22.a = *&retstr->a;
-  *&v22.c = v19;
-  *&v22.tx = *&retstr->tx;
-  [(PencilEducationElementViewController *)self applyLocalizationScaleOffsetsIfNecesssaryForDrawing:boundsCopy animationType:drawing transform:&v22];
-  v20 = *&v23.c;
-  *&retstr->a = *&v23.a;
-  *&retstr->c = v20;
-  *&retstr->tx = *&v23.tx;
+  *&retstr->tx = *&v22.tx;
+  objc_msgSend_applyLocalizationScaleOffsetsIfNecesssaryForDrawing_animationType_transform_(self, *&retstr->a, *&retstr->b, *&retstr->c, *&retstr->d, *&retstr->tx, *&retstr->ty);
+  v19 = *&v22.c;
+  *&retstr->a = *&v22.a;
+  *&retstr->c = v19;
+  *&retstr->tx = *&v22.tx;
 
   return result;
 }

@@ -53,7 +53,7 @@
     preparedListing = self->_preparedListing;
     self->_preparedListing = _nextToyboxListing;
 
-    _objc_release_x1();
+    _objc_release_x1(_nextToyboxListing, preparedListing);
   }
 }
 
@@ -222,14 +222,14 @@ LABEL_7:
 {
   currentListing = self->_currentListing;
   self->_currentListing = 0;
-  _objc_release_x1();
+  _objc_release_x1(self, currentListing);
 }
 
 - (void)invalidatePreparedListing
 {
   preparedListing = self->_preparedListing;
   self->_preparedListing = 0;
-  _objc_release_x1();
+  _objc_release_x1(self, preparedListing);
 }
 
 - (void)startedPlayingListing:(id)listing
@@ -321,16 +321,15 @@ LABEL_9:
 {
   if (style > 3)
   {
-    v5 = 0;
+    v4 = 0;
   }
 
   else
   {
-    v4 = *(&off_C588 + style);
-    v5 = NTKImageNamedFromAssetsBundle();
+    v4 = NTKImageNamedFromAssetsBundle();
   }
 
-  return v5;
+  return v4;
 }
 
 - (id)currentComplicationColor
@@ -378,7 +377,7 @@ LABEL_9:
 
   else
   {
-    self = _toyboxComplicationColor();
+    self = _toyboxComplicationColor(self);
   }
 
   return self;

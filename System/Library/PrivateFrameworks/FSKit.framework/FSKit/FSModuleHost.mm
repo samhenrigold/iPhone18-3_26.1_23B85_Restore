@@ -125,7 +125,7 @@ void __36__FSModuleHost_setExtensionsLocked___block_invoke(uint64_t a1, void *a2
 
 void __48__FSModuleHost_installedExtensionPropertiesSync__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = [a3 attributes];
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v6 = MEMORY[0x277CCACA8];
@@ -158,27 +158,24 @@ void __48__FSModuleHost_installedExtensionPropertiesSync__block_invoke(uint64_t 
     {
       [v5 setValue:v13 forKey:@"FSMediaTypes"];
       [v5 setValue:v15 forKey:@"FSPersonalities"];
-      [*(a1 + 32) addObject:v5];
-      v16 = fskit_std_log();
+      v16 = fskit_std_log([*(a1 + 32) addObject:v5]);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v19 = v5;
+        v18 = v5;
         _os_log_impl(&dword_24A929000, v16, OS_LOG_TYPE_DEFAULT, "Found FSModule: %@", buf, 0xCu);
       }
     }
 
     else
     {
-      v16 = fskit_std_log();
+      v16 = fskit_std_log(v14);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         __48__FSModuleHost_installedExtensionPropertiesSync__block_invoke_cold_1();
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (FSModuleHost)initWithProbeList:(BOOL)list
@@ -246,17 +243,17 @@ uint64_t __36__FSModuleHost_Project__defaultHost__block_invoke(uint64_t a1)
 
 - (void)loadModulesFromEKit
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CC5DF8] extensionPointIdentifierQuery:@"com.apple.fskit.fsmodule"];
   if (v3)
   {
     v4 = [MEMORY[0x277CC5E00] executeQuery:v3];
-    v5 = fskit_std_log();
+    v5 = fskit_std_log(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = v4;
-      _os_log_impl(&dword_24A929000, v5, OS_LOG_TYPE_DEFAULT, "Found Extensions %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v4;
+      _os_log_impl(&dword_24A929000, v5, OS_LOG_TYPE_DEFAULT, "Found Extensions %@", &v7, 0xCu);
     }
 
     v6 = [v4 fs_map:&__block_literal_global_8];
@@ -265,27 +262,25 @@ uint64_t __36__FSModuleHost_Project__defaultHost__block_invoke(uint64_t a1)
 
   else
   {
-    v4 = fskit_std_log();
+    v4 = fskit_std_log(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [FSModuleHost(Project) loadModulesFromEKit];
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadModulesAndMonitor
 {
-  v3 = fskit_std_log();
+  v3 = fskit_std_log(self);
   v4 = os_signpost_id_make_with_pointer(v3, self);
 
-  v5 = fskit_std_log();
-  v6 = v5;
-  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  v6 = fskit_std_log(v5);
+  v7 = v6;
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_24A929000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "InitialEnumeration", "Initial enumeration of file system modules", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_24A929000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v4, "InitialEnumeration", "Initial enumeration of file system modules", buf, 2u);
   }
 
   if (_os_feature_enabled_impl())
@@ -299,19 +294,18 @@ uint64_t __36__FSModuleHost_Project__defaultHost__block_invoke(uint64_t a1)
   }
 
   callbackQueue = self->_callbackQueue;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __46__FSModuleHost_Project__loadModulesAndMonitor__block_invoke;
-  v8[3] = &unk_278FED1C8;
-  v8[4] = self;
-  v8[5] = v4;
-  dispatch_async(callbackQueue, v8);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __46__FSModuleHost_Project__loadModulesAndMonitor__block_invoke;
+  v9[3] = &unk_278FED1C8;
+  v9[4] = self;
+  v9[5] = v4;
+  dispatch_async(callbackQueue, v9);
 }
 
 void __46__FSModuleHost_Project__loadModulesAndMonitor__block_invoke(uint64_t a1)
 {
-  [*(a1 + 32) afterFirstDiscovery];
-  v2 = fskit_std_log();
+  v2 = fskit_std_log([*(a1 + 32) afterFirstDiscovery]);
   v3 = v2;
   v4 = *(a1 + 40);
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
@@ -323,7 +317,7 @@ void __46__FSModuleHost_Project__loadModulesAndMonitor__block_invoke(uint64_t a1
 
 - (void)observerDidObserveDatabaseChange:(id)change
 {
-  v4 = fskit_std_log();
+  v4 = fskit_std_log(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -341,7 +335,7 @@ void __46__FSModuleHost_Project__loadModulesAndMonitor__block_invoke(uint64_t a1
 
 - (void)loadModulesFromLSAndMonitor
 {
-  v3 = fskit_std_log();
+  v3 = fskit_std_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -366,25 +360,23 @@ void __46__FSModuleHost_Project__loadModulesAndMonitor__block_invoke(uint64_t a1
 
 - (id)extensionTypes
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v8[0] = @"com.apple.fskit.fsmodule";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
-  v3 = fskit_std_log();
+  v7[1] = *MEMORY[0x277D85DE8];
+  v7[0] = @"com.apple.fskit.fsmodule";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v3 = fskit_std_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_impl(&dword_24A929000, v3, OS_LOG_TYPE_DEFAULT, "Returning extension types %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_impl(&dword_24A929000, v3, OS_LOG_TYPE_DEFAULT, "Returning extension types %@", &v5, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 - (id)extensionPointRecords
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __46__FSModuleHost_Project__extensionPointRecords__block_invoke;
@@ -395,17 +387,15 @@ void __46__FSModuleHost_Project__loadModulesAndMonitor__block_invoke(uint64_t a1
     dispatch_once(&extensionPointRecords_onceToken, block);
   }
 
-  v2 = fskit_std_log();
+  v2 = fskit_std_log(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v7 = extensionPointRecords_ret;
+    v6 = extensionPointRecords_ret;
     _os_log_impl(&dword_24A929000, v2, OS_LOG_TYPE_DEFAULT, "returning ep records %@", buf, 0xCu);
   }
 
-  result = extensionPointRecords_ret;
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return extensionPointRecords_ret;
 }
 
 void __46__FSModuleHost_Project__extensionPointRecords__block_invoke(uint64_t a1)
@@ -440,16 +430,16 @@ void __46__FSModuleHost_Project__extensionPointRecords__block_invoke(uint64_t a1
         v12 = [v11 initWithIdentifier:v10 platform:2 error:&v19];
         v6 = v19;
 
-        v13 = fskit_std_log();
-        v14 = v13;
+        v14 = fskit_std_log(v13);
+        v15 = v14;
         if (v12)
         {
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
-            v15 = [v12 debugDescription];
+            v16 = [v12 debugDescription];
             *buf = 138412290;
-            v25 = v15;
-            _os_log_impl(&dword_24A929000, v14, OS_LOG_TYPE_DEFAULT, "Adding LS record %@", buf, 0xCu);
+            v25 = v16;
+            _os_log_impl(&dword_24A929000, v15, OS_LOG_TYPE_DEFAULT, "Adding LS record %@", buf, 0xCu);
           }
 
           [v2 addObject:v12];
@@ -457,7 +447,7 @@ void __46__FSModuleHost_Project__extensionPointRecords__block_invoke(uint64_t a1
 
         else
         {
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412802;
             v25 = v10;
@@ -465,7 +455,7 @@ void __46__FSModuleHost_Project__extensionPointRecords__block_invoke(uint64_t a1
             v27 = 2;
             v28 = 2112;
             v29 = v6;
-            _os_log_error_impl(&dword_24A929000, v14, OS_LOG_TYPE_ERROR, "Extension record %@ for platform %d missing: %@", buf, 0x1Cu);
+            _os_log_error_impl(&dword_24A929000, v15, OS_LOG_TYPE_ERROR, "Extension record %@ for platform %d missing: %@", buf, 0x1Cu);
           }
         }
 
@@ -485,39 +475,37 @@ void __46__FSModuleHost_Project__extensionPointRecords__block_invoke(uint64_t a1
     v6 = 0;
   }
 
-  v16 = [v2 copy];
-  v17 = extensionPointRecords_ret;
-  extensionPointRecords_ret = v16;
-
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = [v2 copy];
+  v18 = extensionPointRecords_ret;
+  extensionPointRecords_ret = v17;
 }
 
 - (void)forceSynchronousProviderUpdate
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v3 = objc_opt_new();
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   extensionPointRecords = [(FSModuleHost *)selfCopy extensionPointRecords];
-  v5 = [extensionPointRecords countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [extensionPointRecords countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       v7 = 0;
       do
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(extensionPointRecords);
         }
 
-        v8 = [MEMORY[0x277CC1E50] enumeratorWithExtensionPointRecord:*(*(&v14 + 1) + 8 * v7) options:0];
+        v8 = [MEMORY[0x277CC1E50] enumeratorWithExtensionPointRecord:*(*(&v13 + 1) + 8 * v7) options:0];
         allObjects = [v8 allObjects];
         [v3 addObjectsFromArray:allObjects];
 
@@ -525,7 +513,7 @@ void __46__FSModuleHost_Project__extensionPointRecords__block_invoke(uint64_t a1
       }
 
       while (v5 != v7);
-      v5 = [extensionPointRecords countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [extensionPointRecords countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
@@ -542,26 +530,25 @@ void __46__FSModuleHost_Project__extensionPointRecords__block_invoke(uint64_t a1
   }
 
   objc_sync_exit(selfCopy);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (unsigned)isValidModuleIdentifier:(id)identifier withError:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v6 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"/:"];
   v7 = [identifierCopy rangeOfCharacterFromSet:v6];
 
   if (v7 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v9 = fskit_std_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = fskit_std_log(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v15 = identifierCopy;
-      v16 = 2112;
-      v17 = @"/:";
-      _os_log_impl(&dword_24A929000, v9, OS_LOG_TYPE_DEFAULT, "Provider identifier '%@' may not contain any of the characters '%@'", buf, 0x16u);
+      v16 = identifierCopy;
+      v17 = 2112;
+      v18 = @"/:";
+      _os_log_impl(&dword_24A929000, v11, OS_LOG_TYPE_DEFAULT, "Provider identifier '%@' may not contain any of the characters '%@'", buf, 0x16u);
     }
 
     if (error)
@@ -571,21 +558,26 @@ void __46__FSModuleHost_Project__extensionPointRecords__block_invoke(uint64_t a1
     }
 
 LABEL_13:
-    v10 = 0;
+    v12 = 0;
     goto LABEL_15;
   }
 
-  if (([identifierCopy isEqualToString:@"."] & 1) == 0 && !objc_msgSend(identifierCopy, "isEqualToString:", @".."))
+  v9 = [identifierCopy isEqualToString:@"."];
+  if ((v9 & 1) == 0)
   {
-    v10 = 1;
-    goto LABEL_15;
+    v9 = [identifierCopy isEqualToString:@".."];
+    if (!v9)
+    {
+      v12 = 1;
+      goto LABEL_15;
+    }
   }
 
-  v8 = fskit_std_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v10 = fskit_std_log(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = identifierCopy;
+    v16 = identifierCopy;
   }
 
   if (!error)
@@ -594,11 +586,10 @@ LABEL_13:
   }
 
 LABEL_12:
-  *error = v10 = 0;
+  *error = v12 = 0;
 LABEL_15:
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v12;
 }
 
 - (void)_updateProviderListForMatchingExtensionRecords:(id)records
@@ -632,13 +623,13 @@ FSModuleInstance *__72__FSModuleHost_Project___updateProviderListForMatchingExte
 
 - (void)_updateProviderListForFilteredFSModuleInstances:(id)instances
 {
-  v100 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   instancesCopy = instances;
   v5 = objc_autoreleasePoolPush();
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v7 = objc_opt_new();
   allValues = [(NSDictionary *)self->_modulesByIdentifier allValues];
-  v75 = [allValues mutableCopy];
+  v73 = [allValues mutableCopy];
 
   v9 = [instancesCopy mutableCopy];
   v10 = MEMORY[0x277CBEB98];
@@ -648,282 +639,279 @@ FSModuleInstance *__72__FSModuleHost_Project___updateProviderListForMatchingExte
   selfCopy = self;
   self->_moduleUUIDs = v12;
 
-  v73 = [instancesCopy fs_map:&__block_literal_global_175];
-  v14 = fskit_std_log();
+  v71 = [instancesCopy fs_map:&__block_literal_global_175];
+  v14 = fskit_std_log(v71);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v99 = v73;
+    v97 = v71;
     _os_log_impl(&dword_24A929000, v14, OS_LOG_TYPE_DEFAULT, "New module list %@", buf, 0xCu);
   }
 
-  v76 = v7;
+  v74 = v7;
 
-  v15 = fskit_std_log();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = fskit_std_log(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     modulesByIdentifier = self->_modulesByIdentifier;
     *buf = 138412290;
-    v99 = modulesByIdentifier;
-    _os_log_impl(&dword_24A929000, v15, OS_LOG_TYPE_DEFAULT, "Old modules %@", buf, 0xCu);
+    v97 = modulesByIdentifier;
+    _os_log_impl(&dword_24A929000, v16, OS_LOG_TYPE_DEFAULT, "Old modules %@", buf, 0xCu);
   }
 
-  v93 = 0u;
-  v94 = 0u;
   v91 = 0u;
   v92 = 0u;
+  v89 = 0u;
+  v90 = 0u;
   obj = v9;
-  v17 = [obj countByEnumeratingWithState:&v91 objects:v97 count:16];
-  if (v17)
+  v18 = [obj countByEnumeratingWithState:&v89 objects:v95 count:16];
+  if (v18)
   {
-    v18 = v17;
-    v19 = *v92;
+    v19 = v18;
+    v20 = *v90;
     do
     {
-      for (i = 0; i != v18; ++i)
+      for (i = 0; i != v19; ++i)
       {
-        if (*v92 != v19)
+        if (*v90 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v91 + 1) + 8 * i);
-        bundleIdentifier = [(NSDictionary *)v21 bundleIdentifier];
+        v22 = *(*(&v89 + 1) + 8 * i);
+        bundleIdentifier = [(NSDictionary *)v22 bundleIdentifier];
         if (bundleIdentifier)
         {
-          v23 = [(NSDictionary *)selfCopy->_modulesByIdentifier objectForKeyedSubscript:bundleIdentifier];
-          v24 = v23;
-          if (v23 && [v23 isEqual:v21])
+          v24 = [(NSDictionary *)selfCopy->_modulesByIdentifier objectForKeyedSubscript:bundleIdentifier];
+          v25 = v24;
+          if (v24 && [v24 isEqual:v22])
           {
-            [v6 setObject:v24 forKeyedSubscript:bundleIdentifier];
-            [v75 removeObject:v24];
+            [v6 setObject:v25 forKeyedSubscript:bundleIdentifier];
+            [v73 removeObject:v25];
           }
 
           else
           {
-            [v6 setObject:v21 forKeyedSubscript:bundleIdentifier];
-            [v76 addObject:bundleIdentifier];
+            [v6 setObject:v22 forKeyedSubscript:bundleIdentifier];
+            [v74 addObject:bundleIdentifier];
           }
         }
 
         else
         {
-          v24 = fskit_std_log();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v25 = fskit_std_log(0);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v99 = v21;
-            _os_log_impl(&dword_24A929000, v24, OS_LOG_TYPE_DEFAULT, "%@: module has no bundle identifier", buf, 0xCu);
+            v97 = v22;
+            _os_log_impl(&dword_24A929000, v25, OS_LOG_TYPE_DEFAULT, "%@: module has no bundle identifier", buf, 0xCu);
           }
         }
       }
 
-      v18 = [obj countByEnumeratingWithState:&v91 objects:v97 count:16];
+      v19 = [obj countByEnumeratingWithState:&v89 objects:v95 count:16];
     }
 
-    while (v18);
+    while (v19);
   }
 
-  v25 = selfCopy;
+  v26 = selfCopy;
   [(FSModuleHost *)selfCopy setExtensionsByIdentifierLocked:v6];
-  v26 = &off_24A970000;
-  v27 = 0x277CBE000uLL;
+  v27 = &off_24A970000;
+  v28 = 0x277CBE000uLL;
   if (selfCopy->_moduleOrder)
   {
-    v28 = v76;
-    if ([v76 count] || objc_msgSend(v75, "count"))
+    v29 = v74;
+    if ([v74 count] || objc_msgSend(v73, "count"))
     {
-      v29 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:selfCopy->_moduleOrder];
-      v89[0] = MEMORY[0x277D85DD0];
-      v89[1] = 3221225472;
-      v89[2] = __73__FSModuleHost_Project___updateProviderListForFilteredFSModuleInstances___block_invoke_179;
-      v89[3] = &unk_278FED338;
-      v30 = v29;
-      v90 = v30;
-      [v75 enumerateObjectsUsingBlock:v89];
-      v31 = [objc_alloc(MEMORY[0x277CBEB58]) initWithArray:v76];
-      v32 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:selfCopy->_moduleOrder];
-      [v31 minusSet:v32];
+      v30 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:selfCopy->_moduleOrder];
+      v87[0] = MEMORY[0x277D85DD0];
+      v87[1] = 3221225472;
+      v87[2] = __73__FSModuleHost_Project___updateProviderListForFilteredFSModuleInstances___block_invoke_179;
+      v87[3] = &unk_278FED338;
+      v31 = v30;
+      v88 = v31;
+      [v73 enumerateObjectsUsingBlock:v87];
+      v32 = [objc_alloc(MEMORY[0x277CBEB58]) initWithArray:v74];
+      v33 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:selfCopy->_moduleOrder];
+      [v32 minusSet:v33];
 
-      v33 = [v31 count];
-      v71 = v33 != 0;
-      if (v33)
+      v34 = [v32 count];
+      v69 = v34 != 0;
+      if (v34)
       {
-        v67 = v5;
-        v69 = instancesCopy;
-        v87 = 0u;
-        v88 = 0u;
+        v65 = v5;
+        v67 = instancesCopy;
         v85 = 0u;
         v86 = 0u;
-        v74 = v31;
-        v34 = [v74 countByEnumeratingWithState:&v85 objects:v96 count:16];
-        if (v34)
+        v83 = 0u;
+        v84 = 0u;
+        v72 = v32;
+        v35 = [v72 countByEnumeratingWithState:&v83 objects:v94 count:16];
+        if (v35)
         {
-          v35 = v34;
-          v36 = *v86;
+          v36 = v35;
+          v37 = *v84;
           do
           {
-            for (j = 0; j != v35; ++j)
+            for (j = 0; j != v36; ++j)
             {
-              v38 = v31;
-              if (*v86 != v36)
+              v39 = v32;
+              if (*v84 != v37)
               {
-                objc_enumerationMutation(v74);
+                objc_enumerationMutation(v72);
               }
 
-              v39 = *(*(&v85 + 1) + 8 * j);
-              v40 = [v6 objectForKeyedSubscript:v39];
-              identity = [v40 identity];
+              v40 = *(*(&v83 + 1) + 8 * j);
+              v41 = [v6 objectForKeyedSubscript:v40];
+              identity = [v41 identity];
               isSystem = [identity isSystem];
 
               if (isSystem)
               {
-                [v30 addObject:v39];
+                [v31 addObject:v40];
               }
 
               else
               {
-                [v30 insertObject:v39 atIndex:0];
+                [v31 insertObject:v40 atIndex:0];
               }
 
-              v31 = v38;
+              v32 = v39;
             }
 
-            v35 = [v74 countByEnumeratingWithState:&v85 objects:v96 count:16];
+            v36 = [v72 countByEnumeratingWithState:&v83 objects:v94 count:16];
           }
 
-          while (v35);
+          while (v36);
         }
 
-        v5 = v67;
-        instancesCopy = v69;
-        v25 = selfCopy;
-        v27 = 0x277CBE000;
+        v5 = v65;
+        instancesCopy = v67;
+        v26 = selfCopy;
+        v28 = 0x277CBE000;
       }
 
-      v43 = [v30 copy];
-      moduleOrder = v25->_moduleOrder;
-      v25->_moduleOrder = v43;
+      v44 = [v31 copy];
+      moduleOrder = v26->_moduleOrder;
+      v26->_moduleOrder = v44;
 
-      v28 = v76;
-      v45 = v71;
-      v26 = &off_24A970000;
+      v29 = v74;
+      v46 = v69;
+      v27 = &off_24A970000;
     }
 
     else
     {
-      v45 = 0;
+      v46 = 0;
     }
   }
 
   else
   {
-    v45 = 0;
-    v28 = v76;
+    v46 = 0;
+    v29 = v74;
   }
 
-  if (v25->_enabledModules && ([v28 count] || objc_msgSend(v75, "count")))
+  if (v26->_enabledModules && ([v29 count] || objc_msgSend(v73, "count")))
   {
-    v72 = v45;
-    v46 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:v25->_enabledModules];
-    v83[0] = MEMORY[0x277D85DD0];
-    v83[1] = *(v26 + 479);
-    v83[2] = __73__FSModuleHost_Project___updateProviderListForFilteredFSModuleInstances___block_invoke_2_181;
-    v83[3] = &unk_278FED338;
-    v47 = v46;
-    v84 = v47;
-    [v75 enumerateObjectsUsingBlock:v83];
-    v48 = [objc_alloc(*(v27 + 2904)) initWithArray:v28];
-    v49 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v25->_enabledModules];
-    [v48 minusSet:v49];
+    v70 = v46;
+    v47 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:v26->_enabledModules];
+    v81[0] = MEMORY[0x277D85DD0];
+    v81[1] = *(v27 + 479);
+    v81[2] = __73__FSModuleHost_Project___updateProviderListForFilteredFSModuleInstances___block_invoke_2_181;
+    v81[3] = &unk_278FED338;
+    v48 = v47;
+    v82 = v48;
+    [v73 enumerateObjectsUsingBlock:v81];
+    v49 = [objc_alloc(*(v28 + 2904)) initWithArray:v29];
+    v50 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v26->_enabledModules];
+    [v49 minusSet:v50];
 
-    v50 = [v48 count];
-    v51 = v50 != 0;
-    if (v50)
+    v51 = [v49 count];
+    v52 = v51 != 0;
+    if (v51)
     {
-      v68 = v5;
-      v70 = instancesCopy;
-      v81 = 0u;
-      v82 = 0u;
+      v66 = v5;
+      v68 = instancesCopy;
       v79 = 0u;
       v80 = 0u;
-      v66 = v48;
-      v52 = v48;
-      v53 = [v52 countByEnumeratingWithState:&v79 objects:v95 count:16];
-      if (v53)
+      v77 = 0u;
+      v78 = 0u;
+      v64 = v49;
+      v53 = v49;
+      v54 = [v53 countByEnumeratingWithState:&v77 objects:v93 count:16];
+      if (v54)
       {
-        v54 = v53;
-        v55 = *v80;
+        v55 = v54;
+        v56 = *v78;
         do
         {
-          for (k = 0; k != v54; ++k)
+          for (k = 0; k != v55; ++k)
           {
-            if (*v80 != v55)
+            if (*v78 != v56)
             {
-              objc_enumerationMutation(v52);
+              objc_enumerationMutation(v53);
             }
 
-            v57 = *(*(&v79 + 1) + 8 * k);
-            v58 = [v6 objectForKeyedSubscript:v57];
-            identity2 = [v58 identity];
+            v58 = *(*(&v77 + 1) + 8 * k);
+            v59 = [v6 objectForKeyedSubscript:v58];
+            identity2 = [v59 identity];
             isEnabled = [identity2 isEnabled];
 
             if (isEnabled)
             {
-              [v47 addObject:v57];
+              [v48 addObject:v58];
             }
           }
 
-          v54 = [v52 countByEnumeratingWithState:&v79 objects:v95 count:16];
+          v55 = [v53 countByEnumeratingWithState:&v77 objects:v93 count:16];
         }
 
-        while (v54);
+        while (v55);
       }
 
-      v5 = v68;
-      instancesCopy = v70;
-      v25 = selfCopy;
-      v51 = 1;
-      v48 = v66;
+      v5 = v66;
+      instancesCopy = v68;
+      v26 = selfCopy;
+      v52 = 1;
+      v49 = v64;
     }
 
-    v61 = [v47 copy];
-    enabledModules = v25->_enabledModules;
-    v25->_enabledModules = v61;
+    v62 = [v48 copy];
+    enabledModules = v26->_enabledModules;
+    v26->_enabledModules = v62;
 
-    v28 = v76;
-    v45 = v72;
+    v29 = v74;
+    v46 = v70;
   }
 
   else
   {
-    v51 = 0;
+    v52 = 0;
   }
 
-  if (v25->_modulesUnloaded && [v75 count])
+  if (v26->_modulesUnloaded && [v73 count])
   {
-    v63 = v25->_moduleOrder;
-    (*(v25->_modulesUnloaded + 2))();
+    (*(v26->_modulesUnloaded + 2))();
   }
 
-  if (v25->_modulesLoaded && (([v28 count] == 0) & ~v45) == 0)
+  if (v26->_modulesLoaded && (([v29 count] == 0) & ~v46) == 0)
   {
-    v64 = v25->_moduleOrder;
-    (*(v25->_modulesLoaded + 2))();
+    (*(v26->_modulesLoaded + 2))();
   }
 
-  if (v45)
+  if (v46)
   {
-    [(FSModuleHost *)v25 saveProbeOrderList];
+    [(FSModuleHost *)v26 saveProbeOrderList];
   }
 
-  if (v51)
+  if (v52)
   {
-    [(FSModuleHost *)v25 saveEnabledList];
+    [(FSModuleHost *)v26 saveEnabledList];
   }
 
   objc_autoreleasePoolPop(v5);
-  v65 = *MEMORY[0x277D85DE8];
 }
 
 id __73__FSModuleHost_Project___updateProviderListForFilteredFSModuleInstances___block_invoke_2(uint64_t a1, void *a2)
@@ -958,10 +946,11 @@ void __73__FSModuleHost_Project___updateProviderListForFilteredFSModuleInstances
 
   if (probeOrderArray)
   {
-    v19 = 0;
-    defaultProbeOrderList = [objc_alloc(MEMORY[0x277CBEA60]) initWithContentsOfURL:probeOrderArray error:&v19];
-    v5 = v19;
-    if (defaultProbeOrderList)
+    v23 = 0;
+    v5 = [objc_alloc(MEMORY[0x277CBEA60]) initWithContentsOfURL:probeOrderArray error:&v23];
+    v6 = v23;
+    v7 = v6;
+    if (v5)
     {
       goto LABEL_20;
     }
@@ -969,41 +958,42 @@ void __73__FSModuleHost_Project___updateProviderListForFilteredFSModuleInstances
 
   else
   {
-    v6 = fskit_std_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = fskit_std_log(v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(FSModuleHost(Project) *)v6 loadProbeOrderList:v7];
+      [(FSModuleHost(Project) *)v8 loadProbeOrderList:v9];
     }
 
-    v5 = 0;
+    v7 = 0;
   }
 
-  v14 = fskit_std_log();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v16 = fskit_std_log(v6);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     [FSModuleHost(Project) loadProbeOrderList];
   }
 
   defaultProbeOrderList = [objc_opt_class() defaultProbeOrderList];
-  if (!v5)
+  v5 = defaultProbeOrderList;
+  if (!v7)
   {
-    v17 = fskit_std_log();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v21 = fskit_std_log(defaultProbeOrderList);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [FSModuleHost(Project) loadProbeOrderList];
     }
 
-    v5 = 0;
+    v7 = 0;
     goto LABEL_19;
   }
 
-  domain = [v5 domain];
+  domain = [v7 domain];
   if (![domain isEqualToString:*MEMORY[0x277CCA050]])
   {
 
 LABEL_17:
-    v17 = fskit_std_log();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v21 = fskit_std_log(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [FSModuleHost(Project) loadProbeOrderList];
     }
@@ -1013,7 +1003,7 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  code = [v5 code];
+  code = [v7 code];
 
   if (code != 260)
   {
@@ -1022,7 +1012,7 @@ LABEL_19:
 
 LABEL_20:
 
-  return defaultProbeOrderList;
+  return v5;
 }
 
 - (void)saveProbeOrderList
@@ -1032,24 +1022,24 @@ LABEL_20:
 
   if (!probeOrderArray)
   {
-    v7 = fskit_std_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = fskit_std_log(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(FSModuleHost(Project) *)v7 saveProbeOrderList:v9];
+      [(FSModuleHost(Project) *)v8 saveProbeOrderList:v10];
     }
 
     goto LABEL_8;
   }
 
   moduleOrder = self->_moduleOrder;
-  v16 = 0;
-  [(NSArray *)moduleOrder writeToURL:probeOrderArray error:&v16];
-  v6 = v16;
-  if (v6)
+  v17 = 0;
+  [(NSArray *)moduleOrder writeToURL:probeOrderArray error:&v17];
+  v7 = v17;
+  if (v7)
   {
-    v7 = v6;
-    v8 = fskit_std_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v8 = v7;
+    v9 = fskit_std_log(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [FSModuleHost(Project) saveProbeOrderList];
     }
@@ -1065,10 +1055,11 @@ LABEL_8:
 
   if (enabledModulesArray)
   {
-    v19 = 0;
-    defaultProbeOrderList = [objc_alloc(MEMORY[0x277CBEA60]) initWithContentsOfURL:enabledModulesArray error:&v19];
-    v5 = v19;
-    if (defaultProbeOrderList)
+    v23 = 0;
+    v5 = [objc_alloc(MEMORY[0x277CBEA60]) initWithContentsOfURL:enabledModulesArray error:&v23];
+    v6 = v23;
+    v7 = v6;
+    if (v5)
     {
       goto LABEL_20;
     }
@@ -1076,41 +1067,42 @@ LABEL_8:
 
   else
   {
-    v6 = fskit_std_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = fskit_std_log(v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(FSModuleHost(Project) *)v6 loadEnabledList:v7];
+      [(FSModuleHost(Project) *)v8 loadEnabledList:v9];
     }
 
-    v5 = 0;
+    v7 = 0;
   }
 
-  v14 = fskit_std_log();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v16 = fskit_std_log(v6);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     [FSModuleHost(Project) loadEnabledList];
   }
 
   defaultProbeOrderList = [objc_opt_class() defaultProbeOrderList];
-  if (!v5)
+  v5 = defaultProbeOrderList;
+  if (!v7)
   {
-    v17 = fskit_std_log();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v21 = fskit_std_log(defaultProbeOrderList);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [FSModuleHost(Project) loadEnabledList];
     }
 
-    v5 = 0;
+    v7 = 0;
     goto LABEL_19;
   }
 
-  domain = [v5 domain];
+  domain = [v7 domain];
   if (![domain isEqualToString:*MEMORY[0x277CCA050]])
   {
 
 LABEL_17:
-    v17 = fskit_std_log();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v21 = fskit_std_log(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [FSModuleHost(Project) loadEnabledList];
     }
@@ -1120,7 +1112,7 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  code = [v5 code];
+  code = [v7 code];
 
   if (code != 260)
   {
@@ -1129,7 +1121,7 @@ LABEL_19:
 
 LABEL_20:
 
-  return defaultProbeOrderList;
+  return v5;
 }
 
 - (void)saveEnabledList
@@ -1139,24 +1131,24 @@ LABEL_20:
 
   if (!enabledModulesArray)
   {
-    v7 = fskit_std_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = fskit_std_log(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(FSModuleHost(Project) *)v7 saveEnabledList:v9];
+      [(FSModuleHost(Project) *)v8 saveEnabledList:v10];
     }
 
     goto LABEL_8;
   }
 
   enabledModules = self->_enabledModules;
-  v16 = 0;
-  [(NSArray *)enabledModules writeToURL:enabledModulesArray error:&v16];
-  v6 = v16;
-  if (v6)
+  v17 = 0;
+  [(NSArray *)enabledModules writeToURL:enabledModulesArray error:&v17];
+  v7 = v17;
+  if (v7)
   {
-    v7 = v6;
-    v8 = fskit_std_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v8 = v7;
+    v9 = fskit_std_log(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [FSModuleHost(Project) saveEnabledList];
     }
@@ -1243,15 +1235,13 @@ LABEL_8:
   [(NSCondition *)queryLock unlock];
   v9 = v5;
 
-  v10 = fskit_std_log();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = fskit_std_log(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138412290;
     v14 = v9;
-    _os_log_impl(&dword_24A929000, v10, OS_LOG_TYPE_DEFAULT, "Returning module array %@", &v13, 0xCu);
+    _os_log_impl(&dword_24A929000, v11, OS_LOG_TYPE_DEFAULT, "Returning module array %@", &v13, 0xCu);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -1345,7 +1335,7 @@ LABEL_8:
 
   else
   {
-    v13 = fskit_std_log();
+    v13 = fskit_std_log(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [(FSModuleHost(Project) *)v13 addBundleToEnableModules:v14, v15, v16, v17, v18, v19, v20];
@@ -1382,7 +1372,7 @@ LABEL_8:
 
   else
   {
-    v13 = fskit_std_log();
+    v13 = fskit_std_log(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [(FSModuleHost(Project) *)v13 removeBundleFromEnabledModules:v14, v15, v16, v17, v18, v19, v20];

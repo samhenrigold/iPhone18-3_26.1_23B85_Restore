@@ -57,21 +57,19 @@
 
 void __23__NBManager_connection__block_invoke()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_286C4A978];
   v1 = connection_remoteObjectInterface;
   connection_remoteObjectInterface = v0;
 
   v2 = connection_remoteObjectInterface;
   v3 = MEMORY[0x277CBEB98];
+  v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
-  v9 = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:3];
-  v5 = [v3 setWithArray:{v4, v7, v8}];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:3];
+  v5 = [v3 setWithArray:{v4, v6, v7}];
   [v2 setClasses:v5 forSelector:sel_listBackupsOfType_timeout_completionHandler_ argumentIndex:0 ofReply:1];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (NBManager)initWithQueue:(id)queue
@@ -158,7 +156,7 @@ void __23__NBManager_connection__block_invoke_81(uint64_t a1)
 
 - (void)listBackupsOfType:(unint64_t)type timeout:(int64_t)timeout completionHandler:(id)handler
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v9 = nb_framework_log;
   if (os_log_type_enabled(nb_framework_log, OS_LOG_TYPE_DEFAULT))
@@ -172,8 +170,8 @@ void __23__NBManager_connection__block_invoke_81(uint64_t a1)
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v26 = 0x2020000000;
-  v27 = 0;
+  v25 = 0x2020000000;
+  v26 = 0;
   if (!handlerCopy)
   {
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"nil replyBlock"];
@@ -188,42 +186,41 @@ void __23__NBManager_connection__block_invoke_81(uint64_t a1)
     block[3] = &unk_27992D6C8;
     p_buf = &buf;
     typeCopy = type;
-    v22 = handlerCopy;
+    v21 = handlerCopy;
     dispatch_after(v12, MEMORY[0x277D85CD0], block);
   }
 
   objc_initWeak(&location, self);
   internalQueue = self->_internalQueue;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __57__NBManager_listBackupsOfType_timeout_completionHandler___block_invoke_87;
-  v16[3] = &unk_27992D790;
-  objc_copyWeak(v19, &location);
-  v19[1] = type;
-  v19[2] = timeout;
-  v17 = handlerCopy;
-  v18 = &buf;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __57__NBManager_listBackupsOfType_timeout_completionHandler___block_invoke_87;
+  v15[3] = &unk_27992D790;
+  objc_copyWeak(v18, &location);
+  v18[1] = type;
+  v18[2] = timeout;
+  v16 = handlerCopy;
+  v17 = &buf;
   v14 = handlerCopy;
-  dispatch_async(internalQueue, v16);
+  dispatch_async(internalQueue, v15);
 
-  objc_destroyWeak(v19);
+  objc_destroyWeak(v18);
   objc_destroyWeak(&location);
   _Block_object_dispose(&buf, 8);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __57__NBManager_listBackupsOfType_timeout_completionHandler___block_invoke(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if ((*(*(a1[5] + 8) + 24) & 1) == 0)
   {
     v2 = nb_framework_log;
     if (os_log_type_enabled(nb_framework_log, OS_LOG_TYPE_DEFAULT))
     {
       v3 = a1[6];
-      v7 = 134217984;
-      v8 = v3;
-      _os_log_impl(&dword_25AEFA000, v2, OS_LOG_TYPE_DEFAULT, "timed out waiting for result from backup daemon for type: %lu", &v7, 0xCu);
+      v6 = 134217984;
+      v7 = v3;
+      _os_log_impl(&dword_25AEFA000, v2, OS_LOG_TYPE_DEFAULT, "timed out waiting for result from backup daemon for type: %lu", &v6, 0xCu);
     }
 
     *(*(a1[5] + 8) + 24) = 1;
@@ -231,8 +228,6 @@ void __57__NBManager_listBackupsOfType_timeout_completionHandler___block_invoke(
     v5 = NBError(4);
     (*(v4 + 16))(v4, 0, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __57__NBManager_listBackupsOfType_timeout_completionHandler___block_invoke_87(uint64_t a1)
@@ -267,13 +262,13 @@ void __57__NBManager_listBackupsOfType_timeout_completionHandler___block_invoke_
 
 void __57__NBManager_listBackupsOfType_timeout_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = nb_framework_log;
   if (os_log_type_enabled(nb_framework_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = v3;
+    v12 = v3;
     _os_log_impl(&dword_25AEFA000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
   }
 
@@ -282,21 +277,19 @@ void __57__NBManager_listBackupsOfType_timeout_completionHandler___block_invoke_
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __57__NBManager_listBackupsOfType_timeout_completionHandler___block_invoke_88;
-    v9[3] = &unk_27992D6F0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __57__NBManager_listBackupsOfType_timeout_completionHandler___block_invoke_88;
+    v8[3] = &unk_27992D6F0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __57__NBManager_listBackupsOfType_timeout_completionHandler___block_invoke_2_90(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = *(*(a1 + 40) + 8);
@@ -318,11 +311,11 @@ void __57__NBManager_listBackupsOfType_timeout_completionHandler___block_invoke_
     {
       v10 = v9;
       *buf = 134218498;
-      v20 = v5;
-      v21 = 2048;
-      v22 = [v5 count];
-      v23 = 2112;
-      v24 = v6;
+      v19 = v5;
+      v20 = 2048;
+      v21 = [v5 count];
+      v22 = 2112;
+      v23 = v6;
       _os_log_impl(&dword_25AEFA000, v10, OS_LOG_TYPE_DEFAULT, "backups: (%p has %lu objects); error: (%@)", buf, 0x20u);
     }
 
@@ -335,19 +328,17 @@ void __57__NBManager_listBackupsOfType_timeout_completionHandler___block_invoke_
       block[1] = 3221225472;
       block[2] = __57__NBManager_listBackupsOfType_timeout_completionHandler___block_invoke_91;
       block[3] = &unk_27992D740;
-      v18 = *(a1 + 32);
-      v16 = v5;
-      v17 = v6;
+      v17 = *(a1 + 32);
+      v15 = v5;
+      v16 = v6;
       dispatch_async(v13, block);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setBackupsEnabled:(BOOL)enabled completionHandler:(id)handler
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v7 = nb_framework_log;
   if (os_log_type_enabled(nb_framework_log, OS_LOG_TYPE_DEFAULT))
@@ -355,7 +346,7 @@ void __57__NBManager_listBackupsOfType_timeout_completionHandler___block_invoke_
     v8 = v7;
     v9 = MEMORY[0x25F85B950](handlerCopy);
     *buf = 134217984;
-    v18 = v9;
+    v17 = v9;
     _os_log_impl(&dword_25AEFA000, v8, OS_LOG_TYPE_DEFAULT, "replyBlock: (%p)", buf, 0xCu);
   }
 
@@ -370,15 +361,14 @@ void __57__NBManager_listBackupsOfType_timeout_completionHandler___block_invoke_
   block[1] = 3221225472;
   block[2] = __49__NBManager_setBackupsEnabled_completionHandler___block_invoke;
   block[3] = &unk_27992D7E0;
-  objc_copyWeak(&v15, buf);
-  v14 = handlerCopy;
+  objc_copyWeak(&v14, buf);
+  v13 = handlerCopy;
   enabledCopy = enabled;
   v11 = handlerCopy;
   dispatch_async(internalQueue, block);
 
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v14);
   objc_destroyWeak(buf);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __49__NBManager_setBackupsEnabled_completionHandler___block_invoke(uint64_t a1)
@@ -412,13 +402,13 @@ void __49__NBManager_setBackupsEnabled_completionHandler___block_invoke(uint64_t
 
 void __49__NBManager_setBackupsEnabled_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = nb_framework_log;
   if (os_log_type_enabled(nb_framework_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = v3;
+    v12 = v3;
     _os_log_impl(&dword_25AEFA000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
   }
 
@@ -427,28 +417,26 @@ void __49__NBManager_setBackupsEnabled_completionHandler___block_invoke_2(uint64
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __49__NBManager_setBackupsEnabled_completionHandler___block_invoke_93;
-    v9[3] = &unk_27992D6F0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __49__NBManager_setBackupsEnabled_completionHandler___block_invoke_93;
+    v8[3] = &unk_27992D6F0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __49__NBManager_setBackupsEnabled_completionHandler___block_invoke_2_94(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = nb_framework_log;
   if (os_log_type_enabled(nb_framework_log, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 48);
     *buf = 67109120;
-    v14 = v5;
+    v13 = v5;
     _os_log_impl(&dword_25AEFA000, v4, OS_LOG_TYPE_DEFAULT, "Backups enabled set to: %d", buf, 8u);
   }
 
@@ -457,16 +445,14 @@ void __49__NBManager_setBackupsEnabled_completionHandler___block_invoke_2_94(uin
   if (WeakRetained)
   {
     v8 = [WeakRetained externalQueue];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __49__NBManager_setBackupsEnabled_completionHandler___block_invoke_95;
-    v10[3] = &unk_27992D6F0;
-    v12 = *(a1 + 32);
-    v11 = v3;
-    dispatch_async(v8, v10);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __49__NBManager_setBackupsEnabled_completionHandler___block_invoke_95;
+    v9[3] = &unk_27992D6F0;
+    v11 = *(a1 + 32);
+    v10 = v3;
+    dispatch_async(v8, v9);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)getBackupsStatus
@@ -488,7 +474,7 @@ void __49__NBManager_setBackupsEnabled_completionHandler___block_invoke_2_94(uin
 
 - (void)listBackupsOfType:(unint64_t)type withSynchronousCompletionHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v7 = nb_framework_log;
   if (os_log_type_enabled(nb_framework_log, OS_LOG_TYPE_DEFAULT))
@@ -510,30 +496,29 @@ void __49__NBManager_setBackupsEnabled_completionHandler___block_invoke_2_94(uin
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v20 = __Block_byref_object_copy_;
-  v21 = __Block_byref_object_dispose_;
-  v22 = 0;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy_;
-  v17 = __Block_byref_object_dispose_;
-  v18 = 0;
+  v19 = __Block_byref_object_copy_;
+  v20 = __Block_byref_object_dispose_;
+  v21 = 0;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy_;
+  v16 = __Block_byref_object_dispose_;
+  v17 = 0;
   internalQueue = self->_internalQueue;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __64__NBManager_listBackupsOfType_withSynchronousCompletionHandler___block_invoke;
-  v12[3] = &unk_27992D858;
-  v12[4] = self;
-  v12[5] = &v13;
-  v12[6] = buf;
-  v12[7] = type;
-  dispatch_sync(internalQueue, v12);
-  handlerCopy[2](handlerCopy, *(*&buf[8] + 40), v14[5]);
-  _Block_object_dispose(&v13, 8);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __64__NBManager_listBackupsOfType_withSynchronousCompletionHandler___block_invoke;
+  v11[3] = &unk_27992D858;
+  v11[4] = self;
+  v11[5] = &v12;
+  v11[6] = buf;
+  v11[7] = type;
+  dispatch_sync(internalQueue, v11);
+  handlerCopy[2](handlerCopy, *(*&buf[8] + 40), v13[5]);
+  _Block_object_dispose(&v12, 8);
 
   _Block_object_dispose(buf, 8);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __64__NBManager_listBackupsOfType_withSynchronousCompletionHandler___block_invoke(uint64_t a1)
@@ -557,39 +542,37 @@ void __64__NBManager_listBackupsOfType_withSynchronousCompletionHandler___block_
 
 void __64__NBManager_listBackupsOfType_withSynchronousCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = nb_framework_log;
   if (os_log_type_enabled(nb_framework_log, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_25AEFA000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_25AEFA000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", &v7, 0xCu);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __64__NBManager_listBackupsOfType_withSynchronousCompletionHandler___block_invoke_96(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = nb_framework_log;
   if (os_log_type_enabled(nb_framework_log, OS_LOG_TYPE_DEFAULT))
   {
     v8 = v7;
-    v15 = 134218498;
-    v16 = v5;
-    v17 = 2048;
-    v18 = [v5 count];
-    v19 = 2112;
-    v20 = v6;
-    _os_log_impl(&dword_25AEFA000, v8, OS_LOG_TYPE_DEFAULT, "backups: (%p has %lu objects); error: (%@)", &v15, 0x20u);
+    v14 = 134218498;
+    v15 = v5;
+    v16 = 2048;
+    v17 = [v5 count];
+    v18 = 2112;
+    v19 = v6;
+    _os_log_impl(&dword_25AEFA000, v8, OS_LOG_TYPE_DEFAULT, "backups: (%p has %lu objects); error: (%@)", &v14, 0x20u);
   }
 
   v9 = *(*(a1 + 32) + 8);
@@ -600,13 +583,11 @@ void __64__NBManager_listBackupsOfType_withSynchronousCompletionHandler___block_
   v12 = *(*(a1 + 40) + 8);
   v13 = *(v12 + 40);
   *(v12 + 40) = v6;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)restoreFromBackup:(id)backup forDevice:(id)device completionHandler:(id)handler
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   backupCopy = backup;
   deviceCopy = device;
   handlerCopy = handler;
@@ -620,15 +601,15 @@ void __64__NBManager_listBackupsOfType_withSynchronousCompletionHandler___block_
     uUIDString2 = [v12 UUIDString];
     v17 = MEMORY[0x25F85B950](handlerCopy);
     *buf = 134219010;
-    v29 = backupCopy;
-    v30 = 2112;
-    v31 = uUIDString;
-    v32 = 2048;
-    v33 = deviceCopy;
-    v34 = 2112;
-    v35 = uUIDString2;
-    v36 = 2048;
-    v37 = v17;
+    v28 = backupCopy;
+    v29 = 2112;
+    v30 = uUIDString;
+    v31 = 2048;
+    v32 = deviceCopy;
+    v33 = 2112;
+    v34 = uUIDString2;
+    v35 = 2048;
+    v36 = v17;
     _os_log_impl(&dword_25AEFA000, v14, OS_LOG_TYPE_DEFAULT, "backup: (%p); backupID: (%@); device: (%p); deviceID: (%@); replyBlock: (%p)", buf, 0x34u);
   }
 
@@ -659,15 +640,13 @@ LABEL_6:
   block[2] = __59__NBManager_restoreFromBackup_forDevice_completionHandler___block_invoke;
   block[3] = &unk_27992D8A8;
   block[4] = self;
-  v25 = backupCopy;
-  v26 = v12;
-  v27 = handlerCopy;
+  v24 = backupCopy;
+  v25 = v12;
+  v26 = handlerCopy;
   v20 = v12;
   v21 = backupCopy;
   v22 = handlerCopy;
   dispatch_async(internalQueue, block);
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __59__NBManager_restoreFromBackup_forDevice_completionHandler___block_invoke(uint64_t a1)
@@ -706,13 +685,13 @@ void __59__NBManager_restoreFromBackup_forDevice_completionHandler___block_invok
 
 void __59__NBManager_restoreFromBackup_forDevice_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = nb_framework_log;
   if (os_log_type_enabled(nb_framework_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = v3;
+    v12 = v3;
     _os_log_impl(&dword_25AEFA000, v4, OS_LOG_TYPE_DEFAULT, "restoreFromBackup error: (%@)", buf, 0xCu);
   }
 
@@ -723,22 +702,20 @@ void __59__NBManager_restoreFromBackup_forDevice_completionHandler___block_invok
     if (WeakRetained)
     {
       v7 = [WeakRetained externalQueue];
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __59__NBManager_restoreFromBackup_forDevice_completionHandler___block_invoke_103;
-      v9[3] = &unk_27992D6F0;
-      v11 = *(a1 + 32);
-      v10 = v3;
-      dispatch_async(v7, v9);
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = __59__NBManager_restoreFromBackup_forDevice_completionHandler___block_invoke_103;
+      v8[3] = &unk_27992D6F0;
+      v10 = *(a1 + 32);
+      v9 = v3;
+      dispatch_async(v7, v8);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __59__NBManager_restoreFromBackup_forDevice_completionHandler___block_invoke_2_104(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -746,7 +723,7 @@ void __59__NBManager_restoreFromBackup_forDevice_completionHandler___block_invok
     if (os_log_type_enabled(nb_framework_log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25AEFA000, v4, OS_LOG_TYPE_DEFAULT, "restoreFromBackup error: (%@)", buf, 0xCu);
     }
   }
@@ -758,22 +735,20 @@ void __59__NBManager_restoreFromBackup_forDevice_completionHandler___block_invok
     if (WeakRetained)
     {
       v7 = [WeakRetained externalQueue];
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __59__NBManager_restoreFromBackup_forDevice_completionHandler___block_invoke_105;
-      v9[3] = &unk_27992D6F0;
-      v11 = *(a1 + 32);
-      v10 = v3;
-      dispatch_async(v7, v9);
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = __59__NBManager_restoreFromBackup_forDevice_completionHandler___block_invoke_105;
+      v8[3] = &unk_27992D6F0;
+      v10 = *(a1 + 32);
+      v9 = v3;
+      dispatch_async(v7, v8);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)restoreFromBackup:(id)backup forDevice:(id)device
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   backupCopy = backup;
   deviceCopy = device;
   uuid = [backupCopy uuid];
@@ -789,9 +764,9 @@ void __59__NBManager_restoreFromBackup_forDevice_completionHandler___block_invok
     *&buf[12] = 2112;
     *&buf[14] = uUIDString;
     *&buf[22] = 2048;
-    v31 = deviceCopy;
-    LOWORD(v32) = 2112;
-    *(&v32 + 2) = uUIDString2;
+    v30 = deviceCopy;
+    LOWORD(v31) = 2112;
+    *(&v31 + 2) = uUIDString2;
     _os_log_impl(&dword_25AEFA000, v11, OS_LOG_TYPE_DEFAULT, "backup: (%p); backupID: (%@); device: (%p); deviceID: (%@)", buf, 0x2Au);
   }
 
@@ -819,20 +794,20 @@ LABEL_6:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v31 = __Block_byref_object_copy_;
-  *&v32 = __Block_byref_object_dispose_;
-  *(&v32 + 1) = 0;
+  v30 = __Block_byref_object_copy_;
+  *&v31 = __Block_byref_object_dispose_;
+  *(&v31 + 1) = 0;
   internalQueue = self->_internalQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __41__NBManager_restoreFromBackup_forDevice___block_invoke;
   block[3] = &unk_27992D8D0;
   block[4] = self;
-  v27 = buf;
+  v26 = buf;
   v16 = backupCopy;
-  v25 = v16;
+  v24 = v16;
   v17 = v9;
-  v26 = v17;
+  v25 = v17;
   dispatch_sync(internalQueue, block);
   v18 = *(*&buf[8] + 40);
   if (v18)
@@ -841,9 +816,9 @@ LABEL_6:
     if (os_log_type_enabled(nb_framework_log, OS_LOG_TYPE_DEFAULT))
     {
       v20 = *(*&buf[8] + 40);
-      *v28 = 138412290;
-      v29 = v20;
-      _os_log_impl(&dword_25AEFA000, v19, OS_LOG_TYPE_DEFAULT, "error: (%@)", v28, 0xCu);
+      *v27 = 138412290;
+      v28 = v20;
+      _os_log_impl(&dword_25AEFA000, v19, OS_LOG_TYPE_DEFAULT, "error: (%@)", v27, 0xCu);
     }
 
     v18 = *(*&buf[8] + 40);
@@ -852,7 +827,6 @@ LABEL_6:
   v21 = v18;
 
   _Block_object_dispose(buf, 8);
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -879,7 +853,7 @@ void __41__NBManager_restoreFromBackup_forDevice___block_invoke(uint64_t a1)
 
 - (void)restoreFromDevice:(id)device forDevice:(id)forDevice completionHandler:(id)handler
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   forDeviceCopy = forDevice;
   handlerCopy = handler;
@@ -894,15 +868,15 @@ void __41__NBManager_restoreFromBackup_forDevice___block_invoke(uint64_t a1)
     uUIDString2 = [v13 UUIDString];
     v18 = MEMORY[0x25F85B950](handlerCopy);
     *buf = 134219010;
-    v31 = deviceCopy;
-    v32 = 2112;
-    v33 = uUIDString;
-    v34 = 2048;
-    v35 = forDeviceCopy;
-    v36 = 2112;
-    v37 = uUIDString2;
-    v38 = 2048;
-    v39 = v18;
+    v30 = deviceCopy;
+    v31 = 2112;
+    v32 = uUIDString;
+    v33 = 2048;
+    v34 = forDeviceCopy;
+    v35 = 2112;
+    v36 = uUIDString2;
+    v37 = 2048;
+    v38 = v18;
     _os_log_impl(&dword_25AEFA000, v15, OS_LOG_TYPE_DEFAULT, "existingDevice: (%p); existingDeviceID: (%@); device: (%p); deviceID: (%@); replyBlock: (%p)", buf, 0x34u);
   }
 
@@ -933,15 +907,13 @@ void __41__NBManager_restoreFromBackup_forDevice___block_invoke(uint64_t a1)
   block[2] = __59__NBManager_restoreFromDevice_forDevice_completionHandler___block_invoke;
   block[3] = &unk_27992D8A8;
   block[4] = self;
-  v27 = v12;
-  v28 = v13;
-  v29 = handlerCopy;
+  v26 = v12;
+  v27 = v13;
+  v28 = handlerCopy;
   v22 = v13;
   v23 = v12;
   v24 = handlerCopy;
   dispatch_async(internalQueue, block);
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __59__NBManager_restoreFromDevice_forDevice_completionHandler___block_invoke(uint64_t a1)
@@ -979,13 +951,13 @@ void __59__NBManager_restoreFromDevice_forDevice_completionHandler___block_invok
 
 void __59__NBManager_restoreFromDevice_forDevice_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = nb_framework_log;
   if (os_log_type_enabled(nb_framework_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = v3;
+    v12 = v3;
     _os_log_impl(&dword_25AEFA000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
   }
 
@@ -996,22 +968,20 @@ void __59__NBManager_restoreFromDevice_forDevice_completionHandler___block_invok
     if (WeakRetained)
     {
       v7 = [WeakRetained externalQueue];
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __59__NBManager_restoreFromDevice_forDevice_completionHandler___block_invoke_113;
-      v9[3] = &unk_27992D6F0;
-      v11 = *(a1 + 32);
-      v10 = v3;
-      dispatch_async(v7, v9);
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = __59__NBManager_restoreFromDevice_forDevice_completionHandler___block_invoke_113;
+      v8[3] = &unk_27992D6F0;
+      v10 = *(a1 + 32);
+      v9 = v3;
+      dispatch_async(v7, v8);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __59__NBManager_restoreFromDevice_forDevice_completionHandler___block_invoke_2_114(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1019,7 +989,7 @@ void __59__NBManager_restoreFromDevice_forDevice_completionHandler___block_invok
     if (os_log_type_enabled(nb_framework_log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25AEFA000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -1031,22 +1001,20 @@ void __59__NBManager_restoreFromDevice_forDevice_completionHandler___block_invok
     if (WeakRetained)
     {
       v7 = [WeakRetained externalQueue];
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __59__NBManager_restoreFromDevice_forDevice_completionHandler___block_invoke_115;
-      v9[3] = &unk_27992D6F0;
-      v11 = *(a1 + 32);
-      v10 = v3;
-      dispatch_async(v7, v9);
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = __59__NBManager_restoreFromDevice_forDevice_completionHandler___block_invoke_115;
+      v8[3] = &unk_27992D6F0;
+      v10 = *(a1 + 32);
+      v9 = v3;
+      dispatch_async(v7, v8);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)restoreFromDevice:(id)device forDevice:(id)forDevice
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   forDeviceCopy = forDevice;
   v8 = *MEMORY[0x277D2BBB8];
@@ -1063,9 +1031,9 @@ void __59__NBManager_restoreFromDevice_forDevice_completionHandler___block_invok
     *&buf[12] = 2112;
     *&buf[14] = uUIDString;
     *&buf[22] = 2048;
-    v33 = forDeviceCopy;
-    LOWORD(v34) = 2112;
-    *(&v34 + 2) = uUIDString2;
+    v32 = forDeviceCopy;
+    LOWORD(v33) = 2112;
+    *(&v33 + 2) = uUIDString2;
     _os_log_impl(&dword_25AEFA000, v12, OS_LOG_TYPE_DEFAULT, "existingDevice: (%p); existingDeviceID: (%@); device: (%p); deviceID: (%@)", buf, 0x2Au);
   }
 
@@ -1093,20 +1061,20 @@ void __59__NBManager_restoreFromDevice_forDevice_completionHandler___block_invok
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v33 = __Block_byref_object_copy_;
-  *&v34 = __Block_byref_object_dispose_;
-  *(&v34 + 1) = 0;
+  v32 = __Block_byref_object_copy_;
+  *&v33 = __Block_byref_object_dispose_;
+  *(&v33 + 1) = 0;
   internalQueue = self->_internalQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __41__NBManager_restoreFromDevice_forDevice___block_invoke;
   block[3] = &unk_27992D8D0;
   block[4] = self;
-  v29 = buf;
+  v28 = buf;
   v18 = v9;
-  v27 = v18;
+  v26 = v18;
   v19 = v10;
-  v28 = v19;
+  v27 = v19;
   dispatch_sync(internalQueue, block);
   v20 = *(*&buf[8] + 40);
   if (v20)
@@ -1115,9 +1083,9 @@ void __59__NBManager_restoreFromDevice_forDevice_completionHandler___block_invok
     if (os_log_type_enabled(nb_framework_log, OS_LOG_TYPE_DEFAULT))
     {
       v22 = *(*&buf[8] + 40);
-      *v30 = 138412290;
-      v31 = v22;
-      _os_log_impl(&dword_25AEFA000, v21, OS_LOG_TYPE_DEFAULT, "error: (%@)", v30, 0xCu);
+      *v29 = 138412290;
+      v30 = v22;
+      _os_log_impl(&dword_25AEFA000, v21, OS_LOG_TYPE_DEFAULT, "error: (%@)", v29, 0xCu);
     }
 
     v20 = *(*&buf[8] + 40);
@@ -1126,7 +1094,6 @@ void __59__NBManager_restoreFromDevice_forDevice_completionHandler___block_invok
   v23 = v20;
 
   _Block_object_dispose(buf, 8);
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -1152,7 +1119,7 @@ void __41__NBManager_restoreFromDevice_forDevice___block_invoke(uint64_t a1)
 
 - (void)createBackupForDevice:(id)device completionHandler:(id)handler
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   handlerCopy = handler;
   v8 = nb_framework_log;
@@ -1160,11 +1127,11 @@ void __41__NBManager_restoreFromDevice_forDevice___block_invoke(uint64_t a1)
   {
     v9 = v8;
     v10 = MEMORY[0x25F85B950](handlerCopy);
-    v13 = 134218240;
-    v14 = deviceCopy;
-    v15 = 2048;
-    v16 = v10;
-    _os_log_impl(&dword_25AEFA000, v9, OS_LOG_TYPE_DEFAULT, "device: (%p); replyBlock: (%p)", &v13, 0x16u);
+    v12 = 134218240;
+    v13 = deviceCopy;
+    v14 = 2048;
+    v15 = v10;
+    _os_log_impl(&dword_25AEFA000, v9, OS_LOG_TYPE_DEFAULT, "device: (%p); replyBlock: (%p)", &v12, 0x16u);
   }
 
   if (!deviceCopy)
@@ -1174,13 +1141,11 @@ void __41__NBManager_restoreFromDevice_forDevice___block_invoke(uint64_t a1)
 
   v11 = [deviceCopy valueForProperty:*MEMORY[0x277D2BBB8]];
   [(NBManager *)self createBackupForPairingID:v11 completionHandler:handlerCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createBackupForDevice:(id)device synchronousCompletionHandler:(id)handler
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   handlerCopy = handler;
   v8 = nb_framework_log;
@@ -1188,11 +1153,11 @@ void __41__NBManager_restoreFromDevice_forDevice___block_invoke(uint64_t a1)
   {
     v9 = v8;
     v10 = MEMORY[0x25F85B950](handlerCopy);
-    v13 = 134218240;
-    v14 = deviceCopy;
-    v15 = 2048;
-    v16 = v10;
-    _os_log_impl(&dword_25AEFA000, v9, OS_LOG_TYPE_DEFAULT, "device: (%p); replyBlock: (%p)", &v13, 0x16u);
+    v12 = 134218240;
+    v13 = deviceCopy;
+    v14 = 2048;
+    v15 = v10;
+    _os_log_impl(&dword_25AEFA000, v9, OS_LOG_TYPE_DEFAULT, "device: (%p); replyBlock: (%p)", &v12, 0x16u);
   }
 
   if (!deviceCopy)
@@ -1202,13 +1167,11 @@ void __41__NBManager_restoreFromDevice_forDevice___block_invoke(uint64_t a1)
 
   v11 = [deviceCopy valueForProperty:*MEMORY[0x277D2BBB8]];
   [(NBManager *)self createBackupForPairingID:v11 synchronousCompletionHandler:handlerCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createBackupForPairingID:(id)d completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
   v8 = nb_framework_log;
@@ -1218,9 +1181,9 @@ void __41__NBManager_restoreFromDevice_forDevice___block_invoke(uint64_t a1)
     uUIDString = [dCopy UUIDString];
     v11 = MEMORY[0x25F85B950](handlerCopy);
     *buf = 138412546;
-    v20 = uUIDString;
-    v21 = 2048;
-    v22 = v11;
+    v19 = uUIDString;
+    v20 = 2048;
+    v21 = v11;
     _os_log_impl(&dword_25AEFA000, v9, OS_LOG_TYPE_DEFAULT, "pairingID: (%@); replyBlock: (%p)", buf, 0x16u);
   }
 
@@ -1234,14 +1197,12 @@ void __41__NBManager_restoreFromDevice_forDevice___block_invoke(uint64_t a1)
   block[1] = 3221225472;
   block[2] = __56__NBManager_createBackupForPairingID_completionHandler___block_invoke;
   block[3] = &unk_27992D920;
-  v17 = dCopy;
-  v18 = handlerCopy;
+  v16 = dCopy;
+  v17 = handlerCopy;
   block[4] = self;
   v13 = dCopy;
   v14 = handlerCopy;
   dispatch_async(internalQueue, block);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __56__NBManager_createBackupForPairingID_completionHandler___block_invoke(uint64_t a1)
@@ -1278,13 +1239,13 @@ void __56__NBManager_createBackupForPairingID_completionHandler___block_invoke(u
 
 void __56__NBManager_createBackupForPairingID_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = nb_framework_log;
   if (os_log_type_enabled(nb_framework_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = v3;
+    v12 = v3;
     _os_log_impl(&dword_25AEFA000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
   }
 
@@ -1295,22 +1256,20 @@ void __56__NBManager_createBackupForPairingID_completionHandler___block_invoke_2
     if (WeakRetained)
     {
       v7 = [WeakRetained externalQueue];
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __56__NBManager_createBackupForPairingID_completionHandler___block_invoke_123;
-      v9[3] = &unk_27992D6F0;
-      v11 = *(a1 + 32);
-      v10 = v3;
-      dispatch_async(v7, v9);
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = __56__NBManager_createBackupForPairingID_completionHandler___block_invoke_123;
+      v8[3] = &unk_27992D6F0;
+      v10 = *(a1 + 32);
+      v9 = v3;
+      dispatch_async(v7, v8);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __56__NBManager_createBackupForPairingID_completionHandler___block_invoke_2_124(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = nb_framework_log;
@@ -1320,9 +1279,9 @@ void __56__NBManager_createBackupForPairingID_completionHandler___block_invoke_2
     v9 = [v5 uuid];
     v10 = [v9 UUIDString];
     *buf = 138412546;
-    v20 = v10;
-    v21 = 2112;
-    v22 = v6;
+    v19 = v10;
+    v20 = 2112;
+    v21 = v6;
     _os_log_impl(&dword_25AEFA000, v8, OS_LOG_TYPE_DEFAULT, "backupID: (%@); error: (%@)", buf, 0x16u);
   }
 
@@ -1337,19 +1296,17 @@ void __56__NBManager_createBackupForPairingID_completionHandler___block_invoke_2
       block[1] = 3221225472;
       block[2] = __56__NBManager_createBackupForPairingID_completionHandler___block_invoke_125;
       block[3] = &unk_27992D740;
-      v18 = *(a1 + 32);
-      v16 = v5;
-      v17 = v6;
+      v17 = *(a1 + 32);
+      v15 = v5;
+      v16 = v6;
       dispatch_async(v13, block);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createBackupForPairingID:(id)d synchronousCompletionHandler:(id)handler
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
   v8 = nb_framework_log;
@@ -1373,35 +1330,33 @@ void __56__NBManager_createBackupForPairingID_completionHandler___block_invoke_2
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v26 = __Block_byref_object_copy_;
-  v27 = __Block_byref_object_dispose_;
-  v28 = 0;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy_;
-  v23 = __Block_byref_object_dispose_;
-  v24 = 0;
+  v25 = __Block_byref_object_copy_;
+  v26 = __Block_byref_object_dispose_;
+  v27 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy_;
+  v22 = __Block_byref_object_dispose_;
+  v23 = 0;
   internalQueue = self->_internalQueue;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __67__NBManager_createBackupForPairingID_synchronousCompletionHandler___block_invoke;
-  v15[3] = &unk_27992D970;
-  v15[4] = self;
-  v17 = buf;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __67__NBManager_createBackupForPairingID_synchronousCompletionHandler___block_invoke;
+  v14[3] = &unk_27992D970;
+  v14[4] = self;
+  v16 = buf;
   v13 = dCopy;
-  v16 = v13;
-  v18 = &v19;
-  dispatch_sync(internalQueue, v15);
+  v15 = v13;
+  v17 = &v18;
+  dispatch_sync(internalQueue, v14);
   if (handlerCopy)
   {
-    handlerCopy[2](handlerCopy, v20[5], *(*&buf[8] + 40));
+    handlerCopy[2](handlerCopy, v19[5], *(*&buf[8] + 40));
   }
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v18, 8);
   _Block_object_dispose(buf, 8);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __67__NBManager_createBackupForPairingID_synchronousCompletionHandler___block_invoke(uint64_t a1)
@@ -1424,26 +1379,24 @@ void __67__NBManager_createBackupForPairingID_synchronousCompletionHandler___blo
 
 void __67__NBManager_createBackupForPairingID_synchronousCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = nb_framework_log;
   if (os_log_type_enabled(nb_framework_log, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_25AEFA000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_25AEFA000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", &v7, 0xCu);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __67__NBManager_createBackupForPairingID_synchronousCompletionHandler___block_invoke_128(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = nb_framework_log;
@@ -1452,11 +1405,11 @@ void __67__NBManager_createBackupForPairingID_synchronousCompletionHandler___blo
     v8 = v7;
     v9 = [v5 uuid];
     v10 = [v9 UUIDString];
-    v17 = 138412546;
-    v18 = v10;
-    v19 = 2112;
-    v20 = v6;
-    _os_log_impl(&dword_25AEFA000, v8, OS_LOG_TYPE_DEFAULT, "backupID: (%@); error: (%@)", &v17, 0x16u);
+    v16 = 138412546;
+    v17 = v10;
+    v18 = 2112;
+    v19 = v6;
+    _os_log_impl(&dword_25AEFA000, v8, OS_LOG_TYPE_DEFAULT, "backupID: (%@); error: (%@)", &v16, 0x16u);
   }
 
   v11 = *(*(a1 + 32) + 8);
@@ -1467,8 +1420,6 @@ void __67__NBManager_createBackupForPairingID_synchronousCompletionHandler___blo
   v14 = *(*(a1 + 40) + 8);
   v15 = *(v14 + 40);
   *(v14 + 40) = v6;
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createManualBackupWithCompletion:(id)completion
@@ -1515,26 +1466,24 @@ void __46__NBManager_createManualBackupWithCompletion___block_invoke(uint64_t a1
 
 void __46__NBManager_createManualBackupWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = nb_framework_log;
   if (os_log_type_enabled(nb_framework_log, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_25AEFA000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_25AEFA000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", &v7, 0xCu);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteBackup:(id)backup completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   backupCopy = backup;
   handlerCopy = handler;
   v8 = nb_framework_log;
@@ -1545,11 +1494,11 @@ void __46__NBManager_createManualBackupWithCompletion___block_invoke_2(uint64_t 
     uUIDString = [uuid UUIDString];
     v12 = MEMORY[0x25F85B950](handlerCopy);
     *buf = 134218498;
-    v25 = backupCopy;
-    v26 = 2112;
-    v27 = uUIDString;
-    v28 = 2048;
-    v29 = v12;
+    v24 = backupCopy;
+    v25 = 2112;
+    v26 = uUIDString;
+    v27 = 2048;
+    v28 = v12;
     _os_log_impl(&dword_25AEFA000, v9, OS_LOG_TYPE_DEFAULT, "backup (%p); backupID: (%@); replyBlock: (%p)", buf, 0x20u);
   }
 
@@ -1568,14 +1517,12 @@ void __46__NBManager_createManualBackupWithCompletion___block_invoke_2(uint64_t 
   block[1] = 3221225472;
   block[2] = __44__NBManager_deleteBackup_completionHandler___block_invoke;
   block[3] = &unk_27992D920;
-  v22 = backupCopy;
-  v23 = handlerCopy;
+  v21 = backupCopy;
+  v22 = handlerCopy;
   block[4] = self;
   v18 = backupCopy;
   v19 = handlerCopy;
   dispatch_async(internalQueue, block);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __44__NBManager_deleteBackup_completionHandler___block_invoke(id *a1)
@@ -1613,13 +1560,13 @@ void __44__NBManager_deleteBackup_completionHandler___block_invoke(id *a1)
 
 void __44__NBManager_deleteBackup_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = nb_framework_log;
   if (os_log_type_enabled(nb_framework_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = v3;
+    v12 = v3;
     _os_log_impl(&dword_25AEFA000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
   }
 
@@ -1630,22 +1577,20 @@ void __44__NBManager_deleteBackup_completionHandler___block_invoke_2(uint64_t a1
     if (WeakRetained)
     {
       v7 = [WeakRetained externalQueue];
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __44__NBManager_deleteBackup_completionHandler___block_invoke_133;
-      v9[3] = &unk_27992D6F0;
-      v11 = *(a1 + 32);
-      v10 = v3;
-      dispatch_async(v7, v9);
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = __44__NBManager_deleteBackup_completionHandler___block_invoke_133;
+      v8[3] = &unk_27992D6F0;
+      v10 = *(a1 + 32);
+      v9 = v3;
+      dispatch_async(v7, v8);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __44__NBManager_deleteBackup_completionHandler___block_invoke_2_134(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1653,7 +1598,7 @@ void __44__NBManager_deleteBackup_completionHandler___block_invoke_2_134(uint64_
     if (os_log_type_enabled(nb_framework_log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25AEFA000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -1665,22 +1610,20 @@ void __44__NBManager_deleteBackup_completionHandler___block_invoke_2_134(uint64_
     if (WeakRetained)
     {
       v7 = [WeakRetained externalQueue];
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __44__NBManager_deleteBackup_completionHandler___block_invoke_135;
-      v9[3] = &unk_27992D6F0;
-      v11 = *(a1 + 32);
-      v10 = v3;
-      dispatch_async(v7, v9);
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = __44__NBManager_deleteBackup_completionHandler___block_invoke_135;
+      v8[3] = &unk_27992D6F0;
+      v10 = *(a1 + 32);
+      v9 = v3;
+      dispatch_async(v7, v8);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)deleteBackup:(id)backup
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   backupCopy = backup;
   v5 = nb_framework_log;
   if (os_log_type_enabled(nb_framework_log, OS_LOG_TYPE_DEFAULT))
@@ -1708,18 +1651,18 @@ void __44__NBManager_deleteBackup_completionHandler___block_invoke_2_134(uint64_
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v27 = __Block_byref_object_copy_;
-  v28 = __Block_byref_object_dispose_;
-  v29 = 0;
+  v26 = __Block_byref_object_copy_;
+  v27 = __Block_byref_object_dispose_;
+  v28 = 0;
   internalQueue = self->_internalQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __26__NBManager_deleteBackup___block_invoke;
   block[3] = &unk_27992D9C0;
   block[4] = self;
-  v23 = buf;
+  v22 = buf;
   v14 = backupCopy;
-  v22 = v14;
+  v21 = v14;
   dispatch_sync(internalQueue, block);
   v15 = *(*&buf[8] + 40);
   if (v15)
@@ -1728,9 +1671,9 @@ void __44__NBManager_deleteBackup_completionHandler___block_invoke_2_134(uint64_
     if (os_log_type_enabled(nb_framework_log, OS_LOG_TYPE_DEFAULT))
     {
       v17 = *(*&buf[8] + 40);
-      *v24 = 138412290;
-      v25 = v17;
-      _os_log_impl(&dword_25AEFA000, v16, OS_LOG_TYPE_DEFAULT, "error: (%@)", v24, 0xCu);
+      *v23 = 138412290;
+      v24 = v17;
+      _os_log_impl(&dword_25AEFA000, v16, OS_LOG_TYPE_DEFAULT, "error: (%@)", v23, 0xCu);
     }
 
     v15 = *(*&buf[8] + 40);
@@ -1739,7 +1682,6 @@ void __44__NBManager_deleteBackup_completionHandler___block_invoke_2_134(uint64_
   v18 = v15;
 
   _Block_object_dispose(buf, 8);
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -1765,21 +1707,19 @@ void __26__NBManager_deleteBackup___block_invoke(uint64_t a1)
 
 void __26__NBManager_deleteBackup___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = nb_framework_log;
   if (os_log_type_enabled(nb_framework_log, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_25AEFA000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_25AEFA000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", &v7, 0xCu);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

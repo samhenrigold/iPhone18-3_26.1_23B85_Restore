@@ -3,6 +3,7 @@
 - (NMSMessageCenterDelegate)delegate;
 - (NSString)description;
 - (id)_findPendingRequestByIdentifier:(id)identifier;
+- (id)_pbMappingForMessageID:(unsigned __int16)d;
 - (void)_checkConnectedDevice;
 - (void)_handleError:(id)error forRequest:(id)request;
 - (void)_handleError:(id)error forResponse:(id)response;
@@ -10,7 +11,9 @@
 - (void)_notifyDidChangeConnectedState;
 - (void)_sendResponse:(id)response;
 - (void)_setConnectedDevice:(id)device;
+- (void)addTarget:(id)target action:(SEL)action forMessageID:(unsigned __int16)d;
 - (void)dropExtantMessages;
+- (void)mapPBRequest:(Class)request toResponse:(Class)response messageID:(unsigned __int16)d;
 - (void)resume;
 - (void)sendRequest:(id)request;
 - (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
@@ -67,29 +70,100 @@
   return v5;
 }
 
-- (void)resume
+- (void)addTarget:(id)target action:(SEL)action forMessageID:(unsigned __int16)d
 {
+  dCopy = d;
+  targetCopy = target;
   if (self->_service)
   {
-    if (os_variant_has_internal_diagnostics())
+    has_internal_diagnostics = os_variant_has_internal_diagnostics();
+    if (has_internal_diagnostics)
     {
-      v4 = NSStringFromSelector(a2);
-      [NSException raise:@"NMSMisuseException" format:@"Cannot use %@ after using -resume", v4];
+      v11 = NSStringFromSelector(a2);
+      [NSException raise:@"NMSMisuseException" format:@"Cannot use %@ after using -resume", v11];
     }
 
     else
     {
-      v5 = sub_1000145AC();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v12 = sub_1000145AC(has_internal_diagnostics);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
       {
         sub_100024A08(a2);
       }
     }
   }
 
-  v6 = [[IDSService alloc] initWithService:self->_serviceIdentifier];
+  if ((objc_opt_respondsToSelector() & 1) == 0)
+  {
+    v13 = os_variant_has_internal_diagnostics();
+    if (v13)
+    {
+      v14 = NSStringFromSelector(action);
+      [NSException raise:@"NMSMisuseException" format:@"Target must respond to selector %@", v14];
+    }
+
+    else
+    {
+      v14 = sub_1000145AC(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+      {
+        sub_100024AB8(action);
+      }
+    }
+  }
+
+  v15 = objc_alloc_init(NMSRequestHandler);
+  [(NMSRequestHandler *)v15 setTarget:targetCopy];
+  [(NMSRequestHandler *)v15 setAction:action];
+  requestHandlers = self->_requestHandlers;
+  v17 = [NSNumber numberWithUnsignedShort:dCopy];
+  [(NSMutableDictionary *)requestHandlers setObject:v15 forKeyedSubscript:v17];
+}
+
+- (void)mapPBRequest:(Class)request toResponse:(Class)response messageID:(unsigned __int16)d
+{
+  dCopy = d;
+  v11 = objc_alloc_init(NMSPBMapping);
+  [(NMSPBMapping *)v11 setRequestClass:request];
+  [(NMSPBMapping *)v11 setResponseClass:response];
+  pbMapping = self->_pbMapping;
+  v10 = [NSNumber numberWithUnsignedShort:dCopy];
+  [(NSMutableDictionary *)pbMapping setObject:v11 forKeyedSubscript:v10];
+}
+
+- (id)_pbMappingForMessageID:(unsigned __int16)d
+{
+  pbMapping = self->_pbMapping;
+  v4 = [NSNumber numberWithUnsignedShort:d];
+  v5 = [(NSMutableDictionary *)pbMapping objectForKeyedSubscript:v4];
+
+  return v5;
+}
+
+- (void)resume
+{
+  if (self->_service)
+  {
+    has_internal_diagnostics = os_variant_has_internal_diagnostics();
+    if (has_internal_diagnostics)
+    {
+      v5 = NSStringFromSelector(a2);
+      [NSException raise:@"NMSMisuseException" format:@"Cannot use %@ after using -resume", v5];
+    }
+
+    else
+    {
+      v6 = sub_1000145AC(has_internal_diagnostics);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+      {
+        sub_100024A08(a2);
+      }
+    }
+  }
+
+  v7 = [[IDSService alloc] initWithService:self->_serviceIdentifier];
   service = self->_service;
-  self->_service = v6;
+  self->_service = v7;
 
   [(IDSService *)self->_service addDelegate:self queue:self->_queue];
   queue = self->_queue;
@@ -103,7 +177,7 @@
 
 - (void)_checkConnectedDevice
 {
-  v3 = sub_1000145AC();
+  v3 = sub_1000145AC(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -169,26 +243,26 @@ LABEL_16:
 - (void)_setConnectedDevice:(id)device
 {
   deviceCopy = device;
-  v6 = sub_1000145AC();
+  v6 = sub_1000145AC(deviceCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315650;
-    v9 = "[NMSMessageCenter _setConnectedDevice:]";
-    v10 = 2080;
-    v11 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/Shared/NanoMessagingService.m";
-    v12 = 1024;
-    v13 = 213;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v8, 0x1Cu);
+    v9 = 136315650;
+    v10 = "[NMSMessageCenter _setConnectedDevice:]";
+    v11 = 2080;
+    v12 = "/Library/Caches/com.apple.xbs/Sources/NanoCamera/Shared/NanoMessagingService.m";
+    v13 = 1024;
+    v14 = 213;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s (%s:%d)", &v9, 0x1Cu);
   }
 
   if (self->_connectedDevice != deviceCopy)
   {
-    v7 = sub_1000145AC();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_1000145AC(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = deviceCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Connected device changed to: %@", &v8, 0xCu);
+      v9 = 138412290;
+      v10 = deviceCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Connected device changed to: %@", &v9, 0xCu);
     }
 
     objc_storeStrong(&self->_connectedDevice, device);
@@ -198,7 +272,7 @@ LABEL_16:
 
 - (void)_notifyDidChangeConnectedState
 {
-  v3 = sub_1000145AC();
+  v3 = sub_1000145AC(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315650;
@@ -222,7 +296,7 @@ LABEL_16:
 
 - (void)service:(id)service connectedDevicesChanged:(id)changed
 {
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315650;
@@ -239,7 +313,7 @@ LABEL_16:
 
 - (void)service:(id)service devicesChanged:(id)changed
 {
-  v5 = sub_1000145AC();
+  v5 = sub_1000145AC(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315650;
@@ -259,16 +333,17 @@ LABEL_16:
   requestCopy = request;
   if (!self->_service)
   {
-    if (os_variant_has_internal_diagnostics())
+    has_internal_diagnostics = os_variant_has_internal_diagnostics();
+    if (has_internal_diagnostics)
     {
-      v6 = NSStringFromSelector(a2);
-      [NSException raise:@"NMSMisuseException" format:@"Cannot use %@ after until -resume is used", v6];
+      v7 = NSStringFromSelector(a2);
+      [NSException raise:@"NMSMisuseException" format:@"Cannot use %@ after until -resume is used", v7];
     }
 
     else
     {
-      v7 = sub_1000145AC();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v8 = sub_1000145AC(has_internal_diagnostics);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         sub_100024B68(a2);
       }
@@ -279,32 +354,33 @@ LABEL_16:
 
   if (idsIdentifier)
   {
-    if (os_variant_has_internal_diagnostics())
+    v10 = os_variant_has_internal_diagnostics();
+    if (v10)
     {
       [NSException raise:@"NMSMisuseException" format:@"You cannot call sendRequest twice for the same request object"];
     }
 
     else
     {
-      v9 = sub_1000145AC();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v11 = sub_1000145AC(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
         sub_100024C18();
       }
     }
   }
 
-  v10 = os_transaction_create();
+  v12 = os_transaction_create();
   queue = self->_queue;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10001541C;
   block[3] = &unk_1000349C0;
-  v15 = requestCopy;
+  v17 = requestCopy;
   selfCopy = self;
-  v17 = v10;
-  v12 = v10;
-  v13 = requestCopy;
+  v19 = v12;
+  v14 = v12;
+  v15 = requestCopy;
   dispatch_async(queue, block);
 }
 
@@ -313,16 +389,17 @@ LABEL_16:
   responseCopy = response;
   if (!self->_service)
   {
-    if (os_variant_has_internal_diagnostics())
+    has_internal_diagnostics = os_variant_has_internal_diagnostics();
+    if (has_internal_diagnostics)
     {
-      v6 = NSStringFromSelector(a2);
-      [NSException raise:@"NMSMisuseException" format:@"Cannot use %@ after until -resume is used", v6];
+      v7 = NSStringFromSelector(a2);
+      [NSException raise:@"NMSMisuseException" format:@"Cannot use %@ after until -resume is used", v7];
     }
 
     else
     {
-      v7 = sub_1000145AC();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v8 = sub_1000145AC(has_internal_diagnostics);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         sub_100024B68(a2);
       }
@@ -334,15 +411,16 @@ LABEL_16:
 
   if (!idsIdentifier)
   {
-    if (os_variant_has_internal_diagnostics())
+    v11 = os_variant_has_internal_diagnostics();
+    if (v11)
     {
       [NSException raise:@"NMSMisuseException" format:@"Response's request needs an idsIdentifier"];
     }
 
     else
     {
-      v10 = sub_1000145AC();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+      v12 = sub_1000145AC(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
       {
         sub_100024CB0();
       }
@@ -351,15 +429,16 @@ LABEL_16:
 
   if ([responseCopy isSent])
   {
-    if (os_variant_has_internal_diagnostics())
+    v13 = os_variant_has_internal_diagnostics();
+    if (v13)
     {
       [NSException raise:@"NMSMisuseException" format:@"You cannot call send twice for the same response object"];
     }
 
     else
     {
-      v11 = sub_1000145AC();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+      v14 = sub_1000145AC(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
         sub_100024D48();
       }
@@ -368,19 +447,19 @@ LABEL_16:
 
   [responseCopy setSent:1];
   request2 = [responseCopy request];
-  v13 = os_transaction_create();
+  v16 = os_transaction_create();
   queue = self->_queue;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100015A98;
   block[3] = &unk_100034E78;
-  v19 = responseCopy;
-  v20 = request2;
+  v22 = responseCopy;
+  v23 = request2;
   selfCopy = self;
-  v22 = v13;
-  v15 = v13;
-  v16 = request2;
-  v17 = responseCopy;
+  v25 = v16;
+  v18 = v16;
+  v19 = request2;
+  v20 = responseCopy;
   dispatch_async(queue, block);
 }
 
@@ -557,18 +636,18 @@ LABEL_21:
         incomingResponseIdentifier2 = [contextCopy incomingResponseIdentifier];
         v20 = [(NMSMessageCenter *)self _findPendingRequestByIdentifier:incomingResponseIdentifier2];
 
-        v21 = sub_1000145AC();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v22 = sub_1000145AC(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = [dataCopy length];
+          v23 = [dataCopy length];
           incomingResponseIdentifier3 = [contextCopy incomingResponseIdentifier];
-          v46 = 67109634;
-          v47 = v17;
-          v48 = 2048;
-          v49 = v22;
-          v50 = 2112;
-          v51 = incomingResponseIdentifier3;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Received incoming response ID %hu of size %tu with incomingResponseIdentifer %@", &v46, 0x1Cu);
+          v47 = 67109634;
+          v48 = v17;
+          v49 = 2048;
+          v50 = v23;
+          v51 = 2112;
+          v52 = incomingResponseIdentifier3;
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Received incoming response ID %hu of size %tu with incomingResponseIdentifer %@", &v47, 0x1Cu);
         }
 
         if (v20)
@@ -590,9 +669,9 @@ LABEL_21:
         else
         {
           WeakRetained = objc_loadWeakRetained(&self->_delegate);
-          v40 = objc_opt_respondsToSelector();
+          v41 = objc_opt_respondsToSelector();
 
-          if ((v40 & 1) == 0)
+          if ((v41 & 1) == 0)
           {
 LABEL_17:
 
@@ -606,8 +685,8 @@ LABEL_17:
           incomingResponseIdentifier5 = [contextCopy incomingResponseIdentifier];
           [(NMSUnpairedResponse *)responseHandler setIdsIdentifier:incomingResponseIdentifier5];
 
-          v42 = objc_loadWeakRetained(&self->_delegate);
-          [v42 messageCenter:self didReceiveUnpairedResponse:responseHandler];
+          v43 = objc_loadWeakRetained(&self->_delegate);
+          [v43 messageCenter:self didReceiveUnpairedResponse:responseHandler];
         }
 
         goto LABEL_17;
@@ -617,37 +696,36 @@ LABEL_17:
     else if (v16 >= 3)
     {
       bytes = [dataCopy bytes];
-      v29 = *bytes;
-      v30 = *(bytes + 2);
+      v30 = *bytes;
+      v31 = *(bytes + 2);
       v18 = objc_alloc_init(NMSIncomingRequest);
       [(NMSIncomingRequest *)v18 setMessageCenter:self];
-      [(NMSIncomingRequest *)v18 setMessageID:v29];
+      [(NMSIncomingRequest *)v18 setMessageID:v30];
       outgoingResponseIdentifier = [contextCopy outgoingResponseIdentifier];
       [(NMSIncomingRequest *)v18 setIdsIdentifier:outgoingResponseIdentifier];
 
-      [(NMSIncomingRequest *)v18 setPriority:v30];
+      [(NMSIncomingRequest *)v18 setPriority:v31];
       -[NMSIncomingRequest setExpectsResponse:](v18, "setExpectsResponse:", [contextCopy expectsPeerResponse]);
-      v32 = [dataCopy subdataWithRange:{3, objc_msgSend(dataCopy, "length") - 3}];
-      [(NMSIncomingRequest *)v18 setData:v32];
+      v33 = [dataCopy subdataWithRange:{3, objc_msgSend(dataCopy, "length") - 3}];
+      [(NMSIncomingRequest *)v18 setData:v33];
 
-      [(NMSIncomingRequest *)v18 configureResponse];
-      v33 = sub_1000145AC();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v34 = sub_1000145AC([(NMSIncomingRequest *)v18 configureResponse]);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
-        v34 = [dataCopy length];
+        v35 = [dataCopy length];
         idsIdentifier = [(NMSIncomingRequest *)v18 idsIdentifier];
-        v46 = 67109634;
-        v47 = v29;
-        v48 = 2048;
-        v49 = v34;
-        v50 = 2112;
-        v51 = idsIdentifier;
-        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Received incoming request ID %hu of size %tu with outgoingResponseIdentifier %@", &v46, 0x1Cu);
+        v47 = 67109634;
+        v48 = v30;
+        v49 = 2048;
+        v50 = v35;
+        v51 = 2112;
+        v52 = idsIdentifier;
+        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Received incoming request ID %hu of size %tu with outgoingResponseIdentifier %@", &v47, 0x1Cu);
       }
 
       requestHandlers = self->_requestHandlers;
-      v37 = [NSNumber numberWithUnsignedShort:v29];
-      v20 = [(NSMutableDictionary *)requestHandlers objectForKeyedSubscript:v37];
+      v38 = [NSNumber numberWithUnsignedShort:v30];
+      v20 = [(NSMutableDictionary *)requestHandlers objectForKeyedSubscript:v38];
 
       if (v20)
       {
@@ -657,13 +735,13 @@ LABEL_17:
 
       else
       {
-        v43 = objc_loadWeakRetained(&self->_delegate);
-        v44 = objc_opt_respondsToSelector();
+        v44 = objc_loadWeakRetained(&self->_delegate);
+        v45 = objc_opt_respondsToSelector();
 
-        if (v44)
+        if (v45)
         {
-          v45 = objc_loadWeakRetained(&self->_delegate);
-          [v45 messageCenter:self didReceiveUnknownRequest:v18];
+          v46 = objc_loadWeakRetained(&self->_delegate);
+          [v46 messageCenter:self didReceiveUnknownRequest:v18];
         }
 
         else
